@@ -1,7 +1,7 @@
 package object lila
-    //extends Validation
+    extends ornicar.Validation
     //with DateTime
-    extends scalaz.Identitys
+    with scalaz.Identitys
     with scalaz.Equals
     with scalaz.MABs
     with scalaz.Options

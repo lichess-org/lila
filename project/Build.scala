@@ -25,15 +25,28 @@ trait Dependencies {
 
 object ApplicationBuild extends Build with Resolvers with Dependencies {
 
-  val appName = "lila"
   val appVersion = "1.0-SNAPSHOT"
 
-  val main = PlayProject(appName, appVersion, Seq(
-    scalaz, specs2, redis, json, slf4jNop
-  ), mainLang = SCALA).settings(
+  val lila = Project("lila", file("lila")).settings(
+    libraryDependencies := Seq(
+      scalaz, specs2, redis, json, slf4jNop, casbah, salat
+    ),
     resolvers := Seq(
       codahale, typesafe, iliaz, sonatype
-    )
+    ),
+    shellPrompt := ShellPrompt.buildShellPrompt
   )
 
+  val main = PlayProject("app", appVersion, Seq(), mainLang = SCALA) dependsOn lila
+}
+
+object ShellPrompt {
+
+  val buildShellPrompt = {
+    (state: State) ⇒
+      {
+        val currProject = Project.extract(state).currentProject.id
+        "%s> ".format(currProject)
+      }
+  }
 }
