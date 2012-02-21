@@ -5,8 +5,6 @@ import Pos._
 
 case class Board(pieces: Map[Pos, Piece], taken: List[Piece] = Nil) {
 
-  def this() = this(Map(), Nil)
-
   def place(piece: Piece) = new {
     def at(at: Pos): Valid[Board] =
       if (pieces contains at) failure("Cannot move to occupied " + at)
@@ -103,7 +101,11 @@ case class Board(pieces: Map[Pos, Piece], taken: List[Piece] = Nil) {
    * Layout the board for a new game.
    * @return a new board
    */
-  def reset = {
+}
+
+object Board {
+
+  def apply(): Board = {
 
     val lineUp = Seq(Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook)
 

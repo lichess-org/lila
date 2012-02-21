@@ -1,8 +1,6 @@
 package lila
 package model
 
-import Pos._
-
 sealed trait Role
 case object King extends Role
 case object Queen extends Role
@@ -16,6 +14,8 @@ case object White extends Color
 case object Black extends Color
 
 case class Piece(color: Color, role: Role) {
+
+  import Pos._
 
   override def toString = (color + " " + role).toLowerCase
 }
