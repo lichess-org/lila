@@ -36,9 +36,11 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     ),
     shellPrompt := ShellPrompt.buildShellPrompt,
     scalacOptions := Seq("-deprecation", "-unchecked")
-  )
+  ) dependsOn (ornicarScalalib)
 
   val main = PlayProject("app", appVersion, Seq(), mainLang = SCALA) dependsOn lila
+
+  lazy val ornicarScalalib = uri("git://github.com/ornicar/scalalib#1.2")
 }
 
 object ShellPrompt {
