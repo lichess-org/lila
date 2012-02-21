@@ -7,22 +7,23 @@ object Pos {
 
   val values: Set[Int] = (1 to 8) toSet
 
-  val all: Map[String, Pos] = {
+  val allKeys: Map[String, Pos] = {
     for {
       x <- 1 to 8
       y <- 1 to 8
     } yield (xToString(x) + y.toString, Pos(x, y))
   } toMap
 
-  def apply(s: Symbol): Pos = apply(s.name)
-  def apply(k: String): Pos = apply(keyToPair(k))
-  def apply(xy: Pair[Int, Int]): Pos = Pos(xy._1, xy._2)
+  implicit def apply(s: Symbol): Pos = apply(s.name)
+  implicit def apply(k: String): Pos = allKeys(k)
 
   def ^(p: Option[Pos]): Option[Pos] = p.flatMap(_ ^ 1)
   def >(p: Option[Pos]): Option[Pos] = p.flatMap(_ > 1)
   def v(p: Option[Pos]): Option[Pos] = p.flatMap(_ v 1)
   def <(p: Option[Pos]): Option[Pos] = p.flatMap(_ < 1)
+
   def noop(p: Option[Pos]) = p
+
   def vectorBasedPoss(from: Pos, directions: List[List[Option[Pos] ⇒ Option[Pos]]]) = {
     def expand(direction: Seq[Option[Pos] ⇒ Option[Pos]]): List[Pos] = {
       def next(acc: List[Pos]): List[Pos] = {
@@ -37,6 +38,7 @@ object Pos {
     }
     directions.foldLeft(Nil: List[List[Pos]]) { (acc, next) ⇒ expand(next) :: acc }.filter(l ⇒ !l.isEmpty)
   }
+
   def radialBasedPoss(from: Pos, offsets: Iterable[Int], filter: (Int, Int) ⇒ Boolean) = {
     (for (y ← offsets; x ← offsets; if (filter(y, x))) yield (from ^ y).flatMap(_ < x)).filter(_.isDefined).map(_.get)
   }
@@ -47,7 +49,7 @@ object Pos {
   def xToString(x: Int) = (96 + x).toChar.toString
 }
 
-case class Pos private (x: Int, y: Int) {
+case class Pos(x: Int, y: Int) {
 
   if (!Pos.values(x) || !Pos.values(y))
     throw new RuntimeException("Invalid position " + (x, y))
@@ -64,9 +66,12 @@ case class Pos private (x: Int, y: Int) {
   def >>(n: Int): List[Pos] = expand(n, List(Some(this)), Pos.>).filter(_.isDefined).map(_.get).reverse
   def vv(n: Int): List[Pos] = expand(n, List(Some(this)), Pos.v).filter(_.isDefined).map(_.get).reverse
   def <<(n: Int): List[Pos] = expand(n, List(Some(this)), Pos.<).filter(_.isDefined).map(_.get).reverse
+
   def xToString = Pos xToString x
   def yToString  = y.toString
+
   override def toString = xToString + yToString
+
   private def expand(i: Int, accumulator: List[Option[Pos]], direct: Option[Pos] ⇒ Option[Pos]): List[Option[Pos]] = {
     if (i > 0 && accumulator.head.isDefined) expand(i - 1, direct(accumulator.head) :: accumulator, direct) else accumulator
   }
