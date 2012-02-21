@@ -5,9 +5,9 @@ import scala.math.{ abs, min, max }
 
 object Pos {
 
-  val values: Set[Int] = (1 to 8) toSet
+  private val values: Set[Int] = (1 to 8) toSet
 
-  val allKeys: Map[String, Pos] = {
+  private val allKeys: Map[String, Pos] = {
     for {
       x <- 1 to 8
       y <- 1 to 8
@@ -51,21 +51,25 @@ object Pos {
 
 case class Pos(x: Int, y: Int) {
 
-  if (!Pos.values(x) || !Pos.values(y))
+  import Pos.values
+
+  if (!values(x) || !values(y))
     throw new RuntimeException("Invalid position " + (x, y))
 
-  def ^(n: Int): Option[Pos] = if (Pos.values.contains(y + n)) Some(Pos(y + n, x)) else None
-  def >(n: Int): Option[Pos] = if (Pos.values.contains(x + n)) Some(Pos(y, x + n)) else None
+  def ^(n: Int): Option[Pos] = if (values(y + n)) Some(Pos(y + n, x)) else None
+  def >(n: Int): Option[Pos] = if (values(x + n)) Some(Pos(y, x + n)) else None
   def v(n: Int): Option[Pos] = this ^ (n * -1)
   def <(n: Int): Option[Pos] = this > (n * -1)
   def -?(other: Pos) = y == other.y
   def |?(other: Pos) = x == other.x
   def /?(other: Pos) = abs(x - other.x) == abs(y - other.y)
-  def *?(other: Pos) = this.-?(other) || this.|?(other) || this./?(other)
-  def ^^(n: Int): List[Pos] = expand(n, List(Some(this)), Pos.^).filter(_.isDefined).map(_.get).reverse
-  def >>(n: Int): List[Pos] = expand(n, List(Some(this)), Pos.>).filter(_.isDefined).map(_.get).reverse
-  def vv(n: Int): List[Pos] = expand(n, List(Some(this)), Pos.v).filter(_.isDefined).map(_.get).reverse
-  def <<(n: Int): List[Pos] = expand(n, List(Some(this)), Pos.<).filter(_.isDefined).map(_.get).reverse
+  def *?(other: Pos) = (this -? other) || (this |? other) || (this /? other)
+  def ^^(n: Int): List[Pos] = <>(n, Pos.^)
+  def >>(n: Int): List[Pos] = <>(n, Pos.>)
+  def vv(n: Int): List[Pos] = <>(n, Pos.v)
+  def <<(n: Int): List[Pos] = <>(n, Pos.<)
+  def <>(n: Int, d: Option[Pos] => Option[Pos]) =
+    expand(n, List(Some(this)), d).flatten reverse
 
   def xToString = Pos xToString x
   def yToString  = y.toString
@@ -73,6 +77,8 @@ case class Pos(x: Int, y: Int) {
   override def toString = xToString + yToString
 
   private def expand(i: Int, accumulator: List[Option[Pos]], direct: Option[Pos] ⇒ Option[Pos]): List[Option[Pos]] = {
-    if (i > 0 && accumulator.head.isDefined) expand(i - 1, direct(accumulator.head) :: accumulator, direct) else accumulator
+    if (i > 0 && accumulator.head.isDefined)
+      expand(i - 1, direct(accumulator.head) :: accumulator, direct)
+    else accumulator
   }
 }
