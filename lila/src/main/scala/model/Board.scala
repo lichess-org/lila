@@ -7,24 +7,16 @@ case class Board(pieces: Map[Pos, Piece], taken: List[Piece] = Nil) {
 
   def this() = this(Map(), Nil)
 
-  /**
-   * Place a piece on the board (at a position)
-   * @return a new board
-   */
   def place(piece: Piece) = new {
-    def at(at: Pos): Board = copy(pieces = pieces + ((at, piece)))
+    def at(at: Pos): Valid[Board] =
+      if (pieces contains at) failure("Cannot move to occupied " + at)
+      else success(copy(pieces = pieces + ((at, piece))))
   }
 
-  /**
-   * Take (capture) the piece at the given position
-   * @return a new board
-   */
-  def take(p: Pos) = new Board((pieces - p), (pieces(p) :: taken))
+  def take(at: Pos): Valid[Board] = pieces get at map { piece =>
+    copy(pieces = (pieces - at), taken = (piece :: taken))
+  } toSuccess ("No piece at " + at + " to take")
 
-  /**
-   * Move the piece at the given position (to a new position)
-   * @return a new board
-   */
   def move(orig: Pos) = new {
     def to(dest: Pos): Valid[Board] = {
       if (pieces contains dest) failure("Cannot move to occupied " + dest)
@@ -112,15 +104,16 @@ case class Board(pieces: Map[Pos, Piece], taken: List[Piece] = Nil) {
    * @return a new board
    */
   def reset = {
-    val lineUp = Rook :: Knight :: Bishop :: Queen :: King :: Bishop :: Knight :: Rook :: Nil
-    val pairs = for (y ← 1 :: 2 :: 7 :: 8 :: Nil; x ← 1 to 8) yield (Pos(x, y),
-      y match {
-        case 1 ⇒ Piece(White, lineUp(x - 1))
-        case 2 ⇒ Piece(White, Pawn)
-        case 7 ⇒ Piece(Black, Pawn)
-        case 8 ⇒ Piece(Black, lineUp(x - 1))
-      })
 
-    new Board(pairs.toMap)
+    val lineUp = Seq(Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook)
+
+    val pairs = for (y ← Seq(1, 2, 7, 8); x ← 1 to 8) yield (Pos(x, y), y match {
+      case 1 ⇒ Piece(White, lineUp(x - 1))
+      case 2 ⇒ Piece(White, Pawn)
+      case 7 ⇒ Piece(Black, Pawn)
+      case 8 ⇒ Piece(Black, lineUp(x - 1))
+    })
+
+    new Board(pairs toMap)
   }
 }
