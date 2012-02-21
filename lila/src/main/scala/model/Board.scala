@@ -3,7 +3,7 @@ package model
 
 import Pos._
 
-case class Board(pieces: Map[Pos, Piece], taken: List[Piece] = Nil) {
+case class Board(pieces: Map[Pos, Piece]) {
 
   def apply(at: Pos): Option[Piece] = pieces get at
 
@@ -14,7 +14,7 @@ case class Board(pieces: Map[Pos, Piece], taken: List[Piece] = Nil) {
   }
 
   def take(at: Pos): Valid[Board] = pieces get at map { piece =>
-    copy(pieces = (pieces - at), taken = (piece :: taken))
+    copy(pieces = (pieces - at))
   } toSuccess ("No piece at " + at + " to take")
 
   def move(orig: Pos) = new {
@@ -35,7 +35,7 @@ case class Board(pieces: Map[Pos, Piece], taken: List[Piece] = Nil) {
       //def to(r: Role): Board = r match {
         //case King ⇒ throw new IllegalPromotionException("Cannot promote to King")
         //case _ ⇒ pieces.get(p).map(piece ⇒ piece.role match {
-          //case Pawn ⇒ new Board(pieces(p) = Piece(piece.color, r), taken)
+          //case Pawn ⇒ new Board(pieces(p) = Piece(piece.color, r))
           //case _    ⇒ throw new IllegalPromotionException("Can only promote pawns")
         //}).getOrElse { throw new IllegalPromotionException("No piece at " + p + " to promote") }
       //}
