@@ -4,9 +4,11 @@ package model
 import com.novus.salat.annotations._
 import com.mongodb.casbah.Imports._
 
-case class Game(
+case class Player(
 
-  @Key("_id") id: String,
+  id: String,
 
-  players: List[Player] = Nil
+  color: String,
+
+  ps: String
 )

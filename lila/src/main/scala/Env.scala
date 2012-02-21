@@ -4,18 +4,35 @@ import repo._
 import com.mongodb.casbah.MongoConnection
 import com.mongodb.casbah.commons.conversions.scala._
 
-class Env(configuration: Map[String, Any]) {
+final class Env(configuration: Env.Settings, val name: String = "default") {
 
-  def gameRepo = new GameRepo(mongodb("game2"))
+  lazy val gameRepo = new GameRepo(mongodb("game2"))
 
-  private def mongoConnection = MongoConnection(
+  private lazy val mongodb = MongoConnection(
     get[String]("mongo.host"),
     get[Int]("mongo.port")
-  )
-
-  private def mongodb = mongoConnection(
-    get[String]("mongo.dbname")
-  )
+  )(get[String]("mongo.dbname"))
 
   private def get[A](key: String) = configuration(key).asInstanceOf[A]
+
+  def ~(settings: Env.Settings) = new Env(
+    configuration ++ settings,
+    name
+  )
 }
+
+object Env {
+
+  type Settings = Map[String, Any]
+
+  private val defaults = Map(
+    "mongo.host" -> "127.0.0.1",
+    "mongo.port" -> 27017,
+    "mongo.dbname" -> "lichess"
+  )
+
+  def test = new Env(defaults ++ Map(
+    "mongo.dbname" -> "lichess_test"
+  ), "test")
+}
+

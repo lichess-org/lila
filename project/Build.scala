@@ -34,7 +34,8 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     resolvers := Seq(
       codahale, typesafe, iliaz, sonatype
     ),
-    shellPrompt := ShellPrompt.buildShellPrompt
+    shellPrompt := ShellPrompt.buildShellPrompt,
+    scalacOptions := Seq("-deprecation", "-unchecked")
   )
 
   val main = PlayProject("app", appVersion, Seq(), mainLang = SCALA) dependsOn lila

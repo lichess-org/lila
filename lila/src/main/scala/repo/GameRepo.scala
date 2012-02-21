@@ -9,4 +9,6 @@ import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.Imports._
 
 class GameRepo(collection: MongoCollection) extends SalatDAO[Game, String](collection) {
+
+  def game(id: String) = findOneByID(id)
 }
