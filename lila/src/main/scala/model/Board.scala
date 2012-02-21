@@ -5,6 +5,8 @@ import Pos._
 
 case class Board(pieces: Map[Pos, Piece], taken: List[Piece] = Nil) {
 
+  def apply(at: Pos): Option[Piece] = pieces get at
+
   def place(piece: Piece) = new {
     def at(at: Pos): Valid[Board] =
       if (pieces contains at) failure("Cannot move to occupied " + at)
