@@ -7,6 +7,8 @@ case class Board(pieces: Map[Pos, Piece]) {
 
   def apply(at: Pos): Option[Piece] = pieces get at
 
+  def apply(x: Int, y: Int): Option[Piece] = pieces get Pos(x, y)
+
   def place(piece: Piece) = new {
     def at(at: Pos): Valid[Board] =
       if (pieces contains at) failure("Cannot move to occupied " + at)
@@ -106,6 +108,8 @@ case class Board(pieces: Map[Pos, Piece]) {
 }
 
 object Board {
+
+  def apply(pieces: Traversable[(Pos, Piece)]): Board = Board(pieces toMap)
 
   def apply(): Board = {
 

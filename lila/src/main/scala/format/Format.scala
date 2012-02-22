@@ -1,11 +1,9 @@
 package lila
 package format
 
-import model.Game
+trait Format[A] {
 
-trait Format {
+  def <<(str: String): A
 
-  def <<(source: String): Game
-
-  def >>(game: Game): String
+  def >>(obj: A): String
 }
