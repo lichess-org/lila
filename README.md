@@ -7,7 +7,8 @@ Prerequisites
 -------------
 
 - Any Java runtime >= 1.6
-- sbt (get it with your package manager, or see [the manual installation guide](https://github.com/harrah/xsbt/wiki/Getting-Started-Setup))
+- sbt >= 0.11 (get it with your package manager, or see [the manual installation guide](https://github.com/harrah/xsbt/wiki/Getting-Started-Setup))
+- mongodb >= 2.0
 
 Installation
 ------------

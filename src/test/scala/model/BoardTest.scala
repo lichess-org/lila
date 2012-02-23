@@ -10,40 +10,7 @@ object BoardTest extends LilaSpec {
   "a board" should {
 
     "position pieces correctly" in {
-      board.pieces must havePairs(
-        Pos('a1) -> (White - Rook),
-        Pos('b1) -> (White - Knight),
-        Pos('c1) -> (White - Bishop),
-        Pos('d1) -> (White - Queen),
-        Pos('e1) -> (White - King),
-        Pos('f1) -> (White - Bishop),
-        Pos('g1) -> (White - Knight),
-        Pos('h1) -> (White - Rook),
-        Pos('a2) -> (White - Pawn),
-        Pos('b2) -> (White - Pawn),
-        Pos('c2) -> (White - Pawn),
-        Pos('d2) -> (White - Pawn),
-        Pos('e2) -> (White - Pawn),
-        Pos('f2) -> (White - Pawn),
-        Pos('g2) -> (White - Pawn),
-        Pos('h2) -> (White - Pawn),
-        Pos('a7) -> (Black - Pawn),
-        Pos('b7) -> (Black - Pawn),
-        Pos('c7) -> (Black - Pawn),
-        Pos('d7) -> (Black - Pawn),
-        Pos('e7) -> (Black - Pawn),
-        Pos('f7) -> (Black - Pawn),
-        Pos('g7) -> (Black - Pawn),
-        Pos('h7) -> (Black - Pawn),
-        Pos('a8) -> (Black - Rook),
-        Pos('b8) -> (Black - Knight),
-        Pos('c8) -> (Black - Bishop),
-        Pos('d8) -> (Black - Queen),
-        Pos('e8) -> (Black - King),
-        Pos('f8) -> (Black - Bishop),
-        Pos('g8) -> (Black - Knight),
-        Pos('h8) -> (Black - Rook)
-      )
+      board.pieces must havePairs(A1 -> (White - Rook), B1 -> (White - Knight), C1 -> (White - Bishop), D1 -> (White - Queen), E1 -> (White - King), F1 -> (White - Bishop), G1 -> (White - Knight), H1 -> (White - Rook), A2 -> (White - Pawn), B2 -> (White - Pawn), C2 -> (White - Pawn), D2 -> (White - Pawn), E2 -> (White - Pawn), F2 -> (White - Pawn), G2 -> (White - Pawn), H2 -> (White - Pawn), A7 -> (Black - Pawn), B7 -> (Black - Pawn), C7 -> (Black - Pawn), D7 -> (Black - Pawn), E7 -> (Black - Pawn), F7 -> (Black - Pawn), G7 -> (Black - Pawn), H7 -> (Black - Pawn), A8 -> (Black - Rook), B8 -> (Black - Knight), C8 -> (Black - Bishop), D8 -> (Black - Queen), E8 -> (Black - King), F8 -> (Black - Bishop), G8 -> (Black - Knight), H8 -> (Black - Rook))
     }
 
     "have pieces by default" in {
@@ -51,230 +18,208 @@ object BoardTest extends LilaSpec {
     }
 
     "allow a piece to be placed" in {
-      board place White - Rook at 'e3 must beSuccess.like {
-        case b ⇒ b('e3) mustEqual Some(White - Rook)
+      board place White - Rook at E3 must beSuccess.like {
+        case b ⇒ b(E3) mustEqual Some(White - Rook)
       }
     }
 
     "allow a piece to be taken" in {
-      board take 'a1 must beSuccess.like {
-        case b ⇒ b('a1) must beNone
+      board take A1 must beSuccess.like {
+        case b ⇒ b(A1) must beNone
       }
     }
 
     "allow a piece to move" in {
-      board move 'e2 to 'e4 must beSuccess.like {
-        case b ⇒ b('e4) mustEqual Some(White - Pawn)
+      board move E2 to E4 must beSuccess.like {
+        case b ⇒ b(E4) mustEqual Some(White - Pawn)
       }
     }
 
     "not allow an empty position to move" in {
-      board move 'e5 to 'e6 must beFailure
+      board move E5 to E6 must beFailure
     }
 
     "not allow a piece to move to an occupied position" in {
-      board move 'a1 to 'a2 must beFailure
+      board move A1 to A2 must beFailure
     }
 
-    //"allow a pawn to be promoted to a queen" in {
-    //var updatedBoard = board place Black-Pawn at 'a8
-    //updatedBoard = updatedBoard promote position('a8) to Queen
-    //updatedBoard.pieces must_== Map(position('a8) -> Black-Queen)
-    //}
+    "allow a pawn to be promoted to any role" in {
+      forall(Seq(Queen, Knight, Rook, Bishop)) { role ⇒
+        Board.empty place Black - Pawn at A8 flatMap (_ promote A8 to role) must beSuccess.like {
+          case b ⇒ b(A8) mustEqual Some(Black - role)
+        }
+      }
+    }
 
-    //"allow a pawn to be promoted to a bishop" in {
-    //var updatedBoard = board place Black-Pawn at 'f8
-    //updatedBoard = updatedBoard promote position('f8) to Bishop
-    //updatedBoard.pieces must_== Map(position('f8) -> Black-Bishop)
-    //}
+    "not allow a pawn to be promoted to king or pawn" in {
+      forall(Seq(King, Pawn)) { role ⇒
+        Board.empty place Black - Pawn at A8 flatMap (_ promote A8 to role) must beFailure
+      }
+    }
 
-    //"allow a pawn to be promoted to a knight" in {
-    //var updatedBoard = board place White-Pawn at 'g1
-    //updatedBoard = updatedBoard promote position('g1) to Knight
-    //updatedBoard.pieces must_== Map(position('g1) -> White-Knight)
-    //}
+    "not allow an empty position to be promoted" in {
+      board promote A6 to Queen must beFailure
+    }
 
-    //"allow a pawn to be promoted to a rook" in {
-    //var updatedBoard = board place White-Pawn at 'd1
-    //updatedBoard = updatedBoard promote position('d1) to Rook
-    //updatedBoard.pieces must_== Map(position('d1) -> White-Rook)
-    //}
-
-    //"no-op when promoting a pawn to a pawn" in {
-    //var updatedBoard = board place White-Pawn at 'd2
-    //updatedBoard = updatedBoard promote position('d2) to Pawn
-    //updatedBoard.pieces must_== Map(position('d2) -> White-Pawn)
-    //}
-
-    //"not allow a pawn to be promoted to a king" in {
-    //val updatedBoard = board place White-Pawn at 'd2
-    //(updatedBoard promote position('d2) to King) must throwAn[IllegalPromotionException]
-    //}
-
-    //"not allow an empty position to be promoted" in {
-    //(board promote position('a6) to Queen) must throwAn[IllegalPromotionException]
-    //}
-
-    //"not allow a non-pawn to be promoted" in {
-    //val updatedBoard = board place Black-Knight at 'f7
-    //(updatedBoard promote position('f7) to Queen) must throwAn[IllegalPromotionException]
-    //}
+    "not allow a non-pawn to be promoted" in {
+      board promote A1 to Queen must beFailure
+    }
 
     //"advise which positions currently threaten a given position, given a side (opposing pawns)" in {
-    //val newBoard = board.place(White-Pawn).at(position('f6))
-    //(newBoard threatsTo Black at 'g7) must containPositions('f6)
+    //val newBoard = board.place(White-Pawn).at(F6)
+    //(newBoard threatsTo Black at G7) must containPositions(F6)
     //}
 
     //"advise which positions currently threaten a given position, given a side (opposing non-threatening piece)" in {
-    //val newBoard = board.place(White-Knight).at(position('f6))
-    //(newBoard threatsTo Black at 'g7) must beEmpty
+    //val newBoard = board.place(White-Knight).at(F6)
+    //(newBoard threatsTo Black at G7) must beEmpty
     //}
 
     //"advise which positions currently threaten a given position, given a side (multiple pawn opponents)" in {
-    //val newBoard = board.place(White-Pawn).at(position('f6)).place(White-Pawn).at(position('h6))
-    //(newBoard threatsTo Black at 'g7) must containPositions('f6, 'h6)
+    //val newBoard = board.place(White-Pawn).at(F6).place(White-Pawn).at(H6)
+    //(newBoard threatsTo Black at G7) must containPositions(F6, H6)
     //}
 
     //"advise which positions currently threaten a given position, given a side (same side pawns)" in {
-    //val newBoard = board.place(Black-Pawn).at(position('f6))
-    //(newBoard threatsTo Black at 'g7) must beEmpty
+    //val newBoard = board.place(Black-Pawn).at(F6)
+    //(newBoard threatsTo Black at G7) must beEmpty
     //}
 
     //"advise which positions currently threaten a given position, given a side (opposing rooks)" in {
-    //val newBoard = board.place(White-Rook).at(position('b5))
-    //(newBoard threatsTo Black at 'a5) must containPositions('b5)
-    //(newBoard threatsTo Black at 'h5) must containPositions('b5)
-    //(newBoard threatsTo Black at 'b8) must containPositions('b5)
-    //(newBoard threatsTo Black at 'b1) must containPositions('b5)
+    //val newBoard = board.place(White-Rook).at(B5)
+    //(newBoard threatsTo Black at A5) must containPositions(B5)
+    //(newBoard threatsTo Black at H5) must containPositions(B5)
+    //(newBoard threatsTo Black at B8) must containPositions(B5)
+    //(newBoard threatsTo Black at B1) must containPositions(B5)
     //}
 
     //"advise which positions currently threaten a given position, given a side (same side rooks)" in {
-    //val newBoard = board.place(Black-Rook).at(position('b5))
-    //(newBoard threatsTo Black at 'a5) must beEmpty
-    //(newBoard threatsTo Black at 'h5) must beEmpty
-    //(newBoard threatsTo Black at 'b8) must beEmpty
-    //(newBoard threatsTo Black at 'b1) must beEmpty
+    //val newBoard = board.place(Black-Rook).at(B5)
+    //(newBoard threatsTo Black at A5) must beEmpty
+    //(newBoard threatsTo Black at H5) must beEmpty
+    //(newBoard threatsTo Black at B8) must beEmpty
+    //(newBoard threatsTo Black at B1) must beEmpty
     //}
 
     //"advise which positions currently threaten a given position, given a side (eclipsed rook)" in {
-    //val newBoard = board.place(White-Rook).at(position('b5)).place(Black-Rook).at(position('d5))
-    //(newBoard threatsTo Black at 'e5) must beEmpty
-    //(newBoard threatsTo Black at 'd5) must containPositions('b5)
-    //(newBoard threatsTo Black at 'c5) must containPositions('b5)
-    //(newBoard threatsTo Black at 'b5) must beEmpty
+    //val newBoard = board.place(White-Rook).at(B5).place(Black-Rook).at(D5)
+    //(newBoard threatsTo Black at E5) must beEmpty
+    //(newBoard threatsTo Black at D5) must containPositions(B5)
+    //(newBoard threatsTo Black at C5) must containPositions(B5)
+    //(newBoard threatsTo Black at B5) must beEmpty
     //}
 
     //"advise which positions currently threaten a given position, given a side (opposing bishops)" in {
-    //val newBoard = board.place(Black-Bishop).at(position('f7))
-    //(newBoard threatsTo White at 'g8) must containPositions('f7)
-    //(newBoard threatsTo White at 'g6) must containPositions('f7)
-    //(newBoard threatsTo White at 'e8) must containPositions('f7)
-    //(newBoard threatsTo White at 'a2) must containPositions('f7)
+    //val newBoard = board.place(Black-Bishop).at(F7)
+    //(newBoard threatsTo White at G8) must containPositions(F7)
+    //(newBoard threatsTo White at G6) must containPositions(F7)
+    //(newBoard threatsTo White at E8) must containPositions(F7)
+    //(newBoard threatsTo White at A2) must containPositions(F7)
     //}
 
     //"advise which positions currently threaten a given position, given a side (same side bishops)" in {
-    //val newBoard = board.place(Black-Bishop).at(position('d6))
-    //(newBoard threatsTo Black at 'f4) must beEmpty
-    //(newBoard threatsTo Black at 'f8) must beEmpty
-    //(newBoard threatsTo Black at 'b8) must beEmpty
-    //(newBoard threatsTo Black at 'b4) must beEmpty
+    //val newBoard = board.place(Black-Bishop).at(D6)
+    //(newBoard threatsTo Black at F4) must beEmpty
+    //(newBoard threatsTo Black at F8) must beEmpty
+    //(newBoard threatsTo Black at B8) must beEmpty
+    //(newBoard threatsTo Black at B4) must beEmpty
     //}
 
     //"advise which positions currently threaten a given position, given a side (eclipsed bishops)" in {
-    //val newBoard = board.place(White-Rook).at(position('b5)).place(Black-Bishop).at(position('d7))
-    //(newBoard threatsTo White at 'a4) must beEmpty
-    //(newBoard threatsTo White at 'b5) must containPositions('d7)
-    //(newBoard threatsTo White at 'c6) must containPositions('d7)
-    //(newBoard threatsTo White at 'd7) must beEmpty
+    //val newBoard = board.place(White-Rook).at(B5).place(Black-Bishop).at(D7)
+    //(newBoard threatsTo White at A4) must beEmpty
+    //(newBoard threatsTo White at B5) must containPositions(D7)
+    //(newBoard threatsTo White at C6) must containPositions(D7)
+    //(newBoard threatsTo White at D7) must beEmpty
     //}
 
     //"advise which positions currently threaten a given position, given a side (opposing queens on rank/file)" in {
-    //val newBoard = board.place(White-Queen).at(position('b5))
-    //(newBoard threatsTo Black at 'a5) must containPositions('b5)
-    //(newBoard threatsTo Black at 'h5) must containPositions('b5)
-    //(newBoard threatsTo Black at 'b8) must containPositions('b5)
-    //(newBoard threatsTo Black at 'b1) must containPositions('b5)
+    //val newBoard = board.place(White-Queen).at(B5)
+    //(newBoard threatsTo Black at A5) must containPositions(B5)
+    //(newBoard threatsTo Black at H5) must containPositions(B5)
+    //(newBoard threatsTo Black at B8) must containPositions(B5)
+    //(newBoard threatsTo Black at B1) must containPositions(B5)
     //}
 
     //"advise which positions currently threaten a given position, given a side (same side queen on rank/file)" in {
-    //val newBoard = board.place(Black-Queen).at(position('b5))
-    //(newBoard threatsTo Black at 'a5) must beEmpty
-    //(newBoard threatsTo Black at 'h5) must beEmpty
-    //(newBoard threatsTo Black at 'b8) must beEmpty
-    //(newBoard threatsTo Black at 'b1) must beEmpty
+    //val newBoard = board.place(Black-Queen).at(B5)
+    //(newBoard threatsTo Black at A5) must beEmpty
+    //(newBoard threatsTo Black at H5) must beEmpty
+    //(newBoard threatsTo Black at B8) must beEmpty
+    //(newBoard threatsTo Black at B1) must beEmpty
     //}
 
     //"advise which positions currently threaten a given position, given a side (eclipsed queen on rank/file)" in {
-    //val newBoard = board.place(White-Queen).at(position('b5)).place(Black-Rook).at(position('d5))
-    //(newBoard threatsTo Black at 'e5) must beEmpty
-    //(newBoard threatsTo Black at 'd5) must containPositions('b5)
-    //(newBoard threatsTo Black at 'c5) must containPositions('b5)
-    //(newBoard threatsTo Black at 'b5) must beEmpty
+    //val newBoard = board.place(White-Queen).at(B5).place(Black-Rook).at(D5)
+    //(newBoard threatsTo Black at E5) must beEmpty
+    //(newBoard threatsTo Black at D5) must containPositions(B5)
+    //(newBoard threatsTo Black at C5) must containPositions(B5)
+    //(newBoard threatsTo Black at B5) must beEmpty
     //}
 
     //"advise which positions currently threaten a given position, given a side (opposing queens on diagonal)" in {
-    //val newBoard = board.place(Black-Queen).at(position('f7))
-    //(newBoard threatsTo White at 'g8) must containPositions('f7)
-    //(newBoard threatsTo White at 'g6) must containPositions('f7)
-    //(newBoard threatsTo White at 'e8) must containPositions('f7)
-    //(newBoard threatsTo White at 'a2) must containPositions('f7)
+    //val newBoard = board.place(Black-Queen).at(F7)
+    //(newBoard threatsTo White at G8) must containPositions(F7)
+    //(newBoard threatsTo White at G6) must containPositions(F7)
+    //(newBoard threatsTo White at E8) must containPositions(F7)
+    //(newBoard threatsTo White at A2) must containPositions(F7)
     //}
 
     //"advise which positions currently threaten a given position, given a side (same side queen on diagonal)" in {
-    //val newBoard = board.place(Black-Queen).at(position('d6))
-    //(newBoard threatsTo Black at 'f4) must beEmpty
-    //(newBoard threatsTo Black at 'f8) must beEmpty
-    //(newBoard threatsTo Black at 'b8) must beEmpty
-    //(newBoard threatsTo Black at 'b4) must beEmpty
+    //val newBoard = board.place(Black-Queen).at(D6)
+    //(newBoard threatsTo Black at F4) must beEmpty
+    //(newBoard threatsTo Black at F8) must beEmpty
+    //(newBoard threatsTo Black at B8) must beEmpty
+    //(newBoard threatsTo Black at B4) must beEmpty
     //}
 
     //"advise which positions currently threaten a given position, given a side (eclipsed queen on diagonal)" in {
-    //val newBoard = board.place(White-Rook).at(position('b5)).place(Black-Queen).at(position('d7))
-    //(newBoard threatsTo White at 'a4) must beEmpty
-    //(newBoard threatsTo White at 'b5) must containPositions('d7)
-    //(newBoard threatsTo White at 'c6) must containPositions('d7)
-    //(newBoard threatsTo White at 'd7) must beEmpty
+    //val newBoard = board.place(White-Rook).at(B5).place(Black-Queen).at(D7)
+    //(newBoard threatsTo White at A4) must beEmpty
+    //(newBoard threatsTo White at B5) must containPositions(D7)
+    //(newBoard threatsTo White at C6) must containPositions(D7)
+    //(newBoard threatsTo White at D7) must beEmpty
     //}
     //}
 
     //"advise which positions currently threaten a given position, given a side (opposing knights)" in {
-    //val newBoard = board.place(Black-Knight).at(position('f7))
-    //(newBoard threatsTo White at 'd8) must containPositions('f7)
-    //(newBoard threatsTo White at 'h8) must containPositions('f7)
-    //(newBoard threatsTo White at 'd6) must containPositions('f7)
-    //(newBoard threatsTo White at 'h6) must containPositions('f7)
-    //(newBoard threatsTo White at 'e5) must containPositions('f7)
-    //(newBoard threatsTo White at 'g5) must containPositions('f7)
+    //val newBoard = board.place(Black-Knight).at(F7)
+    //(newBoard threatsTo White at D8) must containPositions(F7)
+    //(newBoard threatsTo White at H8) must containPositions(F7)
+    //(newBoard threatsTo White at D6) must containPositions(F7)
+    //(newBoard threatsTo White at H6) must containPositions(F7)
+    //(newBoard threatsTo White at E5) must containPositions(F7)
+    //(newBoard threatsTo White at G5) must containPositions(F7)
     //}
 
     //"advise which positions currently threaten a given position, given a side (same side knights)" in {
-    //val newBoard = board.place(Black-Knight).at(position('f7))
-    //(newBoard threatsTo Black at 'd8) must beEmpty
-    //(newBoard threatsTo Black at 'h8) must beEmpty
-    //(newBoard threatsTo Black at 'd6) must beEmpty
-    //(newBoard threatsTo Black at 'h6) must beEmpty
-    //(newBoard threatsTo Black at 'e5) must beEmpty
-    //(newBoard threatsTo Black at 'g5) must beEmpty
+    //val newBoard = board.place(Black-Knight).at(F7)
+    //(newBoard threatsTo Black at D8) must beEmpty
+    //(newBoard threatsTo Black at H8) must beEmpty
+    //(newBoard threatsTo Black at D6) must beEmpty
+    //(newBoard threatsTo Black at H6) must beEmpty
+    //(newBoard threatsTo Black at E5) must beEmpty
+    //(newBoard threatsTo Black at G5) must beEmpty
     //}
 
     //"advise which positions currently threaten a given position, given a side (opposing kings)" in {
-    //val newBoard = board.place(Black-King).at(position('b4))
-    //(newBoard threatsTo White at 'b3) must containPositions('b4)
-    //(newBoard threatsTo White at 'b5) must containPositions('b4)
-    //(newBoard threatsTo White at 'a3) must containPositions('b4)
-    //(newBoard threatsTo White at 'a4) must containPositions('b4)
-    //(newBoard threatsTo White at 'a5) must containPositions('b4)
-    //(newBoard threatsTo White at 'c3) must containPositions('b4)
-    //(newBoard threatsTo White at 'c4) must containPositions('b4)
-    //(newBoard threatsTo White at 'c5) must containPositions('b4)
+    //val newBoard = board.place(Black-King).at(B4)
+    //(newBoard threatsTo White at B3) must containPositions(B4)
+    //(newBoard threatsTo White at B5) must containPositions(B4)
+    //(newBoard threatsTo White at A3) must containPositions(B4)
+    //(newBoard threatsTo White at A4) must containPositions(B4)
+    //(newBoard threatsTo White at A5) must containPositions(B4)
+    //(newBoard threatsTo White at C3) must containPositions(B4)
+    //(newBoard threatsTo White at C4) must containPositions(B4)
+    //(newBoard threatsTo White at C5) must containPositions(B4)
     //}
 
     //"advise which positions currently threaten a given position, given a side (same side kings)" in {
-    //val newBoard = board.place(Black-King).at(position('a3))
-    //(newBoard threatsTo Black at 'a4) must beEmpty
-    //(newBoard threatsTo Black at 'a2) must beEmpty
-    //(newBoard threatsTo Black at 'b2) must beEmpty
-    //(newBoard threatsTo Black at 'b3) must beEmpty
-    //(newBoard threatsTo Black at 'b4) must beEmpty
+    //val newBoard = board.place(Black-King).at(A3)
+    //(newBoard threatsTo Black at A4) must beEmpty
+    //(newBoard threatsTo Black at A2) must beEmpty
+    //(newBoard threatsTo Black at B2) must beEmpty
+    //(newBoard threatsTo Black at B3) must beEmpty
+    //(newBoard threatsTo Black at B4) must beEmpty
   }
 }

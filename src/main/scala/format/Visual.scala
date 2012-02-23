@@ -27,7 +27,7 @@ object Visual extends Format[Board] {
         char ← (l zipWithIndex)
         (c, x) = char
         if pieces.keySet(c toLower)
-      } yield Pos(x + 1, 8 - y) -> (Color(c isUpper) - pieces(c toLower))
+      } yield Pos.unsafe(x + 1, 8 - y) -> (Color(c isUpper) - pieces(c toLower))
     )
   }
 

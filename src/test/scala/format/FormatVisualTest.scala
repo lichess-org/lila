@@ -18,7 +18,7 @@ class VisualTest extends Specification {
       f << newBoardFormat mustEqual Board()
     }
     "import and export is non destructive" in {
-      forall(examples) { example =>
+      forall(examples) { example ⇒
         newLines(f >> (f << example)) mustEqual example
       }
     }
@@ -38,7 +38,7 @@ RNBQKBNR
 """
 
   val examples = Seq(newBoardFormat,
-"""
+    """
 rnbqkp r
 pppppppp
 

@@ -7,7 +7,7 @@ case class Board(pieces: Map[Pos, Piece]) {
 
   def apply(at: Pos): Option[Piece] = pieces get at
 
-  def apply(x: Int, y: Int): Option[Piece] = pieces get Pos(x, y)
+  def apply(x: Int, y: Int): Option[Piece] = pos(x, y) flatMap pieces.get
 
   def place(piece: Piece) = new {
     def at(at: Pos): Valid[Board] =
@@ -107,13 +107,15 @@ case class Board(pieces: Map[Pos, Piece]) {
 
 object Board {
 
+  import Pos._
+
   def apply(pieces: Traversable[(Pos, Piece)]): Board = Board(pieces toMap)
 
   def apply(): Board = {
 
     val lineUp = Seq(Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook)
 
-    val pairs = for (y ← Seq(1, 2, 7, 8); x ← 1 to 8) yield (Pos(x, y), y match {
+    val pairs = for (y ← Seq(1, 2, 7, 8); x ← 1 to 8) yield (Pos.unsafe(x, y), y match {
       case 1 ⇒ Piece(White, lineUp(x - 1))
       case 2 ⇒ Piece(White, Pawn)
       case 7 ⇒ Piece(Black, Pawn)
@@ -122,4 +124,6 @@ object Board {
 
     new Board(pairs toMap)
   }
+
+  def empty = Board(Map.empty)
 }
