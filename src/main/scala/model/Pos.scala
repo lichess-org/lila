@@ -7,9 +7,13 @@ case class Pos private(x: Int, y: Int) {
 
   import Pos.pos
 
+  lazy val up: Option[Pos] = this ^ 1
+  lazy val down: Option[Pos] = this v 1
+  lazy val right: Option[Pos] = this > 1
+  lazy val left: Option[Pos] = this < 1
   def ^(n: Int): Option[Pos] = pos(x, y + n)
-  def >(n: Int): Option[Pos] = pos(x + n, y)
   def v(n: Int): Option[Pos] = pos(x, y - n)
+  def >(n: Int): Option[Pos] = pos(x + n, y)
   def <(n: Int): Option[Pos] = pos(x - n, y)
   def -?(other: Pos) = x == other.x
   def |?(other: Pos) = y == other.y
@@ -19,7 +23,7 @@ case class Pos private(x: Int, y: Int) {
   def >>(n: Int): List[Pos] = <>(n, Pos.>)
   def vv(n: Int): List[Pos] = <>(n, Pos.v)
   def <<(n: Int): List[Pos] = <>(n, Pos.<)
-  def <>(n: Int, d: Option[Pos] => Option[Pos]) =
+  def <>(n: Int, d: Option[Pos] => Option[Pos]): List[Pos] =
     expand(n, List(Some(this)), d).flatten reverse
 
   def xToString = Pos xToString x

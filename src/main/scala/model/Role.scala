@@ -14,8 +14,6 @@ case object Queen extends Role {
 }
 case object Rook extends Role {
   val forsyth = 'r'
-
-  def vectors = List(List(^ _), List(> _), List(v _), List(< _))
 }
 case object Bishop extends Role {
   val forsyth = 'b'
