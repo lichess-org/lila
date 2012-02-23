@@ -11,8 +11,7 @@ class RookTest extends LilaSpec {
     val rook = White - Rook
     val board = Board.empty
 
-    def boardWithRookAt(pos: Pos): Valid[Board] = board place rook at pos
-    def basicMoves(pos: Pos): Valid[Set[Pos]] = boardWithRookAt(pos) map { b ⇒
+    def basicMoves(pos: Pos): Valid[Set[Pos]] = board place rook at pos map { b ⇒
       rook.basicMoves(pos, b)
     }
 
@@ -39,21 +38,19 @@ PPPPPPPP
         C3, C5, C6, C7, B4, D4, E4, F4, G4)
     }
 
-    //"invoke the correct board movements if the option is taken" in {
-    //rook.movesFrom(F6).elements.foreach {
-    //element ⇒
-    //val implication = element._2._2
-    //element._1.foreach {
-    //toPosition ⇒
-    //val boardAfterMove = boardWithRookAt(toPosition)
-    //val boardWithBlackPieceAtTarget = new Board(board.pieces(toPosition) = Piece(Black, Pawn), Nil)
-    //val boardWithWhitePieceAtTarget = new Board(board.pieces(toPosition) = Piece(White, Pawn), Nil)
-    //val boardAfterPieceIsTaken = new Board(boardWithRookAt(toPosition).pieces, Piece(Black, Pawn) :: Nil)
-    //implication(board, toPosition, Nil) must_== boardAfterMove
-    //implication(boardWithWhitePieceAtTarget, toPosition, Nil) must throwAn[IllegalMoveException]
-    //implication(boardWithBlackPieceAtTarget, toPosition, Nil) must_== boardAfterPieceIsTaken
-    //}
-    //}
-    //}
+    "can capture opponent pieces" in {
+      val board = Visual << """
+k
+  b
+
+
+n R   p
+
+PPPPPPPP
+ NBQKBNR
+"""
+      board pieceAt C4 map { _.basicMoves(C4, board) } must bePoss(
+        C3, C5, C6, C7, B4, A4, D4, E4, F4, G4)
+    }
   }
 }
