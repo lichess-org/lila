@@ -48,5 +48,9 @@ class PosTest extends LilaSpec {
       "D4 vv 8" in { D4 vv 8 must contain(D4, D3, D2, D1) }
       "D4 << 8" in { D4 << 8 must contain(D4, C4, B4, A4) }
     }
+
+    "be a string" in {
+      "D5" in { D5.toString must_== "d5" }
+    }
   }
 }
