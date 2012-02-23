@@ -26,8 +26,8 @@ trait Dependencies {
 
 object ApplicationBuild extends Build with Resolvers with Dependencies {
 
-  val lila = Project("lila", file(".")).settings(
-    libraryDependencies := Seq(scalaz, specs2, redis, json, slf4jNop, casbah, salat, play2mini),
+  val lila = Project("lila", file("."), settings = Project.defaultSettings).settings(
+    libraryDependencies := Seq(scalaz, specs2, redis, json, casbah, salat, play2mini),
     resolvers := Seq(codahale, typesafe, typesafeSnapshot, iliaz, sonatype),
     shellPrompt := ShellPrompt.buildShellPrompt,
     scalacOptions := Seq("-deprecation", "-unchecked"),
