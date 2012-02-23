@@ -2,12 +2,16 @@ package lila
 package model
 
 import Pos._
+import scalaz.{ Success, Failure }
 
 case class Board(pieces: Map[Pos, Piece]) {
 
   def apply(at: Pos): Option[Piece] = pieces get at
 
   def apply(x: Int, y: Int): Option[Piece] = pos(x, y) flatMap pieces.get
+
+  def seq(actions: Board => Valid[Board]*): Valid[Board] =
+    actions.foldLeft(success(this): Valid[Board])(_ flatMap _)
 
   def place(piece: Piece) = new {
     def at(at: Pos): Valid[Board] =

@@ -65,6 +65,24 @@ object BoardTest extends LilaSpec {
       board promote A1 to Queen must beFailure
     }
 
+    "allow chaining actions" in {
+      Board.empty.seq(
+        _ place White-Pawn at A2,
+        _ place White-Pawn at A3,
+        _ move A2 to A4
+      ) must beSuccess.like {
+        case b => b(A4) mustEqual Some(White-Pawn)
+      }
+    }
+
+    "fail on bad actions chain" in {
+      Board.empty.seq(
+        _ place White-Pawn at A2,
+        _ place White-Pawn at A3,
+        _ move B2 to A4
+      ) must beFailure
+    }
+
     //"advise which positions currently threaten a given position, given a side (opposing pawns)" in {
     //val newBoard = board.place(White-Pawn).at(F6)
     //(newBoard threatsTo Black at G7) must containPositions(F6)
