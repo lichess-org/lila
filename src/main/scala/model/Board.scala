@@ -10,12 +10,12 @@ case class Board(pieces: Map[Pos, Piece]) {
 
   def apply(x: Int, y: Int): Option[Piece] = pos(x, y) flatMap pieces.get
 
-  def seq(actions: Board => Valid[Board]*): Valid[Board] =
+  def seq(actions: Board ⇒ Valid[Board]*): Valid[Board] =
     actions.foldLeft(success(this): Valid[Board])(_ flatMap _)
 
   def place(piece: Piece) = new {
     def at(at: Pos): Valid[Board] =
-      if (pieces contains at) failure("Cannot move to occupied " + at)
+      if (pieces contains at) failure("Cannot place at occupied " + at)
       else success(copy(pieces = pieces + ((at, piece))))
   }
 
@@ -31,6 +31,10 @@ case class Board(pieces: Map[Pos, Piece]) {
       } toSuccess ("No piece at " + orig + " to move")
     }
   }
+
+  lazy val occupation: Map[Color, Set[Pos]] = Color.all map { color ⇒
+    (color, pieces collect { case (pos, piece) if piece is color ⇒ pos } toSet)
+  } toMap
 
   /**
    * Promote the piece at the given position to a new role
@@ -114,6 +118,8 @@ object Board {
   import Pos._
 
   def apply(pieces: Traversable[(Pos, Piece)]): Board = Board(pieces toMap)
+
+  def apply(pieces: (Pos, Piece)*): Board = Board(pieces toMap)
 
   def apply(): Board = {
 

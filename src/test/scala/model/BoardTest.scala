@@ -3,7 +3,7 @@ package model
 
 import Pos._
 
-object BoardTest extends LilaSpec {
+class BoardTest extends LilaSpec {
 
   val board = Board()
 
@@ -81,6 +81,19 @@ object BoardTest extends LilaSpec {
         _ place White-Pawn at A3,
         _ move B2 to B4
       ) must beFailure
+    }
+
+    "provide occupation map" in {
+      Board(
+        A2 -> (White-Pawn),
+        A3 -> (White-Pawn),
+        D1 -> (White-King),
+        E8 -> (Black-King),
+        H4 -> (Black-Queen)
+      ).occupation must havePairs(
+        White -> Set(A2, A3, D1),
+        Black -> Set(E8, H4)
+      )
     }
 
     //"advise which positions currently threaten a given position, given a side (opposing pawns)" in {
