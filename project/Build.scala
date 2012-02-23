@@ -21,17 +21,15 @@ trait Dependencies {
   val json = "net.liftweb" %% "lift-json" % "2.4-RC1"
   val casbah = "com.mongodb.casbah" %% "casbah" % "2.1.5-1"
   val salat = "com.novus" %% "salat-core" % "0.0.8-SNAPSHOT"
-  val play2mini = "com.typesafe" %% "play-mini" % "2.0-RC3-SNAPSHOT"
 }
 
 object ApplicationBuild extends Build with Resolvers with Dependencies {
 
   val lila = Project("lila", file("."), settings = Project.defaultSettings).settings(
-    libraryDependencies := Seq(scalaz, specs2, redis, json, casbah, salat, play2mini),
+    libraryDependencies := Seq(scalaz, specs2, redis, json, casbah, salat),
     resolvers := Seq(codahale, typesafe, typesafeSnapshot, iliaz, sonatype),
     shellPrompt := ShellPrompt.buildShellPrompt,
-    scalacOptions := Seq("-deprecation", "-unchecked"),
-    mainClass in (Compile, run) := Some("play.core.server.NettyServer")
+    scalacOptions := Seq("-deprecation", "-unchecked")
   ) dependsOn (ornicarScalalib)
 
   lazy val ornicarScalalib = uri("git://github.com/ornicar/scalalib#1.2")
