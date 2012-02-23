@@ -3,7 +3,7 @@ package model
 
 import scala.math.{ abs, min, max }
 
-case class Pos private(x: Int, y: Int) {
+case class Pos private(x: Int, y: Int) extends Ordered[Pos] {
 
   import Pos.pos
 
@@ -30,6 +30,8 @@ case class Pos private(x: Int, y: Int) {
   def yToString  = y.toString
 
   override def toString = xToString + yToString
+
+  def compare(other: Pos) = toString compare other.toString
 
   private def expand(i: Int, accumulator: List[Option[Pos]], direct: Option[Pos] ⇒ Option[Pos]): List[Option[Pos]] = {
     if (i > 0 && accumulator.head.isDefined)
