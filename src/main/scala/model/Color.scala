@@ -5,19 +5,17 @@ sealed trait Color {
 
   def -(role: Role) = Piece(this, role)
 
-  val opposite: Color
-
-  val unary_! = opposite
+  def unary_! : Color
 }
 
 case object White extends Color {
 
-  val opposite = Black
+  lazy val unary_! = Black
 }
 
 case object Black extends Color {
 
-  val opposite = White
+  lazy val unary_! = White
 }
 
 object Color {
