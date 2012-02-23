@@ -14,6 +14,9 @@ class VisualTest extends Specification {
     "export new board" in {
       newLines(f >> (Board())) mustEqual newBoardFormat
     }
+    "import new board" in {
+      f << newBoardFormat mustEqual Board()
+    }
     "import and export is non destructive" in {
       forall(examples) { example =>
         newLines(f >> (f << example)) mustEqual example

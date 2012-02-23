@@ -15,7 +15,7 @@ case class Board(pieces: Map[Pos, Piece]) {
       else success(copy(pieces = pieces + ((at, piece))))
   }
 
-  def take(at: Pos): Valid[Board] = pieces get at map { piece =>
+  def take(at: Pos): Valid[Board] = pieces get at map { piece ⇒
     copy(pieces = (pieces - at))
   } toSuccess ("No piece at " + at + " to take")
 
@@ -32,18 +32,16 @@ case class Board(pieces: Map[Pos, Piece]) {
    * Promote the piece at the given position to a new role
    * @return a new board
    */
-  //def promote(p: Pos) = {
-    //case class Promotion() {
-      //def to(r: Role): Board = r match {
-        //case King ⇒ throw new IllegalPromotionException("Cannot promote to King")
-        //case _ ⇒ pieces.get(p).map(piece ⇒ piece.role match {
-          //case Pawn ⇒ new Board(pieces(p) = Piece(piece.color, r))
-          //case _    ⇒ throw new IllegalPromotionException("Can only promote pawns")
-        //}).getOrElse { throw new IllegalPromotionException("No piece at " + p + " to promote") }
-      //}
-    //}
-    //new Promotion
-  //}
+  def promote(at: Pos) = new {
+    def to(role: Role): Valid[Board] = role match {
+      case King | Pawn ⇒ failure("Cannot promote to King or pawn")
+      case _ ⇒ apply(at) match {
+        case Some(piece) if piece.role == Pawn ⇒
+          success(copy(pieces = pieces.updated(at, piece.color - role)))
+        case _ ⇒ failure("No pawn at " + at + " to promote")
+      }
+    }
+  }
 
   /**
    * Finds all positions which contain a threat to the given color (at a given position).

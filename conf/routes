@@ -1,1 +1,0 @@
-GET     /                           controllers.Application.index

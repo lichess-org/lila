@@ -1,14 +1,12 @@
 package lila
-package model
+package repo
 
 import com.novus.salat.annotations._
 import com.mongodb.casbah.Imports._
 
-case class Player(
+case class Game(
 
-  id: String,
+  @Key("_id") id: String,
 
-  color: String,
-
-  ps: String
+  players: List[Player] = Nil
 )

@@ -1,11 +1,11 @@
 import sbt._
 import Keys._
-import PlayProject._
 
 trait Resolvers {
   val codahale = "repo.codahale.com" at "http://repo.codahale.com/"
   //val twitter = "twitter.com" at "http://maven.twttr.com/"
   val typesafe = "typesafe.com" at "http://repo.typesafe.com/typesafe/releases/"
+  val typesafeSnapshot = "typesafe.com snapshots" at "http://repo.typesafe.com/typesafe/snapshots/"
   val iliaz = "iliaz.com" at "http://scala.iliaz.com/"
   val sonatype = "sonatype" at "http://oss.sonatype.org/content/repositories/releases"
 }
@@ -21,24 +21,18 @@ trait Dependencies {
   val json = "net.liftweb" %% "lift-json" % "2.4-RC1"
   val casbah = "com.mongodb.casbah" %% "casbah" % "2.1.5-1"
   val salat = "com.novus" %% "salat-core" % "0.0.8-SNAPSHOT"
+  val play2mini = "com.typesafe" %% "play-mini" % "2.0-RC3-SNAPSHOT"
 }
 
 object ApplicationBuild extends Build with Resolvers with Dependencies {
 
-  val appVersion = "1.0-SNAPSHOT"
-
-  val lila = Project("lila", file("lila")).settings(
-    libraryDependencies := Seq(
-      scalaz, specs2, redis, json, slf4jNop, casbah, salat
-    ),
-    resolvers := Seq(
-      codahale, typesafe, iliaz, sonatype
-    ),
+  val lila = Project("lila", file(".")).settings(
+    libraryDependencies := Seq(scalaz, specs2, redis, json, slf4jNop, casbah, salat, play2mini),
+    resolvers := Seq(codahale, typesafe, typesafeSnapshot, iliaz, sonatype),
     shellPrompt := ShellPrompt.buildShellPrompt,
-    scalacOptions := Seq("-deprecation", "-unchecked")
+    scalacOptions := Seq("-deprecation", "-unchecked"),
+    mainClass in (Compile, run) := Some("play.core.server.NettyServer")
   ) dependsOn (ornicarScalalib)
-
-  val main = PlayProject("app", appVersion, Seq(), mainLang = SCALA) dependsOn lila
 
   lazy val ornicarScalalib = uri("git://github.com/ornicar/scalalib#1.2")
 }
