@@ -6,6 +6,8 @@ sealed trait Color {
   def -(role: Role) = Piece(this, role)
 
   val opposite: Color
+
+  val unary_! = opposite
 }
 
 case object White extends Color {
