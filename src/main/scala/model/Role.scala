@@ -14,6 +14,7 @@ case object Queen extends Role {
 }
 case object Rook extends Role {
   val forsyth = 'r'
+  val dirs: List[Direction] = List(_.up, _.down, _.left, _.right)
 }
 case object Bishop extends Role {
   val forsyth = 'b'

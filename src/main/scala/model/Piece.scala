@@ -1,29 +1,29 @@
 package lila
 package model
 
-import scala.annotation.tailrec
+class Trajectories(dirs: List[Direction], friends: Set[Pos], enemies: Set[Pos]) {
+
+  def from(p: Pos): Set[Pos] = dirs flatMap { dir ⇒ forward(p, dir) } toSet
+
+  private def forward(p: Pos, dir: Direction): List[Pos] = dir(p) match {
+    case None                        ⇒ Nil
+    case Some(next) if friends(next) ⇒ Nil
+    case Some(next) if enemies(next) ⇒ List(next)
+    case Some(next)                  ⇒ next :: forward(next, dir)
+  }
+}
 
 case class Piece(color: Color, role: Role) {
 
-  type Vector = Pos ⇒ Option[Pos]
-
   def basicMoves(pos: Pos, board: Board): Set[Pos] = {
 
+    val friends = board occupation color
+    val enemies = board occupation !color
+
     role match {
-      case Rook ⇒ {
-        val occupation = board occupation !color
-        val vectors: List[Vector] = List(_.up, _.down, _.left, _.right)
+      case Rook ⇒ (new Trajectories(Rook.dirs, friends, enemies)) from pos
 
-        //@tailrec
-        def fwd(p: Pos, v: Vector): List[Pos] = v(p) map { next ⇒
-          next :: fwd(next, v)
-        } getOrElse Nil
-
-        vectors flatMap { vector =>
-          fwd(pos, vector)
-        } toSet
-      }
-      case _ ⇒ Set.empty
+      case _    ⇒ Set.empty
     }
   }
 

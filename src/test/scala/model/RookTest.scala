@@ -2,6 +2,7 @@ package lila
 package model
 
 import Pos._
+import format.Visual
 
 class RookTest extends LilaSpec {
 
@@ -23,18 +24,20 @@ class RookTest extends LilaSpec {
       basicMoves(H8) must bePoss(H7, H6, H5, H4, H3, H2, H1, G8, F8, E8, D8, C8, B8, A8)
     }
 
-    //"require that positions can only be moved to if they aren't occupied by the same colour" in {
-    //rook.movesFrom(D4).elements.foreach {
-    //element ⇒
-    //val query = element._2._1
-    //element._1.foreach {
-    //position ⇒
-    //query(board, position, Nil) must_== Continue
-    //query(new Board(board.pieces(position) = Piece(Black, Pawn), Nil), position, Nil) must_== IncludeAndStop
-    //query(new Board(board.pieces(position) = Piece(White, Pawn), Nil), position, Nil) must_== Stop
-    //}
-    //}
-    //}
+    "require that positions can only be moved to if they aren't occupied by the same colour" in {
+      val board = Visual << """
+k B
+
+
+
+N R    P
+
+PPPPPPPP
+ NBQKBNR
+"""
+      board pieceAt C4 map { _.basicMoves(C4, board) } must bePoss(
+        C3, C5, C6, C7, B4, D4, E4, F4, G4)
+    }
 
     //"invoke the correct board movements if the option is taken" in {
     //rook.movesFrom(F6).elements.foreach {

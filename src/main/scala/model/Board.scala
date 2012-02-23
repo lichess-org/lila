@@ -10,6 +10,8 @@ case class Board(pieces: Map[Pos, Piece]) {
 
   def apply(x: Int, y: Int): Option[Piece] = pos(x, y) flatMap pieces.get
 
+  def pieceAt(at: Pos): Valid[Piece] = apply(at) toSuccess ("No piece on " + at)
+
   def seq(actions: Board ⇒ Valid[Board]*): Valid[Board] =
     actions.foldLeft(success(this): Valid[Board])(_ flatMap _)
 
