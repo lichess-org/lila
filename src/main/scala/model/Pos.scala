@@ -7,12 +7,12 @@ case class Pos private(x: Int, y: Int) {
 
   import Pos.pos
 
-  def ^(n: Int): Option[Pos] = pos(y + n, x)
-  def >(n: Int): Option[Pos] = pos(y, x + n)
-  def v(n: Int): Option[Pos] = pos(y - n, x)
-  def <(n: Int): Option[Pos] = pos(y, x - n)
-  def -?(other: Pos) = y == other.y
-  def |?(other: Pos) = x == other.x
+  def ^(n: Int): Option[Pos] = pos(x, y + n)
+  def >(n: Int): Option[Pos] = pos(x + n, y)
+  def v(n: Int): Option[Pos] = pos(x, y - n)
+  def <(n: Int): Option[Pos] = pos(x - n, y)
+  def -?(other: Pos) = x == other.x
+  def |?(other: Pos) = y == other.y
   def /?(other: Pos) = abs(x - other.x) == abs(y - other.y)
   def *?(other: Pos) = (this -? other) || (this |? other) || (this /? other)
   def ^^(n: Int): List[Pos] = <>(n, Pos.^)

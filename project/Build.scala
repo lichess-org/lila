@@ -16,7 +16,7 @@ trait Dependencies {
   val twitterCore = "com.twitter" % "util-core" % twitterUtilVersion
   val slf4jNop = "org.slf4j" % "slf4j-nop" % "1.6.4"
   val scalaz = "org.scalaz" %% "scalaz-core" % "6.0.4"
-  val specs2 = "org.specs2" %% "specs2" % "1.8"
+  val specs2 = "org.specs2" %% "specs2" % "1.8.2"
   val redis = "net.debasishg" %% "redisclient" % "2.4.2"
   val json = "net.liftweb" %% "lift-json" % "2.4-RC1"
   val casbah = "com.mongodb.casbah" %% "casbah" % "2.1.5-1"

@@ -2,30 +2,17 @@ package lila
 package model
 
 case class Game(
-  board: Board,
-  history: List[(Pos, Pos)],
-  nextMove: Color) {
+    board: Board,
+    history: History,
+    nextPlayer: Color) {
 
   def this() = this(Board(), Nil, White)
 
   val players = List(White, Black)
 
-  def possibleMoves: Map[Pos, Set[Pos]] = {
-    val default: Map[Pos, Set[Pos]] = Map.empty
-    board.pieces.foldLeft(default) { (moves, boardElement) =>
-      val (pos, piece) = boardElement
-      if (nextMove.equals(piece.color)) {
-        val viableMoves = movesFrom(pos)
-        if (viableMoves.isEmpty) {
-          moves
-        } else {
-          moves + ((pos, viableMoves))
-        }
-      } else {
-        moves
-      }
-    }
-  }
+  def moves: Map[Pos, Set[Pos]] = board.pieces collect {
+    case (pos, piece) if piece is nextPlayer ⇒ pos -> piece.moves(pos, board)
+  } toMap
 
   /**
    * Find all valid moves on the board from the given position for the next turn of play

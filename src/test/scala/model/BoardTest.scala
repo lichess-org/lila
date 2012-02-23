@@ -79,7 +79,7 @@ object BoardTest extends LilaSpec {
       Board.empty.seq(
         _ place White-Pawn at A2,
         _ place White-Pawn at A3,
-        _ move B2 to A4
+        _ move B2 to B4
       ) must beFailure
     }
 

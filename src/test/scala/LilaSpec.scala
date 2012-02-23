@@ -7,4 +7,8 @@ trait LilaSpec
     extends Specification
     with OrnicarValidationMatchers {
 
+  implicit def anyMatchers[A](a: A) = {
+    def equals(b: A) = a mustEqual b
+  }
+
 }
