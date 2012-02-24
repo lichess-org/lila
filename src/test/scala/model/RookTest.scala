@@ -9,21 +9,20 @@ class RookTest extends LilaSpec {
   "a rook" should {
 
     val rook = White - Rook
-    val board = Board.empty
 
-    def basicMoves(pos: Pos): Valid[Set[Pos]] = board place rook at pos map { b ⇒
+    def basicMoves(pos: Pos): Valid[Set[Pos]] = Board.empty place rook at pos map { b ⇒
       rook.basicMoves(pos, b)
     }
 
-    "be able to move to any position along the same rank or file" in {
+    "move to any position along the same rank or file" in {
       basicMoves(E4) must bePoss(E5, E6, E7, E8, E3, E2, E1, F4, G4, H4, D4, C4, B4, A4)
     }
 
-    "be able to move to any position along the same rank or file, even when at the edges" in {
+    "move to any position along the same rank or file, even when at the edges" in {
       basicMoves(H8) must bePoss(H7, H6, H5, H4, H3, H2, H1, G8, F8, E8, D8, C8, B8, A8)
     }
 
-    "require that positions can only be moved to if they aren't occupied by the same colour" in {
+    "not move to positions that are occupied by the same colour" in {
       val board = Visual << """
 k B
 
