@@ -8,47 +8,63 @@ class PawnTest extends LilaSpec {
 
   "a white pawn" should {
 
-    val color = White
-    val pawn = color - Pawn
-
-    def basicMoves(pos: Pos): Valid[Set[Pos]] = Board.empty place pawn at pos map { b ⇒
-      pawn.basicMoves(pos, b)
-    }
-
     "move towards rank by 1 square" in {
-      basicMoves(A4) must bePoss(A5)
+      Board(
+        A4 -> White.pawn
+      ) basicMoves A4 must bePoss(A5)
     }
 
-    "not move to positions that are occupied by the same colour" in {
-      (for {
-        board ← Board.empty.seq(
-          _ place White - Pawn at A4,
-          _ place White - Pawn at A5)
-        piece ← board pieceAt A4
-      } yield piece.basicMoves(A4, board)) must bePoss()
+    "not move to positions that are occupied by the same color" in {
+      Board(
+        A4 -> White.pawn,
+        A5 -> White.pawn
+      ) basicMoves A4 must bePoss()
+    }
+
+    "capture in diagonal" in {
+      Board(
+        A4 -> White.pawn,
+        C5 -> Black.pawn,
+        E5 -> Black.bishop
+      ) basicMoves A4 must bePoss(A5, C5, E5)
+    }
+
+    "require a capture to move in diagonal" in {
+      Board(
+        A4 -> White.pawn,
+        C5 -> White.pawn
+      ) basicMoves A4 must bePoss(A5)
     }
   }
 
   "a black pawn" should {
 
-    val color = Black
-    val pawn = color - Pawn
-
-    def basicMoves(pos: Pos): Valid[Set[Pos]] = Board.empty place pawn at pos map { b ⇒
-      pawn.basicMoves(pos, b)
-    }
-
     "move towards rank by 1 square" in {
-      basicMoves(A4) must bePoss(A3)
+      Board(
+        A4 -> Black.pawn
+      ) basicMoves A4 must bePoss(A3)
     }
 
-    "not move to positions that are occupied by the same colour" in {
-      (for {
-        board ← Board.empty.seq(
-          _ place color - Pawn at A4,
-          _ place color - Pawn at A3)
-        piece ← board pieceAt A4
-      } yield piece.basicMoves(A4, board)) must bePoss()
+    "not move to positions that are occupied by the same color" in {
+      Board(
+        A4 -> Black.pawn,
+        A3 -> Black.pawn
+      ) basicMoves A4 must bePoss()
+    }
+
+    "capture in diagonal" in {
+      Board(
+        A4 -> Black.pawn,
+        C3 -> White.pawn,
+        E3 -> White.bishop
+      ) basicMoves A4 must bePoss(A3, C3, E3)
+    }
+
+    "require a capture to move in diagonal" in {
+      Board(
+        A4 -> Black.pawn,
+        C3 -> Black.pawn
+      ) basicMoves A4 must bePoss(A3)
     }
   }
 }
