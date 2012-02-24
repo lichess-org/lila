@@ -11,6 +11,8 @@ trait LilaSpec
     extends Specification
     with OrnicarValidationMatchers {
 
+  implicit def stringToBoard(str: String): Board = Visual << str
+
   def bePoss(poss: Pos*): Matcher[Valid[Iterable[Pos]]] = beSuccess.like {
     case p ⇒ p.toList.sorted must_== poss.toList.sorted
   }
