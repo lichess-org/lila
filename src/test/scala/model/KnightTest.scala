@@ -67,5 +67,32 @@ PPPx PPP
  NBQKBNR
 """)
     }
+    "threaten" in {
+      val board = Visual << """
+k B
+
+ b B
+b
+  N
+    Q
+PPP  PPP
+ NBQKBNR
+"""
+      "a reachable enemy" in {
+        board actorAt C4 map (_ threatens A5) must succeedWith(true)
+      }
+      "an unreachable enemy" in {
+        board actorAt C4 map (_ threatens A8) must succeedWith(false)
+      }
+      "a reachable friend" in {
+        board actorAt C4 map (_ threatens E3) must succeedWith(false)
+      }
+      "nothing left" in {
+        board actorAt C4 map (_ threatens B4) must succeedWith(false)
+      }
+      "nothing up" in {
+        board actorAt C4 map (_ threatens C5) must succeedWith(false)
+      }
+    }
   }
 }

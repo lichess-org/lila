@@ -67,5 +67,20 @@ PPPPPPPP
  NBQKBNR
 """)
     }
+    "threaten nothing" in {
+      val board = Visual << """
+k B
+
+ b B
+bpp
+  Kb
+    Q
+PPP  PPP
+ NBQ BNR
+"""
+      forall(Pos.all) { pos ⇒
+        board actorAt C4 map (_ threatens pos) must succeedWith(false)
+      }
+    }
   }
 }
