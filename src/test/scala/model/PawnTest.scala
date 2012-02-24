@@ -2,7 +2,6 @@ package lila
 package model
 
 import Pos._
-import format.Visual
 
 class PawnTest extends LilaSpec {
 

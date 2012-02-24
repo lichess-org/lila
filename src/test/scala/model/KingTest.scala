@@ -2,7 +2,6 @@ package lila
 package model
 
 import Pos._
-import format.Visual
 
 class KingTest extends LilaSpec {
 
@@ -23,7 +22,7 @@ class KingTest extends LilaSpec {
     }
 
     "not move to positions that are occupied by the same colour" in {
-      val board = Visual << """
+      val board = """
 k B
 
 
@@ -46,7 +45,7 @@ PPPPPPPP
     }
 
     "capture opponent pieces" in {
-      val board = Visual << """
+      val board = """
 k B
 
 
@@ -68,7 +67,7 @@ PPPPPPPP
 """)
     }
     "threaten nothing" in {
-      val board = Visual << """
+      val board = """
 k B
 
  b B
