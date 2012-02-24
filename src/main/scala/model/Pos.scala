@@ -3,7 +3,7 @@ package model
 
 import scala.math.{ abs, min, max }
 
-case class Pos private(x: Int, y: Int) extends Ordered[Pos] {
+sealed case class Pos private(x: Int, y: Int) extends Ordered[Pos] {
 
   import Pos.pos
 
@@ -11,6 +11,11 @@ case class Pos private(x: Int, y: Int) extends Ordered[Pos] {
   lazy val down: Option[Pos] = this v 1
   lazy val right: Option[Pos] = this > 1
   lazy val left: Option[Pos] = this < 1
+  lazy val upLeft: Option[Pos] = up flatMap (_ left)
+  lazy val upRight: Option[Pos] = up flatMap (_ right)
+  lazy val downLeft: Option[Pos] = down flatMap(_ left)
+  lazy val downRight: Option[Pos] = down flatMap(_ right)
+
   def ^(n: Int): Option[Pos] = pos(x, y + n)
   def v(n: Int): Option[Pos] = pos(x, y - n)
   def >(n: Int): Option[Pos] = pos(x + n, y)
