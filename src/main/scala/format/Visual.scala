@@ -19,7 +19,11 @@ object Visual extends Format[Board] {
 
   def <<(source: String): Board = {
     val lines = source.lines.toList
-    val filtered = if (lines.size == 8) lines else lines drop 1 take 8
+    val filtered = lines.size match {
+      case 8          ⇒ lines
+      case n if n > 8 ⇒ lines drop 1 take 8
+      case n          ⇒ (List.fill(8 - n)("")) ::: lines
+    }
     Board(
       for {
         line ← (filtered.zipWithIndex)

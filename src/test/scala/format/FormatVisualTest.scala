@@ -23,6 +23,21 @@ class VisualTest extends Specification {
         f.addNewLines(f >> (f << example)) must_== example
       }
     }
+    "import partial board representation" in {
+      f << """
+    P n
+PPPP   P
+RNBQK  R""" must_== (f << """
+
+
+
+
+
+    P n
+PPPP   P
+RNBQK  R
+""")
+    }
     "export with special marks" in {
       val board = Visual << """
 k B
