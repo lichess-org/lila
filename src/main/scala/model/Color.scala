@@ -6,6 +6,13 @@ sealed trait Color {
   def -(role: Role) = Piece(this, role)
 
   def unary_! : Color
+
+  def pawn   = this - Pawn
+  def bishop = this - Bishop
+  def knight = this - Knight
+  def rook   = this - Rook
+  def queen  = this - Queen
+  def king   = this - King
 }
 
 case object White extends Color {

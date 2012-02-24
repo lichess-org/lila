@@ -5,8 +5,8 @@ case class Piece(color: Color, role: Role) {
 
   def basicMoves(pos: Pos, board: Board): Set[Pos] = {
 
-    val friends = board occupation color
-    val enemies = board occupation !color
+    def friends = board occupation color
+    def enemies = board occupation !color
 
     role match {
       case Pawn ⇒ {
