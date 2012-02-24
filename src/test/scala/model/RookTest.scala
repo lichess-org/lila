@@ -47,5 +47,32 @@ PPPPPPPP
  NBQKBNR
 """ movesFrom C4 must bePoss(C3, C5, C6, C7, B4, A4, D4, E4, F4, G4)
     }
+    "threaten" in {
+      val board = Visual << """
+k B
+  q  q
+p
+
+n R    P
+
+PPPPPPPP
+ NBQKBNR
+"""
+      "a reachable enemy" in {
+        board actorAt C4 map (_ threatens A4) must succeedWith(true)
+      }
+      "an unreachable enemy" in {
+        board actorAt C4 map (_ threatens A6) must succeedWith(false)
+      }
+      "a reachable friend" in {
+        board actorAt C4 map (_ threatens H4) must succeedWith(false)
+      }
+      "nothing left" in {
+        board actorAt C4 map (_ threatens B4) must succeedWith(false)
+      }
+      "nothing up" in {
+        board actorAt C4 map (_ threatens C5) must succeedWith(false)
+      }
+    }
   }
 }

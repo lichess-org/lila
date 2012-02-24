@@ -67,17 +67,32 @@ PPPPPPPP
  NBQKBNR
 """)
     }
-    "threaten its enemies" in {
-      Visual << """
+    "threaten" in {
+      val board = Visual << """
 k B
-     q
+  q  q
 p
 
 N B    P
 
 PPPPPPPP
  NBQKBNR
-""" actorAt C4 map (_ threatens A6) must succeedWith(true)
+"""
+      "a reachable enemy" in {
+        board actorAt C4 map (_ threatens A6) must succeedWith(true)
+      }
+      "an unreachable enemy" in {
+        board actorAt C4 map (_ threatens C7) must succeedWith(false)
+      }
+      "a reachable friend" in {
+        board actorAt C4 map (_ threatens A2) must succeedWith(false)
+      }
+      "nothing up left" in {
+        board actorAt C4 map (_ threatens B5) must succeedWith(false)
+      }
+      "nothing down right" in {
+        board actorAt C4 map (_ threatens D3) must succeedWith(false)
+      }
     }
   }
 }

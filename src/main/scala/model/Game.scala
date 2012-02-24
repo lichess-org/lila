@@ -3,10 +3,9 @@ package model
 
 case class Game(
     board: Board,
-    history: History,
     nextPlayer: Color) {
 
-  def this() = this(Board(), Nil, White)
+  def this() = this(Board.empty, White)
 
   val players = List(White, Black)
 

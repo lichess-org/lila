@@ -71,6 +71,49 @@ class PawnTest extends LilaSpec {
         }
       }
     }
+    "capture en passant" in {
+      "with proper position" in {
+        val board = Board(
+          D5 -> White.pawn,
+          C5 -> Black.pawn,
+          E5 -> Black.pawn
+        )
+        "without history" in {
+          board movesFrom D5 must bePoss(D6)
+        }
+        "with irrelevant history" in {
+          board withHistory History(
+            lastMove = Some(A2 -> A4)
+          ) movesFrom D5 must bePoss(D6)
+        }
+        "with relevant history on the left" in {
+          board withHistory History(
+            lastMove = Some(C7 -> C5)
+          ) movesFrom D5 must bePoss(D6, C6)
+        }
+        "with relevant history on the right" in {
+          board withHistory History(
+            lastMove = Some(E7 -> E5)
+          ) movesFrom D5 must bePoss(D6, E6)
+        }
+      }
+      "enemy not-a-pawn" in {
+        Board(
+          D5 -> White.pawn,
+          E5 -> Black.rook
+        ) withHistory History(
+          lastMove = Some(E7 -> E5)
+        ) movesFrom D5 must bePoss(D6)
+      }
+      "friend pawn (?!)" in {
+        Board(
+          D5 -> White.pawn,
+          E5 -> White.pawn
+        ) withHistory History(
+          lastMove = Some(E7 -> E5)
+        ) movesFrom D5 must bePoss(D6)
+      }
+    }
   }
 
   "a black pawn" should {

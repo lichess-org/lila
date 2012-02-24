@@ -5,7 +5,7 @@ import Pos._
 import scalaz.{ Success, Failure }
 import format.Visual
 
-case class Board(pieces: Map[Pos, Piece]) {
+case class Board(pieces: Map[Pos, Piece], history: History) {
 
   import implicitFailures._
 
@@ -15,8 +15,8 @@ case class Board(pieces: Map[Pos, Piece]) {
 
   def pieceAt(at: Pos): Valid[Piece] = apply(at) toSuccess ("No piece on " + at)
 
-  lazy val actors = pieces map {
-    case (pos, piece) => (pos, new Actor(piece, pos, this))
+  lazy val actors: Map[Pos, Actor] = pieces map {
+    case (pos, piece) => (pos, Actor(piece, pos, this))
   }
 
   def actorAt(at: Pos): Valid[Actor] = actors get at toSuccess ("No piece on " + at)
@@ -66,6 +66,8 @@ case class Board(pieces: Map[Pos, Piece]) {
     }
   }
 
+  def withHistory(h: History): Board = copy(history = h)
+
   override def toString = Visual >> this
 }
 
@@ -73,9 +75,9 @@ object Board {
 
   import Pos._
 
-  def apply(pieces: Traversable[(Pos, Piece)]): Board = Board(pieces toMap)
+  def apply(pieces: Traversable[(Pos, Piece)]): Board = Board(pieces toMap, History())
 
-  def apply(pieces: (Pos, Piece)*): Board = Board(pieces toMap)
+  def apply(pieces: (Pos, Piece)*): Board = Board(pieces toMap, History())
 
   def apply(): Board = {
 
@@ -88,8 +90,8 @@ object Board {
       case 8 ⇒ Black - lineUp(x - 1)
     })
 
-    new Board(pairs toMap)
+    Board(pairs toMap, History())
   }
 
-  def empty = Board(Map.empty)
+  def empty = new Board(Map.empty, History())
 }
