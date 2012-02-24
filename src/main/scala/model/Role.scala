@@ -29,7 +29,16 @@ case object Bishop extends Role {
 }
 case object Knight extends Role {
   val forsyth = 'n'
-  val dirs: List[Direction] = Nil
+  val dirs: List[Direction] = List(
+    _.up flatMap (_.upLeft),
+    _.up flatMap (_.upRight),
+    _.left flatMap (_.upLeft),
+    _.left flatMap (_.downLeft),
+    _.right flatMap (_.upRight),
+    _.right flatMap (_.downRight),
+    _.down flatMap (_.downLeft),
+    _.down flatMap (_.downRight)
+  )
 }
 case object Pawn extends Role {
   val forsyth = 'p'
