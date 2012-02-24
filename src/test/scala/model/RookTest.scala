@@ -55,8 +55,11 @@ n R    P
 PPPPPPPP
  NBQKBNR
 """
-      "a reachable enemy" in {
+      "a reachable enemy to the left" in {
         board actorAt C4 map (_ threatens A4) must succeedWith(true)
+      }
+      "a reachable enemy to the top" in {
+        board actorAt C4 map (_ threatens C7) must succeedWith(true)
       }
       "an unreachable enemy" in {
         board actorAt C4 map (_ threatens A6) must succeedWith(false)

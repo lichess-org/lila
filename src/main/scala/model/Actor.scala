@@ -1,47 +1,58 @@
 package lila
 package model
 
+import scalaz.Success
+
 case class Actor(piece: Piece, pos: Pos, board: Board) {
 
   def moves: Set[Pos] = implications.keySet
 
   def implications: Map[Pos, Board] = {
-    val tos: Set[Pos] = piece.role match {
+    val implications: Map[Pos, Board] = piece.role match {
       case Pawn ⇒ {
         dir(pos) map { next ⇒
           val unmoved = if (color == White) pos.y == 2 else pos.y == 7
           val passable = if (color == White) pos.y == 5 else pos.y == 4
           val one = Some(next) filterNot board.occupations
-          def enpassant(horizontal: Direction): Option[Pos] = for {
-            victimPos ← horizontal(pos)
-            victim ← board(victimPos)
-            if victim == !color - Pawn
+          val moving = board move pos
+          def capture(horizontal: Direction): Option[(Pos, Board)] = for {
+            p ← horizontal(next); if (enemies(p));
+            b1 ← (board take p toOption)
+            b2 ← b1 move pos toOption p
+          } yield (p, b2)
+          def enpassant(horizontal: Direction): Option[(Pos, Board)] = for {
+            victimPos ← horizontal(pos); if (passable)
+            victim ← board(victimPos); if victim == !color - Pawn
             targetPos ← horizontal(next)
             victimFrom ← dir(victimPos) flatMap dir
             if board.history.lastMove == Some(victimFrom, victimPos)
-          } yield targetPos
-          Set(
-            one,
-            if (unmoved) one flatMap { o ⇒ dir(o) filterNot board.occupations }
-            else None,
-            next.left filter enemies,
-            next.right filter enemies,
-            if (passable) enpassant(_.left) else None,
-            if (passable) enpassant(_.right) else None
-          ) flatten
-        } getOrElse Set.empty
+            b1 ← moving toOption targetPos
+            b2 ← (b1 take victimPos toOption)
+          } yield (targetPos, b2)
+          List(
+            for (p ← one; b ← moving toOption p) yield (p, b),
+            for {
+              p ← one; if (unmoved)
+              p2 ← dir(p); if (!board.occupations(p2))
+              b ← moving toOption p2
+            } yield (p2, b),
+            capture(_.left),
+            capture(_.right),
+            enpassant(_.left),
+            enpassant(_.right)
+          ).flatten toMap
+        } getOrElse Map.empty
       }
-      case r if (r.trajectory) ⇒ trajectories(r.dirs, pos)
-      case role                ⇒ (role.dirs map { d ⇒ d(pos) }).flatten.toSet -- friends
-    }
-    val implications: Map[Pos, Board] = piece.role match {
-      case Pawn ⇒ tos map (_ -> board) toMap
-      case role ⇒ (tos map { to: Pos ⇒
-        val nboard =
-          if (enemies(to)) board take to flatMap (_ move pos to to)
-          else board move pos to to
-        nboard.toOption map (to -> _)
-      }).flatten toMap
+      case r if (r.trajectory) ⇒ implicationTrajectories(r.dirs, pos)
+      case role ⇒ {
+        val tos: Set[Pos] = (role.dirs map { d ⇒ d(pos) }).flatten.toSet -- friends
+        (tos map { to: Pos ⇒
+          val nboard =
+            if (enemies(to)) board take to flatMap (_ move pos to to)
+            else board move pos to to
+          nboard.toOption map (to -> _)
+        }).flatten toMap
+      }
     }
 
     kingSafety(implications)
@@ -56,21 +67,16 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
   }
 
   // can it threaten the opponent king?
-  def threatens(to: Pos): Boolean =
-    if (enemies(to)) {
-      val poss: Set[Pos] = piece.role match {
-        case Pawn ⇒ dir(pos) map { next ⇒
-          Set(next.left, next.right) flatten
-        } getOrElse Set.empty
-        case r if (r.trajectory) ⇒ {
-          new Trajectories(r.dirs, board occupation color, board occupation !color)
-        } from pos
-        case r if (r.threatens) ⇒ (r.dirs map { d ⇒ d(pos) }).flatten.toSet
-        case _                  ⇒ Set()
-      }
-      poss(to)
-    }
-    else false
+  def threatens(to: Pos): Boolean = enemies(to) && threats(to)
+
+  def threats: Set[Pos] = piece.role match {
+    case Pawn ⇒ dir(pos) map { next ⇒
+      Set(next.left, next.right) flatten
+    } getOrElse Set.empty
+    case r if (r.trajectory) ⇒ posTrajectories(r.dirs, pos)
+    case r if (r.threatens)  ⇒ (r.dirs map { d ⇒ d(pos) }).flatten.toSet
+    case _                   ⇒ Set()
+  }
 
   def color = piece.color
   def is(c: Color) = c == piece.color
@@ -78,7 +84,7 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
   def enemies: Set[Pos] = board occupation !color
   def dir: Direction = if (color == White) _.up else _.down
 
-  private def trajectories(dirs: List[Direction], p: Pos): Set[Pos] = {
+  private def posTrajectories(dirs: Directions, from: Pos): Set[Pos] = {
 
     def forward(p: Pos, dir: Direction): List[Pos] = dir(p) match {
       case None                        ⇒ Nil
@@ -87,6 +93,25 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
       case Some(next)                  ⇒ next :: forward(next, dir)
     }
 
-    dirs flatMap { dir ⇒ forward(p, dir) } toSet
+    dirs flatMap { dir ⇒ forward(from, dir) } toSet
+  }
+
+  private def implicationTrajectories(dirs: Directions, from: Pos): Map[Pos, Board] = {
+
+    val moving = board move from
+
+    def forward(p: Pos, dir: Direction): List[Option[(Pos, Board)]] = dir(p) match {
+      case None                        ⇒ Nil
+      case Some(next) if friends(next) ⇒ Nil
+      case Some(next) if enemies(next) ⇒ List(for {
+        b1 ← (board take next toOption)
+        b2 ← b1 move from toOption next
+      } yield (next, b2))
+      case Some(next) ⇒ (for {
+        b ← moving toOption next
+      } yield (next, b)) :: forward(next, dir)
+    }
+
+    (dirs flatMap { dir ⇒ forward(from, dir) }).flatten toMap
   }
 }

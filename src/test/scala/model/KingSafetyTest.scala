@@ -90,10 +90,10 @@ RNB K  R""" movesFrom E2 must bePoss()
         }
         "pawn" in {
           """
-  b
- k P  r
+
+ K P  r
 PPP
-RNB K  R""" movesFrom D3 must bePoss()
+RNB    R""" movesFrom D3 must bePoss()
         }
       }
     }

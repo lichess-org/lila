@@ -47,6 +47,12 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
         copy(pieces = (pieces - orig) + ((dest, piece)))
       } toSuccess ("No piece at " + orig + " to move")
     }
+    def toOption(dest: Pos): Option[Board] = {
+      if (pieces contains dest) None
+      else pieces get orig map { piece ⇒
+        copy(pieces = (pieces - orig) + ((dest, piece)))
+      }
+    }
   }
 
   lazy val occupation: Map[Color, Set[Pos]] = Color.all map { color ⇒
