@@ -37,7 +37,7 @@ PPPPPPPP
         C3, C5, C6, C7, B4, D4, E4, F4, G4)
     }
 
-    "can capture opponent pieces" in {
+    "capture opponent pieces" in {
       val board = Visual << """
 k
   b
