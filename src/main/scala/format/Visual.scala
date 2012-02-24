@@ -33,7 +33,7 @@ object Visual extends Format[Board] {
 
   def >>(board: Board): String = >>|(board, Map.empty)
 
-  def >>|(board: Board, marks: Map[Set[Pos], Char]): String = {
+  def >>|(board: Board, marks: Map[Iterable[Pos], Char]): String = {
     val markedPoss: Map[Pos, Char] = marks.foldLeft(Map[Pos, Char]()) {
       case (marks, (poss, char)) ⇒ marks ++ (poss.toList map { pos ⇒ (pos, char) })
     }
@@ -43,4 +43,6 @@ object Visual extends Format[Board] {
       }
     } mkString
   } map { """\s*$""".r.replaceFirstIn(_, "") } mkString "\n"
+
+  def addNewLines(str: String) = "\n" + str + "\n"
 }

@@ -13,14 +13,14 @@ class VisualTest extends Specification {
 
   "The visual board formatter" should {
     "export new board" in {
-      newLines(f >> (Board())) must_== newBoardFormat
+      f.addNewLines(f >> (Board())) must_== newBoardFormat
     }
     "import new board" in {
       f << newBoardFormat must_== Board()
     }
     "import and export is non destructive" in {
       forall(examples) { example ⇒
-        newLines(f >> (f << example)) must_== example
+        f.addNewLines(f >> (f << example)) must_== example
       }
     }
     "export with special marks" in {
@@ -35,7 +35,7 @@ PPPPPPPP
  NBQKBNR
 """
       val markedBoard = f >>|(board, Map(Set(B3, D3, B5, D5, A6, E6, F7, G8) -> 'x'))
-      newLines(markedBoard) must_== """
+      f addNewLines markedBoard must_== """
 k B   x
      x
 x   x
@@ -66,8 +66,6 @@ PPPPPPPP
       //)
     //}
   }
-
-  def newLines(str: String) = "\n" + str + "\n"
 
   val newBoardFormat = """
 rnbqkbnr
