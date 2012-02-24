@@ -10,15 +10,17 @@ case class Piece(color: Color, role: Role) {
 
     role match {
       case Pawn ⇒ {
-        def unmoved = (color == White && pos.y == 2) || (color == Black && pos.y == 7)
         val dir: Direction = if (color == White) _.up else _.down
-        dir(pos) map { one ⇒
+        dir(pos) map { next ⇒
+          val unmoved = (color == White && pos.y == 2) || (color == Black && pos.y == 7)
+          val one = Some(next) filterNot board.occupations
           Set(
-            Some(one) filterNot friends,
-            if (unmoved) dir(one) filterNot friends else None,
-            one.left filter enemies,
-            one.right filter enemies
-          ).flatten
+            one,
+            if (unmoved) one flatMap { o => dir(o) filterNot board.occupations }
+            else None,
+            next.left filter enemies,
+            next.right filter enemies
+          ) flatten
         } getOrElse Set.empty
       }
       case r if (r.trajectory) ⇒ (new Trajectories(r.dirs, friends, enemies)) from pos

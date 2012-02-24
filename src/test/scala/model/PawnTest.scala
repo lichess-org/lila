@@ -35,6 +35,42 @@ class PawnTest extends LilaSpec {
         C5 -> White.pawn
       ) basicMoves A4 must bePoss(A5)
     }
+
+    "move towards rank by 2 squares" in {
+      "if the path is free" in {
+        Board(
+          A2 -> White.pawn
+        ) basicMoves A2 must bePoss(A3, A4)
+      }
+      "if the path is occupied by a friend" in {
+        "close" in {
+          Board(
+            A2 -> White.pawn,
+            A3 -> White.rook
+          ) basicMoves A2 must bePoss()
+        }
+        "far" in {
+          Board(
+            A2 -> White.pawn,
+            A4 -> White.rook
+          ) basicMoves A2 must bePoss(A3)
+        }
+      }
+      "if the path is occupied by a enemy" in {
+        "close" in {
+          Board(
+            A2 -> White.pawn,
+            A3 -> Black.rook
+          ) basicMoves A2 must bePoss()
+        }
+        "far" in {
+          Board(
+            A2 -> White.pawn,
+            A4 -> Black.rook
+          ) basicMoves A2 must bePoss(A3)
+        }
+      }
+    }
   }
 
   "a black pawn" should {
@@ -65,6 +101,42 @@ class PawnTest extends LilaSpec {
         A4 -> Black.pawn,
         C3 -> Black.pawn
       ) basicMoves A4 must bePoss(A3)
+    }
+
+    "move towards rank by 2 squares" in {
+      "if the path is free" in {
+        Board(
+          A7 -> Black.pawn
+        ) basicMoves A7 must bePoss(A6, A5)
+      }
+      "if the path is occupied by a friend" in {
+        "close" in {
+          Board(
+            A7 -> Black.pawn,
+            A6 -> Black.rook
+          ) basicMoves A7 must bePoss()
+        }
+        "far" in {
+          Board(
+            A7 -> Black.pawn,
+            A5 -> Black.rook
+          ) basicMoves A7 must bePoss(A6)
+        }
+      }
+      "if the path is occupied by a enemy" in {
+        "close" in {
+          Board(
+            A7 -> Black.pawn,
+            A6 -> White.rook
+          ) basicMoves A7 must bePoss()
+        }
+        "far" in {
+          Board(
+            A7 -> Black.pawn,
+            A5 -> White.rook
+          ) basicMoves A7 must bePoss(A6)
+        }
+      }
     }
   }
 }

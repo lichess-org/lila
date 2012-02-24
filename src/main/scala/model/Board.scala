@@ -45,6 +45,8 @@ case class Board(pieces: Map[Pos, Piece]) {
     (color, pieces collect { case (pos, piece) if piece is color ⇒ pos } toSet)
   } toMap
 
+  lazy val occupations = pieces.keySet
+
   /**
    * Promote the piece at the given position to a new role
    * @return a new board
