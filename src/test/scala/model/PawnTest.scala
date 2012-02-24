@@ -23,10 +23,10 @@ class PawnTest extends LilaSpec {
 
     "capture in diagonal" in {
       Board(
-        A4 -> White.pawn,
+        D4 -> White.pawn,
         C5 -> Black.pawn,
         E5 -> Black.bishop
-      ) basicMoves A4 must bePoss(A5, C5, E5)
+      ) basicMoves D4 must bePoss(C5, D5, E5)
     }
 
     "require a capture to move in diagonal" in {
@@ -54,10 +54,10 @@ class PawnTest extends LilaSpec {
 
     "capture in diagonal" in {
       Board(
-        A4 -> Black.pawn,
+        D4 -> Black.pawn,
         C3 -> White.pawn,
         E3 -> White.bishop
-      ) basicMoves A4 must bePoss(A3, C3, E3)
+      ) basicMoves D4 must bePoss(C3, D3, E3)
     }
 
     "require a capture to move in diagonal" in {

@@ -3,6 +3,7 @@ package model
 
 import Pos._
 import scalaz.{ Success, Failure }
+import format.Visual
 
 case class Board(pieces: Map[Pos, Piece]) {
 
@@ -56,6 +57,8 @@ case class Board(pieces: Map[Pos, Piece]) {
       }
     }
   }
+
+  override def toString = Visual >> this
 
   /**
    * Finds all positions which contain a threat to the given color (at a given position).
