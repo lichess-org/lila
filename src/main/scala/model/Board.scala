@@ -7,6 +7,8 @@ import format.Visual
 
 case class Board(pieces: Map[Pos, Piece]) {
 
+  import implicitFailures._
+
   def apply(at: Pos): Option[Piece] = pieces get at
 
   def apply(x: Int, y: Int): Option[Piece] = pos(x, y) flatMap pieces.get

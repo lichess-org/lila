@@ -13,4 +13,8 @@ package object lila
     with scalaz.Strings
     with scalaz.NonEmptyLists
     with scalaz.Semigroups {
+
+  object implicitFailures {
+    implicit def stringToFailures(str: String): Failures = str wrapNel
+  }
 }

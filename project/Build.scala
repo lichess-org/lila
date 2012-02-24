@@ -32,7 +32,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     scalacOptions := Seq("-deprecation", "-unchecked")
   ) dependsOn (ornicarScalalib)
 
-  lazy val ornicarScalalib = uri("git://github.com/ornicar/scalalib#1.2")
+  lazy val ornicarScalalib = uri("git://github.com/ornicar/scalalib#1.6")
 }
 
 object ShellPrompt {
