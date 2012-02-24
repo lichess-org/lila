@@ -31,9 +31,16 @@ object Visual extends Format[Board] {
     )
   }
 
-  def >>(board: Board): String = {
+  def >>(board: Board): String = >>|(board, Map.empty)
+
+  def >>|(board: Board, marks: Map[Set[Pos], Char]): String = {
+    val markedPoss: Map[Pos, Char] = marks.foldLeft(Map[Pos, Char]()) {
+      case (marks, (poss, char)) ⇒ marks ++ (poss.toList map { pos ⇒ (pos, char) })
+    }
     for (y ← 8 to 1 by -1) yield {
-      for (x ← 1 to 8) yield board(x, y).fold(_ forsyth, ' ')
+      for (x ← 1 to 8) yield {
+        markedPoss get Pos.unsafe(x, y) getOrElse board(x, y).fold(_ forsyth, ' ')
+      }
     } mkString
   } map { """\s*$""".r.replaceFirstIn(_, "") } mkString "\n"
 }
