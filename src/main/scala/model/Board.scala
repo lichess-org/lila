@@ -15,9 +15,13 @@ case class Board(pieces: Map[Pos, Piece]) {
 
   def pieceAt(at: Pos): Valid[Piece] = apply(at) toSuccess ("No piece on " + at)
 
-  def basicMoves(from: Pos): Valid[Set[Pos]] = pieceAt(from) map { piece ⇒
-    piece.basicMoves(from, this)
+  lazy val actors = pieces map {
+    case (pos, piece) => (pos, new Actor(piece, pos, this))
   }
+
+  def actorAt(at: Pos): Valid[Actor] = actors get at toSuccess ("No piece on " + at)
+
+  def movesFrom(from: Pos): Valid[Set[Pos]] = actorAt(from) map (_.moves)
 
   def seq(actions: Board ⇒ Valid[Board]*): Valid[Board] =
     actions.foldLeft(success(this): Valid[Board])(_ flatMap _)

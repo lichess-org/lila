@@ -10,8 +10,8 @@ case class Game(
 
   val players = List(White, Black)
 
-  def basicMoves: Map[Pos, Set[Pos]] = board.pieces collect {
-    case (pos, piece) if piece is nextPlayer ⇒ pos -> piece.basicMoves(pos, board)
+  def moves: Map[Pos, Set[Pos]] = board.actors collect {
+    case (pos, actor) if actor is nextPlayer ⇒ pos -> actor.moves
   } toMap
 
   /**

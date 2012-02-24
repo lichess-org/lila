@@ -10,16 +10,16 @@ class KingTest extends LilaSpec {
 
     val king = White - King
 
-    def basicMoves(pos: Pos): Valid[Set[Pos]] = Board.empty place king at pos map { b ⇒
-      king.basicMoves(pos, b)
+    def moves(pos: Pos): Valid[Set[Pos]] = Board.empty place king at pos flatMap { b ⇒
+      b actorAt pos map (_.moves)
     }
 
     "move 1 position in any direction" in {
-      basicMoves(D4) must bePoss(D3, C3, C4, C5, D5, E5, E4, E3)
+      moves(D4) must bePoss(D3, C3, C4, C5, D5, E5, E4, E3)
     }
 
     "move 1 position in any direction, even from the edges" in {
-      basicMoves(H8) must bePoss(H7, G7, G8)
+      moves(H8) must bePoss(H7, G7, G8)
     }
 
     "not move to positions that are occupied by the same colour" in {
@@ -33,7 +33,7 @@ NPKP   P
 PPPPPPPP
  NBQKBNR
 """
-      board pieceAt C4 map { _.basicMoves(C4, board) } must bePoss(board, """
+      board movesFrom C4 must bePoss(board, """
 k B
 
 
@@ -56,7 +56,7 @@ NPKp   P
 PPPPPPPP
  NBQKBNR
 """
-      board pieceAt C4 map { _.basicMoves(C4, board) } must bePoss(board, """
+      board movesFrom C4 must bePoss(board, """
 k B
 
 

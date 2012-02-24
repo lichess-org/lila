@@ -10,16 +10,16 @@ class KnightTest extends LilaSpec {
 
     val knight = White - Knight
 
-    def basicMoves(pos: Pos): Valid[Set[Pos]] = Board.empty place knight at pos map { b ⇒
-      knight.basicMoves(pos, b)
+    def moves(pos: Pos): Valid[Set[Pos]] = Board.empty place knight at pos flatMap { b ⇒
+      b actorAt pos map (_.moves)
     }
 
     "move in any of 8 positions, 2 and 1 squares away" in {
-      basicMoves(E4) must bePoss(F6, G5, G3, F2, D2, C3, C5, D6)
+      moves(E4) must bePoss(F6, G5, G3, F2, D2, C3, C5, D6)
     }
 
     "move 2 and 1 squares away, even when at the edges" in {
-      basicMoves(H8) must bePoss(G6, F7)
+      moves(H8) must bePoss(G6, F7)
     }
 
     "not move to positions that are occupied by the same colour" in {
@@ -33,7 +33,7 @@ k B
 PPP  PPP
  NBQKBNR
 """
-      board pieceAt C4 map { _.basicMoves(C4, board) } must bePoss(board, """
+      board movesFrom C4 must bePoss(board, """
 k B
 
  x B
@@ -56,7 +56,7 @@ b
 PPP  PPP
  NBQKBNR
 """
-      board pieceAt C4 map { _.basicMoves(C4, board) } must bePoss(board, """
+      board movesFrom C4 must bePoss(board, """
 k B
 
  x B
