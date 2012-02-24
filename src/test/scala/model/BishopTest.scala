@@ -45,19 +45,27 @@ PPPPPPPP
 """)
     }
 
-    //"can capture opponent pieces" in {
-      //val board = Visual << """
-//k
-  //b
+    "can capture opponent pieces" in {
+      val board = Visual << """
+k B
+     q
+p
 
+N B    P
 
-//n R   p
-
-//PPPPPPPP
- //NBQKBNR
-//"""
-      //board pieceAt C4 map { _.basicMoves(C4, board) } must bePoss(
-        //C3, C5, C6, C7, B4, A4, D4, E4, F4, G4)
-    //}
+PPPPPPPP
+ NBQKBNR
+"""
+      board pieceAt C4 map { _.basicMoves(C4, board) } must bePoss(board, """
+k B
+     x
+x   x
+ x x
+N B    P
+ x x
+PPPPPPPP
+ NBQKBNR
+""")
+    }
   }
 }
