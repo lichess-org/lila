@@ -1,7 +1,7 @@
 package lila
 package model
 
-final class Trajectories(dirs: List[Direction], friends: Set[Pos], enemies: Set[Pos]) {
+case class Trajectories(dirs: List[Direction], friends: Set[Pos], enemies: Set[Pos]) {
 
   def from(p: Pos): Set[Pos] = dirs flatMap { dir ⇒ forward(p, dir) } toSet
 
