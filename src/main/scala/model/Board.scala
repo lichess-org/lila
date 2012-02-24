@@ -5,10 +5,7 @@ import Pos._
 import scalaz.{ Success, Failure }
 import format.Visual
 
-case class Board private (
-    pieces: Map[Pos, Piece],
-    kings: (Pos, Pos),
-    history: History) {
+case class Board(pieces: Map[Pos, Piece], history: History) {
 
   import implicitFailures._
 
@@ -19,18 +16,12 @@ case class Board private (
   def pieceAt(at: Pos): Valid[Piece] = apply(at) toSuccess ("No piece on " + at)
 
   lazy val actors: Map[Pos, Actor] = pieces map {
-    case (pos, piece) ⇒ (pos, Actor(piece, pos, this))
+    case (pos, piece) => (pos, Actor(piece, pos, this))
   }
-  lazy val actorsOf: Map[Color, Iterable[Actor]] = actors.values groupBy (_.color)
 
   def actorAt(at: Pos): Valid[Actor] = actors get at toSuccess ("No piece on " + at)
 
   def movesFrom(from: Pos): Valid[Set[Pos]] = actorAt(from) map (_.moves)
-
-  def kingPosOf(color: Color) = color match {
-    case White => kings._1
-    case Black => kings._2
-  }
 
   def seq(actions: Board ⇒ Valid[Board]*): Valid[Board] =
     actions.foldLeft(success(this): Valid[Board])(_ flatMap _)
@@ -84,17 +75,9 @@ object Board {
 
   import Pos._
 
-  def apply(pieces: Map[Pos, Piece], history: History) = {
-    def findKing(color: Color) = pieces find (_._2 == color.king) map (_._1)
-    for {
-      whiteKing ← findKing(White)
-      blackKing ← findKing(Black)
-    } yield new Board(pieces, (whiteKing, blackKing), history)
-  } err "The board is missing a king"
+  def apply(pieces: Traversable[(Pos, Piece)]): Board = Board(pieces toMap, History())
 
-  def apply(pieces: Traversable[(Pos, Piece)]): Board = apply(pieces toMap, History())
-
-  def apply(pieces: (Pos, Piece)*): Board = apply(pieces toMap, History())
+  def apply(pieces: (Pos, Piece)*): Board = Board(pieces toMap, History())
 
   def apply(): Board = {
 
@@ -107,8 +90,8 @@ object Board {
       case 8 ⇒ Black - lineUp(x - 1)
     })
 
-    apply(pairs toMap, History())
+    Board(pairs toMap, History())
   }
 
-  def empty = apply(Map.empty, History())
+  def empty = new Board(Map.empty, History())
 }
