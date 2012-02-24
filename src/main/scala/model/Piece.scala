@@ -21,9 +21,8 @@ case class Piece(color: Color, role: Role) {
     val enemies = board occupation !color
 
     role match {
-      case d: Directed ⇒ (new Trajectories(d.dirs, friends, enemies)) from pos
-
-      case _           ⇒ Set.empty
+      case r if (r.trajectory) ⇒ (new Trajectories(r.dirs, friends, enemies)) from pos
+      case r                   ⇒ (r.dirs map { d ⇒ d(pos) }).flatten.toSet -- friends
     }
   }
 
