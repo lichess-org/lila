@@ -36,12 +36,6 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
 }
 
 object ShellPrompt {
-
-  val buildShellPrompt = {
-    (state: State) ⇒
-      {
-        val currProject = Project.extract(state).currentProject.id
-        "%s> ".format(currProject)
-      }
-  }
+  val buildShellPrompt =
+    (state: State) ⇒ "%s> ".format(Project.extract(state).currentProject.id)
 }
