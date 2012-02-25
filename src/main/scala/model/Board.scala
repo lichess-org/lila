@@ -87,7 +87,9 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
 
   def as(c: Color) = Situation(this, c)
 
-  override def toString = Visual >> this
+  def visual = Visual >> this
+
+  override def toString = visual
 }
 
 object Board {
