@@ -36,17 +36,10 @@ class PosTest extends LilaSpec {
     }
 
     "be used to derive a relative list of positions" in {
-      "D4 ^^ 3" in { D4 ^^ 3 must contain(D4, D5, D6, D7) }
-      "D4 >> 3" in { D4 >> 3 must contain(D4, E4, F4, G4) }
-      "D4 vv 3" in { D4 vv 3 must contain(D4, D3, D2, D1) }
-      "D4 << 3" in { D4 << 3 must contain(D4, C4, B4, A4) }
-    }
-
-    "be used to derive a relative list of positions not including those off the board" in {
-      "D4 ^^ 8" in { D4 ^^ 8 must contain(D4, D5, D6, D7, D8) }
-      "D4 >> 8" in { D4 >> 8 must contain(D4, E4, F4, G4, H4) }
-      "D4 vv 8" in { D4 vv 8 must contain(D4, D3, D2, D1) }
-      "D4 << 8" in { D4 << 8 must contain(D4, C4, B4, A4) }
+      "D4 >| false" in { D4 >| (_ ⇒ false) must contain(E4, F4, G4, H4) }
+      "D4 |< false" in { D4 |< (_ ⇒ false) must contain(C4, B4, A4) }
+      "D4 >| (==G4)" in { D4 >| (G4 ==) must contain(E4, F4, G4) }
+      "D4 |< (==C4)" in { D4 |< (C4 ==) must contain(C4) }
     }
 
     "be a string" in {

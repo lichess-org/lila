@@ -3,7 +3,7 @@ package model
 
 import scala.math.{ abs, min, max }
 
-sealed case class Pos private(x: Int, y: Int) extends Ordered[Pos] {
+sealed case class Pos private (x: Int, y: Int) extends Ordered[Pos] {
 
   import Pos.pos
 
@@ -13,8 +13,8 @@ sealed case class Pos private(x: Int, y: Int) extends Ordered[Pos] {
   lazy val left: Option[Pos] = this < 1
   lazy val upLeft: Option[Pos] = up flatMap (_ left)
   lazy val upRight: Option[Pos] = up flatMap (_ right)
-  lazy val downLeft: Option[Pos] = down flatMap(_ left)
-  lazy val downRight: Option[Pos] = down flatMap(_ right)
+  lazy val downLeft: Option[Pos] = down flatMap (_ left)
+  lazy val downRight: Option[Pos] = down flatMap (_ right)
 
   def ^(n: Int): Option[Pos] = pos(x, y + n)
   def v(n: Int): Option[Pos] = pos(x, y - n)
@@ -24,25 +24,18 @@ sealed case class Pos private(x: Int, y: Int) extends Ordered[Pos] {
   def |?(other: Pos) = y == other.y
   def /?(other: Pos) = abs(x - other.x) == abs(y - other.y)
   def *?(other: Pos) = (this -? other) || (this |? other) || (this /? other)
-  def ^^(n: Int): List[Pos] = <>(n, Pos.^)
-  def >>(n: Int): List[Pos] = <>(n, Pos.>)
-  def vv(n: Int): List[Pos] = <>(n, Pos.v)
-  def <<(n: Int): List[Pos] = <>(n, Pos.<)
-  def <>(n: Int, d: Option[Pos] => Option[Pos]): List[Pos] =
-    expand(n, List(Some(this)), d).flatten reverse
+  def >|(stop: Pos ⇒ Boolean): List[Pos] = |<>|(stop, _.right)
+  def |<(stop: Pos ⇒ Boolean): List[Pos] = |<>|(stop, _.left)
+  def |<>|(stop: Pos ⇒ Boolean, dir: Direction): List[Pos] = dir(this) map { p ⇒
+    p :: (if (stop(p)) Nil else p.|<>|(stop, dir))
+  } getOrElse Nil
 
   def xToString = Pos xToString x
-  def yToString  = y.toString
+  def yToString = y.toString
 
   override def toString = xToString + yToString
 
   def compare(other: Pos) = toString compare other.toString
-
-  private def expand(i: Int, accumulator: List[Option[Pos]], direct: Option[Pos] ⇒ Option[Pos]): List[Option[Pos]] = {
-    if (i > 0 && accumulator.head.isDefined)
-      expand(i - 1, direct(accumulator.head) :: accumulator, direct)
-    else accumulator
-  }
 }
 
 object Pos {
