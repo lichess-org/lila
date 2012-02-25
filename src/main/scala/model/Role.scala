@@ -7,12 +7,10 @@ sealed trait Role {
   val forsyth: Char
   def dirs: List[Direction]
   val trajectory = false
-  val threatens = true
 }
 case object King extends Role {
   val forsyth = 'k'
   val dirs: List[Direction] = Queen.dirs
-  override val threatens = false
 }
 case object Queen extends Role {
   val forsyth = 'q'

@@ -66,20 +66,32 @@ PPPPPPPP
  NBQKBNR
 """)
     }
-    "threaten nothing" in {
+    "threaten" in {
       val board = """
 k B
 
  b B
 bpp
   Kb
-    Q
-PPP  PPP
+  P Q
+PP   PPP
  NBQ BNR
 """
-      forall(Pos.all) { pos ⇒
-        board actorAt C4 map (_ threatens pos) must succeedWith(false)
+      "a reachable enemy" in {
+        board actorAt C4 map (_ threatens B5) must succeedWith(true)
       }
+      "an unreachable enemy" in {
+        board actorAt C4 map (_ threatens A5) must succeedWith(false)
+      }
+      "a reachable friend" in {
+        board actorAt C4 map (_ threatens C3) must succeedWith(false)
+      }
+    }
+    "not move near from the other king" in {
+      """
+   k
+ K
+""" movesFrom B1 must bePoss(A1, A2, B2)
     }
   }
 }

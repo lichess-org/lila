@@ -66,9 +66,8 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
     case Pawn ⇒ dir(pos) map { next ⇒
       List(next.left, next.right) flatten
     } getOrElse Nil
-    case r if (r.trajectory) ⇒ posTrajectories(r.dirs, pos)
-    case r if (r.threatens)  ⇒ (r.dirs map { d ⇒ d(pos) }).flatten
-    case _                   ⇒ Nil
+    case role if (role.trajectory) ⇒ posTrajectories(role.dirs, pos)
+    case role                      ⇒ (role.dirs map { d ⇒ d(pos) }).flatten
   }) contains to)
 
   private def posTrajectories(dirs: Directions, from: Pos): List[Pos] = {
