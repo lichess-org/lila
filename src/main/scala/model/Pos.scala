@@ -20,10 +20,6 @@ sealed case class Pos private (x: Int, y: Int) extends Ordered[Pos] {
   def v(n: Int): Option[Pos] = pos(x, y - n)
   def >(n: Int): Option[Pos] = pos(x + n, y)
   def <(n: Int): Option[Pos] = pos(x - n, y)
-  def -?(other: Pos) = x == other.x
-  def |?(other: Pos) = y == other.y
-  def /?(other: Pos) = abs(x - other.x) == abs(y - other.y)
-  def *?(other: Pos) = (this -? other) || (this |? other) || (this /? other)
   def >|(stop: Pos ⇒ Boolean): List[Pos] = |<>|(stop, _.right)
   def |<(stop: Pos ⇒ Boolean): List[Pos] = |<>|(stop, _.left)
   def |<>|(stop: Pos ⇒ Boolean, dir: Direction): List[Pos] = dir(this) map { p ⇒
