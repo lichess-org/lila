@@ -11,7 +11,7 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
 
     case King                      ⇒ shortRange(King.dirs) ++ castle
 
-    case role if (role.trajectory) ⇒ trajectory(role.dirs)
+    case role if (role.longRange) ⇒ longRange(role.dirs)
 
     case role                      ⇒ shortRange(role.dirs)
   })
@@ -25,10 +25,10 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
   def dir: Direction = if (color == White) _.up else _.down
 
   def threatens(to: Pos): Boolean = enemies(to) && ((piece.role match {
-    case Pawn                      ⇒ dir(pos) map { next ⇒
+    case Pawn ⇒ dir(pos) map { next ⇒
       List(next.left, next.right) flatten
     } getOrElse Nil
-    case role if (role.trajectory) ⇒ trajectoryPoss(role.dirs)
+    case role if (role.longRange) ⇒ longRangePoss(role.dirs)
     case role                      ⇒ (role.dirs map { d ⇒ d(pos) }).flatten
   }) contains to)
 
@@ -49,7 +49,7 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
     } flatten
   } toMap
 
-  private def trajectory(dirs: Directions): Implications = {
+  private def longRange(dirs: Directions): Implications = {
 
     val moving = (to: Pos) ⇒ board.move(pos, to)
 
@@ -67,7 +67,7 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
     (dirs flatMap { dir ⇒ forward(pos, dir) }) toMap
   }
 
-  private def trajectoryPoss(dirs: Directions): List[Pos] = {
+  private def longRangePoss(dirs: Directions): List[Pos] = {
 
     def forward(p: Pos, dir: Direction): List[Pos] = dir(p) match {
       case None                        ⇒ Nil
