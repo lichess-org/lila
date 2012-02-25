@@ -14,3 +14,10 @@ case class History(
   def canCastleKingSide(color: Color): Boolean = castles(color)._1
   def canCastleQueenSide(color: Color): Boolean = castles(color)._2
 }
+
+object History {
+
+  def castle(color: Color, kingSide: Boolean, queenSide: Boolean) = History(
+    castles = Map(color -> (kingSide, queenSide))
+  )
+}

@@ -38,6 +38,10 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
       else success(copy(pieces = pieces + ((at, piece))))
   }
 
+  def place(piece: Piece, at: Pos) =
+    if (pieces contains at) None
+    else Some(copy(pieces = pieces + ((at, piece))))
+
   def takeValid(at: Pos): Valid[Board] = take(at) toSuccess ("No piece at " + at + " to take")
 
   def take(at: Pos): Option[Board] = pieces get at map { piece ⇒

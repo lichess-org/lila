@@ -21,4 +21,12 @@ trait LilaSpec
     case p ⇒ Visual.addNewLines(Visual.>>|(board, Map(p -> 'x'))) must_== visual
   }
 
+  def beBoard(visual: String): Matcher[Valid[Board]] = beSuccess.like {
+    case b => b.visual must_== (Visual << visual).visual
+  }
+
+  def beSituation(visual: String): Matcher[Valid[Situation]] = beSuccess.like {
+    case s => s.board.visual must_== (Visual << visual).visual
+  }
+
 }

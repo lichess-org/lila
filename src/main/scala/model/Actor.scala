@@ -7,19 +7,20 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
 
   lazy val implications: Implications = kingSafety(piece.role match {
 
-    case Pawn                      ⇒ pawn
+    case Pawn                     ⇒ pawn
 
-    case King                      ⇒ shortRange(King.dirs) ++ castle
+    case King                     ⇒ shortRange(King.dirs) ++ castle
 
     case role if (role.longRange) ⇒ longRange(role.dirs)
 
-    case role                      ⇒ shortRange(role.dirs)
+    case role                     ⇒ shortRange(role.dirs)
   })
 
   lazy val moves: Set[Pos] = implications.keySet
 
   def color = piece.color
   def is(c: Color) = c == piece.color
+  def is(p: Piece) = p == piece
   def friends: Set[Pos] = board occupation color
   def enemies: Set[Pos] = board occupation !color
   def dir: Direction = if (color == White) _.up else _.down
@@ -29,7 +30,7 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
       List(next.left, next.right) flatten
     } getOrElse Nil
     case role if (role.longRange) ⇒ longRangePoss(role.dirs)
-    case role                      ⇒ (role.dirs map { d ⇒ d(pos) }).flatten
+    case role                     ⇒ (role.dirs map { d ⇒ d(pos) }).flatten
   }) contains to)
 
   private def kingSafety(implications: Implications): Implications =
@@ -40,7 +41,21 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
     }
 
   private def castle: Implications = {
-    Map.empty
+    val kingSide: Option[Implication] = for {
+      kingPos ← board kingPosOf color
+      if board.history canCastleKingSide color
+      rook = color.rook
+      rookPos ← board actorsOf color collectFirst {
+        case a if (a is rook) && (a.pos.x > kingPos.x) ⇒ a.pos
+      }
+      newKingPos ← kingPos > 2
+      newRookPos ← newKingPos.left
+      b1 ← board take rookPos
+      b2 ← b1.move(kingPos, newKingPos)
+      b3 ← b2.place(rook, newRookPos)
+    } yield (newKingPos, b3)
+
+    kingSide toMap
   }
 
   private def shortRange(dirs: Directions): Implications = {
