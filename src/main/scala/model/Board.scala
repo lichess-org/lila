@@ -19,11 +19,13 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
     case (pos, piece) ⇒ (pos, Actor(piece, pos, this))
   }
 
-  def actorsOf(c: Color) = actors.values filter (_ is c)
+  lazy val colorActors: Map[Color, Iterable[Actor]] = actors.values groupBy (_.color)
+
+  def actorsOf(c: Color) = colorActors get c getOrElse Nil
 
   def actorAt(at: Pos): Valid[Actor] = actors get at toSuccess ("No piece on " + at)
 
-  def kingPosOf(c: Color) = pieces find (_._2 == c.king) map (_._1)
+  def kingPosOf(c: Color): Option[Pos] = pieces find (_._2 == c.king) map (_._1)
 
   def movesFrom(from: Pos): Valid[Set[Pos]] = actorAt(from) map (_.moves)
 
