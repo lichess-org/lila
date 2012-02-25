@@ -5,51 +5,67 @@ import Pos._
 
 class CastleTest extends LilaSpec {
 
-  "a king" should {
+  "a king castle" should {
 
-    val king = White - King
-
-    "castle" in {
-      "king side" in {
-          val board: Board = """
+    "king side" in {
+        val badHist = """
 PPPPPPPP
-R  QK  R"""
-        "impossible" in {
-          "pieces in the way" in {
-            Board().movesFrom(E1) must bePoss()
-          }
-          "not allowed by history" in {
-            board movesFrom E1 must bePoss(F1)
-          }
+R  QK  R""" withHistory History.castle(White, false, false)
+        val goodHist = badHist withHistory History.castle(White, true, true)
+      "impossible" in {
+        "near bishop in the way" in {
+          goodHist place White.bishop at F1 flatMap (_ movesFrom E1) must bePoss()
         }
-        "possible" in {
-          val board2 = board withHistory History.castle(White, true, true)
-          val situation = board2 as White
-          "viable moves" in {
-            board2 movesFrom E1 must bePoss(F1, G1)
-          }
-          "correct new board" in {
-            situation.playMove(E1, G1) must beSituation("""
-PPPPPPPP
-R  Q RK """)
-          }
+        "distant knight in the way" in {
+          goodHist place White.knight at G1 flatMap (_ movesFrom E1) must bePoss(F1)
+        }
+        "not allowed by history" in {
+          badHist movesFrom E1 must bePoss(F1)
         }
       }
-      //"queen side" in {
-      //"impossible" in {
-      //"pieces in the way" in {
-      //Board() movesFrom E1 must bePoss()
-      //}
-      //}
-      //"possible" in {
-      //val board = """
-      //PPPPPP
-      //R   KB"""
-      //"viable moves" in {
-      //board movesFrom E1 must bePoss(D1, C1)
-      //}
-      //}
-      //}
+      "possible" in {
+        val situation = goodHist as White
+        "viable moves" in {
+          goodHist movesFrom E1 must bePoss(F1, G1)
+        }
+        "correct new board" in {
+          situation.playMove(E1, G1) must beSituation("""
+PPPPPPPP
+R  Q RK """)
+        }
+      }
+    }
+
+    "queen side" in {
+        val badHist = """
+PPPPPPPP
+R   KB R""" withHistory History.castle(White, false, false)
+        val goodHist = badHist withHistory History.castle(White, true, true)
+      "impossible" in {
+        "near queen in the way" in {
+          goodHist place White.queen at D1 flatMap (_ movesFrom E1) must bePoss()
+        }
+        "bishop in the way" in {
+          goodHist place White.bishop at C1 flatMap (_ movesFrom E1) must bePoss(D1)
+        }
+        "distant knight in the way" in {
+          goodHist place White.knight at C1 flatMap (_ movesFrom E1) must bePoss(D1)
+        }
+        "not allowed by history" in {
+          badHist movesFrom E1 must bePoss(D1)
+        }
+      }
+      "possible" in {
+        val situation = goodHist as White
+        "viable moves" in {
+          goodHist movesFrom E1 must bePoss(D1, B1)
+        }
+        "correct new board" in {
+          situation.playMove(E1, B1) must beSituation("""
+PPPPPPPP
+  KR B R""")
+        }
+      }
     }
   }
 }
