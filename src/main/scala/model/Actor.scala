@@ -41,21 +41,24 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
     }
 
   private def castle: Implications = {
-    val kingSide: Option[Implication] = for {
+    def side(trans: Direction, compare: (Int, Int) ⇒ Boolean): Option[Implication] = for {
       kingPos ← board kingPosOf color
       if board.history canCastleKingSide color
       rook = color.rook
       rookPos ← board actorsOf color collectFirst {
-        case a if (a is rook) && (a.pos.x > kingPos.x) ⇒ a.pos
+        case a if (a is rook) && compare(a.pos.x, kingPos.x) ⇒ a.pos
       }
-      newKingPos ← kingPos > 2
+      newKingPos ← trans(kingPos)
       newRookPos ← newKingPos.left
       b1 ← board take rookPos
       b2 ← b1.move(kingPos, newKingPos)
       b3 ← b2.place(rook, newRookPos)
     } yield (newKingPos, b3)
 
-    kingSide toMap
+    List(
+      side(p ⇒ p > 2, (x, y) ⇒ x > y),
+      side(p ⇒ p < 2, (x, y) ⇒ x < y)
+    ).flatten toMap
   }
 
   private def shortRange(dirs: Directions): Implications = {
