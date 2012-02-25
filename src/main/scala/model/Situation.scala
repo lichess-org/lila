@@ -5,8 +5,8 @@ case class Situation(board: Board, color: Color) {
 
   lazy val actors = board actorsOf color
 
-  lazy val moves: Map[Pos, Set[Pos]] = actors map { actor ⇒
-    actor.pos -> actor.moves
+  lazy val moves: Map[Pos, Set[Pos]] = actors collect {
+    case actor if actor.moves.nonEmpty ⇒ actor.pos -> actor.moves
   } toMap
 
   lazy val check: Boolean = board kingPosOf color map { king ⇒

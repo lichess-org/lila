@@ -5,7 +5,7 @@ import scalaz.Success
 
 case class Actor(piece: Piece, pos: Pos, board: Board) {
 
-  def implications: Implications = kingSafety(piece.role match {
+  lazy val implications: Implications = kingSafety(piece.role match {
     case Pawn ⇒ dir(pos) map { next ⇒
       val unmoved = if (color == White) pos.y == 2 else pos.y == 7
       val passable = if (color == White) pos.y == 5 else pos.y == 4
@@ -46,7 +46,7 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
     } toMap
   })
 
-  def moves: Set[Pos] = implications.keySet
+  lazy val moves: Set[Pos] = implications.keySet
 
   def color = piece.color
   def is(c: Color) = c == piece.color
