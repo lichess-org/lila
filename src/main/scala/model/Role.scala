@@ -47,6 +47,5 @@ case object Pawn extends Role {
 
 object Role {
 
-  val all = List(King, Queen, Rook, Bishop, Knight, Pawn)
-
+  lazy val all = List(King, Queen, Rook, Bishop, Knight, Pawn)
 }

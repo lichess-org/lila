@@ -21,6 +21,12 @@ class KingTest extends LilaSpec {
       moves(H8) must bePoss(H7, G7, G8)
     }
 
+    "move behind pawn barrier" in {
+      """
+PPPPPPPP
+R  QK NR""" movesFrom(E1) must bePoss(F1)
+    }
+
     "not move to positions that are occupied by the same colour" in {
       val board = """
 k B
