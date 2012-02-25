@@ -24,7 +24,7 @@ class BoardTest extends LilaSpec {
     }
 
     "allow a piece to be taken" in {
-      board take A1 must beSuccess.like {
+      board takeValid A1 must beSuccess.like {
         case b ⇒ b(A1) must beNone
       }
     }

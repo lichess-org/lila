@@ -16,7 +16,7 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
   def pieceAt(at: Pos): Valid[Piece] = apply(at) toSuccess ("No piece on " + at)
 
   lazy val actors: Map[Pos, Actor] = pieces map {
-    case (pos, piece) => (pos, Actor(piece, pos, this))
+    case (pos, piece) ⇒ (pos, Actor(piece, pos, this))
   }
 
   def actorsOf(c: Color) = actors.values filter (_ is c)
@@ -36,9 +36,20 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
       else success(copy(pieces = pieces + ((at, piece))))
   }
 
-  def take(at: Pos): Valid[Board] = pieces get at map { piece ⇒
+  def takeValid(at: Pos): Valid[Board] = take(at) toSuccess ("No piece at " + at + " to take")
+
+  def take(at: Pos): Option[Board] = pieces get at map { piece ⇒
     copy(pieces = (pieces - at))
-  } toSuccess ("No piece at " + at + " to take")
+  }
+
+  def move(orig: Pos, dest: Pos): Option[Board] =
+    if (pieces contains dest) None
+    else pieces get orig map { piece ⇒
+      copy(pieces = (pieces - orig) + ((dest, piece)))
+    }
+
+  def taking(orig: Pos, dest: Pos, taking: Option[Pos] = None): Option[Board] =
+    take(taking getOrElse dest) flatMap { b ⇒ b.move(orig, dest) }
 
   def move(orig: Pos) = new {
     def to(dest: Pos): Valid[Board] = {
@@ -46,12 +57,6 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
       else pieces get orig map { piece ⇒
         copy(pieces = (pieces - orig) + ((dest, piece)))
       } toSuccess ("No piece at " + orig + " to move")
-    }
-    def toOption(dest: Pos): Option[Board] = {
-      if (pieces contains dest) None
-      else pieces get orig map { piece ⇒
-        copy(pieces = (pieces - orig) + ((dest, piece)))
-      }
     }
   }
 
