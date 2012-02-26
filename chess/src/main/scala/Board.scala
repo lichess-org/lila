@@ -1,7 +1,6 @@
 package lila.chess
 
 import Pos._
-import scalaz.{ Success, Failure }
 import format.Visual
 
 case class Board(pieces: Map[Pos, Piece], history: History) {
@@ -31,7 +30,7 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
 
   def kingPosOf(c: Color): Option[Pos] = kingPos get c
 
-  def movesFrom(from: Pos): Valid[Set[Pos]] = actorAt(from) map (_.moves)
+  def destsFrom(from: Pos): Valid[List[Pos]] = actorAt(from) map (_.destinations)
 
   def seq(actions: Board ⇒ Valid[Board]*): Valid[Board] =
     actions.foldLeft(success(this): Valid[Board])(_ flatMap _)

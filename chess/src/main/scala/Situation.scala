@@ -4,7 +4,7 @@ case class Situation(board: Board, color: Color) {
 
   lazy val actors = board actorsOf color
 
-  lazy val moves: Map[Pos, Set[Pos]] = actors collect {
+  lazy val moves: Map[Pos, List[Move]] = actors collect {
     case actor if actor.moves.nonEmpty ⇒ actor.pos -> actor.moves
   } toMap
 
@@ -16,26 +16,22 @@ case class Situation(board: Board, color: Color) {
 
   def staleMate: Boolean = !check && moves.isEmpty
 
-  def playMoves(moves: (Pos, Pos)*): Valid[Situation] =
-    moves.foldLeft(success(this): Valid[Situation]) { (sit, move) ⇒
-      sit flatMap { s ⇒ s.playMove(move._1, move._2) }
-    }
+  def playMove(from: Pos, to: Pos, promotion: PromotableRole): Valid[Move] = {
 
-  def playMove(from: Pos, to: Pos, promotion: PromotableRole = Queen): Valid[Situation] = {
-
-    val newBoard = for {
+    val move = for {
       actor ← board.actors get from
       if actor is color
-      b ← actor.implications get to
-    } yield b
+      m ← actor.moves find (_.dest == to)
+    } yield m
 
-    if (promotion == Queen) newBoard map (_ as !color)
+    if (promotion == Queen) move
     else for {
-      b1 ← newBoard
+      m ← move
+      b1 = m.after
       if (b1 count color.queen) > (board count color.queen)
       b2 ← b1 take to
       b3 ← b2.place(color - promotion, to)
-    } yield b3 as !color
+    } yield m.copy(after = b3, promotion = Some(promotion))
 
   } toSuccess "Invalid move %s->%s".format(from, to).wrapNel
 
