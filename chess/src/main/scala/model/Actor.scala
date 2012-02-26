@@ -69,8 +69,8 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
     case Pawn ⇒ pawnDir(pos) map { next ⇒
       Set(next.left, next.right) flatten
     } getOrElse Set.empty
-    case role if role.longRange ⇒ longRangePoss(role.dirs) toSet
-    case role                   ⇒ (role.dirs map { d ⇒ d(pos) }).flatten toSet
+    case Queen | Bishop | Rook ⇒ longRangePoss(piece.role.dirs) toSet
+    case role                  ⇒ (role.dirs map { d ⇒ d(pos) }).flatten toSet
   }
 
   private def kingSafety(implications: Implications): Implications =
@@ -82,7 +82,7 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
 
   private def castle: Implications = {
 
-    lazy val enemyThreats = (board actorsOf !color).toSet flatMap { actor: Actor =>
+    lazy val enemyThreats = (board actorsOf !color).toSet flatMap { actor: Actor ⇒
       actor.threats
     }
 
