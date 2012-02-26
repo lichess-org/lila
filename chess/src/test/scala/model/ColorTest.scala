@@ -1,4 +1,4 @@
-package lila
+package lila.chess
 package model
 
 class ColorTest extends LilaSpec {

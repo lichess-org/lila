@@ -1,4 +1,4 @@
-package lila
+package lila.chess
 package format
 
 import org.specs2.mutable._

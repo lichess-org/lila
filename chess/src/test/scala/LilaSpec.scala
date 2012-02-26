@@ -1,4 +1,4 @@
-package lila
+package lila.chess
 
 import ornicar.scalalib.test.OrnicarValidationMatchers
 import org.specs2.mutable.Specification
