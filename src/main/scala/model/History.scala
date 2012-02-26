@@ -3,7 +3,10 @@ package model
 
 case class History(
     lastMove: Option[(Pos, Pos)] = None,
-    castles: Map[Color, (Boolean, Boolean)] = Map()) {
+    castles: Map[Color, (Boolean, Boolean)] = Map(
+      White -> (true, true),
+      Black -> (true, true)
+    )) {
 
   def isLastMove(p1: Pos, p2: Pos) = lastMove == (p1, p2)
 
@@ -20,5 +23,9 @@ object History {
 
   def castle(color: Color, kingSide: Boolean, queenSide: Boolean) = History(
     castles = Map(color -> (kingSide, queenSide))
+  )
+
+  def noCastle = History(
+    castles = Map.empty
   )
 }

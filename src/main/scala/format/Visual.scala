@@ -32,7 +32,7 @@ object Visual extends Format[Board] {
         (c, x) = char
         if pieces.keySet(c toLower)
       } yield Pos.unsafe(x + 1, 8 - y) -> (Color(c isUpper) - pieces(c toLower))
-    )
+    ) withHistory History.noCastle
   }
 
   def >>(board: Board): String = >>|(board, Map.empty)

@@ -4,7 +4,7 @@ package format
 import org.specs2.mutable._
 import org.specs2.specification._
 
-import model.Board
+import model.{ Board, History }
 import model.Pos._
 
 class VisualTest extends Specification {
@@ -16,7 +16,9 @@ class VisualTest extends Specification {
       f.addNewLines(f >> (Board())) must_== newBoardFormat
     }
     "import new board" in {
-      f << newBoardFormat must_== Board()
+      f << newBoardFormat must_== {
+        Board() withHistory History.noCastle
+      }
     }
     "import and export is non destructive" in {
       forall(examples) { example ⇒
@@ -61,25 +63,6 @@ PPPPPPPP
  NBQKBNR
 """
     }
-    //"import multiple boards at once" in {
-      //f <<< """
-//rnbqkbnr rnbqkb r
-//pppppppp pppppppp
-              //n
-
-          //P
-     //N       P
-//PPPPPPPP P PP PPP
-//RNBQKB R RNBQKBNR
-//""" must_== List(
-        //Board() move G1 to F3,
-        //Board().seq(
-          //_ move B2 to B4,
-          //_ move G8 to F6,
-          //_ move E2 to E3
-        //)
-      //)
-    //}
   }
 
   val newBoardFormat = """
