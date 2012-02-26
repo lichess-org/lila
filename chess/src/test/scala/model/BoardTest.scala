@@ -43,26 +43,10 @@ class BoardTest extends LilaSpec {
       board move A1 to A2 must beFailure
     }
 
-    "allow a pawn to be promoted to any role" in {
-      forall(Seq(Queen, Knight, Rook, Bishop)) { role ⇒
-        Board.empty place Black - Pawn at A8 flatMap (_ promote A8 to role) must beSuccess.like {
-          case b ⇒ b(A8) mustEqual Some(Black - role)
-        }
+    "allow a pawn to be promoted to a queen" in {
+      Board.empty.place(Black.pawn, A7) flatMap (_.promote(A7, A8)) must beSome.like {
+        case b ⇒ b(A8) must beSome(Black.queen)
       }
-    }
-
-    "not allow a pawn to be promoted to king or pawn" in {
-      forall(Seq(King, Pawn)) { role ⇒
-        Board.empty place Black - Pawn at A8 flatMap (_ promote A8 to role) must beFailure
-      }
-    }
-
-    "not allow an empty position to be promoted" in {
-      board promote A6 to Queen must beFailure
-    }
-
-    "not allow a non-pawn to be promoted" in {
-      board promote A1 to Queen must beFailure
     }
 
     "allow chaining actions" in {

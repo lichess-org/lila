@@ -26,28 +26,31 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
     } getOrElse longRange(Rook.dirs)
 
     case Pawn ⇒ pawnDir(pos) map { next ⇒
-      val unmoved = if (color == White) pos.y == 2 else pos.y == 7
-      val passable = if (color == White) pos.y == 5 else pos.y == 4
       val fwd = Some(next) filterNot board.occupations
-      val moving = (pos2: Pos) ⇒ board.move(pos, pos2)
       def capture(horizontal: Direction): Option[Implication] = for {
         p ← horizontal(next); if enemies(p);
         b ← board.taking(pos, p)
       } yield (p, b)
       def enpassant(horizontal: Direction): Option[Implication] = for {
-        victimPos ← horizontal(pos); if passable
+        victimPos ← horizontal(pos); if pos.y == color.passablePawnY
         victim ← board(victimPos); if victim == !color - Pawn
         targetPos ← horizontal(next)
         victimFrom ← pawnDir(victimPos) flatMap pawnDir
         if history.lastMove == Some(victimFrom, victimPos)
         b ← board.taking(pos, targetPos, Some(victimPos))
       } yield (targetPos, b)
+      def forward(p: Pos) =
+        if (pos.y == color.promotablePawnY) board.promote(pos, p)
+        else board.move(pos, p)
       List(
-        for (p ← fwd; b ← moving(p)) yield (p, b),
         for {
-          p ← fwd; if unmoved
+          p ← fwd
+          b ← forward(p)
+        } yield (p, b),
+        for {
+          p ← fwd; if pos.y == color.unmovedPawnY
           p2 ← pawnDir(p); if !(board occupations p2)
-          b ← moving(p2)
+          b ← board.move(pos, p2)
         } yield (p2, b),
         capture(_.left),
         capture(_.right),

@@ -80,26 +80,20 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
 
   lazy val occupations = pieces.keySet
 
-  /**
-   * Promote the piece at the given position to a new role
-   * @return a new board
-   */
-  def promote(at: Pos) = new {
-    def to(role: Role): Valid[Board] = role match {
-      case King | Pawn ⇒ failure("Cannot promote to King or pawn")
-      case _ ⇒ apply(at) match {
-        case Some(piece) if piece.role == Pawn ⇒
-          success(copy(pieces = pieces.updated(at, piece.color - role)))
-        case _ ⇒ failure("No pawn at " + at + " to promote")
-      }
-    }
-  }
+  def promote(orig: Pos, dest: Pos): Option[Board] = for {
+    pawn ← apply(orig)
+    b1 ← move(orig, dest)
+    b2 ← b1.take(dest)
+    b3 ← b2.place(pawn.color.queen, dest)
+  } yield b3
 
   def withHistory(h: History): Board = copy(history = h)
 
   def updateHistory(f: History ⇒ History) = copy(history = f(history))
 
   def as(c: Color) = Situation(this, c)
+
+  def count(p: Piece) = pieces.values count (_ == p)
 
   def visual = Visual >> this
 

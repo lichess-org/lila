@@ -17,20 +17,28 @@ case class Situation(board: Board, color: Color) {
 
   def staleMate: Boolean = !check && moves.isEmpty
 
-  def playMove(from: Pos, to: Pos): Valid[Situation] = {
-    for {
-      actor ← board.actors get from
-      if actor is color
-      newBoard ← actor.implications get to
-    } yield newBoard as !color
-  } toSuccess "Invalid move %s->%s".format(from, to).wrapNel
-
-  def playMove(move: (Pos, Pos)): Valid[Situation] = playMove(move._1, move._2)
-
   def playMoves(moves: (Pos, Pos)*): Valid[Situation] =
     moves.foldLeft(success(this): Valid[Situation]) { (sit, move) ⇒
-      sit flatMap (_ playMove move)
+      sit flatMap { s ⇒ s.playMove(move._1, move._2) }
     }
+
+  def playMove(from: Pos, to: Pos, promotion: PromotableRole = Queen): Valid[Situation] = {
+
+    val newBoard = for {
+      actor ← board.actors get from
+      if actor is color
+      b ← actor.implications get to
+    } yield b
+
+    if (promotion == Queen) newBoard map (_ as !color)
+    else for {
+      b1 ← newBoard
+      if (b1 count color.queen) > (board count color.queen)
+      b2 ← b1 take to
+      b3 ← b2.place(color - promotion, to)
+    } yield b3 as !color
+
+  } toSuccess "Invalid move %s->%s".format(from, to).wrapNel
 
   def as(c: Color) = copy(color = c)
 }
