@@ -15,6 +15,7 @@ case class History(
       case ((king, _), KingSide)   ⇒ king
       case ((_, queen), QueenSide) ⇒ queen
     }
+    def any = on(KingSide) || on (QueenSide)
   }
 
   def withoutCastle(color: Color, side: Side) = copy(

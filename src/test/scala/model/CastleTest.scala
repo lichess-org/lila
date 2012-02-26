@@ -120,6 +120,28 @@ PPPPPPPP
           )) flatMap (_ movesFrom E1) must bePoss(D1, F1)
         }
       }
+      "if king moves" in {
+        "to the right" in {
+          val s2 = situation.playMove(E1, F1) map (_ as White)
+          "cannot castle anymore" in {
+            s2 flatMap (_.board movesFrom F1) must bePoss(E1, G1)
+          }
+          "neither if the king comes back" in {
+            val s3 = s2 flatMap (_.playMove(F1, E1)) map (_ as White)
+            s3 flatMap (_.board movesFrom E1) must bePoss(D1, F1)
+          }
+        }
+        "to the left" in {
+          val s2 = situation.playMove(E1, D1) map (_ as White)
+          "cannot castle anymore" in {
+            s2 flatMap (_.board movesFrom D1) must bePoss(C1, E1)
+          }
+          "neither if the king comes back" in {
+            val s3 = s2 flatMap (_.playMove(D1, E1)) map (_ as White)
+            s3 flatMap (_.board movesFrom E1) must bePoss(D1, F1)
+          }
+        }
+      }
       "if kingside rook moves" in {
         val s2 = situation.playMove(H1, G1) map (_ as White)
         "can only castle queenside" in {

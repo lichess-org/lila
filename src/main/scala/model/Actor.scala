@@ -8,13 +8,52 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
 
   lazy val implications: Implications = kingSafety(piece.role match {
 
-    case Pawn                   ⇒ pawn
+    case Bishop ⇒ longRange(Bishop.dirs)
 
-    case King                   ⇒ shortRange(King.dirs) ++ castle
+    case Queen  ⇒ longRange(Queen.dirs)
 
-    case role if role.longRange ⇒ longRange(role.dirs)
+    case Knight ⇒ shortRange(Knight.dirs)
 
-    case role                   ⇒ shortRange(role.dirs)
+    case King   ⇒ preventsCastle(shortRange(King.dirs)) ++ castle
+
+    case Rook ⇒ (for {
+      kingPos ← board kingPosOf color
+      side ← Side.kingRookSide(kingPos, pos)
+      if history canCastle color on side
+    } yield history.withoutCastle(color, side)) map { nh ⇒
+      longRange(Rook.dirs) mapValues (_ withHistory nh)
+    } getOrElse longRange(Rook.dirs)
+
+    case Pawn ⇒ dir(pos) map { next ⇒
+      val unmoved = if (color == White) pos.y == 2 else pos.y == 7
+      val passable = if (color == White) pos.y == 5 else pos.y == 4
+      val fwd = Some(next) filterNot board.occupations
+      val moving = (pos2: Pos) ⇒ board.move(pos, pos2)
+      def capture(horizontal: Direction): Option[Implication] = for {
+        p ← horizontal(next); if enemies(p);
+        b ← board.taking(pos, p)
+      } yield (p, b)
+      def enpassant(horizontal: Direction): Option[Implication] = for {
+        victimPos ← horizontal(pos); if passable
+        victim ← board(victimPos); if victim == !color - Pawn
+        targetPos ← horizontal(next)
+        victimFrom ← dir(victimPos) flatMap dir
+        if history.lastMove == Some(victimFrom, victimPos)
+        b ← board.taking(pos, targetPos, Some(victimPos))
+      } yield (targetPos, b)
+      List(
+        for (p ← fwd; b ← moving(p)) yield (p, b),
+        for {
+          p ← fwd; if unmoved
+          p2 ← dir(p); if !(board occupations p2)
+          b ← moving(p2)
+        } yield (p2, b),
+        capture(_.left),
+        capture(_.right),
+        enpassant(_.left),
+        enpassant(_.right)
+      ).flatten toMap
+    } getOrElse Map.empty
   })
 
   lazy val moves: Set[Pos] = implications.keySet
@@ -22,9 +61,6 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
   def color = piece.color
   def is(c: Color) = c == piece.color
   def is(p: Piece) = p == piece
-  def friends: Set[Pos] = board occupation color
-  def enemies: Set[Pos] = board occupation !color
-  def dir: Direction = if (color == White) _.up else _.down
 
   def threatens(to: Pos): Boolean = enemies(to) && ((piece.role match {
     case Pawn ⇒ dir(pos) map { next ⇒
@@ -44,7 +80,7 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
   private def castle: Implications = {
     def on(side: Side): Option[Implication] = for {
       kingPos ← board kingPosOf color
-      if board.history canCastle color on side
+      if history canCastle color on side
       tripToRook = side.tripToRook(kingPos, board)
       rookPos ← tripToRook.lastOption
       if board(rookPos) == Some(color.rook)
@@ -57,6 +93,13 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
 
     List(on(KingSide), on(QueenSide)).flatten toMap
   }
+
+  private def preventsCastle(implications: Implications) =
+    if (history.canCastle(color).any) {
+      val newHistory = history withoutCastles color
+      implications mapValues (_ withHistory newHistory)
+    }
+    else implications
 
   private def shortRange(dirs: Directions): Implications = {
     (dirs map { _(pos) }).flatten filterNot friends map { to ⇒
@@ -79,19 +122,7 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
       } getOrElse Nil
     }
 
-    val implications = (dirs flatMap { dir ⇒ forward(pos, dir) }) toMap
-
-    // a moving rook makes further castle impossible on its side
-    if (piece is Rook) {
-      (for {
-        kingPos ← board kingPosOf color
-        side ← Side.kingRookSide(kingPos, pos)
-        if board.history canCastle color on side
-      } yield board.history.withoutCastle(color, side)) map { nh ⇒
-        implications mapValues (_ withHistory nh)
-      } getOrElse implications
-    }
-    else implications
+    (dirs flatMap { dir ⇒ forward(pos, dir) }) toMap
   }
 
   private def longRangePoss(dirs: Directions): List[Pos] = {
@@ -106,35 +137,8 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
     dirs flatMap { dir ⇒ forward(pos, dir) }
   }
 
-  private def pawn = dir(pos) map { next ⇒
-    val unmoved = if (color == White) pos.y == 2 else pos.y == 7
-    val passable = if (color == White) pos.y == 5 else pos.y == 4
-    val fwd = Some(next) filterNot board.occupations
-    val moving = (pos2: Pos) ⇒ board.move(pos, pos2)
-    def capture(horizontal: Direction): Option[Implication] = for {
-      p ← horizontal(next); if enemies(p);
-      b ← board.taking(pos, p)
-    } yield (p, b)
-    def enpassant(horizontal: Direction): Option[Implication] = for {
-      victimPos ← horizontal(pos); if passable
-      victim ← board(victimPos); if victim == !color - Pawn
-      targetPos ← horizontal(next)
-      victimFrom ← dir(victimPos) flatMap dir
-      if board.history.lastMove == Some(victimFrom, victimPos)
-      b ← board.taking(pos, targetPos, Some(victimPos))
-    } yield (targetPos, b)
-    List(
-      for (p ← fwd; b ← moving(p)) yield (p, b),
-      for {
-        p ← fwd; if unmoved
-        p2 ← dir(p); if !(board occupations p2)
-        b ← moving(p2)
-      } yield (p2, b),
-      capture(_.left),
-      capture(_.right),
-      enpassant(_.left),
-      enpassant(_.right)
-    ).flatten toMap
-  } getOrElse Map.empty
-
+  private def history = board.history
+  private def friends = board occupation color
+  private def enemies = board occupation !color
+  private def dir: Direction = if (color == White) _.up else _.down
 }
