@@ -1,9 +1,10 @@
+package lila
+
 import ornicar.scalalib._
 
-package object lila
+package object chess
     extends OrnicarValidation
     with OrnicarCommon
-    //with DateTime
     with scalaz.Identitys
     with scalaz.Equals
     with scalaz.MABs

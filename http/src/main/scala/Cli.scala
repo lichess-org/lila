@@ -1,4 +1,4 @@
-package lila
+package lila.http
 
 object Cli {
 

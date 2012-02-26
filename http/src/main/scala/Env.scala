@@ -1,4 +1,4 @@
-package lila
+package lila.http
 
 import repo._
 import com.mongodb.casbah.MongoConnection
