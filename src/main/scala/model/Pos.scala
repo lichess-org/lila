@@ -5,7 +5,7 @@ import scala.math.{ abs, min, max }
 
 sealed case class Pos private (x: Int, y: Int) extends Ordered[Pos] {
 
-  import Pos.pos
+  import Pos.makePos
 
   lazy val up: Option[Pos] = this ^ 1
   lazy val down: Option[Pos] = this v 1
@@ -16,10 +16,10 @@ sealed case class Pos private (x: Int, y: Int) extends Ordered[Pos] {
   lazy val downLeft: Option[Pos] = down flatMap (_ left)
   lazy val downRight: Option[Pos] = down flatMap (_ right)
 
-  def ^(n: Int): Option[Pos] = pos(x, y + n)
-  def v(n: Int): Option[Pos] = pos(x, y - n)
-  def >(n: Int): Option[Pos] = pos(x + n, y)
-  def <(n: Int): Option[Pos] = pos(x - n, y)
+  def ^(n: Int): Option[Pos] = makePos(x, y + n)
+  def v(n: Int): Option[Pos] = makePos(x, y - n)
+  def >(n: Int): Option[Pos] = makePos(x + n, y)
+  def <(n: Int): Option[Pos] = makePos(x - n, y)
   def >|(stop: Pos ⇒ Boolean): List[Pos] = |<>|(stop, _.right)
   def |<(stop: Pos ⇒ Boolean): List[Pos] = |<>|(stop, _.left)
   def |<>|(stop: Pos ⇒ Boolean, dir: Direction): List[Pos] = dir(this) map { p ⇒
@@ -38,7 +38,7 @@ object Pos {
 
   private val bounds: Set[Int] = (1 to 8) toSet
 
-  def pos(x: Int, y: Int): Option[Pos] =
+  def makePos(x: Int, y: Int): Option[Pos] =
     if (bounds(x) && bounds(y)) Some(Pos(x, y)) else None
 
   def unsafe(x: Int, y: Int): Pos = Pos(x, y)

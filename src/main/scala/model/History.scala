@@ -2,17 +2,18 @@ package lila
 package model
 
 case class History(
-  lastMove: Option[(Pos, Pos)] = None,
-  castles: Map[Color, (Boolean, Boolean)] = Map(
-    White -> (false, false),
-    Black -> (false, false)
-  )
-) {
+    lastMove: Option[(Pos, Pos)] = None,
+    castles: Map[Color, (Boolean, Boolean)] = Map()) {
 
   def isLastMove(p1: Pos, p2: Pos) = lastMove == (p1, p2)
 
-  def canCastleKingSide(color: Color): Boolean = castles(color)._1
-  def canCastleQueenSide(color: Color): Boolean = castles(color)._2
+  def canCastle(color: Color) = new {
+    def on(side: Side): Boolean = (castles get color, side) match {
+      case (None, _)                     ⇒ false
+      case (Some((king, _)), KingSide)   ⇒ king
+      case (Some((_, queen)), QueenSide) ⇒ queen
+    }
+  }
 }
 
 object History {

@@ -1,6 +1,7 @@
 package lila
 package model
 
+import Pos.makePos
 import scalaz.Success
 
 case class Actor(piece: Piece, pos: Pos, board: Board) {
@@ -41,24 +42,20 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
     }
 
   private def castle: Implications = {
-    def side(trans: Direction, compare: (Int, Int) ⇒ Boolean): Option[Implication] = for {
+    def on(side: Side): Option[Implication] = for {
       kingPos ← board kingPosOf color
-      if board.history canCastleKingSide color
-      rook = color.rook
-      rookPos ← board actorsOf color collectFirst {
-        case a if (a is rook) && compare(a.pos.x, kingPos.x) ⇒ a.pos
-      }
-      newKingPos ← trans(kingPos)
-      newRookPos ← newKingPos.left
+      if (board.history canCastle color on side)
+      tripToRook = side.tripToRook(kingPos, board)
+      rookPos ← tripToRook.lastOption
+      if (board(rookPos) == Some(color.rook))
+      newKingPos ← makePos(side.castledKingX, kingPos.y)
+      newRookPos ← makePos(side.castledRookX, rookPos.y)
       b1 ← board take rookPos
       b2 ← b1.move(kingPos, newKingPos)
-      b3 ← b2.place(rook, newRookPos)
+      b3 ← b2.place(color.rook, newRookPos)
     } yield (newKingPos, b3)
 
-    List(
-      side(p ⇒ p > 2, (x, y) ⇒ x > y),
-      side(p ⇒ p < 2, (x, y) ⇒ x < y)
-    ).flatten toMap
+    List(on(KingSide), on(QueenSide)).flatten toMap
   }
 
   private def shortRange(dirs: Directions): Implications = {

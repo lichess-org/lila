@@ -11,7 +11,7 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
 
   def apply(at: Pos): Option[Piece] = pieces get at
 
-  def apply(x: Int, y: Int): Option[Piece] = pos(x, y) flatMap pieces.get
+  def apply(x: Int, y: Int): Option[Piece] = makePos(x, y) flatMap pieces.get
 
   def pieceAt(at: Pos): Valid[Piece] = apply(at) toSuccess ("No piece on " + at)
 
@@ -25,7 +25,11 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
 
   def actorAt(at: Pos): Valid[Actor] = actors get at toSuccess ("No piece on " + at)
 
-  def kingPosOf(c: Color): Option[Pos] = pieces find (_._2 == c.king) map (_._1)
+  lazy val kingPos: Map[Color, Pos] = pieces collect {
+    case (pos, Piece(color, King)) ⇒ color -> pos
+  } toMap
+
+  def kingPosOf(c: Color): Option[Pos] = kingPos get c
 
   def movesFrom(from: Pos): Valid[Set[Pos]] = actorAt(from) map (_.moves)
 
