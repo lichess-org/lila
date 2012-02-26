@@ -167,5 +167,44 @@ PPPPPPPP
         }
       }
     }
+    "threat on king prevents castling" in {
+      val board: Board = """R   K  R"""
+      "by a rook" in {
+        board place Black.rook at E3 flatMap (_ movesFrom E1) must bePoss(D1, D2, F2, F1)
+      }
+      "by a knight" in {
+        board place Black.knight at D3 flatMap (_ movesFrom E1) must bePoss(D1, D2, E2, F1)
+      }
+    }
+    "threat on castle trip prevents castling" in {
+      "king side" in {
+        val board: Board = """R  QK  R"""
+        "close" in {
+          board place Black.rook at F3 flatMap (_ movesFrom E1) must bePoss(D2, E2)
+        }
+        "far" in {
+          board place Black.rook at G3 flatMap (_ movesFrom E1) must bePoss(D2, E2, F2, F1)
+        }
+      }
+      "queen side" in {
+        val board: Board = """R   KB R"""
+        "close" in {
+          board place Black.rook at D3 flatMap (_ movesFrom E1) must bePoss(E2, F2)
+        }
+        "far" in {
+          board place Black.rook at C3 flatMap (_ movesFrom E1) must bePoss(D1, D2, E2, F2)
+        }
+      }
+    }
+    "threat on rook does not prevent castling" in {
+      "king side" in {
+        val board: Board = """R  QK  R"""
+        board place Black.rook at H3 flatMap (_ movesFrom E1) must bePoss(D2, E2, F1, F2, G1)
+      }
+      "queen side" in {
+        val board: Board = """R   KB R"""
+        board place Black.rook at A3 flatMap (_ movesFrom E1) must bePoss(C1, D1, D2, E2, F2)
+      }
+    }
   }
 }
