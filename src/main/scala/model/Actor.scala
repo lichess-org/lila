@@ -24,7 +24,7 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
       longRange(Rook.dirs) mapValues (_ withHistory nh)
     } getOrElse longRange(Rook.dirs)
 
-    case Pawn ⇒ dir(pos) map { next ⇒
+    case Pawn ⇒ pawnDir(pos) map { next ⇒
       val unmoved = if (color == White) pos.y == 2 else pos.y == 7
       val passable = if (color == White) pos.y == 5 else pos.y == 4
       val fwd = Some(next) filterNot board.occupations
@@ -37,7 +37,7 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
         victimPos ← horizontal(pos); if passable
         victim ← board(victimPos); if victim == !color - Pawn
         targetPos ← horizontal(next)
-        victimFrom ← dir(victimPos) flatMap dir
+        victimFrom ← pawnDir(victimPos) flatMap pawnDir
         if history.lastMove == Some(victimFrom, victimPos)
         b ← board.taking(pos, targetPos, Some(victimPos))
       } yield (targetPos, b)
@@ -45,7 +45,7 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
         for (p ← fwd; b ← moving(p)) yield (p, b),
         for {
           p ← fwd; if unmoved
-          p2 ← dir(p); if !(board occupations p2)
+          p2 ← pawnDir(p); if !(board occupations p2)
           b ← moving(p2)
         } yield (p2, b),
         capture(_.left),
@@ -63,7 +63,7 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
   def is(p: Piece) = p == piece
 
   def threatens(to: Pos): Boolean = enemies(to) && ((piece.role match {
-    case Pawn ⇒ dir(pos) map { next ⇒
+    case Pawn ⇒ pawnDir(pos) map { next ⇒
       List(next.left, next.right) flatten
     } getOrElse Nil
     case role if role.longRange ⇒ longRangePoss(role.dirs)
@@ -140,5 +140,5 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
   private def history = board.history
   private def friends = board occupation color
   private def enemies = board occupation !color
-  private def dir: Direction = if (color == White) _.up else _.down
+  private val pawnDir: Direction = if (color == White) _.up else _.down
 }
