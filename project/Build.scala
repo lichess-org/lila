@@ -25,7 +25,7 @@ trait Dependencies {
 object ApplicationBuild extends Build with Resolvers with Dependencies {
 
   lazy val chess = Project("chess", file("chess"), settings = Project.defaultSettings).settings(
-    libraryDependencies := Seq(scalaz, specs2),
+    libraryDependencies in test := Seq(specs2),
     resolvers := Seq(codahale, sonatype),
     shellPrompt := ShellPrompt.buildShellPrompt,
     scalacOptions := Seq("-deprecation", "-unchecked")
