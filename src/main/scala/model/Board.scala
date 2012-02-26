@@ -34,10 +34,6 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
 
   def movesFrom(from: Pos): Valid[Set[Pos]] = actorAt(from) map (_.moves)
 
-  def threatsOf(c: Color): Set[Pos] = actorsOf(c).toSet flatMap { actor: Actor =>
-    actor.threats
-  }
-
   def seq(actions: Board ⇒ Valid[Board]*): Valid[Board] =
     actions.foldLeft(success(this): Valid[Board])(_ flatMap _)
 

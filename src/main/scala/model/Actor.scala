@@ -82,26 +82,26 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
 
   private def castle: Implications = {
 
-    if (history.canCastle(color).any) {
-      val enemyThreats = board threatsOf !color
-      def on(side: Side): Option[Implication] = for {
-        kingPos ← board kingPosOf color
-        if history canCastle color on side
-        tripToRook = side.tripToRook(kingPos, board)
-        rookPos ← tripToRook.lastOption
-        if board(rookPos) == Some(color.rook)
-        newKingPos ← makePos(side.castledKingX, kingPos.y)
-        securedPoss = kingPos <-> newKingPos
-        if (enemyThreats & securedPoss.toSet).isEmpty
-        newRookPos ← makePos(side.castledRookX, rookPos.y)
-        b1 ← board take rookPos
-        b2 ← b1.move(kingPos, newKingPos)
-        b3 ← b2.place(color.rook, newRookPos)
-      } yield (newKingPos, b3 updateHistory (_ withoutCastles color))
-
-      List(on(KingSide), on(QueenSide)).flatten toMap
+    lazy val enemyThreats = (board actorsOf !color).toSet flatMap { actor: Actor =>
+      actor.threats
     }
-    else Map.empty
+
+    def on(side: Side): Option[Implication] = for {
+      kingPos ← board kingPosOf color
+      if history canCastle color on side
+      tripToRook = side.tripToRook(kingPos, board)
+      rookPos ← tripToRook.lastOption
+      if board(rookPos) == Some(color.rook)
+      newKingPos ← makePos(side.castledKingX, kingPos.y)
+      securedPoss = kingPos <-> newKingPos
+      if (enemyThreats & securedPoss.toSet).isEmpty
+      newRookPos ← makePos(side.castledRookX, rookPos.y)
+      b1 ← board take rookPos
+      b2 ← b1.move(kingPos, newKingPos)
+      b3 ← b2.place(color.rook, newRookPos)
+    } yield (newKingPos, b3 updateHistory (_ withoutCastles color))
+
+    List(on(KingSide), on(QueenSide)).flatten toMap
   }
 
   private def preventsCastle(implications: Implications) =
@@ -119,15 +119,13 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
 
   private def longRange(dirs: Directions): Implications = {
 
-    val moving = (to: Pos) ⇒ board.move(pos, to)
-
     def forward(p: Pos, dir: Direction): List[Implication] = dir(p) match {
       case None                        ⇒ Nil
       case Some(next) if friends(next) ⇒ Nil
       case Some(next) if enemies(next) ⇒ board.taking(pos, next) map { b ⇒
         (next, b)
       } toList
-      case Some(next) ⇒ moving(next) map { b ⇒
+      case Some(next) ⇒ board.move(pos, next) map { b ⇒
         (next, b) :: forward(next, dir)
       } getOrElse Nil
     }
