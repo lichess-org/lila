@@ -49,17 +49,20 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
   def takeValid(at: Pos): Valid[Board] = take(at) toSuccess ("No piece at " + at + " to take")
 
   def take(at: Pos): Option[Board] = pieces get at map { piece ⇒
-    copy(pieces = (pieces - at))
+    copy(pieces = pieces - at)
   }
 
   def move(orig: Pos, dest: Pos): Option[Board] =
     if (pieces contains dest) None
     else pieces get orig map { piece ⇒
-      copy(pieces = (pieces - orig) + ((dest, piece)))
+      copy(pieces = pieces - orig + ((dest, piece)))
     }
 
-  def taking(orig: Pos, dest: Pos, taking: Option[Pos] = None): Option[Board] =
-    take(taking getOrElse dest) flatMap (_.move(orig, dest))
+  def taking(orig: Pos, dest: Pos, taking: Option[Pos] = None): Option[Board] = for {
+    piece ← pieces get orig
+    takenPos = taking getOrElse dest
+    if (pieces contains takenPos)
+  } yield copy(pieces = pieces - takenPos - orig + ((dest, piece)))
 
   def move(orig: Pos) = new {
     def to(dest: Pos): Valid[Board] = {
