@@ -3,80 +3,23 @@ package lila.benchmark
 import annotation.tailrec
 import com.google.caliper.Param
 
+import lila.chess.model.Situation
+import lila.chess.model.Pos._
+
 // a caliper benchmark is a class that extends com.google.caliper.Benchmark
 // the SimpleScalaBenchmark trait does it and also adds some convenience functionality
 class Benchmark extends SimpleScalaBenchmark {
 
-  // to make your benchmark depend on one or more parameterized values, create fields with the name you want
-  // the parameter to be known by, and add this annotation (see @Param javadocs for more details)
-  // caliper will inject the respective value at runtime and make sure to run all combinations
-  @Param(Array("10"))
+  @Param(Array("100"))
   val length: Int = 0
 
-  var array: Array[Int] = _
-
-  override def setUp() {
-    // set up all your benchmark data here
-    array = new Array(length)
+  def timeImmortal(reps: Int) = repeat(reps) {
+    val s = Situation().playMoves(E2 -> E4, D7 -> D5, E4 -> D5, D8 -> D5, B1 -> C3, D5 -> A5, D2 -> D4, C7 -> C6, G1 -> F3, C8 -> G4, C1 -> F4, E7 -> E6, H2 -> H3, G4 -> F3, D1 -> F3, F8 -> B4, F1 -> E2, B8 -> D7, A2 -> A3, E8 -> C8, A3 -> B4, A5 -> A1, E1 -> D2, A1 -> H1, F3 -> C6, B7 -> C6, E2 -> A6)
+    if (s.isFailure) throw new Exception("success")
+    "haha"
   }
 
-  // the actual code you'd like to test needs to live in one or more methods
-  // whose names begin with 'time' and which accept a single 'reps: Int' parameter
-  // the body of the method simply executes the code we wish to measure, 'reps' times
-  // you can use the 'repeat' method from the SimpleScalaBenchmark trait to repeat with relatively low overhead
-  // however, if your code snippet is very fast you might want to implement the reps loop directly with 'while'
-  def timeForeach(reps: Int) = repeat(reps) {
-    //////////////////// CODE SNIPPET ONE ////////////////////
-
-    var result = 0
-    array.foreach {
-      result += _
-    }
-    result // always have your snippet return a value that cannot easily be "optimized away"
-
-    //////////////////////////////////////////////////////////
+  def timeDeepBlue(reps: Int) = repeat(reps) {
+    Situation().playMoves(E2 -> E4, C7 -> C5, C2 -> C3, D7 -> D5, E4 -> D5, D8 -> D5, D2 -> D4, G8 -> F6, G1 -> F3, C8 -> G4, F1 -> E2, E7 -> E6, H2 -> H3, G4 -> H5, E1 -> G1, B8 -> C6, C1 -> E3, C5 -> D4, C3 -> D4, F8 -> B4)
   }
-
-  // a second benchmarking code snippet
-  def timeTFor(reps: Int) = repeat(reps) {
-    //////////////////// CODE SNIPPET TWO ////////////////////
-
-    var result = 0
-    tfor(0)(_ < array.length, _ + 1) { i =>
-      result += array(i)
-    }
-    result
-
-    //////////////////////////////////////////////////////////
-  }
-
-  // and a third benchmarking code snippet
-  def timeWhile(reps: Int) = repeat(reps) {
-    //////////////////// CODE SNIPPET THREE ////////////////////
-
-    var result = 0
-    var i = 0
-    while (i < array.length) {
-      result += array(i)
-      i = i + 1
-    }
-    result
-
-    //////////////////////////////////////////////////////////
-  }
-
-  // this is a scala version of Javas "for" loop, we test it against the array.foreach and a plain "while" loop
-  @tailrec
-  final def tfor[@specialized T](i: T)(test: T => Boolean, inc: T => T)(f: T => Unit) {
-    if(test(i)) {
-      f(i)
-      tfor(inc(i))(test, inc)(f)
-    }
-  }
-
-  override def tearDown() {
-    // clean up after yourself if required
-  }
-
 }
-
