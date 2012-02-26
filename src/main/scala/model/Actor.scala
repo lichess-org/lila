@@ -3,6 +3,7 @@ package model
 
 import Pos.makePos
 import scalaz.Success
+import scala.math.{ min, max }
 
 case class Actor(piece: Piece, pos: Pos, board: Board) {
 
@@ -62,13 +63,15 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
   def is(c: Color) = c == piece.color
   def is(p: Piece) = p == piece
 
-  def threatens(to: Pos): Boolean = enemies(to) && ((piece.role match {
+  def threatens(to: Pos): Boolean = enemies(to) && threats(to)
+
+  lazy val threats: Set[Pos] = piece.role match {
     case Pawn ⇒ pawnDir(pos) map { next ⇒
-      List(next.left, next.right) flatten
-    } getOrElse Nil
-    case role if role.longRange ⇒ longRangePoss(role.dirs)
-    case role                   ⇒ (role.dirs map { d ⇒ d(pos) }).flatten
-  }) contains to)
+      Set(next.left, next.right) flatten
+    } getOrElse Set.empty
+    case role if role.longRange ⇒ longRangePoss(role.dirs) toSet
+    case role                   ⇒ (role.dirs map { d ⇒ d(pos) }).flatten toSet
+  }
 
   private def kingSafety(implications: Implications): Implications =
     implications filterNot {
@@ -78,20 +81,27 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
     }
 
   private def castle: Implications = {
-    def on(side: Side): Option[Implication] = for {
-      kingPos ← board kingPosOf color
-      if history canCastle color on side
-      tripToRook = side.tripToRook(kingPos, board)
-      rookPos ← tripToRook.lastOption
-      if board(rookPos) == Some(color.rook)
-      newKingPos ← makePos(side.castledKingX, kingPos.y)
-      newRookPos ← makePos(side.castledRookX, rookPos.y)
-      b1 ← board take rookPos
-      b2 ← b1.move(kingPos, newKingPos)
-      b3 ← b2.place(color.rook, newRookPos)
-    } yield (newKingPos, b3 updateHistory (_ withoutCastles color))
 
-    List(on(KingSide), on(QueenSide)).flatten toMap
+    if (history.canCastle(color).any) {
+      val enemyThreats = board threatsOf !color
+      def on(side: Side): Option[Implication] = for {
+        kingPos ← board kingPosOf color
+        if history canCastle color on side
+        tripToRook = side.tripToRook(kingPos, board)
+        rookPos ← tripToRook.lastOption
+        if board(rookPos) == Some(color.rook)
+        newKingPos ← makePos(side.castledKingX, kingPos.y)
+        securedPoss = kingPos <-> newKingPos
+        if (enemyThreats & securedPoss.toSet).isEmpty
+        newRookPos ← makePos(side.castledRookX, rookPos.y)
+        b1 ← board take rookPos
+        b2 ← b1.move(kingPos, newKingPos)
+        b3 ← b2.place(color.rook, newRookPos)
+      } yield (newKingPos, b3 updateHistory (_ withoutCastles color))
+
+      List(on(KingSide), on(QueenSide)).flatten toMap
+    }
+    else Map.empty
   }
 
   private def preventsCastle(implications: Implications) =

@@ -19,9 +19,10 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
     case (pos, piece) ⇒ (pos, Actor(piece, pos, this))
   }
 
-  lazy val colorActors: Map[Color, Iterable[Actor]] = actors.values groupBy (_.color)
+  lazy val colorActors: Map[Color, List[Actor]] =
+    actors.values groupBy (_.color) mapValues (_.toList)
 
-  def actorsOf(c: Color) = colorActors get c getOrElse Nil
+  def actorsOf(c: Color): List[Actor] = colorActors get c getOrElse Nil
 
   def actorAt(at: Pos): Valid[Actor] = actors get at toSuccess ("No piece on " + at)
 
@@ -32,6 +33,10 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
   def kingPosOf(c: Color): Option[Pos] = kingPos get c
 
   def movesFrom(from: Pos): Valid[Set[Pos]] = actorAt(from) map (_.moves)
+
+  def threatsOf(c: Color): Set[Pos] = actorsOf(c).toSet flatMap { actor: Actor =>
+    actor.threats
+  }
 
   def seq(actions: Board ⇒ Valid[Board]*): Valid[Board] =
     actions.foldLeft(success(this): Valid[Board])(_ flatMap _)
@@ -96,7 +101,7 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
 
   def withHistory(h: History): Board = copy(history = h)
 
-  def updateHistory(f: History => History) = copy(history = f(history))
+  def updateHistory(f: History ⇒ History) = copy(history = f(history))
 
   def as(c: Color) = Situation(this, c)
 

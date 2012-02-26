@@ -195,6 +195,17 @@ PPPPPPPP
           board place Black.rook at C3 flatMap (_ movesFrom E1) must bePoss(D1, D2, E2, F2)
         }
       }
+      "chess 960" in {
+        "far kingside" in {
+          val board: Board = """BK     R"""
+          "rook threat" in {
+            board place Black.rook at F3 flatMap (_ movesFrom B1) must bePoss(A2, B2, C2, C1)
+          }
+          "enemy king threat" in {
+            board place Black.king at E2 flatMap (_ movesFrom B1) must bePoss(A2, B2, C2, C1)
+          }
+        }
+      }
     }
     "threat on rook does not prevent castling" in {
       "king side" in {
