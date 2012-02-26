@@ -1,6 +1,4 @@
 package lila.chess
-package model
-
 import Pos._
 
 class PromotionTest extends LilaSpec {

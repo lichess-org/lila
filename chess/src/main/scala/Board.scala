@@ -1,5 +1,4 @@
 package lila.chess
-package model
 
 import Pos._
 import scalaz.{ Success, Failure }

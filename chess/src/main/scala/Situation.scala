@@ -1,5 +1,4 @@
 package lila.chess
-package model
 
 case class Situation(board: Board, color: Color) {
 

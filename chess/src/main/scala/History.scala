@@ -1,5 +1,4 @@
 package lila.chess
-package model
 
 case class History(
     lastMove: Option[(Pos, Pos)] = None,

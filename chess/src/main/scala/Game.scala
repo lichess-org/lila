@@ -1,5 +1,4 @@
 package lila.chess
-package model
 
 case class Game(
     board: Board,
