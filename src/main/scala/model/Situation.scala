@@ -18,7 +18,7 @@ case class Situation(board: Board, color: Color) {
   def staleMate: Boolean = !check && moves.isEmpty
 
   def playMove(from: Pos, to: Pos): Valid[Situation] = {
-      for {
+    for {
       actor ← board.actors get from
       if actor is color
       newBoard ← actor.implications get to
@@ -31,6 +31,8 @@ case class Situation(board: Board, color: Color) {
     moves.foldLeft(success(this): Valid[Situation]) { (sit, move) ⇒
       sit flatMap (_ playMove move)
     }
+
+  def as(c: Color) = copy(color = c)
 }
 
 object Situation {

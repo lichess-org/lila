@@ -11,12 +11,24 @@ case class History(
   def isLastMove(p1: Pos, p2: Pos) = lastMove == (p1, p2)
 
   def canCastle(color: Color) = new {
-    def on(side: Side): Boolean = (castles get color, side) match {
-      case (None, _)                     ⇒ false
-      case (Some((king, _)), KingSide)   ⇒ king
-      case (Some((_, queen)), QueenSide) ⇒ queen
+    def on(side: Side): Boolean = (colorCastles(color), side) match {
+      case ((king, _), KingSide)   ⇒ king
+      case ((_, queen), QueenSide) ⇒ queen
     }
   }
+
+  def withoutCastle(color: Color, side: Side) = copy(
+    castles = castles updated (color, (colorCastles(color), side) match {
+      case ((_, queen), KingSide) ⇒ (false, queen)
+      case ((king, _), QueenSide) ⇒ (king, false)
+    })
+  )
+
+  def withoutCastles(color: Color) = copy(
+    castles = castles updated (color, (false, false))
+  )
+
+  private def colorCastles(color: Color) = castles get color getOrElse (true, true)
 }
 
 object History {

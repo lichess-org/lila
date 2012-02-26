@@ -96,6 +96,8 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
 
   def withHistory(h: History): Board = copy(history = h)
 
+  def updateHistory(f: History => History) = copy(history = f(history))
+
   def as(c: Color) = Situation(this, c)
 
   def visual = Visual >> this

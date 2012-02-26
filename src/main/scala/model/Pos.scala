@@ -26,6 +26,9 @@ sealed case class Pos private (x: Int, y: Int) extends Ordered[Pos] {
     p :: (if (stop(p)) Nil else p.|<>|(stop, dir))
   } getOrElse Nil
 
+  def ?<(other: Pos) = x < other.x
+  def ?>(other: Pos) = x > other.x
+
   def xToString = Pos xToString x
   def yToString = y.toString
 

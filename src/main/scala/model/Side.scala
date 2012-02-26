@@ -9,6 +9,16 @@ sealed trait Side {
   def tripToRook: (Pos, Board) ⇒ List[Pos]
 }
 
+object Side {
+
+  lazy val all = List(KingSide, QueenSide)
+
+  def kingRookSide(kingPos: Pos, rookPos: Pos): Option[Side] =
+    if (kingPos.y == rookPos.y)
+      Some(if (kingPos.x > rookPos.x) QueenSide else KingSide)
+    else None
+}
+
 case object KingSide extends Side {
 
   val castledKingX = 7
