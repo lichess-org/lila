@@ -1,8 +1,6 @@
 package lila.chess
 
 import Pos.makePos
-import scalaz.Success
-import scala.math.{ min, max }
 
 case class Actor(piece: Piece, pos: Pos, board: Board) {
 
