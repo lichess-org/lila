@@ -59,7 +59,7 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
     }
 
   def taking(orig: Pos, dest: Pos, taking: Option[Pos] = None): Option[Board] =
-    take(taking getOrElse dest) flatMap { b ⇒ b.move(orig, dest) }
+    take(taking getOrElse dest) flatMap (_.move(orig, dest))
 
   def move(orig: Pos) = new {
     def to(dest: Pos): Valid[Board] = {

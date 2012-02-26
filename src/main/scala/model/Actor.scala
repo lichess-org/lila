@@ -59,7 +59,7 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
   }
 
   private def shortRange(dirs: Directions): Implications = {
-    (dirs map { d ⇒ d(pos) }).flatten filterNot friends map { to ⇒
+    (dirs map { _(pos) }).flatten filterNot friends map { to ⇒
       (if (enemies(to)) board.taking(pos, to) else board.move(pos, to)) map (to -> _)
     } flatten
   } toMap

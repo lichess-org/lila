@@ -29,9 +29,6 @@ R  QK NR""" movesFrom(E1) must bePoss(F1)
 
     "not move to positions that are occupied by the same colour" in {
       val board = """
-k B
-
-
    P
 NPKP   P
 
@@ -39,7 +36,7 @@ PPPPPPPP
  NBQKBNR
 """
       board movesFrom C4 must bePoss(board, """
-k B
+
 
 
  xxP
@@ -50,26 +47,22 @@ PPPPPPPP
 """)
     }
 
-    "capture opponent pieces" in {
+    "capture hanging opponent pieces" in {
       val board = """
-k B
-
-
-  pP
-NPKp   P
+ bpp   k
+  Kp
  p
-PPPPPPPP
- NBQKBNR
+
 """
-      board movesFrom C4 must bePoss(board, """
-k B
+      board movesFrom C3 must bePoss(board, """
 
 
- xxP
-NPKx   P
- x x
-PPPPPPPP
- NBQKBNR
+
+
+ xxx   k
+  Kp
+ x
+
 """)
     }
     "threaten" in {
