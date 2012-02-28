@@ -1,8 +1,6 @@
 package lila.chess
 package format
 
-import model._
-
 /**
  * r bqkb r
  * p ppp pp

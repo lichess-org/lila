@@ -1,7 +1,6 @@
 package lila
 package repo
 
-import model._
 import com.novus.salat._
 import com.novus.salat.global._
 import com.novus.salat.dao._

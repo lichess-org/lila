@@ -2,7 +2,7 @@ package lila.chess
 
 import Pos._
 
-class QueenTest extends LilaSpec {
+class QueenTest extends LilaTest {
 
   "a queen" should {
 

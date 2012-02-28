@@ -1,6 +1,6 @@
 package lila.chess
 
-class ColorTest extends LilaSpec {
+class ColorTest extends LilaTest {
 
   "Color" should {
     "unary !" in {

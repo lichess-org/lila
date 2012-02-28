@@ -2,7 +2,7 @@ package lila.chess
 
 import Pos._
 
-class RookTest extends LilaSpec {
+class RookTest extends LilaTest {
 
   "a rook" should {
 

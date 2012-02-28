@@ -26,7 +26,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
 
   lazy val chess = Project("chess", file("chess"), settings = Project.defaultSettings).settings(
     libraryDependencies in test := Seq(specs2),
-    resolvers := Seq(codahale, sonatype),
+    resolvers in test := Seq(sonatype),
     shellPrompt := ShellPrompt.buildShellPrompt,
     scalacOptions := Seq("-deprecation", "-unchecked")
   ) dependsOn (ornicarScalalib)
@@ -65,9 +65,9 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     }
   ) dependsOn (chess)
 
-  lazy val ornicarScalalib = uri("git://github.com/ornicar/scalalib#1.6")
+  lazy val ornicarScalalib = uri("git://github.com/ornicar/scalalib")
 
-  // attribute key to prevent circular onLoad hook
+  // attribute key to prevent circular onLoad hook (for benchmark)
   val key = AttributeKey[Boolean]("javaOptionsPatched")
 }
 

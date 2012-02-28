@@ -3,7 +3,7 @@ package lila.chess
 import Pos._
 import format.Visual.addNewLines
 
-class PlayTest extends LilaSpec {
+class PlayTest extends LilaTest {
 
   "playing a game" should {
     "opening one" in {

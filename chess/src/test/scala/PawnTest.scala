@@ -2,7 +2,7 @@ package lila.chess
 
 import Pos._
 
-class PawnTest extends LilaSpec {
+class PawnTest extends LilaTest {
 
   "a white pawn" should {
 

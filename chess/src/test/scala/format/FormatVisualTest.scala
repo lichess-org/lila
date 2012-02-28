@@ -4,8 +4,7 @@ package format
 import org.specs2.mutable._
 import org.specs2.specification._
 
-import model.{ Board, History }
-import model.Pos._
+import Pos._
 
 class VisualTest extends Specification {
 

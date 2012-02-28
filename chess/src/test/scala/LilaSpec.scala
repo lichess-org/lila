@@ -4,10 +4,9 @@ import ornicar.scalalib.test.OrnicarValidationMatchers
 import org.specs2.mutable.Specification
 import org.specs2.matcher.{ Matcher }
 
-import model._
 import format.Visual
 
-trait LilaSpec
+trait LilaTest
     extends Specification
     with OrnicarValidationMatchers {
 

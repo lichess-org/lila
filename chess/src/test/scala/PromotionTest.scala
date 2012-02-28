@@ -1,7 +1,7 @@
 package lila.chess
 import Pos._
 
-class PromotionTest extends LilaSpec {
+class PromotionTest extends LilaTest {
 
   "pawn promotion" should {
     val situation = """
