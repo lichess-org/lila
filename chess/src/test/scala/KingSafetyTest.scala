@@ -10,20 +10,20 @@ class KingSafetyTest extends LilaTest {
         """
     P n
 PPPP   P
-RNBQK  R""" movesFrom E1 must bePoss(F2)
+RNBQK  R""" destsFrom E1 must bePoss(F2)
       }
       "not commit suicide even if immobilized" in {
         """
     b n
 PPPP   P
-RNBQK  R""" movesFrom E1 must bePoss()
+RNBQK  R""" destsFrom E1 must bePoss()
       }
       "escape from danger" in {
         """
     r
 
 PPPP   P
-RNBQK  R""" movesFrom E1 must bePoss(F1, F2)
+RNBQK  R""" destsFrom E1 must bePoss(F1, F2)
       }
     }
     "pieces" in {
@@ -33,27 +33,27 @@ RNBQK  R""" movesFrom E1 must bePoss(F1, F2)
     r
 
 PPPP   P
-RNBQK  R""" movesFrom D1 must bePoss(E2)
+RNBQK  R""" destsFrom D1 must bePoss(E2)
         }
         "knight" in {
           """
     r
 
 PPPP   P
-RNBQK NR""" movesFrom G1 must bePoss(E2)
+RNBQK NR""" destsFrom G1 must bePoss(E2)
         }
         "pawn" in {
           """
   K    r
 PPPP   P
-RNBQ  NR""" movesFrom D2 must bePoss(D3)
+RNBQ  NR""" destsFrom D2 must bePoss(D3)
         }
         "pawn double square" in {
           """
   K    r
 
 PPPP   P
-RNBQ  NR""" movesFrom D2 must bePoss(D4)
+RNBQ  NR""" destsFrom D2 must bePoss(D4)
         }
       }
       "eat to defend" in {
@@ -62,21 +62,21 @@ RNBQ  NR""" movesFrom D2 must bePoss(D4)
     r
 
 PPPPK Q
-RNB    R""" movesFrom G2 must bePoss(E4)
+RNB    R""" destsFrom G2 must bePoss(E4)
         }
         "queen defender" in {
           """
     r
 
 PPPPQ
-RNB K  R""" movesFrom E2 must bePoss(E3, E4)
+RNB K  R""" destsFrom E2 must bePoss(E3, E4)
         }
         "pawn" in {
           """
     r
      P
 PPPP
-RNB K  R""" movesFrom F3 must bePoss(E4)
+RNB K  R""" destsFrom F3 must bePoss(E4)
         }
       }
       "stay to defend" in {
@@ -85,14 +85,14 @@ RNB K  R""" movesFrom F3 must bePoss(E4)
     r
 
 PPPPB
-RNB K  R""" movesFrom E2 must bePoss()
+RNB K  R""" destsFrom E2 must bePoss()
         }
         "pawn" in {
           """
 
  K P  r
 PPP
-RNB    R""" movesFrom D3 must bePoss()
+RNB    R""" destsFrom D3 must bePoss()
         }
       }
     }

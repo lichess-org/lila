@@ -8,8 +8,8 @@ class KingTest extends LilaTest {
 
     val king = White - King
 
-    def moves(pos: Pos): Valid[Set[Pos]] = Board.empty place king at pos flatMap { b ⇒
-      b actorAt pos map (_.moves)
+    def moves(pos: Pos): Valid[List[Pos]] = Board.empty place king at pos flatMap { b ⇒
+      b actorAt pos map (_.destinations)
     }
 
     "move 1 position in any direction" in {
@@ -23,7 +23,7 @@ class KingTest extends LilaTest {
     "move behind pawn barrier" in {
       """
 PPPPPPPP
-R  QK NR""" movesFrom(E1) must bePoss(F1)
+R  QK NR""" destsFrom(E1) must bePoss(F1)
     }
 
     "not move to positions that are occupied by the same colour" in {
@@ -34,7 +34,7 @@ NPKP   P
 PPPPPPPP
  NBQKBNR
 """
-      board movesFrom C4 must bePoss(board, """
+      board destsFrom C4 must bePoss(board, """
 
 
 
@@ -53,7 +53,7 @@ PPPPPPPP
  p
 
 """
-      board movesFrom C3 must bePoss(board, """
+      board destsFrom C3 must bePoss(board, """
 
 
 
@@ -89,7 +89,7 @@ PP   PPP
       """
    k
  K
-""" movesFrom B1 must bePoss(A1, A2, B2)
+""" destsFrom B1 must bePoss(A1, A2, B2)
     }
   }
 }

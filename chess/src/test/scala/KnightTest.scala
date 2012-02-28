@@ -8,8 +8,8 @@ class KnightTest extends LilaTest {
 
     val knight = White - Knight
 
-    def moves(pos: Pos): Valid[Set[Pos]] = Board.empty place knight at pos flatMap { b ⇒
-      b actorAt pos map (_.moves)
+    def moves(pos: Pos): Valid[List[Pos]] = Board.empty place knight at pos flatMap { b ⇒
+      b actorAt pos map (_.destinations)
     }
 
     "move in any of 8 positions, 2 and 1 squares away" in {
@@ -31,7 +31,7 @@ k B
 PPP  PPP
  NBQKBNR
 """
-      board movesFrom C4 must bePoss(board, """
+      board destsFrom C4 must bePoss(board, """
 k B
 
  x B
@@ -54,7 +54,7 @@ n
 PPP  PPP
  NBQKBNR
 """
-      board movesFrom C4 must bePoss(board, """
+      board destsFrom C4 must bePoss(board, """
 k B
 
  x B

@@ -8,8 +8,8 @@ class RookTest extends LilaTest {
 
     val rook = White - Rook
 
-    def moves(pos: Pos): Valid[Set[Pos]] = Board.empty place rook at pos flatMap { b ⇒
-      b actorAt pos map (_.moves)
+    def moves(pos: Pos): Valid[List[Pos]] = Board.empty place rook at pos flatMap { b ⇒
+      b actorAt pos map (_.destinations)
     }
 
     "move to any position along the same rank or file" in {
@@ -29,7 +29,7 @@ N R    P
 
 PPPPPPPP
  NBQKBNR
-""" movesFrom C4 must bePoss(C3, C5, C6, C7, B4, D4, E4, F4, G4)
+""" destsFrom C4 must bePoss(C3, C5, C6, C7, B4, D4, E4, F4, G4)
     }
 
     "capture opponent pieces" in { """
@@ -41,7 +41,7 @@ n R   p
 
 PPPPPPPP
  NBQKBNR
-""" movesFrom C4 must bePoss(C3, C5, C6, C7, B4, A4, D4, E4, F4, G4)
+""" destsFrom C4 must bePoss(C3, C5, C6, C7, B4, A4, D4, E4, F4, G4)
     }
     "threaten" in {
       val board = """

@@ -8,8 +8,8 @@ class QueenTest extends LilaTest {
 
     val queen = White - Queen
 
-    def moves(pos: Pos): Valid[Set[Pos]] = Board.empty place queen at pos flatMap { b ⇒
-      b actorAt pos map (_.moves)
+    def moves(pos: Pos): Valid[List[Pos]] = Board.empty place queen at pos flatMap { b ⇒
+      b actorAt pos map (_.destinations)
     }
 
     "move in any direction until the edge of the board" in {
@@ -31,7 +31,7 @@ N Q    P
 PPPPPPPP
  NBQKBNR
 """
-      board movesFrom C4 must bePoss(board, """
+      board destsFrom C4 must bePoss(board, """
 k B   x
   x  x
 x x x
@@ -54,7 +54,7 @@ N QP   P
 PPPPPPPP
  NBQKBNR
 """
-      board movesFrom C4 must bePoss(board, """
+      board destsFrom C4 must bePoss(board, """
 k B
   x  x
 x x x

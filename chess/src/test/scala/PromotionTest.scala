@@ -4,21 +4,22 @@ import Pos._
 class PromotionTest extends LilaTest {
 
   "pawn promotion" should {
-    val situation = """
+    val board = """
   p
-K      """ as Black
+K      """
+    val game = Game(board, Black)
      "promote to a queen" in {
-       situation.playMove(C2, C1, Queen) must beSituation("""
+       game.playMove(C2, C1, Queen) must beGame("""
 
 K q    """)
      }
      "promote to a queen by default" in {
-       situation.playMove(C2, C1) must beSituation("""
+       game.playMove(C2, C1) must beGame("""
 
 K q    """)
      }
      "promote to a knight" in {
-       situation.playMove(C2, C1, Knight) must beSituation("""
+       game.playMove(C2, C1, Knight) must beGame("""
 
 K n    """)
      }

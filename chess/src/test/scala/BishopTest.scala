@@ -8,8 +8,8 @@ class BishopTest extends LilaTest {
 
     val bishop = White - Bishop
 
-    def moves(pos: Pos): Valid[Set[Pos]] = Board.empty place bishop at pos flatMap { b ⇒
-      b actorAt pos map (_.moves)
+    def moves(pos: Pos): Valid[List[Pos]] = Board.empty place bishop at pos flatMap { b ⇒
+      b actorAt pos map (_.destinations)
     }
 
     "move in any of 8 positions, 2 and 1 squares away" in {
@@ -31,7 +31,7 @@ N B    P
 PPPPPPPP
  NBQKBNR
 """
-      board movesFrom C4 must bePoss(board, """
+      board destsFrom C4 must bePoss(board, """
 k B   x
      x
 x   x
@@ -54,7 +54,7 @@ N B    P
 PPPPPPPP
  NBQKBNR
 """
-      board movesFrom C4 must bePoss(board, """
+      board destsFrom C4 must bePoss(board, """
 k B
      x
 x   x

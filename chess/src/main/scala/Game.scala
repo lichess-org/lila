@@ -20,6 +20,8 @@ case class Game(
   val players = List(White, Black)
 
   def situation = board as player
+
+  def as(c: Color) = copy(player = c)
 }
 
 object Game {

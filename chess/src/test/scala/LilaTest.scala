@@ -28,4 +28,8 @@ trait LilaTest
     case s => s.board.visual must_== (Visual << visual).visual
   }
 
+  def beGame(visual: String): Matcher[Valid[Game]] = beSuccess.like {
+    case g => g.board.visual must_== (Visual << visual).visual
+  }
+
 }
