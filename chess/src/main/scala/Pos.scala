@@ -2,7 +2,7 @@ package lila.chess
 
 import scala.math.{ abs, min, max }
 
-sealed case class Pos private (x: Int, y: Int) extends Ordered[Pos] {
+sealed case class Pos private (x: Int, y: Int) {
 
   import Pos.makePos
 
@@ -32,8 +32,6 @@ sealed case class Pos private (x: Int, y: Int) extends Ordered[Pos] {
     min(x, other.x) to max(x, other.x) map { makePos(_, y) } flatten
 
   override def toString = (Pos xToString x) + y.toString
-
-  def compare(other: Pos) = toString compare other.toString
 }
 
 object Pos {
@@ -42,6 +40,8 @@ object Pos {
 
   def makePos(x: Int, y: Int): Option[Pos] =
     if (bounds(x) && bounds(y)) Some(Pos(x, y)) else None
+
+  def unsafe(x: Int, y: Int): Pos = Pos(x, y)
 
   def xToString(x: Int) = (96 + x).toChar.toString
 

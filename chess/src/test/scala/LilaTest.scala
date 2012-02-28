@@ -13,7 +13,7 @@ trait LilaTest
   implicit def stringToBoard(str: String): Board = Visual << str
 
   def bePoss(poss: Pos*): Matcher[Valid[Iterable[Pos]]] = beSuccess.like {
-    case p ⇒ p.toList.sorted must_== poss.toList.sorted
+    case p ⇒ sortPoss(p.toList) must_== sortPoss(poss.toList)
   }
 
   def bePoss(board: Board, visual: String): Matcher[Valid[Iterable[Pos]]] = beSuccess.like {
@@ -32,4 +32,5 @@ trait LilaTest
     case g => g.board.visual must_== (Visual << visual).visual
   }
 
+  def sortPoss(poss: Seq[Pos]): Seq[Pos] = poss sortBy (_.toString)
 }
