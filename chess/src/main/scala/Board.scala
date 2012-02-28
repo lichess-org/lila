@@ -11,8 +11,6 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
 
   def apply(x: Int, y: Int): Option[Piece] = makePos(x, y) flatMap pieces.get
 
-  def pieceAt(at: Pos): Valid[Piece] = apply(at) toSuccess ("No piece on " + at)
-
   lazy val actors: Map[Pos, Actor] = pieces map {
     case (pos, piece) ⇒ (pos, Actor(piece, pos, this))
   }
