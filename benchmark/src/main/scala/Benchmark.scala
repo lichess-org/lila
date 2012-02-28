@@ -3,8 +3,8 @@ package lila.benchmark
 import annotation.tailrec
 import com.google.caliper.Param
 
-import lila.chess.model.Situation
-import lila.chess.model.Pos._
+import lila.chess.Game
+import lila.chess.Pos._
 
 // a caliper benchmark is a class that extends com.google.caliper.Benchmark
 // the SimpleScalaBenchmark trait does it and also adds some convenience functionality
@@ -14,12 +14,12 @@ class Benchmark extends SimpleScalaBenchmark {
   val length: Int = 0
 
   def timeImmortal(reps: Int) = repeat(reps) {
-    val s = Situation().playMoves(E2 -> E4, D7 -> D5, E4 -> D5, D8 -> D5, B1 -> C3, D5 -> A5, D2 -> D4, C7 -> C6, G1 -> F3, C8 -> G4, C1 -> F4, E7 -> E6, H2 -> H3, G4 -> F3, D1 -> F3, F8 -> B4, F1 -> E2, B8 -> D7, A2 -> A3, E8 -> C8, A3 -> B4, A5 -> A1, E1 -> D2, A1 -> H1, F3 -> C6, B7 -> C6, E2 -> A6)
+    val s = Game().playMoves(E2 -> E4, D7 -> D5, E4 -> D5, D8 -> D5, B1 -> C3, D5 -> A5, D2 -> D4, C7 -> C6, G1 -> F3, C8 -> G4, C1 -> F4, E7 -> E6, H2 -> H3, G4 -> F3, D1 -> F3, F8 -> B4, F1 -> E2, B8 -> D7, A2 -> A3, E8 -> C8, A3 -> B4, A5 -> A1, E1 -> D2, A1 -> H1, F3 -> C6, B7 -> C6, E2 -> A6)
     if (s.isFailure) throw new Exception("success")
     "haha"
   }
 
   def timeDeepBlue(reps: Int) = repeat(reps) {
-    Situation().playMoves(E2 -> E4, C7 -> C5, C2 -> C3, D7 -> D5, E4 -> D5, D8 -> D5, D2 -> D4, G8 -> F6, G1 -> F3, C8 -> G4, F1 -> E2, E7 -> E6, H2 -> H3, G4 -> H5, E1 -> G1, B8 -> C6, C1 -> E3, C5 -> D4, C3 -> D4, F8 -> B4)
+    Game().playMoves(E2 -> E4, C7 -> C5, C2 -> C3, D7 -> D5, E4 -> D5, D8 -> D5, D2 -> D4, G8 -> F6, G1 -> F3, C8 -> G4, F1 -> E2, E7 -> E6, H2 -> H3, G4 -> H5, E1 -> G1, B8 -> C6, C1 -> E3, C5 -> D4, C3 -> D4, F8 -> B4)
   }
 }
