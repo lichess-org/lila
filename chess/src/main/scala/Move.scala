@@ -13,5 +13,16 @@ case class Move(
 
     def withHistory(h: History) = copy(after = after withHistory h)
 
-    lazy val isCapture = capture.isDefined
+    def situation = before as piece.color
+
+    // does this move check the opponent?
+    def checks: Boolean = (after as !color).check
+
+    // does this move checkmate the opponent?
+    def checkMates: Boolean = (after as !color).checkMate
+
+    // does this move capture an opponent piece?
+    def captures = capture.isDefined
+
+    def color = piece.color
 }

@@ -27,6 +27,7 @@ sealed case class Pos private (x: Int, y: Int) {
 
   def ?<(other: Pos) = x < other.x
   def ?>(other: Pos) = x > other.x
+  def ?|(other: Pos) = x == other.x
 
   def <->(other: Pos): Iterable[Pos] =
     min(x, other.x) to max(x, other.x) map { makePos(_, y) } flatten

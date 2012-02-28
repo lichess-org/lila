@@ -4,6 +4,7 @@ import Pos._
 
 sealed trait Role {
   val forsyth: Char
+  lazy val pgn = forsyth.toUpper
   def dirs: List[Direction]
 }
 sealed trait PromotableRole extends Role
