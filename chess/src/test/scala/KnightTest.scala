@@ -8,16 +8,12 @@ class KnightTest extends LilaTest {
 
     val knight = White - Knight
 
-    def moves(pos: Pos): Valid[List[Pos]] = Board.empty place knight at pos flatMap { b ⇒
-      b actorAt pos map (_.destinations)
-    }
-
     "move in any of 8 positions, 2 and 1 squares away" in {
-      moves(E4) must bePoss(F6, G5, G3, F2, D2, C3, C5, D6)
+      pieceMoves(knight, E4) must bePoss(F6, G5, G3, F2, D2, C3, C5, D6)
     }
 
     "move 2 and 1 squares away, even when at the edges" in {
-      moves(H8) must bePoss(G6, F7)
+      pieceMoves(knight, H8) must bePoss(G6, F7)
     }
 
     "not move to positions that are occupied by the same colour" in {
@@ -77,19 +73,19 @@ PPP  PPP
  NBQKBNR
 """
       "a reachable enemy" in {
-        board actorAt C4 map (_ threatens A5) must succeedWith(true)
+        board actorAt C4 map (_ threatens A5) must beSome(true)
       }
       "an unreachable enemy" in {
-        board actorAt C4 map (_ threatens A8) must succeedWith(false)
+        board actorAt C4 map (_ threatens A8) must beSome(false)
       }
       "a reachable friend" in {
-        board actorAt C4 map (_ threatens E3) must succeedWith(false)
+        board actorAt C4 map (_ threatens E3) must beSome(false)
       }
       "nothing left" in {
-        board actorAt C4 map (_ threatens B4) must succeedWith(false)
+        board actorAt C4 map (_ threatens B4) must beSome(false)
       }
       "nothing up" in {
-        board actorAt C4 map (_ threatens C5) must succeedWith(false)
+        board actorAt C4 map (_ threatens C5) must beSome(false)
       }
     }
   }

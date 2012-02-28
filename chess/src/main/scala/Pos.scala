@@ -31,7 +31,11 @@ sealed case class Pos private (x: Int, y: Int) {
   def <->(other: Pos): Iterable[Pos] =
     min(x, other.x) to max(x, other.x) map { makePos(_, y) } flatten
 
-  override def toString = (Pos xToString x) + y.toString
+  lazy val file = Pos xToString x
+  lazy val rank = y.toString
+  lazy val key = file + rank
+
+  override def toString = key
 }
 
 object Pos {

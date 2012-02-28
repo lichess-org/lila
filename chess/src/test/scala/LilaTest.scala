@@ -12,25 +12,30 @@ trait LilaTest
 
   implicit def stringToBoard(str: String): Board = Visual << str
 
-  def bePoss(poss: Pos*): Matcher[Valid[Iterable[Pos]]] = beSuccess.like {
+  def bePoss(poss: Pos*): Matcher[Option[Iterable[Pos]]] = beSome.like {
     case p ⇒ sortPoss(p.toList) must_== sortPoss(poss.toList)
   }
 
-  def bePoss(board: Board, visual: String): Matcher[Valid[Iterable[Pos]]] = beSuccess.like {
+  def bePoss(board: Board, visual: String): Matcher[Option[Iterable[Pos]]] = beSome.like {
     case p ⇒ Visual.addNewLines(Visual.>>|(board, Map(p -> 'x'))) must_== visual
   }
 
   def beBoard(visual: String): Matcher[Valid[Board]] = beSuccess.like {
-    case b => b.visual must_== (Visual << visual).visual
+    case b ⇒ b.visual must_== (Visual << visual).visual
   }
 
   def beSituation(visual: String): Matcher[Valid[Situation]] = beSuccess.like {
-    case s => s.board.visual must_== (Visual << visual).visual
+    case s ⇒ s.board.visual must_== (Visual << visual).visual
   }
 
   def beGame(visual: String): Matcher[Valid[Game]] = beSuccess.like {
-    case g => g.board.visual must_== (Visual << visual).visual
+    case g ⇒ g.board.visual must_== (Visual << visual).visual
   }
 
   def sortPoss(poss: Seq[Pos]): Seq[Pos] = poss sortBy (_.toString)
+
+  def pieceMoves(piece: Piece, pos: Pos): Option[List[Pos]] =
+    (Board.empty place piece at pos).toOption flatMap { b ⇒
+      b actorAt pos map (_.destinations)
+    }
 }

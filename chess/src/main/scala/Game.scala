@@ -1,9 +1,11 @@
 package lila.chess
 
+import format.PgnDump
+
 case class Game(
     board: Board,
     player: Color,
-    pgnMoves: List[String] = Nil) {
+    reversedPgnMoves: List[String] = Nil) {
 
   def this() = this(Board.empty, White)
 
@@ -12,19 +14,21 @@ case class Game(
       sit flatMap { s ⇒ s.playMove(move._1, move._2) }
     }
 
-  def playMove(from: Pos, to: Pos, promotion: PromotableRole = Queen): Valid[Game] =
-    situation.move(from, to, promotion) map { move =>
-      copy(
-        board = move.after,
-        player = !player
-      )
-    }
+  def playMove(from: Pos, to: Pos, promotion: PromotableRole = Queen): Valid[Game] = for {
+    move ← situation.move(from, to, promotion)
+  } yield copy(
+    board = move.after,
+    player = !player,
+    reversedPgnMoves = (PgnDump move move) :: reversedPgnMoves
+  )
 
   val players = List(White, Black)
 
   def situation = board as player
 
   def as(c: Color) = copy(player = c)
+
+  def pgnMoves = reversedPgnMoves.reverse
 }
 
 object Game {

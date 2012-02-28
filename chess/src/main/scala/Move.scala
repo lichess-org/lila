@@ -12,4 +12,6 @@ case class Move(
   enpassant: Boolean) {
 
     def withHistory(h: History) = copy(after = after withHistory h)
+
+    lazy val isCapture = capture.isDefined
 }

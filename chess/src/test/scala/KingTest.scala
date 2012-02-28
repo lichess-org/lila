@@ -8,16 +8,12 @@ class KingTest extends LilaTest {
 
     val king = White - King
 
-    def moves(pos: Pos): Valid[List[Pos]] = Board.empty place king at pos flatMap { b ⇒
-      b actorAt pos map (_.destinations)
-    }
-
     "move 1 position in any direction" in {
-      moves(D4) must bePoss(D3, C3, C4, C5, D5, E5, E4, E3)
+      pieceMoves(king, D4) must bePoss(D3, C3, C4, C5, D5, E5, E4, E3)
     }
 
     "move 1 position in any direction, even from the edges" in {
-      moves(H8) must bePoss(H7, G7, G8)
+      pieceMoves(king, H8) must bePoss(H7, G7, G8)
     }
 
     "move behind pawn barrier" in {
@@ -76,13 +72,13 @@ PP   PPP
  NBQ BNR
 """
       "a reachable enemy" in {
-        board actorAt C4 map (_ threatens B5) must succeedWith(true)
+        board actorAt C4 map (_ threatens B5) must beSome(true)
       }
       "an unreachable enemy" in {
-        board actorAt C4 map (_ threatens A5) must succeedWith(false)
+        board actorAt C4 map (_ threatens A5) must beSome(false)
       }
       "a reachable friend" in {
-        board actorAt C4 map (_ threatens C3) must succeedWith(false)
+        board actorAt C4 map (_ threatens C3) must beSome(false)
       }
     }
     "not move near from the other king" in {

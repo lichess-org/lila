@@ -8,16 +8,12 @@ class QueenTest extends LilaTest {
 
     val queen = White - Queen
 
-    def moves(pos: Pos): Valid[List[Pos]] = Board.empty place queen at pos flatMap { b ⇒
-      b actorAt pos map (_.destinations)
-    }
-
     "move in any direction until the edge of the board" in {
-      moves(D4) must bePoss(D5, D6, D7, D8, D3, D2, D1, E4, F4, G4, H4, C4, B4, A4, C3, B2, A1, E5, F6, G7, H8, C5, B6, A7, E3, F2, G1)
+      pieceMoves(queen, D4) must bePoss(D5, D6, D7, D8, D3, D2, D1, E4, F4, G4, H4, C4, B4, A4, C3, B2, A1, E5, F6, G7, H8, C5, B6, A7, E3, F2, G1)
     }
 
     "move 1 position in any direction, even from the edges" in {
-      moves(H8) must bePoss(H7, H6, H5, H4, H3, H2, H1, G7, F6, E5, D4, C3, B2, A1, G8, F8, E8, D8, C8, B8, A8)
+      pieceMoves(queen, H8) must bePoss(H7, H6, H5, H4, H3, H2, H1, G7, F6, E5, D4, C3, B2, A1, G8, F8, E8, D8, C8, B8, A8)
     }
 
     "not move to positions that are occupied by the same colour" in {
@@ -77,19 +73,19 @@ PPPPPPPP
  NBQKBNR
 """
       "a reachable enemy - horizontal" in {
-        board actorAt C4 map (_ threatens A4) must succeedWith(true)
+        board actorAt C4 map (_ threatens A4) must beSome(true)
       }
       "a reachable enemy - diagonal" in {
-        board actorAt C4 map (_ threatens A6) must succeedWith(true)
+        board actorAt C4 map (_ threatens A6) must beSome(true)
       }
       "an unreachable enemy" in {
-        board actorAt C4 map (_ threatens H4) must succeedWith(false)
+        board actorAt C4 map (_ threatens H4) must beSome(false)
       }
       "a reachable friend" in {
-        board actorAt C4 map (_ threatens C2) must succeedWith(false)
+        board actorAt C4 map (_ threatens C2) must beSome(false)
       }
       "nothing" in {
-        board actorAt C4 map (_ threatens B6) must succeedWith(false)
+        board actorAt C4 map (_ threatens B6) must beSome(false)
       }
     }
   }

@@ -8,16 +8,12 @@ class RookTest extends LilaTest {
 
     val rook = White - Rook
 
-    def moves(pos: Pos): Valid[List[Pos]] = Board.empty place rook at pos flatMap { b ⇒
-      b actorAt pos map (_.destinations)
-    }
-
     "move to any position along the same rank or file" in {
-      moves(E4) must bePoss(E5, E6, E7, E8, E3, E2, E1, F4, G4, H4, D4, C4, B4, A4)
+      pieceMoves(rook, E4) must bePoss(E5, E6, E7, E8, E3, E2, E1, F4, G4, H4, D4, C4, B4, A4)
     }
 
     "move to any position along the same rank or file, even when at the edges" in {
-      moves(H8) must bePoss(H7, H6, H5, H4, H3, H2, H1, G8, F8, E8, D8, C8, B8, A8)
+      pieceMoves(rook, H8) must bePoss(H7, H6, H5, H4, H3, H2, H1, G8, F8, E8, D8, C8, B8, A8)
     }
 
     "not move to positions that are occupied by the same colour" in { """
@@ -55,22 +51,22 @@ PPPPPPPP
  NBQKBNR
 """
       "a reachable enemy to the left" in {
-        board actorAt C4 map (_ threatens A4) must succeedWith(true)
+        board actorAt C4 map (_ threatens A4) must beSome(true)
       }
       "a reachable enemy to the top" in {
-        board actorAt C4 map (_ threatens C7) must succeedWith(true)
+        board actorAt C4 map (_ threatens C7) must beSome(true)
       }
       "an unreachable enemy" in {
-        board actorAt C4 map (_ threatens A6) must succeedWith(false)
+        board actorAt C4 map (_ threatens A6) must beSome(false)
       }
       "a reachable friend" in {
-        board actorAt C4 map (_ threatens H4) must succeedWith(false)
+        board actorAt C4 map (_ threatens H4) must beSome(false)
       }
       "nothing left" in {
-        board actorAt C4 map (_ threatens B4) must succeedWith(false)
+        board actorAt C4 map (_ threatens B4) must beSome(false)
       }
       "nothing up" in {
-        board actorAt C4 map (_ threatens C5) must succeedWith(false)
+        board actorAt C4 map (_ threatens C5) must beSome(false)
       }
     }
   }

@@ -22,7 +22,7 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
 
   def actorsOf(c: Color): List[Actor] = colorActors get c getOrElse Nil
 
-  def actorAt(at: Pos): Valid[Actor] = actors get at toSuccess ("No piece on " + at)
+  def actorAt(at: Pos): Option[Actor] = actors get at
 
   lazy val kingPos: Map[Color, Pos] = pieces collect {
     case (pos, Piece(color, King)) ⇒ color -> pos
@@ -30,7 +30,7 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
 
   def kingPosOf(c: Color): Option[Pos] = kingPos get c
 
-  def destsFrom(from: Pos): Valid[List[Pos]] = actorAt(from) map (_.destinations)
+  def destsFrom(from: Pos): Option[List[Pos]] = actorAt(from) map (_.destinations)
 
   def seq(actions: Board ⇒ Valid[Board]*): Valid[Board] =
     actions.foldLeft(success(this): Valid[Board])(_ flatMap _)
@@ -41,7 +41,7 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
       else success(copy(pieces = pieces + ((at, piece))))
   }
 
-  def place(piece: Piece, at: Pos) =
+  def place(piece: Piece, at: Pos): Option[Board] =
     if (pieces contains at) None
     else Some(copy(pieces = pieces + ((at, piece))))
 
