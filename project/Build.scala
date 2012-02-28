@@ -20,23 +20,25 @@ trait Dependencies {
   val slf4jNop = "org.slf4j" % "slf4j-nop" % "1.6.4"
   val instrumenter = "com.google.code.java-allocation-instrumenter" % "java-allocation-instrumenter" % "2.0"
   val gson = "com.google.code.gson" % "gson" % "1.7.1"
+  val scalalib = "com.github.ornicar" %% "scalalib" % "1.12"
 }
 
 object ApplicationBuild extends Build with Resolvers with Dependencies {
 
   lazy val chess = Project("chess", file("chess"), settings = Project.defaultSettings).settings(
+    libraryDependencies := Seq(scalalib),
     libraryDependencies in test := Seq(specs2),
-    resolvers in test := Seq(sonatype),
+    resolvers := Seq(iliaz, sonatype),
     shellPrompt := ShellPrompt.buildShellPrompt,
     scalacOptions := Seq("-deprecation", "-unchecked")
-  ) dependsOn (ornicarScalalib)
+  )
 
   lazy val http = Project("http", file("http"), settings = Project.defaultSettings).settings(
-    libraryDependencies := Seq(scalaz, specs2, redis, json, casbah, salat),
+    libraryDependencies := Seq(scalalib, scalaz, specs2, redis, json, casbah, salat),
     resolvers := Seq(codahale, typesafe, typesafeS, iliaz, sonatype),
     shellPrompt := ShellPrompt.buildShellPrompt,
     scalacOptions := Seq("-deprecation", "-unchecked")
-  ) dependsOn (chess, ornicarScalalib)
+  ) dependsOn (chess)
 
   lazy val benchmark = Project("benchmark", file("benchmark"), settings = Project.defaultSettings).settings(
     fork in run := true,
@@ -64,8 +66,6 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       }
     }
   ) dependsOn (chess)
-
-  lazy val ornicarScalalib = uri("git://github.com/ornicar/scalalib")
 
   // attribute key to prevent circular onLoad hook (for benchmark)
   val key = AttributeKey[Boolean]("javaOptionsPatched")
