@@ -16,17 +16,17 @@ case class Situation(board: Board, color: Color) {
 
   def staleMate: Boolean = !check && moves.isEmpty
 
-  def playMove(from: Pos, to: Pos, promotion: PromotableRole): Valid[Move] = {
+  def move(from: Pos, to: Pos, promotion: PromotableRole): Valid[Move] = {
 
-    val move = for {
+    val someMove = for {
       actor ← board.actors get from
       if actor is color
       m ← actor.moves find (_.dest == to)
     } yield m
 
-    if (promotion == Queen) move
+    if (promotion == Queen) someMove
     else for {
-      m ← move
+      m ← someMove
       b1 = m.after
       if (b1 count color.queen) > (board count color.queen)
       b2 ← b1 take to

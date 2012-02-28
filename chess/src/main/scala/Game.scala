@@ -13,8 +13,11 @@ case class Game(
     }
 
   def playMove(from: Pos, to: Pos, promotion: PromotableRole = Queen): Valid[Game] =
-    situation.playMove(from, to, promotion) map { move =>
-      copy(board = move.after, player = !player)
+    situation.move(from, to, promotion) map { move =>
+      copy(
+        board = move.after,
+        player = !player
+      )
     }
 
   val players = List(White, Black)
