@@ -31,10 +31,7 @@ sealed case class Pos private (x: Int, y: Int) extends Ordered[Pos] {
   def <->(other: Pos): Iterable[Pos] =
     min(x, other.x) to max(x, other.x) map { makePos(_, y) } flatten
 
-  def xToString = Pos xToString x
-  def yToString = y.toString
-
-  override def toString = xToString + yToString
+  override def toString = (Pos xToString x) + y.toString
 
   def compare(other: Pos) = toString compare other.toString
 }
@@ -45,34 +42,6 @@ object Pos {
 
   def makePos(x: Int, y: Int): Option[Pos] =
     if (bounds(x) && bounds(y)) Some(Pos(x, y)) else None
-
-  def unsafe(x: Int, y: Int): Pos = Pos(x, y)
-
-  def ^(p: Option[Pos]): Option[Pos] = p.flatMap(_ ^ 1)
-  def >(p: Option[Pos]): Option[Pos] = p.flatMap(_ > 1)
-  def v(p: Option[Pos]): Option[Pos] = p.flatMap(_ v 1)
-  def <(p: Option[Pos]): Option[Pos] = p.flatMap(_ < 1)
-
-  def noop(p: Option[Pos]) = p
-
-  def vectorBasedPoss(from: Pos, directions: List[List[Option[Pos] ⇒ Option[Pos]]]) = {
-    def expand(direction: Seq[Option[Pos] ⇒ Option[Pos]]): List[Pos] = {
-      def next(acc: List[Pos]): List[Pos] = {
-        val seed: Option[Pos] = Some(acc.headOption.getOrElse(from))
-        val candidate = direction.foldLeft(seed) { (intermediate, step) ⇒ step(intermediate) }
-        candidate match {
-          case Some(p) ⇒ next(p :: acc)
-          case None    ⇒ acc
-        }
-      }
-      next(Nil).reverse
-    }
-    directions.foldLeft(Nil: List[List[Pos]]) { (acc, next) ⇒ expand(next) :: acc }.filter(l ⇒ !l.isEmpty)
-  }
-
-  def radialBasedPoss(from: Pos, offsets: Iterable[Int], filter: (Int, Int) ⇒ Boolean) = {
-    (for (y ← offsets; x ← offsets; if (filter(y, x))) yield (from ^ y).flatMap(_ < x)).filter(_.isDefined).map(_.get)
-  }
 
   def xToString(x: Int) = (96 + x).toChar.toString
 
