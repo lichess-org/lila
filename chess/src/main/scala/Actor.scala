@@ -75,6 +75,8 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
     case role                  ⇒ (role.dirs map { d ⇒ d(pos) }).flatten toSet
   }
 
+  def hash: String = piece.forsyth + pos.key
+
   private def kingSafety(ms: List[Move]): List[Move] =
     ms filterNot { m ⇒
       m.after actorsOf !color exists { enemy ⇒
@@ -102,7 +104,7 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
       b2 ← b1.move(kingPos, newKingPos)
       b3 ← b2.place(color.rook, newRookPos)
       b4 = b3 updateHistory (_ withoutCastles color)
-    } yield move(newKingPos, b4, castle = true)
+    } yield move(newKingPos, b4, castles = true)
 
     List(on(KingSide), on(QueenSide)).flatten
   }
@@ -152,7 +154,7 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
     dest: Pos,
     after: Board,
     capture: Option[Pos] = None,
-    castle: Boolean = false,
+    castles: Boolean = false,
     promotion: Option[PromotableRole] = None,
     enpassant: Boolean = false) = Move(
     piece = piece,
@@ -161,7 +163,7 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
     before = board,
     after = after,
     capture = capture,
-    castle = castle,
+    castles = castles,
     promotion = promotion,
     enpassant = enpassant)
 

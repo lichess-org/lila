@@ -93,7 +93,7 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
   def count(c: Color): Int = pieces.values count (_.color == c)
 
   def autoDraw: Boolean = {
-    Color.all map rolesOf forall { roles ⇒
+    history.positionHashes.size > 100 || (Color.all map rolesOf forall { roles ⇒
       (roles filterNot (_ == King)) match {
         case roles if roles.size > 1 ⇒ false
         case List(Knight)            ⇒ true
@@ -101,7 +101,12 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
         case Nil                     ⇒ true
         case _                       ⇒ false
       }
-    }
+    })
+  }
+
+  def positionHash = {
+    import com.roundeights.hasher.Implicits._
+    (actors.values map (_.hash) mkString).md5.toString take 5
   }
 
   def visual = Visual >> this

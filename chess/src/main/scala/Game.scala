@@ -10,7 +10,10 @@ case class Game(
   def playMove(from: Pos, to: Pos, promotion: PromotableRole = Queen): Valid[Game] = for {
     move ← situation.move(from, to, promotion)
   } yield {
-    val newGame = copy(board = move.after, player = !player)
+    val newGame = copy(
+      board = move.afterWithPositionHashesUpdated,
+      player = !player
+    )
     val pgnMove = PgnDump.move(situation, move, newGame.situation)
     newGame.copy(reversedPgnMoves = pgnMove :: reversedPgnMoves)
   }

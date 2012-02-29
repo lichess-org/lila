@@ -5,7 +5,8 @@ case class History(
     castles: Map[Color, (Boolean, Boolean)] = Map(
       White -> (true, true),
       Black -> (true, true)
-    )) {
+    ),
+    positionHashes: List[String] = Nil) {
 
   def isLastMove(p1: Pos, p2: Pos) = lastMove == (p1, p2)
 
@@ -17,16 +18,22 @@ case class History(
     def any = on(KingSide) || on (QueenSide)
   }
 
-  def withoutCastle(color: Color, side: Side) = copy(
+  def withoutCastle(color: Color, side: Side): History = copy(
     castles = castles updated (color, (colorCastles(color), side) match {
       case ((_, queen), KingSide) ⇒ (false, queen)
       case ((king, _), QueenSide) ⇒ (king, false)
     })
   )
 
-  def withoutCastles(color: Color) = copy(
+  def withoutCastles(color: Color): History = copy(
     castles = castles updated (color, (false, false))
   )
+
+  def withoutPositionHashes: History =
+    copy(positionHashes = Nil)
+
+  def withNewPositionHash(hash: String): History =
+    copy(positionHashes = hash :: positionHashes)
 
   private def colorCastles(color: Color) = castles get color getOrElse (true, true)
 }

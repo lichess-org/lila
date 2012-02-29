@@ -21,12 +21,13 @@ trait Dependencies {
   val instrumenter = "com.google.code.java-allocation-instrumenter" % "java-allocation-instrumenter" % "2.0"
   val gson = "com.google.code.gson" % "gson" % "1.7.1"
   val scalalib = "com.github.ornicar" %% "scalalib" % "1.15"
+  val hasher = "com.roundeights" % "hasher" % "0.3" from "http://cloud.github.com/downloads/Nycto/Hasher/hasher_2.9.1-0.3.jar"
 }
 
 object ApplicationBuild extends Build with Resolvers with Dependencies {
 
   lazy val chess = Project("chess", file("chess"), settings = Project.defaultSettings).settings(
-    libraryDependencies := Seq(scalalib),
+    libraryDependencies := Seq(scalalib, hasher),
     libraryDependencies in test := Seq(specs2),
     resolvers := Seq(iliaz, sonatype),
     shellPrompt := ShellPrompt.buildShellPrompt,
