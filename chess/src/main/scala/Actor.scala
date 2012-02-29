@@ -1,6 +1,6 @@
 package lila.chess
 
-import Pos.makePos
+import Pos.posAt
 
 case class Actor(piece: Piece, pos: Pos, board: Board) {
 
@@ -94,10 +94,10 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
       tripToRook = side.tripToRook(kingPos, board)
       rookPos ← tripToRook.lastOption
       if board(rookPos) == Some(color.rook)
-      newKingPos ← makePos(side.castledKingX, kingPos.y)
+      newKingPos ← posAt(side.castledKingX, kingPos.y)
       securedPoss = kingPos <-> newKingPos
       if (enemyThreats & securedPoss.toSet).isEmpty
-      newRookPos ← makePos(side.castledRookX, rookPos.y)
+      newRookPos ← posAt(side.castledRookX, rookPos.y)
       b1 ← board take rookPos
       b2 ← b1.move(kingPos, newKingPos)
       b3 ← b2.place(color.rook, newRookPos)

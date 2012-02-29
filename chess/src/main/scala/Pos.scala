@@ -1,10 +1,10 @@
 package lila.chess
 
-import scala.math.{ abs, min, max }
+import scala.math.{ min, max }
 
 sealed case class Pos private (x: Int, y: Int) {
 
-  import Pos.makePos
+  import Pos.posAt
 
   lazy val up: Option[Pos] = this ^ 1
   lazy val down: Option[Pos] = this v 1
@@ -15,10 +15,10 @@ sealed case class Pos private (x: Int, y: Int) {
   lazy val downLeft: Option[Pos] = down flatMap (_ left)
   lazy val downRight: Option[Pos] = down flatMap (_ right)
 
-  def ^(n: Int): Option[Pos] = makePos(x, y + n)
-  def v(n: Int): Option[Pos] = makePos(x, y - n)
-  def >(n: Int): Option[Pos] = makePos(x + n, y)
-  def <(n: Int): Option[Pos] = makePos(x - n, y)
+  def ^(n: Int): Option[Pos] = posAt(x, y + n)
+  def v(n: Int): Option[Pos] = posAt(x, y - n)
+  def >(n: Int): Option[Pos] = posAt(x + n, y)
+  def <(n: Int): Option[Pos] = posAt(x - n, y)
   def >|(stop: Pos ⇒ Boolean): List[Pos] = |<>|(stop, _.right)
   def |<(stop: Pos ⇒ Boolean): List[Pos] = |<>|(stop, _.left)
   def |<>|(stop: Pos ⇒ Boolean, dir: Direction): List[Pos] = dir(this) map { p ⇒
@@ -30,7 +30,7 @@ sealed case class Pos private (x: Int, y: Int) {
   def ?|(other: Pos) = x == other.x
 
   def <->(other: Pos): Iterable[Pos] =
-    min(x, other.x) to max(x, other.x) map { makePos(_, y) } flatten
+    min(x, other.x) to max(x, other.x) map { posAt(_, y) } flatten
 
   lazy val file = Pos xToString x
   lazy val rank = y.toString
@@ -41,9 +41,9 @@ sealed case class Pos private (x: Int, y: Int) {
 
 object Pos {
 
-  def makePos(x: Int, y: Int): Option[Pos] = allCoords get (x, y)
+  def posAt(x: Int, y: Int): Option[Pos] = allCoords get (x, y)
 
-  def unsafe(x: Int, y: Int): Pos = allCoords((x, y))
+  def posAt(key: String): Option[Pos] = allKeys get key
 
   def xToString(x: Int) = (96 + x).toChar.toString
 

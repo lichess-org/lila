@@ -3,7 +3,7 @@ package format
 
 object PgnDump {
 
-  def move(situation: Situation, data: Move, nextSituation: Situation): String = {
+  def move(situation: Situation, data: Move, next: Situation): String = {
     import data._
     ((promotion, piece.role) match {
       case _ if castle          ⇒ if (orig ?> dest) "O-O-O" else "O-O"
@@ -18,6 +18,6 @@ object PgnDump {
         else if (candidates exists (_.pos ?| orig)) orig.file + orig.rank else orig.file
       } + (if (captures) "x" else "") + dest.key
       case _ ⇒ "?"
-    }) + (if (nextSituation.check) if (nextSituation.checkMate) "#" else "+" else "")
+    }) + (if (next.check) if (next.checkMate) "#" else "+" else "")
   }
 }

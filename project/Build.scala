@@ -20,7 +20,7 @@ trait Dependencies {
   val slf4jNop = "org.slf4j" % "slf4j-nop" % "1.6.4"
   val instrumenter = "com.google.code.java-allocation-instrumenter" % "java-allocation-instrumenter" % "2.0"
   val gson = "com.google.code.gson" % "gson" % "1.7.1"
-  val scalalib = "com.github.ornicar" %% "scalalib" % "1.12"
+  val scalalib = "com.github.ornicar" %% "scalalib" % "1.15"
 }
 
 object ApplicationBuild extends Build with Resolvers with Dependencies {

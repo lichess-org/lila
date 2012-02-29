@@ -1,6 +1,8 @@
 package lila.chess
 package format
 
+import Pos.posAt
+
 /**
  * r bqkb r
  * p ppp pp
@@ -23,13 +25,17 @@ object Visual extends Format[Board] {
       case n          ⇒ (List.fill(8 - n)("")) ::: lines
     }
     Board(
-      for {
+      (for {
         line ← (filtered.zipWithIndex)
         (l, y) = line
         char ← (l zipWithIndex)
         (c, x) = char
         if pieces.keySet(c toLower)
-      } yield Pos.unsafe(x + 1, 8 - y) -> (Color(c isUpper) - pieces(c toLower))
+      } yield {
+        posAt(x + 1, 8 - y) map { pos ⇒
+          pos -> (Color(c isUpper) - pieces(c toLower))
+        }
+      }) flatten
     ) withHistory History.noCastle
   }
 
@@ -41,7 +47,7 @@ object Visual extends Format[Board] {
     }
     for (y ← 8 to 1 by -1) yield {
       for (x ← 1 to 8) yield {
-        markedPoss get Pos.unsafe(x, y) getOrElse board(x, y).fold(_ forsyth, ' ')
+        posAt(x, y) flatMap markedPoss.get getOrElse board(x, y).fold(_ forsyth, ' ')
       }
     } mkString
   } map { """\s*$""".r.replaceFirstIn(_, "") } mkString "\n"
