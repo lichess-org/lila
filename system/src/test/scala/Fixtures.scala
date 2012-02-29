@@ -4,7 +4,7 @@ import model._
 
 trait Fixtures {
 
-  lazy val newGame = Game(
+  lazy val newDbGame = DbGame(
     id = "arstdhne",
     players = List(white, black),
     pgn = "",
@@ -13,10 +13,10 @@ trait Fixtures {
     variant = 1
   )
 
-  lazy val white = player("white", "ip ar jp bn kp cb lp dq mp ek np fb op gn pp hr")
-  lazy val black = player("black", "Wp 4r Xp 5n Yp 6b Zp 7q 0p 8k 1p 9b 2p !n 3p ?r")
+  lazy val white = newPlayer("white", "ip ar jp bn kp cb lp dq mp ek np fb op gn pp hr")
+  lazy val black = newPlayer("black", "Wp 4r Xp 5n Yp 6b Zp 7q 0p 8k 1p 9b 2p !n 3p ?r")
 
-  def player(color: String, ps: String) = Player(
+  def newPlayer(color: String, ps: String) = Player(
     id = color take 4,
     color = color,
     ps = "ip ar jp bn kp cb lp dq mp ek np fb op gn pp hr",
