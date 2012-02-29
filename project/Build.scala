@@ -18,7 +18,7 @@ trait Dependencies {
   val json = "net.liftweb" %% "lift-json" % "2.4-RC1"
   val casbah = "com.mongodb.casbah" %% "casbah" % "2.1.5-1"
   val salat = "com.novus" %% "salat-core" % "0.0.8-SNAPSHOT"
-  val slf4jNop = "org.slf4j" % "slf4j-nop" % "1.6.4"
+  val slf4j = "org.slf4j" % "slf4j-nop" % "1.6.4"
   val instrumenter = "com.google.code.java-allocation-instrumenter" % "java-allocation-instrumenter" % "2.0"
   val gson = "com.google.code.gson" % "gson" % "1.7.1"
   val scalalib = "com.github.ornicar" %% "scalalib" % "1.15"
@@ -45,11 +45,11 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
   )
 
   lazy val system = Project("system", file("system"), settings = buildSettings).settings(
-    libraryDependencies := Seq(scalalib, scalaz, config, redis, json, casbah, salat)
+    libraryDependencies := Seq(scalalib, scalaz, config, redis, json, casbah, salat, slf4j)
   ) dependsOn (chess)
 
   lazy val http = Project("http", file("http"), settings = buildSettings).settings(
-    libraryDependencies := Seq(scalalib, scalaz),
+    libraryDependencies := Seq(scalalib, scalaz, slf4j),
     resolvers := Seq(typesafe, typesafeS)
   ) dependsOn (system)
 

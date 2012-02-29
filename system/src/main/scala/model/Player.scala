@@ -5,10 +5,13 @@ import com.novus.salat.annotations._
 import com.mongodb.casbah.Imports._
 
 case class Player(
+    id: String,
+    color: String,
+    ps: String,
+    aiLevel: Option[Int],
+    isWinner: Option[Boolean],
+    evts: Option[String],
+    elo: Option[Int]) {
 
-  id: String,
-
-  color: String,
-
-  ps: String
-)
+  def isAi = aiLevel.isDefined
+}

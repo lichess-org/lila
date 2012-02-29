@@ -17,18 +17,21 @@ trait SystemEnv {
   def mongodb = MongoConnection(
     config getString "mongo.host",
     config getInt "mongo.port"
-  )(config getString "mongo.dbname")
+  )(config getString "mongo.dbName")
 
   def redis = new RedisClient(
     config getString "redis.host",
     config getInt "redis.port")
 }
 
-trait EnvBuilder {
+object SystemEnv extends EnvBuilder {
 
   def apply(overrides: String = "") = new SystemEnv {
-    val config = makeConfig(overrides, "lila.conf", "system")
+    val config = makeConfig(overrides, "lila.conf")
   }
+}
+
+trait EnvBuilder {
 
   import java.io.File
 
