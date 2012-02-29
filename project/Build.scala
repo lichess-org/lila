@@ -8,6 +8,7 @@ trait Resolvers {
   val iliaz = "iliaz.com" at "http://scala.iliaz.com/"
   val sonatype = "sonatype" at "http://oss.sonatype.org/content/repositories/releases"
   val sonatypeS = "sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots"
+  val novusS = "repo.novus snaps" at "http://repo.novus.com/snapshots/"
 }
 
 trait Dependencies {
@@ -22,6 +23,7 @@ trait Dependencies {
   val gson = "com.google.code.gson" % "gson" % "1.7.1"
   val scalalib = "com.github.ornicar" %% "scalalib" % "1.15"
   val hasher = "com.roundeights" % "hasher" % "0.3" from "http://cloud.github.com/downloads/Nycto/Hasher/hasher_2.9.1-0.3.jar"
+  val config = "com.typesafe.config" % "config" % "0.2.1"
 }
 
 object ApplicationBuild extends Build with Resolvers with Dependencies {
@@ -30,7 +32,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     organization := "com.github.ornicar",
     version := "0.1",
     scalaVersion := "2.9.1",
-    resolvers := Seq(iliaz, codahale, sonatype),
+    resolvers := Seq(iliaz, codahale, sonatype, novusS, typesafe),
     libraryDependencies in test := Seq(specs2),
     shellPrompt := {
       (state: State) ⇒ "%s> ".format(Project.extract(state).currentProject.id)
@@ -43,7 +45,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
   )
 
   lazy val system = Project("system", file("system"), settings = buildSettings).settings(
-    libraryDependencies := Seq(scalalib, scalaz, redis, json, casbah, salat)
+    libraryDependencies := Seq(scalalib, scalaz, config, redis, json, casbah, salat)
   ) dependsOn (chess)
 
   lazy val http = Project("http", file("http"), settings = buildSettings).settings(

@@ -1,5 +1,7 @@
-package lila
+package lila.system
 package repo
+
+import model._
 
 import com.novus.salat._
 import com.novus.salat.global._
@@ -9,5 +11,5 @@ import com.mongodb.casbah.Imports._
 
 class GameRepo(collection: MongoCollection) extends SalatDAO[Game, String](collection) {
 
-  def game(id: String) = findOneByID(id)
+  def game(id: String): Option[Game] = findOneByID(id)
 }
