@@ -101,5 +101,65 @@ R  BK  R"""
         E1 |< (p ⇒ board occupations p) must_== List(D1)
       }
     }
+    "detect" in {
+      "automatic draw" in {
+        "by lack of pieces" in {
+          "empty" in {
+            Board.empty.autoDraw must_== true
+          }
+          "new" in {
+            Board().autoDraw must_== false
+          }
+          "opened" in {
+            Game().playMoves(E2 -> E4, C7 -> C5, C2 -> C3, D7 -> D5, E4 -> D5) map { g ⇒
+              g.board.autoDraw
+            } must beSuccess(false)
+          }
+          "two kings" in {
+            """
+        k
+  K      """.autoDraw must_== true
+          }
+          "two kings and one pawn" in {
+            """
+        k
+  K     P""".autoDraw must_== false
+          }
+          "two kings and one bishop" in {
+            """
+        k
+  K     B""".autoDraw must_== true
+          }
+          "two kings, one bishop and one knight of different colors" in {
+            """
+        k
+  K n   B""".autoDraw must_== true
+          }
+          "two kings, one bishop and one knight of same colors" in {
+            """
+        k
+  K N   B""".autoDraw must_== false
+          }
+          "two kings, one bishop and one rook of different colors" in {
+            """
+        k
+  K r   B""".autoDraw must_== false
+          }
+        }
+        "by fifty moves" in {
+          "empty" in {
+            Board.empty.autoDraw must_== false
+          }
+          "new" in {
+            Board().autoDraw must_== false
+          }
+          "opened" in {
+            Game().playMoves(E2 -> E4, C7 -> C5, C2 -> C3, D7 -> D5, E4 -> D5) map { g ⇒
+              g.board.autoDraw
+            } must beSuccess(false)
+          }
+        }
+      }
+    }
   }
 }
