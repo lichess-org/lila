@@ -13,12 +13,12 @@ class PgnDumpTest extends ChessTest {
     "move list" in {
       "Gioachine Greco" in {
         gioachineGreco map (_.pgnMoves) must beSuccess.like {
-          case ms ⇒ ms must_== ("d4 d5 c4 dxc4 e3 b5 a4 c6 axb5 cxb5 Qf3" split ' ').toSeq
+          case ms ⇒ ms must_== "d4 d5 c4 dxc4 e3 b5 a4 c6 axb5 cxb5 Qf3"
         }
       }
       "Peruvian Immortal" in {
         peruvianImmortal map (_.pgnMoves) must beSuccess.like {
-          case ms ⇒ ms must_== ("e4 d5 exd5 Qxd5 Nc3 Qa5 d4 c6 Nf3 Bg4 Bf4 e6 h3 Bxf3 Qxf3 Bb4 Be2 Nd7 a3 O-O-O axb4 Qxa1+ Kd2 Qxh1 Qxc6+ bxc6 Ba6#" split ' ').toSeq
+          case ms ⇒ ms must_== "e4 d5 exd5 Qxd5 Nc3 Qa5 d4 c6 Nf3 Bg4 Bf4 e6 h3 Bxf3 Qxf3 Bb4 Be2 Nd7 a3 O-O-O axb4 Qxa1+ Kd2 Qxh1 Qxc6+ bxc6 Ba6#"
         }
       }
     }
