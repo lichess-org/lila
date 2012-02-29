@@ -2,7 +2,7 @@ package lila.chess
 
 import Pos._
 
-class CastleTest extends LilaTest {
+class CastleTest extends ChessTest {
 
   "a king castle" should {
 

@@ -1,6 +1,6 @@
 package lila.chess
 
-class PieceTest extends LilaTest {
+class PieceTest extends ChessTest {
 
   "Piece" should {
     "compare" in {

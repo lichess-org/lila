@@ -2,7 +2,7 @@ package lila.chess
 
 import Pos._
 
-class PlayOneMoveTest extends LilaTest {
+class PlayOneMoveTest extends ChessTest {
 
   "playing a move" should {
     "only process things once" in {

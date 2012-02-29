@@ -6,7 +6,7 @@ import org.specs2.matcher.{ Matcher }
 
 import format.Visual
 
-trait LilaTest
+trait ChessTest
     extends Specification
     with OrnicarValidationMatchers {
 

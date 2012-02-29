@@ -2,7 +2,7 @@ package lila.chess
 
 import Pos._
 
-class KingSafetyTest extends LilaTest {
+class KingSafetyTest extends ChessTest {
 
   "in order to save the king" should {
     "the king" in {

@@ -1,7 +1,7 @@
 package lila.chess
 import Pos._
 
-class PromotionTest extends LilaTest {
+class PromotionTest extends ChessTest {
 
   "pawn promotion" should {
     val board = """

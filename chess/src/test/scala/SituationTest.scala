@@ -1,6 +1,6 @@
 package lila.chess
 
-class SituationTest extends LilaTest {
+class SituationTest extends ChessTest {
 
   "a game" should {
     "detect" in {

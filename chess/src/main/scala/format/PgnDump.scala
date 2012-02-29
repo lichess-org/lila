@@ -6,7 +6,7 @@ object PgnDump {
   def move(situation: Situation, data: Move, next: Situation): String = {
     import data._
     ((promotion, piece.role) match {
-      case _ if castles          ⇒ if (orig ?> dest) "O-O-O" else "O-O"
+      case _ if castles         ⇒ if (orig ?> dest) "O-O-O" else "O-O"
       case _ if enpassant       ⇒ orig.file + 'x' + dest.rank
       case (Some(promotion), _) ⇒ dest.key + promotion.pgn
       case (_, Pawn)            ⇒ (if (captures) orig.file + "x" else "") + dest.key

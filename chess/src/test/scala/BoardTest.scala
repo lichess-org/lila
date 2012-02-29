@@ -2,7 +2,7 @@ package lila.chess
 
 import Pos._
 
-class BoardTest extends LilaTest {
+class BoardTest extends ChessTest {
 
   val board = Board()
 
