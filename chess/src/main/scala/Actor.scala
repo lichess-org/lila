@@ -168,5 +168,5 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
   private def history = board.history
   private def friends = board occupation color
   private def enemies = board occupation !color
-  private val pawnDir: Direction = if (color == White) _.up else _.down
+  private lazy val pawnDir: Direction = if (color == White) _.up else _.down
 }

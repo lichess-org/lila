@@ -12,6 +12,21 @@ trait LilaTest
 
   implicit def stringToBoard(str: String): Board = Visual << str
 
+  implicit def stringToSituationBuilder(str: String) = new {
+
+    def as(color: Color): Situation = Situation(Visual << str, color)
+  }
+
+  implicit def richGame(game: Game) = new {
+
+    def as(color: Color): Game = game.copy(player = color)
+
+    def playMoves(moves: (Pos, Pos)*): Valid[Game] =
+      moves.foldLeft(success(game): Valid[Game]) { (vg, move) ⇒
+        vg flatMap { g ⇒ g.playMove(move._1, move._2) }
+      }
+  }
+
   def bePoss(poss: Pos*): Matcher[Option[Iterable[Pos]]] = beSome.like {
     case p ⇒ sortPoss(p.toList) must_== sortPoss(poss.toList)
   }

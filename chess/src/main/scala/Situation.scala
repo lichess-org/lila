@@ -8,6 +8,8 @@ case class Situation(board: Board, color: Color) {
     case actor if actor.moves.nonEmpty ⇒ actor.pos -> actor.moves
   } toMap
 
+  lazy val destinations: Map[Pos, List[Pos]] = moves mapValues { ms => ms map (_.dest) }
+
   lazy val check: Boolean = board kingPosOf color map { king ⇒
     board actorsOf !color exists (_ threatens king)
   } getOrElse false
@@ -33,9 +35,7 @@ case class Situation(board: Board, color: Color) {
       b3 ← b2.place(color - promotion, to)
     } yield m.copy(after = b3, promotion = Some(promotion))
 
-  } toSuccess "Invalid move %s->%s".format(from, to).wrapNel
-
-  def as(c: Color) = copy(color = c)
+  } toSuccess "Invalid move %s %s".format(from, to).wrapNel
 }
 
 object Situation {

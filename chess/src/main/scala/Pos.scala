@@ -41,12 +41,9 @@ sealed case class Pos private (x: Int, y: Int) {
 
 object Pos {
 
-  private val bounds: Set[Int] = (1 to 8) toSet
+  def makePos(x: Int, y: Int): Option[Pos] = allCoords get (x, y)
 
-  def makePos(x: Int, y: Int): Option[Pos] =
-    if (bounds(x) && bounds(y)) Some(Pos(x, y)) else None
-
-  def unsafe(x: Int, y: Int): Pos = Pos(x, y)
+  def unsafe(x: Int, y: Int): Pos = allCoords((x, y))
 
   def xToString(x: Int) = (96 + x).toChar.toString
 
@@ -116,6 +113,15 @@ object Pos {
   val H8 = Pos(8, 8)
 
   val allKeys: Map[String, Pos] = Map("a1" -> A1, "a2" -> A2, "a3" -> A3, "a4" -> A4, "a5" -> A5, "a6" -> A6, "a7" -> A7, "a8" -> A8, "b1" -> B1, "b2" -> B2, "b3" -> B3, "b4" -> B4, "b5" -> B5, "b6" -> B6, "b7" -> B7, "b8" -> B8, "c1" -> C1, "c2" -> C2, "c3" -> C3, "c4" -> C4, "c5" -> C5, "c6" -> C6, "c7" -> C7, "c8" -> C8, "d1" -> D1, "d2" -> D2, "d3" -> D3, "d4" -> D4, "d5" -> D5, "d6" -> D6, "d7" -> D7, "d8" -> D8, "e1" -> E1, "e2" -> E2, "e3" -> E3, "e4" -> E4, "e5" -> E5, "e6" -> E6, "e7" -> E7, "e8" -> E8, "f1" -> F1, "f2" -> F2, "f3" -> F3, "f4" -> F4, "f5" -> F5, "f6" -> F6, "f7" -> F7, "f8" -> F8, "g1" -> G1, "g2" -> G2, "g3" -> G3, "g4" -> G4, "g5" -> G5, "g6" -> G6, "g7" -> G7, "g8" -> G8, "h1" -> H1, "h2" -> H2, "h3" -> H3, "h4" -> H4, "h5" -> H5, "h6" -> H6, "h7" -> H7, "h8" -> H8)
+
+  val allCoords: Map[(Int, Int), Pos] = {
+    for {
+      x ← 1 to 8
+      xString = xToString(x)
+      y ← 1 to 8
+      key = xString + y.toString
+    } yield (x, y) -> allKeys(key)
+  } toMap
 
   def all = allKeys.values
 }

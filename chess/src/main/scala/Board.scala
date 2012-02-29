@@ -43,8 +43,6 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
     if (pieces contains at) None
     else Some(copy(pieces = pieces + ((at, piece))))
 
-  def takeValid(at: Pos): Valid[Board] = take(at) toSuccess ("No piece at " + at + " to take")
-
   def take(at: Pos): Option[Board] = pieces get at map { piece ⇒
     copy(pieces = pieces - at)
   }
@@ -86,8 +84,6 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
   def withHistory(h: History): Board = copy(history = h)
 
   def updateHistory(f: History ⇒ History) = copy(history = f(history))
-
-  def as(c: Color) = Situation(this, c)
 
   def count(p: Piece) = pieces.values count (_ == p)
 

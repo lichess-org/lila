@@ -42,8 +42,8 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
 
   lazy val benchmark = Project("benchmark", file("benchmark"), settings = Project.defaultSettings).settings(
     fork in run := true,
-    libraryDependencies := Seq(instrumenter, gson),
-    resolvers := Seq(codahale, sonatype),
+    libraryDependencies := Seq(scalalib, instrumenter, gson),
+    resolvers := Seq(iliaz, codahale, sonatype),
     shellPrompt := ShellPrompt.buildShellPrompt,
     scalacOptions := Seq("-deprecation", "-unchecked"),
     // we need to add the runtime classpath as a "-cp" argument
