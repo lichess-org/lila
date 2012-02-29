@@ -1,6 +1,6 @@
 package lila.chess
 
-import Pos._
+import Pos.posAt
 import format.Visual
 
 case class Board(pieces: Map[Pos, Piece], history: History) {
@@ -9,7 +9,7 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
 
   def apply(at: Pos): Option[Piece] = pieces get at
 
-  def apply(x: Int, y: Int): Option[Piece] = makePos(x, y) flatMap pieces.get
+  def apply(x: Int, y: Int): Option[Piece] = posAt(x, y) flatMap pieces.get
 
   lazy val actors: Map[Pos, Actor] = pieces map {
     case (pos, piece) ⇒ (pos, Actor(piece, pos, this))
@@ -17,6 +17,10 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
 
   lazy val colorActors: Map[Color, List[Actor]] =
     actors.values groupBy (_.color) mapValues (_.toList)
+
+  def rolesOf(c: Color): List[Role] = pieces.values.toList collect {
+    case piece if piece.color == c ⇒ piece.role
+  }
 
   def actorsOf(c: Color): List[Actor] = colorActors get c getOrElse Nil
 
@@ -85,7 +89,20 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
 
   def updateHistory(f: History ⇒ History) = copy(history = f(history))
 
-  def count(p: Piece) = pieces.values count (_ == p)
+  def count(p: Piece): Int = pieces.values count (_ == p)
+  def count(c: Color): Int = pieces.values count (_.color == c)
+
+  def autoDraw: Boolean = {
+    Color.all map rolesOf forall { roles ⇒
+      (roles filterNot (_ == King)) match {
+        case roles if roles.size > 1 ⇒ false
+        case List(Knight)            ⇒ true
+        case List(Bishop)            ⇒ true
+        case Nil                     ⇒ true
+        case _                       ⇒ false
+      }
+    }
+  }
 
   def visual = Visual >> this
 
@@ -100,18 +117,24 @@ object Board {
 
   def apply(pieces: (Pos, Piece)*): Board = Board(pieces toMap, History())
 
-  def apply(): Board = {
+  def apply(): Board = standard
+
+  lazy val standard: Board = {
 
     val lineUp = IndexedSeq(Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook)
 
-    val pairs = for (y ← Seq(1, 2, 7, 8); x ← 1 to 8) yield (Pos.unsafe(x, y), y match {
-      case 1 ⇒ White - lineUp(x - 1)
-      case 2 ⇒ White - Pawn
-      case 7 ⇒ Black - Pawn
-      case 8 ⇒ Black - lineUp(x - 1)
-    })
+    val pairs = for (y ← Seq(1, 2, 7, 8); x ← 1 to 8) yield {
+      posAt(x, y) map { pos ⇒
+        (pos, y match {
+          case 1 ⇒ White - lineUp(x - 1)
+          case 2 ⇒ White.pawn
+          case 7 ⇒ Black.pawn
+          case 8 ⇒ Black - lineUp(x - 1)
+        })
+      }
+    }
 
-    Board(pairs toMap, History())
+    Board(pairs.flatten toMap, History())
   }
 
   def empty = new Board(Map.empty, History())

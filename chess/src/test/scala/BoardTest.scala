@@ -122,8 +122,8 @@ R  BK  R"""
           }
           "two kings and one pawn" in {
             """
-        k
-  K     P""".autoDraw must_== false
+    P   k
+  K      """.autoDraw must_== false
           }
           "two kings and one bishop" in {
             """
@@ -135,10 +135,10 @@ R  BK  R"""
         k
   K n   B""".autoDraw must_== true
           }
-          "two kings, one bishop and one knight of same colors" in {
+          "two kings, one bishop and one knight of same color" in {
             """
-        k
-  K N   B""".autoDraw must_== false
+    B   k
+  K N    """.autoDraw must_== false
           }
           "two kings, one bishop and one rook of different colors" in {
             """
@@ -147,9 +147,6 @@ R  BK  R"""
           }
         }
         "by fifty moves" in {
-          "empty" in {
-            Board.empty.autoDraw must_== false
-          }
           "new" in {
             Board().autoDraw must_== false
           }
@@ -157,6 +154,12 @@ R  BK  R"""
             Game().playMoves(E2 -> E4, C7 -> C5, C2 -> C3, D7 -> D5, E4 -> D5) map { g ⇒
               g.board.autoDraw
             } must beSuccess(false)
+          }
+          "tons of pointless moves" in {
+            val moves = List.fill(30)(List(B1 -> C3, B8 -> C6, C3 -> B1, C6 -> B8))
+            Game().playMoves(moves.flatten: _*) must beSuccess.like {
+              case g ⇒ g.board.autoDraw must_== true
+            }
           }
         }
       }
