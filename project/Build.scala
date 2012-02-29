@@ -26,27 +26,34 @@ trait Dependencies {
 
 object ApplicationBuild extends Build with Resolvers with Dependencies {
 
-  lazy val chess = Project("chess", file("chess"), settings = Project.defaultSettings).settings(
-    libraryDependencies := Seq(scalalib, hasher),
+  private val buildSettings = Project.defaultSettings ++ Seq(
+    organization := "com.github.ornicar",
+    version := "0.1",
+    scalaVersion := "2.9.1",
+    resolvers := Seq(iliaz, codahale, sonatype),
     libraryDependencies in test := Seq(specs2),
-    resolvers := Seq(iliaz, sonatype),
-    shellPrompt := ShellPrompt.buildShellPrompt,
+    shellPrompt := {
+      (state: State) ⇒ "%s> ".format(Project.extract(state).currentProject.id)
+    },
     scalacOptions := Seq("-deprecation", "-unchecked")
   )
 
-  lazy val http = Project("http", file("http"), settings = Project.defaultSettings).settings(
-    libraryDependencies := Seq(scalalib, scalaz, specs2, redis, json, casbah, salat),
-    resolvers := Seq(codahale, typesafe, typesafeS, iliaz, sonatype),
-    shellPrompt := ShellPrompt.buildShellPrompt,
-    scalacOptions := Seq("-deprecation", "-unchecked")
+  lazy val chess = Project("chess", file("chess"), settings = buildSettings).settings(
+    libraryDependencies := Seq(scalalib, hasher)
+  )
+
+  lazy val system = Project("system", file("system"), settings = buildSettings).settings(
+    libraryDependencies := Seq(scalalib, scalaz, redis, json, casbah, salat)
   ) dependsOn (chess)
 
-  lazy val benchmark = Project("benchmark", file("benchmark"), settings = Project.defaultSettings).settings(
+  lazy val http = Project("http", file("http"), settings = buildSettings).settings(
+    libraryDependencies := Seq(scalalib, scalaz),
+    resolvers := Seq(typesafe, typesafeS)
+  ) dependsOn (system)
+
+  lazy val benchmark = Project("benchmark", file("benchmark"), settings = buildSettings).settings(
     fork in run := true,
     libraryDependencies := Seq(scalalib, instrumenter, gson),
-    resolvers := Seq(iliaz, codahale, sonatype),
-    shellPrompt := ShellPrompt.buildShellPrompt,
-    scalacOptions := Seq("-deprecation", "-unchecked"),
     // we need to add the runtime classpath as a "-cp" argument
     // to the `javaOptions in run`, otherwise caliper
     // will not see the right classpath and die with a ConfigurationException
@@ -70,9 +77,4 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
 
   // attribute key to prevent circular onLoad hook (for benchmark)
   val key = AttributeKey[Boolean]("javaOptionsPatched")
-}
-
-object ShellPrompt {
-  val buildShellPrompt =
-    (state: State) ⇒ "%s> ".format(Project.extract(state).currentProject.id)
 }
