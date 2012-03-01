@@ -40,5 +40,7 @@ object Color {
 
   def apply(b: Boolean): Color = if (b) White else Black
 
-  def all = List(White, Black)
+  val all = List(White, Black)
+
+  val allByName = Map("white" -> White, "black" -> Black)
 }

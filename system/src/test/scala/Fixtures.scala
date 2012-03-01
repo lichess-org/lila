@@ -19,7 +19,7 @@ trait Fixtures {
   def newPlayer(color: String, ps: String) = Player(
     id = color take 4,
     color = color,
-    ps = "ip ar jp bn kp cb lp dq mp ek np fb op gn pp hr",
+    ps = ps,
     aiLevel = None,
     isWinner = None,
     evts = Some("0s|1Msystem White creates the game|2Msystem Black joins the game|3r/ipkkf590ldrr"),
