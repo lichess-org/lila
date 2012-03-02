@@ -21,7 +21,7 @@ trait Dependencies {
   val slf4j = "org.slf4j" % "slf4j-nop" % "1.6.4"
   val instrumenter = "com.google.code.java-allocation-instrumenter" % "java-allocation-instrumenter" % "2.0"
   val gson = "com.google.code.gson" % "gson" % "1.7.1"
-  val scalalib = "com.github.ornicar" %% "scalalib" % "1.15"
+  val scalalib = "com.github.ornicar" %% "scalalib" % "1.16"
   val hasher = "com.roundeights" % "hasher" % "0.3" from "http://cloud.github.com/downloads/Nycto/Hasher/hasher_2.9.1-0.3.jar"
   val config = "com.typesafe.config" % "config" % "0.2.1"
 }
@@ -33,6 +33,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     version := "0.1",
     scalaVersion := "2.9.1",
     resolvers := Seq(iliaz, codahale, sonatype, novusS, typesafe),
+    libraryDependencies := Seq(scalalib),
     libraryDependencies in test := Seq(specs2),
     shellPrompt := {
       (state: State) ⇒ "%s> ".format(Project.extract(state).currentProject.id)
@@ -41,21 +42,21 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
   )
 
   lazy val chess = Project("chess", file("chess"), settings = buildSettings).settings(
-    libraryDependencies := Seq(scalalib, hasher)
+    libraryDependencies ++= Seq(hasher)
   )
 
   lazy val system = Project("system", file("system"), settings = buildSettings).settings(
-    libraryDependencies := Seq(scalalib, scalaz, config, redis, json, casbah, salat, slf4j)
+    libraryDependencies ++= Seq(scalaz, config, redis, json, casbah, salat, slf4j)
   ) dependsOn (chess)
 
   lazy val http = Project("http", file("http"), settings = buildSettings).settings(
-    libraryDependencies := Seq(scalalib, scalaz, slf4j),
+    libraryDependencies ++= Seq(scalaz, slf4j),
     resolvers := Seq(typesafe, typesafeS)
   ) dependsOn (system)
 
   lazy val benchmark = Project("benchmark", file("benchmark"), settings = buildSettings).settings(
     fork in run := true,
-    libraryDependencies := Seq(scalalib, instrumenter, gson),
+    libraryDependencies ++= Seq(instrumenter, gson),
     // we need to add the runtime classpath as a "-cp" argument
     // to the `javaOptions in run`, otherwise caliper
     // will not see the right classpath and die with a ConfigurationException

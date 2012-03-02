@@ -39,9 +39,7 @@ trait EnvBuilder {
     case (config, source) if source isEmpty ⇒ config
     case (config, source) if source contains '=' ⇒
       config.withFallback(ConfigFactory parseString source)
-    case (config, source) if source contains '.' ⇒
-      config.withFallback(ConfigFactory parseFile (new File(source)))
     case (config, source) ⇒
-      config.withFallback(ConfigFactory load source)
+      config.withFallback(ConfigFactory parseFile (new File(source)))
   }
 }

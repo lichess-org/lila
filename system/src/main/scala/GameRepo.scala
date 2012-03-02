@@ -9,8 +9,7 @@ import com.novus.salat.dao._
 import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.Imports._
 
-class GameRepo(collection: MongoCollection)
-extends SalatDAO[DbGame, String](collection) {
+class GameRepo(collection: MongoCollection) extends SalatDAO[DbGame, String](collection) {
 
   def game(id: String): Option[DbGame] = findOneByID(id)
 
