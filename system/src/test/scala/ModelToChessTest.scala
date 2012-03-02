@@ -4,6 +4,7 @@ import model._
 import lila.chess._
 
 import format.Visual
+import Pos._
 
 class ModelToChessTest extends SystemTest {
 
@@ -12,21 +13,12 @@ class ModelToChessTest extends SystemTest {
       //newDbGame.toChess must_== Game()
     //}
     "played game" in {
-      val game = DbGame(
-        id = "huhuhaha",
-        players = List(
-          newPlayer("white", "ip ar sp16 sN14 kp ub8 Bp6 dq Kp0 ek np LB12 wp22 Fn2 pp hR"),
-          newPlayer("black", "Wp 4r Xp Qn1 Yp LB13 Rp9 hq17 0p 8k 1p 9b 2p sN3 3p ?r")),
-        pgn = "e4 Nc6 Nf3 Nf6 e5 Ne4 d3 Nc5 Be3 d6 d4 Ne4 Bd3 Bf5 Nc3 Nxc3 bxc3 Qd7 Bxf5 Qxf5 Nh4 Qe4 g3 Qxh1+",
-        status = 31,
-        turns = 24,
-        variant = 1
-      ).toChess
+      val game = dbGame1.toChess
       "player" in {
         game.player must_== White
       }
       "pgn moves" in {
-        game.pgnMoves must_==  "e4 Nc6 Nf3 Nf6 e5 Ne4 d3 Nc5 Be3 d6 d4 Ne4 Bd3 Bf5 Nc3 Nxc3 bxc3 Qd7 Bxf5 Qxf5 Nh4 Qe4 g3 Qxh1+"
+        game.pgnMoves must_== "e4 Nc6 Nf3 Nf6 e5 Ne4 d3 Nc5 Be3 d6 d4 Ne4 Bd3 Bf5 Nc3 Nxc3 bxc3 Qd7 Bxf5 Qxf5 Nh4 Qe4 g3 Qxh1+"
       }
       "pieces" in {
         Visual addNewLines game.board.toString must_== """
@@ -39,6 +31,33 @@ ppp pppp
 P P  P P
 R  QK  q
 """
+      }
+      "last move" in {
+        game.board.history.lastMove must beNone
+      }
+    }
+    "and another played game" in {
+      val game = dbGame2.toChess
+      "player" in {
+        game.player must_== Black
+      }
+      "pgn moves" in {
+        game.pgnMoves must_== "e4 e5 Qh5 Qf6 Nf3 g6 Qxe5+ Qxe5 Nxe5 Nf6 Nc3 Nc6 Nxc6 bxc6 e5 Nd5 Nxd5 cxd5 d4 Rb8 c3 d6 Be2 dxe5 dxe5 Rg8 Bf3 d4 cxd4 Bb4+ Ke2 g5 a3 g4 Bc6+ Bd7 Bxd7+ Kxd7 axb4 Rxb4 Kd3 Rb3+ Kc4 Rb6 Rxa7 Rc6+ Kb5 Rb8+ Ka5 Rc4 Rd1 Kc6 d5+ Kc5 Rxc7#"
+      }
+      "pieces" in {
+        Visual addNewLines game.board.toString must_== """
+ r
+  R  p p
+
+K kPP
+  r   p
+
+ P   PPP
+  BR
+"""
+      }
+      "last move" in {
+        game.board.history.lastMove must_== (A7, C7).some
       }
     }
   }
