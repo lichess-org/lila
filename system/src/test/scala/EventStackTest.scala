@@ -7,7 +7,7 @@ import Pos._
 class EventStackTest extends SystemTest {
 
   "an event stack" should {
-    "encode and decode" in {
+    "encode and decode all events without loss" in {
       val stack = EventStack(
         StartEvent(),
         MoveEvent(orig = G4, dest = C3, color = Black),
@@ -31,6 +31,11 @@ class EventStackTest extends SystemTest {
         EndEvent()
       )
       EventStack decode stack.encode must_== stack
+    }
+    "decode and re-encode production data events" in {
+      dbGame5.players.forall { player =>
+        (EventStack decode player.evts).encode must_== player.evts
+      }
     }
   }
 }

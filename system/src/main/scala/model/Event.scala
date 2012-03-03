@@ -140,7 +140,7 @@ case class PromotionEvent(role: PromotableRole, pos: Pos) extends Event {
 }
 object PromotionEvent extends EventDecoder {
 
-  def decode(str: String) = str.pp.toList match {
+  def decode(str: String) = str.toList match {
     case List(r, p) ⇒ for {
       role ← Role promotable r
       pos ← decodePos get p
@@ -213,6 +213,6 @@ object MoretimeEvent extends EventDecoder {
   def decode(str: String) = for {
     c ← str.headOption
     color ← Color(c)
-    seconds ← str.drop(1).parseInt toOption
+    seconds ← parseIntOption(str drop 1)
   } yield MoretimeEvent(color, seconds)
 }

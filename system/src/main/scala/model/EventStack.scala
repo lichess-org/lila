@@ -4,7 +4,7 @@ package model
 import lila.chess._
 import Piotr._
 
-case class EventStack(events: Map[Int, Event]) {
+case class EventStack(events: IndexedSeq[(Int, Event)]) {
 
   def encode: String = (events map {
     case (version, event) ⇒ event.encode map (version.toString + _)
@@ -18,14 +18,15 @@ object EventStack {
   val EventEncoding = """^(\d+)(\w)(.*)$""".r
 
   def decode(evts: String): EventStack = new EventStack(
-    (evts.split('|').toList collect {
-      case EventEncoding(version, code, data) ⇒ for {
+    (evts.split('|') collect {
+      case EventEncoding(v, code, data) ⇒ for {
+        version ← parseIntOption(v)
         decoder ← EventDecoder.all get code(0)
         event ← decoder decode data
-      } yield (version.toInt, event)
-    }).flatten toMap
+      } yield (version, event)
+    }).toIndexedSeq.flatten
   )
 
   def apply(events: Event*): EventStack =
-    new EventStack(events.zipWithIndex map (_.swap) toMap)
+    new EventStack(events.zipWithIndex map (_.swap) toIndexedSeq)
 }
