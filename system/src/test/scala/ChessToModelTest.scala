@@ -10,14 +10,26 @@ class ChessToModelTest extends SystemTest {
 
   "chess to model conversion" should {
     "new game" in {
-      val game = newDbGame.toChess
+      val dbGame = newDbGame
+      val game = dbGame.toChess
       "identity" in {
-        newDbGame update game must_== newDbGame
+        val dbg2 = dbGame update game
+        "white pieces" in {
+          dbg2 playerByColor "white" map (_.ps) map sortPs must_== {
+            dbGame playerByColor "white" map (_.ps) map sortPs
+          }
+        }
+        "black pieces" in {
+          dbg2 playerByColor "black" map (_.ps) map sortPs must_== {
+            dbGame playerByColor "black" map (_.ps) map sortPs
+          }
+        }
       }
     }
     "played game" in {
       val dbGame = dbGame4
-      val game = Game("""
+      val game = Game(
+        board = """
 r   kb r
 ppp pppp
   np
@@ -26,18 +38,37 @@ ppp pppp
   P B P
 P P  P P
 R  QK  q
-""", White, dbGame.pgn)
+""",
+        player = White,
+        pgnMoves = dbGame.pgn,
+        deads = List(
+          C3 -> Black.knight,
+          F5 -> Black.bishop,
+          F5 -> White.bishop,
+          C3 -> White.knight,
+          H1 -> White.rook
+        ))
       "identity" in {
-        dbGame update game must_== dbGame
-      }
-      "pieces" in {
-        val dbg2 = newDbGame update game
-        "white" in {
+        val dbg2 = dbGame update game
+        "white pieces" in {
           dbg2 playerByColor "white" map (_.ps) map sortPs must_== {
             dbGame playerByColor "white" map (_.ps) map sortPs
           }
         }
-        "black" in {
+        "black pieces" in {
+          dbg2 playerByColor "black" map (_.ps) map sortPs must_== {
+            dbGame playerByColor "black" map (_.ps) map sortPs
+          }
+        }
+      }
+      "new pieces positions" in {
+        val dbg2 = newDbGame update game
+        "white pieces" in {
+          dbg2 playerByColor "white" map (_.ps) map sortPs must_== {
+            dbGame playerByColor "white" map (_.ps) map sortPs
+          }
+        }
+        "black pieces" in {
           dbg2 playerByColor "black" map (_.ps) map sortPs must_== {
             dbGame playerByColor "black" map (_.ps) map sortPs
           }

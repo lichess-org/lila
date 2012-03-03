@@ -7,7 +7,7 @@ case class Game(
     player: Color = White,
     pgnMoves: String = "",
     clock: Option[Clock] = None,
-    deads: Map[Pos, Piece] = Map.empty) {
+    deads: List[(Pos, Piece)] = Nil) {
 
   def playMove(
     orig: Pos,
@@ -21,7 +21,7 @@ case class Game(
       deads = (for {
         cpos ← move.capture
         cpiece ← board(cpos)
-      } yield deads + ((cpos, cpiece))) getOrElse deads
+      } yield (cpos, cpiece) :: deads) getOrElse deads
     )
     val pgnMove = PgnDump.move(situation, move, newGame.situation)
     newGame.copy(pgnMoves = (pgnMoves + " " + pgnMove).trim)

@@ -12,7 +12,7 @@ class GameTest extends ChessTest {
         D7 -> D5,
         E4 -> D5)
       game must beSuccess.like {
-        case g ⇒ g.deads must_== Map(D5 -> Black.pawn)
+        case g ⇒ g.deads must haveTheSameElementsAs(List(D5 -> Black.pawn))
       }
     }
   }

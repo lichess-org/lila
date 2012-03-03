@@ -33,11 +33,13 @@ R  QK  q
 """
       }
       "deads" in {
-        game.deads must_== Map(
+        game.deads must haveTheSameElementsAs(List(
           C3 -> Black.knight,
           F5 -> Black.bishop,
+          F5 -> White.bishop,
+          C3 -> White.knight,
           H1 -> White.rook
-        )
+        ))
       }
       "last move" in {
         game.board.history.lastMove must beNone

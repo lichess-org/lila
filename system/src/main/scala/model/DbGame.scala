@@ -41,9 +41,9 @@ case class DbGame(
         color = Color.allByName(player.color) // unsafe
         piece ← player.ps.split(' ')
       } yield (color, piece(0), piece(1))
-    }.foldLeft((Map.empty: Map[Pos, Piece], Map.empty: Map[Pos, Piece])) {
+    }.foldLeft((Map[Pos, Piece](), List[(Pos, Piece)]())) {
       case ((ps, ds), (color, pos, role)) ⇒ {
-        if (role.isUpper) posPiece(pos, role.toLower, color) map { p ⇒ (ps, ds + p) }
+        if (role.isUpper) posPiece(pos, role.toLower, color) map { p ⇒ (ps, p :: ds) }
         else posPiece(pos, role, color) map { p ⇒ (ps + p, ds) }
       } getOrElse (ps, ds)
       case (acc, _) ⇒ acc
@@ -77,14 +77,22 @@ case class DbGame(
   }
 
   def update(game: Game): DbGame = {
+    val allPieces = (game.board.pieces map {
+      case (pos, piece) ⇒ (pos, piece, false)
+    }) ++ (game.deads map {
+      case (pos, piece) ⇒ (pos, piece, true)
+    })
     copy(
       pgn = game.pgnMoves,
       players = for {
         player ← players
         color = Color.allByName(player.color) // unsafe
       } yield player.copy(
-        ps = game.board actorsOf color map { actor ⇒
-          (Piotr encodePos actor.pos).toString + actor.piece.role.forsyth
+        ps = allPieces filter (_._2.color == color) map {
+          case (pos, piece, dead) ⇒ (Piotr encodePos pos).toString + {
+            if (dead) piece.role.forsyth.toUpper
+            else piece.role.forsyth
+          }
         } mkString " "
       )
     )
