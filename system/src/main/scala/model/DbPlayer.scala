@@ -7,7 +7,7 @@ case class DbPlayer(
     ps: String,
     aiLevel: Option[Int],
     isWinner: Option[Boolean],
-    evts: Option[String],
+    evts: String = "",
     elo: Option[Int]) {
 
   def isAi = aiLevel.isDefined

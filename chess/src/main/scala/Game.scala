@@ -10,10 +10,10 @@ case class Game(
     deads: List[(Pos, Piece)] = Nil,
     turns: Int = 0) {
 
-  def playMove(
+  def apply(
     orig: Pos,
     dest: Pos,
-    promotion: PromotableRole = Queen): Valid[Game] = for {
+    promotion: PromotableRole = Queen): Valid[(Game, Move)] = for {
     move ← situation.move(orig, dest, promotion)
   } yield {
     val newGame = copy(
@@ -26,8 +26,14 @@ case class Game(
       } yield (cpos, cpiece) :: deads) getOrElse deads
     )
     val pgnMove = PgnDump.move(situation, move, newGame.situation)
-    newGame.copy(pgnMoves = (pgnMoves + " " + pgnMove).trim)
+    (newGame.copy(pgnMoves = (pgnMoves + " " + pgnMove).trim), move)
   }
+
+  def playMove(
+    orig: Pos,
+    dest: Pos,
+    promotion: PromotableRole = Queen): Valid[Game] =
+      apply(orig, dest, promotion) map (_._1)
 
   lazy val situation = Situation(board, player)
 

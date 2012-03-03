@@ -18,12 +18,17 @@ final class Server(repo: GameRepo) {
     gameAndPlayer ← repo player fullId toValid "Wrong ID " + fullId
     (game, player) = gameAndPlayer
     chessGame = game.toChess
-    newChessGame ← chessGame.playMove(orig, dest, promotion)
-    newGame = game update newChessGame
-    result ← unsafe { repo save newGame }
+    newChessGameAndMove ← chessGame(orig, dest, promotion)
+    (newChessGame, move) = newChessGameAndMove
+    g1 = game update newChessGame
+    eventStacks = game.eventStacks mapValues (_ withMove move)
+    g2 = g1 withEventStacks eventStacks
+    result ← unsafe { repo save g2 }
   } yield newChessGame.situation.destinations
 
-  def decodeMoveString(moveString: String): Option[(String, String)] = moveString match {
+  private def moveToEvents(move: Move): Map[DbPlayer, EventStack] = Map.empty
+
+  private def decodeMoveString(moveString: String): Option[(String, String)] = moveString match {
     case MoveString(orig, dest) ⇒ (orig, dest).some
     case _                      ⇒ none
   }

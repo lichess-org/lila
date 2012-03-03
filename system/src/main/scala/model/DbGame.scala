@@ -53,7 +53,7 @@ case class DbGame(
         History(
           lastMove = lastMove flatMap {
             case MoveString(a, b) ⇒ for (from ← posAt(a); to ← posAt(b)) yield (from, to)
-            case _              ⇒ None
+            case _                ⇒ None
           }
         )
       ),
@@ -97,6 +97,18 @@ case class DbGame(
       turns = game.turns
     )
   }
+
+  def eventStacks: Map[DbPlayer, EventStack] = players map { player =>
+    (player, EventStack decode player.evts)
+  } toMap
+
+  def withEventStacks(stacks: Map[DbPlayer, EventStack]): DbGame = copy(
+    players = players map { player ⇒
+      stacks get player some { stack ⇒
+        player.copy(evts = stack.encode)
+      } none player
+    }
+  )
 }
 
 object DbGame {
