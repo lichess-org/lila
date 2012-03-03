@@ -45,5 +45,14 @@ case object Pawn extends Role {
 
 object Role {
 
-  lazy val all = List(King, Queen, Rook, Bishop, Knight, Pawn)
+  val all = List(King, Queen, Rook, Bishop, Knight, Pawn)
+  val allPromotable = List(Queen, Rook, Bishop, Knight)
+  val allPromotableByName: Map[String, PromotableRole] =
+    allPromotable map { r => (r.toString, r) } toMap
+
+  def promotable(name: String): Option[PromotableRole] =
+    allPromotableByName get name
+
+  def promotable(name: Option[String]): Option[PromotableRole] =
+    name map promotable getOrElse Some(Queen)
 }
