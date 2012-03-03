@@ -36,7 +36,7 @@ case class DbGame(
     val (pieces, deads) = {
       for {
         player ← players
-        color = Color.allByName(player.color) // unsafe
+        color = Color(player.color).get // unsafe
         piece ← player.ps.split(' ')
       } yield (color, piece(0), piece(1))
     }.foldLeft((Map[Pos, Piece](), List[(Pos, Piece)]())) {
@@ -85,7 +85,7 @@ case class DbGame(
       pgn = game.pgnMoves,
       players = for {
         player ← players
-        color = Color.allByName(player.color) // unsafe
+        color = Color(player.color).get // unsafe
       } yield player.copy(
         ps = allPieces filter (_._2.color == color) map {
           case (pos, piece, dead) ⇒ (Piotr encodePos pos).toString + {
