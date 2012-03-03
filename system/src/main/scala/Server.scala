@@ -21,7 +21,7 @@ final class Server(repo: GameRepo) {
     newChessGameAndMove ← chessGame(orig, dest, promotion)
     (newChessGame, move) = newChessGameAndMove
     g1 = game update newChessGame
-    eventStacks = game.eventStacks mapValues (_ withMove move)
+    eventStacks = game.eventStacks mapValues (_ withMove move optimize)
     g2 = g1 withEventStacks eventStacks
     result ← unsafe { repo save g2 }
   } yield newChessGame.situation.destinations

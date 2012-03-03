@@ -3,12 +3,13 @@ package lila.system
 import model._
 import lila.chess._
 import Pos._
+import org.specs2.matcher.{ Expectable, Matcher }
 
 class EventStackTest extends SystemTest {
 
   "an event stack" should {
     "encode and decode all events without loss" in {
-      val stack = EventStack(
+      val stack = EventStack.build(
         StartEvent(),
         MoveEvent(orig = G4, dest = C3, color = Black),
         PossibleMovesEvent(Map(A7 -> List(A8, B8))),
@@ -33,13 +34,13 @@ class EventStackTest extends SystemTest {
       EventStack decode stack.encode must_== stack
     }
     "decode and re-encode production data events" in {
-      dbGame5.players.forall { player =>
+      dbGame5.players.forall { player ⇒
         (EventStack decode player.evts).encode must_== player.evts
       }
     }
     "optimize events" in {
       "empty duplicated possible move events" in {
-        EventStack(
+        EventStack.build(
           StartEvent(),
           MoveEvent(orig = G4, dest = C3, color = Black),
           PossibleMovesEvent(Map(A7 -> List(A8, B8))),
@@ -49,26 +50,50 @@ class EventStackTest extends SystemTest {
           PossibleMovesEvent(Map(A5 -> List(A8, B8))),
           MoretimeEvent(White, 15),
           EndEvent()
-        ).optimize must_== EventStack(
-          StartEvent(),
-          MoveEvent(orig = G4, dest = C3, color = Black),
-          PossibleMovesEvent(Map()),
-          MoveEvent(orig = E5, dest = F6, color = White),
-          PossibleMovesEvent(Map()),
-          MoveEvent(orig = G4, dest = C3, color = Black),
-          PossibleMovesEvent(Map(A5 -> List(A8, B8))),
-          MoretimeEvent(White, 15),
-          EndEvent()
-        )
+        ).optimize must_== EventStack.build(
+            StartEvent(),
+            MoveEvent(orig = G4, dest = C3, color = Black),
+            PossibleMovesEvent(Map()),
+            MoveEvent(orig = E5, dest = F6, color = White),
+            PossibleMovesEvent(Map()),
+            MoveEvent(orig = G4, dest = C3, color = Black),
+            PossibleMovesEvent(Map(A5 -> List(A8, B8))),
+            MoretimeEvent(White, 15),
+            EndEvent()
+          )
       }
       "keep only the %d more recent events" format EventStack.maxEvents in {
         val nb = EventStack.maxEvents
         val someEvent = CheckEvent(pos = D6)
         val endEvent = EndEvent()
         val events = List.fill(nb + 40)(someEvent) :+ endEvent
-        val stack = EventStack(events: _*)
+        val stack = EventStack.build(events: _*)
         val expected = (List.fill(nb - 1)(someEvent) :+ endEvent)
         stack.optimize.events.toList map (_._2) must_== expected
+      }
+    }
+    "apply move events" in {
+      "start with no events" in {
+        EventStack().events must beEmpty
+      }
+      "add a move event" in {
+        val stack = EventStack() withMove newMove(
+          piece = White.pawn, orig = D2, dest = D4
+        )
+        stack.events must_== Seq(
+          1 -> MoveEvent(D2, D4, White)
+        )
+      }
+      "add two move events" in {
+        val stack = EventStack() withMove newMove(
+          piece = White.pawn, orig = D2, dest = D4
+        ) withMove newMove(
+            piece = Black.pawn, orig = D7, dest = D5
+          )
+        stack.events must_== Seq(
+          1 -> MoveEvent(D2, D4, White),
+          2 -> MoveEvent(D7, D5, Black)
+        )
       }
     }
   }

@@ -2,7 +2,7 @@ package lila.chess
 
 import ornicar.scalalib.test.OrnicarValidationMatchers
 import org.specs2.mutable.Specification
-import org.specs2.matcher.{ Matcher }
+import org.specs2.matcher.Matcher
 
 import format.Visual
 

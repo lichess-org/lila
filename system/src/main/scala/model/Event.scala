@@ -49,6 +49,8 @@ case class MoveEvent(orig: Pos, dest: Pos, color: Color) extends Event {
 }
 object MoveEvent extends EventDecoder {
 
+  def apply(move: Move): MoveEvent = MoveEvent(move.orig, move.dest, move.piece.color)
+
   def decode(str: String) = str.toList match {
     case List(o, d, c) ⇒ for {
       orig ← decodePos get o

@@ -2,6 +2,7 @@ package lila.system
 
 import scala.util.Random
 
+import lila.chess._
 import model._
 import DbGame._
 
@@ -113,4 +114,24 @@ trait Fixtures {
     )),
     lastMove = Some("d8 d2")
   )
+
+  def newMove(
+    piece: Piece,
+    orig: Pos,
+    dest: Pos,
+    before: Board = Board(),
+    after: Board = Board(),
+    capture: Option[Pos] = None,
+    castles: Boolean = false,
+    promotion: Option[PromotableRole] = None,
+    enpassant: Boolean = false) = Move(
+    piece = piece,
+    orig = orig,
+    dest = dest,
+    before = before,
+    after = after,
+    capture = capture,
+    castles = castles,
+    promotion = promotion,
+    enpassant = enpassant)
 }
