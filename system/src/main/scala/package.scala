@@ -5,6 +5,7 @@ import ornicar.scalalib._
 package object system
     extends OrnicarValidation
     with OrnicarCommon
+    with scalaz.Strings
     with scalaz.Booleans {
 
   implicit def addPP[A](a: A) = new {
