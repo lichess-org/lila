@@ -5,6 +5,7 @@ import ornicar.scalalib._
 package object system
     extends OrnicarValidation
     with OrnicarCommon
+    //with OrnicarNonEmptyLists
     with scalaz.Strings
     with scalaz.Booleans {
 

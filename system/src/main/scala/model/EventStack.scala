@@ -10,10 +10,25 @@ case class EventStack(events: IndexedSeq[(Int, Event)]) {
     case (version, event) ⇒ event.encode map (version.toString + _)
   }).flatten mkString "|"
 
+  // Here I found the mutable approach easier
+  // I'm probably just missing something.
+  def optimize: EventStack = {
+    var previous: Boolean = false
+    EventStack(
+      (events.toList.reverse take EventStack.maxEvents map {
+        case (v, PossibleMovesEvent(_)) if previous ⇒ (v, PossibleMovesEvent(Map.empty))
+        case (v, e @ PossibleMovesEvent(_)) ⇒ previous = true; (v, e)
+        case x ⇒ x
+      }).reverse.toIndexedSeq
+    )
+  }
+
   def withMove(move: Move): EventStack = this
 }
 
 object EventStack {
+
+  val maxEvents = 16
 
   val EventEncoding = """^(\d+)(\w)(.*)$""".r
 

@@ -37,5 +37,39 @@ class EventStackTest extends SystemTest {
         (EventStack decode player.evts).encode must_== player.evts
       }
     }
+    "optimize events" in {
+      "empty duplicated possible move events" in {
+        EventStack(
+          StartEvent(),
+          MoveEvent(orig = G4, dest = C3, color = Black),
+          PossibleMovesEvent(Map(A7 -> List(A8, B8))),
+          MoveEvent(orig = E5, dest = F6, color = White),
+          PossibleMovesEvent(Map(A2 -> List(A3, A4), F3 -> List(F5, G3, D4, E8))),
+          MoveEvent(orig = G4, dest = C3, color = Black),
+          PossibleMovesEvent(Map(A5 -> List(A8, B8))),
+          MoretimeEvent(White, 15),
+          EndEvent()
+        ).optimize must_== EventStack(
+          StartEvent(),
+          MoveEvent(orig = G4, dest = C3, color = Black),
+          PossibleMovesEvent(Map()),
+          MoveEvent(orig = E5, dest = F6, color = White),
+          PossibleMovesEvent(Map()),
+          MoveEvent(orig = G4, dest = C3, color = Black),
+          PossibleMovesEvent(Map(A5 -> List(A8, B8))),
+          MoretimeEvent(White, 15),
+          EndEvent()
+        )
+      }
+      "keep only the %d more recent events" format EventStack.maxEvents in {
+        val nb = EventStack.maxEvents
+        val someEvent = CheckEvent(pos = D6)
+        val endEvent = EndEvent()
+        val events = List.fill(nb + 40)(someEvent) :+ endEvent
+        val stack = EventStack(events: _*)
+        val expected = (List.fill(nb - 1)(someEvent) :+ endEvent)
+        stack.optimize.events.toList map (_._2) must_== expected
+      }
+    }
   }
 }
