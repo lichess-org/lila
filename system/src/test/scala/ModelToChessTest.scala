@@ -9,9 +9,9 @@ import Pos._
 class ModelToChessTest extends SystemTest {
 
   "model to chess conversion" should {
-    //"new game" in {
-    //newDbGame.toChess must_== Game()
-    //}
+    "new game" in {
+      newDbGame.toChess must_== Game()
+    }
     "played game" in {
       val game = dbGame1.toChess
       "player" in {

@@ -16,7 +16,17 @@ case class DbGame(
     clock: Option[DbClock],
     lastMove: Option[String]) {
 
-  def toChess = {
+  def playerById(id: String) = playersById get id
+
+  def playerByColor(color: String) = playersByColor get color
+
+  lazy val playersByColor: Map[String, DbPlayer] = players map { p ⇒ (p.color, p) } toMap
+  lazy val playersById: Map[String, DbPlayer] = players map { p ⇒ (p.id, p) } toMap
+
+  def fullIdOf(player: DbPlayer): Option[String] =
+    (players contains player) option id + player.id
+
+  def toChess: Game = {
 
     def posPiece(posCode: Char, roleCode: Char, color: Color): Option[(Pos, Piece)] = for {
       pos ← Piotr.decodePos get posCode
@@ -29,10 +39,9 @@ case class DbGame(
       board = Board(
         (for {
           player ← players
-          color = Color.allByName(player.color)
+          color = Color.allByName(player.color) // unsafe
           piece ← player.ps.split(' ').toList
         } yield piece.toList match {
-          case pos :: role :: Nil  ⇒ posPiece(pos, role, color)
           case pos :: role :: rest ⇒ posPiece(pos, role, color)
           case _                   ⇒ None
         }).flatten toMap,
@@ -58,4 +67,25 @@ case class DbGame(
       )
     )
   }
+
+  def update(game: Game): DbGame = {
+    copy(
+      pgn = game.pgnMoves,
+      players = for {
+        player ← players
+        color = Color.allByName(player.color) // unsafe
+      } yield player.copy(
+        ps = game.board actorsOf color map { actor ⇒
+          (Piotr encodePos actor.pos).toString + actor.piece.role.forsyth
+        } mkString " "
+      )
+    )
+  }
+}
+
+object DbGame {
+
+  val gameIdSize = 8
+  val playerIdSize = 4
+  val fullIdSize = 12
 }

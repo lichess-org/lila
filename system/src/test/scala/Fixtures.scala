@@ -1,8 +1,14 @@
 package lila.system
 
+import scala.util.Random
+
 import model._
+import DbGame._
 
 trait Fixtures {
+
+  def randomString(len: Int) = List.fill(len)(randomChar) mkString
+  private def randomChar = (Random.nextInt(25) + 97).toChar
 
   lazy val newDbGame = DbGame(
     id = "arstdhne",
@@ -12,6 +18,11 @@ trait Fixtures {
     turns = 0,
     lastMove = None,
     clock = None
+  )
+
+  def newDbGameWithRandomIds() = newDbGame.copy(
+    id = randomString(gameIdSize),
+    players = newDbGame.players map (_.copy(id = randomString(playerIdSize)))
   )
 
   lazy val white = newDbPlayer("white", "ip ar jp bn kp cb lp dq mp ek np fb op gn pp hr")
@@ -39,15 +50,6 @@ trait Fixtures {
     lastMove = None
   )
 
-// "clock" : {
-//"color" : "black",
-//"increment" : 5,
-//"limit" : 1200,
-//"times" : {
-        //"white" : 196.25,
-        //"black" : 304.1
-//}
-//}
   lazy val dbGame2 = DbGame(
     id = "-176b4to",
     players = List(
@@ -81,4 +83,15 @@ trait Fixtures {
     lastMove = Some("a3 a8")
   )
 
+  lazy val dbGame4 = DbGame(
+    id = "huhuhiha",
+    players = List(
+      newDbPlayer("white", "ip ar sp sN kp ub Bp dq Kp ek np LB wp Fn pp hR"),
+      newDbPlayer("black", "Wp 4r Xp Qn Yp LB Rp hq 0p 8k 1p 9b 2p sN 3p ?r")),
+    pgn = "e4 Nc6 Nf3 Nf6 e5 Ne4 d3 Nc5 Be3 d6 d4 Ne4 Bd3 Bf5 Nc3 Nxc3 bxc3 Qd7 Bxf5 Qxf5 Nh4 Qe4 g3 Qxh1+",
+    status = 31,
+    turns = 24,
+    clock = None,
+    lastMove = None
+  )
 }
