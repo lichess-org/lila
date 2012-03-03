@@ -76,7 +76,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
         }
       }
     }
-  ) dependsOn (chess)
+  ) dependsOn (chess, system)
 
   // attribute key to prevent circular onLoad hook (for benchmark)
   val key = AttributeKey[Boolean]("javaOptionsPatched")
