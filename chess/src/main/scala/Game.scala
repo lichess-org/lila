@@ -7,7 +7,8 @@ case class Game(
     player: Color = White,
     pgnMoves: String = "",
     clock: Option[Clock] = None,
-    deads: List[(Pos, Piece)] = Nil) {
+    deads: List[(Pos, Piece)] = Nil,
+    turns: Int = 0) {
 
   def playMove(
     orig: Pos,
@@ -18,6 +19,7 @@ case class Game(
     val newGame = copy(
       board = move.afterWithPositionHashesUpdated,
       player = !player,
+      turns = turns + 1,
       deads = (for {
         cpos ← move.capture
         cpiece ← board(cpos)

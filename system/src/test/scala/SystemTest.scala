@@ -12,4 +12,6 @@ trait SystemTest
     with Fixtures {
 
   implicit def stringToBoard(str: String): Board = Visual << str
+
+  def addNewLines(str: String) = "\n" + str + "\n"
 }

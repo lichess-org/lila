@@ -16,9 +16,9 @@ case class DbGame(
     clock: Option[DbClock],
     lastMove: Option[String]) {
 
-  def playerById(id: String) = playersById get id
+  def playerById(id: String): Option[DbPlayer] = playersById get id
 
-  def playerByColor(color: String) = playersByColor get color
+  def playerByColor(color: String): Option[DbPlayer] = playersByColor get color
 
   lazy val playersByColor: Map[String, DbPlayer] = players map { p ⇒ (p.color, p) } toMap
   lazy val playersById: Map[String, DbPlayer] = players map { p ⇒ (p.id, p) } toMap
@@ -32,8 +32,6 @@ case class DbGame(
       pos ← Piotr.decodePos get posCode
       role ← Piotr.decodeRole get roleCode
     } yield (pos, Piece(color, role))
-
-    val LastMove = """^([a-h][1-8]) ([a-h][1-8])$""".r
 
     val (pieces, deads) = {
       for {
@@ -54,7 +52,7 @@ case class DbGame(
         pieces,
         History(
           lastMove = lastMove flatMap {
-            case LastMove(a, b) ⇒ for (from ← posAt(a); to ← posAt(b)) yield (from, to)
+            case MoveString(a, b) ⇒ for (from ← posAt(a); to ← posAt(b)) yield (from, to)
             case _              ⇒ None
           }
         )
@@ -72,7 +70,8 @@ case class DbGame(
         limit = c.limit,
         times = Map(White -> whiteTime, Black -> blackTime)
       ),
-      deads = deads
+      deads = deads,
+      turns = turns
     )
   }
 
@@ -94,7 +93,8 @@ case class DbGame(
             else piece.role.forsyth
           }
         } mkString " "
-      )
+      ),
+      turns = game.turns
     )
   }
 }
