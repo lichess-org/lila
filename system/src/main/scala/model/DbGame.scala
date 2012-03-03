@@ -35,16 +35,23 @@ case class DbGame(
 
     val LastMove = """^([a-h][1-8]) ([a-h][1-8])$""".r
 
+    val (pieces, deads) = {
+      for {
+        player ← players
+        color = Color.allByName(player.color) // unsafe
+        piece ← player.ps.split(' ')
+      } yield (color, piece(0), piece(1))
+    }.foldLeft((Map.empty: Map[Pos, Piece], Map.empty: Map[Pos, Piece])) {
+      case ((ps, ds), (color, pos, role)) ⇒ {
+        if (role.isUpper) posPiece(pos, role.toLower, color) map { p ⇒ (ps, ds + p) }
+        else posPiece(pos, role, color) map { p ⇒ (ps + p, ds) }
+      } getOrElse (ps, ds)
+      case (acc, _) ⇒ acc
+    }
+
     Game(
       board = Board(
-        (for {
-          player ← players
-          color = Color.allByName(player.color) // unsafe
-          piece ← player.ps.split(' ').toList
-        } yield piece.toList match {
-          case pos :: role :: rest ⇒ posPiece(pos, role, color)
-          case _                   ⇒ None
-        }).flatten toMap,
+        pieces,
         History(
           lastMove = lastMove flatMap {
             case LastMove(a, b) ⇒ for (from ← posAt(a); to ← posAt(b)) yield (from, to)
@@ -64,7 +71,8 @@ case class DbGame(
         increment = c.increment,
         limit = c.limit,
         times = Map(White -> whiteTime, Black -> blackTime)
-      )
+      ),
+      deads = deads
     )
   }
 

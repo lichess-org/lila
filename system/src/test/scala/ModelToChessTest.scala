@@ -32,6 +32,13 @@ P P  P P
 R  QK  q
 """
       }
+      "deads" in {
+        game.deads must_== Map(
+          C3 -> Black.knight,
+          F5 -> Black.bishop,
+          H1 -> White.rook
+        )
+      }
       "last move" in {
         game.board.history.lastMove must beNone
       }
