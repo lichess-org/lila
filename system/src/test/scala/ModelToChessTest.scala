@@ -10,7 +10,7 @@ class ModelToChessTest extends SystemTest {
 
   "model to chess conversion" should {
     //"new game" in {
-      //newDbGame.toChess must_== Game()
+    //newDbGame.toChess must_== Game()
     //}
     "played game" in {
       val game = dbGame1.toChess
@@ -35,6 +35,9 @@ R  QK  q
       "last move" in {
         game.board.history.lastMove must beNone
       }
+      "clock" in {
+        game.clock must beNone
+      }
     }
     "and another played game" in {
       val game = dbGame2.toChess
@@ -58,6 +61,38 @@ K kPP
       }
       "last move" in {
         game.board.history.lastMove must_== (A7, C7).some
+      }
+      "clock" in {
+        game.clock must_== Some(Clock(
+          color = Black,
+          increment = 5,
+          limit = 1200,
+          times = Map(
+            White -> 196.25f,
+            Black -> 304.1f
+          )
+        ))
+      }
+    }
+    "a chess960 played game" in {
+      val game = dbGame3.toChess
+      "player" in {
+        game.player must_== Black
+      }
+      "pieces" in {
+        Visual addNewLines game.board.toString must_== """
+R  k
+       R
+
+
+ B   pp
+ P P P
+  K
+
+"""
+      }
+      "last move" in {
+        game.board.history.lastMove must_== (A3, A8).some
       }
     }
   }

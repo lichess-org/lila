@@ -5,7 +5,8 @@ import format.PgnDump
 case class Game(
     board: Board,
     player: Color,
-    pgnMoves: String = "") {
+    pgnMoves: String = "",
+    clock: Option[Clock] = None) {
 
   def playMove(from: Pos, to: Pos, promotion: PromotableRole = Queen): Valid[Game] = for {
     move ← situation.move(from, to, promotion)

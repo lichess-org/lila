@@ -9,11 +9,11 @@ import Pos.posAt
 
 case class DbGame(
     @Key("_id") id: String,
-    players: List[Player],
+    players: List[DbPlayer],
     pgn: String,
     status: Int,
     turns: Int,
-    variant: Int,
+    clock: Option[DbClock],
     lastMove: Option[String]) {
 
   def toChess = {
@@ -44,7 +44,18 @@ case class DbGame(
         )
       ),
       player = if (0 == turns % 2) White else Black,
-      pgnMoves = pgn
+      pgnMoves = pgn,
+      clock = for {
+        c ← clock
+        color ← Color(c.color)
+        whiteTime ← c.times get "white"
+        blackTime ← c.times get "black"
+      } yield Clock(
+        color = color,
+        increment = c.increment,
+        limit = c.limit,
+        times = Map(White -> whiteTime, Black -> blackTime)
+      )
     )
   }
 }
