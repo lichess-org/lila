@@ -23,12 +23,13 @@ trait Fixtures {
     clock = None
   )
 
-  def newDbGameWithBoard(b: Board) =
-    newDbGame.update(Game(b), anyMove)
+  def newDbGameWithBoard(b: Board) = newDbGame.update(Game(b), anyMove)
 
-  def newDbGameWithRandomIds() = newDbGame.copy(
+  def newDbGameWithRandomIds() = randomizeIds(newDbGame)
+
+  def randomizeIds(game: DbGame) = game.copy(
     id = randomString(gameIdSize),
-    players = newDbGame.players map (_.copy(id = randomString(playerIdSize)))
+    players = game.players map (_.copy(id = randomString(playerIdSize)))
   )
 
   lazy val white = newDbPlayer("white", "ip ar jp bn kp cb lp dq mp ek np fb op gn pp hr")

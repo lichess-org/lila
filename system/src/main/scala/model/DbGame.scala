@@ -16,7 +16,8 @@ case class DbGame(
     turns: Int,
     clock: Option[DbClock],
     lastMove: Option[String],
-    positionHashes: String = "") {
+    positionHashes: String = "",
+    castles: String = "KQkq") {
 
   def playerById(id: String): Option[DbPlayer] = playersById get id
 
@@ -50,16 +51,7 @@ case class DbGame(
     }
 
     Game(
-      board = Board(
-        pieces,
-        History(
-          lastMove = lastMove flatMap {
-            case MoveString(a, b) ⇒ for (o ← posAt(a); d ← posAt(b)) yield (o, d)
-            case _                ⇒ None
-          },
-          positionHashes = positionHashes grouped History.hashSize toList
-        )
-      ),
+      board = Board(pieces, toChessHistory),
       player = if (0 == turns % 2) White else Black,
       pgnMoves = pgn,
       clock = for {
@@ -78,12 +70,25 @@ case class DbGame(
     )
   }
 
+  private def toChessHistory = History(
+    lastMove = lastMove flatMap {
+      case MoveString(a, b) ⇒ for (o ← posAt(a); d ← posAt(b)) yield (o, d)
+      case _                ⇒ None
+    },
+    castles = Map(
+      White -> (castles contains 'K', castles contains 'Q'),
+      Black -> (castles contains 'k', castles contains 'q')
+    ),
+    positionHashes = positionHashes grouped History.hashSize toList
+  )
+
   def update(game: Game, move: Move): DbGame = {
     val allPieces = (game.board.pieces map {
       case (pos, piece) ⇒ (pos, piece, false)
     }) ++ (game.deads map {
       case (pos, piece) ⇒ (pos, piece, true)
     })
+    val (history, situation) = (game.board.history, game.situation)
     val events = (Event fromMove move) ::: (Event fromSituation game.situation)
     copy(
       pgn = game.pgnMoves,
@@ -95,7 +100,18 @@ case class DbGame(
         evts = player.newEvts(events :+ Event.possibleMoves(game.situation, color))
       ),
       turns = game.turns,
-      positionHashes = game.board.history.positionHashes mkString
+      positionHashes = history.positionHashes mkString,
+      castles = List(
+        if (history canCastle White on KingSide) "K" else "",
+        if (history canCastle White on QueenSide) "Q" else "",
+        if (history canCastle Black on KingSide) "k" else "",
+        if (history canCastle Black on QueenSide) "q" else ""
+      ) mkString,
+      status =
+        if (situation.checkMate) DbGame.MATE
+        else if (situation.staleMate) DbGame.STALEMATE
+        else if (situation.autoDraw) DbGame.DRAW
+        else status
     )
   }
 }
@@ -105,4 +121,15 @@ object DbGame {
   val gameIdSize = 8
   val playerIdSize = 4
   val fullIdSize = 12
+
+  val CREATED = 10
+  val STARTED = 20
+  val ABORTED = 25
+  val MATE = 30
+  val RESIGN = 31
+  val STALEMATE = 32
+  val TIMEOUT = 33
+  val DRAW = 34
+  val OUTOFTIME = 35
+  val CHEAT = 36
 }

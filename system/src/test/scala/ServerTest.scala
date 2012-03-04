@@ -8,10 +8,9 @@ class ServerTest extends SystemTest {
   val repo = env.gameRepo
   val server = env.server
 
-  def insert() = {
-    val game = newDbGameWithRandomIds
-    repo insert game
-    game
+  def insert(dbGame: DbGame = newDbGameWithRandomIds) = {
+    repo insert dbGame
+    dbGame
   }
   def move(game: DbGame, m: String = "d2 d4") = for {
     player ← game playerByColor "white"
@@ -117,6 +116,28 @@ B p p
             case es ⇒ es map (_._2) must contain(ThreefoldEvent())
           }
         }
+      }
+    }
+    "play on playing game" in {
+      val dbGame = insert(randomizeIds(newDbGameWithBoard("""
+PP kr
+K
+""")))
+      move(dbGame, "a1 b1") must beSome.like { case r ⇒ r must beSuccess }
+    }
+    "play on finished game" in {
+      "by checkmate" in {
+        val game = insert(randomizeIds(newDbGameWithBoard("""
+PP
+K  r
+""")))
+        move(game, "a1 b1") must beSome.like { case r ⇒ r must beFailure }
+      }
+      "by autodraw" in {
+        val game = insert(randomizeIds(newDbGameWithBoard("""
+      k
+K     B""")))
+        move(game, "a1 b1") must beSome.like { case r ⇒ r must beFailure }
       }
     }
   }

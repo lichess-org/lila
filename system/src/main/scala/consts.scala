@@ -1,6 +1,7 @@
 package lila.system
 
 import ornicar.scalalib.{IntStatus, IntStatuses}
+import lila.chess.Situation
 
 sealed case class GameStatus(id: Int, name: String) extends IntStatus
 sealed case class GameVariant(id: Int, name: String) extends IntStatus
@@ -19,6 +20,13 @@ object GameStatuses extends IntStatuses[GameStatus] {
     GameStatus(35, "outoftime"),
     GameStatus(36, "cheat")
   )
+
+  def fromSituation(situation: Situation): Option[Int] = {
+    if (situation.checkMate) find("checkmate")
+    else if (situation.staleMate) find("stalemate")
+    else if (situation.autoDraw) find("draw")
+    else None
+  } map (_.toInt)
 }
 
 object GameVariants extends IntStatuses[GameVariant] {
