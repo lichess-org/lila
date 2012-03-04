@@ -5,7 +5,7 @@ import lila.chess._
 import Pos.{ piotr, allPiotrs }
 
 sealed trait Event {
-  def encode: Option[String]
+  def encode: String
 }
 object Event {
   def fromMove(move: Move): List[Event] = MoveEvent(move) :: List(
@@ -36,14 +36,14 @@ object EventDecoder {
 }
 
 case class StartEvent() extends Event {
-  def encode = Some("s")
+  def encode = "s"
 }
 object StartEvent extends EventDecoder {
   def decode(str: String) = Some(StartEvent())
 }
 
 case class MoveEvent(orig: Pos, dest: Pos, color: Color) extends Event {
-  def encode = Some("m" + orig.piotr + dest.piotr + color.letter)
+  def encode = "m" + orig.piotr + dest.piotr + color.letter
 }
 object MoveEvent extends EventDecoder {
   def apply(move: Move): MoveEvent = MoveEvent(move.orig, move.dest, move.piece.color)
@@ -58,9 +58,9 @@ object MoveEvent extends EventDecoder {
 }
 
 case class PossibleMovesEvent(moves: Map[Pos, List[Pos]]) extends Event {
-  def encode = Some("p" + (moves map {
+  def encode = "p" + (moves map {
     case (orig, dests) ⇒ (orig :: dests) map (_.piotr) mkString
-  } mkString ","))
+  } mkString ",")
 }
 object PossibleMovesEvent extends EventDecoder {
   def decode(str: String) = Some(PossibleMovesEvent(
@@ -78,7 +78,7 @@ object PossibleMovesEvent extends EventDecoder {
 }
 
 case class EnpassantEvent(killed: Pos) extends Event {
-  def encode = Some("E" + killed.piotr)
+  def encode = "E" + killed.piotr
 }
 object EnpassantEvent extends EventDecoder {
   def decode(str: String) = for {
@@ -88,9 +88,8 @@ object EnpassantEvent extends EventDecoder {
 }
 
 case class CastlingEvent(king: (Pos, Pos), rook: (Pos, Pos), color: Color) extends Event {
-  def encode = Some(
-    "c" + king._1.piotr + king._2.piotr + rook._1.piotr + rook._2.piotr + color.letter
-  )
+  def encode = "c" + king._1.piotr + king._2.piotr + rook._1.piotr + rook._2.piotr + color.letter
+
 }
 object CastlingEvent extends EventDecoder {
   def decode(str: String) = str.toList match {
@@ -108,14 +107,14 @@ object CastlingEvent extends EventDecoder {
 }
 
 case class RedirectEvent(url: String) extends Event {
-  def encode = Some("r" + url)
+  def encode = "r" + url
 }
 object RedirectEvent extends EventDecoder {
   def decode(str: String) = Some(RedirectEvent(str))
 }
 
 case class PromotionEvent(role: PromotableRole, pos: Pos) extends Event {
-  def encode = Some("P" + role.forsyth + pos.piotr)
+  def encode = "P" + role.forsyth + pos.piotr
 }
 object PromotionEvent extends EventDecoder {
   def decode(str: String) = str.toList match {
@@ -128,7 +127,7 @@ object PromotionEvent extends EventDecoder {
 }
 
 case class CheckEvent(pos: Pos) extends Event {
-  def encode = Some("C" + pos.piotr)
+  def encode = "C" + pos.piotr
 }
 object CheckEvent extends EventDecoder {
   def decode(str: String) = for {
@@ -138,7 +137,7 @@ object CheckEvent extends EventDecoder {
 }
 
 case class MessageEvent(author: String, message: String) extends Event {
-  def encode = Some("M" + author + " " + message.replace("|", "(pipe)"))
+  def encode = "M" + author + " " + message.replace("|", "(pipe)")
 }
 object MessageEvent extends EventDecoder {
   def decode(str: String) = str.split(' ').toList match {
@@ -150,28 +149,28 @@ object MessageEvent extends EventDecoder {
 }
 
 case class EndEvent() extends Event {
-  def encode = Some("e")
+  def encode = "e"
 }
 object EndEvent extends EventDecoder {
   def decode(str: String) = Some(EndEvent())
 }
 
 case class ThreefoldEvent() extends Event {
-  def encode = Some("t")
+  def encode = "t"
 }
 object ThreefoldEvent extends EventDecoder {
   def decode(str: String) = Some(ThreefoldEvent())
 }
 
 case class ReloadTableEvent() extends Event {
-  def encode = Some("R")
+  def encode = "R"
 }
 object ReloadTableEvent extends EventDecoder {
   def decode(str: String) = Some(ReloadTableEvent())
 }
 
 case class MoretimeEvent(color: Color, seconds: Int) extends Event {
-  def encode = Some("T" + color.letter + seconds)
+  def encode = "T" + color.letter + seconds
 }
 object MoretimeEvent extends EventDecoder {
   def decode(str: String) = for {

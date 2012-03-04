@@ -90,7 +90,7 @@ case class DbGame(
         player ← players
         color = Color(player.color).get // unsafe
       } yield player.copy(
-        ps = allPieces filter (_._2.color == color) map {
+        ps = allPieces withFilter (_._2.color == color) map {
           case (pos, piece, dead) ⇒ pos.piotr.toString + {
             if (dead) piece.role.forsyth.toUpper
             else piece.role.forsyth

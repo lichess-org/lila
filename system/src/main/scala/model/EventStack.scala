@@ -5,9 +5,9 @@ import lila.chess._
 
 case class EventStack(events: Seq[(Int, Event)]) {
 
-  def encode: String = (events map {
-    case (version, event) ⇒ event.encode map (version.toString + _)
-  }).flatten mkString "|"
+  def encode: String = events map {
+    case (version, event) ⇒ version.toString + event.encode
+  } mkString "|"
 
   // Here I found the mutable approach easier
   // I'm probably just missing something.
