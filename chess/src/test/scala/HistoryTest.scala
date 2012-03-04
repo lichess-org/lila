@@ -6,7 +6,7 @@ import com.roundeights.hasher.Implicits._
 class HistoryTest extends ChessTest {
 
   "threefold repetition" should {
-    def toHash(a: Any) = a.toString.md5.toString take 5
+    def toHash(a: Any) = a.toString.md5.toString
     def makeHistory(positions: List[Any]) = (positions map toHash).foldLeft(History()) {
       case (history, hash) ⇒ history withNewPositionHash hash
     }

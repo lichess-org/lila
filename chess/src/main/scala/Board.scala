@@ -106,7 +106,7 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
 
   def positionHash = {
     import com.roundeights.hasher.Implicits._
-    (actors.values map (_.hash) mkString).md5.toString take 5
+    (actors.values map (_.hash) mkString).md5.toString
   }
 
   def visual = Visual >> this

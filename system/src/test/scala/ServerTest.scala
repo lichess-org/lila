@@ -90,10 +90,31 @@ B p p
         "event stacks" in {
           val stack = found flatMap (_ playerByColor "white") map (_.eventStack)
           "high version number" in {
-            stack must beSome.like { case s => s.version must be_>(20) }
+            stack must beSome.like { case s ⇒ s.version must be_>(20) }
           }
           "rotated" in {
-            stack must beSome.like { case s => s.events.size must_== 16 }
+            stack must beSome.like { case s ⇒ s.events.size must_== 16 }
+          }
+        }
+      }
+    }
+    "play to threefold repetition" in {
+      val moves = List("b1 c3", "b8 c6", "c3 b1", "c6 b8", "b1 c3", "b8 c6", "c3 b1", "c6 b8", "b1 c3", "b8 c6")
+
+      def play(game: DbGame) = for (m ← moves) yield move(game, m).get
+
+      "report success" in {
+        val game = insert()
+        sequenceValid(play(game)) must beSuccess
+      }
+      "be persisted" in {
+        val game = insert()
+        play(game)
+        val found = repo game game.id
+        val events = found flatMap (_ playerByColor "white") map (_.eventStack.events)
+        "propose threefold" in {
+          events must beSome.like {
+            case es ⇒ es map (_._2) must contain(ThreefoldEvent())
           }
         }
       }

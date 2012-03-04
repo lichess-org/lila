@@ -15,7 +15,8 @@ case class DbGame(
     status: Int,
     turns: Int,
     clock: Option[DbClock],
-    lastMove: Option[String]) {
+    lastMove: Option[String],
+    positionHashes: String = "") {
 
   def playerById(id: String): Option[DbPlayer] = playersById get id
 
@@ -53,9 +54,10 @@ case class DbGame(
         pieces,
         History(
           lastMove = lastMove flatMap {
-            case MoveString(a, b) ⇒ for (from ← posAt(a); to ← posAt(b)) yield (from, to)
+            case MoveString(a, b) ⇒ for (o ← posAt(a); d ← posAt(b)) yield (o, d)
             case _                ⇒ None
-          }
+          },
+          positionHashes = positionHashes grouped History.hashSize toList
         )
       ),
       player = if (0 == turns % 2) White else Black,
@@ -92,7 +94,8 @@ case class DbGame(
         ps = DbPlayer.encodePieces(allPieces, color),
         evts = player.newEvts(events :+ Event.possibleMoves(game.situation, color))
       ),
-      turns = game.turns
+      turns = game.turns,
+      positionHashes = game.board.history.positionHashes mkString
     )
   }
 }

@@ -39,12 +39,14 @@ case class History(
     copy(positionHashes = Nil)
 
   def withNewPositionHash(hash: String): History =
-    copy(positionHashes = hash :: positionHashes)
+    copy(positionHashes = (hash take History.hashSize) :: positionHashes)
 
   private def colorCastles(color: Color) = castles get color getOrElse (true, true)
 }
 
 object History {
+
+  val hashSize = 5
 
   def castle(color: Color, kingSide: Boolean, queenSide: Boolean) = History(
     castles = Map(color -> (kingSide, queenSide))
