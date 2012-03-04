@@ -114,6 +114,8 @@ case class DbGame(
         else status
     )
   }
+
+  def playable = status < DbGame.ABORTED
 }
 
 object DbGame {

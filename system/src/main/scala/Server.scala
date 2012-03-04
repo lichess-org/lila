@@ -17,11 +17,12 @@ final class Server(repo: GameRepo) {
     promotion ← Role promotable promString toValid "Wrong promotion " + promString
     gameAndPlayer ← repo player fullId toValid "Wrong ID " + fullId
     (g1, _) = gameAndPlayer
-    chessGame = g1.toChess
+    g2 ← if (g1.playable) success(g1) else failure("Game is not playable" wrapNel)
+    chessGame = g2.toChess
     newChessGameAndMove ← chessGame(orig, dest, promotion)
     (newChessGame, move) = newChessGameAndMove
-    g2 = g1.update(newChessGame, move)
-    result ← unsafe { repo save g2 }
+    g3 = g2.update(newChessGame, move)
+    result ← unsafe { repo save g3 }
   } yield newChessGame.situation.destinations
 
   private def moveToEvents(move: Move): Map[DbPlayer, EventStack] = Map.empty
