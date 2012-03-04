@@ -20,6 +20,10 @@ case class Situation(board: Board, color: Color) {
 
   def staleMate: Boolean = !check && moves.isEmpty
 
+  def autoDraw: Boolean = board.autoDraw
+
+  def end: Boolean = checkMate || staleMate || autoDraw
+
   def move(from: Pos, to: Pos, promotion: PromotableRole): Valid[Move] = {
 
     val someMove = for {
