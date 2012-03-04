@@ -5,7 +5,7 @@ import com.google.caliper.Param
 import ornicar.scalalib.OrnicarValidation
 
 import lila.system._
-import lila.chess.{ Game, Pos }
+import lila.chess.{ Game, Pos, Color, White, Black }
 import lila.chess.Pos._
 
 // a caliper benchmark is a class that extends com.google.caliper.Benchmark
@@ -47,13 +47,13 @@ class Benchmark extends SimpleScalaBenchmark {
 
     val moves = List("e2 e4", "d7 d5", "e4 d5", "d8 d5", "b1 c3", "d5 a5", "d2 d4", "c7 c6", "g1 f3", "c8 g4", "c1 f4", "e7 e6", "h2 h3", "g4 f3", "d1 f3", "f8 b4", "f1 e2", "b8 d7", "a2 a3", "e8 c8", "a3 b4", "a5 a1", "e1 d2", "a1 h1", "f3 c6", "b7 c6", "e2 a6")
 
-    def play(game: DbGame) = for (m ← moves) yield move(game, m).get
+    def play(game: DbGame) = for (m ← moves) yield move(game, m)
 
     def randomString(len: Int) = List.fill(len)(randomChar) mkString
     def randomChar = (Random.nextInt(25) + 97).toChar
 
-    def newDbPlayer(color: String, ps: String) = DbPlayer(
-      id = color take 4,
+    def newDbPlayer(color: Color, ps: String) = DbPlayer(
+      id = color.name take 4,
       color = color,
       ps = ps,
       aiLevel = None,
@@ -61,18 +61,19 @@ class Benchmark extends SimpleScalaBenchmark {
       evts = "0s|1Msystem White creates the game|2Msystem Black joins the game",
       elo = Some(1280)
     )
-    val white = newDbPlayer("white", "ip ar jp bn kp cb lp dq mp ek np fb op gn pp hr")
-    val black = newDbPlayer("black", "Wp 4r Xp 5n Yp 6b Zp 7q 0p 8k 1p 9b 2p !n 3p ?r")
+    val white = newDbPlayer(White, "ip ar jp bn kp cb lp dq mp ek np fb op gn pp hr")
+    val black = newDbPlayer(Black, "Wp 4r Xp 5n Yp 6b Zp 7q 0p 8k 1p 9b 2p !n 3p ?r")
 
     repeat(reps) {
       val game = DbGame(
         id = randomString(8),
-        players = List(white, black) map (_.copy(id = randomString(4))),
+        whitePlayer = white.copy(id = randomString(4)),
+        blackPlayer = black.copy(id = randomString(4)),
         pgn = "",
         status = 10,
         turns = 0,
-        lastMove = None,
-        clock = None
+        clock = None,
+        lastMove = None
       )
       repo insert game
       val result = sequenceValid(play(game))
