@@ -1,20 +1,17 @@
 package lila.system
 package model
 
-import com.novus.salat.annotations._
-import com.mongodb.casbah.Imports._
-
 import lila.chess._
 import Pos.{ posAt, piotr }
 import Role.forsyth
 
 case class DbGame(
-    @Key("_id") id: String,
+    id: String,
     players: List[DbPlayer],
     pgn: String,
     status: Int,
     turns: Int,
-    clock: Option[DbClock],
+    clock: Option[Clock],
     lastMove: Option[String],
     positionHashes: String = "",
     castles: String = "KQkq",
@@ -22,11 +19,11 @@ case class DbGame(
 
   def playerById(id: String): Option[DbPlayer] = playersById get id
 
-  def playerByColor(color: String): Option[DbPlayer] = playersByColor get color
+  def playerByColor(color: Color): Option[DbPlayer] = playersByColor get color
 
-  def player: DbPlayer = playerByColor(if (0 == turns % 2) "white" else "black") get
+  def player: DbPlayer = playerByColor(if (0 == turns % 2) White else Black) get
 
-  lazy val playersByColor: Map[String, DbPlayer] = players map { p ⇒ (p.color, p) } toMap
+  lazy val playersByColor: Map[Color, DbPlayer] = players map { p ⇒ (p.color, p) } toMap
   lazy val playersById: Map[String, DbPlayer] = players map { p ⇒ (p.id, p) } toMap
 
   def fullIdOf(player: DbPlayer): Option[String] =
@@ -42,7 +39,7 @@ case class DbGame(
     val (pieces, deads) = {
       for {
         player ← players
-        color = Color(player.color).get // unsafe
+        color = player.color
         piece ← player.ps.split(' ')
       } yield (color, piece(0), piece(1))
     }.foldLeft((Map[Pos, Piece](), List[(Pos, Piece)]())) {
@@ -57,17 +54,7 @@ case class DbGame(
       board = Board(pieces, toChessHistory),
       player = if (0 == turns % 2) White else Black,
       pgnMoves = pgn,
-      clock = for {
-        c ← clock
-        color ← Color(c.color)
-        whiteTime ← c.times get "white"
-        blackTime ← c.times get "black"
-      } yield Clock(
-        color = color,
-        increment = c.increment,
-        limit = c.limit,
-        times = Map(White -> whiteTime, Black -> blackTime)
-      ),
+      clock = clock,
       deads = deads,
       turns = turns
     )
@@ -97,10 +84,9 @@ case class DbGame(
       pgn = game.pgnMoves,
       players = for {
         player ← players
-        color = Color(player.color).get // unsafe
       } yield player.copy(
-        ps = DbPlayer.encodePieces(allPieces, color),
-        evts = player.newEvts(events :+ Event.possibleMoves(game.situation, color))
+        ps = player encodePieces allPieces,
+        evts = player.newEvts(events :+ Event.possibleMoves(game.situation, player.color))
       ),
       turns = game.turns,
       positionHashes = history.positionHashes mkString,
@@ -114,7 +100,8 @@ case class DbGame(
         if (situation.checkMate) DbGame.MATE
         else if (situation.staleMate) DbGame.STALEMATE
         else if (situation.autoDraw) DbGame.DRAW
-        else status
+        else status,
+      clock = game.clock
     )
   }
 

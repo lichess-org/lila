@@ -11,6 +11,7 @@ sealed trait Color {
   val promotablePawnY: Int
 
   val letter: Char
+  val name: String
 
   def pawn   = this - Pawn
   def bishop = this - Bishop
@@ -18,6 +19,8 @@ sealed trait Color {
   def rook   = this - Rook
   def queen  = this - Queen
   def king   = this - King
+
+  override val toString = name
 }
 
 case object White extends Color {
@@ -29,6 +32,7 @@ case object White extends Color {
   val promotablePawnY = 7
 
   val letter = 'w'
+  val name = "white"
 }
 
 case object Black extends Color {
@@ -40,6 +44,7 @@ case object Black extends Color {
   val promotablePawnY = 2
 
   val letter = 'b'
+  val name = "black"
 }
 
 object Color {

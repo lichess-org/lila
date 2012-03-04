@@ -4,5 +4,8 @@ case class Clock(
     color: Color,
     increment: Int,
     limit: Int,
-    times: Map[Color, Float]) {
+    whiteTime: Float,
+    blackTime: Float) {
+
+  val times: Map[Color, Float] = Map(White -> whiteTime, Black -> blackTime)
 }

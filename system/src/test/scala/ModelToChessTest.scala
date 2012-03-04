@@ -76,10 +76,8 @@ K kPP
           color = Black,
           increment = 5,
           limit = 1200,
-          times = Map(
-            White -> 196.25f,
-            Black -> 304.1f
-          )
+          whiteTime = 196.25f,
+          blackTime = 304.1f
         ))
       }
     }

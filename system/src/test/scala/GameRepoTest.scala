@@ -1,5 +1,7 @@
 package lila.system
 
+import lila.chess._
+
 class GameRepoTest extends SystemTest {
 
   val env = SystemEnv()
@@ -33,7 +35,7 @@ class GameRepoTest extends SystemTest {
       }
       "by ID and color" in {
         "non existing" in {
-          repo.player(anyGame.id, "huhu") must be none
+          repo.player("haha", White) must beNone
         }
         "existing" in {
           val player = anyGame.players.head

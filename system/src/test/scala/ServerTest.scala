@@ -1,5 +1,6 @@
 package lila.system
 
+import lila.chess._
 import model._
 
 class ServerTest extends SystemTest {
@@ -13,7 +14,7 @@ class ServerTest extends SystemTest {
     dbGame
   }
   def move(game: DbGame, m: String = "d2 d4") = for {
-    player ← game playerByColor "white"
+    player ← game playerByColor White
     fullId ← game fullIdOf player
   } yield server.playMove(fullId, m)
 
@@ -87,7 +88,7 @@ B p p
           }
         }
         "event stacks" in {
-          val stack = found flatMap (_ playerByColor "white") map (_.eventStack)
+          val stack = found flatMap (_ playerByColor White) map (_.eventStack)
           "high version number" in {
             stack must beSome.like { case s ⇒ s.version must be_>(20) }
           }
@@ -110,7 +111,7 @@ B p p
         val game = insert()
         play(game)
         val found = repo game game.id
-        val events = found flatMap (_ playerByColor "white") map (_.eventStack.events)
+        val events = found flatMap (_ playerByColor White) map (_.eventStack.events)
         "propose threefold" in {
           events must beSome.like {
             case es ⇒ es map (_._2) must contain(ThreefoldEvent())

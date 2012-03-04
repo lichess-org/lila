@@ -15,7 +15,7 @@ final class Server(repo: GameRepo) {
     orig ← posAt(origString) toValid "Wrong orig " + origString
     dest ← posAt(destString) toValid "Wrong dest " + destString
     promotion ← Role promotable promString toValid "Wrong promotion " + promString
-    gameAndPlayer ← repo player fullId toValid "Wrong ID " + fullId
+    gameAndPlayer ← repo player fullId toValid "No game found for " + fullId
     (g1, _) = gameAndPlayer
     g2 ← if (g1.playable) success(g1) else failure("Game is not playable" wrapNel)
     chessGame = g2.toChess
