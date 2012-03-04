@@ -4,7 +4,7 @@ import model._
 import lila.chess._
 import Pos.posAt
 
-final class Server(repo: GameRepo) {
+final class Server(repo: GameRepo, ai: Ai) {
 
   def playMove(
     fullId: String,
@@ -26,14 +26,16 @@ final class Server(repo: GameRepo) {
     result ← unsafe { repo save g3 }
   } yield newChessGame.situation.destinations
 
-  private def aiResponse(dbGame: DbGame): Valid[DbGame] = {
-    success(dbGame)
-  }
+  private def aiResponse(dbGame: DbGame): Valid[DbGame] = for {
+    newChessGameAndMove ← ai(dbGame)
+    (newChessGame, move) = newChessGameAndMove
+  } yield dbGame.update(newChessGame, move)
 
   private def moveToEvents(move: Move): Map[DbPlayer, EventStack] = Map.empty
 
-  private def decodeMoveString(moveString: String): Option[(String, String)] = moveString match {
-    case MoveString(orig, dest) ⇒ (orig, dest).some
-    case _                      ⇒ none
-  }
+  private def decodeMoveString(moveString: String): Option[(String, String)] =
+    moveString match {
+      case MoveString(orig, dest) ⇒ (orig, dest).some
+      case _                      ⇒ none
+    }
 }

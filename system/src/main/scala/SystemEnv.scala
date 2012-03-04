@@ -5,12 +5,17 @@ import com.mongodb.casbah.commons.conversions.scala._
 import com.redis.RedisClient
 import com.typesafe.config._
 
+import ai._
+
 trait SystemEnv {
 
   val config: Config
 
   def server = new Server(
-    repo = gameRepo)
+    repo = gameRepo,
+    ai = ai)
+
+  lazy val ai: Ai = new StupidAi
 
   def gameRepo = new GameRepo(
     mongodb(config getString "mongo.collection.game"))
