@@ -22,6 +22,8 @@ case class Situation(board: Board, color: Color) {
 
   def autoDraw: Boolean = board.autoDraw
 
+  def threefoldRepetition: Boolean = board.history.threefoldRepetition
+
   def end: Boolean = checkMate || staleMate || autoDraw
 
   def move(from: Pos, to: Pos, promotion: PromotableRole): Valid[Move] = {

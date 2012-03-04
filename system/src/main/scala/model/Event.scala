@@ -8,11 +8,22 @@ sealed trait Event {
   def encode: String
 }
 object Event {
+
   def fromMove(move: Move): List[Event] = MoveEvent(move) :: List(
     if (move.enpassant) move.capture map EnpassantEvent.apply else None,
     move.promotion map { role ⇒ PromotionEvent(role, move.dest) },
     move.castle map { rook ⇒ CastlingEvent((move.orig, move.dest), rook, move.color) }
   ).flatten
+
+  def fromSituation(situation: Situation): List[Event] = List(
+    if (situation.check) situation.kingPos map CheckEvent.apply else None,
+    if (situation.end) Some(EndEvent()) else None,
+    if (situation.threefoldRepetition) Some(ThreefoldEvent()) else None
+  ).flatten
+
+  def possibleMoves(situation: Situation, color: Color): Event = PossibleMovesEvent(
+    if (color == situation.color) situation.destinations else Map.empty
+  )
 }
 
 sealed trait EventDecoder {

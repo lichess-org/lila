@@ -82,29 +82,15 @@ case class DbGame(
     }) ++ (game.deads map {
       case (pos, piece) ⇒ (pos, piece, true)
     })
-    val events = Event fromMove move
-    val situation = game.situation
+    val events = (Event fromMove move) ::: (Event fromSituation game.situation)
     copy(
       pgn = game.pgnMoves,
       players = for {
         player ← players
         color = Color(player.color).get // unsafe
       } yield player.copy(
-        ps = allPieces withFilter (_._2.color == color) map {
-          case (pos, piece, dead) ⇒ pos.piotr.toString + {
-            if (dead) piece.role.forsyth.toUpper
-            else piece.role.forsyth
-          }
-        } mkString " ",
-        evts = (player.eventStack withEvents {
-          events ::: List(
-            if (situation.check) situation.kingPos map CheckEvent.apply else None,
-            if (situation.end) Some(EndEvent()) else None,
-            Some(PossibleMovesEvent(
-              if (color == game.player) situation.destinations else Map.empty
-            ))
-          ).flatten
-        }).optimize encode
+        ps = DbPlayer.encodePieces(allPieces, color),
+        evts = player.newEvts(events :+ Event.possibleMoves(game.situation, color))
       ),
       turns = game.turns
     )
