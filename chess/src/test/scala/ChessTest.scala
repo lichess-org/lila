@@ -21,7 +21,9 @@ trait ChessTest
 
     def as(color: Color): Game = game.copy(player = color)
 
-    def playMoves(moves: (Pos, Pos)*): Valid[Game] =
+    def playMoves(moves: (Pos, Pos)*): Valid[Game] = playMoveList(moves)
+
+    def playMoveList(moves: Iterable[(Pos, Pos)]): Valid[Game] =
       moves.foldLeft(success(game): Valid[Game]) { (vg, move) ⇒
         vg flatMap { g ⇒ g.playMove(move._1, move._2) }
       }

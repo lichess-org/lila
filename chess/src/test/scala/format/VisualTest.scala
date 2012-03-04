@@ -1,12 +1,9 @@
 package lila.chess
 package format
 
-import org.specs2.mutable._
-import org.specs2.specification._
-
 import Pos._
 
-class VisualTest extends Specification {
+class VisualTest extends ChessTest {
 
   val f = Visual
 
