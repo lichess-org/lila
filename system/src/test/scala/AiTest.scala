@@ -5,11 +5,12 @@ import model._
 import ai._
 import scalaz.Success
 
-class StupidAiTest extends SystemTest {
+trait AiTest extends SystemTest {
 
-  val ai = new StupidAi
+  def ai: Ai
+  def name: String
 
-  "the stupid AI" should {
+  "the %s AI" format name should {
     "play the first move" in {
       val dbGame = newDbGame
       ai(dbGame) must beSuccess.like {

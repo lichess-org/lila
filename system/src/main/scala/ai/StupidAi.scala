@@ -2,8 +2,7 @@ package lila.system
 package ai
 
 import lila.chess.{ Game, Move }
-import model._
-import scala.util.Random
+import model.DbGame
 
 final class StupidAi extends Ai {
 
