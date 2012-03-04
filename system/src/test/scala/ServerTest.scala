@@ -20,6 +20,10 @@ class ServerTest extends SystemTest {
 
   "the server" should {
     "play a single move" in {
+      "wrong player" in {
+        val game = insert()
+        move(game, "d7 d5") must beSome.like { case r ⇒ r must beFailure }
+      }
       "report success" in {
         val game = insert()
         move(game) must beSome.like { case r ⇒ r must beSuccess }
