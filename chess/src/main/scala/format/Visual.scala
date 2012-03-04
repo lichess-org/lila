@@ -15,8 +15,6 @@ import Pos.posAt
  */
 object Visual extends Format[Board] {
 
-  private lazy val pieces = Role.all map { r ⇒ (r.forsyth, r) } toMap
-
   def <<(source: String): Board = {
     val lines = source.lines.toList
     val filtered = lines.size match {
@@ -30,11 +28,9 @@ object Visual extends Format[Board] {
         (l, y) = line
         char ← (l zipWithIndex)
         (c, x) = char
-        if pieces.keySet(c toLower)
+        role ← Role forsyth c.toLower
       } yield {
-        posAt(x + 1, 8 - y) map { pos ⇒
-          pos -> (Color(c isUpper) - pieces(c toLower))
-        }
+        posAt(x + 1, 8 - y) map { pos ⇒ pos -> (Color(c isUpper) - role) }
       }) flatten
     ) withHistory History.noCastle
   }
