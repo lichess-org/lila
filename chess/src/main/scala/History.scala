@@ -8,14 +8,20 @@ case class History(
     ),
     positionHashes: List[String] = Nil) {
 
-  def isLastMove(p1: Pos, p2: Pos) = lastMove == (p1, p2)
+  def isLastMove(p1: Pos, p2: Pos): Boolean = lastMove == (p1, p2)
+
+  def threefoldRepetition: Boolean = positionHashes.size > 6 && {
+    positionHashes.headOption map { hash ⇒
+      positionHashes.count(_ == hash) >= 3
+    } getOrElse false
+  }
 
   def canCastle(color: Color) = new {
     def on(side: Side): Boolean = (colorCastles(color), side) match {
       case ((king, _), KingSide)   ⇒ king
       case ((_, queen), QueenSide) ⇒ queen
     }
-    def any = on(KingSide) || on (QueenSide)
+    def any = on(KingSide) || on(QueenSide)
   }
 
   def withoutCastle(color: Color, side: Side): History = copy(
