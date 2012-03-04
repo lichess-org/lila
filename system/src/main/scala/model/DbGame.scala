@@ -17,11 +17,14 @@ case class DbGame(
     clock: Option[DbClock],
     lastMove: Option[String],
     positionHashes: String = "",
-    castles: String = "KQkq") {
+    castles: String = "KQkq",
+    isRated: Boolean = false) {
 
   def playerById(id: String): Option[DbPlayer] = playersById get id
 
   def playerByColor(color: String): Option[DbPlayer] = playersByColor get color
+
+  def player: DbPlayer = playerByColor(if (0 == turns % 2) "white" else "black") get
 
   lazy val playersByColor: Map[String, DbPlayer] = players map { p ⇒ (p.color, p) } toMap
   lazy val playersById: Map[String, DbPlayer] = players map { p ⇒ (p.id, p) } toMap
