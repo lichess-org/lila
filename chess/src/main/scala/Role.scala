@@ -46,11 +46,14 @@ case object Pawn extends Role {
 object Role {
 
   val all = List(King, Queen, Rook, Bishop, Knight, Pawn)
+  val allByForsyth: Map[Char, Role] = all map { r ⇒ (r.forsyth, r) } toMap
   val allPromotable = List(Queen, Rook, Bishop, Knight)
   val allPromotableByName: Map[String, PromotableRole] =
     allPromotable map { r ⇒ (r.toString, r) } toMap
   val allPromotableByForsyth: Map[Char, PromotableRole] =
     allPromotable map { r ⇒ (r.forsyth, r) } toMap
+
+  def forsyth(c: Char): Option[Role] = allByForsyth get c
 
   def promotable(c: Char): Option[PromotableRole] =
     allPromotableByForsyth get c

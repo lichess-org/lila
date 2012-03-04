@@ -75,6 +75,22 @@ R  QK  q
         }
       }
     }
+    "update events" in {
+      "simple move" in {
+        val dbGame = newDbGameWithoutEvents
+        val game = newDbGame.toChess
+        game(D2, D4) map {
+          case (newGame, move) ⇒ dbGame.update(newGame, move)
+        } must beSuccess.like {
+          case dbg ⇒ dbg playerByColor "white" map (_.eventStack) must beSome.like {
+            case stack ⇒ stack.events must_== Seq(
+              1 -> MoveEvent(D2, D4, White),
+              2 -> PossibleMovesEvent(Map.empty)
+            )
+          }
+        }
+      }
+    }
   }
 
   def sortPs(ps: String): String = ps.split(' ').toList.sorted mkString " "

@@ -2,7 +2,6 @@ package lila.system
 package model
 
 import lila.chess._
-import Piotr._
 
 case class EventStack(events: Seq[(Int, Event)]) {
 

@@ -5,7 +5,8 @@ import com.novus.salat.annotations._
 import com.mongodb.casbah.Imports._
 
 import lila.chess._
-import Pos.posAt
+import Pos.{ posAt, piotr }
+import Role.forsyth
 
 case class DbGame(
     @Key("_id") id: String,
@@ -29,8 +30,8 @@ case class DbGame(
   def toChess: Game = {
 
     def posPiece(posCode: Char, roleCode: Char, color: Color): Option[(Pos, Piece)] = for {
-      pos ← Piotr.decodePos get posCode
-      role ← Piotr.decodeRole get roleCode
+      pos ← piotr(posCode)
+      role ← forsyth(roleCode)
     } yield (pos, Piece(color, role))
 
     val (pieces, deads) = {
@@ -82,6 +83,7 @@ case class DbGame(
       case (pos, piece) ⇒ (pos, piece, true)
     })
     val events = Event fromMove move
+    val situation = game.situation
     copy(
       pgn = game.pgnMoves,
       players = for {
@@ -89,17 +91,18 @@ case class DbGame(
         color = Color(player.color).get // unsafe
       } yield player.copy(
         ps = allPieces filter (_._2.color == color) map {
-          case (pos, piece, dead) ⇒ (Piotr encodePos pos).toString + {
+          case (pos, piece, dead) ⇒ pos.piotr.toString + {
             if (dead) piece.role.forsyth.toUpper
             else piece.role.forsyth
           }
         } mkString " ",
         evts = (player.eventStack withEvents {
           events ::: List(
-            PossibleMovesEvent(
-              if (color == game.player) game.situation.destinations else Map.empty
-            )
-          )
+            Some(PossibleMovesEvent(
+              if (color == game.player) situation.destinations else Map.empty
+            )),
+            if (situation.check) situation.kingPos map CheckEvent.apply else None
+          ).flatten
         }).optimize encode
       ),
       turns = game.turns

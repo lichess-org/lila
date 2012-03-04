@@ -2,7 +2,7 @@ package lila.system
 package model
 
 import lila.chess._
-import Piotr._
+import Pos.{ piotr, allPiotrs }
 
 sealed trait Event {
   def encode: Option[String]
@@ -11,7 +11,7 @@ object Event {
   def fromMove(move: Move): List[Event] = MoveEvent(move) :: List(
     if (move.enpassant) move.capture map EnpassantEvent.apply else None,
     move.promotion map { role ⇒ PromotionEvent(role, move.dest) },
-    move.castle map { rook => CastlingEvent((move.orig, move.dest), rook, move.color) }
+    move.castle map { rook ⇒ CastlingEvent((move.orig, move.dest), rook, move.color) }
   ).flatten
 }
 
@@ -43,17 +43,14 @@ object StartEvent extends EventDecoder {
 }
 
 case class MoveEvent(orig: Pos, dest: Pos, color: Color) extends Event {
-  def encode = for {
-    o ← encodePos get orig
-    d ← encodePos get dest
-  } yield "m" + o + d + color.letter
+  def encode = Some("m" + orig.piotr + dest.piotr + color.letter)
 }
 object MoveEvent extends EventDecoder {
   def apply(move: Move): MoveEvent = MoveEvent(move.orig, move.dest, move.piece.color)
   def decode(str: String) = str.toList match {
     case List(o, d, c) ⇒ for {
-      orig ← decodePos get o
-      dest ← decodePos get d
+      orig ← piotr(o)
+      dest ← piotr(d)
       color ← Color(c)
     } yield MoveEvent(orig, dest, color)
     case _ ⇒ None
@@ -61,12 +58,9 @@ object MoveEvent extends EventDecoder {
 }
 
 case class PossibleMovesEvent(moves: Map[Pos, List[Pos]]) extends Event {
-  def encode = Some("p" + ((moves map {
-    case (orig, dests) ⇒ for {
-      o ← encodePos get orig
-      ds = dests collect encodePos
-    } yield o.toString + (ds mkString "")
-  }).flatten mkString ","))
+  def encode = Some("p" + (moves map {
+    case (orig, dests) ⇒ (orig :: dests) map (_.piotr) mkString
+  } mkString ","))
 }
 object PossibleMovesEvent extends EventDecoder {
   def decode(str: String) = Some(PossibleMovesEvent(
@@ -75,8 +69,8 @@ object PossibleMovesEvent extends EventDecoder {
         case Nil      ⇒ None
         case o :: Nil ⇒ None
         case o :: ds ⇒ for {
-          orig ← decodePos get o
-          dests = ds collect decodePos
+          orig ← piotr(o)
+          dests = ds collect allPiotrs
         } yield (orig, dests)
       }
     }).flatten toMap
@@ -84,33 +78,28 @@ object PossibleMovesEvent extends EventDecoder {
 }
 
 case class EnpassantEvent(killed: Pos) extends Event {
-  def encode = for {
-    k ← encodePos get killed
-  } yield "E" + k
+  def encode = Some("E" + killed.piotr)
 }
 object EnpassantEvent extends EventDecoder {
   def decode(str: String) = for {
     k ← str.headOption
-    killed ← decodePos get k
+    killed ← piotr(k)
   } yield EnpassantEvent(killed)
 }
 
 case class CastlingEvent(king: (Pos, Pos), rook: (Pos, Pos), color: Color) extends Event {
-  def encode = for {
-    k1 ← encodePos get king._1
-    k2 ← encodePos get king._2
-    r1 ← encodePos get rook._1
-    r2 ← encodePos get rook._2
-  } yield "c" + k1 + k2 + r1 + r2 + color.letter
+  def encode = Some(
+    "c" + king._1.piotr + king._2.piotr + rook._1.piotr + rook._2.piotr + color.letter
+  )
 }
 object CastlingEvent extends EventDecoder {
   def decode(str: String) = str.toList match {
     case List(k1, k2, r1, r2, c) ⇒ for {
-      king1 ← decodePos get k1
-      king2 ← decodePos get k2
+      king1 ← piotr(k1)
+      king2 ← piotr(k2)
       king = (king1, king2)
-      rook1 ← decodePos get r1
-      rook2 ← decodePos get r2
+      rook1 ← piotr(r1)
+      rook2 ← piotr(r2)
       rook = (rook1, rook2)
       color ← Color(c)
     } yield CastlingEvent(king, rook, color)
@@ -126,29 +115,25 @@ object RedirectEvent extends EventDecoder {
 }
 
 case class PromotionEvent(role: PromotableRole, pos: Pos) extends Event {
-  def encode = for {
-    p ← encodePos get pos
-  } yield "P" + role.forsyth + p
+  def encode = Some("P" + role.forsyth + pos.piotr)
 }
 object PromotionEvent extends EventDecoder {
   def decode(str: String) = str.toList match {
     case List(r, p) ⇒ for {
       role ← Role promotable r
-      pos ← decodePos get p
+      pos ← piotr(p)
     } yield PromotionEvent(role, pos)
     case _ ⇒ None
   }
 }
 
 case class CheckEvent(pos: Pos) extends Event {
-  def encode = for {
-    p ← encodePos get pos
-  } yield "C" + p
+  def encode = Some("C" + pos.piotr)
 }
 object CheckEvent extends EventDecoder {
   def decode(str: String) = for {
     p ← str.headOption
-    pos ← decodePos get p
+    pos ← piotr(p)
   } yield CheckEvent(pos)
 }
 

@@ -8,9 +8,11 @@ case class Situation(board: Board, color: Color) {
     case actor if actor.moves.nonEmpty ⇒ actor.pos -> actor.moves
   } toMap
 
-  lazy val destinations: Map[Pos, List[Pos]] = moves mapValues { ms => ms map (_.dest) }
+  lazy val destinations: Map[Pos, List[Pos]] = moves mapValues { ms ⇒ ms map (_.dest) }
 
-  lazy val check: Boolean = board kingPosOf color map { king ⇒
+  lazy val kingPos: Option[Pos] = board kingPosOf color
+
+  lazy val check: Boolean = kingPos map { king ⇒
     board actorsOf !color exists (_ threatens king)
   } getOrElse false
 

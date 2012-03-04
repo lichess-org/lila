@@ -21,6 +21,9 @@ trait Fixtures {
     lastMove = None,
     clock = None
   )
+  lazy val newDbGameWithoutEvents = newDbGame.copy(
+    players = newDbGame.players map (_.copy(evts = ""))
+  )
 
   def newDbGameWithRandomIds() = newDbGame.copy(
     id = randomString(gameIdSize),
