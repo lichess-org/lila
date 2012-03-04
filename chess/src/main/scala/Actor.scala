@@ -104,7 +104,7 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
       b2 ← b1.move(kingPos, newKingPos)
       b3 ← b2.place(color.rook, newRookPos)
       b4 = b3 updateHistory (_ withoutCastles color)
-    } yield move(newKingPos, b4, castles = true)
+    } yield move(newKingPos, b4, castle = Some((rookPos, newRookPos)))
 
     List(on(KingSide), on(QueenSide)).flatten
   }
@@ -154,7 +154,7 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
     dest: Pos,
     after: Board,
     capture: Option[Pos] = None,
-    castles: Boolean = false,
+    castle: Option[(Pos, Pos)] = None,
     promotion: Option[PromotableRole] = None,
     enpassant: Boolean = false) = Move(
     piece = piece,
@@ -163,7 +163,7 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
     before = board,
     after = after,
     capture = capture,
-    castles = castles,
+    castle = castle,
     promotion = promotion,
     enpassant = enpassant)
 

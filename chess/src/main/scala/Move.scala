@@ -8,7 +8,7 @@ case class Move(
     after: Board,
     capture: Option[Pos],
     promotion: Option[PromotableRole],
-    castles: Boolean,
+    castle: Option[(Pos, Pos)],
     enpassant: Boolean) {
 
   def withHistory(h: History) = copy(after = after withHistory h)
@@ -22,6 +22,8 @@ case class Move(
   def captures = capture.isDefined
 
   def promotes = promotion.isDefined
+
+  def castles = castle.isDefined
 
   def color = piece.color
 }
