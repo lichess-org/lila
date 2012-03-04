@@ -10,7 +10,8 @@ sealed trait Event {
 object Event {
   def fromMove(move: Move): List[Event] = MoveEvent(move) :: List(
     if (move.enpassant) move.capture map EnpassantEvent.apply else None,
-    move.promotion map { role ⇒ PromotionEvent(role, move.dest) }
+    move.promotion map { role ⇒ PromotionEvent(role, move.dest) },
+    move.castle map { rook => CastlingEvent((move.orig, move.dest), rook, move.color) }
   ).flatten
 }
 

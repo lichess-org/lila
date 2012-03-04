@@ -111,7 +111,7 @@ class EventStackTest extends SystemTest {
       }
       "castling" in {
         addMoves(EventStack(), newMove(
-          piece = White.king, orig = E1, dest = G1, castles = true
+          piece = White.king, orig = E1, dest = G1, castle = (H1, F1).some
         )).events must_== Seq(
           1 -> MoveEvent(E1, G1, White),
           2 -> CastlingEvent((E1, G1), (H1, F1), White)
