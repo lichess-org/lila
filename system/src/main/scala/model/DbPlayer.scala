@@ -10,5 +10,7 @@ case class DbPlayer(
     evts: String = "",
     elo: Option[Int]) {
 
+  def eventStack = EventStack decode evts
+
   def isAi = aiLevel.isDefined
 }

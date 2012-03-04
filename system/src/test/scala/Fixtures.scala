@@ -3,6 +3,7 @@ package lila.system
 import scala.util.Random
 
 import lila.chess._
+import Pos._
 import model._
 import DbGame._
 
@@ -134,4 +135,6 @@ trait Fixtures {
     castles = castles,
     promotion = promotion,
     enpassant = enpassant)
+
+    val anyMove = newMove(White.pawn, D2, D4)
 }

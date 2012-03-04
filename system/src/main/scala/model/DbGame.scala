@@ -75,12 +75,13 @@ case class DbGame(
     )
   }
 
-  def update(game: Game): DbGame = {
+  def update(game: Game, move: Move): DbGame = {
     val allPieces = (game.board.pieces map {
       case (pos, piece) ⇒ (pos, piece, false)
     }) ++ (game.deads map {
       case (pos, piece) ⇒ (pos, piece, true)
     })
+    val events = Event fromMove move
     copy(
       pgn = game.pgnMoves,
       players = for {
@@ -92,23 +93,18 @@ case class DbGame(
             if (dead) piece.role.forsyth.toUpper
             else piece.role.forsyth
           }
-        } mkString " "
+        } mkString " ",
+        evts = (player.eventStack withEvents {
+          events ::: List(
+            PossibleMovesEvent(
+              if (color == game.player) game.situation.destinations else Map.empty
+            )
+          )
+        }).optimize encode
       ),
       turns = game.turns
     )
   }
-
-  def eventStacks: Map[DbPlayer, EventStack] = players map { player =>
-    (player, EventStack decode player.evts)
-  } toMap
-
-  def withEventStacks(stacks: Map[DbPlayer, EventStack]): DbGame = copy(
-    players = players map { player ⇒
-      stacks get player some { stack ⇒
-        player.copy(evts = stack.encode)
-      } none player
-    }
-  )
 }
 
 object DbGame {

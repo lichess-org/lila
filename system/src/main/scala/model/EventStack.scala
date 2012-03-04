@@ -25,12 +25,6 @@ case class EventStack(events: Seq[(Int, Event)]) {
 
   def version: Int = events.lastOption map (_._1) getOrElse 0
 
-  def withMove(move: Move): EventStack = withEvents(MoveEvent(move) :: {
-    move match {
-      case _ ⇒ Nil
-    }
-  })
-
   def withEvents(newEvents: List[Event]): EventStack = {
 
     def versionEvents(v: Int, events: List[Event]): List[(Int, Event)] = events match {

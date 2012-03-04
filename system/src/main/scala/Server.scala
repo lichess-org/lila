@@ -16,13 +16,11 @@ final class Server(repo: GameRepo) {
     dest ← posAt(destString) toValid "Wrong dest " + destString
     promotion ← Role promotable promString toValid "Wrong promotion " + promString
     gameAndPlayer ← repo player fullId toValid "Wrong ID " + fullId
-    (game, player) = gameAndPlayer
-    chessGame = game.toChess
+    (g1, _) = gameAndPlayer
+    chessGame = g1.toChess
     newChessGameAndMove ← chessGame(orig, dest, promotion)
     (newChessGame, move) = newChessGameAndMove
-    g1 = game update newChessGame
-    eventStacks = game.eventStacks mapValues (_ withMove move optimize)
-    g2 = g1 withEventStacks eventStacks
+    g2 = g1.update(newChessGame, move)
     result ← unsafe { repo save g2 }
   } yield newChessGame.situation.destinations
 

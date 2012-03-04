@@ -73,24 +73,55 @@ class EventStackTest extends SystemTest {
       }
     }
     "apply move events" in {
+      def addMoves(eventStack: EventStack, moves: Move*) = moves.foldLeft(eventStack) {
+        case (stack, move) ⇒ stack withEvents (Event fromMove move)
+      }
       "start with no events" in {
         EventStack().events must beEmpty
       }
-      "add a move event" in {
-        val stack = EventStack() withMove newMove(
+      "move" in {
+        addMoves(EventStack(), newMove(
           piece = White.pawn, orig = D2, dest = D4
-        )
-        stack.events must_== Seq(
+        )).events must_== Seq(
           1 -> MoveEvent(D2, D4, White)
         )
       }
-      "add two move events" in {
-        val stack = EventStack() withMove newMove(
-          piece = White.pawn, orig = D2, dest = D4
-        ) withMove newMove(
-            piece = Black.pawn, orig = D7, dest = D5
-          )
-        stack.events must_== Seq(
+      "capture" in {
+        addMoves(EventStack(), newMove(
+          piece = White.pawn, orig = D2, dest = E3, capture = Some(E3)
+        )).events must_== Seq(
+          1 -> MoveEvent(D2, E3, White)
+        )
+      }
+      "enpassant" in {
+        addMoves(EventStack(), newMove(
+          piece = White.pawn, orig = D5, dest = E6, capture = Some(E5), enpassant = true
+        )).events must_== Seq(
+          1 -> MoveEvent(D5, E6, White),
+          2 -> EnpassantEvent(E5)
+        )
+      }
+      "promotion" in {
+        addMoves(EventStack(), newMove(
+          piece = White.pawn, orig = D7, dest = D8, promotion = Some(Rook)
+        )).events must_== Seq(
+          1 -> MoveEvent(D7, D8, White),
+          2 -> PromotionEvent(Rook, D8)
+        )
+      }
+      "castling" in {
+        addMoves(EventStack(), newMove(
+          piece = White.king, orig = E1, dest = G1, castles = true
+        )).events must_== Seq(
+          1 -> MoveEvent(E1, G1, White),
+          2 -> CastlingEvent((E1, G1), (H1, F1), White)
+        )
+      }
+      "two moves" in {
+        addMoves(EventStack(),
+          newMove(piece = White.pawn, orig = D2, dest = D4),
+          newMove(piece = Black.pawn, orig = D7, dest = D5)
+        ).events must_== Seq(
           1 -> MoveEvent(D2, D4, White),
           2 -> MoveEvent(D7, D5, Black)
         )

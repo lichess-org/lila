@@ -13,7 +13,7 @@ class ChessToModelTest extends SystemTest {
       val dbGame = newDbGame
       val game = dbGame.toChess
       "identity" in {
-        val dbg2 = dbGame update game
+        val dbg2 = dbGame.update(game, anyMove)
         "white pieces" in {
           dbg2 playerByColor "white" map (_.ps) map sortPs must_== {
             dbGame playerByColor "white" map (_.ps) map sortPs
@@ -49,7 +49,7 @@ R  QK  q
           H1 -> White.rook
         ))
       "identity" in {
-        val dbg2 = dbGame update game
+        val dbg2 = dbGame.update(game, anyMove)
         "white pieces" in {
           dbg2 playerByColor "white" map (_.ps) map sortPs must_== {
             dbGame playerByColor "white" map (_.ps) map sortPs
@@ -62,7 +62,7 @@ R  QK  q
         }
       }
       "new pieces positions" in {
-        val dbg2 = newDbGame update game
+        val dbg2 = newDbGame.update(game, anyMove)
         "white pieces" in {
           dbg2 playerByColor "white" map (_.ps) map sortPs must_== {
             dbGame playerByColor "white" map (_.ps) map sortPs
