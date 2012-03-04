@@ -16,9 +16,7 @@ trait SystemTest
 
   implicit def richDbGame(dbGame: DbGame) = new {
 
-    def withoutEvents: DbGame = dbGame.copy(
-      players = dbGame.players map (_.copy(evts = ""))
-    )
+    def withoutEvents: DbGame = dbGame mapPlayers (_.copy(evts = ""))
 
     def afterMove(orig: Pos, dest: Pos): Valid[DbGame] =
       dbGame.toChess.apply(orig, dest) map {

@@ -7,7 +7,8 @@ import Role.forsyth
 
 case class DbGame(
     id: String,
-    players: List[DbPlayer],
+    whitePlayer: DbPlayer,
+    blackPlayer: DbPlayer,
     pgn: String,
     status: Int,
     turns: Int,
@@ -17,17 +18,26 @@ case class DbGame(
     castles: String = "KQkq",
     isRated: Boolean = false) {
 
-  def playerById(id: String): Option[DbPlayer] = playersById get id
+  val players = List(whitePlayer, blackPlayer)
 
-  def playerByColor(color: Color): Option[DbPlayer] = playersByColor get color
+  val playersByColor: Map[Color, DbPlayer] = Map(
+    White -> whitePlayer,
+    Black -> blackPlayer
+  )
 
-  def player: DbPlayer = playerByColor(if (0 == turns % 2) White else Black) get
+  def player(color: Color): DbPlayer = color match {
+    case White ⇒ whitePlayer
+    case Black ⇒ blackPlayer
+  }
 
-  lazy val playersByColor: Map[Color, DbPlayer] = players map { p ⇒ (p.color, p) } toMap
-  lazy val playersById: Map[String, DbPlayer] = players map { p ⇒ (p.id, p) } toMap
+  def playerById(id: String): Option[DbPlayer] = players find (_.id == id)
+
+  def player: DbPlayer = player(if (0 == turns % 2) White else Black)
 
   def fullIdOf(player: DbPlayer): Option[String] =
     (players contains player) option id + player.id
+
+  def fullIdOf(color: Color): String = id + player(color).id
 
   def toChess: Game = {
 
@@ -80,14 +90,15 @@ case class DbGame(
     })
     val (history, situation) = (game.board.history, game.situation)
     val events = (Event fromMove move) ::: (Event fromSituation game.situation)
+
+    def updatePlayer(player: DbPlayer) = player.copy(
+      ps = player encodePieces allPieces,
+      evts = player.newEvts(events :+ Event.possibleMoves(game.situation, player.color)))
+
     copy(
       pgn = game.pgnMoves,
-      players = for {
-        player ← players
-      } yield player.copy(
-        ps = player encodePieces allPieces,
-        evts = player.newEvts(events :+ Event.possibleMoves(game.situation, player.color))
-      ),
+      whitePlayer = updatePlayer(whitePlayer),
+      blackPlayer = updatePlayer(blackPlayer),
       turns = game.turns,
       positionHashes = history.positionHashes mkString,
       castles = List(
@@ -106,6 +117,11 @@ case class DbGame(
   }
 
   def playable = status < DbGame.ABORTED
+
+  def mapPlayers(f: DbPlayer => DbPlayer) = copy(
+    whitePlayer = f(whitePlayer),
+    blackPlayer = f(blackPlayer)
+  )
 }
 
 object DbGame {

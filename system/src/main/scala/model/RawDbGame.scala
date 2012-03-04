@@ -21,16 +21,14 @@ case class RawDbGame(
     isRated: Boolean = false) {
 
   def decode: Option[DbGame] = for {
-    player1 ← players.lift(0) flatMap (_.decode)
-    player2 ← players.lift(1) flatMap (_.decode)
-    validPlayers = List(player1, player2)
-    colors = validPlayers map (_.color)
-    //if (colors.pp contains White) && (colors contains Black)
+    whitePlayer ← players find (_.color == "white") flatMap (_.decode)
+    blackPlayer ← players find (_.color == "black") flatMap (_.decode)
     validClock = clock flatMap (_.decode)
     if validClock.isDefined == clock.isDefined
   } yield DbGame(
     id = id,
-    players = validPlayers,
+    whitePlayer = whitePlayer,
+    blackPlayer = blackPlayer,
     pgn = pgn,
     status = status,
     turns = turns,

@@ -27,6 +27,3 @@ case class DbPlayer(
 
   def isAi = aiLevel.isDefined
 }
-
-object DbPlayer {
-}

@@ -15,14 +15,10 @@ class ChessToModelTest extends SystemTest {
       "identity" in {
         val dbg2 = dbGame.update(game, anyMove)
         "white pieces" in {
-          dbg2 playerByColor White map (_.ps) map sortPs must_== {
-            dbGame playerByColor White map (_.ps) map sortPs
-          }
+          sortPs((dbg2 player White).ps) must_== sortPs((dbGame player White).ps)
         }
         "black pieces" in {
-          dbg2 playerByColor Black map (_.ps) map sortPs must_== {
-            dbGame playerByColor Black map (_.ps) map sortPs
-          }
+          sortPs((dbg2 player Black).ps) must_== sortPs((dbGame player Black).ps)
         }
       }
     }
@@ -51,33 +47,25 @@ R  QK  q
       "identity" in {
         val dbg2 = dbGame.update(game, anyMove)
         "white pieces" in {
-          dbg2 playerByColor White map (_.ps) map sortPs must_== {
-            dbGame playerByColor White map (_.ps) map sortPs
-          }
+          sortPs((dbg2 player White).ps) must_== sortPs((dbGame player White).ps)
         }
         "black pieces" in {
-          dbg2 playerByColor Black map (_.ps) map sortPs must_== {
-            dbGame playerByColor Black map (_.ps) map sortPs
-          }
+          sortPs((dbg2 player Black).ps) must_== sortPs((dbGame player Black).ps)
         }
       }
       "new pieces positions" in {
         val dbg2 = newDbGame.update(game, anyMove)
         "white pieces" in {
-          dbg2 playerByColor White map (_.ps) map sortPs must_== {
-            dbGame playerByColor White map (_.ps) map sortPs
-          }
+          sortPs((dbg2 player White).ps) must_== sortPs((dbGame player White).ps)
         }
         "black pieces" in {
-          dbg2 playerByColor Black map (_.ps) map sortPs must_== {
-            dbGame playerByColor Black map (_.ps) map sortPs
-          }
+          sortPs((dbg2 player Black).ps) must_== sortPs((dbGame player Black).ps)
         }
       }
     }
     "update events" in {
       def playerEvents(dbg: Valid[DbGame], color: Color) =
-        dbg.toOption flatMap (_ playerByColor color) map (_.eventStack.events)
+        dbg.toOption map (g ⇒ (g player color).eventStack.events)
       "simple move" in {
         val dbg = newDbGame.withoutEvents.afterMove(D2, D4)
         "white events" in {

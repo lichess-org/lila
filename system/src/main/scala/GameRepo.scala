@@ -24,8 +24,7 @@ extends SalatDAO[RawDbGame, String](collection) {
 
   def player(gameId: String, color: Color): Option[(DbGame, DbPlayer)] = for {
     game ← game(gameId take gameIdSize)
-    player ← game playerByColor color
-  } yield (game, player)
+  } yield (game, game player color)
 
   def save(game: DbGame) =
     update(DBObject("_id" -> game.id), _grater asDBObject encode(game), false, false)
