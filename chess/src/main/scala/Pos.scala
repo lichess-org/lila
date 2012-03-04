@@ -6,19 +6,15 @@ sealed case class Pos private (x: Int, y: Int, piotr: Char) {
 
   import Pos.posAt
 
-  lazy val up: Option[Pos] = this ^ 1
-  lazy val down: Option[Pos] = this v 1
-  lazy val right: Option[Pos] = this > 1
-  lazy val left: Option[Pos] = this < 1
+  lazy val up: Option[Pos] = posAt(x, y + 1)
+  lazy val down: Option[Pos] = posAt(x, y -1)
+  lazy val right: Option[Pos] = posAt(x + 1, y)
+  lazy val left: Option[Pos] = posAt(x - 1, y)
   lazy val upLeft: Option[Pos] = up flatMap (_ left)
   lazy val upRight: Option[Pos] = up flatMap (_ right)
   lazy val downLeft: Option[Pos] = down flatMap (_ left)
   lazy val downRight: Option[Pos] = down flatMap (_ right)
 
-  def ^(n: Int): Option[Pos] = posAt(x, y + n)
-  def v(n: Int): Option[Pos] = posAt(x, y - n)
-  def >(n: Int): Option[Pos] = posAt(x + n, y)
-  def <(n: Int): Option[Pos] = posAt(x - n, y)
   def >|(stop: Pos ⇒ Boolean): List[Pos] = |<>|(stop, _.right)
   def |<(stop: Pos ⇒ Boolean): List[Pos] = |<>|(stop, _.left)
   def |<>|(stop: Pos ⇒ Boolean, dir: Direction): List[Pos] = dir(this) map { p ⇒
@@ -36,7 +32,7 @@ sealed case class Pos private (x: Int, y: Int, piotr: Char) {
   lazy val rank = y.toString
   lazy val key = file + rank
 
-  override def toString = key
+  override val toString = key
 }
 
 object Pos {
