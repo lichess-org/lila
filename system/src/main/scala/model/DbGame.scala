@@ -98,10 +98,11 @@ case class DbGame(
         } mkString " ",
         evts = (player.eventStack withEvents {
           events ::: List(
+            if (situation.check) situation.kingPos map CheckEvent.apply else None,
+            if (situation.end) Some(EndEvent()) else None,
             Some(PossibleMovesEvent(
               if (color == game.player) situation.destinations else Map.empty
-            )),
-            if (situation.check) situation.kingPos map CheckEvent.apply else None
+            ))
           ).flatten
         }).optimize encode
       ),

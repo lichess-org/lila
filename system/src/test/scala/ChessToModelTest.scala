@@ -76,17 +76,73 @@ R  QK  q
       }
     }
     "update events" in {
+      def playerEvents(dbg: Valid[DbGame], color: String) =
+        dbg.toOption flatMap (_ playerByColor color) map (_.eventStack.events)
       "simple move" in {
-        val dbGame = newDbGameWithoutEvents
-        val game = newDbGame.toChess
-        game(D2, D4) map {
-          case (newGame, move) ⇒ dbGame.update(newGame, move)
-        } must beSuccess.like {
-          case dbg ⇒ dbg playerByColor "white" map (_.eventStack) must beSome.like {
-            case stack ⇒ stack.events must_== Seq(
-              1 -> MoveEvent(D2, D4, White),
-              2 -> PossibleMovesEvent(Map.empty)
-            )
+        val dbg = newDbGame.withoutEvents.afterMove(D2, D4)
+        "white events" in {
+          playerEvents(dbg, "white") must_== Some(Seq(
+            1 -> MoveEvent(D2, D4, White),
+            2 -> PossibleMovesEvent(Map.empty)
+          ))
+        }
+        "black events" in {
+          playerEvents(dbg, "black") must_== Some(Seq(
+            1 -> MoveEvent(D2, D4, White),
+            2 -> PossibleMovesEvent((Map(G7 -> List(G6, G5), F7 -> List(F6, F5), D7 -> List(D6, D5), A7 -> List(A6, A5), G8 -> List(F6, H6), C7 -> List(C6, C5), B8 -> List(A6, C6), B7 -> List(B6, B5), H7 -> List(H6, H5), E7 -> List(E6, E5))))
+          ))
+        }
+      }
+      "check" in {
+        val dbg = newDbGameWithBoard("""
+   r
+
+PPPP   P
+RNBQK  R
+""").copy(turns = 11).withoutEvents.afterMove(D4, E4)
+        "white events" in {
+          playerEvents(dbg, "white") must beSome.like {
+            case events ⇒ events map (_._2) must contain(CheckEvent(E1))
+          }
+        }
+        "black events" in {
+          playerEvents(dbg, "black") must beSome.like {
+            case events ⇒ events map (_._2) must contain(CheckEvent(E1))
+          }
+        }
+      }
+      "check mate" in {
+        val dbg = newDbGameWithBoard("""
+   r
+
+PPPP P P
+RNBRKR R
+""").copy(turns = 11).withoutEvents.afterMove(D4, E4)
+        "white events" in {
+          playerEvents(dbg, "white") must beSome.like {
+            case events ⇒ events map (_._2) must contain(CheckEvent(E1), EndEvent())
+          }
+        }
+        "black events" in {
+          playerEvents(dbg, "black") must beSome.like {
+            case events ⇒ events map (_._2) must contain(CheckEvent(E1), EndEvent())
+          }
+        }
+      }
+      "stale mate" in {
+        val dbg = newDbGameWithBoard("""
+p
+ rr
+K
+""").copy(turns = 11).withoutEvents.afterMove(A3, A2)
+        "white events" in {
+          playerEvents(dbg, "white") must beSome.like {
+            case events ⇒ events map (_._2) must contain(EndEvent())
+          }
+        }
+        "black events" in {
+          playerEvents(dbg, "black") must beSome.like {
+            case events ⇒ events map (_._2) must contain(EndEvent())
           }
         }
       }

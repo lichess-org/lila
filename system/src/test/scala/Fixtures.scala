@@ -3,6 +3,7 @@ package lila.system
 import scala.util.Random
 
 import lila.chess._
+import format.Visual
 import Pos._
 import model._
 import DbGame._
@@ -21,9 +22,9 @@ trait Fixtures {
     lastMove = None,
     clock = None
   )
-  lazy val newDbGameWithoutEvents = newDbGame.copy(
-    players = newDbGame.players map (_.copy(evts = ""))
-  )
+
+  def newDbGameWithBoard(b: Board) =
+    newDbGame.update(Game(b), anyMove)
 
   def newDbGameWithRandomIds() = newDbGame.copy(
     id = randomString(gameIdSize),
