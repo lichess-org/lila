@@ -10,7 +10,11 @@ import Pos.posAt
 object Forsyth extends Format[Game] {
 
   def <<(source: String): Game = {
-    throw new RuntimeException("Not implemented")
+    val useful = """\s*([\w\d/]+)\s.+""".r.replaceAllIn(
+      source.replace("/", ""),
+      m ⇒ m group 1
+    )
+    Game()
   }
 
   def >>(game: Game): String = List(
