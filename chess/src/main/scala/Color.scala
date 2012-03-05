@@ -20,7 +20,7 @@ sealed trait Color {
   def queen  = this - Queen
   def king   = this - King
 
-  override val toString = name
+  override def toString = name
 }
 
 case object White extends Color {
