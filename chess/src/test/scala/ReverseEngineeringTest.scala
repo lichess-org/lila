@@ -5,7 +5,7 @@ import format.Visual.addNewLines
 
 class ReverseEngineeringTest extends ChessTest {
 
-  def findMove(g1: Game, g2: Game) = (new ReverseEngineering(g1, g2)).move
+  def findMove(g1: Game, g2: Game) = (new ReverseEngineering(g1, g2.board)).move
   def play(game: Game, moves: (Pos, Pos)*): Game =
     game.playMoveList(moves).fold(e ⇒ sys.error(e.toString), identity)
   val playedGame = play(Game(),
