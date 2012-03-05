@@ -42,6 +42,7 @@ trait EnvBuilder {
   import java.io.File
 
   def makeConfig(sources: String*) = sources.foldLeft(ConfigFactory.defaultOverrides) {
+    case (config, source) if source isEmpty ⇒ config
     case (config, source) if source contains '=' ⇒
       config.withFallback(ConfigFactory parseString source)
     case (config, source) ⇒
