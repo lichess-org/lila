@@ -10,7 +10,7 @@ import Pos.posAt
 object Forsyth extends Format[Game] {
 
   def <<(source: String): Game = {
-    Game()
+    throw new RuntimeException("Not implemented")
   }
 
   def >>(game: Game): String = List(

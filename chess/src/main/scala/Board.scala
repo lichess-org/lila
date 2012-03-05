@@ -26,6 +26,8 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
 
   def actorAt(at: Pos): Option[Actor] = actors get at
 
+  def piecesOf(c: Color): Map[Pos, Piece] = pieces filter (_._2 is c)
+
   lazy val kingPos: Map[Color, Pos] = pieces collect {
     case (pos, Piece(color, King)) ⇒ color -> pos
   } toMap
