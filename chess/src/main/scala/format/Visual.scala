@@ -32,7 +32,7 @@ object Visual extends Format[Board] {
       } yield {
         posAt(x + 1, 8 - y) map { pos ⇒ pos -> (Color(c isUpper) - role) }
       }) flatten
-    ) withHistory History.noCastle
+    )
   }
 
   def >>(board: Board): String = >>|(board, Map.empty)

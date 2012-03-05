@@ -75,10 +75,10 @@ case class DbGame(
       case MoveString(a, b) ⇒ for (o ← posAt(a); d ← posAt(b)) yield (o, d)
       case _                ⇒ None
     },
-    castles = Map(
-      White -> (castles contains 'K', castles contains 'Q'),
-      Black -> (castles contains 'k', castles contains 'q')
-    ),
+    whiteCastleKingSide = castles contains 'K',
+    whiteCastleQueenSide = castles contains 'Q',
+    blackCastleKingSide = castles contains 'k',
+    blackCastleQueenSide = castles contains 'q',
     positionHashes = positionHashes grouped History.hashSize toList
   )
 
@@ -101,12 +101,7 @@ case class DbGame(
       blackPlayer = updatePlayer(blackPlayer),
       turns = game.turns,
       positionHashes = history.positionHashes mkString,
-      castles = List(
-        if (history canCastle White on KingSide) "K" else "",
-        if (history canCastle White on QueenSide) "Q" else "",
-        if (history canCastle Black on KingSide) "k" else "",
-        if (history canCastle Black on QueenSide) "q" else ""
-      ) mkString,
+      castles = history.castleNotation,
       status =
         if (situation.checkMate) DbGame.MATE
         else if (situation.staleMate) DbGame.STALEMATE

@@ -7,10 +7,10 @@ class CastleTest extends ChessTest {
   "a king castle" should {
 
     "king side" in {
-        val goodHist = """
+      val goodHist = """
 PPPPPPPP
 R  QK  R"""
-        val badHist = goodHist updateHistory (_ withoutCastles White)
+      val badHist = goodHist updateHistory (_ withoutCastles White)
       "impossible" in {
         "standard chess" in {
           "near bishop in the way" in {
@@ -24,7 +24,7 @@ R  QK  R"""
           }
         }
         "chess960" in {
-        val board960 = """
+          val board960 = """
 PPPPPPPP
 RQK   R """ withHistory History.castle(White, true, true)
           "near bishop in the way" in {
@@ -49,10 +49,10 @@ R  Q RK """)
     }
 
     "queen side" in {
-        val goodHist = """
+      val goodHist = """
 PPPPPPPP
 R   KB R"""
-        val badHist = goodHist updateHistory (_ withoutCastles White)
+      val badHist = goodHist updateHistory (_ withoutCastles White)
       "impossible" in {
         "near queen in the way" in {
           goodHist place White.queen at D1 flatOption (_ destsFrom E1) must bePoss()
@@ -81,10 +81,10 @@ PPPPPPPP
     }
 
     "impact history" in {
-        val board = """
+      val board = """
 PPPPPPPP
 R   K  R""" withHistory History.castle(White, true, true)
-        val game = Game(board, White)
+      val game = Game(board, White)
       "if king castles kingside" in {
         val g2 = game.playMove(E1, G1)
         "correct new board" in {

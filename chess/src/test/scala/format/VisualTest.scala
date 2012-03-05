@@ -12,9 +12,7 @@ class VisualTest extends ChessTest {
       f.addNewLines(f >> (Board())) must_== newBoardFormat
     }
     "import new board" in {
-      f << newBoardFormat must_== {
-        Board() withHistory History.noCastle
-      }
+      f << newBoardFormat must_== Board()
     }
     "import and export is non destructive" in {
       forall(examples) { example ⇒

@@ -2,11 +2,11 @@ package lila.chess
 
 case class History(
     lastMove: Option[(Pos, Pos)] = None,
-    castles: Map[Color, (Boolean, Boolean)] = Map(
-      White -> (true, true),
-      Black -> (true, true)
-    ),
-    positionHashes: List[String] = Nil) {
+    positionHashes: List[String] = Nil,
+    whiteCastleKingSide: Boolean = true,
+    whiteCastleQueenSide: Boolean = true,
+    blackCastleKingSide: Boolean = true,
+    blackCastleQueenSide: Boolean = true) {
 
   def isLastMove(p1: Pos, p2: Pos): Boolean = lastMove == (p1, p2)
 
@@ -17,42 +17,55 @@ case class History(
   }
 
   def canCastle(color: Color) = new {
-    def on(side: Side): Boolean = (colorCastles(color), side) match {
-      case ((king, _), KingSide)   ⇒ king
-      case ((_, queen), QueenSide) ⇒ queen
+    def on(side: Side): Boolean = (color, side) match {
+      case (White, KingSide)  ⇒ whiteCastleKingSide
+      case (White, QueenSide) ⇒ whiteCastleQueenSide
+      case (Black, KingSide)  ⇒ blackCastleKingSide
+      case (Black, QueenSide) ⇒ blackCastleQueenSide
     }
     def any = on(KingSide) || on(QueenSide)
   }
 
-  def withoutCastle(color: Color, side: Side): History = copy(
-    castles = castles updated (color, (colorCastles(color), side) match {
-      case ((_, queen), KingSide) ⇒ (false, queen)
-      case ((king, _), QueenSide) ⇒ (king, false)
-    })
-  )
+  def withoutCastles(color: Color) = color match {
+    case White ⇒ copy(
+      whiteCastleKingSide = false,
+      whiteCastleQueenSide = false)
+    case Black ⇒ copy(
+      blackCastleKingSide = false,
+      blackCastleQueenSide = false)
+  }
 
-  def withoutCastles(color: Color): History = copy(
-    castles = castles updated (color, (false, false))
-  )
+  def withoutCastle(color: Color, side: Side) = (color, side) match {
+    case (White, KingSide)  ⇒ copy(whiteCastleKingSide = false)
+    case (White, QueenSide) ⇒ copy(whiteCastleQueenSide = false)
+    case (Black, KingSide)  ⇒ copy(blackCastleKingSide = false)
+    case (Black, QueenSide) ⇒ copy(blackCastleQueenSide = false)
+  }
 
-  def withoutPositionHashes: History =
-    copy(positionHashes = Nil)
+  def withoutPositionHashes: History = copy(positionHashes = Nil)
 
   def withNewPositionHash(hash: String): History =
     copy(positionHashes = (hash take History.hashSize) :: positionHashes)
 
-  private def colorCastles(color: Color) = castles get color getOrElse (true, true)
+  def castleNotation: String =
+    (if (whiteCastleKingSide) "K" else "") +
+    (if (whiteCastleQueenSide) "Q" else "") +
+    (if (blackCastleKingSide) "k" else "") +
+    (if (blackCastleQueenSide) "q" else "")
 }
 
 object History {
 
   val hashSize = 5
 
-  def castle(color: Color, kingSide: Boolean, queenSide: Boolean) = History(
-    castles = Map(color -> (kingSide, queenSide))
-  )
+  def castle(color: Color, kingSide: Boolean, queenSide: Boolean) = color match {
+    case White ⇒ History().copy(
+      whiteCastleKingSide = kingSide,
+      whiteCastleQueenSide = queenSide)
+    case Black ⇒ History().copy(
+      blackCastleKingSide = kingSide,
+      blackCastleQueenSide = queenSide)
+  }
 
-  def noCastle = History(
-    castles = Map.empty
-  )
+  def noCastle = History() withoutCastles White withoutCastles Black
 }
