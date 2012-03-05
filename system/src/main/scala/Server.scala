@@ -23,7 +23,7 @@ final class Server(repo: GameRepo, ai: Ai) {
     (newChessGame, move) = newChessGameAndMove
     g3 = g2.update(newChessGame, move)
     g4 ← if (g3.player.isAi) aiResponse(g3) else success(g3)
-    result ← unsafe { repo save g3 }
+    result ← unsafe { repo save g4 }
   } yield newChessGame.situation.destinations
 
   private def aiResponse(dbGame: DbGame): Valid[DbGame] = for {
