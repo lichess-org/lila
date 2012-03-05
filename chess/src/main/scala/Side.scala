@@ -10,7 +10,7 @@ sealed trait Side {
 
 object Side {
 
-  lazy val all = List(KingSide, QueenSide)
+  val all = List(KingSide, QueenSide)
 
   def kingRookSide(kingPos: Pos, rookPos: Pos): Option[Side] =
     if (kingPos.y == rookPos.y)

@@ -1,5 +1,8 @@
 package lila.chess
 
+import Pos.posAt
+
+// does not support chess960 castles!
 final class ReverseEngineering(fromGame: Game, to: Board) {
 
   val from = fromGame.board
@@ -7,11 +10,20 @@ final class ReverseEngineering(fromGame: Game, to: Board) {
   def move: Option[(Pos, Pos)] =
     if (from.pieces == to.pieces) None else findMove
 
-  private def findMove: Option[(Pos, Pos)] = {
+  private def findMove: Option[(Pos, Pos)] =
     findMovedPieces match {
       case List((pos, piece)) ⇒ findPieceNewPos(pos, piece) map { np ⇒ (pos, np) }
-      case _                  ⇒ None
+      case List((pos1, piece1), (pos2, piece2)) if (piece1 is King) && (piece2 is Rook) ⇒
+        findCastle(pos2) map { np ⇒ (pos1, np) }
+      case List((pos1, piece1), (pos2, piece2)) if (piece1 is Rook) && (piece2 is King) ⇒
+        findCastle(pos1) map { np ⇒ (pos2, np) }
+      case _ ⇒ None
     }
+
+  private def findCastle(rookPos: Pos): Option[Pos] = rookPos.x match {
+    case 1 ⇒ posAt(3, rookPos.y)
+    case 8 ⇒ posAt(7, rookPos.y)
+    case _ ⇒ None
   }
 
   private def findPieceNewPos(pos: Pos, piece: Piece): Option[Pos] = for {
