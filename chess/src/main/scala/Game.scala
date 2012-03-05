@@ -17,7 +17,7 @@ case class Game(
     move ← situation.move(orig, dest, promotion)
   } yield {
     val newGame = copy(
-      board = move.afterWithPositionHashesUpdated,
+      board = move.finalizeAfter,
       player = !player,
       turns = turns + 1,
       deads = (for {

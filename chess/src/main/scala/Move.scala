@@ -13,9 +13,13 @@ case class Move(
 
   def withHistory(h: History) = copy(after = after withHistory h)
 
-  def afterWithPositionHashesUpdated: Board = after updateHistory { h ⇒
-    if ((piece is Pawn) || captures || promotes || castles) h.withoutPositionHashes
-    else h withNewPositionHash after.positionHash
+  def finalizeAfter: Board = after updateHistory { h ⇒
+    h.copy(
+      positionHashes =
+        if ((piece is Pawn) || captures || promotes || castles) Nil
+        else h positionHashesWith after.positionHash,
+      lastMove = Some(orig, dest)
+    )
   }
 
   // does this move capture an opponent piece?

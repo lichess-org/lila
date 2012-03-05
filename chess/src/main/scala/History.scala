@@ -42,16 +42,21 @@ case class History(
     case (Black, QueenSide) ⇒ copy(blackCastleQueenSide = false)
   }
 
-  def withoutPositionHashes: History = copy(positionHashes = Nil)
-
   def withNewPositionHash(hash: String): History =
-    copy(positionHashes = (hash take History.hashSize) :: positionHashes)
+    copy(positionHashes = positionHashesWith(hash))
 
-  def castleNotation: String =
+  def positionHashesWith(hash: String): List[String] =
+    (hash take History.hashSize) :: positionHashes
+
+  lazy val castleNotation: String = {
     (if (whiteCastleKingSide) "K" else "") +
-    (if (whiteCastleQueenSide) "Q" else "") +
-    (if (blackCastleKingSide) "k" else "") +
-    (if (blackCastleQueenSide) "q" else "")
+      (if (whiteCastleQueenSide) "Q" else "") +
+      (if (blackCastleKingSide) "k" else "") +
+      (if (blackCastleQueenSide) "q" else "")
+  } match {
+    case "" ⇒ "-"
+    case n  ⇒ n
+  }
 }
 
 object History {
