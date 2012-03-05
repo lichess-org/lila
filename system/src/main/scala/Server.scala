@@ -23,15 +23,13 @@ final class Server(repo: GameRepo, ai: Ai) {
     (newChessGame, move) = newChessGameAndMove
     g3 = g2.update(newChessGame, move)
     g4 ← if (g3.player.isAi) aiResponse(g3) else success(g3)
-    result ← unsafe { repo save g4 }
+    _ ← unsafe { repo save g4 }
   } yield newChessGame.situation.destinations
 
   private def aiResponse(dbGame: DbGame): Valid[DbGame] = for {
     newChessGameAndMove ← ai(dbGame)
     (newChessGame, move) = newChessGameAndMove
   } yield dbGame.update(newChessGame, move)
-
-  private def moveToEvents(move: Move): Map[DbPlayer, EventStack] = Map.empty
 
   private def decodeMoveString(moveString: String): Option[(String, String)] =
     moveString match {
