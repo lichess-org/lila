@@ -1,6 +1,7 @@
 package lila.chess
 
 import format.PgnDump
+import scala.math.max
 
 case class Game(
     board: Board = Board(),
@@ -33,9 +34,23 @@ case class Game(
     orig: Pos,
     dest: Pos,
     promotion: PromotableRole = Queen): Valid[Game] =
-      apply(orig, dest, promotion) map (_._1)
+    apply(orig, dest, promotion) map (_._1)
 
   lazy val situation = Situation(board, player)
 
   def pgnMovesList = pgnMoves.split(' ').toList
+
+  /**
+   * Halfmove clock: This is the number of halfmoves
+   * since the last pawn advance or capture.
+   * This is used to determine if a draw
+   * can be claimed under the fifty-move rule.
+   */
+  def halfMoveClock: Int = board.history.positionHashes.size
+
+  /**
+   * Fullmove number: The number of the full move.
+   * It starts at 1, and is incremented after Black's move.
+   */
+  def fullMoveNumber: Int = 1 + turns / 2
 }
