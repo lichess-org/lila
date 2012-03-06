@@ -1,20 +1,43 @@
 package lila.chess
 package format
 
-import Pos.posAt
+import Pos.{ posAt, A8 }
 
 /**
  * Transform a game to standard Forsyth Edwards Notation
  * http://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation
  */
-object Forsyth extends Format[Game] {
+object Forsyth {
 
-  def <<(source: String): Game = {
-    val useful = """\s*([\w\d/]+)\s.+""".r.replaceAllIn(
+  def <<(source: String): Option[Situation] = {
+
+    val boardChars = """\s*([\w\d/]+)\s.+""".r.replaceAllIn(
       source.replace("/", ""),
       m ⇒ m group 1
-    )
-    Game()
+    ).toList
+
+    val colorOption = for {
+      letter ← """^[\w\d/]+\s(\w).+$""".r.replaceAllIn(source, m ⇒ m group 1).headOption
+      color ← Color(letter)
+    } yield color
+
+    def board(chars: List[Char], pos: Pos): Option[List[(Pos, Piece)]] = chars match {
+      case Nil ⇒ Some(Nil)
+      case c :: rest ⇒ c match {
+        case n if (n.toInt < 58) ⇒
+          tore(pos, n.toInt - 48) flatMap { board(rest, _) }
+        case n ⇒ for {
+          role ← Role forsyth n.toLower
+        } yield (pos, Piece(Color(n.isUpper), role)) :: {
+          tore(pos, 1) flatMap { board(rest, _) } getOrElse Nil
+        }
+      }
+    }
+
+    for {
+      color ← colorOption
+      pieces ← board(boardChars, A8)
+    } yield Situation(Board(pieces), color)
   }
 
   def >>(game: Game): String = List(
@@ -33,6 +56,11 @@ object Forsyth extends Format[Game] {
     game.halfMoveClock,
     game.fullMoveNumber
   ) mkString " "
+
+  def tore(pos: Pos, n: Int): Option[Pos] = posAt(
+    ((pos.x + n - 1) % 8 + 1),
+    (pos.y - (pos.x + n - 1) / 8)
+  )
 
   private def exportBoard(board: Board) = {
     {
