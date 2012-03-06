@@ -17,7 +17,7 @@ case class DbGame(
     positionHashes: String = "",
     castles: String = "KQkq",
     isRated: Boolean = false,
-    variant: Variant.Value = Variant.standard) {
+    variant: Variant = Standard) {
 
   val players = List(whitePlayer, blackPlayer)
 

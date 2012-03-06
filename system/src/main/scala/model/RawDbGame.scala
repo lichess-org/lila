@@ -25,7 +25,7 @@ case class RawDbGame(
     whitePlayer ← players find (_.color == "white") flatMap (_.decode)
     blackPlayer ← players find (_.color == "black") flatMap (_.decode)
     trueStatus ← Status fromInt status
-    trueVariant ← Variant fromInt variant
+    trueVariant ← Variant(variant)
     validClock = clock flatMap (_.decode)
     if validClock.isDefined == clock.isDefined
   } yield DbGame(
@@ -59,7 +59,7 @@ object RawDbGame {
       positionHashes = positionHashes,
       castles = castles,
       isRated = isRated,
-      variant = Variant toInt variant
+      variant = variant.id
     )
   }
 
