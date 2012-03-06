@@ -10,7 +10,7 @@ case class DbGame(
     whitePlayer: DbPlayer,
     blackPlayer: DbPlayer,
     pgn: String,
-    status: Status.Value,
+    status: Status,
     turns: Int,
     clock: Option[Clock],
     lastMove: Option[String],
@@ -104,15 +104,15 @@ case class DbGame(
       positionHashes = history.positionHashes mkString,
       castles = history.castleNotation,
       status =
-        if (situation.checkMate) Status.mate
-        else if (situation.staleMate) Status.stalemate
-        else if (situation.autoDraw) Status.draw
+        if (situation.checkMate) Mate
+        else if (situation.staleMate) Stalemate
+        else if (situation.autoDraw) Draw
         else status,
       clock = game.clock
     )
   }
 
-  def playable = status < Status.aborted
+  def playable = status < Aborted
 
   def mapPlayers(f: DbPlayer => DbPlayer) = copy(
     whitePlayer = f(whitePlayer),
