@@ -13,7 +13,7 @@ import Pos.posAt
  * P    PPP
  * RN  K  R
  */
-object Visual extends Format[Board] {
+object Visual {
 
   def <<(source: String): Board = {
     val lines = source.lines.toList
