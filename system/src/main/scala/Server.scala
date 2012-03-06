@@ -27,7 +27,8 @@ final class Server(repo: GameRepo, ai: Ai) {
   } yield newChessGame.situation.destinations
 
   private def aiResponse(dbGame: DbGame): Valid[DbGame] = for {
-    newChessGameAndMove ← ai(dbGame)
+    aiResult <- unsafe { ai(dbGame).unsafePerformIO }
+    newChessGameAndMove ← aiResult
     (newChessGame, move) = newChessGameAndMove
   } yield dbGame.update(newChessGame, move)
 

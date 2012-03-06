@@ -13,13 +13,13 @@ trait AiTest extends SystemTest {
   "the %s AI" format name should {
     "play the first move" in {
       val dbGame = newDbGame
-      ai(dbGame) must beSuccess.like {
+      ai(dbGame).unsafePerformIO must beSuccess.like {
         case (game, move) ⇒ game.board must_!= Board()
       }
     }
     "play 20 moves" in {
       val dbGame = (1 to 20).foldLeft(newDbGame) { (dbg, _) ⇒
-        ai(dbg) match {
+        ai(dbg).unsafePerformIO match {
           case Success((game, move)) ⇒ dbg.update(game, move)
           case _                     ⇒ dbg
         }

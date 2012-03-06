@@ -4,9 +4,11 @@ package ai
 import lila.chess.{ Game, Move }
 import model.DbGame
 
+import scalaz.effects._
+
 final class StupidAi extends Ai {
 
-  def apply(dbGame: DbGame): Valid[(Game, Move)] = {
+  def apply(dbGame: DbGame): IO[Valid[(Game, Move)]] = io {
 
     val game = dbGame.toChess
 
