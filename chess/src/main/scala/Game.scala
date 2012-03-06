@@ -53,4 +53,6 @@ case class Game(
    * It starts at 1, and is incremented after Black's move.
    */
   def fullMoveNumber: Int = 1 + turns / 2
+
+  def updateBoard(f: Board ⇒ Board) = copy(board = f(board))
 }

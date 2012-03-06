@@ -2,7 +2,8 @@ package lila.system
 package ai
 
 import lila.chess.{ Game, Move }
-import model.DbGame
+import lila.chess.format.Forsyth
+import model._
 
 final class CraftyAi(
   execPath: String = "crafty",
@@ -10,6 +11,16 @@ final class CraftyAi(
 ) extends Ai {
 
   def apply(dbGame: DbGame): Valid[(Game, Move)] = {
+
+    val oldGame = dbGame.variant match {
+      case Standard => dbGame.toChess
+      case Chess960 => dbGame.toChess updateBoard { board =>
+        board updateHistory { history =>
+          history.withoutAnyCastles
+        }
+      }
+    }
+    val oldFen = Forsyth >> oldGame
 
     failure("Not implemented" wrapNel)
   }

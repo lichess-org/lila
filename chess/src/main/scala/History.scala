@@ -35,6 +35,12 @@ case class History(
       blackCastleQueenSide = false)
   }
 
+  def withoutAnyCastles = copy(
+    whiteCastleKingSide = false,
+    whiteCastleQueenSide = false,
+    blackCastleKingSide = false,
+    blackCastleQueenSide = false)
+
   def withoutCastle(color: Color, side: Side) = (color, side) match {
     case (White, KingSide)  ⇒ copy(whiteCastleKingSide = false)
     case (White, QueenSide) ⇒ copy(whiteCastleQueenSide = false)
