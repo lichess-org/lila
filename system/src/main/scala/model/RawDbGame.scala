@@ -23,6 +23,7 @@ case class RawDbGame(
   def decode: Option[DbGame] = for {
     whitePlayer ← players find (_.color == "white") flatMap (_.decode)
     blackPlayer ← players find (_.color == "black") flatMap (_.decode)
+    trueStatus ← Status fromInt status
     validClock = clock flatMap (_.decode)
     if validClock.isDefined == clock.isDefined
   } yield DbGame(
@@ -30,7 +31,7 @@ case class RawDbGame(
     whitePlayer = whitePlayer,
     blackPlayer = blackPlayer,
     pgn = pgn,
-    status = status,
+    status = trueStatus,
     turns = turns,
     clock = validClock,
     lastMove = lastMove,
@@ -48,7 +49,7 @@ object RawDbGame {
       id = id,
       players = players map RawDbPlayer.encode,
       pgn = pgn,
-      status = status,
+      status = Status toInt status,
       turns = turns,
       clock = clock map RawDbClock.encode,
       lastMove = lastMove,

@@ -10,7 +10,7 @@ case class DbGame(
     whitePlayer: DbPlayer,
     blackPlayer: DbPlayer,
     pgn: String,
-    status: Int,
+    status: Status.Value,
     turns: Int,
     clock: Option[Clock],
     lastMove: Option[String],
@@ -103,15 +103,15 @@ case class DbGame(
       positionHashes = history.positionHashes mkString,
       castles = history.castleNotation,
       status =
-        if (situation.checkMate) DbGame.MATE
-        else if (situation.staleMate) DbGame.STALEMATE
-        else if (situation.autoDraw) DbGame.DRAW
+        if (situation.checkMate) Status.mate
+        else if (situation.staleMate) Status.stalemate
+        else if (situation.autoDraw) Status.draw
         else status,
       clock = game.clock
     )
   }
 
-  def playable = status < DbGame.ABORTED
+  def playable = status < Status.aborted
 
   def mapPlayers(f: DbPlayer => DbPlayer) = copy(
     whitePlayer = f(whitePlayer),
@@ -124,15 +124,4 @@ object DbGame {
   val gameIdSize = 8
   val playerIdSize = 4
   val fullIdSize = 12
-
-  val CREATED = 10
-  val STARTED = 20
-  val ABORTED = 25
-  val MATE = 30
-  val RESIGN = 31
-  val STALEMATE = 32
-  val TIMEOUT = 33
-  val DRAW = 34
-  val OUTOFTIME = 35
-  val CHEAT = 36
 }
