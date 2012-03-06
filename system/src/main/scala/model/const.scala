@@ -24,3 +24,19 @@ object Status extends Enumeration {
 
   def fromInt(i: Int): Option[Value] = indexed get i
 }
+
+object Variant extends Enumeration {
+
+  val standard, chess960 = Value
+
+  def toInt(s: Value) = s match {
+    case x if x == standard ⇒ 1
+    case x if x == chess960 ⇒ 2
+  }
+
+  val indexed: Map[Int, Value] = values map { v =>
+    toInt(v) -> v
+  } toMap
+
+  def fromInt(i: Int): Option[Value] = indexed get i
+}

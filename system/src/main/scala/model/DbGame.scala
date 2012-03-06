@@ -16,7 +16,8 @@ case class DbGame(
     lastMove: Option[String],
     positionHashes: String = "",
     castles: String = "KQkq",
-    isRated: Boolean = false) {
+    isRated: Boolean = false,
+    variant: Variant.Value = Variant.standard) {
 
   val players = List(whitePlayer, blackPlayer)
 

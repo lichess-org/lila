@@ -18,12 +18,14 @@ case class RawDbGame(
     lastMove: Option[String],
     positionHashes: String = "",
     castles: String = "KQkq",
-    isRated: Boolean = false) {
+    isRated: Boolean = false,
+    variant: Int = 1) {
 
   def decode: Option[DbGame] = for {
     whitePlayer ← players find (_.color == "white") flatMap (_.decode)
     blackPlayer ← players find (_.color == "black") flatMap (_.decode)
     trueStatus ← Status fromInt status
+    trueVariant ← Variant fromInt variant
     validClock = clock flatMap (_.decode)
     if validClock.isDefined == clock.isDefined
   } yield DbGame(
@@ -37,7 +39,8 @@ case class RawDbGame(
     lastMove = lastMove,
     positionHashes = positionHashes,
     castles = castles,
-    isRated = isRated
+    isRated = isRated,
+    variant = trueVariant
   )
 }
 
@@ -55,7 +58,8 @@ object RawDbGame {
       lastMove = lastMove,
       positionHashes = positionHashes,
       castles = castles,
-      isRated = isRated
+      isRated = isRated,
+      variant = Variant toInt variant
     )
   }
 
