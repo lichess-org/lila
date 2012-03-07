@@ -11,13 +11,13 @@ object Forsyth {
 
   def <<(source: String): Option[Situation] = {
 
-    val boardChars = """\s*([\w\d/]+)\s.+""".r.replaceAllIn(
+    val boardChars = """\s*([\w\d/]+)\s.*""".r.replaceAllIn(
       source.replace("/", ""),
       m ⇒ m group 1
     ).toList
 
     val colorOption = for {
-      letter ← """^[\w\d/]+\s(\w).+$""".r.replaceAllIn(source, m ⇒ m group 1).headOption
+      letter ← """^[\w\d/]+\s(\w).*$""".r.replaceAllIn(source, m ⇒ m group 1).headOption
       color ← Color(letter)
     } yield color
 

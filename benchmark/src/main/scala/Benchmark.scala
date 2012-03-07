@@ -70,7 +70,7 @@ class Benchmark extends SimpleScalaBenchmark {
         whitePlayer = white.copy(id = randomString(4)),
         blackPlayer = black.copy(id = randomString(4)),
         pgn = "",
-        status = 10,
+        status = Created,
         turns = 0,
         clock = None,
         lastMove = None

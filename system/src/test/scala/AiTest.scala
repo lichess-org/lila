@@ -17,14 +17,14 @@ trait AiTest extends SystemTest {
         case (game, move) ⇒ game.board must_!= Board()
       }
     }
-    "play 20 moves" in {
-      val dbGame = (1 to 20).foldLeft(newDbGame) { (dbg, _) ⇒
+    "play 10 moves" in {
+      val dbGame = (1 to 10).foldLeft(newDbGame) { (dbg, _) ⇒
         ai(dbg).unsafePerformIO match {
           case Success((game, move)) ⇒ dbg.update(game, move)
           case _                     ⇒ dbg
         }
       }
-      dbGame.turns must_== 20
+      dbGame.turns must_== 10
     }
   }
 }
