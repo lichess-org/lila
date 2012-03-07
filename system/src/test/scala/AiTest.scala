@@ -9,6 +9,7 @@ trait AiTest extends SystemTest {
 
   def ai: Ai
   def name: String
+  def nbMoves: Int
 
   "the %s AI" format name should {
     "play the first move" in {
@@ -17,14 +18,14 @@ trait AiTest extends SystemTest {
         case (game, move) ⇒ game.board must_!= Board()
       }
     }
-    "play 10 moves" in {
-      val dbGame = (1 to 10).foldLeft(newDbGame) { (dbg, _) ⇒
+    "play %d moves" format nbMoves in {
+      val dbGame = (1 to nbMoves).foldLeft(newDbGame) { (dbg, _) ⇒
         ai(dbg).unsafePerformIO match {
           case Success((game, move)) ⇒ dbg.update(game, move)
           case _                     ⇒ dbg
         }
       }
-      dbGame.turns must_== 10
+      dbGame.turns must_== nbMoves
     }
   }
 }
