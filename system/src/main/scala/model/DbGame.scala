@@ -114,6 +114,8 @@ case class DbGame(
 
   def playable = status < Aborted
 
+  def aiLevel: Option[Int] = players find (_.isAi) flatMap (_.aiLevel)
+
   def mapPlayers(f: DbPlayer => DbPlayer) = copy(
     whitePlayer = f(whitePlayer),
     blackPlayer = f(blackPlayer)

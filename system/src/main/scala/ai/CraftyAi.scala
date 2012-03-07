@@ -22,9 +22,8 @@ final class CraftyAi(
         board updateHistory (_.withoutAnyCastles)
       }
     }
-    val level = 1
 
-    runCrafty(Forsyth >> oldGame, level) map { newFen ⇒
+    runCrafty(Forsyth >> oldGame, dbGame.aiLevel | 1) map { newFen ⇒
       for {
         newSituation ← Forsyth << newFen toValid "Cannot parse engine FEN"
         reverseEngineer = new ReverseEngineering(oldGame, newSituation.board)
@@ -47,8 +46,9 @@ final class CraftyAi(
   }
 
   private def command(level: Int) =
-    """%s learn=off log=off ponder=off smpmt=1 st=%s""".format(
+    """%s learn=off log=off bookpath=%s ponder=off smpmt=1 st=%s""".format(
       execPath,
+      bookPath | "",
       craftyTime(level))
 
   private def input(fen: String, level: Int) = List(
