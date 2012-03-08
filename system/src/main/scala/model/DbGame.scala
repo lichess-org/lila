@@ -31,7 +31,7 @@ case class DbGame(
     case Black ⇒ blackPlayer
   }
 
-  def playerById(id: String): Option[DbPlayer] = players find (_.id == id)
+  def player(id: String): Option[DbPlayer] = players find (_.id == id)
 
   def player: DbPlayer = player(if (0 == turns % 2) White else Black)
 

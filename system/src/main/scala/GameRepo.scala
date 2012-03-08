@@ -43,6 +43,7 @@ class GameRepo(collection: MongoCollection)
   } yield game
 
   def save(game: DbGame): IO[Unit] = io {
+    println("save " + game.lastMove)
     update(DBObject("_id" -> game.id), _grater asDBObject encode(game), false, false)
   }
 
