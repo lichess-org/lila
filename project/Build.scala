@@ -19,7 +19,7 @@ trait Dependencies {
   val casbah = "com.mongodb.casbah" %% "casbah" % "2.1.5-1"
   val salat = "com.novus" %% "salat-core" % "0.0.8-SNAPSHOT"
   val slf4j = "org.slf4j" % "slf4j-nop" % "1.6.4"
-  val scalalib = "com.github.ornicar" %% "scalalib" % "1.20"
+  val scalalib = "com.github.ornicar" %% "scalalib" % "1.23"
   val hasher = "com.roundeights" % "hasher" % "0.3" from "http://cloud.github.com/downloads/Nycto/Hasher/hasher_2.9.1-0.3.jar"
   val config = "com.typesafe.config" % "config" % "0.3.0"
 
@@ -66,17 +66,18 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     // `fullClasspath in Runtime` is a TaskKey, so we need to
     // jump through these hoops here in order to
     // feed the result of the latter into the former
-    onLoad in Global ~= { previous => state =>
-      previous {
-        state get key match {
-          case None =>
-            // get the runtime classpath, turn into a colon-delimited string
-            val classPath = Project.runTask(fullClasspath in Runtime, state).get._2.toEither.right.get.files.mkString(":")
-            // return a state with javaOptionsPatched = true and javaOptions set correctly
-            Project.extract(state).append(Seq(javaOptions in run ++= Seq("-cp", classPath)), state.put(key, true))
-          case Some(_) => state // the javaOptions are already patched
+    onLoad in Global ~= { previous ⇒
+      state ⇒
+        previous {
+          state get key match {
+            case None ⇒
+              // get the runtime classpath, turn into a colon-delimited string
+              val classPath = Project.runTask(fullClasspath in Runtime, state).get._2.toEither.right.get.files.mkString(":")
+              // return a state with javaOptionsPatched = true and javaOptions set correctly
+              Project.extract(state).append(Seq(javaOptions in run ++= Seq("-cp", classPath)), state.put(key, true))
+            case Some(_) ⇒ state // the javaOptions are already patched
+          }
         }
-      }
     }
   ) dependsOn (chess, system)
 

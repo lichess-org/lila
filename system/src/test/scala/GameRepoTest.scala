@@ -15,15 +15,11 @@ class GameRepoTest extends SystemTest {
     "find a game" in {
       "by ID" in {
         "non existing" in {
-          repo game "haha" must beIO.like {
-            case g ⇒ g must beFailure
-          }
+          repo game "haha" must beIO.failure
         }
         "existing" in {
           repo game anyGame.id must beIO.like {
-            case vg ⇒ vg must beSuccess.like {
-              case g ⇒ g.id must_== anyGame.id
-            }
+            case g ⇒ g.id must_== anyGame.id
           }
         }
       }
@@ -31,33 +27,25 @@ class GameRepoTest extends SystemTest {
     "find a player" in {
       "by private ID" in {
         "non existing" in {
-          repo player "huhu" must beIO.like {
-            case p ⇒ p must beFailure
-          }
+          repo player "huhu" must beIO.failure
         }
         "existing" in {
           val player = anyGame.players.head
           anyGame fullIdOf player map repo.player must beSome.like {
             case iop ⇒ iop must beIO.like {
-              case vgp ⇒ vgp must beSuccess.like {
-                case (g, p) ⇒ p.id must_== player.id
-              }
+              case (g, p) ⇒ p.id must_== player.id
             }
           }
         }
       }
       "by ID and color" in {
         "non existing" in {
-          repo.player("haha", White) must beIO.like {
-            case vp ⇒ vp must beFailure
-          }
+          repo.player("haha", White) must beIO.failure
         }
         "existing" in {
           val player = anyGame.players.head
           repo.player(anyGame.id, player.color) must beIO.like {
-            case vgp ⇒ vgp must beSuccess.like {
-              case (g, p) ⇒ p.id must_== player.id
-            }
+            case (g, p) ⇒ p.id must_== player.id
           }
         }
       }
@@ -69,9 +57,7 @@ class GameRepoTest extends SystemTest {
           _ ← repo insert game
           newGame ← repo game game.id
         } yield newGame) must beIO.like {
-          case iog ⇒ iog must beSuccess.like {
-            case g ⇒ g must_== game
-          }
+          case g ⇒ g must_== game
         }
       }
     }
@@ -84,9 +70,7 @@ class GameRepoTest extends SystemTest {
           _ ← repo save updated
           newGame ← repo game game.id
         } yield newGame) must beIO.like {
-          case iog ⇒ iog must beSuccess.like {
-            case g ⇒ g must_== updated
-          }
+          case g ⇒ g must_== updated
         }
       }
     }

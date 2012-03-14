@@ -19,11 +19,10 @@ final class Server(repo: GameRepo, ai: Ai) {
     }
 
   def doPlay(
-    game: Valid[DbGame],
+    g1: DbGame,
     fullId: String,
     moveString: String,
     promString: Option[String]): Valid[DbGame] = for {
-    g1 ← game
     g2 ← if (g1.playable) success(g1) else failure("Game is not playable" wrapNel)
     moveParts ← decodeMoveString(moveString) toValid "Wrong move"
     (origString, destString) = moveParts

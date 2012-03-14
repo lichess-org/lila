@@ -30,4 +30,6 @@ case class Move(
   def castles = castle.isDefined
 
   def color = piece.color
+
+  override def toString = orig + " " + dest
 }

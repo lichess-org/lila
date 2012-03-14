@@ -12,7 +12,7 @@ case class DbPlayer(
     evts: String = "",
     elo: Option[Int]) {
 
-  def eventStack = EventStack decode evts
+  def eventStack: EventStack = EventStack decode evts
 
   def newEvts(events: List[Event]): String =
     (eventStack withEvents events).optimize.encode
