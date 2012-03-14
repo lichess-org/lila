@@ -72,12 +72,12 @@ K kPP
         game.board.history.lastMove must_== (A7, C7).some
       }
       "clock" in {
-        game.clock must_== Some(Clock(
+        game.clock must_== Some(PausedClock(
           color = Black,
           increment = 5,
           limit = 1200,
-          whiteTime = 196.25f,
-          blackTime = 304.1f
+          whiteTime = 196250l,
+          blackTime = 304100l
         ))
       }
     }

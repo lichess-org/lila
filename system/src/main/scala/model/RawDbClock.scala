@@ -7,19 +7,28 @@ case class RawDbClock(
     color: String,
     increment: Int,
     limit: Int,
-    times: Map[String, Float]) {
+    times: Map[String, Long],
+    timer: Long = 0l) {
 
   def decode: Option[Clock] = for {
     trueColor ← Color(color)
     whiteTime ← times get "white"
     blackTime ← times get "black"
-  } yield Clock(
-    color = trueColor,
-    increment = increment,
-    limit = limit,
-    whiteTime = whiteTime,
-    blackTime = blackTime
-  )
+  } yield {
+    if (timer == 0l) PausedClock(
+      color = trueColor,
+      increment = increment,
+      limit = limit,
+      whiteTime = whiteTime,
+      blackTime = blackTime)
+    else RunningClock(
+      color = trueColor,
+      increment = increment,
+      limit = limit,
+      whiteTime = whiteTime,
+      blackTime = blackTime,
+      timer = timer)
+  }
 }
 
 object RawDbClock {
@@ -33,7 +42,8 @@ object RawDbClock {
       times = Map(
         "white" -> whiteTime,
         "black" -> blackTime
-      )
+      ),
+      timer = timer
     )
   }
 }

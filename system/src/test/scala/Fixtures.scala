@@ -63,12 +63,12 @@ trait Fixtures {
     pgn = "e4 e5 Qh5 Qf6 Nf3 g6 Qxe5+ Qxe5 Nxe5 Nf6 Nc3 Nc6 Nxc6 bxc6 e5 Nd5 Nxd5 cxd5 d4 Rb8 c3 d6 Be2 dxe5 dxe5 Rg8 Bf3 d4 cxd4 Bb4+ Ke2 g5 a3 g4 Bc6+ Bd7 Bxd7+ Kxd7 axb4 Rxb4 Kd3 Rb3+ Kc4 Rb6 Rxa7 Rc6+ Kb5 Rb8+ Ka5 Rc4 Rd1 Kc6 d5+ Kc5 Rxc7#",
     status = Mate,
     turns = 55,
-    clock = Clock(
+    clock = PausedClock(
       color = Black,
       increment = 5,
       limit = 1200,
-      whiteTime = 196.25f,
-      blackTime = 304.1f
+      whiteTime = 196250l,
+      blackTime = 304100l
     ).some,
     lastMove = Some("a7 c7")
   )
@@ -105,12 +105,12 @@ trait Fixtures {
     pgn = "b3 d5 Bb2 e6 a3 a6 g3 h6 Bg2 f5 h3 Nf6 Bf1 Be7 e3 O-O Bg2 Bd7 h4 c5 h5 Nc6 f3 d4 g4 dxe3 dxe3 fxg4 fxg4 e5 g5 hxg5 h6 g6 h7+ Kh8 Bxc6 Bxc6 Bxe5 Qxd1+ Kxd1 Rf7 Bxf6+ Bxf6 Rh2 Bxa1 c3 Rd8+ Kc2 Rf3 Rd2 Rxe3 Rxd8+ Kxh7 Rd2",
     status = Outoftime,
     turns = 55,
-    clock = Some(Clock(
+    clock = Some(PausedClock(
       color = Black,
       increment = 0,
       limit = 60,
-      whiteTime = 27.61f,
-      blackTime = 60.24f
+      whiteTime = 27610l,
+      blackTime = 60240l
     )),
     lastMove = Some("d8 d2")
   )

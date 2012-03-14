@@ -7,7 +7,6 @@ import com.novus.salat._
 package object system
     extends OrnicarValidation
     with OrnicarCommon
-    //with OrnicarNonEmptyLists
     with scalaz.NonEmptyLists
     with scalaz.Strings
     with scalaz.Booleans {
