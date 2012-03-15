@@ -2,12 +2,13 @@ package lila.chess
 
 import scala.math.max
 
+// All durations are expressed in milliseconds
 sealed trait Clock {
-  val color: Color
-  val whiteTime: Long
-  val blackTime: Long
-  val increment: Int
   val limit: Int
+  val increment: Int
+  val color: Color
+  val whiteTime: Int
+  val blackTime: Int
   val timer: Long
 
   def time(c: Color) = if (c == White) whiteTime else blackTime
@@ -20,50 +21,64 @@ sealed trait Clock {
 
   def elapsedTime(c: Color) = time(c)
 
-  def limitInMinutes = limit / 60
+  def limitInSeconds = limit / 1000
 
-  def now = System.currentTimeMillis
+  def limitInMinutes = limitInSeconds / 60
 
   def estimateTotalTime = limit + 30 * increment
+
+  def step: RunningClock
 
   override def toString =
     "%d minutes/side + %d seconds/move".format(limitInMinutes, increment)
 }
 
 case class RunningClock(
-    color: Color = White,
-    whiteTime: Long = 0l,
-    blackTime: Long = 0l,
-    timer: Long = 0l,
+    limit: Int,
     increment: Int,
-    limit: Int) extends Clock {
+    color: Color = White,
+    whiteTime: Int = 0,
+    blackTime: Int = 0,
+    timer: Long = 0l) extends Clock {
 
   override def elapsedTime(c: Color) = time(c) + {
-    if (c == color) now - timer else 0
+    if (c == color) (now - timer).toInt else 0
   }
 
   def step =
-    addTime(color, max(0, now - timer - Clock.httpDelay - increment)).copy(
+    addTime(
+      color,
+      max(0, (now - timer).toInt - Clock.httpDelay - increment)
+    ).copy(
       color = !color,
       timer = now
     )
 
-  def addTime(c: Color, t: Long) = c match {
+  def addTime(c: Color, t: Int) = c match {
     case White ⇒ copy(whiteTime = whiteTime + t)
     case Black ⇒ copy(blackTime = blackTime + t)
   }
 
-  def giveTime(c: Color, t: Long) = addTime(c, -t)
+  def giveTime(c: Color, t: Int) = addTime(c, -t)
+
+  private def now = System.currentTimeMillis
 }
 
 case class PausedClock(
-    color: Color = White,
-    whiteTime: Long = 0l,
-    blackTime: Long = 0l,
+    limit: Int,
     increment: Int,
-    limit: Int) extends Clock {
+    color: Color = White,
+    whiteTime: Int = 0,
+    blackTime: Int = 0) extends Clock {
 
-      val timer = 0l
+  val timer = 0l
+
+  def step = RunningClock(
+    color = color,
+    whiteTime = whiteTime,
+    blackTime = blackTime,
+    increment = increment,
+    limit = limit).giveTime(White, increment).step
 }
 
 object Clock {

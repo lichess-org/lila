@@ -21,6 +21,7 @@ case class Game(
       board = move.finalizeAfter,
       player = !player,
       turns = turns + 1,
+      clock = clock map (_.step),
       deads = (for {
         cpos ← move.capture
         cpiece ← board(cpos)
@@ -29,12 +30,6 @@ case class Game(
     val pgnMove = PgnDump.move(situation, move, newGame.situation)
     (newGame.copy(pgnMoves = (pgnMoves + " " + pgnMove).trim), move)
   }
-
-  def playMove(
-    orig: Pos,
-    dest: Pos,
-    promotion: PromotableRole = Queen): Valid[Game] =
-    apply(orig, dest, promotion) map (_._1)
 
   lazy val situation = Situation(board, player)
 
@@ -54,5 +49,5 @@ case class Game(
    */
   def fullMoveNumber: Int = 1 + turns / 2
 
-  def updateBoard(f: Board ⇒ Board) = copy(board = f(board))
+  def updateBoard(f: Board => Board) = copy(board = f(board))
 }

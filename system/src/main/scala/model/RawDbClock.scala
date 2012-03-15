@@ -7,7 +7,7 @@ case class RawDbClock(
     color: String,
     increment: Int,
     limit: Int,
-    times: Map[String, Long],
+    times: Map[String, Int],
     timer: Long = 0l) {
 
   def decode: Option[Clock] = for {

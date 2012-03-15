@@ -25,8 +25,16 @@ trait ChessTest
 
     def playMoveList(moves: Iterable[(Pos, Pos)]): Valid[Game] =
       moves.foldLeft(success(game): Valid[Game]) { (vg, move) ⇒
-        vg flatMap { g ⇒ g.playMove(move._1, move._2) }
+        vg flatMap { g ⇒ g(move._1, move._2) map (_._1) }
       }
+
+    def playMove(
+      orig: Pos,
+      dest: Pos,
+      promotion: PromotableRole = Queen): Valid[Game] =
+      game.apply(orig, dest, promotion) map (_._1)
+
+    def withClock(c: Clock) = game.copy(clock = Some(c))
   }
 
   def bePoss(poss: Pos*): Matcher[Option[Iterable[Pos]]] = beSome.like {
