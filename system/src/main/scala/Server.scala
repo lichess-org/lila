@@ -11,6 +11,15 @@ final class Server(repo: GameRepo, ai: Ai) {
     fullId: String,
     moveString: String,
     promString: Option[String] = None): IO[Valid[Map[Pos, List[Pos]]]] =
+    (decodeMoveString(moveString) toValid "Wrong move").fold(
+      e ⇒ io(failure(e)),
+      move ⇒ play(fullId, move, promString)
+    )
+
+  def play(
+    fullId: String,
+    moveString: (String, String),
+    promString: Option[String] = None): IO[Valid[Map[Pos, List[Pos]]]] =
     repo playerGame fullId flatMap { game ⇒
       doPlay(game, fullId, moveString, promString).fold(
         e ⇒ io(failure(e)),
@@ -21,13 +30,11 @@ final class Server(repo: GameRepo, ai: Ai) {
   def doPlay(
     g1: DbGame,
     fullId: String,
-    moveString: String,
+    moveString: (String, String),
     promString: Option[String]): Valid[DbGame] = for {
     g2 ← if (g1.playable) success(g1) else failure("Game is not playable" wrapNel)
-    moveParts ← decodeMoveString(moveString) toValid "Wrong move"
-    (origString, destString) = moveParts
-    orig ← posAt(origString) toValid "Wrong orig " + origString
-    dest ← posAt(destString) toValid "Wrong dest " + destString
+    orig ← posAt(moveString._1) toValid "Wrong orig " + moveString
+    dest ← posAt(moveString._2) toValid "Wrong dest " + moveString
     promotion ← Role promotable promString toValid "Wrong promotion " + promString
     chessGame = g2.toChess
     newChessGameAndMove ← chessGame(orig, dest, promotion)
