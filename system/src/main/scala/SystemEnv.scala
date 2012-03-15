@@ -9,7 +9,7 @@ import ai._
 
 trait SystemEnv {
 
-  val config: Config
+  protected val config: Config
 
   def server = new Server(
     repo = gameRepo,

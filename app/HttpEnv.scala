@@ -1,9 +1,9 @@
 package lila.http
 
 import lila.system.SystemEnv
-import com.typesafe.config._
+import com.typesafe.config.Config
 
-final class HttpEnv(config: Config) {
+final class HttpEnv(c: Config) extends SystemEnv {
 
-  lazy val system = SystemEnv(config)
+  protected val config = c
 }

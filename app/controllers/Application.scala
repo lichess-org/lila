@@ -2,7 +2,6 @@ package controllers
 
 import lila.http._
 
-import com.typesafe.config._
 import play.api._
 import play.api.mvc._
 
