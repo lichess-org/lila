@@ -35,6 +35,10 @@ object SystemEnv extends EnvBuilder {
   def apply(overrides: String = "") = new SystemEnv {
     val config = makeConfig(overrides, "/home/thib/lila/lila.conf")
   }
+
+  def apply(c: Config) = new SystemEnv {
+    val config = c
+  }
 }
 
 trait EnvBuilder {
