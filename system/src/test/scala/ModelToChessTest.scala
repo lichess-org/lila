@@ -76,8 +76,8 @@ K kPP
           color = Black,
           increment = 5,
           limit = 1200,
-          whiteTime = 196250l,
-          blackTime = 304100l
+          whiteTime = 196250,
+          blackTime = 304100
         ))
       }
     }

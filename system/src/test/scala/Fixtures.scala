@@ -67,8 +67,8 @@ trait Fixtures {
       color = Black,
       increment = 5,
       limit = 1200,
-      whiteTime = 196250l,
-      blackTime = 304100l
+      whiteTime = 196250,
+      blackTime = 304100
     ).some,
     lastMove = Some("a7 c7")
   )
@@ -109,8 +109,8 @@ trait Fixtures {
       color = Black,
       increment = 0,
       limit = 60,
-      whiteTime = 27610l,
-      blackTime = 60240l
+      whiteTime = 27610,
+      blackTime = 60240
     )),
     lastMove = Some("d8 d2")
   )
