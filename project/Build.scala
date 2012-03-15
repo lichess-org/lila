@@ -4,10 +4,8 @@ import Keys._
 trait Resolvers {
   val codahale = "repo.codahale.com" at "http://repo.codahale.com/"
   val typesafe = "typesafe.com" at "http://repo.typesafe.com/typesafe/releases/"
-  val typesafeS = "typesafe.com snapshots" at "http://repo.typesafe.com/typesafe/snapshots/"
   val iliaz = "iliaz.com" at "http://scala.iliaz.com/"
   val sonatype = "sonatype" at "http://oss.sonatype.org/content/repositories/releases"
-  val sonatypeS = "sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots"
   val novusS = "repo.novus snaps" at "http://repo.novus.com/snapshots/"
 }
 
@@ -15,7 +13,7 @@ trait Dependencies {
   val scalaz = "org.scalaz" %% "scalaz-core" % "6.0.4"
   val specs2 = "org.specs2" %% "specs2" % "1.8.2"
   val redis = "net.debasishg" %% "redisclient" % "2.4.2"
-  val json = "net.liftweb" %% "lift-json" % "2.4-RC1"
+  val json = "net.liftweb" %% "lift-json" % "2.4"
   val casbah = "com.mongodb.casbah" %% "casbah" % "2.1.5-1"
   val salat = "com.novus" %% "salat-core" % "0.0.8-SNAPSHOT"
   val slf4j = "org.slf4j" % "slf4j-nop" % "1.6.4"
@@ -53,7 +51,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
 
   lazy val http = Project("http", file("http"), settings = buildSettings).settings(
     libraryDependencies ++= Seq(scalaz, slf4j),
-    resolvers := Seq(typesafe, typesafeS)
+    resolvers := Seq(typesafe)
   ) dependsOn (system)
 
   lazy val benchmark = Project("benchmark", file("benchmark"), settings = buildSettings).settings(
