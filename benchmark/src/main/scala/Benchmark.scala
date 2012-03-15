@@ -5,7 +5,7 @@ import com.google.caliper.Param
 import ornicar.scalalib.OrnicarValidation
 
 import lila.system._
-import lila.chess.{ Game, Pos, Color, White, Black }
+import lila.chess.{ Game, Pos, Color, White, Black, PromotableRole, Queen }
 import lila.chess.Pos._
 
 // a caliper benchmark is a class that extends com.google.caliper.Benchmark
@@ -15,6 +15,13 @@ class Benchmark extends SimpleScalaBenchmark {
   @Param(Array("100"))
   val length: Int = 0
 
+  def playMove(
+    game: Game,
+    orig: Pos,
+    dest: Pos,
+    promotion: PromotableRole = Queen): Valid[Game] =
+    game.apply(orig, dest, promotion) map (_._1)
+
   def timeChessImmortal(reps: Int) = {
 
     def playMoves(moves: (Pos, Pos)*): Valid[Game] = {
@@ -23,7 +30,7 @@ class Benchmark extends SimpleScalaBenchmark {
           vg flatMap { g ⇒
             // will be called to pass as playable squares to the client
             g.situation.destinations
-            g.playMove(move._1, move._2)
+            playMove(g, move._1, move._2)
           }
       }
       if (game.isFailure) throw new RuntimeException("Failure!")
