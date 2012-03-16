@@ -1,2 +1,3 @@
 Game.lastMove (and no more in pieces notation)
 clock time in milliseconds (and no more floating seconds)
+request promotion is not wrapped in options anymore
