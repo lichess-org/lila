@@ -3,8 +3,9 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
-POST    /move/:fullId           controllers.Application.move(fullId: String)
+GET   /                                 controllers.Application.index
+POST  /move/:fullId                     controllers.Application.move(fullId: String)
+POST  /sync/:id/:color/:version/:fullId controllers.Application.sync(id: String, color: String, version: Int, fullId: String)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET   /assets/*file                     controllers.Assets.at(path="/public", file)
