@@ -3,7 +3,13 @@ package model
 
 import lila.chess._
 
-case class EventStack(events: Seq[(Int, Event)]) {
+case class EventStack(events: List[(Int, Event)]) {
+
+  lazy val sortedEvents = events sortBy (_._1)
+
+  lazy val firstVersion: Option[Int] = sortedEvents.headOption map (_._1)
+
+  lazy val lastVersion: Option[Int] = sortedEvents.lastOption map (_._1)
 
   def encode: String = events map {
     case (version, event) ⇒ version.toString + event.encode
@@ -11,6 +17,7 @@ case class EventStack(events: Seq[(Int, Event)]) {
 
   // Here I found the mutable approach easier
   // I'm probably just missing something.
+  // Like the state monad.
   def optimize: EventStack = {
     var previous: Boolean = false
     EventStack(
@@ -23,6 +30,13 @@ case class EventStack(events: Seq[(Int, Event)]) {
   }
 
   def version: Int = events.lastOption map (_._1) getOrElse 0
+
+  def eventsSince(version: Int): Option[List[Event]] = for {
+    first <- firstVersion
+    if version >= first - 1
+    last <- lastVersion
+    if version <= last
+  } yield sortedEvents dropWhile { ve => ve._1 <= version } map (_._2)
 
   def withEvents(newEvents: List[Event]): EventStack = {
 
@@ -48,11 +62,11 @@ object EventStack {
         decoder ← EventDecoder.all get code(0)
         event ← decoder decode data
       } yield (version, event)
-    }).toSeq.flatten
+    }).toList.flatten
   )
 
-  def apply(): EventStack = new EventStack(Seq.empty)
+  def apply(): EventStack = new EventStack(Nil)
 
   def build(events: Event*): EventStack =
-    new EventStack(events.zipWithIndex map (_.swap) toSeq)
+    new EventStack(events.zipWithIndex map (_.swap) toList)
 }
