@@ -22,13 +22,13 @@ final class Server(repo: GameRepo, ai: Ai) {
     toString: String,
     promString: Option[String] = None): IO[Valid[Map[Pos, List[Pos]]]] =
     repo playerGame fullId flatMap { game ⇒
-      doPlay(game, fromString, toString, promString).fold(
+      purePlay(game, fromString, toString, promString).fold(
         e ⇒ io(failure(e)),
-        a ⇒ repo save a map { _ ⇒ success(a.toChess.situation.destinations) }
+        a ⇒ repo.applyDiff(game, a) map { _ ⇒ success(a.toChess.situation.destinations) }
       )
     }
 
-  def doPlay(
+  private def purePlay(
     g1: DbGame,
     origString: String,
     destString: String,

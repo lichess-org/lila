@@ -38,6 +38,36 @@ class GameRepo(collection: MongoCollection)
     update(DBObject("_id" -> game.id), _grater asDBObject encode(game), false, false)
   }
 
+  def applyDiff(a: DbGame, b: DbGame): IO[Unit] = io {
+    update(DBObject("_id" -> a.id), diff(encode(a), encode(b)), false, false)
+  }
+
+  private def diff(a: RawDbGame, b: RawDbGame): DBObject = {
+    val builder = MongoDBObject.newBuilder
+    def d[A](name: String, f: RawDbGame ⇒ A) {
+      if (f(a) != f(b)) builder += name -> f(b)
+    }
+    d("pgn", _.pgn)
+    d("status", _.status)
+    d("turns", _.turns)
+    d("lastMove", _.lastMove)
+    d("positionHashes", _.positionHashes)
+    d("castles", _.castles)
+    for (i ← 0 to 1) {
+      val name = "players." + i + "."
+      d(name + "ps", _.players(i).ps)
+      d(name + "isWinner", _.players(i).isWinner)
+      d(name + "evts", _.players(i).evts)
+    }
+    a.clock foreach { c ⇒
+      d("clock.color", _.clock.get.color)
+      d("clock.times", _.clock.get.times)
+      d("clock.timer", _.clock.get.timer)
+    }
+
+    MongoDBObject("$set" -> builder.result)
+  }
+
   def insert(game: DbGame): IO[Option[String]] = io {
     insert(encode(game))
   }
