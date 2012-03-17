@@ -5,14 +5,17 @@ import DataForm._
 
 import play.api._
 import play.api.mvc._
-import play.api.libs.json._
+import com.codahale.jerkson.Json.{ generate => jsonify }
 
 object Application extends Controller {
 
   val env = new HttpEnv(Play.unsafeApplication.configuration.underlying)
+  val json = "application/json"
 
   def sync(id: String, color: String, version: Int, fullId: String) = Action {
-    Ok(toJson(env.syncer.sync(id, color, version, fullId)))
+    Ok(jsonify(
+      env.syncer.sync(id, color, version, fullId).unsafePerformIO
+    )) as json
   }
 
   def move(fullId: String) = Action { implicit request ⇒

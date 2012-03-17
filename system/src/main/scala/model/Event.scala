@@ -6,6 +6,7 @@ import Pos.{ piotr, allPiotrs }
 
 sealed trait Event {
   def encode: String
+  def export: Map[String, Any]
 }
 object Event {
 
@@ -48,6 +49,8 @@ object EventDecoder {
 
 case class StartEvent() extends Event {
   def encode = "s"
+  def export = Map(
+    "type" -> "start")
 }
 object StartEvent extends EventDecoder {
   def decode(str: String) = Some(StartEvent())
@@ -55,6 +58,11 @@ object StartEvent extends EventDecoder {
 
 case class MoveEvent(orig: Pos, dest: Pos, color: Color) extends Event {
   def encode = "m" + orig.piotr + dest.piotr + color.letter
+  def export = Map(
+    "type" -> "move",
+    "from" -> orig.key,
+    "to" -> dest.key,
+    "color" -> color.name)
 }
 object MoveEvent extends EventDecoder {
   def apply(move: Move): MoveEvent = MoveEvent(move.orig, move.dest, move.piece.color)
@@ -72,6 +80,11 @@ case class PossibleMovesEvent(moves: Map[Pos, List[Pos]]) extends Event {
   def encode = "p" + (moves map {
     case (orig, dests) ⇒ (orig :: dests) map (_.piotr) mkString
   } mkString ",")
+  def export = Map(
+    "type" -> "possible_moves",
+    "possible_moves" -> (moves map {
+      case (o, d) ⇒ o.key -> (d map (_.key) mkString)
+    }))
 }
 object PossibleMovesEvent extends EventDecoder {
   def decode(str: String) = Some(PossibleMovesEvent(
@@ -90,6 +103,9 @@ object PossibleMovesEvent extends EventDecoder {
 
 case class EnpassantEvent(killed: Pos) extends Event {
   def encode = "E" + killed.piotr
+  def export = Map(
+    "type" -> "enpassant",
+    "killed" -> killed.key)
 }
 object EnpassantEvent extends EventDecoder {
   def decode(str: String) = for {
@@ -100,7 +116,11 @@ object EnpassantEvent extends EventDecoder {
 
 case class CastlingEvent(king: (Pos, Pos), rook: (Pos, Pos), color: Color) extends Event {
   def encode = "c" + king._1.piotr + king._2.piotr + rook._1.piotr + rook._2.piotr + color.letter
-
+  def export = Map(
+    "type" -> "castling",
+    "king" -> List(king._1.key, king._2.key),
+    "rook" -> List(rook._1.key, rook._2.key),
+    "color" -> color.name)
 }
 object CastlingEvent extends EventDecoder {
   def decode(str: String) = str.toList match {
@@ -119,6 +139,9 @@ object CastlingEvent extends EventDecoder {
 
 case class RedirectEvent(url: String) extends Event {
   def encode = "r" + url
+  def export = Map(
+    "type" -> "redirect",
+    "url" -> url)
 }
 object RedirectEvent extends EventDecoder {
   def decode(str: String) = Some(RedirectEvent(str))
@@ -126,6 +149,10 @@ object RedirectEvent extends EventDecoder {
 
 case class PromotionEvent(role: PromotableRole, pos: Pos) extends Event {
   def encode = "P" + role.forsyth + pos.piotr
+  def export = Map(
+    "type" -> "promotion",
+    "key" -> pos.key,
+    "pieceClass" -> role.toString)
 }
 object PromotionEvent extends EventDecoder {
   def decode(str: String) = str.toList match {
@@ -139,6 +166,9 @@ object PromotionEvent extends EventDecoder {
 
 case class CheckEvent(pos: Pos) extends Event {
   def encode = "C" + pos.piotr
+  def export = Map(
+    "type" -> "check",
+    "key" -> pos.key)
 }
 object CheckEvent extends EventDecoder {
   def decode(str: String) = for {
@@ -149,6 +179,9 @@ object CheckEvent extends EventDecoder {
 
 case class MessageEvent(author: String, message: String) extends Event {
   def encode = "M" + author + " " + message.replace("|", "(pipe)")
+  def export = Map(
+    "type" -> "message",
+    "message" -> List(author, message))
 }
 object MessageEvent extends EventDecoder {
   def decode(str: String) = str.split(' ').toList match {
@@ -161,6 +194,8 @@ object MessageEvent extends EventDecoder {
 
 case class EndEvent() extends Event {
   def encode = "e"
+  def export = Map(
+    "type" -> "end")
 }
 object EndEvent extends EventDecoder {
   def decode(str: String) = Some(EndEvent())
@@ -168,6 +203,8 @@ object EndEvent extends EventDecoder {
 
 case class ThreefoldEvent() extends Event {
   def encode = "t"
+  def export = Map(
+    "type" -> "threefold_repetition")
 }
 object ThreefoldEvent extends EventDecoder {
   def decode(str: String) = Some(ThreefoldEvent())
@@ -175,6 +212,8 @@ object ThreefoldEvent extends EventDecoder {
 
 case class ReloadTableEvent() extends Event {
   def encode = "R"
+  def export = Map(
+    "type" -> "reload_table")
 }
 object ReloadTableEvent extends EventDecoder {
   def decode(str: String) = Some(ReloadTableEvent())
@@ -182,6 +221,10 @@ object ReloadTableEvent extends EventDecoder {
 
 case class MoretimeEvent(color: Color, seconds: Int) extends Event {
   def encode = "T" + color.letter + seconds
+  def export = Map(
+    "type" -> "moretime",
+    "color" -> color.name,
+    "seconds" -> seconds)
 }
 object MoretimeEvent extends EventDecoder {
   def decode(str: String) = for {

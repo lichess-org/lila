@@ -15,6 +15,9 @@ trait SystemEnv {
     repo = gameRepo,
     ai = ai)
 
+  def syncer = new Syncer(
+    repo = gameRepo)
+
   lazy val ai: Ai = new StupidAi
 
   def gameRepo = new GameRepo(

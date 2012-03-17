@@ -6,6 +6,8 @@ import scalaz.effects._
 
 final class Syncer(repo: GameRepo) {
 
+  val reload = Map("reload" -> true)
+
   def sync(
     id: String,
     colorString: String,
@@ -15,16 +17,16 @@ final class Syncer(repo: GameRepo) {
       color ← io { Color(colorString) err "Invalid color" }
       gameAndPlayer ← repo.player(id, color)
       (g, p) = gameAndPlayer
-      //events ← io { eventsSince(p, version) }
-    } yield Map(
-      "v" -> p.eventStack.version,
-      //"e" -> events map (_.toMap),
-      "p" -> g.player,
-      "t" -> g.turns
-    )
-  } except (e ⇒ io(Map("reload" -> true)))
-
-  def eventsSince(player: DbPlayer, version: Int): List[Event] =
-    player.eventStack.eventsSince(version) | Nil
+    } yield {
+      p.eventStack eventsSince version map { events ⇒
+        Map(
+          "v" -> p.eventStack.lastVersion,
+          "e" -> (events map (_.export)),
+          "p" -> g.player.color.name,
+          "t" -> g.turns
+        )
+      } getOrElse reload
+    }
+  } except (e ⇒ io(reload))
 
 }

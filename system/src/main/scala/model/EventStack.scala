@@ -29,14 +29,12 @@ case class EventStack(events: List[(Int, Event)]) {
     )
   }
 
-  def version: Int = events.lastOption map (_._1) getOrElse 0
-
   def eventsSince(version: Int): Option[List[Event]] = for {
-    first <- firstVersion
+    first ← firstVersion
     if version >= first - 1
-    last <- lastVersion
+    last ← lastVersion
     if version <= last
-  } yield sortedEvents dropWhile { ve => ve._1 <= version } map (_._2)
+  } yield sortedEvents dropWhile { ve ⇒ ve._1 <= version } map (_._2)
 
   def withEvents(newEvents: List[Event]): EventStack = {
 
@@ -45,7 +43,7 @@ case class EventStack(events: List[(Int, Event)]) {
       case event :: rest ⇒ (v + 1, event) :: versionEvents(v + 1, rest)
     }
 
-    copy(events = events ++ versionEvents(version, newEvents))
+    copy(events = events ++ versionEvents(lastVersion getOrElse 0, newEvents))
   }
 }
 
