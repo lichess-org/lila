@@ -12,7 +12,7 @@ import scalaz.effects.IO
 
 trait LilaController extends Controller {
 
-  val env = new HttpEnv(Play.unsafeApplication.configuration.underlying)
+  lazy val env = HttpEnv.static
 
   val json = "application/json"
 

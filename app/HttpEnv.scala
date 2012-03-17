@@ -1,9 +1,12 @@
 package lila.http
 
 import lila.system.SystemEnv
-import com.typesafe.config.Config
 
-final class HttpEnv(c: Config) extends SystemEnv {
+import play.api.Play
 
-  protected val config = c
+object HttpEnv {
+
+  lazy val static = new SystemEnv {
+    protected val config = Play.unsafeApplication.configuration.underlying
+  }
 }
