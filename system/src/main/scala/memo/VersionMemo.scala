@@ -1,28 +1,32 @@
 package lila.system
 package memo
 
-import lila.chess.Color
-import scalaz.Memo
+import model._
+import lila.chess.{ Color, White, Black }
+import scalaz.effects._
 
-final class VersionMemo {
+final class VersionMemo(repo: GameRepo) {
 
-  private val memo: String ⇒ Int = Builder.cache(1800)(compute)
+  private val cache = Builder.cache(1800, compute)
 
-  def get(gameId: String, color: Color): Int =
-    memo(toKey(gameId, color))
+  def get(gameId: String, color: Color): Int = cache get {
+    (gameId, color == White)
+  }
 
-  private def toKey(gameId: String, color: Color): String =
-    gameId + ":" + color.name + ":v"
+  def put(gameId: String, color: Color, version: Int): IO[Unit] = io {
+    cache.put((gameId, color == White), version)
+  }
 
-  private def fromKey(key: String): Option[(String, Color)] =
-    key.split(':').toList match {
-      case gameId :: cName :: "v" :: Nil ⇒ Color(cName) map { (gameId, _) }
-      case _                             ⇒ None
-    }
+  def put(game: DbGame): IO[Unit] = for {
+    _ ← put(game.id, White, game.player(White).eventStack.lastVersion)
+    _ ← put(game.id, Black, game.player(Black).eventStack.lastVersion)
+  } yield ()
 
-  private def compute(key: String): Int = fromKey(key) map {
-    case (gameId, color) ⇒ compute(gameId, color)
-  } getOrElse 0
-
-  private def compute(gameId: String, color: Color): Int = 33
+  private def compute(pair: Pair[String, Boolean]): Int = pair match {
+    case (gameId, isWhite) ⇒
+      repo.playerOnly(gameId, Color(isWhite)).catchLeft.unsafePerformIO.fold(
+        error ⇒ 0,
+        player ⇒ player.eventStack.lastVersion | 0
+      )
+  }
 }

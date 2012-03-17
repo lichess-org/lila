@@ -20,7 +20,7 @@ trait Dependencies {
   val hasher = "com.roundeights" % "hasher" % "0.3" from "http://cloud.github.com/downloads/Nycto/Hasher/hasher_2.9.1-0.3.jar"
   val config = "com.typesafe.config" % "config" % "0.3.0"
   val json = "com.codahale" %% "jerkson" % "0.5.0"
-  val guava = "com.google.guava" % "guava" % "11.0.1"
+  val guava = "com.google.guava" % "guava" % "11.0.2"
 
   // benchmark
   val instrumenter = "com.google.code.java-allocation-instrumenter" % "java-allocation-instrumenter" % "2.0"

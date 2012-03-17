@@ -8,17 +8,17 @@ class MemoBuilderTest extends SystemTest {
 
   "memo cache" should {
     val f = (s: String) ⇒ s.size
-    val cache = builder.cache(10)(f)
+    val cache = builder.cache(10, f)
     "f" in {
       f("test") must_== 4
     }
     "compute missing value" in {
-      cache("test") must_== 4
+      cache.get("test") must_== 4
     }
     "return stored value" in {
-      val c = builder.cache(10)((s: Any) ⇒ scala.util.Random.nextInt())
-      val a = c("test")
-      c("test") must_== a
+      val c = builder.cache(10, (s: Any) ⇒ scala.util.Random.nextInt())
+      val a = c.get("test")
+      c.get("test") must_== a
     }
   }
 }

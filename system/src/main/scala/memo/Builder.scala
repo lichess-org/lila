@@ -4,21 +4,18 @@ package memo
 import com.google.common.base.Function
 import com.google.common.cache._
 import java.util.concurrent.TimeUnit
-import scalaz.Memo
 
-object Builder extends scalaz.Memos {
+object Builder {
 
   /**
    * A caching wrapper for a function (K => V),
    * backed by a Cache from Google Collections.
    */
-  def cache[K, V](ttl: Int): Memo[K, V] = memo[K, V] { (f: (K ⇒ V)) ⇒
-    val map = CacheBuilder.newBuilder()
+  def cache[K, V](ttl: Int, f: K ⇒ V): LoadingCache[K, V] =
+    CacheBuilder.newBuilder()
       .expireAfterWrite(ttl, TimeUnit.SECONDS)
       .asInstanceOf[CacheBuilder[K, V]]
       .build[K, V](f)
-    (k: K) ⇒ map.get(k)
-  }
 
   implicit def functionToGoogleFunction[T, R](f: T ⇒ R): Function[T, R] =
     new Function[T, R] {
