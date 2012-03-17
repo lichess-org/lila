@@ -59,7 +59,7 @@ object Role {
     allPromotableByForsyth get c
 
   def promotable(name: String): Option[PromotableRole] =
-    allPromotableByName get name
+    allPromotableByName get name.capitalize
 
   def promotable(name: Option[String]): Option[PromotableRole] =
     name map promotable getOrElse Some(Queen)

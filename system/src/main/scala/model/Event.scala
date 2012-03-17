@@ -148,11 +148,11 @@ object RedirectEvent extends EventDecoder {
 }
 
 case class PromotionEvent(role: PromotableRole, pos: Pos) extends Event {
-  def encode = "P" + role.forsyth + pos.piotr
+  def encode = "P" + pos.piotr + role.forsyth
   def export = Map(
     "type" -> "promotion",
     "key" -> pos.key,
-    "pieceClass" -> role.toString)
+    "pieceClass" -> role.toString.toLowerCase)
 }
 object PromotionEvent extends EventDecoder {
   def decode(str: String) = str.toList match {

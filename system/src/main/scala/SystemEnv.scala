@@ -18,7 +18,7 @@ trait SystemEnv {
   def syncer = new Syncer(
     repo = gameRepo)
 
-  lazy val ai: Ai = new StupidAi
+  lazy val ai: Ai = new CraftyAi
 
   def gameRepo = new GameRepo(
     mongodb(config getString "mongo.collection.game"))
