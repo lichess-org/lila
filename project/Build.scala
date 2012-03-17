@@ -8,12 +8,14 @@ trait Resolvers {
   val iliaz = "iliaz.com" at "http://scala.iliaz.com/"
   val sonatype = "sonatype" at "http://oss.sonatype.org/content/repositories/releases"
   val novusS = "repo.novus snaps" at "http://repo.novus.com/snapshots/"
+  val guice = "guice-maven" at "http://guice-maven.googlecode.com/svn/trunk"
 }
 
 trait Dependencies {
   val scalaz = "org.scalaz" %% "scalaz-core" % "6.0.4"
   val specs2 = "org.specs2" %% "specs2" % "1.8.2"
-  val redis = "net.debasishg" %% "redisclient" % "2.4.2"
+  //val redis = "net.debasishg" %% "redisclient" % "2.4.2"
+  val redis = "org.sedis" %% "sedis" % "1.0"
   val casbah = "com.mongodb.casbah" %% "casbah" % "2.1.5-1"
   val salat = "com.novus" %% "salat-core" % "0.0.8-SNAPSHOT"
   val slf4j = "org.slf4j" % "slf4j-nop" % "1.6.4"
@@ -33,7 +35,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     organization := "com.github.ornicar",
     version := "0.1",
     scalaVersion := "2.9.1",
-    resolvers := Seq(iliaz, codahale, sonatype, novusS, typesafe),
+    resolvers := Seq(iliaz, codahale, sonatype, novusS, typesafe, guice),
     libraryDependencies := Seq(scalalib),
     libraryDependencies in test := Seq(specs2),
     shellPrompt := {
@@ -43,7 +45,11 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
   )
 
   val lila = PlayProject("lila", mainLang = SCALA, settings = buildSettings).settings(
-    libraryDependencies ++= Seq(scalaz, slf4j)
+    libraryDependencies ++= Seq(scalaz),
+    // Adds system code to continuous triggers
+    watchSources <+= baseDirectory map { _ / "system/src/main/scala" },
+    // Adds chess code to continuous triggers
+    watchSources <+= baseDirectory map { _ / "chess/src/main/scala" }
   ) dependsOn (system)
 
   lazy val system = Project("system", file("system"), settings = buildSettings).settings(
