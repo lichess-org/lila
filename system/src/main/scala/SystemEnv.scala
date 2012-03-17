@@ -4,10 +4,8 @@ import com.mongodb.casbah.MongoConnection
 import com.mongodb.casbah.commons.conversions.scala._
 import com.typesafe.config._
 
-import org.sedis._
-import redis.clients.jedis._
-
 import ai._
+import memo._
 
 trait SystemEnv {
 
@@ -30,12 +28,7 @@ trait SystemEnv {
     config getInt "mongo.port"
   )(config getString "mongo.dbName")
 
-  def versionCache = new VersionCache(redis)
-
-  def redis = new Pool(new JedisPool(
-    new JedisPoolConfig(),
-    config getString "redis.host",
-    config getInt "redis.port"))
+  def versionMemo = new VersionMemo
 }
 
 object SystemEnv extends EnvBuilder {
