@@ -13,6 +13,8 @@ trait SystemEnv {
 
   def server = new Server(repo = gameRepo, ai = ai, versionMemo)
 
+  def internalApi = new InternalApi(repo = gameRepo, versionMemo)
+
   def syncer = new Syncer(
     repo = gameRepo,
     versionMemo = versionMemo,

@@ -11,7 +11,7 @@ final class Server(repo: GameRepo, ai: Ai, versionMemo: VersionMemo) {
   def playMove(
     fullId: String,
     moveString: String,
-    promString: Option[String] = None): IO[Valid[Map[Pos, List[Pos]]]] =
+    promString: Option[String] = None): IO[Valid[Unit]] =
     (decodeMoveString(moveString) toValid "Wrong move").fold(
       e ⇒ io(failure(e)),
       move ⇒ play(fullId, move._1, move._2, promString)
@@ -21,25 +21,16 @@ final class Server(repo: GameRepo, ai: Ai, versionMemo: VersionMemo) {
     fullId: String,
     fromString: String,
     toString: String,
-    promString: Option[String] = None): IO[Valid[Map[Pos, List[Pos]]]] =
-    repo playerGame fullId flatMap { game ⇒
-      purePlay(game, fromString, toString, promString).fold(
+    promString: Option[String] = None): IO[Valid[Unit]] =
+    repo playerGame fullId flatMap { g1 ⇒
+      purePlay(g1, fromString, toString, promString).fold(
         e ⇒ io(failure(e)),
-        newGame ⇒ for {
-          _ ← repo.applyDiff(game, newGame)
-          _ ← versionMemo put newGame
-        } yield success(newGame.toChess.situation.destinations)
+        g2 ⇒ for {
+          _ ← repo.applyDiff(g1, g2)
+          _ ← versionMemo put g2
+        } yield success(Unit)
       )
     }
-
-  def updateVersion(gameId: String): IO[Unit] =
-    repo game gameId flatMap versionMemo.put
-
-  def endGame(gameId: String): IO[Unit] = for {
-    g1 ← repo game gameId
-    g2 = g1 withEvents List(EndEvent())
-    _ ← repo.applyDiff(g1, g2)
-  } yield ()
 
   private def purePlay(
     g1: DbGame,

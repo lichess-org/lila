@@ -2,12 +2,12 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
-GET   /                                 controllers.Application.index
 POST  /move/:fullId                     controllers.Application.move(fullId: String)
 GET   /sync/:id/:color/:version/:fullId controllers.Application.sync(id: String, color: String, version: Int, fullId: Option[String])
-POST  /update-version/:gameId           controllers.Application.updateVersion(gameId: String)
-POST  /end-game/:gameId                 controllers.Application.endGame(gameId: String)
+
+POST  /internal/update-version/:gameId  controllers.Internal.updateVersion(gameId: String)
+POST  /internal/end-game/:gameId        controllers.Internal.endGame(gameId: String)
+POST  /internal/talk/:fullId            controllers.Internal.talk(fullId: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET   /assets/*file                     controllers.Assets.at(path="/public", file)

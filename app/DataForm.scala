@@ -6,9 +6,14 @@ import play.api.data.Forms._
 object DataForm {
 
   val moveForm = Form(tuple(
-    "from" -> text,
-    "to" -> text,
+    "from" -> nonEmptyText,
+    "to" -> nonEmptyText,
     "promotion" -> optional(text),
     "b" -> optional(number)
+  ))
+
+  val talkForm = Form(tuple(
+    "author" -> nonEmptyText,
+    "message" -> nonEmptyText
   ))
 }

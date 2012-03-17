@@ -4,39 +4,21 @@ import lila.http._
 import DataForm._
 
 import play.api._
-import play.api.mvc._
-import com.codahale.jerkson.Json.{ generate => jsonify }
+import mvc._
 
-object Application extends Controller {
+object Application extends LilaController {
 
-  val env = new HttpEnv(Play.unsafeApplication.configuration.underlying)
-  val json = "application/json"
+  private val syncer = env.syncer
+  private val server = env.server
 
   def sync(id: String, color: String, version: Int, fullId: Option[String]) =
     Action {
-      Ok(jsonify(
-        env.syncer.sync(id, color, version, fullId).unsafePerformIO
-      )) as json
+      JsonOk(env.syncer.sync(id, color, version, fullId).unsafePerformIO)
     }
 
   def move(fullId: String) = Action { implicit request ⇒
-    (moveForm.bindFromRequest.value toValid "Invalid move" flatMap { move =>
+    ValidOk(moveForm.bindFromRequest.value toValid "Invalid move" flatMap { move ⇒
       env.server.play(fullId, move._1, move._2, move._3).unsafePerformIO
-    }).fold(
-      e ⇒ BadRequest(e.list mkString "\n"),
-      _ ⇒ Ok("ok")
-    )
+    })
   }
-
-  def updateVersion(gameId: String) = Action {
-    env.server.updateVersion(gameId).unsafePerformIO
-    Ok("ok")
-  }
-
-  def endGame(gameId: String) = Action {
-    env.server.endGame(gameId).unsafePerformIO
-    Ok("ok")
-  }
-
-  def index = TODO
 }
