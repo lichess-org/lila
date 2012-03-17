@@ -24,6 +24,9 @@ class GameRepo(collection: MongoCollection)
   def player(gameId: String, color: Color): IO[(DbGame, DbPlayer)] =
     game(gameId) map { g ⇒ (g, g player color) }
 
+  def playerOnly(gameId: String, color: Color): IO[DbPlayer] =
+    game(gameId) map { g ⇒ g player color }
+
   def player(fullId: String): IO[(DbGame, DbPlayer)] =
     game(fullId take gameIdSize) map { g ⇒
       val playerId = fullId drop gameIdSize

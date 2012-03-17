@@ -1,11 +1,12 @@
 package lila.system
 
 import model._
+import memo._
 import lila.chess._
 import Pos.posAt
 import scalaz.effects._
 
-final class Server(repo: GameRepo, ai: Ai) {
+final class Server(repo: GameRepo, ai: Ai, versionMemo: VersionMemo) {
 
   def playMove(
     fullId: String,
@@ -24,7 +25,10 @@ final class Server(repo: GameRepo, ai: Ai) {
     repo playerGame fullId flatMap { game ⇒
       purePlay(game, fromString, toString, promString).fold(
         e ⇒ io(failure(e)),
-        a ⇒ repo.applyDiff(game, a) map { _ ⇒ success(a.toChess.situation.destinations) }
+        newGame ⇒ for {
+          _ ← repo.applyDiff(game, newGame)
+          _ ← versionMemo put newGame
+        } yield success(newGame.toChess.situation.destinations)
       )
     }
 

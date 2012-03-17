@@ -11,12 +11,13 @@ trait SystemEnv {
 
   protected val config: Config
 
-  def server = new Server(
-    repo = gameRepo,
-    ai = ai)
+  def server = new Server(repo = gameRepo, ai = ai, versionMemo)
 
   def syncer = new Syncer(
-    repo = gameRepo)
+    repo = gameRepo,
+    versionMemo = versionMemo,
+    duration = config getInt "sync.duration",
+    sleep = config getInt "sync.sleep")
 
   lazy val ai: Ai = new CraftyAi
 
@@ -28,7 +29,7 @@ trait SystemEnv {
     config getInt "mongo.port"
   )(config getString "mongo.dbName")
 
-  def versionMemo = new VersionMemo
+  lazy val versionMemo = new VersionMemo(repo = gameRepo)
 }
 
 object SystemEnv extends EnvBuilder {

@@ -14,7 +14,7 @@ final class VersionMemo(repo: GameRepo) {
   }
 
   def put(gameId: String, color: Color, version: Int): IO[Unit] = io {
-    cache.put((gameId, color == White), version)
+    cache.put((gameId.pp, color.pp == White), version.pp)
   }
 
   def put(game: DbGame): IO[Unit] = for {
