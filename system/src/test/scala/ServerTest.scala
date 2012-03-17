@@ -123,9 +123,7 @@ B p p
         "high version number" in {
           found must beIO.like {
             case vg ⇒ vg must beSuccess.like {
-              case g ⇒ g.player(White).eventStack.lastVersion must beSome.like {
-                case v => v must be_>(20)
-              }
+              case g ⇒ g.player(White).eventStack.lastVersion must be_>(20)
             }
           }
         }

@@ -134,10 +134,10 @@ class EventStackTest extends SystemTest {
         19 -> StartEvent()
     ))
     "first version" in {
-      stack.firstVersion must_== Some(19)
+      stack.firstVersion must_== 19
     }
     "last version" in {
-      stack.lastVersion must_== Some(23)
+      stack.lastVersion must_== 23
     }
   }
   "get events" in {

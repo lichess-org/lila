@@ -7,9 +7,9 @@ case class EventStack(events: List[(Int, Event)]) {
 
   lazy val sortedEvents = events sortBy (_._1)
 
-  lazy val firstVersion: Option[Int] = sortedEvents.headOption map (_._1)
+  lazy val firstVersion: Int = sortedEvents.headOption map (_._1) getOrElse 0
 
-  lazy val lastVersion: Option[Int] = sortedEvents.lastOption map (_._1)
+  lazy val lastVersion: Int = sortedEvents.lastOption map (_._1) getOrElse 0
 
   def encode: String = events map {
     case (version, event) ⇒ version.toString + event.encode
@@ -29,12 +29,10 @@ case class EventStack(events: List[(Int, Event)]) {
     )
   }
 
-  def eventsSince(version: Int): Option[List[Event]] = for {
-    first ← firstVersion
-    if version >= first - 1
-    last ← lastVersion
-    if version <= last
-  } yield sortedEvents dropWhile { ve ⇒ ve._1 <= version } map (_._2)
+  def eventsSince(version: Int): Option[List[Event]] =
+    if (version >= (firstVersion - 1) && version <= lastVersion)
+      Some(sortedEvents dropWhile { ve ⇒ ve._1 <= version } map (_._2))
+    else None
 
   def withEvents(newEvents: List[Event]): EventStack = {
 
@@ -43,7 +41,7 @@ case class EventStack(events: List[(Int, Event)]) {
       case event :: rest ⇒ (v + 1, event) :: versionEvents(v + 1, rest)
     }
 
-    copy(events = events ++ versionEvents(lastVersion getOrElse 0, newEvents))
+    copy(events = events ++ versionEvents(lastVersion, newEvents))
   }
 }
 
