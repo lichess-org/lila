@@ -1,4 +1,4 @@
-lichess_move                            ANY         /move/{id}
+/*lichess_move                            ANY         /move/{id}*/
 lichess_say                             ANY         /talk/{id}
 lichess_resign                          ANY         /resign/{id}
 lichess_abort                           ANY         /abort/{id}
@@ -13,4 +13,4 @@ lichess_decline_draw_offer              ANY         /decline-draw-offer/{id}
 lichess_moretime                        ANY         /moretime/{id}
 lichess_status                          ANY         /status
 lichess_ping                            ANY         /ping
-lichess_sync                            ANY         /sync/{id}/{color}/{version}/{playerFullId}
+/*lichess_sync                            ANY         /sync/{id}/{color}/{version}/{playerFullId}*/

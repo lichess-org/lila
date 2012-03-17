@@ -31,7 +31,11 @@ case class DbGame(
     case Black ⇒ blackPlayer
   }
 
-  def player(id: String): Option[DbPlayer] = players find (_.id == id)
+  def player(playerId: String): Option[DbPlayer] =
+    players find (_.id == playerId)
+
+  def isPlayerFullId(player: DbPlayer, fullId: String): Boolean =
+    (fullId.size == DbGame.fullIdSize) && player.id == (fullId drop 8)
 
   def player: DbPlayer = player(if (0 == turns % 2) White else Black)
 
@@ -112,11 +116,16 @@ case class DbGame(
     )
   }
 
+  def withEvents(events: List[Event]): DbGame = copy(
+    whitePlayer = whitePlayer withEvents events,
+    blackPlayer = blackPlayer withEvents events
+  )
+
   def playable = status < Aborted
 
   def aiLevel: Option[Int] = players find (_.isAi) flatMap (_.aiLevel)
 
-  def mapPlayers(f: DbPlayer => DbPlayer) = copy(
+  def mapPlayers(f: DbPlayer ⇒ DbPlayer) = copy(
     whitePlayer = f(whitePlayer),
     blackPlayer = f(blackPlayer)
   )

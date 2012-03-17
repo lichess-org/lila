@@ -17,6 +17,10 @@ case class DbPlayer(
   def newEvts(events: List[Event]): String =
     (eventStack withEvents events).optimize.encode
 
+  def withEvents(events: List[Event]) = copy(
+    evts = newEvts(events)
+  )
+
   def encodePieces(allPieces: Iterable[(Pos, Piece, Boolean)]): String =
     allPieces withFilter (_._2.color == color) map {
       case (pos, piece, dead) ⇒ pos.piotr.toString + {

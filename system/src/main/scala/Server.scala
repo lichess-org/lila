@@ -32,6 +32,15 @@ final class Server(repo: GameRepo, ai: Ai, versionMemo: VersionMemo) {
       )
     }
 
+  def updateVersion(gameId: String): IO[Unit] =
+    repo game gameId flatMap versionMemo.put
+
+  def endGame(gameId: String): IO[Unit] = for {
+    g1 ← repo game gameId
+    g2 = g1 withEvents List(EndEvent())
+    _ ← repo.applyDiff(g1, g2)
+  } yield ()
+
   private def purePlay(
     g1: DbGame,
     origString: String,

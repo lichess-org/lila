@@ -12,11 +12,12 @@ object Application extends Controller {
   val env = new HttpEnv(Play.unsafeApplication.configuration.underlying)
   val json = "application/json"
 
-  def sync(id: String, color: String, version: Int, fullId: String) = Action {
-    Ok(jsonify(
-      env.syncer.sync(id, color, version, fullId).unsafePerformIO
-    )) as json
-  }
+  def sync(id: String, color: String, version: Int, fullId: Option[String]) =
+    Action {
+      Ok(jsonify(
+        env.syncer.sync(id, color, version, fullId).unsafePerformIO
+      )) as json
+    }
 
   def move(fullId: String) = Action { implicit request ⇒
     (moveForm.bindFromRequest.value toValid "Invalid move" flatMap { move =>
@@ -25,6 +26,16 @@ object Application extends Controller {
       e ⇒ BadRequest(e.list mkString "\n"),
       _ ⇒ Ok("ok")
     )
+  }
+
+  def updateVersion(gameId: String) = Action {
+    env.server.updateVersion(gameId).unsafePerformIO
+    Ok("ok")
+  }
+
+  def endGame(gameId: String) = Action {
+    env.server.endGame(gameId).unsafePerformIO
+    Ok("ok")
   }
 
   def index = TODO

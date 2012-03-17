@@ -5,7 +5,9 @@
 # Home page
 GET   /                                 controllers.Application.index
 POST  /move/:fullId                     controllers.Application.move(fullId: String)
-POST  /sync/:id/:color/:version/:fullId controllers.Application.sync(id: String, color: String, version: Int, fullId: String)
+GET   /sync/:id/:color/:version/:fullId controllers.Application.sync(id: String, color: String, version: Int, fullId: Option[String])
+POST  /update-version/:gameId           controllers.Application.updateVersion(gameId: String)
+POST  /end-game/:gameId                 controllers.Application.endGame(gameId: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET   /assets/*file                     controllers.Assets.at(path="/public", file)

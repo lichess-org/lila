@@ -179,9 +179,7 @@ object CheckEvent extends EventDecoder {
 
 case class MessageEvent(author: String, message: String) extends Event {
   def encode = "M" + author + " " + message.replace("|", "(pipe)")
-  def export = Map(
-    "type" -> "message",
-    "message" -> List(author, message))
+  def export = Map.empty
 }
 object MessageEvent extends EventDecoder {
   def decode(str: String) = str.split(' ').toList match {

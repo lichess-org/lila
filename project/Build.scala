@@ -21,6 +21,7 @@ trait Dependencies {
   val config = "com.typesafe.config" % "config" % "0.3.0"
   val json = "com.codahale" %% "jerkson" % "0.5.0"
   val guava = "com.google.guava" % "guava" % "11.0.2"
+  val apache = "org.apache.commons" % "commons-lang3" % "3.1"
 
   // benchmark
   val instrumenter = "com.google.code.java-allocation-instrumenter" % "java-allocation-instrumenter" % "2.0"
@@ -51,7 +52,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
   ) dependsOn (system)
 
   lazy val system = Project("system", file("system"), settings = buildSettings).settings(
-    libraryDependencies ++= Seq(scalaz, config, json, casbah, salat, guava, slf4j)
+    libraryDependencies ++= Seq(scalaz, config, json, casbah, salat, guava, slf4j, apache)
   ) dependsOn (chess)
 
   lazy val chess = Project("chess", file("chess"), settings = buildSettings).settings(

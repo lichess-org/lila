@@ -6,6 +6,7 @@ import memo._
 import scalaz.effects._
 import scala.annotation.tailrec
 import scala.math.max
+import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 
 final class Syncer(
     repo: GameRepo,
@@ -17,24 +18,41 @@ final class Syncer(
     gameId: String,
     colorString: String,
     version: Int,
-    fullId: String): IO[Map[String, Any]] = {
+    fullId: Option[String]): IO[Map[String, Any]] = {
     for {
       color ← io { Color(colorString) err "Invalid color" }
       _ ← io { versionWait(gameId, color, version) }
       gameAndPlayer ← repo.player(gameId, color)
       (game, player) = gameAndPlayer
+      isPrivate = fullId some { game.isPlayerFullId(player, _) } none false
       _ ← versionMemo put game
     } yield {
       player.eventStack eventsSince version map { events ⇒
         Map(
           "v" -> player.eventStack.lastVersion,
-          "e" -> (events map (_.export)),
+          "e" -> renderEvents(events, isPrivate),
           "p" -> game.player.color.name,
           "t" -> game.turns
         )
       } getOrElse failMap
     }
   } except (e ⇒ io(failMap))
+
+  private def renderEvents(events: List[Event], isPrivate: Boolean) =
+    if (isPrivate) events map {
+      case MessageEvent(author, message) ⇒ renderMessage(author, message)
+      case e                             ⇒ e.export
+    }
+    else events filter {
+      case MessageEvent(_, _) | RedirectEvent(_) ⇒ false
+      case _                                     ⇒ true
+    } map (_.export)
+
+  // TODO author=system messages should be translated!!
+  private def renderMessage(author: String, message: String) = Map(
+    "type" -> "message",
+    "html" -> """<li class="%s">%s</li>""".format(author, escapeXml(message))
+  )
 
   private def versionWait(gameId: String, color: Color, version: Int) {
     @tailrec
