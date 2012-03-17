@@ -156,9 +156,9 @@ case class PromotionEvent(role: PromotableRole, pos: Pos) extends Event {
 }
 object PromotionEvent extends EventDecoder {
   def decode(str: String) = str.toList match {
-    case List(r, p) ⇒ for {
-      role ← Role promotable r
+    case List(p, r) ⇒ for {
       pos ← piotr(p)
+      role ← Role promotable r
     } yield PromotionEvent(role, pos)
     case _ ⇒ None
   }
