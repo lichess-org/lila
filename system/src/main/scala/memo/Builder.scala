@@ -14,10 +14,9 @@ object Builder extends scalaz.Memos {
    */
   def cache[K, V](ttl: Int): Memo[K, V] = memo[K, V] { (f: (K ⇒ V)) ⇒
     val map = CacheBuilder.newBuilder()
-      .expireAfterAccess(ttl, TimeUnit.SECONDS)
+      .expireAfterWrite(ttl, TimeUnit.SECONDS)
       .asInstanceOf[CacheBuilder[K, V]]
       .build[K, V](f)
-      .asMap()
     (k: K) ⇒ map.get(k)
   }
 
