@@ -4,7 +4,8 @@
 
 # Public API
 POST  /move/:fullId                     controllers.Application.move(fullId: String)
-GET   /sync/:gameId/:color/:version/:fullId controllers.Application.sync(gameId: String, color: String, version: Int, fullId: Option[String])
+GET   /sync/:gameId/:color/:version     controllers.Application.syncPublic(gameId: String, color: String, version: Int)
+GET   /sync/:gameId/:color/:version/:fullId controllers.Application.sync(gameId: String, color: String, version: Int, fullId: String)
 GET   /ping                             controllers.Application.ping()
 
 # Private API

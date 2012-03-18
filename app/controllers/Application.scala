@@ -8,10 +8,13 @@ import mvc._
 
 object Application extends LilaController {
 
-  def sync(gameId: String, color: String, version: Int, fullId: Option[String]) =
-    Action {
-      JsonOk(env.syncer.sync(gameId, color, version, fullId).unsafePerformIO)
-    }
+  def sync(gameId: String, color: String, version: Int, fullId: String) = Action {
+    JsonOk(env.syncer.sync(gameId, color, version, Some(fullId)).unsafePerformIO)
+  }
+
+  def syncPublic(gameId: String, color: String, version: Int) = Action {
+    JsonOk(env.syncer.sync(gameId, color, version, None).unsafePerformIO)
+  }
 
   def move(fullId: String) = Action { implicit request ⇒
     ValidOk(moveForm.bindFromRequest.toValid flatMap { move ⇒
