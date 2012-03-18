@@ -13,13 +13,13 @@ object Builder {
    */
   def cache[K, V](ttl: Int, f: K ⇒ V): LoadingCache[K, V] =
     CacheBuilder.newBuilder()
-      .expireAfterWrite(ttl, TimeUnit.SECONDS)
+      .expireAfterWrite(ttl, TimeUnit.MILLISECONDS)
       .asInstanceOf[CacheBuilder[K, V]]
       .build[K, V](f)
 
   def expiry[K, V](ttl: Int): Cache[K, V] =
     CacheBuilder.newBuilder()
-      .expireAfterWrite(ttl, TimeUnit.SECONDS)
+      .expireAfterWrite(ttl, TimeUnit.MILLISECONDS)
       .asInstanceOf[CacheBuilder[K, V]]
       .build[K, V]
 

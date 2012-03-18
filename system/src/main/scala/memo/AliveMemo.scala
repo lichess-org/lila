@@ -9,7 +9,7 @@ final class AliveMemo(hardTimeout: Int, softTimeout: Int) {
 
   private val cache = Builder.expiry[String, Long](hardTimeout)
 
-  private val bigLatency = 9999
+  private val bigLatency = 999 * 1000
 
   def get(gameId: String, color: Color): Option[Long] = Option {
     cache getIfPresent toKey(gameId, color)
