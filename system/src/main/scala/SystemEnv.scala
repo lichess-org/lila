@@ -36,7 +36,7 @@ trait SystemEnv {
 
   lazy val ai: Ai = new CraftyAi(
     execPath = config getString "crafty.exec_path",
-    bookPath = Some(config getString "crafty.book_path"))
+    bookPath = Some(config getString "crafty.book_path") filter ("" !=))
 
   def gameRepo = new GameRepo(
     mongodb(config getString "mongo.collection.game"))
@@ -65,10 +65,6 @@ object SystemEnv extends EnvBuilder {
 
   def apply(overrides: String = "") = new SystemEnv {
     val config = makeConfig(overrides, "/home/thib/lila/conf/application.conf")
-  }
-
-  def apply(c: Config) = new SystemEnv {
-    val config = c
   }
 }
 
