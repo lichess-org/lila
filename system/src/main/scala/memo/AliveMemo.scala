@@ -12,16 +12,10 @@ final class AliveMemo(hardTimeout: Int, softTimeout: Int) {
   private val bigLatency = 9999
 
   def get(gameId: String, color: Color): Option[Long] = Option {
-    cache getIfPresent (toKey(gameId, color))
+    cache getIfPresent toKey(gameId, color)
   }
 
-  def put(gameId: String, color: Color): IO[Unit] = io {
-    put(gameId, color, now)
-  }
-
-  def put(gameId: String, color: Color, time: Long): IO[Unit] = io {
-    cache.put(toKey(gameId, color), time)
-  }
+  def put(gameId: String, color: Color): IO[Unit] = put(gameId, color, now)
 
   def transfer(g1: String, c1: Color, g2: String, c2: Color): IO[Unit] = io {
     get(g1, c1) foreach { put(g2, c2, _) }
@@ -36,15 +30,19 @@ final class AliveMemo(hardTimeout: Int, softTimeout: Int) {
    * 1 - recently offline
    * 0 - offline for long time
    */
-  def activity(game: DbGame, player: DbPlayer): Int =
-    if (player.isAi) 2
-    else latency(game.id, player.color) |> { l ⇒
+  def activity(game: DbGame, color: Color): Int =
+    if (game.player(color).isAi) 2
+    else latency(game.id, color) |> { l ⇒
       if (l <= softTimeout) 2
       else if (l <= hardTimeout) 1
       else 0
     }
 
   def count = cache.size
+
+  private def put(gameId: String, color: Color, time: Long): IO[Unit] = io {
+    cache.put(toKey(gameId, color), time)
+  }
 
   private def toKey(gameId: String, color: Color) = gameId + "." + color.letter
 
