@@ -17,6 +17,12 @@ object Builder {
       .asInstanceOf[CacheBuilder[K, V]]
       .build[K, V](f)
 
+  def expiry[K, V](ttl: Int): Cache[K, V] =
+    CacheBuilder.newBuilder()
+      .expireAfterWrite(ttl, TimeUnit.SECONDS)
+      .asInstanceOf[CacheBuilder[K, V]]
+      .build[K, V]
+
   implicit def functionToGoogleFunction[T, R](f: T ⇒ R): Function[T, R] =
     new Function[T, R] {
       def apply(p1: T) = f(p1)

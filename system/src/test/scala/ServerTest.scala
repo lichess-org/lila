@@ -15,7 +15,7 @@ class ServerTest extends SystemTest {
     _ ← repo insert dbGame
   } yield dbGame
 
-  def move(game: DbGame, m: String = "d2 d4"): IO[Valid[Map[Pos, List[Pos]]]] =
+  def move(game: DbGame, m: String = "d2 d4"): IO[Valid[Unit]] =
     server.playMove(game fullIdOf White, m)
 
   def updated(

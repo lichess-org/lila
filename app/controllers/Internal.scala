@@ -22,6 +22,10 @@ object Internal extends LilaController {
     IOk(api reloadTable gameId)
   }
 
+  def alive(gameId: String, color: String) = Action {
+    IOk(api.alive(gameId, color))
+  }
+
   def end(gameId: String) = Action { implicit request ⇒
     ValidIOk[String](endForm)(msgs ⇒ api.end(gameId, msgs))
   }
@@ -30,8 +34,8 @@ object Internal extends LilaController {
     ValidIOk[JoinData](joinForm)(join ⇒ api.join(fullId, join._1, join._2))
   }
 
-  def acceptRematch(gameId: String) = Action { implicit request ⇒
+  def acceptRematch(gameId: String, newGameId: String, color: String) = Action { implicit request ⇒
     ValidIOk[RematchData](rematchForm)(rematch ⇒
-      api.acceptRematch(gameId, rematch._1, rematch._2))
+      api.acceptRematch(gameId, newGameId, color, rematch._1, rematch._2))
   }
 }

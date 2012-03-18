@@ -1,7 +1,7 @@
 /*lichess_move                            ANY         /move/{id}*/
-lichess_say                             ANY         /talk/{id}
-lichess_resign                          ANY         /resign/{id}
-lichess_abort                           ANY         /abort/{id}
+/*lichess_say                             ANY         /talk/{id}*/
+/*lichess_resign                          ANY         /resign/{id}*/
+/*lichess_abort                           ANY         /abort/{id}*/
 lichess_outoftime                       ANY         /outoftime/{id}
 lichess_rematch                         ANY         /rematch/{id}
 lichess_force_resignation               ANY         /force-resign/{id}

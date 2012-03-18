@@ -2,10 +2,13 @@ package lila.system
 
 import model._
 import memo._
-import lila.chess.{ White, Black }
+import lila.chess.{ Color, White, Black }
 import scalaz.effects._
 
-final class InternalApi(repo: GameRepo, versionMemo: VersionMemo) {
+final class InternalApi(
+    repo: GameRepo,
+    versionMemo: VersionMemo,
+    aliveMemo: AliveMemo) {
 
   def join(fullId: String, url: String, messages: String): IO[Unit] = for {
     gameAndPlayer ← repo player fullId
@@ -27,12 +30,20 @@ final class InternalApi(repo: GameRepo, versionMemo: VersionMemo) {
     _ ← save(g1, g2)
   } yield ()
 
-  def acceptRematch(gameId: String, whiteRedirect: String, blackRedirect: String): IO[Unit] = for {
+  def acceptRematch(
+    gameId: String,
+    newGameId: String,
+    colorName: String,
+    whiteRedirect: String,
+    blackRedirect: String): IO[Unit] = for {
+    color ← ioColor(colorName)
     g1 ← repo game gameId
     g2 = g1.withEvents(
       List(RedirectEvent(whiteRedirect)),
       List(RedirectEvent(blackRedirect)))
     _ ← save(g1, g2)
+    _ ← aliveMemo.put(newGameId, !color)
+    _ ← aliveMemo.transfer(gameId, !color, newGameId, color)
   } yield ()
 
   def updateVersion(gameId: String): IO[Unit] =
@@ -43,6 +54,15 @@ final class InternalApi(repo: GameRepo, versionMemo: VersionMemo) {
     g2 = g1 withEvents List(ReloadTableEvent())
     _ ← save(g1, g2)
   } yield ()
+
+  def alive(gameId: String, colorName: String): IO[Unit] = for {
+    color ← ioColor(colorName)
+    _ ← aliveMemo.put(gameId, color)
+  } yield ()
+
+  private def ioColor(colorName: String): IO[Color] = io {
+    Color(colorName) err "Invalid color"
+  }
 
   private def save(g1: DbGame, g2: DbGame): IO[Unit] = for {
     _ ← repo.applyDiff(g1, g2)

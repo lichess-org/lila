@@ -10,7 +10,8 @@ POST  /internal/end/:gameId             controllers.Internal.end(gameId: String)
 POST  /internal/talk/:fullId            controllers.Internal.talk(fullId: String)
 POST  /internal/join/:fullId            controllers.Internal.join(fullId: String)
 POST  /internal/reload-table/:gameId    controllers.Internal.reloadTable(gameId: String)
-POST  /internal/accept-rematch/:gameId  controllers.Internal.acceptRematch(gameId: String)
+POST  /internal/accept-rematch/:gameId/:newGameId/:color  controllers.Internal.acceptRematch(gameId: String, newGameId: String, color: String)
+POST  /internal/alive/:gameId/:color    controllers.Internal.alive(gameId: String, color: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET   /assets/*file                     controllers.Assets.at(path="/public", file)

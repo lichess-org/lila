@@ -5,16 +5,14 @@ import model._
 import lila.chess.{ Color, White, Black }
 import scalaz.effects._
 
-final class VersionMemo(repo: GameRepo) {
+final class VersionMemo(repo: GameRepo, timeout: Int) {
 
-  private val cache = Builder.cache(1800, compute)
+  private val cache = Builder.cache(timeout, compute)
 
-  def get(gameId: String, color: Color): Int = cache get {
-    (gameId, color == White)
-  }
+  def get(gameId: String, color: Color): Int = cache get toKey(gameId, color)
 
   def put(gameId: String, color: Color, version: Int): IO[Unit] = io {
-    cache.put((gameId, color == White), version)
+    cache.put(toKey(gameId, color), version)
   }
 
   def put(game: DbGame): IO[Unit] = for {
@@ -22,11 +20,16 @@ final class VersionMemo(repo: GameRepo) {
     _ ← put(game.id, Black, game.player(Black).eventStack.lastVersion)
   } yield ()
 
-  private def compute(pair: Pair[String, Boolean]): Int = pair match {
-    case (gameId, isWhite) ⇒
-      repo.playerOnly(gameId, Color(isWhite)).catchLeft.unsafePerformIO.fold(
-        error ⇒ 0,
-        player ⇒ player.eventStack.lastVersion | 0
-      )
+  private def toKey(gameId: String, color: Color) = gameId + "." + color.letter
+
+  private def compute(key: String): Int = key.split('.').toList match {
+    case gameId :: letter :: Nil ⇒
+      letter.headOption flatMap Color.apply map { color ⇒
+        repo.playerOnly(gameId, color).catchLeft.unsafePerformIO.fold(
+          error ⇒ 0,
+          player ⇒ player.eventStack.lastVersion | 0
+        )
+      } getOrElse 0
+    case _ ⇒ 0
   }
 }
