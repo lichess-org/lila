@@ -17,7 +17,7 @@ sealed trait Clock {
 
   def remainingTime(c: Color) = max(limit, elapsedTime(c))
 
-  def remainingTimes = Color.all map { c ⇒ (c, remainingTime(c)) }
+  def remainingTimes = Color.all map { c ⇒ (c, remainingTime(c)) } toMap
 
   def elapsedTime(c: Color) = time(c)
 

@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 final class Syncer(
     repo: GameRepo,
     versionMemo: VersionMemo,
+    aliveMemo: AliveMemo,
     duration: Int,
     sleep: Int) {
 
@@ -32,7 +33,11 @@ final class Syncer(
           "v" -> player.eventStack.lastVersion,
           "e" -> renderEvents(events, isPrivate),
           "p" -> game.player.color.name,
-          "t" -> game.turns
+          "t" -> game.turns,
+          "oa" -> aliveMemo.activity(game, !color),
+          "c" -> (game.clock some { clock ⇒
+            clock.remainingTimes mapKeys (_.name)
+          } none null)
         )
       } getOrElse failMap
     }

@@ -25,6 +25,7 @@ trait SystemEnv {
   def syncer = new Syncer(
     repo = gameRepo,
     versionMemo = versionMemo,
+    aliveMemo = aliveMemo,
     duration = config getInt "sync.duration",
     sleep = config getInt "sync.sleep")
 
