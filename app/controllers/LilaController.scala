@@ -13,7 +13,7 @@ import scalaz.effects.IO
 
 trait LilaController extends Controller with ContentTypes {
 
-  lazy val env = HttpEnv.static
+  lazy val env = Global.env
 
   def JsonOk(map: Map[String, Any]) = Ok(Json generate map) as JSON
 

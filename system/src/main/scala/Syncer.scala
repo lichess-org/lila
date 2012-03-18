@@ -69,6 +69,5 @@ final class Syncer(
     wait(max(1, duration / sleep))
   }
 
-  //private val failMap = Map("failMap" -> true)
-  private val failMap = Map("fuck" -> true)
+  private val failMap = Map("reload" -> true)
 }

@@ -7,9 +7,7 @@ import db._
 import ai._
 import memo._
 
-trait SystemEnv {
-
-  protected val config: Config
+final class SystemEnv(config: Config) {
 
   def server = new Server(
     repo = gameRepo,
@@ -63,9 +61,9 @@ trait SystemEnv {
 
 object SystemEnv extends EnvBuilder {
 
-  def apply(overrides: String = "") = new SystemEnv {
-    val config = makeConfig(overrides, "/home/thib/lila/conf/application.conf")
-  }
+  def apply(overrides: String = "") = new SystemEnv(
+    makeConfig(overrides, "/home/thib/lila/conf/application.conf")
+  )
 }
 
 trait EnvBuilder {
