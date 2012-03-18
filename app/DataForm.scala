@@ -16,4 +16,9 @@ object DataForm {
     "author" -> nonEmptyText,
     "message" -> nonEmptyText
   ))
+
+  val joinForm = Form(tuple(
+    "redirect" -> nonEmptyText,
+    "messages" -> nonEmptyText
+  ))
 }

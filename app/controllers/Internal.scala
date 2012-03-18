@@ -23,4 +23,10 @@ object Internal extends LilaController {
   def endGame(gameId: String) = Action {
     IOk(api endGame gameId)
   }
+
+  def join(fullId: String) = Action { implicit request ⇒
+    ValidOk(joinForm.bindFromRequest.value toValid "Invalid join" map { join ⇒
+      api.join(fullId, join._1, join._2).unsafePerformIO
+    })
+  }
 }

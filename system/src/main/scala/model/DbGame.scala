@@ -37,6 +37,8 @@ case class DbGame(
   def isPlayerFullId(player: DbPlayer, fullId: String): Boolean =
     (fullId.size == DbGame.fullIdSize) && player.id == (fullId drop 8)
 
+  def opponent(p: DbPlayer): DbPlayer = player(!(p.color))
+
   def player: DbPlayer = player(if (0 == turns % 2) White else Black)
 
   def fullIdOf(player: DbPlayer): Option[String] =
@@ -120,6 +122,11 @@ case class DbGame(
     whitePlayer = whitePlayer withEvents events,
     blackPlayer = blackPlayer withEvents events
   )
+
+  def withEvents(color: Color, events: List[Event]): DbGame = color match {
+    case White ⇒ copy(whitePlayer = whitePlayer withEvents events)
+    case Black ⇒ copy(blackPlayer = blackPlayer withEvents events)
+  }
 
   def playable = status < Aborted
 
