@@ -18,11 +18,20 @@ object Internal extends LilaController {
     IOk(api updateVersion gameId)
   }
 
+  def reloadTable(gameId: String) = Action {
+    IOk(api reloadTable gameId)
+  }
+
   def end(gameId: String) = Action { implicit request ⇒
     ValidIOk[String](endForm)(msgs ⇒ api.end(gameId, msgs))
   }
 
   def join(fullId: String) = Action { implicit request ⇒
     ValidIOk[JoinData](joinForm)(join ⇒ api.join(fullId, join._1, join._2))
+  }
+
+  def acceptRematch(gameId: String) = Action { implicit request ⇒
+    ValidIOk[RematchData](rematchForm)(rematch ⇒
+      api.acceptRematch(gameId, rematch._1, rematch._2))
   }
 }

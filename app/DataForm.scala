@@ -25,6 +25,12 @@ object DataForm {
     "messages" -> nonEmptyText
   ))
 
+  type RematchData = (String, String)
+  val rematchForm = Form(tuple(
+    "whiteRedirect" -> nonEmptyText,
+    "blackRedirect" -> nonEmptyText
+  ))
+
   type EndData = String
   val endForm = Form(single(
     "messages" -> nonEmptyText

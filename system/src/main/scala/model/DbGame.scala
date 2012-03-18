@@ -124,9 +124,14 @@ case class DbGame(
   )
 
   def withEvents(color: Color, events: List[Event]): DbGame = color match {
-    case White ⇒ copy(whitePlayer = whitePlayer withEvents events)
-    case Black ⇒ copy(blackPlayer = blackPlayer withEvents events)
+    case White ⇒ withEvents(events, Nil)
+    case Black ⇒ withEvents(Nil, events)
   }
+
+  def withEvents(whiteEvents: List[Event], blackEvents: List[Event]): DbGame =
+    copy(
+      whitePlayer = whitePlayer withEvents whiteEvents,
+      blackPlayer = blackPlayer withEvents blackEvents)
 
   def playable = status < Aborted
 
