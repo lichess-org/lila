@@ -60,6 +60,9 @@ final class InternalApi(
     _ ← aliveMemo.put(gameId, color)
   } yield ()
 
+  def activity(gameId: String, colorName: String): Int =
+    Color(colorName) some { aliveMemo.activity(gameId, _) } none 0
+
   private def ioColor(colorName: String): IO[Color] = io {
     Color(colorName) err "Invalid color"
   }

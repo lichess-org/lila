@@ -34,6 +34,10 @@ object Internal extends LilaController {
     ValidIOk[JoinData](joinForm)(join ⇒ api.join(fullId, join._1, join._2))
   }
 
+  def activity(gameId: String, color: String) = Action {
+    Ok(api.activity(gameId, color).toString) as TEXT
+  }
+
   def acceptRematch(gameId: String, newGameId: String, color: String) = Action { implicit request ⇒
     ValidIOk[RematchData](rematchForm)(rematch ⇒
       api.acceptRematch(gameId, newGameId, color, rematch._1, rematch._2))

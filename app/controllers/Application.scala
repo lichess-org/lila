@@ -8,17 +8,23 @@ import mvc._
 
 object Application extends LilaController {
 
-  private val syncer = env.syncer
-  private val server = env.server
-
-  def sync(id: String, color: String, version: Int, fullId: Option[String]) =
+  def sync(gameId: String, color: String, version: Int, fullId: Option[String]) =
     Action {
-      JsonOk(env.syncer.sync(id, color, version, fullId).unsafePerformIO)
+      JsonOk(env.syncer.sync(gameId, color, version, fullId).unsafePerformIO)
     }
 
   def move(fullId: String) = Action { implicit request ⇒
     ValidOk(moveForm.bindFromRequest.toValid flatMap { move ⇒
       env.server.play(fullId, move._1, move._2, move._3).unsafePerformIO
     })
+  }
+
+  def ping() = Action { implicit request =>
+    JsonOk(env.pinger.ping(
+      get("username"),
+      get("player_key"),
+      get("watcher"),
+      get("get_nb_watchers")
+    ).unsafePerformIO)
   }
 }

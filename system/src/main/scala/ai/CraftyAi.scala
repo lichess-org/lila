@@ -11,7 +11,7 @@ import scala.sys.process.Process
 import scalaz.effects._
 
 final class CraftyAi(
-    execPath: String = "crafty",
+    execPath: String,
     bookPath: Option[String] = None) extends Ai {
 
   def apply(dbGame: DbGame): IO[Valid[(Game, Move)]] = {

@@ -11,13 +11,11 @@ import scala.io.Codec
 import com.codahale.jerkson.Json
 import scalaz.effects.IO
 
-trait LilaController extends Controller {
+trait LilaController extends Controller with ContentTypes {
 
   lazy val env = HttpEnv.static
 
-  val json = "application/json"
-
-  def JsonOk(map: Map[String, Any]) = Ok(Json generate map) as json
+  def JsonOk(map: Map[String, Any]) = Ok(Json generate map) as JSON
 
   def ValidOk(valid: Valid[Unit]) = valid.fold(
     e ⇒ BadRequest(e.list mkString "\n"),
@@ -31,6 +29,12 @@ trait LilaController extends Controller {
     )
 
   def IOk(op: IO[Unit]) = Ok(op.unsafePerformIO)
+
+  def get(name: String)(implicit request: Request[_]) =
+    request.queryString get name flatMap (_.headOption)
+
+  def getInt(name: String)(implicit request: Request[_]) =
+    get(name)(request) map (_.toInt)
 
   // I like Unit requests.
   implicit def wUnit: Writeable[Unit] =

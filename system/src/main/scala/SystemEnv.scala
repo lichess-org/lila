@@ -1,7 +1,6 @@
 package lila.system
 
 import com.mongodb.casbah.MongoConnection
-import com.mongodb.casbah.commons.conversions.scala._
 import com.typesafe.config._
 
 import ai._
@@ -26,10 +25,17 @@ trait SystemEnv {
     repo = gameRepo,
     versionMemo = versionMemo,
     aliveMemo = aliveMemo,
-    duration = config getInt "sync.duration",
-    sleep = config getInt "sync.sleep")
+    duration = (config getMilliseconds "sync.duration").toInt,
+    sleep = (config getMilliseconds "sync.sleep").toInt)
 
-  lazy val ai: Ai = new CraftyAi
+  def pinger = new Pinger(
+    aliveMemo = aliveMemo,
+    usernameMemo = usernameMemo,
+    watcherMemo = watcherMemo)
+
+  lazy val ai: Ai = new CraftyAi(
+    execPath = config getString "crafty.exec_path",
+    bookPath = Some(config getString "crafty.book_path"))
 
   def gameRepo = new GameRepo(
     mongodb(config getString "mongo.collection.game"))
@@ -41,11 +47,17 @@ trait SystemEnv {
 
   lazy val versionMemo = new VersionMemo(
     repo = gameRepo,
-    timeout = config getInt "memo.version.timeout")
+    timeout = (config getMilliseconds "memo.version.timeout").toInt)
 
   lazy val aliveMemo = new AliveMemo(
-    hardTimeout = config getInt "memo.alive.hard_timeout",
-    softTimeout = config getInt "memo.alive.soft_timeout")
+    hardTimeout = (config getMilliseconds "memo.alive.hard_timeout").toInt,
+    softTimeout = (config getMilliseconds "memo.alive.soft_timeout").toInt)
+
+  lazy val usernameMemo = new UsernameMemo(
+    timeout = (config getMilliseconds "memo.username.timeout").toInt)
+
+  lazy val watcherMemo = new WatcherMemo(
+    timeout = (config getMilliseconds "memo.watcher.timeout").toInt)
 }
 
 object SystemEnv extends EnvBuilder {

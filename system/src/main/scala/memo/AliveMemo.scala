@@ -15,7 +15,17 @@ final class AliveMemo(hardTimeout: Int, softTimeout: Int) {
     cache getIfPresent toKey(gameId, color)
   }
 
-  def put(gameId: String, color: Color): IO[Unit] = put(gameId, color, now)
+  def put(key: String): IO[Unit] = io {
+    cache.put(key, now)
+  }
+
+  def put(gameId: String, color: Color): IO[Unit] = io {
+    cache.put(toKey(gameId, color), now)
+  }
+
+  def put(gameId: String, color: Color, time: Long): IO[Unit] = io {
+    cache.put(toKey(gameId, color), time)
+  }
 
   def transfer(g1: String, c1: Color, g2: String, c2: Color): IO[Unit] = io {
     get(g1, c1) foreach { put(g2, c2, _) }
@@ -32,7 +42,10 @@ final class AliveMemo(hardTimeout: Int, softTimeout: Int) {
    */
   def activity(game: DbGame, color: Color): Int =
     if (game.player(color).isAi) 2
-    else latency(game.id, color) |> { l ⇒
+    else activity(game.id, color)
+
+  def activity(gameId: String, color: Color): Int =
+    latency(gameId, color) |> { l ⇒
       if (l <= softTimeout) 2
       else if (l <= hardTimeout) 1
       else 0
@@ -40,11 +53,7 @@ final class AliveMemo(hardTimeout: Int, softTimeout: Int) {
 
   def count = cache.size
 
-  private def put(gameId: String, color: Color, time: Long): IO[Unit] = io {
-    cache.put(toKey(gameId, color), time)
-  }
-
-  private def toKey(gameId: String, color: Color) = gameId + "." + color.letter
+  def toKey(gameId: String, color: Color) = gameId + "." + color.letter
 
   private def now = System.currentTimeMillis
 }
