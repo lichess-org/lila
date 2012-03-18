@@ -2,6 +2,7 @@ package lila.system
 
 import model._
 import memo._
+import db.GameRepo
 import lila.chess._
 import Pos.posAt
 import scalaz.effects._

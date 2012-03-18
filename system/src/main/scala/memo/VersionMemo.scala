@@ -5,7 +5,9 @@ import model._
 import lila.chess.{ Color, White, Black }
 import scalaz.effects._
 
-final class VersionMemo(repo: GameRepo, timeout: Int) {
+final class VersionMemo(
+    getPlayer: (String, Color) ⇒ IO[DbPlayer],
+    timeout: Int) {
 
   private val cache = Builder.cache(timeout, compute)
 
@@ -25,7 +27,7 @@ final class VersionMemo(repo: GameRepo, timeout: Int) {
   private def compute(key: String): Int = key.split('.').toList match {
     case gameId :: letter :: Nil ⇒
       letter.headOption flatMap Color.apply map { color ⇒
-        repo.playerOnly(gameId, color).catchLeft.unsafePerformIO.fold(
+        getPlayer(gameId, color).catchLeft.unsafePerformIO.fold(
           error ⇒ 0,
           player ⇒ player.eventStack.lastVersion | 0
         )

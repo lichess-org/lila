@@ -3,6 +3,7 @@ package lila.system
 import com.mongodb.casbah.MongoConnection
 import com.typesafe.config._
 
+import db._
 import ai._
 import memo._
 
@@ -46,7 +47,7 @@ trait SystemEnv {
   )(config getString "mongo.dbName")
 
   lazy val versionMemo = new VersionMemo(
-    repo = gameRepo,
+    getPlayer = gameRepo.playerOnly,
     timeout = (config getMilliseconds "memo.version.timeout").toInt)
 
   lazy val aliveMemo = new AliveMemo(

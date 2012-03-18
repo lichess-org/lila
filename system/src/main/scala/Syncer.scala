@@ -3,6 +3,7 @@ package lila.system
 import lila.chess.Color
 import model._
 import memo._
+import db.GameRepo
 import scalaz.effects._
 import scala.annotation.tailrec
 import scala.math.max
