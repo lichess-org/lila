@@ -17,7 +17,7 @@ object Application extends LilaController {
     }
 
   def move(fullId: String) = Action { implicit request ⇒
-    ValidOk(moveForm.bindFromRequest.value toValid "Invalid move" flatMap { move ⇒
+    ValidOk(moveForm.bindFromRequest.toValid flatMap { move ⇒
       env.server.play(fullId, move._1, move._2, move._3).unsafePerformIO
     })
   }

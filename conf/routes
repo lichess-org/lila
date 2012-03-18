@@ -6,7 +6,7 @@ POST  /move/:fullId                     controllers.Application.move(fullId: Str
 GET   /sync/:id/:color/:version/:fullId controllers.Application.sync(id: String, color: String, version: Int, fullId: Option[String])
 
 POST  /internal/update-version/:gameId  controllers.Internal.updateVersion(gameId: String)
-POST  /internal/end-game/:gameId        controllers.Internal.endGame(gameId: String)
+POST  /internal/end/:gameId             controllers.Internal.end(gameId: String)
 POST  /internal/talk/:fullId            controllers.Internal.talk(fullId: String)
 POST  /internal/join/:fullId            controllers.Internal.join(fullId: String)
 

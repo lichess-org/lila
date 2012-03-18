@@ -4,6 +4,7 @@ import lila.http._
 
 import play.api._
 import mvc._
+import data._
 import http._
 
 import scala.io.Codec
@@ -23,6 +24,12 @@ trait LilaController extends Controller {
     _ ⇒ Ok("ok")
   )
 
+  def ValidIOk[A](form: Form[A])(op: A ⇒ IO[Unit])(implicit request: Request[_]) =
+    form.bindFromRequest.fold(
+      form ⇒ BadRequest(form.errors mkString "\n"),
+      data ⇒ IOk(op(data))
+    )
+
   def IOk(op: IO[Unit]) = Ok(op.unsafePerformIO)
 
   // I like Unit requests.
@@ -30,4 +37,11 @@ trait LilaController extends Controller {
     Writeable[Unit](_ ⇒ Codec toUTF8 "ok")
   implicit def ctoUnit: ContentTypeOf[Unit] =
     ContentTypeOf[Unit](Some(ContentTypes.TEXT))
+
+  implicit def richForm[A](form: Form[A]) = new {
+    def toValid: Valid[A] = form.fold(
+      form ⇒ failure(nel("Invalid form", form.errors.map(_.toString): _*)),
+      data ⇒ success(data)
+    )
+  }
 }

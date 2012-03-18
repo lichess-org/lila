@@ -11,22 +11,18 @@ object Internal extends LilaController {
   private val api = env.internalApi
 
   def talk(gameId: String) = Action { implicit request ⇒
-    ValidOk(talkForm.bindFromRequest.value toValid "Invalid talk" map { talk ⇒
-      api.talk(gameId, talk._1, talk._2).unsafePerformIO
-    })
+    ValidIOk[TalkData](talkForm)(talk ⇒ api.talk(gameId, talk._1, talk._2))
   }
 
   def updateVersion(gameId: String) = Action {
     IOk(api updateVersion gameId)
   }
 
-  def endGame(gameId: String) = Action {
-    IOk(api endGame gameId)
+  def end(gameId: String) = Action { implicit request ⇒
+    ValidIOk[String](endForm)(msgs ⇒ api.end(gameId, msgs))
   }
 
   def join(fullId: String) = Action { implicit request ⇒
-    ValidOk(joinForm.bindFromRequest.value toValid "Invalid join" map { join ⇒
-      api.join(fullId, join._1, join._2).unsafePerformIO
-    })
+    ValidIOk[JoinData](joinForm)(join ⇒ api.join(fullId, join._1, join._2))
   }
 }
