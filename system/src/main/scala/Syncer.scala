@@ -39,7 +39,7 @@ final class Syncer(
           "c" -> (game.clock some { clock ⇒
             clock.remainingTimes mapKeys (_.name)
           } none null)
-        )
+        ) filterValues (null !=)
       } getOrElse failMap
     }
   } except (e ⇒ io(failMap))
