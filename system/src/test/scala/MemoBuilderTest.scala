@@ -7,6 +7,7 @@ class MemoBuilderTest extends SystemTest {
   val builder = Builder
 
   "memo cache" should {
+    sequential
     val f = (s: String) ⇒ s.size
     def makeCache = builder.cache(10, f)
     "f" in {
@@ -22,6 +23,7 @@ class MemoBuilderTest extends SystemTest {
     }
   }
   "expiry cache" should {
+    sequential
     def makeCache = builder.expiry[String, Int](10)
     "be empty" in {
       makeCache.size must_== 0
