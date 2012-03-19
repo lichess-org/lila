@@ -42,7 +42,8 @@ trait Fixtures {
     aiLevel = None,
     isWinner = None,
     evts = evts,
-    elo = Some(1280)
+    elo = Some(1280),
+    lastDrawOffer = None
   )
 
   lazy val dbGame1 = DbGame(
