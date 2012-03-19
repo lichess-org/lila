@@ -80,7 +80,9 @@ case class PossibleMovesEvent(moves: Map[Pos, List[Pos]]) extends Event {
   def encode = "p" + (moves map {
     case (orig, dests) ⇒ (orig :: dests) map (_.piotr) mkString
   } mkString ",")
-  def export = Map(
+  def export =
+    if (moves.isEmpty) Map("type" -> "possible_moves")
+    else Map(
     "type" -> "possible_moves",
     "possible_moves" -> (moves map {
       case (o, d) ⇒ o.key -> (d map (_.key) mkString)
