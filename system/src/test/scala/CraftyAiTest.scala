@@ -5,7 +5,7 @@ import ai._
 class CraftyAiTest extends AiTest {
   sequential
 
-  def ai = new CraftyAi
+  val ai = SystemEnv().craftyAi
   def name = "crafty"
   def nbMoves = 5
 }

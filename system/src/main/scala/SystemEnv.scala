@@ -32,9 +32,12 @@ final class SystemEnv(config: Config) {
     usernameMemo = usernameMemo,
     watcherMemo = watcherMemo)
 
-  lazy val ai: Ai = new CraftyAi(
+  lazy val ai: Ai = craftyAi
+
+  lazy val craftyAi = new CraftyAi(
     execPath = config getString "crafty.exec_path",
     bookPath = Some(config getString "crafty.book_path") filter ("" !=))
+
 
   lazy val gameRepo = new GameRepo(
     mongodb(config getString "mongo.collection.game"))
