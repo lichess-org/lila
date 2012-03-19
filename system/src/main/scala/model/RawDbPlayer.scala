@@ -11,6 +11,7 @@ case class RawDbPlayer(
     isWinner: Option[Boolean],
     evts: String = "",
     elo: Option[Int],
+    isOfferingDraw: Option[Boolean],
     lastDrawOffer: Option[Int]) {
 
   def decode: Option[DbPlayer] = for {
@@ -23,6 +24,7 @@ case class RawDbPlayer(
     isWinner = isWinner,
     evts = evts,
     elo = elo,
+    isOfferingDraw = isOfferingDraw getOrElse false,
     lastDrawOffer = lastDrawOffer
   )
 }
@@ -39,6 +41,7 @@ object RawDbPlayer {
       isWinner = isWinner,
       evts = evts,
       elo = elo,
+      isOfferingDraw = if (isOfferingDraw) Some(true) else None,
       lastDrawOffer = lastDrawOffer
     )
   }

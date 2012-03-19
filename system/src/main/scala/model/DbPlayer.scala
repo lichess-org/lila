@@ -11,6 +11,7 @@ case class DbPlayer(
     isWinner: Option[Boolean],
     evts: String = "",
     elo: Option[Int],
+    isOfferingDraw: Boolean,
     lastDrawOffer: Option[Int]) {
 
   def eventStack: EventStack = EventStack decode evts

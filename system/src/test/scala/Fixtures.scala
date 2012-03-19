@@ -43,6 +43,7 @@ trait Fixtures {
     isWinner = None,
     evts = evts,
     elo = Some(1280),
+    isOfferingDraw = false,
     lastDrawOffer = None
   )
 

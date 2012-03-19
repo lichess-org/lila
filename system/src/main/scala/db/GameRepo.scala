@@ -62,6 +62,7 @@ class GameRepo(collection: MongoCollection)
       d(name + "isWinner", _.players(i).isWinner)
       d(name + "evts", _.players(i).evts)
       d(name + "lastDrawOffer", _.players(i).lastDrawOffer)
+      d(name + "isOfferingDraw", _.players(i).isOfferingDraw)
     }
     a.clock foreach { c ⇒
       d("clock.color", _.clock.get.color)

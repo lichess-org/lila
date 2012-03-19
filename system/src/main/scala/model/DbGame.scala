@@ -102,7 +102,7 @@ case class DbGame(
       ps = player encodePieces allPieces,
       evts = player.newEvts(events :+ Event.possibleMoves(game.situation, player.color)))
 
-    copy(
+    val updated = copy(
       pgn = game.pgnMoves,
       whitePlayer = updatePlayer(whitePlayer),
       blackPlayer = updatePlayer(blackPlayer),
@@ -116,6 +116,11 @@ case class DbGame(
         else status,
       clock = game.clock
     )
+
+    if (abortable != updated.abortable || (Color.all exists { color ⇒
+      playerCanOfferDraw(color) != updated.playerCanOfferDraw(color)
+    })) updated withEvents List(ReloadTableEvent())
+    else updated
   }
 
   def withEvents(events: List[Event]): DbGame = copy(
@@ -141,6 +146,20 @@ case class DbGame(
     whitePlayer = f(whitePlayer),
     blackPlayer = f(blackPlayer)
   )
+
+  def playerCanOfferDraw(color: Color) =
+    status >= Started &&
+      status < Aborted &&
+      turns >= 2 &&
+      !player(color).isOfferingDraw &&
+      !(player(!color).isAi) &&
+      !(player(!color).isOfferingDraw) &&
+      !(playerHasOfferedDraw(color))
+
+  def playerHasOfferedDraw(color: Color) =
+    player(color).lastDrawOffer some (_ >= turns - 1) none false
+
+  def abortable = status == Started && turns < 2
 }
 
 object DbGame {
