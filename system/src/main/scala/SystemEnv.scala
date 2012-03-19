@@ -39,6 +39,9 @@ final class SystemEnv(config: Config) {
   def gameRepo = new GameRepo(
     mongodb(config getString "mongo.collection.game"))
 
+  def userRepo = new UserRepo(
+    mongodb(config getString "mongo.collection.user"))
+
   def mongodb = MongoConnection(
     config getString "mongo.host",
     config getInt "mongo.port"

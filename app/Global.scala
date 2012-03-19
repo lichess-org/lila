@@ -14,6 +14,7 @@ object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
     systemEnv = new SystemEnv(app.configuration.underlying)
+    new Cron(systemEnv)(app)
   }
 
   override def onHandlerNotFound(request: RequestHeader): Result = {
