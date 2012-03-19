@@ -7,6 +7,7 @@ POST  /move/:fullId                     controllers.Application.move(fullId: Str
 GET   /sync/:gameId/:color/:version     controllers.Application.syncPublic(gameId: String, color: String, version: Int)
 GET   /sync/:gameId/:color/:version/:fullId controllers.Application.sync(gameId: String, color: String, version: Int, fullId: String)
 GET   /ping                             controllers.Application.ping()
+GET   /how-many-players-now             controllers.Application.nbPlayers()
 
 # Private API
 POST  /internal/update-version/:gameId  controllers.Internal.updateVersion(gameId: String)
@@ -16,7 +17,8 @@ POST  /internal/join/:fullId            controllers.Internal.join(fullId: String
 POST  /internal/reload-table/:gameId    controllers.Internal.reloadTable(gameId: String)
 POST  /internal/accept-rematch/:gameId/:newGameId/:color  controllers.Internal.acceptRematch(gameId: String, newGameId: String, color: String)
 POST  /internal/alive/:gameId/:color    controllers.Internal.alive(gameId: String, color: String)
-GET   /internal/activity/:gameId/:color          controllers.Internal.activity(gameId: String, color: String)
+GET   /internal/activity/:gameId/:color controllers.Internal.activity(gameId: String, color: String)
+GET   /internal/nb-players              controllers.Application.nbPlayers()
 
 # Map static resources from the /public folder to the /assets URL path
 GET   /assets/*file                     controllers.Assets.at(path="/public", file)

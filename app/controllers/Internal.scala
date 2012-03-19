@@ -35,7 +35,7 @@ object Internal extends LilaController {
   }
 
   def activity(gameId: String, color: String) = Action {
-    Ok(api.activity(gameId, color).toString) as TEXT
+    Ok(api.activity(gameId, color).toString)
   }
 
   def acceptRematch(gameId: String, newGameId: String, color: String) = Action { implicit request ⇒

@@ -30,4 +30,8 @@ object Application extends LilaController {
       get("get_nb_watchers")
     ).unsafePerformIO)
   }
+
+  def nbPlayers() = Action {
+    Ok(env.aliveMemo.count.toString)
+  }
 }

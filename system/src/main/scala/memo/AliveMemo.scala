@@ -32,7 +32,7 @@ final class AliveMemo(hardTimeout: Int, softTimeout: Int) {
   }
 
   def latency(gameId: String, color: Color): Int =
-    get(gameId, color) map { time ⇒ (now - time).toInt } getOrElse bigLatency
+    get(gameId, color) some { time ⇒ (now - time).toInt } none bigLatency
 
   /**
    * Get player activity (or connectivity)
