@@ -15,7 +15,7 @@ class UserRepo(collection: MongoCollection)
   def updateOnlineUsernames(usernames: Iterable[String]): IO[Unit] = io {
     val names = usernames map (_.toLowerCase)
     collection.update(
-      ("usernameCanonical" $nin names.pp) ++ ("isOnline" -> true),
+      ("usernameCanonical" $nin names) ++ ("isOnline" -> true),
       $set ("isOnline" -> false),
       upsert = false,
       multi = true)

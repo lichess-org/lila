@@ -11,18 +11,17 @@ import lila.system.SystemEnv
 
 final class Cron(env: SystemEnv)(implicit app: Application) {
 
-  spawn("online-username", 3 seconds) { env ⇒
+  spawn("online_username") { env ⇒
     env.userRepo updateOnlineUsernames env.usernameMemo.keys
   }
 
-  object Tick
-
-  def spawn(name: String, freq: Duration)(f: SystemEnv ⇒ IO[Unit]) = {
+  def spawn(name: String)(f: SystemEnv ⇒ IO[Unit]) = {
+    val freq = env.getMilliseconds("cron.online_username.frequency") millis
     val actor = Akka.system.actorOf(Props(new Actor {
       def receive = {
-        case Tick ⇒ f(env).unsafePerformIO
+        case "tick" ⇒ f(env).unsafePerformIO
       }
     }), name = name)
-    Akka.system.scheduler.schedule(freq, freq, actor, Tick)
+    Akka.system.scheduler.schedule(freq, freq, actor, "tick")
   }
 }

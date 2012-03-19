@@ -24,8 +24,8 @@ final class SystemEnv(config: Config) {
     repo = gameRepo,
     versionMemo = versionMemo,
     aliveMemo = aliveMemo,
-    duration = (config getMilliseconds "sync.duration").toInt,
-    sleep = (config getMilliseconds "sync.sleep").toInt)
+    duration = getMilliseconds("sync.duration"),
+    sleep = getMilliseconds("sync.sleep"))
 
   def pinger = new Pinger(
     aliveMemo = aliveMemo,
@@ -49,17 +49,19 @@ final class SystemEnv(config: Config) {
 
   lazy val versionMemo = new VersionMemo(
     getPlayer = gameRepo.playerOnly,
-    timeout = (config getMilliseconds "memo.version.timeout").toInt)
+    timeout = getMilliseconds("memo.version.timeout"))
 
   lazy val aliveMemo = new AliveMemo(
-    hardTimeout = (config getMilliseconds "memo.alive.hard_timeout").toInt,
-    softTimeout = (config getMilliseconds "memo.alive.soft_timeout").toInt)
+    hardTimeout = getMilliseconds("memo.alive.hard_timeout"),
+    softTimeout = getMilliseconds("memo.alive.soft_timeout"))
 
   lazy val usernameMemo = new UsernameMemo(
-    timeout = (config getMilliseconds "memo.username.timeout").toInt)
+    timeout = getMilliseconds("memo.username.timeout"))
 
   lazy val watcherMemo = new WatcherMemo(
-    timeout = (config getMilliseconds "memo.watcher.timeout").toInt)
+    timeout = getMilliseconds("memo.watcher.timeout"))
+
+  def getMilliseconds(name: String): Int = (config getMilliseconds name).toInt
 }
 
 object SystemEnv extends EnvBuilder {
