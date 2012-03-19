@@ -9,25 +9,25 @@ import memo._
 
 final class SystemEnv(config: Config) {
 
-  def server = new Server(
+  lazy val server = new Server(
     repo = gameRepo,
     ai = ai,
     versionMemo = versionMemo,
     aliveMemo = aliveMemo)
 
-  def internalApi = new InternalApi(
+  lazy val internalApi = new InternalApi(
     repo = gameRepo,
     versionMemo = versionMemo,
     aliveMemo = aliveMemo)
 
-  def syncer = new Syncer(
+  lazy val syncer = new Syncer(
     repo = gameRepo,
     versionMemo = versionMemo,
     aliveMemo = aliveMemo,
     duration = getMilliseconds("sync.duration"),
     sleep = getMilliseconds("sync.sleep"))
 
-  def pinger = new Pinger(
+  lazy val pinger = new Pinger(
     aliveMemo = aliveMemo,
     usernameMemo = usernameMemo,
     watcherMemo = watcherMemo)
@@ -36,13 +36,13 @@ final class SystemEnv(config: Config) {
     execPath = config getString "crafty.exec_path",
     bookPath = Some(config getString "crafty.book_path") filter ("" !=))
 
-  def gameRepo = new GameRepo(
+  lazy val gameRepo = new GameRepo(
     mongodb(config getString "mongo.collection.game"))
 
-  def userRepo = new UserRepo(
+  lazy val userRepo = new UserRepo(
     mongodb(config getString "mongo.collection.user"))
 
-  def mongodb = MongoConnection(
+  lazy val mongodb = MongoConnection(
     config getString "mongo.host",
     config getInt "mongo.port"
   )(config getString "mongo.dbName")
