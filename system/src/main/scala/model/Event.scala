@@ -83,10 +83,10 @@ case class PossibleMovesEvent(moves: Map[Pos, List[Pos]]) extends Event {
   def export =
     if (moves.isEmpty) Map("type" -> "possible_moves")
     else Map(
-    "type" -> "possible_moves",
-    "possible_moves" -> (moves map {
-      case (o, d) ⇒ o.key -> (d map (_.key) mkString)
-    }))
+      "type" -> "possible_moves",
+      "possible_moves" -> (moves map {
+        case (o, d) ⇒ o.key -> (d map (_.key) mkString)
+      }))
 }
 object PossibleMovesEvent extends EventDecoder {
   def decode(str: String) = Some(PossibleMovesEvent(

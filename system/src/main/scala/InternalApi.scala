@@ -61,6 +61,21 @@ final class InternalApi(
     _ ← aliveMemo.put(gameId, color)
   } yield ()
 
+  def draw(gameId: String, colorName: String, messages: String): IO[Unit] = for {
+    color ← ioColor(colorName)
+    g1 ← repo game gameId
+    g2 = g1 withEvents decodeMessages(messages)
+    g3 = g2.withEvents(!color, List(ReloadTableEvent()))
+    _ ← save(g1, g3)
+  } yield ()
+
+  def drawAccept(gameId: String, colorName: String, messages: String): IO[Unit] = for {
+    color ← ioColor(colorName)
+    g1 ← repo game gameId
+    g2 = g1 withEvents (EndEvent() :: decodeMessages(messages))
+    _ ← save(g1, g2)
+  } yield ()
+
   def activity(gameId: String, colorName: String): Int =
     Color(colorName) some { aliveMemo.activity(gameId, _) } none 0
 

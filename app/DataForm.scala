@@ -31,8 +31,14 @@ object DataForm {
     "blackRedirect" -> nonEmptyText
   ))
 
-  type EndData = String
-  val endForm = Form(single(
+  private type MessagesData = String
+  private val messagesForm = Form(single(
     "messages" -> nonEmptyText
   ))
+
+  type EndData = MessagesData
+  val endForm = messagesForm
+
+  type DrawData = MessagesData
+  val drawForm = messagesForm
 }
