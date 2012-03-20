@@ -6,24 +6,28 @@ import DataForm._
 import play.api._
 import mvc._
 
-object Application extends LilaController {
+object AppXhrC extends LilaController {
+
+  private val xhr = env.appXhr
+  private val pinger = env.pinger
+  private val syncer = env.syncer
 
   def sync(gameId: String, color: String, version: Int, fullId: String) = Action {
-    JsonOk(env.syncer.sync(gameId, color, version, Some(fullId)).unsafePerformIO)
+    JsonOk(syncer.sync(gameId, color, version, Some(fullId)).unsafePerformIO)
   }
 
   def syncPublic(gameId: String, color: String, version: Int) = Action {
-    JsonOk(env.syncer.sync(gameId, color, version, None).unsafePerformIO)
+    JsonOk(syncer.sync(gameId, color, version, None).unsafePerformIO)
   }
 
   def move(fullId: String) = Action { implicit request ⇒
     ValidOk(moveForm.bindFromRequest.toValid flatMap { move ⇒
-      env.server.play(fullId, move._1, move._2, move._3).unsafePerformIO
+      xhr.play(fullId, move._1, move._2, move._3).unsafePerformIO
     })
   }
 
   def ping() = Action { implicit request =>
-    JsonOk(env.pinger.ping(
+    JsonOk(pinger.ping(
       get("username"),
       get("player_key"),
       get("watcher"),

@@ -7,8 +7,8 @@ import lila.chess._
 import Pos.posAt
 import scalaz.effects._
 
-final class Server(
-    repo: GameRepo,
+final class AppXhr(
+    gameRepo: GameRepo,
     ai: Ai,
     versionMemo: VersionMemo,
     aliveMemo: AliveMemo) {
@@ -27,11 +27,11 @@ final class Server(
     fromString: String,
     toString: String,
     promString: Option[String] = None): IO[Valid[Unit]] =
-    repo player fullId flatMap {
+    gameRepo player fullId flatMap {
       case (g1, player) ⇒ purePlay(g1, fromString, toString, promString).fold(
         e ⇒ io(failure(e)),
         g2 ⇒ for {
-          _ ← repo.applyDiff(g1, g2)
+          _ ← gameRepo.applyDiff(g1, g2)
           _ ← versionMemo put g2
           _ ← aliveMemo.put(g2.id, player.color)
         } yield success(Unit)

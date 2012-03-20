@@ -9,19 +9,29 @@ import memo._
 
 final class SystemEnv(config: Config) {
 
-  lazy val server = new Server(
-    repo = gameRepo,
+  lazy val appXhr = new AppXhr(
+    gameRepo = gameRepo,
     ai = ai,
     versionMemo = versionMemo,
     aliveMemo = aliveMemo)
 
-  lazy val internalApi = new InternalApi(
-    repo = gameRepo,
+  lazy val appApi = new AppApi(
+    gameRepo = gameRepo,
+    versionMemo = versionMemo,
+    aliveMemo = aliveMemo)
+
+  lazy val lobbyXhr = new LobbyXhr(
+    gameRepo = gameRepo,
+    versionMemo = versionMemo,
+    aliveMemo = aliveMemo)
+
+  lazy val lobbyApi = new LobbyApi(
+    gameRepo = gameRepo,
     versionMemo = versionMemo,
     aliveMemo = aliveMemo)
 
   lazy val syncer = new Syncer(
-    repo = gameRepo,
+    gameRepo = gameRepo,
     versionMemo = versionMemo,
     aliveMemo = aliveMemo,
     duration = getMilliseconds("sync.duration"),

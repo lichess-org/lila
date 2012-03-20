@@ -6,9 +6,9 @@ import DataForm._
 import play.api._
 import mvc._
 
-object Internal extends LilaController {
+object AppApiC extends LilaController {
 
-  private val api = env.internalApi
+  private val api = env.appApi
 
   def talk(gameId: String) = Action { implicit request ⇒
     ValidIOk[TalkData](talkForm)(talk ⇒ api.talk(gameId, talk._1, talk._2))
@@ -44,6 +44,10 @@ object Internal extends LilaController {
 
   def activity(gameId: String, color: String) = Action {
     Ok(api.activity(gameId, color).toString)
+  }
+
+  def lobbyJoin(gameId: String, color: String) = Action {
+    IOk(api.lobbyJoin(gameId, color))
   }
 
   def acceptRematch(gameId: String, color: String, newGameId: String) = Action { implicit request ⇒

@@ -10,7 +10,7 @@ import scala.math.max
 import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 
 final class Syncer(
-    repo: GameRepo,
+    gameRepo: GameRepo,
     versionMemo: VersionMemo,
     aliveMemo: AliveMemo,
     duration: Int,
@@ -24,7 +24,7 @@ final class Syncer(
     for {
       color ← io { Color(colorString) err "Invalid color" }
       _ ← io { versionWait(gameId, color, version) }
-      gameAndPlayer ← repo.player(gameId, color)
+      gameAndPlayer ← gameRepo.player(gameId, color)
       (game, player) = gameAndPlayer
       isPrivate = fullId some { game.isPlayerFullId(player, _) } none false
       _ ← versionMemo put game

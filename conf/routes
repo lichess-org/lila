@@ -2,25 +2,31 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Public API
-POST  /move/:fullId                     controllers.Application.move(fullId: String)
-GET   /sync/:gameId/:color/:version     controllers.Application.syncPublic(gameId: String, color: String, version: Int)
-GET   /sync/:gameId/:color/:version/:fullId controllers.Application.sync(gameId: String, color: String, version: Int, fullId: String)
-GET   /ping                             controllers.Application.ping()
-GET   /how-many-players-now             controllers.Application.nbPlayers()
+# App XHR
+POST  /move/:fullId                     controllers.AppXhrC.move(fullId: String)
+GET   /sync/:gameId/:color/:version     controllers.AppXhrC.syncPublic(gameId: String, color: String, version: Int)
+GET   /sync/:gameId/:color/:version/:fullId controllers.AppXhrC.sync(gameId: String, color: String, version: Int, fullId: String)
+GET   /ping                             controllers.AppXhrC.ping()
+GET   /how-many-players-now             controllers.AppXhrC.nbPlayers()
 
-# Private API
-POST  /internal/update-version/:gameId  controllers.Internal.updateVersion(gameId: String)
-POST  /internal/end/:gameId             controllers.Internal.end(gameId: String)
-POST  /internal/talk/:fullId            controllers.Internal.talk(fullId: String)
-POST  /internal/join/:fullId            controllers.Internal.join(fullId: String)
-POST  /internal/reload-table/:gameId    controllers.Internal.reloadTable(gameId: String)
-POST  /internal/accept-rematch/:gameId/:color/:newGameId  controllers.Internal.acceptRematch(gameId: String, color: String, newGameId: String)
-POST  /internal/alive/:gameId/:color    controllers.Internal.alive(gameId: String, color: String)
-POST  /internal/draw/:gameId/:color     controllers.Internal.draw(gameId: String, color: String)
-POST  /internal/draw-accept/:gameId/:color controllers.Internal.drawAccept(gameId: String, color: String)
-GET   /internal/activity/:gameId/:color controllers.Internal.activity(gameId: String, color: String)
-GET   /internal/nb-players              controllers.Application.nbPlayers()
+# App Private API
+POST  /internal/update-version/:gameId  controllers.AppApiC.updateVersion(gameId: String)
+POST  /internal/end/:gameId             controllers.AppApiC.end(gameId: String)
+POST  /internal/talk/:fullId            controllers.AppApiC.talk(fullId: String)
+POST  /internal/join/:fullId            controllers.AppApiC.join(fullId: String)
+POST  /internal/reload-table/:gameId    controllers.AppApiC.reloadTable(gameId: String)
+POST  /internal/accept-rematch/:gameId/:color/:newGameId  controllers.AppApiC.acceptRematch(gameId: String, color: String, newGameId: String)
+POST  /internal/alive/:gameId/:color    controllers.AppApiC.alive(gameId: String, color: String)
+POST  /internal/draw/:gameId/:color     controllers.AppApiC.draw(gameId: String, color: String)
+POST  /internal/draw-accept/:gameId/:color controllers.AppApiC.drawAccept(gameId: String, color: String)
+GET   /internal/activity/:gameId/:color controllers.AppApiC.activity(gameId: String, color: String)
+GET   /internal/nb-players              controllers.AppXhrC.nbPlayers()
 
-# Map static resources from the /public folder to the /assets URL path
+# Lobby XHR
+GET   /lobby/sync                       controllers.LobbyXhrC.sync()
+
+# Lobby Private API
+POST  /internal/lobby/join/:gameId/:color controllers.LobbyApiC.join(gameId: String, color: String)
+
+# Useless, but play2 needs it
 GET   /assets/*file                     controllers.Assets.at(path="/public", file)
