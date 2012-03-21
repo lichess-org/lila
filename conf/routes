@@ -6,8 +6,8 @@
 POST  /move/:fullId                     controllers.AppXhrC.move(fullId: String)
 GET   /sync/:gameId/:color/:version     controllers.AppXhrC.syncPublic(gameId: String, color: String, version: Int)
 GET   /sync/:gameId/:color/:version/:fullId controllers.AppXhrC.sync(gameId: String, color: String, version: Int, fullId: String)
-GET   /ping                             controllers.AppXhrC.ping()
-GET   /how-many-players-now             controllers.AppXhrC.nbPlayers()
+GET   /ping                             controllers.AppXhrC.ping
+GET   /how-many-players-now             controllers.AppXhrC.nbPlayers
 
 # App Private API
 POST  /api/update-version/:gameId  controllers.AppApiC.updateVersion(gameId: String)
@@ -20,14 +20,16 @@ POST  /api/alive/:gameId/:color    controllers.AppApiC.alive(gameId: String, col
 POST  /api/draw/:gameId/:color     controllers.AppApiC.draw(gameId: String, color: String)
 POST  /api/draw-accept/:gameId/:color controllers.AppApiC.drawAccept(gameId: String, color: String)
 GET   /api/activity/:gameId/:color controllers.AppApiC.activity(gameId: String, color: String)
-GET   /api/nb-players              controllers.AppXhrC.nbPlayers()
+GET   /api/nb-players              controllers.AppXhrC.nbPlayers
 
 # Lobby XHR
 GET   /lobby/sync/:hookId           controllers.LobbyXhrC.syncWithHook(hookId: String)
-GET   /lobby/sync                   controllers.LobbyXhrC.syncWithoutHook()
+GET   /lobby/sync                   controllers.LobbyXhrC.syncWithoutHook
 
 # Lobby Private API
 POST  /api/lobby/join/:gameId/:color controllers.LobbyApiC.join(gameId: String, color: String)
+GET   /api/lobby/preload/:hookId    controllers.LobbyXhrC.syncWithHook(hookId: String)
+GET   /api/lobby/preload            controllers.LobbyXhrC.syncWithoutHook
 
 # Useless, but play2 needs it
 GET   /assets/*file                     controllers.Assets.at(path="/public", file)

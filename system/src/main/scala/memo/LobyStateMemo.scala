@@ -3,5 +3,5 @@ package memo
 
 final class LobbyMemo {
 
-  val version: Int = 0
+  val version: Int = 1
 }

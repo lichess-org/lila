@@ -27,8 +27,10 @@ final class SystemEnv(config: Config) {
     sleep = getMilliseconds("lobby.poll.sleep"))
 
   lazy val lobbyApi = new LobbyApi(
-    gameRepo = gameRepo,
+    hookRepo = hookRepo,
     versionMemo = versionMemo,
+    lobbyMemo = lobbyMemo,
+    gameRepo = gameRepo,
     aliveMemo = aliveMemo)
 
   lazy val syncer = new Syncer(
