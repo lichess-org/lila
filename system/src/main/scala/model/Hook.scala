@@ -1,11 +1,12 @@
 package lila.system
 package model
 
+import com.novus.salat.annotations._
+
 case class Hook(
-    id: String,
+    @Key("_id") id: String,
     ownerId: String,
     variant: Int,
-    hasClock: Boolean,
     time: Option[Int],
     increment: Option[Int],
     mode: Int,
@@ -30,8 +31,10 @@ case class Hook(
     "variant" -> realVariant.toString,
     "mode" -> realMode.toString,
     "color" -> color,
-    "clock" -> (if (hasClock) time + " + " + increment else "Unlimited"),
+    "clock" -> ((time |@| increment apply renderClock _) | "Unlimited"),
     "emin" -> eloMin,
     "emax" -> eloMax
   ) +? (engine, "engine" -> true)
+
+  def renderClock(time: Int, inc: Int) = "%d + %d".format(time, inc)
 }

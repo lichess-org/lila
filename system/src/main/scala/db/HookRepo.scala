@@ -21,7 +21,7 @@ class HookRepo(collection: MongoCollection)
     "mode" -> 0
   ))
 
-  def hookList(query: MongoDBObject): IO[List[Hook]] = io {
+  def hookList(query: DBObject): IO[List[Hook]] = io {
     find(query) sort DBObject("createdAt" -> 1) toList
   }
 }

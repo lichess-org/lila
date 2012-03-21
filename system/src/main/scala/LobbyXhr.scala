@@ -24,7 +24,9 @@ final class LobbyXhr(
     "pool" -> {
       if (hooks.nonEmpty) Map("hooks" -> renderHooks(hooks, None))
       else Map("message" -> "No game available right now, create one!")
-    }
+    },
+    "chat" -> null,
+    "timeline" -> ""
   )
 
   private def renderHooks(hooks: List[Hook], myHookId: Option[String]) = for {
