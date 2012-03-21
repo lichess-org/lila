@@ -21,6 +21,10 @@ package object system
     def pp[A] = a ~ println
   }
 
+  implicit def richerMap[A, B](m: Map[A, B]) = new {
+    def +?(bp: (Boolean, (A, B))): Map[A, B] = if (bp._1) m + bp._2 else m
+  }
+
   def parseIntOption(str: String): Option[Int] = try {
     Some(java.lang.Integer.parseInt(str))
   }

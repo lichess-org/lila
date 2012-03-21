@@ -5,18 +5,18 @@ import model._
 import scalaz.effects._
 import scalaz.{ Success, Failure }
 
-class ServerTest extends SystemTest {
+class AppXhrTest extends SystemTest {
 
   val env = SystemEnv()
   val repo = env.gameRepo
-  val server = env.server
+  val xhr = env.appXhr
 
   def insert(dbGame: DbGame = newDbGameWithRandomIds()): IO[DbGame] = for {
     _ ← repo insert dbGame
   } yield dbGame
 
   def move(game: DbGame, m: String = "d2 d4"): IO[Valid[Unit]] =
-    server.playMove(game fullIdOf White, m)
+    xhr.playMove(game fullIdOf White, m)
 
   def updated(
     game: DbGame = newDbGameWithRandomIds,

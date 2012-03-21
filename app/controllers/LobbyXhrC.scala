@@ -10,7 +10,15 @@ object LobbyXhrC extends LilaController {
 
   private val xhr = env.lobbyXhr
 
-  def sync() = Action {
-    Ok("")
+  def syncWithHook(hookId: String) = sync(Some(hookId))
+
+  def syncWithoutHook() = sync(None)
+
+  private def sync(hookId: Option[String]) = Action { implicit request =>
+    JsonOk(xhr.sync(
+      getIntOr("auth", 0) == 1,
+      getOr("l", "en"),
+      getIntOr("state", 0)
+    ).unsafePerformIO)
   }
 }

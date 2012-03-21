@@ -23,7 +23,7 @@ final class Syncer(
     fullId: Option[String]): IO[Map[String, Any]] = {
     for {
       color ← io { Color(colorString) err "Invalid color" }
-      _ ← io { versionWait(gameId, color, version) }
+      _ ← versionWait(gameId, color, version)
       gameAndPlayer ← gameRepo.player(gameId, color)
       (game, player) = gameAndPlayer
       isPrivate = fullId some { game.isPlayerFullId(player, _) } none false
@@ -60,7 +60,7 @@ final class Syncer(
     "html" -> """<li class="%s">%s</li>""".format(author, escapeXml(message))
   )
 
-  private def versionWait(gameId: String, color: Color, version: Int) {
+  private def versionWait(gameId: String, color: Color, version: Int) = io {
     @tailrec
     def wait(loop: Int): Unit = {
       if (loop == 0 || versionMemo.get(gameId, color) != version) ()

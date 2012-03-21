@@ -21,9 +21,10 @@ final class SystemEnv(config: Config) {
     aliveMemo = aliveMemo)
 
   lazy val lobbyXhr = new LobbyXhr(
-    gameRepo = gameRepo,
-    versionMemo = versionMemo,
-    aliveMemo = aliveMemo)
+    hookRepo = hookRepo,
+    lobbyMemo = lobbyMemo,
+    duration = getMilliseconds("lobby.poll.duration"),
+    sleep = getMilliseconds("lobby.poll.sleep"))
 
   lazy val lobbyApi = new LobbyApi(
     gameRepo = gameRepo,
@@ -55,6 +56,9 @@ final class SystemEnv(config: Config) {
   lazy val userRepo = new UserRepo(
     mongodb(config getString "mongo.collection.user"))
 
+  lazy val hookRepo = new HookRepo(
+    mongodb(config getString "mongo.collection.hook"))
+
   lazy val mongodb = MongoConnection(
     config getString "mongo.host",
     config getInt "mongo.port"
@@ -73,6 +77,8 @@ final class SystemEnv(config: Config) {
 
   lazy val watcherMemo = new WatcherMemo(
     timeout = getMilliseconds("memo.watcher.timeout"))
+
+  lazy val lobbyMemo = new LobbyMemo
 
   def getMilliseconds(name: String): Int = (config getMilliseconds name).toInt
 }
