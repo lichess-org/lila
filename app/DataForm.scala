@@ -43,19 +43,4 @@ object DataForm {
 
   type DrawData = MessagesData
   val drawForm = messagesForm
-
-  val hookForm = Form(mapping(
-    "id" -> nonEmptyText,
-    "ownerId" -> nonEmptyText,
-    "variant" -> number,
-    "time" -> optional(number),
-    "increment" -> optional(number),
-    "mode" -> number,
-    "color" -> nonEmptyText,
-    "username" -> text,
-    "elo" -> optional(number),
-    "match" -> boolean,
-    "eloRange" -> optional(text),
-    "engine" -> boolean
-  )(Hook.apply)(Hook.unapply))
 }

@@ -19,7 +19,7 @@ object LobbyApiC extends LilaController {
     IOk(api.inc)
   }
 
-  def create = Action { implicit request =>
-    ValidIOk[Hook](hookForm)(hook ⇒ api.create(hook))
+  def create(hookOwnerId: String) = Action { implicit request =>
+    IOk(api.create(hookOwnerId))
   }
 }

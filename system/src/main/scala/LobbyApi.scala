@@ -23,9 +23,8 @@ case class LobbyApi(
 
   def inc: IO[Unit] = lobbyMemo++
 
-  def create(hook: Hook): IO[Unit] = for {
-    _ ← io { hookRepo insert hook }
+  def create(hookOwnerId: String): IO[Unit] = for {
     _ ← (lobbyMemo++)
-    _ ← hookMemo put hook.ownerId
+    _ ← hookMemo put hookOwnerId
   } yield ()
 }
