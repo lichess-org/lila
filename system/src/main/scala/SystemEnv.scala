@@ -31,7 +31,8 @@ final class SystemEnv(config: Config) {
     versionMemo = versionMemo,
     lobbyMemo = lobbyMemo,
     gameRepo = gameRepo,
-    aliveMemo = aliveMemo)
+    aliveMemo = aliveMemo,
+    hookMemo = hookMemo)
 
   lazy val syncer = new Syncer(
     gameRepo = gameRepo,
@@ -81,6 +82,9 @@ final class SystemEnv(config: Config) {
     timeout = getMilliseconds("memo.watcher.timeout"))
 
   lazy val lobbyMemo = new LobbyMemo
+
+  lazy val hookMemo = new HookMemo(
+    timeout = getMilliseconds("memo.hook.timeout"))
 
   def getMilliseconds(name: String): Int = (config getMilliseconds name).toInt
 }

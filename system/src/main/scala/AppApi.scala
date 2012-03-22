@@ -11,13 +11,6 @@ case class AppApi(
     versionMemo: VersionMemo,
     aliveMemo: AliveMemo) extends IOTools {
 
-  def lobbyJoin(gameId: String, colorName: String): IO[Unit] = for {
-    color ← ioColor(colorName)
-    g1 ← gameRepo game gameId
-    _ ← aliveMemo.put(gameId, color)
-    _ ← aliveMemo.put(gameId, !color)
-  } yield ()
-
   def join(fullId: String, url: String, messages: String): IO[Unit] = for {
     gameAndPlayer ← gameRepo player fullId
     (g1, player) = gameAndPlayer

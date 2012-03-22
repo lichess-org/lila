@@ -46,10 +46,6 @@ object AppApiC extends LilaController {
     Ok(api.activity(gameId, color).toString)
   }
 
-  def lobbyJoin(gameId: String, color: String) = Action {
-    IOk(api.lobbyJoin(gameId, color))
-  }
-
   def acceptRematch(gameId: String, color: String, newGameId: String) = Action { implicit request ⇒
     ValidIOk[RematchData](rematchForm)(rematch ⇒
       api.acceptRematch(gameId, newGameId, color, rematch._1, rematch._2))

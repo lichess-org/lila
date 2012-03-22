@@ -16,6 +16,7 @@ object LobbyXhrC extends LilaController {
 
   private def sync(hookId: Option[String]) = Action { implicit request =>
     JsonOk(xhr.sync(
+      hookId,
       getIntOr("auth", 0) == 1,
       getIntOr("state", 0)
     ).unsafePerformIO)

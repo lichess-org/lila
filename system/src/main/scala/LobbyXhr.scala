@@ -14,6 +14,7 @@ final class LobbyXhr(
     sleep: Int) {
 
   def sync(
+    myHookId: Option[String],
     auth: Boolean,
     version: Int): IO[Map[String, Any]] = for {
     newVersion ← versionWait(version)
@@ -21,7 +22,7 @@ final class LobbyXhr(
   } yield Map(
     "state" -> newVersion,
     "pool" -> {
-      if (hooks.nonEmpty) Map("hooks" -> renderHooks(hooks, None).toMap)
+      if (hooks.nonEmpty) Map("hooks" -> renderHooks(hooks, myHookId).toMap)
       else Map("message" -> "No game available right now, create one!")
     },
     "chat" -> null,
@@ -32,7 +33,8 @@ final class LobbyXhr(
     hook ← hooks
   } yield hook.id -> {
     hook.render ++ {
-      if (myHookId == hook.ownerId) Map("action" -> "cancel", "id" -> myHookId)
+      if (myHookId == Some(hook.ownerId))
+        Map("action" -> "cancel", "id" -> myHookId)
       else Map("action" -> "join", "id" -> hook.id)
     }
   }

@@ -30,6 +30,8 @@ GET   /lobby/sync                   controllers.LobbyXhrC.syncWithoutHook
 POST  /api/lobby/join/:gameId/:color controllers.LobbyApiC.join(gameId: String, color: String)
 GET   /api/lobby/preload/:hookId    controllers.LobbyXhrC.syncWithHook(hookId: String)
 GET   /api/lobby/preload            controllers.LobbyXhrC.syncWithoutHook
+POST  /api/lobby/inc                controllers.LobbyApiC.inc
+POST  /api/lobby/create             controllers.LobbyApiC.create
 
 # Useless, but play2 needs it
 GET   /assets/*file                     controllers.Assets.at(path="/public", file)
