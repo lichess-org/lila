@@ -27,4 +27,9 @@ case class LobbyApi(
     _ ← (lobbyMemo++)
     _ ← hookMemo put hookOwnerId
   } yield ()
+
+  def remove(hookId: String): IO[Unit] = for {
+    _ ← hookRepo removeId hookId
+    _ ← (lobbyMemo++)
+  } yield ()
 }

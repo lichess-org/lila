@@ -32,6 +32,7 @@ GET   /api/lobby/preload/:hookId    controllers.LobbyXhrC.syncWithHook(hookId: S
 GET   /api/lobby/preload            controllers.LobbyXhrC.syncWithoutHook
 POST  /api/lobby/inc                controllers.LobbyApiC.inc
 POST  /api/lobby/create/:hookOwnerId controllers.LobbyApiC.create(hookOwnerId: String)
+POST  /api/lobby/remove/:hookId     controllers.LobbyApiC.remove(hookId: String)
 
 # Useless, but play2 needs it
 GET   /assets/*file                     controllers.Assets.at(path="/public", file)

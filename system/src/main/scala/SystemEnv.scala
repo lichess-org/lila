@@ -20,11 +20,17 @@ final class SystemEnv(config: Config) {
     versionMemo = versionMemo,
     aliveMemo = aliveMemo)
 
+  lazy val appSyncer = new AppSyncer(
+    gameRepo = gameRepo,
+    versionMemo = versionMemo,
+    aliveMemo = aliveMemo,
+    duration = getMilliseconds("sync.duration"),
+    sleep = getMilliseconds("sync.sleep"))
+
   lazy val lobbyXhr = new LobbyXhr(
     hookRepo = hookRepo,
-    lobbyMemo = lobbyMemo,
-    duration = getMilliseconds("lobby.poll.duration"),
-    sleep = getMilliseconds("lobby.poll.sleep"))
+    gameRepo = gameRepo,
+    lobbyMemo = lobbyMemo)
 
   lazy val lobbyApi = new LobbyApi(
     hookRepo = hookRepo,
@@ -34,12 +40,12 @@ final class SystemEnv(config: Config) {
     aliveMemo = aliveMemo,
     hookMemo = hookMemo)
 
-  lazy val syncer = new Syncer(
+  lazy val lobbySyncer = new LobbySyncer(
+    hookRepo = hookRepo,
     gameRepo = gameRepo,
-    versionMemo = versionMemo,
-    aliveMemo = aliveMemo,
-    duration = getMilliseconds("sync.duration"),
-    sleep = getMilliseconds("sync.sleep"))
+    lobbyMemo = lobbyMemo,
+    duration = getMilliseconds("lobby.sync.duration"),
+    sleep = getMilliseconds("lobby.sync.sleep"))
 
   lazy val pinger = new Pinger(
     aliveMemo = aliveMemo,

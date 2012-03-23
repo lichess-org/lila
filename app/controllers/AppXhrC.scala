@@ -9,8 +9,7 @@ import mvc._
 object AppXhrC extends LilaController {
 
   private val xhr = env.appXhr
-  private val pinger = env.pinger
-  private val syncer = env.syncer
+  private val syncer = env.appSyncer
 
   def sync(gameId: String, color: String, version: Int, fullId: String) = Action {
     JsonOk(syncer.sync(gameId, color, version, Some(fullId)).unsafePerformIO)
@@ -27,7 +26,7 @@ object AppXhrC extends LilaController {
   }
 
   def ping() = Action { implicit request =>
-    JsonOk(pinger.ping(
+    JsonOk(env.pinger.ping(
       get("username"),
       get("player_key"),
       get("watcher"),

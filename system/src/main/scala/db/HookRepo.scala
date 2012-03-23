@@ -12,6 +12,14 @@ import scalaz.effects._
 class HookRepo(collection: MongoCollection)
     extends SalatDAO[Hook, String](collection) {
 
+  def hook(hookId: String): IO[Option[Hook]] = io {
+    findOneByID(hookId)
+  }
+
+  def ownedHook(ownerId: String): IO[Option[Hook]] = io {
+    findOne(DBObject("ownerId" -> ownerId))
+  }
+
   def allOpen = hookList(DBObject(
     "match" -> false
   ))
@@ -23,5 +31,9 @@ class HookRepo(collection: MongoCollection)
 
   def hookList(query: DBObject): IO[List[Hook]] = io {
     find(query) sort DBObject("createdAt" -> 1) toList
+  }
+
+  def removeId(id: String): IO[Unit] = io {
+    remove(DBObject("id" -> id))
   }
 }

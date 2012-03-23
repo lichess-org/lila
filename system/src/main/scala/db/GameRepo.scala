@@ -45,7 +45,7 @@ class GameRepo(collection: MongoCollection)
     update(DBObject("_id" -> a.id), diff(encode(a), encode(b)), false, false)
   }
 
-  private def diff(a: RawDbGame, b: RawDbGame): DBObject = {
+  def diff(a: RawDbGame, b: RawDbGame): MongoDBObject = {
     val builder = MongoDBObject.newBuilder
     def d[A](name: String, f: RawDbGame ⇒ A) {
       if (f(a) != f(b)) builder += name -> f(b)
@@ -70,7 +70,7 @@ class GameRepo(collection: MongoCollection)
       d("clock.timer", _.clock.get.timer)
     }
 
-    MongoDBObject("$set" -> builder.result)
+    MongoDBObject("$set" -> builder.result.pp)
   }
 
   def insert(game: DbGame): IO[Option[String]] = io {

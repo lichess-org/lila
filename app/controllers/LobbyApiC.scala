@@ -19,7 +19,11 @@ object LobbyApiC extends LilaController {
     IOk(api.inc)
   }
 
-  def create(hookOwnerId: String) = Action { implicit request =>
+  def create(hookOwnerId: String) = Action {
     IOk(api.create(hookOwnerId))
+  }
+
+  def remove(hookId: String) = Action {
+    IOk(api.remove(hookId))
   }
 }

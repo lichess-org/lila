@@ -2,6 +2,7 @@ package lila.system
 package model
 
 import com.novus.salat.annotations._
+import com.mongodb.DBRef
 
 case class Hook(
     @Key("_id") id: String,
@@ -15,7 +16,8 @@ case class Hook(
     elo: Option[Int],
     `match`: Boolean,
     eloRange: Option[String],
-    engine: Boolean) {
+    engine: Boolean,
+    game: Option[DBRef]) {
 
   def realVariant = Variant(variant) | Standard
 

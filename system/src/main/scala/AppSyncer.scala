@@ -9,7 +9,7 @@ import scala.annotation.tailrec
 import scala.math.max
 import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 
-final class Syncer(
+final class AppSyncer(
     gameRepo: GameRepo,
     versionMemo: VersionMemo,
     aliveMemo: AliveMemo,
@@ -42,7 +42,7 @@ final class Syncer(
         ) filterValues (null !=)
       } getOrElse failMap
     }
-  } except (e ⇒ io(failMap))
+  } except (e ⇒ {println(e.getMessage);io(failMap)})
 
   private def renderEvents(events: List[Event], isPrivate: Boolean) =
     if (isPrivate) events map {

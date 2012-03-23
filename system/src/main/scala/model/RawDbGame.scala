@@ -15,6 +15,7 @@ case class RawDbGame(
     turns: Int,
     clock: Option[RawDbClock],
     lastMove: Option[String],
+    creatorColor: String = "white",
     positionHashes: String = "",
     castles: String = "KQkq",
     isRated: Boolean = false,
@@ -24,6 +25,7 @@ case class RawDbGame(
     whitePlayer ← players find (_.color == "white") flatMap (_.decode)
     blackPlayer ← players find (_.color == "black") flatMap (_.decode)
     trueStatus ← Status(status)
+    trueCreatorColor ← Color(creatorColor)
     trueVariant ← Variant(variant)
     validClock = clock flatMap (_.decode)
     if validClock.isDefined == clock.isDefined
@@ -36,6 +38,7 @@ case class RawDbGame(
     turns = turns,
     clock = validClock,
     lastMove = lastMove,
+    creatorColor = trueCreatorColor,
     positionHashes = positionHashes,
     castles = castles,
     isRated = isRated,
@@ -55,6 +58,7 @@ object RawDbGame {
       turns = turns,
       clock = clock map RawDbClock.encode,
       lastMove = lastMove,
+      creatorColor = creatorColor.name,
       positionHashes = positionHashes,
       castles = castles,
       isRated = isRated,
