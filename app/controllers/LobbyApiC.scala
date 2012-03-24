@@ -1,7 +1,7 @@
 package controllers
 
+import lila.system.model.{ Hook, EntryGame }
 import lila.http._
-import lila.system.model.Hook
 import DataForm._
 
 import play.api._
@@ -11,12 +11,8 @@ object LobbyApiC extends LilaController {
 
   private val api = env.lobbyApi
 
-  def join(gameId: String, color: String) = Action {
-    IOk(api.join(gameId, color))
-  }
-
-  def inc = Action {
-    IOk(api.inc)
+  def join(gameId: String, color: String) = Action { implicit request ⇒
+    ValidIOk[EntryGame](entryGameForm)(ec ⇒ api.join(gameId, color, ec))
   }
 
   def create(hookOwnerId: String) = Action {
@@ -25,5 +21,9 @@ object LobbyApiC extends LilaController {
 
   def remove(hookId: String) = Action {
     IOk(api.remove(hookId))
+  }
+
+  def alive(hookOwnerId: String) = Action {
+    IOk(api.alive(hookOwnerId))
   }
 }

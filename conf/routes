@@ -3,19 +3,20 @@
 # ~~~~
 
 # App XHR
-POST  /move/:fullId                     controllers.AppXhrC.move(fullId: String)
+GET   /ping                             controllers.AppXhrC.ping
 GET   /sync/:gameId/:color/:version     controllers.AppXhrC.syncPublic(gameId: String, color: String, version: Int)
 GET   /sync/:gameId/:color/:version/:fullId controllers.AppXhrC.sync(gameId: String, color: String, version: Int, fullId: String)
-GET   /ping                             controllers.AppXhrC.ping
 GET   /how-many-players-now             controllers.AppXhrC.nbPlayers
+POST  /move/:fullId                     controllers.AppXhrC.move(fullId: String)
 
 # App Private API
 POST  /api/update-version/:gameId  controllers.AppApiC.updateVersion(gameId: String)
+POST  /api/start                   controllers.AppApiC.start
 POST  /api/end/:gameId             controllers.AppApiC.end(gameId: String)
 POST  /api/talk/:fullId            controllers.AppApiC.talk(fullId: String)
 POST  /api/join/:fullId            controllers.AppApiC.join(fullId: String)
 POST  /api/reload-table/:gameId    controllers.AppApiC.reloadTable(gameId: String)
-POST  /api/accept-rematch/:gameId/:color/:newGameId  controllers.AppApiC.acceptRematch(gameId: String, color: String, newGameId: String)
+POST  /api/rematch-accept/:gameId/:color/:newGameId  controllers.AppApiC.rematchAccept(gameId: String, color: String, newGameId: String)
 POST  /api/alive/:gameId/:color    controllers.AppApiC.alive(gameId: String, color: String)
 POST  /api/draw/:gameId/:color     controllers.AppApiC.draw(gameId: String, color: String)
 POST  /api/draw-accept/:gameId/:color controllers.AppApiC.drawAccept(gameId: String, color: String)
@@ -30,9 +31,9 @@ GET   /lobby/sync                   controllers.LobbyXhrC.syncWithoutHook
 POST  /api/lobby/join/:gameId/:color controllers.LobbyApiC.join(gameId: String, color: String)
 GET   /api/lobby/preload/:hookId    controllers.LobbyXhrC.syncWithHook(hookId: String)
 GET   /api/lobby/preload            controllers.LobbyXhrC.syncWithoutHook
-POST  /api/lobby/inc                controllers.LobbyApiC.inc
 POST  /api/lobby/create/:hookOwnerId controllers.LobbyApiC.create(hookOwnerId: String)
 POST  /api/lobby/remove/:hookId     controllers.LobbyApiC.remove(hookId: String)
+POST  /api/lobby/alive/:hookOwnerId controllers.LobbyApiC.alive(hookOwnerId: String)
 
 # Useless, but play2 needs it
 GET   /assets/*file                     controllers.Assets.at(path="/public", file)

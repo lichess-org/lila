@@ -8,6 +8,8 @@ import com.novus.salat.dao._
 import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.Imports._
 import scalaz.effects._
+import org.joda.time.DateTime
+import org.scala_tools.time.Imports._
 
 class HookRepo(collection: MongoCollection)
     extends SalatDAO[Hook, String](collection) {
@@ -36,4 +38,38 @@ class HookRepo(collection: MongoCollection)
   def removeId(id: String): IO[Unit] = io {
     remove(DBObject("id" -> id))
   }
+
+  def keepOnlyIds(ids: Iterable[String]): IO[Boolean] = io {
+    val removableIds = collection.find(
+      ("_id" $nin ids) ++ ("match" -> false),
+      DBObject("_id" -> true)
+    ).toList
+    if (removableIds.nonEmpty) {
+      remove("_id" $in removableIds)
+      true
+    }
+    else false
+  }
+
+  def cleanupOld: IO[Unit] = io {
+    remove("createdAt" $lt (DateTime.now - 1.hour))
+  }
+
+  //public function removeDeadHooks()
+  //{
+  //if (0 == time()%10) {
+  //$this->hookRepository->removeOldHooks();
+  //}
+  //$hooks = $this->hookRepository->findAllOpen();
+  //$removed = false;
+  //foreach ($hooks as $hook) {
+  //if (!$this->memory->isAlive($hook)) {
+  //$this->hookRepository->getDocumentManager()->remove($hook);
+  //$removed = true;
+  //}
+  //}
+  //if ($removed) {
+  //$this->memory->incrementState();
+  //}
+  //}
 }

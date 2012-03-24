@@ -18,7 +18,8 @@ final class SystemEnv(config: Config) {
   lazy val appApi = new AppApi(
     gameRepo = gameRepo,
     versionMemo = versionMemo,
-    aliveMemo = aliveMemo)
+    aliveMemo = aliveMemo,
+    addEntry = lobbyApi.addEntry)
 
   lazy val appSyncer = new AppSyncer(
     gameRepo = gameRepo,
@@ -34,18 +35,24 @@ final class SystemEnv(config: Config) {
 
   lazy val lobbyApi = new LobbyApi(
     hookRepo = hookRepo,
+    gameRepo = gameRepo,
+    entryRepo = entryRepo,
     versionMemo = versionMemo,
     lobbyMemo = lobbyMemo,
-    gameRepo = gameRepo,
+    entryMemo = entryMemo,
     aliveMemo = aliveMemo,
     hookMemo = hookMemo)
 
   lazy val lobbySyncer = new LobbySyncer(
     hookRepo = hookRepo,
     gameRepo = gameRepo,
+    entryRepo = entryRepo,
     lobbyMemo = lobbyMemo,
+    hookMemo = hookMemo,
+    entryMemo = entryMemo,
     duration = getMilliseconds("lobby.sync.duration"),
-    sleep = getMilliseconds("lobby.sync.sleep"))
+    sleep = getMilliseconds("lobby.sync.sleep"),
+    maxEntries = config getInt "lobby.sync.max_entries")
 
   lazy val pinger = new Pinger(
     aliveMemo = aliveMemo,
@@ -58,7 +65,6 @@ final class SystemEnv(config: Config) {
     execPath = config getString "crafty.exec_path",
     bookPath = Some(config getString "crafty.book_path") filter ("" !=))
 
-
   lazy val gameRepo = new GameRepo(
     mongodb(config getString "mongo.collection.game"))
 
@@ -67,6 +73,9 @@ final class SystemEnv(config: Config) {
 
   lazy val hookRepo = new HookRepo(
     mongodb(config getString "mongo.collection.hook"))
+
+  lazy val entryRepo = new EntryRepo(
+    mongodb(config getString "mongo.collection.entry"))
 
   lazy val mongodb = MongoConnection(
     config getString "mongo.host",
@@ -91,6 +100,9 @@ final class SystemEnv(config: Config) {
 
   lazy val hookMemo = new HookMemo(
     timeout = getMilliseconds("memo.hook.timeout"))
+
+  lazy val entryMemo = new EntryMemo(
+    getId = entryRepo.lastId)
 
   def getMilliseconds(name: String): Int = (config getMilliseconds name).toInt
 }

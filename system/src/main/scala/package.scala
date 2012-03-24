@@ -3,13 +3,17 @@ package lila
 import ornicar.scalalib._
 
 import com.novus.salat._
+import com.mongodb.casbah.commons.conversions.scala.RegisterJodaTimeConversionHelpers
 
 package object system
     extends OrnicarValidation
     with OrnicarCommon
     with scalaz.NonEmptyLists
     with scalaz.Strings
+    with scalaz.Lists
     with scalaz.Booleans {
+
+  RegisterJodaTimeConversionHelpers()
 
   // custom salat context
   implicit val ctx = new Context {

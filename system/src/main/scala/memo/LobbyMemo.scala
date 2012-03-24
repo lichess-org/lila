@@ -9,7 +9,8 @@ final class LobbyMemo {
 
   def version: Int = privateVersion
 
-  def ++ : IO[Unit] = io {
+  def ++ : IO[Int] = io {
     privateVersion = privateVersion + 1
+    privateVersion
   }
 }

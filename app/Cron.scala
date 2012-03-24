@@ -15,6 +15,17 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
     env.userRepo updateOnlineUsernames env.usernameMemo.keys
   }
 
+  spawn("hook_cleanup_dead") { env ⇒
+    for {
+      hasRemoved ← env.hookRepo keepOnlyIds env.hookMemo.keys
+      _ ← if (hasRemoved) env.lobbyMemo++ else io()
+    } yield ()
+  }
+
+  spawn("hook_cleanup_old") { env ⇒
+    env.hookRepo.cleanupOld
+  }
+
   def spawn(name: String)(f: SystemEnv ⇒ IO[Unit]) = {
     val freq = env.getMilliseconds("cron.online_username.frequency") millis
     val actor = Akka.system.actorOf(Props(new Actor {

@@ -9,14 +9,20 @@ import scalaz.effects._
 case class AppApi(
     gameRepo: GameRepo,
     versionMemo: VersionMemo,
-    aliveMemo: AliveMemo) extends IOTools {
+    aliveMemo: AliveMemo,
+    addEntry: EntryGame ⇒ IO[Unit]) extends IOTools {
 
-  def join(fullId: String, url: String, messages: String): IO[Unit] = for {
+  def join(
+    fullId: String,
+    url: String,
+    messages: String,
+    entryGame: EntryGame): IO[Unit] = for {
     gameAndPlayer ← gameRepo player fullId
     (g1, player) = gameAndPlayer
     g2 = g1 withEvents decodeMessages(messages)
     g3 = g2.withEvents(g2.opponent(player).color, List(RedirectEvent(url)))
     _ ← save(g1, g3)
+    _ ← addEntry(entryGame)
   } yield ()
 
   def talk(gameId: String, author: String, message: String): IO[Unit] = for {
@@ -31,12 +37,15 @@ case class AppApi(
     _ ← save(g1, g2)
   } yield ()
 
+  def start(entryGame: EntryGame): IO[Unit] = addEntry(entryGame)
+
   def acceptRematch(
     gameId: String,
     newGameId: String,
     colorName: String,
     whiteRedirect: String,
-    blackRedirect: String): IO[Unit] = for {
+    blackRedirect: String,
+    entryGame: EntryGame): IO[Unit] = for {
     color ← ioColor(colorName)
     g1 ← gameRepo game gameId
     g2 = g1.withEvents(
@@ -45,6 +54,7 @@ case class AppApi(
     _ ← save(g1, g2)
     _ ← aliveMemo.put(newGameId, !color)
     _ ← aliveMemo.transfer(gameId, !color, newGameId, color)
+    _ ← addEntry(entryGame)
   } yield ()
 
   def updateVersion(gameId: String): IO[Unit] =

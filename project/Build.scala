@@ -7,7 +7,6 @@ trait Resolvers {
   val typesafe = "typesafe.com" at "http://repo.typesafe.com/typesafe/releases/"
   val iliaz = "iliaz.com" at "http://scala.iliaz.com/"
   val sonatype = "sonatype" at "http://oss.sonatype.org/content/repositories/releases"
-  val novusS = "repo.novus snaps" at "http://repo.novus.com/snapshots/"
 }
 
 trait Dependencies {
@@ -21,6 +20,9 @@ trait Dependencies {
   val json = "com.codahale" %% "jerkson" % "0.5.0"
   val guava = "com.google.guava" % "guava" % "11.0.2"
   val apache = "org.apache.commons" % "commons-lang3" % "3.1"
+  val jodaTime = "joda-time" % "joda-time" % "2.0"
+  val jodaConvert = "org.joda" % "joda-convert" % "1.2"
+  val scalaTime = "org.scala-tools.time" %% "time" % "0.5"
 
   // benchmark
   val instrumenter = "com.google.code.java-allocation-instrumenter" % "java-allocation-instrumenter" % "2.0"
@@ -33,7 +35,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     organization := "com.github.ornicar",
     version := "0.1",
     scalaVersion := "2.9.1",
-    resolvers := Seq(iliaz, codahale, sonatype, novusS, typesafe),
+    resolvers := Seq(iliaz, codahale, sonatype, typesafe),
     libraryDependencies := Seq(scalalib),
     libraryDependencies in test := Seq(specs2),
     shellPrompt := {
@@ -54,7 +56,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
   ) dependsOn (system)
 
   lazy val system = Project("system", file("system"), settings = buildSettings).settings(
-    libraryDependencies ++= Seq(scalaz, config, json, casbah, salat, guava, apache)
+    libraryDependencies ++= Seq(scalaz, config, json, casbah, salat, guava, apache, jodaTime, jodaConvert, scalaTime)
   ) dependsOn (chess)
 
   lazy val chess = Project("chess", file("chess"), settings = buildSettings).settings(

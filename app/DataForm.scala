@@ -1,5 +1,6 @@
 package lila.http
 
+import lila.system.model._
 import play.api.data._
 import play.api.data.Forms._
 
@@ -21,16 +22,20 @@ object DataForm {
     "message" -> nonEmptyText
   ))
 
-  type JoinData = (String, String)
+  val entryGameForm = Form(entryGameMapping)
+
+  type JoinData = (String, String, EntryGame)
   val joinForm = Form(tuple(
     "redirect" -> nonEmptyText,
-    "messages" -> nonEmptyText
+    "messages" -> nonEmptyText,
+    "entry" -> entryGameMapping
   ))
 
-  type RematchData = (String, String)
+  type RematchData = (String, String, EntryGame)
   val rematchForm = Form(tuple(
     "whiteRedirect" -> nonEmptyText,
-    "blackRedirect" -> nonEmptyText
+    "blackRedirect" -> nonEmptyText,
+    "entry" -> entryGameMapping
   ))
 
   private type MessagesData = String
@@ -43,4 +48,15 @@ object DataForm {
 
   type DrawData = MessagesData
   val drawForm = messagesForm
+
+  private val entryGameMapping = mapping(
+    "id" -> nonEmptyText,
+    "players" -> list(mapping(
+      "u" -> optional(nonEmptyText),
+      "ue" -> nonEmptyText
+    )(EntryPlayer.apply)(EntryPlayer.unapply)),
+    "variant" -> nonEmptyText,
+    "rated" -> boolean,
+    "clock" -> list(number)
+  )(EntryGame.apply)(EntryGame.unapply)
 }

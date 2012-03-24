@@ -19,7 +19,8 @@ object LobbyXhrC extends LilaController {
     JsonOk(syncer.sync(
       hookId,
       getIntOr("auth", 0) == 1,
-      getIntOr("state", 0)
+      getIntOr("state", 0),
+      getIntOr("entryId", 0)
     ).unsafePerformIO)
   }
 }

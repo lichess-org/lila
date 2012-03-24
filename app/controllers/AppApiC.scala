@@ -1,5 +1,6 @@
 package controllers
 
+import lila.system.model.EntryGame
 import lila.http._
 import DataForm._
 
@@ -26,11 +27,11 @@ object AppApiC extends LilaController {
     IOk(api.alive(gameId, color))
   }
 
-  def draw(gameId: String, color: String) = Action { implicit request =>
+  def draw(gameId: String, color: String) = Action { implicit request ⇒
     ValidIOk[String](drawForm)(msgs ⇒ api.draw(gameId, color, msgs))
   }
 
-  def drawAccept(gameId: String, color: String) = Action { implicit request =>
+  def drawAccept(gameId: String, color: String) = Action { implicit request ⇒
     ValidIOk[String](drawForm)(msgs ⇒ api.drawAccept(gameId, color, msgs))
   }
 
@@ -38,16 +39,22 @@ object AppApiC extends LilaController {
     ValidIOk[String](endForm)(msgs ⇒ api.end(gameId, msgs))
   }
 
+  def start = Action { implicit request =>
+    ValidIOk[EntryGame](entryGameForm)(entryGame ⇒ api.start(entryGame))
+  }
+
   def join(fullId: String) = Action { implicit request ⇒
-    ValidIOk[JoinData](joinForm)(join ⇒ api.join(fullId, join._1, join._2))
+    ValidIOk[JoinData](joinForm) { join ⇒
+      api.join(fullId, join._1, join._2, join._3)
+    }
   }
 
   def activity(gameId: String, color: String) = Action {
     Ok(api.activity(gameId, color).toString)
   }
 
-  def acceptRematch(gameId: String, color: String, newGameId: String) = Action { implicit request ⇒
-    ValidIOk[RematchData](rematchForm)(rematch ⇒
-      api.acceptRematch(gameId, newGameId, color, rematch._1, rematch._2))
+  def rematchAccept(gameId: String, color: String, newGameId: String) = Action { implicit request ⇒
+    ValidIOk[RematchData](rematchForm)(r ⇒
+      api.acceptRematch(gameId, newGameId, color, r._1, r._2, r._3))
   }
 }
