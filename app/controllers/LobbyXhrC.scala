@@ -20,6 +20,7 @@ object LobbyXhrC extends LilaController {
       hookId,
       getIntOr("auth", 0) == 1,
       getIntOr("state", 0),
+      getIntOr("messageId", 0),
       getIntOr("entryId", 0)
     ).unsafePerformIO)
   }

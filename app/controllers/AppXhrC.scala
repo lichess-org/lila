@@ -27,10 +27,11 @@ object AppXhrC extends LilaController {
 
   def ping() = Action { implicit request =>
     JsonOk(env.pinger.ping(
-      get("username"),
-      get("player_key"),
-      get("watcher"),
-      get("get_nb_watchers")
+      username = get("username"),
+      playerKey = get("player_key"),
+      watcherKey = get("watcher"),
+      getNbWatchers = get("get_nb_watchers"),
+      hookId = get("hook_id")
     ).unsafePerformIO)
   }
 

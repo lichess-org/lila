@@ -42,7 +42,7 @@ final class AppSyncer(
         ) filterValues (null !=)
       } getOrElse failMap
     }
-  } except (e ⇒ {println(e.getMessage);io(failMap)})
+  } except (e ⇒ io(failMap))
 
   private def renderEvents(events: List[Event], isPrivate: Boolean) =
     if (isPrivate) events map {

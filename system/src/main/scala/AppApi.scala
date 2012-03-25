@@ -10,19 +10,19 @@ case class AppApi(
     gameRepo: GameRepo,
     versionMemo: VersionMemo,
     aliveMemo: AliveMemo,
-    addEntry: EntryGame ⇒ IO[Unit]) extends IOTools {
+    addEntry: (DbGame, String) ⇒ IO[Unit]) extends IOTools {
 
   def join(
     fullId: String,
     url: String,
     messages: String,
-    entryGame: EntryGame): IO[Unit] = for {
+    entryData: String): IO[Unit] = for {
     gameAndPlayer ← gameRepo player fullId
     (g1, player) = gameAndPlayer
     g2 = g1 withEvents decodeMessages(messages)
     g3 = g2.withEvents(g2.opponent(player).color, List(RedirectEvent(url)))
     _ ← save(g1, g3)
-    _ ← addEntry(entryGame)
+    _ ← addEntry(g3, entryData)
   } yield ()
 
   def talk(gameId: String, author: String, message: String): IO[Unit] = for {
@@ -37,7 +37,10 @@ case class AppApi(
     _ ← save(g1, g2)
   } yield ()
 
-  def start(entryGame: EntryGame): IO[Unit] = addEntry(entryGame)
+  def start(gameId: String, entryData: String): IO[Unit] = for {
+    game ← gameRepo game gameId
+    _ ← addEntry(game, entryData)
+  } yield ()
 
   def acceptRematch(
     gameId: String,
@@ -45,7 +48,7 @@ case class AppApi(
     colorName: String,
     whiteRedirect: String,
     blackRedirect: String,
-    entryGame: EntryGame): IO[Unit] = for {
+    entryData: String): IO[Unit] = for {
     color ← ioColor(colorName)
     g1 ← gameRepo game gameId
     g2 = g1.withEvents(
@@ -54,7 +57,7 @@ case class AppApi(
     _ ← save(g1, g2)
     _ ← aliveMemo.put(newGameId, !color)
     _ ← aliveMemo.transfer(gameId, !color, newGameId, color)
-    _ ← addEntry(entryGame)
+    _ ← addEntry(g2, entryData)
   } yield ()
 
   def updateVersion(gameId: String): IO[Unit] =

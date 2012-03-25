@@ -11,7 +11,7 @@ POST  /move/:fullId                     controllers.AppXhrC.move(fullId: String)
 
 # App Private API
 POST  /api/update-version/:gameId  controllers.AppApiC.updateVersion(gameId: String)
-POST  /api/start                   controllers.AppApiC.start
+POST  /api/start/:gameId           controllers.AppApiC.start(gameId: String)
 POST  /api/end/:gameId             controllers.AppApiC.end(gameId: String)
 POST  /api/talk/:fullId            controllers.AppApiC.talk(fullId: String)
 POST  /api/join/:fullId            controllers.AppApiC.join(fullId: String)
@@ -34,6 +34,7 @@ GET   /api/lobby/preload            controllers.LobbyXhrC.syncWithoutHook
 POST  /api/lobby/create/:hookOwnerId controllers.LobbyApiC.create(hookOwnerId: String)
 POST  /api/lobby/remove/:hookId     controllers.LobbyApiC.remove(hookId: String)
 POST  /api/lobby/alive/:hookOwnerId controllers.LobbyApiC.alive(hookOwnerId: String)
+POST  /api/lobby/message            controllers.LobbyApiC.message
 
 # Useless, but play2 needs it
 GET   /assets/*file                     controllers.Assets.at(path="/public", file)

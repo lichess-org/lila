@@ -7,17 +7,19 @@ import scalaz.effects._
 import scalaz.NonEmptyList
 import scala.annotation.tailrec
 import scala.math.max
+import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 
 final class LobbySyncer(
     hookRepo: HookRepo,
     gameRepo: GameRepo,
+    messageRepo: MessageRepo,
     entryRepo: EntryRepo,
     lobbyMemo: LobbyMemo,
     hookMemo: HookMemo,
+    messageMemo: MessageMemo,
     entryMemo: EntryMemo,
     duration: Int,
-    sleep: Int,
-    maxEntries: Int) {
+    sleep: Int) {
 
   type Response = Map[String, Any]
 
@@ -25,12 +27,13 @@ final class LobbySyncer(
     myHookId: Option[String],
     auth: Boolean,
     version: Int,
+    messageId: Int,
     entryId: Int): IO[Response] = for {
     _ ← myHookId.fold(hookMemo.put, io())
-    newVersion ← wait(version, entryId)
+    newVersion ← wait(version, messageId, entryId)
     hooks ← if (auth) hookRepo.allOpen else hookRepo.allOpenCasual
     res ← {
-      val response = () ⇒ stdResponse(newVersion, hooks, myHookId, entryId)
+      val response = () ⇒ stdResponse(newVersion, hooks, myHookId, messageId, entryId)
       myHookId some { hookResponse(_, response) } none response()
     }
   } yield res
@@ -39,7 +42,7 @@ final class LobbySyncer(
     hookRepo ownedHook myHookId flatMap { hookOption ⇒
       hookOption.fold(
         hook ⇒ hook.game.fold(
-          ref ⇒ gameRepo game ref.getId.toString.pp map { game ⇒
+          ref ⇒ gameRepo game ref.getId.toString map { game ⇒
             Map("redirect" -> (game fullIdOf game.creatorColor))
           },
           response()
@@ -52,27 +55,43 @@ final class LobbySyncer(
     version: Int,
     hooks: List[Hook],
     myHookId: Option[String],
+    messageId: Int,
     entryId: Int): IO[Response] = for {
-    entries ←
-      if (entryId == 0) entryRepo recent maxEntries
-      else entryRepo since max(entryMemo.id - maxEntries, entryId)
+    messages ← if (messageId == 0) messageRepo.recent
+    else messageRepo since max(messageMemo.id - messageRepo.max, messageId)
+    entries ← if (entryId == 0) entryRepo.recent
+    else entryRepo since max(entryMemo.id - entryRepo.max, entryId)
   } yield Map(
     "state" -> version,
     "pool" -> {
       if (hooks.nonEmpty) Map("hooks" -> renderHooks(hooks, myHookId).toMap)
       else Map("message" -> "No game available right now, create one!")
     },
-    "chat" -> null,
+    "chat" -> messages.toNel.fold(
+      renderMessages,
+      Map("id" -> messageId, "messages" -> Nil)
+    ),
     "timeline" -> entries.toNel.fold(
-      renderTimeline,
+      renderEntries,
       Map("id" -> entryId, "entries" -> Nil)
     )
   )
 
-  private def renderTimeline(entries: NonEmptyList[Entry]) = Map(
+  private def renderMessages(messages: NonEmptyList[Message]) = Map(
+    "id" -> messages.head.id,
+    "messages" -> (messages.list.reverse map { message ⇒
+      Map(
+        "id" -> message.id,
+        "u" -> message.username,
+        "m" -> escapeXml(message.message)
+      )
+    })
+  )
+
+  private def renderEntries(entries: NonEmptyList[Entry]) = Map(
     "id" -> entries.head.id,
-    "entries" -> (entries.list.reverse map { entry =>
-      "<td>%s</td><td>%s</td><td class='trans_me'>%s</td><td>%s</td><td class='trans_me'>%s</td>".format(
+    "entries" -> (entries.list.reverse map { entry ⇒
+      "<td>%s</td><td>%s</td><td class='trans_me'>%s</td><td class='trans_me'>%s</td><td class='trans_me'>%s</td>".format(
         "<a class='watch' href='/%s'></a>" format entry.data.id,
         entry.data.players map { p ⇒
           p.u.fold(
@@ -95,11 +114,12 @@ final class LobbySyncer(
     }
   }
 
-  private def wait(version: Int, entryId: Int): IO[Int] = io {
+  private def wait(version: Int, messageId: Int, entryId: Int): IO[Int] = io {
     @tailrec
     def wait(loop: Int): Int = {
       if (loop == 0 ||
         lobbyMemo.version != version ||
+        messageMemo.id != messageId ||
         entryMemo.id != entryId) lobbyMemo.version
       else { Thread sleep sleep; wait(loop - 1) }
     }

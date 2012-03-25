@@ -5,7 +5,7 @@ import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.Imports._
 import scalaz.effects._
 
-final class EntryMemo(getId: () ⇒ IO[Option[Int]]) {
+final class MessageMemo(getId: () ⇒ IO[Option[Int]]) {
 
   private var privateId: Int = _
 
@@ -14,7 +14,7 @@ final class EntryMemo(getId: () ⇒ IO[Option[Int]]) {
   def refresh = for {
     idOption ← getId()
   } yield {
-    privateId = idOption err "No last entry found"
+    privateId = idOption err "No last message found"
   }
 
   def ++ : IO[Int] = io {

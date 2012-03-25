@@ -70,7 +70,7 @@ class GameRepo(collection: MongoCollection)
       d("clock.timer", _.clock.get.timer)
     }
 
-    MongoDBObject("$set" -> builder.result.pp)
+    MongoDBObject("$set" -> builder.result)
   }
 
   def insert(game: DbGame): IO[Option[String]] = io {

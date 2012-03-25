@@ -1,6 +1,5 @@
 package controllers
 
-import lila.system.model.EntryGame
 import lila.http._
 import DataForm._
 
@@ -39,8 +38,8 @@ object AppApiC extends LilaController {
     ValidIOk[String](endForm)(msgs ⇒ api.end(gameId, msgs))
   }
 
-  def start = Action { implicit request =>
-    ValidIOk[EntryGame](entryGameForm)(entryGame ⇒ api.start(entryGame))
+  def start(gameId: String) = Action { implicit request =>
+    ValidIOk[EntryData](entryForm)(entryData ⇒ api.start(gameId, entryData))
   }
 
   def join(fullId: String) = Action { implicit request ⇒

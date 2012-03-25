@@ -4,8 +4,6 @@ import lila.system.model._
 import play.api.data._
 import play.api.data.Forms._
 
-import lila.system.model.Hook
-
 object DataForm {
 
   type MoveData = (String, String, Option[String], Option[Int])
@@ -22,20 +20,23 @@ object DataForm {
     "message" -> nonEmptyText
   ))
 
-  val entryGameForm = Form(entryGameMapping)
+  type EntryData = String
+  val entryForm = Form(single(
+    "entry" -> nonEmptyText
+  ))
 
-  type JoinData = (String, String, EntryGame)
+  type JoinData = (String, String, EntryData)
   val joinForm = Form(tuple(
     "redirect" -> nonEmptyText,
     "messages" -> nonEmptyText,
-    "entry" -> entryGameMapping
+    "entry" -> nonEmptyText
   ))
 
-  type RematchData = (String, String, EntryGame)
+  type RematchData = (String, String, EntryData)
   val rematchForm = Form(tuple(
     "whiteRedirect" -> nonEmptyText,
     "blackRedirect" -> nonEmptyText,
-    "entry" -> entryGameMapping
+    "entry" -> nonEmptyText
   ))
 
   private type MessagesData = String
@@ -48,15 +49,4 @@ object DataForm {
 
   type DrawData = MessagesData
   val drawForm = messagesForm
-
-  private val entryGameMapping = mapping(
-    "id" -> nonEmptyText,
-    "players" -> list(mapping(
-      "u" -> optional(nonEmptyText),
-      "ue" -> nonEmptyText
-    )(EntryPlayer.apply)(EntryPlayer.unapply)),
-    "variant" -> nonEmptyText,
-    "rated" -> boolean,
-    "clock" -> list(number)
-  )(EntryGame.apply)(EntryGame.unapply)
 }

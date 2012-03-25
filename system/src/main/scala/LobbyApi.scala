@@ -10,6 +10,7 @@ case class LobbyApi(
     gameRepo: GameRepo,
     entryRepo: EntryRepo,
     lobbyMemo: LobbyMemo,
+    messageMemo: MessageMemo,
     entryMemo: EntryMemo,
     versionMemo: VersionMemo,
     aliveMemo: AliveMemo,
@@ -18,13 +19,13 @@ case class LobbyApi(
   def join(
     gameId: String,
     colorName: String,
-    entryGame: EntryGame): IO[Unit] = for {
+    entryData: String): IO[Unit] = for {
     color ← ioColor(colorName)
-    g1 ← gameRepo game gameId
+    game ← gameRepo game gameId
     _ ← aliveMemo.put(gameId, color)
     _ ← aliveMemo.put(gameId, !color)
     _ ← versionInc
-    _ ← addEntry(entryGame)
+    _ ← addEntry(game, entryData)
   } yield ()
 
   def create(hookOwnerId: String): IO[Unit] = for {
@@ -39,10 +40,13 @@ case class LobbyApi(
 
   def alive(hookOwnerId: String): IO[Unit] = hookMemo put hookOwnerId
 
+  def messageRefresh: IO[Unit] = messageMemo.refresh
+
   private[system] def versionInc: IO[Int] = lobbyMemo++
 
-  private[system] def addEntry(entryGame: EntryGame): IO[Unit] = for {
-    nextId ← (entryMemo++)
-    _ ← io { entryRepo insert Entry(nextId, entryGame) }
-  } yield ()
+  private[system] def addEntry(game: DbGame, data: String): IO[Unit] =
+    Entry.build(game, data).fold(
+      f ⇒ (entryMemo++) map (id ⇒ entryRepo insert f(id)),
+      io()
+    )
 }

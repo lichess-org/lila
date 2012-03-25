@@ -39,6 +39,7 @@ final class SystemEnv(config: Config) {
     entryRepo = entryRepo,
     versionMemo = versionMemo,
     lobbyMemo = lobbyMemo,
+    messageMemo = messageMemo,
     entryMemo = entryMemo,
     aliveMemo = aliveMemo,
     hookMemo = hookMemo)
@@ -46,18 +47,20 @@ final class SystemEnv(config: Config) {
   lazy val lobbySyncer = new LobbySyncer(
     hookRepo = hookRepo,
     gameRepo = gameRepo,
+    messageRepo = messageRepo,
     entryRepo = entryRepo,
     lobbyMemo = lobbyMemo,
     hookMemo = hookMemo,
+    messageMemo = messageMemo,
     entryMemo = entryMemo,
     duration = getMilliseconds("lobby.sync.duration"),
-    sleep = getMilliseconds("lobby.sync.sleep"),
-    maxEntries = config getInt "lobby.sync.max_entries")
+    sleep = getMilliseconds("lobby.sync.sleep"))
 
   lazy val pinger = new Pinger(
     aliveMemo = aliveMemo,
     usernameMemo = usernameMemo,
-    watcherMemo = watcherMemo)
+    watcherMemo = watcherMemo,
+    hookMemo = hookMemo)
 
   lazy val ai: Ai = craftyAi
 
@@ -75,7 +78,12 @@ final class SystemEnv(config: Config) {
     mongodb(config getString "mongo.collection.hook"))
 
   lazy val entryRepo = new EntryRepo(
-    mongodb(config getString "mongo.collection.entry"))
+    collection = mongodb(config getString "mongo.collection.entry"),
+    max = config getInt "lobby.entry.max")
+
+  lazy val messageRepo = new MessageRepo(
+    collection = mongodb(config getString "mongo.collection.message"),
+    max = config getInt "lobby.message.max")
 
   lazy val mongodb = MongoConnection(
     config getString "mongo.host",
@@ -103,6 +111,9 @@ final class SystemEnv(config: Config) {
 
   lazy val entryMemo = new EntryMemo(
     getId = entryRepo.lastId)
+
+  lazy val messageMemo = new MessageMemo(
+    getId = messageRepo.lastId)
 
   def getMilliseconds(name: String): Int = (config getMilliseconds name).toInt
 }

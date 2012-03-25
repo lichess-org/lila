@@ -7,16 +7,19 @@ import scalaz.effects._
 final class Pinger(
     aliveMemo: AliveMemo,
     usernameMemo: UsernameMemo,
-    watcherMemo: WatcherMemo) {
+    watcherMemo: WatcherMemo,
+    hookMemo: HookMemo) {
 
   def ping(
     username: Option[String],
     playerKey: Option[String],
     watcherKey: Option[String],
-    getNbWatchers: Option[String]): IO[Map[String, Any]] = for {
+    getNbWatchers: Option[String],
+    hookId: Option[String]): IO[Map[String, Any]] = for {
     _ ← optionIO(playerKey, aliveMemo.put)
     _ ← optionIO(username, usernameMemo.put)
     _ ← optionIO(watcherKey, watcherMemo.put)
+    _ ← optionIO(hookId, hookMemo.put)
   } yield flatten(Map(
     "nbp" -> Some(aliveMemo.count),
     "nbw" -> (getNbWatchers map watcherMemo.count)

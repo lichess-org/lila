@@ -25,6 +25,8 @@ sealed trait Clock {
 
   def limitInMinutes = limitInSeconds / 60
 
+  def incrementInSeconds = increment / 1000
+
   def estimateTotalTime = limit + 30 * increment
 
   def step: RunningClock

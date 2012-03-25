@@ -1,7 +1,10 @@
 package lila.system
 package model
 
-sealed abstract class Variant(val id: Int)
+sealed abstract class Variant(val id: Int) {
+
+  lazy val name = toString.toLowerCase
+}
 
 case object Standard extends Variant(1)
 case object Chess960 extends Variant(2)
