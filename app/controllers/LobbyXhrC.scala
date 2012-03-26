@@ -16,12 +16,12 @@ object LobbyXhrC extends LilaController {
   def syncWithoutHook() = sync(None)
 
   private def sync(hookId: Option[String]) = Action { implicit request =>
-    JsonOk(syncer.sync(
+    JsonIOk(syncer.sync(
       hookId,
       getIntOr("auth", 0) == 1,
       getIntOr("state", 0),
       getIntOr("messageId", 0),
       getIntOr("entryId", 0)
-    ).unsafePerformIO)
+    ))
   }
 }

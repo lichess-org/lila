@@ -2,6 +2,7 @@ package lila.chess
 
 import Pos.posAt
 import format.Visual
+import com.roundeights.hasher.Hasher
 
 case class Board(pieces: Map[Pos, Piece], history: History) {
 
@@ -106,10 +107,7 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
     })
   }
 
-  def positionHash = {
-    import com.roundeights.hasher.Implicits._
-    (actors.values map (_.hash) mkString).md5.toString
-  }
+  def positionHash = Hasher(actors.values map (_.hash) mkString).md5.toString
 
   def visual = Visual >> this
 
@@ -120,7 +118,8 @@ object Board {
 
   import Pos._
 
-  def apply(pieces: Traversable[(Pos, Piece)]): Board = Board(pieces toMap, History())
+  def apply(pieces: Traversable[(Pos, Piece)]): Board =
+    Board(pieces toMap, History())
 
   def apply(pieces: (Pos, Piece)*): Board = Board(pieces toMap, History())
 

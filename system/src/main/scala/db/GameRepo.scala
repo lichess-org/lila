@@ -54,6 +54,7 @@ class GameRepo(collection: MongoCollection)
     d("status", _.status)
     d("turns", _.turns)
     d("lastMove", _.lastMove)
+    d("check", _.check)
     d("positionHashes", _.positionHashes)
     d("castles", _.castles)
     for (i ← 0 to 1) {

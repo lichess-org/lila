@@ -52,6 +52,10 @@ object AppApiC extends LilaController {
     Ok(api.activity(gameId, color).toString)
   }
 
+  def possibleMoves(gameId: String, color: String) = Action {
+    JsonIOk(api.possibleMoves(gameId, color))
+  }
+
   def rematchAccept(gameId: String, color: String, newGameId: String) = Action { implicit request ⇒
     ValidIOk[RematchData](rematchForm)(r ⇒
       api.acceptRematch(gameId, newGameId, color, r._1, r._2, r._3))

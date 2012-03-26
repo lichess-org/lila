@@ -17,6 +17,7 @@ final class SystemEnv(config: Config) {
 
   lazy val appApi = new AppApi(
     gameRepo = gameRepo,
+    ai = ai,
     versionMemo = versionMemo,
     aliveMemo = aliveMemo,
     addEntry = lobbyApi.addEntry)

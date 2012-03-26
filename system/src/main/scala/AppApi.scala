@@ -8,6 +8,7 @@ import scalaz.effects._
 
 case class AppApi(
     gameRepo: GameRepo,
+    ai: Ai,
     versionMemo: VersionMemo,
     aliveMemo: AliveMemo,
     addEntry: (DbGame, String) ⇒ IO[Unit]) extends IOTools {
@@ -40,6 +41,12 @@ case class AppApi(
   def start(gameId: String, entryData: String): IO[Unit] = for {
     game ← gameRepo game gameId
     _ ← addEntry(game, entryData)
+    _ ← if (game.player.isAi) for {
+      aiResult ← ai(game) map (_.toOption err "AI failure")
+      (newChessGame, move) = aiResult
+      _ ← save(game, game.update(newChessGame, move))
+    } yield ()
+    else io()
   } yield ()
 
   def acceptRematch(
@@ -91,6 +98,14 @@ case class AppApi(
 
   def activity(gameId: String, colorName: String): Int =
     Color(colorName) some { aliveMemo.activity(gameId, _) } none 0
+
+  def possibleMoves(gameId: String, colorName: String): IO[Map[String, Any]] =
+    for {
+      color ← ioColor(colorName)
+      game ← gameRepo game gameId
+    } yield game.toChess.situation.destinations map {
+      case (from, dests) ⇒ from.key -> (dests.mkString)
+    } toMap
 
   private def decodeMessages(messages: String): List[MessageEvent] =
     (messages split '$').toList map { MessageEvent("system", _) }

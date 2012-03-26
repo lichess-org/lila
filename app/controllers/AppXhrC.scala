@@ -12,11 +12,11 @@ object AppXhrC extends LilaController {
   private val syncer = env.appSyncer
 
   def sync(gameId: String, color: String, version: Int, fullId: String) = Action {
-    JsonOk(syncer.sync(gameId, color, version, Some(fullId)).unsafePerformIO)
+    JsonIOk(syncer.sync(gameId, color, version, Some(fullId)))
   }
 
   def syncPublic(gameId: String, color: String, version: Int) = Action {
-    JsonOk(syncer.sync(gameId, color, version, None).unsafePerformIO)
+    JsonIOk(syncer.sync(gameId, color, version, None))
   }
 
   def move(fullId: String) = Action { implicit request ⇒
@@ -26,13 +26,13 @@ object AppXhrC extends LilaController {
   }
 
   def ping() = Action { implicit request =>
-    JsonOk(env.pinger.ping(
+    JsonIOk(env.pinger.ping(
       username = get("username"),
       playerKey = get("player_key"),
       watcherKey = get("watcher"),
       getNbWatchers = get("get_nb_watchers"),
       hookId = get("hook_id")
-    ).unsafePerformIO)
+    ))
   }
 
   def nbPlayers() = Action {

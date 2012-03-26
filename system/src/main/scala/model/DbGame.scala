@@ -14,6 +14,7 @@ case class DbGame(
     turns: Int,
     clock: Option[Clock],
     lastMove: Option[String],
+    check: Option[Pos],
     creatorColor: Color,
     positionHashes: String = "",
     castles: String = "KQkq",
@@ -115,7 +116,8 @@ case class DbGame(
         else if (situation.staleMate) Stalemate
         else if (situation.autoDraw) Draw
         else status,
-      clock = game.clock
+      clock = game.clock,
+      check = if (game.situation.check) game.situation.kingPos else None
     )
 
     if (abortable != updated.abortable || (Color.all exists { color ⇒

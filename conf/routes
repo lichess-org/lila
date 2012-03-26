@@ -21,6 +21,7 @@ POST  /api/alive/:gameId/:color    controllers.AppApiC.alive(gameId: String, col
 POST  /api/draw/:gameId/:color     controllers.AppApiC.draw(gameId: String, color: String)
 POST  /api/draw-accept/:gameId/:color controllers.AppApiC.drawAccept(gameId: String, color: String)
 GET   /api/activity/:gameId/:color controllers.AppApiC.activity(gameId: String, color: String)
+GET   /api/possible-moves/:gameId/:color controllers.AppApiC.possibleMoves(gameId: String, color: String)
 GET   /api/nb-players              controllers.AppXhrC.nbPlayers
 
 # Lobby XHR

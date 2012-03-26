@@ -40,9 +40,9 @@ final class AppSyncer(
             clock.remainingTimes mapKeys (_.name)
           } none null)
         ) filterValues (null !=)
-      } getOrElse failMap
+      } getOrElse Map("reload" -> true)
     }
-  } except (e ⇒ io(failMap))
+  }
 
   private def renderEvents(events: List[Event], isPrivate: Boolean) =
     if (isPrivate) events map {
@@ -68,6 +68,4 @@ final class AppSyncer(
     }
     wait(max(1, duration / sleep))
   }
-
-  private val failMap = Map("reload" -> true)
 }
