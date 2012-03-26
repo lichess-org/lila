@@ -12,17 +12,17 @@ class GameRepoTest extends SystemTest {
   val repo = env.gameRepo
   val anyGame = repo.findOne(DBObject()) flatMap repo.decode get // unsafe but who cares
 
-  "diff" should {
-    "empty" in  {
-      val raw = RawDbGame encode newDbGame
-      repo.diff(raw, raw) must_== MongoDBObject("$set" -> DBObject())
-    }
-    "pgn" in  {
-      val raw = RawDbGame encode newDbGame
-      val newRaw = raw.copy(pgn = "foo")
-      repo.diff(raw, newRaw) must_== MongoDBObject("$set" -> DBObject("pgn" -> "foo"))
-    }
-  }
+  //"diff" should {
+    //"empty" in  {
+      //val raw = RawDbGame encode newDbGame
+      //repo.diff(raw, raw) must_== MongoDBObject("$set" -> DBObject())
+    //}
+    //"pgn" in  {
+      //val raw = RawDbGame encode newDbGame
+      //val newRaw = raw.copy(pgn = "foo")
+      //repo.diff(raw, newRaw) must_== MongoDBObject("$set" -> DBObject("pgn" -> "foo"))
+    //}
+  //}
   "find a game" should {
     "by ID" in {
       "non existing" in {

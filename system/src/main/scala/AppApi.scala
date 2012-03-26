@@ -49,7 +49,7 @@ case class AppApi(
     else io()
   } yield ()
 
-  def acceptRematch(
+  def rematchAccept(
     gameId: String,
     newGameId: String,
     colorName: String,

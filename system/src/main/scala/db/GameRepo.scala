@@ -67,7 +67,8 @@ class GameRepo(collection: MongoCollection)
     }
     a.clock foreach { c ⇒
       d("clock.color", _.clock.get.color)
-      d("clock.times", _.clock.get.times)
+      d("clock.white", _.clock.get.white)
+      d("clock.black", _.clock.get.black)
       d("clock.timer", _.clock.get.timer)
     }
 

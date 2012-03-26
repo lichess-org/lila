@@ -31,10 +31,15 @@ final class AppXhr(
       case (g1, player) ⇒ purePlay(g1, fromString, toString, promString).fold(
         e ⇒ io(failure(e)),
         g2 ⇒ for {
-          _ ← gameRepo.applyDiff(g1, g2)
-          _ ← versionMemo put g2
-          _ ← aliveMemo.put(g2.id, player.color)
-        } yield success(Unit)
+          g3 ← if (g2.player.isAi) for {
+            aiResult ← ai(g2) map (_.toOption err "AI failure")
+            (newChessGame, move) = aiResult
+          } yield g2.update(newChessGame, move)
+          else io(g2)
+          _ ← gameRepo.applyDiff(g1, g3)
+          _ ← versionMemo put g3
+          _ ← aliveMemo.put(g3.id, player.color)
+        } yield success()
       )
     }
 
@@ -51,14 +56,7 @@ final class AppXhr(
     newChessGameAndMove ← chessGame(orig, dest, promotion)
     (newChessGame, move) = newChessGameAndMove
     g3 = g2.update(newChessGame, move)
-    g4 ← if (g3.player.isAi) aiResponse(g3) else success(g3)
-  } yield g4
-
-  private def aiResponse(dbGame: DbGame): Valid[DbGame] = for {
-    aiResult ← unsafe { ai(dbGame).unsafePerformIO }
-    newChessGameAndMove ← aiResult
-    (newChessGame, move) = newChessGameAndMove
-  } yield dbGame.update(newChessGame, move)
+  } yield g3
 
   private def decodeMoveString(moveString: String): Option[(String, String)] =
     moveString match {

@@ -15,9 +15,9 @@ sealed trait Clock {
 
   def isOutOfTime(c: Color) = remainingTime(c) == 0
 
-  def remainingTime(c: Color) = max(limit, elapsedTime(c))
+  def remainingTime(c: Color) = max(0, limit - elapsedTime(c))
 
-  def remainingTimes = Color.all map { c ⇒ (c, remainingTime(c)) } toMap
+  def remainingTimes = Color.all map { c ⇒ c -> remainingTime(c) } toMap
 
   def elapsedTime(c: Color) = time(c)
 
@@ -31,8 +31,7 @@ sealed trait Clock {
 
   def step: RunningClock
 
-  override def toString =
-    "%d minutes/side + %d seconds/move".format(limitInMinutes, increment)
+  protected def now = System.currentTimeMillis
 }
 
 case class RunningClock(
@@ -47,14 +46,16 @@ case class RunningClock(
     if (c == color) (now - timer).toInt else 0
   }
 
-  def step =
+  def step = {
+    val t = now
     addTime(
       color,
-      max(0, (now - timer).toInt - Clock.httpDelay - increment)
+      max(0, (t - timer).toInt - Clock.httpDelay - increment)
     ).copy(
-      color = !color,
-      timer = now
-    )
+        color = !color,
+        timer = t
+      )
+  }
 
   def addTime(c: Color, t: Int) = c match {
     case White ⇒ copy(whiteTime = whiteTime + t)
@@ -62,8 +63,6 @@ case class RunningClock(
   }
 
   def giveTime(c: Color, t: Int) = addTime(c, -t)
-
-  private def now = System.currentTimeMillis
 }
 
 case class PausedClock(
@@ -80,7 +79,8 @@ case class PausedClock(
     whiteTime = whiteTime,
     blackTime = blackTime,
     increment = increment,
-    limit = limit).giveTime(White, increment).step
+    limit = limit,
+    timer = now).giveTime(White, increment).step
 }
 
 object Clock {

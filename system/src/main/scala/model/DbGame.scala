@@ -14,7 +14,7 @@ case class DbGame(
     turns: Int,
     clock: Option[Clock],
     lastMove: Option[String],
-    check: Option[Pos],
+    check: Option[Pos] = None,
     creatorColor: Color,
     positionHashes: String = "",
     castles: String = "KQkq",
