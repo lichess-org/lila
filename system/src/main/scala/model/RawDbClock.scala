@@ -17,17 +17,17 @@ case class RawDbClock(
   } yield {
     if (timer == 0l) PausedClock(
       color = trueColor,
-      increment = increment * 1000,
-      limit = limit * 1000,
-      whiteTime = round(white * 1000),
-      blackTime = round(black * 1000))
+      increment = increment,
+      limit = limit,
+      whiteTime = white,
+      blackTime = black)
     else RunningClock(
       color = trueColor,
-      increment = increment * 1000,
-      limit = limit * 1000,
-      whiteTime = round(white * 1000),
-      blackTime = round(black * 1000),
-      timer = (timer * 1000).toLong)
+      increment = increment,
+      limit = limit,
+      whiteTime = white,
+      blackTime = black,
+      timer = timer)
   }
 }
 
@@ -35,14 +35,13 @@ object RawDbClock {
 
   def encode(clock: Clock): RawDbClock = {
     import clock._
-    println(clock)
     RawDbClock(
       color = color.name,
-      increment = increment / 1000,
-      limit = limit / 1000,
-      white = whiteTime / 1000f,
-      black = blackTime / 1000f,
-      timer = timer / 1000d
-    ).pp
+      increment = increment,
+      limit = limit,
+      white = whiteTime,
+      black = blackTime,
+      timer = timer
+    )
   }
 }

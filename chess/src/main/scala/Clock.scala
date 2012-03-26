@@ -7,9 +7,9 @@ sealed trait Clock {
   val limit: Int
   val increment: Int
   val color: Color
-  val whiteTime: Int
-  val blackTime: Int
-  val timer: Long
+  val whiteTime: Float
+  val blackTime: Float
+  val timer: Double
 
   def time(c: Color) = if (c == White) whiteTime else blackTime
 
@@ -31,48 +31,48 @@ sealed trait Clock {
 
   def step: RunningClock
 
-  protected def now = System.currentTimeMillis
+  protected def now = System.currentTimeMillis / 1000d
 }
 
 case class RunningClock(
     limit: Int,
     increment: Int,
     color: Color = White,
-    whiteTime: Int = 0,
-    blackTime: Int = 0,
-    timer: Long = 0l) extends Clock {
+    whiteTime: Float = 0f,
+    blackTime: Float = 0f,
+    timer: Double = 0d) extends Clock {
 
   override def elapsedTime(c: Color) = time(c) + {
-    if (c == color) (now - timer).toInt else 0
-  }
+    if (c == color) now - timer else 0
+  }.toFloat
 
   def step = {
     val t = now
     addTime(
       color,
-      max(0, (t - timer).toInt - Clock.httpDelay - increment)
+      max(0, (t - timer).toFloat - Clock.httpDelay - increment)
     ).copy(
         color = !color,
         timer = t
       )
   }
 
-  def addTime(c: Color, t: Int) = c match {
+  def addTime(c: Color, t: Float) = c match {
     case White ⇒ copy(whiteTime = whiteTime + t)
     case Black ⇒ copy(blackTime = blackTime + t)
   }
 
-  def giveTime(c: Color, t: Int) = addTime(c, -t)
+  def giveTime(c: Color, t: Float) = addTime(c, -t)
 }
 
 case class PausedClock(
     limit: Int,
     increment: Int,
     color: Color = White,
-    whiteTime: Int = 0,
-    blackTime: Int = 0) extends Clock {
+    whiteTime: Float = 0f,
+    blackTime: Float = 0f) extends Clock {
 
-  val timer = 0l
+  val timer = 0d
 
   def step = RunningClock(
     color = color,
@@ -85,5 +85,5 @@ case class PausedClock(
 
 object Clock {
 
-  val httpDelay = 500
+  val httpDelay = 0.5f
 }
