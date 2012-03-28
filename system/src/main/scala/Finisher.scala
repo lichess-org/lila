@@ -2,7 +2,7 @@ package lila.system
 
 import db.{ UserRepo, GameRepo, HistoryRepo }
 import model._
-import memo.{ VersionMemo, FinisherLock }
+import memo.{ VersionMemo, AliveMemo, FinisherLock }
 import lila.chess.{ Color, White, Black, EloCalculator }
 
 import scalaz.effects._
@@ -12,23 +12,34 @@ final class Finisher(
     userRepo: UserRepo,
     gameRepo: GameRepo,
     versionMemo: VersionMemo,
+    aliveMemo: AliveMemo,
     eloCalculator: EloCalculator,
     finisherLock: FinisherLock) {
 
   type ValidIO = Valid[IO[Unit]]
 
-  def abort(game: DbGame): ValidIO =
-    if (game.abortable) finish(game, Aborted)
+  def abort(pov: Pov): ValidIO =
+    if (pov.game.abortable) finish(pov.game, Aborted)
     else !!("game is not abortable")
 
-  def resign(game: DbGame, color: Color): ValidIO =
-    if (game.resignable) finish(game, Resign, Some(!color))
+  def resign(pov: Pov): ValidIO =
+    if (pov.game.resignable) finish(pov.game, Resign, Some(!pov.color))
     else !!("game is not resignable")
 
-  def outoftime(game: DbGame): ValidIO =
-    game.outoftimePlayer some { player ⇒
-      finish(game, Outoftime,
-        Some(!player.color) filter game.toChess.board.hasEnoughMaterialToMate)
+  def forceResign(pov: Pov): ValidIO =
+    if (pov.game.playable && aliveMemo.inactive(pov.game.id, !pov.color))
+      finish(pov.game, Timeout, Some(pov.color))
+    else !!("game is not force-resignable")
+
+  def claimDraw(pov: Pov): ValidIO = pov match {
+    case Pov(game, color) if game.playable && game.player.color == color && game.toChessHistory.threefoldRepetition ⇒ finish(game, Draw, Some(pov.color))
+    case Pov(game, color) ⇒ !!("game is not threefold repetition")
+  }
+
+  def outoftime(pov: Pov): ValidIO =
+    pov.game.outoftimePlayer some { player ⇒
+      finish(pov.game, Outoftime,
+        Some(!player.color) filter pov.game.toChess.board.hasEnoughMaterialToMate)
     } none !!("no outoftime applicable")
 
   private def !!(msg: String) = failure(msg.wrapNel)

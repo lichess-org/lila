@@ -37,6 +37,14 @@ object AppXhrC extends LilaController {
     ValidIORedir(xhr resign fullId, fullId)
   }
 
+  def forceResign(fullId: String) = Action {
+    ValidIORedir(xhr forceResign fullId, fullId)
+  }
+
+  def claimDraw(fullId: String) = Action {
+    ValidIORedir(xhr claimDraw fullId, fullId)
+  }
+
   def ping() = Action { implicit request ⇒
     JsonIOk(env.pinger.ping(
       username = get("username"),

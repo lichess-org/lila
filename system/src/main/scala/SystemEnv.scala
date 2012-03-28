@@ -70,6 +70,7 @@ final class SystemEnv(config: Config) {
     userRepo = userRepo,
     gameRepo = gameRepo,
     versionMemo = versionMemo,
+    aliveMemo = aliveMemo,
     eloCalculator = new EloCalculator,
     finisherLock = new FinisherLock(
       timeout = getMilliseconds("memo.finisher_lock.timeout")))
@@ -107,7 +108,7 @@ final class SystemEnv(config: Config) {
   )(config getString "mongo.dbName")
 
   lazy val versionMemo = new VersionMemo(
-    getPlayer = gameRepo.playerOnly,
+    getPov = gameRepo.pov,
     timeout = getMilliseconds("memo.version.timeout"))
 
   lazy val aliveMemo = new AliveMemo(

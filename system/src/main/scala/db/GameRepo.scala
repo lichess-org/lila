@@ -21,21 +21,18 @@ class GameRepo(collection: MongoCollection)
     findOneByID(gameId) flatMap decode err "No game found for id " + gameId
   }
 
-  def player(gameId: String, color: Color): IO[(DbGame, DbPlayer)] =
-    game(gameId) map { g ⇒ (g, g player color) }
+  def pov(gameId: String, color: Color): IO[Pov] =
+    game(gameId) map { g ⇒ Pov(g, g player color) }
 
-  def playerOnly(gameId: String, color: Color): IO[DbPlayer] =
+  def player(gameId: String, color: Color): IO[DbPlayer] =
     game(gameId) map { g ⇒ g player color }
 
-  def player(fullId: String): IO[(DbGame, DbPlayer)] =
+  def pov(fullId: String): IO[Pov] =
     game(fullId take gameIdSize) map { g ⇒
       val playerId = fullId drop gameIdSize
       val player = g player playerId err "No player found for id " + fullId
-      (g, player)
+      Pov(g, player)
     }
-
-  def playerGame(fullId: String): IO[DbGame] =
-    player(fullId) map (_._1)
 
   def save(game: DbGame): IO[Unit] = io {
     update(DBObject("_id" -> game.id), _grater asDBObject encode(game), false, false)

@@ -18,11 +18,10 @@ case class AppApi(
     url: String,
     messages: String,
     entryData: String): IO[Unit] = for {
-    gameAndPlayer ← gameRepo player fullId
-    (g1, player) = gameAndPlayer
-    g2 = g1 withEvents decodeMessages(messages)
-    g3 = g2.withEvents(g2.opponent(player).color, List(RedirectEvent(url)))
-    _ ← save(g1, g3)
+    pov ← gameRepo pov fullId
+    g2 = pov.game withEvents decodeMessages(messages)
+    g3 = g2.withEvents(!pov.color, List(RedirectEvent(url)))
+    _ ← save(pov.game, g3)
     _ ← addEntry(g3, entryData)
   } yield ()
 

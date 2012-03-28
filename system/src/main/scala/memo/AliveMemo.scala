@@ -51,6 +51,9 @@ final class AliveMemo(hardTimeout: Int, softTimeout: Int) {
       else 0
     }
 
+  def inactive(gameId: String, color: Color): Boolean =
+    activity(gameId, color) == 0
+
   def count = cache.size
 
   def toKey(gameId: String, color: Color) = gameId + "." + color.letter

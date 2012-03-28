@@ -80,7 +80,7 @@ case class DbGame(
     )
   }
 
-  private def toChessHistory = History(
+  def toChessHistory = History(
     lastMove = lastMove flatMap {
       case MoveString(a, b) ⇒ for (o ← posAt(a); d ← posAt(b)) yield (o, d)
       case _                ⇒ None
@@ -170,8 +170,8 @@ case class DbGame(
   def finish(status: Status, winner: Option[Color], msg: Option[String]) = copy(
     status = status,
     winnerId = winner flatMap (player(_).userId),
-    whitePlayer = whitePlayer finish (winner == White),
-    blackPlayer = blackPlayer finish (winner == Black),
+    whitePlayer = whitePlayer finish (winner == Some(White)),
+    blackPlayer = blackPlayer finish (winner == Some(Black)),
     positionHashes = ""
   ) withEvents (EndEvent() :: msg.map(MessageEvent("system", _)).toList)
 

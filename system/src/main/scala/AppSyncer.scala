@@ -24,19 +24,18 @@ final class AppSyncer(
     for {
       color ← io { Color(colorString) err "Invalid color" }
       _ ← versionWait(gameId, color, version)
-      gameAndPlayer ← gameRepo.player(gameId, color)
-      (game, player) = gameAndPlayer
-      isPrivate = fullId some { game.isPlayerFullId(player, _) } none false
-      _ ← versionMemo put game
+      pov ← gameRepo.pov(gameId, color)
+      isPrivate = pov isPlayerFullId fullId
+      _ ← versionMemo put pov.game
     } yield {
-      player.eventStack eventsSince version map { events ⇒
+      pov.player.eventStack eventsSince version map { events ⇒
         Map(
-          "v" -> player.eventStack.lastVersion,
+          "v" -> pov.player.eventStack.lastVersion,
           "e" -> renderEvents(events, isPrivate),
-          "p" -> game.player.color.name,
-          "t" -> game.turns,
-          "oa" -> aliveMemo.activity(game, !color),
-          "c" -> (game.clock some { clock ⇒
+          "p" -> pov.color.name,
+          "t" -> pov.game.turns,
+          "oa" -> aliveMemo.activity(pov.game, !color),
+          "c" -> (pov.game.clock some { clock ⇒
             clock.remainingTimes mapKeys (_.name)
           } none null)
         ) filterValues (null !=)

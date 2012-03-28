@@ -29,38 +29,37 @@ case class AppXhr(
     fullId: String,
     fromString: String,
     toString: String,
-    promString: Option[String] = None): IOValid =
-    gameRepo player fullId flatMap {
-      case (g1, player) ⇒ purePlay(g1, fromString, toString, promString).fold(
-        e ⇒ io(failure(e)),
-        g2 ⇒ for {
-          g3 ← if (g2.player.isAi) for {
-            aiResult ← ai(g2) map (_.toOption err "AI failure")
-            (newChessGame, move) = aiResult
-          } yield g2.update(newChessGame, move)
-          else io(g2)
-          _ ← gameRepo.applyDiff(g1, g3)
-          _ ← versionMemo put g3
-          _ ← aliveMemo.put(g3.id, player.color)
-        } yield success()
-      )
-    }
+    promString: Option[String] = None): IOValid = fromPov(fullId) {
+    case Pov(g1, color) ⇒ purePlay(g1, fromString, toString, promString).fold(
+      e ⇒ io(failure(e)),
+      g2 ⇒ for {
+        g3 ← if (g2.player(color).isAi) for {
+          aiResult ← ai(g2) map (_.toOption err "AI failure")
+          (newChessGame, move) = aiResult
+        } yield g2.update(newChessGame, move)
+        else io(g2)
+        _ ← gameRepo.applyDiff(g1, g3)
+        _ ← versionMemo put g3
+        _ ← aliveMemo.put(g3.id, color)
+      } yield success()
+    )
+  }
 
-  def abort(fullId: String): IOValid = for {
-    game ← gameRepo playerGame fullId
-    res ← (finisher abort game).sequence
-  } yield res
+  def abort(fullId: String): IOValid = attempt(fullId, finisher.abort)
 
-  def resign(fullId: String): IOValid = for {
-    gameAndPlayer ← gameRepo player fullId
-    (game, player) = gameAndPlayer
-    res ← (finisher.resign(game, player.color)).sequence
-  } yield res
+  def resign(fullId: String): IOValid = attempt(fullId, finisher.resign)
 
-  def outoftime(fullId: String): IOValid = for {
-    game ← gameRepo playerGame fullId
-    res ← (finisher outoftime game).sequence
-  } yield res
+  def forceResign(fullId: String): IOValid = attempt(fullId, finisher.forceResign)
+
+  def claimDraw(fullId: String): IOValid = attempt(fullId, finisher.claimDraw)
+
+  def outoftime(fullId: String): IOValid = attempt(fullId, finisher.outoftime)
+
+  private def attempt(fullId: String, action: Pov ⇒ Valid[IO[Unit]]): IOValid =
+    fromPov(fullId) { pov ⇒ action(pov).sequence }
+
+  private def fromPov[A](fullId: String)(op: Pov ⇒ IO[A]): IO[A] =
+    gameRepo pov fullId flatMap op
 
   private def purePlay(
     g1: DbGame,
