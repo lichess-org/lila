@@ -7,16 +7,19 @@ import lila.chess._
 import Pos.posAt
 import scalaz.effects._
 
-final class AppXhr(
+case class AppXhr(
     gameRepo: GameRepo,
     ai: Ai,
+    finisher: Finisher,
     versionMemo: VersionMemo,
-    aliveMemo: AliveMemo) {
+    aliveMemo: AliveMemo) extends IOTools {
+
+  type IOValid = IO[Valid[Unit]]
 
   def playMove(
     fullId: String,
     moveString: String,
-    promString: Option[String] = None): IO[Valid[Unit]] =
+    promString: Option[String] = None): IOValid =
     (decodeMoveString(moveString) toValid "Wrong move").fold(
       e ⇒ io(failure(e)),
       move ⇒ play(fullId, move._1, move._2, promString)
@@ -26,7 +29,7 @@ final class AppXhr(
     fullId: String,
     fromString: String,
     toString: String,
-    promString: Option[String] = None): IO[Valid[Unit]] =
+    promString: Option[String] = None): IOValid =
     gameRepo player fullId flatMap {
       case (g1, player) ⇒ purePlay(g1, fromString, toString, promString).fold(
         e ⇒ io(failure(e)),
@@ -42,6 +45,22 @@ final class AppXhr(
         } yield success()
       )
     }
+
+  def abort(fullId: String): IOValid = for {
+    game ← gameRepo playerGame fullId
+    res ← (finisher abort game).sequence
+  } yield res
+
+  def resign(fullId: String): IOValid = for {
+    gameAndPlayer ← gameRepo player fullId
+    (game, player) = gameAndPlayer
+    res ← (finisher.resign(game, player.color)).sequence
+  } yield res
+
+  def outoftime(fullId: String): IOValid = for {
+    game ← gameRepo playerGame fullId
+    res ← (finisher outoftime game).sequence
+  } yield res
 
   private def purePlay(
     g1: DbGame,

@@ -95,17 +95,18 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
   def count(p: Piece): Int = pieces.values count (_ == p)
   def count(c: Color): Int = pieces.values count (_.color == c)
 
-  def autoDraw: Boolean = {
-    history.positionHashes.size > 100 || (Color.all map rolesOf forall { roles ⇒
-      (roles filterNot (_ == King)) match {
-        case roles if roles.size > 1 ⇒ false
-        case List(Knight)            ⇒ true
-        case List(Bishop)            ⇒ true
-        case Nil                     ⇒ true
-        case _                       ⇒ false
-      }
-    })
-  }
+  def autoDraw: Boolean =
+    history.positionHashes.size > 100 ||
+    (Color.all forall { !hasEnoughMaterialToMate(_) })
+
+  def hasEnoughMaterialToMate(color: Color) =
+    rolesOf(color) filterNot (_ == King) match {
+      case roles if roles.size > 1 ⇒ true
+      case List(Knight)            ⇒ false
+      case List(Bishop)            ⇒ false
+      case Nil                     ⇒ false
+      case _                       ⇒ true
+    }
 
   def positionHash = Hasher(actors.values map (_.hash) mkString).md5.toString
 

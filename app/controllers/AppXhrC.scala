@@ -25,7 +25,19 @@ object AppXhrC extends LilaController {
     })
   }
 
-  def ping() = Action { implicit request =>
+  def abort(fullId: String) = Action {
+    ValidIORedir(xhr abort fullId, fullId)
+  }
+
+  def outoftime(fullId: String) = Action {
+    ValidIORedir(xhr outoftime fullId, fullId)
+  }
+
+  def resign(fullId: String) = Action {
+    ValidIORedir(xhr resign fullId, fullId)
+  }
+
+  def ping() = Action { implicit request ⇒
     JsonIOk(env.pinger.ping(
       username = get("username"),
       playerKey = get("player_key"),
@@ -35,7 +47,5 @@ object AppXhrC extends LilaController {
     ))
   }
 
-  def nbPlayers() = Action {
-    Ok(env.aliveMemo.count.toString)
-  }
+  def nbPlayers = Action { Ok(env.aliveMemo.count.toString) }
 }

@@ -3,6 +3,8 @@ package model
 
 import lila.chess._
 
+import com.mongodb.DBRef
+
 case class DbPlayer(
     id: String,
     color: Color,
@@ -12,7 +14,8 @@ case class DbPlayer(
     evts: String = "",
     elo: Option[Int],
     isOfferingDraw: Boolean,
-    lastDrawOffer: Option[Int]) {
+    lastDrawOffer: Option[Int],
+    user: Option[DBRef]) {
 
   def eventStack: EventStack = EventStack decode evts
 
@@ -32,4 +35,12 @@ case class DbPlayer(
     } mkString " "
 
   def isAi = aiLevel.isDefined
+
+  def userId: Option[String] = user map (_.getId.toString)
+
+  def wins = isWinner getOrElse false
+
+  def finish(winner: Boolean) = copy(
+    isWinner = if (winner) Some(true) else None
+  )
 }

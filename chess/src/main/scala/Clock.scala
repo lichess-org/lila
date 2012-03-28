@@ -13,7 +13,7 @@ sealed trait Clock {
 
   def time(c: Color) = if (c == White) whiteTime else blackTime
 
-  def isOutOfTime(c: Color) = remainingTime(c) == 0
+  def outoftime(c: Color) = remainingTime(c) == 0
 
   def remainingTime(c: Color) = max(0, limit - elapsedTime(c))
 

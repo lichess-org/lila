@@ -11,7 +11,7 @@ object AppApiC extends LilaController {
   private val api = env.appApi
 
   def talk(gameId: String) = Action { implicit request ⇒
-    ValidIOk[TalkData](talkForm)(talk ⇒ api.talk(gameId, talk._1, talk._2))
+    FormValidIOk[TalkData](talkForm)(talk ⇒ api.talk(gameId, talk._1, talk._2))
   }
 
   def updateVersion(gameId: String) = Action {
@@ -27,23 +27,19 @@ object AppApiC extends LilaController {
   }
 
   def draw(gameId: String, color: String) = Action { implicit request ⇒
-    ValidIOk[String](drawForm)(msgs ⇒ api.draw(gameId, color, msgs))
+    FormValidIOk[String](drawForm)(msgs ⇒ api.draw(gameId, color, msgs))
   }
 
   def drawAccept(gameId: String, color: String) = Action { implicit request ⇒
-    ValidIOk[String](drawForm)(msgs ⇒ api.drawAccept(gameId, color, msgs))
-  }
-
-  def end(gameId: String) = Action { implicit request ⇒
-    ValidIOk[String](endForm)(msgs ⇒ api.end(gameId, msgs))
+    FormValidIOk[String](drawForm)(msgs ⇒ api.drawAccept(gameId, color, msgs))
   }
 
   def start(gameId: String) = Action { implicit request =>
-    ValidIOk[EntryData](entryForm)(entryData ⇒ api.start(gameId, entryData))
+    FormValidIOk[EntryData](entryForm)(entryData ⇒ api.start(gameId, entryData))
   }
 
   def join(fullId: String) = Action { implicit request ⇒
-    ValidIOk[JoinData](joinForm) { join ⇒
+    FormValidIOk[JoinData](joinForm) { join ⇒
       api.join(fullId, join._1, join._2, join._3)
     }
   }
@@ -57,7 +53,7 @@ object AppApiC extends LilaController {
   }
 
   def rematchAccept(gameId: String, color: String, newGameId: String) = Action { implicit request ⇒
-    ValidIOk[RematchData](rematchForm)(r ⇒
+    FormValidIOk[RematchData](rematchForm)(r ⇒
       api.rematchAccept(gameId, newGameId, color, r._1, r._2, r._3))
   }
 }

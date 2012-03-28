@@ -19,7 +19,8 @@ case class DbGame(
     positionHashes: String = "",
     castles: String = "KQkq",
     isRated: Boolean = false,
-    variant: Variant = Standard) {
+    variant: Variant = Standard,
+    winnerId: Option[String]) {
 
   val players = List(whitePlayer, blackPlayer)
 
@@ -163,6 +164,29 @@ case class DbGame(
     player(color).lastDrawOffer some (_ >= turns - 1) none false
 
   def abortable = status == Started && turns < 2
+
+  def resignable = playable && !abortable
+
+  def finish(status: Status, winner: Option[Color], msg: Option[String]) = copy(
+    status = status,
+    winnerId = winner flatMap (player(_).userId),
+    whitePlayer = whitePlayer finish (winner == White),
+    blackPlayer = blackPlayer finish (winner == Black),
+    positionHashes = ""
+  ) withEvents (EndEvent() :: msg.map(MessageEvent("system", _)).toList)
+
+  def rated = isRated
+
+  def finished = status >= Mate
+
+  def winnerColor: Option[Color] = players find (_.wins) map (_.color)
+
+  def outoftimePlayer: Option[DbPlayer] = for {
+    c ← clock
+    if this.playable
+    if c outoftime player.color
+  } yield player
+
 }
 
 object DbGame {

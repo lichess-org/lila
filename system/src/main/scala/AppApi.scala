@@ -32,12 +32,6 @@ case class AppApi(
     _ ← save(g1, g2)
   } yield ()
 
-  def end(gameId: String, messages: String): IO[Unit] = for {
-    g1 ← gameRepo game gameId
-    g2 = g1 withEvents (EndEvent() :: decodeMessages(messages))
-    _ ← save(g1, g2)
-  } yield ()
-
   def start(gameId: String, entryData: String): IO[Unit] = for {
     game ← gameRepo game gameId
     _ ← addEntry(game, entryData)

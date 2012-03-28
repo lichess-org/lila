@@ -3,6 +3,8 @@ package model
 
 import lila.chess._
 
+import com.mongodb.DBRef
+
 case class RawDbPlayer(
     id: String,
     color: String,
@@ -12,7 +14,8 @@ case class RawDbPlayer(
     evts: String = "",
     elo: Option[Int],
     isOfferingDraw: Option[Boolean],
-    lastDrawOffer: Option[Int]) {
+    lastDrawOffer: Option[Int],
+    user: Option[DBRef]) {
 
   def decode: Option[DbPlayer] = for {
     trueColor ← Color(color)
@@ -25,7 +28,8 @@ case class RawDbPlayer(
     evts = evts,
     elo = elo,
     isOfferingDraw = isOfferingDraw getOrElse false,
-    lastDrawOffer = lastDrawOffer
+    lastDrawOffer = lastDrawOffer,
+    user = user
   )
 }
 
@@ -42,7 +46,8 @@ object RawDbPlayer {
       evts = evts,
       elo = elo,
       isOfferingDraw = if (isOfferingDraw) Some(true) else None,
-      lastDrawOffer = lastDrawOffer
+      lastDrawOffer = lastDrawOffer,
+      user = user
     )
   }
 }

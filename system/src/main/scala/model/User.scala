@@ -6,5 +6,8 @@ import com.mongodb.casbah.Imports.ObjectId
 case class User(
     id: ObjectId,
     username: String,
-    isOnline: Boolean) {
+    isOnline: Boolean,
+    elo: Int,
+    nbGames: Int,
+    nbRatedGames: Int) {
 }

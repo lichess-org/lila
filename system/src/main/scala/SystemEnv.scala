@@ -3,6 +3,7 @@ package lila.system
 import com.mongodb.casbah.MongoConnection
 import com.typesafe.config._
 
+import lila.chess.EloCalculator
 import db._
 import ai._
 import memo._
@@ -12,6 +13,7 @@ final class SystemEnv(config: Config) {
   lazy val appXhr = new AppXhr(
     gameRepo = gameRepo,
     ai = ai,
+    finisher = finisher,
     versionMemo = versionMemo,
     aliveMemo = aliveMemo)
 
@@ -63,6 +65,15 @@ final class SystemEnv(config: Config) {
     watcherMemo = watcherMemo,
     hookMemo = hookMemo)
 
+  lazy val finisher = new Finisher(
+    historyRepo = historyRepo,
+    userRepo = userRepo,
+    gameRepo = gameRepo,
+    versionMemo = versionMemo,
+    eloCalculator = new EloCalculator,
+    finisherLock = new FinisherLock(
+      timeout = getMilliseconds("memo.finisher_lock.timeout")))
+
   lazy val ai: Ai = craftyAi
 
   lazy val craftyAi = new CraftyAi(
@@ -85,6 +96,10 @@ final class SystemEnv(config: Config) {
   lazy val messageRepo = new MessageRepo(
     collection = mongodb(config getString "mongo.collection.message"),
     max = config getInt "lobby.message.max")
+
+  lazy val historyRepo = new HistoryRepo(
+    collection = mongodb(config getString "mongo.collection.history")
+  )
 
   lazy val mongodb = MongoConnection(
     config getString "mongo.host",

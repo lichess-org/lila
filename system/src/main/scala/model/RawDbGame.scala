@@ -20,7 +20,8 @@ case class RawDbGame(
     positionHashes: String = "",
     castles: String = "KQkq",
     isRated: Boolean = false,
-    variant: Int = 1) {
+    variant: Int = 1,
+    winnerId: Option[String] = None) {
 
   def decode: Option[DbGame] = for {
     whitePlayer ← players find (_.color == "white") flatMap (_.decode)
@@ -44,7 +45,8 @@ case class RawDbGame(
     positionHashes = positionHashes,
     castles = castles,
     isRated = isRated,
-    variant = trueVariant
+    variant = trueVariant,
+    winnerId = winnerId
   )
 }
 
@@ -65,7 +67,8 @@ object RawDbGame {
       positionHashes = positionHashes,
       castles = castles,
       isRated = isRated,
-      variant = variant.id
+      variant = variant.id,
+      winnerId = winnerId
     )
   }
 }

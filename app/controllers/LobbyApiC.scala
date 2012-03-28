@@ -12,7 +12,7 @@ object LobbyApiC extends LilaController {
   private val api = env.lobbyApi
 
   def join(gameId: String, color: String) = Action { implicit request ⇒
-    ValidIOk[EntryData](entryForm)(entry ⇒ api.join(gameId, color, entry))
+    FormValidIOk[EntryData](entryForm)(entry ⇒ api.join(gameId, color, entry))
   }
 
   def create(hookOwnerId: String) = Action {
