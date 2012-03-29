@@ -36,6 +36,8 @@ case class DbPlayer(
 
   def isAi = aiLevel.isDefined
 
+  def isHuman = !isAi
+
   def userId: Option[String] = user map (_.getId.toString)
 
   def wins = isWinner getOrElse false

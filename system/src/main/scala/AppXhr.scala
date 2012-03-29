@@ -2,27 +2,20 @@ package lila.system
 
 import model._
 import memo._
-import db.GameRepo
+import db.{ GameRepo, RoomRepo }
 import lila.chess._
 import Pos.posAt
 import scalaz.effects._
 
 final class AppXhr(
-    gameRepo: GameRepo,
+    val gameRepo: GameRepo,
+    roomRepo: RoomRepo,
     ai: Ai,
     finisher: Finisher,
-    versionMemo: VersionMemo,
-    aliveMemo: AliveMemo) {
+    val versionMemo: VersionMemo,
+    aliveMemo: AliveMemo) extends IOTools {
 
   type IOValid = IO[Valid[Unit]]
-
-  def playMove(
-    fullId: String,
-    moveString: String,
-    promString: Option[String] = None): IOValid = moveString match {
-    case MoveString(orig, dest) ⇒ play(fullId, orig, dest, promString)
-    case _                      ⇒ io(failure("Wrong move" wrapNel))
-  }
 
   def play(
     fullId: String,
@@ -60,6 +53,18 @@ final class AppXhr(
   def claimDraw(fullId: String): IOValid = attempt(fullId, finisher.claimDraw)
 
   def outoftime(fullId: String): IOValid = attempt(fullId, finisher.outoftime)
+
+  def drawAccept(fullId: String): IOValid = attempt(fullId, finisher.drawAccept)
+
+  def talk(fullId: String, message: String): IOValid = attempt(fullId, pov ⇒
+    if (pov.game.invited.isHuman && message.size <= 140 && message.nonEmpty)
+      success(for {
+      _ ← roomRepo.addMessage(pov.game.id, pov.color.name, message)
+      g2 = pov.game withEvents List(MessageEvent(pov.color.name, message))
+      _ ← save(pov.game, g2)
+    } yield ())
+    else failure("Cannot talk" wrapNel)
+  )
 
   private def attempt(fullId: String, action: Pov ⇒ Valid[IO[Unit]]): IOValid =
     fromPov(fullId) { pov ⇒ action(pov).sequence }

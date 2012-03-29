@@ -45,6 +45,17 @@ object AppXhrC extends LilaController {
     ValidIORedir(xhr claimDraw fullId, fullId)
   }
 
+  def drawAccept(fullId: String) = Action { implicit request ⇒
+    ValidIORedir(xhr drawAccept fullId, fullId)
+  }
+
+  def talk(fullId: String) = Action { implicit request ⇒
+    talkForm.bindFromRequest.fold(
+      form ⇒ BadRequest(form.errors mkString "\n"),
+      message ⇒ ValidOk(xhr.talk(fullId, message).unsafePerformIO)
+    )
+  }
+
   def ping() = Action { implicit request ⇒
     JsonIOk(env.pinger.ping(
       username = get("username"),

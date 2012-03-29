@@ -10,10 +10,6 @@ object AppApiC extends LilaController {
 
   private val api = env.appApi
 
-  def talk(gameId: String) = Action { implicit request ⇒
-    FormValidIOk[TalkData](talkForm)(talk ⇒ api.talk(gameId, talk._1, talk._2))
-  }
-
   def updateVersion(gameId: String) = Action {
     IOk(api updateVersion gameId)
   }
@@ -22,16 +18,16 @@ object AppApiC extends LilaController {
     IOk(api reloadTable gameId)
   }
 
+  def room(gameId: String) = Action {
+    Ok(api.room(gameId).unsafePerformIO)
+  }
+
   def alive(gameId: String, color: String) = Action {
     IOk(api.alive(gameId, color))
   }
 
   def draw(gameId: String, color: String) = Action { implicit request ⇒
     FormValidIOk[String](drawForm)(msgs ⇒ api.draw(gameId, color, msgs))
-  }
-
-  def drawAccept(gameId: String, color: String) = Action { implicit request ⇒
-    FormValidIOk[String](drawForm)(msgs ⇒ api.drawAccept(gameId, color, msgs))
   }
 
   def start(gameId: String) = Action { implicit request =>

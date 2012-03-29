@@ -14,9 +14,8 @@ object DataForm {
     "b" -> optional(number)
   ))
 
-  type TalkData = (String, String)
-  val talkForm = Form(tuple(
-    "author" -> nonEmptyText,
+  type TalkData = String
+  val talkForm = Form(single(
     "message" -> nonEmptyText
   ))
 

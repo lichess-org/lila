@@ -2,12 +2,13 @@ package lila.system
 
 import model._
 import memo._
-import db.GameRepo
+import db.{ GameRepo, RoomRepo }
 import lila.chess.{ Color, White, Black }
 import scalaz.effects._
 
 case class AppApi(
     gameRepo: GameRepo,
+    roomRepo: RoomRepo,
     ai: Ai,
     versionMemo: VersionMemo,
     aliveMemo: AliveMemo,
@@ -19,16 +20,10 @@ case class AppApi(
     messages: String,
     entryData: String): IO[Unit] = for {
     pov ← gameRepo pov fullId
-    g2 = pov.game withEvents decodeMessages(messages)
+    g2 ← systemMessages(pov.game, messages)
     g3 = g2.withEvents(!pov.color, List(RedirectEvent(url)))
     _ ← save(pov.game, g3)
     _ ← addEntry(g3, entryData)
-  } yield ()
-
-  def talk(gameId: String, author: String, message: String): IO[Unit] = for {
-    g1 ← gameRepo game gameId
-    g2 = g1 withEvents List(MessageEvent(author, message))
-    _ ← save(g1, g2)
   } yield ()
 
   def start(gameId: String, entryData: String): IO[Unit] = for {
@@ -77,20 +72,16 @@ case class AppApi(
   def draw(gameId: String, colorName: String, messages: String): IO[Unit] = for {
     color ← ioColor(colorName)
     g1 ← gameRepo game gameId
-    g2 = g1 withEvents decodeMessages(messages)
+    g2 ← systemMessages(g1, messages)
     g3 = g2.withEvents(!color, List(ReloadTableEvent()))
     _ ← save(g1, g3)
   } yield ()
 
-  def drawAccept(gameId: String, colorName: String, messages: String): IO[Unit] = for {
-    color ← ioColor(colorName)
-    g1 ← gameRepo game gameId
-    g2 = g1 withEvents (EndEvent() :: decodeMessages(messages))
-    _ ← save(g1, g2)
-  } yield ()
-
   def activity(gameId: String, colorName: String): Int =
     Color(colorName) some { aliveMemo.activity(gameId, _) } none 0
+
+  def room(gameId: String): IO[String] =
+    roomRepo room gameId map (_.render)
 
   def possibleMoves(gameId: String, colorName: String): IO[Map[String, Any]] =
     for {
@@ -100,6 +91,12 @@ case class AppApi(
       case (from, dests) ⇒ from.key -> (dests.mkString)
     } toMap
 
-  private def decodeMessages(messages: String): List[MessageEvent] =
-    (messages split '$').toList map { MessageEvent("system", _) }
+  private def systemMessages(game: DbGame, messageString: String): IO[DbGame] =
+    if (game.invited.isHuman) {
+      val messages = (messageString split '$').toList
+      roomRepo.addSystemMessages(game.id, messages) map { _ ⇒
+        game withEvents (messages map { msg ⇒ MessageEvent("system", msg) })
+      }
+    }
+    else io(game)
 }

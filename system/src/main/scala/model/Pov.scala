@@ -7,6 +7,8 @@ case class Pov(game: DbGame, color: Color) {
 
   def player = game player color
 
+  def opponent = game player !color
+
   def isPlayerFullId(fullId: Option[String]): Boolean =
     fullId some { game.isPlayerFullId(player, _) } none false
 }

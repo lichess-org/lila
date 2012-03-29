@@ -12,6 +12,7 @@ final class SystemEnv(config: Config) {
 
   lazy val appXhr = new AppXhr(
     gameRepo = gameRepo,
+    roomRepo = roomRepo,
     ai = ai,
     finisher = finisher,
     versionMemo = versionMemo,
@@ -19,6 +20,7 @@ final class SystemEnv(config: Config) {
 
   lazy val appApi = new AppApi(
     gameRepo = gameRepo,
+    roomRepo = roomRepo,
     ai = ai,
     versionMemo = versionMemo,
     aliveMemo = aliveMemo,
@@ -69,6 +71,7 @@ final class SystemEnv(config: Config) {
     historyRepo = historyRepo,
     userRepo = userRepo,
     gameRepo = gameRepo,
+    roomRepo = roomRepo,
     versionMemo = versionMemo,
     aliveMemo = aliveMemo,
     eloCalculator = new EloCalculator,
@@ -99,8 +102,10 @@ final class SystemEnv(config: Config) {
     max = config getInt "lobby.message.max")
 
   lazy val historyRepo = new HistoryRepo(
-    collection = mongodb(config getString "mongo.collection.history")
-  )
+    collection = mongodb(config getString "mongo.collection.history"))
+
+  lazy val roomRepo = new RoomRepo(
+    collection = mongodb(config getString "mongo.collection.room"))
 
   lazy val mongodb = MongoConnection(
     config getString "mongo.host",

@@ -7,7 +7,6 @@ import db.GameRepo
 import scalaz.effects._
 import scala.annotation.tailrec
 import scala.math.max
-import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 
 final class AppSyncer(
     gameRepo: GameRepo,
@@ -53,10 +52,9 @@ final class AppSyncer(
       case _                                     ⇒ true
     } map (_.export)
 
-  // TODO author=system messages should be translated!!
   private def renderMessage(author: String, message: String) = Map(
     "type" -> "message",
-    "html" -> """<li class="%s">%s</li>""".format(author, escapeXml(message))
+    "html" -> Room.render(author, message)
   )
 
   private def versionWait(gameId: String, color: Color, version: Int) = io {

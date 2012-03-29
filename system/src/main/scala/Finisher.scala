@@ -1,6 +1,6 @@
 package lila.system
 
-import db.{ UserRepo, GameRepo, HistoryRepo }
+import db._
 import model._
 import memo.{ VersionMemo, AliveMemo, FinisherLock }
 import lila.chess.{ Color, White, Black, EloCalculator }
@@ -11,6 +11,7 @@ final class Finisher(
     historyRepo: HistoryRepo,
     userRepo: UserRepo,
     gameRepo: GameRepo,
+    roomRepo: RoomRepo,
     versionMemo: VersionMemo,
     aliveMemo: AliveMemo,
     eloCalculator: EloCalculator,
@@ -32,9 +33,14 @@ final class Finisher(
     else !!("game is not force-resignable")
 
   def claimDraw(pov: Pov): ValidIO = pov match {
-    case Pov(game, color) if game.playable && game.player.color == color && game.toChessHistory.threefoldRepetition ⇒ finish(game, Draw, Some(pov.color))
+    case Pov(game, color) if game.playable && game.player.color == color && game.toChessHistory.threefoldRepetition ⇒ finish(game, Draw)
     case Pov(game, color) ⇒ !!("game is not threefold repetition")
   }
+
+  def drawAccept(pov: Pov): ValidIO =
+    if (pov.opponent.isOfferingDraw)
+      finish(pov.game, Draw, None, Some("Draw offer accepted"))
+    else !!("opponent is not proposing a draw")
 
   def outoftime(pov: Pov): ValidIO =
     pov.game.outoftimePlayer some { player ⇒
@@ -52,9 +58,14 @@ final class Finisher(
     if (finisherLock isLocked game) !!("game finish is locked")
     else success(for {
       _ ← finisherLock lock game
-      g2 = game.finish(status, winner, message)
-      _ ← gameRepo.applyDiff(game, g2)
-      _ ← versionMemo put g2
+      g2 = game.finish(status, winner)
+      g3 ← message filter (_ ⇒ g2.invited.isHuman) some { msg ⇒
+        roomRepo.addSystemMessage(g2.id, msg) map { _ ⇒
+          g2 withEvents List(MessageEvent("system", msg))
+        }
+      } none io(g2)
+      _ ← gameRepo.applyDiff(game, g3)
+      _ ← versionMemo put g3
       _ ← updateElo(g2)
       _ ← incNbGames(g2, White)
       _ ← incNbGames(g2, Black)

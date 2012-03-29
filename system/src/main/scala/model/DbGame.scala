@@ -167,13 +167,13 @@ case class DbGame(
 
   def resignable = playable && !abortable
 
-  def finish(status: Status, winner: Option[Color], msg: Option[String]) = copy(
+  def finish(status: Status, winner: Option[Color]) = copy(
     status = status,
     winnerId = winner flatMap (player(_).userId),
     whitePlayer = whitePlayer finish (winner == Some(White)),
     blackPlayer = blackPlayer finish (winner == Some(Black)),
     positionHashes = ""
-  ) withEvents (EndEvent() :: msg.map(MessageEvent("system", _)).toList)
+  ) withEvents List(EndEvent())
 
   def rated = isRated
 
@@ -187,6 +187,9 @@ case class DbGame(
     if c outoftime player.color
   } yield player
 
+  def creator = player(creatorColor)
+
+  def invited = player(!creatorColor)
 }
 
 object DbGame {
