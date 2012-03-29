@@ -57,8 +57,11 @@ final class LobbySyncer(
     myHookId: Option[String],
     messageId: Int,
     entryId: Int): IO[Response] = for {
-    messages ← if (messageId == 0) messageRepo.recent
-    else messageRepo since max(messageMemo.id - messageRepo.max, messageId)
+    messages ← (messageId match {
+      case -1 ⇒ io(Nil)
+      case 0  ⇒ messageRepo.recent
+      case id ⇒ messageRepo since max(messageMemo.id - messageRepo.max, id)
+    })
     entries ← if (entryId == 0) entryRepo.recent
     else entryRepo since max(entryMemo.id - entryRepo.max, entryId)
   } yield Map(
@@ -67,10 +70,11 @@ final class LobbySyncer(
       if (hooks.nonEmpty) Map("hooks" -> renderHooks(hooks, myHookId).toMap)
       else Map("message" -> "No game available right now, create one!")
     },
-    "chat" -> messages.toNel.fold(
-      renderMessages,
-      Map("id" -> messageId, "messages" -> Nil)
-    ),
+    "chat" -> (messageId match {
+      case -1 ⇒ null
+      case id ⇒ messages.toNel.fold(
+        renderMessages, Map("id" -> id, "messages" -> Nil))
+    }),
     "timeline" -> entries.toNel.fold(
       renderEntries,
       Map("id" -> entryId, "entries" -> Nil)
@@ -119,7 +123,7 @@ final class LobbySyncer(
     def wait(loop: Int): Int = {
       if (loop == 0 ||
         lobbyMemo.version != version ||
-        messageMemo.id != messageId ||
+        (messageId != -1 && messageMemo.id != messageId) ||
         entryMemo.id != entryId) lobbyMemo.version
       else { Thread sleep sleep; wait(loop - 1) }
     }
