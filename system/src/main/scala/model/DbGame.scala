@@ -20,7 +20,7 @@ case class DbGame(
     castles: String = "KQkq",
     isRated: Boolean = false,
     variant: Variant = Standard,
-    winnerId: Option[String]) {
+    winnerId: Option[String] = None) {
 
   val players = List(whitePlayer, blackPlayer)
 

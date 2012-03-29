@@ -45,7 +45,8 @@ trait Fixtures {
     evts = evts,
     elo = Some(1280),
     isOfferingDraw = false,
-    lastDrawOffer = None
+    lastDrawOffer = None,
+    user = None
   )
 
   lazy val dbGame1 = DbGame(

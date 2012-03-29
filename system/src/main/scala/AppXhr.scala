@@ -7,33 +7,39 @@ import lila.chess._
 import Pos.posAt
 import scalaz.effects._
 
-case class AppXhr(
+final class AppXhr(
     gameRepo: GameRepo,
     ai: Ai,
     finisher: Finisher,
     versionMemo: VersionMemo,
-    aliveMemo: AliveMemo) extends IOTools {
+    aliveMemo: AliveMemo) {
 
   type IOValid = IO[Valid[Unit]]
 
   def playMove(
     fullId: String,
     moveString: String,
-    promString: Option[String] = None): IOValid =
-    (decodeMoveString(moveString) toValid "Wrong move").fold(
-      e ⇒ io(failure(e)),
-      move ⇒ play(fullId, move._1, move._2, promString)
-    )
+    promString: Option[String] = None): IOValid = moveString match {
+    case MoveString(orig, dest) ⇒ play(fullId, orig, dest, promString)
+    case _                      ⇒ io(failure("Wrong move" wrapNel))
+  }
 
   def play(
     fullId: String,
-    fromString: String,
-    toString: String,
+    origString: String,
+    destString: String,
     promString: Option[String] = None): IOValid = fromPov(fullId) {
-    case Pov(g1, color) ⇒ purePlay(g1, fromString, toString, promString).fold(
+    case Pov(g1, color) ⇒ (for {
+      g2 ← (g1.playable).fold(success(g1), failure("Game not playable" wrapNel))
+      orig ← posAt(origString) toValid "Wrong orig " + origString
+      dest ← posAt(destString) toValid "Wrong dest " + destString
+      promotion ← Role promotable promString toValid "Wrong promotion"
+      newChessGameAndMove ← g2.toChess(orig, dest, promotion)
+      (newChessGame, move) = newChessGameAndMove
+    } yield g2.update(newChessGame, move)).fold(
       e ⇒ io(failure(e)),
       g2 ⇒ for {
-        g3 ← if (g2.player(color).isAi) for {
+        g3 ← if (g2.player.isAi) for {
           aiResult ← ai(g2) map (_.toOption err "AI failure")
           (newChessGame, move) = aiResult
         } yield g2.update(newChessGame, move)
@@ -60,25 +66,4 @@ case class AppXhr(
 
   private def fromPov[A](fullId: String)(op: Pov ⇒ IO[A]): IO[A] =
     gameRepo pov fullId flatMap op
-
-  private def purePlay(
-    g1: DbGame,
-    origString: String,
-    destString: String,
-    promString: Option[String]): Valid[DbGame] = for {
-    g2 ← if (g1.playable) success(g1) else failure("Game is not playable" wrapNel)
-    orig ← posAt(origString) toValid "Wrong orig " + origString
-    dest ← posAt(destString) toValid "Wrong dest " + destString
-    promotion ← Role promotable promString toValid "Wrong promotion " + promString
-    chessGame = g2.toChess
-    newChessGameAndMove ← chessGame(orig, dest, promotion)
-    (newChessGame, move) = newChessGameAndMove
-    g3 = g2.update(newChessGame, move)
-  } yield g3
-
-  private def decodeMoveString(moveString: String): Option[(String, String)] =
-    moveString match {
-      case MoveString(orig, dest) ⇒ (orig, dest).some
-      case _                      ⇒ none
-    }
 }

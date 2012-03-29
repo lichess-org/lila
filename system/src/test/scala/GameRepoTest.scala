@@ -38,13 +38,13 @@ class GameRepoTest extends SystemTest {
   "find a player" should {
     "by private ID" in {
       "non existing" in {
-        repo player "huhu" must beIO.failure
+        repo pov "huhu" must beIO.failure
       }
       "existing" in {
         val player = anyGame.players.head
-        anyGame fullIdOf player map repo.player must beSome.like {
+        anyGame fullIdOf player map repo.pov must beSome.like {
           case iop ⇒ iop must beIO.like {
-            case (g, p) ⇒ p.id must_== player.id
+            case Pov(g, c) ⇒ c must_== player.color
           }
         }
       }
@@ -56,7 +56,7 @@ class GameRepoTest extends SystemTest {
       "existing" in {
         val player = anyGame.players.head
         repo.player(anyGame.id, player.color) must beIO.like {
-          case (g, p) ⇒ p.id must_== player.id
+          case p ⇒ p.id must_== player.id
         }
       }
     }
