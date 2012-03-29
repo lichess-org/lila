@@ -57,15 +57,15 @@ class GameRepo(collection: MongoCollection)
     for (i ← 0 to 1) {
       val name = "players." + i + "."
       d(name + "ps", _.players(i).ps)
-      d(name + "isWinner", _.players(i).isWinner)
+      d(name + "w", _.players(i).w)
       d(name + "evts", _.players(i).evts)
       d(name + "lastDrawOffer", _.players(i).lastDrawOffer)
       d(name + "isOfferingDraw", _.players(i).isOfferingDraw)
     }
     a.clock foreach { c ⇒
-      d("clock.color", _.clock.get.color)
-      d("clock.white", _.clock.get.white)
-      d("clock.black", _.clock.get.black)
+      d("clock.c", _.clock.get.c)
+      d("clock.w", _.clock.get.w)
+      d("clock.w", _.clock.get.b)
       d("clock.timer", _.clock.get.timer)
     }
 
@@ -79,4 +79,18 @@ class GameRepo(collection: MongoCollection)
   def decode(raw: RawDbGame): Option[DbGame] = raw.decode
 
   def encode(dbGame: DbGame): RawDbGame = RawDbGame encode dbGame
+
+  def ensureIndexes: IO[Unit] = io {
+    collection.ensureIndex(DBObject("status" -> 1))
+    collection.ensureIndex(DBObject("userIds" -> 1))
+    collection.ensureIndex(DBObject("winnerUserId" -> 1))
+    collection.ensureIndex(DBObject("turns" -> 1))
+    collection.ensureIndex(DBObject("updatedAt" -> -1))
+    collection.ensureIndex(DBObject("createdAt" -> -1))
+    collection.ensureIndex(DBObject("createdAt" -> -1, "userIds" ->1))
+  }
+
+  def dropIndexes: IO[Unit] = io {
+    collection.dropIndexes()
+  }
 }

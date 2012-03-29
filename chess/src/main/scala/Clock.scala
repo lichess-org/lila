@@ -9,7 +9,7 @@ sealed trait Clock {
   val color: Color
   val whiteTime: Float
   val blackTime: Float
-  val timer: Double
+  val timerOption: Option[Double]
 
   def time(c: Color) = if (c == White) whiteTime else blackTime
 
@@ -31,6 +31,8 @@ sealed trait Clock {
 
   def step: RunningClock
 
+  def stop: PausedClock
+
   def addTime(c: Color, t: Float): Clock
 
   def giveTime(c: Color, t: Float): Clock
@@ -45,6 +47,8 @@ case class RunningClock(
     whiteTime: Float = 0f,
     blackTime: Float = 0f,
     timer: Double = 0d) extends Clock {
+
+  val timerOption = Some(timer)
 
   override def elapsedTime(c: Color) = time(c) + {
     if (c == color) now - timer else 0
@@ -61,6 +65,13 @@ case class RunningClock(
       )
   }
 
+  def stop = PausedClock(
+    limit = limit,
+    increment = increment,
+    color = color,
+    whiteTime = whiteTime,
+    blackTime = blackTime)
+
   def addTime(c: Color, t: Float): RunningClock = c match {
     case White ⇒ copy(whiteTime = whiteTime + t)
     case Black ⇒ copy(blackTime = blackTime + t)
@@ -76,7 +87,7 @@ case class PausedClock(
     whiteTime: Float = 0f,
     blackTime: Float = 0f) extends Clock {
 
-  val timer = 0d
+  val timerOption = None
 
   def step = RunningClock(
     color = color,
@@ -85,6 +96,8 @@ case class PausedClock(
     increment = increment,
     limit = limit,
     timer = now).giveTime(White, increment).step
+
+  def stop = this
 
   def addTime(c: Color, t: Float): PausedClock = c match {
     case White ⇒ copy(whiteTime = whiteTime + t)

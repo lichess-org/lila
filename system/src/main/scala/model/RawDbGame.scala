@@ -16,19 +16,19 @@ case class RawDbGame(
     clock: Option[RawDbClock],
     lastMove: Option[String],
     check: Option[String],
-    creatorColor: String = "white",
+    cc: String = "white",
     positionHashes: String = "",
     castles: String = "KQkq",
     isRated: Boolean = false,
-    variant: Int = 1,
+    v: Int = 1,
     winnerId: Option[String] = None) {
 
   def decode: Option[DbGame] = for {
-    whitePlayer ← players find (_.color == "white") flatMap (_.decode)
-    blackPlayer ← players find (_.color == "black") flatMap (_.decode)
+    whitePlayer ← players find (_.c == "white") flatMap (_.decode)
+    blackPlayer ← players find (_.c == "black") flatMap (_.decode)
     trueStatus ← Status(status)
-    trueCreatorColor ← Color(creatorColor)
-    trueVariant ← Variant(variant)
+    trueCreatorColor ← Color(cc)
+    trueVariant ← Variant(v)
     validClock = clock flatMap (_.decode)
     if validClock.isDefined == clock.isDefined
   } yield DbGame(
@@ -63,11 +63,11 @@ object RawDbGame {
       clock = clock map RawDbClock.encode,
       lastMove = lastMove,
       check = check map (_.key),
-      creatorColor = creatorColor.name,
+      cc = creatorColor.name,
       positionHashes = positionHashes,
       castles = castles,
       isRated = isRated,
-      variant = variant.id,
+      v = variant.id,
       winnerId = winnerId
     )
   }

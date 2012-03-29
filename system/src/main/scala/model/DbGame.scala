@@ -174,7 +174,8 @@ case class DbGame(
     winnerId = winner flatMap (player(_).userId),
     whitePlayer = whitePlayer finish (winner == Some(White)),
     blackPlayer = blackPlayer finish (winner == Some(Black)),
-    positionHashes = ""
+    positionHashes = "",
+    clock = clock map (_.stop)
   ) withEvents List(EndEvent())
 
   def rated = isRated

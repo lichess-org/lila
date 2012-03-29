@@ -7,10 +7,10 @@ import com.mongodb.DBRef
 
 case class RawDbPlayer(
     id: String,
-    color: String,
+    c: String,
     ps: String,
     aiLevel: Option[Int],
-    isWinner: Option[Boolean],
+    w: Option[Boolean],
     evts: String = "",
     elo: Option[Int],
     isOfferingDraw: Option[Boolean],
@@ -18,13 +18,13 @@ case class RawDbPlayer(
     user: Option[DBRef]) {
 
   def decode: Option[DbPlayer] = for {
-    trueColor ← Color(color)
+    trueColor ← Color(c)
   } yield DbPlayer(
     id = id,
     color = trueColor,
     ps = ps,
     aiLevel = aiLevel,
-    isWinner = isWinner,
+    isWinner = w,
     evts = evts,
     elo = elo,
     isOfferingDraw = isOfferingDraw getOrElse false,
@@ -39,10 +39,10 @@ object RawDbPlayer {
     import dbPlayer._
     RawDbPlayer(
       id = id,
-      color = color.name,
+      c = color.name,
       ps = ps,
       aiLevel = aiLevel,
-      isWinner = isWinner,
+      w = isWinner,
       evts = evts,
       elo = elo,
       isOfferingDraw = if (isOfferingDraw) Some(true) else None,

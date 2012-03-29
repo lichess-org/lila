@@ -5,29 +5,31 @@ import lila.chess._
 import scala.math.round
 
 case class RawDbClock(
-    color: String,
-    increment: Int,
-    limit: Int,
-    white: Float,
-    black: Float,
-    timer: Double = 0d) {
+    c: String,
+    i: Int,
+    l: Int,
+    w: Float,
+    b: Float,
+    timer: Option[Double] = None) {
 
   def decode: Option[Clock] = for {
-    trueColor ← Color(color)
+    trueColor ← Color(c)
   } yield {
-    if (timer == 0l) PausedClock(
-      color = trueColor,
-      increment = increment,
-      limit = limit,
-      whiteTime = white,
-      blackTime = black)
-    else RunningClock(
-      color = trueColor,
-      increment = increment,
-      limit = limit,
-      whiteTime = white,
-      blackTime = black,
-      timer = timer)
+    timer.fold(
+      t ⇒ RunningClock(
+        color = trueColor,
+        increment = i,
+        limit = l,
+        whiteTime = w,
+        blackTime = b,
+        timer = t),
+      PausedClock(
+        color = trueColor,
+        increment = i,
+        limit = l,
+        whiteTime = w,
+        blackTime = b)
+    )
   }
 }
 
@@ -36,12 +38,12 @@ object RawDbClock {
   def encode(clock: Clock): RawDbClock = {
     import clock._
     RawDbClock(
-      color = color.name,
-      increment = increment,
-      limit = limit,
-      white = whiteTime,
-      black = blackTime,
-      timer = timer
+      c = color.name,
+      i = increment,
+      l = limit,
+      w = whiteTime,
+      b = blackTime,
+      timer = timerOption
     )
   }
 }
