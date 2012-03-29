@@ -150,7 +150,7 @@ final class SystemEnv(config: Config) {
 object SystemEnv extends EnvBuilder {
 
   def apply(overrides: String = "") = new SystemEnv(
-    makeConfig(overrides, "/home/thib/lila/conf/application.conf")
+    makeConfig(overrides)
   )
 }
 
@@ -158,7 +158,7 @@ trait EnvBuilder {
 
   import java.io.File
 
-  def makeConfig(sources: String*) = sources.foldLeft(ConfigFactory.defaultOverrides) {
+  def makeConfig(sources: String*) = sources.foldLeft(ConfigFactory.load()) {
     case (config, source) if source isEmpty ⇒ config
     case (config, source) if source contains '=' ⇒
       config.withFallback(ConfigFactory parseString source)
