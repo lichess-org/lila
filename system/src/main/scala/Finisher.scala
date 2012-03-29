@@ -11,7 +11,7 @@ final class Finisher(
     historyRepo: HistoryRepo,
     userRepo: UserRepo,
     gameRepo: GameRepo,
-    roomRepo: RoomRepo,
+    messenger: Messenger,
     versionMemo: VersionMemo,
     aliveMemo: AliveMemo,
     eloCalculator: EloCalculator,
@@ -59,11 +59,7 @@ final class Finisher(
     else success(for {
       _ ← finisherLock lock game
       g2 = game.finish(status, winner)
-      g3 ← message filter (_ ⇒ g2.invited.isHuman) some { msg ⇒
-        roomRepo.addSystemMessage(g2.id, msg) map { _ ⇒
-          g2 withEvents List(MessageEvent("system", msg))
-        }
-      } none io(g2)
+      g3 ← message some { messenger.systemMessage(g2, _) } none io(g2)
       _ ← gameRepo.applyDiff(game, g3)
       _ ← versionMemo put g3
       _ ← updateElo(g2)

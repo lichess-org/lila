@@ -12,15 +12,16 @@ final class SystemEnv(config: Config) {
 
   lazy val appXhr = new AppXhr(
     gameRepo = gameRepo,
-    roomRepo = roomRepo,
+    messenger = messenger,
     ai = ai,
     finisher = finisher,
     versionMemo = versionMemo,
-    aliveMemo = aliveMemo)
+    aliveMemo = aliveMemo,
+    moretimeSeconds = getSeconds("moretime.seconds"))
 
   lazy val appApi = new AppApi(
     gameRepo = gameRepo,
-    roomRepo = roomRepo,
+    messenger = messenger,
     ai = ai,
     versionMemo = versionMemo,
     aliveMemo = aliveMemo,
@@ -42,6 +43,7 @@ final class SystemEnv(config: Config) {
     hookRepo = hookRepo,
     gameRepo = gameRepo,
     entryRepo = entryRepo,
+    messenger = messenger,
     versionMemo = versionMemo,
     lobbyMemo = lobbyMemo,
     messageMemo = messageMemo,
@@ -71,12 +73,15 @@ final class SystemEnv(config: Config) {
     historyRepo = historyRepo,
     userRepo = userRepo,
     gameRepo = gameRepo,
-    roomRepo = roomRepo,
+    messenger = messenger,
     versionMemo = versionMemo,
     aliveMemo = aliveMemo,
     eloCalculator = new EloCalculator,
     finisherLock = new FinisherLock(
       timeout = getMilliseconds("memo.finisher_lock.timeout")))
+
+  lazy val messenger = new Messenger(
+    roomRepo = roomRepo)
 
   lazy val ai: Ai = craftyAi
 
@@ -138,6 +143,8 @@ final class SystemEnv(config: Config) {
     getId = messageRepo.lastId)
 
   def getMilliseconds(name: String): Int = (config getMilliseconds name).toInt
+
+  def getSeconds(name: String): Int = getMilliseconds(name) / 1000
 }
 
 object SystemEnv extends EnvBuilder {

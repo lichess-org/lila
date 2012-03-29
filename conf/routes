@@ -13,8 +13,9 @@ GET   /resign/:fullId                   controllers.AppXhrC.resign(fullId: Strin
 GET   /force-resign/:fullId             controllers.AppXhrC.forceResign(fullId: String)
 GET   /claim-draw/:fullId               controllers.AppXhrC.claimDraw(fullId: String)
 POST  /outoftime/:fullId                controllers.AppXhrC.outoftime(fullId: String)
-POST  /draw-accept/:fullId              controllers.AppXhrC.drawAccept(fullId: String)
+GET   /draw-accept/:fullId              controllers.AppXhrC.drawAccept(fullId: String)
 POST  /talk/:fullId                     controllers.AppXhrC.talk(fullId: String)
+POST  /moretime/:fullId                 controllers.AppXhrC.moretime(fullId: String)
 
 # App Private API
 POST  /api/update-version/:gameId  controllers.AppApiC.updateVersion(gameId: String)

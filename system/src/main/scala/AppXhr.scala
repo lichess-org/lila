@@ -2,18 +2,19 @@ package lila.system
 
 import model._
 import memo._
-import db.{ GameRepo, RoomRepo }
+import db.{ GameRepo }
 import lila.chess._
 import Pos.posAt
 import scalaz.effects._
 
 final class AppXhr(
     val gameRepo: GameRepo,
-    roomRepo: RoomRepo,
+    messenger: Messenger,
     ai: Ai,
     finisher: Finisher,
     val versionMemo: VersionMemo,
-    aliveMemo: AliveMemo) extends IOTools {
+    aliveMemo: AliveMemo,
+    moretimeSeconds: Int) extends IOTools {
 
   type IOValid = IO[Valid[Unit]]
 
@@ -32,13 +33,12 @@ final class AppXhr(
     } yield g2.update(newChessGame, move)).fold(
       e ⇒ io(failure(e)),
       g2 ⇒ for {
-        g3 ← if (g2.player.isAi) for {
+        g3 ← if (g2.player.isAi && g2.playable) for {
           aiResult ← ai(g2) map (_.toOption err "AI failure")
           (newChessGame, move) = aiResult
         } yield g2.update(newChessGame, move)
         else io(g2)
-        _ ← gameRepo.applyDiff(g1, g3)
-        _ ← versionMemo put g3
+        _ ← save(g1, g3)
         _ ← aliveMemo.put(g3.id, color)
       } yield success()
     )
@@ -56,17 +56,25 @@ final class AppXhr(
 
   def drawAccept(fullId: String): IOValid = attempt(fullId, finisher.drawAccept)
 
-  def talk(fullId: String, message: String): IOValid = attempt(fullId, pov ⇒
-    if (pov.game.invited.isHuman && message.size <= 140 && message.nonEmpty)
-      success(for {
-      _ ← roomRepo.addMessage(pov.game.id, pov.color.name, message)
-      g2 = pov.game withEvents List(MessageEvent(pov.color.name, message))
-      _ ← save(pov.game, g2)
-    } yield ())
-    else failure("Cannot talk" wrapNel)
+  def talk(fullId: String, message: String): IO[Unit] = fromPov(fullId) { pov ⇒
+    messenger.playerMessage(pov.game, pov.color, message) flatMap { g2 ⇒
+      save(pov.game, g2)
+    }
+  }
+
+  def moretime(fullId: String): IO[Valid[Float]] = attempt(fullId, pov ⇒
+    pov.game.clock filter (_ ⇒ pov.game.playable) map { clock ⇒
+      val color = !pov.color
+      val newClock = clock.giveTime(color, moretimeSeconds)
+      val g2 = pov.game withEvents List(MoretimeEvent(color, moretimeSeconds))
+      val g3 = g2 withClock newClock
+      save(pov.game, g3) map { _ ⇒ newClock remainingTime color }
+    } toValid "cannot add moretime"
   )
 
-  private def attempt(fullId: String, action: Pov ⇒ Valid[IO[Unit]]): IOValid =
+  private def attempt[A](
+    fullId: String,
+    action: Pov ⇒ Valid[IO[A]]): IO[Valid[A]] =
     fromPov(fullId) { pov ⇒ action(pov).sequence }
 
   private def fromPov[A](fullId: String)(op: Pov ⇒ IO[A]): IO[A] =

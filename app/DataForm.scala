@@ -31,11 +31,18 @@ object DataForm {
     "entry" -> nonEmptyText
   ))
 
-  type RematchData = (String, String, EntryData)
+  type LobbyJoinData = (MessagesData, EntryData)
+  val lobbyJoinForm = Form(tuple(
+    "entry" -> nonEmptyText,
+    "messages" -> nonEmptyText
+  ))
+
+  type RematchData = (String, String, EntryData, MessagesData)
   val rematchForm = Form(tuple(
     "whiteRedirect" -> nonEmptyText,
     "blackRedirect" -> nonEmptyText,
-    "entry" -> nonEmptyText
+    "entry" -> nonEmptyText,
+    "messages" -> nonEmptyText
   ))
 
   private type MessagesData = String

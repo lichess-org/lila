@@ -5,23 +5,27 @@ import memo._
 import db._
 import scalaz.effects._
 
-case class LobbyApi(
+final class LobbyApi(
     hookRepo: HookRepo,
-    gameRepo: GameRepo,
+    val gameRepo: GameRepo,
     entryRepo: EntryRepo,
+    messenger: Messenger,
     lobbyMemo: LobbyMemo,
     messageMemo: MessageMemo,
     entryMemo: EntryMemo,
-    versionMemo: VersionMemo,
+    val versionMemo: VersionMemo,
     aliveMemo: AliveMemo,
     hookMemo: HookMemo) extends IOTools {
 
   def join(
     gameId: String,
     colorName: String,
-    entryData: String): IO[Unit] = for {
+    entryData: String,
+    messageString: String): IO[Unit] = for {
     color ← ioColor(colorName)
     game ← gameRepo game gameId
+    g2 ← messenger.systemMessages(game, messageString)
+    _ ← save(game, g2)
     _ ← aliveMemo.put(gameId, color)
     _ ← aliveMemo.put(gameId, !color)
     _ ← versionInc

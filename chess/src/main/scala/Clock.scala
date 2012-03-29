@@ -31,6 +31,10 @@ sealed trait Clock {
 
   def step: RunningClock
 
+  def addTime(c: Color, t: Float): Clock
+
+  def giveTime(c: Color, t: Float): Clock
+
   protected def now = System.currentTimeMillis / 1000d
 }
 
@@ -57,12 +61,12 @@ case class RunningClock(
       )
   }
 
-  def addTime(c: Color, t: Float) = c match {
+  def addTime(c: Color, t: Float): RunningClock = c match {
     case White ⇒ copy(whiteTime = whiteTime + t)
     case Black ⇒ copy(blackTime = blackTime + t)
   }
 
-  def giveTime(c: Color, t: Float) = addTime(c, -t)
+  def giveTime(c: Color, t: Float): RunningClock = addTime(c, -t)
 }
 
 case class PausedClock(
@@ -81,6 +85,13 @@ case class PausedClock(
     increment = increment,
     limit = limit,
     timer = now).giveTime(White, increment).step
+
+  def addTime(c: Color, t: Float): PausedClock = c match {
+    case White ⇒ copy(whiteTime = whiteTime + t)
+    case Black ⇒ copy(blackTime = blackTime + t)
+  }
+
+  def giveTime(c: Color, t: Float): PausedClock = addTime(c, -t)
 }
 
 object Clock {

@@ -121,9 +121,11 @@ case class DbGame(
       check = if (game.situation.check) game.situation.kingPos else None
     )
 
-    if (abortable != updated.abortable || (Color.all exists { color ⇒
-      playerCanOfferDraw(color) != updated.playerCanOfferDraw(color)
-    })) updated withEvents List(ReloadTableEvent())
+    if (updated.playable && (
+      abortable != updated.abortable || (Color.all exists { color ⇒
+        playerCanOfferDraw(color) != updated.playerCanOfferDraw(color)
+      })
+    )) updated withEvents List(ReloadTableEvent())
     else updated
   }
 
@@ -186,6 +188,8 @@ case class DbGame(
     if this.playable
     if c outoftime player.color
   } yield player
+
+  def withClock(c: Clock) = copy(clock = Some(c))
 
   def creator = player(creatorColor)
 

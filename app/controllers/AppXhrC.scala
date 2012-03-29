@@ -52,7 +52,14 @@ object AppXhrC extends LilaController {
   def talk(fullId: String) = Action { implicit request ⇒
     talkForm.bindFromRequest.fold(
       form ⇒ BadRequest(form.errors mkString "\n"),
-      message ⇒ ValidOk(xhr.talk(fullId, message).unsafePerformIO)
+      message ⇒ IOk(xhr.talk(fullId, message))
+    )
+  }
+
+  def moretime(fullId: String) = Action {
+    (xhr moretime fullId).unsafePerformIO.fold(
+      e ⇒ BadRequest(e.list mkString "\n"),
+      time ⇒ Ok(time.toString)
     )
   }
 

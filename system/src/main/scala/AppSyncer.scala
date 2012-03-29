@@ -31,7 +31,7 @@ final class AppSyncer(
         Map(
           "v" -> pov.player.eventStack.lastVersion,
           "e" -> renderEvents(events, isPrivate),
-          "p" -> pov.color.name,
+          "p" -> pov.game.player.color.name,
           "t" -> pov.game.turns,
           "oa" -> aliveMemo.activity(pov.game, !color),
           "c" -> (pov.game.clock some { clock ⇒
