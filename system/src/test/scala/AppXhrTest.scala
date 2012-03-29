@@ -16,7 +16,8 @@ class AppXhrTest extends SystemTest {
   } yield dbGame
 
   def move(game: DbGame, m: String = "d2 d4"): IO[Valid[Unit]] =
-    xhr.playMove(game fullIdOf White, m)
+    xhr.play(
+      game fullIdOf White, m takeWhile (' '!=), m.dropWhile(' '!=).trim)
 
   def updated(
     game: DbGame = newDbGameWithRandomIds,

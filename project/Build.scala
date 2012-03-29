@@ -44,15 +44,12 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     scalacOptions := Seq("-deprecation", "-unchecked")
   )
 
-  val lila = PlayProject("lila", mainLang = SCALA, settings = buildSettings).settings(
-    libraryDependencies ++= Seq(scalaz),
-    // Adds system code to continuous triggers
-    //watchSources <+= baseDirectory map { _ / "system/src/main/scala" }
-    //// Adds chess code to continuous triggers
-    ////watchSources <+= baseDirectory map { _ / "chess/src/main/scala" }
-    //scalaSource in Compile <<= baseDirectory / "system/src/main/scala",
-    //sourceDirectory in Compile <<= baseDirectory / "system/src/main/scala",
-    watchSources <++= baseDirectory map { path => ((path / "system") ** "*.scala").get }
+  lazy val lila = PlayProject("lila", mainLang = SCALA, settings = buildSettings).settings(
+    libraryDependencies ++= Seq(scalaz)
+  ) dependsOn (system)
+
+  lazy val cli = Project("cli", file("cli"), settings = buildSettings).settings(
+    libraryDependencies ++= Seq(scalaz)
   ) dependsOn (system)
 
   lazy val system = Project("system", file("system"), settings = buildSettings).settings(
