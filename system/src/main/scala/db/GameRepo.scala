@@ -5,6 +5,7 @@ import model._
 import DbGame._
 
 import lila.chess.Color
+import lila.chess.format.Forsyth
 
 import com.novus.salat._
 import com.novus.salat.dao._
@@ -35,11 +36,11 @@ class GameRepo(collection: MongoCollection)
     }
 
   def save(game: DbGame): IO[Unit] = io {
-    update(DBObject("_id" -> game.id), _grater asDBObject encode(game), false, false)
+    update(DBObject("_id" -> game.id), _grater asDBObject encode(game))
   }
 
   def applyDiff(a: DbGame, b: DbGame): IO[Unit] = io {
-    update(DBObject("_id" -> a.id), diff(encode(a), encode(b)), false, false)
+    update(DBObject("_id" -> a.id), diff(encode(a), encode(b)))
   }
 
   def diff(a: RawDbGame, b: RawDbGame): MongoDBObject = {
@@ -65,7 +66,7 @@ class GameRepo(collection: MongoCollection)
     a.clock foreach { c ⇒
       d("clock.c", _.clock.get.c)
       d("clock.w", _.clock.get.w)
-      d("clock.w", _.clock.get.b)
+      d("clock.b", _.clock.get.b)
       d("clock.timer", _.clock.get.timer)
     }
 
@@ -80,6 +81,13 @@ class GameRepo(collection: MongoCollection)
 
   def encode(dbGame: DbGame): RawDbGame = RawDbGame encode dbGame
 
+  def saveInitialFen(dbGame: DbGame): IO[Unit] = io {
+    update(
+      DBObject("_id" -> dbGame.id),
+      $set ("initialFen" -> (Forsyth >> dbGame.toChess))
+    )
+  }
+
   def ensureIndexes: IO[Unit] = io {
     collection.ensureIndex(DBObject("status" -> 1))
     collection.ensureIndex(DBObject("userIds" -> 1))
@@ -87,7 +95,7 @@ class GameRepo(collection: MongoCollection)
     collection.ensureIndex(DBObject("turns" -> 1))
     collection.ensureIndex(DBObject("updatedAt" -> -1))
     collection.ensureIndex(DBObject("createdAt" -> -1))
-    collection.ensureIndex(DBObject("createdAt" -> -1, "userIds" ->1))
+    collection.ensureIndex(DBObject("createdAt" -> -1, "userIds" -> 1))
   }
 
   def dropIndexes: IO[Unit] = io {

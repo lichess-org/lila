@@ -21,11 +21,10 @@ final class SystemEnv(config: Config) {
 
   lazy val appApi = new AppApi(
     gameRepo = gameRepo,
-    messenger = messenger,
-    ai = ai,
     versionMemo = versionMemo,
     aliveMemo = aliveMemo,
-    addEntry = lobbyApi.addEntry)
+    messenger = messenger,
+    starter = starter)
 
   lazy val appSyncer = new AppSyncer(
     gameRepo = gameRepo,
@@ -42,12 +41,11 @@ final class SystemEnv(config: Config) {
   lazy val lobbyApi = new LobbyApi(
     hookRepo = hookRepo,
     gameRepo = gameRepo,
-    entryRepo = entryRepo,
     messenger = messenger,
+    starter = starter,
     versionMemo = versionMemo,
     lobbyMemo = lobbyMemo,
     messageMemo = messageMemo,
-    entryMemo = entryMemo,
     aliveMemo = aliveMemo,
     hookMemo = hookMemo)
 
@@ -82,6 +80,13 @@ final class SystemEnv(config: Config) {
 
   lazy val messenger = new Messenger(
     roomRepo = roomRepo)
+
+  lazy val starter = new Starter(
+    gameRepo = gameRepo,
+    entryRepo = entryRepo,
+    ai = ai,
+    versionMemo = versionMemo,
+    entryMemo = entryMemo)
 
   lazy val ai: Ai = craftyAi
 

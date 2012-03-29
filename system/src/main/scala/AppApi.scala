@@ -8,11 +8,10 @@ import scalaz.effects._
 
 final class AppApi(
     val gameRepo: GameRepo,
-    messenger: Messenger,
-    ai: Ai,
     val versionMemo: VersionMemo,
     aliveMemo: AliveMemo,
-    addEntry: (DbGame, String) ⇒ IO[Unit]) extends IOTools {
+    messenger: Messenger,
+    starter: Starter) extends IOTools {
 
   def join(
     fullId: String,
@@ -20,22 +19,14 @@ final class AppApi(
     messages: String,
     entryData: String): IO[Unit] = for {
     pov ← gameRepo pov fullId
-    g2 ← messenger.systemMessages(pov.game, messages)
-    g3 = g2.withEvents(!pov.color, List(RedirectEvent(url)))
-    _ ← save(pov.game, g3)
-    _ ← addEntry(g3, entryData)
+    g2 ← starter.start(pov.game, entryData)
+    g3 ← messenger.systemMessages(g2, messages)
+    g4 = g3.withEvents(!pov.color, List(RedirectEvent(url)))
+    _ ← save(pov.game, g4)
   } yield ()
 
-  def start(gameId: String, entryData: String): IO[Unit] = for {
-    game ← gameRepo game gameId
-    _ ← addEntry(game, entryData)
-    _ ← if (game.player.isAi) for {
-      aiResult ← ai(game) map (_.toOption err "AI failure")
-      (newChessGame, move) = aiResult
-      _ ← save(game, game.update(newChessGame, move))
-    } yield ()
-    else io()
-  } yield ()
+  def start(gameId: String, entryData: String): IO[Unit] =
+    starter.start(gameId, entryData) map (_ ⇒ Unit)
 
   def rematchAccept(
     gameId: String,
@@ -53,10 +44,10 @@ final class AppApi(
       List(RedirectEvent(blackRedirect)))
     _ ← save(g1, g2)
     ng2 ← messenger.systemMessages(newGame, messageString)
-    _ ← save(newGame, ng2)
+    ng3 ← starter.start(ng2, entryData)
+    _ ← save(newGame, ng3)
     _ ← aliveMemo.put(newGameId, !color)
     _ ← aliveMemo.transfer(gameId, !color, newGameId, color)
-    _ ← addEntry(newGame, entryData)
   } yield ()
 
   def updateVersion(gameId: String): IO[Unit] =

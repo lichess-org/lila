@@ -8,11 +8,10 @@ import scalaz.effects._
 final class LobbyApi(
     hookRepo: HookRepo,
     val gameRepo: GameRepo,
-    entryRepo: EntryRepo,
     messenger: Messenger,
+    starter: Starter,
     lobbyMemo: LobbyMemo,
     messageMemo: MessageMemo,
-    entryMemo: EntryMemo,
     val versionMemo: VersionMemo,
     aliveMemo: AliveMemo,
     hookMemo: HookMemo) extends IOTools {
@@ -25,11 +24,11 @@ final class LobbyApi(
     color ← ioColor(colorName)
     game ← gameRepo game gameId
     g2 ← messenger.systemMessages(game, messageString)
-    _ ← save(game, g2)
+    g3 ← starter.start(g2, entryData)
+    _ ← save(game, g3)
     _ ← aliveMemo.put(gameId, color)
     _ ← aliveMemo.put(gameId, !color)
     _ ← versionInc
-    _ ← addEntry(game, entryData)
   } yield ()
 
   def create(hookOwnerId: String): IO[Unit] = for {
@@ -47,10 +46,4 @@ final class LobbyApi(
   def messageRefresh: IO[Unit] = messageMemo.refresh
 
   private[system] def versionInc: IO[Int] = lobbyMemo++
-
-  private[system] def addEntry(game: DbGame, data: String): IO[Unit] =
-    Entry.build(game, data).fold(
-      f ⇒ (entryMemo++) map (id ⇒ entryRepo insert f(id)),
-      io()
-    )
 }
