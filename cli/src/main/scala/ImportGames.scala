@@ -6,21 +6,22 @@ import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.Imports._
 import scalaz.effects._
 
-case class ImportDb(mongodb: MongoDB, gameRepo: GameRepo) {
+case class ImportGames(mongodb: MongoDB, gameRepo: GameRepo) extends Command {
 
   val oldGames = mongodb("game2")
   val newGames = mongodb("game")
   val bulkSize = 200
-  val max = Some(200000)
-  //val max: Option[Int] = None
+  //val max = Some(200000)
+  val max: Option[Int] = None
 
   def apply: IO[Unit] = for {
-    _ <- putStrLn("- Drop indexes")
-    _ <- gameRepo.dropIndexes
-    _ <- putStrLn("- Import games")
-    _ <- importGames
-    _ <- putStrLn("- Ensure indexes")
-    _ <- gameRepo.ensureIndexes
+    _ ← putStrLn("- Drop indexes")
+    _ ← gameRepo.dropIndexes
+    _ ← putStrLn("- Import games")
+    _ ← importGames
+    _ ← putStrLn("- Ensure indexes")
+    _ ← gameRepo.ensureIndexes
+    _ ← putStrLn("Done")
   } yield ()
 
   private def importGames: IO[Unit] = io {
@@ -53,7 +54,6 @@ case class ImportDb(mongodb: MongoDB, gameRepo: GameRepo) {
       $unset("winnerUserId"),
       upsert = false,
       multi = true)
-    println("done")
   }
 
   def convert(game: DBObject): Option[DBObject] = try {

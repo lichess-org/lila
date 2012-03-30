@@ -1,5 +1,5 @@
-Game.lastMove (and no more in pieces notation)
+x Game.lastMove (and no more in pieces notation)
 x request promotion is not wrapped in options anymore
-Game.castles (new field in forsyth format)
-clock.times => clock.white, clock.black
+x Game.castles (new field in forsyth format)
+x clock.times => clock.white, clock.black
 blurs
