@@ -8,19 +8,28 @@ import collection.JavaConversions._
 
 case class Room(
     @Key("_id") id: String,
-    messages: List[BasicDBList]) {
+    messages: List[String]) {
 
-  def render: String = messages map (_.toList) map {
-    case author :: message :: Nil ⇒ Room.render(author.toString, message.toString)
-    case _                        ⇒ ""
-  } mkString
+  def render: String = messages map ((Room.render _) compose Room.decode) mkString
 }
 
 object Room {
 
-  def render(author: String, message: String): String =
+  def encode(author: String, message: String): String = (author match {
+    case "white" ⇒ "w"
+    case "black" ⇒ "b"
+    case _       ⇒ "s"
+  }) + message
+
+  def decode(encoded: String): (String, String) = (encoded take 1 match {
+    case "w" ⇒ "white"
+    case "b" ⇒ "black"
+    case _   ⇒ "system"
+  }, encoded drop 1)
+
+  def render(msg: (String, String)): String =
     """<li class="%s%s">%s</li>""".format(
-      author,
-      if (author == "system") " trans_me" else "",
-      escapeXml(message))
+      msg._1,
+      if (msg._1 == "system") " trans_me" else "",
+      escapeXml(msg._2))
 }

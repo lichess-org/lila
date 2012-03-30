@@ -19,7 +19,7 @@ class RoomRepo(collection: MongoCollection)
   def addMessage(id: String, author: String, message: String): IO[Unit] = io {
     collection.update(
       DBObject("_id" -> id),
-      $push("messages" -> List(author, message)),
+      $push("messages" -> Room.encode(author, message)),
       upsert = true,
       multi = false
     )

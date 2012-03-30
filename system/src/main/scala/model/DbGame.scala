@@ -112,6 +112,7 @@ case class DbGame(
       turns = game.turns,
       positionHashes = history.positionHashes mkString,
       castles = history.castleNotation,
+      lastMove = history.lastMove map { case (a, b) ⇒ a + " " + b },
       status =
         if (situation.checkMate) Mate
         else if (situation.staleMate) Stalemate

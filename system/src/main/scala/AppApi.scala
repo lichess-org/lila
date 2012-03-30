@@ -25,8 +25,11 @@ final class AppApi(
     _ ← save(pov.game, g4)
   } yield ()
 
-  def start(gameId: String, entryData: String): IO[Unit] =
-    starter.start(gameId, entryData) map (_ ⇒ Unit)
+  def start(gameId: String, entryData: String): IO[Unit] = for {
+    g1 ← gameRepo game gameId
+    g2 ← starter.start(g1, entryData)
+    _ ← save(g1, g2)
+  } yield ()
 
   def rematchAccept(
     gameId: String,

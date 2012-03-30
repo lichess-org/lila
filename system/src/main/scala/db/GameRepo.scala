@@ -84,18 +84,20 @@ class GameRepo(collection: MongoCollection)
   def saveInitialFen(dbGame: DbGame): IO[Unit] = io {
     update(
       DBObject("_id" -> dbGame.id),
-      $set ("initialFen" -> (Forsyth >> dbGame.toChess))
+      $set("initialFen" -> (Forsyth >> dbGame.toChess))
     )
   }
 
   def ensureIndexes: IO[Unit] = io {
-    collection.ensureIndex(DBObject("status" -> 1))
-    collection.ensureIndex(DBObject("userIds" -> 1))
-    collection.ensureIndex(DBObject("winnerUserId" -> 1))
-    collection.ensureIndex(DBObject("turns" -> 1))
-    collection.ensureIndex(DBObject("updatedAt" -> -1))
-    collection.ensureIndex(DBObject("createdAt" -> -1))
-    collection.ensureIndex(DBObject("createdAt" -> -1, "userIds" -> 1))
+    collection.underlying |> { coll ⇒
+      coll.ensureIndex(DBObject("status" -> 1))
+      coll.ensureIndex(DBObject("userIds" -> 1), DBObject("sparse" -> true))
+      coll.ensureIndex(DBObject("winnerUserId" -> 1), DBObject("sparse" -> true))
+      coll.ensureIndex(DBObject("turns" -> 1))
+      coll.ensureIndex(DBObject("updatedAt" -> -1))
+      coll.ensureIndex(DBObject("createdAt" -> -1))
+      coll.ensureIndex(DBObject("createdAt" -> -1, "userIds" -> 1))
+    }
   }
 
   def dropIndexes: IO[Unit] = io {

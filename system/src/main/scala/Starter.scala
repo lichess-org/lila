@@ -12,9 +12,6 @@ final class Starter(
   entryMemo: EntryMemo,
   ai: Ai) extends IOTools {
 
-  def start(gameId: String, entryData: String): IO[DbGame] =
-    gameRepo game gameId flatMap { start(_, entryData) }
-
   def start(game: DbGame, entryData: String): IO[DbGame] = for {
     _ ← if (game.variant == Standard) io() else gameRepo saveInitialFen game
     _ ← addEntry(game, entryData)
