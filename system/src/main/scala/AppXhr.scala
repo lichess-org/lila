@@ -68,7 +68,12 @@ final class AppXhr(
       val newClock = clock.giveTime(color, moretimeSeconds)
       val g2 = pov.game withEvents List(MoretimeEvent(color, moretimeSeconds))
       val g3 = g2 withClock newClock
-      save(pov.game, g3) map { _ ⇒ newClock remainingTime color }
+      for {
+        g4 ← messenger.systemMessage(
+          g3,
+          "%s + %d seconds".format(color, moretimeSeconds))
+        _ ← save(pov.game, g4)
+      } yield newClock remainingTime color
     } toValid "cannot add moretime"
   )
 
