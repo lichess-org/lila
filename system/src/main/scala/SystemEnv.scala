@@ -35,8 +35,8 @@ final class SystemEnv(config: Config) {
 
   lazy val lobbyXhr = new LobbyXhr(
     hookRepo = hookRepo,
-    gameRepo = gameRepo,
-    lobbyMemo = lobbyMemo)
+    lobbyMemo = lobbyMemo,
+    hookMemo = hookMemo)
 
   lazy val lobbyApi = new LobbyApi(
     hookRepo = hookRepo,

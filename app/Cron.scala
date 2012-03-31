@@ -17,7 +17,7 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
 
   spawn("hook_cleanup_dead") { env ⇒
     for {
-      hasRemoved ← env.hookRepo keepOnlyIds env.hookMemo.keys
+      hasRemoved ← env.hookRepo keepOnlyOwnerIds env.hookMemo.keys
       _ ← if (hasRemoved) env.lobbyMemo++ else io()
     } yield ()
   }

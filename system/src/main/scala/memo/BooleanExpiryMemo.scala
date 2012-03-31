@@ -16,6 +16,10 @@ abstract class BooleanExpiryMemo(timeout: Int) {
     cache.put(key, true)
   }
 
+  def remove(key: String): IO[Unit] = io {
+    cache invalidate key
+  }
+
   def keys: Iterable[String] = cache.asMap.keys
 
   def count = cache.size

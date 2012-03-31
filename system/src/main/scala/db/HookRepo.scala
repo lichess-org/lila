@@ -43,10 +43,9 @@ class HookRepo(collection: MongoCollection)
     remove(DBObject("ownerId" -> ownerId))
   }
 
-  def keepOnlyIds(ids: Iterable[String]): IO[Boolean] = io {
-    val removableIds = collection.find(
-      ("_id" $nin ids) ++ ("match" -> false),
-      DBObject("_id" -> true)
+  def keepOnlyOwnerIds(ids: Iterable[String]): IO[Boolean] = io {
+    val removableIds = primitiveProjection[String](
+      ("ownerId" $nin ids) ++ ("match" -> false), "_id"
     ).toList
     if (removableIds.nonEmpty) {
       remove("_id" $in removableIds)
@@ -58,22 +57,4 @@ class HookRepo(collection: MongoCollection)
   def cleanupOld: IO[Unit] = io {
     remove("createdAt" $lt (DateTime.now - 1.hour))
   }
-
-  //public function removeDeadHooks()
-  //{
-  //if (0 == time()%10) {
-  //$this->hookRepository->removeOldHooks();
-  //}
-  //$hooks = $this->hookRepository->findAllOpen();
-  //$removed = false;
-  //foreach ($hooks as $hook) {
-  //if (!$this->memory->isAlive($hook)) {
-  //$this->hookRepository->getDocumentManager()->remove($hook);
-  //$removed = true;
-  //}
-  //}
-  //if ($removed) {
-  //$this->memory->incrementState();
-  //}
-  //}
 }

@@ -9,11 +9,12 @@ import scala.math.max
 
 final class LobbyXhr(
     hookRepo: HookRepo,
-    gameRepo: GameRepo,
-    lobbyMemo: LobbyMemo) {
+    lobbyMemo: LobbyMemo,
+    hookMemo: HookMemo) {
 
   def cancel(ownerId: String): IO[Unit] = for {
     _ ← hookRepo removeOwnerId ownerId
+    _ ← hookMemo remove ownerId
     _ ← versionInc
   } yield ()
 
