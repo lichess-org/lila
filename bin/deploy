@@ -14,4 +14,4 @@ if (!file_exists('bin/rsync_exclude')) {
 
 $remoteTarget = "$remote:$remoteDir";
 show_run("Deploy to $remoteTarget", "rsync $rsyncoptions ./ $remoteTarget");
-show_run("Run restart", "ssh $remote \"cd $remoteDir && bin/restart\"");
+//show_run("Run restart", "ssh $remote \"cd $remoteDir && bin/restart\"");
