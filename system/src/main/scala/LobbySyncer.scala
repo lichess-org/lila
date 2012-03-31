@@ -104,7 +104,7 @@ final class LobbySyncer(
         } mkString " vs ",
         entry.data.variant,
         entry.data.rated ? "Rated" | "Casual",
-        entry.data.clock |> { c ⇒ if (c.empty) "Unlimited" else c mkString " + " }
+        entry.data.clock | "Unlimited"
       )
     })
   )

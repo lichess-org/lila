@@ -2,6 +2,7 @@ package lila.system
 package model
 
 import com.novus.salat.annotations._
+import com.mongodb.BasicDBList
 
 case class Entry(
     @Key("_id") id: Int,
@@ -15,7 +16,7 @@ case class EntryGame(
   players: List[EntryPlayer],
   variant: String,
   rated: Boolean,
-  clock: Option[List[Int]])
+  clock: Option[String])
 
 object Entry {
 
@@ -39,9 +40,7 @@ object Entry {
               ),
               variant = game.variant.name,
               rated = game.isRated,
-              clock = game.clock map { c ⇒
-                List(c.limitInMinutes, c.incrementInSeconds)
-              }
+              clock = game.clock map (_.show)
             )
           )
       )
