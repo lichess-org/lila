@@ -1,7 +1,7 @@
 package lila.system
 package model
 
-import com.novus.salat.annotations._
+import com.novus.salat.annotations.Key
 import com.mongodb.DBRef
 
 case class Hook(

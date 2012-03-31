@@ -1,10 +1,11 @@
 package lila.system
 package model
 
+import com.novus.salat.annotations.Key
 import com.mongodb.casbah.Imports.ObjectId
 
 case class User(
-    id: ObjectId,
+    @Key("_id") id: ObjectId,
     username: String,
     isOnline: Boolean,
     elo: Int,
