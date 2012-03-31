@@ -75,6 +75,7 @@ case class ImportGames(mongodb: MongoDB, gameRepo: GameRepo) extends Command {
           player.removeField("lastDrawOffer")
           player.removeField("evts")
         }
+        player.removeField("previousMoveTs")
         player
       })
       game.getAs[DBObject]("clock") map { clock ⇒
@@ -102,6 +103,7 @@ case class ImportGames(mongodb: MongoDB, gameRepo: GameRepo) extends Command {
         game -= "variant"
       }
       else game.put("v", 1)
+      game.removeField("isEloCanceled")
       Some(game)
     }
   }
