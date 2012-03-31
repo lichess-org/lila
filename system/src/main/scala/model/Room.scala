@@ -2,9 +2,8 @@ package lila.system
 package model
 
 import com.novus.salat.annotations.Key
-import com.mongodb.BasicDBList
 import org.apache.commons.lang3.StringEscapeUtils.escapeXml
-import collection.JavaConversions._
+import scala.collection.JavaConversions._
 
 case class Room(
     @Key("_id") id: String,

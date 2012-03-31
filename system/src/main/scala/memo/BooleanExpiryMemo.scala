@@ -2,7 +2,7 @@ package lila.system
 package memo
 
 import scalaz.effects._
-import collection.JavaConversions._
+import scala.collection.JavaConversions._
 
 abstract class BooleanExpiryMemo(timeout: Int) {
 
