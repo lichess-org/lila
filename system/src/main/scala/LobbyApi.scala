@@ -32,8 +32,8 @@ final class LobbyApi(
   } yield ()
 
   def create(hookOwnerId: String): IO[Unit] = for {
-    _ ← versionInc
     _ ← hookMemo put hookOwnerId
+    _ ← versionInc
   } yield ()
 
   def alive(hookOwnerId: String): IO[Unit] = hookMemo put hookOwnerId

@@ -8,6 +8,7 @@ case class Hook(
     @Key("_id") id: String,
     ownerId: String,
     variant: Int,
+    hasClock: Boolean,
     time: Option[Int],
     increment: Option[Int],
     mode: Int,
@@ -33,7 +34,9 @@ case class Hook(
     "variant" -> realVariant.toString,
     "mode" -> realMode.toString,
     "color" -> color,
-    "clock" -> ((time |@| increment apply renderClock _) | "Unlimited"),
+    "clock" -> (
+      ((time filter (_ ⇒ hasClock)) |@| increment apply renderClock _)
+      | "Unlimited"),
     "emin" -> eloMin,
     "emax" -> eloMax
   ) +? (engine, "engine" -> true)
