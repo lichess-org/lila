@@ -6,6 +6,9 @@ import DataForm._
 import play.api._
 import mvc._
 
+import play.api.libs.concurrent.Akka
+import play.api.Play.current
+
 object LobbyXhrC extends LilaController {
 
   private val xhr = env.lobbyXhr
@@ -15,13 +18,17 @@ object LobbyXhrC extends LilaController {
 
   def syncWithoutHook() = sync(None)
 
-  private def sync(hookId: Option[String]) = Action { implicit request =>
-    JsonIOk(syncer.sync(
-      hookId,
-      getIntOr("auth", 0) == 1,
-      getIntOr("state", 0),
-      getIntOr("messageId", -1),
-      getIntOr("entryId", 0)
-    ))
+  private def sync(hookId: Option[String]) = Action { implicit request ⇒
+    Async {
+      Akka.future {
+        syncer.sync(
+          hookId,
+          getIntOr("auth", 0) == 1,
+          getIntOr("state", 0),
+          getIntOr("messageId", -1),
+          getIntOr("entryId", 0)
+        )
+      } map JsonIOk
+    }
   }
 }

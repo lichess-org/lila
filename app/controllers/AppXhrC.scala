@@ -6,17 +6,30 @@ import DataForm._
 import play.api._
 import mvc._
 
+import play.api.libs.concurrent.Akka
+import play.api.Play.current
+
 object AppXhrC extends LilaController {
 
   private val xhr = env.appXhr
   private val syncer = env.appSyncer
 
-  def sync(gameId: String, color: String, version: Int, fullId: String) = Action {
-    JsonIOk(syncer.sync(gameId, color, version, Some(fullId)))
-  }
+  def sync(gameId: String, color: String, version: Int, fullId: String) =
+    syncAll(gameId, color, version, Some(fullId))
 
-  def syncPublic(gameId: String, color: String, version: Int) = Action {
-    JsonIOk(syncer.sync(gameId, color, version, None))
+  def syncPublic(gameId: String, color: String, version: Int) =
+    syncAll(gameId, color, version, None)
+
+  private def syncAll(
+    gameId: String,
+    color: String,
+    version: Int,
+    fullId: Option[String]) = Action {
+    Async {
+      Akka.future {
+        syncer.sync(gameId, color, version, fullId)
+      } map JsonIOk
+    }
   }
 
   def move(fullId: String) = Action { implicit request ⇒
