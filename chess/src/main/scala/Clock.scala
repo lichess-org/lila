@@ -67,8 +67,8 @@ case class RunningClock(
     limit = limit,
     increment = increment,
     color = color,
-    whiteTime = whiteTime,
-    blackTime = blackTime)
+    whiteTime = whiteTime + (if (color == White) (now - timer).toFloat else 0),
+    blackTime = blackTime + (if (color == Black) (now - timer).toFloat else 0))
 
   def addTime(c: Color, t: Float): RunningClock = c match {
     case White ⇒ copy(whiteTime = whiteTime + t)
