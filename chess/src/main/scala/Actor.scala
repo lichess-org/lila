@@ -101,10 +101,14 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
       if (enemyThreats & securedPoss.toSet).isEmpty
       newRookPos ← posAt(side.castledRookX, rookPos.y)
       b1 ← board take rookPos
-      b2 ← b1.move(kingPos, newKingPos)
+      b2AndTarget = b1.move(kingPos, newKingPos).fold(
+        b ⇒ (b, newKingPos),
+        (b1, rookPos)
+      )
+      (b2, target) = b2AndTarget
       b3 ← b2.place(color.rook, newRookPos)
       b4 = b3 updateHistory (_ withoutCastles color)
-    } yield move(newKingPos, b4, castle = Some((rookPos, newRookPos)))
+    } yield move(target, b4, castle = Some((rookPos, newRookPos)))
 
     List(on(KingSide), on(QueenSide)).flatten
   }
