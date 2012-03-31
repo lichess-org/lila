@@ -2,7 +2,7 @@ package lila.chess
 
 import scala.math.max
 
-// All durations are expressed in milliseconds
+// All durations are expressed in seconds
 sealed trait Clock {
   val limit: Int
   val increment: Int
@@ -21,11 +21,7 @@ sealed trait Clock {
 
   def elapsedTime(c: Color) = time(c)
 
-  def limitInSeconds = limit / 1000
-
-  def limitInMinutes = limitInSeconds / 60
-
-  def incrementInSeconds = increment / 1000
+  def limitInMinutes = limit / 60
 
   def estimateTotalTime = limit + 30 * increment
 
@@ -36,6 +32,8 @@ sealed trait Clock {
   def addTime(c: Color, t: Float): Clock
 
   def giveTime(c: Color, t: Float): Clock
+
+  def show = limitInMinutes.toString + " + " + increment.toString
 
   protected def now = System.currentTimeMillis / 1000d
 }
