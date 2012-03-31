@@ -62,12 +62,12 @@ final class Finisher(
       g3 ← message some { messenger.systemMessage(g2, _) } none io(g2)
       _ ← gameRepo.applyDiff(game, g3)
       _ ← versionMemo put g3
-      _ ← updateElo(g2)
-      _ ← incNbGames(g2, White)
-      _ ← incNbGames(g2, Black)
+      _ ← updateElo(g3)
+      _ ← incNbGames(g3, White)
+      _ ← incNbGames(g3, Black)
     } yield ())
 
-  private def incNbGames(game: DbGame, color: Color) =
+  private def incNbGames(game: DbGame, color: Color): IO[Unit] =
     game.player(color).userId.fold(
       id ⇒ userRepo.incNbGames(id, game.rated),
       io()
@@ -84,6 +84,10 @@ final class Finisher(
         whiteUser ← userRepo user whiteUserId
         blackUser ← userRepo user blackUserId
         (whiteElo, blackElo) = eloCalculator.calculate(whiteUser, blackUser, game.winnerColor)
+        _ ← gameRepo.setEloDiffs(
+          game.id,
+          whiteElo - whiteUser.elo,
+          blackElo - blackUser.elo)
         _ ← userRepo.setElo(whiteUser.id, whiteElo)
         _ ← userRepo.setElo(blackUser.id, blackElo)
         _ ← historyRepo.addEntry(whiteUser.username, whiteElo, game.id)

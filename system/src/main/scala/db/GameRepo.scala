@@ -44,7 +44,7 @@ class GameRepo(collection: MongoCollection)
     diff(encode(a), encode(b)) |> { diffs ⇒
       if (diffs.nonEmpty) {
         val fullDiffs = ("updatedAt" -> new Date()) :: diffs
-        io { update(DBObject("_id" -> a.id), $set (fullDiffs: _*)) }
+        io { update(DBObject("_id" -> a.id), $set(fullDiffs: _*)) }
       }
       else io()
     }
@@ -80,6 +80,15 @@ class GameRepo(collection: MongoCollection)
 
   def insert(game: DbGame): IO[Option[String]] = io {
     insert(encode(game))
+  }
+
+  // makes the asumption that player 0 is white!
+  // proved to be true on prod DB at March 31 2012
+  def setEloDiffs(id: String, white: Int, black: Int) = io {
+    update(
+      DBObject("_id" -> id),
+      $set("players.0.eloDiff" -> white, "players.1.eloDiff" -> black)
+    )
   }
 
   def decode(raw: RawDbGame): Option[DbGame] = raw.decode
