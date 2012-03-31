@@ -30,15 +30,15 @@ POST  /api/outoftime/:fullId        controllers.AppXhrC.outoftime(fullId: String
 # Lobby XHR
 GET   /lobby/sync/:hookId           controllers.LobbyXhrC.syncWithHook(hookId: String)
 GET   /lobby/sync                   controllers.LobbyXhrC.syncWithoutHook
+GET   /lobby/cancel/:ownerId        controllers.LobbyXhrC.cancel(ownerId: String)
 
 # Lobby Private API
 POST  /api/lobby/join/:gameId/:color controllers.LobbyApiC.join(gameId: String, color: String)
 GET   /api/lobby/preload/:hookId    controllers.LobbyXhrC.syncWithHook(hookId: String)
 GET   /api/lobby/preload            controllers.LobbyXhrC.syncWithoutHook
 POST  /api/lobby/create/:hookOwnerId controllers.LobbyApiC.create(hookOwnerId: String)
-POST  /api/lobby/remove/:hookId     controllers.LobbyApiC.remove(hookId: String)
 POST  /api/lobby/alive/:hookOwnerId controllers.LobbyApiC.alive(hookOwnerId: String)
 POST  /api/lobby/message            controllers.LobbyApiC.message
 
 # Useless, but play2 needs it
-GET   /assets/*file                     controllers.Assets.at(path="/public", file)
+GET   /assets/*file                 controllers.Assets.at(path="/public", file)

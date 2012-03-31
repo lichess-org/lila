@@ -14,6 +14,11 @@ object LobbyXhrC extends LilaController {
   private val xhr = env.lobbyXhr
   private val syncer = env.lobbySyncer
 
+  def cancel(ownerId: String) = Action {
+    xhr.cancel(ownerId).unsafePerformIO
+    Redirect("/")
+  }
+
   def syncWithHook(hookId: String) = sync(Some(hookId))
 
   def syncWithoutHook() = sync(None)

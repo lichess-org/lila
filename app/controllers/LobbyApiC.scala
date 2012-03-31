@@ -21,10 +21,6 @@ object LobbyApiC extends LilaController {
     IOk(api.create(hookOwnerId))
   }
 
-  def remove(hookId: String) = Action {
-    IOk(api.remove(hookId))
-  }
-
   def alive(hookOwnerId: String) = Action {
     IOk(api.alive(hookOwnerId))
   }

@@ -36,11 +36,6 @@ final class LobbyApi(
     _ ← hookMemo put hookOwnerId
   } yield ()
 
-  def remove(hookId: String): IO[Unit] = for {
-    _ ← hookRepo removeId hookId
-    _ ← versionInc
-  } yield ()
-
   def alive(hookOwnerId: String): IO[Unit] = hookMemo put hookOwnerId
 
   def messageRefresh: IO[Unit] = messageMemo.refresh

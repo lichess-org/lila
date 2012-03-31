@@ -36,7 +36,11 @@ class HookRepo(collection: MongoCollection)
   }
 
   def removeId(id: String): IO[Unit] = io {
-    remove(DBObject("id" -> id))
+    remove(DBObject("_id" -> id))
+  }
+
+  def removeOwnerId(ownerId: String): IO[Unit] = io {
+    remove(DBObject("ownerId" -> ownerId))
   }
 
   def keepOnlyIds(ids: Iterable[String]): IO[Boolean] = io {
