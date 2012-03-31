@@ -10,4 +10,5 @@ show_run("Stage", "$play clean compile stage");
 show_run_catch("Stop", "$play stop");
 show_run("Start", "./target/start > logs/play.log &");
 
+sleep(3);
 show_run("Testing $testurl", "curl -sILw \"%{http_code}\" -o /dev/null $testurl");
