@@ -32,14 +32,20 @@ final class AppXhr(
       (newChessGame, move) = newChessGameAndMove
     } yield g2.update(newChessGame, move)).fold(
       e ⇒ io(failure(e)),
-      g2 ⇒ for {
-        g3 ← if (g2.player.isAi && g2.playable) for {
-          aiResult ← ai(g2) map (_.toOption err "AI failure")
-          (newChessGame, move) = aiResult
-        } yield g2.update(newChessGame, move)
-        else io(g2)
-        _ ← save(g1, g3)
+      g3 ⇒ for {
         _ ← aliveMemo.put(g3.id, color)
+        _ ← if (g3.finished) for {
+          _ ← save(g1, g3)
+          _ ← finisher.moveFinish(g3, color)
+        } yield ()
+        else if (g3.player.isAi && g3.playable) for {
+          aiResult ← ai(g3) map (_.toOption err "AI failure")
+          (newChessGame, move) = aiResult
+          g4 = g3.update(newChessGame, move)
+          _ ← save(g1, g4)
+          _ ← finisher.moveFinish(g4, !color)
+        } yield ()
+        else save(g1, g3)
       } yield success()
     )
   }

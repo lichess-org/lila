@@ -10,12 +10,12 @@ import scalaz.effects._
 final class Finisher(
     historyRepo: HistoryRepo,
     userRepo: UserRepo,
-    gameRepo: GameRepo,
+    val gameRepo: GameRepo,
     messenger: Messenger,
-    versionMemo: VersionMemo,
+    val versionMemo: VersionMemo,
     aliveMemo: AliveMemo,
     eloCalculator: EloCalculator,
-    finisherLock: FinisherLock) {
+    finisherLock: FinisherLock) extends IOTools {
 
   type ValidIO = Valid[IO[Unit]]
 
@@ -48,6 +48,12 @@ final class Finisher(
         Some(!player.color) filter pov.game.toChess.board.hasEnoughMaterialToMate)
     } none !!("no outoftime applicable")
 
+  def moveFinish(game: DbGame, color: Color): IO[Unit] = (game.status match {
+    case Mate                        ⇒ finish(game, Mate, Some(color))
+    case status @ (Stalemate | Draw) ⇒ finish(game, status)
+    case _                           ⇒ success(io())
+  }) | io()
+
   private def !!(msg: String) = failure(msg.wrapNel)
 
   private def finish(
@@ -60,10 +66,9 @@ final class Finisher(
       _ ← finisherLock lock game
       g2 = game.finish(status, winner)
       g3 ← message.fold(messenger.systemMessage(g2, _), io(g2))
-      _ ← gameRepo.applyDiff(game, g3)
+      _ ← save(game, g3)
       winnerId = winner flatMap (g3.player(_).userId)
       _ ← gameRepo.finish(g3.id, winnerId)
-      _ ← versionMemo put g3
       _ ← updateElo(g3)
       _ ← incNbGames(g3, White)
       _ ← incNbGames(g3, Black)

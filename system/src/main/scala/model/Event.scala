@@ -20,7 +20,6 @@ object Event {
 
   def fromSituation(situation: Situation): List[Event] = List(
     if (situation.check) situation.kingPos map CheckEvent.apply else None,
-    if (situation.end) Some(EndEvent()) else None,
     if (situation.threefoldRepetition) Some(ThreefoldEvent()) else None
   ).flatten
 
