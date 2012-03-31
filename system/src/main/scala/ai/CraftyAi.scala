@@ -16,14 +16,16 @@ final class CraftyAi(
 
   def apply(dbGame: DbGame): IO[Valid[(Game, Move)]] = {
 
-    val oldGame = dbGame.variant match {
-      case Standard ⇒ dbGame.toChess
-      case Chess960 ⇒ dbGame.toChess updateBoard { board ⇒
+    val oldGame = dbGame.toChess
+
+    val forsyth = Forsyth >> (dbGame.variant match {
+      case Chess960 ⇒ oldGame updateBoard { board ⇒
         board updateHistory (_.withoutAnyCastles)
       }
-    }
+      case _ ⇒ oldGame
+    })
 
-    runCrafty(Forsyth >> oldGame, dbGame.aiLevel | 1) map { newFen ⇒
+    runCrafty(forsyth, dbGame.aiLevel | 1) map { newFen ⇒
       for {
         newSituation ← Forsyth << newFen toValid "Cannot parse engine FEN"
         reverseEngineer = new ReverseEngineering(oldGame, newSituation.board)
