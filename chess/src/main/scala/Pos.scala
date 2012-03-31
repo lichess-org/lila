@@ -1,6 +1,6 @@
 package lila.chess
 
-import scala.math.{ min, max }
+import scala.math.{ min, max, abs }
 
 sealed case class Pos private (x: Int, y: Int, piotr: Char) {
 
@@ -21,12 +21,14 @@ sealed case class Pos private (x: Int, y: Int, piotr: Char) {
     p :: (if (stop(p)) Nil else p.|<>|(stop, dir))
   } getOrElse Nil
 
-  def ?<(other: Pos) = x < other.x
-  def ?>(other: Pos) = x > other.x
-  def ?|(other: Pos) = x == other.x
+  def ?<(other: Pos): Boolean = x < other.x
+  def ?>(other: Pos): Boolean = x > other.x
+  def ?|(other: Pos): Boolean = x == other.x
 
   def <->(other: Pos): Iterable[Pos] =
     min(x, other.x) to max(x, other.x) map { posAt(_, y) } flatten
+
+  def nextTo(other: Pos): Boolean = abs(x - other.x) == 1
 
   lazy val file = Pos xToString x
   lazy val rank = y.toString

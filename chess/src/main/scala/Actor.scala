@@ -101,10 +101,11 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
       if (enemyThreats & securedPoss.toSet).isEmpty
       newRookPos ← posAt(side.castledRookX, rookPos.y)
       b1 ← board take rookPos
-      b2AndTarget = b1.move(kingPos, newKingPos).fold(
-        b ⇒ (b, newKingPos),
-        (b1, rookPos)
-      )
+      b2AndTarget ← newKingPos match {
+        case p if p == kingPos     ⇒ Some(b1, rookPos)
+        case p if p nextTo kingPos ⇒ b1.move(kingPos, p) map { (_, rookPos) }
+        case p                     ⇒ b1.move(kingPos, p) map { (_, p) }
+      }
       (b2, target) = b2AndTarget
       b3 ← b2.place(color.rook, newRookPos)
       b4 = b3 updateHistory (_ withoutCastles color)

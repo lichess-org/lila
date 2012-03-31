@@ -59,6 +59,20 @@ B     KR"""
 B    RK """)
         }
       }
+      "chess960 close queenside" in {
+        val board: Board = """
+PPPPPPPP
+RK     B"""
+        val game = Game(board, White)
+        "viable moves" in {
+          board destsFrom B1 must bePoss(A1, C1)
+        }
+        "correct new board" in {
+          game.playMove(B1, A1) must beGame("""
+PPPPPPPP
+  KR   B""")
+        }
+      }
     }
   }
 
