@@ -1,0 +1,7 @@
+logs
+tags
+project/project
+project/target
+target
+RUNNING_PID
+.git*

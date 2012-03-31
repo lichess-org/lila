@@ -1,0 +1,24 @@
+#!/usr/bin/env php
+<?php
+
+$remote="phobos";
+$remoteDir="/home/lila_staging";
+$rsyncoptions="--archive --force --delete --progress --compress --checksum --exclude-from=bin/rsync_exclude";
+$testurl="http://en.lichess.org";
+
+if (!file_exists('bin/rsync_exclude')) {
+    exit("This script must be run from the project root");
+}
+
+function show_run($text, $command, $catch = false)
+{
+    echo "\n* $text\n$command\n";
+    passthru($command, $return);
+    if (0 !== $return && !$catch) {
+        echo "\n/!\\ The command returned $return\n";
+        exit(1);
+    }
+}
+
+$remoteTarget = "$remote:$remoteDir";
+show_run("Deploy to $remoteTarget", "rsync $rsyncoptions ./ $remoteTarget");
