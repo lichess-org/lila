@@ -8,7 +8,7 @@ case class Move(
     after: Board,
     capture: Option[Pos],
     promotion: Option[PromotableRole],
-    castle: Option[(Pos, Pos)],
+    castle: Option[((Pos, Pos), (Pos, Pos))],
     enpassant: Boolean) {
 
   def withHistory(h: History) = copy(after = after withHistory h)

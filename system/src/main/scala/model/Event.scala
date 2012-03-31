@@ -13,7 +13,9 @@ object Event {
   def fromMove(move: Move): List[Event] = MoveEvent(move) :: List(
     if (move.enpassant) move.capture map EnpassantEvent.apply else None,
     move.promotion map { role ⇒ PromotionEvent(role, move.dest) },
-    move.castle map { rook ⇒ CastlingEvent((move.orig, move.dest), rook, move.color) }
+    move.castle map {
+      case (king, rook) ⇒ CastlingEvent(king, rook, move.color)
+    }
   ).flatten
 
   def fromSituation(situation: Situation): List[Event] = List(
