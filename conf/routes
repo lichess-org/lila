@@ -1,7 +1,3 @@
-# Routes
-# This file defines all application routes (Higher priority routes first)
-# ~~~~
-
 # App XHR
 GET   /ping                             controllers.AppXhrC.ping
 GET   /sync/:gameId/:color/:version     controllers.AppXhrC.syncPublic(gameId: String, color: String, version: Int)
