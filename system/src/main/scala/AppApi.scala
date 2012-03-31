@@ -84,6 +84,11 @@ final class AppApi(
     _ ← aliveMemo.put(gameId, color)
   } yield ()
 
+  def playerVersion(gameId: String, colorName: String): IO[Int] = for {
+    color ← ioColor(colorName)
+    pov ← gameRepo.pov(gameId, color)
+  } yield pov.player.eventStack.lastVersion
+
   def draw(gameId: String, colorName: String, messages: String): IO[Unit] = for {
     color ← ioColor(colorName)
     g1 ← gameRepo game gameId
