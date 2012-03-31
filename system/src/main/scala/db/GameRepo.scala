@@ -11,6 +11,7 @@ import com.novus.salat._
 import com.novus.salat.dao._
 import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.Imports._
+import java.util.Date
 import scalaz.effects._
 
 class GameRepo(collection: MongoCollection)
@@ -39,12 +40,17 @@ class GameRepo(collection: MongoCollection)
     update(DBObject("_id" -> game.id), _grater asDBObject encode(game))
   }
 
-  def applyDiff(a: DbGame, b: DbGame): IO[Unit] = io {
-    update(DBObject("_id" -> a.id), diff(encode(a), encode(b)))
-  }
+  def applyDiff(a: DbGame, b: DbGame): IO[Unit] =
+    diff(encode(a), encode(b)) |> { diffs ⇒
+      if (diffs.nonEmpty) {
+        val fullDiffs = ("updatedAt" -> new Date()) :: diffs
+        io { update(DBObject("_id" -> a.id), $set (fullDiffs: _*)) }
+      }
+      else io()
+    }
 
-  def diff(a: RawDbGame, b: RawDbGame): MongoDBObject = {
-    val builder = MongoDBObject.newBuilder
+  def diff(a: RawDbGame, b: RawDbGame): List[(String, Any)] = {
+    val builder = scala.collection.mutable.ListBuffer[(String, Any)]()
     def d[A](name: String, f: RawDbGame ⇒ A) {
       if (f(a) != f(b)) builder += name -> f(b)
     }
@@ -69,8 +75,7 @@ class GameRepo(collection: MongoCollection)
       d("clock.b", _.clock.get.b)
       d("clock.timer", _.clock.get.timer)
     }
-
-    MongoDBObject("$set" -> builder.result)
+    builder.toList
   }
 
   def insert(game: DbGame): IO[Option[String]] = io {
