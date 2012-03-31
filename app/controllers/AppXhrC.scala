@@ -43,7 +43,7 @@ object AppXhrC extends LilaController {
   }
 
   def outoftime(fullId: String) = Action {
-    ValidIORedir(xhr outoftime fullId, fullId)
+    ValidIOk(xhr outoftime fullId)
   }
 
   def resign(fullId: String) = Action {

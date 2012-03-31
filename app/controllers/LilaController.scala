@@ -24,6 +24,11 @@ trait LilaController extends Controller with ContentTypes with RequestGetter {
     _ ⇒ Ok("ok")
   )
 
+  def ValidIOk(valid: IO[Valid[Unit]]) = valid.unsafePerformIO.fold(
+    e ⇒ BadRequest(e.list mkString "\n"),
+    _ ⇒ Ok("ok")
+  )
+
   def ValidIORedir(op: IO[Valid[Unit]], url: ⇒ String) =
     op.unsafePerformIO.fold(
       failures ⇒ {
