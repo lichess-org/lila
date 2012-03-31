@@ -17,7 +17,7 @@ case class DbPlayer(
     lastDrawOffer: Option[Int],
     user: Option[DBRef]) {
 
-  def eventStack: EventStack = EventStack decode evts
+  lazy val eventStack: EventStack = EventStack decode evts
 
   def newEvts(events: List[Event]): String =
     (eventStack withEvents events).optimize.encode

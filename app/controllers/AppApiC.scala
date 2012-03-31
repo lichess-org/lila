@@ -10,16 +10,12 @@ object AppApiC extends LilaController {
 
   private val api = env.appApi
 
-  def updateVersion(gameId: String) = Action {
-    IOk(api updateVersion gameId)
+  def show(fullId: String) = Action {
+    JsonIOk(api show fullId)
   }
 
   def reloadTable(gameId: String) = Action {
     IOk(api reloadTable gameId)
-  }
-
-  def room(gameId: String) = Action {
-    Ok(api.room(gameId).unsafePerformIO)
   }
 
   def alive(gameId: String, color: String) = Action {
@@ -42,10 +38,6 @@ object AppApiC extends LilaController {
 
   def activity(gameId: String, color: String) = Action {
     Ok(api.activity(gameId, color).toString)
-  }
-
-  def possibleMoves(gameId: String, color: String) = Action {
-    JsonIOk(api.possibleMoves(gameId, color))
   }
 
   def rematchAccept(gameId: String, color: String, newGameId: String) = Action { implicit request ⇒

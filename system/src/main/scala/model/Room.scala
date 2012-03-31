@@ -9,7 +9,8 @@ case class Room(
     @Key("_id") id: String,
     messages: List[String]) {
 
-  def render: String = messages map ((Room.render _) compose Room.decode) mkString
+  def render: String =
+    messages map ((Room.render _) compose Room.decode) mkString ""
 }
 
 object Room {

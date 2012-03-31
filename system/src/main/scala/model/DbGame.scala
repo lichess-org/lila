@@ -146,6 +146,8 @@ case class DbGame(
 
   def playable = status < Aborted
 
+  def playableBy(p: DbPlayer) = playable && p == player
+
   def aiLevel: Option[Int] = players find (_.isAi) flatMap (_.aiLevel)
 
   def mapPlayers(f: DbPlayer ⇒ DbPlayer) = copy(

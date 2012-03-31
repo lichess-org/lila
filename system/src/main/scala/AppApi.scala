@@ -13,6 +13,23 @@ final class AppApi(
     messenger: Messenger,
     starter: Starter) extends IOTools {
 
+  def show(fullId: String): IO[Map[String, Any]] = for {
+    pov ← gameRepo pov fullId
+    _ ← aliveMemo.put(pov.game.id, pov.color)
+    roomHtml ← messenger render pov.game.id
+  } yield Map(
+    "stackVersion" -> pov.player.eventStack.lastVersion,
+    "roomHtml" -> roomHtml,
+    "opponentActivity" -> aliveMemo.activity(pov.game.id, !pov.color),
+    "possibleMoves" -> {
+      if (pov.game playableBy pov.player)
+        pov.game.toChess.situation.destinations map {
+          case (from, dests) ⇒ from.key -> (dests.mkString)
+        } toMap
+      else null
+    }
+  )
+
   def join(
     fullId: String,
     url: String,
@@ -76,16 +93,5 @@ final class AppApi(
   } yield ()
 
   def activity(gameId: String, colorName: String): Int =
-    Color(colorName) some { aliveMemo.activity(gameId, _) } none 0
-
-  def room(gameId: String): IO[String] =
-    messenger render gameId
-
-  def possibleMoves(gameId: String, colorName: String): IO[Map[String, Any]] =
-    for {
-      color ← ioColor(colorName)
-      game ← gameRepo game gameId
-    } yield game.toChess.situation.destinations map {
-      case (from, dests) ⇒ from.key -> (dests.mkString)
-    } toMap
+    Color(colorName).fold(aliveMemo.activity(gameId, _), 0)
 }
