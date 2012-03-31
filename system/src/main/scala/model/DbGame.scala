@@ -19,8 +19,7 @@ case class DbGame(
     positionHashes: String = "",
     castles: String = "KQkq",
     isRated: Boolean = false,
-    variant: Variant = Standard,
-    winnerId: Option[String] = None) {
+    variant: Variant = Standard) {
 
   val players = List(whitePlayer, blackPlayer)
 
@@ -172,10 +171,8 @@ case class DbGame(
 
   def finish(status: Status, winner: Option[Color]) = copy(
     status = status,
-    winnerId = winner flatMap (player(_).userId),
     whitePlayer = whitePlayer finish (winner == Some(White)),
     blackPlayer = blackPlayer finish (winner == Some(Black)),
-    positionHashes = "",
     clock = clock map (_.stop)
   ) withEvents List(EndEvent())
 

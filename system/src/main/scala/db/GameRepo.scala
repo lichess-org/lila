@@ -91,6 +91,24 @@ class GameRepo(collection: MongoCollection)
     )
   }
 
+  def finish(id: String, winnerId: Option[String]) = io {
+    update(
+      DBObject("_id" -> id),
+      winnerId.fold(userId ⇒
+        $set("positionHashes" -> "", "winnerUserId" -> userId),
+        $set("positionHashes" -> ""))
+        ++ $unset(
+          "players.0.previousMoveTs",
+          "players.1.previousMoveTs",
+          "players.0.lastDrawOffer",
+          "players.1.lastDrawOffer",
+          "players.0.isOfferingDraw",
+          "players.1.isOfferingDraw",
+          "clock.timer"
+        )
+    )
+  }
+
   def decode(raw: RawDbGame): Option[DbGame] = raw.decode
 
   def encode(dbGame: DbGame): RawDbGame = RawDbGame encode dbGame

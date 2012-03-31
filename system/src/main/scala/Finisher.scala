@@ -59,8 +59,10 @@ final class Finisher(
     else success(for {
       _ ← finisherLock lock game
       g2 = game.finish(status, winner)
-      g3 ← message some { messenger.systemMessage(g2, _) } none io(g2)
+      g3 ← message.fold(messenger.systemMessage(g2, _), io(g2))
       _ ← gameRepo.applyDiff(game, g3)
+      winnerId = winner flatMap (g3.player(_).userId)
+      _ ← gameRepo.finish(g3.id, winnerId)
       _ ← versionMemo put g3
       _ ← updateElo(g3)
       _ ← incNbGames(g3, White)
