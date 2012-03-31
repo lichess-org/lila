@@ -5,7 +5,7 @@ import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.Imports._
 import scalaz.effects._
 
-case class MigrateRooms(mongodb: MongoDB) extends Command {
+case class ImportRooms(mongodb: MongoDB) extends Command {
 
   val oldRooms = mongodb("game_room")
   val newRooms = mongodb("room")
