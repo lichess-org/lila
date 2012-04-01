@@ -108,12 +108,12 @@ RNBRKR R
 """).copy(turns = 11).withoutEvents.afterMove(D4, E4)
         "white events" in {
           playerEvents(dbg, White) must beSome.like {
-            case events ⇒ events map (_._2) must contain(CheckEvent(E1), EndEvent())
+            case events ⇒ events map (_._2) must contain(CheckEvent(E1))
           }
         }
         "black events" in {
           playerEvents(dbg, Black) must beSome.like {
-            case events ⇒ events map (_._2) must contain(CheckEvent(E1), EndEvent())
+            case events ⇒ events map (_._2) must contain(CheckEvent(E1))
           }
         }
       }
@@ -125,12 +125,14 @@ K
 """).copy(turns = 11).withoutEvents.afterMove(A3, A2)
         "white events" in {
           playerEvents(dbg, White) must beSome.like {
-            case events ⇒ events map (_._2) must contain(EndEvent())
+            case events ⇒ events map (_._2) must contain(
+              PossibleMovesEvent(Map.empty))
           }
         }
         "black events" in {
           playerEvents(dbg, Black) must beSome.like {
-            case events ⇒ events map (_._2) must contain(EndEvent())
+            case events ⇒ events map (_._2) must contain(
+              PossibleMovesEvent(Map.empty))
           }
         }
       }
