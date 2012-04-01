@@ -105,8 +105,7 @@ class GameRepo(collection: MongoCollection)
           "players.0.lastDrawOffer",
           "players.1.lastDrawOffer",
           "players.0.isOfferingDraw",
-          "players.1.isOfferingDraw",
-          "clock.timer"
+          "players.1.isOfferingDraw"
         )
     )
   }
