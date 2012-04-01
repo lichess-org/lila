@@ -131,7 +131,7 @@ trait Fixtures {
     before: Board = Board(),
     after: Board = Board(),
     capture: Option[Pos] = None,
-    castle: Option[(Pos, Pos)] = None,
+    castle: Option[((Pos, Pos), (Pos, Pos))] = None,
     promotion: Option[PromotableRole] = None,
     enpassant: Boolean = false) = Move(
     piece = piece,
