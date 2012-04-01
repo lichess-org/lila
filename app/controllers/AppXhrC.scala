@@ -33,9 +33,13 @@ object AppXhrC extends LilaController {
   }
 
   def move(fullId: String) = Action { implicit request ⇒
-    ValidOk(moveForm.bindFromRequest.toValid flatMap { move ⇒
-      xhr.play(fullId, move._1, move._2, move._3).unsafePerformIO
-    })
+    Async {
+      Akka.future {
+        moveForm.bindFromRequest.toValid flatMap { move ⇒
+          xhr.play(fullId, move._1, move._2, move._3).unsafePerformIO
+        }
+      } map ValidOk
+    }
   }
 
   def abort(fullId: String) = Action {
@@ -72,7 +76,7 @@ object AppXhrC extends LilaController {
   def moretime(fullId: String) = Action {
     (xhr moretime fullId).unsafePerformIO.fold(
       e ⇒ BadRequest(e.list mkString "\n"),
-      time ⇒ Ok(time.toString)
+      time ⇒ Ok(time)
     )
   }
 
@@ -86,5 +90,5 @@ object AppXhrC extends LilaController {
     ))
   }
 
-  def nbPlayers = Action { Ok(env.aliveMemo.count.toString) }
+  def nbPlayers = Action { Ok(env.aliveMemo.count) }
 }
