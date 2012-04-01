@@ -8,4 +8,4 @@ nicer not found in logs
 In the chat room, the following message does not appear.
 Rematch offer sent
 Rematch offer accepted 
-promotion fail http://en.lichess.org/746qj8ip
+seen in logs: lila.system.model.RawDbGame requires value for 'pgn'

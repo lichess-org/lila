@@ -39,7 +39,7 @@ final class AppXhr(
           _ ← finisher.moveFinish(g3, color)
         } yield ()
         else if (g3.player.isAi && g3.playable) for {
-          aiResult ← ai(g3) map (_.toOption err "AI failure")
+          aiResult ← ai(g3) map (_.err)
           (newChessGame, move) = aiResult
           g4 = g3.update(newChessGame, move)
           _ ← save(g1, g4)

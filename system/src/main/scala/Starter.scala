@@ -16,7 +16,7 @@ final class Starter(
     _ ← if (game.variant == Standard) io() else gameRepo saveInitialFen game
     _ ← addEntry(game, entryData)
     g2 ← if (game.player.isHuman) io(game) else for {
-      aiResult ← ai(game) map (_.toOption err "AI failure")
+      aiResult ← ai(game) map (_.err)
       (newChessGame, move) = aiResult
     } yield game.update(newChessGame, move)
   } yield g2
