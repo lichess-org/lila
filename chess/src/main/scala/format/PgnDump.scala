@@ -7,7 +7,7 @@ object PgnDump {
     import data._
     ((promotion, piece.role) match {
       case _ if castles         ⇒ if (orig ?> dest) "O-O-O" else "O-O"
-      case _ if enpassant       ⇒ orig.file + 'x' + dest.rank
+      case _ if enpassant       ⇒ orig.file + 'x' + dest.key
       case (Some(promotion), _) ⇒ dest.key + promotion.pgn
       case (_, Pawn)            ⇒ (if (captures) orig.file + "x" else "") + dest.key
       case (_, role) ⇒ role.pgn + {
