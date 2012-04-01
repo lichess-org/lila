@@ -11,6 +11,8 @@ import com.novus.salat._
 import com.novus.salat.dao._
 import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.Imports._
+import org.joda.time.DateTime
+import org.scala_tools.time.Imports._
 import java.util.Date
 import scalaz.effects._
 
@@ -118,6 +120,18 @@ class GameRepo(collection: MongoCollection)
       DBObject("_id" -> dbGame.id),
       $set("initialFen" -> (Forsyth >> dbGame.toChess))
     )
+  }
+
+  def cleanupUnplayed: IO[Unit] = io {
+    remove(("turns" $lt 2) ++ ("createdAt" $lt (DateTime.now - 2.day)))
+  }
+
+  def candidatesToAutofinish: IO[List[DbGame]] = io {
+    find(
+      ("clock" $exists true) ++
+      ("status" -> Started) ++
+      ("updatedAt" $lt (DateTime.now - 2.hour))
+    ).toList.map(decode).flatten
   }
 
   def ensureIndexes: IO[Unit] = io {

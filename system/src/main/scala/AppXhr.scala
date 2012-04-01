@@ -58,7 +58,7 @@ final class AppXhr(
 
   def claimDraw(fullId: String): IOValid = attempt(fullId, finisher.claimDraw)
 
-  def outoftime(fullId: String): IOValid = attempt(fullId, finisher.outoftime)
+  def outoftime(fullId: String): IOValid = attempt(fullId, finisher outoftime _.game)
 
   def drawAccept(fullId: String): IOValid = attempt(fullId, finisher.drawAccept)
 

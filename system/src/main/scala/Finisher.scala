@@ -42,11 +42,14 @@ final class Finisher(
       finish(pov.game, Draw, None, Some("Draw offer accepted"))
     else !!("opponent is not proposing a draw")
 
-  def outoftime(pov: Pov): ValidIO =
-    pov.game.outoftimePlayer some { player ⇒
-      finish(pov.game, Outoftime,
-        Some(!player.color) filter pov.game.toChess.board.hasEnoughMaterialToMate)
+  def outoftime(game: DbGame): ValidIO =
+    game.outoftimePlayer some { player ⇒
+      finish(game, Outoftime,
+        Some(!player.color) filter game.toChess.board.hasEnoughMaterialToMate)
     } none !!("no outoftime applicable")
+
+  def outoftimes(games: List[DbGame]): IO[Unit] =
+    (games map { g ⇒ outoftime(g) | io() }).sequence map (_ ⇒ Unit)
 
   def moveFinish(game: DbGame, color: Color): IO[Unit] = (game.status match {
     case Mate                        ⇒ finish(game, Mate, Some(color))

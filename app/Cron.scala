@@ -16,18 +16,27 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
   }
 
   spawn("hook_cleanup_dead") { env ⇒
-    for {
-      hasRemoved ← env.hookRepo keepOnlyOwnerIds env.hookMemo.keys
-      _ ← if (hasRemoved) env.lobbyMemo++ else io()
-    } yield ()
+    env.hookRepo keepOnlyOwnerIds env.hookMemo.keys flatMap { hasRemoved ⇒
+      if (hasRemoved) (env.lobbyMemo ++) map (_ ⇒ Unit) else io()
+    }
   }
 
   spawn("hook_cleanup_old") { env ⇒
     env.hookRepo.cleanupOld
   }
 
+  spawn("game_cleanup_unplayed") { env ⇒
+    env.gameRepo.cleanupUnplayed
+  }
+
+  spawn("game_auto_finish") { env ⇒
+    env.gameRepo.candidatesToAutofinish flatMap { games ⇒
+      env.finisher outoftimes games.pp
+    }
+  }
+
   def spawn(name: String)(f: SystemEnv ⇒ IO[Unit]) = {
-    val freq = env.getMilliseconds("cron.online_username.frequency") millis
+    val freq = env.getMilliseconds("cron.%s.frequency" format name) millis
     val actor = Akka.system.actorOf(Props(new Actor {
       def receive = {
         case "tick" ⇒ f(env).unsafePerformIO
