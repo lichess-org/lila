@@ -16,4 +16,18 @@ class GameTest extends ChessTest {
       }
     }
   }
+  "recapture a piece" should {
+    "add both to the dead pieces" in {
+      val game = Game("""
+bq
+R""").playMoves(
+  A1 -> A2,
+  B2 -> A2)
+      game must beSuccess.like {
+        case g ⇒ g.deads must haveTheSameElementsAs(List(
+          A2 -> Black.bishop,
+          A2 -> White.rook))
+      }
+    }
+  }
 }

@@ -135,7 +135,7 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
       case None                        ⇒ Nil
       case Some(next) if friends(next) ⇒ Nil
       case Some(next) if enemies(next) ⇒ board.taking(pos, next) map { b ⇒
-        move(next, b, Some(pos))
+        move(next, b, Some(next))
       } toList
       case Some(next) ⇒ board.move(pos, next) map { b ⇒
         move(next, b) :: forward(next, dir)
