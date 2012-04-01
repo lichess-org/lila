@@ -2,6 +2,7 @@ package lila.chess
 
 import Pos._
 import format.Visual.addNewLines
+import scalaz.Success
 
 class ReverseEngineeringTest extends ChessTest {
 
@@ -24,38 +25,38 @@ RN QK  R
   "reverse engineer a move" should {
     "none on same games" in {
       "initial game" in {
-        findMove(Game(), Game()) must beNone
+        findMove(Game(), Game()) must beFailure
       }
       "played game" in {
-        findMove(playedGame, playedGame) must beNone
+        findMove(playedGame, playedGame) must beFailure
       }
     }
     "none on different games" in {
       "initial to played" in {
-        findMove(Game(), playedGame) must beNone
+        findMove(Game(), playedGame) must beFailure
       }
       "played to initial" in {
-        findMove(playedGame, Game()) must beNone
+        findMove(playedGame, Game()) must beFailure
       }
     }
     "find one move" in {
       "initial game pawn moves one square" in {
-        findMove(Game(), play(Game(), D2 -> D3)) must_== Some(D2 -> D3)
+        findMove(Game(), play(Game(), D2 -> D3)) must_== Success(D2 -> D3)
       }
       "initial game pawn moves two squares" in {
-        findMove(Game(), play(Game(), D2 -> D4)) must_== Some(D2 -> D4)
+        findMove(Game(), play(Game(), D2 -> D4)) must_== Success(D2 -> D4)
       }
       "initial game bishop moves" in {
-        findMove(Game(), play(Game(), B1 -> C3)) must_== Some(B1 -> C3)
+        findMove(Game(), play(Game(), B1 -> C3)) must_== Success(B1 -> C3)
       }
       "played game king moves right" in {
-        findMove(playedGame, play(playedGame, E1 -> F1)) must_== Some(E1 -> F1)
+        findMove(playedGame, play(playedGame, E1 -> F1)) must_== Success(E1 -> F1)
       }
       "played game bishop eats knight" in {
-        findMove(playedGame, play(playedGame, G5 -> F6)) must_== Some(G5 -> F6)
+        findMove(playedGame, play(playedGame, G5 -> F6)) must_== Success(G5 -> F6)
       }
       "played game king castles kingside" in {
-        findMove(playedGame, play(playedGame, E1 -> G1)) must_== Some(E1 -> G1)
+        findMove(playedGame, play(playedGame, E1 -> G1)) must_== Success(E1 -> G1)
       }
       "promotion" in {
         val game = Game("""
@@ -63,15 +64,15 @@ RN QK  R
 K      """, Black)
         "to queen" in {
           val newGame = game.playMove(C2, C1, Queen).fold(e ⇒ sys.error(e.toString), identity)
-          findMove(game, newGame) must_== Some(C2 -> C1)
+          findMove(game, newGame) must_== Success(C2 -> C1)
         }
         "to knight" in {
           val newGame = game.playMove(C2, C1, Knight).fold(e ⇒ sys.error(e.toString), identity)
-          findMove(game, newGame) must_== Some(C2 -> C1)
+          findMove(game, newGame) must_== Success(C2 -> C1)
         }
         "not" in {
           val newGame = game.playMove(F2, E2).fold(e ⇒ sys.error(e.toString), identity)
-          findMove(game, newGame) must_== Some(F2 -> E2)
+          findMove(game, newGame) must_== Success(F2 -> E2)
         }
       }
     }
