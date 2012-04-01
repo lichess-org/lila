@@ -89,14 +89,6 @@ final class AppApi(
     pov ← gameRepo.pov(gameId, color)
   } yield pov.player.eventStack.lastVersion
 
-  def draw(gameId: String, colorName: String, messages: String): IO[Unit] = for {
-    color ← ioColor(colorName)
-    g1 ← gameRepo game gameId
-    g2 ← messenger.systemMessages(g1, messages)
-    g3 = g2.withEvents(!color, List(ReloadTableEvent()))
-    _ ← save(g1, g3)
-  } yield ()
-
   def activity(gameId: String, colorName: String): Int =
     Color(colorName).fold(aliveMemo.activity(gameId, _), 0)
 }

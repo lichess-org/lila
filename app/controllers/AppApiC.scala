@@ -22,10 +22,6 @@ object AppApiC extends LilaController {
     IOk(api.alive(gameId, color))
   }
 
-  def draw(gameId: String, color: String) = Action { implicit request ⇒
-    FormValidIOk[String](drawForm)(msgs ⇒ api.draw(gameId, color, msgs))
-  }
-
   def start(gameId: String) = Action { implicit request =>
     FormValidIOk[EntryData](entryForm)(entryData ⇒ api.start(gameId, entryData))
   }

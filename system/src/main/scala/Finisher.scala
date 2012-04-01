@@ -32,7 +32,7 @@ final class Finisher(
       finish(pov.game, Timeout, Some(pov.color))
     else !!("game is not force-resignable")
 
-  def claimDraw(pov: Pov): ValidIO = pov match {
+  def drawClaim(pov: Pov): ValidIO = pov match {
     case Pov(game, color) if game.playable && game.player.color == color && game.toChessHistory.threefoldRepetition ⇒ finish(game, Draw)
     case Pov(game, color) ⇒ !!("game is not threefold repetition")
   }

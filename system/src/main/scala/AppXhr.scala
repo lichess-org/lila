@@ -56,9 +56,9 @@ final class AppXhr(
 
   def forceResign(fullId: String): IOValid = attempt(fullId, finisher.forceResign)
 
-  def claimDraw(fullId: String): IOValid = attempt(fullId, finisher.claimDraw)
-
   def outoftime(fullId: String): IOValid = attempt(fullId, finisher outoftime _.game)
+
+  def drawClaim(fullId: String): IOValid = attempt(fullId, finisher.drawClaim)
 
   def drawAccept(fullId: String): IOValid = attempt(fullId, finisher.drawAccept)
 
@@ -76,6 +76,32 @@ final class AppXhr(
         }
       }
       else !!("invalid draw offer " + fullId)
+  })
+
+  def drawCancel(fullId: String): IOValid = attempt(fullId, {
+    case pov @ Pov(game, color) ⇒
+      if (pov.player.isOfferingDraw) success {
+        for {
+          g2 ← messenger.systemMessages(game, "Draw offer canceled")
+          g3 = g2.updatePlayer(color, (_.copy(isOfferingDraw = false)))
+          g4 = g3.withEvents(!color, List(ReloadTableEvent()))
+          _ ← save(game, g4)
+        } yield ()
+      }
+      else !!("no draw offer to cancel " + fullId)
+  })
+
+  def drawDecline(fullId: String): IOValid = attempt(fullId, {
+    case pov @ Pov(game, color) ⇒
+      if (game.player(!color).isOfferingDraw) success {
+        for {
+          g2 ← messenger.systemMessages(game, "Draw offer declined")
+          g3 = g2.updatePlayer(!color, (_.copy(isOfferingDraw = false)))
+          g4 = g3.withEvents(!color, List(ReloadTableEvent()))
+          _ ← save(game, g4)
+        } yield ()
+      }
+      else !!("no draw offer to decline " + fullId)
   })
 
   def talk(fullId: String, message: String): IO[Unit] = fromPov(fullId) { pov ⇒

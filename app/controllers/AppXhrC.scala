@@ -9,6 +9,8 @@ import mvc._
 import play.api.libs.concurrent.Akka
 import play.api.Play.current
 
+import scalaz.effects.IO
+
 object AppXhrC extends LilaController {
 
   private val xhr = env.appXhr
@@ -42,32 +44,26 @@ object AppXhrC extends LilaController {
     }
   }
 
-  def abort(fullId: String) = Action {
-    ValidIORedir(xhr abort fullId, fullId)
-  }
+  def outoftime(fullId: String) = Action { ValidIOk(xhr outoftime fullId) }
 
-  def outoftime(fullId: String) = Action {
-    ValidIOk(xhr outoftime fullId)
-  }
+  def abort(fullId: String) = validAndRedirect(fullId, xhr.abort)
 
-  def resign(fullId: String) = Action {
-    ValidIORedir(xhr resign fullId, fullId)
-  }
+  def resign(fullId: String) = validAndRedirect(fullId, xhr.resign)
 
-  def forceResign(fullId: String) = Action {
-    ValidIORedir(xhr forceResign fullId, fullId)
-  }
+  def forceResign(fullId: String) = validAndRedirect(fullId, xhr.forceResign)
 
-  def claimDraw(fullId: String) = Action {
-    ValidIORedir(xhr claimDraw fullId, fullId)
-  }
+  def drawClaim(fullId: String) = validAndRedirect(fullId, xhr.drawClaim)
 
-  def drawAccept(fullId: String) = Action { implicit request ⇒
-    ValidIORedir(xhr drawAccept fullId, fullId)
-  }
+  def drawAccept(fullId: String) = validAndRedirect(fullId, xhr.drawAccept)
 
-  def drawOffer(fullId: String) = Action { implicit request ⇒
-    ValidIORedir(xhr drawOffer fullId, fullId)
+  def drawOffer(fullId: String) = validAndRedirect(fullId, xhr.drawOffer)
+
+  def drawCancel(fullId: String) = validAndRedirect(fullId, xhr.drawCancel)
+
+  def drawDecline(fullId: String) = validAndRedirect(fullId, xhr.drawDecline)
+
+  def validAndRedirect(fullId: String, f: String ⇒ IO[Valid[Unit]]) = Action {
+    ValidIORedir(f(fullId), fullId)
   }
 
   def talk(fullId: String) = Action { implicit request ⇒

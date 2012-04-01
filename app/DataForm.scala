@@ -52,7 +52,4 @@ object DataForm {
 
   type EndData = MessagesData
   val endForm = messagesForm
-
-  type DrawData = MessagesData
-  val drawForm = messagesForm
 }
