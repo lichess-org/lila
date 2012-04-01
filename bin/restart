@@ -3,7 +3,7 @@
 
 require_once __DIR__.'/base_script.php';
 
-$testurl="http://en.staging.lichess.org";
+$testurl="http://en.lichess.org";
 $play = "/home/play-2.0/play";
 
 show_run("Stage", "$play clean compile stage");

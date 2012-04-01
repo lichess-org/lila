@@ -4,7 +4,7 @@
 require_once __DIR__.'/base_script.php';
 
 $remote="phobos";
-$remoteDir="/home/lila_staging";
+$remoteDir="/home/lila";
 $rsyncoptions="--archive --force --delete --progress --compress --checksum --exclude-from=bin/rsync_exclude";
 $testurl="http://en.lichess.org";
 
