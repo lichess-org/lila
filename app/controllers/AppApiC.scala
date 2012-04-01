@@ -37,11 +37,11 @@ object AppApiC extends LilaController {
   }
 
   def activity(gameId: String, color: String) = Action {
-    Ok(api.activity(gameId, color).toString)
+    Ok(api.activity(gameId, color))
   }
 
   def playerVersion(gameId: String, color: String) = Action {
-    Ok(api.playerVersion(gameId, color).unsafePerformIO.toString)
+    Ok(api.playerVersion(gameId, color).unsafePerformIO)
   }
 
   def rematchAccept(gameId: String, color: String, newGameId: String) = Action { implicit request ⇒

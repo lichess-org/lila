@@ -52,6 +52,21 @@ trait LilaController extends Controller with ContentTypes with RequestGetter {
   implicit def ctoUnit: ContentTypeOf[Unit] =
     ContentTypeOf[Unit](Some(ContentTypes.TEXT))
 
+  implicit def wFloat: Writeable[Float] =
+    Writeable[Float](f ⇒ Codec toUTF8 f.toString)
+  implicit def ctoFloat: ContentTypeOf[Float] =
+    ContentTypeOf[Float](Some(ContentTypes.TEXT))
+
+  implicit def wLong: Writeable[Long] =
+    Writeable[Long](a ⇒ Codec toUTF8 a.toString)
+  implicit def ctoLong: ContentTypeOf[Long] =
+    ContentTypeOf[Long](Some(ContentTypes.TEXT))
+
+  implicit def wInt: Writeable[Int] =
+    Writeable[Int](i ⇒ Codec toUTF8 i.toString)
+  implicit def ctoInt: ContentTypeOf[Int] =
+    ContentTypeOf[Int](Some(ContentTypes.TEXT))
+
   implicit def richForm[A](form: Form[A]) = new {
     def toValid: Valid[A] = form.fold(
       form ⇒ failure(nel("Invalid form", form.errors.map(_.toString): _*)),
