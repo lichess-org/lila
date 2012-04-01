@@ -137,8 +137,8 @@ class GameRepo(collection: MongoCollection)
   def ensureIndexes: IO[Unit] = io {
     collection.underlying |> { coll ⇒
       coll.ensureIndex(DBObject("status" -> 1))
-      coll.ensureIndex(DBObject("userIds" -> 1), DBObject("sparse" -> true))
-      coll.ensureIndex(DBObject("winnerUserId" -> 1), DBObject("sparse" -> true))
+      coll.ensureIndex(DBObject("userIds" -> 1))
+      coll.ensureIndex(DBObject("winnerUserId" -> 1))
       coll.ensureIndex(DBObject("turns" -> 1))
       coll.ensureIndex(DBObject("updatedAt" -> -1))
       coll.ensureIndex(DBObject("createdAt" -> -1))
