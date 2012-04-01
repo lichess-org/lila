@@ -81,11 +81,11 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
 
   lazy val occupations = pieces.keySet
 
-  def promote(orig: Pos, dest: Pos): Option[Board] = for {
-    pawn ← apply(orig)
-    b1 ← move(orig, dest)
-    b2 ← b1.take(dest)
-    b3 ← b2.place(pawn.color.queen, dest)
+  def promote(pos: Pos): Option[Board] = for {
+    pawn ← apply(pos)
+    if (pawn is Pawn)
+    b2 ← take(pos)
+    b3 ← b2.place(pawn.color.queen, pos)
   } yield b3
 
   def withHistory(h: History): Board = copy(history = h)

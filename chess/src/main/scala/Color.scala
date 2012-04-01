@@ -29,7 +29,7 @@ case object White extends Color {
 
   val unmovedPawnY = 2
   val passablePawnY = 5
-  val promotablePawnY = 7
+  val promotablePawnY = 8
 
   val letter = 'w'
   val name = "white"
@@ -41,7 +41,7 @@ case object Black extends Color {
 
   val unmovedPawnY = 7
   val passablePawnY = 4
-  val promotablePawnY = 2
+  val promotablePawnY = 1
 
   val letter = 'b'
   val name = "black"

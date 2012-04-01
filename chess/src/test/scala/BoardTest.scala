@@ -43,7 +43,7 @@ class BoardTest extends ChessTest {
     }
 
     "allow a pawn to be promoted to a queen" in {
-      Board.empty.place(Black.pawn, A7) flatMap (_.promote(A7, A8)) must beSome.like {
+      Board.empty.place(Black.pawn, A8) flatMap (_ promote A8) must beSome.like {
         case b ⇒ b(A8) must beSome(Black.queen)
       }
     }

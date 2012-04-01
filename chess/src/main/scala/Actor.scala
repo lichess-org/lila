@@ -24,10 +24,12 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
 
     case Pawn ⇒ pawnDir(pos) map { next ⇒
       val fwd = Some(next) filterNot board.occupations
-      def capture(horizontal: Direction): Option[Move] = for {
-        p ← horizontal(next); if enemies(p);
-        b ← board.taking(pos, p)
-      } yield move(p, b, Some(p))
+      def capture(horizontal: Direction): Option[Move] = {
+        for {
+          p ← horizontal(next); if enemies(p);
+          b ← board.taking(pos, p)
+        } yield move(p, b, Some(p))
+      } flatMap maybePromote
       def enpassant(horizontal: Direction): Option[Move] = for {
         victimPos ← horizontal(pos); if pos.y == color.passablePawnY
         victim ← board(victimPos); if victim == !color - Pawn
@@ -37,10 +39,14 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
         b ← board.taking(pos, targetPos, Some(victimPos))
       } yield move(targetPos, b, Some(victimPos), enpassant = true)
       def forward(p: Pos): Option[Move] =
-        if (pos.y == color.promotablePawnY)
-          board.promote(pos, p) map { b ⇒ move(p, b, promotion = Some(Queen)) }
-        else
-          board.move(pos, p) map { b ⇒ move(p, b) }
+        board.move(pos, p) map { move(p, _) } flatMap maybePromote
+      def maybePromote(m: Move): Option[Move] =
+        if (m.dest.y == m.color.promotablePawnY)
+          (m.after promote m.dest) map { b2 ⇒
+            m.copy(after = b2, promotion = Some(Queen))
+          }
+        else Some(m)
+
       List(
         for {
           p ← fwd
