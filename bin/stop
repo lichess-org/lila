@@ -1,0 +1,8 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__.'/base_script.php';
+
+$play = "/home/play-2.0/play";
+
+show_run_catch("Stop", "$play stop");
