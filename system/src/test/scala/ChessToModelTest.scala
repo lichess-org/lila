@@ -136,6 +136,25 @@ K
           }
         }
       }
+      "en passant" in {
+        val dbg = newDbGameWithBoard("""
+  Pp
+
+
+PP P P P
+RNBRKR R
+""").copy(turns = 10, lastMove = "d7 d5".some).withoutEvents.afterMove(C5, D6)
+        "white events" in {
+          playerEvents(dbg, White) must beSome.like {
+            case events ⇒ events map (_._2) must contain(EnpassantEvent(D5))
+          }
+        }
+        "black events" in {
+          playerEvents(dbg, Black) must beSome.like {
+            case events ⇒ events map (_._2) must contain(EnpassantEvent(D5))
+          }
+        }
+      }
     }
   }
 

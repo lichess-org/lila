@@ -63,6 +63,10 @@ case class History(
     case "" ⇒ "-"
     case n  ⇒ n
   }
+
+  def withLastMove(orig: Pos, dest: Pos) = copy(
+    lastMove = Some((orig, dest))
+  )
 }
 
 object History {

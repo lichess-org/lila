@@ -35,7 +35,7 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
         victimFrom ← pawnDir(victimPos) flatMap pawnDir
         if history.lastMove == Some(victimFrom, victimPos)
         b ← board.taking(pos, targetPos, Some(victimPos))
-      } yield move(targetPos, b, enpassant = true)
+      } yield move(targetPos, b, Some(victimPos), enpassant = true)
       def forward(p: Pos): Option[Move] =
         if (pos.y == color.promotablePawnY)
           board.promote(pos, p) map { b ⇒ move(p, b, promotion = Some(Queen)) }
