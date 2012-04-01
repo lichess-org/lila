@@ -9,8 +9,6 @@ final class ReverseEngineering(fromGame: Game, to: Board) {
 
   def move: Valid[(Pos, Pos)] = {
     if (from.pieces == to.pieces) !!("from and to are similar") else findMove
-  } mapFail { msgs ⇒
-    ("ReverseEngineering failure: " + msgs.list mkString "\n").wrapNel
   }
 
   private def findMove: Valid[(Pos, Pos)] =
@@ -20,8 +18,8 @@ final class ReverseEngineering(fromGame: Game, to: Board) {
         findCastle(pos2) map { np ⇒ (pos1, np) }
       case List((pos1, piece1), (pos2, piece2)) if (piece1 is Rook) && (piece2 is King) ⇒
         findCastle(pos1) map { np ⇒ (pos2, np) }
-      case List((pos1, piece1), (pos2, piece2)) ⇒ !!("two moved pieces, but not a castle")
-      case Nil                                  ⇒ !!("no moved piece found")
+      case l @ List((pos1, piece1), (pos2, piece2)) ⇒ !!("two moved pieces, but not a castle " + l)
+      case l                                        ⇒ !!("no moved piece found " + l)
     }
 
   private def findCastle(rookPos: Pos): Valid[Pos] = rookPos.x match {
