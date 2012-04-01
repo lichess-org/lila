@@ -12,15 +12,9 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
 
     case Knight ⇒ shortRange(Knight.dirs)
 
-    case King   ⇒ preventsCastle(shortRange(King.dirs)) ++ castle
+    case King   ⇒ shortRange(King.dirs) ++ castle
 
-    case Rook ⇒ (for {
-      kingPos ← board kingPosOf color
-      side ← Side.kingRookSide(kingPos, pos)
-      if history canCastle color on side
-    } yield history.withoutCastle(color, side)) map { nh ⇒
-      longRange(Rook.dirs) map (_ withHistory nh)
-    } getOrElse longRange(Rook.dirs)
+    case Rook   ⇒ longRange(Rook.dirs)
 
     case Pawn ⇒ pawnDir(pos) map { next ⇒
       val fwd = Some(next) filterNot board.occupations
@@ -121,13 +115,6 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
 
     List(on(KingSide), on(QueenSide)).flatten
   }
-
-  private def preventsCastle(ms: List[Move]) =
-    if (history.canCastle(color).any) {
-      val newHistory = history withoutCastles color
-      ms map (_ withHistory newHistory)
-    }
-    else ms
 
   private def shortRange(dirs: Directions): List[Move] =
     (dirs map { _(pos) }).flatten filterNot friends map { to ⇒
