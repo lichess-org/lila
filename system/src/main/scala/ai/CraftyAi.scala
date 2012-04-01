@@ -29,7 +29,7 @@ final class CraftyAi(
       for {
         newSituation ← Forsyth << newFen toValid "Cannot parse engine FEN: " + newFen
         reverseEngineer = new ReverseEngineering(oldGame, newSituation.board)
-        poss ← reverseEngineer.move toValid "Cannot reverse engineer engine move"
+        poss ← reverseEngineer.move toValid "Cannot reverse engineer engine move " + dbGame.id
         (orig, dest) = poss
         newGameAndMove ← oldGame(orig, dest)
       } yield newGameAndMove
