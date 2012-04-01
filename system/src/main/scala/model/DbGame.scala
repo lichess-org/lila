@@ -100,14 +100,14 @@ case class DbGame(
     val (history, situation) = (game.board.history, game.situation)
     val events = (Event fromMove move) ::: (Event fromSituation game.situation)
 
-    def updatePlayer(player: DbPlayer) = player.copy(
+    def copyPlayer(player: DbPlayer) = player.copy(
       ps = player encodePieces allPieces,
       evts = player.newEvts(events :+ Event.possibleMoves(game.situation, player.color)))
 
     val updated = copy(
       pgn = game.pgnMoves,
-      whitePlayer = updatePlayer(whitePlayer),
-      blackPlayer = updatePlayer(blackPlayer),
+      whitePlayer = copyPlayer(whitePlayer),
+      blackPlayer = copyPlayer(blackPlayer),
       turns = game.turns,
       positionHashes = history.positionHashes mkString,
       castles = history.castleNotation,
@@ -144,6 +144,11 @@ case class DbGame(
       whitePlayer = whitePlayer withEvents whiteEvents,
       blackPlayer = blackPlayer withEvents blackEvents)
 
+  def updatePlayer(color: Color, f: DbPlayer ⇒ DbPlayer) = color match {
+    case White ⇒ copy(whitePlayer = f(whitePlayer))
+    case Black ⇒ copy(blackPlayer = f(blackPlayer))
+  }
+
   def playable = status < Aborted
 
   def playableBy(p: DbPlayer) = playable && p == player
@@ -161,7 +166,6 @@ case class DbGame(
       turns >= 2 &&
       !player(color).isOfferingDraw &&
       !(player(!color).isAi) &&
-      !(player(!color).isOfferingDraw) &&
       !(playerHasOfferedDraw(color))
 
   def playerHasOfferedDraw(color: Color) =

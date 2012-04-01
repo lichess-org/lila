@@ -62,6 +62,22 @@ final class AppXhr(
 
   def drawAccept(fullId: String): IOValid = attempt(fullId, finisher.drawAccept)
 
+  def drawOffer(fullId: String): IOValid = attempt(fullId, {
+    case pov @ Pov(game, color) ⇒
+      if (game playerCanOfferDraw color) {
+        if (game.player(!color).isOfferingDraw) finisher drawAccept pov
+        else success {
+          for {
+            g2 ← messenger.systemMessages(game, "Draw offer sent")
+            g3 = g2.updatePlayer(color, (_ offerDraw game.turns))
+            g4 = g3.withEvents(!color, List(ReloadTableEvent()))
+            _ ← save(game, g4)
+          } yield ()
+        }
+      }
+      else !!("invalid draw offer " + fullId)
+  })
+
   def talk(fullId: String, message: String): IO[Unit] = fromPov(fullId) { pov ⇒
     messenger.playerMessage(pov.game, pov.color, message) flatMap { g2 ⇒
       save(pov.game, g2)
@@ -90,4 +106,6 @@ final class AppXhr(
 
   private def fromPov[A](fullId: String)(op: Pov ⇒ IO[A]): IO[A] =
     gameRepo pov fullId flatMap op
+
+  private def !!(msg: String) = failure(msg.wrapNel)
 }

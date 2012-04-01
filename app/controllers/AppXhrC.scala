@@ -66,6 +66,10 @@ object AppXhrC extends LilaController {
     ValidIORedir(xhr drawAccept fullId, fullId)
   }
 
+  def drawOffer(fullId: String) = Action { implicit request ⇒
+    ValidIORedir(xhr drawOffer fullId, fullId)
+  }
+
   def talk(fullId: String) = Action { implicit request ⇒
     talkForm.bindFromRequest.fold(
       form ⇒ BadRequest(form.errors mkString "\n"),

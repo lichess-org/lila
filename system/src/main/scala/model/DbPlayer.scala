@@ -45,4 +45,9 @@ case class DbPlayer(
   def finish(winner: Boolean) = copy(
     isWinner = if (winner) Some(true) else None
   )
+
+  def offerDraw(turn: Int) = copy(
+    isOfferingDraw = true,
+    lastDrawOffer = Some(turn)
+  )
 }
