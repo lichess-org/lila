@@ -31,7 +31,7 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
 
   spawn("game_auto_finish") { env ⇒
     env.gameRepo.candidatesToAutofinish flatMap { games ⇒
-      env.finisher outoftimes games.pp
+      env.finisher outoftimes games
     }
   }
 

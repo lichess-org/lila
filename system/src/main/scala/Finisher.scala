@@ -57,8 +57,6 @@ final class Finisher(
     case _                           ⇒ success(io())
   }) | io()
 
-  private def !!(msg: String) = failure(msg.wrapNel)
-
   private def finish(
     game: DbGame,
     status: Status,
@@ -104,4 +102,6 @@ final class Finisher(
         _ ← historyRepo.addEntry(blackUser.username, blackElo, game.id)
       } yield ()
     } | io()
+
+  private def !!(msg: String) = failure(msg.wrapNel)
 }
