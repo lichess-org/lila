@@ -3,6 +3,7 @@ GET   /ping                             controllers.AppXhrC.ping
 GET   /sync/:gameId/:color/:version     controllers.AppXhrC.syncPublic(gameId: String, color: String, version: Int)
 GET   /sync/:gameId/:color/:version/:fullId controllers.AppXhrC.sync(gameId: String, color: String, version: Int, fullId: String)
 GET   /how-many-players-now             controllers.AppXhrC.nbPlayers
+GET   /how-many-games-now               controllers.AppXhrC.nbGames
 POST  /move/:fullId                     controllers.AppXhrC.move(fullId: String)
 GET   /abort/:fullId                    controllers.AppXhrC.abort(fullId: String)
 GET   /resign/:fullId                   controllers.AppXhrC.resign(fullId: String)

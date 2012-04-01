@@ -129,9 +129,13 @@ class GameRepo(collection: MongoCollection)
   def candidatesToAutofinish: IO[List[DbGame]] = io {
     find(
       ("clock" $exists true) ++
-      ("status" -> Started) ++
-      ("updatedAt" $lt (DateTime.now - 2.hour))
+        ("status" -> Started) ++
+        ("updatedAt" $lt (DateTime.now - 2.hour))
     ).toList.map(decode).flatten
+  }
+
+  val countPlaying: IO[Int] = io {
+    count("updatedAt" $gt (DateTime.now - 15.seconds)).toInt
   }
 
   def ensureIndexes: IO[Unit] = io {

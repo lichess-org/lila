@@ -91,4 +91,6 @@ object AppXhrC extends LilaController {
   }
 
   def nbPlayers = Action { Ok(env.aliveMemo.count) }
+
+  def nbGames = Action { Ok(env.gameRepo.countPlaying.unsafePerformIO) }
 }
