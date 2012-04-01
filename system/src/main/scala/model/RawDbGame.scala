@@ -10,7 +10,7 @@ import Role.forsyth
 case class RawDbGame(
     @Key("_id") id: String,
     players: List[RawDbPlayer],
-    pgn: String,
+    pgn: Option[String],
     status: Int,
     turns: Int,
     clock: Option[RawDbClock],
@@ -34,7 +34,7 @@ case class RawDbGame(
     id = id,
     whitePlayer = whitePlayer,
     blackPlayer = blackPlayer,
-    pgn = pgn,
+    pgn = pgn | "",
     status = trueStatus,
     turns = turns,
     clock = validClock,
@@ -55,7 +55,7 @@ object RawDbGame {
     RawDbGame(
       id = id,
       players = players map RawDbPlayer.encode,
-      pgn = pgn,
+      pgn = Some(pgn),
       status = status.id,
       turns = turns,
       clock = clock map RawDbClock.encode,
