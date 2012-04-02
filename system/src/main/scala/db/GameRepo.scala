@@ -127,9 +127,8 @@ class GameRepo(collection: MongoCollection)
 
   def candidatesToAutofinish: IO[List[DbGame]] = io {
     find(
-      ("clock" $exists true) ++
-        ("clock" $ne (null: String)) ++
-        ("status" -> Started) ++
+      ("clock.l" $exists true) ++
+        ("status" -> Started.id) ++
         ("updatedAt" $lt (DateTime.now - 2.hour))
     ).toList.map(decode).flatten
   }
