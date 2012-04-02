@@ -73,7 +73,12 @@ final class CraftyAi(
 
   private def writeFile(prefix: String, data: List[String]): IO[File] = io {
     File.createTempFile(prefix, ".tmp") ~ { file ⇒
-      file.deleteOnExit
+      try {
+        file.deleteOnExit
+      }
+      catch {
+        case e ⇒ println("Error deleting crafty file on exit: " + e.getMessage)
+      }
       printToFile(file)(p ⇒ data foreach p.println)
     }
   }
