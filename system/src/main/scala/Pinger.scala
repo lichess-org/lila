@@ -15,20 +15,22 @@ final class Pinger(
     playerKey: Option[String],
     watcherKey: Option[String],
     getNbWatchers: Option[String],
-    hookId: Option[String]): IO[Map[String, Any]] = for {
+    hookId: Option[String]): IO[String] = for {
     _ ← optionIO(playerKey, aliveMemo.put)
     _ ← optionIO(username, usernameMemo.put)
     _ ← optionIO(watcherKey, watcherMemo.put)
     _ ← optionIO(hookId, hookMemo.put)
-  } yield flatten(Map(
-    "nbp" -> Some(aliveMemo.count),
+  } yield fastJson(Map(
+    "nbp" -> Some(aliveMemo.count.toInt),
     "nbw" -> (getNbWatchers map watcherMemo.count)
   ))
 
-  private def flatten[A, B](map: Map[A, Option[B]]): Map[A, B] = map collect {
-    case (k, Some(v)) ⇒ k -> v
-  } toMap
+  private def fastJson(m: Map[String, Option[Int]]): String = "{%s}" format {
+    m collect {
+      case (k, Some(v)) ⇒ """"%s": %d""".format(k, v)
+    } mkString ","
+  }
 
   private def optionIO[A](oa: Option[A], f: A ⇒ IO[Unit]) =
-    oa map f getOrElse io(Unit)
+    oa map f getOrElse io()
 }
