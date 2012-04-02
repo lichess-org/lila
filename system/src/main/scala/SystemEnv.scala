@@ -1,6 +1,7 @@
 package lila.system
 
 import com.mongodb.casbah.MongoConnection
+import com.mongodb.{ Mongo, MongoOptions, ServerAddress ⇒ MongoServer }
 import com.typesafe.config._
 
 import lila.chess.EloCalculator
@@ -119,9 +120,17 @@ final class SystemEnv(config: Config) {
     collection = mongodb(config getString "mongo.collection.room"))
 
   lazy val mongodb = MongoConnection(
-    config getString "mongo.host",
-    config getInt "mongo.port"
+    new MongoServer(config getString "mongo.host", config getInt "mongo.port"),
+    mongoOptions
   )(config getString "mongo.dbName")
+
+  // http://stackoverflow.com/questions/6520439/how-to-configure-mongodb-java-driver-mongooptions-for-production-use
+  private val mongoOptions = new MongoOptions() ~ { o ⇒
+    o.connectionsPerHost = config getInt "mongo.connectionsPerHost"
+    o.autoConnectRetry = config getBoolean "mongo.autoConnectRetry"
+    o.connectTimeout = getMilliseconds("mongo.connectTimeout")
+    o.threadsAllowedToBlockForConnectionMultiplier = config getInt "mongo.threadsAllowedToBlockForConnectionMultiplier"
+  }
 
   lazy val versionMemo = new VersionMemo(
     getPov = gameRepo.pov,
