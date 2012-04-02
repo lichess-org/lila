@@ -7,6 +7,7 @@ import lila.chess.EloCalculator
 import db._
 import ai._
 import memo._
+import command._
 
 final class SystemEnv(config: Config) {
 
@@ -146,6 +147,10 @@ final class SystemEnv(config: Config) {
 
   lazy val messageMemo = new MessageMemo(
     getId = messageRepo.lastId)
+
+  lazy val gameFinishCommand = new GameFinishCommand(
+    gameRepo = gameRepo,
+    finisher = finisher)
 
   def getMilliseconds(name: String): Int = (config getMilliseconds name).toInt
 

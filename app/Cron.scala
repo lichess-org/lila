@@ -31,14 +31,7 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
     }
   }
 
-  spawn("game_auto_finish") { env ⇒
-    for {
-      games ← env.gameRepo.candidatesToAutofinish
-      _ ← putStrLn("[cron] finish %d games (%s)".format(
-        games.size, games take 3 mkString ", "))
-      _ ← env.finisher outoftimes games
-    } yield ()
-  }
+  spawn("game_auto_finish") { _.gameFinishCommand.apply() }
 
   def spawn(name: String)(f: SystemEnv ⇒ IO[Unit]) = {
     val freq = env.getMilliseconds("cron.%s.frequency" format name) millis
