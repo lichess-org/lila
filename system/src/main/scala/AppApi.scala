@@ -62,7 +62,9 @@ final class AppApi(
     g2 = g1.withEvents(
       List(RedirectEvent(whiteRedirect)),
       List(RedirectEvent(blackRedirect)))
-    _ ← save(g1, g2)
+    // tell spectators to reload the table
+    g3 = g2.withEvents(List(ReloadTableEvent()))
+    _ ← save(g1, g3)
     ng2 ← messenger.systemMessages(newGame, messageString)
     ng3 ← starter.start(ng2, entryData)
     _ ← save(newGame, ng3)
