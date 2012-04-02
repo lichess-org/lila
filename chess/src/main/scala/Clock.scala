@@ -35,6 +35,8 @@ sealed trait Clock {
 
   def show = limitInMinutes.toString + " + " + increment.toString
 
+  def isRunning = timerOption.isDefined
+
   protected def now = System.currentTimeMillis / 1000d
 }
 

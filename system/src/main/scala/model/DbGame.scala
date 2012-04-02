@@ -191,7 +191,7 @@ case class DbGame(
   def outoftimePlayer: Option[DbPlayer] = for {
     c ← clock
     if this.playable
-    if c outoftime player.color
+    if !c.isRunning || (c outoftime player.color)
   } yield player
 
   def withClock(c: Clock) = copy(clock = Some(c))

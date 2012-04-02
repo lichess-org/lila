@@ -11,6 +11,6 @@ final class GameFinishCommand(gameRepo: GameRepo, finisher: Finisher) {
       games ← gameRepo.candidatesToAutofinish
       _ ← putStrLn("[cron] finish %d games (%s)".format(
         games.size, games take 3 map (_.id) mkString ", "))
-      _ ← finisher outoftimes games
+      _ ← (finisher outoftimes games).sequence
     } yield ()
 }

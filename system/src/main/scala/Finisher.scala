@@ -46,10 +46,12 @@ final class Finisher(
     game.outoftimePlayer some { player ⇒
       finish(game, Outoftime,
         Some(!player.color) filter game.toChess.board.hasEnoughMaterialToMate)
-    } none !!("no outoftime applicable")
+    } none !!("no outoftime applicable " + game.clock)
 
-  def outoftimes(games: List[DbGame]): IO[Unit] =
-    (games map { g ⇒ outoftime(g) | io() }).sequence map (_ ⇒ Unit)
+  def outoftimes(games: List[DbGame]): List[IO[Unit]] =
+    games map { g ⇒
+      outoftime(g).fold(msgs ⇒ putStrLn(g.id + " " + (msgs.list mkString "\n")), identity)
+    }
 
   def moveFinish(game: DbGame, color: Color): IO[Unit] = (game.status match {
     case Mate                        ⇒ finish(game, Mate, Some(color))
