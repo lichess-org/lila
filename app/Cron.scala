@@ -26,13 +26,18 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
   }
 
   spawn("game_cleanup_unplayed") { env ⇒
-    env.gameRepo.cleanupUnplayed
+    putStrLn("[cron] remove old unplayed games") flatMap { _ ⇒
+      env.gameRepo.cleanupUnplayed
+    }
   }
 
   spawn("game_auto_finish") { env ⇒
-    env.gameRepo.candidatesToAutofinish flatMap { games ⇒
-      env.finisher outoftimes games
-    }
+    for {
+      games ← env.gameRepo.candidatesToAutofinish
+      _ ← putStrLn("[cron] finish %d games (%s)".format(
+        games.size, games take 3 mkString ", "))
+      _ ← env.finisher outoftimes games
+    } yield ()
   }
 
   def spawn(name: String)(f: SystemEnv ⇒ IO[Unit]) = {
