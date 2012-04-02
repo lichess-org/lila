@@ -25,6 +25,11 @@ class GameRepo(collection: MongoCollection)
     findOneByID(gameId) flatMap decode err "No game found for id " + gameId
   }
 
+  def gameOption(gameId: String): IO[Option[DbGame]] = io {
+    if (gameId.size != gameIdSize) None
+    else findOneByID(gameId) flatMap decode
+  }
+
   def pov(gameId: String, color: Color): IO[Pov] =
     game(gameId) map { g ⇒ Pov(g, g player color) }
 
@@ -36,6 +41,11 @@ class GameRepo(collection: MongoCollection)
       val playerId = fullId drop gameIdSize
       val player = g player playerId err "No player found for id " + fullId
       Pov(g, player)
+    }
+
+  def povOption(gameId: String, color: Color): IO[Option[Pov]] =
+    gameOption(gameId) map { gOption ⇒
+      gOption map { g ⇒ Pov(g, g player color) }
     }
 
   def save(game: DbGame): IO[Unit] = io {

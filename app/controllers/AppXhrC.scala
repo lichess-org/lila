@@ -30,7 +30,9 @@ object AppXhrC extends LilaController {
     Async {
       Akka.future {
         syncer.sync(gameId, color, version, fullId)
-      } map JsonIOk
+      } map {
+        _.unsafePerformIO.fold(JsonOk, NotFound)
+      }
     }
   }
 

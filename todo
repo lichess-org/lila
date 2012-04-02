@@ -2,9 +2,4 @@ move times
 blurs
 ie9 testing (frozen sync/clock)
 game exporter (php)
-[01-Apr-2012 11:56:30 UTC] PHP Fatal error:  Call to undefined method Bundle\LichessBundle\Chess\Drawer::accept() in /home/lichess/src/Bundle/LichessBundle/Chess/Drawer.php o
-n line 31
-nicer not found in logs
-In the chat room, the following message does not appear.
-Rematch offer sent
-Rematch offer accepted 
+ping nbm

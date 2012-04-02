@@ -19,18 +19,16 @@ final class AppSyncer(
     gameId: String,
     colorString: String,
     version: Int,
-    fullId: Option[String]): IO[Map[String, Any]] = {
-    for {
-      color ← io { Color(colorString) err "Invalid color" }
+    fullId: Option[String]): IO[Option[Map[String, Any]]] = Color(colorString).fold(
+    color ⇒ for {
       _ ← versionWait(gameId, color, version)
-      pov ← gameRepo.pov(gameId, color)
-      isPrivate = pov isPlayerFullId fullId
-      _ ← versionMemo put pov.game
-    } yield {
-      pov.player.eventStack eventsSince version map { events ⇒
+      povOption ← gameRepo.povOption(gameId, color)
+      _ ← povOption.fold(pov ⇒ versionMemo put pov.game, io())
+    } yield povOption map { pov ⇒
+      pov.player.eventStack eventsSince version some { events ⇒
         Map(
           "v" -> pov.player.eventStack.lastVersion,
-          "e" -> renderEvents(events, isPrivate),
+          "e" -> renderEvents(events, pov isPlayerFullId fullId),
           "p" -> pov.game.player.color.name,
           "t" -> pov.game.turns,
           "oa" -> aliveMemo.activity(pov.game, !color),
@@ -38,9 +36,10 @@ final class AppSyncer(
             clock.remainingTimes mapKeys (_.name)
           } none null)
         ) filterValues (null !=)
-      } getOrElse Map("reload" -> true)
-    }
-  }
+      } none Map("reload" -> true)
+    },
+    io(None)
+  )
 
   private def renderEvents(events: List[Event], isPrivate: Boolean) =
     if (isPrivate) events map {
