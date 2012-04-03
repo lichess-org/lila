@@ -1,3 +1,5 @@
+GET   /test                            controllers.LobbyXhrC.test
+
 # App XHR
 GET   /ping                             controllers.AppXhrC.ping
 GET   /sync/:gameId/:color/:version     controllers.AppXhrC.syncPublic(gameId: String, color: String, version: Int)
@@ -33,6 +35,7 @@ POST  /api/outoftime/:fullId        controllers.AppXhrC.outoftime(fullId: String
 GET   /lobby/sync/:hookId           controllers.LobbyXhrC.syncWithHook(hookId: String)
 GET   /lobby/sync                   controllers.LobbyXhrC.syncWithoutHook
 GET   /lobby/cancel/:ownerId        controllers.LobbyXhrC.cancel(ownerId: String)
+GET   /lobby/socket/:username       controllers.LobbyXhrC.socket(username: String)
 
 # Lobby Private API
 POST  /api/lobby/join/:gameId/:color controllers.LobbyApiC.join(gameId: String, color: String)
