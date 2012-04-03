@@ -1,5 +1,3 @@
-GET   /test                            controllers.LobbyXhrC.test
-
 # App XHR
 GET   /ping                             controllers.AppXhrC.ping
 GET   /sync/:gameId/:color/:version     controllers.AppXhrC.syncPublic(gameId: String, color: String, version: Int)
@@ -32,15 +30,12 @@ GET   /api/nb-players               controllers.AppXhrC.nbPlayers
 POST  /api/outoftime/:fullId        controllers.AppXhrC.outoftime(fullId: String)
 
 # Lobby XHR
-GET   /lobby/sync/:hookId           controllers.LobbyXhrC.syncWithHook(hookId: String)
-GET   /lobby/sync                   controllers.LobbyXhrC.syncWithoutHook
 GET   /lobby/cancel/:ownerId        controllers.LobbyXhrC.cancel(ownerId: String)
-GET   /lobby/socket/:username       controllers.LobbyXhrC.socket(username: String)
+GET   /lobby/socket/:uid            controllers.LobbyXhrC.socket(uid: String)
 
 # Lobby Private API
 POST  /api/lobby/join/:gameId/:color controllers.LobbyApiC.join(gameId: String, color: String)
-GET   /api/lobby/preload/:hookId    controllers.LobbyXhrC.syncWithHook(hookId: String)
-GET   /api/lobby/preload            controllers.LobbyXhrC.syncWithoutHook
+GET   /api/lobby/preload            controllers.LobbyApiC.preload
 POST  /api/lobby/create/:hookOwnerId controllers.LobbyApiC.create(hookOwnerId: String)
 POST  /api/lobby/alive/:hookOwnerId controllers.LobbyApiC.alive(hookOwnerId: String)
 POST  /api/lobby/message            controllers.LobbyApiC.message

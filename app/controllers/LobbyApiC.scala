@@ -10,6 +10,15 @@ import mvc._
 object LobbyApiC extends LilaController {
 
   private val api = env.lobbyApi
+  private val preloader = env.lobbyPreloader
+
+  def preload = Action { implicit request ⇒
+    JsonIOk(preloader(
+      auth = getIntOr("auth", 0) == 1,
+      chat = getIntOr("chat", 0) == 1,
+      myHookId = get("hook") filter (""!=)
+    ))
+  }
 
   def join(gameId: String, color: String) = Action { implicit request ⇒
     FormValidIOk[LobbyJoinData](lobbyJoinForm)(join ⇒

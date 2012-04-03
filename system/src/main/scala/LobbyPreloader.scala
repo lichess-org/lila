@@ -9,31 +9,23 @@ import scala.annotation.tailrec
 import scala.math.max
 import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 
-final class LobbySyncer(
+final class LobbyPreloader(
     hookRepo: HookRepo,
     gameRepo: GameRepo,
     messageRepo: MessageRepo,
     entryRepo: EntryRepo,
-    lobbyMemo: LobbyMemo,
-    hookMemo: HookMemo,
-    messageMemo: MessageMemo,
-    entryMemo: EntryMemo,
-    duration: Int,
-    sleep: Int) {
+    hookMemo: HookMemo) {
 
   type Response = Map[String, Any]
 
-  def sync(
-    myHookId: Option[String],
+  def apply(
     auth: Boolean,
-    version: Int,
-    messageId: Int,
-    entryId: Int): IO[Response] = for {
+    chat: Boolean,
+    myHookId: Option[String]): IO[Response] = for {
     _ ← myHookId.fold(hookMemo.put, io())
-    newVersion ← wait(version, messageId, entryId)
     hooks ← if (auth) hookRepo.allOpen else hookRepo.allOpenCasual
     res ← {
-      val response = () ⇒ stdResponse(newVersion, hooks, myHookId, messageId, entryId)
+      val response = () ⇒ stdResponse(chat, hooks, myHookId)
       myHookId some { hookResponse(_, response) } none response()
     }
   } yield res
@@ -52,49 +44,29 @@ final class LobbySyncer(
     }
 
   def stdResponse(
-    version: Int,
+    chat: Boolean,
     hooks: List[Hook],
-    myHookId: Option[String],
-    messageId: Int,
-    entryId: Int): IO[Response] = for {
-    messages ← (messageId match {
-      case -1 ⇒ io(Nil)
-      case 0  ⇒ messageRepo.recent
-      case id ⇒ messageRepo since max(messageMemo.id - messageRepo.max, id)
-    })
-    entries ← if (entryId == 0) entryRepo.recent
-    else entryRepo since max(entryMemo.id - entryRepo.max, entryId)
+    myHookId: Option[String]): IO[Response] = for {
+    messages ← if (chat) messageRepo.recent else io(Nil)
+    entries ← entryRepo.recent
   } yield Map(
-    "state" -> version,
     "pool" -> {
       if (hooks.nonEmpty) Map("hooks" -> renderHooks(hooks, myHookId).toMap)
       else Map("message" -> "No game available right now, create one!")
     },
-    "chat" -> (messageId match {
-      case -1 ⇒ null
-      case id ⇒ messages.toNel.fold(
-        renderMessages, Map("id" -> id, "messages" -> Nil))
-    }),
-    "timeline" -> entries.toNel.fold(
-      renderEntries,
-      Map("id" -> entryId, "entries" -> Nil)
-    )
+    "chat" -> messages.toNel.fold(renderMessages, Nil),
+    "timeline" -> entries.toNel.fold(renderEntries, Nil)
   )
 
-  private def renderMessages(messages: NonEmptyList[Message]) = Map(
-    "id" -> messages.head.id,
-    "messages" -> (messages.list.reverse map { message ⇒
+  private def renderMessages(messages: NonEmptyList[Message]) =
+    messages.list.reverse map { message ⇒
       Map(
-        "id" -> message.id,
         "u" -> message.username,
-        "m" -> escapeXml(message.message)
-      )
-    })
-  )
+        "txt" -> escapeXml(message.message))
+    }
 
-  private def renderEntries(entries: NonEmptyList[Entry]) = Map(
-    "id" -> entries.head.id,
-    "entries" -> (entries.list.reverse map { entry ⇒
+  private def renderEntries(entries: NonEmptyList[Entry]) =
+    entries.list.reverse map { entry ⇒
       "<td>%s</td><td>%s</td><td class='trans_me'>%s</td><td class='trans_me'>%s</td><td class='trans_me'>%s</td>".format(
         "<a class='watch' href='/%s'></a>" format entry.data.id,
         entry.data.players map { p ⇒
@@ -104,10 +76,8 @@ final class LobbySyncer(
         } mkString " vs ",
         entry.data.variant,
         entry.data.rated ? "Rated" | "Casual",
-        entry.data.clock | "Unlimited"
-      )
-    })
-  )
+        entry.data.clock | "Unlimited")
+    }
 
   private def renderHooks(hooks: List[Hook], myHookId: Option[String]) = for {
     hook ← hooks
@@ -116,17 +86,5 @@ final class LobbySyncer(
       if (myHookId == Some(hook.ownerId)) Map("action" -> "cancel", "id" -> myHookId)
       else Map("action" -> "join", "id" -> hook.id)
     }
-  }
-
-  private def wait(version: Int, messageId: Int, entryId: Int): IO[Int] = io {
-    @tailrec
-    def wait(loop: Int): Int = {
-      if (loop == 0 ||
-        lobbyMemo.version != version ||
-        (messageId != -1 && messageMemo.id != messageId) ||
-        entryMemo.id != entryId) lobbyMemo.version
-      else { Thread sleep sleep; wait(loop - 1) }
-    }
-    wait(max(1, duration / sleep))
   }
 }

@@ -51,17 +51,12 @@ final class SystemEnv(config: Config) {
     aliveMemo = aliveMemo,
     hookMemo = hookMemo)
 
-  lazy val lobbySyncer = new LobbySyncer(
+  lazy val lobbyPreloader = new LobbyPreloader(
     hookRepo = hookRepo,
     gameRepo = gameRepo,
     messageRepo = messageRepo,
     entryRepo = entryRepo,
-    lobbyMemo = lobbyMemo,
-    hookMemo = hookMemo,
-    messageMemo = messageMemo,
-    entryMemo = entryMemo,
-    duration = getMilliseconds("lobby.sync.duration"),
-    sleep = getMilliseconds("lobby.sync.sleep"))
+    hookMemo = hookMemo)
 
   lazy val pinger = new Pinger(
     aliveMemo = aliveMemo,
