@@ -29,6 +29,7 @@ case class Hook(
   def eloMax = eloRange map (_ dropWhile ('-' !=) tail)
 
   def render = Map(
+    "id" -> id,
     "username" -> username,
     "elo" -> elo,
     "variant" -> realVariant.toString,
@@ -38,7 +39,8 @@ case class Hook(
       ((time filter (_ ⇒ hasClock)) |@| increment apply renderClock _)
       | "Unlimited"),
     "emin" -> eloMin,
-    "emax" -> eloMax
+    "emax" -> eloMax,
+    "action" -> "join"
   ) +? (engine, "engine" -> true)
 
   def renderClock(time: Int, inc: Int) = "%d + %d".format(time, inc)

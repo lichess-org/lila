@@ -11,7 +11,6 @@ final class LobbyApi(
     messenger: Messenger,
     starter: Starter,
     lobbyMemo: LobbyMemo,
-    messageMemo: MessageMemo,
     val versionMemo: VersionMemo,
     aliveMemo: AliveMemo,
     hookMemo: HookMemo) extends IOTools {
@@ -37,8 +36,6 @@ final class LobbyApi(
   } yield ()
 
   def alive(hookOwnerId: String): IO[Unit] = hookMemo put hookOwnerId
-
-  def messageRefresh: IO[Unit] = messageMemo.refresh
 
   private[system] def versionInc: IO[Int] = lobbyMemo++
 }

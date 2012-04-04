@@ -15,11 +15,11 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
     env.userRepo updateOnlineUsernames env.usernameMemo.keys
   }
 
-  spawn("hook_cleanup_dead") { env ⇒
-    env.hookRepo keepOnlyOwnerIds env.hookMemo.keys flatMap { hasRemoved ⇒
-      if (hasRemoved) (env.lobbyMemo ++) map (_ ⇒ Unit) else io()
-    }
-  }
+  //spawn("hook_cleanup_dead") { env ⇒
+    //env.hookRepo keepOnlyOwnerIds env.hookMemo.keys flatMap { hasRemoved ⇒
+      //if (hasRemoved) (env.lobbyMemo ++) map (_ ⇒ Unit) else io()
+    //}
+  //}
 
   spawn("hook_cleanup_old") { env ⇒
     env.hookRepo.cleanupOld

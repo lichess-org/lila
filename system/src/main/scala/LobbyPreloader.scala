@@ -7,7 +7,6 @@ import scalaz.effects._
 import scalaz.NonEmptyList
 import scala.annotation.tailrec
 import scala.math.max
-import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 
 final class LobbyPreloader(
     hookRepo: HookRepo,
@@ -50,10 +49,7 @@ final class LobbyPreloader(
     messages ← if (chat) messageRepo.recent else io(Nil)
     entries ← entryRepo.recent
   } yield Map(
-    "pool" -> {
-      if (hooks.nonEmpty) Map("hooks" -> renderHooks(hooks, myHookId).toMap)
-      else Map("message" -> "No game available right now, create one!")
-    },
+    "pool" -> renderHooks(hooks, myHookId),
     "chat" -> messages.toNel.fold(renderMessages, Nil),
     "timeline" -> entries.toNel.fold(renderEntries, Nil)
   )
@@ -61,8 +57,8 @@ final class LobbyPreloader(
   private def renderMessages(messages: NonEmptyList[Message]) =
     messages.list.reverse map { message ⇒
       Map(
-        "u" -> message.username,
-        "txt" -> escapeXml(message.message))
+        "txt" -> message.text,
+        "u" -> message.username)
     }
 
   private def renderEntries(entries: NonEmptyList[Entry]) =
@@ -79,12 +75,9 @@ final class LobbyPreloader(
         entry.data.clock | "Unlimited")
     }
 
-  private def renderHooks(hooks: List[Hook], myHookId: Option[String]) = for {
-    hook ← hooks
-  } yield hook.id -> {
-    hook.render ++ {
-      if (myHookId == Some(hook.ownerId)) Map("action" -> "cancel", "id" -> myHookId)
-      else Map("action" -> "join", "id" -> hook.id)
-    }
+  private def renderHooks(hooks: List[Hook], myHookId: Option[String]) = hooks map { h ⇒
+    if (myHookId == Some(h.ownerId))
+      h.render ++ Map("action" -> "cancel", "ownerId" -> myHookId)
+    else h.render
   }
 }

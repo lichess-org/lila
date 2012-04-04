@@ -47,7 +47,6 @@ final class SystemEnv(config: Config) {
     starter = starter,
     versionMemo = versionMemo,
     lobbyMemo = lobbyMemo,
-    messageMemo = messageMemo,
     aliveMemo = aliveMemo,
     hookMemo = hookMemo)
 
@@ -148,9 +147,6 @@ final class SystemEnv(config: Config) {
 
   lazy val entryMemo = new EntryMemo(
     getId = entryRepo.lastId)
-
-  lazy val messageMemo = new MessageMemo(
-    getId = messageRepo.lastId)
 
   lazy val gameFinishCommand = new GameFinishCommand(
     gameRepo = gameRepo,

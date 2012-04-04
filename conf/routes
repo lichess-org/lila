@@ -38,7 +38,6 @@ POST  /api/lobby/join/:gameId/:color controllers.LobbyApiC.join(gameId: String, 
 GET   /api/lobby/preload            controllers.LobbyApiC.preload
 POST  /api/lobby/create/:hookOwnerId controllers.LobbyApiC.create(hookOwnerId: String)
 POST  /api/lobby/alive/:hookOwnerId controllers.LobbyApiC.alive(hookOwnerId: String)
-POST  /api/lobby/message            controllers.LobbyApiC.message
 
 # Useless, but play2 needs it
 GET   /assets/*file                 controllers.Assets.at(path="/public", file)

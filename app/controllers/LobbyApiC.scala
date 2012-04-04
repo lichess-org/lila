@@ -33,8 +33,4 @@ object LobbyApiC extends LilaController {
   def alive(hookOwnerId: String) = Action {
     IOk(api.alive(hookOwnerId))
   }
-
-  def message = Action {
-    IOk(api.messageRefresh)
-  }
 }
