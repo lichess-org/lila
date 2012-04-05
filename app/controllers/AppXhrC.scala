@@ -92,19 +92,6 @@ object AppXhrC extends LilaController {
     ).unsafePerformIO) as JSON
   }
 
-  def ai = Action { implicit request ⇒
-    Async {
-      Akka.future {
-        env.craftyServer(fen = getOr("fen", ""), level = getIntOr("level", 1))
-      } map { res ⇒
-        res.fold(
-          err ⇒ BadRequest(err.list mkString "\n"),
-          op ⇒ Ok(op.unsafePerformIO)
-        )
-      }
-    }
-  }
-
   def nbPlayers = Action { Ok(env.aliveMemo.count) }
 
   def nbGames = Action { Ok(env.gameRepo.countPlaying.unsafePerformIO) }
