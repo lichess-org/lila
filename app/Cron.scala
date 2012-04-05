@@ -31,8 +31,19 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
 
   spawn("game_auto_finish") { _.gameFinishCommand.apply() }
 
+  spawn("remote_ai_health") { env ⇒
+    for {
+      health ← env.remoteAi.health
+      _ ← health.fold(
+        env.remoteAiHealth.fold(io(), putStrLn("remote AI is up")),
+        putStrLn("remote AI is down")
+      )
+      _ ← io { env.remoteAiHealth = health }
+    } yield ()
+  }
+
   def spawn(name: String)(f: SystemEnv ⇒ IO[Unit]) = {
-    val freq = env.getMilliseconds("cron.%s.frequency" format name) millis
+    val freq = env.getMilliseconds("cron.frequency.%s" format name) millis
     val actor = Akka.system.actorOf(Props(new Actor {
       def receive = {
         case "tick" ⇒ f(env).unsafePerformIO

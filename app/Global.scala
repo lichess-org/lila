@@ -12,7 +12,9 @@ object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
     systemEnv = new SystemEnv(app.configuration.underlying)
-    new Cron(systemEnv)(app)
+
+    if (env.isAiServer) println("Running as AI server")
+    else new Cron(env)(app)
   }
 
   override def onHandlerNotFound(request: RequestHeader): Result = {

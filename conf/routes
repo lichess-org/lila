@@ -17,6 +17,8 @@ GET   /draw-decline/:fullId             lila.controllers.AppXhrC.drawDecline(ful
 POST  /talk/:fullId                     lila.controllers.AppXhrC.talk(fullId: String)
 POST  /moretime/:fullId                 lila.controllers.AppXhrC.moretime(fullId: String)
 
+GET   /ai                               controllers.AiC.run
+
 # App Private API
 GET   /api/show/:fullId            lila.controllers.AppApiC.show(fullId: String)
 POST  /api/start/:gameId           lila.controllers.AppApiC.start(gameId: String)

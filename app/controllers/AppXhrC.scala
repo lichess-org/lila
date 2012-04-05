@@ -83,7 +83,7 @@ object AppXhrC extends LilaController {
     )
   }
 
-  def ping() = Action { implicit request ⇒
+  def ping = Action { implicit request ⇒
     Ok(env.pinger.ping(
       username = get("username"),
       playerKey = get("player_key"),

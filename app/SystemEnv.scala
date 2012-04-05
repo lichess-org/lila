@@ -87,11 +87,29 @@ final class SystemEnv(config: Config) {
     lobbySocket = lobbySocket,
     versionMemo = versionMemo)
 
-  lazy val ai: Ai = craftyAi
+  // tells whether the remote AI is healthy or not
+  // frequently updated by a scheduled actor
+  var remoteAiHealth = false
+
+  def ai: Ai = config getString "ai.use" match {
+    case "remote" ⇒ remoteAiHealth.fold(remoteAi, craftyAi)
+    case "crafty" ⇒ craftyAi
+    case _        ⇒ stupidAi
+  }
+
+  lazy val remoteAi = new RemoteAi(
+    remoteUrl = config getString "ai.remote.url")
 
   lazy val craftyAi = new CraftyAi(
-    execPath = config getString "crafty.exec_path",
-    bookPath = Some(config getString "crafty.book_path") filter ("" !=))
+    server = craftyServer)
+
+  lazy val craftyServer = new CraftyServer(
+    execPath = config getString "ai.crafty.exec_path",
+    bookPath = Some(config getString "ai.crafty.book_path") filter ("" !=))
+
+  lazy val stupidAi = new StupidAi
+
+  def isAiServer = config getBoolean "ai.server"
 
   lazy val gameRepo = new GameRepo(
     mongodb(config getString "mongo.collection.game"))
