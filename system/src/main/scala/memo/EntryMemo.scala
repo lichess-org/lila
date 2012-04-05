@@ -12,9 +12,9 @@ final class EntryMemo(getId: () ⇒ IO[Option[Int]]) {
   refresh.unsafePerformIO
 
   def refresh = for {
-    idOption ← getId()
+    idOption ← getId() except (_ ⇒ io(none))
   } yield {
-    privateId = idOption err "No last entry found"
+    privateId = idOption | 0
   }
 
   def ++ : IO[Int] = io {
