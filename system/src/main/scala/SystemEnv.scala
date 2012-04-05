@@ -112,6 +112,8 @@ final class SystemEnv(config: Config) {
 
   lazy val stupidAi = new StupidAi
 
+  def isAiServer = config getBoolean "ai.server"
+
   lazy val gameRepo = new GameRepo(
     mongodb(config getString "mongo.collection.game"))
 
