@@ -16,6 +16,7 @@ GET   /draw-cancel/:fullId              controllers.AppXhrC.drawCancel(fullId: S
 GET   /draw-decline/:fullId             controllers.AppXhrC.drawDecline(fullId: String)
 POST  /talk/:fullId                     controllers.AppXhrC.talk(fullId: String)
 POST  /moretime/:fullId                 controllers.AppXhrC.moretime(fullId: String)
+GET   /ai                               controllers.AppXhrC.ai
 
 # App Private API
 GET   /api/show/:fullId            controllers.AppApiC.show(fullId: String)

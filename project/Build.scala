@@ -24,6 +24,7 @@ trait Dependencies {
   val jodaConvert = "org.joda" % "joda-convert" % "1.2"
   val scalaTime = "org.scala-tools.time" %% "time" % "0.5"
   val slf4jNop = "org.slf4j" % "slf4j-nop" % "1.6.4"
+  val dispatch = "net.databinder" %% "dispatch-http" % "0.8.7"
 
   // benchmark
   val instrumenter = "com.google.code.java-allocation-instrumenter" % "java-allocation-instrumenter" % "2.0"
@@ -54,7 +55,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
   ) dependsOn (system)
 
   lazy val system = Project("system", file("system"), settings = buildSettings).settings(
-    libraryDependencies ++= Seq(scalaz, config, json, casbah, salat, guava, apache, jodaTime, jodaConvert, scalaTime)
+    libraryDependencies ++= Seq(scalaz, config, json, casbah, salat, guava, apache, jodaTime, jodaConvert, scalaTime, dispatch)
   ) dependsOn (chess)
 
   lazy val chess = Project("chess", file("chess"), settings = buildSettings).settings(

@@ -82,7 +82,7 @@ object AppXhrC extends LilaController {
     )
   }
 
-  def ping() = Action { implicit request ⇒
+  def ping = Action { implicit request ⇒
     Ok(env.pinger.ping(
       username = get("username"),
       playerKey = get("player_key"),
@@ -90,6 +90,19 @@ object AppXhrC extends LilaController {
       getNbWatchers = get("get_nb_watchers"),
       hookId = get("hook_id")
     ).unsafePerformIO) as JSON
+  }
+
+  def ai = Action { implicit request ⇒
+    Async {
+      Akka.future {
+        env.craftyServer(fen = getOr("fen", ""), level = getIntOr("level", 1))
+      } map { res ⇒
+        res.fold(
+          err ⇒ BadRequest(err.list mkString "\n"),
+          op ⇒ Ok(op.unsafePerformIO)
+        )
+      }
+    }
   }
 
   def nbPlayers = Action { Ok(env.aliveMemo.count) }
