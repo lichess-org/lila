@@ -1,4 +1,5 @@
 package lila
+package test
 
 import ai._
 

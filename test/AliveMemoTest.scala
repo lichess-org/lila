@@ -1,4 +1,5 @@
 package lila
+package test
 
 import memo._
 import chess.{ White, Black }

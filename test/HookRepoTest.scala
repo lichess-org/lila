@@ -1,4 +1,6 @@
 package lila
+package test
+package test
 
 import scalaz.{ Success, Failure }
 import scalaz.effects._

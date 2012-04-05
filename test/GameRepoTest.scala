@@ -1,4 +1,5 @@
 package lila
+package test
 
 import model._
 import chess._

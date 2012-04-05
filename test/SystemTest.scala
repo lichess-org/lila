@@ -1,4 +1,5 @@
 package lila
+package test
 
 import org.specs2.mutable.Specification
 import ornicar.scalalib.test._
