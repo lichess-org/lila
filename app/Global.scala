@@ -1,10 +1,8 @@
-package lila.http
+package lila
 
 import play.api._
 import play.api.mvc._
 import play.api.mvc.Results._
-
-import lila.system.SystemEnv
 
 object Global extends GlobalSettings {
 

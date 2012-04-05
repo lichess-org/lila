@@ -1,7 +1,7 @@
+package lila
 package controllers
 
-import lila.http._
-import DataForm._
+import lila.DataForm._
 
 import play.api._
 import mvc._

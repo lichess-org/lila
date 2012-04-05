@@ -1,3 +1,4 @@
+package lila
 package controllers
 
 import play.api.mvc.Request

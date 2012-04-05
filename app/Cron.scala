@@ -1,4 +1,4 @@
-package lila.http
+package lila
 
 import play.api._
 import play.api.libs.concurrent.Akka
@@ -6,8 +6,6 @@ import akka.actor._
 import akka.util.duration._
 import akka.util.Duration
 import scalaz.effects._
-
-import lila.system.SystemEnv
 
 final class Cron(env: SystemEnv)(implicit app: Application) {
 

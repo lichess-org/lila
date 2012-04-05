@@ -1,3 +1,4 @@
+package lila
 package controllers
 
 import lila.http._

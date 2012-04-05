@@ -1,6 +1,6 @@
-package lila.http
+package lila
 
-import lila.system.model._
+import lila.model._
 import play.api.data._
 import play.api.data.Forms._
 

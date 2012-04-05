@@ -1,6 +1,5 @@
+package lila
 package controllers
-
-import lila.http._
 
 import play.api._
 import mvc._
@@ -69,7 +68,7 @@ trait LilaController extends Controller with ContentTypes with RequestGetter {
 
   implicit def richForm[A](form: Form[A]) = new {
     def toValid: Valid[A] = form.fold(
-      form ⇒ failure(nel("Invalid form", form.errors.map(_.toString): _*)),
+      form ⇒ failure(nel("Invalid form", form.errors.map(_.toString).toList)),
       data ⇒ success(data)
     )
   }
