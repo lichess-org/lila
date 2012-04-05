@@ -81,8 +81,7 @@ final class SystemEnv(config: Config) {
     gameRepo = gameRepo,
     entryRepo = entryRepo,
     ai = ai,
-    versionMemo = versionMemo,
-    entryMemo = entryMemo)
+    versionMemo = versionMemo)
 
   lazy val ai: Ai = craftyAi
 
@@ -144,9 +143,6 @@ final class SystemEnv(config: Config) {
 
   lazy val hookMemo = new HookMemo(
     timeout = getMilliseconds("memo.hook.timeout"))
-
-  lazy val entryMemo = new EntryMemo(
-    getId = entryRepo.lastId)
 
   lazy val gameFinishCommand = new GameFinishCommand(
     gameRepo = gameRepo,

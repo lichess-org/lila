@@ -4,9 +4,6 @@ import model._
 import memo._
 import db._
 import scalaz.effects._
-import scalaz.NonEmptyList
-import scala.annotation.tailrec
-import scala.math.max
 
 final class LobbyPreloader(
     hookRepo: HookRepo,
@@ -50,30 +47,9 @@ final class LobbyPreloader(
     entries ← entryRepo.recent
   } yield Map(
     "pool" -> renderHooks(hooks, myHookId),
-    "chat" -> messages.toNel.fold(renderMessages, Nil),
-    "timeline" -> entries.toNel.fold(renderEntries, Nil)
+    "chat" -> (messages.reverse map (_.render)),
+    "timeline" -> (entries.reverse map (_.render))
   )
-
-  private def renderMessages(messages: NonEmptyList[Message]) =
-    messages.list.reverse map { message ⇒
-      Map(
-        "txt" -> message.text,
-        "u" -> message.username)
-    }
-
-  private def renderEntries(entries: NonEmptyList[Entry]) =
-    entries.list.reverse map { entry ⇒
-      "<td>%s</td><td>%s</td><td class='trans_me'>%s</td><td class='trans_me'>%s</td><td class='trans_me'>%s</td>".format(
-        "<a class='watch' href='/%s'></a>" format entry.data.id,
-        entry.data.players map { p ⇒
-          p.u.fold(
-            username ⇒ "<a class='user_link' href='/@/%s'>%s</a>".format(username, p.ue),
-            p.ue)
-        } mkString " vs ",
-        entry.data.variant,
-        entry.data.rated ? "Rated" | "Casual",
-        entry.data.clock | "Unlimited")
-    }
 
   private def renderHooks(hooks: List[Hook], myHookId: Option[String]) = hooks map { h ⇒
     if (myHookId == Some(h.ownerId))

@@ -8,9 +8,9 @@ import com.mongodb.casbah.Imports._
 import scalaz.effects._
 import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 
-class MessageRepo(collection: MongoCollection, val max: Int) {
+final class MessageRepo(collection: MongoCollection, max: Int)
+extends CappedRepo[Message](collection, max) {
 
-  private val naturalOrder = DBObject("$natural" -> -1)
   private val urlRegex = """lichess\.org/([\w-]{8})[\w-]{4}""".r
 
   def add(text: String, username: String): Valid[IO[Message]] =
@@ -23,22 +23,19 @@ class MessageRepo(collection: MongoCollection, val max: Int) {
           text.trim.take(140),
           m ⇒ "lichess.org/" + (m group 1))
         io {
-          collection += DBObject(
-            "u" -> username,
-            "t" -> t)
-          Message(username, t)
+          Message(username, t) ~ { collection += encode(_) }
         }
       }
     }
 
-  val recent: IO[List[Message]] = io {
-    collection.find(DBObject()).sort(naturalOrder).limit(max).toList map { obj ⇒
-      for {
-        u ← obj.getAs[String]("u")
-        t ← obj.getAs[String]("t")
-      } yield Message(u, t)
-    } flatten
-  }
+  def decode(obj: DBObject): Option[Message] = for {
+    u ← obj.getAs[String]("u")
+    t ← obj.getAs[String]("t")
+  } yield Message(u, t)
+
+  def encode(obj: Message): DBObject = DBObject(
+    "u" -> obj.username,
+    "t" -> obj.text)
 
   private def !!(msg: String) = failure(msg.wrapNel)
 }
