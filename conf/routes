@@ -1,4 +1,4 @@
-# App XHR
+# App Public API
 GET   /ping                             lila.controllers.AppXhrC.ping
 GET   /sync/:gameId/:color/:version     lila.controllers.AppXhrC.syncPublic(gameId: String, color: String, version: Int)
 GET   /sync/:gameId/:color/:version/:fullId lila.controllers.AppXhrC.sync(gameId: String, color: String, version: Int, fullId: String)
@@ -29,15 +29,15 @@ GET   /api/player-version/:gameId/:color lila.controllers.AppApiC.playerVersion(
 GET   /api/nb-players               lila.controllers.AppXhrC.nbPlayers
 POST  /api/outoftime/:fullId        lila.controllers.AppXhrC.outoftime(fullId: String)
 
-# Lobby XHR
-GET   /lobby/cancel/:ownerId        lila.controllers.LobbyXhrC.cancel(ownerId: String)
-GET   /lobby/socket/:uid            lila.controllers.LobbyXhrC.socket(uid: String)
+# Lobby Public API
+GET   /lobby/cancel/:ownerId        lila.controllers.LobbyC.cancel(ownerId: String)
+GET   /lobby/socket/:uid            lila.controllers.LobbyC.socket(uid: String)
 
 # Lobby Private API
-POST  /api/lobby/join/:gameId/:color lila.controllers.LobbyApiC.join(gameId: String, color: String)
-GET   /api/lobby/preload            lila.controllers.LobbyApiC.preload
-POST  /api/lobby/create/:hookOwnerId lila.controllers.LobbyApiC.create(hookOwnerId: String)
-POST  /api/lobby/alive/:hookOwnerId lila.controllers.LobbyApiC.alive(hookOwnerId: String)
+POST  /api/lobby/join/:gameId/:color lila.controllers.LobbyC.join(gameId: String, color: String)
+GET   /api/lobby/preload            lila.controllers.LobbyC.preload
+POST  /api/lobby/create/:hookOwnerId lila.controllers.LobbyC.create(hookOwnerId: String)
+POST  /api/lobby/alive/:hookOwnerId lila.controllers.LobbyC.alive(hookOwnerId: String)
 
 # Useless, but play2 needs it
 GET   /assets/*file                 controllers.Assets.at(path="/public", file)

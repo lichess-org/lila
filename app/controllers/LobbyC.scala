@@ -1,15 +1,31 @@
 package lila
 package controllers
 
-import lila.DataForm._
+import lila.http._
+import DataForm._
 
 import play.api._
 import mvc._
 
-object LobbyApiC extends LilaController {
+import play.api.libs.concurrent.Akka
+import play.api.Play.current
+
+import play.api.libs.json._
+import play.api.libs.iteratee._
+
+object LobbyC extends LilaController {
 
   private val api = env.lobbyApi
   private val preloader = env.lobbyPreloader
+
+  def socket(uid: String) = WebSocket.async[JsValue] { request ⇒
+    env.lobbySocket.join(uid)
+  }
+
+  def cancel(ownerId: String) = Action {
+    api.cancel(ownerId).unsafePerformIO
+    Redirect("/")
+  }
 
   def preload = Action { implicit request ⇒
     JsonIOk(preloader(

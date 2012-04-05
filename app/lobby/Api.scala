@@ -1,11 +1,12 @@
 package lila
+package lobby
 
 import model._
 import memo._
 import db._
 import scalaz.effects._
 
-final class LobbyApi(
+final class Api(
     hookRepo: HookRepo,
     val gameRepo: GameRepo,
     messenger: Messenger,
@@ -14,6 +15,12 @@ final class LobbyApi(
     val versionMemo: VersionMemo,
     aliveMemo: AliveMemo,
     hookMemo: HookMemo) extends IOTools {
+
+  def cancel(ownerId: String): IO[Unit] = for {
+    _ ← hookRepo removeOwnerId ownerId
+    _ ← hookMemo remove ownerId
+    _ ← versionInc
+  } yield ()
 
   def join(
     gameId: String,

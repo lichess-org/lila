@@ -1,11 +1,12 @@
 package lila
+package lobby
 
 import model._
 import memo._
 import db._
 import scalaz.effects._
 
-final class LobbyPreloader(
+final class Preload(
     hookRepo: HookRepo,
     gameRepo: GameRepo,
     messageRepo: MessageRepo,

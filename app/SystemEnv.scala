@@ -3,6 +3,10 @@ package lila
 import com.mongodb.casbah.MongoConnection
 import com.mongodb.{ Mongo, MongoOptions, ServerAddress ⇒ MongoServer }
 import com.typesafe.config._
+import akka.actor._
+
+import play.api.libs.concurrent._
+import play.api.Play.current
 
 import chess.EloCalculator
 import db._
@@ -11,6 +15,10 @@ import memo._
 import command._
 
 final class SystemEnv(config: Config) {
+
+  lazy val lobbyHub = Akka.system.actorOf(Props(new lobby.Hub(this)))
+
+  lazy val lobbySocket = new lobby.Lobby(lobbyHub)
 
   lazy val appXhr = new AppXhr(
     gameRepo = gameRepo,
@@ -35,12 +43,7 @@ final class SystemEnv(config: Config) {
     duration = getMilliseconds("sync.duration"),
     sleep = getMilliseconds("sync.sleep"))
 
-  lazy val lobbyXhr = new LobbyXhr(
-    hookRepo = hookRepo,
-    lobbyMemo = lobbyMemo,
-    hookMemo = hookMemo)
-
-  lazy val lobbyApi = new LobbyApi(
+  lazy val lobbyApi = new lobby.Api(
     hookRepo = hookRepo,
     gameRepo = gameRepo,
     messenger = messenger,
@@ -50,7 +53,7 @@ final class SystemEnv(config: Config) {
     aliveMemo = aliveMemo,
     hookMemo = hookMemo)
 
-  lazy val lobbyPreloader = new LobbyPreloader(
+  lazy val lobbyPreloader = new lobby.Preload(
     hookRepo = hookRepo,
     gameRepo = gameRepo,
     messageRepo = messageRepo,
@@ -81,6 +84,7 @@ final class SystemEnv(config: Config) {
     gameRepo = gameRepo,
     entryRepo = entryRepo,
     ai = ai,
+    lobbySocket = lobbySocket,
     versionMemo = versionMemo)
 
   lazy val ai: Ai = craftyAi
