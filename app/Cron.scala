@@ -36,8 +36,11 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
   spawn("remote_ai_health") { env ⇒
     for {
       health ← env.remoteAi.health
+      _ ← health.fold(
+        env.remoteAiHealth.fold(io(), putStrLn("remote AI is up")),
+        putStrLn("remote AI is down")
+      )
       _ ← io { env.remoteAiHealth = health }
-      _ ← health.fold(io(), putStrLn("remote AI is down"))
     } yield ()
   }
 
