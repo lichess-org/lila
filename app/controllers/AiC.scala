@@ -1,15 +1,11 @@
+package lila
 package controllers
-
-import lila.http._
-import DataForm._
 
 import play.api._
 import mvc._
 
 import play.api.libs.concurrent.Akka
 import play.api.Play.current
-
-import scalaz.effects.IO
 
 object AiC extends LilaController {
 

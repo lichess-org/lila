@@ -6,7 +6,7 @@ import play.api.mvc.Request
 trait RequestGetter {
 
   def get(name: String)(implicit request: Request[_]) =
-    request.queryString get name flatMap (_.headOption)
+    request.queryString get name flatMap (_.headOption) filter (""!=)
 
   def getInt(name: String)(implicit request: Request[_]) =
     get(name)(request) map (_.toInt)

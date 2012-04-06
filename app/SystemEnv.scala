@@ -16,9 +16,28 @@ import command._
 
 final class SystemEnv(config: Config) {
 
-  lazy val lobbyHub = Akka.system.actorOf(Props(new lobby.Hub(this)))
+  lazy val lobbyHub = Akka.system.actorOf(Props(new lobby.Hub(
+    messageRepo = messageRepo
+  )), name = "lobby_hub")
 
-  lazy val lobbySocket = new lobby.Lobby(lobbyHub)
+  lazy val lobbyHookPool = Akka.system.actorOf(Props(new lobby.HookPool(
+    hookMemo = hookMemo
+  )), name = "lobby_hook_pool")
+
+  lazy val lobbySocket = new lobby.Lobby(
+    hub = lobbyHub,
+    hookPool = lobbyHookPool)
+
+  lazy val lobbyPreloader = new lobby.Preload(
+    hookRepo = hookRepo,
+    gameRepo = gameRepo,
+    messageRepo = messageRepo,
+    entryRepo = entryRepo)
+
+  lazy val lobbyFisherman = new lobby.Fisherman(
+    hookRepo = hookRepo,
+    hookMemo = hookMemo,
+    socket = lobbySocket)
 
   lazy val appXhr = new AppXhr(
     gameRepo = gameRepo,
@@ -45,26 +64,18 @@ final class SystemEnv(config: Config) {
 
   lazy val lobbyApi = new lobby.Api(
     hookRepo = hookRepo,
+    fisherman = lobbyFisherman,
     gameRepo = gameRepo,
     messenger = messenger,
     starter = starter,
     versionMemo = versionMemo,
-    lobbyMemo = lobbyMemo,
-    aliveMemo = aliveMemo,
-    hookMemo = hookMemo)
-
-  lazy val lobbyPreloader = new lobby.Preload(
-    hookRepo = hookRepo,
-    gameRepo = gameRepo,
-    messageRepo = messageRepo,
-    entryRepo = entryRepo,
-    hookMemo = hookMemo)
+    lobbySocket = lobbySocket,
+    aliveMemo = aliveMemo)
 
   lazy val pinger = new Pinger(
     aliveMemo = aliveMemo,
     usernameMemo = usernameMemo,
-    watcherMemo = watcherMemo,
-    hookMemo = hookMemo)
+    watcherMemo = watcherMemo)
 
   lazy val finisher = new Finisher(
     historyRepo = historyRepo,
@@ -160,8 +171,6 @@ final class SystemEnv(config: Config) {
 
   lazy val watcherMemo = new WatcherMemo(
     timeout = getMilliseconds("memo.watcher.timeout"))
-
-  lazy val lobbyMemo = new LobbyMemo
 
   lazy val hookMemo = new HookMemo(
     timeout = getMilliseconds("memo.hook.timeout"))

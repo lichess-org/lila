@@ -8,18 +8,17 @@ import scalaz.effects._
 
 final class Api(
     hookRepo: HookRepo,
+    fisherman: Fisherman,
     val gameRepo: GameRepo,
     messenger: Messenger,
     starter: Starter,
-    lobbyMemo: LobbyMemo,
+    lobbySocket: lobby.Lobby,
     val versionMemo: VersionMemo,
-    aliveMemo: AliveMemo,
-    hookMemo: HookMemo) extends IOTools {
+    aliveMemo: AliveMemo) extends IOTools {
 
   def cancel(ownerId: String): IO[Unit] = for {
-    _ ← hookRepo removeOwnerId ownerId
-    _ ← hookMemo remove ownerId
-    _ ← versionInc
+    hook ← hookRepo ownedHook ownerId
+    _ ← hook.fold(fisherman.-, io())
   } yield ()
 
   def join(
@@ -34,15 +33,10 @@ final class Api(
     _ ← save(game, g3)
     _ ← aliveMemo.put(gameId, color)
     _ ← aliveMemo.put(gameId, !color)
-    _ ← versionInc
   } yield ()
 
   def create(hookOwnerId: String): IO[Unit] = for {
-    _ ← hookMemo put hookOwnerId
-    _ ← versionInc
+    hook ← hookRepo ownedHook hookOwnerId
+    _ ← hook.fold(fisherman.+, io())
   } yield ()
-
-  def alive(hookOwnerId: String): IO[Unit] = hookMemo put hookOwnerId
-
-  def versionInc: IO[Int] = lobbyMemo++
 }

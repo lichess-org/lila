@@ -7,19 +7,16 @@ import scalaz.effects._
 final class Pinger(
     aliveMemo: AliveMemo,
     usernameMemo: UsernameMemo,
-    watcherMemo: WatcherMemo,
-    hookMemo: HookMemo) {
+    watcherMemo: WatcherMemo) {
 
   def ping(
     username: Option[String],
     playerKey: Option[String],
     watcherKey: Option[String],
-    getNbWatchers: Option[String],
-    hookId: Option[String]): IO[String] = for {
+    getNbWatchers: Option[String]): IO[String] = for {
     _ ← optionIO(playerKey, aliveMemo.put)
     _ ← optionIO(username, usernameMemo.put)
     _ ← optionIO(watcherKey, watcherMemo.put)
-    _ ← optionIO(hookId, hookMemo.put)
   } yield fastJson(Map(
     "nbp" -> Some(aliveMemo.count.toInt),
     "nbw" -> (getNbWatchers map watcherMemo.count)

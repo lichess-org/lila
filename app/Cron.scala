@@ -9,18 +9,20 @@ import scalaz.effects._
 
 final class Cron(env: SystemEnv)(implicit app: Application) {
 
-  spawn("online_username") { env ⇒
-    env.userRepo updateOnlineUsernames env.usernameMemo.keys
+  configDuration("lobby.hook_pool.tick.frequency") |> { freq ⇒
+    Akka.system.scheduler.schedule(freq, freq, env.lobbyHookPool, Tick)
   }
 
-  //spawn("hook_cleanup_dead") { env ⇒
-    //env.hookRepo keepOnlyOwnerIds env.hookMemo.keys flatMap { hasRemoved ⇒
-      //if (hasRemoved) (env.lobbyMemo ++) map (_ ⇒ Unit) else io()
-    //}
-  //}
+  spawn("hook_cleanup_dead") { env ⇒
+    env.lobbyFisherman.cleanup
+  }
 
   spawn("hook_cleanup_old") { env ⇒
     env.hookRepo.cleanupOld
+  }
+
+  spawn("online_username") { env ⇒
+    env.userRepo updateOnlineUsernames env.usernameMemo.keys
   }
 
   spawn("game_cleanup_unplayed") { env ⇒
@@ -42,13 +44,15 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
     } yield ()
   }
 
-  def spawn(name: String)(f: SystemEnv ⇒ IO[Unit]) = {
-    val freq = env.getMilliseconds("cron.frequency.%s" format name) millis
+  private def spawn(name: String)(f: SystemEnv ⇒ IO[Unit]) = {
+    val freq = configDuration("cron.frequency.%s" format name)
     val actor = Akka.system.actorOf(Props(new Actor {
       def receive = {
-        case "tick" ⇒ f(env).unsafePerformIO
+        case Tick ⇒ f(env).unsafePerformIO
       }
     }), name = name)
-    Akka.system.scheduler.schedule(freq, freq, actor, "tick")
+    Akka.system.scheduler.schedule(freq, freq, actor, Tick)
   }
+
+  private def configDuration(key: String) = env.getMilliseconds(key) millis
 }

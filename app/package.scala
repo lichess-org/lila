@@ -13,6 +13,8 @@ package object lila
 
   RegisterJodaTimeConversionHelpers()
 
+  object Tick // standard actor tick
+
   // custom salat context
   implicit val ctx = new Context {
     val name = "Lila System Context"

@@ -1,7 +1,6 @@
 package lila
 package controllers
 
-import lila.http._
 import DataForm._
 
 import play.api._
@@ -19,7 +18,11 @@ object LobbyC extends LilaController {
   private val preloader = env.lobbyPreloader
 
   def socket(uid: String) = WebSocket.async[JsValue] { request ⇒
-    env.lobbySocket.join(uid)
+    env.lobbySocket.join(uid, None)
+  }
+
+  def socketHook(uid: String, hook: String) = WebSocket.async[JsValue] { request ⇒
+    env.lobbySocket.join(uid, Some(hook) filter (""!=))
   }
 
   def cancel(ownerId: String) = Action {
@@ -31,7 +34,7 @@ object LobbyC extends LilaController {
     JsonIOk(preloader(
       auth = getIntOr("auth", 0) == 1,
       chat = getIntOr("chat", 0) == 1,
-      myHookId = get("hook") filter (""!=)
+      myHookId = get("hook")
     ))
   }
 
@@ -43,9 +46,5 @@ object LobbyC extends LilaController {
 
   def create(hookOwnerId: String) = Action {
     IOk(api.create(hookOwnerId))
-  }
-
-  def alive(hookOwnerId: String) = Action {
-    IOk(api.alive(hookOwnerId))
   }
 }

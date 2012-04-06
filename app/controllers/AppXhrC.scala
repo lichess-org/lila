@@ -1,7 +1,6 @@
 package lila
 package controllers
 
-import lila.http._
 import DataForm._
 
 import play.api._
@@ -65,10 +64,6 @@ object AppXhrC extends LilaController {
 
   def drawDecline(fullId: String) = validAndRedirect(fullId, xhr.drawDecline)
 
-  def validAndRedirect(fullId: String, f: String ⇒ IO[Valid[Unit]]) = Action {
-    ValidIORedir(f(fullId), fullId)
-  }
-
   def talk(fullId: String) = Action { implicit request ⇒
     talkForm.bindFromRequest.fold(
       form ⇒ BadRequest(form.errors mkString "\n"),
@@ -88,12 +83,16 @@ object AppXhrC extends LilaController {
       username = get("username"),
       playerKey = get("player_key"),
       watcherKey = get("watcher"),
-      getNbWatchers = get("get_nb_watchers"),
-      hookId = get("hook_id")
+      getNbWatchers = get("get_nb_watchers")
     ).unsafePerformIO) as JSON
   }
 
   def nbPlayers = Action { Ok(env.aliveMemo.count) }
 
   def nbGames = Action { Ok(env.gameRepo.countPlaying.unsafePerformIO) }
+
+  private def validAndRedirect(fullId: String, f: String ⇒ IO[Valid[Unit]]) =
+    Action {
+      ValidIORedir(f(fullId), fullId)
+    }
 }

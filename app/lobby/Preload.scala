@@ -10,8 +10,7 @@ final class Preload(
     hookRepo: HookRepo,
     gameRepo: GameRepo,
     messageRepo: MessageRepo,
-    entryRepo: EntryRepo,
-    hookMemo: HookMemo) {
+    entryRepo: EntryRepo) {
 
   type Response = Map[String, Any]
 
@@ -19,7 +18,6 @@ final class Preload(
     auth: Boolean,
     chat: Boolean,
     myHookId: Option[String]): IO[Response] = for {
-    _ ← myHookId.fold(hookMemo.put, io())
     hooks ← if (auth) hookRepo.allOpen else hookRepo.allOpenCasual
     res ← {
       val response = () ⇒ stdResponse(chat, hooks, myHookId)

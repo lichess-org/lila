@@ -43,15 +43,10 @@ class HookRepo(collection: MongoCollection)
     remove(DBObject("ownerId" -> ownerId))
   }
 
-  def keepOnlyOwnerIds(ids: Iterable[String]): IO[Boolean] = io {
-    val removableIds = primitiveProjection[String](
-      ("ownerId" $nin ids) ++ ("match" -> false), "_id"
+  def unmatchedNotInOwnerIds(ids: Iterable[String]): IO[List[Hook]] = io {
+    find(
+      ("ownerId" $nin ids) ++ ("match" -> false)
     ).toList
-    if (removableIds.nonEmpty) {
-      remove("_id" $in removableIds)
-      true
-    }
-    else false
   }
 
   def cleanupOld: IO[Unit] = io {

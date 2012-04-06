@@ -24,9 +24,13 @@ case class Hook(
 
   def realMode = Mode(mode) | Casual
 
-  def eloMin = eloRange map (_ takeWhile ('-' !=))
+  def eloMin: Option[Int] = eloRange flatMap { e ⇒
+    parseIntOption(e takeWhile ('-' !=))
+  }
 
-  def eloMax = eloRange map (_ dropWhile ('-' !=) tail)
+  def eloMax: Option[Int] = eloRange flatMap { e ⇒
+    parseIntOption(e dropWhile ('-' !=) tail)
+  }
 
   def render = Map(
     "id" -> id,
@@ -35,13 +39,13 @@ case class Hook(
     "variant" -> realVariant.toString,
     "mode" -> realMode.toString,
     "color" -> color,
-    "clock" -> (
-      ((time filter (_ ⇒ hasClock)) |@| increment apply renderClock _)
-      | "Unlimited"),
+    "clock" -> clockOrUnlimited,
     "emin" -> eloMin,
     "emax" -> eloMax,
     "action" -> "join"
   ) +? (engine, "engine" -> true)
+
+  def clockOrUnlimited = ((time filter (_ ⇒ hasClock)) |@| increment apply renderClock _) | "Unlimited"
 
   def renderClock(time: Int, inc: Int) = "%d + %d".format(time, inc)
 }

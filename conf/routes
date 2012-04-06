@@ -17,7 +17,7 @@ GET   /draw-decline/:fullId             lila.controllers.AppXhrC.drawDecline(ful
 POST  /talk/:fullId                     lila.controllers.AppXhrC.talk(fullId: String)
 POST  /moretime/:fullId                 lila.controllers.AppXhrC.moretime(fullId: String)
 
-GET   /ai                               controllers.AiC.run
+GET   /ai                               lila.controllers.AiC.run
 
 # App Private API
 GET   /api/show/:fullId            lila.controllers.AppApiC.show(fullId: String)
@@ -33,13 +33,13 @@ POST  /api/outoftime/:fullId        lila.controllers.AppXhrC.outoftime(fullId: S
 
 # Lobby Public API
 GET   /lobby/cancel/:ownerId        lila.controllers.LobbyC.cancel(ownerId: String)
-GET   /lobby/socket/:uid            lila.controllers.LobbyC.socket(uid: String)
+GET   /lobby/socket/:uid      			lila.controllers.LobbyC.socket(uid: String)
+GET   /lobby/socket/:uid/:hook      lila.controllers.LobbyC.socketHook(uid: String, hook: String)
 
 # Lobby Private API
 POST  /api/lobby/join/:gameId/:color lila.controllers.LobbyC.join(gameId: String, color: String)
 GET   /api/lobby/preload            lila.controllers.LobbyC.preload
 POST  /api/lobby/create/:hookOwnerId lila.controllers.LobbyC.create(hookOwnerId: String)
-POST  /api/lobby/alive/:hookOwnerId lila.controllers.LobbyC.alive(hookOwnerId: String)
 
 # Useless, but play2 needs it
 GET   /assets/*file                 controllers.Assets.at(path="/public", file)
