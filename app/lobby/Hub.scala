@@ -30,9 +30,7 @@ final class Hub(
       ))
     }
 
-    case Entry(entry) ⇒ notifyAll("entry", Seq(
-      "html" -> JsString(entry.render)
-    ))
+    case Entry(entry) ⇒ notifyAll("entry", JsString(entry.render))
 
     case AddHook(hook) ⇒ notifyAll("hook_add", Seq(
       "id" -> JsString(hook.id),
@@ -48,15 +46,16 @@ final class Hub(
       "engine" -> JsBoolean(hook.engine))
     )
 
-    case RemoveHook(hook) ⇒ notifyAll("hook_remove", Seq(
-      "id" -> JsString(hook.id)
-    ))
+    case RemoveHook(hook) ⇒ notifyAll("hook_remove", JsString(hook.id))
 
     case Quit(uid) ⇒ { members = members - uid }
   }
 
-  def notifyAll(t: String, data: Seq[(String, JsValue)]) {
-    val msg = JsObject(Seq("t" -> JsString(t), "d" -> JsObject(data)))
+  def notifyAll(t: String, data: JsValue) {
+    val msg = JsObject(Seq("t" -> JsString(t), "d" -> data))
     members.foreach { case (_, channel) ⇒ channel.push(msg) }
+  }
+  def notifyAll(t: String, data: Seq[(String, JsValue)]) {
+    notifyAll(t, JsObject(data))
   }
 }
