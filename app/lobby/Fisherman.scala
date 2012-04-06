@@ -21,9 +21,12 @@ final class Fisherman(
 
   // DO NOT insert in db (done on php side)
   def +(hook: Hook): IO[Unit] = for {
-    _ ← hookMemo put hook.ownerId
+    _ ← shake(hook)
     _ ← socket addHook hook
   } yield ()
+
+  // mark the hook as active, once
+  def shake(hook: Hook): IO[Unit] = hookMemo put hook.ownerId
 
   def cleanup: IO[Unit] = for {
     hooks ← hookRepo unmatchedNotInOwnerIds hookMemo.keys

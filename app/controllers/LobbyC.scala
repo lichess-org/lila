@@ -17,13 +17,16 @@ object LobbyC extends LilaController {
   private val api = env.lobbyApi
   private val preloader = env.lobbyPreloader
 
-  def socket(uid: String) = WebSocket.async[JsValue] { request ⇒
-    env.lobbySocket.join(uid, None)
-  }
+  def socketLook(uid: String, version: Int) =
+    socket(uid, version, None)
 
-  def socketHook(uid: String, hook: String) = WebSocket.async[JsValue] { request ⇒
-    env.lobbySocket.join(uid, Some(hook) filter (""!=))
-  }
+  def socketHook(uid: String, version: Int, hook: String) =
+    socket(uid, version, Some(hook))
+
+  private def socket(uid: String, version: Int, hook: Option[String]) =
+    WebSocket.async[JsValue] { request ⇒
+      env.lobbySocket.join(uid, version, hook filter (""!=))
+    }
 
   def cancel(ownerId: String) = Action {
     api.cancel(ownerId).unsafePerformIO

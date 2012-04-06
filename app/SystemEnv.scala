@@ -16,8 +16,12 @@ import command._
 
 final class SystemEnv(config: Config) {
 
+  lazy val lobbyHistory = new lobby.History(
+    timeout = getMilliseconds("lobby.history.timeout"))
+
   lazy val lobbyHub = Akka.system.actorOf(Props(new lobby.Hub(
-    messageRepo = messageRepo
+    messageRepo = messageRepo,
+    history = lobbyHistory
   )), name = "lobby_hub")
 
   lazy val lobbyHookPool = Akka.system.actorOf(Props(new lobby.HookPool(
@@ -29,6 +33,8 @@ final class SystemEnv(config: Config) {
     hookPool = lobbyHookPool)
 
   lazy val lobbyPreloader = new lobby.Preload(
+    fisherman = lobbyFisherman,
+    history = lobbyHistory,
     hookRepo = hookRepo,
     gameRepo = gameRepo,
     messageRepo = messageRepo,

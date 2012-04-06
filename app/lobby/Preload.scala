@@ -7,6 +7,8 @@ import db._
 import scalaz.effects._
 
 final class Preload(
+    fisherman: Fisherman,
+    history: History,
     hookRepo: HookRepo,
     gameRepo: GameRepo,
     messageRepo: MessageRepo,
@@ -18,41 +20,40 @@ final class Preload(
     auth: Boolean,
     chat: Boolean,
     myHookId: Option[String]): IO[Response] = for {
-    hooks ← if (auth) hookRepo.allOpen else hookRepo.allOpenCasual
+    myHook ← myHookId.fold(hookRepo.ownedHook, io(none))
+    _ ← myHook.fold(fisherman.shake, io())
+    hooks ← auth.fold(hookRepo.allOpen, hookRepo.allOpenCasual)
     res ← {
-      val response = () ⇒ stdResponse(chat, hooks, myHookId)
-      myHookId some { hookResponse(_, response) } none response()
+      val response = () ⇒ stdResponse(chat, hooks, myHook)
+      myHook.fold(hookResponse(_, response), response())
     }
   } yield res
 
-  def hookResponse(myHookId: String, response: () ⇒ IO[Response]): IO[Response] =
-    hookRepo ownedHook myHookId flatMap { hookOption ⇒
-      hookOption.fold(
-        hook ⇒ hook.game.fold(
-          ref ⇒ gameRepo game ref.getId.toString map { game ⇒
-            Map("redirect" -> (game fullIdOf game.creatorColor))
-          },
-          response()
-        ),
-        io { Map("redirect" -> "") }
-      )
-    }
+  private def hookResponse(
+    myHook: Hook,
+    response: () ⇒ IO[Response]): IO[Response] = myHook.game.fold(
+      ref ⇒ gameRepo game ref.getId.toString map { game ⇒
+        Map("redirect" -> (game fullIdOf game.creatorColor))
+      }, response())
 
-  def stdResponse(
+  private def stdResponse(
     chat: Boolean,
     hooks: List[Hook],
-    myHookId: Option[String]): IO[Response] = for {
+    myHook: Option[Hook]): IO[Response] = for {
     messages ← if (chat) messageRepo.recent else io(Nil)
     entries ← entryRepo.recent
   } yield Map(
-    "pool" -> renderHooks(hooks, myHookId),
+    "version" -> history.version,
+    "pool" -> renderHooks(hooks, myHook),
     "chat" -> (messages.reverse map (_.render)),
     "timeline" -> (entries.reverse map (_.render))
   )
 
-  private def renderHooks(hooks: List[Hook], myHookId: Option[String]) = hooks map { h ⇒
-    if (myHookId == Some(h.ownerId))
-      h.render ++ Map("action" -> "cancel", "ownerId" -> myHookId)
+  private def renderHooks(
+    hooks: List[Hook],
+    myHook: Option[Hook]) = hooks map { h ⇒
+    if (myHook == Some(h))
+      h.render ++ Map("action" -> "cancel", "ownerId" -> h.ownerId)
     else h.render
   }
 }

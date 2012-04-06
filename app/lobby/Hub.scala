@@ -8,16 +8,17 @@ import akka.actor._
 import play.api.libs.json._
 import play.api.libs.iteratee._
 
-final class Hub(
-    messageRepo: MessageRepo) extends Actor {
+final class Hub(messageRepo: MessageRepo, history: History) extends Actor {
 
-  private var members = Map.empty[String, PushEnumerator[JsValue]]
+  private var members = Map.empty[String, LilaEnumerator[JsValue]]
 
   def receive = {
 
-    case Join(uid) ⇒ {
+    case Join(uid, version) ⇒ {
       // Create an Enumerator to write to this socket
-      val channel = Enumerator.imperative[JsValue]()
+      //val channel = Enumerator.imperative[JsValue]()
+      val messages = history since version
+      val channel = new LilaEnumerator[JsValue](messages)
       members = members + (uid -> channel)
       sender ! Connected(channel)
     }
@@ -48,12 +49,13 @@ final class Hub(
 
     case RemoveHook(hook) ⇒ notifyAll("hook_remove", JsString(hook.id))
 
-    case Quit(uid) ⇒ { members = members - uid }
+    case Quit(uid)        ⇒ { members = members - uid }
   }
 
   def notifyAll(t: String, data: JsValue) {
     val msg = JsObject(Seq("t" -> JsString(t), "d" -> data))
-    members.foreach { case (_, channel) ⇒ channel.push(msg) }
+    val vmsg = history += msg
+    members.foreach { case (_, channel) ⇒ channel.push(vmsg) }
   }
   def notifyAll(t: String, data: Seq[(String, JsValue)]) {
     notifyAll(t, JsObject(data))
