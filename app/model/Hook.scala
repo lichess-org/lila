@@ -41,8 +41,7 @@ case class Hook(
     "color" -> color,
     "clock" -> clockOrUnlimited,
     "emin" -> eloMin,
-    "emax" -> eloMax,
-    "action" -> "join"
+    "emax" -> eloMax
   ) +? (engine, "engine" -> true)
 
   def clockOrUnlimited = ((time filter (_ ⇒ hasClock)) |@| increment apply renderClock _) | "Unlimited"

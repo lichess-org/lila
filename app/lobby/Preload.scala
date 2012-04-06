@@ -53,8 +53,7 @@ final class Preload(
   private def renderHooks(
     hooks: List[Hook],
     myHook: Option[Hook]) = hooks map { h ⇒
-    if (myHook == Some(h))
-      h.render ++ Map("action" -> "cancel", "ownerId" -> h.ownerId)
+    if (myHook == Some(h)) h.render ++ Map("ownerId" -> h.ownerId)
     else h.render
   }
 }

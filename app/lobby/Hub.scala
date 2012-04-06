@@ -15,10 +15,7 @@ final class Hub(messageRepo: MessageRepo, history: History) extends Actor {
   def receive = {
 
     case Join(uid, version, hookOwnerId) ⇒ {
-      // Create an Enumerator to write to this socket
-      //val channel = Enumerator.imperative[JsValue]()
-      val messages = history since version
-      val channel = new LilaEnumerator[JsValue](messages)
+      val channel = new LilaEnumerator[JsValue](history since version)
       members = members + (uid -> Member(channel, hookOwnerId))
       sender ! Connected(channel)
     }
@@ -43,7 +40,6 @@ final class Hub(messageRepo: MessageRepo, history: History) extends Actor {
       "clock" -> JsString(hook.clockOrUnlimited),
       "emin" -> hook.eloMin.fold(JsNumber(_), JsNull),
       "emax" -> hook.eloMax.fold(JsNumber(_), JsNull),
-      "action" -> JsString("join"),
       "engine" -> JsBoolean(hook.engine))
     )
 
