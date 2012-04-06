@@ -10,7 +10,7 @@ final class Starter(
     entryRepo: EntryRepo,
     val versionMemo: VersionMemo,
     lobbySocket: lobby.Lobby,
-    ai: Ai) extends IOTools {
+    ai: () ⇒ Ai) extends IOTools {
 
   def start(game: DbGame, entryData: String): IO[DbGame] = for {
     _ ← if (game.variant == Standard) io() else gameRepo saveInitialFen game
@@ -18,7 +18,7 @@ final class Starter(
       entry ⇒ entryRepo add entry flatMap { _ ⇒ lobbySocket addEntry entry },
       io())
     g2 ← if (game.player.isHuman) io(game) else for {
-      aiResult ← ai(game) map (_.err)
+      aiResult ← ai()(game) map (_.err)
       (newChessGame, move) = aiResult
     } yield game.update(newChessGame, move)
   } yield g2

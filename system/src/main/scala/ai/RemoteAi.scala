@@ -9,15 +9,12 @@ import dispatch._
 
 final class RemoteAi(remoteUrl: String) extends Ai with FenBased {
 
-  private class AiHttp extends Http with thread.Safety {
-
+  private lazy val http = new Http with thread.Safety {
     override def make_logger = new Logger {
       def info(msg: String, items: Any*) {}
       def warn(msg: String, items: Any*) { println("WARN: " + msg.format(items: _*)) }
     }
   }
-
-  private lazy val http = new AiHttp
   private lazy val urlObj = url(remoteUrl)
 
   def apply(dbGame: DbGame): IO[Valid[(Game, Move)]] = {

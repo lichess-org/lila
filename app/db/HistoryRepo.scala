@@ -14,11 +14,11 @@ final class HistoryRepo(collection: MongoCollection) {
     val tsKey = (System.currentTimeMillis / 1000).toString
     collection.update(
       DBObject("_id" -> username),
-      DBObject("$set" -> (("entries." + tsKey) -> DBObject(
+      $set (("entries." + tsKey) -> DBObject(
         "t" -> entryType,
         "e" -> elo,
         "g" -> gameId
-      ))),
+      )),
       false, false
     )
   }

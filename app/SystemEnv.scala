@@ -91,7 +91,7 @@ final class SystemEnv(config: Config) {
   // frequently updated by a scheduled actor
   var remoteAiHealth = false
 
-  def ai: Ai = config getString "ai.use" match {
+  def ai: () ⇒ Ai = () ⇒ config getString "ai.use" match {
     case "remote" ⇒ remoteAiHealth.fold(remoteAi, craftyAi)
     case "crafty" ⇒ craftyAi
     case _        ⇒ stupidAi
