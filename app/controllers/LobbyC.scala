@@ -43,7 +43,7 @@ object LobbyC extends LilaController {
 
   def join(gameId: String, color: String) = Action { implicit request ⇒
     FormValidIOk[LobbyJoinData](lobbyJoinForm)(join ⇒
-      api.join(gameId, color, join._1, join._2)
+      api.join(gameId, color, join._1, join._2, join._3, join._4)
     )
   }
 

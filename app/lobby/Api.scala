@@ -18,14 +18,17 @@ final class Api(
 
   def cancel(ownerId: String): IO[Unit] = for {
     hook ← hookRepo ownedHook ownerId
-    _ ← hook.fold(fisherman.-, io())
+    _ ← hook.fold(fisherman.delete, io())
   } yield ()
 
   def join(
     gameId: String,
     colorName: String,
     entryData: String,
-    messageString: String): IO[Unit] = for {
+    messageString: String,
+    hookOwnerId: String,
+    myHookOwnerId: Option[String]): IO[Unit] = for {
+    hook ← hookRepo ownedHook hookOwnerId
     color ← ioColor(colorName)
     game ← gameRepo game gameId
     g2 ← messenger.systemMessages(game, messageString)
@@ -33,6 +36,12 @@ final class Api(
     _ ← save(game, g3)
     _ ← aliveMemo.put(gameId, color)
     _ ← aliveMemo.put(gameId, !color)
+    _ ← hook.fold(h ⇒ fisherman.bite(h, g3), io())
+    _ ← myHookOwnerId.fold(
+      ownerId ⇒ hookRepo ownedHook ownerId flatMap { myHook ⇒
+        myHook.fold(fisherman.delete, io())
+      },
+      io())
   } yield ()
 
   def create(hookOwnerId: String): IO[Unit] = for {

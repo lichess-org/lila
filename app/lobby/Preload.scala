@@ -21,6 +21,7 @@ final class Preload(
     chat: Boolean,
     myHookId: Option[String]): IO[Response] = for {
     myHook ← myHookId.fold(hookRepo.ownedHook, io(none))
+    // TODO redirect -> / if my hook disapeared
     _ ← myHook.fold(fisherman.shake, io())
     hooks ← auth.fold(hookRepo.allOpen, hookRepo.allOpenCasual)
     res ← {

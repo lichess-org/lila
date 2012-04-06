@@ -10,7 +10,7 @@ object DataForm {
   val moveForm = Form(tuple(
     "from" -> nonEmptyText,
     "to" -> nonEmptyText,
-    "promotion" -> optional(text),
+    "promotion" -> optional(nonEmptyText),
     "b" -> optional(number)
   ))
 
@@ -31,10 +31,12 @@ object DataForm {
     "entry" -> nonEmptyText
   ))
 
-  type LobbyJoinData = (MessagesData, EntryData)
+  type LobbyJoinData = (MessagesData, EntryData, String, Option[String])
   val lobbyJoinForm = Form(tuple(
     "entry" -> nonEmptyText,
-    "messages" -> nonEmptyText
+    "messages" -> nonEmptyText,
+    "hook" -> nonEmptyText,
+    "myHook" -> optional(nonEmptyText)
   ))
 
   type RematchData = (String, String, EntryData, MessagesData)
