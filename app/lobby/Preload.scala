@@ -34,13 +34,13 @@ final class Preload(
     h ⇒ h.gameId.fold(
       ref ⇒ gameRepo gameOption ref map { game ⇒
         game.fold(
-          g ⇒ Map("redirect" -> (g fullIdOf g.creatorColor)),
-          Map("redirect" -> "/")
+          g ⇒ redirect(g fullIdOf g.creatorColor),
+          redirect()
         )
       },
       fisherman shake h flatMap { _ ⇒ std() }
     ),
-    io(Map("redirect" -> "/"))
+    io(redirect())
   )
 
   private def stdResponse(
@@ -62,4 +62,6 @@ final class Preload(
     if (myHookId == Some(h.ownerId)) h.render ++ Map("ownerId" -> h.ownerId)
     else h.render
   }
+
+  private def redirect(url: String = "" ) = Map("redirect" -> ("/" + url))
 }
