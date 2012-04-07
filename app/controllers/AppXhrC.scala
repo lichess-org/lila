@@ -78,16 +78,7 @@ object AppXhrC extends LilaController {
     )
   }
 
-  def ping = Action { implicit request ⇒
-    Ok(env.pinger.ping(
-      username = get("username"),
-      playerKey = get("player_key"),
-      watcherKey = get("watcher"),
-      getNbWatchers = get("get_nb_watchers")
-    ).unsafePerformIO) as JSON
-  }
-
-  def nbPlayers = Action { Ok(env.aliveMemo.count) }
+  def nbPlayers = Action { Ok(0) }
 
   def nbGames = Action { Ok(env.gameRepo.countPlaying.unsafePerformIO) }
 

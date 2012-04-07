@@ -16,6 +16,10 @@ import command._
 
 final class SystemEnv(config: Config) {
 
+  lazy val socketPool = Akka.system.actorOf(Props(new socket.Pool(
+    socketMemo = socketMemo
+  )), name = "socket_pool")
+
   lazy val lobbyHistory = new lobby.History(
     timeout = getMilliseconds("lobby.history.timeout"))
 
@@ -30,7 +34,8 @@ final class SystemEnv(config: Config) {
 
   lazy val lobbySocket = new lobby.Lobby(
     hub = lobbyHub,
-    hookPool = lobbyHookPool)
+    hookPool = lobbyHookPool,
+    socketPool = socketPool)
 
   lazy val lobbyPreloader = new lobby.Preload(
     fisherman = lobbyFisherman,
@@ -180,6 +185,9 @@ final class SystemEnv(config: Config) {
 
   lazy val hookMemo = new HookMemo(
     timeout = getMilliseconds("memo.hook.timeout"))
+
+  lazy val socketMemo = new SocketMemo(
+    timeout = getMilliseconds("memo.socket.timeout"))
 
   lazy val gameFinishCommand = new GameFinishCommand(
     gameRepo = gameRepo,

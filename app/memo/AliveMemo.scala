@@ -54,8 +54,6 @@ final class AliveMemo(hardTimeout: Int, softTimeout: Int) {
   def inactive(gameId: String, color: Color): Boolean =
     activity(gameId, color) == 0
 
-  def count = cache.size
-
   def toKey(gameId: String, color: Color) = gameId + "." + color.letter
 
   private def now = System.currentTimeMillis

@@ -13,6 +13,14 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
     Akka.system.scheduler.schedule(freq, freq, env.lobbyHookPool, Tick)
   }
 
+  configDuration("socket.pool.tick.frequency") |> { freq ⇒
+    Akka.system.scheduler.schedule(freq, freq, env.socketPool, Tick)
+  }
+
+  spawn("heart_beat") { env ⇒
+    env.lobbySocket nbPlayers env.socketMemo.count.toInt
+  }
+
   spawn("hook_cleanup_dead") { env ⇒
     env.lobbyFisherman.cleanup
   }

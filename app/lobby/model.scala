@@ -6,6 +6,7 @@ case class Member(channel: Channel, hookOwnerId: Option[String]) {
   def ownsHook(hook: model.Hook) = Some(hook.ownerId) == hookOwnerId
 }
 
+case class NbPlayers(nb: Int)
 case class AddHook(hook: model.Hook)
 case class RemoveHook(hook: model.Hook)
 case class BiteHook(hook: model.Hook, game: model.DbGame)

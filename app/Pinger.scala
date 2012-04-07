@@ -18,7 +18,6 @@ final class Pinger(
     _ ← optionIO(username, usernameMemo.put)
     _ ← optionIO(watcherKey, watcherMemo.put)
   } yield fastJson(Map(
-    "nbp" -> Some(aliveMemo.count.toInt),
     "nbw" -> (getNbWatchers map watcherMemo.count)
   ))
 

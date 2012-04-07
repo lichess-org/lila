@@ -1,7 +1,4 @@
 # App Public API
-GET   /ping                             lila.controllers.AppXhrC.ping
-GET   /sync/:gameId/:color/:version     lila.controllers.AppXhrC.syncPublic(gameId: String, color: String, version: Int)
-GET   /sync/:gameId/:color/:version/:fullId lila.controllers.AppXhrC.sync(gameId: String, color: String, version: Int, fullId: String)
 GET   /how-many-players-now             lila.controllers.AppXhrC.nbPlayers
 GET   /how-many-games-now               lila.controllers.AppXhrC.nbGames
 POST  /move/:fullId                     lila.controllers.AppXhrC.move(fullId: String)
@@ -33,8 +30,7 @@ POST  /api/outoftime/:fullId        lila.controllers.AppXhrC.outoftime(fullId: S
 
 # Lobby Public API
 GET   /lobby/cancel/:ownerId        lila.controllers.LobbyC.cancel(ownerId: String)
-GET   /lobby/socket/:uid/:version   lila.controllers.LobbyC.socketLook(uid: String, version: Int)
-GET   /lobby/socket/:uid/:version/:hook lila.controllers.LobbyC.socketHook(uid: String, version: Int, hook: String)
+GET   /lobby/socket                 lila.controllers.LobbyC.socket
 
 # Lobby Private API
 POST  /api/lobby/join/:gameId/:color lila.controllers.LobbyC.join(gameId: String, color: String)

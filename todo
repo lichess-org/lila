@@ -5,3 +5,4 @@ ping nbm
 http://en.lichess.org/@/noworkingmen elo graph missing
 need ability to cancel rematch
 compress player.ps notation
+weird clock bug, cannot increment past a certain time http://en.lichess.org/7w8597ku9uzt

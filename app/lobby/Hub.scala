@@ -22,15 +22,15 @@ final class Hub(messageRepo: MessageRepo, history: History) extends Actor {
 
     case Talk(txt, u) ⇒ messageRepo.add(txt, u).foreach { save ⇒
       val message = save.unsafePerformIO
-      notifyAll("talk", Seq(
+      notifyVersion("talk", Seq(
         "txt" -> JsString(message.text),
         "u" -> JsString(message.username)
       ))
     }
 
-    case Entry(entry) ⇒ notifyAll("entry", JsString(entry.render))
+    case Entry(entry) ⇒ notifyVersion("entry", JsString(entry.render))
 
-    case AddHook(hook) ⇒ notifyAll("hook_add", Seq(
+    case AddHook(hook) ⇒ notifyVersion("hook_add", Seq(
       "id" -> JsString(hook.id),
       "username" -> JsString(hook.username),
       "elo" -> hook.elo.fold(JsNumber(_), JsNull),
@@ -43,7 +43,7 @@ final class Hub(messageRepo: MessageRepo, history: History) extends Actor {
       "engine" -> JsBoolean(hook.engine))
     )
 
-    case RemoveHook(hook) ⇒ notifyAll("hook_remove", JsString(hook.id))
+    case RemoveHook(hook) ⇒ notifyVersion("hook_remove", JsString(hook.id))
 
     case BiteHook(hook, game) ⇒ notifyMember(
       "redirect", JsString(game fullIdOf game.creatorColor)
@@ -51,7 +51,9 @@ final class Hub(messageRepo: MessageRepo, history: History) extends Actor {
         members.values filter (_ ownsHook hook) foreach fn
       }
 
-    case Quit(uid) ⇒ { members = members - uid }
+    case NbPlayers(nb) ⇒ notifyAll("nbp", JsNumber(nb))
+
+    case Quit(uid)     ⇒ { members = members - uid }
   }
 
   def notifyMember(t: String, data: JsValue)(member: Member) {
@@ -60,11 +62,18 @@ final class Hub(messageRepo: MessageRepo, history: History) extends Actor {
   }
 
   def notifyAll(t: String, data: JsValue) {
-    val msg = JsObject(Seq("t" -> JsString(t), "d" -> data))
-    val vmsg = history += msg
+    val msg = makeMessage(t, data)
+    members.values.foreach(_.channel push msg)
+  }
+
+  def notifyVersion(t: String, data: JsValue) {
+    val vmsg = history += makeMessage(t, data)
     members.values.foreach(_.channel push vmsg)
   }
-  def notifyAll(t: String, data: Seq[(String, JsValue)]) {
-    notifyAll(t, JsObject(data))
+  def notifyVersion(t: String, data: Seq[(String, JsValue)]) {
+    notifyVersion(t, JsObject(data))
   }
+
+  private def makeMessage(t: String, data: JsValue) =
+    JsObject(Seq("t" -> JsString(t), "d" -> data))
 }
