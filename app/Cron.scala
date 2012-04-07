@@ -15,7 +15,7 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
     Akka.system.scheduler.schedule(freq, freq, env.lobbyHookPool, Tick)
   }
 
-  spawn("heart_beat") { env ⇒
+  spawn("heart_beat") {
     implicit val timeout = Timeout(100 millis)
     io {
       val future = for {
@@ -25,27 +25,29 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
     }
   }
 
-  spawn("hook_cleanup_dead") { env ⇒
+  spawn("hook_cleanup_dead") {
     env.lobbyFisherman.cleanup
   }
 
-  spawn("hook_cleanup_old") { env ⇒
+  spawn("hook_cleanup_old") {
     env.hookRepo.cleanupOld
   }
 
-  spawn("online_username") { env ⇒
+  spawn("online_username") {
     env.userRepo updateOnlineUsernames env.usernameMemo.keys
   }
 
-  spawn("game_cleanup_unplayed") { env ⇒
+  spawn("game_cleanup_unplayed") {
     putStrLn("[cron] remove old unplayed games") flatMap { _ ⇒
       env.gameRepo.cleanupUnplayed
     }
   }
 
-  spawn("game_auto_finish") { _.gameFinishCommand.apply() }
+  spawn("game_auto_finish") {
+    env.gameFinishCommand.apply()
+  }
 
-  spawn("remote_ai_health") { env ⇒
+  spawn("remote_ai_health") {
     for {
       health ← env.remoteAi.health
       _ ← health.fold(
@@ -56,14 +58,11 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
     } yield ()
   }
 
-  private def spawn(name: String)(f: SystemEnv ⇒ IO[Unit]) = {
+  private def spawn(name: String)(op: ⇒ IO[Unit]) = {
     val freq = configDuration("cron.frequency.%s" format name)
-    val actor = Akka.system.actorOf(Props(new Actor {
-      def receive = {
-        case Tick ⇒ f(env).unsafePerformIO
-      }
-    }), name = name)
-    Akka.system.scheduler.schedule(freq, freq, actor, Tick)
+    Akka.system.scheduler.schedule(freq, freq) {
+      op.unsafePerformIO
+    }
   }
 
   private def configDuration(key: String) = env.getMilliseconds(key) millis
