@@ -13,7 +13,7 @@ import play.api.libs.concurrent._
 
 import scalaz.effects._
 
-final class Lobby(hub: ActorRef, hookPool: ActorRef, socketPool: ActorRef) {
+final class Lobby(hub: ActorRef, hookPool: ActorRef) {
 
   type PromiseType = Promise[(Iteratee[JsValue, _], Channel)]
 
@@ -22,7 +22,6 @@ final class Lobby(hub: ActorRef, hookPool: ActorRef, socketPool: ActorRef) {
   def join(uid: String, version: Int, hook: Option[String]): PromiseType =
     (hub ? Join(uid, version, hook)).asPromise map {
       case Connected(channel) ⇒
-        socketPool ! socket.Pool.Register(uid)
         hook foreach { h ⇒ hookPool ! HookPool.Register(h) }
         val iteratee = Iteratee.foreach[JsValue] { event ⇒
           (event \ "t").as[String] match {
@@ -32,7 +31,6 @@ final class Lobby(hub: ActorRef, hookPool: ActorRef, socketPool: ActorRef) {
             )
           }
         } mapDone { _ ⇒
-          socketPool ! socket.Pool.Unregister(uid)
           hook foreach { h ⇒ hookPool ! HookPool.Unregister(h) }
           hub ! Quit(uid)
         }

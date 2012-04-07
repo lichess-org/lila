@@ -3,8 +3,10 @@ package lila
 import play.api._
 import play.api.libs.concurrent.Akka
 import akka.actor._
+import akka.pattern.{ ask, pipe }
 import akka.util.duration._
 import akka.util.Duration
+import akka.util.Timeout
 import scalaz.effects._
 
 final class Cron(env: SystemEnv)(implicit app: Application) {
@@ -13,12 +15,14 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
     Akka.system.scheduler.schedule(freq, freq, env.lobbyHookPool, Tick)
   }
 
-  configDuration("socket.pool.tick.frequency") |> { freq ⇒
-    Akka.system.scheduler.schedule(freq, freq, env.socketPool, Tick)
-  }
-
   spawn("heart_beat") { env ⇒
-    env.lobbySocket nbPlayers env.socketMemo.count.toInt
+    implicit val timeout = Timeout(100 millis)
+    io {
+      val future = for {
+        lobbyCount ← env.lobbyHub ? lobby.Count mapTo manifest[Int]
+      } yield lobbyCount
+      future map { lobby.NbPlayers(_) } pipeTo env.lobbyHub
+    }
   }
 
   spawn("hook_cleanup_dead") { env ⇒
