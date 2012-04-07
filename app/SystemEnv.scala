@@ -24,13 +24,8 @@ final class SystemEnv(config: Config) {
     history = lobbyHistory
   )), name = "lobby_hub")
 
-  lazy val lobbyHookPool = Akka.system.actorOf(Props(new lobby.HookPool(
-    hookMemo = hookMemo
-  )), name = "lobby_hook_pool")
-
   lazy val lobbySocket = new lobby.Lobby(
-    hub = lobbyHub,
-    hookPool = lobbyHookPool)
+    hub = lobbyHub)
 
   lazy val lobbyPreloader = new lobby.Preload(
     fisherman = lobbyFisherman,

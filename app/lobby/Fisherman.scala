@@ -14,14 +14,8 @@ final class Fisherman(
 
   // DO delete in db
   def delete(hook: Hook): IO[Unit] = for {
-    _ ← hide(hook)
-    _ ← hookRepo removeId hook.id
-  } yield ()
-
-  // DO NOT delete in db
-  def hide(hook: Hook): IO[Unit] = for {
     _ ← socket removeHook hook
-    _ ← hookMemo remove hook.ownerId
+    _ ← hookRepo removeId hook.id
   } yield ()
 
   // DO NOT insert in db (done on php side)
@@ -31,7 +25,7 @@ final class Fisherman(
   } yield ()
 
   def bite(hook: Hook, game: DbGame): IO[Unit] = for {
-    _ ← hide(hook)
+    _ ← socket removeHook hook
     _ ← socket.biteHook(hook, game)
   } yield ()
 
