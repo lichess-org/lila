@@ -17,12 +17,16 @@ final class Hub(messageRepo: MessageRepo, history: History) extends Actor {
     case GetCount ⇒ sender ! members.size
 
     case GetHooks ⇒ sender ! Hooks(members.values collect {
-      case Member(_, Some(hook)) ⇒ hook
+      case Member(_, _, Some(hook)) ⇒ hook
     })
 
-    case Join(uid, version, hookOwnerId) ⇒ {
+    case GetUsernames ⇒ sender ! Usernames(members.values collect {
+      case Member(_, Some(username), _) ⇒ username
+    } toSet)
+
+    case Join(uid, version, username, hookOwnerId) ⇒ {
       val channel = new LilaEnumerator[JsValue](history since version)
-      members = members + (uid -> Member(channel, hookOwnerId))
+      members = members + (uid -> Member(channel, username, hookOwnerId))
       sender ! Connected(channel)
     }
 

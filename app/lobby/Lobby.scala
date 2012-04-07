@@ -19,8 +19,12 @@ final class Lobby(hub: ActorRef) {
 
   implicit val timeout = Timeout(1 second)
 
-  def join(uid: String, version: Int, hook: Option[String]): PromiseType =
-    (hub ? Join(uid, version, hook)).asPromise map {
+  def join(
+    uid: String,
+    version: Int,
+    username: Option[String],
+    hook: Option[String]): PromiseType =
+    (hub ? Join(uid, version, username, hook)).asPromise map {
       case Connected(channel) ⇒
         val iteratee = Iteratee.foreach[JsValue] { event ⇒
           (event \ "t").as[String] match {

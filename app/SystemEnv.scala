@@ -75,7 +75,6 @@ final class SystemEnv(config: Config) {
 
   lazy val pinger = new Pinger(
     aliveMemo = aliveMemo,
-    usernameMemo = usernameMemo,
     watcherMemo = watcherMemo)
 
   lazy val finisher = new Finisher(
@@ -166,9 +165,6 @@ final class SystemEnv(config: Config) {
   lazy val aliveMemo = new AliveMemo(
     hardTimeout = getMilliseconds("memo.alive.hard_timeout"),
     softTimeout = getMilliseconds("memo.alive.soft_timeout"))
-
-  lazy val usernameMemo = new UsernameMemo(
-    timeout = getMilliseconds("memo.username.timeout"))
 
   lazy val watcherMemo = new WatcherMemo(
     timeout = getMilliseconds("memo.watcher.timeout"))

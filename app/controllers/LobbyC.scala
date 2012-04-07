@@ -21,6 +21,7 @@ object LobbyC extends LilaController {
     env.lobbySocket.join(
       uid = get("uid") err "Socket UID missing",
       version = getInt("version") err "Socket version missing",
+      username = get("username"),
       hook = get("hook")
     )
   }

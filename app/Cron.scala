@@ -34,8 +34,14 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
     env.hookRepo.cleanupOld
   }
 
-  spawnIO("online_username") {
-    env.userRepo updateOnlineUsernames env.usernameMemo.keys
+  spawn("online_username") {
+    val future = for {
+      lobbyUsernames ← env.lobbyHub ? lobby.GetUsernames
+    } yield lobbyUsernames
+    future onSuccess {
+      case lobby.Usernames(usernames) ⇒
+      (env.userRepo updateOnlineUsernames usernames).unsafePerformIO
+    }
   }
 
   spawnIO("game_cleanup_unplayed") {
