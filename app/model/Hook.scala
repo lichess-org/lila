@@ -20,6 +20,8 @@ case class Hook(
     engine: Boolean,
     game: Option[DBRef]) {
 
+  def gameId: Option[String] = game map (_.getId.toString)
+
   def realVariant = Variant(variant) | Standard
 
   def realMode = Mode(mode) | Casual

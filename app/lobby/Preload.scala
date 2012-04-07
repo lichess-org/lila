@@ -20,40 +20,46 @@ final class Preload(
     auth: Boolean,
     chat: Boolean,
     myHookId: Option[String]): IO[Response] = for {
-    myHook ← myHookId.fold(hookRepo.ownedHook, io(none))
-    // TODO redirect -> / if my hook disapeared
-    _ ← myHook.fold(fisherman.shake, io())
     hooks ← auth.fold(hookRepo.allOpen, hookRepo.allOpenCasual)
-    res ← {
-      val response = () ⇒ stdResponse(chat, hooks, myHook)
-      myHook.fold(hookResponse(_, response), response())
-    }
+    std = () ⇒ stdResponse(chat, hooks, myHookId)
+    res ← myHookId.fold(
+      id ⇒ hookRepo ownedHook id flatMap { hookResponse(_, std) },
+      std()
+    )
   } yield res
 
   private def hookResponse(
-    myHook: Hook,
-    response: () ⇒ IO[Response]): IO[Response] = myHook.game.fold(
-      ref ⇒ gameRepo game ref.getId.toString map { game ⇒
-        Map("redirect" -> (game fullIdOf game.creatorColor))
-      }, response())
+    myHook: Option[Hook],
+    std: () ⇒ IO[Response]): IO[Response] = myHook.fold(
+    h ⇒ h.gameId.fold(
+      ref ⇒ gameRepo gameOption ref map { game ⇒
+        game.fold(
+          g ⇒ Map("redirect" -> (g fullIdOf g.creatorColor)),
+          Map("redirect" -> "/")
+        )
+      },
+      fisherman shake h flatMap { _ ⇒ std() }
+    ),
+    io(Map("redirect" -> "/"))
+  )
 
   private def stdResponse(
     chat: Boolean,
     hooks: List[Hook],
-    myHook: Option[Hook]): IO[Response] = for {
+    myHookId: Option[String]): IO[Response] = for {
     messages ← if (chat) messageRepo.recent else io(Nil)
     entries ← entryRepo.recent
   } yield Map(
     "version" -> history.version,
-    "pool" -> renderHooks(hooks, myHook),
+    "pool" -> renderHooks(hooks, myHookId),
     "chat" -> (messages.reverse map (_.render)),
     "timeline" -> (entries.reverse map (_.render))
   )
 
   private def renderHooks(
     hooks: List[Hook],
-    myHook: Option[Hook]) = hooks map { h ⇒
-    if (myHook == Some(h)) h.render ++ Map("ownerId" -> h.ownerId)
+    myHookId: Option[String]) = hooks map { h ⇒
+    if (myHookId == Some(h.ownerId)) h.render ++ Map("ownerId" -> h.ownerId)
     else h.render
   }
 }
