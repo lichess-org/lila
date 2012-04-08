@@ -14,8 +14,6 @@ final class Hub(messageRepo: MessageRepo, history: History) extends Actor {
 
   def receive = {
 
-    case GetCount ⇒ sender ! members.size
-
     case GetHooks ⇒ sender ! Hooks(members.values collect {
       case Member(_, _, Some(hook)) ⇒ hook
     })
@@ -61,9 +59,9 @@ final class Hub(messageRepo: MessageRepo, history: History) extends Actor {
         members.values filter (_ ownsHook hook) foreach fn
       }
 
-    case NbPlayers(nb) ⇒ notifyAll("nbp", JsNumber(nb))
+    case NbPlayers ⇒ notifyAll("nbp", JsNumber(members.size))
 
-    case Quit(uid)     ⇒ { members = members - uid }
+    case Quit(uid) ⇒ { members = members - uid }
   }
 
   def notifyMember(t: String, data: JsValue)(member: Member) {

@@ -54,8 +54,4 @@ final class Lobby(hub: ActorRef) {
   def biteHook(hook: model.Hook, game: model.DbGame): IO[Unit] = io {
     hub ! BiteHook(hook, game)
   }
-
-  def nbPlayers(nb: Int): IO[Unit] = io {
-    hub ! NbPlayers(nb)
-  }
 }

@@ -11,12 +11,11 @@ case class Member(
 
 case object GetHooks
 case class Hooks(ownerIds: Iterable[String])
-case object GetCount
 case object GetUsernames
 case class Usernames(usernames: Set[String]) {
   def +(other: Usernames) = Usernames(usernames ++ other.usernames)
 }
-case class NbPlayers(nb: Int)
+case object NbPlayers
 case class AddHook(hook: model.Hook)
 case class RemoveHook(hook: model.Hook)
 case class BiteHook(hook: model.Hook, game: model.DbGame)

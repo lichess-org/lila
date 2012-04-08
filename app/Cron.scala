@@ -9,21 +9,20 @@ import akka.util.Duration
 import akka.util.Timeout
 import scalaz.effects._
 
+import lobby._
+
 final class Cron(env: SystemEnv)(implicit app: Application) {
 
   implicit val timeout = Timeout(200 millis)
 
   spawn("hook_tick") {
-    env.lobbyHub ? lobby.GetHooks onSuccess {
-      case lobby.Hooks(ownerIds) ⇒ (env.hookMemo putAll ownerIds).unsafePerformIO
+    env.lobbyHub ? GetHooks onSuccess {
+      case Hooks(ownerIds) ⇒ (env.hookMemo putAll ownerIds).unsafePerformIO
     }
   }
 
   spawn("heart_beat") {
-    val future = for {
-      lobbyCount ← env.lobbyHub ? lobby.GetCount mapTo manifest[Int]
-    } yield lobbyCount
-    future map { lobby.NbPlayers(_) } pipeTo env.lobbyHub
+    env.lobbyHub ! NbPlayers
   }
 
   spawnIO("hook_cleanup_dead") {
@@ -35,11 +34,8 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
   }
 
   spawn("online_username") {
-    val future = for {
-      lobbyUsernames ← env.lobbyHub ? lobby.GetUsernames
-    } yield lobbyUsernames
-    future onSuccess {
-      case lobby.Usernames(usernames) ⇒
+    env.lobbyHub ? GetUsernames onSuccess {
+      case Usernames(usernames) ⇒
       (env.userRepo updateOnlineUsernames usernames).unsafePerformIO
     }
   }
