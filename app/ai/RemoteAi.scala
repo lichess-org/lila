@@ -7,7 +7,12 @@ import model.DbGame
 import scalaz.effects._
 import dispatch._
 
-final class RemoteAi(remoteUrl: String) extends Ai with FenBased {
+final class RemoteAi(
+    remoteUrl: String) extends Ai with FenBased {
+
+  // tells whether the remote AI is healthy or not
+  // frequently updated by a scheduled actor
+  private var health = false
 
   private lazy val http = new Http with thread.Safety {
     override def make_logger = new Logger {
@@ -27,6 +32,16 @@ final class RemoteAi(remoteUrl: String) extends Ai with FenBased {
     }
   }
 
+  def or(fallback: Ai) = if (health) this else fallback
+
+  def diagnose: IO[Unit] = for {
+    h ← healthCheck
+    _ ← h.fold(
+      health.fold(io(), putStrLn("remote AI is up")),
+      putStrLn("remote AI is down"))
+    _ ← io { health = h }
+  } yield ()
+
   private def fetchNewFen(oldFen: String, level: Int): IO[String] = io {
     http(urlObj <<? Map(
       "fen" -> oldFen,
@@ -34,7 +49,7 @@ final class RemoteAi(remoteUrl: String) extends Ai with FenBased {
     ) as_str)
   }
 
-  def health: IO[Boolean] = fetchNewFen(
+  private def healthCheck: IO[Boolean] = fetchNewFen(
     oldFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq",
     level = 1
   ).catchLeft map (_.isRight)

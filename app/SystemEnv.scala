@@ -98,12 +98,8 @@ final class SystemEnv(config: Config) {
     lobbySocket = lobbySocket,
     versionMemo = versionMemo)
 
-  // tells whether the remote AI is healthy or not
-  // frequently updated by a scheduled actor
-  var remoteAiHealth = false
-
   def ai: () ⇒ Ai = () ⇒ config getString "ai.use" match {
-    case "remote" ⇒ remoteAiHealth.fold(remoteAi, craftyAi)
+    case "remote" ⇒ remoteAi or craftyAi
     case "crafty" ⇒ craftyAi
     case _        ⇒ stupidAi
   }
