@@ -14,13 +14,9 @@ final class Hub(messageRepo: MessageRepo, history: History) extends Actor {
 
   def receive = {
 
-    case GetHooks ⇒ sender ! Hooks(members.values collect {
-      case Member(_, _, Some(hook)) ⇒ hook
-    })
+    case WithHooks(op) ⇒ op(hookOwnerIds).unsafePerformIO
 
-    case GetUsernames ⇒ sender ! Usernames(members.values collect {
-      case Member(_, Some(username), _) ⇒ username
-    } toSet)
+    case WithUsernames(op) ⇒ op(usernames).unsafePerformIO
 
     case Join(uid, version, username, hookOwnerId) ⇒ {
       val channel = new LilaEnumerator[JsValue](history since version)
@@ -64,22 +60,30 @@ final class Hub(messageRepo: MessageRepo, history: History) extends Actor {
     case Quit(uid) ⇒ { members = members - uid }
   }
 
-  def notifyMember(t: String, data: JsValue)(member: Member) {
+  private def notifyMember(t: String, data: JsValue)(member: Member) {
     val msg = JsObject(Seq("t" -> JsString(t), "d" -> data))
     member.channel push msg
   }
 
-  def notifyAll(t: String, data: JsValue) {
+  private def notifyAll(t: String, data: JsValue) {
     val msg = makeMessage(t, data)
     members.values.foreach(_.channel push msg)
   }
 
-  def notifyVersion(t: String, data: JsValue) {
+  private def notifyVersion(t: String, data: JsValue) {
     val vmsg = history += makeMessage(t, data)
     members.values.foreach(_.channel push vmsg)
   }
-  def notifyVersion(t: String, data: Seq[(String, JsValue)]) {
+  private def notifyVersion(t: String, data: Seq[(String, JsValue)]) {
     notifyVersion(t, JsObject(data))
+  }
+
+  private def hookOwnerIds: Iterable[String] = members.values collect {
+    case Member(_, _, Some(hook)) ⇒ hook
+  }
+
+  private def usernames: Iterable[String] = members.values collect {
+    case Member(_, Some(username), _) ⇒ username
   }
 
   private def makeMessage(t: String, data: JsValue) =

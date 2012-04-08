@@ -3,7 +3,7 @@ package lila
 import play.api._
 import play.api.libs.concurrent.Akka
 import akka.actor._
-import akka.pattern.{ ask, pipe }
+import akka.pattern.{ pipe }
 import akka.util.duration._
 import akka.util.{ Duration, Timeout }
 import scalaz.effects._
@@ -15,9 +15,7 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
   implicit val timeout = Timeout(200 millis)
 
   spawn("hook_tick") {
-    env.lobbyHub ? GetHooks onSuccess {
-      case Hooks(ownerIds) ⇒ (env.hookMemo putAll ownerIds).unsafePerformIO
-    }
+    env.lobbyHub ! WithHooks(env.hookMemo.putAll)
   }
 
   spawnMessage("heart_beat", env.lobbyHub, NbPlayers)
@@ -31,9 +29,7 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
   }
 
   spawn("online_username") {
-    env.lobbyHub ? GetUsernames onSuccess {
-      case Usernames(us) ⇒ (env.userRepo updateOnlineUsernames us).unsafePerformIO
-    }
+    env.lobbyHub ! WithUsernames(env.userRepo.updateOnlineUsernames)
   }
 
   spawnIO("game_cleanup_unplayed") {

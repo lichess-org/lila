@@ -1,6 +1,8 @@
 package lila
 package lobby
 
+import scalaz.effects.IO
+
 case class Member(
     channel: Channel,
     username: Option[String],
@@ -9,12 +11,8 @@ case class Member(
   def ownsHook(hook: model.Hook) = Some(hook.ownerId) == hookOwnerId
 }
 
-case object GetHooks
-case class Hooks(ownerIds: Iterable[String])
-case object GetUsernames
-case class Usernames(usernames: Set[String]) {
-  def +(other: Usernames) = Usernames(usernames ++ other.usernames)
-}
+case class WithHooks(op: Iterable[String] => IO[Unit])
+case class WithUsernames(op: Iterable[String] => IO[Unit])
 case object NbPlayers
 case class AddHook(hook: model.Hook)
 case class RemoveHook(hook: model.Hook)
