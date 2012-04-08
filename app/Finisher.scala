@@ -100,8 +100,8 @@ final class Finisher(
           blackElo - blackUser.elo)
         _ ← userRepo.setElo(whiteUser.id, whiteElo)
         _ ← userRepo.setElo(blackUser.id, blackElo)
-        _ ← historyRepo.addEntry(whiteUser.username, whiteElo, game.id)
-        _ ← historyRepo.addEntry(blackUser.username, blackElo, game.id)
+        _ ← historyRepo.addEntry(whiteUser.usernameCanonical, whiteElo, game.id)
+        _ ← historyRepo.addEntry(blackUser.usernameCanonical, blackElo, game.id)
       } yield ()
     } | io()
 
