@@ -7,6 +7,7 @@ import com.mongodb.casbah.Imports.ObjectId
 case class User(
     @Key("_id") id: ObjectId,
     username: String,
+    usernameCanonical: String,
     isOnline: Boolean,
     elo: Int,
     nbGames: Int,
