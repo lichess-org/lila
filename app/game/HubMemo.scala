@@ -8,7 +8,7 @@ import chess.Color
 
 import play.api.libs.concurrent._
 import play.api.Play.current
-import akka.actor.{ ActorRef, Props }
+import akka.actor.{ ActorRef, Props, PoisonPill }
 
 import scalaz.effects._
 
@@ -16,7 +16,12 @@ final class HubMemo(
     makeHistory: () ⇒ History,
     timeout: Int) {
 
-  private val cache = Builder.cache(timeout, compute)
+  private val cache = Builder.cacheWithRemovalListener(timeout, compute) {
+    (uid, actor) ⇒ {
+      println("kill actor " + uid)
+      actor ! PoisonPill
+    }
+  }
 
   def get(gameId: String): ActorRef = cache get gameId
 
