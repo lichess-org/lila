@@ -1,4 +1,5 @@
 # App Public API
+GET   /socket/:gameId/:color            lila.controllers.AppXhrC.socket(gameId: String, color: String)
 GET   /how-many-players-now             lila.controllers.AppXhrC.nbPlayers
 GET   /how-many-games-now               lila.controllers.AppXhrC.nbGames
 POST  /move/:fullId                     lila.controllers.AppXhrC.move(fullId: String)
@@ -11,7 +12,6 @@ GET   /draw-accept/:fullId              lila.controllers.AppXhrC.drawAccept(full
 GET   /draw-offer/:fullId               lila.controllers.AppXhrC.drawOffer(fullId: String)
 GET   /draw-cancel/:fullId              lila.controllers.AppXhrC.drawCancel(fullId: String)
 GET   /draw-decline/:fullId             lila.controllers.AppXhrC.drawDecline(fullId: String)
-POST  /talk/:fullId                     lila.controllers.AppXhrC.talk(fullId: String)
 POST  /moretime/:fullId                 lila.controllers.AppXhrC.moretime(fullId: String)
 
 GET   /ai                               lila.controllers.AiC.run
@@ -24,7 +24,7 @@ POST  /api/reload-table/:gameId    lila.controllers.AppApiC.reloadTable(gameId: 
 POST  /api/rematch-accept/:gameId/:color/:newGameId  lila.controllers.AppApiC.rematchAccept(gameId: String, color: String, newGameId: String)
 POST  /api/alive/:gameId/:color    lila.controllers.AppApiC.alive(gameId: String, color: String)
 GET   /api/activity/:gameId/:color lila.controllers.AppApiC.activity(gameId: String, color: String)
-GET   /api/player-version/:gameId/:color lila.controllers.AppApiC.playerVersion(gameId: String, color: String)
+GET   /api/game-version/:gameId     lila.controllers.AppApiC.gameVersion(gameId: String)
 GET   /api/nb-players               lila.controllers.AppXhrC.nbPlayers
 POST  /api/outoftime/:fullId        lila.controllers.AppXhrC.outoftime(fullId: String)
 

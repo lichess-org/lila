@@ -4,31 +4,41 @@ import model._
 import memo._
 import db.{ GameRepo, RoomRepo }
 import chess.{ Color, White, Black }
+
 import scalaz.effects._
+import akka.pattern.ask
+import akka.dispatch.Future
+import akka.util.duration._
+import akka.util.Timeout
 
 final class AppApi(
     val gameRepo: GameRepo,
-    val versionMemo: VersionMemo,
     aliveMemo: AliveMemo,
+    gameHubMemo: game.HubMemo,
     messenger: Messenger,
     starter: Starter) extends IOTools {
 
-  def show(fullId: String): IO[Map[String, Any]] = for {
-    pov ← gameRepo pov fullId
-    _ ← aliveMemo.put(pov.game.id, pov.color)
-    roomHtml ← messenger render pov.game.id
-  } yield Map(
-    "stackVersion" -> pov.player.eventStack.lastVersion,
-    "roomHtml" -> roomHtml,
-    "opponentActivity" -> aliveMemo.activity(pov.game.id, !pov.color),
-    "possibleMoves" -> {
-      if (pov.game playableBy pov.player)
-        pov.game.toChess.situation.destinations map {
-          case (from, dests) ⇒ from.key -> (dests.mkString)
-        } toMap
-      else null
+  implicit val timeout = Timeout(200 millis)
+
+  def show(fullId: String): Future[IO[Map[String, Any]]] =
+    (gameHubMemo getFromFullId fullId) ? game.GetVersion map { version ⇒
+      for {
+        pov ← gameRepo pov fullId
+        _ ← aliveMemo.put(pov.game.id, pov.color)
+        roomHtml ← messenger render pov.game.id
+      } yield Map(
+        "version" -> version,
+        "roomHtml" -> roomHtml,
+        "opponentActivity" -> aliveMemo.activity(pov.game.id, !pov.color),
+        "possibleMoves" -> {
+          if (pov.game playableBy pov.player)
+            pov.game.toChess.situation.destinations map {
+              case (from, dests) ⇒ from.key -> (dests.mkString)
+            } toMap
+          else null
+        }
+      )
     }
-  )
 
   def join(
     fullId: String,
@@ -36,16 +46,17 @@ final class AppApi(
     messages: String,
     entryData: String): IO[Unit] = for {
     pov ← gameRepo pov fullId
-    g2 ← starter.start(pov.game, entryData)
-    g3 ← messenger.systemMessages(g2, messages)
-    g4 = g3.withEvents(!pov.color, List(RedirectEvent(url)))
-    _ ← save(pov.game, g4)
+    e1 ← starter.start(pov.game, entryData)
+    e2 ← messenger.systemMessages(e1.game, messages) map { evts ⇒
+      e1 + RedirectEvent(!pov.color, url) ++ evts
+    }
+    _ ← save(pov.game, e2)
   } yield ()
 
   def start(gameId: String, entryData: String): IO[Unit] = for {
     g1 ← gameRepo game gameId
-    g2 ← starter.start(g1, entryData)
-    _ ← save(g1, g2)
+    evented ← starter.start(g1, entryData)
+    _ ← save(g1, evented)
   } yield ()
 
   def rematchAccept(
@@ -59,26 +70,26 @@ final class AppApi(
     color ← ioColor(colorName)
     newGame ← gameRepo game newGameId
     g1 ← gameRepo game gameId
-    g2 = g1.withEvents(
-      List(RedirectEvent(whiteRedirect)),
-      List(RedirectEvent(blackRedirect)))
-    // tell spectators to reload the table
-    g3 = g2.withEvents(List(ReloadTableEvent()))
-    _ ← save(g1, g3)
-    ng2 ← messenger.systemMessages(newGame, messageString)
-    ng3 ← starter.start(ng2, entryData)
-    _ ← save(newGame, ng3)
+    evented = Evented(g1, List(
+      RedirectEvent(White, whiteRedirect),
+      RedirectEvent(Black, blackRedirect),
+      // to tell spectators to reload the table
+      ReloadTableEvent(White),
+      ReloadTableEvent(Black)))
+    _ ← save(g1, evented)
+    newEvented ← starter.start(newGame, entryData)
+    newEvented2 ← messenger.systemMessages(
+      newEvented.game, messageString
+    ) map newEvented.++
+    _ ← save(newGame, newEvented2)
     _ ← aliveMemo.put(newGameId, !color)
     _ ← aliveMemo.transfer(gameId, !color, newGameId, color)
   } yield ()
 
-  def updateVersion(gameId: String): IO[Unit] =
-    gameRepo game gameId flatMap versionMemo.put
-
   def reloadTable(gameId: String): IO[Unit] = for {
     g1 ← gameRepo game gameId
-    g2 = g1 withEvents List(ReloadTableEvent())
-    _ ← save(g1, g2)
+    evented = Evented(g1, Color.all map ReloadTableEvent)
+    _ ← save(g1, evented)
   } yield ()
 
   def alive(gameId: String, colorName: String): IO[Unit] = for {
@@ -86,10 +97,10 @@ final class AppApi(
     _ ← aliveMemo.put(gameId, color)
   } yield ()
 
-  def playerVersion(gameId: String, colorName: String): IO[Int] = for {
-    color ← ioColor(colorName)
-    pov ← gameRepo.pov(gameId, color)
-  } yield pov.player.eventStack.lastVersion
+  def gameVersion(gameId: String): Future[Int] =
+    (gameHubMemo get gameId) ? game.GetVersion map {
+      case game.Version(v) ⇒ v
+    }
 
   def activity(gameId: String, colorName: String): Int =
     Color(colorName).fold(aliveMemo.activity(gameId, _), 0)

@@ -2,39 +2,31 @@ package lila
 package controllers
 
 import DataForm._
+import chess.Color
 
 import play.api._
 import mvc._
-
-import play.api.libs.concurrent.Akka
-import play.api.Play.current
+import libs.concurrent.Akka
+import Play.current
+import libs.json._
+import libs.iteratee._
 
 import scalaz.effects.IO
 
 object AppXhrC extends LilaController {
 
   private val xhr = env.appXhr
-  private val syncer = env.appSyncer
 
-  def sync(gameId: String, color: String, version: Int, fullId: String) =
-    syncAll(gameId, color, version, Some(fullId))
-
-  def syncPublic(gameId: String, color: String, version: Int) =
-    syncAll(gameId, color, version, None)
-
-  private def syncAll(
-    gameId: String,
-    color: String,
-    version: Int,
-    fullId: Option[String]) = Action {
-    Async {
-      Akka.future {
-        syncer.sync(gameId, color, version, fullId)
-      } map {
-        _.unsafePerformIO.fold(JsonOk, NotFound)
-      }
+  def socket(gameId: String, color: String) =
+    WebSocket.async[JsValue] { implicit request ⇒
+      env.gameSocket.join(
+        gameId = gameId,
+        colorName = color,
+        uid = get("uid") err "Socket UID missing",
+        version = getInt("version") err "Socket version missing",
+        playerId = get("playerId"),
+        username = get("username")).unsafePerformIO
     }
-  }
 
   def move(fullId: String) = Action { implicit request ⇒
     Async {
@@ -63,13 +55,6 @@ object AppXhrC extends LilaController {
   def drawCancel(fullId: String) = validAndRedirect(fullId, xhr.drawCancel)
 
   def drawDecline(fullId: String) = validAndRedirect(fullId, xhr.drawDecline)
-
-  def talk(fullId: String) = Action { implicit request ⇒
-    talkForm.bindFromRequest.fold(
-      form ⇒ BadRequest(form.errors mkString "\n"),
-      message ⇒ IOk(xhr.talk(fullId, message))
-    )
-  }
 
   def moretime(fullId: String) = Action {
     (xhr moretime fullId).unsafePerformIO.fold(

@@ -12,8 +12,7 @@ final class Api(
     val gameRepo: GameRepo,
     messenger: Messenger,
     starter: Starter,
-    lobbySocket: lobby.Lobby,
-    val versionMemo: VersionMemo,
+    lobbySocket: lobby.Socket,
     aliveMemo: AliveMemo) extends IOTools {
 
   def cancel(ownerId: String): IO[Unit] = for {
@@ -31,12 +30,12 @@ final class Api(
     hook ← hookRepo ownedHook hookOwnerId
     color ← ioColor(colorName)
     game ← gameRepo game gameId
-    g2 ← messenger.systemMessages(game, messageString)
-    g3 ← starter.start(g2, entryData)
-    _ ← save(game, g3)
+    e1 ← starter.start(game, entryData)
+    e2 ← messenger.systemMessages(game, messageString) map e1.++
+    _ ← save(game, e2)
     _ ← aliveMemo.put(gameId, color)
     _ ← aliveMemo.put(gameId, !color)
-    _ ← hook.fold(h ⇒ fisherman.bite(h, g3), io())
+    _ ← hook.fold(h ⇒ fisherman.bite(h, e2.game), io())
     _ ← myHookOwnerId.fold(
       ownerId ⇒ hookRepo ownedHook ownerId flatMap { myHook ⇒
         myHook.fold(fisherman.delete, io())

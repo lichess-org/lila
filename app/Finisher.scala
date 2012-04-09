@@ -2,7 +2,7 @@ package lila
 
 import db._
 import model._
-import memo.{ VersionMemo, AliveMemo, FinisherLock }
+import memo.{ AliveMemo, FinisherLock }
 import chess.{ Color, White, Black, EloCalculator }
 
 import scalaz.effects._
@@ -12,7 +12,6 @@ final class Finisher(
     userRepo: UserRepo,
     val gameRepo: GameRepo,
     messenger: Messenger,
-    val versionMemo: VersionMemo,
     aliveMemo: AliveMemo,
     eloCalculator: EloCalculator,
     finisherLock: FinisherLock) extends IOTools {
@@ -67,14 +66,17 @@ final class Finisher(
     if (finisherLock isLocked game) !!("game finish is locked")
     else success(for {
       _ ← finisherLock lock game
-      g2 = game.finish(status, winner)
-      g3 ← message.fold(messenger.systemMessage(g2, _), io(g2))
-      _ ← save(game, g3)
-      winnerId = winner flatMap (g3.player(_).userId)
-      _ ← gameRepo.finish(g3.id, winnerId)
-      _ ← updateElo(g3)
-      _ ← incNbGames(g3, White)
-      _ ← incNbGames(g3, Black)
+      e1 = game.finish(status, winner)
+      e2 ← message.fold(
+        m ⇒ messenger.systemMessage(e1.game, m) map e1.++,
+        io(e1)
+      )
+      _ ← save(game, e2)
+      winnerId = winner flatMap (e2.game.player(_).userId)
+      _ ← gameRepo.finish(e2.game.id, winnerId)
+      _ ← updateElo(e2.game)
+      _ ← incNbGames(e2.game, White)
+      _ ← incNbGames(e2.game, Black)
     } yield ())
 
   private def incNbGames(game: DbGame, color: Color): IO[Unit] =

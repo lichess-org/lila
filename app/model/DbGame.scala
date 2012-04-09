@@ -91,18 +91,20 @@ case class DbGame(
     positionHashes = positionHashes grouped History.hashSize toList
   )
 
-  def update(game: Game, move: Move): DbGame = {
+  def update(game: Game, move: Move): Evented = {
     val allPieces = (game.board.pieces map {
       case (pos, piece) ⇒ (pos, piece, false)
     }) ++ (game.deads map {
       case (pos, piece) ⇒ (pos, piece, true)
     })
     val (history, situation) = (game.board.history, game.situation)
-    val events = (Event fromMove move) ::: (Event fromSituation game.situation)
+    val events =
+      Event.possibleMoves(game.situation, White) ::
+      Event.possibleMoves(game.situation, Black) ::
+      (Event fromMove move) ::: (Event fromSituation game.situation)
 
     def copyPlayer(player: DbPlayer) = player.copy(
-      ps = player encodePieces allPieces,
-      evts = player.newEvts(events :+ Event.possibleMoves(game.situation, player.color)))
+      ps = player encodePieces allPieces)
 
     val updated = copy(
       pgn = game.pgnMoves,
@@ -125,24 +127,9 @@ case class DbGame(
       abortable != updated.abortable || (Color.all exists { color ⇒
         playerCanOfferDraw(color) != updated.playerCanOfferDraw(color)
       })
-    )) updated withEvents List(ReloadTableEvent())
-    else updated
+    )) Evented(updated, events ::: (Color.all map ReloadTableEvent))
+    else Evented(updated, events)
   }
-
-  def withEvents(events: List[Event]): DbGame = copy(
-    whitePlayer = whitePlayer withEvents events,
-    blackPlayer = blackPlayer withEvents events
-  )
-
-  def withEvents(color: Color, events: List[Event]): DbGame = color match {
-    case White ⇒ withEvents(events, Nil)
-    case Black ⇒ withEvents(Nil, events)
-  }
-
-  def withEvents(whiteEvents: List[Event], blackEvents: List[Event]): DbGame =
-    copy(
-      whitePlayer = whitePlayer withEvents whiteEvents,
-      blackPlayer = blackPlayer withEvents blackEvents)
 
   def updatePlayer(color: Color, f: DbPlayer ⇒ DbPlayer) = color match {
     case White ⇒ copy(whitePlayer = f(whitePlayer))
@@ -175,12 +162,15 @@ case class DbGame(
 
   def resignable = playable && !abortable
 
-  def finish(status: Status, winner: Option[Color]) = copy(
-    status = status,
-    whitePlayer = whitePlayer finish (winner == Some(White)),
-    blackPlayer = blackPlayer finish (winner == Some(Black)),
-    clock = clock map (_.stop)
-  ) withEvents List(EndEvent())
+  def finish(status: Status, winner: Option[Color]) = Evented(
+    copy(
+      status = status,
+      whitePlayer = whitePlayer finish (winner == Some(White)),
+      blackPlayer = blackPlayer finish (winner == Some(Black)),
+      clock = clock map (_.stop)
+    ),
+    List(EndEvent())
+  )
 
   def rated = isRated
 
@@ -206,4 +196,6 @@ object DbGame {
   val gameIdSize = 8
   val playerIdSize = 4
   val fullIdSize = 12
+
+  def takeGameId(fullId: String) = fullId take gameIdSize
 }

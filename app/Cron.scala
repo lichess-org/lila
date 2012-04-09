@@ -14,54 +14,49 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
 
   implicit val timeout = Timeout(200 millis)
 
-  spawn("hook_tick") {
-    env.lobbyHub ! WithHooks(env.hookMemo.putAll)
+  spawnMessage("hook_tick", 1 second) {
+    env.lobbyHub -> WithHooks(env.hookMemo.putAll)
   }
 
-  spawnMessage("heart_beat", env.lobbyHub, NbPlayers)
+  spawnMessage("heart_beat", 2 seconds) {
+    env.lobbyHub -> NbPlayers
+  }
 
-  spawnIO("hook_cleanup_dead") {
+  spawnIO("hook_cleanup_dead", 2 seconds) {
     env.lobbyFisherman.cleanup
   }
 
-  spawnIO("hook_cleanup_old") {
+  spawnIO("hook_cleanup_old", 21 seconds) {
     env.hookRepo.cleanupOld
   }
 
-  spawn("online_username") {
-    env.lobbyHub ! WithUsernames(env.userRepo.updateOnlineUsernames)
+  spawnMessage("online_username", 3 seconds) {
+    env.lobbyHub -> WithUsernames(env.userRepo.updateOnlineUsernames)
   }
 
-  spawnIO("game_cleanup_unplayed") {
+  spawnIO("game_cleanup_unplayed", 2 hours) {
     putStrLn("[cron] remove old unplayed games") flatMap { _ ⇒
       env.gameRepo.cleanupUnplayed
     }
   }
 
-  spawnIO("game_auto_finish") {
+  spawnIO("game_auto_finish", 1 hour) {
     env.gameFinishCommand.apply
   }
 
-  spawnIO("remote_ai_health") {
+  spawnIO("remote_ai_health", 10 seconds) {
     env.remoteAi.diagnose
   }
 
-  def spawn(name: String)(op: ⇒ Unit) = {
-    val freq = frequency(name)
+  def spawn(name: String, freq: Duration)(op: ⇒ Unit) = {
     Akka.system.scheduler.schedule(freq, freq)(op)
   }
 
-  def spawnIO(name: String)(op: IO[Unit]) = {
-    val freq = frequency(name)
+  def spawnIO(name: String, freq: Duration)(op: IO[Unit]) = {
     Akka.system.scheduler.schedule(freq, freq) { op.unsafePerformIO }
   }
 
-  def spawnMessage(name: String, actor: ActorRef, message: Any) = {
-    val freq = frequency(name)
-    Akka.system.scheduler.schedule(freq, freq, actor, message)
+  def spawnMessage(name: String, freq: Duration)(to: (ActorRef, Any)) = {
+    Akka.system.scheduler.schedule(freq, freq, to._1, to._2)
   }
-
-  def frequency(name: String) = configDuration("cron.frequency.%s" format name)
-
-  def configDuration(key: String) = env.getMilliseconds(key) millis
 }

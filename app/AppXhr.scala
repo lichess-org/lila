@@ -12,7 +12,6 @@ final class AppXhr(
     messenger: Messenger,
     ai: () ⇒ Ai,
     finisher: Finisher,
-    val versionMemo: VersionMemo,
     aliveMemo: AliveMemo,
     moretimeSeconds: Int) extends IOTools {
 
@@ -32,20 +31,20 @@ final class AppXhr(
       (newChessGame, move) = newChessGameAndMove
     } yield g2.update(newChessGame, move)).fold(
       e ⇒ io(failure(e)),
-      g3 ⇒ for {
-        _ ← aliveMemo.put(g3.id, color)
-        _ ← if (g3.finished) for {
-          _ ← save(g1, g3)
-          _ ← finisher.moveFinish(g3, color)
+      evented ⇒ for {
+        _ ← aliveMemo.put(evented.game.id, color)
+        _ ← if (evented.game.finished) for {
+          _ ← save(g1, evented)
+          _ ← finisher.moveFinish(evented.game, color)
         } yield ()
-        else if (g3.player.isAi && g3.playable) for {
-          aiResult ← ai()(g3) map (_.err)
+        else if (evented.game.player.isAi && evented.game.playable) for {
+          aiResult ← ai()(evented.game) map (_.err)
           (newChessGame, move) = aiResult
-          g4 = g3.update(newChessGame, move)
-          _ ← save(g1, g4)
-          _ ← finisher.moveFinish(g4, !color)
+          evented2 = evented flatMap { _.update(newChessGame, move) }
+          _ ← save(g1, evented2)
+          _ ← finisher.moveFinish(evented2.game, !color)
         } yield ()
-        else save(g1, g3)
+        else save(g1, evented)
       } yield success()
     )
   }
@@ -68,10 +67,11 @@ final class AppXhr(
         if (game.player(!color).isOfferingDraw) finisher drawAccept pov
         else success {
           for {
-            g2 ← messenger.systemMessages(game, "Draw offer sent")
-            g3 = g2.updatePlayer(color, (_ offerDraw game.turns))
-            g4 = g3.withEvents(!color, List(ReloadTableEvent()))
-            _ ← save(game, g4)
+            events ← messenger.systemMessages(game, "Draw offer sent") map { es ⇒
+              ReloadTableEvent(!color) :: es
+            }
+            g2 = game.updatePlayer(color, _ offerDraw game.turns)
+            _ ← save(game, Evented(g2, events))
           } yield ()
         }
       }
@@ -82,10 +82,11 @@ final class AppXhr(
     case pov @ Pov(game, color) ⇒
       if (pov.player.isOfferingDraw) success {
         for {
-          g2 ← messenger.systemMessages(game, "Draw offer canceled")
-          g3 = g2.updatePlayer(color, (_.copy(isOfferingDraw = false)))
-          g4 = g3.withEvents(!color, List(ReloadTableEvent()))
-          _ ← save(game, g4)
+          events ← messenger.systemMessages(game, "Draw offer canceled") map { es ⇒
+            ReloadTableEvent(!color) :: es
+          }
+          g2 = game.updatePlayer(color, _.removeDrawOffer)
+          _ ← save(game, Evented(g2, events))
         } yield ()
       }
       else !!("no draw offer to cancel " + fullId)
@@ -95,32 +96,28 @@ final class AppXhr(
     case pov @ Pov(game, color) ⇒
       if (game.player(!color).isOfferingDraw) success {
         for {
-          g2 ← messenger.systemMessages(game, "Draw offer declined")
-          g3 = g2.updatePlayer(!color, (_.copy(isOfferingDraw = false)))
-          g4 = g3.withEvents(!color, List(ReloadTableEvent()))
-          _ ← save(game, g4)
+          events ← messenger.systemMessages(game, "Draw offer declined") map { es ⇒
+            ReloadTableEvent(!color) :: es
+          }
+          g2 = game.updatePlayer(!color, _.removeDrawOffer)
+          _ ← save(game, Evented(g2, events))
         } yield ()
       }
       else !!("no draw offer to decline " + fullId)
   })
 
-  def talk(fullId: String, message: String): IO[Unit] = fromPov(fullId) { pov ⇒
-    messenger.playerMessage(pov.game, pov.color, message) flatMap { g2 ⇒
-      save(pov.game, g2)
-    }
-  }
-
   def moretime(fullId: String): IO[Valid[Float]] = attempt(fullId, pov ⇒
     pov.game.clock filter (_ ⇒ pov.game.playable) map { clock ⇒
       val color = !pov.color
       val newClock = clock.giveTime(color, moretimeSeconds)
-      val g2 = pov.game withEvents List(MoretimeEvent(color, moretimeSeconds))
-      val g3 = g2 withClock newClock
+      val g2 = pov.game withClock newClock
       for {
-        g4 ← messenger.systemMessage(
-          g3,
-          "%s + %d seconds".format(color, moretimeSeconds))
-        _ ← save(pov.game, g4)
+        events ← messenger.systemMessage(
+          g2, "%s + %d seconds".format(color, moretimeSeconds)
+        ) map { es ⇒
+            MoretimeEvent(color, moretimeSeconds) :: es
+          }
+        _ ← save(pov.game, Evented(g2, events))
       } yield newClock remainingTime color
     } toValid "cannot add moretime"
   )

@@ -77,7 +77,6 @@ class GameRepo(collection: MongoCollection)
       val name = "players." + i + "."
       d(name + "ps", _.players(i).ps)
       d(name + "w", _.players(i).w)
-      d(name + "evts", _.players(i).evts)
       d(name + "lastDrawOffer", _.players(i).lastDrawOffer)
       d(name + "isOfferingDraw", _.players(i).isOfferingDraw)
     }

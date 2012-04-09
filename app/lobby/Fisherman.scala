@@ -10,7 +10,7 @@ import scalaz.effects._
 final class Fisherman(
     hookRepo: HookRepo,
     hookMemo: HookMemo,
-    socket: Lobby) {
+    socket: Socket) {
 
   // DO delete in db
   def delete(hook: Hook): IO[Unit] = for {

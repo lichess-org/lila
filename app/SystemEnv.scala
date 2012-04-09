@@ -16,15 +16,27 @@ import command._
 
 final class SystemEnv(config: Config) {
 
-  lazy val lobbyHistory = new lobby.History(
-    timeout = getMilliseconds("lobby.history.timeout"))
+  lazy val gameHistory = () ⇒ new socket.History(
+    timeout = getMilliseconds("game.message.lifetime"))
+
+  lazy val gameHubMemo = new game.HubMemo(
+    makeHistory = gameHistory,
+    timeout = getMilliseconds("memo.game_hub.timeout"))
+
+  lazy val gameSocket = new game.Socket(
+    gameRepo = gameRepo,
+    hubMemo = gameHubMemo,
+    messenger = messenger)
+
+  lazy val lobbyHistory = new socket.History(
+    timeout = getMilliseconds("lobby.message.lifetime"))
 
   lazy val lobbyHub = Akka.system.actorOf(Props(new lobby.Hub(
     messageRepo = messageRepo,
     history = lobbyHistory
   )), name = "lobby_hub")
 
-  lazy val lobbySocket = new lobby.Lobby(
+  lazy val lobbySocket = new lobby.Socket(
     hub = lobbyHub)
 
   lazy val lobbyPreloader = new lobby.Preload(
@@ -45,23 +57,15 @@ final class SystemEnv(config: Config) {
     messenger = messenger,
     ai = ai,
     finisher = finisher,
-    versionMemo = versionMemo,
     aliveMemo = aliveMemo,
     moretimeSeconds = getSeconds("moretime.seconds"))
 
   lazy val appApi = new AppApi(
     gameRepo = gameRepo,
-    versionMemo = versionMemo,
     aliveMemo = aliveMemo,
+    gameHubMemo = gameHubMemo,
     messenger = messenger,
     starter = starter)
-
-  lazy val appSyncer = new AppSyncer(
-    gameRepo = gameRepo,
-    versionMemo = versionMemo,
-    aliveMemo = aliveMemo,
-    duration = getMilliseconds("sync.duration"),
-    sleep = getMilliseconds("sync.sleep"))
 
   lazy val lobbyApi = new lobby.Api(
     hookRepo = hookRepo,
@@ -69,7 +73,6 @@ final class SystemEnv(config: Config) {
     gameRepo = gameRepo,
     messenger = messenger,
     starter = starter,
-    versionMemo = versionMemo,
     lobbySocket = lobbySocket,
     aliveMemo = aliveMemo)
 
@@ -82,7 +85,6 @@ final class SystemEnv(config: Config) {
     userRepo = userRepo,
     gameRepo = gameRepo,
     messenger = messenger,
-    versionMemo = versionMemo,
     aliveMemo = aliveMemo,
     eloCalculator = new EloCalculator,
     finisherLock = new FinisherLock(
@@ -95,8 +97,7 @@ final class SystemEnv(config: Config) {
     gameRepo = gameRepo,
     entryRepo = entryRepo,
     ai = ai,
-    lobbySocket = lobbySocket,
-    versionMemo = versionMemo)
+    lobbySocket = lobbySocket)
 
   def ai: () ⇒ Ai = () ⇒ config getString "ai.use" match {
     case "remote" ⇒ remoteAi or craftyAi
@@ -153,10 +154,6 @@ final class SystemEnv(config: Config) {
     o.connectTimeout = getMilliseconds("mongo.connectTimeout")
     o.threadsAllowedToBlockForConnectionMultiplier = config getInt "mongo.threadsAllowedToBlockForConnectionMultiplier"
   }
-
-  lazy val versionMemo = new VersionMemo(
-    getPov = gameRepo.pov,
-    timeout = getMilliseconds("memo.version.timeout"))
 
   lazy val aliveMemo = new AliveMemo(
     hardTimeout = getMilliseconds("memo.alive.hard_timeout"),

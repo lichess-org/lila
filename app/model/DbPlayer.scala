@@ -11,20 +11,10 @@ case class DbPlayer(
     ps: String,
     aiLevel: Option[Int],
     isWinner: Option[Boolean],
-    evts: String = "",
     elo: Option[Int],
     isOfferingDraw: Boolean,
     lastDrawOffer: Option[Int],
     user: Option[DBRef]) {
-
-  lazy val eventStack: EventStack = EventStack decode evts
-
-  def newEvts(events: List[Event]): String =
-    (eventStack withEvents events).optimize.encode
-
-  def withEvents(events: List[Event]) = copy(
-    evts = newEvts(events)
-  )
 
   def encodePieces(allPieces: Iterable[(Pos, Piece, Boolean)]): String =
     allPieces withFilter (_._2.color == color) map {
@@ -50,4 +40,6 @@ case class DbPlayer(
     isOfferingDraw = true,
     lastDrawOffer = Some(turn)
   )
+
+  def removeDrawOffer = copy(isOfferingDraw = false)
 }

@@ -2,6 +2,7 @@ package lila
 package lobby
 
 import db.MessageRepo
+import socket.{ History, LilaEnumerator }
 
 import akka.actor._
 

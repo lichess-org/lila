@@ -14,11 +14,6 @@ object DataForm {
     "b" -> optional(number)
   ))
 
-  type TalkData = String
-  val talkForm = Form(single(
-    "message" -> nonEmptyText
-  ))
-
   type EntryData = String
   val entryForm = Form(single(
     "entry" -> nonEmptyText

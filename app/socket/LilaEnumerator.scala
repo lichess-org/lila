@@ -1,5 +1,5 @@
 package lila
-package lobby
+package socket
 
 import play.api.libs.json._
 import play.api.libs.iteratee._

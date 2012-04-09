@@ -7,28 +7,31 @@ import scalaz.effects._
 
 final class Messenger(roomRepo: RoomRepo) {
 
-  def playerMessage(game: DbGame, color: Color, message: String): IO[DbGame] =
-    if (game.invited.isHuman && message.size <= 140 && message.nonEmpty)
-      roomRepo.addMessage(game.id, color.name, message) map { _ ⇒
-        game withEvents List(MessageEvent(color.name, message))
+  def playerMessage(
+    gameId: String,
+    color: Color,
+    message: String): IO[List[Event]] =
+    if (message.size <= 140 && message.nonEmpty)
+      roomRepo.addMessage(gameId, color.name, message) map { _ ⇒
+        List(MessageEvent(color.name, message))
       }
-    else io(game)
+    else io(Nil)
 
-  def systemMessages(game: DbGame, encodedMessages: String): IO[DbGame] =
+  def systemMessages(game: DbGame, encodedMessages: String): IO[List[Event]] =
     if (game.invited.isHuman) {
       val messages = (encodedMessages split '$').toList
       roomRepo.addSystemMessages(game.id, messages) map { _ ⇒
-        game withEvents (messages map { msg ⇒ MessageEvent("system", msg) })
+        messages map { MessageEvent("system", _) }
       }
     }
-    else io(game)
+    else io(Nil)
 
-  def systemMessage(game: DbGame, message: String): IO[DbGame] =
+  def systemMessage(game: DbGame, message: String): IO[List[Event]] =
     if (game.invited.isHuman)
       roomRepo.addSystemMessage(game.id, message) map { _ ⇒
-        game withEvents List(MessageEvent("system", message))
+        List(MessageEvent("system", message))
       }
-    else io(game)
+    else io(Nil)
 
   def render(roomId: String): IO[String] =
     roomRepo room roomId map (_.render)

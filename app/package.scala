@@ -1,5 +1,9 @@
 import ornicar.scalalib._
 
+import play.api.libs.json.JsValue
+import play.api.libs.iteratee.{ Iteratee, Enumerator }
+import play.api.libs.concurrent.Promise
+
 import com.novus.salat._
 import com.mongodb.casbah.commons.conversions.scala.RegisterJodaTimeConversionHelpers
 
@@ -12,6 +16,10 @@ package object lila
     with scalaz.Booleans {
 
   RegisterJodaTimeConversionHelpers()
+
+  type Channel = socket.LilaEnumerator[JsValue]
+
+  type SocketPromise = Promise[(Iteratee[JsValue, _], Enumerator[JsValue])]
 
   object Tick // standard actor tick
 

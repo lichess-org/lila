@@ -3,15 +3,17 @@ package controllers
 
 import lila.DataForm._
 
-import play.api._
-import mvc._
+import play.api.mvc._
+import play.api.libs.concurrent._
 
 object AppApiC extends LilaController {
 
   private val api = env.appApi
 
   def show(fullId: String) = Action {
-    JsonIOk(api show fullId)
+    Async {
+      (api show fullId).asPromise map JsonIOk
+    }
   }
 
   def reloadTable(gameId: String) = Action {
@@ -22,7 +24,7 @@ object AppApiC extends LilaController {
     IOk(api.alive(gameId, color))
   }
 
-  def start(gameId: String) = Action { implicit request =>
+  def start(gameId: String) = Action { implicit request ⇒
     FormValidIOk[EntryData](entryForm)(entryData ⇒ api.start(gameId, entryData))
   }
 
@@ -36,8 +38,10 @@ object AppApiC extends LilaController {
     Ok(api.activity(gameId, color))
   }
 
-  def playerVersion(gameId: String, color: String) = Action {
-    Ok(api.playerVersion(gameId, color).unsafePerformIO)
+  def gameVersion(gameId: String) = Action {
+    Async {
+      (api gameVersion gameId).asPromise map { Ok(_) }
+    }
   }
 
   def rematchAccept(gameId: String, color: String, newGameId: String) = Action { implicit request ⇒

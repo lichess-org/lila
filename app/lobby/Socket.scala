@@ -13,9 +13,7 @@ import play.api.libs.concurrent._
 
 import scalaz.effects._
 
-final class Lobby(hub: ActorRef) {
-
-  type PromiseType = Promise[(Iteratee[JsValue, _], Channel)]
+final class Socket(hub: ActorRef) {
 
   implicit val timeout = Timeout(1 second)
 
@@ -23,7 +21,7 @@ final class Lobby(hub: ActorRef) {
     uid: String,
     version: Int,
     username: Option[String],
-    hook: Option[String]): PromiseType =
+    hook: Option[String]): SocketPromise =
     (hub ? Join(uid, version, username, hook)).asPromise map {
       case Connected(channel) ⇒
         val iteratee = Iteratee.foreach[JsValue] { event ⇒
