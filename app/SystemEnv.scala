@@ -54,6 +54,7 @@ final class SystemEnv(config: Config) {
 
   lazy val appXhr = new AppXhr(
     gameRepo = gameRepo,
+    gameSocket = gameSocket,
     messenger = messenger,
     ai = ai,
     finisher = finisher,
@@ -62,6 +63,7 @@ final class SystemEnv(config: Config) {
 
   lazy val appApi = new AppApi(
     gameRepo = gameRepo,
+    gameSocket = gameSocket,
     aliveMemo = aliveMemo,
     gameHubMemo = gameHubMemo,
     messenger = messenger,
@@ -71,6 +73,7 @@ final class SystemEnv(config: Config) {
     hookRepo = hookRepo,
     fisherman = lobbyFisherman,
     gameRepo = gameRepo,
+    gameSocket = gameSocket,
     messenger = messenger,
     starter = starter,
     lobbySocket = lobbySocket,
@@ -84,6 +87,7 @@ final class SystemEnv(config: Config) {
     historyRepo = historyRepo,
     userRepo = userRepo,
     gameRepo = gameRepo,
+    gameSocket = gameSocket,
     messenger = messenger,
     aliveMemo = aliveMemo,
     eloCalculator = new EloCalculator,

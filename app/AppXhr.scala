@@ -8,12 +8,13 @@ import Pos.posAt
 import scalaz.effects._
 
 final class AppXhr(
-    val gameRepo: GameRepo,
+    gameRepo: GameRepo,
+    gameSocket: game.Socket,
     messenger: Messenger,
     ai: () ⇒ Ai,
     finisher: Finisher,
     aliveMemo: AliveMemo,
-    moretimeSeconds: Int) extends IOTools {
+    moretimeSeconds: Int) {
 
   type IOValid = IO[Valid[Unit]]
 
@@ -34,17 +35,17 @@ final class AppXhr(
       progress ⇒ for {
         _ ← aliveMemo.put(progress.game.id, color)
         _ ← if (progress.game.finished) for {
-          _ ← save(progress)
+          _ ← saveSend(progress)
           _ ← finisher.moveFinish(progress.game, color)
         } yield ()
         else if (progress.game.player.isAi && progress.game.playable) for {
           aiResult ← ai()(progress.game) map (_.err)
           (newChessGame, move) = aiResult
           progress2 = progress flatMap { _.update(newChessGame, move) }
-          _ ← save(progress2)
+          _ ← saveSend(progress2)
           _ ← finisher.moveFinish(progress2.game, !color)
         } yield ()
-        else save(progress)
+        else saveSend(progress)
       } yield success()
     )
   }
@@ -71,7 +72,7 @@ final class AppXhr(
               Progress(g1, ReloadTableEvent(!color) :: es)
             }
             p2 = p1 map { g ⇒ g.updatePlayer(color, _ offerDraw g.turns) }
-            _ ← save(p2)
+            _ ← saveSend(p2)
           } yield ()
         }
       }
@@ -86,7 +87,7 @@ final class AppXhr(
             Progress(g1, ReloadTableEvent(!color) :: es)
           }
           p2 = p1 map { g ⇒ g.updatePlayer(color, _.removeDrawOffer) }
-          _ ← save(p2)
+          _ ← saveSend(p2)
         } yield ()
       }
       else !!("no draw offer to cancel " + fullId)
@@ -100,7 +101,7 @@ final class AppXhr(
             Progress(g1, ReloadTableEvent(!color) :: es)
           }
           p2 = p1 map { g ⇒ g.updatePlayer(!color, _.removeDrawOffer) }
-          _ ← save(p2)
+          _ ← saveSend(p2)
         } yield ()
       }
       else !!("no draw offer to decline " + fullId)
@@ -117,10 +118,13 @@ final class AppXhr(
         ) map { es ⇒
             Progress(pov.game, MoretimeEvent(color, moretimeSeconds) :: es)
           }
-        _ ← save(progress)
+        _ ← saveSend(progress)
       } yield newClock remainingTime color
     } toValid "cannot add moretime"
   )
+
+  private def saveSend(progress: Progress) =
+    gameRepo save progress flatMap { _ ⇒ gameSocket send progress }
 
   private def attempt[A](
     fullId: String,

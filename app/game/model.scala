@@ -7,9 +7,10 @@ import model._
 import scalaz.effects.IO
 
 sealed trait Member {
-  def channel: Channel
-  def color: Color
-  def username: Option[String]
+  val channel: Channel
+  val color: Color
+  val username: Option[String]
+  val owner: Boolean
 }
 object Member {
   def apply(
@@ -25,12 +26,16 @@ case class Owner(
     channel: Channel,
     color: Color,
     username: Option[String]) extends Member {
+
+  val owner = true
 }
 
 case class Watcher(
     channel: Channel,
     color: Color,
     username: Option[String]) extends Member {
+
+  val owner = false
 }
 
 case class Join(

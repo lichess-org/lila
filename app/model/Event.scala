@@ -10,6 +10,7 @@ sealed trait Event {
   def typ: String
   def data: JsValue
   def only: Option[Color] = None
+  def owner: Boolean = false
 }
 object Event {
 
@@ -84,6 +85,7 @@ case class RedirectEvent(color: Color, url: String) extends Event {
   def typ = "redirect"
   def data = JsString(url)
   override def only = Some(color)
+  override def owner = true
 }
 
 case class PromotionEvent(role: PromotableRole, pos: Pos) extends Event {
@@ -102,6 +104,7 @@ case class CheckEvent(pos: Pos) extends Event {
 case class MessageEvent(author: String, message: String) extends Event {
   def typ = "message"
   def data = JsNull
+  override def owner = true
 }
 
 case class EndEvent() extends Event {

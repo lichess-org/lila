@@ -14,7 +14,7 @@ import scalaz.effects._
 
 import chess.Color
 import db.GameRepo
-import model.{ DbGame, Pov }
+import model.{ DbGame, Pov, Progress }
 
 final class Socket(
     gameRepo: GameRepo,
@@ -22,6 +22,10 @@ final class Socket(
     messenger: Messenger) {
 
   implicit val timeout = Timeout(1 second)
+
+  def send(progress: Progress): IO[Unit] = io {
+    (hubMemo get progress.game.id) ! Events(progress.events)
+  }
 
   def listener(
     hub: ActorRef,

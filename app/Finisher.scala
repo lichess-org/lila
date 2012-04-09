@@ -10,11 +10,12 @@ import scalaz.effects._
 final class Finisher(
     historyRepo: HistoryRepo,
     userRepo: UserRepo,
-    val gameRepo: GameRepo,
+    gameRepo: GameRepo,
+    gameSocket: game.Socket,
     messenger: Messenger,
     aliveMemo: AliveMemo,
     eloCalculator: EloCalculator,
-    finisherLock: FinisherLock) extends IOTools {
+    finisherLock: FinisherLock) {
 
   type ValidIO = Valid[IO[Unit]]
 
@@ -71,7 +72,8 @@ final class Finisher(
         m ⇒ messenger.systemMessage(p1.game, m) map p1.++,
         io(p1)
       )
-      _ ← save(p2)
+      _ ← gameRepo save p2
+      _ ← gameSocket send p2
       winnerId = winner flatMap (p2.game.player(_).userId)
       _ ← gameRepo.finish(p2.game.id, winnerId)
       _ ← updateElo(p2.game)

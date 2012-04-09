@@ -52,11 +52,11 @@ class GameRepo(collection: MongoCollection)
     update(DBObject("_id" -> game.id), _grater asDBObject encode(game))
   }
 
-  def applyDiff(a: DbGame, b: DbGame): IO[Unit] =
-    diff(encode(a), encode(b)) |> { diffs ⇒
+  def save(progress: Progress): IO[Unit] =
+    diff(encode(progress.origin), encode(progress.game)) |> { diffs ⇒
       if (diffs.nonEmpty) {
         val fullDiffs = ("updatedAt" -> new Date()) :: diffs
-        io { update(DBObject("_id" -> a.id), $set(fullDiffs: _*)) }
+        io { update(DBObject("_id" -> progress.origin.id), $set(fullDiffs: _*)) }
       }
       else io()
     }

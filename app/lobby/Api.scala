@@ -4,16 +4,18 @@ package lobby
 import model._
 import memo._
 import db._
+import lila.chess.Color
 import scalaz.effects._
 
 final class Api(
     hookRepo: HookRepo,
     fisherman: Fisherman,
-    val gameRepo: GameRepo,
+    gameRepo: GameRepo,
+    gameSocket: game.Socket,
     messenger: Messenger,
     starter: Starter,
     lobbySocket: lobby.Socket,
-    aliveMemo: AliveMemo) extends IOTools {
+    aliveMemo: AliveMemo) {
 
   def cancel(ownerId: String): IO[Unit] = for {
     hook ← hookRepo ownedHook ownerId
@@ -32,7 +34,8 @@ final class Api(
     game ← gameRepo game gameId
     p1 ← starter.start(game, entryData)
     p2 ← messenger.systemMessages(game, messageString) map p1.++
-    _ ← save(p2)
+    _ ← gameRepo save p2
+    _ ← gameSocket send p2
     _ ← aliveMemo.put(gameId, color)
     _ ← aliveMemo.put(gameId, !color)
     _ ← hook.fold(h ⇒ fisherman.bite(h, p2.game), io())
@@ -47,4 +50,8 @@ final class Api(
     hook ← hookRepo ownedHook hookOwnerId
     _ ← hook.fold(fisherman.+, io())
   } yield ()
+
+  private def ioColor(colorName: String): IO[Color] = io {
+    Color(colorName) err "Invalid color"
+  }
 }

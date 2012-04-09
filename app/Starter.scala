@@ -5,10 +5,10 @@ import db.{ GameRepo, EntryRepo }
 import scalaz.effects._
 
 final class Starter(
-    val gameRepo: GameRepo,
+    gameRepo: GameRepo,
     entryRepo: EntryRepo,
     lobbySocket: lobby.Socket,
-    ai: () ⇒ Ai) extends IOTools {
+    ai: () ⇒ Ai) {
 
   def start(game: DbGame, entryData: String): IO[Progress] = for {
     _ ← if (game.variant == Standard) io() else gameRepo saveInitialFen game

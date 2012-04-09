@@ -25,31 +25,17 @@ final class Hub(gameId: String, history: History) extends Actor {
       sender ! Connected(member)
     }
 
-    case Events(events) ⇒ events foreach notifyEvent
+    case Events(events) ⇒ events.pp foreach notifyEvent
 
     case Quit(uid)      ⇒ { members = members - uid }
   }
 
   private def notifyEvent(e: Event) {
-    notifyVersion(e.typ, e.data)
-  }
+    val vmsg = history += makeMessage(e.typ, e.data)
+    val m1 = if (e.owner) members.values filter (_.owner) else members.values
+    val m2 = e.only.fold(color ⇒ m1 filter (_.color == color), m1)
 
-  private def notifyMember(t: String, data: JsValue)(member: Member) {
-    val msg = JsObject(Seq("t" -> JsString(t), "d" -> data))
-    member.channel push msg
-  }
-
-  private def notifyAll(t: String, data: JsValue) {
-    val msg = makeMessage(t, data)
-    members.values.foreach(_.channel push msg)
-  }
-
-  private def notifyVersion(t: String, data: JsValue) {
-    val vmsg = history += makeMessage(t, data)
-    members.values.foreach(_.channel push vmsg)
-  }
-  private def notifyVersion(t: String, data: Seq[(String, JsValue)]) {
-    notifyVersion(t, JsObject(data))
+    m2 foreach (_.channel push vmsg)
   }
 
   private def makeMessage(t: String, data: JsValue) =

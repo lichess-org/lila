@@ -12,17 +12,18 @@ import akka.util.duration._
 import akka.util.Timeout
 
 final class AppApi(
-    val gameRepo: GameRepo,
+    gameRepo: GameRepo,
+    gameSocket: game.Socket,
     aliveMemo: AliveMemo,
     gameHubMemo: game.HubMemo,
     messenger: Messenger,
-    starter: Starter) extends IOTools {
+    starter: Starter) {
 
   implicit val timeout = Timeout(200 millis)
 
   def show(fullId: String): Future[IO[Map[String, Any]]] =
-    (gameHubMemo getFromFullId fullId) ? game.GetVersion map { version ⇒
-      for {
+    (gameHubMemo getFromFullId fullId) ? game.GetVersion map {
+      case game.Version(version) ⇒ for {
         pov ← gameRepo pov fullId
         _ ← aliveMemo.put(pov.game.id, pov.color)
         roomHtml ← messenger render pov.game.id
@@ -50,13 +51,15 @@ final class AppApi(
     p2 ← messenger.systemMessages(p1.game, messages) map { evts ⇒
       p1 + RedirectEvent(!pov.color, url) ++ evts
     }
-    _ ← save(p2)
+    _ ← gameRepo save p2
+    _ ← gameSocket send p2
   } yield ()
 
   def start(gameId: String, entryData: String): IO[Unit] = for {
     g1 ← gameRepo game gameId
     progress ← starter.start(g1, entryData)
-    _ ← save(progress)
+    _ ← gameRepo save progress
+    _ ← gameSocket send progress
   } yield ()
 
   def rematchAccept(
@@ -76,12 +79,14 @@ final class AppApi(
       // to tell spectators to reload the table
       ReloadTableEvent(White),
       ReloadTableEvent(Black)))
-    _ ← save(progress)
+    _ ← gameRepo save progress
+    _ ← gameSocket send progress
     newProgress ← starter.start(newGame, entryData)
     newProgress2 ← messenger.systemMessages(
       newProgress.game, messageString
     ) map newProgress.++
-    _ ← save(newProgress2)
+    _ ← gameRepo save newProgress2
+    _ ← gameSocket send newProgress2
     _ ← aliveMemo.put(newGameId, !color)
     _ ← aliveMemo.transfer(gameId, !color, newGameId, color)
   } yield ()
@@ -89,7 +94,8 @@ final class AppApi(
   def reloadTable(gameId: String): IO[Unit] = for {
     g1 ← gameRepo game gameId
     progress = Progress(g1, Color.all map ReloadTableEvent)
-    _ ← save(progress)
+    _ ← gameRepo save progress
+    _ ← gameSocket send progress
   } yield ()
 
   def alive(gameId: String, colorName: String): IO[Unit] = for {
@@ -104,4 +110,8 @@ final class AppApi(
 
   def activity(gameId: String, colorName: String): Int =
     Color(colorName).fold(aliveMemo.activity(gameId, _), 0)
+
+  private def ioColor(colorName: String): IO[Color] = io {
+    Color(colorName) err "Invalid color"
+  }
 }
