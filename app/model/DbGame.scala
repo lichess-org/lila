@@ -91,7 +91,7 @@ case class DbGame(
     positionHashes = positionHashes grouped History.hashSize toList
   )
 
-  def update(game: Game, move: Move): Evented = {
+  def update(game: Game, move: Move): Progress = {
     val allPieces = (game.board.pieces map {
       case (pos, piece) ⇒ (pos, piece, false)
     }) ++ (game.deads map {
@@ -100,8 +100,8 @@ case class DbGame(
     val (history, situation) = (game.board.history, game.situation)
     val events =
       Event.possibleMoves(game.situation, White) ::
-      Event.possibleMoves(game.situation, Black) ::
-      (Event fromMove move) ::: (Event fromSituation game.situation)
+        Event.possibleMoves(game.situation, Black) ::
+        (Event fromMove move) ::: (Event fromSituation game.situation)
 
     def copyPlayer(player: DbPlayer) = player.copy(
       ps = player encodePieces allPieces)
@@ -123,12 +123,14 @@ case class DbGame(
       check = if (game.situation.check) game.situation.kingPos else None
     )
 
-    if (updated.playable && (
-      abortable != updated.abortable || (Color.all exists { color ⇒
-        playerCanOfferDraw(color) != updated.playerCanOfferDraw(color)
-      })
-    )) Evented(updated, events ::: (Color.all map ReloadTableEvent))
-    else Evented(updated, events)
+    Progress(this, updated, {
+      if (updated.playable && (
+        abortable != updated.abortable || (Color.all exists { color ⇒
+          playerCanOfferDraw(color) != updated.playerCanOfferDraw(color)
+        })
+      )) events ::: (Color.all map ReloadTableEvent)
+      else events
+    })
   }
 
   def updatePlayer(color: Color, f: DbPlayer ⇒ DbPlayer) = color match {
@@ -162,7 +164,8 @@ case class DbGame(
 
   def resignable = playable && !abortable
 
-  def finish(status: Status, winner: Option[Color]) = Evented(
+  def finish(status: Status, winner: Option[Color]) = Progress(
+    this,
     copy(
       status = status,
       whitePlayer = whitePlayer finish (winner == Some(White)),

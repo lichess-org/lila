@@ -30,12 +30,12 @@ final class Api(
     hook ← hookRepo ownedHook hookOwnerId
     color ← ioColor(colorName)
     game ← gameRepo game gameId
-    e1 ← starter.start(game, entryData)
-    e2 ← messenger.systemMessages(game, messageString) map e1.++
-    _ ← save(game, e2)
+    p1 ← starter.start(game, entryData)
+    p2 ← messenger.systemMessages(game, messageString) map p1.++
+    _ ← save(p2)
     _ ← aliveMemo.put(gameId, color)
     _ ← aliveMemo.put(gameId, !color)
-    _ ← hook.fold(h ⇒ fisherman.bite(h, e2.game), io())
+    _ ← hook.fold(h ⇒ fisherman.bite(h, p2.game), io())
     _ ← myHookOwnerId.fold(
       ownerId ⇒ hookRepo ownedHook ownerId flatMap { myHook ⇒
         myHook.fold(fisherman.delete, io())

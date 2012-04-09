@@ -66,17 +66,17 @@ final class Finisher(
     if (finisherLock isLocked game) !!("game finish is locked")
     else success(for {
       _ ← finisherLock lock game
-      e1 = game.finish(status, winner)
-      e2 ← message.fold(
-        m ⇒ messenger.systemMessage(e1.game, m) map e1.++,
-        io(e1)
+      p1 = game.finish(status, winner)
+      p2 ← message.fold(
+        m ⇒ messenger.systemMessage(p1.game, m) map p1.++,
+        io(p1)
       )
-      _ ← save(game, e2)
-      winnerId = winner flatMap (e2.game.player(_).userId)
-      _ ← gameRepo.finish(e2.game.id, winnerId)
-      _ ← updateElo(e2.game)
-      _ ← incNbGames(e2.game, White)
-      _ ← incNbGames(e2.game, Black)
+      _ ← save(p2)
+      winnerId = winner flatMap (p2.game.player(_).userId)
+      _ ← gameRepo.finish(p2.game.id, winnerId)
+      _ ← updateElo(p2.game)
+      _ ← incNbGames(p2.game, White)
+      _ ← incNbGames(p2.game, Black)
     } yield ())
 
   private def incNbGames(game: DbGame, color: Color): IO[Unit] =

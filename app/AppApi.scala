@@ -46,17 +46,17 @@ final class AppApi(
     messages: String,
     entryData: String): IO[Unit] = for {
     pov ← gameRepo pov fullId
-    e1 ← starter.start(pov.game, entryData)
-    e2 ← messenger.systemMessages(e1.game, messages) map { evts ⇒
-      e1 + RedirectEvent(!pov.color, url) ++ evts
+    p1 ← starter.start(pov.game, entryData)
+    p2 ← messenger.systemMessages(p1.game, messages) map { evts ⇒
+      p1 + RedirectEvent(!pov.color, url) ++ evts
     }
-    _ ← save(pov.game, e2)
+    _ ← save(p2)
   } yield ()
 
   def start(gameId: String, entryData: String): IO[Unit] = for {
     g1 ← gameRepo game gameId
-    evented ← starter.start(g1, entryData)
-    _ ← save(g1, evented)
+    progress ← starter.start(g1, entryData)
+    _ ← save(progress)
   } yield ()
 
   def rematchAccept(
@@ -70,26 +70,26 @@ final class AppApi(
     color ← ioColor(colorName)
     newGame ← gameRepo game newGameId
     g1 ← gameRepo game gameId
-    evented = Evented(g1, List(
+    progress = Progress(g1, List(
       RedirectEvent(White, whiteRedirect),
       RedirectEvent(Black, blackRedirect),
       // to tell spectators to reload the table
       ReloadTableEvent(White),
       ReloadTableEvent(Black)))
-    _ ← save(g1, evented)
-    newEvented ← starter.start(newGame, entryData)
-    newEvented2 ← messenger.systemMessages(
-      newEvented.game, messageString
-    ) map newEvented.++
-    _ ← save(newGame, newEvented2)
+    _ ← save(progress)
+    newProgress ← starter.start(newGame, entryData)
+    newProgress2 ← messenger.systemMessages(
+      newProgress.game, messageString
+    ) map newProgress.++
+    _ ← save(newProgress2)
     _ ← aliveMemo.put(newGameId, !color)
     _ ← aliveMemo.transfer(gameId, !color, newGameId, color)
   } yield ()
 
   def reloadTable(gameId: String): IO[Unit] = for {
     g1 ← gameRepo game gameId
-    evented = Evented(g1, Color.all map ReloadTableEvent)
-    _ ← save(g1, evented)
+    progress = Progress(g1, Color.all map ReloadTableEvent)
+    _ ← save(progress)
   } yield ()
 
   def alive(gameId: String, colorName: String): IO[Unit] = for {
