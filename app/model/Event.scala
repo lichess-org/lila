@@ -103,7 +103,7 @@ case class CheckEvent(pos: Pos) extends Event {
 
 case class MessageEvent(author: String, message: String) extends Event {
   def typ = "message"
-  def data = JsNull
+  def data = JsString(Room render (author, message))
   override def owner = true
 }
 
