@@ -9,7 +9,6 @@ import scalaz.effects._
 
 final class AppXhr(
     gameRepo: GameRepo,
-    gameSocket: game.Socket,
     messenger: Messenger,
     ai: () ⇒ Ai,
     finisher: Finisher,
@@ -22,7 +21,7 @@ final class AppXhr(
     fullId: String,
     origString: String,
     destString: String,
-    promString: Option[String] = None): IOValid = fromPov(fullId) {
+    promString: Option[String] = None): List[Event] = fromPov(fullId) {
     case Pov(g1, color) ⇒ (for {
       g2 ← (g1.playable).fold(success(g1), failure("Game not playable" wrapNel))
       orig ← posAt(origString) toValid "Wrong orig " + origString
@@ -34,19 +33,21 @@ final class AppXhr(
       e ⇒ io(failure(e)),
       progress ⇒ for {
         _ ← aliveMemo.put(progress.game.id, color)
-        _ ← if (progress.game.finished) for {
-          _ ← saveSend(progress)
-          _ ← finisher.moveFinish(progress.game, color)
-        } yield ()
+        events ← if (progress.game.finished) for {
+          _ ← gameRepo save progress
+          finishEvents ← finisher.moveFinish(progress.game, color)
+        } yield progress.events ::: finishEvents
         else if (progress.game.player.isAi && progress.game.playable) for {
           aiResult ← ai()(progress.game) map (_.err)
           (newChessGame, move) = aiResult
           progress2 = progress flatMap { _.update(newChessGame, move) }
-          _ ← saveSend(progress2)
-          _ ← finisher.moveFinish(progress2.game, !color)
-        } yield ()
-        else saveSend(progress)
-      } yield success()
+          _ ← gameRepo save progress2
+          finishEvents ← finisher.moveFinish(progress2.game, !color)
+        } yield progress2.events ::: finishEvents
+        else for {
+          _ ← gameRepo save progress
+        } yield progress.events
+      } yield success(events)
     )
   }
 
@@ -62,7 +63,7 @@ final class AppXhr(
 
   def drawAccept(fullId: String): IOValid = attempt(fullId, finisher.drawAccept)
 
-  def drawOffer(fullId: String): IOValid = attempt(fullId, {
+  def drawOffer(fullId: String): IO[Valid[List[Event]]] = attempt(fullId, {
     case pov @ Pov(g1, color) ⇒
       if (g1 playerCanOfferDraw color) {
         if (g1.player(!color).isOfferingDraw) finisher drawAccept pov
@@ -72,14 +73,14 @@ final class AppXhr(
               Progress(g1, ReloadTableEvent(!color) :: es)
             }
             p2 = p1 map { g ⇒ g.updatePlayer(color, _ offerDraw g.turns) }
-            _ ← saveSend(p2)
-          } yield ()
+            _ ← gameRepo save p2
+          } yield p2.events
         }
       }
       else !!("invalid draw offer " + fullId)
   })
 
-  def drawCancel(fullId: String): IOValid = attempt(fullId, {
+  def drawCancel(fullId: String): IO[Valid[List[Event]]] = attempt(fullId, {
     case pov @ Pov(g1, color) ⇒
       if (pov.player.isOfferingDraw) success {
         for {
@@ -87,13 +88,13 @@ final class AppXhr(
             Progress(g1, ReloadTableEvent(!color) :: es)
           }
           p2 = p1 map { g ⇒ g.updatePlayer(color, _.removeDrawOffer) }
-          _ ← saveSend(p2)
-        } yield ()
+          _ ← gameRepo save p2
+        } yield p2.events
       }
       else !!("no draw offer to cancel " + fullId)
   })
 
-  def drawDecline(fullId: String): IOValid = attempt(fullId, {
+  def drawDecline(fullId: String): IO[Valid[List[Event]]] = attempt(fullId, {
     case pov @ Pov(g1, color) ⇒
       if (g1.player(!color).isOfferingDraw) success {
         for {
@@ -101,8 +102,8 @@ final class AppXhr(
             Progress(g1, ReloadTableEvent(!color) :: es)
           }
           p2 = p1 map { g ⇒ g.updatePlayer(!color, _.removeDrawOffer) }
-          _ ← saveSend(p2)
-        } yield ()
+            _ ← gameRepo save p2
+          } yield p2.events
       }
       else !!("no draw offer to decline " + fullId)
   })
@@ -118,13 +119,10 @@ final class AppXhr(
         ) map { es ⇒
             Progress(pov.game, MoretimeEvent(color, moretimeSeconds) :: es)
           }
-        _ ← saveSend(progress)
+        _ ← gameRepo save progress
       } yield newClock remainingTime color
     } toValid "cannot add moretime"
   )
-
-  private def saveSend(progress: Progress) =
-    gameRepo save progress flatMap { _ ⇒ gameSocket send progress }
 
   private def attempt[A](
     fullId: String,

@@ -54,7 +54,6 @@ final class SystemEnv(config: Config) {
 
   lazy val appXhr = new AppXhr(
     gameRepo = gameRepo,
-    gameSocket = gameSocket,
     messenger = messenger,
     ai = ai,
     finisher = finisher,
@@ -87,7 +86,6 @@ final class SystemEnv(config: Config) {
     historyRepo = historyRepo,
     userRepo = userRepo,
     gameRepo = gameRepo,
-    gameSocket = gameSocket,
     messenger = messenger,
     aliveMemo = aliveMemo,
     eloCalculator = new EloCalculator,

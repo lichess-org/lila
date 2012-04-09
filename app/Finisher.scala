@@ -11,7 +11,6 @@ final class Finisher(
     historyRepo: HistoryRepo,
     userRepo: UserRepo,
     gameRepo: GameRepo,
-    gameSocket: game.Socket,
     messenger: Messenger,
     aliveMemo: AliveMemo,
     eloCalculator: EloCalculator,
@@ -53,17 +52,18 @@ final class Finisher(
       outoftime(g).fold(msgs ⇒ putStrLn(g.id + " " + (msgs.list mkString "\n")), identity)
     }
 
-  def moveFinish(game: DbGame, color: Color): IO[Unit] = (game.status match {
-    case Mate                        ⇒ finish(game, Mate, Some(color))
-    case status @ (Stalemate | Draw) ⇒ finish(game, status)
-    case _                           ⇒ success(io())
-  }) | io()
+  def moveFinish(game: DbGame, color: Color): IO[List[Event]] =
+    (game.status match {
+      case Mate                        ⇒ finish(game, Mate, Some(color))
+      case status @ (Stalemate | Draw) ⇒ finish(game, status)
+      case _                           ⇒ success(io(Nil))
+    }) | io(Nil)
 
   private def finish(
     game: DbGame,
     status: Status,
     winner: Option[Color] = None,
-    message: Option[String] = None): ValidIO =
+    message: Option[String] = None): Valid[IO[List[Event]]] =
     if (finisherLock isLocked game) !!("game finish is locked")
     else success(for {
       _ ← finisherLock lock game
@@ -73,13 +73,12 @@ final class Finisher(
         io(p1)
       )
       _ ← gameRepo save p2
-      _ ← gameSocket send p2
       winnerId = winner flatMap (p2.game.player(_).userId)
       _ ← gameRepo.finish(p2.game.id, winnerId)
       _ ← updateElo(p2.game)
       _ ← incNbGames(p2.game, White)
       _ ← incNbGames(p2.game, Black)
-    } yield ())
+    } yield p2.events)
 
   private def incNbGames(game: DbGame, color: Color): IO[Unit] =
     game.player(color).userId.fold(

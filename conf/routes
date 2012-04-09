@@ -2,7 +2,6 @@
 GET   /socket/:gameId/:color            lila.controllers.AppXhrC.socket(gameId: String, color: String)
 GET   /how-many-players-now             lila.controllers.AppXhrC.nbPlayers
 GET   /how-many-games-now               lila.controllers.AppXhrC.nbGames
-POST  /move/:fullId                     lila.controllers.AppXhrC.move(fullId: String)
 GET   /abort/:fullId                    lila.controllers.AppXhrC.abort(fullId: String)
 GET   /resign/:fullId                   lila.controllers.AppXhrC.resign(fullId: String)
 GET   /resign-force/:fullId             lila.controllers.AppXhrC.forceResign(fullId: String)

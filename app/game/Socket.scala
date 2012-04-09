@@ -18,6 +18,7 @@ import model.{ DbGame, Pov, Progress }
 
 final class Socket(
     gameRepo: GameRepo,
+    xhr: AppXhr,
     hubMemo: HubMemo,
     messenger: Messenger) {
 
@@ -37,6 +38,11 @@ final class Socket(
         hub ! Events(
           messenger.playerMessage(gameId, member.color, txt).unsafePerformIO
         )
+      }
+      case "move" ⇒ {
+        val orig = (e \ "d" \ "from").as[String]
+        val dest = (e \ "d" \ "to").as[String]
+        xhr.play(fullId, move._1, move._2, move._3).unsafePerformIO
       }
     }
   }

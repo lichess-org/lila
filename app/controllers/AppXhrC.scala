@@ -28,16 +28,6 @@ object AppXhrC extends LilaController {
         username = get("username")).unsafePerformIO
     }
 
-  def move(fullId: String) = Action { implicit request ⇒
-    Async {
-      Akka.future {
-        moveForm.bindFromRequest.toValid flatMap { move ⇒
-          xhr.play(fullId, move._1, move._2, move._3).unsafePerformIO
-        }
-      } map ValidOk
-    }
-  }
-
   def outoftime(fullId: String) = Action { ValidIOk(xhr outoftime fullId) }
 
   def abort(fullId: String) = validAndRedirect(fullId, xhr.abort)
