@@ -23,6 +23,8 @@ package object lila
 
   object Tick // standard actor tick
 
+  type ValidIOEvents = Valid[scalaz.effects.IO[List[model.Event]]]
+
   // custom salat context
   implicit val ctx = new Context {
     val name = "Lila System Context"

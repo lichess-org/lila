@@ -30,6 +30,8 @@ class GameRepo(collection: MongoCollection)
     else findOneByID(gameId) flatMap decode
   }
 
+  def pov(ref: PovRef): IO[Pov] = pov(ref.gameId, ref.color)
+
   def pov(gameId: String, color: Color): IO[Pov] =
     game(gameId) map { g ⇒ Pov(g, g player color) }
 

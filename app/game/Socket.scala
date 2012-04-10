@@ -14,7 +14,7 @@ import scalaz.effects._
 
 import chess.Color
 import db.GameRepo
-import model.{ DbGame, Pov, Progress }
+import model.{ DbGame, Pov, PovRef, Progress, Event }
 
 final class Socket(
     gameRepo: GameRepo,
@@ -24,26 +24,38 @@ final class Socket(
 
   implicit val timeout = Timeout(1 second)
 
-  def send(progress: Progress): IO[Unit] = io {
-    (hubMemo get progress.game.id) ! Events(progress.events)
+  implicit def richJsObject(js: JsObject) = new {
+    def str(key: String): Option[String] = js.value get key map (_.as[String])
+    def obj(key: String): Option[JsObject] = js.value get key map (_.as[JsObject])
+  }
+
+  def send(progress: Progress): IO[Unit] =
+    send(progress.game.id, progress.events)
+
+  def send(gameId: String, events: List[Event]): IO[Unit] = io {
+    (hubMemo get gameId) ! Events(events)
   }
 
   def listener(
     hub: ActorRef,
     member: Member,
-    gameId: String): JsValue ⇒ Unit = member match {
+    povRef: PovRef): JsValue ⇒ Unit = member match {
     case Watcher(_, _, _) ⇒ (_: JsValue) ⇒ Unit
-    case Owner(_, _, _) ⇒ (e: JsValue) ⇒ (e \ "t").as[String] match {
+    case Owner(_, color, _) ⇒ (e: JsValue) ⇒ (e \ "t").as[String] match {
       case "talk" ⇒ (e \ "d").as[String] |> { txt ⇒
         hub ! Events(
-          messenger.playerMessage(gameId, member.color, txt).unsafePerformIO
+          messenger.playerMessage(povRef, txt).unsafePerformIO
         )
       }
-      case "move" ⇒ {
-        val orig = (e \ "d" \ "from").as[String]
-        val dest = (e \ "d" \ "to").as[String]
-        xhr.play(fullId, move._1, move._2, move._3).unsafePerformIO
-      }
+      case "move" ⇒ for {
+        d ← e.as[JsObject] obj "d"
+        orig ← d str "from"
+        dest ← d str "to"
+        promotion = d str "promotion"
+      } xhr.play(povRef, orig, dest, promotion).unsafePerformIO.fold(
+        error ⇒ println(error.list mkString "\n"),
+        events ⇒ send(povRef.gameId, events)
+      )
     }
   }
 
@@ -68,7 +80,7 @@ final class Socket(
       )).asPromise map {
           case Connected(member) ⇒ (
             Iteratee.foreach[JsValue](
-              listener(hub, member, gameId)
+              listener(hub, member, PovRef(gameId, member.color))
             ) mapDone { _ ⇒
                 hub ! Quit(uid)
               },

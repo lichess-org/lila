@@ -3,6 +3,7 @@ package controllers
 
 import DataForm._
 import chess.Color
+import model.{ Event, DbGame }
 
 import play.api._
 import mvc._
@@ -11,7 +12,7 @@ import Play.current
 import libs.json._
 import libs.iteratee._
 
-import scalaz.effects.IO
+import scalaz.effects._
 
 object AppXhrC extends LilaController {
 
@@ -28,23 +29,25 @@ object AppXhrC extends LilaController {
         username = get("username")).unsafePerformIO
     }
 
-  def outoftime(fullId: String) = Action { ValidIOk(xhr outoftime fullId) }
+  def outoftime(fullId: String) = Action {
+    IOk(perform(fullId, xhr.outoftime))
+  }
 
-  def abort(fullId: String) = validAndRedirect(fullId, xhr.abort)
+  def abort(fullId: String) = performAndRedirect(fullId, xhr.abort)
 
-  def resign(fullId: String) = validAndRedirect(fullId, xhr.resign)
+  def resign(fullId: String) = performAndRedirect(fullId, xhr.resign)
 
-  def forceResign(fullId: String) = validAndRedirect(fullId, xhr.forceResign)
+  def forceResign(fullId: String) = performAndRedirect(fullId, xhr.forceResign)
 
-  def drawClaim(fullId: String) = validAndRedirect(fullId, xhr.drawClaim)
+  def drawClaim(fullId: String) = performAndRedirect(fullId, xhr.drawClaim)
 
-  def drawAccept(fullId: String) = validAndRedirect(fullId, xhr.drawAccept)
+  def drawAccept(fullId: String) = performAndRedirect(fullId, xhr.drawAccept)
 
-  def drawOffer(fullId: String) = validAndRedirect(fullId, xhr.drawOffer)
+  def drawOffer(fullId: String) = performAndRedirect(fullId, xhr.drawOffer)
 
-  def drawCancel(fullId: String) = validAndRedirect(fullId, xhr.drawCancel)
+  def drawCancel(fullId: String) = performAndRedirect(fullId, xhr.drawCancel)
 
-  def drawDecline(fullId: String) = validAndRedirect(fullId, xhr.drawDecline)
+  def drawDecline(fullId: String) = performAndRedirect(fullId, xhr.drawDecline)
 
   def moretime(fullId: String) = Action {
     (xhr moretime fullId).unsafePerformIO.fold(
@@ -57,8 +60,19 @@ object AppXhrC extends LilaController {
 
   def nbGames = Action { Ok(env.gameRepo.countPlaying.unsafePerformIO) }
 
-  private def validAndRedirect(fullId: String, f: String ⇒ IO[Valid[Unit]]) =
-    Action {
-      ValidIORedir(f(fullId), fullId)
+  type IOValidEvents = IO[Valid[List[Event]]]
+
+  private def perform(fullId: String, op: String ⇒ IOValidEvents): IO[Unit] =
+    op(fullId) flatMap { res ⇒
+      res.fold(
+        failures ⇒ putStrLn(failures.list mkString "\n"),
+        events ⇒ env.gameSocket.send(DbGame takeGameId fullId, events)
+      )
     }
+
+  private def performAndRedirect(fullId: String, op: String ⇒ IOValidEvents) =
+    Action {
+    perform(fullId, op).unsafePerformIO
+    Redirect("/" + fullId)
+  }
 }

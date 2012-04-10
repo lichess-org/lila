@@ -15,13 +15,13 @@ final class AppXhr(
     aliveMemo: AliveMemo,
     moretimeSeconds: Int) {
 
-  type IOValid = IO[Valid[Unit]]
+  type IOValidEvents = IO[Valid[List[Event]]]
 
   def play(
-    fullId: String,
+    povRef: PovRef,
     origString: String,
     destString: String,
-    promString: Option[String] = None): List[Event] = fromPov(fullId) {
+    promString: Option[String] = None): IOValidEvents = fromPov(povRef) {
     case Pov(g1, color) ⇒ (for {
       g2 ← (g1.playable).fold(success(g1), failure("Game not playable" wrapNel))
       orig ← posAt(origString) toValid "Wrong orig " + origString
@@ -51,19 +51,19 @@ final class AppXhr(
     )
   }
 
-  def abort(fullId: String): IOValid = attempt(fullId, finisher.abort)
+  def abort(fullId: String): IOValidEvents = attempt(fullId, finisher.abort)
 
-  def resign(fullId: String): IOValid = attempt(fullId, finisher.resign)
+  def resign(fullId: String): IOValidEvents = attempt(fullId, finisher.resign)
 
-  def forceResign(fullId: String): IOValid = attempt(fullId, finisher.forceResign)
+  def forceResign(fullId: String): IOValidEvents = attempt(fullId, finisher.forceResign)
 
-  def outoftime(fullId: String): IOValid = attempt(fullId, finisher outoftime _.game)
+  def outoftime(fullId: String): IOValidEvents = attempt(fullId, finisher outoftime _.game)
 
-  def drawClaim(fullId: String): IOValid = attempt(fullId, finisher.drawClaim)
+  def drawClaim(fullId: String): IOValidEvents = attempt(fullId, finisher.drawClaim)
 
-  def drawAccept(fullId: String): IOValid = attempt(fullId, finisher.drawAccept)
+  def drawAccept(fullId: String): IOValidEvents = attempt(fullId, finisher.drawAccept)
 
-  def drawOffer(fullId: String): IO[Valid[List[Event]]] = attempt(fullId, {
+  def drawOffer(fullId: String): IOValidEvents = attempt(fullId, {
     case pov @ Pov(g1, color) ⇒
       if (g1 playerCanOfferDraw color) {
         if (g1.player(!color).isOfferingDraw) finisher drawAccept pov
@@ -131,6 +131,9 @@ final class AppXhr(
 
   private def fromPov[A](fullId: String)(op: Pov ⇒ IO[A]): IO[A] =
     gameRepo pov fullId flatMap op
+
+  private def fromPov[A](ref: PovRef)(op: Pov ⇒ IO[A]): IO[A] =
+    gameRepo pov ref flatMap op
 
   private def !!(msg: String) = failure(msg.wrapNel)
 }

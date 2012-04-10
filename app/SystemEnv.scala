@@ -25,6 +25,7 @@ final class SystemEnv(config: Config) {
 
   lazy val gameSocket = new game.Socket(
     gameRepo = gameRepo,
+    xhr = appXhr,
     hubMemo = gameHubMemo,
     messenger = messenger)
 

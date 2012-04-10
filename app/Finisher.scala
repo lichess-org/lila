@@ -16,32 +16,32 @@ final class Finisher(
     eloCalculator: EloCalculator,
     finisherLock: FinisherLock) {
 
-  type ValidIO = Valid[IO[Unit]]
+  type ValidIOEvents = Valid[IO[List[Event]]]
 
-  def abort(pov: Pov): ValidIO =
+  def abort(pov: Pov): ValidIOEvents =
     if (pov.game.abortable) finish(pov.game, Aborted)
     else !!("game is not abortable")
 
-  def resign(pov: Pov): ValidIO =
+  def resign(pov: Pov): ValidIOEvents =
     if (pov.game.resignable) finish(pov.game, Resign, Some(!pov.color))
     else !!("game is not resignable")
 
-  def forceResign(pov: Pov): ValidIO =
+  def forceResign(pov: Pov): ValidIOEvents =
     if (pov.game.playable && aliveMemo.inactive(pov.game.id, !pov.color))
       finish(pov.game, Timeout, Some(pov.color))
     else !!("game is not force-resignable")
 
-  def drawClaim(pov: Pov): ValidIO = pov match {
+  def drawClaim(pov: Pov): ValidIOEvents = pov match {
     case Pov(game, color) if game.playable && game.player.color == color && game.toChessHistory.threefoldRepetition ⇒ finish(game, Draw)
     case Pov(game, color) ⇒ !!("game is not threefold repetition")
   }
 
-  def drawAccept(pov: Pov): ValidIO =
+  def drawAccept(pov: Pov): ValidIOEvents =
     if (pov.opponent.isOfferingDraw)
       finish(pov.game, Draw, None, Some("Draw offer accepted"))
     else !!("opponent is not proposing a draw")
 
-  def outoftime(game: DbGame): ValidIO =
+  def outoftime(game: DbGame): ValidIOEvents =
     game.outoftimePlayer some { player ⇒
       finish(game, Outoftime,
         Some(!player.color) filter game.toChess.board.hasEnoughMaterialToMate)
@@ -49,14 +49,17 @@ final class Finisher(
 
   def outoftimes(games: List[DbGame]): List[IO[Unit]] =
     games map { g ⇒
-      outoftime(g).fold(msgs ⇒ putStrLn(g.id + " " + (msgs.list mkString "\n")), identity)
+      outoftime(g).fold(
+        msgs ⇒ putStrLn(g.id + " " + (msgs.list mkString "\n")),
+        _ map (_ ⇒ Unit) // events are lost
+      ): IO[Unit]
     }
 
   def moveFinish(game: DbGame, color: Color): IO[List[Event]] =
     (game.status match {
       case Mate                        ⇒ finish(game, Mate, Some(color))
       case status @ (Stalemate | Draw) ⇒ finish(game, status)
-      case _                           ⇒ success(io(Nil))
+      case _                           ⇒ success(io(Nil)): ValidIOEvents
     }) | io(Nil)
 
   private def finish(

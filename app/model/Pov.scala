@@ -11,6 +11,8 @@ case class Pov(game: DbGame, color: Color) {
 
   def isPlayerFullId(fullId: Option[String]): Boolean =
     fullId some { game.isPlayerFullId(player, _) } none false
+
+  def ref = PovRef(game.id, color)
 }
 
 object Pov {
@@ -20,3 +22,5 @@ object Pov {
   def apply(game: DbGame, playerId: String): Option[Pov] =
     game player playerId map { p ⇒ new Pov(game, p.color) }
 }
+
+case class PovRef(gameId: String, color: Color)

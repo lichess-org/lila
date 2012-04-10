@@ -8,12 +8,11 @@ import scalaz.effects._
 final class Messenger(roomRepo: RoomRepo) {
 
   def playerMessage(
-    gameId: String,
-    color: Color,
+    ref: PovRef,
     message: String): IO[List[Event]] =
     if (message.size <= 140 && message.nonEmpty)
-      roomRepo.addMessage(gameId, color.name, message) map { _ ⇒
-        List(MessageEvent(color.name, message))
+      roomRepo.addMessage(ref.gameId, ref.color.name, message) map { _ ⇒
+        List(MessageEvent(ref.color.name, message))
       }
     else io(Nil)
 
