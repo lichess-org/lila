@@ -8,23 +8,28 @@ import scalaz.effects.IO
 
 sealed trait Member {
   val channel: Channel
-  val color: Color
+  val ref: PovRef
   val username: Option[String]
   val owner: Boolean
+
+  def gameId = ref.gameId
+  def color = ref.color
+  def className = owner.fold("Owner", "Watcher")
+  override def toString = "%s(%s-%s,%s)".format(className, gameId, color, username)
 }
 object Member {
   def apply(
     channel: Channel,
-    color: Color,
+    ref: PovRef,
     owner: Boolean,
     username: Option[String]): Member =
-    if (owner) Owner(channel, color, username)
-    else Watcher(channel, color, username)
+    if (owner) Owner(channel, ref, username)
+    else Watcher(channel, ref, username)
 }
 
 case class Owner(
     channel: Channel,
-    color: Color,
+    ref: PovRef,
     username: Option[String]) extends Member {
 
   val owner = true
@@ -32,7 +37,7 @@ case class Owner(
 
 case class Watcher(
     channel: Channel,
-    color: Color,
+    ref: PovRef,
     username: Option[String]) extends Member {
 
   val owner = false
@@ -50,4 +55,4 @@ case class Events(events: List[Event])
 case object GetVersion
 case class Version(version: Int)
 case class WithMembers(op: Iterable[Member] => IO[Unit])
-case object Cleanup
+case object KeepAlive

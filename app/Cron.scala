@@ -6,6 +6,7 @@ import akka.actor._
 import akka.pattern.{ ask, pipe }
 import akka.util.duration._
 import akka.util.{ Duration, Timeout }
+import akka.dispatch.{ Future }
 import scalaz.effects._
 
 import socket._
@@ -15,13 +16,10 @@ import game._
 final class Cron(env: SystemEnv)(implicit app: Application) {
 
   implicit val timeout = Timeout(200 millis)
+  implicit val executor = Akka.system.dispatcher
 
-  spawnMessage("game_hub_cleanup", 2 second) {
-    env.gameHubMaster -> Cleanup
-  }
-
-  spawnMessage("game_nb_players", 2 seconds) {
-    env.gameHubMaster -> NbPlayers
+  spawnMessage("game_hub_keepalive", 2 second) {
+    env.gameHubMaster -> KeepAlive
   }
 
   spawnMessage("hook_tick", 1 second) {
@@ -29,11 +27,9 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
   }
 
   spawn("nb_players", 2 seconds) {
-    val future = for {
-      lobbyNb ← (env.lobbyHub ? GetNbMembers).mapTo[Int]
-      gameNb ← (env.gameHubMaster ? GetNbMembers).mapTo[Int]
-    } yield NbPlayers(lobbyNb + gameNb)
-    future pipeTo env.lobbyHub pipeTo env.gameHubMaster
+    Future.traverse(env.lobbyHub :: env.gameHubMaster :: Nil)(a ⇒
+      (a ? GetNbMembers).mapTo[Int]
+    ) map (xs ⇒ NbPlayers(xs.sum)) pipeTo env.lobbyHub pipeTo env.gameHubMaster
   }
 
   spawnIO("hook_cleanup_dead", 2 seconds) {

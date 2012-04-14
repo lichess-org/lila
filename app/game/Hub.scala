@@ -3,20 +3,22 @@ package game
 
 import socket.{ History, LilaEnumerator }
 import model._
+import socket._
 import chess.Color
 
 import akka.actor._
-
+import akka.event.Logging
 import play.api.libs.json._
 import play.api.libs.iteratee._
 
 final class Hub(gameId: String, history: History) extends Actor {
 
   private var members = Map.empty[String, Member]
+  private val log = Logging(context.system, this)
 
   def receive = {
 
-    case WithMembers(op) ⇒ op(members.values).unsafePerformIO
+    case WithMembers(op) ⇒ op(members.values.pp).unsafePerformIO
 
     case GetVersion      ⇒ sender ! Version(history.version)
 
@@ -26,7 +28,7 @@ final class Hub(gameId: String, history: History) extends Actor {
 
     case Join(uid, version, color, owner, username) ⇒ {
       val channel = new LilaEnumerator[JsValue](history since version)
-      val member = Member(channel, color, owner, username)
+      val member = Member(channel, PovRef(gameId, color), owner, username)
       members = members + (uid -> member)
       sender ! Connected(member)
     }
@@ -34,6 +36,13 @@ final class Hub(gameId: String, history: History) extends Actor {
     case Events(events) ⇒ events foreach notifyVersion
 
     case Quit(uid)      ⇒ { members = members - uid }
+
+    case Close ⇒ {
+      members.values foreach { _.channel.close() }
+      self ! PoisonPill
+    }
+
+    case msg ⇒ log.info("GameHub unknown message: " + msg)
   }
 
   private def notifyVersion(e: Event) {

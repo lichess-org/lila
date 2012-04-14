@@ -3,7 +3,7 @@ package game
 
 import memo._
 import model._
-import socket.History
+import socket._
 import chess.Color
 
 import play.api.libs.concurrent._
@@ -39,11 +39,13 @@ final class HubMemo(
     Unit
   }
 
-  private def compute(gameId: String): ActorRef =
+  private def compute(gameId: String): ActorRef = {
+    println("create actor game " + gameId)
     Akka.system.actorOf(Props(new Hub(gameId, makeHistory())))
+  }
 
   private def onRemove(gameId: String, actor: ActorRef) {
-    println("kill actor " + gameId)
-    actor ! PoisonPill
+    println("kill actor game " + gameId)
+    actor ! Close
   }
 }

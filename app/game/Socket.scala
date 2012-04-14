@@ -89,10 +89,13 @@ final class Socket(
               },
               member.channel)
         }
-      promise | Promise.pure {
-        Done[JsValue, Unit]((), Input.EOF) -> (Enumerator[JsValue](
-          JsObject(Seq("error" -> JsString("Invalid request")))
-        ) andThen Enumerator.enumInput(Input.EOF))
-      }
+      promise | connectionFail
     }
+
+  private def connectionFail = Promise.pure {
+    Done[JsValue, Unit]((), Input.EOF) -> (Enumerator[JsValue](
+      JsObject(Seq("error" -> JsString("Invalid request")))
+    ) andThen Enumerator.enumInput(Input.EOF))
+  }
+
 }

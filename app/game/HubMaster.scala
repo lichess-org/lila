@@ -7,39 +7,35 @@ import akka.actor._
 import akka.pattern.{ ask, pipe }
 import akka.util.duration._
 import akka.util.{ Duration, Timeout }
-import akka.dispatch.{ Await, Future }
+import akka.dispatch.{ Future }
+import akka.event.Logging
 import scalaz.effects._
 import socket._
 
 final class HubMaster(hubMemo: HubMemo) extends Actor {
 
-  implicit val timeout = Timeout(200 millis)
-  //implicit val context = Akka.system.dispatcher
+  private implicit val timeout = Timeout(200 millis)
+  private implicit val executor = Akka.system.dispatcher
+  private val log = Logging(context.system, this)
 
   def receive = {
 
-    case Cleanup ⇒ {
-      hubMemo.all foreach {
-        case (id, hub) ⇒ hub ! WithMembers(
-          _.nonEmpty.fold(hubMemo shake id, io())
-        )
-      }
+    case KeepAlive ⇒ hubMemo.all foreach {
+      case (id, hub) ⇒ hub ! WithMembers(
+        _.nonEmpty.fold(hubMemo shake id, io())
+      )
     }
 
-    case GetNbMembers ⇒ {
-      implicit val executor = Akka.system.dispatcher
-      val futures = hubActors map { actor ⇒ (actor ? GetNbMembers).mapTo[Int] }
-      val futureList = Future.sequence(futures)
-      val futureNb = futureList map (_.sum)
-      futureNb pipeTo sender
-    }
+    case GetNbMembers ⇒ Future.traverse(hubActors)(a ⇒
+      (a ? GetNbMembers).mapTo[Int]
+    ) map (_.sum) pipeTo sender
 
-    case NbPlayers(nb) ⇒ hubActors foreach { actor ⇒
-      actor ! NbPlayers(nb)
-    }
+    case msg @ NbPlayers(nb) ⇒ hubActors foreach (_ ! msg)
+
+    case msg                 ⇒ log.info("HubMaster unknown message: " + msg)
   }
 
-  private def hubs = hubMemo.all
+  def hubActors = hubMemo.all.values
 
-  private def hubActors = hubMemo.all.values
+  private def hubs = hubMemo.all
 }
