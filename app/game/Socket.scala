@@ -18,7 +18,7 @@ import model.{ DbGame, Pov, PovRef, Progress, Event }
 
 final class Socket(
     gameRepo: GameRepo,
-    xhr: AppXhr,
+    hand: Hand,
     hubMemo: HubMemo,
     messenger: Messenger) {
 
@@ -52,10 +52,13 @@ final class Socket(
         orig ← d str "from"
         dest ← d str "to"
         promotion = d str "promotion"
-      } xhr.play(povRef, orig, dest, promotion).unsafePerformIO.fold(
-        error ⇒ println(error.list mkString "\n"),
-        events ⇒ send(povRef.gameId, events)
-      )
+        op = for {
+          events ← hand.play(povRef, orig, dest, promotion)
+          _ ← events.fold(
+            errors ⇒ putStrLn(errors.list mkString "\n"),
+            events ⇒ send(povRef.gameId, events))
+        } yield ()
+      } op.unsafePerformIO
     }
   }
 

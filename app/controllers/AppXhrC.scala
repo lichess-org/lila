@@ -16,7 +16,7 @@ import scalaz.effects._
 
 object AppXhrC extends LilaController {
 
-  private val xhr = env.appXhr
+  private val hand = env.hand
 
   def socket(gameId: String, color: String) =
     WebSocket.async[JsValue] { implicit request ⇒
@@ -30,27 +30,27 @@ object AppXhrC extends LilaController {
     }
 
   def outoftime(fullId: String) = Action {
-    IOk(perform(fullId, xhr.outoftime))
+    IOk(perform(fullId, hand.outoftime))
   }
 
-  def abort(fullId: String) = performAndRedirect(fullId, xhr.abort)
+  def abort(fullId: String) = performAndRedirect(fullId, hand.abort)
 
-  def resign(fullId: String) = performAndRedirect(fullId, xhr.resign)
+  def resign(fullId: String) = performAndRedirect(fullId, hand.resign)
 
-  def forceResign(fullId: String) = performAndRedirect(fullId, xhr.forceResign)
+  def forceResign(fullId: String) = performAndRedirect(fullId, hand.forceResign)
 
-  def drawClaim(fullId: String) = performAndRedirect(fullId, xhr.drawClaim)
+  def drawClaim(fullId: String) = performAndRedirect(fullId, hand.drawClaim)
 
-  def drawAccept(fullId: String) = performAndRedirect(fullId, xhr.drawAccept)
+  def drawAccept(fullId: String) = performAndRedirect(fullId, hand.drawAccept)
 
-  def drawOffer(fullId: String) = performAndRedirect(fullId, xhr.drawOffer)
+  def drawOffer(fullId: String) = performAndRedirect(fullId, hand.drawOffer)
 
-  def drawCancel(fullId: String) = performAndRedirect(fullId, xhr.drawCancel)
+  def drawCancel(fullId: String) = performAndRedirect(fullId, hand.drawCancel)
 
-  def drawDecline(fullId: String) = performAndRedirect(fullId, xhr.drawDecline)
+  def drawDecline(fullId: String) = performAndRedirect(fullId, hand.drawDecline)
 
   def moretime(fullId: String) = Action {
-    (xhr moretime fullId).unsafePerformIO.fold(
+    (hand moretime fullId).unsafePerformIO.fold(
       e ⇒ BadRequest(e.list mkString "\n"),
       time ⇒ Ok(time)
     )

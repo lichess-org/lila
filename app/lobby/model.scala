@@ -13,7 +13,6 @@ case class Member(
 
 case class WithHooks(op: Iterable[String] => IO[Unit])
 case class WithUsernames(op: Iterable[String] => IO[Unit])
-case object NbPlayers
 case class AddHook(hook: model.Hook)
 case class RemoveHook(hook: model.Hook)
 case class BiteHook(hook: model.Hook, game: model.DbGame)

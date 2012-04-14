@@ -49,3 +49,5 @@ case class Connected(member: Member)
 case class Events(events: List[Event])
 case object GetVersion
 case class Version(version: Int)
+case class WithMembers(op: Iterable[Member] => IO[Unit])
+case object Cleanup

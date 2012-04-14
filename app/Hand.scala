@@ -7,7 +7,7 @@ import chess._
 import Pos.posAt
 import scalaz.effects._
 
-final class AppXhr(
+final class Hand(
     gameRepo: GameRepo,
     messenger: Messenger,
     ai: () ⇒ Ai,

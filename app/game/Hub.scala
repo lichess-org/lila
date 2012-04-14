@@ -16,7 +16,13 @@ final class Hub(gameId: String, history: History) extends Actor {
 
   def receive = {
 
-    case GetVersion ⇒ sender ! Version(history.version)
+    case WithMembers(op) ⇒ op(members.values).unsafePerformIO
+
+    case GetVersion      ⇒ sender ! Version(history.version)
+
+    case GetNbMembers    ⇒ sender ! members.size
+
+    case NbPlayers(nb)   ⇒ notifyAll("nbp", JsNumber(nb))
 
     case Join(uid, version, color, owner, username) ⇒ {
       val channel = new LilaEnumerator[JsValue](history since version)
@@ -25,17 +31,22 @@ final class Hub(gameId: String, history: History) extends Actor {
       sender ! Connected(member)
     }
 
-    case Events(events) ⇒ events.pp foreach notifyEvent
+    case Events(events) ⇒ events foreach notifyVersion
 
     case Quit(uid)      ⇒ { members = members - uid }
   }
 
-  private def notifyEvent(e: Event) {
+  private def notifyVersion(e: Event) {
     val vmsg = history += makeMessage(e.typ, e.data)
     val m1 = if (e.owner) members.values filter (_.owner) else members.values
     val m2 = e.only.fold(color ⇒ m1 filter (_.color == color), m1)
 
     m2 foreach (_.channel push vmsg)
+  }
+
+  private def notifyAll(t: String, data: JsValue) {
+    val msg = makeMessage(t, data)
+    members.values.foreach(_.channel push msg)
   }
 
   private def makeMessage(t: String, data: JsValue) =

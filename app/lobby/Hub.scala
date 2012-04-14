@@ -2,7 +2,7 @@ package lila
 package lobby
 
 import db.MessageRepo
-import socket.{ History, LilaEnumerator }
+import socket._
 
 import akka.actor._
 
@@ -15,7 +15,7 @@ final class Hub(messageRepo: MessageRepo, history: History) extends Actor {
 
   def receive = {
 
-    case WithHooks(op) ⇒ op(hookOwnerIds).unsafePerformIO
+    case WithHooks(op)     ⇒ op(hookOwnerIds).unsafePerformIO
 
     case WithUsernames(op) ⇒ op(usernames).unsafePerformIO
 
@@ -56,9 +56,11 @@ final class Hub(messageRepo: MessageRepo, history: History) extends Actor {
         members.values filter (_ ownsHook hook) foreach fn
       }
 
-    case NbPlayers ⇒ notifyAll("nbp", JsNumber(members.size))
+    case GetNbMembers  ⇒ sender ! members.size
 
-    case Quit(uid) ⇒ { members = members - uid }
+    case NbPlayers(nb) ⇒ notifyAll("nbp", JsNumber(nb))
+
+    case Quit(uid)     ⇒ { members = members - uid }
   }
 
   private def notifyMember(t: String, data: JsValue)(member: Member) {
