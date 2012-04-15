@@ -14,22 +14,16 @@ import play.api.Play.current
 import scalaz.effects._
 
 import chess.Color
-import db.GameRepo
-import socket._
 import model.{ DbGame, Pov, PovRef, Progress, Event }
+import RichJs._
 
 final class Socket(
-    gameRepo: GameRepo,
+    getGame: String ⇒ IO[Option[DbGame]],
     hand: Hand,
     hubMemo: HubMemo,
     messenger: Messenger) {
 
   implicit val timeout = Timeout(1 second)
-
-  implicit def richJsObject(js: JsObject) = new {
-    def str(key: String): Option[String] = js.value get key map (_.as[String])
-    def obj(key: String): Option[JsObject] = js.value get key map (_.as[JsObject])
-  }
 
   def send(progress: Progress): IO[Unit] =
     send(progress.game.id, progress.events)
@@ -43,13 +37,11 @@ final class Socket(
     member: Member,
     povRef: PovRef): JsValue ⇒ Unit = member match {
     case Watcher(_, _) ⇒ (_: JsValue) ⇒ Unit
-    case Owner(_, color) ⇒ (e: JsValue) ⇒ (e \ "t").as[String] match {
-      case "talk" ⇒ (e \ "d").as[String] |> { txt ⇒
-        hub ! Events(
-          messenger.playerMessage(povRef, txt).unsafePerformIO
-        )
-      }
-      case "move" ⇒ for {
+    case Owner(_, color) ⇒ (e: JsValue) ⇒ (e str "t" match {
+      case Some("talk") ⇒ (e str "t" map { txt ⇒
+        messenger.playerMessage(povRef, txt) map { hub ! Events(_) }
+      }) | io()
+      case Some("move") ⇒ (for {
         d ← e.as[JsObject] obj "d"
         orig ← d str "from"
         dest ← d str "to"
@@ -58,16 +50,17 @@ final class Socket(
           events ← hand.play(povRef, orig, dest, promotion)
           _ ← events.fold(putFailures, events ⇒ send(povRef.gameId, events))
         } yield ()
-      } op.unsafePerformIO
-      case "moretime" ⇒ (for {
+      } yield op) | io()
+      case Some("moretime") ⇒ for {
         res ← hand moretime povRef
         op ← res.fold(putFailures, events ⇒ io(hub ! Events(events)))
-      } yield op).unsafePerformIO
-      case "outoftime" ⇒ (for {
+      } yield op
+      case Some("outoftime") ⇒ for {
         res ← hand outoftime povRef
         op ← res.fold(putFailures, events ⇒ io(hub ! Events(events)))
-      } yield op).unsafePerformIO
-    }
+      } yield op
+      case _ ⇒ io()
+    }).unsafePerformIO
   }
 
   def join(
@@ -76,7 +69,7 @@ final class Socket(
     uid: String,
     version: Int,
     playerId: Option[String]): IO[SocketPromise] =
-    gameRepo gameOption gameId map { gameOption ⇒
+    getGame(gameId) map { gameOption ⇒
       val promise: Option[SocketPromise] = for {
         game ← gameOption
         color ← Color(colorName)

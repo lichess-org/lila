@@ -28,7 +28,7 @@ final class SystemEnv(config: Config) {
     makeHistory = gameHistory)
 
   lazy val gameSocket = new game.Socket(
-    gameRepo = gameRepo,
+    getGame = gameRepo.gameOption,
     hand = hand,
     hubMemo = gameHubMemo,
     messenger = messenger)
