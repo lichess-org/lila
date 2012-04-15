@@ -14,11 +14,17 @@ import libs.iteratee._
 
 import scalaz.effects._
 
-object AppXhrC extends LilaController {
+object AppC extends LilaController {
 
   private val hand = env.hand
 
-  def socket(gameId: String, color: String) =
+  def socket = WebSocket.async[JsValue] { implicit request ⇒
+    env.siteSocket.join(
+      uid = get("uid") err "Socket UID missing",
+      username = get("username"))
+  }
+
+  def gameSocket(gameId: String, color: String) =
     WebSocket.async[JsValue] { implicit request ⇒
       env.gameSocket.join(
         gameId = gameId ~ { i ⇒ println("Attempt to connect to " + i) },
@@ -28,10 +34,6 @@ object AppXhrC extends LilaController {
         playerId = get("playerId"),
         username = get("username")).unsafePerformIO
     }
-
-  def outoftime(fullId: String) = Action {
-    IOk(perform(fullId, hand.outoftime))
-  }
 
   def abort(fullId: String) = performAndRedirect(fullId, hand.abort)
 
@@ -47,16 +49,12 @@ object AppXhrC extends LilaController {
 
   def drawDecline(fullId: String) = performAndRedirect(fullId, hand.drawDecline)
 
-  def nbPlayers = Action { Ok(0) }
-
-  def nbGames = Action { Ok(env.gameRepo.countPlaying.unsafePerformIO) }
-
   type IOValidEvents = IO[Valid[List[Event]]]
 
   private def perform(fullId: String, op: String ⇒ IOValidEvents): IO[Unit] =
     op(fullId) flatMap { res ⇒
       res.fold(
-        failures ⇒ putStrLn(failures.list mkString "\n"),
+        putFailures,
         events ⇒ env.gameSocket.send(DbGame takeGameId fullId, events)
       )
     }

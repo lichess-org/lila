@@ -53,7 +53,7 @@ final class Hand(
 
   def resign(fullId: String): IOValidEvents = attempt(fullId, finisher.resign)
 
-  def outoftime(fullId: String): IOValidEvents = attempt(fullId, finisher outoftime _.game)
+  def outoftime(ref: PovRef): IOValidEvents = attemptRef(ref, finisher outoftime _.game)
 
   def drawClaim(fullId: String): IOValidEvents = attempt(fullId, finisher.drawClaim)
 
@@ -108,15 +108,14 @@ final class Hand(
     pov.game.clock filter (_ ⇒ pov.game.playable) map { clock ⇒
       val color = !pov.color
       val newClock = clock.giveTime(color, moretimeSeconds)
-      val g2 = pov.game withClock newClock
+      val progress = pov.game withClock newClock
       for {
-        progress ← messenger.systemMessage(
-          g2, "%s + %d seconds".format(color, moretimeSeconds)
-        ) map { es ⇒
-            Progress(pov.game, ClockEvent(newClock).pp :: es)
-          }
-        _ ← gameRepo save progress
-      } yield progress.events
+        events ← messenger.systemMessage(
+          progress.game, "%s + %d seconds".format(color, moretimeSeconds)
+        )
+        progress2 = progress ++ (ClockEvent(newClock) :: events)
+        _ ← gameRepo save progress2
+      } yield progress2.events
     } toValid "cannot add moretime"
   )
 

@@ -44,7 +44,7 @@ final class Finisher(
   def outoftimes(games: List[DbGame]): List[IO[Unit]] =
     games map { g ⇒
       outoftime(g).fold(
-        msgs ⇒ putStrLn(g.id + " " + (msgs.list mkString "\n")),
+        msgs ⇒ putStrLn(g.id + " " + msgs.shows),
         _ map (_ ⇒ Unit) // events are lost
       ): IO[Unit]
     }

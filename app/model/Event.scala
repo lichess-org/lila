@@ -6,7 +6,7 @@ import play.api.libs.json._
 import chess._
 import Pos.{ piotr, allPiotrs }
 
-trait Event {
+sealed trait Event {
   def typ: String
   def data: JsValue
   def only: Option[Color] = None
@@ -141,4 +141,24 @@ object ClockEvent {
   def apply(clock: Clock): ClockEvent = ClockEvent(
     clock remainingTime White,
     clock remainingTime Black)
+}
+
+case class StateEvent(color: Color, turns: Int) extends Event {
+  def typ = "state"
+  def data = JsObject(Seq(
+    "color" -> JsString(color.name),
+    "turns" -> JsNumber(turns)
+  ))
+}
+
+case class CrowdEvent(
+  white: Boolean,
+  black: Boolean,
+  watchers: Int) extends Event {
+  def typ = "crowd"
+  def data = JsObject(Seq(
+    "white" -> JsBoolean(white),
+    "black" -> JsBoolean(black),
+    "watchers" -> JsNumber(watchers)
+  ))
 }

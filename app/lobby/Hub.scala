@@ -5,20 +5,18 @@ import db.MessageRepo
 import socket._
 
 import akka.actor._
-import akka.event.Logging
 import play.api.libs.json._
 import play.api.libs.iteratee._
 
 final class Hub(messageRepo: MessageRepo, history: History) extends Actor {
 
   private var members = Map.empty[String, Member]
-  private val log = Logging(context.system, this)
 
   def receive = {
 
-    case WithHooks(op)     ⇒ op(hookOwnerIds).unsafePerformIO
+    case WithHooks(op) ⇒ op(hookOwnerIds).unsafePerformIO
 
-    case WithUsernames(op) ⇒ op(usernames).unsafePerformIO
+    case GetUsernames  ⇒ sender ! usernames
 
     case Join(uid, version, username, hookOwnerId) ⇒ {
       val channel = new LilaEnumerator[JsValue](history since version)
@@ -62,8 +60,6 @@ final class Hub(messageRepo: MessageRepo, history: History) extends Actor {
     case NbPlayers(nb) ⇒ notifyAll("nbp", JsNumber(nb))
 
     case Quit(uid)     ⇒ { members = members - uid }
-
-    case msg                 ⇒ log.info("LobbyHub unknown message: " + msg)
   }
 
   private def notifyMember(t: String, data: JsValue)(member: Member) {

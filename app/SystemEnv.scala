@@ -16,7 +16,12 @@ import command._
 
 final class SystemEnv(config: Config) {
 
-  lazy val gameHistory = () ⇒ new socket.History(
+  lazy val siteHub = Akka.system.actorOf(Props(new site.Hub), name = "site_hub")
+
+  lazy val siteSocket = new site.Socket(
+    hub = siteHub)
+
+  lazy val gameHistory = () ⇒ new game.History(
     timeout = getMilliseconds("game.message.lifetime"))
 
   lazy val gameHubMemo = new game.HubMemo(
@@ -32,7 +37,7 @@ final class SystemEnv(config: Config) {
     hubMemo = gameHubMemo,
     messenger = messenger)
 
-  lazy val lobbyHistory = new socket.History(
+  lazy val lobbyHistory = new lobby.History(
     timeout = getMilliseconds("lobby.message.lifetime"))
 
   lazy val lobbyHub = Akka.system.actorOf(Props(new lobby.Hub(

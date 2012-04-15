@@ -19,12 +19,12 @@ trait LilaController extends Controller with ContentTypes with RequestGetter {
   def JsonIOk(map: IO[Map[String, Any]]) = JsonOk(map.unsafePerformIO)
 
   def ValidOk(valid: Valid[Unit]) = valid.fold(
-    e ⇒ BadRequest(e.list mkString "\n"),
+    e ⇒ BadRequest(e.shows),
     _ ⇒ Ok("ok")
   )
 
   def ValidIOk(valid: IO[Valid[Unit]]) = valid.unsafePerformIO.fold(
-    e ⇒ BadRequest(e.list mkString "\n"),
+    e ⇒ BadRequest(e.shows),
     _ ⇒ Ok("ok")
   )
 

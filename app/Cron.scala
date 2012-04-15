@@ -12,6 +12,7 @@ import scalaz.effects._
 import socket._
 import lobby._
 import game._
+import RichDuration._
 
 final class Cron(env: SystemEnv)(implicit app: Application) {
 
@@ -22,10 +23,12 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
     env.lobbyHub -> WithHooks(env.hookMemo.putAll)
   }
 
-  spawn("nb_players", 5 seconds) {
-    Future.traverse(env.lobbyHub :: env.gameHubMaster :: Nil)(a ⇒
-      (a ? GetNbMembers).mapTo[Int]
-    ) map (xs ⇒ NbPlayers(xs.sum)) pipeTo env.lobbyHub pipeTo env.gameHubMaster
+  spawn("nb_players", 1 seconds) {
+    pipeToHubs {
+      Future.traverse(hubs)(a ⇒
+        (a ? GetNbMembers).mapTo[Int]
+      ) map (xs ⇒ NbPlayers(xs.sum))
+    }
   }
 
   spawnIO("hook_cleanup_dead", 2 seconds) {
@@ -36,8 +39,14 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
     env.hookRepo.cleanupOld
   }
 
-  spawnMessage("online_username", 3 seconds) {
-    env.lobbyHub -> WithUsernames(env.userRepo.updateOnlineUsernames)
+  spawn("online_username", 3 seconds) {
+    Future.traverse(hubs) { a ⇒
+      (a ? GetUsernames).mapTo[Iterable[String]]
+    } map (_.flatten) onComplete {
+      case Right(usernames) ⇒
+        (env.userRepo updateOnlineUsernames usernames).unsafePerformIO
+      case Left(e) ⇒ println(e)
+    }
   }
 
   spawnIO("game_cleanup_unplayed", 2 hours) {
@@ -55,14 +64,20 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
   }
 
   def spawn(name: String, freq: Duration)(op: ⇒ Unit) = {
-    Akka.system.scheduler.schedule(freq, freq)(op)
+    Akka.system.scheduler.schedule(freq, freq.randomize())(op)
   }
 
   def spawnIO(name: String, freq: Duration)(op: IO[Unit]) = {
-    Akka.system.scheduler.schedule(freq, freq) { op.unsafePerformIO }
+    Akka.system.scheduler.schedule(freq, freq.randomize()) { op.unsafePerformIO }
   }
 
   def spawnMessage(name: String, freq: Duration)(to: (ActorRef, Any)) = {
-    Akka.system.scheduler.schedule(freq, freq, to._1, to._2)
+    Akka.system.scheduler.schedule(freq, freq.randomize(), to._1, to._2)
+  }
+
+  def hubs = env.siteHub :: env.lobbyHub :: env.gameHubMaster :: Nil
+
+  def pipeToHubs(future: Future[_]) {
+    hubs foreach (future pipeTo _)
   }
 }

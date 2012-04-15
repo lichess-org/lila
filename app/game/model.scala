@@ -17,6 +17,7 @@ sealed trait Member {
   def gameId = ref.gameId
   def color = ref.color
   def className = owner.fold("Owner", "Watcher")
+  def show = username | "Anonymous"
   override def toString = "%s(%s-%s,%s)".format(className, gameId, color, username)
 }
 object Member {

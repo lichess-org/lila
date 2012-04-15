@@ -56,16 +56,16 @@ final class Socket(
         promotion = d str "promotion"
         op = for {
           events ← hand.play(povRef, orig, dest, promotion)
-          _ ← events.fold(
-            errors ⇒ putStrLn(errors.list mkString "\n"),
-            events ⇒ send(povRef.gameId, events))
+          _ ← events.fold(putFailures, events ⇒ send(povRef.gameId, events))
         } yield ()
       } op.unsafePerformIO
       case "moretime" ⇒ (for {
         res ← hand moretime povRef
-        op ← io {
-          res.fold(println, events ⇒ hub ! Events(events))
-        }
+        op ← res.fold(putFailures, events ⇒ io(hub ! Events(events)))
+      } yield op).unsafePerformIO
+      case "outoftime" ⇒ (for {
+        res ← hand outoftime povRef
+        op ← res.fold(putFailures, events ⇒ io(hub ! Events(events)))
       } yield op).unsafePerformIO
     }
   }

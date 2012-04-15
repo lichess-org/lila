@@ -11,7 +11,7 @@ trait FenBased {
     newSituation ← Forsyth << fen toValid "Cannot parse engine FEN: " + fen
     reverseEngineer = new ReverseEngineering(game, newSituation.board)
     poss = reverseEngineer.move.mapFail(msgs ⇒
-      ("ReverseEngineering failure: " + (msgs.list mkString "\n") + "\n--------\n" + game.board + "\n" + newSituation.board + "\n" + fen).wrapNel
+      ("ReverseEngineering failure: " + msgs.shows + "\n--------\n" + game.board + "\n" + newSituation.board + "\n" + fen).wrapNel
     ).err
     (orig, dest) = poss
     newGameAndMove ← game(orig, dest)

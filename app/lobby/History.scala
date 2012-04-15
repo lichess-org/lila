@@ -1,5 +1,5 @@
 package lila
-package socket
+package lobby
 
 import scala.math.max
 import play.api.libs.json._

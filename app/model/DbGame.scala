@@ -101,6 +101,7 @@ case class DbGame(
     val events =
       Event.possibleMoves(game.situation, White) ::
         Event.possibleMoves(game.situation, Black) ::
+        StateEvent(game.situation.color, game.turns) ::
         (Event fromMove move) :::
         (Event fromSituation game.situation)
 
@@ -190,7 +191,7 @@ case class DbGame(
     if !c.isRunning || (c outoftime player.color)
   } yield player
 
-  def withClock(c: Clock) = copy(clock = Some(c))
+  def withClock(c: Clock) = Progress(this, copy(clock = Some(c)))
 
   def creator = player(creatorColor)
 

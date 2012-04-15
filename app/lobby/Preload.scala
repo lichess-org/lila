@@ -4,7 +4,6 @@ package lobby
 import model._
 import memo._
 import db._
-import socket.History
 import scalaz.effects._
 
 final class Preload(

@@ -1,15 +1,13 @@
 # App Public API
-GET   /socket/:gameId/:color            lila.controllers.AppXhrC.socket(gameId: String, color: String)
-GET   /how-many-players-now             lila.controllers.AppXhrC.nbPlayers
-GET   /how-many-games-now               lila.controllers.AppXhrC.nbGames
-GET   /abort/:fullId                    lila.controllers.AppXhrC.abort(fullId: String)
-GET   /resign/:fullId                   lila.controllers.AppXhrC.resign(fullId: String)
-GET   /draw-claim/:fullId               lila.controllers.AppXhrC.drawClaim(fullId: String)
-POST  /outoftime/:fullId                lila.controllers.AppXhrC.outoftime(fullId: String)
-GET   /draw-accept/:fullId              lila.controllers.AppXhrC.drawAccept(fullId: String)
-GET   /draw-offer/:fullId               lila.controllers.AppXhrC.drawOffer(fullId: String)
-GET   /draw-cancel/:fullId              lila.controllers.AppXhrC.drawCancel(fullId: String)
-GET   /draw-decline/:fullId             lila.controllers.AppXhrC.drawDecline(fullId: String)
+GET   /socket                           lila.controllers.AppC.socket
+GET   /socket/:gameId/:color            lila.controllers.AppC.gameSocket(gameId: String, color: String)
+GET   /abort/:fullId                    lila.controllers.AppC.abort(fullId: String)
+GET   /resign/:fullId                   lila.controllers.AppC.resign(fullId: String)
+GET   /draw-claim/:fullId               lila.controllers.AppC.drawClaim(fullId: String)
+GET   /draw-accept/:fullId              lila.controllers.AppC.drawAccept(fullId: String)
+GET   /draw-offer/:fullId               lila.controllers.AppC.drawOffer(fullId: String)
+GET   /draw-cancel/:fullId              lila.controllers.AppC.drawCancel(fullId: String)
+GET   /draw-decline/:fullId             lila.controllers.AppC.drawDecline(fullId: String)
 
 GET   /ai                               lila.controllers.AiC.run
 
@@ -21,8 +19,6 @@ POST  /api/reload-table/:gameId    lila.controllers.AppApiC.reloadTable(gameId: 
 POST  /api/rematch-accept/:gameId/:color/:newGameId  lila.controllers.AppApiC.rematchAccept(gameId: String, color: String, newGameId: String)
 GET   /api/activity/:gameId/:color lila.controllers.AppApiC.activity(gameId: String, color: String)
 GET   /api/game-version/:gameId     lila.controllers.AppApiC.gameVersion(gameId: String)
-GET   /api/nb-players               lila.controllers.AppXhrC.nbPlayers
-POST  /api/outoftime/:fullId        lila.controllers.AppXhrC.outoftime(fullId: String)
 
 # Lobby Public API
 GET   /lobby/cancel/:ownerId        lila.controllers.LobbyC.cancel(ownerId: String)
