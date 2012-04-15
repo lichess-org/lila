@@ -17,24 +17,16 @@ final class Hub(gameId: String, history: History) extends Actor {
 
   def receive = {
 
-    case WithMembers(op)    ⇒ op(members.values).unsafePerformIO
-
-    case GetUsernames       ⇒ sender ! usernames
-
     case IfEmpty(op)        ⇒ members.isEmpty.fold(op, io()).unsafePerformIO
 
     case GetVersion         ⇒ sender ! Version(history.version)
 
-    case GetNbMembers       ⇒ sender ! members.size
-
-    case NbPlayers(nb)      ⇒ notifyAll("nbp", JsNumber(nb))
-
     case IsConnected(color) ⇒ sender ! member(color).isDefined
 
-    case Join(uid, version, color, owner, username) ⇒ {
+    case Join(uid, version, color, owner) ⇒ {
       val msgs = history since version filter (_.visible(color, owner)) map (_.js)
       val channel = new LilaEnumerator[JsValue](msgs)
-      val member = Member(channel, PovRef(gameId, color), owner, username)
+      val member = Member(channel, PovRef(gameId, color), owner)
       members = members + (uid -> member)
       sender ! Connected(member)
       notify(crowdEvent)
@@ -83,11 +75,6 @@ final class Hub(gameId: String, history: History) extends Actor {
 
   private def member(color: Color): Option[Member] =
     members.values find { m ⇒ m.owner && m.color == color }
-
-  private def usernames: Iterable[String] = members.values collect {
-    case Owner(_, _, Some(username)) ⇒ username
-    case Watcher(_, _, Some(username)) ⇒ username
-  }
 
   private def makeMessage(t: String, data: JsValue) =
     JsObject(Seq("t" -> JsString(t), "d" -> data))

@@ -5,7 +5,6 @@ import scalaz.effects.IO
 
 case class Member(
     channel: Channel,
-    username: Option[String],
     hookOwnerId: Option[String]) {
 
   def ownsHook(hook: model.Hook) = Some(hook.ownerId) == hookOwnerId
@@ -19,7 +18,6 @@ case class Entry(entry: model.Entry)
 case class Join(
     uid: String,
     version: Int,
-    username: Option[String],
     hookOwnerId: Option[String])
 case class Quit(uid: String)
 case class Talk(txt: String, u: String)

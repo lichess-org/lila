@@ -31,8 +31,7 @@ object AppC extends LilaController {
         colorName = color,
         uid = get("uid") err "Socket UID missing",
         version = getInt("version") err "Socket version missing",
-        playerId = get("playerId"),
-        username = get("username")).unsafePerformIO
+        playerId = get("playerId")).unsafePerformIO
     }
 
   def abort(fullId: String) = performAndRedirect(fullId, hand.abort)

@@ -42,8 +42,8 @@ final class Socket(
     hub: ActorRef,
     member: Member,
     povRef: PovRef): JsValue ⇒ Unit = member match {
-    case Watcher(_, _, _) ⇒ (_: JsValue) ⇒ Unit
-    case Owner(_, color, _) ⇒ (e: JsValue) ⇒ (e \ "t").as[String] match {
+    case Watcher(_, _) ⇒ (_: JsValue) ⇒ Unit
+    case Owner(_, color) ⇒ (e: JsValue) ⇒ (e \ "t").as[String] match {
       case "talk" ⇒ (e \ "d").as[String] |> { txt ⇒
         hub ! Events(
           messenger.playerMessage(povRef, txt).unsafePerformIO
@@ -75,8 +75,7 @@ final class Socket(
     colorName: String,
     uid: String,
     version: Int,
-    playerId: Option[String],
-    username: Option[String]): IO[SocketPromise] =
+    playerId: Option[String]): IO[SocketPromise] =
     gameRepo gameOption gameId map { gameOption ⇒
       val promise: Option[SocketPromise] = for {
         game ← gameOption
@@ -86,8 +85,7 @@ final class Socket(
         uid = uid,
         version = version,
         color = color,
-        owner = (playerId flatMap game.player).isDefined,
-        username = username
+        owner = (playerId flatMap game.player).isDefined
       )).asPromise map {
           case Connected(member) ⇒ (
             Iteratee.foreach[JsValue](

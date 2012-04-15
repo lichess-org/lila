@@ -13,3 +13,5 @@ case class Join(
     username: Option[String])
 case class Quit(uid: String)
 case class Connected(channel: Channel)
+case object GetUsernames
+case object NbMembers

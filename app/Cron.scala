@@ -9,7 +9,7 @@ import akka.util.{ Duration, Timeout }
 import akka.dispatch.{ Future }
 import scalaz.effects._
 
-import socket._
+import site._
 import lobby._
 import game._
 import RichDuration._
@@ -23,12 +23,8 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
     env.lobbyHub -> WithHooks(env.hookMemo.putAll)
   }
 
-  spawn("nb_players", 1 seconds) {
-    pipeToHubs {
-      Future.traverse(hubs)(a ⇒
-        (a ? GetNbMembers).mapTo[Int]
-      ) map (xs ⇒ NbPlayers(xs.sum))
-    }
+  spawnMessage("nb_members", 1 seconds) {
+    env.siteHub -> NbMembers
   }
 
   spawnIO("hook_cleanup_dead", 2 seconds) {
@@ -40,12 +36,8 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
   }
 
   spawn("online_username", 3 seconds) {
-    Future.traverse(hubs) { a ⇒
-      (a ? GetUsernames).mapTo[Iterable[String]]
-    } map (_.flatten) onComplete {
-      case Right(usernames) ⇒
-        (env.userRepo updateOnlineUsernames usernames).unsafePerformIO
-      case Left(e) ⇒ println(e)
+    (env.siteHub ? GetUsernames).mapTo[Iterable[String]] onSuccess {
+      case us ⇒ (env.userRepo updateOnlineUsernames us).unsafePerformIO
     }
   }
 
@@ -73,11 +65,5 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
 
   def spawnMessage(name: String, freq: Duration)(to: (ActorRef, Any)) = {
     Akka.system.scheduler.schedule(freq, freq.randomize(), to._1, to._2)
-  }
-
-  def hubs = env.siteHub :: env.lobbyHub :: env.gameHubMaster :: Nil
-
-  def pipeToHubs(future: Future[_]) {
-    hubs foreach (future pipeTo _)
   }
 }

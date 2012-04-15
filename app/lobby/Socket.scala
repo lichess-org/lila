@@ -20,9 +20,8 @@ final class Socket(hub: ActorRef) {
   def join(
     uid: String,
     version: Int,
-    username: Option[String],
     hook: Option[String]): SocketPromise =
-    (hub ? Join(uid, version, username, hook)).asPromise map {
+    (hub ? Join(uid, version, hook)).asPromise map {
       case Connected(channel) ⇒
         val iteratee = Iteratee.foreach[JsValue] { event ⇒
           (event \ "t").as[String] match {

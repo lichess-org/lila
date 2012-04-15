@@ -16,11 +16,9 @@ final class Hub(messageRepo: MessageRepo, history: History) extends Actor {
 
     case WithHooks(op) ⇒ op(hookOwnerIds).unsafePerformIO
 
-    case GetUsernames  ⇒ sender ! usernames
-
-    case Join(uid, version, username, hookOwnerId) ⇒ {
+    case Join(uid, version, hookOwnerId) ⇒ {
       val channel = new LilaEnumerator[JsValue](history since version)
-      members = members + (uid -> Member(channel, username, hookOwnerId))
+      members = members + (uid -> Member(channel, hookOwnerId))
       sender ! Connected(channel)
     }
 
@@ -55,10 +53,6 @@ final class Hub(messageRepo: MessageRepo, history: History) extends Actor {
         members.values filter (_ ownsHook hook) foreach fn
       }
 
-    case GetNbMembers  ⇒ sender ! members.size
-
-    case NbPlayers(nb) ⇒ notifyAll("nbp", JsNumber(nb))
-
     case Quit(uid)     ⇒ { members = members - uid }
   }
 
@@ -81,11 +75,7 @@ final class Hub(messageRepo: MessageRepo, history: History) extends Actor {
   }
 
   private def hookOwnerIds: Iterable[String] = members.values collect {
-    case Member(_, _, Some(hook)) ⇒ hook
-  }
-
-  private def usernames: Iterable[String] = members.values collect {
-    case Member(_, Some(username), _) ⇒ username
+    case Member(_, Some(hook)) ⇒ hook
   }
 
   private def makeMessage(t: String, data: JsValue) =
