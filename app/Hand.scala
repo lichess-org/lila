@@ -12,7 +12,6 @@ final class Hand(
     messenger: Messenger,
     ai: () ⇒ Ai,
     finisher: Finisher,
-    aliveMemo: AliveMemo,
     moretimeSeconds: Int) {
 
   type IOValidEvents = IO[Valid[List[Event]]]
@@ -32,7 +31,6 @@ final class Hand(
     } yield g2.update(newChessGame, move)).fold(
       e ⇒ io(failure(e)),
       progress ⇒ for {
-        _ ← aliveMemo.put(progress.game.id, color)
         events ← if (progress.game.finished) for {
           _ ← gameRepo save progress
           finishEvents ← finisher.moveFinish(progress.game, color)
@@ -54,8 +52,6 @@ final class Hand(
   def abort(fullId: String): IOValidEvents = attempt(fullId, finisher.abort)
 
   def resign(fullId: String): IOValidEvents = attempt(fullId, finisher.resign)
-
-  def forceResign(fullId: String): IOValidEvents = attempt(fullId, finisher.forceResign)
 
   def outoftime(fullId: String): IOValidEvents = attempt(fullId, finisher outoftime _.game)
 

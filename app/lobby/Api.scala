@@ -14,8 +14,7 @@ final class Api(
     gameSocket: game.Socket,
     messenger: Messenger,
     starter: Starter,
-    lobbySocket: lobby.Socket,
-    aliveMemo: AliveMemo) {
+    lobbySocket: lobby.Socket) {
 
   def cancel(ownerId: String): IO[Unit] = for {
     hook ← hookRepo ownedHook ownerId
@@ -36,8 +35,6 @@ final class Api(
     p2 ← messenger.systemMessages(game, messageString) map p1.++
     _ ← gameRepo save p2
     _ ← gameSocket send p2
-    _ ← aliveMemo.put(gameId, color)
-    _ ← aliveMemo.put(gameId, !color)
     _ ← hook.fold(h ⇒ fisherman.bite(h, p2.game), io())
     _ ← myHookOwnerId.fold(
       ownerId ⇒ hookRepo ownedHook ownerId flatMap { myHook ⇒

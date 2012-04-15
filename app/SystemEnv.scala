@@ -61,13 +61,11 @@ final class SystemEnv(config: Config) {
     messenger = messenger,
     ai = ai,
     finisher = finisher,
-    aliveMemo = aliveMemo,
     moretimeSeconds = getSeconds("moretime.seconds"))
 
   lazy val appApi = new AppApi(
     gameRepo = gameRepo,
     gameSocket = gameSocket,
-    aliveMemo = aliveMemo,
     gameHubMemo = gameHubMemo,
     messenger = messenger,
     starter = starter)
@@ -79,19 +77,13 @@ final class SystemEnv(config: Config) {
     gameSocket = gameSocket,
     messenger = messenger,
     starter = starter,
-    lobbySocket = lobbySocket,
-    aliveMemo = aliveMemo)
-
-  lazy val pinger = new Pinger(
-    aliveMemo = aliveMemo,
-    watcherMemo = watcherMemo)
+    lobbySocket = lobbySocket)
 
   lazy val finisher = new Finisher(
     historyRepo = historyRepo,
     userRepo = userRepo,
     gameRepo = gameRepo,
     messenger = messenger,
-    aliveMemo = aliveMemo,
     eloCalculator = new EloCalculator,
     finisherLock = new FinisherLock(
       timeout = getMilliseconds("memo.finisher_lock.timeout")))
@@ -160,10 +152,6 @@ final class SystemEnv(config: Config) {
     o.connectTimeout = getMilliseconds("mongo.connectTimeout")
     o.threadsAllowedToBlockForConnectionMultiplier = config getInt "mongo.threadsAllowedToBlockForConnectionMultiplier"
   }
-
-  lazy val aliveMemo = new AliveMemo(
-    hardTimeout = getMilliseconds("memo.alive.hard_timeout"),
-    softTimeout = getMilliseconds("memo.alive.soft_timeout"))
 
   lazy val watcherMemo = new WatcherMemo(
     timeout = getMilliseconds("memo.watcher.timeout"))

@@ -17,7 +17,6 @@ import play.api.Play.current
 final class AppApi(
     gameRepo: GameRepo,
     gameSocket: game.Socket,
-    aliveMemo: AliveMemo,
     gameHubMemo: game.HubMemo,
     messenger: Messenger,
     starter: Starter) {
@@ -29,12 +28,10 @@ final class AppApi(
     (gameHubMemo getFromFullId fullId) ? game.GetVersion map {
       case game.Version(version) ⇒ for {
         pov ← gameRepo pov fullId
-        _ ← aliveMemo.put(pov.game.id, pov.color)
         roomHtml ← messenger render pov.game.id
       } yield Map(
         "version" -> version,
         "roomHtml" -> roomHtml,
-        "opponentActivity" -> aliveMemo.activity(pov.game.id, !pov.color),
         "possibleMoves" -> {
           if (pov.game playableBy pov.player)
             pov.game.toChess.situation.destinations map {
@@ -91,8 +88,6 @@ final class AppApi(
     ) map newProgress.++
     _ ← gameRepo save newProgress2
     _ ← gameSocket send newProgress2
-    _ ← aliveMemo.put(newGameId, !color)
-    _ ← aliveMemo.transfer(gameId, !color, newGameId, color)
   } yield ()
 
   def reloadTable(gameId: String): IO[Unit] = for {
@@ -100,11 +95,6 @@ final class AppApi(
     progress = Progress(g1, Color.all map ReloadTableEvent)
     _ ← gameRepo save progress
     _ ← gameSocket send progress
-  } yield ()
-
-  def alive(gameId: String, colorName: String): IO[Unit] = for {
-    color ← ioColor(colorName)
-    _ ← aliveMemo.put(gameId, color)
   } yield ()
 
   def gameVersion(gameId: String): Future[Int] =

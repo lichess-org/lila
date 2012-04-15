@@ -4,7 +4,6 @@ GET   /how-many-players-now             lila.controllers.AppXhrC.nbPlayers
 GET   /how-many-games-now               lila.controllers.AppXhrC.nbGames
 GET   /abort/:fullId                    lila.controllers.AppXhrC.abort(fullId: String)
 GET   /resign/:fullId                   lila.controllers.AppXhrC.resign(fullId: String)
-GET   /resign-force/:fullId             lila.controllers.AppXhrC.forceResign(fullId: String)
 GET   /draw-claim/:fullId               lila.controllers.AppXhrC.drawClaim(fullId: String)
 POST  /outoftime/:fullId                lila.controllers.AppXhrC.outoftime(fullId: String)
 GET   /draw-accept/:fullId              lila.controllers.AppXhrC.drawAccept(fullId: String)
@@ -20,7 +19,6 @@ POST  /api/start/:gameId           lila.controllers.AppApiC.start(gameId: String
 POST  /api/join/:fullId            lila.controllers.AppApiC.join(fullId: String)
 POST  /api/reload-table/:gameId    lila.controllers.AppApiC.reloadTable(gameId: String)
 POST  /api/rematch-accept/:gameId/:color/:newGameId  lila.controllers.AppApiC.rematchAccept(gameId: String, color: String, newGameId: String)
-POST  /api/alive/:gameId/:color    lila.controllers.AppApiC.alive(gameId: String, color: String)
 GET   /api/activity/:gameId/:color lila.controllers.AppApiC.activity(gameId: String, color: String)
 GET   /api/game-version/:gameId     lila.controllers.AppApiC.gameVersion(gameId: String)
 GET   /api/nb-players               lila.controllers.AppXhrC.nbPlayers

@@ -20,10 +20,6 @@ object AppApiC extends LilaController {
     IOk(api reloadTable gameId)
   }
 
-  def alive(gameId: String, color: String) = Action {
-    IOk(api.alive(gameId, color))
-  }
-
   def start(gameId: String) = Action { implicit request ⇒
     FormValidIOk[EntryData](entryForm)(entryData ⇒ api.start(gameId, entryData))
   }

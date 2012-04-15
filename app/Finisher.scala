@@ -2,7 +2,7 @@ package lila
 
 import db._
 import model._
-import memo.{ AliveMemo, FinisherLock }
+import memo.{ FinisherLock }
 import chess.{ Color, White, Black, EloCalculator }
 
 import scalaz.effects._
@@ -12,7 +12,6 @@ final class Finisher(
     userRepo: UserRepo,
     gameRepo: GameRepo,
     messenger: Messenger,
-    aliveMemo: AliveMemo,
     eloCalculator: EloCalculator,
     finisherLock: FinisherLock) {
 
@@ -25,11 +24,6 @@ final class Finisher(
   def resign(pov: Pov): ValidIOEvents =
     if (pov.game.resignable) finish(pov.game, Resign, Some(!pov.color))
     else !!("game is not resignable")
-
-  def forceResign(pov: Pov): ValidIOEvents =
-    if (pov.game.playable && aliveMemo.inactive(pov.game.id, !pov.color))
-      finish(pov.game, Timeout, Some(pov.color))
-    else !!("game is not force-resignable")
 
   def drawClaim(pov: Pov): ValidIOEvents = pov match {
     case Pov(game, color) if game.playable && game.player.color == color && game.toChessHistory.threefoldRepetition ⇒ finish(game, Draw)

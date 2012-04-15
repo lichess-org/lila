@@ -37,8 +37,6 @@ object AppXhrC extends LilaController {
 
   def resign(fullId: String) = performAndRedirect(fullId, hand.resign)
 
-  def forceResign(fullId: String) = performAndRedirect(fullId, hand.forceResign)
-
   def drawClaim(fullId: String) = performAndRedirect(fullId, hand.drawClaim)
 
   def drawAccept(fullId: String) = performAndRedirect(fullId, hand.drawAccept)
