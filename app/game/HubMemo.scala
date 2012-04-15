@@ -13,16 +13,12 @@ import akka.actor.{ ActorRef, Props, PoisonPill }
 import scalaz.effects._
 import scala.collection.JavaConversions._
 
-final class HubMemo(
-    makeHistory: () ⇒ History,
-    timeout: Int) {
+final class HubMemo(makeHistory: () ⇒ History) {
 
   private val cache = {
     import com.google.common.cache._
-    import java.util.concurrent.TimeUnit
     import memo.Builder._
     CacheBuilder.newBuilder()
-      .expireAfterAccess(timeout, TimeUnit.MILLISECONDS)
       .asInstanceOf[CacheBuilder[String, ActorRef]]
       .removalListener(onRemove _)
       .build[String, ActorRef](compute _)
@@ -34,9 +30,8 @@ final class HubMemo(
 
   def getFromFullId(fullId: String): ActorRef = get(DbGame takeGameId fullId)
 
-  def shake(gameId: String): IO[Unit] = io {
-    cache get gameId
-    Unit
+  def remove(gameId: String): IO[Unit] = io {
+    cache invalidate gameId
   }
 
   private def compute(gameId: String): ActorRef = {

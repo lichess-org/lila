@@ -102,13 +102,13 @@ final class Hand(
             Progress(g1, ReloadTableEvent(!color) :: es)
           }
           p2 = p1 map { g ⇒ g.updatePlayer(!color, _.removeDrawOffer) }
-            _ ← gameRepo save p2
-          } yield p2.events
+          _ ← gameRepo save p2
+        } yield p2.events
       }
       else !!("no draw offer to decline " + fullId)
   })
 
-  def moretime(fullId: String): IO[Valid[Float]] = attempt(fullId, pov ⇒
+  def moretime(ref: PovRef): IO[Valid[List[Event]]] = attemptRef(ref, pov ⇒
     pov.game.clock filter (_ ⇒ pov.game.playable) map { clock ⇒
       val color = !pov.color
       val newClock = clock.giveTime(color, moretimeSeconds)
@@ -117,10 +117,10 @@ final class Hand(
         progress ← messenger.systemMessage(
           g2, "%s + %d seconds".format(color, moretimeSeconds)
         ) map { es ⇒
-            Progress(pov.game, MoretimeEvent(color, moretimeSeconds) :: es)
+            Progress(pov.game, ClockEvent(newClock).pp :: es)
           }
         _ ← gameRepo save progress
-      } yield newClock remainingTime color
+      } yield progress.events
     } toValid "cannot add moretime"
   )
 
@@ -128,6 +128,11 @@ final class Hand(
     fullId: String,
     action: Pov ⇒ Valid[IO[A]]): IO[Valid[A]] =
     fromPov(fullId) { pov ⇒ action(pov).sequence }
+
+  private def attemptRef[A](
+    ref: PovRef,
+    action: Pov ⇒ Valid[IO[A]]): IO[Valid[A]] =
+    fromPov(ref) { pov ⇒ action(pov).sequence }
 
   private def fromPov[A](fullId: String)(op: Pov ⇒ IO[A]): IO[A] =
     gameRepo pov fullId flatMap op

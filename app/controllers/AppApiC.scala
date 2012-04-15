@@ -35,7 +35,11 @@ object AppApiC extends LilaController {
   }
 
   def activity(gameId: String, color: String) = Action {
-    Ok(api.activity(gameId, color))
+    Async {
+      api.isConnected(gameId, color).asPromise map { bool ⇒
+        Ok(bool.fold(1, 0))
+      }
+    }
   }
 
   def gameVersion(gameId: String) = Action {

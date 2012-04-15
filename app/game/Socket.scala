@@ -9,11 +9,13 @@ import akka.util.Timeout
 import play.api.libs.json._
 import play.api.libs.iteratee._
 import play.api.libs.concurrent._
+import play.api.Play.current
 
 import scalaz.effects._
 
 import chess.Color
 import db.GameRepo
+import socket._
 import model.{ DbGame, Pov, PovRef, Progress, Event }
 
 final class Socket(
@@ -59,6 +61,12 @@ final class Socket(
             events ⇒ send(povRef.gameId, events))
         } yield ()
       } op.unsafePerformIO
+      case "moretime" ⇒ (for {
+        res ← hand moretime povRef
+        op ← io {
+          res.fold(println, events ⇒ hub ! Events(events))
+        }
+      } yield op).unsafePerformIO
     }
   }
 
@@ -86,11 +94,18 @@ final class Socket(
               listener(hub, member, PovRef(gameId, member.color))
             ) mapDone { _ ⇒
                 hub ! Quit(uid)
+                scheduleForDeletion(hub, gameId)
               },
               member.channel)
         }
       promise | connectionFail
     }
+
+  private def scheduleForDeletion(hub: ActorRef, gameId: String) {
+    Akka.system.scheduler.scheduleOnce(1 minute) {
+      hub ! IfEmpty(hubMemo remove gameId)
+    }
+  }
 
   private def connectionFail = Promise.pure {
     Done[JsValue, Unit]((), Input.EOF) -> (Enumerator[JsValue](

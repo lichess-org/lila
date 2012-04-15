@@ -21,7 +21,7 @@ object AppXhrC extends LilaController {
   def socket(gameId: String, color: String) =
     WebSocket.async[JsValue] { implicit request ⇒
       env.gameSocket.join(
-        gameId = gameId,
+        gameId = gameId ~ { i ⇒ println("Attempt to connect to " + i) },
         colorName = color,
         uid = get("uid") err "Socket UID missing",
         version = getInt("version") err "Socket version missing",
@@ -49,13 +49,6 @@ object AppXhrC extends LilaController {
 
   def drawDecline(fullId: String) = performAndRedirect(fullId, hand.drawDecline)
 
-  def moretime(fullId: String) = Action {
-    (hand moretime fullId).unsafePerformIO.fold(
-      e ⇒ BadRequest(e.list mkString "\n"),
-      time ⇒ Ok(time)
-    )
-  }
-
   def nbPlayers = Action { Ok(0) }
 
   def nbGames = Action { Ok(env.gameRepo.countPlaying.unsafePerformIO) }
@@ -72,7 +65,7 @@ object AppXhrC extends LilaController {
 
   private def performAndRedirect(fullId: String, op: String ⇒ IOValidEvents) =
     Action {
-    perform(fullId, op).unsafePerformIO
-    Redirect("/" + fullId)
-  }
+      perform(fullId, op).unsafePerformIO
+      Redirect("/" + fullId)
+    }
 }

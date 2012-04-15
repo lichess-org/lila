@@ -20,8 +20,7 @@ final class SystemEnv(config: Config) {
     timeout = getMilliseconds("game.message.lifetime"))
 
   lazy val gameHubMemo = new game.HubMemo(
-    makeHistory = gameHistory,
-    timeout = getMilliseconds("memo.game_hub.timeout"))
+    makeHistory = gameHistory)
 
   lazy val gameHubMaster = Akka.system.actorOf(Props(new game.HubMaster(
     hubMemo = gameHubMemo

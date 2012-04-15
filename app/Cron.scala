@@ -18,15 +18,11 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
   implicit val timeout = Timeout(200 millis)
   implicit val executor = Akka.system.dispatcher
 
-  spawnMessage("game_hub_keepalive", 2 second) {
-    env.gameHubMaster -> KeepAlive
-  }
-
   spawnMessage("hook_tick", 1 second) {
     env.lobbyHub -> WithHooks(env.hookMemo.putAll)
   }
 
-  spawn("nb_players", 2 seconds) {
+  spawn("nb_players", 5 seconds) {
     Future.traverse(env.lobbyHub :: env.gameHubMaster :: Nil)(a ⇒
       (a ? GetNbMembers).mapTo[Int]
     ) map (xs ⇒ NbPlayers(xs.sum)) pipeTo env.lobbyHub pipeTo env.gameHubMaster

@@ -11,7 +11,6 @@ GET   /draw-accept/:fullId              lila.controllers.AppXhrC.drawAccept(full
 GET   /draw-offer/:fullId               lila.controllers.AppXhrC.drawOffer(fullId: String)
 GET   /draw-cancel/:fullId              lila.controllers.AppXhrC.drawCancel(fullId: String)
 GET   /draw-decline/:fullId             lila.controllers.AppXhrC.drawDecline(fullId: String)
-POST  /moretime/:fullId                 lila.controllers.AppXhrC.moretime(fullId: String)
 
 GET   /ai                               lila.controllers.AiC.run
 

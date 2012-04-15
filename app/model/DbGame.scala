@@ -101,7 +101,8 @@ case class DbGame(
     val events =
       Event.possibleMoves(game.situation, White) ::
         Event.possibleMoves(game.situation, Black) ::
-        (Event fromMove move) ::: (Event fromSituation game.situation)
+        (Event fromMove move) :::
+        (Event fromSituation game.situation)
 
     def copyPlayer(player: DbPlayer) = player.copy(
       ps = player encodePieces allPieces)
@@ -123,14 +124,16 @@ case class DbGame(
       check = if (game.situation.check) game.situation.kingPos else None
     )
 
-    Progress(this, updated, {
-      if (updated.playable && (
-        abortable != updated.abortable || (Color.all exists { color ⇒
-          playerCanOfferDraw(color) != updated.playerCanOfferDraw(color)
-        })
-      )) events ::: (Color.all map ReloadTableEvent)
-      else events
-    })
+    val finalEvents = events :::
+      updated.clock.fold(c ⇒ List(ClockEvent(c)), Nil) ::: {
+        (updated.playable && (
+          abortable != updated.abortable || (Color.all exists { color ⇒
+            playerCanOfferDraw(color) != updated.playerCanOfferDraw(color)
+          })
+        )).fold(Color.all map ReloadTableEvent, Nil)
+      }
+
+    Progress(this, updated, finalEvents)
   }
 
   def updatePlayer(color: Color, f: DbPlayer ⇒ DbPlayer) = color match {

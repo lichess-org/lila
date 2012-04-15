@@ -6,12 +6,16 @@ import play.api.libs.json._
 import chess._
 import Pos.{ piotr, allPiotrs }
 
-sealed trait Event {
+trait Event {
   def typ: String
   def data: JsValue
   def only: Option[Color] = None
   def owner: Boolean = false
 }
+sealed trait EmptyEvent extends Event {
+  def data = JsNull
+}
+
 object Event {
 
   def fromMove(move: Move): List[Event] = MoveEvent(move) :: List(
@@ -24,7 +28,8 @@ object Event {
 
   def fromSituation(situation: Situation): List[Event] = List(
     if (situation.check) situation.kingPos map CheckEvent.apply else None,
-    if (situation.threefoldRepetition) Some(ThreefoldEvent()) else None
+    if (situation.threefoldRepetition) Some(ThreefoldEvent()) else None,
+    Some(PremoveEvent(situation.color))
   ).flatten
 
   def possibleMoves(situation: Situation, color: Color): Event =
@@ -34,9 +39,8 @@ object Event {
     )
 }
 
-case class StartEvent() extends Event {
+case class StartEvent() extends EmptyEvent {
   def typ = "start"
-  def data = JsNull
 }
 
 case class MoveEvent(orig: Pos, dest: Pos, color: Color) extends Event {
@@ -107,14 +111,12 @@ case class MessageEvent(author: String, message: String) extends Event {
   override def owner = true
 }
 
-case class EndEvent() extends Event {
+case class EndEvent() extends EmptyEvent {
   def typ = "end"
-  def data = JsNull
 }
 
-case class ThreefoldEvent() extends Event {
+case class ThreefoldEvent() extends EmptyEvent {
   def typ = "threefold_repetition"
-  def data = JsNull
 }
 
 case class ReloadTableEvent(color: Color) extends Event {
@@ -123,12 +125,20 @@ case class ReloadTableEvent(color: Color) extends Event {
   override def only = Some(color)
 }
 
-case class MoretimeEvent(color: Color, seconds: Int) extends Event {
-  def typ = "moretime"
-  def data = JsObject(Seq(
-    "type" -> JsString("moretime"),
-    "color" -> JsString(color.name),
-    "seconds" -> JsNumber(seconds)
-  ))
+case class PremoveEvent(color: Color) extends EmptyEvent {
+  def typ = "premove"
+  override def only = Some(color)
 }
 
+case class ClockEvent(white: Float, black: Float) extends Event {
+  def typ = "clock"
+  def data = JsObject(Seq(
+    "white" -> JsNumber(white),
+    "black" -> JsNumber(black)
+  ))
+}
+object ClockEvent {
+  def apply(clock: Clock): ClockEvent = ClockEvent(
+    clock remainingTime White,
+    clock remainingTime Black)
+}

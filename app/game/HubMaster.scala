@@ -20,15 +20,11 @@ final class HubMaster(hubMemo: HubMemo) extends Actor {
 
   def receive = {
 
-    case KeepAlive ⇒ hubMemo.all foreach {
-      case (id, hub) ⇒ hub ! WithMembers(
-        _.nonEmpty.fold(hubMemo shake id, io())
-      )
-    }
-
     case GetNbMembers ⇒ Future.traverse(hubActors)(a ⇒
       (a ? GetNbMembers).mapTo[Int]
     ) map (_.sum) pipeTo sender
+
+    case WithHubs(op) => op(hubMemo.all).unsafePerformIO
 
     case msg @ NbPlayers(nb) ⇒ hubActors foreach (_ ! msg)
 

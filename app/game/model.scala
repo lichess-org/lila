@@ -4,6 +4,7 @@ package game
 import chess.Color
 import model._
 
+import akka.actor.ActorRef
 import scalaz.effects.IO
 
 sealed trait Member {
@@ -12,6 +13,7 @@ sealed trait Member {
   val username: Option[String]
   val owner: Boolean
 
+  def watcher = !owner
   def gameId = ref.gameId
   def color = ref.color
   def className = owner.fold("Owner", "Watcher")
@@ -54,5 +56,8 @@ case class Connected(member: Member)
 case class Events(events: List[Event])
 case object GetVersion
 case class Version(version: Int)
-case class WithMembers(op: Iterable[Member] => IO[Unit])
-case object KeepAlive
+case class WithMembers(op: Iterable[Member] ⇒ IO[Unit])
+case class IfEmpty(op: IO[Unit])
+case class WithHubs(op: Map[String, ActorRef] ⇒ IO[Unit])
+case object ClockSync
+case class IsConnected(color: Color)

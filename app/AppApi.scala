@@ -4,12 +4,15 @@ import model._
 import memo._
 import db.{ GameRepo, RoomRepo }
 import chess.{ Color, White, Black }
+import game.IsConnected
 
 import scalaz.effects._
 import akka.pattern.ask
-import akka.dispatch.Future
+import akka.dispatch.{ Future, Promise }
 import akka.util.duration._
 import akka.util.Timeout
+import play.api.libs.concurrent._
+import play.api.Play.current
 
 final class AppApi(
     gameRepo: GameRepo,
@@ -19,7 +22,8 @@ final class AppApi(
     messenger: Messenger,
     starter: Starter) {
 
-  implicit val timeout = Timeout(200 millis)
+  private implicit val timeout = Timeout(200 millis)
+  private implicit val executor = Akka.system.dispatcher
 
   def show(fullId: String): Future[IO[Map[String, Any]]] =
     (gameHubMemo getFromFullId fullId) ? game.GetVersion map {
@@ -108,8 +112,10 @@ final class AppApi(
       case game.Version(v) ⇒ v
     }
 
-  def activity(gameId: String, colorName: String): Int =
-    Color(colorName).fold(aliveMemo.activity(gameId, _), 0)
+  def isConnected(gameId: String, colorName: String): Future[Boolean] =
+    Color(colorName).fold(
+      c ⇒ (gameHubMemo get gameId) ? IsConnected(c) mapTo manifest[Boolean],
+      Promise successful false)
 
   private def ioColor(colorName: String): IO[Color] = io {
     Color(colorName) err "Invalid color"

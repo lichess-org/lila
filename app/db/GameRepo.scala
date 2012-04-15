@@ -82,7 +82,7 @@ class GameRepo(collection: MongoCollection)
       d(name + "lastDrawOffer", _.players(i).lastDrawOffer)
       d(name + "isOfferingDraw", _.players(i).isOfferingDraw)
     }
-    a.clock foreach { c ⇒
+    a.clock.pp foreach { c ⇒
       d("clock.c", _.clock.get.c)
       d("clock.w", _.clock.get.w)
       d("clock.b", _.clock.get.b)
