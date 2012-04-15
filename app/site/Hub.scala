@@ -13,7 +13,7 @@ final class Hub extends Actor {
 
   def receive = {
 
-    case GetUsernames  ⇒ sender ! usernames
+    case WithUsernames(op)  ⇒ op(usernames).unsafePerformIO
 
     case Join(uid, username) ⇒ {
       val channel = new LilaEnumerator[JsValue](Nil)

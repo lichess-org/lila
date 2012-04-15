@@ -27,10 +27,6 @@ final class SystemEnv(config: Config) {
   lazy val gameHubMemo = new game.HubMemo(
     makeHistory = gameHistory)
 
-  lazy val gameHubMaster = Akka.system.actorOf(Props(new game.HubMaster(
-    hubMemo = gameHubMemo
-  )), name = "game_hub_master")
-
   lazy val gameSocket = new game.Socket(
     gameRepo = gameRepo,
     hand = hand,

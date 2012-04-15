@@ -52,6 +52,5 @@ case class Events(events: List[Event])
 case object GetVersion
 case class Version(version: Int)
 case class IfEmpty(op: IO[Unit])
-case class WithHubs(op: Map[String, ActorRef] ⇒ IO[Unit])
 case object ClockSync
 case class IsConnected(color: Color)
