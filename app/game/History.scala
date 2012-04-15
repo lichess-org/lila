@@ -1,7 +1,6 @@
 package lila
 package game
 
-import scala.math.max
 import play.api.libs.json._
 import scalaz.effects._
 

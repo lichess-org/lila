@@ -22,7 +22,7 @@ final class Hub(messageRepo: MessageRepo, history: History) extends Actor {
       sender ! Connected(channel)
     }
 
-    case Talk(txt, u) ⇒ messageRepo.add(txt, u).foreach { save ⇒
+    case Talk(txt, u) ⇒ messageRepo.add(txt, u) foreach { save ⇒
       val message = save.unsafePerformIO
       notifyVersion("talk", Seq(
         "txt" -> JsString(message.text),

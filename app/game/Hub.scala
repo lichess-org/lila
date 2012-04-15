@@ -68,14 +68,6 @@ final class Hub(gameId: String, history: History) extends Actor {
     }
   }
 
-  private def notifyAll(t: String, data: JsValue) {
-    val msg = makeMessage(t, data)
-    members.values.foreach(_.channel push msg)
-  }
-
   private def member(color: Color): Option[Member] =
     members.values find { m ⇒ m.owner && m.color == color }
-
-  private def makeMessage(t: String, data: JsValue) =
-    JsObject(Seq("t" -> JsString(t), "d" -> data))
 }

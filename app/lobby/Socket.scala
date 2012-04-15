@@ -5,13 +5,12 @@ import akka.actor._
 import akka.pattern.ask
 import akka.util.duration._
 import akka.util.Timeout
-
-import play.api._
 import play.api.libs.json._
 import play.api.libs.iteratee._
 import play.api.libs.concurrent._
-
 import scalaz.effects._
+
+import RichJs._
 
 final class Socket(hub: ActorRef) {
 
@@ -23,12 +22,14 @@ final class Socket(hub: ActorRef) {
     hook: Option[String]): SocketPromise =
     (hub ? Join(uid, version, hook)).asPromise map {
       case Connected(channel) ⇒
-        val iteratee = Iteratee.foreach[JsValue] { event ⇒
-          (event \ "t").as[String] match {
-            case "talk" ⇒ hub ! Talk(
-              (event \ "d" \ "txt").as[String],
-              (event \ "d" \ "u").as[String]
-            )
+        val iteratee = Iteratee.foreach[JsValue] { e ⇒
+          e str "t" match {
+            case Some("talk") ⇒ for {
+              data ← e obj "d"
+              txt ← data str "txt"
+              username ← data str "u"
+            } hub ! Talk(txt, username)
+            case _ ⇒
           }
         } mapDone { _ ⇒
           hub ! Quit(uid)
