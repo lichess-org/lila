@@ -46,5 +46,5 @@ final class ReverseEngineering(fromGame: Game, to: Board) {
     } toList
   }
 
-  private def !!(msg: String) = failure(msg.wrapNel)
+  private def !!(msg: String) = msg.failNel
 }

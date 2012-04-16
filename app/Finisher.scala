@@ -104,6 +104,4 @@ final class Finisher(
         _ ← historyRepo.addEntry(blackUser.usernameCanonical, blackElo, game.id)
       } yield ()
     } | io()
-
-  private def !!(msg: String) = failure(msg.wrapNel)
 }

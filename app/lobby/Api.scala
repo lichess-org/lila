@@ -27,21 +27,28 @@ final class Api(
     entryData: String,
     messageString: String,
     hookOwnerId: String,
-    myHookOwnerId: Option[String]): IO[Unit] = for {
+    myHookOwnerId: Option[String]): IO[Valid[Unit]] = for {
     hook ← hookRepo ownedHook hookOwnerId
-    color ← ioColor(colorName)
-    game ← gameRepo game gameId
-    p1 ← starter.start(game, entryData)
-    p2 ← messenger.systemMessages(game, messageString) map p1.++
-    _ ← gameRepo save p2
-    _ ← gameSocket send p2
-    _ ← hook.fold(h ⇒ fisherman.bite(h, p2.game), io())
-    _ ← myHookOwnerId.fold(
-      ownerId ⇒ hookRepo ownedHook ownerId flatMap { myHook ⇒
-        myHook.fold(fisherman.delete, io())
+    gameOption ← gameRepo game gameId
+    result ← (Color(colorName) |@| gameOption).tupled.fold(
+      colorGame ⇒ {
+        val (color, game) = colorGame
+        for {
+          p1 ← starter.start(game, entryData)
+          p2 ← messenger.systemMessages(game, messageString) map p1.++
+          _ ← gameRepo save p2
+          _ ← gameSocket send p2
+          _ ← hook.fold(h ⇒ fisherman.bite(h, p2.game), io())
+          _ ← myHookOwnerId.fold(
+            ownerId ⇒ hookRepo ownedHook ownerId flatMap { myHook ⇒
+              myHook.fold(fisherman.delete, io())
+            },
+            io())
+        } yield success()
       },
-      io())
-  } yield ()
+      io(GameNotFound)
+    )
+  } yield result
 
   def create(hookOwnerId: String): IO[Unit] = for {
     hook ← hookRepo ownedHook hookOwnerId

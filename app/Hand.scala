@@ -129,11 +129,17 @@ final class Hand(
     action: Pov ⇒ Valid[IO[A]]): IO[Valid[A]] =
     fromPov(ref) { pov ⇒ action(pov).sequence }
 
-  private def fromPov[A](fullId: String)(op: Pov ⇒ IO[A]): IO[A] =
-    gameRepo pov fullId flatMap op
+  private def fromPov[A](ref: PovRef)(op: Pov ⇒ IO[Valid[A]]): IO[Valid[A]] =
+    fromPov(gameRepo pov ref)(op)
 
-  private def fromPov[A](ref: PovRef)(op: Pov ⇒ IO[A]): IO[A] =
-    gameRepo pov ref flatMap op
+  private def fromPov[A](fullId: String)(op: Pov ⇒ IO[Valid[A]]): IO[Valid[A]] =
+    fromPov(gameRepo pov fullId)(op)
 
-  private def !!(msg: String) = failure(msg.wrapNel)
+  private def fromPov[A](povIO: IO[Option[Pov]])(op: Pov ⇒ IO[Valid[A]]): IO[Valid[A]] =
+    povIO flatMap { povOption ⇒
+      povOption.fold(
+        pov ⇒ op(pov),
+        io { "No such game".failNel }
+      )
+    }
 }

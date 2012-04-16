@@ -12,12 +12,14 @@ object AppApiC extends LilaController {
 
   def show(fullId: String) = Action {
     Async {
-      (api show fullId).asPromise map JsonIOk
+      (api show fullId).asPromise map { op ⇒
+        op.unsafePerformIO.fold(e ⇒ BadRequest(e.shows), JsonOk)
+      }
     }
   }
 
   def reloadTable(gameId: String) = Action {
-    IOk(api reloadTable gameId)
+    ValidIOk(api reloadTable gameId)
   }
 
   def start(gameId: String) = Action { implicit request ⇒

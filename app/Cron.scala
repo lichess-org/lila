@@ -7,14 +7,9 @@ import akka.util.duration._
 import akka.util.{ Duration, Timeout }
 import scalaz.effects._
 
-import socket.GetNbMembers
-import site.{ NbMembers, WithUsernames }
-import lobby.WithHooks
-import RichDuration._
-
 final class Cron(env: SystemEnv)(implicit app: Application) {
 
-  implicit val timeout = Timeout(200 millis)
+  implicit val timeout = Timeout(500 millis)
   implicit val executor = Akka.system.dispatcher
 
   message(2 seconds) {
@@ -22,11 +17,11 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
   }
 
   message(1 second) {
-    env.lobbyHub -> WithHooks(env.hookMemo.putAll)
+    env.lobbyHub -> lobby.WithHooks(env.hookMemo.putAll)
   }
 
   message(2 seconds) {
-    env.siteHub -> NbMembers
+    env.siteHub -> site.NbMembers
   }
 
   effect(2 seconds) {
@@ -38,7 +33,7 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
   }
 
   message(3 seconds) {
-    env.siteHub -> WithUsernames(env.userRepo.updateOnlineUsernames)
+    env.siteHub -> site.WithUsernames(env.userRepo.updateOnlineUsernames)
   }
 
   effect(2 hours) {
@@ -52,6 +47,8 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
   effect(1 minute) {
     env.remoteAi.diagnose
   }
+
+  import RichDuration._
 
   def effect(freq: Duration)(op: IO[_]) {
     Akka.system.scheduler.schedule(freq, freq.randomize()) { op.unsafePerformIO }

@@ -36,6 +36,4 @@ extends CappedRepo[Message](collection, max) {
   def encode(obj: Message): DBObject = DBObject(
     "u" -> obj.username,
     "t" -> obj.text)
-
-  private def !!(msg: String) = failure(msg.wrapNel)
 }

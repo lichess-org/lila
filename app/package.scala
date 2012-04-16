@@ -31,6 +31,10 @@ package object lila
     override val typeHintStrategy = StringTypeHintStrategy(when = TypeHintFrequency.Never)
   }
 
+  def !!(msg: String) = msg.failNel
+
+  val GameNotFound = !!("Game not found")
+
   implicit def addPP[A](a: A) = new {
     def pp[A] = a ~ println
   }

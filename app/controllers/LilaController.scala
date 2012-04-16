@@ -28,10 +28,16 @@ trait LilaController extends Controller with ContentTypes with RequestGetter {
     _ ⇒ Ok("ok")
   )
 
-  def FormValidIOk[A](form: Form[A])(op: A ⇒ IO[Unit])(implicit request: Request[_]) =
+  def FormIOk[A](form: Form[A])(op: A ⇒ IO[Unit])(implicit request: Request[_]) =
     form.bindFromRequest.fold(
       form ⇒ BadRequest(form.errors mkString "\n"),
       data ⇒ IOk(op(data))
+    )
+
+  def FormValidIOk[A](form: Form[A])(op: A ⇒ IO[Valid[Unit]])(implicit request: Request[_]) =
+    form.bindFromRequest.fold(
+      form ⇒ BadRequest(form.errors mkString "\n"),
+      data ⇒ ValidIOk(op(data))
     )
 
   def IOk(op: IO[Unit]) = Ok(op.unsafePerformIO)

@@ -21,47 +21,62 @@ final class AppApi(
     messenger: Messenger,
     starter: Starter) {
 
-  private implicit val timeout = Timeout(200 millis)
+  private implicit val timeout = Timeout(300 millis)
   private implicit val executor = Akka.system.dispatcher
 
-  def show(fullId: String): Future[IO[Map[String, Any]]] =
+  def show(fullId: String): Future[IO[Valid[Map[String, Any]]]] =
     (gameHubMemo getFromFullId fullId) ? game.GetVersion map {
       case game.Version(version) ⇒ for {
-        pov ← gameRepo pov fullId
-        roomHtml ← messenger render pov.game.id
-      } yield Map(
-        "version" -> version,
-        "roomHtml" -> roomHtml,
-        "possibleMoves" -> {
-          if (pov.game playableBy pov.player)
-            pov.game.toChess.situation.destinations map {
-              case (from, dests) ⇒ from.key -> (dests.mkString)
-            } toMap
-          else null
-        }
-      )
+        povOption ← gameRepo pov fullId
+        gameInfo ← povOption.fold(
+          pov ⇒ messenger render pov.game.id map { roomHtml ⇒
+            Map(
+              "version" -> version,
+              "roomHtml" -> roomHtml,
+              "possibleMoves" -> {
+                if (pov.game playableBy pov.player)
+                  pov.game.toChess.situation.destinations map {
+                    case (from, dests) ⇒ from.key -> (dests.mkString)
+                  } toMap
+                else null
+              }
+            ).success
+          },
+          io(GameNotFound)
+        )
+      } yield gameInfo
     }
 
   def join(
     fullId: String,
     url: String,
     messages: String,
-    entryData: String): IO[Unit] = for {
-    pov ← gameRepo pov fullId
-    p1 ← starter.start(pov.game, entryData)
-    p2 ← messenger.systemMessages(p1.game, messages) map { evts ⇒
-      p1 + RedirectEvent(!pov.color, url) ++ evts
-    }
-    _ ← gameRepo save p2
-    _ ← gameSocket send p2
-  } yield ()
+    entryData: String): IO[Valid[Unit]] = for {
+    povOption ← gameRepo pov fullId
+    op ← povOption.fold(
+      pov ⇒ for {
+        p1 ← starter.start(pov.game, entryData)
+        p2 ← messenger.systemMessages(p1.game, messages) map { evts ⇒
+          p1 + RedirectEvent(!pov.color, url) ++ evts
+        }
+        _ ← gameRepo save p2
+        _ ← gameSocket send p2
+      } yield success(),
+      io(GameNotFound)
+    )
+  } yield op
 
-  def start(gameId: String, entryData: String): IO[Unit] = for {
-    g1 ← gameRepo game gameId
-    progress ← starter.start(g1, entryData)
-    _ ← gameRepo save progress
-    _ ← gameSocket send progress
-  } yield ()
+  def start(gameId: String, entryData: String): IO[Valid[Unit]] =
+    gameRepo game gameId flatMap { gameOption ⇒
+      gameOption.fold(
+        g1 ⇒ for {
+          progress ← starter.start(g1, entryData)
+          _ ← gameRepo save progress
+          _ ← gameSocket send progress
+        } yield success(Unit),
+        io { !!("No such game") }
+      )
+    }
 
   def rematchAccept(
     gameId: String,
@@ -70,32 +85,47 @@ final class AppApi(
     whiteRedirect: String,
     blackRedirect: String,
     entryData: String,
-    messageString: String): IO[Unit] = for {
+    messageString: String): IO[Valid[Unit]] = for {
     color ← ioColor(colorName)
-    newGame ← gameRepo game newGameId
-    g1 ← gameRepo game gameId
-    progress = Progress(g1, List(
-      RedirectEvent(White, whiteRedirect),
-      RedirectEvent(Black, blackRedirect),
-      // to tell spectators to reload the table
-      ReloadTableEvent(White),
-      ReloadTableEvent(Black)))
-    _ ← gameRepo save progress
-    _ ← gameSocket send progress
-    newProgress ← starter.start(newGame, entryData)
-    newProgress2 ← messenger.systemMessages(
-      newProgress.game, messageString
-    ) map newProgress.++
-    _ ← gameRepo save newProgress2
-    _ ← gameSocket send newProgress2
-  } yield ()
+    newGameOption ← gameRepo game newGameId
+    g1Option ← gameRepo game gameId
+    result ← (newGameOption |@| g1Option).tupled.fold(
+      games ⇒ {
+        val (newGame, g1) = games
+        val progress = Progress(g1, List(
+          RedirectEvent(White, whiteRedirect),
+          RedirectEvent(Black, blackRedirect),
+          // tell spectators to reload the table
+          ReloadTableEvent(White),
+          ReloadTableEvent(Black)))
+        for {
+          _ ← gameRepo save progress
+          _ ← gameSocket send progress
+          newProgress ← starter.start(newGame, entryData)
+          newProgress2 ← messenger.systemMessages(
+            newProgress.game, messageString
+          ) map newProgress.++
+          _ ← gameRepo save newProgress2
+          _ ← gameSocket send newProgress2
+        } yield success()
+      },
+      io(GameNotFound)
+    ): IO[Valid[Unit]]
+  } yield result
 
-  def reloadTable(gameId: String): IO[Unit] = for {
-    g1 ← gameRepo game gameId
-    progress = Progress(g1, Color.all map ReloadTableEvent)
-    _ ← gameRepo save progress
-    _ ← gameSocket send progress
-  } yield ()
+  def reloadTable(gameId: String): IO[Valid[Unit]] = for {
+    g1Option ← gameRepo game gameId
+    result ← g1Option.fold(
+      g1 ⇒ {
+        val progress = Progress(g1, Color.all map ReloadTableEvent)
+        for {
+          _ ← gameRepo save progress
+          _ ← gameSocket send progress
+        } yield success()
+      },
+      io(GameNotFound)
+    )
+  } yield result
 
   def gameVersion(gameId: String): Future[Int] =
     (gameHubMemo get gameId) ? game.GetVersion map {

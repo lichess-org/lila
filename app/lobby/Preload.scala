@@ -32,7 +32,7 @@ final class Preload(
     myHook: Option[Hook],
     std: () ⇒ IO[Response]): IO[Response] = myHook.fold(
     h ⇒ h.gameId.fold(
-      ref ⇒ gameRepo gameOption ref map { game ⇒
+      ref ⇒ gameRepo game ref map { game ⇒
         game.fold(
           g ⇒ redirect(g fullIdOf g.creatorColor),
           redirect()

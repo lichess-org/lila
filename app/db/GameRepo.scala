@@ -19,36 +19,29 @@ import scalaz.effects._
 class GameRepo(collection: MongoCollection)
     extends SalatDAO[RawDbGame, String](collection) {
 
-  def game(gameId: String): IO[DbGame] = io {
-    if (gameId.size != gameIdSize)
-      throw new Exception("Invalid game id " + gameId)
-    findOneByID(gameId) flatMap decode err "No game found for id " + gameId
-  }
-
-  def gameOption(gameId: String): IO[Option[DbGame]] = io {
+  def game(gameId: String): IO[Option[DbGame]] = io {
     if (gameId.size != gameIdSize) None
     else findOneByID(gameId) flatMap decode
   }
 
-  def pov(ref: PovRef): IO[Pov] = pov(ref.gameId, ref.color)
-
-  def pov(gameId: String, color: Color): IO[Pov] =
-    game(gameId) map { g ⇒ Pov(g, g player color) }
-
-  def player(gameId: String, color: Color): IO[DbPlayer] =
-    game(gameId) map { g ⇒ g player color }
-
-  def pov(fullId: String): IO[Pov] =
-    game(fullId take gameIdSize) map { g ⇒
-      val playerId = fullId drop gameIdSize
-      val player = g player playerId err "No player found for id " + fullId
-      Pov(g, player)
+  def player(gameId: String, color: Color): IO[Option[DbPlayer]] =
+    game(gameId) map { gameOption ⇒
+      gameOption map { _ player color }
     }
 
-  def povOption(gameId: String, color: Color): IO[Option[Pov]] =
-    gameOption(gameId) map { gOption ⇒
-      gOption map { g ⇒ Pov(g, g player color) }
+  def pov(gameId: String, color: Color): IO[Option[Pov]] =
+    game(gameId) map { gameOption ⇒
+      gameOption map { g ⇒ Pov(g, g player color) }
     }
+
+  def pov(fullId: String): IO[Option[Pov]] =
+    game(fullId take gameIdSize) map { gameOption ⇒
+      gameOption flatMap { g ⇒
+        g player (fullId drop gameIdSize) map { Pov(g, _) }
+      }
+    }
+
+  def pov(ref: PovRef): IO[Option[Pov]] = pov(ref.gameId, ref.color)
 
   def save(game: DbGame): IO[Unit] = io {
     update(DBObject("_id" -> game.id), _grater asDBObject encode(game))
