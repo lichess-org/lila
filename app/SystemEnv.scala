@@ -16,7 +16,11 @@ import command._
 
 final class SystemEnv(config: Config) {
 
-  lazy val siteHub = Akka.system.actorOf(Props(new site.Hub), name = "site_hub")
+  lazy val reporting = Akka.system.actorOf(
+    Props(new report.Reporting), name = "reporting")
+
+  lazy val siteHub = Akka.system.actorOf(
+    Props(new site.Hub), name = "site_hub")
 
   lazy val siteSocket = new site.Socket(
     hub = siteHub)

@@ -34,6 +34,8 @@ final class HubMemo(makeHistory: () ⇒ History) {
     cache invalidate gameId
   }
 
+  def count = cache.size
+
   private def compute(gameId: String): ActorRef = {
     println("create actor game " + gameId)
     Akka.system.actorOf(Props(new Hub(gameId, makeHistory())))

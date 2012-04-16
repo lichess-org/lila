@@ -13,7 +13,7 @@ final class Hub extends Actor {
 
   def receive = {
 
-    case WithUsernames(op)  ⇒ op(usernames).unsafePerformIO
+    case WithUsernames(op) ⇒ op(usernames).unsafePerformIO
 
     case Join(uid, username) ⇒ {
       val channel = new LilaEnumerator[JsValue](Nil)
@@ -21,9 +21,11 @@ final class Hub extends Actor {
       sender ! Connected(channel)
     }
 
-    case NbMembers     ⇒ notifyAll("nbp", JsNumber(members.size))
+    case NbMembers    ⇒ notifyAll("nbp", JsNumber(members.size))
 
-    case Quit(uid)     ⇒ { members = members - uid }
+    case GetNbMembers ⇒ sender ! members.size
+
+    case Quit(uid)    ⇒ { members = members - uid }
   }
 
   private def notifyMember(t: String, data: JsValue)(member: Member) {

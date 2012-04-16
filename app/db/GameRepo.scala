@@ -144,9 +144,7 @@ class GameRepo(collection: MongoCollection)
     ).toList.map(decode).flatten
   }
 
-  val countPlaying: IO[Int] = io {
-    count("updatedAt" $gt (DateTime.now - 15.seconds)).toInt
-  }
+  val countAll: IO[Int] = io { count().toInt }
 
   def ensureIndexes: IO[Unit] = io {
     collection.underlying |> { coll ⇒

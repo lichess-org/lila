@@ -5,8 +5,9 @@ import play.api.libs.concurrent.Akka
 import akka.actor.ActorRef
 import akka.util.duration._
 import akka.util.{ Duration, Timeout }
-import scalaz.effects.IO
+import scalaz.effects._
 
+import socket.GetNbMembers
 import site.{ NbMembers, WithUsernames }
 import lobby.WithHooks
 import RichDuration._
@@ -16,19 +17,23 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
   implicit val timeout = Timeout(200 millis)
   implicit val executor = Akka.system.dispatcher
 
+  message(2 seconds) {
+    env.reporting -> report.Update(env)
+  }
+
   message(1 second) {
     env.lobbyHub -> WithHooks(env.hookMemo.putAll)
   }
 
-  message(1 seconds) {
+  message(2 seconds) {
     env.siteHub -> NbMembers
   }
 
-  io(2 seconds) {
+  effect(2 seconds) {
     env.lobbyFisherman.cleanup
   }
 
-  io(10 seconds) {
+  effect(10 seconds) {
     env.hookRepo.cleanupOld
   }
 
@@ -36,19 +41,19 @@ final class Cron(env: SystemEnv)(implicit app: Application) {
     env.siteHub -> WithUsernames(env.userRepo.updateOnlineUsernames)
   }
 
-  io(2 hours) {
+  effect(2 hours) {
     env.gameRepo.cleanupUnplayed
   }
 
-  io(1 hour) {
+  effect(1 hour) {
     env.gameFinishCommand.apply
   }
 
-  io(10 seconds) {
+  effect(1 minute) {
     env.remoteAi.diagnose
   }
 
-  def io(freq: Duration)(op: IO[Unit]) {
+  def effect(freq: Duration)(op: IO[_]) {
     Akka.system.scheduler.schedule(freq, freq.randomize()) { op.unsafePerformIO }
   }
 

@@ -29,5 +29,9 @@ POST  /api/lobby/join/:gameId/:color lila.controllers.LobbyC.join(gameId: String
 GET   /api/lobby/preload            lila.controllers.LobbyC.preload
 POST  /api/lobby/create/:hookOwnerId lila.controllers.LobbyC.create(hookOwnerId: String)
 
+# Reporting API
+GET   /nb-players                   lila.controllers.ReportC.nbPlayers
+GET   /status                       lila.controllers.ReportC.status
+
 # Useless, but play2 needs it
 GET   /assets/*file                 controllers.Assets.at(path="/public", file)
