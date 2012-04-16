@@ -58,7 +58,7 @@ case class RunningClock(
     val t = now
     addTime(
       color,
-      max(0, (t - timer).toFloat - Clock.httpDelay - increment)
+      max(0, (t - timer).toFloat - Clock.httpDelay) - increment
     ).copy(
         color = !color,
         timer = t
