@@ -91,17 +91,25 @@ final class Finisher(
         blackUserId ← game.player(Black).userId
         if whiteUserId != blackUserId
       } yield for {
-        whiteUser ← userRepo user whiteUserId
-        blackUser ← userRepo user blackUserId
-        (whiteElo, blackElo) = eloCalculator.calculate(whiteUser, blackUser, game.winnerColor)
-        _ ← gameRepo.setEloDiffs(
-          game.id,
-          whiteElo - whiteUser.elo,
-          blackElo - blackUser.elo)
-        _ ← userRepo.setElo(whiteUser.id, whiteElo)
-        _ ← userRepo.setElo(blackUser.id, blackElo)
-        _ ← historyRepo.addEntry(whiteUser.usernameCanonical, whiteElo, game.id)
-        _ ← historyRepo.addEntry(blackUser.usernameCanonical, blackElo, game.id)
+        whiteUserOption ← userRepo user whiteUserId
+        blackUserOption ← userRepo user blackUserId
+        _ ← (whiteUserOption |@| blackUserOption).tupled.fold(
+          users ⇒ {
+            val (whiteUser, blackUser) = users
+            val (whiteElo, blackElo) = eloCalculator.calculate(whiteUser, blackUser, game.winnerColor)
+            for {
+              _ ← gameRepo.setEloDiffs(
+                game.id,
+                whiteElo - whiteUser.elo,
+                blackElo - blackUser.elo)
+              _ ← userRepo.setElo(whiteUser.id, whiteElo)
+              _ ← userRepo.setElo(blackUser.id, blackElo)
+              _ ← historyRepo.addEntry(whiteUser.usernameCanonical, whiteElo, game.id)
+              _ ← historyRepo.addEntry(blackUser.usernameCanonical, blackElo, game.id)
+            } yield ()
+          },
+          io()
+        )
       } yield ()
     } | io()
 }

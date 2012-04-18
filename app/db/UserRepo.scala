@@ -12,10 +12,10 @@ import scalaz.effects._
 class UserRepo(collection: MongoCollection)
     extends SalatDAO[User, ObjectId](collection) {
 
-  def user(userId: String): IO[User] = user(new ObjectId(userId))
+  def user(userId: String): IO[Option[User]] = user(new ObjectId(userId))
 
-  def user(userId: ObjectId): IO[User] = io {
-    findOneByID(userId) err "No user found for id " + userId
+  def user(userId: ObjectId): IO[Option[User]] = io {
+    findOneByID(userId)
   }
 
   def setElo(userId: ObjectId, elo: Int): IO[Unit] = io {
