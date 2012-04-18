@@ -7,10 +7,10 @@ import akka.util.duration._
 import akka.util.{ Duration, Timeout }
 import scalaz.effects._
 
-final class Cron(env: SystemEnv)(implicit app: Application) {
+final class Cron(env: SystemEnv) {
 
+  implicit val current = env.app
   implicit val timeout = Timeout(500 millis)
-  implicit val executor = Akka.system.dispatcher
 
   message(2 seconds) {
     env.reporting -> report.Update(env)

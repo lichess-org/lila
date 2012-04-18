@@ -6,7 +6,7 @@ import com.typesafe.config._
 import akka.actor._
 
 import play.api.libs.concurrent._
-import play.api.Play.current
+import play.api.Application
 
 import chess.EloCalculator
 import db._
@@ -14,7 +14,10 @@ import ai._
 import memo._
 import command._
 
-final class SystemEnv(config: Config) {
+final class SystemEnv(application: Application) {
+
+  implicit val app = application
+  val config = app.configuration.underlying
 
   lazy val reporting = Akka.system.actorOf(
     Props(new report.Reporting), name = "reporting")
@@ -171,24 +174,4 @@ final class SystemEnv(config: Config) {
   def getMilliseconds(name: String): Int = (config getMilliseconds name).toInt
 
   def getSeconds(name: String): Int = getMilliseconds(name) / 1000
-}
-
-object SystemEnv extends EnvBuilder {
-
-  def apply(overrides: String = "") = new SystemEnv(
-    makeConfig(overrides)
-  )
-}
-
-trait EnvBuilder {
-
-  import java.io.File
-
-  def makeConfig(sources: String*) = sources.foldLeft(ConfigFactory.load()) {
-    case (config, source) if source isEmpty ⇒ config
-    case (config, source) if source contains '=' ⇒
-      config.withFallback(ConfigFactory parseString source)
-    case (config, source) ⇒
-      config.withFallback(ConfigFactory parseFile (new File(source)))
-  }
 }
