@@ -5,8 +5,6 @@ import chess._
 import Pos.{ posAt, piotr }
 import Role.forsyth
 
-import scala.math.round
-
 case class DbGame(
     id: String,
     whitePlayer: DbPlayer,
@@ -108,7 +106,7 @@ case class DbGame(
         (Event fromMove move) :::
         (Event fromSituation game.situation)
 
-    val nowSeconds = round(System.currentTimeMillis / 1000)
+    def nowSeconds = (System.currentTimeMillis / 1000).toInt
 
     def copyPlayer(player: DbPlayer) = player.copy(
       ps = player encodePieces allPieces,
@@ -141,9 +139,7 @@ case class DbGame(
         else status,
       clock = game.clock,
       check = if (game.situation.check) game.situation.kingPos else None,
-      lastMoveTime = recordMoveTimes.fold(
-        Some(nowSeconds),
-        None)
+      lastMoveTime = recordMoveTimes option nowSeconds
     )
 
     val finalEvents = events :::
