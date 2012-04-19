@@ -2,7 +2,7 @@ package lila
 
 import model._
 import memo._
-import db.{ GameRepo, RoomRepo }
+import db.{ UserRepo, GameRepo, RoomRepo }
 import chess.{ Color, White, Black }
 import game.IsConnected
 
@@ -15,11 +15,13 @@ import play.api.libs.concurrent._
 import play.api.Play.current
 
 final class AppApi(
+    userRepo: UserRepo,
     gameRepo: GameRepo,
     gameSocket: game.Socket,
     gameHubMemo: game.HubMemo,
     messenger: Messenger,
-    starter: Starter) {
+    starter: Starter,
+    eloUpdater: EloUpdater) {
 
   private implicit val timeout = Timeout(300 millis)
   private implicit val executor = Akka.system.dispatcher
@@ -136,6 +138,19 @@ final class AppApi(
     Color(colorName).fold(
       c ⇒ (gameHubMemo get gameId) ? IsConnected(c) mapTo manifest[Boolean],
       Promise successful false)
+
+  def adjust(username: String): IO[Unit] = for {
+    userOption ← userRepo user username
+    _ ← userOption.fold(
+      user ⇒ for {
+        _ ← (user.elo > User.STARTING_ELO).fold(
+          eloUpdater.adjust(user, User.STARTING_ELO), io()
+        )
+        _ ← userRepo setEngine user.id
+      } yield (),
+      io()
+    )
+  } yield ()
 
   private def ioColor(colorName: String): IO[Color] = io {
     Color(colorName) err "Invalid color"

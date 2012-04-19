@@ -8,18 +8,29 @@ import scalaz.effects._
 
 final class HistoryRepo(collection: MongoCollection) {
 
-  val entryType = 2
+  import HistoryRepo._
 
-  def addEntry(username: String, elo: Int, gameId: String): IO[Unit] = io {
+  def addEntry(
+    username: String,
+    elo: Int,
+    gameId: Option[String] = None,
+    entryType: Int = TYPE_GAME): IO[Unit] = io {
     val tsKey = (System.currentTimeMillis / 1000).toString
     collection.update(
       DBObject("_id" -> username),
-      $set (("entries." + tsKey) -> DBObject(
+      $set(("entries." + tsKey) -> DBObject(
         "t" -> entryType,
         "e" -> elo,
-        "g" -> gameId
+        "g" -> (gameId | null)
       )),
       false, false
     )
   }
+}
+
+object HistoryRepo {
+
+  val TYPE_START = 1;
+  val TYPE_GAME = 2;
+  val TYPE_ADJUST = 3;
 }

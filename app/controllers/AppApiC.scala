@@ -50,4 +50,8 @@ object AppApiC extends LilaController {
     FormValidIOk[RematchData](rematchForm)(r ⇒
       api.rematchAccept(gameId, newGameId, color, r._1, r._2, r._3, r._4))
   }
+
+  def adjust(username: String) = Action {
+    IOk(api adjust username)
+  }
 }

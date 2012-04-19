@@ -8,10 +8,10 @@ import chess.{ Color, White, Black, EloCalculator }
 import scalaz.effects._
 
 final class Finisher(
-    historyRepo: HistoryRepo,
     userRepo: UserRepo,
     gameRepo: GameRepo,
     messenger: Messenger,
+    eloUpdater: EloUpdater,
     eloCalculator: EloCalculator,
     finisherLock: FinisherLock) {
 
@@ -102,10 +102,8 @@ final class Finisher(
                 game.id,
                 whiteElo - whiteUser.elo,
                 blackElo - blackUser.elo)
-              _ ← userRepo.setElo(whiteUser.id, whiteElo)
-              _ ← userRepo.setElo(blackUser.id, blackElo)
-              _ ← historyRepo.addEntry(whiteUser.usernameCanonical, whiteElo, game.id)
-              _ ← historyRepo.addEntry(blackUser.usernameCanonical, blackElo, game.id)
+              _ ← eloUpdater.game(whiteUser, whiteElo, game.id)
+              _ ← eloUpdater.game(blackUser, blackElo, game.id)
             } yield ()
           },
           io()

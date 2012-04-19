@@ -13,3 +13,8 @@ case class User(
     nbGames: Int,
     nbRatedGames: Int) {
 }
+
+object User {
+
+  val STARTING_ELO = 1200
+}

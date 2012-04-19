@@ -72,11 +72,13 @@ final class SystemEnv(application: Application) {
     moretimeSeconds = getSeconds("moretime.seconds"))
 
   lazy val appApi = new AppApi(
+    userRepo = userRepo,
     gameRepo = gameRepo,
     gameSocket = gameSocket,
     gameHubMemo = gameHubMemo,
     messenger = messenger,
-    starter = starter)
+    starter = starter,
+    eloUpdater = eloUpdater)
 
   lazy val lobbyApi = new lobby.Api(
     hookRepo = hookRepo,
@@ -88,10 +90,10 @@ final class SystemEnv(application: Application) {
     lobbySocket = lobbySocket)
 
   lazy val finisher = new Finisher(
-    historyRepo = historyRepo,
     userRepo = userRepo,
     gameRepo = gameRepo,
     messenger = messenger,
+    eloUpdater = eloUpdater,
     eloCalculator = new EloCalculator,
     finisherLock = new FinisherLock(
       timeout = getMilliseconds("memo.finisher_lock.timeout")))
@@ -104,6 +106,10 @@ final class SystemEnv(application: Application) {
     entryRepo = entryRepo,
     ai = ai,
     lobbySocket = lobbySocket)
+
+  lazy val eloUpdater = new EloUpdater(
+    userRepo = userRepo,
+    historyRepo = historyRepo)
 
   def ai: () ⇒ Ai = () ⇒ config getString "ai.use" match {
     case "remote" ⇒ remoteAi or craftyAi

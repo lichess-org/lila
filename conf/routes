@@ -17,6 +17,7 @@ POST  /api/start/:gameId           lila.controllers.AppApiC.start(gameId: String
 POST  /api/join/:fullId            lila.controllers.AppApiC.join(fullId: String)
 POST  /api/reload-table/:gameId    lila.controllers.AppApiC.reloadTable(gameId: String)
 POST  /api/rematch-accept/:gameId/:color/:newGameId  lila.controllers.AppApiC.rematchAccept(gameId: String, color: String, newGameId: String)
+POST  /api/adjust/:username        lila.controllers.AppApiC.adjust(username: String)
 GET   /api/activity/:gameId/:color lila.controllers.AppApiC.activity(gameId: String, color: String)
 GET   /api/game-version/:gameId     lila.controllers.AppApiC.gameVersion(gameId: String)
 

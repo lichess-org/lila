@@ -24,6 +24,12 @@ class UserRepo(collection: MongoCollection)
       $set ("elo" -> elo))
   }
 
+  def setEngine(userId: ObjectId): IO[Unit] = io {
+    collection.update(
+      DBObject("_id" -> userId),
+      $set ("engine" -> true))
+  }
+
   def incNbGames(userId: String, rated: Boolean): IO[Unit] = io {
     collection.update(
       DBObject("_id" -> new ObjectId(userId)),
