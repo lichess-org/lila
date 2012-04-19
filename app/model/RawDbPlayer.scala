@@ -15,6 +15,7 @@ case class RawDbPlayer(
     isOfferingDraw: Option[Boolean],
     lastDrawOffer: Option[Int],
     user: Option[DBRef],
+    mts: Option[String],
     blurs: Option[Int]) {
 
   def decode: Option[DbPlayer] = for {
@@ -29,6 +30,7 @@ case class RawDbPlayer(
     isOfferingDraw = isOfferingDraw getOrElse false,
     lastDrawOffer = lastDrawOffer,
     user = user,
+    moveTimes = mts | "",
     blurs = blurs | 0
   )
 }
@@ -47,6 +49,7 @@ object RawDbPlayer {
       isOfferingDraw = if (isOfferingDraw) Some(true) else None,
       lastDrawOffer = lastDrawOffer,
       user = user,
+      mts = Some(moveTimes) filter ("" !=),
       blurs = Some(blurs) filter (0 !=)
     )
   }

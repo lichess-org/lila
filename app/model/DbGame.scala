@@ -5,6 +5,8 @@ import chess._
 import Pos.{ posAt, piotr }
 import Role.forsyth
 
+import scala.math.round
+
 case class DbGame(
     id: String,
     whitePlayer: DbPlayer,
@@ -19,7 +21,8 @@ case class DbGame(
     positionHashes: String = "",
     castles: String = "KQkq",
     isRated: Boolean = false,
-    variant: Variant = Standard) {
+    variant: Variant = Standard,
+    lastMoveTime: Option[Int] = None) {
 
   val players = List(whitePlayer, blackPlayer)
 
@@ -105,9 +108,22 @@ case class DbGame(
         (Event fromMove move) :::
         (Event fromSituation game.situation)
 
+    val nowSeconds = round(System.currentTimeMillis / 1000)
+
     def copyPlayer(player: DbPlayer) = player.copy(
       ps = player encodePieces allPieces,
-      blurs = player.blurs + (blur.pp && move.color == player.color).fold(1, 0)
+      blurs = player.blurs + (blur && move.color == player.color).fold(1, 0),
+      moveTimes = (recordMoveTimes && move.color == player.color).fold(
+        lastMoveTime.fold(
+          lmt ⇒ (nowSeconds - lmt) |> { mt ⇒
+            player.moveTimes.isEmpty.fold(
+              mt.toString,
+              player.moveTimes + " " + mt
+            )
+          },
+          ""
+        ),
+        player.moveTimes)
     )
 
     val updated = copy(
@@ -124,7 +140,10 @@ case class DbGame(
         else if (situation.autoDraw) Draw
         else status,
       clock = game.clock,
-      check = if (game.situation.check) game.situation.kingPos else None
+      check = if (game.situation.check) game.situation.kingPos else None,
+      lastMoveTime = recordMoveTimes.fold(
+        Some(nowSeconds),
+        None)
     )
 
     val finalEvents = events :::
@@ -144,11 +163,15 @@ case class DbGame(
     case Black ⇒ copy(blackPlayer = f(blackPlayer))
   }
 
+  def recordMoveTimes = !hasAi
+
   def playable = status < Aborted
 
   def playableBy(p: DbPlayer) = playable && p == player
 
   def aiLevel: Option[Int] = players find (_.isAi) flatMap (_.aiLevel)
+
+  lazy val hasAi: Boolean = players exists (_.isAi)
 
   def mapPlayers(f: DbPlayer ⇒ DbPlayer) = copy(
     whitePlayer = f(whitePlayer),

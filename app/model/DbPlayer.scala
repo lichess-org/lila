@@ -15,6 +15,7 @@ case class DbPlayer(
     isOfferingDraw: Boolean,
     lastDrawOffer: Option[Int],
     user: Option[DBRef],
+    moveTimes: String,
     blurs: Int) {
 
   def encodePieces(allPieces: Iterable[(Pos, Piece, Boolean)]): String =
