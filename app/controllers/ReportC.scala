@@ -13,7 +13,7 @@ import report.GetStatus
 object ReportC extends LilaController {
 
   val reporting = env.reporting
-  implicit val timeout = Timeout(200 millis)
+  implicit val timeout = Timeout(100 millis)
 
   def status = Action {
     Async {

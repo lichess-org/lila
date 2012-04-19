@@ -52,7 +52,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
 
   //lazy val cli = Project("cli", file("cli"), settings = buildSettings).settings(
     //libraryDependencies ++= Seq(slf4jNop, scalaz)
-  //) dependsOn (system)
+  //) dependsOn (lila)
 
   lazy val chess = Project("chess", file("chess"), settings = buildSettings).settings(
     libraryDependencies ++= Seq(hasher)

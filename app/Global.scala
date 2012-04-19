@@ -1,6 +1,6 @@
 package lila
 
-import play.api._
+import play.api.{ Application, GlobalSettings }
 import play.api.mvc._
 import play.api.mvc.Results._
 
