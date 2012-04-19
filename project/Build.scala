@@ -25,10 +25,6 @@ trait Dependencies {
   val scalaTime = "org.scala-tools.time" %% "time" % "0.5"
   val slf4jNop = "org.slf4j" % "slf4j-nop" % "1.6.4"
   val dispatch = "net.databinder" %% "dispatch-http" % "0.8.7"
-
-  // benchmark
-  val instrumenter = "com.google.code.java-allocation-instrumenter" % "java-allocation-instrumenter" % "2.0"
-  val gson = "com.google.code.gson" % "gson" % "1.7.1"
 }
 
 object ApplicationBuild extends Build with Resolvers with Dependencies {
@@ -57,32 +53,4 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
   lazy val chess = Project("chess", file("chess"), settings = buildSettings).settings(
     libraryDependencies ++= Seq(hasher)
   )
-
-  //lazy val benchmark = Project("benchmark", file("benchmark"), settings = buildSettings).settings(
-    //fork in run := true,
-    //libraryDependencies ++= Seq(instrumenter, gson),
-    //// we need to add the runtime classpath as a "-cp" argument
-    //// to the `javaOptions in run`, otherwise caliper
-    //// will not see the right classpath and die with a ConfigurationException
-    //// unfortunately `javaOptions` is a SettingsKey and
-    //// `fullClasspath in Runtime` is a TaskKey, so we need to
-    //// jump through these hoops here in order to
-    //// feed the result of the latter into the former
-    //onLoad in Global ~= { previous ⇒
-      //state ⇒
-        //previous {
-          //state get key match {
-            //case None ⇒
-              //// get the runtime classpath, turn into a colon-delimited string
-              //val classPath = Project.runTask(fullClasspath in Runtime, state).get._2.toEither.right.get.files.mkString(":")
-              //// return a state with javaOptionsPatched = true and javaOptions set correctly
-              //Project.extract(state).append(Seq(javaOptions in run ++= Seq("-cp", classPath)), state.put(key, true))
-            //case Some(_) ⇒ state // the javaOptions are already patched
-          //}
-        //}
-    //}
-  //) dependsOn (chess, system)
-
-  //// attribute key to prevent circular onLoad hook (for benchmark)
-  //val key = AttributeKey[Boolean]("javaOptionsPatched")
 }
