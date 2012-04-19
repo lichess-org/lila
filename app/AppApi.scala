@@ -87,33 +87,35 @@ final class AppApi(
     whiteRedirect: String,
     blackRedirect: String,
     entryData: String,
-    messageString: String): IO[Valid[Unit]] = for {
-    color ← ioColor(colorName)
-    newGameOption ← gameRepo game newGameId
-    g1Option ← gameRepo game gameId
-    result ← (newGameOption |@| g1Option).tupled.fold(
-      games ⇒ {
-        val (newGame, g1) = games
-        val progress = Progress(g1, List(
-          RedirectEvent(White, whiteRedirect),
-          RedirectEvent(Black, blackRedirect),
-          // tell spectators to reload the table
-          ReloadTableEvent(White),
-          ReloadTableEvent(Black)))
-        for {
-          _ ← gameRepo save progress
-          _ ← gameSocket send progress
-          newProgress ← starter.start(newGame, entryData)
-          newProgress2 ← messenger.systemMessages(
-            newProgress.game, messageString
-          ) map newProgress.++
-          _ ← gameRepo save newProgress2
-          _ ← gameSocket send newProgress2
-        } yield success()
-      },
-      io(GameNotFound)
-    ): IO[Valid[Unit]]
-  } yield result
+    messageString: String): IO[Valid[Unit]] = Color(colorName).fold(
+    color ⇒ for {
+      newGameOption ← gameRepo game newGameId
+      g1Option ← gameRepo game gameId
+      result ← (newGameOption |@| g1Option).tupled.fold(
+        games ⇒ {
+          val (newGame, g1) = games
+          val progress = Progress(g1, List(
+            RedirectEvent(White, whiteRedirect),
+            RedirectEvent(Black, blackRedirect),
+            // tell spectators to reload the table
+            ReloadTableEvent(White),
+            ReloadTableEvent(Black)))
+          for {
+            _ ← gameRepo save progress
+            _ ← gameSocket send progress
+            newProgress ← starter.start(newGame, entryData)
+            newProgress2 ← messenger.systemMessages(
+              newProgress.game, messageString
+            ) map newProgress.++
+            _ ← gameRepo save newProgress2
+            _ ← gameSocket send newProgress2
+          } yield success()
+        },
+        io(GameNotFound)
+      ): IO[Valid[Unit]]
+    } yield result,
+    io { !!("Wrong color name") }
+  )
 
   def reloadTable(gameId: String): IO[Valid[Unit]] = for {
     g1Option ← gameRepo game gameId
@@ -151,8 +153,4 @@ final class AppApi(
       io()
     )
   } yield ()
-
-  private def ioColor(colorName: String): IO[Color] = io {
-    Color(colorName) err "Invalid color"
-  }
 }

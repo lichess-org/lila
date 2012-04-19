@@ -54,8 +54,4 @@ final class Api(
     hook ← hookRepo ownedHook hookOwnerId
     _ ← hook.fold(fisherman.+, io())
   } yield ()
-
-  private def ioColor(colorName: String): IO[Color] = io {
-    Color(colorName) err "Invalid color"
-  }
 }
