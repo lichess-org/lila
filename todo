@@ -3,4 +3,4 @@ blurs
 ping nbm
 compress player.ps notation
 remove player.evts from mongodb
-deprecated browser notice
+remove game.whiteBlurs, blackBlurs

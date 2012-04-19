@@ -32,13 +32,13 @@ final class Socket(
     (hubMemo get gameId) ! Events(events)
   }
 
-  def listener(
+  def controller(
     hub: ActorRef,
     member: Member,
     povRef: PovRef): JsValue ⇒ Unit = member match {
     case Watcher(_, _) ⇒ (_: JsValue) ⇒ Unit
     case Owner(_, color) ⇒ (e: JsValue) ⇒ (e str "t" match {
-      case Some("talk") ⇒ (e str "t" map { txt ⇒
+      case Some("talk") ⇒ (e str "d" map { txt ⇒
         messenger.playerMessage(povRef, txt) map { hub ! Events(_) }
       }) | io()
       case Some("move") ⇒ (for {
@@ -83,7 +83,7 @@ final class Socket(
       )).asPromise map {
           case Connected(member) ⇒ (
             Iteratee.foreach[JsValue](
-              listener(hub, member, PovRef(gameId, member.color))
+              controller(hub, member, PovRef(gameId, member.color))
             ) mapDone { _ ⇒
                 hub ! Quit(uid)
                 scheduleForDeletion(hub, gameId)
