@@ -50,5 +50,12 @@ package object lila
     case e: NumberFormatException ⇒ None
   }
 
+  def parseFloatOption(str: String): Option[Float] = try {
+    Some(java.lang.Float.parseFloat(str))
+  }
+  catch {
+    case e: NumberFormatException ⇒ None
+  }
+
   val MoveString = """^([a-h][1-8]) ([a-h][1-8])$""".r
 }

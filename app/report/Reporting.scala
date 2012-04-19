@@ -6,12 +6,17 @@ import akka.actor._
 import akka.pattern.{ ask, pipe }
 import akka.util.duration._
 import akka.util.{ Duration, Timeout }
+import scala.io.Source
 
 final class Reporting extends Actor {
 
   private var nbMembers = 0
   private var nbGames = 0
   private var nbPlaying = 0
+  private var loadAvg: Option[Float] = None
+
+  private val loadAvgFile = "/proc/loadavg"
+
   implicit val timeout = Timeout(200 millis)
 
   def receive = {
@@ -28,11 +33,16 @@ final class Reporting extends Actor {
       }
       nbGames = env.gameRepo.countAll.unsafePerformIO
       nbPlaying = env.gameHubMemo.count.toInt
+      loadAvg = parseFloatOption {
+        Source.fromFile(loadAvgFile).getLines.mkString takeWhile (_ != ' ')
+      }
     }
   }
 
   private def status = List(
     nbMembers,
     nbGames,
-    nbPlaying) mkString " "
+    nbPlaying,
+    loadAvg.fold(_.toString, "?")
+  ) mkString " "
 }
