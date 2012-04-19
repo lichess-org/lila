@@ -1,11 +1,20 @@
 package lila.cli
 
-import lila.system.SystemEnv
 import scalaz.effects._
+import play.api.{ Mode, Application }
+
+import java.io.File
+import lila.SystemEnv
 
 object Main {
 
-  lazy val env = SystemEnv()
+  lazy val app = new Application(
+    path = new File("."),
+    classloader = this.getClass.getClassLoader(),
+    sources = None,
+    mode = Mode.Dev)
+
+  lazy val env = new SystemEnv(app)
 
   def main(args: Array[String]): Unit = sys exit {
 

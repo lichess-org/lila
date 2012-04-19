@@ -50,9 +50,9 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     libraryDependencies ++= Seq(scalaz, config, json, casbah, salat, guava, apache, jodaTime, jodaConvert, scalaTime, dispatch)
   ) dependsOn chess
 
-  //lazy val cli = Project("cli", file("cli"), settings = buildSettings).settings(
-    //libraryDependencies ++= Seq(slf4jNop, scalaz)
-  //) dependsOn (lila)
+  lazy val cli = Project("cli", file("cli"), settings = buildSettings).settings(
+    libraryDependencies ++= Seq(slf4jNop, scalaz)
+  ) dependsOn (lila)
 
   lazy val chess = Project("chess", file("chess"), settings = buildSettings).settings(
     libraryDependencies ++= Seq(hasher)
