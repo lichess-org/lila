@@ -43,8 +43,8 @@ final class Socket(
       }) | io()
       case Some("move") ⇒ (for {
         d ← e.as[JsObject] obj "d"
-        orig ← d str "orig"
-        dest ← d str "dest"
+        orig ← d str "from"
+        dest ← d str "to"
         promotion = d str "promotion"
         blur = (d int "b") == Some(1)
         op = for {
