@@ -27,7 +27,7 @@ object AppC extends LilaController {
   def gameSocket(gameId: String, color: String) =
     WebSocket.async[JsValue] { implicit request ⇒
       env.gameSocket.join(
-        gameId = gameId ~ { i ⇒ println("Attempt to connect to " + i) },
+        gameId = gameId,
         colorName = color,
         uid = get("uid") err "Socket UID missing",
         version = getInt("version") err "Socket version missing",
