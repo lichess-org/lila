@@ -1,6 +1,3 @@
 move times
-blurs
 ping nbm
 compress player.ps notation
-remove player.evts from mongodb
-remove game.whiteBlurs, blackBlurs
