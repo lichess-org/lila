@@ -142,7 +142,7 @@ final class AppApi(
       Promise successful false)
 
   def adjust(username: String): IO[Unit] = for {
-    userOption ← userRepo user username
+    userOption ← userRepo byUsername username
     _ ← userOption.fold(
       user ⇒ for {
         _ ← (user.elo > User.STARTING_ELO).fold(

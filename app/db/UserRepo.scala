@@ -18,35 +18,41 @@ class UserRepo(collection: MongoCollection)
     findOneByID(userId)
   }
 
+  def byUsername(username: String): IO[Option[User]] = io {
+    findOne(
+      DBObject("usernameCanonical" -> username.toLowerCase)
+    )
+  }
+
   def setElo(userId: ObjectId, elo: Int): IO[Unit] = io {
     collection.update(
       DBObject("_id" -> userId),
-      $set ("elo" -> elo))
+      $set("elo" -> elo))
   }
 
   def setEngine(userId: ObjectId): IO[Unit] = io {
     collection.update(
       DBObject("_id" -> userId),
-      $set ("engine" -> true))
+      $set("engine" -> true))
   }
 
   def incNbGames(userId: String, rated: Boolean): IO[Unit] = io {
     collection.update(
       DBObject("_id" -> new ObjectId(userId)),
-      if (rated) $inc ("nbGames" -> 1, "nbRatedGames" -> 1)
-      else $inc ("nbGames" -> 1))
+      if (rated) $inc("nbGames" -> 1, "nbRatedGames" -> 1)
+      else $inc("nbGames" -> 1))
   }
 
   def updateOnlineUsernames(usernames: Iterable[String]): IO[Unit] = io {
     val names = usernames.toList.map(_.toLowerCase).distinct
     collection.update(
       ("usernameCanonical" $nin names) ++ ("isOnline" -> true),
-      $set ("isOnline" -> false),
+      $set("isOnline" -> false),
       upsert = false,
       multi = true)
     collection.update(
       ("usernameCanonical" $in names) ++ ("isOnline" -> false),
-      $set ("isOnline" -> true),
+      $set("isOnline" -> true),
       upsert = false,
       multi = true)
   }
