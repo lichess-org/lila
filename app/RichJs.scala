@@ -9,6 +9,9 @@ object RichJs {
     def str(key: String): Option[String] =
       js.value get key flatMap (_.asOpt[String])
 
+    def int(key: String): Option[Int] =
+      js.value get key flatMap (_.asOpt[Int])
+
     def obj(key: String): Option[JsObject] =
       js.value get key flatMap (_.asOpt[JsObject])
   }

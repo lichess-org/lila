@@ -43,11 +43,12 @@ final class Socket(
       }) | io()
       case Some("move") ⇒ (for {
         d ← e.as[JsObject] obj "d"
-        orig ← d str "from"
-        dest ← d str "to"
+        orig ← d str "orig"
+        dest ← d str "dest"
         promotion = d str "promotion"
+        blur = (d int "b") == Some(1)
         op = for {
-          events ← hand.play(povRef, orig, dest, promotion)
+          events ← hand.play(povRef, orig, dest, promotion, blur)
           _ ← events.fold(putFailures, events ⇒ send(povRef.gameId, events))
         } yield ()
       } yield op) | io()

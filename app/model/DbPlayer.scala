@@ -14,7 +14,8 @@ case class DbPlayer(
     elo: Option[Int],
     isOfferingDraw: Boolean,
     lastDrawOffer: Option[Int],
-    user: Option[DBRef]) {
+    user: Option[DBRef],
+    blurs: Int) {
 
   def encodePieces(allPieces: Iterable[(Pos, Piece, Boolean)]): String =
     allPieces withFilter (_._2.color == color) map {

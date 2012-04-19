@@ -91,7 +91,7 @@ case class DbGame(
     positionHashes = positionHashes grouped History.hashSize toList
   )
 
-  def update(game: Game, move: Move): Progress = {
+  def update(game: Game, move: Move, blur: Boolean = false): Progress = {
     val allPieces = (game.board.pieces map {
       case (pos, piece) ⇒ (pos, piece, false)
     }) ++ (game.deads map {
@@ -106,7 +106,9 @@ case class DbGame(
         (Event fromSituation game.situation)
 
     def copyPlayer(player: DbPlayer) = player.copy(
-      ps = player encodePieces allPieces)
+      ps = player encodePieces allPieces,
+      blurs = player.blurs + (blur.pp && move.color == player.color).fold(1, 0)
+    )
 
     val updated = copy(
       pgn = game.pgnMoves,

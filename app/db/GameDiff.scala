@@ -23,6 +23,7 @@ final class GameDiff(a: RawDbGame, b: RawDbGame) {
       d(name + "w", _.players(i).w)
       d(name + "lastDrawOffer", _.players(i).lastDrawOffer)
       d(name + "isOfferingDraw", _.players(i).isOfferingDraw)
+      d(name + "blurs", _.players(i).blurs)
     }
     a.clock foreach { c ⇒
       d("clock.c", _.clock.get.c)

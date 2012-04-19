@@ -20,7 +20,8 @@ final class Hand(
     povRef: PovRef,
     origString: String,
     destString: String,
-    promString: Option[String] = None): IOValidEvents = fromPov(povRef) {
+    promString: Option[String] = None,
+    blur: Boolean = false): IOValidEvents = fromPov(povRef) {
     case Pov(g1, color) ⇒ (for {
       g2 ← (g1.playable).fold(success(g1), failure("Game not playable" wrapNel))
       orig ← posAt(origString) toValid "Wrong orig " + origString
@@ -28,7 +29,7 @@ final class Hand(
       promotion ← Role promotable promString toValid "Wrong promotion"
       newChessGameAndMove ← g2.toChess(orig, dest, promotion)
       (newChessGame, move) = newChessGameAndMove
-    } yield g2.update(newChessGame, move)).fold(
+    } yield g2.update(newChessGame, move, blur)).fold(
       e ⇒ io(failure(e)),
       progress ⇒ for {
         events ← if (progress.game.finished) for {

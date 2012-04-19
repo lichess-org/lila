@@ -14,7 +14,8 @@ case class RawDbPlayer(
     elo: Option[Int],
     isOfferingDraw: Option[Boolean],
     lastDrawOffer: Option[Int],
-    user: Option[DBRef]) {
+    user: Option[DBRef],
+    blurs: Option[Int]) {
 
   def decode: Option[DbPlayer] = for {
     trueColor ← Color(c)
@@ -27,7 +28,8 @@ case class RawDbPlayer(
     elo = elo,
     isOfferingDraw = isOfferingDraw getOrElse false,
     lastDrawOffer = lastDrawOffer,
-    user = user
+    user = user,
+    blurs = blurs | 0
   )
 }
 
@@ -44,7 +46,8 @@ object RawDbPlayer {
       elo = elo,
       isOfferingDraw = if (isOfferingDraw) Some(true) else None,
       lastDrawOffer = lastDrawOffer,
-      user = user
+      user = user,
+      blurs = Some(blurs) filter (0 !=)
     )
   }
 }
