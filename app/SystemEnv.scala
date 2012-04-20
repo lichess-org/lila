@@ -110,10 +110,10 @@ final class SystemEnv(application: Application) {
     userRepo = userRepo,
     historyRepo = historyRepo)
 
-  def ai: () ⇒ Ai = () ⇒ config getString "ai.use" match {
-    case "remote" ⇒ remoteAi or craftyAi
-    case "crafty" ⇒ craftyAi
-    case _        ⇒ stupidAi
+  val ai: () ⇒ Ai = config getString "ai.use" match {
+    case "remote" ⇒ () ⇒ remoteAi or craftyAi
+    case "crafty" ⇒ () ⇒ craftyAi
+    case _        ⇒ () ⇒ stupidAi
   }
 
   lazy val remoteAi = new RemoteAi(
