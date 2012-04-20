@@ -28,11 +28,6 @@ final class Hub extends Actor {
     case Quit(uid)    ⇒ { members = members - uid }
   }
 
-  private def notifyMember(t: String, data: JsValue)(member: Member) {
-    val msg = JsObject(Seq("t" -> JsString(t), "d" -> data))
-    member.channel push msg
-  }
-
   private def notifyAll(t: String, data: JsValue) {
     val msg = makeMessage(t, data)
     members.values.foreach(_.channel push msg)
