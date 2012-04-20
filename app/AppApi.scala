@@ -91,9 +91,8 @@ final class AppApi(
     color ⇒ for {
       newGameOption ← gameRepo game newGameId
       g1Option ← gameRepo game gameId
-      result ← (newGameOption |@| g1Option).tupled.fold(
-        games ⇒ {
-          val (newGame, g1) = games
+      result ← (newGameOption |@| g1Option).apply(
+        (newGame, g1) ⇒ {
           val progress = Progress(g1, List(
             RedirectEvent(White, whiteRedirect),
             RedirectEvent(Black, blackRedirect),
@@ -110,9 +109,8 @@ final class AppApi(
             _ ← gameRepo save newProgress2
             _ ← gameSocket send newProgress2
           } yield success()
-        },
-        io(GameNotFound)
-      ): IO[Valid[Unit]]
+        }
+      ).fold(identity, io(GameNotFound))
     } yield result,
     io { !!("Wrong color name") }
   )

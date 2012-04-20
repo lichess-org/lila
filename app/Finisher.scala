@@ -93,9 +93,8 @@ final class Finisher(
       } yield for {
         whiteUserOption ← userRepo user whiteUserId
         blackUserOption ← userRepo user blackUserId
-        _ ← (whiteUserOption |@| blackUserOption).tupled.fold(
-          users ⇒ {
-            val (whiteUser, blackUser) = users
+        _ ← (whiteUserOption |@| blackUserOption).apply(
+          (whiteUser, blackUser) ⇒ {
             val (whiteElo, blackElo) = eloCalculator.calculate(whiteUser, blackUser, game.winnerColor)
             for {
               _ ← gameRepo.setEloDiffs(
@@ -105,9 +104,8 @@ final class Finisher(
               _ ← eloUpdater.game(whiteUser, whiteElo, game.id)
               _ ← eloUpdater.game(blackUser, blackElo, game.id)
             } yield ()
-          },
-          io()
-        )
+          }
+        ).fold(identity, io())
       } yield ()
     } | io()
 }

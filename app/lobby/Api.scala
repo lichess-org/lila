@@ -30,9 +30,8 @@ final class Api(
     myHookOwnerId: Option[String]): IO[Valid[Unit]] = for {
     hook ← hookRepo ownedHook hookOwnerId
     gameOption ← gameRepo game gameId
-    result ← (Color(colorName) |@| gameOption).tupled.fold(
-      colorGame ⇒ {
-        val (color, game) = colorGame
+    result ← (Color(colorName) |@| gameOption).apply(
+      (color, game) ⇒ {
         for {
           p1 ← starter.start(game, entryData)
           p2 ← messenger.systemMessages(game, messageString) map p1.++
@@ -45,9 +44,8 @@ final class Api(
             },
             io())
         } yield success()
-      },
-      io(GameNotFound)
-    )
+      }
+    ).fold(identity, io(GameNotFound))
   } yield result
 
   def create(hookOwnerId: String): IO[Unit] = for {
