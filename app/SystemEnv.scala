@@ -12,7 +12,6 @@ import chess.EloCalculator
 import db._
 import ai._
 import memo._
-import command._
 
 final class SystemEnv(application: Application) {
 
@@ -173,9 +172,12 @@ final class SystemEnv(application: Application) {
   lazy val hookMemo = new HookMemo(
     timeout = getMilliseconds("memo.hook.timeout"))
 
-  lazy val gameFinishCommand = new GameFinishCommand(
+  lazy val gameFinishCommand = new command.GameFinish(
     gameRepo = gameRepo,
     finisher = finisher)
+
+  lazy val gameCleanNextCommand = new command.GameCleanNext(
+    gameRepo = gameRepo)
 
   def getMilliseconds(name: String): Int = (config getMilliseconds name).toInt
 
