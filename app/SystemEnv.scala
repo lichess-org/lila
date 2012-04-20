@@ -166,9 +166,6 @@ final class SystemEnv(application: Application) {
     o.threadsAllowedToBlockForConnectionMultiplier = config getInt "mongo.threadsAllowedToBlockForConnectionMultiplier"
   }
 
-  lazy val watcherMemo = new WatcherMemo(
-    timeout = getMilliseconds("memo.watcher.timeout"))
-
   lazy val hookMemo = new HookMemo(
     timeout = getMilliseconds("memo.hook.timeout"))
 

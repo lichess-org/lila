@@ -104,5 +104,4 @@ final class Socket(
       JsObject(Seq("error" -> JsString("Invalid request")))
     ) andThen Enumerator.enumInput(Input.EOF))
   }
-
 }
