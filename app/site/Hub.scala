@@ -21,7 +21,7 @@ final class Hub extends Actor {
       sender ! Connected(channel)
     }
 
-    case NbMembers    ⇒ notifyAll("nbp", JsNumber(members.size))
+    case NbMembers    ⇒ notifyAll("n", JsNumber(members.size))
 
     case GetNbMembers ⇒ sender ! members.size
 
