@@ -1,6 +1,5 @@
+package lila
 package controllers
-
-import lila.http._
 
 import play.api._
 import mvc._
@@ -20,28 +19,25 @@ trait LilaController extends Controller with ContentTypes with RequestGetter {
   def JsonIOk(map: IO[Map[String, Any]]) = JsonOk(map.unsafePerformIO)
 
   def ValidOk(valid: Valid[Unit]) = valid.fold(
-    e ⇒ BadRequest(e.list mkString "\n"),
+    e ⇒ BadRequest(e.shows),
     _ ⇒ Ok("ok")
   )
 
   def ValidIOk(valid: IO[Valid[Unit]]) = valid.unsafePerformIO.fold(
-    e ⇒ BadRequest(e.list mkString "\n"),
+    e ⇒ BadRequest(e.shows),
     _ ⇒ Ok("ok")
   )
 
-  def ValidIORedir(op: IO[Valid[Unit]], url: ⇒ String) =
-    op.unsafePerformIO.fold(
-      failures ⇒ {
-        println(failures.list mkString "\n")
-        Redirect("/" + url)
-      },
-      _ ⇒ Redirect("/" + url)
-    )
-
-  def FormValidIOk[A](form: Form[A])(op: A ⇒ IO[Unit])(implicit request: Request[_]) =
+  def FormIOk[A](form: Form[A])(op: A ⇒ IO[Unit])(implicit request: Request[_]) =
     form.bindFromRequest.fold(
       form ⇒ BadRequest(form.errors mkString "\n"),
       data ⇒ IOk(op(data))
+    )
+
+  def FormValidIOk[A](form: Form[A])(op: A ⇒ IO[Valid[Unit]])(implicit request: Request[_]) =
+    form.bindFromRequest.fold(
+      form ⇒ BadRequest(form.errors mkString "\n"),
+      data ⇒ ValidIOk(op(data))
     )
 
   def IOk(op: IO[Unit]) = Ok(op.unsafePerformIO)
@@ -69,7 +65,7 @@ trait LilaController extends Controller with ContentTypes with RequestGetter {
 
   implicit def richForm[A](form: Form[A]) = new {
     def toValid: Valid[A] = form.fold(
-      form ⇒ failure(nel("Invalid form", form.errors.map(_.toString): _*)),
+      form ⇒ failure(nel("Invalid form", form.errors.map(_.toString).toList)),
       data ⇒ success(data)
     )
   }

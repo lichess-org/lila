@@ -1,15 +1,11 @@
+package lila
 package controllers
-
-import lila.http._
-import DataForm._
 
 import play.api._
 import mvc._
 
 import play.api.libs.concurrent.Akka
 import play.api.Play.current
-
-import scalaz.effects.IO
 
 object AiC extends LilaController {
 
@@ -21,7 +17,7 @@ object AiC extends LilaController {
         craftyServer(fen = getOr("fen", ""), level = getIntOr("level", 1))
       } map { res ⇒
         res.fold(
-          err ⇒ BadRequest(err.list mkString "\n"),
+          err ⇒ BadRequest(err.shows),
           op ⇒ Ok(op.unsafePerformIO)
         )
       }

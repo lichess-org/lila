@@ -1,6 +1,6 @@
 package lila.cli
 
-import lila.system.SystemEnv
+import lila.SystemEnv
 import scalaz.effects._
 
 case class Info(env: SystemEnv) extends Command {

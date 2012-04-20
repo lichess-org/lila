@@ -1,56 +1,62 @@
-package lila.http
+package lila
 
 import play.api._
 import play.api.libs.concurrent.Akka
-import akka.actor._
+import akka.actor.ActorRef
 import akka.util.duration._
-import akka.util.Duration
+import akka.util.{ Duration, Timeout }
 import scalaz.effects._
 
-import lila.system.SystemEnv
+final class Cron(env: SystemEnv) {
 
-final class Cron(env: SystemEnv)(implicit app: Application) {
+  implicit val current = env.app
+  implicit val timeout = Timeout(500 millis)
 
-  spawn("online_username") { env ⇒
-    env.userRepo updateOnlineUsernames env.usernameMemo.keys
+  message(2 seconds) {
+    env.reporting -> report.Update(env)
   }
 
-  spawn("hook_cleanup_dead") { env ⇒
-    env.hookRepo keepOnlyOwnerIds env.hookMemo.keys flatMap { hasRemoved ⇒
-      if (hasRemoved) (env.lobbyMemo ++) map (_ ⇒ Unit) else io()
-    }
+  message(1 second) {
+    env.lobbyHub -> lobby.WithHooks(env.hookMemo.putAll)
   }
 
-  spawn("hook_cleanup_old") { env ⇒
+  message(2 seconds) {
+    env.siteHub -> site.NbMembers
+  }
+
+  effect(2 seconds) {
+    env.lobbyFisherman.cleanup
+  }
+
+  effect(10 seconds) {
     env.hookRepo.cleanupOld
   }
 
-  spawn("game_cleanup_unplayed") { env ⇒
-    putStrLn("[cron] remove old unplayed games") flatMap { _ ⇒
-      env.gameRepo.cleanupUnplayed
+  message(3 seconds) {
+    env.siteHub -> site.WithUsernames(env.userRepo.updateOnlineUsernames)
+  }
+
+  effect(12.1 hours) {
+    env.gameRepo.cleanupUnplayed flatMap { _ ⇒
+      env.gameCleanNextCommand.apply
     }
   }
 
-  spawn("game_auto_finish") { _.gameFinishCommand.apply() }
-
-  spawn("remote_ai_health") { env ⇒
-    for {
-      health ← env.remoteAi.health
-      _ ← health.fold(
-        env.remoteAiHealth.fold(io(), putStrLn("remote AI is up")),
-        putStrLn("remote AI is down")
-      )
-      _ ← io { env.remoteAiHealth = health }
-    } yield ()
+  effect(1 hour) {
+    env.gameFinishCommand.apply
   }
 
-  def spawn(name: String)(f: SystemEnv ⇒ IO[Unit]) = {
-    val freq = env.getMilliseconds("cron.frequency.%s" format name) millis
-    val actor = Akka.system.actorOf(Props(new Actor {
-      def receive = {
-        case "tick" ⇒ f(env).unsafePerformIO
-      }
-    }), name = name)
-    Akka.system.scheduler.schedule(freq, freq, actor, "tick")
+  effect(10 seconds) {
+    env.remoteAi.diagnose
+  }
+
+  import RichDuration._
+
+  def effect(freq: Duration)(op: IO[_]) {
+    Akka.system.scheduler.schedule(freq, freq.randomize()) { op.unsafePerformIO }
+  }
+
+  def message(freq: Duration)(to: (ActorRef, Any)) {
+    Akka.system.scheduler.schedule(freq, freq.randomize(), to._1, to._2)
   }
 }

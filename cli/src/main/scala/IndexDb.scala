@@ -1,6 +1,6 @@
 package lila.cli
 
-import lila.system.db.GameRepo
+import lila.db.GameRepo
 import scalaz.effects._
 
 case class IndexDb(gameRepo: GameRepo) extends Command {

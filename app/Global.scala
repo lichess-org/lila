@@ -1,10 +1,8 @@
-package lila.http
+package lila
 
-import play.api._
+import play.api.{ Application, GlobalSettings }
 import play.api.mvc._
 import play.api.mvc.Results._
-
-import lila.system.SystemEnv
 
 object Global extends GlobalSettings {
 
@@ -13,10 +11,10 @@ object Global extends GlobalSettings {
   def env = Option(systemEnv) err "The environment is not ready"
 
   override def onStart(app: Application) {
-    systemEnv = new SystemEnv(app.configuration.underlying)
+    systemEnv = new SystemEnv(app)
 
     if (env.isAiServer) println("Running as AI server")
-    else new Cron(env)(app)
+    else new Cron(env)
   }
 
   override def onHandlerNotFound(request: RequestHeader): Result = {

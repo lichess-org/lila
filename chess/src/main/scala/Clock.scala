@@ -109,5 +109,5 @@ case class PausedClock(
 
 object Clock {
 
-  val httpDelay = 0.5f
+  val httpDelay = 0.4f
 }

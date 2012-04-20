@@ -14,7 +14,7 @@ trait Dependencies {
   val specs2 = "org.specs2" %% "specs2" % "1.8.2"
   val casbah = "com.mongodb.casbah" %% "casbah" % "2.1.5-1"
   val salat = "com.novus" %% "salat-core" % "0.0.8-SNAPSHOT"
-  val scalalib = "com.github.ornicar" %% "scalalib" % "1.24"
+  val scalalib = "com.github.ornicar" %% "scalalib" % "1.25"
   val hasher = "com.roundeights" % "hasher" % "0.3" from "http://cloud.github.com/downloads/Nycto/Hasher/hasher_2.9.1-0.3.jar"
   val config = "com.typesafe.config" % "config" % "0.3.0"
   val json = "com.codahale" %% "jerkson" % "0.5.0"
@@ -25,10 +25,6 @@ trait Dependencies {
   val scalaTime = "org.scala-tools.time" %% "time" % "0.5"
   val slf4jNop = "org.slf4j" % "slf4j-nop" % "1.6.4"
   val dispatch = "net.databinder" %% "dispatch-http" % "0.8.7"
-
-  // benchmark
-  val instrumenter = "com.google.code.java-allocation-instrumenter" % "java-allocation-instrumenter" % "2.0"
-  val gson = "com.google.code.gson" % "gson" % "1.7.1"
 }
 
 object ApplicationBuild extends Build with Resolvers with Dependencies {
@@ -47,46 +43,14 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
   )
 
   lazy val lila = PlayProject("lila", mainLang = SCALA, settings = buildSettings).settings(
-    libraryDependencies ++= Seq(scalaz)
-  ) dependsOn (system)
+    libraryDependencies ++= Seq(scalaz, config, json, casbah, salat, guava, apache, jodaTime, jodaConvert, scalaTime, dispatch)
+  ) dependsOn chess
 
   lazy val cli = Project("cli", file("cli"), settings = buildSettings).settings(
     libraryDependencies ++= Seq(slf4jNop, scalaz)
-  ) dependsOn (system)
-
-  lazy val system = Project("system", file("system"), settings = buildSettings).settings(
-    libraryDependencies ++= Seq(scalaz, config, json, casbah, salat, guava, apache, jodaTime, jodaConvert, scalaTime, dispatch)
-  ) dependsOn (chess)
+  ) dependsOn (lila)
 
   lazy val chess = Project("chess", file("chess"), settings = buildSettings).settings(
     libraryDependencies ++= Seq(hasher)
   )
-
-  //lazy val benchmark = Project("benchmark", file("benchmark"), settings = buildSettings).settings(
-    //fork in run := true,
-    //libraryDependencies ++= Seq(instrumenter, gson),
-    //// we need to add the runtime classpath as a "-cp" argument
-    //// to the `javaOptions in run`, otherwise caliper
-    //// will not see the right classpath and die with a ConfigurationException
-    //// unfortunately `javaOptions` is a SettingsKey and
-    //// `fullClasspath in Runtime` is a TaskKey, so we need to
-    //// jump through these hoops here in order to
-    //// feed the result of the latter into the former
-    //onLoad in Global ~= { previous ⇒
-      //state ⇒
-        //previous {
-          //state get key match {
-            //case None ⇒
-              //// get the runtime classpath, turn into a colon-delimited string
-              //val classPath = Project.runTask(fullClasspath in Runtime, state).get._2.toEither.right.get.files.mkString(":")
-              //// return a state with javaOptionsPatched = true and javaOptions set correctly
-              //Project.extract(state).append(Seq(javaOptions in run ++= Seq("-cp", classPath)), state.put(key, true))
-            //case Some(_) ⇒ state // the javaOptions are already patched
-          //}
-        //}
-    //}
-  //) dependsOn (chess, system)
-
-  //// attribute key to prevent circular onLoad hook (for benchmark)
-  //val key = AttributeKey[Boolean]("javaOptionsPatched")
 }

@@ -1,28 +1,28 @@
+package lila
 package controllers
 
-import lila.http._
-import DataForm._
+import lila.DataForm._
 
-import play.api._
-import mvc._
+import play.api.mvc._
+import play.api.libs.concurrent._
 
 object AppApiC extends LilaController {
 
   private val api = env.appApi
 
   def show(fullId: String) = Action {
-    JsonIOk(api show fullId)
+    Async {
+      (api show fullId).asPromise map { op ⇒
+        op.unsafePerformIO.fold(e ⇒ BadRequest(e.shows), JsonOk)
+      }
+    }
   }
 
   def reloadTable(gameId: String) = Action {
-    IOk(api reloadTable gameId)
+    ValidIOk(api reloadTable gameId)
   }
 
-  def alive(gameId: String, color: String) = Action {
-    IOk(api.alive(gameId, color))
-  }
-
-  def start(gameId: String) = Action { implicit request =>
+  def start(gameId: String) = Action { implicit request ⇒
     FormValidIOk[EntryData](entryForm)(entryData ⇒ api.start(gameId, entryData))
   }
 
@@ -33,15 +33,25 @@ object AppApiC extends LilaController {
   }
 
   def activity(gameId: String, color: String) = Action {
-    Ok(api.activity(gameId, color))
+    Async {
+      api.isConnected(gameId, color).asPromise map { bool ⇒
+        Ok(bool.fold(1, 0))
+      }
+    }
   }
 
-  def playerVersion(gameId: String, color: String) = Action {
-    Ok(api.playerVersion(gameId, color).unsafePerformIO)
+  def gameVersion(gameId: String) = Action {
+    Async {
+      (api gameVersion gameId).asPromise map { Ok(_) }
+    }
   }
 
   def rematchAccept(gameId: String, color: String, newGameId: String) = Action { implicit request ⇒
     FormValidIOk[RematchData](rematchForm)(r ⇒
       api.rematchAccept(gameId, newGameId, color, r._1, r._2, r._3, r._4))
+  }
+
+  def adjust(username: String) = Action {
+    IOk(api adjust username)
   }
 }

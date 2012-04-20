@@ -1,6 +1,6 @@
-package lila.http
+package lila
 
-import lila.system.model._
+import lila.model._
 import play.api.data._
 import play.api.data.Forms._
 
@@ -10,13 +10,8 @@ object DataForm {
   val moveForm = Form(tuple(
     "from" -> nonEmptyText,
     "to" -> nonEmptyText,
-    "promotion" -> optional(text),
+    "promotion" -> optional(nonEmptyText),
     "b" -> optional(number)
-  ))
-
-  type TalkData = String
-  val talkForm = Form(single(
-    "message" -> nonEmptyText
   ))
 
   type EntryData = String
@@ -31,10 +26,12 @@ object DataForm {
     "entry" -> nonEmptyText
   ))
 
-  type LobbyJoinData = (MessagesData, EntryData)
+  type LobbyJoinData = (MessagesData, EntryData, String, Option[String])
   val lobbyJoinForm = Form(tuple(
     "entry" -> nonEmptyText,
-    "messages" -> nonEmptyText
+    "messages" -> nonEmptyText,
+    "hook" -> nonEmptyText,
+    "myHook" -> optional(nonEmptyText)
   ))
 
   type RematchData = (String, String, EntryData, MessagesData)
