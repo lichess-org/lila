@@ -14,6 +14,7 @@ final class Reporting extends Actor {
   private var nbGames = 0
   private var nbPlaying = 0
   private var loadAvg: Option[Float] = None
+  private var remoteAi = false
 
   private val loadAvgFile = "/proc/loadavg"
 
@@ -36,6 +37,7 @@ final class Reporting extends Actor {
       loadAvg = parseFloatOption {
         Source.fromFile(loadAvgFile).getLines.mkString takeWhile (_ != ' ')
       }
+      remoteAi = env.remoteAi.currentHealth
     }
   }
 
@@ -43,6 +45,7 @@ final class Reporting extends Actor {
     nbMembers,
     nbGames,
     nbPlaying,
-    loadAvg.fold(_.toString, "?")
+    loadAvg.fold(_.toString, "?"),
+    remoteAi.fold(1, 0)
   ) mkString " "
 }

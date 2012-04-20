@@ -34,6 +34,8 @@ final class RemoteAi(
 
   def or(fallback: Ai) = if (health) this else fallback
 
+  def currentHealth = health
+
   def diagnose: IO[Unit] = for {
     h ← healthCheck
     _ ← h.fold(
