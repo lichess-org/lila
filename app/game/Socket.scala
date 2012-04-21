@@ -97,8 +97,11 @@ final class Socket(
     }
 
   private def scheduleForDeletion(hub: ActorRef, gameId: String) {
-    Akka.system.scheduler.scheduleOnce(1 minute) {
-      hub ! IfEmpty(hubMemo remove gameId)
+    Akka.system.scheduler.scheduleOnce(10 seconds) {
+      hub ! IfEmpty({
+        println("delete game room " + gameId)
+        hubMemo remove gameId
+      })
     }
   }
 }
