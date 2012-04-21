@@ -36,7 +36,7 @@ final class Cron(env: SystemEnv) {
     env.siteHub -> site.WithUsernames(env.userRepo.updateOnlineUsernames)
   }
 
-  effect(12.1 hours) {
+  effect(4.1 hours) {
     env.gameRepo.cleanupUnplayed flatMap { _ ⇒
       env.gameCleanNextCommand.apply
     }
