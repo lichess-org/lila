@@ -111,6 +111,10 @@ class GameRepo(collection: MongoCollection)
 
   val countAll: IO[Int] = io { count().toInt }
 
+  val countPlaying: IO[Int] = io {
+    count("updatedAt" $gt (DateTime.now - 15.seconds)).toInt
+  }
+
   def ensureIndexes: IO[Unit] = io {
     collection.underlying |> { coll ⇒
       coll.ensureIndex(DBObject("status" -> 1))

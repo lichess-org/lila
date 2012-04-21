@@ -13,6 +13,7 @@ final class Reporting extends Actor {
   private var nbMembers = 0
   private var nbGames = 0
   private var nbPlaying = 0
+  private var nbGameSockets = 0
   private var loadAvg: Option[Float] = None
   private var remoteAi = false
 
@@ -35,7 +36,8 @@ final class Reporting extends Actor {
         case nb ⇒ nbMembers = nb
       }
       nbGames = env.gameRepo.countAll.unsafePerformIO
-      nbPlaying = env.gameHubMemo.count.toInt
+      nbPlaying = env.gameRepo.countPlaying.unsafePerformIO
+      nbGameSockets = env.gameHubMemo.count.toInt
       loadAvg = parseFloatOption {
         Source.fromFile(loadAvgFile).getLines.mkString takeWhile (_ != ' ')
       }
@@ -47,6 +49,7 @@ final class Reporting extends Actor {
     nbMembers,
     nbGames,
     nbPlaying,
+    nbGameSockets,
     loadAvg.fold(_.toString, "?"),
     remoteAi.fold(1, 0)
   ) mkString " "
