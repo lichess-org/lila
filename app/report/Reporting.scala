@@ -26,6 +26,8 @@ final class Reporting extends Actor {
 
     case GetNbGames   ⇒ sender ! nbGames
 
+    case GetNbPlaying ⇒ sender ! nbPlaying
+
     case GetStatus    ⇒ sender ! status
 
     case Update(env) ⇒ {

@@ -32,6 +32,7 @@ POST  /api/lobby/create/:hookOwnerId lila.controllers.LobbyC.create(hookOwnerId:
 
 # Reporting API
 GET   /nb-players                   lila.controllers.ReportC.nbPlayers
+GET   /nb-playing                   lila.controllers.ReportC.nbPlaying
 GET   /status                       lila.controllers.ReportC.status
 
 # Useless, but play2 needs it

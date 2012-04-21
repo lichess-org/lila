@@ -8,7 +8,7 @@ import akka.pattern.ask
 import akka.util.duration._
 import akka.util.{ Duration, Timeout }
 import socket.GetNbMembers
-import report.GetStatus
+import report.{ GetStatus, GetNbPlaying }
 
 object ReportC extends LilaController {
 
@@ -24,6 +24,12 @@ object ReportC extends LilaController {
   def nbPlayers = Action {
     Async {
       (env.reporting ? GetNbMembers).mapTo[Int].asPromise map { Ok(_) }
+    }
+  }
+
+  def nbPlaying = Action {
+    Async {
+      (env.reporting ? GetNbPlaying).mapTo[Int].asPromise map { Ok(_) }
     }
   }
 }
