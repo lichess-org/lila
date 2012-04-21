@@ -10,6 +10,7 @@ import play.api.libs.iteratee._
 import play.api.libs.concurrent._
 import scalaz.effects._
 
+import RichJs._
 import socket.Util
 
 final class Socket(hub: ActorRef) {
@@ -20,7 +21,13 @@ final class Socket(hub: ActorRef) {
     val uid = Util.uid
     (hub ? Join(uid, username)).asPromise map {
       case Connected(channel) ⇒
-        val iteratee = Iteratee.foreach[JsValue] { _ ⇒
+        val iteratee = Iteratee.foreach[JsValue] { e ⇒
+          e str "t" match {
+            case Some("p") ⇒ {
+              channel push Util.pong
+            }
+            case _ ⇒
+          }
           Unit
         } mapDone { _ ⇒
           hub ! Quit(uid)

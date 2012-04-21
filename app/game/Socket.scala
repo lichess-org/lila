@@ -37,12 +37,17 @@ final class Socket(
     hub: ActorRef,
     member: Member,
     povRef: PovRef): JsValue ⇒ Unit = member match {
-    case Watcher(_, _) ⇒ (_: JsValue) ⇒ Unit
-    case Owner(_, color) ⇒ (e: JsValue) ⇒ (e str "t" match {
-      case Some("talk") ⇒ (e str "d" map { txt ⇒
-        messenger.playerMessage(povRef, txt) map { hub ! Events(_) }
-      }) | io()
-      case Some("move") ⇒ (for {
+    case Watcher(_, _) ⇒ (e: JsValue) ⇒ e str "t" match {
+      case Some("p") ⇒ member.channel push Util.pong
+      case _            ⇒
+    }
+    case Owner(_, color) ⇒ (e: JsValue) ⇒ e str "t" match {
+      case Some("p") ⇒ member.channel push Util.pong
+      case Some("talk") ⇒ e str "d" foreach { txt ⇒
+        val events = messenger.playerMessage(povRef, txt).unsafePerformIO
+        hub ! Events(events)
+      }
+      case Some("move") ⇒ for {
         d ← e.as[JsObject] obj "d"
         orig ← d str "from"
         dest ← d str "to"
@@ -52,17 +57,17 @@ final class Socket(
           events ← hand.play(povRef, orig, dest, promotion, blur)
           _ ← events.fold(putFailures, events ⇒ send(povRef.gameId, events))
         } yield ()
-      } yield op) | io()
-      case Some("moretime") ⇒ for {
+      } op.unsafePerformIO
+      case Some("moretime") ⇒ (for {
         res ← hand moretime povRef
         op ← res.fold(putFailures, events ⇒ io(hub ! Events(events)))
-      } yield op
-      case Some("outoftime") ⇒ for {
+      } yield op).unsafePerformIO
+      case Some("outoftime") ⇒ (for {
         res ← hand outoftime povRef
         op ← res.fold(putFailures, events ⇒ io(hub ! Events(events)))
-      } yield op
-      case _ ⇒ io()
-    }).unsafePerformIO
+      } yield op).unsafePerformIO
+      case _ ⇒
+    }
   }
 
   def join(

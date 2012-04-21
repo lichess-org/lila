@@ -13,10 +13,11 @@ object Util {
     List.fill(6)(randomChar) mkString
   }
 
+  val pong = JsObject(Seq("t" -> JsString("p")))
+
   val connectionFail: SocketPromise = Promise.pure {
     Done[JsValue, Unit]((), Input.EOF) -> (Enumerator[JsValue](
       JsObject(Seq("error" -> JsString("Invalid request")))
     ) andThen Enumerator.enumInput(Input.EOF))
   }
-
 }
