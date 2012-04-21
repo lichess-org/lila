@@ -23,9 +23,7 @@ final class Socket(hub: ActorRef) {
       case Connected(channel) ⇒
         val iteratee = Iteratee.foreach[JsValue] { e ⇒
           e str "t" match {
-            case Some("p") ⇒ {
-              channel push Util.pong
-            }
+            case Some("p") ⇒ channel push Util.pong
             case _ ⇒
           }
           Unit
