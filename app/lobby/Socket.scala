@@ -11,16 +11,20 @@ import play.api.libs.concurrent._
 import scalaz.effects._
 
 import RichJs._
+import socket.Util
 
 final class Socket(hub: ActorRef) {
 
   implicit val timeout = Timeout(1 second)
 
   def join(
-    uid: String,
-    version: Int,
-    hook: Option[String]): SocketPromise =
-    (hub ? Join(uid, version, hook)).asPromise map {
+    uidOption: Option[String],
+    versionOption: Option[Int],
+    hook: Option[String]): SocketPromise = {
+    val socket = for {
+      uid ← uidOption
+      version ← versionOption
+    } yield (hub ? Join(uid, version, hook)).asPromise map {
       case Connected(channel) ⇒
         val iteratee = Iteratee.foreach[JsValue] { e ⇒
           e str "t" match {
@@ -35,7 +39,9 @@ final class Socket(hub: ActorRef) {
           hub ! Quit(uid)
         }
         (iteratee, channel)
-    }
+    }: SocketPromise
+    socket | Util.connectionFail
+  }
 
   def addEntry(entry: model.Entry): IO[Unit] = io {
     hub ! Entry(entry)

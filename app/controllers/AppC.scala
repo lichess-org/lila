@@ -20,7 +20,7 @@ object AppC extends LilaController {
 
   def socket = WebSocket.async[JsValue] { implicit request ⇒
     env.siteSocket.join(
-      uid = get("uid") err "Socket UID missing",
+      uidOption = get("uid"),
       username = get("username"))
   }
 
@@ -29,8 +29,8 @@ object AppC extends LilaController {
       env.gameSocket.join(
         gameId = gameId,
         colorName = color,
-        uid = get("uid") err "Socket UID missing",
-        version = getInt("version") err "Socket version missing",
+        uidOption = get("uid"),
+        versionOption = getInt("version"),
         playerId = get("playerId")).unsafePerformIO
     }
 

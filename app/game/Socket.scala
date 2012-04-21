@@ -15,6 +15,7 @@ import scalaz.effects._
 
 import chess.Color
 import model.{ DbGame, Pov, PovRef, Progress, Event }
+import socket.Util
 import RichJs._
 
 final class Socket(
@@ -67,13 +68,15 @@ final class Socket(
   def join(
     gameId: String,
     colorName: String,
-    uid: String,
-    version: Int,
+    uidOption: Option[String],
+    versionOption: Option[Int],
     playerId: Option[String]): IO[SocketPromise] =
     getGame(gameId) map { gameOption ⇒
       val promise: Option[SocketPromise] = for {
         game ← gameOption
         color ← Color(colorName)
+        uid ← uidOption
+        version ← versionOption
         hub = hubMemo get gameId
       } yield (hub ? Join(
         uid = uid,
@@ -90,18 +93,12 @@ final class Socket(
               },
               member.channel)
         }
-      promise | connectionFail
+      promise | Util.connectionFail
     }
 
   private def scheduleForDeletion(hub: ActorRef, gameId: String) {
     Akka.system.scheduler.scheduleOnce(1 minute) {
       hub ! IfEmpty(hubMemo remove gameId)
     }
-  }
-
-  private def connectionFail = Promise.pure {
-    Done[JsValue, Unit]((), Input.EOF) -> (Enumerator[JsValue](
-      JsObject(Seq("error" -> JsString("Invalid request")))
-    ) andThen Enumerator.enumInput(Input.EOF))
   }
 }

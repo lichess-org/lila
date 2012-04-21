@@ -19,8 +19,8 @@ object LobbyC extends LilaController {
 
   def socket = WebSocket.async[JsValue] { implicit request ⇒
     env.lobbySocket.join(
-      uid = get("uid") err "Socket UID missing",
-      version = getInt("version") err "Socket version missing",
+      uidOption = get("uid"),
+      versionOption = getInt("version"),
       hook = get("hook")
     )
   }
