@@ -38,11 +38,16 @@ final class Reporting extends Actor {
       nbGames = env.gameRepo.countAll.unsafePerformIO
       nbPlaying = env.gameRepo.countPlaying.unsafePerformIO
       nbGameSockets = env.gameHubMemo.count.toInt
-      loadAvg = parseFloatOption {
-        Source.fromFile(loadAvgFile).getLines.mkString takeWhile (_ != ' ')
-      }
+      loadAvg = getLoadAvg
       remoteAi = env.remoteAi.currentHealth
     }
+  }
+
+  private def getLoadAvg: Option[Float] = {
+    val source = Source.fromFile(loadAvgFile)
+    val lines = source.mkString
+    source.close()
+    parseFloatOption(lines takeWhile (_ != ' '))
   }
 
   private def status = List(
