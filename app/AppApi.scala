@@ -7,6 +7,7 @@ import chess.{ Color, White, Black }
 import game.IsConnected
 
 import scalaz.effects._
+import akka.actor._
 import akka.pattern.ask
 import akka.dispatch.{ Future, Promise }
 import akka.util.duration._
@@ -27,8 +28,8 @@ final class AppApi(
   private implicit val executor = Akka.system.dispatcher
 
   def show(fullId: String): Future[IO[Valid[Map[String, Any]]]] =
-    (gameHubMemo getFromFullId fullId) ? game.GetVersion map {
-      case game.Version(version) ⇒ for {
+    futureVersion(gameHubMemo getIfPresentFromFullId fullId) map { version ⇒
+      for {
         povOption ← gameRepo pov fullId
         gameInfo ← povOption.fold(
           pov ⇒ messenger render pov.game.id map { roomHtml ⇒
@@ -130,9 +131,7 @@ final class AppApi(
   } yield result
 
   def gameVersion(gameId: String): Future[Int] =
-    (gameHubMemo get gameId) ? game.GetVersion map {
-      case game.Version(v) ⇒ v
-    }
+    futureVersion(gameHubMemo getIfPresent gameId)
 
   def isConnected(gameId: String, colorName: String): Future[Boolean] =
     Color(colorName).fold(
@@ -151,4 +150,10 @@ final class AppApi(
       io()
     )
   } yield ()
+
+  private def futureVersion(actorOption: Option[ActorRef]): Future[Int] =
+    actorOption.fold(
+      actor ⇒ actor ? game.GetVersion map { case game.Version(v) ⇒ v },
+      Future(0)
+    )
 }

@@ -28,7 +28,14 @@ final class HubMemo(makeHistory: () ⇒ History) {
 
   def get(gameId: String): ActorRef = cache get gameId
 
+  def getIfPresent(gameId: String): Option[ActorRef] = Option {
+    cache getIfPresent gameId
+  }
+
   def getFromFullId(fullId: String): ActorRef = get(DbGame takeGameId fullId)
+
+  def getIfPresentFromFullId(fullId: String): Option[ActorRef] =
+    getIfPresent(DbGame takeGameId fullId)
 
   def remove(gameId: String): IO[Unit] = io {
     cache invalidate gameId
@@ -42,6 +49,7 @@ final class HubMemo(makeHistory: () ⇒ History) {
   }
 
   private def onRemove(gameId: String, actor: ActorRef) {
+    println("delete game room " + gameId)
     actor ! Close
   }
 }
