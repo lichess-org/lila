@@ -68,15 +68,14 @@ final class Socket(
   def join(
     gameId: String,
     colorName: String,
-    uidOption: Option[String],
     versionOption: Option[Int],
     playerId: Option[String]): IO[SocketPromise] =
     getGame(gameId) map { gameOption ⇒
       val promise: Option[SocketPromise] = for {
         game ← gameOption
         color ← Color(colorName)
-        uid ← uidOption
         version ← versionOption
+        uid = Util.uid
         hub = hubMemo get gameId
       } yield (hub ? Join(
         uid = uid,
@@ -98,10 +97,7 @@ final class Socket(
 
   private def scheduleForDeletion(hub: ActorRef, gameId: String) {
     Akka.system.scheduler.scheduleOnce(10 seconds) {
-      hub ! IfEmpty({
-        println("delete game room " + gameId)
-        hubMemo remove gameId
-      })
+      hub ! IfEmpty(hubMemo remove gameId)
     }
   }
 }

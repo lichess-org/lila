@@ -16,12 +16,9 @@ final class Socket(hub: ActorRef) {
 
   implicit val timeout = Timeout(1 second)
 
-  def join(
-    uidOption: Option[String],
-    username: Option[String]): SocketPromise = {
-    val socket = for {
-      uid ← uidOption
-    } yield (hub ? Join(uid, username)).asPromise map {
+  def join(username: Option[String]): SocketPromise = {
+    val uid = Util.uid
+    (hub ? Join(uid, username)).asPromise map {
       case Connected(channel) ⇒
         val iteratee = Iteratee.foreach[JsValue] { _ ⇒
           Unit
@@ -29,7 +26,6 @@ final class Socket(hub: ActorRef) {
           hub ! Quit(uid)
         }
         (iteratee, channel)
-    } : SocketPromise
-    socket | Util.connectionFail
+    }
   }
 }
