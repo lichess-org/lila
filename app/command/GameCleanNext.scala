@@ -13,7 +13,7 @@ final class GameCleanNext(gameRepo: GameRepo) {
 
     val cursor = gameRepo.collection.find(
       DBObject("next" -> DBObject("$type" -> 3)) ++
-        ("updatedAt" $gt (DateTime.now - 1.month)),
+        ("updatedAt" $gt (DateTime.now - 3.days)),
       DBObject("next" -> true)
     )
     val exists = (id: String) ⇒ gameRepo.collection.count(
