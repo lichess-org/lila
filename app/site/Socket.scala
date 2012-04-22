@@ -11,7 +11,7 @@ import play.api.libs.concurrent._
 import scalaz.effects._
 
 import RichJs._
-import socket.{ Util, Ping }
+import socket.{ Util, Ping, Quit }
 
 final class Socket(hub: ActorRef) {
 

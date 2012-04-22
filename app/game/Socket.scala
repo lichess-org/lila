@@ -15,7 +15,7 @@ import scalaz.effects._
 
 import chess.Color
 import model.{ DbGame, Pov, PovRef, Progress, Event }
-import socket.Util
+import socket.{ Util, Ping }
 import RichJs._
 
 final class Socket(
@@ -35,14 +35,14 @@ final class Socket(
 
   def controller(
     hub: ActorRef,
+    uid: String,
     member: Member,
     povRef: PovRef): JsValue ⇒ Unit = member match {
     case Watcher(_, _) ⇒ (e: JsValue) ⇒ e str "t" match {
-      case Some("p") ⇒ member.channel push Util.pong
+      case Some("p") ⇒ hub ! Ping(uid)
       case _         ⇒
     }
     case Owner(_, color) ⇒ (e: JsValue) ⇒ e str "t" match {
-      case Some("p") ⇒ member.channel push Util.pong
       case Some("talk") ⇒ e str "d" foreach { txt ⇒
         val events = messenger.playerMessage(povRef, txt).unsafePerformIO
         hub ! Events(events)
@@ -66,7 +66,8 @@ final class Socket(
         res ← hand outoftime povRef
         op ← res.fold(putFailures, events ⇒ io(hub ! Events(events)))
       } yield op).unsafePerformIO
-      case _ ⇒
+      case Some("p") ⇒ hub ! Ping(uid)
+      case _         ⇒
     }
   }
 
@@ -91,19 +92,12 @@ final class Socket(
       )).asPromise map {
           case Connected(member) ⇒ (
             Iteratee.foreach[JsValue](
-              controller(hub, member, PovRef(gameId, member.color))
+              controller(hub, uid, member, PovRef(gameId, member.color))
             ) mapDone { _ ⇒
                 hub ! Quit(uid)
-                scheduleForDeletion(hub, gameId)
               },
               member.channel)
         }
       promise | Util.connectionFail
     }
-
-  private def scheduleForDeletion(hub: ActorRef, gameId: String) {
-    Akka.system.scheduler.scheduleOnce(10 seconds) {
-      hub ! IfEmpty(hubMemo remove gameId)
-    }
-  }
 }

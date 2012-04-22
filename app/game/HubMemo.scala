@@ -13,7 +13,10 @@ import akka.actor.{ ActorRef, Props, PoisonPill }
 import scalaz.effects._
 import scala.collection.JavaConversions._
 
-final class HubMemo(makeHistory: () ⇒ History) {
+final class HubMemo(
+  makeHistory: () ⇒ History,
+  timeout: Int
+) {
 
   private val cache = {
     import com.google.common.cache._
@@ -25,6 +28,8 @@ final class HubMemo(makeHistory: () ⇒ History) {
   }
 
   def all: Map[String, ActorRef] = cache.asMap.toMap
+
+  def hubs: List[ActorRef] = cache.asMap.toMap.values.toList
 
   def get(gameId: String): ActorRef = cache get gameId
 
@@ -44,7 +49,11 @@ final class HubMemo(makeHistory: () ⇒ History) {
   def count = cache.size
 
   private def compute(gameId: String): ActorRef = {
-    Akka.system.actorOf(Props(new Hub(gameId, makeHistory())))
+    Akka.system.actorOf(Props(new Hub(
+      gameId = gameId,
+      history = makeHistory(),
+      timeout = timeout
+    )), name = "game_hub_" + gameId)
   }
 
   private def onRemove(gameId: String, actor: ActorRef) {

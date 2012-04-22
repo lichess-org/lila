@@ -8,11 +8,12 @@ import akka.actor._
 import play.api.libs.json._
 import play.api.libs.iteratee._
 
-final class Hub(messageRepo: MessageRepo, history: History) extends Actor {
+final class Hub(
+  messageRepo: MessageRepo,
+  history: History,
+  timeout: Int) extends HubActor[Member](timeout) {
 
-  private var members = Map.empty[String, Member]
-
-  def receive = {
+  def receiveSpecific = {
 
     case WithHooks(op) ⇒ op(hookOwnerIds).unsafePerformIO
 
@@ -52,8 +53,6 @@ final class Hub(messageRepo: MessageRepo, history: History) extends Actor {
     ) _ |> { fn ⇒
         members.values filter (_ ownsHook hook) foreach fn
       }
-
-    case Quit(uid)     ⇒ { members = members - uid }
   }
 
   private def notifyMember(t: String, data: JsValue)(member: Member) {

@@ -11,13 +11,12 @@ import play.api.libs.iteratee._
 import play.api.Play.current
 import scalaz.effects._
 
-final class Hub(gameId: String, history: History) extends Actor {
+final class Hub(
+  gameId: String,
+  history: History,
+  timeout: Int) extends HubActor[Member](timeout) {
 
-  private var members = Map.empty[String, Member]
-
-  def receive = {
-
-    case IfEmpty(op)        ⇒ members.isEmpty.fold(op, io()).unsafePerformIO
+  def receiveSpecific = {
 
     case GetVersion         ⇒ sender ! Version(history.version)
 
@@ -41,6 +40,10 @@ final class Hub(gameId: String, history: History) extends Actor {
     case Quit(uid) ⇒ {
       members = members - uid
       notify(crowdEvent)
+      Akka.system.scheduler.scheduleOnce(10 seconds) {
+        if (members.isEmpty)
+        hub ! IfEmpty(hubMemo remove gameId)
+      }
     }
 
     case Close ⇒ {

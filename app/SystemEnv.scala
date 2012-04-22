@@ -22,7 +22,9 @@ final class SystemEnv(application: Application) {
     Props(new report.Reporting), name = "reporting")
 
   lazy val siteHub = Akka.system.actorOf(
-    Props(new site.Hub), name = "site_hub")
+    Props(new site.Hub(
+      timeout = getMilliseconds("site.uid.timeout")
+  )), name = "site_hub")
 
   lazy val siteSocket = new site.Socket(
     hub = siteHub)
@@ -31,7 +33,8 @@ final class SystemEnv(application: Application) {
     timeout = getMilliseconds("game.message.lifetime"))
 
   lazy val gameHubMemo = new game.HubMemo(
-    makeHistory = gameHistory)
+    makeHistory = gameHistory,
+    timeout = getMilliseconds("game.uid.timeout"))
 
   lazy val gameSocket = new game.Socket(
     getGame = gameRepo.game,
@@ -44,7 +47,8 @@ final class SystemEnv(application: Application) {
 
   lazy val lobbyHub = Akka.system.actorOf(Props(new lobby.Hub(
     messageRepo = messageRepo,
-    history = lobbyHistory
+    history = lobbyHistory,
+    timeout = getMilliseconds("site.uid.timeout")
   )), name = "lobby_hub")
 
   lazy val lobbySocket = new lobby.Socket(

@@ -51,6 +51,5 @@ case class Connected(member: Member)
 case class Events(events: List[Event])
 case object GetVersion
 case class Version(version: Int)
-case class IfEmpty(op: IO[Unit])
 case object ClockSync
 case class IsConnected(color: Color)
