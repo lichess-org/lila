@@ -7,6 +7,7 @@ import akka.pattern.{ ask, pipe }
 import akka.util.duration._
 import akka.util.{ Duration, Timeout }
 import scala.io.Source
+import java.lang.management.ManagementFactory
 
 final class Reporting extends Actor {
 
@@ -17,7 +18,7 @@ final class Reporting extends Actor {
   private var loadAvg: Option[Float] = None
   private var remoteAi = false
 
-  private val loadAvgFile = "/proc/loadavg"
+  val osStats = ManagementFactory.getOperatingSystemMXBean
 
   implicit val timeout = Timeout(200 millis)
 
@@ -38,19 +39,13 @@ final class Reporting extends Actor {
       nbGames = env.gameRepo.countAll.unsafePerformIO
       nbPlaying = env.gameRepo.countPlaying.unsafePerformIO
       nbGameSockets = env.gameHubMemo.count.toInt
-      loadAvg = getLoadAvg
+      loadAvg = getLoadAvg.pp
       remoteAi = env.remoteAi.currentHealth
     }
   }
 
-  private def getLoadAvg: Option[Float] = {
-    val source = Source.fromFile(loadAvgFile)
-    try {
-      val lines = source.mkString
-      parseFloatOption(lines takeWhile (_ != ' '))
-    } finally {
-      source.close()
-    }
+  private def getLoadAvg: Option[Float] = Some {
+    osStats.getSystemLoadAverage.toFloat
   }
 
   private def status = List(
