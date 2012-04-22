@@ -12,6 +12,10 @@ final class Cron(env: SystemEnv) {
   implicit val current = env.app
   implicit val timeout = Timeout(500 millis)
 
+  message(5 seconds) {
+    env.siteHub -> socket.Cleanup
+  }
+
   message(2 seconds) {
     env.reporting -> report.Update(env)
   }

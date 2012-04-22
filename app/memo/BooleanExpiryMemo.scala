@@ -16,6 +16,10 @@ abstract class BooleanExpiryMemo(timeout: Int) {
     cache.put(key, true)
   }
 
+  def putUnsafe(key: String): Unit = {
+    cache.put(key, true)
+  }
+
   def putAll(keys: Iterable[String]): IO[Unit] = io {
     keys map { cache.put(_, true) }
   }

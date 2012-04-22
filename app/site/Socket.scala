@@ -11,7 +11,7 @@ import play.api.libs.concurrent._
 import scalaz.effects._
 
 import RichJs._
-import socket.Util
+import socket.{ Util, Ping }
 
 final class Socket(hub: ActorRef) {
 
@@ -26,9 +26,7 @@ final class Socket(hub: ActorRef) {
       case Connected(channel) ⇒
         val iteratee = Iteratee.foreach[JsValue] { e ⇒
           e str "t" match {
-            case Some("p") ⇒ {
-              channel push Util.pong
-            }
+            case Some("p") ⇒ hub ! Ping(uid)
             case _ ⇒
           }
           Unit
