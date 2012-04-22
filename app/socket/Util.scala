@@ -8,11 +8,6 @@ import scala.util.Random
 
 object Util {
 
-  def uid: String = {
-    def randomChar = (Random.nextInt(25) + 97).toChar
-    List.fill(6)(randomChar) mkString
-  }
-
   val pong = JsObject(Seq("t" -> JsString("p")))
 
   val connectionFail: SocketPromise = Promise.pure {

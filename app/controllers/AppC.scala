@@ -20,12 +20,14 @@ object AppC extends LilaController {
 
   def socket = WebSocket.async[JsValue] { implicit request ⇒
     env.siteSocket.join(
+      uidOption = get("uid"),
       username = get("username"))
   }
 
   def gameSocket(gameId: String, color: String) =
     WebSocket.async[JsValue] { implicit request ⇒
       env.gameSocket.join(
+        uidOption = get("uid"),
         gameId = gameId,
         colorName = color,
         versionOption = getInt("version"),

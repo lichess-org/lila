@@ -15,15 +15,20 @@ import socket.Util
 
 final class Socket(hub: ActorRef) {
 
-  implicit val timeout = Timeout(1 second)
+  implicit val timeout = Timeout(300 millis)
 
-  def join(username: Option[String]): SocketPromise = {
-    val uid = Util.uid
-    (hub ? Join(uid, username)).asPromise map {
+  def join(
+    uidOption: Option[String],
+    username: Option[String]): SocketPromise = {
+    val promise: Option[SocketPromise] = for {
+      uid ← uidOption
+    } yield (hub ? Join(uid, username)).asPromise map {
       case Connected(channel) ⇒
         val iteratee = Iteratee.foreach[JsValue] { e ⇒
           e str "t" match {
-            case Some("p") ⇒ channel push Util.pong
+            case Some("p") ⇒ {
+              channel push Util.pong
+            }
             case _ ⇒
           }
           Unit
@@ -32,5 +37,6 @@ final class Socket(hub: ActorRef) {
         }
         (iteratee, channel)
     }
+    promise | Util.connectionFail
   }
 }

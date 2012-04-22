@@ -39,7 +39,7 @@ final class Socket(
     povRef: PovRef): JsValue ⇒ Unit = member match {
     case Watcher(_, _) ⇒ (e: JsValue) ⇒ e str "t" match {
       case Some("p") ⇒ member.channel push Util.pong
-      case _            ⇒
+      case _         ⇒
     }
     case Owner(_, color) ⇒ (e: JsValue) ⇒ e str "t" match {
       case Some("p") ⇒ member.channel push Util.pong
@@ -71,6 +71,7 @@ final class Socket(
   }
 
   def join(
+    uidOption: Option[String],
     gameId: String,
     colorName: String,
     versionOption: Option[Int],
@@ -80,7 +81,7 @@ final class Socket(
         game ← gameOption
         color ← Color(colorName)
         version ← versionOption
-        uid = Util.uid
+        uid ← uidOption
         hub = hubMemo get gameId
       } yield (hub ? Join(
         uid = uid,
