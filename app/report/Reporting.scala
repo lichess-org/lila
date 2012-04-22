@@ -39,7 +39,7 @@ final class Reporting extends Actor {
       nbGames = env.gameRepo.countAll.unsafePerformIO
       nbPlaying = env.gameRepo.countPlaying.unsafePerformIO
       nbGameSockets = env.gameHubMemo.count.toInt
-      loadAvg = getLoadAvg.pp
+      loadAvg = getLoadAvg
       remoteAi = env.remoteAi.currentHealth
     }
   }
