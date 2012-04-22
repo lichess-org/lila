@@ -15,10 +15,12 @@ final class Reporting extends Actor {
   private var nbGames = 0
   private var nbPlaying = 0
   private var nbGameSockets = 0
-  private var loadAvg: Option[Float] = None
+  private var loadAvg = 0f
+  private var nbThreads = 0
   private var remoteAi = false
 
   val osStats = ManagementFactory.getOperatingSystemMXBean
+  val threadStats = ManagementFactory.getThreadMXBean
 
   implicit val timeout = Timeout(200 millis)
 
@@ -39,13 +41,10 @@ final class Reporting extends Actor {
       nbGames = env.gameRepo.countAll.unsafePerformIO
       nbPlaying = env.gameRepo.countPlaying.unsafePerformIO
       nbGameSockets = env.gameHubMemo.count.toInt
-      loadAvg = getLoadAvg
+      loadAvg = osStats.getSystemLoadAverage.toFloat
+      //nbThreads = threadStats.getThreadCount.pp
       remoteAi = env.remoteAi.currentHealth
     }
-  }
-
-  private def getLoadAvg: Option[Float] = Some {
-    osStats.getSystemLoadAverage.toFloat
   }
 
   private def status = List(
@@ -53,7 +52,7 @@ final class Reporting extends Actor {
     nbGames,
     nbPlaying,
     nbGameSockets,
-    loadAvg.fold(_.toString, "?"),
+    loadAvg.toString,
     remoteAi.fold(1, 0)
   ) mkString " "
 }
