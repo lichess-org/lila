@@ -45,9 +45,12 @@ final class Reporting extends Actor {
 
   private def getLoadAvg: Option[Float] = {
     val source = Source.fromFile(loadAvgFile)
-    val lines = source.mkString
-    source.close()
-    parseFloatOption(lines takeWhile (_ != ' '))
+    try {
+      val lines = source.mkString
+      parseFloatOption(lines takeWhile (_ != ' '))
+    } finally {
+      source.close()
+    }
   }
 
   private def status = List(
