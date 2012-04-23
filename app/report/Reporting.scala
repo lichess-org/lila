@@ -20,15 +20,16 @@ final class Reporting extends Actor {
   case class LobbySocket(nbMembers: Int)
   case class GameSocket(nbHubs: Int, nbMembers: Int)
 
-  private var nbGames = 0
-  private var nbPlaying = 0
-  private var loadAvg = 0f
-  private var nbThreads = 0
-  private var memory = 0l
-  private var site = SiteSocket(0)
-  private var lobby = LobbySocket(0)
-  private var game = GameSocket(0, 0)
-  private var remoteAi = false
+  var nbGames = 0
+  var nbPlaying = 0
+  var loadAvg = 0f
+  var nbThreads = 0
+  var memory = 0l
+  var latency = 0
+  var site = SiteSocket(0)
+  var lobby = LobbySocket(0)
+  var game = GameSocket(0, 0)
+  var remoteAi = false
 
   private var displays = 0
 
@@ -50,18 +51,28 @@ final class Reporting extends Actor {
     case GetStatus    ⇒ sender ! status
 
     case Update(env) ⇒ {
+      val before = nowMillis
       Future.sequence(List(
         (env.siteHub ? GetNbMembers).mapTo[Int],
         (env.lobbyHub ? GetNbMembers).mapTo[Int],
         (env.gameHubMaster ? GetNbHubs).mapTo[Int],
-        (env.gameHubMaster ? GetNbMembers).mapTo[Int]
+        (env.gameHubMaster ? GetNbMembers).mapTo[Int],
+        Future(env.gameRepo.countAll.unsafePerformIO),
+        Future(env.gameRepo.countPlaying.unsafePerformIO)
       )) onSuccess {
-        case List(siteMembers, lobbyMembers, gameHubs, gameMembers) ⇒ {
+        case List(
+          siteMembers,
+          lobbyMembers,
+          gameHubs,
+          gameMembers,
+          all,
+          playing) ⇒ {
+          latency = (nowMillis - before).toInt
           site = SiteSocket(siteMembers)
           lobby = LobbySocket(lobbyMembers)
           game = GameSocket(gameHubs, gameMembers)
-          nbGames = env.gameRepo.countAll.unsafePerformIO
-          nbPlaying = env.gameRepo.countPlaying.unsafePerformIO
+          nbGames = all
+          nbPlaying = playing
           loadAvg = osStats.getSystemLoadAverage.toFloat
           nbThreads = threadStats.getThreadCount
           memory = memoryStats.getHeapMemoryUsage.getUsed / 1024 / 1024
@@ -83,9 +94,12 @@ final class Reporting extends Actor {
       "lobby" -> lobby.nbMembers,
       "game" -> game.nbMembers,
       "hubs" -> game.nbHubs,
-      "threads" -> nbThreads,
-      "load" -> loadAvg,
-      "memory" -> memory
+      "recent" -> nbPlaying,
+      "lat." -> latency,
+      "thread" -> nbThreads,
+      "load" -> loadAvg.toString.replace("0.", "."),
+      "mem" -> memory,
+      "AI" -> remoteAi.fold("✔", "●")
     )
     if (displays % 10 == 0) {
       println(data map (_._1) mkString " ")
