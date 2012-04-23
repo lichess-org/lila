@@ -1,0 +1,19 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__.'/base_script.php';
+
+$testurl="http://en.lichess.org";
+$play = "/home/play-2.0/play";
+$log = "logs/play.log";
+$search = "AskTimeoutException";
+$delay = 3600;
+echo "Restart every $delay seconds";
+
+while (true) {
+    sleep($delay);
+    $time = time();
+    $logsav = "logs/play_$time.log";
+    show_run("Save $logsav", "cp $log $logsav");
+    show_run("Restarting", "bin/restart");
+}

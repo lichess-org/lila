@@ -19,7 +19,7 @@ final class Hub(
 
     case Join(uid, version, hookOwnerId) ⇒ {
       val channel = new LilaEnumerator[JsValue](history since version)
-      members = members + (uid -> Member(channel, hookOwnerId))
+      addMember(uid, Member(channel, hookOwnerId))
       sender ! Connected(channel)
     }
 

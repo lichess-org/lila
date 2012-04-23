@@ -49,10 +49,11 @@ case class Join(
 case class Quit(uid: String)
 case class Connected(member: Member)
 case class Events(events: List[Event])
+case class GameEvents(gameId: String, events: List[Event])
 case class GetGameVersion(gameId: String)
 case object ClockSync
 case class IsConnectedOnGame(gameId: String, color: Color)
 case class CloseGame(gameId: String)
 case class GetHub(gameId: String)
-case class Forward(gameId: String, msg: Any)
 case object HubTimeout
+case object GetNbHubs

@@ -2,7 +2,7 @@ package lila
 package game
 
 import model._
-import socket.{ Broom, Close }
+import socket.{ Broom, Close, GetNbMembers }
 
 import akka.actor._
 import akka.actor.ReceiveTimeout
@@ -21,16 +21,16 @@ final class HubMaster(
     hubTimeout: Int) extends Actor {
 
   implicit val timeout = Timeout(1 second)
-  implicit val executor = Akka.system.dispatcher
   val log = Logging(context.system, this)
+  implicit val executor = Akka.system.dispatcher
 
   var hubs = Map.empty[String, ActorRef]
 
   def receive = {
 
-    case Broom                ⇒ hubs.values foreach (_ ! Broom)
+    case Broom                            ⇒ hubs.values foreach (_ ! Broom)
 
-    case Forward(gameId, msg) ⇒ hubs get gameId foreach (_ ! msg)
+    case msg @ GameEvents(gameId, events) ⇒ hubs get gameId foreach (_ forward msg)
 
     case GetHub(gameId: String) ⇒ sender ! {
       (hubs get gameId) | {
@@ -38,13 +38,12 @@ final class HubMaster(
       }
     }
 
-    case msg @ GetGameVersion(gameId) => (hubs get gameId).fold(
+    case msg @ GetGameVersion(gameId) ⇒ (hubs get gameId).fold(
       _ ? msg pipeTo sender,
       sender ! 0
     )
 
     case CloseGame(gameId) ⇒ hubs get gameId foreach { hub ⇒
-      log.warning("close game " + gameId)
       hub ! Close
       hubs = hubs - gameId
     }
@@ -53,6 +52,13 @@ final class HubMaster(
       _ ? msg pipeTo sender,
       sender ! false
     )
+
+    case GetNbHubs ⇒ sender ! hubs.size
+
+    case GetNbMembers ⇒ Future.traverse(hubs.values) { hub ⇒
+      (hub ? GetNbMembers).mapTo[Int]
+    } map (_.sum) pipeTo sender
+    //case GetNbMembers ⇒ 111
   }
 
   private def mkHub(gameId: String): ActorRef = context.actorOf(Props(new Hub(

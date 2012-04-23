@@ -39,23 +39,19 @@ final class Hub(
     case IsConnectedOnGame(_, color) ⇒ sender ! member(color).isDefined
 
     case Join(uid, version, color, owner) ⇒ {
-      log.warning("join " + gameId)
       val msgs = history since version filter (_.visible(color, owner)) map (_.js)
       val channel = new LilaEnumerator[JsValue](msgs)
       val member = Member(channel, PovRef(gameId, color), owner)
-      members = members + (uid -> member)
-      sender ! Connected(member)
+      addMember(uid, member)
       notify(crowdEvent)
+      sender ! Connected(member)
     }
 
-    case Events(events) ⇒ events match {
-      case Nil           ⇒
-      case single :: Nil ⇒ notify(single)
-      case multi         ⇒ notify(multi)
-    }
+    case Events(events)        ⇒ applyEvents(events)
+    case GameEvents(_, events) ⇒ applyEvents(events)
 
     case Quit(uid) ⇒ {
-      members = members - uid
+      quit(uid)
       notify(crowdEvent)
     }
 
@@ -69,6 +65,14 @@ final class Hub(
     white = member(White).isDefined,
     black = member(Black).isDefined,
     watchers = members.values count (_.watcher))
+
+  private def applyEvents(events: List[Event]) {
+    events match {
+      case Nil           ⇒
+      case single :: Nil ⇒ notify(single)
+      case multi         ⇒ notify(multi)
+    }
+  }
 
   private def notify(e: Event) {
     val vevent = history += e

@@ -15,14 +15,11 @@ final class Hub(timeout: Int) extends HubActor[Member](timeout) {
 
     case Join(uid, username) ⇒ {
       val channel = new LilaEnumerator[JsValue](Nil)
-      members = members + (uid -> Member(channel, username))
+      addMember(uid, Member(channel, username))
       sender ! Connected(channel)
-      setAlive(uid)
     }
 
     case NbMembers    ⇒ notifyAll("n", JsNumber(members.size))
-
-    case GetNbMembers ⇒ sender ! members.size
   }
 
   private def notifyAll(t: String, data: JsValue) {

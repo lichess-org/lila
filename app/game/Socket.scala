@@ -30,7 +30,7 @@ final class Socket(
     send(progress.game.id, progress.events)
 
   def send(gameId: String, events: List[Event]): IO[Unit] = io {
-    hubMaster ! Forward(gameId, Events(events))
+    hubMaster ! GameEvents(gameId, events)
   }
 
   def controller(
