@@ -55,6 +55,7 @@ final class Cron(env: SystemEnv) {
   effect(10 seconds) {
     env.remoteAi.diagnose
   }
+  env.remoteAi.diagnose.unsafePerformIO
 
   import RichDuration._
 
