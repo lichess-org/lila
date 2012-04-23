@@ -13,7 +13,7 @@ final class Cron(env: SystemEnv) {
   implicit val timeout = Timeout(500 millis)
 
   unsafe(5 seconds) {
-    (env.siteHub :: env.lobbyHub :: env.gameHubMemo.hubs) foreach { actor =>
+    (env.siteHub :: env.lobbyHub :: env.gameHubMaster :: Nil) foreach { actor ⇒
       actor ! socket.Broom
     }
   }
@@ -66,7 +66,7 @@ final class Cron(env: SystemEnv) {
     Akka.system.scheduler.schedule(freq, freq.randomize()) { op.unsafePerformIO }
   }
 
-  def unsafe(freq: Duration)(op: => Unit) {
+  def unsafe(freq: Duration)(op: ⇒ Unit) {
     Akka.system.scheduler.schedule(freq, freq.randomize()) { op }
   }
 }

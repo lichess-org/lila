@@ -106,8 +106,6 @@ case class DbGame(
         (Event fromMove move) :::
         (Event fromSituation game.situation)
 
-    def nowSeconds = (System.currentTimeMillis / 1000).toInt
-
     def copyPlayer(player: DbPlayer) = player.copy(
       ps = player encodePieces allPieces,
       blurs = player.blurs + (blur && move.color == player.color).fold(1, 0),

@@ -21,7 +21,7 @@ import RichJs._
 final class Socket(
     getGame: String ⇒ IO[Option[DbGame]],
     hand: Hand,
-    hubMemo: HubMemo,
+    val hubMaster: ActorRef,
     messenger: Messenger) {
 
   implicit val timeout = Timeout(1 second)
@@ -30,7 +30,7 @@ final class Socket(
     send(progress.game.id, progress.events)
 
   def send(gameId: String, events: List[Event]): IO[Unit] = io {
-    (hubMemo get gameId) ! Events(events)
+    hubMaster ! Forward(gameId, Events(events))
   }
 
   def controller(
@@ -83,21 +83,23 @@ final class Socket(
         color ← Color(colorName)
         version ← versionOption
         uid ← uidOption
-        hub = hubMemo get gameId
-      } yield (hub ? Join(
-        uid = uid,
-        version = version,
-        color = color,
-        owner = (playerId flatMap game.player).isDefined
-      )).asPromise map {
-          case Connected(member) ⇒ (
-            Iteratee.foreach[JsValue](
-              controller(hub, uid, member, PovRef(gameId, member.color))
-            ) mapDone { _ ⇒
-                hub ! Quit(uid)
-              },
-              member.channel)
-        }
+      } yield (for {
+        hub ← hubMaster ? GetHub(gameId) mapTo manifest[ActorRef]
+        socket ← hub ? Join(
+          uid = uid,
+          version = version,
+          color = color,
+          owner = (playerId flatMap game.player).isDefined
+        ) map {
+            case Connected(member) ⇒ (
+              Iteratee.foreach[JsValue](
+                controller(hub, uid, member, PovRef(gameId, member.color))
+              ) mapDone { _ ⇒
+                  hub ! Quit(uid)
+                },
+                member.channel)
+          }
+      } yield socket).asPromise
       promise | Util.connectionFail
     }
 }

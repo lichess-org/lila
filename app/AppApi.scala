@@ -4,7 +4,7 @@ import model._
 import memo._
 import db.{ UserRepo, GameRepo, RoomRepo }
 import chess.{ Color, White, Black }
-import game.IsConnected
+import game.{ IsConnectedOnGame, GetGameVersion }
 
 import scalaz.effects._
 import akka.actor._
@@ -19,7 +19,6 @@ final class AppApi(
     userRepo: UserRepo,
     gameRepo: GameRepo,
     gameSocket: game.Socket,
-    gameHubMemo: game.HubMemo,
     messenger: Messenger,
     starter: Starter,
     eloUpdater: EloUpdater) {
@@ -28,7 +27,7 @@ final class AppApi(
   private implicit val executor = Akka.system.dispatcher
 
   def show(fullId: String): Future[IO[Valid[Map[String, Any]]]] =
-    futureVersion(gameHubMemo getIfPresentFromFullId fullId) map { version ⇒
+    futureVersion(DbGame takeGameId fullId) map { version ⇒
       for {
         povOption ← gameRepo pov fullId
         gameInfo ← povOption.fold(
@@ -130,12 +129,11 @@ final class AppApi(
     )
   } yield result
 
-  def gameVersion(gameId: String): Future[Int] =
-    futureVersion(gameHubMemo getIfPresent gameId)
+  def gameVersion(gameId: String): Future[Int] = futureVersion(gameId)
 
   def isConnected(gameId: String, colorName: String): Future[Boolean] =
     Color(colorName).fold(
-      c ⇒ (gameHubMemo get gameId) ? IsConnected(c) mapTo manifest[Boolean],
+      c ⇒ gameSocket.hubMaster ? IsConnectedOnGame(gameId, c) mapTo manifest[Boolean],
       Promise successful false)
 
   def adjust(username: String): IO[Unit] = for {
@@ -151,9 +149,6 @@ final class AppApi(
     )
   } yield ()
 
-  private def futureVersion(actorOption: Option[ActorRef]): Future[Int] =
-    actorOption.fold(
-      actor ⇒ actor ? game.GetVersion map { case game.Version(v) ⇒ v },
-      Future(0)
-    )
+  private def futureVersion(gameId: String): Future[Int] =
+    gameSocket.hubMaster ? GetGameVersion(gameId) mapTo manifest[Int]
 }

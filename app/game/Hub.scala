@@ -6,23 +6,40 @@ import socket._
 import chess.{ Color, White, Black }
 
 import akka.actor._
+import akka.util.duration._
 import play.api.libs.json._
 import play.api.libs.iteratee._
 import play.api.Play.current
 import scalaz.effects._
 
 final class Hub(
-  gameId: String,
-  history: History,
-  timeout: Int) extends HubActor[Member](timeout) {
+    gameId: String,
+    history: History,
+    uidTimeout: Int,
+    hubTimeout: Int) extends HubActor[Member](uidTimeout) {
+
+  var lastPingTime = nowMillis
 
   def receiveSpecific = {
 
-    case GetVersion         ⇒ sender ! Version(history.version)
+    case Ping(uid) ⇒ {
+      ping(uid)
+      lastPingTime = nowMillis
+    }
 
-    case IsConnected(color) ⇒ sender ! member(color).isDefined
+    case Broom ⇒ {
+      broom()
+      if (lastPingTime < (nowMillis - hubTimeout)) {
+        context.parent ! CloseGame(gameId)
+      }
+    }
+
+    case GetGameVersion(_)           ⇒ sender ! history.version
+
+    case IsConnectedOnGame(_, color) ⇒ sender ! member(color).isDefined
 
     case Join(uid, version, color, owner) ⇒ {
+      log.warning("join " + gameId)
       val msgs = history since version filter (_.visible(color, owner)) map (_.js)
       val channel = new LilaEnumerator[JsValue](msgs)
       val member = Member(channel, PovRef(gameId, color), owner)
@@ -40,10 +57,6 @@ final class Hub(
     case Quit(uid) ⇒ {
       members = members - uid
       notify(crowdEvent)
-      Akka.system.scheduler.scheduleOnce(10 seconds) {
-        if (members.isEmpty)
-        hub ! IfEmpty(hubMemo remove gameId)
-      }
     }
 
     case Close ⇒ {

@@ -32,14 +32,16 @@ final class SystemEnv(application: Application) {
   lazy val gameHistory = () ⇒ new game.History(
     timeout = getMilliseconds("game.message.lifetime"))
 
-  lazy val gameHubMemo = new game.HubMemo(
+  lazy val gameHubMaster = Akka.system.actorOf(Props(new game.HubMaster(
     makeHistory = gameHistory,
-    timeout = getMilliseconds("game.uid.timeout"))
+    uidTimeout = getMilliseconds("game.uid.timeout"),
+    hubTimeout = getMilliseconds("game.hub.timeout")
+  )), name = "game_hub_master")
 
   lazy val gameSocket = new game.Socket(
     getGame = gameRepo.game,
     hand = hand,
-    hubMemo = gameHubMemo,
+    hubMaster = gameHubMaster,
     messenger = messenger)
 
   lazy val lobbyHistory = new lobby.History(
@@ -78,7 +80,6 @@ final class SystemEnv(application: Application) {
     userRepo = userRepo,
     gameRepo = gameRepo,
     gameSocket = gameSocket,
-    gameHubMemo = gameHubMemo,
     messenger = messenger,
     starter = starter,
     eloUpdater = eloUpdater)
