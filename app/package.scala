@@ -42,7 +42,6 @@ package object lila
   def nowMillis: Double = System.currentTimeMillis
   def nowSeconds: Int = (nowMillis / 1000).toInt
 
-
   implicit def addPP[A](a: A) = new {
     def pp[A] = a ~ println
   }

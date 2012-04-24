@@ -38,7 +38,7 @@ final class Reporting extends Actor {
   val memoryStats = ManagementFactory.getMemoryMXBean
   implicit val executor = Akka.system.dispatcher
 
-  implicit val timeout = Timeout(200 millis)
+  implicit val timeout = Timeout(500 millis)
 
   def receive = {
 
@@ -101,7 +101,7 @@ final class Reporting extends Actor {
       "mem" -> memory,
       "AI" -> remoteAi.fold("✔", "●")
     )
-    if (displays % 10 == 0) {
+    if (displays % 8 == 0) {
       println(data map (_._1) mkString " ")
     }
     displays = displays + 1

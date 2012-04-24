@@ -18,7 +18,7 @@ final class Cron(env: SystemEnv) {
     }
   }
 
-  message(2 seconds) {
+  message(3 seconds) {
     env.reporting -> report.Update(env)
   }
 
