@@ -38,10 +38,10 @@ final class Hub(
 
     case IsConnectedOnGame(_, color) ⇒ sender ! member(color).isDefined
 
-    case Join(uid, version, color, owner) ⇒ {
+    case Join(uid, username, version, color, owner) ⇒ {
       val msgs = history since version filter (_.visible(color, owner)) map (_.js)
       val channel = new LilaEnumerator[JsValue](msgs)
-      val member = Member(channel, PovRef(gameId, color), owner)
+      val member = Member(channel, username, PovRef(gameId, color), owner)
       addMember(uid, member)
       notify(crowdEvent)
       sender ! Connected(member)

@@ -11,7 +11,7 @@ import play.api.libs.concurrent._
 import scalaz.effects._
 
 import RichJs._
-import socket.{ Util, Ping }
+import socket.{ Util, Ping, Quit }
 
 final class Socket(hub: ActorRef) {
 
@@ -19,12 +19,13 @@ final class Socket(hub: ActorRef) {
 
   def join(
     uidOption: Option[String],
+    username: Option[String],
     versionOption: Option[Int],
     hook: Option[String]): SocketPromise = {
     val promise = for {
       version ← versionOption
       uid ← uidOption
-    } yield (hub ? Join(uid, version, hook)).asPromise map {
+    } yield (hub ? Join(uid, username, version, hook)).asPromise map {
       case Connected(channel) ⇒
         val iteratee = Iteratee.foreach[JsValue] { e ⇒
           e str "t" match {

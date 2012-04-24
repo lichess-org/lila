@@ -28,6 +28,7 @@ object AppC extends LilaController {
     WebSocket.async[JsValue] { implicit request ⇒
       env.gameSocket.join(
         uidOption = get("uid"),
+        username = get("username"),
         gameId = gameId,
         colorName = color,
         versionOption = getInt("version"),

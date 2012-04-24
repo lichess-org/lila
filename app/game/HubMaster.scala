@@ -2,7 +2,7 @@ package lila
 package game
 
 import model._
-import socket.{ Broom, Close, GetNbMembers }
+import socket.{ Broom, Close, GetNbMembers, GetUsernames, NbMembers }
 
 import akka.actor._
 import akka.actor.ReceiveTimeout
@@ -58,7 +58,12 @@ final class HubMaster(
     case GetNbMembers ⇒ Future.traverse(hubs.values) { hub ⇒
       (hub ? GetNbMembers).mapTo[Int]
     } map (_.sum) pipeTo sender
-    //case GetNbMembers ⇒ 111
+
+    case GetUsernames ⇒ Future.traverse(hubs.values) { hub ⇒
+      (hub ? GetUsernames).mapTo[Iterable[String]]
+    } map (_.flatten) pipeTo sender
+
+    case msg @ NbMembers(_) ⇒ hubs.values foreach (_ ! msg)
   }
 
   private def mkHub(gameId: String): ActorRef = context.actorOf(Props(new Hub(

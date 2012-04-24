@@ -3,14 +3,19 @@ package lila
 import play.api._
 import play.api.libs.concurrent.Akka
 import akka.actor.ActorRef
+import akka.pattern.{ ask, pipe }
+import akka.dispatch.{ Future, Promise }
 import akka.util.duration._
 import akka.util.{ Duration, Timeout }
+import play.api.libs.concurrent._
+import play.api.Play.current
 import scalaz.effects._
 
 final class Cron(env: SystemEnv) {
 
   implicit val current = env.app
   implicit val timeout = Timeout(500 millis)
+  implicit val executor = Akka.system.dispatcher
 
   unsafe(5 seconds) {
     (env.siteHub :: env.lobbyHub :: env.gameHubMaster :: Nil) foreach { actor ⇒
@@ -26,8 +31,12 @@ final class Cron(env: SystemEnv) {
     env.lobbyHub -> lobby.WithHooks(env.hookMemo.putAll)
   }
 
-  message(2 seconds) {
-    env.siteHub -> site.NbMembers
+  unsafe(2 seconds) {
+    Future.traverse(hubs) { hub ⇒
+      hub ? socket.GetNbMembers mapTo manifest[Int]
+    } map (_.sum) onSuccess {
+      case nb ⇒ hubs foreach { _ ! socket.NbMembers(nb) }
+    }
   }
 
   effect(2 seconds) {
@@ -38,8 +47,12 @@ final class Cron(env: SystemEnv) {
     env.hookRepo.cleanupOld
   }
 
-  message(3 seconds) {
-    env.siteHub -> site.WithUsernames(env.userRepo.updateOnlineUsernames)
+  unsafe(3 seconds) {
+    Future.traverse(hubs) { hub ⇒
+      hub ? socket.GetUsernames mapTo manifest[Iterable[String]]
+    } map (_.flatten) onSuccess {
+      case xs ⇒ env.userRepo.updateOnlineUsernames(xs).unsafePerformIO
+    }
   }
 
   effect(4.1 hours) {
@@ -58,6 +71,8 @@ final class Cron(env: SystemEnv) {
   env.remoteAi.diagnose.unsafePerformIO
 
   import RichDuration._
+
+  def hubs: List[ActorRef] = List(env.siteHub, env.lobbyHub, env.gameHubMaster)
 
   def message(freq: Duration)(to: (ActorRef, Any)) {
     Akka.system.scheduler.schedule(freq, freq.randomize(), to._1, to._2)

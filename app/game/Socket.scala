@@ -15,7 +15,7 @@ import scalaz.effects._
 
 import chess.Color
 import model.{ DbGame, Pov, PovRef, Progress, Event }
-import socket.{ Util, Ping }
+import socket.{ Util, Ping, Quit }
 import RichJs._
 
 final class Socket(
@@ -37,12 +37,8 @@ final class Socket(
     hub: ActorRef,
     uid: String,
     member: Member,
-    povRef: PovRef): JsValue ⇒ Unit = member match {
-    case Watcher(_, _) ⇒ (e: JsValue) ⇒ e str "t" match {
-      case Some("p") ⇒ hub ! Ping(uid)
-      case _         ⇒
-    }
-    case Owner(_, color) ⇒ (e: JsValue) ⇒ e str "t" match {
+    povRef: PovRef): JsValue ⇒ Unit =
+    if (member.owner) (e: JsValue) ⇒ e str "t" match {
       case Some("talk") ⇒ e str "d" foreach { txt ⇒
         val events = messenger.playerMessage(povRef, txt).unsafePerformIO
         hub ! Events(events)
@@ -69,10 +65,15 @@ final class Socket(
       case Some("p") ⇒ hub ! Ping(uid)
       case _         ⇒
     }
-  }
+
+    else (e: JsValue) ⇒ e str "t" match {
+      case Some("p") ⇒ hub ! Ping(uid)
+      case _         ⇒
+    }
 
   def join(
     uidOption: Option[String],
+    username: Option[String],
     gameId: String,
     colorName: String,
     versionOption: Option[Int],
@@ -87,6 +88,7 @@ final class Socket(
         hub ← hubMaster ? GetHub(gameId) mapTo manifest[ActorRef]
         socket ← hub ? Join(
           uid = uid,
+          username = username,
           version = version,
           color = color,
           owner = (playerId flatMap game.player).isDefined

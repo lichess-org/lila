@@ -19,10 +19,6 @@ package object lila
 
   type Channel = socket.LilaEnumerator[JsValue]
 
-  type Channeled = {
-    val channel: Channel
-  }
-
   type SocketPromise = Promise[(Iteratee[JsValue, _], Enumerator[JsValue])]
 
   object Tick // standard actor tick

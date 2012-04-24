@@ -8,8 +8,6 @@ import scala.util.Random
 
 object Util {
 
-  val pong = JsObject(Seq("t" -> JsString("p")))
-
   val connectionFail: SocketPromise = Promise.pure {
     Done[JsValue, Unit]((), Input.EOF) -> (Enumerator[JsValue](
       JsObject(Seq("error" -> JsString("Invalid request")))

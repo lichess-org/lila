@@ -1,16 +1,13 @@
 package lila
 package site
 
-import scalaz.effects.IO
+import socket.SocketMember
 
 case class Member(
     channel: Channel,
-    username: Option[String]) {
-}
+    username: Option[String]) extends SocketMember
 
 case class Join(
   uid: String,
   username: Option[String])
 case class Connected(channel: Channel)
-case class WithUsernames(op: Iterable[String] ⇒ IO[Unit])
-case object NbMembers

@@ -3,12 +3,13 @@ package game
 
 import chess.Color
 import model._
+import socket.SocketMember
 
 import akka.actor.ActorRef
 import scalaz.effects.IO
 
-sealed trait Member {
-  val channel: Channel
+sealed trait Member extends SocketMember {
+
   val ref: PovRef
   val owner: Boolean
 
@@ -18,17 +19,20 @@ sealed trait Member {
   def className = owner.fold("Owner", "Watcher")
   override def toString = "%s(%s-%s,%s)".format(className, gameId, color)
 }
+
 object Member {
   def apply(
     channel: Channel,
+    username: Option[String],
     ref: PovRef,
     owner: Boolean): Member =
-    if (owner) Owner(channel, ref)
-    else Watcher(channel, ref)
+    if (owner) Owner(channel, username, ref)
+    else Watcher(channel, username, ref)
 }
 
 case class Owner(
     channel: Channel,
+    username: Option[String],
     ref: PovRef) extends Member {
 
   val owner = true
@@ -36,6 +40,7 @@ case class Owner(
 
 case class Watcher(
     channel: Channel,
+    username: Option[String],
     ref: PovRef) extends Member {
 
   val owner = false
@@ -43,10 +48,10 @@ case class Watcher(
 
 case class Join(
   uid: String,
+  username: Option[String],
   version: Int,
   color: Color,
   owner: Boolean)
-case class Quit(uid: String)
 case class Connected(member: Member)
 case class Events(events: List[Event])
 case class GameEvents(gameId: String, events: List[Event])

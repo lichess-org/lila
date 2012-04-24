@@ -17,9 +17,9 @@ final class Hub(
 
     case WithHooks(op) ⇒ op(hookOwnerIds).unsafePerformIO
 
-    case Join(uid, version, hookOwnerId) ⇒ {
+    case Join(uid, username, version, hookOwnerId) ⇒ {
       val channel = new LilaEnumerator[JsValue](history since version)
-      addMember(uid, Member(channel, hookOwnerId))
+      addMember(uid, Member(channel, username, hookOwnerId))
       sender ! Connected(channel)
     }
 
@@ -60,11 +60,6 @@ final class Hub(
     member.channel push msg
   }
 
-  private def notifyAll(t: String, data: JsValue) {
-    val msg = makeMessage(t, data)
-    members.values.foreach(_.channel push msg)
-  }
-
   private def notifyVersion(t: String, data: JsValue) {
     val vmsg = history += makeMessage(t, data)
     members.values.foreach(_.channel push vmsg)
@@ -73,10 +68,6 @@ final class Hub(
     notifyVersion(t, JsObject(data))
   }
 
-  private def hookOwnerIds: Iterable[String] = members.values collect {
-    case Member(_, Some(hook)) ⇒ hook
-  }
-
-  private def makeMessage(t: String, data: JsValue) =
-    JsObject(Seq("t" -> JsString(t), "d" -> data))
+  private def hookOwnerIds: Iterable[String] =
+    members.values.map(_.hookOwnerId).flatten
 }

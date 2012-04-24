@@ -29,7 +29,6 @@ final class Socket(hub: ActorRef) {
             case Some("p") ⇒ hub ! Ping(uid)
             case _ ⇒
           }
-          Unit
         } mapDone { _ ⇒
           hub ! Quit(uid)
         }
