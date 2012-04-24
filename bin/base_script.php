@@ -1,5 +1,7 @@
 <?php
 
+$play = "/home/Play20/play";
+
 function show_run($text, $command, $catch = false)
 {
     echo "\n* $text\n$command\n";

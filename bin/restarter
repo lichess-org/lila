@@ -4,7 +4,6 @@
 require_once __DIR__.'/base_script.php';
 
 $testurl="http://en.lichess.org";
-$play = "/home/play-2.0/play";
 $log = "logs/play.log";
 $search = "AskTimeoutException";
 $delay = 3600;
