@@ -115,7 +115,7 @@ final class Reporting extends Actor {
   }
 
   private def status = List(
-    site.nbMembers,
+    site.nbMembers + lobby.nbMembers + game.nbMembers,
     nbGames,
     nbPlaying,
     game.nbHubs,
