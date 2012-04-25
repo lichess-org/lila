@@ -4,3 +4,6 @@ accept rematch -> end up as spectator of the new game
 extract chess
 chat ban
 wrong number of players
+chat should autoscroll only when at bottom
+any link in-game
+back button to game -> old status
