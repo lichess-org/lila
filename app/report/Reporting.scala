@@ -42,7 +42,7 @@ final class Reporting extends Actor {
 
   def receive = {
 
-    case GetNbMembers ⇒ sender ! site.nbMembers
+    case GetNbMembers ⇒ sender ! allMembers
 
     case GetNbGames   ⇒ sender ! nbGames
 
@@ -115,11 +115,13 @@ final class Reporting extends Actor {
   }
 
   private def status = List(
-    site.nbMembers + lobby.nbMembers + game.nbMembers,
+    allMembers,
     nbGames,
     nbPlaying,
     game.nbHubs,
     loadAvg.toString,
     remoteAi.fold(1, 0)
   ) mkString " "
+
+  private def allMembers = site.nbMembers + lobby.nbMembers + game.nbMembers
 }
