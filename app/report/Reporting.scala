@@ -89,7 +89,7 @@ final class Reporting extends Actor {
 
   private def display() {
 
-    val data = List(
+    val data = Formatter.dataLine(List(
       "site" -> site.nbMembers,
       "lobby" -> lobby.nbMembers,
       "game" -> game.nbMembers,
@@ -100,18 +100,12 @@ final class Reporting extends Actor {
       "load" -> loadAvg.toString.replace("0.", "."),
       "mem" -> memory,
       "AI" -> remoteAi.fold("✔", "●")
-    )
-    if (displays % 8 == 0) {
-      println(data map (_._1) mkString " ")
-    }
+    ))
+
+    if (displays % 8 == 0) println(data.header)
     displays = displays + 1
-    data.foreach {
-      case (name, value) ⇒ {
-        val s = value.toString
-        print(List.fill(name.size - s.size)(" ").mkString + s + " ")
-      }
-    }
-    println
+
+    println(data.line)
   }
 
   private def status = List(
