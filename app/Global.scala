@@ -25,6 +25,6 @@ object Global extends GlobalSettings {
     BadRequest("Bad Request: " + error)
   }
 
-  override def onError(request: RequestHeader, ex: Throwable): Result =
-    InternalServerError(ex.getMessage)
+  //override def onError(request: RequestHeader, e: Throwable): Result =
+    //InternalServerError(e.getMessage)
 }
