@@ -1,0 +1,17 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__.'/base_script.php';
+
+$threshold = 870;
+$delay = 10;
+echo "Restart when java connections exceed $threshold\n";
+
+while (true) {
+    sleep($delay);
+    $level = exec('netstat -pan | grep "java" | wc -l');
+    echo "$level ";
+    if ($level > $threshold) {
+        show_run("Restarting", "bin/restart");
+    }
+}
