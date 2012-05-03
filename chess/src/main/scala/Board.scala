@@ -110,6 +110,8 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
 
   def positionHash = Hasher(actors.values map (_.hash) mkString).md5.toString
 
+  def situationOf(color: Color) = Situation(this, color)
+
   def visual = Visual >> this
 
   override def toString = visual

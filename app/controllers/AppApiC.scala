@@ -54,4 +54,15 @@ object AppApiC extends LilaController {
   def adjust(username: String) = Action {
     IOk(api adjust username)
   }
+
+  def captcha = Action {
+    env.captcha.create.unsafePerformIO.fold(
+      err ⇒ BadRequest(err.shows),
+      data ⇒ JsonOk(Map(
+        "id" -> data._1, 
+        "fen" -> data._2,
+        "color" -> data._3.toString
+      ))
+    )
+  }
 }

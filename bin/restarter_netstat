@@ -3,7 +3,7 @@
 
 require_once __DIR__.'/base_script.php';
 
-$threshold = 870;
+$threshold = 890;
 $delay = 10;
 echo "Restart when java connections exceed $threshold\n";
 

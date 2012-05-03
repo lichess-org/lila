@@ -93,6 +93,8 @@ final class SystemEnv(application: Application) {
     starter = starter,
     lobbySocket = lobbySocket)
 
+  lazy val captcha = new Captcha(gameRepo = gameRepo)
+
   lazy val finisher = new Finisher(
     userRepo = userRepo,
     gameRepo = gameRepo,

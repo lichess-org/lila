@@ -51,5 +51,7 @@ case class Move(
 
   def color = piece.color
 
-  override def toString = orig + " " + dest
+  def notation = orig + " " + dest
+
+  override def toString = notation
 }

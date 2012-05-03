@@ -1,9 +1,13 @@
 ping nbm
-back button
-accept rematch -> end up as spectator of the new game
 extract chess
 chat ban
-wrong number of players
 chat should autoscroll only when at bottom
 any link in-game
 back button to game -> old status
+home list of current games not translated
+registered user disconnection delay
+better spam protection than anon + http
+bad visibility of online indicators during game
+force resign
+0x1 cannot post in chat
+post <div> in chat

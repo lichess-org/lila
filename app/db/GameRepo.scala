@@ -86,6 +86,13 @@ class GameRepo(collection: MongoCollection)
     )
   }
 
+  val findOneCheckmate: IO[Option[DbGame]] = io {
+    find(DBObject("status" -> Mate.id))
+      .sort(DBObject("createdAt" -> -1))
+      .limit(1) 
+      .toList.map(decode).flatten.headOption
+  }
+
   def decode(raw: RawDbGame): Option[DbGame] = raw.decode
 
   def encode(dbGame: DbGame): RawDbGame = RawDbGame encode dbGame

@@ -49,5 +49,7 @@ case class Game(
    */
   def fullMoveNumber: Int = 1 + turns / 2
 
-  def updateBoard(f: Board => Board) = copy(board = f(board))
+  def withBoard(b: Board) = copy(board = b)
+
+  def updateBoard(f: Board => Board) = withBoard(f(board))
 }
