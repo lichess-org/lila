@@ -43,6 +43,11 @@ class UserRepo(collection: MongoCollection)
       else $inc("nbGames" -> 1))
   }
 
+  val averageElo: IO[Float] = io {
+    val elos = find(DBObject()).toList map (_.elo)
+    elos.sum / elos.size.toFloat
+  }
+
   def updateOnlineUsernames(usernames: Iterable[String]): IO[Unit] = io {
     val names = usernames.toList.map(_.toLowerCase).distinct
     collection.update(
