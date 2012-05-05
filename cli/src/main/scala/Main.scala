@@ -20,6 +20,7 @@ object Main {
 
     val command: Command = args.toList match {
       case "info" :: Nil  ⇒ Info(env)
+      case "average-elo" :: Nil  ⇒ AverageElo(env)
       case "index" :: Nil ⇒ IndexDb(env.gameRepo)
       case "finish" :: Nil ⇒ new Command {
         def apply() = env.gameFinishCommand.apply()

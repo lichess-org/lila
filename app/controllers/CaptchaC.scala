@@ -19,11 +19,9 @@ object CaptchaC extends LilaController {
   }
 
   def solve(gameId: String) = Action {
-    env.captcha.solve(gameId).unsafePerformIO.fold(
+    env.captcha.solve(gameId).unsafePerformIO.pp.fold(
       err ⇒ BadRequest(err.shows),
-      moves ⇒ JsonOk(Map(
-        "moves" -> moves
-      ))
+      moves ⇒ JsonOk(moves.list)
     )
   }
 }

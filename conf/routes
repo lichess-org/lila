@@ -20,8 +20,9 @@ POST  /api/rematch-accept/:gameId/:color/:newGameId  lila.controllers.AppApiC.re
 POST  /api/adjust/:username        lila.controllers.AppApiC.adjust(username: String)
 GET   /api/activity/:gameId/:color lila.controllers.AppApiC.activity(gameId: String, color: String)
 GET   /api/game-version/:gameId     lila.controllers.AppApiC.gameVersion(gameId: String)
+
 GET   /api/captcha/create           lila.controllers.CaptchaC.create
-GET   /api/captcha/solve            lila.controllers.CaptchaC.solve(gameId: String)
+GET   /api/captcha/solve/:gameId    lila.controllers.CaptchaC.solve(gameId: String)
 
 # Lobby Public API
 GET   /lobby/cancel/:ownerId        lila.controllers.LobbyC.cancel(ownerId: String)

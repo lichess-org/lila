@@ -52,4 +52,8 @@ case class Game(
   def withBoard(b: Board) = copy(board = b)
 
   def updateBoard(f: Board => Board) = withBoard(f(board))
+  
+  def withPlayer(c: Color) = copy(player = c)
+
+  def withTurns(t: Int) = copy(turns = t)
 }

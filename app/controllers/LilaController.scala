@@ -16,6 +16,8 @@ trait LilaController extends Controller with ContentTypes with RequestGetter {
 
   def JsonOk(map: Map[String, Any]) = Ok(Json generate map) as JSON
 
+  def JsonOk(list: List[String]) = Ok(Json generate list) as JSON
+
   def JsonIOk(map: IO[Map[String, Any]]) = JsonOk(map.unsafePerformIO)
 
   def ValidOk(valid: Valid[Unit]) = valid.fold(

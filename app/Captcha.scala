@@ -14,16 +14,16 @@ final class Captcha(gameRepo: GameRepo) {
     gameRepo.findOneCheckmate map { gameOption ⇒
       for {
         game ← gameOption toValid "No checkmate available"
-        chess = game.toChess
-        rewinded ← rewind(chess)
-      } yield (game.id, fen(rewinded), !chess.player)
+        rewinded ← rewind(game.toChess)
+      } yield (game.id, fen(rewinded), rewinded.player)
     }
 
   def solve(id: String): IO[Valid[NonEmptyList[String]]] =
     gameRepo game id map { gameOption ⇒
       for {
         game ← gameOption toValid "No such game"
-        moves ← mateMoves(game.toChess).toNel toValid "No solution found"
+        rewinded ← rewind(game.toChess)
+        moves ← mateMoves(rewinded).toNel toValid "No solution found"
       } yield moves
     }
 
@@ -38,7 +38,10 @@ final class Captcha(gameRepo: GameRepo) {
     lastMove ← game.board.history.lastMove toValid "No last move"
     (orig, dest) = lastMove
     rewindedBoard ← game.board.move(dest, orig) toValid "Can't rewind board"
-  } yield game withBoard rewindedBoard
+    g2 = game withBoard rewindedBoard 
+    g3 = g2 withPlayer !game.player
+    g4 = g3 withTurns (game.turns - 1)
+  } yield g4
 
   private def fen(game: Game): String = Forsyth >> game takeWhile (_ != ' ')
 }
