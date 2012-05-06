@@ -86,8 +86,11 @@ class GameRepo(collection: MongoCollection)
     )
   }
 
-  val findOneCheckmate: IO[Option[DbGame]] = io {
-    find(DBObject("status" -> Mate.id))
+  val findOneStandardCheckmate: IO[Option[DbGame]] = io {
+    find(DBObject(
+      "status" -> Mate.id,
+      "v" -> Standard.id
+    ))
       .sort(DBObject("createdAt" -> -1))
       .limit(1) 
       .toList.map(decode).flatten.headOption
