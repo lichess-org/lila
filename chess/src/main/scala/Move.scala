@@ -53,5 +53,5 @@ case class Move(
 
   def notation = orig + " " + dest
 
-  override def toString = notation
+  override def toString = "%s %s".format(piece, notation)
 }

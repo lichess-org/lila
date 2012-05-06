@@ -16,7 +16,9 @@ case class Game(
     dest: Pos,
     promotion: PromotableRole = Queen): Valid[(Game, Move)] = for {
     move ← situation.move(orig, dest, promotion)
-  } yield {
+  } yield (apply(move), move)
+
+  def apply(move: Move): Game = {
     val newGame = copy(
       board = move.finalizeAfter,
       player = !player,
@@ -28,7 +30,7 @@ case class Game(
       } yield (cpos, cpiece) :: deads) getOrElse deads
     )
     val pgnMove = PgnDump.move(situation, move, newGame.situation)
-    (newGame.copy(pgnMoves = (pgnMoves + " " + pgnMove).trim), move)
+    newGame.copy(pgnMoves = (pgnMoves + " " + pgnMove).trim)
   }
 
   lazy val situation = Situation(board, player)
@@ -51,8 +53,8 @@ case class Game(
 
   def withBoard(b: Board) = copy(board = b)
 
-  def updateBoard(f: Board => Board) = withBoard(f(board))
-  
+  def updateBoard(f: Board ⇒ Board) = withBoard(f(board))
+
   def withPlayer(c: Color) = copy(player = c)
 
   def withTurns(t: Int) = copy(turns = t)

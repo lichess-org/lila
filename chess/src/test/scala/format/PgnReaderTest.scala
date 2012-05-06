@@ -5,9 +5,8 @@ import Pos._
 
 class PgnReaderTest extends ChessTest {
 
-  val checkmates = List(
+  val raws = List(
     "e3 Nc6 d4 Nf6 c3 e5 dxe5 Nxe5 Bb5 a6 Ba4 b5 Bb3 d5 e4 dxe4 f4 Qxd1+ Kxd1 Nd3 Be3 Ng4 Bd4 Ngf2+ Bxf2 Nxf2+ Ke1 Nxh1 Bd5 Ra7 Bc6+ Kd8 Bxe4 Bd6 g3 Re8 Nd2 f5 Ne2 fxe4 Kf1 e3 Kg2 exd2 Rxh1 Bb7+ Kf2 Bc5+ Kf1 d1=Q#",
-    "e3 Nf6 Ng3 Ne6 Nf3 d5 Nd4 Nxd4 exd4 e6 Re1 Ng4 Re2 f6 c4 dxc4 Be4 Rxd4 Bf3 Ne5 Ne4 Nxf3 gxf3 Bf7 Nxf6 gxf6 Kd1 e5 h4 Bg6 Bh2 Bf5 Rxe5 fxe5 Bxe5 Qxe5 Qf1 Qf4 d3 Rxd3+ Ke1 Qd2#",
     "c4 Nc6 e3 Nf6 h3 Ne4 d3 Nc5 a3 Ne5 d4 d6 dxe5 dxe5 b4 Qxd1+ Kxd1 Ne4 f3 Nf2+ Ke2 Nxh1 Nd2 Ng3+ Ke1 Bf5 Bd3 Bxd3 Rb1 Bxb1 Nxb1 Rd8 Bd2 e6 h4 Be7 Nh3 Bxh4 Nf2 Ke7 Bc3 f6 Nd2 h5 c5 g5 Nc4 Rhg8 Na5 Nh1 Ke2 Nxf2 Be1 Nd3 Nxb7 Bxe1 Nxd8 Rxd8 c6 a5 bxa5 Bxa5 a4 f5 Kd1 Nf4+ Kc2 Rd2+ Kc1 Nxg2 Kb1 Nxe3 Kc1 h4 Kb1 h3 Kc1 h2 Kb1 h1=Q#",
     "d4 d5 c4 e6 a3 Nf6 Nf3 dxc4 Nc3 c5 Qa4+ Nc6 dxc5 Bxc5 b4 cxb3 Qxb3 O-O Bg5 Be7 e3 b6 Bb5 Bb7 O-O Nd5 Nxd5 Bxg5 Nxg5 Qxg5 Bxc6 Bxc6 Nb4 Qxg2#",
     "d4 Nf6 c4 Nc6 Nc3 e5 Nd5 Nxd5 cxd5 Nxd4 e3 Nf5 e4 Nd4 h4 Qf6 Bg5 Qb6 b3 h6 Bc4 hxg5 h5 Bc5 Ne2 Qa5+ Kf1 d6 Nxd4 Bxd4 Rc1 Qxa2 Rc2 Qa5 Qc1 g4 h6 g3 f3 gxh6 Rxh6 Rxh6 Qxh6 Bf2 Qh8+ Kd7 Qf8 Qe1#",
@@ -27,13 +26,60 @@ class PgnReaderTest extends ChessTest {
     "e3 d5 Qe2 e5 Nc3 Bc5 Nf3 Bg4 h3 Bxf3 gxf3 Nf6 f4 e4 Bg2 O-O d3 exd3 cxd3 c6 e4 d4 Na4 Bb4+ Bd2 Bxd2+ Qxd2 b6 e5 Nd5 Rc1 Qd7 b4 Na6 Rb1 b5 Bxd5 cxd5 Nb2 Rae8 Rg1 Qxh3 Nd1 f6 a4 Nc7 axb5 Nxb5 Ra1 fxe5 Nb2 exf4+ Kd1 Nc3+ Kc2 f3 Rge1 Rc8 Rxa7 Ne4+ Kb3 Nxd2+ Ka4 Qh6 Re5 Qb6 Rae7 Ra8+ Ra7 Rxa7#",
     "e4 e5 Nf3 Nc6 Nc3 Bb4 Nd5 Nf6 Nxb4 Nxb4 c3 Nc6 Nxe5 Nxe5 d4 Ng6 Bg5 h6 Bxf6 Qxf6 e5 Qe6 Bd3 d6 Qe2 Nf4 Qe4 dxe5 Bb5+ c6 d5 Nxd5 Bc4 O-O O-O b5 Bb3 Bb7 Bc2 Nf4 Qh7#")
 
-  val checkmate = "d4 Nf6 Nf3 Nc6 Nbd2 e6 e4 d6 c4 Qe7 Bd3 e5 d5 Nd4 Nxd4 exd4 O-O Bg4 f3 Bd7 Nb3 Qe5 Be2 c5 dxc6 bxc6 Qxd4 Qxd4+ Nxd4 Rb8 b3 Be7 Be3 Bd8 Rfd1 Bb6 Kf2 Ke7 Rd2 Ba5 Rd3 Bb6 Rad1 Rhd8 g4 h6 Bf4 g5 Bg3 h5 h3 h4 Bh2 Rb7 e5 dxe5 Bxe5 Ne8 Kg2 Bc7 Bxc7 Rxc7 Nf5+ Kf8 f4 gxf4 Nxh4 Ng7 Bf3 Ne6 Nf5 Nc5 Rd4 Ne6 Rd6 c5 h4 Ng7 Nxg7 Kxg7 g5 a5 Kf2 Kf8 Bc6 Ke7 Ba4 Bxa4 Rxd8 Bc6 h5 Ke6 h6 Be4 Rh8 Re7 Re1 Kf5 h7 Kg6 Rc8 Kxh7 Rxc5 a4 b4 Kg6 b5 f6 gxf6 Kxf6 b6 a3 Rc7 Rxc7 bxc7 Bb7 Re8 Kf5 c5 Ba6 Ra8 Bb7 Rf8+ Ke5 c6 Ba6 Ra8 Kd6 Rxa6 Kxc7 Kf3 Kb8 Kxf4 Kc8 Ke5 Kc7 Ke6 Kd8 Kd6 Ke8 Ra7 Kf8 c7 Kf7 c8=Q+ Kg6 Qg4+ Kf6 Ra8 Kf7 Qf5+ Kg7 Ra7+ Kg8 Qc8#"
+  val raw = "d4 Nf6 Nf3 Nc6 Nbd2 e6 e4 d6 c4 Qe7 Bd3 e5 d5 Nd4 Nxd4 exd4 O-O Bg4 f3 Bd7 Nb3 Qe5 Be2 c5 dxc6 bxc6 Qxd4 Qxd4+ Nxd4 Rb8 b3 Be7 Be3 Bd8 Rfd1 Bb6 Kf2 Ke7 Rd2 Ba5 Rd3 Bb6 Rad1 Rhd8 g4 h6 Bf4 g5 Bg3 h5 h3 h4 Bh2 Rb7 e5 dxe5 Bxe5 Ne8 Kg2 Bc7 Bxc7 Rxc7 Nf5+ Kf8 f4 gxf4 Nxh4 Ng7 Bf3 Ne6 Nf5 Nc5 Rd4 Ne6 Rd6 c5 h4 Ng7 Nxg7 Kxg7 g5 a5 Kf2 Kf8 Bc6 Ke7 Ba4 Bxa4 Rxd8 Bc6 h5 Ke6 h6 Be4 Rh8 Re7 Re1 Kf5 h7 Kg6 Rc8 Kxh7 Rxc5 a4 b4 Kg6 b5 f6 gxf6 Kxf6 b6 a3 Rc7 Rxc7 bxc7 Bb7 Re8 Kf5 c5 Ba6 Ra8 Bb7 Rf8+ Ke5 c6 Ba6 Ra8 Kd6 Rxa6 Kxc7 Kf3 Kb8 Kxf4 Kc8 Ke5 Kc7 Ke6 Kd8 Kd6 Ke8 Ra7 Kf8 c7 Kf7 c8=Q+ Kg6 Qg4+ Kf6 Ra8 Kf7 Qf5+ Kg7 Ra7+ Kg8 Qc8#"
+  //val raw = "e4 e5 Bc4 Nf6 d3 d5 Bg5 Be6 exd5 Bxd5 Bxd5 Qxd5 f3 e4 Bxf6 gxf6 fxe4 Qa5+ c3 Nd7 b4 Qb6 a4 Ne5 Nf3 O-O-O a5 Qe6 Nd4 Qd7 Qh5 Bxb4 cxb4 Qxd4 Qf5+ Kb8 Kd2 Nc4+ Ke2 Qxd3+ Kf2 Qe3+ Kf1 Rd1#"
 
-  "Read pgn" should {
+  val complete960 = """[Event "Casual game"]
+[Site "http://en.lichess.org/analyse/---qxr00"]
+[Date "2010.10.30"]
+[White "Anonymous"]
+[Black "Crafty level 1"]
+[WhiteElo "?"]
+[BlackElo "?"]
+[Result "0-1"]
+[PlyCount "42"]
+[Variant "Chess960"]
+[FEN "rbkrnnbq/pppppppp/8/8/8/8/PPPPPPPP/RBKRNNBQ w KQkq - 0 1"]
+
+1. e3 Nf6 2. Ng3 Ne6 3. Nf3 d5 4. Nd4 Nxd4 5. exd4 e6 6. Re1 Ng4 7. Re2 f6 8. c4 dxc4 9. Be4 Rxd4 10. Bf3 Ne5 11. Ne4 Nxf3 12. gxf3 Bf7 13. Nxf6 gxf6 14. Kd1 e5 15. h4 Bg6 16. Bh2 Bf5 17. Rxe5 fxe5 18. Bxe5 Qxe5 19. Qf1 Qf4 20. d3 Rxd3+ 21. Ke1 Qd2# 0-1"""
+
+  val fromWikipedia = """ [Event "F/S Return Match"]
+[Site "Belgrade, Serbia Yugoslavia|JUG"]
+[Date "1992.11.04"]
+[Round "29"]
+[White "Fischer, Robert J."]
+[Black "Spassky, Boris V."]
+[Result "1/2-1/2"]
+ 
+1. e4 e5 2. Nf3 Nc6 3. Bb5 {This opening is called the Ruy Lopez.} 3... a6
+4. Ba4 Nf6 5. O-O Be7 6. Re1 b5 7. Bb3 d6 8. c3 O-O 9. h3 Nb8  10. d4 Nbd7
+11. c4 c6 12. cxb5 axb5 13. Nc3 Bb7 14. Bg5 b4 15. Nb1 h6 16. Bh4 c5 17. dxe5
+Nxe4 18. Bxe7 Qxe7 19. exd6 Qf6 20. Nbd2 Nxd6 21. Nc4 Nxc4 22. Bxc4 Nb6
+23. Ne5 Rae8 24. Bxf7+ Rxf7 25. Nxf7 Rxe1+ 26. Qxe1 Kxf7 27. Qe3 Qg5 28. Qxg5
+hxg5 29. b3 Ke6 30. a3 Kd6 31. axb4 cxb4 32. Ra5 Nd5 33. f3 Bc8 34. Kf2 Bf5
+35. Ra7 g6 36. Ra6+ Kc5 37. Ke1 Nf4 38. g3 Nxh3 39. Kd2 Kb5 40. Rd6 Kc5 41. Ra6
+Nf2 42. g4 Bd3 43. Re6 1/2-1/2"""
+
+  "only raw moves" should {
     "one complete game" in {
-      PgnReader(checkmate) must beSuccess.like {
-        case moves ⇒ moves must have size (checkmate.split(' ').size)
+      PgnReader(raw) must beSuccess.like {
+        case replay ⇒ replay.moves must have size (raw.split(' ').size)
       }
+    }
+    "all games" in {
+      forall(raws) { (c: String) ⇒
+        PgnReader(c) must beSuccess.like {
+          case replay ⇒ replay.moves must have size (c.split(' ').size)
+        }
+      }
+    }
+  }
+  "tags and moves" should {
+    "chess960" in {
+      PgnReader(complete960) must beSuccess
+    }
+    "example from wikipedia" in {
+      PgnReader(fromWikipedia) must beSuccess
     }
   }
 }

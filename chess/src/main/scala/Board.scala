@@ -35,6 +35,9 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
 
   def kingPosOf(c: Color): Option[Pos] = kingPos get c
 
+  def threatsOf(c: Color): Set[Pos] = 
+    actorsOf(c).toSet flatMap { actor: Actor ⇒ actor.threats }
+
   def destsFrom(from: Pos): Option[List[Pos]] = actorAt(from) map (_.destinations)
 
   def seq(actions: Board ⇒ Valid[Board]*): Valid[Board] =
