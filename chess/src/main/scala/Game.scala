@@ -35,6 +35,12 @@ case class Game(
 
   lazy val situation = Situation(board, player)
 
+  lazy val allPieces = (board.pieces map {
+    case (pos, piece) ⇒ (pos, piece, false)
+  }) ++ (deads map {
+    case (pos, piece) ⇒ (pos, piece, true)
+  })
+
   def pgnMovesList = pgnMoves.split(' ').toList
 
   /**

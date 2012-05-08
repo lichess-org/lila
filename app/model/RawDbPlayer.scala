@@ -14,7 +14,7 @@ case class RawDbPlayer(
     elo: Option[Int],
     isOfferingDraw: Option[Boolean],
     lastDrawOffer: Option[Int],
-    isOfferingTakeback: Option[Boolean],
+    isProposingTakeback: Option[Boolean],
     user: Option[DBRef],
     mts: Option[String],
     blurs: Option[Int]) {
@@ -30,7 +30,7 @@ case class RawDbPlayer(
     elo = elo,
     isOfferingDraw = isOfferingDraw getOrElse false,
     lastDrawOffer = lastDrawOffer,
-    isOfferingTakeback = isOfferingTakeback getOrElse false,
+    isProposingTakeback = isProposingTakeback getOrElse false,
     user = user,
     moveTimes = mts | "",
     blurs = blurs | 0
@@ -50,7 +50,7 @@ object RawDbPlayer {
       elo = elo,
       isOfferingDraw = if (isOfferingDraw) Some(true) else None,
       lastDrawOffer = lastDrawOffer,
-      isOfferingTakeback = if (isOfferingTakeback) Some(true) else None,
+      isProposingTakeback = if (isProposingTakeback) Some(true) else None,
       user = user,
       mts = Some(moveTimes) filter ("" !=),
       blurs = Some(blurs) filter (0 !=)

@@ -7,7 +7,8 @@ object PgnParser extends RegexParsers {
 
   def apply(pgn: String): Valid[ParsedPgn] =
     parseAll(all, pgn) match {
-      case f: Failure       ⇒ f.toString.failNel
+      case f: Failure ⇒
+        "Cannot parse pgn: %s\n%s".format(f.toString, pgn).failNel
       case Success(sans, _) ⇒ scalaz.Scalaz.success(sans)
     }
 

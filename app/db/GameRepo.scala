@@ -81,7 +81,9 @@ class GameRepo(collection: MongoCollection)
           "players.0.lastDrawOffer",
           "players.1.lastDrawOffer",
           "players.0.isOfferingDraw",
-          "players.1.isOfferingDraw"
+          "players.1.isOfferingDraw",
+          "players.0.isProposingTakeback",
+          "players.1.isProposingTakeback"
         )
     )
   }

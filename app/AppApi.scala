@@ -60,7 +60,7 @@ final class AppApi(
       pov ⇒ for {
         p1 ← starter.start(pov.game, entryData)
         p2 ← messenger.systemMessages(p1.game, messages) map { evts ⇒
-          p1 + RedirectEvent(!pov.color, url) ++ evts
+          p1 + RedirectOwnerEvent(!pov.color, url) ++ evts
         }
         _ ← gameRepo save p2
         _ ← gameSocket send p2
@@ -95,8 +95,8 @@ final class AppApi(
       result ← (newGameOption |@| g1Option).apply(
         (newGame, g1) ⇒ {
           val progress = Progress(g1, List(
-            RedirectEvent(White, whiteRedirect),
-            RedirectEvent(Black, blackRedirect),
+            RedirectOwnerEvent(White, whiteRedirect),
+            RedirectOwnerEvent(Black, blackRedirect),
             // tell spectators to reload the table
             ReloadTableEvent(White),
             ReloadTableEvent(Black)))

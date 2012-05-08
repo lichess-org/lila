@@ -85,11 +85,19 @@ case class CastlingEvent(king: (Pos, Pos), rook: (Pos, Pos), color: Color) exten
   def jsArray(a: String, b: String) = JsArray(List(JsString(a), JsString(b)))
 }
 
-case class RedirectEvent(color: Color, url: String) extends Event {
+sealed trait RedirectEvent extends Event {
+  def url: String
   def typ = "redirect"
   def data = JsString(url)
+}
+
+case class RedirectOwnerEvent(color: Color, url: String) extends RedirectEvent {
   override def only = Some(color)
   override def owner = true
+}
+
+case class ReloadEvent() extends EmptyEvent {
+  def typ = "reload"
 }
 
 case class PromotionEvent(role: PromotableRole, pos: Pos) extends Event {

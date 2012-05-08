@@ -1,9 +1,10 @@
 package lila
 package model
 
-import chess._
-import Pos.{ posAt, piotr }
-import Role.forsyth
+import chess.{ Game, Color, White, Black, Move, Pos, Piece, Board, Clock, History, Role }
+import chess.format.PgnReader
+import chess.Pos.{ posAt, piotr }
+import chess.Role.forsyth
 import org.joda.time.DateTime
 
 case class DbGame(
@@ -95,11 +96,6 @@ case class DbGame(
   )
 
   def update(game: Game, move: Move, blur: Boolean = false): Progress = {
-    val allPieces = (game.board.pieces map {
-      case (pos, piece) ⇒ (pos, piece, false)
-    }) ++ (game.deads map {
-      case (pos, piece) ⇒ (pos, piece, true)
-    })
     val (history, situation) = (game.board.history, game.situation)
     val events =
       Event.possibleMoves(game.situation, White) ::
@@ -109,7 +105,7 @@ case class DbGame(
         (Event fromSituation game.situation)
 
     def copyPlayer(player: DbPlayer) = player.copy(
-      ps = player encodePieces allPieces,
+      ps = player encodePieces game.allPieces,
       blurs = player.blurs + (blur && move.color == player.color).fold(1, 0),
       moveTimes = (recordMoveTimes && move.color == player.color).fold(
         lastMoveTime.fold(
@@ -138,7 +134,7 @@ case class DbGame(
         else if (situation.autoDraw) Draw
         else status,
       clock = game.clock,
-      check = if (game.situation.check) game.situation.kingPos else None,
+      check = if (situation.check) situation.kingPos else None,
       lastMoveTime = recordMoveTimes option nowSeconds
     )
 
@@ -154,10 +150,43 @@ case class DbGame(
     Progress(this, updated, finalEvents)
   }
 
+  def rewind: Valid[Progress] = {
+    PgnReader.withSans(pgn, _.init) map { replay ⇒
+      val rewindedGame = replay.game
+      val rewindedHistory = rewindedGame.board.history
+      val rewindedSituation = rewindedGame.situation
+      def rewindPlayer(player: DbPlayer) = player.copy(
+        ps = player encodePieces rewindedGame.allPieces,
+        isProposingTakeback = false)
+      Progress(this, copy(
+        pgn = rewindedGame.pgnMoves,
+        whitePlayer = rewindPlayer(whitePlayer),
+        blackPlayer = rewindPlayer(blackPlayer),
+        turns = rewindedGame.turns,
+        positionHashes = rewindedHistory.positionHashes mkString,
+        castles = rewindedHistory.castleNotation,
+        lastMove = rewindedHistory.lastMove map { case (a, b) ⇒ a + " " + b },
+        status =
+          if (rewindedSituation.checkMate) Mate
+          else if (rewindedSituation.staleMate) Stalemate
+          else if (rewindedSituation.autoDraw) Draw
+          else status,
+        clock = rewindedGame.clock,
+        check = if (rewindedSituation.check) rewindedSituation.kingPos else None,
+        lastMoveTime = recordMoveTimes option nowSeconds
+      ))
+    }
+  }
+
   def updatePlayer(color: Color, f: DbPlayer ⇒ DbPlayer) = color match {
     case White ⇒ copy(whitePlayer = f(whitePlayer))
     case Black ⇒ copy(blackPlayer = f(blackPlayer))
   }
+
+  def updatePlayers(f: DbPlayer ⇒ DbPlayer) = copy(
+    whitePlayer = f(whitePlayer),
+    blackPlayer = f(blackPlayer)
+  )
 
   def recordMoveTimes = !hasAi
 
@@ -219,6 +248,8 @@ case class DbGame(
   def invited = player(!creatorColor)
 
   def pgnList = pgn.split(' ').toList
+
+  def bothPlayersHaveMoved = turns > 1
 }
 
 object DbGame {

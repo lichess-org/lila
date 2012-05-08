@@ -12,7 +12,6 @@ final class Hand(
     messenger: Messenger,
     ai: () ⇒ Ai,
     finisher: Finisher,
-    takeback: Takeback,
     moretimeSeconds: Int) {
 
   type IOValidEvents = IO[Valid[List[Event]]]
@@ -108,46 +107,49 @@ final class Hand(
 
   def takebackAccept(fullId: String): IOValidEvents =
     attempt(fullId, pov ⇒
-      if (pov.opponent.isOfferingTakeback) takeback perform pov.game
+      if (pov.opponent.isProposingTakeback) takeback(pov)
       else !!("opponent is not proposing a takeback")
     )
 
   def takebackOffer(fullId: String): IOValidEvents = attempt(fullId, {
     case pov @ Pov(g1, color) ⇒
-      if (g1.player(!color).isOfferingTakeback) takeback perform g1
-      else success {
-        for {
-          p1 ← messenger.systemMessages(g1, "Takeback proposition sent") map { es ⇒
-            Progress(g1, ReloadTableEvent(!color) :: es)
-          }
-          p2 = p1 map { g ⇒ g.updatePlayer(color, _.offerTakeback) }
-          _ ← gameRepo save p2
-        } yield p2.events
+      if (g1.playable && g1.bothPlayersHaveMoved) {
+        if (g1.player(!color).isProposingTakeback) takeback(pov)
+        else success {
+          for {
+            p1 ← messenger.systemMessages(g1, "Takeback proposition sent") map { es ⇒
+              Progress(g1, ReloadTableEvent(!color) :: es)
+            }
+            p2 = p1 map { g ⇒ g.updatePlayer(color, _.proposeTakeback) }
+            _ ← gameRepo save p2
+          } yield p2.events
+        }
       }
+      else !!("invalid takeback proposition" + fullId)
   })
 
   def takebackCancel(fullId: String): IO[Valid[List[Event]]] = attempt(fullId, {
     case pov @ Pov(g1, color) ⇒
-      if (pov.player.isOfferingTakeback) success {
+      if (pov.player.isProposingTakeback) success {
         for {
           p1 ← messenger.systemMessages(g1, "Takeback proposition canceled") map { es ⇒
             Progress(g1, ReloadTableEvent(!color) :: es)
           }
-          p2 = p1 map { g ⇒ g.updatePlayer(color, _.removeDrawOffer) }
+          p2 = p1 map { g ⇒ g.updatePlayer(color, _.removeTakebackProposition) }
           _ ← gameRepo save p2
         } yield p2.events
       }
-      else !!("no draw offer to cancel " + fullId)
+      else !!("no takeback proposition to cancel " + fullId)
   })
 
   def takebackDecline(fullId: String): IO[Valid[List[Event]]] = attempt(fullId, {
     case pov @ Pov(g1, color) ⇒
-      if (g1.player(!color).isOfferingDraw) success {
+      if (g1.player(!color).isProposingTakeback) success {
         for {
-          p1 ← messenger.systemMessages(g1, "Draw offer declined") map { es ⇒
+          p1 ← messenger.systemMessages(g1, "Takeback proposition declined") map { es ⇒
             Progress(g1, ReloadTableEvent(!color) :: es)
           }
-          p2 = p1 map { g ⇒ g.updatePlayer(!color, _.removeDrawOffer) }
+          p2 = p1 map { g ⇒ g.updatePlayer(!color, _.removeTakebackProposition) }
           _ ← gameRepo save p2
         } yield p2.events
       }
@@ -168,6 +170,15 @@ final class Hand(
       } yield progress2.events
     } toValid "cannot add moretime"
   )
+
+  private def takeback(pov: Pov): Valid[IO[List[Event]]] =
+    pov.game.rewind map { p1 ⇒
+      for {
+        _ ← messenger.systemMessage(p1.game, "Takeback proposition accepted")
+        p2 = p1 + ReloadEvent()
+        _ ← gameRepo save p2
+      } yield p2.events
+    }
 
   private def attempt[A](
     fullId: String,
