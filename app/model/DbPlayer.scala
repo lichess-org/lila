@@ -14,6 +14,7 @@ case class DbPlayer(
     elo: Option[Int],
     isOfferingDraw: Boolean,
     lastDrawOffer: Option[Int],
+    isOfferingTakeback: Boolean,
     user: Option[DBRef],
     moveTimes: String,
     blurs: Int) {
@@ -44,4 +45,8 @@ case class DbPlayer(
   )
 
   def removeDrawOffer = copy(isOfferingDraw = false)
+
+  def offerTakeback = copy(isOfferingTakeback = true)
+
+  def removeTakebackOffer = copy(isOfferingTakeback = false)
 }

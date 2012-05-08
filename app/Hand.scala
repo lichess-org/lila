@@ -12,6 +12,7 @@ final class Hand(
     messenger: Messenger,
     ai: () ⇒ Ai,
     finisher: Finisher,
+    takeback: Takeback,
     moretimeSeconds: Int) {
 
   type IOValidEvents = IO[Valid[List[Event]]]
@@ -103,6 +104,54 @@ final class Hand(
         } yield p2.events
       }
       else !!("no draw offer to decline " + fullId)
+  })
+
+  def takebackAccept(fullId: String): IOValidEvents =
+    attempt(fullId, pov ⇒
+      if (pov.opponent.isOfferingTakeback) takeback perform pov.game
+      else !!("opponent is not proposing a takeback")
+    )
+
+  def takebackOffer(fullId: String): IOValidEvents = attempt(fullId, {
+    case pov @ Pov(g1, color) ⇒
+      if (g1.player(!color).isOfferingTakeback) takeback perform g1
+      else success {
+        for {
+          p1 ← messenger.systemMessages(g1, "Takeback proposition sent") map { es ⇒
+            Progress(g1, ReloadTableEvent(!color) :: es)
+          }
+          p2 = p1 map { g ⇒ g.updatePlayer(color, _.offerTakeback) }
+          _ ← gameRepo save p2
+        } yield p2.events
+      }
+  })
+
+  def takebackCancel(fullId: String): IO[Valid[List[Event]]] = attempt(fullId, {
+    case pov @ Pov(g1, color) ⇒
+      if (pov.player.isOfferingTakeback) success {
+        for {
+          p1 ← messenger.systemMessages(g1, "Takeback proposition canceled") map { es ⇒
+            Progress(g1, ReloadTableEvent(!color) :: es)
+          }
+          p2 = p1 map { g ⇒ g.updatePlayer(color, _.removeDrawOffer) }
+          _ ← gameRepo save p2
+        } yield p2.events
+      }
+      else !!("no draw offer to cancel " + fullId)
+  })
+
+  def takebackDecline(fullId: String): IO[Valid[List[Event]]] = attempt(fullId, {
+    case pov @ Pov(g1, color) ⇒
+      if (g1.player(!color).isOfferingDraw) success {
+        for {
+          p1 ← messenger.systemMessages(g1, "Draw offer declined") map { es ⇒
+            Progress(g1, ReloadTableEvent(!color) :: es)
+          }
+          p2 = p1 map { g ⇒ g.updatePlayer(!color, _.removeDrawOffer) }
+          _ ← gameRepo save p2
+        } yield p2.events
+      }
+      else !!("no takeback proposition to decline " + fullId)
   })
 
   def moretime(ref: PovRef): IO[Valid[List[Event]]] = attemptRef(ref, pov ⇒

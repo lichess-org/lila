@@ -49,6 +49,14 @@ object AppC extends LilaController {
 
   def drawDecline(fullId: String) = performAndRedirect(fullId, hand.drawDecline)
 
+  def takebackAccept(fullId: String) = performAndRedirect(fullId, hand.takebackAccept)
+
+  def takebackOffer(fullId: String) = performAndRedirect(fullId, hand.takebackOffer)
+
+  def takebackCancel(fullId: String) = performAndRedirect(fullId, hand.takebackCancel)
+
+  def takebackDecline(fullId: String) = performAndRedirect(fullId, hand.takebackDecline)
+
   type IOValidEvents = IO[Valid[List[Event]]]
 
   private def perform(fullId: String, op: String ⇒ IOValidEvents): IO[Unit] =

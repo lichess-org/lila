@@ -8,6 +8,10 @@ GET   /draw-accept/:fullId              lila.controllers.AppC.drawAccept(fullId:
 GET   /draw-offer/:fullId               lila.controllers.AppC.drawOffer(fullId: String)
 GET   /draw-cancel/:fullId              lila.controllers.AppC.drawCancel(fullId: String)
 GET   /draw-decline/:fullId             lila.controllers.AppC.drawDecline(fullId: String)
+GET   /takeback-accept/:fullId          lila.controllers.AppC.takebackAccept(fullId: String)
+GET   /takeback-offer/:fullId           lila.controllers.AppC.takebackOffer(fullId: String)
+GET   /takeback-cancel/:fullId          lila.controllers.AppC.takebackCancel(fullId: String)
+GET   /takeback-decline/:fullId         lila.controllers.AppC.takebackDecline(fullId: String)
 
 GET   /ai                               lila.controllers.AiC.run
 
