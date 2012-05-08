@@ -80,6 +80,7 @@ final class SystemEnv(application: Application) {
     messenger = messenger,
     ai = ai,
     finisher = finisher,
+    takeback = takeback,
     moretimeSeconds = getSeconds("moretime.seconds"))
 
   lazy val appApi = new AppApi(
@@ -110,6 +111,10 @@ final class SystemEnv(application: Application) {
     eloCalculator = new EloCalculator,
     finisherLock = new FinisherLock(
       timeout = getMilliseconds("memo.finisher_lock.timeout")))
+
+  lazy val takeback = new Takeback(
+    gameRepo = gameRepo,
+    messenger = messenger)
 
   lazy val messenger = new Messenger(
     roomRepo = roomRepo)

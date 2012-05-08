@@ -10,6 +10,7 @@ import scalaz.effects._
 final class Hand(
     gameRepo: GameRepo,
     messenger: Messenger,
+    takeback: Takeback,
     ai: () ⇒ Ai,
     finisher: Finisher,
     moretimeSeconds: Int) {
@@ -107,14 +108,15 @@ final class Hand(
 
   def takebackAccept(fullId: String): IOValidEvents =
     attempt(fullId, pov ⇒
-      if (pov.opponent.isProposingTakeback) takeback(pov)
+      if (pov.opponent.isProposingTakeback) takeback(pov.game)
       else !!("opponent is not proposing a takeback")
     )
 
   def takebackOffer(fullId: String): IOValidEvents = attempt(fullId, {
     case pov @ Pov(g1, color) ⇒
       if (g1.playable && g1.bothPlayersHaveMoved) {
-        if (g1.player(!color).isProposingTakeback) takeback(pov)
+        if (g1.player(!color).isAi.pp) takeback double pov.game
+        else if (g1.player(!color).isProposingTakeback) takeback(pov.game)
         else success {
           for {
             p1 ← messenger.systemMessages(g1, "Takeback proposition sent") map { es ⇒
@@ -170,15 +172,6 @@ final class Hand(
       } yield progress2.events
     } toValid "cannot add moretime"
   )
-
-  private def takeback(pov: Pov): Valid[IO[List[Event]]] =
-    pov.game.rewind map { p1 ⇒
-      for {
-        _ ← messenger.systemMessage(p1.game, "Takeback proposition accepted")
-        p2 = p1 + ReloadEvent()
-        _ ← gameRepo save p2
-      } yield p2.events
-    }
 
   private def attempt[A](
     fullId: String,

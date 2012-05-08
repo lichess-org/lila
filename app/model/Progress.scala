@@ -13,6 +13,8 @@ case class Progress(origin: DbGame, game: DbGame, events: List[Event] = Nil) {
   def +(event: Event) = copy(events = events :+ event)
 
   def ++(es: List[Event]) = copy(events = events ::: es)
+
+  def withGame(g: DbGame) = copy(game = g)
 }
 
 object Progress {
