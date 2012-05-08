@@ -4,6 +4,8 @@ package model
 sealed abstract class Variant(val id: Int) {
 
   lazy val name = toString.toLowerCase
+
+  def standard = this == Standard
 }
 
 case object Standard extends Variant(1)

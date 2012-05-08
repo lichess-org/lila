@@ -107,6 +107,10 @@ class GameRepo(collection: MongoCollection)
     )
   }
 
+  def initialFen(gameId: String): IO[Option[String]] = io {
+    primitiveProjection[String](DBObject("_id" -> gameId), "initialFen")
+  }
+
   def cleanupUnplayed: IO[Unit] = io {
     remove(("turns" $lt 2) ++ ("createdAt" $lt (DateTime.now - 2.day)))
   }

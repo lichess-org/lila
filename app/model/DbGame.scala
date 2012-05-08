@@ -4,6 +4,7 @@ package model
 import chess._
 import Pos.{ posAt, piotr }
 import Role.forsyth
+import org.joda.time.DateTime
 
 case class DbGame(
     id: String,
@@ -20,7 +21,8 @@ case class DbGame(
     castles: String = "KQkq",
     isRated: Boolean = false,
     variant: Variant = Standard,
-    lastMoveTime: Option[Int] = None) {
+    lastMoveTime: Option[Int] = None,
+    createdAt: Option[DateTime] = None) {
 
   val players = List(whitePlayer, blackPlayer)
 
@@ -215,6 +217,8 @@ case class DbGame(
   def creator = player(creatorColor)
 
   def invited = player(!creatorColor)
+
+  def pgnList = pgn.split(' ').toList
 }
 
 object DbGame {

@@ -6,6 +6,7 @@ import com.novus.salat.annotations._
 import chess._
 import Pos.{ posAt, piotr }
 import Role.forsyth
+import org.joda.time.DateTime
 
 case class RawDbGame(
     @Key("_id") id: String,
@@ -21,7 +22,8 @@ case class RawDbGame(
     castles: String = "KQkq",
     isRated: Boolean = false,
     v: Int = 1,
-    lmt: Option[Int] = None) {
+    lmt: Option[Int] = None,
+    createdAt: Option[DateTime]) {
 
   def decode: Option[DbGame] = for {
     whitePlayer ← players find (_.c == "white") flatMap (_.decode)
@@ -46,7 +48,8 @@ case class RawDbGame(
     castles = castles,
     isRated = isRated,
     variant = trueVariant,
-    lastMoveTime = lmt
+    lastMoveTime = lmt,
+    createdAt = createdAt
   )
 }
 
@@ -68,7 +71,8 @@ object RawDbGame {
       castles = castles,
       isRated = isRated,
       v = variant.id,
-      lmt = lastMoveTime
+      lmt = lastMoveTime,
+      createdAt = createdAt
     )
   }
 }

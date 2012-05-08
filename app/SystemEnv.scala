@@ -18,6 +18,12 @@ final class SystemEnv(application: Application) {
   implicit val app = application
   val config = app.configuration.underlying
 
+  lazy val pgnDump = new PgnDump(
+    userRepo = userRepo,
+    gameRepo = gameRepo)
+
+  lazy val gameInfo = GameInfo(pgnDump) _
+
   lazy val reporting = Akka.system.actorOf(
     Props(new report.Reporting), name = "reporting")
 
@@ -82,7 +88,8 @@ final class SystemEnv(application: Application) {
     gameSocket = gameSocket,
     messenger = messenger,
     starter = starter,
-    eloUpdater = eloUpdater)
+    eloUpdater = eloUpdater,
+    gameInfo = gameInfo)
 
   lazy val lobbyApi = new lobby.Api(
     hookRepo = hookRepo,

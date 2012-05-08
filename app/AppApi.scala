@@ -21,7 +21,8 @@ final class AppApi(
     gameSocket: game.Socket,
     messenger: Messenger,
     starter: Starter,
-    eloUpdater: EloUpdater) {
+    eloUpdater: EloUpdater,
+    gameInfo: DbGame ⇒ IO[GameInfo]) {
 
   private implicit val timeout = Timeout(300 millis)
   private implicit val executor = Akka.system.dispatcher
@@ -130,6 +131,11 @@ final class AppApi(
   } yield result
 
   def gameVersion(gameId: String): Future[Int] = futureVersion(gameId)
+
+  def gameInfo(gameId: String): IO[Option[GameInfo]] = for {
+    gameOption ← gameRepo game gameId
+    gameInfo ← gameOption.fold(gameInfo(_) map some, io(none))
+  } yield gameInfo
 
   def isConnected(gameId: String, colorName: String): Future[Boolean] =
     Color(colorName).fold(

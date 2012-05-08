@@ -46,6 +46,13 @@ object AppApiC extends LilaController {
     }
   }
 
+  def gameInfo(gameId: String) = Action {
+    (api gameInfo gameId).unsafePerformIO.fold(
+      info ⇒ JsonOk(info.toMap),
+      BadRequest("No such game")
+    )
+  }
+
   def rematchAccept(gameId: String, color: String, newGameId: String) = Action { implicit request ⇒
     FormValidIOk[RematchData](rematchForm)(r ⇒
       api.rematchAccept(gameId, newGameId, color, r._1, r._2, r._3, r._4))
@@ -59,7 +66,7 @@ object AppApiC extends LilaController {
     env.captcha.create.unsafePerformIO.fold(
       err ⇒ BadRequest(err.shows),
       data ⇒ JsonOk(Map(
-        "id" -> data._1, 
+        "id" -> data._1,
         "fen" -> data._2,
         "color" -> data._3.toString
       ))

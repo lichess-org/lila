@@ -20,6 +20,9 @@ sealed trait Color {
   def queen  = this - Queen
   def king   = this - King
 
+  def white = this == White
+  def black = this == Black
+
   override def toString = name
 }
 
