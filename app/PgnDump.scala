@@ -29,7 +29,7 @@ final class PgnDump(gameRepo: GameRepo, userRepo: UserRepo) {
     "WhiteElo" -> elo(game.whitePlayer),
     "BlackElo" -> elo(game.blackPlayer),
     "Result" -> result(game),
-    "PlayCount" -> game.turns,
+    "PlyCount" -> game.turns,
     "Variant" -> game.variant.name
   ) ++ game.variant.standard.fold(Map.empty, Map(
       "FEN" -> (initialFen | "?"),
