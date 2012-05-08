@@ -16,11 +16,11 @@ extends CappedRepo[Message](collection, max) {
   def add(text: String, username: String): Valid[IO[Message]] =
     if (username.isEmpty || username == "Anonymous")
       !!("Invalid username " + username)
-    else escapeXml(text.trim take 140) |> { t ⇒
-      if (t.isEmpty) !!("Empty message")
+    else escapeXml(text.trim take 140) |> { escaped ⇒
+      if (escaped.isEmpty) !!("Empty message")
       else success {
         val t = urlRegex.replaceAllIn(
-          text.trim.take(140),
+          escaped,
           m ⇒ "lichess.org/" + (m group 1))
         io {
           Message(username, t) ~ { collection += encode(_) }

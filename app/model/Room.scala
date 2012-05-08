@@ -27,9 +27,9 @@ object Room {
     case _   ⇒ "system"
   }, encoded drop 1)
 
-  def render(msg: (String, String)): String =
-    """<li class="%s%s">%s</li>""".format(
-      msg._1,
-      if (msg._1 == "system") " trans_me" else "",
-      escapeXml(msg._2))
+  def render(msg: (String, String)): String = msg match {
+    case (author, text) ⇒ """<li class="%s%s">%s</li>""".format(
+      author, (author == "system").fold(" trans_me", ""), escapeXml(text)
+    )
+  }
 }

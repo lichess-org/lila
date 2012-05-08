@@ -115,7 +115,7 @@ final class Hand(
   def takebackOffer(fullId: String): IOValidEvents = attempt(fullId, {
     case pov @ Pov(g1, color) ⇒
       if (g1.playable && g1.bothPlayersHaveMoved) {
-        if (g1.player(!color).isAi.pp) takeback double pov.game
+        if (g1.player(!color).isAi) takeback double pov.game
         else if (g1.player(!color).isProposingTakeback) takeback(pov.game)
         else success {
           for {
