@@ -2,7 +2,7 @@ package lila
 package model
 
 import chess.{ Game, Color, White, Black, Move, Pos, Piece, Board, Clock, History, Role }
-import chess.format.PgnReader
+import chess.format.{ PgnReader, Fen }
 import chess.Pos.{ posAt, piotr }
 import chess.Role.forsyth
 import org.joda.time.DateTime
@@ -150,32 +150,36 @@ case class DbGame(
     Progress(this, updated, finalEvents)
   }
 
-  def rewind: Valid[Progress] = {
-    PgnReader.withSans(pgn, _.init) map { replay ⇒
-      val rewindedGame = replay.game
-      val rewindedHistory = rewindedGame.board.history
-      val rewindedSituation = rewindedGame.situation
-      def rewindPlayer(player: DbPlayer) = player.copy(
-        ps = player encodePieces rewindedGame.allPieces,
-        isProposingTakeback = false)
-      Progress(this, copy(
-        pgn = rewindedGame.pgnMoves,
-        whitePlayer = rewindPlayer(whitePlayer),
-        blackPlayer = rewindPlayer(blackPlayer),
-        turns = rewindedGame.turns,
-        positionHashes = rewindedHistory.positionHashes mkString,
-        castles = rewindedHistory.castleNotation,
-        lastMove = rewindedHistory.lastMove map { case (a, b) ⇒ a + " " + b },
-        status =
-          if (rewindedSituation.checkMate) Mate
-          else if (rewindedSituation.staleMate) Stalemate
-          else if (rewindedSituation.autoDraw) Draw
-          else status,
-        clock = clock map (_.switch),
-        check = if (rewindedSituation.check) rewindedSituation.kingPos else None,
-        lastMoveTime = recordMoveTimes option nowSeconds
-      ))
-    }
+  def rewind(initialFen: Option[String]): Valid[Progress] = {
+    PgnReader.withSans(
+      pgn = pgn,
+      op = _.init,
+      tags = initialFen.fold(fen ⇒ List(Fen(fen)), Nil)
+    ) map { replay ⇒
+        val rewindedGame = replay.game
+        val rewindedHistory = rewindedGame.board.history
+        val rewindedSituation = rewindedGame.situation
+        def rewindPlayer(player: DbPlayer) = player.copy(
+          ps = player encodePieces rewindedGame.allPieces,
+          isProposingTakeback = false)
+        Progress(this, copy(
+          pgn = rewindedGame.pgnMoves,
+          whitePlayer = rewindPlayer(whitePlayer),
+          blackPlayer = rewindPlayer(blackPlayer),
+          turns = rewindedGame.turns,
+          positionHashes = rewindedHistory.positionHashes mkString,
+          castles = rewindedHistory.castleNotation,
+          lastMove = rewindedHistory.lastMove map { case (a, b) ⇒ a + " " + b },
+          status =
+            if (rewindedSituation.checkMate) Mate
+            else if (rewindedSituation.staleMate) Stalemate
+            else if (rewindedSituation.autoDraw) Draw
+            else status,
+          clock = clock map (_.switch),
+          check = if (rewindedSituation.check) rewindedSituation.kingPos else None,
+          lastMoveTime = recordMoveTimes option nowSeconds
+        ))
+      }
   }
 
   def updatePlayer(color: Color, f: DbPlayer ⇒ DbPlayer) = color match {

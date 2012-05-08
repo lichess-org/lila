@@ -3,11 +3,15 @@ package format
 
 object PgnReader {
 
-  def apply(pgn: String): Valid[Replay] = withSans(pgn, identity)
+  def apply(pgn: String, tags: List[Tag] = Nil): Valid[Replay] = 
+    withSans(pgn, identity, tags)
 
-  def withSans(pgn: String, op: List[San] => List[San]) = for {
+  def withSans(
+    pgn: String, 
+    op: List[San] ⇒ List[San],
+    tags: List[Tag] = Nil): Valid[Replay] = for {
     parsed ← PgnParser(pgn)
-    game ← makeGame(parsed.tags)
+    game ← makeGame(parsed.tags ::: tags)
     replay ← op(parsed.sans).foldLeft(Replay(game).success: Valid[Replay]) {
       case (replayValid, san) ⇒ for {
         replay ← replayValid

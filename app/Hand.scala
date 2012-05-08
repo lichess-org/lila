@@ -106,29 +106,37 @@ final class Hand(
       else !!("no draw offer to decline " + fullId)
   })
 
-  def takebackAccept(fullId: String): IOValidEvents =
-    attempt(fullId, pov ⇒
-      if (pov.opponent.isProposingTakeback) takeback(pov.game)
-      else !!("opponent is not proposing a takeback")
-    )
+  def takebackAccept(fullId: String): IOValidEvents = fromPov(fullId) { pov ⇒
+    if (pov.opponent.isProposingTakeback) for {
+      fen ← gameRepo initialFen pov.game.id
+      res ← takeback(pov.game, fen).sequence
+    } yield res
+    else io {
+      !!("opponent is not proposing a takeback")
+    }
+  }
 
-  def takebackOffer(fullId: String): IOValidEvents = attempt(fullId, {
+  def takebackOffer(fullId: String): IOValidEvents = fromPov(fullId) {
     case pov @ Pov(g1, color) ⇒
       if (g1.playable && g1.bothPlayersHaveMoved) {
-        if (g1.player(!color).isAi) takeback double pov.game
-        else if (g1.player(!color).isProposingTakeback) takeback(pov.game)
-        else success {
-          for {
+        gameRepo initialFen pov.game.id flatMap { fen ⇒
+          if (g1.player(!color).isAi)
+            takeback.double(pov.game, fen).sequence
+          else if (g1.player(!color).isProposingTakeback)
+            takeback(pov.game, fen).sequence
+          else for {
             p1 ← messenger.systemMessages(g1, "Takeback proposition sent") map { es ⇒
               Progress(g1, ReloadTableEvent(!color) :: es)
             }
             p2 = p1 map { g ⇒ g.updatePlayer(color, _.proposeTakeback) }
             _ ← gameRepo save p2
-          } yield p2.events
+          } yield success(p2.events)
         }
       }
-      else !!("invalid takeback proposition" + fullId)
-  })
+      else io {
+        !!("invalid takeback proposition" + fullId)
+      }
+  }
 
   def takebackCancel(fullId: String): IO[Valid[List[Event]]] = attempt(fullId, {
     case pov @ Pov(g1, color) ⇒

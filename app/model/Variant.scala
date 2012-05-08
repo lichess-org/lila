@@ -6,6 +6,8 @@ sealed abstract class Variant(val id: Int) {
   lazy val name = toString.toLowerCase
 
   def standard = this == Standard
+
+  def exotic = !standard
 }
 
 case object Standard extends Variant(1)

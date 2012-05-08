@@ -9,13 +9,13 @@ final class Takeback(
     gameRepo: GameRepo,
     messenger: Messenger) {
 
-  def apply(game: DbGame): Valid[IO[List[Event]]] =
-    game.rewind map save mapFail failInfo(game)
+  def apply(game: DbGame, initialFen: Option[String]): Valid[IO[List[Event]]] =
+    game rewind initialFen map save mapFail failInfo(game)
 
-  def double(game: DbGame): Valid[IO[List[Event]]] = {
+  def double(game: DbGame, initialFen: Option[String]): Valid[IO[List[Event]]] = {
     for {
-      p1 ← game.rewind
-      p2 ← p1.game.rewind map { p ⇒
+      p1 ← game rewind initialFen
+      p2 ← p1.game rewind initialFen map { p ⇒
         p1 withGame p.game
       }
     } yield save(p2)
