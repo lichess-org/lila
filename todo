@@ -2,7 +2,6 @@ ping nbm
 extract chess
 chat should autoscroll only when at bottom
 back button to game -> old status
-home list of current games not translated
 bad visibility of online indicators during game
 force resign
 finish flagged game

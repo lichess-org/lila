@@ -15,7 +15,7 @@ final class Captcha(gameRepo: GameRepo) {
     gameRepo.findOneStandardCheckmate map { gameOption ⇒
       for {
         game ← gameOption toValid "No checkmate available"
-        rewinded ← rewind(game.pgn)
+        rewinded ← rewind(game)
       } yield (game.id, fen(rewinded), rewinded.player)
     }
 
@@ -23,7 +23,7 @@ final class Captcha(gameRepo: GameRepo) {
     gameRepo game id map { gameOption ⇒
       for {
         game ← gameOption toValid "No such game"
-        rewinded ← rewind(game.pgn)
+        rewinded ← rewind(game)
         moves ← mateMoves(rewinded).toNel toValid "No solution found"
       } yield moves
     }
@@ -35,8 +35,11 @@ final class Captcha(gameRepo: GameRepo) {
       }
     } map (_.notation)
 
-  private def rewind(pgn: String): Valid[Game] = 
-    PgnReader.withSans(pgn, _.init) map (_.game)
+  private def rewind(game: DbGame): Valid[Game] = 
+    PgnReader.withSans(game.pgn, _.init) map (_.game) mapFail failInfo(game)
 
   private def fen(game: Game): String = Forsyth >> game takeWhile (_ != ' ')
+
+  private def failInfo(game: DbGame) =
+    (failures: Failures) ⇒ "Rewind %s".format(game.id) <:: failures
 }
