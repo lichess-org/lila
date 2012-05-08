@@ -2,9 +2,12 @@ package lila
 
 import ornicar.scalalib._
 
-package object chess extends OrnicarValidation with OrnicarCommon {
+package object chess
+    extends OrnicarValidation
+    with OrnicarCommon
+    with OrnicarNonEmptyLists {
 
-  type Direction = Pos => Option[Pos]
+  type Direction = Pos ⇒ Option[Pos]
   type Directions = List[Direction]
 
   object implicitFailures {

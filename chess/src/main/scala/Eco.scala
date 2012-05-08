@@ -23,11 +23,17 @@ object Eco {
     def updated(k: Move, v: Branch) = copy(moves = moves.updated(k, v))
 
     def set(o: Opening) = copy(opening = Some(o))
+
+    override def toString = opening.fold(_.name, "-")
   }
 
-  def openingOf(pgn: String): Option[Opening] = (pgn.split(' ').foldLeft(tree) {
-    case (branch, move) ⇒ (branch get move) getOrElse branch
-  }).opening
+  def openingOf(pgn: String): Option[Opening] = {
+    def next(branch: Branch, moves: List[Move]): Branch = moves match {
+      case Nil     ⇒ branch
+      case m :: ms ⇒ (branch get m).fold(b ⇒ next(b, ms), branch)
+    }
+    next(tree, pgn.split(' ').toList).opening
+  }
 
   val tree = List(
     ("A01", "Nimzovich-Larsen Attack", "b3"),
