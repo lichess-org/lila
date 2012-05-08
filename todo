@@ -1,11 +1,8 @@
 ping nbm
 extract chess
-chat ban
 chat should autoscroll only when at bottom
-any link in-game
 back button to game -> old status
 home list of current games not translated
-registered user disconnection delay
 bad visibility of online indicators during game
 force resign
 finish flagged game

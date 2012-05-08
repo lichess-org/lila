@@ -1,7 +1,6 @@
 package lila
 package lobby
 
-import db.MessageRepo
 import socket._
 
 import akka.actor._
@@ -9,9 +8,9 @@ import play.api.libs.json._
 import play.api.libs.iteratee._
 
 final class Hub(
-  messageRepo: MessageRepo,
-  history: History,
-  timeout: Int) extends HubActor[Member](timeout) {
+    messenger: Messenger,
+    history: History,
+    timeout: Int) extends HubActor[Member](timeout) {
 
   def receiveSpecific = {
 
@@ -23,8 +22,7 @@ final class Hub(
       sender ! Connected(channel)
     }
 
-    case Talk(txt, u) ⇒ messageRepo.add(txt, u) foreach { save ⇒
-      val message = save.unsafePerformIO
+    case Talk(txt, u) ⇒ messenger(txt, u).unsafePerformIO foreach { message ⇒
       notifyVersion("talk", Seq(
         "txt" -> JsString(message.text),
         "u" -> JsString(message.username)

@@ -1,6 +1,7 @@
 package lila
 package lobby
 
+import lila.{ Messenger ⇒ GameMessenger }
 import model._
 import memo._
 import db._
@@ -12,7 +13,7 @@ final class Api(
     fisherman: Fisherman,
     gameRepo: GameRepo,
     gameSocket: game.Socket,
-    messenger: Messenger,
+    gameMessenger: GameMessenger,
     starter: Starter,
     lobbySocket: lobby.Socket) {
 
@@ -34,7 +35,7 @@ final class Api(
       (color, game) ⇒ {
         for {
           p1 ← starter.start(game, entryData)
-          p2 ← messenger.systemMessages(game, messageString) map p1.++
+          p2 ← gameMessenger.systemMessages(game, messageString) map p1.++
           _ ← gameRepo save p2
           _ ← gameSocket send p2
           _ ← hook.fold(h ⇒ fisherman.bite(h, p2.game), io())

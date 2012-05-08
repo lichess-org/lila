@@ -11,7 +11,11 @@ case class User(
     isOnline: Boolean,
     elo: Int,
     nbGames: Int,
-    nbRatedGames: Int) {
+    nbRatedGames: Int,
+    isChatBan: Boolean = false,
+    enabled: Boolean = true) {
+
+  def disabled = !enabled
 }
 
 object User {

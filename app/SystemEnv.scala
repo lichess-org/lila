@@ -53,8 +53,12 @@ final class SystemEnv(application: Application) {
   lazy val lobbyHistory = new lobby.History(
     timeout = getMilliseconds("lobby.message.lifetime"))
 
-  lazy val lobbyHub = Akka.system.actorOf(Props(new lobby.Hub(
+  lazy val lobbyMessenger = new lobby.Messenger(
     messageRepo = messageRepo,
+    userRepo = userRepo)
+
+  lazy val lobbyHub = Akka.system.actorOf(Props(new lobby.Hub(
+    messenger = lobbyMessenger,
     history = lobbyHistory,
     timeout = getMilliseconds("site.uid.timeout")
   )), name = "lobby_hub")
@@ -97,7 +101,7 @@ final class SystemEnv(application: Application) {
     fisherman = lobbyFisherman,
     gameRepo = gameRepo,
     gameSocket = gameSocket,
-    messenger = messenger,
+    gameMessenger = messenger,
     starter = starter,
     lobbySocket = lobbySocket)
 
