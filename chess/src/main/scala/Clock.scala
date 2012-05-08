@@ -37,6 +37,8 @@ sealed trait Clock {
 
   def isRunning = timerOption.isDefined
 
+  def switch: Clock
+
   protected def now = System.currentTimeMillis / 1000d
 }
 
@@ -78,6 +80,8 @@ case class RunningClock(
   }
 
   def giveTime(c: Color, t: Float): RunningClock = addTime(c, -t)
+
+  def switch: RunningClock = copy(color = !color)
 }
 
 case class PausedClock(
@@ -105,6 +109,8 @@ case class PausedClock(
   }
 
   def giveTime(c: Color, t: Float): PausedClock = addTime(c, -t)
+
+  def switch: PausedClock = copy(color = !color)
 }
 
 object Clock {

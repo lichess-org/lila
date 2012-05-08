@@ -171,7 +171,7 @@ case class DbGame(
           else if (rewindedSituation.staleMate) Stalemate
           else if (rewindedSituation.autoDraw) Draw
           else status,
-        clock = rewindedGame.clock,
+        clock = clock map (_.switch),
         check = if (rewindedSituation.check) rewindedSituation.kingPos else None,
         lastMoveTime = recordMoveTimes option nowSeconds
       ))
