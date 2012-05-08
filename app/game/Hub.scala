@@ -40,7 +40,8 @@ final class Hub(
 
     case Join(uid, username, version, color, owner) ⇒ {
       val msgs = history since version filter (_.visible(color, owner)) map (_.js)
-      val channel = new LilaEnumerator[JsValue](msgs)
+      val crowdMsg = makeEvent("crowd", crowdEvent.incWatchers.data)
+      val channel = new LilaEnumerator[JsValue](msgs :+ crowdMsg)
       val member = Member(channel, username, PovRef(gameId, color), owner)
       addMember(uid, member)
       notify(crowdEvent)
@@ -64,7 +65,7 @@ final class Hub(
   private def crowdEvent = CrowdEvent(
     white = member(White).isDefined,
     black = member(Black).isDefined,
-    watchers = members.values count (_.watcher))
+    watchers = members.values count (_.watcher)) 
 
   private def applyEvents(events: List[Event]) {
     events match {
@@ -78,6 +79,7 @@ final class Hub(
     val vevent = history += e
     members.values filter vevent.visible foreach (_.channel push vevent.js)
   }
+
   private def notify(events: List[Event]) {
     val vevents = events map history.+=
     members.values foreach { member ⇒
@@ -87,6 +89,9 @@ final class Hub(
       ))
     }
   }
+
+  private def makeEvent(t: String, data: JsValue): JsObject =
+    JsObject(Seq("t" -> JsString(t), "d" -> data))
 
   private def member(color: Color): Option[Member] =
     members.values find { m ⇒ m.owner && m.color == color }

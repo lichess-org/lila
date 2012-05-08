@@ -169,4 +169,5 @@ case class CrowdEvent(
     "black" -> JsBoolean(black),
     "watchers" -> JsNumber(watchers)
   ))
+  def incWatchers = copy(watchers = watchers + 1)
 }
