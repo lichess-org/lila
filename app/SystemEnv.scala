@@ -188,6 +188,9 @@ final class SystemEnv(application: Application) {
   lazy val hookMemo = new HookMemo(
     timeout = getMilliseconds("memo.hook.timeout"))
 
+  lazy val usernameMemo = new UsernameMemo(
+    timeout = getMilliseconds("memo.username.timeout"))
+
   lazy val gameFinishCommand = new command.GameFinish(
     gameRepo = gameRepo,
     finisher = finisher)

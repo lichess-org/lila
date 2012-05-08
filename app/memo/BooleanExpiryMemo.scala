@@ -21,7 +21,7 @@ abstract class BooleanExpiryMemo(timeout: Int) {
   }
 
   def putAll(keys: Iterable[String]): IO[Unit] = io {
-    keys map { cache.put(_, true) }
+    keys.toList.distinct foreach { cache.put(_, true) }
   }
 
   def remove(key: String): IO[Unit] = io {

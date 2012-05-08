@@ -51,7 +51,10 @@ final class Cron(env: SystemEnv) {
     Future.traverse(hubs) { hub ⇒
       hub ? socket.GetUsernames mapTo manifest[Iterable[String]]
     } map (_.flatten) onSuccess {
-      case xs ⇒ env.userRepo.updateOnlineUsernames(xs).unsafePerformIO
+      case xs ⇒ (for {
+        _ ← env.usernameMemo putAll xs
+        _ ← env.userRepo.updateOnlineUsernames(env.usernameMemo.keys.toSet)
+      } yield Unit).unsafePerformIO
     }
   }
 

@@ -48,7 +48,7 @@ class UserRepo(collection: MongoCollection)
     elos.sum / elos.size.toFloat
   }
 
-  def updateOnlineUsernames(usernames: Iterable[String]): IO[Unit] = io {
+  def updateOnlineUsernames(usernames: Set[String]): IO[Unit] = io {
     val names = usernames.toList.map(_.toLowerCase).distinct
     collection.update(
       ("usernameCanonical" $nin names) ++ ("isOnline" -> true),
