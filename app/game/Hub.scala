@@ -39,9 +39,13 @@ final class Hub(
     case IsConnectedOnGame(_, color) ⇒ sender ! member(color).isDefined
 
     case Join(uid, username, version, color, owner) ⇒ {
-      val msgs = history since version filter (_.visible(color, owner)) map (_.js)
-      val crowdMsg = makeEvent("crowd", crowdEvent.incWatchers.data)
-      val channel = new LilaEnumerator[JsValue](msgs :+ crowdMsg)
+      val msgs = {
+        history since version filter (_.visible(color, owner)) map (_.js)
+      }:+ makeEvent("crowd", owner.fold(
+        crowdEvent,
+        crowdEvent.incWatchers
+      ).data)
+      val channel = new LilaEnumerator[JsValue](msgs)
       val member = Member(channel, username, PovRef(gameId, color), owner)
       addMember(uid, member)
       notify(crowdEvent)
@@ -65,7 +69,7 @@ final class Hub(
   private def crowdEvent = CrowdEvent(
     white = member(White).isDefined,
     black = member(Black).isDefined,
-    watchers = members.values count (_.watcher)) 
+    watchers = members.values count (_.watcher))
 
   private def applyEvents(events: List[Event]) {
     events match {
