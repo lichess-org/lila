@@ -8,41 +8,35 @@ import akka.actor._
 import play.api.libs.concurrent._
 import play.api.Application
 
-import chess.EloCalculator
 import db._
 import ai._
 import memo._
 
-final class SystemEnv(application: Application) {
+final class SystemEnv(application: Application, settings: Settings) {
 
   implicit val app = application
-  val config = app.configuration.underlying
 
-  lazy val pgnDump = new PgnDump(
-    userRepo = userRepo,
-    gameRepo = gameRepo)
+  import settings._
+
+  lazy val pgnDump = new PgnDump(userRepo = userRepo, gameRepo = gameRepo)
 
   lazy val gameInfo = GameInfo(pgnDump) _
 
   lazy val reporting = Akka.system.actorOf(
-    Props(new report.Reporting), name = "reporting")
+    Props(new report.Reporting), name = ActorReporting)
 
   lazy val siteHub = Akka.system.actorOf(
-    Props(new site.Hub(
-      timeout = getMilliseconds("site.uid.timeout")
-  )), name = "site_hub")
+    Props(new site.Hub(timeout = SiteUidTimeout)), name = ActorSiteHub)
 
-  lazy val siteSocket = new site.Socket(
-    hub = siteHub)
+  lazy val siteSocket = new site.Socket(hub = siteHub)
 
-  lazy val gameHistory = () ⇒ new game.History(
-    timeout = getMilliseconds("game.message.lifetime"))
+  lazy val gameHistory = () ⇒ new game.History(timeout = GameMessageLifetime)
 
   lazy val gameHubMaster = Akka.system.actorOf(Props(new game.HubMaster(
     makeHistory = gameHistory,
-    uidTimeout = getMilliseconds("game.uid.timeout"),
-    hubTimeout = getMilliseconds("game.hub.timeout")
-  )), name = "game_hub_master")
+    uidTimeout = GameUidTimeout,
+    hubTimeout = GameHubTimeout
+  )), name = ActorGameHubMaster)
 
   lazy val gameSocket = new game.Socket(
     getGame = gameRepo.game,
@@ -50,8 +44,7 @@ final class SystemEnv(application: Application) {
     hubMaster = gameHubMaster,
     messenger = messenger)
 
-  lazy val lobbyHistory = new lobby.History(
-    timeout = getMilliseconds("lobby.message.lifetime"))
+  lazy val lobbyHistory = new lobby.History(timeout = LobbyMessageLifetime)
 
   lazy val lobbyMessenger = new lobby.Messenger(
     messageRepo = messageRepo,
@@ -60,11 +53,10 @@ final class SystemEnv(application: Application) {
   lazy val lobbyHub = Akka.system.actorOf(Props(new lobby.Hub(
     messenger = lobbyMessenger,
     history = lobbyHistory,
-    timeout = getMilliseconds("site.uid.timeout")
-  )), name = "lobby_hub")
+    timeout = SiteUidTimeout
+  )), name = ActorLobbyHub)
 
-  lazy val lobbySocket = new lobby.Socket(
-    hub = lobbyHub)
+  lazy val lobbySocket = new lobby.Socket(hub = lobbyHub)
 
   lazy val lobbyPreloader = new lobby.Preload(
     fisherman = lobbyFisherman,
@@ -85,7 +77,7 @@ final class SystemEnv(application: Application) {
     ai = ai,
     finisher = finisher,
     takeback = takeback,
-    moretimeSeconds = getSeconds("moretime.seconds"))
+    moretimeSeconds = MoretimeSeconds)
 
   lazy val appApi = new AppApi(
     userRepo = userRepo,
@@ -112,16 +104,16 @@ final class SystemEnv(application: Application) {
     gameRepo = gameRepo,
     messenger = messenger,
     eloUpdater = eloUpdater,
-    eloCalculator = new EloCalculator,
-    finisherLock = new FinisherLock(
-      timeout = getMilliseconds("memo.finisher_lock.timeout")))
+    eloCalculator = eloCalculator,
+    finisherLock = finisherLock)
 
-  lazy val takeback = new Takeback(
-    gameRepo = gameRepo,
-    messenger = messenger)
+  lazy val eloCalculator = new chess.EloCalculator
 
-  lazy val messenger = new Messenger(
-    roomRepo = roomRepo)
+  lazy val finisherLock = new FinisherLock(timeout = FinisherLockTimeout)
+
+  lazy val takeback = new Takeback(gameRepo = gameRepo, messenger = messenger)
+
+  lazy val messenger = new Messenger(roomRepo = roomRepo)
 
   lazy val starter = new Starter(
     gameRepo = gameRepo,
@@ -133,76 +125,62 @@ final class SystemEnv(application: Application) {
     userRepo = userRepo,
     historyRepo = historyRepo)
 
-  val ai: () ⇒ Ai = config getString "ai.use" match {
-    case "remote" ⇒ () ⇒ remoteAi or craftyAi
-    case "crafty" ⇒ () ⇒ craftyAi
+  val ai: () ⇒ Ai = AiChoice match {
+    case AiRemote ⇒ () ⇒ remoteAi or craftyAi
+    case AiCrafty ⇒ () ⇒ craftyAi
     case _        ⇒ () ⇒ stupidAi
   }
 
-  lazy val remoteAi = new RemoteAi(
-    remoteUrl = config getString "ai.remote.url")
+  lazy val remoteAi = new RemoteAi(remoteUrl = AiRemoteUrl)
 
-  lazy val craftyAi = new CraftyAi(
-    server = craftyServer)
+  lazy val craftyAi = new CraftyAi(server = craftyServer)
 
   lazy val craftyServer = new CraftyServer(
-    execPath = config getString "ai.crafty.exec_path",
-    bookPath = Some(config getString "ai.crafty.book_path") filter ("" !=))
+    execPath = AiCraftyExecPath,
+    bookPath = AiCraftyBookPath)
 
   lazy val stupidAi = new StupidAi
 
-  def isAiServer = config getBoolean "ai.server"
+  def isAiServer = AiServerMode
 
-  lazy val gameRepo = new GameRepo(
-    mongodb(config getString "mongo.collection.game"))
+  lazy val gameRepo = new GameRepo(mongodb(MongoCollectionGame))
 
-  lazy val userRepo = new UserRepo(
-    mongodb(config getString "mongo.collection.user"))
+  lazy val userRepo = new UserRepo(mongodb(MongoCollectionUser))
 
-  lazy val hookRepo = new HookRepo(
-    mongodb(config getString "mongo.collection.hook"))
+  lazy val hookRepo = new HookRepo(mongodb(MongoCollectionHook))
 
   lazy val entryRepo = new EntryRepo(
-    collection = mongodb(config getString "mongo.collection.entry"),
-    max = config getInt "lobby.entry.max")
+    collection = mongodb(MongoCollectionEntry),
+    max = LobbyEntryMax)
 
   lazy val messageRepo = new MessageRepo(
-    collection = mongodb(config getString "mongo.collection.message"),
-    max = config getInt "lobby.message.max")
+    collection = mongodb(MongoCollectionMessage),
+    max = LobbyMessageMax)
 
-  lazy val historyRepo = new HistoryRepo(
-    collection = mongodb(config getString "mongo.collection.history"))
+  lazy val historyRepo = new HistoryRepo(mongodb(MongoCollectionHistory))
 
-  lazy val roomRepo = new RoomRepo(
-    collection = mongodb(config getString "mongo.collection.room"))
+  lazy val roomRepo = new RoomRepo(mongodb(MongoCollectionRoom))
 
   lazy val mongodb = MongoConnection(
-    new MongoServer(config getString "mongo.host", config getInt "mongo.port"),
+    new MongoServer(MongoHost, MongoPort),
     mongoOptions
-  )(config getString "mongo.dbName")
+  )(MongoDbName)
 
   // http://stackoverflow.com/questions/6520439/how-to-configure-mongodb-java-driver-mongooptions-for-production-use
   private val mongoOptions = new MongoOptions() ~ { o ⇒
-    o.connectionsPerHost = config getInt "mongo.connectionsPerHost"
-    o.autoConnectRetry = config getBoolean "mongo.autoConnectRetry"
-    o.connectTimeout = getMilliseconds("mongo.connectTimeout")
-    o.threadsAllowedToBlockForConnectionMultiplier = config getInt "mongo.threadsAllowedToBlockForConnectionMultiplier"
+    o.connectionsPerHost = MongoConnectionsPerHost
+    o.autoConnectRetry = MongoAutoConnectRetry
+    o.connectTimeout = MongoConnectTimeout
+    o.threadsAllowedToBlockForConnectionMultiplier = MongoBlockingThreads
   }
 
-  lazy val hookMemo = new HookMemo(
-    timeout = getMilliseconds("memo.hook.timeout"))
+  lazy val hookMemo = new HookMemo(timeout = MemoHookTimeout)
 
-  lazy val usernameMemo = new UsernameMemo(
-    timeout = getMilliseconds("memo.username.timeout"))
+  lazy val usernameMemo = new UsernameMemo(timeout = MemoUsernameTimeout)
 
   lazy val gameFinishCommand = new command.GameFinish(
     gameRepo = gameRepo,
     finisher = finisher)
 
-  lazy val gameCleanNextCommand = new command.GameCleanNext(
-    gameRepo = gameRepo)
-
-  def getMilliseconds(name: String): Int = (config getMilliseconds name).toInt
-
-  def getSeconds(name: String): Int = getMilliseconds(name) / 1000
+  lazy val gameCleanNextCommand = new command.GameCleanNext(gameRepo = gameRepo)
 }
