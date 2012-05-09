@@ -18,7 +18,8 @@ import play.api.Play.current
 final class HubMaster(
     makeHistory: () ⇒ History,
     uidTimeout: Int,
-    hubTimeout: Int) extends Actor {
+    hubTimeout: Int,
+    playerTimeout: Int) extends Actor {
 
   implicit val timeout = Timeout(1 second)
   val log = Logging(context.system, this)
@@ -70,6 +71,7 @@ final class HubMaster(
     gameId = gameId,
     history = makeHistory(),
     uidTimeout = uidTimeout,
-    hubTimeout = hubTimeout
+    hubTimeout = hubTimeout,
+    playerTimeout = playerTimeout
   )), name = "game_hub_" + gameId)
 }

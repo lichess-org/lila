@@ -41,7 +41,8 @@ final class SystemEnv(application: Application) {
   lazy val gameHubMaster = Akka.system.actorOf(Props(new game.HubMaster(
     makeHistory = gameHistory,
     uidTimeout = getMilliseconds("game.uid.timeout"),
-    hubTimeout = getMilliseconds("game.hub.timeout")
+    hubTimeout = getMilliseconds("game.hub.timeout"),
+    playerTimeout = getMilliseconds("game.player.timeout")
   )), name = "game_hub_master")
 
   lazy val gameSocket = new game.Socket(

@@ -2,6 +2,6 @@ ping nbm
 extract chess
 chat should autoscroll only when at bottom
 back button to game -> old status
-bad visibility of online indicators during game
 force resign
 finish flagged game
+static typed conf (also passable!)
