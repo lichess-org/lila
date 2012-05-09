@@ -1,7 +1,6 @@
 package lila.chess
 
 import format.PgnDump
-import scala.math.max
 
 case class Game(
     board: Board = Board(),
@@ -27,10 +26,12 @@ case class Game(
       deads = (for {
         cpos ← move.capture
         cpiece ← board(cpos)
-      } yield (cpos, cpiece) :: deads) getOrElse deads
+      } yield (cpos, cpiece) :: deads) | deads
     )
     val pgnMove = PgnDump.move(situation, move, newGame.situation)
-    newGame.copy(pgnMoves = (pgnMoves + " " + pgnMove).trim)
+    newGame.copy(pgnMoves = pgnMoves.isEmpty.fold(
+      pgnMove,
+      pgnMoves + " " + pgnMove))
   }
 
   lazy val situation = Situation(board, player)
