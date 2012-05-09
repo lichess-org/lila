@@ -99,7 +99,7 @@ case class PausedClock(
     blackTime = blackTime,
     increment = increment,
     limit = limit,
-    timer = now).giveTime(White, increment).step
+    timer = now).step
 
   def stop = this
 
