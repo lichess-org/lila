@@ -4,6 +4,8 @@ sealed trait Color {
 
   def -(role: Role) = Piece(this, role)
 
+  def fold[A](w: ⇒ A, b: ⇒ A): A = if (this.white) w else b
+
   val unary_! : Color
 
   val unmovedPawnY: Int
@@ -13,12 +15,12 @@ sealed trait Color {
   val letter: Char
   val name: String
 
-  def pawn   = this - Pawn
+  def pawn = this - Pawn
   def bishop = this - Bishop
   def knight = this - Knight
-  def rook   = this - Rook
-  def queen  = this - Queen
-  def king   = this - King
+  def rook = this - Rook
+  def queen = this - Queen
+  def king = this - King
 
   def white = this == White
   def black = this == Black

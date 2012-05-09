@@ -93,13 +93,7 @@ case class PausedClock(
 
   val timerOption = None
 
-  def step = RunningClock(
-    color = color,
-    whiteTime = whiteTime,
-    blackTime = blackTime,
-    increment = increment,
-    limit = limit,
-    timer = now).step
+  def step = run.step
 
   def stop = this
 
@@ -111,6 +105,14 @@ case class PausedClock(
   def giveTime(c: Color, t: Float): PausedClock = addTime(c, -t)
 
   def switch: PausedClock = copy(color = !color)
+
+  private def run = RunningClock(
+    color = color,
+    whiteTime = whiteTime,
+    blackTime = blackTime,
+    increment = increment,
+    limit = limit,
+    timer = now)
 }
 
 object Clock {
