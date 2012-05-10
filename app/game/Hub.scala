@@ -31,6 +31,7 @@ final class Hub(
       ping(uid)
       lastPingTime = nowMillis
       ownerOf(uid) foreach { o ⇒
+        if (playerIsGone(o.color)) notifyGone(o.color, false)
         playerTime(o.color, lastPingTime)
       }
     }
@@ -41,13 +42,15 @@ final class Hub(
         context.parent ! CloseGame(gameId)
       }
       Color.all foreach { c ⇒
-        if (playerIsGone(c)) notifyOwner(!c, "gone", JsNull)
+        if (playerIsGone(c)) notifyGone(c, true)
       }
     }
 
     case GetGameVersion(_)           ⇒ sender ! history.version
 
     case IsConnectedOnGame(_, color) ⇒ sender ! ownerOf(color).isDefined
+
+    case IsGone(_, color)            ⇒ sender ! playerIsGone(color)
 
     case Join(uid, username, version, color, owner) ⇒ {
       val msgs = {
@@ -60,6 +63,8 @@ final class Hub(
       val member = Member(channel, username, PovRef(gameId, color), owner)
       addMember(uid, member)
       notify(crowdEvent)
+      if (playerIsGone(color)) notifyGone(color, false)
+      playerTime(color, nowMillis)
       sender ! Connected(member)
     }
 
@@ -111,6 +116,10 @@ final class Hub(
     }
   }
 
+  def notifyGone(color: Color, gone: Boolean) {
+    notifyOwner(!color, "gone", JsBoolean(gone))
+  }
+
   def makeEvent(t: String, data: JsValue): JsObject =
     JsObject(Seq("t" -> JsString(t), "d" -> data))
 
@@ -128,6 +137,5 @@ final class Hub(
     color.fold(whiteTime = time, blackTime = time)
   }
 
-  def playerIsGone(color: Color) =
-    playerTime(color) < (nowMillis - playerTimeout)
+  def playerIsGone(color: Color) = playerTime(color) < (nowMillis - playerTimeout)
 }

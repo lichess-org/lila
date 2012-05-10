@@ -6,6 +6,11 @@ import db.{ GameRepo }
 import chess._
 import Pos.posAt
 import scalaz.effects._
+import akka.actor._
+import akka.dispatch.{ Future, Await }
+import akka.pattern.ask
+import akka.util.duration._
+import akka.util.Timeout
 
 final class Hand(
     gameRepo: GameRepo,
@@ -13,6 +18,7 @@ final class Hand(
     takeback: Takeback,
     ai: () ⇒ Ai,
     finisher: Finisher,
+    hubMaster: ActorRef,
     moretimeSeconds: Int) {
 
   type IOValidEvents = IO[Valid[List[Event]]]
@@ -54,6 +60,20 @@ final class Hand(
   def abort(fullId: String): IOValidEvents = attempt(fullId, finisher.abort)
 
   def resign(fullId: String): IOValidEvents = attempt(fullId, finisher.resign)
+
+  def resignForce(fullId: String): IO[Valid[List[Event]]] =
+    gameRepo pov fullId flatMap { povOption ⇒
+      (povOption toValid "No such game" flatMap { pov ⇒
+        implicit val timeout = Timeout(100 millis)
+        Await.result(
+          hubMaster ? game.IsGone(pov.game.id, !pov.color) map {
+            case true ⇒ finisher resignForce pov
+            case _    ⇒ !!("Opponent is not gone")
+          },
+          100 millis
+        )
+      }).fold(err ⇒ io(failure(err)), _ map success)
+    }
 
   def outoftime(ref: PovRef): IOValidEvents = attemptRef(ref, finisher outoftime _.game)
 

@@ -25,6 +25,10 @@ final class Finisher(
     if (pov.game.resignable) finish(pov.game, Resign, Some(!pov.color))
     else !!("game is not resignable")
 
+  def resignForce(pov: Pov): ValidIOEvents =
+    if (pov.game.resignable) finish(pov.game, Timeout, Some(pov.color))
+    else !!("game is not resignable")
+
   def drawClaim(pov: Pov): ValidIOEvents = pov match {
     case Pov(game, color) if game.playable && game.player.color == color && game.toChessHistory.threefoldRepetition ⇒ finish(game, Draw)
     case Pov(game, color) ⇒ !!("game is not threefold repetition")

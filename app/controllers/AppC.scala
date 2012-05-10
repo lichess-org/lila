@@ -8,6 +8,7 @@ import model.{ Event, DbGame }
 import play.api._
 import mvc._
 import libs.concurrent.Akka
+import libs.concurrent._
 import Play.current
 import libs.json._
 import libs.iteratee._
@@ -39,6 +40,8 @@ object AppC extends LilaController {
 
   def resign(fullId: String) = performAndRedirect(fullId, hand.resign)
 
+  def resignForce(fullId: String) = performAndRedirect(fullId, hand.resignForce)
+
   def drawClaim(fullId: String) = performAndRedirect(fullId, hand.drawClaim)
 
   def drawAccept(fullId: String) = performAndRedirect(fullId, hand.drawAccept)
@@ -59,17 +62,17 @@ object AppC extends LilaController {
 
   type IOValidEvents = IO[Valid[List[Event]]]
 
-  private def perform(fullId: String, op: String ⇒ IOValidEvents): IO[Unit] =
-    op(fullId) flatMap { res ⇒
-      res.fold(
-        putFailures,
-        events ⇒ env.gameSocket.send(DbGame takeGameId fullId, events)
-      )
-    }
-
   private def performAndRedirect(fullId: String, op: String ⇒ IOValidEvents) =
     Action {
       perform(fullId, op).unsafePerformIO
       Redirect("/" + fullId)
     }
+
+  private def perform(fullId: String, op: String ⇒ IOValidEvents): IO[Unit] =
+    op(fullId) flatMap { validEvents ⇒
+      validEvents.fold(putFailures, performEvents(fullId))
+    }
+
+  private def performEvents(fullId: String)(events: List[Event]): IO[Unit] =
+    env.gameSocket.send(DbGame takeGameId fullId, events)
 }

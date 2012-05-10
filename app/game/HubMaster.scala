@@ -50,9 +50,10 @@ final class HubMaster(
     }
 
     case msg @ IsConnectedOnGame(gameId, color) ⇒ (hubs get gameId).fold(
-      _ ? msg pipeTo sender,
-      sender ! false
-    )
+      _ ? msg pipeTo sender, sender ! false)
+
+    case msg @ IsGone(gameId, color) ⇒ (hubs get gameId).fold(
+      _ ? msg pipeTo sender, sender ! false)
 
     case GetNbHubs ⇒ sender ! hubs.size
 

@@ -58,6 +58,7 @@ case class GameEvents(gameId: String, events: List[Event])
 case class GetGameVersion(gameId: String)
 case object ClockSync
 case class IsConnectedOnGame(gameId: String, color: Color)
+case class IsGone(gameId: String, color: Color)
 case class CloseGame(gameId: String)
 case class GetHub(gameId: String)
 case object HubTimeout

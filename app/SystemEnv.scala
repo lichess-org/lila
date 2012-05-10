@@ -78,6 +78,7 @@ final class SystemEnv(application: Application, settings: Settings) {
     ai = ai,
     finisher = finisher,
     takeback = takeback,
+    hubMaster = gameHubMaster,
     moretimeSeconds = MoretimeSeconds)
 
   lazy val appApi = new AppApi(

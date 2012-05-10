@@ -3,6 +3,7 @@ GET   /socket                           lila.controllers.AppC.socket
 GET   /socket/:gameId/:color            lila.controllers.AppC.gameSocket(gameId: String, color: String)
 GET   /abort/:fullId                    lila.controllers.AppC.abort(fullId: String)
 GET   /resign/:fullId                   lila.controllers.AppC.resign(fullId: String)
+GET   /resign-force/:fullId             lila.controllers.AppC.resignForce(fullId: String)
 GET   /draw-claim/:fullId               lila.controllers.AppC.drawClaim(fullId: String)
 GET   /draw-accept/:fullId              lila.controllers.AppC.drawAccept(fullId: String)
 GET   /draw-offer/:fullId               lila.controllers.AppC.drawOffer(fullId: String)
