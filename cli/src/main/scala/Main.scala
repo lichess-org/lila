@@ -25,6 +25,9 @@ object Main {
       case "finish" :: Nil ⇒ new Command {
         def apply() = env.gameFinishCommand.apply()
       }
+      case "eco" :: Nil => new Command {
+        def apply() = putStrLn(lila.chess.Eco.tree.render())
+      }
       case _ ⇒ new Command {
         def apply() = putStrLn("Usage: run command args")
       }

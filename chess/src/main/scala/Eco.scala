@@ -24,7 +24,12 @@ object Eco {
 
     def set(o: Opening) = copy(opening = Some(o))
 
-    override def toString = opening.fold(_.name, "-")
+    def render(margin: String = ""): String = 
+      margin + toString + "\n" + (moves map {
+        case (m, b) => margin + m + b.render(margin + "  ")
+      } mkString "\n")
+
+    override def toString = opening.fold(o ⇒ o.code + ": " + o.name, "-")
   }
 
   def openingOf(pgn: String): Option[Opening] = {
@@ -35,7 +40,7 @@ object Eco {
     next(tree, pgn.split(' ').toList).opening
   }
 
-  val tree = List(
+  val tree: Branch = List(
     ("A01", "Nimzovich-Larsen Attack", "b3"),
     ("A02", "Bird's Opening", "f4"),
     ("A03", "Bird's Opening", "f4 d5"),
