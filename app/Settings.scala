@@ -54,7 +54,7 @@ final class Settings(config: Config) {
   val ActorGameHubMaster = "game_hub_master"
   val ActorLobbyHub = "lobby_hub"
 
-  private def millis(name: String): Int = millis(name).toInt
+  private def millis(name: String): Int = getMilliseconds(name).toInt
 
   private def seconds(name: String): Int = millis(name) / 1000
 }
