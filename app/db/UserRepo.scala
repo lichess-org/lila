@@ -61,4 +61,10 @@ class UserRepo(collection: MongoCollection)
       upsert = false,
       multi = true)
   }
+
+  def toggleChatBan(user: User): IO[Unit] = io {
+    collection.update(
+      DBObject("_id" -> user.id),
+      $set("isChatBan" -> !user.isChatBan))
+  }
 }

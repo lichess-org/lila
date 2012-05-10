@@ -37,6 +37,7 @@ GET   /lobby/socket                 lila.controllers.LobbyC.socket
 POST  /api/lobby/join/:gameId/:color lila.controllers.LobbyC.join(gameId: String, color: String)
 GET   /api/lobby/preload            lila.controllers.LobbyC.preload
 POST  /api/lobby/create/:hookOwnerId lila.controllers.LobbyC.create(hookOwnerId: String)
+POST   /api/lobby/chat-ban/:username lila.controllers.LobbyC.chatBan(username: String)
 
 # Reporting API
 GET   /nb-players                   lila.controllers.ReportC.nbPlayers

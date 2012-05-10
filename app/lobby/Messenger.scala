@@ -35,4 +35,14 @@ final class Messenger(
       )
     }
 
+  def ban(username: String): IO[Unit] = for {
+    userOption ← userRepo byUsername username
+    _ ← userOption.fold(
+      user ⇒ for {
+        _ ← userRepo toggleChatBan user
+        _ ← messageRepo deleteByUsername user.username
+      } yield (),
+      io()
+    )
+  } yield ()
 }
