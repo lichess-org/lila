@@ -1,8 +1,6 @@
 package lila
 
 import com.typesafe.config.Config
-import akka.util.Duration
-import java.util.concurrent.TimeUnit._
 
 final class Settings(config: Config) {
 
