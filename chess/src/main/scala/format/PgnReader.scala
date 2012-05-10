@@ -17,7 +17,7 @@ object PgnReader {
         replay ← replayValid
         move ← san(replay.game)
       } yield new Replay(
-        game = replay.game(move),
+        game = replay game move,
         moves = move :: replay.moves)
     }
   } yield replay

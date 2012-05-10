@@ -53,5 +53,14 @@ case class Move(
 
   def notation = orig + " " + dest
 
+  def withPromotion(op: Option[PromotableRole]): Option[Move] = op.fold(
+    p ⇒ if ((after count color.queen) > (before count color.queen)) for {
+      b2 ← after take dest
+      b3 ← b2.place(color - p, dest)
+    } yield copy(after = b3, promotion = Some(p))
+    else None,
+    Some(this)
+  )
+
   override def toString = "%s %s".format(piece, notation)
 }

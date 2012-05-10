@@ -14,7 +14,7 @@ case class Game(
     orig: Pos,
     dest: Pos,
     promotion: PromotableRole = Queen): Valid[(Game, Move)] = for {
-    move ← situation.move(orig, dest, promotion)
+    move ← situation.move(orig, dest, Some(promotion) filter (Queen !=))
   } yield (apply(move), move)
 
   def apply(move: Move): Game = {

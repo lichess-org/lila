@@ -98,7 +98,9 @@ object PgnParser {
 
     val rank = mapParser(rangeToMap('1' to '8'), "rank")
 
-    val promotion = "=" ~> mapParser(Role.allPromotableByPgn, "promotion")
+    val promotion = "=" ~> mapParser(promotable, "promotion")
+
+    val promotable = Role.allPromotableByPgn mapKeys (_.toUpper)
 
     val dest = mapParser(Pos.allKeys, "dest")
 

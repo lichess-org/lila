@@ -3,7 +3,7 @@ package format
 
 case class ParsedPgn(tags: List[Tag], sans: List[San])
 
-sealed abstract class Tag(name: String, value: String) 
+sealed abstract class Tag(name: String, value: String)
 
 case class Fen(value: String) extends Tag("fen", value)
 
@@ -40,7 +40,7 @@ case class Std(
       case Some(m) if compare(file, m.orig.x) && compare(rank, m.orig.y) ⇒ m
     } match {
       case Nil        ⇒ "No move found: %s\n%s".format(this, game.board).failNel
-      case one :: Nil ⇒ success(one)
+      case one :: Nil ⇒ one withPromotion promotion toValid "Wrong promotion"
       case many       ⇒ "Many moves found: %s\n%s".format(many, game.board).failNel
     }
   }

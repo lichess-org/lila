@@ -24,22 +24,14 @@ case class Situation(board: Board, color: Color) {
 
   def end: Boolean = checkMate || staleMate || autoDraw
 
-  def move(from: Pos, to: Pos, promotion: PromotableRole): Valid[Move] = {
+  def move(from: Pos, to: Pos, promotion: Option[PromotableRole]): Valid[Move] = {
 
-    val someMove = for {
+    for {
       actor ← board.actors get from
       if actor is color
-      m ← actor.moves find (_.dest == to)
-    } yield m
-
-    if (promotion == Queen) someMove
-    else for {
-      m ← someMove
-      b1 = m.after
-      if (b1 count color.queen) > (board count color.queen)
-      b2 ← b1 take to
-      b3 ← b2.place(color - promotion, to)
-    } yield m.copy(after = b3, promotion = Some(promotion))
+      m1 ← actor.moves find (_.dest == to)
+      m2 ← m1 withPromotion promotion
+    } yield m2
 
   } toSuccess "Invalid move %s %s".format(from, to).wrapNel
 }
