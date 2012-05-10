@@ -38,6 +38,14 @@ case class Board(pieces: Map[Pos, Piece], history: History) {
   def threatsOf(c: Color): Set[Pos] = 
     actorsOf(c).toSet flatMap { actor: Actor ⇒ actor.threats }
 
+  def check(c: Color): Boolean = c.white.fold(checkWhite, checkBlack)
+
+  lazy val checkWhite = checkOf(White)
+  lazy val checkBlack = checkOf(Black)
+
+  private def checkOf(c: Color): Boolean = 
+    kingPosOf(c).fold(king ⇒ actorsOf(!c) exists (_ threatens king), false)
+
   def destsFrom(from: Pos): Option[List[Pos]] = actorAt(from) map (_.destinations)
 
   def seq(actions: Board ⇒ Valid[Board]*): Valid[Board] =

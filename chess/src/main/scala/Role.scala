@@ -5,6 +5,8 @@ import Pos._
 sealed trait Role {
   val forsyth: Char
   lazy val pgn: Char = forsyth.toUpper
+  val attacker: Boolean = true
+  val projection: Boolean = false
   def dirs: List[Direction]
 }
 sealed trait PromotableRole extends Role
@@ -12,18 +14,22 @@ sealed trait PromotableRole extends Role
 case object King extends Role {
   val forsyth = 'k'
   val dirs: List[Direction] = Queen.dirs
+  override val attacker = false
 }
 case object Queen extends PromotableRole {
   val forsyth = 'q'
   val dirs: List[Direction] = Rook.dirs ::: Bishop.dirs
+  override val projection = true
 }
 case object Rook extends PromotableRole {
   val forsyth = 'r'
   val dirs: List[Direction] = List(_.up, _.down, _.left, _.right)
+  override val projection = true
 }
 case object Bishop extends PromotableRole {
   val forsyth = 'b'
   val dirs: List[Direction] = List(_.upLeft, _.upRight, _.downLeft, _.downRight)
+  override val projection = true
 }
 case object Knight extends PromotableRole {
   val forsyth = 'n'
@@ -45,10 +51,10 @@ case object Pawn extends Role {
 
 object Role {
 
-  val all = List(King, Queen, Rook, Bishop, Knight, Pawn)
+  val all: List[Role] = List(King, Queen, Rook, Bishop, Knight, Pawn)
+  val allPromotable: List[PromotableRole] = List(Queen, Rook, Bishop, Knight)
   val allByForsyth: Map[Char, Role] = all map { r ⇒ (r.forsyth, r) } toMap
   val allByPgn: Map[Char, Role] = all map { r ⇒ (r.pgn, r) } toMap
-  val allPromotable = List(Queen, Rook, Bishop, Knight)
   val allPromotableByName: Map[String, PromotableRole] =
     allPromotable map { r ⇒ (r.toString, r) } toMap
   val allPromotableByForsyth: Map[Char, PromotableRole] =

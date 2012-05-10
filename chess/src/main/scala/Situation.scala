@@ -12,9 +12,7 @@ case class Situation(board: Board, color: Color) {
 
   lazy val kingPos: Option[Pos] = board kingPosOf color
 
-  lazy val check: Boolean = kingPos map { king ⇒
-    board actorsOf !color exists (_ threatens king)
-  } getOrElse false
+  lazy val check: Boolean = board check color
 
   def checkMate: Boolean = check && moves.isEmpty
 

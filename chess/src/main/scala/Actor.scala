@@ -77,14 +77,26 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
 
   def hash: String = piece.forsyth + pos.key
 
-  private def kingSafety(ms: List[Move]): List[Move] =
+  private def kingSafety(ms: List[Move]): List[Move] = {
     ms filterNot { m ⇒
-      m.after actorsOf !color exists { enemy ⇒
-        m.after kingPosOf color map (enemy threatens _) getOrElse false
-      }
+      val condition: Actor ⇒ Boolean =
+        if (m.piece is King) (_ ⇒ true)
+        else if (check) (_.attacker)
+        else (_.projection)
+      m.after kingPosOf color filter { afterKingPos ⇒
+        m.after actorsOf !color exists {
+          oActor ⇒ condition(oActor) && (oActor threatens afterKingPos)
+        }
+      } isDefined
     }
+  }
 
-  private def castle: List[Move] = 
+  def attacker = piece.role.attacker
+  def projection = piece.role.projection
+
+  lazy val check: Boolean = board check color
+
+  private def castle: List[Move] =
     List(castleOn(KingSide), castleOn(QueenSide)).flatten
 
   def castleOn(side: Side): Option[Move] = for {
@@ -111,7 +123,7 @@ case class Actor(piece: Piece, pos: Pos, board: Board) {
   ))
 
   private def shortRange(dirs: Directions): List[Move] =
-    (dirs map { _(pos) }).flatten filterNot friends map { to ⇒
+    (pos mapply dirs).flatten filterNot friends map { to ⇒
       if (enemies(to)) board.taking(pos, to) map { move(to, _, Some(to)) }
       else board.move(pos, to) map { move(to, _) }
     } flatten
