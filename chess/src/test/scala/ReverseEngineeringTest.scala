@@ -63,11 +63,11 @@ RN QK  R
   p  k
 K      """, Black)
         "to queen" in {
-          val newGame = game.playMove(C2, C1, Queen).fold(e ⇒ sys.error(e.toString), identity)
+          val newGame = game.playMove(C2, C1, Queen.some).fold(e ⇒ sys.error(e.toString), identity)
           findMove(game, newGame) must_== Success(C2 -> C1)
         }
         "to knight" in {
-          val newGame = game.playMove(C2, C1, Knight).fold(e ⇒ sys.error(e.toString), identity)
+          val newGame = game.playMove(C2, C1, Knight.some).fold(e ⇒ sys.error(e.toString), identity)
           findMove(game, newGame) must_== Success(C2 -> C1)
         }
         "not" in {

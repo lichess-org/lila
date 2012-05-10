@@ -71,5 +71,5 @@ object Role {
     allPromotableByName get name.capitalize
 
   def promotable(name: Option[String]): Option[PromotableRole] =
-    name map promotable getOrElse Some(Queen)
+    name flatMap promotable 
 }

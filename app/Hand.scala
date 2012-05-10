@@ -33,7 +33,7 @@ final class Hand(
       g2 ← (g1.playable).fold(success(g1), failure("Game not playable" wrapNel))
       orig ← posAt(origString) toValid "Wrong orig " + origString
       dest ← posAt(destString) toValid "Wrong dest " + destString
-      promotion ← Role promotable promString toValid "Wrong promotion"
+      promotion = Role promotable promString 
       newChessGameAndMove ← g2.toChess(orig, dest, promotion)
       (newChessGame, move) = newChessGameAndMove
     } yield g2.update(newChessGame, move, blur)).fold(
