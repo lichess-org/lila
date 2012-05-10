@@ -13,12 +13,9 @@ final class GameInfo private (
 
   def toMap = Map(
     "pgn" -> pgn,
-    "opening" -> (opening map { o ⇒
-      Map(
-        "code" -> o.code,
-        "name" -> o.name
-      )
-    })
+    "opening" -> game.variant.standard.fold(
+      opening map { o ⇒ Map("code" -> o.code, "name" -> o.name) },
+      None)
   )
 }
 
