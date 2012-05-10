@@ -14,7 +14,7 @@ object Main {
     sources = None,
     mode = Mode.Dev)
 
-  lazy val env = new SystemEnv(app)
+  lazy val env = SystemEnv(app)
 
   def main(args: Array[String]): Unit = sys exit {
 

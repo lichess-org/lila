@@ -12,7 +12,7 @@ import db._
 import ai._
 import memo._
 
-final class SystemEnv(application: Application, settings: Settings) {
+final class SystemEnv private (application: Application, settings: Settings) {
 
   implicit val app = application
 
@@ -185,4 +185,12 @@ final class SystemEnv(application: Application, settings: Settings) {
     finisher = finisher)
 
   lazy val gameCleanNextCommand = new command.GameCleanNext(gameRepo = gameRepo)
+}
+
+object SystemEnv {
+
+  def apply(app: Application) = new SystemEnv(
+    app, 
+    new Settings(app.configuration.underlying)
+  )
 }

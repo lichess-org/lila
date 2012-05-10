@@ -11,8 +11,8 @@ object Global extends GlobalSettings {
   def env = Option(systemEnv) err "The environment is not ready"
 
   override def onStart(app: Application) {
-    val settings = new Settings(app.configuration.underlying)
-    systemEnv = new SystemEnv(app, settings)
+
+    systemEnv = SystemEnv(app)
 
     if (env.isAiServer) println("Running as AI server")
     else Cron start env
