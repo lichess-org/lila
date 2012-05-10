@@ -26,7 +26,8 @@ final class Finisher(
     else !!("game is not resignable")
 
   def resignForce(pov: Pov): ValidIOEvents =
-    if (pov.game.resignable) finish(pov.game, Timeout, Some(pov.color))
+    if (pov.game.resignable && !pov.game.hasAi) 
+      finish(pov.game, Timeout, Some(pov.color))
     else !!("game is not resignable")
 
   def drawClaim(pov: Pov): ValidIOEvents = pov match {
