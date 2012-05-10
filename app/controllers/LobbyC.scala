@@ -46,6 +46,10 @@ object LobbyC extends LilaController {
   }
 
   def create(hookOwnerId: String) = Action {
-    IOk(api.create(hookOwnerId))
+    IOk(api create hookOwnerId)
+  }
+
+  def chatBan(username: String) = Action {
+    IOk(env.lobbyMessenger ban username)
   }
 }

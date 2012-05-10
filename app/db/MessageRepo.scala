@@ -22,4 +22,13 @@ extends CappedRepo[Message](collection, max) {
   def encode(obj: Message): DBObject = DBObject(
     "u" -> obj.username,
     "t" -> obj.text)
+
+  def deleteByUsername(username: String): IO[Unit] = io {
+    collection.update(
+      DBObject("u" -> username),
+      $set("t" -> ""),
+      upsert = false,
+      multi = true
+    )
+  }
 }
