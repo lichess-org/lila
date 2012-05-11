@@ -25,7 +25,7 @@ object Cron {
       }
     }
 
-    message(3 seconds) {
+    message(5 seconds) {
       env.reporting -> report.Update(env)
     }
 
@@ -77,7 +77,8 @@ object Cron {
 
     import RichDuration._
 
-    def hubs: List[ActorRef] = List(env.siteHub, env.lobbyHub, env.gameHubMaster)
+    lazy val hubs: List[ActorRef] = 
+      List(env.siteHub, env.lobbyHub, env.gameHubMaster)
 
     def message(freq: Duration)(to: (ActorRef, Any)) {
       Akka.system.scheduler.schedule(freq, freq.randomize(), to._1, to._2)

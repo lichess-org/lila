@@ -1,0 +1,35 @@
+@(form: Form[Option[User]])(implicit flash: Flash)
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Login</title>
+	</head>
+	<body>
+
+		<a href="@routes.Main.home">Home</a>
+
+		@helper.form(routes.Auth.authenticate) {
+
+		<h1>Sign in</h1>
+
+		@form.globalError.map { error =>
+		<p class="error">@error.message</p>
+		}
+
+		@flash.get("success").map { message =>
+		<p class="success">@message</p>
+		}
+
+		@helper.input(form("username")) { (id, name, value, args) =>
+		<input type="text" name="@name" id="@id" value="@value" placeholder="Username" @toHtmlArgs(args)>
+		}
+		@helper.input(form("password")) { (id, name, value, args) =>
+		<input type="password" name="@name" id="@id" placeholder="Password" @toHtmlArgs(args)>
+		}
+		<button type="submit">Login</button>
+
+		}
+
+	</body>
+</html>

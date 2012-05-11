@@ -7,6 +7,8 @@ trait Resolvers {
   val typesafe = "typesafe.com" at "http://repo.typesafe.com/typesafe/releases/"
   val iliaz = "iliaz.com" at "http://scala.iliaz.com/"
   val sonatype = "sonatype" at "http://oss.sonatype.org/content/repositories/releases"
+  val t2v = "t2v.jp repo" at "http://www.t2v.jp/maven-repo/"
+  val guice = "guice-maven" at "http://guice-maven.googlecode.com/svn/trunk"
 }
 
 trait Dependencies {
@@ -25,6 +27,8 @@ trait Dependencies {
   val scalaTime = "org.scala-tools.time" %% "time" % "0.5"
   val slf4jNop = "org.slf4j" % "slf4j-nop" % "1.6.4"
   val dispatch = "net.databinder" %% "dispatch-http" % "0.8.7"
+  val auth = "jp.t2v" %% "play20.auth" % "0.3-SNAPSHOT"
+  val plugins = "com.typesafe" %% "play-plugins-redis" % "2.0.1-hack2"
 }
 
 object ApplicationBuild extends Build with Resolvers with Dependencies {
@@ -33,8 +37,8 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     organization := "com.github.ornicar",
     version := "0.1",
     scalaVersion := "2.9.1",
-    resolvers := Seq(iliaz, codahale, sonatype, typesafe),
-    libraryDependencies := Seq(scalalib),
+    resolvers := Seq(iliaz, codahale, sonatype, typesafe, t2v, guice),
+    libraryDependencies := Seq(scalaz, scalalib),
     libraryDependencies in test := Seq(specs2),
     shellPrompt := {
       (state: State) ⇒ "%s> ".format(Project.extract(state).currentProject.id)
@@ -43,11 +47,25 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
   )
 
   lazy val lila = PlayProject("lila", mainLang = SCALA, settings = buildSettings).settings(
-    libraryDependencies ++= Seq(scalaz, config, json, casbah, salat, guava, apache, jodaTime, jodaConvert, scalaTime, dispatch)
+    libraryDependencies ++= Seq(
+      config,
+      json,
+      casbah,
+      salat,
+      guava,
+      apache,
+      jodaTime,
+      jodaConvert,
+      scalaTime,
+      dispatch,
+      auth,
+      plugins),
+    templatesImport ++= Seq(
+      "lila.model._")
   ) dependsOn chess
 
   lazy val cli = Project("cli", file("cli"), settings = buildSettings).settings(
-    libraryDependencies ++= Seq(slf4jNop, scalaz)
+    libraryDependencies ++= Seq(slf4jNop)
   ) dependsOn (lila)
 
   lazy val chess = Project("chess", file("chess"), settings = buildSettings).settings(

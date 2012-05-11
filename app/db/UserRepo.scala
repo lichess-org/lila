@@ -8,6 +8,7 @@ import com.novus.salat.dao._
 import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.Imports._
 import scalaz.effects._
+import com.roundeights.hasher.Implicits._
 
 class UserRepo(collection: MongoCollection)
     extends SalatDAO[User, ObjectId](collection) {
@@ -67,4 +68,12 @@ class UserRepo(collection: MongoCollection)
       DBObject("_id" -> user.id),
       $set("isChatBan" -> !user.isChatBan))
   }
+
+  def authenticate(username: String, password: String): IO[Option[User]] =
+    byUsername(username) map { userOption ⇒
+      userOption filter { u ⇒ u.password == hash(password, u.salt) }
+    }
+
+  private def hash(pass: String, salt: String): String =
+    "%s{%s}".format(pass, salt).sha1
 }

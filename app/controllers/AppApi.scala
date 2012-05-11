@@ -1,12 +1,12 @@
-package lila
 package controllers
 
-import lila.DataForm._
+import lila._
+import DataForm._
 
 import play.api.mvc._
 import play.api.libs.concurrent._
 
-object AppApiC extends LilaController {
+object AppApi extends LilaController {
 
   private val api = env.appApi
 

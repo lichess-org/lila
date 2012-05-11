@@ -1,18 +1,36 @@
-package lila
 package controllers
 
+import lila._
+import model.User
+import security.{ AuthConfigImpl, Anonymous }
+
+import jp.t2v.lab.play20.auth._
 import play.api._
-import mvc._
-import data._
-import http._
+import play.api.mvc._
+import play.api.data._
+import play.api.http._
+import play.api.cache.Cache
 
 import scala.io.Codec
 import com.codahale.jerkson.Json
 import scalaz.effects.IO
 
-trait LilaController extends Controller with ContentTypes with RequestGetter {
+trait LilaController
+    extends Controller
+    with ContentTypes
+    with RequestGetter
+    with AuthConfigImpl
+    with Auth {
 
   lazy val env = Global.env
+
+  implicit val current = env.app
+
+  def Open(f: Option[User] ⇒ Request[AnyContent] ⇒ Result): Action[AnyContent] =
+    Open(BodyParsers.parse.anyContent)(f)
+
+  def Open[A](p: BodyParser[A])(f: Option[User] ⇒ Request[A] ⇒ Result): Action[A] =
+    Action(p)(req ⇒ f(restoreUser(req))(req))
 
   def JsonOk(map: Map[String, Any]) = Ok(Json generate map) as JSON
 
@@ -70,5 +88,15 @@ trait LilaController extends Controller with ContentTypes with RequestGetter {
       form ⇒ failure(nel("Invalid form", form.errors.map(_.toString).toList)),
       data ⇒ success(data)
     )
+  }
+
+  private def restoreUser[A](request: Request[A]): Option[User] = for {
+    sessionId ← request.session.get("sessionId")
+    userId ← Cache.getAs[Id](sessionId + ":sessionId")(current, idManifest)
+    user ← resolveUser(userId)
+  } yield {
+    Cache.set(sessionId + ":sessionId", userId, sessionTimeoutInSeconds)
+    Cache.set(userId.toString + ":userId", sessionId, sessionTimeoutInSeconds)
+    user
   }
 }

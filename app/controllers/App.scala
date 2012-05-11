@@ -1,6 +1,6 @@
-package lila
 package controllers
 
+import lila._
 import DataForm._
 import chess.Color
 import model.{ Event, DbGame }
@@ -15,7 +15,7 @@ import libs.iteratee._
 
 import scalaz.effects._
 
-object AppC extends LilaController {
+object App extends LilaController {
 
   private val hand = env.hand
 

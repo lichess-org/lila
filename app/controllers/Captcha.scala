@@ -1,9 +1,10 @@
-package lila
 package controllers
+
+import lila._
 
 import play.api.mvc._
 
-object CaptchaC extends LilaController {
+object Captcha extends LilaController {
 
   private val captcha = env.captcha
 

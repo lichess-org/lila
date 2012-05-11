@@ -1,5 +1,6 @@
-package lila
 package controllers
+
+import lila._
 
 import play.api.mvc.RequestHeader
 

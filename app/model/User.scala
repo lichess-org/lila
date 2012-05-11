@@ -13,7 +13,10 @@ case class User(
     nbGames: Int,
     nbRatedGames: Int,
     isChatBan: Boolean = false,
-    enabled: Boolean = true) {
+    enabled: Boolean = true,
+    roles: List[String],
+    password: String,
+    salt: String) {
 
   def disabled = !enabled
 }

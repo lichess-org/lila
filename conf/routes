@@ -1,49 +1,56 @@
-# App Public API
-GET   /socket                           lila.controllers.AppC.socket
-GET   /socket/:gameId/:color            lila.controllers.AppC.gameSocket(gameId: String, color: String)
-GET   /abort/:fullId                    lila.controllers.AppC.abort(fullId: String)
-GET   /resign/:fullId                   lila.controllers.AppC.resign(fullId: String)
-GET   /resign-force/:fullId             lila.controllers.AppC.resignForce(fullId: String)
-GET   /draw-claim/:fullId               lila.controllers.AppC.drawClaim(fullId: String)
-GET   /draw-accept/:fullId              lila.controllers.AppC.drawAccept(fullId: String)
-GET   /draw-offer/:fullId               lila.controllers.AppC.drawOffer(fullId: String)
-GET   /draw-cancel/:fullId              lila.controllers.AppC.drawCancel(fullId: String)
-GET   /draw-decline/:fullId             lila.controllers.AppC.drawDecline(fullId: String)
-GET   /takeback-accept/:fullId          lila.controllers.AppC.takebackAccept(fullId: String)
-GET   /takeback-offer/:fullId           lila.controllers.AppC.takebackOffer(fullId: String)
-GET   /takeback-cancel/:fullId          lila.controllers.AppC.takebackCancel(fullId: String)
-GET   /takeback-decline/:fullId         lila.controllers.AppC.takebackDecline(fullId: String)
+# Main
+GET   /                              controllers.Main.home
 
-GET   /ai                               lila.controllers.AiC.run
+# Authentication
+GET   /login                         controllers.Auth.login
+POST  /login                         controllers.Auth.authenticate
+GET   /logout                        controllers.Auth.logout
+
+# App Public API
+GET   /socket                        controllers.App.socket
+GET   /socket/:gameId/:color         controllers.App.gameSocket(gameId: String, color: String)
+GET   /abort/:fullId                 controllers.App.abort(fullId: String)
+GET   /resign/:fullId                controllers.App.resign(fullId: String)
+GET   /resign-force/:fullId          controllers.App.resignForce(fullId: String)
+GET   /draw-claim/:fullId            controllers.App.drawClaim(fullId: String)
+GET   /draw-accept/:fullId           controllers.App.drawAccept(fullId: String)
+GET   /draw-offer/:fullId            controllers.App.drawOffer(fullId: String)
+GET   /draw-cancel/:fullId           controllers.App.drawCancel(fullId: String)
+GET   /draw-decline/:fullId          controllers.App.drawDecline(fullId: String)
+GET   /takeback-accept/:fullId       controllers.App.takebackAccept(fullId: String)
+GET   /takeback-offer/:fullId        controllers.App.takebackOffer(fullId: String)
+GET   /takeback-cancel/:fullId       controllers.App.takebackCancel(fullId: String)
+GET   /takeback-decline/:fullId      controllers.App.takebackDecline(fullId: String)
+
+GET   /ai                            controllers.Ai.run
 
 # App Private API
-GET   /api/show/:fullId            lila.controllers.AppApiC.show(fullId: String)
-POST  /api/start/:gameId           lila.controllers.AppApiC.start(gameId: String)
-POST  /api/join/:fullId            lila.controllers.AppApiC.join(fullId: String)
-POST  /api/reload-table/:gameId    lila.controllers.AppApiC.reloadTable(gameId: String)
-POST  /api/rematch-accept/:gameId/:color/:newGameId  lila.controllers.AppApiC.rematchAccept(gameId: String, color: String, newGameId: String)
-POST  /api/adjust/:username        lila.controllers.AppApiC.adjust(username: String)
-GET   /api/activity/:gameId/:color lila.controllers.AppApiC.activity(gameId: String, color: String)
-GET   /api/game-version/:gameId     lila.controllers.AppApiC.gameVersion(gameId: String)
-GET   /api/game-info/:gameId        lila.controllers.AppApiC.gameInfo(gameId: String)
+GET   /api/show/:fullId              controllers.AppApi.show(fullId: String)
+POST  /api/start/:gameId             controllers.AppApi.start(gameId: String)
+POST  /api/join/:fullId              controllers.AppApi.join(fullId: String)
+POST  /api/reload-table/:gameId      controllers.AppApi.reloadTable(gameId: String)
+POST  /api/adjust/:username          controllers.AppApi.adjust(username: String)
+GET   /api/activity/:gameId/:color   controllers.AppApi.activity(gameId: String, color: String)
+GET   /api/game-version/:gameId      controllers.AppApi.gameVersion(gameId: String)
+GET   /api/game-info/:gameId         controllers.AppApi.gameInfo(gameId: String)
+POST  /api/rematch-accept/:gameId/:color/:newGameId controllers.AppApi.rematchAccept(gameId: String, color: String, newGameId: String)
 
-GET   /api/captcha/create           lila.controllers.CaptchaC.create
-GET   /api/captcha/solve/:gameId    lila.controllers.CaptchaC.solve(gameId: String)
+GET   /api/captcha/create            controllers.Captcha.create
+GET   /api/captcha/solve/:gameId     controllers.Captcha.solve(gameId: String)
 
 # Lobby Public API
-GET   /lobby/cancel/:ownerId        lila.controllers.LobbyC.cancel(ownerId: String)
-GET   /lobby/socket                 lila.controllers.LobbyC.socket
+GET   /lobby/cancel/:ownerId         controllers.Lobby.cancel(ownerId: String)
+GET   /lobby/socket                  controllers.Lobby.socket
 
 # Lobby Private API
-POST  /api/lobby/join/:gameId/:color lila.controllers.LobbyC.join(gameId: String, color: String)
-GET   /api/lobby/preload            lila.controllers.LobbyC.preload
-POST  /api/lobby/create/:hookOwnerId lila.controllers.LobbyC.create(hookOwnerId: String)
-POST   /api/lobby/chat-ban/:username lila.controllers.LobbyC.chatBan(username: String)
+POST  /api/lobby/join/:gameId/:color controllers.Lobby.join(gameId: String, color: String)
+GET   /api/lobby/preload             controllers.Lobby.preload
+POST  /api/lobby/create/:hookOwnerId controllers.Lobby.create(hookOwnerId: String)
+POST  /api/lobby/chat-ban/:username  controllers.Lobby.chatBan(username: String)
 
 # Reporting API
-GET   /nb-players                   lila.controllers.ReportC.nbPlayers
-GET   /nb-playing                   lila.controllers.ReportC.nbPlaying
-GET   /status                       lila.controllers.ReportC.status
+GET   /nb-players                    controllers.Report.nbPlayers
+GET   /nb-playing                    controllers.Report.nbPlaying
+GET   /status                        controllers.Report.status
 
-# Useless, but play2 needs it
-GET   /assets/*file                 controllers.Assets.at(path="/public", file)
+GET   /assets/*file                  controllers.Assets.at(path="/public", file)

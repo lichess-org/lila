@@ -1,5 +1,6 @@
-package lila
 package controllers
+
+import lila._
 
 import play.api._
 import mvc._
@@ -7,7 +8,7 @@ import mvc._
 import play.api.libs.concurrent.Akka
 import play.api.Play.current
 
-object AiC extends LilaController {
+object Ai extends LilaController {
 
   private val craftyServer = env.craftyServer
 

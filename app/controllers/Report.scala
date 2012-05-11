@@ -1,5 +1,6 @@
-package lila
 package controllers
+
+import lila._
 
 import play.api.mvc._
 import play.api.libs.concurrent._
@@ -10,7 +11,7 @@ import akka.util.{ Duration, Timeout }
 import socket.GetNbMembers
 import report.{ GetStatus, GetNbPlaying }
 
-object ReportC extends LilaController {
+object Report extends LilaController {
 
   val reporting = env.reporting
   implicit val timeout = Timeout(100 millis)

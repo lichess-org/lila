@@ -1,6 +1,6 @@
-package lila
 package controllers
 
+import lila._
 import DataForm._
 
 import play.api._
@@ -12,7 +12,7 @@ import play.api.Play.current
 import play.api.libs.json._
 import play.api.libs.iteratee._
 
-object LobbyC extends LilaController {
+object Lobby extends LilaController {
 
   private val api = env.lobbyApi
   private val preloader = env.lobbyPreloader
