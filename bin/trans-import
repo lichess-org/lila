@@ -3,6 +3,21 @@
 require 'fileutils'
 include FileUtils
 
+class String
+  def uncapitalize
+    self[0, 1].downcase + self[1..-1]
+    #self
+  end
+end
+def keyify(text)
+  text.strip.downcase
+  .gsub(/_/, ' ')
+  .gsub(/[^\w\s]/, '')
+  .gsub(/\b[a-z]/) { |a| a.upcase }
+  .gsub(/\s/, '')
+  .uncapitalize
+end
+
 lichess_dir = File.expand_path(pwd() + '/../lichess')
 lichess_trans_dir = lichess_dir + '/src/Bundle/LichessBundle/Resources/translations'
 
@@ -19,10 +34,7 @@ Dir[lichess_trans_dir + '/*'].each { |file|
   lang = file.gsub(/[\w\/]+\.(\w{2,3})\.yml/, '\1')
   lines = File.open(file).readlines.map { |l|
     parts = l.split('":').each { |p| p.strip.gsub('"', '') }
-    key = parts[0].downcase.strip
-    .gsub(' ', '.')
-    .gsub(/[^\w\.]/, '')
-    .gsub(/\.{2,}/, '.')
+    key = keyify(parts[0])
     val = parts[1].gsub('"', '').strip
     key + '=' + val
   }
@@ -35,10 +47,7 @@ Dir[lichess_trans_dir + '/*'].each { |file|
 fr_file = lichess_trans_dir + '/messages.fr.yml'
 lines = File.open(fr_file).readlines.map { |l|
   parts = l.split('":').each { |p| p.strip.gsub('"', '') }
-  key = parts[0].downcase.strip
-  .gsub(' ', '.')
-  .gsub(/[^\w\.]/, '')
-  .gsub(/\.{2,}/, '.')
+  key = keyify(parts[0])
   val = parts[0].gsub('"', '').strip
   key + '=' + val
 }

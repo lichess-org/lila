@@ -12,10 +12,13 @@ import Results._
 
 import play.api.libs.concurrent.Akka
 import play.api.Play.current
+import play.api.i18n.Messages
 
 object Main extends LilaController with LoginLogout with AuthConfigImpl {
 
   val home = Open { implicit user => implicit request ⇒
-    Ok(html.home(user))
+    //println(request.headers)
+    Messages("elo.range").pp
+    Ok(html.home())
   }
 }

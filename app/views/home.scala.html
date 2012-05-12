@@ -1,15 +1,8 @@
-@(me: Option[User])
-<!DOCTYPE html>
+@()(implicit me: Option[User], r: RequestHeader)
 
-<html>
-	<head>
-		<title>Login</title>
-	</head>
-	<body>
+@layout("Home") {
 
-		<a href="@routes.Main.home">Home</a>
+<a href="@routes.Main.home">Home</a>
 
-		Hello @me
-
-	</body>
-</html>
+@trans("elo.range")
+}

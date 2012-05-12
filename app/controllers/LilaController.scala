@@ -26,6 +26,10 @@ trait LilaController
 
   implicit val current = env.app
 
+  override implicit def lang(implicit request: RequestHeader) = {
+    env.i18nRequestHandler.domainLangOrDefault(request)
+  }
+
   def Open(f: Option[User] ⇒ Request[AnyContent] ⇒ Result): Action[AnyContent] =
     Open(BodyParsers.parse.anyContent)(f)
 

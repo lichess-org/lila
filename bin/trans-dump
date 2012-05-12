@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+include FileUtils
+
+lila_dir = pwd()
+lila_trans_dir = lila_dir + '/conf'
+lila_keys_file = lila_dir + '/app/i18n/I18nKeys.scala'
+
+code = """// Generated with bin/trans-dump
+package lila.i18n
+
+import play.api.mvc.RequestHeader
+
+final class I18nKeys(translator: Translator) {
+
+  protected class Key(val key: String) {
+
+    def !(args: Any*)(implicit request: RequestHeader) : String = 
+      translator.trans(key, args)(request)
+  }
+
+%keys%
+}
+"""
+
+puts 'Dump translation keys to scala'
+
+file = lila_trans_dir + '/messages'
+keys = File.open(file).readlines.map { |l| 
+  name = l.gsub(/(\w+)=.+/, '\1').strip
+  '  val ' + name + ' = new Key("' + name + '")'
+}
+allCode = code.gsub(/%keys%/, keys.join("\n"))
+
+File.open(lila_keys_file, 'w') { |f| f.puts allCode }

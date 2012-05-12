@@ -61,7 +61,15 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       auth,
       plugins),
     templatesImport ++= Seq(
-      "lila.model._")
+      "lila.model._",
+      "lila.templating.Helper._"),
+    //incrementalAssetsCompilation := true,
+    javascriptEntryPoints <<= (sourceDirectory in Compile)(base ⇒
+      ((base / "assets" ** "*.js") 
+        --- (base / "assets" ** "_*")
+        --- (base / "assets/vendor" ** "*.js")
+      ).get
+    )
   ) dependsOn chess
 
   lazy val cli = Project("cli", file("cli"), settings = buildSettings).settings(
