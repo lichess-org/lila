@@ -7,16 +7,22 @@ import akka.actor._
 
 import play.api.libs.concurrent._
 import play.api.Application
+import play.api.i18n.Lang
 
 import db._
 import ai._
 import memo._
+import i18n._
 
 final class SystemEnv private (application: Application, settings: Settings) {
 
   implicit val app = application
 
   import settings._
+  
+  lazy val i18nRequestHandler = new I18nRequestHandler(
+    langs = Lang.availables.toSet,
+    default = Lang("en"))
 
   lazy val pgnDump = new PgnDump(userRepo = userRepo, gameRepo = gameRepo)
 
