@@ -16,8 +16,18 @@ puts 'to ' + lila_trans_dir
 Dir[lila_trans_dir + '/messages.*'].each { |file| File.delete(file) }
 
 Dir[lichess_trans_dir + '/*'].each { |file| 
-  contents = File.read(file).gsub('": "', '"="')
   lang = file.gsub(/[\w\/]+\.(\w{2,3})\.yml/, '\1')
+  lines = File.open(file).readlines.map { |l|
+    parts = l.split('":').each { |p| p.strip.gsub('"', '') }
+    key = parts[0].downcase.strip
+    .gsub(' ', '.')
+    .gsub(/[^\w\.]/, '')
+    .gsub(/\.{2,}/, '.')
+    val = parts[1].gsub('"', '').strip
+    key + '=' + val
+  }
+  if lang == 'frp' then lang = 'fp' end
   new_file = lila_trans_dir + '/messages.' + lang
-  File.open(new_file, 'w') { |f| f.puts contents }
+  text = lines.join("\n")
+  File.open(new_file, 'w') { |f| f.puts text }
 }
