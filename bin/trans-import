@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+require 'fileutils' 
+include FileUtils
+
+lichess_dir = File.expand_path(pwd() + '/../lichess')
+lichess_trans_dir = lichess_dir + '/src/Bundle/LichessBundle/Resources/translations'
+
+lila_dir = pwd()
+lila_trans_dir = lila_dir + '/conf'
+
+puts 'Import translations'
+puts 'from ' + lichess_trans_dir 
+puts 'to ' + lila_trans_dir
+
+Dir[lila_trans_dir + '/messages.*'].each { |file| File.delete(file) }
+
+Dir[lichess_trans_dir + '/*'].each { |file| 
+  contents = File.read(file).gsub('": "', '"="')
+  lang = file.gsub(/[\w\/]+\.(\w{2,3})\.yml/, '\1')
+  new_file = lila_trans_dir + '/messages.' + lang
+  File.open(new_file, 'w') { |f| f.puts contents }
+}
