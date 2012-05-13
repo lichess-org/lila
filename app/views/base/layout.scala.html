@@ -21,7 +21,7 @@
   <body data-sound-file="@routes.Assets.at("sound/alert.ogg")">
     <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
     <div id="top" class="clearfix">
-      <a title="@trans.toggleSound()" id="sound_state" class="available">
+      <a href="@routes.Setting.sound" title="@trans.toggleSound()" id="sound_state" class="available @soundString">
         <span></span>
       </a>
       <div class="lichess_language">
@@ -42,11 +42,11 @@
       </div>
       @ctx.me.map { m =>
       <div class="security">
-        <a class="goto_nav" href="@routes.Auth.logout">
+        <a class="goto_nav goto_logout" href="@routes.Auth.logout">
           <span class="s16">@trans.logOut()</span>
         </a>
       </div>
-      <a id="user_tag" data-elo="@m.elo" href="@routes.User.show(m.username)" class="blank_if_play goto_nav">
+      <a id="user_tag" data-elo="@m.elo" href="@routes.User.show(m.username)" class="blank_if_play goto_nav goto_profile">
         <span class="s16">@m.usernameWithElo</span>
         <span id="username_tag" class="none">@m.username</span>
       </a>
@@ -94,7 +94,7 @@
     @jsTag("game.js")
     @jsTag("gamelist.js")
     @jsTag("clock.js")
-    @jsTag("start.js")
+    @jsTag("setup.js")
     @jsTag("hook.js")
     @if(lang.language != "en") {
     <script src="@routes.Assets.at("trans/" + lang.language + ".js")"></script>

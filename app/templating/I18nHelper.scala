@@ -25,7 +25,7 @@ trait I18nHelper {
 
   def otherLangLinks(lang: Lang)(implicit ctx: Context) = Html {
     otherLangLinksCache.getOrElseUpdate(lang.language, {
-      pool.names collect {
+      pool.names.toList sortBy (_._1) collect {
         case (code, name) if code != lang.language ⇒
           """<li><a lang="%s" href="%s">%s</a></li>"""
             .format(code, langUrl(Lang(code))(ctx.req), name)
@@ -33,6 +33,8 @@ trait I18nHelper {
     })
   }
 
+  val protocol = "http://"
+
   private def langUrl(lang: Lang)(req: RequestHeader) =
-    (I18nDomain(req.domain) withLang lang).domain + req.uri
+    protocol + (I18nDomain(req.domain) withLang lang).domain + req.uri
 }

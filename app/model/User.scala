@@ -7,7 +7,6 @@ import com.mongodb.casbah.Imports.ObjectId
 case class User(
     @Key("_id") id: ObjectId,
     username: String,
-    usernameCanonical: String,
     isOnline: Boolean,
     elo: Int,
     nbGames: Int,
@@ -19,11 +18,13 @@ case class User(
     salt: String,
     settings: Map[String, String] = Map.empty) {
 
+  def usernameCanonical = username.toLowerCase
+
   def disabled = !enabled
   
   def usernameWithElo = "%s (%d)".format(username, elo)
 
-  def setting(name: String): Option[String] = settings get name
+  def setting(name: String): Option[Any] = settings get name
 }
 
 object User {

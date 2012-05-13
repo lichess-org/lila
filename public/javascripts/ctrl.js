@@ -149,9 +149,14 @@ $(function() {
 
   var elem = document.createElement('audio');
   var canPlayAudio = !! elem.canPlayType && elem.canPlayType('audio/ogg; codecs="vorbis"');
+  var $soundToggle = $('#sound_state');
+
+  function soundEnabled() {
+    return $soundToggle.hasClass("sound_state_on");
+  }
 
   $.playSound = function() {
-    if (canPlayAudio && 'on' == $('body').attr('data-sound-enabled')) {
+    if (canPlayAudio && soundEnabled()) {
       var sound = $('#lichess_sound_player').get(0);
       sound.play();
       setTimeout(function() {
@@ -163,19 +168,16 @@ $(function() {
 
   if (canPlayAudio) {
     $('body').append($('<audio id="lichess_sound_player">').attr('src', $('body').attr('data-sound-file')));
-    $('#sound_state').click(function() {
-      var $toggler = $(this);
-      $.post($toggler.attr('href'), {},
-        function(data) {
-          $toggler.attr('class', 'sound_state_' + data);
-          $('body').attr('data-sound-enabled', data);
-          $.playSound();
-        });
+    $soundToggle.click(function() {
+      var enabled = !soundEnabled();
+      $soundToggle.toggleClass('sound_state_on', enabled);
+      $.playSound();
+      $.post($soundToggle.attr('href'), {sound: enabled});
       return false;
     });
     $game && $game.trigger('lichess.audio_ready');
   } else {
-    $('#sound_state').addClass('unavailable');
+    $soundToggle.addClass('unavailable');
   }
 
   if (false || lichess.onProduction) {

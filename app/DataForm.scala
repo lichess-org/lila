@@ -8,8 +8,12 @@ import ui.Color
 
 object DataForm {
 
+  val soundForm = Form(single(
+    "sound" -> nonEmptyText.verifying(Set("true", "false") contains _)
+  ))
+
   val colorForm = Form(single(
-    "color" -> nonEmptyText.verifying(Color.exists _)
+    "color" -> nonEmptyText.verifying(Color contains _)
   ))
 
   type MoveData = (String, String, Option[String], Option[Int])

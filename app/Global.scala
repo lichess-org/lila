@@ -18,8 +18,10 @@ object Global extends GlobalSettings {
     //else Cron start env
   }
 
-  override def onRouteRequest(request: RequestHeader): Option[Handler] = 
-    env.i18nRequestHandler(request.pp) orElse super.onRouteRequest(request)
+  override def onRouteRequest(request: RequestHeader): Option[Handler] = {
+    println(request)
+    env.i18nRequestHandler(request) orElse super.onRouteRequest(request)
+  }
 
   override def onHandlerNotFound(request: RequestHeader): Result = {
     NotFound("Not found " + request)

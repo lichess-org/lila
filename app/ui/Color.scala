@@ -19,5 +19,5 @@ object Color {
 
   def apply(name: String) = (allByName get name) | default
 
-  def exists(name: String) = allByName contains name
+  def contains(name: String) = allByName contains name
 }

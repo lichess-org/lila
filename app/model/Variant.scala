@@ -20,4 +20,6 @@ object Variant {
   val byId = all map { v ⇒ (v.id, v) } toMap
 
   def apply(id: Int): Option[Variant] = byId get id
+
+  def exists(id: Int): Boolean = byId contains id
 }

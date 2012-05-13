@@ -356,13 +356,11 @@ a#sound_state span {
   height: 15px;
   opacity: 0.7;
   background: url(../images/s16.png) no-repeat;
+  background-position: 0 -64px;
   display: block;
 }
 a#sound_state.sound_state_on span {
   background-position: 0 -80px;
-}
-a#sound_state.sound_state_off span {
-  background-position: 0 -64px;
 }
 a#sound_state.unavailable {
   display: none;

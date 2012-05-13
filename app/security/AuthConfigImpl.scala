@@ -37,7 +37,7 @@ trait AuthConfigImpl extends AuthConfig {
     Redirect(routes.Lobby.home)
 
   def authenticationFailed[A](request: Request[A]): PlainResult = 
-    Redirect(routes.Auth.login).withSession("access_uri" -> request.uri)
+    Redirect(routes.Lobby.home).withSession("access_uri" -> request.uri)
 
   def loginSucceeded[A](request: Request[A]): PlainResult = {
     val uri = request.session.get("access_uri").getOrElse(routes.Lobby.home.url)

@@ -22,6 +22,8 @@ final class SystemEnv private (application: Application, settings: Settings) {
 
   import settings._
 
+  lazy val setupFormFactory = new setup.FormFactory(userConfigRepo)
+
   lazy val i18nMessagesApi = app.plugin[MessagesPlugin]
     .err("this plugin was not registered or disabled")
     .api
@@ -171,6 +173,9 @@ final class SystemEnv private (application: Application, settings: Settings) {
   lazy val userRepo = new UserRepo(mongodb(MongoCollectionUser))
 
   lazy val hookRepo = new HookRepo(mongodb(MongoCollectionHook))
+
+  lazy val userConfigRepo = new setup.UserConfigRepo(
+    collection = mongodb(MongoCollectionConfig))
 
   lazy val entryRepo = new EntryRepo(
     collection = mongodb(MongoCollectionEntry),

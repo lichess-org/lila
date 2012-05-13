@@ -18,21 +18,13 @@ case class Hook(
     `match`: Boolean,
     eloRange: Option[String],
     engine: Boolean,
-    game: Option[DBRef]) {
+    game: Option[DBRef]) extends EloRange {
 
   def gameId: Option[String] = game map (_.getId.toString)
 
   def realVariant = Variant(variant) | Standard
 
   def realMode = Mode(mode) | Casual
-
-  def eloMin: Option[Int] = eloRange flatMap { e ⇒
-    parseIntOption(e takeWhile ('-' !=))
-  }
-
-  def eloMax: Option[Int] = eloRange flatMap { e ⇒
-    parseIntOption(e dropWhile ('-' !=) tail)
-  }
 
   def render = Map(
     "id" -> id,

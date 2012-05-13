@@ -4,3 +4,6 @@ chat should autoscroll only when at bottom
 back button to game -> old status
 finish flagged game
 It's possible to join your own game and win it, which will then be displayed as a win and I saw players who abuse this to manipulate their stats. 
+hide logout button
+create play2 session module
+forms that validate while constructing the object

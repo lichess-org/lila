@@ -1,0 +1,40 @@
+package lila
+package setup
+
+import model.{ Variant, Standard, Mode, EloRange }
+
+trait Config {
+
+  // Game variant code
+  val variant: Variant
+
+  // Creator player color
+  val color: Color
+}
+
+trait HumanConfig extends Config with EloRange {
+
+  // Whether or not to use a clock
+  val clock: Boolean
+
+  // Clock time in minutes
+  val time: Option[Int]
+
+  // Clock increment in seconds
+  val increment: Option[Int]
+
+  // casual or rated
+  val mode: Mode
+}
+
+object Config extends BaseConfig
+
+trait BaseConfig {
+
+  val variants = Variant.all map (_.id)
+  val variantChoices = Variant.all map { v ⇒ v.id.toString -> v.name }
+  val variantDefault = Standard
+}
+
+//case class HookConfig(eloRange: Option[String]) 
+//extends HumanConfig with EloRange 

@@ -1,0 +1,13 @@
+@(form: Form[lila.setup.AiConfig])(implicit ctx: Context) 
+
+@fields = {
+<div class="variants buttons">
+	@helper.inputRadioGroup(form("variant"), lila.setup.AiConfig.variantChoices)
+</div>
+@trans.level()
+<div class="level buttons">
+	@helper.inputRadioGroup(form("level"), lila.setup.AiConfig.levelChoices)
+</div>
+}
+
+@setup.config(form, "ai", trans.playWithTheMachine(), routes.Setup.ai, fields)

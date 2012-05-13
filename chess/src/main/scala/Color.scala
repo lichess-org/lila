@@ -67,4 +67,8 @@ object Color {
     else None
 
   val all = List(White, Black)
+
+  val names = all map (_.name)
+
+  def exists(name: String) = all exists (_.name == name)
 }

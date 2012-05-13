@@ -69,7 +69,7 @@ class UserRepo(collection: MongoCollection)
       $set("isChatBan" -> !user.isChatBan))
   }
 
-  def saveSetting(user: User, key: String, value: Any) = io {
+  def saveSetting(user: User, key: String, value: String) = io {
     collection.update(
       idSelector(user),
       $set(("settings." + key) -> value))

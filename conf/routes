@@ -3,6 +3,15 @@ GET   /games                         controllers.Game.list
 
 # Setting
 POST  /setting/color                 controllers.Setting.color
+POST  /setting/sound                 controllers.Setting.sound
+
+# Setup
+GET   /setup/ai                      controllers.Setup.aiForm
+POST  /setup/ai                      controllers.Setup.ai
+GET   /setup/friend                  controllers.Setup.friendForm
+POST  /setup/friend                  controllers.Setup.friend
+GET   /setup/hook                    controllers.Setup.hookForm
+POST  /setup/hook                    controllers.Setup.hook
 
 # I18n
 GET   /translation/contribute        controllers.I18n.contribute
