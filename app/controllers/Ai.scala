@@ -1,6 +1,7 @@
 package controllers
 
 import lila._
+import http.Context
 
 import play.api._
 import mvc._
@@ -13,6 +14,7 @@ object Ai extends LilaController {
   private val craftyServer = env.craftyServer
 
   def run = Action { implicit req ⇒
+    implicit val ctx = Context(req, None)
     Async {
       Akka.future {
         craftyServer(fen = getOr("fen", ""), level = getIntOr("level", 1))

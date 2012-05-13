@@ -19,8 +19,5 @@ final class I18nDomain private (val domain: String) {
 
 object I18nDomain {
 
-  private val cache = scala.collection.mutable.Map[String, I18nDomain]()
-
-  def apply(domain: String): I18nDomain = 
-    cache.getOrElseUpdate(domain, new I18nDomain(domain))
+  def apply(domain: String): I18nDomain = new I18nDomain(domain)
 }

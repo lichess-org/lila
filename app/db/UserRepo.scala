@@ -27,13 +27,13 @@ class UserRepo(collection: MongoCollection)
 
   def setElo(userId: ObjectId, elo: Int): IO[Unit] = io {
     collection.update(
-      DBObject("_id" -> userId),
+      idSelector(userId),
       $set("elo" -> elo))
   }
 
   def setEngine(userId: ObjectId): IO[Unit] = io {
     collection.update(
-      DBObject("_id" -> userId),
+      idSelector(userId),
       $set("engine" -> true))
   }
 
@@ -65,14 +65,24 @@ class UserRepo(collection: MongoCollection)
 
   def toggleChatBan(user: User): IO[Unit] = io {
     collection.update(
-      DBObject("_id" -> user.id),
+      idSelector(user),
       $set("isChatBan" -> !user.isChatBan))
+  }
+
+  def saveSetting(user: User, key: String, value: Any) = io {
+    collection.update(
+      idSelector(user),
+      $set(("settings." + key) -> value))
   }
 
   def authenticate(username: String, password: String): IO[Option[User]] =
     byUsername(username) map { userOption ⇒
       userOption filter { u ⇒ u.password == hash(password, u.salt) }
     }
+
+  private def idSelector(user: User) = DBObject("_id" -> user.id)
+
+  private def idSelector(id: ObjectId) = DBObject("_id" -> id)
 
   private def hash(pass: String, salt: String): String =
     "%s{%s}".format(pass, salt).sha1

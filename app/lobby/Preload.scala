@@ -14,7 +14,7 @@ final class Preload(
     messageRepo: MessageRepo,
     entryRepo: EntryRepo) {
 
-  type Response = Map[String, Any]
+  type Response = Either[String, Map[String, Any]]
 
   def apply(
     auth: Boolean,
@@ -49,12 +49,12 @@ final class Preload(
     myHookId: Option[String]): IO[Response] = for {
     messages ← if (chat) messageRepo.recent else io(Nil)
     entries ← entryRepo.recent
-  } yield Map(
+  } yield Right(Map(
     "version" -> history.version,
     "pool" -> renderHooks(hooks, myHookId),
     "chat" -> (messages.reverse map (_.render)),
     "timeline" -> (entries.reverse map (_.render))
-  )
+  ))
 
   private def renderHooks(
     hooks: List[Hook],
@@ -63,5 +63,5 @@ final class Preload(
     else h.render
   }
 
-  private def redirect(url: String = "" ) = Map("redirect" -> ("/" + url))
+  private def redirect(url: String = "" ) = Left("/" + url)
 }

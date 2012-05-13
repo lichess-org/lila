@@ -1,6 +1,8 @@
 // Generated with bin/trans-dump
 package lila.i18n
 
+import lila.http.Context
+
 import play.api.mvc.RequestHeader
 import play.api.templates.Html
 import play.api.i18n.Lang
@@ -9,8 +11,8 @@ final class I18nKeys(translator: Translator) {
 
   final class Key(val key: String) {
 
-    def apply(args: Any*)(implicit req: RequestHeader): Html = 
-      translator.trans(key, args.toList)(req)
+    def apply(args: Any*)(implicit ctx: Context): Html = 
+      translator.trans(key, args.toList)(ctx.req)
 
     def to(lang: Lang)(args: Any*): String = 
       translator.transTo(key, args.toList)(lang)

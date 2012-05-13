@@ -62,8 +62,9 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       plugins),
     templatesImport ++= Seq(
       "lila.model._",
-      "lila.ui.Menu",
-      "lila.templating.Environment._"),
+      "lila.templating.Environment._",
+      "lila.ui.SiteMenu",
+      "lila.http.Context"),
     incrementalAssetsCompilation := true,
     javascriptEntryPoints <<= (sourceDirectory in Compile)(base ⇒
       ((base / "assets" / "javascripts" ** "*.js") 

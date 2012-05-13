@@ -10,6 +10,7 @@ import com.mongodb.casbah.commons.conversions.scala.RegisterJodaTimeConversionHe
 package object lila
     extends OrnicarValidation
     with OrnicarCommon
+    with scalaz.Identitys
     with scalaz.NonEmptyLists
     with scalaz.Strings
     with scalaz.Lists

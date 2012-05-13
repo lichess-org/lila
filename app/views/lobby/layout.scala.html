@@ -1,0 +1,7 @@
+@(chat: Option[Html] = None)(body: Html)(implicit ctx: Context)
+
+@baseline = {
+<span id="site_baseline">@trans.freeOnlineChess()</span>
+}
+
+@base.layout(baseline = baseline.some, active = siteMenu.play.some, chat = chat)(body)

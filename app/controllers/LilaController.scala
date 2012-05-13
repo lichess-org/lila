@@ -3,6 +3,7 @@ package controllers
 import lila._
 import model.{ User => UserModel }
 import security.{ AuthConfigImpl, Anonymous }
+import http.{ Context, BodyContext, HttpEnvironment }
 
 import jp.t2v.lab.play20.auth._
 import play.api._
@@ -17,6 +18,7 @@ import scalaz.effects.IO
 
 trait LilaController
     extends Controller
+    with HttpEnvironment
     with ContentTypes
     with RequestGetter
     with AuthConfigImpl
@@ -28,14 +30,22 @@ trait LilaController
 
   override implicit def lang(implicit req: RequestHeader) = 
     env.i18nPool.lang(req)
+    
+  def toJson(map: Map[String, Any]) = Json generate map 
 
-  def Open(f: Option[UserModel] ⇒ Request[AnyContent] ⇒ Result): Action[AnyContent] =
+  def Open(f: Context ⇒ Result): Action[AnyContent] =
     Open(BodyParsers.parse.anyContent)(f)
 
-  def Open[A](p: BodyParser[A])(f: Option[UserModel] ⇒ Request[A] ⇒ Result): Action[A] =
-    Action(p)(req ⇒ f(restoreUser(req))(req))
+  def Open[A](p: BodyParser[A])(f: Context ⇒ Result): Action[A] =
+    Action(p)(req ⇒ f(Context(req, restoreUser(req))))
 
-  def JsonOk(map: Map[String, Any]) = Ok(Json generate map) as JSON
+  def OpenBody(f: BodyContext ⇒ Result): Action[AnyContent] =
+    OpenBody(BodyParsers.parse.anyContent)(f)
+
+  def OpenBody[A](p: BodyParser[A])(f: BodyContext ⇒ Result): Action[A] =
+    Action(p)(req ⇒ f(Context(req, restoreUser(req))))
+
+  def JsonOk(map: Map[String, Any]) = Ok(toJson(map)) as JSON
 
   def JsonOk(list: List[String]) = Ok(Json generate list) as JSON
 
@@ -51,6 +61,12 @@ trait LilaController
     _ ⇒ Ok("ok")
   )
 
+  def FormResult[A](form: Form[A])(op: A ⇒ Result)(implicit req: Request[_]) =
+    form.bindFromRequest.fold(
+      form ⇒ BadRequest(form.errors mkString "\n"),
+      data ⇒ op(data)
+    )
+
   def FormIOk[A](form: Form[A])(op: A ⇒ IO[Unit])(implicit req: Request[_]) =
     form.bindFromRequest.fold(
       form ⇒ BadRequest(form.errors mkString "\n"),
@@ -63,7 +79,8 @@ trait LilaController
       data ⇒ ValidIOk(op(data))
     )
 
-  def IOk(op: IO[Unit]) = Ok(op.unsafePerformIO)
+  def IOk[A](op: IO[A])(implicit writer: Writeable[A], ctype: ContentTypeOf[A]) = 
+    Ok(op.unsafePerformIO)
 
   // I like Unit requests.
   implicit def wUnit: Writeable[Unit] =

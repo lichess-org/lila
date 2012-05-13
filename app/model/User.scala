@@ -16,11 +16,14 @@ case class User(
     enabled: Boolean = true,
     roles: List[String],
     password: String,
-    salt: String) {
+    salt: String,
+    settings: Map[String, String] = Map.empty) {
 
   def disabled = !enabled
   
   def usernameWithElo = "%s (%d)".format(username, elo)
+
+  def setting(name: String): Option[String] = settings get name
 }
 
 object User {

@@ -1,9 +1,9 @@
 package lila
 package templating
 
-import play.api.mvc.RequestHeader
+import http.Context
 
 trait RequestHelper {
 
-  def currentUrl(implicit req: RequestHeader) = req.domain + req.uri
+  def currentUrl(implicit ctx: Context) = ctx.req.domain + ctx.req.uri
 }

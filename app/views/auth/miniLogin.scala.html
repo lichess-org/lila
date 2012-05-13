@@ -1,11 +1,11 @@
-@()(implicit me: Option[User], r: RequestHeader)
+@()(implicit ctx: Context)
 
 <div class="security">
   <a class="toggle_signin toggle">
     <span class="s16">@trans.signIn()</span>
   </a>
   <form class="signin_form" action="@routes.Auth.authenticate()" method="post">
-    <input title="@trans.username()" type="text" class="username" name="_username" value="{{ last_username|default("") }}" />
+    <input title="@trans.username()" type="text" class="username" name="_username" />
     <input title="@trans.password()" type="password" class="password" name="_password" />
     <input type="hidden" class="referrer" name="_referrer" value="@currentUrl" />
     <div class="button_wrap">

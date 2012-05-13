@@ -12,8 +12,5 @@ import play.api.mvc.Results._
 
 object Main extends LilaController with LoginLogout with AuthConfigImpl {
 
-  val home = Open { implicit me ⇒
-    implicit req ⇒
-      Ok(html.home())
-  }
+  val home = TODO
 }

@@ -9,13 +9,7 @@ import play.api.mvc.Results._
 
 object User extends LilaController {
 
-  def show(username: String) = Open { implicit me ⇒
-    implicit req ⇒
-      Ok(html.home())
-  }
+  def show(username: String) = TODO
 
-  val signUp = Open { implicit me ⇒
-    implicit req ⇒
-      Ok(html.home())
-  }
+  val signUp = TODO
 }

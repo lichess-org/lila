@@ -1,6 +1,7 @@
 package controllers
 
 import lila._
+import http.Context
 import DataForm._
 import chess.Color
 import model.{ Event, DbGame }
@@ -20,6 +21,7 @@ object App extends LilaController {
   private val hand = env.hand
 
   def socket = WebSocket.async[JsValue] { implicit req ⇒
+    implicit val ctx = Context(req, None)
     env.siteSocket.join(
       uidOption = get("uid"),
       username = get("username"))
@@ -27,6 +29,7 @@ object App extends LilaController {
 
   def gameSocket(gameId: String, color: String) =
     WebSocket.async[JsValue] { implicit req ⇒
+      implicit val ctx = Context(req, None)
       env.gameSocket.join(
         uidOption = get("uid"),
         username = get("username"),

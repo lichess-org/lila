@@ -34,13 +34,13 @@ trait AuthConfigImpl extends AuthConfig {
   def resolveUser(id: Id): Option[User] = (env.userRepo byUsername id).unsafePerformIO
 
   def logoutSucceeded[A](request: Request[A]): PlainResult = 
-    Redirect(routes.Main.home)
+    Redirect(routes.Lobby.home)
 
   def authenticationFailed[A](request: Request[A]): PlainResult = 
     Redirect(routes.Auth.login).withSession("access_uri" -> request.uri)
 
   def loginSucceeded[A](request: Request[A]): PlainResult = {
-    val uri = request.session.get("access_uri").getOrElse(routes.Main.home.url)
+    val uri = request.session.get("access_uri").getOrElse(routes.Lobby.home.url)
     request.session - "access_uri"
     Redirect(uri)
   }

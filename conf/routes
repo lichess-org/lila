@@ -1,5 +1,8 @@
-# Main
-GET   /                              controllers.Main.home
+# Game
+GET   /games                         controllers.Game.list
+
+# Setting
+POST  /setting/color                 controllers.Setting.color
 
 # I18n
 GET   /translation/contribute        controllers.I18n.contribute
@@ -49,12 +52,14 @@ GET   /api/captcha/create            controllers.Captcha.create
 GET   /api/captcha/solve/:gameId     controllers.Captcha.solve(gameId: String)
 
 # Lobby Public API
+GET   /                              controllers.Lobby.home
 GET   /lobby/cancel/:ownerId         controllers.Lobby.cancel(ownerId: String)
+GET   /lobby/join/:hookId            controllers.Lobby.join(hookId: String)
 GET   /lobby/socket                  controllers.Lobby.socket
 
 # Lobby Private API
-POST  /api/lobby/join/:gameId/:color controllers.Lobby.join(gameId: String, color: String)
-GET   /api/lobby/preload             controllers.Lobby.preload
+#POST  /api/lobby/join/:gameId/:color controllers.Lobby.join(gameId: String, color: String)
+#GET   /api/lobby/preload             controllers.Lobby.preload
 POST  /api/lobby/create/:hookOwnerId controllers.Lobby.create(hookOwnerId: String)
 POST  /api/lobby/chat-ban/:username  controllers.Lobby.chatBan(username: String)
 

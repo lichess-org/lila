@@ -4,7 +4,13 @@ import lila.model._
 import play.api.data._
 import play.api.data.Forms._
 
+import ui.Color
+
 object DataForm {
+
+  val colorForm = Form(single(
+    "color" -> nonEmptyText.verifying(Color.exists _)
+  ))
 
   type MoveData = (String, String, Option[String], Option[Int])
   val moveForm = Form(tuple(

@@ -1,19 +1,16 @@
 package lila
 package templating
 
-import model.User
-
-import play.api.mvc.RequestHeader
+import http.{ HttpEnvironment, Setting }
 
 object Environment
-    extends scalaz.Identitys
+    extends HttpEnvironment
+    with scalaz.Identitys
     with StringHelper
     with AssetHelper
     with I18nHelper
     with UiHelper
-    with RequestHelper {
+    with RequestHelper
+    with SettingHelper {
 
-  type Me = Option[User]
-
-  type Req = RequestHeader
 }

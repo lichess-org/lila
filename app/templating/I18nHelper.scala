@@ -2,6 +2,7 @@ package lila
 package templating
 
 import controllers._
+import http.Context
 import i18n.{ LangList, I18nDomain }
 import Global.env // OMG
 
@@ -15,19 +16,23 @@ trait I18nHelper {
 
   val trans = env.i18nKeys
 
-  implicit def lang(implicit req: RequestHeader) = pool lang req
+  implicit def lang(implicit ctx: Context) = pool lang ctx.req
 
   def langName(lang: Lang) = LangList name lang.language
 
-  def langUrl(lang: Lang)(implicit req: RequestHeader) = 
-    (I18nDomain(req.domain) withLang lang).domain + req.uri
+  private lazy val otherLangLinksCache = 
+    scala.collection.mutable.Map[String, String]()
 
-  def otherLangLinks(lang: Lang)(implicit req: RequestHeader) = Html {
-    val url = langUrl(Lang("xx"))
-    pool.names collect { 
-      case (code, name) if code != lang.language =>
-        """<li><a lang="%s" href="%s">%s</a></li>"""
-          .format(code, url.replace("xx", code), name)
-    } mkString
-  } 
+  def otherLangLinks(lang: Lang)(implicit ctx: Context) = Html {
+    otherLangLinksCache.getOrElseUpdate(lang.language, {
+      pool.names collect {
+        case (code, name) if code != lang.language ⇒
+          """<li><a lang="%s" href="%s">%s</a></li>"""
+            .format(code, langUrl(Lang(code))(ctx.req), name)
+      } mkString
+    })
+  }
+
+  private def langUrl(lang: Lang)(req: RequestHeader) =
+    (I18nDomain(req.domain) withLang lang).domain + req.uri
 }

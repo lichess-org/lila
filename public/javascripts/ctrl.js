@@ -96,48 +96,6 @@ $(function() {
     $(this).replaceWith($('<a/>').text(email).attr('href', 'mailto:'+email));
   });
 
-  function loadUserLinks() {
-    $('a.user_link:not(.qtiped)').each(function() {
-      var $this = $(this).addClass("qtiped");
-      $this.qtip({
-        content: {
-          text: $this.clone(),
-        ajax: {
-          loading: true,
-        url: $this.attr("href").replace(/@/, "preview"),
-        type: 'GET',
-        cache: false,
-        success: function(content, status) {
-          this.set('content.text', content);
-          $('body').trigger('lichess.content_loaded');
-        }
-        }
-        },
-        show: {
-          effect: false,
-        event: 'click'
-        },
-        hide: {
-          effect: false,
-        event: 'mouseleave',
-        fixed: true,
-        delay: 0
-        },
-        position: {
-          my: 'top left',
-          at: 'top left',
-          target: $this,
-          adjust: {
-            x: -9,
-            y: -6
-          }
-        }
-      }).click(function() { return false; });
-    });
-  }
-  loadUserLinks();
-  $('body').on('lichess.content_loaded', loadUserLinks);
-
   function translateTexts() {
     $('.trans_me').each(function() {
       $(this).removeClass('trans_me').text($.trans($(this).text()));
