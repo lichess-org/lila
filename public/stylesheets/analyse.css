@@ -1,0 +1,104 @@
+#lichess h1 {
+    font-size: 2em;
+    margin-bottom: 5px;
+}
+#pgnText {
+    color: #666;
+    width: 182px;
+    height: 300px;
+    border: 1px solid #C0C0C0;
+    overflow: auto;
+    padding: 5px;
+    margin-top: 0.5em;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    background: transparent;
+}
+
+div.board_wrap {
+    float: left;
+    width: 514px;
+}
+div.moves_wrap {
+    margin-left: 532px;
+}
+span.board_mark {
+    position: absolute;
+    text-transform: uppercase;
+    font-size: 10px;
+    color: #bbb;
+    font-weight: bold;
+}
+span.board_mark.vert {
+    right: -10px;
+}
+span.board_mark.horz {
+    bottom: -14px;
+}
+
+#GameBoard {
+    position: relative;
+}
+
+#GameBoard table.boardTable {
+    box-shadow: 0 0 7px #bbb;
+    -moz-box-shadow: 0 0 7px #bbb;
+    -webkit-box-shadow: 0 0 7px #bbb;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+#GameBoard.flip table, #GameBoard.flip img.pieceImage {
+    -o-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+#GameBoard td.highlightWhiteSquare a,
+#GameBoard td.highlightBlackSquare a {
+    background: url(../images/over5.png) top left no-repeat;
+}
+#GameBoard td a {
+    display: block;
+    height: 64px;
+}
+
+#GameButtons {
+    margin-top: 20px;
+}
+#GameButtons input {
+    width: 100px;
+    height: 2em;
+}
+
+#GameText {
+    font-size: 1.2em;
+    height: 504px;
+    border: 1px solid #C0C0C0;
+    overflow: auto;
+    padding: 5px;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+#GameText table {
+    margin: auto;
+}
+#GameText tr {
+    border-bottom: 1px solid #eaeaea;
+}
+#GameText a.move {
+    font-family: 'pgn4web ChessSansMerida', 'pgn4web Liberation Sans', sans-serif;
+    text-decoration: none;
+    padding: 3px 12px;
+    display: block;
+    color: #444;
+}
+#GameText a:hover {
+    background: #DDD;
+}
+#GameText a.moveOn {
+    background: #FFE73B;
+}

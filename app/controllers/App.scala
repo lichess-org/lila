@@ -19,14 +19,14 @@ object App extends LilaController {
 
   private val hand = env.hand
 
-  def socket = WebSocket.async[JsValue] { implicit request ⇒
+  def socket = WebSocket.async[JsValue] { implicit req ⇒
     env.siteSocket.join(
       uidOption = get("uid"),
       username = get("username"))
   }
 
   def gameSocket(gameId: String, color: String) =
-    WebSocket.async[JsValue] { implicit request ⇒
+    WebSocket.async[JsValue] { implicit req ⇒
       env.gameSocket.join(
         uidOption = get("uid"),
         username = get("username"),

@@ -1,0 +1,500 @@
+.clearfix:after { content:"."; display:block; height:0; clear:both; visibility:hidden; }
+.clearfix {display:inline-block;}
+
+.none {
+  display: none;
+}
+
+.s16 {
+  padding-left: 20px;
+  background: transparent url(../images/s16.png) top left no-repeat;
+}
+
+body {
+  font:12px 'Lucida Grande','Lucida Sans Unicode',Geneva,Verdana,Sans-Serif;
+  color: #888;
+  background: #F7F7F7 url(../images/head_bg.png) top left repeat-x;
+  background-position: left +25px;
+}
+
+a, a:visited {
+  color: #888;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+strong {
+  font-weight: bold;
+}
+
+.small {
+  font-size: 11px;
+}
+
+div.header {
+  width: 200px;
+  float: left;
+  position: relative;
+}
+div.header strong {
+  font-weight: normal;
+}
+
+div.content {
+  width: 1010px;
+  margin: 30px auto 30px auto;
+}
+
+#top {
+  width: 100%;
+  height: 24px;
+  border-bottom: 1px solid #c4c4c4;
+}
+#site_description {
+  position: absolute;
+  top: -100px;
+}
+
+#lichess {
+  margin-left: 211px;
+}
+
+#site_title {
+  width: 130px;
+  color: #666;
+  font-family: 'Trebuchet MS', 'Helvetica Neue', Arial, Sans-Serif;
+  font-size: 30px;
+  color: #afafaf;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 3px;
+}
+#site_title span.extension {
+  color: #c8c8c8;
+  font-weight: normal;
+}
+#site_title:hover {
+  color: #8899aa;
+}
+#site_title:hover span.extension {
+  color: #99aabb;
+}
+#site_baseline {
+  font-style: italic;
+  color: #afafaf;
+}
+
+div.footer_wrap {
+  width: 100%;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  background: #EEE;
+  padding: 20px 0;
+  display: block;
+}
+
+div.footer {
+  width: 1000px;
+  margin: auto;
+  line-height: 2em;
+}
+
+div.footer div.right {
+  float: right;
+  text-align: right;
+}
+
+.button {
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border: 1px solid #DADADA;
+  padding: 0.4em 1em;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 1.1em;
+}
+.button:hover {
+  color: #fff;
+}
+
+a.easy_button {
+  font-weight: normal;
+}
+
+div.content_box {
+  box-shadow: 0 0 7px #bbb;
+  -moz-box-shadow: 0 0 7px #bbb;
+  -webkit-box-shadow: 0 0 7px #bbb;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  background: #fff;
+  padding: 20px 25px 25px 25px;
+  text-align: left;
+}
+div.content_box.small_box {
+  width: 500px;
+}
+div.content_box.no_padding {
+  padding: 0;
+}
+div.content_box_title {
+  padding: 20px 25px 0 25px;
+}
+div.content_box_top {
+  padding-left: 25px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 4px 4px 0 0;
+  border-bottom: 1px solid #ccc;
+}
+div.content_box_top a {
+  float: right;
+  text-decoration: none;
+  font-size: 1.2em;
+  font-weight: bold;
+  line-height: 40px;
+  padding: 0 12px;
+  border-left: 1px solid #ccc;
+}
+div.content_box_top .link:hover {
+  background: #fff;
+}
+div.content_box_content {
+  padding: 20px 25px 25px 25px;
+}
+div.content_box_inter {
+  padding-left: 25px;
+  line-height: 40px;
+  background: #f0f0f0;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  display: block;
+}
+div.content_box_inter .lichess_title {
+  float: left;
+}
+div.content_box_inter a {
+  float: left;
+  font-size: 1.2em;
+  line-height: 40px;
+  margin-left: 2em;
+}
+div.content_box div.content_box_inter .lichess_title {
+  margin: 0;
+}
+
+div.content_box .lichess_title {
+  font-size: 2em;
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+div.lichess_goodies div.box {
+  width: 182px;
+  border: 1px solid #C0C0C0;
+  padding: 7px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  box-shadow: 0 0 7px #d0d0d0;
+  -moz-box-shadow: 0 0 7px #d0d0d0;
+  -webkit-box-shadow: 0 0 7px #d0d0d0;
+}
+#nb_connected_players, a.goto_nav, #top a.toggle, a#sound_state {
+  text-decoration: none;
+  font-size: 13px;
+  height: 24px;
+  line-height: 24px;
+  padding: 0 12px;
+  text-decoration: none;
+}
+#nb_connected_players {
+  float: left;
+  color: #999;
+  font-style: italic;
+  border-left: 1px solid #ccc;
+}
+a.goto_nav {
+  float: left;
+}
+a.goto_nav:hover, #top a.toggle:hover, a#sound_state:hover {
+  background: #fff;
+}
+#top .s16 {
+  display:block;
+  height: 16px;
+  margin-top: 4px;
+  line-height: 16px;
+}
+a.goto_message span.new_messages {
+  padding: 1px 4px;
+  background: #bbb;
+  color: white;
+  font-weight: bold;
+  border-radius:4px 4px 4px 4px;
+  -moz-border-radius:4px 4px 4px 4px;
+  -webkit-border-radius:4px 4px 4px 4px;
+  font-size: 0.9em;
+}
+a.goto_message span.new_messages.unread {
+  font-size: 1em;
+}
+a.goto_logout span.s16 {
+  background-position: 0 -48px;
+}
+a.goto_profile span.s16 {
+  background-position: 0 -208px;
+}
+a.goto_profile {
+  float: right;
+}
+div.security {
+  float: right;
+  position: relative;
+}
+div.security form {
+  display: none;
+  position: absolute;
+  right: -1px;
+  top: 24px;
+  background: #fff;
+  padding: 1em;
+  border: 1px solid #dadada;
+  border-top: none;
+  z-index: 1;
+}
+div.security form input {
+  margin-bottom: 8px;
+}
+div.security form div.button_wrap {
+  text-align: right;
+  border-bottom: 1px solid #dadada;
+  margin-bottom: 8px
+}
+#top a.toggle {
+  display:block;
+  padding-right: 4px;
+  float: left;
+}
+#top a.toggle span.s16 {
+  background-position: right -192px;
+  padding-left: 0;
+  padding-right: 20px;
+}
+div.security.show_signin_form a.toggle_signin {
+  background: #fff;
+}
+div.security.show_signin_form form {
+  display: block;
+}
+div.security input.username, div.security input.password {
+  border: 1px solid #dadada;
+  padding: 2px 3px;
+  width: 100px;
+  background: #fff;
+}
+div.security input.login {
+  padding: 0 3px;
+}
+div.lichess_language {
+  float: right;
+  position: relative;
+}
+ul.lichess_language_links {
+  display: none;
+  position: absolute;
+  right: -1px;
+  top: 24px;
+  background: #fff;
+  border: 1px solid #dadada;
+  border-top: none;
+  width: 183px;
+  max-height: 600px;
+  overflow:auto;
+  z-index: 1;
+}
+div.lichess_language.toggled a.toggle {
+  background: #fff;
+}
+div.lichess_language.toggled ul.lichess_language_links {
+  display: block;
+}
+ul.lichess_language_links a {
+  display: block;
+  padding: 0.4em 0.5em;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+ul.lichess_language_links a:hover {
+  background: #F0F0F0;
+  color: #444;
+}
+ul.lichess_language_links li:last-child {
+  border-top: 1px solid #ddd;
+}
+#top a.colorpicker {
+  float: right;
+  color: #fff;
+  margin-top: 4px;
+  display: block;
+  padding: 1px 5px;
+  text-decoration: none;
+}
+a#sound_state {
+  float: right;
+}
+a#sound_state span {
+  margin-top: 4px;
+  width: 18px;
+  height: 15px;
+  opacity: 0.7;
+  background: url(../images/s16.png) no-repeat;
+  display: block;
+}
+a#sound_state.sound_state_on span {
+  background-position: 0 -80px;
+}
+a#sound_state.sound_state_off span {
+  background-position: 0 -64px;
+}
+a#sound_state.unavailable {
+  display: none;
+}
+
+a.user_link {
+  padding-left: 20px;
+  background: transparent url(../images/s16.png) top left no-repeat;
+  background-position: 0 -160px;
+  line-height: 16px;
+}
+a.user_link.online {
+  background-position: 0 -208px;
+}
+div.engine_warning {
+  padding: 5px 5px 5px 40px;
+  background: #f2dede url(../images/engine_big.png) 8px 5px no-repeat;
+  line-height: 16px;
+  border: 1px solid #eed3d7;
+  color: #894a48;
+  width: 240px;
+  margin-bottom: 15px;
+}
+div.ui-tooltip div.engine_warning {
+  margin: 10px 0 10px 5px;
+  width: auto;
+  background-position: 8px 0px;
+}
+
+span.engine_mark {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: transparent url(../images/engine_small.png) top left no-repeat;
+  opacity: 0.8;
+  vertical-align: bottom;
+}
+div.translation_block {
+  margin-top: 1em;
+  padding: 0.5em;
+  background: #FFEEB1;
+  border: 1px solid #ECD688;
+  position: relative;
+}
+div.translation_block span.percent {
+  font-size: 18px;
+  display: block;
+  float: left;
+  margin-right: 5px;
+}
+div.translation_block span.name {
+  font-weight: bold;
+  display: block;
+}
+div.translation_block a.contribute {
+  display: block;
+  text-align: center;
+  padding: 0.2em 0;
+}
+div.translation_block a.close {
+  position: absolute;
+  top: 1px;
+  right: 4px;
+  text-decoration: none;
+}
+div.locale_adjust {
+  margin: 12px 0;
+}
+
+div.lichess_social {
+  height: 25px;
+  text-align: center;
+}
+div.lichess_social > div {
+  display: inline;
+}
+div.lichess_social div.addtochrome {
+  display: none;
+  margin-bottom: 15px;
+}
+div.lichess_facebook iframe {
+  border:none;
+  width: 110px;
+  height: 22px;
+  margin-left: 5px;
+  overflow: hidden;
+  background: transparent;
+}
+
+/* soft inactive gradient */
+#top, div.lichess_chat_top, div.undertable_top, .button, .button:visited, .ui-state-default, div.content_box_top, div.hooks tr {
+  color: #666;
+  background: #fafafa;
+  background: -moz-linear-gradient(center top , #fafafa, #dadada) repeat scroll 0 0 #fafafa;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fafafa), to(#dadada));
+  background: -webkit-linear-gradient(top , #fafafa, #dadada) repeat scroll 0 0 #fafafa;
+  background: -ms-linear-gradient(top , #fafafa, #dadada) repeat scroll 0 0 #fafafa;
+  background: -o-linear-gradient(top , #fafafa, #dadada) repeat scroll 0 0 #fafafa;
+  background: linear-gradient(top , #fafafa, #dadada) repeat scroll 0 0 #fafafa;
+}
+
+/* active gradient */
+#top a.goto_nav.active, .button.active, .button:hover, .ui-state-active, .ui-widget-header, div.pagination span.current, a.goto_message span.new_messages.unread, div.hooks td.action:hover, div.hooks table.empty_table tr:hover {
+  color: #fff;
+  background: #d85000;
+  background: -moz-linear-gradient(center top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f49c00), to(#d85000));
+  background: -webkit-linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
+  background: -ms-linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
+  background: -o-linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
+  background: linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
+}
+
+/* strong inactive gradient */
+div.hooks td.action {
+  background: #ffffff;
+  background: -moz-linear-gradient(center top , #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff), to(#c0c0c0));
+  background: -webkit-linear-gradient(top , #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
+  background: -ms-linear-gradient(top , #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
+  background: -o-linear-gradient(top , #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
+  background: linear-gradient(top , #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
+}
+
+/* current gradient */
+#top a.goto_nav.current {
+  color: #fff;
+  background: #999;
+  background: -moz-linear-gradient(center top , #aaa, #999) repeat scroll 0 0 #999;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#aaa), to(#999));
+  background: -webkit-linear-gradient(top , #aaa, #999) repeat scroll 0 0 #999;
+  background: -ms-linear-gradient(top , #aaa, #999) repeat scroll 0 0 #999;
+  background: -o-linear-gradient(top , #aaa, #999) repeat scroll 0 0 #999;
+  background: linear-gradient(top , #aaa, #999) repeat scroll 0 0 #999;
+}

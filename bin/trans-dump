@@ -11,13 +11,14 @@ code = """// Generated with bin/trans-dump
 package lila.i18n
 
 import play.api.mvc.RequestHeader
+import play.api.templates.Html
 
 final class I18nKeys(translator: Translator) {
 
-  protected class Key(val key: String) {
+  final class Key(val key: String) {
 
-    def !(args: Any*)(implicit request: RequestHeader) : String = 
-      translator.trans(key, args)(request)
+    def apply(args: Any*)(implicit req: RequestHeader): Html = 
+      translator.trans(key, args)(req)
   }
 
 %keys%

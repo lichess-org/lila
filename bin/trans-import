@@ -17,6 +17,12 @@ def keyify(text)
   .gsub(/\s/, '')
   .uncapitalize
 end
+def format(text)
+  text
+  .strip
+  .gsub('"', '')
+  .gsub(/%\w+%/, '%s')
+end
 
 lichess_dir = File.expand_path(pwd() + '/../lichess')
 lichess_trans_dir = lichess_dir + '/src/Bundle/LichessBundle/Resources/translations'
@@ -35,7 +41,7 @@ Dir[lichess_trans_dir + '/*'].each { |file|
   lines = File.open(file).readlines.map { |l|
     parts = l.split('":').each { |p| p.strip.gsub('"', '') }
     key = keyify(parts[0])
-    val = parts[1].gsub('"', '').strip
+    val = format(parts[1])
     key + '=' + val
   }
   if lang == 'frp' then lang = 'fp' end
@@ -48,7 +54,7 @@ fr_file = lichess_trans_dir + '/messages.fr.yml'
 lines = File.open(fr_file).readlines.map { |l|
   parts = l.split('":').each { |p| p.strip.gsub('"', '') }
   key = keyify(parts[0])
-  val = parts[0].gsub('"', '').strip
+  val = format(parts[1])
   key + '=' + val
 }
 text = lines.join("\n")

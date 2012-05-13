@@ -14,8 +14,8 @@ object Global extends GlobalSettings {
 
     systemEnv = SystemEnv(app)
 
-    if (env.isAiServer) println("Running as AI server")
-    else Cron start env
+    //if (env.isAiServer) println("Running as AI server")
+    //else Cron start env
   }
 
   override def onRouteRequest(request: RequestHeader): Option[Handler] = 

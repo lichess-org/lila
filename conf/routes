@@ -1,10 +1,20 @@
 # Main
 GET   /                              controllers.Main.home
 
+# I18n
+GET   /translation/contribute        controllers.I18n.contribute
+
 # Authentication
 GET   /login                         controllers.Auth.login
 POST  /login                         controllers.Auth.authenticate
 GET   /logout                        controllers.Auth.logout
+
+# User
+GET   /@/:username                   controllers.User.show(username: String)
+GET   /signup                        controllers.User.signUp
+
+# Wiki
+GET   /wiki                          controllers.Wiki.home
 
 # App Public API
 GET   /socket                        controllers.App.socket

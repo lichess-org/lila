@@ -1,7 +1,7 @@
 package controllers
 
 import lila._
-import model.User
+import model.{ User => UserModel }
 import security.{ AuthConfigImpl, Anonymous }
 
 import jp.t2v.lab.play20.auth._
@@ -26,14 +26,13 @@ trait LilaController
 
   implicit val current = env.app
 
-  override implicit def lang(implicit request: RequestHeader) = {
-    env.i18nRequestHandler.domainLangOrDefault(request)
-  }
+  override implicit def lang(implicit req: RequestHeader) = 
+    env.i18nPool.lang(req)
 
-  def Open(f: Option[User] ⇒ Request[AnyContent] ⇒ Result): Action[AnyContent] =
+  def Open(f: Option[UserModel] ⇒ Request[AnyContent] ⇒ Result): Action[AnyContent] =
     Open(BodyParsers.parse.anyContent)(f)
 
-  def Open[A](p: BodyParser[A])(f: Option[User] ⇒ Request[A] ⇒ Result): Action[A] =
+  def Open[A](p: BodyParser[A])(f: Option[UserModel] ⇒ Request[A] ⇒ Result): Action[A] =
     Action(p)(req ⇒ f(restoreUser(req))(req))
 
   def JsonOk(map: Map[String, Any]) = Ok(Json generate map) as JSON
@@ -52,13 +51,13 @@ trait LilaController
     _ ⇒ Ok("ok")
   )
 
-  def FormIOk[A](form: Form[A])(op: A ⇒ IO[Unit])(implicit request: Request[_]) =
+  def FormIOk[A](form: Form[A])(op: A ⇒ IO[Unit])(implicit req: Request[_]) =
     form.bindFromRequest.fold(
       form ⇒ BadRequest(form.errors mkString "\n"),
       data ⇒ IOk(op(data))
     )
 
-  def FormValidIOk[A](form: Form[A])(op: A ⇒ IO[Valid[Unit]])(implicit request: Request[_]) =
+  def FormValidIOk[A](form: Form[A])(op: A ⇒ IO[Valid[Unit]])(implicit req: Request[_]) =
     form.bindFromRequest.fold(
       form ⇒ BadRequest(form.errors mkString "\n"),
       data ⇒ ValidIOk(op(data))
@@ -94,7 +93,7 @@ trait LilaController
     )
   }
 
-  private def restoreUser[A](request: Request[A]): Option[User] = for {
+  private def restoreUser[A](request: Request[A]): Option[UserModel] = for {
     sessionId ← request.session.get("sessionId")
     userId ← Cache.getAs[Id](sessionId + ":sessionId")(current, idManifest)
     user ← resolveUser(userId)

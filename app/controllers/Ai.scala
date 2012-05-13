@@ -12,7 +12,7 @@ object Ai extends LilaController {
 
   private val craftyServer = env.craftyServer
 
-  def run = Action { implicit request ⇒
+  def run = Action { implicit req ⇒
     Async {
       Akka.future {
         craftyServer(fen = getOr("fen", ""), level = getIntOr("level", 1))

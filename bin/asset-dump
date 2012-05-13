@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+include FileUtils
+
+lila_dir = pwd()
+lila_js_dir = lila_dir + '/app/assets/javascripts'
+lila_js_vendor_dir = lila_dir + '/app/assets/javascripts/vendor'
+lila_deps_file = lila_dir + '/public/javascripts/deps.min.js'
+deps = [
+  'jquery.min.js',
+  'jquery.ui.min.js',
+  'jquery.mousewheel.js',
+  'tipsy.min.js'
+]
+
+puts 'Dump js dependencies'
+
+codes = deps.map { |filename|
+  file = lila_js_vendor_dir + '/' + filename
+  File.open(file).read
+}
+allCode = codes.join("\n")
+
+File.open(lila_deps_file, 'w') { |f| f.puts allCode }

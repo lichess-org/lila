@@ -22,6 +22,10 @@ object Main {
       case "info" :: Nil  ⇒ Info(env)
       case "average-elo" :: Nil  ⇒ AverageElo(env)
       case "index" :: Nil ⇒ IndexDb(env.gameRepo)
+      case "trans-js-dump" :: Nil ⇒ TransJsDump(
+        path = new File(env.app.path.getCanonicalPath + "/public/trans"),
+        pool = env.i18nPool, 
+        keys = env.i18nKeys)
       case "finish" :: Nil ⇒ new Command {
         def apply() = env.gameFinishCommand.apply()
       }

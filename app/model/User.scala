@@ -19,6 +19,8 @@ case class User(
     salt: String) {
 
   def disabled = !enabled
+  
+  def usernameWithElo = "%s (%d)".format(username, elo)
 }
 
 object User {

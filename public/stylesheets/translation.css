@@ -1,0 +1,118 @@
+#lichess div.lichess_box {
+    width: auto;
+}
+
+div.field {
+    margin: 1em 0;
+}
+
+#lichess_translation_form_yaml {
+    width: 100%;
+    height: 30em;
+    font-size: 1.1em;
+}
+
+div.field input {
+    width: 30em;
+}
+
+div.locale_menu {
+    margin-top: 2em;
+}
+div.locale_menu a {
+    display: block;
+    float: left;
+    padding: 0.5em 1em;
+    border: 1px solid #dadada;
+    margin-right: 1em;
+    text-decoration: none;
+    border-radius:4px 4px 4px 4px;
+    -moz-border-radius:4px 4px 4px 4px;
+    -webkit-border-radius:4px 4px 4px 4px;
+    color: #666;
+    background: #fafafa;
+    background: -moz-linear-gradient(center top , #fafafa, #dadada) repeat scroll 0 0 #fafafa;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fafafa), to(#dadada));
+    background: -webkit-linear-gradient(top , #fafafa, #dadada) repeat scroll 0 0 #fafafa;
+    background: -ms-linear-gradient(top , #fafafa, #dadada) repeat scroll 0 0 #fafafa;
+    background: -o-linear-gradient(top , #fafafa, #dadada) repeat scroll 0 0 #fafafa;
+    background: linear-gradient(top , #fafafa, #dadada) repeat scroll 0 0 #fafafa;
+}
+div.locale_menu a:hover {
+    box-shadow: 0 0 9px #d85000;
+    -moz-box-shadow: 0 0 9px #d85000;
+    -webkit-box-shadow: 0 0 9px #d85000;
+}
+div.locale_menu a.active {
+    border: 1px solid #bc6000;
+    background: #222266;
+    color: #fff;
+    background: -moz-linear-gradient(center top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f49c00), to(#d85000));
+    background: -webkit-linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
+    background: -ms-linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
+    background: -o-linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
+    background: linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
+}
+.translation_title {
+    margin-top: 1em;
+    font-size: 2em;
+}
+
+.notice, .error {
+    margin: 1em;
+    padding: 1em;
+    text-align: center;
+    font-size: 1.2em;
+    border: 1px solid #DADADA;
+    color: #000;
+}
+.notice {
+    background: #AAFFAA;
+}
+.error {
+    background: #FFAAAA;
+}
+
+.translation_list h2 {
+    font-size: 1.5em;
+    margin-top: 1em;
+    text-align: center;
+}
+.translation_list h3 {
+    font-size: 1.8em;
+}
+.translation_pre {
+    max-height: 200px; overflow: auto; border: 1px solid #CCC; margin-bottom: 2em;
+    background: white;
+}
+div.messages {
+    margin-bottom:1em;
+    border-bottom: 1px solid #dadada;
+    padding-bottom: 1em;
+}
+div.message {
+    margin-top:1em;
+    border-top: 1px solid #dadada;
+    padding-top: 1em;
+    font-size: 1.2em;
+}
+div.message label {
+    display: block;
+    color: #444;
+    margin-left: 9%;
+}
+div.message input {
+    width: 90%;
+    margin-left: 9%;
+    padding: 2px 5px;
+    color: #888;
+}
+div.message input:focus {
+    color: #444;
+}
+div.message .number {
+    float: left;
+    margin-top: 5px;
+    display: block;
+}

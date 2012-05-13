@@ -8,21 +8,36 @@ import akka.actor._
 import play.api.libs.concurrent._
 import play.api.Application
 import play.api.i18n.Lang
+import play.api.i18n.MessagesPlugin
 
 import db._
 import ai._
 import memo._
 import i18n._
+import ui._
 
 final class SystemEnv private (application: Application, settings: Settings) {
 
   implicit val app = application
 
   import settings._
-  
-  lazy val i18nRequestHandler = new I18nRequestHandler(
+
+  lazy val i18nMessagesApi = app.plugin[MessagesPlugin]
+    .err("this plugin was not registered or disabled")
+    .api
+
+  lazy val i18nPool = new I18nPool(
     langs = Lang.availables.toSet,
     default = Lang("en"))
+
+  lazy val translator = new Translator(
+    api = i18nMessagesApi,
+    pool = i18nPool)
+
+  lazy val i18nKeys = new I18nKeys(translator)
+  
+  lazy val i18nRequestHandler = new I18nRequestHandler(
+    pool = i18nPool)
 
   lazy val pgnDump = new PgnDump(userRepo = userRepo, gameRepo = gameRepo)
 

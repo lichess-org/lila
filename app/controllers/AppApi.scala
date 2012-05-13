@@ -22,11 +22,11 @@ object AppApi extends LilaController {
     ValidIOk(api reloadTable gameId)
   }
 
-  def start(gameId: String) = Action { implicit request ⇒
+  def start(gameId: String) = Action { implicit req ⇒
     FormValidIOk[EntryData](entryForm)(entryData ⇒ api.start(gameId, entryData))
   }
 
-  def join(fullId: String) = Action { implicit request ⇒
+  def join(fullId: String) = Action { implicit req ⇒
     FormValidIOk[JoinData](joinForm) { join ⇒
       api.join(fullId, join._1, join._2, join._3)
     }
@@ -53,7 +53,7 @@ object AppApi extends LilaController {
     )
   }
 
-  def rematchAccept(gameId: String, color: String, newGameId: String) = Action { implicit request ⇒
+  def rematchAccept(gameId: String, color: String, newGameId: String) = Action { implicit req ⇒
     FormValidIOk[RematchData](rematchForm)(r ⇒
       api.rematchAccept(gameId, newGameId, color, r._1, r._2, r._3, r._4))
   }

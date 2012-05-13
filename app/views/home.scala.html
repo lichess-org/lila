@@ -1,8 +1,8 @@
-@()(implicit me: Option[User], r: RequestHeader)
+@()(implicit me: Me, r: Req)
 
-@layout("Home") {
+@baseline = {
+<span id="site_baseline">@trans.freeOnlineChess()</span>
+}
 
-<a href="@routes.Main.home">Home</a>
-
-@trans("elo.range")
+@layout(baseline = baseline.some, active = Some(Menu.Play)) {
 }

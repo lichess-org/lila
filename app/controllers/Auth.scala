@@ -13,15 +13,15 @@ import play.api.mvc.Results._
 
 object Auth extends LilaController with LoginLogout with AuthConfigImpl {
 
-  def login = Action { implicit request ⇒
+  def login = Action { implicit req ⇒
     Ok(html.login(loginForm))
   }
 
-  def logout = Action { implicit request ⇒
+  def logout = Action { implicit req ⇒
     gotoLogoutSucceeded
   }
 
-  def authenticate = Action { implicit request ⇒
+  def authenticate = Action { implicit req ⇒
     loginForm.bindFromRequest.pp.fold(
       formWithErrors ⇒ BadRequest(html.login(formWithErrors)),
       _.fold(

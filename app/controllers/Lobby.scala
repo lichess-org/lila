@@ -17,7 +17,7 @@ object Lobby extends LilaController {
   private val api = env.lobbyApi
   private val preloader = env.lobbyPreloader
 
-  def socket = WebSocket.async[JsValue] { implicit request ⇒
+  def socket = WebSocket.async[JsValue] { implicit req ⇒
     env.lobbySocket.join(
       uidOption = get("uid"),
       username = get("username"),
@@ -31,7 +31,7 @@ object Lobby extends LilaController {
     Redirect("/")
   }
 
-  def preload = Action { implicit request ⇒
+  def preload = Action { implicit req ⇒
     JsonIOk(preloader(
       auth = getIntOr("auth", 0) == 1,
       chat = getIntOr("chat", 0) == 1,
@@ -39,7 +39,7 @@ object Lobby extends LilaController {
     ))
   }
 
-  def join(gameId: String, color: String) = Action { implicit request ⇒
+  def join(gameId: String, color: String) = Action { implicit req ⇒
     FormValidIOk[LobbyJoinData](lobbyJoinForm)(join ⇒
       api.join(gameId, color, join._1, join._2, join._3, join._4)
     )

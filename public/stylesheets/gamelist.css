@@ -1,0 +1,140 @@
+#lichess div.content_box h1 {
+    font-size: 1.8em;
+    color: #666;
+    font-weight: normal;
+    display: inline;
+}
+
+div.current_games_box {
+    width: 638px;
+}
+
+a.game_list, a.all_games {
+    margin-left: 2em;
+}
+
+div.game_list {
+    margin-top: 2em;
+}
+
+div.all_games {
+    margin-top: 1em;
+}
+
+div.game_row {
+    display: block;
+    padding: 1.4em 20px;
+    height: 190px;
+    line-height: 1.6em;
+    border-bottom: 1px solid #eaeaea;
+    position: relative;
+}
+div.game_row.even {
+    background: #f4f4f4;
+}
+div.game_row div.infos span.win {
+    color: #00AA00;
+}
+div.game_row div.infos span.loss {
+    color: #AA0000;
+}
+div.game_row a.go_analyse {
+    position: absolute;
+    bottom: 16px;
+    right: 25px;
+    text-decoration: none;
+}
+div.game_row span.clock {
+    background-position: 0 -224px;
+    padding-bottom: 1px;
+}
+
+table.game_players td {
+    padding-right: 1em;
+}
+
+div.game_list_inner > div {
+    float: left;
+    margin: 0 10px 10px 10px;
+}
+div.game_list_inner div.vstext {
+    margin-top: 5px;
+    font-size: 11px;
+    text-align: center;
+    width: 192px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.mini_board {
+    width: 192px;
+    height: 192px;
+    position: relative;
+    display: block;
+    box-shadow:0 0 5px #444;
+    -moz-box-shadow:0 0 5px #444;
+    -webkit-box-shadow:0 0 5px #444;
+}
+div.all_games a.mini_board {
+    float: left;
+    margin: 0 20px 20px 10px;
+}
+
+div.lmcs {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+}
+
+div.lmcs.white {
+    background: #FFFFFF;
+}
+div.lmcs.black {
+    background: #CFCFCF;
+}
+
+div.lcmp {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background-image: url(../images/sprite_mini.png);
+}
+
+div.lcmp.pawn.white{
+    background-position: 0 0;
+}
+div.lcmp.bishop.white{
+    background-position: -24px 0;
+}
+div.lcmp.knight.white{
+    background-position: -48px 0;
+}
+div.lcmp.rook.white{
+    background-position: -72px 0;
+}
+div.lcmp.queen.white{
+    background-position: -96px 0;
+}
+div.lcmp.king.white{
+    background-position: -120px 0;
+}
+
+div.lcmp.pawn.black{
+    background-position: 0px bottom;
+}
+div.lcmp.bishop.black{
+    background-position: -24px bottom;
+}
+div.lcmp.knight.black{
+    background-position: -48px bottom;
+}
+div.lcmp.rook.black{
+    background-position: -72px bottom;
+}
+div.lcmp.queen.black{
+    background-position: -96px bottom;
+}
+div.lcmp.king.black{
+    background-position: -120px bottom;
+}
+
