@@ -20,7 +20,7 @@ object Cron {
     implicit val executor = Akka.system.dispatcher
 
     unsafe(5 seconds) {
-      (env.siteHub :: env.lobbyHub :: env.gameHubMaster :: Nil) foreach { actor ⇒
+      (env.siteHub :: env.lobby.hub :: env.gameHubMaster :: Nil) foreach { actor ⇒
         actor ! socket.Broom
       }
     }
@@ -30,7 +30,7 @@ object Cron {
     }
 
     message(1 second) {
-      env.lobbyHub -> lobby.WithHooks(env.hookMemo.putAll)
+      env.lobby.hub -> lobby.WithHooks(env.lobby.hookMemo.putAll)
     }
 
     unsafe(2 seconds) {
@@ -42,11 +42,11 @@ object Cron {
     }
 
     effect(2 seconds) {
-      env.lobbyFisherman.cleanup
+      env.lobby.fisherman.cleanup
     }
 
     effect(10 seconds) {
-      env.hookRepo.cleanupOld
+      env.lobby.hookRepo.cleanupOld
     }
 
     unsafe(3 seconds) {
@@ -54,8 +54,8 @@ object Cron {
         hub ? socket.GetUsernames mapTo manifest[Iterable[String]]
       } map (_.flatten) onSuccess {
         case xs ⇒ (for {
-          _ ← env.usernameMemo putAll xs
-          _ ← env.userRepo.updateOnlineUsernames(env.usernameMemo.keys.toSet)
+          _ ← env.user.usernameMemo putAll xs
+          _ ← env.user.userRepo.updateOnlineUsernames(env.user.usernameMemo.keys.toSet)
         } yield Unit).unsafePerformIO
       }
     }
@@ -78,7 +78,7 @@ object Cron {
     import RichDuration._
 
     lazy val hubs: List[ActorRef] = 
-      List(env.siteHub, env.lobbyHub, env.gameHubMaster)
+      List(env.siteHub, env.lobby.hub, env.gameHubMaster)
 
     def message(freq: Duration)(to: (ActorRef, Any)) {
       Akka.system.scheduler.schedule(freq, freq.randomize(), to._1, to._2)

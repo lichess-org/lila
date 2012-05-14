@@ -46,7 +46,7 @@ final class Socket(hub: ActorRef) {
   }
 
   def addEntry(entry: model.Entry): IO[Unit] = io {
-    hub ! Entry(entry)
+    hub ! AddEntry(entry)
   }
 
   def removeHook(hook: model.Hook): IO[Unit] = io {

@@ -1,8 +1,7 @@
 package lila
-package db
+package lobby
 
-import model.Message
-
+import db.CappedRepo
 import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.Imports._
 import scalaz.effects._

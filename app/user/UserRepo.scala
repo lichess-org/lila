@@ -1,7 +1,5 @@
 package lila
-package db
-
-import model.User
+package user
 
 import com.novus.salat._
 import com.novus.salat.dao._

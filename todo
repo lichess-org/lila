@@ -7,3 +7,4 @@ It's possible to join your own game and win it, which will then be displayed as 
 hide logout button
 create play2 session module
 forms that validate while constructing the object
+player timeout depending on game duration

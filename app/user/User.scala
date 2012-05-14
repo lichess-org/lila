@@ -1,5 +1,5 @@
 package lila
-package model
+package user
 
 import com.novus.salat.annotations.Key
 import com.mongodb.casbah.Imports.ObjectId

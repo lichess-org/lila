@@ -1,8 +1,8 @@
 package lila
 package lobby
 
-import db.{ MessageRepo, UserRepo }
-import model.{ Message, User }
+import db.UserRepo
+import model.User
 
 import scalaz.effects._
 import org.apache.commons.lang3.StringEscapeUtils.escapeXml

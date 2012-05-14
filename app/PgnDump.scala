@@ -1,8 +1,9 @@
 package lila
 
 import chess.format.Forsyth
-import db.{ GameRepo, UserRepo }
-import model.{ DbGame, DbPlayer, User }
+import db.{ GameRepo }
+import model.{ DbGame, DbPlayer }
+import user.{ User, UserRepo }
 
 import org.joda.time.format.DateTimeFormat
 import scalaz.effects._

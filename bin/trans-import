@@ -34,7 +34,7 @@ puts 'Import translations'
 puts 'from ' + lichess_trans_dir
 puts 'to ' + lila_trans_dir
 
-Dir[lila_trans_dir + '/messages.*'].each { |file| File.delete(file) }
+Dir[lila_trans_dir + '/messages.*'].each { File.delete }
 
 Dir[lichess_trans_dir + '/*'].each { |file|
   lang = file.gsub(/[\w\/]+\.(\w{2,3})\.yml/, '\1')

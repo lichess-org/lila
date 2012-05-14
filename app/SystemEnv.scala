@@ -2,6 +2,7 @@ package lila
 
 import com.mongodb.casbah.MongoConnection
 import com.mongodb.{ Mongo, MongoOptions, ServerAddress ⇒ MongoServer }
+
 import com.typesafe.config._
 import akka.actor._
 
@@ -15,12 +16,29 @@ import ai._
 import memo._
 import i18n._
 import ui._
+import lobby.LobbyEnv
+import user.UserEnv
+import timeline.TimelineEnv
 
-final class SystemEnv private (application: Application, settings: Settings) {
+final class SystemEnv private(app: Application, settings: Settings) {
 
-  implicit val app = application
-
+  implicit val ctx = app
   import settings._
+
+  lazy val user = new UserEnv(
+    settings = settings,
+    mongodb = mongodb)
+
+  lazy val lobby = new LobbyEnv(
+    app = app,
+    settings = settings,
+    mongodb = mongodb,
+    userRepo = user.userRepo,
+    gameRepo = gameRepo)
+
+  lazy val timeline = new TimelineEnv(
+    settings = settings,
+    mongodb = mongodb)
 
   lazy val setupFormFactory = new setup.FormFactory(userConfigRepo)
 
@@ -68,33 +86,6 @@ final class SystemEnv private (application: Application, settings: Settings) {
     hubMaster = gameHubMaster,
     messenger = messenger)
 
-  lazy val lobbyHistory = new lobby.History(timeout = LobbyMessageLifetime)
-
-  lazy val lobbyMessenger = new lobby.Messenger(
-    messageRepo = messageRepo,
-    userRepo = userRepo)
-
-  lazy val lobbyHub = Akka.system.actorOf(Props(new lobby.Hub(
-    messenger = lobbyMessenger,
-    history = lobbyHistory,
-    timeout = SiteUidTimeout
-  )), name = ActorLobbyHub)
-
-  lazy val lobbySocket = new lobby.Socket(hub = lobbyHub)
-
-  lazy val lobbyPreloader = new lobby.Preload(
-    fisherman = lobbyFisherman,
-    history = lobbyHistory,
-    hookRepo = hookRepo,
-    gameRepo = gameRepo,
-    messageRepo = messageRepo,
-    entryRepo = entryRepo)
-
-  lazy val lobbyFisherman = new lobby.Fisherman(
-    hookRepo = hookRepo,
-    hookMemo = hookMemo,
-    socket = lobbySocket)
-
   lazy val hand = new Hand(
     gameRepo = gameRepo,
     messenger = messenger,
@@ -109,18 +100,9 @@ final class SystemEnv private (application: Application, settings: Settings) {
     gameRepo = gameRepo,
     gameSocket = gameSocket,
     messenger = messenger,
-    starter = starter,
+    starter = lobbyEnv.starter,
     eloUpdater = eloUpdater,
     gameInfo = gameInfo)
-
-  lazy val lobbyApi = new lobby.Api(
-    hookRepo = hookRepo,
-    fisherman = lobbyFisherman,
-    gameRepo = gameRepo,
-    gameSocket = gameSocket,
-    gameMessenger = messenger,
-    starter = starter,
-    lobbySocket = lobbySocket)
 
   lazy val captcha = new Captcha(gameRepo = gameRepo)
 
@@ -139,16 +121,6 @@ final class SystemEnv private (application: Application, settings: Settings) {
   lazy val takeback = new Takeback(gameRepo = gameRepo, messenger = messenger)
 
   lazy val messenger = new Messenger(roomRepo = roomRepo)
-
-  lazy val starter = new Starter(
-    gameRepo = gameRepo,
-    entryRepo = entryRepo,
-    ai = ai,
-    lobbySocket = lobbySocket)
-
-  lazy val eloUpdater = new EloUpdater(
-    userRepo = userRepo,
-    historyRepo = historyRepo)
 
   val ai: () ⇒ Ai = AiChoice match {
     case AiRemote ⇒ () ⇒ remoteAi or craftyAi
@@ -170,23 +142,6 @@ final class SystemEnv private (application: Application, settings: Settings) {
 
   lazy val gameRepo = new GameRepo(mongodb(MongoCollectionGame))
 
-  lazy val userRepo = new UserRepo(mongodb(MongoCollectionUser))
-
-  lazy val hookRepo = new HookRepo(mongodb(MongoCollectionHook))
-
-  lazy val userConfigRepo = new setup.UserConfigRepo(
-    collection = mongodb(MongoCollectionConfig))
-
-  lazy val entryRepo = new EntryRepo(
-    collection = mongodb(MongoCollectionEntry),
-    max = LobbyEntryMax)
-
-  lazy val messageRepo = new MessageRepo(
-    collection = mongodb(MongoCollectionMessage),
-    max = LobbyMessageMax)
-
-  lazy val historyRepo = new HistoryRepo(mongodb(MongoCollectionHistory))
-
   lazy val roomRepo = new RoomRepo(mongodb(MongoCollectionRoom))
 
   lazy val mongodb = MongoConnection(
@@ -201,10 +156,6 @@ final class SystemEnv private (application: Application, settings: Settings) {
     o.connectTimeout = MongoConnectTimeout
     o.threadsAllowedToBlockForConnectionMultiplier = MongoBlockingThreads
   }
-
-  lazy val hookMemo = new HookMemo(timeout = MemoHookTimeout)
-
-  lazy val usernameMemo = new UsernameMemo(timeout = MemoUsernameTimeout)
 
   lazy val gameFinishCommand = new command.GameFinish(
     gameRepo = gameRepo,

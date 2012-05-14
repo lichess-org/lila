@@ -1,7 +1,5 @@
 package lila
-
-import model.User
-import db.{ UserRepo, HistoryRepo }
+package user
 
 import scalaz.effects._
 

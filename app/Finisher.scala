@@ -2,6 +2,7 @@ package lila
 
 import db._
 import model._
+import user._
 import memo.{ FinisherLock }
 import chess.{ Color, White, Black, EloCalculator }
 

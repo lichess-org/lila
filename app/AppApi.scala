@@ -2,7 +2,8 @@ package lila
 
 import model._
 import memo._
-import db.{ UserRepo, GameRepo, RoomRepo }
+import user._
+import db.{ GameRepo, RoomRepo }
 import chess.{ Color, White, Black }
 import game.{ IsConnectedOnGame, GetGameVersion }
 
@@ -20,7 +21,7 @@ final class AppApi(
     gameRepo: GameRepo,
     gameSocket: game.Socket,
     messenger: Messenger,
-    starter: Starter,
+    starter: lobby.Starter,
     eloUpdater: EloUpdater,
     gameInfo: DbGame ⇒ IO[GameInfo]) {
 

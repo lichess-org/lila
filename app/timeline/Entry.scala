@@ -1,5 +1,5 @@
 package lila
-package model
+package timeline
 
 import com.novus.salat.annotations._
 import com.mongodb.BasicDBList

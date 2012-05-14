@@ -1,5 +1,5 @@
 package lila
-package db
+package user
 
 import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.Imports._

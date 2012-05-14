@@ -1,5 +1,5 @@
 package lila
-package model
+package lobby
 
 import com.novus.salat.annotations.Key
 

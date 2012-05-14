@@ -29,7 +29,7 @@ final class Hub(
       ))
     }
 
-    case Entry(entry) ⇒ notifyVersion("entry", JsString(entry.render))
+    case AddEntry(entry) ⇒ notifyVersion("entry", JsString(entry.render))
 
     case AddHook(hook) ⇒ notifyVersion("hook_add", Seq(
       "id" -> JsString(hook.id),
