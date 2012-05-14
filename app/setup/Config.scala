@@ -1,7 +1,7 @@
 package lila
 package setup
 
-import chess.{ Variant, Standard, Mode }
+import chess.{ Variant, Mode }
 import elo.EloRange
 
 trait Config {
@@ -34,7 +34,7 @@ trait BaseConfig {
 
   val variants = Variant.all map (_.id)
   val variantChoices = Variant.all map { v ⇒ v.id.toString -> v.name }
-  val variantDefault = Standard
+  val variantDefault = Variant.Standard
 }
 
 //case class HookConfig(eloRange: Option[String]) 

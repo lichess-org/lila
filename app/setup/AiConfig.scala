@@ -1,7 +1,7 @@
 package lila
 package setup
 
-import chess.{ Variant, Standard, Mode }
+import chess.Variant 
 import elo.EloRange
 
 case class AiConfig(variant: Variant, level: Int, color: Color) extends Config {

@@ -3,7 +3,7 @@ package game
 
 import DbGame._
 
-import chess.{ Color, Standard, Mate, Started }
+import chess.{ Color, Variant, Status }
 import chess.format.Forsyth
 
 import com.novus.salat._
@@ -89,8 +89,8 @@ class GameRepo(collection: MongoCollection)
 
   val findOneStandardCheckmate: IO[Option[DbGame]] = io {
     find(DBObject(
-      "status" -> Mate.id,
-      "v" -> Standard.id
+      "status" -> Status.Mate.id,
+      "v" -> Variant.Standard.id
     ))
       .sort(DBObject("createdAt" -> -1))
       .limit(1) 
@@ -119,7 +119,7 @@ class GameRepo(collection: MongoCollection)
   def candidatesToAutofinish: IO[List[DbGame]] = io {
     find(
       ("clock.l" $exists true) ++
-        ("status" -> Started.id) ++
+        ("status" -> Status.Started.id) ++
         ("updatedAt" $lt (DateTime.now - 2.hour))
     ).toList.map(decode).flatten
   }

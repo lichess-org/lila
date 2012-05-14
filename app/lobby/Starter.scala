@@ -1,7 +1,6 @@
 package lila
 package lobby
 
-import chess.Standard
 import timeline.{ EntryRepo, Entry }
 import game.{ GameRepo, DbGame, Progress }
 import ai.Ai
@@ -15,7 +14,7 @@ final class Starter(
     ai: () ⇒ Ai) {
 
   def start(game: DbGame, entryData: String): IO[Progress] = for {
-    _ ← if (game.variant == Standard) io() else gameRepo saveInitialFen game
+    _ ← if (game.variant.standard) io() else gameRepo saveInitialFen game
     _ ← Entry(game, entryData).fold(
       entry ⇒ entryRepo add entry flatMap { _ ⇒ socket addEntry entry },
       io())

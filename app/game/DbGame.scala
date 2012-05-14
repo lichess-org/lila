@@ -1,7 +1,8 @@
 package lila
 package game
 
-import chess.{ History ⇒ ChessHistory, Board, Move, Pos, Game, Clock, Status, Color, White, Black, Piece, Started, Aborted, Mate, Stalemate, Draw, Variant }
+import chess.{ History ⇒ ChessHistory, Board, Move, Pos, Game, Clock, Status, Color, Piece, Variant }
+import Color._
 import chess.format.{ PgnReader, Fen }
 import chess.Pos.{ posAt, piotr }
 import chess.Role.forsyth
@@ -129,9 +130,9 @@ case class DbGame(
       castles = history.castleNotation,
       lastMove = history.lastMove map { case (a, b) ⇒ a + " " + b },
       status =
-        if (situation.checkMate) Mate
-        else if (situation.staleMate) Stalemate
-        else if (situation.autoDraw) Draw
+        if (situation.checkMate) Status.Mate
+        else if (situation.staleMate) Status.Stalemate
+        else if (situation.autoDraw) Status.Draw
         else status,
       clock = game.clock,
       check = if (situation.check) situation.kingPos else None,
@@ -171,9 +172,9 @@ case class DbGame(
           castles = rewindedHistory.castleNotation,
           lastMove = rewindedHistory.lastMove map { case (a, b) ⇒ a + " " + b },
           status =
-            if (rewindedSituation.checkMate) Mate
-            else if (rewindedSituation.staleMate) Stalemate
-            else if (rewindedSituation.autoDraw) Draw
+            if (rewindedSituation.checkMate) Status.Mate
+            else if (rewindedSituation.staleMate) Status.Stalemate
+            else if (rewindedSituation.autoDraw) Status.Draw
             else status,
           clock = clock map (_.switch),
           check = if (rewindedSituation.check) rewindedSituation.kingPos else None,
@@ -194,7 +195,7 @@ case class DbGame(
 
   def recordMoveTimes = !hasAi
 
-  def playable = status < Aborted
+  def playable = status < Status.Aborted
 
   def playableBy(p: DbPlayer) = playable && p == player
 
@@ -208,8 +209,8 @@ case class DbGame(
   )
 
   def playerCanOfferDraw(color: Color) =
-    status >= Started &&
-      status < Aborted &&
+    status >= Status.Started &&
+      status < Status.Aborted &&
       turns >= 2 &&
       !player(color).isOfferingDraw &&
       !(player(!color).isAi) &&
@@ -218,7 +219,7 @@ case class DbGame(
   def playerHasOfferedDraw(color: Color) =
     player(color).lastDrawOffer some (_ >= turns - 1) none false
 
-  def abortable = status == Started && turns < 2
+  def abortable = status == Status.Started && turns < 2
 
   def resignable = playable && !abortable
 
@@ -235,7 +236,7 @@ case class DbGame(
 
   def rated = isRated
 
-  def finished = status >= Mate
+  def finished = status >= Status.Mate
 
   def winnerColor: Option[Color] = players find (_.wins) map (_.color)
 

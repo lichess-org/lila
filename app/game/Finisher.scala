@@ -2,7 +2,9 @@ package lila
 package game
 
 import user.{ UserRepo, EloUpdater }
-import chess.{ EloCalculator, Draw, Timeout, Resign, Outoftime, Aborted, Mate, Stalemate, Status, Color, White, Black }
+import chess.{ EloCalculator, Status, Color }
+import Status._
+import Color._
 
 import scalaz.effects._
 

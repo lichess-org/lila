@@ -1,7 +1,7 @@
 package lila
 package ai
 
-import chess.{ Game, Move, ReverseEngineering, Variant, Chess960 }
+import chess.{ Game, Move, ReverseEngineering, Variant }
 import chess.format.Forsyth
 
 trait FenBased {
@@ -17,7 +17,7 @@ trait FenBased {
   } yield newGameAndMove
 
   def toFen(game: Game, variant: Variant): String = Forsyth >> (variant match {
-    case Chess960 ⇒ game updateBoard { board ⇒
+    case Variant.Chess960 ⇒ game updateBoard { board ⇒
       board updateHistory (_.withoutAnyCastles)
     }
     case _ ⇒ game
