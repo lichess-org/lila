@@ -1,7 +1,9 @@
 package lila
-package game
+package round
 
+import game.DbGame
 import memo.BooleanExpiryMemo
+
 import scalaz.effects._
 
 final class FinisherLock(timeout: Int) extends BooleanExpiryMemo(timeout) {

@@ -1,8 +1,9 @@
 package lila
-package game
+package round
 
 import chess.Color
 import socket.SocketMember
+import game.PovRef
 
 import akka.actor.ActorRef
 import scalaz.effects.IO

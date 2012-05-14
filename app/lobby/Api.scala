@@ -1,7 +1,8 @@
 package lila
 package lobby
 
-import game.{ GameRepo, Socket ⇒ GameSocket, Messenger ⇒ GameMessenger }
+import game.GameRepo
+import round.{ Socket ⇒ RoundSocket, Messenger ⇒ RoundMessenger }
 import chess.Color
 
 import scalaz.effects._
@@ -10,8 +11,8 @@ final class Api(
     hookRepo: HookRepo,
     fisherman: Fisherman,
     gameRepo: GameRepo,
-    gameSocket: GameSocket,
-    gameMessenger: GameMessenger,
+    roundSocket: RoundSocket,
+    roundMessenger: RoundMessenger,
     starter: Starter) {
 
   def cancel(ownerId: String): IO[Unit] = for {
@@ -32,9 +33,9 @@ final class Api(
       (color, game) ⇒ {
         for {
           p1 ← starter.start(game, entryData)
-          p2 ← gameMessenger.systemMessages(game, messageString) map p1.++
+          p2 ← roundMessenger.systemMessages(game, messageString) map p1.++
           _ ← gameRepo save p2
-          _ ← gameSocket send p2
+          _ ← roundSocket send p2
           _ ← hook.fold(h ⇒ fisherman.bite(h, p2.game), io())
           _ ← myHookOwnerId.fold(
             ownerId ⇒ hookRepo ownedHook ownerId flatMap { myHook ⇒

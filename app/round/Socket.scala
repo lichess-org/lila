@@ -1,5 +1,5 @@
 package lila
-package game
+package round
 
 import akka.actor._
 import akka.pattern.ask
@@ -13,6 +13,7 @@ import play.api.Play.current
 
 import scalaz.effects._
 
+import game.{ DbGame, PovRef }
 import chess.Color
 import socket.{ Util, Ping, Quit }
 import implicits.RichJs._

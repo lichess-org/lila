@@ -1,6 +1,7 @@
 package lila
-package game
+package round
 
+import game.{ GameRepo, DbGame }
 import scalaz.effects._
 
 final class Takeback(
@@ -24,7 +25,7 @@ final class Takeback(
 
   private def save(p1: Progress): IO[List[Event]] = for {
     _ ← messenger.systemMessage(p1.game, "Takeback proposition accepted")
-    p2 = p1 + ReloadEvent()
+    p2 = p1 + Event.Reload()
     _ ← gameRepo save p2
   } yield p2.events
 }

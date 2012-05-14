@@ -1,5 +1,5 @@
 package lila
-package game
+package round
 
 import com.novus.salat._
 import com.novus.salat.dao._

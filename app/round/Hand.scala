@@ -1,7 +1,8 @@
 package lila
-package game
+package round
 
 import ai.Ai
+import game.{ GameRepo, Pov, PovRef }
 import chess.Role
 import chess.Pos.posAt
 
@@ -66,7 +67,7 @@ final class Hand(
       (povOption toValid "No such game" flatMap { pov ⇒
         implicit val timeout = Timeout(100 millis)
         Await.result(
-          hubMaster ? game.IsGone(pov.game.id, !pov.color) map {
+          hubMaster ? round.IsGone(pov.game.id, !pov.color) map {
             case true ⇒ finisher resignForce pov
             case _    ⇒ !!("Opponent is not gone")
           },
@@ -88,7 +89,7 @@ final class Hand(
         else success {
           for {
             p1 ← messenger.systemMessages(g1, "Draw offer sent") map { es ⇒
-              Progress(g1, ReloadTableEvent(!color) :: es)
+              Progress(g1, Event.ReloadTable(!color) :: es)
             }
             p2 = p1 map { g ⇒ g.updatePlayer(color, _ offerDraw g.turns) }
             _ ← gameRepo save p2
@@ -103,7 +104,7 @@ final class Hand(
       if (pov.player.isOfferingDraw) success {
         for {
           p1 ← messenger.systemMessages(g1, "Draw offer canceled") map { es ⇒
-            Progress(g1, ReloadTableEvent(!color) :: es)
+            Progress(g1, Event.ReloadTable(!color) :: es)
           }
           p2 = p1 map { g ⇒ g.updatePlayer(color, _.removeDrawOffer) }
           _ ← gameRepo save p2
@@ -117,7 +118,7 @@ final class Hand(
       if (g1.player(!color).isOfferingDraw) success {
         for {
           p1 ← messenger.systemMessages(g1, "Draw offer declined") map { es ⇒
-            Progress(g1, ReloadTableEvent(!color) :: es)
+            Progress(g1, Event.ReloadTable(!color) :: es)
           }
           p2 = p1 map { g ⇒ g.updatePlayer(!color, _.removeDrawOffer) }
           _ ← gameRepo save p2
@@ -146,7 +147,7 @@ final class Hand(
             takeback(pov.game, fen).sequence
           else for {
             p1 ← messenger.systemMessages(g1, "Takeback proposition sent") map { es ⇒
-              Progress(g1, ReloadTableEvent(!color) :: es)
+              Progress(g1, Event.ReloadTable(!color) :: es)
             }
             p2 = p1 map { g ⇒ g.updatePlayer(color, _.proposeTakeback) }
             _ ← gameRepo save p2
@@ -163,7 +164,7 @@ final class Hand(
       if (pov.player.isProposingTakeback) success {
         for {
           p1 ← messenger.systemMessages(g1, "Takeback proposition canceled") map { es ⇒
-            Progress(g1, ReloadTableEvent(!color) :: es)
+            Progress(g1, Event.ReloadTable(!color) :: es)
           }
           p2 = p1 map { g ⇒ g.updatePlayer(color, _.removeTakebackProposition) }
           _ ← gameRepo save p2
@@ -177,7 +178,7 @@ final class Hand(
       if (g1.player(!color).isProposingTakeback) success {
         for {
           p1 ← messenger.systemMessages(g1, "Takeback proposition declined") map { es ⇒
-            Progress(g1, ReloadTableEvent(!color) :: es)
+            Progress(g1, Event.ReloadTable(!color) :: es)
           }
           p2 = p1 map { g ⇒ g.updatePlayer(!color, _.removeTakebackProposition) }
           _ ← gameRepo save p2
@@ -195,7 +196,7 @@ final class Hand(
         events ← messenger.systemMessage(
           progress.game, "%s + %d seconds".format(color, moretimeSeconds)
         )
-        progress2 = progress ++ (ClockEvent(newClock) :: events)
+        progress2 = progress ++ (Event.Clock(newClock) :: events)
         _ ← gameRepo save progress2
       } yield progress2.events
     } toValid "cannot add moretime"

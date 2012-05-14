@@ -11,7 +11,8 @@ import play.api.i18n.Lang
 import play.api.i18n.MessagesPlugin
 
 import user.UserRepo
-import game.{ GameRepo, Socket ⇒ GameSocket, Messenger ⇒ GameMessenger }
+import game.GameRepo
+import round.{ Socket ⇒ RoundSocket, Messenger ⇒ RoundMessenger }
 import timeline.EntryRepo
 import ai.Ai
 import core.Settings
@@ -22,8 +23,8 @@ final class LobbyEnv(
     mongodb: String ⇒ MongoCollection,
     userRepo: UserRepo,
     gameRepo: GameRepo,
-    gameSocket: GameSocket,
-    gameMessenger: GameMessenger,
+    roundSocket: RoundSocket,
+    roundMessenger: RoundMessenger,
     entryRepo: EntryRepo,
     ai: () ⇒ Ai) {
 
@@ -71,8 +72,8 @@ final class LobbyEnv(
     hookRepo = hookRepo,
     fisherman = fisherman,
     gameRepo = gameRepo,
-    gameSocket = gameSocket,
-    gameMessenger = gameMessenger,
+    roundSocket = roundSocket,
+    roundMessenger = roundMessenger,
     starter = starter)
 
   lazy val hookRepo = new HookRepo(mongodb(MongoCollectionHook))

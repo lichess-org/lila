@@ -1,8 +1,9 @@
 package lila
-package game
+package round
 
 import socket._
 import chess.{ Color, White, Black }
+import game.PovRef
 
 import akka.actor._
 import akka.util.duration._
@@ -81,7 +82,7 @@ final class Hub(
     }
   }
 
-  def crowdEvent = CrowdEvent(
+  def crowdEvent = Event.Crowd(
     white = ownerOf(White).isDefined,
     black = ownerOf(Black).isDefined,
     watchers = members.values count (_.watcher))

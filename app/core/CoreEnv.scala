@@ -30,8 +30,8 @@ final class CoreEnv private(application: Application, settings: Settings) {
     mongodb = mongodb.apply _,
     userRepo = user.userRepo,
     gameRepo = game.gameRepo,
-    gameSocket = game.socket,
-    gameMessenger = game.messenger,
+    roundSocket = round.socket,
+    roundMessenger = round.messenger,
     entryRepo = timeline.entryRepo,
     ai = ai.ai)
 
@@ -47,9 +47,14 @@ final class CoreEnv private(application: Application, settings: Settings) {
     settings = settings)
 
   lazy val game = new lila.game.GameEnv(
+    settings = settings,
+    mongodb = mongodb.apply _)
+
+  lazy val round = new lila.round.RoundEnv(
     app = app,
     settings = settings,
     mongodb = mongodb.apply _,
+    gameRepo = game.gameRepo,
     userRepo = user.userRepo,
     eloUpdater = user.eloUpdater,
     ai = ai.ai)
@@ -67,8 +72,8 @@ final class CoreEnv private(application: Application, settings: Settings) {
   lazy val appApi = new AppApi(
     userRepo = user.userRepo,
     gameRepo = game.gameRepo,
-    gameSocket = game.socket,
-    messenger = game.messenger,
+    roundSocket = round.socket,
+    messenger = round.messenger,
     starter = lobby.starter,
     eloUpdater = user.eloUpdater,
     gameInfo = analyse.gameInfo)
@@ -88,7 +93,7 @@ final class CoreEnv private(application: Application, settings: Settings) {
 
   lazy val gameFinishCommand = new command.GameFinish(
     gameRepo = game.gameRepo,
-    finisher = game.finisher)
+    finisher = round.finisher)
 
   lazy val gameCleanNextCommand = new command.GameCleanNext(gameRepo = game.gameRepo)
 }

@@ -1,7 +1,10 @@
 package lila
-package game
+package round
 
+import game.{ DbGame, PovRef }
 import chess.Color
+import Event.Message
+
 import scalaz.effects._
 
 final class Messenger(roomRepo: RoomRepo) {
@@ -11,7 +14,7 @@ final class Messenger(roomRepo: RoomRepo) {
     message: String): IO[List[Event]] =
     if (message.size <= 140 && message.nonEmpty)
       roomRepo.addMessage(ref.gameId, ref.color.name, message) map { _ ⇒
-        List(MessageEvent(ref.color.name, message))
+        List(Message(ref.color.name, message))
       }
     else io(Nil)
 
@@ -19,7 +22,7 @@ final class Messenger(roomRepo: RoomRepo) {
     if (game.invited.isHuman) {
       val messages = (encodedMessages split '$').toList
       roomRepo.addSystemMessages(game.id, messages) map { _ ⇒
-        messages map { MessageEvent("system", _) }
+        messages map { Message("system", _) }
       }
     }
     else io(Nil)
@@ -27,7 +30,7 @@ final class Messenger(roomRepo: RoomRepo) {
   def systemMessage(game: DbGame, message: String): IO[List[Event]] =
     if (game.invited.isHuman)
       roomRepo.addSystemMessage(game.id, message) map { _ ⇒
-        List(MessageEvent("system", message))
+        List(Message("system", message))
       }
     else io(Nil)
 

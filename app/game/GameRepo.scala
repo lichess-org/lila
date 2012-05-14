@@ -5,6 +5,7 @@ import DbGame._
 
 import chess.{ Color, Variant, Status }
 import chess.format.Forsyth
+import round.Progress
 
 import com.novus.salat._
 import com.novus.salat.dao._

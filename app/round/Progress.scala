@@ -1,5 +1,7 @@
 package lila
-package game
+package round
+
+import game.DbGame
 
 // events are kept in insertion/addition order
 case class Progress(origin: DbGame, game: DbGame, events: List[Event] = Nil) {

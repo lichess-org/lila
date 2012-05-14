@@ -1,6 +1,7 @@
 package lila
-package game
+package round
 
+import game.{ GameRepo, DbGame, Pov }
 import user.{ UserRepo, EloUpdater }
 import chess.{ EloCalculator, Status, Color }
 import Status._

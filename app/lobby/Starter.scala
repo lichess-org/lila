@@ -2,7 +2,8 @@ package lila
 package lobby
 
 import timeline.{ EntryRepo, Entry }
-import game.{ GameRepo, DbGame, Progress }
+import game.{ GameRepo, DbGame }
+import round.{ Progress }
 import ai.Ai
 
 import scalaz.effects._

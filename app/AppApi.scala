@@ -2,9 +2,9 @@ package lila
 
 import game._
 import user._
-import game.{ GameRepo, RoomRepo }
+import game.GameRepo
 import chess.{ Color, White, Black }
-import game.{ IsConnectedOnGame, GetGameVersion }
+import round.{ IsConnectedOnGame, GetGameVersion, RoomRepo, Progress, Event }
 import analyse.GameInfo
 
 import scalaz.effects._
@@ -19,8 +19,8 @@ import play.api.Play.current
 final class AppApi(
     userRepo: UserRepo,
     gameRepo: GameRepo,
-    gameSocket: game.Socket,
-    messenger: Messenger,
+    roundSocket: round.Socket,
+    messenger: round.Messenger,
     starter: lobby.Starter,
     eloUpdater: EloUpdater,
     gameInfo: DbGame ⇒ IO[GameInfo]) {
@@ -61,10 +61,10 @@ final class AppApi(
       pov ⇒ for {
         p1 ← starter.start(pov.game, entryData)
         p2 ← messenger.systemMessages(p1.game, messages) map { evts ⇒
-          p1 + RedirectOwnerEvent(!pov.color, url) ++ evts
+          p1 + Event.RedirectOwner(!pov.color, url) ++ evts
         }
         _ ← gameRepo save p2
-        _ ← gameSocket send p2
+        _ ← roundSocket send p2
       } yield success(),
       io(GameNotFound)
     )
@@ -76,7 +76,7 @@ final class AppApi(
         g1 ⇒ for {
           progress ← starter.start(g1, entryData)
           _ ← gameRepo save progress
-          _ ← gameSocket send progress
+          _ ← roundSocket send progress
         } yield success(Unit),
         io { !!("No such game") }
       )
@@ -96,20 +96,20 @@ final class AppApi(
       result ← (newGameOption |@| g1Option).apply(
         (newGame, g1) ⇒ {
           val progress = Progress(g1, List(
-            RedirectOwnerEvent(White, whiteRedirect),
-            RedirectOwnerEvent(Black, blackRedirect),
+            Event.RedirectOwner(White, whiteRedirect),
+            Event.RedirectOwner(Black, blackRedirect),
             // tell spectators to reload the table
-            ReloadTableEvent(White),
-            ReloadTableEvent(Black)))
+            Event.ReloadTable(White),
+            Event.ReloadTable(Black)))
           for {
             _ ← gameRepo save progress
-            _ ← gameSocket send progress
+            _ ← roundSocket send progress
             newProgress ← starter.start(newGame, entryData)
             newProgress2 ← messenger.systemMessages(
               newProgress.game, messageString
             ) map newProgress.++
             _ ← gameRepo save newProgress2
-            _ ← gameSocket send newProgress2
+            _ ← roundSocket send newProgress2
           } yield success()
         }
       ).fold(identity, io(GameNotFound))
@@ -121,10 +121,10 @@ final class AppApi(
     g1Option ← gameRepo game gameId
     result ← g1Option.fold(
       g1 ⇒ {
-        val progress = Progress(g1, Color.all map ReloadTableEvent)
+        val progress = Progress(g1, Color.all map Event.ReloadTable)
         for {
           _ ← gameRepo save progress
-          _ ← gameSocket send progress
+          _ ← roundSocket send progress
         } yield success()
       },
       io(GameNotFound)
@@ -140,7 +140,7 @@ final class AppApi(
 
   def isConnected(gameId: String, colorName: String): Future[Boolean] =
     Color(colorName).fold(
-      c ⇒ gameSocket.hubMaster ? IsConnectedOnGame(gameId, c) mapTo manifest[Boolean],
+      c ⇒ roundSocket.hubMaster ? IsConnectedOnGame(gameId, c) mapTo manifest[Boolean],
       Promise successful false)
 
   def adjust(username: String): IO[Unit] = for {
@@ -157,5 +157,5 @@ final class AppApi(
   } yield ()
 
   private def futureVersion(gameId: String): Future[Int] =
-    gameSocket.hubMaster ? GetGameVersion(gameId) mapTo manifest[Int]
+    roundSocket.hubMaster ? GetGameVersion(gameId) mapTo manifest[Int]
 }

@@ -1,5 +1,5 @@
 package lila
-package game
+package round
 
 import socket.{ Broom, Close, GetNbMembers, GetUsernames, NbMembers }
 

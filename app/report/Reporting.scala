@@ -2,7 +2,7 @@ package lila
 package report
 
 import socket.GetNbMembers
-import game.GetNbHubs
+import round.GetNbHubs
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
@@ -55,8 +55,8 @@ final class Reporting extends Actor {
       Future.sequence(List(
         (env.site.hub ? GetNbMembers).mapTo[Int],
         (env.lobby.hub ? GetNbMembers).mapTo[Int],
-        (env.game.hubMaster ? GetNbHubs).mapTo[Int],
-        (env.game.hubMaster ? GetNbMembers).mapTo[Int],
+        (env.round.hubMaster ? GetNbHubs).mapTo[Int],
+        (env.round.hubMaster ? GetNbMembers).mapTo[Int],
         Future(env.game.gameRepo.countAll.unsafePerformIO),
         Future(env.game.gameRepo.countPlaying.unsafePerformIO)
       )) onSuccess {

@@ -4,7 +4,8 @@ import lila._
 import http.Context
 import DataForm._
 import chess.Color
-import game.{ Event, DbGame }
+import game.DbGame
+import round.Event
 
 import play.api._
 import mvc._
@@ -18,7 +19,7 @@ import scalaz.effects._
 
 object App extends LilaController {
 
-  private val hand = env.game.hand
+  private val hand = env.round.hand
 
   def socket = WebSocket.async[JsValue] { implicit req ⇒
     implicit val ctx = Context(req, None)
@@ -30,7 +31,7 @@ object App extends LilaController {
   def gameSocket(gameId: String, color: String) =
     WebSocket.async[JsValue] { implicit req ⇒
       implicit val ctx = Context(req, None)
-      env.game.socket.join(
+      env.round.socket.join(
         uidOption = get("uid"),
         username = get("username"),
         gameId = gameId,
@@ -77,5 +78,5 @@ object App extends LilaController {
     }
 
   private def performEvents(fullId: String)(events: List[Event]): IO[Unit] =
-    env.game.socket.send(DbGame takeGameId fullId, events)
+    env.round.socket.send(DbGame takeGameId fullId, events)
 }

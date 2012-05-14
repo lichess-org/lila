@@ -1,5 +1,5 @@
 package lila
-package game
+package round
 
 import play.api.libs.json._
 import scalaz.effects._

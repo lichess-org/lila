@@ -23,7 +23,7 @@ object Cron {
     implicit val executor = Akka.system.dispatcher
 
     unsafe(5 seconds) {
-      (env.site.hub :: env.lobby.hub :: env.game.hubMaster :: Nil) foreach { actor ⇒
+      (env.site.hub :: env.lobby.hub :: env.round.hubMaster :: Nil) foreach { actor ⇒
         actor ! socket.Broom
       }
     }
@@ -79,7 +79,7 @@ object Cron {
     env.ai.remoteAi.diagnose.unsafePerformIO
 
     lazy val hubs: List[ActorRef] = 
-      List(env.site.hub, env.lobby.hub, env.game.hubMaster)
+      List(env.site.hub, env.lobby.hub, env.round.hubMaster)
 
     def message(freq: Duration)(to: (ActorRef, Any)) {
       Akka.system.scheduler.schedule(freq, freq.randomize(), to._1, to._2)

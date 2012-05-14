@@ -1,11 +1,13 @@
 package lila
 package game
 
+import round.{ Event, Progress }
 import chess.{ History ⇒ ChessHistory, Board, Move, Pos, Game, Clock, Status, Color, Piece, Variant }
 import Color._
 import chess.format.{ PgnReader, Fen }
 import chess.Pos.piotr
 import chess.Role.forsyth
+
 import org.joda.time.DateTime
 
 case class DbGame(
@@ -94,7 +96,7 @@ case class DbGame(
     val events =
       Event.possibleMoves(game.situation, White) ::
         Event.possibleMoves(game.situation, Black) ::
-        StateEvent(game.situation.color, game.turns) ::
+        Event.State(game.situation.color, game.turns) ::
         (Event fromMove move) :::
         (Event fromSituation game.situation)
 
@@ -133,12 +135,12 @@ case class DbGame(
     )
 
     val finalEvents = events :::
-      updated.clock.fold(c ⇒ List(ClockEvent(c)), Nil) ::: {
+      updated.clock.fold(c ⇒ List(Event.Clock(c)), Nil) ::: {
         (updated.playable && (
           abortable != updated.abortable || (Color.all exists { color ⇒
             playerCanOfferDraw(color) != updated.playerCanOfferDraw(color)
           })
-        )).fold(Color.all map ReloadTableEvent, Nil)
+        )).fold(Color.all map Event.ReloadTable, Nil)
       }
 
     Progress(this, updated, finalEvents)
@@ -224,7 +226,7 @@ case class DbGame(
       blackPlayer = blackPlayer finish (winner == Some(Black)),
       clock = clock map (_.stop)
     ),
-    List(EndEvent())
+    List(Event.End())
   )
 
   def rated = isRated
