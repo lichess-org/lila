@@ -9,6 +9,7 @@ import play.api.mvc.{Request, PlainResult, Controller}
 import play.api.data._
 import play.api.data.Forms._
 import jp.t2v.lab.play20.auth._
+import core.CoreEnv
 
 trait AuthConfigImpl extends AuthConfig {
 
@@ -19,7 +20,7 @@ trait AuthConfigImpl extends AuthConfig {
     .verifying("Invalid username or password", result ⇒ result.isDefined)
   )
 
-  def env: SystemEnv
+  def env: CoreEnv
 
   type Id = String
 

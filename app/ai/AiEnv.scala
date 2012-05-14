@@ -3,6 +3,8 @@ package ai
 
 import com.mongodb.casbah.MongoCollection
 
+import core.Settings
+
 final class AiEnv(
   settings: Settings) {
 

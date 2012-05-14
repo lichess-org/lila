@@ -1,9 +1,9 @@
 package lila.cli
 
-import lila.SystemEnv
+import lila.core.CoreEnv
 import scalaz.effects._
 
-case class Info(env: SystemEnv) extends Command {
+case class Info(env: CoreEnv) extends Command {
 
   def apply: IO[Unit] = for {
     nb <- nbGames

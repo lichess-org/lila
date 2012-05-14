@@ -16,19 +16,16 @@ package object lila
     with scalaz.Lists
     with scalaz.Booleans {
 
-  RegisterJodaTimeConversionHelpers()
-
   type Channel = socket.LilaEnumerator[JsValue]
 
   type SocketPromise = Promise[(Iteratee[JsValue, _], Enumerator[JsValue])]
-
-  object Tick // standard actor tick
 
   // custom salat context
   implicit val ctx = new Context {
     val name = "Lila System Context"
     override val typeHintStrategy = StringTypeHintStrategy(when = TypeHintFrequency.Never)
   }
+  RegisterJodaTimeConversionHelpers()
 
   def !!(msg: String) = msg.failNel
 
@@ -36,10 +33,6 @@ package object lila
 
   def nowMillis: Double = System.currentTimeMillis
   def nowSeconds: Int = (nowMillis / 1000).toInt
-
-  implicit def addPP[A](a: A) = new {
-    def pp[A] = a ~ println
-  }
 
   implicit def richerMap[A, B](m: Map[A, B]) = new {
     def +?(bp: (Boolean, (A, B))): Map[A, B] = if (bp._1) m + bp._2 else m
@@ -58,6 +51,4 @@ package object lila
   catch {
     case e: NumberFormatException ⇒ None
   }
-
-  val MoveString = """^([a-h][1-8]) ([a-h][1-8])$""".r
 }

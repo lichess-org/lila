@@ -3,6 +3,8 @@ package user
 
 import com.mongodb.casbah.MongoCollection
 
+import core.Settings
+
 final class UserEnv(
     settings: Settings,
     mongodb: String ⇒ MongoCollection) {

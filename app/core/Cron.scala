@@ -1,4 +1,5 @@
 package lila
+package core
 
 import play.api._
 import play.api.libs.concurrent.Akka
@@ -15,7 +16,7 @@ import implicits.RichDuration._
 
 object Cron {
 
-  def start(env: SystemEnv) {
+  def start(env: CoreEnv) {
 
     implicit val current = env.app
     implicit val timeout = Timeout(500 millis)

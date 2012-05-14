@@ -4,7 +4,7 @@ import scalaz.effects._
 import play.api.{ Mode, Application }
 
 import java.io.File
-import lila.SystemEnv
+import lila.core.CoreEnv
 
 object Main {
 
@@ -14,7 +14,7 @@ object Main {
     sources = None,
     mode = Mode.Dev)
 
-  lazy val env = SystemEnv(app)
+  lazy val env = CoreEnv(app)
 
   def main(args: Array[String]): Unit = sys exit {
 

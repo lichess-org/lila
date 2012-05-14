@@ -4,7 +4,7 @@ package game
 import chess.{ History ⇒ ChessHistory, Board, Move, Pos, Game, Clock, Status, Color, Piece, Variant }
 import Color._
 import chess.format.{ PgnReader, Fen }
-import chess.Pos.{ posAt, piotr }
+import chess.Pos.piotr
 import chess.Role.forsyth
 import org.joda.time.DateTime
 
@@ -85,16 +85,9 @@ case class DbGame(
   }
 
   def toChessHistory = ChessHistory(
-    lastMove = lastMove flatMap {
-      case MoveString(a, b) ⇒ for (o ← posAt(a); d ← posAt(b)) yield (o, d)
-      case _                ⇒ None
-    },
-    whiteCastleKingSide = castles contains 'K',
-    whiteCastleQueenSide = castles contains 'Q',
-    blackCastleKingSide = castles contains 'k',
-    blackCastleQueenSide = castles contains 'q',
-    positionHashes = positionHashes grouped ChessHistory.hashSize toList
-  )
+    lastMove = lastMove,
+    castles = castles,
+    positionHashes = positionHashes)
 
   def update(game: Game, move: Move, blur: Boolean = false): Progress = {
     val (history, situation) = (game.board.history, game.situation)

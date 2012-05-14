@@ -4,6 +4,7 @@ import lila._
 import user.{ User => UserModel }
 import security.{ AuthConfigImpl, Anonymous }
 import http.{ Context, BodyContext, HttpEnvironment }
+import core.Global
 
 import jp.t2v.lab.play20.auth._
 import play.api._

@@ -1,5 +1,7 @@
 package lila.chess
 
+import Pos.posAt
+
 case class History(
     lastMove: Option[(Pos, Pos)] = None,
     positionHashes: List[String] = Nil,
@@ -72,6 +74,22 @@ case class History(
 object History {
 
   val hashSize = 5
+
+  val MoveString = """^([a-h][1-8]) ([a-h][1-8])$""".r
+
+  def apply(
+    lastMove: Option[String], // a2 a4
+    positionHashes: String, // KQkq
+    castles: String) = new History(
+    lastMove = lastMove flatMap {
+      case MoveString(a, b) ⇒ for (o ← posAt(a); d ← posAt(b)) yield (o, d)
+      case _                ⇒ None
+    },
+    whiteCastleKingSide = castles contains 'K',
+    whiteCastleQueenSide = castles contains 'Q',
+    blackCastleKingSide = castles contains 'k',
+    blackCastleQueenSide = castles contains 'q',
+    positionHashes = positionHashes grouped hashSize toList)
 
   def castle(color: Color, kingSide: Boolean, queenSide: Boolean) = color match {
     case White ⇒ History().copy(

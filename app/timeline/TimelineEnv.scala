@@ -3,6 +3,8 @@ package timeline
 
 import com.mongodb.casbah.MongoCollection
 
+import core.Settings
+
 final class TimelineEnv(
     settings: Settings,
     mongodb: String ⇒ MongoCollection) {

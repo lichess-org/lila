@@ -26,7 +26,7 @@ GET   /@/:username                   controllers.User.show(username: String)
 GET   /signup                        controllers.User.signUp
 
 # Wiki
-GET   /wiki                          controllers.Wiki.home
+GET   /wiki                          lila.wiki.Controller.home
 
 # App Public API
 GET   /socket                        controllers.App.socket

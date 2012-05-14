@@ -12,6 +12,7 @@ import play.api.i18n.MessagesPlugin
 
 import user.{ UserRepo, EloUpdater }
 import ai.Ai
+import core.Settings
 
 final class GameEnv(
     app: Application,

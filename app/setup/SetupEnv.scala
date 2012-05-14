@@ -3,8 +3,10 @@ package setup
 
 import com.mongodb.casbah.MongoCollection
 
+import core.Settings
+
 final class SetupEnv(
-  settings: Settings,
+    settings: Settings,
     mongodb: String ⇒ MongoCollection) {
 
   import settings._

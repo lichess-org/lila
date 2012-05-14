@@ -14,6 +14,7 @@ import user.UserRepo
 import game.{ GameRepo, Socket ⇒ GameSocket, Messenger ⇒ GameMessenger }
 import timeline.EntryRepo
 import ai.Ai
+import core.Settings
 
 final class LobbyEnv(
     app: Application,

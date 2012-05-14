@@ -5,6 +5,8 @@ import play.api.Application
 import play.api.i18n.Lang
 import play.api.i18n.MessagesPlugin
 
+import core.Settings
+
 final class I18nEnv(
     app: Application,
     settings: Settings) {

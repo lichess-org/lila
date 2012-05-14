@@ -1,4 +1,5 @@
 package lila
+package core
 
 import com.mongodb.casbah.MongoConnection
 import com.mongodb.{ Mongo, MongoOptions, ServerAddress ⇒ MongoServer }
@@ -10,7 +11,7 @@ import play.api.Application
 
 import ui._
 
-final class SystemEnv private(application: Application, settings: Settings) {
+final class CoreEnv private(application: Application, settings: Settings) {
 
   implicit val app = application
   import settings._
@@ -92,9 +93,9 @@ final class SystemEnv private(application: Application, settings: Settings) {
   lazy val gameCleanNextCommand = new command.GameCleanNext(gameRepo = game.gameRepo)
 }
 
-object SystemEnv {
+object CoreEnv {
 
-  def apply(app: Application) = new SystemEnv(
+  def apply(app: Application) = new CoreEnv(
     app, 
     new Settings(app.configuration.underlying)
   )

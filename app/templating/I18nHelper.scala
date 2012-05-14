@@ -4,7 +4,7 @@ package templating
 import controllers._
 import http.Context
 import i18n.{ LangList, I18nDomain }
-import Global.env // OMG
+import core.Global.env // OMG
 
 import play.api.i18n.Lang
 import play.api.templates.Html

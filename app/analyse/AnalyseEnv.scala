@@ -5,6 +5,7 @@ import com.mongodb.casbah.MongoCollection
 
 import game.GameRepo
 import user.UserRepo
+import core.Settings
 
 final class AnalyseEnv(
     settings: Settings,

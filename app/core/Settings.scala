@@ -1,4 +1,5 @@
 package lila
+package core
 
 import com.typesafe.config.Config
 

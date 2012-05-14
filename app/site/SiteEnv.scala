@@ -7,6 +7,7 @@ import play.api.Application
 
 import report.Reporting
 import game.GameRepo
+import core.Settings
 
 final class SiteEnv(
     app: Application,

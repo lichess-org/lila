@@ -1,7 +1,7 @@
 package lila
 package i18n
 
-import Global.env // OMG
+import core.Global.env // OMG
 
 import play.api.i18n.{ MessagesApi, Lang }
 import play.api.mvc.RequestHeader

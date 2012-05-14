@@ -1,9 +1,9 @@
 package lila.cli
 
-import lila.SystemEnv
+import lila.core.CoreEnv
 import scalaz.effects._
 
-case class AverageElo(env: SystemEnv) extends Command {
+case class AverageElo(env: CoreEnv) extends Command {
 
   def apply: IO[Unit] = for {
     avg ← env.userRepo.averageElo
