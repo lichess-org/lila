@@ -6,7 +6,7 @@ import setup._
 
 object Setup extends LilaController {
 
-  def forms = env.setupFormFactory
+  def forms = env.setup.formFactory
 
   val aiForm = Open { implicit ctx ⇒
     IOk(forms.aiFilled map { html.setup.ai(_) })

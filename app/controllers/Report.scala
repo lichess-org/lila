@@ -13,24 +13,24 @@ import report.{ GetStatus, GetNbPlaying }
 
 object Report extends LilaController {
 
-  val reporting = env.reporting
+  val reporting = env.site.reporting
   implicit val timeout = Timeout(100 millis)
 
   def status = Action {
     Async {
-      (env.reporting ? GetStatus).mapTo[String].asPromise map { Ok(_) }
+      (reporting ? GetStatus).mapTo[String].asPromise map { Ok(_) }
     }
   }
 
   def nbPlayers = Action {
     Async {
-      (env.reporting ? GetNbMembers).mapTo[Int].asPromise map { Ok(_) }
+      (reporting ? GetNbMembers).mapTo[Int].asPromise map { Ok(_) }
     }
   }
 
   def nbPlaying = Action {
     Async {
-      (env.reporting ? GetNbPlaying).mapTo[Int].asPromise map { Ok(_) }
+      (reporting ? GetNbPlaying).mapTo[Int].asPromise map { Ok(_) }
     }
   }
 }

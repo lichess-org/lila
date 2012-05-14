@@ -1,7 +1,6 @@
 package lila
 package game
 
-import model._
 import socket.{ Broom, Close, GetNbMembers, GetUsernames, NbMembers }
 
 import akka.actor._

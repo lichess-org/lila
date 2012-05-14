@@ -12,9 +12,9 @@ import play.api.mvc.RequestHeader
 
 trait I18nHelper {
 
-  private val pool = env.i18nPool
+  private val pool = env.i18n.pool
 
-  val trans = env.i18nKeys
+  val trans = env.i18n.keys
 
   implicit def lang(implicit ctx: Context) = pool lang ctx.req
 

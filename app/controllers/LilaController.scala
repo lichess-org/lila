@@ -1,7 +1,7 @@
 package controllers
 
 import lila._
-import model.{ User => UserModel }
+import user.{ User => UserModel }
 import security.{ AuthConfigImpl, Anonymous }
 import http.{ Context, BodyContext, HttpEnvironment }
 
@@ -29,7 +29,7 @@ trait LilaController
   implicit val current = env.app
 
   override implicit def lang(implicit req: RequestHeader) = 
-    env.i18nPool.lang(req)
+    env.i18n.pool.lang(req)
     
   def toJson(map: Map[String, Any]) = Json generate map 
 

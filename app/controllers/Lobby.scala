@@ -14,8 +14,8 @@ import play.api.libs.iteratee._
 
 object Lobby extends LilaController {
 
-  private val api = env.lobbyApi
-  private val preloader = env.lobbyPreloader
+  private val api = env.lobby.api
+  private val preloader = env.lobby.preloader
 
   val home = Open { implicit ctx ⇒
     preloader(
@@ -30,7 +30,7 @@ object Lobby extends LilaController {
 
   def socket = WebSocket.async[JsValue] { implicit req ⇒
     implicit val ctx = Context(req, None)
-    env.lobbySocket.join(
+    env.lobby.socket.join(
       uidOption = get("uid"),
       username = get("username"),
       versionOption = getInt("version"),
@@ -56,6 +56,6 @@ object Lobby extends LilaController {
   }
 
   def chatBan(username: String) = Action {
-    IOk(env.lobbyMessenger ban username)
+    IOk(env.lobby.messenger ban username)
   }
 }

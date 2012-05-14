@@ -1,8 +1,7 @@
 package lila
 package lobby
 
-import db.UserRepo
-import model.User
+import user.{ UserRepo, User }
 
 import scalaz.effects._
 import org.apache.commons.lang3.StringEscapeUtils.escapeXml

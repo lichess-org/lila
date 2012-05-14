@@ -10,7 +10,7 @@ import play.api.libs.iteratee._
 import play.api.libs.concurrent._
 import scalaz.effects._
 
-import RichJs._
+import implicits.RichJs._
 import socket.{ Util, Ping, Quit }
 
 final class Socket(hub: ActorRef) {

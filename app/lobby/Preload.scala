@@ -1,9 +1,9 @@
 package lila
 package lobby
 
-import model._
-import memo._
-import db._
+import timeline.EntryRepo
+import game.GameRepo
+
 import scalaz.effects._
 
 final class Preload(

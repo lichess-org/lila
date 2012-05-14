@@ -6,10 +6,10 @@ import play.api.mvc._
 
 object Captcha extends LilaController {
 
-  private val captcha = env.captcha
+  private val captcha = env.site.captcha
 
   def create = Action {
-    env.captcha.create.unsafePerformIO.fold(
+    captcha.create.unsafePerformIO.fold(
       err ⇒ BadRequest(err.shows),
       data ⇒ JsonOk(Map(
         "id" -> data._1,
@@ -20,7 +20,7 @@ object Captcha extends LilaController {
   }
 
   def solve(gameId: String) = Action {
-    env.captcha.solve(gameId).unsafePerformIO.fold(
+    captcha.solve(gameId).unsafePerformIO.fold(
       err ⇒ BadRequest(err.shows),
       moves ⇒ JsonOk(moves.list)
     )

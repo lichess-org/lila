@@ -1,7 +1,7 @@
 package lila
 package timeline
 
-import db.CappedRepo
+import mongodb.CappedRepo
 
 import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.Imports._

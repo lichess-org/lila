@@ -61,7 +61,8 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       auth,
       plugins),
     templatesImport ++= Seq(
-      "lila.model._",
+      "lila.game.{ DbGame, DbPlayer }",
+      "lila.user.User",
       "lila.templating.Environment._",
       "lila.ui.SiteMenu",
       "lila.http.Context"),

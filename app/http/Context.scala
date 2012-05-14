@@ -1,7 +1,7 @@
 package lila
 package http
 
-import model.User
+import user.User
 
 import play.api.mvc.{ Request, RequestHeader }
 

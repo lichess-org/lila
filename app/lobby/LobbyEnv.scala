@@ -3,7 +3,6 @@ package lobby
 
 import com.mongodb.casbah.MongoCollection
 
-import com.typesafe.config._
 import akka.actor._
 
 import play.api.libs.concurrent._
@@ -11,12 +10,21 @@ import play.api.Application
 import play.api.i18n.Lang
 import play.api.i18n.MessagesPlugin
 
+import user.UserRepo
+import game.{ GameRepo, Socket ⇒ GameSocket, Messenger ⇒ GameMessenger }
+import timeline.EntryRepo
+import ai.Ai
+
 final class LobbyEnv(
-  app: Application,
-  settings: Settings,
-  mongodb: String => MongoCollection,
-  userRepo: UserRepo,
-  gameRepo: GameRepo)
+    app: Application,
+    settings: Settings,
+    mongodb: String ⇒ MongoCollection,
+    userRepo: UserRepo,
+    gameRepo: GameRepo,
+    gameSocket: GameSocket,
+    gameMessenger: GameMessenger,
+    entryRepo: EntryRepo,
+    ai: () ⇒ Ai) {
 
   implicit val ctx = app
   import settings._
@@ -63,20 +71,10 @@ final class LobbyEnv(
     fisherman = fisherman,
     gameRepo = gameRepo,
     gameSocket = gameSocket,
-    gameMessenger = messenger,
-    starter = starter,
-    lobbySocket = socket)
+    gameMessenger = gameMessenger,
+    starter = starter)
 
   lazy val hookRepo = new HookRepo(mongodb(MongoCollectionHook))
 
   lazy val hookMemo = new HookMemo(timeout = MemoHookTimeout)
-
-  lazy val userConfigRepo = new setup.UserConfigRepo(
-    collection = mongodb(MongoCollectionConfig))
-
-  lazy val entryRepo = new EntryRepo(
-    collection = mongodb(MongoCollectionEntry),
-    max = LobbyEntryMax)
-
-  lazy val historyRepo = new HistoryRepo(mongodb(MongoCollectionHistory))
 }

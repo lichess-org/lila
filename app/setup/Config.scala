@@ -1,7 +1,8 @@
 package lila
 package setup
 
-import model.{ Variant, Standard, Mode, EloRange }
+import chess.{ Variant, Standard, Mode }
+import elo.EloRange
 
 trait Config {
 

@@ -1,8 +1,8 @@
 package lila
 package ai
 
-import lila.chess.{ Game, Move }
-import model._
+import chess.{ Game, Move }
+import game.DbGame
 
 import java.io.File
 import scala.io.Source

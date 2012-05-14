@@ -1,9 +1,8 @@
 package lila
 package ai
 
-import lila.chess.{ Game, Move, ReverseEngineering }
-import lila.chess.format.Forsyth
-import model._
+import chess.{ Game, Move, ReverseEngineering, Variant, Chess960 }
+import chess.format.Forsyth
 
 trait FenBased {
 

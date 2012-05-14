@@ -1,11 +1,11 @@
 package lila
 
-import model._
-import memo._
+import game._
 import user._
-import db.{ GameRepo, RoomRepo }
+import game.{ GameRepo, RoomRepo }
 import chess.{ Color, White, Black }
 import game.{ IsConnectedOnGame, GetGameVersion }
+import analyse.GameInfo
 
 import scalaz.effects._
 import akka.actor._

@@ -23,7 +23,7 @@ trait AuthConfigImpl extends AuthConfig {
 
   type Id = String
 
-  type User = model.User
+  type User = user.User
 
   type Authority = Permission
 
@@ -31,7 +31,7 @@ trait AuthConfigImpl extends AuthConfig {
 
   val sessionTimeoutInSeconds: Int = 3600
 
-  def resolveUser(id: Id): Option[User] = (env.userRepo byUsername id).unsafePerformIO
+  def resolveUser(id: Id): Option[User] = (env.user.userRepo byUsername id).unsafePerformIO
 
   def logoutSucceeded[A](request: Request[A]): PlainResult = 
     Redirect(routes.Lobby.home)
@@ -52,5 +52,5 @@ trait AuthConfigImpl extends AuthConfig {
     Permission(user.roles) contains authority
 
   def authenticateUser(username: String, password: String): Option[User] =
-    env.userRepo.authenticate(username, password).unsafePerformIO
+    env.user.userRepo.authenticate(username, password).unsafePerformIO
 }

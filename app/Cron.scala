@@ -11,6 +11,8 @@ import play.api.libs.concurrent._
 import play.api.Play.current
 import scalaz.effects._
 
+import implicits.RichDuration._
+
 object Cron {
 
   def start(env: SystemEnv) {
@@ -20,13 +22,13 @@ object Cron {
     implicit val executor = Akka.system.dispatcher
 
     unsafe(5 seconds) {
-      (env.siteHub :: env.lobby.hub :: env.gameHubMaster :: Nil) foreach { actor ⇒
+      (env.site.hub :: env.lobby.hub :: env.game.hubMaster :: Nil) foreach { actor ⇒
         actor ! socket.Broom
       }
     }
 
     message(5 seconds) {
-      env.reporting -> report.Update(env)
+      env.site.reporting -> report.Update(env)
     }
 
     message(1 second) {
@@ -61,7 +63,7 @@ object Cron {
     }
 
     effect(4.1 hours) {
-      env.gameRepo.cleanupUnplayed flatMap { _ ⇒
+      env.game.gameRepo.cleanupUnplayed flatMap { _ ⇒
         env.gameCleanNextCommand.apply
       }
     }
@@ -71,14 +73,12 @@ object Cron {
     }
 
     effect(10 seconds) {
-      env.remoteAi.diagnose
+      env.ai.remoteAi.diagnose
     }
-    env.remoteAi.diagnose.unsafePerformIO
-
-    import RichDuration._
+    env.ai.remoteAi.diagnose.unsafePerformIO
 
     lazy val hubs: List[ActorRef] = 
-      List(env.siteHub, env.lobby.hub, env.gameHubMaster)
+      List(env.site.hub, env.lobby.hub, env.game.hubMaster)
 
     def message(freq: Duration)(to: (ActorRef, Any)) {
       Akka.system.scheduler.schedule(freq, freq.randomize(), to._1, to._2)

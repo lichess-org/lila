@@ -1,6 +1,8 @@
 package lila
 package timeline
 
+import game.DbGame
+
 import com.novus.salat.annotations._
 import com.mongodb.BasicDBList
 

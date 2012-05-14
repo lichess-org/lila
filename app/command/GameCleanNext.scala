@@ -1,8 +1,9 @@
 package lila
 package command
 
-import db.GameRepo
+import game.GameRepo
 import scalaz.effects._
+
 import com.mongodb.casbah.Imports._
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._

@@ -5,7 +5,6 @@ import play.api.libs.json._
 import scalaz.effects._
 
 import chess.Color
-import model.Event
 import memo.Builder
 
 final class History(timeout: Int) {

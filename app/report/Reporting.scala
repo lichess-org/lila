@@ -53,12 +53,12 @@ final class Reporting extends Actor {
     case Update(env) ⇒ {
       val before = nowMillis
       Future.sequence(List(
-        (env.siteHub ? GetNbMembers).mapTo[Int],
-        (env.lobbyHub ? GetNbMembers).mapTo[Int],
-        (env.gameHubMaster ? GetNbHubs).mapTo[Int],
-        (env.gameHubMaster ? GetNbMembers).mapTo[Int],
-        Future(env.gameRepo.countAll.unsafePerformIO),
-        Future(env.gameRepo.countPlaying.unsafePerformIO)
+        (env.site.hub ? GetNbMembers).mapTo[Int],
+        (env.lobby.hub ? GetNbMembers).mapTo[Int],
+        (env.game.hubMaster ? GetNbHubs).mapTo[Int],
+        (env.game.hubMaster ? GetNbMembers).mapTo[Int],
+        Future(env.game.gameRepo.countAll.unsafePerformIO),
+        Future(env.game.gameRepo.countPlaying.unsafePerformIO)
       )) onSuccess {
         case List(
           siteMembers,
@@ -76,7 +76,7 @@ final class Reporting extends Actor {
           loadAvg = osStats.getSystemLoadAverage.toFloat
           nbThreads = threadStats.getThreadCount
           memory = memoryStats.getHeapMemoryUsage.getUsed / 1024 / 1024
-          remoteAi = env.remoteAi.currentHealth
+          remoteAi = env.ai.remoteAi.currentHealth
 
           display()
         }

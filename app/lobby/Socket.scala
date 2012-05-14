@@ -10,8 +10,10 @@ import play.api.libs.iteratee._
 import play.api.libs.concurrent._
 import scalaz.effects._
 
-import RichJs._
+import implicits.RichJs._
 import socket.{ Util, Ping, Quit }
+import timeline.Entry
+import game.DbGame
 
 final class Socket(hub: ActorRef) {
 
@@ -45,19 +47,19 @@ final class Socket(hub: ActorRef) {
     promise | Util.connectionFail
   }
 
-  def addEntry(entry: model.Entry): IO[Unit] = io {
+  def addEntry(entry: Entry): IO[Unit] = io {
     hub ! AddEntry(entry)
   }
 
-  def removeHook(hook: model.Hook): IO[Unit] = io {
+  def removeHook(hook: Hook): IO[Unit] = io {
     hub ! RemoveHook(hook)
   }
 
-  def addHook(hook: model.Hook): IO[Unit] = io {
+  def addHook(hook: Hook): IO[Unit] = io {
     hub ! AddHook(hook)
   }
 
-  def biteHook(hook: model.Hook, game: model.DbGame): IO[Unit] = io {
+  def biteHook(hook: Hook, game: DbGame): IO[Unit] = io {
     hub ! BiteHook(hook, game)
   }
 }

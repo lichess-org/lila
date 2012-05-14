@@ -2,7 +2,7 @@ package lila
 package http
 
 import ui.Color
-import db.UserRepo
+import user.UserRepo
 
 import scalaz.effects._
 

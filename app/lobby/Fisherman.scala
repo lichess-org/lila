@@ -1,9 +1,7 @@
 package lila
 package lobby
 
-import db.HookRepo
-import memo.HookMemo
-import model.{ Hook, DbGame }
+import game.DbGame
 
 import scalaz.effects._
 

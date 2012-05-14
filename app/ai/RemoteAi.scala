@@ -2,7 +2,7 @@ package lila
 package ai
 
 import lila.chess.{ Game, Move }
-import model.DbGame
+import game.DbGame
 
 import scalaz.effects._
 import dispatch._

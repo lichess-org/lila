@@ -11,7 +11,7 @@ import play.api.Play.current
 
 object Ai extends LilaController {
 
-  private val craftyServer = env.craftyServer
+  private val craftyServer = env.ai.craftyServer
 
   def run = Action { implicit req ⇒
     implicit val ctx = Context(req, None)

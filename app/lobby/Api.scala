@@ -1,21 +1,18 @@
 package lila
 package lobby
 
-import lila.{ Messenger ⇒ GameMessenger }
-import model._
-import memo._
-import db._
-import lila.chess.Color
+import game.{ GameRepo, Socket ⇒ GameSocket, Messenger ⇒ GameMessenger }
+import chess.Color
+
 import scalaz.effects._
 
 final class Api(
     hookRepo: HookRepo,
     fisherman: Fisherman,
     gameRepo: GameRepo,
-    gameSocket: game.Socket,
+    gameSocket: GameSocket,
     gameMessenger: GameMessenger,
-    starter: Starter,
-    lobbySocket: lobby.Socket) {
+    starter: Starter) {
 
   def cancel(ownerId: String): IO[Unit] = for {
     hook ← hookRepo ownedHook ownerId

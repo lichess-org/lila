@@ -1,7 +1,6 @@
 package lila
 package game
 
-import model._
 import socket._
 import chess.{ Color, White, Black }
 

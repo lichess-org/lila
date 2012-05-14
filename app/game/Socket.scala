@@ -14,9 +14,8 @@ import play.api.Play.current
 import scalaz.effects._
 
 import chess.Color
-import model.{ DbGame, Pov, PovRef, Progress, Event }
 import socket.{ Util, Ping, Quit }
-import RichJs._
+import implicits.RichJs._
 
 final class Socket(
     getGame: String ⇒ IO[Option[DbGame]],

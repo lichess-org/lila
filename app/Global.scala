@@ -20,7 +20,7 @@ object Global extends GlobalSettings {
 
   override def onRouteRequest(request: RequestHeader): Option[Handler] = {
     println(request)
-    env.i18nRequestHandler(request) orElse super.onRouteRequest(request)
+    env.i18n.requestHandler(request) orElse super.onRouteRequest(request)
   }
 
   override def onHandlerNotFound(request: RequestHeader): Result = {

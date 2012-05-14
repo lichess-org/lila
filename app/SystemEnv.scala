@@ -3,146 +3,74 @@ package lila
 import com.mongodb.casbah.MongoConnection
 import com.mongodb.{ Mongo, MongoOptions, ServerAddress ⇒ MongoServer }
 
-import com.typesafe.config._
 import akka.actor._
 
 import play.api.libs.concurrent._
 import play.api.Application
-import play.api.i18n.Lang
-import play.api.i18n.MessagesPlugin
 
-import db._
-import ai._
-import memo._
-import i18n._
 import ui._
-import lobby.LobbyEnv
-import user.UserEnv
-import timeline.TimelineEnv
 
-final class SystemEnv private(app: Application, settings: Settings) {
+final class SystemEnv private(application: Application, settings: Settings) {
 
-  implicit val ctx = app
+  implicit val app = application
   import settings._
 
-  lazy val user = new UserEnv(
-    settings = settings,
-    mongodb = mongodb)
+  lazy val i18n = new lila.i18n.I18nEnv(
+    app = app,
+    settings = settings)
 
-  lazy val lobby = new LobbyEnv(
+  lazy val user = new lila.user.UserEnv(
+    settings = settings,
+    mongodb = mongodb.apply _)
+
+  lazy val lobby = new lila.lobby.LobbyEnv(
     app = app,
     settings = settings,
-    mongodb = mongodb,
+    mongodb = mongodb.apply _,
     userRepo = user.userRepo,
-    gameRepo = gameRepo)
+    gameRepo = game.gameRepo,
+    gameSocket = game.socket,
+    gameMessenger = game.messenger,
+    entryRepo = timeline.entryRepo,
+    ai = ai.ai)
 
-  lazy val timeline = new TimelineEnv(
+  lazy val setup = new lila.setup.SetupEnv(
     settings = settings,
-    mongodb = mongodb)
+    mongodb = mongodb.apply _)
 
-  lazy val setupFormFactory = new setup.FormFactory(userConfigRepo)
+  lazy val timeline = new lila.timeline.TimelineEnv(
+    settings = settings,
+    mongodb = mongodb.apply _)
 
-  lazy val i18nMessagesApi = app.plugin[MessagesPlugin]
-    .err("this plugin was not registered or disabled")
-    .api
+  lazy val ai = new lila.ai.AiEnv(
+    settings = settings)
 
-  lazy val i18nPool = new I18nPool(
-    langs = Lang.availables.toSet,
-    default = Lang("en"))
+  lazy val game = new lila.game.GameEnv(
+    app = app,
+    settings = settings,
+    mongodb = mongodb.apply _,
+    userRepo = user.userRepo,
+    eloUpdater = user.eloUpdater,
+    ai = ai.ai)
 
-  lazy val translator = new Translator(
-    api = i18nMessagesApi,
-    pool = i18nPool)
+  lazy val analyse = new lila.analyse.AnalyseEnv(
+    settings = settings,
+    gameRepo = game.gameRepo,
+    userRepo = user.userRepo)
 
-  lazy val i18nKeys = new I18nKeys(translator)
-  
-  lazy val i18nRequestHandler = new I18nRequestHandler(
-    pool = i18nPool)
-
-  lazy val pgnDump = new PgnDump(userRepo = userRepo, gameRepo = gameRepo)
-
-  lazy val gameInfo = GameInfo(pgnDump) _
-
-  lazy val reporting = Akka.system.actorOf(
-    Props(new report.Reporting), name = ActorReporting)
-
-  lazy val siteHub = Akka.system.actorOf(
-    Props(new site.Hub(timeout = SiteUidTimeout)), name = ActorSiteHub)
-
-  lazy val siteSocket = new site.Socket(hub = siteHub)
-
-  lazy val gameHistory = () ⇒ new game.History(timeout = GameMessageLifetime)
-
-  lazy val gameHubMaster = Akka.system.actorOf(Props(new game.HubMaster(
-    makeHistory = gameHistory,
-    uidTimeout = GameUidTimeout,
-    hubTimeout = GameHubTimeout,
-    playerTimeout = GamePlayerTimeout
-  )), name = ActorGameHubMaster)
-
-  lazy val gameSocket = new game.Socket(
-    getGame = gameRepo.game,
-    hand = hand,
-    hubMaster = gameHubMaster,
-    messenger = messenger)
-
-  lazy val hand = new Hand(
-    gameRepo = gameRepo,
-    messenger = messenger,
-    ai = ai,
-    finisher = finisher,
-    takeback = takeback,
-    hubMaster = gameHubMaster,
-    moretimeSeconds = MoretimeSeconds)
+  lazy val site = new lila.site.SiteEnv(
+    app = app,
+    settings = settings,
+    gameRepo = game.gameRepo)
 
   lazy val appApi = new AppApi(
-    userRepo = userRepo,
-    gameRepo = gameRepo,
-    gameSocket = gameSocket,
-    messenger = messenger,
-    starter = lobbyEnv.starter,
-    eloUpdater = eloUpdater,
-    gameInfo = gameInfo)
-
-  lazy val captcha = new Captcha(gameRepo = gameRepo)
-
-  lazy val finisher = new Finisher(
-    userRepo = userRepo,
-    gameRepo = gameRepo,
-    messenger = messenger,
-    eloUpdater = eloUpdater,
-    eloCalculator = eloCalculator,
-    finisherLock = finisherLock)
-
-  lazy val eloCalculator = new chess.EloCalculator
-
-  lazy val finisherLock = new FinisherLock(timeout = FinisherLockTimeout)
-
-  lazy val takeback = new Takeback(gameRepo = gameRepo, messenger = messenger)
-
-  lazy val messenger = new Messenger(roomRepo = roomRepo)
-
-  val ai: () ⇒ Ai = AiChoice match {
-    case AiRemote ⇒ () ⇒ remoteAi or craftyAi
-    case AiCrafty ⇒ () ⇒ craftyAi
-    case _        ⇒ () ⇒ stupidAi
-  }
-
-  lazy val remoteAi = new RemoteAi(remoteUrl = AiRemoteUrl)
-
-  lazy val craftyAi = new CraftyAi(server = craftyServer)
-
-  lazy val craftyServer = new CraftyServer(
-    execPath = AiCraftyExecPath,
-    bookPath = AiCraftyBookPath)
-
-  lazy val stupidAi = new StupidAi
-
-  def isAiServer = AiServerMode
-
-  lazy val gameRepo = new GameRepo(mongodb(MongoCollectionGame))
-
-  lazy val roomRepo = new RoomRepo(mongodb(MongoCollectionRoom))
+    userRepo = user.userRepo,
+    gameRepo = game.gameRepo,
+    gameSocket = game.socket,
+    messenger = game.messenger,
+    starter = lobby.starter,
+    eloUpdater = user.eloUpdater,
+    gameInfo = analyse.gameInfo)
 
   lazy val mongodb = MongoConnection(
     new MongoServer(MongoHost, MongoPort),
@@ -158,10 +86,10 @@ final class SystemEnv private(app: Application, settings: Settings) {
   }
 
   lazy val gameFinishCommand = new command.GameFinish(
-    gameRepo = gameRepo,
-    finisher = finisher)
+    gameRepo = game.gameRepo,
+    finisher = game.finisher)
 
-  lazy val gameCleanNextCommand = new command.GameCleanNext(gameRepo = gameRepo)
+  lazy val gameCleanNextCommand = new command.GameCleanNext(gameRepo = game.gameRepo)
 }
 
 object SystemEnv {

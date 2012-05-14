@@ -63,7 +63,7 @@ object AppApi extends LilaController {
   }
 
   def captcha = Action {
-    env.captcha.create.unsafePerformIO.fold(
+    env.site.captcha.create.unsafePerformIO.fold(
       err ⇒ BadRequest(err.shows),
       data ⇒ JsonOk(Map(
         "id" -> data._1,

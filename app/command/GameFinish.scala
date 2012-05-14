@@ -1,7 +1,7 @@
 package lila
 package command
 
-import db.GameRepo
+import game._
 import scalaz.effects._
 
 final class GameFinish(gameRepo: GameRepo, finisher: Finisher) {

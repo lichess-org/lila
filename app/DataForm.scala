@@ -1,6 +1,6 @@
 package lila
 
-import lila.model._
+import lila.game._
 import play.api.data._
 import play.api.data.Forms._
 

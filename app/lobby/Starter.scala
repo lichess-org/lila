@@ -1,9 +1,11 @@
 package lila
 package lobby
 
-import model.{ DbGame, Standard, Progress }
-import db.{ GameRepo }
-import timeline._
+import chess.Standard
+import timeline.{ EntryRepo, Entry }
+import game.{ GameRepo, DbGame, Progress }
+import ai.Ai
+
 import scalaz.effects._
 
 final class Starter(
