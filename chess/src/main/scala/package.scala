@@ -11,6 +11,9 @@ package object chess
     with scalaz.Lists
     with scalaz.Booleans {
 
+  val White = Color.White
+  val Black = Color.Black
+
   type Direction = Pos ⇒ Option[Pos]
   type Directions = List[Direction]
 

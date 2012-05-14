@@ -4,15 +4,15 @@ sealed abstract class Variant(val id: Int) {
 
   lazy val name = toString.toLowerCase
 
-  def standard = this == Standard
+  def standard = this == Variant.Standard
 
   def exotic = !standard
 }
 
-case object Standard extends Variant(1)
-case object Chess960 extends Variant(2)
-
 object Variant {
+
+  case object Standard extends Variant(1)
+  case object Chess960 extends Variant(2)
 
   val all = List(Standard, Chess960)
 

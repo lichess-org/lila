@@ -22,37 +22,37 @@ sealed trait Color {
   def queen = this - Queen
   def king = this - King
 
-  def white = this == White
-  def black = this == Black
+  def white = this == Color.White
+  def black = this == Color.Black
 
   override def toString = name
 }
 
-case object White extends Color {
-
-  lazy val unary_! = Black
-
-  val unmovedPawnY = 2
-  val passablePawnY = 5
-  val promotablePawnY = 8
-
-  val letter = 'w'
-  val name = "white"
-}
-
-case object Black extends Color {
-
-  lazy val unary_! = White
-
-  val unmovedPawnY = 7
-  val passablePawnY = 4
-  val promotablePawnY = 1
-
-  val letter = 'b'
-  val name = "black"
-}
-
 object Color {
+
+  case object White extends Color {
+
+    lazy val unary_! = Black
+
+    val unmovedPawnY = 2
+    val passablePawnY = 5
+    val promotablePawnY = 8
+
+    val letter = 'w'
+    val name = "white"
+  }
+
+  case object Black extends Color {
+
+    lazy val unary_! = White
+
+    val unmovedPawnY = 7
+    val passablePawnY = 4
+    val promotablePawnY = 1
+
+    val letter = 'b'
+    val name = "black"
+  }
 
   def apply(b: Boolean): Color = if (b) White else Black
 

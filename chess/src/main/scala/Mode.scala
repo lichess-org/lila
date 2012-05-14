@@ -2,10 +2,10 @@ package lila.chess
 
 sealed abstract class Mode(val id: Int)
 
-case object Casual extends Mode(0)
-case object Rated extends Mode(1)
-
 object Mode {
+
+  case object Casual extends Mode(0)
+  case object Rated extends Mode(1)
 
   val all = List(Casual, Rated)
 
