@@ -4,10 +4,12 @@ package setup
 import com.mongodb.casbah.MongoCollection
 
 import core.Settings
+import game.GameRepo
 
 final class SetupEnv(
     settings: Settings,
-    mongodb: String ⇒ MongoCollection) {
+    mongodb: String ⇒ MongoCollection,
+    gameRepo: GameRepo) {
 
   import settings._
 
@@ -17,5 +19,6 @@ final class SetupEnv(
     configRepo = configRepo)
 
   lazy val processor = new Processor(
-    configRepo = configRepo)
+    configRepo = configRepo,
+    gameRepo = gameRepo)
 }

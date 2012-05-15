@@ -4,7 +4,6 @@ package socket
 import play.api.libs.concurrent._
 import play.api.libs.json._
 import play.api.libs.iteratee._
-import scala.util.Random
 
 object Util {
 

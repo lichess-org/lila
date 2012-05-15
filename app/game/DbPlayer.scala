@@ -2,6 +2,7 @@ package lila
 package game
 
 import chess._
+import user.User
 
 import com.mongodb.DBRef
 
@@ -27,6 +28,10 @@ case class DbPlayer(
       }
     } mkString " "
 
+  def withUser(user: User)(dbRef: User => DBRef): DbPlayer = copy(
+    user = dbRef(user).some,
+    elo = user.elo.some)
+
   def isAi = aiLevel.isDefined
 
   def isHuman = !isAi
@@ -49,4 +54,23 @@ case class DbPlayer(
   def proposeTakeback = copy(isProposingTakeback = true)
 
   def removeTakebackProposition = copy(isProposingTakeback = false)
+}
+
+object DbPlayer {
+
+  def apply(
+    color: Color,
+    aiLevel: Option[Int]): DbPlayer = DbPlayer(
+    id = IdGenerator.player,
+    color = color,
+    ps = "",
+    aiLevel = aiLevel,
+    isWinner = None,
+    elo = None,
+    isOfferingDraw = false,
+    lastDrawOffer = None,
+    isProposingTakeback = false,
+    user = None,
+    moveTimes = "",
+    blurs = 0)
 }

@@ -7,6 +7,7 @@ import setup._
 object Setup extends LilaController {
 
   def forms = env.setup.formFactory
+  def processor = env.setup.processor
 
   val aiForm = Open { implicit ctx ⇒
     IOk(forms.aiFilled map { html.setup.ai(_) })
@@ -16,7 +17,11 @@ object Setup extends LilaController {
     implicit val req = ctx.body
     forms.ai.bindFromRequest.fold(
       _ ⇒ Redirect(routes.Lobby.home),
-      _ ⇒ Redirect(routes.Lobby.home)
+      config ⇒ IORedirect(
+        processor ai config map { pov ⇒
+          routes.Round.player(pov.playerId)
+        }
+      )
     )
   }
 

@@ -3,13 +3,15 @@ package user
 
 import com.novus.salat._
 import com.novus.salat.dao._
+import com.mongodb.DBRef
 import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.Imports._
 import scalaz.effects._
 import com.roundeights.hasher.Implicits._
 
-class UserRepo(collection: MongoCollection)
-    extends SalatDAO[User, ObjectId](collection) {
+class UserRepo(
+  collection: MongoCollection,
+  val dbRef: User => DBRef) extends SalatDAO[User, ObjectId](collection) {
 
   def user(userId: String): IO[Option[User]] = user(new ObjectId(userId))
 

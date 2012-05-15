@@ -2,6 +2,7 @@ package lila
 package game
 
 import round.{ Event, Progress }
+import user.User
 import chess.{ History ⇒ ChessHistory, Board, Move, Pos, Game, Clock, Status, Color, Piece, Variant }
 import Color._
 import chess.format.{ PgnReader, Fen }
@@ -259,4 +260,30 @@ object DbGame {
   val fullIdSize = 12
 
   def takeGameId(fullId: String) = fullId take gameIdSize
+
+  def apply(
+    game: Game, 
+    whitePlayer: DbPlayer,
+    blackPlayer: DbPlayer,
+    ai: Option[(Color, Int)],
+    creatorColor: Color,
+    isRated: Boolean,
+    variant: Variant,
+    createdAt: DateTime): DbGame = DbGame(
+    id = IdGenerator.game,
+    whitePlayer = whitePlayer,
+    blackPlayer = blackPlayer,
+    pgn = "",
+    status = Status.Created,
+    turns = game.turns,
+    clock = game.clock,
+    lastMove = None,
+    check = None,
+    creatorColor = creatorColor,
+    positionHashes = "",
+    castles = "KQkq",
+    isRated = isRated,
+    variant = variant,
+    lastMoveTime = None,
+    createdAt = createdAt.some) 
 }

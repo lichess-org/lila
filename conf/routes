@@ -1,6 +1,9 @@
 # Game
 GET   /games                         controllers.Game.list
 
+# Round
+GET   /playerId                      controllers.Round.player(playerId: String)
+
 # Setting
 POST  /setting/color                 controllers.Setting.color
 POST  /setting/sound                 controllers.Setting.sound

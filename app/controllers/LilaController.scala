@@ -83,6 +83,8 @@ trait LilaController
   def IOk[A](op: IO[A])(implicit writer: Writeable[A], ctype: ContentTypeOf[A]) = 
     Ok(op.unsafePerformIO)
 
+  def IORedirect(op: IO[Call]) = Redirect(op.unsafePerformIO)
+
   // I like Unit requests.
   implicit def wUnit: Writeable[Unit] =
     Writeable[Unit](_ ⇒ Codec toUTF8 "ok")

@@ -9,8 +9,8 @@ import play.api.libs.concurrent._
 // Keep uptodate with framework/src/play/src/main/scala/play/api/libs/iteratee/Iteratee.scala PushEnumerator (l.1020)
 final class LilaEnumerator[E](
     in: List[E],
-    onStart: => Unit = () => (),
-    onComplete: => Unit = () => (),
+    onStart: () => Unit = () => (),
+    onComplete: () => Unit = () => (),
     onError: (String, Input[E]) => Unit = (_: String, _: Input[E]) => ())
 extends Enumerator[E] with Enumerator.Pushee[E] {
 
@@ -18,7 +18,7 @@ extends Enumerator[E] with Enumerator.Pushee[E] {
   var promise: Promise[Iteratee[E, _]] with Redeemable[Iteratee[E, _]] = _
 
   def apply[A](it: Iteratee[E, A]): Promise[Iteratee[E, A]] = {
-    onStart
+    onStart()
     iteratee = it.asInstanceOf[Iteratee[E, _]]
     in foreach push
     val newPromise = new STMPromise[Iteratee[E, A]]()
@@ -36,31 +36,29 @@ extends Enumerator[E] with Enumerator.Pushee[E] {
 
   def push(item: E): Boolean = {
     if (iteratee != null) {
-      iteratee = iteratee.pureFlatFold[E, Any](
+      iteratee = iteratee.pureFlatFold[E, Any] {
 
-        // DONE
-        (a, in) => {
-          onComplete
+        case Step.Done(a, in) => {
+          onComplete()
           Done(a, in)
-        },
+        }
 
-        // CONTINUE
-        k => {
+        case Step.Cont(k) => {
           val next = k(Input.El(item))
-          next.pureFlatFold(
-            (a, in) => {
-              onComplete
+          next.pureFlatFold {
+            case Step.Done(a, in) => {
+              onComplete()
               next
-            },
-            _ => next,
-            (_, _) => next)
-        },
+            }
+            case _ => next
+          }
+        }
 
-        // ERROR
-        (e, in) => {
+        case Step.Error(e, in) => {
           onError(e, in)
           Error(e, in)
-        })
+        }
+      }
       true
     } else {
       false

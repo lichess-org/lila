@@ -3,6 +3,7 @@ package setup
 
 import chess.{ Variant, Mode }
 import elo.EloRange
+import game.{ GameRepo, DbGame, Pov }
 
 trait Config {
 
@@ -11,6 +12,12 @@ trait Config {
 
   // Creator player color
   val color: Color
+
+  lazy val creatorColor = color.resolve
+
+  def game: DbGame
+
+  def pov = Pov(game, creatorColor)
 }
 
 trait HumanConfig extends Config with EloRange {
