@@ -1,8 +1,7 @@
 package lila
 
-import game._
 import user._
-import game.GameRepo
+import game.{ GameRepo, DbGame }
 import chess.{ Color, White, Black }
 import round.{ IsConnectedOnGame, GetGameVersion, RoomRepo, Progress, Event }
 import analyse.GameInfo

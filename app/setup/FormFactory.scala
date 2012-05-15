@@ -7,7 +7,8 @@ import play.api.data._
 import play.api.data.Forms._
 import scalaz.effects._
 
-final class FormFactory(userConfigRepo: UserConfigRepo) {
+final class FormFactory(
+  configRepo: UserConfigRepo) {
 
   def aiFilled(implicit ctx: Context): IO[Form[AiConfig]] =
     aiConfig map ai.fill
@@ -21,7 +22,7 @@ final class FormFactory(userConfigRepo: UserConfigRepo) {
   )
 
   def aiConfig(implicit ctx: Context): IO[AiConfig] = ctx.me.fold(
-    user ⇒ userConfigRepo.config(user) map (_.ai),
+    user ⇒ configRepo.config(user) map (_.ai),
     io(AiConfig.default)
   )
 }

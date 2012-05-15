@@ -1,65 +1,68 @@
 div.game_config h2, div.game_config button {
-    font-size: 1.4em;
-    padding: 0 2em;
+  font-size: 1.4em;
+  padding: 0 2em;
 }
 div.game_config button {
-    letter-spacing: 1px;
+  letter-spacing: 1px;
 }
 
 div.game_config h2 {
-    margin-bottom: 1em;
+  margin-bottom: 1em;
 }
 div.game_config div.ui-buttonset {
-    margin-bottom: 1em;
+  margin-bottom: 1em;
+}
+div.game_config .ui-button-text {
+  text-transform: capitalize;
 }
 div.game_config div.ui-slider {
-    font-size: 1.3em;
-    margin: 0 15px;
+  font-size: 1.3em;
+  margin: 0 15px;
 }
 div.game_config .optional_config {
-    background: #f4f4f4;
-    margin-bottom: 1em;
-    padding: 3px 0;
-    border-top: solid 1px #e4e4e4;
-    border-bottom: solid 1px #e4e4e4;
+  background: #f4f4f4;
+  margin-bottom: 1em;
+  padding: 3px 0;
+  border-top: solid 1px #e4e4e4;
+  border-bottom: solid 1px #e4e4e4;
 }
 div.game_config .time_choice,
 div.game_config .increment_choice,
 div.game_config .elo_range_config {
-    padding-bottom: 1em;
-    text-align: left;
-    text-indent: 15px;
+  padding-bottom: 1em;
+  text-align: left;
+  text-indent: 15px;
 }
 div.game_config .time_choice span {
   font-weight: bold;
 }
 div.game_config .clock_config label {
-    cursor: pointer;
+  cursor: pointer;
 }
 div.game_config button.submit {
-    margin-top: 0.5em;
+  margin-top: 0.5em;
 }
 div.game_config div.color_submits {
-    margin-top: 1em;
-    margin-left: 18px;
-    height: 65px;
+  margin-top: 1em;
+  margin-left: 18px;
+  height: 65px;
 }
 div.game_config div.color_submits button.submit {
-    float: left;
-    width: 80px;
-    height: 65px;
-    padding: 5px 14px;
-    margin: 0 5px;
+  float: left;
+  width: 80px;
+  height: 65px;
+  padding: 5px 14px;
+  margin: 0 5px;
 }
 div.game_config div.color_submits button.submit span {
-    background: url(../images/sprite_color.png) no-repeat;
-    width: 50px;
-    height: 51px;
-    padding: 0;
+  background: url(../images/sprite_color.png) no-repeat;
+  width: 50px;
+  height: 51px;
+  padding: 0;
 }
 div.game_config div.color_submits button.black span {
-    background-position: 0 -51px;
+  background-position: 0 -51px;
 }
 div.game_config div.color_submits button.random span {
-    background-position: 0 -102px;
+  background-position: 0 -102px;
 }

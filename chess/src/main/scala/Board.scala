@@ -137,25 +137,7 @@ object Board {
 
   def apply(pieces: (Pos, Piece)*): Board = Board(pieces toMap, History())
 
-  def apply(): Board = standard
-
-  lazy val standard: Board = {
-
-    val lineUp = IndexedSeq(Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook)
-
-    val pairs = for (y ← Seq(1, 2, 7, 8); x ← 1 to 8) yield {
-      posAt(x, y) map { pos ⇒
-        (pos, y match {
-          case 1 ⇒ White - lineUp(x - 1)
-          case 2 ⇒ White.pawn
-          case 7 ⇒ Black.pawn
-          case 8 ⇒ Black - lineUp(x - 1)
-        })
-      }
-    }
-
-    Board(pairs.flatten toMap, History())
-  }
+  def apply(): Board = Board(pieces = Variant.Standard.pieces)
 
   def empty = new Board(Map.empty, History())
 }

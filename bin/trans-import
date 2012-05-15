@@ -54,7 +54,7 @@ fr_file = lichess_trans_dir + '/messages.fr.yml'
 lines = File.open(fr_file).readlines.map { |l|
   parts = l.split('":').each { |p| p.strip.gsub('"', '') }
   key = keyify(parts[0])
-  val = format(parts[1])
+  val = format(parts[0])
   key + '=' + val
 }
 text = lines.join("\n")
