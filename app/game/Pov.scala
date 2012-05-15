@@ -9,6 +9,8 @@ case class Pov(game: DbGame, color: Color) {
 
   def playerId = player.id
 
+  def playerFullId = game fullIdOf color
+
   def opponent = game player !color
 
   def isPlayerFullId(fullId: Option[String]): Boolean =

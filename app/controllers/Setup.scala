@@ -19,7 +19,7 @@ object Setup extends LilaController {
       _ ⇒ Redirect(routes.Lobby.home),
       config ⇒ IORedirect(
         processor ai config map { pov ⇒
-          routes.Round.player(pov.playerId)
+          routes.Round.player(pov.playerFullId)
         }
       )
     )

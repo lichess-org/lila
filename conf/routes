@@ -2,7 +2,7 @@
 GET   /games                         controllers.Game.list
 
 # Round
-GET   /playerId                      controllers.Round.player(playerId: String)
+GET   /$id<[\w\-]{12}>               controllers.Round.player(id: String)
 
 # Setting
 POST  /setting/color                 controllers.Setting.color

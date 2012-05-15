@@ -1,0 +1,3 @@
+@(chat: Option[Html] = None)(body: Html)(implicit ctx: Context)
+
+@base.layout(active = siteMenu.play.some, chat = chat)(body)

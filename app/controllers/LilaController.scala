@@ -1,7 +1,7 @@
 package controllers
 
 import lila._
-import user.{ User => UserModel }
+import user.{ User ⇒ UserModel }
 import security.{ AuthConfigImpl, Anonymous }
 import http.{ Context, BodyContext, HttpEnvironment }
 import core.Global
@@ -29,10 +29,10 @@ trait LilaController
 
   implicit val current = env.app
 
-  override implicit def lang(implicit req: RequestHeader) = 
+  override implicit def lang(implicit req: RequestHeader) =
     env.i18n.pool.lang(req)
-    
-  def toJson(map: Map[String, Any]) = Json generate map 
+
+  def toJson(map: Map[String, Any]) = Json generate map
 
   def Open(f: Context ⇒ Result): Action[AnyContent] =
     Open(BodyParsers.parse.anyContent)(f)
@@ -80,10 +80,13 @@ trait LilaController
       data ⇒ ValidIOk(op(data))
     )
 
-  def IOk[A](op: IO[A])(implicit writer: Writeable[A], ctype: ContentTypeOf[A]) = 
+  def IOk[A](op: IO[A])(implicit writer: Writeable[A], ctype: ContentTypeOf[A]) =
     Ok(op.unsafePerformIO)
 
   def IORedirect(op: IO[Call]) = Redirect(op.unsafePerformIO)
+
+  def IOption[A, B](ioa: IO[Option[A]])(op: A ⇒ B)(implicit writer: Writeable[B], ctype: ContentTypeOf[B]) =
+    ioa.unsafePerformIO.fold(a ⇒ Ok(op(a)), NotFound)
 
   // I like Unit requests.
   implicit def wUnit: Writeable[Unit] =

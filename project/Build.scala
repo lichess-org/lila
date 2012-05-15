@@ -61,20 +61,20 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       auth,
       plugins),
     templatesImport ++= Seq(
-      "lila.game.{ DbGame, DbPlayer }",
+      "lila.game.{ DbGame, DbPlayer, Pov }",
       "lila.user.User",
       "lila.templating.Environment._",
       "lila.ui.SiteMenu",
-      "lila.http.Context"),
-    incrementalAssetsCompilation := true,
-    javascriptEntryPoints <<= (sourceDirectory in Compile)(base ⇒
-      ((base / "assets" / "javascripts" ** "*.js") 
-        --- (base / "assets" / "javascripts" ** "_*")
-        --- (base / "assets" / "javascripts" / "vendor" ** "*.js")
-        --- (base / "assets" / "javascripts" ** "*.min.js")
-      ).get
-    ),
-    lessEntryPoints <<= baseDirectory(_ / "app" / "assets" / "stylesheets" ** "*.less")
+      "lila.http.Context")
+    //incrementalAssetsCompilation := true,
+    //javascriptEntryPoints <<= (sourceDirectory in Compile)(base ⇒
+      //((base / "assets" / "javascripts" ** "*.js") 
+        //--- (base / "assets" / "javascripts" ** "_*")
+        //--- (base / "assets" / "javascripts" / "vendor" ** "*.js")
+        //--- (base / "assets" / "javascripts" ** "*.min.js")
+      //).get
+    //),
+    //lessEntryPoints <<= baseDirectory(_ / "app" / "assets" / "stylesheets" ** "*.less")
   ) dependsOn chess
 
   lazy val cli = Project("cli", file("cli"), settings = buildSettings).settings(
