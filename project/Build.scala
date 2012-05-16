@@ -17,7 +17,6 @@ trait Dependencies {
   val casbah = "com.mongodb.casbah" %% "casbah" % "2.1.5-1"
   val salat = "com.novus" %% "salat-core" % "0.0.8-SNAPSHOT"
   val scalalib = "com.github.ornicar" %% "scalalib" % "1.30"
-  val hasher = "com.roundeights" % "hasher" % "0.3" from "http://cloud.github.com/downloads/Nycto/Hasher/hasher_2.9.1-0.3.jar"
   val config = "com.typesafe" % "config" % "0.4.0"
   val json = "com.codahale" %% "jerkson" % "0.5.0"
   val guava = "com.google.guava" % "guava" % "11.0.2"
@@ -81,7 +80,5 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     libraryDependencies ++= Seq()
   ) dependsOn (lila)
 
-  lazy val chess = Project("chess", file("chess"), settings = buildSettings).settings(
-    libraryDependencies ++= Seq(hasher)
-  )
+  lazy val chess = uri("git://github.com/ornicar/scalachess.git")
 }

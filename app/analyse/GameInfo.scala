@@ -1,7 +1,7 @@
 package lila
 package analyse
 
-import chess.Eco
+import chess.OpeningExplorer
 import chess.format.Forsyth
 import game.DbGame
 
@@ -10,7 +10,7 @@ import scalaz.effects.IO
 final class GameInfo private (
     val game: DbGame,
     val pgn: String,
-    val opening: Option[Eco.Opening]) {
+    val opening: Option[OpeningExplorer.Opening]) {
 
   def toMap = Map(
     "pgn" -> pgn,
@@ -27,6 +27,6 @@ object GameInfo {
       new GameInfo(
         game = game,
         pgn = pgn,
-        opening = Eco openingOf game.pgn)
+        opening = OpeningExplorer openingOf game.pgn)
     }
 }

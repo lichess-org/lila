@@ -1,7 +1,7 @@
 package lila
 package ai
 
-import lila.chess.{ Game, Move }
+import chess.{ Game, Move }
 import game.DbGame
 
 import scalaz.effects._
