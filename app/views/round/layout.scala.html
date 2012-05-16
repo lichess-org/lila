@@ -1,3 +1,3 @@
-@(chat: Option[Html] = None)(body: Html)(implicit ctx: Context)
+@(chat: Option[Html] = None, robots: Boolean = true)(body: Html)(implicit ctx: Context)
 
-@base.layout(active = siteMenu.play.some, chat = chat)(body)
+@base.layout(active = siteMenu.play.some, chat = chat, robots = robots)(body)

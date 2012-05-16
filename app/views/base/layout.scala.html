@@ -1,4 +1,4 @@
-@(title: String = "", active: Option[SiteMenu.Elem] = None, baseline: Option[Html] = None, goodies: Option[Html] = None, chat: Option[Html] = None)(body: Html)(implicit ctx: Context)
+@(title: String = "", active: Option[SiteMenu.Elem] = None, baseline: Option[Html] = None, goodies: Option[Html] = None, chat: Option[Html] = None, robots: Boolean = true)(body: Html)(implicit ctx: Context)
 
 <!DOCTYPE html>
 <html lang="@lang.language">
@@ -17,6 +17,9 @@
     <meta content="@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()" name="description">
     <meta name="google-site-verification" content="fZ08Imok7kcLaGcJg7BKQExO6vXGgSgsJUsW6JalUCo" />
     <link rel="shortcut icon" href="@routes.Assets.at("favicon.ico")" type="image/x-icon" />
+    @if(!robots) { 
+    <meta content="noindex, nofollow" name="robots">
+    }
   </head>
   <body data-sound-file="@routes.Assets.at("sound/alert.ogg")">
     <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
