@@ -38,13 +38,13 @@ trait LilaController
     Open(BodyParsers.parse.anyContent)(f)
 
   def Open[A](p: BodyParser[A])(f: Context ⇒ Result): Action[A] =
-    Action(p)(req ⇒ f(Context(req, restoreUser(req))))
+    Action(p)(req ⇒ f(reqToCtx(req)))
 
   def OpenBody(f: BodyContext ⇒ Result): Action[AnyContent] =
     OpenBody(BodyParsers.parse.anyContent)(f)
 
   def OpenBody[A](p: BodyParser[A])(f: BodyContext ⇒ Result): Action[A] =
-    Action(p)(req ⇒ f(Context(req, restoreUser(req))))
+    Action(p)(req ⇒ f(reqToCtx(req)))
 
   def JsonOk(map: Map[String, Any]) = Ok(toJson(map)) as JSON
 
@@ -85,8 +85,10 @@ trait LilaController
 
   def IORedirect(op: IO[Call]) = Redirect(op.unsafePerformIO)
 
-  def IOption[A, B](ioa: IO[Option[A]])(op: A ⇒ B)(implicit writer: Writeable[B], ctype: ContentTypeOf[B]) =
-    ioa.unsafePerformIO.fold(a ⇒ Ok(op(a)), NotFound)
+  def IOption[A, B](ioa: IO[Option[A]])(op: A ⇒ B)(implicit writer: Writeable[B], ctype: ContentTypeOf[B], ctx: Context) =
+    ioa.unsafePerformIO.fold(a ⇒ Ok(op(a)), notFound(ctx))
+
+  def notFound(ctx: Context) = Lobby handleNotFound ctx
 
   // I like Unit requests.
   implicit def wUnit: Writeable[Unit] =
@@ -116,8 +118,12 @@ trait LilaController
     )
   }
 
-  private def restoreUser[A](request: Request[A]): Option[UserModel] = for {
-    sessionId ← request.session.get("sessionId")
+  protected def reqToCtx(req: Request[_]) = Context(req, restoreUser(req))
+
+  protected def reqToCtx(req: RequestHeader) = Context(req, restoreUser(req))
+
+  private def restoreUser[A](req: RequestHeader): Option[UserModel] = for {
+    sessionId ← req.session.get("sessionId")
     userId ← Cache.getAs[Id](sessionId + ":sessionId")(current, idManifest)
     user ← resolveUser(userId)
   } yield {

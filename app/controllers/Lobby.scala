@@ -18,15 +18,23 @@ object Lobby extends LilaController {
   private val preloader = env.lobby.preloader
 
   val home = Open { implicit ctx ⇒
-    preloader(
-      auth = ctx.isAuth,
-      chat = ctx.canSeeChat,
-      myHookId = get("hook")
-    ).unsafePerformIO.fold(
-        url ⇒ Redirect(url),
-        preload ⇒ Ok(html.lobby.home(toJson(preload)))
-      )
+    renderHome(ctx).fold(identity, Ok(_))
   }
+
+  def handleNotFound(req: RequestHeader): Result =
+    handleNotFound(reqToCtx(req))
+
+  def handleNotFound(ctx: Context): Result =
+    renderHome(ctx).fold(identity, NotFound(_))
+
+  private def renderHome(implicit ctx: Context) = preloader(
+    auth = ctx.isAuth,
+    chat = ctx.canSeeChat,
+    myHookId = get("hook")
+  ).unsafePerformIO.bimap(
+      url ⇒ Redirect(url),
+      preload ⇒ html.lobby.home(toJson(preload))
+    )
 
   def socket = WebSocket.async[JsValue] { implicit req ⇒
     implicit val ctx = Context(req, None)

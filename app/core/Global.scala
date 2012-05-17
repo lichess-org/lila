@@ -19,16 +19,16 @@ object Global extends GlobalSettings {
     //else Cron start env
   }
 
-  override def onRouteRequest(request: RequestHeader): Option[Handler] = {
-    println(request)
-    env.i18n.requestHandler(request) orElse super.onRouteRequest(request)
+  override def onRouteRequest(req: RequestHeader): Option[Handler] = {
+    println(req)
+    env.i18n.requestHandler(req) orElse super.onRouteRequest(req)
   }
 
-  override def onHandlerNotFound(request: RequestHeader): Result = {
-    NotFound("Not found " + request)
+  override def onHandlerNotFound(req: RequestHeader): Result = {
+    controllers.Lobby handleNotFound req 
   }
 
-  override def onBadRequest(request: RequestHeader, error: String) = {
+  override def onBadRequest(req: RequestHeader, error: String) = {
     BadRequest("Bad Request: " + error)
   }
 }
