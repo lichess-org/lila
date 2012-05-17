@@ -10,7 +10,7 @@ import scala.math.{ min, max, round }
 
 trait RoundHelper { self: ConfigHelper ⇒
 
-  def roundJsData(pov: Pov, version: Int) = Json generate {
+  def roundPlayerJsData(pov: Pov, version: Int) = Json generate {
 
     import pov._
 
@@ -29,6 +29,34 @@ trait RoundHelper { self: ConfigHelper ⇒
         "color" -> player.color.name,
         "version" -> version,
         "spectator" -> false
+      ),
+      "opponent" -> Map(
+        "color" -> opponent.color.name,
+        "ai" -> opponent.isAi
+      ),
+      "possible_moves" -> possibleMoves(pov),
+      "animation_delay" -> animationDelay(pov)
+    )
+  }
+
+  def roundWatcherJsData(pov: Pov, version: Int) = Json generate {
+
+    import pov._
+
+    Map(
+      "game" -> Map(
+        "id" -> gameId,
+        "started" -> game.started,
+        "finished" -> game.finished,
+        "clock" -> game.hasClock,
+        "player" -> game.turnColor.name,
+        "turns" -> game.turns,
+        "lastMove" -> game.lastMove
+      ),
+      "player" -> Map(
+        "color" -> player.color.name,
+        "version" -> version,
+        "spectator" -> true
       ),
       "opponent" -> Map(
         "color" -> opponent.color.name,
