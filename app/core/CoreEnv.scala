@@ -11,7 +11,7 @@ import play.api.Application
 
 import ui._
 
-final class CoreEnv private (application: Application, settings: Settings) {
+final class CoreEnv private (application: Application, val settings: Settings) {
 
   implicit val app = application
   import settings._

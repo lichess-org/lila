@@ -1,16 +1,18 @@
 package lila
 package templating
 
+import core.CoreEnv
 import controllers._
 import http.Context
 import i18n.{ LangList, I18nDomain }
-import core.Global.env // OMG
 
 import play.api.i18n.Lang
 import play.api.templates.Html
 import play.api.mvc.RequestHeader
 
 trait I18nHelper {
+
+  protected def env: CoreEnv
 
   private val pool = env.i18n.pool
 

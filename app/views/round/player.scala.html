@@ -38,13 +38,17 @@
         </div>
         <div class="lichess_separator"></div>
         <div class="table_inner">
-          {% include (game.isPlayable ? "LichessBundle:Game:table.html.twig" : "LichessBundle:Game:tableEnd.html.twig") with {"player": player} %}
+          @if(game.playable) {
+          @round.table(pov)
+          } else {
+          @round.tableEnd(pov)
+          }
         </div>
       </div>
       @game.clock.map { c =>
       @round.clock(c, pov.color, "bottom")
       @if(!game.finished) {
-      <a class="moretime" href="#" title="@trans.giveNbSeconds(15)"></a>
+      <a class="moretime" href="#" title="@trans.giveNbSeconds(moretimeSeconds)"></a>
       }
       }
     </div>
