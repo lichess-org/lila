@@ -34,6 +34,9 @@ class GameRepo(collection: MongoCollection)
       gameOption map { g ⇒ Pov(g, g player color) }
     }
 
+  def pov(gameId: String, color: String): IO[Option[Pov]] =
+    Color(color).fold(pov(gameId, _), io(None))
+
   def pov(fullId: String): IO[Option[Pov]] =
     game(fullId take gameIdSize) map { gameOption ⇒
       gameOption flatMap { g ⇒

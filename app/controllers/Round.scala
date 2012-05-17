@@ -11,7 +11,7 @@ object Round extends LilaController {
   val socket = env.round.socket
 
   def watcher(gameId: String, color: String) = Open { implicit ctx ⇒
-    IOption(gameRepo pov gameId) { pov ⇒
+    IOption(gameRepo.pov(gameId, color)) { pov ⇒
       html.round.watcher(pov, version(pov.gameId))
     }
   }

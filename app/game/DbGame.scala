@@ -3,7 +3,7 @@ package game
 
 import round.{ Event, Progress }
 import user.User
-import chess.{ History ⇒ ChessHistory, Board, Move, Pos, Game, Clock, Status, Color, Piece, Variant }
+import chess.{ History ⇒ ChessHistory, Role, Board, Move, Pos, Game, Clock, Status, Color, Piece, Variant }
 import Color._
 import chess.format.{ PgnReader, Fen }
 import chess.Pos.piotr
@@ -295,6 +295,10 @@ case class DbGame(
   )
 
   def nextId: Option[String] = next map (_.getId.toString)
+
+  def deadPiecesOf(color: Color): List[Role] = toChess.deads collect {
+    case (_, piece) if piece is color => piece.role
+  }
 }
 
 object DbGame {
