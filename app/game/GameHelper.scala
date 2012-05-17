@@ -2,6 +2,7 @@ package lila
 package game
 
 import chess.format.Forsyth
+import chess.{ Status, Color }
 import user.{ User, UserHelper }
 import http.Context
 import templating.I18nHelper
@@ -21,8 +22,26 @@ trait GameHelper { self: I18nHelper with UserHelper ⇒
         "Anonymous")
     )
 
-  def playerLink(player: DbPlayer, cssClass: String) = Html {
+  def playerLink(player: DbPlayer, cssClass: String = "") = Html {
     "link " + player.id
+  }
+
+  def gameEndStatus(game: DbGame)(implicit ctx: Context): Html = game.status match {
+    case Status.Aborted ⇒ trans.gameAborted()
+    case Status.Mate    ⇒ trans.checkmate()
+    case Status.Resign ⇒ game.loser match {
+      case Some(p) if p.color.white ⇒ trans.whiteResigned()
+      case _                        ⇒ trans.blackResigned()
+    }
+    case Status.Stalemate ⇒ trans.stalemate()
+    case Status.Timeout ⇒ game.loser match {
+      case Some(p) if p.color.white ⇒ trans.whiteLeftTheGame()
+      case _                        ⇒ trans.blackLeftTheGame()
+    }
+    case Status.Draw      ⇒ trans.draw()
+    case Status.Outoftime ⇒ trans.timeOut()
+    case Status.Cheat     ⇒ Html("Cheat detected")
+    case _                ⇒ Html("")
   }
 
   def gameFen(game: DbGame, user: Option[User] = None)(implicit ctx: Context) = Html {

@@ -10,6 +10,7 @@ yourTurn=Twój ruch
 aiNameLevelAiLevel=%s poziom %s
 level=Poziom
 toggleTheChat=Włącz/wyłącz czat
+toggleSound=Włącz/wyłącz dźwięk
 chat=Czat
 giveUp=Poddaj się
 resign=Zrezygnuj

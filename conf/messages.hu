@@ -10,6 +10,7 @@ yourTurn=Te következel
 aiNameLevelAiLevel=%s szintű %s
 level=Szint
 toggleTheChat=Csevegő ki- bekapcsolása
+toggleSound=Hang
 chat=Csevegő
 giveUp=Feladom
 resign=Visszalépek

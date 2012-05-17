@@ -10,4 +10,6 @@ forms that validate while constructing the object
 player timeout depending on game duration
 chess captcha is broken sometimes curl localhost:9000/api/captcha/solve/36yabr3t
 do not count games vs engine as win/loss
-template option.fold
+permission hierarchy
+prevent cheaters from joining the game
+translate "view rematch"

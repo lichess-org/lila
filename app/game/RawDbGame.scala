@@ -6,7 +6,9 @@ import com.novus.salat.annotations._
 import chess._
 import Pos.{ posAt, piotr }
 import Role.forsyth
+
 import org.joda.time.DateTime
+import com.mongodb.DBRef
 
 case class RawDbGame(
     @Key("_id") id: String,
@@ -22,6 +24,7 @@ case class RawDbGame(
     castles: String = "KQkq",
     isRated: Boolean = false,
     v: Int = 1,
+    next: Option[DBRef],
     lmt: Option[Int] = None,
     createdAt: Option[DateTime]) {
 
@@ -48,6 +51,7 @@ case class RawDbGame(
     castles = castles,
     isRated = isRated,
     variant = trueVariant,
+    next = next,
     lastMoveTime = lmt,
     createdAt = createdAt
   )
@@ -71,6 +75,7 @@ object RawDbGame {
       castles = castles,
       isRated = isRated,
       v = variant.id,
+      next = next,
       lmt = lastMoveTime,
       createdAt = createdAt
     )

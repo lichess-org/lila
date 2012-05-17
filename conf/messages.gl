@@ -10,6 +10,7 @@ yourTurn=O seu turno
 aiNameLevelAiLevel=%s co nivel %s
 level=Nivel
 toggleTheChat=(Des)activar o chat
+toggleSound=Activar o son
 chat=Chat
 giveUp=Renderse
 resign=Abandonar

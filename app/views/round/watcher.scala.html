@@ -2,29 +2,18 @@
 
 @import pov._
 
-@title = @{ "Play %s - %s".format(gameId, color) }
+@title = @{ "Watch %s - %s".format(gameId, color) }
 
 @goodies = {
-<div class="lichess_goodies">
-  <br />
-  <a class="lichess_replay_link blank_if_play" href="@routes.Analyse.replay(gameId, color.name)">@trans.replayAndAnalyse()</a>
-  @if(game.hasMoveTimes) {
-  <br /><br />
-  <a href="@routes.Analyse.stats(gameId)">@trans.viewGameStats()</a>
-  }
-  <br /><br />
-  <span class="nb_viewers">@trans.spectators() -</span>
-</div>
 }
 
 @round.layout(title = title, goodies = goodies) {
-<div class="lichess_game clearfix lichess_player_@color not_spectator"
+<div class="lichess_game clearfix lichess_player_@color"
   data-table-url="@routes.Round.table(gameId, color.name, fullId)"
   data-players-url="@routes.Round.players(gameId)">
   <div class="lichess_board_wrap">
     @widget.connection()
     <div class="lichess_board grey">@Html(ui.Board.render(pov))</div>
-    <div id="premove">@trans.premoveEnabledClickAnywhereToCancel()</div>
   </div>
   <div class="lichess_ground">
     @round.cemetery(!pov, "top")
@@ -38,17 +27,17 @@
         </div>
         <div class="lichess_separator"></div>
         <div class="table_inner">
-          @if(game.playable) {
-          @round.table(pov)
-          } else {
-          @round.tableEnd(pov)
-          }
+          @round.tableWatch(pov)
         </div>
       </div>
       @game.clock.map { c =>
       @round.clock(c, pov.color, "bottom")
-      @if(!game.finished) {
-      <a class="moretime" href="#" title="@trans.giveNbSeconds(moretimeSeconds)"></a>
+      }
+      @if(isGranted(Permission.ViewTrialsInGame)) {
+      @game.players.map { p =>
+      @if(game.playerBlurPercent(p.color) > 30) {
+      <br />@playerLink(p) @p.blurs/@game.playerMoves(p.color) blurs (@game.playerBlurPercent(p.color))
+      }
       }
       }
     </div>

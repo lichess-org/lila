@@ -21,10 +21,14 @@ final class I18nKeys(translator: Translator) {
   final class Key(val key: String) {
 
     def apply(args: Any*)(implicit ctx: Context): Html = 
-      translator.trans(key, args.toList)(ctx.req)
+      translator.html(key, args.toList)(ctx.req)
+
+    def str(args: Any*)(implicit ctx: Context): String = 
+      translator.str(key, args.toList)(ctx.req)
 
     def to(lang: Lang)(args: Any*): String = 
       translator.transTo(key, args.toList)(lang)
+
   }
 
 %keys%

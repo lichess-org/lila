@@ -10,6 +10,7 @@ yourTurn=Sıra sizde
 aiNameLevelAiLevel=%s seviye %s
 level=Seviye
 toggleTheChat=Sohbeti aç/kapat
+toggleSound=Sesi aç/kapat
 chat=Sohbet
 giveUp=Vazgeç
 resign=Terk et

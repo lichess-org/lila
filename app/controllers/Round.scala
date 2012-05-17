@@ -10,13 +10,19 @@ object Round extends LilaController {
   val gameRepo = env.game.gameRepo
   val socket = env.round.socket
 
-  def watcher(gameId: String, color: String) = TODO
+  def watcher(gameId: String, color: String) = Open { implicit ctx ⇒
+    IOption(gameRepo pov gameId) { pov ⇒
+      html.round.watcher(pov, version(pov.gameId))
+    }
+  }
 
   def player(fullId: String) = Open { implicit ctx ⇒
     IOption(gameRepo pov fullId) { pov ⇒
-      html.round.player(pov, socket blockingVersion pov.gameId)
+      html.round.player(pov, version(pov.gameId))
     }
   }
+
+  private def version(gameId: String): Int = socket blockingVersion gameId
 
   def abort(fullId: String) = TODO
   def resign(fullId: String) = TODO

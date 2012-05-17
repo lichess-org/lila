@@ -10,6 +10,7 @@ yourTurn=Ваш хід
 aiNameLevelAiLevel=%s рівень %s
 level=Рівень
 toggleTheChat=Перемкнути чат
+toggleSound=Вимкнути/ввімкнути звук
 chat=Чат
 giveUp=Здатися
 resign=Закінчити гру

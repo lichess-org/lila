@@ -10,6 +10,7 @@ yourTurn=Du bist am Zug!
 aiNameLevelAiLevel=%s Level %s
 level=Spielstärke
 toggleTheChat=Chat ein- oder ausschalten
+toggleSound=Ton ein-/ausschalten
 chat=Chat
 giveUp=Das Spiel aufgeben
 resign=Aufgeben

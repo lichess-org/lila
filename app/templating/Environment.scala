@@ -5,6 +5,7 @@ import core.Global.{ env ⇒ coreEnv } // OMG
 import round.RoundHelper
 import game.GameHelper
 import user.UserHelper
+import security.SecurityHelper
 import http.{ HttpEnvironment, Setting }
 
 object Environment
@@ -21,7 +22,8 @@ object Environment
     with ConfigHelper 
     with RoundHelper 
     with GameHelper
-    with UserHelper {
+    with UserHelper 
+    with SecurityHelper {
 
   protected def env = coreEnv
 }

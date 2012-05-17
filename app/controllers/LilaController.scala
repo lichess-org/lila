@@ -2,7 +2,7 @@ package controllers
 
 import lila._
 import user.{ User ⇒ UserModel }
-import security.{ AuthConfigImpl, Anonymous }
+import security.{ AuthConfigImpl }
 import http.{ Context, BodyContext, HttpEnvironment }
 import core.Global
 

@@ -25,6 +25,8 @@ case class User(
   def usernameWithElo = "%s (%d)".format(username, elo)
 
   def setting(name: String): Option[Any] = settings get name
+
+  def hasRole(name: String) = roles contains name
 }
 
 object User {

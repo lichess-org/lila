@@ -10,6 +10,7 @@ import chess.Pos.piotr
 import chess.Role.forsyth
 
 import org.joda.time.DateTime
+import com.mongodb.DBRef
 
 case class DbGame(
     id: String,
@@ -26,6 +27,7 @@ case class DbGame(
     castles: String = "KQkq",
     isRated: Boolean = false,
     variant: Variant = Variant.default,
+    next: Option[DBRef] = None,
     lastMoveTime: Option[Int] = None,
     createdAt: Option[DateTime] = None) {
 
@@ -207,6 +209,8 @@ case class DbGame(
 
   def started = status >= Status.Started
 
+  def aborted = status == Status.Aborted
+
   def playable = status < Status.Aborted
 
   def playableBy(p: DbPlayer) = playable && turnOf(p)
@@ -254,7 +258,11 @@ case class DbGame(
 
   def finished = status >= Status.Mate
 
-  def winnerColor: Option[Color] = players find (_.wins) map (_.color)
+  def winner = players find (_.wins)
+
+  def loser = winner map opponent
+
+  def winnerColor: Option[Color] = winner map (_.color)
 
   def outoftimePlayer: Option[DbPlayer] = for {
     c ← clock
@@ -278,6 +286,15 @@ case class DbGame(
   def pgnList = pgn.split(' ').toList
 
   def bothPlayersHaveMoved = turns > 1
+
+  def playerMoves(color: Color): Int = (turns + color.fold(1, 0)) / 2
+
+  def playerBlurPercent(color: Color): Int = (turns > 5).fold(
+    (player(color).blurs * 100) / playerMoves(color),
+    0
+  )
+
+  def nextId: Option[String] = next map (_.getId.toString)
 }
 
 object DbGame {

@@ -10,6 +10,7 @@ yourTurn=Jste na tahu
 aiNameLevelAiLevel=%s - úroveň %s
 level=Úroveň
 toggleTheChat=Přepnout chat
+toggleSound=Vypínač zvuku
 chat=Chat
 giveUp=Vzdát se
 resign=Vzdát se

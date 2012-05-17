@@ -10,6 +10,7 @@ yourTurn=U bent aan zet
 aiNameLevelAiLevel=%s niveau %s
 level=Niveau
 toggleTheChat=Chat aan-/uitzetten
+toggleSound=Schakel geluid
 chat=Chat
 giveUp=Opgeven
 resign=Opgegeven
