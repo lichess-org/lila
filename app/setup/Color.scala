@@ -8,22 +8,22 @@ sealed abstract class Color(val name: String) {
   val resolve: chess.Color
 }
 
-object White extends Color("white") {
-
-  val resolve = chess.White
-}
-
-object Black extends Color("black") {
-
-  val resolve = chess.Black
-}
-
-object Random extends Color("random") {
-
-  val resolve = nextBoolean.fold(White, Black).resolve
-}
-
 object Color {
+
+  object White extends Color("white") {
+
+    val resolve = chess.White
+  }
+
+  object Black extends Color("black") {
+
+    val resolve = chess.Black
+  }
+
+  object Random extends Color("random") {
+
+    val resolve = nextBoolean.fold(White, Black).resolve
+  }
 
   def apply(name: String): Option[Color] = all find (_.name == name)
 

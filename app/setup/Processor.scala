@@ -13,7 +13,7 @@ final class Processor(
 
   def ai(config: AiConfig)(implicit ctx: Context): IO[Pov] = for {
     _ ← ctx.me.fold(
-      user ⇒ configRepo.update(user, ((c: UserConfig) ⇒ c withAi config)),
+      user ⇒ configRepo.update(user)(_ withAi config),
       io()
     )
     pov = config.pov

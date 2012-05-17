@@ -7,7 +7,10 @@ import game.{ DbGame, DbPlayer }
 
 import org.joda.time.DateTime
 
-case class AiConfig(variant: Variant, level: Int, color: Color) extends Config {
+case class AiConfig(
+    variant: Variant,
+    level: Int,
+    color: Color) extends Config {
 
   def >> = (variant.id, level, color.name).some
 
@@ -24,6 +27,10 @@ case class AiConfig(variant: Variant, level: Int, color: Color) extends Config {
     isRated = false,
     variant = variant,
     createdAt = DateTime.now).start
+
+  def encode = RawAiConfig(
+    v = variant.id,
+    l = level)
 }
 
 object AiConfig extends BaseConfig {
@@ -39,6 +46,18 @@ object AiConfig extends BaseConfig {
     color = Color.default)
 
   val levelChoices = (1 to 8).toList map { l ⇒ l.toString -> l.toString }
+}
+
+case class RawAiConfig(
+    v: Int,
+    l: Int) {
+
+  def decode = for {
+    variant ← Variant(v)
+  } yield AiConfig(
+    variant = variant,
+    level = l,
+    color = Color.White)
 }
 
 //case class HookConfig(eloRange: Option[String]) 
