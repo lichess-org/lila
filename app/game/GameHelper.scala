@@ -26,29 +26,18 @@ trait GameHelper { self: I18nHelper with UserHelper ⇒
 
   def playerLink(player: DbPlayer, cssClass: String = "") = Html {
     player.userId.fold(
-      userId => {
-        val url = routes.User.show(username)
-        val text = usernameWithElo(player) + player.eloDiff.fold(
-          diff => " (%s)".format((diff < 0).fold(diff, "+ " + diff))
+      userId ⇒ userIdToUsername(userId) |> { username ⇒
+        """<a class="user_link%s%s" href="%s"%s></a>""".format(
+          cssClass.some.filter("" !=).fold(" " + _, ""),
+          isUsernameOnline(username).fold(" online", ""),
+          routes.User.show(username),
+          usernameWithElo(player) + player.eloDiff.fold(
+            diff ⇒ " (%s)".format((diff < 0).fold(diff, "+ " + diff)),
+            "")
         )
       },
       usernameWithElo(player)
     )
-      """<a class="user_link%s" href="%s"%s></a>""".format(
-      ),
-      anonPlayerName)
-
-        if(!$user = $player->getUser()) {
-            return $this->escape($player->getUsernameWithElo());
-        }
-
-        $url = $this->getUrlGenerator()->generate('fos_user_user_show', array('username' => $user->getUsername()));
-
-        $username = $withElo ? $player->getUsernameWithElo() : $player->getUsername();
-        if($eloDiff = $player->getEloDiff()) {
-            $username = sprintf('%s (%s)', $username, $eloDiff < 0 ? $eloDiff : '+'.$eloDiff);
-        }
-        return sprintf('<a class="user_link%s" href="%s"%s>%s</a>', $user->getIsOnline() ? ' online' : '', $url, null === $class ? '' : ' class="'.$class.'"', $username);
   }
 
   def gameEndStatus(game: DbGame)(implicit ctx: Context): Html = game.status match {

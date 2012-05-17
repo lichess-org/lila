@@ -78,6 +78,7 @@ object DbPlayer {
     aiLevel = aiLevel,
     isWinner = None,
     elo = None,
+    eloDiff = None,
     isOfferingDraw = false,
     lastDrawOffer = None,
     isProposingTakeback = false,

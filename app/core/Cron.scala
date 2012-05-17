@@ -56,10 +56,7 @@ object Cron {
       Future.traverse(hubs) { hub ⇒
         hub ? socket.GetUsernames mapTo manifest[Iterable[String]]
       } map (_.flatten) onSuccess {
-        case xs ⇒ (for {
-          _ ← env.user.usernameMemo putAll xs
-          _ ← env.user.userRepo.updateOnlineUsernames(env.user.usernameMemo.keys.toSet)
-        } yield Unit).unsafePerformIO
+        case xs ⇒ (env.user.usernameMemo putAll xs).unsafePerformIO
       }
     }
 
@@ -78,7 +75,7 @@ object Cron {
     }
     env.ai.remoteAi.diagnose.unsafePerformIO
 
-    lazy val hubs: List[ActorRef] = 
+    lazy val hubs: List[ActorRef] =
       List(env.site.hub, env.lobby.hub, env.round.hubMaster)
 
     def message(freq: Duration)(to: (ActorRef, Any)) {

@@ -55,20 +55,6 @@ class UserRepo(
     elos.sum / elos.size.toFloat
   }
 
-  def updateOnlineUsernames(usernames: Set[String]): IO[Unit] = io {
-    val names = usernames.toList.map(_.toLowerCase).distinct
-    collection.update(
-      ("usernameCanonical" $nin names) ++ ("isOnline" -> true),
-      $set("isOnline" -> false),
-      upsert = false,
-      multi = true)
-    collection.update(
-      ("usernameCanonical" $in names) ++ ("isOnline" -> false),
-      $set("isOnline" -> true),
-      upsert = false,
-      multi = true)
-  }
-
   def toggleChatBan(user: User): IO[Unit] = io {
     collection.update(
       idSelector(user),
