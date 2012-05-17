@@ -11,6 +11,7 @@ import chess.Role.forsyth
 
 import org.joda.time.DateTime
 import com.mongodb.DBRef
+import org.scala_tools.time.Imports._
 
 case class DbGame(
     id: String,
@@ -29,7 +30,8 @@ case class DbGame(
     variant: Variant = Variant.default,
     next: Option[DBRef] = None,
     lastMoveTime: Option[Int] = None,
-    createdAt: Option[DateTime] = None) {
+    createdAt: Option[DateTime] = None,
+    updatedAt: Option[DateTime] = None) {
 
   val players = List(whitePlayer, blackPlayer)
 
@@ -258,6 +260,8 @@ case class DbGame(
 
   def finished = status >= Status.Mate
 
+  def finishedOrAborted = finished || aborted
+
   def winner = players find (_.wins)
 
   def loser = winner map opponent
@@ -297,8 +301,12 @@ case class DbGame(
   def nextId: Option[String] = next map (_.getId.toString)
 
   def deadPiecesOf(color: Color): List[Role] = toChess.deads collect {
-    case (_, piece) if piece is color => piece.role
+    case (_, piece) if piece is color ⇒ piece.role
   }
+
+  def isBeingPlayed =
+    !finishedOrAborted && updatedAt.fold(
+      _ > DateTime.now - 20.seconds, false)
 }
 
 object DbGame {

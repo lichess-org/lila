@@ -13,3 +13,7 @@ do not count games vs engine as win/loss
 permission hierarchy
 prevent cheaters from joining the game
 translate "view rematch"
+
+
+next deploy:
+db.user.update({},{$unset:{isOnline: true}}, false, true)

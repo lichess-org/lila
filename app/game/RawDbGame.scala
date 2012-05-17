@@ -26,7 +26,8 @@ case class RawDbGame(
     v: Int = 1,
     next: Option[DBRef],
     lmt: Option[Int] = None,
-    createdAt: Option[DateTime]) {
+    createdAt: Option[DateTime],
+    updatedAt: Option[DateTime]) {
 
   def decode: Option[DbGame] = for {
     whitePlayer ← players find (_.c == "white") flatMap (_.decode)
@@ -53,7 +54,8 @@ case class RawDbGame(
     variant = trueVariant,
     next = next,
     lastMoveTime = lmt,
-    createdAt = createdAt
+    createdAt = createdAt,
+    updatedAt = updatedAt
   )
 }
 
@@ -77,7 +79,8 @@ object RawDbGame {
       v = variant.id,
       next = next,
       lmt = lastMoveTime,
-      createdAt = createdAt
+      createdAt = createdAt,
+      updatedAt = updatedAt
     )
   }
 }

@@ -2,11 +2,7 @@ package lila
 package templating
 
 import core.Global.{ env ⇒ coreEnv } // OMG
-import round.RoundHelper
-import game.GameHelper
-import user.UserHelper
-import security.SecurityHelper
-import http.{ HttpEnvironment, Setting }
+import http.HttpEnvironment
 
 object Environment
     extends HttpEnvironment
@@ -15,15 +11,16 @@ object Environment
     with scalaz.Booleans
     with StringHelper
     with AssetHelper
-    with I18nHelper
     with UiHelper
     with RequestHelper
     with SettingHelper
     with ConfigHelper 
-    with RoundHelper 
-    with GameHelper
-    with UserHelper 
-    with SecurityHelper {
+    with DateHelper 
+    with round.RoundHelper 
+    with game.GameHelper
+    with user.UserHelper 
+    with security.SecurityHelper
+    with i18n.I18nHelper {
 
   protected def env = coreEnv
 }

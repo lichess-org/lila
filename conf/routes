@@ -6,7 +6,7 @@ GET   /games/checkmate                         controllers.Game.checkmate
 
 # Round
 GET   /$gameId<[\w\-]{8}>               controllers.Round.watcher(gameId: String, color: String = "white")
-GET   /$gameId<[\w\-]{8}>/$color<[white|black]> controllers.Round.watcher(gameId: String, color: String)
+GET   /$gameId<[\w\-]{8}>/$color<white|black> controllers.Round.watcher(gameId: String, color: String)
 GET   /$fullId<[\w\-]{12}>               controllers.Round.player(fullId: String)
 GET   /abort/$fullId<[\w\-]{12}>                 controllers.Round.abort(fullId: String)
 GET   /resign/$fullId<[\w\-]{12}>                controllers.Round.resign(fullId: String)
@@ -20,13 +20,13 @@ GET   /takeback-accept/$fullId<[\w\-]{12}>       controllers.Round.takebackAccep
 GET   /takeback-offer/$fullId<[\w\-]{12}>        controllers.Round.takebackOffer(fullId: String)
 GET   /takeback-cancel/$fullId<[\w\-]{12}>       controllers.Round.takebackCancel(fullId: String)
 GET   /takeback-decline/$fullId<[\w\-]{12}>      controllers.Round.takebackDecline(fullId: String)
-GET   /table/$gameId<[\w\-]{8}>/$color<[white|black]> controllers.Round.table(gameId: String, color: String, fullId: String = "")
-GET   /table/$gameId<[\w\-]{8}>/$color<[white|black]>/$fullId<[\w\-]{12}> controllers.Round.table(gameId: String, color: String, fullId: String)
+GET   /table/$gameId<[\w\-]{8}>/$color<white|black> controllers.Round.table(gameId: String, color: String, fullId: String = "")
+GET   /table/$gameId<[\w\-]{8}>/$color<white|black>/$fullId<[\w\-]{12}> controllers.Round.table(gameId: String, color: String, fullId: String)
 GET   /players/$gameId<[\w\-]{8}>                 controllers.Round.players(gameId: String)
 
 # Analyse
 GET   /analyse/$gameId<[\w\-]{8}>       controllers.Analyse.replay(gameId: String, color: String = "white")
-GET   /analyse/$gameId<[\w\-]{8}>/$color<[white|black]> controllers.Analyse.replay(gameId: String, color: String)
+GET   /analyse/$gameId<[\w\-]{8}>/$color<white|black> controllers.Analyse.replay(gameId: String, color: String)
 GET   /$gameId<[\w\-]{8}>/stats          controllers.Analyse.stats(gameId: String)
 
 # Setting

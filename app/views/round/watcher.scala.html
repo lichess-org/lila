@@ -5,6 +5,19 @@
 @title = @{ "Watch %s - %s".format(gameId, color) }
 
 @goodies = {
+<div class="lichess_goodies">
+  <br />
+  @trans.youAreViewingThisGameAsASpectator().
+  <br /><br />
+  <span class="nb_viewers">@trans.spectators() -</span>
+  <br /><br /><br />
+  <div class="box">
+    @if(game.isBeingPlayed) {
+    @trans.playingRightNow()
+    } else {
+    @game.updatedAt.map(showDate)
+    }
+</div>
 }
 
 @round.layout(title = title, goodies = goodies) {

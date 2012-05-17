@@ -5,7 +5,7 @@ import chess.format.Forsyth
 import chess.{ Status, Color }
 import user.{ User, UserHelper }
 import http.Context
-import templating.I18nHelper
+import i18n.I18nHelper
 
 import controllers.routes
 
@@ -24,16 +24,15 @@ trait GameHelper { self: I18nHelper with UserHelper ⇒
         anonPlayerName)
     )
 
-  def playerLink(player: DbPlayer, cssClass: String = "") = Html {
+  def playerLink(player: DbPlayer, cssClass: Option[String] = None) = Html {
     player.userId.fold(
       userId ⇒ userIdToUsername(userId) |> { username ⇒
-        """<a class="user_link%s%s" href="%s"%s></a>""".format(
-          cssClass.some.filter("" !=).fold(" " + _, ""),
+        """<a class="user_link%s%s" href="%s">%s</a>""".format(
+          cssClass.fold(" " + _, ""),
           isUsernameOnline(username).fold(" online", ""),
           routes.User.show(username),
           usernameWithElo(player) + player.eloDiff.fold(
-            diff ⇒ " (%s)".format((diff < 0).fold(diff, "+ " + diff)),
-            "")
+            diff ⇒ " (%s)".format((diff < 0).fold(diff, "+ " + diff)), "")
         )
       },
       usernameWithElo(player)
