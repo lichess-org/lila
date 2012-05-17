@@ -1,7 +1,12 @@
 # Game
-GET   /games                         controllers.Game.list
+GET   /games                         controllers.Game.realtime
+GET   /games-refresh/:ids                         controllers.Game.realtimeInner(ids: String)
+GET   /games/all                         controllers.Game.all
+GET   /games/checkmate                         controllers.Game.checkmate
 
 # Round
+GET   /$gameId<[\w\-]{8}>               controllers.Round.watcher(gameId: String, color: String = "white")
+GET   /$gameId<[\w\-]{8}>/$color<[white|black]> controllers.Round.watcher(gameId: String, color: String)
 GET   /$fullId<[\w\-]{12}>               controllers.Round.player(fullId: String)
 GET   /abort/$fullId<[\w\-]{12}>                 controllers.Round.abort(fullId: String)
 GET   /resign/$fullId<[\w\-]{12}>                controllers.Round.resign(fullId: String)

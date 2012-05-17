@@ -11,10 +11,11 @@ final class Translator(api: MessagesApi, pool: I18nPool) {
   
   private val messages = api.messages
 
-  def trans(key: String, args: List[Any])(implicit req: RequestHeader): Html = 
-    Html {
-      translate(key, args)(pool lang req) getOrElse key
-    }
+  def html(key: String, args: List[Any])(implicit req: RequestHeader): Html = 
+    Html(str(key, args)(req))
+
+  def str(key: String, args: List[Any])(implicit req: RequestHeader): String =
+    translate(key, args)(pool lang req) getOrElse key
 
   def transTo(key: String, args: List[Any])(lang: Lang): String = 
     translate(key, args)(lang) getOrElse key

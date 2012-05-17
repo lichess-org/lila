@@ -12,7 +12,7 @@ $(function() {
 			},
 			2100);
 		};
-        reloadGameList();
+    reloadGameList();
 	}
 
     function parseFen() {

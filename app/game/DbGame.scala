@@ -44,6 +44,9 @@ case class DbGame(
   def player(playerId: String): Option[DbPlayer] =
     players find (_.id == playerId)
 
+  def playerByUser(user: User): Option[DbPlayer] =
+    players find (_ isUser user)
+
   def isPlayerFullId(player: DbPlayer, fullId: String): Boolean =
     (fullId.size == DbGame.fullIdSize) && player.id == (fullId drop 8)
 

@@ -14,6 +14,7 @@ final class Settings(config: Config) {
   val GameHubTimeout = millis("game.hub.timeout")
   val GamePlayerTimeout = millis("game.player.timeout")
   val GameAnimationDelay = millis("game.animation.delay")
+  val GameCachedNbTtl = millis("game.cached.nb.ttl")
 
   val LobbyEntryMax = getInt("lobby.entry.max")
   val LobbyMessageMax = getInt("lobby.message.max")

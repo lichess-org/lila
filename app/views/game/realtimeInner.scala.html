@@ -1,0 +1,12 @@
+@(games: List[DbGame])(implicit ctx: Context)
+
+<div class="game_list_inner clearfix">
+  @games.map { game =>
+  <div>
+    @gameFen(game)
+    <div class="vstext">
+      @usernameWithElo(game.creator) - @usernameWithElo(game.invited)
+    </div>
+  </div>
+  }
+</div>

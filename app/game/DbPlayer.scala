@@ -44,6 +44,8 @@ case class DbPlayer(
 
   def hasUser = user.isDefined
 
+  def isUser(u: User) = user.fold(_.getId == u.id, false)
+
   def wins = isWinner getOrElse false
 
   def hasMoveTimes = moveTimes.size > 10

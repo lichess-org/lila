@@ -3,6 +3,8 @@ package templating
 
 import core.Global.{ env ⇒ coreEnv } // OMG
 import round.RoundHelper
+import game.GameHelper
+import user.UserHelper
 import http.{ HttpEnvironment, Setting }
 
 object Environment
@@ -16,9 +18,10 @@ object Environment
     with UiHelper
     with RequestHelper
     with SettingHelper
-    with UserHelper
     with ConfigHelper 
-    with RoundHelper {
+    with RoundHelper 
+    with GameHelper
+    with UserHelper {
 
   protected def env = coreEnv
 }

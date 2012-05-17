@@ -19,6 +19,12 @@ class UserRepo(
     findOneByID(userId)
   }
 
+  def username(userId: String): IO[Option[String]] = io {
+    primitiveProjection[String](
+      DBObject("_id" -> new ObjectId(userId)),
+      "username")
+  }
+
   def byUsername(username: String): IO[Option[User]] = io {
     findOne(
       DBObject("usernameCanonical" -> username.toLowerCase)

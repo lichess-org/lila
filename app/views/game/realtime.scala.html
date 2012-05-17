@@ -1,0 +1,12 @@
+@(games: List[DbGame], nbGames: Int, nbMates: Int)(implicit ctx: Context)
+
+@game.layout(title = trans.gamesBeingPlayedRightNow.str()) {
+<div class="content_box current_games_box">
+<h1 class="title">@trans.gamesBeingPlayedRightNow()</h1>
+<a class="all_games" href="@routes.Game.all()">@trans.viewAllNbGames(nbGames)</a>
+<a class="all_games" href="@routes.Game.checkmate()">@trans.viewNbCheckmates(nbMates)</a>
+<div class="game_list" data-url="@routes.Game.realtimeInner(games.map(_.id).mkString(","))">
+  @game.realtimeInner(games)
+</div>
+</div>
+}

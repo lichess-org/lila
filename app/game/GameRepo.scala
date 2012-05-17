@@ -94,7 +94,7 @@ class GameRepo(collection: MongoCollection)
       "v" -> Variant.Standard.id
     ))
       .sort(DBObject("createdAt" -> -1))
-      .limit(1) 
+      .limit(1)
       .toList.map(decode).flatten.headOption
   }
 
@@ -129,6 +129,21 @@ class GameRepo(collection: MongoCollection)
 
   val countPlaying: IO[Int] = io {
     count("updatedAt" $gt (DateTime.now - 15.seconds)).toInt
+  }
+
+  val countMate: IO[Int] = io {
+    count(DBObject("status" -> Status.Mate.id)).toInt
+  }
+
+  def recentGames(limit: Int): IO[List[DbGame]] = io {
+    find(DBObject("status" -> Status.Started.id))
+      .sort(DBObject("updatedAt" -> -1))
+      .limit(limit)
+      .toList.map(decode).flatten sortBy (_.id)
+  }
+
+  def games(ids: List[String]): IO[List[DbGame]] = io {
+    find("_id" $in ids).toList.map(decode).flatten sortBy (_.id)
   }
 
   def ensureIndexes: IO[Unit] = io {

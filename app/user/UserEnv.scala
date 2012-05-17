@@ -25,4 +25,6 @@ final class UserEnv(
     historyRepo = historyRepo)
 
   lazy val usernameMemo = new UsernameMemo(timeout = MemoUsernameTimeout)
+
+  lazy val cached = new Cached(userRepo)
 }

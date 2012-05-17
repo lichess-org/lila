@@ -1,0 +1,6 @@
+@(title: String, goodies: Option[Html] = None)(body: Html)(implicit ctx: Context)
+
+@base.layout(
+title = title, 
+goodies = goodies, 
+active = siteMenu.game.some)(body)

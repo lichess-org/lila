@@ -12,4 +12,8 @@ final class GameEnv(
   import settings._
 
   lazy val gameRepo = new GameRepo(mongodb(MongoCollectionGame))
+
+  lazy val cached = new Cached(
+    gameRepo = gameRepo,
+    nbTtl = GameCachedNbTtl)
 }
