@@ -1,10 +1,9 @@
 package lila
-package templating
+package i18n
 
 import core.CoreEnv
 import controllers._
 import http.Context
-import i18n.{ LangList, I18nDomain }
 
 import play.api.i18n.Lang
 import play.api.templates.Html
