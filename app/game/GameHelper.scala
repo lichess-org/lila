@@ -22,10 +22,11 @@ trait GameHelper { self: I18nHelper with UserHelper ⇒
     case Variant.Chess960 ⇒ "chess960"
   }
 
-  def clockName(clock: Option[Clock])(implicit ctx: Context) = clock.fold(
-    c ⇒ "%d minutes/side + %d seconds/move".format(
-      c.limitInMinutes, c.increment),
-    trans.unlimited.str())
+  def clockName(clock: Option[Clock])(implicit ctx: Context): String = 
+    clock.fold(clockName, trans.unlimited.str())
+
+  def clockName(clock: Clock): String = "%d minutes/side + %d seconds/move".format(
+      clock.limitInMinutes, clock.increment)
 
   def usernameWithElo(player: DbPlayer) =
     player.aiLevel.fold(
@@ -69,8 +70,8 @@ trait GameHelper { self: I18nHelper with UserHelper ⇒
   }
 
   def gameFen(game: DbGame, user: Option[User] = None)(implicit ctx: Context) = Html {
-    val color = ((user flatMap game.playerByUser) | game.creator).color
-    val url = (ctx.me flatMap game.playerByUser).fold(
+    val color = ((user flatMap game.player) | game.creator).color
+    val url = (ctx.me flatMap game.player).fold(
       p ⇒ routes.Round.player(game fullIdOf p.color),
       routes.Round.watcher(game.id, chess.Color.White.name)
     )

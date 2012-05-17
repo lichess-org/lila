@@ -6,6 +6,7 @@ import views._
 object Game extends LilaController {
 
   val gameRepo = env.game.gameRepo
+  val paginator = env.game.paginator
   val cached = env.game.cached
 
   val realtime = Open { implicit ctx ⇒
@@ -20,7 +21,11 @@ object Game extends LilaController {
     })
   }
 
-  val all = TODO
+  def all(page: Int) = Open { implicit ctx ⇒
+    Ok(html.game.all(
+      paginator recent page, cached.nbGames, cached.nbMates
+    ))
+  }
 
   val checkmate = TODO
 }

@@ -1,7 +1,7 @@
 # Game
 GET   /games                         controllers.Game.realtime
 GET   /games-refresh/:ids                         controllers.Game.realtimeInner(ids: String)
-GET   /games/all                         controllers.Game.all
+GET   /games/all                         controllers.Game.all(page: Int ?= 1)
 GET   /games/checkmate                         controllers.Game.checkmate
 
 # Round

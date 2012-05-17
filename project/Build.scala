@@ -29,6 +29,8 @@ trait Dependencies {
   val dispatch = "net.databinder" %% "dispatch-http" % "0.8.7"
   val auth = "jp.t2v" %% "play20.auth" % "0.3-SNAPSHOT"
   val plugins = "com.typesafe" %% "play-plugins-redis" % "2.0.1-hack2"
+  val paginator = "com.github.ornicar" %% "paginator-core" % "1.5"
+  val paginatorSalat = "com.github.ornicar" %% "paginator-salat-adapter" % "1.4"
 }
 
 object ApplicationBuild extends Build with Resolvers with Dependencies {
@@ -60,14 +62,17 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       scalaTime,
       dispatch,
       auth,
-      plugins),
+      plugins,
+      paginator,
+      paginatorSalat),
     templatesImport ++= Seq(
       "lila.game.{ DbGame, DbPlayer, Pov }",
       "lila.user.User",
       "lila.security.Permission",
       "lila.templating.Environment._",
       "lila.ui",
-      "lila.http.Context")
+      "lila.http.Context",
+      "com.github.ornicar.paginator.Paginator")
     //incrementalAssetsCompilation := true,
     //javascriptEntryPoints <<= (sourceDirectory in Compile)(base ⇒
       //((base / "assets" / "javascripts" ** "*.js") 

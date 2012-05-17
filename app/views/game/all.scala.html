@@ -1,0 +1,13 @@
+@(paginator: Paginator[DbGame], nbGames: Int, nbMates: Int)(implicit ctx: Context)
+
+@menu = {
+<a class="game_list" href="@routes.Game.realtime()">@trans.gamesBeingPlayedRightNow()</a>
+<a class="game_list" href="@routes.Game.checkmate()">@trans.viewNbCheckmates(nbMates)</a>
+}
+
+@game.list(
+name = trans.viewAllNbGames.str(nbGames), 
+paginator = paginator, 
+next = routes.Game.all(paginator.nextPage | 1), 
+typ = "Games", 
+menu = menu)

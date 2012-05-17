@@ -15,6 +15,7 @@ final class Settings(config: Config) {
   val GamePlayerTimeout = millis("game.player.timeout")
   val GameAnimationDelay = millis("game.animation.delay")
   val GameCachedNbTtl = millis("game.cached.nb.ttl")
+  val GamePaginatorMaxPerPage = getInt("game.paginator.max_per_page")
 
   val LobbyEntryMax = getInt("lobby.entry.max")
   val LobbyMessageMax = getInt("lobby.message.max")

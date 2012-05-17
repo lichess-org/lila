@@ -16,4 +16,8 @@ final class GameEnv(
   lazy val cached = new Cached(
     gameRepo = gameRepo,
     nbTtl = GameCachedNbTtl)
+
+  lazy val paginator = new PaginatorBuilder(
+    gameRepo = gameRepo,
+    maxPerPage = GamePaginatorMaxPerPage)
 }

@@ -1,0 +1,60 @@
+@(games: List[DbGame], user: Option[User] = None, mini: Boolean = false)(implicit ctx: Context)
+
+@games.map { game =>
+<div class="game_row paginated_element clearfix">
+  @defining(user flatMap game.player) { fromPlayer =>
+  @defining(fromPlayer | game.creator ) { firstPlayer =>
+  @gameFen(game, user)
+  <div class="infos">
+    <b>
+      @if(game.isBeingPlayed) {
+      <a class="link" href="@routes.Round.watcher(game.id, firstPlayer.color.name)">@trans.playingRightNow()</a>,
+      } else {
+      @game.updatedAt.map(showDate)
+      }
+    </b>-
+    @if(game.finishedOrAborted) {
+    @gameEndStatus(game)
+    @game.winner.map { winner =>
+    , <span class="@fromPlayer.map { p => (p == winner).fold("win", "loss") }">
+      @winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
+    </span>
+    }
+    } else {
+    @game.turnColor.fold(trans.whitePlays(), trans.blackPlays())
+    }
+    @if(game.variant.exotic) {
+    <br />
+    @trans.variant(): <strong>@game.variant.name</strong>
+    }
+    <br /><br />
+    <table class="game_players">
+      @List(game.opponent(firstPlayer), firstPlayer).map { p =>
+      <tr>
+        <td>@p.color.fold(trans.white(), trans.black())</td>
+        <td>@playerLink(p)</td>
+      </tr>
+      }
+    </table>
+    <br />
+    @game.clock.map { c =>
+    <span class="s16 clock">
+      @if(!mini) {
+      @trans.timeControl():
+      }
+      @clockName(c)
+    </span>
+    <br /><br />
+    }
+    @if(game.isRated) {
+    @trans.thisGameIsRated()
+    <br /><br />
+    }
+    @if(!mini) {
+    <a class="go_analyse" href="@routes.Analyse.replay(game.id, firstPlayer.color.name)">&gt;&gt; @trans.replayAndAnalyse()</a>
+    }
+  </div>
+  }
+  }
+</div>
+}
