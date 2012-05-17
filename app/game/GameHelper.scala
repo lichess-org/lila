@@ -14,7 +14,6 @@ import play.api.mvc.Call
 
 trait GameHelper { self: I18nHelper with UserHelper ⇒
 
-  val anonPlayerName = "Anonymous"
   val aiName = "Crafty A.I."
 
   def variantName(variant: Variant)(implicit ctx: Context) = variant match {
@@ -28,13 +27,7 @@ trait GameHelper { self: I18nHelper with UserHelper ⇒
   def clockName(clock: Clock): String = "%d minutes/side + %d seconds/move".format(
       clock.limitInMinutes, clock.increment)
 
-  def usernameWithElo(player: DbPlayer) =
-    player.aiLevel.fold(
-      level ⇒ "A.I. level " + level,
-      (player.userId map userIdToUsername).fold(
-        username ⇒ "%s (%s)".format(username, player.elo getOrElse "?"),
-        anonPlayerName)
-    )
+  def usernameWithElo(player: DbPlayer) = PlayerNamer(player)(userIdToUsername)
 
   def playerLink(player: DbPlayer, cssClass: Option[String] = None) = Html {
     player.userId.fold(

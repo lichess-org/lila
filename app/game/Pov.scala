@@ -21,6 +21,8 @@ case class Pov(game: DbGame, color: Color) {
     fullId some { game.isPlayerFullId(player, _) } none false
 
   def ref = PovRef(game.id, color)
+
+  def withGame(g: DbGame) = Pov(g, color)
 }
 
 object Pov {

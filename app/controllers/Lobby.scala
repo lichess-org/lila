@@ -14,8 +14,8 @@ import play.api.libs.iteratee._
 
 object Lobby extends LilaController {
 
-  private val api = env.lobby.api
-  private val preloader = env.lobby.preloader
+  //private val api = env.lobby.api
+  private val preloader = env.preloader
 
   val home = Open { implicit ctx ⇒
     renderHome(ctx).fold(identity, Ok(_))
@@ -46,10 +46,10 @@ object Lobby extends LilaController {
     )
   }
 
-  def cancel(ownerId: String) = Action {
-    api.cancel(ownerId).unsafePerformIO
-    Redirect("/")
-  }
+  def cancel(ownerId: String) = TODO
+    //api.cancel(ownerId).unsafePerformIO
+    //Redirect("/")
+  //}
 
   def join(hookId: String) = TODO
 
@@ -59,11 +59,11 @@ object Lobby extends LilaController {
   //)
   //}
 
-  def create(hookOwnerId: String) = Action {
-    IOk(api create hookOwnerId)
-  }
+  //def create(hookOwnerId: String) = Action {
+    //IOk(api create hookOwnerId)
+  //}
 
-  def chatBan(username: String) = Action {
-    IOk(env.lobby.messenger ban username)
-  }
+  //def chatBan(username: String) = Action {
+    //IOk(env.lobby.messenger ban username)
+  //}
 }

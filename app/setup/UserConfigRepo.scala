@@ -24,8 +24,8 @@ class UserConfigRepo(collection: MongoCollection)
 
   def save(config: UserConfig): IO[Unit] = io {
     update(
-      DBObject("_id" -> config.id).pp, 
-      _grater asDBObject config.encode.pp,
+      DBObject("_id" -> config.id), 
+      _grater asDBObject config.encode,
       upsert = true,
       wc = WriteConcern.Safe)
   } 

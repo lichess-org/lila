@@ -13,7 +13,6 @@ import play.api.i18n.MessagesPlugin
 import user.UserRepo
 import game.GameRepo
 import round.{ Socket ⇒ RoundSocket, Messenger ⇒ RoundMessenger }
-import timeline.EntryRepo
 import ai.Ai
 import core.Settings
 
@@ -22,20 +21,11 @@ final class LobbyEnv(
     settings: Settings,
     mongodb: String ⇒ MongoCollection,
     userRepo: UserRepo,
-    gameRepo: GameRepo,
     roundSocket: RoundSocket,
-    roundMessenger: RoundMessenger,
-    entryRepo: EntryRepo,
-    ai: () ⇒ Ai) {
+    roundMessenger: RoundMessenger) {
 
   implicit val ctx = app
   import settings._
-
-  lazy val starter = new Starter(
-    gameRepo = gameRepo,
-    entryRepo = entryRepo,
-    ai = ai,
-    socket = socket)
 
   lazy val history = new History(timeout = LobbyMessageLifetime)
 
@@ -51,14 +41,6 @@ final class LobbyEnv(
 
   lazy val socket = new Socket(hub = hub)
 
-  lazy val preloader = new Preload(
-    fisherman = fisherman,
-    history = history,
-    hookRepo = hookRepo,
-    gameRepo = gameRepo,
-    messageRepo = messageRepo,
-    entryRepo = entryRepo)
-
   lazy val fisherman = new Fisherman(
     hookRepo = hookRepo,
     hookMemo = hookMemo,
@@ -68,13 +50,13 @@ final class LobbyEnv(
     collection = mongodb(MongoCollectionMessage),
     max = LobbyMessageMax)
 
-  lazy val api = new Api(
-    hookRepo = hookRepo,
-    fisherman = fisherman,
-    gameRepo = gameRepo,
-    roundSocket = roundSocket,
-    roundMessenger = roundMessenger,
-    starter = starter)
+  //lazy val api = new Api(
+    //hookRepo = hookRepo,
+    //fisherman = fisherman,
+    //gameRepo = gameRepo,
+    //roundSocket = roundSocket,
+    //roundMessenger = roundMessenger,
+    //starter = starter)
 
   lazy val hookRepo = new HookRepo(mongodb(MongoCollectionHook))
 

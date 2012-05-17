@@ -1,8 +1,6 @@
 package lila
 package timeline
 
-import game.DbGame
-
 import com.novus.salat.annotations._
 import com.mongodb.BasicDBList
 
@@ -31,23 +29,4 @@ case class Entry(
       variant,
       rated ? "Rated" | "Casual",
       clock | "Unlimited")
-}
-
-object Entry {
-
-  def apply(game: DbGame, encodedData: String): Option[Entry] =
-    encodedData.split('$').toList match {
-      case wu :: wue :: bu :: bue :: Nil ⇒ Some(
-        new Entry(
-          gameId = game.id,
-          whiteName = wue,
-          blackName = bue,
-          whiteId = Some(wu) filter (_.nonEmpty),
-          blackId = Some(bu) filter (_.nonEmpty),
-          variant = game.variant.name,
-          rated = game.isRated,
-          clock = game.clock map (_.show))
-      )
-      case _ ⇒ None
-    }
 }

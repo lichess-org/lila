@@ -63,17 +63,17 @@ GET   /socket/:gameId/:color         controllers.App.gameSocket(gameId: String, 
 GET   /ai                            controllers.Ai.run
 
 # App Private API
-POST  /api/start/:gameId             controllers.AppApi.start(gameId: String)
-POST  /api/join/$fullId<[\w\-]{12}>              controllers.AppApi.join(fullId: String)
-POST  /api/reload-table/:gameId      controllers.AppApi.reloadTable(gameId: String)
-POST  /api/adjust/:username          controllers.AppApi.adjust(username: String)
-GET   /api/activity/:gameId/:color   controllers.AppApi.activity(gameId: String, color: String)
-GET   /api/game-version/:gameId      controllers.AppApi.gameVersion(gameId: String)
-GET   /api/game-info/:gameId         controllers.AppApi.gameInfo(gameId: String)
-POST  /api/rematch-accept/:gameId/:color/:newGameId controllers.AppApi.rematchAccept(gameId: String, color: String, newGameId: String)
-
-GET   /api/captcha/create            controllers.Captcha.create
-GET   /api/captcha/solve/:gameId     controllers.Captcha.solve(gameId: String)
+#POST  /api/start/:gameId             controllers.AppApi.start(gameId: String)
+#POST  /api/join/$fullId<[\w\-]{12}>              controllers.AppApi.join(fullId: String)
+#POST  /api/reload-table/:gameId      controllers.AppApi.reloadTable(gameId: String)
+#POST  /api/adjust/:username          controllers.AppApi.adjust(username: String)
+#GET   /api/activity/:gameId/:color   controllers.AppApi.activity(gameId: String, color: String)
+#GET   /api/game-version/:gameId      controllers.AppApi.gameVersion(gameId: String)
+#GET   /api/game-info/:gameId         controllers.AppApi.gameInfo(gameId: String)
+#POST  /api/rematch-accept/:gameId/:color/:newGameId controllers.AppApi.rematchAccept(gameId: String, color: String, newGameId: String)
+#
+#GET   /api/captcha/create            controllers.Captcha.create
+#GET   /api/captcha/solve/:gameId     controllers.Captcha.solve(gameId: String)
 
 # Lobby Public API
 GET   /                              controllers.Lobby.home
@@ -84,8 +84,8 @@ GET   /lobby/socket                  controllers.Lobby.socket
 # Lobby Private API
 #POST  /api/lobby/join/:gameId/:color controllers.Lobby.join(gameId: String, color: String)
 #GET   /api/lobby/preload             controllers.Lobby.preload
-POST  /api/lobby/create/:hookOwnerId controllers.Lobby.create(hookOwnerId: String)
-POST  /api/lobby/chat-ban/:username  controllers.Lobby.chatBan(username: String)
+#POST  /api/lobby/create/:hookOwnerId controllers.Lobby.create(hookOwnerId: String)
+#POST  /api/lobby/chat-ban/:username  controllers.Lobby.chatBan(username: String)
 
 # Reporting API
 GET   /nb-players                    controllers.Report.nbPlayers

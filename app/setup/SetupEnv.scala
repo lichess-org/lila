@@ -2,14 +2,18 @@ package lila
 package setup
 
 import com.mongodb.casbah.MongoCollection
+import scalaz.effects._
 
 import core.Settings
-import game.GameRepo
+import game.{ DbGame, GameRepo }
+import ai.Ai
 
 final class SetupEnv(
     settings: Settings,
     mongodb: String ⇒ MongoCollection,
-    gameRepo: GameRepo) {
+    gameRepo: GameRepo,
+    timelinePush: DbGame ⇒ IO[Unit],
+    ai: () ⇒ Ai) {
 
   import settings._
 
@@ -20,5 +24,7 @@ final class SetupEnv(
 
   lazy val processor = new Processor(
     configRepo = configRepo,
-    gameRepo = gameRepo)
+    gameRepo = gameRepo,
+    timelinePush = timelinePush,
+    ai = ai)
 }

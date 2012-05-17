@@ -30,20 +30,21 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     settings = settings,
     mongodb = mongodb.apply _,
     userRepo = user.userRepo,
-    gameRepo = game.gameRepo,
     roundSocket = round.socket,
-    roundMessenger = round.messenger,
-    entryRepo = timeline.entryRepo,
-    ai = ai.ai)
+    roundMessenger = round.messenger)
 
   lazy val setup = new lila.setup.SetupEnv(
     settings = settings,
     mongodb = mongodb.apply _,
-    gameRepo = game.gameRepo)
+    gameRepo = game.gameRepo,
+    timelinePush = timeline.push.apply,
+    ai = ai.ai)
 
   lazy val timeline = new lila.timeline.TimelineEnv(
     settings = settings,
-    mongodb = mongodb.apply _)
+    mongodb = mongodb.apply _,
+    lobbyNotify = lobby.socket.addEntry,
+    getUsername = user.cached.username)
 
   lazy val ai = new lila.ai.AiEnv(
     settings = settings)
@@ -71,14 +72,22 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     settings = settings,
     gameRepo = game.gameRepo)
 
-  lazy val appApi = new AppApi(
-    userRepo = user.userRepo,
+  lazy val preloader = new Preload(
+    fisherman = lobby.fisherman,
+    history = lobby.history,
+    hookRepo = lobby.hookRepo,
     gameRepo = game.gameRepo,
-    roundSocket = round.socket,
-    messenger = round.messenger,
-    starter = lobby.starter,
-    eloUpdater = user.eloUpdater,
-    gameInfo = analyse.gameInfo)
+    messageRepo = lobby.messageRepo,
+    entryRepo = timeline.entryRepo)
+
+  //lazy val appApi = new AppApi(
+    //userRepo = user.userRepo,
+    //gameRepo = game.gameRepo,
+    //roundSocket = round.socket,
+    //messenger = round.messenger,
+    //starter = lobby.starter,
+    //eloUpdater = user.eloUpdater,
+    //gameInfo = analyse.gameInfo)
 
   lazy val mongodb = MongoConnection(
     new MongoServer(MongoHost, MongoPort),

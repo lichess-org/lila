@@ -20,7 +20,6 @@ final class AppApi(
     gameRepo: GameRepo,
     roundSocket: round.Socket,
     messenger: round.Messenger,
-    starter: lobby.Starter,
     eloUpdater: EloUpdater,
     gameInfo: DbGame ⇒ IO[GameInfo]) {
 
@@ -50,85 +49,85 @@ final class AppApi(
       } yield gameInfo
     }
 
-  def join(
-    fullId: String,
-    url: String,
-    messages: String,
-    entryData: String): IO[Valid[Unit]] = for {
-    povOption ← gameRepo pov fullId
-    op ← povOption.fold(
-      pov ⇒ for {
-        p1 ← starter.start(pov.game, entryData)
-        p2 ← messenger.systemMessages(p1.game, messages) map { evts ⇒
-          p1 + Event.RedirectOwner(!pov.color, url) ++ evts
-        }
-        _ ← gameRepo save p2
-        _ ← roundSocket send p2
-      } yield success(),
-      io(GameNotFound)
-    )
-  } yield op
+  //def join(
+    //fullId: String,
+    //url: String,
+    //messages: String,
+    //entryData: String): IO[Valid[Unit]] = for {
+    //povOption ← gameRepo pov fullId
+    //op ← povOption.fold(
+      //pov ⇒ for {
+        //p1 ← starter.start(pov.game, entryData)
+        //p2 ← messenger.systemMessages(p1.game, messages) map { evts ⇒
+          //p1 + Event.RedirectOwner(!pov.color, url) ++ evts
+        //}
+        //_ ← gameRepo save p2
+        //_ ← roundSocket send p2
+      //} yield success(),
+      //io(GameNotFound)
+    //)
+  //} yield op
 
-  def start(gameId: String, entryData: String): IO[Valid[Unit]] =
-    gameRepo game gameId flatMap { gameOption ⇒
-      gameOption.fold(
-        g1 ⇒ for {
-          progress ← starter.start(g1, entryData)
-          _ ← gameRepo save progress
-          _ ← roundSocket send progress
-        } yield success(Unit),
-        io { !!("No such game") }
-      )
-    }
+  //def start(gameId: String, entryData: String): IO[Valid[Unit]] =
+    //gameRepo game gameId flatMap { gameOption ⇒
+      //gameOption.fold(
+        //g1 ⇒ for {
+          //progress ← starter.start(g1, entryData)
+          //_ ← gameRepo save progress
+          //_ ← roundSocket send progress
+        //} yield success(Unit),
+        //io { !!("No such game") }
+      //)
+    //}
 
-  def rematchAccept(
-    gameId: String,
-    newGameId: String,
-    colorName: String,
-    whiteRedirect: String,
-    blackRedirect: String,
-    entryData: String,
-    messageString: String): IO[Valid[Unit]] = Color(colorName).fold(
-    color ⇒ for {
-      newGameOption ← gameRepo game newGameId
-      g1Option ← gameRepo game gameId
-      result ← (newGameOption |@| g1Option).apply(
-        (newGame, g1) ⇒ {
-          val progress = Progress(g1, List(
-            Event.RedirectOwner(White, whiteRedirect),
-            Event.RedirectOwner(Black, blackRedirect),
-            // tell spectators to reload the table
-            Event.ReloadTable(White),
-            Event.ReloadTable(Black)))
-          for {
-            _ ← gameRepo save progress
-            _ ← roundSocket send progress
-            newProgress ← starter.start(newGame, entryData)
-            newProgress2 ← messenger.systemMessages(
-              newProgress.game, messageString
-            ) map newProgress.++
-            _ ← gameRepo save newProgress2
-            _ ← roundSocket send newProgress2
-          } yield success()
-        }
-      ).fold(identity, io(GameNotFound))
-    } yield result,
-    io { !!("Wrong color name") }
-  )
+  //def rematchAccept(
+    //gameId: String,
+    //newGameId: String,
+    //colorName: String,
+    //whiteRedirect: String,
+    //blackRedirect: String,
+    //entryData: String,
+    //messageString: String): IO[Valid[Unit]] = Color(colorName).fold(
+    //color ⇒ for {
+      //newGameOption ← gameRepo game newGameId
+      //g1Option ← gameRepo game gameId
+      //result ← (newGameOption |@| g1Option).apply(
+        //(newGame, g1) ⇒ {
+          //val progress = Progress(g1, List(
+            //Event.RedirectOwner(White, whiteRedirect),
+            //Event.RedirectOwner(Black, blackRedirect),
+            //// tell spectators to reload the table
+            //Event.ReloadTable(White),
+            //Event.ReloadTable(Black)))
+          //for {
+            //_ ← gameRepo save progress
+            //_ ← roundSocket send progress
+            //newProgress ← starter.start(newGame, entryData)
+            //newProgress2 ← messenger.systemMessages(
+              //newProgress.game, messageString
+            //) map newProgress.++
+            //_ ← gameRepo save newProgress2
+            //_ ← roundSocket send newProgress2
+          //} yield success()
+        //}
+      //).fold(identity, io(GameNotFound))
+    //} yield result,
+    //io { !!("Wrong color name") }
+  //)
 
-  def reloadTable(gameId: String): IO[Valid[Unit]] = for {
-    g1Option ← gameRepo game gameId
-    result ← g1Option.fold(
-      g1 ⇒ {
-        val progress = Progress(g1, Color.all map Event.ReloadTable)
-        for {
-          _ ← gameRepo save progress
-          _ ← roundSocket send progress
-        } yield success()
-      },
-      io(GameNotFound)
-    )
-  } yield result
+  //def reloadTable(gameId: String): IO[Valid[Unit]] = for {
+    //g1Option ← gameRepo game gameId
+    //result ← g1Option.fold(
+      //g1 ⇒ {
+        //val progress = Progress(g1, Color.all map Event.ReloadTable)
+        //for {
+          //_ ← gameRepo save progress
+          //_ ← roundSocket send progress
+        //} yield success()
+      //},
+      //io(GameNotFound)
+    //)
+  //} yield result
 
   def gameVersion(gameId: String): Future[Int] = futureVersion(gameId)
 

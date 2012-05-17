@@ -1,6 +1,6 @@
 package lila
-package lobby
 
+import lobby.{ Fisherman, History, HookRepo, Hook, MessageRepo }
 import timeline.EntryRepo
 import game.GameRepo
 
