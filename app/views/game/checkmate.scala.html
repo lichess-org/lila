@@ -2,12 +2,12 @@
 
 @menu = {
 <a class="game_list" href="@routes.Game.realtime()">@trans.gamesBeingPlayedRightNow()</a>
-<a class="game_list" href="@routes.Game.checkmate()">@trans.viewNbCheckmates(nbMates)</a>
+<a class="game_list" href="@routes.Game.all()">@trans.viewAllNbGames(nbGames)</a>
 }
 
 @game.list(
-name = trans.viewAllNbGames.str(nbGames), 
+name = trans.viewNbCheckmates.str(nbMates), 
 paginator = paginator, 
 next = routes.Game.all(paginator.nextPage | 1), 
-typ = trans.games.str(), 
+typ = trans.checkmate.str(), 
 menu = menu)

@@ -27,5 +27,9 @@ object Game extends LilaController {
     ))
   }
 
-  val checkmate = TODO
+  def checkmate(page: Int) = Open { implicit ctx ⇒
+    Ok(html.game.checkmate(
+      paginator checkmate page, cached.nbGames, cached.nbMates
+    ))
+  }
 }
