@@ -17,6 +17,29 @@
     } else {
     @game.updatedAt.map(showDate)
     }
+    <br /><br />
+    @List(opponent, player).map { p =>
+    <div>
+      @p.aiLevel.fold(trans.aiNameLevelAiLevel(aiName, _), playerLink(p))
+    </div>
+    }
+    <br />
+    @trans.variant(): @variantName(game.variant).capitalize<br /><br />
+    @trans.timeControl(): @clockName(game.clock)<br />
+    @if(game.isRated) {
+    <br />@trans.thisGameIsRated()<br />
+    }
+  </div>
+  <br /><br />
+  <a class="lichess_replay_link" href="@routes.Analyse.replay(gameId, color.name)">@trans.replayAndAnalyse()</a>
+  @if(game.hasMoveTimes) {
+  <br /><br />
+  <a href="@routes.Analyse.stats(gameId)">@trans.viewGameStats()</a>
+  }
+  <br /><br />
+  <a class="rotate_board" href="@routes.Round.watcher(gameId, opponent.color.name)">@trans.flipBoard()</a>
+  <br /><br />
+  <a href="@routes.Lobby.home()"><strong>@trans.playANewGame()</strong></a>
 </div>
 }
 

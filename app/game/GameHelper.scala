@@ -2,7 +2,7 @@ package lila
 package game
 
 import chess.format.Forsyth
-import chess.{ Status, Color }
+import chess.{ Status, Variant, Color, Clock }
 import user.{ User, UserHelper }
 import http.Context
 import i18n.I18nHelper
@@ -15,6 +15,17 @@ import play.api.mvc.Call
 trait GameHelper { self: I18nHelper with UserHelper ⇒
 
   val anonPlayerName = "Anonymous"
+  val aiName = "Crafty A.I."
+
+  def variantName(variant: Variant)(implicit ctx: Context) = variant match {
+    case Variant.Standard ⇒ trans.standard.str()
+    case Variant.Chess960 ⇒ "chess960"
+  }
+
+  def clockName(clock: Option[Clock])(implicit ctx: Context) = clock.fold(
+    c ⇒ "%d minutes/side + %d seconds/move".format(
+      c.limitInMinutes, c.increment),
+    trans.unlimited.str())
 
   def usernameWithElo(player: DbPlayer) =
     player.aiLevel.fold(
