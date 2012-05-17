@@ -28,6 +28,10 @@ case class DbPlayer(
       }
     } mkString " "
 
+  def withEncodedPieces(allPieces: Iterable[(Pos, Piece, Boolean)]) = copy(
+    ps = encodePieces(allPieces)
+  )
+
   def withUser(user: User)(dbRef: User => DBRef): DbPlayer = copy(
     user = dbRef(user).some,
     elo = user.elo.some)
@@ -39,6 +43,8 @@ case class DbPlayer(
   def userId: Option[String] = user map (_.getId.toString)
 
   def wins = isWinner getOrElse false
+
+  def hasMoveTimes = moveTimes.size > 10
 
   def finish(winner: Boolean) = copy(
     isWinner = if (winner) Some(true) else None

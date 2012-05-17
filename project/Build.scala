@@ -12,6 +12,7 @@ trait Resolvers {
 }
 
 trait Dependencies {
+  val scalachess = "com.github.ornicar" %% "scalachess" % "1.0"
   val scalaz = "org.scalaz" %% "scalaz-core" % "6.0.4"
   val specs2 = "org.specs2" %% "specs2" % "1.8.2"
   val casbah = "com.mongodb.casbah" %% "casbah" % "2.1.5-1"
@@ -47,6 +48,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
 
   lazy val lila = PlayProject("lila", mainLang = SCALA, settings = buildSettings).settings(
     libraryDependencies ++= Seq(
+      scalachess,
       config,
       json,
       casbah,
@@ -63,7 +65,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       "lila.game.{ DbGame, DbPlayer, Pov }",
       "lila.user.User",
       "lila.templating.Environment._",
-      "lila.ui.SiteMenu",
+      "lila.ui",
       "lila.http.Context")
     //incrementalAssetsCompilation := true,
     //javascriptEntryPoints <<= (sourceDirectory in Compile)(base ⇒
@@ -74,11 +76,9 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       //).get
     //),
     //lessEntryPoints <<= baseDirectory(_ / "app" / "assets" / "stylesheets" ** "*.less")
-  ) dependsOn chess
+  ) 
 
   lazy val cli = Project("cli", file("cli"), settings = buildSettings).settings(
     libraryDependencies ++= Seq()
   ) dependsOn (lila)
-
-  lazy val chess = uri("git://github.com/ornicar/scalachess.git")
 }

@@ -11,7 +11,11 @@ case class Pov(game: DbGame, color: Color) {
 
   def playerFullId = game fullIdOf color
 
+  def gameId = game.id
+
   def opponent = game player !color
+
+  def unary_! = Pov(game, !color)
 
   def isPlayerFullId(fullId: Option[String]): Boolean =
     fullId some { game.isPlayerFullId(player, _) } none false

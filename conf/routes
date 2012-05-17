@@ -4,6 +4,11 @@ GET   /games                         controllers.Game.list
 # Round
 GET   /$id<[\w\-]{12}>               controllers.Round.player(id: String)
 
+# Analyse
+GET   /analyse/$id<[\w\-]{8}>       controllers.Analyse.replay(id: String, color: String = "white")
+GET   /analyse/$id<[\w\-]{8}>/$color<[white|black]> controllers.Analyse.replay(id: String, color: String)
+GET   /$id<[\w\-]{8}>/stats          controllers.Analyse.stats(id: String)
+
 # Setting
 POST  /setting/color                 controllers.Setting.color
 POST  /setting/sound                 controllers.Setting.sound

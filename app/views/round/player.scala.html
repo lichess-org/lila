@@ -1,5 +1,54 @@
 @(pov: Pov)(implicit ctx: Context)
 
-@round.layout() {
-@pov
+@import pov._
+
+@title = @{ "Play %s - %s".format(gameId, color) }
+
+@goodies = {
+<div class="lichess_goodies">
+  <br />
+  <a class="lichess_replay_link blank_if_play" href="@routes.Analyse.replay(gameId, color.name)">@trans.replayAndAnalyse()</a>
+  @if(game.hasMoveTimes) {
+  <br /><br />
+  <a href="@routes.Analyse.stats(gameId)">@trans.viewGameStats()</a>
+  }
+  <br /><br />
+  <span class="nb_viewers">@trans.spectators() -</span>
+</div>
+}
+
+@round.layout(title = title, goodies = goodies) {
+<div class="lichess_game clearfix lichess_player_@color not_spectator">
+  <div class="lichess_board_wrap">
+    @widget.connection()
+    <div class="lichess_board grey">@Html(ui.Board.render(pov))</div>
+    <div id="premove">@trans.premoveEnabledClickAnywhereToCancel()</div>
+  </div>
+  <div class="lichess_ground">
+    @round.cemetery(!pov, "top")
+    <div class="lichess_table_wrap">
+      @game.clock.map { c =>
+      @round.clock(c, !pov.color, "top")
+      }
+      <div class="lichess_table@{ if(game.hasClock) " table_with_clock" }@{ if(game.finished) " finished" }">
+        <div class="lichess_opponent">
+          <div class="opponent_status">
+            @round.username(pov.opponent)
+          </div>
+        </div>
+        <div class="lichess_separator"></div>
+        <div class="table_inner">
+          {% include (game.isPlayable ? "LichessBundle:Game:table.html.twig" : "LichessBundle:Game:tableEnd.html.twig") with {"player": player} %}
+        </div>
+      </div>
+      @game.clock.map { c =>
+      @round.clock(c, pov.color, "bottom")
+      @if(!game.finished) {
+      <a class="moretime" href="#" title="@trans.giveNbSeconds(15)"></a>
+      }
+      }
+    </div>
+    @round.cemetery(pov, "bottom")
+  </div>
+</div>
 }

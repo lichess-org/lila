@@ -56,7 +56,7 @@ case class DbGame(
 
   def fullIdOf(color: Color): String = id + player(color).id
 
-  def toChess: Game = {
+  lazy val toChess: Game = {
 
     def posPiece(posCode: Char, roleCode: Char, color: Color): Option[(Pos, Piece)] = for {
       pos ← piotr(posCode)
@@ -191,6 +191,8 @@ case class DbGame(
 
   def recordMoveTimes = !hasAi
 
+  def hasMoveTimes = players forall (_.hasMoveTimes)
+
   def playable = status < Status.Aborted
 
   def playableBy(p: DbPlayer) = playable && p == player
@@ -242,6 +244,8 @@ case class DbGame(
     if !c.isRunning || (c outoftime player.color)
   } yield player
 
+  def hasClock = clock.isDefined
+
   def withClock(c: Clock) = Progress(this, copy(clock = Some(c)))
 
   def creator = player(creatorColor)
@@ -271,8 +275,8 @@ object DbGame {
     variant: Variant,
     createdAt: DateTime): DbGame = DbGame(
     id = IdGenerator.game,
-    whitePlayer = whitePlayer,
-    blackPlayer = blackPlayer,
+    whitePlayer = whitePlayer withEncodedPieces game.allPieces,
+    blackPlayer = blackPlayer withEncodedPieces game.allPieces,
     pgn = "",
     status = Status.Created,
     turns = game.turns,

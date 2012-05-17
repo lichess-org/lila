@@ -19,17 +19,17 @@ object Main {
   def main(args: Array[String]): Unit = sys exit {
 
     val command: Command = args.toList match {
-      case "info" :: Nil  ⇒ Info(env)
-      case "average-elo" :: Nil  ⇒ AverageElo(env)
-      case "index" :: Nil ⇒ IndexDb(env.gameRepo)
+      case "info" :: Nil        ⇒ Info(env)
+      case "average-elo" :: Nil ⇒ AverageElo(env)
+      case "index" :: Nil       ⇒ IndexDb(env.gameRepo)
       case "trans-js-dump" :: Nil ⇒ TransJsDump(
         path = new File(env.app.path.getCanonicalPath + "/public/trans"),
-        pool = env.i18nPool, 
+        pool = env.i18nPool,
         keys = env.i18nKeys)
       case "finish" :: Nil ⇒ new Command {
         def apply() = env.gameFinishCommand.apply()
       }
-      case "eco" :: Nil => new Command {
+      case "eco" :: Nil ⇒ new Command {
         def apply() = putStrLn(chess.OpeningExplorer.tree.render())
       }
       case _ ⇒ new Command {
