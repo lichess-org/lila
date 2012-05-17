@@ -13,6 +13,7 @@ case class DbPlayer(
     aiLevel: Option[Int],
     isWinner: Option[Boolean],
     elo: Option[Int],
+    eloDiff: Option[Int],
     isOfferingDraw: Boolean,
     lastDrawOffer: Option[Int],
     isProposingTakeback: Boolean,

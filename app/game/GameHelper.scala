@@ -14,16 +14,41 @@ import play.api.mvc.Call
 
 trait GameHelper { self: I18nHelper with UserHelper ⇒
 
+  val anonPlayerName = "Anonymous"
+
   def usernameWithElo(player: DbPlayer) =
     player.aiLevel.fold(
       level ⇒ "A.I. level " + level,
       (player.userId map userIdToUsername).fold(
         username ⇒ "%s (%s)".format(username, player.elo getOrElse "?"),
-        "Anonymous")
+        anonPlayerName)
     )
 
   def playerLink(player: DbPlayer, cssClass: String = "") = Html {
-    "link " + player.id
+    player.userId.fold(
+      userId => {
+        val url = routes.User.show(username)
+        val text = usernameWithElo(player) + player.eloDiff.fold(
+          diff => " (%s)".format((diff < 0).fold(diff, "+ " + diff))
+        )
+      },
+      usernameWithElo(player)
+    )
+      """<a class="user_link%s" href="%s"%s></a>""".format(
+      ),
+      anonPlayerName)
+
+        if(!$user = $player->getUser()) {
+            return $this->escape($player->getUsernameWithElo());
+        }
+
+        $url = $this->getUrlGenerator()->generate('fos_user_user_show', array('username' => $user->getUsername()));
+
+        $username = $withElo ? $player->getUsernameWithElo() : $player->getUsername();
+        if($eloDiff = $player->getEloDiff()) {
+            $username = sprintf('%s (%s)', $username, $eloDiff < 0 ? $eloDiff : '+'.$eloDiff);
+        }
+        return sprintf('<a class="user_link%s" href="%s"%s>%s</a>', $user->getIsOnline() ? ' online' : '', $url, null === $class ? '' : ' class="'.$class.'"', $username);
   }
 
   def gameEndStatus(game: DbGame)(implicit ctx: Context): Html = game.status match {
