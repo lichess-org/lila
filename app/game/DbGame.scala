@@ -49,7 +49,11 @@ case class DbGame(
 
   def opponent(p: DbPlayer): DbPlayer = player(!(p.color))
 
-  def player: DbPlayer = player(if (0 == turns % 2) White else Black)
+  def player: DbPlayer = player(turnColor)
+
+  def turnColor = Color(0 == turns % 2)
+
+  def turnOf(p: DbPlayer) = p == player
 
   def fullIdOf(player: DbPlayer): Option[String] =
     (players contains player) option id + player.id
@@ -87,7 +91,7 @@ case class DbGame(
     )
   }
 
-  def toChessHistory = ChessHistory(
+  lazy val toChessHistory = ChessHistory(
     lastMove = lastMove,
     castles = castles,
     positionHashes = positionHashes)
@@ -189,13 +193,20 @@ case class DbGame(
     blackPlayer = f(blackPlayer)
   )
 
+  def start = started.fold(this, copy(
+    status = Status.Started,
+    isRated = isRated && (players forall (_.hasUser))
+  ))
+
   def recordMoveTimes = !hasAi
 
   def hasMoveTimes = players forall (_.hasMoveTimes)
 
+  def started = status >= Status.Started
+
   def playable = status < Status.Aborted
 
-  def playableBy(p: DbPlayer) = playable && p == player
+  def playableBy(p: DbPlayer) = playable && turnOf(p)
 
   def aiLevel: Option[Int] = players find (_.isAi) flatMap (_.aiLevel)
 
@@ -207,8 +218,7 @@ case class DbGame(
   )
 
   def playerCanOfferDraw(color: Color) =
-    status >= Status.Started &&
-      status < Status.Aborted &&
+    started && playable &&
       turns >= 2 &&
       !player(color).isOfferingDraw &&
       !(player(!color).isAi) &&
@@ -216,6 +226,11 @@ case class DbGame(
 
   def playerHasOfferedDraw(color: Color) =
     player(color).lastDrawOffer some (_ >= turns - 1) none false
+
+  def playerCanProposeTakeback(color: Color) =
+    started && playable &&
+      turns >= 2 &&
+      !player(color).isProposingTakeback
 
   def abortable = status == Status.Started && turns < 2
 
@@ -248,6 +263,11 @@ case class DbGame(
 
   def withClock(c: Clock) = Progress(this, copy(clock = Some(c)))
 
+  def estimateTotalTime = clock.fold(
+    c ⇒ c.limit + 30 * c.increment,
+    1200 // default to 20 minutes
+  )
+
   def creator = player(creatorColor)
 
   def invited = player(!creatorColor)
@@ -266,7 +286,7 @@ object DbGame {
   def takeGameId(fullId: String) = fullId take gameIdSize
 
   def apply(
-    game: Game, 
+    game: Game,
     whitePlayer: DbPlayer,
     blackPlayer: DbPlayer,
     ai: Option[(Color, Int)],
@@ -289,5 +309,5 @@ object DbGame {
     isRated = isRated,
     variant = variant,
     lastMoveTime = None,
-    createdAt = createdAt.some) 
+    createdAt = createdAt.some)
 }

@@ -9,7 +9,7 @@ case class Pov(game: DbGame, color: Color) {
 
   def playerId = player.id
 
-  def playerFullId = game fullIdOf color
+  def fullId = game fullIdOf color
 
   def gameId = game.id
 

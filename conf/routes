@@ -2,12 +2,27 @@
 GET   /games                         controllers.Game.list
 
 # Round
-GET   /$id<[\w\-]{12}>               controllers.Round.player(id: String)
+GET   /$fullId<[\w\-]{12}>               controllers.Round.player(fullId: String)
+GET   /abort/$fullId<[\w\-]{12}>                 controllers.Round.abort(fullId: String)
+GET   /resign/$fullId<[\w\-]{12}>                controllers.Round.resign(fullId: String)
+GET   /resign-force/$fullId<[\w\-]{12}>          controllers.Round.resignForce(fullId: String)
+GET   /draw-claim/$fullId<[\w\-]{12}>            controllers.Round.drawClaim(fullId: String)
+GET   /draw-accept/$fullId<[\w\-]{12}>           controllers.Round.drawAccept(fullId: String)
+GET   /draw-offer/$fullId<[\w\-]{12}>            controllers.Round.drawOffer(fullId: String)
+GET   /draw-cancel/$fullId<[\w\-]{12}>           controllers.Round.drawCancel(fullId: String)
+GET   /draw-decline/$fullId<[\w\-]{12}>          controllers.Round.drawDecline(fullId: String)
+GET   /takeback-accept/$fullId<[\w\-]{12}>       controllers.Round.takebackAccept(fullId: String)
+GET   /takeback-offer/$fullId<[\w\-]{12}>        controllers.Round.takebackOffer(fullId: String)
+GET   /takeback-cancel/$fullId<[\w\-]{12}>       controllers.Round.takebackCancel(fullId: String)
+GET   /takeback-decline/$fullId<[\w\-]{12}>      controllers.Round.takebackDecline(fullId: String)
+GET   /table/$gameId<[\w\-]{8}>/$color<[white|black]> controllers.Round.table(gameId: String, color: String, fullId: String = "")
+GET   /table/$gameId<[\w\-]{8}>/$color<[white|black]>/$fullId<[\w\-]{12}> controllers.Round.table(gameId: String, color: String, fullId: String)
+GET   /players/$gameId<[\w\-]{8}>                 controllers.Round.players(gameId: String)
 
 # Analyse
-GET   /analyse/$id<[\w\-]{8}>       controllers.Analyse.replay(id: String, color: String = "white")
-GET   /analyse/$id<[\w\-]{8}>/$color<[white|black]> controllers.Analyse.replay(id: String, color: String)
-GET   /$id<[\w\-]{8}>/stats          controllers.Analyse.stats(id: String)
+GET   /analyse/$gameId<[\w\-]{8}>       controllers.Analyse.replay(gameId: String, color: String = "white")
+GET   /analyse/$gameId<[\w\-]{8}>/$color<[white|black]> controllers.Analyse.replay(gameId: String, color: String)
+GET   /$gameId<[\w\-]{8}>/stats          controllers.Analyse.stats(gameId: String)
 
 # Setting
 POST  /setting/color                 controllers.Setting.color
@@ -39,25 +54,12 @@ GET   /wiki                          controllers.Wiki.home
 # App Public API
 GET   /socket                        controllers.App.socket
 GET   /socket/:gameId/:color         controllers.App.gameSocket(gameId: String, color: String)
-GET   /abort/:fullId                 controllers.App.abort(fullId: String)
-GET   /resign/:fullId                controllers.App.resign(fullId: String)
-GET   /resign-force/:fullId          controllers.App.resignForce(fullId: String)
-GET   /draw-claim/:fullId            controllers.App.drawClaim(fullId: String)
-GET   /draw-accept/:fullId           controllers.App.drawAccept(fullId: String)
-GET   /draw-offer/:fullId            controllers.App.drawOffer(fullId: String)
-GET   /draw-cancel/:fullId           controllers.App.drawCancel(fullId: String)
-GET   /draw-decline/:fullId          controllers.App.drawDecline(fullId: String)
-GET   /takeback-accept/:fullId       controllers.App.takebackAccept(fullId: String)
-GET   /takeback-offer/:fullId        controllers.App.takebackOffer(fullId: String)
-GET   /takeback-cancel/:fullId       controllers.App.takebackCancel(fullId: String)
-GET   /takeback-decline/:fullId      controllers.App.takebackDecline(fullId: String)
 
 GET   /ai                            controllers.Ai.run
 
 # App Private API
-GET   /api/show/:fullId              controllers.AppApi.show(fullId: String)
 POST  /api/start/:gameId             controllers.AppApi.start(gameId: String)
-POST  /api/join/:fullId              controllers.AppApi.join(fullId: String)
+POST  /api/join/$fullId<[\w\-]{12}>              controllers.AppApi.join(fullId: String)
 POST  /api/reload-table/:gameId      controllers.AppApi.reloadTable(gameId: String)
 POST  /api/adjust/:username          controllers.AppApi.adjust(username: String)
 GET   /api/activity/:gameId/:color   controllers.AppApi.activity(gameId: String, color: String)

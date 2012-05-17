@@ -42,6 +42,8 @@ case class DbPlayer(
 
   def userId: Option[String] = user map (_.getId.toString)
 
+  def hasUser = user.isDefined
+
   def wins = isWinner getOrElse false
 
   def hasMoveTimes = moveTimes.size > 10

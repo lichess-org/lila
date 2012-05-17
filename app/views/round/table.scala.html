@@ -1,3 +1,69 @@
 @(pov: Pov)(implicit ctx: Context)
 
-table
+@import pov._
+
+<div class="lichess_current_player">
+  <div class="lichess_player white @game.turnColor.white.fold("", " none")">
+    <div class="lichess_piece king white"></div>
+    <p>@player.color.white.fold(trans.yourTurn(), trans.waiting())</p>
+  </div>
+  <div class="lichess_player black @game.turnColor.black.fold("", " none")">
+    <div class="lichess_piece king black"></div>
+    <p>@player.color.black.fold(trans.yourTurn(), trans.waiting())</p>
+  </div>
+</div>
+<div class="lichess_control clearfix">
+  @if(game.abortable) {
+  <a href="@routes.Round.abort(fullId)" class="lichess_abort">@trans.abortGame()</a>
+  } else {
+  <a href="@routes.Round.resign(fullId)" class="lichess_resign" title="@trans.giveUp()">@trans.resign()</a>
+  @if(game.playerCanOfferDraw(color)) {
+  <a class="offer_draw" href="@routes.Round.drawOffer(fullId)">@trans.offerDraw()</a>
+  }
+  @if(game.playerCanProposeTakeback(color)) {
+  <a class="propose_takeback" title="@trans.proposeATakeback()"href="@routes.Round.takebackOffer(fullId)">@trans.takeback()</a>
+  }
+  }
+</div>
+@if(game.resignable && !game.hasAi) {
+<div class="force_resign_zone">
+  @trans.theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim()<br />
+  <a class="force_resign" href="@routes.Round.resignForce(fullId)">@trans.forceResignation()</a>
+</div>
+}
+@if(game.turnOf(player) && game.toChessHistory.threefoldRepetition) {
+<div class="lichess_claim_draw_zone">
+    @trans.threefoldRepetition().&nbsp;
+    <a class="lichess_claim_draw" href="@routes.Round.drawClaim(fullId)">@trans.claimADraw()</a>
+</div>
+} else {
+@if(player.isOfferingDraw) {
+<div class="offered_draw">
+    @trans.drawOfferSent().&nbsp;
+    <a href="@routes.Round.drawCancel(fullId)">@trans.cancel()</a>
+</div>
+} else {
+@if(opponent.isOfferingDraw) {
+<div class="offered_draw">
+    @trans.yourOpponentOffersADraw().<br />
+    <a href="@routes.Round.drawAccept(fullId)">@trans.accept()</a>&nbsp;
+    <a href="@routes.Round.drawDecline(fullId)">@trans.decline()</a>
+</div>
+} else {
+@if(player.isProposingTakeback) {
+<div class="proposed_takeback">
+    @trans.takebackPropositionSent().&nbsp;
+    <a href="@routes.Round.takebackCancel(fullId)">@trans.cancel()</a>
+</div>
+} else {
+@if(opponent.isProposingTakeback) {
+<div class="offered_draw">
+    @trans.yourOpponentProposesATakeback().<br />
+    <a href="@routes.Round.takebackAccept(fullId)">@trans.accept()</a>&nbsp;
+    <a href="@routes.Round.takebackDecline(fullId)">@trans.decline()</a>
+</div>
+}
+}
+}
+}
+}

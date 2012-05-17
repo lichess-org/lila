@@ -5,6 +5,7 @@ import akka.actor._
 import akka.pattern.ask
 import akka.util.duration._
 import akka.util.Timeout
+import akka.dispatch.Await
 
 import play.api.libs.json._
 import play.api.libs.iteratee._
@@ -24,7 +25,12 @@ final class Socket(
     val hubMaster: ActorRef,
     messenger: Messenger) {
 
-  implicit val timeout = Timeout(1 second)
+  private val timeoutDuration = 1 second
+  implicit private val timeout = Timeout(timeoutDuration)
+
+  def blockingVersion(gameId: String): Int = Await.result(
+    hubMaster ? GetGameVersion(gameId) mapTo manifest[Int],
+    timeoutDuration)
 
   def send(progress: Progress): IO[Unit] =
     send(progress.game.id, progress.events)
@@ -33,7 +39,7 @@ final class Socket(
     hubMaster ! GameEvents(gameId, events)
   }
 
-  def controller(
+  private def controller(
     hub: ActorRef,
     uid: String,
     member: Member,

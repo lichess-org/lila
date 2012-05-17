@@ -56,10 +56,11 @@ $.websocket.prototype = {
     })
     .bind('message', function(e){
       var m = JSON.parse(e.originalEvent.data);
-      self._debug(m);
       if (m.t == "n") {
         self.keepAlive();
-      } 
+      } else {
+        self._debug(m);
+      }
       if (m.t == "batch") {
         $(m.d || []).each(function() { self._handle(this); });
       } else {

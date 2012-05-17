@@ -9,7 +9,6 @@ import akka.util.duration._
 import akka.util.Timeout
 import akka.pattern.{ ask, pipe }
 import akka.dispatch.{ Future, Promise }
-import akka.event.Logging
 import play.api.libs.json._
 import play.api.libs.concurrent._
 import play.api.Play.current
@@ -21,7 +20,6 @@ final class HubMaster(
     playerTimeout: Int) extends Actor {
 
   implicit val timeout = Timeout(1 second)
-  val log = Logging(context.system, this)
   implicit val executor = Akka.system.dispatcher
 
   var hubs = Map.empty[String, ActorRef]

@@ -11,6 +11,8 @@ $.widget("lichess.game", {
         self.initialTitle = document.title;
         self.hasMovedOnce = false;
         self.premove = null;
+        self.options.tableUrl = self.element.data('table-url');
+        self.options.playersUrl = self.element.data('players-url');
 
         if (self.options.game.started) {
             self.indicateTurn();
@@ -514,7 +516,7 @@ $.widget("lichess.game", {
     },
     reloadTable: function(callback) {
         var self = this;
-        self.get(self.options.url.table, {
+        self.get(self.options.tableUrl, {
             success: function(html) {
                 $('body > div.tipsy').remove();
                 self.$tableInner.html(html);
@@ -526,7 +528,7 @@ $.widget("lichess.game", {
     },
     reloadPlayers: function(callback) {
         var self = this;
-        $.getJSON(self.options.url.players, function(data) {
+        $.getJSON(self.options.playersUrl, function(data) {
           $(['white', 'black']).each(function() {
             if (data[this]) self.$table.find('div.username.' + this).html(data[this]);
           });

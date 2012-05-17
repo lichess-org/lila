@@ -23,7 +23,7 @@ case class AiConfig(variant: Variant, level: Int, color: Color) extends Config {
     creatorColor = creatorColor,
     isRated = false,
     variant = variant,
-    createdAt = DateTime.now)
+    createdAt = DateTime.now).start
 }
 
 object AiConfig extends BaseConfig {

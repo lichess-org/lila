@@ -1,11 +1,15 @@
 @(player: DbPlayer)(implicit ctx: Context)
 
-@if(player.isAi) {
+@ai(level: Int) = {
 <div class="username connected">
-  @trans.aiNameLevelAiLevel("Crafty A.I.", player.aiLevel)
+  @trans.aiNameLevelAiLevel("Crafty A.I.", level)
 </div>
-} else {
+}
+
+@human = {
 <div class="username @player.color.name">
   @playerLink(player, "blank_if_play")
 </div>
 }
+
+@player.aiLevel.fold(ai, human)

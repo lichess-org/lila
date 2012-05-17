@@ -17,13 +17,13 @@ object Board {
         s.pos.key,
         s.top,
         s.left) ++
-        """<div class="lcsi">""" ++ {
+      """<div class="lcsi"></div>""" ++ {
           board(s.pos) map { piece ⇒
             """<div class="lichess_piece %s %s"></div>""".format(
               piece.role.name, piece.color.name)
           } getOrElse ""
         } ++
-        "</div></div>"
+        "</div>"
 
     } mkString
   }
