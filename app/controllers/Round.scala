@@ -3,17 +3,20 @@ package controllers
 import lila._
 import views._
 import http.Context
-import game.Pov
+import game.{ DbGame, Pov }
+import round.Event
 import socket.Util.connectionFail
 
 import play.api.mvc._
 import play.api.libs.json._
 import play.api.libs.iteratee._
+import scalaz.effects._
 
 object Round extends LilaController {
 
-  val gameRepo = env.game.gameRepo
-  val socket = env.round.socket
+  private val gameRepo = env.game.gameRepo
+  private val socket = env.round.socket
+  private val hand = env.round.hand
 
   def websocketWatcher(gameId: String, color: String) = WebSocket.async[JsValue] { req ⇒
     implicit val ctx = reqToCtx(req)
@@ -43,22 +46,22 @@ object Round extends LilaController {
 
   private def version(gameId: String): Int = socket blockingVersion gameId
 
-  def abort(fullId: String) = TODO
-  def resign(fullId: String) = TODO
-  def resignForce(fullId: String) = TODO
-  def drawClaim(fullId: String) = TODO
-  def drawAccept(fullId: String) = TODO
-  def drawOffer(fullId: String) = TODO
-  def drawCancel(fullId: String) = TODO
-  def drawDecline(fullId: String) = TODO
+  def abort(fullId: String) = performAndRedirect(fullId, hand.abort)
+  def resign(fullId: String) = performAndRedirect(fullId, hand.resign)
+  def resignForce(fullId: String) = performAndRedirect(fullId, hand.resignForce)
+  def drawClaim(fullId: String) = performAndRedirect(fullId, hand.drawClaim)
+  def drawAccept(fullId: String) = performAndRedirect(fullId, hand.drawAccept)
+  def drawOffer(fullId: String) = performAndRedirect(fullId, hand.drawOffer)
+  def drawCancel(fullId: String) = performAndRedirect(fullId, hand.drawCancel)
+  def drawDecline(fullId: String) = performAndRedirect(fullId, hand.drawDecline)
   def rematchOffer(fullId: String) = TODO
   def rematchAccept(fullId: String) = TODO
   def rematchCancel(fullId: String) = TODO
   def rematchDecline(fullId: String) = TODO
-  def takebackAccept(fullId: String) = TODO
-  def takebackOffer(fullId: String) = TODO
-  def takebackCancel(fullId: String) = TODO
-  def takebackDecline(fullId: String) = TODO
+  def takebackAccept(fullId: String) = performAndRedirect(fullId, hand.takebackAccept)
+  def takebackOffer(fullId: String) = performAndRedirect(fullId, hand.takebackOffer)
+  def takebackCancel(fullId: String) = performAndRedirect(fullId, hand.takebackCancel)
+  def takebackDecline(fullId: String) = performAndRedirect(fullId, hand.takebackDecline)
 
   def tableWatcher(gameId: String, color: String) = Open { implicit ctx ⇒
     IOption(gameRepo.pov(gameId, color)) { html.round.table.watch(_) }
@@ -83,4 +86,20 @@ object Round extends LilaController {
       )
     })
   }
+
+  type IOValidEvents = IO[Valid[List[Event]]]
+
+  private def performAndRedirect(fullId: String, op: String ⇒ IOValidEvents) =
+    Action {
+      perform(fullId, op).unsafePerformIO
+      Redirect(routes.Round.player(fullId))
+    }
+
+  private def perform(fullId: String, op: String ⇒ IOValidEvents): IO[Unit] =
+    op(fullId) flatMap { validEvents ⇒
+      validEvents.fold(putFailures, performEvents(fullId))
+    }
+
+  private def performEvents(fullId: String)(events: List[Event]): IO[Unit] =
+    env.round.socket.send(DbGame takeGameId fullId, events)
 }

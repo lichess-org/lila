@@ -1,6 +1,6 @@
 # Game
 GET   /games                         controllers.Game.realtime
-GET   /games-refresh/:ids                         controllers.Game.realtimeInner(ids: String)
+GET   /games/refresh/:ids                         controllers.Game.realtimeInner(ids: String)
 GET   /games/all                         controllers.Game.all(page: Int ?= 1)
 GET   /games/checkmate                         controllers.Game.checkmate(page: Int ?= 1)
 
@@ -61,9 +61,6 @@ GET   /signup                        controllers.User.signUp
 
 # Wiki
 GET   /wiki                          controllers.Wiki.home
-
-# App Public API
-GET   /socket                        controllers.App.socket
 
 GET   /ai                            controllers.Ai.run
 
