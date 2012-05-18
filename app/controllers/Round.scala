@@ -57,9 +57,7 @@ object Round extends LilaController {
   def takebackDecline(fullId: String) = TODO
 
   def tableWatcher(gameId: String, color: String) = Open { implicit ctx ⇒
-    IOption(gameRepo.pov(gameId, color)) { pov ⇒
-      html.round.table.watch(pov)
-    }
+    IOption(gameRepo.pov(gameId, color)) { html.round.table.watch(_) }
   }
 
   def tablePlayer(fullId: String) = Open { implicit ctx ⇒
@@ -68,5 +66,15 @@ object Round extends LilaController {
     }
   }
 
-  def players(gameId: String) = TODO
+  def players(gameId: String) = Open { implicit ctx ⇒
+    import templating.Environment.playerLink
+    JsonIOk(gameRepo game gameId map { gameOption ⇒
+      gameOption.fold(
+        game ⇒ (game.players collect {
+          case player if player.isHuman ⇒ player.color.name -> playerLink(player).text
+        } toMap) ++ ctx.me.fold(me ⇒ Map("me" -> me.usernameWithElo), Map()),
+        Map()
+      )
+    })
+  }
 }
