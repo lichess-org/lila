@@ -51,6 +51,10 @@ object Round extends LilaController {
   def drawOffer(fullId: String) = TODO
   def drawCancel(fullId: String) = TODO
   def drawDecline(fullId: String) = TODO
+  def rematchOffer(fullId: String) = TODO
+  def rematchAccept(fullId: String) = TODO
+  def rematchCancel(fullId: String) = TODO
+  def rematchDecline(fullId: String) = TODO
   def takebackAccept(fullId: String) = TODO
   def takebackOffer(fullId: String) = TODO
   def takebackCancel(fullId: String) = TODO
@@ -62,7 +66,9 @@ object Round extends LilaController {
 
   def tablePlayer(fullId: String) = Open { implicit ctx ⇒
     IOption(gameRepo pov fullId) { pov ⇒
-      pov.game.playable.fold(html.round.table.playing(pov), html.round.table.end(pov))
+      pov.game.playable.fold(
+        html.round.table.playing(pov), 
+        html.round.table.end(pov))
     }
   }
 

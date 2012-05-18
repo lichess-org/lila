@@ -17,7 +17,7 @@ sealed trait Member extends SocketMember {
   def gameId = ref.gameId
   def color = ref.color
   def className = owner.fold("Owner", "Watcher")
-  override def toString = "%s(%s-%s,%s)".format(className, gameId, color)
+  override def toString = "%s(%s-%s,%s)".format(className, gameId, color, username)
 }
 
 object Member {

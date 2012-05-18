@@ -39,11 +39,7 @@
         </div>
         <div class="lichess_separator"></div>
         <div class="table_inner">
-          @if(game.playable) {
-          @round.table.playing(pov)
-          } else {
-          @round.table.end(pov)
-          }
+          @game.playable.fold(round.table.playing(pov), round.table.end(pov))
         </div>
       </div>
       @game.clock.map { c =>

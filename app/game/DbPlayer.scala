@@ -9,17 +9,18 @@ import com.mongodb.DBRef
 case class DbPlayer(
     id: String,
     color: Color,
-    ps: String,
     aiLevel: Option[Int],
-    isWinner: Option[Boolean],
-    elo: Option[Int],
-    eloDiff: Option[Int],
-    isOfferingDraw: Boolean,
-    lastDrawOffer: Option[Int],
-    isProposingTakeback: Boolean,
-    user: Option[DBRef],
-    moveTimes: String,
-    blurs: Int) {
+    ps: String = "",
+    isWinner: Option[Boolean] = None,
+    isOfferingDraw: Boolean = false,
+    isOfferingRematch: Boolean = false,
+    lastDrawOffer: Option[Int] = None,
+    isProposingTakeback: Boolean = false,
+    user: Option[DBRef] = None,
+    elo: Option[Int] = None,
+    eloDiff: Option[Int] = None,
+    moveTimes: String = "",
+    blurs: Int = 0) {
 
   def encodePieces(allPieces: Iterable[(Pos, Piece, Boolean)]): String =
     allPieces withFilter (_._2.color == color) map {
@@ -78,15 +79,5 @@ object DbPlayer {
     aiLevel: Option[Int]): DbPlayer = DbPlayer(
     id = IdGenerator.player,
     color = color,
-    ps = "",
-    aiLevel = aiLevel,
-    isWinner = None,
-    elo = None,
-    eloDiff = None,
-    isOfferingDraw = false,
-    lastDrawOffer = None,
-    isProposingTakeback = false,
-    user = None,
-    moveTimes = "",
-    blurs = 0)
+    aiLevel = aiLevel)
 }

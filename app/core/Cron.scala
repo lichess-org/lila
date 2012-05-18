@@ -23,8 +23,8 @@ object Cron {
     implicit val executor = Akka.system.dispatcher
 
     unsafe(5 seconds) {
-      (env.site.hub :: env.lobby.hub :: env.round.hubMaster :: Nil) foreach { actor ⇒
-        actor ! socket.Broom
+      (env.site.hub :: env.lobby.hub :: env.round.hubMaster :: Nil) foreach {
+        _ ! socket.Broom
       }
     }
 
