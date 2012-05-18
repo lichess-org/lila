@@ -3,16 +3,19 @@ package setup
 
 import http.Context
 import game.{ DbGame, GameRepo, Pov }
+import user.User
 import chess.{ Game, Board }
 import ai.Ai
 
+import com.mongodb.DBRef
 import scalaz.effects._
 
 final class Processor(
     configRepo: UserConfigRepo,
     gameRepo: GameRepo,
     timelinePush: DbGame ⇒ IO[Unit],
-    ai: () ⇒ Ai) {
+    ai: () ⇒ Ai,
+    dbRef: User ⇒ DBRef) {
 
   def ai(config: AiConfig)(implicit ctx: Context): IO[Pov] = for {
     _ ← ctx.me.fold(
@@ -20,7 +23,9 @@ final class Processor(
       io()
     )
     pov = config.pov
-    game = pov.game
+    game = ctx.me.fold(
+      user ⇒ pov.game.updatePlayer(pov.color, _.withUser(user, dbRef(user))),
+      pov.game)
     _ ← gameRepo insert game
     _ ← game.variant.standard.fold(io(), gameRepo saveInitialFen game)
     _ ← timelinePush(game)

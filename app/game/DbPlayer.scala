@@ -47,6 +47,10 @@ case class DbPlayer(
 
   def isUser(u: User) = user.fold(_.getId == u.id, false)
 
+  def withUser(u: User, ref: DBRef) = copy(
+    elo = u.elo.some,
+    user = ref.some)
+
   def wins = isWinner getOrElse false
 
   def hasMoveTimes = moveTimes.size > 10

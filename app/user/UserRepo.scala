@@ -10,8 +10,8 @@ import scalaz.effects._
 import com.roundeights.hasher.Implicits._
 
 class UserRepo(
-  collection: MongoCollection,
-  val dbRef: User => DBRef) extends SalatDAO[User, ObjectId](collection) {
+    collection: MongoCollection,
+    val dbRef: User ⇒ DBRef) extends SalatDAO[User, ObjectId](collection) {
 
   def user(userId: String): IO[Option[User]] = user(new ObjectId(userId))
 
