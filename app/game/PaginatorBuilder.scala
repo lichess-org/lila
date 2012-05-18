@@ -26,9 +26,7 @@ final class PaginatorBuilder(
     dao = gameRepo,
     query = query,
     sort = DBObject("updatedAt" -> -1)
-  ) map { raw ⇒
-      gameRepo.decode(raw).get // unsafe
-    }
+  ) map (_.decode.get) // unsafe
 
   private def paginator(adapter: Adapter[DbGame], page: Int) = Paginator(
     adapter,

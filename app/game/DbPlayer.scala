@@ -34,7 +34,7 @@ case class DbPlayer(
     ps = encodePieces(allPieces)
   )
 
-  def withUser(user: User)(dbRef: User => DBRef): DbPlayer = copy(
+  def withUser(user: User)(dbRef: User ⇒ DBRef): DbPlayer = copy(
     user = dbRef(user).some,
     elo = user.elo.some)
 
@@ -70,6 +70,23 @@ case class DbPlayer(
   def proposeTakeback = copy(isProposingTakeback = true)
 
   def removeTakebackProposition = copy(isProposingTakeback = false)
+
+  def encode: RawDbPlayer = RawDbPlayer(
+    id = id,
+    c = color.name,
+    ps = ps,
+    aiLevel = aiLevel,
+    w = isWinner,
+    elo = elo,
+    eloDiff = eloDiff,
+    isOfferingDraw = if (isOfferingDraw) Some(true) else None,
+    isOfferingRematch = if (isOfferingRematch) Some(true) else None,
+    lastDrawOffer = lastDrawOffer,
+    isProposingTakeback = if (isProposingTakeback) Some(true) else None,
+    user = user,
+    mts = Some(moveTimes) filter ("" !=),
+    blurs = Some(blurs) filter (0 !=)
+  )
 }
 
 object DbPlayer {
@@ -80,4 +97,40 @@ object DbPlayer {
     id = IdGenerator.player,
     color = color,
     aiLevel = aiLevel)
+}
+
+case class RawDbPlayer(
+    id: String,
+    c: String,
+    ps: String,
+    aiLevel: Option[Int],
+    w: Option[Boolean],
+    elo: Option[Int],
+    eloDiff: Option[Int],
+    isOfferingDraw: Option[Boolean],
+    isOfferingRematch: Option[Boolean],
+    lastDrawOffer: Option[Int],
+    isProposingTakeback: Option[Boolean],
+    user: Option[DBRef],
+    mts: Option[String],
+    blurs: Option[Int]) {
+
+  def decode: Option[DbPlayer] = for {
+    trueColor ← Color(c)
+  } yield DbPlayer(
+    id = id,
+    color = trueColor,
+    ps = ps,
+    aiLevel = aiLevel,
+    isWinner = w,
+    elo = elo,
+    eloDiff = eloDiff,
+    isOfferingDraw = isOfferingDraw | false,
+    isOfferingRematch = isOfferingRematch | false,
+    lastDrawOffer = lastDrawOffer,
+    isProposingTakeback = isProposingTakeback | false,
+    user = user,
+    moveTimes = mts | "",
+    blurs = blurs | 0
+  )
 }

@@ -21,7 +21,7 @@ class GameRepo(collection: MongoCollection)
 
   def game(gameId: String): IO[Option[DbGame]] = io {
     if (gameId.size != gameIdSize) None
-    else findOneByID(gameId) flatMap decode
+    else findOneByID(gameId) flatMap (_.decode)
   }
 
   def player(gameId: String, color: Color): IO[Option[DbPlayer]] =
@@ -47,11 +47,11 @@ class GameRepo(collection: MongoCollection)
   def pov(ref: PovRef): IO[Option[Pov]] = pov(ref.gameId, ref.color)
 
   def save(game: DbGame): IO[Unit] = io {
-    update(DBObject("_id" -> game.id), _grater asDBObject encode(game))
+    update(DBObject("_id" -> game.id), _grater asDBObject game.encode)
   }
 
   def save(progress: Progress): IO[Unit] =
-    new GameDiff(encode(progress.origin), encode(progress.game))() |> { diffs ⇒
+    new GameDiff(progress.origin.encode, progress.game.encode)() |> { diffs ⇒
       if (diffs.nonEmpty) {
         val fullDiffs = ("updatedAt" -> new Date()) :: diffs
         io { update(DBObject("_id" -> progress.origin.id), $set(fullDiffs: _*)) }
@@ -60,7 +60,7 @@ class GameRepo(collection: MongoCollection)
     }
 
   def insert(game: DbGame): IO[Option[String]] = io {
-    insert(encode(game))
+    insert(game.encode)
   }
 
   // makes the asumption that player 0 is white!
@@ -98,12 +98,8 @@ class GameRepo(collection: MongoCollection)
     ))
       .sort(DBObject("createdAt" -> -1))
       .limit(1)
-      .toList.map(decode).flatten.headOption
+      .toList.map(_.decode).flatten.headOption
   }
-
-  def decode(raw: RawDbGame): Option[DbGame] = raw.decode
-
-  def encode(dbGame: DbGame): RawDbGame = RawDbGame encode dbGame
 
   def saveInitialFen(dbGame: DbGame): IO[Unit] = io {
     update(
@@ -125,7 +121,7 @@ class GameRepo(collection: MongoCollection)
       ("clock.l" $exists true) ++
         ("status" -> Status.Started.id) ++
         ("updatedAt" $lt (DateTime.now - 2.hour))
-    ).toList.map(decode).flatten
+    ).toList.map(_.decode).flatten
   }
 
   val countAll: IO[Int] = io { count().toInt }
@@ -142,11 +138,11 @@ class GameRepo(collection: MongoCollection)
     find(DBObject("status" -> Status.Started.id))
       .sort(DBObject("updatedAt" -> -1))
       .limit(limit)
-      .toList.map(decode).flatten sortBy (_.id)
+      .toList.map(_.decode).flatten sortBy (_.id)
   }
 
   def games(ids: List[String]): IO[List[DbGame]] = io {
-    find("_id" $in ids).toList.map(decode).flatten sortBy (_.id)
+    find("_id" $in ids).toList.map(_.decode).flatten sortBy (_.id)
   }
 
   def ensureIndexes: IO[Unit] = io {
