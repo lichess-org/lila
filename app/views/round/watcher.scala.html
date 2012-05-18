@@ -46,7 +46,7 @@
 @round.layout(title = title, goodies = goodies) {
 <div class="lichess_game clearfix lichess_player_@color"
   data-socket-url="@routes.Round.websocketWatcher(gameId, color.name)"
-  data-table-url="@routes.Round.table(gameId, color.name, fullId)"
+  data-table-url="@routes.Round.tableWatcher(gameId, color.name)"
   data-players-url="@routes.Round.players(gameId)">
   <div class="lichess_board_wrap">
     @widget.connection()

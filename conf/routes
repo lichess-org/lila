@@ -22,8 +22,8 @@ GET   /takeback-accept/$fullId<[\w\-]{12}>       controllers.Round.takebackAccep
 GET   /takeback-offer/$fullId<[\w\-]{12}>        controllers.Round.takebackOffer(fullId: String)
 GET   /takeback-cancel/$fullId<[\w\-]{12}>       controllers.Round.takebackCancel(fullId: String)
 GET   /takeback-decline/$fullId<[\w\-]{12}>      controllers.Round.takebackDecline(fullId: String)
-GET   /table/$gameId<[\w\-]{8}>/$color<white|black> controllers.Round.table(gameId: String, color: String, fullId: String = "")
-GET   /table/$gameId<[\w\-]{8}>/$color<white|black>/$fullId<[\w\-]{12}> controllers.Round.table(gameId: String, color: String, fullId: String)
+GET   /table/$gameId<[\w\-]{8}>/$color<white|black> controllers.Round.tableWatcher(gameId: String, color: String)
+GET   /table/$fullId<[\w\-]{12}>                  controllers.Round.tablePlayer(fullId: String)
 GET   /players/$gameId<[\w\-]{8}>                 controllers.Round.players(gameId: String)
 
 # Analyse

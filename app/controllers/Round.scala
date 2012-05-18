@@ -15,21 +15,19 @@ object Round extends LilaController {
   val gameRepo = env.game.gameRepo
   val socket = env.round.socket
 
-  def websocketWatcher(gameId: String, color: String) =
-    WebSocket.async[JsValue] { req ⇒
-      implicit val ctx = reqToCtx(req)
-      socket.joinWatcher(
-        gameId, color, getInt("version"), get("uid"), get("username")
-      ).unsafePerformIO
-    }
+  def websocketWatcher(gameId: String, color: String) = WebSocket.async[JsValue] { req ⇒
+    implicit val ctx = reqToCtx(req)
+    socket.joinWatcher(
+      gameId, color, getInt("version"), get("uid"), get("username")
+    ).unsafePerformIO
+  }
 
-  def websocketPlayer(fullId: String) =
-    WebSocket.async[JsValue] { req ⇒
-      implicit val ctx = reqToCtx(req)
-      socket.joinPlayer(
-        fullId, getInt("version"), get("uid"), get("username")
-      ).unsafePerformIO
-    }
+  def websocketPlayer(fullId: String) = WebSocket.async[JsValue] { req ⇒
+    implicit val ctx = reqToCtx(req)
+    socket.joinPlayer(
+      fullId, getInt("version"), get("uid"), get("username")
+    ).unsafePerformIO
+  }
 
   def watcher(gameId: String, color: String) = Open { implicit ctx ⇒
     IOption(gameRepo.pov(gameId, color)) { pov ⇒
@@ -58,6 +56,17 @@ object Round extends LilaController {
   def takebackCancel(fullId: String) = TODO
   def takebackDecline(fullId: String) = TODO
 
-  def table(gameId: String, color: String, fullId: String) = TODO
+  def tableWatcher(gameId: String, color: String) = Open { implicit ctx ⇒
+    IOption(gameRepo.pov(gameId, color)) { pov ⇒
+      html.round.table.watch(pov)
+    }
+  }
+
+  def tablePlayer(fullId: String) = Open { implicit ctx ⇒
+    IOption(gameRepo pov fullId) { pov ⇒
+      pov.game.playable.fold(html.round.table.playing(pov), html.round.table.end(pov))
+    }
+  }
+
   def players(gameId: String) = TODO
 }
