@@ -2,25 +2,9 @@
 
 @import pov._
 
-@winner(player: DbPlayer) = {
-<div class="lichess_player @player.color">
-  <div class="lichess_piece king @player.color"></div>
-  <p>
-    @gameEndStatus(game)<br />
-    @player.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
-  </p>
-</div>
-}
-
-@noWinner = {
-<div class="lichess_player">
-  <p>@gameEndStatus(game)</p>
-</div>
-}
-
 <div class="lichess_current_player">
   @if(game.finished || game.aborted) {
-  @game.winner.fold(winner, noWinner)
+  @round.table.result(game)
   } else {
   <div class="lichess_player white @game.turnColor.white.fold("", " none")">
     <div class="lichess_piece king white"></div>

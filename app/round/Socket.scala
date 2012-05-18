@@ -24,7 +24,7 @@ final class Socket(
     getWatcherPov: (String, String) ⇒ IO[Option[Pov]],
     getPlayerPov: String ⇒ IO[Option[Pov]],
     hand: Hand,
-    val hubMaster: ActorRef,
+    hubMaster: ActorRef,
     messenger: Messenger) {
 
   private val timeoutDuration = 1 second
@@ -84,17 +84,15 @@ final class Socket(
     colorName: String,
     version: Option[Int],
     uid: Option[String],
-    username: Option[String]): IO[SocketPromise] = getWatcherPov(gameId, colorName) map {
-    join(_, false, version, uid, username)
-  }
+    username: Option[String]): IO[SocketPromise] = 
+      getWatcherPov(gameId, colorName) map { join(_, false, version, uid, username) }
 
   def joinPlayer(
     fullId: String,
     version: Option[Int],
     uid: Option[String],
-    username: Option[String]): IO[SocketPromise] = getPlayerPov(fullId) map {
-    join(_, true, version, uid, username)
-  }
+    username: Option[String]): IO[SocketPromise] = 
+      getPlayerPov(fullId) map { join(_, true, version, uid, username) }
 
   private def join(
     povOption: Option[Pov],

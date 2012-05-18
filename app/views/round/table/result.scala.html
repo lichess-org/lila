@@ -1,0 +1,19 @@
+@(game: DbGame)(implicit ctx: Context)
+
+@winner(player: DbPlayer) = {
+<div class="lichess_player @player.color">
+  <div class="lichess_piece king @player.color"></div>
+  <p>
+    @gameEndStatus(game)<br />
+    @player.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
+  </p>
+</div>
+}
+
+@noWinner = {
+<div class="lichess_player">
+  <p>@gameEndStatus(game)</p>
+</div>
+}
+
+@game.winner.fold(winner, noWinner)

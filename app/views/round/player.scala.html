@@ -40,9 +40,9 @@
         <div class="lichess_separator"></div>
         <div class="table_inner">
           @if(game.playable) {
-          @round.table(pov)
+          @round.table.playing(pov)
           } else {
-          @round.tableEnd(pov)
+          @round.table.end(pov)
           }
         </div>
       </div>

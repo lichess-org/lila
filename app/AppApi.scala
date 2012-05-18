@@ -26,28 +26,28 @@ final class AppApi(
   private implicit val timeout = Timeout(300 millis)
   private implicit val executor = Akka.system.dispatcher
 
-  def show(fullId: String): Future[IO[Valid[Map[String, Any]]]] =
-    futureVersion(DbGame takeGameId fullId) map { version ⇒
-      for {
-        povOption ← gameRepo pov fullId
-        gameInfo ← povOption.fold(
-          pov ⇒ messenger render pov.game.id map { roomHtml ⇒
-            Map(
-              "version" -> version,
-              "roomHtml" -> roomHtml,
-              "possibleMoves" -> {
-                if (pov.game playableBy pov.player)
-                  pov.game.toChess.situation.destinations map {
-                    case (from, dests) ⇒ from.key -> (dests.mkString)
-                  } toMap
-                else null
-              }
-            ).success
-          },
-          io(GameNotFound)
-        )
-      } yield gameInfo
-    }
+  //def show(fullId: String): Future[IO[Valid[Map[String, Any]]]] =
+    //futureVersion(DbGame takeGameId fullId) map { version ⇒
+      //for {
+        //povOption ← gameRepo pov fullId
+        //gameInfo ← povOption.fold(
+          //pov ⇒ messenger render pov.game.id map { roomHtml ⇒
+            //Map(
+              //"version" -> version,
+              //"roomHtml" -> roomHtml,
+              //"possibleMoves" -> {
+                //if (pov.game playableBy pov.player)
+                  //pov.game.toChess.situation.destinations map {
+                    //case (from, dests) ⇒ from.key -> (dests.mkString)
+                  //} toMap
+                //else null
+              //}
+            //).success
+          //},
+          //io(GameNotFound)
+        //)
+      //} yield gameInfo
+    //}
 
   //def join(
     //fullId: String,
@@ -129,18 +129,6 @@ final class AppApi(
     //)
   //} yield result
 
-  def gameVersion(gameId: String): Future[Int] = futureVersion(gameId)
-
-  def gameInfo(gameId: String): IO[Option[GameInfo]] = for {
-    gameOption ← gameRepo game gameId
-    gameInfo ← gameOption.fold(gameInfo(_) map some, io(none))
-  } yield gameInfo
-
-  def isConnected(gameId: String, colorName: String): Future[Boolean] =
-    Color(colorName).fold(
-      c ⇒ roundSocket.hubMaster ? IsConnectedOnGame(gameId, c) mapTo manifest[Boolean],
-      Promise successful false)
-
   def adjust(username: String): IO[Unit] = for {
     userOption ← userRepo byUsername username
     _ ← userOption.fold(
@@ -154,6 +142,6 @@ final class AppApi(
     )
   } yield ()
 
-  private def futureVersion(gameId: String): Future[Int] =
-    roundSocket.hubMaster ? GetGameVersion(gameId) mapTo manifest[Int]
+  //private def futureVersion(gameId: String): Future[Int] =
+    //roundSocket.hubMaster ? GetGameVersion(gameId) mapTo manifest[Int]
 }

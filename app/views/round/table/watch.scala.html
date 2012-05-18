@@ -1,0 +1,25 @@
+@(pov: Pov)(implicit ctx: Context)
+
+@import pov._
+
+<div class="lichess_current_player">
+  @if(game.finished || game.aborted) {
+  @round.table.result(game)
+  } else {
+  <div class="lichess_player white @game.turnColor.white.fold("", " none")">
+    <div class="lichess_piece king white"></div>
+    <p>@trans.whitePlays()</p>
+  </div>
+  <div class="lichess_player black @game.turnColor.black.fold("", " none")">
+    <div class="lichess_piece king black"></div>
+    <p>@trans.blackPlays()</p>
+  </div>
+  }
+</div>
+<div class="lichess_separator"></div>
+@round.username(player)
+@game.nextId.map { nextId =>
+<div class="lichess_control buttons">
+  <a class="button" href="@routes.Round.watcher(nextId, opponent.color.name)">View rematch</a>
+</div>
+}
