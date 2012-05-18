@@ -2,13 +2,34 @@ package controllers
 
 import lila._
 import views._
+import http.Context
+import game.Pov
+import socket.Util.connectionFail
 
 import play.api.mvc._
+import play.api.libs.json._
+import play.api.libs.iteratee._
 
 object Round extends LilaController {
 
   val gameRepo = env.game.gameRepo
   val socket = env.round.socket
+
+  def websocketWatcher(gameId: String, color: String) =
+    WebSocket.async[JsValue] { req ⇒
+      implicit val ctx = reqToCtx(req)
+      socket.joinWatcher(
+        gameId, color, getInt("version"), get("uid"), get("username")
+      ).unsafePerformIO
+    }
+
+  def websocketPlayer(fullId: String) =
+    WebSocket.async[JsValue] { req ⇒
+      implicit val ctx = reqToCtx(req)
+      socket.joinPlayer(
+        fullId, getInt("version"), get("uid"), get("username")
+      ).unsafePerformIO
+    }
 
   def watcher(gameId: String, color: String) = Open { implicit ctx ⇒
     IOption(gameRepo.pov(gameId, color)) { pov ⇒

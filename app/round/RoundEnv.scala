@@ -35,7 +35,8 @@ final class RoundEnv(
   )), name = ActorGameHubMaster)
 
   lazy val socket = new Socket(
-    getGame = gameRepo.game,
+    getWatcherPov = gameRepo.pov,
+    getPlayerPov = gameRepo.pov,
     hand = hand,
     hubMaster = hubMaster,
     messenger = messenger)

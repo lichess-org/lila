@@ -28,18 +28,6 @@ object App extends LilaController {
       username = get("username"))
   }
 
-  def gameSocket(gameId: String, color: String) =
-    WebSocket.async[JsValue] { implicit req ⇒
-      implicit val ctx = Context(req, None)
-      env.round.socket.join(
-        uidOption = get("uid"),
-        username = get("username"),
-        gameId = gameId,
-        colorName = color,
-        versionOption = getInt("version"),
-        playerId = get("playerId")).unsafePerformIO
-    }
-
   def abort(fullId: String) = performAndRedirect(fullId, hand.abort)
 
   def resign(fullId: String) = performAndRedirect(fullId, hand.resign)

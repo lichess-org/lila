@@ -5,6 +5,8 @@ GET   /games/all                         controllers.Game.all(page: Int ?= 1)
 GET   /games/checkmate                         controllers.Game.checkmate(page: Int ?= 1)
 
 # Round
+GET   /socket/$gameId<[\w\-]{8}>/$color<white|black> controllers.Round.websocketWatcher(gameId: String, color: String)
+GET   /socket/$fullId<[\w\-]{12}>         controllers.Round.websocketPlayer(fullId: String)
 GET   /$gameId<[\w\-]{8}>               controllers.Round.watcher(gameId: String, color: String = "white")
 GET   /$gameId<[\w\-]{8}>/$color<white|black> controllers.Round.watcher(gameId: String, color: String)
 GET   /$fullId<[\w\-]{12}>               controllers.Round.player(fullId: String)
@@ -58,7 +60,6 @@ GET   /wiki                          controllers.Wiki.home
 
 # App Public API
 GET   /socket                        controllers.App.socket
-GET   /socket/:gameId/:color         controllers.App.gameSocket(gameId: String, color: String)
 
 GET   /ai                            controllers.Ai.run
 

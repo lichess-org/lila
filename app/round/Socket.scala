@@ -14,13 +14,15 @@ import play.api.Play.current
 
 import scalaz.effects._
 
-import game.{ DbGame, PovRef }
+import game.{ Pov, PovRef }
 import chess.Color
-import socket.{ Util, Ping, Quit }
+import socket.{ Ping, Quit }
+import socket.Util.connectionFail
 import implicits.RichJs._
 
 final class Socket(
-    getGame: String ⇒ IO[Option[DbGame]],
+    getWatcherPov: (String, String) ⇒ IO[Option[Pov]],
+    getPlayerPov: String ⇒ IO[Option[Pov]],
     hand: Hand,
     val hubMaster: ActorRef,
     messenger: Messenger) {
@@ -77,37 +79,48 @@ final class Socket(
       case _         ⇒
     }
 
-  def join(
-    uidOption: Option[String],
-    username: Option[String],
+  def joinWatcher(
     gameId: String,
     colorName: String,
+    version: Option[Int],
+    uid: Option[String],
+    username: Option[String]): IO[SocketPromise] = getWatcherPov(gameId, colorName) map {
+    join(_, false, version, uid, username)
+  }
+
+  def joinPlayer(
+    fullId: String,
+    version: Option[Int],
+    uid: Option[String],
+    username: Option[String]): IO[SocketPromise] = getPlayerPov(fullId) map {
+    join(_, true, version, uid, username)
+  }
+
+  private def join(
+    povOption: Option[Pov],
+    owner: Boolean,
     versionOption: Option[Int],
-    playerId: Option[String]): IO[SocketPromise] =
-    getGame(gameId) map { gameOption ⇒
-      val promise: Option[SocketPromise] = for {
-        game ← gameOption
-        color ← Color(colorName)
-        version ← versionOption
-        uid ← uidOption
-      } yield (for {
-        hub ← hubMaster ? GetHub(gameId) mapTo manifest[ActorRef]
-        socket ← hub ? Join(
-          uid = uid,
-          username = username,
-          version = version,
-          color = color,
-          owner = (playerId flatMap game.player).isDefined
-        ) map {
-            case Connected(member) ⇒ (
-              Iteratee.foreach[JsValue](
-                controller(hub, uid, member, PovRef(gameId, member.color))
-              ) mapDone { _ ⇒
-                  hub ! Quit(uid)
-                },
-                member.channel)
-          }
-      } yield socket).asPromise
-      promise | Util.connectionFail
-    }
+    uidOption: Option[String],
+    username: Option[String]): SocketPromise =
+    ((povOption |@| uidOption |@| versionOption) apply {
+      (pov: Pov, uid: String, version: Int) ⇒
+        (for {
+          hub ← hubMaster ? GetHub(pov.gameId) mapTo manifest[ActorRef]
+          socket ← hub ? Join(
+            uid = uid,
+            username = username,
+            version = version,
+            color = pov.color,
+            owner = owner
+          ) map {
+              case Connected(member) ⇒ (
+                Iteratee.foreach[JsValue](
+                  controller(hub, uid, member, PovRef(pov.gameId, member.color))
+                ) mapDone { _ ⇒
+                    hub ! Quit(uid)
+                  },
+                  member.channel)
+            }
+        } yield socket).asPromise: SocketPromise
+    }) | connectionFail
 }
