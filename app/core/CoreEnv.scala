@@ -37,7 +37,9 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     settings = settings,
     mongodb = mongodb.apply _,
     gameRepo = game.gameRepo,
+    userRepo = user.userRepo,
     timelinePush = timeline.push.apply,
+    roundMessenger = round.messenger,
     ai = ai.ai,
     dbRef = user.userRepo.dbRef)
 
@@ -80,15 +82,6 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     gameRepo = game.gameRepo,
     messageRepo = lobby.messageRepo,
     entryRepo = timeline.entryRepo)
-
-  //lazy val appApi = new AppApi(
-    //userRepo = user.userRepo,
-    //gameRepo = game.gameRepo,
-    //roundSocket = round.socket,
-    //messenger = round.messenger,
-    //starter = lobby.starter,
-    //eloUpdater = user.eloUpdater,
-    //gameInfo = analyse.gameInfo)
 
   lazy val mongodb = MongoConnection(
     new MongoServer(MongoHost, MongoPort),

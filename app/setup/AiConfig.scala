@@ -5,8 +5,6 @@ import chess.{ Game, Board, Variant, Color ⇒ ChessColor }
 import elo.EloRange
 import game.{ DbGame, DbPlayer }
 
-import org.joda.time.DateTime
-
 case class AiConfig(
     variant: Variant,
     level: Int,
@@ -25,8 +23,7 @@ case class AiConfig(
       aiLevel = creatorColor.white option level),
     creatorColor = creatorColor,
     isRated = false,
-    variant = variant,
-    createdAt = DateTime.now).start
+    variant = variant).start
 
   def encode = RawAiConfig(
     v = variant.id,

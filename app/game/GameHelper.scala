@@ -24,10 +24,9 @@ trait GameHelper { self: I18nHelper with UserHelper ⇒
   def clockName(clock: Option[Clock])(implicit ctx: Context): String = 
     clock.fold(clockName, trans.unlimited.str())
 
-  def clockName(clock: Clock): String = "%d minutes/side + %d seconds/move".format(
-      clock.limitInMinutes, clock.increment)
+  def clockName(clock: Clock): String = Namer clock clock
 
-  def usernameWithElo(player: DbPlayer) = PlayerNamer(player)(userIdToUsername)
+  def usernameWithElo(player: DbPlayer) = Namer.player(player)(userIdToUsername)
 
   def playerLink(player: DbPlayer, cssClass: Option[String] = None) = Html {
     player.userId.fold(

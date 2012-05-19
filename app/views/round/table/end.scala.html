@@ -11,7 +11,7 @@
   @if(opponent.isOfferingRematch) {
   <div class="lichess_play_again_join rematch_alert">
     @trans.yourOpponentWantsToPlayANewGameWithYou().&nbsp;
-    <a class="lichess_play_again lichess_rematch" title="@trans.playWithTheSameOpponentAgain()" href="@routes.Round.rematchAccept(fullId)">@trans.joinTheGame()</a><br />
+    <a class="lichess_play_again lichess_rematch" title="@trans.playWithTheSameOpponentAgain()" href="@routes.Round.rematch(fullId)">@trans.joinTheGame()</a><br />
     <a class="lichess_rematch_decline" href="@routes.Round.rematchDecline(fullId)">@trans.declineInvitation()</a>
   </div>
   } else {
@@ -22,7 +22,7 @@
     <a class="lichess_rematch_cancel" href="@routes.Round.rematchCancel(fullId)">@trans.cancelRematchOffer()</a>
   </div>
   } else {
-  <a class="lichess_rematch button" title="@trans.playWithTheSameOpponentAgain()" href="@routes.Round.rematchOffer(fullId)">@trans.rematch()</a>
+  <a class="lichess_rematch button" title="@trans.playWithTheSameOpponentAgain()" href="@routes.Round.rematch(fullId)">@trans.rematch()</a>
   }
   }
   } else {

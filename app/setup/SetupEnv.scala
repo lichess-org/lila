@@ -3,8 +3,9 @@ package setup
 
 import core.Settings
 import game.{ DbGame, GameRepo }
+import round.Messenger
 import ai.Ai
-import user.User
+import user.{ User, UserRepo }
 
 import com.mongodb.casbah.MongoCollection
 import scalaz.effects._
@@ -14,7 +15,9 @@ final class SetupEnv(
     settings: Settings,
     mongodb: String ⇒ MongoCollection,
     gameRepo: GameRepo,
+    userRepo: UserRepo,
     timelinePush: DbGame ⇒ IO[Unit],
+    roundMessenger: Messenger,
     ai: () ⇒ Ai,
     dbRef: User ⇒ DBRef) {
 
@@ -31,4 +34,10 @@ final class SetupEnv(
     timelinePush = timelinePush,
     ai = ai,
     dbRef = dbRef)
+
+  lazy val rematcher = new Rematcher(
+    gameRepo = gameRepo,
+    userRepo = userRepo,
+    messenger = roundMessenger,
+    timelinePush = timelinePush)
 }

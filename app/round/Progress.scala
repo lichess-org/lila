@@ -26,4 +26,7 @@ object Progress {
 
   def apply(game: DbGame, events: List[Event]): Progress =
     new Progress(game, game, events)
+
+  def apply(game: DbGame, events: Event): Progress =
+    new Progress(game, game, events :: Nil)
 }

@@ -19,13 +19,15 @@ final class Messenger(roomRepo: RoomRepo) {
     else io(Nil)
 
   def systemMessages(game: DbGame, encodedMessages: String): IO[List[Event]] =
-    if (game.invited.isHuman) {
-      val messages = (encodedMessages split '$').toList
+    systemMessages(game, (encodedMessages split '$').toList)
+
+  def systemMessages(game: DbGame, messages: List[String]): IO[List[Event]] =
+    game.invited.isHuman.fold(
       roomRepo.addSystemMessages(game.id, messages) map { _ ⇒
         messages map { Message("system", _) }
-      }
-    }
-    else io(Nil)
+      },
+      io(Nil)
+    )
 
   def systemMessage(game: DbGame, message: String): IO[List[Event]] =
     if (game.invited.isHuman)

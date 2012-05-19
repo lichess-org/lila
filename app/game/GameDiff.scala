@@ -25,6 +25,7 @@ final class GameDiff(a: RawDbGame, b: RawDbGame) {
       d(name + "w", _.players(i).w)
       d(name + "lastDrawOffer", _.players(i).lastDrawOffer)
       d(name + "isOfferingDraw", _.players(i).isOfferingDraw)
+      d(name + "isOfferingRematch", _.players(i).isOfferingRematch)
       d(name + "isProposingTakeback", _.players(i).isProposingTakeback)
       d(name + "blurs", _.players(i).blurs)
       d(name + "mts", _.players(i).mts)

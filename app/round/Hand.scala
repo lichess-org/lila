@@ -2,7 +2,7 @@ package lila
 package round
 
 import ai.Ai
-import game.{ GameRepo, Pov, PovRef }
+import game.{ GameRepo, Pov, PovRef, Handler }
 import chess.Role
 import chess.Pos.posAt
 
@@ -20,7 +20,7 @@ final class Hand(
     ai: () ⇒ Ai,
     finisher: Finisher,
     hubMaster: ActorRef,
-    moretimeSeconds: Int) {
+    moretimeSeconds: Int) extends Handler(gameRepo) {
 
   type IOValidEvents = IO[Valid[List[Event]]]
 
@@ -34,7 +34,7 @@ final class Hand(
       g2 ← (g1.playable).fold(success(g1), failure("Game not playable" wrapNel))
       orig ← posAt(origString) toValid "Wrong orig " + origString
       dest ← posAt(destString) toValid "Wrong dest " + destString
-      promotion = Role promotable promString 
+      promotion = Role promotable promString
       newChessGameAndMove ← g2.toChess(orig, dest, promotion)
       (newChessGame, move) = newChessGameAndMove
     } yield g2.update(newChessGame, move, blur)).fold(
@@ -127,6 +127,29 @@ final class Hand(
       else !!("no draw offer to decline " + fullId)
   })
 
+  def rematch(fullId: String): IO[Valid[(String, List[Event])]] =
+    attempt(fullId, {
+      case pov @ Pov(game, color) if game playerCanRematch color ⇒
+        if (game.opponent(color).isOfferingRematch) success {
+          game.nextId.fold(
+            nextId ⇒ io(nextId -> Nil),
+            io(fullId -> Nil) // accept
+          )
+        }
+        //$nextOpponent = $this->gameGenerator->createReturnGame($opponent);
+        //$nextPlayer   = $nextOpponent->getOpponent();
+        //$nextGame     = $nextOpponent->getGame();
+        //$messages = $this->starter->start($nextGame);
+        //$this->objectManager->persist($nextGame);
+        else success {
+          val progress = Progress(game, Event.ReloadTable(!color)) map { g ⇒
+            g.updatePlayer(color, _.offerRematch)
+          }
+          gameRepo save progress map { _ ⇒ fullId -> progress.events }
+        }
+      case _ ⇒ !!("invalid rematch offer " + fullId)
+    })
+
   def takebackAccept(fullId: String): IOValidEvents = fromPov(fullId) { pov ⇒
     if (pov.opponent.isProposingTakeback) for {
       fen ← gameRepo initialFen pov.game.id
@@ -201,28 +224,4 @@ final class Hand(
       } yield progress2.events
     } toValid "cannot add moretime"
   )
-
-  private def attempt[A](
-    fullId: String,
-    action: Pov ⇒ Valid[IO[A]]): IO[Valid[A]] =
-    fromPov(fullId) { pov ⇒ action(pov).sequence }
-
-  private def attemptRef[A](
-    ref: PovRef,
-    action: Pov ⇒ Valid[IO[A]]): IO[Valid[A]] =
-    fromPov(ref) { pov ⇒ action(pov).sequence }
-
-  private def fromPov[A](ref: PovRef)(op: Pov ⇒ IO[Valid[A]]): IO[Valid[A]] =
-    fromPov(gameRepo pov ref)(op)
-
-  private def fromPov[A](fullId: String)(op: Pov ⇒ IO[Valid[A]]): IO[Valid[A]] =
-    fromPov(gameRepo pov fullId)(op)
-
-  private def fromPov[A](povIO: IO[Option[Pov]])(op: Pov ⇒ IO[Valid[A]]): IO[Valid[A]] =
-    povIO flatMap { povOption ⇒
-      povOption.fold(
-        pov ⇒ op(pov),
-        io { "No such game".failNel }
-      )
-    }
 }

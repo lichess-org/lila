@@ -10,7 +10,7 @@ final class TimelineEnv(
     settings: Settings,
     mongodb: String ⇒ MongoCollection,
     lobbyNotify: Entry ⇒ IO[Unit],
-    getUsername: String => String) {
+    getUsername: String ⇒ String) {
 
   import settings._
 

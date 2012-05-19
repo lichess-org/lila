@@ -55,9 +55,11 @@ case class DbGame(
   def isPlayerFullId(player: DbPlayer, fullId: String): Boolean =
     (fullId.size == DbGame.fullIdSize) && player.id == (fullId drop 8)
 
-  def opponent(p: DbPlayer): DbPlayer = player(!(p.color))
-
   def player: DbPlayer = player(turnColor)
+
+  def opponent(p: DbPlayer): DbPlayer = opponent(p.color)
+
+  def opponent(c: Color): DbPlayer = player(!c)
 
   def turnColor = Color(0 == turns % 2)
 
@@ -203,7 +205,8 @@ case class DbGame(
 
   def start = started.fold(this, copy(
     status = Status.Started,
-    isRated = isRated && (players forall (_.hasUser))
+    isRated = isRated && (players forall (_.hasUser)),
+    updatedAt = DateTime.now.some
   ))
 
   def recordMoveTimes = !hasAi
@@ -231,16 +234,19 @@ case class DbGame(
     started && playable &&
       turns >= 2 &&
       !player(color).isOfferingDraw &&
-      !(player(!color).isAi) &&
+      !(opponent(color).isAi) &&
       !(playerHasOfferedDraw(color))
 
   def playerHasOfferedDraw(color: Color) =
-    player(color).lastDrawOffer some (_ >= turns - 1) none false
+    player(color).lastDrawOffer.fold(_ >= turns - 1, false)
+
+  def playerCanRematch(color: Color) =
+    finishedOrAborted && opponent(color).isHuman 
 
   def playerCanProposeTakeback(color: Color) =
     started && playable &&
       turns >= 2 &&
-      !player(color).isProposingTakeback
+      opponent(color).isProposingTakeback
 
   def abortable = status == Status.Started && turns < 2
 
@@ -286,7 +292,9 @@ case class DbGame(
 
   def creator = player(creatorColor)
 
-  def invited = player(!creatorColor)
+  def invitedColor = !creatorColor
+
+  def invited = opponent(invitedColor)
 
   def pgnList = pgn.split(' ').toList
 
@@ -345,8 +353,7 @@ object DbGame {
     ai: Option[(Color, Int)],
     creatorColor: Color,
     isRated: Boolean,
-    variant: Variant,
-    createdAt: DateTime): DbGame = DbGame(
+    variant: Variant): DbGame = DbGame(
     id = IdGenerator.game,
     whitePlayer = whitePlayer withEncodedPieces game.allPieces,
     blackPlayer = blackPlayer withEncodedPieces game.allPieces,
@@ -362,7 +369,7 @@ object DbGame {
     isRated = isRated,
     variant = variant,
     lastMoveTime = None,
-    createdAt = createdAt.some)
+    createdAt = DateTime.now.some)
 }
 
 case class RawDbGame(

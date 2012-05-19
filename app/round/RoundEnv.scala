@@ -1,14 +1,13 @@
 package lila
 package round
 
+import scalaz.effects._
 import com.mongodb.casbah.MongoCollection
-
-import akka.actor._
-
+import akka.actor.Props
 import play.api.libs.concurrent._
 import play.api.Application
 
-import game.{ GameRepo }
+import game.{ GameRepo, DbGame }
 import user.{ UserRepo, EloUpdater }
 import ai.Ai
 import core.Settings
@@ -20,7 +19,7 @@ final class RoundEnv(
     gameRepo: GameRepo,
     userRepo: UserRepo,
     eloUpdater: EloUpdater,
-    ai: () => Ai) {
+    ai: () ⇒ Ai) {
 
   implicit val ctx = app
   import settings._
@@ -63,7 +62,7 @@ final class RoundEnv(
   lazy val finisherLock = new FinisherLock(timeout = FinisherLockTimeout)
 
   lazy val takeback = new Takeback(
-    gameRepo = gameRepo, 
+    gameRepo = gameRepo,
     messenger = messenger)
 
   lazy val messenger = new Messenger(roomRepo = roomRepo)

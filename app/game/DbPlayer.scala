@@ -67,6 +67,10 @@ case class DbPlayer(
 
   def removeDrawOffer = copy(isOfferingDraw = false)
 
+  def offerRematch = copy(isOfferingRematch = true)
+
+  def removeRematchOffer = copy(isOfferingRematch = false)
+
   def proposeTakeback = copy(isProposingTakeback = true)
 
   def removeTakebackProposition = copy(isProposingTakeback = false)
@@ -97,6 +101,10 @@ object DbPlayer {
     id = IdGenerator.player,
     color = color,
     aiLevel = aiLevel)
+
+  def white = apply(Color.White, None)
+
+  def black = apply(Color.Black, None)
 }
 
 case class RawDbPlayer(

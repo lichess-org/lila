@@ -2,7 +2,7 @@ package lila
 package timeline
 
 import chess.Color
-import game.{ DbGame, PlayerNamer }
+import game.{ DbGame, Namer }
 
 import scalaz.effects._
 
@@ -32,5 +32,5 @@ final class Push(
     (game player color).userId
 
   private def usernameElo(game: DbGame, color: Color): String =
-    PlayerNamer(game player color)(getUsername)
+    Namer.player(game player color)(getUsername)
 }

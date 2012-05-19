@@ -17,6 +17,7 @@ object Round extends LilaController {
   private val gameRepo = env.game.gameRepo
   private val socket = env.round.socket
   private val hand = env.round.hand
+  private val rematcher = env.setup.rematcher
 
   def websocketWatcher(gameId: String, color: String) = WebSocket.async[JsValue] { req ⇒
     implicit val ctx = reqToCtx(req)
@@ -54,8 +55,19 @@ object Round extends LilaController {
   def drawOffer(fullId: String) = performAndRedirect(fullId, hand.drawOffer)
   def drawCancel(fullId: String) = performAndRedirect(fullId, hand.drawCancel)
   def drawDecline(fullId: String) = performAndRedirect(fullId, hand.drawDecline)
-  def rematchOffer(fullId: String) = TODO
-  def rematchAccept(fullId: String) = TODO
+  def rematch(fullId: String) = Action {
+    rematcher offerOrAccept fullId flatMap { validResult ⇒
+      validResult.fold(
+        err ⇒ putFailures(err) map { _ ⇒
+          Redirect(routes.Round.player(fullId))
+        }, {
+          case (nextFullId, events) ⇒ performEvents(fullId)(events) map { _ ⇒
+            Redirect(routes.Round.player(nextFullId))
+          }
+        }
+      )
+    } unsafePerformIO
+  }
   def rematchCancel(fullId: String) = TODO
   def rematchDecline(fullId: String) = TODO
   def takebackAccept(fullId: String) = performAndRedirect(fullId, hand.takebackAccept)
@@ -70,7 +82,7 @@ object Round extends LilaController {
   def tablePlayer(fullId: String) = Open { implicit ctx ⇒
     IOption(gameRepo pov fullId) { pov ⇒
       pov.game.playable.fold(
-        html.round.table.playing(pov), 
+        html.round.table.playing(pov),
         html.round.table.end(pov))
     }
   }
