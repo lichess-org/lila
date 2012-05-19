@@ -39,4 +39,18 @@ final class Processor(
       } yield pov withGame progress.game
     )
   } yield pov2
+
+  def friend(config: FriendConfig)(implicit ctx: Context): IO[Pov] = for {
+    _ ← ctx.me.fold(
+      user ⇒ configRepo.update(user)(_ withFriend config),
+      io()
+    )
+    pov = config.pov
+    game = ctx.me.fold(
+      user ⇒ pov.game.updatePlayer(pov.color, _.withUser(user, dbRef(user))),
+      pov.game)
+    _ ← gameRepo insert game
+    _ ← game.variant.standard.fold(io(), gameRepo saveInitialFen game)
+    _ ← timelinePush(game)
+  } yield pov
 }

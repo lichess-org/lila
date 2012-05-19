@@ -22,8 +22,8 @@ trait HumanConfig extends Config {
 
 trait BaseHumanConfig extends BaseConfig {
 
-  val modes = Mode.all
-  val modeChoices = modes map { e ⇒ e.id.toString -> e.toString }
+  val modes = Mode.all map (_.id)
+  val modeChoices = Mode.all map { e ⇒ e.id.toString -> e.toString }
 
   val timeMin = 0
   val timeMax = 30
