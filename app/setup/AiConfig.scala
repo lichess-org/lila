@@ -42,7 +42,9 @@ object AiConfig extends BaseConfig {
     level = 1,
     color = Color.default)
 
-  val levelChoices = (1 to 8).toList map { l ⇒ l.toString -> l.toString }
+  val levels = (1 to 8).toList
+
+  val levelChoices = levels map { l ⇒ l.toString -> l.toString }
 }
 
 case class RawAiConfig(

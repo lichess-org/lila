@@ -1,8 +1,7 @@
 package lila
 package setup
 
-import chess.{ Variant, Mode }
-import elo.EloRange
+import chess.{ Variant }
 import game.{ GameRepo, DbGame, Pov }
 
 trait Config {
@@ -20,21 +19,6 @@ trait Config {
   def pov = Pov(game, creatorColor)
 }
 
-trait HumanConfig extends Config with EloRange {
-
-  // Whether or not to use a clock
-  val clock: Boolean
-
-  // Clock time in minutes
-  val time: Option[Int]
-
-  // Clock increment in seconds
-  val increment: Option[Int]
-
-  // casual or rated
-  val mode: Mode
-}
-
 object Config extends BaseConfig
 
 trait BaseConfig {
@@ -43,6 +27,3 @@ trait BaseConfig {
   val variantChoices = Variant.all map { v ⇒ v.id.toString -> v.name }
   val variantDefault = Variant.Standard
 }
-
-//case class HookConfig(eloRange: Option[String]) 
-//extends HumanConfig with EloRange 

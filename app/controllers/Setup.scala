@@ -25,7 +25,9 @@ object Setup extends LilaController {
     )
   }
 
-  val friendForm = TODO
+  val friendForm = Open { implicit ctx ⇒
+    IOk(forms.friendFilled map { html.setup.friend(_) })
+  }
 
   val friend = TODO
 

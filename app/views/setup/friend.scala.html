@@ -1,0 +1,34 @@
+@(form: Form[lila.setup.FriendConfig])(implicit ctx: Context)
+
+@import lila.setup.FriendConfig
+
+@fields = {
+<div class="variants buttons">
+  @setup.radios(form("variant"), lila.setup.FriendConfig.variantChoices)
+</div>
+<div class="clock_config optional_config">
+  <div class="clock_choice">
+    <label class="required" for="clock">@trans.timeControl()</label>
+    @setup.checkbox(form("clock"))
+  </div>
+  <div class="time_choice">
+    @trans.minutesPerSide(): <span>@form("time").value</span>
+    @setup.input(
+    form("time"), 
+    Symbol("data-min") -> FriendConfig.timeMin, 
+    Symbol("data-max") -> FriendConfig.timeMax)
+  </div>
+  <div class="increment_choice">
+    @trans.incrementInSeconds(): <span>@form("increment").value</span>
+    @setup.input(
+    form("increment"), 
+    Symbol("data-min") -> FriendConfig.incrementMin, 
+    Symbol("data-max") -> FriendConfig.incrementMax)
+  </div>
+</div>
+<div class="mode_choice buttons">
+  @setup.radios(form("mode"), lila.setup.FriendConfig.modeChoices)
+</div>
+}
+
+@setup.config(form, "friend", trans.playWithAFriend(), routes.Setup.friend, fields)
