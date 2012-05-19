@@ -34,13 +34,13 @@ object Round extends LilaController {
   }
 
   def watcher(gameId: String, color: String) = Open { implicit ctx ⇒
-    IOption(gameRepo.pov(gameId, color)) { pov ⇒
+    IOptionOk(gameRepo.pov(gameId, color)) { pov ⇒
       html.round.watcher(pov, version(pov.gameId))
     }
   }
 
   def player(fullId: String) = Open { implicit ctx ⇒
-    IOption(gameRepo pov fullId) { pov ⇒
+    IOptionOk(gameRepo pov fullId) { pov ⇒
       html.round.player(pov, version(pov.gameId))
     }
   }
@@ -74,11 +74,11 @@ object Round extends LilaController {
   def takebackDecline(fullId: String) = performAndRedirect(fullId, hand.takebackDecline)
 
   def tableWatcher(gameId: String, color: String) = Open { implicit ctx ⇒
-    IOption(gameRepo.pov(gameId, color)) { html.round.table.watch(_) }
+    IOptionOk(gameRepo.pov(gameId, color)) { html.round.table.watch(_) }
   }
 
   def tablePlayer(fullId: String) = Open { implicit ctx ⇒
-    IOption(gameRepo pov fullId) { pov ⇒
+    IOptionOk(gameRepo pov fullId) { pov ⇒
       pov.game.playable.fold(
         html.round.table.playing(pov),
         html.round.table.end(pov))

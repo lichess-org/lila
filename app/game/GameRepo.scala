@@ -116,6 +116,10 @@ class GameRepo(collection: MongoCollection)
     remove(("turns" $lt 2) ++ ("createdAt" $lt (DateTime.now - 2.day)))
   }
 
+  def remove(gameId: String): IO[Unit] = io {
+    remove(DBObject("_id" -> gameId))
+  }
+
   def candidatesToAutofinish: IO[List[DbGame]] = io {
     find(
       ("clock.l" $exists true) ++

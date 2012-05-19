@@ -48,7 +48,14 @@ object Setup extends LilaController {
     }
   }
 
-  def cancel(fullId: String) = TODO
+  def cancel(fullId: String) = Open { implicit ctx ⇒
+    IOptionRedirect(gameRepo pov fullId) { pov ⇒
+      pov.game.started.fold(
+        routes.Round.player(pov.fullId),
+        (gameRepo remove pov.game.id map (_ ⇒ routes.Lobby.home)).unsafePerformIO
+      )
+    }
+  }
 
   val hookForm = TODO
 

@@ -85,11 +85,14 @@ trait LilaController
 
   def IORedirect(op: IO[Call]) = Redirect(op.unsafePerformIO)
 
-  def IOption[A, B](ioa: IO[Option[A]])(op: A ⇒ B)(
+  def IOptionOk[A, B](ioa: IO[Option[A]])(op: A ⇒ B)(
     implicit writer: Writeable[B],
     ctype: ContentTypeOf[B],
     ctx: Context) =
     ioa.unsafePerformIO.fold(a ⇒ Ok(op(a)), notFound(ctx))
+
+  def IOptionRedirect[A](ioa: IO[Option[A]])(op: A ⇒ Call)(implicit ctx: Context) =
+    ioa.unsafePerformIO.fold(a ⇒ Redirect(op(a)), notFound(ctx))
 
   def IOptionResult[A](ioa: IO[Option[A]])(op: A ⇒ Result)(implicit ctx: Context) =
     ioa.unsafePerformIO.fold(a ⇒ op(a), notFound(ctx))
