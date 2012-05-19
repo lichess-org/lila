@@ -21,7 +21,7 @@ case class FriendConfig(
     whitePlayer = DbPlayer.white,
     blackPlayer = DbPlayer.black,
     creatorColor = creatorColor,
-    isRated = mode.rated,
+    mode = mode,
     variant = variant)
 
   def encode = RawFriendConfig(

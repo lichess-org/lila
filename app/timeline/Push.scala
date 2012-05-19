@@ -25,7 +25,7 @@ final class Push(
     whiteId = userId(game, Color.White),
     blackId = userId(game, Color.Black),
     variant = game.variant.name,
-    rated = game.isRated,
+    rated = game.rated,
     clock = game.clock map (_.show))
 
   private def userId(game: DbGame, color: Color): Option[String] =

@@ -3,7 +3,7 @@ package game
 
 import round.{ Event, Progress }
 import user.User
-import chess.{ History ⇒ ChessHistory, Role, Board, Move, Pos, Game, Clock, Status, Color, Piece, Variant }
+import chess.{ History ⇒ ChessHistory, Role, Board, Move, Pos, Game, Clock, Status, Color, Piece, Variant, Mode }
 import Color._
 import chess.format.{ PgnReader, Fen }
 import chess.Pos.piotr
@@ -27,7 +27,7 @@ case class DbGame(
     creatorColor: Color,
     positionHashes: String = "",
     castles: String = "KQkq",
-    isRated: Boolean = false,
+    mode: Mode = Mode.default,
     variant: Variant = Variant.default,
     next: Option[DBRef] = None,
     lastMoveTime: Option[Int] = None,
@@ -205,7 +205,7 @@ case class DbGame(
 
   def start = started.fold(this, copy(
     status = Status.Started,
-    isRated = isRated && (players forall (_.hasUser)),
+    mode = Mode(mode.rated && (players forall (_.hasUser))),
     updatedAt = DateTime.now.some
   ))
 
@@ -263,7 +263,7 @@ case class DbGame(
     List(Event.End())
   )
 
-  def rated = isRated
+  def rated = mode.rated
 
   def finished = status >= Status.Mate
 
@@ -329,7 +329,7 @@ case class DbGame(
     cc = creatorColor.name,
     positionHashes = positionHashes,
     castles = castles,
-    isRated = isRated,
+    isRated = mode.rated,
     v = variant.id,
     next = next,
     lmt = lastMoveTime,
@@ -352,7 +352,7 @@ object DbGame {
     blackPlayer: DbPlayer,
     ai: Option[(Color, Int)],
     creatorColor: Color,
-    isRated: Boolean,
+    mode: Mode,
     variant: Variant): DbGame = DbGame(
     id = IdGenerator.game,
     whitePlayer = whitePlayer withEncodedPieces game.allPieces,
@@ -366,7 +366,7 @@ object DbGame {
     creatorColor = creatorColor,
     positionHashes = "",
     castles = "KQkq",
-    isRated = isRated,
+    mode = mode,
     variant = variant,
     lastMoveTime = None,
     createdAt = DateTime.now.some)
@@ -412,7 +412,7 @@ case class RawDbGame(
     creatorColor = trueCreatorColor,
     positionHashes = positionHashes,
     castles = castles,
-    isRated = isRated,
+    mode = Mode(isRated),
     variant = trueVariant,
     next = next,
     lastMoveTime = lmt,

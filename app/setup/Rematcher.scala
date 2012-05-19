@@ -35,7 +35,7 @@ final class Rematcher(
                 Some(nextGame.creatorColor + " creates the game"),
                 Some(nextGame.invitedColor + " joins the game"),
                 nextGame.clock map Namer.clock,
-                nextGame.isRated option "This game is rated").flatten)
+                nextGame.rated option "This game is rated").flatten)
             } yield nextId -> List(
               Event.RedirectOwner(White, playerUrl(nextGame, White)),
               Event.RedirectOwner(Black, playerUrl(nextGame, Black)),
@@ -71,7 +71,7 @@ final class Rematcher(
     blackPlayer = blackPlayer,
     ai = None,
     creatorColor = !pov.color,
-    isRated = pov.game.isRated,
+    mode = pov.game.mode,
     variant = pov.game.variant)
 
   private def returnPlayer(game: DbGame, color: ChessColor): IO[DbPlayer] =
