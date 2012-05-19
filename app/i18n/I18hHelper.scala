@@ -7,7 +7,7 @@ import http.Context
 
 import play.api.i18n.Lang
 import play.api.templates.Html
-import play.api.mvc.RequestHeader
+import play.api.mvc.{ RequestHeader, Call }
 
 trait I18nHelper {
 
@@ -33,6 +33,9 @@ trait I18nHelper {
       } mkString
     })
   }
+
+  def commonDomain(implicit ctx: Context): String = 
+    I18nDomain(ctx.req.domain).commonDomain
 
   val protocol = "http://"
 

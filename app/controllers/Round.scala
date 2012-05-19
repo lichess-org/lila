@@ -45,8 +45,6 @@ object Round extends LilaController {
     }
   }
 
-  private def version(gameId: String): Int = socket blockingVersion gameId
-
   def abort(fullId: String) = performAndRedirect(fullId, hand.abort)
   def resign(fullId: String) = performAndRedirect(fullId, hand.resign)
   def resignForce(fullId: String) = performAndRedirect(fullId, hand.resignForce)
@@ -114,4 +112,6 @@ object Round extends LilaController {
 
   private def performEvents(fullId: String)(events: List[Event]): IO[Unit] =
     env.round.socket.send(DbGame takeGameId fullId, events)
+
+  private def version(gameId: String): Int = socket blockingVersion gameId
 }

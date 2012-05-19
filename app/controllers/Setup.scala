@@ -14,6 +14,7 @@ object Setup extends LilaController {
 
   def forms = env.setup.formFactory
   def processor = env.setup.processor
+  def gameRepo = env.game.gameRepo
 
   val aiForm = Open { implicit ctx ⇒
     IOk(forms.aiFilled map { html.setup.ai(_) })
@@ -33,9 +34,20 @@ object Setup extends LilaController {
   val friend = process(forms.friend) { config ⇒
     implicit ctx ⇒
       processor friend config map { pov ⇒
-        routes.Round.player(pov.fullId)
+        routes.Setup.await(pov.fullId)
       }
   }
+
+  def await(fullId: String) = Open { implicit ctx ⇒
+    IOptionResult(gameRepo pov fullId) { pov ⇒
+      pov.game.started.fold(
+        Redirect(routes.Round.player(pov.fullId)),
+        Ok(html.setup.await(pov, None))
+      )
+    }
+  }
+
+  def cancel(fullId: String) = TODO
 
   val hookForm = TODO
 

@@ -43,6 +43,8 @@ GET   /setup/ai                      controllers.Setup.aiForm
 POST  /setup/ai                      controllers.Setup.ai
 GET   /setup/friend                  controllers.Setup.friendForm
 POST  /setup/friend                  controllers.Setup.friend
+GET   /$fullId<[\w\-]{12}>/await     controllers.Setup.await(fullId: String)
+GET   /$fullId<[\w\-]{12}>/cancel    controllers.Setup.cancel(fullId: String)
 GET   /setup/hook                    controllers.Setup.hookForm
 POST  /setup/hook                    controllers.Setup.hook
 

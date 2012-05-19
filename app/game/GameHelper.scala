@@ -2,7 +2,7 @@ package lila
 package game
 
 import chess.format.Forsyth
-import chess.{ Status, Variant, Color, Clock }
+import chess.{ Status, Variant, Color, Clock, Mode }
 import user.{ User, UserHelper }
 import http.Context
 import i18n.I18nHelper
@@ -21,10 +21,15 @@ trait GameHelper { self: I18nHelper with UserHelper ⇒
     case Variant.Chess960 ⇒ "chess960"
   }
 
-  def clockName(clock: Option[Clock])(implicit ctx: Context): String = 
+  def clockName(clock: Option[Clock])(implicit ctx: Context): String =
     clock.fold(clockName, trans.unlimited.str())
 
   def clockName(clock: Clock): String = Namer clock clock
+
+  def modeName(mode: Mode)(implicit ctx: Context): String = mode match {
+    case Mode.Casual ⇒ trans.casual.str()
+    case Mode.Rated  ⇒ trans.rated.str()
+  }
 
   def usernameWithElo(player: DbPlayer) = Namer.player(player)(userIdToUsername)
 

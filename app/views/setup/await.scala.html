@@ -1,0 +1,34 @@
+@(pov: Pov, config: Option[lila.setup.FriendConfig])(implicit ctx: Context)
+
+@import pov._
+
+@round.layout(
+title = trans.playWithAFriend.str(),
+goodies = Html("")) {
+<div class="lichess_game lichess_game_not_started waiting_opponent clearfix lichess_player_@color"
+  data-socket-url="@routes.Round.websocketPlayer(fullId)" >
+  <div class="lichess_board_wrap">
+    @color.fold(board.white(), board.black())
+    <div class="lichess_overboard auto_center">
+      @trans.toInviteSomeoneToPlayGiveThisUrl():
+      <input 
+      class="lichess_id_input" 
+      readonly="readonly" 
+      value="@protocol@commonDomain@routes.Round.watcher(gameId, "white")" 
+      />
+      <p class="explanations">
+        @trans.theFirstPersonToComeOnThisUrlWillPlayWithYou()
+        <a href="@routes.Setup.cancel(fullId)">@trans.cancel()</a>
+      </p>
+      @config.map { c =>
+      <p class="explanations">
+        @trans.variant(): @variantName(c.variant)<br />
+        @trans.timeControl(): @clockName(c.makeClock)<br />
+        @trans.mode(): @modeName(c.mode)
+      </p>
+      }
+    </div>
+  </div>
+</div>
+<script type="text/javascript">var lichess_data = @Html(roundPlayerJsData(pov, 0))</script>
+}
