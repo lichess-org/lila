@@ -17,6 +17,8 @@ final class Settings(config: Config) {
   val GameCachedNbTtl = millis("game.cached.nb.ttl")
   val GamePaginatorMaxPerPage = getInt("game.paginator.max_per_page")
 
+  val SetupFriendConfigMemoTtl = millis("setup.friend_config.memo.ttl")
+
   val LobbyEntryMax = getInt("lobby.entry.max")
   val LobbyMessageMax = getInt("lobby.message.max")
   val LobbyMessageLifetime = millis("lobby.message.lifetime")

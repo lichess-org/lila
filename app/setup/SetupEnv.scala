@@ -30,10 +30,14 @@ final class SetupEnv(
 
   lazy val processor = new Processor(
     configRepo = configRepo,
+    friendConfigMemo = friendConfigMemo,
     gameRepo = gameRepo,
     timelinePush = timelinePush,
     ai = ai,
     dbRef = dbRef)
+
+  lazy val friendConfigMemo = new FriendConfigMemo(
+    ttl = SetupFriendConfigMemoTtl)
 
   lazy val rematcher = new Rematcher(
     gameRepo = gameRepo,

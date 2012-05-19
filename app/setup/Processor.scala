@@ -12,6 +12,7 @@ import scalaz.effects._
 
 final class Processor(
     configRepo: UserConfigRepo,
+    friendConfigMemo: FriendConfigMemo,
     gameRepo: GameRepo,
     timelinePush: DbGame ⇒ IO[Unit],
     ai: () ⇒ Ai,
@@ -52,5 +53,6 @@ final class Processor(
     _ ← gameRepo insert game
     _ ← game.variant.standard.fold(io(), gameRepo saveInitialFen game)
     _ ← timelinePush(game)
+    _ ← friendConfigMemo.set(pov.game.id, config)
   } yield pov
 }
