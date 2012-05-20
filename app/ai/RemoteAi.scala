@@ -5,7 +5,8 @@ import chess.{ Game, Move }
 import game.DbGame
 
 import scalaz.effects._
-import dispatch._
+import dispatch.{ Http, NoLogging, url }
+import dispatch.thread.{ Safety ⇒ ThreadSafety }
 
 final class RemoteAi(
     remoteUrl: String) extends Ai with FenBased {
@@ -14,12 +15,7 @@ final class RemoteAi(
   // frequently updated by a scheduled actor
   private var health = false
 
-  private lazy val http = new Http with thread.Safety {
-    override def make_logger = new Logger {
-      def info(msg: String, items: Any*) {}
-      def warn(msg: String, items: Any*) { println("WARN: " + msg.format(items: _*)) }
-    }
-  }
+  private lazy val http = new Http with ThreadSafety with NoLogging
   private lazy val urlObj = url(remoteUrl)
 
   def apply(dbGame: DbGame): IO[Valid[(Game, Move)]] = {

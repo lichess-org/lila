@@ -70,7 +70,7 @@ object Cron {
       env.gameFinishCommand.apply
     }
 
-    effect(10 seconds) {
+    effect(1 minute) {
       env.ai.remoteAi.diagnose
     }
     env.ai.remoteAi.diagnose.unsafePerformIO
