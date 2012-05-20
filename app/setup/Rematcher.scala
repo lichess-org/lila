@@ -22,7 +22,9 @@ final class Rematcher(
       case pov @ Pov(game, color) if game playerCanRematch color ⇒
         success(game.opponent(color).isOfferingRematch.fold(
           game.nextId.fold(
-            nextId ⇒ io(nextId -> Nil),
+            nextId ⇒ gameRepo.pov(nextId, !color) map { nextPovOption ⇒
+              nextPovOption.fold(_.fullId -> Nil, pov.fullId -> Nil)
+            },
             for {
               nextGame ← returnGame(pov) map (_.start)
               _ ← gameRepo insert nextGame
@@ -32,19 +34,18 @@ final class Rematcher(
               // messenges are not sent to the next game socket
               // as nobody is there to see them yet
               _ ← messenger init nextGame
-            } yield nextId -> List(
-              Event.RedirectOwner(White, playerUrl(nextGame, White)),
-              Event.RedirectOwner(Black, playerUrl(nextGame, Black)),
+            } yield (nextGame fullIdOf !color) -> List(
+              Event.RedirectOwner(White, playerUrl(nextGame, Black)),
+              Event.RedirectOwner(Black, playerUrl(nextGame, White)),
               // tell spectators to reload the table
               Event.ReloadTable(White),
               Event.ReloadTable(Black))
-          )
-        , {
-          val progress = Progress(game, Event.ReloadTable(!color)) map { g ⇒
-            g.updatePlayer(color, _.offerRematch)
-          }
-          gameRepo save progress map { _ ⇒ fullId -> progress.events }
-        }))
+          ), {
+            val progress = Progress(game, Event.ReloadTable(!color)) map { g ⇒
+              g.updatePlayer(color, _.offerRematch)
+            }
+            gameRepo save progress map { _ ⇒ fullId -> progress.events }
+          }))
       case _ ⇒ !!("invalid rematch offer " + fullId)
     })
 
@@ -83,6 +84,6 @@ final class Rematcher(
   private def clockName(clock: Option[Clock]): String =
     clock.fold(Namer.clock, "Unlimited")
 
-  private def playerUrl(game: DbGame, color: ChessColor): String = 
+  private def playerUrl(game: DbGame, color: ChessColor): String =
     routes.Round.player(game fullIdOf color).url
 }
