@@ -542,16 +542,6 @@ $.widget("lichess.game", {
     self.$table.find('a, input, label').tipsy({
       fade: true
     });
-    self.$table.find('a.lichess_play_again_decline').one('click', function() {
-      $(this).parent().remove();
-    });
-    self.$table.find('a.lichess_rematch, a.lichess_rematch_cancel, a.lichess_rematch_decline').click(function() {
-      self.post($(this).attr('href'), {}, true);
-      if ($(this).is('.lichess_play_again_join a')) {
-        $(this).parent().remove();
-      }
-      return false;
-    });
     self.$table.find('a.moretime').click(function() {
       lichess.socket.send("moretime");
       return false;
