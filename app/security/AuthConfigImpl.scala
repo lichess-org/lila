@@ -30,9 +30,10 @@ trait AuthConfigImpl extends AuthConfig {
 
   val idManifest: ClassManifest[Id] = classManifest[Id]
 
-  val sessionTimeoutInSeconds: Int = 3600
+  val sessionTimeoutInSeconds: Int = 3600 * 24 * 30
 
-  def resolveUser(id: Id): Option[User] = (env.user.userRepo byUsername id).unsafePerformIO
+  def resolveUser(id: Id): Option[User] = 
+    (env.user.userRepo byUsername id).unsafePerformIO
 
   def logoutSucceeded[A](request: Request[A]): PlainResult = 
     Redirect(routes.Lobby.home)
