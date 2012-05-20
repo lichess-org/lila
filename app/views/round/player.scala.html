@@ -1,4 +1,4 @@
-@(pov: Pov, version: Int)(implicit ctx: Context)
+@(pov: Pov, version: Int, roomHtml: Option[Html])(implicit ctx: Context)
 
 @import pov._
 
@@ -17,7 +17,10 @@
 </div>
 }
 
-@round.layout(title = title, goodies = goodies) {
+@round.layout(
+title = title, 
+goodies = goodies, 
+chat = roomHtml.map(round.room(_))) {
 <div class="lichess_game clearfix lichess_player_@color not_spectator"
   data-socket-url="@routes.Round.websocketPlayer(fullId)"
   data-table-url="@routes.Round.tablePlayer(fullId)"

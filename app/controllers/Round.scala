@@ -10,6 +10,7 @@ import socket.Util.connectionFail
 import play.api.mvc._
 import play.api.libs.json._
 import play.api.libs.iteratee._
+import play.api.templates.Html
 import scalaz.effects._
 
 object Round extends LilaController {
@@ -17,6 +18,7 @@ object Round extends LilaController {
   private val gameRepo = env.game.gameRepo
   private val socket = env.round.socket
   private val hand = env.round.hand
+  private val messenger = env.round.messenger
   private val rematcher = env.setup.rematcher
   private val joiner = env.setup.joiner
 
@@ -35,10 +37,15 @@ object Round extends LilaController {
   }
 
   def player(fullId: String) = Open { implicit ctx ⇒
-    IOptionResult(gameRepo pov fullId) { pov ⇒
+    IOptionIOResult(gameRepo pov fullId) { pov ⇒
       pov.game.started.fold(
-        Ok(html.round.player(pov, version(pov.gameId))),
-        Redirect(routes.Setup.await(fullId))
+        messenger render pov.game map { roomHtml ⇒
+          Ok(html.round.player(
+            pov, 
+            version(pov.gameId), 
+            roomHtml map { Html(_) }))
+        },
+        io(Redirect(routes.Setup.await(fullId)))
       )
     }
   }

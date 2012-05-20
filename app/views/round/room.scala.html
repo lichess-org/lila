@@ -1,0 +1,15 @@
+@(roomHtml: Html)(implicit ctx: Context)
+
+<div class="lichess_chat">
+  <div class="lichess_chat_top">
+    <span class="s16 title">@trans.chatRoom()</span>
+    <input title="@trans.toggleTheChat()" class="toggle_chat" type="checkbox" checked="checked" />
+  </div>
+  <div class="lichess_chat_inner">
+    <ol class="lichess_messages">@roomHtml</ol>
+    <form action="" method="post">
+      <input class="lichess_say lichess_hint" value="@trans.talkInChat()" />
+      <a class="send"></a>
+    </form>
+  </div>
+</div>

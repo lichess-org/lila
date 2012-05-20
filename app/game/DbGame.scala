@@ -225,7 +225,7 @@ case class DbGame(
 
   def aiLevel: Option[Int] = players find (_.isAi) flatMap (_.aiLevel)
 
-  lazy val hasAi: Boolean = players exists (_.isAi)
+  def hasAi: Boolean = players exists (_.isAi)
 
   def mapPlayers(f: DbPlayer ⇒ DbPlayer) = copy(
     whitePlayer = f(whitePlayer),

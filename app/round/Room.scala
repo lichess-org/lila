@@ -29,7 +29,9 @@ object Room {
 
   def render(msg: (String, String)): String = msg match {
     case (author, text) ⇒ """<li class="%s%s">%s</li>""".format(
-      author, (author == "system").fold(" trans_me", ""), escapeXml(text)
+      author, 
+      if (author == "system") " trans_me" else "", 
+      escapeXml(text)
     )
   }
 }

@@ -55,6 +55,9 @@ final class Messenger(
       },
       io(Nil))
 
+  def render(game: DbGame): IO[Option[String]] =
+    game.hasAi.fold(io(None), render(game.id) map (_.some))
+
   def render(roomId: String): IO[String] =
     roomRepo room roomId map (_.render)
 
