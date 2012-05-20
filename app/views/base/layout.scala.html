@@ -51,7 +51,6 @@
       </div>
       <a id="user_tag" data-elo="@m.elo" href="@routes.User.show(m.username)" class="blank_if_play goto_nav goto_profile">
         <span class="s16">@m.usernameWithElo</span>
-        <span id="username_tag" class="none">@m.username</span>
       </a>
       }.getOrElse { @auth.miniLogin() }
     </div>
