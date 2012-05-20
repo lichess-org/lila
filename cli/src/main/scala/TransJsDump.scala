@@ -24,6 +24,8 @@ case class TransJsDump(
     keys.drawOfferDeclined,
     keys.drawOfferAccepted,
     keys.drawOfferCanceled,
+    keys.rematchOfferCanceled,
+    keys.rematchOfferDeclined,
     keys.takebackPropositionSent,
     keys.takebackPropositionDeclined,
     keys.takebackPropositionAccepted,
@@ -43,9 +45,9 @@ case class TransJsDump(
     val code = dump(lang)
     val file = new File(
       "%s/%s.js".format(path.getCanonicalPath, lang.language))
-    val out = new PrintWriter( file )
-    try{ out.print( code ) }
-    finally{ out.close }
+    val out = new PrintWriter(file)
+    try { out.print(code) }
+    finally { out.close }
   }
 
   def dump(lang: Lang): String =

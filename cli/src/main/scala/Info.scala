@@ -11,6 +11,6 @@ case class Info(env: CoreEnv) extends Command {
   } yield ()
 
   def nbGames = io {
-    env.gameRepo.count()
+    env.game.gameRepo.count()
   }
 }
