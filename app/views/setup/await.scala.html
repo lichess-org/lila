@@ -1,4 +1,4 @@
-@(pov: Pov, config: Option[lila.setup.FriendConfig])(implicit ctx: Context)
+@(pov: Pov, version: Int, config: Option[lila.setup.FriendConfig])(implicit ctx: Context)
 
 @import pov._
 
@@ -30,5 +30,5 @@ goodies = Html("")) {
     </div>
   </div>
 </div>
-<script type="text/javascript">var lichess_data = @Html(roundPlayerJsData(pov, 0))</script>
+<script type="text/javascript">var lichess_data = @Html(roundPlayerJsData(pov, version))</script>
 }

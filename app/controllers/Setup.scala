@@ -43,7 +43,10 @@ object Setup extends LilaController {
     IOptionResult(gameRepo pov fullId) { pov ⇒
       pov.game.started.fold(
         Redirect(routes.Round.player(pov.fullId)),
-        Ok(html.setup.await(pov, friendConfigMemo get pov.game.id))
+        Ok(html.setup.await(
+          pov, 
+          version(pov.gameId),
+          friendConfigMemo get pov.game.id))
       )
     }
   }
@@ -69,4 +72,7 @@ object Setup extends LilaController {
         config ⇒ op(config)(ctx)
       ))
     }
+
+  private def version(gameId: String): Int = 
+    env.round.socket blockingVersion gameId
 }

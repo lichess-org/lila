@@ -20,13 +20,15 @@ class UserConfigRepo(collection: MongoCollection)
 
   def config(user: User): IO[UserConfig] = io {
     findOneByID(user.usernameCanonical) flatMap (_.decode)
+  } except { e ⇒
+    putStrLn("Can't load config: " + e.getMessage) map (_ ⇒ none[UserConfig])
   } map (_ | UserConfig.default(user))
 
   def save(config: UserConfig): IO[Unit] = io {
     update(
-      DBObject("_id" -> config.id), 
+      DBObject("_id" -> config.id),
       _grater asDBObject config.encode,
       upsert = true,
       wc = WriteConcern.Safe)
-  } 
+  }
 }

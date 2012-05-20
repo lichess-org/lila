@@ -34,6 +34,15 @@ object Round extends LilaController {
     ).unsafePerformIO
   }
 
+  def player(fullId: String) = Open { implicit ctx ⇒
+    IOptionResult(gameRepo pov fullId) { pov ⇒
+      pov.game.started.fold(
+        Ok(html.round.player(pov, version(pov.gameId))),
+        Redirect(routes.Setup.await(fullId))
+      )
+    }
+  }
+
   def watcher(gameId: String, color: String) = Open { implicit ctx ⇒
     IOptionIOResult(gameRepo.pov(gameId, color)) { pov ⇒
       pov.game.started.fold(
@@ -52,12 +61,6 @@ object Round extends LilaController {
           Redirect(routes.Round.player(p.fullId))
         }
       })
-
-  def player(fullId: String) = Open { implicit ctx ⇒
-    IOptionOk(gameRepo pov fullId) { pov ⇒
-      html.round.player(pov, version(pov.gameId))
-    }
-  }
 
   def abort(fullId: String) = performAndRedirect(fullId, hand.abort)
   def resign(fullId: String) = performAndRedirect(fullId, hand.resign)
