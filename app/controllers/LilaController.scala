@@ -91,6 +91,16 @@ trait LilaController
     ctx: Context) =
     ioa.unsafePerformIO.fold(a ⇒ Ok(op(a)), notFound(ctx))
 
+  def IOptionIOk[A, B](ioa: IO[Option[A]])(op: A ⇒ IO[B])(
+    implicit writer: Writeable[B],
+    ctype: ContentTypeOf[B],
+    ctx: Context) =
+    ioa flatMap { aOption ⇒
+      aOption.fold(
+        a ⇒ op(a) map { Ok(_) },
+        io(notFound(ctx))): IO[Result]
+    } unsafePerformIO
+
   def IOptionIOResult[A](ioa: IO[Option[A]])(op: A ⇒ IO[Result])(implicit ctx: Context) =
     ioa flatMap { _.fold(op, io(notFound(ctx))) } unsafePerformIO
 

@@ -1,4 +1,4 @@
-@(title: String, active: Option[ui.SiteMenu.Elem] = None, baseline: Option[Html] = None, goodies: Option[Html] = None, chat: Option[Html] = None, robots: Boolean = true, moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
+@(title: String, active: Option[ui.SiteMenu.Elem] = None, baseline: Option[Html] = None, goodies: Option[Html] = None, chat: Option[Html] = None, robots: Boolean = true, moreCss: Html = Html(""), moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
 
 <!DOCTYPE html>
 <html lang="@lang.language">
@@ -14,6 +14,7 @@
     @cssTag("tooltip.css")
     @cssTag("opening.css")
     @cssTag("hook.css")
+    @moreCss
     <meta content="@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()" name="description">
     <meta name="google-site-verification" content="fZ08Imok7kcLaGcJg7BKQExO6vXGgSgsJUsW6JalUCo" />
     <link rel="shortcut icon" href="@routes.Assets.at("favicon.ico")" type="image/x-icon" />

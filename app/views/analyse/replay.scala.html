@@ -1,0 +1,76 @@
+@(pov: Pov, info: lila.analyse.GameInfo)(implicit ctx: Context)
+
+@import pov._
+
+@moreCss = {
+@cssVendorTag("pgn4web/fonts/pgn4web-fonts.css")
+@cssTag("analyse.css")
+}
+
+@moreJs = {
+@jsVendorTag("pgn4web/pgn4web.js")
+@jsTag("analyse.js")
+}
+
+@goodies = {
+<div class="lichess_goodies">
+  <br />
+  <div class="box">
+    @if(game.isBeingPlayed) {
+    <a class="link" href="@routes.Round.watcher(gameId, color.name)">
+      @trans.playingRightNow() 
+    </a>
+    } else {
+    @game.updatedAt.map(showDate)
+    }
+    @if(game.finishedOrAborted) {
+    <br />@gameEndStatus(game)
+    }
+    <br />
+    <br />
+    <div id="player_links">
+      @List(opponent, player).map { p =>
+      <div>
+        @p.aiLevel.map { l =>
+        @trans.aiNameLevelAiLevel(aiName, l)
+        }.getOrElse {
+        @playerLink(p)
+        }
+      </div>
+      }
+    </div>
+    <br />
+    @trans.variant() - @variantName(game.variant)<br />
+    @trans.timeControl() - @clockName(game.clock)<br />
+    @if(game.rated) {
+    @trans.thisGameIsRated()<br />
+    }
+    @trans.opening() -
+    @info.opening.map { o =>
+    <a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a><br />
+    }.getOrElse { "Unknown" }
+  </div>
+  <br />
+  <a class="rotate_board" href="@routes.Analyse.replay(gameId, (!color).name)">@trans.flipBoard()</a><br />
+  <br />
+  Export PGN:
+  <textarea id="pgnText" readonly="readonly">@Html(info.pgn)</textarea>
+</div>
+}
+
+@analyse.layout(
+title = trans.replayAndAnalyse() + " " + gameId,
+goodies = goodies.some,
+moreCss = moreCss,
+moreJs = moreJs) {
+<div class="analyse clearfix">
+  <div class="board_wrap">
+    <div id="GameBoard"@color.fold("", " class='flip'")></div>
+    <div id="GameButtons"></div>
+  </div>
+  <div class="moves_wrap">
+    <h1>@trans.replayAndAnalyse()</h1>
+    <div id="GameText"></div>
+  </div>
+</div>
+}

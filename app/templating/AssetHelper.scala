@@ -7,13 +7,21 @@ import play.api.templates.Html
 
 trait AssetHelper {
 
-  def cssTag(name: String) = Html {
+  def cssTag(name: String) = css("stylesheets/" + name)
+
+  def cssVendorTag(name: String) = css("vendor/" + name)
+
+  private def css(path: String) = Html {
     """<link href="%s" type="text/css" rel="stylesheet"/>"""
-    .format(routes.Assets.at("stylesheets/" + name))
+    .format(routes.Assets.at(path))
   }
 
-  def jsTag(name: String) = Html {
+  def jsTag(name: String) = js("javascripts/" + name)
+
+  def jsVendorTag(name: String) = js("vendor/" + name)
+
+  def js(path: String) = Html {
     """<script src="%s"></script>"""
-    .format(routes.Assets.at("javascripts/" + name))
+    .format(routes.Assets.at(path))
   }
 }
