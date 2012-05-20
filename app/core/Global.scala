@@ -15,12 +15,12 @@ object Global extends GlobalSettings {
 
     coreEnv = CoreEnv(app)
 
-    //if (env.ai.isServer) println("Running as AI server")
-    //else core.Cron start env
+    if (env.ai.isServer) println("Running as AI server")
+    else core.Cron start env
   }
 
   override def onRouteRequest(req: RequestHeader): Option[Handler] = {
-    println(req)
+    //println(req)
     env.i18n.requestHandler(req) orElse super.onRouteRequest(req)
   }
 

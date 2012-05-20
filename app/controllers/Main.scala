@@ -2,15 +2,17 @@ package controllers
 
 import lila._
 import views._
-import security.AuthConfigImpl
 
-import jp.t2v.lab.play20.auth.LoginLogout
-
-import play.api._
 import play.api.mvc._
-import play.api.mvc.Results._
+import play.api.libs.json._
+import play.api.libs.iteratee._
 
-object Main extends LilaController with LoginLogout with AuthConfigImpl {
+object Main extends LilaController {
 
-  val home = TODO
+  val websocket = WebSocket.async[JsValue] { implicit req ⇒
+    implicit val ctx = reqToCtx(req)
+    env.site.socket.join(
+      uidOption = get("uid"),
+      username = get("username"))
+  }
 }

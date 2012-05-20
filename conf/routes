@@ -1,3 +1,6 @@
+#Site
+GET   /socket                           controllers.Main.websocket
+
 # Game
 GET   /games                         controllers.Game.realtime
 GET   /games/refresh/:ids                         controllers.Game.realtimeInner(ids: String)
