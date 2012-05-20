@@ -70,6 +70,7 @@ object Round extends LilaController {
   def drawOffer(fullId: String) = performAndRedirect(fullId, hand.drawOffer)
   def drawCancel(fullId: String) = performAndRedirect(fullId, hand.drawCancel)
   def drawDecline(fullId: String) = performAndRedirect(fullId, hand.drawDecline)
+
   def rematch(fullId: String) = Action {
     rematcher offerOrAccept fullId flatMap { validResult ⇒
       validResult.fold(
@@ -83,8 +84,9 @@ object Round extends LilaController {
       )
     } unsafePerformIO
   }
-  def rematchCancel(fullId: String) = TODO
-  def rematchDecline(fullId: String) = TODO
+  def rematchCancel(fullId: String) = performAndRedirect(fullId, hand.rematchCancel)
+  def rematchDecline(fullId: String) = performAndRedirect(fullId, hand.rematchDecline)
+
   def takebackAccept(fullId: String) = performAndRedirect(fullId, hand.takebackAccept)
   def takebackOffer(fullId: String) = performAndRedirect(fullId, hand.takebackOffer)
   def takebackCancel(fullId: String) = performAndRedirect(fullId, hand.takebackCancel)

@@ -127,23 +127,33 @@ final class Hand(
       else !!("no draw offer to decline " + fullId)
   })
 
-  def rematch(fullId: String): IO[Valid[(String, List[Event])]] =
-    attempt(fullId, {
-      case pov @ Pov(game, color) if game playerCanRematch color ⇒
-        if (game.opponent(color).isOfferingRematch) success {
-          game.nextId.fold(
-            nextId ⇒ io(nextId -> Nil),
-            io(fullId -> Nil) // accept
-          )
-        }
-        else success {
-          val progress = Progress(game, Event.ReloadTable(!color)) map { g ⇒
-            g.updatePlayer(color, _.offerRematch)
+  def rematchCancel(fullId: String): IO[Valid[List[Event]]] = attempt(fullId, {
+    case pov @ Pov(g1, color) ⇒
+      pov.player.isOfferingRematch.fold(
+        success(for {
+          p1 ← messenger.systemMessages(g1, "Rematch offer canceled") map { es ⇒
+            Progress(g1, Event.ReloadTable(!color) :: es)
           }
-          gameRepo save progress map { _ ⇒ fullId -> progress.events }
-        }
-      case _ ⇒ !!("invalid rematch offer " + fullId)
-    })
+          p2 = p1 map { g ⇒ g.updatePlayer(color, _.removeRematchOffer) }
+          _ ← gameRepo save p2
+        } yield p2.events),
+        !!("no rematch offer to cancel " + fullId)
+      )
+  })
+
+  def rematchDecline(fullId: String): IO[Valid[List[Event]]] = attempt(fullId, {
+    case pov @ Pov(g1, color) ⇒
+      g1.player(!color).isOfferingRematch.fold(
+        success(for {
+          p1 ← messenger.systemMessages(g1, "Rematch offer declined") map { es ⇒
+            Progress(g1, Event.ReloadTable(!color) :: es)
+          }
+          p2 = p1 map { g ⇒ g.updatePlayer(!color, _.removeRematchOffer) }
+          _ ← gameRepo save p2
+        } yield p2.events),
+        !!("no rematch offer to decline " + fullId)
+      )
+  })
 
   def takebackAccept(fullId: String): IOValidEvents = fromPov(fullId) { pov ⇒
     if (pov.opponent.isProposingTakeback) for {

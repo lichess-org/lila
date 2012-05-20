@@ -20,7 +20,7 @@ final class Rematcher(
   def offerOrAccept(fullId: String): IO[Valid[(String, List[Event])]] =
     attempt(fullId, {
       case pov @ Pov(game, color) if game playerCanRematch color ⇒
-        if (game.opponent(color).isOfferingRematch) success {
+        success(game.opponent(color).isOfferingRematch.fold(
           game.nextId.fold(
             nextId ⇒ io(nextId -> Nil),
             for {
@@ -39,13 +39,12 @@ final class Rematcher(
               Event.ReloadTable(White),
               Event.ReloadTable(Black))
           )
-        }
-        else success {
+        , {
           val progress = Progress(game, Event.ReloadTable(!color)) map { g ⇒
             g.updatePlayer(color, _.offerRematch)
           }
           gameRepo save progress map { _ ⇒ fullId -> progress.events }
-        }
+        }))
       case _ ⇒ !!("invalid rematch offer " + fullId)
     })
 
