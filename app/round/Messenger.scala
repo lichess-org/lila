@@ -2,19 +2,30 @@ package lila
 package round
 
 import game.{ DbGame, PovRef, Namer }
+import i18n.{ I18nKeys, I18nKey, Untranslated }
+import I18nKey.{ Select ⇒ SelectI18nKey }
 import chess.Color
 import Event.Message
 
 import scalaz.effects._
 
-final class Messenger(roomRepo: RoomRepo) {
+final class Messenger(
+    roomRepo: RoomRepo,
+    i18nKeys: I18nKeys) {
 
-  def init(game: DbGame): IO[List[Event]] = systemMessages(game, List(
-    Some(game.creatorColor.toString + " creates the game"),
-    Some(game.invitedColor.toString + " joins the game"),
-    game.clock map Namer.clock,
-    game.rated option "This game is rated"
-  ).flatten)
+  def init(game: DbGame): IO[List[Event]] =
+    systemMessages(game, initKeys(game))
+
+  private def initKeys(game: DbGame): List[SelectI18nKey] = List(
+    Some(game.creatorColor.fold(
+      _.whiteCreatesTheGame,
+      _.blackCreatesTheGame): SelectI18nKey),
+    Some(game.invitedColor.fold(
+      _.whiteJoinsTheGame,
+      _.blackJoinsTheGame): SelectI18nKey),
+    game.clock map { c ⇒ ((_.untranslated(Namer clock c)): SelectI18nKey) },
+    game.rated option ((_.thisGameIsRated): SelectI18nKey)
+  ).flatten
 
   def playerMessage(
     ref: PovRef,
@@ -25,24 +36,28 @@ final class Messenger(roomRepo: RoomRepo) {
       }
     else io(Nil)
 
-  def systemMessages(game: DbGame, encodedMessages: String): IO[List[Event]] =
-    systemMessages(game, (encodedMessages split '$').toList)
-
-  def systemMessages(game: DbGame, messages: List[String]): IO[List[Event]] =
+  def systemMessages(game: DbGame, messages: List[SelectI18nKey]): IO[List[Event]] =
     game.invited.isHuman.fold(
-      roomRepo.addSystemMessages(game.id, messages) map { _ ⇒
-        messages map { Message("system", _) }
+      (messages map messageToKey) |> { messageKeys ⇒
+        roomRepo.addSystemMessages(game.id, messageKeys) map { _ ⇒
+          messageKeys map { Message("system", _) }
+        }
       },
       io(Nil)
     )
 
-  def systemMessage(game: DbGame, message: String): IO[List[Event]] =
-    if (game.invited.isHuman)
-      roomRepo.addSystemMessage(game.id, message) map { _ ⇒
-        List(Message("system", message))
-      }
-    else io(Nil)
+  def systemMessage(game: DbGame, message: SelectI18nKey): IO[List[Event]] =
+    game.invited.isHuman.fold(
+      messageToKey(message) |> { messageKey ⇒
+        roomRepo.addSystemMessage(game.id, messageKey) map { _ ⇒
+          List(Message("system", messageKey))
+        }
+      },
+      io(Nil))
 
   def render(roomId: String): IO[String] =
     roomRepo room roomId map (_.render)
+
+  private def messageToKey(message: SelectI18nKey): String =
+    message(i18nKeys).key
 }

@@ -3,6 +3,7 @@ package round
 
 import game.{ GameRepo, DbGame, Pov }
 import user.{ UserRepo, EloUpdater }
+import i18n.I18nKey.{ Select ⇒ SelectI18nKey }
 import chess.{ EloCalculator, Status, Color }
 import Status._
 import Color._
@@ -39,7 +40,7 @@ final class Finisher(
 
   def drawAccept(pov: Pov): ValidIOEvents =
     if (pov.opponent.isOfferingDraw)
-      finish(pov.game, Draw, None, Some("Draw offer accepted"))
+      finish(pov.game, Draw, None, Some(_.drawOfferAccepted))
     else !!("opponent is not proposing a draw")
 
   def outoftime(game: DbGame): ValidIOEvents =
@@ -67,7 +68,7 @@ final class Finisher(
     game: DbGame,
     status: Status,
     winner: Option[Color] = None,
-    message: Option[String] = None): Valid[IO[List[Event]]] =
+    message: Option[SelectI18nKey] = None): Valid[IO[List[Event]]] =
     if (finisherLock isLocked game) !!("game finish is locked")
     else success(for {
       _ ← finisherLock lock game

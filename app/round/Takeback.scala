@@ -24,7 +24,7 @@ final class Takeback(
     (failures: Failures) ⇒ "Takeback %s".format(game.id) <:: failures
 
   private def save(p1: Progress): IO[List[Event]] = for {
-    _ ← messenger.systemMessage(p1.game, "Takeback proposition accepted")
+    _ ← messenger.systemMessage(p1.game, _.takebackPropositionAccepted)
     p2 = p1 + Event.Reload()
     _ ← gameRepo save p2
   } yield p2.events

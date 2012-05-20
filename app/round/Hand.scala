@@ -3,6 +3,7 @@ package round
 
 import ai.Ai
 import game.{ GameRepo, Pov, PovRef, Handler }
+import i18n.I18nKey.{ Select ⇒ SelectI18nKey }
 import chess.Role
 import chess.Pos.posAt
 
@@ -88,7 +89,7 @@ final class Hand(
         if (g1.player(!color).isOfferingDraw) finisher drawAccept pov
         else success {
           for {
-            p1 ← messenger.systemMessages(g1, "Draw offer sent") map { es ⇒
+            p1 ← messenger.systemMessage(g1, _.drawOfferSent) map { es ⇒
               Progress(g1, Event.ReloadTable(!color) :: es)
             }
             p2 = p1 map { g ⇒ g.updatePlayer(color, _ offerDraw g.turns) }
@@ -103,7 +104,7 @@ final class Hand(
     case pov @ Pov(g1, color) ⇒
       if (pov.player.isOfferingDraw) success {
         for {
-          p1 ← messenger.systemMessages(g1, "Draw offer canceled") map { es ⇒
+          p1 ← messenger.systemMessage(g1, _.drawOfferCanceled) map { es ⇒
             Progress(g1, Event.ReloadTable(!color) :: es)
           }
           p2 = p1 map { g ⇒ g.updatePlayer(color, _.removeDrawOffer) }
@@ -117,7 +118,7 @@ final class Hand(
     case pov @ Pov(g1, color) ⇒
       if (g1.player(!color).isOfferingDraw) success {
         for {
-          p1 ← messenger.systemMessages(g1, "Draw offer declined") map { es ⇒
+          p1 ← messenger.systemMessage(g1, _.drawOfferDeclined) map { es ⇒
             Progress(g1, Event.ReloadTable(!color) :: es)
           }
           p2 = p1 map { g ⇒ g.updatePlayer(!color, _.removeDrawOffer) }
@@ -131,7 +132,7 @@ final class Hand(
     case pov @ Pov(g1, color) ⇒
       pov.player.isOfferingRematch.fold(
         success(for {
-          p1 ← messenger.systemMessages(g1, "Rematch offer canceled") map { es ⇒
+          p1 ← messenger.systemMessage(g1, _.rematchOfferCanceled) map { es ⇒
             Progress(g1, Event.ReloadTable(!color) :: es)
           }
           p2 = p1 map { g ⇒ g.updatePlayer(color, _.removeRematchOffer) }
@@ -145,7 +146,7 @@ final class Hand(
     case pov @ Pov(g1, color) ⇒
       g1.player(!color).isOfferingRematch.fold(
         success(for {
-          p1 ← messenger.systemMessages(g1, "Rematch offer declined") map { es ⇒
+          p1 ← messenger.systemMessage(g1, _.rematchOfferDeclined) map { es ⇒
             Progress(g1, Event.ReloadTable(!color) :: es)
           }
           p2 = p1 map { g ⇒ g.updatePlayer(!color, _.removeRematchOffer) }
@@ -174,7 +175,7 @@ final class Hand(
           else if (g1.player(!color).isProposingTakeback)
             takeback(pov.game, fen).sequence
           else for {
-            p1 ← messenger.systemMessages(g1, "Takeback proposition sent") map { es ⇒
+            p1 ← messenger.systemMessage(g1, _.takebackPropositionSent) map { es ⇒
               Progress(g1, Event.ReloadTable(!color) :: es)
             }
             p2 = p1 map { g ⇒ g.updatePlayer(color, _.proposeTakeback) }
@@ -191,7 +192,7 @@ final class Hand(
     case pov @ Pov(g1, color) ⇒
       if (pov.player.isProposingTakeback) success {
         for {
-          p1 ← messenger.systemMessages(g1, "Takeback proposition canceled") map { es ⇒
+          p1 ← messenger.systemMessage(g1, _.takebackPropositionCanceled) map { es ⇒
             Progress(g1, Event.ReloadTable(!color) :: es)
           }
           p2 = p1 map { g ⇒ g.updatePlayer(color, _.removeTakebackProposition) }
@@ -205,7 +206,7 @@ final class Hand(
     case pov @ Pov(g1, color) ⇒
       if (g1.player(!color).isProposingTakeback) success {
         for {
-          p1 ← messenger.systemMessages(g1, "Takeback proposition declined") map { es ⇒
+          p1 ← messenger.systemMessage(g1, _.takebackPropositionDeclined) map { es ⇒
             Progress(g1, Event.ReloadTable(!color) :: es)
           }
           p2 = p1 map { g ⇒ g.updatePlayer(!color, _.removeTakebackProposition) }
@@ -222,7 +223,9 @@ final class Hand(
       val progress = pov.game withClock newClock
       for {
         events ← messenger.systemMessage(
-          progress.game, "%s + %d seconds".format(color, moretimeSeconds)
+          progress.game, ((_.untranslated(
+            "%s + %d seconds".format(color, moretimeSeconds)
+          )): SelectI18nKey)
         )
         progress2 = progress ++ (Event.Clock(newClock) :: events)
         _ ← gameRepo save progress2

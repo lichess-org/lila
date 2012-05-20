@@ -3,23 +3,24 @@ package lila.i18n
 
 import lila.http.Context
 
-import play.api.mvc.RequestHeader
 import play.api.templates.Html
 import play.api.i18n.Lang
 
 final class I18nKeys(translator: Translator) {
 
-  final class Key(val key: String) {
+  final class Key(val key: String) extends I18nKey {
 
-    def apply(args: Any*)(implicit ctx: Context): Html = 
+    def apply(args: Any*)(implicit ctx: Context): Html =
       translator.html(key, args.toList)(ctx.req)
 
-    def str(args: Any*)(implicit ctx: Context): String = 
+    def str(args: Any*)(implicit ctx: Context): String =
       translator.str(key, args.toList)(ctx.req)
 
-    def to(lang: Lang)(args: Any*): String = 
+    def to(lang: Lang)(args: Any*): String =
       translator.transTo(key, args.toList)(lang)
   }
+
+  def untranslated(message: String) = Untranslated(message)
 
   val playWithAFriend = new Key("playWithAFriend")
   val inviteAFriendToPlayWithYou = new Key("inviteAFriendToPlayWithYou")

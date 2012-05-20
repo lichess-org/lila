@@ -11,6 +11,7 @@ import game.{ GameRepo, DbGame }
 import user.{ UserRepo, User, EloUpdater }
 import ai.Ai
 import core.Settings
+import i18n.I18nKeys
 
 final class RoundEnv(
     app: Application,
@@ -19,6 +20,7 @@ final class RoundEnv(
     gameRepo: GameRepo,
     userRepo: UserRepo,
     eloUpdater: EloUpdater,
+    i18nKeys: I18nKeys,
     ai: () ⇒ Ai) {
 
   implicit val ctx = app
@@ -65,7 +67,9 @@ final class RoundEnv(
     gameRepo = gameRepo,
     messenger = messenger)
 
-  lazy val messenger = new Messenger(roomRepo = roomRepo)
+  lazy val messenger = new Messenger(
+    roomRepo = roomRepo,
+    i18nKeys = i18nKeys)
 
   lazy val roomRepo = new RoomRepo(mongodb(MongoCollectionRoom))
 }

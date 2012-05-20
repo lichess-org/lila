@@ -63,6 +63,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     gameRepo = game.gameRepo,
     userRepo = user.userRepo,
     eloUpdater = user.eloUpdater,
+    i18nKeys = i18n.keys,
     ai = ai.ai)
 
   lazy val analyse = new lila.analyse.AnalyseEnv(
