@@ -24,6 +24,8 @@ case class TransJsDump(
     keys.drawOfferDeclined,
     keys.drawOfferAccepted,
     keys.drawOfferCanceled,
+    keys.rematchOfferSent,
+    keys.rematchOfferAccepted,
     keys.rematchOfferCanceled,
     keys.rematchOfferDeclined,
     keys.takebackPropositionSent,
@@ -38,7 +40,7 @@ case class TransJsDump(
     _ ← putStrLn("Dumping JavaScript translations in " + path)
     langs = pool.langs
     _ ← run(path.mkdir, "Create directory")
-    _ ← run(langs foreach { lang ⇒ run(write(lang)) }, "Write translations")
+    _ ← run(langs foreach { lang ⇒ write(lang) }, "Write translations")
   } yield ()
 
   def write(lang: Lang) {
