@@ -21,3 +21,8 @@ prevent round watcher/player response client caching
 
 next deploy:
 db.user.update({},{$unset:{isOnline: true}}, false, true)
+db.user.update({},{$unset:{gameConfigs: true}}, false, true)
+db.user.update({},{$unset:{email: true}}, false, true)
+db.user.dropIndex("emailCanonical_1")
+db.user.update({},{$unset:{emailCanonical: true}}, false, true)
+db.user.update({},{$unset:{updatedAt: true}}, false, true)
