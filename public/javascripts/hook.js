@@ -18,7 +18,6 @@ $(function() {
     var $userTag = $('#user_tag');
     var isRegistered = $userTag.length > 0
     var myElo = isRegistered ? parseInt($userTag.data('elo')) : null;
-    var username = isRegistered ? $('#username_tag').text() : "Anonymous";
     var hookOwnerId = $hooks.data('my-hook');
 
     if (chatExists) {
@@ -38,7 +37,7 @@ $(function() {
                 return false;
             }
             $input.val('');
-            lichess.socket.send('talk', { u: username, txt: text });
+            lichess.socket.send('talk', { txt: text });
             return false;
         });
         $chat.find('a.send').click(function() { $input.trigger('click'); $form.submit(); });

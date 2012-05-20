@@ -25,14 +25,14 @@ object Round extends LilaController {
   def websocketWatcher(gameId: String, color: String) = WebSocket.async[JsValue] { req ⇒
     implicit val ctx = reqToCtx(req)
     socket.joinWatcher(
-      gameId, color, getInt("version"), get("uid"), get("username")
+      gameId, color, getInt("version"), get("uid"), ctx.me map (_.username)
     ).unsafePerformIO
   }
 
   def websocketPlayer(fullId: String) = WebSocket.async[JsValue] { req ⇒
     implicit val ctx = reqToCtx(req)
     socket.joinPlayer(
-      fullId, getInt("version"), get("uid"), get("username")
+      fullId, getInt("version"), get("uid"), ctx.me map (_.username)
     ).unsafePerformIO
   }
 

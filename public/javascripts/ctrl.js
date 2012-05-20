@@ -8,9 +8,6 @@ var lichess_translations = [];
 var lichess = {
   socket: null,
   socketDefaults: {
-    params: {
-      username: $('#username_tag').text()
-    },
     events: {
       n: function(e) {
         var $tag = $('#nb_connected_players');
