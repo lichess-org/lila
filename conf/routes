@@ -62,6 +62,9 @@ GET   /logout                        controllers.Auth.logout
 # User
 GET   /@/:username                   controllers.User.show(username: String)
 GET   /signup                        controllers.User.signUp
+GET   /people                        controllers.User.list(page: Int ?= 1)
+GET   /people/stats                  controllers.User.stats
+GET   /people/autocomplete           controllers.User.autocomplete
 
 # Wiki
 GET   /wiki                          controllers.Wiki.home

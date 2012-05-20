@@ -1,0 +1,34 @@
+@(paginator: Paginator[User])(implicit ctx: Context)
+
+@title = @{ "%s - page %d".format(trans.chessPlayers(), paginator.currentPage) }
+
+@goodies = {
+<div class="lichess_goodies">
+  <br />
+  <a href="@routes.User.stats()">See player stats</a>
+</div>
+}
+
+@user.layout(
+title = title,
+goodies = goodies.some) {
+<div class="content_box">
+  <div class="user_lists clearfix">
+    <div class="all_users">
+      <h1 class="lichess_title">@trans.chessPlayers() (@paginator.nbResults)</h1>
+      <form class="search_user_form" action="@routes.User.show("")">
+        <label for="search_user_input">@trans.searchAPlayer()</label>
+        <input id="search_user_input" class="search_user autocomplete" data-provider="@routes.User.autocomplete" />
+      </form>
+      <div class="infinitescroll">
+        <div class="pager"><a href="@routes.User.list(paginator.nextPage | 1)">Next</a></div>
+        <ol start="@{ 1+(paginator.currentPage-1)*paginator.maxPerPage }" class="users paginated_element">
+          @paginator.currentPageResults.map { user =>
+          <li>@userLink(user, None, true)</li>
+          }
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+}

@@ -1,0 +1,89 @@
+#lichess_user div.user_show h1.lichess_title {
+  margin-bottom: 0;
+  float: left;
+}
+#lichess_user div.user_show h1.lichess_title.title_block {
+  float: none;
+}
+div.user_show div.content_box_top .status {
+  display: block;
+  width: 16px;
+  height: 16px;
+  float: left;
+  background: transparent url(/bundles/lichess/images/s16.png) top left no-repeat;
+  background-position: 0 -160px;
+  margin: 12px 8px 0 -10px;
+}
+div.user_show div.content_box_top .status.connected {
+  background-position: 0 -208px;
+}
+div.user_show .staff {
+  color: #aa3333;
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+div.user_show div.content_box_top .rank {
+  margin-left: 1em;
+}
+div.user_show div.content_box_content {
+  display: block;
+  padding-right: 0;
+}
+div.user_show span.user_bio {
+  margin-bottom: 1em;
+  font-style: italic;
+  display: block;
+}
+
+div.user_show .elo_history {
+  float:right;
+  display: block;
+  width: 460px;
+  height: 320px;
+  margin-top: -15px;
+}
+
+div.user_show .win_stats {
+  float:left;
+  display: block;
+  width: 312px;
+  height: 200px;
+}
+div.user_show .stats form {
+  display: inline;
+}
+div.user_show .chat_messages {
+  overflow: auto;
+  height: 7em;
+  border: 1px solid #dadada;
+  padding: 1px 5px;
+}
+
+div.user_show .elo_with_me {
+  margin-bottom: 1.5em;
+  padding: 5px 8px;
+  border: 1px solid #eaeaea;
+  background: #fafafa;
+  width: 270px;
+  text-align: center;
+}
+div.user_show .elo_with_me strong {
+  padding-right: 1em;
+}
+
+div.user_show div.games {
+  margin-top: 10px;
+}
+
+div.user_show div.content_box_inter a {
+  margin: 5px 0.5em -1px 0;
+  padding: 0 0.7em;
+  font-size: 1em;
+}
+div.user_show div.content_box_inter a.active {
+  background: white;
+  border: 1px solid #ccc;
+  border-bottom: 0;
+  text-decoration: none;
+  font-weight: bold;
+}

@@ -21,7 +21,7 @@ package object lila
   type SocketPromise = Promise[(Iteratee[JsValue, _], Enumerator[JsValue])]
 
   // custom salat context
-  implicit val ctx = new Context {
+  implicit val customSalatContext = new Context {
     val name = "Lila System Context"
     override val typeHintStrategy = StringTypeHintStrategy(when = TypeHintFrequency.Never)
   }

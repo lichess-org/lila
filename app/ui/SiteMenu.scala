@@ -12,7 +12,7 @@ final class SiteMenu(trans: I18nKeys) {
 
   val play = new Elem(routes.Lobby.home, trans.play)
   val game = new Elem(routes.Game.realtime, trans.games)
-  val user = new Elem(routes.Lobby.home, trans.people)
+  val user = new Elem(routes.User.list(page = 1), trans.people)
   val forum = new Elem(routes.Lobby.home, trans.forum)
   val inbox = new Elem(routes.Lobby.home, trans.inbox)
 

@@ -20,6 +20,10 @@ final class UserEnv(
     collection = mongodb(MongoCollectionUser),
     dbRef = user ⇒ dbRef(MongoCollectionUser)(user.id))
 
+  lazy val paginator = new PaginatorBuilder(
+    userRepo = userRepo,
+    maxPerPage = UserPaginatorMaxPerPage)
+
   lazy val eloUpdater = new EloUpdater(
     userRepo = userRepo,
     historyRepo = historyRepo)

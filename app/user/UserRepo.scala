@@ -13,6 +13,8 @@ class UserRepo(
     collection: MongoCollection,
     val dbRef: User ⇒ DBRef) extends SalatDAO[User, ObjectId](collection) {
 
+  private val enabledQuery = DBObject("enabled" -> true)
+
   def user(userId: String): IO[Option[User]] = user(new ObjectId(userId))
 
   def user(userId: ObjectId): IO[Option[User]] = io {
@@ -71,6 +73,20 @@ class UserRepo(
     byUsername(username) map { userOption ⇒
       userOption filter { u ⇒ u.password == hash(password, u.salt) }
     }
+
+  val countEnabled: IO[Int] = io { count().toInt }
+
+  def usernamesLike(username: String): IO[List[String]] = io {
+    val regex = "^" + username.toLowerCase + ".*$"
+    collection.find(
+      DBObject("usernameCanonical" -> regex.r),
+      DBObject("username" -> 1))
+      .sort(DBObject("usernameCanonical" -> 1))
+      .limit(10)
+      .toList
+      .map(_.expand[String]("username"))
+      .flatten
+  }
 
   private def idSelector(user: User) = DBObject("_id" -> user.id)
 
