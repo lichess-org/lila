@@ -129,6 +129,8 @@ final class I18nKeys(translator: Translator) {
   val thisGameIsRated = new Key("thisGameIsRated")
   val rematchOfferSent = new Key("rematchOfferSent")
   val rematchOfferAccepted = new Key("rematchOfferAccepted")
+  val rematchOfferCanceled = new Key("rematchOfferCanceled")
+  val rematchOfferDeclined = new Key("rematchOfferDeclined")
   val cancelRematchOffer = new Key("cancelRematchOffer")
   val play = new Key("play")
   val inbox = new Key("inbox")
