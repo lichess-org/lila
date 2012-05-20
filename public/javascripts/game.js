@@ -474,44 +474,44 @@ $.widget("lichess.game", {
   },
   initChat: function() {
     var self = this;
-    if (self.options.player.spectator) {
+    if (!self.$chat.length) {
       return;
     }
-    if (self.$chat.length) {
-      self.$chatMsgs.find('>li').each(function() { $(this).html(urlToLink($(this).html())); });
-      self.$chatMsgs.scrollable();
-      var $form = self.$chat.find('form');
-      self.$chatMsgs[0].scrollTop = 9999999;
-      var $input = self.$chat.find('input.lichess_say').one("focus", function() {
-        $input.val('').removeClass('lichess_hint');
-      });
+    self.$chatMsgs.find('>li').each(function() { $(this).html(urlToLink($(this).html())); });
+    self.$chatMsgs.scrollable();
+    var $form = self.$chat.find('form');
+    self.$chatMsgs[0].scrollTop = 9999999;
+    var $input = self.$chat.find('input.lichess_say').one("focus", function() {
+      $input.val('').removeClass('lichess_hint');
+    });
 
-      // send a message
-      $form.submit(function() {
-        var text = $.trim($input.val());
-        if (!text) return false;
-        if (text.length > 140) {
-          alert('Max length: 140 chars. ' + text.length + ' chars used.');
-          return false;
-        }
-        $input.val('');
-        lichess.socket.send('talk', text);
+    // send a message
+    $form.submit(function() {
+      var text = $.trim($input.val());
+      if (!text) return false;
+      if (text.length > 140) {
+        alert('Max length: 140 chars. ' + text.length + ' chars used.');
         return false;
-      });
+      }
+      $input.val('');
+      lichess.socket.send('talk', text);
+      return false;
+    });
 
-      self.$chat.find('a.send').click(function() {
-        $input.trigger('click');
-        $form.submit();
-      });
+    self.$chat.find('a.send').click(function() {
+      $input.trigger('click');
+      $form.submit();
+    });
 
-      // toggle the chat
-      self.$chat.find('input.toggle_chat').change(function() {
-        self.$chat.toggleClass('hidden', ! $(this).attr('checked'));
-      }).trigger('change');
-    }
+    // toggle the chat
+    self.$chat.find('input.toggle_chat').change(function() {
+      self.$chat.toggleClass('hidden', ! $(this).attr('checked'));
+    }).trigger('change');
   },
   appendToChat: function(msg) {
-    if (this.$chat.length) this.$chatMsgs.append(urlToLink(msg))[0].scrollTop = 9999999;
+    if (this.$chat.length) {
+      this.$chatMsgs.append(urlToLink(msg))[0].scrollTop = 9999999;
+    }
   },
   reloadTable: function(callback) {
     var self = this;
