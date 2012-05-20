@@ -19,7 +19,7 @@ trait HumanConfig extends Config {
 
   def validClock = clock.fold(time + increment > 0, true)
 
-  def makeClock = clock option PausedClock(time, increment)
+  def makeClock = clock option PausedClock(time * 60, increment)
 }
 
 trait BaseHumanConfig extends BaseConfig {

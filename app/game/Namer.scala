@@ -16,5 +16,5 @@ object Namer {
     )
 
   def clock(clock: Clock): String = "%d minutes/side + %d seconds/move".format(
-      clock.limitInMinutes, clock.increment)
+    clock.limitInMinutes, clock.increment)
 }
