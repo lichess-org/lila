@@ -1,0 +1,18 @@
+server {
+  listen 80;
+  server_name l.org ~^\w\w\w?\.l\.org$;
+
+  location /assets {
+    alias   /home/thib/lila/public;
+  }
+
+  location / {
+    proxy_set_header Host $http_host;
+    proxy_pass http://127.0.0.1:9000/;
+  }
+
+  error_page 500 501 502 503 504  /error.html;
+  location = /error.html {
+      root  /home/thib/lila/public/;
+  }
+}
