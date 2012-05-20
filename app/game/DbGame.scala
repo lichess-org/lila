@@ -215,6 +215,8 @@ case class DbGame(
 
   def started = status >= Status.Started
 
+  def notStarted = !started
+
   def aborted = status == Status.Aborted
 
   def playable = status < Status.Aborted

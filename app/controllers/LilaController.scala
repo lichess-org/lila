@@ -15,7 +15,7 @@ import play.api.cache.Cache
 
 import scala.io.Codec
 import com.codahale.jerkson.Json
-import scalaz.effects.IO
+import scalaz.effects._
 
 trait LilaController
     extends Controller
@@ -90,6 +90,9 @@ trait LilaController
     ctype: ContentTypeOf[B],
     ctx: Context) =
     ioa.unsafePerformIO.fold(a ⇒ Ok(op(a)), notFound(ctx))
+
+  def IOptionIOResult[A](ioa: IO[Option[A]])(op: A ⇒ IO[Result])(implicit ctx: Context) =
+    ioa flatMap { _.fold(op, io(notFound(ctx))) } unsafePerformIO
 
   def IOptionRedirect[A](ioa: IO[Option[A]])(op: A ⇒ Call)(implicit ctx: Context) =
     ioa.unsafePerformIO.fold(a ⇒ Redirect(op(a)), notFound(ctx))

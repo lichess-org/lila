@@ -136,11 +136,6 @@ final class Hand(
             io(fullId -> Nil) // accept
           )
         }
-        //$nextOpponent = $this->gameGenerator->createReturnGame($opponent);
-        //$nextPlayer   = $nextOpponent->getOpponent();
-        //$nextGame     = $nextOpponent->getGame();
-        //$messages = $this->starter->start($nextGame);
-        //$this->objectManager->persist($nextGame);
         else success {
           val progress = Progress(game, Event.ReloadTable(!color)) map { g ⇒
             g.updatePlayer(color, _.offerRematch)

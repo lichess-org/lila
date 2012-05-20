@@ -72,6 +72,14 @@ class GameRepo(collection: MongoCollection)
     )
   }
 
+  def setUser(id: String, color: Color, dbRef: DBRef, elo: Int) = io {
+    val playerName = "players.%d".format(color.fold(0, 1))
+    update(
+      DBObject("_id" -> id),
+      $set(playerName + ".user" -> dbRef, playerName + ".elo" -> elo)
+    )
+  }
+
   def finish(id: String, winnerId: Option[String]) = io {
     update(
       DBObject("_id" -> id),

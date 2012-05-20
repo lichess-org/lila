@@ -1,13 +1,20 @@
 package lila
 package round
 
-import game.{ DbGame, PovRef }
+import game.{ DbGame, PovRef, Namer }
 import chess.Color
 import Event.Message
 
 import scalaz.effects._
 
 final class Messenger(roomRepo: RoomRepo) {
+
+  def init(game: DbGame): IO[List[Event]] = systemMessages(game, List(
+    Some(game.creatorColor.toString + " creates the game"),
+    Some(game.invitedColor.toString + " joins the game"),
+    game.clock map Namer.clock,
+    game.rated option "This game is rated"
+  ).flatten)
 
   def playerMessage(
     ref: PovRef,

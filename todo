@@ -17,6 +17,7 @@ translate clock name
 start chess960 after both player move http://fr.lichess.org/forum/lichess-feedback/clock-fairness-in-chess960-games
 elo floor 800
 use true auth for socket username
+prevent round watcher/player response client caching
 
 next deploy:
 db.user.update({},{$unset:{isOnline: true}}, false, true)

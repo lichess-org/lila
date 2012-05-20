@@ -44,4 +44,10 @@ final class SetupEnv(
     userRepo = userRepo,
     messenger = roundMessenger,
     timelinePush = timelinePush)
+
+  lazy val joiner = new Joiner(
+    gameRepo = gameRepo,
+    messenger = roundMessenger,
+    timelinePush = timelinePush,
+    dbRef = dbRef)
 }

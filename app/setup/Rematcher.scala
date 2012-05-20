@@ -31,11 +31,7 @@ final class Rematcher(
               _ ← timelinePush(game)
               // messenges are not sent to the next game socket
               // as nobody is there to see them yet
-              _ ← messenger.systemMessages(nextGame, List(
-                Some(nextGame.creatorColor + " creates the game"),
-                Some(nextGame.invitedColor + " joins the game"),
-                nextGame.clock map Namer.clock,
-                nextGame.rated option "This game is rated").flatten)
+              _ ← messenger init nextGame
             } yield nextId -> List(
               Event.RedirectOwner(White, playerUrl(nextGame, White)),
               Event.RedirectOwner(Black, playerUrl(nextGame, Black)),
