@@ -17,37 +17,51 @@ final class Rematcher(
     messenger: Messenger,
     timelinePush: DbGame ⇒ IO[Unit]) extends Handler(gameRepo) {
 
-  def offerOrAccept(fullId: String): IO[Valid[(String, List[Event])]] =
+  type Result = (String, List[Event])
+
+  def offerOrAccept(fullId: String): IO[Valid[Result]] =
     attempt(fullId, {
       case pov @ Pov(game, color) if game playerCanRematch color ⇒
         success(game.opponent(color).isOfferingRematch.fold(
           game.nextId.fold(
-            nextId ⇒ gameRepo.pov(nextId, !color) map { nextPovOption ⇒
-              nextPovOption.fold(_.fullId -> Nil, pov.fullId -> Nil)
-            },
-            for {
-              nextGame ← returnGame(pov) map (_.start)
-              _ ← gameRepo insert nextGame
-              nextId = nextGame.id
-              _ ← game.variant.standard.fold(io(), gameRepo saveInitialFen game)
-              _ ← timelinePush(game)
-              // messenges are not sent to the next game socket
-              // as nobody is there to see them yet
-              _ ← messenger init nextGame
-            } yield (nextGame fullIdOf !color) -> List(
-              Event.RedirectOwner(White, playerUrl(nextGame, Black)),
-              Event.RedirectOwner(Black, playerUrl(nextGame, White)),
-              // tell spectators to reload the table
-              Event.ReloadTable(White),
-              Event.ReloadTable(Black))
-          ), {
-            val progress = Progress(game, Event.ReloadTable(!color)) map { g ⇒
-              g.updatePlayer(color, _.offerRematch)
-            }
-            gameRepo save progress map { _ ⇒ fullId -> progress.events }
-          }))
+            rematchExists(pov),
+            rematchJoin(pov)
+          ),
+          rematchCreate(pov)
+        ))
       case _ ⇒ !!("invalid rematch offer " + fullId)
     })
+
+  private def rematchExists(pov: Pov)(nextId: String): IO[Result] =
+    gameRepo.pov(nextId, !pov.color) map { nextPovOption ⇒
+      nextPovOption.fold(
+        _.fullId -> Nil,
+        pov.fullId -> Nil)
+    }
+
+  private def rematchJoin(pov: Pov): IO[Result] = for {
+    nextGame ← returnGame(pov) map (_.start)
+    _ ← gameRepo insert nextGame
+    nextId = nextGame.id
+    _ ← pov.game.variant.standard.fold(io(), gameRepo saveInitialFen nextGame)
+    _ ← timelinePush(nextGame)
+    // messenges are not sent to the next game socket
+    // as nobody is there to see them yet
+    _ ← messenger init nextGame
+  } yield (nextGame fullIdOf !pov.color) -> List(
+    Event.RedirectOwner(White, playerUrl(nextGame, Black)),
+    Event.RedirectOwner(Black, playerUrl(nextGame, White)),
+    // tell spectators to reload the table
+    Event.ReloadTable(White),
+    Event.ReloadTable(Black))
+
+  private def rematchCreate(pov: Pov): IO[Result] = for {
+    p1 ← messenger.systemMessage(pov.game, _.rematchOfferSent) map { es ⇒
+      Progress(pov.game, Event.ReloadTable(!pov.color) :: es)
+    }
+    p2 = p1 map { g ⇒ g.updatePlayer(pov.color, _ offerRematch) }
+    _ ← gameRepo save p2
+  } yield pov.fullId -> p2.events
 
   private def returnGame(pov: Pov): IO[DbGame] = for {
     board ← pov.game.variant.standard.fold(
