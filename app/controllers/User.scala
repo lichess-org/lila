@@ -6,6 +6,7 @@ import views._
 import play.api._
 import play.api.mvc._
 import play.api.mvc.Results._
+import scalaz.effects._
 
 object User extends LilaController {
 
@@ -15,9 +16,11 @@ object User extends LilaController {
   def show(username: String) = TODO
 
   def list(page: Int) = Open { implicit ctx ⇒
-    Ok(
-      html.user.list(paginator elo page)
-    )
+    IOk(onlineUsers map { html.user.list(paginator elo page, _) })
+  }
+
+  val online = Open { implicit ctx ⇒
+    IOk(onlineUsers map { html.user.online(_) })
   }
 
   val autocomplete = Action { implicit req ⇒
@@ -30,4 +33,6 @@ object User extends LilaController {
   val signUp = TODO
 
   val stats = TODO
+
+  val onlineUsers: IO[List[User]] = userRepo byUsernames env.user.usernameMemo.keys
 }

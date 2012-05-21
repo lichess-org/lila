@@ -28,9 +28,11 @@ class UserRepo(
   }
 
   def byUsername(username: String): IO[Option[User]] = io {
-    findOne(
-      DBObject("usernameCanonical" -> username.toLowerCase)
-    )
+    findOne(DBObject("usernameCanonical" -> username.toLowerCase))
+  }
+
+  def byUsernames(usernames: Iterable[String]): IO[List[User]] = io {
+    find("usernameCanonical" $in usernames).toList
   }
 
   def setElo(userId: ObjectId, elo: Int): IO[Unit] = io {
