@@ -6,6 +6,7 @@ import DbGame._
 import chess.{ Color, Variant, Status }
 import chess.format.Forsyth
 import round.Progress
+import user.User
 
 import com.novus.salat._
 import com.novus.salat.dao._
@@ -144,6 +145,25 @@ class GameRepo(collection: MongoCollection)
 
   val countMate: IO[Int] = io {
     count(DBObject("status" -> Status.Mate.id)).toInt
+  }
+
+  def countWinBy(user: User): IO[Int] = io {
+    count(DBObject("winnerUserId" -> user.id.toString)).toInt
+  }
+
+  def countDrawBy(user: User): IO[Int] = io {
+    count(
+      ("status" $in List(Status.Draw.id, Status.Stalemate.id)) ++ 
+      ("userIds" -> user.id.toString)
+    ).toInt
+  }
+
+  def countLossBy(user: User): IO[Int] = io {
+    count(
+      ("status" $in List(Status.Mate.id, Status.Resign.id, Status.Outoftime.id, Status.Timeout.id)) ++ 
+      ("userIds" -> user.id.toString) ++
+      ("winnerUserId" $ne user.id.toString)
+    ).toInt
   }
 
   def recentGames(limit: Int): IO[List[DbGame]] = io {

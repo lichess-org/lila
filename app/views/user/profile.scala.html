@@ -41,5 +41,10 @@ evenMoreJs = evenMoreJs) {
       @e._1.capitalize: <strong>@showNumber(e._2)</strong>
       }
     </div>
-    }
-    }
+    <div class="stats">
+      @info.winChart.map { winChart =>
+      <div class="win_stats" title="@trans.gamesPlayed(): @u.nbGames" data-columns="@winChart.columns" data-rows="@winChart.rows(trans)"></div>
+      }
+    </div>
+      }
+      }

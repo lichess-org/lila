@@ -10,8 +10,12 @@ import scalaz.effects._
 case class UserInfo(
     user: User,
     rank: Option[(Int, Int)],
+    nbWin: Int,
+    nbDraw: Int,
+    nbLoss: Int,
     eloWithMe: Option[List[(String, Int)]],
-    eloChart: Option[EloChart]) {
+    eloChart: Option[EloChart],
+    winChart: Option[WinChart]) {
 }
 
 object UserInfo {
@@ -30,7 +34,13 @@ object UserInfo {
         }
       },
       io(None))
+    nbWin ← gameRepo countWinBy user
+    nbDraw ← gameRepo countDrawBy user
+    nbLoss ← gameRepo countLossBy user
     eloChart ← eloChartBuilder(user)
+    winChart = (user.nbGames > 0) option {
+      new WinChart(nbWin, nbDraw, nbLoss)
+    }
     eloWithMe = ctx.me.filter(user!=) map { me ⇒
       List(
         "win" -> eloCalculator.diff(me, user, Color.White.some),
@@ -40,6 +50,10 @@ object UserInfo {
   } yield new UserInfo(
     user = user,
     rank = rank,
+    nbWin = nbWin,
+    nbDraw = nbDraw,
+    nbLoss = nbLoss,
     eloWithMe = eloWithMe,
-    eloChart = eloChart)
+    eloChart = eloChart,
+    winChart = winChart)
 }
