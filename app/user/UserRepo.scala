@@ -35,6 +35,10 @@ class UserRepo(
     find("usernameCanonical" $in usernames).toList
   }
 
+  def rank(user: User): IO[Int] = io {
+    count("elo" $gt user.elo).toInt + 1
+  }
+
   def setElo(userId: ObjectId, elo: Int): IO[Unit] = io {
     collection.update(
       idSelector(userId),
@@ -76,7 +80,7 @@ class UserRepo(
       userOption filter { u ⇒ u.password == hash(password, u.salt) }
     }
 
-  val countEnabled: IO[Int] = io { count().toInt }
+  val countEnabled: IO[Int] = io { count(enabledQuery).toInt }
 
   def usernamesLike(username: String): IO[List[String]] = io {
     val regex = "^" + username.toLowerCase + ".*$"

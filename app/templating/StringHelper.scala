@@ -5,7 +5,6 @@ import scala.math._
 import java.text.SimpleDateFormat
 import java.text.Normalizer
 import java.util.Date
-//import net.sf.jfuzzydate.{FuzzyDateFormat, FuzzyDateFormatter}
 
 object StringHelper extends StringHelper
 
@@ -18,11 +17,15 @@ trait StringHelper {
     slug.toLowerCase
   }
 
-  //def formatDate(date: Time) = date format "dd MMMM yyy"
-
-  //def formatDistance(date: Date) = fuzzyFormatter formatDistance date
-
-  //private val fuzzyFormatter = FuzzyDateFormat.getInstance
+  def shorten(text: String, length: Int): String =
+    text.replace("\n", " ") take length
 
   def pluralize(s: String, n: Int) = "%d %s%s".format(n, s, if (n > 1) "s" else "")
+
+  //implicit def richString(str: String) = new {
+
+    //def capitalize = str(0).toUpperCase + str.drop(1)
+  //}
+
+  def showNumber(n: Int): String = (n > 0).fold("+" + n, n.toString)
 }

@@ -1,0 +1,45 @@
+@(u: User, info: lila.user.UserInfo, title: String, bio: Html)(implicit ctx: Context)
+
+@evenMoreJs = {
+<script src="http://www.google.com/jsapi"></script>
+@jsTag("chart.js")
+@jsTag("user-chart.js")
+}
+
+@user.layout(
+title = title,
+robots = false,
+evenMoreJs = evenMoreJs) {
+<div class="content_box no_padding user_show">
+  <div class="content_box_top">
+    @if(ctx.me.fold(u !=, false)) {
+    <a href="#" class="send_message">@trans.composeMessage()</a>
+    }
+    <a href="@routes.User.export(u.username)">@trans.exportGames()</a>
+    <div class="status @isUsernameOnline(u.username).fold("connected", "")"></div>
+    <h1 class="lichess_title">@u.usernameWithElo</h1>
+    @info.rank.map { r =>
+    <span class="rank">
+      @trans.rank(): <strong>@r._1</strong> / @r._2
+    </span>
+    }
+  </div>
+  <div class="content_box_content clearfix">
+    @if(u.hasRole("ROLE_ADMIN")) {
+    <div class="staff">STAFF</div>
+    }
+    @info.eloChart.map { eloChart =>
+    <div class="elo_history" title="Elo history" data-columns="@eloChart.columns" data-rows="@eloChart.rows"></div>
+    }
+    @if(u.engine && ctx.me.fold(u !=, true)) {
+    <div class="engine_warning">@trans.thisPlayerUsesChessComputerAssistance()</div>
+    }
+    @bio
+    @info.eloWithMe.map { eloWithMe =>
+    <div class="elo_with_me">
+      @eloWithMe.map { e =>
+      @e._1.capitalize: <strong>@showNumber(e._2)</strong>
+      }
+    </div>
+    }
+    }

@@ -15,7 +15,9 @@ case class User(
     roles: List[String],
     password: String,
     salt: String,
-    settings: Map[String, String] = Map.empty) {
+    settings: Map[String, String] = Map.empty,
+    bio: Option[String] = None,
+    engine: Boolean = false) {
 
   def usernameCanonical = username.toLowerCase
 
@@ -26,6 +28,8 @@ case class User(
   def setting(name: String): Option[Any] = settings get name
 
   def hasRole(name: String) = roles contains name
+
+  def nonEmptyBio = bio filter ("" !=)
 }
 
 object User {

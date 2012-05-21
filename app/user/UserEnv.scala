@@ -5,11 +5,14 @@ import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.Imports.ObjectId
 import com.mongodb.DBRef
 
+import chess.EloCalculator
+import game.GameRepo
 import core.Settings
 
 final class UserEnv(
     settings: Settings,
     mongodb: String ⇒ MongoCollection,
+    gameRepo: GameRepo,
     dbRef: String ⇒ ObjectId ⇒ DBRef) {
 
   import settings._
@@ -31,4 +34,12 @@ final class UserEnv(
   lazy val usernameMemo = new UsernameMemo(timeout = MemoUsernameTimeout)
 
   lazy val cached = new Cached(userRepo)
+
+  lazy val eloChart = EloChart(historyRepo) _
+
+  lazy val userInfo = UserInfo(
+    userRepo = userRepo,
+    gameRepo = gameRepo,
+    eloCalculator = new EloCalculator,
+    eloChartBuilder = eloChart) _
 }

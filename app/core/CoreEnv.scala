@@ -23,6 +23,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
   lazy val user = new lila.user.UserEnv(
     settings = settings,
     mongodb = mongodb.apply _,
+    gameRepo = game.gameRepo,
     dbRef = namespace ⇒ id ⇒ new DBRef(mongodb.underlying, namespace, id))
 
   lazy val lobby = new lila.lobby.LobbyEnv(

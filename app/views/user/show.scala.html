@@ -1,0 +1,15 @@
+@(u: User, info: lila.user.UserInfo, mode: String, games: Paginator[DbGame])(implicit ctx: Context)
+
+@title = @{ "%s %s - page %d".format(u.username, mode, games.currentPage) }
+
+@bio = {
+@u.nonEmptyBio.map { bio =>
+<span class="user_bio">@shorten(bio, 400)</span>
+}
+}
+
+@user.profile(
+u = u,
+info = info,
+title = title,
+bio = bio) 

@@ -60,6 +60,8 @@ POST  /login                         controllers.Auth.authenticate
 GET   /logout                        controllers.Auth.logout
 
 # User
+GET   /@/:username/export            controllers.User.export(username: String)
+GET   /@/:username/:mode             controllers.User.showMode(username: String, mode: String, page: Int ?= 1)
 GET   /@/:username                   controllers.User.show(username: String)
 GET   /signup                        controllers.User.signUp
 GET   /people                        controllers.User.list(page: Int ?= 1)
