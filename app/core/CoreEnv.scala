@@ -77,6 +77,10 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     settings = settings,
     gameRepo = game.gameRepo)
 
+  lazy val monitor = new lila.monitor.MonitorEnv(
+    app = app,
+    settings = settings)
+
   lazy val preloader = new Preload(
     fisherman = lobby.fisherman,
     history = lobby.history,

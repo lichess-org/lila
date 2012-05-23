@@ -22,8 +22,6 @@ trait Dependencies {
   val json = "com.codahale" %% "jerkson" % "0.5.0"
   val guava = "com.google.guava" % "guava" % "11.0.2"
   val apache = "org.apache.commons" % "commons-lang3" % "3.1"
-  val jodaTime = "joda-time" % "joda-time" % "2.1"
-  val jodaConvert = "org.joda" % "joda-convert" % "1.2"
   val scalaTime = "org.scala-tools.time" %% "time" % "0.5"
   val slf4jNop = "org.slf4j" % "slf4j-nop" % "1.6.4"
   val dispatch = "net.databinder" %% "dispatch-http" % "0.8.7"
@@ -57,8 +55,6 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       salat,
       guava,
       apache,
-      jodaTime,
-      jodaConvert,
       scalaTime,
       dispatch,
       auth,

@@ -1,0 +1,105 @@
+body {
+  background: url(/assets/images/monitor/background.png);
+  font-family: "Myriad Pro", Helvetica, Arial, Serif;
+  font-size: 8px;
+  color: black;
+  text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.1);
+  padding-top: 2px;
+  margin: auto;
+  width: 960px;
+}
+
+.clearfix:after { content:"."; display:block; height:0; clear:both; visibility:hidden; }
+.clearfix {display:inline-block;}
+
+h1 {
+  text-align: center;
+  font-size: 20px;
+}
+h1 .down {
+  color: #884444;
+  display: none;
+}
+body.down h1 .down {
+  display: inline;
+}
+
+.monitor {
+  float: left;
+  margin: 20px 8px 0 8px;
+  width: 302px;
+  height: 123px;
+  background: url(/assets/images/monitor/monitor.png);
+  position: relative;
+}
+.monitor.alert {
+}
+.monitor .title {
+  color: #d0d0d0;
+  font-size: 10px;
+  position: absolute;
+  top: 9px;
+  left: 223px;
+}
+.monitor .screen {
+  display: block;
+  position: absolute;
+  font-size: 14px;
+  color: #454a4e;
+  text-shadow: 0 1px 0px #000000;
+  background: black;
+  border-radius: 4px;
+  width: 60px;
+  height: 18px;
+  padding: 1px 5px 2px 5px;
+  margin-top: 4px;
+  text-align: center;
+  background-image: -moz-linear-gradient(top left, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  background-image: -o-linear-gradient(top left, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  background-image: -webkit-gradient(linear, 0 0, 100% 100%, from(rgba(255, 255, 255, 0.1)), to(rgba(255, 255, 255, 0)));
+  box-shadow: 0px 1px 1px #494e54, inset 0px 1px 2px rgba(0, 0, 0, 0.6);
+}
+.monitor .screen.current {
+  top: 28px;
+  left: 214px;
+}
+.monitor.alert .screen.current {
+  /*color: #884444;*/
+}
+.monitor .screen.max {
+  top: 55px;
+  left: 214px;
+}
+.wheel {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  top: 97px;
+  left: 99px;
+  background: url(/assets/images/monitor/wheel.png);
+}
+.needle {
+  -webkit-transform-origin: 100% 50%;
+  -o-transform-origin: 100% 50%;
+  -moz-transform-origin: 100% 50%;
+  position: absolute;
+  top: 101px;
+  left: 30px;
+  height: 5px;
+  width: 76px;
+  background: url(/assets/images/monitor/needle.png);
+}
+div.light {
+  width: 7px;
+  height: 7px;
+  position: absolute;
+  top: 11px;
+  left: 211px;
+}
+div.light.green {
+  background: url(/assets/images/monitor/green-light.png);
+}
+div.light.red,
+.monitor.alert div.light {  
+  background: url(/assets/images/monitor/red-light.png);
+}

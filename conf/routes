@@ -99,9 +99,11 @@ GET   /lobby/socket                  controllers.Lobby.socket
 #POST  /api/lobby/create/:hookOwnerId controllers.Lobby.create(hookOwnerId: String)
 #POST  /api/lobby/chat-ban/:username  controllers.Lobby.chatBan(username: String)
 
-# Reporting API
-GET   /nb-players                    controllers.Report.nbPlayers
-GET   /nb-playing                    controllers.Report.nbPlaying
-GET   /status                        controllers.Report.status
-
 GET   /assets/*file                  controllers.Assets.at(path="/public", file)
+
+# Monitor
+GET   /monitor                      controllers.Monitor.index
+GET   /monitor/stream               controllers.Monitor.stream
+GET   /nb-players                    controllers.Monitor.nbPlayers
+GET   /nb-playing                    controllers.Monitor.nbPlaying
+GET   /status                        controllers.Monitor.status

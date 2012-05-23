@@ -18,7 +18,7 @@
   <div class="box">
     @if(game.isBeingPlayed) {
     <a class="link" href="@routes.Round.watcher(gameId, color.name)">
-      @trans.playingRightNow() 
+      @trans.playingRightNow()
     </a>
     } else {
     @game.updatedAt.map(showDate)

@@ -28,8 +28,8 @@ object Cron {
       }
     }
 
-    message(5 seconds) {
-      env.site.reporting -> report.Update(env)
+    message(1 seconds) {
+      env.monitor.reporting -> monitor.Update(env)
     }
 
     message(1 second) {

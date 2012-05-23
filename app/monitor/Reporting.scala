@@ -1,5 +1,5 @@
 package lila
-package report
+package monitor
 
 import socket.GetNbMembers
 import round.GetNbHubs
@@ -14,7 +14,8 @@ import play.api.Play.current
 import scala.io.Source
 import java.lang.management.ManagementFactory
 
-final class Reporting extends Actor {
+final class Reporting(
+  rpsProvider: RpsProvider) extends Actor {
 
   case class SiteSocket(nbMembers: Int)
   case class LobbySocket(nbMembers: Int)
@@ -29,26 +30,31 @@ final class Reporting extends Actor {
   var site = SiteSocket(0)
   var lobby = LobbySocket(0)
   var game = GameSocket(0, 0)
+  var rps = 0
+  var cpu = 0
   var remoteAi = false
 
-  private var displays = 0
+  var displays = 0
 
   val osStats = ManagementFactory.getOperatingSystemMXBean
   val threadStats = ManagementFactory.getThreadMXBean
   val memoryStats = ManagementFactory.getMemoryMXBean
+  val cpuStats = new CPU()
   implicit val executor = Akka.system.dispatcher
 
   implicit val timeout = Timeout(100 millis)
 
   def receive = {
 
-    case GetNbMembers ⇒ sender ! allMembers
+    case GetNbMembers   ⇒ sender ! allMembers
 
-    case GetNbGames   ⇒ sender ! nbGames
+    case GetNbGames     ⇒ sender ! nbGames
 
-    case GetNbPlaying ⇒ sender ! nbPlaying
+    case GetNbPlaying   ⇒ sender ! nbPlaying
 
-    case GetStatus    ⇒ sender ! status
+    case GetStatus      ⇒ sender ! status
+
+    case GetMonitorData ⇒ sender ! monitorData
 
     case Update(env) ⇒ {
       val before = nowMillis
@@ -76,9 +82,9 @@ final class Reporting extends Actor {
           loadAvg = osStats.getSystemLoadAverage.toFloat
           nbThreads = threadStats.getThreadCount
           memory = memoryStats.getHeapMemoryUsage.getUsed / 1024 / 1024
+          rps = rpsProvider.rps
+          cpu = ((cpuStats.getCpuUsage() * 1000).round / 10.0).toInt
           remoteAi = env.ai.remoteAi.currentHealth
-
-          display()
         }
       } onComplete {
         case Left(a) ⇒ println("Reporting: " + a.getMessage)
@@ -117,5 +123,37 @@ final class Reporting extends Actor {
     remoteAi.fold(1, 0)
   ) mkString " "
 
+  private def monitorData = List(
+    "users" -> allMembers,
+    "site" -> site.nbMembers,
+    "lobby" -> lobby.nbMembers,
+    "games" -> game.nbMembers,
+    "hubs" -> game.nbHubs,
+    "recent" -> nbPlaying,
+    "lat" -> latency,
+    "thread" -> nbThreads,
+    "cpu" -> cpu,
+    "load" -> loadAvg,
+    "memory" -> memory,
+    "rps" -> rps
+  ) map {
+      case (name, value) ⇒ value + ":" + name
+    }
+
   private def allMembers = site.nbMembers + lobby.nbMembers + game.nbMembers
+
+  object Formatter {
+
+    def dataLine(data: List[(String, Any)]) = new {
+
+      def header = data map (_._1) mkString " "
+
+      def line = data map {
+        case (name, value) ⇒ {
+          val s = value.toString
+          List.fill(name.size - s.size)(" ").mkString + s + " "
+        }
+      } mkString
+    }
+  }
 }

@@ -18,6 +18,10 @@ start chess960 after both player move http://fr.lichess.org/forum/lichess-feedba
 elo floor 800
 use true auth for socket username
 prevent round watcher/player response client caching
+user info is expensive - cache it
+chess960 confirmation http://fr.lichess.org/forum/lichess-feedback/separate-960-lobby?page=1#7
+use play-navigator router case class MyRegexStr(value: String); implicit val MyRegexStrPathParam: PathParam[MyRegexStr] = new PathParam[MyRegexStr] { def apply(s: MyRegexStr) = s.value}; def unapply(s: String) = val Rx = "(\w+)".r; s match { case Rx(x) => Some(x); case _ => None } }
+http://codetunes.com/2012/05/09/scala-dsl-tutorial-writing-web-framework-router
 
 next deploy:
 db.user.update({},{$unset:{isOnline: true}}, false, true)

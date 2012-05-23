@@ -5,7 +5,6 @@ import akka.actor._
 import play.api.libs.concurrent._
 import play.api.Application
 
-import report.Reporting
 import game.GameRepo
 import core.Settings
 
@@ -16,9 +15,6 @@ final class SiteEnv(
 
   implicit val ctx = app
   import settings._
-
-  lazy val reporting = Akka.system.actorOf(
-    Props(new Reporting), name = ActorReporting)
 
   lazy val hub = Akka.system.actorOf(
     Props(new Hub(timeout = SiteUidTimeout)), name = ActorSiteHub)

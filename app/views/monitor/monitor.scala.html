@@ -1,0 +1,9 @@
+@(totalMemory: Long)
+
+@main("RPS") {
+<h1>Lichess Server Monitoring <span class="down">DOWN</span></h1>
+<div id="monitors" class="clearfix">
+  <script type="text/javascript">window.App = { }; window.App.totalMemory = @totalMemory;</script>
+  <script type="text/javascript" src="@routes.Assets.at("javascripts/monitor.js")"></script>
+</div>
+}

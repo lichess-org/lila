@@ -9,6 +9,8 @@ final class Settings(config: Config) {
 
   val SiteUidTimeout = millis("site.uid.timeout")
 
+  val MonitorTimeout = millis("monitor.timeout")
+
   val GameMessageLifetime = millis("game.message.lifetime")
   val GameUidTimeout = millis("game.uid.timeout")
   val GameHubTimeout = millis("game.hub.timeout")
