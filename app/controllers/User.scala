@@ -3,6 +3,8 @@ package controllers
 import lila._
 import views._
 import security.Permission
+import user.GameFilter
+import http.Context
 
 import play.api._
 import play.api.mvc._
@@ -24,18 +26,20 @@ object User extends LilaController {
         env.user.userInfo(u, ctx) map { info ⇒
           val filters = user.GameFilterMenu(info, ctx.me)
           val filter = filters(filterName)
-          val games = gamePaginator.userAll(u, page)
-          (u.some == ctx.me).fold(
-            html.user.home(u = u, info = info, games = games, filters = filters, filter = filter),
-            html.user.show(u = u, info = info, games = games, filters = filters, filter = filter)
-          )
+          html.user.show(u, info,
+            games = gamePaginator(filterPaginator(u, filter))(page),
+            filters = filters,
+            filter = filter)
         },
         io(html.user.disabled(u)))
     }
   }
 
-  def showTemplate(user: User, me: Option[User]) =
-    (user.some == me).fold(html.user.show, html.user.home)
+  def filterPaginator(user: User, filter: GameFilter)(implicit ctx: Context) =
+    filter match {
+      case GameFilter.All ⇒ gamePaginator.userAdapter(user)
+      case GameFilter.Me  ⇒ gamePaginator.opponentsAdapter(user, ctx.me | user)
+    }
 
   def list(page: Int) = Open { implicit ctx ⇒
     IOk(onlineUsers map { html.user.list(paginator elo page, _) })

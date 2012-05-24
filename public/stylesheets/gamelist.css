@@ -29,7 +29,7 @@ div.game_row {
     border-bottom: 1px solid #eaeaea;
     position: relative;
 }
-div.game_row:nth-child(even) {
+div.game_row:nth-child(odd) {
     background: #f4f4f4;
 }
 div.game_row div.infos span.win {

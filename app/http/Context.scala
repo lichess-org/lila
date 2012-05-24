@@ -14,6 +14,8 @@ sealed abstract class Context(val req: RequestHeader, val me: Option[User]) {
 
   def isGranted(permission: Permission): Boolean =
     me.fold(Granter(permission), false)
+
+  def is(user: User) = me == Some(user)
 }
 
 final class BodyContext(val body: Request[_], m: Option[User]) 

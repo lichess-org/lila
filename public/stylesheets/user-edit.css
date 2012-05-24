@@ -1,0 +1,23 @@
+div.editable span {
+    width: 290px;
+    padding: 5px;
+    border: 1px solid #88aaff;
+    cursor: pointer;
+    display: block;
+    margin-bottom: 1em;
+}
+div.editable span:hover {
+    background: #dfefff;
+}
+
+div.editable form {
+    margin-bottom: 1em;
+}
+div.editable textarea {
+    width: 290px;
+    padding: 5px;
+    height: 7em;
+}
+div.editable input {
+    margin-right: 5px;
+}

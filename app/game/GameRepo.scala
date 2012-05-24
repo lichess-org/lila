@@ -130,10 +130,9 @@ class GameRepo(collection: MongoCollection)
   }
 
   def candidatesToAutofinish: IO[List[DbGame]] = io {
-    find(
+    find(startedQuery ++
       ("clock.l" $exists true) ++
-        ("status" -> Status.Started.id) ++
-        ("updatedAt" $lt (DateTime.now - 2.hour))
+      ("updatedAt" $lt (DateTime.now - 2.hour))
     ).toList.map(_.decode).flatten
   }
 
@@ -173,8 +172,10 @@ class GameRepo(collection: MongoCollection)
   def opponentsQuery(user1: User, user2: User) =
     "userIds" $all List(user1.id.toString, user2.id.toString)
 
+  val startedQuery = ("status" $gte Status.Started.id)
+
   def recentGames(limit: Int): IO[List[DbGame]] = io {
-    find(DBObject("status" -> Status.Started.id))
+    find(startedQuery)
       .sort(DBObject("updatedAt" -> -1))
       .limit(limit)
       .toList.map(_.decode).flatten sortBy (_.id)
