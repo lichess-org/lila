@@ -117,10 +117,37 @@
       container : container
     });
 
-    app.hubs = new SpeedOMeter({
+    app.game = new SpeedOMeter({
       name : "GAME",
       maxVal : 300,
       threshold: 1,
+      container : container
+    });
+
+    app.dbMemory = new SpeedOMeter({
+      name : "DB MEMORY",
+      maxVal : 3000,
+      threshold: 0.8,
+      container : container
+    });
+
+    app.dbConn = new SpeedOMeter({
+      name : "DB CONN",
+      maxVal : 300,
+      threshold: 0.8,
+      container : container
+    });
+
+    app.dbQps = new SpeedOMeter({
+      name : "DB QPS",
+      maxVal : 500,
+      threshold: 0.8,
+      container : container
+    });
+
+    app.dbLock = new SpeedOMeter({
+      name : "DB LOCK",
+      maxVal : 2,
       container : container
     });
 

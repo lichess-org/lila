@@ -13,9 +13,12 @@ import play.api.libs.concurrent._
 import play.api.Play.current
 import scala.io.Source
 import java.lang.management.ManagementFactory
+import com.mongodb.casbah.MongoDB
 
 final class Reporting(
-  rpsProvider: RpsProvider) extends Actor {
+  rpsProvider: RpsProvider,
+  mongodb: MongoDB
+) extends Actor {
 
   case class SiteSocket(nbMembers: Int)
   case class LobbySocket(nbMembers: Int)
@@ -32,6 +35,7 @@ final class Reporting(
   var game = GameSocket(0, 0)
   var rps = 0
   var cpu = 0
+  var mongoStatus = MongoStatus.default
   var remoteAi = false
 
   var displays = 0
@@ -77,6 +81,7 @@ final class Reporting(
           site = SiteSocket(siteMembers)
           lobby = LobbySocket(lobbyMembers)
           game = GameSocket(gameHubs, gameMembers)
+          mongoStatus = MongoStatus(mongodb)(mongoStatus)
           nbGames = all
           nbPlaying = playing
           loadAvg = osStats.getSystemLoadAverage.toFloat
@@ -125,17 +130,18 @@ final class Reporting(
 
   private def monitorData = List(
     "users" -> allMembers,
-    "site" -> site.nbMembers,
     "lobby" -> lobby.nbMembers,
-    "games" -> game.nbMembers,
-    "hubs" -> game.nbHubs,
-    "recent" -> nbPlaying,
+    "game" -> game.nbMembers,
     "lat" -> latency,
     "thread" -> nbThreads,
     "cpu" -> cpu,
     "load" -> loadAvg,
     "memory" -> memory,
-    "rps" -> rps
+    "rps" -> rps,
+    "dbMemory" -> mongoStatus.memory,
+    "dbConn" -> mongoStatus.connection,
+    "dbQps" -> mongoStatus.qps,
+    "dbLock" -> math.round(mongoStatus.lock * 10) / 10d
   ) map {
       case (name, value) ⇒ value + ":" + name
     }

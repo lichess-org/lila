@@ -79,6 +79,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
 
   lazy val monitor = new lila.monitor.MonitorEnv(
     app = app,
+    mongodb = mongodb,
     settings = settings)
 
   lazy val preloader = new Preload(
