@@ -94,6 +94,29 @@ class UserRepo(
       .flatten
   }
 
+  def toggleMute(username: String): IO[Unit] = updateIO(username) { user ⇒
+    $set("isChatBan" -> !user.isChatBan)
+  }
+
+  def toggleEngine(username: String): IO[Unit] = updateIO(username) { user ⇒
+    $set("engine" -> !user.engine)
+  }
+
+  def setBio(user: User, bio: String) = updateIO(user)($set("bio" -> bio))
+
+  def enable(user: User) = updateIO(user)($set("enabled" -> true))
+
+  def disable(user: User) = updateIO(user)($set("enabled" -> false))
+
+  def updateIO(username: String)(op: User ⇒ DBObject): IO[Unit] = for {
+    userOption ← byUsername(username)
+    _ ← userOption.fold(user ⇒ updateIO(user)(op(user)), io())
+  } yield ()
+
+  def updateIO(user: User)(obj: DBObject): IO[Unit] = io {
+    update(idSelector(user), obj)
+  }
+
   private def idSelector(user: User) = DBObject("_id" -> user.id)
 
   private def idSelector(id: ObjectId) = DBObject("_id" -> id)

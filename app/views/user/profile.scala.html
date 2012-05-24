@@ -1,4 +1,6 @@
-@(u: User, info: lila.user.UserInfo, title: String, bio: Html)(implicit ctx: Context)
+@(u: User, info: lila.user.UserInfo, games: Paginator[DbGame], bio: Html, actions: Html, filters: lila.user.GameFilterMenu, filter: lila.user.GameFilter)(implicit ctx: Context)
+
+@title = @{ "%s %s - page %d".format(u.username, filterTitle(info, filter), games.currentPage) }
 
 @evenMoreJs = {
 <script src="http://www.google.com/jsapi"></script>
@@ -25,7 +27,7 @@ evenMoreJs = evenMoreJs) {
     }
   </div>
   <div class="content_box_content clearfix">
-    @if(u.hasRole("ROLE_ADMIN")) {
+    @if(isGranted(Permission.Admin, u)) {
     <div class="staff">STAFF</div>
     }
     @info.eloChart.map { eloChart =>
@@ -41,10 +43,26 @@ evenMoreJs = evenMoreJs) {
       @e._1.capitalize: <strong>@showNumber(e._2)</strong>
       }
     </div>
+    }
     <div class="stats">
       @info.winChart.map { winChart =>
       <div class="win_stats" title="@trans.gamesPlayed(): @u.nbGames" data-columns="@winChart.columns" data-rows="@winChart.rows(trans)"></div>
       }
+      @actions
     </div>
-      }
-      }
+  </div>
+  @if(u.hasGames) {
+  <div class="content_box_inter clearfix">
+    @filters.list.map { f =>
+    <a @(filter == f).fold("class='active' ", "")href="@routes.User.showFilter(u.username, f.name)">
+      @filterTitle(info, f)
+    </a>
+    }
+  </div>
+  <div class="games infinitescroll all_games">
+    <div class="pager"><a href="@routes.User.showFilter(u.username, filter.name, games.nextPage | 1)">Next</a></div>
+    @game.widgets(games.currentPageResults, u.some)
+  </div>
+  }
+</div>
+}

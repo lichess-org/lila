@@ -2,7 +2,7 @@ package controllers
 
 import lila._
 import user.{ User ⇒ UserModel }
-import security.{ AuthConfigImpl }
+import security.{ AuthConfigImpl, Permission }
 import http.{ Context, BodyContext, HttpEnvironment }
 import core.Global
 
@@ -45,6 +45,33 @@ trait LilaController
 
   def OpenBody[A](p: BodyParser[A])(f: BodyContext ⇒ Result): Action[A] =
     Action(p)(req ⇒ f(reqToCtx(req)))
+
+  def Auth(f: Context ⇒ User ⇒ Result): Action[AnyContent] =
+    Auth(BodyParsers.parse.anyContent)(f)
+
+  def Auth[A](p: BodyParser[A])(f: Context ⇒ User ⇒ Result): Action[A] =
+    Action(p)(req ⇒ {
+      val ctx = reqToCtx(req)
+      ctx.me.fold(me ⇒ f(ctx)(me), authenticationFailed(ctx.req))
+    })
+
+  def AuthBody(f: BodyContext ⇒ User ⇒ Result): Action[AnyContent] =
+    AuthBody(BodyParsers.parse.anyContent)(f)
+
+  def AuthBody[A](p: BodyParser[A])(f: BodyContext ⇒ User ⇒ Result): Action[A] =
+    Action(p)(req ⇒ {
+      val ctx = reqToCtx(req)
+      ctx.me.fold(me ⇒ f(ctx)(me), authenticationFailed(ctx.req))
+    })
+
+  def Secure(perm: Permission)(f: Context ⇒ User ⇒ Result): Action[AnyContent] =
+    Secure(BodyParsers.parse.anyContent)(perm)(f)
+
+  def Secure[A](p: BodyParser[A])(perm: Permission)(f: Context ⇒ User ⇒ Result): Action[A] =
+    Auth(p) { ctx ⇒
+      me ⇒
+        ctx.isGranted(perm).fold(f(ctx)(me), authorizationFailed(ctx.req))
+    }
 
   def JsonOk(map: Map[String, Any]) = Ok(toJson(map)) as JSON
 
@@ -132,6 +159,11 @@ trait LilaController
     Writeable[Int](i ⇒ Codec toUTF8 i.toString)
   implicit def ctoInt: ContentTypeOf[Int] =
     ContentTypeOf[Int](Some(ContentTypes.TEXT))
+
+  implicit def wOptionString: Writeable[Option[String]] =
+    Writeable[Option[String]](i ⇒ Codec toUTF8 i.getOrElse(""))
+  implicit def ctoOptionString: ContentTypeOf[Option[String]] =
+    ContentTypeOf[Option[String]](Some(ContentTypes.TEXT))
 
   implicit def richForm[A](form: Form[A]) = new {
     def toValid: Valid[A] = form.fold(

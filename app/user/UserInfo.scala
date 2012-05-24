@@ -8,15 +8,15 @@ import http.Context
 import scalaz.effects._
 
 case class UserInfo(
-    user: User,
-    rank: Option[(Int, Int)],
-    nbWin: Int,
-    nbDraw: Int,
-    nbLoss: Int,
-    eloWithMe: Option[List[(String, Int)]],
-    eloChart: Option[EloChart],
-    winChart: Option[WinChart]) {
-}
+  user: User,
+  rank: Option[(Int, Int)],
+  nbWin: Int,
+  nbDraw: Int,
+  nbLoss: Int,
+  nbWithMe: Option[Int],
+  eloWithMe: Option[List[(String, Int)]],
+  eloChart: Option[EloChart],
+  winChart: Option[WinChart])
 
 object UserInfo {
 
@@ -37,6 +37,10 @@ object UserInfo {
     nbWin ← gameRepo countWinBy user
     nbDraw ← gameRepo countDrawBy user
     nbLoss ← gameRepo countLossBy user
+    nbWithMe ← ctx.me.filter(user!=).fold(
+      me ⇒ gameRepo.countOpponents(user, me) map (_.some),
+      io(none)
+    )
     eloChart ← eloChartBuilder(user)
     winChart = (user.nbGames > 0) option {
       new WinChart(nbWin, nbDraw, nbLoss)
@@ -53,6 +57,7 @@ object UserInfo {
     nbWin = nbWin,
     nbDraw = nbDraw,
     nbLoss = nbLoss,
+    nbWithMe = nbWithMe,
     eloWithMe = eloWithMe,
     eloChart = eloChart,
     winChart = winChart)

@@ -1,0 +1,11 @@
+@(info: lila.user.UserInfo, filter: lila.user.GameFilter)(implicit ctx: Context)
+
+@filter match {
+case lila.user.GameFilter.All => {
+@info.user.nbGames @trans.gamesPlayed()
+}
+case lila.user.GameFilter.Me => {
+@ctx.me.fold(me => "%d vs %s".format(info.nbWithMe | 0, me.username), "-")
+}
+}
+

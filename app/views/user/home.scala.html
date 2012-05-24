@@ -1,0 +1,23 @@
+@(u: User, info: lila.user.UserInfo, games: Paginator[DbGame], filters: lila.user.GameFilterMenu, filter: lila.user.GameFilter)(implicit ctx: Context)
+
+@bio = {
+<div class="editable" data-url="@routes.User.setBio">
+  <span class="user_bio" data-name="bio" data-type="textarea" data-provider-url="@routes.User.getBio">
+    @shorten(u.bio | "Click here to tell about yourself.", 400)
+  </span>
+</div>
+}
+
+@actions = {
+<br />
+<a class="small" href="@routes.User.close">Close your account</a>
+}
+
+@user.profile(
+u = u,
+info = info,
+games = games,
+bio = bio,
+actions = actions,
+filters = filters,
+filter = filter)

@@ -8,7 +8,7 @@ import scalaz.effects._
 case class TransJsDump(
     path: File,
     pool: I18nPool,
-    keys: I18nKeys) extends Command {
+    keys: I18nKeys) {
 
   val messages = List(
     keys.unlimited,

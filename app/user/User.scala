@@ -27,9 +27,9 @@ case class User(
 
   def setting(name: String): Option[Any] = settings get name
 
-  def hasRole(name: String) = roles contains name
-
   def nonEmptyBio = bio filter ("" !=)
+
+  def hasGames = nbGames > 0
 }
 
 object User {

@@ -2,6 +2,7 @@ package controllers
 
 import lila._
 import views._
+import security.Permission
 
 import play.api._
 import play.api.mvc._
@@ -13,22 +14,28 @@ object User extends LilaController {
   def userRepo = env.user.userRepo
   def paginator = env.user.paginator
   def gamePaginator = env.game.paginator
+  def forms = user.DataForm
 
-  def show(username: String) = showMode(username, "all", 1)
+  def show(username: String) = showFilter(username, "all", 1)
 
-  def showMode(username: String, mode: String, page: Int) = Open { implicit ctx ⇒
-    IOptionIOk(userRepo byUsername username) { user ⇒
-      user.enabled.fold(
-        env.user.userInfo(user, ctx) map { info ⇒
-          html.user.show(
-            u = user,
-            info = info,
-            mode = mode,
-            games = gamePaginator.userAll(user, page))
+  def showFilter(username: String, filterName: String, page: Int) = Open { implicit ctx ⇒
+    IOptionIOk(userRepo byUsername username) { u ⇒
+      u.enabled.fold(
+        env.user.userInfo(u, ctx) map { info ⇒
+          val filters = user.GameFilterMenu(info, ctx.me)
+          val filter = filters(filterName)
+          val games = gamePaginator.userAll(u, page)
+          (u.some == ctx.me).fold(
+            html.user.home(u = u, info = info, games = games, filters = filters, filter = filter),
+            html.user.show(u = u, info = info, games = games, filters = filters, filter = filter)
+          )
         },
-        io(html.user.disabled(user)))
+        io(html.user.disabled(u)))
     }
   }
+
+  def showTemplate(user: User, me: Option[User]) =
+    (user.some == me).fold(html.user.show, html.user.home)
 
   def list(page: Int) = Open { implicit ctx ⇒
     IOk(onlineUsers map { html.user.list(paginator elo page, _) })
@@ -43,6 +50,43 @@ object User extends LilaController {
       term ⇒ JsonOk((userRepo usernamesLike term).unsafePerformIO),
       BadRequest("No search term provided")
     )
+  }
+
+  val getBio = Auth { ctx ⇒ me ⇒ Ok(me.bio) }
+
+  val setBio = AuthBody { ctx ⇒
+    me ⇒
+      implicit val req = ctx.body
+      IORedirect(forms.bio.bindFromRequest.fold(
+        f ⇒ putStrLn(f.errors.toString) map { _ ⇒ routes.User show me.username },
+        bio ⇒ userRepo.setBio(me, bio) map { _ ⇒ routes.User show me.username }
+      ))
+  }
+
+  val close = Auth { implicit ctx ⇒
+    me ⇒
+      Ok(html.user.close(me))
+  }
+
+  val closeConfirm = Auth { ctx ⇒
+    me ⇒
+      IORedirect {
+        userRepo disable me map { _ ⇒ routes.User show me.username }
+      }
+  }
+
+  def engine(username: String) = Secure(Permission.MarkEngine) { _ ⇒
+    _ ⇒
+      IORedirect {
+        userRepo toggleEngine username map { _ ⇒ routes.User show username }
+      }
+  }
+
+  def mute(username: String) = Secure(Permission.MutePlayer) { _ ⇒
+    _ ⇒
+      IORedirect {
+        userRepo toggleMute username map { _ ⇒ routes.User show username }
+      }
   }
 
   val signUp = TODO

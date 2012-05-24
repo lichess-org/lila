@@ -35,20 +35,26 @@ trait AuthConfigImpl extends AuthConfig {
   def resolveUser(id: Id): Option[User] = 
     (env.user.userRepo byUsername id).unsafePerformIO
 
-  def logoutSucceeded[A](request: Request[A]): PlainResult = 
+  def logoutSucceeded[A](req: Request[A]): PlainResult = 
     Redirect(routes.Lobby.home)
 
-  def authenticationFailed[A](request: Request[A]): PlainResult = 
-    Redirect(routes.Lobby.home).withSession("access_uri" -> request.uri)
+  def authenticationFailed(req: RequestHeader): PlainResult = 
+    Redirect(routes.Lobby.home).withSession("access_uri" -> req.uri)
 
-  def loginSucceeded[A](request: Request[A]): PlainResult = {
-    val uri = request.session.get("access_uri").getOrElse(routes.Lobby.home.url)
-    request.session - "access_uri"
+  def authenticationFailed[A](req: Request[A]): PlainResult = 
+    authenticationFailed(req)
+
+  def loginSucceeded[A](req: Request[A]): PlainResult = {
+    val uri = req.session.get("access_uri").getOrElse(routes.Lobby.home.url)
+    req.session - "access_uri"
     Redirect(uri)
   }
 
-  def authorizationFailed[A](request: Request[A]): PlainResult = 
+  def authorizationFailed(req: RequestHeader): PlainResult = 
     Forbidden("no permission")
+
+  def authorizationFailed[A](req: Request[A]): PlainResult = 
+    authorizationFailed(req)
 
   def authorize(user: User, authority: Authority): Boolean = 
     Permission(user.roles) contains authority

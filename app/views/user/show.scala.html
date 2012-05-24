@@ -1,6 +1,4 @@
-@(u: User, info: lila.user.UserInfo, mode: String, games: Paginator[DbGame])(implicit ctx: Context)
-
-@title = @{ "%s %s - page %d".format(u.username, mode, games.currentPage) }
+@(u: User, info: lila.user.UserInfo, games: Paginator[DbGame], filters: lila.user.GameFilterMenu, filter: lila.user.GameFilter)(implicit ctx: Context)
 
 @bio = {
 @u.nonEmptyBio.map { bio =>
@@ -8,8 +6,24 @@
 }
 }
 
+@actions = {
+@if(isGranted(Permission.MarkEngine)) {
+<form method="post" action="@routes.User.engine(u.username)">
+  <input class="confirm" type="submit" value="Mark as engine" />
+</form>
+}
+@if(isGranted(Permission.MutePlayer)) {
+<form method="post" action="@routes.User.mute(u.username)">
+  <input class="confirm" type="submit" value="@u.isChatBan.fold("Unmute", "Mute")" />
+</form>
+}
+}
+
 @user.profile(
 u = u,
 info = info,
-title = title,
-bio = bio) 
+games = games,
+bio = bio,
+actions = actions,
+filters = filters,
+filter = filter)

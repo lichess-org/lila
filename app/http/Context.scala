@@ -2,6 +2,7 @@ package lila
 package http
 
 import user.User
+import security.{ Permission, Granter }
 
 import play.api.mvc.{ Request, RequestHeader }
 
@@ -10,6 +11,9 @@ sealed abstract class Context(val req: RequestHeader, val me: Option[User]) {
   def isAuth = me.isDefined
 
   def canSeeChat = me.fold(m ⇒ !m.isChatBan, false)
+
+  def isGranted(permission: Permission): Boolean =
+    me.fold(Granter(permission), false)
 }
 
 final class BodyContext(val body: Request[_], m: Option[User]) 

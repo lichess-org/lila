@@ -153,18 +153,25 @@ class GameRepo(collection: MongoCollection)
 
   def countDrawBy(user: User): IO[Int] = io {
     count(
-      ("status" $in List(Status.Draw.id, Status.Stalemate.id)) ++ 
-      ("userIds" -> user.id.toString)
+      ("status" $in List(Status.Draw.id, Status.Stalemate.id)) ++
+        ("userIds" -> user.id.toString)
     ).toInt
   }
 
   def countLossBy(user: User): IO[Int] = io {
     count(
-      ("status" $in List(Status.Mate.id, Status.Resign.id, Status.Outoftime.id, Status.Timeout.id)) ++ 
-      ("userIds" -> user.id.toString) ++
-      ("winnerUserId" $ne user.id.toString)
+      ("status" $in List(Status.Mate.id, Status.Resign.id, Status.Outoftime.id, Status.Timeout.id)) ++
+        ("userIds" -> user.id.toString) ++
+        ("winnerUserId" $ne user.id.toString)
     ).toInt
   }
+
+  def countOpponents(user1: User, user2: User): IO[Int] = io {
+    count(opponentsQuery(user1, user2)).toInt
+  }
+
+  def opponentsQuery(user1: User, user2: User) =
+    "userIds" $all List(user1.id.toString, user2.id.toString)
 
   def recentGames(limit: Int): IO[List[DbGame]] = io {
     find(DBObject("status" -> Status.Started.id))
