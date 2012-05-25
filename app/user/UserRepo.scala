@@ -45,12 +45,6 @@ class UserRepo(
       $set("elo" -> elo))
   }
 
-  def setEngine(userId: ObjectId): IO[Unit] = io {
-    collection.update(
-      idSelector(userId),
-      $set("engine" -> true))
-  }
-
   def incNbGames(userId: String, rated: Boolean): IO[Unit] = io {
     collection.update(
       DBObject("_id" -> new ObjectId(userId)),
@@ -101,6 +95,8 @@ class UserRepo(
   def toggleEngine(username: String): IO[Unit] = updateIO(username) { user ⇒
     $set("engine" -> !user.engine)
   }
+
+  def setEngine(user: User): IO[Unit] = updateIO(user)($set("engine" -> true))
 
   def setBio(user: User, bio: String) = updateIO(user)($set("bio" -> bio))
 

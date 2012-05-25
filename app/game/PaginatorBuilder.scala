@@ -20,11 +20,8 @@ final class PaginatorBuilder(
   def apply(adapter: Adapter[DbGame])(page: Int): Paginator[DbGame] =
     paginator(adapter, page)
 
-  def userAdapter(user: User) =
-    adapter(gameRepo.startedQuery ++ ("userIds" -> user.id.toString))
-
-  def opponentsAdapter(u1: User, u2: User) =
-    adapter(gameRepo.startedQuery ++ gameRepo.opponentsQuery(u1, u2))
+  def apply(query: DBObject)(page: Int): Paginator[DbGame] = 
+    apply(adapter(query))(page)
 
   private val recentAdapter = 
     adapter(DBObject())

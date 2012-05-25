@@ -48,14 +48,14 @@ class GameRepo(collection: MongoCollection)
   def pov(ref: PovRef): IO[Option[Pov]] = pov(ref.gameId, ref.color)
 
   def save(game: DbGame): IO[Unit] = io {
-    update(DBObject("_id" -> game.id), _grater asDBObject game.encode)
+    update(idSelector(game), _grater asDBObject game.encode)
   }
 
   def save(progress: Progress): IO[Unit] =
     new GameDiff(progress.origin.encode, progress.game.encode)() |> { diffs ⇒
       if (diffs.nonEmpty) {
         val fullDiffs = ("updatedAt" -> new Date()) :: diffs
-        io { update(DBObject("_id" -> progress.origin.id), $set(fullDiffs: _*)) }
+        io { update(idSelector(progress.origin), $set(fullDiffs: _*)) }
       }
       else io()
     }
@@ -67,23 +67,17 @@ class GameRepo(collection: MongoCollection)
   // makes the asumption that player 0 is white!
   // proved to be true on prod DB at March 31 2012
   def setEloDiffs(id: String, white: Int, black: Int) = io {
-    update(
-      DBObject("_id" -> id),
-      $set("players.0.eloDiff" -> white, "players.1.eloDiff" -> black)
-    )
+    update(idSelector(id), $set("players.0.eloDiff" -> white, "players.1.eloDiff" -> black))
   }
 
   def setUser(id: String, color: Color, dbRef: DBRef, elo: Int) = io {
-    val playerName = "players.%d".format(color.fold(0, 1))
-    update(
-      DBObject("_id" -> id),
-      $set(playerName + ".user" -> dbRef, playerName + ".elo" -> elo)
-    )
+    val pn = "players.%d".format(color.fold(0, 1))
+    update(idSelector(id), $set(pn + ".user" -> dbRef, pn + ".elo" -> elo))
   }
 
   def finish(id: String, winnerId: Option[String]) = io {
     update(
-      DBObject("_id" -> id),
+      idSelector(id),
       winnerId.fold(userId ⇒
         $set("positionHashes" -> "", "winnerUserId" -> userId),
         $set("positionHashes" -> ""))
@@ -110,15 +104,12 @@ class GameRepo(collection: MongoCollection)
       .toList.map(_.decode).flatten.headOption
   }
 
-  def saveInitialFen(dbGame: DbGame): IO[Unit] = io {
-    update(
-      DBObject("_id" -> dbGame.id),
-      $set("initialFen" -> (Forsyth >> dbGame.toChess))
-    )
+  def saveInitialFen(game: DbGame): IO[Unit] = io {
+    update(idSelector(game), $set("initialFen" -> (Forsyth >> game.toChess)))
   }
 
   def initialFen(gameId: String): IO[Option[String]] = io {
-    primitiveProjection[String](DBObject("_id" -> gameId), "initialFen")
+    primitiveProjection[String](idSelector(gameId), "initialFen")
   }
 
   def cleanupUnplayed: IO[Unit] = io {
@@ -126,56 +117,24 @@ class GameRepo(collection: MongoCollection)
   }
 
   def remove(gameId: String): IO[Unit] = io {
-    remove(DBObject("_id" -> gameId))
+    remove(idSelector(gameId))
   }
 
   def candidatesToAutofinish: IO[List[DbGame]] = io {
-    find(startedQuery ++
-      ("clock.l" $exists true) ++
+    find(Query.started ++
+      Query.clock(true) ++
       ("updatedAt" $lt (DateTime.now - 2.hour))
     ).toList.map(_.decode).flatten
   }
 
-  val countAll: IO[Int] = io { count().toInt }
-
-  val countPlaying: IO[Int] = io {
-    count("updatedAt" $gt (DateTime.now - 15.seconds)).toInt
+  def count(query: DBObject): IO[Int] = io {
+    super.count(query).toInt
   }
 
-  val countMate: IO[Int] = io {
-    count(DBObject("status" -> Status.Mate.id)).toInt
-  }
-
-  def countWinBy(user: User): IO[Int] = io {
-    count(DBObject("winnerUserId" -> user.id.toString)).toInt
-  }
-
-  def countDrawBy(user: User): IO[Int] = io {
-    count(
-      ("status" $in List(Status.Draw.id, Status.Stalemate.id)) ++
-        ("userIds" -> user.id.toString)
-    ).toInt
-  }
-
-  def countLossBy(user: User): IO[Int] = io {
-    count(
-      ("status" $in List(Status.Mate.id, Status.Resign.id, Status.Outoftime.id, Status.Timeout.id)) ++
-        ("userIds" -> user.id.toString) ++
-        ("winnerUserId" $ne user.id.toString)
-    ).toInt
-  }
-
-  def countOpponents(user1: User, user2: User): IO[Int] = io {
-    count(opponentsQuery(user1, user2)).toInt
-  }
-
-  def opponentsQuery(user1: User, user2: User) =
-    "userIds" $all List(user1.id.toString, user2.id.toString)
-
-  val startedQuery = ("status" $gte Status.Started.id)
+  def count(query: Query.type ⇒ DBObject): IO[Int] = count(query(Query))
 
   def recentGames(limit: Int): IO[List[DbGame]] = io {
-    find(startedQuery)
+    find(Query.started)
       .sort(DBObject("updatedAt" -> -1))
       .limit(limit)
       .toList.map(_.decode).flatten sortBy (_.id)
@@ -200,4 +159,7 @@ class GameRepo(collection: MongoCollection)
   def dropIndexes: IO[Unit] = io {
     collection.dropIndexes()
   }
+
+  private def idSelector(game: DbGame): DBObject = idSelector(game.id)
+  private def idSelector(id: String): DBObject = DBObject("_id" -> id)
 }

@@ -7,5 +7,20 @@ case lila.user.GameFilter.All => {
 case lila.user.GameFilter.Me => {
 @ctx.me.fold(me => "%d vs %s".format(info.nbWithMe | 0, me.username), "-")
 }
+case lila.user.GameFilter.Rated => {
+@info.nbRated @trans.rated()
+}
+case lila.user.GameFilter.Win => {
+@trans.nbWins(info.nbWin)
+}
+case lila.user.GameFilter.Loss => {
+@trans.nbLosses(info.nbLoss)
+}
+case lila.user.GameFilter.Draw => {
+@trans.nbDraws(info.nbDraw)
+}
+case lila.user.GameFilter.Playing => {
+@info.nbPlaying playing
+}
 }
 

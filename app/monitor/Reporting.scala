@@ -67,8 +67,8 @@ final class Reporting(
         (env.lobby.hub ? GetNbMembers).mapTo[Int],
         (env.round.hubMaster ? GetNbHubs).mapTo[Int],
         (env.round.hubMaster ? GetNbMembers).mapTo[Int],
-        Future(env.game.gameRepo.countAll.unsafePerformIO),
-        Future(env.game.gameRepo.countPlaying.unsafePerformIO)
+        Future(env.game.gameRepo.count(_.all).unsafePerformIO),
+        Future(env.game.gameRepo.count(_.playing).unsafePerformIO)
       )) onSuccess {
         case List(
           siteMembers,

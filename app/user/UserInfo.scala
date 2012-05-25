@@ -13,6 +13,8 @@ case class UserInfo(
   nbWin: Int,
   nbDraw: Int,
   nbLoss: Int,
+  nbRated: Int,
+  nbPlaying: Int,
   nbWithMe: Option[Int],
   eloWithMe: Option[List[(String, Int)]],
   eloChart: Option[EloChart],
@@ -34,11 +36,16 @@ object UserInfo {
         }
       },
       io(None))
-    nbWin ← gameRepo countWinBy user
-    nbDraw ← gameRepo countDrawBy user
-    nbLoss ← gameRepo countLossBy user
+    nbWin ← gameRepo count (_ win user)
+    nbDraw ← gameRepo count (_ draw user)
+    nbLoss ← gameRepo count (_ loss user)
+    nbRated ← gameRepo count (_ rated user)
+    nbPlaying ← (ctx is user).fold(
+      gameRepo count (_.playing(user)) map (_.some),
+      io(none)
+    )
     nbWithMe ← ctx.me.filter(user!=).fold(
-      me ⇒ gameRepo.countOpponents(user, me) map (_.some),
+      me ⇒ gameRepo count (_.opponents(user, me)) map (_.some),
       io(none)
     )
     eloChart ← eloChartBuilder(user)
@@ -57,6 +64,8 @@ object UserInfo {
     nbWin = nbWin,
     nbDraw = nbDraw,
     nbLoss = nbLoss,
+    nbRated = nbRated,
+    nbPlaying = nbPlaying | 0,
     nbWithMe = nbWithMe,
     eloWithMe = eloWithMe,
     eloChart = eloChart,

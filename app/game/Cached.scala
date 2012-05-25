@@ -10,8 +10,8 @@ final class Cached(
   import Cached._
 
   private val nbCache = Builder.cache[Key, Int](nbTtl, {
-    case NbGames ⇒ gameRepo.countAll.unsafePerformIO
-    case NbMates ⇒ gameRepo.countMate.unsafePerformIO
+    case NbGames ⇒ gameRepo.count(_.all).unsafePerformIO
+    case NbMates ⇒ gameRepo.count(_.mate).unsafePerformIO
   })
 
   def nbGames: Int = nbCache get NbGames

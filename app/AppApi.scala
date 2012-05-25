@@ -1,30 +1,30 @@
-package lila
+//package lila
 
-import user._
-import game.{ GameRepo, DbGame }
-import chess.{ Color, White, Black }
-import round.{ IsConnectedOnGame, GetGameVersion, RoomRepo, Progress, Event }
-import analyse.GameInfo
+//import user._
+//import game.{ GameRepo, DbGame }
+//import chess.{ Color, White, Black }
+//import round.{ IsConnectedOnGame, GetGameVersion, RoomRepo, Progress, Event }
+//import analyse.GameInfo
 
-import scalaz.effects._
-import akka.actor._
-import akka.pattern.ask
-import akka.dispatch.{ Future, Promise }
-import akka.util.duration._
-import akka.util.Timeout
-import play.api.libs.concurrent._
-import play.api.Play.current
+//import scalaz.effects._
+//import akka.actor._
+//import akka.pattern.ask
+//import akka.dispatch.{ Future, Promise }
+//import akka.util.duration._
+//import akka.util.Timeout
+//import play.api.libs.concurrent._
+//import play.api.Play.current
 
-final class AppApi(
-    userRepo: UserRepo,
-    gameRepo: GameRepo,
-    roundSocket: round.Socket,
-    messenger: round.Messenger,
-    eloUpdater: EloUpdater,
-    gameInfo: DbGame ⇒ IO[GameInfo]) {
+//final class AppApi(
+    //userRepo: UserRepo,
+    //gameRepo: GameRepo,
+    //roundSocket: round.Socket,
+    //messenger: round.Messenger,
+    //eloUpdater: EloUpdater,
+    //gameInfo: DbGame ⇒ IO[GameInfo]) {
 
-  private implicit val timeout = Timeout(300 millis)
-  private implicit val executor = Akka.system.dispatcher
+  //private implicit val timeout = Timeout(300 millis)
+  //private implicit val executor = Akka.system.dispatcher
 
   //def show(fullId: String): Future[IO[Valid[Map[String, Any]]]] =
     //futureVersion(DbGame takeGameId fullId) map { version ⇒
@@ -129,19 +129,6 @@ final class AppApi(
     //)
   //} yield result
 
-  def adjust(username: String): IO[Unit] = for {
-    userOption ← userRepo byUsername username
-    _ ← userOption.fold(
-      user ⇒ for {
-        _ ← (user.elo > User.STARTING_ELO).fold(
-          eloUpdater.adjust(user, User.STARTING_ELO), io()
-        )
-        _ ← userRepo setEngine user.id
-      } yield (),
-      io()
-    )
-  } yield ()
-
   //private def futureVersion(gameId: String): Future[Int] =
     //roundSocket.hubMaster ? GetGameVersion(gameId) mapTo manifest[Int]
-}
+//}

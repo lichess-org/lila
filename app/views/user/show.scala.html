@@ -1,6 +1,6 @@
-@(u: User, info: lila.user.UserInfo, games: Paginator[DbGame], filters: lila.user.GameFilterMenu, filter: lila.user.GameFilter)(implicit ctx: Context)
+@(u: User, info: lila.user.UserInfo, games: Paginator[DbGame], filters: lila.user.GameFilterMenu)(implicit ctx: Context)
 
-@title = @{ "%s : %s - page %d".format(u.username, filterTitle(info, filter), games.currentPage) }
+@title = @{ "%s : %s - page %d".format(u.username, filterTitle(info, filters.current), games.currentPage) }
 
 @evenMoreJs = {
 <script src="http://www.google.com/jsapi"></script>
@@ -96,13 +96,13 @@ evenMoreJs = evenMoreJs) {
   @if(u.hasGames) {
   <div class="content_box_inter clearfix">
     @filters.list.map { f =>
-    <a @{ (filter == f).fold("class='active'", "") } href="@routes.User.showFilter(u.username, f.name)">
+    <a @{ (filters.current == f).fold("class='active'", "") } href="@routes.User.showFilter(u.username, f.name)">
       @filterTitle(info, f)
     </a>
     }
   </div>
   <div class="games infinitescroll all_games">
-    <div class="pager none"><a href="@routes.User.showFilter(u.username, filter.name, games.nextPage | 1)">Next</a></div>
+    <div class="pager none"><a href="@routes.User.showFilter(u.username, filters.current.name, games.nextPage | 1)">Next</a></div>
     @game.widgets(games.currentPageResults, u.some)
   </div>
   }

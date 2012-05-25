@@ -30,6 +30,8 @@ case class User(
   def nonEmptyBio = bio filter ("" !=)
 
   def hasGames = nbGames > 0
+
+  def idString = id.toString
 }
 
 object User {

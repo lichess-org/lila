@@ -3,7 +3,7 @@ package controllers
 import lila._
 import views._
 import security.Permission
-import user.GameFilter
+import user.{ GameFilter, User ⇒ UserModel }
 import http.Context
 
 import play.api._
@@ -17,6 +17,7 @@ object User extends LilaController {
   def paginator = env.user.paginator
   def gamePaginator = env.game.paginator
   def forms = user.DataForm
+  def eloUpdater = env.user.eloUpdater
 
   def show(username: String) = showFilter(username, "all", 1)
 
@@ -24,22 +25,14 @@ object User extends LilaController {
     IOptionIOk(userRepo byUsername username) { u ⇒
       u.enabled.fold(
         env.user.userInfo(u, ctx) map { info ⇒
-          val filters = user.GameFilterMenu(info, ctx.me)
-          val filter = filters(filterName)
+          val filters = user.GameFilterMenu(info, ctx.me, filterName)
           html.user.show(u, info,
-            games = gamePaginator(filterPaginator(u, filter))(page),
-            filters = filters,
-            filter = filter)
+            games = gamePaginator(filters.query)(page),
+            filters = filters)
         },
         io(html.user.disabled(u)))
     }
   }
-
-  def filterPaginator(user: User, filter: GameFilter)(implicit ctx: Context) =
-    filter match {
-      case GameFilter.All ⇒ gamePaginator.userAdapter(user)
-      case GameFilter.Me  ⇒ gamePaginator.opponentsAdapter(user, ctx.me | user)
-    }
 
   def list(page: Int) = Open { implicit ctx ⇒
     IOk(onlineUsers map { html.user.list(paginator elo page, _) })
@@ -82,7 +75,14 @@ object User extends LilaController {
   def engine(username: String) = Secure(Permission.MarkEngine) { _ ⇒
     _ ⇒
       IORedirect {
-        userRepo toggleEngine username map { _ ⇒ routes.User show username }
+        for {
+          uOption ← userRepo byUsername username
+          _ ← uOption.filter(_.elo > UserModel.STARTING_ELO).fold(
+            u ⇒ eloUpdater.adjust(u, UserModel.STARTING_ELO) flatMap { _ ⇒
+              userRepo setEngine u
+            },
+            io())
+        } yield routes.User show username
       }
   }
 

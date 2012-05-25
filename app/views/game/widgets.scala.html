@@ -16,7 +16,7 @@
     @if(game.finishedOrAborted) {
     @gameEndStatus(game)
     @game.winner.map { winner =>
-    , <span class="@fromPlayer.map { p => (p == winner).fold("win", "loss") }">
+    , <span class="@{ fromPlayer.map(p => (p == winner).fold("win", "loss")) }">
       @winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
     </span>
     }
