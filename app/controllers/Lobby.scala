@@ -11,11 +11,13 @@ import play.api.libs.concurrent.Akka
 import play.api.Play.current
 import play.api.libs.json._
 import play.api.libs.iteratee._
+import scalaz.effects._
 
 object Lobby extends LilaController {
 
   def preloader = env.preloader
   def hookRepo = env.lobby.hookRepo
+  def fisherman = env.lobby.fisherman
 
   val home = Open { implicit ctx ⇒
     renderHome(none).fold(identity, Ok(_))
@@ -52,10 +54,14 @@ object Lobby extends LilaController {
       Redirect(routes.Lobby.home))
   }
 
-  def cancel(fullId: String) = TODO
-  //api.cancel(ownerId).unsafePerformIO
-  //Redirect("/")
-  //}
+  def cancel(ownerId: String) = Open { implicit ctx ⇒
+    IORedirect {
+      for {
+        hook ← hookRepo ownedHook ownerId
+        _ ← hook.fold(fisherman.delete, io())
+      } yield routes.Lobby.home
+    }
+  }
 
   def join(hookId: String) = TODO
 
