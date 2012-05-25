@@ -71,8 +71,9 @@ final class HookJoiner(
     variant = hook.realVariant)
 
   private def canJoin(hook: Hook, me: Option[User]) =
-    hook.realMode.fold(
-      true,
-      me exists { u ⇒ hook.realEloRange.fold(_ contains u.elo, true) }
-    )
+    !hook.`match` && {
+      hook.realMode.casual || (me exists { u ⇒ 
+        hook.realEloRange.fold(_ contains u.elo, true) 
+      })
+    }
 }

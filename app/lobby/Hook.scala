@@ -25,11 +25,9 @@ case class Hook(
     eloRange: String,
     engine: Boolean,
     `match`: Boolean = false,
-    game: Option[DBRef] = None) {
+    gameId: Option[String] = None) {
 
   def realColor = Color orDefault color
-
-  def gameId: Option[String] = game map (_.getId.toString)
 
   def realVariant = Variant orDefault variant
 
