@@ -1,7 +1,8 @@
 package lila
 package lobby
 
-import chess.{ Variant, Mode, Color, Clock }
+import chess.{ Variant, Mode, Clock }
+import setup.Color
 import elo.EloRange
 import user.User
 
@@ -18,12 +19,15 @@ case class Hook(
     increment: Option[Int],
     mode: Int,
     color: String,
+    userId: Option[String],
     username: String,
     elo: Option[Int],
     eloRange: String,
     engine: Boolean,
     `match`: Boolean = false,
     game: Option[DBRef] = None) {
+
+  def realColor = Color orDefault color
 
   def gameId: Option[String] = game map (_.getId.toString)
 
@@ -71,6 +75,7 @@ object Hook {
       increment = clock map (_.increment),
       mode = mode.id,
       color = color,
+      userId = user map (_.idString),
       username = user.fold(_.username, User.anonymous),
       elo = user map (_.elo),
       eloRange = eloRange.toString,

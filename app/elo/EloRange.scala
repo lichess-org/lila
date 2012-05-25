@@ -3,6 +3,8 @@ package elo
 
 case class EloRange(min: Int, max: Int) {
 
+  def contains(elo: Int) = elo >= min && elo <= max
+
   override def toString = "%d-%d".format(min, max)
 }
 
@@ -11,7 +13,8 @@ object EloRange {
   val min = 800
   val max = 2200
 
-  val default = EloRange(min, max)
+  val broad = EloRange(min, max)
+  val default = broad
 
   // ^\d{3,4}\-\d{3,4}$
   def apply(from: String): Option[EloRange] = for {
@@ -28,5 +31,5 @@ object EloRange {
 
   def valid(from: String) = apply(from).isDefined
 
-  private def acceptable(v: Int) = v >= min && v <= max
+  private def acceptable(elo: Int) = broad contains elo
 }

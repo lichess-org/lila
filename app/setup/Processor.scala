@@ -18,7 +18,7 @@ final class Processor(
     fisherman: Fisherman,
     timelinePush: DbGame ⇒ IO[Unit],
     ai: () ⇒ Ai,
-    dbRef: User ⇒ DBRef) {
+    userDbRef: User ⇒ DBRef) {
 
   def ai(config: AiConfig)(implicit ctx: Context): IO[Pov] = for {
     _ ← ctx.me.fold(
@@ -27,7 +27,7 @@ final class Processor(
     )
     pov = config.pov
     game = ctx.me.fold(
-      user ⇒ pov.game.updatePlayer(pov.color, _.withUser(user, dbRef(user))),
+      user ⇒ pov.game.updatePlayer(pov.color, _.withUser(user, userDbRef(user))),
       pov.game)
     _ ← gameRepo insert game
     _ ← game.variant.standard.fold(io(), gameRepo saveInitialFen game)
@@ -50,7 +50,7 @@ final class Processor(
     )
     pov = config.pov
     game = ctx.me.fold(
-      user ⇒ pov.game.updatePlayer(pov.color, _.withUser(user, dbRef(user))),
+      user ⇒ pov.game.updatePlayer(pov.color, _.withUser(user, userDbRef(user))),
       pov.game)
     _ ← gameRepo insert game
     _ ← game.variant.standard.fold(io(), gameRepo saveInitialFen game)

@@ -1,19 +1,18 @@
 package lila
 package lobby
 
-import com.mongodb.casbah.MongoCollection
-
 import akka.actor._
-
 import play.api.libs.concurrent._
 import play.api.Application
 import play.api.i18n.Lang
 import play.api.i18n.MessagesPlugin
+import scalaz.effects._
+import com.mongodb.casbah.MongoCollection
+import com.mongodb.DBRef
 
-import user.UserRepo
-import game.GameRepo
+import user.{ User, UserRepo }
+import game.{ GameRepo, DbGame }
 import round.{ Socket ⇒ RoundSocket, Messenger ⇒ RoundMessenger }
-import ai.Ai
 import core.Settings
 
 final class LobbyEnv(
@@ -49,14 +48,6 @@ final class LobbyEnv(
   lazy val messageRepo = new MessageRepo(
     collection = mongodb(MongoCollectionMessage),
     max = LobbyMessageMax)
-
-  //lazy val api = new Api(
-    //hookRepo = hookRepo,
-    //fisherman = fisherman,
-    //gameRepo = gameRepo,
-    //roundSocket = roundSocket,
-    //roundMessenger = roundMessenger,
-    //starter = starter)
 
   lazy val hookRepo = new HookRepo(mongodb(MongoCollectionHook))
 

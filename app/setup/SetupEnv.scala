@@ -3,7 +3,7 @@ package setup
 
 import core.Settings
 import game.{ DbGame, GameRepo }
-import lobby.Fisherman
+import lobby.{ HookRepo, Fisherman }
 import round.Messenger
 import ai.Ai
 import user.{ User, UserRepo }
@@ -16,12 +16,13 @@ final class SetupEnv(
     settings: Settings,
     mongodb: String ⇒ MongoCollection,
     gameRepo: GameRepo,
+    hookRepo: HookRepo,
     fisherman: Fisherman,
     userRepo: UserRepo,
     timelinePush: DbGame ⇒ IO[Unit],
     roundMessenger: Messenger,
     ai: () ⇒ Ai,
-    dbRef: User ⇒ DBRef) {
+    userDbRef: User ⇒ DBRef) {
 
   import settings._
 
@@ -37,7 +38,7 @@ final class SetupEnv(
     fisherman = fisherman,
     timelinePush = timelinePush,
     ai = ai,
-    dbRef = dbRef)
+    userDbRef = userDbRef)
 
   lazy val friendConfigMemo = new FriendConfigMemo(
     ttl = SetupFriendConfigMemoTtl)
@@ -48,9 +49,18 @@ final class SetupEnv(
     messenger = roundMessenger,
     timelinePush = timelinePush)
 
-  lazy val joiner = new Joiner(
+  lazy val friendJoiner = new FriendJoiner(
     gameRepo = gameRepo,
     messenger = roundMessenger,
     timelinePush = timelinePush,
-    dbRef = dbRef)
+    userDbRef = userDbRef)
+
+  lazy val hookJoiner = new HookJoiner(
+    hookRepo = hookRepo,
+    fisherman = fisherman,
+    gameRepo = gameRepo,
+    userRepo = userRepo,
+    userDbRef = userDbRef,
+    timelinePush = timelinePush,
+    messenger = roundMessenger)
 }

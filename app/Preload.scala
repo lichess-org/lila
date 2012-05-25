@@ -48,7 +48,7 @@ final class Preload(
     entries ← entryRepo.recent
   } yield Right(Map(
     "version" -> history.version,
-    "pool" -> renderHooks(hooks, myHook).pp,
+    "pool" -> renderHooks(hooks, myHook),
     "chat" -> (messages.reverse map (_.render)),
     "timeline" -> (entries.reverse map (_.render))
   ))

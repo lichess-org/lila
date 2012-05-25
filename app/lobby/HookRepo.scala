@@ -1,6 +1,8 @@
 package lila
 package lobby
 
+import game.DbGame
+
 import com.novus.salat._
 import com.novus.salat.dao._
 import com.mongodb.casbah.MongoCollection
@@ -33,8 +35,12 @@ class HookRepo(collection: MongoCollection)
     find(query) sort DBObject("createdAt" -> 1) toList
   }
 
+  def setGame(hook: Hook, game: DbGame) = io {
+    update(idSelector(hook), $set("match" -> true) ++ $set("gameId" -> game.id))
+  }
+
   def removeId(id: String): IO[Unit] = io {
-    remove(DBObject("_id" -> id))
+    remove(idSelector(id))
   }
 
   def removeOwnerId(ownerId: String): IO[Unit] = io {
@@ -50,4 +56,7 @@ class HookRepo(collection: MongoCollection)
   def cleanupOld: IO[Unit] = io {
     remove("createdAt" $lt (DateTime.now - 1.hour))
   }
+
+  private def idSelector(id: String): DBObject = DBObject("_id" -> id)
+  private def idSelector(hook: Hook): DBObject = idSelector(hook.id)
 }

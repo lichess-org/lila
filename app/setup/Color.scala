@@ -27,11 +27,13 @@ object Color {
 
   def apply(name: String): Option[Color] = all find (_.name == name)
 
+  def orDefault(name: String) = apply(name) | default
+
   val all = List(White, Black, Random)
 
   val names = all map (_.name)
 
   val choices = names zip names
 
-  val default = White
+  val default = Random
 }

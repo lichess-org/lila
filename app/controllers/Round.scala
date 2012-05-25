@@ -20,7 +20,7 @@ object Round extends LilaController {
   private val hand = env.round.hand
   private val messenger = env.round.messenger
   private val rematcher = env.setup.rematcher
-  private val joiner = env.setup.joiner
+  private val joiner = env.setup.friendJoiner
 
   def websocketWatcher(gameId: String, color: String) = WebSocket.async[JsValue] { req ⇒
     implicit val ctx = reqToCtx(req)

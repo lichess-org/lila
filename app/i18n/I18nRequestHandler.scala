@@ -14,7 +14,7 @@ final class I18nRequestHandler(pool: I18nPool) {
     else pool.domainLang(req).isDefined.fold(
       None,
       Action {
-        Redirect(redirectUrl(req).pp)
+        Redirect(redirectUrl(req))
       } some
     )
 

@@ -1,4 +1,4 @@
-@(preload: String, hookId: Option[String] = None)(implicit ctx: Context)
+@(preload: String, myHook: Option[lila.lobby.Hook])(implicit ctx: Context)
 
 @chat = {
 @ctx.me.map { m =>
@@ -25,9 +25,9 @@
     @widget.connection()
     <div class="hooks_wrap">
       <div class="hooks"
-        data-my-hook="@hookId"
+        data-my-hook="@myHook.map(_.ownerId)"
         data-cancel-url="@routes.Lobby.cancel("000000000000")"
-        data-join-url="@routes.Lobby.join("000000000000")"
+        data-join-url="@routes.Lobby.join("00000000")"
         >
         <table></table>
         <textarea class="hooks_preload" style="display: none">@Html(preload)</textarea>

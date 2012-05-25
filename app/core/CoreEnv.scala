@@ -38,12 +38,13 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     settings = settings,
     mongodb = mongodb.apply _,
     gameRepo = game.gameRepo,
+    hookRepo = lobby.hookRepo,
     fisherman = lobby.fisherman,
     userRepo = user.userRepo,
     timelinePush = timeline.push.apply,
     roundMessenger = round.messenger,
     ai = ai.ai,
-    dbRef = user.userRepo.dbRef)
+    userDbRef = user.userRepo.dbRef)
 
   lazy val timeline = new lila.timeline.TimelineEnv(
     settings = settings,

@@ -18,6 +18,7 @@ object Lobby extends LilaController {
   def preloader = env.preloader
   def hookRepo = env.lobby.hookRepo
   def fisherman = env.lobby.fisherman
+  def joiner = env.setup.hookJoiner
 
   val home = Open { implicit ctx ⇒
     renderHome(none).fold(identity, Ok(_))
@@ -35,7 +36,7 @@ object Lobby extends LilaController {
     myHook = myHook
   ).unsafePerformIO.bimap(
       url ⇒ Redirect(url),
-      preload ⇒ html.lobby.home(toJson(preload))
+      preload ⇒ html.lobby.home(toJson(preload), myHook)
     )
 
   def socket = WebSocket.async[JsValue] { implicit req ⇒
@@ -49,9 +50,20 @@ object Lobby extends LilaController {
   }
 
   def hook(ownerId: String) = Open { implicit ctx ⇒
-    hookRepo.ownedHook(ownerId.pp).unsafePerformIO.pp.fold(
+    hookRepo.ownedHook(ownerId).unsafePerformIO.fold(
       hook ⇒ renderHome(hook.some).fold(identity, Ok(_)),
       Redirect(routes.Lobby.home))
+  }
+
+  def join(hookId: String) = Open { implicit ctx ⇒
+    IORedirect {
+      val myHookId = get("cancel")
+      joiner(hookId, myHookId)(ctx.me) map { result ⇒
+        result.fold(
+          _ ⇒ myHookId.fold(routes.Lobby.hook(_), routes.Lobby.home),
+          pov ⇒ routes.Round.player(pov.fullId))
+      }
+    }
   }
 
   def cancel(ownerId: String) = Open { implicit ctx ⇒
@@ -62,8 +74,6 @@ object Lobby extends LilaController {
       } yield routes.Lobby.home
     }
   }
-
-  def join(hookId: String) = TODO
 
   //def join(gameId: String, color: String) = Action { implicit req ⇒
   //FormValidIOk[LobbyJoinData](lobbyJoinForm)(join ⇒

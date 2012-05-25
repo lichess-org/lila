@@ -24,6 +24,7 @@ final class Fisherman(
   def bite(hook: Hook, game: DbGame): IO[Unit] = for {
     _ ← socket removeHook hook
     _ ← socket.biteHook(hook, game)
+    _ ← hookRepo.setGame(hook, game)
   } yield ()
 
   // mark the hook as active, once
