@@ -3,7 +3,6 @@ package controllers
 import lila._
 import http.Context
 import views._
-import DataForm._
 
 import play.api._
 import play.api.mvc._

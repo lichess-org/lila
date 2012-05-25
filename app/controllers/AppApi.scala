@@ -1,7 +1,6 @@
 package controllers
 
 import lila._
-import DataForm._
 
 import play.api.mvc._
 import play.api.libs.concurrent._
