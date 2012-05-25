@@ -10,14 +10,13 @@ final class Fisherman(
     hookMemo: HookMemo,
     socket: Socket) {
 
-  // DO delete in db
   def delete(hook: Hook): IO[Unit] = for {
     _ ← socket removeHook hook
     _ ← hookRepo removeId hook.id
   } yield ()
 
-  // DO NOT insert in db (done on php side)
-  def +(hook: Hook): IO[Unit] = for {
+  def add(hook: Hook): IO[Unit] = for {
+    _ ← io(hookRepo insert hook)
     _ ← socket addHook hook
     _ ← shake(hook)
   } yield ()

@@ -38,6 +38,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     settings = settings,
     mongodb = mongodb.apply _,
     gameRepo = game.gameRepo,
+    fisherman = lobby.fisherman,
     userRepo = user.userRepo,
     timelinePush = timeline.push.apply,
     roundMessenger = round.messenger,

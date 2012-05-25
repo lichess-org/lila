@@ -95,8 +95,9 @@ GET   /ai                            controllers.Ai.run
 
 # Lobby Public API
 GET   /                              controllers.Lobby.home
-GET   /lobby/cancel/:ownerId         controllers.Lobby.cancel(ownerId: String)
-GET   /lobby/join/:hookId            controllers.Lobby.join(hookId: String)
+GET   /new/$ownerId<[\w\-]{12}>       controllers.Lobby.hook(ownerId: String)
+GET   /new/$ownerId<[\w\-]{12}>/cancel          controllers.Lobby.cancel(ownerId: String)
+GET   /new/$hookId<[\w\-]{8}>/join            controllers.Lobby.join(hookId: String)
 GET   /lobby/socket                  controllers.Lobby.socket
 
 # Lobby Private API

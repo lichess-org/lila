@@ -3,6 +3,7 @@ package setup
 
 import core.Settings
 import game.{ DbGame, GameRepo }
+import lobby.Fisherman
 import round.Messenger
 import ai.Ai
 import user.{ User, UserRepo }
@@ -15,6 +16,7 @@ final class SetupEnv(
     settings: Settings,
     mongodb: String ⇒ MongoCollection,
     gameRepo: GameRepo,
+    fisherman: Fisherman,
     userRepo: UserRepo,
     timelinePush: DbGame ⇒ IO[Unit],
     roundMessenger: Messenger,
@@ -32,6 +34,7 @@ final class SetupEnv(
     configRepo = configRepo,
     friendConfigMemo = friendConfigMemo,
     gameRepo = gameRepo,
+    fisherman = fisherman,
     timelinePush = timelinePush,
     ai = ai,
     dbRef = dbRef)

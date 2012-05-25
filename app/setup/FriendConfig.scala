@@ -1,7 +1,9 @@
 package lila
 package setup
 
-import chess.{ Variant, Mode, Color ⇒ ChessColor }
+import chess.{ Game, Board, Variant, Mode, Color ⇒ ChessColor }
+import elo.EloRange
+import game.{ DbGame, DbPlayer }
 
 case class FriendConfig(
     variant: Variant,
@@ -9,9 +11,18 @@ case class FriendConfig(
     time: Int,
     increment: Int,
     mode: Mode,
-    color: Color) extends HumanConfig {
+    color: Color) extends HumanConfig with GameGenerator {
 
   def >> = (variant.id, clock, time, increment, mode.id, color.name).some
+
+  def game = DbGame(
+    game = Game(board = Board(pieces = variant.pieces)),
+    ai = None,
+    whitePlayer = DbPlayer.white,
+    blackPlayer = DbPlayer.black,
+    creatorColor = creatorColor,
+    mode = mode,
+    variant = variant)
 
   def encode = RawFriendConfig(
     v = variant.id,

@@ -110,6 +110,9 @@ trait LilaController
   def IOk[A](op: IO[A])(implicit writer: Writeable[A], ctype: ContentTypeOf[A]) =
     Ok(op.unsafePerformIO)
 
+  def IOResult[A](op: IO[Result]) =
+    op.unsafePerformIO
+
   def IORedirect(op: IO[Call]) = Redirect(op.unsafePerformIO)
 
   def IOptionOk[A, B](ioa: IO[Option[A]])(op: A ⇒ B)(

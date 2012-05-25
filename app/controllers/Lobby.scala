@@ -2,6 +2,7 @@ package controllers
 
 import lila._
 import http.Context
+import lobby.Hook
 import views._
 
 import play.api._
@@ -13,22 +14,23 @@ import play.api.libs.iteratee._
 
 object Lobby extends LilaController {
 
-  private val preloader = env.preloader
+  def preloader = env.preloader
+  def hookRepo = env.lobby.hookRepo
 
   val home = Open { implicit ctx ⇒
-    renderHome(ctx).fold(identity, Ok(_))
+    renderHome(none).fold(identity, Ok(_))
   }
 
   def handleNotFound(req: RequestHeader): Result =
     handleNotFound(reqToCtx(req))
 
-  def handleNotFound(ctx: Context): Result =
-    renderHome(ctx).fold(identity, NotFound(_))
+  def handleNotFound(implicit ctx: Context): Result =
+    renderHome(none).fold(identity, NotFound(_))
 
-  private def renderHome(implicit ctx: Context) = preloader(
+  private def renderHome(myHook: Option[Hook])(implicit ctx: Context) = preloader(
     auth = ctx.isAuth,
     chat = ctx.canSeeChat,
-    myHookId = get("hook")
+    myHook = myHook
   ).unsafePerformIO.bimap(
       url ⇒ Redirect(url),
       preload ⇒ html.lobby.home(toJson(preload))
@@ -44,9 +46,15 @@ object Lobby extends LilaController {
     )
   }
 
-  def cancel(ownerId: String) = TODO
-    //api.cancel(ownerId).unsafePerformIO
-    //Redirect("/")
+  def hook(ownerId: String) = Open { implicit ctx ⇒
+    hookRepo.ownedHook(ownerId.pp).unsafePerformIO.pp.fold(
+      hook ⇒ renderHome(hook.some).fold(identity, Ok(_)),
+      Redirect(routes.Lobby.home))
+  }
+
+  def cancel(fullId: String) = TODO
+  //api.cancel(ownerId).unsafePerformIO
+  //Redirect("/")
   //}
 
   def join(hookId: String) = TODO
@@ -58,10 +66,10 @@ object Lobby extends LilaController {
   //}
 
   //def create(hookOwnerId: String) = Action {
-    //IOk(api create hookOwnerId)
+  //IOk(api create hookOwnerId)
   //}
 
   //def chatBan(username: String) = Action {
-    //IOk(env.lobby.messenger ban username)
+  //IOk(env.lobby.messenger ban username)
   //}
 }

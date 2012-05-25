@@ -3,9 +3,6 @@ package elo
 
 case class EloRange(min: Int, max: Int) {
 
-  def userMin = (min > EloRange.min) option min
-  def userMax = (max > EloRange.max) option max
-
   override def toString = "%d-%d".format(min, max)
 }
 
@@ -26,6 +23,8 @@ object EloRange {
   } yield EloRange(min, max)
 
   def orDefault(from: String) = apply(from) | default
+
+  def noneIfDefault(from: String) = apply(from) filter (_ != default)
 
   def valid(from: String) = apply(from).isDefined
 

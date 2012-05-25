@@ -45,9 +45,4 @@ final class Api(
       //}
     //).fold(identity, io(GameNotFound))
   //} yield result
-
-  def create(hookOwnerId: String): IO[Unit] = for {
-    hook ← hookRepo ownedHook hookOwnerId
-    _ ← hook.fold(fisherman.+, io())
-  } yield ()
 }

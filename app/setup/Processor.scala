@@ -6,6 +6,7 @@ import game.{ DbGame, GameRepo, Pov }
 import user.User
 import chess.{ Game, Board }
 import ai.Ai
+import lobby.{ Hook, Fisherman }
 
 import com.mongodb.DBRef
 import scalaz.effects._
@@ -14,6 +15,7 @@ final class Processor(
     configRepo: UserConfigRepo,
     friendConfigMemo: FriendConfigMemo,
     gameRepo: GameRepo,
+    fisherman: Fisherman,
     timelinePush: DbGame ⇒ IO[Unit],
     ai: () ⇒ Ai,
     dbRef: User ⇒ DBRef) {
@@ -55,4 +57,13 @@ final class Processor(
     _ ← timelinePush(game)
     _ ← friendConfigMemo.set(pov.game.id, config)
   } yield pov
+
+  def hook(config: HookConfig)(implicit ctx: Context): IO[Hook] = for {
+    _ ← ctx.me.fold(
+      user ⇒ configRepo.update(user)(_ withHook config),
+      io()
+    )
+    hook = config hook ctx.me
+    _ ← fisherman add hook
+  } yield hook
 }

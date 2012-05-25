@@ -1,11 +1,13 @@
 package lila
 package lobby
 
-import chess.{ Variant, Mode }
+import chess.{ Variant, Mode, Color, Clock }
 import elo.EloRange
+import user.User
 
 import com.novus.salat.annotations.Key
 import com.mongodb.DBRef
+import ornicar.scalalib.OrnicarRandom
 
 case class Hook(
     @Key("_id") id: String,
@@ -18,18 +20,18 @@ case class Hook(
     color: String,
     username: String,
     elo: Option[Int],
-    `match`: Boolean,
     eloRange: String,
     engine: Boolean,
-    game: Option[DBRef]) {
+    `match`: Boolean = false,
+    game: Option[DBRef] = None) {
 
   def gameId: Option[String] = game map (_.getId.toString)
 
-  def realVariant = Variant orDefault variant 
+  def realVariant = Variant orDefault variant
 
   def realMode = Mode orDefault mode
 
-  lazy val realEloRange = EloRange orDefault eloRange
+  lazy val realEloRange: Option[EloRange] = EloRange noneIfDefault eloRange
 
   def render = Map(
     "id" -> id,
@@ -39,11 +41,45 @@ case class Hook(
     "mode" -> realMode.toString,
     "color" -> color,
     "clock" -> clockOrUnlimited,
-    "emin" -> realEloRange.userMin,
-    "emax" -> realEloRange.userMax
+    "emin" -> realEloRange.map(_.min),
+    "emax" -> realEloRange.map(_.max)
   ) +? (engine, "engine" -> true)
 
   def clockOrUnlimited = ((time filter (_ ⇒ hasClock)) |@| increment apply renderClock _) | "Unlimited"
 
   def renderClock(time: Int, inc: Int) = "%d + %d".format(time, inc)
+}
+
+object Hook {
+
+  val idSize = 8
+  val ownerIdSize = 12
+
+  def apply(
+    variant: Variant,
+    clock: Option[Clock],
+    mode: Mode,
+    color: String,
+    user: Option[User],
+    eloRange: EloRange): Hook = generateId |> { id ⇒
+    new Hook(
+      id = id,
+      ownerId = id + generateOwnerId,
+      variant = variant.id,
+      hasClock = clock.isDefined,
+      time = clock map (_.limit),
+      increment = clock map (_.increment),
+      mode = mode.id,
+      color = color,
+      username = user.fold(_.username, User.anonymous),
+      elo = user map (_.elo),
+      eloRange = eloRange.toString,
+      engine = user.fold(_.engine, false))
+  }
+
+  private def generateId =
+    OrnicarRandom nextAsciiString idSize
+
+  private def generateOwnerId =
+    OrnicarRandom nextAsciiString (ownerIdSize - idSize)
 }

@@ -37,4 +37,6 @@ case class User(
 object User {
 
   val STARTING_ELO = 1200
+
+  val anonymous = "Anonymous"
 }

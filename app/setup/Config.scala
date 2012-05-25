@@ -13,6 +13,9 @@ trait Config {
   val color: Color
 
   lazy val creatorColor = color.resolve
+}
+
+trait GameGenerator { self: Config ⇒
 
   def game: DbGame
 

@@ -7,7 +7,7 @@ import game.{ DbGame, DbPlayer }
 case class AiConfig(
     variant: Variant,
     level: Int,
-    color: Color) extends Config {
+    color: Color) extends Config with GameGenerator {
 
   def >> = (variant.id, level, color.name).some
 

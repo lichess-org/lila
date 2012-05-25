@@ -1,8 +1,7 @@
 package lila
 package setup
 
-import chess.{ Mode, PausedClock, Game, Board }
-import game.{ DbGame, DbPlayer }
+import chess.{ Mode, PausedClock }
 
 trait HumanConfig extends Config {
 
@@ -21,15 +20,6 @@ trait HumanConfig extends Config {
   def validClock = clock.fold(time + increment > 0, true)
 
   def makeClock = clock option PausedClock(time * 60, increment)
-
-  def game = DbGame(
-    game = Game(board = Board(pieces = variant.pieces)),
-    ai = None,
-    whitePlayer = DbPlayer.white,
-    blackPlayer = DbPlayer.black,
-    creatorColor = creatorColor,
-    mode = mode,
-    variant = variant)
 }
 
 trait BaseHumanConfig extends BaseConfig {

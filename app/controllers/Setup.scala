@@ -39,6 +39,17 @@ object Setup extends LilaController {
       }
   }
 
+  val hookForm = Open { implicit ctx ⇒
+    IOk(forms.hookFilled map { html.setup.hook(_) })
+  }
+
+  val hook = process(forms.hook) { config ⇒
+    implicit ctx ⇒
+      processor hook config map { hook ⇒
+        routes.Lobby.hook(hook.ownerId)
+      }
+  }
+
   def await(fullId: String) = Open { implicit ctx ⇒
     IOptionResult(gameRepo pov fullId) { pov ⇒
       pov.game.started.fold(
@@ -59,12 +70,6 @@ object Setup extends LilaController {
       )
     }
   }
-
-  val hookForm = Open { implicit ctx ⇒
-    IOk(forms.hookFilled map { html.setup.hook(_) })
-  }
-
-  val hook = TODO
 
   private def process[A](form: Form[A])(op: A ⇒ BodyContext ⇒ IO[Call]) =
     OpenBody { ctx ⇒

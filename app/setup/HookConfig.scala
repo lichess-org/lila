@@ -3,6 +3,8 @@ package setup
 
 import chess.{ Variant, Mode, Color ⇒ ChessColor }
 import elo.EloRange
+import user.User
+import lobby.Hook
 
 case class HookConfig(
     variant: Variant,
@@ -14,6 +16,14 @@ case class HookConfig(
     eloRange: EloRange) extends HumanConfig {
 
   def >> = (variant.id, clock, time, increment, mode.id, eloRange.toString, color.name).some
+
+  def hook(user: Option[User]) = Hook(
+    variant = variant,
+    clock = makeClock,
+    mode = mode,
+    color = color.name,
+    user = user,
+    eloRange = eloRange)
 
   def encode = RawHookConfig(
     v = variant.id,
