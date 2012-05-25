@@ -1,1 +1,1 @@
-550:com.typesafe.plugin.RedisPlugin
+500:lila.core.MongoCachePlugin

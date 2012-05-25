@@ -11,7 +11,6 @@ import play.api._
 import play.api.mvc._
 import play.api.data._
 import play.api.http._
-import play.api.cache.Cache
 
 import scala.io.Codec
 import com.codahale.jerkson.Json
@@ -26,6 +25,7 @@ trait LilaController
     with Auth {
 
   lazy val env = Global.env
+  lazy val cache = env.mongoCache
 
   implicit val current = env.app
 
@@ -178,11 +178,11 @@ trait LilaController
 
   private def restoreUser[A](req: RequestHeader): Option[UserModel] = for {
     sessionId ← req.session.get("sessionId")
-    userId ← Cache.getAs[Id](sessionId + ":sessionId")(current, idManifest)
+    userId ← cache.getAs[Id](sessionId + ":sessionId")(idManifest)
     user ← resolveUser(userId)
   } yield {
-    Cache.set(sessionId + ":sessionId", userId, sessionTimeoutInSeconds)
-    Cache.set(userId.toString + ":userId", sessionId, sessionTimeoutInSeconds)
+    cache.set(sessionId + ":sessionId", userId, sessionTimeoutInSeconds)
+    cache.set(userId.toString + ":userId", sessionId, sessionTimeoutInSeconds)
     user
   }
 }

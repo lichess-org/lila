@@ -26,7 +26,6 @@ trait Dependencies {
   val slf4jNop = "org.slf4j" % "slf4j-nop" % "1.6.4"
   val dispatch = "net.databinder" %% "dispatch-http" % "0.8.7"
   val auth = "jp.t2v" %% "play20.auth" % "0.3-SNAPSHOT"
-  val plugins = "com.typesafe" %% "play-plugins-redis" % "2.0.1-hack2"
   val paginator = "com.github.ornicar" %% "paginator-core" % "1.5"
   val paginatorSalat = "com.github.ornicar" %% "paginator-salat-adapter" % "1.4"
 }
@@ -58,7 +57,6 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       scalaTime,
       dispatch,
       auth,
-      plugins,
       paginator,
       paginatorSalat),
     templatesImport ++= Seq(

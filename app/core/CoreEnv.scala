@@ -90,6 +90,8 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     messageRepo = lobby.messageRepo,
     entryRepo = timeline.entryRepo)
 
+  lazy val mongoCache = new MongoCache(mongodb(MongoCollectionCache))
+
   lazy val mongodb = MongoConnection(
     new MongoServer(MongoHost, MongoPort),
     mongoOptions
