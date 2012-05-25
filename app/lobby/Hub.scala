@@ -39,8 +39,8 @@ final class Hub(
       "variant" -> JsString(hook.realVariant.toString),
       "color" -> JsString(hook.color),
       "clock" -> JsString(hook.clockOrUnlimited),
-      "emin" -> hook.eloMin.fold(JsNumber(_), JsNull),
-      "emax" -> hook.eloMax.fold(JsNumber(_), JsNull),
+      "emin" -> hook.realEloRange.userMin.fold(JsNumber(_), JsNull),
+      "emax" -> hook.realEloRange.userMax.fold(JsNumber(_), JsNull),
       "engine" -> JsBoolean(hook.engine))
     )
 

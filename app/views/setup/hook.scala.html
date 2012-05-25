@@ -1,0 +1,45 @@
+@(form: Form[lila.setup.HookConfig])(implicit ctx: Context)
+
+@import lila.setup.HookConfig
+@import lila.elo.EloRange
+
+@fields = {
+<div class="variants buttons">
+  @setup.radios(form("variant"), lila.setup.HookConfig.variantChoices)
+</div>
+<div class="clock_config optional_config">
+  <div class="clock_choice">
+    <label class="required" for="clock">@trans.timeControl()</label>
+    @setup.checkbox(form("clock"))
+  </div>
+  <div class="time_choice">
+    @trans.minutesPerSide(): <span>@form("time").value</span>
+    @setup.input(
+    form("time"),
+    Symbol("data-min") -> HookConfig.timeMin,
+    Symbol("data-max") -> HookConfig.timeMax)
+  </div>
+  <div class="increment_choice">
+    @trans.incrementInSeconds(): <span>@form("increment").value</span>
+    @setup.input(
+    form("increment"),
+    Symbol("data-min") -> HookConfig.incrementMin,
+    Symbol("data-max") -> HookConfig.incrementMax)
+  </div>
+</div>
+<div class="mode_choice buttons">
+  @setup.radios(form("mode"), lila.setup.HookConfig.modeChoices)
+</div>
+<div class="elo_range_config optional_config">
+  @trans.eloRange(): <span class="range">? - ?</span>
+  <div class="elo_range">
+    @setup.input(
+    form("eloRange"),
+    Symbol("type") -> "hidden",
+    Symbol("data-min") -> EloRange.min,
+    Symbol("data-max") -> EloRange.max)
+  </div>
+</div>
+}
+
+@setup.config(form, "hook", trans.createAGame(), routes.Setup.hook, fields)

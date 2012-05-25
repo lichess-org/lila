@@ -44,7 +44,7 @@ object Setup extends LilaController {
       pov.game.started.fold(
         Redirect(routes.Round.player(pov.fullId)),
         Ok(html.setup.await(
-          pov, 
+          pov,
           version(pov.gameId),
           friendConfigMemo get pov.game.id))
       )
@@ -60,7 +60,9 @@ object Setup extends LilaController {
     }
   }
 
-  val hookForm = TODO
+  val hookForm = Open { implicit ctx ⇒
+    IOk(forms.hookFilled map { html.setup.hook(_) })
+  }
 
   val hook = TODO
 
@@ -73,6 +75,6 @@ object Setup extends LilaController {
       ))
     }
 
-  private def version(gameId: String): Int = 
+  private def version(gameId: String): Int =
     env.round.socket blockingVersion gameId
 }

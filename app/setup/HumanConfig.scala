@@ -1,7 +1,8 @@
 package lila
 package setup
 
-import chess.{ Mode, PausedClock }
+import chess.{ Mode, PausedClock, Game, Board }
+import game.{ DbGame, DbPlayer }
 
 trait HumanConfig extends Config {
 
@@ -20,6 +21,15 @@ trait HumanConfig extends Config {
   def validClock = clock.fold(time + increment > 0, true)
 
   def makeClock = clock option PausedClock(time * 60, increment)
+
+  def game = DbGame(
+    game = Game(board = Board(pieces = variant.pieces)),
+    ai = None,
+    whitePlayer = DbPlayer.white,
+    blackPlayer = DbPlayer.black,
+    creatorColor = creatorColor,
+    mode = mode,
+    variant = variant)
 }
 
 trait BaseHumanConfig extends BaseConfig {
@@ -35,6 +45,3 @@ trait BaseHumanConfig extends BaseConfig {
   val incrementMax = 30
   val increments = (incrementMin to incrementMax).toList
 }
-
-//case class HookConfig(eloRange: Option[String]) 
-//extends HumanConfig with EloRange 

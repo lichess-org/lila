@@ -19,15 +19,17 @@ case class Hook(
     username: String,
     elo: Option[Int],
     `match`: Boolean,
-    eloRange: Option[String],
+    eloRange: String,
     engine: Boolean,
-    game: Option[DBRef]) extends EloRange {
+    game: Option[DBRef]) {
 
   def gameId: Option[String] = game map (_.getId.toString)
 
   def realVariant = Variant orDefault variant 
 
   def realMode = Mode orDefault mode
+
+  lazy val realEloRange = EloRange orDefault eloRange
 
   def render = Map(
     "id" -> id,
@@ -37,8 +39,8 @@ case class Hook(
     "mode" -> realMode.toString,
     "color" -> color,
     "clock" -> clockOrUnlimited,
-    "emin" -> eloMin,
-    "emax" -> eloMax
+    "emin" -> realEloRange.userMin,
+    "emax" -> realEloRange.userMax
   ) +? (engine, "engine" -> true)
 
   def clockOrUnlimited = ((time filter (_ ⇒ hasClock)) |@| increment apply renderClock _) | "Unlimited"

@@ -2,7 +2,6 @@ package lila
 package setup
 
 import chess.{ Game, Board, Variant, Mode, Color ⇒ ChessColor }
-import elo.EloRange
 import game.{ DbGame, DbPlayer }
 
 case class AiConfig(
@@ -58,6 +57,3 @@ case class RawAiConfig(
     level = l,
     color = Color.White)
 }
-
-//case class HookConfig(eloRange: Option[String]) 
-//extends HumanConfig with EloRange 

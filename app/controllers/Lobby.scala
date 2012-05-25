@@ -13,7 +13,6 @@ import play.api.libs.iteratee._
 
 object Lobby extends LilaController {
 
-  //private val api = env.lobby.api
   private val preloader = env.preloader
 
   val home = Open { implicit ctx ⇒
