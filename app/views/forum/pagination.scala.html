@@ -1,0 +1,29 @@
+@(route: Call, pager: Paginator[_])
+
+@url(page: Int) = {
+  @route?page=@page
+}
+
+@if(pager.hasToPaginate) {
+<div class="pagination">
+  <nav>
+    @if(pager.hasPreviousPage) {
+    <a href="@url(pager.previousPage.get)">&larr; Previous</a>
+    } else {
+    <span class="disabled">&larr; Previous</span>
+    }
+    @for(p <- pager.sliding) {
+    @if(p == pager.currentPage) {
+    <span class="current">@p</span>
+    } else {
+    <a href="@url(p)">@p</a>
+    }
+    }
+    @if(pager.hasNextPage) {
+    <a href="@url(pager.nextPage.get)">Next &rarr;</a>
+    } else {
+    <span class="disabled">Next &rarr;</span>
+    }
+  </nav>
+</div>
+}

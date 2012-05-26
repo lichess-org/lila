@@ -2,8 +2,9 @@ package lila
 package forum
 
 import scalaz.effects._
+import com.github.ornicar.paginator._
 
-final class CategApi(env: ForumEnv) {
+final class CategApi(env: ForumEnv, maxPerPage: Int) {
 
   val list: IO[List[CategView]] = for {
     categs ← env.categRepo.all
@@ -13,6 +14,13 @@ final class CategApi(env: ForumEnv) {
       }
     }).sequence
   } yield views
+
+  def show(slug: String, page: Int): IO[Option[(Categ, Paginator[TopicView])]] =
+    env.categRepo bySlug slug map {
+      _ map { categ ⇒
+        categ -> env.topicApi.paginator(categ, page)
+      }
+    }
 
   def denormalize(categ: Categ): IO[Unit] = for {
     topics ← env.topicRepo byCateg categ

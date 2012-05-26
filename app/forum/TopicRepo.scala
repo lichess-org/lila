@@ -26,4 +26,8 @@ final class TopicRepo(
       _grater asDBObject topic,
       upsert = true)
   }
+
+  val sortQuery = DBObject("createdAt" -> -1)
+
+  def byCategQuery(categ: Categ) = DBObject("categId" -> categ.slug)
 }

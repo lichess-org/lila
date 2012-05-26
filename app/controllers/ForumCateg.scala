@@ -5,11 +5,15 @@ import views._
 
 object ForumCateg extends LilaController {
 
-  def api = env.forum.categApi
+  def categApi = env.forum.categApi
 
   val index = Open { implicit ctx ⇒
-    IOk(api.list map { html.forum.categ.index(_) })
+    IOk(categApi.list map { html.forum.categ.index(_) })
   }
 
-  def show(slug: String) = TODO
+  def show(slug: String, page: Int) = Open { implicit ctx ⇒
+    IOptionOk(categApi.show(slug, page)) {
+      case (categ, topics) ⇒ html.forum.categ.show(categ, topics)
+    }
+  }
 }

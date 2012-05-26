@@ -12,7 +12,7 @@ final class CategRepo(
     collection: MongoCollection
   ) extends SalatDAO[Categ, String](collection) {
 
-  def categ(slug: String): IO[Option[Categ]] = io {
+  def bySlug(slug: String): IO[Option[Categ]] = io {
     findOneByID(slug)
   }
 

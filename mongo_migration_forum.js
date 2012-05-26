@@ -64,7 +64,8 @@ var topicIds = {};
         topicId: topicId,
         createdAt: obj.createdAt,
         author: obj.authorName || "Anonymous",
-        text: obj.message
+        text: obj.message,
+        number: obj.number
       };
       if (obj.author) {
         post.user = obj.author;

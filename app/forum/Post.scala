@@ -11,6 +11,7 @@ case class Post(
     author: String,
     user: Option[DBRef],
     text: String,
+    number: Int,
     createdAt: DateTime) {
 
   def userId: Option[String] = user map (_.getId.toString)

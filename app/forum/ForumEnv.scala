@@ -19,9 +19,9 @@ final class ForumEnv(
 
   lazy val postRepo = new PostRepo(mongodb(MongoCollectionForumPost))
 
-  lazy val categApi = new CategApi(this)
+  lazy val categApi = new CategApi(this, ForumTopicMaxPerPage)
 
-  lazy val topicApi = new TopicApi(this)
+  lazy val topicApi = new TopicApi(this, ForumPostMaxPerPage)
 
   lazy val denormalize = topicApi.denormalize flatMap { _ ⇒ categApi.denormalize }
 }

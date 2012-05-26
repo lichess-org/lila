@@ -1,0 +1,54 @@
+@(categ: lila.forum.Categ, topics: Paginator[lila.forum.TopicView])(implicit ctx: Context)
+
+@forum.layout(
+title = categ.name) {
+<div class="category">
+  <ol class="crumbs">
+    <li><a href="@routes.ForumCateg.index">Forum</a></li>
+    <li><h1>@categ.name</h1></li>
+  </ol>
+
+  <p class="description">@categ.desc</p>
+  <div class="main topics">
+    <div class="bar top clearfix">
+      <div class="pagination">
+        @forum.pagination(routes.ForumCateg.show(categ.slug, 1), topics)
+      </div>
+      <a href="@routes.ForumTopic.create(categ.slug)" class="action button">Create a new topic</a>
+    </div>
+
+    <table class="forum_topics_list">
+      <thead>
+        <tr class="thead">
+          <th>Topics</th>
+          <th class="right">Views</th>
+          <th class="right">Replies</th>
+          <th>Last Post</th>
+        </tr>
+      </thead>
+      <tbody>
+        @topics.currentPageResults.map { topic =>
+        <tr>
+          <td class="subject"><a href="@routes.ForumTopic.show(categ.slug, topic.slug)">@topic.name</a></td>
+          <td class="right">@topic.views</td>
+          <td class="right">@topic.nbPosts</td>
+          <td class="last_post">
+            @topic.lastPost.map { post =>
+            <a href="@routes.ForumTopic.show(categ.slug, topic.slug)#@post.number">@showDate(post.createdAt)</a><br />by @userIdToUsername(post.userId)
+            }
+          </td>
+          @if(isGranted(Permission.ModerateForum)) {
+          <td><a class="delete" href="@routes.ForumTopic.delete(topic.id)">Delete</a></td>
+          }
+        </tr>
+        }
+      </tbody>
+    </table>
+
+    <div class="bar bottom clearfix">
+      <div class="pagination">pagination</div>
+      <a href="@routes.ForumTopic.create(categ.slug)" class="action button">Create a new topic</a>
+    </div>
+  </div>
+</div>
+}

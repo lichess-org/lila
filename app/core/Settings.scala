@@ -22,6 +22,9 @@ final class Settings(config: Config) {
   val UserPaginatorMaxPerPage = getInt("user.paginator.max_per_page")
   val UserEloUpdaterFloor = getInt("user.elo_updater.floor")
 
+  val ForumTopicMaxPerPage = getInt("forum.topic.max_per_page")
+  val ForumPostMaxPerPage = getInt("forum.post.max_per_page")
+
   val SetupFriendConfigMemoTtl = millis("setup.friend_config.memo.ttl")
 
   val LobbyEntryMax = getInt("lobby.entry.max")
