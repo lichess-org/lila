@@ -34,8 +34,8 @@ final class Socket(hub: ActorRef) {
             case Some("talk") ⇒ for {
               data ← e obj "d"
               txt ← data str "txt"
-              username ← data str "u"
-            } hub ! Talk(txt, username)
+              uname ← username
+            } hub ! Talk(txt, uname)
             case Some("p") ⇒ hub ! Ping(uid)
             case _         ⇒
           }

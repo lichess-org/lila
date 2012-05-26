@@ -40,10 +40,10 @@ object Lobby extends LilaController {
     )
 
   def socket = WebSocket.async[JsValue] { implicit req ⇒
-    implicit val ctx = Context(req, None)
+    implicit val ctx = reqToCtx(req)
     env.lobby.socket.join(
       uidOption = get("uid"),
-      username = get("username"),
+      username = ctx.me map (_.username),
       versionOption = getInt("version"),
       hook = get("hook")
     )
@@ -74,18 +74,4 @@ object Lobby extends LilaController {
       } yield routes.Lobby.home
     }
   }
-
-  //def join(gameId: String, color: String) = Action { implicit req ⇒
-  //FormValidIOk[LobbyJoinData](lobbyJoinForm)(join ⇒
-  //api.join(gameId, color, join._1, join._2, join._3, join._4)
-  //)
-  //}
-
-  //def create(hookOwnerId: String) = Action {
-  //IOk(api create hookOwnerId)
-  //}
-
-  //def chatBan(username: String) = Action {
-  //IOk(env.lobby.messenger ban username)
-  //}
 }

@@ -28,9 +28,9 @@ object Cron {
       }
     }
 
-    //message(1 seconds) {
-      //env.monitor.reporting -> monitor.Update(env)
-    //}
+    message(1 seconds) {
+      env.monitor.reporting -> monitor.Update(env)
+    }
 
     message(1 second) {
       env.lobby.hub -> lobby.WithHooks(env.lobby.hookMemo.putAll)

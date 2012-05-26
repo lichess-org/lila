@@ -1,1 +1,1 @@
-500:lila.core.MongoCachePlugin
+500:lila.mongodb.CachePlugin
