@@ -20,13 +20,8 @@ chess960 confirmation http://fr.lichess.org/forum/lichess-feedback/separate-960-
 use play-navigator router case class MyRegexStr(value: String); implicit val MyRegexStrPathParam: PathParam[MyRegexStr] = new PathParam[MyRegexStr] { def apply(s: MyRegexStr) = s.value}; def unapply(s: String) = val Rx = "(\w+)".r; s match { case Rx(x) => Some(x); case _ => None } }
 http://codetunes.com/2012/05/09/scala-dsl-tutorial-writing-web-framework-router
 use POST instead of GET where it makes sense
+endgame sound http://en.lichess.org/forum/lichess-feedback/checkmate-sound-feature?page=1#1 
 
 next deploy:
-db.user.update({},{$unset:{lastLogin: true}}, false, true)
-db.user.update({},{$unset:{isOnline: true}}, false, true)
-db.user.update({},{$unset:{gameConfigs: true}}, false, true)
-db.user.update({},{$unset:{email: true}}, false, true)
-db.user.dropIndex("emailCanonical_1")
-db.user.update({},{$unset:{emailCanonical: true}}, false, true)
-db.user.update({},{$unset:{updatedAt: true}}, false, true)
-db.user.update({elo: {$lt: 800}}, {$set: {elo: 800}}, false, true)
+mongo lichess mongo_migration_user.js
+mongo lichess mongo_migration_forum.js
