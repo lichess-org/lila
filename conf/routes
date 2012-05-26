@@ -78,35 +78,18 @@ POST  /account/closeConfirm                     controllers.User.closeConfirm
 # Wiki
 GET   /wiki                          controllers.Wiki.home
 
+# AI
 GET   /ai                            controllers.Ai.run
 
-# App Private API
-#POST  /api/start/:gameId             controllers.AppApi.start(gameId: String)
-#POST  /api/join/$fullId<[\w\-]{12}>              controllers.AppApi.join(fullId: String)
-#POST  /api/reload-table/:gameId      controllers.AppApi.reloadTable(gameId: String)
-#POST  /api/adjust/:username          controllers.AppApi.adjust(username: String)
-#GET   /api/activity/:gameId/:color   controllers.AppApi.activity(gameId: String, color: String)
-#GET   /api/game-version/:gameId      controllers.AppApi.gameVersion(gameId: String)
-#GET   /api/game-info/:gameId         controllers.AppApi.gameInfo(gameId: String)
-#POST  /api/rematch-accept/:gameId/:color/:newGameId controllers.AppApi.rematchAccept(gameId: String, color: String, newGameId: String)
-#
-#GET   /api/captcha/create            controllers.Captcha.create
-#GET   /api/captcha/solve/:gameId     controllers.Captcha.solve(gameId: String)
-
-# Lobby Public API
+# Lobby 
 GET   /                              controllers.Lobby.home
 GET   /new/$ownerId<[\w\-]{12}>       controllers.Lobby.hook(ownerId: String)
 GET   /new/$ownerId<[\w\-]{12}>/cancel          controllers.Lobby.cancel(ownerId: String)
 GET   /new/$hookId<[\w\-]{8}>/join            controllers.Lobby.join(hookId: String)
 GET   /lobby/socket                  controllers.Lobby.socket
 
-# Lobby Private API
-#POST  /api/lobby/join/:gameId/:color controllers.Lobby.join(gameId: String, color: String)
-#GET   /api/lobby/preload             controllers.Lobby.preload
-#POST  /api/lobby/create/:hookOwnerId controllers.Lobby.create(hookOwnerId: String)
-#POST  /api/lobby/chat-ban/:username  controllers.Lobby.chatBan(username: String)
-
-GET   /assets/*file                  controllers.Assets.at(path="/public", file)
+# Forum
+GET   /forum                        controllers.ForumCateg.index
 
 # Monitor
 GET   /monitor                      controllers.Monitor.index
@@ -114,3 +97,6 @@ GET   /monitor/stream               controllers.Monitor.stream
 GET   /nb-players                    controllers.Monitor.nbPlayers
 GET   /nb-playing                    controllers.Monitor.nbPlaying
 GET   /status                        controllers.Monitor.status
+
+# Assets
+GET   /assets/*file                  controllers.Assets.at(path="/public", file)

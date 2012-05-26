@@ -61,6 +61,9 @@ final class Settings(config: Config) {
   val MongoCollectionConfig = getString("mongo.collection.config")
   val MongoCollectionCache = getString("mongo.collection.cache")
   val MongoCollectionSecurity = getString("mongo.collection.security")
+  val MongoCollectionForumCateg = getString("mongo.collection.forum_categ")
+  val MongoCollectionForumTopic = getString("mongo.collection.forum_topic")
+  val MongoCollectionForumPost = getString("mongo.collection.forum_post")
 
   val ActorReporting = "reporting"
   val ActorSiteHub = "site_hub"

@@ -1,0 +1,15 @@
+@(title: String)(body: Html)(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("forum.css")
+}
+
+@moreJs = {
+@jsTag("forum.js")
+}
+
+@base.layout(
+title = title, 
+moreCss = moreCss,
+moreJs = moreJs,
+active = siteMenu.forum.some)(body)

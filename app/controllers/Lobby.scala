@@ -5,12 +5,8 @@ import http.Context
 import lobby.Hook
 import views._
 
-import play.api._
 import play.api.mvc._
-import play.api.libs.concurrent.Akka
-import play.api.Play.current
-import play.api.libs.json._
-import play.api.libs.iteratee._
+import play.api.libs.json.JsValue
 import scalaz.effects._
 
 object Lobby extends LilaController {
