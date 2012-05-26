@@ -25,11 +25,15 @@ title = trans.forum.str()) {
       </td>
       <td class="right">@categ.nbTopics</td>
       <td class="right">@categ.nbPosts</td>
-      <td class="last_post"><a href="#">date</a><br />by author</td>
+      <td class="last_post">
+        @categ.lastPost.map { post =>
+        <a href="#">@showDate(post.createdAt)</a><br />by @userIdToUsername(post.userId)
+        }
       </td>
-    </tr>
-    }
-    }
-  </tbody>
+    </td>
+  </tr>
+  }
+  }
+</tbody>
 </table>
 }

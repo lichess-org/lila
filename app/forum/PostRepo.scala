@@ -11,6 +11,10 @@ import scalaz.effects._
 final class PostRepo(
     collection: MongoCollection) extends SalatDAO[Post, String](collection) {
 
+  def byId(id: String): IO[Option[Post]] = io {
+    findOneByID(id)
+  }
+
   def countByTopics(topics: List[Topic]): IO[Int] = io {
     count(topicsQuery(topics)).toInt
   }

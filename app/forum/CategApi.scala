@@ -8,7 +8,9 @@ final class CategApi(env: ForumEnv) {
   val list: IO[List[CategView]] = for {
     categs ← env.categRepo.all
     views ← (categs map { categ ⇒
-      io(CategView(categ))
+      env.postRepo byId categ.lastPostId map { post ⇒
+        CategView(categ, post)
+      }
     }).sequence
   } yield views
 
