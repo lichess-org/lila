@@ -29,15 +29,20 @@ var topicIds = {};
     var obj = cursor.next();
     var id = makeId(8);
     topicIds[obj._id] = id;
-    coll.insert({
-      _id: id,
-      slug: obj.slug,
-      categ: categSlugs[obj.category["$id"]],
-      createdAt: obj.createdAt,
-      updatedAt: obj.pulledAt,
-      views: obj.numViews,
-      name: obj.subject
-    });
+    var categId = categSlugs[obj.category["$id"]];
+    if (categId == null) {
+      print("Skip topic without categ: " + obj.subject);
+    } else {
+      coll.insert({
+        _id: id,
+        slug: obj.slug,
+        categId: categId,
+        createdAt: obj.createdAt,
+        updatedAt: obj.pulledAt,
+        views: obj.numViews,
+        name: obj.subject
+      });
+    }
     nb ++;
   }
   coll.ensureIndex({categ: 1, slug: 1}, {unique: true});
@@ -52,17 +57,20 @@ var topicIds = {};
   coll.drop();
   while(cursor.hasNext()) {
     var obj = cursor.next();
-    var post = {
-      _id: makeId(8),
-      topic: topicIds[obj.topic["$id"]],
-      createdAt: obj.createdAt,
-      author: obj.authorName,
-      text: obj.message
-    };
-    if (obj.author) {
-      post.user = obj.author;
+    var topicId = topicIds[obj.topic["$id"]];
+    if (topicId != null) {
+      var post = {
+        _id: makeId(8),
+        topicId: topicId,
+        createdAt: obj.createdAt,
+        author: obj.authorName || "Anonymous",
+        text: obj.message
+      };
+      if (obj.author) {
+        post.user = obj.author;
+      }
+      coll.insert(post);
     }
-    coll.insert(post);
     nb ++;
   }
   coll.ensureIndex({topic: 1});
