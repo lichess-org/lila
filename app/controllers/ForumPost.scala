@@ -9,6 +9,10 @@ object ForumPost extends LilaController with Forum {
   def postApi = env.forum.postApi
   def forms = forum.DataForm
 
+  val recent = Open { implicit ctx =>
+    Ok(html.forum.post.recent(env.forum.recent(ctx.me)))
+  }
+
   def create(categSlug: String, slug: String, page: Int) = OpenBody { implicit ctx ⇒
     CategGrant(categSlug) {
       implicit val req = ctx.body

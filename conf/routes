@@ -90,6 +90,7 @@ GET   /lobby/socket                    controllers.Lobby.socket
 
 # Forum
 GET   /forum                           controllers.ForumCateg.index
+GET   /forum/recent                    controllers.ForumPost.recent
 GET   /forum/:slug                     controllers.ForumCateg.show(slug: String, page: Int ?= 1)
 GET   /forum/:categSlug/form           controllers.ForumTopic.form(categSlug: String)
 POST  /forum/:categSlug/new            controllers.ForumTopic.create(categSlug: String)
