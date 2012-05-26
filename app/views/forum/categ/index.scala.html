@@ -1,7 +1,35 @@
 @(categs: List[lila.forum.CategView])(implicit ctx: Context)
 
 @forum.layout(
-title = "Forum") {
+title = trans.forum.str()) {
 
-categs
+<div class="forum forum_index">
+  <h1>Lichess Forum</h1>
+</div>
+<table class="categories">
+  <thead>
+    <tr class="thead">
+      <th>Categories</th>
+      <th class="right">Topics</th>
+      <th class="right">Posts</th>
+      <th>Last Post</th>
+    </tr>
+  </thead>
+  <tbody>
+    @categs.map { categ =>
+    @if(categ.slug != "staff" || isGranted(Permission.StaffForum)) {
+    <tr>
+      <td class="subject">
+        <a class="category_name" href="@routes.ForumCateg.show(categ.slug)">@categ.name</a>
+        <h2 class="description">@categ.desc</h2>
+      </td>
+      <td class="right"></td>
+      <td class="right"></td>
+      <td class="last_post"><a href="#">date</a><br />by author</td>
+      </td>
+    </tr>
+    }
+    }
+  </tbody>
+</table>
 }

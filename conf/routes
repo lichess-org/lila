@@ -90,6 +90,7 @@ GET   /lobby/socket                  controllers.Lobby.socket
 
 # Forum
 GET   /forum                        controllers.ForumCateg.index
+GET   /forum/:slug                    controllers.ForumCateg.show(slug: String)
 
 # Monitor
 GET   /monitor                      controllers.Monitor.index

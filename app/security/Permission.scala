@@ -14,9 +14,10 @@ object Permission {
   case object ViewBlurs extends Permission("ROLE_VIEW_BLURS")
   case object MutePlayer extends Permission("ROLE_CHAT_BAN")
   case object MarkEngine extends Permission("ROLE_ADJUST_CHEATER")
+  case object StaffForum extends Permission("ROLE_STAFF_FORUM")
 
   case object Admin extends Permission("ROLE_ADMIN") {
-    override val children = List(ViewBlurs, MutePlayer, MarkEngine)
+    override val children = List(ViewBlurs, MutePlayer, MarkEngine, StaffForum)
   }
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN") {
     override val children = List(Admin)

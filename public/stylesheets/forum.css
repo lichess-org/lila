@@ -1,0 +1,283 @@
+a.forum_feed_link {
+  width: 16px;
+  height: 16px;
+  display: block;
+  background: url(/assets/images/feed-balloon.png) top left no-repeat;
+  float: right;
+}
+
+.metas .delete {
+  margin-left: 1em;
+}
+.forum_topics_list .delete {
+  margin-right: 1em;
+}
+
+ol.crumbs li {
+  display: inline;
+  margin-left: 1em;
+}
+
+ol.crumbs li:after {
+  content: "›";
+  padding-left: 1em;
+}
+
+ol.crumbs li:last-child:after {
+  display: none;
+}
+ol.crumbs li:first-child {
+  margin-left: 0;
+}
+#lichess_forum ol.crumbs h1 {
+  display: inline;
+  margin: 0;
+  vertical-align: middle;
+}
+
+#lichess_forum table {
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+#lichess_forum th {
+  padding: 1em 0 0.5em 0;
+}
+#lichess_forum th:last {
+  padding-left: 1em;
+}
+
+#lichess_forum td.subject {
+  padding: 2em 1em;
+}
+
+#lichess_forum td.right, #lichess_forum th.right {
+  text-align: right;
+  padding-right: 2em;
+}
+
+#lichess_forum td.last_post {
+  min-width: 150px;
+  padding-right: 1em;
+}
+#lichess_forum td.feed {
+  padding-right: 1em;
+}
+
+#lichess_forum td.subject a {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #0090B0;
+  text-decoration: none;
+  background: transparent url(/assets/images/balloon.png) top left no-repeat;
+  padding-left: 20px;
+}
+
+#lichess_forum td .description {
+  margin-top: 0.5em;
+  display: block;
+}
+
+#lichess_forum th {
+  font-weight: bold;
+  color: #A0A0A0;
+}
+
+#lichess_forum h1 {
+  font-size: 1.4em;
+  color: #666;
+  font-weight: normal;
+  margin-bottom: 0.5em;
+}
+.forum_baseline {
+  margin-bottom: 1em;
+}
+
+#lichess_forum tr:nth-child(odd) {
+  background: #F7F7F7;
+}
+#lichess_forum tr.thead {
+  background: #fff;
+}
+
+div.post {
+  font-size: 1.2em;
+  padding: 2em 0em 1em 0em;
+  border-top: 1px solid #D4D4D4;
+  margin-top: 1em;
+  position: relative;
+}
+div.post:last-child {
+  border-bottom: 1px solid #D4D4D4;
+  padding-bottom: 2em;
+  margin-bottom: 2em;
+}
+
+div.post .anchor {
+  position: absolute;
+  top: 2em;
+  right: 0;
+}
+
+div.post .authorName {
+  font-size: 1.2em;
+  font-weight: bold;
+  float: left;
+}
+div.post .authorName a {
+  height: 16px;
+  display: block;
+}
+
+div.post .createdAt {
+  font-size: 0.8em;
+  font-style: italic;
+  color: #aaa;
+  margin-top: 0.3em;
+  margin-left: 1em;
+  float: left;
+}
+
+div.post .message {
+  margin-top: 1.5em;
+  color: #555;
+  line-height: 1.5em;
+}
+
+div.topicReply {
+  margin-top: 1em;
+}
+.postNewTitle {
+  font-size: 1.5em;
+  color: #444;
+  font-style: italic;
+}
+
+div.category .description {
+  margin-top: 1em;
+}
+
+#lichess_forum form {
+  margin-top: 2em;
+  font-size: 1.3em;
+}
+#lichess_forum form label {
+  display: block;
+  margin-bottom: 2em;
+}
+
+#lichess_forum form label span {
+  float: left;
+  display: block;
+  width: 100px;
+  text-align: right;
+  margin-right: 10px;
+  margin-top: 3px;
+}
+#lichess_forum form label span.required:after {
+  content: "*";
+  color: #FF6666;
+  margin-left: 3px;
+}
+
+#lichess_forum form input.subject {
+  width: 500px;
+  padding: 0.5em;
+  border: 1px solid #D4D4D4;
+}
+#lichess_forum form textarea {
+  width: 500px;
+  height: 150px;
+  padding: 0.5em;
+  border: 1px solid #D4D4D4;
+}
+#lichess_forum form input.authorName {
+  padding: 0.5em;
+  width: 300px;
+  border: 1px solid #D4D4D4;
+}
+#lichess_forum form .submit {
+  margin-left: 110px;
+}
+
+#lichess_forum form ul {
+  margin-left: 110px;
+  margin-bottom: 10px;
+  color: red;
+}
+
+form.forum_search {
+  margin: 2em 0 0 0;
+  font-size: 14px;
+}
+form.forum_search input {
+  padding: 2px 5px;
+}
+form.forum_search input.query {
+  width: 145px;
+}
+form.forum_search input.hinted {
+  color: #aaa;
+}
+
+div.search_results .result {
+  padding: 1em;
+  border-top: 1px solid #eaeaea;
+}
+div.search_results .result.even {
+  background: #f4f4f4;
+}
+div.search_results .result .subject {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 0.3em;
+  display: block;
+}
+
+div.pagination a, div.pagination span {
+  font-size: 1.1em;
+  padding: 0.1em 0.5em;
+  font-weight: bold;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  text-decoration: none;
+}
+div.pagination span {
+  color: #aaa;
+}
+div.pagination span.current {
+  margin: 0 0.5em;
+}
+
+div.bar {
+  margin-top: 1em;
+  width: 100%;
+}
+div.bar .button {
+  float: left;
+}
+div.bar div.pagination {
+  margin-top: 0.4em;
+  float: right;
+}
+
+div.checkmateFen {
+  float: left;
+  width: 220px;
+  margin-left: 110px;
+  cursor: pointer;
+}
+div.checkmateFen div.lmcs:hover {
+  background: #ddddff;
+}
+div.checkmateSection {
+  float: left;
+}
+div.checkmateCaptcha input {
+  padding: 0.5em;
+  border: 1px solid #D4D4D4;
+  background: #dfdfff;
+  font-weight: bold;
+  width: 5em;
+}

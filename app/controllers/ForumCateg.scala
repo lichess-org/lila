@@ -11,4 +11,5 @@ object ForumCateg extends LilaController {
     IOk(api.list map { html.forum.categ.index(_) })
   }
 
+  def show(slug: String) = TODO
 }

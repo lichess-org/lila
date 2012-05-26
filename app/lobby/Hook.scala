@@ -7,7 +7,6 @@ import elo.EloRange
 import user.User
 
 import com.novus.salat.annotations.Key
-import com.mongodb.DBRef
 import ornicar.scalalib.OrnicarRandom
 
 case class Hook(

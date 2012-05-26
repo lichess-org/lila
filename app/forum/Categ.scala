@@ -6,5 +6,8 @@ import com.novus.salat.annotations.Key
 case class Categ(
     @Key("_id") slug: String,
     name: String,
-    desc: String) {
+    desc: String,
+    nbTopics: Int = 0,
+    nbPosts: Int = 0,
+    lastPostId: String = "") {
 }

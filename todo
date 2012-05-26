@@ -25,3 +25,4 @@ endgame sound http://en.lichess.org/forum/lichess-feedback/checkmate-sound-featu
 next deploy:
 mongo lichess mongo_migration_user.js
 mongo lichess mongo_migration_forum.js
+bin/cli forum-denormalize
