@@ -3,7 +3,7 @@ package controllers
 import lila._
 import views._
 
-object ForumCateg extends LilaController {
+object ForumCateg extends LilaController with Forum {
 
   def categApi = env.forum.categApi
 
@@ -12,8 +12,10 @@ object ForumCateg extends LilaController {
   }
 
   def show(slug: String, page: Int) = Open { implicit ctx ⇒
-    IOptionOk(categApi.show(slug, page)) {
-      case (categ, topics) ⇒ html.forum.categ.show(categ, topics)
+    CategGrant(slug) {
+      IOptionOk(categApi.show(slug, page)) {
+        case (categ, topics) ⇒ html.forum.categ.show(categ, topics)
+      }
     }
   }
 }

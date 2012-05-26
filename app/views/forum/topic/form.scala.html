@@ -1,0 +1,24 @@
+@(categ: lila.forum.Categ, form: Form[lila.forum.DataForm.TopicData])(implicit ctx: Context)
+
+@forum.layout(
+title = "New forum topic") {
+<ol class="crumbs">
+  <li><a href="@routes.ForumCateg.index">Forum</a></li>
+  <li><h1>@categ.name</h1></li>
+</ol>
+<br />
+<h1>New topic</h1>
+@form.globalError.map { error =>
+<p class="error">@error.message</p>
+}
+<form action="@routes.ForumTopic.create(categ.slug)" method="POST" novalidate>
+  <label>
+    <span class="required">Subject</span>
+    <input class="subject" type="text" name="@form("name").name" id="@form("name").id">
+    @errMsg(form("name"))
+  </label>
+  @forum.post.formFields(form("post")("text"), form("post")("author"))
+  <button class="submit button" type="submit">Create the topic</button>
+  <a href="@routes.ForumCateg.show(categ.slug)" style="margin-left:20px">Cancel</a>
+</form>
+}

@@ -3,19 +3,42 @@ package controllers
 import lila._
 import views._
 
-object ForumTopic extends LilaController {
+object ForumTopic extends LilaController with Forum {
 
+  def categApi = env.forum.topicApi
   def topicApi = env.forum.topicApi
+  def categRepo = env.forum.categRepo
   def forms = forum.DataForm
 
-  def create(categ: String) = Open { implicit ctx =>
-    BadRequest
+  def form(categSlug: String) = Open { implicit ctx ⇒
+    CategGrant(categSlug) {
+      IOptionOk(categRepo bySlug categSlug) { categ ⇒
+        html.forum.topic.form(categ, forms.topic)
+      }
+    }
+  }
+
+  def create(categSlug: String) = OpenBody { implicit ctx ⇒
+    CategGrant(categSlug) {
+      implicit val req = ctx.body
+      IOptionResult(categRepo bySlug categSlug) { categ ⇒
+        forms.topic.bindFromRequest.fold(
+          err ⇒ BadRequest(html.forum.topic.form(categ, err)),
+          data ⇒ (for {
+            topic ← topicApi.makeTopic(categ, data, ctx.me)
+          } yield Redirect(routes.ForumCateg.show(categ.slug))
+          ).unsafePerformIO
+        )
+      }
+    }
   }
 
   def show(categSlug: String, slug: String, page: Int) = Open { implicit ctx ⇒
-    IOptionOk(topicApi.show(categSlug, slug, page)) {
-      case (categ, topic, posts) ⇒ html.forum.topic.show(categ, topic, posts, 
-        postForm = (!posts.hasNextPage) option forms.post)
+    CategGrant(categSlug) {
+      IOptionOk(topicApi.show(categSlug, slug, page)) {
+        case (categ, topic, posts) ⇒ html.forum.topic.show(categ, topic, posts,
+          postForm = (!posts.hasNextPage) option forms.post)
+      }
     }
   }
 

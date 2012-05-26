@@ -1,0 +1,12 @@
+@(text: Field, author: Field)(implicit ctx: Context)
+<label>
+  <span class="required">Message</span>
+  <textarea name="@text.name" id="@text.id"></textarea>
+  @errMsg(text)
+</label>
+@if(!ctx.isAuth) {
+<label>
+  <span>Author</span>
+  <input class="author" type="text" name="@author.name" id="@author.id">
+</label>
+}

@@ -13,7 +13,7 @@ title = categ.name) {
     <div class="pagination">
       @forum.pagination(routes.ForumCateg.show(categ.slug, 1), topics)
     </div>
-    <a href="@routes.ForumTopic.create(categ.slug)" class="action button">Create a new topic</a>
+    <a href="@routes.ForumTopic.form(categ.slug)" class="action button">Create a new topic</a>
   </div>
 
   <table class="forum_topics_list">
@@ -33,7 +33,7 @@ title = categ.name) {
         <td class="right">@(topic.nbPosts - 1)</td>
         <td class="last_post">
           @topic.lastPost.map { post =>
-          <a href="@routes.ForumTopic.show(categ.slug, topic.slug, topic pageOf post)#@post.number">@showDate(post.createdAt)</a><br />by @userIdToUsername(post.userId)
+          <a href="@routes.ForumTopic.show(categ.slug, topic.slug, topic pageOf post)#@post.number">@showDate(post.createdAt)</a><br />by @showAuthorName(post)
           }
         </td>
         @if(isGranted(Permission.ModerateForum)) {

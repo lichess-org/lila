@@ -7,7 +7,8 @@ import play.api.templates.Html
 trait FormHelper {
 
   private val errNames = Map(
-    "error.minLength" -> "Text is too short."
+    "error.minLength" -> "Text is too short.",
+    "error.required" -> "Required."
   )
 
   def errMsg(form: Field): Html = Html {

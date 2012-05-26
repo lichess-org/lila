@@ -21,7 +21,7 @@ title = topic.name) {
         @post.userId.map { userId =>
         <span class="author authenticated">@userIdLink(userId.some)</span>
         }.getOrElse {
-        <span class="author">@post.showAuthor</span>
+        <span class="author">@showAuthorName(post)</span>
         }
         <span class="createdAt">@showDate(post.createdAt)</span>
         <a class="anchor" href="routes.ForumTopic.show(categ.slug, topic.slug, posts.page)">#@post.number</a>
@@ -41,17 +41,7 @@ title = topic.name) {
     <p class="error">@error.message</p>
     }
     <form action="@routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)#reply" method="POST" novalidate>
-      <label>
-        <span class="required">Message</span>
-        <textarea name="@form("text").name" id="@form("text").id"></textarea>
-        @errMsg(form("text"))
-      </label>
-      @if(!ctx.isAuth) {
-      <label>
-        <span>Author</span>
-        <input class="author" type="text" name="@form("author").name" id="@form("author").id">
-      </label>
-      }
+      @forum.post.formFields(form("text"), form("author"))
       <input type="submit" class="submit button" value="Reply" />
       <a href="@routes.ForumCateg.show(categ.slug)" style="margin-left:20px">Cancel</a>
     </form>

@@ -22,6 +22,7 @@ object Environment
     with round.RoundHelper 
     with game.GameHelper
     with user.UserHelper 
+    with forum.ForumHelper
     with security.SecurityHelper
     with i18n.I18nHelper {
 

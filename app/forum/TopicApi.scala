@@ -1,17 +1,40 @@
 package lila
 package forum
 
+import user.User
+
 import scalaz.effects._
 import com.github.ornicar.paginator._
 
 final class TopicApi(env: ForumEnv, maxPerPage: Int) {
 
   def show(categSlug: String, slug: String, page: Int): IO[Option[(Categ, Topic, Paginator[Post])]] =
-    get(categSlug, slug) map { 
+    get(categSlug, slug) map {
       _ map {
         case (categ, topic) ⇒ (categ, topic, env.postApi.paginator(topic, page))
       }
     }
+
+  def makeTopic(
+    categ: Categ,
+    data: DataForm.TopicData,
+    user: Option[User]): IO[Topic] = for {
+    slug ← env.topicRepo.nextSlug(categ, data.name)
+    topic = Topic(
+      categId = categ.slug,
+      slug = slug,
+      name = data.name)
+    post = Post(
+      topicId = topic.id,
+      author = data.post.author,
+      user = user map env.userDbRef,
+      text = data.post.text,
+      number = 1)
+    _ ← env.topicRepo saveIO topic
+    _ ← env.postRepo saveIO post
+    _ ← env.topicApi denormalize topic
+    _ ← env.categApi denormalize categ
+  } yield topic
 
   def get(categSlug: String, slug: String) = for {
     categOption ← env.categRepo bySlug categSlug
