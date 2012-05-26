@@ -22,7 +22,6 @@ http://codetunes.com/2012/05/09/scala-dsl-tutorial-writing-web-framework-router
 use POST instead of GET where it makes sense
 
 next deploy:
-upgrade jre (jdk?)
 db.user.update({},{$unset:{lastLogin: true}}, false, true)
 db.user.update({},{$unset:{isOnline: true}}, false, true)
 db.user.update({},{$unset:{gameConfigs: true}}, false, true)
@@ -30,3 +29,4 @@ db.user.update({},{$unset:{email: true}}, false, true)
 db.user.dropIndex("emailCanonical_1")
 db.user.update({},{$unset:{emailCanonical: true}}, false, true)
 db.user.update({},{$unset:{updatedAt: true}}, false, true)
+db.user.update({elo: {$lt: 800}}, {$set: {elo: 800}}, false, true)
