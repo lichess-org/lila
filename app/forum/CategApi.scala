@@ -2,9 +2,9 @@ package lila
 package forum
 
 import scalaz.effects._
-import com.github.ornicar.paginator._
+import com.github.ornicar.paginator.Paginator
 
-final class CategApi(env: ForumEnv, maxPerPage: Int) {
+final class CategApi(env: ForumEnv) {
 
   val list: IO[List[CategView]] = for {
     categs ← env.categRepo.all

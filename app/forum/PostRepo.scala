@@ -16,19 +16,21 @@ final class PostRepo(
   }
 
   def countByTopics(topics: List[Topic]): IO[Int] = io {
-    count(topicsQuery(topics)).toInt
+    count(byTopicsQuery(topics)).toInt
   }
 
   def lastByTopics(topics: List[Topic]): IO[Post] = io {
-    find(topicsQuery(topics)).sort(sortQuery).limit(1).next
+    find(byTopicsQuery(topics)).sort(sortQuery).limit(1).next
   }
 
   val all: IO[List[Post]] = io {
     find(DBObject()).toList
   }
 
-  private val sortQuery = DBObject("createdAt" -> -1)
+  val sortQuery = DBObject("createdAt" -> -1)
 
-  private def topicsQuery(topics: List[Topic]) =
+  def byTopicQuery(topic: Topic) = DBObject("topicId" -> topic.id)
+
+  private def byTopicsQuery(topics: List[Topic]) =
     "topicId" $in topics.map(_.id)
 }

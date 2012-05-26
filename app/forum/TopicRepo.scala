@@ -16,6 +16,13 @@ final class TopicRepo(
     find(DBObject("categId" -> categ.slug)).toList
   }
 
+  def byTree(categSlug: String, slug: String): IO[Option[Topic]] = io {
+    findOne(DBObject(
+      "categId" -> categSlug,
+      "slug" -> slug
+    ))
+  }
+
   val all: IO[List[Topic]] = io {
     find(DBObject()).toList
   }

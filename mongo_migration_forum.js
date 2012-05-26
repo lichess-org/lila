@@ -45,9 +45,9 @@ var topicIds = {};
     }
     nb ++;
   }
-  coll.ensureIndex({categ: 1, slug: 1}, {unique: true});
-  coll.ensureIndex({categ: 1});
-  coll.ensureIndex({categ: 1, updatedAt: -1});
+  coll.ensureIndex({categId: 1, slug: 1}, {unique: true});
+  coll.ensureIndex({categId: 1});
+  coll.ensureIndex({categId: 1, updatedAt: -1});
   print("Done topics: " + nb);
 })(db.forum_topic, db.f_topic);
 
@@ -74,8 +74,8 @@ var topicIds = {};
     }
     nb ++;
   }
-  coll.ensureIndex({topic: 1});
-  coll.ensureIndex({topic: 1, createdAt: -1});
+  coll.ensureIndex({topicId: 1});
+  coll.ensureIndex({topicId: 1, createdAt: -1});
   print("Done posts: " + nb);
 })(db.forum_post, db.f_post);
 

@@ -6,6 +6,14 @@ import com.github.ornicar.paginator._
 
 final class TopicApi(env: ForumEnv, maxPerPage: Int) {
 
+  def show(categSlug: String, slug: String, page: Int): IO[Option[(Categ, Topic, Paginator[Post])]] =
+    for {
+      categOption ← env.categRepo bySlug categSlug
+      topicOption ← env.topicRepo.byTree(categSlug, slug)
+    } yield categOption |@| topicOption apply {
+      case (categ, topic) ⇒ (categ, topic, env.postApi.paginator(topic, page))
+    }
+
   def paginator(categ: Categ, page: Int): Paginator[TopicView] =
     Paginator(
       SalatAdapter(

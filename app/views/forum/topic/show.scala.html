@@ -1,0 +1,46 @@
+@(categ: lila.forum.Categ, topic: lila.forum.Topic, posts: Paginator[lila.forum.Post])(implicit ctx: Context)
+
+@forum.layout(
+title = topic.name) {
+<div class="topic">
+  <ol class="crumbs">
+    <li><a href="@routes.ForumCateg.index">Forum</a></li>
+    <li><a href="@routes.ForumCateg.show(categ.slug)">@categ.name</a></li>
+    <li><h1>@topic.name</h1></li>
+  </ol>
+  <div class="bar top clearfix">
+    <div class="pagination">
+      @forum.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts)
+    </div>
+  </div>
+
+  <div class="forum_posts_list">
+    @for(post <- posts.currentPageResults) {
+    <div class="post" id="@post.number">
+      <div class="metas clearfix">
+        @post.userId.map { userId =>
+        <span class="authorName authenticated">@userIdLink(userId.some)</span>
+        }.getOrElse {
+        <span class="authorName">@post.author</span>
+        }
+        <span class="createdAt">@showDate(post.createdAt)</span>
+        <a class="anchor" href="routes.ForumTopic.show(categ.slug, topic.slug, posts.page)">#@post.number</a>
+        @if(isGranted(Permission.ModerateForum)) {
+        <a class="delete" href="@routes.ForumPost.delete(post.id)">Delete</a>
+        }
+      </div>
+      <p class="message">@autoLink(post.text)</p>
+    </div>
+    }
+  </div>
+
+  <div class="bar bottom clearfix">
+    <div class="pagination">
+      @forum.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts)
+    </div>
+    @if(posts.currentPage == posts.nbPages) {
+    <a href="@routes.ForumPost.create(categ.slug, topic.slug)" class="action button">Reply to this topic</a>
+    }
+  </div>
+</div>
+}
