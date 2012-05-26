@@ -4,36 +4,38 @@
 title = trans.forum.str()) {
 
 <div class="forum forum_index">
-  <h1>Lichess Forum</h1>
+	<h1>Lichess Forum</h1>
 </div>
 <table class="categories">
-  <thead>
-    <tr class="thead">
-      <th>Categories</th>
-      <th class="right">Topics</th>
-      <th class="right">Posts</th>
-      <th>Last Post</th>
-    </tr>
-  </thead>
-  <tbody>
-    @categs.map { categ =>
-    @if(categ.slug != "staff" || isGranted(Permission.StaffForum)) {
-    <tr>
-      <td class="subject">
-        <a class="category_name" href="@routes.ForumCateg.show(categ.slug)">@categ.name</a>
-        <h2 class="description">@categ.desc</h2>
-      </td>
-      <td class="right">@categ.nbTopics</td>
-      <td class="right">@categ.nbPosts</td>
-      <td class="last_post">
-        @categ.lastPost.map { post =>
-        <a href="#">@showDate(post.createdAt)</a><br />by @userIdToUsername(post.userId)
-        }
-      </td>
-    </td>
-  </tr>
-  }
-  }
+	<thead>
+		<tr class="thead">
+			<th>Categories</th>
+			<th class="right">Topics</th>
+			<th class="right">Posts</th>
+			<th>Last Post</th>
+		</tr>
+	</thead>
+	<tbody>
+		@categs.map { categ =>
+		@if(categ.slug != "staff" || isGranted(Permission.StaffForum)) {
+		<tr>
+			<td class="subject">
+				<a class="category_name" href="@routes.ForumCateg.show(categ.slug)">@categ.name</a>
+				<h2 class="description">@categ.desc</h2>
+			</td>
+			<td class="right">@categ.nbTopics</td>
+			<td class="right">@categ.nbPosts</td>
+			<td class="last_post">
+				@categ.lastPost.map {
+				case (topic, post) => {
+				<a href="@routes.ForumTopic.show(categ.slug, topic.slug, categ pageOf post)#@post.number">@showDate(post.createdAt)</a><br />by @userIdToUsername(post.userId)
+				}
+				}
+			</td>
+		</td>
+	</tr>
+	}
+	}
 </tbody>
 </table>
 }

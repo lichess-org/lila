@@ -18,6 +18,7 @@ object Environment
     with DateHelper 
     with JsonHelper
     with PaginatorHelper
+    with FormHelper
     with round.RoundHelper 
     with game.GameHelper
     with user.UserHelper 

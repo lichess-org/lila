@@ -20,14 +20,23 @@ final class PostRepo(
   }
 
   def lastByTopics(topics: List[Topic]): IO[Post] = io {
-    find(byTopicsQuery(topics)).sort(sortQuery).limit(1).next
+    find(byTopicsQuery(topics)).sort(sortQuery(-1)).limit(1).next
   }
 
   val all: IO[List[Post]] = io {
     find(DBObject()).toList
   }
 
-  val sortQuery = DBObject("createdAt" -> -1)
+  val sortQuery: DBObject = sortQuery(1)
+
+  def sortQuery(order: Int): DBObject = DBObject("createdAt" -> order)
+
+  def saveIO(post: Post): IO[Unit] = io {
+    update(
+      DBObject("_id" -> post.id),
+      _grater asDBObject post,
+      upsert = true)
+  }
 
   def byTopicQuery(topic: Topic) = DBObject("topicId" -> topic.id)
 

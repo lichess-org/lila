@@ -7,12 +7,16 @@ import com.github.ornicar.paginator._
 final class TopicApi(env: ForumEnv, maxPerPage: Int) {
 
   def show(categSlug: String, slug: String, page: Int): IO[Option[(Categ, Topic, Paginator[Post])]] =
-    for {
-      categOption ← env.categRepo bySlug categSlug
-      topicOption ← env.topicRepo.byTree(categSlug, slug)
-    } yield categOption |@| topicOption apply {
-      case (categ, topic) ⇒ (categ, topic, env.postApi.paginator(topic, page))
+    get(categSlug, slug) map { 
+      _ map {
+        case (categ, topic) ⇒ (categ, topic, env.postApi.paginator(topic, page))
+      }
     }
+
+  def get(categSlug: String, slug: String) = for {
+    categOption ← env.categRepo bySlug categSlug
+    topicOption ← env.topicRepo.byTree(categSlug, slug)
+  } yield (categOption |@| topicOption).tupled
 
   def paginator(categ: Categ, page: Int): Paginator[TopicView] =
     Paginator(
@@ -21,7 +25,7 @@ final class TopicApi(env: ForumEnv, maxPerPage: Int) {
         query = env.topicRepo byCategQuery categ,
         sort = env.topicRepo.sortQuery) map { topic ⇒
           env.postRepo byId topic.lastPostId map { post ⇒
-            TopicView(categ, topic, post)
+            TopicView(categ, topic, post, env.postApi.pageOf)
           } unsafePerformIO
         },
       currentPage = page,

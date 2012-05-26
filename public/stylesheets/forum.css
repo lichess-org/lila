@@ -200,7 +200,7 @@ div.category .description {
   margin-left: 110px;
 }
 
-#lichess_forum form ul {
+#lichess_forum form p.error {
   margin-left: 110px;
   margin-bottom: 10px;
   color: red;

@@ -1,11 +1,11 @@
 #Site
-GET   /socket                           controllers.Main.websocket
+GET   /socket             controllers.Main.websocket
 
 # Game
-GET   /games                         controllers.Game.realtime
-GET   /games/refresh/:ids                         controllers.Game.realtimeInner(ids: String)
-GET   /games/all                         controllers.Game.all(page: Int ?= 1)
-GET   /games/checkmate                         controllers.Game.checkmate(page: Int ?= 1)
+GET   /games              controllers.Game.realtime
+GET   /games/refresh/:ids controllers.Game.realtimeInner(ids: String)
+GET   /games/all          controllers.Game.all(page: Int ?= 1)
+GET   /games/checkmate    controllers.Game.checkmate(page: Int ?= 1)
 
 # Round
 GET   /$gameId<[\w\-]{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")
@@ -38,71 +38,71 @@ GET   /analyse/$gameId<[\w\-]{8}>/$color<white|black> controllers.Analyse.replay
 GET   /$gameId<[\w\-]{8}>/stats          controllers.Analyse.stats(gameId: String)
 
 # Setting
-POST  /setting/color                 controllers.Setting.color
-POST  /setting/sound                 controllers.Setting.sound
+POST  /setting/color                   controllers.Setting.color
+POST  /setting/sound                   controllers.Setting.sound
 
 # Setup
-GET   /setup/ai                      controllers.Setup.aiForm
-POST  /setup/ai                      controllers.Setup.ai
-GET   /setup/friend                  controllers.Setup.friendForm
-POST  /setup/friend                  controllers.Setup.friend
-GET   /$fullId<[\w\-]{12}>/await     controllers.Setup.await(fullId: String)
-GET   /$fullId<[\w\-]{12}>/cancel    controllers.Setup.cancel(fullId: String)
-GET   /setup/hook                    controllers.Setup.hookForm
-POST  /setup/hook                    controllers.Setup.hook
+GET   /setup/ai                        controllers.Setup.aiForm
+POST  /setup/ai                        controllers.Setup.ai
+GET   /setup/friend                    controllers.Setup.friendForm
+POST  /setup/friend                    controllers.Setup.friend
+GET   /$fullId<[\w\-]{12}>/await       controllers.Setup.await(fullId: String)
+GET   /$fullId<[\w\-]{12}>/cancel      controllers.Setup.cancel(fullId: String)
+GET   /setup/hook                      controllers.Setup.hookForm
+POST  /setup/hook                      controllers.Setup.hook
 
 # I18n
-GET   /translation/contribute        controllers.I18n.contribute
+GET   /translation/contribute          controllers.I18n.contribute
 
 # Authentication
-GET   /login                         controllers.Auth.login
-POST  /login                         controllers.Auth.authenticate
-GET   /logout                        controllers.Auth.logout
+GET   /login                           controllers.Auth.login
+POST  /login                           controllers.Auth.authenticate
+GET   /logout                          controllers.Auth.logout
 
 # User
-GET   /@/:username/export            controllers.User.export(username: String)
-GET   /@/:username/:filterName       controllers.User.showFilter(username: String, filterName: String, page: Int ?= 1)
-GET   /@/:username                   controllers.User.show(username: String)
-POST  /@/:username/engine            controllers.User.engine(username: String)
-POST  /@/:username/mute              controllers.User.mute(username: String)
-GET   /signup                        controllers.User.signUp
-GET   /people                        controllers.User.list(page: Int ?= 1)
-GET   /people/stats                  controllers.User.stats
-GET   /people/autocomplete           controllers.User.autocomplete
-GET   /people/online                 controllers.User.online
+GET   /@/:username/export              controllers.User.export(username: String)
+GET   /@/:username/:filterName         controllers.User.showFilter(username: String, filterName: String, page: Int ?= 1)
+GET   /@/:username                     controllers.User.show(username: String)
+POST  /@/:username/engine              controllers.User.engine(username: String)
+POST  /@/:username/mute                controllers.User.mute(username: String)
+GET   /signup                          controllers.User.signUp
+GET   /people                          controllers.User.list(page: Int ?= 1)
+GET   /people/stats                    controllers.User.stats
+GET   /people/autocomplete             controllers.User.autocomplete
+GET   /people/online                   controllers.User.online
 GET   /account/bio                     controllers.User.getBio
 POST  /account/bio                     controllers.User.setBio
-GET   /account/close                     controllers.User.close
-POST  /account/closeConfirm                     controllers.User.closeConfirm
+GET   /account/close                   controllers.User.close
+POST  /account/closeConfirm            controllers.User.closeConfirm
 
 # Wiki
-GET   /wiki                          controllers.Wiki.home
+GET   /wiki                            controllers.Wiki.home
 
 # AI
-GET   /ai                            controllers.Ai.run
+GET   /ai                              controllers.Ai.run
 
-# Lobby 
-GET   /                              controllers.Lobby.home
-GET   /new/$ownerId<[\w\-]{12}>       controllers.Lobby.hook(ownerId: String)
-GET   /new/$ownerId<[\w\-]{12}>/cancel          controllers.Lobby.cancel(ownerId: String)
-GET   /new/$hookId<[\w\-]{8}>/join            controllers.Lobby.join(hookId: String)
-GET   /lobby/socket                  controllers.Lobby.socket
+# Lobby
+GET   /                                controllers.Lobby.home
+GET   /new/$ownerId<[\w\-]{12}>        controllers.Lobby.hook(ownerId: String)
+GET   /new/$ownerId<[\w\-]{12}>/cancel controllers.Lobby.cancel(ownerId: String)
+GET   /new/$hookId<[\w\-]{8}>/join     controllers.Lobby.join(hookId: String)
+GET   /lobby/socket                    controllers.Lobby.socket
 
 # Forum
-GET   /forum                        controllers.ForumCateg.index
-GET   /forum/:slug                    controllers.ForumCateg.show(slug: String, page: Int ?= 1)
-GET   /forum/:categSlug/new                    controllers.ForumTopic.create(categSlug: String)
-GET   /forum/:categSlug/:slug                    controllers.ForumTopic.show(categSlug: String, slug: String, page: Int ?= 1)
-GET   /forum/:categSlug/:slug/new                    controllers.ForumPost.create(categSlug: String, slug: String)
-GET   /forum/delete/topic/:id           controllers.ForumTopic.delete(id: String)
+GET   /forum                           controllers.ForumCateg.index
+GET   /forum/:slug                     controllers.ForumCateg.show(slug: String, page: Int ?= 1)
+POST  /forum/:categSlug/new            controllers.ForumTopic.create(categSlug: String)
+GET   /forum/:categSlug/:slug          controllers.ForumTopic.show(categSlug: String, slug: String, page: Int ?= 1)
+POST  /forum/:categSlug/:slug/new      controllers.ForumPost.create(categSlug: String, slug: String, page: Int ?= 1)
+GET   /forum/delete/topic/:id          controllers.ForumTopic.delete(id: String)
 GET   /forum/delete/post/:id           controllers.ForumPost.delete(id: String)
 
 # Monitor
-GET   /monitor                      controllers.Monitor.index
-GET   /monitor/stream               controllers.Monitor.stream
-GET   /nb-players                    controllers.Monitor.nbPlayers
-GET   /nb-playing                    controllers.Monitor.nbPlaying
-GET   /status                        controllers.Monitor.status
+GET   /monitor                         controllers.Monitor.index
+GET   /monitor/stream                  controllers.Monitor.stream
+GET   /nb-players                      controllers.Monitor.nbPlayers
+GET   /nb-playing                      controllers.Monitor.nbPlaying
+GET   /status                          controllers.Monitor.status
 
 # Assets
-GET   /assets/*file                  controllers.Assets.at(path="/public", file)
+GET   /assets/*file                    controllers.Assets.at(path="/public", file)

@@ -1,4 +1,4 @@
-@(categ: lila.forum.Categ, topic: lila.forum.Topic, posts: Paginator[lila.forum.Post])(implicit ctx: Context)
+@(categ: lila.forum.Categ, topic: lila.forum.Topic, posts: Paginator[lila.forum.Post], postForm: Option[Form[lila.forum.DataForm.PostData]])(implicit ctx: Context)
 
 @forum.layout(
 title = topic.name) {
@@ -34,13 +34,34 @@ title = topic.name) {
     }
   </div>
 
-  <div class="bar bottom clearfix">
+  @for(form <- postForm) {
+  <div class="topicReply">
+    <h2 class="postNewTitle" id="reply">Reply to this topic</h2>
+    @form.globalError.map { error =>
+    <p class="error">@error.message</p>
+    }
+    <form action="@routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)#bottom" method="POST" novalidate>
+      <label>
+        <span class="required">Message</span>
+        <textarea name="@form("text").name" id="@form("text").id"></textarea>
+        @errMsg(form("text"))
+      </label>
+      @if(!ctx.isAuth) {
+      <label>
+        <span>Author</span>
+        <input type="text" name="@form("author").name" id="@form("author").id">
+      </label>
+      }
+      <input type="submit" class="submit button" value="Reply" />
+      <a href="@routes.ForumCateg.show(categ.slug)" style="margin-left:20px">Cancel</a>
+    </form>
+  </div>
+  }
+
+  <div id="bottom" class="bar bottom clearfix">
     <div class="pagination">
       @forum.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts)
     </div>
-    @if(posts.currentPage == posts.nbPages) {
-    <a href="@routes.ForumPost.create(categ.slug, topic.slug)" class="action button">Reply to this topic</a>
-    }
   </div>
 </div>
 }

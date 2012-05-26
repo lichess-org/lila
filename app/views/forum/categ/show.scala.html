@@ -30,10 +30,10 @@ title = categ.name) {
       <tr>
         <td class="subject"><a href="@routes.ForumTopic.show(categ.slug, topic.slug)">@topic.name</a></td>
         <td class="right">@topic.views</td>
-        <td class="right">@topic.nbPosts</td>
+        <td class="right">@(topic.nbPosts - 1)</td>
         <td class="last_post">
           @topic.lastPost.map { post =>
-          <a href="@routes.ForumTopic.show(categ.slug, topic.slug)#@post.number">@showDate(post.createdAt)</a><br />by @userIdToUsername(post.userId)
+          <a href="@routes.ForumTopic.show(categ.slug, topic.slug, topic pageOf post)#@post.number">@showDate(post.createdAt)</a><br />by @userIdToUsername(post.userId)
           }
         </td>
         @if(isGranted(Permission.ModerateForum)) {

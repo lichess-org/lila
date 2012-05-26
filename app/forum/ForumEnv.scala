@@ -1,15 +1,17 @@
 package lila
 package forum
 
-import user.UserRepo
+import user.{ User, UserRepo }
 import core.Settings
 
 import com.mongodb.casbah.MongoCollection
+import com.mongodb.DBRef
 
 final class ForumEnv(
     settings: Settings,
     mongodb: String ⇒ MongoCollection,
-    userRepo: UserRepo) {
+    userRepo: UserRepo,
+    val userDbRef: User ⇒ DBRef) {
 
   import settings._
 

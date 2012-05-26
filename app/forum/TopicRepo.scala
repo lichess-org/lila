@@ -12,6 +12,10 @@ final class TopicRepo(
     collection: MongoCollection
   ) extends SalatDAO[Topic, String](collection) {
 
+  def byId(id: String): IO[Option[Topic]] = io {
+    findOneByID(id)
+  }
+
   def byCateg(categ: Categ): IO[List[Topic]] = io {
     find(DBObject("categId" -> categ.slug)).toList
   }

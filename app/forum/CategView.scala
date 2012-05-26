@@ -3,7 +3,8 @@ package forum
 
 case class CategView(
     categ: Categ,
-    lastPost: Option[Post]) {
+    lastPost: Option[(Topic, Post)],
+    pageOf: Post ⇒ Int) {
 
   def slug = categ.slug
   def name = categ.name
