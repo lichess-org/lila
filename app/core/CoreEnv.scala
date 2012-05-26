@@ -16,6 +16,9 @@ final class CoreEnv private (application: Application, val settings: Settings) {
   implicit val app = application
   import settings._
 
+  lazy val mongodb = new lila.mongodb.MongoDbEnv(
+    settings = settings)
+
   lazy val i18n = new lila.i18n.I18nEnv(
     app = app,
     settings = settings)
@@ -24,7 +27,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     settings = settings,
     mongodb = mongodb.apply _,
     gameRepo = game.gameRepo,
-    dbRef = namespace ⇒ id ⇒ new DBRef(mongodb.underlying, namespace, id))
+    dbRef = namespace ⇒ id ⇒ mongodb.ref(namespace, id))
 
   lazy val lobby = new lila.lobby.LobbyEnv(
     app = app,
@@ -81,7 +84,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
 
   lazy val monitor = new lila.monitor.MonitorEnv(
     app = app,
-    mongodb = mongodb,
+    mongodb = mongodb.connection,
     settings = settings)
 
   lazy val preloader = new Preload(
@@ -91,21 +94,6 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     gameRepo = game.gameRepo,
     messageRepo = lobby.messageRepo,
     entryRepo = timeline.entryRepo)
-
-  lazy val mongoCache = new MongoCache(mongodb(MongoCollectionCache))
-
-  lazy val mongodb = MongoConnection(
-    new MongoServer(MongoHost, MongoPort),
-    mongoOptions
-  )(MongoDbName)
-
-  // http://stackoverflow.com/questions/6520439/how-to-configure-mongodb-java-driver-mongooptions-for-production-use
-  private val mongoOptions = new MongoOptions() ~ { o ⇒
-    o.connectionsPerHost = MongoConnectionsPerHost
-    o.autoConnectRetry = MongoAutoConnectRetry
-    o.connectTimeout = MongoConnectTimeout
-    o.threadsAllowedToBlockForConnectionMultiplier = MongoBlockingThreads
-  }
 
   lazy val gameFinishCommand = new command.GameFinish(
     gameRepo = game.gameRepo,

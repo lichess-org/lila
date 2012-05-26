@@ -1,10 +1,10 @@
 package lila
-package core
+package mongodb
 
 import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.Imports._
 
-final class MongoCache(collection: MongoCollection) {
+final class Cache(collection: MongoCollection) {
 
   private val field = "v"
 

@@ -25,7 +25,7 @@ trait LilaController
     with Auth {
 
   lazy val env = Global.env
-  lazy val cache = env.mongoCache
+  lazy val cache = env.mongodb.cache
 
   implicit val current = env.app
 
