@@ -29,7 +29,8 @@ final class UserEnv(
 
   lazy val eloUpdater = new EloUpdater(
     userRepo = userRepo,
-    historyRepo = historyRepo)
+    historyRepo = historyRepo,
+    floor = UserEloUpdaterFloor)
 
   lazy val usernameMemo = new UsernameMemo(timeout = MemoUsernameTimeout)
 

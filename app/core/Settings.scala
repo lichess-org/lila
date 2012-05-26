@@ -20,6 +20,7 @@ final class Settings(config: Config) {
   val GamePaginatorMaxPerPage = getInt("game.paginator.max_per_page")
 
   val UserPaginatorMaxPerPage = getInt("user.paginator.max_per_page")
+  val UserEloUpdaterFloor = getInt("user.elo_updater.floor")
 
   val SetupFriendConfigMemoTtl = millis("setup.friend_config.memo.ttl")
 
