@@ -95,6 +95,9 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     messageRepo = lobby.messageRepo,
     entryRepo = timeline.entryRepo)
 
+  lazy val securityStore = new security.Store(
+    collection = mongodb(MongoCollectionSecurity))
+
   lazy val gameFinishCommand = new command.GameFinish(
     gameRepo = game.gameRepo,
     finisher = round.finisher)

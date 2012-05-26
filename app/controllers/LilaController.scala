@@ -2,7 +2,7 @@ package controllers
 
 import lila._
 import user.{ User ⇒ UserModel }
-import security.{ AuthConfigImpl, Permission }
+import security.{ AuthImpl, Permission }
 import http.{ Context, BodyContext, HttpEnvironment }
 import core.Global
 
@@ -21,12 +21,9 @@ trait LilaController
     with HttpEnvironment
     with ContentTypes
     with RequestGetter
-    with AuthConfigImpl
-    with Auth {
+    with AuthImpl {
 
   lazy val env = Global.env
-  lazy val cache = env.mongodb.cache
-
   implicit val current = env.app
 
   override implicit def lang(implicit req: RequestHeader) =
@@ -46,28 +43,28 @@ trait LilaController
   def OpenBody[A](p: BodyParser[A])(f: BodyContext ⇒ Result): Action[A] =
     Action(p)(req ⇒ f(reqToCtx(req)))
 
-  def Auth(f: Context ⇒ User ⇒ Result): Action[AnyContent] =
+  def Auth(f: Context ⇒ UserModel ⇒ Result): Action[AnyContent] =
     Auth(BodyParsers.parse.anyContent)(f)
 
-  def Auth[A](p: BodyParser[A])(f: Context ⇒ User ⇒ Result): Action[A] =
+  def Auth[A](p: BodyParser[A])(f: Context ⇒ UserModel ⇒ Result): Action[A] =
     Action(p)(req ⇒ {
       val ctx = reqToCtx(req)
       ctx.me.fold(me ⇒ f(ctx)(me), authenticationFailed(ctx.req))
     })
 
-  def AuthBody(f: BodyContext ⇒ User ⇒ Result): Action[AnyContent] =
+  def AuthBody(f: BodyContext ⇒ UserModel ⇒ Result): Action[AnyContent] =
     AuthBody(BodyParsers.parse.anyContent)(f)
 
-  def AuthBody[A](p: BodyParser[A])(f: BodyContext ⇒ User ⇒ Result): Action[A] =
+  def AuthBody[A](p: BodyParser[A])(f: BodyContext ⇒ UserModel ⇒ Result): Action[A] =
     Action(p)(req ⇒ {
       val ctx = reqToCtx(req)
       ctx.me.fold(me ⇒ f(ctx)(me), authenticationFailed(ctx.req))
     })
 
-  def Secure(perm: Permission)(f: Context ⇒ User ⇒ Result): Action[AnyContent] =
+  def Secure(perm: Permission)(f: Context ⇒ UserModel ⇒ Result): Action[AnyContent] =
     Secure(BodyParsers.parse.anyContent)(perm)(f)
 
-  def Secure[A](p: BodyParser[A])(perm: Permission)(f: Context ⇒ User ⇒ Result): Action[A] =
+  def Secure[A](p: BodyParser[A])(perm: Permission)(f: Context ⇒ UserModel ⇒ Result): Action[A] =
     Auth(p) { ctx ⇒
       me ⇒
         ctx.isGranted(perm).fold(f(ctx)(me), authorizationFailed(ctx.req))
@@ -168,24 +165,7 @@ trait LilaController
   implicit def ctoOptionString: ContentTypeOf[Option[String]] =
     ContentTypeOf[Option[String]](Some(ContentTypes.TEXT))
 
-  implicit def richForm[A](form: Form[A]) = new {
-    def toValid: Valid[A] = form.fold(
-      form ⇒ failure(nel("Invalid form", form.errors.map(_.toString).toList)),
-      data ⇒ success(data)
-    )
-  }
-
   protected def reqToCtx(req: Request[_]) = Context(req, restoreUser(req))
 
   protected def reqToCtx(req: RequestHeader) = Context(req, restoreUser(req))
-
-  private def restoreUser[A](req: RequestHeader): Option[UserModel] = for {
-    sessionId ← req.session.get("sessionId")
-    userId ← cache.getAs[Id](sessionId + ":sessionId")(idManifest)
-    user ← resolveUser(userId)
-  } yield {
-    cache.set(sessionId + ":sessionId", userId, sessionTimeoutInSeconds)
-    cache.set(userId.toString + ":userId", sessionId, sessionTimeoutInSeconds)
-    user
-  }
 }

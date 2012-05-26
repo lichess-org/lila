@@ -99,5 +99,6 @@ object User extends LilaController {
 
   def export(username: String) = TODO
 
-  val onlineUsers: IO[List[User]] = userRepo byUsernames env.user.usernameMemo.keys
+  private val onlineUsers: IO[List[UserModel]] = 
+    userRepo byUsernames env.user.usernameMemo.keys
 }

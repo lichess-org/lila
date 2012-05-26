@@ -25,7 +25,6 @@ trait Dependencies {
   val scalaTime = "org.scala-tools.time" %% "time" % "0.5"
   val slf4jNop = "org.slf4j" % "slf4j-nop" % "1.6.4"
   val dispatch = "net.databinder" %% "dispatch-http" % "0.8.7"
-  val auth = "jp.t2v" %% "play20.auth" % "0.3-SNAPSHOT"
   val paginator = "com.github.ornicar" %% "paginator-core" % "1.5"
   val paginatorSalat = "com.github.ornicar" %% "paginator-salat-adapter" % "1.4"
 }
@@ -56,7 +55,6 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       apache,
       scalaTime,
       dispatch,
-      auth,
       paginator,
       paginatorSalat),
     templatesImport ++= Seq(

@@ -23,6 +23,7 @@ use POST instead of GET where it makes sense
 
 next deploy:
 upgrade jre (jdk?)
+db.user.update({},{$unset:{lastLogin: true}}, false, true)
 db.user.update({},{$unset:{isOnline: true}}, false, true)
 db.user.update({},{$unset:{gameConfigs: true}}, false, true)
 db.user.update({},{$unset:{email: true}}, false, true)

@@ -8,10 +8,8 @@ final class Cache(collection: MongoCollection) {
 
   private val field = "v"
 
-  def set(key: String, value: Any): Unit = value match {
-    case null | None ⇒ remove(key)
-    case Some(v)     ⇒ set(key, v)
-    case v           ⇒ collection += DBObject("_id" -> key, field -> v)
+  def set(key: String, value: Any): Unit = {
+    collection += DBObject("_id" -> key, field -> value)
   }
 
   def get(key: String): Option[Any] = for {
