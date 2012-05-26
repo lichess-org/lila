@@ -24,6 +24,7 @@ final class Settings(config: Config) {
 
   val ForumTopicMaxPerPage = getInt("forum.topic.max_per_page")
   val ForumPostMaxPerPage = getInt("forum.post.max_per_page")
+  val ForumRecentTimeout = millis("forum.recent.timeout")
 
   val SetupFriendConfigMemoTtl = millis("setup.friend_config.memo.ttl")
 

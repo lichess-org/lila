@@ -27,5 +27,9 @@ final class ForumEnv(
 
   lazy val postApi = new PostApi(this, ForumPostMaxPerPage)
 
+  lazy val recent = new Recent(
+    env = this,
+    timeout = ForumRecentTimeout)
+
   lazy val denormalize = topicApi.denormalize flatMap { _ ⇒ categApi.denormalize }
 }

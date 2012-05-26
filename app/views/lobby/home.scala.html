@@ -1,4 +1,4 @@
-@(preload: String, myHook: Option[lila.lobby.Hook])(implicit ctx: Context)
+@(preload: String, myHook: Option[lila.lobby.Hook], forumRecent: List[lila.forum.PostView])(implicit ctx: Context)
 
 @chat = {
 @ctx.me.map { m =>
@@ -50,8 +50,7 @@
       <span class="title">@trans.forum()</span>
     </div>
     <div class="undertable_inner">
-      <ol>
-      </ol>
+      <ol>@forum.post.recent(forumRecent)</ol>
     </div>
   </div>
 </div>

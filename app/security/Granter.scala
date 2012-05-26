@@ -7,4 +7,7 @@ object Granter {
 
   def apply(permission: Permission)(user: User): Boolean = 
     Permission(user.roles) exists (_ is permission)
+
+  def option(permission: Permission)(user: Option[User]): Boolean = 
+    user.fold(apply(permission), false)
 }

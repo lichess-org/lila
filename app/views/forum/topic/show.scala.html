@@ -18,11 +18,7 @@ title = topic.name) {
     @for(post <- posts.currentPageResults) {
     <div class="post" id="@post.number">
       <div class="metas clearfix">
-        @post.userId.map { userId =>
-        <span class="author authenticated">@userIdLink(userId.some)</span>
-        }.getOrElse {
-        <span class="author">@showAuthorName(post)</span>
-        }
+        @authorLink(post, "author".some)
         <span class="createdAt">@showDate(post.createdAt)</span>
         <a class="anchor" href="routes.ForumTopic.show(categ.slug, topic.slug, posts.page)">#@post.number</a>
         @if(isGranted(Permission.ModerateForum)) {

@@ -27,6 +27,10 @@ final class PostRepo(
     find(DBObject()).toList
   }
 
+  def recent(nb: Int): IO[List[Post]] = io {
+    find(DBObject()).sort(sortQuery(-1)).limit(nb).toList.reverse
+  }
+
   val sortQuery: DBObject = sortQuery(1)
 
   def sortQuery(order: Int): DBObject = DBObject("createdAt" -> order)

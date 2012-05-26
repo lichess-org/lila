@@ -42,6 +42,16 @@ final class PostApi(env: ForumEnv, maxPerPage: Int) {
     )
   } yield (topicOption |@| postOption).tupled
 
+  def view(post: Post): IO[Option[PostView]] = for {
+    topicOption ← env.topicRepo byId post.topicId
+    categOption ← topicOption.fold(
+      topic ⇒ env.categRepo bySlug topic.categId,
+      io(none[Categ])
+    )
+  } yield topicOption |@| categOption apply {
+    case (topic, categ) ⇒ PostView(post, topic, categ, pageOf)
+  }
+
   def lastNumberOf(topic: Topic): IO[Int] =
     env.postRepo lastByTopics List(topic) map (_.number)
 

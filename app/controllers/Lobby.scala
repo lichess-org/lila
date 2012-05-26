@@ -15,6 +15,7 @@ object Lobby extends LilaController {
   def hookRepo = env.lobby.hookRepo
   def fisherman = env.lobby.fisherman
   def joiner = env.setup.hookJoiner
+  def forumRecent = env.forum.recent
 
   val home = Open { implicit ctx ⇒
     renderHome(none).fold(identity, Ok(_))
@@ -32,7 +33,7 @@ object Lobby extends LilaController {
     myHook = myHook
   ).unsafePerformIO.bimap(
       url ⇒ Redirect(url),
-      preload ⇒ html.lobby.home(toJson(preload), myHook)
+      preload ⇒ html.lobby.home(toJson(preload), myHook, forumRecent(ctx.me))
     )
 
   def socket = WebSocket.async[JsValue] { implicit req ⇒
