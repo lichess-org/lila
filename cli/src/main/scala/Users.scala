@@ -1,9 +1,10 @@
 package lila.cli
 
 import lila.user.{ User, UserRepo }
+import lila.security.Store
 import scalaz.effects._
 
-case class Users(userRepo: UserRepo) {
+case class Users(userRepo: UserRepo, securityStore: Store) {
 
   def enable(username: String): IO[Unit] =
     perform(username, "Enable", userRepo.enable)
@@ -19,4 +20,15 @@ case class Users(userRepo: UserRepo) {
       putStrLn("Not found")
     )
   } yield ()
+
+  def info(username: String) =
+    securityStore.userInfo(username).fold(
+      info ⇒ for {
+        _ ← putStrLn("USER " + info.user)
+        _ ← putStrLn("IP   " + info.ip)
+        _ ← putStrLn("UA   " + info.ua)
+        _ ← putStrLn("DATE " + info.date)
+      } yield (),
+      putStrLn("Not found")
+    )
 }

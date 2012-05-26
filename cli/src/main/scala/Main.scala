@@ -16,7 +16,7 @@ object Main {
 
   lazy val env = CoreEnv(app)
 
-  lazy val users = Users(env.user.userRepo)
+  lazy val users = Users(env.user.userRepo, env.securityStore)
   lazy val games = Games(env.game.gameRepo)
   lazy val infos = Infos(env)
 
@@ -32,6 +32,7 @@ object Main {
       case "finish" :: Nil                   ⇒ env.gameFinishCommand.apply
       case "user-enable" :: username :: Nil  ⇒ users enable username
       case "user-disable" :: username :: Nil ⇒ users disable username
+      case "user-info" :: username :: Nil    ⇒ users info username
       case _                                 ⇒ putStrLn("Usage: run command args")
     }
     op.map(_ ⇒ 0).unsafePerformIO

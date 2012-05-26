@@ -6,7 +6,7 @@ import user.User
 import play.api.mvc.RequestHeader
 import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.Imports._
-import java.util.Date
+import org.joda.time.DateTime
 
 final class Store(collection: MongoCollection) {
 
@@ -16,7 +16,7 @@ final class Store(collection: MongoCollection) {
       "user" -> normalize(username),
       "ip" -> ip(req),
       "ua" -> ua(req),
-      "date" -> new Date)
+      "date" -> DateTime.now)
   }
 
   def getUsername(sessionId: String): Option[String] = for {
@@ -31,10 +31,23 @@ final class Store(collection: MongoCollection) {
     collection.remove(DBObject("_id" -> sessionId))
   }
 
-  // nginx: proxy_set_header X-Real-IP $remote_addr;
-  private def ip(req: RequestHeader) = req.headers.get("X-Real-IP") | "0.0.0.0" 
+  case class Info(
+    user: String,
+    ip: String,
+    ua: String,
+    date: DateTime)
 
-  private def ua(req: RequestHeader) = req.headers.get("User-Agent") | "?" 
+  def userInfo(username: String): Option[Info] = for {
+    obj ← collection.findOne(DBObject("user" -> normalize(username)))
+    ip ← obj.getAs[String]("ip")
+    ua ← obj.getAs[String]("ua")
+    date ← obj.getAs[DateTime]("date")
+  } yield Info(username, ip, ua, date)
+
+  // nginx: proxy_set_header X-Real-IP $remote_addr;
+  private def ip(req: RequestHeader) = req.headers.get("X-Real-IP") | "0.0.0.0"
+
+  private def ua(req: RequestHeader) = req.headers.get("User-Agent") | "?"
 
   private def normalize(username: String) = username.toLowerCase
 }
