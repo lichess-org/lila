@@ -6,6 +6,8 @@ import com.novus.salat.annotations.Key
 import com.mongodb.DBRef
 import ornicar.scalalib.OrnicarRandom
 
+import user.User
+
 case class Post(
     @Key("_id") id: String,
     topicId: String,
@@ -14,6 +16,8 @@ case class Post(
     text: String,
     number: Int,
     createdAt: DateTime) {
+
+  def showAuthor = (author map (_.trim) filter ("" !=)) | User.anonymous
 
   def userId: Option[String] = user map (_.getId.toString)
 }

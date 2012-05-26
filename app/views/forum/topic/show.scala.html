@@ -19,9 +19,9 @@ title = topic.name) {
     <div class="post" id="@post.number">
       <div class="metas clearfix">
         @post.userId.map { userId =>
-        <span class="authorName authenticated">@userIdLink(userId.some)</span>
+        <span class="author authenticated">@userIdLink(userId.some)</span>
         }.getOrElse {
-        <span class="authorName">@post.author</span>
+        <span class="author">@post.showAuthor</span>
         }
         <span class="createdAt">@showDate(post.createdAt)</span>
         <a class="anchor" href="routes.ForumTopic.show(categ.slug, topic.slug, posts.page)">#@post.number</a>
@@ -40,7 +40,7 @@ title = topic.name) {
     @form.globalError.map { error =>
     <p class="error">@error.message</p>
     }
-    <form action="@routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)#bottom" method="POST" novalidate>
+    <form action="@routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)#reply" method="POST" novalidate>
       <label>
         <span class="required">Message</span>
         <textarea name="@form("text").name" id="@form("text").id"></textarea>
@@ -49,7 +49,7 @@ title = topic.name) {
       @if(!ctx.isAuth) {
       <label>
         <span>Author</span>
-        <input type="text" name="@form("author").name" id="@form("author").id">
+        <input class="author" type="text" name="@form("author").name" id="@form("author").id">
       </label>
       }
       <input type="submit" class="submit button" value="Reply" />
@@ -58,7 +58,7 @@ title = topic.name) {
   </div>
   }
 
-  <div id="bottom" class="bar bottom clearfix">
+  <div class="bar bottom clearfix">
     <div class="pagination">
       @forum.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts)
     </div>

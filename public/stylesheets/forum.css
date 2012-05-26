@@ -119,12 +119,12 @@ div.post .anchor {
   right: 0;
 }
 
-div.post .authorName {
+div.post .author {
   font-size: 1.2em;
   font-weight: bold;
   float: left;
 }
-div.post .authorName a {
+div.post .author a {
   height: 16px;
   display: block;
 }
@@ -191,7 +191,7 @@ div.category .description {
   padding: 0.5em;
   border: 1px solid #D4D4D4;
 }
-#lichess_forum form input.authorName {
+#lichess_forum form input.author {
   padding: 0.5em;
   width: 300px;
   border: 1px solid #D4D4D4;
