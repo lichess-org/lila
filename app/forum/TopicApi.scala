@@ -37,6 +37,7 @@ final class TopicApi(env: ForumEnv, maxPerPage: Int) {
     _ ← env.postRepo saveIO post
     _ ← env.topicApi denormalize topic
     _ ← env.categApi denormalize categ
+    _ ← env.recent.invalidate
   } yield topic
 
   def get(categSlug: String, slug: String) = for {

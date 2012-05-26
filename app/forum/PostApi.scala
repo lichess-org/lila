@@ -32,6 +32,7 @@ final class PostApi(env: ForumEnv, maxPerPage: Int) {
     _ ← env.postRepo saveIO post
     _ ← env.topicApi denormalize topic
     _ ← env.categApi denormalize categ
+    _ ← env.recent.invalidate
   } yield post
 
   def get(postId: String): IO[Option[(Topic, Post)]] = for {

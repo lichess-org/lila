@@ -18,6 +18,8 @@ final class Recent(env: ForumEnv, timeout: Int) {
   def apply(user: Option[User]): List[PostView] =
     cache get Granter.option(Permission.StaffForum)(user)
 
+  val invalidate: IO[Unit] = io(cache.invalidateAll)
+
   private def fetch(staff: Boolean): IO[List[PostView]] = for {
     posts ← env.postRepo.recent(nb)
     views ← (posts map env.postApi.view).sequence
