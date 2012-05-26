@@ -20,6 +20,13 @@ final class CategRepo(
     find(DBObject()).sort(DBObject("pos" -> 1)).toList
   }
 
+  def saveIO(categ: Categ): IO[Unit] = io {
+    update(
+      DBObject("_id" -> categ.slug),
+      _grater asDBObject categ,
+      upsert = true)
+  }
+
   private def idSelector(categ: Categ) = DBObject("_id" -> categ.slug)
 
   private def idSelector(slug: String) = DBObject("_id" -> slug)

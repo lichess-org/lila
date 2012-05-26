@@ -16,11 +16,12 @@ final class CategApi(env: ForumEnv) {
     topics ← env.topicRepo byCateg categ
     nbPosts ← env.postRepo countByTopics topics
     lastPost ← env.postRepo lastByTopics topics
-  } yield env.categRepo.save(categ.copy(
-    nbTopics = topics.size,
-    nbPosts = nbPosts,
-    lastPostId = lastPost.id
-  ))
+    _ ← env.categRepo.saveIO(categ.copy(
+      nbTopics = topics.size,
+      nbPosts = nbPosts,
+      lastPostId = lastPost.id
+    ))
+  } yield ()
 
   val denormalize: IO[Unit] = for {
     categs ← env.categRepo.all

@@ -19,4 +19,11 @@ final class TopicRepo(
   val all: IO[List[Topic]] = io {
     find(DBObject()).toList
   }
+
+  def saveIO(topic: Topic): IO[Unit] = io {
+    update(
+      DBObject("_id" -> topic.id),
+      _grater asDBObject topic,
+      upsert = true)
+  }
 }
