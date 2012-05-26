@@ -47,6 +47,10 @@ final class TopicRepo(
     find(DBObject()).toList
   }
 
+  def incViews(topic: Topic): IO[Unit] = io {
+    update(DBObject("_id" -> topic.id), $inc("views" -> 1))
+  }
+
   def saveIO(topic: Topic): IO[Unit] = io {
     update(
       DBObject("_id" -> topic.id),

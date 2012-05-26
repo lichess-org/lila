@@ -9,10 +9,13 @@ import com.github.ornicar.paginator._
 final class TopicApi(env: ForumEnv, maxPerPage: Int) {
 
   def show(categSlug: String, slug: String, page: Int): IO[Option[(Categ, Topic, Paginator[Post])]] =
-    get(categSlug, slug) map {
-      _ map {
-        case (categ, topic) ⇒ (categ, topic, env.postApi.paginator(topic, page))
-      }
+    for {
+      data ← get(categSlug, slug)
+      _ ← data.fold({
+        case (_, topic) ⇒ env.topicRepo incViews topic
+      }, io())
+    } yield data map {
+      case (categ, topic) ⇒ (categ, topic, env.postApi.paginator(topic, page))
     }
 
   def makeTopic(
