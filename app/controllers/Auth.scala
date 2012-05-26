@@ -8,12 +8,10 @@ import play.api.data.Forms._
 import play.api.templates._
 import play.api.mvc._
 import play.api.mvc.Results._
-import ornicar.scalalib.OrnicarRandom
 
 object Auth extends LilaController {
 
   def userRepo = env.user.userRepo
-  def store = env.securityStore
 
   def login = Action { implicit req ⇒
     Ok(html.auth.login(loginForm))
@@ -31,16 +29,5 @@ object Auth extends LilaController {
         BadRequest("wtf")
       )
     )
-  }
-
-  def gotoLoginSucceeded[A](username: String)(implicit req: RequestHeader) = {
-    val sessionId = OrnicarRandom nextAsciiString 16
-    store.save(sessionId, username, req)
-    loginSucceeded(req).withSession("sessionId" -> sessionId)
-  }
-
-  def gotoLogoutSucceeded(implicit req: RequestHeader) = {
-    req.session.get("sessionId") foreach store.delete
-    logoutSucceeded(req).withNewSession
   }
 }

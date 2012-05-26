@@ -10,6 +10,8 @@ import play.api.mvc.Results._
 import play.api.mvc.{ Request, PlainResult, Controller }
 import play.api.data._
 import play.api.data.Forms._
+import ornicar.scalalib.OrnicarRandom
+
 import core.CoreEnv
 
 trait AuthImpl {
@@ -28,6 +30,17 @@ trait AuthImpl {
 
   def authenticationFailed(req: RequestHeader): PlainResult =
     Redirect(routes.Lobby.home).withSession("access_uri" -> req.uri)
+
+  def gotoLoginSucceeded[A](username: String)(implicit req: RequestHeader) = {
+    val sessionId = OrnicarRandom nextAsciiString 16
+    env.securityStore.save(sessionId, username, req)
+    loginSucceeded(req).withSession("sessionId" -> sessionId)
+  }
+
+  def gotoLogoutSucceeded(implicit req: RequestHeader) = {
+    req.session.get("sessionId") foreach env.securityStore.delete
+    logoutSucceeded(req).withNewSession
+  }
 
   def loginSucceeded(req: RequestHeader): PlainResult = {
     val uri = req.session.get("access_uri").getOrElse(routes.Lobby.home.url)
