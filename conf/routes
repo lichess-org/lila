@@ -98,6 +98,13 @@ GET   /forum/:categSlug/:slug          controllers.ForumTopic.show(categSlug: St
 POST  /forum/:categSlug/:slug/new      controllers.ForumPost.create(categSlug: String, slug: String, page: Int ?= 1)
 POST  /forum/delete/post/:id           controllers.ForumPost.delete(id: String)
 
+# Message
+GET   /inbox                           controllers.Message.inbox(page: Int ?= 1)
+GET   /inbox/new                       controllers.Message.form
+POST  /inbox/new                       controllers.Message.create
+GET   /inbox/$id<[\w]{8}>              controllers.Message.thread(id: String)
+POST  /inbox/$id<[\w]{8}>/delete       controllers.Message.delete(id: String)
+
 # Monitor
 GET   /monitor                         controllers.Monitor.index
 GET   /monitor/stream                  controllers.Monitor.stream

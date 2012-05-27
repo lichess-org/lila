@@ -27,6 +27,10 @@ case class Thread(
   def nbUnreadBy(user: User) = isCreator(user).fold(
     posts count { post ⇒ post.isByInvited && post.isUnRead },
     posts count { post ⇒ post.isByCreator && post.isUnRead })
+
+  def userIds = List(creatorId, invitedId)
+
+  def otherUserId(user: User) = isCreator(user).fold(creatorId, invitedId)
 }
 
 object Topic {

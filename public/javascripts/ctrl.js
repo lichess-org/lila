@@ -118,11 +118,11 @@ $(function() {
     });
   }
 
-  $('div.infinitescroll').each(function() {
+  $('.infinitescroll').each(function() {
       $(this).infinitescroll({
-          navSelector: "div.pager",
-          nextSelector: "div.pager a:last",
-          itemSelector: "div.infinitescroll .paginated_element",
+          navSelector: ".pager",
+          nextSelector: ".pager a:last",
+          itemSelector: ".infinitescroll .paginated_element",
           loadingText: "",
           donetext: "---"
       }, function() {

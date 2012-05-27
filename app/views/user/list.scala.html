@@ -21,7 +21,7 @@ goodies = goodies.some) {
         <input id="search_user_input" class="search_user autocomplete" data-provider="@routes.User.autocomplete" />
       </form>
       <div class="infinitescroll">
-        <div class="pager"><a href="@routes.User.list(paginator.nextPage | 1)">Next</a></div>
+        <div class="pager none"><a href="@routes.User.list(paginator.nextPage | 1)">Next</a></div>
         <ol start="@{ 1+(paginator.currentPage-1)*paginator.maxPerPage }" class="users paginated_element">
           @paginator.currentPageResults.map { u => <li>@userLink(u, None, true)</li> }
         </ol>

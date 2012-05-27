@@ -1,0 +1,19 @@
+@(title: String)(body: Html)(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("message.css")
+}
+
+@moreJs = {
+@jsTag("vendor/jquery.infinitescroll.min.js")
+}
+
+@base.layout(
+title = title,
+moreCss = moreCss,
+moreJs = moreJs,
+active = siteMenu.message.some) {
+<div id="lichess_message" class="content_box">
+  @body
+</div>
+}
