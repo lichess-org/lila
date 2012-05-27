@@ -30,7 +30,7 @@ final class Processor(
       user ⇒ pov.game.updatePlayer(pov.color, _.withUser(user, userDbRef(user))),
       pov.game)
     _ ← gameRepo insert game
-    _ ← game.variant.standard.fold(io(), gameRepo saveInitialFen game)
+    _ ← gameRepo denormalizeStarted game
     _ ← timelinePush(game)
     pov2 ← game.player.isHuman.fold(
       io(pov),
@@ -53,7 +53,6 @@ final class Processor(
       user ⇒ pov.game.updatePlayer(pov.color, _.withUser(user, userDbRef(user))),
       pov.game)
     _ ← gameRepo insert game
-    _ ← game.variant.standard.fold(io(), gameRepo saveInitialFen game)
     _ ← timelinePush(game)
     _ ← friendConfigMemo.set(pov.game.id, config)
   } yield pov

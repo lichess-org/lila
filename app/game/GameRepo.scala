@@ -106,6 +106,17 @@ class GameRepo(collection: MongoCollection)
       .toList.map(_.decode).flatten.headOption
   }
 
+  def denormalizeStarted(game: DbGame): IO[Unit] = io {
+    val userIds = game.players.map(_.userId).flatten
+    update(
+      idSelector(game), 
+      game.variant.standard.fold(
+        $set("userIds" -> userIds),
+        $set("userIds" -> userIds, "initialFen" -> (Forsyth >> game.toChess))
+      )
+    )
+  }
+
   def saveInitialFen(game: DbGame): IO[Unit] = io {
     update(idSelector(game), $set("initialFen" -> (Forsyth >> game.toChess)))
   }

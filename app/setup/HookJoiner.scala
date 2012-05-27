@@ -41,7 +41,7 @@ final class HookJoiner(
       blame(_.creatorColor, ownerOption, makeGame(hook))
     ).start
     _ ← gameRepo insert game
-    _ ← game.variant.standard.fold(io(), gameRepo saveInitialFen game)
+    _ ← gameRepo denormalizeStarted game
     _ ← timelinePush(game)
     // messenges are not sent to the game socket
     // as nobody is there to see them yet
@@ -72,8 +72,8 @@ final class HookJoiner(
 
   private def canJoin(hook: Hook, me: Option[User]) =
     !hook.`match` && {
-      hook.realMode.casual || (me exists { u ⇒ 
-        hook.realEloRange.fold(_ contains u.elo, true) 
+      hook.realMode.casual || (me exists { u ⇒
+        hook.realEloRange.fold(_ contains u.elo, true)
       })
     }
 }
