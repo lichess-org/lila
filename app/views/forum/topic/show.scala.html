@@ -20,7 +20,7 @@ title = topic.name) {
       <div class="metas clearfix">
         @authorLink(post, "author".some)
         <span class="createdAt">@showDate(post.createdAt)</span>
-        <a class="anchor" href="routes.ForumTopic.show(categ.slug, topic.slug, posts.page)">#@post.number</a>
+        <a class="anchor" href="@routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage)#@post.number">#@post.number</a>
         @if(isGranted(Permission.ModerateForum)) {
         <a class="delete" href="@routes.ForumPost.delete(post.id)">Delete</a>
         }

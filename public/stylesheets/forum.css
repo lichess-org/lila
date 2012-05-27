@@ -236,18 +236,14 @@ div.search_results .result .subject {
 
 div.pagination a, div.pagination span {
   font-size: 1.1em;
-  padding: 0.1em 0.5em;
   font-weight: bold;
   border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
   text-decoration: none;
+  margin: 0 2px;
 }
 div.pagination span {
   color: #aaa;
-}
-div.pagination span.current {
-  margin: 0 0.5em;
+  padding: 0.1em 0.3em;
 }
 
 div.bar {
