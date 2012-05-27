@@ -1,3 +1,13 @@
 @(clock: chess.Clock, color: chess.Color, position: String)(implicit ctx: Context)
 
-clock for @color
+@import scala.math.floor
+
+@defining(clock.remainingTime(color)) { time =>
+<div class="clock
+  clock_@position
+  clock_@color
+  @{ (time == 0).fold("outoftime", "") }"
+  data-time="@time">
+  @{ """%02d:%02d""".format(floor(time / 60d).toInt, (time % 60).toInt) }
+</div>
+}
