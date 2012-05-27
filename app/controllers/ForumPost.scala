@@ -19,7 +19,7 @@ object ForumPost extends LilaController with Forum {
       IOptionResult(topicApi.show(categSlug, slug, page)) {
         case (categ, topic, posts) ⇒ forms.post.bindFromRequest.fold(
           err ⇒ BadRequest(html.forum.topic.show(
-            categ, topic, posts, Some(err.pp -> forms.captchaCreate))),
+            categ, topic, posts, Some(err -> forms.captchaCreate))),
           data ⇒ (for {
             post ← postApi.makePost(categ, topic, data, ctx.me)
           } yield Redirect("%s#%d".format(

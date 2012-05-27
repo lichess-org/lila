@@ -4,31 +4,65 @@ package site
 import game._
 import chess.{ Game, Color }
 import chess.format.{ Forsyth, PgnReader }
-import scalaz.effects._
-import scalaz.NonEmptyList
+
+import scalaz.{ NonEmptyList, NonEmptyLists }
+import scala.collection.mutable
+import scala.util.Random
+import org.joda.time.DateTime
+import org.scala_tools.time.Imports._
 
 // only works with standard chess (not chess960)
 final class Captcha(gameRepo: GameRepo) {
 
   import Captcha._
 
-  val create: IO[Valid[Challenge]] =
-    gameRepo.findOneStandardCheckmate map { gameOption ⇒
-      for {
-        game ← gameOption toValid "No checkmate available in db"
-        challenge ← get(game)
-      } yield challenge 
+  def create: Challenge = Cache.create
+
+  def get(id: String): Challenge = Cache get id
+
+  private object Cache extends NonEmptyLists {
+    val timeout = 10 seconds
+    val history = 1000
+    private var challenges: NonEmptyList[Challenge] = nel(createFromDb.err)
+    private var date = DateTime.now
+
+    def create = { refresh; current }
+
+    def get(id: String) = find(id) | { getFromDb(id).err ~ add }
+
+    private def current = challenges.head
+
+    private def refresh {
+      if (date < DateTime.now - timeout) {
+        createFromDb.toOption foreach add
+      }
     }
 
-  def get(id: String): IO[Valid[Challenge]] =
-    gameRepo game id map { gameOption ⇒
-      for {
-        game ← gameOption toValid "No such game: " + id
-        challenge ← get(game)
-      } yield challenge
+    private def add(c: Challenge) {
+      find(c.gameId) ifNone { challenges = nel(c, challenges.list take history) }
+      date = DateTime.now
     }
 
-  private def get(game: DbGame): Valid[Challenge] = for {
+    private def find(id: String) = challenges.list.find(_.gameId == id)
+  }
+
+  private def createFromDb: Valid[Challenge] = {
+    val gameOption = gameRepo.findRandomStandardCheckmate(100).unsafePerformIO
+    for {
+      game ← gameOption toValid "No checkmate available in db"
+      challenge ← makeChallenge(game)
+    } yield challenge
+  }
+
+  private def getFromDb(id: String): Valid[Challenge] = {
+    val gameOption = (gameRepo game id).unsafePerformIO
+    for {
+      game ← gameOption toValid "No such game: " + id
+      challenge ← makeChallenge(game)
+    } yield challenge
+  }
+
+  private def makeChallenge(game: DbGame): Valid[Challenge] = for {
     rewinded ← rewind(game)
     solutions ← solve(rewinded)
   } yield Challenge(game.id, fen(rewinded), rewinded.player, solutions)

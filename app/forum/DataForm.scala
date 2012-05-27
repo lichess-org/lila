@@ -31,11 +31,9 @@ final class DataForm(captcher: Captcha) {
 
   def topicWithCaptcha = topic -> captchaCreate
 
-  def captchaCreate: Captcha.Challenge =
-    (captcher.create).unsafePerformIO.err
+  def captchaCreate: Captcha.Challenge = captcher.create
 
-  def captchaGet(gameId: String): Captcha.Challenge =
-    (captcher get gameId).unsafePerformIO.err
+  def captchaGet(gameId: String): Captcha.Challenge = captcher get gameId
 }
 
 object DataForm {

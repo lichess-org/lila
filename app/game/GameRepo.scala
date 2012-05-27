@@ -15,6 +15,7 @@ import com.mongodb.casbah.Imports._
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 import java.util.Date
+import scala.util.Random
 import scalaz.effects._
 
 class GameRepo(collection: MongoCollection)
@@ -94,13 +95,14 @@ class GameRepo(collection: MongoCollection)
     )
   }
 
-  val findOneStandardCheckmate: IO[Option[DbGame]] = io {
+  def findRandomStandardCheckmate(distribution: Int): IO[Option[DbGame]] = io {
     find(DBObject(
       "status" -> Status.Mate.id,
       "v" -> Variant.Standard.id
     ))
       .sort(DBObject("createdAt" -> -1))
       .limit(1)
+      .skip(Random nextInt distribution)
       .toList.map(_.decode).flatten.headOption
   }
 
