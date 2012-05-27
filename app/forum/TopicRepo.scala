@@ -58,7 +58,7 @@ final class TopicRepo(
       upsert = true)
   }
 
-  val sortQuery = DBObject("createdAt" -> -1)
+  val sortQuery = DBObject("updatedAt" -> -1)
 
   def byCategQuery(categ: Categ) = DBObject("categId" -> categ.slug)
 }

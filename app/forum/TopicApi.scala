@@ -64,7 +64,8 @@ final class TopicApi(env: ForumEnv, maxPerPage: Int) {
     lastPost ← env.postRepo lastByTopics List(topic)
     _ ← env.topicRepo.saveIO(topic.copy(
       nbPosts = nbPosts,
-      lastPostId = lastPost.id
+      lastPostId = lastPost.id,
+      updatedAt = lastPost.createdAt
     ))
   } yield ()
 
