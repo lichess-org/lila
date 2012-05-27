@@ -17,7 +17,7 @@ final class DataForm(captcher: Captcha) {
     "move" -> nonEmptyText
   )(PostData.apply)(PostData.unapply).verifying(
     "Not a checkmate", 
-    data ⇒ captchaGet(data.gameId) valid data.move.trim.toLowerCase
+    data ⇒ captcher get data.gameId valid data.move.trim.toLowerCase
   )
 
   def post = Form(postMapping)
@@ -29,11 +29,7 @@ final class DataForm(captcher: Captcha) {
     "post" -> postMapping
   )(TopicData.apply)(TopicData.unapply))
 
-  def topicWithCaptcha = topic -> captchaCreate
-
   def captchaCreate: Captcha.Challenge = captcher.create
-
-  def captchaGet(gameId: String): Captcha.Challenge = captcher get gameId
 }
 
 object DataForm {

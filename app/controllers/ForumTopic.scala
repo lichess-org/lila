@@ -12,31 +12,28 @@ object ForumTopic extends LilaController with Forum {
   def categRepo = env.forum.categRepo
   def forms = env.forum.forms
 
-  //def form(categSlug: String) = Open { implicit ctx ⇒
-    //CategGrant(categSlug) {
-      //IOptionOk(categRepo bySlug categSlug) { categ ⇒
-        //val form = forms.TopicCaptcha(captchaCreate)
-        //html.forum.topic.form(categ, form)
-      //}
-    //}
-  //}
+  def form(categSlug: String) = Open { implicit ctx ⇒
+    CategGrant(categSlug) {
+      IOptionOk(categRepo bySlug categSlug) { categ ⇒
+        html.forum.topic.form(categ, forms.topic, forms.captchaCreate)
+      }
+    }
+  }
 
-  //def create(categSlug: String) = OpenBody { implicit ctx ⇒
-    //CategGrant(categSlug) {
-      //implicit val req = ctx.body
-      //IOptionResult(categRepo bySlug categSlug) { categ ⇒
-        //forms.topic.bindFromRequest.fold(
-          //err ⇒ BadRequest(html.forum.topic.form(categ, err)),
-          //data ⇒ (for {
-            //topic ← topicApi.makeTopic(categ, data, ctx.me)
-          //} yield Redirect(routes.ForumCateg.show(categ.slug))
-          //).unsafePerformIO
-        //)
-      //}
-    //}
-  //}
-  def create(categSlug: String) = TODO
-  def form(categSlug: String) = TODO
+  def create(categSlug: String) = OpenBody { implicit ctx ⇒
+    CategGrant(categSlug) {
+      implicit val req = ctx.body
+      IOptionResult(categRepo bySlug categSlug) { categ ⇒
+        forms.topic.bindFromRequest.fold(
+          err ⇒ BadRequest(html.forum.topic.form(categ, err, forms.captchaCreate)),
+          data ⇒ (for {
+            topic ← topicApi.makeTopic(categ, data, ctx.me)
+          } yield Redirect(routes.ForumTopic.show(categ.slug, topic.slug, 1))
+          ).unsafePerformIO
+        )
+      }
+    }
+  }
 
   def show(categSlug: String, slug: String, page: Int) = Open { implicit ctx ⇒
     CategGrant(categSlug) {
