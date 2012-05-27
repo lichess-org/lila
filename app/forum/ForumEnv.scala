@@ -3,12 +3,14 @@ package forum
 
 import user.{ User, UserRepo }
 import core.Settings
+import site.Captcha
 
 import com.mongodb.casbah.MongoCollection
 import com.mongodb.DBRef
 
 final class ForumEnv(
     settings: Settings,
+    captcha: Captcha,
     mongodb: String ⇒ MongoCollection,
     userRepo: UserRepo,
     val userDbRef: User ⇒ DBRef) {
@@ -30,6 +32,8 @@ final class ForumEnv(
   lazy val recent = new Recent(
     env = this,
     timeout = ForumRecentTimeout)
+  
+  lazy val forms = new DataForm(captcha)
 
   lazy val denormalize = topicApi.denormalize flatMap { _ ⇒ categApi.denormalize }
 }

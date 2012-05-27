@@ -1,4 +1,4 @@
-@(categ: lila.forum.Categ, topic: lila.forum.Topic, posts: Paginator[lila.forum.Post], postForm: Option[Form[lila.forum.DataForm.PostData]])(implicit ctx: Context)
+@(categ: lila.forum.Categ, topic: lila.forum.Topic, posts: Paginator[lila.forum.Post], formWithCaptcha: Option[(Form[lila.forum.DataForm.PostData], lila.site.Captcha.Challenge)])(implicit ctx: Context)
 
 @forum.layout(
 title = topic.name) {
@@ -30,18 +30,19 @@ title = topic.name) {
     }
   </div>
 
-  @for(form <- postForm) {
+  @formWithCaptcha.map {
+  case (form, captcha) => {
   <div class="topicReply">
     <h2 class="postNewTitle" id="reply">Reply to this topic</h2>
-    @form.globalError.map { error =>
-    <p class="error">@error.message</p>
-    }
     <form action="@routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)#reply" method="POST" novalidate>
       @forum.post.formFields(form("text"), form("author"))
+      @forum.post.captcha(form("move"), form("gameId"), captcha)
+      @errMsg(form)
       <input type="submit" class="submit button" value="Reply" />
       <a href="@routes.ForumCateg.show(categ.slug)" style="margin-left:20px">Cancel</a>
     </form>
   </div>
+  }
   }
 
   <div class="bar bottom clearfix">

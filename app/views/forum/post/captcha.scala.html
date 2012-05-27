@@ -1,0 +1,20 @@
+@(move: Field, gameId: Field, captcha: lila.site.Captcha.Challenge)(implicit ctx: Context)
+<input type="hidden" name="@gameId.name" id="@gameId.id" value="@captcha.gameId" />
+<div class="checkmateCaptcha clearfix">
+  <div class="checkmateFen">
+    <div class="mini_board parse_fen with_keys" data-color="white" data-fen="@captcha.fen"></div>
+  </div>
+  <div class="checkmateSection">
+    <label>
+      <div>
+        <strong>@captcha.color.toString plays, mate in one!</strong><br />
+        This is a chess captcha.<br />
+        Click on the board to make your move,<br />
+        and prove you are human.<br /><br />
+      </div>
+      <input type="text" name="@move.name" id="@move.id" />
+      @errMsg(move)
+    </label>
+  </div>
+</div>
+

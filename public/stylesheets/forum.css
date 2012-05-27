@@ -281,3 +281,6 @@ div.checkmateCaptcha input {
   font-weight: bold;
   width: 5em;
 }
+#lichess_forum div.checkmateCaptcha p.error {
+  margin-left: 0;
+}

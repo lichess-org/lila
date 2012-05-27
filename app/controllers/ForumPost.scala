@@ -7,7 +7,7 @@ object ForumPost extends LilaController with Forum {
 
   def topicApi = env.forum.topicApi
   def postApi = env.forum.postApi
-  def forms = forum.DataForm
+  def forms = env.forum.forms
 
   val recent = Open { implicit ctx =>
     Ok(html.forum.post.recent(env.forum.recent(ctx.me)))
@@ -18,7 +18,8 @@ object ForumPost extends LilaController with Forum {
       implicit val req = ctx.body
       IOptionResult(topicApi.show(categSlug, slug, page)) {
         case (categ, topic, posts) ⇒ forms.post.bindFromRequest.fold(
-          err ⇒ BadRequest(html.forum.topic.show(categ, topic, posts, err.some)),
+          err ⇒ BadRequest(html.forum.topic.show(
+            categ, topic, posts, Some(err.pp -> forms.captchaCreate))),
           data ⇒ (for {
             post ← postApi.makePost(categ, topic, data, ctx.me)
           } yield Redirect("%s#%d".format(

@@ -4,6 +4,7 @@ import lila._
 import views._
 import security._
 import http.Context
+import site.Captcha
 
 import play.api.mvc._
 import play.api.mvc.Results._

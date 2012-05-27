@@ -52,13 +52,13 @@ object Cron {
       env.lobby.hookRepo.cleanupOld
     }
 
-    //unsafe(3 seconds) {
-      //Future.traverse(hubs) { hub ⇒
-        //hub ? socket.GetUsernames mapTo manifest[Iterable[String]]
-      //} map (_.flatten) onSuccess {
-        //case xs ⇒ (env.user.usernameMemo putAll xs).unsafePerformIO
-      //}
-    //}
+    unsafe(3 seconds) {
+      Future.traverse(hubs) { hub ⇒
+        hub ? socket.GetUsernames mapTo manifest[Iterable[String]]
+      } map (_.flatten) onSuccess {
+        case xs ⇒ (env.user.usernameMemo putAll xs).unsafePerformIO
+      }
+    }
 
     //effect(4.1 hours) {
       //env.game.gameRepo.cleanupUnplayed flatMap { _ ⇒
