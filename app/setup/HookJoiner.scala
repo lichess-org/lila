@@ -3,7 +3,7 @@ package setup
 
 import lobby.{ HookRepo, Hook, Fisherman }
 import user.{ User, UserRepo }
-import chess.{ Game, Board, Variant, Mode, PausedClock, Color ⇒ ChessColor }
+import chess.{ Game, Board, Variant, Mode, Clock, Color ⇒ ChessColor }
 import game.{ GameRepo, DbGame, DbPlayer, Pov }
 import round.{ Messenger, Progress }
 
@@ -59,7 +59,7 @@ final class HookJoiner(
       board = Board(pieces = hook.realVariant.pieces),
       clock = hook.hasClock.fold(
         hook.time |@| hook.increment apply { (limit, inc) ⇒
-          PausedClock(limit = limit, increment = inc)
+          Clock(limit = limit, increment = inc)
         },
         none)
     ),
