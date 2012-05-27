@@ -49,7 +49,7 @@ object UserInfo {
       io(none)
     )
     eloChart ← eloChartBuilder(user)
-    winChart = (user.nbGames > 0) option {
+    winChart = (user.nbRatedGames > 0) option {
       new WinChart(nbWin, nbDraw, nbLoss)
     }
     eloWithMe = ctx.me.filter(user!=) map { me ⇒

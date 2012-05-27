@@ -10,7 +10,7 @@ div.user_show div.content_box_top .status {
   width: 16px;
   height: 16px;
   float: left;
-  background: transparent url(/bundles/lichess/images/s16.png) top left no-repeat;
+  background: transparent url(/assets/images/s16.png) top left no-repeat;
   background-position: 0 -160px;
   margin: 12px 8px 0 -10px;
 }
