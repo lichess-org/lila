@@ -16,6 +16,9 @@ class UserRepo(
 
   private val enabledQuery = DBObject("enabled" -> true)
 
+  private def byUsernameQuery(username: String) =
+    DBObject("usernameCanonical" -> username.toLowerCase)
+
   def user(userId: String): IO[Option[User]] = user(new ObjectId(userId))
 
   def user(userId: ObjectId): IO[Option[User]] = io {
@@ -29,7 +32,7 @@ class UserRepo(
   }
 
   def byUsername(username: String): IO[Option[User]] = io {
-    findOne(DBObject("usernameCanonical" -> username.toLowerCase))
+    findOne(byUsernameQuery(username))
   }
 
   def byUsernames(usernames: Iterable[String]): IO[List[User]] = io {
@@ -71,16 +74,25 @@ class UserRepo(
   }
 
   def exists(username: String): IO[Boolean] = io {
-    count(DBObject("usernameCanonical" -> username.toLowerCase)) != 0
+    count(byUsernameQuery(username)) != 0
   }
 
   def authenticate(username: String, password: String): IO[Option[User]] = for {
     userOption ← byUsername(username)
-    validPassword ← userOption.fold(
-      user ⇒ securityRepo.authenticate(user, password),
-      io(false)
-    )
-  } yield userOption filter (_ ⇒ validPassword)
+    greenLight ← authenticable(username, password)
+  } yield userOption filter (_ ⇒ greenLight)
+
+  private def authenticable(username: String, password: String): IO[Boolean] = io {
+    for {
+      data ← collection.findOne(
+        byUsernameQuery(username),
+        DBObject("password" -> true, "salt" -> true, "enabled" -> true)
+      )
+      hashed ← data.getAs[String]("password")
+      salt ← data.getAs[String]("salt")
+      enabled ← data.getAs[Boolean]("enabled")
+    } yield enabled && hashed == hash(password, salt)
+  } map (_ | false)
 
   def create(username: String, password: String): IO[Option[User]] = for {
     exists ← exists(username)
@@ -148,14 +160,4 @@ class UserRepo(
 
   private def hash(pass: String, salt: String): String =
     "%s{%s}".format(pass, salt).sha1
-
-  private case class Security(password: String, hash: String)
-
-  private val securityRepo = new SalatDAO[Security, ObjectId](collection) {
-    def authenticate(user: User, password: String): IO[Boolean] = io {
-      findOneByID(user.id).fold(
-        sec ⇒ sec.password == hash(password, sec.hash),
-        false)
-    }
-  }
 }
