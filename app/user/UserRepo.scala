@@ -4,10 +4,11 @@ package user
 import com.novus.salat._
 import com.novus.salat.dao._
 import com.mongodb.DBRef
-import com.mongodb.casbah.MongoCollection
+import com.mongodb.casbah.{ MongoCollection, WriteConcern }
 import com.mongodb.casbah.Imports._
 import scalaz.effects._
 import com.roundeights.hasher.Implicits._
+import ornicar.scalalib.OrnicarRandom
 
 class UserRepo(
     collection: MongoCollection,
@@ -69,10 +70,38 @@ class UserRepo(
       $set(("settings." + key) -> value))
   }
 
-  def authenticate(username: String, password: String): IO[Option[User]] =
-    byUsername(username) map { userOption ⇒
-      userOption filter { u ⇒ u.password == hash(password, u.salt) }
-    }
+  def exists(username: String): IO[Boolean] = io {
+    count(DBObject("usernameCanonical" -> username.toLowerCase)) != 0
+  }
+
+  def authenticate(username: String, password: String): IO[Option[User]] = for {
+    userOption ← byUsername(username)
+    validPassword ← userOption.fold(
+      user ⇒ securityRepo.authenticate(user, password),
+      io(false)
+    )
+  } yield userOption filter (_ ⇒ validPassword)
+
+  def create(username: String, password: String): IO[Option[User]] = for {
+    exists ← exists(username)
+    userOption ← exists.fold(
+      io(none),
+      io {
+        val salt = OrnicarRandom nextAsciiString 32
+        val obj = DBObject(
+          "username" -> username,
+          "usernameCanonical" -> username.toLowerCase,
+          "password" -> hash(password, salt),
+          "salt" -> salt,
+          "elo" -> User.STARTING_ELO,
+          "nbGames" -> 0,
+          "nbRatedGames" -> 0,
+          "enabled" -> true,
+          "roles" -> Nil)
+        collection.insert(obj, WriteConcern.Safe)
+      } flatMap { _ ⇒ byUsername(username) }
+    )
+  } yield userOption
 
   val countEnabled: IO[Int] = io { count(enabledQuery).toInt }
 
@@ -119,4 +148,14 @@ class UserRepo(
 
   private def hash(pass: String, salt: String): String =
     "%s{%s}".format(pass, salt).sha1
+
+  private case class Security(password: String, hash: String)
+
+  private val securityRepo = new SalatDAO[Security, ObjectId](collection) {
+    def authenticate(user: User, password: String): IO[Boolean] = io {
+      findOneByID(user.id).fold(
+        sec ⇒ sec.password == hash(password, sec.hash),
+        false)
+    }
+  }
 }

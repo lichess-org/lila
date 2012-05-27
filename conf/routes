@@ -58,6 +58,8 @@ GET   /translation/contribute          controllers.I18n.contribute
 GET   /login                           controllers.Auth.login
 POST  /login                           controllers.Auth.authenticate
 GET   /logout                          controllers.Auth.logout
+GET   /signup                          controllers.Auth.signup
+POST  /signup                          controllers.Auth.signupPost
 
 # User
 GET   /@/:username/export              controllers.User.export(username: String)
@@ -65,7 +67,6 @@ GET   /@/:username/:filterName         controllers.User.showFilter(username: Str
 GET   /@/:username                     controllers.User.show(username: String)
 POST  /@/:username/engine              controllers.User.engine(username: String)
 POST  /@/:username/mute                controllers.User.mute(username: String)
-GET   /signup                          controllers.User.signUp
 GET   /people                          controllers.User.list(page: Int ?= 1)
 GET   /people/stats                    controllers.User.stats
 GET   /people/autocomplete             controllers.User.autocomplete

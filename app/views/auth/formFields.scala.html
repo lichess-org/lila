@@ -1,0 +1,21 @@
+@(username: Field, password: Field)(implicit ctx: Context)
+
+<li class="username">
+  <label for="@username.id">@trans.username()</label>
+  <input
+  type="text"
+  required="required"
+  name="@username.name"
+  id="@username.id"
+  value="@username.value"/>
+  @errMsg(username)
+</li>
+<li class="password">
+  <label for="@password.id">@trans.password()</label>
+  <input
+  type="password"
+  required="required"
+  name="@password.name"
+  id="@password.id" />
+  @errMsg(password)
+</li>

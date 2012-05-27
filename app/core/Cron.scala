@@ -60,11 +60,11 @@ object Cron {
       }
     }
 
-    //effect(4.1 hours) {
-      //env.game.gameRepo.cleanupUnplayed flatMap { _ ⇒
-        //env.gameCleanNextCommand.apply
-      //}
-    //}
+    effect(4.1 hours) {
+      env.game.gameRepo.cleanupUnplayed flatMap { _ ⇒
+        env.gameCleanNextCommand.apply
+      }
+    }
 
     //effect(1 hour) {
       //env.gameFinishCommand.apply

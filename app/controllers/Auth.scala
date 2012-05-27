@@ -13,20 +13,34 @@ object Auth extends LilaController {
 
   def userRepo = env.user.userRepo
 
-  def login = Action { implicit req ⇒
+  def login = Open { implicit ctx ⇒
     Ok(html.auth.login(loginForm))
   }
 
-  def logout = Action { implicit req ⇒
-    gotoLogoutSucceeded
+  def authenticate = OpenBody { implicit ctx ⇒
+    implicit val req = ctx.body
+    loginForm.bindFromRequest.fold(
+      err ⇒ BadRequest(html.auth.login(err)),
+      userOption ⇒ gotoLoginSucceeded(
+        userOption.err("authenticate error").username
+      )
+    )
   }
 
-  def authenticate = Action { implicit req ⇒
-    loginForm.bindFromRequest.fold(
-      formWithErrors ⇒ BadRequest(html.auth.login(formWithErrors)),
-      _.fold(
-        user ⇒ gotoLoginSucceeded(user.username),
-        BadRequest("wtf")
+  def logout = Open { implicit ctx ⇒
+    gotoLogoutSucceeded(ctx.req)
+  }
+
+  def signup = Open { implicit ctx ⇒
+    Ok(html.auth.signup(signupForm))
+  }
+
+  def signupPost = OpenBody { implicit ctx ⇒
+    implicit val req = ctx.body
+    signupForm.bindFromRequest.fold(
+      err ⇒ BadRequest(html.auth.signup(err)),
+      userOption ⇒ gotoSignupSucceeded(
+        userOption.err("authenticate error").username
       )
     )
   }

@@ -1,0 +1,10 @@
+@(title: String, goodies: Option[Html] = None)(body: Html)(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("user-signup.css")
+}
+
+@base.layout(
+title = title, 
+moreCss = moreCss,
+active = siteMenu.user.some)(body)

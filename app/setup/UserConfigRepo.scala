@@ -28,7 +28,6 @@ class UserConfigRepo(collection: MongoCollection)
     update(
       DBObject("_id" -> config.id),
       _grater asDBObject config.encode,
-      upsert = true,
-      wc = WriteConcern.Safe)
+      upsert = true)
   }
 }

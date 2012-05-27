@@ -10,6 +10,8 @@ import play.api.mvc.Results._
 import play.api.mvc.{ Request, PlainResult, Controller }
 import play.api.data._
 import play.api.data.Forms._
+import play.api.data.format.Formats._
+import play.api.data.validation.Constraints
 import ornicar.scalalib.OrnicarRandom
 
 import core.CoreEnv
@@ -17,10 +19,23 @@ import core.CoreEnv
 trait AuthImpl {
 
   val loginForm = Form(mapping(
-    "username" -> text,
-    "password" -> text
+    "username" -> nonEmptyText,
+    "password" -> nonEmptyText
   )(authenticateUser)(_.map(u ⇒ (u.username, "")))
-    .verifying("Invalid username or password", result ⇒ result.isDefined)
+    .verifying("Invalid username or password", _.isDefined)
+  )
+
+  val signupForm = Form(mapping(
+    "username" -> of[String].verifying(
+      Constraints minLength 2,
+      Constraints maxLength 20,
+      Constraints.pattern(
+        regex = """^[\w-]+$""".r,
+        error = "Invalid username. Please use only letters, numbers and dash")
+    ),
+    "password" -> text(minLength = 4)
+  )(signupUser)(_ ⇒ None)
+    .verifying("This user already exists", _.isDefined)
   )
 
   def env: CoreEnv
@@ -31,10 +46,19 @@ trait AuthImpl {
   def authenticationFailed(req: RequestHeader): PlainResult =
     Redirect(routes.Lobby.home).withSession("access_uri" -> req.uri)
 
+  def saveAuthentication(username: String)(implicit req: RequestHeader): String =
+    (OrnicarRandom nextAsciiString 10) ~ { sessionId ⇒
+      env.securityStore.save(sessionId, username, req)
+    }
+
   def gotoLoginSucceeded[A](username: String)(implicit req: RequestHeader) = {
-    val sessionId = OrnicarRandom nextAsciiString 16
-    env.securityStore.save(sessionId, username, req)
+    val sessionId = saveAuthentication(username)
     loginSucceeded(req).withSession("sessionId" -> sessionId)
+  }
+
+  def gotoSignupSucceeded[A](username: String)(implicit req: RequestHeader) = {
+    val sessionId = saveAuthentication(username)
+    Redirect(routes.User.show(username)).withSession("sessionId" -> sessionId)
   }
 
   def gotoLogoutSucceeded(implicit req: RequestHeader) = {
@@ -53,6 +77,9 @@ trait AuthImpl {
 
   def authenticateUser(username: String, password: String): Option[User] =
     env.user.userRepo.authenticate(username, password).unsafePerformIO
+
+  def signupUser(username: String, password: String): Option[User] =
+    env.user.userRepo.create(username, password).unsafePerformIO
 
   def restoreUser(req: RequestHeader): Option[User] = for {
     sessionId ← req.session.get("sessionId")

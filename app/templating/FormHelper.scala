@@ -8,6 +8,7 @@ trait FormHelper {
 
   private val errNames = Map(
     "error.minLength" -> "Text is too short.",
+    "error.maxLength" -> "Text is too long.",
     "error.required" -> "Required."
   )
 

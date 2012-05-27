@@ -93,8 +93,6 @@ object User extends LilaController {
       }
   }
 
-  val signUp = TODO
-
   val stats = TODO
 
   def export(username: String) = TODO

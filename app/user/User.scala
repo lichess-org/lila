@@ -3,6 +3,7 @@ package user
 
 import com.novus.salat.annotations.Key
 import com.mongodb.casbah.Imports.ObjectId
+import org.joda.time.DateTime
 
 case class User(
     @Key("_id") id: ObjectId,
@@ -11,10 +12,8 @@ case class User(
     nbGames: Int,
     nbRatedGames: Int,
     isChatBan: Boolean = false,
-    enabled: Boolean = true,
+    enabled: Boolean,
     roles: List[String],
-    password: String,
-    salt: String,
     settings: Map[String, String] = Map.empty,
     bio: Option[String] = None,
     engine: Boolean = false) {
@@ -39,4 +38,18 @@ object User {
   val STARTING_ELO = 1200
 
   val anonymous = "Anonymous"
+
+  // the password is hashed
+  def apply(username: String): User = User(
+    id = new ObjectId,
+    username = username,
+    elo = STARTING_ELO,
+    nbGames = 0,
+    nbRatedGames = 0,
+    isChatBan = false,
+    enabled = true,
+    roles = Nil,
+    settings = Map.empty,
+    bio = none,
+    engine = false)
 }

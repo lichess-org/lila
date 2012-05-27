@@ -1,51 +1,54 @@
 div.signup_box p.explanation {
-    font-size: 1.2em;
+  font-size: 1.2em;
+  margin-bottom: 1em;
+}
+div.signup_box p.explanation em {
+  font-style: italic;
 }
 
 div.signup_box h1 {
-    margin-bottom: 2em;
+  margin-bottom: 2em;
 }
 
-div.signup_box .box_right_text {
-    margin-top: -5px;
-    float: right;
+div.signup_box .alternative {
+  font-size: 0.8em;
 }
 
-form.signup {
-    font-size: 1.3em;
+.content_box form {
+  font-size: 1.3em;
 }
 
-form.signup li {
-    list-style: none;
-    display: block;
-    margin: 1em 0 1em 1em;
-    position: relative;
+.content_box form li {
+  list-style: none;
+  display: block;
+  margin: 1em 0 1em 0;
+  position: relative;
 }
 
-form.signup label {
-    float: left;
-    display: block;
-    width: 100px;
-    text-align: right;
-    margin-right: 10px;
-    margin-top: 2px;
+.content_box form label {
+  float: left;
+  display: block;
+  width: 150px;
+  text-align: right;
+  margin-right: 10px;
+  margin-top: 2px;
 }
 
-form.signup .username input, form.signup .password input {
-    width: 150px;
-    padding: 0 3px;
+.content_box form .username input, .content_box form .password input {
+  width: 200px;
+  padding: 0 3px;
+  border: 1px solid #D4D4D4;
+  padding: 3px 5px;
 }
 
-form.signup input.submit {
-    margin-left: 110px;
-    padding: 3px 1em;
+.content_box form input.submit {
+  margin-left: 160px;
+  margin-right: 20px;
+  padding: 3px 1em;
 }
 
 /* Errors */
-form.signup li ul {
-    position: absolute;
-    left: 270px;
-    top: -9px;
-    font-size: 12px;
-    color: red;
+form .error {
+  margin-left: 160px;
+  color: red;
 }

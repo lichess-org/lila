@@ -1,35 +1,25 @@
-@(form: Form[_])(implicit flash: Flash)
-<!DOCTYPE html>
+@(form: Form[_])(implicit ctx: Context)
 
-<html>
-	<head>
-		<title>Login</title>
-	</head>
-	<body>
-
-		<a href="@routes.Lobby.home">Home</a>
-
-		@helper.form(routes.Auth.authenticate) {
-
-		<h1>Sign in</h1>
-
-		@form.globalError.map { error =>
-		<p class="error">@error.message</p>
-		}
-
-		@flash.get("success").map { message =>
-		<p class="success">@message</p>
-		}
-
-		@helper.input(form("username")) { (id, name, value, args) =>
-		<input type="text" name="@name" id="@id" value="@value" placeholder="Username" @toHtmlArgs(args)>
-		}
-		@helper.input(form("password")) { (id, name, value, args) =>
-		<input type="password" name="@name" id="@id" placeholder="Password" @toHtmlArgs(args)>
-		}
-		<button type="submit">Login</button>
-
-		}
-
-	</body>
-</html>
+@auth.layout(
+title = trans.signIn.str()) {
+<div class="content_box small_box">
+  <div class="signup_box">
+    <h1 class="lichess_title">@trans.signIn()</h1>
+    <br />
+    <br />
+    <form action="@routes.Auth.authenticate" method="POST">
+      @form.globalError.map { error =>
+      <p class="error">@error.message</p>
+      }
+      <ul>
+        @auth.formFields(form("username"), form("password"))
+        <li>
+          <input type="submit" value="@trans.signIn()" class="submit">
+          <span class="alternative"><a href="@routes.Auth.signup()">@trans.signUp()</a></span>
+        </li>
+      </ul>
+      <input type="hidden" class="referrer" name="_referrer" value="@currentUrl" />
+    </form>
+  </div>
+</div>
+}
