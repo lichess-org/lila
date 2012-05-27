@@ -5,6 +5,7 @@ import ui.Color
 import user.UserRepo
 
 import scalaz.effects._
+import play.api.mvc.Cookie
 
 final class Setting(ctx: Context) extends HttpEnvironment {
 
@@ -21,10 +22,12 @@ final class Setting(ctx: Context) extends HttpEnvironment {
       ctx.me flatMap (_ setting name) map (_.toString)
     } getOrElse default
 
-  private def set(name: String, value: String)(userRepo: UserRepo): IO[SessionMap] =
+  private def set(name: String, value: String)(userRepo: UserRepo): IO[Cookie] =
     ctx.me.fold(
       m ⇒ userRepo.saveSetting(m, name, value.toString),
-      io()) map { _ ⇒ (s => s + (name -> value.toString)) }
+      io()) map { _ ⇒
+        LilaCookie(name, value.toString)(ctx.req)
+      }
 }
 
 object Setting {

@@ -3,6 +3,7 @@ package security
 
 import controllers.routes
 import user.User
+import http.LilaCookie
 
 import play.api._
 import play.api.mvc._
@@ -43,8 +44,8 @@ trait AuthImpl {
   def logoutSucceeded(req: RequestHeader): PlainResult =
     Redirect(routes.Lobby.home)
 
-  def authenticationFailed(req: RequestHeader): PlainResult =
-    Redirect(routes.Lobby.home).withSession("access_uri" -> req.uri)
+  def authenticationFailed(implicit req: RequestHeader): PlainResult =
+    Redirect(routes.Lobby.home) withCookies LilaCookie("access_uri", req.uri)
 
   def saveAuthentication(username: String)(implicit req: RequestHeader): String =
     (OrnicarRandom nextAsciiString 10) ~ { sessionId ⇒
@@ -53,12 +54,12 @@ trait AuthImpl {
 
   def gotoLoginSucceeded[A](username: String)(implicit req: RequestHeader) = {
     val sessionId = saveAuthentication(username)
-    loginSucceeded(req).withSession("sessionId" -> sessionId)
+    loginSucceeded(req) withCookies LilaCookie("sessionId", sessionId)
   }
 
   def gotoSignupSucceeded[A](username: String)(implicit req: RequestHeader) = {
     val sessionId = saveAuthentication(username)
-    Redirect(routes.User.show(username)).withSession("sessionId" -> sessionId)
+    Redirect(routes.User.show(username)) withCookies LilaCookie("sessionId", sessionId)
   }
 
   def gotoLogoutSucceeded(implicit req: RequestHeader) = {

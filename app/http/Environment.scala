@@ -11,6 +11,4 @@ trait HttpEnvironment {
   type Me = Option[User]
 
   type Req = RequestHeader
-
-  type SessionMap = Session ⇒ Session
 }

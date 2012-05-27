@@ -12,8 +12,8 @@ object Setting extends LilaController {
   val color = OpenBody { implicit ctx ⇒
     implicit val req = ctx.body
     FormResult[String](forms.color) { name ⇒
-      Ok("ok") withSession {
-        http.Setting(ctx).color(name)(userRepo).unsafePerformIO(req.session)
+      Ok("ok") withCookies {
+        http.Setting(ctx).color(name)(userRepo).unsafePerformIO
       }
     }
   }
@@ -21,8 +21,8 @@ object Setting extends LilaController {
   val sound = OpenBody { implicit ctx ⇒
     implicit val req = ctx.body
     FormResult[String](forms.sound) { v ⇒
-      Ok("ok") withSession {
-        http.Setting(ctx).sound(v)(userRepo).unsafePerformIO(req.session)
+      Ok("ok") withCookies {
+        http.Setting(ctx).sound(v)(userRepo).unsafePerformIO
       }
     }
   }
