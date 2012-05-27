@@ -70,10 +70,10 @@ object Cron {
       //env.gameFinishCommand.apply
     //}
 
-    //effect(1 minute) {
-      //env.ai.remoteAi.diagnose
-    //}
-    //env.ai.remoteAi.diagnose.unsafePerformIO
+    effect(1 minute) {
+      env.ai.remoteAi.diagnose
+    }
+    env.ai.remoteAi.diagnose.unsafePerformIO
 
     lazy val hubs: List[ActorRef] =
       List(env.site.hub, env.lobby.hub, env.round.hubMaster)

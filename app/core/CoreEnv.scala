@@ -33,8 +33,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     settings = settings,
     captcha = site.captcha,
     mongodb = mongodb.apply _,
-    userRepo = user.userRepo,
-    userDbRef = user.userRepo.dbRef)
+    userRepo = user.userRepo)
 
   lazy val lobby = new lila.lobby.LobbyEnv(
     app = app,

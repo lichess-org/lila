@@ -68,7 +68,7 @@ var topicIds = {};
         number: obj.number
       };
       if (obj.author) {
-        post.user = obj.author;
+        post.userId = obj.author['$id'];
       }
       coll.insert(post);
     }

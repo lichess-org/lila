@@ -26,7 +26,7 @@ final class PostApi(env: ForumEnv, maxPerPage: Int) {
     post = Post(
       topicId = topic.id,
       author = data.author,
-      user = user map env.userDbRef,
+      userId = user map (_.id),
       text = data.text,
       number = number + 1)
     _ ← env.postRepo saveIO post

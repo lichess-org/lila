@@ -6,14 +6,12 @@ import core.Settings
 import site.Captcha
 
 import com.mongodb.casbah.MongoCollection
-import com.mongodb.DBRef
 
 final class ForumEnv(
     settings: Settings,
     captcha: Captcha,
     mongodb: String ⇒ MongoCollection,
-    userRepo: UserRepo,
-    val userDbRef: User ⇒ DBRef) {
+    userRepo: UserRepo) {
 
   import settings._
 

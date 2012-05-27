@@ -3,7 +3,7 @@ package forum
 
 import org.joda.time.DateTime
 import com.novus.salat.annotations.Key
-import com.mongodb.DBRef
+import com.mongodb.casbah.Imports.ObjectId
 import ornicar.scalalib.OrnicarRandom
 
 import user.User
@@ -12,14 +12,14 @@ case class Post(
     @Key("_id") id: String,
     topicId: String,
     author: Option[String],
-    user: Option[DBRef],
+    userId: Option[ObjectId],
     text: String,
     number: Int,
     createdAt: DateTime) {
 
   def showAuthor = (author map (_.trim) filter ("" !=)) | User.anonymous
 
-  def userId: Option[String] = user map (_.getId.toString)
+  def userIdString: Option[String] = userId map (_.toString)
 }
 
 object Post {
@@ -29,13 +29,13 @@ object Post {
   def apply(
     topicId: String,
     author: Option[String],
-    user: Option[DBRef],
+    userId: Option[ObjectId],
     text: String,
     number: Int): Post = Post(
     id = OrnicarRandom nextAsciiString idSize,
     topicId = topicId,
     author = author,
-    user = user,
+    userId = userId,
     text = text,
     number = number,
     createdAt = DateTime.now)

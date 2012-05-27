@@ -30,7 +30,7 @@ final class TopicApi(env: ForumEnv, maxPerPage: Int) {
     post = Post(
       topicId = topic.id,
       author = data.post.author,
-      user = user map env.userDbRef,
+      userId = user map (_.id),
       text = data.post.text,
       number = 1)
     _ ← env.topicRepo saveIO topic
