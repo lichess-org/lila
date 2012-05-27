@@ -26,6 +26,8 @@ final class Settings(config: Config) {
   val ForumPostMaxPerPage = getInt("forum.post.max_per_page")
   val ForumRecentTimeout = millis("forum.recent.timeout")
 
+  val MessageThreadMaxPerPage = getInt("message.thread.max_per_page")
+
   val SetupFriendConfigMemoTtl = millis("setup.friend_config.memo.ttl")
 
   val LobbyEntryMax = getInt("lobby.entry.max")
@@ -68,6 +70,7 @@ final class Settings(config: Config) {
   val MongoCollectionForumCateg = getString("mongo.collection.forum_categ")
   val MongoCollectionForumTopic = getString("mongo.collection.forum_topic")
   val MongoCollectionForumPost = getString("mongo.collection.forum_post")
+  val MongoCollectionMessageThread = getString("mongo.collection.message_thread")
 
   val ActorReporting = "reporting"
   val ActorSiteHub = "site_hub"
