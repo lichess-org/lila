@@ -3,7 +3,7 @@ package controllers
 import lila._
 import views._
 
-object ForumCateg extends LilaController with Forum {
+object ForumCateg extends LilaController with forum.Controller {
 
   def categApi = env.forum.categApi
 

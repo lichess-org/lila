@@ -5,7 +5,7 @@ import views._
 
 import scalaz.effects._
 
-object ForumTopic extends LilaController with Forum {
+object ForumTopic extends LilaController with forum.Controller {
 
   def categApi = env.forum.topicApi
   def topicApi = env.forum.topicApi

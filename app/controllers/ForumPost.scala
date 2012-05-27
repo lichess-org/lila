@@ -4,7 +4,7 @@ import lila._
 import views._
 import security.Permission
 
-object ForumPost extends LilaController with Forum {
+object ForumPost extends LilaController with forum.Controller {
 
   def topicApi = env.forum.topicApi
   def postApi = env.forum.postApi
