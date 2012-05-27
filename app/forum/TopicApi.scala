@@ -59,6 +59,12 @@ final class TopicApi(env: ForumEnv, maxPerPage: Int) {
       maxPerPage = maxPerPage
     ) | paginator(categ, 1)
 
+  def delete(categ: Categ, topic: Topic): IO[Unit] = for {
+    _ ← env.topicRepo removeIO topic
+    _ ← env.categApi denormalize categ
+    _ ← env.recent.invalidate
+  } yield ()
+
   def denormalize(topic: Topic): IO[Unit] = for {
     nbPosts ← env.postRepo countByTopics List(topic)
     lastPost ← env.postRepo lastByTopics List(topic)

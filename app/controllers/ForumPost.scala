@@ -2,6 +2,7 @@ package controllers
 
 import lila._
 import views._
+import security.Permission
 
 object ForumPost extends LilaController with Forum {
 
@@ -9,7 +10,7 @@ object ForumPost extends LilaController with Forum {
   def postApi = env.forum.postApi
   def forms = env.forum.forms
 
-  val recent = Open { implicit ctx =>
+  val recent = Open { implicit ctx ⇒
     Ok(html.forum.post.recent(env.forum.recent(ctx.me)))
   }
 
@@ -31,5 +32,8 @@ object ForumPost extends LilaController with Forum {
     }
   }
 
-  def delete(id: String) = TODO
+  def delete(id: String) = Secure(Permission.ModerateForum) { implicit ctx ⇒
+    _ ⇒
+      IOk(postApi delete id)
+  }
 }

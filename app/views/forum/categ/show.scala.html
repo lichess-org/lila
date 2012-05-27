@@ -36,9 +36,6 @@ title = categ.name) {
           <a href="@routes.ForumTopic.show(categ.slug, topic.slug, topic pageOf post)#@post.number">@showDate(post.createdAt)</a><br />by @authorName(post)
           }
         </td>
-        @if(isGranted(Permission.ModerateForum)) {
-        <td><a class="delete" href="@routes.ForumTopic.delete(topic.id)">Delete</a></td>
-        }
       </tr>
       }
     </tbody>

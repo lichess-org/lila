@@ -58,6 +58,10 @@ final class TopicRepo(
       upsert = true)
   }
 
+  def removeIO(topic: Topic): IO[Unit] = io {
+    remove(DBObject("_id" -> topic.id))
+  }
+
   val sortQuery = DBObject("updatedAt" -> -1)
 
   def byCategQuery(categ: Categ) = DBObject("categId" -> categ.slug)

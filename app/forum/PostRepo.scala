@@ -42,6 +42,10 @@ final class PostRepo(
       upsert = true)
   }
 
+  def removeIO(post: Post): IO[Unit] = io {
+    remove(DBObject("_id" -> post.id))
+  }
+
   def byTopicQuery(topic: Topic) = DBObject("topicId" -> topic.id)
 
   private def byTopicsQuery(topics: List[Topic]) =

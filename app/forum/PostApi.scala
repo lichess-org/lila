@@ -67,4 +67,22 @@ final class PostApi(env: ForumEnv, maxPerPage: Int) {
       currentPage = page,
       maxPerPage = maxPerPage
     ) | paginator(topic, 1)
+
+  def delete(postId: String): IO[Unit] = for {
+    postOption ← env.postRepo byId postId
+    viewOption ← postOption.fold(view, io(none))
+    _ ← viewOption.fold(
+      view ⇒ (view.topic.nbPosts == 1).fold(
+        env.topicApi.delete(view.categ, view.topic),
+        for {
+          _ ← env.postRepo removeIO view.post
+          _ ← env.topicApi denormalize view.topic
+          _ ← env.categApi denormalize view.categ
+          _ ← env.recent.invalidate
+        } yield ()
+      ),
+      io()
+    )
+  } yield ()
+
 }
