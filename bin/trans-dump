@@ -29,6 +29,8 @@ final class I18nKeys(translator: Translator) {
       translator.transTo(key, args.toList)(lang)
   }
 
+  def untranslated(message: String) = Untranslated(message)
+
 %keys%
 }
 """

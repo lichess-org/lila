@@ -10,6 +10,7 @@ yourTurn=Din tur
 aiNameLevelAiLevel=%s niveau %s
 level=Niveau
 toggleTheChat=Skjul/Vis chat
+toggleSound=slå lyd til
 chat=Chat
 giveUp=Giv op
 resign=Trække sig
