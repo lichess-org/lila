@@ -75,7 +75,7 @@ var topicIds = {};
     nb ++;
   }
   coll.ensureIndex({topicId: 1});
-  coll.ensureIndex({topicId: 1, createdAt: -1});
+  coll.ensureIndex({topicId: 1, createdAt: 1});
   print("Done posts: " + nb);
 })(db.forum_post, db.f_post);
 
