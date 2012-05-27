@@ -31,6 +31,12 @@ final class Store(collection: MongoCollection) {
     collection.remove(DBObject("_id" -> sessionId))
   }
 
+  // useful when closing an account,
+  // we want to logout too
+  def deleteUsername(username: String) {
+    collection.remove(DBObject("user" -> normalize(username)))
+  }
+
   case class Info(
     user: String,
     ip: String,

@@ -10,7 +10,11 @@ case class Users(userRepo: UserRepo, securityStore: Store) {
     perform(username, "Enable", userRepo.enable)
 
   def disable(username: String): IO[Unit] =
-    perform(username, "Disable", userRepo.disable)
+    perform(username, "Disable", user ⇒
+      userRepo disable user map { _ ⇒
+        securityStore deleteUsername username
+      }
+    )
 
   def perform(username: String, action: String, op: User ⇒ IO[Unit]) = for {
     _ ← putStrLn(action + " " + username)
