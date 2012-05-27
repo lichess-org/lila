@@ -30,7 +30,15 @@ case class Thread(
 
   def userIds = List(creatorId, invitedId)
 
+  def hasUser(user: User) = userIds contains user.id
+
   def otherUserId(user: User) = isCreator(user).fold(creatorId, invitedId)
+
+  def senderOf(post: Post) = post.isByCreator.fold(creatorId, invitedId)
+
+  def receiverOf(post: Post) = post.isByCreator.fold(invitedId, creatorId)
+
+  def nonEmptyName = (name.trim.some filter ("" !=)) | "No subject"
 }
 
 object Topic {

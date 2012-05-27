@@ -1,0 +1,25 @@
+@(thread: lila.message.Thread)(implicit ctx: Context, me: User)
+
+@message.layout(
+title = thread.name) {
+<div class="thread_actions">
+  <form action="@routes.Message.delete(thread.id)" method="post">
+    <input type="submit" class="delete" value="Delete" />
+  </form>
+</div>
+
+<div class="head">
+  <h1>@thread.nonEmptyName</h1>
+</div>
+
+@thread.posts.map { post =>
+<div class="thread_message" id="message_@post.id">
+  <span class="infos">
+    @userIdLink(thread.senderOf(post), none) &rarr; @userIdLink(thread.receiverOf(post), none) - @showDate(post.createdAt)
+  </span>
+
+  <div class="thread_message_body">@autoLink(post.text)</div>
+</div>
+}
+
+}

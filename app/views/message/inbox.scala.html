@@ -19,7 +19,7 @@ title = trans.inbox.str()) {
         <a href="@routes.Message.thread(thread.id)#bottom">@thread.name</a>
       </td>
       <td class="author">
-        @userIdLink(thread.otherUserId(me).toString.some)
+        @userIdLink(thread.otherUserId(me), none)
       </td>
       <td class="date">
         @showDate(thread.updatedAt)

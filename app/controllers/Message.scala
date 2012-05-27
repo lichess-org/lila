@@ -18,7 +18,12 @@ object Message extends LilaController {
     implicit me ⇒
       Ok(html.message.inbox(api.inbox(me, page)))
   }
-  def thread(id: String) = TODO
+
+  def thread(id: String) = Auth { implicit ctx ⇒
+    implicit me ⇒
+      IOptionOk(api.thread(id, me)) { html.message.thread(_) }
+  }
+
   def form = TODO
   def create = TODO
   def delete(id: String) = TODO

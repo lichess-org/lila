@@ -19,4 +19,9 @@ final class Api(
     currentPage = page,
     maxPerPage = maxPerPage
   ) | inbox(user, 1)
+
+  def thread(id: String, user: User): IO[Option[Thread]] =
+    threadRepo byId id map { 
+      _ filter (_ hasUser user) 
+    }
 }
