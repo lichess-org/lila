@@ -38,7 +38,7 @@
         </ul>
       </div>
       <a href="@routes.Setting.color()" class="colorpicker" data-color="@setting.color">@trans.color()</a>
-      @siteMenu.all.map { elem =>
+      @siteMenu.all(ctx.me).map { elem =>
       @if(elem.code == "message") {
       <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@elem.route">
         @elem.name()

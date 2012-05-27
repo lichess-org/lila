@@ -3,6 +3,7 @@ package ui
 
 import i18n.I18nKeys
 import controllers.routes
+import user.User
 
 import play.api.mvc.Call
 
@@ -16,7 +17,10 @@ final class SiteMenu(trans: I18nKeys) {
   val forum = new Elem("forum", routes.ForumCateg.index, trans.forum)
   val message = new Elem("message", routes.Message.inbox(page = 1), trans.inbox)
 
-  val all = List(play, game, user, forum, message)
+  private val authenticated = List(play, game, user, forum, message)
+  private val anonymous = List(play, game, user, forum)
+
+  def all(me: Option[User]) = me.isDefined.fold(authenticated, anonymous)
 }
 
 object SiteMenu {
