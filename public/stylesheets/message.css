@@ -98,7 +98,7 @@ div.sidebar a {
     padding: 10px;
     border: 1px solid #D4D4D4;
 }
-#lichess_message ul {
+#lichess_message .error {
     color: red;
     margin-left: 60px;
 }

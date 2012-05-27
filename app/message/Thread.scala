@@ -41,7 +41,7 @@ case class Thread(
   def nonEmptyName = (name.trim.some filter ("" !=)) | "No subject"
 }
 
-object Topic {
+object Thread {
 
   val idSize = 8
 

@@ -19,6 +19,7 @@ object Environment
     with JsonHelper
     with PaginatorHelper
     with FormHelper
+    with message.MessageHelper
     with round.RoundHelper 
     with game.GameHelper
     with user.UserHelper 

@@ -233,7 +233,7 @@ a.goto_nav:hover, #top a.toggle:hover, a#sound_state:hover {
   margin-top: 4px;
   line-height: 16px;
 }
-a.goto_message span.new_messages {
+a.goto_nav span.new_messages {
   padding: 1px 4px;
   background: #bbb;
   color: white;
@@ -243,7 +243,7 @@ a.goto_message span.new_messages {
   -webkit-border-radius:4px 4px 4px 4px;
   font-size: 0.9em;
 }
-a.goto_message span.new_messages.unread {
+a.goto_nav span.new_messages.unread {
   font-size: 1em;
 }
 a.goto_logout span.s16 {

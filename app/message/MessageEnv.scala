@@ -15,11 +15,12 @@ final class MessageEnv(
 
   lazy val threadRepo = new ThreadRepo(mongodb(MongoCollectionMessageThread))
 
+  lazy val unreadCache = new UnreadCache(threadRepo)
+
   lazy val api = new Api(
     threadRepo = threadRepo,
+    unreadCache = unreadCache,
     maxPerPage = MessageThreadMaxPerPage)
-
-  lazy val unread = new UnreadCache(threadRepo)
   
-  lazy val forms = DataForm
+  lazy val forms = new DataForm(userRepo)
 }

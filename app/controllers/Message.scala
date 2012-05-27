@@ -24,7 +24,21 @@ object Message extends LilaController {
       IOptionOk(api.thread(id, me)) { html.message.thread(_) }
   }
 
-  def form = TODO
-  def create = TODO
+  def form = Auth { implicit ctx ⇒
+    implicit me ⇒
+      Ok(html.message.form(forms.thread))
+  }
+
+  def create = AuthBody { implicit ctx ⇒
+    implicit me ⇒
+      implicit val req = ctx.body
+      forms.thread.bindFromRequest.fold(
+        err ⇒ BadRequest(html.message.form(err)),
+        data ⇒ api.makeThread(data, me).map(thread ⇒
+          Redirect(routes.Message.thread(thread.id))
+        ).unsafePerformIO
+      )
+  }
+
   def delete(id: String) = TODO
 }

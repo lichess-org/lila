@@ -18,7 +18,7 @@
     <meta content="@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()" name="description">
     <meta name="google-site-verification" content="fZ08Imok7kcLaGcJg7BKQExO6vXGgSgsJUsW6JalUCo" />
     <link rel="shortcut icon" href="@routes.Assets.at("favicon.ico")" type="image/x-icon" />
-    @if(!robots) { 
+    @if(!robots) {
     <meta content="noindex, nofollow" name="robots">
     }
   </head>
@@ -39,7 +39,14 @@
       </div>
       <a href="@routes.Setting.color()" class="colorpicker" data-color="@setting.color">@trans.color()</a>
       @siteMenu.all.map { elem =>
+      @if(elem.code == "message") {
+      <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@elem.route">
+        @elem.name()
+        <span id="nb_messages" class="new_messages @{ (messageNbUnread(ctx) > 0).fold("unread", "") }">@messageNbUnread(ctx)</span>
+      </a>
+      } else {
       <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@elem.route">@elem.name()</a>
+      }
       }
       <div id="nb_connected_players" class="nb_connected_players none">
         @trans.nbConnectedPlayers("<strong>0</strong>")
@@ -85,12 +92,11 @@
           <a href="@routes.Wiki.home()" class="blank_if_play">@trans.learnMoreAboutLichess()</a>
         </div>
         <a href="@routes.Wiki.home()">Wiki</a> |
-        <a href="#" title="Having a suggestion, feature request or bug report? Let me know">Feedback</a> |
+        <a href="@routes.ForumCateg.show("lichess-feedback", 1)" title="Having a suggestion, feature request or bug report? Let me know">Feedback</a> |
         <a href="http://github.com/ornicar/lila" target="_blank" title="See what's inside, fork and contribute">Source Code</a><br />
         <a href="#">Translate Lichess</a>
       </div>
     </div>
-
     @jsTag("deps.min.js")
     @jsTag("socket.js")
     @jsTag("ctrl.js")

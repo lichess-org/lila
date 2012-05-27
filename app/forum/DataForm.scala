@@ -10,7 +10,7 @@ final class DataForm(captcher: Captcha) {
 
   import DataForm._
 
-  def postMapping = mapping(
+  val postMapping = mapping(
     "text" -> text(minLength = 3),
     "author" -> optional(text),
     "gameId" -> nonEmptyText,
@@ -20,11 +20,11 @@ final class DataForm(captcher: Captcha) {
     data ⇒ captcher get data.gameId valid data.move.trim.toLowerCase
   )
 
-  def post = Form(postMapping)
+  val post = Form(postMapping)
 
   def postWithCaptcha = post -> captchaCreate
 
-  def topic = Form(mapping(
+  val topic = Form(mapping(
     "name" -> text(minLength = 3),
     "post" -> postMapping
   )(TopicData.apply)(TopicData.unapply))

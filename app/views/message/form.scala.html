@@ -1,0 +1,47 @@
+@(form: Form[_])(implicit ctx: Context)
+
+@message.layout(
+title = trans.composeMessage.str()) {
+<div class="message_new">
+  <h1>@trans.composeMessage()</h1>
+  <div class="center form">
+    <form action="@routes.Message.create()" method="post">
+      <div class="field_to">
+        <label for="@form("username").id">To:</label>
+        <input
+        type="text"
+        data-provider="@routes.User.autocomplete"
+        class="autocomplete"
+        required="required"
+        name="@form("username").name"
+        id="@form("username").id"
+        value="@form("username").value">
+        @errMsg(form("username"))
+      </div>
+      <div class="field_subject">
+        <label for="@form("subject").id">Subject:</label>
+        <input
+        type="text"
+        required="required"
+        name="@form("subject").name"
+        id="@form("subject").id"
+        value="@form("subject").value">
+        @errMsg(form("username"))
+      </div>
+      <div class="field_body">
+        <textarea
+          name="@form("text").name"
+          required="required"
+          id="@form("text").id">
+          @form("text").value
+        </textarea>
+        @errMsg(form("text"))
+      </div>
+      <div class="actions">
+        <input class="send button" type="submit" value="Send" />
+        <a class="cancel" href="@routes.Message.inbox()">@trans.cancel()</a>
+      </div>
+    </form>
+  </div>
+</div>
+}

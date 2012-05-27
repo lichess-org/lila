@@ -6,12 +6,21 @@
 
 @moreJs = {
 @jsTag("vendor/jquery.infinitescroll.min.js")
+@jsTag("vendor/jquery.ui.autocomplete.min.js")
+}
+
+@goodies = {
+<div class="sidebar">
+  <a href="@routes.Message.inbox(1)" class="goto_inbox">@trans.inbox()</a>
+  <a href="@routes.Message.form" class="goto_compose">@trans.composeMessage()</a>
+</div>
 }
 
 @base.layout(
 title = title,
 moreCss = moreCss,
 moreJs = moreJs,
+goodies = goodies.some,
 active = siteMenu.message.some) {
 <div id="lichess_message" class="content_box">
   @body

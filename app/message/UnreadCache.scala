@@ -15,5 +15,7 @@ final class UnreadCache(threadRepo: ThreadRepo) {
       (threadRepo userNbUnread user).unsafePerformIO
     })
 
-  def invalidate(user: User) = cache - user.usernameCanonical
+  def invalidate(user: User) {
+    cache - user.usernameCanonical
+  }
 }
