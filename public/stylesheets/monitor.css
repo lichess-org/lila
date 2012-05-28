@@ -45,13 +45,13 @@ body.down h1 .down {
   display: block;
   position: absolute;
   font-size: 14px;
-  color: #454a4e;
+  color: #858f8f;
   text-shadow: 0 1px 0px #000000;
   background: black;
   border-radius: 4px;
   width: 60px;
   height: 18px;
-  padding: 1px 5px 2px 5px;
+  padding: 2px 5px 2px 5px;
   margin-top: 4px;
   text-align: center;
   background-image: -moz-linear-gradient(top left, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
@@ -85,7 +85,7 @@ body.down h1 .down {
   position: absolute;
   top: 101px;
   left: 30px;
-  height: 5px;
+  height: 7px;
   width: 76px;
   background: url(/assets/images/monitor/needle.png);
 }
