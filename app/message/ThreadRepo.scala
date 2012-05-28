@@ -24,8 +24,30 @@ final class ThreadRepo(
     find(visibleByUserQuery(user)).sort(sortQuery).toList
   }
 
-  def userNbUnread(user: User): IO[Int] = visibleByUser(user) map {
-    _.foldLeft(0) { _ + _.nbUnreadBy(user) }
+  def userNbUnread(user: User): IO[Int] = io {
+    val result = collection.mapReduce(
+      mapFunction = """function() {
+  var thread = this, nb = 0;
+  thread.posts.forEach(function(p) {
+    if (!p.isRead) {
+      if (thread.creatorId.equals(ObjectId("%s"))) {
+        if (!p.isByCreator) nb++;
+      } else if (p.isByCreator) nb++;
+    }
+  });
+  if (nb > 0) emit("n", nb);
+}""" format user.idString,
+      reduceFunction = """function(key, values) {
+  var sum = 0;
+  for(var i in values) { sum += values[i]; }
+  return sum;
+}""",
+      output = MapReduceInlineOutput,
+      query = visibleByUserQuery(user).some)
+    (for {
+      row ← result.hasNext option result.next
+      sum ← row.getAs[Double]("value")
+    } yield sum.toInt) | 0
   }
 
   val all: IO[List[Thread]] = io {

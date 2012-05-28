@@ -38,7 +38,7 @@ case class Thread(
 
   def hasUser(user: User) = userIds contains user.id
 
-  def otherUserId(user: User) = isCreator(user).fold(creatorId, invitedId)
+  def otherUserId(user: User) = isCreator(user).fold(invitedId, creatorId)
 
   def senderOf(post: Post) = post.isByCreator.fold(creatorId, invitedId)
 

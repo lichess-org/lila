@@ -52,9 +52,9 @@ final class Api(
     val newThread = thread + post
     for {
       _ ← threadRepo saveIO newThread
-      otherUser ← userRepo byId (thread otherUserId me)
-      _ ← otherUser.fold(
-        other ⇒ io(unreadCache invalidate other),
+      receiver ← userRepo byId (thread receiverOf post)
+      _ ← receiver.fold(
+        r ⇒ io(unreadCache invalidate r),
         io()
       )
     } yield thread
