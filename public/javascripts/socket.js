@@ -9,7 +9,7 @@ $.websocket = function(url, version, settings) {
     },
     options: {
       name: "unnamed",
-      debug: false,
+      debug: true,
       offlineDelay: 5000,
       offlineTag: false,
       pingData: JSON.stringify({t: "p"}),
@@ -58,6 +58,7 @@ $.websocket.prototype = {
       var m = JSON.parse(e.originalEvent.data);
       if (m.t == "n") {
         self.keepAlive();
+        self._debug(m);
       } else {
         self._debug(m);
       }

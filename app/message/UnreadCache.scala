@@ -10,8 +10,10 @@ final class UnreadCache(threadRepo: ThreadRepo) {
   // username, nb unread
   val cache = mutable.Map[String, Int]()
 
-  def get(user: User) = 
-    cache.getOrElseUpdate(user.usernameCanonical, {
+  def get(user: User): Int = get(user.id)
+
+  def get(userId: ObjectId): Int = 
+    cache.getOrElseUpdate(username.toLowerCase, {
       (threadRepo userNbUnread user).unsafePerformIO
     })
 

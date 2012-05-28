@@ -1,8 +1,9 @@
 package lila
 package socket
 
-import akka.actor._
+import core.Global.env // fuck. need it for message unread cache
 
+import akka.actor._
 import play.api.libs.json._
 
 abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
@@ -45,7 +46,11 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
 
   def ping(uid: String) {
     setAlive(uid)
-    member(uid) foreach (_.channel push pong)
+    member(uid) foreach { m ⇒
+      m.channel push m.username.fold(
+        u ⇒ pong ++ JsObject(Seq("m" -> env.message.unreadCache.get(u))),
+        pong)
+    }
   }
 
   def broom() {
@@ -75,7 +80,7 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
 
   def uids = members.keys
 
-  def member(uid: String) = members get uid
+  def member(uid: String): Option[M] = members get uid
 
   def usernames: Iterable[String] = members.values.map(_.username).flatten
 }

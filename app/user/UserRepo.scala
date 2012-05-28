@@ -19,6 +19,8 @@ class UserRepo(
   private def byUsernameQuery(username: String) =
     DBObject("usernameCanonical" -> username.toLowerCase)
 
+  private def byIdQuery(id: String) = DBObject("_id" -> new ObjectId(id))
+
   def byId(userId: String): IO[Option[User]] = byId(new ObjectId(userId))
 
   def byId(userId: ObjectId): IO[Option[User]] = io {
@@ -26,9 +28,11 @@ class UserRepo(
   }
 
   def username(userId: String): IO[Option[String]] = io {
-    primitiveProjection[String](
-      DBObject("_id" -> new ObjectId(userId)),
-      "username")
+    primitiveProjection[String](byIdQuery(userId), "username")
+  }
+
+  def id(username: String): IO[Option[ObjectId]] = io {
+    primitiveProjection[ObjectId](byUsernameQuery(username), "_id")
   }
 
   def byUsername(username: String): IO[Option[User]] = io {

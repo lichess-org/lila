@@ -24,7 +24,9 @@ final class ThreadRepo(
     find(visibleByUserQuery(user)).sort(sortQuery).toList
   }
 
-  def userNbUnread(user: User): IO[Int] = io {
+  def userNbUnread(user: User): IO[Int] = userNbUnread(user.id)
+
+  def userNbUnread(userId: ObjectId): IO[Int] = io {
     val result = collection.mapReduce(
       mapFunction = """function() {
   var thread = this, nb = 0;
@@ -36,14 +38,14 @@ final class ThreadRepo(
     }
   });
   if (nb > 0) emit("n", nb);
-}""" format user.idString,
+}""" format userId.toString,
       reduceFunction = """function(key, values) {
   var sum = 0;
   for(var i in values) { sum += values[i]; }
   return sum;
 }""",
       output = MapReduceInlineOutput,
-      query = visibleByUserQuery(user).some)
+      query = visibleByUserQuery(userId).some)
     (for {
       row ← result.hasNext option result.next
       sum ← row.getAs[Double]("value")
@@ -76,7 +78,11 @@ final class ThreadRepo(
 
   def userQuery(user: User) = DBObject("userIds" -> user.id)
 
-  def visibleByUserQuery(user: User) = DBObject("visibleByUserIds" -> user.id)
+  def visibleByUserQuery(user: User): DBObject = 
+    visibleByUserQuery(user.id)
+
+  def visibleByUserQuery(userId: ObjectId): DBObject = 
+    DBObject("visibleByUserIds" -> userId)
 
   def selectId(id: String) = DBObject("_id" -> id)
 
