@@ -95,6 +95,9 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     settings = settings,
     gameRepo = game.gameRepo)
 
+  lazy val metaHub = new lila.socket.MetaHub(
+    List(site.hub, lobby.hub, round.hubMaster))
+
   lazy val monitor = new lila.monitor.MonitorEnv(
     app = app,
     mongodb = mongodb.connection,

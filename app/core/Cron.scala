@@ -25,9 +25,7 @@ object Cron {
     println("Start cron mode " + current.mode)
 
     unsafe(5 seconds) {
-      (env.site.hub :: env.lobby.hub :: env.round.hubMaster :: Nil) foreach {
-        _ ! socket.Broom
-      }
+      env.metaHub ! socket.Broom
     }
 
     message(1 seconds) {
@@ -39,10 +37,8 @@ object Cron {
     }
 
     unsafe(2 seconds) {
-      Future.traverse(hubs) { hub ⇒
-        hub ? socket.GetNbMembers mapTo manifest[Int]
-      } map (_.sum) onSuccess {
-        case nb ⇒ hubs foreach { _ ! socket.NbMembers(nb) }
+      env.metaHub.?[Int](socket.GetNbMembers) map (_.sum) onSuccess {
+        case nb ⇒ env.metaHub ! socket.NbMembers(nb) 
       }
     }
 
@@ -55,9 +51,7 @@ object Cron {
     }
 
     unsafe(3 seconds) {
-      Future.traverse(hubs) { hub ⇒
-        hub ? socket.GetUsernames mapTo manifest[Iterable[String]]
-      } map (_.flatten) onSuccess {
+      env.metaHub.?[Iterable[String]](socket.GetUsernames) map (_.flatten) onSuccess {
         case xs ⇒ (env.user.usernameMemo putAll xs).unsafePerformIO
       }
     }
@@ -79,9 +73,6 @@ object Cron {
       env.ai.remoteAi.diagnose
     }
     env.ai.remoteAi.diagnose.unsafePerformIO
-
-    lazy val hubs: List[ActorRef] =
-      List(env.site.hub, env.lobby.hub, env.round.hubMaster)
 
     def message(freq: Duration)(to: (ActorRef, Any)) {
       Akka.system.scheduler.schedule(freq, freq.randomize(), to._1, to._2)
