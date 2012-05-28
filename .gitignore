@@ -2,5 +2,7 @@ logs
 project/project
 project/target
 public/trans
+serve/
+serve/README
 target
 RUNNING_PID
