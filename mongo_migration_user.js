@@ -4,7 +4,7 @@ var nUsers = db.user2;
 nUsers.drop();
 db.fos_user_group.drop();
 oUsers.find().forEach(function(user) {
-  user.oid = user._id;
+  user.oid = user._id.toString();
   user._id = user.usernameCanonical;
   if (user.elo < 800) user.elo = 800;
   delete user["usernameCanonical"];

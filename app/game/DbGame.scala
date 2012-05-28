@@ -10,7 +10,6 @@ import chess.Pos.piotr
 import chess.Role.forsyth
 
 import org.joda.time.DateTime
-import com.mongodb.DBRef
 import org.scala_tools.time.Imports._
 import com.novus.salat.annotations.Key
 
@@ -29,7 +28,7 @@ case class DbGame(
     castles: String = "KQkq",
     mode: Mode = Mode.default,
     variant: Variant = Variant.default,
-    next: Option[DBRef] = None,
+    next: Option[String] = None,
     lastMoveTime: Option[Int] = None,
     createdAt: Option[DateTime] = None,
     updatedAt: Option[DateTime] = None) {
@@ -309,8 +308,6 @@ case class DbGame(
     0
   )
 
-  def nextId: Option[String] = next map (_.getId.toString)
-
   def deadPiecesOf(color: Color): List[Role] = toChess.deads collect {
     case (_, piece) if piece is color ⇒ piece.role
   }
@@ -388,7 +385,7 @@ case class RawDbGame(
     castles: String = "KQkq",
     isRated: Boolean = false,
     v: Int = 1,
-    next: Option[DBRef],
+    next: Option[String] = None,
     lmt: Option[Int] = None,
     createdAt: Option[DateTime],
     updatedAt: Option[DateTime]) {

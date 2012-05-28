@@ -26,8 +26,8 @@ final class GameCleanNext(gameRepo: GameRepo) {
     )
 
     for (game ← cursor) {
-      game.getAs[DBRef]("next") foreach { nextRef ⇒
-        if (!exists(nextRef.getId.toString)) {
+      game.getAs[String]("next") foreach { nextId ⇒
+        if (!exists(nextId)) {
           game.getAs[String]("_id") foreach unsetNext
         }
       }

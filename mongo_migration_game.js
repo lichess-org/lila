@@ -10,7 +10,6 @@ function user(oid) {
 
 print("Games");
 var batch = 10000;
-var max = 100000;
 var oGames = db.game;
 var nGames = db.game2;
 var it = 0, totalNb = oGames.count();
@@ -26,6 +25,14 @@ oGames.find().batchSize(batch).forEach(function(game) {
   if (game.winnerUserId) {
     game.winId = user(game.winnerUserId);
     delete game.winnerUserId;
+  }
+  if (game.next) {
+    var next = game.next['$id'];
+    if (oGames.count({_id: next}) == 1) {
+      game.next = next;
+    } else {
+      delete game.next;
+    }
   }
   if (game.userIds) {
     var userIds = [];

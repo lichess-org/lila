@@ -23,7 +23,7 @@ final class Rematcher(
     attempt(fullId, {
       case pov @ Pov(game, color) if game playerCanRematch color ⇒
         success(game.opponent(color).isOfferingRematch.fold(
-          game.nextId.fold(
+          game.next.fold(
             rematchExists(pov),
             rematchJoin(pov)
           ),

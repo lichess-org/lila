@@ -18,8 +18,8 @@
 </div>
 <div class="lichess_separator"></div>
 @round.username(player)
-@game.nextId.map { nextId =>
+@game.next.map { next =>
 <div class="lichess_control buttons">
-  <a class="button" href="@routes.Round.watcher(nextId, opponent.color.name)">View rematch</a>
+  <a class="button" href="@routes.Round.watcher(next, opponent.color.name)">View rematch</a>
 </div>
 }
