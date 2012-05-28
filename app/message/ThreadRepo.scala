@@ -65,6 +65,10 @@ final class ThreadRepo(
     }
   }
 
+  def deleteFor(user: User)(thread: Thread) = io {
+    update(selectId(thread.id), $pull("visibleByUserIds" -> user.id))
+  }
+
   def saveIO(thread: Thread): IO[Unit] = io {
     update(
       selectId(thread.id),

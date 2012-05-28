@@ -57,5 +57,10 @@ object Message extends LilaController {
       }
   }
 
-  def delete(id: String) = TODO
+  def delete(id: String) = AuthBody { implicit ctx ⇒
+    implicit me ⇒
+      IORedirect {
+        api.deleteThread(id, me) map { _ ⇒ routes.Message.inbox(1) }
+      }
+  }
 }

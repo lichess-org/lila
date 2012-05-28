@@ -59,4 +59,9 @@ final class Api(
       )
     } yield thread
   }
+
+  def deleteThread(id: String, me: User): IO[Unit] = for {
+    threadOption ← thread(id, me)
+    _ ← threadOption.fold(threadRepo.deleteFor(me), io())
+  } yield ()
 }

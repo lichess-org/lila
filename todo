@@ -18,6 +18,7 @@ use POST instead of GET where it makes sense
 endgame sound http://en.lichess.org/forum/lichess-feedback/checkmate-sound-feature?page=1#1 
 translation contributions
 check sf2 commands to port
+make the wiki static html pages managed by git?
 
 next deploy:
 bin/migrate
