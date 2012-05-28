@@ -66,9 +66,9 @@ object Cron {
       }
     }
 
-    //effect(1 hour) {
-      //env.gameFinishCommand.apply
-    //}
+    effect(1 hour) {
+      env.gameFinishCommand.apply
+    }
 
     effect(1 minute) {
       env.ai.remoteAi.diagnose

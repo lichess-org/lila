@@ -44,7 +44,9 @@ final class Store(collection: MongoCollection) {
     date: DateTime)
 
   def userInfo(username: String): Option[Info] = for {
-    obj ← collection.findOne(DBObject("user" -> normalize(username)))
+    obj ← collection.find(
+      DBObject("user" -> normalize(username))
+    ).sort(DBObject("date" -> -1)).limit(1).toList.headOption
     ip ← obj.getAs[String]("ip")
     ua ← obj.getAs[String]("ua")
     date ← obj.getAs[DateTime]("date")
