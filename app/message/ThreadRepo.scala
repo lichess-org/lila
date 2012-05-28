@@ -32,9 +32,18 @@ final class ThreadRepo(
     find(DBObject()).toList
   }
 
+  def setRead(thread: Thread): IO[Unit] = io {
+    for (i ← 1 to thread.nbUnread) {
+      collection.update(
+        selectId(thread.id) ++ DBObject("posts.isRead" -> false),
+        $set("posts.$.isRead" -> true)
+      )
+    }
+  }
+
   def saveIO(thread: Thread): IO[Unit] = io {
     update(
-      DBObject("_id" -> thread.id),
+      selectId(thread.id),
       _grater asDBObject thread,
       upsert = true)
   }
@@ -46,6 +55,8 @@ final class ThreadRepo(
   def userQuery(user: User) = DBObject("userIds" -> user.id)
 
   def visibleByUserQuery(user: User) = DBObject("visibleByUserIds" -> user.id)
+
+  def selectId(id: String) = DBObject("_id" -> id)
 
   val sortQuery = DBObject("updatedAt" -> -1)
 }

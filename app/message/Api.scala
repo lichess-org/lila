@@ -21,10 +21,16 @@ final class Api(
     maxPerPage = maxPerPage
   ) | inbox(me, 1)
 
-  def thread(id: String, me: User): IO[Option[Thread]] =
-    threadRepo byId id map {
-      _ filter (_ hasUser me)
-    }
+  def thread(id: String, me: User): IO[Option[Thread]] = for {
+    threadOption ← threadRepo byId id map (_ filter (_ hasUser me))
+    _ ← threadOption.filter(_ isUnReadBy me).fold(
+      thread ⇒ for {
+        _ ← threadRepo setRead thread
+        _ ← io(unreadCache invalidate me)
+      } yield (),
+      io()
+    )
+  } yield threadOption
 
   def makeThread(data: DataForm.ThreadData, me: User) = {
     val thread = Thread(

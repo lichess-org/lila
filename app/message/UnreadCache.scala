@@ -16,6 +16,6 @@ final class UnreadCache(threadRepo: ThreadRepo) {
     })
 
   def invalidate(user: User) {
-    cache - user.usernameCanonical
+    cache -= user.usernameCanonical
   }
 }
