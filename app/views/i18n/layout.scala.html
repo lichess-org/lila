@@ -1,0 +1,10 @@
+@(title: String)(body: Html)(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("translation.css")
+}
+
+@base.layout(
+title = title, 
+moreCss = moreCss,
+active = none)(body)

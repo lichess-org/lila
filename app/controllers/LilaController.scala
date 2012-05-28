@@ -136,11 +136,15 @@ trait LilaController
 
   def notFound(ctx: Context) = Lobby handleNotFound ctx
 
+  def todo = Open { implicit ctx ⇒
+    NotImplemented(views.html.site.todo())
+  }
+
   protected def reqToCtx(req: Request[_]): BodyContext =
-    Context(req, restoreUser(req)~setOnline)
+    Context(req, restoreUser(req) ~ setOnline)
 
   protected def reqToCtx(req: RequestHeader): HeaderContext =
-    Context(req, restoreUser(req)~setOnline)
+    Context(req, restoreUser(req) ~ setOnline)
 
   private def setOnline(user: Option[UserModel]) {
     user foreach { u ⇒ env.user.usernameMemo.put(u.username).unsafePerformIO }

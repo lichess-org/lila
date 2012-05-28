@@ -5,5 +5,5 @@ import views._
 
 object Wiki extends LilaController {
 
-  val home = TODO
+  val home = todo
 }
