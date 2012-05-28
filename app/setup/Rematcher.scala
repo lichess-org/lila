@@ -86,7 +86,7 @@ final class Rematcher(
 
   private def returnPlayer(game: DbGame, color: ChessColor): IO[DbPlayer] =
     DbPlayer(color = color, aiLevel = None) |> { player ⇒
-      game.player(color).userId.fold(
+      game.player(!color).userId.fold(
         userId ⇒ userRepo byId userId map { userOption ⇒
           userOption.fold(
             user ⇒ player withUser user,

@@ -57,7 +57,7 @@ object GameFilterMenu extends NonEmptyLists {
       case Win     ⇒ Query win user
       case Loss    ⇒ Query loss user
       case Draw    ⇒ Query draw user
-      case Playing ⇒ Query playing user
+      case Playing ⇒ Query notFinished user
     }
 
     new GameFilterMenu(all, current, query)

@@ -46,9 +46,10 @@ case class Hook(
     "emax" -> realEloRange.map(_.max)
   ) +? (engine, "engine" -> true)
 
-  def clockOrUnlimited = ((time filter (_ ⇒ hasClock)) |@| increment apply renderClock _) | "Unlimited"
+  def clockOrUnlimited = 
+    ((time filter (_ ⇒ hasClock)) |@| increment apply renderClock _) | "Unlimited"
 
-  def renderClock(time: Int, inc: Int) = "%d + %d".format(time, inc)
+  def renderClock(time: Int, inc: Int) = "%d + %d".format(time/60, inc)
 }
 
 object Hook {

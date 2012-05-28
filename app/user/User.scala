@@ -5,7 +5,7 @@ import com.novus.salat.annotations.Key
 import org.joda.time.DateTime
 
 case class User(
-    id: String,
+    @Key("_id") id: String,
     username: String,
     elo: Int,
     nbGames: Int,

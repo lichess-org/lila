@@ -27,6 +27,8 @@ object Query {
 
   val finished: DBObject = "status" $in List(Status.Mate.id, Status.Resign.id, Status.Outoftime.id, Status.Timeout.id)
 
+  val notFinished: DBObject = DBObject("status" -> Status.Started.id)
+
   def clock(c: Boolean): DBObject = "clock.l" $exists c
 
   def user(u: User): DBObject = DBObject("userIds" -> u.id)
@@ -41,7 +43,7 @@ object Query {
 
   def loss(u: User): DBObject = user(u) ++ finished ++ ("winId" $ne u.id)
 
-  def playing(u: User): DBObject = user(u) ++ playing
+  def notFinished(u: User): DBObject = user(u) ++ notFinished
 
   def opponents(u1: User, u2: User) = "userIds" $all List(u1.id, u2.id)
 }

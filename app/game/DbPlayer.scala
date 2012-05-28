@@ -79,7 +79,7 @@ case class DbPlayer(
     isOfferingRematch = if (isOfferingRematch) Some(true) else None,
     lastDrawOffer = lastDrawOffer,
     isProposingTakeback = if (isProposingTakeback) Some(true) else None,
-    userId = userId,
+    uid = userId,
     mts = Some(moveTimes) filter ("" !=),
     blurs = Some(blurs) filter (0 !=)
   )
@@ -111,7 +111,7 @@ case class RawDbPlayer(
     isOfferingRematch: Option[Boolean],
     lastDrawOffer: Option[Int],
     isProposingTakeback: Option[Boolean],
-    userId: Option[String],
+    uid: Option[String],
     mts: Option[String],
     blurs: Option[Int]) {
 
@@ -129,7 +129,7 @@ case class RawDbPlayer(
     isOfferingRematch = isOfferingRematch | false,
     lastDrawOffer = lastDrawOffer,
     isProposingTakeback = isProposingTakeback | false,
-    userId = userId,
+    userId = uid,
     moveTimes = mts | "",
     blurs = blurs | 0
   )

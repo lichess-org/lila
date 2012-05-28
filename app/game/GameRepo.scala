@@ -68,7 +68,7 @@ class GameRepo(collection: MongoCollection)
   // makes the asumption that player 0 is white!
   // proved to be true on prod DB at March 31 2012
   def setEloDiffs(id: String, white: Int, black: Int) = io {
-    update(idSelector(id), $set("players.0.eloDiff" -> white, "players.1.eloDiff" -> black))
+    update(idSelector(id), $set("players.0.ed" -> white, "players.1.ed" -> black))
   }
 
   def setUser(id: String, color: Color, user: User) = io {

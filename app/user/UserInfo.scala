@@ -41,7 +41,7 @@ object UserInfo {
     nbLoss ← gameRepo count (_ loss user)
     nbRated ← gameRepo count (_ rated user)
     nbPlaying ← (ctx is user).fold(
-      gameRepo count (_.playing(user)) map (_.some),
+      gameRepo count (_ notFinished user) map (_.some),
       io(none)
     )
     nbWithMe ← ctx.me.filter(user!=).fold(
