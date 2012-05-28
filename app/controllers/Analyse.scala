@@ -10,6 +10,7 @@ object Analyse extends LilaController {
 
   val gameRepo = env.game.gameRepo
   val gameInfo = env.analyse.gameInfo
+  val pgnDump = env.analyse.pgnDump
 
   def replay(id: String, color: String) = Open { implicit ctx ⇒
     IOptionIOk(gameRepo.pov(id, color)) { pov ⇒
@@ -24,4 +25,11 @@ object Analyse extends LilaController {
         timeChart = new TimeChart(game))
     }
   }
+
+  def pgn(id: String) = Open { implicit ctx ⇒
+    IOptionIOk(gameRepo game id) { game ⇒
+      pgnDump >> game
+    }
+  }
+
 }

@@ -27,6 +27,7 @@ trait Dependencies {
   val dispatch = "net.databinder" %% "dispatch-http" % "0.8.7"
   val paginator = "com.github.ornicar" %% "paginator-core" % "1.5"
   val paginatorSalat = "com.github.ornicar" %% "paginator-salat-adapter" % "1.4"
+  val csv = "com.github.tototoshi" %% "scala-csv" % "0.3"
 }
 
 object ApplicationBuild extends Build with Resolvers with Dependencies {
@@ -56,7 +57,8 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       scalaTime,
       dispatch,
       paginator,
-      paginatorSalat),
+      paginatorSalat,
+      csv),
     templatesImport ++= Seq(
       "lila.game.{ DbGame, DbPlayer, Pov }",
       "lila.user.User",

@@ -68,9 +68,9 @@ object User extends LilaController {
   val closeConfirm = Auth { ctx ⇒
     me ⇒
       IORedirect {
-        userRepo disable me map { _ ⇒ 
+        userRepo disable me map { _ ⇒
           env.securityStore deleteUsername me.username
-          routes.User show me.username 
+          routes.User show me.username
         }
       }
   }
@@ -97,8 +97,14 @@ object User extends LilaController {
 
   val stats = todo
 
-  def export(username: String) = todo
+  def export(username: String) = Open { implicit ctx ⇒
+    IOptionIOResult(userRepo byId username) { u ⇒
+      env.game.export(u).apply map { path ⇒
+        Redirect(path)
+      }
+    }
+  }
 
-  private val onlineUsers: IO[List[UserModel]] = 
+  private val onlineUsers: IO[List[UserModel]] =
     userRepo byIds env.user.usernameMemo.keys
 }

@@ -10,6 +10,8 @@ import scalaz.effects._
 
 final class PgnDump(gameRepo: GameRepo, userRepo: UserRepo) {
 
+  import PgnDump._
+
   val dateFormat = DateTimeFormat forPattern "yyyy-MM-dd";
 
   def >>(game: DbGame): IO[String] =
@@ -52,6 +54,9 @@ final class PgnDump(gameRepo: GameRepo, userRepo: UserRepo) {
   def moves(game: DbGame) = (game.pgnList grouped 2).zipWithIndex map {
     case (moves, turn) ⇒ "%d. %s".format((turn + 1), moves.mkString(" "))
   } mkString " "
+}
+
+object PgnDump {
 
   def result(game: DbGame) = game.finished.fold(
     game.winnerColor.fold(
