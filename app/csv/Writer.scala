@@ -13,11 +13,15 @@ object Writer {
 
     val file = Play.getFile("serve/" + filename)
     val webPath = "/serve/" + filename
-    val writer = new CSVWriter(file)
 
-    io {
-      writer writeAll lines.map(_ map (_.toString))
-      writer.close()
-    } map (_ => webPath)
+    file.exists.fold(
+      io(webPath), {
+        println("Export " + file)
+        val writer = new CSVWriter(file)
+        io {
+          writer writeAll lines.map(_ map (_.toString))
+          writer.close()
+        } map (_ ⇒ webPath)
+      })
   }
 }
