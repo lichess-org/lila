@@ -15,16 +15,14 @@ var oGames = db.game;
 var nGames = db.game2;
 var it = 0, totalNb = oGames.count();
 nGames.drop();
-oGames.find().batchSize(batch).limit(max).forEach(function(game) {
+oGames.find().batchSize(batch).forEach(function(game) {
   delete game["positionHashes"];
-  delete game["players.0.previousMoveTs"];
-  delete game["players.1.previousMoveTs"];
-  delete game["players.0.lastDrawOffer"];
-  delete game["players.1.lastDrawOffer"];
-  delete game["players.0.isOfferingDraw"];
-  delete game["players.1.isOfferingDraw"];
-  delete game["players.0.isProposingTakeback"];
-  delete game["players.1.isProposingTakeback"];
+  [0, 1].forEach(function(i) {
+    delete game["players"][i]["previousMoveTs"];
+    delete game["players"][i]["lastDrawOffer"];
+    delete game["players"][i]["isOfferingDraw"];
+    delete game["players"][i]["isProposingTakeback"];
+  });
   if (game.winnerUserId) {
     game.winId = user(game.winnerUserId);
     delete game.winnerUserId;

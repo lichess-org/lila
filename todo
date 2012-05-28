@@ -21,8 +21,8 @@ use play-navigator router case class MyRegexStr(value: String); implicit val MyR
 http://codetunes.com/2012/05/09/scala-dsl-tutorial-writing-web-framework-router
 use POST instead of GET where it makes sense
 endgame sound http://en.lichess.org/forum/lichess-feedback/checkmate-sound-feature?page=1#1 
-cached username option app/user/Cached.scala
 game.next dbref => string
+translation contributions
 
 next deploy:
 bin/migrate
