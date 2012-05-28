@@ -19,9 +19,9 @@ class UserRepo(
   private def byUsernameQuery(username: String) =
     DBObject("usernameCanonical" -> username.toLowerCase)
 
-  def user(userId: String): IO[Option[User]] = user(new ObjectId(userId))
+  def byId(userId: String): IO[Option[User]] = byId(new ObjectId(userId))
 
-  def user(userId: ObjectId): IO[Option[User]] = io {
+  def byId(userId: ObjectId): IO[Option[User]] = io {
     findOneByID(userId)
   }
 

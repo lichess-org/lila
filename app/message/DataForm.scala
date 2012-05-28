@@ -21,6 +21,10 @@ final class DataForm(userRepo: UserRepo) {
         text = text)
     })(_.export.some))
 
+  val post = Form(single(
+    "text" -> text(minLength = 3)
+  ))
+
   private def fetchUser(username: String) =
     (userRepo byUsername username).unsafePerformIO
 

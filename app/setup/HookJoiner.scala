@@ -35,7 +35,7 @@ final class HookJoiner(
 
   private def join(hook: Hook, myHook: Option[Hook])(me: Option[User]): IO[Pov] = for {
     _ ← myHook.fold(fisherman.delete, io())
-    ownerOption ← hook.userId.fold(userRepo.user, io(none))
+    ownerOption ← hook.userId.fold(userRepo.byId, io(none))
     game = blame(
       _.invitedColor, me,
       blame(_.creatorColor, ownerOption, makeGame(hook))

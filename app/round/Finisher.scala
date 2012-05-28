@@ -99,8 +99,8 @@ final class Finisher(
         blackUserId ← game.player(Black).userId
         if whiteUserId != blackUserId
       } yield for {
-        whiteUserOption ← userRepo user whiteUserId
-        blackUserOption ← userRepo user blackUserId
+        whiteUserOption ← userRepo byId whiteUserId
+        blackUserOption ← userRepo byId blackUserId
         _ ← (whiteUserOption |@| blackUserOption).apply(
           (whiteUser, blackUser) ⇒ {
             val (whiteElo, blackElo) = eloCalculator.calculate(whiteUser, blackUser, game.winnerColor)

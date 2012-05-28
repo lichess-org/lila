@@ -20,6 +20,7 @@ final class MessageEnv(
   lazy val api = new Api(
     threadRepo = threadRepo,
     unreadCache = unreadCache,
+    userRepo = userRepo,
     maxPerPage = MessageThreadMaxPerPage)
   
   lazy val forms = new DataForm(userRepo)

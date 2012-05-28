@@ -42,7 +42,7 @@ final class PgnDump(gameRepo: GameRepo, userRepo: UserRepo) {
   def elo(p: DbPlayer) = p.elo.fold(_.toString, "?")
 
   def user(p: DbPlayer): IO[Option[User]] = p.userId.fold(
-    userRepo.user,
+    userRepo.byId,
     io(none))
 
   def player(p: DbPlayer, u: Option[User]) = p.aiLevel.fold(

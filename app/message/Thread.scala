@@ -18,6 +18,10 @@ case class Thread(
     invitedId: ObjectId,
     visibleByUserIds: List[ObjectId]) {
 
+  def +(post: Post) = copy(
+    posts = posts :+ post,
+    updatedAt = post.createdAt)
+
   def isCreator(user: User) = creatorId == user.id
 
   def isReadBy(user: User) = nbUnreadBy(user) == 0

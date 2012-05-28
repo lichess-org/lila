@@ -1,4 +1,4 @@
-@(thread: lila.message.Thread)(implicit ctx: Context, me: User)
+@(thread: lila.message.Thread, form: Form[_])(implicit ctx: Context, me: User)
 
 @message.layout(
 title = thread.name) {
@@ -22,4 +22,16 @@ title = thread.name) {
 </div>
 }
 
+<div class="answer" id="bottom">
+  <form action="@routes.Message.answer(thread.id)" method="post">
+    <div class="field_body">
+      <textarea required="required" name="@form("text").name" id="@form("text").id">@form("text").value</textarea>
+      @errMsg(form("text"))
+    </div>
+    <div class="actions">
+      <input class="send button" type="submit" value="Send" />
+      <a class="cancel" href="@routes.Message.inbox(1)">@trans.cancel()</a>
+    </div>
+  </form>
+</div>
 }
