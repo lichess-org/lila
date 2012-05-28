@@ -119,15 +119,15 @@ $(function() {
   }
 
   $('.infinitescroll').each(function() {
-      $(this).infinitescroll({
-          navSelector: ".pager",
-          nextSelector: ".pager a:last",
-          itemSelector: ".infinitescroll .paginated_element",
-          loadingText: "",
-          donetext: "---"
-      }, function() {
-          $('body').trigger('lichess.content_loaded');
-      }).find('div.pager').hide();
+    $(this).infinitescroll({
+      navSelector: ".pager",
+      nextSelector: ".pager a:last",
+      itemSelector: ".infinitescroll .paginated_element",
+      loadingText: "",
+      donetext: "---"
+    }, function() {
+      $('body').trigger('lichess.content_loaded');
+    }).find('div.pager').hide();
   });
 
   $('a.toggle_signin').toggle(function() {

@@ -463,7 +463,7 @@ div.lichess_facebook iframe {
 }
 
 /* active gradient */
-#top a.goto_nav.active, .button.active, .button:hover, .ui-state-active, .ui-widget-header, div.pagination span.current, a.goto_message span.new_messages.unread, div.hooks td.action:hover, div.hooks table.empty_table tr:hover {
+#top a.goto_nav.active, .button.active, .button:hover, .ui-state-active, .ui-widget-header, div.pagination span.current, a.goto_nav span.new_messages.unread, div.hooks td.action:hover, div.hooks table.empty_table tr:hover {
   color: #fff;
   background: #d85000;
   background: -moz-linear-gradient(center top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
