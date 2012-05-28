@@ -2,6 +2,7 @@ package controllers
 
 import lila._
 import views._
+import analyse._
 
 import play.api.mvc._
 
@@ -16,5 +17,11 @@ object Analyse extends LilaController {
     }
   }
 
-  def stats(id: String) = todo
+  def stats(id: String) = Open { implicit ctx ⇒
+    IOptionOk(gameRepo game id) { game ⇒
+      html.analyse.stats(
+        game = game,
+        timeChart = new TimeChart(game))
+    }
+  }
 }

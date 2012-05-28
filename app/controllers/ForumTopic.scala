@@ -45,6 +45,4 @@ object ForumTopic extends LilaController with forum.Controller {
       }
     }
   }
-
-  def delete(id: String) = TODO
 }

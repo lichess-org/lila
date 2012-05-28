@@ -1,0 +1,30 @@
+@(game: DbGame, timeChart: lila.analyse.TimeChart)(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("gamestats.css")
+}
+
+@moreJs = {
+<script src="http://www.google.com/jsapi"></script>
+@jsTag("chart.js")
+@jsTag("gamestats.js")
+}
+
+@title = @{ "Game #%s time stats" format game.id }
+
+@analyse.layout(
+title = title,
+moreCss = moreCss,
+moreJs = moreJs) {
+<div class="content_box">
+  <h1 class="title">
+    Game <a href="@routes.Round.watcher(game.id, "white")">#@game.id</a> time stats
+  </h1>
+  <br /><br />
+  <div 
+    class="move-time" 
+    data-title="Time per move evolution" 
+    data-columns="@timeChart.columns" 
+    data-rows="@timeChart.rows"></div>
+</div>
+}

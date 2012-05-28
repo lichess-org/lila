@@ -48,6 +48,9 @@ case class DbPlayer(
 
   def hasMoveTimes = moveTimes.size > 10
 
+  def moveTimeList: List[Int] = 
+    moveTimes.split(" ").toList map parseIntOption flatten
+
   def finish(winner: Boolean) = copy(
     isWinner = if (winner) Some(true) else None
   )

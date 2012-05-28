@@ -14,5 +14,9 @@ final class Cached(userRepo: UserRepo) {
       (userRepo username userId).unsafePerformIO 
     )
 
-  def usernameOrAnonymous(userId: String) = username(userId) | User.anonymous
+  def usernameOrAnonymous(userId: String): String = 
+    username(userId) | User.anonymous
+
+  def usernameOrAnonymous(userId: Option[String]): String = 
+    userId.fold(usernameOrAnonymous, User.anonymous)
 }

@@ -51,6 +51,8 @@ case class DbGame(
   def player(user: User): Option[DbPlayer] =
     players find (_ isUser user)
 
+  def player(c: Color.type => Color): DbPlayer = player(c(Color))
+
   def isPlayerFullId(player: DbPlayer, fullId: String): Boolean =
     (fullId.size == DbGame.fullIdSize) && player.id == (fullId drop 8)
 
@@ -295,7 +297,7 @@ case class DbGame(
 
   def invitedColor = !creatorColor
 
-  def invited = opponent(invitedColor)
+  def invited = player(invitedColor)
 
   def pgnList = pgn.split(' ').toList
 
