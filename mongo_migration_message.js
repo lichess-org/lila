@@ -1,4 +1,8 @@
-// categories
+print("Hashing users")
+var users = {};
+db.user2.find({},{oid:1}).forEach(function(user) {
+  users[user.oid.toString()] = user._id;
+});
 
 print("Threads and messages");
 var oThreads = db.message_thread;
@@ -6,12 +10,13 @@ var oMessages = db.message_message;
 var nThreads = db.m_thread;
 nThreads.drop();
 oThreads.find().forEach(function(oThread) {
+  var invOid = invitedOid(oThread);
   var nThread = {
     _id: makeId(8),
   name: oThread.subject,
   createdAt: oThread.createdAt,
   creatorId: creatorId(oThread),
-  invitedId: invitedId(oThread),
+  invitedId: users[invOid],
   visibleByUserIds: visibleByUserIds(oThread)
   };
   var posts = [];
@@ -22,8 +27,8 @@ oThreads.find().forEach(function(oThread) {
     posts.push({
       id: makeId(8),
       text: oMessage.body.replace(/\\r\\n/, "\n"),
-      isByCreator: objId(oMessage.sender).equals(nThread.creatorId),
-      isRead: oMessage.isReadByParticipant[nThread.invitedId],
+      isByCreator: username(oMessage.sender) == nThread.creatorId,
+      isRead: oMessage.isReadByParticipant[invOid],
       createdAt: oMessage.createdAt
     });
   });
@@ -40,20 +45,19 @@ nThreads.ensureIndex({visibleByUserIds: 1, updatedAt: -1});
 print("Done threads and messages");
 
 function creatorId(oThread) {
-  return objId(oThread.createdBy);
+  return username(oThread.createdBy);
 }
 
-function invitedId(oThread) {
-  var c = creatorId(oThread);
-  var ps = oThread.participants.map(objId);
-  for (var pi in ps) {
-    if (!ps[pi].equals(c)) return ps[pi];
+function invitedOid(oThread) {
+  for (var pi in oThread.participants) {
+    if (objId(oThread.participants[pi]) != objId(oThread.createdBy))
+      return objId(oThread.participants[pi]);
   }
   throw "oups";
 }
 
 function userIds(oThread) {
-  return [creatorId(oThread), invitedId(oThread)];
+  return [creatorId(oThread), users[invitedOid(oThread)]];
 }
 
 function visibleByUserIds(oThread) {
@@ -64,8 +68,13 @@ function visibleByUserIds(oThread) {
   return vs;
 }
 
+function username(obj) {
+  if (typeof obj == "object") return users[objId(obj)];
+  return users[obj];
+}
+
 function objId(obj) {
-  return obj['$id'];
+  return obj['$id'].toString();
 }
 
 function makeId(size) {

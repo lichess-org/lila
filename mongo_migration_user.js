@@ -1,14 +1,22 @@
+print("Users");
+var oUsers = db.user;
+var nUsers = db.user2;
+nUsers.drop();
 db.fos_user_group.drop();
-db.user.dropIndex("emailCanonical_1");
-db.user.dropIndex("isOnline_-1");
-db.user.update({},{$unset:{
-  lastLogin: true,
-  isOnline: true,
-  gameConfigs: true,
-  email: true,
-  emailCanonical: true,
-  updatedAt: true,
-  algorithm: true,
-  rememberMeToken: true
-}}, false, true);
-db.user.update({elo: {$lt: 800}}, {$set: {elo: 800}}, false, true)
+oUsers.find().forEach(function(user) {
+  user.oid = user._id;
+  user._id = user.usernameCanonical;
+  if (user.elo < 800) user.elo = 800;
+  delete user["usernameCanonical"];
+  delete user["lastLogin"];
+  delete user["isOnline"];
+  delete user["gameConfigs"];
+  delete user["email"];
+  delete user["emailCanonical"];
+  delete user["updatedAt"];
+  delete user["algorithm"];
+  delete user["rememberMeToken"];
+  nUsers.insert(user);
+});
+nUsers.ensureIndex({enabled: 1});
+nUsers.ensureIndex({enabled: 1, elo: -1});

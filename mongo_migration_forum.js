@@ -1,4 +1,9 @@
-// categories
+print("Hashing users")
+var users = {};
+db.user2.find({},{oid:1}).forEach(function(user) {
+  users[user.oid.toString()] = user._id;
+});
+
 var categSlugs = {};
 var topicIds = {};
 
@@ -68,7 +73,7 @@ var topicIds = {};
         number: obj.number
       };
       if (obj.author) {
-        post.userId = obj.author['$id'];
+        post.userId = users[obj.author['$id'].toString()];
       }
       coll.insert(post);
     }
