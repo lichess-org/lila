@@ -1,7 +1,7 @@
 package lila
 package core
 
-import play.api._
+import play.api.Mode
 import play.api.libs.concurrent.Akka
 import akka.actor.ActorRef
 import akka.pattern.{ ask, pipe }
@@ -21,6 +21,8 @@ object Cron {
     implicit val current = env.app
     implicit val timeout = Timeout(500 millis)
     implicit val executor = Akka.system.dispatcher
+
+    println("Start cron mode " + current.mode)
 
     unsafe(5 seconds) {
       (env.site.hub :: env.lobby.hub :: env.round.hubMaster :: Nil) foreach {
@@ -44,11 +46,11 @@ object Cron {
       }
     }
 
-    effect(2 seconds) {
+    effect(2 seconds, "fisherman cleanup") {
       env.lobby.fisherman.cleanup
     }
 
-    effect(10 seconds) {
+    effect(10 seconds, "lobby cleanup") {
       env.lobby.hookRepo.cleanupOld
     }
 
@@ -60,17 +62,20 @@ object Cron {
       }
     }
 
-    effect(4.1 hours) {
-      env.game.gameRepo.cleanupUnplayed flatMap { _ ⇒
-        env.gameCleanNextCommand.apply
+    if (current.mode != Mode.Dev) {
+
+      effect(4.1 hours, "game cleanup") {
+        env.game.gameRepo.cleanupUnplayed flatMap { _ ⇒
+          env.gameCleanNextCommand.apply
+        }
+      }
+
+      effect(1 hour, "game finish") {
+        env.gameFinishCommand.apply
       }
     }
 
-    effect(1 hour) {
-      env.gameFinishCommand.apply
-    }
-
-    effect(1 minute) {
+    effect(1 minute, "ai diagnose") {
       env.ai.remoteAi.diagnose
     }
     env.ai.remoteAi.diagnose.unsafePerformIO
@@ -82,8 +87,13 @@ object Cron {
       Akka.system.scheduler.schedule(freq, freq.randomize(), to._1, to._2)
     }
 
-    def effect(freq: Duration)(op: IO[_]) {
-      Akka.system.scheduler.schedule(freq, freq.randomize()) { op.unsafePerformIO }
+    def effect(freq: Duration, name: String)(op: IO[_]) {
+      val f = freq.randomize()
+      //val f = freq
+      println("schedule effect %s every %s -> %s".format(name, freq, f))
+      Akka.system.scheduler.schedule(f, f) {
+        op.unsafePerformIO
+      }
     }
 
     def unsafe(freq: Duration)(op: ⇒ Unit) {
