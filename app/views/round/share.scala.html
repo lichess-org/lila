@@ -1,6 +1,6 @@
 @(game: DbGame)(implicit ctx: Context)
 
-@defining("http://lichess.org/" + routes.Round.watcher(game.id, "white")) { url =>
+@defining("http://lichess.org" + routes.Round.watcher(game.id, "white")) { url =>
 <div class="game_share">
   <div class="game_share_top">
     <div class="game_share_widgets clearfix">

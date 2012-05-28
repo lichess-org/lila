@@ -42,7 +42,7 @@ object Message extends LilaController {
 
   def form = Auth { implicit ctx ⇒
     implicit me ⇒
-      Ok(html.message.form(forms.thread))
+      Ok(html.message.form(forms.thread, get("username")))
   }
 
   def create = AuthBody { implicit ctx ⇒

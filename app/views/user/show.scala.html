@@ -57,7 +57,7 @@ evenMoreJs = evenMoreJs) {
 <div class="content_box no_padding user_show">
   <div class="content_box_top">
     @if(ctx.me.fold(u !=, false)) {
-    <a href="#" class="send_message">@trans.composeMessage()</a>
+    <a href="@routes.Message.form()?username=@u.username" class="send_message">@trans.composeMessage()</a>
     }
     <a href="@routes.User.export(u.username)">@trans.exportGames()</a>
     <div class="status @isUsernameOnline(u.username).fold("connected", "")"></div>

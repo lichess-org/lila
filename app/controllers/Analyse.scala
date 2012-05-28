@@ -16,5 +16,5 @@ object Analyse extends LilaController {
     }
   }
 
-  def stats(id: String) = TODO
+  def stats(id: String) = todo
 }

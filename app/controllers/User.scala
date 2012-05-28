@@ -80,10 +80,9 @@ object User extends LilaController {
       IORedirect {
         for {
           uOption ← userRepo byId username
+          _ ← uOption.fold(userRepo.setEngine, io())
           _ ← uOption.filter(_.elo > UserModel.STARTING_ELO).fold(
-            u ⇒ eloUpdater.adjust(u, UserModel.STARTING_ELO) flatMap { _ ⇒
-              userRepo setEngine u
-            },
+            u ⇒ eloUpdater.adjust(u, UserModel.STARTING_ELO),
             io())
         } yield routes.User show username
       }
@@ -96,9 +95,9 @@ object User extends LilaController {
       }
   }
 
-  val stats = TODO
+  val stats = todo
 
-  def export(username: String) = TODO
+  def export(username: String) = todo
 
   private val onlineUsers: IO[List[UserModel]] = 
     userRepo byIds env.user.usernameMemo.keys
