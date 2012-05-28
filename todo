@@ -23,7 +23,6 @@ use POST instead of GET where it makes sense
 endgame sound http://en.lichess.org/forum/lichess-feedback/checkmate-sound-feature?page=1#1 
 translation contributions
 wiki
-assets versions
 
 next deploy:
 bin/migrate
