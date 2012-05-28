@@ -11,7 +11,8 @@ final class Api(
     threadRepo: ThreadRepo,
     unreadCache: UnreadCache,
     userRepo: UserRepo,
-    maxPerPage: Int) {
+    maxPerPage: Int,
+    notifyUnread: (String, Int) ⇒ Unit) {
 
   def inbox(me: User, page: Int): Paginator[Thread] = Paginator(
     SalatAdapter(
@@ -27,7 +28,7 @@ final class Api(
     _ ← threadOption.filter(_ isUnReadBy me).fold(
       thread ⇒ for {
         _ ← threadRepo setRead thread
-        _ ← io(unreadCache invalidate me)
+        _ ← updateUser(me)
       } yield (),
       io()
     )
@@ -41,7 +42,7 @@ final class Api(
       invited = data.user)
     for {
       _ ← threadRepo saveIO thread
-      _ ← io(unreadCache invalidate data.user)
+      _ ← updateUser(data.user)
     } yield thread
   }
 
@@ -53,11 +54,12 @@ final class Api(
     for {
       _ ← threadRepo saveIO newThread
       receiver ← userRepo byId (thread receiverOf post)
-      _ ← receiver.fold(
-        r ⇒ io(unreadCache invalidate r),
-        io()
-      )
+      _ ← receiver.fold(updateUser, io())
     } yield thread
+  }
+
+  private def updateUser(user: User) = io {
+    notifyUnread(user.id, unreadCache refresh user)
   }
 
   def deleteThread(id: String, me: User): IO[Unit] = for {

@@ -37,7 +37,8 @@ final class CoreEnv private (application: Application, val settings: Settings) {
   lazy val message = new lila.message.MessageEnv(
     settings = settings,
     mongodb = mongodb.apply _,
-    userRepo = user.userRepo)
+    userRepo = user.userRepo,
+    notifyUnread = metaHub.notifyUnread)
 
   lazy val wiki = new lila.wiki.WikiEnv(
     settings = settings,

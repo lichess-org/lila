@@ -8,6 +8,7 @@ import akka.util.duration._
 import akka.util.{ Duration, Timeout }
 import play.api.libs.concurrent._
 import play.api.Play.current
+import play.api.libs.json._
 
 final class MetaHub(hubs: List[ActorRef]) {
 
@@ -22,4 +23,9 @@ final class MetaHub(hubs: List[ActorRef]) {
     Future.traverse(hubs) { hub ⇒
       hub ? message mapTo m
     }
+  
+  def notifyUnread(userId: String, nb: Int) = this ! SendTo(
+    userId,
+    JsObject(Seq("t" -> JsString("nbm"), "d" -> JsNumber(nb)))
+  )
 }

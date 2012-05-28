@@ -1,8 +1,6 @@
 package lila
 package socket
 
-import core.Global.env // fuck. need it for message unread cache
-
 import akka.actor._
 import play.api.libs.json._
 
@@ -18,18 +16,20 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
   // generic message handler
   def receiveGeneric: Receive = {
 
-    case Ping(uid)     ⇒ ping(uid)
+    case Ping(uid)            ⇒ ping(uid)
 
-    case Broom         ⇒ broom()
+    case Broom                ⇒ broom()
 
     // when a member quits
-    case Quit(uid)     ⇒ quit(uid)
+    case Quit(uid)            ⇒ quit(uid)
 
-    case GetNbMembers  ⇒ sender ! members.size
+    case GetNbMembers         ⇒ sender ! members.size
 
-    case NbMembers(nb) ⇒ pong = makePong(nb)
+    case NbMembers(nb)        ⇒ pong = makePong(nb)
 
-    case GetUsernames  ⇒ sender ! usernames
+    case GetUsernames         ⇒ sender ! usernames
+
+    case SendTo(userId, msg) ⇒ sendTo(userId, msg)
   }
 
   def receive = receiveSpecific orElse receiveGeneric
@@ -46,11 +46,11 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
 
   def ping(uid: String) {
     setAlive(uid)
-    member(uid) foreach { m ⇒
-      m.channel push m.username.fold(
-        u ⇒ pong ++ JsObject(Seq("m" -> JsNumber(unreadMessages(u)))),
-        pong)
-    }
+    member(uid) foreach (_.channel push pong)
+  }
+
+  def sendTo(userId: String, msg: JsObject) {
+    memberByUserId(userId) foreach (_.channel push msg)
   }
 
   def broom() {
@@ -82,8 +82,10 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
 
   def member(uid: String): Option[M] = members get uid
 
-  def usernames: Iterable[String] = members.values.map(_.username).flatten
+  def memberByUserId(userId: String): Option[M] = {
+    val someId = Some(userId)
+    members.values find (_.userId == someId)
+  }
 
-  private def unreadMessages(username: String): Int = 
-    env.message.unreadCache get username
+  def usernames: Iterable[String] = members.values.map(_.username).flatten
 }

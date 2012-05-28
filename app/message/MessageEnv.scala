@@ -9,7 +9,8 @@ import com.mongodb.casbah.MongoCollection
 final class MessageEnv(
     settings: Settings,
     mongodb: String ⇒ MongoCollection,
-    userRepo: UserRepo) {
+    userRepo: UserRepo,
+    notifyUnread: (String, Int) ⇒ Unit) {
 
   import settings._
 
@@ -21,7 +22,8 @@ final class MessageEnv(
     threadRepo = threadRepo,
     unreadCache = unreadCache,
     userRepo = userRepo,
-    maxPerPage = MessageThreadMaxPerPage)
-  
+    maxPerPage = MessageThreadMaxPerPage,
+    notifyUnread = notifyUnread)
+
   lazy val forms = new DataForm(userRepo)
 }

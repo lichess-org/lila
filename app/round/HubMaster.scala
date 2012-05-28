@@ -1,7 +1,7 @@
 package lila
 package round
 
-import socket.{ Broom, Close, GetNbMembers, GetUsernames, NbMembers }
+import socket.{ Broom, Close, GetNbMembers, GetUsernames, NbMembers, SendTo }
 
 import akka.actor._
 import akka.actor.ReceiveTimeout
@@ -27,6 +27,8 @@ final class HubMaster(
   def receive = {
 
     case Broom                            ⇒ hubs.values foreach (_ ! Broom)
+
+    case msg @ SendTo(_, _)               ⇒ hubs.values foreach (_ ! msg)
 
     case msg @ GameEvents(gameId, events) ⇒ hubs get gameId foreach (_ forward msg)
 

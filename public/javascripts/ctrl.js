@@ -12,6 +12,10 @@ var lichess = {
       n: function(e) {
         var $tag = $('#nb_connected_players');
         $tag.html($tag.html().replace(/\d+/, e)).removeClass('none');
+      },
+      nbm: function(e) {
+        var $tag = $('#nb_messages');
+        $tag.text(e).toggleClass("unread", e > 0);
       }
     },
     options: {
@@ -136,8 +140,6 @@ $(function() {
   function() {
     $('#top').find('div.security').removeClass('show_signin_form');
   });
-
-  $('#lichess_message input[value=""]:first, #fos_user_registration_form_username').focus();
 
   $('#lichess_translation_form_code').change(function() {
     if ("0" != $(this).val()) {
