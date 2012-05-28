@@ -32,7 +32,7 @@ object Message extends LilaController {
         implicit val req = ctx.body
         forms.post.bindFromRequest.fold(
           err ⇒ io {
-            BadRequest(html.message.thread(thread, err) + "#bottom")
+            BadRequest(html.message.thread(thread, err))
           },
           text ⇒ api.makePost(thread, text, me).map(post ⇒
             Redirect(routes.Message.thread(thread.id) + "#bottom")

@@ -9,7 +9,7 @@ $.websocket = function(url, version, settings) {
     },
     options: {
       name: "unnamed",
-      debug: true,
+      debug: false,
       offlineDelay: 5000,
       offlineTag: false,
       pingData: JSON.stringify({t: "p"}),

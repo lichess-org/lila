@@ -51,7 +51,7 @@ final class Api(
       isByCreator = thread isCreator me)
     val newThread = thread + post
     for {
-      _ ← threadRepo saveIO thread
+      _ ← threadRepo saveIO newThread
       otherUser ← userRepo byId (thread otherUserId me)
       _ ← otherUser.fold(
         other ⇒ io(unreadCache invalidate other),
