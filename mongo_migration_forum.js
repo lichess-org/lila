@@ -1,8 +1,12 @@
 print("Hashing users")
-var users = {};
+var userHash = {};
 db.user2.find({},{oid:1}).forEach(function(user) {
-  users[user.oid.toString()] = user._id;
+  userHash[user.oid.toString()] = user._id;
 });
+function user(oid) {
+  if(userHash[oid]) return userHash[oid];
+  throw "Missing user " + oid;
+}
 
 var categSlugs = {};
 var topicIds = {};
@@ -73,7 +77,7 @@ var topicIds = {};
         number: obj.number
       };
       if (obj.author) {
-        post.userId = users[obj.author['$id'].toString()];
+        post.userId = user(obj.author['$id'].toString());
       }
       coll.insert(post);
     }

@@ -26,7 +26,7 @@ final class DataForm(userRepo: UserRepo) {
   ))
 
   private def fetchUser(username: String) =
-    (userRepo byUsername username).unsafePerformIO
+    (userRepo byId username).unsafePerformIO
 
   private def usernameExists(username: String) =
     fetchUser(username).isDefined

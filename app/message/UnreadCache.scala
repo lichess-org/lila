@@ -12,12 +12,12 @@ final class UnreadCache(threadRepo: ThreadRepo) {
 
   def get(user: User): Int = get(user.id)
 
-  def get(userId: ObjectId): Int = 
+  def get(username: String): Int = 
     cache.getOrElseUpdate(username.toLowerCase, {
-      (threadRepo userNbUnread user).unsafePerformIO
+      (threadRepo userNbUnread username).unsafePerformIO
     })
 
   def invalidate(user: User) {
-    cache -= user.usernameCanonical
+    cache -= user.id
   }
 }

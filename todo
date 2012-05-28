@@ -22,12 +22,10 @@ http://codetunes.com/2012/05/09/scala-dsl-tutorial-writing-web-framework-router
 use POST instead of GET where it makes sense
 endgame sound http://en.lichess.org/forum/lichess-feedback/checkmate-sound-feature?page=1#1 
 cached username option app/user/Cached.scala
+game.next dbref => string
 
 next deploy:
-mongo lichess mongo_migration_user.js
-mongo lichess mongo_migration_forum.js
-mongo lichess mongo_migration_message.js
-bin/cli forum-denormalize
+bin/migrate
 new translations:
 -rematchOfferCanceled=Rematch offer canceled
 -rematchOfferDeclined=Rematch offer declined

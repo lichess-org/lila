@@ -5,7 +5,6 @@ import user.User
 
 import org.joda.time.DateTime
 import com.novus.salat.annotations.Key
-import com.mongodb.casbah.Imports.ObjectId
 import ornicar.scalalib.OrnicarRandom
 
 case class Thread(
@@ -14,9 +13,9 @@ case class Thread(
     createdAt: DateTime,
     updatedAt: DateTime,
     posts: List[Post],
-    creatorId: ObjectId,
-    invitedId: ObjectId,
-    visibleByUserIds: List[ObjectId]) {
+    creatorId: String,
+    invitedId: String,
+    visibleByUserIds: List[String]) {
 
   def +(post: Post) = copy(
     posts = posts :+ post,

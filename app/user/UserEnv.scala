@@ -2,8 +2,6 @@ package lila
 package user
 
 import com.mongodb.casbah.MongoCollection
-import com.mongodb.casbah.Imports.ObjectId
-import com.mongodb.DBRef
 
 import chess.EloCalculator
 import game.GameRepo
@@ -12,16 +10,14 @@ import core.Settings
 final class UserEnv(
     settings: Settings,
     mongodb: String ⇒ MongoCollection,
-    gameRepo: GameRepo,
-    dbRef: String ⇒ ObjectId ⇒ DBRef) {
+    gameRepo: GameRepo) {
 
   import settings._
 
   lazy val historyRepo = new HistoryRepo(mongodb(MongoCollectionHistory))
 
   lazy val userRepo = new UserRepo(
-    collection = mongodb(MongoCollectionUser),
-    dbRef = user ⇒ dbRef(MongoCollectionUser)(user.id))
+    collection = mongodb(MongoCollectionUser))
 
   lazy val paginator = new PaginatorBuilder(
     userRepo = userRepo,

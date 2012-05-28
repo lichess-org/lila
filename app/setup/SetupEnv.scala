@@ -10,7 +10,6 @@ import user.{ User, UserRepo }
 
 import com.mongodb.casbah.MongoCollection
 import scalaz.effects._
-import com.mongodb.DBRef
 
 final class SetupEnv(
     settings: Settings,
@@ -21,8 +20,7 @@ final class SetupEnv(
     userRepo: UserRepo,
     timelinePush: DbGame ⇒ IO[Unit],
     roundMessenger: Messenger,
-    ai: () ⇒ Ai,
-    userDbRef: User ⇒ DBRef) {
+    ai: () ⇒ Ai) {
 
   import settings._
 
@@ -37,8 +35,7 @@ final class SetupEnv(
     gameRepo = gameRepo,
     fisherman = fisherman,
     timelinePush = timelinePush,
-    ai = ai,
-    userDbRef = userDbRef)
+    ai = ai)
 
   lazy val friendConfigMemo = new FriendConfigMemo(
     ttl = SetupFriendConfigMemoTtl)
@@ -52,15 +49,13 @@ final class SetupEnv(
   lazy val friendJoiner = new FriendJoiner(
     gameRepo = gameRepo,
     messenger = roundMessenger,
-    timelinePush = timelinePush,
-    userDbRef = userDbRef)
+    timelinePush = timelinePush)
 
   lazy val hookJoiner = new HookJoiner(
     hookRepo = hookRepo,
     fisherman = fisherman,
     gameRepo = gameRepo,
     userRepo = userRepo,
-    userDbRef = userDbRef,
     timelinePush = timelinePush,
     messenger = roundMessenger)
 }

@@ -2,7 +2,7 @@ package lila
 package core
 
 import com.mongodb.casbah.MongoConnection
-import com.mongodb.{ DBRef, Mongo, MongoOptions, ServerAddress ⇒ MongoServer }
+import com.mongodb.{ Mongo, MongoOptions, ServerAddress ⇒ MongoServer }
 
 import akka.actor._
 
@@ -26,8 +26,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
   lazy val user = new lila.user.UserEnv(
     settings = settings,
     mongodb = mongodb.apply _,
-    gameRepo = game.gameRepo,
-    dbRef = namespace ⇒ id ⇒ mongodb.ref(namespace, id))
+    gameRepo = game.gameRepo) 
 
   lazy val forum = new lila.forum.ForumEnv(
     settings = settings,
@@ -57,14 +56,13 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     userRepo = user.userRepo,
     timelinePush = timeline.push.apply,
     roundMessenger = round.messenger,
-    ai = ai.ai,
-    userDbRef = user.userRepo.dbRef)
+    ai = ai.ai) 
 
   lazy val timeline = new lila.timeline.TimelineEnv(
     settings = settings,
     mongodb = mongodb.apply _,
     lobbyNotify = lobby.socket.addEntry,
-    getUsername = user.cached.username)
+    getUsername = user.cached.usernameOrAnonymous)
 
   lazy val ai = new lila.ai.AiEnv(
     settings = settings)

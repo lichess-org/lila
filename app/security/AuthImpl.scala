@@ -85,6 +85,6 @@ trait AuthImpl {
   def restoreUser(req: RequestHeader): Option[User] = for {
     sessionId ← req.session.get("sessionId")
     username ← env.securityStore.getUsername(sessionId)
-    user ← (env.user.userRepo byUsername username).unsafePerformIO
+    user ← (env.user.userRepo byId username).unsafePerformIO
   } yield user
 }

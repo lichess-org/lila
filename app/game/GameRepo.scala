@@ -71,16 +71,16 @@ class GameRepo(collection: MongoCollection)
     update(idSelector(id), $set("players.0.eloDiff" -> white, "players.1.eloDiff" -> black))
   }
 
-  def setUser(id: String, color: Color, dbRef: DBRef, elo: Int) = io {
+  def setUser(id: String, color: Color, user: User) = io {
     val pn = "players.%d".format(color.fold(0, 1))
-    update(idSelector(id), $set(pn + ".user" -> dbRef, pn + ".elo" -> elo))
+    update(idSelector(id), $set(pn + ".userId" -> user.id, pn + ".elo" -> user.elo))
   }
 
   def finish(id: String, winnerId: Option[String]) = io {
     update(
       idSelector(id),
       winnerId.fold(userId ⇒
-        $set("positionHashes" -> "", "winnerUserId" -> userId),
+        $set("positionHashes" -> "", "winId" -> userId),
         $set("positionHashes" -> ""))
         ++ $unset(
           "players.0.previousMoveTs",
@@ -155,22 +155,6 @@ class GameRepo(collection: MongoCollection)
 
   def games(ids: List[String]): IO[List[DbGame]] = io {
     find("_id" $in ids).toList.map(_.decode).flatten sortBy (_.id)
-  }
-
-  def ensureIndexes: IO[Unit] = io {
-    collection.underlying |> { coll ⇒
-      coll.ensureIndex(DBObject("status" -> 1))
-      coll.ensureIndex(DBObject("userIds" -> 1))
-      coll.ensureIndex(DBObject("winnerUserId" -> 1))
-      coll.ensureIndex(DBObject("turns" -> 1))
-      coll.ensureIndex(DBObject("updatedAt" -> -1))
-      coll.ensureIndex(DBObject("createdAt" -> -1))
-      coll.ensureIndex(DBObject("createdAt" -> -1, "userIds" -> 1))
-    }
-  }
-
-  def dropIndexes: IO[Unit] = io {
-    collection.dropIndexes()
   }
 
   private def idSelector(game: DbGame): DBObject = idSelector(game.id)

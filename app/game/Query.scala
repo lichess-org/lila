@@ -29,19 +29,19 @@ object Query {
 
   def clock(c: Boolean): DBObject = "clock.l" $exists c
 
-  def user(u: User): DBObject = DBObject("userIds" -> u.idString)
+  def user(u: User): DBObject = DBObject("userIds" -> u.id)
 
   def started(u: User): DBObject = user(u) ++ started
 
   def rated(u: User): DBObject = user(u) ++ rated
 
-  def win(u: User): DBObject = DBObject("winnerUserId" -> u.idString)
+  def win(u: User): DBObject = DBObject("winId" -> u.id)
 
   def draw(u: User): DBObject = user(u) ++ draw
 
-  def loss(u: User): DBObject = user(u) ++ finished ++ ("winnerUserId" $ne u.idString)
+  def loss(u: User): DBObject = user(u) ++ finished ++ ("winId" $ne u.id)
 
   def playing(u: User): DBObject = user(u) ++ playing
 
-  def opponents(u1: User, u2: User) = "userIds" $all List(u1.idString, u2.idString)
+  def opponents(u1: User, u2: User) = "userIds" $all List(u1.id, u2.id)
 }

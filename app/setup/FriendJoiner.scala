@@ -7,22 +7,20 @@ import user.User
 import round.{ Event, Progress, Messenger }
 import controllers.routes
 
-import com.mongodb.DBRef
 import scalaz.effects._
 
 final class FriendJoiner(
     gameRepo: GameRepo,
     messenger: Messenger,
-    timelinePush: DbGame ⇒ IO[Unit],
-    userDbRef: User ⇒ DBRef) {
+    timelinePush: DbGame ⇒ IO[Unit]) {
 
   def apply(game: DbGame, user: Option[User]): Valid[IO[(Pov, List[Event])]] =
     game.notStarted option {
       val color = game.invitedColor
       for {
         p1 ← user.fold(
-          u ⇒ gameRepo.setUser(game.id, color, userDbRef(u), u.elo) map { _ ⇒
-            Progress(game, game.updatePlayer(color, _.withUser(u, userDbRef(u))))
+          u ⇒ gameRepo.setUser(game.id, color, u) map { _ ⇒
+            Progress(game, game.updatePlayer(color, _ withUser u))
           },
           io(Progress(game)))
         p2 = p1 withGame game.start

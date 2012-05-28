@@ -89,7 +89,7 @@ final class Rematcher(
       game.player(color).userId.fold(
         userId ⇒ userRepo byId userId map { userOption ⇒
           userOption.fold(
-            user ⇒ player.withUser(user)(userRepo.dbRef),
+            user ⇒ player withUser user,
             player)
         },
         io(player))

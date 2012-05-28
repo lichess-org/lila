@@ -25,7 +25,6 @@ object Main {
 
     val op: IO[Unit] = args.toList match {
       case "average-elo" :: Nil ⇒ infos.averageElo
-      case "game-index" :: Nil  ⇒ games.index
       case "trans-js-dump" :: Nil ⇒ TransJsDump(
         path = new File(env.app.path.getCanonicalPath + "/public/trans"),
         pool = env.i18n.pool,

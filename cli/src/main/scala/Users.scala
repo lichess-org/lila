@@ -18,7 +18,7 @@ case class Users(userRepo: UserRepo, securityStore: Store) {
 
   def perform(username: String, action: String, op: User ⇒ IO[Unit]) = for {
     _ ← putStrLn(action + " " + username)
-    userOption ← userRepo byUsername username
+    userOption ← userRepo byId username
     _ ← userOption.fold(
       u ⇒ op(u) flatMap { _ ⇒ putStrLn("Success") },
       putStrLn("Not found")

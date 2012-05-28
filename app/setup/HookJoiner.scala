@@ -8,14 +8,12 @@ import game.{ GameRepo, DbGame, DbPlayer, Pov }
 import round.{ Messenger, Progress }
 
 import scalaz.effects._
-import com.mongodb.DBRef
 
 final class HookJoiner(
     hookRepo: HookRepo,
     fisherman: Fisherman,
     gameRepo: GameRepo,
     userRepo: UserRepo,
-    userDbRef: User ⇒ DBRef,
     timelinePush: DbGame ⇒ IO[Unit],
     messenger: Messenger) {
 
@@ -51,7 +49,7 @@ final class HookJoiner(
 
   def blame(color: DbGame ⇒ ChessColor, userOption: Option[User], game: DbGame) =
     userOption.fold(
-      user ⇒ game.updatePlayer(color(game), _.withUser(user, userDbRef(user))),
+      user ⇒ game.updatePlayer(color(game), _ withUser user),
       game)
 
   def makeGame(hook: Hook) = DbGame(

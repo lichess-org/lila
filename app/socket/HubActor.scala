@@ -48,7 +48,7 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
     setAlive(uid)
     member(uid) foreach { m ⇒
       m.channel push m.username.fold(
-        u ⇒ pong ++ JsObject(Seq("m" -> env.message.unreadCache.get(u))),
+        u ⇒ pong ++ JsObject(Seq("m" -> JsNumber(unreadMessages(u)))),
         pong)
     }
   }
@@ -83,4 +83,7 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
   def member(uid: String): Option[M] = members get uid
 
   def usernames: Iterable[String] = members.values.map(_.username).flatten
+
+  private def unreadMessages(username: String): Int = 
+    env.message.unreadCache get username
 }

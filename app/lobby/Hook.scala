@@ -72,7 +72,7 @@ object Hook {
       increment = clock map (_.increment),
       mode = mode.id,
       color = color,
-      userId = user map (_.idString),
+      userId = user map (_.id),
       username = user.fold(_.username, User.anonymous),
       elo = user map (_.elo),
       eloRange = eloRange.toString,

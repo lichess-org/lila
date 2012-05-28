@@ -4,8 +4,6 @@ package game
 import chess._
 import user.User
 
-import com.mongodb.DBRef
-
 case class DbPlayer(
     id: String,
     color: Color,
@@ -16,7 +14,7 @@ case class DbPlayer(
     isOfferingRematch: Boolean = false,
     lastDrawOffer: Option[Int] = None,
     isProposingTakeback: Boolean = false,
-    user: Option[DBRef] = None,
+    userId: Option[String] = None,
     elo: Option[Int] = None,
     eloDiff: Option[Int] = None,
     moveTimes: String = "",
@@ -34,23 +32,17 @@ case class DbPlayer(
     ps = encodePieces(allPieces)
   )
 
-  def withUser(user: User)(dbRef: User ⇒ DBRef): DbPlayer = copy(
-    user = dbRef(user).some,
+  def withUser(user: User): DbPlayer = copy(
+    userId = user.id.some,
     elo = user.elo.some)
 
   def isAi = aiLevel.isDefined
 
   def isHuman = !isAi
 
-  def userId: Option[String] = user map (_.getId.toString)
+  def hasUser = userId.isDefined
 
-  def hasUser = user.isDefined
-
-  def isUser(u: User) = user.fold(_.getId == u.id, false)
-
-  def withUser(u: User, ref: DBRef) = copy(
-    elo = u.elo.some,
-    user = ref.some)
+  def isUser(u: User) = userId.fold(_ == u.id, false)
 
   def wins = isWinner getOrElse false
 
@@ -82,12 +74,12 @@ case class DbPlayer(
     aiLevel = aiLevel,
     w = isWinner,
     elo = elo,
-    eloDiff = eloDiff,
+    ed = eloDiff,
     isOfferingDraw = if (isOfferingDraw) Some(true) else None,
     isOfferingRematch = if (isOfferingRematch) Some(true) else None,
     lastDrawOffer = lastDrawOffer,
     isProposingTakeback = if (isProposingTakeback) Some(true) else None,
-    user = user,
+    userId = userId,
     mts = Some(moveTimes) filter ("" !=),
     blurs = Some(blurs) filter (0 !=)
   )
@@ -114,12 +106,12 @@ case class RawDbPlayer(
     aiLevel: Option[Int],
     w: Option[Boolean],
     elo: Option[Int],
-    eloDiff: Option[Int],
+    ed: Option[Int],
     isOfferingDraw: Option[Boolean],
     isOfferingRematch: Option[Boolean],
     lastDrawOffer: Option[Int],
     isProposingTakeback: Option[Boolean],
-    user: Option[DBRef],
+    userId: Option[String],
     mts: Option[String],
     blurs: Option[Int]) {
 
@@ -132,12 +124,12 @@ case class RawDbPlayer(
     aiLevel = aiLevel,
     isWinner = w,
     elo = elo,
-    eloDiff = eloDiff,
+    eloDiff = ed,
     isOfferingDraw = isOfferingDraw | false,
     isOfferingRematch = isOfferingRematch | false,
     lastDrawOffer = lastDrawOffer,
     isProposingTakeback = isProposingTakeback | false,
-    user = user,
+    userId = userId,
     moveTimes = mts | "",
     blurs = blurs | 0
   )

@@ -13,7 +13,7 @@ final class Messenger(
   private val urlRegex = """lichess\.org/([\w-]{8})[\w-]{4}""".r
 
   def apply(text: String, username: String): IO[Valid[Message]] = for {
-    userOption ← userRepo byUsername username
+    userOption ← userRepo byId username
     message = for {
       user ← userOption toValid "Unknown user"
       msg ← createMessage(text, user)
@@ -35,7 +35,7 @@ final class Messenger(
     }
 
   def ban(username: String): IO[Unit] = for {
-    userOption ← userRepo byUsername username
+    userOption ← userRepo byId username
     _ ← userOption.fold(
       user ⇒ for {
         _ ← userRepo toggleChatBan user

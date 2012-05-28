@@ -4,7 +4,6 @@ package user
 import core.CoreEnv
 import controllers.routes
 
-import com.mongodb.casbah.Imports.ObjectId
 import play.api.templates.Html
 
 trait UserHelper {
@@ -14,20 +13,18 @@ trait UserHelper {
   private def cached = env.user.cached
   private def usernameMemo = env.user.usernameMemo
 
-  def userIdToUsername(userId: String): String = cached username userId
+  def userIdToUsername(userId: String): String =
+    cached usernameOrAnonymous userId
 
   def userIdToUsername(userId: Option[String]): String =
     userId.fold(userIdToUsername, User.anonymous)
 
   def isUsernameOnline(username: String) = usernameMemo get username
 
-  def isUserIdOnline(userId: String) =
-    usernameMemo get userIdToUsername(userId)
-
   def userIdLink(
     userId: Option[String],
     cssClass: Option[String]): Html = Html {
-    (userId map userIdToUsername).fold(
+    (userId flatMap cached.username).fold(
       username ⇒ """<a class="user_link%s%s" href="%s">%s</a>""".format(
         isUsernameOnline(username).fold(" online", ""),
         cssClass.fold(" " + _, ""),
@@ -38,8 +35,8 @@ trait UserHelper {
   }
 
   def userIdLink(
-    userId: ObjectId,
-    cssClass: Option[String]): Html = userIdLink(userId.toString.some, cssClass)
+    userId: String,
+    cssClass: Option[String]): Html = userIdLink(userId.some, cssClass)
 
   def userLink(
     user: User,

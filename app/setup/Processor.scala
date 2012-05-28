@@ -8,7 +8,6 @@ import chess.{ Game, Board }
 import ai.Ai
 import lobby.{ Hook, Fisherman }
 
-import com.mongodb.DBRef
 import scalaz.effects._
 
 final class Processor(
@@ -17,8 +16,7 @@ final class Processor(
     gameRepo: GameRepo,
     fisherman: Fisherman,
     timelinePush: DbGame ⇒ IO[Unit],
-    ai: () ⇒ Ai,
-    userDbRef: User ⇒ DBRef) {
+    ai: () ⇒ Ai) {
 
   def ai(config: AiConfig)(implicit ctx: Context): IO[Pov] = for {
     _ ← ctx.me.fold(
@@ -27,7 +25,7 @@ final class Processor(
     )
     pov = config.pov
     game = ctx.me.fold(
-      user ⇒ pov.game.updatePlayer(pov.color, _.withUser(user, userDbRef(user))),
+      user ⇒ pov.game.updatePlayer(pov.color, _ withUser user),
       pov.game)
     _ ← gameRepo insert game
     _ ← gameRepo denormalizeStarted game
@@ -50,7 +48,7 @@ final class Processor(
     )
     pov = config.pov
     game = ctx.me.fold(
-      user ⇒ pov.game.updatePlayer(pov.color, _.withUser(user, userDbRef(user))),
+      user ⇒ pov.game.updatePlayer(pov.color, _ withUser user),
       pov.game)
     _ ← gameRepo insert game
     _ ← timelinePush(game)

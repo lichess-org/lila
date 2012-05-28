@@ -8,7 +8,6 @@ import play.api.i18n.Lang
 import play.api.i18n.MessagesPlugin
 import scalaz.effects._
 import com.mongodb.casbah.MongoCollection
-import com.mongodb.DBRef
 
 import user.{ User, UserRepo }
 import game.{ GameRepo, DbGame }

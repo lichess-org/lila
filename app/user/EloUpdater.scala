@@ -12,12 +12,12 @@ final class EloUpdater(
   def game(user: User, elo: Int, gameId: String): IO[Unit] = {
     val newElo = max(elo, floor)
     userRepo.setElo(user.id, newElo) flatMap { _ ⇒
-      historyRepo.addEntry(user.usernameCanonical, newElo, Some(gameId))
+      historyRepo.addEntry(user.id, newElo, Some(gameId))
     }
   }
 
   def adjust(user: User, elo: Int): IO[Unit] =
     userRepo.setElo(user.id, elo) flatMap { _ ⇒
-      historyRepo.addEntry(user.usernameCanonical, elo, entryType = HistoryRepo.TYPE_ADJUST)
+      historyRepo.addEntry(user.id, elo, entryType = HistoryRepo.TYPE_ADJUST)
     }
 }

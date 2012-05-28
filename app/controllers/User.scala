@@ -22,7 +22,7 @@ object User extends LilaController {
   def show(username: String) = showFilter(username, "all", 1)
 
   def showFilter(username: String, filterName: String, page: Int) = Open { implicit ctx ⇒
-    IOptionIOk(userRepo byUsername username) { u ⇒
+    IOptionIOk(userRepo byId username) { u ⇒
       u.enabled.fold(
         env.user.userInfo(u, ctx) map { info ⇒
           val filters = user.GameFilterMenu(info, ctx.me, filterName)
@@ -79,7 +79,7 @@ object User extends LilaController {
     _ ⇒
       IORedirect {
         for {
-          uOption ← userRepo byUsername username
+          uOption ← userRepo byId username
           _ ← uOption.filter(_.elo > UserModel.STARTING_ELO).fold(
             u ⇒ eloUpdater.adjust(u, UserModel.STARTING_ELO) flatMap { _ ⇒
               userRepo setEngine u
@@ -101,5 +101,5 @@ object User extends LilaController {
   def export(username: String) = TODO
 
   private val onlineUsers: IO[List[UserModel]] = 
-    userRepo byUsernames env.user.usernameMemo.keys
+    userRepo byIds env.user.usernameMemo.keys
 }

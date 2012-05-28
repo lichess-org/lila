@@ -10,11 +10,12 @@ function user(oid) {
 
 print("Games");
 var batch = 10000;
+var max = 100000;
 var oGames = db.game;
 var nGames = db.game2;
 var it = 0, totalNb = oGames.count();
 nGames.drop();
-oGames.find().batchSize(batch).limit(100000).forEach(function(game) {
+oGames.find().batchSize(batch).limit(max).forEach(function(game) {
   delete game["positionHashes"];
   delete game["players.0.previousMoveTs"];
   delete game["players.1.previousMoveTs"];
@@ -45,5 +46,15 @@ oGames.find().batchSize(batch).limit(100000).forEach(function(game) {
   }
   nGames.insert(game);
   ++it;
-  if (0 == it % batch) print(it + "/" + totalNb);
+  if (0 == it % batch) 
+    print(it + "/" + totalNb + " " + Math.round(100*it/totalNb) + "%");
 });
+
+print("Indexes");
+nGames.ensureIndex({status:1});
+nGames.ensureIndex({userIds:1});
+nGames.ensureIndex({winId:1});
+nGames.ensureIndex({turns:1});
+nGames.ensureIndex({updatedAt:-1});
+nGames.ensureIndex({createdAt:-1});
+nGames.ensureIndex({userIds:1, createdAt:-1});

@@ -2,8 +2,7 @@ package lila
 package mongodb
 
 import com.mongodb.casbah.MongoConnection
-import com.mongodb.casbah.Imports.ObjectId
-import com.mongodb.{ DBRef, Mongo, MongoOptions, ServerAddress ⇒ MongoServer }
+import com.mongodb.{ Mongo, MongoOptions, ServerAddress ⇒ MongoServer }
 
 import core.Settings
 
@@ -13,9 +12,6 @@ final class MongoDbEnv(
   import settings._
 
   def apply(coll: String) = connection(coll)
-
-  def ref(namespace: String, id: ObjectId): DBRef =
-    new DBRef(connection.underlying, namespace, id)
 
   lazy val cache = new Cache(connection(MongoCollectionCache))
 

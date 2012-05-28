@@ -2,11 +2,10 @@ package lila
 package user
 
 import com.novus.salat.annotations.Key
-import com.mongodb.casbah.Imports.ObjectId
 import org.joda.time.DateTime
 
 case class User(
-    @Key("_id") id: ObjectId,
+    id: String,
     username: String,
     elo: Int,
     nbGames: Int,
@@ -18,8 +17,6 @@ case class User(
     bio: Option[String] = None,
     engine: Boolean = false) {
 
-  def usernameCanonical = username.toLowerCase
-
   def disabled = !enabled
   
   def usernameWithElo = "%s (%d)".format(username, elo)
@@ -29,8 +26,6 @@ case class User(
   def nonEmptyBio = bio filter ("" !=)
 
   def hasGames = nbGames > 0
-
-  def idString = id.toString
 }
 
 object User {
@@ -41,7 +36,7 @@ object User {
 
   // the password is hashed
   def apply(username: String): User = User(
-    id = new ObjectId,
+    id = username.toLowerCase,
     username = username,
     elo = STARTING_ELO,
     nbGames = 0,

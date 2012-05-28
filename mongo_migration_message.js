@@ -1,8 +1,12 @@
 print("Hashing users")
-var users = {};
+var userHash = {};
 db.user2.find({},{oid:1}).forEach(function(user) {
-  users[user.oid.toString()] = user._id;
+  userHash[user.oid.toString()] = user._id;
 });
+function user(oid) {
+  if(userHash[oid]) return userHash[oid];
+  throw "Missing user " + oid;
+}
 
 print("Threads and messages");
 var oThreads = db.message_thread;
@@ -16,7 +20,7 @@ oThreads.find().forEach(function(oThread) {
   name: oThread.subject,
   createdAt: oThread.createdAt,
   creatorId: creatorId(oThread),
-  invitedId: users[invOid],
+  invitedId: user(invOid),
   visibleByUserIds: visibleByUserIds(oThread)
   };
   var posts = [];
@@ -57,7 +61,7 @@ function invitedOid(oThread) {
 }
 
 function userIds(oThread) {
-  return [creatorId(oThread), users[invitedOid(oThread)]];
+  return [creatorId(oThread), user(invitedOid(oThread))];
 }
 
 function visibleByUserIds(oThread) {
@@ -69,8 +73,8 @@ function visibleByUserIds(oThread) {
 }
 
 function username(obj) {
-  if (typeof obj == "object") return users[objId(obj)];
-  return users[obj];
+  if (typeof obj == "object") return user(objId(obj));
+  return user(obj);
 }
 
 function objId(obj) {

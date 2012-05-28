@@ -27,7 +27,7 @@ case class UserConfig(
 object UserConfig {
 
   def default(user: User) = UserConfig(
-    id = user.usernameCanonical,
+    id = user.id,
     ai = AiConfig.default,
     friend = FriendConfig.default,
     hook = HookConfig.default)

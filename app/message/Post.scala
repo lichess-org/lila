@@ -2,7 +2,6 @@ package lila
 package message
 
 import org.joda.time.DateTime
-import com.mongodb.casbah.Imports.ObjectId
 import ornicar.scalalib.OrnicarRandom
 
 case class Post(
