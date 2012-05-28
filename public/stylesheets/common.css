@@ -443,7 +443,6 @@ div.lichess_social div.addtochrome {
 }
 div.lichess_facebook iframe {
   border:none;
-  width: 110px;
   height: 22px;
   margin-left: 5px;
   overflow: hidden;

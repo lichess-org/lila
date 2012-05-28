@@ -189,7 +189,7 @@ $(function() {
     $soundToggle.addClass('unavailable');
   }
 
-  if (false || lichess.onProduction) {
+  if (true || lichess.onProduction) {
     var homeUrl = $('#site_title').attr('href');
     setTimeout(function() {
       if ($gameSharing = $('div.game_share_widgets').orNot()) {

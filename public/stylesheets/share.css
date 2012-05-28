@@ -1,42 +1,45 @@
 div.game_share {
-    margin-top: 30px;
-    width: 512px;
-    box-shadow: 0 0 7px #d0d0d0;
-    -moz-box-shadow: 0 0 7px #d0d0d0;
-    -webkit-box-shadow: 0 0 7px #d0d0d0;
-    border: 1px solid #c0c0c0;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
+  margin-top: 30px;
+  width: 512px;
+  box-shadow: 0 0 7px #d0d0d0;
+  -moz-box-shadow: 0 0 7px #d0d0d0;
+  -webkit-box-shadow: 0 0 7px #d0d0d0;
+  border: 1px solid #c0c0c0;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
 }
 div.game_share_top {
-    width: 92%;
-    height: 25px;
-    padding: 10px 4% 6px 4%;
+  width: 92%;
+  height: 25px;
+  padding: 10px 4% 6px 4%;
 }
 div.game_share_top a.game_permalink {
-    float: left;
-    display: block;
-    margin-top: 3px;
+  float: left;
+  display: block;
+  margin-top: 3px;
 }
 
 div.game_share_widgets {
-    float: right;
-    opacity: 0.7;
-    width: 270px;
+  float: right;
+  opacity: 0.7;
+  width: 270px;
 }
 div.game_share_widgets:hover {
-    opacity: 1;
+  opacity: 1;
 }
 div.game_share_widgets > div {
-    float: right;
-    display: none;
-    margin-left: 10px;
+  float: right;
+  display: none;
+  margin-left: 10px;
 }
 div.game_share_widgets iframe, div.game_share_widgets div.lichess_plusone > div {
-    max-width: 70px;
+  max-width: 70px;
+}
+div.lichess_facebook iframe {
+  max-width: 92px;
 }
 div.game_share_widgets.loaded > div {
-    display: block;
+  display: block;
 }
 
