@@ -143,6 +143,6 @@ trait LilaController
     Context(req, restoreUser(req)~setOnline)
 
   private def setOnline(user: Option[UserModel]) {
-    user foreach { u ⇒ env.user.usernameMemo.put(u.username) }
+    user foreach { u ⇒ env.user.usernameMemo.put(u.username).unsafePerformIO }
   }
 }
