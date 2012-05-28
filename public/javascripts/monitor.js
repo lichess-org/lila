@@ -140,7 +140,7 @@
 
     app.dbQps = new SpeedOMeter({
       name : "DB QPS",
-      maxVal : 500,
+      maxVal : 200,
       threshold: 0.8,
       container : container
     });
