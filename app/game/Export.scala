@@ -19,7 +19,7 @@ final class Export(user: User, gameRepo: GameRepo) {
   // returns the web path
   def apply: IO[String] = for {
     games ← fetchGames
-    filename = "%s_lichess_games_%s".format(user.username, date)
+    filename = "%s_lichess_games_%s.csv".format(user.username, date)
     lines = header :: doGames(games).toList
     webPath ← Writer(filename)(lines)
   } yield webPath

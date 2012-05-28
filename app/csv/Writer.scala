@@ -11,9 +11,8 @@ object Writer {
   // returns the web path
   def apply(filename: String)(lines: List[List[Any]]): IO[String] = {
 
-    val path = "export/" + filename + ".csv"
-    val file = Play.getFile("public/" + path)
-    val webPath = "/assets/" + path
+    val file = Play.getFile("serve/" + filename)
+    val webPath = "/serve/" + filename
     val writer = new CSVWriter(file)
 
     io {
