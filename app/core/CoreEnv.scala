@@ -39,6 +39,10 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     mongodb = mongodb.apply _,
     userRepo = user.userRepo)
 
+  lazy val wiki = new lila.wiki.WikiEnv(
+    settings = settings,
+    mongodb = mongodb.apply _)
+
   lazy val lobby = new lila.lobby.LobbyEnv(
     app = app,
     settings = settings,

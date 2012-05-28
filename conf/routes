@@ -78,6 +78,7 @@ POST  /account/closeConfirm            controllers.User.closeConfirm
 
 # Wiki
 GET   /wiki                            controllers.Wiki.home
+GET   /wiki/:slug                      controllers.Wiki.show(slug: String)
 
 # AI
 GET   /ai                              controllers.Ai.run

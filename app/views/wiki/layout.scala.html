@@ -1,0 +1,19 @@
+@(title: String, pages: List[lila.wiki.Page])(body: Html)(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("wiki.css")
+}
+
+@goodies = {
+<div class="sidebar">
+  @wiki.menu(pages)
+</div>
+}
+
+@base.layout(
+title = title,
+moreCss = moreCss,
+goodies = goodies.some,
+active = none) {
+<div id="wiki">@body</div>
+}
