@@ -3,7 +3,7 @@ package controllers
 import lila._
 import user.{ User ⇒ UserModel }
 import security.{ AuthImpl, Permission }
-import http.{ Context, BodyContext, HttpEnvironment }
+import http.{ Context, HeaderContext, BodyContext, HttpEnvironment }
 import core.Global
 
 import play.api.mvc._
@@ -136,7 +136,13 @@ trait LilaController
 
   def notFound(ctx: Context) = Lobby handleNotFound ctx
 
-  protected def reqToCtx(req: Request[_]) = Context(req, restoreUser(req))
+  protected def reqToCtx(req: Request[_]): BodyContext =
+    Context(req, restoreUser(req)~setOnline)
 
-  protected def reqToCtx(req: RequestHeader) = Context(req, restoreUser(req))
+  protected def reqToCtx(req: RequestHeader): HeaderContext =
+    Context(req, restoreUser(req)~setOnline)
+
+  private def setOnline(user: Option[UserModel]) {
+    user foreach { u ⇒ env.user.usernameMemo.put(u.username) }
+  }
 }
