@@ -161,6 +161,7 @@
     iframe.style.display = "none";
 
     window.message = function (msg) {
+      console.debug(msg);
       var ds = msg.split(";");
       app.lastCall = (new Date()).getTime();
       for(var i in ds) {

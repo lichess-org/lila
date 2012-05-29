@@ -24,7 +24,9 @@ class UserRepo(
   }
 
   def byIds(ids: Iterable[String]): IO[List[User]] = io {
-    find("_id" $in ids.map(normalize)).toList
+    find("_id" $in ids.map(normalize))
+      .sort(DBObject("elo" -> -1))
+      .toList
   }
 
   def username(userId: String): IO[Option[String]] = io {

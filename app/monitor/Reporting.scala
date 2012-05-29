@@ -93,7 +93,7 @@ final class Reporting(
         }
       } onComplete {
         case Left(a) ⇒ println("Reporting: " + a.getMessage)
-        case a       ⇒
+        case a       ⇒ display()
       }
     }
   }
@@ -110,7 +110,8 @@ final class Reporting(
       "thread" -> nbThreads,
       "load" -> loadAvg.toString.replace("0.", "."),
       "mem" -> memory,
-      "AI" -> remoteAi.fold("1", "0")
+      "cpu" -> cpu,
+      "AI" -> remoteAi.isDefined.fold("1", "0")
     ))
 
     if (displays % 8 == 0) println(data.header)
@@ -125,7 +126,7 @@ final class Reporting(
     nbPlaying,
     game.nbHubs,
     loadAvg.toString,
-    remoteAi.isDefined.fold(1, 0)
+    (remoteAi | 9999)
   ) mkString " "
 
   private def monitorData = List(
