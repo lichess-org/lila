@@ -3,5 +3,6 @@ tags
 project/project
 project/target
 target
+serve/
 RUNNING_PID
 .git*
