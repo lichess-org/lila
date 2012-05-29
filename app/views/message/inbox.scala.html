@@ -9,35 +9,35 @@ title = trans.inbox.str()) {
   @if(threads.nbResults > 0) {
   <tbody class="infinitescroll">
     @if(threads.hasToPaginate) {
-    <thead class="pager none"><tr><th>
-          <a href="@routes.Message.inbox(threads.nextPage | 1)">Next</a>
-    </th></tr></thead>
-    <tbody>
-      }
-      @threads.currentPageResults.map { thread =>
-      <tr class="paginated_element @thread.isUnReadBy(me).fold("new", "")">
-        <td class="subject">
-          <a href="@routes.Message.thread(thread.id)#bottom">@thread.name</a>
-        </td>
-        <td class="author">
-          @userIdLink(thread.otherUserId(me), none)
-        </td>
-        <td class="date">
-          @showDate(thread.updatedAt)
-        </td>
-      </tr>
-      }
-    </tbody>
-    } else {
-    <tbody>
-      <tr>
-        <td colspan="4">
-          <br />
-          No message!
-        </td>
-      </tr>
-    </tbody>
+    <tr><th class="pager none">
+        <a href="@routes.Message.inbox(threads.nextPage | 1)">Next</a>
+    </th></tr>
+    }
+    @threads.currentPageResults.map { thread =>
+    <tr class="paginated_element @thread.isUnReadBy(me).fold(" new", "")">
+      <td class="subject">
+        <a href="@routes.Message.thread(thread.id)#bottom">@thread.name</a>
+      </td>
+      <td class="author">
+        @userIdLink(thread.otherUserId(me), none)
+      </td>
+      <td class="date">
+        @showDate(thread.updatedAt)
+      </td>
+    </tr>
     }
   </tbody>
+  } else {
+  <tbody>
+    <tr>
+      <td colspan="4">
+        <br />
+        No message!
+      </td>
+    </tr>
+  </tbody>
+  }
+</tbody>
 </table>
 }
+

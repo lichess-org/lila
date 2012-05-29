@@ -24,7 +24,7 @@ div.sidebar a {
 #lichess_message tr {
   border-top: 1px solid #eaeaea;
 }
-#lichess_message tr:nth-child(odd) {
+#lichess_message tr:nth-child(even) {
   background: #f7f7f7;
 }
 
