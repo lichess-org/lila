@@ -26,7 +26,7 @@ case class Entry(
         case (name, Some(id)) ⇒
           "<a class='user_link' href='/@/%s'>%s</a>".format(id, name)
       } mkString " vs ",
-      variant,
+      variant.capitalize,
       rated ? "Rated" | "Casual",
       clock | "Unlimited")
 }

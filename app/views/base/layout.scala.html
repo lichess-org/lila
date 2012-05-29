@@ -100,7 +100,7 @@
     @jsTag("opening.js")
     @moreJs
     @if(lang.language != "en") {
-    <script src="@routes.Assets.at("trans/" + lang.language + ".js")"></script>
+    <script src="@routes.Assets.at("trans/" + lang.language + ".js")?v=@assetVersion"></script>
     }
   </body>
 </html>

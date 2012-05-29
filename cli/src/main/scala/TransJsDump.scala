@@ -12,6 +12,7 @@ case class TransJsDump(
 
   val messages = List(
     keys.unlimited,
+    keys.standard,
     keys.rated,
     keys.casual,
     keys.noGameAvailableRightNowCreateOne,
@@ -36,6 +37,8 @@ case class TransJsDump(
     keys.yourTurn,
     keys.waitingForOpponent)
 
+  val en = Lang("en")
+
   def apply: IO[Unit] = for {
     _ ← putStrLn("Dumping JavaScript translations in " + path)
     langs = pool.langs
@@ -54,8 +57,10 @@ case class TransJsDump(
 
   def dump(lang: Lang): String =
     """lichess_translations = {%s};""".format(messages map { key ⇒
-      """%s:"%s"""".format(key.key, key.to(lang)())
+      """"%s":"%s"""".format(escape(key.to(en)()), escape(key.to(lang)()))
     } mkString ",")
+
+  def escape(text: String) = text.replace(""""""", """\"""")
 
   def run(op: ⇒ Unit, desc: String = "") = for {
     _ ← desc.nonEmpty.fold(putStrLn(desc), io())

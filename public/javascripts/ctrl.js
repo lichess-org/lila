@@ -226,6 +226,7 @@ $.fn.orNot = function() {
 };
 
 $.trans = function(text) {
+  //if (!lichess_translations[text]) console.debug(text);
   return lichess_translations[text] ? lichess_translations[text] : text;
 }
 
