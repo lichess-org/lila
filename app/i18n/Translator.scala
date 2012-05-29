@@ -22,7 +22,14 @@ final class Translator(api: MessagesApi, pool: I18nPool) {
 
   private def translate(key: String, args: List[Any])(lang: Lang): Option[String] = {
     messages.get(lang.code).flatMap(_.get(key)).orElse(messages.get("default").flatMap(_.get(key))).map { pattern =>
-      if (args.isEmpty) pattern else pattern.format(args: _*)
+      try {
+        if (args.isEmpty) pattern else pattern.format(args: _*)
+      } catch {
+        case e => {
+          println("Failed to translate " + key + " to " + lang.language + " - " + e.getMessage)
+          key
+        }
+      }
     }
   }
 }

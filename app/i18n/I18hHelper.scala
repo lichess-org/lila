@@ -31,14 +31,15 @@ trait I18nHelper {
           """<li><a lang="%s" href="%s">%s</a></li>"""
             .format(code, langUrl(Lang(code))(ctx.req), name)
       } mkString
-    })
+    }).replace(uriPlaceholder, ctx.req.uri)
   }
 
   def commonDomain(implicit ctx: Context): String = 
     I18nDomain(ctx.req.domain).commonDomain
 
   val protocol = "http://"
+  val uriPlaceholder = "[URI]"
 
   private def langUrl(lang: Lang)(req: RequestHeader) =
-    protocol + (I18nDomain(req.domain) withLang lang).domain + req.uri
+    protocol + (I18nDomain(req.domain) withLang lang).domain + uriPlaceholder
 }

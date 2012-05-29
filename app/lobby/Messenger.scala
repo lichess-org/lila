@@ -24,7 +24,7 @@ final class Messenger(
   def createMessage(text: String, user: User): Valid[Message] =
     if (user.isChatBan) !!("Chat banned " + user)
     else if (user.disabled) !!("User disabled " + user)
-    else escapeXml(text.trim take 140) |> { escaped ⇒
+    else escapeXml(text.replace(""""""", "'").trim take 140) |> { escaped ⇒
       (escaped.nonEmpty).fold(
         success(Message(
           user.username,

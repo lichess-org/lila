@@ -1,6 +1,6 @@
 <?php
 
-$play = "/home/Play20/play";
+$play = "/home/Play21/play";
 
 function show_run($text, $command, $catch = false)
 {

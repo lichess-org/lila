@@ -31,7 +31,7 @@ final class Messenger(
     ref: PovRef,
     message: String): IO[List[Event]] =
     if (message.size <= 140 && message.nonEmpty)
-      roomRepo.addMessage(ref.gameId, ref.color.name, message) map { _ ⇒
+      roomRepo.addMessage(ref.gameId, ref.color.name, message.replace(""""""", "'")) map { _ ⇒
         List(Message(ref.color.name, message))
       }
     else io(Nil)
