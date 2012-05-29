@@ -15,10 +15,21 @@ final class I18nPool(val langs: Set[Lang], val default: Lang) {
   def lang(req: RequestHeader) = domainLang(req) getOrElse default
 
   def preferred(req: RequestHeader) =
-    (req.acceptLanguages find langs.contains) | default
+    (fixedReqAcceptLanguages(req) find langs.contains) | default
 
-  def domainLang(req: RequestHeader) = 
+  // the original implementation prints a stacktrace
+  // when the header is malformed.
+  def fixedReqAcceptLanguages(req: RequestHeader) = try {
+    req.headers.get(play.api.http.HeaderNames.ACCEPT_LANGUAGE).map { acceptLanguage ⇒
+      acceptLanguage.split(",").map(l ⇒ play.api.i18n.Lang(l.split(";").head)).toSeq
+    }.getOrElse(Nil)
+  }
+  catch {
+    case e ⇒ Nil
+  }
+
+  def domainLang(req: RequestHeader) =
     cache.getOrElseUpdate(req.domain, {
-      I18nDomain(req.domain).lang filter langs.contains 
+      I18nDomain(req.domain).lang filter langs.contains
     })
 }
