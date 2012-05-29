@@ -40,7 +40,7 @@ object GameFilterMenu extends NonEmptyLists {
     val user = info.user
 
     val all = nel(All, List(
-      (info.user.some != me) option Me,
+      me.fold(info.user !=, false) option Me,
       (info.nbRated > 0) option Rated,
       (info.nbWin > 0) option Win,
       (info.nbLoss > 0) option Loss,
