@@ -74,12 +74,16 @@ class UserRepo(
     for {
       data ← collection.findOne(
         byIdQuery(username),
-        DBObject("password" -> true, "salt" -> true, "enabled" -> true)
+        DBObject("password" -> true, "salt" -> true, "enabled" -> true, "sha512" -> true)
       )
       hashed ← data.getAs[String]("password")
       salt ← data.getAs[String]("salt")
       enabled ← data.getAs[Boolean]("enabled")
-    } yield enabled && hashed == hash(password, salt)
+      sha512 = data.getAs[Boolean]("sha512") | false
+    } yield enabled && hashed == sha512.fold(
+      hash512(password, salt),
+      hash(password, salt)
+    )
   } map (_ | false)
 
   def create(username: String, password: String): IO[Option[User]] = for {
@@ -144,4 +148,7 @@ class UserRepo(
 
   private def hash(pass: String, salt: String): String =
     "%s{%s}".format(pass, salt).sha1
+
+  private def hash512(pass: String, salt: String): String =
+    "%s{%s}".format(pass, salt).sha512
 }
