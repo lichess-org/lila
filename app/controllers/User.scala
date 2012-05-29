@@ -35,7 +35,10 @@ object User extends LilaController {
   }
 
   def list(page: Int) = Open { implicit ctx ⇒
-    IOk(onlineUsers map { html.user.list(paginator elo page, _) })
+    (page < 50).fold(
+      IOk(onlineUsers map { html.user.list(paginator elo page, _) }),
+      BadRequest("too old")
+    )
   }
 
   val online = Open { implicit ctx ⇒
