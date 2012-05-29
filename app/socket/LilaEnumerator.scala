@@ -6,7 +6,7 @@ import play.api.libs.iteratee._
 import play.api.libs.concurrent._
 
 // Copy of PushEnumerator, but with initial messages
-// Keep uptodate with framework/src/play/src/main/scala/play/api/libs/iteratee/Iteratee.scala PushEnumerator (l.1020)
+// Keep uptodate with framework/src/play/src/main/scala/play/api/libs/iteratee/Enumerator.scala PushEnumerator (l.504)
 final class LilaEnumerator[E](
     in: List[E],
     onStart: () => Unit = () => (),
