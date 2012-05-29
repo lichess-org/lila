@@ -22,14 +22,20 @@ object Game extends LilaController {
   }
 
   def all(page: Int) = Open { implicit ctx ⇒
-    Ok(html.game.all(
-      paginator recent page, cached.nbGames, cached.nbMates
-    ))
+    (page < 50).fold(
+      Ok(html.game.all(
+        paginator recent page, cached.nbGames, cached.nbMates
+      )),
+      BadRequest("too old")
+    )
   }
 
   def checkmate(page: Int) = Open { implicit ctx ⇒
-    Ok(html.game.checkmate(
-      paginator checkmate page, cached.nbGames, cached.nbMates
-    ))
+    (page < 50).fold(
+      Ok(html.game.checkmate(
+        paginator checkmate page, cached.nbGames, cached.nbMates
+      )),
+      BadRequest("too old")
+    )
   }
 }
