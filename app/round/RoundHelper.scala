@@ -18,7 +18,7 @@ trait RoundHelper { self: ConfigHelper ⇒
       "game" -> Map(
         "id" -> gameId,
         "started" -> game.started,
-        "finished" -> game.finished,
+        "finished" -> game.finishedOrAborted,
         "clock" -> game.hasClock,
         "player" -> game.turnColor.name,
         "turns" -> game.turns,
@@ -47,7 +47,7 @@ trait RoundHelper { self: ConfigHelper ⇒
       "game" -> Map(
         "id" -> gameId,
         "started" -> game.started,
-        "finished" -> game.finished,
+        "finished" -> game.finishedOrAborted,
         "clock" -> game.hasClock,
         "player" -> game.turnColor.name,
         "turns" -> game.turns,
