@@ -4,16 +4,11 @@
 <html lang="@lang.language">
   <head>
     <title>lichess @title | @trans.freeOnlineChess()</title>
-    @cssTag("reset.css")
-    @cssTag("tipsy.css")
-    @cssTag("jquery-ui.css")
+    @cssTag("vendor.css")
     @cssTag("common.css")
     @cssTag("board.css")
     @cssTag("gamelist.css")
-    @cssTag("share.css")
-    @cssTag("tooltip.css")
     @cssTag("opening.css")
-    @cssTag("hook.css")
     @moreCss
     <meta content="@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()" name="description">
     <meta name="google-site-verification" content="fZ08Imok7kcLaGcJg7BKQExO6vXGgSgsJUsW6JalUCo" />
@@ -102,9 +97,7 @@
     @jsTag("ctrl.js")
     @jsTag("game.js")
     @jsTag("gamelist.js")
-    @jsTag("clock.js")
-    @jsTag("setup.js")
-    @jsTag("hook.js")
+    @jsTag("opening.js")
     @moreJs
     @if(lang.language != "en") {
     <script src="@routes.Assets.at("trans/" + lang.language + ".js")"></script>

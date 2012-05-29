@@ -12,6 +12,9 @@ div.game_config h2 {
 div.game_config div.ui-buttonset {
   margin-bottom: 1em;
 }
+#config_level .ui-button {
+  margin-right: -0.6em;
+}
 div.game_config .ui-button-text {
   text-transform: capitalize;
 }
@@ -65,4 +68,127 @@ div.game_config div.color_submits button.black span {
 }
 div.game_config div.color_submits button.random span {
   background-position: 0 -102px;
+}
+div.hooks_wrap {
+    position: absolute;
+    width: 384px;
+    height: 384px;
+    top: 51px;
+    left: 52px;
+    padding: 12px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    box-shadow: 0 0 20px #444;
+    -moz-box-shadow: 0 0 20px #444;
+    -webkit-box-shadow: 0 0 20px #444;
+    background: rgba(245,245,245,0.8);
+    background: -moz-linear-gradient(top, rgba(212,212,212,0.9) 0%, rgba(240,240,240,0.5) 100%);
+    background: -webkit-linear-gradient(top, rgba(212,212,212,0.9) 0%,rgba(240,240,240,0.5) 100%);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(212,212,212,0.9)), to(rgba(240,240,240,0.5)));
+    background: -ms-linear-gradient(top, rgba(212,212,212,0.9) 0%,rgba(240,240,240,0.5) 100%);
+    background: -o-linear-gradient(top, rgba(212,212,212,0.9) 0%,rgba(240,240,240,0.5) 100%);
+}
+div.hooks_wrap.large {
+  height: 512px;
+  top: -13px;
+}
+
+div.hooks_wrap.hidden {
+    display: none;
+}
+div.hooks {
+    border: 1px solid #bababa;
+    border-top: 0
+}
+div.hooks table {
+    width: 100%;
+    max-height: 424px;
+    overflow: hidden;
+    text-align: left;
+    border-collapse: collapse;
+    background: none;
+    color: #666;
+    border-top: 1px solid #bababa;
+}
+div.hooks table a {
+    color: #666;
+}
+div.hooks table.empty_table {
+    margin-top: 152px;
+}
+div.hooks td {
+    padding: 0 8px 0 12px;
+    height: 64px;
+    margin: 0;
+}
+div.hooks tr:last-child td {
+    border-bottom: none;
+}
+div.hooks table.empty_table tr {
+    text-align: center;
+    cursor: pointer;
+}
+div.hooks table.empty_table td {
+    padding: 0;
+    height: 80px;
+}
+div.hooks td.color {
+    width: 24px;
+    padding-right: 0;
+}
+div.hooks td.color span {
+    height: 24px;
+    width: 24px;
+    display: block;
+    background: url(../images/sprite_color_24.png) no-repeat;
+}
+div.hooks td.color span.black {
+    background-position: 0 -24px;
+}
+div.hooks td.color span.random {
+    background-position: 0 -49px;
+}
+div.hooks span.elorange {
+  display: block;
+  font-style: italic;
+  color: #999;
+}
+div.hooks span.elorange.nope {
+  color: #dd8888;
+}
+div.hooks a.user_link.engine {
+  color: #cc7070;
+}
+div.hooks td.action {
+    cursor: pointer;
+    border-left: 1px solid #cacaca;
+    width: 63px;
+    padding: 0;
+}
+div.hooks td.action.empty {
+  cursor: default;
+  background: none;
+}
+div.hooks a.cancel,
+div.hooks a.join {
+    height: 32px;
+    width: 31px;
+    display: block;
+    padding: 12px 14px;
+}
+div.hooks a.cancel {
+    background: url(../images/close24.png) +16px no-repeat;
+}
+div.hooks a.join {
+    background: url(../images/play32.png) +16px no-repeat;
+}
+div.hooks tr.my_hook {
+    color: #405090;
+    background: #c9dbee;
+}
+
+div.hooks a.user_link {
+    background: transparent;
+    padding-left: 0;
 }
