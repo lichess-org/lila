@@ -1,8 +1,0 @@
-#!/bin/sh
-mongo lichess mongo_migration_user.js
-mongo lichess mongo_migration_forum.js
-mongo lichess mongo_migration_message.js
-mongo lichess mongo_migration_rest.js
-bin/cli forum-denormalize
-mongo lichess mongo_migration_game.js
-bin/trans-dump

@@ -1,5 +1,0 @@
-db.game.update({"players.evts": {$exists: true}}, {$unset: {"players.0.evts": true, "players.1.evts": true}}, false, true)
-
-db.game.update({"whiteBlurs": {$exists: true}}, {$unset: {"whiteBlurs": true}}, false, true)
-
-db.game.update({"blackBlurs": {$exists: true}}, {$unset: {"blackBlurs": true}}, false, true)
