@@ -69,7 +69,7 @@ object Cron {
       }
     }
 
-    effect(1 minute, "ai diagnose") {
+    effect(10 seconds, "ai diagnose") {
       env.ai.remoteAi.diagnose
     }
     env.ai.remoteAi.diagnose.unsafePerformIO

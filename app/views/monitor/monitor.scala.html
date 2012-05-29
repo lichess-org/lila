@@ -1,9 +1,17 @@
 @(totalMemory: Long)
 
 @main("RPS") {
-<h1>Lichess Server Monitoring <span class="down">DOWN</span></h1>
+<h1>Lichess reactor <span class="down">DOWN</span><span class="up">OPERATIONAL</span></h1>
 <div id="monitors" class="clearfix">
   <script type="text/javascript">window.App = { }; window.App.totalMemory = @totalMemory;</script>
   <script type="text/javascript" src="@routes.Assets.at("javascripts/monitor.js")"></script>
 </div>
+<div id="actions">
+<a href="#" id="shutdown">Emergency reactor shutdown - DON'T CLICK</a>
+</div>
+<script>
+window.document.getElementById("shutdown").onclick = function() {
+  alert("Was worth trying. I guess.");
+};
+</script>
 }

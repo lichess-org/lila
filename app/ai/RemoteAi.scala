@@ -13,7 +13,8 @@ final class RemoteAi(
 
   // tells whether the remote AI is healthy or not
   // frequently updated by a scheduled actor
-  private var health = false
+  private var ping = none[Int]
+  val pingAlert = 3000
 
   private lazy val http = new Http with ThreadSafety with NoLogging
   private lazy val urlObj = url(remoteUrl)
@@ -28,16 +29,17 @@ final class RemoteAi(
     }
   }
 
-  def or(fallback: Ai) = if (health) this else fallback
+  def or(fallback: Ai) = if (currentHealth) this else fallback
 
-  def currentHealth = health
+  def currentPing = ping
+  def currentHealth = ping.fold(_ < pingAlert, false)
 
   def diagnose: IO[Unit] = for {
-    h ← healthCheck
-    _ ← h.fold(
-      health.fold(io(), putStrLn("remote AI is up")),
-      putStrLn("remote AI is down"))
-    _ ← io { health = h }
+    p ← tryPing
+    _ ← p.fold(_ < pingAlert, false).fold(
+      currentHealth.fold(io(), putStrLn("remote AI is up, ping = " + p)),
+      putStrLn("remote AI is down, ping = " + p))
+    _ ← io { ping = p }
   } yield ()
 
   private def fetchNewFen(oldFen: String, level: Int): IO[String] = io {
@@ -47,8 +49,12 @@ final class RemoteAi(
     ) as_str)
   }
 
-  private def healthCheck: IO[Boolean] = fetchNewFen(
-    oldFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq",
-    level = 1
-  ).catchLeft map (_.isRight)
+  private def tryPing: IO[Option[Int]] = for {
+    start ← io(nowMillis)
+    received ← fetchNewFen(
+      oldFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq",
+      level = 1
+    ).catchLeft map (_.isRight)
+    delay ← io(nowMillis - start)
+  } yield received option delay.toInt
 }

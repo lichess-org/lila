@@ -14,14 +14,33 @@ body {
 
 h1 {
   text-align: center;
-  font-size: 20px;
+  font-size: 36px;
+  color: #222;
+  text-transform: uppercase;
 }
 h1 .down {
-  color: #884444;
+  color: #aa4444;
   display: none;
+}
+h1 .up {
+  color: #446644;
 }
 body.down h1 .down {
   display: inline;
+}
+body.down h1 .up {
+  display: none;
+}
+
+#actions {
+  margin: 70px 0 20px 0;
+  text-align: center;
+}
+
+a#shutdown {
+  font-size: 14px;
+  color: #888;
+  font-family: monospace;
 }
 
 .monitor {
@@ -38,7 +57,7 @@ body.down h1 .down {
   color: #d0d0d0;
   font-size: 10px;
   position: absolute;
-  top: 9px;
+  top: 10px;
   left: 223px;
 }
 .monitor .screen {
@@ -90,16 +109,17 @@ body.down h1 .down {
   background: url(/assets/images/monitor/needle.png);
 }
 div.light {
-  width: 7px;
-  height: 7px;
+  width: 26px;
+  height: 26px;
   position: absolute;
-  top: 11px;
-  left: 211px;
+  top: 2px;
+  left: 200px;
+  background: url(/assets/images/status.png);
+  background-position: 0 -52px;
 }
-div.light.green {
-  background: url(/assets/images/monitor/green-light.png);
-}
-div.light.red,
 .monitor.alert div.light {  
-  background: url(/assets/images/monitor/red-light.png);
+  background-position: 0 -26px;
+}
+body.up div.light  {
+  background-position: 0 0;
 }

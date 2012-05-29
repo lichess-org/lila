@@ -20,7 +20,7 @@ object Global extends GlobalSettings {
   }
 
   override def onRouteRequest(req: RequestHeader): Option[Handler] = {
-    println(req)
+    //println(req)
     env.monitor.rpsProvider.countRequest()
     env.i18n.requestHandler(req) orElse super.onRouteRequest(req)
   }

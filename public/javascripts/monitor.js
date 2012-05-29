@@ -30,7 +30,7 @@
     this.elt.appendChild(this.needle);
 
     this.light = create("div");
-    this.light.className = "green light";
+    this.light.className = "light";
     this.elt.appendChild(this.light);
 
     var wheel = create("div");
@@ -70,7 +70,7 @@
     app.memory = new SpeedOMeter({
       name : "MEMORY",
       maxVal : app.totalMemory,
-      threshold: 0.8,
+      threshold: 0.9,
       unit : "MB",
       container : container
     });
@@ -100,7 +100,6 @@
     app.lat = new SpeedOMeter({
       name : "LATENCY",
       maxVal : 5,
-      threshold: 0.5,
       container : container
     });
 
@@ -140,7 +139,7 @@
 
     app.dbQps = new SpeedOMeter({
       name : "DB QPS",
-      maxVal : 200,
+      maxVal : 300,
       threshold: 0.8,
       container : container
     });
@@ -148,6 +147,12 @@
     app.dbLock = new SpeedOMeter({
       name : "DB LOCK",
       maxVal : 2,
+      container : container
+    });
+
+    app.ai = new SpeedOMeter({
+      name : "AI PING",
+      maxVal : 1000,
       container : container
     });
 
@@ -172,7 +177,7 @@
       app.lastCall = (new Date()).getTime();
       window.document.body.appendChild(iframe);
     }, 100);
-    
+
     setInterval(function () {
       if ((new Date()).getTime() - app.lastCall > 3000) {
         window.document.body.className = "down";

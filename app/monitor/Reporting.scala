@@ -36,7 +36,7 @@ final class Reporting(
   var rps = 0
   var cpu = 0
   var mongoStatus = MongoStatus.default
-  var remoteAi = false
+  var remoteAi = none[Int]
 
   var displays = 0
 
@@ -89,7 +89,7 @@ final class Reporting(
           memory = memoryStats.getHeapMemoryUsage.getUsed / 1024 / 1024
           rps = rpsProvider.rps
           cpu = ((cpuStats.getCpuUsage() * 1000).round / 10.0).toInt
-          remoteAi = env.ai.remoteAi.currentHealth
+          remoteAi = env.ai.remoteAi.currentPing
         }
       } onComplete {
         case Left(a) ⇒ println("Reporting: " + a.getMessage)
@@ -125,7 +125,7 @@ final class Reporting(
     nbPlaying,
     game.nbHubs,
     loadAvg.toString,
-    remoteAi.fold(1, 0)
+    remoteAi.isDefined.fold(1, 0)
   ) mkString " "
 
   private def monitorData = List(
@@ -141,7 +141,8 @@ final class Reporting(
     "dbMemory" -> mongoStatus.memory,
     "dbConn" -> mongoStatus.connection,
     "dbQps" -> mongoStatus.qps,
-    "dbLock" -> math.round(mongoStatus.lock * 10) / 10d
+    "dbLock" -> math.round(mongoStatus.lock * 10) / 10d,
+    "ai" -> (remoteAi | 9999)
   ) map {
       case (name, value) ⇒ value + ":" + name
     }

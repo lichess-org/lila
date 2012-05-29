@@ -20,6 +20,8 @@ translation contributions
 check sf2 commands to port
 make the wiki static html pages managed by git?
 compensate lag http://fr.lichess.org/forum/lichess-feedback/the-clock-display-should-account-for-lag?page=1#4
+show lobby room logs
+refactor preload
 
 next deploy:
 bin/migrate
