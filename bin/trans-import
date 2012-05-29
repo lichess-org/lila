@@ -21,7 +21,7 @@ def format(text)
   text
   .strip
   .gsub('"', '')
-  .gsub(/%\w+%/, '%s')
+  .gsub(/%[^%]+%/, '%s')
 end
 
 lichess_dir = File.expand_path(pwd() + '/../lichess')

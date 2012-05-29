@@ -5,3 +5,4 @@ mongo lichess mongo_migration_message.js
 mongo lichess mongo_migration_rest.js
 bin/cli forum-denormalize
 mongo lichess mongo_migration_game.js
+bin/trans-dump
