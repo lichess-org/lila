@@ -26,6 +26,18 @@ anonymous rated!! http://db.tt/gJF0xNaT
 0 0 game http://en.lichess.org/kxoprksf
 takeback
 lobby sync
+moretime doubled, reload page then ok
+chat scroll in game
+after canceled game, clock still turns.
+monitor with websocket
+push enumerator is deprecated
+dead pieces on wrong side
+http://fr.lichess.org/forum/lichess-feedback/game-history-bug#1
+morozov can't chatban anymore http://en.lichess.org/inbox/mrfsbwou#bottom
+cache expensive game count (mates)
+monitor + nb slow mongo requests
+restore previous elo graph
+pie elo chart
 
 new translations:
 -rematchOfferCanceled=Rematch offer canceled
