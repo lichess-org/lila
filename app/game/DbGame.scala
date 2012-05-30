@@ -249,7 +249,7 @@ case class DbGame(
   def playerCanProposeTakeback(color: Color) =
     started && playable &&
       turns >= 2 &&
-      opponent(color).isProposingTakeback
+      !opponent(color).isProposingTakeback
 
   def abortable = status == Status.Started && turns < 2
 
