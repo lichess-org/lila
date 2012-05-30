@@ -96,7 +96,7 @@ final class Reporting(
         case Left(a) ⇒ println("Reporting: " + a.getMessage)
         case a       ⇒ {
           hub ! MonitorData(monitorData)
-          display()
+          //display()
         }
       }
     }

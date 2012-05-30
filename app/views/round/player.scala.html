@@ -31,7 +31,7 @@ chat = roomHtml.map(round.room(_))) {
     <div id="premove">@trans.premoveEnabledClickAnywhereToCancel()</div>
   </div>
   <div class="lichess_ground">
-    @round.cemetery(!pov, "top")
+    @round.cemetery(pov, "top")
     <div class="lichess_table_wrap">
       @game.clock.map { c =>
       @round.clock(c, !pov.color, "top")
@@ -52,7 +52,7 @@ chat = roomHtml.map(round.room(_))) {
       }
       }
     </div>
-    @round.cemetery(pov, "bottom")
+    @round.cemetery(!pov, "bottom")
   </div>
 </div>
 <script type="text/javascript">var lichess_data = @Html(roundPlayerJsData(pov, version))</script>

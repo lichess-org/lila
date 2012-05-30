@@ -62,7 +62,7 @@
 
       app.rps = new SpeedOMeter({
         name : "RPS",
-      maxVal : 50,
+      maxVal : 100,
       threshold: 0.9,
       container : container
       });
@@ -70,7 +70,6 @@
     app.memory = new SpeedOMeter({
       name : "MEMORY",
       maxVal : app.totalMemory,
-      threshold: 0.9,
       unit : "MB",
       container : container
     });
@@ -85,7 +84,7 @@
 
     app.thread = new SpeedOMeter({
       name : "THREAD",
-      maxVal : 200,
+      maxVal : 300,
       threshold: 0.5,
       container : container
     });
@@ -125,7 +124,7 @@
 
     app.dbMemory = new SpeedOMeter({
       name : "DB MEMORY",
-      maxVal : 3000,
+      maxVal : 2000,
       threshold: 0.8,
       container : container
     });
@@ -139,7 +138,7 @@
 
     app.dbQps = new SpeedOMeter({
       name : "DB QPS",
-      maxVal : 300,
+      maxVal : 200,
       threshold: 0.8,
       container : container
     });
@@ -152,7 +151,7 @@
 
     app.ai = new SpeedOMeter({
       name : "AI PING",
-      maxVal : 1000,
+      maxVal : 500,
       container : container
     });
 

@@ -31,7 +31,6 @@ chat scroll in game
 after canceled game, clock still turns.
 monitor with websocket
 push enumerator is deprecated
-dead pieces on wrong side
 http://fr.lichess.org/forum/lichess-feedback/game-history-bug#1
 morozov can't chatban anymore http://en.lichess.org/inbox/mrfsbwou#bottom
 monitor + nb slow mongo requests
