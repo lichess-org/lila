@@ -542,7 +542,7 @@ $.widget("lichess.game", {
     self.$table.find('a, input, label').tipsy({
       fade: true
     });
-    self.$table.find('a.moretime').click(function() {
+    self.$table.find('a.moretime').unbind("click").click(function() {
       lichess.socket.send("moretime");
       return false;
     });
