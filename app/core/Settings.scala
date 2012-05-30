@@ -77,6 +77,7 @@ final class Settings(config: Config) {
   val ActorSiteHub = "site_hub"
   val ActorGameHubMaster = "game_hub_master"
   val ActorLobbyHub = "lobby_hub"
+  val ActorMonitorHub = "monitor_hub"
 
   private def millis(name: String): Int = getMilliseconds(name).toInt
 

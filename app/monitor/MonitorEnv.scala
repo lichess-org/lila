@@ -16,16 +16,18 @@ final class MonitorEnv(
   implicit val ctx = app
   import settings._
 
+  lazy val hub = Akka.system.actorOf(
+    Props(new Hub(timeout = SiteUidTimeout)), name = ActorMonitorHub)
+
+  lazy val socket = new Socket(hub = hub)
+
   lazy val reporting = Akka.system.actorOf(
     Props(new Reporting(
       rpsProvider = rpsProvider,
-      mongodb = mongodb
+      mongodb = mongodb,
+      hub = hub
     )), name = ActorReporting)
 
   val rpsProvider = new RpsProvider(
-    timeout = MonitorTimeout)
-
-  val stream = new Stream(
-    reporting = reporting,
     timeout = MonitorTimeout)
 }

@@ -24,6 +24,7 @@ h1 .down {
 }
 h1 .up {
   color: #446644;
+  display: none;
 }
 body.down h1 .down {
   display: inline;

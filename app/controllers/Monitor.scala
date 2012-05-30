@@ -3,6 +3,7 @@ package controllers
 import play.api.mvc._
 import play.api.libs.Comet
 import play.api.libs.concurrent._
+import play.api.libs.json._
 import akka.pattern.ask
 import akka.util.duration._
 import akka.util.Timeout
@@ -17,11 +18,11 @@ object Monitor extends LilaController {
   implicit val timeout = Timeout(100 millis)
 
   val index = Action {
-    Ok(views.html.monitor.monitor(env.monitor.stream.maxMemory))
+    Ok(views.html.monitor.monitor(monitor.Reporting.maxMemory))
   }
 
-  val stream = Action {
-    Ok.stream(env.monitor.stream.getData &> Comet(callback = "parent.message"))
+  val websocket = WebSocket.async[JsValue] { implicit req ⇒
+    env.monitor.socket.join(uidOption = get("uid", req))
   }
 
   val status = Action {

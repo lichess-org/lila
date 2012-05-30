@@ -17,7 +17,8 @@ import com.mongodb.casbah.MongoDB
 
 final class Reporting(
   rpsProvider: RpsProvider,
-  mongodb: MongoDB
+  mongodb: MongoDB,
+  hub: ActorRef
 ) extends Actor {
 
   case class SiteSocket(nbMembers: Int)
@@ -93,7 +94,10 @@ final class Reporting(
         }
       } onComplete {
         case Left(a) ⇒ println("Reporting: " + a.getMessage)
-        case a       ⇒ display()
+        case a       ⇒ {
+          hub ! MonitorData(monitorData)
+          display()
+        }
       }
     }
   }
@@ -164,4 +168,9 @@ final class Reporting(
       } mkString
     }
   }
+}
+
+object Reporting {
+
+  def maxMemory = Runtime.getRuntime().totalMemory() / (1024 * 1024)
 }

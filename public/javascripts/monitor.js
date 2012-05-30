@@ -156,34 +156,35 @@
       container : container
     });
 
-    var iframe = create("iframe");
-    iframe.src = "/monitor/stream";
-    iframe.style.display = "none";
-
-    window.message = function (msg) {
-      console.debug(msg);
-      var ds = msg.split(";");
-      app.lastCall = (new Date()).getTime();
-      for(var i in ds) {
-        var d = ds[i].split(":");
-        if (d.length == 2) {
-          if (typeof app[d[1]] != "undefined") {
-            app[d[1]].update(d[0]);
-          }
-        }
-      }
+    function setStatus(s) {
+      window.document.body.className = s;
     }
 
-    setTimeout(function () {
-      app.lastCall = (new Date()).getTime();
-      window.document.body.appendChild(iframe);
-    }, 100);
+    lichess.socket = new $.websocket(lichess.socketUrl + "/monitor/socket", 0, $.extend(true, lichess.socketDefaults, {
+      events: {
+        monitor: function(msg) {
+          var ds = msg.split(";");
+          app.lastCall = (new Date()).getTime();
+          for(var i in ds) {
+            var d = ds[i].split(":");
+            if (d.length == 2) {
+              if (typeof app[d[1]] != "undefined") {
+                app[d[1]].update(d[0]);
+              }
+            }
+          }
+        }
+      },
+      options: {
+        name: "monitor"
+      }
+    }));
 
     setInterval(function () {
       if ((new Date()).getTime() - app.lastCall > 3000) {
-        window.document.body.className = "down";
-      } else {
-        window.document.body.className = "up";
+        setStatus("down");
+      } else if (app.lastCall) {
+        setStatus("up");
       }
     },1100);
   }
