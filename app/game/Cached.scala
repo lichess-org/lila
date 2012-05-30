@@ -13,7 +13,7 @@ import akka.util.Timeout
 import play.api.Play.current
 import play.api.libs.concurrent._
 
-import memo.Builder
+import memo.ActorMemo
 
 final class Cached(
     gameRepo: GameRepo,
@@ -21,27 +21,15 @@ final class Cached(
 
   import Cached._
 
-  val atMost = 5 seconds
-  implicit val timeout = Timeout(atMost)
+  def nbGames: Int = memo(NbGames)
+  def nbMates: Int = memo(NbMates)
 
-  def nbGames: Int = get(NbGames)
+  private val memo = ActorMemo(loadFromDb, nbTtl, 5.seconds)
 
-  def nbMates: Int = get(NbMates)
-
-  private def get(key: Key): Int = 
-    Await.result(actor ? key mapTo manifest[Int], atMost)
-
-  private val actor = Akka.system.actorOf(Props(new Actor {
-
-    private val cache = Builder.cache[Key, Int](nbTtl, {
-      case NbGames ⇒ gameRepo.count(_.all).unsafePerformIO
-      case NbMates ⇒ gameRepo.count(_.mate).unsafePerformIO
-    })
-
-    def receive = {
-      case key: Key ⇒ sender ! (cache get key)
-    }
-  }))
+  private def loadFromDb(key: Key) = key match {
+    case NbGames ⇒ gameRepo.count(_.all).unsafePerformIO
+    case NbMates ⇒ gameRepo.count(_.mate).unsafePerformIO
+  }
 }
 
 object Cached {
