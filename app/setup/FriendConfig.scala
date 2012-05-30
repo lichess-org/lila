@@ -13,7 +13,7 @@ case class FriendConfig(
     mode: Mode,
     color: Color) extends HumanConfig with GameGenerator {
 
-  def >> = (variant.id, clock, time, increment, mode.id, color.name).some
+  def >> = (variant.id, clock, time, increment, mode.id.some, color.name).some
 
   def game = DbGame(
     game = Game(
@@ -40,13 +40,13 @@ case class FriendConfig(
 
 object FriendConfig extends BaseHumanConfig {
 
-  def <<(v: Int, k: Boolean, t: Int, i: Int, m: Int, c: String) =
+  def <<(v: Int, k: Boolean, t: Int, i: Int, m: Option[Int], c: String) =
     new FriendConfig(
       variant = Variant(v) err "Invalid game variant " + v,
       clock = k,
       time = t,
       increment = i,
-      mode = Mode(m) err "Invalid game mode " + m,
+      mode = m.fold(Mode.orDefault, Mode.default),
       color = Color(c) err "Invalid color " + c)
 
   val default = FriendConfig(

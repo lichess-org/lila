@@ -11,14 +11,16 @@ import scalaz.effects._
 final class FormFactory(
     configRepo: UserConfigRepo) {
 
-  def aiFilled(implicit ctx: Context): IO[Form[AiConfig]] =
-    aiConfig map ai.fill
+      import Mappings._
 
-  def ai = Form(
+  def aiFilled(implicit ctx: Context): IO[Form[AiConfig]] =
+    aiConfig map ai(ctx).fill
+
+  def ai(ctx: Context) = Form(
     mapping(
-      "variant" -> number.verifying(Config.variants contains _),
-      "level" -> number.verifying(AiConfig.levels contains _),
-      "color" -> nonEmptyText.verifying(Color.names contains _)
+      "variant" -> variant,
+      "level" -> level,
+      "color" -> color
     )(AiConfig.<<)(_.>>)
   )
 
@@ -28,16 +30,16 @@ final class FormFactory(
   )
 
   def friendFilled(implicit ctx: Context): IO[Form[FriendConfig]] =
-    friendConfig map friend.fill
+    friendConfig map friend(ctx).fill
 
-  def friend = Form(
+  def friend(ctx: Context) = Form(
     mapping(
-      "variant" -> number.verifying(Config.variants contains _),
-      "clock" -> boolean,
-      "time" -> number.verifying(FriendConfig.times contains _),
-      "increment" -> number.verifying(FriendConfig.increments contains _),
-      "mode" -> number.verifying(FriendConfig.modes contains _),
-      "color" -> nonEmptyText.verifying(Color.names contains _)
+      "variant" -> variant,
+      "clock" -> clock,
+      "time" -> time,
+      "increment" -> increment,
+      "mode" -> mode(ctx.isAuth),
+      "color" -> color
     )(FriendConfig.<<)(_.>>) verifying ("Invalid clock", _.validClock)
   )
 
@@ -47,16 +49,16 @@ final class FormFactory(
   )
 
   def hookFilled(implicit ctx: Context): IO[Form[HookConfig]] =
-    hookConfig map hook.fill
+    hookConfig map hook(ctx).fill
 
-  def hook = Form(
+  def hook(ctx: Context) = Form(
     mapping(
-      "variant" -> number.verifying(Config.variants contains _),
-      "clock" -> boolean,
-      "time" -> number.verifying(HookConfig.times contains _),
-      "increment" -> number.verifying(HookConfig.increments contains _),
-      "mode" -> number.verifying(HookConfig.modes contains _),
-      "eloRange" -> nonEmptyText.verifying(EloRange valid _),
+      "variant" -> variant,
+      "clock" -> clock,
+      "time" -> time,
+      "increment" -> increment,
+      "mode" -> mode(ctx.isAuth),
+      "eloRange" -> eloRange,
       "color" -> nonEmptyText.verifying(Color.names contains _)
     )(HookConfig.<<)(_.>>) verifying ("Invalid clock", _.validClock)
   )

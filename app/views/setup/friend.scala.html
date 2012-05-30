@@ -26,9 +26,11 @@
     Symbol("data-max") -> FriendConfig.incrementMax)
   </div>
 </div>
+@if(ctx.isAuth) {
 <div class="mode_choice buttons">
   @setup.radios(form("mode"), lila.setup.FriendConfig.modeChoices)
 </div>
+}
 }
 
 @setup.config(form, "friend", trans.playWithAFriend(), routes.Setup.friend, fields)

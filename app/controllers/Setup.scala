@@ -3,7 +3,7 @@ package controllers
 import lila._
 import views._
 import setup._
-import http.BodyContext
+import http.{ Context, BodyContext }
 
 import play.api.mvc.Call
 import play.api.data.Form
@@ -71,10 +71,10 @@ object Setup extends LilaController {
     }
   }
 
-  private def process[A](form: Form[A])(op: A ⇒ BodyContext ⇒ IO[Call]) =
+  private def process[A](form: Context ⇒ Form[A])(op: A ⇒ BodyContext ⇒ IO[Call]) =
     OpenBody { ctx ⇒
       implicit val req = ctx.body
-      IORedirect(form.bindFromRequest.fold(
+      IORedirect(form(ctx).bindFromRequest.fold(
         f ⇒ putStrLn(f.errors.toString) map { _ ⇒ routes.Lobby.home },
         config ⇒ op(config)(ctx)
       ))

@@ -15,7 +15,7 @@ case class HookConfig(
     color: Color,
     eloRange: EloRange) extends HumanConfig {
 
-  def >> = (variant.id, clock, time, increment, mode.id, eloRange.toString, color.name).some
+  def >> = (variant.id, clock, time, increment, mode.id.some, eloRange.toString.some, color.name).some
 
   def hook(user: Option[User]) = Hook(
     variant = variant,
@@ -36,14 +36,14 @@ case class HookConfig(
 
 object HookConfig extends BaseHumanConfig {
 
-  def <<(v: Int, k: Boolean, t: Int, i: Int, m: Int, e: String, c: String) =
+  def <<(v: Int, k: Boolean, t: Int, i: Int, m: Option[Int], e: Option[String], c: String) =
     new HookConfig(
       variant = Variant(v) err "Invalid game variant " + v,
       clock = k,
       time = t,
       increment = i,
-      mode = Mode(m) err "Invalid game mode " + m,
-      eloRange = EloRange(e) err "Invalid elo range " + e,
+      mode = m.fold(Mode.orDefault, Mode.default),
+      eloRange = e.fold(EloRange.orDefault, EloRange.default),
       color = Color(c) err "Invalid color " + c)
 
   val default = HookConfig(

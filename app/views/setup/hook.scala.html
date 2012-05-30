@@ -27,6 +27,7 @@
     Symbol("data-max") -> HookConfig.incrementMax)
   </div>
 </div>
+@if(ctx.isAuth) {
 <div class="mode_choice buttons">
   @setup.radios(form("mode"), lila.setup.HookConfig.modeChoices)
 </div>
@@ -40,6 +41,7 @@
     Symbol("data-max") -> EloRange.max)
   </div>
 </div>
+}
 }
 
 @setup.config(form, "hook", trans.createAGame(), routes.Setup.hook, fields)
