@@ -193,23 +193,6 @@ $(function() {
     $soundToggle.addClass('unavailable');
   }
 
-  if (true || lichess.onProduction) {
-    var homeUrl = $('#site_title').attr('href');
-    setTimeout(function() {
-      if ($gameSharing = $('div.game_share_widgets').orNot()) {
-        $gameSharing.find('div.plusone_placeholder').replaceWith('<div class="lichess_plusone"><g:plusone size="medium" href="'+homeUrl+'"></g:plusone></div>');
-        $gameSharing.find('div.facebook_placeholder').replaceWith('<div class="lichess_facebook"><iframe src="http://www.facebook.com/plugins/like.php?href=' + encodeURIComponent(homeUrl) + '&amp;layout=button_count&amp;show_faces=false&amp;width=110&amp;action=like&amp;font=lucida+grande&amp;colorscheme=light&amp;height=22"></iframe></div>');
-        $.getScript('http://platform.twitter.com/widgets.js', function() {
-          $gameSharing.addClass('loaded')
-          });
-      } else {
-        $('div.lichess_social').append('<div class="lichess_facebook"><iframe src="http://www.facebook.com/plugins/like.php?href='+encodeURIComponent(homeUrl)+'%2F&amp;layout=button_count&amp;show_faces=false&amp;width=110&amp;action=like&amp;font=lucida+grande&amp;colorscheme=light&amp;height=22"></iframe></div><div><g:plusone size="medium" href="'+homeUrl+'"></g:plusone></div>');
-      }
-      $.getScript('https://apis.google.com/js/plusone.js');
-    },
-    2000);
-  }
-
   if(Boolean(window.chrome)) {
     $("div.addtochrome").show();
   }

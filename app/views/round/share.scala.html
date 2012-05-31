@@ -3,11 +3,6 @@
 @defining("http://lichess.org" + routes.Round.watcher(game.id, "white")) { url =>
 <div class="game_share">
   <div class="game_share_top">
-    <div class="game_share_widgets clearfix">
-      <div class="facebook_placeholder"></div>
-      <div class="twitter_placeholder"><a href="http://twitter.com/share" class="twitter-share-button" data-text="I like this Chess game! @url" data-count="none" data-url="http://lichess.org">Tweet this game</a></div>
-      <div class="plusone_placeholder"></div>
-    </div>
     <a title="@trans.shareThisUrlToLetSpectatorsSeeTheGame()" class="game_permalink blank_if_play" href="@url">@url</a>
   </div>
 </div>

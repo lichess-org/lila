@@ -434,19 +434,9 @@ div.lichess_social {
   height: 25px;
   text-align: center;
 }
-div.lichess_social > div {
-  display: inline;
-}
 div.lichess_social div.addtochrome {
   display: none;
   margin-bottom: 15px;
-}
-div.lichess_facebook iframe {
-  border:none;
-  height: 22px;
-  margin-left: 5px;
-  overflow: hidden;
-  background: transparent;
 }
 
 /* soft inactive gradient */
@@ -516,27 +506,3 @@ div.game_share_top a.game_permalink {
   display: block;
   margin-top: 3px;
 }
-
-div.game_share_widgets {
-  float: right;
-  opacity: 0.7;
-  width: 270px;
-}
-div.game_share_widgets:hover {
-  opacity: 1;
-}
-div.game_share_widgets > div {
-  float: right;
-  display: none;
-  margin-left: 10px;
-}
-div.game_share_widgets iframe, div.game_share_widgets div.lichess_plusone > div {
-  max-width: 70px;
-}
-div.lichess_facebook iframe {
-  max-width: 92px;
-}
-div.game_share_widgets.loaded > div {
-  display: block;
-}
-
