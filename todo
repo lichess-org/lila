@@ -31,10 +31,8 @@ monitor + nb slow mongo requests
 restore previous elo graph
 pie elo chart
 guess friend list
-do forum denormalization with mongodb mapReduce
 profile edition
 nb-playing is wrong (mongo date?)
-reverse captcha board
 
 new translations:
 -rematchOfferCanceled=Rematch offer canceled
