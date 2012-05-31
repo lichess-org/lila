@@ -2,7 +2,10 @@
 <input type="hidden" name="@gameId.name" id="@gameId.id" value="@captcha.gameId" />
 <div class="checkmateCaptcha clearfix">
   <div class="checkmateFen">
-    <div class="mini_board parse_fen with_keys" data-color="white" data-fen="@captcha.fen"></div>
+    <div 
+      class="mini_board parse_fen with_keys" 
+      data-color="@captcha.color" 
+      data-fen="@captcha.fen"></div>
   </div>
   <div class="checkmateSection">
     <label>
