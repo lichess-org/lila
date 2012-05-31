@@ -19,6 +19,8 @@ object Query {
 
   val started: DBObject = ("status" $gte Status.Started.id)
 
+  val playable: DBObject = ("status" $lt Status.Aborted.id)
+
   val playing: DBObject = "updatedAt" $gt (DateTime.now - 15.seconds)
 
   val mate: DBObject = DBObject("status" -> Status.Mate.id)

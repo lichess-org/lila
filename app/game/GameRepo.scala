@@ -134,7 +134,7 @@ class GameRepo(collection: MongoCollection)
   }
 
   def candidatesToAutofinish: IO[List[DbGame]] = io {
-    find(Query.started ++
+    find(Query.playable ++
       Query.clock(true) ++
       ("updatedAt" $lt (DateTime.now - 2.hour))
     ).toList.map(_.decode).flatten
