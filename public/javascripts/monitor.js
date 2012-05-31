@@ -98,7 +98,7 @@
 
     app.lat = new SpeedOMeter({
       name : "LATENCY",
-      maxVal : 5,
+      maxVal : 10,
       container : container
     });
 

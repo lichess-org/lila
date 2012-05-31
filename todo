@@ -22,7 +22,6 @@ make the wiki static html pages managed by git?
 compensate lag http://fr.lichess.org/forum/lichess-feedback/the-clock-display-should-account-for-lag?page=1#4
 show lobby room logs
 refactor preload
-0 0 game http://en.lichess.org/kxoprksf
 lobby sync
 chat scroll in game
 push enumerator is deprecated
@@ -33,6 +32,8 @@ restore previous elo graph
 pie elo chart
 guess friend list
 do forum denormalization with mongodb mapReduce
+profile edition
+nb-playing is wrong (mongo date?)
 
 new translations:
 -rematchOfferCanceled=Rematch offer canceled
