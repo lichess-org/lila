@@ -117,10 +117,6 @@ class GameRepo(collection: MongoCollection)
     )
   }
 
-  def saveInitialFen(game: DbGame): IO[Unit] = io {
-    update(idSelector(game), $set("initialFen" -> (Forsyth >> game.toChess)))
-  }
-
   def initialFen(gameId: String): IO[Option[String]] = io {
     primitiveProjection[String](idSelector(gameId), "initialFen")
   }

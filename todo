@@ -34,6 +34,9 @@ guess friend list
 profile edition
 nb-playing is wrong (mongo date?)
 chat highlight links without language subdomain
+new elo system http://en.wikipedia.org/wiki/Glicko_rating_system
+game count cache not working (!)
+rematch game not displayed http://lichess.org/knnyltdc (and no view rematch link)
 
 new translations:
 -rematchOfferCanceled=Rematch offer canceled
