@@ -117,6 +117,10 @@ class GameRepo(collection: MongoCollection)
     )
   }
 
+  def saveNext(game: DbGame, nextId: String): IO[Unit] = io {
+    update(idSelector(game), $set("next" -> nextId))
+  }
+
   def initialFen(gameId: String): IO[Option[String]] = io {
     primitiveProjection[String](idSelector(gameId), "initialFen")
   }

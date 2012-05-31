@@ -44,6 +44,7 @@ final class Rematcher(
     _ ← gameRepo insert nextGame
     nextId = nextGame.id
     _ ← gameRepo denormalizeStarted nextGame
+    _ ← gameRepo.saveNext(pov.game, nextGame.id)
     _ ← timelinePush(nextGame)
     // messenges are not sent to the next game socket
     // as nobody is there to see them yet
