@@ -48,4 +48,8 @@ object Query {
   def notFinished(u: User): DBObject = user(u) ++ notFinished
 
   def opponents(u1: User, u2: User) = "userIds" $all List(u1.id, u2.id)
+
+  val sortCreated = DBObject("createdAt" -> -1)
+
+  val sortUpdated = DBObject("updatedAt" -> -1)
 }

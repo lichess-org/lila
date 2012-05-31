@@ -17,22 +17,26 @@ final class PaginatorBuilder(
   def checkmate(page: Int): Paginator[DbGame] = 
     paginator(checkmateAdapter, page)
 
-  def apply(adapter: Adapter[DbGame])(page: Int): Paginator[DbGame] =
+  def recentlyUpdated(query: DBObject) = apply(query, Query.sortUpdated) _
+
+  def recentlyCreated(query: DBObject) = apply(query, Query.sortCreated) _
+
+  def apply(query: DBObject, sort: DBObject)(page: Int): Paginator[DbGame] = 
+    apply(adapter(query, sort))(page)
+
+  private def apply(adapter: Adapter[DbGame])(page: Int): Paginator[DbGame] =
     paginator(adapter, page)
 
-  def apply(query: DBObject)(page: Int): Paginator[DbGame] = 
-    apply(adapter(query))(page)
-
   private val recentAdapter = 
-    adapter(DBObject())
+    adapter(DBObject(), Query.sortUpdated)
 
   private val checkmateAdapter = 
-    adapter(DBObject("status" -> Status.Mate.id))
+    adapter(DBObject("status" -> Status.Mate.id), Query.sortUpdated)
 
-  private def adapter(query: DBObject) = SalatAdapter(
+  private def adapter(query: DBObject, sort: DBObject) = SalatAdapter(
     dao = gameRepo,
     query = query,
-    sort = DBObject("updatedAt" -> -1)
+    sort = sort
   ) map (_.decode.get) // unsafe
 
   private def paginator(adapter: Adapter[DbGame], page: Int) = Paginator(

@@ -27,7 +27,7 @@ object User extends LilaController {
         env.user.userInfo(u, ctx) map { info ⇒
           val filters = user.GameFilterMenu(info, ctx.me, filterName)
           html.user.show(u, info,
-            games = gamePaginator(filters.query)(page),
+            games = gamePaginator.recentlyCreated(filters.query)(page),
             filters = filters)
         },
         io(html.user.disabled(u)))
