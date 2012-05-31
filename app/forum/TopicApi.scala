@@ -33,10 +33,17 @@ final class TopicApi(env: ForumEnv, maxPerPage: Int) {
       userId = user map (_.id),
       text = data.post.text,
       number = 1)
-    _ ← env.topicRepo saveIO topic
     _ ← env.postRepo saveIO post
-    _ ← env.topicApi denormalize topic
-    _ ← env.categApi denormalize categ
+    // denormalize topic
+    _ ← env.topicRepo saveIO topic.copy(
+      nbPosts = categ.nbPosts + 1,
+      lastPostId = post.id,
+      updatedAt = post.createdAt)
+    // denormalize categ
+    _ ← env.categRepo saveIO categ.copy(
+      nbTopics = categ.nbTopics + 1,
+      nbPosts = categ.nbPosts + 1,
+      lastPostId = post.id)
     _ ← env.recent.invalidate
   } yield topic
 

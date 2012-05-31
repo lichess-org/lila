@@ -30,8 +30,15 @@ final class PostApi(env: ForumEnv, maxPerPage: Int) {
       text = data.text,
       number = number + 1)
     _ ← env.postRepo saveIO post
-    _ ← env.topicApi denormalize topic
-    _ ← env.categApi denormalize categ
+    // denormalize topic
+    _ ← env.topicRepo saveIO topic.copy(
+      nbPosts = topic.nbPosts + 1,
+      lastPostId = post.id,
+      updatedAt = post.createdAt)
+    // denormalize categ
+    _ ← env.categRepo saveIO categ.copy(
+      nbPosts = categ.nbPosts + 1,
+      lastPostId = post.id)
     _ ← env.recent.invalidate
   } yield post
 
