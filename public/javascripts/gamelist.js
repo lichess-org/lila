@@ -17,6 +17,7 @@ $(function() {
 
   function parseFen() {
     $('.parse_fen').each(function() {
+      var color = $(this).data('color') || "white";
       var withKeys = $(this).hasClass('with_keys');
       var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
       var fen = $(this).data('fen').replace(/\//g, '');
@@ -24,7 +25,7 @@ $(function() {
       var pclasses = {'p':'pawn', 'r':'rook', 'n':'knight', 'b':'bishop', 'q':'queen', 'k':'king'};
       var pregex = /(p|r|n|b|q|k)/;
 
-      if ('white' == $(this).data('color')) {
+      if ('white' == color) {
         var x = 8, y = 1;
         var increment = function() { y++; if(y > 8) { y = 1; x--; } };
       } else {
@@ -35,7 +36,9 @@ $(function() {
         var scolor = (x+y)%2 ? 'white' : 'black';
         var html = '<div class="lmcs '+scolor+'" style="top:'+(24*(8-x))+'px;left:'+(24*(y-1))+'px;"';
         if (withKeys) {
-          var key = letters[y - 1] + x;
+          var key = 'white' == color 
+            ? letters[y - 1] + x
+            : letters[8 - y] + (9 - x);
           html += ' data-key="' + key + '"';
         }
         return html + '>';
