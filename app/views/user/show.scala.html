@@ -59,7 +59,9 @@ evenMoreJs = evenMoreJs) {
     @if(ctx.me.fold(u !=, false)) {
     <a href="@routes.Message.form()?username=@u.username" class="send_message">@trans.composeMessage()</a>
     }
-    <a href="@routes.User.export(u.username)">@trans.exportGames()</a>
+    <form id="exportform" action="@routes.User.export(u.username)" method="POST">
+      <a onclick="document.getElementById('exportform').submit();">@trans.exportGames()</a>
+    </form>
     <div class="status @isUsernameOnline(u.username).fold("connected", "")"></div>
     <h1 class="lichess_title">@u.usernameWithElo</h1>
     @info.rank.map { r =>

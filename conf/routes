@@ -63,7 +63,7 @@ GET   /signup                          controllers.Auth.signup
 POST  /signup                          controllers.Auth.signupPost
 
 # User
-GET   /@/:username/export              controllers.User.export(username: String)
+POST  /@/:username/export              controllers.User.export(username: String)
 GET   /@/:username/:filterName         controllers.User.showFilter(username: String, filterName: String, page: Int ?= 1)
 GET   /@/:username                     controllers.User.show(username: String)
 POST  /@/:username/engine              controllers.User.engine(username: String)
