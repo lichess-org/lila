@@ -7,6 +7,7 @@ import com.mongodb.casbah.{ MongoCollection, WriteConcern }
 import com.mongodb.casbah.Imports._
 import scalaz.effects._
 import com.roundeights.hasher.Implicits._
+import org.joda.time.DateTime
 import ornicar.scalalib.OrnicarRandom
 
 class UserRepo(
@@ -101,7 +102,8 @@ class UserRepo(
           "nbGames" -> 0,
           "nbRatedGames" -> 0,
           "enabled" -> true,
-          "roles" -> Nil)
+          "roles" -> Nil,
+          "createdAt" -> DateTime.now)
         collection.insert(obj, WriteConcern.Safe)
       } flatMap { _ ⇒ byId(username) }
     )

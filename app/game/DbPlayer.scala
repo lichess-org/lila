@@ -46,7 +46,7 @@ case class DbPlayer(
 
   def wins = isWinner getOrElse false
 
-  def hasMoveTimes = moveTimes.size > 10
+  def hasMoveTimes = moveTimes.size > 8
 
   def moveTimeList: List[Int] = 
     moveTimes.split(" ").toList map parseIntOption flatten
