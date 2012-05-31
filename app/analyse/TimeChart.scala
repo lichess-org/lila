@@ -2,6 +2,7 @@ package lila
 package analyse
 
 import game.{ DbPlayer, DbGame }
+import chess.Color.{ White, Black }
 
 import scala.math.round
 import com.codahale.jerkson.Json
@@ -14,8 +15,8 @@ final class TimeChart(game: DbGame) {
   }
 
   def rows = Json generate {
-    (game.creator.moveTimeList zip game.invited.moveTimeList).zipWithIndex map {
-      case ((black, white), move) ⇒ List(move.toString, white, black)
+    (game.player(White).moveTimeList zip game.player(Black).moveTimeList).zipWithIndex map {
+      case ((white, black), move) ⇒ List(move.toString, white, black)
     }
   }
 }
