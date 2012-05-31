@@ -145,7 +145,7 @@
 
     app.dbLock = new SpeedOMeter({
       name : "DB LOCK",
-      maxVal : 2,
+      maxVal : 1,
       container : container
     });
 

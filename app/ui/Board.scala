@@ -10,14 +10,18 @@ object Board {
   def render(pov: Pov) = {
     val check = pov.game.check.fold(_.key, "")
     val board = pov.game.toChess.board
+    val moved: Pos ⇒ Boolean = pov.game.toChessHistory.lastMove.fold(
+      last ⇒ pos ⇒ last._1 == pos || last._2 == pos,
+      _ ⇒ false)
     pov.color.fold(white, black) map { s ⇒
-      """<div class="lcs %s%s" id="%s" style="top:%dpx;left:%dpx;">""".format(
+      """<div class="lcs %s%s%s" id="%s" style="top:%dpx;left:%dpx;">""".format(
         s.color,
         if (s.pos.key == check) " check" else "",
+        if (moved(s.pos)) " moved" else "",
         s.pos.key,
         s.top,
         s.left) ++
-      """<div class="lcsi"></div>""" ++ {
+        """<div class="lcsi"></div>""" ++ {
           board(s.pos) map { piece ⇒
             """<div class="lichess_piece %s %s"></div>""".format(
               piece.role.name, piece.color.name)
