@@ -249,6 +249,6 @@ if (lichess.onProduction) {
 }
 
 function urlToLink(text) {
-  var exp = /\bhttp:\/\/[a-z]{0,3}\.(lichess\.org[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+  var exp = /\bhttp:\/\/(?:[a-z]{0,3}\.)?(lichess\.org[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
   return text.replace(exp,"<a href='http://$1'>$1</a>");
 }

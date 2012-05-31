@@ -1,5 +1,4 @@
 chat should autoscroll only when at bottom
-back button to game -> old status
 finish flagged game
 It's possible to join your own game and win it, which will then be displayed as a win and I saw players who abuse this to manipulate their stats. 
 hide logout button
@@ -33,10 +32,7 @@ pie elo chart
 guess friend list
 profile edition
 nb-playing is wrong (mongo date?)
-chat highlight links without language subdomain
 new elo system http://en.wikipedia.org/wiki/Glicko_rating_system
-game count cache not working (!)
-rematch game not displayed http://lichess.org/knnyltdc (and no view rematch link)
 
 new translations:
 -rematchOfferCanceled=Rematch offer canceled
