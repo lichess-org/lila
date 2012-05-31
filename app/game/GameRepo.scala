@@ -146,6 +146,8 @@ class GameRepo(collection: MongoCollection)
 
   def count(query: Query.type ⇒ DBObject): IO[Int] = count(query(Query))
 
+  def exists(id: String) = count(idSelector(id)) map (_ > 0)
+
   def recentGames(limit: Int): IO[List[DbGame]] = io {
     find(Query.started)
       .sort(DBObject("updatedAt" -> -1))

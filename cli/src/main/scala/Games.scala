@@ -1,8 +1,8 @@
 package lila.cli
 
-import lila.game.GameRepo
+import lila.core.CoreEnv
 import scalaz.effects._
 
-case class Games(gameRepo: GameRepo) {
+case class Games(env: CoreEnv) {
 
 }

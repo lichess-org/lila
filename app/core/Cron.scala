@@ -59,13 +59,13 @@ object Cron {
     if (current.mode != Mode.Dev) {
 
       effect(4.1 hours, "game cleanup") {
-        env.game.gameRepo.cleanupUnplayed flatMap { _ ⇒
-          env.gameCleanNextCommand.apply
+        env.titivate.cleanupUnplayed flatMap { _ ⇒
+          env.titivate.cleanupNext
         }
       }
 
       effect(1 hour, "game finish") {
-        env.gameFinishCommand.apply
+        env.titivate.finishByClock
       }
     }
 
