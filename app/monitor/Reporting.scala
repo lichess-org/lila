@@ -67,24 +67,19 @@ final class Reporting(
         (env.site.hub ? GetNbMembers).mapTo[Int],
         (env.lobby.hub ? GetNbMembers).mapTo[Int],
         (env.round.hubMaster ? GetNbHubs).mapTo[Int],
-        (env.round.hubMaster ? GetNbMembers).mapTo[Int],
-        Future(env.game.gameRepo.count(_.all).unsafePerformIO),
-        Future(env.game.gameRepo.count(_.playing).unsafePerformIO)
+        (env.round.hubMaster ? GetNbMembers).mapTo[Int]
       )) onSuccess {
         case List(
           siteMembers,
           lobbyMembers,
           gameHubs,
-          gameMembers,
-          all,
-          playing) ⇒ {
+          gameMembers) ⇒ {
           latency = (nowMillis - before).toInt
           site = SiteSocket(siteMembers)
           lobby = LobbySocket(lobbyMembers)
           game = GameSocket(gameHubs, gameMembers)
           mongoStatus = MongoStatus(mongodb)(mongoStatus)
-          nbGames = all
-          nbPlaying = playing
+          nbGames = env.game.cached.nbGames
           loadAvg = osStats.getSystemLoadAverage.toFloat
           nbThreads = threadStats.getThreadCount
           memory = memoryStats.getHeapMemoryUsage.getUsed / 1024 / 1024
