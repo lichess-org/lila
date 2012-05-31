@@ -1,7 +1,7 @@
 package lila
 package analyse
 
-import game.{ DbPlayer, DbGame }
+import game.{ DbPlayer, DbGame, Namer }
 import chess.Color.{ White, Black }
 
 import scala.math.round
@@ -11,7 +11,7 @@ final class TimeChart(game: DbGame) {
 
   def columns = Json generate {
     List("string", "Move") :: game.players.map(p ⇒
-      List("number", "%s - %s".format(p.color, p.userId | "anonymous")))
+      List("number", "%s - %s".format(p.color, Namer.player(p)(identity))))
   }
 
   def rows = Json generate {

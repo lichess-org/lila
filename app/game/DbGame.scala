@@ -119,7 +119,7 @@ case class DbGame(
     def copyPlayer(player: DbPlayer) = player.copy(
       ps = player encodePieces game.allPieces,
       blurs = player.blurs + (blur && move.color == player.color).fold(1, 0),
-      moveTimes = (recordMoveTimes && move.color == player.color).fold(
+      moveTimes = (move.color == player.color).fold(
         lastMoveTime.fold(
           lmt ⇒ (nowSeconds - lmt) |> { mt ⇒
             player.moveTimes.isEmpty.fold(
@@ -147,7 +147,7 @@ case class DbGame(
         else status,
       clock = game.clock,
       check = if (situation.check) situation.kingPos else None,
-      lastMoveTime = recordMoveTimes option nowSeconds
+      lastMoveTime = nowSeconds.some
     )
 
     val finalEvents = events :::
@@ -189,7 +189,7 @@ case class DbGame(
             else status,
           clock = clock map (_.switch),
           check = if (rewindedSituation.check) rewindedSituation.kingPos else None,
-          lastMoveTime = recordMoveTimes option nowSeconds
+          lastMoveTime = nowSeconds.some
         ))
       }
   }
@@ -209,8 +209,6 @@ case class DbGame(
     mode = Mode(mode.rated && (players forall (_.hasUser))),
     updatedAt = DateTime.now.some
   ))
-
-  def recordMoveTimes = !hasAi
 
   def hasMoveTimes = players forall (_.hasMoveTimes)
 
