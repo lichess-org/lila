@@ -17,6 +17,8 @@ case class User(
     bio: Option[String] = None,
     engine: Boolean = false) {
 
+  def canChat = !isChatBan
+
   def disabled = !enabled
   
   def usernameWithElo = "%s (%d)".format(username, elo)

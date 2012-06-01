@@ -1,7 +1,7 @@
 @(preload: String, myHook: Option[lila.lobby.Hook], forumRecent: List[lila.forum.PostView])(implicit ctx: Context)
 
 @chat = {
-@ctx.me.map { m =>
+@for(m <- ctx.me; if m.canChat) {
 <div class="lichess_chat lichess_anon_chat">
   <div class="lichess_chat_top">
     <span class="title">@trans.chatRoom()</span>
