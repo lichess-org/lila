@@ -11,7 +11,7 @@ import play.api.libs.concurrent._
 import scalaz.effects._
 
 import implicits.RichJs._
-import socket.{ Util, Ping, Quit }
+import socket.{ Util, PingVersion, Quit }
 import timeline.Entry
 import game.DbGame
 
@@ -36,8 +36,10 @@ final class Socket(hub: ActorRef) {
               txt ← data str "txt"
               uname ← username
             } hub ! Talk(txt, uname)
-            case Some("p") ⇒ hub ! Ping(uid)
-            case _         ⇒
+            case Some("p") ⇒ e int "v" foreach { v ⇒
+              hub ! PingVersion(uid, v)
+            }
+            case _ ⇒
           }
         } mapDone { _ ⇒
           hub ! Quit(uid)

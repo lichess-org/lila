@@ -25,6 +25,12 @@ object RichJs {
       str ← value.asOpt[String]
     } yield str
 
+    def int(key: String): Option[Int] = for {
+      obj ← js.asOpt[JsObject]
+      value ← obj.value get key
+      int ← value.asOpt[Int]
+    } yield int
+
     def obj(key: String): Option[JsObject] = for {
       obj ← js.asOpt[JsObject]
       value ← obj.value get key

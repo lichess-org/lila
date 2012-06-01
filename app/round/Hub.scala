@@ -27,12 +27,15 @@ final class Hub(
 
   def receiveSpecific = {
 
-    case Ping(uid) ⇒ {
+    case PingVersion(uid, v) ⇒ {
       ping(uid)
       lastPingTime = nowMillis
       ownerOf(uid) foreach { o ⇒
         if (playerIsGone(o.color)) notifyGone(o.color, false)
         playerTime(o.color, lastPingTime)
+      }
+      member(uid) foreach { m ⇒
+        batch(m, history since v)
       }
     }
 
@@ -53,27 +56,21 @@ final class Hub(
     case IsGone(_, color)            ⇒ sender ! playerIsGone(color)
 
     case Join(uid, username, version, color, owner) ⇒ {
-      val msgs = {
-        history since version filter (_.visible(color, owner)) map (_.js)
-      } :+ makeEvent("crowd", owner.fold(
-        crowdEvent,
-        crowdEvent.incWatchers
-      ).data)
-      val channel = new LilaEnumerator[JsValue](msgs)
+      val channel = Enumerator.imperative[JsValue]()
       val member = Member(channel, username, PovRef(gameId, color), owner)
       addMember(uid, member)
-      notify(crowdEvent)
+      notify(crowdEvent :: Nil)
       if (playerIsGone(color)) notifyGone(color, false)
       playerTime(color, nowMillis)
       sender ! Connected(member)
     }
 
-    case Events(events)        ⇒ applyEvents(events)
-    case GameEvents(_, events) ⇒ applyEvents(events)
+    case Events(events)        ⇒ notify(events)
+    case GameEvents(_, events) ⇒ notify(events)
 
     case Quit(uid) ⇒ {
       quit(uid)
-      notify(crowdEvent)
+      notify(crowdEvent :: Nil)
     }
 
     case Close ⇒ {
@@ -87,25 +84,17 @@ final class Hub(
     black = ownerOf(Black).isDefined,
     watchers = members.values count (_.watcher))
 
-  def applyEvents(events: List[Event]) {
-    events match {
-      case Nil           ⇒
-      case single :: Nil ⇒ notify(single)
-      case multi         ⇒ notify(multi)
-    }
-  }
-
-  def notify(e: Event) {
-    val vevent = history += e
-    members.values filter vevent.visible foreach (_.channel push vevent.js)
-  }
-
   def notify(events: List[Event]) {
     val vevents = events map history.+=
-    members.values foreach { member ⇒
+    members.values foreach { m ⇒ batch(m, vevents) }
+  }
+
+  def batch(member: Member, vevents: List[VersionedEvent]) = {
+    val filtered = vevents filter (_ visible member)
+    if (filtered.nonEmpty) {
       member.channel push JsObject(Seq(
         "t" -> JsString("batch"),
-        "d" -> JsArray(vevents filter (_ visible member) map (_.js))
+        "d" -> JsArray(filtered map (_.js))
       ))
     }
   }

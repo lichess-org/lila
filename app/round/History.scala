@@ -7,15 +7,13 @@ import scalaz.effects._
 import chess.Color
 import memo.Builder
 
+case class VersionedEvent(js: JsObject, only: Option[Color], own: Boolean) {
+
+  def visible(m: Member): Boolean =
+    if (own && !m.owner) false else only.fold(_ == m.color, true)
+}
+
 final class History(timeout: Int) {
-
-  case class VersionedEvent(js: JsObject, only: Option[Color], own: Boolean) {
-
-    def visible(color: Color, owner: Boolean): Boolean =
-      if (own && !owner) false else only.fold(_ == color, true)
-
-    def visible(member: Member): Boolean = visible(member.color, member.owner)
-  }
 
   private var privateVersion = 0
   private val events = memo.Builder.expiry[Int, VersionedEvent](timeout)

@@ -14,6 +14,7 @@ case object GetUsernames
 case object GetNbMembers
 case class NbMembers(nb: Int)
 case class Ping(uid: String)
+case class PingVersion(uid: String, version: Int)
 case object Broom
 case class Quit(uid: String)
 

@@ -14,10 +14,17 @@ final class Hub(
 
   def receiveSpecific = {
 
+    case PingVersion(uid, v) ⇒ {
+      ping(uid)
+      member(uid) foreach { m ⇒
+        history since v foreach m.channel.push
+      }
+    }
+
     case WithHooks(op) ⇒ op(hookOwnerIds).unsafePerformIO
 
     case Join(uid, username, version, hookOwnerId) ⇒ {
-      val channel = new LilaEnumerator[JsValue](history since version)
+      val channel = Enumerator.imperative[JsValue]()
       addMember(uid, Member(channel, username, hookOwnerId))
       sender ! Connected(channel)
     }

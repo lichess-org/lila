@@ -16,7 +16,7 @@ import scalaz.effects._
 
 import game.{ Pov, PovRef }
 import chess.Color
-import socket.{ Ping, Quit }
+import socket.{ PingVersion, Quit }
 import socket.Util.connectionFail
 import implicits.RichJs._
 
@@ -70,12 +70,16 @@ final class Socket(
         res ← hand outoftime povRef
         op ← res.fold(putFailures, events ⇒ io(hub ! Events(events)))
       } yield op).unsafePerformIO
-      case Some("p") ⇒ hub ! Ping(uid)
+      case Some("p") ⇒ e int "v" foreach { v ⇒
+        hub ! PingVersion(uid, v)
+      }
       case _         ⇒
     }
 
     else (e: JsValue) ⇒ e str "t" match {
-      case Some("p") ⇒ hub ! Ping(uid)
+      case Some("p") ⇒ e int "v" foreach { v ⇒
+        hub ! PingVersion(uid, v)
+      }
       case _         ⇒
     }
 

@@ -12,9 +12,8 @@ $.websocket = function(url, version, settings) {
       debug: false,
       offlineDelay: 5000,
       offlineTag: false,
-      pingData: JSON.stringify({t: "p"}),
       pingTimeout: 5000,
-      pingDelay: 1500
+      pingDelay: 2000
     }
   };
   $.extend(true, this.settings, settings);
@@ -68,11 +67,19 @@ $.websocket.prototype = {
       }
     });
   },
+  send: function(t, d) {
+    var data = d || {};
+    this._debug({t: t, d: data});
+    return this.ws.send(JSON.stringify({t: t, d: data}));
+  },
+  disconnect: function() {
+    this.ws.close();
+  },
   _keepAlive: function() {
     var self = this;
     clearTimeout(self.pingTimeout);
     try {
-      self.ws.send(self.options.pingData);
+      self.ws.send(self._pingData());
       self.pingTimeout = setTimeout(function() {
         self._debug("reconnect!");
         self.connect();
@@ -83,16 +90,17 @@ $.websocket.prototype = {
       self.connect();
     }
   },
-  send: function(t, d) {
-    var data = d || {};
-    this._debug({t: t, d: data});
-    return this.ws.send(JSON.stringify({t: t, d: data}));
-  },
-  disconnect: function() {
-    this.ws.close();
+  _pingData: function() {
+    return JSON.stringify({t: "p", v: this.version});
   },
   _handle: function(m) { var self = this;
-    if (m.v) self.version = m.v;
+    if (m.v) {
+      if (m.v <= self.version) {
+        self._debug("already has event " + m.v);
+        return;
+      }
+      self.version = m.v;
+    }
     var h = self.settings.events[m.t];
     if ($.isFunction(h)) h(m.d || null);
     else self._debug(m.t + " not supported");
