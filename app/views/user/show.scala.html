@@ -70,11 +70,12 @@ evenMoreCss = evenMoreCss) {
       @trans.rank(): <strong>@r._1</strong> / @r._2
     </span>
     }
+    @if(isGranted(Permission.Admin, u)) {
+    <span class="staff">STAFF</span>
+    <br />
+    }
   </div>
   <div class="content_box_content clearfix">
-    @if(isGranted(Permission.Admin, u)) {
-    <div class="staff">STAFF</div>
-    }
     @info.eloChart.map { eloChart =>
     <div class="elo_history" title="Elo history" data-columns="@eloChart.columns" data-rows="@eloChart.rows"></div>
     }

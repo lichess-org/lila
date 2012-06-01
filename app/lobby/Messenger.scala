@@ -15,7 +15,7 @@ final class Messenger(
   def apply(text: String, username: String): IO[Valid[Message]] = for {
     userOption ← userRepo byId username
     message = for {
-      user ← userOption toValid "Unknown user"
+      user ← userOption filter (_.canChat) toValid "This user cannot chat"
       msg ← createMessage(text, user)
     } yield msg
     _ ← message.fold(err ⇒ io(failure(err)), messageRepo.add)
@@ -33,15 +33,4 @@ final class Messenger(
         !!("Empty message")
       )
     }
-
-  def ban(username: String): IO[Unit] = for {
-    userOption ← userRepo byId username
-    _ ← userOption.fold(
-      user ⇒ for {
-        _ ← userRepo toggleChatBan user
-        _ ← messageRepo deleteByUsername user.username
-      } yield (),
-      io()
-    )
-  } yield ()
 }

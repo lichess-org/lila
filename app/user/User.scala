@@ -17,10 +17,10 @@ case class User(
     bio: Option[String] = None,
     engine: Boolean = false) {
 
-  def canChat = !isChatBan
+  def canChat = !isChatBan && nbGames >= 5
 
   def disabled = !enabled
-  
+
   def usernameWithElo = "%s (%d)".format(username, elo)
 
   def setting(name: String): Option[Any] = settings get name

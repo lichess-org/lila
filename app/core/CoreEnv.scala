@@ -108,6 +108,10 @@ final class CoreEnv private (application: Application, val settings: Settings) {
   lazy val securityStore = new security.Store(
     collection = mongodb(MongoCollectionSecurity))
 
+  lazy val firewall = new security.Firewall(
+    collection = mongodb(MongoCollectionFirewall),
+    cacheTtl = FirewallCacheTtl)
+
   lazy val titivate = new core.Titivate(
     gameRepo = game.gameRepo,
     finisher = round.finisher)
