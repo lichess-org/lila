@@ -118,7 +118,11 @@ class GameRepo(collection: MongoCollection)
   }
 
   def saveNext(game: DbGame, nextId: String): IO[Unit] = io {
-    update(idSelector(game), $set("next" -> nextId))
+    update(
+      idSelector(game), 
+      $set("next" -> nextId) ++ 
+      $unset("players.0.isOfferingRematch", "players.1.isOfferingRematch")
+    )
   }
 
   def initialFen(gameId: String): IO[Option[String]] = io {
