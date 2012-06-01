@@ -131,8 +131,6 @@ class UserRepo(
     $set("engine" -> !user.engine)
   }
 
-  def setEngine(user: User): IO[Unit] = updateIO(user)($set("engine" -> true))
-
   def setBio(user: User, bio: String) = updateIO(user)($set("bio" -> bio))
 
   def enable(user: User) = updateIO(user)($set("enabled" -> true))

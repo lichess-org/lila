@@ -83,9 +83,13 @@ object User extends LilaController {
       IORedirect {
         for {
           uOption ← userRepo byId username
-          _ ← uOption.fold(userRepo.setEngine, io())
-          _ ← uOption.filter(_.elo > UserModel.STARTING_ELO).fold(
-            u ⇒ eloUpdater.adjust(u, UserModel.STARTING_ELO),
+          _ ← uOption.fold(
+            u ⇒ for {
+              _ ← userRepo toggleEngine u.id
+              _ ← (!u.engine && u.elo > UserModel.STARTING_ELO).fold(
+                eloUpdater.adjust(u, UserModel.STARTING_ELO),
+                io())
+            } yield (),
             io())
         } yield routes.User show username
       }

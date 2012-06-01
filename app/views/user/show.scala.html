@@ -39,7 +39,7 @@
 } else {
 @if(isGranted(Permission.MarkEngine)) {
 <form method="post" action="@routes.User.engine(u.username)">
-  <input class="confirm" type="submit" value="Mark as engine" />
+  <input class="confirm" type="submit" value="@u.engine.fold("Un-mark as engine", "Mark as engine")" />
 </form>
 }
 @if(isGranted(Permission.MutePlayer)) {
