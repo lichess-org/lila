@@ -54,6 +54,15 @@ final class PgnDump(gameRepo: GameRepo, userRepo: UserRepo) {
   def moves(game: DbGame) = (game.pgnList grouped 2).zipWithIndex map {
     case (moves, turn) ⇒ "%d. %s".format((turn + 1), moves.mkString(" "))
   } mkString " "
+
+  def filename(game: DbGame): IO[String] = for {
+    whiteUser ← user(game.whitePlayer)
+    blackUser ← user(game.blackPlayer)
+  } yield "lichess_pgn_%s_%s_vs_%s.%s.pgn".format(
+    game.createdAt.fold(dateFormat.print, "_"),
+    player(game.whitePlayer, whiteUser),
+    player(game.blackPlayer, blackUser),
+    game.id)
 }
 
 object PgnDump {
