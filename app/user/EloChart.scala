@@ -4,18 +4,23 @@ package user
 import scala.math.round
 import scalaz.effects._
 import com.codahale.jerkson.Json
+import org.joda.time.DateTime
+import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
 
 final class EloChart(elos: List[(Int, Int)]) {
 
   private val points = 100
 
+  private val formatter: DateTimeFormatter = 
+    DateTimeFormat forPattern "dd/MM/yy"
+
   def columns = EloChart.columns
 
-  val rows = Json generate {
+  def rows = Json generate {
     reduce(elos) map {
-      case (ts, elo) ⇒ ts :: elo :: Nil
-    }
-  }
+      case (ts, elo) ⇒ date(ts) :: elo :: Nil
+    } 
+  } 
 
   private def reduce(elos: List[(Int, Int)]) = {
     val size = elos.size
@@ -26,12 +31,15 @@ final class EloChart(elos: List[(Int, Int)]) {
       }) :+ elos.last
     })
   }
+
+  // ts is in seconds
+  def date(ts: Long): String = formatter print new DateTime(ts * 1000)
 }
 
 object EloChart {
 
   val columns = Json generate List(
-    "number" :: "Game" :: Nil,
+    "string" :: "Game" :: Nil,
     "number" :: "Elo" :: Nil)
 
   def apply(historyRepo: HistoryRepo)(user: User): IO[Option[EloChart]] =
