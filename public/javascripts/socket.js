@@ -5,7 +5,7 @@ $.websocket = function(url, version, settings) {
     message: function(m){},
     events: {},
     params: {
-      uid: Math.random().toString(36).substring(5) 
+      uid: Math.random().toString(36).substring(5)
     },
     options: {
       name: "unnamed",
@@ -14,7 +14,7 @@ $.websocket = function(url, version, settings) {
       offlineTag: false,
       pingData: JSON.stringify({t: "p"}),
       pingTimeout: 5000,
-      pingDelay: 2500
+      pingDelay: 1500
     }
   };
   $.extend(true, this.settings, settings);
@@ -34,63 +34,62 @@ $.websocket.prototype = {
     self._destroy();
     self.fullUrl = "ws://" + self.url + "?" + $.param($.extend(self.settings.params, { version: self.version }));
     self._debug("connection attempt to " + self.fullUrl);
-    if (window.MozWebSocket) self.ws = new MozWebSocket(self.fullUrl); 
-    else if (window.WebSocket) self.ws = new WebSocket(self.fullUrl); 
+    if (window.MozWebSocket) self.ws = new MozWebSocket(self.fullUrl);
+    else if (window.WebSocket) self.ws = new WebSocket(self.fullUrl);
     else self.ws = {
       send: function(m){ return false },
         close: function(){}
-    }; 
+    };
     $(self.ws)
       .bind('open', function() {
         self._debug("connected to " + self.fullUrl);
         if (self.offlineTimeout) clearTimeout(self.offlineTimeout);
-        if (self.options.offlineTag) self.options.offlineTag.hide(); 
+        if (self.options.offlineTag) self.options.offlineTag.hide();
+        self._keepAlive();
         self.settings.open();
       })
     .bind('close', function() {
       self._debug("disconnected");
-      if (self.options.offlineDelay && !self.offlineTimeout) self.offlineTimeout = setTimeout(function() { 
-        if (self.options.offlineTag) self.options.offlineTag.show(); 
+      if (self.options.offlineDelay && !self.offlineTimeout) self.offlineTimeout = setTimeout(function() {
+        if (self.options.offlineTag) self.options.offlineTag.show();
       }, self.options.offlineDelay);
       self.settings.close();
     })
     .bind('message', function(e){
       var m = JSON.parse(e.originalEvent.data);
       if (m.t == "n") {
-        self.keepAlive();
+        setTimeout(function() { self._keepAlive(); }, self.options.pingDelay);
       }
-        self._debug(m);
+      self._debug(m);
       if (m.t == "batch") {
         $(m.d || []).each(function() { self._handle(this); });
       } else {
         self._handle(m);
       }
     });
-    self.keepAlive();
   },
-  keepAlive: function() {
+  _keepAlive: function() {
     var self = this;
     clearTimeout(self.pingTimeout);
-    setTimeout(function() {
-      try {
-        self.ws.send(self.options.pingData);
-        self.pingTimeout = setTimeout(function() {
-          self._debug("reconnect!");
-          self.connect();
-        }, self.options.pingTimeout);
-      } catch (e) {
-        self._debug(e);
+    try {
+      self.ws.send(self.options.pingData);
+      self.pingTimeout = setTimeout(function() {
+        self._debug("reconnect!");
         self.connect();
-      }
-    }, self.options.pingDelay);
+      }, self.options.pingTimeout);
+    } catch (e) {
+      throw e;
+      self._debug(e);
+      self.connect();
+    }
   },
-  send: function(t, d) { 
+  send: function(t, d) {
     var data = d || {};
     this._debug({t: t, d: data});
-    return this.ws.send(JSON.stringify({t: t, d: data})); 
+    return this.ws.send(JSON.stringify({t: t, d: data}));
   },
-  disconnect: function() { 
-    this.ws.close(); 
+  disconnect: function() {
+    this.ws.close();
   },
   _handle: function(m) { var self = this;
     if (m.v) self.version = m.v;

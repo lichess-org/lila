@@ -33,8 +33,6 @@ new elo system http://en.wikipedia.org/wiki/Glicko_rating_system
 spectator chat!
 guess friend list
 star people and games (and forum threads?)
-opening not recognized http://fr.lichess.org/forum/lichess-feedback/big-deploy-29-may-2012?page=7#70
-websocket ping asap (to get nb players)
 
 new translations:
 -rematchOfferCanceled=Rematch offer canceled
