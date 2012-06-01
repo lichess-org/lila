@@ -1,5 +1,5 @@
 $(function() {
-  $('#lichess_user div.editable').each(function() {
+  $('div.editable').each(function() {
     $(this).editableSet({
       event: "click",
     action: $(this).attr('data-url'),

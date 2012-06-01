@@ -73,7 +73,7 @@ GET   /people/stats                    controllers.User.stats
 GET   /people/autocomplete             controllers.User.autocomplete
 GET   /people/online                   controllers.User.online
 GET   /account/bio                     controllers.User.getBio
-POST  /account/bio                     controllers.User.setBio
+PUT   /account/bio.json                controllers.User.setBio
 GET   /account/close                   controllers.User.close
 POST  /account/closeConfirm            controllers.User.closeConfirm
 

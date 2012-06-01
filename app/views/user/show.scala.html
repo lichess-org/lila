@@ -20,7 +20,7 @@
 
 @bio = {
 @if(ctx is u) {
-<div class="editable" data-url="@routes.User.setBio">
+<div class="editable" data-url="@routes.User.getBio">
   <span class="user_bio" data-name="bio" data-type="textarea" data-provider-url="@routes.User.getBio">
     @shorten(u.bio | "Click here to tell about yourself.", 400)
   </span>
@@ -53,7 +53,8 @@
 @user.layout(
 title = title,
 robots = false,
-evenMoreJs = evenMoreJs) {
+evenMoreJs = evenMoreJs,
+evenMoreCss = evenMoreCss) {
 <div class="content_box no_padding user_show">
   <div class="content_box_top">
     @if(ctx.me.fold(u !=, false)) {

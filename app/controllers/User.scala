@@ -57,10 +57,10 @@ object User extends LilaController {
   val setBio = AuthBody { ctx ⇒
     me ⇒
       implicit val req = ctx.body
-      IORedirect(forms.bio.bindFromRequest.fold(
-        f ⇒ putStrLn(f.errors.toString) map { _ ⇒ routes.User show me.username },
-        bio ⇒ userRepo.setBio(me, bio) map { _ ⇒ routes.User show me.username }
-      ))
+      JsonIOk(forms.bio.bindFromRequest.fold(
+        f ⇒ putStrLn(f.errors.toString) map { _ ⇒ me.bio | "" },
+        bio ⇒ userRepo.setBio(me, bio) map { _ ⇒ bio }
+      ) map { bio ⇒ Map("bio" -> bio) })
   }
 
   val close = Auth { implicit ctx ⇒
