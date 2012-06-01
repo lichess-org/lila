@@ -36,7 +36,7 @@ final class TopicApi(env: ForumEnv, maxPerPage: Int) {
     _ ← env.postRepo saveIO post
     // denormalize topic
     _ ← env.topicRepo saveIO topic.copy(
-      nbPosts = categ.nbPosts + 1,
+      nbPosts = 1,
       lastPostId = post.id,
       updatedAt = post.createdAt)
     // denormalize categ
