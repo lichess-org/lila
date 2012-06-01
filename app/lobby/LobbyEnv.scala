@@ -9,8 +9,9 @@ import play.api.i18n.MessagesPlugin
 import scalaz.effects._
 import com.mongodb.casbah.MongoCollection
 
+import timeline.Entry
 import user.{ User, UserRepo }
-import game.{ GameRepo, DbGame }
+import game.DbGame
 import round.{ Socket ⇒ RoundSocket, Messenger ⇒ RoundMessenger }
 import core.Settings
 
@@ -19,6 +20,7 @@ final class LobbyEnv(
     settings: Settings,
     mongodb: String ⇒ MongoCollection,
     userRepo: UserRepo,
+    getGame: String => IO[Option[DbGame]],
     roundSocket: RoundSocket,
     roundMessenger: RoundMessenger) {
 
@@ -51,4 +53,11 @@ final class LobbyEnv(
   lazy val hookRepo = new HookRepo(mongodb(MongoCollectionHook))
 
   lazy val hookMemo = new HookMemo(timeout = MemoHookTimeout)
+
+  lazy val preloader = new Preload(
+    fisherman = fisherman,
+    history = history,
+    hookRepo = hookRepo,
+    getGame = getGame,
+    messageRepo = messageRepo)
 }

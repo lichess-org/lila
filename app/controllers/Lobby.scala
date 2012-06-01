@@ -11,11 +11,12 @@ import scalaz.effects._
 
 object Lobby extends LilaController {
 
-  def preloader = env.preloader
+  def preloader = env.lobby.preloader
   def hookRepo = env.lobby.hookRepo
   def fisherman = env.lobby.fisherman
   def joiner = env.setup.hookJoiner
   def forumRecent = env.forum.recent
+  def timelineRecent = env.timeline.entryRepo.recent
 
   val home = Open { implicit ctx ⇒
     renderHome(none).fold(identity, Ok(_))
@@ -30,7 +31,8 @@ object Lobby extends LilaController {
   private def renderHome(myHook: Option[Hook])(implicit ctx: Context) = preloader(
     auth = ctx.isAuth,
     chat = ctx.canSeeChat,
-    myHook = myHook
+    myHook = myHook,
+    timeline = timelineRecent
   ).unsafePerformIO.bimap(
       url ⇒ Redirect(url),
       preload ⇒ html.lobby.home(toJson(preload), myHook, forumRecent(ctx.me))

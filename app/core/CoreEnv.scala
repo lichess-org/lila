@@ -26,7 +26,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
   lazy val user = new lila.user.UserEnv(
     settings = settings,
     mongodb = mongodb.apply _,
-    gameRepo = game.gameRepo) 
+    gameRepo = game.gameRepo)
 
   lazy val forum = new lila.forum.ForumEnv(
     settings = settings,
@@ -49,6 +49,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     settings = settings,
     mongodb = mongodb.apply _,
     userRepo = user.userRepo,
+    getGame = game.gameRepo.game,
     roundSocket = round.socket,
     roundMessenger = round.messenger)
 
@@ -61,7 +62,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     userRepo = user.userRepo,
     timelinePush = timeline.push.apply,
     roundMessenger = round.messenger,
-    ai = ai.ai) 
+    ai = ai.ai)
 
   lazy val timeline = new lila.timeline.TimelineEnv(
     settings = settings,
@@ -103,14 +104,6 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     app = app,
     mongodb = mongodb.connection,
     settings = settings)
-
-  lazy val preloader = new Preload(
-    fisherman = lobby.fisherman,
-    history = lobby.history,
-    hookRepo = lobby.hookRepo,
-    gameRepo = game.gameRepo,
-    messageRepo = lobby.messageRepo,
-    entryRepo = timeline.entryRepo)
 
   lazy val securityStore = new security.Store(
     collection = mongodb(MongoCollectionSecurity))
