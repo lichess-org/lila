@@ -23,9 +23,9 @@ final class FriendJoiner(
             Progress(game, game.updatePlayer(color, _ withUser u))
           },
           io(Progress(game)))
-        p2 = p1 withGame game.start
-        p3 ← messenger init game map { evts ⇒
-          p2 + Event.RedirectOwner(!color, playerUrl(game, !color)) ++ evts
+        p2 = p1 map (_.start)
+        p3 ← messenger init p2.game map { evts ⇒
+          p2 + Event.RedirectOwner(!color, playerUrl(p2.game, !color)) ++ evts
         }
         _ ← gameRepo save p3
         _ ← gameRepo denormalizeStarted p3.game
