@@ -3,6 +3,7 @@ package user
 
 import com.novus.salat.annotations.Key
 import org.joda.time.DateTime
+import org.scala_tools.time.Imports._
 
 case class User(
     @Key("_id") id: String,
@@ -15,9 +16,13 @@ case class User(
     roles: List[String],
     settings: Map[String, String] = Map.empty,
     bio: Option[String] = None,
-    engine: Boolean = false) {
+    engine: Boolean = false,
+    createdAt: DateTime) {
 
-  def canChat = !isChatBan && nbGames >= 5
+  def canChat = 
+    !isChatBan && 
+    nbGames >= 5 &&
+    createdAt < (DateTime.now - 1.day).pp
 
   def disabled = !enabled
 
@@ -35,18 +40,4 @@ object User {
   val STARTING_ELO = 1200
 
   val anonymous = "Anonymous"
-
-  // the password is hashed
-  def apply(username: String): User = User(
-    id = username.toLowerCase,
-    username = username,
-    elo = STARTING_ELO,
-    nbGames = 0,
-    nbRatedGames = 0,
-    isChatBan = false,
-    enabled = true,
-    roles = Nil,
-    settings = Map.empty,
-    bio = none,
-    engine = false)
 }
