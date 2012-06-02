@@ -11,7 +11,7 @@ var lichess = {
     events: {
       n: function(e) {
         var $tag = $('#nb_connected_players');
-        if ($tag.length) {
+        if ($tag.length && e) {
           $tag.html($tag.html().replace(/\d+/, e)).removeClass('none');
         }
       },

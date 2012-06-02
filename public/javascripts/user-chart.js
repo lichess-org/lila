@@ -4,7 +4,10 @@ google.setOnLoadCallback(function() {
     var data = google.elemToData(this);
     var chart = new google.visualization.ComboChart(this);
     chart.draw(data, {
-      series: [ { color: "blue", type: "area", lineWidth: 2 } ],
+      series: [ 
+        { color: "blue", type: "area", lineWidth: 2 },
+        { color: "red", type: "line", lineWidth: 2 }
+      ],
       width: 460,
       height: 340,
       axisTitlePosition: 'none',
