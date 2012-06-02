@@ -7,7 +7,7 @@ div.user_lists h2 {
 }
 div.user_lists div.all_users {
   float: left;
-  width: 360px;
+  width: 358px;
   margin-right: 20px;
   border: 1px solid #DADADA;
   border-width: 0 1px 0 0;
@@ -15,7 +15,7 @@ div.user_lists div.all_users {
 div.user_lists div.online_users {
   float: left;
   margin-left: 20px;
-  width: 344px;
+  width: 342px;
 }
 div.user_lists h1.lichess_title {
   margin-bottom: 1em;
