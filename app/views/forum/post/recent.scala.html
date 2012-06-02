@@ -3,7 +3,7 @@
 @defining(routes.ForumTopic.show(v.categ.slug, v.topic.slug, v pageOf v.post) + "#" + v.post.number) { postUrl =>
 <li>
 <a class="post_link" href="@postUrl">@v.topic.name</a>
-<span>@authorLink(v.post)</span>
+<span>@authorLink(v.post, withOnline = false)</span>
 @Html(shorten(v.post.text, 80).replace("<br />", ""))
 </li>
 }

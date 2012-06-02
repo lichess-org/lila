@@ -15,7 +15,7 @@ title = thread.name) {
 @thread.posts.map { post =>
 <div class="thread_message" id="message_@post.id">
   <span class="infos">
-    @userIdLink(thread.senderOf(post), none) &rarr; @userIdLink(thread.receiverOf(post), none) - @showDate(post.createdAt)
+    @userIdLink(thread.senderOf(post), "inline".some) &rarr; @userIdLink(thread.receiverOf(post), "inline".some) - @showDate(post.createdAt)
   </span>
 
   <div class="thread_message_body">@autoLink(post.text)</div>

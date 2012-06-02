@@ -393,6 +393,8 @@ span.s16.clock {
 .user_link.white, .user_link.black, .user_link.online, .user_link.offline {
   line-height: 16px;
   display: block;
+  background: url(../images/s16.png) no-repeat;
+  padding-left: 20px;
 }
 .user_link.white {
   background-position: 0 -240px;
@@ -400,13 +402,16 @@ span.s16.clock {
 .user_link.black {
   background-position: 0 -256px;
 }
-a.user_link.offline {
+.user_link.offline {
   padding-left: 20px;
-  background: transparent url(../images/s16.png) 0 -160px no-repeat;
+  background-position: 0 -160px;
 }
-a.user_link.online {
+.user_link.online {
   padding-left: 20px;
-  background: transparent url(../images/s16.png) 0 -208px no-repeat;
+  background-position: 0 -208px;
+}
+.user_link.inline {
+  display: inline;
 }
 div.engine_warning {
   padding: 5px 5px 5px 40px;
