@@ -27,8 +27,8 @@ final class Messenger(
     else escapeXml(text.replace(""""""", "'").trim take 140) |> { escaped ⇒
       (escaped.nonEmpty).fold(
         success(Message(
-          user.username,
-          urlRegex.replaceAllIn(escaped, m ⇒ "lichess.org/" + (m group 1))
+          username = user.username,
+          text = urlRegex.replaceAllIn(escaped, m ⇒ "lichess.org/" + (m group 1))
         )),
         !!("Empty message")
       )

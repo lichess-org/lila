@@ -17,6 +17,7 @@ object Lobby extends LilaController {
   def joiner = env.setup.hookJoiner
   def forumRecent = env.forum.recent
   def timelineRecent = env.timeline.entryRepo.recent
+  def messageRepo = env.lobby.messageRepo
 
   val home = Open { implicit ctx ⇒
     renderHome(none).fold(identity, Ok(_))
@@ -72,5 +73,9 @@ object Lobby extends LilaController {
         _ ← hook.fold(fisherman.delete, io())
       } yield routes.Lobby.home
     }
+  }
+
+  val log = Open { implicit ctx ⇒
+    IOk(messageRepo.all map { html.lobby.log(_) })
   }
 }

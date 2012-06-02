@@ -51,7 +51,7 @@ object EloChart {
   val columns = Json generate List(
     "string" :: "Game" :: Nil,
     "number" :: "Elo" :: Nil,
-    "number" :: "Median" :: Nil)
+    "number" :: "Average" :: Nil)
 
   def apply(historyRepo: HistoryRepo)(user: User): IO[Option[EloChart]] =
     historyRepo userElos user.username map { elos ⇒

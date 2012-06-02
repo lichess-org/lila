@@ -7,16 +7,21 @@ import com.mongodb.casbah.Imports._
 import scalaz.effects._
 
 final class MessageRepo(collection: MongoCollection, max: Int)
-extends CappedRepo[Message](collection, max) {
+    extends CappedRepo[Message](collection, max) {
+
+  val all = io {
+    collection.find(DBObject()).map(decode).flatten.toList
+  }
 
   def add(message: Message): IO[Unit] = io {
     collection += encode(message)
   }
 
   def decode(obj: DBObject): Option[Message] = for {
+    id ← obj.getAs[ObjectId]("_id")
     u ← obj.getAs[String]("u")
     t ← obj.getAs[String]("t")
-  } yield Message(u, t)
+  } yield Message(id, u, t)
 
   def encode(obj: Message): DBObject = DBObject(
     "u" -> obj.username,
