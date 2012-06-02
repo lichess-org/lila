@@ -43,7 +43,7 @@ div.user_lists form.search_user_form input {
 
 div.user_lists .users li {
   font-size: 1.2em;
-  line-height: 2em;
+  padding: 5px 0;
 }
 div.user_lists ol.users li {
   list-style: decimal-leading-zero inside;
