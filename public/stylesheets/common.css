@@ -249,34 +249,56 @@ a.goto_nav span.new_messages {
 a.goto_nav span.new_messages.unread {
   font-size: 1em;
 }
-a.goto_logout span.s16 {
-  background-position: 0 -48px;
-}
-a.goto_profile span.s16 {
-  background-position: 0 -208px;
-}
-a.goto_profile {
-  float: right;
-}
-div.security {
+#top div.auth {
   float: right;
   position: relative;
 }
-div.security form {
+#top div.auth form,
+#top div.auth .links {
   display: none;
   position: absolute;
   right: -1px;
   top: 24px;
   background: #fff;
-  padding: 1em;
   border: 1px solid #dadada;
   border-top: none;
   z-index: 1;
 }
-div.security form input {
+#top div.auth.shown a.toggle {
+  background: #fff;
+}
+#top div.auth.shown form,
+#top div.auth.shown .links {
+  display: block;
+}
+#top div.auth .links a {
+  display: block;
+  padding: 6px 10px;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+#top div.auth .links a:hover {
+  background: #F0F0F0;
+  color: #444;
+}
+#top div.auth .links .goto_logout {
+  background-position: 0 -48px;
+}
+#top div.auth .links .goto_profile {
+  background-position: 0 -208px;
+}
+
+#top div.auth form {
+  padding: 1em;
+}
+#top div.auth form input {
   margin-bottom: 8px;
 }
-div.security form div.button_wrap {
+#top div.auth form .username,
+#top div.auth form .password {
+  width: 120px;
+}
+#top div.auth form div.button_wrap {
   text-align: right;
   border-bottom: 1px solid #dadada;
   margin-bottom: 8px
@@ -291,19 +313,13 @@ div.security form div.button_wrap {
   padding-left: 0;
   padding-right: 20px;
 }
-div.security.show_signin_form a.toggle_signin {
-  background: #fff;
-}
-div.security.show_signin_form form {
-  display: block;
-}
-div.security input.username, div.security input.password {
+div.auth input.username, div.auth input.password {
   border: 1px solid #dadada;
   padding: 2px 3px;
   width: 100px;
   background: #fff;
 }
-div.security input.login {
+div.auth input.login {
   padding: 0 3px;
 }
 div.lichess_language {
@@ -345,7 +361,7 @@ ul.lichess_language_links li:last-child {
 #top a.colorpicker {
   float: right;
   color: #fff;
-  margin-top: 4px;
+  margin: 4px 0.5em 0 0;
   display: block;
   padding: 1px 5px;
   text-decoration: none;
@@ -374,7 +390,7 @@ span.s16.clock {
   padding-bottom: 1px;
 }
 
-.user_link {
+.user_link.white, .user_link.black, .user_link.online, .user_link.offline {
   line-height: 16px;
   display: block;
 }

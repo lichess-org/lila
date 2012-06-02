@@ -1,7 +1,7 @@
 @()(implicit ctx: Context)
 
-<div class="security">
-  <a class="toggle_signin toggle">
+<div class="auth">
+  <a class="toggle toggle_auth">
     <span class="s16">@trans.signIn()</span>
   </a>
   <form class="signin_form" action="@routes.Auth.authenticate()" method="post">
@@ -14,4 +14,3 @@
     <a href="@routes.Auth.signup()">@trans.signUp()</a>
   </form>
 </div>
-

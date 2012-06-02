@@ -32,7 +32,6 @@
           <li><a href="@routes.I18n.contribute">Help translate Lichess!</a></li>
         </ul>
       </div>
-      <a href="@routes.Setting.color()" class="colorpicker" data-color="@setting.color">@trans.color()</a>
       @siteMenu.all(ctx.me).map { elem =>
       @if(elem.code == "message") {
       <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@elem.route">
@@ -46,16 +45,8 @@
       <div id="nb_connected_players" class="nb_connected_players none">
         @trans.nbConnectedPlayers("<strong>0</strong>")
       </div>
-      @ctx.me.map { m =>
-      <div class="security">
-        <a class="goto_nav goto_logout" href="@routes.Auth.logout">
-          <span class="s16">@trans.logOut()</span>
-        </a>
-      </div>
-      <a id="user_tag" data-elo="@m.elo" href="@routes.User.show(m.username)" class="blank_if_play goto_nav goto_profile">
-        <span class="s16">@m.usernameWithElo</span>
-      </a>
-      }.getOrElse { @auth.miniLogin() }
+      @ctx.me.fold(auth.loggedIn(_), auth.miniLogin())
+      <a href="@routes.Setting.color()" class="colorpicker" data-color="@setting.color">@trans.color()</a>
     </div>
     <div class="content">
       <div class="header">

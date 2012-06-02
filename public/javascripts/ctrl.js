@@ -136,11 +136,11 @@ $(function() {
     }).find('div.pager').hide();
   });
 
-  $('a.toggle_signin').toggle(function() {
-    $('#top').find('div.security').addClass('show_signin_form').find('input:first').focus();
+  $('a.toggle_auth').toggle(function() {
+    $('#top').find('div.auth').addClass('shown').find('input:first').focus();
   },
   function() {
-    $('#top').find('div.security').removeClass('show_signin_form');
+    $('#top').find('div.auth').removeClass('shown');
   });
 
   $('#lichess_translation_form_code').change(function() {

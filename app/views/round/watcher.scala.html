@@ -75,7 +75,7 @@
       @if(isGranted(Permission.ViewBlurs)) {
       @game.players.map { p =>
       @if(game.playerBlurPercent(p.color) > 30) {
-      <br />@playerLink(p) @p.blurs/@game.playerMoves(p.color) blurs (@game.playerBlurPercent(p.color))
+      <br />@playerLink(p, withOnline = false) @p.blurs/@game.playerMoves(p.color) blurs (@game.playerBlurPercent(p.color)%)
       }
       }
       }

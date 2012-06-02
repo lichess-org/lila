@@ -1,0 +1,14 @@
+@(me: User)(implicit ctx: Context)
+
+<div class="auth">
+  <a
+    id="user_tag"
+    data-elo="@me.elo"
+    class="blank_if_play toggle toggle_auth">
+    <span class="s16">@me.usernameWithElo</span>
+  </a>
+  <div class="links">
+    <a href="@routes.User.show(me.username)" class="blank_if_play"><span class="s16 goto_profile">Profile</span></a>
+    <a href="@routes.Auth.logout"><span class="s16 goto_logout">@trans.logOut()</span></a>
+  </div>
+</div>
