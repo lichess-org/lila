@@ -49,10 +49,11 @@ $.websocket.prototype = {
       })
     .bind('close', function() {
       self._debug("disconnected");
-      if (self.options.offlineDelay && !self.offlineTimeout) self.offlineTimeout = setTimeout(function() {
+      if (self.options.offlineDelay) self.offlineTimeout = setTimeout(function() {
         if (self.options.offlineTag) self.options.offlineTag.show();
       }, self.options.offlineDelay);
       self.settings.close();
+      self._keepAlive();
     })
     .bind('message', function(e){
       var m = JSON.parse(e.originalEvent.data);
@@ -85,7 +86,6 @@ $.websocket.prototype = {
         self.connect();
       }, self.options.pingTimeout);
     } catch (e) {
-      throw e;
       self._debug(e);
       self.connect();
     }
