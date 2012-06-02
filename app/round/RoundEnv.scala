@@ -8,7 +8,8 @@ import play.api.libs.concurrent._
 import play.api.Application
 
 import game.{ GameRepo, DbGame }
-import user.{ UserRepo, User, EloUpdater }
+import user.{ UserRepo, User}
+import elo.EloUpdater
 import ai.Ai
 import core.Settings
 import i18n.I18nKeys

@@ -13,12 +13,16 @@ case class UserInfo(
   nbWin: Int,
   nbDraw: Int,
   nbLoss: Int,
-  nbRated: Int,
   nbPlaying: Int,
   nbWithMe: Option[Int],
   eloWithMe: Option[List[(String, Int)]],
   eloChart: Option[EloChart],
-  winChart: Option[WinChart])
+  winChart: Option[WinChart]) {
+
+    def nbRated = user.nbRatedGames
+
+    def percentRated: Int = math.round(nbRated / user.nbGames.toFloat * 100)
+  }
 
 object UserInfo {
 
@@ -39,7 +43,6 @@ object UserInfo {
     nbWin ← gameRepo count (_ win user)
     nbDraw ← gameRepo count (_ draw user)
     nbLoss ← gameRepo count (_ loss user)
-    nbRated ← gameRepo count (_ rated user)
     nbPlaying ← (ctx is user).fold(
       gameRepo count (_ notFinished user) map (_.some),
       io(none)
@@ -64,7 +67,6 @@ object UserInfo {
     nbWin = nbWin,
     nbDraw = nbDraw,
     nbLoss = nbLoss,
-    nbRated = nbRated,
     nbPlaying = nbPlaying | 0,
     nbWithMe = nbWithMe,
     eloWithMe = eloWithMe,

@@ -2,8 +2,9 @@ package lila
 package round
 
 import game.{ GameRepo, DbGame, Pov }
-import user.{ UserRepo, EloUpdater }
+import user.UserRepo
 import i18n.I18nKey.{ Select ⇒ SelectI18nKey }
+import elo.EloUpdater
 import chess.{ EloCalculator, Status, Color }
 import Status._
 import Color._

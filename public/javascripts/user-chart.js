@@ -11,10 +11,9 @@ google.setOnLoadCallback(function() {
       width: 460,
       height: 340,
       axisTitlePosition: 'none',
-      chartArea:{left:"10%",top:"3%",width:"90%",height:"80%"},
-      title: $(this).attr('title'),
-      titlePosition: 'in',
-      hAxis: {textStyle: {fontSize: 0.1}}
+      chartArea:{left:"10%",top:"2%",width:"90%",height:"96%"},
+      titlePosition: 'none',
+      hAxis: {textPosition: "none"}
     });
   });
 
@@ -24,6 +23,7 @@ google.setOnLoadCallback(function() {
     chart.draw(data, {
       width: 312,
       height: 200,
+      titlePosition: 'none',
       chartArea:{left:"0%",width:"100%",height:"100%"},
       is3D: true,
     });

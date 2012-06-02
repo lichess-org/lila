@@ -5,6 +5,7 @@ import com.mongodb.casbah.MongoCollection
 
 import chess.EloCalculator
 import game.GameRepo
+import elo.EloUpdater
 import core.Settings
 
 final class UserEnv(

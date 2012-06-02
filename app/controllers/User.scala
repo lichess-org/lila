@@ -18,6 +18,7 @@ object User extends LilaController {
   def gamePaginator = env.game.paginator
   def forms = user.DataForm
   def eloUpdater = env.user.eloUpdater
+  def lobbyMessenger = env.lobby.messenger
 
   def show(username: String) = showFilter(username, "all", 1)
 
@@ -81,24 +82,14 @@ object User extends LilaController {
   def engine(username: String) = Secure(Permission.MarkEngine) { _ ⇒
     _ ⇒
       IORedirect {
-        for {
-          uOption ← userRepo byId username
-          _ ← uOption.fold(
-            u ⇒ for {
-              _ ← userRepo toggleEngine u.id
-              _ ← (!u.engine && u.elo > UserModel.STARTING_ELO).fold(
-                eloUpdater.adjust(u, UserModel.STARTING_ELO),
-                io())
-            } yield (),
-            io())
-        } yield routes.User show username
+        eloUpdater adjust username map { _ ⇒ routes.User show username }
       }
   }
 
   def mute(username: String) = Secure(Permission.MutePlayer) { _ ⇒
     _ ⇒
       IORedirect {
-        userRepo toggleMute username map { _ ⇒ routes.User show username }
+        lobbyMessenger mute username map { _ ⇒ routes.User show username }
       }
   }
 

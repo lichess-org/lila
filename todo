@@ -20,7 +20,6 @@ check sf2 commands to port
 make the wiki static html pages managed by git?
 compensate lag http://fr.lichess.org/forum/lichess-feedback/the-clock-display-should-account-for-lag?page=1#4
 show lobby room logs
-lobby sync
 push enumerator is deprecated
 http://fr.lichess.org/forum/lichess-feedback/game-history-bug#1
 pie elo chart
@@ -29,8 +28,6 @@ new elo system http://en.wikipedia.org/wiki/Glicko_rating_system
 spectator chat!
 guess friend list
 star people and games (and forum threads?)
-elo chart average
-chat IP block
 
 new translations:
 -rematchOfferCanceled=Rematch offer canceled

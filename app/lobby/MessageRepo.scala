@@ -22,7 +22,7 @@ extends CappedRepo[Message](collection, max) {
     "u" -> obj.username,
     "t" -> obj.text)
 
-  def deleteByUsername(username: String): IO[Unit] = io {
+  def censorUsername(username: String): IO[Unit] = io {
     collection.update(
       DBObject("u" -> username),
       $set("t" -> ""),
