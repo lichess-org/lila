@@ -15,4 +15,6 @@ case class Message(
     "u" -> username)
 
   def createdAt = new DateTime(id.getTime)
+
+  def isEmpty = text == ""
 }

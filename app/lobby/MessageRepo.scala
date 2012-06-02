@@ -10,7 +10,9 @@ final class MessageRepo(collection: MongoCollection, max: Int)
     extends CappedRepo[Message](collection, max) {
 
   val all = io {
-    collection.find(DBObject()).map(decode).flatten.toList
+    collection.find(DBObject()).map(decode).toList collect {
+      case Some(msg) if !msg.isEmpty ⇒ msg
+    }
   }
 
   def add(message: Message): IO[Unit] = io {
