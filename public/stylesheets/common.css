@@ -207,6 +207,9 @@ div.lichess_goodies div.box {
   -moz-box-shadow: 0 0 7px #d0d0d0;
   -webkit-box-shadow: 0 0 7px #d0d0d0;
 }
+div.lichess_goodies div.box .player {
+  margin: 4px 0;
+}
 #nb_connected_players, a.goto_nav, #top a.toggle, a#sound_state {
   text-decoration: none;
   font-size: 13px;
@@ -366,14 +369,28 @@ a#sound_state.unavailable {
   display: none;
 }
 
-a.user_link {
-  padding-left: 20px;
-  background: transparent url(../images/s16.png) top left no-repeat;
-  background-position: 0 -160px;
+span.s16.clock {
+  background-position: 0 -224px;
+  padding-bottom: 1px;
+}
+
+.user_link {
   line-height: 16px;
+  display: block;
+}
+.user_link.white {
+  background-position: 0 -240px;
+}
+.user_link.black {
+  background-position: 0 -256px;
+}
+a.user_link.offline {
+  padding-left: 20px;
+  background: transparent url(../images/s16.png) 0 -160px no-repeat;
 }
 a.user_link.online {
-  background-position: 0 -208px;
+  padding-left: 20px;
+  background: transparent url(../images/s16.png) 0 -208px no-repeat;
 }
 div.engine_warning {
   padding: 5px 5px 5px 40px;

@@ -31,7 +31,7 @@
     <table class="game_players">
       @List(game.opponent(firstPlayer), firstPlayer).map { p =>
       <tr>
-        <td>@p.color.fold(trans.white(), trans.black())</td>
+        <td><span class="color s16 @p.color.name">@p.color.fold(trans.white(), trans.black())</span></td>
         <td>@playerLink(p)</td>
       </tr>
       }

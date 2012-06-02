@@ -19,13 +19,15 @@
     }
     <br /><br />
     @List(opponent, player).map { p =>
-    <div>
-      @p.aiLevel.fold(trans.aiNameLevelAiLevel(aiName, _), playerLink(p))
+    <div class="player">
+      @playerLink(p, withOnline = false, cssClass = Some("s16 " + p.color.name))
     </div>
     }
     <br />
+    @if(game.variant.exotic) {
     @trans.variant(): @variantName(game.variant).capitalize<br /><br />
-    @trans.timeControl(): @clockName(game.clock)<br />
+    }
+    <span class="s16 clock">@clockName(game.clock)</span>
     @if(game.rated) {
     <br />@trans.thisGameIsRated()<br />
     }

@@ -6,11 +6,13 @@ import user.User
 
 object Namer {
 
-  def player(player: DbPlayer)(getUsername: String ⇒ String) =
+  def player(player: DbPlayer, withElo: Boolean = true)(getUsername: String ⇒ String) =
     player.aiLevel.fold(
       level ⇒ "A.I. level " + level,
       (player.userId map getUsername).fold(
-        username ⇒ "%s (%s)".format(username, player.elo getOrElse "?"),
+        username ⇒ withElo.fold(
+          "%s (%s)".format(username, player.elo getOrElse "?"),
+          username),
         User.anonymous)
     )
 

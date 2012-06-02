@@ -33,18 +33,28 @@ trait GameHelper { self: I18nHelper with UserHelper ⇒
 
   def usernameWithElo(player: DbPlayer) = Namer.player(player)(userIdToUsername)
 
-  def playerLink(player: DbPlayer, cssClass: Option[String] = None) = Html {
+  def playerLink(
+    player: DbPlayer,
+    cssClass: Option[String] = None,
+    withOnline: Boolean = true)(implicit ctx: Context) = Html {
     player.userId.fold(
       userId ⇒ userIdToUsername(userId) |> { username ⇒
         """<a class="user_link%s%s" href="%s">%s</a>""".format(
           cssClass.fold(" " + _, ""),
-          isUsernameOnline(username).fold(" online", ""),
+          withOnline.fold(
+            isUsernameOnline(username).fold(" online", " offline"),
+            ""),
           routes.User.show(username),
           usernameWithElo(player) + player.eloDiff.fold(
             diff ⇒ " (%s)".format((diff < 0).fold(diff, "+ " + diff)), "")
         )
       },
-      usernameWithElo(player)
+      """<span class="user_link %s">%s</span>""".format(
+        cssClass | "",
+        player.aiLevel.fold(
+          trans.aiNameLevelAiLevel(aiName, _),
+          User.anonymous)
+      )
     )
   }
 

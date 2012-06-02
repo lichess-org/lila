@@ -31,10 +31,9 @@
     <div id="player_links">
       @List(opponent, player).map { p =>
       <div>
-        @p.aiLevel.map { l =>
-        @trans.aiNameLevelAiLevel(aiName, l)
-        }.getOrElse {
-        @playerLink(p)
+        @{ p.aiLevel.fold(
+        trans.aiNameLevelAiLevel(aiName, _), 
+        playerLink(p, withOnline = false, cssClass = p.color.name.some))
         }
       </div>
       }
