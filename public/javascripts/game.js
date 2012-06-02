@@ -512,7 +512,7 @@ $.widget("lichess.game", {
     if (this.$chat.length) {
       this.$chatMsgs.append(urlToLink(msg))[0];
       $('body').trigger('lichess.content_loaded');
-      this.$chatMsgs.scrollTop = 9999999;
+      this.$chatMsgs[0].scrollTop = 9999999;
     }
   },
   reloadTable: function(callback) {
