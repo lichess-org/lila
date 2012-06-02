@@ -1,6 +1,7 @@
 @(totalMemory: Long)
 
-@layout("RPS") {
+@layout("Lichess monitor") {
+<a class="back" href="@routes.Lobby.home">&lt; back to lichess</a>
 <h1>Lichess reactor <span class="down">DOWN</span><span class="up">OPERATIONAL</span></h1>
 <div id="monitors" class="clearfix">
   <script type="text/javascript">window.App = { }; window.App.totalMemory = @totalMemory;</script>

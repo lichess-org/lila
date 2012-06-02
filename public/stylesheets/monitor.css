@@ -38,10 +38,15 @@ body.down h1 .up {
   text-align: center;
 }
 
-a#shutdown {
+a {
   font-size: 14px;
   color: #888;
   font-family: monospace;
+}
+a.back {
+  position: absolute;
+  top: 3em;
+  left:3em;
 }
 
 .monitor {
