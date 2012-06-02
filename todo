@@ -29,6 +29,8 @@ spectator chat!
 guess friend list
 star people and games (and forum threads?)
 check in-game chat scroll
+autoclose top menus
+check websocket reconnection
 
 new translations:
 -rematchOfferCanceled=Rematch offer canceled
