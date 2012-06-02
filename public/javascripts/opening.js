@@ -176,40 +176,33 @@ $(function() {
       });
     }, 60 * 1000);
 
-    var $preload = $("textarea.hooks_preload");
-    var preloadData = $.parseJSON($preload.val());
-    $preload.remove();
-    if (preloadData.redirect) {
-      location.href = preloadData.redirect;
-    } else {
-      addHooks(preloadData.pool);
-      renderTimeline(preloadData.timeline);
-      if (chatExists) {
-        var chatHtml = "";
-        $.each(preloadData.chat, function() { 
-          if (this.txt) chatHtml += buildChatMessage(this.txt, this.u); 
-        });
-        addToChat(chatHtml);
-      }
-      lichess.socket = new $.websocket(lichess.socketUrl + "/lobby/socket", preloadData.version, $.extend(true, lichess.socketDefaults, {
-        params: {
-          hook: hookOwnerId
-        },
-        events: {
-          talk: function(e) { if (chatExists && e.txt) addToChat(buildChatMessage(e.txt, e.u)); },
-          entry: function(e) { renderTimeline([e]); },
-          hook_add: addHook,
-          hook_remove: removeHook,
-          redirect: function(e) {
-            $.lichessOpeningPreventClicks();
-            location.href = 'http://'+location.hostname+'/'+e;
-          }
-        },
-        options: {
-          name: "lobby"
-        }
-      }));
+    addHooks(lichess_preload.pool);
+    renderTimeline(lichess_preload.timeline);
+    if (chatExists) {
+      var chatHtml = "";
+      $.each(lichess_preload.chat, function() { 
+        if (this.txt) chatHtml += buildChatMessage(this.txt, this.u); 
+      });
+      addToChat(chatHtml);
     }
+    lichess.socket = new $.websocket(lichess.socketUrl + "/lobby/socket", lichess_preload.version, $.extend(true, lichess.socketDefaults, {
+      params: {
+        hook: hookOwnerId
+      },
+      events: {
+        talk: function(e) { if (chatExists && e.txt) addToChat(buildChatMessage(e.txt, e.u)); },
+        entry: function(e) { renderTimeline([e]); },
+        hook_add: addHook,
+        hook_remove: removeHook,
+        redirect: function(e) {
+          $.lichessOpeningPreventClicks();
+          location.href = 'http://'+location.hostname+'/'+e;
+        }
+      },
+      options: {
+        name: "lobby"
+      }
+    }));
     $('body').trigger('lichess.content_loaded');
 
     function renderTimeline(data) {

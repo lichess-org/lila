@@ -32,7 +32,6 @@
         data-join-url="@routes.Lobby.join("00000000")"
         >
         <table></table>
-        <textarea class="hooks_preload" style="display: none">@Html(preload)</textarea>
       </div>
     </div>
   </div>
@@ -56,4 +55,5 @@
     </div>
   </div>
 </div>
+<script>var lichess_preload = @Html(preload);</script>
 }
