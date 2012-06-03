@@ -22,7 +22,7 @@ sealed trait Member extends SocketMember {
 
 object Member {
   def apply(
-    channel: Channel,
+    channel: JsChannel,
     username: Option[String],
     ref: PovRef,
     owner: Boolean): Member =
@@ -31,7 +31,7 @@ object Member {
 }
 
 case class Owner(
-    channel: Channel,
+    channel: JsChannel,
     username: Option[String],
     ref: PovRef) extends Member {
 
@@ -39,7 +39,7 @@ case class Owner(
 }
 
 case class Watcher(
-    channel: Channel,
+    channel: JsChannel,
     username: Option[String],
     ref: PovRef) extends Member {
 
@@ -52,7 +52,9 @@ case class Join(
   version: Int,
   color: Color,
   owner: Boolean)
-case class Connected(member: Member)
+case class Connected(
+  enumerator: JsEnumerator,
+  member: Member)
 case class Events(events: List[Event])
 case class GameEvents(gameId: String, events: List[Event])
 case class GetGameVersion(gameId: String)

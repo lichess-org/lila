@@ -118,13 +118,13 @@ final class Socket(
             color = pov.color,
             owner = owner
           ) map {
-              case Connected(member) ⇒ (
+              case Connected(enumerator, member) ⇒ (
                 Iteratee.foreach[JsValue](
                   controller(hub, uid, member, PovRef(pov.gameId, member.color))
                 ) mapDone { _ ⇒
                     hub ! Quit(uid)
                   },
-                  member.channel)
+                  enumerator)
             }
         } yield socket).asPromise: SocketPromise
     }) | connectionFail

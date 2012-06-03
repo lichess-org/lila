@@ -11,10 +11,12 @@ case object GetMonitorData
 
 case class Update(env: CoreEnv)
 
-case class Member(channel: Channel) extends SocketMember {
+case class Member(channel: JsChannel) extends SocketMember {
   val username = none
 }
 
 case class Join(uid: String)
-case class Connected(channel: Channel)
+case class Connected(
+  enumerator: JsEnumerator, 
+  channel: JsChannel)
 case class MonitorData(data: List[String])

@@ -59,7 +59,7 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
 
   def eject(uid: String) {
     members get uid foreach { member ⇒
-      member.channel.close()
+      member.channel.end()
       quit(uid)
     }
   }

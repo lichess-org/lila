@@ -24,9 +24,9 @@ final class Hub(
     case WithHooks(op) ⇒ op(hookOwnerIds).unsafePerformIO
 
     case Join(uid, username, version, hookOwnerId) ⇒ {
-      val channel = Enumerator.imperative[JsValue]()
+      val (enumerator, channel) = Concurrent.broadcast[JsValue]
       addMember(uid, Member(channel, username, hookOwnerId))
-      sender ! Connected(channel)
+      sender ! Connected(enumerator, channel)
     }
 
     case Talk(txt, u) ⇒ messenger(txt, u).unsafePerformIO foreach { message ⇒

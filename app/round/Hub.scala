@@ -56,13 +56,13 @@ final class Hub(
     case IsGone(_, color)            ⇒ sender ! playerIsGone(color)
 
     case Join(uid, username, version, color, owner) ⇒ {
-      val channel = Enumerator.imperative[JsValue]()
+      val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, username, PovRef(gameId, color), owner)
       addMember(uid, member)
       notify(crowdEvent :: Nil)
       if (playerIsGone(color)) notifyGone(color, false)
       playerTime(color, nowMillis)
-      sender ! Connected(member)
+      sender ! Connected(enumerator, member)
     }
 
     case Events(events)        ⇒ notify(events)
@@ -74,7 +74,7 @@ final class Hub(
     }
 
     case Close ⇒ {
-      members.values foreach { _.channel.close() }
+      members.values foreach { _.channel.end() }
       self ! PoisonPill
     }
   }

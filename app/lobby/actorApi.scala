@@ -8,7 +8,7 @@ import game.DbGame
 import scalaz.effects.IO
 
 case class Member(
-    channel: Channel,
+    channel: JsChannel,
     username: Option[String],
     hookOwnerId: Option[String]) extends SocketMember {
 
@@ -26,4 +26,6 @@ case class Join(
   version: Int,
   hookOwnerId: Option[String])
 case class Talk(txt: String, u: String)
-case class Connected(channel: Channel)
+case class Connected(
+  enumerator: JsEnumerator, 
+  channel: JsChannel)

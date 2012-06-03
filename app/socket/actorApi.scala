@@ -4,7 +4,7 @@ package socket
 import play.api.libs.json.JsObject
 
 trait SocketMember {
-  val channel: Channel
+  val channel: JsChannel
   val username: Option[String]
 
   lazy val userId: Option[String] = username map (_.toLowerCase)

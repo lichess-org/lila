@@ -12,9 +12,9 @@ final class Hub(timeout: Int) extends HubActor[Member](timeout) {
   def receiveSpecific = {
 
     case Join(uid) ⇒ {
-      val channel = Enumerator.imperative[JsValue]()
+      val (enumerator, channel) = Concurrent.broadcast[JsValue]
       addMember(uid, Member(channel))
-      sender ! Connected(channel)
+      sender ! Connected(enumerator, channel)
     }
 
     case MonitorData(data) ⇒ notifyAll("monitor", JsString(data mkString ";"))

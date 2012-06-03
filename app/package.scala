@@ -1,9 +1,9 @@
 import ornicar.scalalib._
 
 import play.api.libs.json.JsValue
-import play.api.libs.iteratee.{ Iteratee, Enumerator }
 import play.api.libs.concurrent.Promise
-import play.api.libs.iteratee.PushEnumerator
+import play.api.libs.iteratee.{ Iteratee, Enumerator }
+import play.api.libs.iteratee.Concurrent.Channel
 
 import com.novus.salat._
 import com.mongodb.casbah.commons.conversions.scala.RegisterJodaTimeConversionHelpers
@@ -17,9 +17,9 @@ package object lila
     with scalaz.Lists
     with scalaz.Booleans {
 
-  type Channel = PushEnumerator[JsValue]
-
-  type SocketPromise = Promise[(Iteratee[JsValue, _], Enumerator[JsValue])]
+  type JsChannel = Channel[JsValue]
+  type JsEnumerator = Enumerator[JsValue]
+  type SocketPromise = Promise[(Iteratee[JsValue, _], JsEnumerator)]
 
   // custom salat context
   implicit val customSalatContext = new Context {

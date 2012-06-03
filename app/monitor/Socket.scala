@@ -22,7 +22,7 @@ final class Socket(hub: ActorRef) {
     val promise: Option[SocketPromise] = for {
       uid ← uidOption
     } yield (hub ? Join(uid)).asPromise map {
-      case Connected(channel) ⇒
+      case Connected(enumerator, channel) ⇒
         val iteratee = Iteratee.foreach[JsValue] { e ⇒
           e str "t" match {
             case Some("p") ⇒ hub ! Ping(uid)
@@ -31,7 +31,7 @@ final class Socket(hub: ActorRef) {
         } mapDone { _ ⇒
           hub ! Quit(uid)
         }
-        (iteratee, channel)
+        (iteratee, enumerator)
     }
     promise | Util.connectionFail
   }
