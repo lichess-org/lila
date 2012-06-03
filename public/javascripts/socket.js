@@ -1,7 +1,6 @@
 $.websocket = function(url, version, settings) {
   this.settings = {
     open: function(){},
-    close: function(){},
     message: function(m){},
     events: {},
     params: {
@@ -9,10 +8,10 @@ $.websocket = function(url, version, settings) {
     },
     options: {
       name: "unnamed",
-      debug: false,
+      debug: true,
       offlineDelay: 5000,
       offlineTag: false,
-      pingTimeout: 5000,
+      pingMaxLag: 5000,
       pingDelay: 2000
     }
   };
@@ -24,6 +23,7 @@ $.websocket = function(url, version, settings) {
   this.fullUrl = null;
   this.offlineTimeout = null;
   this.pingTimeout = null;
+  this.pingSchedule = null;
   this.connect();
   $(window).unload(this._destroy);
 }
@@ -36,15 +36,14 @@ $.websocket.prototype = {
     if (window.MozWebSocket) self.ws = new MozWebSocket(self.fullUrl);
     else if (window.WebSocket) self.ws = new WebSocket(self.fullUrl);
     else self.ws = {
-      send: function(m){ return false },
-        close: function(){}
+      send: function(m){ return false }
     };
     $(self.ws)
       .bind('open', function() {
         self._debug("connected to " + self.fullUrl);
         if (self.offlineTimeout) clearTimeout(self.offlineTimeout);
         if (self.options.offlineTag) self.options.offlineTag.hide();
-        self._keepAlive();
+        self._pingNow();
         self.settings.open();
       })
     .bind('close', function() {
@@ -52,13 +51,11 @@ $.websocket.prototype = {
       if (self.options.offlineDelay) self.offlineTimeout = setTimeout(function() {
         if (self.options.offlineTag) self.options.offlineTag.show();
       }, self.options.offlineDelay);
-      self.settings.close();
-      self._keepAlive();
     })
     .bind('message', function(e){
       var m = JSON.parse(e.originalEvent.data);
       if (m.t == "n") {
-        setTimeout(function() { self._keepAlive(); }, self.options.pingDelay);
+        self._schedulePing();
       }
       self._debug(m);
       if (m.t == "batch") {
@@ -67,28 +64,36 @@ $.websocket.prototype = {
         self._handle(m);
       }
     });
+    self._schedulePing(self.options.pingMaxLag);
   },
   send: function(t, d) {
     var data = d || {};
-    this._debug({t: t, d: data});
-    return this.ws.send(JSON.stringify({t: t, d: data}));
+    this.ws.send(JSON.stringify({t: t, d: data}));
   },
   disconnect: function() {
     this.ws.close();
   },
-  _keepAlive: function() {
+  _schedulePing: function(delay) {
     var self = this;
+    clearTimeout(self.pingSchedule);
+    self.pingSchedule = setTimeout(function() { 
+      self._pingNow(); 
+    }, delay || self.options.pingDelay);
+  },
+  _pingNow: function() {
+    var self = this;
+    clearTimeout(self.pingSchedule);
     clearTimeout(self.pingTimeout);
+    console.debug("try ping");
     try {
       self.ws.send(self._pingData());
-      self.pingTimeout = setTimeout(function() {
-        self._debug("reconnect!");
-        self.connect();
-      }, self.options.pingTimeout);
     } catch (e) {
       self._debug(e);
-      self.connect();
     }
+    self.pingTimeout = setTimeout(function() {
+      self._debug("reconnect!");
+      self.connect();
+    }, self.options.pingMaxLag);
   },
   _pingData: function() {
     return JSON.stringify({t: "p", v: this.version});
