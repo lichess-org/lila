@@ -38,7 +38,7 @@ object Cron {
 
     unsafe(2 seconds) {
       env.metaHub.?[Int](socket.GetNbMembers) map (_.sum) onSuccess {
-        case nb ⇒ env.metaHub ! socket.NbMembers(nb) 
+        case nb ⇒ env.metaHub ! socket.NbMembers(nb)
       }
     }
 
@@ -67,12 +67,12 @@ object Cron {
       effect(1 hour, "game finish") {
         env.titivate.finishByClock
       }
-    }
 
-    effect(10 seconds, "ai diagnose") {
-      env.ai.remoteAi.diagnose
+      effect(10 seconds, "ai diagnose") {
+        env.ai.remoteAi.diagnose
+      }
+      env.ai.remoteAi.diagnose.unsafePerformIO
     }
-    env.ai.remoteAi.diagnose.unsafePerformIO
 
     def message(freq: Duration)(to: (ActorRef, Any)) {
       Akka.system.scheduler.schedule(freq, freq.randomize(), to._1, to._2)
