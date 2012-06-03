@@ -51,17 +51,12 @@ final class Socket(
         val events = messenger.playerMessage(povRef, txt).unsafePerformIO
         hub ! Events(events)
       }
-      case Some("move") ⇒ for {
-        d ← e.as[JsObject] obj "d"
-        orig ← d str "from"
-        dest ← d str "to"
-        promotion = d str "promotion"
-        blur = (d int "b") == Some(1)
-        op = for {
-          events ← hand.play(povRef, orig, dest, promotion, blur)
-          _ ← events.fold(putFailures, events ⇒ send(povRef.gameId, events))
-        } yield ()
-      } op.unsafePerformIO
+      case Some("move") ⇒ parseMove(e) foreach {
+        case (orig, dest, prom, blur) ⇒
+          hand.play(povRef, orig, dest, prom, blur) flatMap { events ⇒
+            events.fold(putFailures, send(povRef.gameId, _))
+          } unsafePerformIO
+      }
       case Some("moretime") ⇒ (for {
         res ← hand moretime povRef
         op ← res.fold(putFailures, events ⇒ io(hub ! Events(events)))
@@ -73,14 +68,14 @@ final class Socket(
       case Some("p") ⇒ e int "v" foreach { v ⇒
         hub ! PingVersion(uid, v)
       }
-      case _         ⇒
+      case _ ⇒
     }
 
     else (e: JsValue) ⇒ e str "t" match {
       case Some("p") ⇒ e int "v" foreach { v ⇒
         hub ! PingVersion(uid, v)
       }
-      case _         ⇒
+      case _ ⇒
     }
 
   def joinWatcher(
@@ -88,15 +83,23 @@ final class Socket(
     colorName: String,
     version: Option[Int],
     uid: Option[String],
-    username: Option[String]): IO[SocketPromise] = 
-      getWatcherPov(gameId, colorName) map { join(_, false, version, uid, username) }
+    username: Option[String]): IO[SocketPromise] =
+    getWatcherPov(gameId, colorName) map { join(_, false, version, uid, username) }
 
   def joinPlayer(
     fullId: String,
     version: Option[Int],
     uid: Option[String],
-    username: Option[String]): IO[SocketPromise] = 
-      getPlayerPov(fullId) map { join(_, true, version, uid, username) }
+    username: Option[String]): IO[SocketPromise] =
+    getPlayerPov(fullId) map { join(_, true, version, uid, username) }
+
+  private def parseMove(event: JsValue) = for {
+    d ← event obj "d"
+    orig ← d str "from"
+    dest ← d str "to"
+    prom = d str "promotion"
+    blur = (d int "b") == Some(1)
+  } yield (orig, dest, prom, blur)
 
   private def join(
     povOption: Option[Pov],
