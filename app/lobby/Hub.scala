@@ -17,7 +17,9 @@ final class Hub(
     case PingVersion(uid, v) ⇒ {
       ping(uid)
       member(uid) foreach { m ⇒
-        history since v foreach m.channel.push
+        history.since(v).fold(
+          _ foreach m.channel.push
+          , resync(m))
       }
     }
 

@@ -99,12 +99,6 @@ final class Hub(
     }
   }
 
-  def resync(member: Member) {
-    member.channel push JsObject(Seq(
-      "t" -> JsString("resync")
-    ))
-  }
-
   def notifyOwner(color: Color, t: String, data: JsValue) {
     ownerOf(color) foreach { m ⇒
       m.channel push makeEvent(t, data)

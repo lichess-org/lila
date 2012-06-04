@@ -68,6 +68,12 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
     members = members - uid
   }
 
+  def resync(member: M) {
+    member.channel push JsObject(Seq(
+      "t" -> JsString("resync")
+    ))
+  }
+
   def addMember(uid: String, member: M) {
     eject(uid)
     members = members + (uid -> member)
