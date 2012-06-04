@@ -5,7 +5,7 @@ import scala.util.Random.nextBoolean
 
 sealed abstract class Color(val name: String) {
 
-  val resolve: chess.Color
+  def resolve: chess.Color
 }
 
 object Color {
@@ -22,7 +22,7 @@ object Color {
 
   object Random extends Color("random") {
 
-    val resolve = nextBoolean.fold(White, Black).resolve
+    def resolve = nextBoolean.fold(White, Black).resolve
   }
 
   def apply(name: String): Option[Color] = all find (_.name == name)
