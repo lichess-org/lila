@@ -11,7 +11,7 @@ $.websocket = function(url, version, settings) {
       offlineDelay: 5000, // time before showing offlineTag
       offlineTag: false, // jQuery object showing connection error
       pingMaxLag: 5000, // time to wait for pong before reseting the connection
-      pingDelay: 2000 // time between pong and ping
+      pingDelay: 1500 // time between pong and ping
     }
   };
   $.extend(true, self.settings, settings);
@@ -46,6 +46,10 @@ $.websocket.prototype = {
       var m = JSON.parse(e.data);
       self.debug(m);
       if (m.t == "n") { self.pong(); }
+      if (m.t == "resync") { 
+        location.reload();
+        return;
+      }
       if (m.t == "batch") {
         $(m.d || []).each(function() { self.handle(this); });
       } else {

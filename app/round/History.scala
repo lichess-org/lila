@@ -20,8 +20,12 @@ final class History(timeout: Int) {
 
   def version = privateVersion
 
-  def since(v: Int): List[VersionedEvent] =
-    (v + 1 to version).toList map event flatten
+  // none if version asked is > to history version
+  // none if an event is missing (asked too old version)
+  def since(v: Int): Option[List[VersionedEvent]] =
+    if (v > version) None
+    else if (v == version) Some(Nil)
+    else ((v + 1 to version).toList map event).sequence
 
   private def event(v: Int) = Option(events getIfPresent v)
 

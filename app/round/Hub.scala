@@ -35,7 +35,7 @@ final class Hub(
         playerTime(o.color, lastPingTime)
       }
       member(uid) foreach { m ⇒
-        batch(m, history since v)
+        history.since(v).fold(batch(m, _), resync(m))
       }
     }
 
@@ -89,7 +89,7 @@ final class Hub(
     members.values foreach { m ⇒ batch(m, vevents) }
   }
 
-  def batch(member: Member, vevents: List[VersionedEvent]) = {
+  def batch(member: Member, vevents: List[VersionedEvent]) {
     val filtered = vevents filter (_ visible member)
     if (filtered.nonEmpty) {
       member.channel push JsObject(Seq(
@@ -97,6 +97,12 @@ final class Hub(
         "d" -> JsArray(filtered map (_.js))
       ))
     }
+  }
+
+  def resync(member: Member) {
+    member.channel push JsObject(Seq(
+      "t" -> JsString("resync")
+    ))
   }
 
   def notifyOwner(color: Color, t: String, data: JsValue) {
