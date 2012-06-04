@@ -107,12 +107,18 @@ $.websocket.prototype = {
         self.debug("already has event " + m.v);
         return;
       }
+      if (m.v > self.version + 1) {
+        self.debug("event gap detected from " + self.version + " to " + m.v);
+        return;
+      }
       self.version = m.v;
       self.debug("set version " + self.version);
     }
-    var h = self.settings.events[m.t];
-    if ($.isFunction(h)) h(m.d || null);
-    else self.debug(m.t + " not supported");
+    if (m.t) {
+      var h = self.settings.events[m.t];
+      if ($.isFunction(h)) h(m.d || null);
+      else self.debug(m.t + " not supported");
+    } 
   },
   debug: function(msg) { if (this.options.debug) console.debug("[" + this.options.name + "]", msg); },
   destroy: function() { 

@@ -90,11 +90,10 @@ final class Hub(
   }
 
   def batch(member: Member, vevents: List[VersionedEvent]) {
-    val filtered = vevents filter (_ visible member)
-    if (filtered.nonEmpty) {
+    if (vevents.nonEmpty) {
       member.channel push JsObject(Seq(
         "t" -> JsString("batch"),
-        "d" -> JsArray(filtered map (_.js))
+        "d" -> JsArray(vevents map (_ jsFor member))
       ))
     }
   }
