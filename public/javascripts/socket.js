@@ -42,10 +42,6 @@ $.websocket.prototype = {
       if (self.options.offlineTag) self.options.offlineTag.hide();
       self.pingNow();
     };
-    self.ws.onclose = function() {
-      //self.debug("closed");
-      //self.scheduleConnect(self.option.pingMaxLag);
-    };
     self.ws.onmessage = function(e) {
       var m = JSON.parse(e.data);
       self.debug(m);
@@ -65,7 +61,7 @@ $.websocket.prototype = {
   scheduleConnect: function(delay) {
     var self = this;
     clearTimeout(self.connectSchedule);
-    //self.debug("schedule connect in " + delay + " ms");
+    self.debug("schedule connect in " + delay + " ms");
     self.connectSchedule = setTimeout(function() { 
       if (self.options.offlineTag) self.options.offlineTag.show();
       self.connect(); 
@@ -105,7 +101,6 @@ $.websocket.prototype = {
     if (m.v) {
       if (m.v <= self.version) {
         self.debug("already has event " + m.v);
-        //location.reload();
         return;
       }
       self.version = m.v;
