@@ -27,8 +27,8 @@ title = trans.forum.str()) {
 			<td class="right">@categ.nbPosts</td>
 			<td class="last_post">
 				@categ.lastPost.map {
-				case (topic, post) => {
-				<a href="@routes.ForumTopic.show(categ.slug, topic.slug, categ pageOf post)#@post.number">@showDate(post.createdAt)</a><br />by @Html(authorName(post))
+				case (topic, post, page) => {
+				<a href="@routes.ForumTopic.show(categ.slug, topic.slug, page)#@post.number">@showDate(post.createdAt)</a><br />by @Html(authorName(post))
 				}
 				}
 			</td>

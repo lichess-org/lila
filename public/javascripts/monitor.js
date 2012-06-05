@@ -60,8 +60,8 @@
 
     var container = window.document.getElementById("monitors")
 
-      app.rps = new SpeedOMeter({
-        name : "RPS",
+    app.rps = new SpeedOMeter({
+      name : "RPS",
       maxVal : 100,
       threshold: 0.9,
       container : container
@@ -85,14 +85,14 @@
     app.thread = new SpeedOMeter({
       name : "THREAD",
       maxVal : 300,
-      threshold: 0.5,
+      threshold: 0.8,
       container : container
     });
 
     app.load = new SpeedOMeter({
       name : "LOAD",
       maxVal : 1,
-      threshold: 0.3,
+      threshold: 0.5,
       container : container
     });
 

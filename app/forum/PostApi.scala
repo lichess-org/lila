@@ -57,13 +57,14 @@ final class PostApi(env: ForumEnv, maxPerPage: Int) {
       io(none[Categ])
     )
   } yield topicOption |@| categOption apply {
-    case (topic, categ) ⇒ PostView(post, topic, categ, pageOf)
+    case (topic, categ) ⇒ PostView(post, topic, categ, lastPageOf(topic))
   }
 
   def lastNumberOf(topic: Topic): IO[Int] =
     env.postRepo lastByTopics List(topic) map (_.number)
 
-  def pageOf(post: Post) = ceil(post.number / maxPerPage.toFloat).toInt
+  def lastPageOf(topic: Topic) = 
+    ceil(topic.nbPosts / maxPerPage.toFloat).toInt
 
   def paginator(topic: Topic, page: Int): Paginator[Post] =
     Paginator(

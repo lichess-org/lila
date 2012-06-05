@@ -1,6 +1,6 @@
 @(posts: List[lila.forum.PostView])(implicit ctx: Context)
 @for(v <- posts) {
-@defining(routes.ForumTopic.show(v.categ.slug, v.topic.slug, v pageOf v.post) + "#" + v.post.number) { postUrl =>
+@defining(routes.ForumTopic.show(v.categ.slug, v.topic.slug, v.topicLastPage) + "#" + v.post.number) { postUrl =>
 <li>
 <a class="post_link" href="@postUrl">@v.topic.name</a>
 <span>@authorLink(v.post, withOnline = false)</span>

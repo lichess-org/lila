@@ -59,7 +59,7 @@ final class TopicApi(env: ForumEnv, maxPerPage: Int) {
         query = env.topicRepo byCategQuery categ,
         sort = env.topicRepo.sortQuery) map { topic ⇒
           env.postRepo byId topic.lastPostId map { post ⇒
-            TopicView(categ, topic, post, env.postApi.pageOf)
+            TopicView(categ, topic, post, env.postApi lastPageOf topic)
           } unsafePerformIO
         },
       currentPage = page,
