@@ -52,3 +52,14 @@ form .error {
   margin-left: 160px;
   color: red;
 }
+
+div.checkmateCaptcha {
+  margin-top: 2em;
+}
+div.checkmateCaptcha div.checkmateFen {
+  margin-left: 0;
+}
+div.checkmateCaptcha label {
+  width: 250px;
+  text-align: left;
+}

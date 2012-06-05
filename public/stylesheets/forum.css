@@ -258,25 +258,6 @@ div.bar div.pagination {
   float: right;
 }
 
-div.checkmateFen {
-  float: left;
-  width: 220px;
-  margin-left: 110px;
-  cursor: pointer;
-}
-div.checkmateFen div.lmcs:hover {
-  background: #ddddff;
-}
-div.checkmateSection {
-  float: left;
-}
-div.checkmateCaptcha input {
-  padding: 0.5em;
-  border: 1px solid #D4D4D4;
-  background: #dfdfff;
-  font-weight: bold;
-  width: 5em;
-}
 #lichess_forum div.checkmateCaptcha p.error {
   margin-left: 0;
 }

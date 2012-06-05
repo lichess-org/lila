@@ -97,6 +97,12 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     settings = settings,
     gameRepo = game.gameRepo)
 
+  lazy val security = new lila.security.SecurityEnv(
+    settings = settings,
+    captcha = site.captcha,
+    mongodb = mongodb.apply _,
+    userRepo = user.userRepo)
+
   lazy val metaHub = new lila.socket.MetaHub(
     List(site.hub, lobby.hub, round.hubMaster))
 
@@ -104,13 +110,6 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     app = app,
     mongodb = mongodb.connection,
     settings = settings)
-
-  lazy val securityStore = new security.Store(
-    collection = mongodb(MongoCollectionSecurity))
-
-  lazy val firewall = new security.Firewall(
-    collection = mongodb(MongoCollectionFirewall),
-    cacheTtl = FirewallCacheTtl)
 
   lazy val titivate = new core.Titivate(
     gameRepo = game.gameRepo,

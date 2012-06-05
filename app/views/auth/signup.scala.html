@@ -1,4 +1,4 @@
-@(form: Form[_])(implicit ctx: Context)
+@(form: Form[_], captcha: lila.site.Captcha.Challenge)(implicit ctx: Context)
 
 @auth.layout(
 title = trans.signUp.str()) {
@@ -17,11 +17,12 @@ title = trans.signUp.str()) {
       </em>
     </p>
     <form action="@routes.Auth.signupPost" method="POST">
-      @form.globalError.map { error =>
-      <p class="error">@error.message</p>
-      }
       <ul>
         @auth.formFields(form("username"), form("password"))
+        <li>
+          @base.captcha(form("move"), form("gameId"), captcha)
+        </li>
+        @errMsg(form)
         <li>
           <input type="submit" value="@trans.signUp()" class="submit">
           <span class="alternative">@trans.haveAnAccount() <a href="@routes.Auth.login">@trans.signIn()</a></span>

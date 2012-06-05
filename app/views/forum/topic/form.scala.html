@@ -15,7 +15,7 @@ title = "New forum topic") {
     @errMsg(form("name"))
   </label>
   @forum.post.formFields(form("post")("text"), form("post")("author"))
-  @forum.post.captcha(form("post")("move"), form("post")("gameId"), captcha)
+  @base.captcha(form("post")("move"), form("post")("gameId"), captcha)
   @errMsg(form("post"))
   <button class="submit button" type="submit">Create the topic</button>
   <a href="@routes.ForumCateg.show(categ.slug)" style="margin-left:20px">Cancel</a>

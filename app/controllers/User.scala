@@ -73,7 +73,7 @@ object User extends LilaController {
     me ⇒
       IORedirect {
         userRepo disable me map { _ ⇒
-          env.securityStore deleteUsername me.username
+          env.security.store deleteUsername me.username
           routes.User show me.username
         }
       }

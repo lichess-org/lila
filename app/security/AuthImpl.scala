@@ -26,19 +26,6 @@ trait AuthImpl {
     .verifying("Invalid username or password", _.isDefined)
   )
 
-  val signupForm = Form(mapping(
-    "username" -> of[String].verifying(
-      Constraints minLength 2,
-      Constraints maxLength 20,
-      Constraints.pattern(
-        regex = """^[\w-]+$""".r,
-        error = "Invalid username. Please use only letters, numbers and dash")
-    ),
-    "password" -> text(minLength = 4)
-  )(signupUser)(_ ⇒ None)
-    .verifying("This user already exists", _.isDefined)
-  )
-
   def env: CoreEnv
 
   def logoutSucceeded(req: RequestHeader): PlainResult =
@@ -49,7 +36,7 @@ trait AuthImpl {
 
   def saveAuthentication(username: String)(implicit req: RequestHeader): String =
     (OrnicarRandom nextAsciiString 12) ~ { sessionId ⇒
-      env.securityStore.save(sessionId, username, req)
+      env.security.store.save(sessionId, username, req)
     }
 
   def gotoLoginSucceeded[A](username: String)(implicit req: RequestHeader) = {
@@ -63,7 +50,7 @@ trait AuthImpl {
   }
 
   def gotoLogoutSucceeded(implicit req: RequestHeader) = {
-    req.session.get("sessionId") foreach env.securityStore.delete
+    req.session.get("sessionId") foreach env.security.store.delete
     logoutSucceeded(req).withNewSession
   }
 
@@ -79,12 +66,9 @@ trait AuthImpl {
   def authenticateUser(username: String, password: String): Option[User] =
     env.user.userRepo.authenticate(username, password).unsafePerformIO
 
-  def signupUser(username: String, password: String): Option[User] =
-    env.user.userRepo.create(username, password).unsafePerformIO
-
   def restoreUser(req: RequestHeader): Option[User] = for {
     sessionId ← req.session.get("sessionId")
-    username ← env.securityStore.getUsername(sessionId)
+    username ← env.security.store.getUsername(sessionId)
     user ← (env.user.userRepo byId username).unsafePerformIO
   } yield user
 }

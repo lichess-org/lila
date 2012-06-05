@@ -16,7 +16,7 @@ object Main {
 
   lazy val env = CoreEnv(app)
 
-  lazy val users = Users(env.user.userRepo, env.securityStore)
+  lazy val users = Users(env.user.userRepo, env.security.store)
   lazy val games = Games(env)
   lazy val titivate = env.titivate
   lazy val forum = Forum(env.forum)
