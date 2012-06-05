@@ -24,7 +24,10 @@ object ForumPost extends LilaController with forum.Controller {
           data ⇒ (for {
             post ← postApi.makePost(categ, topic, data, ctx.me)
           } yield Redirect("%s#%d".format(
-            routes.ForumTopic.show(categ.slug, topic.slug, postApi lastPageOf topic),
+            routes.ForumTopic.show(
+              categ.slug, 
+              topic.slug, 
+              postApi lastPageOf topic.incNbPosts),
             post.number)
           )).unsafePerformIO
         )

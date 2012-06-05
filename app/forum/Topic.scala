@@ -15,6 +15,8 @@ case class Topic(
     updatedAt: DateTime,
     nbPosts: Int = 0,
     lastPostId: String = "") {
+
+  def incNbPosts = copy(nbPosts = nbPosts + 1)
 }
 
 object Topic {
