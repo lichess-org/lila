@@ -155,6 +155,7 @@ $.widget("lichess.game", {
             self.element.removeClass("my_turn");
             self.reloadTable(function() {
               self.reloadPlayers(function() {
+                $.playSound();
                 self.element.dequeue();
               });
             });

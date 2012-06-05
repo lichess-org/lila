@@ -1,7 +1,6 @@
 chat should autoscroll only when at bottom
 finish flagged game
 It's possible to join your own game and win it, which will then be displayed as a win and I saw players who abuse this to manipulate their stats. 
-hide logout button
 player timeout depending on game duration
 do not count games vs engine as win/loss
 prevent cheaters from joining the game
@@ -14,7 +13,6 @@ chess960 confirmation http://fr.lichess.org/forum/lichess-feedback/separate-960-
 use play-navigator router case class MyRegexStr(value: String); implicit val MyRegexStrPathParam: PathParam[MyRegexStr] = new PathParam[MyRegexStr] { def apply(s: MyRegexStr) = s.value}; def unapply(s: String) = val Rx = "(\w+)".r; s match { case Rx(x) => Some(x); case _ => None } }
 http://codetunes.com/2012/05/09/scala-dsl-tutorial-writing-web-framework-router
 use POST instead of GET where it makes sense
-endgame sound http://en.lichess.org/forum/lichess-feedback/checkmate-sound-feature?page=1#1 
 translation contributions
 check sf2 commands to port
 make the wiki static html pages managed by git?
@@ -28,9 +26,7 @@ spectator chat!
 guess friend list
 star people and games (and forum threads?)
 autoclose top menus
-strings and captchas http://fr.lichess.org/forum/off-topic-discussion/lichess-asks-lichess-answers?page=11#109
 tournaments http://www.chess.com/tournaments/help.html
-forum last post link broken http://fr.lichess.org/forum/off-topic-discussion/lichess-asks-lichess-answers?page=12#111
 
 new translations:
 -rematchOfferCanceled=Rematch offer canceled
