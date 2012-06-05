@@ -28,6 +28,7 @@ trait Dependencies {
   val paginator = "com.github.ornicar" %% "paginator-core" % "1.5"
   val paginatorSalat = "com.github.ornicar" %% "paginator-salat-adapter" % "1.4"
   val csv = "com.github.tototoshi" %% "scala-csv" % "0.3"
+  val hasher = "com.roundeights" % "hasher" % "0.3" from "http://cloud.github.com/downloads/Nycto/Hasher/hasher_2.9.1-0.3.jar"
 }
 
 object ApplicationBuild extends Build with Resolvers with Dependencies {
@@ -37,7 +38,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     version := "0.1",
     scalaVersion := "2.9.1",
     resolvers := Seq(iliaz, codahale, sonatype, typesafe, t2v, guice),
-    libraryDependencies := Seq(scalaz, scalalib),
+    libraryDependencies := Seq(scalaz, scalalib, hasher),
     libraryDependencies in test := Seq(specs2),
     shellPrompt := {
       (state: State) ⇒ "%s> ".format(Project.extract(state).currentProject.id)
