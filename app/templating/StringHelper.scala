@@ -24,8 +24,10 @@ trait StringHelper {
   def pluralize(s: String, n: Int) = "%d %s%s".format(n, s, if (n > 1) "s" else "")
 
   def autoLink(text: String) = Html {
-    addLinks(escapeXml(text)).replace("\n", "<br />")
+    addLinks(escape(text)).replace("\n", "<br />")
   }
+
+  def escape(text: String) = escapeXml(text)
 
   private val urlRegex = """(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))""".r
 

@@ -2,13 +2,14 @@ package lila
 package forum
 
 import user.UserHelper
+import templating.StringHelper
 
 import play.api.templates.Html
 
-trait ForumHelper { self: UserHelper ⇒
+trait ForumHelper { self: UserHelper with StringHelper ⇒
 
   def authorName(post: Post) =
-    post.userId.fold(userIdToUsername, post.showAuthor)
+    post.userId.fold(userIdToUsername, escape(post.showAuthor))
 
   def authorLink(
     post: Post, 

@@ -4,7 +4,7 @@
 <li>
 <a class="post_link" href="@postUrl">@v.topic.name</a>
 <span>@authorLink(v.post, withOnline = false)</span>
-@Html(shorten(v.post.text, 80).replace("<br />", ""))
+@shorten(v.post.text, 80)
 </li>
 }
 }

@@ -15,7 +15,7 @@ title = topic.name) {
   </div>
 
   <div class="forum_posts_list">
-    @for(post <- posts.currentPageResults) {
+    @posts.currentPageResults.map { post =>
     <div class="post" id="@post.number">
       <div class="metas clearfix">
         @authorLink(post, "author".some)

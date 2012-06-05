@@ -33,7 +33,7 @@ title = categ.name) {
         <td class="right">@(topic.nbPosts - 1)</td>
         <td class="last_post">
           @topic.lastPost.map { post =>
-          <a href="@routes.ForumTopic.show(categ.slug, topic.slug, topic pageOf post)#@post.number">@showDate(post.createdAt)</a><br />by @authorName(post)
+          <a href="@routes.ForumTopic.show(categ.slug, topic.slug, topic pageOf post)#@post.number">@showDate(post.createdAt)</a><br />by @Html(authorName(post))
           }
         </td>
       </tr>
