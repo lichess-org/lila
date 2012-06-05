@@ -46,7 +46,7 @@ trait GameHelper { self: I18nHelper with UserHelper ⇒
             ""),
           routes.User.show(username),
           usernameWithElo(player) + player.eloDiff.fold(
-            diff ⇒ " (%s)".format((diff < 0).fold(diff, "+ " + diff)), "")
+            diff ⇒ " (%s)".format((diff < 0).fold(diff, "+" + diff)), "")
         )
       },
       """<span class="user_link %s">%s</span>""".format(
@@ -76,11 +76,10 @@ trait GameHelper { self: I18nHelper with UserHelper ⇒
     case _                ⇒ Html("")
   }
 
-  def gameFen(game: DbGame, user: Option[User] = None)(implicit ctx: Context) = Html {
-    val color = ((user flatMap game.player) | game.creator).color
+  def gameFen(game: DbGame, color: Option[Color] = None)(implicit ctx: Context) = Html {
     val url = (ctx.me flatMap game.player).fold(
       p ⇒ routes.Round.player(game fullIdOf p.color),
-      routes.Round.watcher(game.id, chess.Color.White.name)
+      routes.Round.watcher(game.id, (color | chess.Color.White).name)
     )
     """<a href="%s" title="%s" class="mini_board parse_fen" data-color="%s" data-fen="%s"></a>""".format(
       url,

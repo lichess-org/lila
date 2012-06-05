@@ -4,7 +4,7 @@
 <div class="game_row paginated_element clearfix">
   @defining(user flatMap game.player) { fromPlayer =>
   @defining(fromPlayer | game.creator ) { firstPlayer =>
-  @gameFen(game, user)
+  @gameFen(game, firstPlayer.color.some)
   <div class="infos">
     <b>
       @if(game.isBeingPlayed) {
