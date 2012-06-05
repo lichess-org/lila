@@ -2,28 +2,46 @@ package controllers
 
 import lila._
 import views._
-import http.BodyContext
+import http.{ Context, BodyContext, Setting => HttpSetting }
+
+import play.api.data.Form
+import play.api.mvc.Cookie
+import scalaz.effects._
 
 object Setting extends LilaController {
 
   def userRepo = env.user.userRepo
   def forms = user.DataForm
 
-  val color = OpenBody { implicit ctx ⇒
+  def set(name: String) = OpenBody { implicit ctx ⇒
     implicit val req = ctx.body
-    FormResult[String](forms.color) { name ⇒
-      Ok("ok") withCookies {
-        http.Setting(ctx).color(name)(userRepo).unsafePerformIO
-      }
+    val setter = name match {
+      case "color" ⇒ setColor.some
+      case "sound" ⇒ setSound.some
+      case "chat" ⇒ setChat.some
+      case _       ⇒ none
     }
+    setter.fold({
+      case (form, process) ⇒
+        FormResult(form) { value ⇒
+          Ok("ok") withCookies {
+            process(HttpSetting(ctx), value).unsafePerformIO
+          }
+        }
+    }, NotFound)
   }
 
-  val sound = OpenBody { implicit ctx ⇒
-    implicit val req = ctx.body
-    FormResult[String](forms.sound) { v ⇒
-      Ok("ok") withCookies {
-        http.Setting(ctx).sound(v)(userRepo).unsafePerformIO
-      }
-    }
+  type Setter = (Form[String], (HttpSetting, String) ⇒ IO[Cookie])
+
+  val setColor: Setter = forms.color -> {
+    (setting, v) ⇒ setting.color(v)(userRepo)
+  }
+
+  val setSound: Setter = forms.sound -> {
+    (setting, v) ⇒ setting.sound(v)(userRepo)
+  }
+
+  val setChat: Setter = forms.chat -> {
+    (setting, v) ⇒ setting.chat(v)(userRepo)
   }
 }

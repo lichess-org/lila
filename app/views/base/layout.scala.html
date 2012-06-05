@@ -20,7 +20,7 @@
   <body data-sound-file="@routes.Assets.at("sound/alert.ogg")">
     <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
     <div id="top" class="clearfix">
-      <a href="@routes.Setting.sound" title="@trans.toggleSound()" id="sound_state" class="available @soundString">
+      <a href="@routes.Setting.set("sound")" title="@trans.toggleSound()" id="sound_state" class="available @soundString">
         <span></span>
       </a>
       <div class="lichess_language">
@@ -46,7 +46,7 @@
         @trans.nbConnectedPlayers("<strong>0</strong>")
       </div>
       @ctx.me.fold(auth.loggedIn(_), auth.miniLogin())
-      <a href="@routes.Setting.color()" class="colorpicker" data-color="@setting.color">@trans.color()</a>
+      <a href="@routes.Setting.set("color")" class="colorpicker" data-color="@setting.color">@trans.color()</a>
     </div>
     <div class="content">
       <div class="header">

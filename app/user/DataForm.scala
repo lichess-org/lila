@@ -12,12 +12,17 @@ object DataForm {
     "bio" -> text(maxLength = 400)
   ))
 
+  val chat = Form(single(
+    "chat" -> jsBoolean
+  ))
+
   val sound = Form(single(
-    "sound" -> nonEmptyText.verifying(Set("true", "false") contains _)
+    "sound" -> jsBoolean
   ))
 
   val color = Form(single(
     "color" -> nonEmptyText.verifying(Color contains _)
   ))
 
+  private def jsBoolean = nonEmptyText.verifying(Set("true", "false") contains _)
 }

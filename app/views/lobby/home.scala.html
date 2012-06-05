@@ -5,7 +5,12 @@
 <div class="lichess_chat lichess_anon_chat">
   <div class="lichess_chat_top">
     <span class="title">@trans.chatRoom()</span>
-    <input title="@trans.toggleTheChat()" class="toggle_chat" type="checkbox" checked="checked" />
+    <input 
+    data-href="@routes.Setting.set("chat")"  
+    data-enabled="@setting.chat.fold("true", "false")"
+    title="@trans.toggleTheChat()" 
+    class="toggle_chat" 
+    type="checkbox" />
   </div>
   <div class="lichess_chat_inner">
     <ol class="lichess_messages">

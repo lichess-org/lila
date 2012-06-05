@@ -39,8 +39,7 @@ GET   /$gameId<[\w\-]{8}>/stats          controllers.Analyse.stats(gameId: Strin
 GET   /$gameId<[\w\-]{8}>/pgn            controllers.Analyse.pgn(gameId: String)
 
 # Setting
-POST  /setting/color                   controllers.Setting.color
-POST  /setting/sound                   controllers.Setting.sound
+POST  /setting/:name                   controllers.Setting.set(name: String)
 
 # Setup
 GET   /setup/ai                        controllers.Setup.aiForm
