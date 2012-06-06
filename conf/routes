@@ -92,7 +92,7 @@ GET   /lobby/socket                    controllers.Lobby.socket
 GET   /lobby/log                       controllers.Lobby.log
 
 # Star
-GET   /star/$gameId<[\w\-]{8}>         controllers.Star.toggle(gameId: String)
+POST   /star/$gameId<[\w\-]{8}>        controllers.Star.toggle(gameId: String)
 
 # Forum
 GET   /forum                           controllers.ForumCateg.index

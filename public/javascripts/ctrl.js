@@ -162,6 +162,12 @@ $(function() {
     return confirm('Confirm this action?');
   });
 
+  $('a.star_game').click(function() {
+    $(this).toggleClass("starred");
+    $.post($(this).attr("href"));
+    return false;
+  });
+
   var elem = document.createElement('audio');
   var canPlayAudio = !! elem.canPlayType && elem.canPlayType('audio/ogg; codecs="vorbis"');
   var $soundToggle = $('#sound_state');

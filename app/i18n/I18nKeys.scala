@@ -162,5 +162,6 @@ final class I18nKeys(translator: Translator) {
   val takebackPropositionAccepted = new Key("takebackPropositionAccepted")
   val takebackPropositionCanceled = new Key("takebackPropositionCanceled")
   val yourOpponentProposesATakeback = new Key("yourOpponentProposesATakeback")
+  val bookmarkThisGame = new Key("bookmarkThisGame")
   val freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents = new Key("freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents")
 }

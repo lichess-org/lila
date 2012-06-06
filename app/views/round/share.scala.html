@@ -1,12 +1,13 @@
 @(game: DbGame)(implicit ctx: Context)
 
 @defining("http://lichess.org" + routes.Round.watcher(game.id, "white")) { url =>
-<div class="game_share">
-  <div class="game_share_top">
-    <a title="@trans.shareThisUrlToLetSpectatorsSeeTheGame()" class="game_permalink blank_if_play" href="@url">@url</a>
-  </div>
+<div class="game_share clearfix">
   @ctx.me.map { m =>
-  <a href="@routes.Star.toggle(game.id)" class="@starred(game, m).fold("starred", "")">star it</a>
+  <a 
+    href="@routes.Star.toggle(game.id)" 
+    class="star_game @starred(game, m).fold("starred", "")"
+    title="@trans.bookmarkThisGame()"></a>
   }
+  <a title="@trans.shareThisUrlToLetSpectatorsSeeTheGame()" class="game_permalink blank_if_play" href="@url">@url</a>
 </div>
 }

@@ -13,8 +13,11 @@ object Star extends LilaController {
 
   def toggle(gameId: String) = Auth { implicit ctx ⇒
     me ⇒
-      IOptionIOk(gameRepo game gameId) { game ⇒
-        starRepo.toggle(game.id, me.id)
+      IOk {
+        for {
+          exists ← gameRepo exists gameId
+          _ ← exists.fold(starRepo.toggle(gameId, me.id), io())
+        } yield ()
       }
   }
 }
