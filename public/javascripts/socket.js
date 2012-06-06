@@ -11,7 +11,8 @@ $.websocket = function(url, version, settings) {
       offlineDelay: 5000, // time before showing offlineTag
       offlineTag: false, // jQuery object showing connection error
       pingMaxLag: 5000, // time to wait for pong before reseting the connection
-      pingDelay: 1500 // time between pong and ping
+      pingDelay: 1500, // time between pong and ping
+      lagTag: false // jQuery object showing ping lag
     }
   };
   $.extend(true, self.settings, settings);
@@ -22,6 +23,8 @@ $.websocket = function(url, version, settings) {
   self.fullUrl = null;
   self.pingSchedule = null;
   self.connectSchedule = null;
+  self.lastPingTime = self.now();
+  self.averageLag = 0;
   self.connect();
   $(window).unload(function() {
     self.destroy();
@@ -87,6 +90,7 @@ $.websocket.prototype = {
     try {
       self.debug("ping " + self.pingData());
       self.ws.send(self.pingData());
+      self.lastPingTime = self.now();
     } catch (e) {
       self.debug(e);
     }
@@ -97,6 +101,11 @@ $.websocket.prototype = {
     //self.debug("pong");
     clearTimeout(self.connectSchedule);
     self.schedulePing(self.options.pingDelay);
+    var lag = self.now() - self.lastPingTime;
+    if (self.options.lagTag) {
+      self.options.lagTag.text(lag + " ms");
+    }
+    self.averageLag = self.averageLag * 0.8 + lag * 0.2;
   },
   pingData: function() {
     return JSON.stringify({t: "p", v: this.version});
@@ -120,6 +129,7 @@ $.websocket.prototype = {
       else self.debug(m.t + " not supported");
     } 
   },
+  now: function() { return new Date().getTime(); },
   debug: function(msg) { if (this.options.debug) console.debug("[" + this.options.name + "]", msg); },
   destroy: function() { 
     var self = this;
