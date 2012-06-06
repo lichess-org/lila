@@ -22,7 +22,8 @@ var lichess = {
     },
     options: {
       name: "site",
-      offlineTag: $('#connection_lost')
+      offlineTag: $('#connection_lost'),
+      lagTag: $('#connection_lag')
     }
   },
   onProduction: /.+\.lichess\.org/.test(document.domain),

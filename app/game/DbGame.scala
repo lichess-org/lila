@@ -12,6 +12,7 @@ import chess.Role.forsyth
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 import com.novus.salat.annotations.Key
+import scala.math.min
 
 case class DbGame(
     id: String,
@@ -51,7 +52,7 @@ case class DbGame(
   def player(user: User): Option[DbPlayer] =
     players find (_ isUser user)
 
-  def player(c: Color.type => Color): DbPlayer = player(c(Color))
+  def player(c: Color.type ⇒ Color): DbPlayer = player(c(Color))
 
   def isPlayerFullId(player: DbPlayer, fullId: String): Boolean =
     (fullId.size == DbGame.fullIdSize) && player.id == (fullId drop 8)
@@ -107,7 +108,11 @@ case class DbGame(
     castles = castles,
     positionHashes = positionHashes)
 
-  def update(game: Game, move: Move, blur: Boolean = false): Progress = {
+  def update(
+    game: Game,
+    move: Move,
+    blur: Boolean = false,
+    lag: Int = 0): Progress = {
     val (history, situation) = (game.board.history, game.situation)
     val events =
       Event.possibleMoves(game.situation, White) ::
@@ -145,7 +150,11 @@ case class DbGame(
         else if (situation.staleMate) Status.Stalemate
         else if (situation.autoDraw) Status.Draw
         else status,
-      clock = game.clock,
+      clock = game.clock map { c ⇒
+        c.giveTime(
+          move.color, 
+          min(lag, DbGame.maxLagToCompensate) / 1000f)
+      },
       check = if (situation.check) situation.kingPos else None,
       lastMoveTime = nowSeconds.some
     )
@@ -242,7 +251,7 @@ case class DbGame(
     player(color).lastDrawOffer.fold(_ >= turns - 1, false)
 
   def playerCanRematch(color: Color) =
-    finishedOrAborted && opponent(color).isHuman 
+    finishedOrAborted && opponent(color).isHuman
 
   def playerCanProposeTakeback(color: Color) =
     started && playable &&
@@ -342,6 +351,7 @@ object DbGame {
   val gameIdSize = 8
   val playerIdSize = 4
   val fullIdSize = 12
+  val maxLagToCompensate = 1000
 
   def takeGameId(fullId: String) = fullId take gameIdSize
 
