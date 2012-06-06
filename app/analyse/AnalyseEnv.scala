@@ -1,8 +1,6 @@
 package lila
 package analyse
 
-import com.mongodb.casbah.MongoCollection
-
 import game.GameRepo
 import user.UserRepo
 import core.Settings

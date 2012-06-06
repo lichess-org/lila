@@ -92,6 +92,12 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     gameRepo = game.gameRepo,
     userRepo = user.userRepo)
 
+  lazy val star = new lila.star.StarEnv(
+    settings = settings,
+    gameRepo = game.gameRepo,
+    userRepo = user.userRepo,
+    mongodb = mongodb.apply _)
+
   lazy val site = new lila.site.SiteEnv(
     app = app,
     settings = settings,

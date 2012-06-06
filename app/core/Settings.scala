@@ -73,6 +73,7 @@ final class Settings(config: Config) {
   val MongoCollectionMessageThread = getString("mongo.collection.message_thread")
   val MongoCollectionWikiPage = getString("mongo.collection.wiki_page")
   val MongoCollectionFirewall = getString("mongo.collection.firewall")
+  val MongoCollectionStar = getString("mongo.collection.star")
 
   val FirewallCacheTtl = millis("firewall.cache_ttl")
 

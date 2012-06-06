@@ -5,5 +5,8 @@
   <div class="game_share_top">
     <a title="@trans.shareThisUrlToLetSpectatorsSeeTheGame()" class="game_permalink blank_if_play" href="@url">@url</a>
   </div>
+  @ctx.me.map { m =>
+  <a href="@routes.Star.toggle(game.id)" class="@starred(game, m).fold("starred", "")">star it</a>
+  }
 </div>
 }

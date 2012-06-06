@@ -25,7 +25,8 @@ object Environment
     with user.UserHelper 
     with forum.ForumHelper
     with security.SecurityHelper
-    with i18n.I18nHelper {
+    with i18n.I18nHelper 
+    with star.StarHelper {
 
   protected def env = coreEnv
 }

@@ -91,6 +91,9 @@ GET   /new/$hookId<[\w\-]{8}>/join     controllers.Lobby.join(hookId: String)
 GET   /lobby/socket                    controllers.Lobby.socket
 GET   /lobby/log                       controllers.Lobby.log
 
+# Star
+GET   /star/$gameId<[\w\-]{8}>         controllers.Star.toggle(gameId: String)
+
 # Forum
 GET   /forum                           controllers.ForumCateg.index
 GET   /forum/recent                    controllers.ForumPost.recent
