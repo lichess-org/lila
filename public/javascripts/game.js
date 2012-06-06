@@ -349,8 +349,10 @@ $.widget("lichess.game", {
     self.options.possible_moves = null;
     self.movePiece($oldSquare.attr("id"), squareId, null, true);
 
-    // TODO send moveData here
     function sendMoveRequest(moveData) {
+      if (self.canRunClock()) {
+        moveData.lag = parseInt(lichess.socket.averageLag);
+      }
       lichess.socket.send("move", moveData);
     }
 
@@ -582,7 +584,7 @@ $.widget("lichess.game", {
     }
   },
   canRunClock: function() {
-    return this.options.game.clock && this.options.game.started && ! this.options.game.finished;
+    return this.options.game.clock && this.options.game.started && !this.options.game.finished;
   },
   getPieceColor: function($piece) {
     return $piece.hasClass('white') ? 'white': 'black';

@@ -469,7 +469,7 @@ div.locale_adjust {
 }
 
 div.lichess_social {
-  height: 25px;
+  height: 0px;
   text-align: center;
 }
 div.lichess_social div.addtochrome {

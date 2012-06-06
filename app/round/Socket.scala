@@ -52,8 +52,8 @@ final class Socket(
         hub ! Events(events)
       }
       case Some("move") ⇒ parseMove(e) foreach {
-        case (orig, dest, prom, blur) ⇒
-          hand.play(povRef, orig, dest, prom, blur) flatMap { events ⇒
+        case (orig, dest, prom, blur, lag) ⇒
+          hand.play(povRef, orig, dest, prom, blur, lag) flatMap { events ⇒
             events.fold(putFailures, send(povRef.gameId, _))
           } unsafePerformIO
       }
@@ -99,7 +99,8 @@ final class Socket(
     dest ← d str "to"
     prom = d str "promotion"
     blur = (d int "b") == Some(1)
-  } yield (orig, dest, prom, blur)
+    lag = d int "lag"
+  } yield (orig, dest, prom, blur, lag | 0)
 
   private def join(
     povOption: Option[Pov],
