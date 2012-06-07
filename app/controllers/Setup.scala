@@ -71,6 +71,10 @@ object Setup extends LilaController {
     }
   }
 
+  val api = Open { implicit ctx ⇒
+    JsonIOk(processor.api)
+  }
+
   private def process[A](form: Context ⇒ Form[A])(op: A ⇒ BodyContext ⇒ IO[Call]) =
     OpenBody { ctx ⇒
       implicit val req = ctx.body

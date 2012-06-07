@@ -60,16 +60,18 @@
 
     var container = window.document.getElementById("monitors")
 
+    var app = {};
+
     app.rps = new SpeedOMeter({
       name : "RPS",
       maxVal : 100,
       threshold: 0.9,
       container : container
-      });
+    });
 
     app.memory = new SpeedOMeter({
       name : "MEMORY",
-      maxVal : app.totalMemory,
+      maxVal : 3000,
       unit : "MB",
       container : container
     });
@@ -155,6 +157,12 @@
       container : container
     });
 
+    app.lag = new SpeedOMeter({
+      name : "LAG",
+      maxVal : 200,
+      container : container
+    });
+
     function setStatus(s) {
       window.document.body.className = s;
     }
@@ -172,6 +180,9 @@
               }
             }
           }
+        },
+        n: function() {
+          app["lag"].update(lichess.socket.currentLag);
         }
       },
       options: {

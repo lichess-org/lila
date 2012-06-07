@@ -18,7 +18,7 @@ object Monitor extends LilaController {
   implicit val timeout = Timeout(100 millis)
 
   val index = Action {
-    Ok(views.html.monitor.monitor(monitor.Reporting.maxMemory))
+    Ok(views.html.monitor.monitor())
   }
 
   val websocket = WebSocket.async[JsValue] { implicit req ⇒

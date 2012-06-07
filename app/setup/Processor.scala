@@ -4,9 +4,10 @@ package setup
 import http.Context
 import game.{ DbGame, GameRepo, Pov }
 import user.User
-import chess.{ Game, Board }
+import chess.{ Game, Board, Color => ChessColor }
 import ai.Ai
 import lobby.{ Hook, Fisherman }
+import controllers.routes
 
 import scalaz.effects._
 
@@ -63,4 +64,20 @@ final class Processor(
     hook = config hook ctx.me
     _ ← fisherman add hook
   } yield hook
+
+  def api(implicit ctx: Context): IO[Map[String, Any]] = {
+    val domainRegex = """^.+([^\.]+\.[^\.]+)$""".r
+    val domain = "http://" + domainRegex.replaceAllIn(ctx.req.domain, _ group 1)
+    val config = ApiConfig
+    val pov = config.pov
+    val game = ctx.me.fold(
+      user ⇒ pov.game.updatePlayer(pov.color, _ withUser user),
+      pov.game).start
+    for {
+      _ ← gameRepo insert game
+      _ ← timelinePush(game)
+    } yield ChessColor.all map { color ⇒
+      color.name -> (domain + routes.Round.player(game fullIdOf color).url)
+    } toMap
+  }
 }

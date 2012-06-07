@@ -164,8 +164,3 @@ final class Reporting(
     }
   }
 }
-
-object Reporting {
-
-  def maxMemory = Runtime.getRuntime().totalMemory() / (1024 * 1024)
-}
