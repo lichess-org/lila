@@ -50,6 +50,7 @@ GET   /$fullId<[\w\-]{12}>/await       controllers.Setup.await(fullId: String)
 GET   /$fullId<[\w\-]{12}>/cancel      controllers.Setup.cancel(fullId: String)
 GET   /setup/hook                      controllers.Setup.hookForm
 POST  /setup/hook                      controllers.Setup.hook
+POST  /api/game/new                    controllers.Setup.api
 
 # I18n
 GET   /translation/contribute          controllers.I18n.contribute

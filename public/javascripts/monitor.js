@@ -71,7 +71,7 @@
 
     app.memory = new SpeedOMeter({
       name : "MEMORY",
-      maxVal : 2000,
+      maxVal : 3000,
       unit : "MB",
       container : container
     });
