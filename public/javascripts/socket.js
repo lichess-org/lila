@@ -24,6 +24,7 @@ $.websocket = function(url, version, settings) {
   self.pingSchedule = null;
   self.connectSchedule = null;
   self.lastPingTime = self.now();
+  self.currentLag = 0;
   self.averageLag = 0;
   self.connect();
   $(window).unload(function() {
@@ -101,11 +102,11 @@ $.websocket.prototype = {
     //self.debug("pong");
     clearTimeout(self.connectSchedule);
     self.schedulePing(self.options.pingDelay);
-    var lag = self.now() - self.lastPingTime;
+    self.currentLag = self.now() - self.lastPingTime;
     if (self.options.lagTag) {
-      self.options.lagTag.text(lag + " ms");
+      self.options.lagTag.text(self.currentLag + " ms");
     }
-    self.averageLag = self.averageLag * 0.8 + lag * 0.2;
+    self.averageLag = self.averageLag * 0.8 + self.currentLag * 0.2;
   },
   pingData: function() {
     return JSON.stringify({t: "p", v: this.version});

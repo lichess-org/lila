@@ -157,6 +157,12 @@
       container : container
     });
 
+    app.lag = new SpeedOMeter({
+      name : "LAG",
+      maxVal : 200,
+      container : container
+    });
+
     function setStatus(s) {
       window.document.body.className = s;
     }
@@ -174,6 +180,9 @@
               }
             }
           }
+        },
+        n: function() {
+          app["lag"].update(lichess.socket.currentLag);
         }
       },
       options: {
