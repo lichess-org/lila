@@ -328,6 +328,8 @@ case class DbGame(
 
   def hasBookmarks = bookmarks > 0
 
+  def showBookmarks = if (hasBookmarks) bookmarks else ""
+
   def encode = RawDbGame(
     id = id,
     players = players map (_.encode),

@@ -1,0 +1,13 @@
+@(g: DbGame)(implicit ctx: Context)
+
+<span class="star_game">
+@ctx.me.map { m =>
+<a 
+  href="@routes.Star.toggle(g.id)" 
+  class="icon
+  @starred(g, m).fold("starred", "")"
+  title="@trans.bookmarkThisGame()">@g.showBookmarks</a>
+}.getOrElse {
+<span class="icon">@g.showBookmarks</span>
+}
+</span>

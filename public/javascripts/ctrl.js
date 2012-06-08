@@ -162,11 +162,20 @@ $(function() {
     return confirm('Confirm this action?');
   });
 
-  $('a.star_game').click(function() {
-    $(this).toggleClass("starred");
-    $.post($(this).attr("href"));
-    return false;
-  });
+  function stars() {
+    $('span.star_game a.icon:not(.jsed)').each(function() {
+      var t = $(this).addClass("jsed");
+      t.click(function() {
+        t.toggleClass("starred");
+        $.post(t.attr("href"));
+        var count = (parseInt(t.html()) || 0) + (t.hasClass("starred") ? 1 : -1);
+        t.html(count > 0 ? count : "");
+        return false;
+      });
+    });
+  }
+  stars();
+  $('body').on('lichess.content_loaded', stars);
 
   var elem = document.createElement('audio');
   var canPlayAudio = !! elem.canPlayType && elem.canPlayType('audio/ogg; codecs="vorbis"');

@@ -590,15 +590,23 @@ div.game_share a.game_permalink {
   margin-top: 3px;
 }
 
-a.star_game {
+span.star_game {
+  position: relative;
+  float: right;
+  margin-right: 40px;
+}
+span.star_game .icon {
+  position: absolute;
+  top: 0;
+  left: 0;
   background: transparent url(../images/s24.png) top left no-repeat;
-  width: 24px;
   height: 24px;
   display: block;
+  padding-left: 28px;
+  line-height: 28px;
+  text-decoration: none;
+  color: #aaa;
 }
-a.star_game.starred {
+span.star_game .icon.starred {
   background-position: 0 -24px;
-}
-div.game_share a.star_game {
-  float: right;
 }
