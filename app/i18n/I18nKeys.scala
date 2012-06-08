@@ -86,6 +86,8 @@ final class I18nKeys(translator: Translator) {
   val gamesBeingPlayedRightNow = new Key("gamesBeingPlayedRightNow")
   val viewAllNbGames = new Key("viewAllNbGames")
   val viewNbCheckmates = new Key("viewNbCheckmates")
+  val nbBookmarks = new Key("nbBookmarks")
+  val bookmarkedByNbPlayers = new Key("bookmarkedByNbPlayers")
   val viewInFullSize = new Key("viewInFullSize")
   val logOut = new Key("logOut")
   val signIn = new Key("signIn")

@@ -1,0 +1,16 @@
+@(listMenu: lila.game.ListMenu, active: String)(implicit ctx: Context)
+
+<a class="@active.active("realtime")" href="@routes.Game.realtime()">
+  @trans.gamesBeingPlayedRightNow()
+</a>
+<a class="@active.active("all")" href="@routes.Game.all()">
+  @trans.viewAllNbGames(listMenu.nbGames.localize)
+</a>
+<a class="@active.active("checkmate")" href="@routes.Game.checkmate()">
+  @trans.viewNbCheckmates(listMenu.nbMates.localize)
+</a>
+@listMenu.nbStars.map { nb =>
+<a class="@active.active("star")" href="@routes.Game.star()">
+  @trans.nbBookmarks(nb.localize)
+</a>
+}

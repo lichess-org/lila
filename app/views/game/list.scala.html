@@ -1,4 +1,4 @@
-@(name: String, paginator: Paginator[DbGame], next: Call, typ: String, menu: Html)(implicit ctx: Context)
+@(name: String, paginator: Paginator[DbGame], next: Option[Call], menu: Html)(implicit ctx: Context)
 
 @title = @{ "%s - page %d".format(name, paginator.currentPage) }
 
@@ -6,14 +6,18 @@
 @jsTag("vendor/jquery.infinitescroll.min.js")
 }
 
-@game.layout(title = title, moreJs = moreJs) {
+@game.layout(
+title = title, 
+moreJs = moreJs,
+menu = menu.some) {
 <div class="content_box no_padding">
   <div class="content_box_title">
-    <h1 class="title">@typ (@paginator.nbResults)</h1>
-    @menu
+    <h1 class="title">@name</h1>
   </div>
   <div class="all_games infinitescroll">
-    <div class="pager none"><a href="@next">Next</a></div>
+    @next.map { n =>
+    <div class="pager none"><a href="@n">Next</a></div>
+    }
     @game.widgets(paginator.currentPageResults)
   </div>
 </div>

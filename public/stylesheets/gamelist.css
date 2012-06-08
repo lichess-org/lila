@@ -9,18 +9,6 @@ div.current_games_box {
   width: 638px;
 }
 
-a.game_list, a.all_games {
-  margin-left: 2em;
-}
-
-div.game_list {
-  margin-top: 2em;
-}
-
-div.all_games {
-  margin-top: 1em;
-}
-
 div.game_row {
   display: block;
   padding: 1.4em 20px;
@@ -60,6 +48,9 @@ div.game_row span.black {
   background-position: 0 -256px;
 }
 
+div.game_list.realtime {
+  margin-top: 1.4em;
+}
 div.game_list_inner > div {
   float: left;
   margin: 0 10px 10px 10px;

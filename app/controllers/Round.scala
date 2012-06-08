@@ -21,6 +21,7 @@ object Round extends LilaController {
   private val messenger = env.round.messenger
   private val rematcher = env.setup.rematcher
   private val joiner = env.setup.friendJoiner
+  private val starApi = env.star.api
 
   def websocketWatcher(gameId: String, color: String) = WebSocket.async[JsValue] { req ⇒
     implicit val ctx = reqToCtx(req)
@@ -41,8 +42,8 @@ object Round extends LilaController {
       pov.game.started.fold(
         messenger render pov.game map { roomHtml ⇒
           Ok(html.round.player(
-            pov, 
-            version(pov.gameId), 
+            pov,
+            version(pov.gameId),
             roomHtml map { Html(_) }))
         },
         io(Redirect(routes.Setup.await(fullId)))
@@ -53,15 +54,19 @@ object Round extends LilaController {
   def watcher(gameId: String, color: String) = Open { implicit ctx ⇒
     IOptionIOResult(gameRepo.pov(gameId, color)) { pov ⇒
       pov.game.started.fold(
-        io(Ok(html.round.watcher(pov, version(pov.gameId)))),
+        starApi usersByGame pov.game map { bookmarkers ⇒
+          Ok(html.round.watcher(pov, version(pov.gameId), bookmarkers))
+        },
         join(pov))
     }
   }
 
   private def join(pov: Pov)(implicit ctx: Context): IO[Result] =
     joiner(pov.game, ctx.me).fold(
-      err ⇒ putFailures(err) map { _ ⇒
-        Ok(html.round.watcher(pov, version(pov.gameId)))
+      err ⇒ putFailures(err) flatMap { _ ⇒
+        starApi usersByGame pov.game map { bookmarkers ⇒
+          Ok(html.round.watcher(pov, version(pov.gameId), bookmarkers))
+        }
       },
       _ flatMap {
         case (p, events) ⇒ performEvents(p.gameId)(events) map { _ ⇒

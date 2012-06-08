@@ -16,6 +16,7 @@ object Environment
     with SettingHelper
     with ConfigHelper 
     with DateHelper 
+    with NumberHelper 
     with JsonHelper
     with PaginatorHelper
     with FormHelper

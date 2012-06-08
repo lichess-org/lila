@@ -1,4 +1,4 @@
-@(title: String, active: Option[ui.SiteMenu.Elem] = None, baseline: Option[Html] = None, goodies: Option[Html] = None, chat: Option[Html] = None, robots: Boolean = true, moreCss: Html = Html(""), moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
+@(title: String, active: Option[ui.SiteMenu.Elem] = None, baseline: Option[Html] = None, goodies: Option[Html] = None, menu: Option[Html] = None, chat: Option[Html] = None, robots: Boolean = true, moreCss: Html = Html(""), moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
 
 <!doctype html>
 <html lang="@lang.language">
@@ -56,6 +56,9 @@
           </a>
           @baseline
         </h1>
+        @menu.map { side =>
+        <div class="side_menu">@side</div>
+        }
         @goodies.map { g =>
         <div class="lichess_goodies_wrap">@g</div>
         }

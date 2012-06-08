@@ -35,4 +35,9 @@ trait StringHelper {
     "<a href='%s'>%s</a>".format(m group 1, m group 1))
 
   def showNumber(n: Int): String = (n > 0).fold("+" + n, n.toString)
+
+  implicit def richString(str: String) = new {
+    def active(other: String, then: String = "active") = 
+      (str == other).fold(then, "")
+  }
 }

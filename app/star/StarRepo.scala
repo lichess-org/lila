@@ -26,6 +26,16 @@ final class StarRepo(val collection: MongoCollection) {
     (collection count idQuery(gameId, userId)) > 0
   }
 
+  def countByUserId(userId: String) = io {
+    collection count userIdQuery(userId) toInt
+  }
+
+  def userIdsByGameId(gameId: String): IO[List[String]] = io {
+    (collection find gameIdQuery(gameId) sort sortQuery() map { obj ⇒
+      obj.getAs[String]("u")
+    }).toList.flatten
+  }
+
   def idQuery(gameId: String, userId: String) = DBObject("_id" -> (gameId + userId))
   def gameIdQuery(gameId: String) = DBObject("g" -> gameId)
   def userIdQuery(userId: String) = DBObject("u" -> userId)

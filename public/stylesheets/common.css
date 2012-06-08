@@ -210,6 +210,32 @@ div.lichess_goodies div.box {
 div.lichess_goodies div.box .player {
   margin: 4px 0;
 }
+
+div.bookmarkers {
+  margin-top: 1em;
+}
+div.bookmarkers li {
+  margin-top: 5px;
+}
+
+div.side_menu {
+  margin-top: 15px;
+}
+div.side_menu a {
+  padding: 8px 0 8px 8px;
+  display: block;
+  text-decoration: none;
+  width: 203px;
+  font-weight: bold;
+}
+div.side_menu a.active {
+  background: white;
+  border: 1px solid #dadada;
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+  box-shadow: -3px 0 6px #d0d0d0;
+}
+
 #nb_connected_players, a.goto_nav, #top a.toggle, a#sound_state {
   text-decoration: none;
   font-size: 13px;

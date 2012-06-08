@@ -17,8 +17,14 @@ final class StarEnv(
 
   lazy val starRepo = new StarRepo(mongodb(MongoCollectionStar))
 
-  lazy val api = new StarApi(
+  lazy val paginator = new PaginatorBuilder(
     starRepo = starRepo,
     gameRepo = gameRepo,
-    userRepo = userRepo)
+    userRepo = userRepo,
+    maxPerPage = GamePaginatorMaxPerPage)
+
+  lazy val api = new StarApi(
+    starRepo = starRepo,
+    userRepo = userRepo,
+    paginator = paginator)
 }

@@ -1,13 +1,7 @@
-@(paginator: Paginator[DbGame], nbGames: Int, nbMates: Int)(implicit ctx: Context)
-
-@menu = {
-<a class="game_list" href="@routes.Game.realtime()">@trans.gamesBeingPlayedRightNow()</a>
-<a class="game_list" href="@routes.Game.checkmate()">@trans.viewNbCheckmates(nbMates)</a>
-}
+@(paginator: Paginator[DbGame], listMenu: lila.game.ListMenu)(implicit ctx: Context)
 
 @game.list(
-name = trans.viewAllNbGames.str(nbGames), 
+name = trans.viewAllNbGames.str(listMenu.nbGames.localize), 
 paginator = paginator, 
-next = routes.Game.all(paginator.nextPage | 1), 
-typ = trans.games.str(), 
-menu = menu)
+next = paginator.nextPage map { n => routes.Game.all(n) }, 
+menu = sideMenu(listMenu, "all"))
