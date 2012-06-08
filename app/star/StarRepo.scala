@@ -40,6 +40,14 @@ final class StarRepo(val collection: MongoCollection) {
     }).toList.flatten
   }
 
+  def removeByGameId(gameId: String): IO[Unit] = io {
+    collection remove gameIdQuery(gameId)
+  }
+
+  def removeByGameIds(gameIds: List[String]): IO[Unit] = io {
+    collection remove ("g" $in gameIds)
+  }
+
   def idQuery(gameId: String, userId: String) = DBObject("_id" -> (gameId + userId))
   def gameIdQuery(gameId: String) = DBObject("g" -> gameId)
   def userIdQuery(userId: String) = DBObject("u" -> userId)

@@ -33,6 +33,12 @@ final class StarApi(
     users ← (userIds map userRepo.byId).sequence
   } yield users.flatten
 
+  def removeByGame(game: DbGame): IO[Unit] =
+    starRepo removeByGameId game.id
+
+  def removeByGameIds(ids: List[String]): IO[Unit] =
+    starRepo removeByGameIds ids
+
   def gamePaginatorByUser(user: User, page: Int) =
     paginator.byUser(user: User, page: Int) map (_.game)
 }

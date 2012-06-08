@@ -129,7 +129,14 @@ trait LilaController
     ioa flatMap { _.fold(op, io(notFound(ctx))) } unsafePerformIO
 
   def IOptionRedirect[A](ioa: IO[Option[A]])(op: A ⇒ Call)(implicit ctx: Context) =
-    ioa.unsafePerformIO.fold(a ⇒ Redirect(op(a)), notFound(ctx))
+    ioa map {
+      _.fold(a ⇒ Redirect(op(a)), io(notFound(ctx)))
+    } unsafePerformIO
+
+  def IOptionIORedirect[A](ioa: IO[Option[A]])(op: A ⇒ IO[Call])(implicit ctx: Context) =
+    (ioa flatMap {
+      _.fold(a ⇒ op(a) map { b ⇒ Redirect(b) }, io(notFound(ctx)))
+    }: IO[Result]).unsafePerformIO
 
   def IOptionResult[A](ioa: IO[Option[A]])(op: A ⇒ Result)(implicit ctx: Context) =
     ioa.unsafePerformIO.fold(a ⇒ op(a), notFound(ctx))

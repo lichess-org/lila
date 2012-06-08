@@ -16,6 +16,7 @@ object Setup extends LilaController {
   def processor = env.setup.processor
   def friendConfigMemo = env.setup.friendConfigMemo
   def gameRepo = env.game.gameRepo
+  def starApi = env.star.api
 
   val aiForm = Open { implicit ctx ⇒
     IOk(forms.aiFilled map { html.setup.ai(_) })
@@ -63,10 +64,13 @@ object Setup extends LilaController {
   }
 
   def cancel(fullId: String) = Open { implicit ctx ⇒
-    IOptionRedirect(gameRepo pov fullId) { pov ⇒
+    IOptionIORedirect(gameRepo pov fullId) { pov ⇒
       pov.game.started.fold(
-        routes.Round.player(pov.fullId),
-        (gameRepo remove pov.game.id map (_ ⇒ routes.Lobby.home)).unsafePerformIO
+        io(routes.Round.player(pov.fullId)),
+        for {
+          _ ← gameRepo remove pov.game.id
+          _ ← starApi removeByGame pov.game
+        } yield routes.Lobby.home
       )
     }
   }

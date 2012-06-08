@@ -119,7 +119,8 @@ final class CoreEnv private (application: Application, val settings: Settings) {
 
   lazy val titivate = new core.Titivate(
     gameRepo = game.gameRepo,
-    finisher = round.finisher)
+    finisher = round.finisher,
+    starApi = star.api)
 }
 
 object CoreEnv {

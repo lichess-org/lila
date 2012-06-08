@@ -133,12 +133,20 @@ class GameRepo(collection: MongoCollection)
     primitiveProjection[String](idSelector(gameId), "initialFen")
   }
 
-  def cleanupUnplayed: IO[Unit] = io {
-    remove(("turns" $lt 2) ++ ("createdAt" $lt (DateTime.now - 2.day)))
+  def unplayedIds: IO[List[String]] = io {
+    primitiveProjections[String](
+      ("turns" $lt 2) ++ ("createdAt" $lt (DateTime.now - 2.day)),
+      "_id"
+    )
   }
 
-  def remove(gameId: String): IO[Unit] = io {
-    remove(idSelector(gameId))
+  // stars should also be removed
+  def remove(id: String): IO[Unit] = io {
+    remove(idSelector(id))
+  }
+
+  def removeIds(ids: List[String]): IO[Unit] = io {
+    remove("_id" $in ids)
   }
 
   def candidatesToAutofinish: IO[List[DbGame]] = io {

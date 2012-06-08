@@ -3,13 +3,17 @@ package core
 
 import game.GameRepo
 import round.Finisher
+import star.StarApi
 
 import com.mongodb.casbah.Imports._
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 import scalaz.effects._
 
-final class Titivate(gameRepo: GameRepo, finisher: Finisher) {
+final class Titivate(
+  gameRepo: GameRepo, 
+  finisher: Finisher,
+  starApi: StarApi) {
 
   val finishByClock: IO[Unit] =
     for {
@@ -17,7 +21,11 @@ final class Titivate(gameRepo: GameRepo, finisher: Finisher) {
       _ ← (finisher outoftimes games).sequence
     } yield ()
 
-  val cleanupUnplayed = gameRepo.cleanupUnplayed
+  val cleanupUnplayed = for {
+    ids ← gameRepo.unplayedIds
+    _ ← gameRepo removeIds ids
+    _ ← starApi removeByGameIds ids
+  } yield ()
 
   val cleanupNext: IO[Unit] = {
 
