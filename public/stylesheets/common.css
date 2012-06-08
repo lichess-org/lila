@@ -590,12 +590,12 @@ div.game_share a.game_permalink {
   margin-top: 3px;
 }
 
-span.star_game {
+span.bookmark {
   position: relative;
   float: right;
   margin-right: 40px;
 }
-span.star_game .icon {
+span.bookmark .icon {
   position: absolute;
   top: 0;
   left: 0;
@@ -607,6 +607,6 @@ span.star_game .icon {
   text-decoration: none;
   color: #a0a0a0;
 }
-span.star_game .icon.starred {
+span.bookmark .icon.bookmarked {
   background-position: 0 -24px;
 }

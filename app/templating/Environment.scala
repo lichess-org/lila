@@ -27,7 +27,7 @@ object Environment
     with forum.ForumHelper
     with security.SecurityHelper
     with i18n.I18nHelper 
-    with star.StarHelper {
+    with bookmark.BookmarkHelper {
 
   protected def env = coreEnv
 }

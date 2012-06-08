@@ -6,7 +6,7 @@ import scala.collection.mutable
 final class Cached(userRepo: UserRepo) {
 
   // id => username
-  val usernameCache = mutable.Map[String, Option[String]]()
+  private val usernameCache = mutable.Map[String, Option[String]]()
 
   def username(userId: String) =
     usernameCache.getOrElseUpdate(

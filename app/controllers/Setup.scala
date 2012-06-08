@@ -16,7 +16,7 @@ object Setup extends LilaController {
   def processor = env.setup.processor
   def friendConfigMemo = env.setup.friendConfigMemo
   def gameRepo = env.game.gameRepo
-  def starApi = env.star.api
+  def bookmarkApi = env.bookmark.api
 
   val aiForm = Open { implicit ctx ⇒
     IOk(forms.aiFilled map { html.setup.ai(_) })
@@ -69,7 +69,7 @@ object Setup extends LilaController {
         io(routes.Round.player(pov.fullId)),
         for {
           _ ← gameRepo remove pov.game.id
-          _ ← starApi removeByGame pov.game
+          _ ← bookmarkApi removeByGame pov.game
         } yield routes.Lobby.home
       )
     }

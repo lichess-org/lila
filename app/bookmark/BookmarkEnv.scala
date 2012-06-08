@@ -1,5 +1,5 @@
 package lila
-package star
+package bookmark
 
 import com.mongodb.casbah.MongoCollection
 
@@ -7,7 +7,7 @@ import game.GameRepo
 import user.UserRepo
 import core.Settings
 
-final class StarEnv(
+final class BookmarkEnv(
     settings: Settings,
     gameRepo: GameRepo,
     userRepo: UserRepo,
@@ -15,16 +15,20 @@ final class StarEnv(
 
   import settings._
 
-  lazy val starRepo = new StarRepo(mongodb(MongoCollectionStar))
+  lazy val bookmarkRepo = new BookmarkRepo(mongodb(MongoCollectionBookmark))
 
   lazy val paginator = new PaginatorBuilder(
-    starRepo = starRepo,
+    bookmarkRepo = bookmarkRepo,
     gameRepo = gameRepo,
     userRepo = userRepo,
     maxPerPage = GamePaginatorMaxPerPage)
 
-  lazy val api = new StarApi(
-    starRepo = starRepo,
+  lazy val cached = new Cached(
+    bookmarkRepo = bookmarkRepo)
+
+  lazy val api = new BookmarkApi(
+    bookmarkRepo = bookmarkRepo,
+    cached = cached,
     gameRepo = gameRepo,
     userRepo = userRepo,
     paginator = paginator)

@@ -3,7 +3,7 @@ package core
 
 import game.GameRepo
 import round.Finisher
-import star.StarApi
+import bookmark.BookmarkApi
 
 import com.mongodb.casbah.Imports._
 import org.joda.time.DateTime
@@ -13,7 +13,7 @@ import scalaz.effects._
 final class Titivate(
   gameRepo: GameRepo, 
   finisher: Finisher,
-  starApi: StarApi) {
+  bookmarkApi: BookmarkApi) {
 
   val finishByClock: IO[Unit] =
     for {
@@ -24,7 +24,7 @@ final class Titivate(
   val cleanupUnplayed = for {
     ids ← gameRepo.unplayedIds
     _ ← gameRepo removeIds ids
-    _ ← starApi removeByGameIds ids
+    _ ← bookmarkApi removeByGameIds ids
   } yield ()
 
   val cleanupNext: IO[Unit] = {

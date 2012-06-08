@@ -6,7 +6,7 @@ GET   /games              controllers.Game.realtime
 GET   /games/refresh/:ids controllers.Game.realtimeInner(ids: String)
 GET   /games/all          controllers.Game.all(page: Int ?= 1)
 GET   /games/checkmate    controllers.Game.checkmate(page: Int ?= 1)
-GET   /games/bookmark     controllers.Game.star(page: Int ?= 1)
+GET   /games/bookmark     controllers.Game.bookmark(page: Int ?= 1)
 GET   /games/popular      controllers.Game.popular(page: Int ?= 1)
 
 # Round
@@ -94,8 +94,8 @@ GET   /new/$hookId<[\w\-]{8}>/join     controllers.Lobby.join(hookId: String)
 GET   /lobby/socket                    controllers.Lobby.socket
 GET   /lobby/log                       controllers.Lobby.log
 
-# Star
-POST   /star/$gameId<[\w\-]{8}>        controllers.Star.toggle(gameId: String)
+# Bookmark
+POST   /bookmark/$gameId<[\w\-]{8}>    controllers.Bookmark.toggle(gameId: String)
 
 # Forum
 GET   /forum                           controllers.ForumCateg.index

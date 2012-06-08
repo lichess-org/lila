@@ -162,20 +162,20 @@ $(function() {
     return confirm('Confirm this action?');
   });
 
-  function stars() {
-    $('span.star_game a.icon:not(.jsed)').each(function() {
+  function bookmarks() {
+    $('span.bookmark a.icon:not(.jsed)').each(function() {
       var t = $(this).addClass("jsed");
       t.click(function() {
-        t.toggleClass("starred");
+        t.toggleClass("bookmarked");
         $.post(t.attr("href"));
-        var count = (parseInt(t.html()) || 0) + (t.hasClass("starred") ? 1 : -1);
+        var count = (parseInt(t.html()) || 0) + (t.hasClass("bookmarked") ? 1 : -1);
         t.html(count > 0 ? count : "");
         return false;
       });
     });
   }
-  stars();
-  $('body').on('lichess.content_loaded', stars);
+  bookmarks();
+  $('body').on('lichess.content_loaded', bookmarks);
 
   var elem = document.createElement('audio');
   var canPlayAudio = !! elem.canPlayType && elem.canPlayType('audio/ogg; codecs="vorbis"');

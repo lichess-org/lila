@@ -1,17 +1,7 @@
 package lila
 package game
 
-import akka.actor._
-import akka.pattern.ask
 import akka.util.duration._
-import akka.util.Timeout
-import akka.dispatch.{ Future, Await }
-import akka.pattern.ask
-import akka.util.duration._
-import akka.util.Timeout
-
-import play.api.Play.current
-import play.api.libs.concurrent._
 
 import memo.ActorMemo
 

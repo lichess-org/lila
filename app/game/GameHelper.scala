@@ -47,7 +47,7 @@ trait GameHelper { self: I18nHelper with UserHelper with StringHelper ⇒
             isUsernameOnline(username).fold(" online", " offline"),
             ""),
           routes.User.show(username),
-          usernameWithElo(player) + player.eloDiff.filter(_ ⇒ withDiff.pp).fold(
+          usernameWithElo(player) + player.eloDiff.filter(_ ⇒ withDiff).fold(
             diff ⇒ " (%s)".format(showNumber(diff)),
             "")
         )

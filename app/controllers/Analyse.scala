@@ -13,11 +13,11 @@ object Analyse extends LilaController {
   def gameRepo = env.game.gameRepo
   def pgnDump = env.analyse.pgnDump
   def openingExplorer = chess.OpeningExplorer
-  def starApi = env.star.api
+  def bookmarkApi = env.bookmark.api
 
   def replay(id: String, color: String) = Open { implicit ctx ⇒
     IOptionIOk(gameRepo.pov(id, color)) { pov ⇒
-      starApi usersByGame pov.game map { bookmarkers ⇒
+      bookmarkApi usersByGame pov.game map { bookmarkers ⇒
         html.analyse.replay(
           pov,
           bookmarkers,

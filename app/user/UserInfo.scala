@@ -4,7 +4,7 @@ package user
 import chess.{ EloCalculator, Color }
 import game.{ GameRepo, DbGame }
 import http.Context
-import star.StarApi
+import bookmark.BookmarkApi
 
 import scalaz.effects._
 
@@ -34,7 +34,7 @@ object UserInfo {
     eloCalculator: EloCalculator,
     eloChartBuilder: User ⇒ IO[Option[EloChart]])(
       user: User,
-      starApi: StarApi,
+      bookmarkApi: BookmarkApi,
       ctx: Context): IO[UserInfo] = for {
     rank ← (user.elo >= 1500).fold(
       userRepo rank user flatMap { rank ⇒
@@ -54,7 +54,7 @@ object UserInfo {
       me ⇒ gameRepo count (_.opponents(user, me)) map (_.some),
       io(none)
     )
-    nbBookmark ← starApi countByUser user
+    nbBookmark = bookmarkApi countByUser user
     eloChart ← eloChartBuilder(user)
     winChart = (user.nbRatedGames > 0) option {
       new WinChart(nbWin, nbDraw, nbLoss)

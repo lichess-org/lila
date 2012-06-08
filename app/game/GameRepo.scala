@@ -140,7 +140,7 @@ class GameRepo(collection: MongoCollection)
     )
   }
 
-  // stars should also be removed
+  // bookmarks should also be removed
   def remove(id: String): IO[Unit] = io {
     remove(idSelector(id))
   }

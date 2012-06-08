@@ -92,7 +92,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     gameRepo = game.gameRepo,
     userRepo = user.userRepo)
 
-  lazy val star = new lila.star.StarEnv(
+  lazy val bookmark = new lila.bookmark.BookmarkEnv(
     settings = settings,
     gameRepo = game.gameRepo,
     userRepo = user.userRepo,
@@ -120,7 +120,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
   lazy val titivate = new core.Titivate(
     gameRepo = game.gameRepo,
     finisher = round.finisher,
-    starApi = star.api)
+    bookmarkApi = bookmark.api)
 }
 
 object CoreEnv {

@@ -9,8 +9,8 @@
 <a class="@active.active("checkmate")" href="@routes.Game.checkmate()">
   @trans.viewNbCheckmates(listMenu.nbMates.localize)
 </a>
-@listMenu.nbStars.map { nb =>
-<a class="@active.active("star")" href="@routes.Game.star()">
+@listMenu.nbBookmarks.map { nb =>
+<a class="@active.active("bookmark")" href="@routes.Game.bookmark()">
   @trans.nbBookmarks(nb.localize)
 </a>
 <a class="@active.active("popular")" href="@routes.Game.popular()">

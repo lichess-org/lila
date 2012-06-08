@@ -11,16 +11,15 @@ object Game extends LilaController {
   val gameRepo = env.game.gameRepo
   val paginator = env.game.paginator
   val cached = env.game.cached
-  val starApi = env.star.api
+  val bookmarkApi = env.bookmark.api
   val listMenu = env.game.listMenu
 
   val maxPage = 40
 
   val realtime = Open { implicit ctx ⇒
-    IOk(for {
-      games ← gameRepo recentGames 9
-      menu ← makeListMenu
-    } yield html.game.realtime(games, menu))
+    IOk(gameRepo recentGames 9 map { games ⇒
+      html.game.realtime(games, makeListMenu)
+    })
   }
 
   def realtimeInner(ids: String) = Open { implicit ctx ⇒
@@ -31,34 +30,26 @@ object Game extends LilaController {
 
   def all(page: Int) = Open { implicit ctx ⇒
     reasonable(page) {
-      IOk(makeListMenu map { menu ⇒
-        html.game.all(paginator recent page, menu)
-      })
+      Ok(html.game.all(paginator recent page, makeListMenu))
     }
   }
 
   def checkmate(page: Int) = Open { implicit ctx ⇒
     reasonable(page) {
-      IOk(makeListMenu map { menu ⇒
-        html.game.checkmate(paginator checkmate page, menu)
-      })
+      Ok(html.game.checkmate(paginator checkmate page, makeListMenu))
     }
   }
 
-  def star(page: Int) = Auth { implicit ctx ⇒
+  def bookmark(page: Int) = Auth { implicit ctx ⇒
     me ⇒
       reasonable(page) {
-        IOk(makeListMenu map { menu ⇒
-          html.game.star(starApi.gamePaginatorByUser(me, page), menu)
-        })
+        Ok(html.game.bookmarked(bookmarkApi.gamePaginatorByUser(me, page), makeListMenu))
       }
   }
 
   def popular(page: Int) = Open { implicit ctx ⇒
     reasonable(page) {
-      IOk(makeListMenu map { menu ⇒
-        html.game.popular(paginator popular page, menu)
-      })
+      Ok(html.game.popular(paginator popular page, makeListMenu))
     }
   }
 
@@ -66,5 +57,5 @@ object Game extends LilaController {
     (page < maxPage).fold(result, BadRequest("too old"))
 
   private def makeListMenu(implicit ctx: Context) =
-    listMenu(starApi.countByUser, ctx.me)
+    listMenu(bookmarkApi.countByUser, ctx.me)
 }

@@ -6,9 +6,9 @@ import views._
 import play.api.mvc._
 import scalaz.effects._
 
-object Star extends LilaController {
+object Bookmark extends LilaController {
 
-  val api = env.star.api
+  val api = env.bookmark.api
   val gameRepo = env.game.gameRepo
 
   def toggle(gameId: String) = Auth { implicit ctx ⇒

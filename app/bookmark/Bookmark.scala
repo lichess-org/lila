@@ -1,12 +1,12 @@
 package lila
-package star
+package bookmark
 
 import game.DbGame
 import user.User
 
 import org.joda.time.DateTime
 
-case class Star(
+case class Bookmark(
   game: DbGame,
   user: User,
   date: DateTime) {

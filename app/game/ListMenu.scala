@@ -9,21 +9,16 @@ case class ListMenu(
   nbGames: Int,
   nbMates: Int,
   nbPopular: Int,
-  nbStars: Option[Int])
+  nbBookmarks: Option[Int])
 
 object ListMenu {
 
-  type CountStars = User ⇒ IO[Int]
+  type CountBookmarks = User ⇒ Int
 
-  def apply(cached: Cached)(countStars: CountStars, me: Option[User]): IO[ListMenu] =
-    me.fold(
-      m ⇒ countStars(m) map (_.some),
-      io(none)
-    ) map { nbStars ⇒
-        new ListMenu(
-          nbGames = cached.nbGames,
-          nbMates = cached.nbMates,
-          nbPopular = cached.nbPopular,
-          nbStars = nbStars)
-      }
+  def apply(cached: Cached)(countBookmarks: CountBookmarks, me: Option[User]): ListMenu =
+    new ListMenu(
+      nbGames = cached.nbGames,
+      nbMates = cached.nbMates,
+      nbPopular = cached.nbPopular,
+      nbBookmarks = me map countBookmarks)
 }

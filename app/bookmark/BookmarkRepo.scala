@@ -1,5 +1,5 @@
 package lila
-package star
+package bookmark
 
 import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.Imports._
@@ -8,12 +8,12 @@ import com.mongodb.MongoException.DuplicateKey
 import scalaz.effects._
 import org.joda.time.DateTime
 
-// db.star.ensureIndex({g:1})
-// db.star.ensureIndex({u:1})
-// db.star.ensureIndex({d: -1})
-final class StarRepo(val collection: MongoCollection) {
+// db.bookmark.ensureIndex({g:1})
+// db.bookmark.ensureIndex({u:1})
+// db.bookmark.ensureIndex({d: -1})
+final class BookmarkRepo(val collection: MongoCollection) {
 
-  private[star] def toggle(gameId: String, userId: String): IO[Boolean] = io {
+  private[bookmark] def toggle(gameId: String, userId: String): IO[Boolean] = io {
     try {
       add(gameId, userId, DateTime.now)
       true
@@ -26,18 +26,16 @@ final class StarRepo(val collection: MongoCollection) {
     }
   }
 
-  def exists(gameId: String, userId: String) = io {
-    (collection count idQuery(gameId, userId)) > 0
-  }
-
-  def countByUserId(userId: String) = io {
-    collection count userIdQuery(userId) toInt
-  }
-
   def userIdsByGameId(gameId: String): IO[List[String]] = io {
     (collection find gameIdQuery(gameId) sort sortQuery(1) map { obj ⇒
       obj.getAs[String]("u")
-    }).toList.flatten
+    }).flatten.toList
+  }
+
+  def gameIdsByUserId(userId: String): IO[Set[String]] = io {
+    (collection find userIdQuery(userId) map { obj ⇒
+      obj.getAs[String]("g")
+    }).flatten.toSet
   }
 
   def removeByGameId(gameId: String): IO[Unit] = io {

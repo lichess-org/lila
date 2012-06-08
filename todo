@@ -28,7 +28,7 @@ remove bookmark when removing game
 fix game list translations
 
 next deploy:
-db.game2.ensureIndex({"bm": -1}, {sparse: true})
+db.star.renameCollection("bookmark")
 
 new translations:
 -rematchOfferCanceled=Rematch offer canceled
