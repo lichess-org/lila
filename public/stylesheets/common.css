@@ -421,6 +421,7 @@ span.s16.clock {
   display: block;
   background: url(../images/s16.png) no-repeat;
   padding-left: 20px;
+  white-space: nowrap;
 }
 .user_link.white {
   background-position: 0 -240px;
