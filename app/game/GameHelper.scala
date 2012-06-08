@@ -6,13 +6,14 @@ import chess.{ Status, Variant, Color, Clock, Mode }
 import user.{ User, UserHelper }
 import http.Context
 import i18n.I18nHelper
+import templating.StringHelper
 
 import controllers.routes
 
 import play.api.templates.Html
 import play.api.mvc.Call
 
-trait GameHelper { self: I18nHelper with UserHelper ⇒
+trait GameHelper { self: I18nHelper with UserHelper with StringHelper ⇒
 
   val aiName = "Crafty A.I."
 
@@ -36,7 +37,8 @@ trait GameHelper { self: I18nHelper with UserHelper ⇒
   def playerLink(
     player: DbPlayer,
     cssClass: Option[String] = None,
-    withOnline: Boolean = true)(implicit ctx: Context) = Html {
+    withOnline: Boolean = true,
+    withDiff: Boolean = true)(implicit ctx: Context) = Html {
     player.userId.fold(
       userId ⇒ userIdToUsername(userId) |> { username ⇒
         """<a class="user_link%s%s" href="%s">%s</a>""".format(
@@ -45,8 +47,9 @@ trait GameHelper { self: I18nHelper with UserHelper ⇒
             isUsernameOnline(username).fold(" online", " offline"),
             ""),
           routes.User.show(username),
-          usernameWithElo(player) + player.eloDiff.fold(
-            diff ⇒ " (%s)".format((diff < 0).fold(diff, "+" + diff)), "")
+          usernameWithElo(player) + player.eloDiff.filter(_ ⇒ withDiff.pp).fold(
+            diff ⇒ " (%s)".format(showNumber(diff)),
+            "")
         )
       },
       """<span class="user_link %s">%s</span>""".format(

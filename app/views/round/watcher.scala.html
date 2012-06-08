@@ -20,7 +20,7 @@
     <br /><br />
     @List(opponent, player).map { p =>
     <div class="player">
-      @playerLink(p, withOnline = false, cssClass = Some("s16 " + p.color.name))
+      @playerLink(p, withOnline = false, withDiff = false, cssClass = Some("s16 " + p.color.name))
     </div>
     }
     <br />

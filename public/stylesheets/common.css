@@ -605,7 +605,7 @@ span.star_game .icon {
   padding-left: 28px;
   line-height: 28px;
   text-decoration: none;
-  color: #aaa;
+  color: #a0a0a0;
 }
 span.star_game .icon.starred {
   background-position: 0 -24px;

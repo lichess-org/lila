@@ -33,7 +33,7 @@
       <div>
         @{ p.aiLevel.fold(
         trans.aiNameLevelAiLevel(aiName, _), 
-        playerLink(p, withOnline = false, cssClass = p.color.name.some))
+        playerLink(p, withOnline = false, withDiff = false, cssClass = p.color.name.some))
         }
       </div>
       }
