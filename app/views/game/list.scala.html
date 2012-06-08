@@ -17,6 +17,8 @@ menu = menu.some) {
   <div class="all_games infinitescroll">
     @next.map { n =>
     <div class="pager none"><a href="@n">Next</a></div>
+    }.getOrElse {
+    <div class="none"></div>
     }
     @game.widgets(paginator.currentPageResults)
   </div>

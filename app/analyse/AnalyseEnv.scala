@@ -15,6 +15,4 @@ final class AnalyseEnv(
   lazy val pgnDump = new PgnDump(
     userRepo = userRepo,
     gameRepo = gameRepo)
-
-  lazy val gameInfo = GameInfo(pgnDump) _
 }

@@ -3,17 +3,7 @@
     margin-bottom: 5px;
 }
 #pgnText {
-    color: #666;
-    width: 182px;
-    height: 220px;
-    border: 1px solid #C0C0C0;
-    overflow: auto;
-    padding: 5px;
-    margin: 0.5em 0;
-    border-radius: 4px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    background: transparent;
+  display: none;
 }
 
 div.board_wrap {

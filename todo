@@ -26,6 +26,7 @@ tournaments http://www.chess.com/tournaments/help.html
 long name display issue http://en.lichess.org/forum/lichess-feedback/long-names-alter-layout
 remove bookmark when removing game
 fix game list translations
+friend game invited is not blamed
 
 next deploy:
 db.game2.ensureIndex({"bm": -1}, {sparse: true})
