@@ -126,7 +126,7 @@ $(function() {
     });
   }
 
-  $('.infinitescroll').each(function() {
+  $('.infinitescroll:has(.pager a)').each(function() {
     $(this).infinitescroll({
       navSelector: ".pager",
       nextSelector: ".pager a:last",
