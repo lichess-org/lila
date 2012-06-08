@@ -73,7 +73,7 @@ class GameRepo(collection: MongoCollection)
 
   def setUser(id: String, color: Color, user: User) = io {
     val pn = "players.%d".format(color.fold(0, 1))
-    update(idSelector(id), $set(pn + ".userId" -> user.id, pn + ".elo" -> user.elo))
+    update(idSelector(id), $set(pn + ".uid" -> user.id, pn + ".elo" -> user.elo))
   }
 
   def incBookmarks(id: String, value: Int) = io {
