@@ -31,6 +31,7 @@ case class DbGame(
     variant: Variant = Variant.default,
     next: Option[String] = None,
     lastMoveTime: Option[Int] = None,
+    bookmarks: Int = 0,
     createdAt: Option[DateTime] = None,
     updatedAt: Option[DateTime] = None) {
 
@@ -325,6 +326,8 @@ case class DbGame(
     !finishedOrAborted && updatedAt.fold(
       _ > DateTime.now - 20.seconds, false)
 
+  def hasBookmarks = bookmarks > 0
+
   def encode = RawDbGame(
     id = id,
     players = players map (_.encode),
@@ -341,6 +344,7 @@ case class DbGame(
     v = variant.id,
     next = next,
     lmt = lastMoveTime,
+    bm = bookmarks.some filter (0 <),
     createdAt = createdAt,
     updatedAt = updatedAt
   )
@@ -397,6 +401,7 @@ case class RawDbGame(
     v: Int = 1,
     next: Option[String] = None,
     lmt: Option[Int] = None,
+    bm: Option[Int] = None,
     createdAt: Option[DateTime],
     updatedAt: Option[DateTime]) {
 
@@ -425,6 +430,7 @@ case class RawDbGame(
     variant = trueVariant,
     next = next,
     lastMoveTime = lmt,
+    bookmarks = bm | 0,
     createdAt = createdAt,
     updatedAt = updatedAt
   )

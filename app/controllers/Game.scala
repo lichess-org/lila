@@ -46,10 +46,18 @@ object Game extends LilaController {
   }
 
   def star(page: Int) = Auth { implicit ctx ⇒
-    me =>
+    me ⇒
+      reasonable(page) {
+        IOk(makeListMenu map { menu ⇒
+          html.game.star(starApi.gamePaginatorByUser(me, page), menu)
+        })
+      }
+  }
+
+  def popular(page: Int) = Open { implicit ctx ⇒
     reasonable(page) {
       IOk(makeListMenu map { menu ⇒
-        html.game.star(starApi.gamePaginatorByUser(me, page), menu)
+        html.game.popular(paginator popular page, menu)
       })
     }
   }

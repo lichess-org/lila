@@ -8,16 +8,11 @@ import scalaz.effects._
 
 object Star extends LilaController {
 
-  val starRepo = env.star.starRepo
+  val api = env.star.api
   val gameRepo = env.game.gameRepo
 
   def toggle(gameId: String) = Auth { implicit ctx ⇒
     me ⇒
-      IOk {
-        for {
-          exists ← gameRepo exists gameId
-          _ ← exists.fold(starRepo.toggle(gameId, me.id), io())
-        } yield ()
-      }
+      IOk(api.toggle(gameId, me)) 
   }
 }

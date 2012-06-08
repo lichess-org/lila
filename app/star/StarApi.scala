@@ -1,15 +1,26 @@
 package lila
 package star
 
-import game.DbGame
+import game.{ DbGame, GameRepo }
 import user.{ User, UserRepo }
 
 import scalaz.effects._
 
 final class StarApi(
     starRepo: StarRepo,
+    gameRepo: GameRepo,
     userRepo: UserRepo,
     paginator: PaginatorBuilder) {
+
+  def toggle(gameId: String, user: User): IO[Unit] = for {
+    gameOption ← gameRepo game gameId
+    _ ← gameOption.fold(
+      game ⇒ for {
+        bookmarked ← starRepo.toggle(game.id, user.id)
+        _ ← gameRepo.incBookmarks(game.id, bookmarked.fold(1, -1))
+      } yield (),
+      io())
+  } yield ()
 
   def starred(game: DbGame, user: User): IO[Boolean] =
     starRepo.exists(game.id, user.id)

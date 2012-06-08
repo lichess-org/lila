@@ -19,17 +19,19 @@ object User extends LilaController {
   def forms = user.DataForm
   def eloUpdater = env.user.eloUpdater
   def lobbyMessenger = env.lobby.messenger
+  def starApi = env.star.api
 
   def show(username: String) = showFilter(username, "all", 1)
 
   def showFilter(username: String, filterName: String, page: Int) = Open { implicit ctx ⇒
     IOptionIOk(userRepo byId username) { u ⇒
       u.enabled.fold(
-        env.user.userInfo(u, ctx) map { info ⇒
+        env.user.userInfo(u, starApi, ctx) map { info ⇒
           val filters = user.GameFilterMenu(info, ctx.me, filterName)
-          html.user.show(u, info,
-            games = gamePaginator.recentlyCreated(filters.query)(page),
-            filters = filters)
+          val paginator = filters.query.fold(
+            query ⇒ gamePaginator.recentlyCreated(query)(page),
+            starApi.gamePaginatorByUser(u, page))
+          html.user.show(u, info, paginator, filters)
         },
         io(html.user.disabled(u)))
     }

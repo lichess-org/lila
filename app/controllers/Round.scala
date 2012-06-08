@@ -15,13 +15,13 @@ import scalaz.effects._
 
 object Round extends LilaController {
 
-  private val gameRepo = env.game.gameRepo
-  private val socket = env.round.socket
-  private val hand = env.round.hand
-  private val messenger = env.round.messenger
-  private val rematcher = env.setup.rematcher
-  private val joiner = env.setup.friendJoiner
-  private val starApi = env.star.api
+  def gameRepo = env.game.gameRepo
+  def socket = env.round.socket
+  def hand = env.round.hand
+  def messenger = env.round.messenger
+  def rematcher = env.setup.rematcher
+  def joiner = env.setup.friendJoiner
+  def starApi = env.star.api
 
   def websocketWatcher(gameId: String, color: String) = WebSocket.async[JsValue] { req ⇒
     implicit val ctx = reqToCtx(req)
@@ -53,21 +53,21 @@ object Round extends LilaController {
 
   def watcher(gameId: String, color: String) = Open { implicit ctx ⇒
     IOptionIOResult(gameRepo.pov(gameId, color)) { pov ⇒
-      pov.game.started.fold(
-        starApi usersByGame pov.game map { bookmarkers ⇒
-          Ok(html.round.watcher(pov, version(pov.gameId), bookmarkers))
-        },
-        join(pov))
+      pov.game.started.fold(watch(pov), join(pov))
     }
   }
 
+  private def watch(pov: Pov)(implicit ctx: Context): IO[Result] =
+    pov.game.hasBookmarks.fold(
+      starApi usersByGame pov.game,
+      io(Nil)
+    ) map { bookmarkers ⇒
+        Ok(html.round.watcher(pov, version(pov.gameId), bookmarkers))
+      }
+
   private def join(pov: Pov)(implicit ctx: Context): IO[Result] =
     joiner(pov.game, ctx.me).fold(
-      err ⇒ putFailures(err) flatMap { _ ⇒
-        starApi usersByGame pov.game map { bookmarkers ⇒
-          Ok(html.round.watcher(pov, version(pov.gameId), bookmarkers))
-        }
-      },
+      err ⇒ putFailures(err) flatMap (_ ⇒ watch(pov)),
       _ flatMap {
         case (p, events) ⇒ performEvents(p.gameId)(events) map { _ ⇒
           Redirect(routes.Round.player(p.fullId))

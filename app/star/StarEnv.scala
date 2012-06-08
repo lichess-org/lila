@@ -25,6 +25,7 @@ final class StarEnv(
 
   lazy val api = new StarApi(
     starRepo = starRepo,
+    gameRepo = gameRepo,
     userRepo = userRepo,
     paginator = paginator)
 }

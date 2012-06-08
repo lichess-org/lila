@@ -4,25 +4,27 @@ package user
 import chess.{ EloCalculator, Color }
 import game.{ GameRepo, DbGame }
 import http.Context
+import star.StarApi
 
 import scalaz.effects._
 
 case class UserInfo(
-  user: User,
-  rank: Option[(Int, Int)],
-  nbWin: Int,
-  nbDraw: Int,
-  nbLoss: Int,
-  nbPlaying: Int,
-  nbWithMe: Option[Int],
-  eloWithMe: Option[List[(String, Int)]],
-  eloChart: Option[EloChart],
-  winChart: Option[WinChart]) {
+    user: User,
+    rank: Option[(Int, Int)],
+    nbWin: Int,
+    nbDraw: Int,
+    nbLoss: Int,
+    nbPlaying: Int,
+    nbWithMe: Option[Int],
+    nbBookmark: Int,
+    eloWithMe: Option[List[(String, Int)]],
+    eloChart: Option[EloChart],
+    winChart: Option[WinChart]) {
 
-    def nbRated = user.nbRatedGames
+  def nbRated = user.nbRatedGames
 
-    def percentRated: Int = math.round(nbRated / user.nbGames.toFloat * 100)
-  }
+  def percentRated: Int = math.round(nbRated / user.nbGames.toFloat * 100)
+}
 
 object UserInfo {
 
@@ -32,6 +34,7 @@ object UserInfo {
     eloCalculator: EloCalculator,
     eloChartBuilder: User ⇒ IO[Option[EloChart]])(
       user: User,
+      starApi: StarApi,
       ctx: Context): IO[UserInfo] = for {
     rank ← (user.elo >= 1500).fold(
       userRepo rank user flatMap { rank ⇒
@@ -51,6 +54,7 @@ object UserInfo {
       me ⇒ gameRepo count (_.opponents(user, me)) map (_.some),
       io(none)
     )
+    nbBookmark ← starApi countByUser user
     eloChart ← eloChartBuilder(user)
     winChart = (user.nbRatedGames > 0) option {
       new WinChart(nbWin, nbDraw, nbLoss)
@@ -69,6 +73,7 @@ object UserInfo {
     nbLoss = nbLoss,
     nbPlaying = nbPlaying | 0,
     nbWithMe = nbWithMe,
+    nbBookmark = nbBookmark,
     eloWithMe = eloWithMe,
     eloChart = eloChart,
     winChart = winChart)

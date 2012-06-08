@@ -24,6 +24,11 @@ star people and games (and forum threads?)
 autoclose top menus
 tournaments http://www.chess.com/tournaments/help.html
 long name display issue http://en.lichess.org/forum/lichess-feedback/long-names-alter-layout
+remove bookmark when removing game
+fix game list translations
+
+next deploy:
+db.game2.ensureIndex({"bm": -1}, {sparse: true})
 
 new translations:
 -rematchOfferCanceled=Rematch offer canceled

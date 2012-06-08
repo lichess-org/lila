@@ -7,6 +7,7 @@ GET   /games/refresh/:ids controllers.Game.realtimeInner(ids: String)
 GET   /games/all          controllers.Game.all(page: Int ?= 1)
 GET   /games/checkmate    controllers.Game.checkmate(page: Int ?= 1)
 GET   /games/bookmark     controllers.Game.star(page: Int ?= 1)
+GET   /games/popular      controllers.Game.popular(page: Int ?= 1)
 
 # Round
 GET   /$gameId<[\w\-]{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")

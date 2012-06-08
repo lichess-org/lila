@@ -62,6 +62,7 @@ gamesBeingPlayedRightNow=Current Games
 viewAllNbGames=%s Games
 viewNbCheckmates=%s Checkmates
 nbBookmarks=%s Bookmarks
+nbPopularGames=%s Popular Games
 bookmarkedByNbPlayers=Bookmarked by %s players
 viewInFullSize=View in full size
 logOut=Log out

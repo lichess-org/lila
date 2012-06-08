@@ -31,6 +31,8 @@ object Query {
 
   val notFinished: DBObject = DBObject("status" -> Status.Started.id)
 
+  val popular: DBObject = "bm" $gt 0
+
   def clock(c: Boolean): DBObject = "clock.l" $exists c
 
   def user(u: User): DBObject = DBObject("userIds" -> u.id)
@@ -52,4 +54,6 @@ object Query {
   val sortCreated = DBObject("createdAt" -> -1)
 
   val sortUpdated = DBObject("updatedAt" -> -1)
+
+  val sortPopular = DBObject("bm" -> -1)
 }

@@ -18,12 +18,13 @@ object GameFilter {
   case object Loss extends GameFilter("loss")
   case object Draw extends GameFilter("draw")
   case object Playing extends GameFilter("playing")
+  case object Bookmark extends GameFilter("bookmark")
 }
 
 case class GameFilterMenu(
     all: NonEmptyList[GameFilter],
     current: GameFilter,
-    query: DBObject) {
+    query: Option[DBObject]) {
 
   def list = all.list
 }
@@ -45,19 +46,21 @@ object GameFilterMenu extends NonEmptyLists {
       (info.nbWin > 0) option Win,
       (info.nbLoss > 0) option Loss,
       (info.nbDraw > 0) option Draw,
-      (info.nbPlaying > 0) option Playing
+      (info.nbPlaying > 0) option Playing,
+      (info.nbBookmark > 0) option Bookmark
     ).flatten)
 
     val current = (all.list find (_.name == currentName)) | all.head
 
-    val query = current match {
-      case All     ⇒ Query user user
-      case Me      ⇒ Query.opponents(user, me | user)
-      case Rated   ⇒ Query rated user
-      case Win     ⇒ Query win user
-      case Loss    ⇒ Query loss user
-      case Draw    ⇒ Query draw user
-      case Playing ⇒ Query notFinished user
+    val query: Option[DBObject] = current match {
+      case All      ⇒ Some(Query user user)
+      case Me       ⇒ Some(Query.opponents(user, me | user))
+      case Rated    ⇒ Some(Query rated user)
+      case Win      ⇒ Some(Query win user)
+      case Loss     ⇒ Some(Query loss user)
+      case Draw     ⇒ Some(Query draw user)
+      case Playing  ⇒ Some(Query notFinished user)
+      case Bookmark ⇒ None
     }
 
     new GameFilterMenu(all, current, query)

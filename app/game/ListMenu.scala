@@ -8,6 +8,7 @@ import scalaz.effects._
 case class ListMenu(
   nbGames: Int,
   nbMates: Int,
+  nbPopular: Int,
   nbStars: Option[Int])
 
 object ListMenu {
@@ -22,6 +23,7 @@ object ListMenu {
         new ListMenu(
           nbGames = cached.nbGames,
           nbMates = cached.nbMates,
+          nbPopular = cached.nbPopular,
           nbStars = nbStars)
       }
 }

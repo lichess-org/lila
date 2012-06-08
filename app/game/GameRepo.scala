@@ -76,6 +76,10 @@ class GameRepo(collection: MongoCollection)
     update(idSelector(id), $set(pn + ".userId" -> user.id, pn + ".elo" -> user.elo))
   }
 
+  def incBookmarks(id: String, value: Int) = io {
+    update(idSelector(id), $inc("bm" -> value))
+  }
+
   def finish(id: String, winnerId: Option[String]) = io {
     update(
       idSelector(id),

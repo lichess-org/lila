@@ -13,12 +13,16 @@ import org.joda.time.DateTime
 // db.star.ensureIndex({d: -1})
 final class StarRepo(val collection: MongoCollection) {
 
-  def toggle(gameId: String, userId: String): IO[Unit] = io {
+  private[star] def toggle(gameId: String, userId: String): IO[Boolean] = io {
     try {
       add(gameId, userId, DateTime.now)
+      true
     }
     catch {
-      case e: DuplicateKey ⇒ remove(gameId, userId)
+      case e: DuplicateKey ⇒ {
+        remove(gameId, userId)
+        false
+      }
     }
   }
 
@@ -31,7 +35,7 @@ final class StarRepo(val collection: MongoCollection) {
   }
 
   def userIdsByGameId(gameId: String): IO[List[String]] = io {
-    (collection find gameIdQuery(gameId) sort sortQuery() map { obj ⇒
+    (collection find gameIdQuery(gameId) sort sortQuery(1) map { obj ⇒
       obj.getAs[String]("u")
     }).toList.flatten
   }
