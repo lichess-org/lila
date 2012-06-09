@@ -57,13 +57,13 @@ object Round extends LilaController {
     }
   }
 
-  private def watch(pov: Pov)(implicit ctx: Context): IO[Result] =
-    pov.game.hasBookmarks.fold(
+  private def watch(pov: Pov)(implicit ctx: Context): IO[Result] = for {
+    bookmarkers ← pov.game.hasBookmarks.fold(
       bookmarkApi usersByGame pov.game,
       io(Nil)
-    ) map { bookmarkers ⇒
-        Ok(html.round.watcher(pov, version(pov.gameId), bookmarkers))
-      }
+    )
+    roomHtml ← messenger renderWatcher pov.game
+  } yield Ok(html.round.watcher(pov, version(pov.gameId), Html(roomHtml), bookmarkers))
 
   private def join(pov: Pov)(implicit ctx: Context): IO[Result] =
     joiner(pov.game, ctx.me).fold(

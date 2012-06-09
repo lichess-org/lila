@@ -1,4 +1,4 @@
-@(pov: Pov, version: Int, bookmarkers: List[User])(implicit ctx: Context)
+@(pov: Pov, version: Int, roomHtml: Html, bookmarkers: List[User])(implicit ctx: Context)
 
 @import pov._
 
@@ -53,7 +53,10 @@
 </div>
 }
 
-@round.layout(title = title, goodies = goodies) {
+@round.layout(
+title = title, 
+goodies = goodies,
+chat = round.room(roomHtml).some) {
 <div class="lichess_game clearfix lichess_player_@color"
   data-socket-url="@routes.Round.websocketWatcher(gameId, color.name)"
   data-table-url="@routes.Round.tableWatcher(gameId, color.name)"
