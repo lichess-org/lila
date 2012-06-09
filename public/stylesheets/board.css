@@ -567,22 +567,27 @@ div.lichess_cemetery div.lichess_piece {
   opacity: 0.5;
 }
 
-div.lichess_goodies {
-  margin-top: 1em;
-}
 .nb_viewers {
   margin-top: 1em;
   display: none;
 }
 
+div.under_chat {
+  width: 200px;
+  margin-top: -65px;
+}
+
 div.lichess_chat {
   font-size: 11px;
   position: absolute;
-  top: 158px;
+  top: 157px;
   left: 0;
   box-shadow: 0 0 7px #d0d0d0;
   -moz-box-shadow: 0 0 7px #d0d0d0;
   -webkit-box-shadow: 0 0 7px #d0d0d0;
+}
+div.lichess_chat.spectator {
+  top: 207px;
 }
 div.lichess_chat_top {
   border-radius: 4px 4px 0 0;
@@ -609,12 +614,15 @@ div.lichess_chat input.toggle_chat {
 
 div.lichess_chat ol {
   height: 313px;
-  width: 183px;
+  width: 186px;
   border: 1px solid #ccc;
   border-top: none;
   padding: 2px 5px;
   position:relative;
   overflow:hidden;
+}
+div.lichess_chat.spectator ol {
+  height: 263px;
 }
 
 div.lichess_chat form {
@@ -627,7 +635,7 @@ div.lichess_chat form input {
   border-radius: 0 0 4px 4px;
   -moz-border-radius: 0 0 4px 4px;
   -webkit-border-radius: 0 0 4px 4px;
-  width: 169px;
+  width: 172px;
   background: white;
 }
 div.lichess_chat input.lichess_hint {

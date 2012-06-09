@@ -20,7 +20,7 @@
 @round.layout(
 title = title, 
 goodies = goodies, 
-chat = roomHtml.map(round.room(_))) {
+chat = roomHtml.map(round.room(_, false))) {
 <div class="lichess_game clearfix lichess_player_@color not_spectator"
   data-socket-url="@routes.Round.websocketPlayer(fullId)"
   data-table-url="@routes.Round.tablePlayer(fullId)"
