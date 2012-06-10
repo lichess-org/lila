@@ -1,0 +1,27 @@
+@(pov: Pov)(implicit ctx: Context)
+
+@import pov._
+
+<div class="lichess_goodies">
+  <div class="box">
+    @if(game.isBeingPlayed) {
+    @trans.playingRightNow()
+    } else {
+    @game.updatedAt.map(showDate)
+    }
+    <br /><br />
+    @List(opponent, player).map { p =>
+    <div class="player">
+      @playerLink(p, withOnline = false, withDiff = false, cssClass = Some("s16 " + p.color.name))
+    </div>
+    }
+    <br />
+    @if(game.variant.exotic) {
+    @trans.variant(): @variantName(game.variant).capitalize<br />
+    }
+    <span class="s16 clock">@shortClockName(game.clock)</span>
+    @if(game.rated) {
+    <br />@trans.thisGameIsRated()<br />
+    }
+  </div>
+</div>

@@ -1,8 +1,13 @@
-@(roomHtml: Html)(implicit ctx: Context)
+@(roomHtml: Html, spectator: Boolean)(implicit ctx: Context)
 
-<div class="lichess_chat">
+<div class="lichess_chat@spectator.fold(" spectator anon_chat", "")">
   <div class="lichess_chat_top">
-    <span class="s16 title">@trans.chatRoom()</span>
+    <span class="title">
+      @spectator.fold(trans.spectatorRoom(), trans.chatRoom())
+      @if(spectator) {
+      <span class="nb_viewers">(-)</span>
+      }
+    </span>
     <input title="@trans.toggleTheChat()" class="toggle_chat" type="checkbox" checked="checked" />
   </div>
   <div class="lichess_chat_inner">

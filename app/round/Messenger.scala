@@ -5,12 +5,13 @@ import game.{ DbGame, PovRef, Namer }
 import i18n.{ I18nKeys, I18nKey, Untranslated }
 import I18nKey.{ Select ⇒ SelectI18nKey }
 import chess.Color
-import Event.Message
+import Event.{ Message, WatcherMessage }
 
 import scalaz.effects._
 
 final class Messenger(
     roomRepo: RoomRepo,
+    watcherRoomRepo: WatcherRoomRepo,
     i18nKeys: I18nKeys) {
 
   def init(game: DbGame): IO[List[Event]] =
@@ -27,14 +28,24 @@ final class Messenger(
     game.rated option ((_.thisGameIsRated): SelectI18nKey)
   ).flatten
 
-  def playerMessage(
-    ref: PovRef,
-    message: String): IO[List[Event]] =
-    if (message.size <= 140 && message.nonEmpty)
-      roomRepo.addMessage(ref.gameId, ref.color.name, message.replace(""""""", "'")) map { _ ⇒
-        List(Message(ref.color.name, message))
-      }
-    else io(Nil)
+  def playerMessage(ref: PovRef, text: String): IO[List[Event]] =
+    cleanupText(text).fold(
+      t ⇒ roomRepo.addMessage(ref.gameId, ref.color.name, t) map { _ ⇒
+        List(Message(ref.color.name, t))
+      },
+      io(Nil)
+    )
+
+  def watcherMessage(
+    gameId: String,
+    username: Option[String],
+    text: String): IO[List[Event]] =
+    cleanupText(text).fold(
+      t ⇒ watcherRoomRepo.addMessage(gameId, username, t) map { msg ⇒
+        List(WatcherMessage(msg))
+      },
+      io(Nil)
+    )
 
   def systemMessages(game: DbGame, messages: List[SelectI18nKey]): IO[List[Event]] =
     game.invited.isHuman.fold(
@@ -60,6 +71,14 @@ final class Messenger(
 
   def render(roomId: String): IO[String] =
     roomRepo room roomId map (_.render)
+
+  def renderWatcher(game: DbGame): IO[String] =
+    watcherRoomRepo room game.id map (_.render)
+
+  private def cleanupText(text: String) = {
+    val cleanedUp = text.trim.replace(""""""", "'")
+    (cleanedUp.size <= 140 && cleanedUp.nonEmpty) option cleanedUp
+  }
 
   private def messageToEn(message: SelectI18nKey): String =
     message(i18nKeys).en()

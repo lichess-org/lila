@@ -5,9 +5,8 @@ $.widget("lichess.game", {
     self.$board = self.element.find("div.lichess_board");
     self.$table = self.element.find("div.lichess_table_wrap");
     self.$tableInner = self.$table.find("div.table_inner");
-    self.$chat = $("div.lichess_chat");
-    self.$chatMsgs = self.$chat.find('.lichess_messages');
-    self.$nbViewers = $('.nb_viewers');
+    self.$chat = $("div.lichess_chat").orNot();
+    self.$nbViewers = self.$chat.find('.nb_viewers');
     self.initialTitle = document.title;
     self.hasMovedOnce = false;
     self.premove = null;
@@ -18,9 +17,8 @@ $.widget("lichess.game", {
     if (self.options.game.started) {
       self.indicateTurn();
       self.initSquaresAndPieces();
-      self.initChat();
       self.initTable();
-      self.initClocks();
+      if (self.$chat) self.$chat.chat();
       if (self.isMyTurn() && self.options.game.turns == 0) {
         self.element.one('lichess.audio_ready', function() {
           $.playSound();
@@ -60,7 +58,7 @@ $.widget("lichess.game", {
         events: {
           message: function(event) {
             self.element.queue(function() {
-              self.appendToChat(event);
+              if (self.$chat) self.$chat.chat("append", event);
               self.element.dequeue();
             });
           },
@@ -475,49 +473,6 @@ $.widget("lichess.game", {
      * End of code for touch screens
      */
   },
-  initChat: function() {
-    var self = this;
-    if (!self.$chat.length) {
-      return;
-    }
-    self.$chatMsgs.find('>li').each(function() { $(this).html(urlToLink($(this).html())); });
-    self.$chatMsgs.scrollable();
-    var $form = self.$chat.find('form');
-    self.$chatMsgs[0].scrollTop = 9999999;
-    var $input = self.$chat.find('input.lichess_say').one("focus", function() {
-      $input.val('').removeClass('lichess_hint');
-    });
-
-    // send a message
-    $form.submit(function() {
-      var text = $.trim($input.val());
-      if (!text) return false;
-      if (text.length > 140) {
-        alert('Max length: 140 chars. ' + text.length + ' chars used.');
-        return false;
-      }
-      $input.val('');
-      lichess.socket.send('talk', text);
-      return false;
-    });
-
-    self.$chat.find('a.send').click(function() {
-      $input.trigger('click');
-      $form.submit();
-    });
-
-    // toggle the chat
-    self.$chat.find('input.toggle_chat').change(function() {
-      self.$chat.toggleClass('hidden', ! $(this).attr('checked'));
-    }).trigger('change');
-  },
-  appendToChat: function(msg) {
-    if (this.$chat.length) {
-      this.$chatMsgs.append(urlToLink(msg))[0];
-      $('body').trigger('lichess.content_loaded');
-      this.$chatMsgs[0].scrollTop = 9999999;
-    }
-  },
   reloadTable: function(callback) {
     var self = this;
     self.get(self.options.tableUrl, {
@@ -631,7 +586,56 @@ $.widget("lichess.game", {
   }
 });
 
-// clock
+$.widget("lichess.chat", {
+  _create: function() {
+    var self = this;
+    self.$msgs = self.element.find('.lichess_messages');
+    if (self.element.hasClass("spectator")) {
+      var headerHeight = self.element.parent().height();
+      self.element.css("top", headerHeight + 13);
+      self.$msgs.css("height", 457 - headerHeight);
+    }
+    self.$msgs.find('>li').each(function() { 
+      $(this).html(urlToLink($(this).html())); 
+    });
+    self.$msgs.scrollable();
+    var $form = self.element.find('form');
+    self.$msgs[0].scrollTop = 9999999;
+    var $input = self.element.find('input.lichess_say').one("focus", function() {
+      $input.val('').removeClass('lichess_hint');
+    });
+
+    // send a message
+    $form.submit(function() {
+      var text = $.trim($input.val());
+      if (!text) return false;
+      if (text.length > 140) {
+        alert('Max length: 140 chars. ' + text.length + ' chars used.');
+        return false;
+      }
+      $input.val('');
+      lichess.socket.send('talk', text);
+      return false;
+    });
+
+    self.element.find('a.send').click(function() {
+      $input.trigger('click');
+      $form.submit();
+    });
+
+    // toggle the chat
+    self.element.find('input.toggle_chat').change(function() {
+      self.element.toggleClass('hidden', ! $(this).attr('checked'));
+    }).trigger('change');
+  },
+  append: function(msg) {
+    var self = this;
+    self.$msgs.append(urlToLink(msg))[0];
+    $('body').trigger('lichess.content_loaded');
+    self.$msgs[0].scrollTop = 9999999;
+  }
+});
+
 $.widget("lichess.clock", {
   _create: function() {
     var self = this;

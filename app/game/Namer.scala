@@ -18,4 +18,7 @@ object Namer {
 
   def clock(clock: Clock): String = "%d minutes/side + %d seconds/move".format(
     clock.limitInMinutes, clock.increment)
+
+  def shortClock(clock: Clock): String = "%d + %d ".format(
+    clock.limitInMinutes, clock.increment)
 }

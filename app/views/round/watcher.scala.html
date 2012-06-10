@@ -1,66 +1,18 @@
-@(pov: Pov, version: Int, bookmarkers: List[User])(implicit ctx: Context)
+@(pov: Pov, version: Int, roomHtml: Html, bookmarkers: List[User])(implicit ctx: Context)
 
 @import pov._
 
-@title = @{ "Watch %s - %s".format(gameId, color) }
-
-@goodies = {
-<div class="lichess_goodies">
-  <br />
-  @trans.youAreViewingThisGameAsASpectator().
-  <br /><br />
-  <span class="nb_viewers">@trans.spectators() -</span>
-  <br /><br /><br />
-  <div class="box">
-    @if(game.isBeingPlayed) {
-    @trans.playingRightNow()
-    } else {
-    @game.updatedAt.map(showDate)
-    }
-    <br /><br />
-    @List(opponent, player).map { p =>
-    <div class="player">
-      @playerLink(p, withOnline = false, withDiff = false, cssClass = Some("s16 " + p.color.name))
-    </div>
-    }
-    <br />
-    @if(game.variant.exotic) {
-    @trans.variant(): @variantName(game.variant).capitalize<br /><br />
-    }
-    <span class="s16 clock">@clockName(game.clock)</span>
-    @if(game.rated) {
-    <br />@trans.thisGameIsRated()<br />
-    }
-  </div>
-  <br /><br />
-  <a class="lichess_replay_link" href="@routes.Analyse.replay(gameId, color.name)">@trans.replayAndAnalyse()</a>
-  @if(game.hasMoveTimes) {
-  <br /><br />
-  <a href="@routes.Analyse.stats(gameId)">@trans.viewGameStats()</a>
-  }
-  <br /><br />
-  <a class="rotate_board" href="@routes.Round.watcher(gameId, opponent.color.name)">@trans.flipBoard()</a>
-  @if(bookmarkers.nonEmpty) {
-  <div class="bookmarkers">
-    <p>@trans.bookmarkedByNbPlayers(bookmarkers.size)</p>
-    <ul>
-      @bookmarkers.map { bookmarker =>
-      <li>@userLink(bookmarker)</li>
-      }
-    </ul>
-  </div>
-  }
-</div>
-}
-
-@round.layout(title = title, goodies = goodies) {
+@round.watcherLayout(
+pov = pov,
+roomHtml = roomHtml,
+bookmarkers = bookmarkers) {
 <div class="lichess_game clearfix lichess_player_@color"
   data-socket-url="@routes.Round.websocketWatcher(gameId, color.name)"
   data-table-url="@routes.Round.tableWatcher(gameId, color.name)"
   data-players-url="@routes.Round.players(gameId)">
   <div class="lichess_board_wrap">
     @widget.connection()
-    <div class="lichess_board grey">@Html(ui.Board.render(pov))</div>
+    <div class="lichess_board colorable_board grey with_marks">@Html(ui.Board.render(pov))</div>
   </div>
   <div class="lichess_ground">
     @round.cemetery(pov, "top")
@@ -92,5 +44,4 @@
   </div>
 </div>
 <script type="text/javascript">var lichess_data = @Html(roundWatcherJsData(pov, version))</script>
-@round.share(game)
 }

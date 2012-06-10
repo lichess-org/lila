@@ -20,14 +20,14 @@
 @round.layout(
 title = title, 
 goodies = goodies, 
-chat = roomHtml.map(round.room(_))) {
+chat = roomHtml.map(round.room(_, false))) {
 <div class="lichess_game clearfix lichess_player_@color not_spectator"
   data-socket-url="@routes.Round.websocketPlayer(fullId)"
   data-table-url="@routes.Round.tablePlayer(fullId)"
   data-players-url="@routes.Round.players(gameId)">
   <div class="lichess_board_wrap">
     @widget.connection()
-    <div class="lichess_board grey">@Html(ui.Board.render(pov))</div>
+    <div class="lichess_board colorable_board grey with_marks">@Html(ui.Board.render(pov))</div>
     <div id="premove">@trans.premoveEnabledClickAnywhereToCancel()</div>
   </div>
   <div class="lichess_ground">

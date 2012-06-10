@@ -64,6 +64,7 @@ final class Settings(config: Config) {
   val MongoCollectionMessage = getString("mongo.collection.message")
   val MongoCollectionHistory = getString("mongo.collection.history")
   val MongoCollectionRoom = getString("mongo.collection.room")
+  val MongoCollectionWatcherRoom = getString("mongo.collection.watcher_room")
   val MongoCollectionConfig = getString("mongo.collection.config")
   val MongoCollectionCache = getString("mongo.collection.cache")
   val MongoCollectionSecurity = getString("mongo.collection.security")

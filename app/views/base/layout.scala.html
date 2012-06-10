@@ -1,4 +1,4 @@
-@(title: String, active: Option[ui.SiteMenu.Elem] = None, baseline: Option[Html] = None, goodies: Option[Html] = None, menu: Option[Html] = None, chat: Option[Html] = None, robots: Boolean = true, moreCss: Html = Html(""), moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
+@(title: String, active: Option[ui.SiteMenu.Elem] = None, baseline: Option[Html] = None, goodies: Option[Html] = None, menu: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, robots: Boolean = true, moreCss: Html = Html(""), moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
 
 <!doctype html>
 <html lang="@lang.language">
@@ -62,13 +62,14 @@
         @goodies.map { g =>
         <div class="lichess_goodies_wrap">@g</div>
         }
-        @chat.map { c =>
-        <div class="lichess_chat_wrap">@c</div>
-        }
+        @chat
       </div>
       <div id="lichess">
         @body
       </div>
+        @underchat.map { g =>
+        <div class="under_chat">@g</div>
+        }
     </div>
     <div class="footer_wrap">
       <div class="lichess_social">

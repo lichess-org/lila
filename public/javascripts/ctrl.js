@@ -58,12 +58,11 @@ $(function() {
 
   $('input.lichess_id_input').select();
 
-  if ($bw = $('div.lichess_board_wrap').orNot()) {
-    if ($('div.lichess_homepage').length == 0)
-      $.displayBoardMarks($bw, $('#lichess > div.lichess_player_white').length);
+  if ($board = $('div.colorable_board').orNot()) {
+    if ($board.hasClass("with_marks"))
+      $.displayBoardMarks($board.parent(), $('#lichess > div.lichess_player_white').length);
 
     // board color
-    var $board = $bw.find('> div.lichess_board');
     var $picker = $('#top a.colorpicker');
     var colors = ['brown', 'grey', 'green', 'blue'];
     var color;

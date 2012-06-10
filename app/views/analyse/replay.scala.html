@@ -1,9 +1,8 @@
-@(pov: Pov, bookmarkers: List[User], opening: Option[chess.OpeningExplorer.Opening])(implicit ctx: Context)
+@(pov: Pov, roomHtml: Html, bookmarkers: List[User], opening: Option[chess.OpeningExplorer.Opening], version: Int)(implicit ctx: Context)
 
 @import pov._
 
 @moreCss = {
-@cssVendorTag("pgn4web/fonts/pgn4web-fonts.css")
 @cssTag("analyse.css")
 }
 
@@ -12,76 +11,42 @@
 @jsTag("analyse.js")
 }
 
-@goodies = {
-<div class="lichess_goodies">
-  <br />
-  <div class="box">
-    @if(game.isBeingPlayed) {
-    <a class="link" href="@routes.Round.watcher(gameId, color.name)">
-      @trans.playingRightNow()
-    </a>
-    } else {
-    @game.updatedAt.map(showDate)
-    }
-    @if(game.finishedOrAborted) {
-    <br />@gameEndStatus(game)
-    }
-    <br />
-    <br />
-    <div id="player_links">
-      @List(opponent, player).map { p =>
-      <div>
-        @{ p.aiLevel.fold(
-        trans.aiNameLevelAiLevel(aiName, _), 
-        playerLink(p, withOnline = false, withDiff = false, cssClass = p.color.name.some))
-        }
-      </div>
-      }
-    </div>
-    <br />
-    @trans.variant() - @variantName(game.variant)<br />
-    @trans.timeControl() - @clockName(game.clock)<br />
-    @if(game.rated) {
-    @trans.thisGameIsRated()<br />
-    }
-    @trans.opening() -
-    @opening.map { o =>
-    <a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a><br />
-    }.getOrElse { "Unknown" }
-  </div>
-  <br />
-  <br />
-  <a class="rotate_board" href="@routes.Analyse.replay(gameId, (!color).name)">@trans.flipBoard()</a><br />
-  <br />
-  <a href="@routes.Analyse.pgn(game.id)">Download PGN</a>
-  @if(bookmarkers.nonEmpty) {
-  <div class="bookmarkers">
-    <p>@trans.bookmarkedByNbPlayers(bookmarkers.size)</p>
-    <ul>
-      @bookmarkers.map { bookmarker =>
-      <li>@userLink(bookmarker)</li>
-      }
-    </ul>
-  </div>
-  }
-</div>
-<textarea id="pgnText" readonly="readonly">@Html(game.pgn)</textarea>
-}
-
 @analyse.layout(
 title = trans.replayAndAnalyse() + " " + gameId,
-goodies = goodies.some,
+goodies = round.watcherGoodies(pov).some,
+chat = round.room(roomHtml, true).some,
 moreCss = moreCss,
 moreJs = moreJs) {
 <div class="analyse clearfix">
   <div class="board_wrap">
-    <div id="GameBoard"@color.fold("", " class='flip'")></div>
+    <div
+      id="GameBoard"
+      data-version="@version"
+      data-socket-url="@routes.Round.websocketWatcher(gameId, color.name)"
+      class="colorable_board @color.fold("", " flip")"></div>
     <div id="GameButtons"></div>
   </div>
   <div class="moves_wrap">
-    <h1>@trans.replayAndAnalyse()</h1>
     <div id="GameText"></div>
+    @trans.opening() - @opening.map { o =>
+    <a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a><br />
+    }.getOrElse { "Unknown" }
+    <br />
+    <a class="rotate_board" href="@routes.Analyse.replay(gameId, (!color).name)">@trans.flipBoard()</a><br />
+    <br />
+    <a href="@routes.Analyse.pgn(game.id)">Download PGN</a>
+    @if(bookmarkers.nonEmpty) {
+    <div class="bookmarkers">
+      <p>@trans.bookmarkedByNbPlayers(bookmarkers.size)</p>
+      <ul>
+        @bookmarkers.map { bookmarker =>
+        <li>@userLink(bookmarker)</li>
+        }
+      </ul>
+    </div>
+    }
   </div>
 </div>
+<textarea id="pgnText" readonly="readonly">@Html(game.pgn)</textarea>
 @round.share(game)
 }

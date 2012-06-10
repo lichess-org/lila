@@ -1,8 +1,0 @@
-language: scala
-scala:
-  - 2.9.1
-script: sbt ";project chess;test"
-notifications:
-  email:
-    on_success: [change] 
-    on_failure: [change]

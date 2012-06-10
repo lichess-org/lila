@@ -70,7 +70,12 @@ final class RoundEnv(
 
   lazy val messenger = new Messenger(
     roomRepo = roomRepo,
+    watcherRoomRepo = watcherRoomRepo,
     i18nKeys = i18nKeys)
 
-  lazy val roomRepo = new RoomRepo(mongodb(MongoCollectionRoom))
+  lazy val roomRepo = new RoomRepo(
+    mongodb(MongoCollectionRoom))
+
+  lazy val watcherRoomRepo = new WatcherRoomRepo(
+    mongodb(MongoCollectionWatcherRoom))
 }

@@ -47,6 +47,9 @@ final class Socket(
     member: Member,
     povRef: PovRef): JsValue ⇒ Unit =
     if (member.owner) (e: JsValue) ⇒ e str "t" match {
+      case Some("p") ⇒ e int "v" foreach { v ⇒
+        hub ! PingVersion(uid, v)
+      }
       case Some("talk") ⇒ e str "d" foreach { txt ⇒
         val events = messenger.playerMessage(povRef, txt).unsafePerformIO
         hub ! Events(events)
@@ -65,15 +68,19 @@ final class Socket(
         res ← hand outoftime povRef
         op ← res.fold(putFailures, events ⇒ io(hub ! Events(events)))
       } yield op).unsafePerformIO
-      case Some("p") ⇒ e int "v" foreach { v ⇒
-        hub ! PingVersion(uid, v)
-      }
       case _ ⇒
     }
 
     else (e: JsValue) ⇒ e str "t" match {
       case Some("p") ⇒ e int "v" foreach { v ⇒
         hub ! PingVersion(uid, v)
+      }
+      case Some("talk") ⇒ e str "d" foreach { txt ⇒
+        val events = messenger.watcherMessage(
+          povRef.gameId, 
+          member.username,
+          txt).unsafePerformIO
+        hub ! Events(events)
       }
       case _ ⇒
     }

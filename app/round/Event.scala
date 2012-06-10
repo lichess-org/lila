@@ -11,6 +11,7 @@ sealed trait Event {
   def data: JsValue
   def only: Option[Color] = None
   def owner: Boolean = false
+  def watcher: Boolean = false
 }
 
 object Event {
@@ -117,6 +118,12 @@ object Event {
     def typ = "message"
     def data = JsString(Room render (author, message))
     override def owner = true
+  }
+
+  case class WatcherMessage(message: WatcherRoom.Message) extends Event {
+    def typ = "message"
+    def data = JsString(WatcherRoom render message)
+    override def watcher = true
   }
 
   case class End() extends Empty {

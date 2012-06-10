@@ -27,6 +27,11 @@ trait GameHelper { self: I18nHelper with UserHelper with StringHelper ⇒
 
   def clockName(clock: Clock): String = Namer clock clock
 
+  def shortClockName(clock: Option[Clock])(implicit ctx: Context): String = 
+    clock.fold(shortClockName, trans.unlimited.str())
+
+  def shortClockName(clock: Clock): String = Namer shortClock clock
+
   def modeName(mode: Mode)(implicit ctx: Context): String = mode match {
     case Mode.Casual ⇒ trans.casual.str()
     case Mode.Rated  ⇒ trans.rated.str()

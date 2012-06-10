@@ -1,3 +1,0 @@
-[submodule "public/vendor/pgn4web"]
-	path = public/vendor/pgn4web
-	url = git://github.com/ornicar/pgn4web.git

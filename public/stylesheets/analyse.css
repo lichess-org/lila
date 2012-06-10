@@ -1,94 +1,103 @@
 #lichess h1 {
-    font-size: 2em;
-    margin-bottom: 5px;
+  font-size: 2em;
+  margin-bottom: 5px;
 }
 #pgnText {
   display: none;
 }
 
 div.board_wrap {
-    float: left;
-    width: 514px;
+  float: left;
+  width: 514px;
+  min-height: 558px;
 }
 div.moves_wrap {
-    margin-left: 532px;
+  margin-left: 532px;
 }
 span.board_mark {
-    position: absolute;
-    text-transform: uppercase;
-    font-size: 10px;
-    color: #bbb;
-    font-weight: bold;
+  position: absolute;
+  text-transform: uppercase;
+  font-size: 10px;
+  color: #bbb;
+  font-weight: bold;
 }
 span.board_mark.vert {
-    right: -10px;
+  right: -10px;
 }
 span.board_mark.horz {
-    bottom: -14px;
+  bottom: -14px;
+}
+
+@font-face {
+  font-family: 'pgn4web ChessSansMerida';
+  src: url('ChessSansMerida.eot');
+  src: url('/assets/vendor/pgn4web/fonts/ChessSansMerida.eot?#iefix') format('embedded-opentype'), url('/assets/vendor/pgn4web/fonts/ChessSansMerida.woff') format('woff'), url('/assets/vendor/pgn4web/fonts/ChessSansMerida.ttf') format('truetype'), url('/assets/vendor/pgn4web/fonts/ChessSansMerida.svg#ChessSansMerida') format('svg');
 }
 
 #GameBoard {
-    position: relative;
+  position: relative;
 }
 
 #GameBoard table.boardTable {
-    box-shadow: 0 0 7px #bbb;
-    -moz-box-shadow: 0 0 7px #bbb;
-    -webkit-box-shadow: 0 0 7px #bbb;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
+  box-shadow: 0 0 7px #bbb;
+  -moz-box-shadow: 0 0 7px #bbb;
+  -webkit-box-shadow: 0 0 7px #bbb;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
 }
 #GameBoard.flip table, #GameBoard.flip img.pieceImage {
-    -o-transform: rotate(180deg);
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  transform: rotate(180deg);
 }
-#GameBoard td.highlightWhiteSquare a,
-#GameBoard td.highlightBlackSquare a {
-    background: url(../images/over5.png) top left no-repeat;
+#GameBoard td.highlightWhiteSquare,
+#GameBoard td.highlightBlackSquare {
+  background-image: url(../images/over5.png);
 }
-#GameBoard td a {
-    display: block;
-    height: 64px;
+#GameBoard td img {
+  width: 64px;
+  height: 64px;
+  display: block;
 }
 
 #GameButtons {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 #GameButtons input {
-    width: 100px;
-    height: 2em;
+  width: 100px;
+  height: 2em;
 }
-
 #GameText {
-    font-size: 1.2em;
-    height: 504px;
-    border: 1px solid #C0C0C0;
-    overflow: auto;
-    padding: 5px;
-    border-radius: 4px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
+  font-size: 1.2em;
+  width: 200px;
+  height: 400px;
+  margin-bottom: 1em;
+  border: 1px solid #C0C0C0;
+  overflow: auto;
+  padding: 5px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
 }
 #GameText table {
-    margin: auto;
+  margin: auto;
 }
 #GameText tr {
-    border-bottom: 1px solid #eaeaea;
+  border-bottom: 1px solid #eaeaea;
 }
 #GameText a.move {
-    font-family: 'pgn4web ChessSansMerida', 'pgn4web Liberation Sans', sans-serif;
-    text-decoration: none;
-    padding: 3px 12px;
-    display: block;
-    color: #444;
+  font-family: 'pgn4web ChessSansMerida', 'pgn4web Liberation Sans', sans-serif;
+  text-decoration: none;
+  padding: 3px 12px;
+  display: block;
+  color: #444;
 }
 #GameText a:hover {
-    background: #DDD;
+  background: #DDD;
 }
 #GameText a.moveOn {
-    background: #FFE73B;
+  background: #FFE73B;
 }

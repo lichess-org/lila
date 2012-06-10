@@ -6,6 +6,7 @@ import analyse._
 
 import play.api.mvc._
 import play.api.http.ContentTypes
+import play.api.templates.Html
 import scalaz.effects._
 
 object Analyse extends LilaController {
@@ -14,15 +15,20 @@ object Analyse extends LilaController {
   def pgnDump = env.analyse.pgnDump
   def openingExplorer = chess.OpeningExplorer
   def bookmarkApi = env.bookmark.api
+  def roundMessenger = env.round.messenger
+  def roundSocket = env.round.socket
 
   def replay(id: String, color: String) = Open { implicit ctx ⇒
     IOptionIOk(gameRepo.pov(id, color)) { pov ⇒
-      bookmarkApi usersByGame pov.game map { bookmarkers ⇒
-        html.analyse.replay(
-          pov,
-          bookmarkers,
-          openingExplorer openingOf pov.game.pgn)
-      }
+      for {
+        roomHtml ← roundMessenger renderWatcher pov.game
+        bookmarkers ← bookmarkApi usersByGame pov.game
+      } yield html.analyse.replay(
+        pov,
+        Html(roomHtml),
+        bookmarkers,
+        openingExplorer openingOf pov.game.pgn,
+        roundSocket blockingVersion pov.gameId)
     }
   }
 
