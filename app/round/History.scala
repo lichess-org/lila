@@ -12,7 +12,8 @@ case class VersionedEvent(
     typ: String,
     data: JsValue,
     only: Option[Color],
-    own: Boolean) {
+    owner: Boolean,
+    watcher: Boolean) {
 
   def jsFor(m: Member): JsObject = visibleBy(m).fold(
     JsObject(Seq(
@@ -26,7 +27,9 @@ case class VersionedEvent(
   )
 
   private def visibleBy(m: Member): Boolean =
-    if (own && !m.owner) false else only.fold(_ == m.color, true)
+    if (watcher && m.owner) false
+    else if (owner && m.watcher) false 
+    else only.fold(_ == m.color, true)
 }
 
 final class History(timeout: Int) {
@@ -52,7 +55,8 @@ final class History(timeout: Int) {
       typ = event.typ,
       data = event.data,
       only = event.only,
-      own = event.owner)
+      owner = event.owner,
+      watcher = event.watcher)
     events.put(version, vevent)
     vevent
   }

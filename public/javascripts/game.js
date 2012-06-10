@@ -480,6 +480,11 @@ $.widget("lichess.game", {
     if (!self.$chat.length) {
       return;
     }
+    if (self.$chat.hasClass("spectator")) {
+      var headerHeight = self.$chat.parent().height();
+      self.$chat.css("top", headerHeight + 13);
+      self.$chatMsgs.css("height", 457 - headerHeight);
+    }
     self.$chatMsgs.find('>li').each(function() { $(this).html(urlToLink($(this).html())); });
     self.$chatMsgs.scrollable();
     var $form = self.$chat.find('form');

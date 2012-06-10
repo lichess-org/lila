@@ -574,7 +574,7 @@ div.lichess_cemetery div.lichess_piece {
 
 div.under_chat {
   width: 200px;
-  margin-top: -65px;
+  margin-top: -60px;
 }
 
 div.lichess_chat {
@@ -599,6 +599,9 @@ div.lichess_chat_top {
 div.lichess_chat_top span.title {
   font-weight: bold;
   color: #999;
+}
+div.lichess_chat_top span.title span {
+  font-weight: normal;
 }
 div.lichess_chat_inner {
   position: relative;
@@ -664,25 +667,25 @@ div.lichess_chat ol.lichess_messages li {
   font-size: 11px;
   line-height: 14px;
 }
-div.lichess_anon_chat ol.lichess_messages li {
+div.anon_chat ol.lichess_messages li {
   padding-left: 4px;
 }
-div.lichess_anon_chat span.title {
+div.anon_chat span.title {
   padding-left: 4px;
 }
-div.lichess_anon_chat li span {
+div.anon_chat li span {
   font-weight: bold;
   margin-right: 6px;
   color: #aaa;
 }
-div.lichess_anon_chat a.user_link {
+div.anon_chat a.user_link {
   padding: 0;
   background: transparent;
   color: #aaa;
   text-decoration: none;
   font-weight: bold;
 }
-div.lichess_anon_chat a.user_link:hover {
+div.anon_chat a.user_link:hover {
   text-decoration: underline;
 }
 

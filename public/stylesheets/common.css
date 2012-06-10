@@ -197,6 +197,7 @@ div.content_box .lichess_title {
 }
 
 div.lichess_goodies div.box {
+  margin-top: 1em;
   width: 182px;
   border: 1px solid #C0C0C0;
   padding: 7px;

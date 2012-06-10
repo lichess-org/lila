@@ -10,16 +10,20 @@ import scalaz.effects._
 class WatcherRoomRepo(collection: MongoCollection)
     extends SalatDAO[WatcherRoom, String](collection) {
 
+  import WatcherRoom.Message
+
   def room(id: String): IO[WatcherRoom] = io {
     findOneByID(id) | WatcherRoom(id, Nil)
   }
 
-  def addMessage(id: String, author: String, text: String): IO[Unit] = io {
-    collection.update(
-      DBObject("_id" -> id),
-      $push("messages" -> WatcherRoom.encode(author, text)),
-      upsert = true,
-      multi = false
-    )
+  def addMessage(id: String, username: Option[String], text: String): IO[Message] = io {
+    Message(username, text) ~ { message ⇒
+      collection.update(
+        DBObject("_id" -> id),
+        $push("messages" -> (WatcherRoom encode message)),
+        upsert = true,
+        multi = false
+      )
+    }
   }
 }

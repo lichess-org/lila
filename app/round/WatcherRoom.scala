@@ -1,6 +1,8 @@
 package lila
 package round
 
+import controllers.routes
+
 import com.novus.salat.annotations.Key
 import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 import scala.collection.JavaConversions._
@@ -15,21 +17,26 @@ case class WatcherRoom(
 
 object WatcherRoom {
 
-  case class Message(author: String, text: String)
+  case class Message(username: Option[String], text: String)
 
-  def encode(author: String, text: String): String =
-    author + "|" + text
+  def encode(message: Message): String =
+    (message.username | "") + "|" + message.text
 
-  def decode(encoded: String): (String, String) =
-    encoded.split("|").toList match {
-      case author :: rest ⇒ (author, rest mkString "|")
-      case Nil            ⇒ ("", "")
+  def decode(encoded: String): Message =
+    encoded.split("\\|").toList match {
+      case "" :: rest       ⇒ Message(None, rest mkString "|")
+      case username :: rest ⇒ Message(Some(username), rest mkString "|")
+      case Nil              ⇒ Message(None, "")
     }
 
-  def render(msg: (String, String)): String = msg match {
-    case (author, text) ⇒ """<li>%s%s</li>""".format(
-      author,
-      escapeXml(text)
+  def render(msg: Message): String =
+    """<li><span>%s</span>%s</li>""".format(
+      msg.username.fold(
+        u ⇒ """<a class="user_link" href="%s">%s</a>""".format(
+          routes.User.show(u), u take 12
+        ),
+        "Anonymous"
+      ),
+      escapeXml(msg.text)
     )
-  }
 }

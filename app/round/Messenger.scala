@@ -5,7 +5,7 @@ import game.{ DbGame, PovRef, Namer }
 import i18n.{ I18nKeys, I18nKey, Untranslated }
 import I18nKey.{ Select ⇒ SelectI18nKey }
 import chess.Color
-import Event.Message
+import Event.{ Message, WatcherMessage }
 
 import scalaz.effects._
 
@@ -28,9 +28,7 @@ final class Messenger(
     game.rated option ((_.thisGameIsRated): SelectI18nKey)
   ).flatten
 
-  def playerMessage(
-    ref: PovRef,
-    text: String): IO[List[Event]] =
+  def playerMessage(ref: PovRef, text: String): IO[List[Event]] =
     cleanupText(text).fold(
       t ⇒ roomRepo.addMessage(ref.gameId, ref.color.name, t) map { _ ⇒
         List(Message(ref.color.name, t))
@@ -40,11 +38,11 @@ final class Messenger(
 
   def watcherMessage(
     gameId: String,
-    author: String,
+    username: Option[String],
     text: String): IO[List[Event]] =
     cleanupText(text).fold(
-      t ⇒ watcherRoomRepo.addMessage(gameId, author, t) map { _ ⇒
-        List(Message(author, t))
+      t ⇒ watcherRoomRepo.addMessage(gameId, username, t) map { msg ⇒
+        List(WatcherMessage(msg))
       },
       io(Nil)
     )
