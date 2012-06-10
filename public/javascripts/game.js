@@ -646,9 +646,16 @@ $.widget("lichess.chat", {
     });
 
     // toggle the chat
-    self.element.find('input.toggle_chat').change(function() {
-      self.element.toggleClass('hidden', ! $(this).attr('checked'));
-    }).trigger('change');
+    var $chatToggle = self.element.find('input.toggle_chat');
+    $chatToggle.change(function() {
+      var enabled = $chatToggle.is(':checked');
+      self.element.toggleClass('hidden', !enabled);
+      $.post($chatToggle.data('href'), {"chat": enabled});
+    });
+    if (!$chatToggle.data("enabled")) {
+      self.element.addClass('hidden');
+    }
+    $chatToggle[0].checked = $chatToggle.data("enabled");
   },
   append: function(msg) {
     var self = this;
