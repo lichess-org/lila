@@ -18,15 +18,9 @@ final class Messenger(
     systemMessages(game, initKeys(game))
 
   private def initKeys(game: DbGame): List[SelectI18nKey] = List(
-    Some(game.creatorColor.fold(
-      _.whiteCreatesTheGame,
-      _.blackCreatesTheGame): SelectI18nKey),
-    Some(game.invitedColor.fold(
-      _.whiteJoinsTheGame,
-      _.blackJoinsTheGame): SelectI18nKey),
-    game.clock map { c ⇒ ((_.untranslated(Namer clock c)): SelectI18nKey) },
-    game.rated option ((_.thisGameIsRated): SelectI18nKey)
-  ).flatten
+    game.creatorColor.fold(_.whiteCreatesTheGame, _.blackCreatesTheGame),
+    game.invitedColor.fold(_.whiteJoinsTheGame, _.blackJoinsTheGame)
+  )
 
   def playerMessage(ref: PovRef, text: String): IO[List[Event]] =
     cleanupText(text).fold(
