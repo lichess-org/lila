@@ -1,4 +1,4 @@
-@(pov: Pov, version: Int, roomHtml: Option[Html], bookmarkers: List[User])(implicit ctx: Context)
+@(pov: Pov, version: Int, engine: Boolean, roomHtml: Option[Html], bookmarkers: List[User])(implicit ctx: Context)
 
 @import pov._
 
@@ -32,7 +32,7 @@ underchat = underchat.some) {
       }
       <div class="lichess_table@{ if(game.hasClock) " table_with_clock" }@{ if(game.finished) " finished" }">
         <div class="lichess_opponent">
-          @round.username(pov.opponent)
+          @round.username(pov.opponent, engine)
         </div>
         <div class="lichess_separator"></div>
         <div class="table_inner">

@@ -109,7 +109,7 @@ $(function() {
   $('body').on('lichess.content_loaded', translateTexts);
 
   $.tipsyfy = function($elem) {
-    $elem.find('a:not(div.game_list_inner a):not(.notipsy):not(#boardTable a), input, label, div.tipsyme, button').filter('[title]').tipsy({
+    $elem.find('a:not(div.game_list_inner a):not(.notipsy):not(#boardTable a), input, label, .tipsyme, button').filter('[title]').tipsy({
       fade: true,
       html: false,
       live: true

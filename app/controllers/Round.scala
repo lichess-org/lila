@@ -22,6 +22,7 @@ object Round extends LilaController {
   def rematcher = env.setup.rematcher
   def joiner = env.setup.friendJoiner
   def bookmarkApi = env.bookmark.api
+  def userRepo = env.user.userRepo
 
   def websocketWatcher(gameId: String, color: String) = WebSocket.async[JsValue] { req ⇒
     implicit val ctx = reqToCtx(req)
@@ -43,9 +44,13 @@ object Round extends LilaController {
         for {
           roomHtml ← messenger render pov.game
           bookmarkers ← bookmarkApi usersByGame pov.game
+          engine ← pov.opponent.userId.fold(
+            u ⇒ userRepo isEngine u,
+            io(false))
         } yield Ok(html.round.player(
           pov,
           version(pov.gameId),
+          engine,
           roomHtml map { Html(_) },
           bookmarkers)),
         io(Redirect(routes.Setup.await(fullId)))

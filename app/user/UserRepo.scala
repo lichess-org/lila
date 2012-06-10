@@ -11,8 +11,7 @@ import org.joda.time.DateTime
 import ornicar.scalalib.OrnicarRandom
 
 class UserRepo(
-    collection: MongoCollection
-  ) extends SalatDAO[User, String](collection) {
+    collection: MongoCollection) extends SalatDAO[User, String](collection) {
 
   val enabledQuery = DBObject("enabled" -> true)
   def byIdQuery(id: String): DBObject = DBObject("_id" -> normalize(id))
@@ -130,6 +129,13 @@ class UserRepo(
   def toggleEngine(username: String): IO[Unit] = updateIO(username) { user ⇒
     $set("engine" -> !user.engine)
   }
+
+  def isEngine(username: String): IO[Boolean] = io {
+    for {
+      obj ← collection.findOne(byIdQuery(username), DBObject("engine" -> true))
+      engine ← obj.getAs[Boolean]("engine")
+    } yield engine
+  } map (_ | false)
 
   def setBio(user: User, bio: String) = updateIO(user)($set("bio" -> bio))
 

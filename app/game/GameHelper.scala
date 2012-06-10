@@ -27,7 +27,7 @@ trait GameHelper { self: I18nHelper with UserHelper with StringHelper ⇒
 
   def clockName(clock: Clock): String = Namer clock clock
 
-  def shortClockName(clock: Option[Clock])(implicit ctx: Context): String = 
+  def shortClockName(clock: Option[Clock])(implicit ctx: Context): String =
     clock.fold(shortClockName, trans.unlimited.str())
 
   def shortClockName(clock: Clock): String = Namer shortClock clock
@@ -43,10 +43,11 @@ trait GameHelper { self: I18nHelper with UserHelper with StringHelper ⇒
     player: DbPlayer,
     cssClass: Option[String] = None,
     withOnline: Boolean = true,
-    withDiff: Boolean = true)(implicit ctx: Context) = Html {
+    withDiff: Boolean = true,
+    engine: Boolean = false)(implicit ctx: Context) = Html {
     player.userId.fold(
       userId ⇒ userIdToUsername(userId) |> { username ⇒
-        """<a class="user_link%s%s" href="%s">%s</a>""".format(
+        """<a class="user_link%s%s" href="%s">%s%s</a>""".format(
           cssClass.fold(" " + _, ""),
           withOnline.fold(
             isUsernameOnline(username).fold(" online", " offline"),
@@ -54,6 +55,9 @@ trait GameHelper { self: I18nHelper with UserHelper with StringHelper ⇒
           routes.User.show(username),
           usernameWithElo(player) + player.eloDiff.filter(_ ⇒ withDiff).fold(
             diff ⇒ " (%s)".format(showNumber(diff)),
+            ""),
+          engine.fold(
+            """<span class="engine_mark tipsyme" title="%s"></span>""" format trans.thisPlayerUsesChessComputerAssistance(),
             "")
         )
       },

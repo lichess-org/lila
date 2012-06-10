@@ -450,7 +450,7 @@ div.ui-tooltip div.engine_warning {
   background-position: 8px 0px;
 }
 
-span.engine_mark {
+.engine_mark {
   display: inline-block;
   width: 16px;
   height: 16px;
