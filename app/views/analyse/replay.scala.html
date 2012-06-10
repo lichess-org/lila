@@ -1,4 +1,4 @@
-@(pov: Pov, roomHtml: Html, bookmarkers: List[User], opening: Option[chess.OpeningExplorer.Opening], version: Int)(implicit ctx: Context)
+@(pov: Pov, pgn: String, roomHtml: Html, bookmarkers: List[User], opening: Option[chess.OpeningExplorer.Opening], version: Int)(implicit ctx: Context)
 
 @import pov._
 
@@ -54,6 +54,6 @@ moreJs = moreJs) {
     }
   </div>
 </div>
-<textarea id="pgnText" readonly="readonly">@Html(game.pgn)</textarea>
+<textarea id="pgnText" readonly="readonly">@Html(pgn)</textarea>
 @round.share(game)
 }

@@ -23,8 +23,10 @@ object Analyse extends LilaController {
       for {
         roomHtml ← roundMessenger renderWatcher pov.game
         bookmarkers ← bookmarkApi usersByGame pov.game
+        pgn ← pgnDump >> pov.game
       } yield html.analyse.replay(
         pov,
+        pgn,
         Html(roomHtml),
         bookmarkers,
         openingExplorer openingOf pov.game.pgn,
