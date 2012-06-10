@@ -82,7 +82,18 @@ final class Hub(
   def crowdEvent = Event.Crowd(
     white = ownerOf(White).isDefined,
     black = ownerOf(Black).isDefined,
-    watchers = members.values count (_.watcher))
+    watchers = members.values
+      .filter(_.watcher)
+      .map(_.username)
+      .toList.partition(_.isDefined) match {
+        case (users, anons) ⇒ users.flatten.distinct |> { userList =>
+          anons.size match {
+            case 0 ⇒ userList
+            case 1 ⇒ userList :+ "Anonymous"
+            case x ⇒ userList :+ ("Anonymous (%d)" format x)
+          }
+        }
+      })
 
   def notify(events: List[Event]) {
     val vevents = events map history.+=

@@ -63,13 +63,13 @@
         <div class="lichess_goodies_wrap">@g</div>
         }
         @chat
+        @underchat.map { g =>
+        <div class="under_chat">@g</div>
+        }
       </div>
       <div id="lichess">
         @body
       </div>
-        @underchat.map { g =>
-        <div class="under_chat">@g</div>
-        }
     </div>
     <div class="footer_wrap">
       <div class="lichess_social">

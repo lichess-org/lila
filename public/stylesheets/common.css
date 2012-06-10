@@ -46,6 +46,7 @@ div.header strong {
 
 div.content {
   width: 1005px;
+  min-height: 590px;
   margin: 30px auto 30px auto;
 }
 
@@ -573,7 +574,7 @@ div.checkmateCaptcha input {
 }
 
 div.game_share {
-  margin-top: 30px;
+  margin-top: 1em;
   width: 492px;
   box-shadow: 0 0 7px #d0d0d0;
   -moz-box-shadow: 0 0 7px #d0d0d0;

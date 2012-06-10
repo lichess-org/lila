@@ -2,9 +2,8 @@ $(function() {
   SetImagePath("/assets/vendor/pgn4web/lichess/64"); // use "" path if images are in the same folder as this javascript file
   SetImageType("png");
   var $game = $("#GameBoard");
-  var $chat = $("div.lichess_chat");
-  var $nbViewers = $chat.find('.nb_viewers');
-  $chat.chat();
+  var $chat = $("div.lichess_chat").chat();
+  var $watchers = $("div.watchers").watchers();
 
   lichess.socket = new $.websocket(
     lichess.socketUrl + $game.data("socket-url"),
@@ -19,7 +18,7 @@ $(function() {
         $chat.chat("append", event);
       },
     crowd: function(event) {
-      $nbViewers.html($nbViewers.html().replace(/(\d+|-)/, event.watchers)).toggle(event.watchers > 0);
+      $watchers.watchers("set", event.watchers);
     }
     }}));
 });
@@ -30,7 +29,7 @@ function customFunctionOnPgnGameLoad() {
   $text.find('span.move, span.variation').remove();
   $text.find('>a').each(function(it) {
     if (0 == it%2) {
-      html += '</tr><tr><th>' + (it/2+1) + '.</th>';
+      html += '</tr><tr><th>' + (it/2+1) + '</th>';
     }
     html += '<td>' + this.outerHTML + '</td>';
   });

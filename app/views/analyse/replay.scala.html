@@ -11,10 +11,17 @@
 @jsTag("analyse.js")
 }
 
+@underchat = {
+<div class="watchers">
+  @trans.spectators() <span class="list"></span>
+</div>
+}
+
 @analyse.layout(
 title = trans.replayAndAnalyse() + " " + gameId,
-goodies = round.watcherGoodies(pov).some,
+goodies = views.html.game.infoBox(pov).some,
 chat = round.room(roomHtml, true).some,
+underchat = underchat.some,
 moreCss = moreCss,
 moreJs = moreJs) {
 <div class="analyse clearfix">
@@ -28,7 +35,7 @@ moreJs = moreJs) {
   </div>
   <div class="moves_wrap">
     <div id="GameText"></div>
-    @trans.opening() - @opening.map { o =>
+    @trans.opening() @opening.map { o =>
     <a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a><br />
     }.getOrElse { "Unknown" }
     <br />

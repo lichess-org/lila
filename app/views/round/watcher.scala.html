@@ -2,10 +2,19 @@
 
 @import pov._
 
-@round.watcherLayout(
-pov = pov,
-roomHtml = roomHtml,
-bookmarkers = bookmarkers) {
+@title = @{ "Watch %s - %s".format(gameId, color) }
+
+@underchat = {
+<div class="watchers">
+  @trans.spectators() <span class="list"></span>
+</div>
+}
+
+@round.layout(
+title = title,
+goodies = views.html.game.infoBox(pov),
+chat = round.room(roomHtml, true).some,
+underchat = underchat.some) {
 <div class="lichess_game clearfix lichess_player_@color"
   data-socket-url="@routes.Round.websocketWatcher(gameId, color.name)"
   data-table-url="@routes.Round.tableWatcher(gameId, color.name)"
@@ -44,4 +53,5 @@ bookmarkers = bookmarkers) {
   </div>
 </div>
 <script type="text/javascript">var lichess_data = @Html(roundWatcherJsData(pov, version))</script>
+@round.share(game)
 }

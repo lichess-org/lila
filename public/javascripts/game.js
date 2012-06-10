@@ -6,7 +6,7 @@ $.widget("lichess.game", {
     self.$table = self.element.find("div.lichess_table_wrap");
     self.$tableInner = self.$table.find("div.table_inner");
     self.$chat = $("div.lichess_chat").orNot();
-    self.$nbViewers = self.$chat.find('.nb_viewers');
+    self.$watchers = $("div.watchers");
     self.initialTitle = document.title;
     self.hasMovedOnce = false;
     self.premove = null;
@@ -19,6 +19,7 @@ $.widget("lichess.game", {
       self.initSquaresAndPieces();
       self.initTable();
       if (self.$chat) self.$chat.chat();
+      self.$watchers.watchers();
       if (self.isMyTurn() && self.options.game.turns == 0) {
         self.element.one('lichess.audio_ready', function() {
           $.playSound();
@@ -179,12 +180,10 @@ $.widget("lichess.game", {
           });
         },
         crowd: function(event) {
-          if (self.$nbViewers.length) {
-            self.$nbViewers.html(self.$nbViewers.html().replace(/(\d+|-)/, event.watchers)).toggle(event.watchers > 0);
-            $(["white", "black"]).each(function() {
-              self.$table.find("div.username." + this).toggleClass("connected", event[this]).toggleClass("offline", !event[this]);
-            });
-          }
+          $(["white", "black"]).each(function() {
+            self.$table.find("div.username." + this).toggleClass("connected", event[this]).toggleClass("offline", !event[this]);
+          });
+          self.$watchers.watchers("set", event.watchers);
         },
         state: function(event) {
           self.element.queue(function() {
@@ -586,15 +585,38 @@ $.widget("lichess.game", {
   }
 });
 
+$.widget("lichess.watchers", {
+  _create: function() {
+    this.list = this.element.find("span.list");
+  },
+  set: function(users) {
+    var self = this;
+    if (users.length > 0) {
+      var html = [], user, i, w;
+      for (i in users) {
+        w = users[i];
+        if (w.indexOf("Anonymous") == 0) {
+          user = w;
+        } else {
+          user = '<a href="/@/' + w + '">' + w + '</a>';
+        }
+        html.push(user);
+      }
+      self.list.html(html.join(", "));
+      self.element.show();
+    } else {
+      self.element.hide();
+    }
+  }
+});
+
 $.widget("lichess.chat", {
   _create: function() {
     var self = this;
     self.$msgs = self.element.find('.lichess_messages');
-    if (self.element.hasClass("spectator")) {
-      var headerHeight = self.element.parent().height();
-      self.element.css("top", headerHeight + 13);
-      self.$msgs.css("height", 457 - headerHeight);
-    }
+    var headerHeight = self.element.parent().height();
+    self.element.css("top", headerHeight + 13);
+    self.$msgs.css("height", 457 - headerHeight);
     self.$msgs.find('>li').each(function() { 
       $(this).html(urlToLink($(this).html())); 
     });

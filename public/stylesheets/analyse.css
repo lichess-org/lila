@@ -71,32 +71,38 @@ span.board_mark.horz {
   height: 2em;
 }
 #GameText {
-  font-size: 1.2em;
-  width: 200px;
+  font-size: 1.3em;
+  width: 220px;
   height: 400px;
   margin-bottom: 1em;
+  background: #f7f7f7;
   border: 1px solid #C0C0C0;
   overflow: auto;
-  padding: 5px;
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
+  box-shadow: 0 0 7px #d0d0d0;
+  -moz-box-shadow: 0 0 7px #d0d0d0;
+  -webkit-box-shadow: 0 0 7px #d0d0d0;
 }
 #GameText table {
-  margin: auto;
+  width: 100%;
 }
-#GameText tr {
-  border-bottom: 1px solid #eaeaea;
+#GameText tr:nth-child(even) {
+  background: #f0f0f0;
+}
+#GameText th {
+  padding-left: 8px;
 }
 #GameText a.move {
   font-family: 'pgn4web ChessSansMerida', 'pgn4web Liberation Sans', sans-serif;
   text-decoration: none;
-  padding: 3px 12px;
+  padding: 5px 10px;
   display: block;
   color: #444;
 }
 #GameText a:hover {
-  background: #DDD;
+  background: #e0e0e0;
 }
 #GameText a.moveOn {
   background: #FFE73B;

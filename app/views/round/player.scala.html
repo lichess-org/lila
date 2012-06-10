@@ -4,23 +4,17 @@
 
 @title = @{ "Play %s - %s".format(gameId, color) }
 
-@goodies = {
-<div class="lichess_goodies">
-  <br />
-  <a class="lichess_replay_link blank_if_play" href="@routes.Analyse.replay(gameId, color.name)">@trans.replayAndAnalyse()</a>
-  @if(game.hasMoveTimes) {
-  <br /><br />
-  <a href="@routes.Analyse.stats(gameId)">@trans.viewGameStats()</a>
-  }
-  <br /><br />
-  <span class="nb_viewers">@trans.spectators() -</span>
+@underchat = {
+<div class="watchers">
+  @trans.spectators() <span class="list"></span>
 </div>
 }
 
 @round.layout(
 title = title, 
-goodies = goodies, 
-chat = roomHtml.map(round.room(_, false))) {
+goodies = views.html.game.infoBox(pov),
+chat = roomHtml.map(round.room(_, false)),
+underchat = underchat.some) {
 <div class="lichess_game clearfix lichess_player_@color not_spectator"
   data-socket-url="@routes.Round.websocketPlayer(fullId)"
   data-table-url="@routes.Round.tablePlayer(fullId)"

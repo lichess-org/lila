@@ -169,13 +169,12 @@ object Event {
   case class Crowd(
       white: Boolean,
       black: Boolean,
-      watchers: Int) extends Event {
+      watchers: List[String]) extends Event {
     def typ = "crowd"
     def data = JsObject(Seq(
       "white" -> JsBoolean(white),
       "black" -> JsBoolean(black),
-      "watchers" -> JsNumber(watchers)
+      "watchers" -> JsArray(watchers map JsString)
     ))
-    def incWatchers = copy(watchers = watchers + 1)
   }
 }
