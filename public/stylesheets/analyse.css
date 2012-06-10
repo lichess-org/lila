@@ -71,13 +71,28 @@ span.board_mark.horz {
   height: 2em;
 }
 #GameText {
-  text-align: justify;
-  font-family: 'pgn4web ChessSansMerida', 'pgn4web Liberation Sans', sans-serif;
-  font-size: 14px;
+  font-size: 1.2em;
+  width: 200px;
+  height: 400px;
+  margin-bottom: 1em;
+  border: 1px solid #C0C0C0;
+  overflow: auto;
+  padding: 5px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+#GameText table {
+  margin: auto;
+}
+#GameText tr {
+  border-bottom: 1px solid #eaeaea;
 }
 #GameText a.move {
+  font-family: 'pgn4web ChessSansMerida', 'pgn4web Liberation Sans', sans-serif;
   text-decoration: none;
-  padding: 3px;
+  padding: 3px 12px;
+  display: block;
   color: #444;
 }
 #GameText a:hover {

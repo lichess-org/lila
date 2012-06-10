@@ -6,7 +6,7 @@ $.widget("lichess.game", {
     self.$table = self.element.find("div.lichess_table_wrap");
     self.$tableInner = self.$table.find("div.table_inner");
     self.$chat = $("div.lichess_chat").orNot();
-    self.$nbViewers = $chat.find('.nb_viewers');
+    self.$nbViewers = self.$chat.find('.nb_viewers');
     self.initialTitle = document.title;
     self.hasMovedOnce = false;
     self.premove = null;
