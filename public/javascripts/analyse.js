@@ -1,4 +1,4 @@
-jQuery(function() {
+$(function() {
   SetImagePath("/assets/vendor/pgn4web/lichess/64"); // use "" path if images are in the same folder as this javascript file
   SetImageType("png");
 });
@@ -26,5 +26,5 @@ function customFunctionOnPgnGameLoad() {
 }
 
 function redrawBoardMarks() {
-  jQuery.displayBoardMarks($('#GameBoard'), ! $('#GameBoard').hasClass('flip'));
+  $.displayBoardMarks($('#GameBoard'), ! $('#GameBoard').hasClass('flip'));
 }
