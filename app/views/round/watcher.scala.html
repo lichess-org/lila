@@ -12,7 +12,7 @@ bookmarkers = bookmarkers) {
   data-players-url="@routes.Round.players(gameId)">
   <div class="lichess_board_wrap">
     @widget.connection()
-    <div class="lichess_board grey">@Html(ui.Board.render(pov))</div>
+    <div class="lichess_board colorable_board grey with_marks">@Html(ui.Board.render(pov))</div>
   </div>
   <div class="lichess_ground">
     @round.cemetery(pov, "top")

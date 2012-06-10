@@ -29,28 +29,28 @@ div.lcs {
   height: 64px;
 }
 
-div.grey div.lcs.black, a.colorpicker.grey  {
+#GameBoard.grey td.blackSquare, div.grey div.lcs.black, a.colorpicker.grey  {
   background: #cacaca;
 }
-div.grey div.lcs.white {
+#GameBoard.grey td.whiteSquare, div.grey div.lcs.white {
   background: #FFFFFF;
 }
-div.brown div.lcs.black, a.colorpicker.brown   {
+#GameBoard.brown td.blackSquare, div.brown div.lcs.black, a.colorpicker.brown   {
   background: #b58863;
 }
-div.brown div.lcs.white {
+#GameBoard.brown td.whiteSquare, div.brown div.lcs.white {
   background: #f0d9b5;
 }
-div.green div.lcs.black, a.colorpicker.green   {
+#GameBoard.green td.blackSquare, div.green div.lcs.black, a.colorpicker.green   {
   background: #86a666;
 }
-div.green div.lcs.white {
+#GameBoard.green td.whiteSquare, div.green div.lcs.white {
   background: #ffffdd;
 }
-div.blue div.lcs.black, a.colorpicker.blue   {
+#GameBoard.blue td.blackSquare, div.blue div.lcs.black, a.colorpicker.blue   {
   background: #8ca2ad;
 }
-div.blue div.lcs.white {
+#GameBoard.blue td.whiteSquare, div.blue div.lcs.white {
   background: #dee3e6;
 }
 

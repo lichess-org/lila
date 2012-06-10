@@ -611,3 +611,6 @@ span.bookmark .icon {
 span.bookmark .icon.bookmarked {
   background-position: 0 -24px;
 }
+span.bookmark a {
+  outline: none;
+}

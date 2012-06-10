@@ -3,7 +3,6 @@
 @import pov._
 
 @moreCss = {
-@cssVendorTag("pgn4web/fonts/pgn4web-fonts.css")
 @cssTag("analyse.css")
 }
 
@@ -42,7 +41,7 @@ moreCss = moreCss,
 moreJs = moreJs) {
 <div class="analyse clearfix">
   <div class="board_wrap">
-    <div id="GameBoard"@color.fold("", " class='flip'")></div>
+    <div id="GameBoard" class="colorable_board @color.fold("", " flip")"></div>
     <div id="GameButtons"></div>
   </div>
   <div class="moves_wrap">
