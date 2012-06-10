@@ -1,4 +1,4 @@
-@(pov: Pov, roomHtml: Html, bookmarkers: List[User], opening: Option[chess.OpeningExplorer.Opening])(implicit ctx: Context)
+@(pov: Pov, roomHtml: Html, bookmarkers: List[User], opening: Option[chess.OpeningExplorer.Opening], version: Int)(implicit ctx: Context)
 
 @import pov._
 
@@ -41,7 +41,11 @@ moreCss = moreCss,
 moreJs = moreJs) {
 <div class="analyse clearfix">
   <div class="board_wrap">
-    <div id="GameBoard" class="colorable_board @color.fold("", " flip")"></div>
+    <div 
+      id="GameBoard" 
+      data-version="@version"
+      data-socket-url="@routes.Round.websocketWatcher(gameId, color.name)"
+      class="colorable_board @color.fold("", " flip")"></div>
     <div id="GameButtons"></div>
   </div>
   <div class="moves_wrap">

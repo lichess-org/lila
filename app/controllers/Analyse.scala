@@ -16,6 +16,7 @@ object Analyse extends LilaController {
   def openingExplorer = chess.OpeningExplorer
   def bookmarkApi = env.bookmark.api
   def roundMessenger = env.round.messenger
+  def roundSocket = env.round.socket
 
   def replay(id: String, color: String) = Open { implicit ctx ⇒
     IOptionIOk(gameRepo.pov(id, color)) { pov ⇒
@@ -26,7 +27,8 @@ object Analyse extends LilaController {
         pov,
         Html(roomHtml),
         bookmarkers,
-        openingExplorer openingOf pov.game.pgn)
+        openingExplorer openingOf pov.game.pgn,
+        roundSocket blockingVersion pov.gameId)
     }
   }
 

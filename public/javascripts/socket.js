@@ -12,7 +12,8 @@ $.websocket = function(url, version, settings) {
       offlineTag: false, // jQuery object showing connection error
       pingMaxLag: 5000, // time to wait for pong before reseting the connection
       pingDelay: 1500, // time between pong and ping
-      lagTag: false // jQuery object showing ping lag
+      lagTag: false, // jQuery object showing ping lag
+      ignoreUnknownMessages: false
     }
   };
   $.extend(true, self.settings, settings);
@@ -127,7 +128,9 @@ $.websocket.prototype = {
     if (m.t) {
       var h = self.settings.events[m.t];
       if ($.isFunction(h)) h(m.d || null);
-      else self.debug(m.t + " not supported");
+      else if(!self.options.ignoreUnknownMessages) {
+        self.debug(m.t + " not supported");
+      }
     } 
   },
   now: function() { return new Date().getTime(); },
