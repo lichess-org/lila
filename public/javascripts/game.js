@@ -18,6 +18,7 @@ $.widget("lichess.game", {
       self.indicateTurn();
       self.initSquaresAndPieces();
       self.initTable();
+      self.initClocks();
       if (self.$chat) self.$chat.chat();
       self.$watchers.watchers();
       if (self.isMyTurn() && self.options.game.turns == 0) {
