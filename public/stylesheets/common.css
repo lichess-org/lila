@@ -213,13 +213,6 @@ div.lichess_goodies div.box .player {
   margin: 4px 0;
 }
 
-div.bookmarkers {
-  margin-top: 2em;
-}
-div.bookmarkers li {
-  margin-top: 5px;
-}
-
 div.side_menu {
   margin-top: 15px;
 }
@@ -507,7 +500,7 @@ div.lichess_social div.addtochrome {
 }
 
 /* soft inactive gradient */
-#top, div.lichess_chat_top, div.undertable_top, .button, .button:visited, .ui-state-default, div.content_box_top, div.hooks tr {
+#top, div.lichess_chat_top, div.undertable_top, .button, .button:visited, .ui-state-default, div.content_box_top, div.hooks tr, span.toggle_extra  {
   color: #666;
   background: #fafafa;
   background: -moz-linear-gradient(center top , #fafafa, #dadada) repeat scroll 0 0 #fafafa;
@@ -519,7 +512,7 @@ div.lichess_social div.addtochrome {
 }
 
 /* active gradient */
-#top a.goto_nav.active, .button.active, .button:hover, .ui-state-active, .ui-widget-header, div.pagination span.current, a.goto_nav span.new_messages.unread, div.hooks td.action:hover, div.hooks table.empty_table tr:hover {
+#top a.goto_nav.active, .button.active, .button:hover, .ui-state-active, .ui-widget-header, div.pagination span.current, a.goto_nav span.new_messages.unread, div.hooks td.action:hover, div.hooks table.empty_table tr:hover, span.toggle_extra:hover {
   color: #fff;
   background: #d85000;
   background: -moz-linear-gradient(center top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
@@ -573,9 +566,10 @@ div.checkmateCaptcha input {
   width: 5em;
 }
 
-div.game_share {
+div.game_more {
   margin-top: 1em;
-  width: 492px;
+  width: 512px;
+  height: 35px;
   box-shadow: 0 0 7px #d0d0d0;
   -moz-box-shadow: 0 0 7px #d0d0d0;
   -webkit-box-shadow: 0 0 7px #d0d0d0;
@@ -583,19 +577,61 @@ div.game_share {
   border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
-  padding: 3px 10px;
   line-height: 24px;
 }
-div.game_share a.game_permalink {
+div.game_more.extra {
+  height: auto;
+}
+div.game_more div.more_top {
+  width: 100%;
+  width: 432px;
+  padding: 3px 10px;
+  height: 29px;
+}
+div.game_more a.game_permalink {
   float: left;
   display: block;
   margin-top: 3px;
+}
+div.game_more span.toggle_extra {
+  float: right;
+  display: block;
+  width: 35px;
+  height: 35px;
+  border-radius: 0 5px 5px 0;
+  border-left: 1px solid #ccc;
+  cursor: pointer;
+}
+div.game_more span.toggle_extra span {
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: 9px 0 0 10px;
+  background: url(../images/s16.png) 0 -192px no-repeat;
+}
+div.game_more.extra span.toggle_extra {
+  background: none;
+  border: none;
+}
+div.game_extra {
+  display: none;
+  padding: 10px 10px;
+  border-top: 1px solid #ccc;
+}
+div.extra div.game_extra {
+  display: block;
+}
+div.bookmarkers {
+  margin-top: 1em;
+}
+div.bookmarkers li {
+  margin-top: 5px;
 }
 
 span.bookmark {
   position: relative;
   float: right;
-  margin-right: 40px;
+  margin-right: 14px;
 }
 span.bookmark .icon {
   position: absolute;

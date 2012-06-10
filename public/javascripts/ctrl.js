@@ -176,6 +176,10 @@ $(function() {
   bookmarks();
   $('body').on('lichess.content_loaded', bookmarks);
 
+  $(".toggle_extra").click(function() {
+    $(this).parent().toggleClass("extra");
+  });
+
   var elem = document.createElement('audio');
   var canPlayAudio = !! elem.canPlayType && elem.canPlayType('audio/ogg; codecs="vorbis"');
   var $soundToggle = $('#sound_state');

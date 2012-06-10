@@ -40,12 +40,14 @@ object Round extends LilaController {
   def player(fullId: String) = Open { implicit ctx ⇒
     IOptionIOResult(gameRepo pov fullId) { pov ⇒
       pov.game.started.fold(
-        messenger render pov.game map { roomHtml ⇒
-          Ok(html.round.player(
-            pov,
-            version(pov.gameId),
-            roomHtml map { Html(_) }))
-        },
+        for {
+          roomHtml ← messenger render pov.game
+          bookmarkers ← bookmarkApi usersByGame pov.game
+        } yield Ok(html.round.player(
+          pov,
+          version(pov.gameId),
+          roomHtml map { Html(_) },
+          bookmarkers)),
         io(Redirect(routes.Setup.await(fullId)))
       )
     }
