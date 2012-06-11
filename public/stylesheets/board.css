@@ -196,7 +196,7 @@ div.lichess_overboard p.explanations {
   -webkit-box-shadow: 0px 0px 20px #d85000;
 }
 
-#premove {
+#premove, #dont_touch {
   display: none;
   position: absolute;
   top: 512px;

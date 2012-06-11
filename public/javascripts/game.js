@@ -41,6 +41,12 @@ $.widget("lichess.game", {
       }
     }
 
+    if (self.options.player.spectator) {
+      self.$board.find("div.lcs").mousedown(function() {
+        $("#dont_touch").toggle();
+      });
+    }
+
     if (!self.options.opponent.ai && !self.options.player.spectator) {
       // update document title to show playing state
       setTimeout(self.updateTitle = function() {

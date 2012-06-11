@@ -71,6 +71,7 @@ final class I18nKeys(translator: Translator) {
   val contact = new Key("contact")
   val thereIsNothingToSeeHereIfYouThinkItsABugYouCouldSendAnEmailToEmail = new Key("thereIsNothingToSeeHereIfYouThinkItsABugYouCouldSendAnEmailToEmail")
   val shareThisUrlToLetSpectatorsSeeTheGame = new Key("shareThisUrlToLetSpectatorsSeeTheGame")
+  val youAreViewingThisGameAsASpectator = new Key("youAreViewingThisGameAsASpectator")
   val replayAndAnalyse = new Key("replayAndAnalyse")
   val viewGameStats = new Key("viewGameStats")
   val flipBoard = new Key("flipBoard")

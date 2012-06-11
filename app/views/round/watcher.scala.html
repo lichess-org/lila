@@ -22,6 +22,7 @@ underchat = underchat.some) {
   <div class="lichess_board_wrap">
     @widget.connection()
     <div class="lichess_board colorable_board grey with_marks">@Html(ui.Board.render(pov))</div>
+    <div id="dont_touch">@trans.youAreViewingThisGameAsASpectator()</div>
   </div>
   <div class="lichess_ground">
     @round.cemetery(pov, "top")
