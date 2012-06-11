@@ -29,29 +29,29 @@ div.lcs {
   height: 64px;
 }
 
-#GameBoard.grey td.blackSquare, div.grey div.lcs.black, a.colorpicker.grey  {
-  background: #cacaca;
+#GameBoard.grey td.blackSquare, #GameBoard.grey td.highlightBlackSquare, div.grey div.lcs.black, a.colorpicker.grey  {
+  background-color: #cacaca;
 }
-#GameBoard.grey td.whiteSquare, div.grey div.lcs.white {
-  background: #FFFFFF;
+#GameBoard.grey td.whiteSquare, #GameBoard.grey td.highlightWhiteSquare, div.grey div.lcs.white {
+  background-color: #FFFFFF;
 }
-#GameBoard.brown td.blackSquare, div.brown div.lcs.black, a.colorpicker.brown   {
-  background: #b58863;
+#GameBoard.brown td.blackSquare, #GameBoard.brown td.highlightBlackSquare, div.brown div.lcs.black, a.colorpicker.brown   {
+  background-color: #b58863;
 }
-#GameBoard.brown td.whiteSquare, div.brown div.lcs.white {
-  background: #f0d9b5;
+#GameBoard.brown td.whiteSquare, #GameBoard.brown td.highlightWhiteSquare, div.brown div.lcs.white {
+  background-color: #f0d9b5;
 }
-#GameBoard.green td.blackSquare, div.green div.lcs.black, a.colorpicker.green   {
-  background: #86a666;
+#GameBoard.green td.blackSquare, #GameBoard.green td.highlightBlackSquare, div.green div.lcs.black, a.colorpicker.green   {
+  background-color: #86a666;
 }
-#GameBoard.green td.whiteSquare, div.green div.lcs.white {
-  background: #ffffdd;
+#GameBoard.green td.whiteSquare, #GameBoard.green td.highlightWhiteSquare, div.green div.lcs.white {
+  background-color: #ffffdd;
 }
-#GameBoard.blue td.blackSquare, div.blue div.lcs.black, a.colorpicker.blue   {
-  background: #8ca2ad;
+#GameBoard.blue td.blackSquare, #GameBoard.blue td.highlightBlackSquare, div.blue div.lcs.black, a.colorpicker.blue   {
+  background-color: #8ca2ad;
 }
-#GameBoard.blue td.whiteSquare, div.blue div.lcs.white {
-  background: #dee3e6;
+#GameBoard.blue td.whiteSquare, #GameBoard.blue td.highlightWhiteSquare, div.blue div.lcs.white {
+  background-color: #dee3e6;
 }
 
 div.lcsi {
