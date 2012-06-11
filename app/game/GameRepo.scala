@@ -114,9 +114,14 @@ class GameRepo(collection: MongoCollection)
     val userIds = game.players.map(_.userId).flatten
     update(
       idSelector(game), 
+      $set("userIds" -> userIds) ++
       game.variant.standard.fold(
-        $set("userIds" -> userIds),
-        $set("userIds" -> userIds, "initialFen" -> (Forsyth >> game.toChess))
+        DBObject(),
+        $set("initialFen" -> (Forsyth >> game.toChess))
+      ) ++
+      game.mode.rated.fold(
+        $set("isRated" -> true),
+        $unset("isRated")
       )
     )
   }
