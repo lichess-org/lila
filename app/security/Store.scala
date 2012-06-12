@@ -7,6 +7,9 @@ import play.api.mvc.RequestHeader
 import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.Imports._
 import org.joda.time.DateTime
+import scalaz.effects._
+
+case class UserSpy(ips: List[String], uas: List[String])
 
 final class Store(collection: MongoCollection) {
 
@@ -16,41 +19,40 @@ final class Store(collection: MongoCollection) {
       "user" -> normalize(username),
       "ip" -> ip(req),
       "ua" -> ua(req),
-      "date" -> DateTime.now)
+      "date" -> DateTime.now,
+      "up" -> true)
   }
 
   def getUsername(sessionId: String): Option[String] = for {
     obj ← collection.findOneByID(
       sessionId,
-      DBObject("user" -> true)
-    )
-    v ← obj.getAs[String]("user")
-  } yield v
+      DBObject("user" -> true, "up" -> true))
+    up ← obj.getAs[Boolean]("up")
+    if up
+    user ← obj.getAs[String]("user")
+  } yield user
 
   def delete(sessionId: String) {
-    collection.remove(DBObject("_id" -> sessionId))
+    collection.update(
+      DBObject("_id" -> sessionId),
+      $set("up" -> false))
   }
 
   // useful when closing an account,
   // we want to logout too
   def deleteUsername(username: String) {
-    collection.remove(DBObject("user" -> normalize(username)))
+    collection.update(
+      DBObject("user" -> normalize(username)),
+      $set("up" -> false))
   }
 
-  case class Info(
-    user: String,
-    ip: String,
-    ua: String,
-    date: DateTime)
-
-  def userInfo(username: String): Option[Info] = for {
-    obj ← collection.find(
-      DBObject("user" -> normalize(username))
-    ).sort(DBObject("date" -> -1)).limit(1).toList.headOption
-    ip ← obj.getAs[String]("ip")
-    ua ← obj.getAs[String]("ua")
-    date ← obj.getAs[DateTime]("date")
-  } yield Info(username, ip, ua, date)
+  def userSpy(username: String): IO[UserSpy] = io {
+    collection.find(DBObject("user" -> normalize(username).pp)).toList.pp
+  } map { objs ⇒
+    val ips = objs.map(_.pp.getAs[String]("ip")).flatten.distinct
+    val uas = objs.map(_.pp.getAs[String]("ua")).flatten.distinct
+    UserSpy(ips, uas)
+  }
 
   // nginx: proxy_set_header X-Real-IP $remote_addr;
   private def ip(req: RequestHeader) = req.headers.get("X-Real-IP") | "0.0.0.0"
