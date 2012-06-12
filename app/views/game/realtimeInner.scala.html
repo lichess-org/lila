@@ -3,7 +3,7 @@
 <div class="game_list_inner clearfix">
   @games.map { game =>
   <div>
-    @gameFen(game)
+    @gameFen(game, game.creator.color)
     <div class="vstext">
       @usernameWithElo(game.creator) - @usernameWithElo(game.invited)
     </div>
