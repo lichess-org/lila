@@ -34,8 +34,10 @@
 
 @actions = {
 @if(ctx is u) {
+@if(!u.engine) {
 <br />
 <a class="small" href="@routes.User.close">Close your account</a>
+}
 } else {
 @if(isGranted(Permission.MarkEngine)) {
 <form method="post" action="@routes.User.engine(u.username)">

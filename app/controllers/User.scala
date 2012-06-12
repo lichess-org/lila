@@ -74,7 +74,7 @@ object User extends LilaController {
   val closeConfirm = Auth { ctx ⇒
     me ⇒
       IORedirect {
-        userRepo disable me map { _ ⇒
+        me.engine.fold(io(), userRepo disable me) map { _ ⇒
           env.security.store deleteUsername me.username
           routes.User show me.username
         }
