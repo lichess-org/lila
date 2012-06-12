@@ -38,25 +38,14 @@ moreJs = moreJs) {
   </div>
 </div>
 <textarea id="pgnText" readonly="readonly">@Html(pgn)</textarea>
-@views.html.game.more(pov) {
+@views.html.game.more(pov, bookmarkers) {
 @trans.opening() @opening.map { o =>
 <a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a>
 }.getOrElse { "Unknown" }
-<br />
+<nav>
 <a href="@routes.Analyse.stats(gameId)">@trans.viewGameStats()</a>
-<br />
 <a class="rotate_board" href="@routes.Analyse.replay(gameId, (!color).name)">@trans.flipBoard()</a>
-<br />
 <a href="@routes.Analyse.pgn(game.id)">Download PGN</a>
-@if(bookmarkers.nonEmpty) {
-<div class="bookmarkers">
-  <p>@trans.bookmarkedByNbPlayers(bookmarkers.size)</p>
-  <ul>
-    @bookmarkers.map { bookmarker =>
-    <li>@userLink(bookmarker)</li>
-    }
-  </ul>
-</div>
-}
+</nav>
 }
 }

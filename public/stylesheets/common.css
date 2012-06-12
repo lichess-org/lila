@@ -500,7 +500,7 @@ div.lichess_social div.addtochrome {
 }
 
 /* soft inactive gradient */
-#top, div.lichess_chat_top, div.undertable_top, .button, .button:visited, .ui-state-default, div.content_box_top, div.hooks tr, span.toggle_extra  {
+#top, div.lichess_chat_top, div.undertable_top, .button, .button:visited, .ui-state-default, div.content_box_top, div.hooks tr {
   color: #666;
   background: #fafafa;
   background: -moz-linear-gradient(center top , #fafafa, #dadada) repeat scroll 0 0 #fafafa;
@@ -512,7 +512,7 @@ div.lichess_social div.addtochrome {
 }
 
 /* active gradient */
-#top a.goto_nav.active, .button.active, .button:hover, .ui-state-active, .ui-widget-header, div.pagination span.current, a.goto_nav span.new_messages.unread, div.hooks td.action:hover, div.hooks table.empty_table tr:hover, span.toggle_extra:hover {
+#top a.goto_nav.active, .button.active, .button:hover, .ui-state-active, .ui-widget-header, div.pagination span.current, a.goto_nav span.new_messages.unread, div.hooks td.action:hover, div.hooks table.empty_table tr:hover {
   color: #fff;
   background: #d85000;
   background: -moz-linear-gradient(center top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
@@ -569,7 +569,6 @@ div.checkmateCaptcha input {
 div.game_more {
   margin-top: 1em;
   width: 512px;
-  height: 35px;
   box-shadow: 0 0 7px #d0d0d0;
   -moz-box-shadow: 0 0 7px #d0d0d0;
   -webkit-box-shadow: 0 0 7px #d0d0d0;
@@ -579,52 +578,41 @@ div.game_more {
   -moz-border-radius: 5px;
   line-height: 24px;
 }
-div.game_more.extra {
-  height: auto;
+div.game_more a {
+  text-decoration: none;
+}
+div.game_more a:hover {
+  text-decoration: underline;
 }
 div.game_more div.more_top {
-  width: 100%;
-  width: 432px;
   padding: 3px 10px;
+  width: 492px;
   height: 29px;
+}
+div.game_more div.more_top span.bookmark {
+  margin-right: 34px;
 }
 div.game_more a.game_permalink {
   float: left;
   display: block;
   margin-top: 3px;
 }
-div.game_more span.toggle_extra {
-  float: right;
-  display: block;
-  width: 35px;
-  height: 35px;
-  border-radius: 0 5px 5px 0;
-  border-left: 1px solid #ccc;
-  cursor: pointer;
-}
-div.game_more span.toggle_extra span {
-  display: block;
-  width: 16px;
-  height: 16px;
-  margin: 9px 0 0 10px;
-  background: url(../images/s16.png) 0 -192px no-repeat;
-}
-div.game_more.extra span.toggle_extra {
-  background: none;
-  border: none;
-}
 div.game_extra {
-  display: none;
   padding: 10px 10px;
+  width: 492px;
   border-top: 1px solid #ccc;
 }
-div.extra div.game_extra {
+div.game_extra div.body {
+  width: 60%;
+}
+div.game_extra div.body nav a {
   display: block;
 }
-div.bookmarkers {
-  margin-top: 1em;
+
+div.game_extra div.bookmarkers {
+  float: right;
 }
-div.bookmarkers li {
+div.game_extra div.bookmarkers li {
   margin-top: 5px;
 }
 
