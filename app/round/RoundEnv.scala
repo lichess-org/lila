@@ -13,6 +13,7 @@ import elo.EloUpdater
 import ai.Ai
 import core.Settings
 import i18n.I18nKeys
+import security.Flood
 
 final class RoundEnv(
     app: Application,
@@ -22,7 +23,8 @@ final class RoundEnv(
     userRepo: UserRepo,
     eloUpdater: EloUpdater,
     i18nKeys: I18nKeys,
-    ai: () ⇒ Ai) {
+    ai: () ⇒ Ai,
+    flood: Flood) {
 
   implicit val ctx = app
   import settings._
@@ -41,7 +43,8 @@ final class RoundEnv(
     getPlayerPov = gameRepo.pov,
     hand = hand,
     hubMaster = hubMaster,
-    messenger = messenger)
+    messenger = messenger,
+    flood = flood)
 
   lazy val hand = new Hand(
     gameRepo = gameRepo,

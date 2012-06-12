@@ -20,16 +20,13 @@ object Builder {
       .removalListener(onRemove)
       .build[K, V](f)
 
+  def expiry[K, V](ttl: Int): Cache[K, V] =
+    cacheBuilder[K, V](ttl).build[K, V]
+
   private def cacheBuilder[K, V](ttl: Int): CacheBuilder[K, V] =
     CacheBuilder.newBuilder()
       .expireAfterWrite(ttl, TimeUnit.MILLISECONDS)
       .asInstanceOf[CacheBuilder[K, V]]
-
-  def expiry[K, V](ttl: Int): Cache[K, V] =
-    CacheBuilder.newBuilder()
-      .expireAfterWrite(ttl, TimeUnit.MILLISECONDS)
-      .asInstanceOf[CacheBuilder[K, V]]
-      .build[K, V]
 
   implicit def functionToRemovalListener[K, V](f: (K, V) ⇒ Unit): RemovalListener[K, V] =
     new RemovalListener[K, V] {

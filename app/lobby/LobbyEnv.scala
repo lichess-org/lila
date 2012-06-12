@@ -13,6 +13,7 @@ import timeline.Entry
 import user.{ User, UserRepo }
 import game.DbGame
 import round.{ Socket ⇒ RoundSocket, Messenger ⇒ RoundMessenger }
+import security.Flood
 import core.Settings
 
 final class LobbyEnv(
@@ -22,7 +23,8 @@ final class LobbyEnv(
     userRepo: UserRepo,
     getGame: String => IO[Option[DbGame]],
     roundSocket: RoundSocket,
-    roundMessenger: RoundMessenger) {
+    roundMessenger: RoundMessenger,
+    flood: Flood) {
 
   implicit val ctx = app
   import settings._
@@ -39,7 +41,9 @@ final class LobbyEnv(
     timeout = SiteUidTimeout
   )), name = ActorLobbyHub)
 
-  lazy val socket = new Socket(hub = hub)
+  lazy val socket = new Socket(
+    hub = hub,
+    flood = flood)
 
   lazy val fisherman = new Fisherman(
     hookRepo = hookRepo,

@@ -18,6 +18,7 @@ import game.{ Pov, PovRef }
 import chess.Color
 import socket.{ PingVersion, Quit }
 import socket.Util.connectionFail
+import security.Flood
 import implicits.RichJs._
 
 final class Socket(
@@ -25,7 +26,8 @@ final class Socket(
     getPlayerPov: String ⇒ IO[Option[Pov]],
     hand: Hand,
     hubMaster: ActorRef,
-    messenger: Messenger) {
+    messenger: Messenger,
+    flood: Flood) {
 
   private val timeoutDuration = 1 second
   implicit private val timeout = Timeout(timeoutDuration)
@@ -50,7 +52,10 @@ final class Socket(
       case Some("p") ⇒ e int "v" foreach { v ⇒
         hub ! PingVersion(uid, v)
       }
-      case Some("talk") ⇒ e str "d" foreach { txt ⇒
+      case Some("talk") ⇒ for {
+        txt ← e str "d"
+        if flood.allowMessage(uid, txt)
+      } {
         val events = messenger.playerMessage(povRef, txt).unsafePerformIO
         hub ! Events(events)
       }
@@ -75,9 +80,12 @@ final class Socket(
       case Some("p") ⇒ e int "v" foreach { v ⇒
         hub ! PingVersion(uid, v)
       }
-      case Some("talk") ⇒ e str "d" foreach { txt ⇒
+      case Some("talk") ⇒ for {
+        txt ← e str "d"
+        if flood.allowMessage(uid, txt)
+      } {
         val events = messenger.watcherMessage(
-          povRef.gameId, 
+          povRef.gameId,
           member.username,
           txt).unsafePerformIO
         hub ! Events(events)

@@ -65,7 +65,9 @@ final class Hub(
       sender ! Connected(enumerator, member)
     }
 
+    case Events(Nil)           ⇒
     case Events(events)        ⇒ notify(events)
+    case GameEvents(_, Nil)    ⇒
     case GameEvents(_, events) ⇒ notify(events)
 
     case Quit(uid) ⇒ {
@@ -86,7 +88,7 @@ final class Hub(
       .filter(_.watcher)
       .map(_.username)
       .toList.partition(_.isDefined) match {
-        case (users, anons) ⇒ users.flatten.distinct |> { userList =>
+        case (users, anons) ⇒ users.flatten.distinct |> { userList ⇒
           anons.size match {
             case 0 ⇒ userList
             case 1 ⇒ userList :+ "Anonymous"

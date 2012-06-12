@@ -14,8 +14,9 @@ import implicits.RichJs._
 import socket.{ Util, PingVersion, Quit }
 import timeline.Entry
 import game.DbGame
+import security.Flood
 
-final class Socket(hub: ActorRef) {
+final class Socket(hub: ActorRef, flood: Flood) {
 
   implicit val timeout = Timeout(1 second)
 
@@ -34,6 +35,7 @@ final class Socket(hub: ActorRef) {
             case Some("talk") ⇒ for {
               data ← e obj "d"
               txt ← data str "txt"
+              if flood.allowMessage(uid, txt)
               uname ← username
             } hub ! Talk(txt, uname)
             case Some("p") ⇒ e int "v" foreach { v ⇒

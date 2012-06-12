@@ -51,7 +51,8 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     userRepo = user.userRepo,
     getGame = game.gameRepo.game,
     roundSocket = round.socket,
-    roundMessenger = round.messenger)
+    roundMessenger = round.messenger,
+    flood = security.flood)
 
   lazy val setup = new lila.setup.SetupEnv(
     settings = settings,
@@ -85,7 +86,8 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     userRepo = user.userRepo,
     eloUpdater = user.eloUpdater,
     i18nKeys = i18n.keys,
-    ai = ai.ai)
+    ai = ai.ai,
+    flood = security.flood)
 
   lazy val analyse = new lila.analyse.AnalyseEnv(
     settings = settings,
