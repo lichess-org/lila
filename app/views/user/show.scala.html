@@ -97,6 +97,16 @@ evenMoreCss = evenMoreCss) {
       <div class="win_stats" title="@trans.gamesPlayed(): @u.nbGames" data-columns="@winChart.columns" data-rows="@winChart.rows(trans)"></div>
       }
       @actions
+      @info.spy.map { spy =>
+      <br />
+      <br />
+      <strong>IP addresses:</strong> <ul>@spy.ips.map { ip =>
+        <li>@ip</li>
+        }</ul>
+      <strong>User agents:</strong> <ul>@spy.uas.map { ua =>
+        <li>@ua</li>
+        }</ul>
+      }
     </div>
   </div>
   @if(u.hasGames) {

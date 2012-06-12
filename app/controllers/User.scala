@@ -20,20 +20,22 @@ object User extends LilaController {
   def eloUpdater = env.user.eloUpdater
   def lobbyMessenger = env.lobby.messenger
   def bookmarkApi = env.bookmark.api
+  def securityStore = env.security.store
 
   def show(username: String) = showFilter(username, "all", 1)
 
   def showFilter(username: String, filterName: String, page: Int) = Open { implicit ctx ⇒
     IOptionIOk(userRepo byId username) { u ⇒
-      u.enabled.fold(
-        env.user.userInfo(u, bookmarkApi, ctx) map { info ⇒
+      u.enabled.fold({
+        val userSpy = isGranted(_.UserSpy) option securityStore.userSpy _
+        env.user.userInfo(u, bookmarkApi, userSpy, ctx) map { info ⇒
           val filters = user.GameFilterMenu(info, ctx.me, filterName)
           val paginator = filters.query.fold(
             query ⇒ gamePaginator.recentlyCreated(query)(page),
             bookmarkApi.gamePaginatorByUser(u, page))
           html.user.show(u, info, paginator, filters)
-        },
-        io(html.user.disabled(u)))
+        }
+      }, io(html.user.disabled(u)))
     }
   }
 

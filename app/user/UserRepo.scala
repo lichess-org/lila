@@ -118,7 +118,7 @@ class UserRepo(
       .sort(DBObject("_id" -> 1))
       .limit(10)
       .toList
-      .map(_.expand[String]("username"))
+      .map(_.getAs[String]("username"))
       .flatten
   }
 

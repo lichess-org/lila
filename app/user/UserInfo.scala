@@ -5,6 +5,7 @@ import chess.{ EloCalculator, Color }
 import game.{ GameRepo, DbGame }
 import http.Context
 import bookmark.BookmarkApi
+import security.UserSpy
 
 import scalaz.effects._
 
@@ -19,7 +20,8 @@ case class UserInfo(
     nbBookmark: Int,
     eloWithMe: Option[List[(String, Int)]],
     eloChart: Option[EloChart],
-    winChart: Option[WinChart]) {
+    winChart: Option[WinChart],
+    spy: Option[UserSpy]) {
 
   def nbRated = user.nbRatedGames
 
@@ -35,6 +37,7 @@ object UserInfo {
     eloChartBuilder: User ⇒ IO[Option[EloChart]])(
       user: User,
       bookmarkApi: BookmarkApi,
+      userSpy: Option[String ⇒ IO[UserSpy]],
       ctx: Context): IO[UserInfo] = for {
     rank ← (user.elo >= 1500).fold(
       userRepo rank user flatMap { rank ⇒
@@ -65,6 +68,7 @@ object UserInfo {
         "draw" -> eloCalculator.diff(me, user, None),
         "loss" -> eloCalculator.diff(me, user, Color.Black.some))
     }
+    spy ← userSpy.fold(_(user.id) map (_.some), io(none[UserSpy])): IO[Option[UserSpy]]
   } yield new UserInfo(
     user = user,
     rank = rank,
@@ -76,5 +80,6 @@ object UserInfo {
     nbBookmark = nbBookmark,
     eloWithMe = eloWithMe,
     eloChart = eloChart,
-    winChart = winChart)
+    winChart = winChart,
+    spy = spy)
 }

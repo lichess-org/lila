@@ -32,7 +32,6 @@ object Main {
         keys = env.i18n.keys).apply
       case "user-enable" :: username :: Nil  ⇒ users enable username
       case "user-disable" :: username :: Nil ⇒ users disable username
-      case "user-info" :: username :: Nil    ⇒ users info username
       case "forum-denormalize" :: Nil        ⇒ forum.denormalize
       case "forum-typecheck" :: Nil          ⇒ forum.typecheck
       case "game-cleanup-next" :: Nil        ⇒ titivate.cleanupNext

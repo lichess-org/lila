@@ -24,15 +24,4 @@ case class Users(userRepo: UserRepo, securityStore: Store) {
       putStrLn("Not found")
     )
   } yield ()
-
-  def info(username: String) =
-    securityStore.userInfo(username).fold(
-      info ⇒ for {
-        _ ← putStrLn("USER " + info.user)
-        _ ← putStrLn("IP   " + info.ip)
-        _ ← putStrLn("UA   " + info.ua)
-        _ ← putStrLn("DATE " + info.date)
-      } yield (),
-      putStrLn("Not found")
-    )
 }
