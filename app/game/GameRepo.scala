@@ -111,26 +111,19 @@ class GameRepo(collection: MongoCollection)
   }
 
   def denormalizeStarted(game: DbGame): IO[Unit] = io {
-    val userIds = game.players.map(_.userId).flatten
-    update(
-      idSelector(game), 
-      $set("userIds" -> userIds) ++
-      game.variant.standard.fold(
-        DBObject(),
-        $set("initialFen" -> (Forsyth >> game.toChess))
-      ) ++
-      game.mode.rated.fold(
-        $set("isRated" -> true),
-        $unset("isRated")
-      )
-    )
+    update(idSelector(game), 
+      $set("userIds" -> game.players.map(_.userId).flatten))
+    update(idSelector(game), game.mode.rated.fold(
+      $set("isRated" -> true), $unset("isRated")))
+    if (game.variant.exotic) update(idSelector(game), 
+      $set("initialFen" -> (Forsyth >> game.toChess)))
   }
 
   def saveNext(game: DbGame, nextId: String): IO[Unit] = io {
     update(
-      idSelector(game), 
-      $set("next" -> nextId) ++ 
-      $unset("players.0.isOfferingRematch", "players.1.isOfferingRematch")
+      idSelector(game),
+      $set("next" -> nextId) ++
+        $unset("players.0.isOfferingRematch", "players.1.isOfferingRematch")
     )
   }
 
