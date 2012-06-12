@@ -2,7 +2,7 @@ package controllers
 
 import lila._
 import user.{ User ⇒ UserModel }
-import security.{ AuthImpl, Permission }
+import security.{ AuthImpl, Permission, Granter }
 import http.{ Context, HeaderContext, BodyContext, HttpEnvironment }
 import core.Global
 
@@ -146,6 +146,9 @@ trait LilaController
   def todo = Open { implicit ctx ⇒
     NotImplemented(views.html.site.todo())
   }
+
+  def isGranted(permission: Permission.type ⇒ Permission)(implicit ctx: Context): Boolean =
+    Granter.option(permission(Permission))(ctx.me)
 
   protected def reqToCtx(req: Request[_]): BodyContext =
     Context(req, restoreUser(req) ~ setOnline)
