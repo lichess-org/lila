@@ -357,7 +357,7 @@ object DbGame {
   val gameIdSize = 8
   val playerIdSize = 4
   val fullIdSize = 12
-  val maxLagToCompensate = 1000
+  val maxLagToCompensate = 500
 
   def takeGameId(fullId: String) = fullId take gameIdSize
 
