@@ -47,6 +47,9 @@ div.game_row span.white {
 div.game_row span.black {
   background-position: 0 -256px;
 }
+div.game_row .bookmark {
+  margin-right: 26px;
+}
 
 div.game_list.realtime {
   margin-top: 1.4em;
