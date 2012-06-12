@@ -15,12 +15,10 @@ final class Messenger(
     i18nKeys: I18nKeys) {
 
   def init(game: DbGame): IO[List[Event]] =
-    systemMessages(game, initKeys(game))
-
-  private def initKeys(game: DbGame): List[SelectI18nKey] = List(
-    game.creatorColor.fold(_.whiteCreatesTheGame, _.blackCreatesTheGame),
-    game.invitedColor.fold(_.whiteJoinsTheGame, _.blackJoinsTheGame)
-  )
+    systemMessages(game, List(
+      game.creatorColor.fold(_.whiteCreatesTheGame, _.blackCreatesTheGame),
+      game.invitedColor.fold(_.whiteJoinsTheGame, _.blackJoinsTheGame)
+    ))
 
   def playerMessage(ref: PovRef, text: String): IO[List[Event]] =
     cleanupText(text).fold(

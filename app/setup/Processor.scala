@@ -7,6 +7,7 @@ import user.User
 import chess.{ Game, Board, Color => ChessColor }
 import ai.Ai
 import lobby.{ Hook, Fisherman }
+import i18n.I18nDomain
 import controllers.routes
 
 import scalaz.effects._
@@ -66,8 +67,7 @@ final class Processor(
   } yield hook
 
   def api(implicit ctx: Context): IO[Map[String, Any]] = {
-    val domainRegex = """^.+([^\.]+\.[^\.]+)$""".r
-    val domain = "http://" + domainRegex.replaceAllIn(ctx.req.domain, _ group 1)
+    val domain = "http://" + I18nDomain(ctx.req.domain).commonDomain
     val config = ApiConfig
     val pov = config.pov
     val game = ctx.me.fold(
