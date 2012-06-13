@@ -27,7 +27,7 @@ object User extends LilaController {
   def showFilter(username: String, filterName: String, page: Int) = Open { implicit ctx ⇒
     (page < 50).fold(
       IOptionIOk(userRepo byId username) { u ⇒
-        u.enabled.fold({
+        (u.enabled || isGranted(_.MarkEngine)).fold({
           val userSpy = isGranted(_.UserSpy) option securityStore.userSpy _
           env.user.userInfo(u, bookmarkApi, userSpy, ctx) map { info ⇒
             val filters = user.GameFilterMenu(info, ctx.me, filterName)
@@ -79,7 +79,7 @@ object User extends LilaController {
   val closeConfirm = Auth { ctx ⇒
     me ⇒
       IORedirect {
-        me.engine.fold(io(), userRepo disable me) map { _ ⇒
+        userRepo disable me map { _ ⇒
           env.security.store deleteUsername me.username
           routes.User show me.username
         }

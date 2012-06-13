@@ -34,10 +34,8 @@
 
 @actions = {
 @if(ctx is u) {
-@if(!u.engine) {
 <br />
 <a class="small" href="@routes.User.close">Close your account</a>
-}
 } else {
 @if(isGranted(Permission.MarkEngine)) {
 <form method="post" action="@routes.User.engine(u.username)">
@@ -74,7 +72,9 @@ evenMoreCss = evenMoreCss) {
     }
     @if(isGranted(Permission.Admin, u)) {
     <span class="staff">STAFF</span>
-    <br />
+    }
+    @if(u.disabled) {
+    <span class="staff">CLOSED</span>
     }
   </div>
   <div class="content_box_content clearfix">
