@@ -88,8 +88,12 @@ trait GameHelper { self: I18nHelper with UserHelper with StringHelper ⇒
     case _                ⇒ Html("")
   }
 
-  def gameFen(game: DbGame, color: Color)(implicit ctx: Context) = Html {
-    val url = routes.Round.watcher(game.id, color.name)
+  def gameFen(game: DbGame, color: Color, ownerLink: Boolean = false)(implicit ctx: Context) = Html {
+    val owner = ownerLink.fold(ctx.me flatMap game.player, none)
+    val url = owner.fold(
+      o ⇒ routes.Round.player(game fullIdOf o.color),
+      routes.Round.watcher(game.id, color.name)
+    )
     """<a href="%s" title="%s" class="mini_board parse_fen" data-color="%s" data-fen="%s"></a>""".format(
       url,
       trans.viewInFullSize(),

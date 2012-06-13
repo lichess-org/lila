@@ -119,7 +119,7 @@ evenMoreCss = evenMoreCss) {
   </div>
   <div class="games infinitescroll all_games">
     <div class="pager none"><a href="@routes.User.showFilter(u.username, filters.current.name, games.nextPage | 1)">Next</a></div>
-    @game.widgets(games.currentPageResults, u.some)
+    @game.widgets(games.currentPageResults, user = u.some, ownerLink = ctx is u)
   </div>
   }
 </div>
