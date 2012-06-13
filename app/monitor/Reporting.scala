@@ -55,8 +55,6 @@ final class Reporting(
 
     case GetNbGames     ⇒ sender ! nbGames
 
-    case GetNbPlaying   ⇒ sender ! nbPlaying
-
     case GetStatus      ⇒ sender ! status
 
     case GetMonitorData ⇒ sender ! monitorData
@@ -104,7 +102,6 @@ final class Reporting(
       "lobby" -> lobby.nbMembers,
       "game" -> game.nbMembers,
       "hubs" -> game.nbHubs,
-      "recent" -> nbPlaying,
       "lat." -> latency,
       "thread" -> nbThreads,
       "load" -> loadAvg.toString.replace("0.", "."),
@@ -122,7 +119,6 @@ final class Reporting(
   private def status = List(
     allMembers,
     nbGames,
-    nbPlaying,
     game.nbHubs,
     loadAvg.toString,
     (remoteAi | 9999)

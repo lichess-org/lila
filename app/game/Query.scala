@@ -21,8 +21,6 @@ object Query {
 
   val playable: DBObject = ("status" $lt Status.Aborted.id)
 
-  val playing: DBObject = "updatedAt" $gt (DateTime.now - 15.seconds)
-
   val mate: DBObject = DBObject("status" -> Status.Mate.id)
 
   val draw: DBObject = "status" $in List(Status.Draw.id, Status.Stalemate.id)
@@ -51,9 +49,9 @@ object Query {
 
   def opponents(u1: User, u2: User) = "userIds" $all List(u1.id, u2.id)
 
-  val sortCreated = DBObject("createdAt" -> -1)
+  def turnsGt(nb: Int) = "turns" $gt nb
 
-  val sortUpdated = DBObject("updatedAt" -> -1)
+  val sortCreated = DBObject("createdAt" -> -1)
 
   val sortPopular = DBObject("bm" -> -1)
 }

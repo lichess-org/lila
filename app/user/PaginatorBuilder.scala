@@ -4,6 +4,8 @@ package user
 import com.github.ornicar.paginator._
 import com.mongodb.casbah.Imports.DBObject
 
+import mongodb.CachedAdapter
+
 final class PaginatorBuilder(
     userRepo: UserRepo,
     countUsers: () ⇒ Int,
@@ -15,11 +17,11 @@ final class PaginatorBuilder(
   private val recentAdapter =
     adapter(DBObject("enabled" -> true))
 
-  private def adapter(query: DBObject) = new Adapter[User] {
-    private val salatAdapter = SalatAdapter(userRepo, query, DBObject("elo" -> -1))
-    def nbResults = countUsers()
-    def slice(offset: Int, length: Int) = salatAdapter.slice(offset, length)
-  }
+  private def adapter(query: DBObject) = new CachedAdapter(
+    dao = userRepo,
+    query = query,
+    sort = DBObject("elo" -> -1),
+    nbResults = countUsers())
 
   private def paginator(adapter: Adapter[User], page: Int) = Paginator(
     adapter,

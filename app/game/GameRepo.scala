@@ -55,7 +55,7 @@ class GameRepo(collection: MongoCollection)
   def save(progress: Progress): IO[Unit] =
     new GameDiff(progress.origin.encode, progress.game.encode)() |> { diffs ⇒
       if (diffs.nonEmpty) {
-        val fullDiffs = ("updatedAt" -> new Date()) :: diffs
+        val fullDiffs = ("updatedAt" -> new Date) :: diffs
         io { update(idSelector(progress.origin), $set(fullDiffs: _*)) }
       }
       else io()
@@ -131,7 +131,7 @@ class GameRepo(collection: MongoCollection)
     primitiveProjection[String](idSelector(gameId), "initialFen")
   }
 
-  def unplayedIds: IO[List[String]] = io {
+  val unplayedIds: IO[List[String]] = io {
     primitiveProjections[String](
       ("turns" $lt 2) ++ ("createdAt" $lt (DateTime.now - 2.day)),
       "_id"
@@ -150,6 +150,7 @@ class GameRepo(collection: MongoCollection)
   def candidatesToAutofinish: IO[List[DbGame]] = io {
     find(Query.playable ++
       Query.clock(true) ++
+      ("createdAt" $gt (DateTime.now - 1.day)) ++ // index
       ("updatedAt" $lt (DateTime.now - 2.hour))
     ).toList.map(_.decode).flatten
   }
@@ -163,8 +164,8 @@ class GameRepo(collection: MongoCollection)
   def exists(id: String) = count(idSelector(id)) map (_ > 0)
 
   def recentGames(limit: Int): IO[List[DbGame]] = io {
-    find(Query.started)
-      .sort(DBObject("updatedAt" -> -1))
+    find(Query.started ++ Query.turnsGt(1))
+      .sort(DBObject("createdAt" -> -1))
       .limit(limit)
       .toList.map(_.decode).flatten sortBy (_.id)
   }

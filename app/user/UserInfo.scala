@@ -30,6 +30,8 @@ case class UserInfo(
 
 object UserInfo {
 
+  private val rankMinElo = 1600
+
   def apply(
     userRepo: UserRepo,
     countUsers: () => Int,
@@ -40,7 +42,7 @@ object UserInfo {
       bookmarkApi: BookmarkApi,
       userSpy: Option[String ⇒ IO[UserSpy]],
       ctx: Context): IO[UserInfo] = for {
-    rank ← (user.elo >= 1500).fold(
+    rank ← (user.elo >= rankMinElo).fold(
       userRepo rank user map { rank ⇒
         Some(rank -> countUsers())
       },

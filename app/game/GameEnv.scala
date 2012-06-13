@@ -19,6 +19,7 @@ final class GameEnv(
 
   lazy val paginator = new PaginatorBuilder(
     gameRepo = gameRepo,
+    cached = cached,
     maxPerPage = GamePaginatorMaxPerPage)
 
   lazy val export = Export(gameRepo) _

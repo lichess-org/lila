@@ -119,7 +119,6 @@ POST  /inbox/$id<[\w]{8}>/delete       controllers.Message.delete(id: String)
 GET   /monitor                         controllers.Monitor.index
 GET   /monitor/socket                  controllers.Monitor.websocket
 GET   /nb-players                      controllers.Monitor.nbPlayers
-GET   /nb-playing                      controllers.Monitor.nbPlaying
 GET   /status                          controllers.Monitor.status
 
 # Assets

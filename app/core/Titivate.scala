@@ -30,7 +30,7 @@ final class Titivate(
   val cleanupNext: IO[Unit] = {
 
     val cursor = gameRepo.collection.find(
-      ("next" $exists true) ++ ("updatedAt" $gt (DateTime.now - 3.days)),
+      ("next" $exists true) ++ ("createdAt" $gt (DateTime.now - 3.days)),
       DBObject("next" -> true)
     )
     val unsetNext = (id: String) ⇒ gameRepo.collection.update(
