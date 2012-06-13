@@ -21,6 +21,7 @@ final class Settings(config: Config) {
 
   val UserPaginatorMaxPerPage = getInt("user.paginator.max_per_page")
   val UserEloUpdaterFloor = getInt("user.elo_updater.floor")
+  val UserCachedNbTtl = millis("user.cached.nb.ttl")
 
   val ForumTopicMaxPerPage = getInt("forum.topic.max_per_page")
   val ForumPostMaxPerPage = getInt("forum.post.max_per_page")

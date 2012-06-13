@@ -1,12 +1,16 @@
 package lila
 package user
 
+import memo.ActorMemo
+
+import akka.util.duration._
 import scala.collection.mutable
 
-final class Cached(userRepo: UserRepo) {
+final class Cached(
+  userRepo: UserRepo,
+  nbTtl: Int) {
 
-  // id => username
-  private val usernameCache = mutable.Map[String, Option[String]]()
+  import Cached._
 
   def username(userId: String) =
     usernameCache.getOrElseUpdate(
@@ -19,4 +23,22 @@ final class Cached(userRepo: UserRepo) {
 
   def usernameOrAnonymous(userId: Option[String]): String = 
     userId.fold(usernameOrAnonymous, User.anonymous)
+
+  def countEnabled: Int = memo(CountEnabled)
+
+  // id => username
+  private val usernameCache = mutable.Map[String, Option[String]]()
+
+  private val memo = ActorMemo(loadFromDb, nbTtl, 3.seconds)
+
+  private def loadFromDb(key: Key) = key match {
+    case CountEnabled ⇒ userRepo.countEnabled.unsafePerformIO
+  }
+}
+
+object Cached {
+
+  sealed trait Key
+
+  case object CountEnabled extends Key
 }

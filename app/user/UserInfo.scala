@@ -32,6 +32,7 @@ object UserInfo {
 
   def apply(
     userRepo: UserRepo,
+    countUsers: () => Int,
     gameRepo: GameRepo,
     eloCalculator: EloCalculator,
     eloChartBuilder: User ⇒ IO[Option[EloChart]])(
@@ -40,10 +41,8 @@ object UserInfo {
       userSpy: Option[String ⇒ IO[UserSpy]],
       ctx: Context): IO[UserInfo] = for {
     rank ← (user.elo >= 1500).fold(
-      userRepo rank user flatMap { rank ⇒
-        userRepo.countEnabled map { nbUsers ⇒
-          Some(rank -> nbUsers)
-        }
+      userRepo rank user map { rank ⇒
+        Some(rank -> countUsers())
       },
       io(None))
     nbWin ← gameRepo count (_ win user)

@@ -47,10 +47,10 @@ final class Store(collection: MongoCollection) {
   }
 
   def userSpy(username: String): IO[UserSpy] = io {
-    collection.find(DBObject("user" -> normalize(username).pp)).toList.pp
+    collection.find(DBObject("user" -> normalize(username))).toList
   } map { objs ⇒
-    val ips = objs.map(_.pp.getAs[String]("ip")).flatten.distinct
-    val uas = objs.map(_.pp.getAs[String]("ua")).flatten.distinct
+    val ips = objs.map(_.getAs[String]("ip")).flatten.distinct
+    val uas = objs.map(_.getAs[String]("ua")).flatten.distinct
     UserSpy(ips, uas)
   }
 

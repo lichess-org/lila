@@ -22,6 +22,7 @@ final class UserEnv(
 
   lazy val paginator = new PaginatorBuilder(
     userRepo = userRepo,
+    countUsers = () ⇒ cached.countEnabled,
     maxPerPage = UserPaginatorMaxPerPage)
 
   lazy val eloUpdater = new EloUpdater(
@@ -31,12 +32,15 @@ final class UserEnv(
 
   lazy val usernameMemo = new UsernameMemo(timeout = MemoUsernameTimeout)
 
-  lazy val cached = new Cached(userRepo)
+  lazy val cached = new Cached(
+    userRepo = userRepo,
+    nbTtl = UserCachedNbTtl)
 
   lazy val eloChart = EloChart(historyRepo) _
 
   lazy val userInfo = UserInfo(
     userRepo = userRepo,
+    countUsers = () ⇒ cached.countEnabled,
     gameRepo = gameRepo,
     eloCalculator = new EloCalculator,
     eloChartBuilder = eloChart) _
