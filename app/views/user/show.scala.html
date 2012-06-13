@@ -3,13 +3,11 @@
 @title = @{ "%s : %s - page %d".format(u.username, filterTitle(info, filters.current), games.currentPage) }
 
 @evenMoreJs = {
-<script src="http://www.google.com/jsapi"></script>
-@jsTag("chart.js")
-@jsTag("user-chart.js")
 @if(ctx is u) {
 @jsTag("vendor/jquery.editable-set.min.js")
 @jsTag("user-edit.js")
 }
+@jsTag("chart.js")
 }
 
 @evenMoreCss = {
