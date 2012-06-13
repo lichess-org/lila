@@ -130,9 +130,13 @@ $(function() {
       navSelector: ".pager",
       nextSelector: ".pager a:last",
       itemSelector: ".infinitescroll .paginated_element",
-      loadingText: "",
-      donetext: "---"
+      loading: {
+        msgText: "",
+        img: "/assets/images/hloader.gif",
+        finishedMsg: "---"
+      }
     }, function() {
+      $("#infscr-loading").remove();
       $('body').trigger('lichess.content_loaded');
     }).find('div.pager').hide();
   });
