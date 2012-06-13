@@ -73,8 +73,6 @@ div.game_list_inner div.vstext {
   position: relative;
   display: block;
   box-shadow:0 0 5px #444;
-  -moz-box-shadow:0 0 5px #444;
-  -webkit-box-shadow:0 0 5px #444;
 }
 div.all_games a.mini_board {
   float: left;

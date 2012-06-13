@@ -40,12 +40,8 @@ span.board_mark.horz {
 
 #GameBoard table.boardTable {
   box-shadow: 0 0 7px #bbb;
-  -moz-box-shadow: 0 0 7px #bbb;
-  -webkit-box-shadow: 0 0 7px #bbb;
   border: 1px solid #ccc;
   border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
 }
 #GameBoard.flip table, #GameBoard.flip img.pieceImage {
   -o-transform: rotate(180deg);
@@ -79,11 +75,7 @@ span.board_mark.horz {
   border: 1px solid #C0C0C0;
   overflow: auto;
   border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
   box-shadow: 0 0 7px #d0d0d0;
-  -moz-box-shadow: 0 0 7px #d0d0d0;
-  -webkit-box-shadow: 0 0 7px #d0d0d0;
 }
 #GameText table {
   width: 100%;

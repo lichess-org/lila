@@ -111,8 +111,6 @@ div.footer div.right {
 
 .button {
   border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
   border: 1px solid #DADADA;
   padding: 0.4em 1em;
   text-decoration: none;
@@ -129,12 +127,8 @@ a.easy_button {
 
 div.content_box {
   box-shadow: 0 0 7px #bbb;
-  -moz-box-shadow: 0 0 7px #bbb;
-  -webkit-box-shadow: 0 0 7px #bbb;
   border: 1px solid #ccc;
   border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
   background: #fff;
   padding: 20px 25px 25px 25px;
   text-align: left;
@@ -203,11 +197,7 @@ div.lichess_goodies div.box {
   border: 1px solid #C0C0C0;
   padding: 7px;
   border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
   box-shadow: 0 0 7px #d0d0d0;
-  -moz-box-shadow: 0 0 7px #d0d0d0;
-  -webkit-box-shadow: 0 0 7px #d0d0d0;
 }
 div.lichess_goodies div.box .player {
   margin: 4px 0;
@@ -262,9 +252,7 @@ a.goto_nav span.new_messages {
   background: #bbb;
   color: white;
   font-weight: bold;
-  border-radius:4px 4px 4px 4px;
-  -moz-border-radius:4px 4px 4px 4px;
-  -webkit-border-radius:4px 4px 4px 4px;
+  border-radius:4px;
   font-size: 0.9em;
 }
 a.goto_nav span.new_messages.unread {
@@ -570,12 +558,8 @@ div.game_more {
   margin-top: 1em;
   width: 512px;
   box-shadow: 0 0 7px #d0d0d0;
-  -moz-box-shadow: 0 0 7px #d0d0d0;
-  -webkit-box-shadow: 0 0 7px #d0d0d0;
   border: 1px solid #ccc;
   border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
   line-height: 24px;
 }
 div.game_more a {

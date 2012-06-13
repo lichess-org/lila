@@ -150,11 +150,7 @@ div.lichess_overboard {
   text-decoration: none;
   background: #FFF;
   border-radius: 8px;
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
   box-shadow: 0px 0px 20px #444;
-  -moz-box-shadow: 0px 0px 20px #444;
-  -webkit-box-shadow: 0px 0px 20px #444;
   text-align: center;
 }
 div.lichess_overboard a.close {
@@ -192,8 +188,6 @@ div.lichess_overboard p.explanations {
   color: #666;
   opacity: 0.7;
   box-shadow: 0px 0px 20px #d85000;
-  -moz-box-shadow: 0px 0px 20px #d85000;
-  -webkit-box-shadow: 0px 0px 20px #d85000;
 }
 
 #premove, #dont_touch {
@@ -247,55 +241,37 @@ div.lichess_promotion_choice div.lichess_piece {
   margin: 0 5px;
   cursor: pointer;
   border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
   box-shadow:0 0 5px #444;
-  -moz-box-shadow:0 0 5px #444;
-  -webkit-box-shadow:0 0 5px #444;
 }
 
 div.lichess_promotion_choice div.lichess_piece:hover {
   box-shadow:0 0 10px blue;
-  -moz-box-shadow:0 0 10px blue;
-  -webkit-box-shadow:0 0 10px blue;
 }
 
 div.lichess_board_wrap {
   box-shadow: 0 0 7px #bbb;
-  -moz-box-shadow: 0 0 7px #bbb;
-  -webkit-box-shadow: 0 0 7px #bbb;
   border: 1px solid #ccc;
   border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
 }
 
 div.lichess_player_white #a8,
 div.lichess_player_black #h1 {
   border-radius: 4px 0 0 0;
-  -moz-border-radius: 4px 0 0 0;
-  -webkit-border-radius: 4px 0 0 0;
 }
 
 div.lichess_player_white #h8,
 div.lichess_player_black #a1 {
   border-radius: 0 4px 0 0;
-  -moz-border-radius: 0 4px 0 0;
-  -webkit-border-radius: 0 4px 0 0;
 }
 
 div.lichess_player_white #a1,
 div.lichess_player_black #h8 {
   border-radius: 0 0 0 4px;
-  -moz-border-radius: 0 0 0 4px;
-  -webkit-border-radius: 0 0 0 4px;
 }
 
 div.lichess_player_white #h1,
 div.lichess_player_black #a8 {
   border-radius: 0 0 4px 0;
-  -moz-border-radius: 0 0 4px 0;
-  -webkit-border-radius: 0 0 4px 0;
 }
 
 div.lichess_join_url {
@@ -312,8 +288,6 @@ div.lichess_join_url span {
   margin-top: 1em;
   border: 1px solid #D4D4D4;
   border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
 }
 
 div.lichess_ground {
@@ -331,18 +305,12 @@ div.lichess_table_wrap {
 div.lichess_table {
   border: 1px solid #ccc;
   border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
   box-shadow: 0 0 7px #d0d0d0;
-  -moz-box-shadow: 0 0 7px #d0d0d0;
-  -webkit-box-shadow: 0 0 7px #d0d0d0;
   height: auto;
   padding: 10px;
 }
 div.lichess_table.table_with_clock {
   border-radius: 0 4px 4px 0;
-  -moz-border-radius: 0 4px 4px 0;
-  -webkit-border-radius: 0 4px 4px 0;
 }
 div.lichess_table.spectator {
   top: 160px;
@@ -353,8 +321,6 @@ div.lichess_table_not_started {
   left: 0px;
   width: 242px;
   box-shadow: none;
-  -moz-box-shadow: none;
-  -webkit-box-shadow: none;
   border: none;
   padding: 0;
   top: 100px;
@@ -378,8 +344,6 @@ div.clock {
   font-family: monospace;
   font-weight: bold;
   box-shadow: 0 0 7px #d0d0d0;
-  -moz-box-shadow: 0 0 7px #d0d0d0;
-  -webkit-box-shadow: 0 0 7px #d0d0d0;
 }
 div.clock.running {
   background: #fff077;
@@ -393,14 +357,10 @@ div.clock.outoftime {
 div.clock_top {
   border-bottom: 0;
   border-radius: 4px 4px 0 0;
-  -moz-border-radius: 4px 4px 0 0;
-  -webkit-border-radius: 4px 4px 0 0;
 }
 div.clock_bottom {
   border-top: 0;
   border-radius: 0 0 4px 4px;
-  -moz-border-radius: 0 0 4px 4px;
-  -webkit-border-radius: 0 0 4px 4px;
 }
 div.lichess_table_wrap a.moretime {
   opacity: 0.4;
@@ -500,19 +460,13 @@ div.lichess_table .lichess_button {
   text-decoration: none;
   padding: 1em;
   border-radius: 32px;
-  -moz-border-radius: 32px;
-  -webkit-border-radius: 32px;
   box-shadow: 0 0 3px #ccc;
-  -moz-box-shadow: 0 0 3px #ccc;
-  -webkit-box-shadow: 0 0 3px #ccc;
   text-align: center;
   border: 1px solid #d3d3d3;
   font-weight: normal;
 }
 div.lichess_table a.lichess_button:hover, div.lichess_table a.lichess_button.active {
   box-shadow: 0 0 9px #d85000;
-  -moz-box-shadow: 0 0 9px #d85000;
-  -webkit-box-shadow: 0 0 9px #d85000;
   border: 1px solid #d85000;
 }
 
@@ -580,16 +534,13 @@ div.lichess_chat {
   top: 207px;
   left: 0;
   box-shadow: 0 0 7px #d0d0d0;
-  -moz-box-shadow: 0 0 7px #d0d0d0;
-  -webkit-box-shadow: 0 0 7px #d0d0d0;
+  border-radius: 4px;
 }
 div.lichess_chat.lobby_chat {
   top: 157px;
 }
 div.lichess_chat_top {
   border-radius: 4px 4px 0 0;
-  -moz-border-radius: 4px 4px 0 0;
-  -webkit-border-radius: 4px 4px 0 0;
   border: 1px solid #ccc;
   padding: 3px 5px;
 }
@@ -633,8 +584,6 @@ div.lichess_chat form input {
   border-top: 0;
   padding: 2px 20px 2px 4px;
   border-radius: 0 0 4px 4px;
-  -moz-border-radius: 0 0 4px 4px;
-  -webkit-border-radius: 0 0 4px 4px;
   width: 172px;
   background: white;
 }
@@ -723,14 +672,10 @@ div.undertable {
   width: 514px;
   font-size: 11px;
   box-shadow: 0 0 7px #d0d0d0;
-  -moz-box-shadow: 0 0 7px #d0d0d0;
-  -webkit-box-shadow: 0 0 7px #d0d0d0;
   margin-top: 15px;
 }
 div.undertable_top {
   border-radius: 4px 4px 0 0;
-  -moz-border-radius: 4px 4px 0 0;
-  -webkit-border-radius: 4px 4px 0 0;
   border: 1px solid #ccc;
   padding: 3px 5px;
 }
@@ -748,8 +693,6 @@ div.undertable_inner {
   border: 1px solid #ccc;
   border-top: 0;
   border-radius: 0 0 4px 4px;
-  -moz-border-radius: 0 0 4px 4px;
-  -webkit-border-radius: 0 0 4px 4px;
   height: 163px;
   overflow:hidden;
 }
