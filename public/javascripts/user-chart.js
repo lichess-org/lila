@@ -1,5 +1,7 @@
 google.setOnLoadCallback(function() {
 
+  setTimeout(function() {
+
   $('div.elo_history').each(function() {
     var data = google.elemToData(this);
     var chart = new google.visualization.ComboChart(this);
@@ -54,4 +56,6 @@ google.setOnLoadCallback(function() {
       title: $(this).attr('title'),
     });
   });
+
+  }, 500);
 });
