@@ -31,17 +31,18 @@ final class I18nKeys(translator: Translator) {
 
   def untranslated(message: String) = Untranslated(message)
 
-%keys%
+%vals%
+
+  def keys = List(%keys%)
 }
 """
 
 puts 'Dump translation keys to scala'
 
 file = lila_trans_dir + '/messages'
-keys = File.open(file).readlines.map { |l| 
-  name = l.gsub(/(\w+)=.+/, '\1').strip
-  '  val ' + name + ' = new Key("' + name + '")'
-}
-allCode = code.gsub(/%keys%/, keys.join("\n"))
+lines = File.open(file).readlines
+keys = lines.map { |l| l.gsub(/(\w+)=.+/, '\1').strip }
+vals = keys.map { |k| '  val ' + k + ' = new Key("' + k + '")' }
+allCode = code.gsub(/%vals%/, vals.join("\n")).gsub(/%keys%/, keys.join(", "))
 
 File.open(lila_keys_file, 'w') { |f| f.puts allCode }
