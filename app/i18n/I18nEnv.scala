@@ -29,4 +29,9 @@ final class I18nEnv(
   lazy val keys = new I18nKeys(translator = translator)
 
   lazy val requestHandler = new I18nRequestHandler(pool = pool)
+
+  lazy val jsDump = new JsDump(
+    path = app.path.getCanonicalPath + "/" + I18nWebPathFsRelative,
+    pool = pool,
+    keys = keys)
 }

@@ -11,6 +11,8 @@ final class Settings(config: Config) {
 
   val MonitorTimeout = millis("monitor.timeout")
 
+  val I18nWebPathFsRelative = getString("i18n.web_path.fs.relative")
+
   val GameMessageLifetime = millis("game.message.lifetime")
   val GameUidTimeout = millis("game.uid.timeout")
   val GameHubTimeout = millis("game.hub.timeout")

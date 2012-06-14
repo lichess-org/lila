@@ -1,16 +1,16 @@
-package lila.cli
+package lila
+package i18n
 
-import lila.i18n.{ I18nPool, I18nKeys }
 import play.api.i18n.Lang
 import java.io._
 import scalaz.effects._
 
-case class TransJsDump(
-    path: File,
+case class JsDump(
+    path: String,
     pool: I18nPool,
     keys: I18nKeys) {
 
-  val messages = List(
+  private val messages = List(
     keys.unlimited,
     keys.standard,
     keys.rated,
@@ -37,33 +37,27 @@ case class TransJsDump(
     keys.yourTurn,
     keys.waitingForOpponent)
 
-  val en = Lang("en")
+  private val en = Lang("en")
+
+  private def pathFile = new File(path)
 
   def apply: IO[Unit] = for {
-    _ ← putStrLn("Dumping JavaScript translations in " + path)
-    langs = pool.langs
-    _ ← run(path.mkdir, "Create directory")
-    _ ← run(langs foreach { lang ⇒ write(lang) }, "Write translations")
+    _ ← io(pathFile.mkdir)
+    _ ← (pool.langs.toList map write).sequence
   } yield ()
 
-  def write(lang: Lang) {
+  private def write(lang: Lang): IO[Unit] = io {
     val code = dump(lang)
-    val file = new File(
-      "%s/%s.js".format(path.getCanonicalPath, lang.language))
+    val file = new File("%s/%s.js".format(pathFile.getCanonicalPath, lang.language))
     val out = new PrintWriter(file)
     try { out.print(code) }
     finally { out.close }
   }
 
-  def dump(lang: Lang): String =
+  private def dump(lang: Lang): String =
     """lichess_translations = {%s};""".format(messages map { key ⇒
       """"%s":"%s"""".format(escape(key.to(en)()), escape(key.to(lang)()))
     } mkString ",")
 
-  def escape(text: String) = text.replace(""""""", """\"""")
-
-  def run(op: ⇒ Unit, desc: String = "") = for {
-    _ ← desc.nonEmpty.fold(putStrLn(desc), io())
-    _ ← io { op }
-  } yield ()
+  private def escape(text: String) = text.replace(""""""", """\"""")
 }
