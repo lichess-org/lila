@@ -78,6 +78,7 @@ final class Settings(config: Config) {
   val MongoCollectionBookmark = getString("mongo.collection.bookmark")
 
   val FirewallCacheTtl = millis("firewall.cache_ttl")
+  val FirewallEnabled = getBoolean("firewall.enabled")
 
   val ActorReporting = "reporting"
   val ActorSiteHub = "site_hub"

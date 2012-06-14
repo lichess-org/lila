@@ -20,7 +20,8 @@ final class SecurityEnv(
 
   lazy val firewall = new security.Firewall(
     collection = mongodb(MongoCollectionFirewall),
-    cacheTtl = FirewallCacheTtl)
+    cacheTtl = FirewallCacheTtl,
+    enabled = FirewallEnabled)
 
   lazy val flood = new security.Flood
   

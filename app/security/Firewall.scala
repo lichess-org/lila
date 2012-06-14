@@ -11,10 +11,11 @@ import scalaz.effects._
 
 final class Firewall(
     collection: MongoCollection,
-    cacheTtl: Int) {
+    cacheTtl: Int,
+    enabled: Boolean) {
 
   def requestHandler(req: RequestHeader): Option[Handler] = 
-    req.headers.get("X-Real-IP").fold(blocks, false) option {
+    (enabled && req.headers.get("X-Real-IP").fold(blocks, false)) option {
       Action {
         println("IP block " + req.headers.get("X-Real-IP"))
         BadRequest("Your IP has been blocked due to abuse.")
