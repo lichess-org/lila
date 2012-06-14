@@ -24,10 +24,7 @@ fix game list translations
 temporary mod IP ban to help stopping cheaters
 pgn export without download
 more infos under realtime games
-monitor db qps = 300
 monitor real cpu usage
-nowebsocket message images
-check mongodb queries
 
 new translations:
 -rematchOfferCanceled=Rematch offer canceled
