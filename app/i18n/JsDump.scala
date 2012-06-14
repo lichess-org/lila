@@ -39,7 +39,7 @@ case class JsDump(
 
   private val en = Lang("en")
 
-  private def pathFile = new File(path)
+  private val pathFile = new File(path)
 
   def apply: IO[Unit] = for {
     _ ← io(pathFile.mkdir)

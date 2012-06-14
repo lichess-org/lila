@@ -16,12 +16,12 @@ object Main {
 
   lazy val env = CoreEnv(app)
 
-  lazy val users = Users(env.user.userRepo, env.security.store)
-  lazy val games = Games(env)
-  lazy val i18n = I18n(env.i18n)
-  lazy val titivate = env.titivate
-  lazy val forum = Forum(env.forum)
-  lazy val infos = Infos(env)
+  def users = Users(env.user.userRepo, env.security.store)
+  def games = Games(env)
+  def i18n = I18n(env.i18n)
+  def titivate = env.titivate
+  def forum = Forum(env.forum)
+  def infos = Infos(env)
 
   def main(args: Array[String]): Unit = sys exit {
 
@@ -35,7 +35,7 @@ object Main {
       case "game-cleanup-next" :: Nil        ⇒ titivate.cleanupNext
       case "game-cleanup-unplayed" :: Nil    ⇒ titivate.cleanupUnplayed
       case "game-finish" :: Nil              ⇒ titivate.finishByClock
-      case _                                 ⇒ putStrLn("Usage: run command args")
+      case _                                 ⇒ putStrLn("Unknown command")
     }
     op.map(_ ⇒ 0).unsafePerformIO
   }

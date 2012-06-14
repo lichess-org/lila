@@ -31,7 +31,12 @@ final class I18nEnv(
   lazy val requestHandler = new I18nRequestHandler(pool = pool)
 
   lazy val jsDump = new JsDump(
-    path = app.path.getCanonicalPath + "/" + I18nWebPathFsRelative,
+    path = app.path.getCanonicalPath + "/" + I18nWebPathRelative,
+    pool = pool,
+    keys = keys)
+
+  lazy val fileFix = new FileFix(
+    path = app.path.getCanonicalPath + "/" + I18nFilePathRelative,
     pool = pool,
     keys = keys)
 }
