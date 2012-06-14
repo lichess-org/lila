@@ -16,13 +16,13 @@ use POST instead of GET where it makes sense
 translation contributions
 check sf2 commands to port
 make the wiki static html pages managed by git?
-nb-playing is wrong (mongo date?)
 guess friend list
 autoclose top menus
 tournaments http://www.chess.com/tournaments/help.html
 fix game list translations
 temporary mod IP ban to help stopping cheaters
 more infos under realtime games
+cheater slash timeline
 
 new translations:
 -rematchOfferCanceled=Rematch offer canceled

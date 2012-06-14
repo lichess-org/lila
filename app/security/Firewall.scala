@@ -15,7 +15,7 @@ final class Firewall(
     enabled: Boolean) {
 
   def requestHandler(req: RequestHeader): Option[Handler] = 
-    (enabled && req.headers.get("X-Real-IP").fold(blocks, false)) option {
+    (enabled && blocks(req.remoteAddress)) option {
       Action {
         println("IP block " + req.headers.get("X-Real-IP"))
         BadRequest("Your IP has been blocked due to abuse.")

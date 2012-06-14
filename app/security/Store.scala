@@ -54,8 +54,7 @@ final class Store(collection: MongoCollection) {
     UserSpy(ips, uas)
   }
 
-  // nginx: proxy_set_header X-Real-IP $remote_addr;
-  private def ip(req: RequestHeader) = req.headers.get("X-Real-IP") | "0.0.0.0"
+  private def ip(req: RequestHeader) = req.remoteAddress 
 
   private def ua(req: RequestHeader) = req.headers.get("User-Agent") | "?"
 
