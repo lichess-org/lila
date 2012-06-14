@@ -8,6 +8,8 @@ final class I18nPool(val langs: Set[Lang], val default: Lang) {
 
   private val cache = scala.collection.mutable.Map[String, Option[Lang]]()
 
+  def nonDefaultLangs = langs - default
+
   val names: Map[String, String] = langs map { l ⇒
     l.language -> LangList.name(l.language)
   } toMap

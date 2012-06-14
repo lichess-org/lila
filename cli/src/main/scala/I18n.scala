@@ -11,4 +11,9 @@ case class I18n(i18n: I18nEnv) {
     _ ← putStrLn("Dumping JavaScript translations")
     _ ← i18n.jsDump.apply
   } yield ()
+
+  def fileFix: IO[Unit] = for {
+    _ ← putStrLn("Fixing translation files")
+    _ ← i18n.fileFix.apply
+  } yield ()
 }

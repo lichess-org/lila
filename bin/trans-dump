@@ -33,7 +33,7 @@ final class I18nKeys(translator: Translator) {
 
 %vals%
 
-  def keys = List(%keys%)
+  def all = List(%keys%)
 }
 """
 

@@ -10,6 +10,11 @@ case class JsDump(
     pool: I18nPool,
     keys: I18nKeys) {
 
+  val apply: IO[Unit] = for {
+    _ ← io(pathFile.mkdir)
+    _ ← (pool.nonDefaultLangs.toList map write).sequence
+  } yield ()
+
   private val messages = List(
     keys.unlimited,
     keys.standard,
@@ -37,14 +42,7 @@ case class JsDump(
     keys.yourTurn,
     keys.waitingForOpponent)
 
-  private val en = Lang("en")
-
   private val pathFile = new File(path)
-
-  def apply: IO[Unit] = for {
-    _ ← io(pathFile.mkdir)
-    _ ← (pool.langs.toList map write).sequence
-  } yield ()
 
   private def write(lang: Lang): IO[Unit] = io {
     val code = dump(lang)
@@ -56,7 +54,7 @@ case class JsDump(
 
   private def dump(lang: Lang): String =
     """lichess_translations = {%s};""".format(messages map { key ⇒
-      """"%s":"%s"""".format(escape(key.to(en)()), escape(key.to(lang)()))
+      """"%s":"%s"""".format(escape(key.to(pool.default)()), escape(key.to(lang)()))
     } mkString ",")
 
   private def escape(text: String) = text.replace(""""""", """\"""")

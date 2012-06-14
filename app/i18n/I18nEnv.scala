@@ -38,5 +38,6 @@ final class I18nEnv(
   lazy val fileFix = new FileFix(
     path = app.path.getCanonicalPath + "/" + I18nFilePathRelative,
     pool = pool,
-    keys = keys)
+    keys = keys,
+    api = messagesApi)
 }
