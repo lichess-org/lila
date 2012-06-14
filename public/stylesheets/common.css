@@ -578,8 +578,16 @@ div.game_more div.more_top span.bookmark {
 }
 div.game_more a.game_permalink {
   float: left;
-  display: block;
   margin-top: 3px;
+}
+div.game_more pre {
+  line-height: normal;
+  margin: 0;
+  background: #fff;
+  border: 1px solid #eaeaea;
+  padding: 5px;
+  overflow: hidden;
+  border-radius: 3px;
 }
 div.game_extra {
   padding: 10px 10px;
@@ -588,9 +596,6 @@ div.game_extra {
 }
 div.game_extra div.body {
   width: 60%;
-}
-div.game_extra div.body nav a {
-  display: block;
 }
 
 div.game_extra div.bookmarkers {

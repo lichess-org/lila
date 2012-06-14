@@ -180,6 +180,17 @@ $(function() {
   bookmarks();
   $('body').on('lichess.content_loaded', bookmarks);
 
+  $("a.view_pgn_toggle").one("click", function() {
+    var $this = $(this).text("...");
+    $.ajax({
+      url: $this.attr("href"),
+      success: function(text) {
+        $this.after("<pre>" + text + "</pre>").text("Download PGN");
+      }
+    });
+    return false;
+  });
+
   var elem = document.createElement('audio');
   var canPlayAudio = !! elem.canPlayType && elem.canPlayType('audio/ogg; codecs="vorbis"');
   var $soundToggle = $('#sound_state');

@@ -44,8 +44,10 @@ moreJs = moreJs) {
 }.getOrElse { "Unknown" }
 <nav>
 <a href="@routes.Analyse.stats(gameId)">@trans.viewGameStats()</a>
+<br />
 <a class="rotate_board" href="@routes.Analyse.replay(gameId, (!color).name)">@trans.flipBoard()</a>
-<a href="@routes.Analyse.pgn(game.id)">Download PGN</a>
+<br />
+<a class="view_pgn_toggle" href="@routes.Analyse.pgn(game.id)">View PGN</a> 
 </nav>
 }
 }
