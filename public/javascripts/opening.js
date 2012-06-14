@@ -181,7 +181,7 @@ $(function() {
           $('body').trigger('lichess.content_loaded');
         } 
       });
-    }, 60 * 1000);
+    }, 120 * 1000);
 
     addHooks(lichess_preload.pool);
     renderTimeline(lichess_preload.timeline);

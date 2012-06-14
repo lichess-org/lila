@@ -140,7 +140,7 @@
 
     app.dbQps = new SpeedOMeter({
       name : "DB QPS",
-      maxVal : 200,
+      maxVal : 300,
       threshold: 0.8,
       container : container
     });
@@ -153,7 +153,7 @@
 
     app.ai = new SpeedOMeter({
       name : "AI PING",
-      maxVal : 500,
+      maxVal : 200,
       container : container
     });
 

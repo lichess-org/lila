@@ -6,7 +6,6 @@ import security.Permission
 import user.{ GameFilter, User ⇒ UserModel }
 import http.Context
 
-import play.api._
 import play.api.mvc._
 import play.api.mvc.Results._
 import scalaz.effects._
