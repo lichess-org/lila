@@ -82,6 +82,7 @@ final class Settings(config: Config) {
 
   val FirewallCacheTtl = millis("firewall.cache_ttl")
   val FirewallEnabled = getBoolean("firewall.enabled")
+  val FirewallBlockCookie = getString("firewall.block_cookie")
 
   val ActorReporting = "reporting"
   val ActorSiteHub = "site_hub"

@@ -41,7 +41,7 @@ object Auth extends LilaController {
     implicit val req = ctx.body
     forms.signup.bindFromRequest.fold(
       err ⇒ BadRequest(html.auth.signup(err, forms.captchaCreate)),
-      data ⇒ {
+      data ⇒ Firewall {
         val user = userRepo.create(data.username, data.password).unsafePerformIO
         gotoSignupSucceeded(
           user.err("register error").username

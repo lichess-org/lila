@@ -111,7 +111,7 @@ object User extends LilaController {
       IOptionIORedirect(userRepo byId username) { user ⇒
         for {
           spy ← securityStore userSpy username
-          _ ← io(spy.ips foreach firewall.block)
+          _ ← io(spy.ips foreach firewall.blockIp)
           _ ← user.isChatBan.fold(io(), lobbyMessenger mute username)
         } yield routes.User show username
       }

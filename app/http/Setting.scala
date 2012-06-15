@@ -27,7 +27,7 @@ final class Setting(ctx: Context) extends HttpEnvironment {
     ctx.me.fold(
       m ⇒ userRepo.saveSetting(m, name, value.toString),
       io()) map { _ ⇒
-        LilaCookie(name, value.toString)(ctx.req)
+        LilaCookie.session(name, value.toString)(ctx.req)
       }
 }
 

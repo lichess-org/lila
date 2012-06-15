@@ -67,6 +67,12 @@ trait LilaController
         ctx.isGranted(perm).fold(f(ctx)(me), authorizationFailed(ctx.req))
     }
 
+  def Firewall[A <: Result](a: ⇒ A)(implicit ctx: Context): Result =
+    env.security.firewall.accepts(ctx.req).fold(
+      a,
+      Redirect(routes.Lobby.home())
+    )
+
   def JsonOk(map: Map[String, Any]) = Ok(toJson(map)) as JSON
 
   def JsonOk(list: List[String]) = Ok(Json generate list) as JSON

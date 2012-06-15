@@ -17,14 +17,4 @@ object Main extends LilaController {
       uidOption = get("uid"),
       username = ctx.me map (_.username))
   }
-
-  val blocked = Action { implicit req ⇒
-    Async {
-      Akka.future {
-        println("BLOCK %s %s".format(req.remoteAddress, req))
-        Thread sleep 10 * 1000
-        BadRequest(html.base.blocked())
-      }
-    }
-  }
 }

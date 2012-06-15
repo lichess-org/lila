@@ -21,8 +21,8 @@ case class User(
 
   def canChat = 
     !isChatBan && 
-    nbGames >= 3 /* &&
-    createdAt < (DateTime.now - 1.day) */
+    nbGames >= 3 &&
+    createdAt < (DateTime.now - 3.hours)
 
   def disabled = !enabled
 

@@ -21,6 +21,7 @@ final class SecurityEnv(
   lazy val firewall = new security.Firewall(
     collection = mongodb(MongoCollectionFirewall),
     cacheTtl = FirewallCacheTtl,
+    blockCookieName = FirewallBlockCookie,
     enabled = FirewallEnabled)
 
   lazy val flood = new security.Flood

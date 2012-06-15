@@ -32,7 +32,7 @@ trait AuthImpl {
     Redirect(routes.Lobby.home)
 
   def authenticationFailed(implicit req: RequestHeader): PlainResult =
-    Redirect(routes.Lobby.home) withCookies LilaCookie("access_uri", req.uri)
+    Redirect(routes.Lobby.home) withCookies LilaCookie.session("access_uri", req.uri)
 
   def saveAuthentication(username: String)(implicit req: RequestHeader): String =
     (OrnicarRandom nextAsciiString 12) ~ { sessionId ⇒
@@ -41,12 +41,12 @@ trait AuthImpl {
 
   def gotoLoginSucceeded[A](username: String)(implicit req: RequestHeader) = {
     val sessionId = saveAuthentication(username)
-    loginSucceeded(req) withCookies LilaCookie("sessionId", sessionId)
+    loginSucceeded(req) withCookies LilaCookie.session("sessionId", sessionId)
   }
 
   def gotoSignupSucceeded[A](username: String)(implicit req: RequestHeader) = {
     val sessionId = saveAuthentication(username)
-    Redirect(routes.User.show(username)) withCookies LilaCookie("sessionId", sessionId)
+    Redirect(routes.User.show(username)) withCookies LilaCookie.session("sessionId", sessionId)
   }
 
   def gotoLogoutSucceeded(implicit req: RequestHeader) = {
@@ -68,6 +68,7 @@ trait AuthImpl {
 
   def restoreUser(req: RequestHeader): Option[User] = for {
     sessionId ← req.session.get("sessionId")
+    if env.security.firewall accepts req
     username ← env.security.store.getUsername(sessionId)
     user ← (env.user.userRepo byId username).unsafePerformIO
   } yield user
