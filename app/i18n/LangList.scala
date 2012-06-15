@@ -5,6 +5,8 @@ object LangList {
 
   def name(code: String) = all get code getOrElse code
 
+  lazy val sortedList = all.toList sortBy (_._1)
+
   val all = Map(
     "ab" -> "аҧсуа",
     "aa" -> "Afaraf",

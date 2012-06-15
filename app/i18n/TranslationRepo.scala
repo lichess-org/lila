@@ -8,7 +8,13 @@ import com.mongodb.casbah.Imports._
 import scalaz.effects._
 
 class TranslationRepo(
-    collection: MongoCollection
-  ) extends SalatDAO[Translation, String](collection) {
+    collection: MongoCollection) extends SalatDAO[Translation, String](collection) {
 
+  val maxId: IO[Int] = io {
+    collection.find(DBObject(), DBObject("_id" -> true))
+      .sort(DBObject("_id" -> -1))
+      .limit(1)
+      .toList
+      .headOption flatMap { _.getAs[Int]("_id") } getOrElse 0
+  }
 }

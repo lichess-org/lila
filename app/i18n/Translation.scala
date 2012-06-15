@@ -7,7 +7,7 @@ import org.joda.time.DateTime
 case class Translation(
   @Key("_id") id: Int,
   code: String, // 2-chars code
-  messages: String,
+  yaml: String,
   author: Option[String],
   comment: Option[String],
   createdAt: DateTime) {

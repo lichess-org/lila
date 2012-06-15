@@ -1,0 +1,44 @@
+@(transInfos: List[lila.i18n.TransInfo])(implicit ctx: Context)
+
+<table class="translations">
+  <thead>
+    <tr>
+      <th>Language</th>
+      <th>Progress</th>
+      <th>Contributors</th>
+    </tr>
+  </thead>
+  <tbody>
+    @transInfos.map { info =>
+    <tr>
+      <td>
+        <a href="@routes.I18n.contributeTrans(info.code)">
+          @info.code - @info.name
+        </a>
+      </td>
+      <td class="progress">
+        <div class="progressbar">
+          <div style="width: @info.percent%"></div>
+        </div>
+      </td>
+      <td>@info.contributors.mkString(", ")</td>
+      <td>
+        <a href="@routes.I18n.contributeTrans(info.code)">
+          @info.percent match {
+          case 0 => {
+          Start it!
+          }
+          case 100 => {
+          Fix it!
+          }
+          case p => {
+          Complete it!
+          }
+          }
+        </a>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>
+

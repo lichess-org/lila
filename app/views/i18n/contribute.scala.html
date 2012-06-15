@@ -1,9 +1,19 @@
-@()(implicit ctx: Context)
+@(all: List[lila.i18n.TransInfo], mines: List[lila.i18n.TransInfo])(implicit ctx: Context)
 
 @i18n.layout(
 title = "Contribute to translations") {
 
-<div class="content_box small_box">
-This feature is temporarily disabled. Will be back soon, promise!
+<div class="content_box">
+  <h1 class="lichess_title">Help translate Lichess!</h1>
+  <br />
+  Lichess is OpenSource and needs contributors to get better.
+  <br />
+  @if(mines.nonEmpty) {
+  <h2>Do you speak @{ (mines.size > 1).fold("these languages", "this language") }?</h2>
+  @i18n.translations(mines)
+  }
+  <br />
+  <h2>What about these ones?</h2>
+  @i18n.translations(all)
 </div>
 }

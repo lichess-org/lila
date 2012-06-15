@@ -23,6 +23,12 @@ fix game list translations
 temporary mod IP ban to help stopping cheaters
 more infos under realtime games
 cheater slash timeline
+board colorpicker
+best game(s) to watch
+copy spectator chat to rematch
+prevent people giving their friend game await link
+view pgn: overflow -> make it a textarea
+reorder game_more links
 
 new translations:
 -rematchOfferCanceled=Rematch offer canceled

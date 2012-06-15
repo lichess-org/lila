@@ -40,4 +40,8 @@ final class I18nEnv(
     pool = pool,
     keys = keys,
     api = messagesApi)
+
+  lazy val transInfos = TransInfo.all(
+    api = messagesApi,
+    keys = keys)
 }
