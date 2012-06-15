@@ -21,6 +21,7 @@ object User extends LilaController {
   def lobbyMessenger = env.lobby.messenger
   def bookmarkApi = env.bookmark.api
   def securityStore = env.security.store
+  def firewall = env.security.firewall
 
   def show(username: String) = showFilter(username, "all", 1)
 
@@ -102,6 +103,17 @@ object User extends LilaController {
     _ ⇒
       IORedirect {
         lobbyMessenger mute username map { _ ⇒ routes.User show username }
+      }
+  }
+
+  def ban(username: String) = Secure(Permission.IpBan) { implicit ctx ⇒
+    _ ⇒
+      IOptionIORedirect(userRepo byId username) { user ⇒
+        for {
+          spy ← securityStore userSpy username
+          _ ← io(spy.ips foreach firewall.block)
+          _ ← user.isChatBan.fold(io(), lobbyMessenger mute username)
+        } yield routes.User show username
       }
   }
 

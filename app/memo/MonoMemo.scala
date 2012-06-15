@@ -13,9 +13,10 @@ final class MonoMemo[A](ttl: Int, f: IO[A]) {
   private var value: A = _
   private var ts: Double = 0
 
-  private def expired = nowMillis > ts + ttl
-  private def refresh {
+  def refresh {
     value = f.unsafePerformIO
     ts = nowMillis
   }
+
+  private def expired = nowMillis > ts + ttl
 }

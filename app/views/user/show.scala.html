@@ -45,6 +45,11 @@
   <input class="confirm" type="submit" value="@u.isChatBan.fold("Unmute", "Mute")" />
 </form>
 }
+@if(isGranted(Permission.IpBan)) {
+<form method="post" action="@routes.User.ban(u.username)">
+  <input class="confirm" type="submit" value="IP ban" />
+</form>
+}
 }
 }
 

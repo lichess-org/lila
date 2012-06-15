@@ -17,6 +17,7 @@ object Permission {
   case object StaffForum extends Permission("ROLE_STAFF_FORUM")
   case object ModerateForum extends Permission("ROLE_MODERATE_FORUM")
   case object UserSpy extends Permission("ROLE_USER_SPY")
+  case object IpBan extends Permission("ROLE_IP_BAN")
 
   case object Admin extends Permission("ROLE_ADMIN") {
     override val children = List(
@@ -25,7 +26,8 @@ object Permission {
       MarkEngine, 
       StaffForum,
       ModerateForum,
-      UserSpy)
+      UserSpy,
+      IpBan)
   }
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN") {
     override val children = List(Admin)
