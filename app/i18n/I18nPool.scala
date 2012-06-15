@@ -23,7 +23,7 @@ final class I18nPool(val langs: Set[Lang], val default: Lang) {
   // when the header is malformed.
   def fixedReqAcceptLanguages(req: RequestHeader) = try {
     req.headers.get(play.api.http.HeaderNames.ACCEPT_LANGUAGE).map { acceptLanguage ⇒
-      acceptLanguage.split(",").map(l ⇒ play.api.i18n.Lang(l.split(";").head)).toSeq
+      acceptLanguage.split("\\s*,\\s*").map(l => play.api.i18n.Lang(l.split(";").head)).toSeq
     }.getOrElse(Nil)
   }
   catch {
