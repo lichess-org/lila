@@ -1,6 +1,5 @@
-@(infos: Seq[lila.i18n.TransInfo])(implicit ctx: Context)
+@(info: lila.i18n.TransInfo)(implicit ctx: Context)
 
-@infos.map { info =>
 @i18n.translationLink(info, cssClass = "translation_call") { text =>
 <span class="name">@info.name</span>
 <span class="action">@text</span>
@@ -8,9 +7,5 @@
   <div style="width: @info.percent%"></div>
 </div>
 <span class="nb">@pluralize("message", info.nbMissing) missing</span>
-}
-}
-@if(infos.nonEmpty) {
-<br />
-<a href="@routes.I18n.hideCalls">Hide translation calls</a>
+<span class="close typsyme" data-href="@routes.I18n.hideCalls" title="Hide translation calls">x</span>
 }

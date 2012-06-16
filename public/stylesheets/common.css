@@ -413,6 +413,7 @@ a.translation_call {
   display: block;
   border-radius: 4px;
   text-decoration: none;
+  position: relative;
 }
 a.translation_call span.action {
   float: right;
@@ -424,6 +425,20 @@ a.translation_call span.name {
 a.translation_call div.progressbar {
   margin-top: 0.5em;
   background: #fff;
+  margin-bottom: 0.4em;
+}
+a.translation_call .close {
+  position: absolute;
+  bottom: 0.4em;
+  right: 0.6em;
+  text-decoration: none;
+  font-weight: bold;
+}
+a.translation_call .close:hover {
+  color: red;
+  font-size: 1.4em;
+  bottom: 0.2em;
+  right: 0.3em;
 }
 
 span.s16.clock {

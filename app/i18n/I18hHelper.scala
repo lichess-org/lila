@@ -24,11 +24,11 @@ trait I18nHelper {
 
   def langName(lang: Lang) = LangList name lang.language
 
-  def translationCalls(implicit ctx: Context) =
-    if (ctx.req.cookies.get(hideCallsCookieName).isDefined) Nil
+  def translationCall(implicit ctx: Context) =
+    if (ctx.req.cookies.get(hideCallsCookieName).isDefined) None
     else shuffle(
       (pool.fixedReqAcceptLanguages(ctx.req) map transInfos.get).flatten filter (_.nonComplete)
-    ) take 2
+    ).headOption
 
   def transValidationPattern(trans: String) =
     (trans contains "%s") option ".*%s.*"
