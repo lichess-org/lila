@@ -10,7 +10,7 @@ title = info.codeAndName,
 goodies = goodies.some) {
 
 <h1 class="lichess_title">@info.codeAndName</h1>
-<div class="progressbar flashy">
+<div class="progressbar flashy @info.complete.fold("green", "")">
   <div style="width: @info.percent%"></div>
 </div>
 <br />
@@ -22,10 +22,12 @@ For example, <strong>View %s checkmates</strong> translated to french is <strong
 @if(info.percent == 0) {
 No need to submit a complete translation. You can just translate some sentences, and let the others complete it :)
 }
+@if(info.nonComplete) {
 <div class="locale_menu clearfix">
   <a class="all active">View all @info.nbMessages sentences</a>
   <a class="missing">View @pluralize("missing sentence", info.nbMissing)</a>
 </div>
+}
 <form class="translation_form" action="@routes.I18n.translationPost(info.code)" method="post">
   <div class="messages">
     @keys.keys.zipWithIndex.map {
