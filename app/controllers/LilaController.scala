@@ -75,7 +75,7 @@ trait LilaController
 
   def JsonOk(map: Map[String, Any]) = Ok(toJson(map)) as JSON
 
-  def JsonOk(list: List[String]) = Ok(Json generate list) as JSON
+  def JsonOk(list: List[Any]) = Ok(Json generate list) as JSON
 
   def JsonIOk(map: IO[Map[String, Any]]) = JsonOk(map.unsafePerformIO)
 
