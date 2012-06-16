@@ -12,6 +12,7 @@ object I18n extends LilaController {
   def translator = env.i18n.translator
   def forms = env.i18n.forms
   def i18nKeys = env.i18n.keys
+  def repo = env.i18n.translationRepo
 
   val contribute = Open { implicit ctx ⇒
     val mines = (pool fixedReqAcceptLanguages ctx.req map { lang ⇒
@@ -38,5 +39,13 @@ object I18n extends LilaController {
         Redirect(routes.I18n.contribute).flashing("success" -> "1")
       }
     }
+  }
+
+  def fetch(from: Int) = Open { implicit ctx ⇒
+    JsonIOk(repo findFrom from map {
+      _ map { translation ⇒
+        translation.id.toString -> translation.toMap
+      } toMap
+    })
   }
 }

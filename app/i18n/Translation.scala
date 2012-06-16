@@ -12,5 +12,11 @@ case class Translation(
   comment: Option[String],
   createdAt: DateTime = DateTime.now) {
 
-
+    def toMap = Map(
+      "id" -> id,
+      "code" -> code,
+      "text" -> text,
+      "author" -> author,
+      "comment" -> comment,
+      "createdAt" -> createdAt.getMillis)
 }

@@ -52,4 +52,7 @@ final class I18nEnv(
   lazy val forms = new DataForm(
     repo = translationRepo,
     keys = keys)
+
+  lazy val upstreamFetch = new UpstreamFetch(
+    repoPath = app.path.getCanonicalPath)
 }

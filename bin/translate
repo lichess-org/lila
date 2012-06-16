@@ -9,7 +9,7 @@ if [ "$1" = "set" ]; then
     fi
 elif [ "$1" = "fetch" ]; then
     printf "Fetch from version %s\n" $version
-    bin/cli trans-fetch $(echo $version) -v
+    bin/cli i18n-fetch $(echo $version) 
 elif [ "$1" = "show" ]; then
     printf "Log translation %s\n" $version
     git log -p t/$(echo $version)

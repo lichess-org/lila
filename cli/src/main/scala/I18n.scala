@@ -16,4 +16,9 @@ case class I18n(i18n: I18nEnv) {
     _ ← putStrLn("Fixing translation files")
     _ ← i18n.fileFix.apply
   } yield ()
+
+  def fetch: IO[Unit] = for {
+    _ <- putStrLn("Fetch translations from upstream")
+    _ <- i18n.upstreamFetch.apply
+  } yield ()
 }

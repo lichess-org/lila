@@ -17,7 +17,7 @@ For example, <strong>View %s checkmates</strong> translated to french is <strong
 No need to submit a complete translation. You can just translate some sentences, and let the others complete it :)
 }
 <div class="locale_menu clearfix">
-  <a class="all active">View all sentences</a>
+  <a class="all active">View all @info.nbMessages sentences</a>
   <a class="missing">View @pluralize("missing sentence", info.nbMissing)</a>
 </div>
 <form action="@routes.I18n.translationPost(info.code)" method="post">
