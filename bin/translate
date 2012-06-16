@@ -1,0 +1,31 @@
+#!/bin/zsh
+
+version=$(cat bin/.translate_version)
+
+if [ "$1" = "set" ]; then
+    if [ "$2" ]; then
+        version="$2"
+        printf "Set version to %s\n" $2
+    fi
+elif [ "$1" = "fetch" ]; then
+    printf "Fetch from version %s\n" $version
+    bin/cli trans-fetch $(echo $version) -v
+elif [ "$1" = "show" ]; then
+    printf "Log translation %s\n" $version
+    git log -p t/$(echo $version)
+elif [ "$1" = "apply" ]; then
+    printf "Apply translation %s\n" $version
+    git cherry-pick t/$(echo $version)
+    version=$(($version+1))
+elif [ "$1" = "next" ]; then
+    printf "Increment translation version\n"
+    version=$(($version+1))
+elif [ "$1" = "commit" ]; then
+    printf "Commit resolved conflict\n"
+    (( prevVersion = version -1 ))
+    git clean -f
+    git commit -C t/$(echo $prevVersion)
+fi
+
+echo $version > bin/.translate_version
+printf "current version: %s\n" $version
