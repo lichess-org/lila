@@ -3,7 +3,7 @@ package controllers
 import lila._
 import user.{ User ⇒ UserModel }
 import security.{ AuthImpl, Permission, Granter }
-import http.{ Context, HeaderContext, BodyContext, HttpEnvironment }
+import http.{ Context, HeaderContext, BodyContext }
 import core.Global
 
 import play.api.mvc._
@@ -14,7 +14,6 @@ import scalaz.effects._
 
 trait LilaController
     extends Controller
-    with HttpEnvironment
     with ContentTypes
     with RequestGetter
     with ResponseWriter

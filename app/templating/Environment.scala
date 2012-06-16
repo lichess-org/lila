@@ -2,11 +2,9 @@ package lila
 package templating
 
 import core.Global.{ env ⇒ coreEnv } // OMG
-import http.HttpEnvironment
 
 object Environment
-    extends HttpEnvironment
-    with scalaz.Identitys
+    extends scalaz.Identitys
     with scalaz.Options
     with scalaz.Booleans
     with StringHelper
