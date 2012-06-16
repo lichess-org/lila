@@ -19,6 +19,7 @@ final class GitWrite(
     currentBranch ← git.currentBranch
     _ ← putStrLn("Current branch is " + currentBranch)
     _ ← (translations map write).sequence map (_ ⇒ Unit)
+    _ ← putStrLn("Checkout " + currentBranch)
     _ ← git checkout currentBranch
   } yield ()
 

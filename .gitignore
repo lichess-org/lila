@@ -5,4 +5,5 @@ public/trans
 serve/
 serve/README
 target
+bin/.translate_version
 RUNNING_PID

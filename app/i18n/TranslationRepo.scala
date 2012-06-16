@@ -23,6 +23,6 @@ class TranslationRepo(
   }
 
   def findFrom(id: Int): IO[List[Translation]] = io {
-    find("_id" $gt id).sort(DBObject("_id" -> 1)).toList
+    find("_id" $gte id).sort(DBObject("_id" -> 1)).toList
   }
 }
