@@ -103,6 +103,7 @@ rematchOfferAccepted=Revancha aceptada
 rematchOfferCanceled=Oferta de revancha cancelada
 rematchOfferDeclined=Oferta de revancha declinada
 cancelRematchOffer=Rechazar oferta de revancha.
+viewRematch=Ver partida
 play=Juego
 inbox=Buzón de entrada
 chatRoom=Sala de chat
