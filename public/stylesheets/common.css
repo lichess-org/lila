@@ -642,3 +642,6 @@ div.progressbar div {
   height: 12px;
   border-radius: 4px;
 }
+div.progressbar.flashy.green div {
+  background: #90d050;
+}
