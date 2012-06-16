@@ -13,6 +13,9 @@ object RichJs {
     def int(key: String): Option[Int] =
       js.value get key flatMap (_.asOpt[Int])
 
+    def long(key: String): Option[Long] =
+      js.value get key flatMap (_.asOpt[Long])
+
     def obj(key: String): Option[JsObject] =
       js.value get key flatMap (_.asOpt[JsObject])
   }
@@ -29,6 +32,12 @@ object RichJs {
       obj ← js.asOpt[JsObject]
       value ← obj.value get key
       int ← value.asOpt[Int]
+    } yield int
+
+    def long(key: String): Option[Long] = for {
+      obj ← js.asOpt[JsObject]
+      value ← obj.value get key
+      int ← value.asOpt[Long]
     } yield int
 
     def obj(key: String): Option[JsObject] = for {
