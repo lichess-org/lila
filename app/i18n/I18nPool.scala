@@ -11,7 +11,7 @@ final class I18nPool(val langs: Set[Lang], val default: Lang) {
   def nonDefaultLangs = langs - default
 
   val names: Map[String, String] = langs map { l ⇒
-    l.language -> LangList.name(l.language)
+    l.language -> LangList.nameOrCode(l.language)
   } toMap
 
   def lang(req: RequestHeader) = domainLang(req) getOrElse default

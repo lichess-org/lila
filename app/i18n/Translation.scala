@@ -19,4 +19,6 @@ case class Translation(
       "author" -> author,
       "comment" -> comment,
       "createdAt" -> createdAt.getMillis)
+
+    def lines = text.split("\n").toList
 }

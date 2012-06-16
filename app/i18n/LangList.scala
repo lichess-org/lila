@@ -3,7 +3,9 @@ package i18n
 
 object LangList {
 
-  def name(code: String) = all get code getOrElse code
+  def name(code: String) = all get code 
+
+  def nameOrCode(code: String) = name(code) | code
 
   lazy val sortedList = all.toList sortBy (_._1)
 

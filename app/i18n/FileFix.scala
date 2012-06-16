@@ -11,7 +11,6 @@ final class FileFix(
     keys: I18nKeys,
     api: MessagesApi) {
 
-  private val pathFile = new File(path)
   private val keyNames = keys.keys map (_.key)
 
   val apply: IO[Unit] = 
@@ -27,17 +26,12 @@ final class FileFix(
       messages get name map (name -> _)
     } flatten
 
-  private def write(lang: Lang, messages: List[(String, String)]) = io {
-    val file = "%s/messages.%s".format(pathFile.getCanonicalPath, lang.language)
-    printToFile(new File(file)) { writer ⇒
+  private def write(lang: Lang, messages: List[(String, String)]) = {
+    val file = "%s/messages.%s".format(path, lang.language)
+    printToFile(file) { writer ⇒
       messages foreach {
         case (name, trans) ⇒ writer.println(name + "=" + trans)
       }
     }
-  }
-
-  private def printToFile(f: File)(op: PrintWriter ⇒ Unit) {
-    val p = new java.io.PrintWriter(f)
-    try { op(p) } finally { p.close() }
   }
 }

@@ -7,6 +7,7 @@ import play.api.libs.iteratee.Concurrent.Channel
 
 import com.novus.salat._
 import com.mongodb.casbah.commons.conversions.scala.RegisterJodaTimeConversionHelpers
+import scalaz.effects.{ io, IO }
 
 package object lila
     extends OrnicarValidation
@@ -53,4 +54,12 @@ package object lila
   catch {
     case e: NumberFormatException ⇒ None
   }
+
+  def printToFile(f: java.io.File)(op: java.io.PrintWriter ⇒ Unit): IO[Unit] = io {
+    val p = new java.io.PrintWriter(f)
+    try { op(p) } finally { p.close() }
+  }
+
+  def printToFile(f: String)(op: java.io.PrintWriter ⇒ Unit): IO[Unit] =
+    printToFile(new java.io.File(f))(op)
 }

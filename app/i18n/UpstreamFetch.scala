@@ -18,7 +18,8 @@ final class UpstreamFetch(upstreamDomain: String) {
     "http://" + upstreamDomain + routes.I18n.fetch(from)
 
   private def fetch(url: String): IO[String] = io {
-    Source.fromURL(url).mkString
+    //Source.fromURL(url).mkString
+    Source.fromFile(new java.io.File("/home/thib/lila/i18n.json")).mkString
   }
 
   private def parse(json: String): List[Translation] = {

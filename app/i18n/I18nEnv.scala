@@ -57,5 +57,6 @@ final class I18nEnv(
     upstreamDomain = I18nUpstreamDomain)
 
   lazy val gitWrite = new GitWrite(
+    transRelPath = I18nFilePathRelative,
     repoPath = app.path.getCanonicalPath)
 }
