@@ -63,6 +63,7 @@ viewAllNbGames=Ver todas las %s partidas
 viewNbCheckmates=Ver todos los %s mates
 nbBookmarks=%s Marcadores
 nbPopularGames=%s Juegos populares
+bookmarkedByNbPlayers=Marcado por %s jugadores
 viewInFullSize=Ver a tamaño real
 logOut=Cerrar sesión
 signIn=Iniciar sesión
