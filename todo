@@ -13,22 +13,19 @@ chess960 confirmation http://fr.lichess.org/forum/lichess-feedback/separate-960-
 use play-navigator router case class MyRegexStr(value: String); implicit val MyRegexStrPathParam: PathParam[MyRegexStr] = new PathParam[MyRegexStr] { def apply(s: MyRegexStr) = s.value}; def unapply(s: String) = val Rx = "(\w+)".r; s match { case Rx(x) => Some(x); case _ => None } }
 http://codetunes.com/2012/05/09/scala-dsl-tutorial-writing-web-framework-router
 use POST instead of GET where it makes sense
-translation contributions
-check sf2 commands to port
 make the wiki static html pages managed by git?
 guess friend list
 autoclose top menus
 tournaments http://www.chess.com/tournaments/help.html
 fix game list translations
-temporary mod IP ban to help stopping cheaters
 more infos under realtime games
 cheater slash timeline
-board colorpicker
 best game(s) to watch
 copy spectator chat to rematch
 prevent people giving their friend game await link
 view pgn: overflow -> make it a textarea
 reorder game_more links
+advanced board color selector / board colorpicker
 
 new translations:
 -rematchOfferCanceled=Rematch offer canceled
