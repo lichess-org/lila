@@ -58,7 +58,8 @@ final class GitWrite(
     repoPath + "/" + relFileOf(translation)
 
   private def commitMessage(translation: Translation, name: String) =
-    """"%s" translation #%d. Author: %s. %s""".format(
+    """%s "%s" translation #%d. Author: %s. %s""".format(
+      translation.code,
       name,
       translation.id,
       translation.author | "Anonymous",
