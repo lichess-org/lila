@@ -1,0 +1,12 @@
+@(infos: Seq[lila.i18n.TransInfo])(implicit ctx: Context)
+
+@for(info <- infos if info.nonComplete) {
+@i18n.translationLink(info, cssClass = "translation_call") { text =>
+<span class="name">@info.name</span>
+<span class="action">@text</span>
+<div class="progressbar">
+  <div style="width: @info.percent%"></div>
+</div>
+<span class="nb">@pluralize("message", info.nbMissing) missing</span>
+}
+}

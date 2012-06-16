@@ -12,4 +12,5 @@ case class Translation(
   comment: Option[String],
   createdAt: DateTime) {
 
+
 }

@@ -394,6 +394,13 @@ a#sound_state.unavailable {
   display: none;
 }
 
+#call_boxes {
+  position: absolute;
+  top: 30px;
+  right: 10px;
+  width: 250px;
+}
+
 span.s16.clock {
   background-position: 0 -224px;
   padding-bottom: 1px;
@@ -446,36 +453,24 @@ div.ui-tooltip div.engine_warning {
   opacity: 0.8;
   vertical-align: bottom;
 }
-div.translation_block {
+a.translation_call {
   margin-top: 1em;
   padding: 0.5em;
   background: #FFEEB1;
   border: 1px solid #ECD688;
-  position: relative;
-}
-div.translation_block span.percent {
-  font-size: 18px;
   display: block;
-  float: left;
-  margin-right: 5px;
-}
-div.translation_block span.name {
-  font-weight: bold;
-  display: block;
-}
-div.translation_block a.contribute {
-  display: block;
-  text-align: center;
-  padding: 0.2em 0;
-}
-div.translation_block a.close {
-  position: absolute;
-  top: 1px;
-  right: 4px;
+  border-radius: 4px;
   text-decoration: none;
 }
-div.locale_adjust {
-  margin: 12px 0;
+a.translation_call span.action {
+  float: right;
+  margin-right: 2px;
+}
+a.translation_call span.name {
+  font-weight: bold;
+}
+a.translation_call div.progressbar {
+  margin-top: 0.5em;
 }
 
 div.lichess_social {
@@ -627,4 +622,20 @@ span.bookmark .icon.bookmarked {
 }
 span.bookmark a {
   outline: none;
+}
+
+div.progressbar {
+  background: #eaeaea;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px; 
+  padding: 1px;
+}
+
+div.progressbar div {
+  background: #d8a050;
+  height: 12px;
+  border-radius: 4px;
+}
+div.progressbar.flashy div {
+  background: #d85000;
 }

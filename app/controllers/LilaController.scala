@@ -115,6 +115,12 @@ trait LilaController
 
   def IORedirect(op: IO[Call]) = Redirect(op.unsafePerformIO)
 
+  def OptionOk[A, B](oa: Option[A])(op: A ⇒ B)(
+    implicit writer: Writeable[B],
+    ctype: ContentTypeOf[B],
+    ctx: Context) =
+    oa.fold(a ⇒ Ok(op(a)), notFound(ctx))
+
   def IOptionOk[A, B](ioa: IO[Option[A]])(op: A ⇒ B)(
     implicit writer: Writeable[B],
     ctype: ContentTypeOf[B],

@@ -20,23 +20,7 @@ table.translations td.progress {
   white-space: nowrap;
 }
 table.translations div.progressbar {
-  background-color: #eaeaea;
-  border: 1px solid #e0e0e0;
-  border-radius: 5px; 
-  padding: 1px;
   width: 200px;
-}
-
-table.translations div.progressbar div {
-  background: #d85000;
-  background: -moz-linear-gradient(center top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f49c00), to(#d85000));
-  background: -webkit-linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
-  background: -ms-linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
-  background: -o-linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
-  background: linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
-  height: 12px;
-  border-radius: 4px;
 }
 
 div.field {

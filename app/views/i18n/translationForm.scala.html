@@ -1,0 +1,17 @@
+@(info: lila.i18n.TransInfo, form: Form[_], keys: lila.i18n.I18nKeys)(implicit ctx: Context)
+
+@i18n.layout(
+title = "Contribute to " + info.codeAndName) {
+
+<div class="content_box">
+  Please translate the following English words and phrases below.<br />
+  "%s" are variables. You must not translate them, but they must be present in your translation.<br />
+  Lichess will replace them with a number or a name when displaying the message.<br />
+  For example, <strong>View %s checkmates</strong> translated to french is <strong>Voir les %s mats</strong>
+  <br /><br />
+  @if(info.percent == 0) {
+  No need to submit a complete translation. You can just translate some sentences, and let the others complete it :)
+  }
+</div>
+}
+

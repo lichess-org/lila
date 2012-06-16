@@ -13,13 +13,17 @@ trait I18nHelper {
 
   protected def env: CoreEnv
 
-  private val pool = env.i18n.pool
+  private def pool = env.i18n.pool
+  private def transInfos = env.i18n.transInfos
 
   val trans = env.i18n.keys
 
   implicit def lang(implicit ctx: Context) = pool lang ctx.req
 
   def langName(lang: Lang) = LangList name lang.language
+
+  def requestTransInfos(implicit ctx: Context) = 
+    pool.fixedReqAcceptLanguages(ctx.req) map transInfos.get flatten
 
   private lazy val otherLangLinksCache = 
     scala.collection.mutable.Map[String, String]()
