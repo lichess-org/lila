@@ -25,6 +25,9 @@ trait I18nHelper {
   def requestTransInfos(implicit ctx: Context) = 
     pool.fixedReqAcceptLanguages(ctx.req) map transInfos.get flatten
 
+  def transValidationPattern(trans: String) = 
+    (trans contains "%s") option ".*%s.*"
+
   private lazy val otherLangLinksCache = 
     scala.collection.mutable.Map[String, String]()
 
