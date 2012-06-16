@@ -20,6 +20,7 @@ case class I18n(i18n: I18nEnv) {
 
   def fetch(from: String): IO[Unit] = for {
     _ ← putStrLn("Fetch translations from upstream")
-    _ ← i18n.upstreamFetch apply parseIntOption(from).err("bad from arg")
+    translations ← i18n.upstreamFetch apply parseIntOption(from).err("bad from arg")
+    _ ← i18n.gitWrite apply translations
   } yield ()
 }

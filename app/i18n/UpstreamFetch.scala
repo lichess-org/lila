@@ -4,21 +4,15 @@ package i18n
 import controllers.routes
 import implicits.RichJs._
 
-import java.io.File
-import org.eclipse.jgit.api._
 import scalaz.effects._
 import scala.io.Source
 import play.api.libs.json._
 import org.joda.time.DateTime
 
-final class UpstreamFetch(
-    repoPath: String,
-    upstreamDomain: String) {
+final class UpstreamFetch(upstreamDomain: String) {
 
-  def apply(from: Int): IO[Unit] = for {
-    response ← fetch(upstreamUrl(from))
-    translations = parse(response)
-  } yield ()
+  def apply(from: Int): IO[List[Translation]] = 
+    fetch(upstreamUrl(from)) map parse
 
   private def upstreamUrl(from: Int) =
     "http://" + upstreamDomain + routes.I18n.fetch(from)
@@ -29,7 +23,8 @@ final class UpstreamFetch(
 
   private def parse(json: String): List[Translation] = {
     val data: JsValue = Json parse json
-    (data.as[List[JsObject]].value map parseTranslation).toList.flatten
+    val options = (data.as[List[JsObject]].value map parseTranslation).toList
+    options map (_ err "Received broken JSON from upstream")
   }
 
   private def parseTranslation(js: JsObject): Option[Translation] = for {
