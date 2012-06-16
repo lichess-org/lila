@@ -185,7 +185,7 @@ $(function() {
     $.ajax({
       url: $this.attr("href"),
       success: function(text) {
-        $this.after("<pre>" + text + "</pre>").text("Download PGN");
+        $this.after("<textarea readonly>" + text + "</textarea>").text("Download PGN");
       }
     });
     return false;

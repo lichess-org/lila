@@ -581,13 +581,17 @@ div.game_more a.game_permalink {
   float: left;
   margin-top: 3px;
 }
-div.game_more pre {
+div.game_more textarea {
+  display: block;
+  width: 100%;
+  height: 200px;
+  font-family: monospace;
   line-height: normal;
   margin: 0;
   background: #fff;
+  color: #888;
   border: 1px solid #eaeaea;
   padding: 5px;
-  overflow: hidden;
   border-radius: 3px;
 }
 div.game_extra {
