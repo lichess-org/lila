@@ -8,6 +8,7 @@ import http.Context
 import play.api.i18n.Lang
 import play.api.templates.Html
 import play.api.mvc.{ RequestHeader, Call }
+import scala.util.Random.shuffle
 
 trait I18nHelper {
 
@@ -15,6 +16,7 @@ trait I18nHelper {
 
   private def pool = env.i18n.pool
   private def transInfos = env.i18n.transInfos
+  private def hideCallsCookieName = env.i18n.hideCallsCookieName
 
   val trans = env.i18n.keys
 
@@ -22,13 +24,16 @@ trait I18nHelper {
 
   def langName(lang: Lang) = LangList name lang.language
 
-  def requestTransInfos(implicit ctx: Context) = 
-    pool.fixedReqAcceptLanguages(ctx.req) map transInfos.get flatten
+  def translationCalls(implicit ctx: Context) =
+    if (ctx.req.cookies.get(hideCallsCookieName).isDefined) Nil
+    else shuffle(
+      (pool.fixedReqAcceptLanguages(ctx.req) map transInfos.get).flatten filter (_.nonComplete)
+    ) take 2
 
-  def transValidationPattern(trans: String) = 
+  def transValidationPattern(trans: String) =
     (trans contains "%s") option ".*%s.*"
 
-  private lazy val otherLangLinksCache = 
+  private lazy val otherLangLinksCache =
     scala.collection.mutable.Map[String, String]()
 
   def otherLangLinks(lang: Lang)(implicit ctx: Context) = Html {
@@ -41,7 +46,7 @@ trait I18nHelper {
     }).replace(uriPlaceholder, ctx.req.uri)
   }
 
-  def commonDomain(implicit ctx: Context): String = 
+  def commonDomain(implicit ctx: Context): String =
     I18nDomain(ctx.req.domain).commonDomain
 
   val protocol = "http://"

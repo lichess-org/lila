@@ -59,6 +59,7 @@ GET   /translation/contribute          controllers.I18n.contribute
 GET   /translation/form/:lang          controllers.I18n.translationForm(lang: String)
 POST  /translation/form/:lang          controllers.I18n.translationPost(lang: String)
 GET   /translation/fetch/:from         controllers.I18n.fetch(from: Int)
+GET   /translation/hideCalls           controllers.I18n.hideCalls
 
 # Authentication
 GET   /login                           controllers.Auth.login

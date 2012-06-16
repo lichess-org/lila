@@ -2,6 +2,7 @@ package controllers
 
 import lila._
 import views._
+import http.LilaCookie
 
 import i18n._
 
@@ -13,6 +14,7 @@ object I18n extends LilaController {
   def forms = env.i18n.forms
   def i18nKeys = env.i18n.keys
   def repo = env.i18n.translationRepo
+  def hideCallsCookieName = env.i18n.hideCallsCookieName
 
   val contribute = Open { implicit ctx ⇒
     val mines = (pool fixedReqAcceptLanguages ctx.req map { lang ⇒
@@ -45,5 +47,11 @@ object I18n extends LilaController {
     JsonOk((repo findFrom from map {
       _ map (_.toMap)
     }).unsafePerformIO)
+  }
+
+  val hideCalls = Open { implicit ctx ⇒
+    implicit val req = ctx.req
+    val cookie = LilaCookie.cookie(hideCallsCookieName, "1")
+    Redirect(routes.Lobby.home()) withCookies cookie
   }
 }

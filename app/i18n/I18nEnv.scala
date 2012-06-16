@@ -59,4 +59,6 @@ final class I18nEnv(
   lazy val gitWrite = new GitWrite(
     transRelPath = I18nFilePathRelative,
     repoPath = app.path.getCanonicalPath)
+
+  def hideCallsCookieName = I18nHideCallsCookieName
 }
