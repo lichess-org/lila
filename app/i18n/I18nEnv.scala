@@ -61,4 +61,5 @@ final class I18nEnv(
     repoPath = app.path.getCanonicalPath)
 
   def hideCallsCookieName = I18nHideCallsCookieName
+  def hideCallsCookieMaxAge = I18nHideCallsCookieMaxAge
 }

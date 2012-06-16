@@ -14,10 +14,10 @@ object LilaCookie {
     Session.COOKIE_NAME,
     Session.encode(Session.serialize(req.session + (name -> value))))
 
-  def cookie(name: String, value: String)(implicit req: RequestHeader): Cookie = Cookie(
+  def cookie(name: String, value: String, maxAge: Option[Int] = None)(implicit req: RequestHeader): Cookie = Cookie(
     name,
     value,
-    Session.maxAge,
+    maxAge | Session.maxAge,
     "/",
     domain(req).some,
     Session.secure,

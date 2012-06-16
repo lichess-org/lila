@@ -14,7 +14,8 @@ final class Settings(config: Config) {
   val I18nWebPathRelative = getString("i18n.web_path.relative")
   val I18nFilePathRelative = getString("i18n.file_path.relative")
   val I18nUpstreamDomain = getString("i18n.upstream.domain")
-  val I18nHideCallsCookieName = getString("i18n.hide_calls.cookie_name")
+  val I18nHideCallsCookieName = getString("i18n.hide_calls.cookie.name")
+  val I18nHideCallsCookieMaxAge = getInt("i18n.hide_calls.cookie.max_age")
 
   val GameMessageLifetime = millis("game.message.lifetime")
   val GameUidTimeout = millis("game.uid.timeout")

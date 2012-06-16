@@ -14,7 +14,6 @@ object I18n extends LilaController {
   def forms = env.i18n.forms
   def i18nKeys = env.i18n.keys
   def repo = env.i18n.translationRepo
-  def hideCallsCookieName = env.i18n.hideCallsCookieName
 
   val contribute = Open { implicit ctx ⇒
     val mines = (pool fixedReqAcceptLanguages ctx.req map { lang ⇒
@@ -51,7 +50,10 @@ object I18n extends LilaController {
 
   val hideCalls = Open { implicit ctx ⇒
     implicit val req = ctx.req
-    val cookie = LilaCookie.cookie(hideCallsCookieName, "1")
+    val cookie = LilaCookie.cookie(
+      env.i18n.hideCallsCookieName,
+      "1",
+      maxAge = env.i18n.hideCallsCookieMaxAge.some)
     Redirect(routes.Lobby.home()) withCookies cookie
   }
 }
