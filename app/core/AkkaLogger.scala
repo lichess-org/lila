@@ -6,12 +6,12 @@ import akka.actor._
 
 class AkkaLogger extends Actor with StdOutLogger {
 
+  private val closedSocketMessage =  "Getting messages on a supposedly closed socket? frame: EOF"
+
   def receive = {
     case InitializeLogger(_) ⇒ sender ! LoggerInitialized
     case event: LogEvent ⇒
-      if (event.message.toString contains "Getting messages on a supposedly closed socket?")
-        println(event.message)
-      else
+      if (!(event.message.toString contains closedSocketMessage))
         print(event)
   }
 }
