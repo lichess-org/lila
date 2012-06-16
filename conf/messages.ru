@@ -103,6 +103,7 @@ rematchOfferAccepted=Предложение реванша принято
 rematchOfferCanceled=Предложение реванша отклонено
 rematchOfferDeclined=Отказаться от реванша
 cancelRematchOffer=Отказаться от реванша
+viewRematch=Посмотреть ответную игру
 play=Играть
 inbox=Входящие
 chatRoom=Чат-комната
