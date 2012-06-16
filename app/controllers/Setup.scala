@@ -10,7 +10,7 @@ import play.api.data.Form
 
 import scalaz.effects._
 
-object Setup extends LilaController {
+object Setup extends LilaController with TheftPrevention {
 
   def forms = env.setup.formFactory
   def processor = env.setup.processor
@@ -55,10 +55,12 @@ object Setup extends LilaController {
     IOptionResult(gameRepo pov fullId) { pov ⇒
       pov.game.started.fold(
         Redirect(routes.Round.player(pov.fullId)),
-        Ok(html.setup.await(
-          pov,
-          version(pov.gameId),
-          friendConfigMemo get pov.game.id))
+        PreventTheft(pov) {
+          Ok(html.setup.await(
+            pov,
+            version(pov.gameId),
+            friendConfigMemo get pov.game.id))
+        }
       )
     }
   }

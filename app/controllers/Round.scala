@@ -13,7 +13,7 @@ import play.api.libs.iteratee._
 import play.api.templates.Html
 import scalaz.effects._
 
-object Round extends LilaController {
+object Round extends LilaController with TheftPrevention {
 
   def gameRepo = env.game.gameRepo
   def socket = env.round.socket
@@ -47,12 +47,14 @@ object Round extends LilaController {
           engine ← pov.opponent.userId.fold(
             u ⇒ userRepo isEngine u,
             io(false))
-        } yield Ok(html.round.player(
-          pov,
-          version(pov.gameId),
-          engine,
-          roomHtml map { Html(_) },
-          bookmarkers)),
+        } yield PreventTheft(pov) {
+          Ok(html.round.player(
+            pov,
+            version(pov.gameId),
+            engine,
+            roomHtml map { Html(_) },
+            bookmarkers))
+        },
         io(Redirect(routes.Setup.await(fullId)))
       )
     }
@@ -135,7 +137,7 @@ object Round extends LilaController {
     })
   }
 
-  type IOValidEvents = IO[Valid[List[Event]]]
+  private type IOValidEvents = IO[Valid[List[Event]]]
 
   private def performAndRedirect(fullId: String, op: String ⇒ IOValidEvents) =
     Action {

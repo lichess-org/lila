@@ -16,6 +16,8 @@ sealed abstract class Context(val req: RequestHeader, val me: Option[User]) {
     me.fold(Granter(permission), false)
 
   def is(user: User) = me == Some(user)
+
+  def userId = me map (_.id)
 }
 
 final class BodyContext(val body: Request[_], m: Option[User]) 
