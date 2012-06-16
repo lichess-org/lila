@@ -11,9 +11,7 @@ final class FileFix(
     keys: I18nKeys,
     api: MessagesApi) {
 
-  private val keyNames = keys.keys map (_.key)
-
-  val apply: IO[Unit] = 
+  val apply: IO[Unit] =
     (pool.nonDefaultLangs.toList map fix).sequence map (_ ⇒ Unit)
 
   private def fix(lang: Lang): IO[Unit] = {
@@ -22,9 +20,13 @@ final class FileFix(
   }
 
   private def sanitize(messages: Map[String, String]) =
-    keyNames map { name ⇒
-      messages get name map (name -> _)
+    keys.keys map { key ⇒
+      messages get key.key filter { message ⇒
+        hasVariable(key.to(pool.default)()).fold(hasVariable(message), true)
+      } map (key.key -> _)
     } flatten
+
+  private def hasVariable(message: String) = message contains "%s"
 
   private def write(lang: Lang, messages: List[(String, String)]) = {
     val file = "%s/messages.%s".format(path, lang.language)
