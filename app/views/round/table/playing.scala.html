@@ -16,7 +16,7 @@
   @if(game.abortable) {
   <a href="@routes.Round.abort(fullId)" class="lichess_abort">@trans.abortGame()</a>
   } else {
-  <a href="@routes.Round.resign(fullId)" class="lichess_resign" title="@trans.giveUp()">@trans.resign()</a>
+  <a href="@routes.Round.resign(fullId)" class="lichess_resign">@trans.resign()</a>
   @if(game.playerCanOfferDraw(color)) {
   <a class="offer_draw" href="@routes.Round.drawOffer(fullId)">@trans.offerDraw()</a>
   }

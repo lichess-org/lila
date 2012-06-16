@@ -3,12 +3,7 @@ finish flagged game
 It's possible to join your own game and win it, which will then be displayed as a win and I saw players who abuse this to manipulate their stats. 
 player timeout depending on game duration
 do not count games vs engine as win/loss
-prevent cheaters from joining the game
-translate "view rematch"
-translate clock name
 start chess960 after both player move http://fr.lichess.org/forum/lichess-feedback/clock-fairness-in-chess960-games
-prevent round watcher/player response client caching
-user info is expensive - cache it
 chess960 confirmation http://fr.lichess.org/forum/lichess-feedback/separate-960-lobby?page=1#7
 use play-navigator router case class MyRegexStr(value: String); implicit val MyRegexStrPathParam: PathParam[MyRegexStr] = new PathParam[MyRegexStr] { def apply(s: MyRegexStr) = s.value}; def unapply(s: String) = val Rx = "(\w+)".r; s match { case Rx(x) => Some(x); case _ => None } }
 http://codetunes.com/2012/05/09/scala-dsl-tutorial-writing-web-framework-router
@@ -23,7 +18,3 @@ cheater slash timeline
 best game(s) to watch
 copy spectator chat to rematch
 advanced board color selector / board colorpicker (http://fr.lichess.org/inbox/mjhlougd)
-
-new translations:
--rematchOfferCanceled=Rematch offer canceled
--rematchOfferDeclined=Rematch offer declined

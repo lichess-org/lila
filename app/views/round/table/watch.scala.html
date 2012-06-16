@@ -20,6 +20,6 @@
 @round.username(player)
 @game.next.map { next =>
 <div class="lichess_control buttons">
-  <a class="button" href="@routes.Round.watcher(next, opponent.color.name)">View rematch</a>
+  <a class="button" href="@routes.Round.watcher(next, opponent.color.name)">@trans.viewRematch()</a>
 </div>
 }
