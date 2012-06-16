@@ -1,4 +1,4 @@
-@(title: String)(body: Html)(implicit ctx: Context)
+@(title: String, goodies: Option[Html] = None)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("translation.css")
@@ -11,6 +11,7 @@
 title = title, 
 moreCss = moreCss,
 moreJs = moreJs,
+goodies = goodies,
 active = none) {
 <div class="content_box">
   @body

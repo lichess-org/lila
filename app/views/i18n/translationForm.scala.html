@@ -1,7 +1,13 @@
 @(info: lila.i18n.TransInfo, form: Form[_], keys: lila.i18n.I18nKeys, base: Lang, rawTrans: String => Option[String])(implicit ctx: Context)
 
+@goodies = {
+<br />
+<a href="@routes.I18n.contribute">View all languages</a>
+}
+
 @i18n.layout(
-title = info.codeAndName) {
+title = info.codeAndName,
+goodies = goodies.some) {
 
 <h1 class="lichess_title">@info.codeAndName</h1>
 <div class="progressbar flashy">
@@ -20,7 +26,7 @@ No need to submit a complete translation. You can just translate some sentences,
   <a class="all active">View all @info.nbMessages sentences</a>
   <a class="missing">View @pluralize("missing sentence", info.nbMissing)</a>
 </div>
-<form action="@routes.I18n.translationPost(info.code)" method="post">
+<form class="translation_form" action="@routes.I18n.translationPost(info.code)" method="post">
   <div class="messages">
     @keys.keys.zipWithIndex.map {
     case (key, i) => {
@@ -57,7 +63,7 @@ No need to submit a complete translation. You can just translate some sentences,
     @errMsg(form("comment"))
   </div>
   <div class="field">
-    <input type="submit" value="Submit translations" />
+    <input type="submit" class="submit" value="Submit translations" />
   </div>
 </form>
 }
