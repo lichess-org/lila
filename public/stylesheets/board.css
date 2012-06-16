@@ -54,6 +54,199 @@ div.lcs {
   background-color: #dee3e6;
 }
 
+#GameBoard.wood #tcol0trow0, div.wood #a8 {
+	background: url(../images/woodenboard_white.jpg) no-repeat 0px 0px;
+}
+#GameBoard.wood #tcol1trow0, div.wood #b8, a.colorpicker.wood {
+	background: url(../images/woodenboard_black.jpg) no-repeat -64px 0px;
+}
+#GameBoard.wood #tcol2trow0, div.wood #c8 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -128px 0px;
+}
+#GameBoard.wood #tcol3trow0, div.wood #d8 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -192px 0px;
+}
+#GameBoard.wood #tcol4trow0, div.wood #e8 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -256px 0px;
+}
+#GameBoard.wood #tcol5trow0, div.wood #f8 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -320px 0px;
+}
+#GameBoard.wood #tcol6trow0, div.wood #g8 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -384px 0px;
+}
+#GameBoard.wood #tcol7trow0, div.wood #h8 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -448px 0px;
+}
+#GameBoard.wood #tcol0trow1, div.wood #a7 {
+	background: url(../images/woodenboard_black.jpg) no-repeat 0px -64px;
+}
+#GameBoard.wood #tcol1trow1, div.wood #b7 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -64px -64px;
+}
+#GameBoard.wood #tcol2trow1, div.wood #c7 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -128px -64px;
+}
+#GameBoard.wood #tcol3trow1, div.wood #d7 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -192px -64px;
+}
+#GameBoard.wood #tcol4trow1, div.wood #e7 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -256px -64px;
+}
+#GameBoard.wood #tcol5trow1, div.wood #f7 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -320px -64px;
+}
+#GameBoard.wood #tcol6trow1, div.wood #g7 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -384px -64px;
+}
+#GameBoard.wood #tcol7trow1, div.wood #h7 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -448px -64px;
+}
+#GameBoard.wood #tcol0trow2, div.wood #a6 {
+	background: url(../images/woodenboard_white.jpg) no-repeat 0px -128px;
+}
+#GameBoard.wood #tcol1trow2, div.wood #b6 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -64px -128px;
+}
+#GameBoard.wood #tcol2trow2, div.wood #c6 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -128px -128px;
+}
+#GameBoard.wood #tcol3trow2, div.wood #d6 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -192px -128px;
+}
+#GameBoard.wood #tcol4trow2, div.wood #e6 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -256px -128px;
+}
+#GameBoard.wood #tcol5trow2, div.wood #f6 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -320px -128px;
+}
+#GameBoard.wood #tcol6trow2, div.wood #g6 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -384px -128px;
+}
+#GameBoard.wood #tcol7trow2, div.wood #h6 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -448px -128px;
+}
+#GameBoard.wood #tcol0trow3, div.wood #a5 {
+	background: url(../images/woodenboard_black.jpg) no-repeat 0px -192px;
+}
+#GameBoard.wood #tcol1trow3, div.wood #b5 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -64px -192px;
+}
+#GameBoard.wood #tcol2trow3, div.wood #c5 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -128px -192px;
+}
+#GameBoard.wood #tcol3trow3, div.wood #d5 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -192px -192px;
+}
+#GameBoard.wood #tcol4trow3, div.wood #e5 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -256px -192px;
+}
+#GameBoard.wood #tcol5trow3, div.wood #f5 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -320px -192px;
+}
+#GameBoard.wood #tcol6trow3, div.wood #g5 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -384px -192px;
+}
+#GameBoard.wood #tcol7trow3, div.wood #h5 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -448px -192px;
+}
+#GameBoard.wood #tcol0trow4, div.wood #a4 {
+	background: url(../images/woodenboard_white.jpg) no-repeat 0px -256px;
+}
+#GameBoard.wood #tcol1trow4, div.wood #b4 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -64px -256px;
+}
+#GameBoard.wood #tcol2trow4, div.wood #c4 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -128px -256px;
+}
+#GameBoard.wood #tcol3trow4, div.wood #d4 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -192px -256px;
+}
+#GameBoard.wood #tcol4trow4, div.wood #e4 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -256px -256px;
+}
+#GameBoard.wood #tcol5trow4, div.wood #f4 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -320px -256px;
+}
+#GameBoard.wood #tcol6trow4, div.wood #g4 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -384px -256px;
+}
+#GameBoard.wood #tcol7trow4, div.wood #h4 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -448px -256px;
+}
+#GameBoard.wood #tcol0trow5, div.wood #a3 {
+	background: url(../images/woodenboard_black.jpg) no-repeat 0px -320px;
+}
+#GameBoard.wood #tcol1trow5, div.wood #b3 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -64px -320px;
+}
+#GameBoard.wood #tcol2trow5, div.wood #c3 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -128px -320px;
+}
+#GameBoard.wood #tcol3trow5, div.wood #d3 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -192px -320px;
+}
+#GameBoard.wood #tcol4trow5, div.wood #e3 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -256px -320px;
+}
+#GameBoard.wood #tcol5trow5, div.wood #f3 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -320px -320px;
+}
+#GameBoard.wood #tcol6trow5, div.wood #g3 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -384px -320px;
+}
+#GameBoard.wood #tcol7trow5, div.wood #h3 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -448px -320px;
+}
+#GameBoard.wood #tcol0trow6, div.wood #a2 {
+	background: url(../images/woodenboard_white.jpg) no-repeat 0px -384px;
+}
+#GameBoard.wood #tcol1trow6, div.wood #b2 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -64px -384px;
+}
+#GameBoard.wood #tcol2trow6, div.wood #c2 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -128px -384px;
+}
+#GameBoard.wood #tcol3trow6, div.wood #d2 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -192px -384px;
+}
+#GameBoard.wood #tcol4trow6, div.wood #e2 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -256px -384px;
+}
+#GameBoard.wood #tcol5trow6, div.wood #f2 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -320px -384px;
+}
+#GameBoard.wood #tcol6trow6, div.wood #g2 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -384px -384px;
+}
+#GameBoard.wood #tcol7trow6, div.wood #h2 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -448px -384px;
+}
+#GameBoard.wood #tcol0trow7, div.wood #a1 {
+	background: url(../images/woodenboard_black.jpg) no-repeat 0px -448px;
+}
+#GameBoard.wood #tcol1trow7, div.wood #b1 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -64px -448px;
+}
+#GameBoard.wood #tcol2trow7, div.wood #c1 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -128px -448px;
+}
+#GameBoard.wood #tcol3trow7, div.wood #d1 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -192px -448px;
+}
+#GameBoard.wood #tcol4trow7, div.wood #e1 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -256px -448px;
+}
+#GameBoard.wood #tcol5trow7, div.wood #f1 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -320px -448px;
+}
+#GameBoard.wood #tcol6trow7, div.wood #g1 {
+	background: url(../images/woodenboard_black.jpg) no-repeat -384px -448px;
+}
+#GameBoard.wood #tcol7trow7, div.wood #h1 {
+	background: url(../images/woodenboard_white.jpg) no-repeat -448px -448px;
+}
+
 div.lcsi {
   position: absolute;
   width: 64px;
