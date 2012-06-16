@@ -133,6 +133,12 @@ div.content_box {
   padding: 20px 25px 25px 25px;
   text-align: left;
 }
+div.content_box h1 {
+  font-size: 1.8em;
+  color: #666;
+  font-weight: normal;
+  display: inline;
+}
 div.content_box.small_box {
   width: 500px;
 }
@@ -400,6 +406,25 @@ a#sound_state.unavailable {
   right: 10px;
   width: 250px;
 }
+a.translation_call {
+  margin-top: 1em;
+  padding: 0.5em;
+  border: 1px solid #d0d0d0;
+  display: block;
+  border-radius: 4px;
+  text-decoration: none;
+}
+a.translation_call span.action {
+  float: right;
+  margin-right: 2px;
+}
+a.translation_call span.name {
+  font-weight: bold;
+}
+a.translation_call div.progressbar {
+  margin-top: 0.5em;
+  background: #fff;
+}
 
 span.s16.clock {
   background-position: 0 -224px;
@@ -453,25 +478,6 @@ div.ui-tooltip div.engine_warning {
   opacity: 0.8;
   vertical-align: bottom;
 }
-a.translation_call {
-  margin-top: 1em;
-  padding: 0.5em;
-  background: #FFEEB1;
-  border: 1px solid #ECD688;
-  display: block;
-  border-radius: 4px;
-  text-decoration: none;
-}
-a.translation_call span.action {
-  float: right;
-  margin-right: 2px;
-}
-a.translation_call span.name {
-  font-weight: bold;
-}
-a.translation_call div.progressbar {
-  margin-top: 0.5em;
-}
 
 div.lichess_social {
   height: 0px;
@@ -483,19 +489,19 @@ div.lichess_social div.addtochrome {
 }
 
 /* soft inactive gradient */
-#top, div.lichess_chat_top, div.undertable_top, .button, .button:visited, .ui-state-default, div.content_box_top, div.hooks tr {
+#top, div.lichess_chat_top, div.undertable_top, .button, .button:visited, .ui-state-default, div.content_box_top, div.hooks tr, a.translation_call {
   color: #666;
   background: #fafafa;
-  background: -moz-linear-gradient(center top , #fafafa, #dadada) repeat scroll 0 0 #fafafa;
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fafafa), to(#dadada));
-  background: -webkit-linear-gradient(top , #fafafa, #dadada) repeat scroll 0 0 #fafafa;
-  background: -ms-linear-gradient(top , #fafafa, #dadada) repeat scroll 0 0 #fafafa;
-  background: -o-linear-gradient(top , #fafafa, #dadada) repeat scroll 0 0 #fafafa;
-  background: linear-gradient(top , #fafafa, #dadada) repeat scroll 0 0 #fafafa;
+  background: -moz-linear-gradient(center top , #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fafafa), to(#e0e0e0));
+  background: -webkit-linear-gradient(top , #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
+  background: -ms-linear-gradient(top , #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
+  background: -o-linear-gradient(top , #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
+  background: linear-gradient(top , #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
 }
 
 /* active gradient */
-#top a.goto_nav.active, .button.active, .button:hover, .ui-state-active, .ui-widget-header, div.pagination span.current, a.goto_nav span.new_messages.unread, div.hooks td.action:hover, div.hooks table.empty_table tr:hover {
+#top a.goto_nav.active, .button.active, .button:hover, .ui-state-active, .ui-widget-header, div.pagination span.current, a.goto_nav span.new_messages.unread, div.hooks td.action:hover, div.hooks table.empty_table tr:hover, div.progressbar.flashy div {
   color: #fff;
   background: #d85000;
   background: -moz-linear-gradient(center top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
@@ -635,7 +641,4 @@ div.progressbar div {
   background: #d8a050;
   height: 12px;
   border-radius: 4px;
-}
-div.progressbar.flashy div {
-  background: #d85000;
 }

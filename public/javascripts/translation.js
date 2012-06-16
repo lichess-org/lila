@@ -12,5 +12,8 @@ $(function() {
 			$('div.messages div.message').not('.missing').hide();
 		}
 	});
+  if ($('div.messages div.missing').length > 0) {
+    $('div.locale_menu a.missing').click();
+  }
 });
 

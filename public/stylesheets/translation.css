@@ -23,18 +23,10 @@ table.translations div.progressbar {
   width: 200px;
 }
 
-div.field {
-  margin: 1em 0;
-}
-
 #lichess_translation_form_yaml {
   width: 100%;
   height: 30em;
   font-size: 1.1em;
-}
-
-div.field input {
-  width: 30em;
 }
 
 div.locale_menu {
@@ -103,16 +95,19 @@ div.locale_menu a.active {
   max-height: 200px; overflow: auto; border: 1px solid #CCC; margin-bottom: 2em;
   background: white;
 }
+
 div.messages {
   margin-bottom:1em;
   border-bottom: 1px solid #dadada;
   padding-bottom: 1em;
 }
 div.message {
-  margin-top:1em;
-  border-top: 1px solid #dadada;
-  padding-top: 1em;
+  padding:1em;
   font-size: 1.2em;
+  position: relative;
+}
+div.message:nth-child(odd) {
+  background: #f4f4f4;
 }
 div.message label {
   display: block;
@@ -122,14 +117,18 @@ div.message label {
 div.message input {
   width: 90%;
   margin-left: 9%;
+  margin-top: 3px;
   padding: 2px 5px;
-  color: #888;
-}
-div.message input:focus {
-  color: #444;
 }
 div.message .number {
-  float: left;
-  margin-top: 5px;
-  display: block;
+  position: absolute;
+  top: 25px;
+  left: 10px;
+}
+
+div.optional {
+  margin-bottom: 1em;
+}
+div.optional input {
+  padding: 2px 5px;
 }

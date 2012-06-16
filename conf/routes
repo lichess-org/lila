@@ -57,6 +57,7 @@ POST  /api/game/new                    controllers.Setup.api
 # I18n
 GET   /translation/contribute          controllers.I18n.contribute
 GET   /translation/form/:lang          controllers.I18n.translationForm(lang: String)
+POST  /translation/form/:lang          controllers.I18n.translationPost(lang: String)
 
 # Authentication
 GET   /login                           controllers.Auth.login

@@ -10,11 +10,15 @@ import scalaz.effects._
 class TranslationRepo(
     collection: MongoCollection) extends SalatDAO[Translation, String](collection) {
 
-  val maxId: IO[Int] = io {
+  val nextId: IO[Int] = io {
     collection.find(DBObject(), DBObject("_id" -> true))
       .sort(DBObject("_id" -> -1))
       .limit(1)
       .toList
       .headOption flatMap { _.getAs[Int]("_id") } getOrElse 0
+  } map (_ + 1)
+
+  def insertIO(translation: Translation) = io {
+    insert(translation)
   }
 }

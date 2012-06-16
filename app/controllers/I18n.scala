@@ -9,7 +9,8 @@ object I18n extends LilaController {
 
   def transInfos = env.i18n.transInfos
   def pool = env.i18n.pool
-  def forms = i18n.DataForm
+  def translator = env.i18n.translator
+  def forms = env.i18n.forms
   def i18nKeys = env.i18n.keys
 
   val contribute = Open { implicit ctx ⇒
@@ -21,7 +22,21 @@ object I18n extends LilaController {
 
   def translationForm(lang: String) = Open { implicit ctx ⇒
     OptionOk(transInfos get lang) { info ⇒
-      html.i18n.translationForm(info, forms.translation, i18nKeys)
+      html.i18n.translationForm(
+        info,
+        forms.translation,
+        i18nKeys,
+        pool.default,
+        translator.rawTranslation(info.lang) _)
+    }
+  }
+
+  def translationPost(lang: String) = OpenBody { implicit ctx ⇒
+    implicit val req = ctx.body
+    FormIOResult(forms.translation) {
+      case metadata ⇒ forms.process(lang, metadata) map { _ ⇒
+        Redirect(routes.I18n.contribute).flashing("success" -> "1")
+      }
     }
   }
 }

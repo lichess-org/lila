@@ -7,10 +7,10 @@ import org.joda.time.DateTime
 case class Translation(
   @Key("_id") id: Int,
   code: String, // 2-chars code
-  yaml: String,
+  text: String,
   author: Option[String],
   comment: Option[String],
-  createdAt: DateTime) {
+  createdAt: DateTime = DateTime.now) {
 
 
 }

@@ -21,6 +21,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
 
   lazy val i18n = new lila.i18n.I18nEnv(
     app = app,
+    mongodb = mongodb.apply _,
     settings = settings)
 
   lazy val user = new lila.user.UserEnv(

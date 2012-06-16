@@ -1,17 +1,64 @@
-@(info: lila.i18n.TransInfo, form: Form[_], keys: lila.i18n.I18nKeys)(implicit ctx: Context)
+@(info: lila.i18n.TransInfo, form: Form[_], keys: lila.i18n.I18nKeys, base: Lang, rawTrans: String => Option[String])(implicit ctx: Context)
 
 @i18n.layout(
-title = "Contribute to " + info.codeAndName) {
+title = info.codeAndName) {
 
-<div class="content_box">
-  Please translate the following English words and phrases below.<br />
-  "%s" are variables. You must not translate them, but they must be present in your translation.<br />
-  Lichess will replace them with a number or a name when displaying the message.<br />
-  For example, <strong>View %s checkmates</strong> translated to french is <strong>Voir les %s mats</strong>
-  <br /><br />
-  @if(info.percent == 0) {
-  No need to submit a complete translation. You can just translate some sentences, and let the others complete it :)
-  }
+<h1 class="lichess_title">@info.codeAndName</h1>
+<div class="progressbar flashy">
+  <div style="width: @info.percent%"></div>
 </div>
+<br />
+Please translate the following English words and phrases below.<br />
+"%s" are variables. They must be present in your translation.<br />
+Lichess will replace them with a number or a name when displaying the message.<br />
+For example, <strong>View %s checkmates</strong> translated to french is <strong>Voir les %s mats</strong>
+<br /><br />
+@if(info.percent == 0) {
+No need to submit a complete translation. You can just translate some sentences, and let the others complete it :)
+}
+<div class="locale_menu clearfix">
+  <a class="all active">View all sentences</a>
+  <a class="missing">View @pluralize("missing sentence", info.nbMissing)</a>
+</div>
+<form action="@routes.I18n.translationPost(info.code)" method="post">
+  <div class="messages">
+    @keys.keys.zipWithIndex.map {
+    case (key, i) => {
+    <div class="field message">
+      <span class="number">@{i+1}/@info.nbMessages</span>
+      <label for="key_@key.key">@key.to(base)()</label>
+      <input
+      type="text"
+      name="key_@key.key"
+      id="key_@key.key"
+      value="@rawTrans(key.key)" />
+    </div>
+    }
+    }
+  </div>
+  <p>These fields are optional:</p>
+  <br />
+  <div class="field optional">
+    <label for="@form("author").id">Author</label>
+    <input
+    size="30"
+    type="text"
+    name="@form("author").name"
+    id="@form("author").id" />
+    @errMsg(form("author"))
+  </div>
+  <div class="field optional">
+    <label for="@form("comment").id">Comment</label>
+    <input
+    size="60"
+    type="text"
+    name="@form("comment").name"
+    id="@form("comment").id" />
+    @errMsg(form("comment"))
+  </div>
+  <div class="field">
+    <input type="submit" value="Submit translations" />
+  </div>
+</form>
 }
 

@@ -20,6 +20,9 @@ final class Translator(api: MessagesApi, pool: I18nPool) {
   def transTo(key: String, args: List[Any])(lang: Lang): String =
     translate(key, args)(lang) getOrElse key
 
+  def rawTranslation(lang: Lang)(key: String): Option[String] =
+    messages.get(lang.code).flatMap(_.get(key))
+
   private def translate(key: String, args: List[Any])(lang: Lang): Option[String] = {
     messages.get(lang.code).flatMap(_.get(key)).orElse(messages.get("default").flatMap(_.get(key))).map { pattern ⇒
       try {

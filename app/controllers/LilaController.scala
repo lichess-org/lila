@@ -95,16 +95,10 @@ trait LilaController
       data ⇒ op(data)
     )
 
-  def FormIOk[A](form: Form[A])(op: A ⇒ IO[Unit])(implicit req: Request[_]) =
+  def FormIOResult[A](form: Form[A])(op: A ⇒ IO[Result])(implicit req: Request[_]) =
     form.bindFromRequest.fold(
       form ⇒ BadRequest(form.errors mkString "\n"),
-      data ⇒ IOk(op(data))
-    )
-
-  def FormValidIOk[A](form: Form[A])(op: A ⇒ IO[Valid[Unit]])(implicit req: Request[_]) =
-    form.bindFromRequest.fold(
-      form ⇒ BadRequest(form.errors mkString "\n"),
-      data ⇒ ValidIOk(op(data))
+      data ⇒ op(data).unsafePerformIO
     )
 
   def IOk[A](op: IO[A])(implicit writer: Writeable[A], ctype: ContentTypeOf[A]) =
