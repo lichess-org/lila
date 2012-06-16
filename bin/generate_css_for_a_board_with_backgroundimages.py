@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#! /usr/bin/python2
 
 #config
 schemeName = "wood"
@@ -11,11 +11,11 @@ squareSize = 64 # width of a square in pixel
 #code
 white = True
 for y in range(0,8):
-	for x in range (0, 8):
-		if white:
-			img = bgImgWhite
-		else:
-			img = bgImgBlack
-		print "#GameBoard."+schemeName+" #tcol"+str(x)+"trow"+str(y)+", div."+schemeName+" #"+str(chr(ord('a') + x))+str(8-y) + " {\n\tbackground: url("+img+") no-repeat "+str((-x)*squareSize)+"px " +str((-y)*squareSize) +"px;\n}";
-		white = not white
-	white = not white
+  for x in range (0, 8):
+    if white:
+      img = bgImgWhite
+    else:
+      img = bgImgBlack
+    print "#GameBoard."+schemeName+" #tcol"+str(x)+"trow"+str(y)+", div."+schemeName+" #"+str(chr(ord('a') + x))+str(8-y) + " { background: url("+img+") no-repeat "+str((-x)*squareSize)+"px " +str((-y)*squareSize) +"px; }";
+    white = not white
+  white = not white
