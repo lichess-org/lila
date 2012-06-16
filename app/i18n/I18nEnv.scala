@@ -54,5 +54,6 @@ final class I18nEnv(
     keys = keys)
 
   lazy val upstreamFetch = new UpstreamFetch(
-    repoPath = app.path.getCanonicalPath)
+    repoPath = app.path.getCanonicalPath,
+    upstreamDomain = I18nUpstreamDomain)
 }

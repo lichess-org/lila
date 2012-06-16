@@ -13,6 +13,7 @@ final class Settings(config: Config) {
 
   val I18nWebPathRelative = getString("i18n.web_path.relative")
   val I18nFilePathRelative = getString("i18n.file_path.relative")
+  val I18nUpstreamDomain = getString("i18n.upstream.domain")
 
   val GameMessageLifetime = millis("game.message.lifetime")
   val GameUidTimeout = millis("game.uid.timeout")

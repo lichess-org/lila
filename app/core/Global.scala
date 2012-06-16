@@ -1,7 +1,7 @@
 package lila
 package core
 
-import play.api.{ Application, GlobalSettings }
+import play.api.{ Application, GlobalSettings, Mode }
 import play.api.mvc._
 import play.api.mvc.Results._
 
@@ -16,6 +16,7 @@ object Global extends GlobalSettings {
     coreEnv = CoreEnv(app)
 
     if (env.ai.isServer) println("Running as AI server")
+    else if(app.mode == Mode.Test) println("Running without cron")
     else core.Cron start env
   }
 

@@ -1,5 +1,6 @@
 package lila.cli
 
+import lila.parseIntOption
 import lila.i18n.I18nEnv
 import play.api.i18n.Lang
 import java.io._
@@ -17,8 +18,8 @@ case class I18n(i18n: I18nEnv) {
     _ ← i18n.fileFix.apply
   } yield ()
 
-  def fetch: IO[Unit] = for {
-    _ <- putStrLn("Fetch translations from upstream")
-    _ <- i18n.upstreamFetch.apply
+  def fetch(from: String): IO[Unit] = for {
+    _ ← putStrLn("Fetch translations from upstream")
+    _ ← i18n.upstreamFetch apply parseIntOption(from).err("bad from arg")
   } yield ()
 }
