@@ -109,6 +109,7 @@ cancelRematchOffer=Відмінити запит на реванш
 play=Грати
 inbox=Вхідні повідомлення
 chatRoom=Чат
+spectatorRoom=Гостьова кімната
 composeMessage=Написати повідомлення
 sentMessages=Відправлені повідомлення
 incrementInSeconds=Додаткові секунди на хід
