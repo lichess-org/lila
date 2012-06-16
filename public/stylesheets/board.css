@@ -35,12 +35,6 @@ div.lcs {
 #GameBoard.grey td.whiteSquare, #GameBoard.grey td.highlightWhiteSquare, div.grey div.lcs.white {
   background-color: #FFFFFF;
 }
-#GameBoard.brown td.blackSquare, #GameBoard.brown td.highlightBlackSquare, div.brown div.lcs.black, a.colorpicker.brown   {
-  background-color: #b58863;
-}
-#GameBoard.brown td.whiteSquare, #GameBoard.brown td.highlightWhiteSquare, div.brown div.lcs.white {
-  background-color: #f0d9b5;
-}
 #GameBoard.green td.blackSquare, #GameBoard.green td.highlightBlackSquare, div.green div.lcs.black, a.colorpicker.green   {
   background-color: #86a666;
 }

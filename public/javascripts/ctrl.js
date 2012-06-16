@@ -64,7 +64,7 @@ $(function() {
 
     // board color
     var $picker = $('#top a.colorpicker');
-    var colors = ['brown', 'grey', 'green', 'blue', 'wood'];
+    var colors = ['blue', 'wood', 'grey', 'green'];
     var color;
     function setColor(c) {
       color = c;
