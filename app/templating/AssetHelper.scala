@@ -7,7 +7,7 @@ import play.api.templates.Html
 
 trait AssetHelper {
 
-  val assetVersion = 31
+  val assetVersion = 32
 
   def cssTag(name: String) = css("stylesheets/" + name)
 

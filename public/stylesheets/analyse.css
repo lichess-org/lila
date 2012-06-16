@@ -49,9 +49,9 @@ span.board_mark.horz {
   -moz-transform: rotate(180deg);
   transform: rotate(180deg);
 }
-#GameBoard td.highlightWhiteSquare,
-#GameBoard td.highlightBlackSquare {
-  background-image: url(../images/over5.png);
+#GameBoard td.highlightWhiteSquare img,
+#GameBoard td.highlightBlackSquare img {
+  background: url(../images/over5.png) no-repeat;
 }
 #GameBoard td img {
   width: 64px;
