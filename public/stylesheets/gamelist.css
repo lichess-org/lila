@@ -72,6 +72,9 @@ div.game_list_inner div.infos {
   display: block;
   box-shadow:0 0 5px #444;
 }
+.mini_board.highlight {
+  box-shadow:0 0 5px #d85000;
+}
 div.all_games a.mini_board {
   float: left;
   margin: 0 20px 20px 10px;
