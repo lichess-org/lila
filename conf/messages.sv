@@ -103,6 +103,7 @@ rematchOfferAccepted=Förslag om returmatch accepterat
 rematchOfferCanceled=Returmatch anbud avbruten
 rematchOfferDeclined=Returmatch anbud avböjt
 cancelRematchOffer=Neka ommatch förslag
+viewRematch=Visa returmatch
 play=Spela
 inbox=Inkorg
 chatRoom=Chattrum

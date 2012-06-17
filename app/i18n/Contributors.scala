@@ -21,7 +21,7 @@ object Contributors {
     "pl" -> List("M3n747", "Kurt Keller (DE)"),
     "nl" -> List("Kintaro"),
     "vi" -> List("Xiblack"),
-    "sv" -> List("nizleib"),
+    "sv" -> List("nizleib", "Kurt Keller (DE)"),
     "cs" -> List("Martin", "Claymes"),
     "sk" -> List("taiga"),
     "hu" -> List("LTBakemono"),
