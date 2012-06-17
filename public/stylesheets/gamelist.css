@@ -49,15 +49,20 @@ div.game_list.realtime {
 }
 div.game_list_inner > div {
   float: left;
-  margin: 0 10px 10px 10px;
+  margin: 10px 10px 10px 10px;
 }
-div.game_list_inner div.vstext {
-  margin-top: 5px;
+div.game_list_inner div.vstext, div.game_list_inner div.infos {
   font-size: 11px;
   text-align: center;
   width: 192px;
   overflow: hidden;
   white-space: nowrap;
+}
+div.game_list_inner div.vstext {
+  margin-bottom: 5px;
+}
+div.game_list_inner div.infos {
+  margin-top: 5px;
 }
 
 .mini_board {
