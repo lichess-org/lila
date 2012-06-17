@@ -103,6 +103,7 @@ rematchOfferAccepted=Uitnodiging voor nieuwe partij geaccepteerd
 rematchOfferCanceled=Rematch aanbod geannuleerd
 rematchOfferDeclined=Rematch geweigerd
 cancelRematchOffer=Uitnodiging voor nieuwe partij annuleren
+viewRematch=Rematch bekijken
 play=Spelen
 inbox=Postvak IN
 chatRoom=Chatruimte
