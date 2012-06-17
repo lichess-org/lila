@@ -23,7 +23,7 @@ object Contributors {
     "vi" -> List("Xiblack"),
     "sv" -> List("nizleib", "Kurt Keller (DE)"),
     "cs" -> List("Martin", "Claymes"),
-    "sk" -> List("taiga"),
+    "sk" -> List("taiga", "Kurt Keller (DE)"),
     "hu" -> List("LTBakemono"),
     "ca" -> List("AI8"),
     "sl" -> List("Klemen Grm"),
