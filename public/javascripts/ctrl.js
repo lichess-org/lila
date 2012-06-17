@@ -77,25 +77,6 @@ $(function() {
     $('#top .themepicker').removeClass("shown");
   });
 
-  // board color
-  var $picker = $('#top a.colorpicker');
-  var colors = ['blue', 'wood', 'grey', 'green'];
-  var color;
-  function setColor(c) {
-    color = c;
-    $picker.add($board).removeClass(colors.join(' ')).addClass(c);
-  }
-  setColor($picker.data('color'));
-  $picker.click(function() {
-    var c = colors[(colors.indexOf(color) + 1) % colors.length];
-    setColor(c);
-    $.ajax($picker.attr("href"), {
-      type: 'POST',
-      data: {color: c}
-    });
-    return false;
-  });
-
   $.centerOverboard = function() {
     if ($overboard = $('div.lichess_overboard.auto_center').orNot()) {
       $overboard.css('top', (238 - $overboard.height() / 2) + 'px').show();

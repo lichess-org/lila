@@ -17,7 +17,6 @@ more infos under realtime games
 cheater slash timeline
 best game(s) to watch
 copy spectator chat to rematch
-advanced board color selector / board colorpicker (http://fr.lichess.org/inbox/mjhlougd)
 
 next deploy:
 db.user2.update({},{$unset:{"settings.color":1}}, false, true)
