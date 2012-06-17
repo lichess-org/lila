@@ -10,12 +10,12 @@ http://codetunes.com/2012/05/09/scala-dsl-tutorial-writing-web-framework-router
 use POST instead of GET where it makes sense
 make the wiki static html pages managed by git?
 guess friend list
-autoclose top menus
 tournaments http://www.chess.com/tournaments/help.html
 fix game list translations
 more infos under realtime games
 cheater slash timeline
 best game(s) to watch
+use twitter tooltip instead of tipsy http://twitter.github.com/bootstrap/javascript.html#tooltip
 
 next deploy:
 db.user2.update({},{$unset:{"settings.color":1}}, false, true)

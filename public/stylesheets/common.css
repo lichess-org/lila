@@ -264,6 +264,9 @@ a.goto_nav span.new_messages {
 a.goto_nav span.new_messages.unread {
   font-size: 1em;
 }
+#top .shown a.toggle {
+  background: #fff;
+}
 #top div.auth {
   float: right;
   position: relative;
@@ -278,9 +281,6 @@ a.goto_nav span.new_messages.unread {
   border: 1px solid #dadada;
   border-top: none;
   z-index: 1;
-}
-#top div.auth.shown a.toggle {
-  background: #fff;
 }
 #top div.auth.shown form,
 #top div.auth.shown .links {
@@ -354,10 +354,7 @@ ul.lichess_language_links {
   overflow:auto;
   z-index: 1;
 }
-div.lichess_language.toggled a.toggle {
-  background: #fff;
-}
-div.lichess_language.toggled ul.lichess_language_links {
+div.lichess_language.shown ul.lichess_language_links {
   display: block;
 }
 ul.lichess_language_links a {
@@ -378,12 +375,13 @@ ul.lichess_language_links li:last-child {
   float: right;
   position: relative;
 }
-#top div.themepicker a.toggle_theme {
+#top div.themepicker span.theme_demo {
   color: #fff;
-  margin: 4px 0.5em 0 0;
   display: block;
+  margin: 3px 0.5em 0 0;
   padding: 1px 5px;
   text-decoration: none;
+  line-height: normal;
 }
 #top div.themepicker div.themes {
   display: none;

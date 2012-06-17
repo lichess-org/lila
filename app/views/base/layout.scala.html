@@ -47,7 +47,7 @@
       </div>
       @ctx.me.fold(auth.loggedIn(_), auth.miniLogin())
       <div class="themepicker">
-        <a class="toggle_theme">@trans.color()</a>
+        <a class="theme_toggle toggle"><span class="theme_demo">@trans.color()</span></a>
         <div class="themes" data-href="@routes.Setting.set("theme")">
           @themeList.map { theme =>
           <div class="theme" data-theme="@theme.name"><div class="inner">

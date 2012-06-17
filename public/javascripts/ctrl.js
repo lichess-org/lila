@@ -64,9 +64,6 @@ $(function() {
 
   // themepicker
   var theme = document.body.className;
-  $('#top a.toggle_theme').click(function() {
-    $(this).parent().toggleClass('shown');
-  });
   $('#top div.themepicker div.theme').hover(function() {
     document.body.className = $(this).data("theme");
   }, function() {
@@ -83,10 +80,6 @@ $(function() {
     }
   };
   $.centerOverboard();
-
-  $('div.lichess_language').click(function() {
-    $(this).toggleClass('toggled');
-  });
 
   $('.js_email').one('click', function() {
     var email = ['thibault.', 'dupl', 'essis@', 'gmail.com'].join('');
@@ -134,11 +127,14 @@ $(function() {
     }).find('div.pager').hide();
   });
 
-  $('a.toggle_auth').toggle(function() {
-    $('#top').find('div.auth').addClass('shown').find('input:first').focus();
-  },
-  function() {
-    $('#top').find('div.auth').removeClass('shown');
+  $('#top a.toggle').click(function() {
+    var $p = $(this).parent();
+    $p.toggleClass('shown');
+    setTimeout(function() {
+      $('html').one('click',  function() {
+        $p.removeClass('shown');
+      });
+    }, 10);
   });
 
   $('#lichess_translation_form_code').change(function() {
