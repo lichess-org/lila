@@ -38,9 +38,9 @@ final class Hand(
       orig ← posAt(origString) toValid "Wrong orig " + origString
       dest ← posAt(destString) toValid "Wrong dest " + destString
       promotion = Role promotable promString
-      newChessGameAndMove ← g2.toChess(orig, dest, promotion)
+      newChessGameAndMove ← g2.toChess(orig, dest, promotion, lag)
       (newChessGame, move) = newChessGameAndMove
-    } yield g2.update(newChessGame, move, blur, lag)).fold(
+    } yield g2.update(newChessGame, move, blur)).fold(
       e ⇒ io(failure(e)),
       progress ⇒ for {
         eventsAndBoard ← if (progress.game.finished) for {
