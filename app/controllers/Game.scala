@@ -22,12 +22,6 @@ object Game extends LilaController {
     })
   }
 
-  def realtimeInner(ids: String) = Open { implicit ctx ⇒
-    IOk(gameRepo games ids.split(",").toList map { games ⇒
-      html.game.realtimeInner(games)
-    })
-  }
-
   def all(page: Int) = Open { implicit ctx ⇒
     reasonable(page) {
       Ok(html.game.all(paginator recent page, makeListMenu))

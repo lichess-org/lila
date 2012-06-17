@@ -46,6 +46,7 @@ $.websocket.prototype = {
       self.debug("connected to " + self.fullUrl);
       if (self.options.offlineTag) self.options.offlineTag.hide();
       self.pingNow();
+      $('body').trigger('socket.open');
     };
     self.ws.onmessage = function(e) {
       var m = JSON.parse(e.data);
@@ -64,8 +65,11 @@ $.websocket.prototype = {
     self.scheduleConnect(self.options.pingMaxLag);
   },
   send: function(t, d) {
+    var self = this;
     var data = d || {};
-    this.ws.send(JSON.stringify({t: t, d: data}));
+    var message = JSON.stringify({t: t, d: data});
+    self.debug(message);
+    self.ws.send(message);
   },
   scheduleConnect: function(delay) {
     var self = this;

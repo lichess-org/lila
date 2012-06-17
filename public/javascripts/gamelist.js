@@ -1,26 +1,15 @@
 $(function() {
-  if ($gamelist = $('div.game_list').orNot()) {
-    refreshUrl = $gamelist.attr('data-url');
-    // Update games
-    function reloadGameList() {
-      setTimeout(function() {
-        $.get(refreshUrl, function(html) {
-          $gamelist.html(html);
-          $('body').trigger('lichess.content_loaded');
-          reloadGameList();
-        });
-      },
-      2100);
-    };
-    reloadGameList();
-  }
 
-  function parseFen() {
-    $('.parse_fen').each(function() {
-      var color = $(this).data('color') || "white";
-      var withKeys = $(this).hasClass('with_keys');
+  function parseFen($elem) {
+    if (!$elem || !$elem.jquery) {
+      $elem = $('.parse_fen');
+    }
+    $elem.each(function() {
+      var $this = $(this);
+      var color = $this.data('color') || "white";
+      var withKeys = $this.hasClass('with_keys');
       var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-      var fen = $(this).data('fen').replace(/\//g, '');
+      var fen = $this.data('fen').replace(/\//g, '');
       var x, y, html = '', scolor, pcolor, pclass, c, d, increment;
       var pclasses = {'p':'pawn', 'r':'rook', 'n':'knight', 'b':'bishop', 'q':'queen', 'k':'king'};
       var pregex = /(p|r|n|b|q|k)/;
@@ -66,13 +55,31 @@ $(function() {
         }
       }
 
-      $(this).html(html).removeClass('parse_fen');
+      $this.html(html).removeClass('parse_fen');
       // attempt to free memory
-      html = pclasses = increment = pregex = fen = 0;
+      html = pclasses = increment = pregex = fen = $this = 0;
     });
   }
   parseFen();
   $('body').on('lichess.content_loaded', parseFen);
+
+  function registerLiveGames() {
+    var ids = [];
+    $('a.mini_board.live').each(function() {
+      ids.push($(this).data("live"));
+    }).removeClass("live");
+    if (ids.length > 0) {
+      lichess.socket.send("liveGames", ids.join(" "));
+    }
+  }
+  $('body').on('lichess.content_loaded', registerLiveGames);
+  $('body').on('socket.open', registerLiveGames);
+
+  lichess.socketDefaults.events.fen = function(e) {
+    $('a.live_' + e.id).each(function() {
+      parseFen($(this).data("fen", e.fen));
+    });
+  };
 
   $('div.checkmateCaptcha').each(function() {
     var $captcha = $(this);

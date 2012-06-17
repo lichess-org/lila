@@ -96,7 +96,7 @@ case class DbGame(
 
     Game(
       board = Board(pieces, toChessHistory),
-      player = if (0 == turns % 2) White else Black,
+      player = Color(0 == turns % 2),
       pgnMoves = pgn,
       clock = clock,
       deads = deads,

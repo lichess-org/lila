@@ -11,7 +11,7 @@ import play.api.libs.concurrent._
 import scalaz.effects._
 
 import implicits.RichJs._
-import socket.{ Util, Ping, Quit }
+import socket.{ Util, Ping, Quit, LiveGames }
 
 final class Socket(hub: ActorRef) {
 
@@ -27,6 +27,9 @@ final class Socket(hub: ActorRef) {
         val iteratee = Iteratee.foreach[JsValue] { e ⇒
           e str "t" match {
             case Some("p") ⇒ hub ! Ping(uid)
+            case Some("liveGames") ⇒ e str "d" foreach { ids ⇒
+              hub ! LiveGames(uid, ids.split(' ').toList)
+            }
             case _ ⇒
           }
         } mapDone { _ ⇒

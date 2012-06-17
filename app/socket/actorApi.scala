@@ -19,3 +19,5 @@ case object Broom
 case class Quit(uid: String)
 
 case class SendTo(userId: String, message: JsObject)
+case class Fen(gameId: String, fen: String)
+case class LiveGames(uid: String, gameIds: List[String])

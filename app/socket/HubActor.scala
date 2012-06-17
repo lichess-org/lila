@@ -16,18 +16,18 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
   // generic message handler
   def receiveGeneric: Receive = {
 
-    case Ping(uid)            ⇒ ping(uid)
+    case Ping(uid)           ⇒ ping(uid)
 
-    case Broom                ⇒ broom()
+    case Broom               ⇒ broom()
 
     // when a member quits
-    case Quit(uid)            ⇒ quit(uid)
+    case Quit(uid)           ⇒ quit(uid)
 
-    case GetNbMembers         ⇒ sender ! members.size
+    case GetNbMembers        ⇒ sender ! members.size
 
-    case NbMembers(nb)        ⇒ pong = makePong(nb)
+    case NbMembers(nb)       ⇒ pong = makePong(nb)
 
-    case GetUsernames         ⇒ sender ! usernames
+    case GetUsernames        ⇒ sender ! usernames
 
     case SendTo(userId, msg) ⇒ sendTo(userId, msg)
   }

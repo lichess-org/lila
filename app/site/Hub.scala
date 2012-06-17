@@ -16,5 +16,20 @@ final class Hub(timeout: Int) extends HubActor[Member](timeout) {
       addMember(uid, Member(channel, username))
       sender ! Connected(enumerator, channel)
     }
+
+    case Fen(gameId, fen)   ⇒ notifyFen(gameId, fen)
+
+    case LiveGames(uid, gameIds) ⇒ registerLiveGames(uid, gameIds)
+  }
+
+  def notifyFen(gameId: String, fen: String) {
+    val msg = makeMessage("fen", JsObject(Seq(
+      "id" -> JsString(gameId),
+      "fen" -> JsString(fen))))
+    members.values filter (_ liveGames gameId) foreach (_.channel push msg)
+  }
+
+  def registerLiveGames(uid: String, ids: List[String]) {
+    member(uid) foreach (_ addLiveGames ids)
   }
 }
