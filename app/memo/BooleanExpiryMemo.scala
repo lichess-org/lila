@@ -30,5 +30,5 @@ abstract class BooleanExpiryMemo(timeout: Int) {
 
   def keys: Iterable[String] = cache.asMap.keys
 
-  def count = cache.size
+  def preciseCount = keys.toList.size
 }
