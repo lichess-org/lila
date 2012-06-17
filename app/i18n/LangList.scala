@@ -77,7 +77,7 @@ object LangList {
     "ig" -> "Asụsụ Igbo",
     "ik" -> "Iñupiaq, Iñupiatun",
     "io" -> "Ido",
-    "is" -> "Íslensk",
+    "is" -> "Íslenska",
     "it" -> "Italian",
     "iu" -> "ᐃᓄᒃᑎᑐ",
     "ja" -> "日本語",
