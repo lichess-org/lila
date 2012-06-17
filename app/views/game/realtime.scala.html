@@ -4,9 +4,21 @@
 title = trans.gamesBeingPlayedRightNow.str(),
 menu = sideMenu(listMenu, "realtime").some) {
 <div class="content_box current_games_box">
-<h1 class="title">@trans.gamesBeingPlayedRightNow()</h1>
-<div class="game_list realtime" data-url="@routes.Game.realtimeInner(games.map(_.id).mkString(","))">
-  @game.realtimeInner(games)
-</div>
+  <h1 class="title">@trans.gamesBeingPlayedRightNow()</h1>
+  <div class="game_list realtime">
+    <div class="game_list_inner clearfix">
+      @games.map { game =>
+      <div>
+        <div class="vstext">
+          @usernameWithElo(game.creator) - @usernameWithElo(game.invited)
+        </div>
+        @gameFen(game, game.creator.color)
+        <div class="infos">
+          @game.rated.fold(trans.rated(), trans.casual()) - @shortClockName(game.clock)
+        </div>
+      </div>
+      }
+    </div>
+  </div>
 </div>
 }

@@ -39,8 +39,7 @@ final class RoundEnv(
   )), name = ActorGameHubMaster)
 
   lazy val fenNotifier = new FenNotifier(
-    siteHubName = ActorSiteHub,
-    lobbyHubName = ActorLobbyHub)
+    siteHubName = ActorSiteHub)
 
   lazy val socket = new Socket(
     getWatcherPov = gameRepo.pov,

@@ -30,17 +30,9 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
     case GetUsernames        ⇒ sender ! usernames
 
     case SendTo(userId, msg) ⇒ sendTo(userId, msg)
-
-    case Fen(gameId, fen)    ⇒ notifyFen(gameId, fen)
   }
 
   def receive = receiveSpecific orElse receiveGeneric
-
-  def notifyFen(gameId: String, fen: String) {
-    notifyAll("fen", JsObject(Seq(
-      "id" -> JsString(gameId),
-      "fen" -> JsString(fen))))
-  }
 
   def notifyAll(t: String, data: JsValue) {
     val msg = makeMessage(t, data)

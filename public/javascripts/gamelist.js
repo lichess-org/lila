@@ -1,23 +1,11 @@
 $(function() {
-  if ($gamelist = $('div.game_list').orNot()) {
-    refreshUrl = $gamelist.attr('data-url');
-    // Update games
-    function reloadGameList() {
-      setTimeout(function() {
-        $.get(refreshUrl, function(html) {
-          $gamelist.html(html);
-          $('body').trigger('lichess.content_loaded');
-          reloadGameList();
-        });
-      },
-      2100);
-    };
-    reloadGameList();
-  }
 
   function parseFen($elem) {
-    ($elem || $('.parse_fen')).each(function() {
-      var $this = $(this)
+    if (!$elem || !$elem.jquery) {
+      $elem = $('.parse_fen');
+    }
+    $elem.each(function() {
+      var $this = $(this);
       var color = $this.data('color') || "white";
       var withKeys = $this.hasClass('with_keys');
       var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
@@ -75,20 +63,21 @@ $(function() {
   parseFen();
   $('body').on('lichess.content_loaded', parseFen);
 
-  //function liveBoards() {
-    //$('div.mini_board.live').each(function() {
-      //var $this = $(this);
-      //var gameId = $this.data("live");
+  function registerLiveGames() {
+    var ids = [];
+    $('a.mini_board.live').each(function() {
+      ids.push($(this).data("live"));
+    }).removeClass("live");
+    if (ids.length > 0) {
+      lichess.socket.send("liveGames", ids.join(" "));
+    }
+  }
+  $('body').on('lichess.content_loaded', registerLiveGames);
+  $('body').on('socket.open', registerLiveGames);
 
-    //});
-  //}
-  //liveBoards();
-  //$('body').on('lichess.content_loaded', liveBoards);
   lichess.socketDefaults.events.fen = function(e) {
     $('a.live_' + e.id).each(function() {
-      console.debug(e);
-      $(this).html(e.fen);
-      parseFen($(this));
+      parseFen($(this).data("fen", e.fen));
     });
   };
 

@@ -90,7 +90,7 @@ trait GameHelper { self: I18nHelper with UserHelper with StringHelper ⇒
 
   def gameFen(game: DbGame, color: Color, ownerLink: Boolean = false)(implicit ctx: Context) = Html {
     val owner = ownerLink.fold(ctx.me flatMap game.player, none)
-    var live = true //game.isBeingPlayed
+    var live = game.isBeingPlayed
     val url = owner.fold(
       o ⇒ routes.Round.player(game fullIdOf o.color),
       routes.Round.watcher(game.id, color.name)
