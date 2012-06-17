@@ -34,7 +34,7 @@ final class Hand(
     blur: Boolean = false,
     lag: Int = 0): IO[Valid[(List[Event], String)]] = fromPov(povRef) {
     case Pov(g1, color) ⇒ (for {
-      g2 ← (g1.playable).fold(success(g1), failure("Game not playable" wrapNel))
+      g2 ← g1.validIf(g1.playable, "Game not playable")
       orig ← posAt(origString) toValid "Wrong orig " + origString
       dest ← posAt(destString) toValid "Wrong dest " + destString
       promotion = Role promotable promString
