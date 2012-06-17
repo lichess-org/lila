@@ -50,6 +50,10 @@ final class Firewall(
     Redirect(routes.Lobby.home()) withCookies cookie
   }
 
+  def logBlock(req: RequestHeader) {
+    log("Block %s %s".format(req.remoteAddress, req.headers.get("User-Agent") | "?"))
+  }
+
   private def log(msg: Any) {
     println("[%s] %s".format("firewall", msg.toString))
   }

@@ -6,7 +6,7 @@ object Contributors {
   val all = Map(
     "fr" -> List("Thibault Duplessis"),
     "ru" -> List("Nikita Milovanov"),
-    "de" -> List("Patrick Gawliczek"),
+    "de" -> List("Patrick Gawliczek", "Kurt Keller"),
     "tr" -> List("Yakup Ipek"),
     "sr" -> List("Nenad Nikolić"),
     "lv" -> List("Anonymous"),
@@ -61,7 +61,7 @@ object Contributors {
     "ka" -> List("Giorgi Javakhidze"),
     "sw" -> List("Anonymous"),
     "ps" -> List("Eimal Dorani"),
-    "is" -> List("Sir Gizmo Gunn Myr Basque"))
+    "is" -> List("Sir Gizmo Gunn Myr Basque", "cyberpunk"))
 
   def apply(code: String): List[String] = ~(all get code)
 }
