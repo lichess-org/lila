@@ -15,7 +15,8 @@ import monitor._
 object Monitor extends LilaController {
 
   def reporting = env.monitor.reporting
-  implicit val timeout = Timeout(100 millis)
+  def usernameMemo = env.user.usernameMemo
+  implicit val timeout = Timeout(500 millis)
 
   val index = Action {
     Ok(views.html.monitor.monitor())
@@ -33,7 +34,9 @@ object Monitor extends LilaController {
 
   val nbPlayers = Action {
     Async {
-      (reporting ? GetNbMembers).mapTo[Int].asPromise map { Ok(_) }
+      (reporting ? GetNbMembers).mapTo[Int].asPromise map { players ⇒
+        Ok("%d %d".format(players, usernameMemo.preciseCount))
+      }
     }
   }
 }
