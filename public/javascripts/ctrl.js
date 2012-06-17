@@ -58,31 +58,43 @@ $(function() {
 
   $('input.lichess_id_input').select();
 
-  if ($board = $('div.colorable_board').orNot()) {
-    if ($board.hasClass("with_marks"))
-      $.displayBoardMarks($board.parent(), $('#lichess > div.lichess_player_white').length);
-
-    // board color
-    var $picker = $('#top a.colorpicker');
-    var colors = ['blue', 'wood', 'grey', 'green'];
-    var color;
-    function setColor(c) {
-      color = c;
-      $picker.add($board).removeClass(colors.join(' ')).addClass(c);
-    }
-    setColor($picker.data('color'));
-    $picker.click(function() {
-      var c = colors[(colors.indexOf(color) + 1) % colors.length];
-      setColor(c);
-      $.ajax($picker.attr("href"), {
-        type: 'POST',
-        data: {color: c}
-      });
-      return false;
-    });
-  } else {
-    $('#top a.colorpicker').remove();
+  if ($board = $('div.with_marks').orNot()) {
+    $.displayBoardMarks($board.parent(), $('#lichess > div.lichess_player_white').length);
   }
+
+  // themepicker
+  var theme = document.body.className;
+  $('#top a.toggle_theme').click(function() {
+    $(this).parent().toggleClass('shown');
+  });
+  $('#top div.themepicker div.theme').hover(function() {
+    document.body.className = $(this).data("theme");
+  }, function() {
+    document.body.className = theme;
+  }).click(function() {
+    theme = $(this).data("theme");
+    $.post($(this).parent().data("href"), {"theme": theme});
+    $('#top .themepicker').removeClass("shown");
+  });
+
+  // board color
+  var $picker = $('#top a.colorpicker');
+  var colors = ['blue', 'wood', 'grey', 'green'];
+  var color;
+  function setColor(c) {
+    color = c;
+    $picker.add($board).removeClass(colors.join(' ')).addClass(c);
+  }
+  setColor($picker.data('color'));
+  $picker.click(function() {
+    var c = colors[(colors.indexOf(color) + 1) % colors.length];
+    setColor(c);
+    $.ajax($picker.attr("href"), {
+      type: 'POST',
+      data: {color: c}
+    });
+    return false;
+  });
 
   $.centerOverboard = function() {
     if ($overboard = $('div.lichess_overboard.auto_center').orNot()) {

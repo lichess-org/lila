@@ -373,14 +373,48 @@ ul.lichess_language_links a:hover {
 ul.lichess_language_links li:last-child {
   border-top: 1px solid #ddd;
 }
-#top a.colorpicker {
+
+#top div.themepicker {
   float: right;
+  position: relative;
+}
+#top div.themepicker a.toggle_theme {
   color: #fff;
   margin: 4px 0.5em 0 0;
   display: block;
   padding: 1px 5px;
   text-decoration: none;
 }
+#top div.themepicker div.themes {
+  display: none;
+  position: absolute;
+  right: -1px;
+  top: 24px;
+  background: #fff;
+  border: 1px solid #dadada;
+  border-top: none;
+  z-index: 1;
+}
+#top div.themepicker.shown div.themes {
+  display: block;
+}
+#top div.themepicker.shown div.theme {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+#top div.themepicker.shown div.theme:hover {
+  background: #f0f0f0;
+}
+#top div.themepicker.shown div.inner {
+  border: 1px solid #dadada;
+  position: relative;
+  width: 128px;
+  height: 64px;
+}
+#top div.themepicker.shown div.white {
+  left: 64px;
+}
+
 a#sound_state {
   float: right;
 }

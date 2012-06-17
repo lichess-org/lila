@@ -21,7 +21,7 @@ underchat = underchat.some) {
   data-players-url="@routes.Round.players(gameId)">
   <div class="lichess_board_wrap">
     @widget.connection()
-    <div class="lichess_board colorable_board grey with_marks">@Html(ui.Board.render(pov))</div>
+    <div class="lichess_board with_marks">@Html(ui.Board.render(pov))</div>
     <div id="premove">@trans.premoveEnabledClickAnywhereToCancel()</div>
   </div>
   <div class="lichess_ground">

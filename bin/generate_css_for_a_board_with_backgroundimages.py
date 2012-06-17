@@ -9,8 +9,8 @@ bgImgBlack = "../images/woodenboard_black.jpg"
 squareSize = 64 # width of a square in pixel
 
 #code
-print "#GameBoard.wood td.whiteSquare, #GameBoard.wood td.highlightWhiteSquare, div.wood div.lcs.white { background: url(../images/woodenboard_white.jpg) no-repeat; }";
-print "#GameBoard.wood td.blackSquare, #GameBoard.wood td.highlightBlackSquare, div.wood div.lcs.black, a.colorpicker.wood { background: url(../images/woodenboard_black.jpg) no-repeat; }";
+print "body." + schemeName + " #GameBoard td.whiteSquare, body." + schemeName + " #GameBoard td.highlightWhiteSquare, body." + schemeName + " div.lcs.white, #top div.lcs.white." + schemeName + " { background: url(../images/woodenboard_white.jpg) no-repeat; }";
+print "body." + schemeName + " #GameBoard td.blackSquare, body." + schemeName + " #GameBoard td.highlightBlackSquare, body." + schemeName + " div.lcs.black, #top div.lcs.black." + schemeName + ", body." + schemeName + " a.toggle_theme { background: url(../images/woodenboard_black.jpg) no-repeat; }";
 white = True
 for y in range(0,8):
   for x in range (0, 8):
@@ -18,6 +18,6 @@ for y in range(0,8):
       img = bgImgWhite
     else:
       img = bgImgBlack
-    print "#GameBoard."+schemeName+" #tcol"+str(x)+"trow"+str(y)+", div."+schemeName+" #"+str(chr(ord('a') + x))+str(8-y) + " { background-position: "+str((-x)*squareSize)+"px " +str((-y)*squareSize) +"px; }";
+    print "body." + schemeName + " #GameBoard #tcol"+str(x)+"trow"+str(y)+", body." + schemeName + " #"+str(chr(ord('a') + x))+str(8-y) + " { background-position: "+str((-x)*squareSize)+"px " +str((-y)*squareSize) +"px; }";
     white = not white
   white = not white

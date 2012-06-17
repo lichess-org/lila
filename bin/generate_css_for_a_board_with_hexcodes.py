@@ -2,14 +2,14 @@
 
 #config
 themes = {
-  'grey': ['#cacaca', '#fff'],
-  'green': ['#86a666', '#ffffdd'],
-  'blue': ['#8ca2ad', '#dee3e6'],
-  'brown': ['#b58863', '#f0d9b5']
+  'grey': ['#fff', '#cacaca'],
+  'green': ['#ffffdd', '#86a666'],
+  'blue': ['#dee3e6', '#8ca2ad'],
+  'brown': ['#f0d9b5', '#b58863']
 }
 
-blackPattern = 'body.{name} #GameBoard td.blackSquare, body.{name} #GameBoard td.highlightBlackSquare, body.{name} div.lcs.black, body.{name} a.themepicker { background-color: {black}; }'
-whitePattern = 'body.{name} #GameBoard td.whiteSquare, body.{name} #GameBoard td.highlightWhiteSquare, body.{name} div.lcs.white { background-color: {white}; }'
+blackPattern = 'body.{name} #GameBoard td.blackSquare, body.{name} #GameBoard td.highlightBlackSquare, body.{name} div.lcs.black, #top div.lcs.black.{name}, body.{name} a.toggle_theme { background-color: {black}; }'
+whitePattern = 'body.{name} #GameBoard td.whiteSquare, body.{name} #GameBoard td.highlightWhiteSquare, body.{name} div.lcs.white, #top div.lcs.white.{name} { background-color: {white}; }'
 
 for name in themes:
   def formatCss(pattern):

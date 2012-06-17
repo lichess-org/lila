@@ -16,7 +16,7 @@ object Setting extends LilaController {
   def set(name: String) = OpenBody { implicit ctx ⇒
     implicit val req = ctx.body
     val setter = name match {
-      case "color" ⇒ setColor.some
+      case "theme" ⇒ setTheme.some
       case "sound" ⇒ setSound.some
       case "chat" ⇒ setChat.some
       case _       ⇒ none
@@ -33,8 +33,8 @@ object Setting extends LilaController {
 
   type Setter = (Form[String], (HttpSetting, String) ⇒ IO[Cookie])
 
-  val setColor: Setter = forms.color -> {
-    (setting, v) ⇒ setting.color(v)(userRepo)
+  val setTheme: Setter = forms.theme -> {
+    (setting, v) ⇒ setting.theme(v)(userRepo)
   }
 
   val setSound: Setter = forms.sound -> {

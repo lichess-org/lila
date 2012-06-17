@@ -17,7 +17,7 @@
     <meta content="noindex, nofollow" name="robots">
     }
   </head>
-  <body data-sound-file="@routes.Assets.at("sound/alert.ogg")">
+  <body class="@setting.theme.name" data-sound-file="@routes.Assets.at("sound/alert.ogg")">
     <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
     <div id="top" class="clearfix">
       <a href="@routes.Setting.set("sound")" title="@trans.toggleSound()" id="sound_state" class="available @soundString">
@@ -46,7 +46,17 @@
         @trans.nbConnectedPlayers("<strong>0</strong>")
       </div>
       @ctx.me.fold(auth.loggedIn(_), auth.miniLogin())
-      <a href="@routes.Setting.set("color")" class="colorpicker" data-color="@setting.color">@trans.color()</a>
+      <div class="themepicker">
+        <a class="toggle_theme">@trans.color()</a>
+        <div class="themes" data-href="@routes.Setting.set("theme")">
+          @themeList.map { theme =>
+          <div class="theme" data-theme="@theme.name"><div class="inner">
+            <div class="lcs black @theme.name"></div>
+            <div class="lcs white @theme.name"></div>
+          </div></div>
+          }
+        </div>
+      </div>
     </div>
     <div class="content">
       <div class="header">

@@ -30,7 +30,7 @@ moreJs = moreJs) {
       id="GameBoard"
       data-version="@version"
       data-socket-url="@routes.Round.websocketWatcher(gameId, color.name)"
-      class="colorable_board @color.fold("", " flip")"></div>
+      class="@color.fold("", "flip")"></div>
     <div id="GameButtons"></div>
   </div>
   <div class="moves_wrap">

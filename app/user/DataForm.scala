@@ -4,7 +4,7 @@ package user
 import play.api.data._
 import play.api.data.Forms._
 
-import ui.Color
+import ui.Theme
 
 object DataForm {
 
@@ -20,8 +20,8 @@ object DataForm {
     "sound" -> jsBoolean
   ))
 
-  val color = Form(single(
-    "color" -> nonEmptyText.verifying(Color contains _)
+  val theme = Form(single(
+    "theme" -> nonEmptyText.verifying(Theme contains _)
   ))
 
   private def jsBoolean = nonEmptyText.verifying(Set("true", "false") contains _)

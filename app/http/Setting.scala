@@ -1,16 +1,16 @@
 package lila
 package http
 
-import ui.Color
+import ui.Theme
 import user.UserRepo
 
 import scalaz.effects._
 import play.api.mvc.Cookie
 
-final class Setting(ctx: Context) extends HttpEnvironment {
+final class Setting(ctx: Context) {
 
-  def color = Color(get("color"))
-  def color(value: String) = set("color", Color(value).toString) _
+  def theme = Theme(get("theme"))
+  def theme(value: String) = set("theme", Theme(value).toString) _
 
   def sound = get("sound", "false").parseBoolean | false
   def sound(value: String) = set("sound", value) _
