@@ -115,9 +115,6 @@ final class CoreEnv private (application: Application, val settings: Settings) {
   lazy val metaHub = new lila.socket.MetaHub(
     List(site.hub, lobby.hub, round.hubMaster))
 
-  lazy val siteLobbyHub = new lila.socket.MetaHub(
-    List(site.hub, lobby.hub))
-
   lazy val monitor = new lila.monitor.MonitorEnv(
     app = app,
     mongodb = mongodb.connection,

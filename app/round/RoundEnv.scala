@@ -38,12 +38,17 @@ final class RoundEnv(
     playerTimeout = GamePlayerTimeout
   )), name = ActorGameHubMaster)
 
+  lazy val fenNotifier = new FenNotifier(
+    siteHubName = ActorSiteHub,
+    lobbyHubName = ActorLobbyHub)
+
   lazy val socket = new Socket(
     getWatcherPov = gameRepo.pov,
     getPlayerPov = gameRepo.pov,
     hand = hand,
     hubMaster = hubMaster,
     messenger = messenger,
+    fenNotifier = fenNotifier,
     flood = flood)
 
   lazy val hand = new Hand(

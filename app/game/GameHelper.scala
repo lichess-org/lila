@@ -94,9 +94,11 @@ trait GameHelper { self: I18nHelper with UserHelper with StringHelper ⇒
       o ⇒ routes.Round.player(game fullIdOf o.color),
       routes.Round.watcher(game.id, color.name)
     )
-    """<a href="%s" title="%s" class="mini_board parse_fen" data-color="%s" data-fen="%s"></a>""".format(
+    """<a href="%s" title="%s" class="mini_board parse_fen %s" data-color="%s" data-fen="%s"></a>""".format(
       url,
       trans.viewInFullSize(),
+      //game.isBeingPlayed.fold("live_" + game.id, ""),
+      "live_" + game.id,
       color.name,
       Forsyth exportBoard game.toChess.board)
   }
