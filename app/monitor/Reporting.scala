@@ -17,6 +17,7 @@ import com.mongodb.casbah.MongoDB
 
 final class Reporting(
   rpsProvider: RpsProvider,
+  mpsProvider: RpsProvider,
   mongodb: MongoDB,
   hub: ActorRef
 ) extends Actor {
@@ -35,6 +36,7 @@ final class Reporting(
   var lobby = LobbySocket(0)
   var game = GameSocket(0, 0)
   var rps = 0
+  var mps = 0
   var cpu = 0
   var mongoStatus = MongoStatus.default
   var remoteAi = none[Int]
@@ -54,6 +56,8 @@ final class Reporting(
     case GetNbMembers   ⇒ sender ! allMembers
 
     case GetNbGames     ⇒ sender ! nbGames
+
+    case GetNbMoves     ⇒ sender ! mps
 
     case GetStatus      ⇒ sender ! status
 
@@ -82,6 +86,7 @@ final class Reporting(
           nbThreads = threadStats.getThreadCount
           memory = memoryStats.getHeapMemoryUsage.getUsed / 1024 / 1024
           rps = rpsProvider.rps
+          mps = mpsProvider.rps
           cpu = ((cpuStats.getCpuUsage() * 1000).round / 10.0).toInt
           remoteAi = env.ai.remoteAi.currentPing
         }
@@ -134,6 +139,7 @@ final class Reporting(
     "load" -> loadAvg,
     "memory" -> memory,
     "rps" -> rps,
+    "mps" -> mps,
     "dbMemory" -> mongoStatus.memory,
     "dbConn" -> mongoStatus.connection,
     "dbQps" -> mongoStatus.qps,

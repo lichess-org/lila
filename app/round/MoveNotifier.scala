@@ -10,11 +10,14 @@ import akka.util.Timeout
 import play.api.libs.concurrent._
 import play.api.Play.current
 
-final class FenNotifier(siteHubName: String) {
+final class MoveNotifier(
+  siteHubName: String,
+  countMove: () => Unit) {
 
   lazy val siteHubRef = Akka.system.actorFor("/user/" + siteHubName)
 
   def apply(gameId: String, fen: String): IO[Unit] = io {
+    countMove()
     siteHubRef ! Fen(gameId, fen)
   }
 }

@@ -88,6 +88,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     eloUpdater = user.eloUpdater,
     i18nKeys = i18n.keys,
     ai = ai.ai,
+    countMove = monitor.mpsProvider.countRequest,
     flood = security.flood)
 
   lazy val analyse = new lila.analyse.AnalyseEnv(

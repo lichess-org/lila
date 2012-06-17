@@ -163,6 +163,12 @@
       container : container
     });
 
+    app.mps = new SpeedOMeter({
+      name : "MOVES",
+      maxVal : 20,
+      container : container
+    });
+
     function setStatus(s) {
       window.document.body.className = s;
     }

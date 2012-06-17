@@ -8,7 +8,7 @@ import play.api.libs.concurrent._
 import play.api.Application
 
 import game.{ GameRepo, DbGame }
-import user.{ UserRepo, User}
+import user.{ UserRepo, User }
 import elo.EloUpdater
 import ai.Ai
 import core.Settings
@@ -24,6 +24,7 @@ final class RoundEnv(
     eloUpdater: EloUpdater,
     i18nKeys: I18nKeys,
     ai: () ⇒ Ai,
+    countMove: () ⇒ Unit,
     flood: Flood) {
 
   implicit val ctx = app
@@ -38,8 +39,9 @@ final class RoundEnv(
     playerTimeout = GamePlayerTimeout
   )), name = ActorGameHubMaster)
 
-  lazy val fenNotifier = new FenNotifier(
-    siteHubName = ActorSiteHub)
+  lazy val moveNotifier = new MoveNotifier(
+    siteHubName = ActorSiteHub,
+    countMove = countMove)
 
   lazy val socket = new Socket(
     getWatcherPov = gameRepo.pov,
@@ -47,7 +49,7 @@ final class RoundEnv(
     hand = hand,
     hubMaster = hubMaster,
     messenger = messenger,
-    fenNotifier = fenNotifier,
+    moveNotifier = moveNotifier,
     flood = flood)
 
   lazy val hand = new Hand(

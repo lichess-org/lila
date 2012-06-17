@@ -27,7 +27,7 @@ final class Socket(
     hand: Hand,
     hubMaster: ActorRef,
     messenger: Messenger,
-    fenNotifier: FenNotifier,
+    moveNotifier: MoveNotifier,
     flood: Flood) {
 
   private val timeoutDuration = 1 second
@@ -67,7 +67,7 @@ final class Socket(
               putFailures, {
                 case (events, fen) ⇒ for {
                   _ ← send(povRef.gameId, events)
-                  _ ← fenNotifier(povRef.gameId, fen)
+                  _ ← moveNotifier(povRef.gameId, fen)
                 } yield ()
               })
           } unsafePerformIO

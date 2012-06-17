@@ -24,10 +24,16 @@ final class MonitorEnv(
   lazy val reporting = Akka.system.actorOf(
     Props(new Reporting(
       rpsProvider = rpsProvider,
+      mpsProvider = mpsProvider,
       mongodb = mongodb,
       hub = hub
     )), name = ActorReporting)
 
+  // requests per second
   val rpsProvider = new RpsProvider(
+    timeout = MonitorTimeout)
+
+  // moves per second
+  val mpsProvider = new RpsProvider(
     timeout = MonitorTimeout)
 }

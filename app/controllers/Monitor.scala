@@ -39,4 +39,10 @@ object Monitor extends LilaController {
       }
     }
   }
+
+  val nbMoves = Action {
+    Async {
+      (reporting ? GetNbMoves).mapTo[Int].asPromise map { Ok(_) }
+    }
+  }
 }

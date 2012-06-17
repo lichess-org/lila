@@ -5,6 +5,7 @@ import core.CoreEnv
 import socket.SocketMember
 
 case object GetNbGames
+case object GetNbMoves
 case object GetStatus
 case object GetMonitorData
 
