@@ -590,7 +590,7 @@ div.lichess_chat {
   border-radius: 4px;
 }
 div.lichess_chat.lobby_chat {
-  top: 157px;
+  top: 129px;
 }
 div.lichess_chat_top {
   border-radius: 4px 4px 0 0;
@@ -626,7 +626,7 @@ div.lichess_chat ol {
   overflow:hidden;
 }
 div.lichess_chat.lobby_chat ol {
-  height: 313px;
+  height: 341px;
 }
 
 div.lichess_chat form {
