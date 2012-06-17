@@ -6,7 +6,7 @@ object Contributors {
   val all = Map(
     "fr" -> List("Thibault Duplessis"),
     "ru" -> List("Nikita Milovanov"),
-    "de" -> List("Patrick Gawliczek"),
+    "de" -> List("Patrick Gawliczek", "Kurt Keller"),
     "tr" -> List("Yakup Ipek"),
     "sr" -> List("Nenad Nikolić"),
     "lv" -> List("Anonymous"),
