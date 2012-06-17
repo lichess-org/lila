@@ -51,7 +51,7 @@ final class Firewall(
   }
 
   def logBlock(req: RequestHeader) {
-    log("Block IP: " + req.remoteAddress)
+    log("Block %s %s".format(req.remoteAddress, req.headers.get("User-Agent") | "?"))
   }
 
   private def log(msg: Any) {
