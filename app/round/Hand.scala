@@ -6,6 +6,7 @@ import game.{ GameRepo, Pov, PovRef, Handler }
 import i18n.I18nKey.{ Select ⇒ SelectI18nKey }
 import chess.Role
 import chess.Pos.posAt
+import chess.format.Forsyth
 
 import scalaz.effects._
 import akka.actor._
@@ -31,7 +32,7 @@ final class Hand(
     destString: String,
     promString: Option[String] = None,
     blur: Boolean = false,
-    lag: Int = 0): IOValidEvents = fromPov(povRef) {
+    lag: Int = 0): IO[Valid[(List[Event], String)]] = fromPov(povRef) {
     case Pov(g1, color) ⇒ (for {
       g2 ← (g1.playable).fold(success(g1), failure("Game not playable" wrapNel))
       orig ← posAt(origString) toValid "Wrong orig " + origString
@@ -42,21 +43,27 @@ final class Hand(
     } yield g2.update(newChessGame, move, blur, lag)).fold(
       e ⇒ io(failure(e)),
       progress ⇒ for {
-        events ← if (progress.game.finished) for {
+        eventsAndBoard ← if (progress.game.finished) for {
           _ ← gameRepo save progress
           finishEvents ← finisher.moveFinish(progress.game, color)
-        } yield progress.events ::: finishEvents
+          events = progress.events ::: finishEvents
+          fen = fenBoard(progress)
+        } yield events -> fen
         else if (progress.game.player.isAi && progress.game.playable) for {
           aiResult ← ai()(progress.game) map (_.err)
           (newChessGame, move) = aiResult
           progress2 = progress flatMap { _.update(newChessGame, move) }
           _ ← gameRepo save progress2
           finishEvents ← finisher.moveFinish(progress2.game, !color)
-        } yield progress2.events ::: finishEvents
+          events = progress2.events ::: finishEvents
+          fen = fenBoard(progress2)
+        } yield events -> fen
         else for {
           _ ← gameRepo save progress
-        } yield progress.events
-      } yield success(events)
+          events = progress.events 
+          fen = fenBoard(progress)
+        } yield events -> fen
+      } yield success(eventsAndBoard)
     )
   }
 
@@ -233,4 +240,7 @@ final class Hand(
       } yield progress2.events
     } toValid "cannot add moretime"
   )
+
+  private def fenBoard(progress: Progress) = 
+    Forsyth exportBoard progress.game.toChess.board
 }

@@ -60,10 +60,17 @@ final class Socket(
         hub ! Events(events)
       }
       case Some("move") ⇒ parseMove(e) foreach {
-        case (orig, dest, prom, blur, lag) ⇒
-          hand.play(povRef, orig, dest, prom, blur, lag) flatMap { events ⇒
-            events.fold(putFailures, send(povRef.gameId, _))
+        case (orig, dest, prom, blur, lag) ⇒ {
+          hand.play(povRef, orig, dest, prom, blur, lag) flatMap { res ⇒
+            res.fold(
+              putFailures, {
+                case (events, fen) ⇒ for {
+                  _ ← send(povRef.gameId, events)
+                  _ ← putStrLn(fen)
+                } yield ()
+              })
           } unsafePerformIO
+        }
       }
       case Some("moretime") ⇒ (for {
         res ← hand moretime povRef
