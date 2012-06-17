@@ -68,8 +68,10 @@ trait LilaController
 
   def Firewall[A <: Result](a: ⇒ A)(implicit ctx: Context): Result =
     env.security.firewall.accepts(ctx.req).fold(
-      a,
-      Redirect(routes.Lobby.home())
+      a, {
+        env.security.firewall.logBlock(ctx.req)
+        Redirect(routes.Lobby.home())
+      }
     )
 
   def JsonOk(map: Map[String, Any]) = Ok(toJson(map)) as JSON
