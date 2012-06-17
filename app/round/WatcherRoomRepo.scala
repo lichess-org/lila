@@ -26,4 +26,8 @@ class WatcherRoomRepo(collection: MongoCollection)
       )
     }
   }
+
+  def insertIO(room: WatcherRoom) = io {
+    insert(room)
+  }
 }

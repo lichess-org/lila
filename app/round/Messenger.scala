@@ -14,11 +14,25 @@ final class Messenger(
     watcherRoomRepo: WatcherRoomRepo,
     i18nKeys: I18nKeys) {
 
+  val nbMessagesCopiedToRematch = 12
+
   def init(game: DbGame): IO[List[Event]] =
     systemMessages(game, List(
       game.creatorColor.fold(_.whiteCreatesTheGame, _.blackCreatesTheGame),
       game.invitedColor.fold(_.whiteJoinsTheGame, _.blackJoinsTheGame)
     ))
+
+  // copies chats then init
+  // no need to send events back
+  def rematch(prev: DbGame, next: DbGame): IO[Unit] = for {
+    prevR ← roomRepo room prev.id
+    nextR = prevR.rematchCopy(next.id, nbMessagesCopiedToRematch)
+    _ ← (nextR.nonEmpty).fold(roomRepo insertIO nextR, io())
+    _ ← systemMessage(next, _.rematchOfferAccepted)
+    prevWR ← watcherRoomRepo room prev.id
+    nextWR = prevWR.rematchCopy(next.id, nbMessagesCopiedToRematch)
+    _ ← (nextWR.nonEmpty).fold(watcherRoomRepo insertIO nextWR, io())
+  } yield ()
 
   def playerMessage(ref: PovRef, text: String): IO[List[Event]] =
     cleanupText(text).fold(

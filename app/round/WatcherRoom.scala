@@ -13,6 +13,12 @@ case class WatcherRoom(
 
   def render: String =
     messages map ((WatcherRoom.render _) compose WatcherRoom.decode) mkString ""
+
+  def rematchCopy(id: String, nb: Int) = copy(
+    id = id,
+    messages = messages takeRight nb)
+
+  def nonEmpty = messages.nonEmpty
 }
 
 object WatcherRoom {

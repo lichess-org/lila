@@ -185,7 +185,7 @@ final class Hand(
         }
       }
       else io {
-        !!("invalid takeback proposition" + fullId)
+        !!("invalid takeback proposition " + fullId)
       }
   }
 

@@ -16,7 +16,6 @@ fix game list translations
 more infos under realtime games
 cheater slash timeline
 best game(s) to watch
-copy spectator chat to rematch
 
 next deploy:
 db.user2.update({},{$unset:{"settings.color":1}}, false, true)

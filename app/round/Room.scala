@@ -11,6 +11,12 @@ case class Room(
 
   def render: String =
     messages map ((Room.render _) compose Room.decode) mkString ""
+
+  def rematchCopy(id: String, nb: Int) = copy(
+    id = id,
+    messages = messages takeRight nb)
+
+  def nonEmpty = messages.nonEmpty
 }
 
 object Room {

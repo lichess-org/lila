@@ -48,7 +48,7 @@ final class Rematcher(
     _ ← timelinePush(nextGame)
     // messenges are not sent to the next game socket
     // as nobody is there to see them yet
-    _ ← messenger init nextGame
+    _ ← messenger.rematch(pov.game, nextGame)
   } yield (nextGame fullIdOf !pov.color) -> List(
     Event.RedirectOwner(White, playerUrl(nextGame, Black)),
     Event.RedirectOwner(Black, playerUrl(nextGame, White)),

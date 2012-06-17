@@ -28,4 +28,8 @@ class RoomRepo(collection: MongoCollection)
 
   def addSystemMessages(id: String, messages: Seq[String]): IO[Unit] =
     (messages map { addSystemMessage(id, _) }).sequence map (_ ⇒ Unit)
+
+  def insertIO(room: Room) = io {
+    insert(room)
+  }
 }
