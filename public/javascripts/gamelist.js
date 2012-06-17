@@ -15,12 +15,13 @@ $(function() {
     reloadGameList();
   }
 
-  function parseFen() {
-    $('.parse_fen').each(function() {
-      var color = $(this).data('color') || "white";
-      var withKeys = $(this).hasClass('with_keys');
+  function parseFen($elem) {
+    ($elem || $('.parse_fen')).each(function() {
+      var $this = $(this)
+      var color = $this.data('color') || "white";
+      var withKeys = $this.hasClass('with_keys');
       var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-      var fen = $(this).data('fen').replace(/\//g, '');
+      var fen = $this.data('fen').replace(/\//g, '');
       var x, y, html = '', scolor, pcolor, pclass, c, d, increment;
       var pclasses = {'p':'pawn', 'r':'rook', 'n':'knight', 'b':'bishop', 'q':'queen', 'k':'king'};
       var pregex = /(p|r|n|b|q|k)/;
@@ -66,13 +67,30 @@ $(function() {
         }
       }
 
-      $(this).html(html).removeClass('parse_fen');
+      $this.html(html).removeClass('parse_fen');
       // attempt to free memory
-      html = pclasses = increment = pregex = fen = 0;
+      html = pclasses = increment = pregex = fen = $this = 0;
     });
   }
   parseFen();
   $('body').on('lichess.content_loaded', parseFen);
+
+  //function liveBoards() {
+    //$('div.mini_board.live').each(function() {
+      //var $this = $(this);
+      //var gameId = $this.data("live");
+
+    //});
+  //}
+  //liveBoards();
+  //$('body').on('lichess.content_loaded', liveBoards);
+  lichess.socketDefaults.events.fen = function(e) {
+    $('a.live_' + e.id).each(function() {
+      console.debug(e);
+      $(this).html(e.fen);
+      parseFen($(this));
+    });
+  };
 
   $('div.checkmateCaptcha').each(function() {
     var $captcha = $(this);
