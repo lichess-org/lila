@@ -13,6 +13,7 @@ package object lila
     extends OrnicarValidation
     with OrnicarCommon
     with OrnicarRegex
+    with OrnicarIO
     with scalaz.Identitys
     with scalaz.NonEmptyLists
     with scalaz.Strings
