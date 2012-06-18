@@ -45,18 +45,21 @@ final class Firewall(
   }
 
   def infectCookie(implicit req: RequestHeader) = Action {
-    log("Infect cookie for IP: " + req.remoteAddress)
+    log("Infect cookie " + formatReq(req))
     val cookie = LilaCookie.cookie(blockCookieName, OrnicarRandom nextAsciiString 32)
     Redirect(routes.Lobby.home()) withCookies cookie
   }
 
   def logBlock(req: RequestHeader) {
-    log("Block %s %s".format(req.remoteAddress, req.headers.get("User-Agent") | "?"))
+    log("Block " + formatReq(req))
   }
 
   private def log(msg: Any) {
     println("[%s] %s".format("firewall", msg.toString))
   }
+
+  private def formatReq(req: RequestHeader) = 
+    "%s %s".format(req.remoteAddress, req.headers.get("User-Agent") | "?")
 
   private def blocksIp(ip: String) = ips.apply contains ip
 
