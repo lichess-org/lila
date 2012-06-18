@@ -105,13 +105,12 @@ final class Finisher(
         _ ← (whiteUserOption |@| blackUserOption).apply(
           (whiteUser, blackUser) ⇒ {
             val (whiteElo, blackElo) = eloCalculator.calculate(whiteUser, blackUser, game.winnerColor)
+            val (whiteDiff, blackDiff) = (whiteElo - whiteUser.elo, blackElo - blackUser.elo)
+            val cheaterWin = (whiteDiff > 0 && whiteUser.engine) || (blackDiff > 0 && blackUser.engine)
             for {
-              _ ← gameRepo.setEloDiffs(
-                game.id,
-                whiteElo - whiteUser.elo,
-                blackElo - blackUser.elo)
-              _ ← eloUpdater.game(whiteUser, whiteElo, game.id)
-              _ ← eloUpdater.game(blackUser, blackElo, game.id)
+              _ ← gameRepo.setEloDiffs(game.id, whiteDiff, blackDiff)
+              _ ← eloUpdater.game(whiteUser, whiteElo, game.id) doUnless cheaterWin
+              _ ← eloUpdater.game(blackUser, blackElo, game.id) doUnless cheaterWin
             } yield ()
           }
         ).fold(identity, io())
