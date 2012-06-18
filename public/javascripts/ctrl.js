@@ -127,14 +127,16 @@ $(function() {
     }).find('div.pager').hide();
   });
 
-  $('#top a.toggle').click(function() {
-    var $p = $(this).parent();
-    $p.toggleClass('shown');
-    setTimeout(function() {
-      $('html').one('click',  function() {
-        $p.removeClass('shown');
-      });
-    }, 10);
+  $('#top a.toggle').each(function() {
+    var $this = $(this);
+    var $p = $this.parent();
+    $this.click(function() {
+      $p.toggleClass('shown');
+      setTimeout(function() {
+        $p.click(function(e) { e.stopPropagation(); });
+        $('html').one('click', function(e) { $p.removeClass('shown'); });
+      }, 10);
+    });
   });
 
   $('#lichess_translation_form_code').change(function() {
