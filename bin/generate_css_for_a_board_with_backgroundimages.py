@@ -9,7 +9,7 @@ bgImgBlack = "../images/woodenboard_black.jpg"
 squareSize = 64 # width of a square in pixel
 
 #code
-print "body." + schemeName + " #GameBoard td.whiteSquare, body." + schemeName + " #GameBoard td.highlightWhiteSquare, body." + schemeName + " div.lcs.white, #top div.lcs.white." + schemeName + " { background: url(../images/woodenboard_white.jpg) no-repeat; }";
+print "body." + schemeName + " #GameBoard td.whiteSquare, body." + schemeName + " #GameBoard td.highlightWhiteSquare, body." + schemeName + " div.lcs.white, #top div.lcs.white." + schemeName + ", body." + schemeName + " div.lichess_board { background: url(../images/woodenboard_white.jpg) no-repeat; }";
 print "body." + schemeName + " #GameBoard td.blackSquare, body." + schemeName + " #GameBoard td.highlightBlackSquare, body." + schemeName + " div.lcs.black, #top div.lcs.black." + schemeName + ", body." + schemeName + " span.theme_demo { background: url(../images/woodenboard_black.jpg) no-repeat; }";
 white = True
 for y in range(0,8):
