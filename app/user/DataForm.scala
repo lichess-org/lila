@@ -24,5 +24,9 @@ object DataForm {
     "theme" -> nonEmptyText.verifying(Theme contains _)
   ))
 
+  val bg = Form(single(
+    "bg" -> text.verifying(Set("light", "dark") contains _)
+  ))
+
   private def jsBoolean = nonEmptyText.verifying(Set("true", "false") contains _)
 }

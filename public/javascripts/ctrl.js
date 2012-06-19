@@ -63,15 +63,29 @@ $(function() {
   }
 
   // themepicker
-  var theme = document.body.className;
-  $('#top div.themepicker div.theme').hover(function() {
-    document.body.className = $(this).data("theme");
+  var $body = $('body');
+  var $themes = $('#top div.themepicker div.theme');
+  var themes = $.makeArray($themes.map(function() { return $(this).data("theme"); }));
+  var theme = $.map(document.body.className.split(/\s+/), function(a){return $.inArray(a, themes) < 0 ? null : a;})[0];
+  $themes.hover(function() {
+    $body.removeClass(themes.join(' ')).addClass($(this).data("theme"));
   }, function() {
-    document.body.className = theme;
+    $body.removeClass(themes.join(' ')).addClass(theme);
   }).click(function() {
     theme = $(this).data("theme");
     $.post($(this).parent().data("href"), {"theme": theme});
     $('#top .themepicker').removeClass("shown");
+  });
+
+  // bgpicker
+  var bgs = ["light", "dark"];
+  var bg = $body.hasClass("dark") ? "dark" : "light";
+  function invertBg(bg) { return bg == "dark" ? "light" : "dark"; }
+  $('#top a.bgpicker').click(function() {
+    bg = invertBg(bg);
+    $body.removeClass(bgs.join(' ')).addClass(bg);
+    $.post($(this).attr('href'), {bg: bg});
+    return false;
   });
 
   $.centerOverboard = function() {

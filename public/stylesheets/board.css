@@ -300,7 +300,6 @@ div.lichess_promotion_choice div.lichess_piece:hover {
 }
 
 div.lichess_board_wrap {
-  box-shadow: 0 0 7px #bbb;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
@@ -584,7 +583,6 @@ div.lichess_chat {
   position: absolute;
   top: 207px;
   left: 0;
-  box-shadow: 0 0 7px #d0d0d0;
   border-radius: 4px;
 }
 div.lichess_chat.lobby_chat {
@@ -636,7 +634,6 @@ div.lichess_chat form input {
   padding: 2px 20px 2px 4px;
   border-radius: 0 0 4px 4px;
   width: 172px;
-  background: white;
 }
 div.lichess_chat input.lichess_hint {
   color: #888;
