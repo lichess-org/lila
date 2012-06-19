@@ -135,4 +135,5 @@ takebackPropositionAccepted=Предложение возврата принят
 takebackPropositionCanceled=Предложение возврата отменено
 yourOpponentProposesATakeback=Ваш оппонент предлагает возврат хода
 bookmarkThisGame=Добавить игру в закладки
+toggleBackground=Изменить цвет фона
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Бесплатные онлайн-шахматы. Играй в шахматы прямо сейчас в понятном интерфейсе . Без регистрации, рекламы и дополнений. Играй в шахматы с компьютером, с друзьями или случайным соперником.
