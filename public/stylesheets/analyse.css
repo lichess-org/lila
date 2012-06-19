@@ -67,9 +67,9 @@ span.board_mark.horz {
   height: 2em;
 }
 #GameText {
-  font-size: 1.3em;
+  font-size: 1.4em;
   width: 220px;
-  height: 400px;
+  height: 512px;
   margin-bottom: 1em;
   background: #f7f7f7;
   border: 1px solid #C0C0C0;

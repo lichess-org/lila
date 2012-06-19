@@ -9,6 +9,7 @@
     @cssTag("board.css")
     @cssTag("gamelist.css")
     @cssTag("opening.css")
+    @cssTag("dark.css")
     @moreCss
     <meta content="@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()" name="description">
     <meta name="google-site-verification" content="fZ08Imok7kcLaGcJg7BKQExO6vXGgSgsJUsW6JalUCo" />
@@ -17,7 +18,7 @@
     <meta content="noindex, nofollow" name="robots">
     }
   </head>
-  <body class="@setting.theme.name" data-sound-file="@routes.Assets.at("sound/alert.ogg")">
+  <body class="@setting.theme.name @setting.bg" data-sound-file="@routes.Assets.at("sound/alert.ogg")">
     <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
     <div id="top" class="clearfix">
       <a href="@routes.Setting.set("sound")" title="@trans.toggleSound()" id="sound_state" class="available @soundString">
@@ -57,6 +58,9 @@
           }
         </div>
       </div>
+      <a href="@routes.Setting.set("bg")" title="@trans.toggleBackground()" class="bgpicker">
+        <span></span>
+      </a>
     </div>
     <div class="content">
       <div class="header">

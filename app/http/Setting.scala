@@ -18,6 +18,9 @@ final class Setting(ctx: Context) {
   def chat = get("chat", "true").parseBoolean | true
   def chat(value: String) = set("chat", value) _
 
+  def bg = get("bg", "light")
+  def bg(value: String) = set("bg", value) _
+
   private def get(name: String, default: String = ""): String =
     ctx.req.session.get(name) orElse {
       ctx.me flatMap (_ setting name) map (_.toString)

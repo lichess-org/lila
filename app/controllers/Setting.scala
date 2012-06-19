@@ -19,6 +19,7 @@ object Setting extends LilaController {
       case "theme" ⇒ setTheme.some
       case "sound" ⇒ setSound.some
       case "chat" ⇒ setChat.some
+      case "bg" ⇒ setBg.some
       case _       ⇒ none
     }
     setter.fold({
@@ -43,5 +44,9 @@ object Setting extends LilaController {
 
   val setChat: Setter = forms.chat -> {
     (setting, v) ⇒ setting.chat(v)(userRepo)
+  }
+
+  val setBg: Setter = forms.bg -> {
+    (setting, v) ⇒ setting.bg(v)(userRepo)
   }
 }

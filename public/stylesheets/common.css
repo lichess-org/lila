@@ -117,9 +117,6 @@ div.footer div.right {
   cursor: pointer;
   font-size: 1.1em;
 }
-.button:hover {
-  color: #fff;
-}
 
 a.easy_button {
   font-weight: normal;
@@ -227,7 +224,7 @@ div.side_menu a.active {
   box-shadow: -3px 0 6px #d0d0d0;
 }
 
-#nb_connected_players, a.goto_nav, #top a.toggle, a#sound_state {
+#nb_connected_players, a.goto_nav, #top a.toggle, #top a.bgpicker, a#sound_state {
   text-decoration: none;
   font-size: 13px;
   height: 24px;
@@ -244,7 +241,7 @@ div.side_menu a.active {
 a.goto_nav {
   float: left;
 }
-a.goto_nav:hover, #top a.toggle:hover, a#sound_state:hover {
+a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hover {
   background: #fff;
 }
 #top .s16 {
@@ -253,15 +250,15 @@ a.goto_nav:hover, #top a.toggle:hover, a#sound_state:hover {
   margin-top: 4px;
   line-height: 16px;
 }
-a.goto_nav span.new_messages {
-  padding: 1px 4px;
+#top span.new_messages {
+  padding: 1px 5px 1px 4px;
   background: #bbb;
   color: white;
   font-weight: bold;
   border-radius:4px;
   font-size: 0.9em;
 }
-a.goto_nav span.new_messages.unread {
+#top span.new_messages.unread {
   font-size: 1em;
 }
 #top .shown a.toggle {
@@ -411,6 +408,18 @@ ul.lichess_language_links li:last-child {
 }
 #top div.themepicker.shown div.white {
   left: 64px;
+}
+
+#top a.bgpicker {
+  float: right;
+}
+#top a.bgpicker span {
+  width: 24px;
+  height: 24px;
+  opacity: 0.7;
+  background: url(../images/s24.png) no-repeat;
+  background-position: 0 -48px;
+  display: block;
 }
 
 a#sound_state {
@@ -580,6 +589,14 @@ div.hooks td.action {
   background: -ms-linear-gradient(top , #aaa, #999) repeat scroll 0 0 #999;
   background: -o-linear-gradient(top , #aaa, #999) repeat scroll 0 0 #999;
   background: linear-gradient(top , #aaa, #999) repeat scroll 0 0 #999;
+}
+
+/* standard shadow */
+div.lichess_chat,
+div.undertable,
+div.lichess_board_wrap
+{
+  box-shadow: 0 0 7px #d0d0d0;
 }
 
 div.checkmateFen {
