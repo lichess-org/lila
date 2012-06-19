@@ -4,7 +4,8 @@ body.dark {
   color: #909090;
 }
 
-body.dark a, body.dark a:visited {
+body.dark a, 
+body.dark a:visited {
   color: #909090;
 }
 
@@ -73,12 +74,17 @@ body.dark #lichess_forum input,
 body.dark #lichess_message tr,
 body.dark #lichess_message div.thread_message,
 body.dark #lichess_message textarea,
-body.dark #lichess_message input
+body.dark #lichess_message input,
+body.dark div.progressbar,
+body.dark form.translation_form div.messages,
+body.dark form.translation_form input
 {
   border-color: #404040;
 }
 
-body.dark .ui-slider {
+body.dark .ui-slider,
+body.dark div.progressbar
+{
   background-color: #505050;
 }
 
@@ -154,7 +160,9 @@ body.dark span.board_mark {
 
 body.dark div.content_box,
 body.dark div.content_box_inter a.active,
-body.dark #GameText 
+body.dark #GameText,
+body.dark table.translations tbody tr,
+body.dark form.translation_form div.message
 {
   background: #2b2b2b;
 }
@@ -176,7 +184,9 @@ body.dark #lichess_forum tr:nth-child(odd),
 body.dark #lichess_message tr:nth-child(even),
 body.dark div.user_show .elo_with_me,
 body.dark div.content_box_inter,
-body.dark #GameText tr:nth-child(even) 
+body.dark #GameText tr:nth-child(even),
+body.dark table.translations tbody tr:nth-child(even),
+body.dark form.translation_form div.message:nth-child(even)
 {
   background: #343434;
 }
@@ -188,7 +198,8 @@ body.dark #lichess_forum td.subject a {
 }
 body.dark #lichess_forum div.post .message,
 #lichess_message div.thread_message div.thread_message_body,
-body.dark #GameText a.move 
+body.dark #GameText a.move,
+body.dark form.translation_form div.message label
 {
   color: #b0b0b0;
 }

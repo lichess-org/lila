@@ -94,7 +94,8 @@ div.message input {
   width: 90%;
   margin-left: 9%;
   margin-top: 3px;
-  padding: 2px 5px;
+  padding: 3px 5px;
+  border: 1px solid #dadada;
 }
 div.message .number {
   position: absolute;
@@ -106,7 +107,8 @@ div.optional {
   margin-bottom: 1em;
 }
 div.optional input {
-  padding: 1px 5px;
+  padding: 3px 5px;
+  border: 1px solid #dadada;
 }
 
 input.submit {
