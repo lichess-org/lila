@@ -110,6 +110,10 @@ body.dark div.game_config .optional_config {
   background: #303030;
 }
 
+body.dark div.lichess_table_not_started {
+  box-shadow: none;
+}
+
 body.dark span.board_mark {
   color: #808080;
 }
