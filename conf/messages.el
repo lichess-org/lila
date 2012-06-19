@@ -135,4 +135,5 @@ takebackPropositionAccepted=Προσφορά ακύρωσης κίνησης α�
 takebackPropositionCanceled=Προσφορά ακύρωσης κίνησης ακυρώθηκε
 yourOpponentProposesATakeback=Ο αντίπαλος σας πρότινε ακύρωση της τελευταίας κίνησης
 bookmarkThisGame=Προσθέστε σελιδοδείκτη για το παιχνίδι αυτό
+toggleBackground=Αλλάξτε το χρώμα του φόντου
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Δωρεάν διαδικτυακό παιχνίδι Σκακιού. Παίξτε σκάκι τώρα σε καθαρό γραφικό περιβάλλον. Χωρίς εγγραφές, χωρίς διαφημίσεις, χωρίς πρόσθετα. Παίξτε Σκάκι με τον υπολογιστή, με φίλους ή με τυχαίους αντιπάλους.
