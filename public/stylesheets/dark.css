@@ -1,17 +1,17 @@
 body.dark {
   background: #1a1a1a url(../images/head_bg_dark.png) top left repeat-x;
   background-position: left +25px;
-  color: #a0a0a0;
+  color: #909090;
 }
 
 body.dark a, body.dark a:visited {
-  color: #a0a0a0;
+  color: #909090;
 }
 
 body.dark input,
 body.dark textarea {
   background: #000;
-  color: #d0d0d0;
+  color: #909090;
 }
 
 /* standard shadow */
@@ -66,6 +66,7 @@ body.dark div.side_menu a.active,
 body.dark div.game_row,
 body.dark div.user_lists form.search_user_form input,
 body.dark div.user_lists div.all_users,
+body.dark div.user_show div.elo_with_me,
 body.dark #lichess_forum div.post,
 body.dark #lichess_forum textarea,
 body.dark #lichess_forum input,
@@ -100,6 +101,11 @@ body.dark #top span.new_messages {
   background: #707070;
 }
 
+body.dark div.lichess_chat_inner,
+body.dark div.undertable_inner {
+  background: #202020;
+}
+
 body.dark div.anon_chat a.user_link,
 body.dark div.undertable a.user_link {
   color: #808080;
@@ -116,24 +122,21 @@ body.dark div.hooks_wrap {
 }
 
 body.dark div.lichess_bot td {
-  background: #121212;
-}
-body.dark div.lichess_bot tr:nth-child(even) td {
   background: #202020;
 }
-body.dark div.lichess_bot tr:hover td {
-  background: #303030;
+body.dark div.lichess_bot tr:nth-child(even) td {
+  background: #2b2b2b;
 }
 body.dark div.new_posts li span {
   color: #808080;
 }
 
 body.dark div.lichess_overboard {
-  background: #000;
+  background: #2b2b2b;
   box-shadow: 0 0 20px #d0d0d0;
 }
 body.dark div.game_config .optional_config {
-  background: #303030;
+  background: #343434;
 }
 
 body.dark div.lichess_table_not_started {
@@ -152,17 +155,14 @@ body.dark span.board_mark {
 body.dark div.content_box,
 body.dark div.content_box_inter a.active
 {
-  background: #2a2a2a;
+  background: #2b2b2b;
 }
 body.dark div.content_box h1 {
   color: #b0b0b0;
 }
-body.dark div.content_box_inter {
-  background: #343434;
-}
 
 body.dark div.side_menu a.active {
-  background: #2a2a2a;
+  background: #2b2b2b;
   box-shadow: -3px 0 5px #505050;
 }
 
@@ -172,12 +172,14 @@ body.dark .mini_board {
 
 body.dark div.game_row:nth-child(odd),
 body.dark #lichess_forum tr:nth-child(odd),
-body.dark #lichess_message tr:nth-child(even)
+body.dark #lichess_message tr:nth-child(even),
+body.dark div.user_show .elo_with_me,
+body.dark div.content_box_inter 
 {
-  background: 0 0 #343434;
+  background: #343434;
 }
 body.dark #lichess_forum thead tr:nth-child(odd) {
-  background: #2a2a2a;
+  background: #2b2b2b;
 }
 body.dark #lichess_forum td.subject a {
   color: #44a0b0;

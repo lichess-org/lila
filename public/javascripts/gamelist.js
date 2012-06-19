@@ -78,10 +78,7 @@ $(function() {
   lichess.socketDefaults.events.fen = function(e) {
     $('a.live_' + e.id).each(function() {
       var $this = $(this);
-      parseFen($this.data("fen", e.fen).addClass("highlight"));
-      setTimeout(function() {
-        $this.removeClass("highlight");
-      }, 200);
+      parseFen($this.data("fen", e.fen));
     });
   };
 

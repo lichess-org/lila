@@ -635,14 +635,14 @@ div.lichess_chat.lobby_chat ol {
 div.lichess_chat form {
   position: relative;
 }
-div.lichess_chat input {
+div.lichess_chat form input {
   border: 1px solid #ccc;
   border-top: 0;
   padding: 2px 20px 2px 4px;
   border-radius: 0 0 4px 4px;
   width: 202px;
 }
-div.lichess_chat.small_chat input {
+div.lichess_chat.small_chat form input {
   width: 172px;
 }
 div.lichess_chat input.lichess_hint {
@@ -671,10 +671,10 @@ div.lichess_chat ol.lichess_messages li {
   line-height: 14px;
 }
 div.anon_chat ol.lichess_messages li {
-  padding-left: 4px;
+  padding-left: 3px;
 }
 div.anon_chat span.title {
-  padding-left: 4px;
+  padding-left: 3px;
 }
 div.anon_chat li span {
   font-weight: bold;
@@ -689,14 +689,6 @@ div.anon_chat a.user_link {
 }
 div.anon_chat a.user_link:hover {
   text-decoration: underline;
-}
-
-div.lichess_chat input.toggle_chat {
-  cursor: pointer;
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  z-index:1;
 }
 
 div.lichess_chat ol.lichess_messages li.white {

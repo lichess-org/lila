@@ -243,9 +243,6 @@ div.lichess_bot a.watch {
   background: url(../images/eye.png) top left no-repeat;
   opacity: 0.4;
 }
-div.lichess_bot tr:hover td {
-  background: #fffaea;
-}
 div.lichess_bot tr:hover a.watch {
   opacity: 1;
 }

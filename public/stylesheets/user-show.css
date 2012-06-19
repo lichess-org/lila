@@ -51,7 +51,7 @@ div.user_show .chat_messages {
   padding: 1px 5px;
 }
 
-div.user_show .elo_with_me {
+div.user_show div.elo_with_me {
   margin-bottom: 1.5em;
   padding: 5px 8px;
   border: 1px solid #eaeaea;
@@ -59,7 +59,7 @@ div.user_show .elo_with_me {
   width: 270px;
   text-align: center;
 }
-div.user_show .elo_with_me strong {
+div.user_show div.elo_with_me strong {
   padding-right: 1em;
 }
 
