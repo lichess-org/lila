@@ -135,4 +135,5 @@ takebackPropositionAccepted=Prošnja za popravek poteze je sprejeta
 takebackPropositionCanceled=Prošnja za popravek poteze je prekinjena
 yourOpponentProposesATakeback=Nasprotnik prosi za popravek poteze
 bookmarkThisGame=Označi partijo
+toggleBackground=Spremeni barvo ozadja
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Brazplačen internetni šah. Igraj šah v enostavnem vmesniku. Brez registracije, brez reklam in brez dodatnih vtičnikov. Igraj šah proti računalniku, prijatelju ali naključnemu nasprotniku.
