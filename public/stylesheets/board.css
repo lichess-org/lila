@@ -37,7 +37,7 @@ body.brown #GameBoard td.blackSquare, body.brown #GameBoard td.highlightBlackSqu
 body.green #GameBoard td.whiteSquare, body.green #GameBoard td.highlightWhiteSquare, body.green div.lcs.white, #top div.lcs.white.green { background: #ffffdd; }
 body.green #GameBoard td.blackSquare, body.green #GameBoard td.highlightBlackSquare, body.green div.lcs.black, #top div.lcs.black.green, body.green span.theme_demo { background: #86a666; }
 body.grey #GameBoard td.whiteSquare, body.grey #GameBoard td.highlightWhiteSquare, body.grey div.lcs.white, #top div.lcs.white.grey { background: #fff; }
-body.grey #GameBoard td.blackSquare, body.grey #GameBoard td.highlightBlackSquare, body.grey div.lcs.black, #top div.lcs.black.grey, body.grey span.theme_demo { background: #cacaca; }
+body.grey #GameBoard td.blackSquare, body.grey #GameBoard td.highlightBlackSquare, body.grey div.lcs.black, #top div.lcs.black.grey, body.grey span.theme_demo { background: #c4c4c4; }
 body.wood #GameBoard td.whiteSquare, body.wood #GameBoard td.highlightWhiteSquare, body.wood div.lcs.white, #top div.lcs.white.wood { background: url(../images/woodenboard_white.jpg) no-repeat; }
 body.wood #GameBoard td.blackSquare, body.wood #GameBoard td.highlightBlackSquare, body.wood div.lcs.black, #top div.lcs.black.wood, body.wood span.theme_demo { background: url(../images/woodenboard_black.jpg) no-repeat; }
 body.wood #GameBoard #tcol0trow0, body.wood #a8 { background-position: 0px 0px; }

@@ -2,7 +2,7 @@
 
 #config
 themes = {
-  'grey': ['#fff', '#cacaca'],
+  'grey': ['#fff', '#c4c4c4'],
   'green': ['#ffffdd', '#86a666'],
   'blue': ['#dee3e6', '#8ca2ad'],
   'brown': ['#f0d9b5', '#b58863']
