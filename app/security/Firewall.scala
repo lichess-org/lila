@@ -1,7 +1,6 @@
 package lila
 package security
 
-import memo.MonoMemo
 import http.LilaCookie
 import controllers.routes
 
@@ -9,13 +8,11 @@ import play.api.mvc.{ RequestHeader, Handler, Action, Cookies }
 import play.api.mvc.Results.Redirect
 import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.Imports._
-import scalaz.effects._
 import java.util.Date
 import ornicar.scalalib.OrnicarRandom
 
 final class Firewall(
     collection: MongoCollection,
-    cacheTtl: Int,
     blockCookieName: String,
     enabled: Boolean) {
 
@@ -38,7 +35,7 @@ final class Firewall(
       if (!blocksIp(ip)) {
         log("Block IP: " + ip)
         collection += DBObject("_id" -> ip, "date" -> new Date)
-        ips.refresh
+        ips = fetch
       }
     }
     else log("Invalid IP block: " + ip)
@@ -61,7 +58,7 @@ final class Firewall(
   private def formatReq(req: RequestHeader) = 
     "%s %s".format(req.remoteAddress, req.headers.get("User-Agent") | "?")
 
-  private def blocksIp(ip: String) = ips.apply contains ip
+  private def blocksIp(ip: String) = ips contains ip
 
   private def blocksCookies(cookies: Cookies) = (cookies get blockCookieName).isDefined
 
@@ -71,11 +68,11 @@ final class Firewall(
   private def validIp(ip: String) =
     (ipRegex matches ip) && ip != "127.0.0.1" && ip != "0.0.0.0"
 
-  private val ips = new MonoMemo(cacheTtl, fetch)
+  private var ips = fetch
 
-  private def fetch: IO[Set[String]] = io {
-    collection.find() map { obj ⇒
+  private def fetch = {
+    collection.find().toList map { obj ⇒
       obj.getAs[String]("_id")
     }
-  } map (_.flatten.toSet)
+  }.flatten.toSet
 }

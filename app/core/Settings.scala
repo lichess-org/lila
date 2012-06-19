@@ -84,7 +84,6 @@ final class Settings(config: Config) {
   val MongoCollectionBookmark = getString("mongo.collection.bookmark")
   val MongoCollectionTranslation = getString("mongo.collection.translation")
 
-  val FirewallCacheTtl = millis("firewall.cache_ttl")
   val FirewallEnabled = getBoolean("firewall.enabled")
   val FirewallBlockCookie = getString("firewall.block_cookie")
 
