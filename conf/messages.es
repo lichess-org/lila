@@ -135,4 +135,5 @@ takebackPropositionAccepted=Propuesta de deshacer aceptada
 takebackPropositionCanceled=Propuesta de deshacer cancelada
 yourOpponentProposesATakeback=Tu oponente propone deshacer jugada.
 bookmarkThisGame=Marcar este juego
+toggleBackground=Herramienta de color de fondo
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Ajedrez en línea gratis. Juega al ajedrez con una interfaz limpia. Sin registrarse, sin anuncios, sin requerimiento de plugins. Juega al ajedrez contra el ordenador, amigos u oponentes aleatorios.
