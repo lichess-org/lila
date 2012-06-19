@@ -132,8 +132,8 @@ $(function() {
       itemSelector: ".infinitescroll .paginated_element",
       loading: {
         msgText: "",
-        img: "/assets/images/hloader.gif",
-        finishedMsg: "---"
+      img: "/assets/images/hloader.gif",
+      finishedMsg: "---"
       }
     }, function() {
       $("#infscr-loading").remove();
@@ -190,6 +190,10 @@ $(function() {
   }
   bookmarks();
   $('body').on('lichess.content_loaded', bookmarks);
+
+  if ($(window).width() < 1060) {
+    $("div.lichess_chat").addClass("small_chat");
+  }
 
   $("a.view_pgn_toggle").one("click", function() {
     var $this = $(this).text("...");
