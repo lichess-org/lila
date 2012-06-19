@@ -23,5 +23,3 @@ takeback play 2 times ?? http://en.lichess.org/analyse/nfjchnmo/black move 45
 movetimes chart
 user win chart: split in timeout/mate/...
 style sound toggle
-darker small board http://www.fide.com/component/handbook/?id=124&view=article
-board background like square : chrome resize bug
