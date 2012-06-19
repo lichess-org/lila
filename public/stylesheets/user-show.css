@@ -66,16 +66,3 @@ div.user_show .elo_with_me strong {
 div.user_show div.games {
   margin-top: 10px;
 }
-
-div.user_show div.content_box_inter a {
-  margin: 5px 0.5em -1px 0;
-  padding: 0 0.7em;
-  font-size: 1em;
-}
-div.user_show div.content_box_inter a.active {
-  background: white;
-  border: 1px solid #ccc;
-  border-bottom: 0;
-  text-decoration: none;
-  font-weight: bold;
-}

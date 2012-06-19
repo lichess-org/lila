@@ -73,9 +73,6 @@ evenMoreCss = evenMoreCss) {
       @trans.rank(): <strong>@r._1</strong> / @r._2
     </span>
     }
-    @if(isGranted(Permission.Admin, u)) {
-    <span class="staff">STAFF</span>
-    }
     @if(u.disabled) {
     <span class="staff">CLOSED</span>
     }

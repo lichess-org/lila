@@ -1,9 +1,3 @@
-#lichess_message h1 {
-  font-size: 1.8em;
-  color: #666;
-  font-weight: normal;
-  margin-bottom: 0.5em;
-}
 #lichess_message {
   min-height: 300px;
 }
@@ -63,7 +57,6 @@ div.sidebar a {
 
 #lichess_message div.form {
   font-size: 1.1em;
-  border-top: 1px solid #d4d4d4;
   padding-top: 2em;
 }
 #lichess_message div.form div.actions,

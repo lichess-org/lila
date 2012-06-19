@@ -623,7 +623,7 @@ $.widget("lichess.chat", {
     self.$msgs = self.element.find('.lichess_messages');
     var headerHeight = self.element.parent().height();
     self.element.css("top", headerHeight + 13);
-    self.$msgs.css("height", 457 - headerHeight);
+    self.$msgs.css("height", 454 - headerHeight);
     self.$msgs.find('>li').each(function() { 
       $(this).html(urlToLink($(this).html())); 
     });

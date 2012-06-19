@@ -1,9 +1,10 @@
 body.dark {
   background: #1a1a1a url(../images/head_bg_dark.png) top left repeat-x;
+  background-position: left +25px;
   color: #a0a0a0;
 }
 
-body.dark a, a:visited {
+body.dark a, body.dark a:visited {
   color: #a0a0a0;
 }
 
@@ -23,7 +24,8 @@ body.dark div.lichess_table,
 body.dark div.game_more,
 body.dark div.clock,
 body.dark #GameText,
-body.dark #GameBoard table.boardTable
+body.dark #GameBoard table.boardTable,
+body.dark div.content_box
 {
   box-shadow: 0 0 5px #505050;
 }
@@ -54,9 +56,25 @@ body.dark div.game_extra,
 body.dark div.clock,
 body.dark .button,
 body.dark #GameText,
-body.dark #GameBoard table.boardTable
+body.dark #GameBoard table.boardTable,
+body.dark div.content_box,
+body.dark div.content_box_top,
+body.dark div.content_box_top a,
+body.dark div.content_box_inter,
+body.dark div.content_box_inter a.active,
+body.dark div.side_menu a.active,
+body.dark div.game_row,
+body.dark div.user_lists form.search_user_form input,
+body.dark div.user_lists div.all_users,
+body.dark #lichess_forum div.post,
+body.dark #lichess_forum textarea,
+body.dark #lichess_forum input,
+body.dark #lichess_message tr,
+body.dark #lichess_message div.thread_message,
+body.dark #lichess_message textarea,
+body.dark #lichess_message input
 {
-  border-color: #4a4a4a;
+  border-color: #404040;
 }
 
 body.dark .ui-slider {
@@ -71,12 +89,20 @@ body.dark #site_title span.extension {
   color: #707070;
 }
 
+body.dark #top a.goto_nav:hover, 
+body.dark #top a.toggle:hover, 
+body.dark #top a.bgpicker:hover, 
+body.dark a#sound_state:hover {
+  background: #000;
+}
+
 body.dark #top span.new_messages {
   background: #707070;
 }
 
-body.dark div.anon_chat a.user_link {
-  color: #707070;
+body.dark div.anon_chat a.user_link,
+body.dark div.undertable a.user_link {
+  color: #808080;
 }
 
 body.dark div.hooks_wrap {
@@ -90,7 +116,7 @@ body.dark div.hooks_wrap {
 }
 
 body.dark div.lichess_bot td {
-  background: #000;
+  background: #121212;
 }
 body.dark div.lichess_bot tr:nth-child(even) td {
   background: #202020;
@@ -113,9 +139,60 @@ body.dark div.game_config .optional_config {
 body.dark div.lichess_table_not_started {
   box-shadow: none;
 }
+body.dark div.lichess_table a.lichess_button:hover, 
+body.dark div.lichess_table a.lichess_button.active {
+  box-shadow: 0 0 9px #d85000;
+  border: 1px solid #d85000;
+}
 
 body.dark span.board_mark {
   color: #808080;
+}
+
+body.dark div.content_box,
+body.dark div.content_box_inter a.active
+{
+  background: #2a2a2a;
+}
+body.dark div.content_box h1 {
+  color: #b0b0b0;
+}
+body.dark div.content_box_inter {
+  background: #343434;
+}
+
+body.dark div.side_menu a.active {
+  background: #2a2a2a;
+  box-shadow: -3px 0 5px #505050;
+}
+
+body.dark .mini_board {
+  box-shadow: 0 0 5px #000;
+}
+
+body.dark div.game_row:nth-child(odd),
+body.dark #lichess_forum tr:nth-child(odd),
+body.dark #lichess_message tr:nth-child(even)
+{
+  background: 0 0 #343434;
+}
+body.dark #lichess_forum thead tr:nth-child(odd) {
+  background: #2a2a2a;
+}
+body.dark #lichess_forum td.subject a {
+  color: #44a0b0;
+}
+body.dark #lichess_forum div.post .message,
+#lichess_message div.thread_message div.thread_message_body
+{
+  color: #b0b0b0;
+}
+
+body.dark div.lmcs.white {
+  background: #d0d0d0;
+}
+body.dark div.lmcs.black {
+  background: #808080;
 }
 
 body.dark #GameText {
@@ -129,7 +206,7 @@ body.dark #GameText a.move {
 }
 
 body.dark div.footer_wrap {
-  background: #303030;
+  background: #202020;
 }
 
 /* soft inactive gradient */
@@ -142,29 +219,31 @@ body.dark .ui-state-default,
 body.dark div.content_box_top, 
 body.dark div.hooks tr, 
 body.dark a.translation_call {
-  background: #404040;
+  background: #3a3a3a;
   color: #b0b0b0;
-  background: -moz-linear-gradient(center top , #404040, #202020) repeat scroll 0 0 #404040;
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#404040), to(#202020));
-  background: -webkit-linear-gradient(top , #404040, #202020) repeat scroll 0 0 #404040;
-  background: -ms-linear-gradient(top , #404040, #202020) repeat scroll 0 0 #404040;
-  background: -o-linear-gradient(top , #404040, #202020) repeat scroll 0 0 #404040;
-  background: linear-gradient(top , #404040, #202020) repeat scroll 0 0 #404040;
+  background: -moz-linear-gradient(center top , #3a3a3a, #202020) repeat scroll 0 0 #3a3a3a;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3a3a3a), to(#202020));
+  background: -webkit-linear-gradient(top , #3a3a3a, #202020) repeat scroll 0 0 #3a3a3a;
+  background: -ms-linear-gradient(top , #3a3a3a, #202020) repeat scroll 0 0 #3a3a3a;
+  background: -o-linear-gradient(top , #3a3a3a, #202020) repeat scroll 0 0 #3a3a3a;
+  background: linear-gradient(top , #3a3a3a, #202020) repeat scroll 0 0 #3a3a3a;
 }
 /* strong inactive gradient */
-body.dark div.hooks td.action {
-  background: #606060;
-  background: -moz-linear-gradient(center top , #606060, #000) repeat scroll 0 0 #606060;
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#606060), to(#000));
-  background: -webkit-linear-gradient(top , #606060, #000) repeat scroll 0 0 #606060;
-  background: -ms-linear-gradient(top , #606060, #000) repeat scroll 0 0 #606060;
-  background: -o-linear-gradient(top , #606060, #000) repeat scroll 0 0 #606060;
-  background: linear-gradient(top , #606060, #000) repeat scroll 0 0 #606060;
+body.dark div.hooks td.action,
+body.dark .button:hover
+{
+  background: #505050;
+  background: -moz-linear-gradient(center top , #505050, #202020) repeat scroll 0 0 #505050;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#505050), to(#202020));
+  background: -webkit-linear-gradient(top , #505050, #202020) repeat scroll 0 0 #505050;
+  background: -ms-linear-gradient(top , #505050, #202020) repeat scroll 0 0 #505050;
+  background: -o-linear-gradient(top , #505050, #202020) repeat scroll 0 0 #505050;
+  background: linear-gradient(top , #505050, #202020) repeat scroll 0 0 #505050;
 }
 /* active gradient */
 body.dark #top a.goto_nav.active, 
 body.dark .button.active, 
-body.dark .button:hover, 
+body.dark .button.active:hover, 
 body.dark .ui-state-active, 
 body.dark .ui-widget-header, 
 body.dark div.pagination span.current, 

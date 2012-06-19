@@ -52,7 +52,7 @@ div.game_list_inner > div {
   margin: 0px 10px 10px 10px;
 }
 div.game_list_inner div.vstext {
-  font-size: 11px;
+  font-size: 11.5px;
   text-align: center;
   width: 192px;
   overflow: hidden;
@@ -85,7 +85,7 @@ div.lmcs.white {
   background: #FFFFFF;
 }
 div.lmcs.black {
-  background: #CFCFCF;
+  background: #cacaca;
 }
 
 div.lcmp {

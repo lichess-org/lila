@@ -3,7 +3,7 @@
 @import pov._
 
 @defining("http://lichess.org" + routes.Round.watcher(gameId, color.name)) { url =>
-<div class="game_more clearfix">
+<div class="game_more">
   <div class="more_top">
     @bookmark.toggle(game)
     <a
