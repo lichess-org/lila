@@ -135,4 +135,5 @@ takebackPropositionAccepted=Förslag på bakåtsteg godkännt
 takebackPropositionCanceled=Förslag på bakåtsteg avbrutet
 yourOpponentProposesATakeback=Din motståndare föreslår ett bakåtsteg
 bookmarkThisGame=Bokmärk detta spel
+toggleBackground=Växla bakgrunds färg
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Gratis Schack på internet. Spela Schack nu, med ett enkelt gränssnitt. Ingen registrering, inga annonser, inga instickningsprogram behövs. Spela Schack mot datorn, vänner eller vem som helst.
