@@ -48,6 +48,8 @@ case class DbPlayer(
 
   def hasMoveTimes = moveTimes.size > 8
 
+  def eloEstimation = elo | 1200
+
   def moveTimeList: List[Int] = 
     moveTimes.split(" ").toList map parseIntOption flatten
 

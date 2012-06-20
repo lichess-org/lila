@@ -158,7 +158,8 @@ class GameRepo(collection: MongoCollection)
   def featuredCandidates: IO[List[DbGame]] = io {
     find(Query.playable ++
       Query.clock(true) ++
-      ("createdAt" $gt (DateTime.now - 30.minutes))
+      ("turns" $gt 1) ++
+      ("createdAt" $gt (DateTime.now - 3.minutes))
     ).toList.map(_.decode).flatten
   }
 
