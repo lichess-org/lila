@@ -47,12 +47,15 @@ final class Captcha(gameRepo: GameRepo) {
   }
 
   private def createFromDb: Valid[Challenge] = {
-    val gameOption = gameRepo.findRandomStandardCheckmate(100).unsafePerformIO
+    val gameOption = findCheckmateInDb(100) orElse findCheckmateInDb(1)
     for {
       game ← gameOption toValid "No checkmate available in db"
       challenge ← makeChallenge(game)
     } yield challenge
   }
+
+  private def findCheckmateInDb(distribution: Int) =
+    gameRepo.findRandomStandardCheckmate(distribution).unsafePerformIO 
 
   private def getFromDb(id: String): Valid[Challenge] = {
     val gameOption = (gameRepo game id).unsafePerformIO
