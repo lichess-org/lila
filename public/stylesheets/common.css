@@ -547,7 +547,16 @@ div.lichess_social div.addtochrome {
 }
 
 /* soft inactive gradient */
-#top, div.lichess_chat_top, div.undertable_top, .button, .button:visited, .ui-state-default, div.content_box_top, div.hooks tr, a.translation_call {
+#top, 
+div.lichess_chat_top, 
+div.undertable_top, 
+.button, 
+.button:visited, 
+.ui-state-default, 
+div.content_box_top, 
+div.hooks tr, 
+a.translation_call,
+div.locale_menu a {
   color: #666;
   background: #fafafa;
   background: -moz-linear-gradient(center top , #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
@@ -559,7 +568,18 @@ div.lichess_social div.addtochrome {
 }
 
 /* active gradient */
-#top a.goto_nav.active, .button.active, .button.active:hover, .ui-state-active, .ui-widget-header, div.pagination span.current, a.goto_nav span.new_messages.unread, div.hooks td.action:hover, div.hooks table.empty_table tr:hover, div.progressbar.flashy div {
+#top a.goto_nav.active, 
+.button.active, 
+.button.active:hover, 
+.ui-state-active, 
+.ui-widget-header, 
+div.pagination span.current, 
+a.goto_nav span.new_messages.unread, 
+div.hooks td.action:hover, 
+div.hooks table.empty_table tr:hover, 
+div.progressbar.flashy div,
+div.locale_menu a.active 
+{
   color: #fff;
   background: #d85000;
   background: -moz-linear-gradient(center top , #f49c00, #d85000) repeat scroll 0 0 #d85000;

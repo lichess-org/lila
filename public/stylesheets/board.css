@@ -571,7 +571,8 @@ div.lichess_cemetery div.lichess_piece {
 }
 
 div.under_chat {
-  width: 200px;
+  width: 230px;
+  margin-left: -30px;
   position: absolute;
   top: 530px;
   left: 0;

@@ -114,6 +114,9 @@ div.hooks td {
   height: 64px;
   margin: 0;
 }
+div.hooks a {
+  color: #666;
+}
 div.hooks tr:last-child td {
   border-bottom: none;
 }
@@ -174,10 +177,6 @@ div.hooks a.cancel {
 }
 div.hooks a.join {
   background: url(../images/play32.png) +16px no-repeat;
-}
-div.hooks tr.my_hook {
-  color: #405090;
-  background: #c9dbee;
 }
 
 div.hooks a.user_link {
