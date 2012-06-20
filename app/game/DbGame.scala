@@ -227,6 +227,8 @@ case class DbGame(
 
   def playableBy(p: DbPlayer) = playable && turnOf(p)
 
+  def playableBy(c: Color) = playable && turnOf(player(c))
+
   def aiLevel: Option[Int] = players find (_.isAi) flatMap (_.aiLevel)
 
   def hasAi: Boolean = players exists (_.isAi)

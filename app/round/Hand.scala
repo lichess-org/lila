@@ -34,13 +34,14 @@ final class Hand(
     blur: Boolean = false,
     lag: Int = 0): IO[Valid[(List[Event], String)]] = fromPov(povRef) {
     case Pov(g1, color) ⇒ (for {
-      g2 ← g1.validIf(g1.playable, "Game not playable")
+      g2 ← g1.validIf(g1 playableBy color, "Game not playable")
       orig ← posAt(origString) toValid "Wrong orig " + origString
       dest ← posAt(destString) toValid "Wrong dest " + destString
       promotion = Role promotable promString
       newChessGameAndMove ← g2.toChess(orig, dest, promotion, lag)
       (newChessGame, move) = newChessGameAndMove
-    } yield g2.update(newChessGame, move, blur)).fold(
+    } yield g2.update(newChessGame, move, blur)
+    ).prefixFailuresWith(povRef + " - ").fold(
       e ⇒ io(failure(e)),
       progress ⇒ for {
         eventsAndBoard ← if (progress.game.finished) for {
