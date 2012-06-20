@@ -24,7 +24,6 @@ user win chart: split in timeout/mate/...
 style sound toggle
 dark active clock bg
 show lobby chat to anon (and rated games?)
-captcha with less than 100 games
 
 next deploy
 -----------

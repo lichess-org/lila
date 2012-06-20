@@ -218,6 +218,16 @@ body.dark div.lmcs.black {
   background: #8a8a8a;
 }
 
+body.dark div.lichess_table_wrap div.clock.running {
+  background: #fff077;
+  background: #505a60;
+  color: #fff;
+}
+body.dark div.lichess_table_wrap div.clock.outoftime {
+  background-color: #a00000;
+  color: #d0d0d0;
+}
+
 /* soft inactive gradient */
 body.dark #top, 
 body.dark div.lichess_chat_top, 
