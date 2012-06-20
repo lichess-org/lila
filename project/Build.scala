@@ -13,15 +13,15 @@ trait Resolvers {
 }
 
 trait Dependencies {
-  val scalachess = "com.github.ornicar" %% "scalachess" % "1.13"
+  val scalachess = "com.github.ornicar" %% "scalachess" % "1.14"
   val scalaz = "org.scalaz" %% "scalaz-core" % "6.0.4"
-  val specs2 = "org.specs2" %% "specs2" % "1.9.2"
+  val specs2 = "org.specs2" %% "specs2" % "1.11"
   val casbah = "com.mongodb.casbah" %% "casbah" % "2.1.5-1"
   val salat = "com.novus" %% "salat-core" % "0.0.8-SNAPSHOT"
   val scalalib = "com.github.ornicar" %% "scalalib" % "1.36"
   val config = "com.typesafe" % "config" % "0.4.0"
   val json = "com.codahale" %% "jerkson" % "0.5.0"
-  val guava = "com.google.guava" % "guava" % "11.0.2"
+  val guava = "com.google.guava" % "guava" % "12.0"
   val apache = "org.apache.commons" % "commons-lang3" % "3.1"
   val scalaTime = "org.scala-tools.time" %% "time" % "0.5"
   val slf4jNop = "org.slf4j" % "slf4j-nop" % "1.6.4"
