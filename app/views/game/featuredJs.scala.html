@@ -1,0 +1,8 @@
+@(game: DbGame)(implicit ctx: Context)
+
+<div class="featured_game" data-href="@routes.Game.featuredJs("")">
+  @gameFen(game, game.creator.color)
+  <div class="vstext">
+    @usernameWithElo(game.creator) - @usernameWithElo(game.invited)<br />
+  </div>
+</div>

@@ -198,19 +198,34 @@ $(function() {
     },
     events: {
       talk: function(e) { if (chatExists && e.txt) addToChat(buildChatMessage(e.txt, e.u)); },
-    entry: function(e) { renderTimeline([e]); },
-    hook_add: addHook,
-    hook_remove: removeHook,
-    redirect: function(e) {
-      $.lichessOpeningPreventClicks();
-      location.href = 'http://'+location.hostname+'/'+e;
-    }
+      entry: function(e) { renderTimeline([e]); },
+      hook_add: addHook,
+      hook_remove: removeHook,
+      featured: changeFeatured,
+      redirect: function(e) {
+        $.lichessOpeningPreventClicks();
+        location.href = 'http://'+location.hostname+'/'+e;
+      }
     },
     options: {
       name: "lobby"
     }
   }));
   $('body').trigger('lichess.content_loaded');
+
+  function changeFeatured(data) {
+    $('div.featured_game').each(function() {
+      var $featured = $(this);
+      $.get(
+        $featured.data("href"), 
+        { id: data.newId },
+        function(html) {
+          $featured.replaceWith(html);
+          $('body').trigger('lichess.content_loaded');
+        }
+      );
+    });
+  }
 
   function renderTimeline(data) {
     var html = "";

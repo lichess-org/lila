@@ -11,10 +11,12 @@ import play.api.Play.current
 import play.api.libs.concurrent._
 import scalaz.effects._
 
+import socket.ChangeFeatured
 import chess.Color
 
 final class Featured(
-    gameRepo: GameRepo) {
+    gameRepo: GameRepo,
+    lobbyHubName: String) {
 
   import Featured._
 
@@ -24,6 +26,7 @@ final class Featured(
 
   private val atMost = 2.second
   private implicit val timeout = Timeout(atMost)
+  private lazy val lobbyRef = Akka.system.actorFor("/user/" + lobbyHubName)
 
   private val actor = Akka.system.actorOf(Props(new Actor {
 
@@ -34,7 +37,13 @@ final class Featured(
     }
 
     private def getOne = oneId flatMap fetch filter valid orElse {
-      feature ~ { o ⇒ oneId = o map (_.id) }
+      feature ~ { o ⇒
+        val newOneId = o map (_.id)
+        oneId |@| newOneId apply {
+          case (oldId, newId) ⇒ lobbyRef ! ChangeFeatured(oldId, newId)
+        }
+        oneId = newOneId
+      }
     }
 
     private def fetch(id: String): Option[DbGame] =
@@ -67,7 +76,7 @@ object Featured {
     eloHeuristic(Color.White) -> 1,
     eloHeuristic(Color.Black) -> 1,
     speedHeuristic -> 1,
-    progressHeuristic -> 1)
+    progressHeuristic -> 0.5f)
 
   private def eloHeuristic(color: Color): Heuristic = game ⇒
     eloBox(game.player(color).eloEstimation)

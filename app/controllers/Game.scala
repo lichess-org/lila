@@ -47,6 +47,12 @@ object Game extends LilaController {
     }
   }
 
+  def featuredJs(id: String) = Open { implicit ctx =>
+    IOptionOk(gameRepo game id) { game =>
+      html.game.featuredJs(game)
+    }
+  }
+
   private def reasonable(page: Int)(result: ⇒ Result): Result =
     (page < maxPage).fold(result, BadRequest("too old"))
 

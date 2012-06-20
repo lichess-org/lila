@@ -17,7 +17,7 @@ var lichess = {
       },
       nbm: function(e) {
         var $tag = $('#nb_messages');
-        $tag.text(e).toggleClass("unread", e > 0);
+        $tag.text(e || "0").toggleClass("unread", e > 0);
       }
     },
     options: {

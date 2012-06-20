@@ -23,7 +23,8 @@ final class GameEnv(
     maxPerPage = GamePaginatorMaxPerPage)
 
   lazy val featured = new Featured(
-    gameRepo = gameRepo)
+    gameRepo = gameRepo,
+    lobbyHubName = ActorLobbyHub)
 
   lazy val export = Export(gameRepo) _
 

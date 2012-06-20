@@ -159,7 +159,7 @@ class GameRepo(collection: MongoCollection)
     find(Query.playable ++
       Query.clock(true) ++
       ("turns" $gt 1) ++
-      ("createdAt" $gt (DateTime.now - 3.minutes))
+      ("createdAt" $gt (DateTime.now - 4.minutes))
     ).toList.map(_.decode).flatten
   }
 
