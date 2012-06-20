@@ -1,7 +1,8 @@
 div.lichess_board_wrap {
   float: left;
-  border: 1px solid #D3D3D3;
+  border: 1px solid #ccc;
   position: relative;
+  border-radius: 5px;
 }
 span.board_mark {
   position: absolute;
@@ -21,6 +22,7 @@ div.lichess_board {
   width: 512px;
   height: 512px;
   position: relative;
+  border-radius: 5px;
 }
 
 div.lcs {
@@ -295,11 +297,6 @@ div.lichess_promotion_choice div.lichess_piece {
 
 div.lichess_promotion_choice div.lichess_piece:hover {
   box-shadow:0 0 10px blue;
-}
-
-div.lichess_board_wrap {
-  border: 1px solid #ccc;
-  border-radius: 5px;
 }
 
 div.lichess_player_white #a8,
