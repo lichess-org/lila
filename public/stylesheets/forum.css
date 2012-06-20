@@ -85,8 +85,6 @@ ol.crumbs li:first-child {
 
 #lichess_forum h1 {
   font-size: 1.4em;
-  color: #666;
-  font-weight: normal;
   margin-bottom: 0.5em;
 }
 .forum_baseline {
@@ -149,7 +147,6 @@ div.topicReply {
 }
 .postNewTitle {
   font-size: 1.5em;
-  color: #444;
   font-style: italic;
 }
 
