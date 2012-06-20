@@ -231,13 +231,11 @@ div.lichess_overboard p.explanations {
 
 #connection_lost {
   display: none;
-  top: 217px;
+  top: 224px;
   left: 146px;
   width: 220px;
   padding: 10px 0 0 0;
   font-weight: bold;
-  color: #666;
-  opacity: 0.7;
   box-shadow: 0px 0px 20px #d85000;
 }
 

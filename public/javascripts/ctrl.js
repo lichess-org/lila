@@ -132,7 +132,7 @@ $(function() {
       itemSelector: ".infinitescroll .paginated_element",
       loading: {
         msgText: "",
-      img: "/assets/images/hloader.gif",
+      img: "/assets/images/hloader3.gif",
       finishedMsg: "---"
       }
     }, function() {
