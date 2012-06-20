@@ -574,7 +574,7 @@ div.locale_menu a {
 .ui-state-active, 
 .ui-widget-header, 
 div.pagination span.current, 
-a.goto_nav span.new_messages.unread, 
+#top span.new_messages.unread, 
 div.hooks td.action:hover, 
 div.hooks table.empty_table tr:hover, 
 div.progressbar.flashy div,

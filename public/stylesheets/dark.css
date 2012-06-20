@@ -105,7 +105,7 @@ body.dark a#sound_state:hover {
 }
 
 body.dark #top span.new_messages {
-  background: #707070;
+  background: #606060;
 }
 
 body.dark div.lichess_chat_inner,
@@ -279,7 +279,7 @@ body.dark .button.active:hover,
 body.dark .ui-state-active, 
 body.dark .ui-widget-header, 
 body.dark div.pagination span.current, 
-body.dark a.goto_nav span.new_messages.unread, 
+body.dark #top span.new_messages.unread, 
 body.dark div.hooks td.action:hover, 
 body.dark div.hooks table.empty_table tr:hover, 
 body.dark div.progressbar.flashy div,
