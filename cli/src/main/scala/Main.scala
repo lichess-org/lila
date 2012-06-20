@@ -29,8 +29,7 @@ object Main {
       case "game-cleanup-next" :: Nil        ⇒ titivate.cleanupNext
       case "game-cleanup-unplayed" :: Nil    ⇒ titivate.cleanupUnplayed
       case "game-finish" :: Nil              ⇒ titivate.finishByClock
-      case "fixtures" :: Nil                 ⇒ games.fixtures
-      case _ ⇒
+      case _                                 ⇒ 
         putStrLn("Unknown command: " + args.mkString(" "))
     }
   }
