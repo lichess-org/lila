@@ -143,6 +143,21 @@ class UserRepo(
 
   def disable(user: User) = updateIO(user)($set("enabled" -> false))
 
+  def passwd(user: User, password: String): IO[Valid[Unit]] = for {
+    obj ← io {
+      collection.findOne(
+        byIdQuery(user), DBObject("salt" -> true)
+      ) flatMap (_.getAs[String]("salt"))
+    }
+    res ← obj.fold(
+      salt ⇒ updateIO(user)($set(
+        "password" -> hash(password, salt),
+        "sha512" -> false
+      )) map { _ ⇒ success(Unit): Valid[Unit] },
+      io(!!("No salt found"))
+    )
+  } yield res
+
   def updateIO(username: String)(op: User ⇒ DBObject): IO[Unit] = for {
     userOption ← byId(username)
     _ ← userOption.fold(user ⇒ updateIO(user)(op(user)), io())

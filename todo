@@ -22,3 +22,5 @@ takeback play 2 times ?? http://en.lichess.org/analyse/nfjchnmo/black move 45
 movetimes chart
 user win chart: split in timeout/mate/...
 style sound toggle
+dark active clock bg
+show lobby chat to anon (and rated games?)

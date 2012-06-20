@@ -151,6 +151,7 @@ body.dark div.game_config .optional_config {
 
 body.dark div.lichess_table_not_started {
   box-shadow: none;
+  background: none;
 }
 body.dark div.lichess_table a.lichess_button:hover, 
 body.dark div.lichess_table a.lichess_button.active {

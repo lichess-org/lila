@@ -16,7 +16,15 @@ case class Users(userRepo: UserRepo, securityStore: Store) {
       }
     )
 
-  def perform(username: String, action: String, op: User ⇒ IO[Unit]) = for {
+  def passwd(username: String, password: String) =
+    perform(username, "Change password", user => {
+      userRepo.passwd(user, password) map ( _.fold(
+        errors ⇒ throw new RuntimeException(errors.shows),
+        _ ⇒ io()
+      ))
+    })
+
+  private def perform(username: String, action: String, op: User ⇒ IO[Unit]) = for {
     _ ← putStrLn(action + " " + username)
     userOption ← userRepo byId username
     _ ← userOption.fold(
