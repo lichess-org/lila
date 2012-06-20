@@ -1,15 +1,15 @@
-@(preload: String, myHook: Option[lila.lobby.Hook], forumRecent: List[lila.forum.PostView])(implicit ctx: Context)
+@(preload: String, myHook: Option[lila.lobby.Hook], forumRecent: List[lila.forum.PostView], featured: Option[DbGame])(implicit ctx: Context)
 
 @chat = {
 @for(m <- ctx.me; if m.canChat) {
 <div class="lichess_chat anon_chat lobby_chat">
   <div class="lichess_chat_top">
     <span class="title">@trans.chatRoom()</span>
-    <input 
-    data-href="@routes.Setting.set("chat")"  
+    <input
+    data-href="@routes.Setting.set("chat")"
     data-enabled="@setting.chat.fold("true", "false")"
-    title="@trans.toggleTheChat()" 
-    class="toggle_chat" 
+    title="@trans.toggleTheChat()"
+    class="toggle_chat"
     type="checkbox" />
   </div>
   <div class="lichess_chat_inner">
@@ -25,9 +25,29 @@
 }
 }
 
-@lobby.layout(title = "", chat = chat.some) {
+@underchat = {
+@featured.map { game =>
+<div class="featured_game">
+  @gameFen(game, game.creator.color)
+  <div class="vstext">
+    @usernameWithElo(game.creator) - @usernameWithElo(game.invited)<br />
+  </div>
+</div>
+}
+}
+
+@baseline = {
+<span id="site_baseline">@trans.freeOnlineChess()</span>
+}
+
+@base.layout(
+title = "",
+baseline = baseline.some,
+active = siteMenu.play.some,
+chat = chat.some,
+underchat = underchat.some) {
 <div id="call_boxes">
-@translationCall.map(i18n.callBox(_))
+  @translationCall.map(i18n.callBox(_))
 </div>
 <div class="clearfix lichess_homepage">
   <div class="lichess_board_wrap lichess_player_white">

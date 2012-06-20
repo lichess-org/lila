@@ -178,7 +178,7 @@ body.dark div.side_menu a.active {
 }
 
 body.dark .mini_board {
-  box-shadow: 0 0 5px #000;
+  box-shadow: none;
 }
 
 body.dark div.game_row:nth-child(odd),

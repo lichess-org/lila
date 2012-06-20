@@ -11,7 +11,7 @@ import play.api.libs.concurrent._
 import scalaz.effects._
 
 import implicits.RichJs._
-import socket.{ Util, PingVersion, Quit }
+import socket.{ Util, PingVersion, Quit, LiveGames }
 import timeline.Entry
 import game.DbGame
 import security.Flood
@@ -40,6 +40,9 @@ final class Socket(hub: ActorRef, flood: Flood) {
             } hub ! Talk(txt, uname)
             case Some("p") ⇒ e int "v" foreach { v ⇒
               hub ! PingVersion(uid, v)
+            }
+            case Some("liveGames") ⇒ e str "d" foreach { ids ⇒
+              hub ! LiveGames(uid, ids.split(' ').toList)
             }
             case _ ⇒
           }

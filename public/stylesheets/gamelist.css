@@ -65,7 +65,7 @@ div.game_list_inner div.vstext {
   height: 192px;
   position: relative;
   display: block;
-  box-shadow:0 0 5px #444;
+  box-shadow:0 0 5px #666;
 }
 div.all_games a.mini_board {
   float: left;

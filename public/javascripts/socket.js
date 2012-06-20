@@ -82,7 +82,6 @@ $.websocket.prototype = {
   },
   schedulePing: function(delay) {
     var self = this;
-    //self.debug("schedule ping in " + delay + " ms");
     clearTimeout(self.pingSchedule);
     self.pingSchedule = setTimeout(function() { 
       self.pingNow(); 
@@ -92,7 +91,6 @@ $.websocket.prototype = {
     var self = this;
     clearTimeout(self.pingSchedule);
     clearTimeout(self.connectSchedule);
-    //console.debug("ping now");
     try {
       self.debug("ping " + self.pingData());
       self.ws.send(self.pingData());
@@ -104,7 +102,6 @@ $.websocket.prototype = {
   },
   pong: function() {
     var self = this;
-    //self.debug("pong");
     clearTimeout(self.connectSchedule);
     self.schedulePing(self.options.pingDelay);
     self.currentLag = self.now() - self.lastPingTime;

@@ -111,11 +111,11 @@ class GameRepo(collection: MongoCollection)
   }
 
   def denormalizeStarted(game: DbGame): IO[Unit] = io {
-    update(idSelector(game), 
+    update(idSelector(game),
       $set("userIds" -> game.players.map(_.userId).flatten))
     update(idSelector(game), game.mode.rated.fold(
       $set("isRated" -> true), $unset("isRated")))
-    if (game.variant.exotic) update(idSelector(game), 
+    if (game.variant.exotic) update(idSelector(game),
       $set("initialFen" -> (Forsyth >> game.toChess)))
   }
 
@@ -152,6 +152,13 @@ class GameRepo(collection: MongoCollection)
       Query.clock(true) ++
       ("createdAt" $gt (DateTime.now - 1.day)) ++ // index
       ("updatedAt" $lt (DateTime.now - 2.hour))
+    ).toList.map(_.decode).flatten
+  }
+
+  def featuredCandidates: IO[List[DbGame]] = io {
+    find(Query.playable ++
+      Query.clock(true) ++
+      ("createdAt" $gt (DateTime.now - 30.minutes))
     ).toList.map(_.decode).flatten
   }
 

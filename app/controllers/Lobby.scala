@@ -18,6 +18,7 @@ object Lobby extends LilaController {
   def forumRecent = env.forum.recent
   def timelineRecent = env.timeline.entryRepo.recent
   def messageRepo = env.lobby.messageRepo
+  def featured = env.game.featured
 
   val home = Open { implicit ctx ⇒
     renderHome(none).fold(identity, Ok(_))
@@ -36,7 +37,11 @@ object Lobby extends LilaController {
     timeline = timelineRecent
   ).unsafePerformIO.bimap(
       url ⇒ Redirect(url),
-      preload ⇒ html.lobby.home(toJson(preload), myHook, forumRecent(ctx.me))
+      preload ⇒ html.lobby.home(
+        toJson(preload), 
+        myHook, 
+        forumRecent(ctx.me),
+        featured.one)
     )
 
   def socket = WebSocket.async[JsValue] { implicit req ⇒

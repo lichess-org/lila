@@ -22,6 +22,9 @@ final class GameEnv(
     cached = cached,
     maxPerPage = GamePaginatorMaxPerPage)
 
+  lazy val featured = new Featured(
+    gameRepo = gameRepo)
+
   lazy val export = Export(gameRepo) _
 
   lazy val listMenu = ListMenu(cached) _

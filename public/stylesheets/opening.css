@@ -184,6 +184,14 @@ div.hooks a.user_link {
   padding-left: 0;
 }
 
+div.featured_game {
+  margin-left: 38px;
+}
+div.featured_game div.vstext {
+  margin-top: 0.7em;
+  text-align: center;
+}
+
 div.undertable {
   width: 514px;
   font-size: 11.5px;
