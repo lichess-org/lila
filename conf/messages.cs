@@ -135,4 +135,5 @@ takebackPropositionAccepted=Návrh na vrácení tahu byl přijat
 takebackPropositionCanceled=Návrh na vrácení tahu byl zrušen
 yourOpponentProposesATakeback=Soupeř navrhuje vrácení tahu
 bookmarkThisGame=Přidat tuto partii do záložek
+toggleBackground=Přepnout barvu pozadí
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Šachy online zdarma. Hrajte šachy přímo ve Vašem prohlížeči, bez registrace, bez reklam, bez dalšího stahování. Hrajte proti počítači, kamarádům nebo náhodně vybraným soupeřům.
