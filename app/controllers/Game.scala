@@ -47,10 +47,10 @@ object Game extends LilaController {
     }
   }
 
-  def featuredJs(id: String) = Open { implicit ctx =>
-    IOptionOk(gameRepo game id) { game =>
-      html.game.featuredJs(game)
-    }
+  def featuredJs(id: String) = Open { implicit ctx ⇒
+    IOk(gameRepo game id map { gameOption =>
+      html.game.featuredJs(gameOption)
+    })
   }
 
   private def reasonable(page: Int)(result: ⇒ Result): Result =

@@ -39,8 +39,8 @@ final class Featured(
     private def getOne = oneId flatMap fetch filter valid orElse {
       feature ~ { o ⇒
         val newOneId = o map (_.id)
-        oneId |@| newOneId apply {
-          case (oldId, newId) ⇒ lobbyRef ! ChangeFeatured(oldId, newId)
+        newOneId foreach { newId ⇒
+          lobbyRef ! ChangeFeatured(oneId, newId)
         }
         oneId = newOneId
       }
@@ -52,15 +52,21 @@ final class Featured(
     private def valid(game: DbGame) = game.isBeingPlayed
 
     private def feature: Option[DbGame] =
-      Featured.best(gameRepo.featuredCandidates.unsafePerformIO)
+      Featured.best(
+        gameRepo.featuredCandidates.unsafePerformIO filter valid
+      )
   }))
+
+  Akka.system.scheduler.schedule(5.seconds, 2.seconds, actor, GetOne)
 }
 
 object Featured {
 
   case object GetOne
 
-  def best(games: List[DbGame]) = (games sortBy score).headOption
+  def best(games: List[DbGame]) = (games sortBy { game ⇒
+    1 - score(game)
+    }).headOption 
 
   private def score(game: DbGame): Float = heuristics map {
     case (fn, coefficient) ⇒ heuristicBox(fn(game)) * coefficient
@@ -89,5 +95,5 @@ object Featured {
 
   // boxes and reduce to 0..1 range
   private def box(in: Range.Inclusive)(v: Float): Float =
-    math.max(in.start, math.min(0, in.end)) - in.start / (in.end - in.start)
+    math.max(in.start, math.min(v, in.end)) - in.start / (in.end - in.start).toFloat
 }

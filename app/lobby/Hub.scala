@@ -76,11 +76,11 @@ final class Hub(
     notifyVersion(t, JsObject(data))
   }
 
-  def notifyFeatured(oldId: String, newId: String) {
+  def notifyFeatured(oldId: Option[String], newId: String) {
     val msg = makeMessage("featured", JsObject(Seq(
-      "oldId" -> JsString(oldId),
+      "oldId" -> oldId.fold(JsString(_), JsNull),
       "newId" -> JsString(newId))))
-    members.values filter (_ liveGames oldId) foreach (_.channel push msg)
+    members.values foreach (_.channel push msg)
   }
 
   def hookOwnerIds: Iterable[String] =
