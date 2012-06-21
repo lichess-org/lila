@@ -55,7 +55,7 @@ object Thread {
     text: String,
     creator: User,
     invited: User): Thread = Thread(
-    id = OrnicarRandom nextAsciiString idSize,
+    id = OrnicarRandom nextString idSize,
     name = name,
     createdAt = DateTime.now,
     updatedAt = DateTime.now,

@@ -47,7 +47,7 @@ object Contributors {
     "mk" -> List("Давид и Стефан Тимовски"),
     "id" -> List("Night1301"),
     "ja" -> List("ネイサン　アイブス"),
-    "bg" -> List("Anonymous"),
+    "bg" -> List("Anonymous", "Пламен Димов."),
     "th" -> List("มาโนชญ์ สมศักดิ์"),
     "fa" -> List("saeid monajiane"),
     "he" -> List("Anonymous", " Tornado"),

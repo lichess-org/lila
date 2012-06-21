@@ -18,7 +18,7 @@ trait Dependencies {
   val specs2 = "org.specs2" %% "specs2" % "1.11"
   val casbah = "com.mongodb.casbah" %% "casbah" % "2.1.5-1"
   val salat = "com.novus" %% "salat-core" % "0.0.8-SNAPSHOT"
-  val scalalib = "com.github.ornicar" %% "scalalib" % "1.36"
+  val scalalib = "com.github.ornicar" %% "scalalib" % "1.37"
   val config = "com.typesafe" % "config" % "0.4.0"
   val json = "com.codahale" %% "jerkson" % "0.5.0"
   val guava = "com.google.guava" % "guava" % "12.0"

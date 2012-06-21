@@ -27,7 +27,7 @@ object Topic {
     categId: String,
     slug: String,
     name: String): Topic = Topic(
-    id = OrnicarRandom nextAsciiString idSize,
+    id = OrnicarRandom nextString idSize,
     categId = categId,
     slug = slug,
     name = name,

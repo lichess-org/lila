@@ -91,7 +91,7 @@ class UserRepo(
     userOption ← exists.fold(
       io(none),
       io {
-        val salt = OrnicarRandom nextAsciiString 32
+        val salt = OrnicarRandom nextString 32
         val obj = DBObject(
           "_id" -> normalize(username),
           "username" -> username,

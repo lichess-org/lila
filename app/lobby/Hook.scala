@@ -81,8 +81,8 @@ object Hook {
   }
 
   private def generateId =
-    OrnicarRandom nextAsciiString idSize
+    OrnicarRandom nextString idSize
 
   private def generateOwnerId =
-    OrnicarRandom nextAsciiString (ownerIdSize - idSize)
+    OrnicarRandom nextString (ownerIdSize - idSize)
 }

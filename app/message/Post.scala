@@ -23,7 +23,7 @@ object Post {
   def apply(
     text: String,
     isByCreator: Boolean): Post = Post(
-    id = OrnicarRandom nextAsciiString idSize,
+    id = OrnicarRandom nextString idSize,
     text = text,
     isByCreator = isByCreator,
     isRead = false,

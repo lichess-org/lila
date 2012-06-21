@@ -29,7 +29,7 @@ object Post {
     userId: Option[String],
     text: String,
     number: Int): Post = Post(
-    id = OrnicarRandom nextAsciiString idSize,
+    id = OrnicarRandom nextString idSize,
     topicId = topicId,
     author = author,
     userId = userId,

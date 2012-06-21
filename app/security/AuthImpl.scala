@@ -35,7 +35,7 @@ trait AuthImpl {
     Redirect(routes.Lobby.home) withCookies LilaCookie.session("access_uri", req.uri)
 
   def saveAuthentication(username: String)(implicit req: RequestHeader): String =
-    (OrnicarRandom nextAsciiString 12) ~ { sessionId ⇒
+    (OrnicarRandom nextString 12) ~ { sessionId ⇒
       env.security.store.save(sessionId, username, req)
     }
 

@@ -5,7 +5,7 @@ import ornicar.scalalib.OrnicarRandom
 
 object IdGenerator {
 
-  def game = OrnicarRandom nextAsciiString DbGame.gameIdSize
+  def game = OrnicarRandom nextString DbGame.gameIdSize
 
-  def player = OrnicarRandom nextAsciiString DbGame.playerIdSize
+  def player = OrnicarRandom nextString DbGame.playerIdSize
 }
