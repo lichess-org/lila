@@ -6,6 +6,11 @@ import game.DbGame
 import controllers.routes
 
 import play.api.mvc.Call
+import play.api.libs.concurrent.Akka
+import play.api.Play.current
+import akka.dispatch.Future
+import akka.util.duration._
+import akka.util.Timeout
 import scalaz.effects._
 
 final class Preload(
@@ -15,31 +20,49 @@ final class Preload(
     getGame: String ⇒ IO[Option[DbGame]],
     messageRepo: MessageRepo) {
 
-  type Response = Either[Call, Map[String, Any]]
+  private implicit val executor = Akka.system.dispatcher
+  private implicit val timeout = Timeout(1 second)
+  private type Response = Either[Call, Map[String, Any]]
 
   def apply(
     auth: Boolean,
     chat: Boolean,
     myHook: Option[Hook],
-    timeline: IO[List[Entry]]): IO[Response] = for {
-    hooks ← auth.fold(hookRepo.allOpen, hookRepo.allOpenCasual)
-    res ← myHook.flatMap(_.gameId).fold(
-      gid ⇒ getGame(gid) map { game ⇒
-        Left(game.fold(
-          g ⇒ routes.Round.player(g fullIdOf g.creatorColor),
-          routes.Lobby.home()
-        ))
-      }, for {
-        messages ← chat.fold(messageRepo.recent, io(Nil))
-        entries ← timeline
+    timeline: IO[List[Entry]]): Future[Response] =
+    myHook.flatMap(_.gameId).fold(
+      hookBitten,
+      for {
+        hooks ← futureHooks(auth)
+        messages ← futureMessages(chat)
+        entries ← ioToFuture(timeline)
       } yield Right(Map(
         "version" -> history.version,
         "pool" -> renderHooks(hooks, myHook),
         "chat" -> (messages.reverse map (_.render)),
         "timeline" -> (entries.reverse map (_.render))
-      ))
+      )): Response
     )
-  } yield res
+
+  private def futureHooks(auth: Boolean): Future[List[Hook]] = ioToFuture {
+    auth.fold(hookRepo.allOpen, hookRepo.allOpenCasual)
+  }
+
+  private def futureMessages(chat: Boolean) = ioToFuture {
+    chat.fold(messageRepo.recent, io(Nil))
+  }
+
+  private def hookBitten(gameId: String): Future[Response] = ioToFuture {
+    getGame(gameId) map { game ⇒
+      Left(game.fold(
+        g ⇒ routes.Round.player(g fullIdOf g.creatorColor),
+        routes.Lobby.home()
+      )): Response
+    }
+  }
+
+  private def ioToFuture[A](ioa: IO[A]): Future[A] = Future {
+    ioa.unsafePerformIO
+  }
 
   private def renderHooks(
     hooks: List[Hook],

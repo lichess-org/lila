@@ -48,7 +48,6 @@ final class Reporting(
   val memoryStats = ManagementFactory.getMemoryMXBean
   val cpuStats = new CPU()
   implicit val executor = Akka.system.dispatcher
-
   implicit val timeout = Timeout(100 millis)
 
   def receive = {
