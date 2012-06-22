@@ -83,8 +83,11 @@ function drawCharts() {
       width: 747,
       height: 400,
       title: $(this).data('title'),
+      titleTextStyle: textcolor,
       chartArea:{left:"5%",top:"5%",width:"78%",height:"90%"},
-      backgroundColor: bg
+      backgroundColor: bg,
+      vAxis: {textStyle: textcolor, gridlines: linecolor},
+      legend: {textStyle: textcolor}
     });
   });
 }
