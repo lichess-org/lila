@@ -51,6 +51,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     mongodb = mongodb.apply _,
     userRepo = user.userRepo,
     getGame = game.gameRepo.game,
+    featured = game.featured,
     roundSocket = round.socket,
     roundMessenger = round.messenger,
     flood = security.flood)

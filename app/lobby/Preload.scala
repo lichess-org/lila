@@ -2,7 +2,8 @@ package lila
 package lobby
 
 import timeline.Entry
-import game.DbGame
+import game.{ DbGame, Featured }
+import forum.PostView
 import controllers.routes
 
 import play.api.mvc.Call
@@ -18,29 +19,39 @@ final class Preload(
     history: History,
     hookRepo: HookRepo,
     getGame: String ⇒ IO[Option[DbGame]],
-    messageRepo: MessageRepo) {
+    messageRepo: MessageRepo,
+    featured: Featured) {
 
   private implicit val executor = Akka.system.dispatcher
   private implicit val timeout = Timeout(1 second)
-  private type Response = Either[Call, Map[String, Any]]
+  private type RightResponse = (Map[String, Any], List[PostView], Option[DbGame])
+  private type Response = Either[Call, RightResponse]
 
   def apply(
     auth: Boolean,
     chat: Boolean,
     myHook: Option[Hook],
-    timeline: IO[List[Entry]]): Future[Response] =
+    timeline: IO[List[Entry]],
+    posts: IO[List[PostView]]): Future[Response] =
     myHook.flatMap(_.gameId).fold(
-      hookBitten,
-      for {
-        hooks ← futureHooks(auth)
-        messages ← futureMessages(chat)
-        entries ← ioToFuture(timeline)
-      } yield Right(Map(
-        "version" -> history.version,
-        "pool" -> renderHooks(hooks, myHook),
-        "chat" -> (messages.reverse map (_.render)),
-        "timeline" -> (entries.reverse map (_.render))
-      )): Response
+      gameId ⇒ futureGame(gameId) map { gameOption ⇒
+        Left(gameOption.fold(
+          game ⇒ routes.Round.player(game fullIdOf game.creatorColor),
+          routes.Lobby.home()
+        )): Response
+      },
+      futureHooks(auth) zip 
+      futureMessages(chat) zip 
+      ioToFuture(timeline) zip
+      ioToFuture(posts) zip
+      featured.one map {
+        case ((((hooks, messages), entries), posts), feat) ⇒ (Right((Map(
+          "version" -> history.version,
+          "pool" -> renderHooks(hooks, myHook),
+          "chat" -> (messages.reverse map (_.render)),
+          "timeline" -> (entries.reverse map (_.render))
+        ), posts, feat))): Response
+      }
     )
 
   private def futureHooks(auth: Boolean): Future[List[Hook]] = ioToFuture {
@@ -51,13 +62,8 @@ final class Preload(
     chat.fold(messageRepo.recent, io(Nil))
   }
 
-  private def hookBitten(gameId: String): Future[Response] = ioToFuture {
-    getGame(gameId) map { game ⇒
-      Left(game.fold(
-        g ⇒ routes.Round.player(g fullIdOf g.creatorColor),
-        routes.Lobby.home()
-      )): Response
-    }
+  private def futureGame(gameId: String): Future[Option[DbGame]] = ioToFuture {
+    getGame(gameId)
   }
 
   private def ioToFuture[A](ioa: IO[A]): Future[A] = Future {

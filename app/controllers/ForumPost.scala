@@ -11,7 +11,9 @@ object ForumPost extends LilaController with forum.Controller {
   def forms = env.forum.forms
 
   val recent = Open { implicit ctx ⇒
-    Ok(html.forum.post.recent(env.forum.recent(ctx.me)))
+    IOk(env.forum.recent(ctx.me) map { posts =>
+      html.forum.post.recent(posts)
+    })
   }
 
   def create(categSlug: String, slug: String, page: Int) = OpenBody { implicit ctx ⇒

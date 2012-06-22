@@ -20,12 +20,10 @@ final class Featured(
 
   import Featured._
 
-  def one: Option[DbGame] = Await.result(
-    actor ? GetOne mapTo manifest[Option[DbGame]],
-    atMost)
+  def one: Future[Option[DbGame]] = 
+    actor ? GetOne mapTo manifest[Option[DbGame]]
 
-  private val atMost = 2.second
-  private implicit val timeout = Timeout(atMost)
+  private implicit val timeout = Timeout(2 seconds)
   private lazy val lobbyRef = Akka.system.actorFor("/user/" + lobbyHubName)
 
   private val actor = Akka.system.actorOf(Props(new Actor {

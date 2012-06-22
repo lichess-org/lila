@@ -15,8 +15,9 @@ final class Recent(env: ForumEnv, timeout: Int) {
     fetch(staff).unsafePerformIO
   )
 
-  def apply(user: Option[User]): List[PostView] =
+  def apply(user: Option[User]): IO[List[PostView]] = io {
     cache get Granter.option(Permission.StaffForum)(user)
+  }
 
   val invalidate: IO[Unit] = io(cache.invalidateAll)
 
