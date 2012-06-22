@@ -207,7 +207,9 @@ body.dark div.hooks a
 {
   color: #b0b0b0;
 }
-body.dark #GameText a:hover {
+body.dark #GameText a:hover,
+body.dark #GameText a.moveOn
+{
   background: #000;
 }
 
