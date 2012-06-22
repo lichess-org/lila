@@ -103,6 +103,7 @@ rematchOfferAccepted=تم قبول عرض المباراة الثانية
 rematchOfferCanceled=تم إلغاء عرض إعادة اللعب
 rematchOfferDeclined=تم رفض عرض إعادة اللعب
 cancelRematchOffer=إلغاء عرض إعادة اللعب
+viewRematch=مشاهدة إعادة المباراة
 play=إلعب
 inbox=صندوق الرسائل
 chatRoom=غرفة الدردشة
