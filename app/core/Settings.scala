@@ -53,8 +53,10 @@ final class Settings(config: Config) {
   val AiRemoteUrl = getString("ai.remote.url")
   val AiCraftyExecPath = getString("ai.crafty.exec_path")
   val AiCraftyBookPath = Some(getString("ai.crafty.book_path")) filter ("" !=)
+  val AiStockfishExecPath = getString("ai.stockfish.exec_path")
   val AiRemote = "remote"
   val AiCrafty = "crafty"
+  val AiStockfish = "stockfish"
 
   val MongoHost = getString("mongo.host")
   val MongoPort = getInt("mongo.port")

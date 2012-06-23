@@ -20,11 +20,10 @@ final class CraftyServer(
   def runCrafty(oldFen: String, level: Int): IO[String] =
     io { Process(command(level)) #< input(oldFen, level) !! } map extractFen
 
-  private def extractFen(output: String) = {
+  private def extractFen(output: String) = 
     output.lines.find(_ contains "setboard") map { line ⇒
       """^.+setboard\s([\w\d/]+\s\w).*$""".r.replaceAllIn(line, m ⇒ m group 1)
     } getOrElse "Crafty output does not contain setboard"
-  }
 
   private def command(level: Int) =
     """%s learn=off log=off bookpath=%s ponder=off smpmt=1 st=%s""".format(
