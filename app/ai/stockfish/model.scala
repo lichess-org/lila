@@ -36,10 +36,12 @@ object model {
   }
   case class Todo(queue: Vector[Task]) extends Data {
     def enqueue(task: Task) = copy(queue = queue :+ task)
-    def doing[A](withTask: Doing ⇒ A, without: Todo ⇒ A) = queue.headOption.fold(
-      task ⇒ withTask(Doing(task, queue.tail)),
-      without(Todo(Vector.empty))
-    )
+    def doing[A](withTask: Doing ⇒ A, without: Todo ⇒ A) = 
+      easierTaskInQueue.fold(
+        task ⇒ withTask(Doing(task, queue.tail)),
+        without(Todo(Vector.empty))
+      )
+    private def easierTaskInQueue = queue sortBy (_.play.level) headOption
   }
   case class Doing(current: Task, queue: Vector[Task]) extends Data {
     def enqueue(task: Task) = copy(queue = queue :+ task)
