@@ -2,8 +2,9 @@ package lila
 package ai
 package stockfish
 
-import chess.{ Game, Move }
+import chess.{ Game, Move, Rook }
 import chess.format.UciDump
+import chess.format.Forsyth
 import game.DbGame
 
 import akka.util.Timeout
@@ -23,7 +24,7 @@ final class Ai(execPath: String) extends lila.ai.Ai {
   def apply(dbGame: DbGame, initialFen: Option[String]): IO[Valid[(Game, Move)]] = io {
     for {
       moves ← UciDump(dbGame.pgn, initialFen)
-      play = Play(moves, initialFen, dbGame.aiLevel | 1)
+      play = Play(moves, initialFen map chess960Fen, dbGame.aiLevel | 1)
       bestMove ← unsafe {
         Await.result(actor ? play mapTo manifest[BestMove], atMost)
       }
@@ -32,6 +33,16 @@ final class Ai(execPath: String) extends lila.ai.Ai {
       result ← dbGame.toChess(orig, dest)
     } yield result
   }
+
+  private def chess960Fen(fen: String) = (Forsyth << fen).fold(
+    situation ⇒ fen.replace("KQkq", situation.board.pieces.toList filter {
+      case (_, piece) ⇒ piece is Rook
+    } sortBy {
+      case (pos, _) ⇒ (pos.y, pos.x)
+    } map {
+      case (pos, piece) ⇒ piece.color.fold(pos.file.toUpperCase, pos.file)
+    } mkString ""),
+    fen)
 
   private val atMost = 5 seconds
   private implicit val timeout = new Timeout(atMost)
