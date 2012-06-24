@@ -8,7 +8,7 @@ import scalaz.effects._
 
 final class StupidAi extends Ai {
 
-  def apply(dbGame: DbGame): IO[Valid[(Game, Move)]] = io {
+  def apply(dbGame: DbGame, initialFen: Option[String]): IO[Valid[(Game, Move)]] = io {
 
     val game = dbGame.toChess
 

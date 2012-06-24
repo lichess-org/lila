@@ -8,8 +8,11 @@ import akka.actor.ActorRef
 object model {
 
   case class Play(moves: String, fen: Option[String], level: Int) {
-    def position = "position %s moves %s".format(fen | "startpos", moves)
-    def go(moveTime: Int => Int) = "go movetime %d" format moveTime(level)
+    def position = "position %s moves %s".format(
+      fen.fold("fen " + _, "startpos"),
+      moves)
+    def go(moveTime: Int ⇒ Int) = "go movetime %d" format moveTime(level)
+    def chess960 = fen.isDefined
   }
   case class BestMove(move: Option[String]) {
     def parse = for {

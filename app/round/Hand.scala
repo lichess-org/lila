@@ -52,7 +52,10 @@ final class Hand(
           fen = fenBoard(progress)
         } yield success(events -> fen)
         else if (progress.game.player.isAi && progress.game.playable) for {
-          aiResult ← ai()(progress.game)
+          initialFen ← progress.game.variant.standard.fold(
+            io(none[String]),
+            gameRepo initialFen progress.game.id)
+          aiResult ← ai()(progress.game, initialFen)
           eventsAndFen ← aiResult.fold(
             err ⇒ io(failure(err)), {
               case (newChessGame, move) ⇒ for {

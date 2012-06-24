@@ -20,10 +20,10 @@ final class Ai(execPath: String) extends lila.ai.Ai {
 
   import model._
 
-  def apply(dbGame: DbGame): IO[Valid[(Game, Move)]] = io {
+  def apply(dbGame: DbGame, initialFen: Option[String]): IO[Valid[(Game, Move)]] = io {
     for {
-      moves ← UciDump(dbGame.pgn)
-      play = Play(moves, None, dbGame.aiLevel | 1)
+      moves ← UciDump(dbGame.pgn, initialFen)
+      play = Play(moves, initialFen, dbGame.aiLevel | 1)
       bestMove ← unsafe {
         Await.result(actor ? play mapTo manifest[BestMove], atMost)
       }

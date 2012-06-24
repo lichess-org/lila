@@ -19,7 +19,7 @@ final class RemoteAi(
   private lazy val http = new Http with ThreadSafety with NoLogging
   private lazy val urlObj = url(remoteUrl)
 
-  def apply(dbGame: DbGame): IO[Valid[(Game, Move)]] = {
+  def apply(dbGame: DbGame, initialFen: Option[String]): IO[Valid[(Game, Move)]] = {
 
     val oldGame = dbGame.toChess
     val oldFen = toFen(oldGame, dbGame.variant)

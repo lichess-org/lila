@@ -50,6 +50,6 @@ object Process {
       builder = SProcess(execPath),
       out = out,
       err = err,
-      debug = false)
+      debug = true)
 }
 

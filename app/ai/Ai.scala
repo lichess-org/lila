@@ -8,5 +8,5 @@ import scalaz.effects._
 
 trait Ai {
 
-  def apply(dbGame: DbGame): IO[Valid[(Game, Move)]]
+  def apply(dbGame: DbGame, initialFen: Option[String]): IO[Valid[(Game, Move)]]
 }

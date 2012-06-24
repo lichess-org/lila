@@ -35,7 +35,10 @@ final class Processor(
     pov2 ← game.player.isHuman.fold(
       io(pov),
       for {
-        aiResult ← ai()(game) map (_.err)
+        initialFen ← game.variant.standard.fold(
+          io(none[String]),
+          gameRepo initialFen game.id)
+        aiResult ← ai()(game, initialFen) map (_.err)
         (newChessGame, move) = aiResult
         progress = game.update(newChessGame, move)
         _ ← gameRepo save progress

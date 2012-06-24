@@ -1,6 +1,8 @@
 package lila
 package ai.stockfish
 
+import model._
+
 final class Config {
 
   type Instructions = List[String]
@@ -11,8 +13,9 @@ final class Config {
     setoption("Ponder", false)
   )
 
-  def game(level: Int): Instructions = List(
-    setoption("Skill Level", skill(level))
+  def game(play: Play): Instructions = List(
+    setoption("Skill Level", skill(play.level)),
+    setoption("UCI_Chess960", play.chess960)
   )
 
   def moveTime(level: Int): Int = 

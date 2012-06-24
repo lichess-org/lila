@@ -56,7 +56,7 @@ final class FSM(
   def next(data: Data) = data match {
     case todo: Todo ⇒ todo.doing(
       doing ⇒ {
-        config game doing.current.play.level foreach process.write
+        config game doing.current.play foreach process.write
         process write "ucinewgame"
         process write "isready"
         goto(UciNewGame) using doing
