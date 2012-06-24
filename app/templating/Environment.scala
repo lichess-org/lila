@@ -21,6 +21,7 @@ object Environment
     with setup.SetupHelper
     with message.MessageHelper
     with round.RoundHelper 
+    with ai.AiHelper
     with game.GameHelper
     with user.UserHelper 
     with forum.ForumHelper

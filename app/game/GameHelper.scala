@@ -6,6 +6,7 @@ import chess.{ Status, Variant, Color, Clock, Mode }
 import user.{ User, UserHelper }
 import http.Context
 import i18n.I18nHelper
+import ai.AiHelper
 import templating.StringHelper
 
 import controllers.routes
@@ -13,9 +14,7 @@ import controllers.routes
 import play.api.templates.Html
 import play.api.mvc.Call
 
-trait GameHelper { self: I18nHelper with UserHelper with StringHelper ⇒
-
-  val aiName = "Crafty A.I."
+trait GameHelper { self: I18nHelper with UserHelper with StringHelper with AiHelper ⇒
 
   def variantName(variant: Variant)(implicit ctx: Context) = variant match {
     case Variant.Standard ⇒ trans.standard.str()
@@ -63,9 +62,7 @@ trait GameHelper { self: I18nHelper with UserHelper with StringHelper ⇒
       },
       """<span class="user_link %s">%s</span>""".format(
         cssClass | "",
-        player.aiLevel.fold(
-          trans.aiNameLevelAiLevel(aiName, _),
-          User.anonymous)
+        player.aiLevel.fold(aiName, User.anonymous)
       )
     )
   }
