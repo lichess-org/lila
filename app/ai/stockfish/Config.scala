@@ -2,15 +2,17 @@ package lila
 package ai.stockfish
 
 import model._
+import core.Settings
 
-final class Config {
+final class Config(settings: Settings) {
 
   type Instructions = List[String]
 
   def init: Instructions = List(
-    setoption("Hash", 1024),
+    setoption("Hash", settings.AiStockfishHashSize),
     setoption("Threads", 8),
-    setoption("Ponder", false)
+    setoption("Ponder", false),
+    setoption("Aggressiveness", settings.AiStockfishAggressiveness) // 0 - 200
   )
 
   def game(play: Play): Instructions = List(

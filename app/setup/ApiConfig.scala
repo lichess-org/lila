@@ -13,7 +13,7 @@ case object ApiConfig extends Config with GameGenerator {
 
   def game = DbGame(
     game = Game(
-      board = Board(pieces = variant.pieces),
+      board = Board init variant,
       clock = none),
     ai = None,
     whitePlayer = DbPlayer.white,

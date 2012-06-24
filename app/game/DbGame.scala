@@ -95,7 +95,7 @@ case class DbGame(
     }
 
     Game(
-      board = Board(pieces, toChessHistory),
+      board = Board(pieces, toChessHistory, variant),
       player = Color(0 == turns % 2),
       pgnMoves = pgn,
       clock = clock,

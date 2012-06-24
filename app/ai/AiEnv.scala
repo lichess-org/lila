@@ -39,7 +39,10 @@ final class AiEnv(settings: Settings) {
     remoteUrl = AiStockfishRemoteUrl)
 
   lazy val stockfishServer = new stockfish.Server(
-    execPath = AiStockfishExecPath)
+    execPath = AiStockfishExecPath,
+    config = stockfishConfig)
+
+  lazy val stockfishConfig = new stockfish.Config(settings)
 
   lazy val stupidAi = new StupidAi
 

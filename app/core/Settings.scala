@@ -2,6 +2,7 @@ package lila
 package core
 
 import com.typesafe.config.Config
+import scalaz.{ Success, Failure }
 
 final class Settings(config: Config) {
 
@@ -49,15 +50,20 @@ final class Settings(config: Config) {
   val FinisherLockTimeout = millis("memo.finisher_lock.timeout")
 
   val AiChoice = getString("ai.use")
+  val AiCrafty = "crafty"
+  val AiStockfish = "stockfish"
+
   val AiServerMode = getBoolean("ai.server")
   val AiClientMode = getBoolean("ai.client")
+
   val AiCraftyExecPath = getString("ai.crafty.exec_path")
   val AiCraftyBookPath = Some(getString("ai.crafty.book_path")) filter ("" !=)
   val AiCraftyRemoteUrl = getString("ai.crafty.remote_url")
+
   val AiStockfishExecPath = getString("ai.stockfish.exec_path")
   val AiStockfishRemoteUrl = getString("ai.stockfish.remote_url")
-  val AiCrafty = "crafty"
-  val AiStockfish = "stockfish"
+  val AiStockfishHashSize = getInt("ai.stockfish.hash_size")
+  val AiStockfishAggressiveness = getInt("ai.stockfish.aggressiveness")
 
   val MongoHost = getString("mongo.host")
   val MongoPort = getInt("mongo.port")
@@ -99,4 +105,13 @@ final class Settings(config: Config) {
   private def millis(name: String): Int = getMilliseconds(name).toInt
 
   private def seconds(name: String): Int = millis(name) / 1000
+
+  implicit def validAny[A](a: A) = new {
+    def valid(f: A ⇒ Valid[A]): A = f(a) match {
+      case Success(a)   ⇒ a
+      case Failure(err) ⇒ throw new Invalid(err.shows)
+    }
+  }
+
+  private class Invalid(msg: String) extends Exception(msg)
 }

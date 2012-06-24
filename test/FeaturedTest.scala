@@ -35,7 +35,7 @@ class FeaturedTest extends LilaSpec {
     }
 
     val game1 = DbGame(
-      game = chess.Game(),
+      game = chess.Game(chess.Variant.default),
       whitePlayer = DbPlayer.white.copy(elo = 1600.some),
       blackPlayer = DbPlayer.black,
       ai = None,

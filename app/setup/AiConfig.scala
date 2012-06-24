@@ -12,7 +12,7 @@ case class AiConfig(
   def >> = (variant.id, level, color.name).some
 
   def game = DbGame(
-    game = Game(board = Board(pieces = variant.pieces)),
+    game = Game(board = Board init variant),
     ai = Some(!creatorColor -> level),
     whitePlayer = DbPlayer(
       color = ChessColor.White,

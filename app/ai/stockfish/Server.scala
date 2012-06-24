@@ -16,7 +16,7 @@ import play.api.Play.current
 import play.api.libs.concurrent._
 import scalaz.effects._
 
-final class Server(execPath: String) {
+final class Server(execPath: String, config: Config) {
 
   import model._
 
@@ -43,6 +43,5 @@ final class Server(execPath: String) {
   private implicit val timeout = new Timeout(atMost)
 
   private val process = Process(execPath) _
-  private val config = new Config
   private val actor = Akka.system.actorOf(Props(new FSM(process, config)))
 }
