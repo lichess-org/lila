@@ -43,5 +43,5 @@ final class AiEnv(settings: Settings) {
 
   lazy val stupidAi = new StupidAi
 
-  def isServer = AiServerMode
+  val isServer = AiServerMode
 }
