@@ -37,6 +37,7 @@ GET   /$gameId<[\w\-]{8}>/players                    controllers.Round.players(g
 # Analyse
 GET   /analyse/$gameId<[\w\-]{8}>       controllers.Analyse.replay(gameId: String, color: String = "white")
 GET   /analyse/$gameId<[\w\-]{8}>/$color<white|black> controllers.Analyse.replay(gameId: String, color: String)
+GET   /analyse/$gameId<[\w\-]{8}>/computer controllers.Analyse.computer(gameId: String)
 GET   /$gameId<[\w\-]{8}>/stats          controllers.Analyse.stats(gameId: String)
 GET   /$gameId<[\w\-]{8}>/pgn            controllers.Analyse.pgn(gameId: String)
 
@@ -91,6 +92,7 @@ GET   /wiki/:slug                      controllers.Wiki.show(slug: String)
 # AI
 GET   /ai/play/crafty                  controllers.Ai.playCrafty
 GET   /ai/play/stockfish               controllers.Ai.playStockfish
+GET   /ai/analyse/stockfish            controllers.Ai.analyseStockfish
 
 # Lobby
 GET   /                                controllers.Lobby.home

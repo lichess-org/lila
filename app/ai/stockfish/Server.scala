@@ -5,6 +5,7 @@ package stockfish
 import chess.Rook
 import chess.format.UciDump
 import chess.format.Forsyth
+import analyse.Analysis
 
 import akka.util.Timeout
 import akka.util.Duration
@@ -16,18 +17,31 @@ import play.api.Play.current
 import play.api.libs.concurrent._
 import scalaz.effects._
 
-final class Server(execPath: String, config: Config) {
+final class Server(
+  execPath: String, 
+  playConfig: PlayConfig,
+  analyseConfig: AnalyseConfig) {
 
-  import model._
-
-  def apply(pgn: String, initialFen: Option[String], level: Int): Valid[IO[String]] =
+  def play(pgn: String, initialFen: Option[String], level: Int): Valid[IO[String]] = {
+    implicit val timeout = new Timeout(playAtMost)
     if (level < 1 || level > 8) "Invalid ai level".failNel
     else for {
       moves ← UciDump(pgn, initialFen)
-      play = Play(moves, initialFen map chess960Fen, level)
+      play = model.play.Play(moves, initialFen map chess960Fen, level)
     } yield io {
-      Await.result(actor ? play mapTo manifest[BestMove], atMost)
+      Await.result(playActor ? play mapTo manifest[model.play.BestMove], playAtMost)
     } map (_.move | "")
+  }
+
+  def analyse(pgn: String, initialFen: Option[String]): Valid[IO[Analysis]] = {
+    implicit val timeout = new Timeout(analyseAtMost)
+    for {
+      moves ← UciDump(pgn, initialFen)
+      analyse = model.analyse.Analyse(moves, initialFen map chess960Fen)
+    } yield io {
+      Await.result(analyseActor ? analyse mapTo manifest[Analysis], analyseAtMost)
+    }
+  }
 
   private def chess960Fen(fen: String) = (Forsyth << fen).fold(
     situation ⇒ fen.replace("KQkq", situation.board.pieces.toList filter {
@@ -39,9 +53,13 @@ final class Server(execPath: String, config: Config) {
     } mkString ""),
     fen)
 
-  private val atMost = 5 seconds
-  private implicit val timeout = new Timeout(atMost)
+  private val playAtMost = 5 seconds
+  private val playProcess = Process(execPath) _
+  private val playActor = Akka.system.actorOf(Props(
+    new PlayFSM(playProcess, playConfig)))
 
-  private val process = Process(execPath) _
-  private val actor = Akka.system.actorOf(Props(new FSM(process, config)))
+  private val analyseAtMost = 5 minutes
+  private val analyseProcess = Process(execPath) _
+  private val analyseActor = Akka.system.actorOf(Props(
+    new AnalyseFSM(analyseProcess, analyseConfig)))
 }

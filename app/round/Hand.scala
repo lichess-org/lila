@@ -55,7 +55,7 @@ final class Hand(
           initialFen ← progress.game.variant.standard.fold(
             io(none[String]),
             gameRepo initialFen progress.game.id)
-          aiResult ← ai()(progress.game, initialFen)
+          aiResult ← ai().play(progress.game, initialFen)
           eventsAndFen ← aiResult.fold(
             err ⇒ io(failure(err)), {
               case (newChessGame, move) ⇒ for {

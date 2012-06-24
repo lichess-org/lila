@@ -38,7 +38,7 @@ final class Processor(
         initialFen ← game.variant.standard.fold(
           io(none[String]),
           gameRepo initialFen game.id)
-        aiResult ← ai()(game, initialFen) map (_.err)
+        aiResult ← ai().play(game, initialFen) map (_.err)
         (newChessGame, move) = aiResult
         progress = game.update(newChessGame, move)
         _ ← gameRepo save progress

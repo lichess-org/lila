@@ -13,7 +13,7 @@ final class Server(
     execPath: String,
     bookPath: Option[String] = None) {
 
-  def apply(fen: String, level: Int): Valid[IO[String]] =
+  def play(fen: String, level: Int): Valid[IO[String]] =
     if (level < 1 || level > 8) "Invalid ai level".failNel
     else if (fen.isEmpty) "Empty fen".failNel
     else success(runCrafty(fen, level))

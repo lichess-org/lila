@@ -7,6 +7,7 @@ import analyse._
 import play.api.mvc._
 import play.api.http.ContentTypes
 import play.api.templates.Html
+import play.api.libs.concurrent._
 import scalaz.effects._
 
 object Analyse extends LilaController {
@@ -17,6 +18,18 @@ object Analyse extends LilaController {
   def bookmarkApi = env.bookmark.api
   def roundMessenger = env.round.messenger
   def roundSocket = env.round.socket
+  def analyser = env.analyse.analyser
+
+  def computer(id: String) = Open { implicit ctx ⇒
+    Async {
+      analyser(id).asPromise map {
+        _.fold(
+          err ⇒ BadRequest(err.shows),
+          analysis ⇒ Ok(analysis.encode)
+        )
+      }
+    }
+  }
 
   def replay(id: String, color: String) = Open { implicit ctx ⇒
     IOptionIOk(gameRepo.pov(id, color)) { pov ⇒

@@ -58,12 +58,18 @@ final class Settings(config: Config) {
 
   val AiCraftyExecPath = getString("ai.crafty.exec_path")
   val AiCraftyBookPath = Some(getString("ai.crafty.book_path")) filter ("" !=)
-  val AiCraftyRemoteUrl = getString("ai.crafty.remote_url")
+  val AiCraftyPlayUrl = getString("ai.crafty.play.url")
 
   val AiStockfishExecPath = getString("ai.stockfish.exec_path")
-  val AiStockfishRemoteUrl = getString("ai.stockfish.remote_url")
-  val AiStockfishHashSize = getInt("ai.stockfish.hash_size")
-  val AiStockfishAggressiveness = getInt("ai.stockfish.aggressiveness")
+
+  val AiStockfishPlayUrl = getString("ai.stockfish.play.url")
+  val AiStockfishPlayHashSize = getInt("ai.stockfish.play.hash_size")
+  val AiStockfishPlayMaxMoveTime = getInt("ai.stockfish.play.movetime")
+  val AiStockfishPlayAggressiveness = getInt("ai.stockfish.play.aggressiveness")
+
+  val AiStockfishAnalyseUrl = getString("ai.stockfish.analyse.url")
+  val AiStockfishAnalyseHashSize = getInt("ai.stockfish.analyse.hash_size")
+  val AiStockfishAnalyseMoveTime = getInt("ai.stockfish.analyse.movetime")
 
   val MongoHost = getString("mongo.host")
   val MongoPort = getInt("mongo.port")
@@ -92,6 +98,7 @@ final class Settings(config: Config) {
   val MongoCollectionFirewall = getString("mongo.collection.firewall")
   val MongoCollectionBookmark = getString("mongo.collection.bookmark")
   val MongoCollectionTranslation = getString("mongo.collection.translation")
+  val MongoCollectionAnalysis = getString("mongo.collection.analysis")
 
   val FirewallEnabled = getBoolean("firewall.enabled")
   val FirewallBlockCookie = getString("firewall.block_cookie")

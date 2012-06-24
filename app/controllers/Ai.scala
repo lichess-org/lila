@@ -18,7 +18,7 @@ object Ai extends LilaController {
     implicit val ctx = Context(req, None)
     Async {
       Akka.future {
-        craftyServer(fen = getOr("fen", ""), level = getIntOr("level", 1))
+        craftyServer.play(fen = getOr("fen", ""), level = getIntOr("level", 1))
       } map { res ⇒
         res.fold(
           err ⇒ BadRequest(err.shows),
@@ -32,7 +32,7 @@ object Ai extends LilaController {
     implicit val ctx = Context(req, None)
     Async {
       Akka.future {
-        stockfishServer(
+        stockfishServer.play(
           pgn = getOr("pgn", ""), 
           initialFen = get("initialFen"),
           level = getIntOr("level", 1))
@@ -40,6 +40,22 @@ object Ai extends LilaController {
         res.fold(
           err ⇒ BadRequest(err.shows),
           op ⇒ Ok(op.unsafePerformIO)
+        )
+      }
+    }
+  }
+
+  def analyseStockfish = Action { implicit req ⇒
+    implicit val ctx = Context(req, None)
+    Async {
+      Akka.future {
+        stockfishServer.analyse(
+          pgn = getOr("pgn", ""), 
+          initialFen = get("initialFen"))
+      } map { res ⇒
+        res.fold(
+          err ⇒ BadRequest(err.shows),
+          op ⇒ Ok(op.unsafePerformIO.encode)
         )
       }
     }

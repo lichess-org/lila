@@ -95,7 +95,9 @@ final class CoreEnv private (application: Application, val settings: Settings) {
   lazy val analyse = new lila.analyse.AnalyseEnv(
     settings = settings,
     gameRepo = game.gameRepo,
-    userRepo = user.userRepo)
+    userRepo = user.userRepo,
+    mongodb = mongodb.apply _,
+    ai.client.analyse _)
 
   lazy val bookmark = new lila.bookmark.BookmarkEnv(
     settings = settings,

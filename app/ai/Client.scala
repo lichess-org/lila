@@ -7,7 +7,7 @@ import scalaz.effects._
 
 trait Client extends Ai {
 
-  val remoteUrl: String
+  val playUrl: String
 
   protected def tryPing: IO[Option[Int]] 
 
@@ -17,7 +17,7 @@ trait Client extends Ai {
   protected val pingAlert = 3000
 
   protected lazy val http = new Http with ThreadSafety with NoLogging
-  protected lazy val urlObj = url(remoteUrl)
+  protected lazy val playUrlObj = url(playUrl)
 
   def or(fallback: Ai) = if (currentHealth) this else fallback
 

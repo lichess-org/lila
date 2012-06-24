@@ -26,7 +26,7 @@ final class AiEnv(settings: Settings) {
     server = craftyServer)
 
   lazy val craftyClient = new crafty.Client(
-    remoteUrl = AiCraftyRemoteUrl)
+    playUrl = AiCraftyPlayUrl)
 
   lazy val craftyServer = new crafty.Server(
     execPath = AiCraftyExecPath,
@@ -36,13 +36,16 @@ final class AiEnv(settings: Settings) {
     server = stockfishServer)
 
   lazy val stockfishClient = new stockfish.Client(
-    remoteUrl = AiStockfishRemoteUrl)
+    playUrl = AiStockfishPlayUrl,
+    analyseUrl = AiStockfishAnalyseUrl)
 
   lazy val stockfishServer = new stockfish.Server(
     execPath = AiStockfishExecPath,
-    config = stockfishConfig)
+    playConfig = stockfishPlayConfig,
+    analyseConfig = stockfishAnalyseConfig)
 
-  lazy val stockfishConfig = new stockfish.Config(settings)
+  lazy val stockfishPlayConfig = new stockfish.PlayConfig(settings)
+  lazy val stockfishAnalyseConfig = new stockfish.AnalyseConfig(settings)
 
   lazy val stupidAi = new StupidAi
 

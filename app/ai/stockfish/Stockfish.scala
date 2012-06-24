@@ -1,7 +1,7 @@
 package lila
 package ai.stockfish
 
-import model.BestMove
+import model.play.BestMove
 import game.DbGame
 
 trait Stockfish {
