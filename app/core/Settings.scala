@@ -50,11 +50,12 @@ final class Settings(config: Config) {
 
   val AiChoice = getString("ai.use")
   val AiServerMode = getBoolean("ai.server")
-  val AiRemoteUrl = getString("ai.remote.url")
+  val AiClientMode = getBoolean("ai.client")
   val AiCraftyExecPath = getString("ai.crafty.exec_path")
   val AiCraftyBookPath = Some(getString("ai.crafty.book_path")) filter ("" !=)
+  val AiCraftyRemoteUrl = getString("ai.crafty.remote_url")
   val AiStockfishExecPath = getString("ai.stockfish.exec_path")
-  val AiRemote = "remote"
+  val AiStockfishRemoteUrl = getString("ai.stockfish.remote_url")
   val AiCrafty = "crafty"
   val AiStockfish = "stockfish"
 

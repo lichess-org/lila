@@ -1,5 +1,6 @@
 package lila
 package ai
+package crafty
 
 import chess.{ Game, Move }
 import game.DbGame
@@ -9,7 +10,7 @@ import scala.io.Source
 import scala.sys.process.Process
 import scalaz.effects._
 
-final class CraftyAi(server: CraftyServer) extends Ai with FenBased {
+final class Ai(server: Server) extends ai.Ai with FenBased {
 
   def apply(dbGame: DbGame, initialFen: Option[String]): IO[Valid[(Game, Move)]] = {
 

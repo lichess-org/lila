@@ -5,27 +5,41 @@ import com.mongodb.casbah.MongoCollection
 
 import core.Settings
 
-final class AiEnv(
-    settings: Settings) {
+final class AiEnv(settings: Settings) {
 
   import settings._
 
-  val ai: () ⇒ Ai = AiChoice match {
-    case AiStockfish ⇒ () ⇒ stockfishAi
-    case AiRemote    ⇒ () ⇒ remoteAi or craftyAi
-    case AiCrafty    ⇒ () ⇒ craftyAi
-    case _           ⇒ () ⇒ stupidAi
+  val ai: () ⇒ Ai = (AiChoice, AiClientMode) match {
+    case (AiStockfish, false) ⇒ () ⇒ stockfishAi
+    case (AiStockfish, true)  ⇒ () ⇒ stockfishClient or stockfishAi
+    case (AiCrafty, false)    ⇒ () ⇒ craftyAi
+    case (AiCrafty, true)     ⇒ () ⇒ craftyClient or craftyAi
+    case _                    ⇒ () ⇒ stupidAi
   }
 
-  lazy val remoteAi = new RemoteAi(remoteUrl = AiRemoteUrl)
+  lazy val client: Client = AiChoice match {
+    case AiStockfish ⇒ stockfishClient
+    case AiCrafty    ⇒ craftyClient
+  }
 
-  lazy val craftyAi = new CraftyAi(server = craftyServer)
+  lazy val craftyAi = new crafty.Ai(
+    server = craftyServer)
 
-  lazy val craftyServer = new CraftyServer(
+  lazy val craftyClient = new crafty.Client(
+    remoteUrl = AiCraftyRemoteUrl)
+
+  lazy val craftyServer = new crafty.Server(
     execPath = AiCraftyExecPath,
     bookPath = AiCraftyBookPath)
 
-  lazy val stockfishAi = new stockfish.Ai(execPath = AiStockfishExecPath)
+  lazy val stockfishAi = new stockfish.Ai(
+    server = stockfishServer)
+
+  lazy val stockfishClient = new stockfish.Client(
+    remoteUrl = AiStockfishRemoteUrl)
+
+  lazy val stockfishServer = new stockfish.Server(
+    execPath = AiStockfishExecPath)
 
   lazy val stupidAi = new StupidAi
 

@@ -39,7 +39,7 @@ final class Reporting(
   var mps = 0
   var cpu = 0
   var mongoStatus = MongoStatus.default
-  var remoteAi = none[Int]
+  var clientAi = none[Int]
 
   var displays = 0
 
@@ -87,7 +87,7 @@ final class Reporting(
           rps = rpsProvider.rps
           mps = mpsProvider.rps
           cpu = ((cpuStats.getCpuUsage() * 1000).round / 10.0).toInt
-          remoteAi = env.ai.remoteAi.currentPing
+          clientAi = env.ai.client.currentPing
         }
       } onComplete {
         case Left(a) ⇒ println("Reporting: " + a.getMessage)
@@ -111,7 +111,7 @@ final class Reporting(
       "load" -> loadAvg.toString.replace("0.", "."),
       "mem" -> memory,
       "cpu" -> cpu,
-      "AI" -> remoteAi.isDefined.fold("1", "0")
+      "AI" -> clientAi.isDefined.fold("1", "0")
     ))
 
     if (displays % 8 == 0) println(data.header)
@@ -125,7 +125,7 @@ final class Reporting(
     nbGames,
     game.nbHubs,
     loadAvg.toString,
-    (remoteAi | 9999)
+    (clientAi | 9999)
   ) mkString " "
 
   private def monitorData = List(
@@ -143,7 +143,7 @@ final class Reporting(
     "dbConn" -> mongoStatus.connection,
     "dbQps" -> mongoStatus.qps,
     "dbLock" -> math.round(mongoStatus.lock * 10) / 10d,
-    "ai" -> (remoteAi | 9999)
+    "ai" -> (clientAi | 9999)
   ) map {
       case (name, value) ⇒ value + ":" + name
     }

@@ -18,8 +18,10 @@ final class Config {
     setoption("UCI_Chess960", play.chess960)
   )
 
+  def maxMoveTime = 500
+
   def moveTime(level: Int): Int = 
-    (level >= 1 && level <= 8).fold(1000 / (9 - level), 100)
+    maxMoveTime / (level >= 1 && level <= 8).fold(9 - level, 8)
 
   private def skill(level: Int) = 
     (level >= 1 && level <= 8).fold(math.round((level -1) * (20 / 7f)), 0)

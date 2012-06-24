@@ -1,5 +1,6 @@
 package lila
 package ai
+package crafty
 
 import chess.{ Game, Move }
 
@@ -8,7 +9,7 @@ import scala.io.Source
 import scala.sys.process.Process
 import scalaz.effects._
 
-final class CraftyServer(
+final class Server(
     execPath: String,
     bookPath: Option[String] = None) {
 
