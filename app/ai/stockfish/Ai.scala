@@ -23,8 +23,9 @@ final class Ai(execPath: String) extends lila.ai.Ai {
   def apply(dbGame: DbGame): IO[Valid[(Game, Move)]] = io {
     for {
       moves ← UciDump(dbGame.pgn)
+      play = Play(moves, None, dbGame.aiLevel | 1)
       bestMove ← unsafe {
-        Await.result(actor ? Play(moves, None) mapTo manifest[BestMove], atMost)
+        Await.result(actor ? play mapTo manifest[BestMove], atMost)
       }
       result ← bestMove.parse toValid "Invalid engine move"
       (orig, dest) = result
@@ -35,5 +36,7 @@ final class Ai(execPath: String) extends lila.ai.Ai {
   private val atMost = 5 seconds
   private implicit val timeout = new Timeout(atMost)
 
-  private val actor = Akka.system.actorOf(Props(new FSM(Process(execPath) _)))
+  private val process = Process(execPath) _
+  private val config = new Config
+  private val actor = Akka.system.actorOf(Props(new FSM(process, config)))
 }
