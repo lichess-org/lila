@@ -55,7 +55,7 @@ class FeaturedTest extends LilaSpec {
 
     "elo" in {
       "game1 white" in {
-        eloHeuristic(chess.Color.White)(game1) must_== 0.5f
+        eloHeuristic(chess.Color.White)(game1) must_== 0.6f
       }
       "game1 black" in {
         eloHeuristic(chess.Color.Black)(game1) must_== 0f
@@ -85,13 +85,13 @@ class FeaturedTest extends LilaSpec {
     }
     "score" in {
       "game1" in {
-        score(game1) must_== 0.5f + 0f + 1f * 0.5f
+        score(game1) must_== 0.6f + 0f + 1f * 0.5f
       }
       "game2" in {
-        score(game2) must_== 0.5f + 0.5f + 0.5f * 0.5f
+        score(game2) must_== 0.6f + 0.5f + 0.5f * 0.5f
       }
       "game3" in {
-        score(game3) must_== 0.5f + 1f + 0f * 0.5f
+        score(game3) must_== 0.6f + 1f + 0f * 0.5f
       }
     }
     "best" in {
