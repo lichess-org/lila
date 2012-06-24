@@ -25,7 +25,7 @@ final class AiEnv(
     execPath = AiCraftyExecPath,
     bookPath = AiCraftyBookPath)
 
-  lazy val stockfishAi = new StockfishAi(execPath = AiStockfishExecPath)
+  lazy val stockfishAi = new stockfish.Ai(execPath = AiStockfishExecPath)
 
   lazy val stupidAi = new StupidAi
 
