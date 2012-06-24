@@ -13,7 +13,7 @@ trait Resolvers {
 }
 
 trait Dependencies {
-  val scalachess = "com.github.ornicar" %% "scalachess" % "2.0"
+  val scalachess = "com.github.ornicar" %% "scalachess" % "2.1"
   val scalaz = "org.scalaz" %% "scalaz-core" % "6.0.4"
   val specs2 = "org.specs2" %% "specs2" % "1.11"
   val casbah = "com.mongodb.casbah" %% "casbah" % "2.1.5-1"
