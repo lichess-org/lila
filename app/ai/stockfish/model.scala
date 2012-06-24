@@ -45,31 +45,34 @@ object model {
   object analyse {
 
     case class Analyse(
-        moves: List[String],
+        moves: IndexedSeq[String],
         fen: Option[String],
         analysis: AnalysisBuilder,
         infoBuffer: List[String]) {
 
-      def go(moveTime: Int) = moves lift (analysis.size + 1) map { nextMove ⇒
-        List(
-          "position %s moves %s".format(
-            fen.fold("fen " + _, "startpos"),
-            moves take analysis.size mkString " "),
-          "go movetime %d searchmoves %s".format(moveTime, nextMove)
-        )
-      }
+      def go(moveTime: Int) = nextMove.isDefined option List(
+        "position %s moves %s".format(
+          fen.fold("fen " + _, "startpos"),
+          moves take analysis.size mkString " "),
+        "go movetime %d".format(moveTime)
+      )
+
+      def nextMove = moves lift analysis.size
 
       def buffer(str: String) = copy(infoBuffer = str :: infoBuffer)
 
-      def flush = copy(
-        analysis = analysis + AnalyseParser(infoBuffer),
+      def flush = for {
+        move ← nextMove toValid "No move to flush"
+        info ← AnalyseParser(infoBuffer)(move)
+      } yield copy(
+        analysis = analysis + info,
         infoBuffer = Nil)
 
       def chess960 = fen.isDefined
     }
     object Analyse {
       def apply(moves: String, fen: Option[String]) = new Analyse(
-        moves = moves.split(' ').toList,
+        moves = moves.split(' ').toIndexedSeq,
         fen = fen,
         analysis = Analysis.builder,
         infoBuffer = Nil)
@@ -77,7 +80,7 @@ object model {
 
     case class Task(analyse: Analyse, ref: ActorRef) {
       def buffer(str: String) = copy(analyse = analyse buffer str)
-      def flush = copy(analyse = analyse.flush)
+      def flush = analyse.flush map { a ⇒ copy(analyse = a) }
     }
 
     sealed trait Data {
@@ -96,7 +99,7 @@ object model {
       def enqueue(task: Task) = copy(queue = queue :+ task)
       def done = Todo(queue)
       def buffer(str: String) = copy(current = current buffer str)
-      def flush = copy(current = current.flush)
+      def flush = current.flush map { c ⇒ copy(current = c) }
     }
   }
 

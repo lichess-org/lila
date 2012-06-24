@@ -54,12 +54,12 @@ final class Server(
     fen)
 
   private val playAtMost = 5 seconds
-  private val playProcess = Process(execPath) _
-  private val playActor = Akka.system.actorOf(Props(
+  private lazy val playProcess = Process(execPath) _
+  private lazy val playActor = Akka.system.actorOf(Props(
     new PlayFSM(playProcess, playConfig)))
 
   private val analyseAtMost = 5 minutes
-  private val analyseProcess = Process(execPath) _
-  private val analyseActor = Akka.system.actorOf(Props(
+  private lazy val analyseProcess = Process(execPath) _
+  private lazy val analyseActor = Akka.system.actorOf(Props(
     new AnalyseFSM(analyseProcess, analyseConfig)))
 }

@@ -18,26 +18,32 @@ object Analysis {
       Analysis(infos)
     }
 
-  def builder = new AnalysisBuilder(Vector.empty)
+  def builder = new AnalysisBuilder(Nil)
 }
 
-case class AnalysisBuilder(infos: Vector[Info]) {
+final class AnalysisBuilder(infos: List[Info]) {
 
   def size = infos.size
 
-  def +(info: Info) = copy(infos = infos :+ info)
+  def +(info: Info) = new AnalysisBuilder(info :: infos)
 
-  def done = new Analysis(infos.toList.reverse)
+  def done = new Analysis(infos.reverse)
 }
 
 case class Info(
+    move: (Pos, Pos),
+    best: (Pos, Pos),
     cp: Option[Int],
-    mate: Option[Int],
-    best: Option[(Pos, Pos)]) {
+    mate: Option[Int]) {
 
-  def encode = List(cp, mate, best map {
-    case (orig, dest) ⇒ orig.key + dest.key
-  }) mkString Info.separator
+  def encode: String = List(
+    Uci makeMove move,
+    Uci makeMove best,
+    encode(cp),
+    encode(mate)
+  ) mkString Info.separator
+
+  private def encode(oa: Option[Any]): String = oa.fold(_.toString, "_")
 }
 
 object Info {
@@ -45,11 +51,15 @@ object Info {
   private val separator = ","
 
   def decode(str: String): Valid[Info] = str.split(separator).toList match {
-    case cpString :: mateString :: bestString :: Nil ⇒ Info(
-      cp = parseIntOption(cpString) ,
-      mate = parseIntOption(mateString),
-      best = Uci parseMove bestString
-    ).success
+    case moveString :: bestString :: cpString :: mateString :: Nil ⇒ for {
+      move ← Uci parseMove moveString toValid "Invalid move " + moveString
+      best ← Uci parseMove bestString toValid "Invalid best " + bestString
+    } yield Info(
+      move = move,
+      best = best,
+      cp = parseIntOption(cpString),
+      mate = parseIntOption(mateString)
+    )
     case _ ⇒ !!("Invalid encoded info " + str)
   }
 }

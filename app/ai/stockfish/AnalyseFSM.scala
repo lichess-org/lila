@@ -40,8 +40,13 @@ final class AnalyseFSM(
       goto(Running) using (data buffer t)
     }
     case Event(Out(t), data: Doing) if t contains "bestmove" ⇒ {
-      val d = data buffer t
-      nextInfo(data.flush)
+      (data buffer t).flush.fold(
+        err ⇒ {
+          log.error(err.shows)
+          nextAnalyse(data.done)
+        },
+        nextData ⇒ nextInfo(nextData)
+      )
     }
   }
   whenUnhandled {
@@ -71,7 +76,7 @@ final class AnalyseFSM(
     (task.analyse go config.moveTime).fold(
       instructions ⇒ {
         instructions foreach process.write
-        goto(Running)
+        goto(Running) using doing
       }, {
         task.ref ! task.analyse.analysis.done
         nextAnalyse(doing.done)

@@ -32,6 +32,7 @@ final class Analyser(
           game ⇒ for {
             initialFen ← gameRepo initialFen id
             analysis ← generator(game, initialFen)
+            _ ← analysis.fold(_ ⇒ io(), analysisRepo.add(id, _))
           } yield analysis,
           io(!!("No such game " + id): Valid[Analysis])
         )
