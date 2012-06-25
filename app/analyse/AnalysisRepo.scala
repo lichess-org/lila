@@ -35,10 +35,11 @@ final class AnalysisRepo(collection: MongoCollection) {
     for {
       obj ← collection.findOne(DBObject("_id" -> id))
       done = obj.getAs[Boolean]("done") | false
+      fail = obj.getAs[String]("fail") 
       infos = for {
         encoded ← obj.getAs[String]("encoded")
         decoded ← (Analysis decode encoded).toOption
       } yield decoded
-    } yield Analysis(infos | Nil, done)
+    } yield Analysis(infos | Nil, done, fail)
   }
 }

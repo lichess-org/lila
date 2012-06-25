@@ -13,37 +13,39 @@ import akka.util.Timeout
 final class Analyser(
     analysisRepo: AnalysisRepo,
     gameRepo: GameRepo,
-    generator: () ⇒ (DbGame, Option[String]) ⇒ IO[Valid[Analysis]]) {
+    generator: () ⇒ (DbGame, Option[String]) ⇒ Future[Valid[Analysis]]) {
 
   private implicit val executor = Akka.system.dispatcher
   private implicit val timeout = Timeout(5 minutes)
 
   def get(id: String): IO[Option[Analysis]] = analysisRepo byId id
 
-  def getOrGenerate(id: String, userId: String): Future[Valid[Analysis]] = Future {
-    getOrGenerateIO(id, userId).unsafePerformIO
-  }
+  def getOrGenerate(id: String, userId: String): Future[Valid[Analysis]] = 
+    getOrGenerateIO(id, userId)
 
-  private def getOrGenerateIO(id: String, userId: String): IO[Valid[Analysis]] = for {
-    a ← analysisRepo byId id
+  private def getOrGenerateIO(id: String, userId: String): Future[Valid[Analysis]] = for {
+    a ← ioToFuture(analysisRepo byId id)
     b ← a.fold(
-      x ⇒ io(success(x)),
+      x ⇒ Future(success(x)),
       for {
-        gameOption ← gameRepo game id
+        gameOption ← ioToFuture(gameRepo game id)
         result ← gameOption.fold(
           game ⇒ for {
-            _ ← analysisRepo.progress(id, userId)
-            initialFen ← gameRepo initialFen id
+            _ ← ioToFuture(analysisRepo.progress(id, userId))
+            initialFen ← ioToFuture(gameRepo initialFen id)
             analysis ← generator()(game, initialFen)
-            _ ← analysis.fold(
+            _ ← ioToFuture(analysis.fold(
               analysisRepo.fail(id, _),
               analysisRepo.done(id, _)
-            )
+            ))
           } yield analysis,
-          io(!!("No such game " + id): Valid[Analysis])
+          Future(!!("No such game " + id): Valid[Analysis])
         )
       } yield result
     )
   } yield b
 
+  private def ioToFuture[A](ioa: IO[A]) = Future {
+    ioa.unsafePerformIO
+  }
 }

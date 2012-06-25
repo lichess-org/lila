@@ -19,9 +19,8 @@ final class Client(val playUrl: String) extends ai.Client with FenBased {
     }
   }
 
-  def analyse(dbGame: DbGame, initialFen: Option[String]) = io {
-    !!("Crafty analysis is not implemented")
-  }
+  def analyse(dbGame: DbGame, initialFen: Option[String]) = 
+    throw new RuntimeException("Crafty analysis is not implemented")
 
   private def fetchNewFen(oldFen: String, level: Int): IO[String] = io {
     http(playUrlObj <<? Map(

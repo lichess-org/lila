@@ -6,7 +6,7 @@ import http.Context
 import play.api._
 import mvc._
 
-import play.api.libs.concurrent.Akka
+import play.api.libs.concurrent._
 import play.api.Play.current
 
 object Ai extends LilaController {
@@ -54,14 +54,13 @@ object Ai extends LilaController {
     implicit val ctx = Context(req, None)
     IfServer {
       Async {
-        Akka.future {
-          stockfishServer.analyse(
-            pgn = getOr("pgn", ""),
-            initialFen = get("initialFen"))
-        } map { res ⇒
+        stockfishServer.analyse(
+          pgn = getOr("pgn", ""),
+          initialFen = get("initialFen")
+        ).asPromise map { res ⇒
           res.fold(
-            err ⇒ BadRequest(err.shows),
-            op ⇒ Ok(op.unsafePerformIO.encode)
+            err ⇒ InternalServerError(err.shows),
+            analyse ⇒ Ok(analyse.encode)
           )
         }
       }

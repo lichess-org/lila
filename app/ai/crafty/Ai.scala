@@ -9,6 +9,7 @@ import java.io.File
 import scala.io.Source
 import scala.sys.process.Process
 import scalaz.effects._
+import akka.dispatch.Future
 
 final class Ai(server: Server) extends ai.Ai with FenBased {
 
@@ -23,7 +24,6 @@ final class Ai(server: Server) extends ai.Ai with FenBased {
     )
   }
 
-  def analyse(dbGame: DbGame, initialFen: Option[String]) = io {
-    !!("Crafty analysis is not implemented")
-  }
+  def analyse(dbGame: DbGame, initialFen: Option[String]) = 
+    throw new RuntimeException("Crafty analysis is not implemented")
 }

@@ -8,6 +8,9 @@ import analyse.Analysis
 
 import scalaz.effects._
 import dispatch.{ url }
+import akka.dispatch.Future
+import play.api.Play.current
+import play.api.libs.concurrent._
 
 final class Client(
     val playUrl: String,
@@ -19,11 +22,10 @@ final class Client(
     }
   }
 
-  def analyse(dbGame: DbGame, initialFen: Option[String]): IO[Valid[Analysis]] = {
-    fetchAnalyse(dbGame.pgn, initialFen | "") map { infos ⇒
-      Analysis(infos, true)
-    }
-  }
+  def analyse(dbGame: DbGame, initialFen: Option[String]): Future[Valid[Analysis]] =
+    fetchAnalyse(dbGame.pgn, initialFen | "") map { 
+      _ flatMap { Analysis(_, true) }
+    } 
 
   private lazy val analyseUrlObj = url(analyseUrl)
 
@@ -45,10 +47,14 @@ final class Client(
     ) as_str)
   }
 
-  private def fetchAnalyse(pgn: String, initialFen: String): IO[String] = io {
-    http(analyseUrlObj <<? Map(
-      "pgn" -> pgn,
-      "initialFen" -> initialFen
-    ) as_str)
+  private def fetchAnalyse(pgn: String, initialFen: String): Future[Valid[String]] = Future {
+    unsafe {
+      http(analyseUrlObj <<? Map(
+        "pgn" -> pgn,
+        "initialFen" -> initialFen
+      ) as_str)
+    }
   }
+
+  private implicit val executor = Akka.system.dispatcher
 }

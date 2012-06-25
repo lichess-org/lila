@@ -134,7 +134,9 @@ body.dark div.hooks_wrap {
   background: -ms-linear-gradient(top, rgba(33,33,33,0.9) 0%,rgba(15,15,15,0.5) 100%);
   background: -o-linear-gradient(top, rgba(33,33,33,0.9) 0%,rgba(15,15,15,0.5) 100%);
 }
-body.dark div.lichess_bot tr:nth-child(even) td {
+body.dark div.lichess_bot tr:nth-child(even) td,
+body.dark div.game_analysis tr:nth-child(odd) td
+{
   background: #303030;
 }
 body.dark div.new_posts li span {

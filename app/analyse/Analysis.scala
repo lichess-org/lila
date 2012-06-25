@@ -4,7 +4,10 @@ package analyse
 import chess.{ Pos, Color }
 import ai.stockfish.Uci
 
-case class Analysis(infos: List[Info], done: Boolean) {
+case class Analysis(
+  infos: List[Info], 
+  done: Boolean, 
+  fail: Option[String] = None) {
 
   def encode: String = infos map (_.encode) mkString Analysis.separator
 
@@ -52,7 +55,7 @@ object Analysis {
 
   private val separator = " "
 
-  def apply(str: String, done: Boolean) = decode(str) map { infos ⇒
+  def apply(str: String, done: Boolean): Valid[Analysis] = decode(str) map { infos ⇒
     new Analysis(infos, done)
   }
 

@@ -18,9 +18,9 @@ import play.api.libs.concurrent._
 import scalaz.effects._
 
 final class Server(
-  execPath: String, 
-  playConfig: PlayConfig,
-  analyseConfig: AnalyseConfig) {
+    execPath: String,
+    playConfig: PlayConfig,
+    analyseConfig: AnalyseConfig) {
 
   def play(pgn: String, initialFen: Option[String], level: Int): Valid[IO[String]] = {
     implicit val timeout = new Timeout(playAtMost)
@@ -33,15 +33,14 @@ final class Server(
     } map (_.move | "")
   }
 
-  def analyse(pgn: String, initialFen: Option[String]): Valid[IO[Analysis]] = {
-    implicit val timeout = new Timeout(analyseAtMost)
-    for {
-      moves ← UciDump(pgn, initialFen)
-      analyse = model.analyse.Analyse(moves, initialFen map chess960Fen)
-    } yield io {
-      Await.result(analyseActor ? analyse mapTo manifest[Analysis], analyseAtMost)
-    }
-  }
+  def analyse(pgn: String, initialFen: Option[String]): Future[Valid[Analysis]] =
+    UciDump(pgn, initialFen).fold(
+      err ⇒ Future(failure(err)),
+      moves ⇒ {
+        val analyse = model.analyse.Analyse(moves, initialFen map chess960Fen)
+        implicit val timeout = Timeout(1 hour)
+        analyseActor ? analyse mapTo manifest[Valid[Analysis]]
+      })
 
   private def chess960Fen(fen: String) = (Forsyth << fen).fold(
     situation ⇒ fen.replace("KQkq", situation.board.pieces.toList filter {
@@ -53,12 +52,13 @@ final class Server(
     } mkString ""),
     fen)
 
-  private val playAtMost = 5 seconds
+  private implicit val executor = Akka.system.dispatcher
+
+  private val playAtMost = 10 seconds
   private lazy val playProcess = Process(execPath) _
   private lazy val playActor = Akka.system.actorOf(Props(
     new PlayFSM(playProcess, playConfig)))
 
-  private val analyseAtMost = 5 minutes
   private lazy val analyseProcess = Process(execPath) _
   private lazy val analyseActor = Akka.system.actorOf(Props(
     new AnalyseFSM(analyseProcess, analyseConfig)))

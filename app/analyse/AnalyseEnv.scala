@@ -7,13 +7,14 @@ import core.Settings
 
 import com.mongodb.casbah.MongoCollection
 import scalaz.effects._
+import akka.dispatch.Future
 
 final class AnalyseEnv(
     settings: Settings,
     gameRepo: GameRepo,
     userRepo: UserRepo,
     mongodb: String ⇒ MongoCollection,
-    generator: () ⇒ (DbGame, Option[String]) ⇒ IO[Valid[Analysis]]) {
+    generator: () ⇒ (DbGame, Option[String]) ⇒ Future[Valid[Analysis]]) {
 
   import settings._
 

@@ -32,7 +32,7 @@ final class AnalyseFSM(
     case Event(Out(t), _) ⇒ { log.warning(t); stay }
   }
   when(UciNewGame) {
-    case Event(Out(t), data @ Doing(Task(analyse, ref), _)) if t contains "readyok" ⇒
+    case Event(Out(t), data: Doing) if t contains "readyok" ⇒
       nextInfo(data)
   }
   when(Running) {
@@ -43,6 +43,7 @@ final class AnalyseFSM(
       (data buffer t).flush.fold(
         err ⇒ {
           log.error(err.shows)
+          data.current.ref ! failure(err)
           nextAnalyse(data.done)
         },
         nextData ⇒ nextInfo(nextData)
@@ -78,7 +79,7 @@ final class AnalyseFSM(
         instructions foreach process.write
         goto(Running) using doing
       }, {
-        task.ref ! task.analyse.analysis.done
+        task.ref ! success(task.analyse.analysis.done)
         nextAnalyse(doing.done)
       })
   }

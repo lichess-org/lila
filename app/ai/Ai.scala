@@ -6,10 +6,11 @@ import game.DbGame
 import analyse.Analysis
 
 import scalaz.effects._
+import akka.dispatch.Future
 
 trait Ai {
 
   def play(dbGame: DbGame, initialFen: Option[String]): IO[Valid[(Game, Move)]]
 
-  def analyse(dbGame: DbGame, initialFen: Option[String]): IO[Valid[Analysis]]
+  def analyse(dbGame: DbGame, initialFen: Option[String]): Future[Valid[Analysis]]
 }

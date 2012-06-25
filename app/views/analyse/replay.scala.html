@@ -40,13 +40,21 @@ moreJs = moreJs) {
 <textarea id="pgnText" readonly="readonly">@Html(pgn)</textarea>
 @analysis.map { a =>
 <div class="undergame_box game_analysis">
-@a.done.fold(analyse.analysis(pov, a), Html("<div class='inner'>Computer analysis in progress</div>"))
-</div>
+  @if(a.done) {
+  @analyse.analysis(pov, a)
+  } else {
+  @a.fail.map { f =>
+  <div class='inner'>Computer analysis has failed.<br />@f</div>
+  }.getOrElse {
+  <div class='inner'>Computer analysis in progress</div>
+  }
+  }
 }.getOrElse {
 <form action="@routes.Analyse.computer(gameId, color.name)" method="post">
   <button type="submit">Request a computer analysis</button>
 </form>
 }
+</div>
 @views.html.game.more(pov, bookmarkers) {
 @trans.opening() @opening.map { o =>
 <a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a>
@@ -56,7 +64,7 @@ moreJs = moreJs) {
 <br />
 <a class="rotate_board" href="@routes.Analyse.replay(gameId, (!color).name)">@trans.flipBoard()</a>
 <br />
-<a class="view_pgn_toggle" href="@routes.Analyse.pgn(game.id)">View PGN</a> 
+<a class="view_pgn_toggle" href="@routes.Analyse.pgn(game.id)">View PGN</a>
 </nav>
 }
 }

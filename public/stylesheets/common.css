@@ -664,6 +664,16 @@ div.undergame_box div.inner {
 div.game_analysis {
   font-family: monospace;
 }
+div.game_analysis th {
+  padding: 5px;
+}
+div.game_analysis td,
+div.game_analysis th {
+  padding: 3px 10px 3px 10px;
+}
+div.game_analysis tr:nth-child(odd) td {
+  background: #f0f0f0;
+}
 div.game_analysis table {
   width: 100%;
 }

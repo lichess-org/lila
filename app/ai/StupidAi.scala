@@ -20,8 +20,6 @@ final class StupidAi extends Ai {
     } yield newChessGameAndMove
   }
 
-  def analyse(dbGame: DbGame, initialFen: Option[String]) = io {
-    !!("Stupid AI analysis is not implemented")
-  }
-
+  def analyse(dbGame: DbGame, initialFen: Option[String]) = 
+    throw new RuntimeException("Stupid analysis is not implemented")
 }

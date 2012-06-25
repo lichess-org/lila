@@ -7,6 +7,7 @@ import game.DbGame
 import analyse.Analysis
 
 import scalaz.effects._
+import akka.dispatch.Future
 
 final class Ai(server: Server) extends lila.ai.Ai with Stockfish {
 
@@ -20,9 +21,6 @@ final class Ai(server: Server) extends lila.ai.Ai with Stockfish {
       }
     )
 
-  def analyse(dbGame: DbGame, initialFen: Option[String]): IO[Valid[Analysis]] =
-    server.analyse(dbGame.pgn, initialFen).fold(
-      err ⇒ io(failure(err)),
-      iop ⇒ iop map success
-    )
+  def analyse(dbGame: DbGame, initialFen: Option[String]): Future[Valid[Analysis]] =
+    server.analyse(dbGame.pgn, initialFen)
 }

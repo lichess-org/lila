@@ -1,9 +1,9 @@
 @(pov: Pov, analysis: lila.analyse.Analysis)
 
-<div class="inner">
 <table>
   <thead>
     <tr>
+      <th>#</th>
       <th>Severity</th>
       <th>Move</th>
       <th>Score</th>
@@ -13,12 +13,12 @@
   <body>
     @analysis.advices.map { a =>
     <tr>
+      <td>@a.fullMove</td>
       <td>@a.severity.toString</td>
-      <td>@a.fullMove.@a.color.fold("", "..") @a.info.showMove</td>
+      <td>@a.color.fold("", "..") @a.info.showMove</td>
       <td>@a.info.score.map(_.showPawns) ⇒ @a.next.score.map(_.showPawns)</td>
       <td>@a.info.showBest</td>
     </tr>
     }
   </body>
 </table>
-</div>
