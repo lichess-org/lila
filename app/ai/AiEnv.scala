@@ -9,11 +9,11 @@ final class AiEnv(settings: Settings) {
 
   import settings._
 
-  val ai: () ⇒ Ai = (AiChoice, AiClientMode) match {
-    case (AiStockfish, false) ⇒ () ⇒ stockfishAi
+  lazy val ai: () ⇒ Ai = (AiChoice, isClient) match {
     case (AiStockfish, true)  ⇒ () ⇒ stockfishClient or stockfishAi
-    case (AiCrafty, false)    ⇒ () ⇒ craftyAi
+    case (AiStockfish, false) ⇒ () ⇒ stockfishAi
     case (AiCrafty, true)     ⇒ () ⇒ craftyClient or craftyAi
+    case (AiCrafty, false)    ⇒ () ⇒ craftyAi
     case _                    ⇒ () ⇒ stupidAi
   }
 
@@ -49,5 +49,6 @@ final class AiEnv(settings: Settings) {
 
   lazy val stupidAi = new StupidAi
 
-  val isServer = AiServerMode
+  lazy val isClient = AiClientMode
+  lazy val isServer = AiServerMode
 }

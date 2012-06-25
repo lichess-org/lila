@@ -13,16 +13,18 @@ import akka.util.Timeout
 final class Analyser(
     analysisRepo: AnalysisRepo,
     gameRepo: GameRepo,
-    generator: (DbGame, Option[String]) ⇒ IO[Valid[Analysis]]) {
+    generator: () ⇒ (DbGame, Option[String]) ⇒ IO[Valid[Analysis]]) {
 
   private implicit val executor = Akka.system.dispatcher
   private implicit val timeout = Timeout(5 minutes)
 
-  def apply(id: String): Future[Valid[Analysis]] = Future {
-    applyIO(id).unsafePerformIO
+  def get(id: String): IO[Option[Analysis]] = analysisRepo byId id
+
+  def getOrGenerate(id: String, userId: String): Future[Valid[Analysis]] = Future {
+    getOrGenerateIO(id, userId).unsafePerformIO
   }
 
-  private def applyIO(id: String): IO[Valid[Analysis]] = for {
+  private def getOrGenerateIO(id: String, userId: String): IO[Valid[Analysis]] = for {
     a ← analysisRepo byId id
     b ← a.fold(
       x ⇒ io(success(x)),
@@ -30,9 +32,10 @@ final class Analyser(
         gameOption ← gameRepo game id
         result ← gameOption.fold(
           game ⇒ for {
+            _ ← analysisRepo.progress(id, userId)
             initialFen ← gameRepo initialFen id
-            analysis ← generator(game, initialFen)
-            _ ← analysis.fold(_ ⇒ io(), analysisRepo.add(id, _))
+            analysis ← generator()(game, initialFen)
+            _ ← analysis.fold(_ ⇒ io(), analysisRepo.done(id, _))
           } yield analysis,
           io(!!("No such game " + id): Valid[Analysis])
         )

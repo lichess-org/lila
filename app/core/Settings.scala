@@ -8,6 +8,8 @@ final class Settings(config: Config) {
 
   import config._
 
+  val ConfigName = getString("config_name")
+
   val SiteUidTimeout = millis("site.uid.timeout")
 
   val MonitorTimeout = millis("monitor.timeout")

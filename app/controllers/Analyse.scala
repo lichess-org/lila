@@ -20,15 +20,13 @@ object Analyse extends LilaController {
   def roundSocket = env.round.socket
   def analyser = env.analyse.analyser
 
-  def computer(id: String) = Open { implicit ctx ⇒
-    Async {
-      analyser(id).asPromise map {
-        _.fold(
-          err ⇒ BadRequest(err.shows),
-          analysis ⇒ Ok(analysis.encode)
-        )
+  def computer(id: String, color: String) = Auth { implicit ctx ⇒
+    me ⇒
+      analyser.getOrGenerate(id, me.id).onComplete {
+        case Left(e)  ⇒ println(e.getMessage)
+        case Right(a) ⇒ "Computer analysis complete"
       }
-    }
+      Redirect(routes.Analyse.replay(id, color))
   }
 
   def replay(id: String, color: String) = Open { implicit ctx ⇒
@@ -37,12 +35,14 @@ object Analyse extends LilaController {
         roomHtml ← roundMessenger renderWatcher pov.game
         bookmarkers ← bookmarkApi usersByGame pov.game
         pgn ← pgnDump >> pov.game
+        analysis ← analyser get pov.game.id
       } yield html.analyse.replay(
         pov,
         pgn,
         Html(roomHtml),
         bookmarkers,
         openingExplorer openingOf pov.game.pgn,
+        analysis,
         roundSocket blockingVersion pov.gameId)
     }
   }

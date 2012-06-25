@@ -13,7 +13,7 @@ final class AnalyseEnv(
     gameRepo: GameRepo,
     userRepo: UserRepo,
     mongodb: String ⇒ MongoCollection,
-    generator: (DbGame, Option[String]) ⇒ IO[Valid[Analysis]]) {
+    generator: () ⇒ (DbGame, Option[String]) ⇒ IO[Valid[Analysis]]) {
 
   import settings._
 

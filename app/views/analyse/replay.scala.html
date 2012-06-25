@@ -1,4 +1,4 @@
-@(pov: Pov, pgn: String, roomHtml: Html, bookmarkers: List[User], opening: Option[chess.OpeningExplorer.Opening], version: Int)(implicit ctx: Context)
+@(pov: Pov, pgn: String, roomHtml: Html, bookmarkers: List[User], opening: Option[chess.OpeningExplorer.Opening], analysis: Option[lila.analyse.Analysis], version: Int)(implicit ctx: Context)
 
 @import pov._
 
@@ -12,6 +12,19 @@
 }
 
 @underchat = {
+@analysis.map { a =>
+@if(a.done) {
+<div class="analysis">
+  @analyse.analysis(pov, a))
+</div>
+} else {
+<p>Computer analysis in progress</p>
+}
+}.getOrElse {
+<form action="@routes.Analyse.computer(gameId, color.name)" method="post">
+  <button type="submit">Request a computer analysis</button>
+</form>
+}
 <div class="watchers">
   @trans.spectators() <span class="list"></span>
 </div>

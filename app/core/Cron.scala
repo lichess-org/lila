@@ -68,11 +68,11 @@ object Cron {
         env.titivate.finishByClock
       }
 
-      env.ai.client.diagnose.unsafePerformIO
+      if (env.ai.isClient) env.ai.client.diagnose.unsafePerformIO
     }
-      effect(10 seconds, "ai diagnose") {
-        env.ai.client.diagnose
-      }
+    if (env.ai.isClient) effect(10 seconds, "ai diagnose") {
+      env.ai.client.diagnose
+    }
 
     def message(freq: Duration)(to: (ActorRef, Any)) {
       Akka.system.scheduler.schedule(freq, freq.randomize(), to._1, to._2)

@@ -1,22 +1,42 @@
 package lila
 package analyse
 
-import chess.Pos
+import chess.{ Pos, Color }
 import ai.stockfish.Uci
 
-case class Analysis(infos: List[Info]) {
+case class Analysis(infos: List[Info], done: Boolean) {
 
   def encode: String = infos map (_.encode) mkString Analysis.separator
+
+  lazy val richInfos = {
+    var prevCp = 0
+    infos.zipWithIndex map {
+      case (info, index) ⇒ {
+        RichInfo(index, 0, info)
+      }
+    }
+  }
+
+  def of(color: Color) = PlayerAnalysis(
+    color = color,
+    richInfos filter (_.color == color))
+}
+
+case class PlayerAnalysis(color: Color, richInfos: List[RichInfo]) {
+
+  def cps = richInfos map { ri ⇒ ri.turn -> ri.cp }
 }
 
 object Analysis {
 
   private val separator = " "
 
-  def decode(str: String): Valid[Analysis] =
-    (str.split(separator).toList map Info.decode).sequence map { infos ⇒
-      Analysis(infos)
-    }
+  def apply(str: String, done: Boolean) = decode(str) map { infos =>
+    new Analysis(infos, done)
+  }
+
+  def decode(str: String): Valid[List[Info]] =
+    (str.split(separator).toList map Info.decode).sequence 
 
   def builder = new AnalysisBuilder(Nil)
 }
@@ -27,7 +47,7 @@ final class AnalysisBuilder(infos: List[Info]) {
 
   def +(info: Info) = new AnalysisBuilder(info :: infos)
 
-  def done = new Analysis(infos.reverse)
+  def done = new Analysis(infos.reverse, true)
 }
 
 case class Info(
@@ -62,4 +82,14 @@ object Info {
     )
     case _ ⇒ !!("Invalid encoded info " + str)
   }
+}
+
+case class RichInfo(turn: Int, delta: Int, info: Info) {
+
+  def color = Color(turn % 2 == 0)
+
+  def move = info.move
+  def best = info.best
+  def cp = info.cp
+  def mate = info.mate
 }

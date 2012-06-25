@@ -16,6 +16,8 @@ final class CoreEnv private (application: Application, val settings: Settings) {
   implicit val app = application
   import settings._
 
+  def configName = ConfigName
+
   lazy val mongodb = new lila.mongodb.MongoDbEnv(
     settings = settings)
 
@@ -97,7 +99,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     gameRepo = game.gameRepo,
     userRepo = user.userRepo,
     mongodb = mongodb.apply _,
-    ai.client.analyse _)
+    () => ai.ai().analyse _)
 
   lazy val bookmark = new lila.bookmark.BookmarkEnv(
     settings = settings,

@@ -10,18 +10,19 @@ import scalaz.effects._
 import dispatch.{ url }
 
 final class Client(
-  val playUrl: String,
-  analyseUrl: String
-) extends ai.Client with Stockfish {
+    val playUrl: String,
+    analyseUrl: String) extends ai.Client with Stockfish {
 
-  def play(dbGame: DbGame, initialFen: Option[String]): IO[Valid[(Game, Move)]] = { 
-    fetchMove(dbGame.pgn, initialFen | "", dbGame.aiLevel | 1) map { 
+  def play(dbGame: DbGame, initialFen: Option[String]): IO[Valid[(Game, Move)]] = {
+    fetchMove(dbGame.pgn, initialFen | "", dbGame.aiLevel | 1) map {
       applyMove(dbGame, _)
     }
   }
 
-  def analyse(dbGame: DbGame, initialFen: Option[String]): IO[Valid[Analysis]] = { 
-    fetchAnalyse(dbGame.pgn, initialFen | "") map Analysis.decode
+  def analyse(dbGame: DbGame, initialFen: Option[String]): IO[Valid[Analysis]] = {
+    fetchAnalyse(dbGame.pgn, initialFen | "") map { infos ⇒
+      Analysis(infos, true)
+    }
   }
 
   private lazy val analyseUrlObj = url(analyseUrl)

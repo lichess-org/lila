@@ -15,6 +15,8 @@ object Global extends GlobalSettings {
 
     coreEnv = CoreEnv(app)
 
+    println("Configured as " + env.configName)
+
     if (env.ai.isServer) println("Running as AI server")
     else if(app.mode == Mode.Test) println("Running without cron")
     else core.Cron start env
