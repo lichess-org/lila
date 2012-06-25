@@ -2,6 +2,7 @@ package lila
 package ai
 
 import com.mongodb.casbah.MongoCollection
+import scalaz.effects._
 
 import core.Settings
 
@@ -15,11 +16,6 @@ final class AiEnv(settings: Settings) {
     case (AiCrafty, true)     ⇒ () ⇒ craftyClient or craftyAi
     case (AiCrafty, false)    ⇒ () ⇒ craftyAi
     case _                    ⇒ () ⇒ stupidAi
-  }
-
-  lazy val client: Client = AiChoice match {
-    case AiStockfish ⇒ stockfishClient
-    case AiCrafty    ⇒ craftyClient
   }
 
   lazy val craftyAi = new crafty.Ai(
@@ -51,4 +47,15 @@ final class AiEnv(settings: Settings) {
 
   lazy val isClient = AiClientMode
   lazy val isServer = AiServerMode
+
+  lazy val clientDiagnose = client.fold(_.diagnose, io())
+
+  def clientPing = client flatMap (_.currentPing)
+
+  private lazy val client = isClient option {
+    AiChoice match {
+      case AiStockfish ⇒ stockfishClient
+      case AiCrafty    ⇒ craftyClient
+    }
+  }
 }

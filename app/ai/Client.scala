@@ -24,7 +24,7 @@ trait Client extends Ai {
   def currentPing = ping
   def currentHealth = ping.fold(_ < pingAlert, false)
 
-  def diagnose: IO[Unit] = for {
+  val diagnose: IO[Unit] = for {
     p ← tryPing
     _ ← p.fold(_ < pingAlert, false).fold(
       currentHealth.fold(io(), putStrLn("remote AI is up, ping = " + p)),

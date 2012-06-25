@@ -68,10 +68,10 @@ object Cron {
         env.titivate.finishByClock
       }
 
-      if (env.ai.isClient) env.ai.client.diagnose.unsafePerformIO
+      env.ai.clientDiagnose.unsafePerformIO
     }
-    if (env.ai.isClient) effect(10 seconds, "ai diagnose") {
-      env.ai.client.diagnose
+    effect(10 seconds, "ai diagnose") {
+      env.ai.clientDiagnose
     }
 
     def message(freq: Duration)(to: (ActorRef, Any)) {

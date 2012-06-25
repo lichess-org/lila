@@ -87,7 +87,7 @@ final class Reporting(
           rps = rpsProvider.rps
           mps = mpsProvider.rps
           cpu = ((cpuStats.getCpuUsage() * 1000).round / 10.0).toInt
-          clientAi = env.ai.client.currentPing
+          clientAi = env.ai.clientPing
         }
       } onComplete {
         case Left(a) ⇒ println("Reporting: " + a.getMessage)
