@@ -11,7 +11,7 @@ import user.User
 import com.novus.salat._
 import com.novus.salat.dao._
 import com.mongodb.casbah.MongoCollection
-import com.mongodb.casbah.Imports._
+import com.mongodb.casbah.query.Imports._
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 import java.util.Date
@@ -23,7 +23,7 @@ class GameRepo(collection: MongoCollection)
 
   def game(gameId: String): IO[Option[DbGame]] = io {
     if (gameId.size != gameIdSize) None
-    else findOneByID(gameId) flatMap (_.decode)
+    else findOneById(gameId) flatMap (_.decode)
   }
 
   def player(gameId: String, color: Color): IO[Option[DbPlayer]] =

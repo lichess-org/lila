@@ -4,7 +4,7 @@ package round
 import com.novus.salat._
 import com.novus.salat.dao._
 import com.mongodb.casbah.MongoCollection
-import com.mongodb.casbah.Imports._
+import com.mongodb.casbah.query.Imports._
 import scalaz.effects._
 
 class WatcherRoomRepo(collection: MongoCollection)
@@ -13,7 +13,7 @@ class WatcherRoomRepo(collection: MongoCollection)
   import WatcherRoom.Message
 
   def room(id: String): IO[WatcherRoom] = io {
-    findOneByID(id) | WatcherRoom(id, Nil)
+    findOneById(id) | WatcherRoom(id, Nil)
   }
 
   def addMessage(id: String, username: Option[String], text: String): IO[Message] = io {
