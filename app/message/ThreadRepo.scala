@@ -6,14 +6,15 @@ import user.User
 import com.novus.salat._
 import com.novus.salat.dao._
 import com.mongodb.casbah.MongoCollection
-import com.mongodb.casbah.Imports._
+import com.mongodb.casbah.query.Imports._
+import com.mongodb.casbah.map_reduce.MapReduceInlineOutput
 import scalaz.effects._
 
 final class ThreadRepo(
     collection: MongoCollection) extends SalatDAO[Thread, String](collection) {
 
   def byId(id: String): IO[Option[Thread]] = io {
-    findOneByID(id)
+    findOneById(id)
   }
 
   def byUser(user: User): IO[List[Thread]] = io {

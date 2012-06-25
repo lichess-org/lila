@@ -4,14 +4,14 @@ package forum
 import com.novus.salat._
 import com.novus.salat.dao._
 import com.mongodb.casbah.MongoCollection
-import com.mongodb.casbah.Imports._
+import com.mongodb.casbah.query.Imports._
 import scalaz.effects._
 
 final class TopicRepo(
     collection: MongoCollection) extends SalatDAO[Topic, String](collection) {
 
   def byId(id: String): IO[Option[Topic]] = io {
-    findOneByID(id)
+    findOneById(id)
   }
 
   def byCateg(categ: Categ): IO[List[Topic]] = io {

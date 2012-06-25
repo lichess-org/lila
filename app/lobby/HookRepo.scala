@@ -6,7 +6,7 @@ import game.DbGame
 import com.novus.salat._
 import com.novus.salat.dao._
 import com.mongodb.casbah.MongoCollection
-import com.mongodb.casbah.Imports._
+import com.mongodb.casbah.query.Imports._
 import scalaz.effects._
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
@@ -15,7 +15,7 @@ class HookRepo(collection: MongoCollection)
     extends SalatDAO[Hook, String](collection) {
 
   def hook(hookId: String): IO[Option[Hook]] = io {
-    findOneByID(hookId)
+    findOneById(hookId)
   }
 
   def ownedHook(ownerId: String): IO[Option[Hook]] = io {
