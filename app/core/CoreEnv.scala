@@ -99,7 +99,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     gameRepo = game.gameRepo,
     userRepo = user.userRepo,
     mongodb = mongodb.apply _,
-    () => ai.ai().analyse _)
+    () ⇒ ai.ai().analyse _)
 
   lazy val bookmark = new lila.bookmark.BookmarkEnv(
     settings = settings,

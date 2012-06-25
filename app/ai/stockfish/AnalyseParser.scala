@@ -6,15 +6,10 @@ import analyse.Info
 object AnalyseParser {
 
   def apply(lines: List[String]): String ⇒ Valid[Info] =
-    moveString ⇒ for {
-      move ← Uci parseMove moveString toValid "Invalid move " + moveString
-      bestString ← findBestMove(lines) toValid "Analysis bestmove not found"
-      best ← Uci parseMove bestString toValid "Invalid bestmove " + bestString
-    } yield Info(
-      move = move,
-      best = best,
-      cp = findCp(lines),
-      mate = findMate(lines))
+    move ⇒
+      findBestMove(lines) toValid "Analysis bestmove not found" flatMap { best ⇒
+        Info(move, best, findCp(lines), findMate(lines))
+      }
 
   private val bestMoveRegex = """^bestmove\s(\w+).*$""".r
   private def findBestMove(lines: List[String]) =

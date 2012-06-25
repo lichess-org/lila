@@ -8,35 +8,56 @@ case class Analysis(infos: List[Info], done: Boolean) {
 
   def encode: String = infos map (_.encode) mkString Analysis.separator
 
-  lazy val richInfos = {
-    var prevCp = 0
-    infos.zipWithIndex map {
-      case (info, index) ⇒ {
-        RichInfo(index, 0, info)
-      }
-    }
-  }
-
-  def of(color: Color) = PlayerAnalysis(
-    color = color,
-    richInfos filter (_.color == color))
+  lazy val advices: List[Advice] = (infos.zipWithIndex sliding 2 map {
+    case (info, turn) :: (next, _) :: Nil ⇒ Advice(info, next, turn)
+    case _                                ⇒ None
+  }).toList.flatten
 }
 
-case class PlayerAnalysis(color: Color, richInfos: List[RichInfo]) {
+sealed abstract class Severity(val delta: Int)
+case object Blunder extends Severity(-300)
+case object Mistake extends Severity(-100)
+case object Inaccuracy extends Severity(-50)
+object Severity {
+  val all = List(Inaccuracy, Mistake, Blunder)
+  def apply(delta: Int): Option[Severity] = all.foldLeft(none[Severity]) {
+    case (_, severity) if severity.delta > delta ⇒ severity.some
+    case (acc, _)                                ⇒ acc
+  }
+}
 
-  def cps = richInfos map { ri ⇒ ri.turn -> ri.cp }
+case class Advice(
+    severity: Severity,
+    info: Info,
+    next: Info,
+    turn: Int) {
+
+  def color = Color(turn % 2 == 0)
+
+  def fullMove = 1 + turn / 2
+}
+
+object Advice {
+
+  def apply(info: Info, next: Info, turn: Int): Option[Advice] = for {
+    cp ← info.score map (_.centipawns)
+    nextCp ← next.score map (_.centipawns)
+    color = Color(turn % 2 == 0)
+    delta = nextCp - cp
+    severity ← Severity(color.fold(delta, -delta))
+  } yield Advice(severity, info, next, turn)
 }
 
 object Analysis {
 
   private val separator = " "
 
-  def apply(str: String, done: Boolean) = decode(str) map { infos =>
+  def apply(str: String, done: Boolean) = decode(str) map { infos ⇒
     new Analysis(infos, done)
   }
 
   def decode(str: String): Valid[List[Info]] =
-    (str.split(separator).toList map Info.decode).sequence 
+    (str.split(separator).toList map Info.decode).sequence
 
   def builder = new AnalysisBuilder(Nil)
 }
@@ -47,21 +68,28 @@ final class AnalysisBuilder(infos: List[Info]) {
 
   def +(info: Info) = new AnalysisBuilder(info :: infos)
 
-  def done = new Analysis(infos.reverse, true)
+  def done = new Analysis(infos.reverse.zipWithIndex map {
+    case (info, turn) ⇒
+      (turn % 2 == 0).fold(info, info.copy(score = info.score map (_.negate)))
+  }, true)
 }
 
 case class Info(
     move: (Pos, Pos),
     best: (Pos, Pos),
-    cp: Option[Int],
+    score: Option[Score],
     mate: Option[Int]) {
 
   def encode: String = List(
     Uci makeMove move,
     Uci makeMove best,
-    encode(cp),
+    encode(score map (_.centipawns)),
     encode(mate)
   ) mkString Info.separator
+
+  def showMove = showPoss(move)
+  def showBest = showPoss(best)
+  private def showPoss(poss: (Pos, Pos)) = poss._1.key + poss._2.key
 
   private def encode(oa: Option[Any]): String = oa.fold(_.toString, "_")
 }
@@ -71,25 +99,37 @@ object Info {
   private val separator = ","
 
   def decode(str: String): Valid[Info] = str.split(separator).toList match {
-    case moveString :: bestString :: cpString :: mateString :: Nil ⇒ for {
-      move ← Uci parseMove moveString toValid "Invalid move " + moveString
-      best ← Uci parseMove bestString toValid "Invalid best " + bestString
-    } yield Info(
-      move = move,
-      best = best,
-      cp = parseIntOption(cpString),
-      mate = parseIntOption(mateString)
+    case moveString :: bestString :: cpString :: mateString :: Nil ⇒ Info(
+      moveString, bestString, parseIntOption(cpString), parseIntOption(mateString)
     )
     case _ ⇒ !!("Invalid encoded info " + str)
   }
+
+  def apply(
+    moveString: String,
+    bestString: String,
+    score: Option[Int],
+    mate: Option[Int]): Valid[Info] = for {
+    move ← Uci parseMove moveString toValid "Invalid info move " + moveString
+    best ← Uci parseMove bestString toValid "Invalid info best " + bestString
+  } yield Info(
+    move = move,
+    best = best,
+    score = score map Score.apply,
+    mate = mate)
 }
 
-case class RichInfo(turn: Int, delta: Int, info: Info) {
+case class Score(centipawns: Int) {
 
-  def color = Color(turn % 2 == 0)
+  def pawns: Float = centipawns / 100f
+  def showPawns: String = "%.2f" format pawns
 
-  def move = info.move
-  def best = info.best
-  def cp = info.cp
-  def mate = info.mate
+  def percent: Int = math.round(box(0, 100,
+    50 + (pawns / 10) * 50
+  ))
+
+  def negate = Score(-centipawns)
+
+  private def box(min: Float, max: Float, v: Float) =
+    math.min(max, math.max(min, v))
 }

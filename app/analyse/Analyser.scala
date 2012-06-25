@@ -35,7 +35,10 @@ final class Analyser(
             _ ← analysisRepo.progress(id, userId)
             initialFen ← gameRepo initialFen id
             analysis ← generator()(game, initialFen)
-            _ ← analysis.fold(_ ⇒ io(), analysisRepo.done(id, _))
+            _ ← analysis.fold(
+              analysisRepo.fail(id, _),
+              analysisRepo.done(id, _)
+            )
           } yield analysis,
           io(!!("No such game " + id): Valid[Analysis])
         )

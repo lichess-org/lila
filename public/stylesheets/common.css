@@ -644,7 +644,7 @@ div.checkmateCaptcha input {
   width: 5em;
 }
 
-div.game_more {
+div.undergame_box {
   margin-top: 20px;
   width: 512px;
   box-shadow: 0 0 7px #d0d0d0;
@@ -652,11 +652,20 @@ div.game_more {
   border-radius: 5px;
   line-height: 24px;
 }
-div.game_more a {
+div.undergame_box a {
   text-decoration: none;
 }
-div.game_more a:hover {
+div.undergame_box a:hover {
   text-decoration: underline;
+}
+div.undergame_box div.inner {
+  padding: 10px;
+}
+div.game_analysis {
+  font-family: monospace;
+}
+div.game_analysis table {
+  width: 100%;
 }
 div.game_more div.more_top {
   padding: 3px 10px;
@@ -685,8 +694,6 @@ div.game_more textarea {
   border-radius: 3px;
 }
 div.game_extra {
-  padding: 10px 10px;
-  width: 492px;
   border-top: 1px solid #ccc;
 }
 div.game_extra div.body {

@@ -23,8 +23,11 @@ object Analyse extends LilaController {
   def computer(id: String, color: String) = Auth { implicit ctx ⇒
     me ⇒
       analyser.getOrGenerate(id, me.id).onComplete {
-        case Left(e)  ⇒ println(e.getMessage)
-        case Right(a) ⇒ "Computer analysis complete"
+        case Left(e) ⇒ println(e.getMessage)
+        case Right(a) ⇒ a.fold(
+          err ⇒ println("Computer analysis failure: " + err.shows),
+          _ ⇒ println("Computer analysis succeeded for game " + id)
+        )
       }
       Redirect(routes.Analyse.replay(id, color))
   }

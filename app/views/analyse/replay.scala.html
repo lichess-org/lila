@@ -12,19 +12,6 @@
 }
 
 @underchat = {
-@analysis.map { a =>
-@if(a.done) {
-<div class="analysis">
-  @analyse.analysis(pov, a))
-</div>
-} else {
-<p>Computer analysis in progress</p>
-}
-}.getOrElse {
-<form action="@routes.Analyse.computer(gameId, color.name)" method="post">
-  <button type="submit">Request a computer analysis</button>
-</form>
-}
 <div class="watchers">
   @trans.spectators() <span class="list"></span>
 </div>
@@ -51,6 +38,15 @@ moreJs = moreJs) {
   </div>
 </div>
 <textarea id="pgnText" readonly="readonly">@Html(pgn)</textarea>
+@analysis.map { a =>
+<div class="undergame_box game_analysis">
+@a.done.fold(analyse.analysis(pov, a), Html("<div class='inner'>Computer analysis in progress</div>"))
+</div>
+}.getOrElse {
+<form action="@routes.Analyse.computer(gameId, color.name)" method="post">
+  <button type="submit">Request a computer analysis</button>
+</form>
+}
 @views.html.game.more(pov, bookmarkers) {
 @trans.opening() @opening.map { o =>
 <a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a>
