@@ -10,6 +10,7 @@ yourTurn=نوبت توست
 aiNameLevelAiLevel=%s مرحله%s
 level=مرحله
 toggleTheChat=ضامن گپ
+toggleSound=صدا روشن/خاموش
 chat=گپ
 resign=منصرف شدن
 checkmate=مات
@@ -43,6 +44,7 @@ blackLeftTheGame=بازیکن سیاه بازی را ترک کرد
 shareThisUrlToLetSpectatorsSeeTheGame=به اشتراک گذاشتن این آدرس به تماشاگران اجازه دیدن بازی را می دهد
 youAreViewingThisGameAsASpectator=شما در حال مشاهده این بازی به عنوان تماشاگر می باشید
 replayAndAnalyse=نمایش دوباره و تجزیه و تحلیل
+viewGameStats=مشاهده آمار بازیها
 flipBoard=بازیکن برتر
 threefoldRepetition=تکرار سه گانه
 claimADraw=درخواست قرعه کشی
@@ -54,6 +56,9 @@ seeTheGamesBeingPlayedInRealTime=مشاهده بازی ها  در زمان وا�
 gamesBeingPlayedRightNow=بازی در آستانه شروع می باشد
 viewAllNbGames=بازی %s مشاهده تمام
 viewNbCheckmates=مات شدن %s مشاهده
+nbBookmarks=نشانه های مورد علاقه %s
+nbPopularGames=بازیهای پرطرفدار %s
+bookmarkedByNbPlayers=نشانه گذاری شده توسط بازیگران %s
 viewInFullSize=تماشا کردن در تمام سایز
 logOut=خروج
 signIn=ورود
@@ -95,13 +100,40 @@ thisGameIsRated=این بازی رتبه بندی می شود
 rematch=دوباره
 rematchOfferSent=درخواست بازی دوباره فرستاده شد
 rematchOfferAccepted=درخواست بازی دوباره را قبول کرد
+rematchOfferCanceled=پیشنهاد بازی دوباره لغو شد
+rematchOfferDeclined=پیشنهاد بازی دوباره رد شد
+cancelRematchOffer=لغو کردن پیشنهاد بازی دوباره
+viewRematch=مشاهده بازی دوباره
 play=بازی
 inbox=صندوق
 chatRoom=اتاق چت
+spectatorRoom=اتاق تماشاچیان
 composeMessage=نوشتن پیام
 sentMessages=پیام های ارسال شده
 incrementInSeconds=افزایش در ثانیه
 freeOnlineChess=شطرنج آنلاین رایگان
 spectators=تماشاگران :
+nbWins=بردهای %s
+nbLosses=باختهای %s
+nbDraws=مساویهای %s
 exportGames=بازی های صادره
+color=رنگ مهره
+eloRange=حدود ریتینگ
+giveNbSeconds=%s ثانیه اضافه کن
+searchAPlayer=جستجوی بازیکن
+whoIsOnline=چه کسی آنلاین است
+allPlayers=همه بازیکنان
+namedPlayers=بازیکنان دارای اسم
+premoveEnabledClickAnywhereToCancel=حرکت خودکار زود از موعد فعال است - برای لغو هر جای صفحه کلیک کنید
+thisPlayerUsesChessComputerAssistance=این بازیکن از کامپیوتر کمک می گیرد
+opening=گشایش
+takeback=پس گرفتن حرکت
+proposeATakeback=پیشنهاد پس گرفتن حرکت
+takebackPropositionSent=پیشنهاد پس گرفتن حرکت فرستاده شد
+takebackPropositionDeclined=پیشنهاد پس گرفتن حرکت رد شد
+takebackPropositionAccepted=پیشنهاد پس گرفتن حرکت پذیرفته شد
+takebackPropositionCanceled=پیشنهاد پس گرفتن حرکت لغو شد
+yourOpponentProposesATakeback=حریف پیشنهاد پس گرفتن حرکت میدهد
+bookmarkThisGame=این بازی را بوک مارک کن
+toggleBackground=رن
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=بازی شطرنج آنلاین. بازی شطرنج در حال حاضر در یک رابط تمیز. بدون نیاز به ثبت نام ، بدون تبلیغات ، هیچ پلاگین مورد نیاز، در دسترس است. بازی شطرنج با کامپیوتر، دوستان و یا حریفان تصادفی.
