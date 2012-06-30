@@ -26,3 +26,6 @@ or show empty chat
 game chat box css issue http://en.lichess.org/forum/lichess-feedback/problem-with-the-chat-box#1
 show last move on miniboards
 analysis: replace scores with bar (adv+delta visible)
+legend feedback: http://en.lichess.org/forum/lichess-feedback/a-few-points-bugssuggestions#1
+http://en.lichess.org/forum/lichess-feedback/problems-with-yin-yang#1
+also translate websockets error message

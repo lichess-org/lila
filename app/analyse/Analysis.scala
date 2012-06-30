@@ -1,13 +1,13 @@
 package lila
 package analyse
 
-import chess.{ Pos, Color }
+import chess.{ Pos, Color, White, Black }
 import ai.stockfish.Uci
 
 case class Analysis(
-  infos: List[Info], 
-  done: Boolean, 
-  fail: Option[String] = None) {
+    infos: List[Info],
+    done: Boolean,
+    fail: Option[String] = None) {
 
   def encode: String = infos map (_.encode) mkString Analysis.separator
 
@@ -17,38 +17,79 @@ case class Analysis(
   }).toList.flatten
 }
 
-sealed abstract class Severity(val delta: Int)
-case object Blunder extends Severity(-300)
-case object Mistake extends Severity(-100)
-case object Inaccuracy extends Severity(-50)
-object Severity {
-  val all = List(Inaccuracy, Mistake, Blunder)
-  def apply(delta: Int): Option[Severity] = all.foldLeft(none[Severity]) {
+sealed trait Advice {
+  def info: Info
+  def next: Info
+  def turn: Int
+  def text: String
+
+  def color = Color(turn % 2 == 0)
+  def fullMove = 1 + turn / 2
+}
+
+sealed abstract class CpSeverity(val delta: Int, val name: String)
+case object CpBlunder extends CpSeverity(-300, "blunder")
+case object CpMistake extends CpSeverity(-100, "mistake")
+case object CpInaccuracy extends CpSeverity(-50, "inaccuracy")
+object CpSeverity {
+  val all = List(CpInaccuracy, CpMistake, CpBlunder)
+  def apply(delta: Int): Option[CpSeverity] = all.foldLeft(none[CpSeverity]) {
     case (_, severity) if severity.delta > delta ⇒ severity.some
     case (acc, _)                                ⇒ acc
   }
 }
 
-case class Advice(
-    severity: Severity,
+case class CpAdvice(
+    severity: CpSeverity,
     info: Info,
     next: Info,
-    turn: Int) {
+    turn: Int) extends Advice {
 
-  def color = Color(turn % 2 == 0)
+  def text = severity.name
+}
 
-  def fullMove = 1 + turn / 2
+sealed abstract class MateSeverity
+case object MateDelayed extends MateSeverity
+case object MateLost extends MateSeverity
+case object MateCreated extends MateSeverity
+object MateSeverity {
+  def apply(current: Option[Int], next: Option[Int], turn: Int): Option[MateSeverity] =
+    (current, next, Color(turn % 2 == 0)).some collect {
+      case (None, Some(n), White) if n < 0              ⇒ MateCreated
+      case (None, Some(n), Black) if n > 0              ⇒ MateCreated
+      case (Some(c), None, White) if c > 0              ⇒ MateLost
+      case (Some(c), None, Black) if c < 0              ⇒ MateLost
+      case (Some(c), Some(n), White) if c > 0 && c >= n ⇒ MateDelayed
+      case (Some(c), Some(n), Black) if c < 0 && c <= n ⇒ MateDelayed
+    }
+}
+case class MateAdvice(
+    severity: MateSeverity,
+    info: Info,
+    next: Info,
+    turn: Int) extends Advice {
+
+  def text = severity.toString
 }
 
 object Advice {
 
-  def apply(info: Info, next: Info, turn: Int): Option[Advice] = for {
-    cp ← info.score map (_.centipawns)
-    nextCp ← next.score map (_.centipawns)
-    color = Color(turn % 2 == 0)
-    delta = nextCp - cp
-    severity ← Severity(color.fold(delta, -delta))
-  } yield Advice(severity, info, next, turn)
+  def apply(info: Info, next: Info, turn: Int): Option[Advice] = {
+    for {
+      cp ← info.score map (_.centipawns)
+      nextCp ← next.score map (_.centipawns)
+      delta = nextCp - cp
+      severity ← CpSeverity(negate(turn)(delta))
+    } yield CpAdvice(severity, info, next, turn)
+  } orElse {
+    val mate = info.mate
+    val nextMate = next.mate
+    MateSeverity(mate, nextMate, turn) map { severity ⇒
+      MateAdvice(severity, info, next, turn)
+    }
+  }
+
+  private def negate(turn: Int)(v: Int) = (turn % 2 == 0).fold(v, -v)
 }
 
 object Analysis {
@@ -127,8 +168,9 @@ case class Score(centipawns: Int) {
   def pawns: Float = centipawns / 100f
   def showPawns: String = "%.2f" format pawns
 
+  private val percentMax = 5
   def percent: Int = math.round(box(0, 100,
-    50 + (pawns / 10) * 50
+    50 + (pawns / percentMax) * 50
   ))
 
   def negate = Score(-centipawns)

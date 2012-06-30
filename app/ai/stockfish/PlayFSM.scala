@@ -4,13 +4,13 @@ package ai.stockfish
 import model._
 import model.play._
 
-import akka.actor.{ Props, Actor, ActorRef, FSM ⇒ AkkaFSM, LoggingFSM }
+import akka.actor.{ Props, Actor, ActorRef, FSM ⇒ AkkaFSM }
 import scalaz.effects._
 
 final class PlayFSM(
   processBuilder: (String ⇒ Unit, String ⇒ Unit) ⇒ Process,
   config: PlayConfig)
-    extends Actor with LoggingFSM[State, Data] {
+    extends Actor with AkkaFSM[State, Data] {
 
   val process = processBuilder(out ⇒ self ! Out(out), err ⇒ self ! Err(err))
 

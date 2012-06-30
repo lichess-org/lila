@@ -677,6 +677,18 @@ div.game_analysis tr:nth-child(odd) td {
 div.game_analysis table {
   width: 100%;
 }
+div.game_analysis div.advbar {
+  background: #404040;
+  border: 1px solid #808080;
+  border-radius: 3px; 
+  min-width: 150px;
+}
+div.game_analysis div.advbar div {
+  background: #d0d0d0;
+  height: 12px;
+  border-radius: 2px 0 0 2px;
+}
+
 div.game_more div.more_top {
   padding: 3px 10px;
   width: 492px;

@@ -4,9 +4,9 @@
   <thead>
     <tr>
       <th>#</th>
-      <th>Severity</th>
       <th>Move</th>
-      <th>Score</th>
+      <th>Severity</th>
+      <th>Advantage</th>
       <th>Better</th>
     </tr>
   </thead>
@@ -14,9 +14,15 @@
     @analysis.advices.map { a =>
     <tr>
       <td>@a.fullMove</td>
-      <td>@a.severity.toString</td>
-      <td>@a.color.fold("", "..") @a.info.showMove</td>
-      <td>@a.info.score.map(_.showPawns) ⇒ @a.next.score.map(_.showPawns)</td>
+      <td><span class="user_link @a.color.name">@a.info.showMove</span></td>
+      <td>@a.text</td>
+      <td>
+        @a.next.score.map { score =>
+        <div class="advbar">
+          <div style="width: @score.percent%"></div>
+        </div>
+        }
+      </td>
       <td>@a.info.showBest</td>
     </tr>
     }

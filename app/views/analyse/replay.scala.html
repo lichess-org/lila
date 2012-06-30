@@ -38,8 +38,8 @@ moreJs = moreJs) {
   </div>
 </div>
 <textarea id="pgnText" readonly="readonly">@Html(pgn)</textarea>
-@analysis.map { a =>
 <div class="undergame_box game_analysis">
+@analysis.map { a =>
   @if(a.done) {
   @analyse.analysis(pov, a)
   } else {

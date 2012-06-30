@@ -125,6 +125,13 @@ body.dark div.undertable a.user_link {
   color: #808080;
 }
 
+body.dark .user_link.white {
+  background-position: 0 -288px;
+}
+body.dark .user_link.black {
+  background-position: 0 -272px;
+}
+
 body.dark div.hooks_wrap {
   box-shadow: 0 0 20px #444;
   background: rgba(10,10,10,0.8);
