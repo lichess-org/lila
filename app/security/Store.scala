@@ -5,7 +5,7 @@ import user.User
 
 import play.api.mvc.RequestHeader
 import com.mongodb.casbah.MongoCollection
-import com.mongodb.casbah.query.Imports._
+import com.mongodb.casbah.Imports._
 import org.joda.time.DateTime
 import scalaz.effects._
 
