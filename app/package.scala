@@ -4,8 +4,10 @@ import play.api.libs.json.JsValue
 import play.api.libs.concurrent.Promise
 import play.api.libs.iteratee.{ Iteratee, Enumerator }
 import play.api.libs.iteratee.Concurrent.Channel
+import play.api.Play
+import play.api.Play.current
 
-import com.novus.salat._
+import com.novus.salat.{ Context, TypeHintFrequency, StringTypeHintStrategy }
 import com.mongodb.casbah.commons.conversions.scala.RegisterJodaTimeConversionHelpers
 import scalaz.effects.{ io, IO }
 
@@ -26,14 +28,15 @@ package object lila
 
   // custom salat context
   implicit val customSalatContext = new Context {
-    val name = "Lila System Context"
-    override val typeHintStrategy = StringTypeHintStrategy(when = TypeHintFrequency.Never)
+    val name = "Lila Context"
+    override val typeHintStrategy = StringTypeHintStrategy(
+      when = TypeHintFrequency.Never)
+  } ~ { context ⇒
+    context registerClassLoader Play.classloader
   }
   RegisterJodaTimeConversionHelpers()
 
   def !!(msg: String) = msg.failNel
-
-  val GameNotFound = !!("Game not found")
 
   def nowMillis: Double = System.currentTimeMillis
   def nowSeconds: Int = (nowMillis / 1000).toInt
