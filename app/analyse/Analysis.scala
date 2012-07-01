@@ -58,10 +58,13 @@ case class CpAdvice(
   def text = severity.nag.toString
 }
 
-sealed abstract class MateSeverity(nag: Nag) extends Severity(nag: Nag)
-case object MateDelayed extends MateSeverity(Inaccuracy)
-case object MateLost extends MateSeverity(Mistake)
-case object MateCreated extends MateSeverity(Blunder)
+sealed abstract class MateSeverity(nag: Nag, val desc: String) extends Severity(nag: Nag)
+case object MateDelayed extends MateSeverity(Inaccuracy, 
+  desc = "Not the quickest path to checkmate")
+case object MateLost extends MateSeverity(Mistake,
+  desc = "Forced checkmate lost")
+case object MateCreated extends MateSeverity(Blunder,
+  desc = "Checkmate is now unavoidable")
 object MateSeverity {
   def apply(current: Option[Int], next: Option[Int], turn: Int): Option[MateSeverity] =
     (current, next, Color(turn % 2 == 0)).some collect {
