@@ -2,7 +2,7 @@ package lila
 package user
 
 import com.mongodb.casbah.MongoCollection
-import com.mongodb.casbah.Imports._
+import com.mongodb.casbah.query.Imports._
 
 import java.lang.Float.parseFloat
 import java.lang.Integer.parseInt

@@ -4,14 +4,14 @@ package user
 import com.novus.salat._
 import com.novus.salat.dao._
 import com.mongodb.casbah.{ MongoCollection, WriteConcern }
-import com.mongodb.casbah.Imports._
+import com.mongodb.casbah.query.Imports._
 import scalaz.effects._
 import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
 import ornicar.scalalib.OrnicarRandom
 
-class UserRepo(
-    collection: MongoCollection) extends SalatDAO[User, String](collection) {
+class UserRepo(collection: MongoCollection) 
+extends SalatDAO[User, String](collection) {
 
   val enabledQuery = DBObject("enabled" -> true)
   def byIdQuery(id: String): DBObject = DBObject("_id" -> normalize(id))
@@ -20,7 +20,7 @@ class UserRepo(
   def normalize(id: String) = id.toLowerCase
 
   def byId(id: String): IO[Option[User]] = io {
-    findOneByID(normalize(id))
+    findOneById(normalize(id))
   }
 
   def byIds(ids: Iterable[String]): IO[List[User]] = io {

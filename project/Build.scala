@@ -7,6 +7,7 @@ trait Resolvers {
   val typesafe = "typesafe.com" at "http://repo.typesafe.com/typesafe/releases/"
   val iliaz = "iliaz.com" at "http://scala.iliaz.com/"
   val sonatype = "sonatype" at "http://oss.sonatype.org/content/repositories/releases"
+  val sonatypeS = "sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots"
   val t2v = "t2v.jp repo" at "http://www.t2v.jp/maven-repo/"
   val guice = "guice-maven" at "http://guice-maven.googlecode.com/svn/trunk"
   val jgitMaven = "jgit-maven" at "http://download.eclipse.org/jgit/maven"
@@ -16,8 +17,8 @@ trait Dependencies {
   val scalachess = "com.github.ornicar" %% "scalachess" % "2.1"
   val scalaz = "org.scalaz" %% "scalaz-core" % "6.0.4"
   val specs2 = "org.specs2" %% "specs2" % "1.11"
-  val casbah = "com.mongodb.casbah" %% "casbah" % "2.1.5-1"
-  val salat = "com.novus" %% "salat-core" % "0.0.8-SNAPSHOT"
+  val casbah = "org.mongodb" %% "casbah" % "2.3.0"
+  val salat = "com.novus" %% "salat-core" % "1.9-SNAPSHOT"
   val scalalib = "com.github.ornicar" %% "scalalib" % "1.37"
   val config = "com.typesafe" % "config" % "0.4.0"
   val json = "com.codahale" %% "jerkson" % "0.5.0"
@@ -37,9 +38,9 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
 
   private val buildSettings = Project.defaultSettings ++ Seq(
     organization := "com.github.ornicar",
-    version := "0.1",
+    version := "1.0",
     scalaVersion := "2.9.1",
-    resolvers := Seq(iliaz, codahale, sonatype, typesafe, t2v, guice, jgitMaven),
+    resolvers := Seq(iliaz, codahale, sonatype, sonatypeS, typesafe, t2v, guice, jgitMaven),
     libraryDependencies := Seq(scalaz, scalalib, hasher),
     libraryDependencies in test := Seq(specs2),
     shellPrompt := {
