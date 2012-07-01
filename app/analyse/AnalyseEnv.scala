@@ -29,4 +29,14 @@ final class AnalyseEnv(
     analysisRepo = analysisRepo,
     gameRepo = gameRepo,
     generator = generator)
+
+  lazy val paginator = new PaginatorBuilder(
+    analysisRepo = analysisRepo,
+    cached = cached,
+    gameRepo = gameRepo,
+    maxPerPage = GamePaginatorMaxPerPage)
+
+  lazy val cached = new Cached(
+    analysisRepo = analysisRepo,
+    nbTtl = AnalyseCachedNbTtl)
 }

@@ -28,6 +28,8 @@ final class Settings(config: Config) {
   val GameCachedNbTtl = millis("game.cached.nb.ttl")
   val GamePaginatorMaxPerPage = getInt("game.paginator.max_per_page")
 
+  val AnalyseCachedNbTtl = millis("analyse.cached.nb.ttl")
+
   val UserPaginatorMaxPerPage = getInt("user.paginator.max_per_page")
   val UserEloUpdaterFloor = getInt("user.elo_updater.floor")
   val UserCachedNbTtl = millis("user.cached.nb.ttl")

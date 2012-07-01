@@ -30,3 +30,8 @@ legend feedback: http://en.lichess.org/forum/lichess-feedback/a-few-points-bugss
 http://en.lichess.org/forum/lichess-feedback/problems-with-yin-yang#1
 also translate websockets error message
 play with a friend possible bug http://en.lichess.org/forum/lichess-feedback/play-with-a-friend-bug
+
+next deploy
+-----------
+db.analysis.ensureIndex({done:1})
+db.analysis.ensureIndex({date:-1})

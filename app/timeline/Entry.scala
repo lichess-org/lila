@@ -2,7 +2,6 @@ package lila
 package timeline
 
 import com.novus.salat.annotations._
-import com.mongodb.BasicDBList
 
 case class Entry(
     gameId: String,

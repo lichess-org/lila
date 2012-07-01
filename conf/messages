@@ -58,6 +58,7 @@ viewAllNbGames=%s Games
 viewNbCheckmates=%s Checkmates
 nbBookmarks=%s Bookmarks
 nbPopularGames=%s Popular Games
+nbAnalysedGames=%s Analysed Games
 bookmarkedByNbPlayers=Bookmarked by %s players
 viewInFullSize=View in full size
 logOut=Log out

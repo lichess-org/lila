@@ -7,7 +7,7 @@ import com.mongodb.casbah.query.Imports._
 import scalaz.effects._
 import org.joda.time.DateTime
 
-final class AnalysisRepo(collection: MongoCollection) {
+final class AnalysisRepo(val collection: MongoCollection) {
 
   def done(id: String, a: Analysis) = io {
     collection.update(
