@@ -18,6 +18,7 @@ case class Analysis(
 }
 
 sealed trait Advice {
+  def severity: Severity
   def info: Info
   def next: Info
   def turn: Int
@@ -25,12 +26,21 @@ sealed trait Advice {
 
   def color = Color(turn % 2 == 0)
   def fullMove = 1 + turn / 2
+
+  def nag = severity.nag
 }
 
-sealed abstract class CpSeverity(val delta: Int, val name: String)
-case object CpBlunder extends CpSeverity(-300, "blunder")
-case object CpMistake extends CpSeverity(-100, "mistake")
-case object CpInaccuracy extends CpSeverity(-50, "inaccuracy")
+sealed abstract class Nag(val code: Int)
+case object Blunder extends Nag(4)
+case object Mistake extends Nag(2)
+case object Inaccuracy extends Nag(6)
+
+sealed abstract class Severity(val nag: Nag)
+
+sealed abstract class CpSeverity(val delta: Int, nag: Nag) extends Severity(nag)
+case object CpBlunder extends CpSeverity(-300, Blunder)
+case object CpMistake extends CpSeverity(-100, Mistake)
+case object CpInaccuracy extends CpSeverity(-50, Inaccuracy)
 object CpSeverity {
   val all = List(CpInaccuracy, CpMistake, CpBlunder)
   def apply(delta: Int): Option[CpSeverity] = all.foldLeft(none[CpSeverity]) {
@@ -45,13 +55,13 @@ case class CpAdvice(
     next: Info,
     turn: Int) extends Advice {
 
-  def text = severity.name
+  def text = severity.nag.toString
 }
 
-sealed abstract class MateSeverity
-case object MateDelayed extends MateSeverity
-case object MateLost extends MateSeverity
-case object MateCreated extends MateSeverity
+sealed abstract class MateSeverity(nag: Nag) extends Severity(nag: Nag)
+case object MateDelayed extends MateSeverity(Inaccuracy)
+case object MateLost extends MateSeverity(Mistake)
+case object MateCreated extends MateSeverity(Blunder)
 object MateSeverity {
   def apply(current: Option[Int], next: Option[Int], turn: Int): Option[MateSeverity] =
     (current, next, Color(turn % 2 == 0)).some collect {

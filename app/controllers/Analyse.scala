@@ -41,7 +41,7 @@ object Analyse extends LilaController {
         analysis ← analyser get pov.game.id
       } yield html.analyse.replay(
         pov,
-        pgn,
+        pgn.toString,
         Html(roomHtml),
         bookmarkers,
         openingExplorer openingOf pov.game.pgn,
@@ -63,7 +63,8 @@ object Analyse extends LilaController {
       gameOption ← gameRepo game id
       res ← gameOption.fold(
         game ⇒ for {
-          content ← pgnDump >> game
+          pgnObj ← pgnDump >> game
+          content = pgnObj.toString
           filename ← pgnDump filename game
         } yield Ok(content).withHeaders(
           CONTENT_LENGTH -> content.size.toString,

@@ -2,58 +2,26 @@ package lila
 package analyse
 
 import chess.format.Forsyth
+import chess.format.pgn
+import chess.format.pgn.{ Pgn, Tag }
 import game.{ DbGame, DbPlayer, GameRepo }
 import user.{ User, UserRepo }
 
 import org.joda.time.format.DateTimeFormat
 import scalaz.effects._
 
-final class PgnDump(gameRepo: GameRepo, userRepo: UserRepo) {
+final class PgnDump(
+    gameRepo: GameRepo,
+    analyser: Analyser,
+    userRepo: UserRepo) {
 
   import PgnDump._
 
-  val dateFormat = DateTimeFormat forPattern "yyyy-MM-dd";
-
-  def >>(game: DbGame): IO[String] =
-    header(game) map { headers ⇒
-      "%s\n\n%s %s".format(headers, moves(game), result(game))
-    }
-
-  def header(game: DbGame): IO[String] = for {
-    whiteUser ← user(game.whitePlayer)
-    blackUser ← user(game.blackPlayer)
-    initialFen ← game.variant.standard.fold(io(none), gameRepo initialFen game.id)
-  } yield List(
-    "Event" -> game.rated.fold("Rated game", "Casual game"),
-    "Site" -> ("http://lichess.org/" + game.id),
-    "Date" -> game.createdAt.fold(dateFormat.print, "?"),
-    "White" -> player(game.whitePlayer, whiteUser),
-    "Black" -> player(game.blackPlayer, blackUser),
-    "WhiteElo" -> elo(game.whitePlayer),
-    "BlackElo" -> elo(game.blackPlayer),
-    "Result" -> result(game),
-    "PlyCount" -> game.turns,
-    "Variant" -> game.variant.name
-  ) ++ game.variant.standard.fold(Map.empty, Map(
-      "FEN" -> (initialFen | "?"),
-      "SetUp" -> "1"
-    )) map {
-      case (name, value) ⇒ """[%s "%s"]""".format(name, value)
-    } mkString "\n"
-
-  def elo(p: DbPlayer) = p.elo.fold(_.toString, "?")
-
-  def user(p: DbPlayer): IO[Option[User]] = p.userId.fold(
-    userRepo.byId,
-    io(none))
-
-  def player(p: DbPlayer, u: Option[User]) = p.aiLevel.fold(
-    "AI level " + _,
-    u.fold(_.username, "Anonymous"))
-
-  def moves(game: DbGame) = (game.pgnList grouped 2).zipWithIndex map {
-    case (moves, turn) ⇒ "%d. %s".format((turn + 1), moves.mkString(" "))
-  } mkString " "
+  def >>(game: DbGame): IO[Pgn] = for {
+    ts ← tags(game)
+    pgnObj = Pgn(ts, turns(game))
+    analysis ← analyser get game.id
+  } yield analysis.fold(Annotator(pgnObj, _), pgnObj)
 
   def filename(game: DbGame): IO[String] = for {
     whiteUser ← user(game.whitePlayer)
@@ -63,6 +31,47 @@ final class PgnDump(gameRepo: GameRepo, userRepo: UserRepo) {
     player(game.whitePlayer, whiteUser),
     player(game.blackPlayer, blackUser),
     game.id)
+
+  private val baseUrl = "http://lichess.org/"
+  private val dateFormat = DateTimeFormat forPattern "yyyy-MM-dd";
+
+  private def elo(p: DbPlayer) = p.elo.fold(_.toString, "?")
+
+  private def user(p: DbPlayer): IO[Option[User]] = p.userId.fold(
+    userRepo.byId,
+    io(none))
+
+  private def player(p: DbPlayer, u: Option[User]) = p.aiLevel.fold(
+    "AI level " + _,
+    u.fold(_.username, "Anonymous"))
+
+  private def tags(game: DbGame): IO[List[Tag]] = for {
+    whiteUser ← user(game.whitePlayer)
+    blackUser ← user(game.blackPlayer)
+    initialFen ← game.variant.standard.fold(io(none), gameRepo initialFen game.id)
+  } yield List(
+    Tag(_.Event, game.rated.fold("Rated game", "Casual game")),
+    Tag(_.Site, baseUrl + game.id),
+    Tag(_.Date, game.createdAt.fold(dateFormat.print, "?")),
+    Tag(_.White, player(game.whitePlayer, whiteUser)),
+    Tag(_.Black, player(game.blackPlayer, blackUser)),
+    Tag(_.Result, result(game)),
+    Tag("WhiteElo", elo(game.whitePlayer)),
+    Tag("BlackElo", elo(game.blackPlayer)),
+    Tag("PlyCount", game.turns),
+    Tag(_.Variant, game.variant.name)
+  ) ::: game.variant.standard.fold(Nil, List(
+      Tag(_.FEN, initialFen | "?"),
+      Tag("SetUp", "1")
+    ))
+
+  private def turns(game: DbGame): List[pgn.Turn] =
+    (game.pgnList grouped 2).zipWithIndex.toList map {
+      case (moves, index) ⇒ pgn.Turn(
+        number = index + 1,
+        white = moves.headOption map { pgn.Move(_) },
+        black = moves.tail.headOption map { pgn.Move(_) })
+    }
 }
 
 object PgnDump {

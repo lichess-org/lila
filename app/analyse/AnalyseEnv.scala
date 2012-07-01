@@ -19,8 +19,9 @@ final class AnalyseEnv(
   import settings._
 
   lazy val pgnDump = new PgnDump(
-    userRepo = userRepo,
-    gameRepo = gameRepo)
+    gameRepo = gameRepo,
+    analyser = analyser,
+    userRepo = userRepo)
 
   lazy val analysisRepo = new AnalysisRepo(
     mongodb(MongoCollectionAnalysis))
