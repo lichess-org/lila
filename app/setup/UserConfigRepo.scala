@@ -19,7 +19,7 @@ class UserConfigRepo(collection: MongoCollection)
   } yield ()
 
   def config(user: User): IO[UserConfig] = io {
-    findOneById(user.id) flatMap (_.decode)
+    findOneByID(user.id) flatMap (_.decode)
   } except { e ⇒
     putStrLn("Can't load config: " + e.getMessage) map (_ ⇒ none[UserConfig])
   } map (_ | UserConfig.default(user))

@@ -5,7 +5,7 @@ import game.GameRepo
 import round.Finisher
 import bookmark.BookmarkApi
 
-import com.mongodb.casbah.query.Imports._
+import com.mongodb.casbah.Imports._
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 import scalaz.effects._

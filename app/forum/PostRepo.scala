@@ -11,7 +11,7 @@ final class PostRepo(
     collection: MongoCollection) extends SalatDAO[Post, String](collection) {
 
   def byId(id: String): IO[Option[Post]] = io {
-    findOneById(id)
+    findOneByID(id)
   }
 
   def countByTopics(topics: List[Topic]): IO[Int] = io {
