@@ -2,6 +2,7 @@ package lila
 package ai.stockfish
 
 import chess.Pos.posAt
+import chess.format.UciMove
 import analyse.{ Analysis, AnalysisBuilder }
 
 import akka.actor.ActorRef
@@ -18,7 +19,7 @@ object model {
       def chess960 = fen.isDefined
     }
     case class BestMove(move: Option[String]) {
-      def parse = Uci parseMove (move | "")
+      def parse = UciMove(move | "")
     }
 
     case class Task(play: Play, ref: ActorRef)

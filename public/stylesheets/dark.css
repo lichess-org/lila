@@ -25,6 +25,7 @@ body.dark div.lichess_table,
 body.dark div.undergame_box,
 body.dark div.clock,
 body.dark #GameText,
+body.dark #GameLastComment,
 body.dark #GameBoard table.boardTable,
 body.dark div.content_box
 {
@@ -57,6 +58,7 @@ body.dark div.game_extra,
 body.dark div.clock,
 body.dark .button,
 body.dark #GameText,
+body.dark #GameLastComment,
 body.dark #GameBoard table.boardTable,
 body.dark div.content_box,
 body.dark div.content_box_top,
@@ -175,6 +177,7 @@ body.dark span.board_mark {
 body.dark div.content_box,
 body.dark div.content_box_inter a.active,
 body.dark #GameText,
+body.dark #GameLastComment,
 body.dark table.translations tbody tr,
 body.dark form.translation_form div.message
 {
@@ -210,6 +213,7 @@ body.dark #lichess_forum td.subject a {
 body.dark #lichess_forum div.post .message,
 #lichess_message div.thread_message div.thread_message_body,
 body.dark #GameText a.move,
+body.dark #GameLastComment,
 body.dark form.translation_form div.message label,
 body.dark div.content_box h1,
 body.dark div.hooks a 

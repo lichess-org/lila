@@ -39,7 +39,7 @@ final class AnalyseFSM(
     case Event(Out(t), data: Doing) if t startsWith "info depth" ⇒ {
       goto(Running) using (data buffer t)
     }
-    case Event(Out(t), data: Doing) if t contains "bestmove" ⇒ {
+    case Event(Out(t), data: Doing) if t contains "bestmove" ⇒
       (data buffer t).flush.fold(
         err ⇒ {
           log.error(err.shows)
@@ -48,7 +48,6 @@ final class AnalyseFSM(
         },
         nextData ⇒ nextInfo(nextData)
       )
-    }
   }
   whenUnhandled {
     case Event(analyse: Analyse, data) ⇒

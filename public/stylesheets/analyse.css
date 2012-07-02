@@ -99,3 +99,13 @@ span.board_mark.horz {
 #GameText a.moveOn {
   background: #FFE73B;
 }
+#GameLastComment {
+  margin-left: 532px;
+  font-size: 1.4em;
+  width: 210px;
+  padding: 5px;
+  background: #f7f7f7;
+  border: 1px solid #C0C0C0;
+  border-radius: 4px;
+  box-shadow: 0 0 7px #d0d0d0;
+}

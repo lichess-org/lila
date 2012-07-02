@@ -23,7 +23,7 @@ object Annotator {
     }
 
   private def makeComment(advice: Advice): String = advice match {
-    case CpAdvice(sev, info, _, _)   ⇒ "%s. Best was %s".format(sev.nag, info.showBest)
-    case MateAdvice(sev, info, _, _) ⇒ "%s. Best was %s".format(sev.desc, info.showBest)
+    case CpAdvice(sev, info, _, _)   ⇒ "%s. Best was %s.".format(sev.nag, info.best.uci)
+    case MateAdvice(sev, info, _, _) ⇒ "%s. Best was %s.".format(sev.desc, info.best.uci)
   }
 }

@@ -9,6 +9,7 @@
 @moreJs = {
 @jsVendorTag("pgn4web/pgn4web.js")
 @jsTag("analyse.js")
+@jsTag("chart.js")
 }
 
 @underchat = {
@@ -36,6 +37,7 @@ moreJs = moreJs) {
   <div class="moves_wrap">
     <div id="GameText"></div>
   </div>
+  <div id="GameLastComment"></div>
 </div>
 <textarea id="pgnText" readonly="readonly">@Html(pgn)</textarea>
 <div class="undergame_box game_analysis">

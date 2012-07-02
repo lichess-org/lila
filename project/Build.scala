@@ -14,7 +14,7 @@ trait Resolvers {
 }
 
 trait Dependencies {
-  val scalachess = "com.github.ornicar" %% "scalachess" % "2.6.1"
+  val scalachess = "com.github.ornicar" %% "scalachess" % "2.8"
   val scalaz = "org.scalaz" %% "scalaz-core" % "6.0.4"
   val specs2 = "org.specs2" %% "specs2" % "1.11"
   val casbah = "org.mongodb" %% "casbah" % "2.4.0"
@@ -71,7 +71,9 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       "lila.templating.Environment._",
       "lila.ui",
       "lila.http.Context",
-      "com.github.ornicar.paginator.Paginator")
+      "com.github.ornicar.paginator.Paginator",
+      "com.codahale.jerkson.Json.{ generate => toJson }"
+    )
     //incrementalAssetsCompilation := true,
     //javascriptEntryPoints <<= (sourceDirectory in Compile)(base ⇒
       //((base / "assets" / "javascripts" ** "*.js") 

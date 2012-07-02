@@ -2,7 +2,7 @@ package lila
 package analyse
 
 import chess.{ Pos, Color, White, Black }
-import ai.stockfish.Uci
+import chess.format.UciMove
 
 case class Analysis(
     infos: List[Info],
@@ -15,6 +15,13 @@ case class Analysis(
     case (info, turn) :: (next, _) :: Nil ⇒ Advice(info, next, turn)
     case _                                ⇒ None
   }).toList.flatten
+
+  def scoreRows: List[Option[List[Any]]] = infos map { info ⇒
+    info.score map { score ⇒
+      List(info.move.uci, score.pawns)
+    }
+  }
+
 }
 
 sealed trait Advice {
@@ -59,7 +66,7 @@ case class CpAdvice(
 }
 
 sealed abstract class MateSeverity(nag: Nag, val desc: String) extends Severity(nag: Nag)
-case object MateDelayed extends MateSeverity(Inaccuracy, 
+case object MateDelayed extends MateSeverity(Inaccuracy,
   desc = "Not the quickest path to checkmate")
 case object MateLost extends MateSeverity(Mistake,
   desc = "Forced checkmate lost")
@@ -132,21 +139,17 @@ final class AnalysisBuilder(infos: List[Info]) {
 }
 
 case class Info(
-    move: (Pos, Pos),
-    best: (Pos, Pos),
+    move: UciMove,
+    best: UciMove,
     score: Option[Score],
     mate: Option[Int]) {
 
   def encode: String = List(
-    Uci makeMove move,
-    Uci makeMove best,
+    move.piotr,
+    best.piotr,
     encode(score map (_.centipawns)),
     encode(mate)
   ) mkString Info.separator
-
-  def showMove = showPoss(move)
-  def showBest = showPoss(best)
-  private def showPoss(poss: (Pos, Pos)) = poss._1.key + poss._2.key
 
   private def encode(oa: Option[Any]): String = oa.fold(_.toString, "_")
 }
@@ -156,9 +159,14 @@ object Info {
   private val separator = ","
 
   def decode(str: String): Valid[Info] = str.split(separator).toList match {
-    case moveString :: bestString :: cpString :: mateString :: Nil ⇒ Info(
-      moveString, bestString, parseIntOption(cpString), parseIntOption(mateString)
-    )
+    case moveString :: bestString :: cpString :: mateString :: Nil ⇒ for {
+      move ← UciMove piotr moveString toValid "Invalid info move piotr " + moveString
+      best ← UciMove piotr bestString toValid "Invalid info best piotr " + bestString
+    } yield Info(
+      move = move,
+      best = best,
+      score = parseIntOption(cpString) map Score.apply,
+      mate = parseIntOption(mateString))
     case _ ⇒ !!("Invalid encoded info " + str)
   }
 
@@ -167,8 +175,8 @@ object Info {
     bestString: String,
     score: Option[Int],
     mate: Option[Int]): Valid[Info] = for {
-    move ← Uci parseMove moveString toValid "Invalid info move " + moveString
-    best ← Uci parseMove bestString toValid "Invalid info best " + bestString
+    move ← UciMove(moveString) toValid "Invalid info move " + moveString
+    best ← UciMove(bestString) toValid "Invalid info best " + bestString
   } yield Info(
     move = move,
     best = best,
