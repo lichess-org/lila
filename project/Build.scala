@@ -17,18 +17,17 @@ trait Dependencies {
   val scalachess = "com.github.ornicar" %% "scalachess" % "2.8"
   val scalaz = "org.scalaz" %% "scalaz-core" % "6.0.4"
   val specs2 = "org.specs2" %% "specs2" % "1.11"
-  val casbah = "org.mongodb" %% "casbah" % "2.4.0"
   val salat = "com.novus" %% "salat-core" % "1.9-SNAPSHOT"
   val scalalib = "com.github.ornicar" %% "scalalib" % "1.37"
-  val config = "com.typesafe" % "config" % "0.4.0"
+  val config = "com.typesafe" % "config" % "0.4.1"
   val json = "com.codahale" %% "jerkson" % "0.5.0"
   val guava = "com.google.guava" % "guava" % "12.0"
   val apache = "org.apache.commons" % "commons-lang3" % "3.1"
   val scalaTime = "org.scala-tools.time" %% "time" % "0.5"
   val slf4jNop = "org.slf4j" % "slf4j-nop" % "1.6.4"
-  val dispatch = "net.databinder" %% "dispatch-http" % "0.8.7"
-  val paginator = "com.github.ornicar" %% "paginator-core" % "1.5"
-  val paginatorSalat = "com.github.ornicar" %% "paginator-salat-adapter" % "1.4"
+  val dispatch = "net.databinder" %% "dispatch-http" % "0.8.8"
+  val paginator = "com.github.ornicar" %% "paginator-core" % "1.6"
+  val paginatorSalat = "com.github.ornicar" %% "paginator-salat-adapter" % "1.5"
   val csv = "com.github.tototoshi" %% "scala-csv" % "0.3"
   val hasher = "com.roundeights" % "hasher" % "0.3" from "http://cloud.github.com/downloads/Nycto/Hasher/hasher_2.9.1-0.3.jar"
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "1.3.0.201202151440-r"
@@ -54,7 +53,6 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       scalachess,
       config,
       json,
-      casbah,
       salat,
       guava,
       apache,

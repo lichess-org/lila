@@ -239,10 +239,10 @@ body.dark div.lichess_table div.lichess_piece {
   background-image: url(../images/sprite_invert.png);
 }
 body.dark div.lichess_chat ol.lichess_messages li.white {
-  background-position: 0 -42px;
+  background: url(../images/kdw14.png) no-repeat;
 }
 body.dark div.lichess_chat ol.lichess_messages li.black {
-  background-position: 0 -28px;
+  background: url(../images/kdb14.png) no-repeat;
 }
 
 body.dark div.lichess_table_wrap div.clock.running {
