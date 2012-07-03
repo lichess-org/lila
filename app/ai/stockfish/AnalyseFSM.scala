@@ -52,11 +52,9 @@ final class AnalyseFSM(
   whenUnhandled {
     case Event(analyse: Analyse, data) ⇒
       nextAnalyse(data enqueue Task(analyse, sender))
-    case Event(Out(""), _)                               ⇒ stay
-    case Event(Out(t), _) if t startsWith "id "          ⇒ stay
-    case Event(Out(t), _) if t startsWith "info "        ⇒ stay
-    case Event(Out(t), _) if t startsWith "option name " ⇒ stay
-    case Event(Err(t), _)                                ⇒ { log.error(t); stay }
+    case Event(Out(t), _) if isNoise(t) ⇒ stay
+    case Event(Out(t), _)               ⇒ { log.warning(t); stay }
+    case Event(Err(t), _)               ⇒ { log.error(t); stay }
   }
 
   def nextAnalyse(data: Data) = data match {
@@ -82,6 +80,9 @@ final class AnalyseFSM(
         nextAnalyse(doing.done)
       })
   }
+
+  def isNoise(t: String) =
+    t.isEmpty || (t startsWith "id ") || (t startsWith "info ") || (t startsWith "option name ")
 
   def onTermination() {
     process.destroy()

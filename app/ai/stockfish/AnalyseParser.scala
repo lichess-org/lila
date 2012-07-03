@@ -6,7 +6,7 @@ import analyse.Info
 object AnalyseParser {
 
   // info depth 4 seldepth 5 score cp -3309 nodes 1665 nps 43815 time 38 multipv 1 pv f2e3 d4c5 c1d1 c5g5 d1d2 g5g2 d2c1 e8e3
-  def apply(lines: List[String]): String ⇒ Valid[Info] =
+  def apply(lines: List[String]): String ⇒ Valid[Int ⇒ Info] =
     move ⇒
       findBestMove(lines) toValid "Analysis bestmove not found" flatMap { best ⇒
         Info(move, best, findCp(lines), findMate(lines))

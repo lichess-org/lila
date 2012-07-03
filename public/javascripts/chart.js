@@ -1,9 +1,10 @@
 function drawCharts() {
 
   var light = $('body').hasClass('light');
-  var bg = light ? '#ffffff' : '#2a2a2a';
+  var bg = "transparent"; //light ? '#ffffff' : '#2a2a2a';
   var textcolor = {color: light ? '#848484' : '#a0a0a0'};
-  var linecolor = {color: light ? '#9f9f9f' : '#505050'};
+  var weak = light ? '#ccc' : '#3e3e3e';
+  var strong = light ? '#909090' : '#707070';
 
   function elemToData(elem) {
     var data = new google.visualization.DataTable();
@@ -29,7 +30,7 @@ function drawCharts() {
       chartArea:{left:"10%",top:"2%",width:"90%",height:"96%"},
       titlePosition: 'none',
       hAxis: {textPosition: "none"},
-      vAxis: {textStyle: textcolor, gridlines: linecolor},
+      vAxis: {textStyle: textcolor, gridlines: lineColor},
       backgroundColor: bg
     });
   });
@@ -86,7 +87,7 @@ function drawCharts() {
       titleTextStyle: textcolor,
       chartArea:{left:"5%",top:"5%",width:"78%",height:"90%"},
       backgroundColor: bg,
-      vAxis: {textStyle: textcolor, gridlines: linecolor},
+      vAxis: {textStyle: textcolor, gridlines: lineColor},
       legend: {textStyle: textcolor}
     });
   });
@@ -96,13 +97,22 @@ function drawCharts() {
     var chart = new google.visualization.AreaChart(this);
     chart.draw(data, {
       width: 512,
-      height: 400,
+      height: 150,
       title: $(this).data('title'),
       titleTextStyle: textcolor,
-      chartArea:{left:"5%",top:"5%",width:"78%",height:"90%"},
+      titlePosition: "in",
+      chartArea:{left:"0%",top:"0%",width:"100%",height:"100%"},
       backgroundColor: bg,
-      vAxis: {textStyle: textcolor, gridlines: linecolor},
-      legend: {textStyle: textcolor}
+      vAxis: {
+        maxValue: $(this).data('max'),
+        minValue: -$(this).data('max'),
+        baselineColor: strong,
+        gridlines: {color:weak},
+        minorGridlines: {color:weak}
+      },
+      legend: {position: "none"},
+      axisTitlesPosition: "none",
+      pointSize: 2
     });
   });
 }

@@ -661,6 +661,15 @@ div.undergame_box a:hover {
 div.undergame_box div.inner {
   padding: 10px;
 }
+div.adv_chart {
+  height: 150px;
+  width: 512px;
+  border-left: 1px solid #cecece;
+  border-right: 1px solid #cecece;
+}
+div.adv_chart iframe {
+  height: 150px;
+}
 div.game_analysis {
   font-family: monospace;
 }

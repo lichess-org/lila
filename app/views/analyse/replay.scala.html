@@ -40,23 +40,28 @@ moreJs = moreJs) {
   <div id="GameLastComment"></div>
 </div>
 <textarea id="pgnText" readonly="readonly">@Html(pgn)</textarea>
-<div class="undergame_box game_analysis">
 @analysis.map { a =>
-  @if(a.done) {
-  @analyse.analysis(pov, a)
-  } else {
-  @a.fail.map { f =>
+@if(a.done) {
+<div
+  class="adv_chart"
+  data-title="Advantage"
+  data-max="@a.advantageChart.max"
+  data-columns="@a.advantageChart.columns"
+  data-rows="@a.advantageChart.rows"></div>
+} else {
+<div class="undergame_box game_analysis">
+@a.fail.map { f =>
   <div class='inner'>Computer analysis has failed.<br />@f</div>
   }.getOrElse {
   <div class='inner'>Computer analysis in progress</div>
   }
-  }
+</div>
+}
 }.getOrElse {
 <form action="@routes.Analyse.computer(gameId, color.name)" method="post">
   <button type="submit">Request a computer analysis</button>
 </form>
 }
-</div>
 @views.html.game.more(pov, bookmarkers) {
 @trans.opening() @opening.map { o =>
 <a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a>

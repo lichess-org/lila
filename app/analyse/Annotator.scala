@@ -12,7 +12,7 @@ object Annotator {
 
   private def annotateTurns(p: pgn.Pgn, advices: List[Advice]): pgn.Pgn =
     advices.foldLeft(p) {
-      case (acc, advice) ⇒ acc.updateTurn(advice.fullMove, turn ⇒
+      case (acc, advice) ⇒ acc.updateTurn(advice.turn, turn ⇒
         turn.update(advice.color, move ⇒
           move.copy(
             nag = advice.nag.code.some,
@@ -23,7 +23,7 @@ object Annotator {
     }
 
   private def makeComment(advice: Advice): String = advice match {
-    case CpAdvice(sev, info, _, _)   ⇒ "%s. Best was %s.".format(sev.nag, info.best.uci)
-    case MateAdvice(sev, info, _, _) ⇒ "%s. Best was %s.".format(sev.desc, info.best.uci)
+    case CpAdvice(sev, info, _)   ⇒ "%s. Best was %s.".format(sev.nag, info.best.uci)
+    case MateAdvice(sev, info, _) ⇒ "%s. Best was %s.".format(sev.desc, info.best.uci)
   }
 }
