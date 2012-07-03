@@ -12,7 +12,7 @@ final class CategRepo(
   ) extends SalatDAO[Categ, String](collection) {
 
   def bySlug(slug: String): IO[Option[Categ]] = io {
-    findOneById(slug)
+    findOneByID(slug)
   }
 
   val all: IO[List[Categ]] = io {

@@ -11,7 +11,7 @@ final class PageRepo(
     collection: MongoCollection) extends SalatDAO[Page, String](collection) {
 
   def byId(id: String): IO[Option[Page]] = io {
-    findOneById(id)
+    findOneByID(id)
   }
 
   val all: IO[List[Page]] = io {

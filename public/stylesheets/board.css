@@ -688,11 +688,10 @@ div.anon_chat a.user_link:hover {
 }
 
 div.lichess_chat ol.lichess_messages li.white {
-  background: url(../images/s14.png) no-repeat;
+  background: url(../images/klw14.png) no-repeat;
 }
 div.lichess_chat ol.lichess_messages li.black {
-  background: url(../images/s14.png) no-repeat;
-  background-position: 0 -14px;
+  background: url(../images/klb14.png) no-repeat;
 }
 div.lichess_chat.hidden ol.lichess_messages, div.lichess_chat.hidden form {
   opacity: 0;

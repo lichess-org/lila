@@ -61,7 +61,7 @@ final class BookmarkRepo(val collection: MongoCollection) {
         "g" -> gameId,
         "u" -> userId,
         "d" -> date),
-      concern = WriteConcern.Safe
+      writeConcern = WriteConcern.Safe
     )
   }
 
