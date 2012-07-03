@@ -17,7 +17,7 @@ trait Dependencies {
   val scalachess = "com.github.ornicar" %% "scalachess" % "1.14"
   val scalaz = "org.scalaz" %% "scalaz-core" % "6.0.4"
   val specs2 = "org.specs2" %% "specs2" % "1.11"
-  val casbah = "org.mongodb" %% "casbah" % "2.3.0"
+  val casbah = "org.mongodb" %% "casbah" % "2.4.0"
   val salat = "com.novus" %% "salat-core" % "1.9-SNAPSHOT"
   val scalalib = "com.github.ornicar" %% "scalalib" % "1.37"
   val config = "com.typesafe" % "config" % "0.4.1"
