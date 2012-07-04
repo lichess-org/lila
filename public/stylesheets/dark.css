@@ -261,6 +261,7 @@ body.dark .ui-state-default,
 body.dark div.content_box_top, 
 body.dark div.hooks tr, 
 body.dark a.translation_call,
+body.dark div.notification,
 body.dark div.locale_menu a
 {
   background: #3a3a3a;

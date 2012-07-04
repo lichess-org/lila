@@ -592,7 +592,8 @@ div.locale_menu a.active
 
 /* strong inactive gradient */
 div.hooks td.action,
-.button:hover
+.button:hover,
+div.notification
 {
   background: #ffffff;
   background: -moz-linear-gradient(center top , #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
@@ -740,4 +741,24 @@ div.progressbar div {
 }
 div.progressbar.flashy.green div {
   background: #90d050;
+}
+
+div.notifications {
+  width: 1005px;
+  margin: 0 auto -10px auto;
+}
+div.notification {
+  margin-left: 211px;
+  width: 498px;
+  border: 1px solid #404040;
+  padding: 6px 8px 7px 8px;
+  margin-bottom: 8px;
+  border-radius: 3px;
+}
+div.notification a.close {
+  text-decoration: none;
+  float: right;
+}
+div.notification a.close:hover {
+  font-weight: bold;
 }

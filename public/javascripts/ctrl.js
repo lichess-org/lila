@@ -206,6 +206,20 @@ $(function() {
     return false;
   });
 
+  $("div.notifications").on("click", "div.notification a", function(e) {
+    var $a = $(this);
+    var $notif = $a.closest("div.notification");
+    var follow = !$a.hasClass("close");
+    $.ajax($notif.find("a.close").attr("href"), {
+      type: "delete",
+      success: function() {
+        if (follow) location.href = $a.attr("href");
+      }
+    });
+    $notif.remove();
+    return false;
+  });
+
   var elem = document.createElement('audio');
   var canPlayAudio = !! elem.canPlayType && elem.canPlayType('audio/ogg; codecs="vorbis"');
   var $soundToggle = $('#sound_state');

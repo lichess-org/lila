@@ -19,6 +19,7 @@ object Analyse extends LilaController {
   def roundMessenger = env.round.messenger
   def roundSocket = env.round.socket
   def analyser = env.analyse.analyser
+  def notification = env.notificationApi
 
   def computer(id: String, color: String) = Auth { implicit ctx ⇒
     me ⇒
@@ -26,7 +27,9 @@ object Analyse extends LilaController {
         case Left(e) ⇒ println(e.getMessage)
         case Right(a) ⇒ a.fold(
           err ⇒ println("Computer analysis failure: " + err.shows),
-          _ ⇒ println("Computer analysis succeeded for game " + id)
+          analysis ⇒ {
+            notification.add(me, views.html.analyse.notification(analysis, id).toString)
+          }
         )
       }
       Redirect(routes.Analyse.replay(id, color))
@@ -39,6 +42,10 @@ object Analyse extends LilaController {
         bookmarkers ← bookmarkApi usersByGame pov.game
         pgn ← pgnDump >> pov.game
         analysis ← analyser get pov.game.id
+        _ = for {
+          me ← ctx.me
+          a ← analysis
+        } yield notification.add(me, views.html.analyse.notification(a, id).toString)
       } yield html.analyse.replay(
         pov,
         pgn.toString,
