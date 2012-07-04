@@ -9,14 +9,32 @@ case class Analysis(
     done: Boolean,
     fail: Option[String] = None) {
 
+  lazy val infoAdvices: Analysis.InfoAdvices = (infos sliding 2 collect {
+    case info :: next :: Nil ⇒ info -> Advice(info, next)
+  }).toList
+
+  def advices: List[Advice] = infoAdvices.map(_._2).flatten
+
+  lazy val advantageChart = new AdvantageChart(infoAdvices)
+
   def encode: String = infos map (_.encode) mkString Analysis.separator
+}
 
-  lazy val advices: List[Advice] = (infos sliding 2 map {
-    case info :: next :: Nil ⇒ Advice(info, next)
-    case _                   ⇒ None
-  }).toList.flatten
+object Analysis {
 
-  lazy val advantageChart = new AdvantageChart(infos)
+  type InfoAdvices = List[(Info, Option[Advice])]
+  private val separator = " "
+
+  def apply(str: String, done: Boolean): Valid[Analysis] = decode(str) map { infos ⇒
+    new Analysis(infos, done)
+  }
+
+  def decode(str: String): Valid[List[Info]] =
+    (str.split(separator).toList.zipWithIndex map {
+      case (info, index) ⇒ Info.decode(index + 1, info)
+    }).sequence
+
+  def builder = new AnalysisBuilder(Nil)
 }
 
 sealed trait Advice {
@@ -27,6 +45,7 @@ sealed trait Advice {
 
   def ply = info.ply
   def turn = info.turn
+  def move = info.move
   def color = info.color
   def nag = severity.nag
 }
@@ -54,18 +73,19 @@ case class CpAdvice(
 }
 
 sealed abstract class MateSeverity(nag: Nag, val desc: String) extends Severity(nag: Nag)
-case object MateDelayed extends MateSeverity(Nag.Inaccuracy,
-  desc = "Not the quickest path to checkmate")
+case class MateDelayed(before: Int, after: Int) extends MateSeverity(Nag.Inaccuracy,
+  desc = "Detected checkmate in %s moves, but player moved for mate in %s".format(before, after + 1))
 case object MateLost extends MateSeverity(Nag.Mistake,
-  desc = "Forced checkmate lost")
+  desc = "Lost forced checkmate sequence")
 case object MateCreated extends MateSeverity(Nag.Blunder,
   desc = "Checkmate is now unavoidable")
 object MateSeverity {
   def apply(current: Option[Int], next: Option[Int]): Option[MateSeverity] =
     (current, next).some collect {
-      case (None, Some(n)) if n < 0 ⇒ MateCreated
-      case (Some(c), None) if c > 0 ⇒ MateLost
-      case (Some(c), Some(n)) if c > 0 && n >= c ⇒ MateDelayed
+      case (None, Some(n)) if n < 0                 ⇒ MateCreated
+      case (Some(c), None) if c > 0                 ⇒ MateLost
+      case (Some(c), Some(n)) if (c > 0) && (n < 0) ⇒ MateLost
+      case (Some(c), Some(n)) if c > 0 && n >= c    ⇒ MateDelayed(c, n)
     }
 }
 case class MateAdvice(
@@ -98,22 +118,6 @@ object Advice {
     info.color.fold(info.mate, info.mate map (-_)) map { chance ⇒
       color.fold(chance, -chance)
     }
-}
-
-object Analysis {
-
-  private val separator = " "
-
-  def apply(str: String, done: Boolean): Valid[Analysis] = decode(str) map { infos ⇒
-    new Analysis(infos, done)
-  }
-
-  def decode(str: String): Valid[List[Info]] =
-    (str.split(separator).toList.zipWithIndex map {
-      case (info, index) ⇒ Info.decode(index + 1, info)
-    }).sequence
-
-  def builder = new AnalysisBuilder(Nil)
 }
 
 final class AnalysisBuilder(infos: List[Info]) {
