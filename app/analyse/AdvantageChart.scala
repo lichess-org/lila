@@ -11,21 +11,20 @@ final class AdvantageChart(advices: Analysis.InfoAdvices) {
 
   def rows = Json generate chartValues
 
-  private lazy val values: List[Option[(String, Float)]] =
-    (advices sliding 2 map {
+  private lazy val values: List[(String, Float)] =
+    (advices sliding 2 collect {
       case (info, advice) :: (next, _) :: Nil ⇒
         (next.score, next.mate) match {
-          case (Some(score), _) ⇒ Some(move(info, advice) -> box(score.pawns))
-          case (_, Some(mate))  ⇒ Some(move(info, advice) -> box(info.color.fold(-mate, mate) * max))
-          case _                ⇒ None
+          case (Some(score), _) ⇒ move(info, advice) -> box(score.pawns)
+          case (_, Some(mate))  ⇒ move(info, advice) -> box(info.color.fold(-mate, mate) * max)
+          case _                ⇒ move(info, none) -> box(0)
         }
-      case _ ⇒ None
-    }).toList.dropWhile(_.isEmpty).reverse.dropWhile(_.isEmpty).reverse
+    }).toList
 
   private def chartValues: List[List[Any]] = values collect {
-    case Some((move, score)) if score > 0 ⇒ List(move, score, none)
-    case Some((move, score)) if score < 0 ⇒ List(move, none, score)
-    case Some((move, score))              ⇒ List(move, none, none)
+    case (move, score) if score > 0 ⇒ List(move, score, none)
+    case (move, score) if score < 0 ⇒ List(move, none, score)
+    case (move, _)                  ⇒ List(move, 0, 0)
   }
 
   private def box(v: Float) = math.min(max, math.max(-max, v))

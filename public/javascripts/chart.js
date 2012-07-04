@@ -112,9 +112,13 @@ function drawCharts() {
         viewWindowMode: "maximized"
       },
       legend: {position: "none"},
-      axisTitlesPosition: "none",
-      pointSize: 0
+      axisTitlesPosition: "none"
     });
+    google.visualization.events.addListener(chart, 'select', function() {
+      var sel = chart.getSelection()[0];
+      GoToMove(sel.row + 1);
+    });
+    $(this).data("chart", chart);
   });
 }
 

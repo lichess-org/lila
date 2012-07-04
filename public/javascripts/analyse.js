@@ -50,6 +50,11 @@ function customFunctionOnPgnGameLoad() {
 function customFunctionOnMove() {
   $('#GameLastComment').toggle($('#GameLastComment > .comment').text().length > 0);
   refreshButtonset();
+  var chart = $("div.adv_chart").data("chart");
+  if (chart) {
+    var index = CurrentPly - 1;
+    chart.setSelection([{ row: index, column: 1}, { row: index, column: 2}]);
+  }
 }
 
 function redrawBoardMarks() {
