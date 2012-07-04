@@ -7,7 +7,7 @@ trait ConfigHelper {
 
   protected def env: CoreEnv
 
-  def moretimeSeconds = env.settings.MoretimeSeconds
+  def moretimeSeconds = env.settings.RoundMoretime
 
-  def gameAnimationDelay = env.settings.GameAnimationDelay
+  def gameAnimationDelay = env.settings.RoundAnimationDelay
 }

@@ -24,7 +24,7 @@ final class SetupEnv(
 
   import settings._
 
-  lazy val configRepo = new UserConfigRepo(mongodb(MongoCollectionConfig))
+  lazy val configRepo = new UserConfigRepo(mongodb(UserCollectionConfig))
 
   lazy val formFactory = new FormFactory(
     configRepo = configRepo)

@@ -16,10 +16,10 @@ final class SecurityEnv(
   import settings._
 
   lazy val store = new security.Store(
-    collection = mongodb(MongoCollectionSecurity))
+    collection = mongodb(SecurityCollectionSecurity))
 
   lazy val firewall = new security.Firewall(
-    collection = mongodb(MongoCollectionFirewall),
+    collection = mongodb(FirewallCollectionFirewall),
     blockCookieName = FirewallBlockCookie,
     enabled = FirewallEnabled)
 

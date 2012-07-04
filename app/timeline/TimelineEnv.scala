@@ -15,7 +15,7 @@ final class TimelineEnv(
   import settings._
 
   lazy val entryRepo = new EntryRepo(
-    collection = mongodb(settings.MongoCollectionEntry),
+    collection = mongodb(settings.LobbyCollectionEntry),
     max = LobbyEntryMax)
 
   lazy val push = new Push(

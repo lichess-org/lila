@@ -30,14 +30,14 @@ final class RoundEnv(
   implicit val ctx = app
   import settings._
 
-  lazy val history = () ⇒ new History(timeout = GameMessageLifetime)
+  lazy val history = () ⇒ new History(timeout = RoundMessageLifetime)
 
   lazy val hubMaster = Akka.system.actorOf(Props(new HubMaster(
     makeHistory = history,
-    uidTimeout = GameUidTimeout,
-    hubTimeout = GameHubTimeout,
-    playerTimeout = GamePlayerTimeout
-  )), name = ActorGameHubMaster)
+    uidTimeout = RoundUidTimeout,
+    hubTimeout = RoundHubTimeout,
+    playerTimeout = RoundPlayerTimeout
+  )), name = ActorRoundHubMaster)
 
   lazy val moveNotifier = new MoveNotifier(
     siteHubName = ActorSiteHub,
@@ -60,7 +60,7 @@ final class RoundEnv(
     finisher = finisher,
     takeback = takeback,
     hubMaster = hubMaster,
-    moretimeSeconds = MoretimeSeconds)
+    moretimeSeconds = RoundMoretime)
 
   lazy val finisher = new Finisher(
     userRepo = userRepo,
@@ -84,8 +84,8 @@ final class RoundEnv(
     i18nKeys = i18nKeys)
 
   lazy val roomRepo = new RoomRepo(
-    mongodb(MongoCollectionRoom))
+    mongodb(RoundCollectionRoom))
 
   lazy val watcherRoomRepo = new WatcherRoomRepo(
-    mongodb(MongoCollectionWatcherRoom))
+    mongodb(RoundCollectionWatcherRoom))
 }

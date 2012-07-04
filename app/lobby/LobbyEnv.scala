@@ -52,10 +52,10 @@ final class LobbyEnv(
     socket = socket)
 
   lazy val messageRepo = new MessageRepo(
-    collection = mongodb(MongoCollectionMessage),
+    collection = mongodb(LobbyCollectionMessage),
     max = LobbyMessageMax)
 
-  lazy val hookRepo = new HookRepo(mongodb(MongoCollectionHook))
+  lazy val hookRepo = new HookRepo(mongodb(LobbyCollectionHook))
 
   lazy val hookMemo = new HookMemo(timeout = MemoHookTimeout)
 

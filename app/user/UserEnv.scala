@@ -15,10 +15,10 @@ final class UserEnv(
 
   import settings._
 
-  lazy val historyRepo = new HistoryRepo(mongodb(MongoCollectionHistory))
+  lazy val historyRepo = new HistoryRepo(mongodb(UserCollectionHistory))
 
   lazy val userRepo = new UserRepo(
-    collection = mongodb(MongoCollectionUser))
+    collection = mongodb(UserCollectionUser))
 
   lazy val paginator = new PaginatorBuilder(
     userRepo = userRepo,

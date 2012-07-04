@@ -24,7 +24,7 @@ final class AnalyseEnv(
     userRepo = userRepo)
 
   lazy val analysisRepo = new AnalysisRepo(
-    mongodb(MongoCollectionAnalysis))
+    mongodb(AnalyseCollectionAnalysis))
 
   lazy val analyser = new Analyser(
     analysisRepo = analysisRepo,

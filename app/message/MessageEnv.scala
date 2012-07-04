@@ -14,7 +14,7 @@ final class MessageEnv(
 
   import settings._
 
-  lazy val threadRepo = new ThreadRepo(mongodb(MongoCollectionMessageThread))
+  lazy val threadRepo = new ThreadRepo(mongodb(MessageCollectionThread))
 
   lazy val unreadCache = new UnreadCache(threadRepo)
 
