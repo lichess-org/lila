@@ -42,10 +42,6 @@ object Analyse extends LilaController {
         bookmarkers ← bookmarkApi usersByGame pov.game
         pgn ← pgnDump >> pov.game
         analysis ← analyser get pov.game.id
-        _ = for {
-          me ← ctx.me
-          a ← analysis
-        } yield notification.add(me, views.html.analyse.notification(a, id).toString)
       } yield html.analyse.replay(
         pov,
         pgn.toString,
