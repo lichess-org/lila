@@ -9,7 +9,7 @@ final class AdvantageChart(advices: Analysis.InfoAdvices) {
 
   def columns = AdvantageChart.columns
 
-  def rows = Json generate values.map(_.map(x ⇒ List(x._1, x._2)))
+  def rows = Json generate chartValues
 
   private lazy val values: List[Option[(String, Float)]] =
     (advices sliding 2 map {
@@ -21,6 +21,12 @@ final class AdvantageChart(advices: Analysis.InfoAdvices) {
         }
       case _ ⇒ None
     }).toList.dropWhile(_.isEmpty).reverse.dropWhile(_.isEmpty).reverse
+
+  private def chartValues: List[List[Any]] = values collect {
+    case Some((move, score)) if score > 0 ⇒ List(move, score, none)
+    case Some((move, score)) if score < 0 ⇒ List(move, none, score)
+    case Some((move, score))              ⇒ List(move, none, none)
+  }
 
   private def box(v: Float) = math.min(max, math.max(-max, v))
 
@@ -34,5 +40,6 @@ object AdvantageChart {
 
   val columns = Json generate List(
     "string" :: "Move" :: Nil,
-    "number" :: "Advantage" :: Nil)
+    "number" :: "White" :: Nil,
+    "number" :: "Black" :: Nil)
 }

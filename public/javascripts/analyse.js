@@ -43,8 +43,19 @@ function customFunctionOnPgnGameLoad() {
     return false;
   });
   redrawBoardMarks();
+  $("#GameButtons table").css('width', '514px').buttonset();
+  $("#autoplayButton").click(refreshButtonset);
+}
+
+function customFunctionOnMove() {
+  $('#GameLastComment').toggle($('#GameLastComment > .comment').text().length > 0);
+  refreshButtonset();
 }
 
 function redrawBoardMarks() {
   $.displayBoardMarks($('#GameBoard'), ! $('#GameBoard').hasClass('flip'));
+}
+
+function refreshButtonset() {
+  $("#autoplayButton").addClass("ui-button ui-widget ui-state-default");
 }

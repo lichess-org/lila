@@ -1,7 +1,7 @@
 function drawCharts() {
 
   var light = $('body').hasClass('light');
-  var bg = "transparent"; //light ? '#ffffff' : '#2a2a2a';
+  var bg = "transparent"; 
   var textcolor = {color: light ? '#848484' : '#a0a0a0'};
   var weak = light ? '#ccc' : '#3e3e3e';
   var strong = light ? '#909090' : '#707070';
@@ -106,13 +106,14 @@ function drawCharts() {
       vAxis: {
         maxValue: $(this).data('max'),
         minValue: -$(this).data('max'),
-        baselineColor: strong,
-        gridlines: {color:weak},
-        minorGridlines: {color:weak}
+        baselineColor: bg,
+        gridlines: {color: bg},
+        minorGridlines: {color: bg},
+        viewWindowMode: "maximized"
       },
       legend: {position: "none"},
       axisTitlesPosition: "none",
-      pointSize: 2
+      pointSize: 0
     });
   });
 }
