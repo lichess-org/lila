@@ -116,9 +116,3 @@ div.adv_chart {
 div.adv_chart iframe {
   height: 150px;
 }
-div.game_analysis {
-  font-family: monospace;
-}
-div.game_analysis th {
-  padding: 5px;
-}
