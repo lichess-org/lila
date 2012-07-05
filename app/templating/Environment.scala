@@ -28,7 +28,8 @@ object Environment
     with security.SecurityHelper
     with i18n.I18nHelper 
     with bookmark.BookmarkHelper
-    with notification.NotificationHelper {
+    with notification.NotificationHelper
+    with analyse.AnalyseHelper {
 
   protected def env = coreEnv
 }

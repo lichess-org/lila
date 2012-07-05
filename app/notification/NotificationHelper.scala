@@ -16,5 +16,4 @@ trait NotificationHelper {
     val notifs = api get user take 2 map { views.html.notification.view(_) } 
     notifs.foldLeft(Html(""))(_ + _)
   }
-
 }

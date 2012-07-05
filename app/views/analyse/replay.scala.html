@@ -69,9 +69,11 @@ moreJs = moreJs) {
 <br />
 <a class="view_pgn_toggle" href="@routes.Analyse.pgn(game.id)">View PGN</a>
 <br />
+@if(canRequestAnalysis && game.finished && analysis.isEmpty) {
 <form class="request_analysis" action="@routes.Analyse.computer(gameId, color.name)" method="post">
   <a>Request a computer analysis</a>
 </form>
+}
 </nav>
 }
 }
