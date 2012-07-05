@@ -6,7 +6,6 @@ require_once __DIR__.'/base_script.php';
 $remote="phobos";
 $remoteDir="/home/lila";
 $rsyncoptions="--archive --force --delete --progress --compress --checksum --exclude-from=bin/rsync_exclude";
-$testurl="http://en.lichess.org";
 
 if (!file_exists('bin/rsync_exclude')) {
     exit("This script must be run from the project root");
@@ -14,4 +13,3 @@ if (!file_exists('bin/rsync_exclude')) {
 
 $remoteTarget = "$remote:$remoteDir";
 show_run("Deploy to $remoteTarget", "rsync $rsyncoptions ./ $remoteTarget");
-//show_run("Run restart", "ssh $remote \"cd $remoteDir && bin/restart\"");
