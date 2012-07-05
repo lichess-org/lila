@@ -57,10 +57,6 @@ moreJs = moreJs) {
   }
 </div>
 }
-}.getOrElse {
-<form action="@routes.Analyse.computer(gameId, color.name)" method="post">
-  <button type="submit">Request a computer analysis</button>
-</form>
 }
 @views.html.game.more(pov, bookmarkers) {
 @trans.opening() @opening.map { o =>
@@ -72,6 +68,10 @@ moreJs = moreJs) {
 <a class="rotate_board" href="@routes.Analyse.replay(gameId, (!color).name)">@trans.flipBoard()</a>
 <br />
 <a class="view_pgn_toggle" href="@routes.Analyse.pgn(game.id)">View PGN</a>
+<br />
+<form class="request_analysis" action="@routes.Analyse.computer(gameId, color.name)" method="post">
+  <a>Request a computer analysis</a>
+</form>
 </nav>
 }
 }

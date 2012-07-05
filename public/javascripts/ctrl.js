@@ -225,6 +225,10 @@ $(function() {
     return false;
   });
 
+  $("form.request_analysis a").click(function() {
+    $(this).parent().submit();
+  });
+
   var elem = document.createElement('audio');
   var canPlayAudio = !! elem.canPlayType && elem.canPlayType('audio/ogg; codecs="vorbis"');
   var $soundToggle = $('#sound_state');
