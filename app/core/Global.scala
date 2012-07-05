@@ -24,7 +24,8 @@ object Global extends GlobalSettings {
 
   override def onRouteRequest(req: RequestHeader): Option[Handler] = 
     if (env.ai.isServer) {
-      super.onRouteRequest(req)
+      if (req.path startsWith "/ai/") super.onRouteRequest(req)
+      else Action(NotFound).some
     }
     else {
       env.monitor.rpsProvider.countRequest()
