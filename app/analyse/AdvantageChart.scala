@@ -21,10 +21,8 @@ final class AdvantageChart(advices: Analysis.InfoAdvices) {
         }
     }).toList
 
-  private def chartValues: List[List[Any]] = values collect {
-    case (move, score) if score > 0 ⇒ List(move, score, 0)
-    case (move, score) if score < 0 ⇒ List(move, 0, score)
-    case (move, _)                  ⇒ List(move, none, none)
+  private def chartValues: List[List[Any]] = values map {
+    case (move, score) ⇒ List(move, (score == 0).fold(null, score))
   }
 
   private def box(v: Float) = math.min(max, math.max(-max, v))
@@ -39,6 +37,5 @@ object AdvantageChart {
 
   val columns = Json generate List(
     "string" :: "Move" :: Nil,
-    "number" :: "White" :: Nil,
-    "number" :: "Black" :: Nil)
+    "number" :: "Advantage" :: Nil)
 }

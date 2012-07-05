@@ -53,7 +53,7 @@ function customFunctionOnMove() {
   var chart = $("div.adv_chart").data("chart");
   if (chart) {
     var index = CurrentPly - 1;
-    chart.setSelection([{ row: index, column: 1}, { row: index, column: 2}]);
+    chart.setSelection([{ row: index, column: 1}]);
   }
 }
 

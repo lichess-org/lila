@@ -4,7 +4,7 @@ function drawCharts() {
   var bg = "transparent"; 
   var textcolor = {color: light ? '#848484' : '#a0a0a0'};
   var weak = light ? '#ccc' : '#3e3e3e';
-  var strong = light ? '#909090' : '#707070';
+  var strong = light ? '#a0a0a0' : '#606060';
 
   function elemToData(elem) {
     var data = new google.visualization.DataTable();
@@ -106,7 +106,7 @@ function drawCharts() {
       vAxis: {
         maxValue: $(this).data('max'),
         minValue: -$(this).data('max'),
-        baselineColor: bg,
+        baselineColor: strong,
         gridlines: {color: bg},
         minorGridlines: {color: bg},
         viewWindowMode: "maximized"
