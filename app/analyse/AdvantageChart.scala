@@ -24,7 +24,7 @@ final class AdvantageChart(advices: Analysis.InfoAdvices) {
   private def chartValues: List[List[Any]] = values collect {
     case (move, score) if score > 0 ⇒ List(move, score, none)
     case (move, score) if score < 0 ⇒ List(move, none, score)
-    case (move, _)                  ⇒ List(move, 0, 0)
+    case (move, _)                  ⇒ List(move, none, none)
   }
 
   private def box(v: Float) = math.min(max, math.max(-max, v))
