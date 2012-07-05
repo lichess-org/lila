@@ -18,7 +18,7 @@ object Global extends GlobalSettings {
     println("Configured as " + env.configName)
 
     if (env.ai.isServer) println("Running as AI server")
-    else if(app.mode == Mode.Test) println("Running without cron")
+    else if (app.mode == Mode.Test) println("Running without cron")
     else core.Cron start env
   }
 
@@ -32,10 +32,18 @@ object Global extends GlobalSettings {
     }
 
   override def onHandlerNotFound(req: RequestHeader): Result = {
-    controllers.Lobby handleNotFound req 
+    controllers.Lobby handleNotFound req
   }
 
   override def onBadRequest(req: RequestHeader, error: String) = {
     BadRequest("Bad Request: " + error)
   }
+
+  override def onError(request: RequestHeader, ex: Throwable) =
+    Option(coreEnv).fold(_.app.mode, Mode.Prod) match {
+      case Mode.Prod ⇒ InternalServerError(
+        views.html.base.errorPage(ex)(http.Context(request, none))
+      )
+      case _ ⇒ super.onError(request, ex)
+    }
 }
