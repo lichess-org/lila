@@ -22,8 +22,8 @@ final class AdvantageChart(advices: Analysis.InfoAdvices) {
     }).toList
 
   private def chartValues: List[List[Any]] = values collect {
-    case (move, score) if score > 0 ⇒ List(move, score, none)
-    case (move, score) if score < 0 ⇒ List(move, none, score)
+    case (move, score) if score > 0 ⇒ List(move, score, 0)
+    case (move, score) if score < 0 ⇒ List(move, 0, score)
     case (move, _)                  ⇒ List(move, none, none)
   }
 
