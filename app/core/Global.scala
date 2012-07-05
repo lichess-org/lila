@@ -16,22 +16,30 @@ object Global extends GlobalSettings {
     coreEnv = CoreEnv(app)
 
     if (env.ai.isServer) println("Running as AI server")
-    else if(app.mode == Mode.Test) println("Running without cron")
+    else if (app.mode == Mode.Test) println("Running without cron")
     else core.Cron start env
   }
 
   override def onRouteRequest(req: RequestHeader): Option[Handler] = {
     env.monitor.rpsProvider.countRequest()
     env.security.firewall.requestHandler(req) orElse
-    env.i18n.requestHandler(req) orElse 
-    super.onRouteRequest(req)
+      env.i18n.requestHandler(req) orElse
+      super.onRouteRequest(req)
   }
 
   override def onHandlerNotFound(req: RequestHeader): Result = {
-    controllers.Lobby handleNotFound req 
+    controllers.Lobby handleNotFound req
   }
 
   override def onBadRequest(req: RequestHeader, error: String) = {
     BadRequest("Bad Request: " + error)
   }
+
+  override def onError(request: RequestHeader, ex: Throwable) =
+    Option(coreEnv).fold(_.app.mode, Mode.Prod) match {
+      case Mode.Prod ⇒ InternalServerError(
+        views.html.base.errorPage(ex)(http.Context(request, none))
+      )
+      case _ ⇒ super.onError(request, ex)
+    }
 }
