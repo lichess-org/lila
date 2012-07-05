@@ -23,7 +23,9 @@ object Global extends GlobalSettings {
   }
 
   override def onRouteRequest(req: RequestHeader): Option[Handler] = 
-    if (env.ai.isServer) super.onRouteRequest(req)
+    if (env.ai.isServer) {
+      super.onRouteRequest(req)
+    }
     else {
       env.monitor.rpsProvider.countRequest()
       env.security.firewall.requestHandler(req) orElse
@@ -31,9 +33,9 @@ object Global extends GlobalSettings {
       super.onRouteRequest(req)
     }
 
-  override def onHandlerNotFound(req: RequestHeader): Result = {
-    controllers.Lobby handleNotFound req
-  }
+  override def onHandlerNotFound(req: RequestHeader): Result = 
+    env.ai.isServer.fold(NotFound, controllers.Lobby handleNotFound req)
+  
 
   override def onBadRequest(req: RequestHeader, error: String) = {
     BadRequest("Bad Request: " + error)
