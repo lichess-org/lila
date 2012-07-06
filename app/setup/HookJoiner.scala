@@ -54,7 +54,7 @@ final class HookJoiner(
 
   def makeGame(hook: Hook) = DbGame(
     game = Game(
-      board = Board(pieces = hook.realVariant.pieces),
+      board = Board init hook.realVariant,
       clock = hook.hasClock.fold(
         hook.time |@| hook.increment apply { (limit, inc) ⇒
           Clock(limit = limit, increment = inc)

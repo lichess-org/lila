@@ -14,7 +14,7 @@ trait Resolvers {
 }
 
 trait Dependencies {
-  val scalachess = "com.github.ornicar" %% "scalachess" % "1.14"
+  val scalachess = "com.github.ornicar" %% "scalachess" % "2.1"
   val scalaz = "org.scalaz" %% "scalaz-core" % "6.0.4"
   val specs2 = "org.specs2" %% "specs2" % "1.11"
   val salat = "com.novus" %% "salat-core" % "1.9-SNAPSHOT"

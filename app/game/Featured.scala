@@ -70,7 +70,7 @@ object Featured {
 
   private type Heuristic = DbGame ⇒ Float
   private val heuristicBox = box(0 to 1) _
-  private val eloBox = box(1200 to 2000) _
+  private val eloBox = box(1000 to 2000) _
   private val timeBox = box(60 to 300) _
   private val turnBox = box(1 to 21) _
 
@@ -81,7 +81,7 @@ object Featured {
     progressHeuristic -> 0.5f)
 
   def eloHeuristic(color: Color): Heuristic = game ⇒
-    eloBox(game.player(color).eloEstimation)
+    eloBox(game.player(color).elo | 1000)
 
   def speedHeuristic: Heuristic = game ⇒
     1 - timeBox(game.estimateTotalTime)

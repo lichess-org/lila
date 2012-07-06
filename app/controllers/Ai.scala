@@ -12,12 +12,30 @@ import play.api.Play.current
 object Ai extends LilaController {
 
   private val craftyServer = env.ai.craftyServer
+  private val stockfishServer = env.ai.stockfishServer
 
-  def run = Action { implicit req ⇒
+  def playCrafty = Action { implicit req ⇒
     implicit val ctx = Context(req, None)
     Async {
       Akka.future {
         craftyServer(fen = getOr("fen", ""), level = getIntOr("level", 1))
+      } map { res ⇒
+        res.fold(
+          err ⇒ BadRequest(err.shows),
+          op ⇒ Ok(op.unsafePerformIO)
+        )
+      }
+    }
+  }
+
+  def playStockfish = Action { implicit req ⇒
+    implicit val ctx = Context(req, None)
+    Async {
+      Akka.future {
+        stockfishServer(
+          pgn = getOr("pgn", ""), 
+          initialFen = get("initialFen"),
+          level = getIntOr("level", 1))
       } map { res ⇒
         res.fold(
           err ⇒ BadRequest(err.shows),

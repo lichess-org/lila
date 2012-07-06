@@ -48,7 +48,7 @@ final class PgnDump(gameRepo: GameRepo, userRepo: UserRepo) {
     io(none))
 
   def player(p: DbPlayer, u: Option[User]) = p.aiLevel.fold(
-    "Crafty level " + _,
+    "AI level " + _,
     u.fold(_.username, "Anonymous"))
 
   def moves(game: DbGame) = (game.pgnList grouped 2).zipWithIndex map {

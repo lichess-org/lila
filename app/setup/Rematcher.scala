@@ -65,7 +65,7 @@ final class Rematcher(
   } yield pov.fullId -> p2.events
 
   private def returnGame(pov: Pov): IO[DbGame] = for {
-    board ← pov.game.variant.standard.fold(
+    pieces ← pov.game.variant.standard.fold(
       io(pov.game.variant.pieces),
       gameRepo initialFen pov.game.id map { fenOption ⇒
         (fenOption flatMap Forsyth.<< map { situation ⇒
@@ -76,7 +76,7 @@ final class Rematcher(
     blackPlayer ← returnPlayer(pov.game, Black)
   } yield DbGame(
     game = Game(
-      board = Board(board),
+      board = Board(pieces, variant = pov.game.variant),
       clock = pov.game.clock map (_.reset)),
     whitePlayer = whitePlayer,
     blackPlayer = blackPlayer,

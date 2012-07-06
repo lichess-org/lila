@@ -20,12 +20,14 @@ object Global extends GlobalSettings {
     else core.Cron start env
   }
 
-  override def onRouteRequest(req: RequestHeader): Option[Handler] = {
-    env.monitor.rpsProvider.countRequest()
-    env.security.firewall.requestHandler(req) orElse
-      env.i18n.requestHandler(req) orElse
+  override def onRouteRequest(req: RequestHeader): Option[Handler] = 
+    if (env.ai.isServer) super.onRouteRequest(req)
+    else {
+      env.monitor.rpsProvider.countRequest()
+      env.security.firewall.requestHandler(req) orElse
+      env.i18n.requestHandler(req) orElse 
       super.onRouteRequest(req)
-  }
+    }
 
   override def onHandlerNotFound(req: RequestHeader): Result = {
     controllers.Lobby handleNotFound req

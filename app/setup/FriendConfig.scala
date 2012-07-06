@@ -17,7 +17,7 @@ case class FriendConfig(
 
   def game = DbGame(
     game = Game(
-      board = Board(pieces = variant.pieces),
+      board = Board init variant,
       clock = makeClock),
     ai = None,
     whitePlayer = DbPlayer.white,
