@@ -30,7 +30,7 @@ case class UserInfo(
 
 object UserInfo {
 
-  private val rankMinElo = 1600
+  private val rankMinElo = 1700
 
   def apply(
     userRepo: UserRepo,

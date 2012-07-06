@@ -34,7 +34,7 @@ extends SalatDAO[User, String](collection) {
   }
 
   def rank(user: User): IO[Int] = io {
-    count("elo" $gt user.elo).toInt + 1
+    count(DBObject("enabled" -> true) ++ ("elo" $gt user.elo)).toInt + 1
   }
 
   def setElo(id: String, elo: Int): IO[Unit] = io {
