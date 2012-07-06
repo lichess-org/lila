@@ -104,10 +104,7 @@ final class Hub(
 
   def batch(member: Member, vevents: List[VersionedEvent]) {
     if (vevents.nonEmpty) {
-      member.channel push JsObject(Seq(
-        "t" -> JsString("batch"),
-        "d" -> JsArray(vevents map (_ jsFor member))
-      ))
+      member.channel push makeEvent("batch", JsArray(vevents map (_ jsFor member)))
     }
   }
 

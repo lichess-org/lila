@@ -30,6 +30,8 @@ legend feedback: http://en.lichess.org/forum/lichess-feedback/a-few-points-bugss
 http://en.lichess.org/forum/lichess-feedback/problems-with-yin-yang#1
 also translate websockets error message
 @someone = link to someone's profile
+show analysis as soon as available on replay page
+always show CP/mate on analysis
 
 next deploy
 -----------
