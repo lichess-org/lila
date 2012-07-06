@@ -9,16 +9,18 @@ case class ListMenu(
   nbGames: Int,
   nbMates: Int,
   nbPopular: Int,
-  nbBookmarks: Option[Int])
+  nbBookmarks: Option[Int],
+  nbAnalysed: Int)
 
 object ListMenu {
 
   type CountBookmarks = User ⇒ Int
 
-  def apply(cached: Cached)(countBookmarks: CountBookmarks, me: Option[User]): ListMenu =
+  def apply(cached: Cached)(countBookmarks: CountBookmarks, countAnalysed: ⇒ Int, me: Option[User]): ListMenu =
     new ListMenu(
       nbGames = cached.nbGames,
       nbMates = cached.nbMates,
       nbPopular = cached.nbPopular,
-      nbBookmarks = me map countBookmarks)
+      nbBookmarks = me map countBookmarks,
+      nbAnalysed = countAnalysed)
 }

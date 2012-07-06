@@ -1,4 +1,4 @@
-@(pov: Pov, pgn: String, roomHtml: Html, bookmarkers: List[User], opening: Option[chess.OpeningExplorer.Opening], version: Int)(implicit ctx: Context)
+@(pov: Pov, pgn: String, roomHtml: Html, bookmarkers: List[User], opening: Option[chess.OpeningExplorer.Opening], analysis: Option[lila.analyse.Analysis], version: Int)(implicit ctx: Context)
 
 @import pov._
 
@@ -9,6 +9,7 @@
 @moreJs = {
 @jsVendorTag("pgn4web/pgn4web.js")
 @jsTag("analyse.js")
+@jsTag("chart.js")
 }
 
 @underchat = {
@@ -35,9 +36,28 @@ moreJs = moreJs) {
   </div>
   <div class="moves_wrap">
     <div id="GameText"></div>
+    <div id="GameLastComment"></div>
   </div>
 </div>
 <textarea id="pgnText" readonly="readonly">@Html(pgn)</textarea>
+@analysis.map { a =>
+@if(a.done) {
+<div
+  class="adv_chart"
+  data-title="Advantage"
+  data-max="@a.advantageChart.max"
+  data-columns="@a.advantageChart.columns"
+  data-rows="@a.advantageChart.rows"></div>
+} else {
+<div class="undergame_box game_analysis">
+@a.fail.map { f =>
+  <div class='inner'>Computer analysis has failed.<br />@f</div>
+  }.getOrElse {
+  <div class='inner'>Computer analysis in progress. You will be notified when it completes.</div>
+  }
+</div>
+}
+}
 @views.html.game.more(pov, bookmarkers) {
 @trans.opening() @opening.map { o =>
 <a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a>
@@ -47,7 +67,13 @@ moreJs = moreJs) {
 <br />
 <a class="rotate_board" href="@routes.Analyse.replay(gameId, (!color).name)">@trans.flipBoard()</a>
 <br />
-<a class="view_pgn_toggle" href="@routes.Analyse.pgn(game.id)">View PGN</a> 
+<a class="view_pgn_toggle" href="@routes.Analyse.pgn(game.id)">View PGN</a>
+<br />
+@if(canRequestAnalysis && game.finished && analysis.isEmpty) {
+<form class="request_analysis" action="@routes.Analyse.computer(gameId, color.name)" method="post">
+  <a>Request a computer analysis</a>
+</form>
+}
 </nav>
 }
 }

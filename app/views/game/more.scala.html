@@ -3,7 +3,7 @@
 @import pov._
 
 @defining("http://lichess.org" + routes.Round.watcher(gameId, color.name)) { url =>
-<div class="game_more">
+<div class="undergame_box game_more">
   <div class="more_top">
     @bookmark.toggle(game)
     <a
@@ -11,7 +11,7 @@
       class="game_permalink blank_if_play"
       href="@url">@url</a>
   </div>
-  <div class="game_extra">
+  <div class="inner game_extra">
     @if(bookmarkers.nonEmpty) {
     <div class="bookmarkers">
       <p>@trans.bookmarkedByNbPlayers(bookmarkers.size)</p>

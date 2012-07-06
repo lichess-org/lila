@@ -14,7 +14,7 @@ trait Resolvers {
 }
 
 trait Dependencies {
-  val scalachess = "com.github.ornicar" %% "scalachess" % "2.1"
+  val scalachess = "com.github.ornicar" %% "scalachess" % "2.10"
   val scalaz = "org.scalaz" %% "scalaz-core" % "6.0.4"
   val specs2 = "org.specs2" %% "specs2" % "1.11"
   val salat = "com.novus" %% "salat-core" % "1.9-SNAPSHOT"
@@ -70,15 +70,6 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       "lila.ui",
       "lila.http.Context",
       "com.github.ornicar.paginator.Paginator")
-    //incrementalAssetsCompilation := true,
-    //javascriptEntryPoints <<= (sourceDirectory in Compile)(base ⇒
-      //((base / "assets" / "javascripts" ** "*.js") 
-        //--- (base / "assets" / "javascripts" ** "_*")
-        //--- (base / "assets" / "javascripts" / "vendor" ** "*.js")
-        //--- (base / "assets" / "javascripts" ** "*.min.js")
-      //).get
-    //),
-    //lessEntryPoints <<= baseDirectory(_ / "app" / "assets" / "stylesheets" ** "*.less")
   ) 
 
   lazy val cli = Project("cli", file("cli"), settings = buildSettings).settings(

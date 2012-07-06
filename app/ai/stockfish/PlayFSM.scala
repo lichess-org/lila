@@ -2,14 +2,15 @@ package lila
 package ai.stockfish
 
 import model._
+import model.play._
 
-import akka.actor.{ Props, Actor, ActorRef, FSM ⇒ AkkaFSM, LoggingFSM }
+import akka.actor.{ Props, Actor, ActorRef, FSM ⇒ AkkaFSM }
 import scalaz.effects._
 
-final class FSM(
+final class PlayFSM(
   processBuilder: (String ⇒ Unit, String ⇒ Unit) ⇒ Process,
-  config: Config)
-    extends Actor with LoggingFSM[model.State, model.Data] {
+  config: PlayConfig)
+    extends Actor with AkkaFSM[State, Data] {
 
   val process = processBuilder(out ⇒ self ! Out(out), err ⇒ self ! Err(err))
 
@@ -32,15 +33,14 @@ final class FSM(
   }
   when(UciNewGame) {
     case Event(Out(t), data @ Doing(Task(play, _), _)) if t contains "readyok" ⇒ {
-      process write play.position
-      process write (play go config.moveTime)
-      goto(Go)
+      play go config.moveTime foreach process.write
+      goto(Running)
     }
   }
-  when(Go) {
+  when(Running) {
     case Event(Out(t), data @ Doing(Task(_, ref), _)) if t contains "bestmove" ⇒ {
       ref ! BestMove(t.split(' ') lift 1)
-      goto(Ready) using data.done
+      next(data.done)
     }
   }
   whenUnhandled {

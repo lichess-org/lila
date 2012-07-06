@@ -1,0 +1,11 @@
+@(notif: lila.notification.Notification)
+
+<div id="@notif.id" class="notification">
+  <a class="close" href="@routes.Notification.remove(notif.id)">X</a>
+  @notif.from.map { user =>
+  @userLink(user, none)
+  }
+  <div class="inner">
+    @Html(notif.html)
+  </div>
+</div>

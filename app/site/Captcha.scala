@@ -3,7 +3,8 @@ package site
 
 import game._
 import chess.{ Game, Color }
-import chess.format.{ Forsyth, PgnReader }
+import chess.format.Forsyth
+import chess.format.pgn
 
 import scalaz.{ NonEmptyList, NonEmptyLists }
 import scala.collection.mutable
@@ -81,7 +82,7 @@ final class Captcha(gameRepo: GameRepo) {
     } map (_.notation)
 
   private def rewind(game: DbGame): Valid[Game] =
-    PgnReader.withSans(game.pgn, _.init) map (_.game) mapFail failInfo(game)
+    pgn.Reader.withSans(game.pgn, _.init) map (_.game) mapFail failInfo(game)
 
   private def fen(game: Game): String = Forsyth >> game takeWhile (_ != ' ')
 

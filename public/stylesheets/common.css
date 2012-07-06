@@ -592,7 +592,8 @@ div.locale_menu a.active
 
 /* strong inactive gradient */
 div.hooks td.action,
-.button:hover
+.button:hover,
+div.notification
 {
   background: #ffffff;
   background: -moz-linear-gradient(center top , #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
@@ -644,20 +645,24 @@ div.checkmateCaptcha input {
   width: 5em;
 }
 
-div.game_more {
-  margin-top: 20px;
+div.undergame_box {
+  margin-top: 10px;
   width: 512px;
   box-shadow: 0 0 7px #d0d0d0;
   border: 1px solid #ccc;
   border-radius: 5px;
   line-height: 24px;
 }
-div.game_more a {
+div.undergame_box a {
   text-decoration: none;
 }
-div.game_more a:hover {
+div.undergame_box a:hover {
   text-decoration: underline;
 }
+div.undergame_box div.inner {
+  padding: 10px;
+}
+
 div.game_more div.more_top {
   padding: 3px 10px;
   width: 492px;
@@ -685,8 +690,6 @@ div.game_more textarea {
   border-radius: 3px;
 }
 div.game_extra {
-  padding: 10px 10px;
-  width: 492px;
   border-top: 1px solid #ccc;
 }
 div.game_extra div.body {
@@ -738,4 +741,24 @@ div.progressbar div {
 }
 div.progressbar.flashy.green div {
   background: #90d050;
+}
+
+div.notifications {
+  width: 1005px;
+  margin: 0 auto -10px auto;
+}
+div.notification {
+  margin-left: 211px;
+  width: 498px;
+  border: 1px solid #404040;
+  padding: 6px 8px 7px 8px;
+  margin-bottom: 8px;
+  border-radius: 3px;
+}
+div.notification a.close {
+  text-decoration: none;
+  float: right;
+}
+div.notification a.close:hover {
+  font-weight: bold;
 }

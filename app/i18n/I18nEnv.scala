@@ -47,7 +47,7 @@ final class I18nEnv(
     api = messagesApi,
     keys = keys)
 
-  lazy val translationRepo = new TranslationRepo(mongodb(MongoCollectionTranslation))
+  lazy val translationRepo = new TranslationRepo(mongodb(I18nCollectionTranslation))
 
   lazy val forms = new DataForm(
     repo = translationRepo,

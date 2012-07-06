@@ -16,8 +16,13 @@ var lichess = {
         }
       },
       nbm: function(e) {
-        var $tag = $('#nb_messages');
-        $tag.text(e || "0").toggleClass("unread", e > 0);
+        $('#nb_messages').text(e || "0").toggleClass("unread", e > 0);
+      },
+      notificationAdd: function(html) {
+        $('div.notifications ').prepend(html);
+      },
+      notificationRemove: function(id) {
+        $('#' + id).remove();
       }
     },
     options: {
@@ -204,6 +209,24 @@ $(function() {
       }
     });
     return false;
+  });
+
+  $("div.notifications").on("click", "div.notification a", function(e) {
+    var $a = $(this);
+    var $notif = $a.closest("div.notification");
+    var follow = !$a.hasClass("close");
+    $.ajax($notif.find("a.close").attr("href"), {
+      type: "delete",
+      success: function() {
+        if (follow) location.href = $a.attr("href");
+      }
+    });
+    $notif.remove();
+    return false;
+  });
+
+  $("form.request_analysis a").click(function() {
+    $(this).parent().submit();
   });
 
   var elem = document.createElement('audio');

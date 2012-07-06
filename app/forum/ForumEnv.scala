@@ -15,11 +15,11 @@ final class ForumEnv(
 
   import settings._
 
-  lazy val categRepo = new CategRepo(mongodb(MongoCollectionForumCateg))
+  lazy val categRepo = new CategRepo(mongodb(ForumCollectionCateg))
 
-  lazy val topicRepo = new TopicRepo(mongodb(MongoCollectionForumTopic))
+  lazy val topicRepo = new TopicRepo(mongodb(ForumCollectionTopic))
 
-  lazy val postRepo = new PostRepo(mongodb(MongoCollectionForumPost))
+  lazy val postRepo = new PostRepo(mongodb(ForumCollectionPost))
 
   lazy val categApi = new CategApi(this)
 

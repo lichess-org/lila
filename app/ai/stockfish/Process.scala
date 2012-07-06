@@ -18,6 +18,7 @@ final class Process(
   }
 
   def destroy() {
+    write("stop")
     write("quit")
     Thread sleep 300
     process.destroy()

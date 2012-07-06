@@ -7,6 +7,7 @@ GET   /games/all          controllers.Game.all(page: Int ?= 1)
 GET   /games/checkmate    controllers.Game.checkmate(page: Int ?= 1)
 GET   /games/bookmark     controllers.Game.bookmark(page: Int ?= 1)
 GET   /games/popular      controllers.Game.popular(page: Int ?= 1)
+GET   /games/analysed     controllers.Game.analysed(page: Int ?= 1)
 GET   /games/featured/js  controllers.Game.featuredJs(id: String ?= "")
 
 # Round
@@ -37,6 +38,7 @@ GET   /$gameId<[\w\-]{8}>/players                    controllers.Round.players(g
 # Analyse
 GET   /analyse/$gameId<[\w\-]{8}>       controllers.Analyse.replay(gameId: String, color: String = "white")
 GET   /analyse/$gameId<[\w\-]{8}>/$color<white|black> controllers.Analyse.replay(gameId: String, color: String)
+POST  /analyse/$gameId<[\w\-]{8}>/$color<white|black>/computer controllers.Analyse.computer(gameId: String, color: String)
 GET   /$gameId<[\w\-]{8}>/stats          controllers.Analyse.stats(gameId: String)
 GET   /$gameId<[\w\-]{8}>/pgn            controllers.Analyse.pgn(gameId: String)
 
@@ -89,8 +91,9 @@ GET   /wiki                            controllers.Wiki.home
 GET   /wiki/:slug                      controllers.Wiki.show(slug: String)
 
 # AI
-GET   /ai/play/crafty                  controllers.Ai.playCrafty
-GET   /ai/play/stockfish               controllers.Ai.playStockfish
+GET   /ai/crafty/play                  controllers.Ai.playCrafty
+GET   /ai/stockfish/play               controllers.Ai.playStockfish
+GET   /ai/stockfish/analyse            controllers.Ai.analyseStockfish
 
 # Lobby
 GET   /                                controllers.Lobby.home
@@ -120,6 +123,9 @@ POST  /inbox/new                       controllers.Message.create
 GET   /inbox/$id<[\w]{8}>              controllers.Message.thread(id: String)
 POST  /inbox/$id<[\w]{8}>              controllers.Message.answer(id: String)
 POST  /inbox/$id<[\w]{8}>/delete       controllers.Message.delete(id: String)
+
+# Notification
+DELETE /notification/$id<[\w]{8}>      controllers.Notification.remove(id)
 
 # Monitor
 GET   /monitor                         controllers.Monitor.index

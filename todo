@@ -26,3 +26,12 @@ or show empty chat
 play with a friend possible bug http://en.lichess.org/forum/lichess-feedback/play-with-a-friend-bug
 game chat box css issue http://en.lichess.org/forum/lichess-feedback/problem-with-the-chat-box#1
 show last move on miniboards
+legend feedback: http://en.lichess.org/forum/lichess-feedback/a-few-points-bugssuggestions#1
+http://en.lichess.org/forum/lichess-feedback/problems-with-yin-yang#1
+also translate websockets error message
+@someone = link to someone's profile
+
+next deploy
+-----------
+db.analysis.ensureIndex({done:1})
+db.analysis.ensureIndex({date:-1})

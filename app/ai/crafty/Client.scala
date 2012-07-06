@@ -7,9 +7,9 @@ import game.DbGame
 
 import scalaz.effects._
 
-final class Client(val remoteUrl: String) extends ai.Client with FenBased {
+final class Client(val playUrl: String) extends ai.Client with FenBased {
 
-  def apply(dbGame: DbGame, initialFen: Option[String]): IO[Valid[(Game, Move)]] = {
+  def play(dbGame: DbGame, initialFen: Option[String]): IO[Valid[(Game, Move)]] = {
 
     val oldGame = dbGame.toChess
     val oldFen = toFen(oldGame, dbGame.variant)
@@ -19,8 +19,11 @@ final class Client(val remoteUrl: String) extends ai.Client with FenBased {
     }
   }
 
+  def analyse(dbGame: DbGame, initialFen: Option[String]) = 
+    throw new RuntimeException("Crafty analysis is not implemented")
+
   private def fetchNewFen(oldFen: String, level: Int): IO[String] = io {
-    http(urlObj <<? Map(
+    http(playUrlObj <<? Map(
       "fen" -> oldFen,
       "level" -> level.toString
     ) as_str)

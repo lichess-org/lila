@@ -15,7 +15,7 @@ final class BookmarkEnv(
 
   import settings._
 
-  lazy val bookmarkRepo = new BookmarkRepo(mongodb(MongoCollectionBookmark))
+  lazy val bookmarkRepo = new BookmarkRepo(mongodb(BookmarkCollectionBookmark))
 
   lazy val paginator = new PaginatorBuilder(
     bookmarkRepo = bookmarkRepo,

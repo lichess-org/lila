@@ -22,7 +22,7 @@ body.dark div.lichess_board_wrap,
 body.dark div.lichess_table .lichess_button,
 body.dark div.lichess_goodies div.box,
 body.dark div.lichess_table,
-body.dark div.game_more,
+body.dark div.undergame_box,
 body.dark div.clock,
 body.dark #GameText,
 body.dark #GameBoard table.boardTable,
@@ -52,7 +52,7 @@ body.dark .ui-widget-content,
 body.dark div.lichess_goodies div.box,
 body.dark div.lichess_table,
 body.dark div.lichess_separator,
-body.dark div.game_more,
+body.dark div.undergame_box,
 body.dark div.game_extra,
 body.dark div.clock,
 body.dark .button,
@@ -78,7 +78,8 @@ body.dark #lichess_message input,
 body.dark div.progressbar,
 body.dark form.translation_form div.messages,
 body.dark form.translation_form input,
-body.dark div.locale_menu a
+body.dark div.locale_menu a,
+body.dark div.adv_chart 
 {
   border-color: #3e3e3e;
 }
@@ -111,7 +112,7 @@ body.dark #top span.new_messages {
 body.dark div.lichess_chat_inner,
 body.dark div.undertable_inner,
 body.dark div.lichess_goodies div.box,
-body.dark div.game_more,
+body.dark div.undergame_box,
 body.dark div.lichess_bot td,
 body.dark div.lichess_table,
 body.dark div.lichess_table_wrap div.clock,
@@ -125,6 +126,13 @@ body.dark div.undertable a.user_link {
   color: #808080;
 }
 
+body.dark .user_link.white {
+  background-position: 0 -288px;
+}
+body.dark .user_link.black {
+  background-position: 0 -272px;
+}
+
 body.dark div.hooks_wrap {
   box-shadow: 0 0 20px #444;
   background: rgba(10,10,10,0.8);
@@ -134,7 +142,8 @@ body.dark div.hooks_wrap {
   background: -ms-linear-gradient(top, rgba(33,33,33,0.9) 0%,rgba(15,15,15,0.5) 100%);
   background: -o-linear-gradient(top, rgba(33,33,33,0.9) 0%,rgba(15,15,15,0.5) 100%);
 }
-body.dark div.lichess_bot tr:nth-child(even) td {
+body.dark div.lichess_bot tr:nth-child(even) td
+{
   background: #303030;
 }
 body.dark div.new_posts li span {
@@ -251,6 +260,7 @@ body.dark .ui-state-default,
 body.dark div.content_box_top, 
 body.dark div.hooks tr, 
 body.dark a.translation_call,
+body.dark div.notification,
 body.dark div.locale_menu a
 {
   background: #3a3a3a;

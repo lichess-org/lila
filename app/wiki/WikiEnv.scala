@@ -11,7 +11,7 @@ final class WikiEnv(
 
   import settings._
 
-  lazy val pageRepo = new PageRepo(mongodb(MongoCollectionWikiPage))
+  lazy val pageRepo = new PageRepo(mongodb(WikiCollectionPage))
 
   lazy val api = new Api(
     pageRepo = pageRepo)

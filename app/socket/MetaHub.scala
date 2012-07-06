@@ -13,7 +13,7 @@ import play.api.libs.json._
 final class MetaHub(hubs: List[ActorRef]) {
 
   implicit val executor = Akka.system.dispatcher
-  implicit val timeout = Timeout(200 millis)
+  implicit val timeout = Timeout(1 second)
 
   def !(message: Any) {
     hubs foreach (_ ! message)
@@ -24,8 +24,16 @@ final class MetaHub(hubs: List[ActorRef]) {
       hub ? message mapTo m
     }
   
-  def notifyUnread(userId: String, nb: Int) = this ! SendTo(
-    userId,
-    JsObject(Seq("t" -> JsString("nbm"), "d" -> JsNumber(nb)))
-  )
+  def notifyUnread(userId: String, nb: Int) = 
+    notify(userId, "nbm", JsNumber(nb))
+
+  def addNotification(userId: String, html: String) = 
+    notify(userId, "notificationAdd", JsString(html))
+
+  def removeNotification(userId: String, id: String) = 
+    notify(userId, "notificationRemove", JsString(id))
+
+  private def notify(userId: String, typ: String, data: JsValue) =
+    this ! SendTo(userId, JsObject(Seq("t" -> JsString(typ), "d" -> data)))
+
 }

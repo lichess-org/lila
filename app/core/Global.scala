@@ -15,13 +15,18 @@ object Global extends GlobalSettings {
 
     coreEnv = CoreEnv(app)
 
+    println("Configured as " + env.configName)
+
     if (env.ai.isServer) println("Running as AI server")
     else if (app.mode == Mode.Test) println("Running without cron")
     else core.Cron start env
   }
 
   override def onRouteRequest(req: RequestHeader): Option[Handler] = 
-    if (env.ai.isServer) super.onRouteRequest(req)
+    if (env.ai.isServer) {
+      if (req.path startsWith "/ai/") super.onRouteRequest(req)
+      else Action(NotFound).some
+    }
     else {
       env.monitor.rpsProvider.countRequest()
       env.security.firewall.requestHandler(req) orElse
@@ -29,9 +34,9 @@ object Global extends GlobalSettings {
       super.onRouteRequest(req)
     }
 
-  override def onHandlerNotFound(req: RequestHeader): Result = {
-    controllers.Lobby handleNotFound req
-  }
+  override def onHandlerNotFound(req: RequestHeader): Result = 
+    env.ai.isServer.fold(NotFound, controllers.Lobby handleNotFound req)
+  
 
   override def onBadRequest(req: RequestHeader, error: String) = {
     BadRequest("Bad Request: " + error)

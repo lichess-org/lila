@@ -4,7 +4,6 @@ import play.api.libs.json.JsValue
 import play.api.libs.concurrent.Promise
 import play.api.libs.iteratee.{ Iteratee, Enumerator }
 import play.api.libs.iteratee.Concurrent.Channel
-import play.api.Play
 import play.api.Play.current
 
 import com.novus.salat.{ Context, TypeHintFrequency, StringTypeHintStrategy }
@@ -31,8 +30,6 @@ package object lila
     val name = "Lila Context"
     override val typeHintStrategy = StringTypeHintStrategy(
       when = TypeHintFrequency.Never)
-  } ~ { context ⇒
-    context registerClassLoader Play.classloader
   }
   RegisterJodaTimeConversionHelpers()
 

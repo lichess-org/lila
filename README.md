@@ -85,9 +85,15 @@ server {
 Run it
 ------
 
-Open lila play console and give it a ride
+Open lila play console and give it a ride.
+
+>To open a play console using development configuration, use:
+>
+>    bin/dev
+>
+>This will use the `conf/application_dev.conf` configuration file.
 
 ```
-play
+bin/dev
 [lila] $ run
 ```

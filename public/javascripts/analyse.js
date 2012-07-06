@@ -43,8 +43,24 @@ function customFunctionOnPgnGameLoad() {
     return false;
   });
   redrawBoardMarks();
+  $("#GameButtons table").css('width', '514px').buttonset();
+  $("#autoplayButton").click(refreshButtonset);
+}
+
+function customFunctionOnMove() {
+  $('#GameLastComment').toggle($('#GameLastComment > .comment').text().length > 0);
+  refreshButtonset();
+  var chart = $("div.adv_chart").data("chart");
+  if (chart) {
+    var index = CurrentPly - 1;
+    chart.setSelection([{ row: index, column: 1}]);
+  }
 }
 
 function redrawBoardMarks() {
   $.displayBoardMarks($('#GameBoard'), ! $('#GameBoard').hasClass('flip'));
+}
+
+function refreshButtonset() {
+  $("#autoplayButton").addClass("ui-button ui-widget ui-state-default");
 }

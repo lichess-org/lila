@@ -13,7 +13,7 @@ final class MongoDbEnv(
 
   def apply(coll: String) = connection(coll)
 
-  lazy val cache = new Cache(connection(MongoCollectionCache))
+  lazy val cache = new Cache(connection(CoreCollectionCache))
 
   lazy val connection = MongoConnection(server, options)(MongoDbName)
 

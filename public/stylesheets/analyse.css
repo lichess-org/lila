@@ -13,6 +13,7 @@ div.board_wrap {
 }
 div.moves_wrap {
   margin-left: 532px;
+  position: relative;
 }
 span.board_mark {
   position: absolute;
@@ -98,4 +99,20 @@ span.board_mark.horz {
 }
 #GameText a.moveOn {
   background: #FFE73B;
+}
+#GameLastComment {
+  position: absolute;
+  top: 512px;
+  margin-top: 1em;
+  font-size: 1.4em;
+  width: 220px;
+}
+
+div.adv_chart {
+  margin-top: 10px;
+  height: 150px;
+  width: 512px;
+}
+div.adv_chart iframe {
+  height: 150px;
 }

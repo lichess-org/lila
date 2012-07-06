@@ -10,7 +10,9 @@ object Game extends LilaController {
 
   val gameRepo = env.game.gameRepo
   val paginator = env.game.paginator
+  val analysePaginator = env.analyse.paginator
   val cached = env.game.cached
+  val analyseCached = env.analyse.cached
   val bookmarkApi = env.bookmark.api
   val listMenu = env.game.listMenu
 
@@ -47,6 +49,12 @@ object Game extends LilaController {
     }
   }
 
+  def analysed(page: Int) = Open { implicit ctx ⇒
+    reasonable(page) {
+      Ok(html.game.analysed(analysePaginator games page, makeListMenu))
+    }
+  }
+
   def featuredJs(id: String) = Open { implicit ctx ⇒
     IOk(gameRepo game id map { gameOption =>
       html.game.featuredJs(gameOption)
@@ -57,5 +65,5 @@ object Game extends LilaController {
     (page < maxPage).fold(result, BadRequest("too old"))
 
   private def makeListMenu(implicit ctx: Context) =
-    listMenu(bookmarkApi.countByUser, ctx.me)
+    listMenu(bookmarkApi.countByUser, analyseCached.nbAnalysis, ctx.me)
 }

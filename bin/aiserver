@@ -1,0 +1,3 @@
+#!/bin/sh
+
+play -Dconfig.file=conf/application_ai_server.conf

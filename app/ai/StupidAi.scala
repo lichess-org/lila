@@ -8,7 +8,7 @@ import scalaz.effects._
 
 final class StupidAi extends Ai {
 
-  def apply(dbGame: DbGame, initialFen: Option[String]): IO[Valid[(Game, Move)]] = io {
+  def play(dbGame: DbGame, initialFen: Option[String]): IO[Valid[(Game, Move)]] = io {
 
     val game = dbGame.toChess
 
@@ -19,4 +19,7 @@ final class StupidAi extends Ai {
       newChessGameAndMove ← game(orig, dest)
     } yield newChessGameAndMove
   }
+
+  def analyse(dbGame: DbGame, initialFen: Option[String]) = 
+    throw new RuntimeException("Stupid analysis is not implemented")
 }
