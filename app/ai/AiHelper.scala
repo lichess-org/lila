@@ -9,5 +9,5 @@ trait AiHelper extends I18nHelper {
   def aiName = "Stockfish AI"
 
   def aiName(level: Int)(implicit ctx: Context) = 
-    trans.aiNameLevelAiLevel("Crafty A.I.", level)
+    trans.aiNameLevelAiLevel(aiName, level)
 }
