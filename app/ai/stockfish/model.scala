@@ -15,7 +15,7 @@ object model {
     case class Play(moves: String, fen: Option[String], level: Int) {
       def go(moveTime: Int ⇒ Int) = List(
         "position %s moves %s".format(fen.fold("fen " + _, "startpos"), moves),
-        "go movetime %d" format moveTime(level)
+        "go movetime %d depth %d".format moveTime(level), level)
       )
       def chess960 = fen.isDefined
     }
