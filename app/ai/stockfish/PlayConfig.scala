@@ -13,7 +13,7 @@ final class PlayConfig(settings: Settings) extends Config {
     setoption("Hash", settings.AiStockfishPlayHashSize),
     setoption("Threads", 8),
     setoption("Ponder", false),
-    setoption("Aggressiveness", settings.AiStockfishPlayAggressiveness) // 0 - 200
+    setoption("Aggressiveness", settings.AiStockfishPlayAggressiveness), // 0 - 200
     setoption("Cowardice", settings.AiStockfishPlayCowardice) // 0 - 200
   )
 
