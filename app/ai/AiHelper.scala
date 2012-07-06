@@ -6,8 +6,8 @@ import i18n.I18nHelper
 
 trait AiHelper extends I18nHelper {
 
-  def aiName = "Stockfish AI"
+  val aiName: String = "Stockfish AI"
 
-  def aiName(level: Int)(implicit ctx: Context) = 
-    trans.aiNameLevelAiLevel(aiName, level)
+  def aiName(level: Int)(implicit ctx: Context): String = 
+    trans.aiNameLevelAiLevel(aiName, level).text
 }
