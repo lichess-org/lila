@@ -43,6 +43,9 @@ final class HubMaster(
       sender ! 0
     )
 
+    case msg @ AnalysisAvailable(gameId) ⇒
+      hubs get gameId foreach (_ forward msg)
+
     case CloseGame(gameId) ⇒ hubs get gameId foreach { hub ⇒
       hub ! Close
       hubs = hubs - gameId

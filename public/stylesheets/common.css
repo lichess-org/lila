@@ -547,14 +547,14 @@ div.lichess_social div.addtochrome {
 }
 
 /* soft inactive gradient */
-#top, 
-div.lichess_chat_top, 
-div.undertable_top, 
-.button, 
-.button:visited, 
-.ui-state-default, 
-div.content_box_top, 
-div.hooks tr, 
+#top,
+div.lichess_chat_top,
+div.undertable_top,
+.button,
+.button:visited,
+.ui-state-default,
+div.content_box_top,
+div.hooks tr,
 a.translation_call,
 div.locale_menu a {
   color: #666;
@@ -568,17 +568,17 @@ div.locale_menu a {
 }
 
 /* active gradient */
-#top a.goto_nav.active, 
-.button.active, 
-.button.active:hover, 
-.ui-state-active, 
-.ui-widget-header, 
-div.pagination span.current, 
-#top span.new_messages.unread, 
-div.hooks td.action:hover, 
-div.hooks table.empty_table tr:hover, 
+#top a.goto_nav.active,
+.button.active,
+.button.active:hover,
+.ui-state-active,
+.ui-widget-header,
+div.pagination span.current,
+#top span.new_messages.unread,
+div.hooks td.action:hover,
+div.hooks table.empty_table tr:hover,
 div.progressbar.flashy div,
-div.locale_menu a.active 
+div.locale_menu a.active
 {
   color: #fff;
   background: #d85000;
@@ -663,6 +663,17 @@ div.undergame_box div.inner {
   padding: 10px;
 }
 
+div.game_analysis {
+  padding: 10px;
+  width: 492px;
+}
+div.game_analysis a {
+  background: url("../images/s24.png") no-repeat 0 -72px;
+  display: block;
+  height: 24px;
+  padding-left: 30px;
+}
+
 div.game_more div.more_top {
   padding: 3px 10px;
   width: 492px;
@@ -730,7 +741,7 @@ span.bookmark a {
 div.progressbar {
   background: #eaeaea;
   border: 1px solid #e0e0e0;
-  border-radius: 5px; 
+  border-radius: 5px;
   padding: 1px;
 }
 

@@ -54,6 +54,7 @@ underchat = underchat.some) {
   </div>
 </div>
 <script type="text/javascript">var lichess_data = @Html(roundWatcherJsData(pov, version))</script>
+@analyse.link(pov)
 @views.html.game.more(pov, bookmarkers) {
 <nav>
 <a href="@routes.Analyse.replay(gameId, color.name)">@trans.replayAndAnalyse()</a>

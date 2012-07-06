@@ -70,6 +70,10 @@ final class Hub(
     case GameEvents(_, Nil)    ⇒
     case GameEvents(_, events) ⇒ notify(events)
 
+    case msg @ AnalysisAvailable(_) ⇒ {
+      notifyAll("analysisAvailable", JsNull)
+    }
+
     case Quit(uid) ⇒ {
       quit(uid)
       notify(crowdEvent :: Nil)

@@ -3,6 +3,7 @@ package controllers
 import lila._
 import views._
 import analyse._
+import round.AnalysisAvailable
 
 import play.api.mvc._
 import play.api.http.ContentTypes
@@ -18,8 +19,8 @@ object Analyse extends LilaController {
   def bookmarkApi = env.bookmark.api
   def roundMessenger = env.round.messenger
   def roundSocket = env.round.socket
+  def roundHubMaster = env.round.hubMaster
   def analyser = env.analyse.analyser
-  def notification = env.notificationApi
 
   def computer(id: String, color: String) = Auth { implicit ctx ⇒
     me ⇒
@@ -27,9 +28,7 @@ object Analyse extends LilaController {
         case Left(e) ⇒ println(e.getMessage)
         case Right(a) ⇒ a.fold(
           err ⇒ println("Computer analysis failure: " + err.shows),
-          analysis ⇒ {
-            notification.add(me, views.html.analyse.notification(analysis, id).toString)
-          }
+          analysis ⇒ roundHubMaster ! AnalysisAvailable(id)
         )
       }
       Redirect(routes.Analyse.replay(id, color))

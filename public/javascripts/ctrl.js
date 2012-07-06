@@ -23,6 +23,10 @@ var lichess = {
       },
       notificationRemove: function(id) {
         $('#' + id).remove();
+      },
+      analysisAvailable: function() {
+        $("div.game_analysis.status").remove();
+        $("div.game_analysis").show();
       }
     },
     options: {

@@ -11,16 +11,17 @@ $(function() {
     $.extend(true, lichess.socketDefaults, {
       options: {
         name: "analyse",
-    ignoreUnknownMessages: true
+        ignoreUnknownMessages: true
       },
-    events: {
-      message: function(event) {
-        $chat.chat("append", event);
-      },
-    crowd: function(event) {
-      $watchers.watchers("set", event.watchers);
-    }
-    }}));
+      events: {
+        message: function(event) {
+          $chat.chat("append", event);
+        },
+        crowd: function(event) {
+          $watchers.watchers("set", event.watchers);
+        }
+      }
+    }));
 });
 
 function customFunctionOnPgnGameLoad() {

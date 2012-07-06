@@ -49,15 +49,16 @@ moreJs = moreJs) {
   data-columns="@a.advantageChart.columns"
   data-rows="@a.advantageChart.rows"></div>
 } else {
-<div class="undergame_box game_analysis">
+<div class="undergame_box game_analysis status">
 @a.fail.map { f =>
-  <div class='inner'>Computer analysis has failed.<br />@f</div>
+  Computer analysis has failed.<br />@f
   }.getOrElse {
-  <div class='inner'>Computer analysis in progress. You will be notified when it completes.</div>
+  Computer analysis in progress. You will be notified when it completes.
   }
 </div>
 }
 }
+@analyse.link(pov)
 @views.html.game.more(pov, bookmarkers) {
 @trans.opening() @opening.map { o =>
 <a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a>
