@@ -3,7 +3,7 @@
 
 require_once __DIR__.'/base_script.php';
 
-$remote="phobos";
+$remote="balrog";
 $remoteDir="/home/lila";
 $rsyncoptions="--archive --force --delete --progress --compress --checksum --exclude-from=bin/rsync_exclude";
 
