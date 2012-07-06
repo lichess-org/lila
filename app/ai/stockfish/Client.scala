@@ -3,6 +3,7 @@ package ai
 package stockfish
 
 import chess.{ Game, Move }
+import chess.format.UciMove
 import game.DbGame
 import analyse.Analysis
 
@@ -23,19 +24,22 @@ final class Client(
   }
 
   def analyse(dbGame: DbGame, initialFen: Option[String]): Future[Valid[Analysis]] =
-    fetchAnalyse(dbGame.pgn, initialFen | "") map { 
+    fetchAnalyse(dbGame.pgn, initialFen | "") map {
       _ flatMap { Analysis(_, true) }
-    } 
+    }
 
   private lazy val analyseUrlObj = url(analyseUrl)
 
-  protected def tryPing: IO[Option[Int]] = for {
+  protected lazy val tryPing: IO[Option[Int]] = for {
     start ← io(nowMillis)
     received ← fetchMove(
       pgn = "",
       initialFen = "",
       level = 1
-    ).catchLeft map (_.isRight)
+    ).catchLeft map (_ match {
+        case Right(move) ⇒ UciMove(move).isDefined
+        case _           ⇒ false
+      })
     delay ← io(nowMillis - start)
   } yield received option delay.toInt
 
