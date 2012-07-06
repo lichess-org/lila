@@ -11,7 +11,7 @@ case class EloRange(min: Int, max: Int) {
 object EloRange {
 
   val min = 800
-  val max = 2200
+  val max = 2300
 
   val broad = EloRange(min, max)
   val default = broad
