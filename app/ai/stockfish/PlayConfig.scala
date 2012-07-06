@@ -19,13 +19,16 @@ final class PlayConfig(settings: Settings) extends Config {
 
   def game(play: Play): Instructions = List(
     setoption("Skill Level", skill(play.level)),
-    setoption("UCI_Chess960", play.chess960)
+    setoption("UCI_Chess960", play.chess960),
+    setoption("OwnBook", ownBook(play.level))
   )
 
   def maxMoveTime = settings.AiStockfishPlayMaxMoveTime
 
   def moveTime(level: Int): Int = 
     maxMoveTime / (level >= 1 && level <= 8).fold(9 - level, 8)
+
+  def ownBook(level: Int): Boolean = level > 4
 
   private def skill(level: Int) = 
     (level >= 1 && level <= 8).fold(math.round((level -1) * (20 / 7f)), 0)
