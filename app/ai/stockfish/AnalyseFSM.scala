@@ -14,7 +14,7 @@ final class AnalyseFSM(
 
   val process = processBuilder(out ⇒ self ! Out(out), err ⇒ self ! Err(err))
 
-  startWith(Starting, Todo(Vector.empty))
+  startWith(Starting, Todo())
 
   when(Starting) {
     case Event(Out(t), _) if t startsWith "Stockfish" ⇒ {

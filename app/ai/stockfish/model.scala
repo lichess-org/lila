@@ -6,6 +6,7 @@ import chess.format.UciMove
 import analyse.{ Analysis, AnalysisBuilder }
 
 import akka.actor.ActorRef
+import collection.immutable.Queue
 
 object model {
 
@@ -25,19 +26,18 @@ object model {
     case class Task(play: Play, ref: ActorRef)
 
     sealed trait Data {
-      def queue: Vector[Task]
+      def queue: Queue[Task]
       def enqueue(task: Task): Data
     }
-    case class Todo(queue: Vector[Task]) extends Data {
+    case class Todo(queue: Queue[Task] = Queue.empty) extends Data {
       def enqueue(task: Task) = copy(queue = queue :+ task)
       def doing[A](withTask: Doing ⇒ A, without: Todo ⇒ A) =
-        easierTaskInQueue.fold(
+        queue.headOption.fold(
           task ⇒ withTask(Doing(task, queue.tail)),
-          without(Todo(Vector.empty))
+          without(Todo(Queue.empty))
         )
-      private def easierTaskInQueue = queue sortBy (_.play.level) headOption
     }
-    case class Doing(current: Task, queue: Vector[Task]) extends Data {
+    case class Doing(current: Task, queue: Queue[Task]) extends Data {
       def enqueue(task: Task) = copy(queue = queue :+ task)
       def done = Todo(queue)
     }
@@ -85,18 +85,18 @@ object model {
     }
 
     sealed trait Data {
-      def queue: Vector[Task]
+      def queue: Queue[Task]
       def enqueue(task: Task): Data
     }
-    case class Todo(queue: Vector[Task]) extends Data {
+    case class Todo(queue: Queue[Task] = Queue.empty) extends Data {
       def enqueue(task: Task) = copy(queue = queue :+ task)
       def doing[A](withTask: Doing ⇒ A, without: Todo ⇒ A) =
         queue.headOption.fold(
           task ⇒ withTask(Doing(task, queue.tail)),
-          without(Todo(Vector.empty))
+          without(Todo(Queue.empty))
         )
     }
-    case class Doing(current: Task, queue: Vector[Task]) extends Data {
+    case class Doing(current: Task, queue: Queue[Task]) extends Data {
       def enqueue(task: Task) = copy(queue = queue :+ task)
       def done = Todo(queue)
       def buffer(str: String) = copy(current = current buffer str)
