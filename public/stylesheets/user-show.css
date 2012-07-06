@@ -1,3 +1,6 @@
+div.user_show .lichess_title {
+  display: inline;
+}
 div.user_show div.content_box_top .status {
   display: block;
   width: 16px;
