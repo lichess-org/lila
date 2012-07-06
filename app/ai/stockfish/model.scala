@@ -113,4 +113,7 @@ object model {
   sealed trait Stream { def text: String }
   case class Out(text: String) extends Stream
   case class Err(text: String) extends Stream
+
+  case object GetQueueSize
+  case class QueueSize(i: Int)
 }

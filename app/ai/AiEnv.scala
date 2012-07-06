@@ -52,10 +52,16 @@ final class AiEnv(settings: Settings) {
 
   def clientPing = client flatMap (_.currentPing)
 
+  def stockfishServerReport = (isServer && AiChoice == AiStockfish) option {
+    stockfishServer.report
+  }
+
   private lazy val client = isClient option {
     AiChoice match {
       case AiStockfish ⇒ stockfishClient
       case AiCrafty    ⇒ craftyClient
     }
   }
+
+  private lazy val server = (isServer && AiChoice == AiStockfish) option stockfishServer
 }

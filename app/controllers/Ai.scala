@@ -8,12 +8,14 @@ import mvc._
 
 import play.api.libs.concurrent._
 import play.api.Play.current
+import akka.dispatch.Future
 
 object Ai extends LilaController {
 
-  private val craftyServer = env.ai.craftyServer
-  private val stockfishServer = env.ai.stockfishServer
-  private val isServer = env.ai.isServer
+  val craftyServer = env.ai.craftyServer
+  val stockfishServer = env.ai.stockfishServer
+  val isServer = env.ai.isServer
+  implicit val executor = Akka.system.dispatcher
 
   def playCrafty = Action { implicit req ⇒
     IfServer {
@@ -58,11 +60,22 @@ object Ai extends LilaController {
           pgn = getOr("pgn", ""),
           initialFen = get("initialFen")
         ).asPromise map { res ⇒
-          res.fold(
-            err ⇒ InternalServerError(err.shows),
-            analyse ⇒ Ok(analyse.encode)
-          )
-        }
+            res.fold(
+              err ⇒ InternalServerError(err.shows),
+              analyse ⇒ Ok(analyse.encode)
+            )
+          }
+      }
+    }
+  }
+
+  def reportStockfish = Action { implicit req ⇒
+    IfServer {
+      Async {
+        env.ai.stockfishServerReport.fold(
+          _ map { case (play, analyse) ⇒ Ok("%d %d".format(play, analyse)) },
+          Future(NotFound)
+        ).asPromise
       }
     }
   }

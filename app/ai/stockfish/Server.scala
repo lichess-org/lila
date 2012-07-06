@@ -6,6 +6,7 @@ import chess.Rook
 import chess.format.UciDump
 import chess.format.Forsyth
 import analyse.Analysis
+import model.{ GetQueueSize, QueueSize }
 
 import akka.util.Timeout
 import akka.util.Duration
@@ -41,6 +42,13 @@ final class Server(
         implicit val timeout = Timeout(1 hour)
         analyseActor ? analyse mapTo manifest[Valid[Analysis]]
       })
+
+  def report = {
+    implicit val timeout = new Timeout(playAtMost)
+    (playActor ? GetQueueSize) zip (analyseActor ? GetQueueSize) map {
+      case (QueueSize(play), QueueSize(analyse)) => play -> analyse
+    }
+  }
 
   private def chess960Fen(fen: String) = (Forsyth << fen).fold(
     situation ⇒ fen.replace("KQkq", situation.board.pieces.toList filter {

@@ -46,6 +46,8 @@ final class PlayFSM(
   whenUnhandled {
     case Event(play: Play, data) ⇒
       next(data enqueue Task(play, sender))
+    case Event(GetQueueSize, data)                       ⇒ 
+      sender ! QueueSize(data.queue.size); stay
     case Event(Out(""), _)                               ⇒ stay
     case Event(Out(t), _) if t startsWith "id "          ⇒ stay
     case Event(Out(t), _) if t startsWith "info "        ⇒ stay

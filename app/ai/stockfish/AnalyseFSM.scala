@@ -52,6 +52,8 @@ final class AnalyseFSM(
   whenUnhandled {
     case Event(analyse: Analyse, data) ⇒
       nextAnalyse(data enqueue Task(analyse, sender))
+    case Event(GetQueueSize, data)                       ⇒ 
+      sender ! QueueSize(data.queue.size); stay
     case Event(Out(t), _) if isNoise(t) ⇒ stay
     case Event(Out(t), _)               ⇒ { log.warning(t); stay }
     case Event(Err(t), _)               ⇒ { log.error(t); stay }
