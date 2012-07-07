@@ -3,8 +3,9 @@ function drawCharts() {
   var light = $('body').hasClass('light');
   var bg = "transparent"; 
   var textcolor = {color: light ? '#848484' : '#a0a0a0'};
-  var weak = light ? '#ccc' : '#3e3e3e';
+  var weak = light ? '#ccc' : '#404040';
   var strong = light ? '#a0a0a0' : '#606060';
+  var lineColor = {color: weak};
 
   function elemToData(elem) {
     var data = new google.visualization.DataTable();
