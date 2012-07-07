@@ -20,6 +20,8 @@ final class Analyser(
 
   def get(id: String): IO[Option[Analysis]] = analysisRepo byId id
 
+  def has(id: String): IO[Boolean] = analysisRepo isDone id
+
   def getOrGenerate(id: String, userId: String): Future[Valid[Analysis]] = 
     getOrGenerateIO(id, userId)
 

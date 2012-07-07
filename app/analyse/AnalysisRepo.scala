@@ -42,4 +42,8 @@ final class AnalysisRepo(val collection: MongoCollection) {
       } yield decoded
     } yield Analysis(infos | Nil, done, fail)
   }
+
+  def isDone(id: String): IO[Boolean] = io {
+    collection.count(DBObject("_id" -> id, "done" -> true)) > 0
+  }
 }
