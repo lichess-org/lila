@@ -58,6 +58,7 @@ viewAllNbGames=Zobrazit všech %s partií
 viewNbCheckmates=Zobrazit všech %s matů
 nbBookmarks=Záložky: %s
 nbPopularGames=Oblíbené partie: %s
+nbAnalysedGames=%s zanalyzovaných partií
 bookmarkedByNbPlayers=Počet hráčů, kteří mají partii v záložkách: %s
 viewInFullSize=Zobrazit v plné velikosti
 logOut=Odhlásit se
