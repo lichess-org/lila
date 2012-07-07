@@ -58,6 +58,7 @@ viewAllNbGames=Visualizza tutte le %s partite
 viewNbCheckmates=Visualizza %s scacco matto
 nbBookmarks=%s Segnalibri
 nbPopularGames=%s Partite piu' viste
+nbAnalysedGames=%s partite analizzate
 bookmarkedByNbPlayers=Segnate dai %s giocatori
 viewInFullSize=Visualizza a schermo intero
 logOut=Esci
