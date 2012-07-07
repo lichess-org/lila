@@ -171,7 +171,12 @@ case class DbGame(
     chessPgn.Reader.withSans(
       pgn = pgn,
       op = _.init,
-      tags = initialFen.fold(fen ⇒ List(chessPgn.Tag(_.FEN, fen)), Nil)
+      tags = initialFen.fold(
+        fen ⇒ List(
+          chessPgn.Tag(_.FEN, fen),
+          chessPgn.Tag(_.Variant, variant.name)
+        ), 
+        Nil)
     ) map { replay ⇒
         val rewindedGame = replay.game
         val rewindedHistory = rewindedGame.board.history
