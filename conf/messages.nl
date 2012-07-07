@@ -58,6 +58,7 @@ viewAllNbGames=Alle %s partijen
 viewNbCheckmates=Alle %s partijen met schaakmat
 nbBookmarks=%s Bladwijzers
 nbPopularGames=%s Populaire Partijen
+nbAnalysedGames=%s geanalyseerde spellen
 bookmarkedByNbPlayers=Aan bladwijzers toegevoegd door %s spelers
 viewInFullSize=Bekijk op standaard formaat
 logOut=Afmelden
