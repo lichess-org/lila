@@ -58,6 +58,7 @@ viewAllNbGames=Ver todas as %s partidas
 viewNbCheckmates=Ver os %s xaques mates
 nbBookmarks=%s Marcadores
 nbPopularGames=%s Xogos máis populares
+nbAnalysedGames=%s Partidas Analizadas
 bookmarkedByNbPlayers=Marcado por %s xogadores
 viewInFullSize=Ver en tamaño completo
 logOut=Sair
