@@ -8,7 +8,7 @@ import game.DbGame
 import analyse.Analysis
 
 import scalaz.effects._
-import akka.dispatch.{ Future, Await }
+import akka.dispatch.Future
 import akka.util.duration._
 import play.api.Play.current
 import play.api.libs.concurrent._
@@ -31,27 +31,24 @@ final class Client(
       case e ⇒ !![Analysis](e.getMessage)
     }
 
-  protected lazy val tryPing: Option[Int] = nowMillis |> { start ⇒
-    (unsafe {
-      Await.result(fetchMove(pgn = "", initialFen = "", level = 1), 5 seconds)
-    }).toOption flatMap {
-      case move if UciMove(move).isDefined ⇒ Some(nowMillis - start) map (_.toInt)
-      case _                               ⇒ None
+  protected lazy val tryPing: Future[Int] = nowMillis |> { start ⇒
+    fetchMove(pgn = "", initialFen = "", level = 1) map {
+      case move if UciMove(move).isDefined ⇒ (nowMillis - start).toInt
     }
   }
 
   private def fetchMove(pgn: String, initialFen: String, level: Int): Future[String] =
-    toAkkaFuture(WS.url(playUrl).post(Map(
-      "pgn" -> Seq(pgn),
-      "initialFen" -> Seq(initialFen),
-      "level" -> Seq(level.toString)
-    )) map (_.body))
+    toAkkaFuture(WS.url(playUrl).withQueryString(
+      "pgn" -> pgn,
+      "initialFen" -> initialFen,
+      "level" -> level.toString
+    ).get() map (_.body))
 
   private def fetchAnalyse(pgn: String, initialFen: String): Future[String] =
-    toAkkaFuture(WS.url(analyseUrl).post(Map(
-      "pgn" -> Seq(pgn),
-      "initialFen" -> Seq(initialFen)
-    )) map (_.body))
+    toAkkaFuture(WS.url(analyseUrl).withQueryString(
+      "pgn" -> pgn,
+      "initialFen" -> initialFen
+    ).get() map (_.body))
 
   private implicit val executor = Akka.system.dispatcher
 

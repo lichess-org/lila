@@ -68,9 +68,9 @@ object Cron {
         env.titivate.finishByClock
       }
 
-      env.ai.clientDiagnose.unsafePerformIO
+      env.ai.clientDiagnose
     }
-    effect(2 seconds, "ai diagnose") {
+    unsafe(10 seconds) {
       env.ai.clientDiagnose
     }
 
@@ -80,7 +80,6 @@ object Cron {
 
     def effect(freq: Duration, name: String)(op: IO[_]) {
       val f = freq.randomize()
-      //val f = freq
       println("schedule effect %s every %s -> %s".format(name, freq, f))
       Akka.system.scheduler.schedule(f, f) {
         op.unsafePerformIO
