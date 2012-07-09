@@ -37,17 +37,14 @@ object Ai extends LilaController {
     implicit val ctx = Context(req, None)
     IfServer {
       Async {
-        Akka.future {
-          stockfishServer.play(
-            pgn = getOr("pgn", ""),
-            initialFen = get("initialFen"),
-            level = getIntOr("level", 1))
-        } map { res ⇒
-          res.fold(
+        stockfishServer.play(
+          pgn = getOr("pgn", ""),
+          initialFen = get("initialFen"),
+          level = getIntOr("level", 1)
+        ).asPromise map (_.fold(
             err ⇒ BadRequest(err.shows),
-            op ⇒ Ok(op.unsafePerformIO)
-          )
-        }
+            Ok(_)
+          ))
       }
     }
   }
@@ -59,12 +56,10 @@ object Ai extends LilaController {
         stockfishServer.analyse(
           pgn = getOr("pgn", ""),
           initialFen = get("initialFen")
-        ).asPromise map { res ⇒
-            res.fold(
-              err ⇒ InternalServerError(err.shows),
-              analyse ⇒ Ok(analyse.encode)
-            )
-          }
+        ).asPromise map (_.fold(
+            err ⇒ InternalServerError(err.shows),
+            analyse ⇒ Ok(analyse.encode)
+          ))
       }
     }
   }

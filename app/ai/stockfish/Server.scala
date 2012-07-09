@@ -21,17 +21,20 @@ import scalaz.effects._
 final class Server(
     execPath: String,
     playConfig: PlayConfig,
-    analyseConfig: AnalyseConfig) {
+    analyseConfig: AnalyseConfig) extends lila.ai.Server {
 
-  def play(pgn: String, initialFen: Option[String], level: Int): Valid[IO[String]] = {
+  def play(pgn: String, initialFen: Option[String], level: Int): Future[Valid[String]] = {
     implicit val timeout = new Timeout(playAtMost)
-    if (level < 1 || level > 8) "Invalid ai level".failNel
-    else for {
+    (for {
       moves ← UciDump(pgn, initialFen)
-      play = model.play.Play(moves, initialFen map chess960Fen, level)
-    } yield io {
-      Await.result(playActor ? play mapTo manifest[model.play.BestMove], playAtMost)
-    } map (_.move | "")
+      validLevel ← validateLevel(level)
+      play = model.play.Play(moves, initialFen map chess960Fen, validLevel)
+    } yield play).fold(
+      err ⇒ Future(failure(err)),
+      play ⇒ playActor ? play mapTo manifest[model.play.BestMove] map { m ⇒
+        success(m.move | "")
+      }
+    )
   }
 
   def analyse(pgn: String, initialFen: Option[String]): Future[Valid[Analysis]] =
@@ -46,7 +49,7 @@ final class Server(
   def report = {
     implicit val timeout = new Timeout(playAtMost)
     (playActor ? GetQueueSize) zip (analyseActor ? GetQueueSize) map {
-      case (QueueSize(play), QueueSize(analyse)) => play -> analyse
+      case (QueueSize(play), QueueSize(analyse)) ⇒ play -> analyse
     }
   }
 

@@ -8,19 +8,20 @@ import analyse.Analysis
 
 import scalaz.effects._
 import akka.dispatch.Future
+import play.api.Play.current
+import play.api.libs.concurrent._
 
 final class Ai(server: Server) extends lila.ai.Ai with Stockfish {
 
   import model._
 
-  def play(dbGame: DbGame, initialFen: Option[String]): IO[Valid[(Game, Move)]] =
-    server.play(dbGame.pgn, initialFen, dbGame.aiLevel | 1).fold(
-      err ⇒ io(failure(err)),
-      iop ⇒ iop map {
-        applyMove(dbGame, _)
-      }
-    )
+  def play(dbGame: DbGame, initialFen: Option[String]): Future[Valid[(Game, Move)]] =
+    server.play(dbGame.pgn, initialFen, dbGame.aiLevel | 1) map { validMove ⇒
+      validMove flatMap { applyMove(dbGame, _) }
+    }
 
   def analyse(dbGame: DbGame, initialFen: Option[String]): Future[Valid[Analysis]] =
     server.analyse(dbGame.pgn, initialFen)
+
+  private implicit val executor = Akka.system.dispatcher
 }

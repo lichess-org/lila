@@ -11,17 +11,16 @@ import scalaz.effects._
 
 final class Server(
     execPath: String,
-    bookPath: Option[String] = None) {
+    bookPath: Option[String] = None) extends lila.ai.Server {
 
-  def play(fen: String, level: Int): Valid[IO[String]] =
-    if (level < 1 || level > 8) "Invalid ai level".failNel
-    else if (fen.isEmpty) "Empty fen".failNel
-    else success(runCrafty(fen, level))
+  def play(fen: String, level: Int): Valid[IO[String]] = for {
+    validFen ← fen.validIf(fen.nonEmpty, "Empty FEN string")
+    validLevel ← validateLevel(level)
+  } yield io { 
+    Process(command(validLevel)) #< input(validFen, validLevel) !! 
+  } map extractFen
 
-  def runCrafty(oldFen: String, level: Int): IO[String] =
-    io { Process(command(level)) #< input(oldFen, level) !! } map extractFen
-
-  private def extractFen(output: String) = 
+  private def extractFen(output: String) =
     output.lines.find(_ contains "setboard") map { line ⇒
       """^.+setboard\s([\w\d/]+\s\w).*$""".r.replaceAllIn(line, m ⇒ m group 1)
     } getOrElse "Crafty output does not contain setboard"
