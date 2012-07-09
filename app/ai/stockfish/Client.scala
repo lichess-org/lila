@@ -9,7 +9,8 @@ import analyse.Analysis
 
 import scalaz.effects._
 import dispatch.{ url }
-import akka.dispatch.Future
+import akka.dispatch.{ Future, Await }
+import akka.util.duration._
 import play.api.Play.current
 import play.api.libs.concurrent._
 
@@ -17,7 +18,7 @@ final class Client(
     val playUrl: String,
     analyseUrl: String) extends ai.Client with Stockfish {
 
-  def play(dbGame: DbGame, initialFen: Option[String]): IO[Valid[(Game, Move)]] = {
+  def play(dbGame: DbGame, initialFen: Option[String]): Future[Valid[(Game, Move)]] = {
     fetchMove(dbGame.pgn, initialFen | "", dbGame.aiLevel | 1) map {
       applyMove(dbGame, _)
     }
@@ -30,20 +31,16 @@ final class Client(
 
   private lazy val analyseUrlObj = url(analyseUrl)
 
-  protected lazy val tryPing: IO[Option[Int]] = for {
-    start ← io(nowMillis)
-    received ← fetchMove(
-      pgn = "",
-      initialFen = "",
-      level = 1
-    ).catchLeft map (_ match {
-        case Right(move) ⇒ UciMove(move).isDefined
-        case _           ⇒ false
-      })
-    delay ← io(nowMillis - start)
-  } yield received option delay.toInt
+  protected lazy val tryPing: Option[Int] = nowMillis |> { start ⇒
+    (unsafe {
+      Await.result(fetchMove(pgn = "", initialFen = "", level = 1), 5 seconds)
+    }).toOption flatMap {
+      case move if UciMove(move).isDefined ⇒ Some(nowMillis - start) map (_.toInt)
+      case _                               ⇒ none[Int]
+    }
+  }
 
-  private def fetchMove(pgn: String, initialFen: String, level: Int): IO[String] = io {
+  private def fetchMove(pgn: String, initialFen: String, level: Int): Future[String] = Future {
     http(playUrlObj <<? Map(
       "pgn" -> pgn,
       "initialFen" -> initialFen,

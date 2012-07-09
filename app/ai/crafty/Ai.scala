@@ -11,9 +11,9 @@ import scala.sys.process.Process
 import scalaz.effects._
 import akka.dispatch.Future
 
-final class Ai(server: Server) extends ai.Ai with FenBased {
+final class Ai(server: Server) extends ai.Ai with FenBased with core.Futuristic {
 
-  def play(dbGame: DbGame, initialFen: Option[String]): IO[Valid[(Game, Move)]] = {
+  def play(dbGame: DbGame, initialFen: Option[String]): Future[Valid[(Game, Move)]] = {
 
     val oldGame = dbGame.toChess
     val oldFen = toFen(oldGame, dbGame.variant)
