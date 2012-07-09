@@ -58,6 +58,7 @@ viewAllNbGames=مشاهدة جميع الألعاب وعددها %s
 viewNbCheckmates=مشاهدة جميع الألعاب المنتهية بالفوز وعددها %s
 nbBookmarks=%s مفضلة
 nbPopularGames=%s لعبة رائجة
+nbAnalysedGames=%s لعبة محلَلًة
 bookmarkedByNbPlayers=تم تفضيلها بواسطة %s لاعبين
 viewInFullSize=عرض بالحجم الكامل
 logOut=خروج

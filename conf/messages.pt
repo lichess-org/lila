@@ -58,6 +58,7 @@ viewAllNbGames=Veja todas %s as partidas
 viewNbCheckmates=Veja os %s xeque mates
 nbBookmarks=%s Favoritos
 nbPopularGames=%s Jogos Populares
+nbAnalysedGames=%s Jogos Analisados
 bookmarkedByNbPlayers=Adicionado aos favoritos por %s jogadores
 viewInFullSize=Ver em tela cheia
 logOut=Sair

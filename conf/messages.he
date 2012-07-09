@@ -58,6 +58,7 @@ viewAllNbGames=צפה בכל %s המשחקים
 viewNbCheckmates=צפה %s מטים
 nbBookmarks=%s מועדפים
 nbPopularGames=%s משחקים פופולרים
+nbAnalysedGames=משחקים מנותחים %s
 bookmarkedByNbPlayers=הועדף על ידי %s שחקנית
 viewInFullSize=צפה בגודל מלא
 logOut=התנתק

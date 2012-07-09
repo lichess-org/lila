@@ -58,6 +58,7 @@ viewAllNbGames=Mirar totes les %s partides
 viewNbCheckmates=Mirar %s escacs i mat
 nbBookmarks=%s Marcadors
 nbPopularGames=%s Jocs Populars
+nbAnalysedGames=%s Jocs Analitzats
 bookmarkedByNbPlayers=Marcat per %s jugadors
 viewInFullSize=Veure en mida completa
 logOut=Tancar sessió

@@ -58,6 +58,7 @@ viewAllNbGames=Виж всички %s игри
 viewNbCheckmates=Виж %s шах мата
 nbBookmarks=%s Отбелязвания
 nbPopularGames=%s Популярни игри
+nbAnalysedGames=%s Анализирани игри
 bookmarkedByNbPlayers=Споделено от %s играчи
 viewInFullSize=Отвори на пълен екран
 logOut=Отписване

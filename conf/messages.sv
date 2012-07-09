@@ -58,6 +58,7 @@ viewAllNbGames=Visa alla %s partier
 viewNbCheckmates=Visa %s  schackmatt
 nbBookmarks=%s Bokmärken
 nbPopularGames=%s Populära Spel
+nbAnalysedGames=%s Spelen Analyserades
 bookmarkedByNbPlayers=Bokmärkt av %s spelare
 viewInFullSize=Visa i full storlek
 logOut=Logga ut

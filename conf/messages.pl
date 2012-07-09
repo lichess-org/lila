@@ -58,6 +58,7 @@ viewAllNbGames=Zobacz wszystkie %s gry
 viewNbCheckmates=Zobacz %s szach-matów
 nbBookmarks=%s Zakładki
 nbPopularGames=%s Gry popularne
+nbAnalysedGames=%s Gry przeanalizowane
 bookmarkedByNbPlayers=Zakładki utworzone przez %s graczy
 viewInFullSize=Zobacz w pełnej wersji
 logOut=Wyloguj
