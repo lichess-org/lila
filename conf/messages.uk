@@ -58,6 +58,7 @@ viewAllNbGames=Подивитися всі %s ігор
 viewNbCheckmates=Подивитися всі %s партії, що закінчилися матом
 nbBookmarks=%s Закладки
 nbPopularGames=%s Популярні ігри
+nbAnalysedGames=%s Аналізованих Ігор
 bookmarkedByNbPlayers=Закладка зроблена %s  гравцями
 viewInFullSize=Дивитися у повний розмір
 logOut=Вийти
