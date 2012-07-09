@@ -48,8 +48,21 @@ function customFunctionOnPgnGameLoad() {
   $("#autoplayButton").click(refreshButtonset);
 }
 
+function posToSquareId(pos) {
+  if (pos.length != 2) return;
+  var x = "abcdefgh".indexOf(pos[0]), y = 8 - parseInt(pos[1]);
+  return "img_tcol" + x + "trow" + y;
+}
+
 function customFunctionOnMove() {
-  $('#GameLastComment').toggle($('#GameLastComment > .comment').text().length > 0);
+  var $comment = $('#GameLastComment');
+  $comment.toggle($comment.find('> .comment').text().length > 0);
+  var moves = $comment.find('.commentMove').map(function() { return $(this).text(); });
+  var ids = $.map(moves, posToSquareId);
+  $("#GameBoard img.bestmove").removeClass("bestmove");
+  $.each(ids, function() {
+    if (this) $("#" + this).addClass("bestmove");
+  });
   refreshButtonset();
   var chart = $("div.adv_chart").data("chart");
   if (chart) {

@@ -54,6 +54,10 @@ span.board_mark.horz {
 #GameBoard td.highlightBlackSquare img {
   background: url(../images/over5.png) no-repeat;
 }
+#GameBoard td img.bestmove {
+  background: url(../images/sover.png) no-repeat;
+  background-position: 0 -64px;
+}
 #GameBoard td img {
   width: 64px;
   height: 64px;
