@@ -12,42 +12,22 @@ import akka.dispatch.Future
 
 object Ai extends LilaController {
 
-  val craftyServer = env.ai.craftyServer
   val stockfishServer = env.ai.stockfishServer
   val isServer = env.ai.isServer
   implicit val executor = Akka.system.dispatcher
-
-  def playCrafty = Action { implicit req ⇒
-    IfServer {
-      implicit val ctx = Context(req, None)
-      Async {
-        Akka.future {
-          craftyServer.play(fen = getOr("fen", ""), level = getIntOr("level", 1))
-        } map { res ⇒
-          res.fold(
-            err ⇒ BadRequest(err.shows),
-            op ⇒ Ok(op.unsafePerformIO)
-          )
-        }
-      }
-    }
-  }
 
   def playStockfish = Action { implicit req ⇒
     implicit val ctx = Context(req, None)
     IfServer {
       Async {
-        Akka.future {
-          stockfishServer.play(
-            pgn = getOr("pgn", ""),
-            initialFen = get("initialFen"),
-            level = getIntOr("level", 1))
-        } map { res ⇒
-          res.fold(
+        stockfishServer.play(
+          pgn = getOr("pgn", ""),
+          initialFen = get("initialFen"),
+          level = getIntOr("level", 1)
+        ).asPromise map (_.fold(
             err ⇒ BadRequest(err.shows),
-            op ⇒ Ok(op.unsafePerformIO)
-          )
-        }
+            Ok(_)
+          ))
       }
     }
   }
@@ -59,12 +39,10 @@ object Ai extends LilaController {
         stockfishServer.analyse(
           pgn = getOr("pgn", ""),
           initialFen = get("initialFen")
-        ).asPromise map { res ⇒
-            res.fold(
-              err ⇒ InternalServerError(err.shows),
-              analyse ⇒ Ok(analyse.encode)
-            )
-          }
+        ).asPromise map (_.fold(
+            err ⇒ InternalServerError(err.shows),
+            analyse ⇒ Ok(analyse.encode)
+          ))
       }
     }
   }

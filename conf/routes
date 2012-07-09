@@ -91,7 +91,6 @@ GET   /wiki                            controllers.Wiki.home
 GET   /wiki/:slug                      controllers.Wiki.show(slug: String)
 
 # AI
-GET   /ai/crafty/play                  controllers.Ai.playCrafty
 GET   /ai/stockfish/play               controllers.Ai.playStockfish
 GET   /ai/stockfish/analyse            controllers.Ai.analyseStockfish
 GET   /ai/stockfish/report             controllers.Ai.reportStockfish

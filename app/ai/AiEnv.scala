@@ -13,20 +13,8 @@ final class AiEnv(settings: Settings) {
   lazy val ai: () ⇒ Ai = (AiChoice, isClient) match {
     case (AiStockfish, true)  ⇒ () ⇒ stockfishClient or stockfishAi
     case (AiStockfish, false) ⇒ () ⇒ stockfishAi
-    case (AiCrafty, true)     ⇒ () ⇒ craftyClient or craftyAi
-    case (AiCrafty, false)    ⇒ () ⇒ craftyAi
     case _                    ⇒ () ⇒ stupidAi
   }
-
-  lazy val craftyAi = new crafty.Ai(
-    server = craftyServer)
-
-  lazy val craftyClient = new crafty.Client(
-    playUrl = AiCraftyPlayUrl)
-
-  lazy val craftyServer = new crafty.Server(
-    execPath = AiCraftyExecPath,
-    bookPath = AiCraftyBookPath)
 
   lazy val stockfishAi = new stockfish.Ai(
     server = stockfishServer)
@@ -56,12 +44,13 @@ final class AiEnv(settings: Settings) {
     stockfishServer.report
   }
 
-  private lazy val client = isClient option {
-    AiChoice match {
-      case AiStockfish ⇒ stockfishClient
-      case AiCrafty    ⇒ craftyClient
-    }
+  private lazy val client = (AiChoice, isClient) match {
+    case (AiStockfish, true) ⇒ stockfishClient.some
+    case _                   ⇒ none
   }
 
-  private lazy val server = (isServer && AiChoice == AiStockfish) option stockfishServer
+  private lazy val server = (AiChoice, isServer) match {
+    case (AiStockfish, true) ⇒ stockfishServer.some
+    case _                   ⇒ none
+  }
 }

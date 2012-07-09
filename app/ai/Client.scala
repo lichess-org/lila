@@ -9,7 +9,7 @@ trait Client extends Ai {
 
   val playUrl: String
 
-  protected def tryPing: IO[Option[Int]] 
+  protected def tryPing: Option[Int] 
 
   // tells whether the remote AI is healthy or not
   // frequently updated by a scheduled actor
@@ -25,7 +25,7 @@ trait Client extends Ai {
   def currentHealth = ping.fold(_ < pingAlert, false)
 
   val diagnose: IO[Unit] = for {
-    p ← tryPing
+    p ← io(tryPing)
     _ ← p.fold(_ < pingAlert, false).fold(
       currentHealth.fold(io(), putStrLn("remote AI is up, ping = " + p)),
       putStrLn("remote AI is down, ping = " + p))

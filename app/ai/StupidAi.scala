@@ -5,10 +5,11 @@ import chess.{ Game, Move }
 import game.DbGame
 
 import scalaz.effects._
+import akka.dispatch.Future
 
-final class StupidAi extends Ai {
+final class StupidAi extends Ai with core.Futuristic {
 
-  def play(dbGame: DbGame, initialFen: Option[String]): IO[Valid[(Game, Move)]] = io {
+  def play(dbGame: DbGame, initialFen: Option[String]): Future[Valid[(Game, Move)]] = Future {
 
     val game = dbGame.toChess
 

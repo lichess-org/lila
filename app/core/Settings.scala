@@ -66,16 +66,17 @@ final class Settings(config: Config) {
 
   val FinisherLockTimeout = millis("memo.finisher_lock.timeout")
 
-  val AiChoice = getString("ai.use")
-  val AiCrafty = "crafty"
-  val AiStockfish = "stockfish"
+  sealed trait AiEngine
+  case object AiStockfish extends AiEngine
+  case object AiStupid extends AiEngine
+
+  val AiChoice: AiEngine = getString("ai.use") match {
+    case "stockfish" ⇒ AiStockfish
+    case _           ⇒ AiStupid
+  }
 
   val AiServerMode = getBoolean("ai.server")
   val AiClientMode = getBoolean("ai.client")
-
-  val AiCraftyExecPath = getString("ai.crafty.exec_path")
-  val AiCraftyBookPath = Some(getString("ai.crafty.book_path")) filter ("" !=)
-  val AiCraftyPlayUrl = getString("ai.crafty.play.url")
 
   val AiStockfishExecPath = getString("ai.stockfish.exec_path")
 

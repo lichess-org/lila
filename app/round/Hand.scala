@@ -22,7 +22,7 @@ final class Hand(
     ai: () ⇒ Ai,
     finisher: Finisher,
     hubMaster: ActorRef,
-    moretimeSeconds: Int) extends Handler(gameRepo) {
+    moretimeSeconds: Int) extends Handler(gameRepo) with core.Futuristic {
 
   type IOValidEvents = IO[Valid[List[Event]]]
   type PlayResult = IO[Valid[(List[Event], String)]]
@@ -55,7 +55,7 @@ final class Hand(
           initialFen ← progress.game.variant.standard.fold(
             io(none[String]),
             gameRepo initialFen progress.game.id)
-          aiResult ← ai().play(progress.game, initialFen)
+          aiResult ← ai().play(progress.game, initialFen).toIo
           eventsAndFen ← aiResult.fold(
             err ⇒ io(failure(err)), {
               case (newChessGame, move) ⇒ for {
