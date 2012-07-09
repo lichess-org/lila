@@ -28,8 +28,4 @@ http://en.lichess.org/forum/lichess-feedback/problems-with-yin-yang#1
 also translate websockets error message
 @someone = link to someone's profile
 make ai servers use futures instead of IOs
-
-next deploy
------------
-db.analysis.ensureIndex({done:1})
-db.analysis.ensureIndex({date:-1})
+highlight analysis best move
