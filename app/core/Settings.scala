@@ -67,15 +67,10 @@ final class Settings(config: Config) {
   val FinisherLockTimeout = millis("memo.finisher_lock.timeout")
 
   val AiChoice = getString("ai.use")
-  val AiCrafty = "crafty"
   val AiStockfish = "stockfish"
 
   val AiServerMode = getBoolean("ai.server")
   val AiClientMode = getBoolean("ai.client")
-
-  val AiCraftyExecPath = getString("ai.crafty.exec_path")
-  val AiCraftyBookPath = Some(getString("ai.crafty.book_path")) filter ("" !=)
-  val AiCraftyPlayUrl = getString("ai.crafty.play.url")
 
   val AiStockfishExecPath = getString("ai.stockfish.exec_path")
 
