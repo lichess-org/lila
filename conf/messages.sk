@@ -58,6 +58,7 @@ viewAllNbGames=Zobraziť všetkých %s hier
 viewNbCheckmates=Zobraziť %s šach-maty
 nbBookmarks=%s záložka
 nbPopularGames=%s populárny hry
+nbAnalysedGames=%s Analyzovaných Hier
 bookmarkedByNbPlayers=Záložka pripútaný na %s hráči
 viewInFullSize=Zobraziť v plnej veľkosti
 logOut=Odhlásiť sa
