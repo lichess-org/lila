@@ -58,6 +58,7 @@ viewAllNbGames=Se alle %s spil
 viewNbCheckmates=Se %s skakmatter
 nbBookmarks=%s bogmærke
 nbPopularGames=%s populær spil
+nbAnalysedGames=%s analyserede spil
 bookmarkedByNbPlayers=Bogmærke til %s spillere
 viewInFullSize=Se i fuldskærm
 logOut=Log ud
