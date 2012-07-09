@@ -69,6 +69,18 @@ function customFunctionOnMove() {
     var index = CurrentPly - 1;
     chart.setSelection([{ row: index, column: 1}]);
   }
+  var turn = Math.round(CurrentPly / 2);
+  var $gameText = $("#GameText");
+  var $th = $gameText.find("th:eq(" + (turn - 1) + ")");
+  if ($th.length) {
+    var height = $th.height();
+    var y = $th.position().top;
+    if (y < height * 3) {
+      $gameText.scrollTop($gameText.scrollTop() + y - height * 3);
+    } else if (y > (512 - height * 4)) {
+      $gameText.scrollTop($gameText.scrollTop() + y + height * 4 - 512);
+    }
+  }
 }
 
 function redrawBoardMarks() {

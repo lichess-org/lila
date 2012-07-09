@@ -216,10 +216,12 @@ body.dark div.hooks a
 {
   color: #b0b0b0;
 }
-body.dark #GameText a:hover,
-body.dark #GameText a.moveOn
-{
+body.dark #GameText a:hover {
   background: #000;
+}
+body.dark #GameText a.moveOn {
+  background: #b0b0b0;
+  color: #000;
 }
 
 body.dark div.lmcs.white {
