@@ -70,7 +70,7 @@ object Cron {
 
       env.ai.clientDiagnose.unsafePerformIO
     }
-    effect(10 seconds, "ai diagnose") {
+    effect(2 seconds, "ai diagnose") {
       env.ai.clientDiagnose
     }
 

@@ -28,5 +28,4 @@ http://en.lichess.org/forum/lichess-feedback/problems-with-yin-yang#1
 also translate websockets error message
 @someone = link to someone's profile
 make ai servers use futures instead of IOs
-highlight analysis best move
 check ai fallback to main server

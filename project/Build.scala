@@ -25,7 +25,6 @@ trait Dependencies {
   val apache = "org.apache.commons" % "commons-lang3" % "3.1"
   val scalaTime = "org.scala-tools.time" %% "time" % "0.5"
   val slf4jNop = "org.slf4j" % "slf4j-nop" % "1.6.4"
-  val dispatch = "net.databinder" %% "dispatch-http" % "0.8.8"
   val paginator = "com.github.ornicar" %% "paginator-core" % "1.6"
   val paginatorSalat = "com.github.ornicar" %% "paginator-salat-adapter" % "1.5"
   val csv = "com.github.tototoshi" %% "scala-csv" % "0.3"
@@ -57,7 +56,6 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       guava,
       apache,
       scalaTime,
-      dispatch,
       paginator,
       paginatorSalat,
       csv,
