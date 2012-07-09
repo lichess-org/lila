@@ -44,11 +44,13 @@ final class AiEnv(settings: Settings) {
     stockfishServer.report
   }
 
-  private lazy val client = isClient option {
-    AiChoice match {
-      case AiStockfish ⇒ stockfishClient
-    }
+  private lazy val client = (AiChoice, isClient) match {
+    case (AiStockfish, true) ⇒ stockfishClient.some
+    case _                   ⇒ none
   }
 
-  private lazy val server = (isServer && AiChoice == AiStockfish) option stockfishServer
+  private lazy val server = (AiChoice, isServer) match {
+    case (AiStockfish, true) ⇒ stockfishServer.some
+    case _                   ⇒ none
+  }
 }
