@@ -22,8 +22,13 @@ object Annotator {
       )
     }
 
-  private def makeComment(advice: Advice): String = advice match {
-    case CpAdvice(sev, info, _)   ⇒ "%s. Best was %s.".format(sev.nag, info.best.uci)
-    case MateAdvice(sev, info, _) ⇒ "%s. Best was %s.".format(sev.desc, info.best.uci)
-  }
+  private def makeComment(advice: Advice): String = (advice match {
+    case CpAdvice(sev, _, _)   ⇒ sev.nag.toString
+    case MateAdvice(sev, _, _) ⇒ sev.desc
+  }) ++ makeBestComment(advice).fold(". " + _, ".")
+
+  private def makeBestComment(advice: Advice): Option[String] = 
+    (advice.info.move != advice.info.best) option {
+      "Best was %s." format advice.info.best.uci
+    }
 }
