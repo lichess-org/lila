@@ -22,7 +22,7 @@ object AnalyseParser {
   private def findCp(lines: List[String]) =
     lines.tail.headOption map { line ⇒
       cpRegex.replaceAllIn(line, m ⇒ m group 1)
-    } flatMap parseIntOption filter (0 !=)
+    } flatMap parseIntOption 
 
   private val mateRegex = """^info.*\smate\s(\-?\d+).*$""".r
   private def findMate(lines: List[String]) =

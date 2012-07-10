@@ -16,13 +16,17 @@ final class AdvantageChart(advices: Analysis.InfoAdvices) {
       case (info, advice) :: (next, _) :: Nil ⇒
         (next.score, next.mate) match {
           case (Some(score), _) ⇒ move(info, advice) -> box(score.pawns)
-          case (_, Some(mate))  ⇒ move(info, advice) -> box(info.color.fold(-mate, mate) * max)
+          case (_, Some(mate))  ⇒ move(info, advice) -> {
+            val mateDelta = math.abs(mate.toFloat / 100)
+            val whiteWins = info.color.fold(mate < 0, mate > 0)
+            box(whiteWins.fold(max - mateDelta, mateDelta - max))
+          }
           case _                ⇒ move(info, none) -> box(0)
         }
     }).toList
 
   private def chartValues: List[List[Any]] = values map {
-    case (move, score) ⇒ List(move, (score == 0).fold(null, score))
+    case (move, score) ⇒ List(move, score)
   }
 
   private def box(v: Float) = math.min(max, math.max(-max, v))
