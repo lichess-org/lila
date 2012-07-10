@@ -58,6 +58,7 @@ viewAllNbGames=بازی %s مشاهده تمام
 viewNbCheckmates=مات شدن %s مشاهده
 nbBookmarks=نشانه های مورد علاقه %s
 nbPopularGames=بازیهای پرطرفدار %s
+nbAnalysedGames=%s بازی های آنالیز شده
 bookmarkedByNbPlayers=نشانه گذاری شده توسط بازیگران %s
 viewInFullSize=تماشا کردن در تمام سایز
 logOut=خروج
