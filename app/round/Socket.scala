@@ -6,13 +6,12 @@ import akka.pattern.ask
 import akka.util.duration._
 import akka.util.Timeout
 import akka.dispatch.Await
-
 import play.api.libs.json._
 import play.api.libs.iteratee._
 import play.api.libs.concurrent._
 import play.api.Play.current
-
 import scalaz.effects._
+import scalaz.{ Success, Failure }
 
 import game.{ Pov, PovRef }
 import chess.Color
@@ -37,10 +36,11 @@ final class Socket(
     hubMaster ? GetGameVersion(gameId) mapTo manifest[Int],
     timeoutDuration)
 
-  def send(progress: Progress): IO[Unit] =
+  def send(progress: Progress) {
     send(progress.game.id, progress.events)
+  }
 
-  def send(gameId: String, events: List[Event]): IO[Unit] = io {
+  def send(gameId: String, events: List[Event]) {
     hubMaster ! GameEvents(gameId, events)
   }
 
@@ -62,15 +62,13 @@ final class Socket(
       }
       case Some("move") ⇒ parseMove(e) foreach {
         case (orig, dest, prom, blur, lag) ⇒ {
-          hand.play(povRef, orig, dest, prom, blur, lag) flatMap { res ⇒
-            res.fold(
-              putFailures, {
-                case (events, fen) ⇒ for {
-                  _ ← send(povRef.gameId, events)
-                  _ ← moveNotifier(povRef.gameId, fen)
-                } yield ()
-              })
-          } unsafePerformIO
+          hand.play(povRef, orig, dest, prom, blur, lag) onSuccess {
+            case Failure(fs) ⇒ println(fs.shows)
+            case Success((events, fen)) ⇒ {
+              send(povRef.gameId, events)
+              moveNotifier(povRef.gameId, fen)
+            } 
+          }
         }
       }
       case Some("moretime") ⇒ (for {

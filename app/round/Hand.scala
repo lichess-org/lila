@@ -22,10 +22,10 @@ final class Hand(
     ai: () ⇒ Ai,
     finisher: Finisher,
     hubMaster: ActorRef,
-    moretimeSeconds: Int) extends Handler(gameRepo) with core.Futuristic {
+    moretimeSeconds: Int) extends Handler(gameRepo) {
 
   type IOValidEvents = IO[Valid[List[Event]]]
-  type PlayResult = IO[Valid[(List[Event], String)]]
+  type PlayResult = Future[Valid[(List[Event], String)]]
 
   def play(
     povRef: PovRef,
@@ -33,7 +33,7 @@ final class Hand(
     destString: String,
     promString: Option[String] = None,
     blur: Boolean = false,
-    lag: Int = 0): PlayResult = fromPov(povRef) {
+    lag: Int = 0): PlayResult = fromPovFuture(povRef) {
     case Pov(g1, color) ⇒ (for {
       g2 ← g1.validIf(g1 playableBy color, "Game not playable")
       orig ← posAt(origString) toValid "Wrong orig " + origString
@@ -41,40 +41,37 @@ final class Hand(
       promotion = Role promotable promString
       newChessGameAndMove ← g2.toChess(orig, dest, promotion, lag)
       (newChessGame, move) = newChessGameAndMove
-    } yield g2.update(newChessGame, move, blur)
-    ).prefixFailuresWith(povRef + " - ").fold(
-      e ⇒ io(failure(e)),
-      progress ⇒ for {
-        eventsAndFen ← if (progress.game.finished) for {
-          _ ← gameRepo save progress
-          finishEvents ← finisher.moveFinish(progress.game, color)
-          events = progress.events ::: finishEvents
-          fen = fenBoard(progress)
-        } yield success(events -> fen)
-        else if (progress.game.player.isAi && progress.game.playable) for {
-          initialFen ← progress.game.variant.standard.fold(
-            io(none[String]),
-            gameRepo initialFen progress.game.id)
-          aiResult ← ai().play(progress.game, initialFen).toIo
-          eventsAndFen ← aiResult.fold(
-            err ⇒ io(failure(err)), {
-              case (newChessGame, move) ⇒ for {
-                progress2 ← io {
-                  progress flatMap { _.update(newChessGame, move) }
-                }
-                _ ← gameRepo save progress2
-                finishEvents ← finisher.moveFinish(progress2.game, !color)
-                events = progress2.events ::: finishEvents
-                fen = fenBoard(progress2)
-              } yield success(events -> fen)
-            }): PlayResult
-        } yield eventsAndFen
-        else for {
-          _ ← gameRepo save progress
-          events = progress.events
-          fen = fenBoard(progress)
-        } yield success(events -> fen)
+    } yield g2.update(newChessGame, move, blur)).prefixFailuresWith(povRef + " - ").fold(
+      e ⇒ Future(failure(e)),
+      progress ⇒ if (progress.game.finished) (for {
+        _ ← gameRepo save progress
+        finishEvents ← finisher.moveFinish(progress.game, color)
+        events = progress.events ::: finishEvents
+        fen = fenBoard(progress)
+      } yield success(events -> fen)).toFuture
+      else if (progress.game.player.isAi && progress.game.playable) for {
+        initialFen ← progress.game.variant.standard.fold(
+          io(none[String]),
+          gameRepo initialFen progress.game.id).toFuture
+        aiResult ← ai().play(progress.game, initialFen)
+        eventsAndFen ← aiResult.fold(
+          err ⇒ Future(failure(err)), {
+            case (newChessGame, move) ⇒ (for {
+              progress2 ← io {
+                progress flatMap { _.update(newChessGame, move) }
+              }
+              _ ← gameRepo save progress2
+              finishEvents ← finisher.moveFinish(progress2.game, !color)
+              events = progress2.events ::: finishEvents
+              fen = fenBoard(progress2)
+            } yield success(events -> fen)).toFuture
+          }): PlayResult
       } yield eventsAndFen
+      else (for {
+        _ ← gameRepo save progress
+        events = progress.events
+        fen = fenBoard(progress)
+      } yield success(events -> fen)).toFuture
     )
   }
 

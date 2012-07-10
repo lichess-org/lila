@@ -154,8 +154,9 @@ object Round extends LilaController with TheftPrevention {
       validEvents.fold(putFailures, performEvents(fullId))
     }
 
-  private def performEvents(fullId: String)(events: List[Event]): IO[Unit] =
+  private def performEvents(fullId: String)(events: List[Event]): IO[Unit] = io {
     env.round.socket.send(DbGame takeGameId fullId, events)
+  }
 
   private def version(gameId: String): Int = socket blockingVersion gameId
 }

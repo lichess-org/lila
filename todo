@@ -29,3 +29,4 @@ also translate websockets error message
 @someone = link to someone's profile
 make ai servers use futures instead of IOs
 check ai fallback to main server
+show people bookmarks

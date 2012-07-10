@@ -2,8 +2,9 @@ package lila
 package game
 
 import scalaz.effects._
+import akka.dispatch.Future
 
-abstract class Handler(gameRepo: GameRepo) {
+abstract class Handler(gameRepo: GameRepo) extends core.Futuristic {
 
   protected def attempt[A](
     fullId: String,
@@ -26,6 +27,17 @@ abstract class Handler(gameRepo: GameRepo) {
       povOption.fold(
         pov ⇒ op(pov),
         io { "No such game".failNel }
+      )
+    }
+
+  protected def fromPovFuture[A](ref: PovRef)(op: Pov ⇒ Future[Valid[A]]): Future[Valid[A]] =
+    fromPovFuture(gameRepo pov ref)(op)
+
+  protected def fromPovFuture[A](povIO: IO[Option[Pov]])(op: Pov ⇒ Future[Valid[A]]): Future[Valid[A]] =
+    povIO.toFuture flatMap { povOption ⇒
+      povOption.fold(
+        pov ⇒ op(pov),
+        Future("No such game".failNel)
       )
     }
 }
