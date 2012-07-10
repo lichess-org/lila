@@ -31,7 +31,7 @@ final class Client(
       case e ⇒ !![Analysis](e.getMessage)
     }
 
-  protected lazy val tryPing: Future[Int] = nowMillis |> { start ⇒
+  protected def tryPing: Future[Int] = nowMillis |> { start ⇒
     fetchMove(pgn = "", initialFen = "", level = 1) map {
       case move if UciMove(move).isDefined ⇒ (nowMillis - start).toInt
     }
