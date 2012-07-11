@@ -28,7 +28,7 @@
         <a class="toggle_language toggle">
           <span class="s16">@langName(lang)</span>
         </a>
-        <ul class="lichess_language_links">
+        <ul class="language_links dropdown">
           @otherLangLinks(lang)
           <li><a href="@routes.I18n.contribute">Help translate Lichess!</a></li>
         </ul>
@@ -49,7 +49,7 @@
       @ctx.me.fold(auth.loggedIn(_), auth.miniLogin())
       <div class="themepicker">
         <a class="theme_toggle toggle"><span class="theme_demo">@trans.color()</span></a>
-        <div class="themes" data-href="@routes.Setting.set("theme")">
+        <div class="themes dropdown" data-href="@routes.Setting.set("theme")">
           @themeList.map { theme =>
           <div class="theme" data-theme="@theme.name"><div class="inner">
             <div class="lcs black @theme.name"></div>

@@ -79,19 +79,32 @@ body.dark div.progressbar,
 body.dark form.translation_form div.messages,
 body.dark form.translation_form input,
 body.dark div.locale_menu a,
-body.dark div.adv_chart 
+body.dark div.adv_chart,
+body.dark #top .dropdown
 {
   border-color: #3e3e3e;
 }
 
 body.dark .ui-slider,
-body.dark div.progressbar
+body.dark div.progressbar,
+body.dark #top div.themepicker.shown div.theme:hover
 {
   background-color: #505050;
 }
+body.dark #top div.auth .links a:hover,
+body.dark #top ul.language_links a:hover
+{
+  background-color: #3e3e3e;
+  color: #b0b0b0;
+}
 
 body.dark #site_title, 
-body.dark #site_baseline {
+body.dark #site_baseline,
+body.dark div.anon_chat a.user_link,
+body.dark div.undertable a.user_link,
+body.dark div.new_posts li span,
+body.dark span.board_mark
+{
   color: #808080;
 }
 body.dark #site_title span.extension {
@@ -101,7 +114,9 @@ body.dark #site_title span.extension {
 body.dark #top a.goto_nav:hover, 
 body.dark #top a.toggle:hover, 
 body.dark #top a.bgpicker:hover, 
-body.dark a#sound_state:hover {
+body.dark a#sound_state:hover,
+body.dark #top .dropdown,
+body.dark #top .shown a.toggle {
   background: #000;
 }
 
@@ -116,14 +131,9 @@ body.dark div.undergame_box,
 body.dark div.lichess_bot td,
 body.dark div.lichess_table,
 body.dark div.lichess_table_wrap div.clock,
-body.dark div.footer_wrap 
+body.dark div.footer_wrap
 {
   background: #242424;
-}
-
-body.dark div.anon_chat a.user_link,
-body.dark div.undertable a.user_link {
-  color: #808080;
 }
 
 body.dark .user_link.white {
@@ -146,9 +156,6 @@ body.dark div.lichess_bot tr:nth-child(even) td
 {
   background: #303030;
 }
-body.dark div.new_posts li span {
-  color: #808080;
-}
 
 body.dark div.lichess_overboard {
   background: #2b2b2b;
@@ -166,10 +173,6 @@ body.dark div.lichess_table a.lichess_button:hover,
 body.dark div.lichess_table a.lichess_button.active {
   box-shadow: 0 0 9px #d85000;
   border: 1px solid #d85000;
-}
-
-body.dark span.board_mark {
-  color: #808080;
 }
 
 body.dark div.content_box,
@@ -250,6 +253,9 @@ body.dark div.lichess_table_wrap div.clock.running {
 body.dark div.lichess_table_wrap div.clock.outoftime {
   background-color: #a00000;
   color: #d0d0d0;
+}
+body.dark div.checkmateFen div.lmcs:hover {
+  background: #aaaaee;
 }
 
 /* soft inactive gradient */

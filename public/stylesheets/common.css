@@ -270,17 +270,6 @@ a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hove
   float: right;
   position: relative;
 }
-#top div.auth form,
-#top div.auth .links {
-  display: none;
-  position: absolute;
-  right: -1px;
-  top: 24px;
-  background: #fff;
-  border: 1px solid #dadada;
-  border-top: none;
-  z-index: 1;
-}
 #top div.auth.shown form,
 #top div.auth.shown .links {
   display: block;
@@ -327,6 +316,15 @@ a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hove
   padding-left: 0;
   padding-right: 20px;
 }
+#top .dropdown {
+  display: none;
+  position: absolute;
+  right: -1px;
+  top: 24px;
+  background: #fff;
+  border: 1px solid #dadada;
+  border-top: none;
+}
 div.auth input.username, div.auth input.password {
   border: 1px solid #dadada;
   padding: 2px 3px;
@@ -340,33 +338,25 @@ div.lichess_language {
   float: right;
   position: relative;
 }
-ul.lichess_language_links {
-  display: none;
-  position: absolute;
-  right: -1px;
-  top: 24px;
-  background: #fff;
-  border: 1px solid #dadada;
-  border-top: none;
+ul.language_links {
   width: 183px;
   max-height: 600px;
   overflow:auto;
-  z-index: 1;
 }
-div.lichess_language.shown ul.lichess_language_links {
+#top div.lichess_language.shown ul.language_links {
   display: block;
 }
-ul.lichess_language_links a {
+ul.language_links a {
   display: block;
   padding: 0.4em 0.5em;
   text-decoration: none;
   text-transform: capitalize;
 }
-ul.lichess_language_links a:hover {
+ul.language_links a:hover {
   background: #F0F0F0;
   color: #444;
 }
-ul.lichess_language_links li:last-child {
+ul.language_links li:last-child {
   border-top: 1px solid #ddd;
 }
 
@@ -381,16 +371,6 @@ ul.lichess_language_links li:last-child {
   padding: 1px 5px;
   text-decoration: none;
   line-height: normal;
-}
-#top div.themepicker div.themes {
-  display: none;
-  position: absolute;
-  right: -1px;
-  top: 24px;
-  background: #fff;
-  border: 1px solid #dadada;
-  border-top: none;
-  z-index: 1;
 }
 #top div.themepicker.shown div.themes {
   display: block;

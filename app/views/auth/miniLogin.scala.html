@@ -4,7 +4,7 @@
   <a class="toggle toggle_auth">
     <span class="s16">@trans.signIn()</span>
   </a>
-  <form class="signin_form" action="@routes.Auth.authenticate()" method="post">
+  <form class="signin_form dropdown" action="@routes.Auth.authenticate()" method="post">
     <input title="@trans.username()" type="text" class="username" name="username" />
     <input title="@trans.password()" type="password" class="password" name="password" />
     <input type="hidden" class="referrer" name="_referrer" value="@currentUrl" />
