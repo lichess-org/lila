@@ -7,7 +7,7 @@ import core.Settings
 
 final class PlayConfig(settings: Settings) extends Config {
 
-  import ai.Ai.levelBox
+  import Config.levelBox
 
   def moveTime(level: Int) = maxMoveTime / (9 - levelBox(level))
 

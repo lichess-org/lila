@@ -14,10 +14,3 @@ trait Ai {
 
   def analyse(dbGame: DbGame, initialFen: Option[String]): Future[Valid[Analysis]]
 }
-
-object Ai {
-
-  val levels = 1 to 8
-
-  val levelBox = intBox(1 to 8) _
-}
