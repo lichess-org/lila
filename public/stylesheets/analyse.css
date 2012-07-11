@@ -111,6 +111,14 @@ span.board_mark.horz {
   font-size: 1.4em;
   width: 220px;
 }
+div.advice_summary {
+  position: absolute;
+  top: 740px;
+  width: 280px;
+}
+div.advice_summary div {
+  margin-bottom: 1em;
+}
 
 div.adv_chart {
   margin-top: 10px;

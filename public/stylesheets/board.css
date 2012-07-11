@@ -421,6 +421,10 @@ div.lichess_table_wrap a.moretime:hover {
   opacity: 1;
 }
 
+div.lichess_table_wrap .player_blurs {
+  margin-top: 1em;
+}
+
 div.lichess_table_next {
   top: 145px;
 }

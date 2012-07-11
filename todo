@@ -19,11 +19,9 @@ check(mate) sound
 mute player = no game room either
 takeback play 2 times ?? http://en.lichess.org/analyse/nfjchnmo/black move 45
 movetimes chart
-style sound toggle
 show lobby chat to anon (and rated games?)
 or show empty chat
 play with a friend possible bug http://en.lichess.org/forum/lichess-feedback/play-with-a-friend-bug
 show last move on miniboards
-http://en.lichess.org/forum/lichess-feedback/problems-with-yin-yang#1
 also translate websockets error message
 @someone = link to someone's profile

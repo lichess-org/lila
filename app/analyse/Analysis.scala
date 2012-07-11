@@ -13,11 +13,19 @@ case class Analysis(
     case info :: next :: Nil ⇒ info -> Advice(info, next)
   }).toList
 
-  def advices: List[Advice] = infoAdvices.map(_._2).flatten
+  lazy val advices: List[Advice] = infoAdvices.map(_._2).flatten
 
   lazy val advantageChart = new AdvantageChart(infoAdvices)
 
   def encode: String = infos map (_.encode) mkString Analysis.separator
+
+  def summary: List[(Color, List[(CpSeverity, Int)])] = Color.all map { color ⇒
+    color -> (CpSeverity.all map { sev ⇒
+      sev -> (advices count { adv ⇒
+        adv.color == color && adv.severity == sev
+      })
+    })
+  }
 }
 
 object Analysis {

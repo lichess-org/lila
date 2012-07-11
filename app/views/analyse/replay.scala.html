@@ -37,6 +37,18 @@ moreJs = moreJs) {
   <div class="moves_wrap">
     <div id="GameText"></div>
     <div id="GameLastComment"></div>
+    <div class="advice_summary">
+      @round.blurs(game)
+      @analysis.map { a =>
+      @for((color, pairs) <- a.summary) {
+      <div class="user_link @color.name">
+        @for((sev, nb) <- pairs) {
+        @sev.nag: @nb
+        }
+      </div>
+      }
+      }
+    </div>
   </div>
 </div>
 <textarea id="pgnText" readonly="readonly">@Html(pgn)</textarea>
@@ -50,7 +62,7 @@ moreJs = moreJs) {
   data-rows="@a.advantageChart.rows"></div>
 } else {
 <div class="undergame_box game_analysis status">
-@a.fail.map { f =>
+  @a.fail.map { f =>
   Computer analysis has failed.<br />@f
   }.getOrElse {
   Computer analysis in progress. You will be notified when it completes.

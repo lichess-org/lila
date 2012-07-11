@@ -1,0 +1,11 @@
+@(game: DbGame)(implicit ctx: Context)
+
+@if(isGranted(Permission.ViewBlurs)) {
+@game.players.map { p =>
+@if(game.playerBlurPercent(p.color) > 30) {
+<div class="player_blurs">
+@playerLink(p, withOnline = false, cssClass = p.color.name.some) @p.blurs/@game.playerMoves(p.color) blurs (@game.playerBlurPercent(p.color)%)
+</div>
+}
+}
+}
