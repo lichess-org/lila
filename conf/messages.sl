@@ -58,6 +58,7 @@ viewAllNbGames=%s Iger
 viewNbCheckmates=Oglej si mat pozicije %s
 nbBookmarks=%s označb
 nbPopularGames=%s znamenitih partij
+nbAnalysedGames=%s Analiziranih Iger
 bookmarkedByNbPlayers=%s krat označeno
 viewInFullSize=Pogled v polni velikosti
 logOut=Odjava
