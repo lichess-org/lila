@@ -58,6 +58,7 @@ viewAllNbGames=Peržiūrėti visus %s žaidimus
 viewNbCheckmates=Peržiūrėti %s matus
 nbBookmarks=%s Žymelės
 nbPopularGames=%s Populiarūs Žaidimai
+nbAnalysedGames=%s analizuoti žaidimai
 bookmarkedByNbPlayers=%s žaidėjai pažymėjo
 viewInFullSize=Žiūrėti visu dydžiu
 logOut=Atsijungti
