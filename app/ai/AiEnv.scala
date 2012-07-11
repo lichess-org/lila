@@ -36,7 +36,7 @@ final class AiEnv(settings: Settings) {
   lazy val isClient = AiClientMode
   lazy val isServer = AiServerMode
 
-  def clientDiagnose = client.fold(_.diagnose, io())
+  def clientDiagnose = client foreach (_.diagnose)
 
   def clientPing = client flatMap (_.currentPing)
 
