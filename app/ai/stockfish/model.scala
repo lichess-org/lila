@@ -12,11 +12,12 @@ object model {
 
   object play {
 
-    case class Play(moves: String, fen: Option[String], level: Int) {
-      def go(moveTime: Int ⇒ Int) = List(
-        "position %s moves %s".format(fen.fold("fen " + _, "startpos"), moves),
-        "go movetime %d depth %d".format(moveTime(level), level)
-      )
+    case class Play(
+      moves: String, 
+      fen: Option[String], 
+      level: Int, 
+      config: PlayConfig) {
+      def go = config.move(fen, moves, level)
       def chess960 = fen.isDefined
     }
     case class BestMove(move: Option[String]) {

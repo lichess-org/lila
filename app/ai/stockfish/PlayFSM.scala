@@ -33,7 +33,7 @@ final class PlayFSM(
   }
   when(UciNewGame) {
     case Event(Out(t), data @ Doing(Task(play, _), _)) if t contains "readyok" ⇒ {
-      play go config.moveTime foreach process.write
+      play.go foreach process.write
       goto(Running)
     }
   }

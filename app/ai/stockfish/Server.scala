@@ -21,14 +21,13 @@ import scalaz.effects._
 final class Server(
     execPath: String,
     playConfig: PlayConfig,
-    analyseConfig: AnalyseConfig) extends lila.ai.Server {
+    analyseConfig: AnalyseConfig) {
 
   def play(pgn: String, initialFen: Option[String], level: Int): Future[Valid[String]] = {
     implicit val timeout = new Timeout(playAtMost)
     (for {
       moves ← UciDump(pgn, initialFen)
-      validLevel ← validateLevel(level)
-      play = model.play.Play(moves, initialFen map chess960Fen, validLevel)
+      play = model.play.Play(moves, initialFen map chess960Fen, level, playConfig)
     } yield play).fold(
       err ⇒ Future(failure(err)),
       play ⇒ playActor ? play mapTo manifest[model.play.BestMove] map { m ⇒

@@ -56,6 +56,12 @@ package object lila
     case e: NumberFormatException ⇒ None
   }
 
+  def intBox(in: Range.Inclusive)(v: Int): Int =
+    math.max(in.start, math.min(v, in.end)) 
+
+  def floatBox(in: Range.Inclusive)(v: Float): Float =
+    math.max(in.start, math.min(v, in.end)) 
+
   def printToFile(f: java.io.File)(op: java.io.PrintWriter ⇒ Unit): IO[Unit] = io {
     val p = new java.io.PrintWriter(f)
     try { op(p) } finally { p.close() }
