@@ -25,7 +25,7 @@ final class AdvantageChart(advices: Analysis.InfoAdvices) {
         }
     }).toList
 
-  private val pawnBox = floatBox(1 to max) _
+  private val pawnBox = floatBox(-max to max) _
 
   private def chartValues: List[List[Any]] = values map {
     case (move, score) ⇒ List(move, score)
