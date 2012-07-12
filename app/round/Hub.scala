@@ -4,6 +4,7 @@ package round
 import socket._
 import chess.{ Color, White, Black }
 import game.PovRef
+import user.User
 
 import akka.actor._
 import akka.util.duration._
@@ -55,9 +56,9 @@ final class Hub(
 
     case IsGone(_, color)            ⇒ sender ! playerIsGone(color)
 
-    case Join(uid, username, version, color, owner) ⇒ {
+    case Join(uid, user, version, color, owner) ⇒ {
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, username, PovRef(gameId, color), owner)
+      val member = Member(channel, user, PovRef(gameId, color), owner)
       addMember(uid, member)
       notify(crowdEvent :: Nil)
       if (playerIsGone(color)) notifyGone(color, false)

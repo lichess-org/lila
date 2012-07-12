@@ -19,6 +19,8 @@ case class User(
     engine: Boolean = false,
     createdAt: DateTime) {
 
+  def muted = isChatBan
+
   def canChat = 
     !isChatBan && 
     nbGames >= 3 &&

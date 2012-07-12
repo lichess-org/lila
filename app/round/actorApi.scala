@@ -4,6 +4,7 @@ package round
 import chess.Color
 import socket.SocketMember
 import game.PovRef
+import user.User
 
 import akka.actor.ActorRef
 import scalaz.effects.IO
@@ -12,28 +13,35 @@ sealed trait Member extends SocketMember {
 
   val ref: PovRef
   val owner: Boolean
+  val muted: Boolean
 
   def watcher = !owner
   def gameId = ref.gameId
   def color = ref.color
   def className = owner.fold("Owner", "Watcher")
+  def canChat = !muted
   override def toString = "%s(%s-%s,%s)".format(className, gameId, color, username)
 }
 
 object Member {
   def apply(
     channel: JsChannel,
-    username: Option[String],
+    user: Option[User],
     ref: PovRef,
-    owner: Boolean): Member =
-    if (owner) Owner(channel, username, ref)
-    else Watcher(channel, username, ref)
+    owner: Boolean): Member = {
+    val username = user map (_.username)
+    val muted = user.fold(_.muted, false)
+    owner.fold(
+      Owner(channel, username, ref, muted),
+      Watcher(channel, username, ref, muted))
+  }
 }
 
 case class Owner(
     channel: JsChannel,
     username: Option[String],
-    ref: PovRef) extends Member {
+    ref: PovRef,
+    muted: Boolean) extends Member {
 
   val owner = true
 }
@@ -41,14 +49,15 @@ case class Owner(
 case class Watcher(
     channel: JsChannel,
     username: Option[String],
-    ref: PovRef) extends Member {
+    ref: PovRef,
+    muted: Boolean) extends Member {
 
   val owner = false
 }
 
 case class Join(
   uid: String,
-  username: Option[String],
+  user: Option[User],
   version: Int,
   color: Color,
   owner: Boolean)
