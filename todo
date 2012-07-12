@@ -25,3 +25,5 @@ show last move on miniboards
 also translate websockets error message
 @someone = link to someone's profile
 analysis not the fastest checkmate, but no best move? http://en.lichess.org/analyse/w3xw8fsw/black 
+analysis missing last move (and 2 moves in chart)
+elo chart average line is late
