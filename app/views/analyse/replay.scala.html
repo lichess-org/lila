@@ -39,7 +39,7 @@ moreJs = moreJs) {
     <div id="GameLastComment"></div>
     <div class="advice_summary">
       @round.blurs(game)
-      @analysis.map { a =>
+      @analysis.filter(_.done).map { a =>
       @for((color, pairs) <- a.summary) {
       <div class="user_link @color.name">
         @for((sev, nb) <- pairs) {
