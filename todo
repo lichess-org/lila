@@ -25,3 +25,5 @@ play with a friend possible bug http://en.lichess.org/forum/lichess-feedback/pla
 show last move on miniboards
 also translate websockets error message
 @someone = link to someone's profile
+analysis only show summary when the analysis is done
+analysis not the fastest checkmate, but no best move? http://en.lichess.org/analyse/w3xw8fsw/black 

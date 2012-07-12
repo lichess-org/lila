@@ -324,6 +324,7 @@ a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hove
   background: #fff;
   border: 1px solid #dadada;
   border-top: none;
+  z-index: 1;
 }
 div.auth input.username, div.auth input.password {
   border: 1px solid #dadada;
