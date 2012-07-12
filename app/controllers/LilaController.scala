@@ -148,7 +148,7 @@ trait LilaController
   def IOptionResult[A](ioa: IO[Option[A]])(op: A ⇒ Result)(implicit ctx: Context) =
     ioa.unsafePerformIO.fold(a ⇒ op(a), notFound(ctx))
 
-  def notFound(ctx: Context) = Lobby handleNotFound ctx
+  def notFound(implicit ctx: Context) = Lobby handleNotFound ctx
 
   def todo = Open { implicit ctx ⇒
     NotImplemented(views.html.site.todo())

@@ -22,6 +22,7 @@ title = thread.name) {
 </div>
 }
 
+@if(me.canMessage) {
 <div class="answer" id="bottom">
   <form action="@routes.Message.answer(thread.id)" method="post">
     <div class="field_body">
@@ -34,4 +35,5 @@ title = thread.name) {
     </div>
   </form>
 </div>
+}
 }

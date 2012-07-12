@@ -26,6 +26,8 @@ case class User(
     nbGames >= 3 &&
     createdAt < (DateTime.now - 3.hours)
 
+  def canMessage = !muted
+
   def disabled = !enabled
 
   def usernameWithElo = "%s (%d)".format(username, elo)
