@@ -23,7 +23,7 @@ $(function() {
       }
       function openSquare(x, y) {
         var scolor = (x+y)%2 ? 'white' : 'black';
-        var html = '<div class="lmcs '+scolor+'" style="top:'+(24*(8-x))+'px;left:'+(24*(y-1))+'px;"';
+        var html = '<div class="lmcs '+scolor+'" style="top:'+(28*(8-x))+'px;left:'+(28*(y-1))+'px;"';
         if (withKeys) {
           var key = 'white' == color 
             ? letters[y - 1] + x

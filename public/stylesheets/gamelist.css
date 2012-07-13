@@ -61,8 +61,8 @@ div.game_list_inner div.vstext {
 }
 
 .mini_board {
-  width: 192px;
-  height: 192px;
+  width: 224px;
+  height: 224px;
   position: relative;
   display: block;
   box-shadow:0 0 5px #666;
@@ -74,8 +74,8 @@ div.all_games a.mini_board {
 
 div.lmcs {
   position: absolute;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
 }
 
 div.lmcs.white {
@@ -87,8 +87,8 @@ div.lmcs.black {
 
 div.lcmp {
   position: absolute;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   background-image: url(../images/sprite_mini.png);
 }
 
@@ -96,37 +96,37 @@ div.lcmp.pawn.white{
   background-position: 0 0;
 }
 div.lcmp.bishop.white{
-  background-position: -24px 0;
+  background-position: -28px 0;
 }
 div.lcmp.knight.white{
-  background-position: -48px 0;
+  background-position: -56px 0;
 }
 div.lcmp.rook.white{
-  background-position: -72px 0;
+  background-position: -84px 0;
 }
 div.lcmp.queen.white{
-  background-position: -96px 0;
+  background-position: -112px 0;
 }
 div.lcmp.king.white{
-  background-position: -120px 0;
+  background-position: -140px 0;
 }
 
 div.lcmp.pawn.black{
   background-position: 0px bottom;
 }
 div.lcmp.bishop.black{
-  background-position: -24px bottom;
+  background-position: -28px bottom;
 }
 div.lcmp.knight.black{
-  background-position: -48px bottom;
+  background-position: -56px bottom;
 }
 div.lcmp.rook.black{
-  background-position: -72px bottom;
+  background-position: -84px bottom;
 }
 div.lcmp.queen.black{
-  background-position: -96px bottom;
+  background-position: -112px bottom;
 }
 div.lcmp.king.black{
-  background-position: -120px bottom;
+  background-position: -140px bottom;
 }
 
