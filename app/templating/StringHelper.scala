@@ -21,13 +21,19 @@ trait StringHelper {
   def shorten(text: String, length: Int): String =
     text.replace("\n", " ") take length
 
+  def shortenWithBr(text: String, length: Int) = Html {
+    nl2br(escape(text).take(length))
+  }
+
   def pluralize(s: String, n: Int) = "%d %s%s".format(n, s, if (n > 1) "s" else "")
 
   def autoLink(text: String) = Html {
-    addLinks(escape(text)).replace("\n", "<br />")
+    nl2br(addLinks(escape(text)))
   }
 
   def escape(text: String) = escapeXml(text)
+
+  def nl2br(text: String) = text.replace("\r\n", "<br />").replace("\n", "<br />")
 
   private val urlRegex = """(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))""".r
 
