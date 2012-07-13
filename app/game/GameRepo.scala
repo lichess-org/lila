@@ -183,6 +183,12 @@ class GameRepo(collection: MongoCollection)
     find("_id" $in ids).toList.map(_.decode).flatten sortBy (_.id)
   }
 
+  def nbPerDay(days: Int): IO[List[Int]] = ((days to 1 by -1).toList map { day ⇒
+    val from = DateTime.now.withTimeAtStartOfDay - day.days
+    val to = from + 1.day
+    count(("createdAt" $gte from $lt to))
+  }).sequence 
+
   private def idSelector(game: DbGame): DBObject = idSelector(game.id)
   private def idSelector(id: String): DBObject = DBObject("_id" -> id)
 }
