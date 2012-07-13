@@ -22,10 +22,10 @@ show lobby chat to anon (and rated games?)
 or show empty chat
 play with a friend possible bug http://en.lichess.org/forum/lichess-feedback/play-with-a-friend-bug
 show last move on miniboards
-bigger miniboards
 also translate websockets error message
 @someone = link to someone's profile
 analysis not the fastest checkmate, but no best move? http://en.lichess.org/analyse/w3xw8fsw/black 
 analysis missing last move (and 2 moves in chart)
 elo chart average line is late
 bookmarkers overflow http://en.lichess.org/508d7dfc
+stockfish timeout -> restart
