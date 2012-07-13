@@ -1,11 +1,7 @@
-div.current_games_box {
-  width: 638px;
-}
-
 div.game_row {
   display: block;
   padding: 1.4em 20px;
-  height: 190px;
+  height: 224px;
   line-height: 1.6em;
   border-bottom: 1px solid #eaeaea;
   position: relative;
@@ -47,14 +43,14 @@ div.game_row .bookmark {
 div.game_list.realtime {
   margin-top: 1.4em;
 }
-div.game_list_inner > div {
+div.game_list.realtime > div {
   float: left;
-  margin: 0px 10px 10px 10px;
+  margin: 0px 12px 12px 12px;
 }
-div.game_list_inner div.vstext {
+div.game_list.realtime div.vstext {
   font-size: 11.5px;
   text-align: center;
-  width: 192px;
+  width: 224px;
   overflow: hidden;
   white-space: nowrap;
   margin-top: 5px;

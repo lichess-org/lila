@@ -184,9 +184,6 @@ div.hooks a.user_link {
   padding-left: 0;
 }
 
-div.featured_game {
-  margin-left: 38px;
-}
 div.featured_game div.vstext {
   margin-top: 0.7em;
   text-align: center;
@@ -216,7 +213,7 @@ div.undertable_inner {
   border: 1px solid #ccc;
   border-top: 0;
   border-radius: 0 0 4px 4px;
-  height: 172px;
+  height: 204px;
   overflow:hidden;
 }
 div.undertable a.user_link {

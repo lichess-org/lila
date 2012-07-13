@@ -5,18 +5,16 @@ title = trans.gamesBeingPlayedRightNow.str(),
 menu = sideMenu(listMenu, "realtime").some) {
 <div class="content_box current_games_box">
   <h1 class="title">@trans.gamesBeingPlayedRightNow()</h1>
-  <div class="game_list realtime">
-    <div class="game_list_inner clearfix">
-      @games.map { game =>
-      <div>
-        @gameFen(game, game.creator.color)
-        <div class="vstext">
-          @usernameWithElo(game.creator) - @usernameWithElo(game.invited)<br />
-          @shortClockName(game.clock)
-        </div>
+  <div class="game_list realtime clearfix">
+    @games.map { game =>
+    <div>
+      @gameFen(game, game.creator.color)
+      <div class="vstext">
+        @usernameWithElo(game.creator) - @usernameWithElo(game.invited)<br />
+        @shortClockName(game.clock)
       </div>
-      }
     </div>
+    }
   </div>
 </div>
 }
