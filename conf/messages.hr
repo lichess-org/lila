@@ -58,6 +58,7 @@ viewAllNbGames=Pogledaj sve  %s igre
 viewNbCheckmates=Pogledaj %s šah-matova
 nbBookmarks=Označeno %s
 nbPopularGames=%s Popularnih igara
+nbAnalysedGames=%s analiziranih igara
 bookmarkedByNbPlayers=Označilo %s igrača
 viewInFullSize=Pogledaj u punoj veličini
 logOut=Odjavi se
