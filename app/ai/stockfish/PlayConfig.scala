@@ -28,7 +28,9 @@ final class PlayConfig(settings: Settings) extends Config {
   def game(play: Play) = List(
     setoption("Skill Level", skill(play.level)),
     setoption("UCI_Chess960", play.chess960),
-    setoption("OwnBook", ownBook(play.level))
+    setoption("OwnBook", ownBook(play.level)),
+    "ucinewgame",
+    "isready"
   )
 
   def move(fen: Option[String], moves: String, level: Int) = List(

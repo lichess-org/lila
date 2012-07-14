@@ -29,6 +29,7 @@ object model {
     sealed trait Data {
       def queue: Queue[Task]
       def enqueue(task: Task): Data
+      def size = queue.size
     }
     case class Todo(queue: Queue[Task] = Queue.empty) extends Data {
       def enqueue(task: Task) = copy(queue = queue :+ task)
@@ -88,6 +89,7 @@ object model {
     sealed trait Data {
       def queue: Queue[Task]
       def enqueue(task: Task): Data
+      def size = queue.size
     }
     case class Todo(queue: Queue[Task] = Queue.empty) extends Data {
       def enqueue(task: Task) = copy(queue = queue :+ task)

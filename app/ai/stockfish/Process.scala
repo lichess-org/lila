@@ -2,14 +2,14 @@ package lila
 package ai.stockfish
 
 import java.io.OutputStream
-import scala.sys.process.{ Process => SProcess, ProcessBuilder, ProcessIO }
+import scala.sys.process.{ Process ⇒ SProcess, ProcessBuilder, ProcessIO }
 import scala.io.Source.fromInputStream
 
 final class Process(
     builder: ProcessBuilder,
     out: String ⇒ Unit,
     err: String ⇒ Unit,
-    debug: Boolean = false) {
+    debug: Process.Debug) {
 
   def write(msg: String) {
     log(msg)
@@ -26,7 +26,7 @@ final class Process(
 
   private var in: OutputStream = _
   private val processIO = new ProcessIO(
-    i ⇒ { 
+    i ⇒ {
       in = i
     },
     o ⇒ fromInputStream(o).getLines foreach { line ⇒
@@ -39,18 +39,25 @@ final class Process(
     })
   private val process = builder run processIO
 
-  private def log(msg: ⇒ String) {
-    if (debug) println(msg)
+  private def log(msg: String) {
+    if (debug(msg)) println(msg)
   }
 }
 
 object Process {
 
-  def apply(execPath: String)(out: String ⇒ Unit, err: String ⇒ Unit) =
+  def apply(execPath: String)(out: String ⇒ Unit, err: String ⇒ Unit, debug: Debug) =
     new Process(
       builder = SProcess(execPath),
       out = out,
       err = err,
-      debug = true)
+      debug = debug)
+
+  type Debug = String ⇒ Boolean
+
+  val DEBUG_ALL: Debug = _ ⇒ true
+  val DEBUG_NONE: Debug = _ ⇒ false
+
+  type Builder = (String ⇒ Unit, String ⇒ Unit, Debug) ⇒ Process
 }
 

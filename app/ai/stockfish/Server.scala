@@ -45,7 +45,7 @@ final class Server(
         analyseActor ? analyse mapTo manifest[Valid[Analysis]]
       })
 
-  def report = {
+  def report: Future[(Int, Int)] = {
     implicit val timeout = new Timeout(playAtMost)
     (playActor ? GetQueueSize) zip (analyseActor ? GetQueueSize) map {
       case (QueueSize(play), QueueSize(analyse)) ⇒ play -> analyse
