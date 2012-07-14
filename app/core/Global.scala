@@ -22,7 +22,7 @@ object Global extends GlobalSettings {
     else core.Cron start env
   }
 
-  override def onRouteRequest(req: RequestHeader): Option[Handler] = 
+  override def onRouteRequest(req: RequestHeader): Option[Handler] =
     if (env.ai.isServer) {
       if (req.path startsWith "/ai/") super.onRouteRequest(req)
       else Action(NotFound).some
@@ -30,23 +30,25 @@ object Global extends GlobalSettings {
     else {
       env.monitor.rpsProvider.countRequest()
       env.security.firewall.requestHandler(req) orElse
-      env.i18n.requestHandler(req) orElse 
-      super.onRouteRequest(req)
+        env.i18n.requestHandler(req) orElse
+        super.onRouteRequest(req)
     }
 
-  override def onHandlerNotFound(req: RequestHeader): Result = 
+  override def onHandlerNotFound(req: RequestHeader): Result =
     env.ai.isServer.fold(NotFound, controllers.Lobby handleNotFound req)
-  
 
   override def onBadRequest(req: RequestHeader, error: String) = {
     BadRequest("Bad Request: " + error)
   }
 
   override def onError(request: RequestHeader, ex: Throwable) =
-    Option(coreEnv).fold(_.app.mode, Mode.Prod) match {
-      case Mode.Prod ⇒ InternalServerError(
-        views.html.base.errorPage(ex)(http.Context(request, none))
-      )
-      case _ ⇒ super.onError(request, ex)
-    }
+    env.ai.isServer.fold(
+      InternalServerError(ex.getMessage),
+      Option(coreEnv).fold(_.app.mode, Mode.Prod) match {
+        case Mode.Prod ⇒ InternalServerError(
+          views.html.base.errorPage(ex)(http.Context(request, none))
+        )
+        case _ ⇒ super.onError(request, ex)
+      }
+    )
 }
