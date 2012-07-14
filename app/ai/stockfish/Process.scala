@@ -7,6 +7,7 @@ import scala.io.Source.fromInputStream
 
 final class Process(
     builder: ProcessBuilder,
+    name: String,
     out: String ⇒ Unit,
     err: String ⇒ Unit,
     debug: Process.Debug) {
@@ -18,9 +19,14 @@ final class Process(
   }
 
   def destroy() {
-    write("stop")
-    write("quit")
-    Thread sleep 300
+    try {
+      write("stop")
+      write("quit")
+      Thread sleep 300
+    }
+    catch {
+      case e: java.io.IOException ⇒ log(e.getMessage)
+    }
     process.destroy()
   }
 
@@ -40,15 +46,16 @@ final class Process(
   private val process = builder run processIO
 
   private def log(msg: String) {
-    if (debug(msg)) println(msg)
+    if (debug(msg)) println("[%s] %s".format(name, msg))
   }
 }
 
 object Process {
 
-  def apply(execPath: String)(out: String ⇒ Unit, err: String ⇒ Unit, debug: Debug) =
+  def apply(execPath: String, name: String)(out: String ⇒ Unit, err: String ⇒ Unit, debug: Debug) =
     new Process(
       builder = SProcess(execPath),
+      name = name,
       out = out,
       err = err,
       debug = debug)

@@ -64,12 +64,12 @@ final class Server(
 
   private implicit val executor = Akka.system.dispatcher
 
-  private val playAtMost = 10 seconds
-  private lazy val playProcess = Process(execPath) _
+  private val playAtMost = 5 seconds
+  private lazy val playProcess = Process(execPath, "SFP") _
   private lazy val playActor = Akka.system.actorOf(Props(
     new PlayFSM(playProcess, playConfig)))
 
-  private lazy val analyseProcess = Process(execPath) _
+  private lazy val analyseProcess = Process(execPath, "SFA") _
   private lazy val analyseActor = Akka.system.actorOf(Props(
     new AnalyseFSM(analyseProcess, analyseConfig)))
 }

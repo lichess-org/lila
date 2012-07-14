@@ -12,10 +12,15 @@ final class PlayFSM(
   config: PlayConfig)
     extends Actor with AkkaFSM[State, Data] {
 
-  val process = processBuilder(
+  var process: Process = _
+  
+  override def preStart() { 
+    log.warning("PlayFSM initialize")
+    process = processBuilder(
     out ⇒ self ! Out(out),
     err ⇒ self ! Err(err),
     msg ⇒ !isNoise(msg))
+  }
 
   startWith(Starting, Todo())
 
@@ -67,7 +72,9 @@ final class PlayFSM(
   def isNoise(t: String) =
     t.isEmpty || (t startsWith "id ") || (t startsWith "info ") || (t startsWith "option name ")
 
-  def onTermination() {
+  override def postStop() {
+    log.warning("PlayFSM terminate")
     process.destroy()
+    process = null
   }
 }
