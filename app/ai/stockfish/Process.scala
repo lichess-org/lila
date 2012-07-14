@@ -12,6 +12,8 @@ final class Process(
     err: String ⇒ Unit,
     debug: Process.Debug) {
 
+  doLog("Start process")
+
   def write(msg: String) {
     log(msg)
     in write (msg + "\n").getBytes("UTF-8")
@@ -19,6 +21,7 @@ final class Process(
   }
 
   def destroy() {
+    doLog("Destroy process")
     try {
       write("stop")
       write("quit")
@@ -46,7 +49,11 @@ final class Process(
   private val process = builder run processIO
 
   private def log(msg: String) {
-    if (debug(msg)) println("[%s] %s".format(name, msg))
+    if (debug(msg)) doLog(msg)
+  }
+
+  private def doLog(msg: String) {
+    println("[%s] %s".format(name, msg))
   }
 }
 

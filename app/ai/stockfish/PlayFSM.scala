@@ -13,13 +13,12 @@ final class PlayFSM(
     extends Actor with AkkaFSM[State, Data] {
 
   var process: Process = _
-  
-  override def preStart() { 
-    log.warning("PlayFSM initialize")
+
+  override def preStart() {
     process = processBuilder(
-    out ⇒ self ! Out(out),
-    err ⇒ self ! Err(err),
-    msg ⇒ !isNoise(msg))
+      out ⇒ self ! Out(out),
+      err ⇒ self ! Err(err),
+      msg ⇒ !isNoise(msg))
   }
 
   startWith(Starting, Todo())
@@ -73,7 +72,6 @@ final class PlayFSM(
     t.isEmpty || (t startsWith "id ") || (t startsWith "info ") || (t startsWith "option name ")
 
   override def postStop() {
-    log.warning("PlayFSM terminate")
     process.destroy()
     process = null
   }
