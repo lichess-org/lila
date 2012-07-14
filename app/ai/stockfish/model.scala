@@ -119,4 +119,6 @@ object model {
 
   case object GetQueueSize
   case class QueueSize(i: Int)
+
+  case object RebootException extends RuntimeException("The actor timed out")
 }

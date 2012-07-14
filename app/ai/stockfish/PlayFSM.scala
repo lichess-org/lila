@@ -55,6 +55,7 @@ final class PlayFSM(
     case Event(GetQueueSize, data)      ⇒ sender ! QueueSize(data.size); stay
     case Event(Out(t), _) if isNoise(t) ⇒ stay
     case Event(Err(t), _)               ⇒ { log.error(t); stay }
+    case Event(e @ RebootException, _)  ⇒ throw e
   }
 
   def next(data: Data) = data match {

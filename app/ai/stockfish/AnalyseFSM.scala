@@ -62,6 +62,7 @@ final class AnalyseFSM(
     case Event(Out(t), _) if isNoise(t) ⇒ stay
     case Event(Out(t), _)               ⇒ { log.warning(t); stay }
     case Event(Err(t), _)               ⇒ { log.error(t); stay }
+    case Event(e @ RebootException, _)  ⇒ throw e
   }
 
   def nextAnalyse(data: Data) = data match {

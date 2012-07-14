@@ -12,8 +12,8 @@ import akka.util.Timeout
 import akka.util.Duration
 import akka.util.duration._
 import akka.dispatch.{ Future, Await }
-import akka.actor.{ Props, Actor, ActorRef }
-import akka.pattern.ask
+import akka.actor.{ Props, Actor, ActorRef, Kill }
+import akka.pattern.{ ask, AskTimeoutException }
 import play.api.Play.current
 import play.api.libs.concurrent._
 import scalaz.effects._
@@ -30,9 +30,9 @@ final class Server(
       play = model.play.Play(moves, initialFen map chess960Fen, level, playConfig)
     } yield play).fold(
       err ⇒ Future(failure(err)),
-      play ⇒ playActor ? play mapTo manifest[model.play.BestMove] map { m ⇒
+      play ⇒ playActor ? play mapTo bestMoveManifest map { m ⇒
         success(m.move | "")
-      }
+      } onFailure reboot(playActor)
     )
   }
 
@@ -42,8 +42,9 @@ final class Server(
       moves ⇒ {
         val analyse = model.analyse.Analyse(moves, initialFen map chess960Fen)
         implicit val timeout = Timeout(1 hour)
-        analyseActor ? analyse mapTo manifest[Valid[Analysis]]
-      })
+        analyseActor ? analyse mapTo analysisManifest onFailure reboot(analyseActor)
+      }
+    )
 
   def report: Future[(Int, Int)] = {
     implicit val timeout = new Timeout(playAtMost)
@@ -61,6 +62,12 @@ final class Server(
       case (pos, piece) ⇒ piece.color.fold(pos.file.toUpperCase, pos.file)
     } mkString ""),
     fen)
+
+  private def reboot(actor: ActorRef): PartialFunction[Throwable, Unit] = {
+    case e: AskTimeoutException ⇒ actor ! model.RebootException
+  }
+  private val analysisManifest = manifest[Valid[Analysis]]
+  private val bestMoveManifest = manifest[model.play.BestMove]
 
   private implicit val executor = Akka.system.dispatcher
 
