@@ -136,7 +136,7 @@ div.content_box h1 {
   display: inline;
 }
 div.content_box.small_box {
-  width: 500px;
+  width: 530px;
 }
 div.content_box.no_padding {
   padding: 0;
@@ -608,7 +608,7 @@ div.content_box
 
 div.checkmateFen {
   float: left;
-  width: 220px;
+  width: 250px;
   margin-left: 110px;
   cursor: pointer;
 }
