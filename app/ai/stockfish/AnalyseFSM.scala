@@ -12,10 +12,14 @@ final class AnalyseFSM(
   config: AnalyseConfig)
     extends Actor with LoggingFSM[State, Data] {
 
-  val process = processBuilder(
-    out ⇒ self ! Out(out),
-    err ⇒ self ! Err(err),
-    msg ⇒ !isNoise(msg))
+  var process: Process = _
+
+  override def preStart() {
+    process = processBuilder(
+      out ⇒ self ! Out(out),
+      err ⇒ self ! Err(err),
+      msg ⇒ !isNoise(msg))
+  }
 
   startWith(Starting, Todo())
 
@@ -87,7 +91,8 @@ final class AnalyseFSM(
   def isNoise(t: String) =
     t.isEmpty || (t startsWith "id ") || (t startsWith "info ") || (t startsWith "option name ")
 
-  def onTermination() {
+  override def postStop() {
     process.destroy()
+    process = null
   }
 }
