@@ -58,6 +58,7 @@ viewAllNbGames=Seuraa %s pelejä
 viewNbCheckmates=Katso %s shakkimatit
 nbBookmarks=%s omaa kirjanmerkkiä
 nbPopularGames=%s suosittua peliä
+nbAnalysedGames=%s analysoituja pelejä
 bookmarkedByNbPlayers=%s pelaajan merkkaama
 viewInFullSize=Näytä Täyskokoisena
 logOut=Kirjaudu ulos
