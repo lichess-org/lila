@@ -128,15 +128,7 @@ $.widget("lichess.game", {
             }, 400);
           });
         },
-        reload: function(event) {
-          // stop queue propagation here
-          self.element.queue(function() {
-            setTimeout(function() {
-              location.reload();
-            }, 400);
-          });
-        },
-        threefold_repetition: function(event) {
+        threefold_repetition: function() {
           self.element.queue(function() {
             self.reloadTable(function() {
               self.element.dequeue();
@@ -147,7 +139,7 @@ $.widget("lichess.game", {
           self.$table.find("div.force_resign_zone").toggle(event);
           self.centerTable();
         },
-        end: function(event) {
+        end: function() {
           // Game end must be applied firt: no queue
           self.options.game.finished = true;
           self.$table
@@ -167,7 +159,7 @@ $.widget("lichess.game", {
             });
           });
         },
-        reload_table: function(event) {
+        reload_table: function() {
           self.element.queue(function() {
             self.reloadTable(function() {
               self.element.dequeue();
@@ -180,7 +172,7 @@ $.widget("lichess.game", {
             self.element.dequeue();
           });
         },
-        premove: function(event) {
+        premove: function() {
           self.element.queue(function() {
             self.applyPremove();
             self.element.dequeue();

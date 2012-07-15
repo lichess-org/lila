@@ -35,7 +35,7 @@ final class Hub(
         if (playerIsGone(o.color)) notifyGone(o.color, false)
         playerTime(o.color, lastPingTime)
       }
-      member(uid) foreach { m ⇒
+      withMember(uid) { m ⇒
         history.since(v).fold(batch(m, _), resync(m))
       }
     }
@@ -130,7 +130,7 @@ final class Hub(
     members.values find { m ⇒ m.owner && m.color == color }
 
   def ownerOf(uid: String): Option[Member] =
-    member(uid) filter (_.owner)
+    members get uid filter (_.owner)
 
   def playerTime(color: Color): Double = color.fold(
     whiteTime,

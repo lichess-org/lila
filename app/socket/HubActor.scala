@@ -31,9 +31,11 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
 
     case LiveGames(uid, gameIds) ⇒ registerLiveGames(uid, gameIds)
 
-    case Fen(gameId, fen)   ⇒ notifyFen(gameId, fen)
+    case Fen(gameId, fen)        ⇒ notifyFen(gameId, fen)
 
     case SendTo(userId, msg)     ⇒ sendTo(userId, msg)
+
+    case Resync(uid)             ⇒ resync(uid)
   }
 
   def receive = receiveSpecific orElse receiveGeneric
@@ -50,7 +52,7 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
 
   def ping(uid: String) {
     setAlive(uid)
-    member(uid) foreach (_.channel push pong)
+    withMember(uid)(_.channel push pong)
   }
 
   def sendTo(userId: String, msg: JsObject) {
@@ -62,7 +64,7 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
   }
 
   def eject(uid: String) {
-    members get uid foreach { member ⇒
+    withMember(uid) { member ⇒
       member.channel.end()
       quit(uid)
     }
@@ -73,9 +75,11 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
   }
 
   def resync(member: M) {
-    member.channel push JsObject(Seq(
-      "t" -> JsString("resync")
-    ))
+    member.channel push makeMessage("resync", JsNull)
+  }
+
+  def resync(uid: String) {
+    withMember(uid)(resync)
   }
 
   def addMember(uid: String, member: M) {
@@ -89,8 +93,6 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
   }
 
   def uids = members.keys
-
-  def member(uid: String): Option[M] = members get uid
 
   def memberByUserId(userId: String): Option[M] = {
     val someId = Some(userId)
@@ -107,6 +109,10 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
   }
 
   def registerLiveGames(uid: String, ids: List[String]) {
-    member(uid) foreach (_ addLiveGames ids)
+    withMember(uid)(_ addLiveGames ids)
+  }
+
+  def withMember(uid: String)(f: M => Unit) {
+    members get uid foreach f
   }
 }

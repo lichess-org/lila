@@ -52,10 +52,6 @@ $.websocket.prototype = {
       var m = JSON.parse(e.data);
       self.debug(m);
       if (m.t == "n") { self.pong(); }
-      if (m.t == "resync") { 
-        location.reload();
-        return;
-      }
       if (m.t == "batch") {
         $(m.d || []).each(function() { self.handle(this); });
       } else {
@@ -127,6 +123,10 @@ $.websocket.prototype = {
       self.debug("set version " + self.version);
     }
     if (m.t) {
+      if (m.t == "resync") { 
+        location.reload();
+        return;
+      }
       var h = self.settings.events[m.t];
       if ($.isFunction(h)) h(m.d || null);
       else if(!self.options.ignoreUnknownMessages) {

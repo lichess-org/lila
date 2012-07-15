@@ -41,7 +41,7 @@ final class Server(
       err ⇒ Future(failure(err)),
       moves ⇒ {
         val analyse = model.analyse.Analyse(moves, initialFen map chess960Fen)
-        implicit val timeout = Timeout(1 hour)
+        implicit val timeout = Timeout(analyseAtMost)
         analyseActor ? analyse mapTo analysisManifest onFailure reboot(analyseActor)
       }
     )
@@ -76,6 +76,7 @@ final class Server(
   private lazy val playActor = Akka.system.actorOf(Props(
     new PlayFSM(playProcess, playConfig)))
 
+  private val analyseAtMost = 10 minutes
   private lazy val analyseProcess = Process(execPath, "SFA") _
   private lazy val analyseActor = Akka.system.actorOf(Props(
     new AnalyseFSM(analyseProcess, analyseConfig)))

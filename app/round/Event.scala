@@ -98,7 +98,7 @@ object Event {
   }
 
   case class Reload() extends Empty {
-    def typ = "reload"
+    def typ = "resync"
   }
 
   case class Promotion(role: PromotableRole, pos: Pos) extends Event {

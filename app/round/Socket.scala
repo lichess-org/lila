@@ -16,7 +16,7 @@ import scalaz.{ Success, Failure }
 import game.{ Pov, PovRef }
 import user.User
 import chess.Color
-import socket.{ PingVersion, Quit }
+import socket.{ PingVersion, Quit, Resync }
 import socket.Util.connectionFail
 import security.Flood
 import implicits.RichJs._
@@ -65,7 +65,10 @@ final class Socket(
       case Some("move") ⇒ parseMove(e) foreach {
         case (orig, dest, prom, blur, lag) ⇒ {
           hand.play(povRef, orig, dest, prom, blur, lag) onSuccess {
-            case Failure(fs) ⇒ println(fs.shows)
+            case Failure(fs) ⇒ {
+              hub ! Resync(uid)
+              println(fs.shows)
+            }
             case Success((events, fen)) ⇒ {
               send(povRef.gameId, events)
               moveNotifier(povRef.gameId, fen)
