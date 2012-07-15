@@ -7,9 +7,9 @@ import core.Settings
 
 final class PlayConfig(settings: Settings) extends Config {
 
-  import Config.levelBox
+  import Config._
 
-  def moveTime(level: Int) = maxMoveTime / (9 - levelBox(level))
+  def moveTime(level: Int) = (levelBox(level) * maxMoveTime) / levels.end
 
   def ownBook(level: Int) = levelBox(level) > 4
 
