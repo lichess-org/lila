@@ -107,6 +107,7 @@ final class Settings(config: Config) {
   val MessageCollectionThread = getString("message.collection.thread")
 
   val WikiCollectionPage = getString("wiki.collection.page")
+  val WikiGitUrl = getString("wiki.git_url")
 
   val BookmarkCollectionBookmark = getString("bookmark.collection.bookmark")
 

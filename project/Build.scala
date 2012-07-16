@@ -11,6 +11,7 @@ trait Resolvers {
   val t2v = "t2v.jp repo" at "http://www.t2v.jp/maven-repo/"
   val guice = "guice-maven" at "http://guice-maven.googlecode.com/svn/trunk"
   val jgitMaven = "jgit-maven" at "http://download.eclipse.org/jgit/maven"
+  val christophs = "Christophs Maven Repo" at "http://maven.henkelmann.eu/"
 }
 
 trait Dependencies {
@@ -30,6 +31,7 @@ trait Dependencies {
   val csv = "com.github.tototoshi" %% "scala-csv" % "0.3"
   val hasher = "com.roundeights" % "hasher" % "0.3" from "http://cloud.github.com/downloads/Nycto/Hasher/hasher_2.9.1-0.3.jar"
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "1.3.0.201202151440-r"
+  val actuarius = "eu.henkelmann" %% "actuarius" % "0.2.3"
 }
 
 object ApplicationBuild extends Build with Resolvers with Dependencies {
@@ -38,7 +40,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     organization := "com.github.ornicar",
     version := "1.0",
     scalaVersion := "2.9.1",
-    resolvers := Seq(iliaz, codahale, sonatype, sonatypeS, typesafe, t2v, guice, jgitMaven),
+    resolvers := Seq(iliaz, codahale, sonatype, sonatypeS, typesafe, t2v, guice, jgitMaven, christophs),
     libraryDependencies := Seq(scalaz, scalalib, hasher),
     libraryDependencies in test := Seq(specs2),
     shellPrompt := {
@@ -59,7 +61,8 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       paginator,
       paginatorSalat,
       csv,
-      jgit),
+      jgit,
+      actuarius),
     templatesImport ++= Seq(
       "lila.game.{ DbGame, DbPlayer, Pov }",
       "lila.user.User",

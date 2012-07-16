@@ -17,6 +17,7 @@ object Main {
     def titivate = env.titivate
     def forum = Forum(env.forum)
     def infos = Infos(env)
+    def wiki = Wiki(env.wiki)
 
     args.toList match {
       case "average-elo" :: Nil               ⇒ infos.averageElo
@@ -33,6 +34,7 @@ object Main {
       case "game-finish" :: Nil               ⇒ titivate.finishByClock
       case "game-per-day" :: Nil              ⇒ games.perDay(30)
       case "game-per-day" :: days :: Nil      ⇒ games.perDay(parseIntOption(days) err "days: Int")
+      case "wiki-fetch" :: Nil                ⇒ wiki.fetch
       case _ ⇒
         putStrLn("Unknown command: " + args.mkString(" "))
     }
