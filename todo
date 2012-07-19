@@ -27,13 +27,11 @@ analysis not the fastest checkmate, but no best move? http://en.lichess.org/anal
 analysis missing last move (and 2 moves in chart)
 elo chart average line is late
 bookmarkers overflow http://en.lichess.org/508d7dfc
-stockfish timeout -> restart
 move while disconnected = move lost. should reload the page on ack timeout.
 finish games per day chart
 untranslated = https://github.com/ornicar/lila/issues/4 
 list of adjustments
 disable pgn4web onboard features
-wiki updater (mephos updates)
 game stats timeline issues http://en.lichess.org/forum/lichess-feedback/move-times
 propagate IP ban to the user
 verify firewall cookie is persistent
