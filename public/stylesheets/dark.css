@@ -80,7 +80,8 @@ body.dark form.translation_form div.messages,
 body.dark form.translation_form input,
 body.dark div.locale_menu a,
 body.dark div.adv_chart,
-body.dark #top .dropdown
+body.dark #top .dropdown,
+body.dark div.lichess_overboard p.explanations 
 {
   border-color: #3e3e3e;
 }
@@ -159,6 +160,8 @@ body.dark div.lichess_bot tr:nth-child(even) td
 
 body.dark div.lichess_overboard {
   background: #2b2b2b;
+}
+body.dark div.lichess_overboard.game_config {
   box-shadow: 0 0 20px #d0d0d0;
 }
 body.dark div.game_config .optional_config {

@@ -264,3 +264,8 @@ div.new_posts li span {
   margin-right: 6px;
   color: #aaa;
 }
+div.lichess_overboard.joining input.submit {
+  font-size: 1.2em;
+  margin-top: 1em;
+  padding: 0.6em 1em;
+}

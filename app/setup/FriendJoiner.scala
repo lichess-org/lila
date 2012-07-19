@@ -30,7 +30,7 @@ final class FriendJoiner(
         _ ← gameRepo save p3
         _ ← gameRepo denormalizeStarted p3.game
       } yield Pov(p3.game, color) -> p3.events
-    } toSuccess ("Can't join started game " + game.id).wrapNel
+    } toValid "Can't join started game " + game.id
 
   private def playerUrl(game: DbGame, color: ChessColor): String =
     routes.Round.player(game fullIdOf color).url

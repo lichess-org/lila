@@ -10,11 +10,12 @@ import play.api.data.Form
 
 import scalaz.effects._
 
-object Setup extends LilaController with TheftPrevention {
+object Setup extends LilaController with TheftPrevention with RoundEventPerformer {
 
   def forms = env.setup.formFactory
   def processor = env.setup.processor
   def friendConfigMemo = env.setup.friendConfigMemo
+  def joiner = env.setup.friendJoiner
   def gameRepo = env.game.gameRepo
   def bookmarkApi = env.bookmark.api
 
@@ -49,6 +50,20 @@ object Setup extends LilaController with TheftPrevention {
       processor hook config map { hook ⇒
         routes.Lobby.hook(hook.ownerId)
       }
+  }
+
+  def join(id: String) = Open { implicit ctx ⇒
+    IOptionIOResult(gameRepo game id) { game ⇒
+      joiner(game, ctx.me).fold(
+        err ⇒ putFailures(err) map { _ ⇒
+          Redirect(routes.Round.watcher(id, game.creatorColor.name))
+        },
+        _ flatMap {
+          case (p, events) ⇒ performEvents(p.gameId)(events) map { _ ⇒
+            Redirect(routes.Round.player(p.fullId))
+          }
+        })
+    }
   }
 
   def await(fullId: String) = Open { implicit ctx ⇒

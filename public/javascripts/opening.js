@@ -1,12 +1,14 @@
 $(function() {
 
   var $startButtons = $('#start_buttons');
-  if (!$startButtons.length) {
-    return;
-  }
 
   if (!$.websocket.available) {
     $('#start_buttons a').attr('href', '#');
+    $("div.lichess_overboard.joining input.submit").remove();
+    return;
+  }
+
+  if (!$startButtons.length) {
     return;
   }
 

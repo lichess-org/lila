@@ -8,13 +8,13 @@ import play.api.mvc.Result
 
 object Game extends LilaController {
 
-  val gameRepo = env.game.gameRepo
-  val paginator = env.game.paginator
-  val analysePaginator = env.analyse.paginator
-  val cached = env.game.cached
-  val analyseCached = env.analyse.cached
-  val bookmarkApi = env.bookmark.api
-  val listMenu = env.game.listMenu
+  def gameRepo = env.game.gameRepo
+  def paginator = env.game.paginator
+  def analysePaginator = env.analyse.paginator
+  def cached = env.game.cached
+  def analyseCached = env.analyse.cached
+  def bookmarkApi = env.bookmark.api
+  def listMenu = env.game.listMenu
 
   val maxPage = 40
 
