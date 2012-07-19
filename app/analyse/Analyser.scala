@@ -22,16 +22,20 @@ final class Analyser(
 
   def has(id: String): IO[Boolean] = analysisRepo isDone id
 
-  def getOrGenerate(id: String, userId: String): Future[Valid[Analysis]] = 
-    getOrGenerateIO(id, userId)
+  def getOrGenerate(id: String, userId: String, admin: Boolean): Future[Valid[Analysis]] =
+    getOrGenerateIO(id, userId, admin)
 
-  private def getOrGenerateIO(id: String, userId: String): Future[Valid[Analysis]] = for {
+  private def getOrGenerateIO(id: String, userId: String, admin: Boolean): Future[Valid[Analysis]] = for {
     a ← ioToFuture(analysisRepo byId id)
     b ← a.fold(
       x ⇒ Future(success(x)),
       for {
+        userInProgress ← ioToFuture(admin.fold(
+          io(false),
+          analysisRepo userInProgress userId
+        ))
         gameOption ← ioToFuture(gameRepo game id)
-        result ← gameOption.fold(
+        result ← gameOption.filterNot(_ ⇒ userInProgress).fold(
           game ⇒ for {
             _ ← ioToFuture(analysisRepo.progress(id, userId))
             initialFen ← ioToFuture(gameRepo initialFen id)

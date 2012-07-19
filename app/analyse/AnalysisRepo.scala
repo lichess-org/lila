@@ -46,4 +46,11 @@ final class AnalysisRepo(val collection: MongoCollection) {
   def isDone(id: String): IO[Boolean] = io {
     collection.count(DBObject("_id" -> id, "done" -> true)) > 0
   }
+
+  def userInProgress(uid: String): IO[Boolean] = io {
+    collection.count(
+      ("fail" $exists false) ++ 
+      DBObject("uid" -> uid, "done" -> false)
+    ) > 0
+  }
 }
