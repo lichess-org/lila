@@ -30,8 +30,7 @@ final class Fetch(
     val dir = Files.createTempDir
     dir.deleteOnExit
     Git.cloneRepository
-      .setURI("/home/thib/lichess.wiki/.git")
-      //.setURI(gitUrl)
+      .setURI(gitUrl)
       .setDirectory(dir)
       .setBare(false)
       .call
