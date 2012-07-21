@@ -80,13 +80,13 @@ moreJs = moreJs) {
 <form class="request_analysis" action="@routes.Analyse.computer(gameId, color.name)" method="post">
   <a>Request a computer analysis</a>
 </form>
+}
 <a href="@routes.Analyse.stats(gameId)">@trans.viewGameStats()</a>
 <br />
 <a class="rotate_board" href="@routes.Analyse.replay(gameId, (!color).name)">@trans.flipBoard()</a>
 <br />
 <a class="view_pgn_toggle" href="@routes.Analyse.pgn(game.id)">View PGN</a>
 <div id="CurrentFen"></div>
-}
 </nav>
 }
 }
