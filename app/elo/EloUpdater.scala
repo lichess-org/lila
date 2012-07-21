@@ -20,17 +20,12 @@ final class EloUpdater(
 
   val adjustTo = User.STARTING_ELO
 
-  def adjust(username: String) = for {
-    uOption ← userRepo byId username
-    _ ← uOption.fold(
-      u ⇒ for {
-        _ ← userRepo toggleEngine u.id
-        _ ← (!u.engine && u.elo > adjustTo).fold(
-          userRepo.setElo(u.id, adjustTo) flatMap { _ ⇒
-            historyRepo.addEntry(u.id, adjustTo, entryType = HistoryRepo.TYPE_ADJUST)
-          },
-          io())
-      } yield (),
+  def adjust(u: User) = for {
+    _ ← userRepo toggleEngine u.id
+    _ ← (!u.engine && u.elo > adjustTo).fold(
+      userRepo.setElo(u.id, adjustTo) flatMap { _ ⇒
+        historyRepo.addEntry(u.id, adjustTo, entryType = HistoryRepo.TYPE_ADJUST)
+      },
       io())
   } yield ()
 }

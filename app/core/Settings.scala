@@ -121,6 +121,8 @@ final class Settings(config: Config) {
   val ActorLobbyHub = "lobby_hub"
   val ActorMonitorHub = "monitor_hub"
 
+  val ModlogCollectionModlog = getString("modlog.collection.modlog")
+
   private def millis(name: String): Int = getMilliseconds(name).toInt
 
   private def seconds(name: String): Int = millis(name) / 1000

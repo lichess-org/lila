@@ -22,6 +22,7 @@ object User extends LilaController {
   def bookmarkApi = env.bookmark.api
   def securityStore = env.security.store
   def firewall = env.security.firewall
+  def modlogApi = env.modlog.api
 
   def show(username: String) = showFilter(username, "all", 1)
 
@@ -93,9 +94,17 @@ object User extends LilaController {
   }
 
   def engine(username: String) = Secure(Permission.MarkEngine) { _ ⇒
-    _ ⇒
+    me ⇒
       IORedirect {
-        eloUpdater adjust username map { _ ⇒ routes.User show username }
+        for {
+          userOption ← userRepo byId username
+          _ ← userOption.fold(
+            user ⇒ for {
+              _ ← eloUpdater adjust user
+              _ ← modlogApi.engine(me, user, !user.engine)
+            } yield (),
+            io())
+        } yield routes.User show username
       }
   }
 

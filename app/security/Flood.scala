@@ -18,7 +18,6 @@ final class Flood {
   }
   type Messages = List[Message]
 
-  // uid, [date, message]
   private val messages = Builder.expiry[String, Messages](ttl)
 
   def filterMessage[A](uid: String, text: String)(op: ⇒ Unit) {

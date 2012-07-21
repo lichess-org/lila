@@ -129,10 +129,14 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     mongodb = mongodb.connection,
     settings = settings)
 
-  lazy val titivate = new core.Titivate(
+  lazy val titivate = new lila.core.Titivate(
     gameRepo = game.gameRepo,
     finisher = round.finisher,
     bookmarkApi = bookmark.api)
+
+  lazy val modlog = new lila.modlog.ModlogEnv(
+    settings = settings,
+    mongodb = mongodb.apply _)
 }
 
 object CoreEnv {
