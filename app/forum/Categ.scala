@@ -11,4 +11,6 @@ case class Categ(
     nbTopics: Int = 0,
     nbPosts: Int = 0,
     lastPostId: String = "") {
+
+  def isStaff = slug == "staff"
 }

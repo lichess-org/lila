@@ -8,7 +8,11 @@ title = categ.name) {
     <li><h1>@categ.name</h1></li>
   </ol>
 
-  <p class="description">@categ.desc</p>
+  <p class="description">@categ.desc
+    @if(categ.isStaff) {
+    - <a href="@routes.Mod.log">View Mod Logs</a>
+    }
+  </p>
   <div class="bar top clearfix">
     <div class="pagination">
       @forum.pagination(routes.ForumCateg.show(categ.slug, 1), topics)
