@@ -2,6 +2,8 @@
 
 @import pov._
 
+@bookmarkerLink(user: User) = {<a href="@routes.User.show(user.username)">@user.username</a>}
+
 @defining("http://lichess.org" + routes.Round.watcher(gameId, color.name)) { url =>
 <div class="undergame_box game_more">
   <div class="more_top">
@@ -13,13 +15,11 @@
   </div>
   <div class="inner game_extra">
     @if(bookmarkers.nonEmpty) {
-    <div class="bookmarkers">
+    <div class="bookmarkers inline_userlist">
       <p>@trans.bookmarkedByNbPlayers(bookmarkers.size)</p>
-      <ul>
-        @bookmarkers.map { bookmarker =>
-        <li>@userLink(bookmarker)</li>
-        }
-      </ul>
+      <span class="list">
+        @Html(bookmarkers.map(bookmarkerLink).mkString(", "))
+      </span>
     </div>
     }
     <div class="body">

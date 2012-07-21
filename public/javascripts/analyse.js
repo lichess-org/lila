@@ -84,6 +84,7 @@ function customFunctionOnMove() {
       $gameText.scrollTop($gameText.scrollTop() + y + height * 4 - 512);
     }
   }
+  $('#CurrentFen').text(CurrentFEN());
 }
 
 function redrawBoardMarks() {

@@ -701,15 +701,15 @@ div.lichess_chat.hidden ol.lichess_messages, div.lichess_chat.hidden form {
   opacity: 0;
 }
 
-div.watchers span.list {
+div.inline_userlist span.list {
   display: inline;
   color: #9a9a9a;
 }
-div.watchers a {
+div.inline_userlist a {
   color: #aaa;
   text-decoration: none;
   font-weight: bold;
 }
-div.watchers a:hover {
+div.inline_userlist a:hover {
   text-decoration: underline;
 }
