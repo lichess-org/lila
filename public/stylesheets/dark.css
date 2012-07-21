@@ -203,7 +203,8 @@ body.dark div.user_show .elo_with_me,
 body.dark div.content_box_inter,
 body.dark #GameText tr:nth-child(even),
 body.dark table.translations tbody tr:nth-child(even),
-body.dark form.translation_form div.message:nth-child(even)
+body.dark form.translation_form div.message:nth-child(even),
+body.dark div.content_box table.datatable tr:nth-child(odd) 
 {
   background: #343434;
 }

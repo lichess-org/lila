@@ -19,5 +19,7 @@ final class ModlogApi(repo: ModlogRepo) {
     Modlog(mod.id, user.id.some, Modlog.ipban)
   }
 
+  def recent = repo recent 200
+
   private def add(modLog: Modlog): IO[Unit] = repo saveIO modLog
 }

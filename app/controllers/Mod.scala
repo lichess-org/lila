@@ -12,6 +12,7 @@ import scalaz.effects._
 object Mod extends LilaController {
 
   def modApi = env.mod.api
+  def modLogApi = env.mod.logApi
 
   def engine(username: String) = Secure(Permission.MarkEngine) { _ ⇒
     me ⇒
@@ -32,5 +33,10 @@ object Mod extends LilaController {
       IORedirect {
         modApi.ipban(me, username) map { _ ⇒ routes.User show username }
       }
+  }
+
+  val log = Auth { implicit ctx ⇒
+    me =>
+      IOk(modLogApi.recent map { html.mod.log(_) })
   }
 }

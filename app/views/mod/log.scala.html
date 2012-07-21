@@ -1,0 +1,26 @@
+@(logs: List[lila.mod.Modlog])(implicit ctx: Context)
+
+@title = @{ "Mod logs" }
+
+@base.layout(title = title) {
+
+<style type="text/css">
+  table td {
+  padding: 5px 10px 5px 10px;
+  }
+</style>
+<div class="content_box">
+  <h1>@title</h1>
+  <br /><br />
+  <table class="datatable"><tbody>
+      @logs.map { log =>
+      <tr>
+        <td>@showDate(log.date)</td>
+        <td>@userIdLink(log.mod.some)</td>
+        <td>@log.showAction.capitalize</td>
+        <td>@userIdLink(log.user)</td>
+      </tr>
+      }
+  </tbody></table>
+</div>
+}

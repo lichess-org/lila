@@ -15,4 +15,8 @@ class ModlogRepo(collection: MongoCollection)
   def saveIO(modlog: Modlog): IO[Unit] = io {
     save(modlog)
   }
+  
+  def recent(nb: Int): IO[List[Modlog]] = io {
+    find(DBObject()).sort(DBObject("$natural" -> -1)).limit(nb).toList
+  }
 }

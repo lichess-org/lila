@@ -5,17 +5,11 @@
 @base.layout(title = title) {
 
 <style type="text/css">
-  table td {
-  padding: 5px 10px 5px 10px;
-  }
-  table tr:nth-child(odd) {
-  background: #f7f7f7;
-  }
 </style>
 <div class="content_box">
   <h1>@title</h1>
   <br /><br />
-  <table><tbody>
+  <table class="datatable"><tbody>
       @messages.map { message =>
       <tr>
         <td>@showDate(message.createdAt)</td>

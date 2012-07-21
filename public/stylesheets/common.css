@@ -195,6 +195,13 @@ div.content_box .lichess_title {
   margin-bottom: 0.5em;
 }
 
+div.content_box table.datatable td {
+  padding: 5px 10px 5px 10px;
+}
+div.content_box table.datatable tr:nth-child(odd) {
+  background: #f7f7f7;
+}
+
 div.lichess_goodies div.box {
   margin-top: 1em;
   margin-left: -30px;
