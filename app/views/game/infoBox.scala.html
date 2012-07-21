@@ -10,18 +10,25 @@
     @game.updatedAt.map(showDate)
     }
     <br /><br />
+    @if(game.finishedOrAborted) {
+    @gameEndStatus(game),
+    @game.winner.map { winner =>
+    @winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
+    }
+    <br /><br />
+    }
     @List(opponent, player).map { p =>
     <div class="player">
       @playerLink(p, withOnline = false, withDiff = true, cssClass = Some("s16 " + p.color.name))
     </div>
     }
     <br />
-    @if(game.variant.exotic) {
-    @trans.variant(): @variantName(game.variant).capitalize<br />
-    }
     <span class="s16 clock">@shortClockName(game.clock)</span>
+    @if(game.variant.exotic) {
+    , @variantName(game.variant).capitalize
+    }
     @if(game.rated) {
-    <br />@trans.thisGameIsRated()<br />
+    , @trans.rated()<br />
     }
   </div>
 </div>

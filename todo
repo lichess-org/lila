@@ -37,3 +37,5 @@ propagate IP ban to the user
 verify firewall cookie is persistent
 admin ip search interface
 analyse: show main line for every move http://en.lichess.org/forum/lichess-feedback/about-the-analysis-feature#5
+show victory in analysis page + other suggestions http://en.lichess.org/forum/lichess-feedback/a-couple-of-feature-requests#2 
+only one stockfish instance for moves and analysis. Use a todo with two queues.

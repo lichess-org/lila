@@ -20,7 +20,7 @@ final class Featured(
 
   import Featured._
 
-  def one: Future[Option[DbGame]] = 
+  def one: Future[Option[DbGame]] =
     actor ? GetOne mapTo manifest[Option[DbGame]]
 
   private implicit val timeout = Timeout(2 seconds)
@@ -49,10 +49,9 @@ final class Featured(
 
     private def valid(game: DbGame) = game.isBeingPlayed
 
-    private def feature: Option[DbGame] =
-      Featured.best(
-        gameRepo.featuredCandidates.unsafePerformIO filter valid
-      )
+    private def feature: Option[DbGame] = Featured best {
+      gameRepo.featuredCandidates.unsafePerformIO filter valid
+    }
   }))
 
   Akka.system.scheduler.schedule(5.seconds, 2.seconds, actor, GetOne)
