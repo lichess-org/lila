@@ -18,11 +18,9 @@ object User extends LilaController {
   def gamePaginator = env.game.paginator
   def forms = user.DataForm
   def eloUpdater = env.user.eloUpdater
-  def lobbyMessenger = env.lobby.messenger
   def bookmarkApi = env.bookmark.api
   def securityStore = env.security.store
-  def firewall = env.security.firewall
-  def modlogApi = env.modlog.api
+  def modApi = env.mod.api
 
   def show(username: String) = showFilter(username, "all", 1)
 
@@ -90,39 +88,6 @@ object User extends LilaController {
           env.security.store deleteUsername me.username
           routes.User show me.username
         }
-      }
-  }
-
-  def engine(username: String) = Secure(Permission.MarkEngine) { _ ⇒
-    me ⇒
-      IORedirect {
-        for {
-          userOption ← userRepo byId username
-          _ ← userOption.fold(
-            user ⇒ for {
-              _ ← eloUpdater adjust user
-              _ ← modlogApi.engine(me, user, !user.engine)
-            } yield (),
-            io())
-        } yield routes.User show username
-      }
-  }
-
-  def mute(username: String) = Secure(Permission.MutePlayer) { _ ⇒
-    _ ⇒
-      IORedirect {
-        lobbyMessenger mute username map { _ ⇒ routes.User show username }
-      }
-  }
-
-  def ban(username: String) = Secure(Permission.IpBan) { implicit ctx ⇒
-    _ ⇒
-      IOptionIORedirect(userRepo byId username) { user ⇒
-        for {
-          spy ← securityStore userSpy username
-          _ ← io(spy.ips foreach firewall.blockIp)
-          _ ← user.isChatBan.fold(io(), lobbyMessenger mute username)
-        } yield routes.User show username
       }
   }
 

@@ -75,9 +75,6 @@ POST  /signup                          controllers.Auth.signupPost
 POST  /@/:username/export              controllers.User.export(username: String)
 GET   /@/:username/:filterName         controllers.User.showFilter(username: String, filterName: String, page: Int ?= 1)
 GET   /@/:username                     controllers.User.show(username: String)
-POST  /@/:username/engine              controllers.User.engine(username: String)
-POST  /@/:username/mute                controllers.User.mute(username: String)
-POST  /@/:username/ban                 controllers.User.ban(username: String)
 GET   /people                          controllers.User.list(page: Int ?= 1)
 GET   /people/stats                    controllers.User.stats
 GET   /people/autocomplete             controllers.User.autocomplete
@@ -86,6 +83,11 @@ GET   /account/bio                     controllers.User.getBio
 PUT   /account/bio.json                controllers.User.setBio
 GET   /account/close                   controllers.User.close
 POST  /account/closeConfirm            controllers.User.closeConfirm
+
+# Mod
+POST  /mod/:username/engine            controllers.Mod.engine(username: String)
+POST  /mod/:username/mute              controllers.Mod.mute(username: String)
+POST  /mod/:username/ban               controllers.Mod.ban(username: String)
 
 # Wiki
 GET   /wiki                            controllers.Wiki.home

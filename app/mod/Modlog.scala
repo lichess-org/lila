@@ -1,5 +1,5 @@
 package lila
-package modlog
+package mod
 
 import user.User
 

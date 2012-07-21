@@ -36,17 +36,17 @@
 <a class="small" href="@routes.User.close">Close your account</a>
 } else {
 @if(isGranted(Permission.MarkEngine)) {
-<form method="post" action="@routes.User.engine(u.username)">
+<form method="post" action="@routes.Mod.engine(u.username)">
   <input class="confirm" type="submit" value="@u.engine.fold("Un-mark as engine", "Mark as engine")" />
 </form>
 }
 @if(isGranted(Permission.MutePlayer)) {
-<form method="post" action="@routes.User.mute(u.username)">
+<form method="post" action="@routes.Mod.mute(u.username)">
   <input class="confirm" type="submit" value="@u.isChatBan.fold("Unmute", "Mute")" />
 </form>
 }
 @if(isGranted(Permission.IpBan)) {
-<form method="post" action="@routes.User.ban(u.username)">
+<form method="post" action="@routes.Mod.ban(u.username)">
   <input class="confirm" type="submit" value="IP ban" />
 </form>
 }

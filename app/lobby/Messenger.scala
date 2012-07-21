@@ -34,15 +34,5 @@ final class Messenger(
       )
     }
 
-  def mute(username: String): IO[Unit] = for {
-    uOption ← userRepo byId username
-    _ ← uOption.fold(
-      u ⇒ for {
-        _ ← userRepo toggleMute u.id
-        _ ← u.isChatBan.fold(
-          io(),
-          messageRepo censorUsername u.username)
-      } yield (),
-      io())
-  } yield ()
+  def mute(username: String): IO[Unit] = messageRepo censorUsername username
 }
