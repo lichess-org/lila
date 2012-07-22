@@ -10,6 +10,8 @@ sealed abstract class Context(val req: RequestHeader, val me: Option[User]) {
 
   def isAuth = me.isDefined
 
+  def isAnon = !isAuth
+
   def canSeeChat = me.fold(m ⇒ !m.isChatBan, false)
 
   def isGranted(permission: Permission): Boolean =

@@ -10,12 +10,15 @@ case class Modlog(
     mod: String,
     user: Option[String],
     action: String,
+    details: Option[String] = None,
     date: DateTime = DateTime.now) {
 
   def showAction = action match {
     case Modlog.engine     ⇒ "mark as engine"
     case Modlog.unengine   ⇒ "un-mark as engine"
     case Modlog.deletePost ⇒ "delete forum post"
+    case Modlog.ban        ⇒ "ban user"
+    case Modlog.ipban      ⇒ "ban IP"
     case a                 ⇒ a
   }
 }
@@ -26,6 +29,7 @@ object Modlog {
   val unengine = "unengine"
   val mute = "mute"
   val unmute = "unmute"
+  val ban = "ban"
   val ipban = "ipban"
   val deletePost = "deletePost"
 }

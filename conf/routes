@@ -88,6 +88,7 @@ POST  /account/closeConfirm            controllers.User.closeConfirm
 POST  /mod/:username/engine            controllers.Mod.engine(username: String)
 POST  /mod/:username/mute              controllers.Mod.mute(username: String)
 POST  /mod/:username/ban               controllers.Mod.ban(username: String)
+POST  /mod/:ip/ipban                   controllers.Mod.ipban(ip: String)
 GET   /mod/log                         controllers.Mod.log
 
 # Wiki

@@ -110,6 +110,8 @@ trait LilaController
 
   def IORedirect(op: IO[Call]) = Redirect(op.unsafePerformIO)
 
+  def IORedirectUrl(op: IO[String]) = Redirect(op.unsafePerformIO)
+
   def OptionOk[A, B](oa: Option[A])(op: A ⇒ B)(
     implicit writer: Writeable[B],
     ctype: ContentTypeOf[B],

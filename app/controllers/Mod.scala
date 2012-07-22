@@ -31,8 +31,13 @@ object Mod extends LilaController {
   def ban(username: String) = Secure(Permission.IpBan) { implicit ctx ⇒
     me ⇒
       IORedirect {
-        modApi.ipban(me, username) map { _ ⇒ routes.User show username }
+        modApi.ban(me, username) map { _ ⇒ routes.User show username }
       }
+  }
+
+  def ipban(ip: String) = Secure(Permission.IpBan) { implicit ctx ⇒
+    me ⇒
+      IOk(modApi.ipban(me, ip))
   }
 
   val log = Auth { implicit ctx ⇒

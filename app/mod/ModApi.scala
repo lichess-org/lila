@@ -4,7 +4,7 @@ package mod
 import user.{ User, UserRepo }
 import elo.EloUpdater
 import lobby.Messenger
-import security.{ Firewall, Store => SecurityStore }
+import security.{ Firewall, Store ⇒ SecurityStore }
 
 import scalaz.effects._
 
@@ -35,14 +35,19 @@ final class ModApi(
       io())
   } yield ()
 
-  def ipban(mod: User, username: String): IO[Unit] = withUser(username) { user ⇒
+  def ban(mod: User, username: String): IO[Unit] = withUser(username) { user ⇒
     for {
       spy ← securityStore userSpy username
       _ ← io(spy.ips foreach firewall.blockIp)
       _ ← lobbyMessenger mute user.username doUnless user.isChatBan
-      _ ← logApi.ipban(mod, user)
+      _ ← logApi.ban(mod, user)
     } yield ()
   }
+
+  def ipban(mod: User, ip: String): IO[Unit] = for {
+    _ ← io(firewall blockIp ip)
+    _ ← logApi.ipban(mod, ip)
+  } yield ()
 
   private def withUser(username: String)(userIo: User ⇒ IO[Unit]) = for {
     userOption ← userRepo byId username

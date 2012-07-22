@@ -2,6 +2,7 @@ package lila
 package forum
 
 import user.User
+import http.Context
 
 import scalaz.effects._
 import com.github.ornicar.paginator._
@@ -20,13 +21,13 @@ final class PostApi(env: ForumEnv, maxPerPage: Int) {
   def makePost(
     categ: Categ,
     topic: Topic,
-    data: DataForm.PostData,
-    user: Option[User]): IO[Post] = for {
+    data: DataForm.PostData)(implicit ctx: Context): IO[Post] = for {
     number ← lastNumberOf(topic)
     post = Post(
       topicId = topic.id,
       author = data.author,
-      userId = user map (_.id),
+      userId = ctx.me map (_.id),
+      ip = ctx.isAnon option ctx.req.remoteAddress,
       text = data.text,
       number = number + 1)
     _ ← env.postRepo saveIO post

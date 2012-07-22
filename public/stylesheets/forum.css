@@ -6,7 +6,8 @@ a.forum_feed_link {
   float: right;
 }
 
-.metas .delete {
+.metas .delete,
+.metas .ipban {
   margin-left: 1em;
 }
 .forum_topics_list .delete {

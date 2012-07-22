@@ -32,11 +32,8 @@ finish games per day chart
 untranslated = https://github.com/ornicar/lila/issues/4 
 game stats timeline issues http://en.lichess.org/forum/lichess-feedback/move-times
 propagate IP ban to the user
-forum post IP ban
 admin ip search interface
 analyse: show main line for every move http://en.lichess.org/forum/lichess-feedback/about-the-analysis-feature#5
-show victory in analysis page + other suggestions http://en.lichess.org/forum/lichess-feedback/a-couple-of-feature-requests#2 
-only one stockfish instance for moves and analysis. Use a todo with two queues.
 
 next deploy
 -----------

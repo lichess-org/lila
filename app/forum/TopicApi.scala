@@ -2,6 +2,7 @@ package lila
 package forum
 
 import user.User
+import http.Context
 
 import scalaz.effects._
 import com.github.ornicar.paginator._
@@ -20,8 +21,7 @@ final class TopicApi(env: ForumEnv, maxPerPage: Int) {
 
   def makeTopic(
     categ: Categ,
-    data: DataForm.TopicData,
-    user: Option[User]): IO[Topic] = for {
+    data: DataForm.TopicData)(implicit ctx: Context): IO[Topic] = for {
     slug ← env.topicRepo.nextSlug(categ, data.name)
     topic = Topic(
       categId = categ.slug,
@@ -30,7 +30,8 @@ final class TopicApi(env: ForumEnv, maxPerPage: Int) {
     post = Post(
       topicId = topic.id,
       author = data.post.author,
-      userId = user map (_.id),
+      userId = ctx.me map (_.id),
+      ip = ctx.isAnon option ctx.req.remoteAddress,
       text = data.post.text,
       number = 1)
     _ ← env.postRepo saveIO post

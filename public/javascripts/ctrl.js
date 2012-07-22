@@ -184,6 +184,15 @@ $(function() {
   $('input.confirm').click(function() {
     return confirm('Confirm this action?');
   });
+  $('a.ipban').one("click", function() {
+    var $a = $(this);
+    if (confirm($a.text() + "?")) {
+      $.post($a.attr('href'), function() {
+        $a.text('Done').attr('href', '#');
+      });
+    }
+    return false;
+  });
 
   function bookmarks() {
     $('span.bookmark a.icon:not(.jsed)').each(function() {

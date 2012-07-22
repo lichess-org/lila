@@ -15,8 +15,12 @@ final class ModlogApi(repo: ModlogRepo) {
     Modlog(mod.id, user.id.some, v.fold(Modlog.mute, Modlog.unmute))
   }
 
-  def ipban(mod: User, user: User) = add {
+  def ban(mod: User, user: User) = add {
     Modlog(mod.id, user.id.some, Modlog.ipban)
+  }
+
+  def ipban(mod: User, ip: String) = add {
+    Modlog(mod.id, none, Modlog.ipban, ip.some)
   }
 
   def recent = repo recent 200

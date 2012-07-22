@@ -12,6 +12,7 @@ case class Post(
     topicId: String,
     author: Option[String],
     userId: Option[String],
+    ip: Option[String],
     text: String,
     number: Int,
     createdAt: DateTime) {
@@ -27,12 +28,14 @@ object Post {
     topicId: String,
     author: Option[String],
     userId: Option[String],
+    ip: Option[String],
     text: String,
     number: Int): Post = Post(
     id = OrnicarRandom nextString idSize,
     topicId = topicId,
     author = author,
     userId = userId,
+    ip = ip,
     text = text,
     number = number,
     createdAt = DateTime.now)
