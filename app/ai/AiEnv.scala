@@ -25,11 +25,9 @@ final class AiEnv(settings: Settings) {
 
   lazy val stockfishServer = new stockfish.Server(
     execPath = AiStockfishExecPath,
-    playConfig = stockfishPlayConfig,
-    analyseConfig = stockfishAnalyseConfig)
+    config = stockfishConfig)
 
-  lazy val stockfishPlayConfig = new stockfish.PlayConfig(settings)
-  lazy val stockfishAnalyseConfig = new stockfish.AnalyseConfig(settings)
+  lazy val stockfishConfig = new stockfish.Config(settings)
 
   lazy val stupidAi = new StupidAi
 

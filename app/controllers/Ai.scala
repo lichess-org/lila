@@ -51,7 +51,7 @@ object Ai extends LilaController {
     IfServer {
       Async {
         env.ai.stockfishServerReport.fold(
-          _ map { case (play, analyse) ⇒ Ok("%d %d".format(play, analyse)) },
+          _ map { Ok(_) },
           Future(NotFound)
         ).asPromise
       }

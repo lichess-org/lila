@@ -6,111 +6,95 @@ import chess.format.UciMove
 import analyse.{ Analysis, AnalysisBuilder }
 
 import akka.actor.ActorRef
-import collection.immutable.Queue
 
 object model {
 
+  type Task = Either[play.Task, analyse.Task]
+
+  sealed trait Data {
+    def queue: Vector[Task]
+    def enqueue(task: Task): Data
+    def enqueue(task: play.Task): Data = enqueue(Left(task))
+    def enqueue(task: analyse.Task): Data = enqueue(Right(task))
+    def size = queue.size
+    def dequeue: Option[(Task, Vector[Task])] =
+      queue find (_.isLeft) orElse queue.headOption map { task ⇒
+        task -> queue.filter(task !=)
+      }
+    def fold[A](todo: Todo ⇒ A, doing: Doing ⇒ A): A
+
+    override def toString = getClass.getName + " = " + queue.size
+  }
+  case class Todo(queue: Vector[Task] = Vector.empty) extends Data {
+    def doing[A](withTask: Doing ⇒ A, without: Todo ⇒ A) = dequeue.fold({
+      case (task, rest) ⇒ withTask(Doing(task, rest))
+    }, without(this))
+    def fold[A](todo: Todo ⇒ A, doing: Doing ⇒ A): A = todo(this)
+    def enqueue(task: Task) = copy(queue :+ task)
+  }
+  case class Doing(current: Task, queue: Vector[Task]) extends Data {
+    def done = Todo(queue)
+    def fold[A](todo: Todo ⇒ A, doing: Doing ⇒ A): A = doing(this)
+    def enqueue(task: Task) = copy(queue = queue :+ task)
+    def map(f: Task ⇒ Task): Doing = copy(current = f(current))
+  }
+
   object play {
 
-    case class Play(
-      moves: String, 
-      fen: Option[String], 
-      level: Int, 
-      config: PlayConfig) {
-      def go = config.move(fen, moves, level)
+    case class Task(
+        moves: String,
+        fen: Option[String],
+        level: Int,
+        ref: ActorRef) {
       def chess960 = fen.isDefined
     }
+
+    object Task {
+      case class Builder(moves: String, fen: Option[String], level: Int) {
+        def apply(sender: ActorRef) = new Task(moves, fen, level, sender)
+      }
+    }
+
     case class BestMove(move: Option[String]) {
       def parse = UciMove(move | "")
-    }
-
-    case class Task(play: Play, ref: ActorRef)
-
-    sealed trait Data {
-      def queue: Queue[Task]
-      def enqueue(task: Task): Data
-      def size = queue.size
-    }
-    case class Todo(queue: Queue[Task] = Queue.empty) extends Data {
-      def enqueue(task: Task) = copy(queue = queue :+ task)
-      def doing[A](withTask: Doing ⇒ A, without: Todo ⇒ A) =
-        queue.headOption.fold(
-          task ⇒ withTask(Doing(task, queue.tail)),
-          without(Todo(Queue.empty))
-        )
-    }
-    case class Doing(current: Task, queue: Queue[Task]) extends Data {
-      def enqueue(task: Task) = copy(queue = queue :+ task)
-      def done = Todo(queue)
     }
   }
 
   object analyse {
 
-    case class Analyse(
+    case class Task(
         moves: IndexedSeq[String],
         fen: Option[String],
         analysis: AnalysisBuilder,
-        infoBuffer: List[String]) {
-
-      def go(moveTime: Int) = nextMove.isDefined option List(
-        "position %s moves %s".format(
-          fen.fold("fen " + _, "startpos"),
-          moves take analysis.size mkString " "),
-        "go movetime %d".format(moveTime)
-      )
-
-      def nextMove = moves lift analysis.size
-
+        infoBuffer: List[String],
+        ref: ActorRef) {
+      def pastMoves: String = moves take analysis.size mkString " "
+      def nextMove: Option[String] = moves lift analysis.size
+      def isDone = nextMove.isEmpty
       def buffer(str: String) = copy(infoBuffer = str :: infoBuffer)
-
       def flush = for {
         move ← nextMove toValid "No move to flush"
         info ← AnalyseParser(infoBuffer)(move)
-      } yield copy(
-        analysis = analysis + info,
-        infoBuffer = Nil)
-
+      } yield copy(analysis = analysis + info, infoBuffer = Nil)
       def chess960 = fen.isDefined
     }
-    object Analyse {
-      def apply(moves: String, fen: Option[String]) = new Analyse(
-        moves = moves.split(' ').toIndexedSeq,
-        fen = fen,
-        analysis = Analysis.builder,
-        infoBuffer = Nil)
-    }
 
-    case class Task(analyse: Analyse, ref: ActorRef) {
-      def buffer(str: String) = copy(analyse = analyse buffer str)
-      def flush = analyse.flush map { a ⇒ copy(analyse = a) }
-    }
-
-    sealed trait Data {
-      def queue: Queue[Task]
-      def enqueue(task: Task): Data
-      def size = queue.size
-    }
-    case class Todo(queue: Queue[Task] = Queue.empty) extends Data {
-      def enqueue(task: Task) = copy(queue = queue :+ task)
-      def doing[A](withTask: Doing ⇒ A, without: Todo ⇒ A) =
-        queue.headOption.fold(
-          task ⇒ withTask(Doing(task, queue.tail)),
-          without(Todo(Queue.empty))
-        )
-    }
-    case class Doing(current: Task, queue: Queue[Task]) extends Data {
-      def enqueue(task: Task) = copy(queue = queue :+ task)
-      def done = Todo(queue)
-      def buffer(str: String) = copy(current = current buffer str)
-      def flush = current.flush map { c ⇒ copy(current = c) }
+    object Task {
+      case class Builder(moves: String, fen: Option[String]) {
+        def apply(sender: ActorRef) = new Task(
+          moves = moves.split(' ').toIndexedSeq,
+          fen = fen,
+          analysis = Analysis.builder,
+          infoBuffer = Nil,
+          sender)
+      }
     }
   }
 
   sealed trait State
   case object Starting extends State
-  case object Ready extends State
-  case object UciNewGame extends State
+  case object Idle extends State
+  case object IsReady extends State
   case object Running extends State
 
   sealed trait Stream { def text: String }

@@ -20,19 +20,18 @@ import scalaz.effects._
 
 final class Server(
     execPath: String,
-    playConfig: PlayConfig,
-    analyseConfig: AnalyseConfig) {
+    config: Config) {
 
   def play(pgn: String, initialFen: Option[String], level: Int): Future[Valid[String]] = {
     implicit val timeout = new Timeout(playAtMost)
     (for {
       moves ← UciDump(pgn, initialFen)
-      play = model.play.Play(moves, initialFen map chess960Fen, level, playConfig)
+      play = model.play.Task.Builder(moves, initialFen map chess960Fen, level)
     } yield play).fold(
       err ⇒ Future(failure(err)),
-      play ⇒ playActor ? play mapTo bestMoveManifest map { m ⇒
+      play ⇒ actor ? play mapTo bestMoveManifest map { m ⇒
         success(m.move | "")
-      } onFailure reboot(playActor)
+      } onFailure reboot
     )
   }
 
@@ -40,16 +39,16 @@ final class Server(
     UciDump(pgn, initialFen).fold(
       err ⇒ Future(failure(err)),
       moves ⇒ {
-        val analyse = model.analyse.Analyse(moves, initialFen map chess960Fen)
+        val analyse = model.analyse.Task.Builder(moves, initialFen map chess960Fen)
         implicit val timeout = Timeout(analyseAtMost)
-        analyseActor ? analyse mapTo analysisManifest onFailure reboot(analyseActor)
+        actor ? analyse mapTo analysisManifest onFailure reboot
       }
     )
 
-  def report: Future[(Int, Int)] = {
+  def report: Future[Int] = {
     implicit val timeout = new Timeout(playAtMost)
-    (playActor ? GetQueueSize) zip (analyseActor ? GetQueueSize) map {
-      case (QueueSize(play), QueueSize(analyse)) ⇒ play -> analyse
+    actor ? GetQueueSize map {
+      case QueueSize(s) ⇒ s
     }
   }
 
@@ -63,7 +62,7 @@ final class Server(
     } mkString ""),
     fen)
 
-  private def reboot(actor: ActorRef): PartialFunction[Throwable, Unit] = {
+  private val reboot: PartialFunction[Throwable, Unit] = {
     case e: AskTimeoutException ⇒ actor ! model.RebootException
   }
   private val analysisManifest = manifest[Valid[Analysis]]
@@ -72,12 +71,9 @@ final class Server(
   private implicit val executor = Akka.system.dispatcher
 
   private val playAtMost = 5 seconds
-  private lazy val playProcess = Process(execPath, "SFP") _
-  private lazy val playActor = Akka.system.actorOf(Props(
-    new PlayFSM(playProcess, playConfig)))
-
   private val analyseAtMost = 10 minutes
-  private lazy val analyseProcess = Process(execPath, "SFA") _
-  private lazy val analyseActor = Akka.system.actorOf(Props(
-    new AnalyseFSM(analyseProcess, analyseConfig)))
+
+  private lazy val process = Process(execPath, "StockFish") _
+  private lazy val actor = Akka.system.actorOf(Props(
+   new ActorFSM(process, config)))
 }
