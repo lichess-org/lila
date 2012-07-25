@@ -35,7 +35,3 @@ propagate IP ban to the user
 admin ip search interface
 analyse: show main line for every move http://en.lichess.org/forum/lichess-feedback/about-the-analysis-feature#5
 clock in AI game
-
-next deploy
------------
-db.createCollection("modlog",{capped:true, size: 1000000})
