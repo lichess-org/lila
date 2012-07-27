@@ -58,6 +58,7 @@ viewAllNbGames=Vezi toate cele %s jocuri
 viewNbCheckmates=Vezi %s şah-mat-uri
 nbBookmarks=%s Semne de carte
 nbPopularGames=%s Jocuri interesante
+nbAnalysedGames=Vezi %s maturi
 bookmarkedByNbPlayers=Marcat de %s jucatori
 viewInFullSize=Vezi pe tot ecranul
 logOut=Ieși
