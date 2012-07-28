@@ -14,6 +14,10 @@ $(function() {
 
   function prepareForm() {
     var $form = $('div.lichess_overboard');
+    var $modeChoices = $form.find('.mode_choice input');
+    var $casual = $modeChoices.eq(0), $rated = $modeChoices.eq(1);
+    var $clockCheckbox = $form.find('.clock_choice input');
+    var isHook = $form.hasClass('game_config_hook');
     $form.find('div.buttons').buttonset().disableSelection();
     $form.find('button.submit').button().disableSelection();
     $form.find('.time_choice input, .increment_choice input').each(function() {
@@ -57,14 +61,21 @@ $(function() {
         }
       });
       var $eloRangeConfig = $this.parent();
-      var $modeChoices = $form.find('.mode_choice input');
       $modeChoices.on('change', function() {
-        $eloRangeConfig.toggle($modeChoices.eq(1).attr('checked') == 'checked');
+        var rated = $rated.attr('checked') == 'checked';
+        $eloRangeConfig.toggle(rated);
+        if (isHook && rated && $clockCheckbox.attr('checked') != 'checked') {
+          $clockCheckbox.click();
+        }
         $.centerOverboard();
       }).trigger('change');
     });
-    $form.find('.clock_choice input').on('change', function() {
-      $form.find('.time_choice, .increment_choice').toggle($(this).is(':checked'));
+    $clockCheckbox.on('change', function() {
+      var checked = $(this).is(':checked');
+      $form.find('.time_choice, .increment_choice').toggle(checked);
+      if (isHook && !checked) {
+        $casual.click();
+      }
       $.centerOverboard();
     }).trigger('change');
     var $eloRangeConfig = $form.find('.elo_range_config');

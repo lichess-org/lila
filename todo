@@ -38,3 +38,4 @@ analyse: show cp every move
 clock in AI game
 disable rated unlimited in lobby http://en.lichess.org/forum/lichess-feedback/unlimited-time-limit?page=2#13
 try to show last analysis cp on graph (move 26) http://en.lichess.org/analyse/bwxnx0al
+elo range must contain player elo
