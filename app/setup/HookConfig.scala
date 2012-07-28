@@ -32,6 +32,8 @@ case class HookConfig(
     i = increment,
     m = mode.id,
     e = eloRange.toString)
+
+  def noRatedUnlimited = mode.casual || clock
 }
 
 object HookConfig extends BaseHumanConfig {
