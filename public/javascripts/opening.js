@@ -22,6 +22,8 @@ $(function() {
     $form.find('button.submit').button().disableSelection();
     $form.find('.time_choice input, .increment_choice input').each(function() {
       var $input = $(this), $value = $input.parent().find('span');
+      var $timeInput = $form.find('.time_choice input');
+      var $incrementInput = $form.find('.increment_choice input');
       $input.hide().after($('<div>').slider({
         value: $input.val(),
         min: $input.data('min'),
@@ -32,8 +34,8 @@ $(function() {
           $value.text(ui.value);
           $input.attr('value', ui.value);
           $form.find('.color_submits button').toggle(
-            $form.find('.time_choice input').val() > 0 || $form.find('.increment_choice input').val() > 0
-            );
+            $timeInput.val() > 0 || $incrementInput.val() > 0
+          );
         }
       }));
     });
