@@ -15,7 +15,6 @@ trait Resolvers {
 }
 
 trait Dependencies {
-  val scalachess = "com.github.ornicar" %% "scalachess" % "2.12"
   val scalaz = "org.scalaz" %% "scalaz-core" % "6.0.4"
   val specs2 = "org.specs2" %% "specs2" % "1.11"
   val salat = "com.novus" %% "salat-core" % "1.9-SNAPSHOT"
@@ -38,7 +37,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
 
   private val buildSettings = Project.defaultSettings ++ Seq(
     organization := "com.github.ornicar",
-    version := "1.0",
+    version := "1.1",
     scalaVersion := "2.9.1",
     resolvers := Seq(iliaz, codahale, sonatype, sonatypeS, typesafe, t2v, guice, jgitMaven, christophs),
     libraryDependencies := Seq(scalaz, scalalib, hasher),
@@ -51,7 +50,6 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
 
   lazy val lila = PlayProject("lila", mainLang = SCALA, settings = buildSettings).settings(
     libraryDependencies ++= Seq(
-      scalachess,
       config,
       json,
       salat,
@@ -71,7 +69,9 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       "lila.ui",
       "lila.http.Context",
       "com.github.ornicar.paginator.Paginator")
-  ) 
+  ) dependsOn scalachess
+
+  lazy val scalachess = Project("scalachess", file("scalachess"))
 
   lazy val cli = Project("cli", file("cli"), settings = buildSettings).settings(
     libraryDependencies ++= Seq()
