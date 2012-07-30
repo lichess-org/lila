@@ -31,6 +31,8 @@ trait Dependencies {
   val hasher = "com.roundeights" % "hasher" % "0.3" from "http://cloud.github.com/downloads/Nycto/Hasher/hasher_2.9.1-0.3.jar"
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "1.3.0.201202151440-r"
   val actuarius = "eu.henkelmann" %% "actuarius" % "0.2.3"
+  val jodaTime = "joda-time" % "joda-time" % "2.1"
+  val jodaConvert = "org.joda" % "joda-convert" % "1.2"
 }
 
 object ApplicationBuild extends Build with Resolvers with Dependencies {
@@ -71,9 +73,12 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       "com.github.ornicar.paginator.Paginator")
   ) dependsOn scalachess
 
-  lazy val scalachess = Project("scalachess", file("scalachess"))
+  lazy val scalachess = Project("scalachess", file("scalachess")).settings(
+    resolvers := Seq(iliaz),
+    libraryDependencies := Seq(scalaz, scalalib, hasher, jodaTime, jodaConvert)
+  )
 
   lazy val cli = Project("cli", file("cli"), settings = buildSettings).settings(
     libraryDependencies ++= Seq()
-  ) dependsOn (lila)
+  ) dependsOn lila
 }
