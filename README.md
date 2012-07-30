@@ -30,12 +30,6 @@ cd Play21/framework
 ./build publish-local
 ```
 
-Scalachess
-----------
-
-The pure chess logic, with few dependencies. 
-Follow instructions from [Scalachess repository](https://github.com/ornicar/scalachess)
-
 Lila
 ----
 
@@ -44,6 +38,7 @@ The database layer, website, cron tasks, websockets and whatnot.
 ```sh
 git clone git://github.com/ornicar/lila
 cd lila
+git submodule update --init
 play compile
 ```
 

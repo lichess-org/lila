@@ -1,15 +1,13 @@
 package lila
 package core
 
-import play.api.Mode
-import play.api.libs.concurrent.Akka
 import akka.actor.ActorRef
 import akka.pattern.{ ask, pipe }
 import akka.dispatch.{ Future, Promise }
 import akka.util.duration._
 import akka.util.{ Duration, Timeout }
+import play.api.Mode
 import play.api.libs.concurrent._
-import play.api.Play.current
 import scalaz.effects._
 
 import implicits.RichDuration._
