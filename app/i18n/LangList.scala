@@ -116,7 +116,6 @@ object LangList {
     "ne" -> "नेपा",
     "ng" -> "Owamb",
     "nn" -> "Norsk nynors",
-    "no" -> "Nors",
     "nr" -> "isiNdebel",
     "oc" -> "Occita",
     "oj" -> "ᐊᓂᔑᓈᐯᒧᐎ",
