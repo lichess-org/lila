@@ -4,6 +4,7 @@ import lila._
 import views._
 import http.LilaCookie
 
+import play.api.data.Form
 import i18n._
 
 object I18n extends LilaController {
@@ -24,12 +25,8 @@ object I18n extends LilaController {
 
   def translationForm(lang: String) = Open { implicit ctx ⇒
     OptionOk(transInfos get lang) { info ⇒
-      html.i18n.translationForm(
-        info,
-        forms.translation,
-        i18nKeys,
-        pool.default,
-        translator.rawTranslation(info.lang) _)
+      val (form, captcha) = forms.translationWithCaptcha
+      renderTranslationForm(form, info, captcha)
     }
   }
 
@@ -41,6 +38,15 @@ object I18n extends LilaController {
       }
     }
   }
+
+  private def renderTranslationForm(form: Form[_], captcha: Captcha, info: TransInfo) =
+    html.i18n.translationForm(
+      info,
+      form,
+      i18nKeys,
+      pool.default,
+      translator.rawTranslation(info.lang) _,
+      captcha)
 
   def fetch(from: Int) = Open { implicit ctx ⇒
     JsonOk((repo findFrom from map {

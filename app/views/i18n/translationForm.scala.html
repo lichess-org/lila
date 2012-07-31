@@ -1,4 +1,4 @@
-@(info: lila.i18n.TransInfo, form: Form[_], keys: lila.i18n.I18nKeys, base: Lang, rawTrans: String => Option[String])(implicit ctx: Context)
+@(info: lila.i18n.TransInfo, form: Form[_], keys: lila.i18n.I18nKeys, baseLang: Lang, rawTrans: String => Option[String], captcha: lila.site.Captcha.Challenge)(implicit ctx: Context)
 
 @goodies = {
 <br />
@@ -34,9 +34,9 @@ No need to submit a complete translation. You can just translate some sentences,
     case (key, i) => {
     <div class="field message">
       <span class="number">@{i+1}/@info.nbMessages</span>
-      <label for="key_@key.key">@key.to(base)()</label>
+      <label for="key_@key.key">@key.to(baseLang)()</label>
       <input
-      @transValidationPattern(key.to(base)()).map { pattern =>
+      @transValidationPattern(key.to(baseLang)()).map { pattern =>
       pattern="@pattern"
       }
       type="text"
@@ -66,6 +66,9 @@ No need to submit a complete translation. You can just translate some sentences,
     name="@form("comment").name"
     id="@form("comment").id" />
     @errMsg(form("comment"))
+  </div>
+  <div class="field">
+    @base.captcha(form("move"), form("gameId"), captcha)
   </div>
   <div class="field">
     <input type="submit" class="submit" value="Submit translations" />

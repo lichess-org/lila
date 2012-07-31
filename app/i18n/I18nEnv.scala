@@ -7,11 +7,13 @@ import play.api.i18n.MessagesPlugin
 import com.mongodb.casbah.MongoCollection
 
 import core.Settings
+import site.Captcha
 
 final class I18nEnv(
     app: Application,
     mongodb: String ⇒ MongoCollection,
-    settings: Settings) {
+    settings: Settings,
+    captcha: Captcha) {
 
   implicit val ctx = app
   import settings._
@@ -51,7 +53,8 @@ final class I18nEnv(
 
   lazy val forms = new DataForm(
     repo = translationRepo,
-    keys = keys)
+    keys = keys,
+    captcher = captcha)
 
   lazy val upstreamFetch = new UpstreamFetch(
     upstreamDomain = I18nUpstreamDomain)

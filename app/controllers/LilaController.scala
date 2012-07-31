@@ -96,9 +96,9 @@ trait LilaController
       data ⇒ op(data)
     )
 
-  def FormIOResult[A](form: Form[A])(op: A ⇒ IO[Result])(implicit req: Request[_]) =
+  def FormIOResult[A](form: Form[A])(err: Form[A] => String)(op: A ⇒ IO[Result])(implicit req: Request[_]) =
     form.bindFromRequest.fold(
-      form ⇒ BadRequest(form.errors mkString "\n"),
+      form ⇒ BadRequest(err(form)),
       data ⇒ op(data).unsafePerformIO
     )
 
