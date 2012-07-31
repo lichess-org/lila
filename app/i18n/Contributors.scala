@@ -34,7 +34,7 @@ object Contributors {
     "el" -> List("Tzortzakos Fivos", "Γιάννης Ανθυμίδης"),
     "fp" -> List("Alex"),
     "lt" -> List("Anonymous"),
-    "no" -> List("Anonymous"),
+    "nb" -> List("sundaune"),
     "et" -> List("Anonymous"),
     "hy" -> List("Network.am"),
     "af" -> List("secreteagle"),
