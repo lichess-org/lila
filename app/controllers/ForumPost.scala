@@ -38,7 +38,7 @@ object ForumPost extends LilaController with forum.Controller {
   }
 
   def delete(id: String) = Secure(Permission.ModerateForum) { implicit ctx ⇒
-    _ ⇒
-      IOk(postApi delete id)
+    me ⇒
+      IOk(postApi.delete(id, me))
   }
 }

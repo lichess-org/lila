@@ -3,12 +3,16 @@ package forum
 
 import user.User
 import http.Context
+import mod.ModlogApi
 
 import scalaz.effects._
 import com.github.ornicar.paginator._
 import scala.math.ceil
 
-final class PostApi(env: ForumEnv, maxPerPage: Int) {
+final class PostApi(
+    env: ForumEnv,
+    modLog: ModlogApi,
+    maxPerPage: Int) {
 
   def create(categSlug: String, slug: String, page: Int): IO[Option[(Categ, Topic, Paginator[Post])]] =
     for {
@@ -64,7 +68,7 @@ final class PostApi(env: ForumEnv, maxPerPage: Int) {
   def lastNumberOf(topic: Topic): IO[Int] =
     env.postRepo lastByTopics List(topic) map (_.number)
 
-  def lastPageOf(topic: Topic) = 
+  def lastPageOf(topic: Topic) =
     ceil(topic.nbPosts / maxPerPage.toFloat).toInt
 
   def paginator(topic: Topic, page: Int): Paginator[Post] =
@@ -77,21 +81,25 @@ final class PostApi(env: ForumEnv, maxPerPage: Int) {
       maxPerPage = maxPerPage
     ) | paginator(topic, 1)
 
-  def delete(postId: String): IO[Unit] = for {
+  def delete(postId: String, mod: User): IO[Unit] = for {
     postOption ← env.postRepo byId postId
     viewOption ← postOption.fold(view, io(none))
     _ ← viewOption.fold(
-      view ⇒ (view.topic.nbPosts == 1).fold(
-        env.topicApi.delete(view.categ, view.topic),
-        for {
-          _ ← env.postRepo removeIO view.post
-          _ ← env.topicApi denormalize view.topic
-          _ ← env.categApi denormalize view.categ
-          _ ← env.recent.invalidate
-        } yield ()
-      ),
+      view ⇒ for {
+        _ ← (view.topic.nbPosts == 1).fold(
+          env.topicApi.delete(view.categ, view.topic),
+          for {
+            _ ← env.postRepo removeIO view.post
+            _ ← env.topicApi denormalize view.topic
+            _ ← env.categApi denormalize view.categ
+            _ ← env.recent.invalidate
+          } yield ()
+        )
+        post = view.post
+        _ ← modLog.deletePost(mod, post.userId, post.author, post.ip, 
+          text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text))
+      } yield (),
       io()
     )
   } yield ()
-
 }

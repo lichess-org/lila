@@ -23,6 +23,12 @@ final class ModlogApi(repo: ModlogRepo) {
     Modlog(mod.id, none, Modlog.ipban, ip.some)
   }
 
+  def deletePost(mod: User, userId: Option[String], author: Option[String], ip: Option[String], text: String) = add {
+    Modlog(mod.id, userId, Modlog.deletePost, details = Some(
+      author.fold(_ + " ", "") + ip.fold(_ + " ", "") + text.take(140)
+    ))
+  }
+
   def recent = repo recent 200
 
   private def add(modLog: Modlog): IO[Unit] = repo saveIO modLog
