@@ -1,4 +1,4 @@
-@(info: lila.i18n.TransInfo, form: Form[_], keys: lila.i18n.I18nKeys, baseLang: Lang, rawTrans: String => Option[String], captcha: lila.site.Captcha.Challenge)(implicit ctx: Context)
+@(info: lila.i18n.TransInfo, form: Form[_], keys: lila.i18n.I18nKeys, baseLang: Lang, rawTrans: String => Option[String], captcha: lila.site.Captcha.Challenge, data: Map[String, String])(implicit ctx: Context)
 
 @goodies = {
 <br />
@@ -42,7 +42,7 @@ No need to submit a complete translation. You can just translate some sentences,
       type="text"
       name="key_@key.key"
       id="key_@key.key"
-      value="@rawTrans(key.key)" />
+      value="@data.get(key.key).getOrElse(rawTrans(key.key))" />
     </div>
     }
     }
@@ -54,6 +54,7 @@ No need to submit a complete translation. You can just translate some sentences,
     <input
     size="30"
     type="text"
+    value="@form("author").value"
     name="@form("author").name"
     id="@form("author").id" />
     @errMsg(form("author"))
@@ -63,12 +64,14 @@ No need to submit a complete translation. You can just translate some sentences,
     <input
     size="60"
     type="text"
+    value="@form("comment").value"
     name="@form("comment").name"
     id="@form("comment").id" />
     @errMsg(form("comment"))
   </div>
   <div class="field">
     @base.captcha(form("move"), form("gameId"), captcha)
+    @errMsg(form)
   </div>
   <div class="field">
     <input type="submit" class="submit" value="Submit translations" />
