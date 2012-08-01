@@ -39,6 +39,10 @@ div.locale_menu a:hover {
   box-shadow: 0 0 9px #d85000;
 }
 
+.error {
+  color: red;
+}
+
 .notice {
   margin: 1em;
   padding: 1em;

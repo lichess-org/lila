@@ -96,7 +96,10 @@ trait LilaController
       data ⇒ op(data)
     )
 
-  def FormIOResult[A](form: Form[A])(err: Form[A] => String)(op: A ⇒ IO[Result])(implicit req: Request[_]) =
+  def FormIOResult[A, B](form: Form[A])(err: Form[A] ⇒ B)(op: A ⇒ IO[Result])(
+    implicit writer: Writeable[B],
+    ctype: ContentTypeOf[B],
+    req: Request[_]) =
     form.bindFromRequest.fold(
       form ⇒ BadRequest(err(form)),
       data ⇒ op(data).unsafePerformIO
@@ -117,6 +120,9 @@ trait LilaController
     ctype: ContentTypeOf[B],
     ctx: Context) =
     oa.fold(a ⇒ Ok(op(a)), notFound(ctx))
+
+  def OptionResult[A](oa: Option[A])(op: A ⇒ Result)(implicit ctx: Context) =
+    oa.fold(op, notFound(ctx))
 
   def IOptionOk[A, B](ioa: IO[Option[A]])(op: A ⇒ B)(
     implicit writer: Writeable[B],

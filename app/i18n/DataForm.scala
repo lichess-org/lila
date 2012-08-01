@@ -19,23 +19,18 @@ final class DataForm(
     "gameId" -> nonEmptyText,
     "move" -> nonEmptyText
   )(TransMetadata.apply)(TransMetadata.unapply).verifying(
-    "Not a checkmate",
-    data ⇒ captcher get data.gameId valid data.move.trim.toLowerCase
-  ))
+      "Not a checkmate",
+      data ⇒ captcher get data.gameId valid data.move.trim.toLowerCase
+    ))
 
   def translationWithCaptcha = translation -> captchaCreate
 
   def captchaCreate: Captcha.Challenge = captcher.create
 
-  def process(code: String, metadata: TransMetadata)(implicit req: Request[_]): IO[Unit] = {
-    val post = req.body match {
-      case body: play.api.mvc.AnyContent if body.asFormUrlEncoded.isDefined ⇒ body.asFormUrlEncoded.get
-      case body ⇒ sys error "Can't parse translation request body: " + body
-    }
-    val messages = (post collect {
-      case (key, msgs) if key startsWith "key_" ⇒
-        msgs.headOption map sanitize filter ("" !=) map (key.drop(4) -> _)
-    }).flatten.toList
+  def process(code: String, metadata: TransMetadata, data: Map[String, String]): IO[Unit] = {
+    val messages = (data mapValues { msg ⇒
+      msg.some map sanitize filter (_.nonEmpty)
+    }).toList
     val sorted = (keys.keys map { key ⇒
       messages find (_._1 == key.key)
     }).flatten
@@ -54,6 +49,17 @@ final class DataForm(
       } yield (),
       io()
     )
+  }
+
+  def decodeTranslationBody(implicit req: Request[_]): Map[String, String] = req.body match {
+    case body: play.api.mvc.AnyContent if body.asFormUrlEncoded.isDefined ⇒
+      (body.asFormUrlEncoded.get collect {
+        case (key, msgs) if key startsWith "key_" ⇒ msgs.headOption map { key.drop(4) -> _ }
+      }).flatten.toMap
+    case body ⇒ {
+      println("Can't parse translation request body: " + body)
+      Map.empty
+    }
   }
 
   private def sanitize(message: String) = message.replace("""\n""", " ").trim

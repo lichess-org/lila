@@ -2,6 +2,8 @@ package controllers
 
 import lila._
 import views._
+import site.Captcha
+import http.Context
 import http.LilaCookie
 
 import play.api.data.Form
@@ -31,22 +33,28 @@ object I18n extends LilaController {
   }
 
   def translationPost(lang: String) = OpenBody { implicit ctx ⇒
-    implicit val req = ctx.body
-    FormIOResult(forms.translation) {
-      case metadata ⇒ forms.process(lang, metadata) map { _ ⇒
-        Redirect(routes.I18n.contribute).flashing("success" -> "1")
+    OptionResult(transInfos get lang) { info ⇒
+      implicit val req = ctx.body
+      val data = forms.decodeTranslationBody
+      FormIOResult(forms.translation) { form ⇒
+        renderTranslationForm(form, info, forms.captchaCreate, data)
+      } { metadata ⇒
+        forms.process(lang, metadata, data) map { _ ⇒
+          Redirect(routes.I18n.contribute).flashing("success" -> "1")
+        }
       }
     }
   }
 
-  private def renderTranslationForm(form: Form[_], captcha: Captcha, info: TransInfo) =
+  private def renderTranslationForm(form: Form[_], info: TransInfo, captcha: Captcha.Challenge, data: Map[String, String] = Map.empty)(implicit ctx: Context) =
     html.i18n.translationForm(
       info,
       form,
       i18nKeys,
       pool.default,
       translator.rawTranslation(info.lang) _,
-      captcha)
+      captcha,
+      data)
 
   def fetch(from: Int) = Open { implicit ctx ⇒
     JsonOk((repo findFrom from map {
