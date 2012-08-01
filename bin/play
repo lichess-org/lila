@@ -1,0 +1,4 @@
+#!/bin/sh
+source bin/lilarc
+
+play/play $JVM_OPTIONS "$@"

@@ -1,6 +1,0 @@
-#!/usr/bin/env php
-<?php
-
-require_once __DIR__.'/base_script.php';
-
-show_run_catch("Stop", "$play stop");
