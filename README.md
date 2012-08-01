@@ -47,3 +47,25 @@ From here you can now run the application (`run`).
 Open your web browser at `localhost:9000`.
 
 To run the test, use `test`.
+
+Production
+==========
+
+Register as daemon on archlinux
+--------------------------------
+
+```sh
+cd /etc/rc.d
+sudo ln -s /path/to/lila/bin/prod/archlinux/rc.d/lila ./
+cd /etc/conf.d
+sudo ln -s /path/to/lila/bin/prod/archlinux/conf.d/lila ./
+```
+
+And add lila to DAEMONS in /etc/rc.conf
+
+Restart on timeout
+------------------
+
+```sh
+bin/prod/timeout-restarter
+```
