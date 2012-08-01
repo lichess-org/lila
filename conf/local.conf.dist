@@ -1,0 +1,12 @@
+include "base"
+
+config_name = "development"
+
+ai {
+  server = false
+  client = false
+  stockfish {
+    hash_size = 128
+    threads = 2
+  }
+}

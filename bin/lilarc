@@ -1,0 +1,21 @@
+#!/bin/sh
+
+JVM_OPTIONS="-Dconfig.file=conf/local.conf "
+LOG_FILE="logs/play.log"
+REMOTE="balrog"
+REMOTE_DIR="/home/lila"
+PROD_URL="http://en.lichess.org"
+
+function lilalog {
+  echo -e "\x1b[7m[lila]\x1b[0m $1"
+}
+
+function wait_warmup {
+  lilalog "Wait warmup"
+  sleep 3
+}
+
+function curl_prod {
+  lilalog "Test $PROD_URL"
+  curl -sL -w "%{http_code}" -o /dev/null "$PROD_URL"
+}

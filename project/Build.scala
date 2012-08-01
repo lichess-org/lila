@@ -71,7 +71,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       "lila.ui",
       "lila.http.Context",
       "com.github.ornicar.paginator.Paginator")
-  ) dependsOn scalachess
+  ) dependsOn scalachess aggregate scalachess
 
   lazy val scalachess = Project("scalachess", file("scalachess")).settings(
     resolvers := Seq(iliaz),
