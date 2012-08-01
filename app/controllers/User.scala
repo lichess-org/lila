@@ -76,6 +76,27 @@ object User extends LilaController {
       ) map { bio ⇒ Map("bio" -> bio) })
   }
 
+  val passwd = Auth { implicit ctx ⇒
+    me ⇒
+      Ok(html.user.passwd(me, forms.passwd))
+  }
+
+  val passwdApply = AuthBody { implicit ctx ⇒
+    me ⇒
+      implicit val req = ctx.body
+      FormIOResult(forms.passwd) { err ⇒
+        html.user.passwd(me, err)
+      } { passwd ⇒
+        for {
+          ok ← userRepo.checkPassword(me.username, passwd.oldPasswd)
+          _ ← userRepo.passwd(me, passwd.newPasswd1) map (_ ⇒ ()) doIf ok
+        } yield ok.fold(
+          Redirect(routes.User show me.username),
+          BadRequest(html.user.passwd(me, forms.passwd))
+        )
+      }
+  }
+
   val close = Auth { implicit ctx ⇒
     me ⇒
       Ok(html.user.close(me))
