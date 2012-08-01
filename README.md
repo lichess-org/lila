@@ -46,3 +46,5 @@ bin/play
 
 From here you can now run the application (`run`). 
 Open your web browser at `localhost:9000`.
+
+To run the test, use `test`.

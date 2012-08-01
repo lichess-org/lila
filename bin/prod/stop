@@ -1,0 +1,5 @@
+#!/bin/sh
+source bin/lilarc
+
+lilalog "Stop application"
+kill $(cat RUNNING_PID)
