@@ -61,7 +61,8 @@ cd /etc/conf.d
 sudo ln -s /path/to/lila/bin/prod/archlinux/conf.d/lila ./
 ```
 
-And add lila to DAEMONS in /etc/rc.conf
+- Configure the daemon in /etc/conf.d/lila
+- Add lila to DAEMONS in /etc/rc.conf
 
 Restart on timeout
 ------------------
