@@ -1,0 +1,7 @@
+#!/bin/sh
+source bin/lilarc
+
+bin/stop
+bin/start
+wait_warmup
+curl_prod

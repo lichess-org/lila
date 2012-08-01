@@ -1,3 +1,4 @@
 #!/bin/sh
+source bin/lilarc
 
-./play/play -Dconfig.file=conf/local.conf "$@"
+play/play $JVM_OPTIONS "$@"
