@@ -39,3 +39,4 @@ clock in AI game
 try to show last analysis cp on graph (move 26) http://en.lichess.org/analyse/bwxnx0al
 elo range must contain player elo
 allow to change password
+auto-restart when http timeout
