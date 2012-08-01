@@ -20,7 +20,6 @@ trait Dependencies {
   val salat = "com.novus" %% "salat-core" % "1.9-SNAPSHOT"
   val scalalib = "com.github.ornicar" %% "scalalib" % "1.37"
   val config = "com.typesafe" % "config" % "0.4.1"
-  val json = "com.codahale" %% "jerkson" % "0.5.0"
   val guava = "com.google.guava" % "guava" % "12.0"
   val apache = "org.apache.commons" % "commons-lang3" % "3.1"
   val scalaTime = "org.scala-tools.time" %% "time" % "0.5"
@@ -39,7 +38,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
 
   private val buildSettings = Project.defaultSettings ++ Seq(
     organization := "com.github.ornicar",
-    version := "1.1",
+    version := "1.2",
     scalaVersion := "2.9.1",
     resolvers := Seq(iliaz, codahale, sonatype, sonatypeS, typesafe, t2v, guice, jgitMaven, christophs),
     libraryDependencies := Seq(scalaz, scalalib, hasher),
@@ -53,7 +52,6 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
   lazy val lila = PlayProject("lila", mainLang = SCALA, settings = buildSettings).settings(
     libraryDependencies ++= Seq(
       config,
-      json,
       salat,
       guava,
       apache,
