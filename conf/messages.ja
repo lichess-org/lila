@@ -10,6 +10,7 @@ yourTurn=あなたの手番です
 aiNameLevelAiLevel=%s レべル%s
 level=レベル
 toggleTheChat=チャットのオン・オフ
+toggleSound=音声オン・オフ
 chat=チャット
 resign=投了する
 checkmate=チェックメイト
