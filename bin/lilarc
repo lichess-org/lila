@@ -18,4 +18,5 @@ function wait_warmup {
 function curl_prod {
   lilalog "Test $PROD_URL"
   curl -sL -w "%{http_code}" -o /dev/null "$PROD_URL"
+  echo ""
 }

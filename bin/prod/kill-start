@@ -4,6 +4,6 @@ source bin/lilarc
 lilalog "Force kill java"
 pkill -9 java
 
-bin/start
+bin/prod/start
 wait_warmup
 curl_prod
