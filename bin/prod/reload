@@ -3,7 +3,7 @@ source bin/lilarc
 
 lilalog "Compile stage"
 bin/play compile stage
-bin/stop
-bin/start
+bin/prod/stop
+bin/prod/start
 wait_warmup
 curl_prod
