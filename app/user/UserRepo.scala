@@ -67,10 +67,10 @@ extends SalatDAO[User, String](collection) {
 
   def authenticate(username: String, password: String): IO[Option[User]] = for {
     userOption ← byId(username)
-    greenLight ← authenticable(username, password)
+    greenLight ← checkPassword(username, password)
   } yield userOption filter (_ ⇒ greenLight)
 
-  private def authenticable(username: String, password: String): IO[Boolean] = io {
+  def checkPassword(username: String, password: String): IO[Boolean] = io {
     for {
       data ← collection.findOne(
         byIdQuery(username),

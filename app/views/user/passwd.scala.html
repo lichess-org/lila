@@ -1,0 +1,31 @@
+@(u: User, form: Form[_])(implicit ctx: Context)
+
+@title = @{ "%s - change password".format(u.username) }
+
+@evenMoreCss = {
+@cssTag("user-passwd.css")
+}
+
+@user.layout(
+title = title,
+robots = false,
+evenMoreCss = evenMoreCss) {
+<div class="content_box small_box">
+  <div class="signup_box">
+    <h1 class="lichess_title">Change your password</h1>
+    <form action="@routes.User.passwdApply" method="POST">
+      <ul>
+        @user.passwdFormField(form("oldPasswd"), "Current password")
+        @user.passwdFormField(form("newPasswd1"), "New password")
+        @user.passwdFormField(form("newPasswd2"), "New password (again)")
+        <li>
+          @errMsg(form)
+        </li>
+        <li>
+          <input type="submit" class="submit" value="Apply change" />
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>
+}
