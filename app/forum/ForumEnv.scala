@@ -4,6 +4,7 @@ package forum
 import user.{ User, UserRepo }
 import core.Settings
 import site.Captcha
+import mod.ModlogApi
 
 import com.mongodb.casbah.MongoCollection
 
@@ -11,7 +12,8 @@ final class ForumEnv(
     settings: Settings,
     captcha: Captcha,
     mongodb: String ⇒ MongoCollection,
-    userRepo: UserRepo) {
+    userRepo: UserRepo,
+    modLog: ModlogApi) {
 
   import settings._
 
@@ -25,7 +27,7 @@ final class ForumEnv(
 
   lazy val topicApi = new TopicApi(this, ForumTopicMaxPerPage)
 
-  lazy val postApi = new PostApi(this, ForumPostMaxPerPage)
+  lazy val postApi = new PostApi(this, modLog, ForumPostMaxPerPage)
 
   lazy val recent = new Recent(
     env = this,
