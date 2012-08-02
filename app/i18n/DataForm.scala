@@ -30,7 +30,9 @@ final class DataForm(
   def process(code: String, metadata: TransMetadata, data: Map[String, String]): IO[Unit] = {
     val messages = (data mapValues { msg ⇒
       msg.some map sanitize filter (_.nonEmpty)
-    }).flatten.toList
+    }).toList collect {
+      case (key, Some(value)) ⇒ key -> value
+    }
     val sorted = (keys.keys map { key ⇒
       messages find (_._1 == key.key)
     }).flatten
