@@ -1,5 +1,5 @@
 #!/bin/sh
-source bin/lilarc
+. bin/lilarc
 
 lilalog "Force kill java"
 pkill -9 java

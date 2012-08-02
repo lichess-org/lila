@@ -1,5 +1,5 @@
 #!/bin/sh
-source bin/lilarc
+. bin/lilarc
 
 URL=$PROD_URL
 TIMEOUT=5 # Restart if it takes longer than that
