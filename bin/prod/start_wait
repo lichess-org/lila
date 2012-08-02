@@ -1,5 +1,5 @@
 #!/bin/sh
-source bin/lilarc
+. bin/lilarc
 
 bin/prod/start
 wait_warmup
