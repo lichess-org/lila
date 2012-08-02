@@ -1,18 +1,21 @@
 package lila
 package setup
 
-import chess.{ Game, Board, Variant, Mode, Color ⇒ ChessColor }
+import chess.{ Variant, Mode, Color ⇒ ChessColor }
 import game.{ DbGame, DbPlayer }
 
 case class AiConfig(
     variant: Variant,
+    clock: Boolean,
+    time: Int,
+    increment: Int,
     level: Int,
     color: Color) extends Config with GameGenerator {
 
-  def >> = (variant.id, level, color.name).some
+  def >> = (variant.id, clock, time, increment, level, color.name).some
 
   def game = DbGame(
-    game = Game(board = Board init variant),
+    game = makeGame,
     ai = Some(!creatorColor -> level),
     whitePlayer = DbPlayer(
       color = ChessColor.White,
@@ -26,18 +29,27 @@ case class AiConfig(
 
   def encode = RawAiConfig(
     v = variant.id,
+    k = clock,
+    t = time,
+    i = increment,
     l = level)
 }
 
 object AiConfig extends BaseConfig {
 
-  def <<(v: Int, level: Int, c: String) = new AiConfig(
+  def <<(v: Int, k: Boolean, t: Int, i: Int, level: Int, c: String) = new AiConfig(
     variant = Variant(v) err "Invalid game variant " + v,
+    clock = k,
+    time = t,
+    increment = i,
     level = level,
     color = Color(c) err "Invalid color " + c)
 
   val default = AiConfig(
     variant = variantDefault,
+    clock = false,
+    time = 5,
+    increment = 8,
     level = 1,
     color = Color.default)
 
@@ -48,12 +60,18 @@ object AiConfig extends BaseConfig {
 
 case class RawAiConfig(
     v: Int,
+    k: Boolean,
+    t: Int,
+    i: Int,
     l: Int) {
 
   def decode = for {
     variant ← Variant(v)
   } yield AiConfig(
     variant = variant,
+    clock = k,
+    time = t,
+    increment = i,
     level = l,
     color = Color.White)
 }

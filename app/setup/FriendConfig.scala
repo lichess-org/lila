@@ -1,7 +1,7 @@
 package lila
 package setup
 
-import chess.{ Game, Board, Variant, Mode, Clock, Color ⇒ ChessColor }
+import chess.{ Variant, Mode, Clock, Color ⇒ ChessColor }
 import elo.EloRange
 import game.{ DbGame, DbPlayer }
 
@@ -16,9 +16,7 @@ case class FriendConfig(
   def >> = (variant.id, clock, time, increment, mode.id.some, color.name).some
 
   def game = DbGame(
-    game = Game(
-      board = Board init variant,
-      clock = makeClock),
+    game = makeGame,
     ai = None,
     whitePlayer = DbPlayer.white,
     blackPlayer = DbPlayer.black,

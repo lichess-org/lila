@@ -7,26 +7,7 @@
 <div class="variants buttons">
   @setup.radios(form("variant"), translatedVariantChoices)
 </div>
-<div class="clock_config optional_config">
-  <div class="clock_choice">
-    <label class="required" for="clock">@trans.timeControl()</label>
-    @setup.checkbox(form("clock"))
-  </div>
-  <div class="time_choice">
-    @trans.minutesPerSide(): <span>@form("time").value</span>
-    @setup.input(
-    form("time"),
-    Symbol("data-min") -> HookConfig.timeMin,
-    Symbol("data-max") -> HookConfig.timeMax)
-  </div>
-  <div class="increment_choice">
-    @trans.incrementInSeconds(): <span>@form("increment").value</span>
-    @setup.input(
-    form("increment"),
-    Symbol("data-min") -> HookConfig.incrementMin,
-    Symbol("data-max") -> HookConfig.incrementMax)
-  </div>
-</div>
+@setup.clock(form, lila.setup.HookConfig)
 @if(ctx.isAuth) {
 <div class="mode_choice buttons">
   @setup.radios(form("mode"), translatedModeChoices)
