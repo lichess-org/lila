@@ -59,7 +59,6 @@ function posToSquareId(pos) {
 
 function customFunctionOnMove() {
   var $comment = $('#GameLastComment');
-  $comment.toggle($comment.find('> .comment').text().length > 0);
   var moves = $comment.find('.commentMove').map(function() { return $(this).text(); });
   var ids = $.map(moves, posToSquareId);
   $("#GameBoard img.bestmove").removeClass("bestmove");
@@ -67,10 +66,13 @@ function customFunctionOnMove() {
     if (this) $("#" + this).addClass("bestmove");
   });
   refreshButtonset();
-  var chart = $("div.adv_chart").data("chart");
+  var $chart = $("div.adv_chart");
+  var chart = $chart.data("chart");
   if (chart) {
     var index = CurrentPly - 1;
     chart.setSelection([{ row: index, column: 1}]);
+    var rows = $chart.data('rows');
+    $comment.prepend($("<p>").html("White advantage: <strong>" + rows[index][1] + "</strong>"));
   }
   var turn = Math.round(CurrentPly / 2);
   var $gameText = $("#GameText");

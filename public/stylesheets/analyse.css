@@ -109,8 +109,12 @@ span.board_mark.horz {
   position: absolute;
   top: 512px;
   margin-top: 1em;
-  font-size: 1.4em;
   width: 220px;
+}
+#GameLastComment .comment {
+  margin-top: 0.2em;
+  font-size: 1.3em;
+  display: block;
 }
 div.advice_summary {
   position: absolute;

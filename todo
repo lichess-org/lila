@@ -30,7 +30,6 @@ game stats timeline issues http://en.lichess.org/forum/lichess-feedback/move-tim
 propagate IP ban to the user
 admin ip search interface
 analyse: show main line for every move http://en.lichess.org/forum/lichess-feedback/about-the-analysis-feature#5
-analyse: show cp every move (as graph popup?)
 clock in AI game
 try to show last analysis cp on graph (move 26) http://en.lichess.org/analyse/bwxnx0al
 elo range must contain player elo
