@@ -2,7 +2,6 @@
 source bin/lilarc
 
 RSYNC_OPTIONS=" \
---dry-run \
 --archive \
 --force \
 --delete \
