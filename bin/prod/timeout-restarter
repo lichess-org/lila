@@ -15,7 +15,7 @@ while true; do
   curl $URL --max-time $TIMEOUT -so /dev/null
 
   if [ $? = 0 ]; then
-    lilalog "SUCCESS $MSG"
+    echo -n "."
   else
     lilalog "FAIL $MSG"
     bin/prod/restart
