@@ -32,6 +32,7 @@ trait Dependencies {
   val actuarius = "eu.henkelmann" %% "actuarius" % "0.2.3"
   val jodaTime = "joda-time" % "joda-time" % "2.1"
   val jodaConvert = "org.joda" % "joda-convert" % "1.2"
+  val scalastic = "default" % "scalastic_2.9.2" % "0.0.6-SNAPSHOT"
 }
 
 object ApplicationBuild extends Build with Resolvers with Dependencies {
@@ -60,7 +61,8 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       paginatorSalat,
       csv,
       jgit,
-      actuarius),
+      actuarius,
+      scalastic),
     templatesImport ++= Seq(
       "lila.game.{ DbGame, DbPlayer, Pov }",
       "lila.user.User",
