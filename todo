@@ -33,3 +33,6 @@ analyse: show main line for every move http://en.lichess.org/forum/lichess-feedb
 try to show last analysis cp on graph (move 26) http://en.lichess.org/analyse/bwxnx0al
 elo range must contain player elo
 auto-restart when http timeout
+complete analysis movetimes with tsinnema - requires ms movetimes and db migration
+complete search engine using https://github.com/bsadeh/scalastic
+don't count AI games in win/loss ratios

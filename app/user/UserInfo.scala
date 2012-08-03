@@ -47,9 +47,9 @@ object UserInfo {
         Some(rank -> countUsers())
       },
       io(None))
-    nbWin ← gameRepo count (_ win user)
-    nbDraw ← gameRepo count (_ draw user)
-    nbLoss ← gameRepo count (_ loss user)
+    nbWin = user.nbWins
+    nbLoss = user.nbLosses
+    nbDraw = user.nbDraws
     nbPlaying ← (ctx is user).fold(
       gameRepo count (_ notFinished user) map (_.some),
       io(none)

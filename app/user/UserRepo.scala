@@ -10,8 +10,8 @@ import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
 import ornicar.scalalib.OrnicarRandom
 
-class UserRepo(collection: MongoCollection) 
-extends SalatDAO[User, String](collection) {
+class UserRepo(collection: MongoCollection)
+    extends SalatDAO[User, String](collection) {
 
   val enabledQuery = DBObject("enabled" -> true)
   def byIdQuery(id: String): DBObject = DBObject("_id" -> normalize(id))
@@ -41,11 +41,18 @@ extends SalatDAO[User, String](collection) {
     collection.update(byIdQuery(id), $set("elo" -> elo))
   }
 
-  def incNbGames(id: String, rated: Boolean): IO[Unit] = io {
-    collection.update(
-      byIdQuery(id),
-      if (rated) $inc("nbGames" -> 1, "nbRatedGames" -> 1)
-      else $inc("nbGames" -> 1))
+  def incNbGames(id: String, rated: Boolean, result: Option[Int]): IO[Unit] = io {
+    val incs = List(
+      "nbGames".some,
+      "nbRatedGames".some filter (_ ⇒ rated),
+      (result match {
+        case Some(-1) ⇒ "nbLosses".some
+        case Some(1)  ⇒ "nbWins".some
+        case Some(0)  ⇒ "nbDraws".some
+        case _        ⇒ none[String]
+      })
+    ).flatten.map(_ -> 1)
+    collection.update(byIdQuery(id), $inc(incs: _*))
   }
 
   val averageElo: IO[Float] = io {
