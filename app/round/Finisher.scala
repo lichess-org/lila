@@ -30,7 +30,7 @@ final class Finisher(
     else !!("game is not resignable")
 
   def resignForce(pov: Pov): ValidIOEvents =
-    if (pov.game.resignable && !pov.game.hasAi) 
+    if (pov.game.resignable && !pov.game.hasAi)
       finish(pov.game, Timeout, Some(pov.color))
     else !!("game is not resignable")
 
@@ -79,16 +79,19 @@ final class Finisher(
         io(p1)
       )
       _ ← gameRepo save p2
-      winnerId = winner flatMap (p2.game.player(_).userId)
-      _ ← gameRepo.finish(p2.game.id, winnerId)
-      _ ← updateElo(p2.game)
-      _ ← incNbGames(p2.game, White)
-      _ ← incNbGames(p2.game, Black)
+      g = p2.game
+      winnerId = winner flatMap (g.player(_).userId)
+      _ ← gameRepo.finish(g.id, winnerId)
+      _ ← updateElo(g)
+      _ ← incNbGames(g, White)
+      _ ← incNbGames(g, Black)
     } yield p2.events)
 
   private def incNbGames(game: DbGame, color: Color): IO[Unit] =
     game.player(color).userId.fold(
-      id ⇒ userRepo.incNbGames(id, game.rated),
+      id ⇒ userRepo.incNbGames(id, game.rated,
+        result = game.wonBy(color).fold(_.fold(1, -1), 0).some filterNot (_ ⇒ game.hasAi)
+      ),
       io()
     )
 

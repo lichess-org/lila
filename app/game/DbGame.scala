@@ -288,6 +288,8 @@ case class DbGame(
 
   def winnerColor: Option[Color] = winner map (_.color)
 
+  def wonBy(c: Color): Option[Boolean] = winnerColor map (_ == c)
+
   def outoftimePlayer: Option[DbPlayer] = for {
     c ← clock
     if this.playable
