@@ -40,6 +40,9 @@ final class Hub(
       }
     }
 
+    case Ack(uid) => withMember(uid) { _.channel push ackEvent }
+
+
     case Broom ⇒ {
       broom()
       if (lastPingTime < (nowMillis - hubTimeout)) {
@@ -125,6 +128,8 @@ final class Hub(
 
   def makeEvent(t: String, data: JsValue): JsObject =
     JsObject(Seq("t" -> JsString(t), "d" -> data))
+
+  lazy val ackEvent = makeEvent("ack", JsNull)
 
   def ownerOf(color: Color): Option[Member] =
     members.values find { m ⇒ m.owner && m.color == color }

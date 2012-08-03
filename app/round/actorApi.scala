@@ -75,3 +75,4 @@ case class GetHub(gameId: String)
 case object HubTimeout
 case object GetNbHubs
 case class AnalysisAvailable(gameId: String)
+case class Ack(uid: String)

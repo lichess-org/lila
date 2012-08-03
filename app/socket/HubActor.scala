@@ -112,7 +112,7 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
     withMember(uid)(_ addLiveGames ids)
   }
 
-  def withMember(uid: String)(f: M => Unit) {
+  def withMember(uid: String)(f: M ⇒ Unit) {
     members get uid foreach f
   }
 }
