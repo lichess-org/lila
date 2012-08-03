@@ -10,7 +10,7 @@ import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
 final class EloChart(elos: List[(Int, Int)]) {
 
   private val points = 100
-  private val median = 50
+  private val median = 30
 
   private val formatter: DateTimeFormatter =
     DateTimeFormat forPattern "dd/MM/yy"
