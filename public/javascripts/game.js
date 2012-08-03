@@ -13,6 +13,7 @@ $.widget("lichess.game", {
     self.options.tableUrl = self.element.data('table-url');
     self.options.playersUrl = self.element.data('players-url');
     self.options.socketUrl = self.element.data('socket-url');
+    self.socketAckTimeout;
 
     if (self.options.game.started) {
       self.indicateTurn();
@@ -64,6 +65,9 @@ $.widget("lichess.game", {
             name: "game"
           },
         events: {
+          ack: function() {
+            clearTimeout(self.socketAckTimeout);
+          },
           message: function(event) {
             self.element.queue(function() {
               if (self.$chat) self.$chat.chat("append", event);
@@ -350,6 +354,9 @@ $.widget("lichess.game", {
         moveData.lag = parseInt(lichess.socket.averageLag);
       }
       lichess.socket.send("move", moveData);
+      self.socketAckTimeout = setTimeout(function() {
+        location.reload();
+      }, lichess.socket.options.pingMaxLag);
     }
 
     var color = self.options.player.color;

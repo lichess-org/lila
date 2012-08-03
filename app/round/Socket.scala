@@ -64,6 +64,7 @@ final class Socket(
       }
       case Some("move") ⇒ parseMove(e) foreach {
         case (orig, dest, prom, blur, lag) ⇒ {
+          hub ! Ack(uid)
           hand.play(povRef, orig, dest, prom, blur, lag) onSuccess {
             case Failure(fs) ⇒ {
               hub ! Resync(uid)
@@ -72,7 +73,7 @@ final class Socket(
             case Success((events, fen)) ⇒ {
               send(povRef.gameId, events)
               moveNotifier(povRef.gameId, fen)
-            } 
+            }
           }
         }
       }
