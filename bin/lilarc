@@ -2,8 +2,6 @@
 
 JVM_OPTIONS="-Dconfig.file=conf/local.conf "
 LOG_FILE="logs/play.log"
-REMOTE="balrog"
-REMOTE_DIR="/home/lila"
 PROD_URL="http://en.lichess.org"
 
 lilalog () {

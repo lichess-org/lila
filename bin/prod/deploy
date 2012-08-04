@@ -1,13 +1,32 @@
-#!/bin/sh
+#!/bin/zsh
 . bin/lilarc
 
+fail () {
+  echo "Deploy main or ai"
+  exit 1
+}
+
+if [ -z $1 ]; then
+  fail
+elif [ $1 = "main" ]; then
+  REMOTE="balrog"
+  REMOTE_DIR="/home/lila"
+elif [ $1 = "ai" ]; then
+  REMOTE="marty"
+  REMOTE_DIR="/home/lila3"
+else
+  fail
+fi
+
+lilalog "Deploy to $1 server $REMOTE:$REMOTE_DIR"
+
 RSYNC_OPTIONS=" \
---archive \
---force \
---delete \
---progress \
---compress \
---checksum \
---exclude-from=bin/prod/rsync_exclude";
+  --archive \
+  --force \
+  --delete \
+  --progress \
+  --compress \
+  --checksum \
+  --exclude-from=bin/prod/rsync_exclude";
 
 rsync $RSYNC_OPTIONS ./ $REMOTE:$REMOTE_DIR
