@@ -1,4 +1,4 @@
 #!/bin/sh
 
-HTTP_PORT=9002
+HTTP_PORT=9000
 JVM_OPTIONS="-Dconfig.file=conf/local.conf -Dhttp.port=$HTTP_PORT"
