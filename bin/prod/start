@@ -1,6 +1,6 @@
 #!/bin/sh
 . bin/lilarc
 
-lilalog "Start application"
+lilalog "Start application with $JVM_OPTIONS"
 echo "" > $LOG_FILE
 target/start $JVM_OPTIONS "$@" > $LOG_FILE &
