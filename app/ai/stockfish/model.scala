@@ -37,6 +37,7 @@ object model {
     def fold[A](todo: Todo ⇒ A, doing: Doing ⇒ A): A = doing(this)
     def enqueue(task: Task) = copy(queue = queue :+ task)
     def map(f: Task ⇒ Task): Doing = copy(current = f(current))
+    def name = current.fold(_ ⇒ "SFP", _ ⇒ "SFA")
   }
 
   object play {
