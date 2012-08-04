@@ -5,8 +5,8 @@ config_name = "development"
 ai {
   server = false
   client = false
-  debug = false
   stockfish {
+    debug = false
     hash_size = 128
     threads = 2
   }
