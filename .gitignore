@@ -1,4 +1,5 @@
 conf/local.conf
+bin/lilarc.conf.local
 logs
 project/project
 project/target
