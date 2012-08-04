@@ -55,6 +55,8 @@ final class Config(settings: Settings) {
       position(anal.fen, anal.pastMoves),
       "go movetime %d".format(analyseMoveTime)))
 
+  def debug = settings.AiStockfishDebug
+
   private def playMaxMoveTime = settings.AiStockfishPlayMaxMoveTime
 
   private def analyseMoveTime = settings.AiStockfishAnalyseMoveTime
