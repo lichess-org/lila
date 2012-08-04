@@ -27,14 +27,12 @@ final class Config(settings: Settings) {
       setoption("Skill Level", skill(play.level)),
       setoption("UCI_Chess960", play.chess960),
       setoption("OwnBook", ownBook(play.level)),
-      "ucinewgame",
       "isready"),
     anal ⇒ List(
       setoption("Uci_AnalyseMode", true),
       setoption("Skill Level", skillMax),
       setoption("UCI_Chess960", anal.chess960),
       setoption("OwnBook", true),
-      "ucinewgame",
       "isready"))
 
   def go(task: Task) = task.fold(
