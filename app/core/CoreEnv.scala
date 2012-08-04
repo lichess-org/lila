@@ -120,6 +120,10 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     mongodb = mongodb.apply _,
     userRepo = user.userRepo)
 
+  lazy val search = new lila.search.SearchEnv(
+    settings = settings,
+    gameRepo = game.gameRepo)
+
   lazy val metaHub = new lila.socket.MetaHub(
     List(site.hub, lobby.hub, round.hubMaster))
 

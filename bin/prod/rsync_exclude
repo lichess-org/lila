@@ -6,5 +6,6 @@ project/target
 target
 serve/
 RUNNING_PID
+data
 .git*
 .ctags
