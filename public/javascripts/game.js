@@ -726,7 +726,7 @@ $.widget("lichess.clock", {
   },
 
   _formatDate: function(date) {
-    minutes = this._prefixInteger(date.getMinutes(), 2);
+    minutes = this._prefixInteger(date.getUTCMinutes(), 2);
     seconds = this._prefixInteger(date.getSeconds(), 2);
     return minutes + ':' + seconds;
   },
