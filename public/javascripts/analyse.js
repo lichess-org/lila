@@ -69,10 +69,12 @@ function customFunctionOnMove() {
   var $chart = $("div.adv_chart");
   var chart = $chart.data("chart");
   if (chart) {
-    var index = CurrentPly - 1;
-    chart.setSelection([{ row: index, column: 1}]);
-    var rows = $chart.data('rows');
-    $comment.prepend($("<p>").html("White advantage: <strong>" + rows[index][1] + "</strong>"));
+    try {
+      var index = CurrentPly - 1;
+      chart.setSelection([{ row: index, column: 1}]);
+      var rows = $chart.data('rows');
+      $comment.prepend($("<p>").html("White advantage: <strong>" + rows[index][1] + "</strong>"));
+    } catch (e) {}
   }
   var turn = Math.round(CurrentPly / 2);
   var $gameText = $("#GameText");
