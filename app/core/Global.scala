@@ -9,7 +9,7 @@ object Global extends GlobalSettings {
 
   private[this] var coreEnv: CoreEnv = _
 
-  def env = Option(coreEnv) err "The environment is not ready"
+  def env = coreEnv
 
   override def onStart(app: Application) {
 

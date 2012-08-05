@@ -1,6 +1,7 @@
-include "application"
+include "base"
 
 config_name = "production AI server"
+
 ai {
   server = true
   client = false
@@ -8,6 +9,9 @@ ai {
     hash_size = 8192
     analyse {
       movetime = 500
+    }
+    play {
+      movetime = 400
     }
   }
 }

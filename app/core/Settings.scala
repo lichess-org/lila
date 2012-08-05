@@ -81,12 +81,11 @@ final class Settings(config: Config) {
   val AiStockfishExecPath = getString("ai.stockfish.exec_path")
   val AiStockfishHashSize = getInt("ai.stockfish.hash_size")
   val AiStockfishThreads = getInt("ai.stockfish.threads")
-
   val AiStockfishPlayUrl = getString("ai.stockfish.play.url")
   val AiStockfishPlayMaxMoveTime = getInt("ai.stockfish.play.movetime")
-
   val AiStockfishAnalyseUrl = getString("ai.stockfish.analyse.url")
   val AiStockfishAnalyseMoveTime = getInt("ai.stockfish.analyse.movetime")
+  val AiStockfishDebug = getBoolean("ai.stockfish.debug")
 
   val MongoHost = getString("mongo.host")
   val MongoPort = getInt("mongo.port")

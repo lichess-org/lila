@@ -1,4 +1,5 @@
 conf/local.conf
+bin/lilarc.local
 logs
 tags
 project/project

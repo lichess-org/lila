@@ -10,7 +10,7 @@ final class Process(
     name: String,
     out: String ⇒ Unit,
     err: String ⇒ Unit,
-    debug: Process.Debug) {
+    debug: Boolean) {
 
   doLog("Start process")
 
@@ -49,7 +49,7 @@ final class Process(
   private val process = builder run processIO
 
   private def log(msg: String) {
-    if (debug(msg)) doLog(msg)
+    if (debug) doLog(msg)
   }
 
   private def doLog(msg: String) {
@@ -59,7 +59,7 @@ final class Process(
 
 object Process {
 
-  def apply(execPath: String, name: String)(out: String ⇒ Unit, err: String ⇒ Unit, debug: Debug) =
+  def apply(execPath: String, name: String)(out: String ⇒ Unit, err: String ⇒ Unit, debug: Boolean) =
     new Process(
       builder = SProcess(execPath),
       name = name,
@@ -67,11 +67,6 @@ object Process {
       err = err,
       debug = debug)
 
-  type Debug = String ⇒ Boolean
-
-  val DEBUG_ALL: Debug = _ ⇒ true
-  val DEBUG_NONE: Debug = _ ⇒ false
-
-  type Builder = (String ⇒ Unit, String ⇒ Unit, Debug) ⇒ Process
+  type Builder = (String ⇒ Unit, String ⇒ Unit, Boolean) ⇒ Process
 }
 
