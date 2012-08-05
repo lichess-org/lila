@@ -24,7 +24,8 @@ object GameFilter {
 case class GameFilterMenu(
     all: NonEmptyList[GameFilter],
     current: GameFilter,
-    query: Option[DBObject]) {
+    query: Option[DBObject],
+    cachedNb: Option[Int]) {
 
   def list = all.list
 }
@@ -63,6 +64,15 @@ object GameFilterMenu extends NonEmptyLists {
       case Bookmark ⇒ None
     }
 
-    new GameFilterMenu(all, current, query)
+    val cachedNb: Option[Int] = current match {
+      case All   ⇒ info.user.nbGames.some
+      case Rated ⇒ info.nbRated.some
+      case Win   ⇒ info.nbWin.some
+      case Loss  ⇒ info.nbLoss.some
+      case Draw  ⇒ info.nbDraw.some
+      case _     ⇒ None
+    }
+
+    new GameFilterMenu(all, current, query, cachedNb)
   }
 }
