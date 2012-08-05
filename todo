@@ -34,3 +34,4 @@ try to show last analysis cp on graph (move 26) http://en.lichess.org/analyse/bw
 elo range must contain player elo
 complete analysis movetimes with tsinnema - requires ms movetimes and db migration
 complete search engine using https://github.com/bsadeh/scalastic
+localize elo chart dates
