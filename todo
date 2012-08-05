@@ -36,3 +36,4 @@ complete analysis movetimes with tsinnema - requires ms movetimes and db migrati
 complete search engine using https://github.com/bsadeh/scalastic
 localize elo chart dates
 recognize tor IPs http://en.lichess.org/forum/staff/cheater-101#9 https://check.torproject.org/cgi-bin/TorBulkExitList.py?ip=37.59.32.99
+weird UI clock bug (+30 minutes) http://en.lichess.org/forum/lichess-feedback/game-timer-is-30-minutes-incorrectly#4
