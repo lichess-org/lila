@@ -18,7 +18,7 @@ final class ActorFSM(
     process = processBuilder(
       out ⇒ self ! Out(out),
       err ⇒ self ! Err(err),
-      msg ⇒ !isNoise(msg))
+      config.debug)
   }
 
   startWith(Starting, Todo())
@@ -42,7 +42,9 @@ final class ActorFSM(
   }
   when(IsReady) {
     case Event(Out("readyok"), doing: Doing) ⇒ {
-      config go doing.current foreach process.write
+      val lines = config go doing.current 
+      lines.lastOption foreach display(doing.name)
+      lines foreach process.write
       goto(Running)
     }
   }
@@ -73,10 +75,8 @@ final class ActorFSM(
   whenUnhandled {
     case Event(task: analyse.Task.Builder, data) ⇒ nextTask(data enqueue task(sender))
     case Event(task: play.Task.Builder, data)    ⇒ nextTask(data enqueue task(sender))
+    case Event(Out(t), _)                        ⇒ stay
     case Event(GetQueueSize, data)               ⇒ sender ! QueueSize(data.size); stay
-    case Event(Out(t), _) if isNoise(t)          ⇒ stay
-    case Event(Out(t), _)                        ⇒ { log.warning(t); stay }
-    case Event(Err(t), _)                        ⇒ { log.error(t); stay }
     case Event(e @ RebootException, _)           ⇒ throw e
   }
 
@@ -91,8 +91,9 @@ final class ActorFSM(
     doing ⇒ stay using doing
   )
 
-  def isNoise(t: String) =
-    t.isEmpty || (t startsWith "id ") || (t startsWith "info ") || (t startsWith "option name ")
+  private def display(name: String)(msg: String) {
+    println("[%s] %s".format(name, msg))
+  }
 
   override def postStop() {
     process.destroy()

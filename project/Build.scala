@@ -20,7 +20,7 @@ trait Dependencies {
   val salat = "com.novus" %% "salat-core" % "1.9.1-SNAPSHOT"
   val scalalib = "com.github.ornicar" %% "scalalib" % "1.37"
   val config = "com.typesafe" % "config" % "0.4.1"
-  val guava = "com.google.guava" % "guava" % "12.0"
+  val guava = "com.google.guava" % "guava" % "13.0"
   val apache = "org.apache.commons" % "commons-lang3" % "3.1"
   val scalaTime = "org.scala-tools.time" %% "time" % "0.5"
   val slf4jNop = "org.slf4j" % "slf4j-nop" % "1.6.4"

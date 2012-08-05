@@ -6,6 +6,7 @@ ai {
   server = false
   client = false
   stockfish {
+    debug = false
     hash_size = 128
     threads = 2
   }

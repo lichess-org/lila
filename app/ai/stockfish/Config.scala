@@ -14,7 +14,16 @@ final class Config(settings: Settings) {
 
   def skill(level: Int) = math.round((levelBox(level) - 1) * (skillMax / 7f))
 
-  def depth(level: Int) = levelBox(level)
+  def depth(level: Int): Option[Int] = Map(
+    1 -> 1,
+    2 -> 2,
+    3 -> 3,
+    4 -> 4,
+    5 -> 6,
+    6 -> 8,
+    7 -> 10
+    // 8 -> inf
+  ) get levelBox(level)
 
   def init = List(
     setoption("Hash", settings.AiStockfishHashSize),
@@ -27,23 +36,26 @@ final class Config(settings: Settings) {
       setoption("Skill Level", skill(play.level)),
       setoption("UCI_Chess960", play.chess960),
       setoption("OwnBook", ownBook(play.level)),
-      "ucinewgame",
       "isready"),
     anal ⇒ List(
       setoption("Uci_AnalyseMode", true),
       setoption("Skill Level", skillMax),
       setoption("UCI_Chess960", anal.chess960),
       setoption("OwnBook", true),
-      "ucinewgame",
       "isready"))
 
   def go(task: Task) = task.fold(
     play ⇒ List(
       position(play.fen, play.moves),
-      "go movetime %d depth %d".format(moveTime(play.level), depth(play.level))),
+      "go movetime %d%s".format(
+        moveTime(play.level),
+        ~depth(play.level).map(" depth " + _)
+      )),
     anal ⇒ List(
       position(anal.fen, anal.pastMoves),
       "go movetime %d".format(analyseMoveTime)))
+
+  def debug = settings.AiStockfishDebug
 
   private def playMaxMoveTime = settings.AiStockfishPlayMaxMoveTime
 
