@@ -157,7 +157,7 @@ object LangList {
     "tk" -> "Türkmençe",
     "tn" -> "Setswan",
     "to" -> "faka Tong",
-    "tp" -> "Toki Pona",
+    "tp" -> "toki pona",
     "tr" -> "Türkçe",
     "ts" -> "Xitsong",
     "tw" -> "Twi",
