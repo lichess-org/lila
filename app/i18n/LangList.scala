@@ -171,7 +171,7 @@ object LangList {
     "wo" -> "Wolof",
     "fy" -> "Frysk",
     "xh" -> "isiXhosa",
-    "yo" -> "Yorùba",
+    "yo" -> "Yorùbá",
     "za" -> "Saɯ cueŋƅ, Saw cueng",
     "zu" -> "isiZulu")
 }
