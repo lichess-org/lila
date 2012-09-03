@@ -23,7 +23,7 @@ object ForumPost extends LilaController with forum.Controller {
         case (categ, topic, posts) ⇒ forms.post.bindFromRequest.fold(
           err ⇒ BadRequest(html.forum.topic.show(
             categ, topic, posts, Some(err -> forms.captchaCreate))),
-          data ⇒ Firewall {
+          data ⇒ UAFirewall {
             val post = postApi.makePost(categ, topic, data).unsafePerformIO
             Redirect("%s#%d".format(
             routes.ForumTopic.show(
