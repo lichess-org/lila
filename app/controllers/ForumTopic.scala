@@ -26,7 +26,7 @@ object ForumTopic extends LilaController with forum.Controller {
       IOptionResult(categRepo bySlug categSlug) { categ ⇒
         forms.topic.bindFromRequest.fold(
           err ⇒ BadRequest(html.forum.topic.form(categ, err, forms.captchaCreate)),
-          data ⇒ Firewall {
+          data ⇒ UAFirewall {
             val topic = topicApi.makeTopic(categ, data).unsafePerformIO
             Redirect(routes.ForumTopic.show(categ.slug, topic.slug, 1))
           }
