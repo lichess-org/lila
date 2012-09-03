@@ -8,5 +8,5 @@ serve/
 serve/README
 target
 bin/.translate_version
-data 
+data/
 RUNNING_PID
