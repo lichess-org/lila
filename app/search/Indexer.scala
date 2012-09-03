@@ -1,11 +1,18 @@
 package lila
 package search
 
-import game.{ GameRepo, DbGame }
+import game.{ GameRepo, DbGame, Query ⇒ GameQuery }
 
 import scalaz.effects._
 import com.traackr.scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
 import com.codahale.jerkson.Json
+import com.mongodb.casbah.query.Imports._
+
+import org.elasticsearch.action.search.SearchResponse
+import org.elasticsearch.action.ActionRequest
+import org.elasticsearch.index.query.QueryBuilder
+import org.elasticsearch.index.query._, FilterBuilders._, QueryBuilders._
+import org.elasticsearch.index.query._
 
 final class Indexer(es: EsIndexer, gameRepo: GameRepo) {
 
@@ -13,16 +20,30 @@ final class Indexer(es: EsIndexer, gameRepo: GameRepo) {
   val typeName = "game"
 
   def rebuildAll: IO[Unit] = for {
-    games ← gameRepo recentGames 10
     _ ← clear
-    _ ← index(games)
-    _ <- io {
-      es.waitTillCountAtLeast(Seq(indexName), typeName, 10)
+    nb ← indexAll
+    _ ← io {
+      es.waitTillCountAtLeast(Seq(indexName), typeName, nb)
     }
-    _ <- optimize
-  } yield Unit
+    _ ← optimize
+    games ← search(matchAllQuery, 0, 5)
+    _ ← putStrLn(games mkString " ")
+  } yield ()
 
-  def clear: IO[Unit] = io {
+  def search(
+    query: QueryBuilder,
+    from: Int,
+    size: Int): IO[List[DbGame]] = toGames {
+    es.search(Seq(indexName), Seq(typeName), query,
+      from = from.some,
+      size = size.some)
+  }
+
+  def searchTest = search(matchAllQuery, 0, 5)
+
+  private def searchTestQuery = 
+
+  private def clear: IO[Unit] = io {
     def prop(name: String, typ: String) = name -> Map("type" -> typ)
     val mapping = Json generate Map(
       typeName -> Map(
@@ -33,7 +54,7 @@ final class Indexer(es: EsIndexer, gameRepo: GameRepo) {
           prop("variant", "integer")
         ).toMap
       )
-    ) 
+    )
     println("will delete index")
     es.deleteIndex(Seq(indexName))
     println("will create index")
@@ -41,29 +62,52 @@ final class Indexer(es: EsIndexer, gameRepo: GameRepo) {
     println("will wait till active")
     es.waitTillActive()
     println("will put mapping")
-    es.putMapping(indexName, typeName, mapping.pp)
+    es.putMapping(indexName, typeName, mapping)
     println("will refresh")
     es.refresh()
     println("done")
   }
 
-  def index(games: List[DbGame]): IO[Unit] =
-    games.map(index).sequence map (_ ⇒ Unit)
-
-  def index(game: DbGame): IO[Unit] = io {
-    es.index(indexName, typeName, game.id, gameJson(game).pp)
+  private def indexAll: IO[Int] = io {
+    val cursor = gameRepo.collection.find(
+      GameQuery.finished,
+      DBObject(
+        "status" -> true,
+        "turns" -> true,
+        "rated" -> true,
+        "v" -> true
+      ))
+    var nb = 0
+    for (games ← cursor grouped 5000) {
+      println("Indexing " + nb)
+        val actions = (games map { game ⇒
+          for {
+            id ← game.getAs[String]("_id")
+            status ← game.getAs[Int]("status")
+            turns ← game.getAs[Int]("turns")
+            rated = game.getAs[Boolean]("isRated") | false
+            variant = game.getAs[Int]("v") | 1
+          } yield es.index_prepare(indexName, typeName, id, Json generate Map(
+            "status" -> status,
+            "turns" -> turns,
+            "rated" -> rated,
+            "variant" -> variant
+          )).request
+        }).flatten
+        if (actions.nonEmpty) {
+          es bulk actions
+          nb = nb + actions.size
+        }
+    }
+    nb
   }
 
-  def optimize: IO[Unit] = io {
+  private def optimize: IO[Unit] = io {
     es.optimize(Seq(indexName))
-    import org.elasticsearch.index.query.QueryBuilders._
-    es.search(Seq(indexName), Seq(typeName), matchAllQuery).pp
   }
 
-  def gameJson(game: DbGame) = Json generate Map(
-    "status" -> game.status.id,
-    "turns" -> game.turns,
-    "rated" -> game.mode.rated,
-    "variant" -> game.variant.id
-  )
+  private def toGames(response: SearchResponse): IO[List[DbGame]] =
+    gameRepo games {
+      response.hits.hits.toList map (_.id)
+    }
 }
