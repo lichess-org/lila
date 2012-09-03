@@ -20,6 +20,16 @@ final class SearchEnv(
 
   private lazy val esIndexer = {
     println("Start ElasticSearch")
-    EsIndexer.local.start ~ { _ ⇒ println("Done") }
+
+    //val i = EsIndexer.using(Map())
+    //val i = EsIndexer.local
+    val i = EsIndexer.transport(
+      settings = Map(
+        "cluster.name" -> "elasticsearch"
+      ),
+      host = "localhost",
+      ports = Seq(9300))
+
+    i.start ~ { _ ⇒ println("Done") }
   }
 }

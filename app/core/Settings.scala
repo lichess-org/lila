@@ -109,6 +109,7 @@ final class Settings(config: Config) {
   val BookmarkCollectionBookmark = getString("bookmark.collection.bookmark")
 
   val CoreCollectionCache = getString("core.collection.cache")
+  val CoreCronEnabled = getBoolean("core.cron.enabled")
 
   val SecurityCollectionSecurity = getString("security.collection.security")
 

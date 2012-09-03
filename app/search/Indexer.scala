@@ -16,6 +16,10 @@ final class Indexer(es: EsIndexer, gameRepo: GameRepo) {
     games ← gameRepo recentGames 10
     _ ← clear
     _ ← index(games)
+    _ <- io {
+      es.waitTillCountAtLeast(Seq(indexName), typeName, 10)
+    }
+    _ <- optimize
   } yield Unit
 
   def clear: IO[Unit] = io {
@@ -23,15 +27,15 @@ final class Indexer(es: EsIndexer, gameRepo: GameRepo) {
     val mapping = Json generate Map(
       typeName -> Map(
         "properties" -> List(
-          prop("status", "int"),
-          prop("turns", "int"),
-          prop("rated", "bool"),
-          prop("variant", "int")
+          prop("status", "integer"),
+          prop("turns", "integer"),
+          prop("rated", "boolean"),
+          prop("variant", "integer")
         ).toMap
       )
     ) 
-    println("will delete by query")
-    es.deleteByQuery()
+    println("will delete index")
+    es.deleteIndex(Seq(indexName))
     println("will create index")
     es.createIndex(indexName, settings = Map("number_of_shards" -> "1"))
     println("will wait till active")
@@ -48,6 +52,12 @@ final class Indexer(es: EsIndexer, gameRepo: GameRepo) {
 
   def index(game: DbGame): IO[Unit] = io {
     es.index(indexName, typeName, game.id, gameJson(game).pp)
+  }
+
+  def optimize: IO[Unit] = io {
+    es.optimize(Seq(indexName))
+    import org.elasticsearch.index.query.QueryBuilders._
+    es.search(Seq(indexName), Seq(typeName), matchAllQuery).pp
   }
 
   def gameJson(game: DbGame) = Json generate Map(

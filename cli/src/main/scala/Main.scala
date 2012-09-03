@@ -48,7 +48,7 @@ object Main {
       path = new File("."),
       classloader = this.getClass.getClassLoader,
       sources = None,
-      mode = Mode.Test)
+      mode = Mode.Dev)
     try {
       Play start app
       op(Global.env).unsafePerformIO

@@ -1,3 +1,7 @@
 #!/bin/sh
 
-bin/play ";project cli;run $*"
+if [ -z $* ]; then
+  bin/play -Dcore.cron.enabled=false 
+else
+  bin/play -Dcore.cron.enabled=false ";project cli;run $*"
+fi
