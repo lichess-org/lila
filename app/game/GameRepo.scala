@@ -180,14 +180,17 @@ class GameRepo(collection: MongoCollection)
   }
 
   def games(ids: List[String]): IO[List[DbGame]] = io {
-    find("_id" $in ids).toList.map(_.decode).flatten sortBy (_.id)
+    find("_id" $in ids).toList.map(_.decode).flatten
+  } map { gs ⇒
+    val gsMap = gs.map(g ⇒ g.id -> g).toMap
+    ids.map(gsMap.get).flatten
   }
 
   def nbPerDay(days: Int): IO[List[Int]] = ((days to 1 by -1).toList map { day ⇒
     val from = DateTime.now.withTimeAtStartOfDay - day.days
     val to = from + 1.day
     count(("createdAt" $gte from $lt to))
-  }).sequence 
+  }).sequence
 
   private def idSelector(game: DbGame): DBObject = idSelector(game.id)
   private def idSelector(id: String): DBObject = DBObject("_id" -> id)
