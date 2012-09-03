@@ -22,10 +22,14 @@ final class PaginatorBuilder(
   def popular(page: Int): Paginator[DbGame] =
     paginator(popularAdapter, page)
 
-  def recentlyCreated(query: DBObject) = apply(query, Query.sortCreated) _
+  def recentlyCreated(query: DBObject, nb: Option[Int] = None) = 
+    apply(query, Query.sortCreated, nb) _
 
-  def apply(query: DBObject, sort: DBObject)(page: Int): Paginator[DbGame] =
-    apply(noCacheAdapter(query, sort))(page)
+  def apply(query: DBObject, sort: DBObject, nb: Option[Int] = None)(page: Int): Paginator[DbGame] =
+    apply(nb.fold(
+      cached ⇒ adapter(query, sort, cached),
+      noCacheAdapter(query, sort)
+    ))(page)
 
   private def apply(adapter: Adapter[DbGame])(page: Int): Paginator[DbGame] =
     paginator(adapter, page)
