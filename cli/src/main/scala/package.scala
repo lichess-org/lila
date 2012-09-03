@@ -1,10 +1,10 @@
 package lila
 
-import ornicar.scalalib._
+import ornicar.scalalib
 
 package object cli
-    extends OrnicarValidation
-    with OrnicarCommon
+    extends scalalib.Validation
+    with scalalib.Common
     with scalaz.NonEmptyLists
     with scalaz.Strings
     with scalaz.Lists
