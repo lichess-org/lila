@@ -54,7 +54,30 @@ final class Store(collection: MongoCollection) {
     UserSpy(ips, uas)
   }
 
-  private def ip(req: RequestHeader) = req.remoteAddress 
+  def explore(username: String, withKnown: Set[String] = Set.empty): Set[String] = {
+    val known = withKnown + username
+    val children = newSiblings(username, known)
+    children.foldLeft(children) {
+      case (siblings, child) ⇒ siblings ++ explore(child, known ++ siblings)
+    }
+  }
+
+  private def newSiblings(username: String, without: Set[String]): Set[String] =
+    userIps(username).flatMap(usernamesByIp) diff without
+
+  private def userIps(username: String): Set[String] =
+    collection.find(
+      DBObject("user" -> normalize(username)),
+      DBObject("ip" -> true)
+    ).toList.map(_.getAs[String]("ip")).flatten.toSet
+
+  private def usernamesByIp(ip: String): Set[String] =
+    collection.find(
+      DBObject("ip" -> ip),
+      DBObject("user" -> true)
+    ).toList.map(_.getAs[String]("user")).flatten.toSet
+
+  private def ip(req: RequestHeader) = req.remoteAddress
 
   private def ua(req: RequestHeader) = req.headers.get("User-Agent") | "?"
 

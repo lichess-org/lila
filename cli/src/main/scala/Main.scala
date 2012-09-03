@@ -28,6 +28,7 @@ object Main {
       case "user-enable" :: uid :: Nil        ⇒ users enable uid
       case "user-disable" :: uid :: Nil       ⇒ users disable uid
       case "user-passwd" :: uid :: pwd :: Nil ⇒ users.passwd(uid, pwd)
+      case "user-track" :: uid :: Nil         ⇒ users track uid
       case "forum-denormalize" :: Nil         ⇒ forum.denormalize
       case "forum-typecheck" :: Nil           ⇒ forum.typecheck
       case "game-cleanup-next" :: Nil         ⇒ titivate.cleanupNext

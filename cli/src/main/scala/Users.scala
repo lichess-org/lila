@@ -17,12 +17,19 @@ case class Users(userRepo: UserRepo, securityStore: Store) {
     )
 
   def passwd(username: String, password: String) =
-    perform(username, "Change password", user => {
-      userRepo.passwd(user, password) map ( _.fold(
+    perform(username, "Change password", user ⇒ {
+      userRepo.passwd(user, password) map (_.fold(
         errors ⇒ throw new RuntimeException(errors.shows),
         _ ⇒ io()
       ))
     })
+
+  def track(username: String) = io {
+    println("%s = %s".format(
+      username, 
+      securityStore explore username mkString ", "
+    ))
+  }
 
   private def perform(username: String, action: String, op: User ⇒ IO[Unit]) = for {
     _ ← putStrLn(action + " " + username)

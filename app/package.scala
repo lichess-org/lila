@@ -1,4 +1,4 @@
-import ornicar.scalalib._
+import ornicar.scalalib
 
 import play.api.libs.json.JsValue
 import play.api.libs.concurrent.Promise
@@ -11,10 +11,10 @@ import com.mongodb.casbah.commons.conversions.scala.RegisterJodaTimeConversionHe
 import scalaz.effects.{ io, IO }
 
 package object lila
-    extends OrnicarValidation
-    with OrnicarCommon
-    with OrnicarRegex
-    with OrnicarIO
+    extends scalalib.Validation
+    with scalalib.Common
+    with scalalib.Regex
+    with scalalib.IO
     with scalaz.Identitys
     with scalaz.NonEmptyLists
     with scalaz.Strings
