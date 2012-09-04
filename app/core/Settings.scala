@@ -25,6 +25,10 @@ final class Settings(config: Config) {
   val GamePaginatorMaxPerPage = getInt("game.paginator.max_per_page")
   val GameCollectionGame = getString("game.collection.game")
 
+  val SearchESHost = getString("search.elasticsearch.host")
+  val SearchESPort = getInt("search.elasticsearch.port")
+  val SearchESCluster = getString("search.elasticsearch.cluster")
+
   val RoundMessageLifetime = millis("round.message.lifetime")
   val RoundUidTimeout = millis("round.uid.timeout")
   val RoundHubTimeout = millis("round.hub.timeout")

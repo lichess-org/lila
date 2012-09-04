@@ -10,6 +10,9 @@ GET   /games/popular      controllers.Game.popular(page: Int ?= 1)
 GET   /games/analysed     controllers.Game.analysed(page: Int ?= 1)
 GET   /games/featured/js  controllers.Game.featuredJs(id: String ?= "")
 
+# Search
+GET   /games/search       controllers.Search.form
+
 # Round
 GET   /$gameId<[\w\-]{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")
 GET   /$gameId<[\w\-]{8}>/$color<white|black>        controllers.Round.watcher(gameId: String, color: String)

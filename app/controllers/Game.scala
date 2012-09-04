@@ -6,17 +6,11 @@ import http.Context
 
 import play.api.mvc.Result
 
-object Game extends LilaController {
+object Game extends LilaController with BaseGame {
 
-  def gameRepo = env.game.gameRepo
   def paginator = env.game.paginator
   def analysePaginator = env.analyse.paginator
   def cached = env.game.cached
-  def analyseCached = env.analyse.cached
-  def bookmarkApi = env.bookmark.api
-  def listMenu = env.game.listMenu
-
-  val maxPage = 40
 
   val realtime = Open { implicit ctx ⇒
     IOk(gameRepo recentGames 9 map { games ⇒
@@ -60,10 +54,4 @@ object Game extends LilaController {
       html.game.featuredJs(gameOption)
     })
   }
-
-  private def reasonable(page: Int)(result: ⇒ Result): Result =
-    (page < maxPage).fold(result, BadRequest("too old"))
-
-  private def makeListMenu(implicit ctx: Context) =
-    listMenu(bookmarkApi.countByUser, analyseCached.nbAnalysis, ctx.me)
 }

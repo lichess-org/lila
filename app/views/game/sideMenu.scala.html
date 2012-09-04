@@ -3,6 +3,9 @@
 <a class="@active.active("realtime")" href="@routes.Game.realtime()">
   @trans.gamesBeingPlayedRightNow()
 </a>
+<a class="@active.active("search")" href="@routes.Search.form()">
+  @trans.advancedSearch()
+</a>
 <a class="@active.active("all")" href="@routes.Game.all()">
   @trans.viewAllNbGames(listMenu.nbGames.localize)
 </a>
