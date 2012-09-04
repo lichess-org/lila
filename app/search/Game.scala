@@ -9,16 +9,16 @@ import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
 object Game {
 
   object fields {
-    val status = "status"
-    val turns = "turns"
-    val rated = "rated"
-    val variant = "variant"
-    val uids = "uids"
-    val elos = "elos"
+    val status = "st"
+    val turns = "tu"
+    val rated = "ra"
+    val variant = "va"
+    val uids = "ui"
+    val averageElo = "el"
     val ai = "ai"
-    val opening = "opening"
-    val date = "date"
-    val duration = "dur"
+    val opening = "op"
+    val date = "da"
+    val duration = "du"
   }
   import fields._
 
@@ -37,8 +37,8 @@ object Game {
         field(rated, "boolean"),
         field(variant, "short"),
         field(uids, "string"),
-        field(elos, "short"),
-        field(ai, "boolean"),
+        field(averageElo, "short"),
+        field(ai, "short"),
         field(opening, "string"),
         field(date, "date", attrs = Map("format" -> dateFormat)),
         field(duration, "short")
@@ -55,8 +55,8 @@ object Game {
     rated -> game.rated,
     variant -> game.variant.id,
     uids -> game.userIds,
-    elos -> game.userElos,
-    ai -> game.hasAi,
+    averageElo -> game.averageUsersElo,
+    ai -> (game.aiLevel | 0),
     date -> (dateFormatter print createdAt),
     duration -> game.estimateTotalTime
     ).combine(OpeningExplorer openingOf game.pgn)((map, o) ⇒
