@@ -17,9 +17,6 @@ object Game {
     val elos = "elos"
     val ai = "ai"
     val opening = "opening"
-    //val clock = "clock"
-    //val clockLimit = "clock.limit"
-    //val clockInc = "clock.inc"
     val date = "date"
     val duration = "dur"
   }
@@ -43,10 +40,6 @@ object Game {
         field(elos, "short"),
         field(ai, "boolean"),
         field(opening, "string"),
-        //obj(clock, List(
-          //field("limit", "short"),
-          //field("inc", "short")
-        //).toMap),
         field(date, "date", attrs = Map("format" -> dateFormat)),
         field(duration, "short")
       ).toMap
@@ -66,11 +59,6 @@ object Game {
     ai -> game.hasAi,
     date -> (dateFormatter print createdAt),
     duration -> game.estimateTotalTime
-  //).combine(game.clock)((map, c) ⇒
-      //map + (clock -> Map(
-        //"limit" -> c.limit,
-        //"inc" -> c.increment
-      //))
     ).combine(OpeningExplorer openingOf game.pgn)((map, o) ⇒
       map + (opening -> o.code.toLowerCase)
     )
