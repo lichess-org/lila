@@ -14,22 +14,21 @@ final class SearchEnv(
 
   import settings._
 
+  lazy val forms = new DataForm
+
   lazy val indexer = new Indexer(
     es = esIndexer,
     gameRepo = gameRepo)
 
-  private lazy val esIndexer = {
-    println("Start ElasticSearch")
-
-    //val i = EsIndexer.using(Map())
-    //val i = EsIndexer.local
-    val i = EsIndexer.transport(
-      settings = Map(
-        "cluster.name" -> "elasticsearch"
-      ),
-      host = "localhost",
-      ports = Seq(9300))
-
-    i.start ~ { _ ⇒ println("Done") }
-  }
+  private lazy val esIndexer = EsIndexer.transport(
+    settings = Map(
+      "cluster.name" -> SearchESCluster
+    ),
+    host = SearchESHost,
+    ports = Seq(SearchESPort)
+  ) ~ { transport ⇒
+      println("Start ElasticSearch")
+      transport.start
+      println("ElasticSearch is running")
+    }
 }

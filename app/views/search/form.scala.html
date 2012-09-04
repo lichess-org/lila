@@ -1,0 +1,67 @@
+@(listMenu: lila.game.ListMenu, form: Form[_])(implicit ctx: Context)
+
+@import lila.search.Query
+
+@game.layout(
+title = trans.advancedSearch.str(),
+menu = game.sideMenu(listMenu, "search").some) {
+<div class="content_box">
+  <h1 class="title">@trans.advancedSearch()</h1>
+  <form class="search_form" action="@routes.Search.form()" method="get">
+    <table>
+      <tr>
+        <th>
+          <label for="@form("usernames").id">Users</label>
+        </th>
+        <td>
+          <input
+          type="text"
+          value="@form("usernames").value"
+          name="@form("usernames").name"
+          id="@form("usernames").id" />
+        </td>
+        <th>Type up to two usernames</th>
+      </tr>
+      <tr>
+        <th>
+          <label for="@form("variant").id">@trans.variant()</label>
+        </th>
+        <td>
+          @select(form("variant"), Query.variants, "Any variant")
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <label for="@form("mode").id">@trans.mode()</label>
+        </th>
+        <td>
+          @select(form("mode"), Query.modes, "Casual or Rated")
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <label for="@form("opening").id">@trans.opening()</label>
+        </th>
+        <td>
+          @select(form("opening"), Query.openings, "Any opening")
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <label>Number of turns</label>
+        </th>
+        <td>
+          From @select(form("turns_min"), Query.turns, "Any number of turns")
+          To @select(form("turns_max"), Query.turns, "Any number of turns")
+        </td>
+      </tr>
+      <tr>
+        <th></th>
+        <td>
+          <input type="submit" class="submit" value="Search" />
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+}

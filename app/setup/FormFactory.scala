@@ -11,7 +11,7 @@ import scalaz.effects._
 final class FormFactory(
     configRepo: UserConfigRepo) {
 
-      import Mappings._
+  import Mappings._
 
   def aiFilled(implicit ctx: Context): IO[Form[AiConfig]] =
     aiConfig map ai(ctx).fill

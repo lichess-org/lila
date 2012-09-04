@@ -2,6 +2,7 @@ package lila
 package search
 
 import Game.fields
+import chess.{ Variant, Mode, EcoDb }
 
 import org.elasticsearch.index.query._, FilterBuilders._, QueryBuilders._
 
@@ -48,6 +49,18 @@ case class Query(
 object Query {
 
   val durations = List(0, 1, 2, 3, 5, 10, 15, 20, 30)
+
+  val variants = Variant.all map { v ⇒ v.id -> v.name }
+
+  val modes = Mode.all map { mode ⇒ mode.id -> mode.name }
+
+  val openings = EcoDb.db map {
+    case (code, name, _) ⇒ code -> (code + " " + name)
+  }
+
+  val turns = {
+    (1 to 5) ++ (10 to 45 by 5) ++ (50 to 90 by 10) ++ (100 to 300 by 25)
+  }.toList map { t ⇒ t -> (t + " turns") }
 
   def test = Query(
     usernames = List("thibault"),
