@@ -3,6 +3,6 @@
 <select id="@field.id" name="@field.name">
   <option class="blank" value="">@default</option>
   @options.map { v =>
-  <option value="@v._1" @(if(field.value == Some(v._1)) "selected" else "")>@v._2</option>
+  <option value="@v._1" @(if(field.value == Some(v._1.toString)) "selected" else "")>@v._2</option>
   }
 </select>
