@@ -15,6 +15,7 @@ package object lila
     with scalalib.Common
     with scalalib.Regex
     with scalalib.IO
+    with scalalib.DateTime
     with scalaz.Identitys
     with scalaz.NonEmptyLists
     with scalaz.Strings

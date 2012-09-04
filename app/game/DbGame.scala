@@ -5,7 +5,7 @@ import round.{ Event, Progress }
 import user.User
 import chess.{ History ⇒ ChessHistory, Role, Board, Move, Pos, Game, Clock, Status, Color, Piece, Variant, Mode }
 import Color._
-import chess.format.{ pgn => chessPgn }
+import chess.format.{ pgn ⇒ chessPgn }
 import chess.Pos.piotr
 import chess.Role.forsyth
 
@@ -175,7 +175,7 @@ case class DbGame(
         fen ⇒ List(
           chessPgn.Tag(_.FEN, fen),
           chessPgn.Tag(_.Variant, variant.name)
-        ), 
+        ),
         Nil)
     ) map { replay ⇒
         val rewindedGame = replay.game
@@ -354,6 +354,12 @@ case class DbGame(
     createdAt = createdAt,
     updatedAt = updatedAt
   )
+
+  def userIds = playerMaps(_.userId)
+
+  def userElos = playerMaps(_.elo)
+
+  private def playerMaps[A](f: DbPlayer ⇒ Option[A]): List[A] = players.map(f).flatten
 }
 
 object DbGame {
