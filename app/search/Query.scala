@@ -2,16 +2,18 @@ package lila
 package search
 
 import Game.fields
-import chess.{ Variant, Mode, EcoDb }
+import chess.{ Variant, Mode, Status, EcoDb }
 
 import org.elasticsearch.index.query._, FilterBuilders._, QueryBuilders._
 
 case class Query(
     usernames: List[String] = Nil,
     variant: Option[Int] = None,
+    status: Option[Int] = None,
     turns: Range[Int] = Range.none,
     averageElo: Range[Int] = Range.none,
-    ai: Range[Int] = Range.none,
+    hasAi: Option[Boolean] = None,
+    aiLevel: Range[Int] = Range.none,
     rated: Option[Boolean] = None,
     opening: Option[String] = None,
     date: Range[String] = Range.none,
@@ -33,10 +35,17 @@ case class Query(
     duration filters fields.duration,
     date filters fields.date,
     averageElo filters fields.date,
-    ai filters fields.ai,
+    hasAi.toList map { a ⇒
+      a.fold(
+        rangeFilter(fields.ai) gt 0,
+        termFilter(fields.ai, null)
+      )
+    },
+    aiLevel filters fields.ai,
     toFilter(variant, fields.variant),
     toFilter(rated, fields.rated),
-    toFilter(opening, fields.opening)
+    toFilter(opening, fields.opening),
+    toFilter(status, fields.status)
   ).flatten
 
   def toFilter(query: Option[_], name: String) =
@@ -48,7 +57,9 @@ case class Query(
 
 object Query {
 
-  val durations = List(0, 1, 2, 3, 5, 10, 15, 20, 30)
+  val durations = List(0, 1, 2, 3, 5, 10, 15, 20, 30) map { d ⇒
+    d -> (d + " minutes")
+  }
 
   val variants = Variant.all map { v ⇒ v.id -> v.name }
 
@@ -61,6 +72,26 @@ object Query {
   val turns = {
     (1 to 5) ++ (10 to 45 by 5) ++ (50 to 90 by 10) ++ (100 to 300 by 25)
   }.toList map { t ⇒ t -> (t + " turns") }
+
+  val averageElos = (800 to 2300 by 100).toList map { e ⇒ e -> (e + " ELO") }
+
+  val hasAis = List(
+    0 -> "Human opponent",
+    1 -> "Computer opponent")
+
+  val aiLevels = (1 to 8) map { l ⇒ l -> ("Stockfish level " + l) }
+
+  val dates = List("0d" -> "Today") ++ {
+    (1 to 6) map { d ⇒ (d + "d") -> (d + " days ago") }
+  } ++ {
+    (1 to 3) map { w ⇒ (w + "w") -> (w + " weeks ago") }
+  } ++ {
+    (1 to 6) map { m ⇒ (m + "m") -> (m + " months ago") }
+  } ++ {
+    (1 to 3) map { y ⇒ (y + "y") -> (y + " years ago") }
+  }
+
+  val statuses = Status.finishedNotCheated map { s ⇒ s.id -> s.name }
 
   def test = Query(
     usernames = List("thibault"),
@@ -77,7 +108,8 @@ object Query {
     turns = Range(20.some, 100.some),
     averageElo = Range(1100.some, 2000.some),
     opening = "A00".some,
-    ai = Range.none,
+    hasAi = true.some,
+    aiLevel = Range.none,
     date = Range("2011-01-01".some, none),
     sorting = Sorting(fields.date, "desc")
   )

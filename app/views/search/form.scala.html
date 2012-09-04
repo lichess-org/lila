@@ -11,7 +11,7 @@ menu = game.sideMenu(listMenu, "search").some) {
     <table>
       <tr>
         <th>
-          <label for="@form("usernames").id">Users</label>
+          <label for="@form("usernames").id">Players</label>
         </th>
         <td>
           <input
@@ -40,6 +40,14 @@ menu = game.sideMenu(listMenu, "search").some) {
       </tr>
       <tr>
         <th>
+          <label for="@form("status").id">Result</label>
+        </th>
+        <td>
+          @select(form("status"), Query.statuses, "Any result")
+        </td>
+      </tr>
+      <tr>
+        <th>
           <label for="@form("opening").id">@trans.opening()</label>
         </th>
         <td>
@@ -53,6 +61,49 @@ menu = game.sideMenu(listMenu, "search").some) {
         <td>
           From @select(form("turnsMin"), Query.turns, "Any number of turns")
           To @select(form("turnsMax"), Query.turns, "Any number of turns")
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <label>Players ELO</label>
+        </th>
+        <td>
+          From @select(form("eloMin"), Query.averageElos, "Any ELO")
+          To @select(form("eloMax"), Query.averageElos, "Any ELO")
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <label for="@form("hasAi").id">Opponent</label>
+        </th>
+        <td>
+          @select(form("hasAi"), Query.hasAis, "Human or Computer")
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <label for="@form("aiLevel").id">Stockfish level</label>
+        </th>
+        <td>
+          @select(form("aiLevel"), Query.aiLevels, "Any Stockfish level")
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <label>Duration</label>
+        </th>
+        <td>
+          From @select(form("durationMin"), Query.durations, "Any duration")
+          To @select(form("durationMax"), Query.durations, "Any duration")
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <label>Date</label>
+        </th>
+        <td>
+          From @select(form("dateMin"), Query.dates, "Any date")
+          To @select(form("dateMax"), Query.dates, "Any date")
         </td>
       </tr>
       <tr>
