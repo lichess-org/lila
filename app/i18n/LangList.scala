@@ -130,7 +130,7 @@ object LangList {
     "qu" -> "Runa Simi, Kichw",
     "rm" -> "rumantsch grischu",
     "rn" -> "kiRund",
-    "ro" -> "român",
+    "ro" -> "Română",
     "ru" -> "русский язык",
     "sa" -> "संस्कृत",
     "sc" -> "sard",

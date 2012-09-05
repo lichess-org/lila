@@ -12,6 +12,10 @@ case class Range[A](a: Option[A], b: Option[A]) {
     ),
     b.toList map { bb ⇒ rangeFilter(name) lte bb }
   )
+
+  def map[B](f: A ⇒ B) = Range(a map f, b map f)
+
+  def nonEmpty = a.nonEmpty || b.nonEmpty
 }
 
 object Range {

@@ -1,13 +1,31 @@
-@(listMenu: lila.game.ListMenu, form: Form[_])(implicit ctx: Context)
+@(listMenu: lila.game.ListMenu, form: Form[_], paginator: Option[Paginator[DbGame]] = None)(implicit ctx: Context)
 
 @import lila.search.Query
+@import lila.search.Sorting
+
+@moreCss = {
+@cssTag("search.css")
+}
+@moreJs = {
+@jsTag("search.js")
+@jsTag("vendor/jquery.infinitescroll.min.js")
+}
 
 @game.layout(
 title = trans.advancedSearch.str(),
-menu = game.sideMenu(listMenu, "search").some) {
-<div class="content_box">
-  <h1 class="title">@trans.advancedSearch()</h1>
-  <form class="search_form" action="@routes.Search.form()" method="get">
+menu = game.sideMenu(listMenu, "search").some,
+moreJs = moreJs,
+moreCss = moreCss) {
+<div class="content_box no_padding">
+  <div class="content_box_title">
+    <h1 class="title">
+      @trans.advancedSearch() 
+      @paginator.map { pager =>
+      (@pager.nbResults.localize results)
+      }
+    </h1>
+  </div>
+  <form class="search" action="@routes.Search.form()" method="get">
     <table>
       <tr>
         <th>
@@ -20,64 +38,24 @@ menu = game.sideMenu(listMenu, "search").some) {
           name="@form("usernames").name"
           id="@form("usernames").id" />
         </td>
-        <th>Type up to two usernames</th>
-      </tr>
-      <tr>
-        <th>
-          <label for="@form("variant").id">@trans.variant()</label>
-        </th>
-        <td>
-          @select(form("variant"), Query.variants, "Any variant")
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <label for="@form("mode").id">@trans.mode()</label>
-        </th>
-        <td>
-          @select(form("mode"), Query.modes, "Casual or Rated")
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <label for="@form("status").id">Result</label>
-        </th>
-        <td>
-          @select(form("status"), Query.statuses, "Any result")
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <label for="@form("opening").id">@trans.opening()</label>
-        </th>
-        <td>
-          @select(form("opening"), Query.openings, "Any opening")
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <label>Number of turns</label>
-        </th>
-        <td>
-          From @select(form("turnsMin"), Query.turns, "Any number of turns")
-          To @select(form("turnsMax"), Query.turns, "Any number of turns")
-        </td>
+        <th class="help">Type up to two usernames</th>
       </tr>
       <tr>
         <th>
           <label>Players ELO</label>
         </th>
         <td>
-          From @select(form("eloMin"), Query.averageElos, "Any ELO")
-          To @select(form("eloMax"), Query.averageElos, "Any ELO")
+          <div class="half">From @select(form("eloMin"), Query.averageElos, "Any ELO".some)</div>
+          <div class="half">To @select(form("eloMax"), Query.averageElos, "Any ELO".some)</div>
         </td>
+        <th class="help">Average of both players ELO</th>
       </tr>
       <tr>
         <th>
           <label for="@form("hasAi").id">Opponent</label>
         </th>
-        <td>
-          @select(form("hasAi"), Query.hasAis, "Human or Computer")
+        <td class="single">
+          @select(form("hasAi"), Query.hasAis, "Human or Computer".some)
         </td>
       </tr>
       <tr>
@@ -85,7 +63,41 @@ menu = game.sideMenu(listMenu, "search").some) {
           <label for="@form("aiLevel").id">Stockfish level</label>
         </th>
         <td>
-          @select(form("aiLevel"), Query.aiLevels, "Any Stockfish level")
+          <div class="half">From @select(form("aiLevelMin"), Query.aiLevels, "Any Stockfish level".some)</div>
+          <div class="half">To @select(form("aiLevelMax"), Query.aiLevels, "Any Stockfish level".some)</div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <label for="@form("variant").id">@trans.variant()</label>
+        </th>
+        <td class="single">
+          @select(form("variant"), Query.variants, "Any variant".some)
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <label for="@form("mode").id">@trans.mode()</label>
+        </th>
+        <td class="single">
+          @select(form("mode"), Query.modes, "Casual or Rated".some)
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <label for="@form("opening").id">@trans.opening()</label>
+        </th>
+        <td class="single">
+          @select(form("opening"), Query.openings, "Any opening".some)
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <label>Number of turns</label>
+        </th>
+        <td>
+          <div class="half">From @select(form("turnsMin"), Query.turns, "Any number of turns".some)</div>
+          <div class="half">To @select(form("turnsMax"), Query.turns, "Any number of turns".some)</div>
         </td>
       </tr>
       <tr>
@@ -93,8 +105,16 @@ menu = game.sideMenu(listMenu, "search").some) {
           <label>Duration</label>
         </th>
         <td>
-          From @select(form("durationMin"), Query.durations, "Any duration")
-          To @select(form("durationMax"), Query.durations, "Any duration")
+          <div class="half">From @select(form("durationMin"), Query.durations, "Any duration".some)</div>
+          <div class="half">To @select(form("durationMax"), Query.durations, "Any duration".some)</div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <label for="@form("status").id">Result</label>
+        </th>
+        <td class="single">
+          @select(form("status"), Query.statuses, "Any result".some)
         </td>
       </tr>
       <tr>
@@ -102,8 +122,17 @@ menu = game.sideMenu(listMenu, "search").some) {
           <label>Date</label>
         </th>
         <td>
-          From @select(form("dateMin"), Query.dates, "Any date")
-          To @select(form("dateMax"), Query.dates, "Any date")
+          <div class="half">From @select(form("dateMin"), Query.dates, "Any date".some)</div>
+          <div class="half">To @select(form("dateMax"), Query.dates, "Any date".some)</div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <label>Sort</label>
+        </th>
+        <td>
+          <div class="half">By @select(form("sortField"), Sorting.fields)</div>
+          <div class="half">Order @select(form("sortOrder"), Sorting.orders)</div>
         </td>
       </tr>
       <tr>
@@ -111,8 +140,21 @@ menu = game.sideMenu(listMenu, "search").some) {
         <td>
           <input type="submit" class="submit" value="Search" />
         </td>
+        <th class="help">
+          Or <a href="@routes.Search.form()">Reset form</a>
+        </th>
       </tr>
     </table>
   </form>
+  @paginator.map { pager =>
+  <div class="all_games search_infinitescroll">
+    @pager.nextPage.map { n =>
+    <div class="pager none"><a href="@routes.Search.form(n)">Next</a></div>
+    }.getOrElse {
+    <div class="none"></div>
+    }
+    @game.widgets(pager.currentPageResults)
+  </div>
+  }
 </div>
 }

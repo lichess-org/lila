@@ -6,18 +6,20 @@ import com.traackr.scalastic.elasticsearch.SearchParameterTypes.FieldSort
 
 case class Sorting(field: String, order: String) {
 
-  def fieldSort = if (Sorting.fields contains field)
-    Sorting.orders find (_.toString == order) map { order ⇒
-      FieldSort(field, order = order)
-    }
-  else none
+  def fieldSort = FieldSort(
+    field = (Sorting.fields contains field).fold(field, Sorting.default.field),
+    order = (order == SortOrder.ASC.toString).fold(SortOrder.ASC, SortOrder.DESC)
+  )
 }
 
 object Sorting {
 
-  val fields = List("date", "turns")
+  val fields = List(
+    Game.fields.date -> "Date",
+    Game.fields.turns -> "Turns",
+    Game.fields.averageElo -> "Average ELO")
 
-  val orders = List(SortOrder.ASC, SortOrder.DESC)
+  val orders = List(SortOrder.ASC, SortOrder.DESC) map { s ⇒ s.toString -> s.toString }
 
-  val default = Sorting("date", "desc")
+  val default = Sorting(Game.fields.date, "desc")
 }
