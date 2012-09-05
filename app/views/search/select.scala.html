@@ -1,7 +1,9 @@
-@(field: play.api.data.Field, options: Seq[(Any,String)], default: String)
+@(field: play.api.data.Field, options: Seq[(Any,String)], default: Option[String] = None)
 
 <select id="@field.id" name="@field.name">
-  <option class="blank" value="">@default</option>
+  @default.map { d =>
+  <option class="blank" value=""></option>
+  }
   @options.map { v =>
   <option value="@v._1" @(if(field.value == Some(v._1.toString)) "selected" else "")>@v._2</option>
   }

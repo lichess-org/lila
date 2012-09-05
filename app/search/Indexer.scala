@@ -18,17 +18,13 @@ final class Indexer(es: EsIndexer, gameRepo: GameRepo) {
   def rebuildAll: IO[Unit] = for {
     _ ← clear
     nb ← indexAll
-    _ ← io {
-      es.waitTillCountAtLeast(Seq(indexName), typeName, nb)
-    }
+    _ ← io { es.waitTillCountAtLeast(Seq(indexName), typeName, nb) }
     _ ← optimize
   } yield ()
 
-  def search(request: Request): IO[List[DbGame]] = toGames {
-    request.in(indexName, typeName)(es)
-  }
+  def search(request: SearchRequest): SearchResponse = request.in(indexName, typeName)(es)
 
-  def search(query: Query): IO[List[DbGame]] = search(query.request)
+  def count(request: CountRequest): Int = request.in(indexName, typeName)(es)
 
   private def clear: IO[Unit] = io {
     es.deleteIndex(Seq(indexName))
@@ -39,7 +35,7 @@ final class Indexer(es: EsIndexer, gameRepo: GameRepo) {
   }
 
   private def indexAll: IO[Int] = io {
-    val cursor = gameRepo find GameQuery.finished sort GameQuery.sortCreated //limit 300000
+    val cursor = gameRepo find GameQuery.finished sort GameQuery.sortCreated //limit 3000
     var nb = 0
     for (games ← cursor grouped 5000) {
       println("Indexing " + nb)
@@ -59,7 +55,7 @@ final class Indexer(es: EsIndexer, gameRepo: GameRepo) {
     es.optimize(Seq(indexName))
   }
 
-  private def toGames(response: SearchResponse): IO[List[DbGame]] =
+  def toGames(response: SearchResponse): IO[List[DbGame]] =
     gameRepo games {
       response.hits.hits.toList map (_.id)
     }

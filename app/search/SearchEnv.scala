@@ -20,6 +20,10 @@ final class SearchEnv(
     es = esIndexer,
     gameRepo = gameRepo)
 
+  lazy val paginator = new PaginatorBuilder(
+    indexer = indexer,
+    maxPerPage = SearchPaginatorMaxPerPage)
+
   private lazy val esIndexer = EsIndexer.transport(
     settings = Map(
       "cluster.name" -> SearchESCluster

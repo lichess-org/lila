@@ -25,7 +25,7 @@ object Game {
   def mapping = {
     def field(name: String, typ: String, analyzed: Boolean = false, attrs: Map[String, Any] = Map.empty) =
       name -> (Map(
-        "type" -> typ, 
+        "type" -> typ,
         "index" -> analyzed.fold("analyzed", "not_analyzed")
       ) ++ attrs)
     def obj(name: String, properties: Map[String, Any]) =
@@ -48,23 +48,21 @@ object Game {
 
   def from(game: DbGame) = for {
     createdAt ← game.createdAt
-    updatedAt ← game.updatedAt
-  } yield game.id -> Map(
-    status -> game.status.id,
-    turns -> game.turns,
-    rated -> game.rated,
-    variant -> game.variant.id,
-    uids -> game.userIds,
+  } yield game.id -> (List(
+    status -> game.status.id.some,
+    turns -> game.turns.some,
+    rated -> game.rated.some,
+    variant -> game.variant.id.some,
+    uids -> (game.userIds.toNel map (_.list)),
     averageElo -> game.averageUsersElo,
-    ai -> (game.aiLevel | 0),
-    date -> (dateFormatter print createdAt),
-    duration -> game.estimateTotalTime
-    ).combine(OpeningExplorer openingOf game.pgn)((map, o) ⇒
-      map + (opening -> o.code.toLowerCase)
-    )
+    ai -> game.aiLevel,
+    date -> (dateFormatter print createdAt).some,
+    duration -> game.estimateTotalTime.some,
+    opening -> (OpeningExplorer openingOf game.pgn map (_.code.toLowerCase))
+  ) collect {
+      case (x, Some(y)) ⇒ x -> y
+    }).toMap
 
   private val dateFormat = "YYYY-MM-dd HH:mm:ss"
-
-  private val dateFormatter: DateTimeFormatter =
-    DateTimeFormat forPattern dateFormat
+  val dateFormatter: DateTimeFormatter = DateTimeFormat forPattern dateFormat
 }

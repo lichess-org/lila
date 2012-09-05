@@ -360,9 +360,9 @@ case class DbGame(
   def userElos = playerMaps(_.elo)
 
   def averageUsersElo = userElos match {
-    case a :: b :: Nil => Some((a + b) / 2)
-    case a :: Nil => Some(a)
-    case Nil => None
+    case a :: b :: Nil ⇒ Some((a + b) / 2)
+    case a :: Nil      ⇒ Some(a)
+    case Nil           ⇒ None
   }
 
   private def playerMaps[A](f: DbPlayer ⇒ Option[A]): List[A] = players.map(f).flatten

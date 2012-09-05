@@ -8,16 +8,22 @@ import play.api.mvc.Result
 
 object Search extends LilaController with BaseGame {
 
+  val indexer = env.search.indexer
   val forms = env.search.forms
 
-  val form = OpenBody { implicit ctx ⇒
-    val f = forms.search
-    implicit def req = ctx.body
-    f.bindFromRequest.fold(
-      failure ⇒ throw new Exception(failure.toString),
-      data ⇒ {
-        Ok(html.search.form(makeListMenu, f fill data))
-      }
-    )
+  def form(page: Int) = OpenBody { implicit ctx ⇒
+    reasonable(page) {
+      implicit def req = ctx.body
+      forms.search.bindFromRequest.fold(
+        failure ⇒ Ok(html.search.form(makeListMenu, failure)),
+        data ⇒ {
+          Ok(html.search.form(
+            makeListMenu,
+            forms.search fill data,
+            data.query.nonEmpty option env.search.paginator(data.query, page)
+          ))
+        }
+      )
+    }
   }
 }

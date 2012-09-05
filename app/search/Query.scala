@@ -5,6 +5,8 @@ import Game.fields
 import chess.{ Variant, Mode, Status, EcoDb }
 
 import org.elasticsearch.index.query._, FilterBuilders._, QueryBuilders._
+import org.joda.time.DateTime
+import org.scala_tools.time.Imports._
 
 case class Query(
     usernames: List[String] = Nil,
@@ -16,48 +18,62 @@ case class Query(
     aiLevel: Range[Int] = Range.none,
     rated: Option[Boolean] = None,
     opening: Option[String] = None,
-    date: Range[String] = Range.none,
+    date: Range[DateTime] = Range.none,
     duration: Range[Int] = Range.none,
     sorting: Sorting = Sorting.default) {
 
-  def request = Request(
-    query = matchAllQuery,
-    filter = filters.toNel map { fs ⇒
-      andFilter(fs.list: _*)
-    },
-    sortings = sorting.fieldSort.toList
-  )
+  def nonEmpty = 
+    usernames.nonEmpty ||
+    variant.nonEmpty ||
+    status.nonEmpty ||
+    turns.nonEmpty ||
+    averageElo.nonEmpty ||
+    hasAi.nonEmpty ||
+    aiLevel.nonEmpty ||
+    rated.nonEmpty ||
+    opening.nonEmpty ||
+    date.nonEmpty ||
+    duration.nonEmpty 
 
-  def filters = List(
+  def searchRequest(from: Int = 0, size: Int = 10) = SearchRequest(
+    query = matchAllQuery,
+    filter = filters,
+    sortings = List(sorting.fieldSort),
+    from = from,
+    size = size)
+
+  def countRequest = CountRequest(matchAllQuery, filters)
+
+  private def filters = List(
     usernames map { u ⇒ termFilter(fields.uids, u.toLowerCase) },
     turns filters fields.turns,
     averageElo filters fields.averageElo,
-    duration filters fields.duration,
-    date filters fields.date,
+    duration map (60 *) filters fields.duration,
+    date map Game.dateFormatter.print filters fields.date,
     averageElo filters fields.date,
-    hasAi.toList map { a ⇒
-      a.fold(
-        rangeFilter(fields.ai) gt 0,
-        termFilter(fields.ai, null)
-      )
-    },
+    hasAiFilters,
     aiLevel filters fields.ai,
-    toFilter(variant, fields.variant),
-    toFilter(rated, fields.rated),
-    toFilter(opening, fields.opening),
-    toFilter(status, fields.status)
-  ).flatten
-
-  def toFilter(query: Option[_], name: String) =
-    query.toList map {
-      case s: String ⇒ termFilter(name, s.toLowerCase)
-      case x         ⇒ termFilter(name, x)
+    toFilters(variant, fields.variant),
+    toFilters(rated, fields.rated),
+    toFilters(opening, fields.opening),
+    toFilters(status, fields.status)
+  ).flatten.toNel map { fs ⇒
+      andFilter(fs.list: _*)
     }
+
+  private def hasAiFilters = hasAi.toList map { a ⇒
+    a.fold(existsFilter(fields.ai), missingFilter(fields.ai))
+  }
+
+  private def toFilters(query: Option[_], name: String) = query.toList map {
+    case s: String ⇒ termFilter(name, s.toLowerCase)
+    case x         ⇒ termFilter(name, x)
+  }
 }
 
 object Query {
 
-  val durations = List(0, 1, 2, 3, 5, 10, 15, 20, 30) map { d ⇒
+  val durations = List(1, 2, 3, 5, 10, 15, 20, 30) map { d ⇒
     d -> (d + " minutes")
   }
 
@@ -66,7 +82,7 @@ object Query {
   val modes = Mode.all map { mode ⇒ mode.id -> mode.name }
 
   val openings = EcoDb.db map {
-    case (code, name, _) ⇒ code -> (code + " " + name)
+    case (code, name, _) ⇒ code -> (code + " " + name.take(50))
   }
 
   val turns = {
@@ -95,7 +111,7 @@ object Query {
 
   def test = Query(
     usernames = List("thibault"),
-    duration = Range(60.some, 150.some),
+    duration = Range(1.some, 3.some),
     sorting = Sorting(fields.averageElo, "desc")
   )
   def test2 = Query(
@@ -110,7 +126,7 @@ object Query {
     opening = "A00".some,
     hasAi = true.some,
     aiLevel = Range.none,
-    date = Range("2011-01-01".some, none),
+    date = Range(Some(DateTime.now - 1.year), none),
     sorting = Sorting(fields.date, "desc")
   )
 }
