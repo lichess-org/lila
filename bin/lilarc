@@ -1,7 +1,8 @@
 #!/bin/sh
 
 HTTP_PORT=9000
-JVM_OPTIONS="-Dconfig.file=conf/local.conf -Dhttp.port=$HTTP_PORT"
+HTTP_ADDRESS="127.0.0.1"
+JVM_OPTIONS="-Dconfig.file=conf/local.conf -Dhttp.port=$HTTP_PORT -Dhttp.address=$HTTP_ADDRESS"
 LOG_FILE="logs/play.log"
 PROD_URL="http://en.lichess.org"
 
