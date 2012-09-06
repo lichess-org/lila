@@ -8,7 +8,7 @@ case class Sorting(field: String, order: String) {
 
   def fieldSort = FieldSort(
     field = (Sorting.fields contains field).fold(field, Sorting.default.field),
-    order = (order == SortOrder.ASC.toString).fold(SortOrder.ASC, SortOrder.DESC)
+    order = (order.toLowerCase == "asc").fold(SortOrder.ASC, SortOrder.DESC)
   )
 }
 
