@@ -26,6 +26,17 @@ final class Indexer(es: EsIndexer, gameRepo: GameRepo) {
 
   def count(request: CountRequest): Int = request.in(indexName, typeName)(es)
 
+  def index(game: DbGame): IO[Unit] = (Game from game).fold(
+    doc ⇒ (for {
+      _ ← putStrLn("Search indexing game " + game.id + " as " + doc)
+      _ ← io(es.index(indexName, typeName, game.id, Json generate doc))
+      _ ← optimize
+    } yield ()) except { e ⇒
+      putStrLn("Search index: fail to index game " + game.id + " - " + e.getMessage)
+    },
+    putStrLn("Search index: fail to produce a document from game " + game.id)
+  )
+
   private def clear: IO[Unit] = io {
     es.deleteIndex(Seq(indexName))
     es.createIndex(indexName, settings = Map())
@@ -40,7 +51,7 @@ final class Indexer(es: EsIndexer, gameRepo: GameRepo) {
     for (games ← cursor grouped 5000) {
       println("Indexing " + nb)
       val actions = games map (_.decode flatMap Game.from) collect {
-        case Some((id, doc)) ⇒ 
+        case Some((id, doc)) ⇒
           es.index_prepare(indexName, typeName, id, Json generate doc).request
       }
       if (actions.nonEmpty) {
