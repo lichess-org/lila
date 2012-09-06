@@ -25,7 +25,8 @@ final class RoundEnv(
     i18nKeys: I18nKeys,
     ai: () ⇒ Ai,
     countMove: () ⇒ Unit,
-    flood: Flood) {
+    flood: Flood,
+    indexGame: DbGame ⇒ IO[Unit]) {
 
   implicit val ctx = app
   import settings._
@@ -68,7 +69,8 @@ final class RoundEnv(
     messenger = messenger,
     eloUpdater = eloUpdater,
     eloCalculator = eloCalculator,
-    finisherLock = finisherLock)
+    finisherLock = finisherLock,
+    indexGame = indexGame)
 
   lazy val eloCalculator = new chess.EloCalculator(true)
 

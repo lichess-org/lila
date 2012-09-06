@@ -1,15 +1,15 @@
 package lila
 package search
 
-import game.GameRepo
+import game.{ GameRepo, DbGame }
 import core.Settings
 
-import com.traackr.scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
-import scalaz.effects._
-import akka.dispatch.Future
+import com.traackr.scalastic.elasticsearch
+import com.mongodb.casbah.MongoCollection
 
 final class SearchEnv(
     settings: Settings,
+    mongodb: String ⇒ MongoCollection,
     gameRepo: GameRepo) {
 
   import settings._
@@ -18,13 +18,19 @@ final class SearchEnv(
 
   lazy val indexer = new Indexer(
     es = esIndexer,
-    gameRepo = gameRepo)
+    gameRepo = gameRepo,
+    queue = queue)
 
   lazy val paginator = new PaginatorBuilder(
     indexer = indexer,
     maxPerPage = SearchPaginatorMaxPerPage)
 
-  private lazy val esIndexer = EsIndexer.transport(
+  def indexGame(game: DbGame) = queue enqueue game
+
+  private lazy val queue = new Queue(
+    collection = mongodb(SearchCollectionQueue))
+
+  private lazy val esIndexer = elasticsearch.Indexer.transport(
     settings = Map(
       "cluster.name" -> SearchESCluster
     ),

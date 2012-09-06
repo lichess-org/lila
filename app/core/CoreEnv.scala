@@ -94,7 +94,8 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     i18nKeys = i18n.keys,
     ai = ai.ai,
     countMove = monitor.mpsProvider.countRequest,
-    flood = security.flood)
+    flood = security.flood,
+    indexGame = search.indexGame)
 
   lazy val analyse = new lila.analyse.AnalyseEnv(
     settings = settings,
@@ -122,6 +123,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
 
   lazy val search = new lila.search.SearchEnv(
     settings = settings,
+    mongodb = mongodb.apply _,
     gameRepo = game.gameRepo)
 
   lazy val metaHub = new lila.socket.MetaHub(
