@@ -29,6 +29,7 @@ final class Settings(config: Config) {
   val SearchESPort = getInt("search.elasticsearch.port")
   val SearchESCluster = getString("search.elasticsearch.cluster")
   val SearchPaginatorMaxPerPage = getInt("search.paginator.max_per_page")
+  val SearchCollectionQueue = getString("search.collection.queue")
 
   val RoundMessageLifetime = millis("round.message.lifetime")
   val RoundUidTimeout = millis("round.uid.timeout")

@@ -72,6 +72,10 @@ object Cron {
       env.ai.clientDiagnose
     }
 
+    effect(15 seconds, "index finished games") {
+      env.search.indexer.indexQueue
+    }
+
     def message(freq: Duration)(to: (ActorRef, Any)) {
       Akka.system.scheduler.schedule(freq, freq.randomize(), to._1, to._2)
     }
