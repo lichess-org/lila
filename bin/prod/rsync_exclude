@@ -6,6 +6,8 @@ project/project
 project/target
 target
 serve/
+data/
+play/repository/
 RUNNING_PID
 .git*
 .ctags
