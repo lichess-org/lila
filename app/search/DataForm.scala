@@ -60,7 +60,7 @@ case class SearchData(
     dateMax: Option[String],
     status: Option[Int],
     sortField: String = Sorting.default.field,
-    sortOrder: String = Sorting.default.field) {
+    sortOrder: String = Sorting.default.order) {
 
   lazy val query = Query(
     usernames = (~usernames).split(" ").toList map clean filter (_.nonEmpty),

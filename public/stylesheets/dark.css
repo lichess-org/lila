@@ -4,7 +4,7 @@ body.dark {
   color: #909090;
 }
 
-body.dark a, 
+body.dark a,
 body.dark a:visited {
   color: #909090;
 }
@@ -81,7 +81,8 @@ body.dark form.translation_form input,
 body.dark div.locale_menu a,
 body.dark div.adv_chart,
 body.dark #top .dropdown,
-body.dark div.lichess_overboard p.explanations 
+body.dark div.lichess_overboard p.explanations,
+body.dark form.search
 {
   border-color: #3e3e3e;
 }
@@ -99,7 +100,7 @@ body.dark #top ul.language_links a:hover
   color: #b0b0b0;
 }
 
-body.dark #site_title, 
+body.dark #site_title,
 body.dark #site_baseline,
 body.dark div.anon_chat a.user_link,
 body.dark div.undertable a.user_link,
@@ -112,9 +113,9 @@ body.dark #site_title span.extension {
   color: #707070;
 }
 
-body.dark #top a.goto_nav:hover, 
-body.dark #top a.toggle:hover, 
-body.dark #top a.bgpicker:hover, 
+body.dark #top a.goto_nav:hover,
+body.dark #top a.toggle:hover,
+body.dark #top a.bgpicker:hover,
 body.dark a#sound_state:hover,
 body.dark #top .dropdown,
 body.dark #top .shown a.toggle {
@@ -164,15 +165,12 @@ body.dark div.lichess_overboard {
 body.dark div.lichess_overboard.game_config {
   box-shadow: 0 0 20px #d0d0d0;
 }
-body.dark div.game_config .optional_config {
-  background: #343434;
-}
 
 body.dark div.lichess_table_not_started {
   box-shadow: none;
   background: none;
 }
-body.dark div.lichess_table a.lichess_button:hover, 
+body.dark div.lichess_table a.lichess_button:hover,
 body.dark div.lichess_table a.lichess_button.active {
   box-shadow: 0 0 9px #d85000;
   border: 1px solid #d85000;
@@ -204,7 +202,9 @@ body.dark div.content_box_inter,
 body.dark #GameText tr:nth-child(even),
 body.dark table.translations tbody tr:nth-child(even),
 body.dark form.translation_form div.message:nth-child(even),
-body.dark div.content_box table.datatable tr:nth-child(odd) 
+body.dark div.content_box table.datatable tr:nth-child(odd),
+body.dark div.game_config .optional_config,
+body.dark form.search
 {
   background: #343434;
 }
@@ -219,7 +219,7 @@ body.dark #lichess_forum div.post .message,
 body.dark #GameText a.move,
 body.dark form.translation_form div.message label,
 body.dark div.content_box h1,
-body.dark div.hooks a 
+body.dark div.hooks a
 {
   color: #b0b0b0;
 }
@@ -263,14 +263,14 @@ body.dark div.checkmateFen div.lmcs:hover {
 }
 
 /* soft inactive gradient */
-body.dark #top, 
-body.dark div.lichess_chat_top, 
-body.dark div.undertable_top, 
-body.dark .button, 
-body.dark .button:visited, 
-body.dark .ui-state-default, 
-body.dark div.content_box_top, 
-body.dark div.hooks tr, 
+body.dark #top,
+body.dark div.lichess_chat_top,
+body.dark div.undertable_top,
+body.dark .button,
+body.dark .button:visited,
+body.dark .ui-state-default,
+body.dark div.content_box_top,
+body.dark div.hooks tr,
 body.dark a.translation_call,
 body.dark div.notification,
 body.dark div.locale_menu a
@@ -297,15 +297,15 @@ body.dark .button:hover
   background: linear-gradient(top , #505050, #202020) repeat scroll 0 0 #505050;
 }
 /* active gradient */
-body.dark #top a.goto_nav.active, 
-body.dark .button.active, 
-body.dark .button.active:hover, 
-body.dark .ui-state-active, 
-body.dark .ui-widget-header, 
-body.dark div.pagination span.current, 
-body.dark #top span.new_messages.unread, 
-body.dark div.hooks td.action:hover, 
-body.dark div.hooks table.empty_table tr:hover, 
+body.dark #top a.goto_nav.active,
+body.dark .button.active,
+body.dark .button.active:hover,
+body.dark .ui-state-active,
+body.dark .ui-widget-header,
+body.dark div.pagination span.current,
+body.dark #top span.new_messages.unread,
+body.dark div.hooks td.action:hover,
+body.dark div.hooks table.empty_table tr:hover,
 body.dark div.progressbar.flashy div,
 body.dark div.locale_menu a.active
 {

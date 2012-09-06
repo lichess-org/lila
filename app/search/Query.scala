@@ -52,7 +52,7 @@ case class Query(
     date map Game.dateFormatter.print filters fields.date,
     averageElo filters fields.date,
     hasAiFilters,
-    aiLevel filters fields.ai,
+    (hasAi | true).fold(aiLevel filters fields.ai, Nil),
     toFilters(variant, fields.variant),
     toFilters(rated, fields.rated),
     toFilters(opening, fields.opening),

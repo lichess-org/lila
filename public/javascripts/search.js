@@ -17,4 +17,9 @@ $(function() {
       $('body').trigger('lichess.content_loaded');
     });
   });
+
+  var $form = $("form.search");
+  $form.find(".opponent select").change(function() {
+    $form.find(".aiLevel").toggle($(this).val() == 1);
+  }).trigger("change");
 });
