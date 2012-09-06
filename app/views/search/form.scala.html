@@ -54,11 +54,11 @@ moreCss = moreCss) {
         <th>
           <label for="@form("hasAi").id">Opponent</label>
         </th>
-        <td class="single">
+        <td class="single opponent">
           @select(form("hasAi"), Query.hasAis, "Human or Computer".some)
         </td>
       </tr>
-      <tr>
+      <tr class="aiLevel">
         <th>
           <label for="@form("aiLevel").id">Stockfish level</label>
         </th>
