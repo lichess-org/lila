@@ -94,7 +94,8 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     i18nKeys = i18n.keys,
     ai = ai.ai,
     countMove = monitor.mpsProvider.countRequest,
-    flood = security.flood)
+    flood = security.flood,
+    indexGame = search.indexer.index)
 
   lazy val analyse = new lila.analyse.AnalyseEnv(
     settings = settings,
@@ -102,6 +103,10 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     userRepo = user.userRepo,
     mongodb = mongodb.apply _,
     () ⇒ ai.ai().analyse _)
+
+  lazy val search = new lila.search.SearchEnv(
+    settings = settings,
+    gameRepo = game.gameRepo)
 
   lazy val bookmark = new lila.bookmark.BookmarkEnv(
     settings = settings,
@@ -119,10 +124,6 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     captcha = site.captcha,
     mongodb = mongodb.apply _,
     userRepo = user.userRepo)
-
-  lazy val search = new lila.search.SearchEnv(
-    settings = settings,
-    gameRepo = game.gameRepo)
 
   lazy val metaHub = new lila.socket.MetaHub(
     List(site.hub, lobby.hub, round.hubMaster))
