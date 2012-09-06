@@ -17,8 +17,7 @@ final class Finisher(
     messenger: Messenger,
     eloUpdater: EloUpdater,
     eloCalculator: EloCalculator,
-    finisherLock: FinisherLock,
-    indexGame: DbGame => IO[Unit]) {
+    finisherLock: FinisherLock) {
 
   type ValidIOEvents = Valid[IO[List[Event]]]
 
@@ -86,7 +85,6 @@ final class Finisher(
       _ ← updateElo(g)
       _ ← incNbGames(g, White)
       _ ← incNbGames(g, Black)
-      _ ← indexGame(g)
     } yield p2.events)
 
   private def incNbGames(game: DbGame, color: Color): IO[Unit] =
