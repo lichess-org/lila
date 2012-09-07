@@ -50,6 +50,13 @@ form.search th.help {
   padding-left: 10px;
 }
 
+div.no_result {
+  padding: 10px;
+  font-size: 1.3em;
+  font-style: italic;
+  text-align: center
+}
+
 /* Errors */
 form.search .error {
   margin-left: 160px;
