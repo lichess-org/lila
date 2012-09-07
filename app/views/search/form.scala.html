@@ -19,7 +19,7 @@ moreCss = moreCss) {
 <div class="content_box no_padding">
   <div class="content_box_title">
     <h1 class="title">
-      @trans.advancedSearch() 
+      @trans.advancedSearch()
       @paginator.map { pager =>
       (@pager.nbResults.localize results)
       }
@@ -147,6 +147,7 @@ moreCss = moreCss) {
     </table>
   </form>
   @paginator.map { pager =>
+  @if(pager.nbResults > 0) {
   <div class="all_games search_infinitescroll">
     @pager.nextPage.map { n =>
     <div class="pager none"><a href="@routes.Search.form(n)">Next</a></div>
@@ -155,6 +156,9 @@ moreCss = moreCss) {
     }
     @game.widgets(pager.currentPageResults)
   </div>
+  } else {
+  <div class="no_result">No game found</div>
+  }
   }
 </div>
 }
