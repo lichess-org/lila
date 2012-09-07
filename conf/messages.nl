@@ -137,4 +137,5 @@ takebackPropositionCanceled=Voorstel voor terug nemen geannuleerd
 yourOpponentProposesATakeback=Uw tegenstander stelt terug nemen voor
 bookmarkThisGame=Voeg deze partij toe aan bladwijzers
 toggleBackground=Achtergrondkleur omwisselen
+advancedSearch=Geavanceerd zoeken
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Gratis online schaken. Schaak nu met een duidelijke interface. Geen registratie, geen advertenties, geen plug-ins vereist. Schaak tegen de computer, vrienden of willekeurige spelers.
