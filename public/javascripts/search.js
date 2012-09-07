@@ -3,10 +3,6 @@ $(function() {
   var $form = $("form.search");
   var $result = $(".search_result");
 
-  $form.find(".opponent select").change(function() {
-    $form.find(".aiLevel").toggle($(this).val() == 1);
-  }).trigger("change");
-
   function realtimeResults() {
     $result.load(
       $form.attr("action") + "?" + $form.serialize() + " .search_result",
@@ -34,4 +30,8 @@ $(function() {
 
   $form.find("select").change(realtimeResults);
   $form.find("input").change(realtimeResults);
+
+  $form.find(".opponent select").change(function() {
+    $form.find(".aiLevel").toggle($(this).val() == 1);
+  }).trigger("change");
 });

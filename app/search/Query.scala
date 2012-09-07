@@ -50,7 +50,7 @@ case class Query(
     averageElo filters fields.averageElo,
     duration map (60 *) filters fields.duration,
     date map Game.dateFormatter.print filters fields.date,
-    averageElo filters fields.date,
+    date filters fields.date,
     hasAiFilters,
     (hasAi | true).fold(aiLevel filters fields.ai, Nil),
     toFilters(variant, fields.variant),
