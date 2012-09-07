@@ -72,8 +72,12 @@ object Cron {
       env.ai.clientDiagnose
     }
 
-    effect(15 seconds, "index finished games") {
+    effect(15 seconds, "search: index finished games") {
       env.search.indexer.indexQueue
+    }
+
+    effect(2 hours, "search: optimize index") {
+      env.search.indexer.optimize
     }
 
     def message(freq: Duration)(to: (ActorRef, Any)) {

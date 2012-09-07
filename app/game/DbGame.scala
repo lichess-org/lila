@@ -361,7 +361,7 @@ case class DbGame(
 
   def averageUsersElo = userElos match {
     case a :: b :: Nil ⇒ Some((a + b) / 2)
-    case a :: Nil      ⇒ Some(a + 1200) / 2
+    case a :: Nil      ⇒ Some((a + 1200) / 2)
     case Nil           ⇒ None
   }
 

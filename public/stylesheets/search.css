@@ -27,6 +27,7 @@ form.search input {
 
 form.search select {
   padding: 0.5% 1%;
+  text-transform: capitalize;
 }
 
 form.search .single select {
