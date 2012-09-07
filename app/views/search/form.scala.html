@@ -20,9 +20,6 @@ moreCss = moreCss) {
   <div class="content_box_title">
     <h1 class="title">
       @trans.advancedSearch()
-      @paginator.map { pager =>
-      (@pager.nbResults.localize results)
-      }
     </h1>
   </div>
   <form class="search" action="@routes.Search.form()" method="get">
@@ -135,30 +132,28 @@ moreCss = moreCss) {
           <div class="half">Order @select(form("sortOrder"), Sorting.orders)</div>
         </td>
       </tr>
-      <tr>
-        <th></th>
-        <td>
-          <input type="submit" class="submit" value="Search" />
-        </td>
-        <th class="help">
-          Or <a href="@routes.Search.form()">Reset form</a>
-        </th>
-      </tr>
     </table>
   </form>
-  @paginator.map { pager =>
-  @if(pager.nbResults > 0) {
-  <div class="all_games search_infinitescroll">
-    @pager.nextPage.map { n =>
-    <div class="pager none"><a href="@routes.Search.form(n)">Next</a></div>
-    }.getOrElse {
-    <div class="none"></div>
+  <div class="search_result">
+    @paginator.map { pager =>
+    @if(pager.nbResults > 0) {
+    <div class="nb_results">
+      @paginator.map { pager =>
+      @pager.nbResults.localize games found
+      }
+    </div>
+    <div class="all_games search_infinitescroll">
+      @pager.nextPage.map { n =>
+      <div class="pager none"><a href="@routes.Search.form(n)">Next</a></div>
+      }.getOrElse {
+      <div class="none"></div>
+      }
+      @game.widgets(pager.currentPageResults)
+    </div>
+    } else {
+    <div class="no_result">No game found</div>
     }
-    @game.widgets(pager.currentPageResults)
+    }
   </div>
-  } else {
-  <div class="no_result">No game found</div>
-  }
-  }
 </div>
 }
