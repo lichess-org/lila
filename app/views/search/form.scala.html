@@ -26,16 +26,22 @@ moreCss = moreCss) {
     <table>
       <tr>
         <th>
-          <label for="@form("usernames").id">Players</label>
+          <label>Players</label>
         </th>
-        <td>
-          <input
-          type="text"
-          value="@form("usernames").value"
-          name="@form("usernames").name"
-          id="@form("usernames").id" />
+        <td class="usernames">
+          <div class="half">@input(form("players")("a"))</div>
+          <div class="half">vs @input(form("players")("b"))</div>
         </td>
-        <th class="help">Type up to two usernames</th>
+      </tr>
+      <tr class="winner none">
+        <th>
+          <label for="@form("players")("winner").id">Winner</label>
+        </th>
+        <td class="single">
+          <select id="@form("players")("winner").id" name="@form("players")("winner").name">
+            <option class="blank" value=""></option>
+          </select>
+        </td>
       </tr>
       <tr>
         <th>
@@ -55,7 +61,7 @@ moreCss = moreCss) {
           @select(form("hasAi"), Query.hasAis, "Human or Computer".some)
         </td>
       </tr>
-      <tr class="aiLevel">
+      <tr class="aiLevel none">
         <th>
           <label for="@form("aiLevel").id">Stockfish level</label>
         </th>
@@ -128,8 +134,8 @@ moreCss = moreCss) {
           <label>Sort</label>
         </th>
         <td>
-          <div class="half">By @select(form("sortField"), Sorting.fields)</div>
-          <div class="half">Order @select(form("sortOrder"), Sorting.orders)</div>
+          <div class="half">By @select(form("sort")("field"), Sorting.fields)</div>
+          <div class="half">Order @select(form("sort")("order"), Sorting.orders)</div>
         </td>
       </tr>
     </table>
@@ -137,7 +143,7 @@ moreCss = moreCss) {
   <div class="search_result">
     @paginator.map { pager =>
     @if(pager.nbResults > 0) {
-    <div class="nb_results">
+    <div class="search_status">
       @paginator.map { pager =>
       @pager.nbResults.localize games found
       }
@@ -151,9 +157,11 @@ moreCss = moreCss) {
       @game.widgets(pager.currentPageResults)
     </div>
     } else {
-    <div class="no_result">No game found</div>
+    <div class="search_status">No game found</div>
     }
-    }
+    }.getOrElse {
+    <div class="search_status">Search ready</div>
+      }
   </div>
 </div>
 }

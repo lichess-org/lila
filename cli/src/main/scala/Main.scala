@@ -38,7 +38,6 @@ object Main {
       case "game-per-day" :: days :: Nil      ⇒ games.perDay(parseIntOption(days) err "days: Int")
       case "wiki-fetch" :: Nil                ⇒ wiki.fetch
       case "search-reset" :: Nil              ⇒ search.reset
-      case "search-test" :: Nil               ⇒ search.test
       case _ ⇒
         putStrLn("Unknown command: " + args.mkString(" "))
     }

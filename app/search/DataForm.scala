@@ -12,7 +12,11 @@ import chess.{ Mode }
 final class DataForm {
 
   val search = Form(mapping(
-    "usernames" -> optional(nonEmptyText),
+    "players" -> mapping(
+      "a" -> optional(nonEmptyText),
+      "b" -> optional(nonEmptyText),
+      "winner" -> optional(nonEmptyText)
+    )(SearchPlayer.apply)(SearchPlayer.unapply),
     "variant" -> numberIn(Query.variants),
     "mode" -> numberIn(Query.modes),
     "opening" -> stringIn(Query.openings),
@@ -28,8 +32,10 @@ final class DataForm {
     "dateMin" -> stringIn(Query.dates),
     "dateMax" -> stringIn(Query.dates),
     "status" -> numberIn(Query.statuses),
-    "sortField" -> nonEmptyText.verifying(hasKey(Sorting.fields, _)),
-    "sortOrder" -> nonEmptyText.verifying(hasKey(Sorting.orders, _))
+    "sort" -> mapping(
+      "field" -> nonEmptyText.verifying(hasKey(Sorting.fields, _)),
+      "order" -> nonEmptyText.verifying(hasKey(Sorting.orders, _))
+    )(SearchSort.apply)(SearchSort.unapply)
   )(SearchData.apply)(SearchData.unapply))
 
   private def numberIn(choices: Seq[(Int, String)]) =
@@ -43,7 +49,7 @@ final class DataForm {
 }
 
 case class SearchData(
-    usernames: Option[String] = None,
+    players: SearchPlayer = SearchPlayer(),
     variant: Option[Int] = None,
     mode: Option[Int] = None,
     opening: Option[String] = None,
@@ -59,11 +65,12 @@ case class SearchData(
     dateMin: Option[String] = None,
     dateMax: Option[String] = None,
     status: Option[Int] = None,
-    sortField: String = Sorting.default.field,
-    sortOrder: String = Sorting.default.order) {
+    sort: SearchSort = SearchSort()) {
 
   lazy val query = Query(
-    usernames = (~usernames).split(" ").toList map clean filter (_.nonEmpty),
+    user1 = players.cleanA,
+    user2 = players.cleanB,
+    winner = players.cleanWinner,
     variant = variant,
     rated = mode flatMap Mode.apply map (_.rated),
     opening = opening map clean,
@@ -74,7 +81,7 @@ case class SearchData(
     duration = Range(durationMin, durationMax),
     date = Range(dateMin flatMap toDate, dateMax flatMap toDate),
     status = status,
-    sorting = Sorting(sortField, sortOrder)
+    sorting = Sorting(sort.field, sort.order)
   )
 
   private def clean(s: String) = s.trim.toLowerCase
@@ -88,3 +95,22 @@ case class SearchData(
     case _                 ⇒ None
   }
 }
+
+case class SearchPlayer(
+    a: Option[String] = None,
+    b: Option[String] = None,
+    winner: Option[String] = None) {
+
+  def cleanA = clean(a)
+  def cleanB = clean(b)
+  def cleanWinner = clean(winner) |> { w ⇒
+    w filter List(a, b).flatten.contains
+  }
+
+  private def clean(s: Option[String]) =
+    s map (_.trim.toLowerCase) filter (_.nonEmpty)
+}
+
+case class SearchSort(
+  field: String = Sorting.default.field,
+  order: String = Sorting.default.order)

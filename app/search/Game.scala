@@ -14,6 +14,7 @@ object Game {
     val rated = "ra"
     val variant = "va"
     val uids = "ui"
+    val winner = "wi"
     val averageElo = "el"
     val ai = "ai"
     val opening = "op"
@@ -37,6 +38,7 @@ object Game {
         field(rated, "boolean"),
         field(variant, "short"),
         field(uids, "string"),
+        field(winner, "string"),
         field(averageElo, "short"),
         field(ai, "short"),
         field(opening, "string"),
@@ -54,6 +56,7 @@ object Game {
     rated -> game.rated.some,
     variant -> game.variant.id.some,
     uids -> (game.userIds.toNel map (_.list)),
+    winner -> (game.winner flatMap (_.userId)),
     averageElo -> game.averageUsersElo,
     ai -> game.aiLevel,
     date -> (dateFormatter print createdAt).some,
