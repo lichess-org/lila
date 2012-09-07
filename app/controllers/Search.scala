@@ -2,6 +2,7 @@ package controllers
 
 import lila._
 import views._
+import search.SearchData
 import http.Context
 
 import play.api.mvc.Result
@@ -14,7 +15,7 @@ object Search extends LilaController with BaseGame {
   def form(page: Int) = OpenBody { implicit ctx ⇒
     reasonable(page) {
       implicit def req = ctx.body
-      forms.search.bindFromRequest.fold(
+      forms.search.fill(SearchData()).bindFromRequest.fold(
         failure ⇒ Ok(html.search.form(makeListMenu, failure)),
         data ⇒ {
           Ok(html.search.form(

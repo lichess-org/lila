@@ -29,10 +29,7 @@ case class SearchRequest(
       from = from.some,
       size = size.some,
       explain = explain
-    ) ~ { response ⇒
-        println("Took " + response.tookInMillis + "ms")
-        println("Total hits " + response.hits.totalHits)
-      }
+    )
 }
 
 case class CountRequest(
@@ -43,9 +40,6 @@ case class CountRequest(
     es.search(Seq(indexName), Seq(typeName), query,
       filter = filter,
       searchType = SearchType.COUNT.some
-    ) ~ { response ⇒
-        println("Count Took " + response.tookInMillis + "ms")
-        println("Count Total hits " + response.hits.totalHits)
-      }
+    )
   }.hits.totalHits.toInt
 }

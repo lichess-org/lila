@@ -44,17 +44,18 @@ final class Indexer(
 
   private def clear: IO[Unit] = io {
     es.deleteIndex(Seq(indexName))
+  } map (_ ⇒ ()) except { e ⇒ putStrLn("Index does not exist yet") } map { _ ⇒
     es.createIndex(indexName, settings = Map())
     es.waitTillActive()
     es.putMapping(indexName, typeName, Json generate Map(typeName -> Game.mapping))
     es.refresh()
-  }
+  } 
 
   private def indexQuery(query: DBObject): IO[Int] = io {
     val cursor = gameRepo find (GameQuery.finished ++ query) sort GameQuery.sortCreated //limit 3000
     var nb = 0
     for (games ← cursor grouped 5000) {
-      println("Indexing from %d to %d".format(nb, nb + games.size))
+      //println("Indexing from %d to %d".format(nb, nb + games.size))
       val actions = games map (_.decode flatMap Game.from) collect {
         case Some((id, doc)) ⇒
           es.index_prepare(indexName, typeName, id, Json generate doc).request

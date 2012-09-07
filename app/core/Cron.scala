@@ -72,7 +72,7 @@ object Cron {
       env.ai.clientDiagnose
     }
 
-    effect(15 seconds, "search: index finished games") {
+    effect(1 minute, "search: index finished games") {
       env.search.indexer.indexQueue
     }
 
