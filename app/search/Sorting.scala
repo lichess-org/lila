@@ -21,7 +21,7 @@ object Sorting {
 
   def fieldKeys = fields map (_._1)
 
-  val orders = List(SortOrder.ASC, SortOrder.DESC) map { s ⇒ s.toString -> s.toString }
+  val orders = List(SortOrder.DESC, SortOrder.ASC) map { s ⇒ s.toString -> s.toString }
 
   val default = Sorting(Game.fields.date, "desc")
 }

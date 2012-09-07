@@ -9,7 +9,9 @@ import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 
 case class Query(
-    usernames: List[String] = Nil,
+    user1: Option[String] = None,
+    user2: Option[String] = None,
+    winner: Option[String] = None,
     variant: Option[Int] = None,
     status: Option[Int] = None,
     turns: Range[Int] = Range.none,
@@ -23,7 +25,9 @@ case class Query(
     sorting: Sorting = Sorting.default) {
 
   def nonEmpty = 
-    usernames.nonEmpty ||
+    user1.nonEmpty ||
+    user2.nonEmpty ||
+    winner.nonEmpty ||
     variant.nonEmpty ||
     status.nonEmpty ||
     turns.nonEmpty ||
@@ -44,8 +48,11 @@ case class Query(
 
   def countRequest = CountRequest(matchAllQuery, filters)
 
+  def usernames = List(user1, user2).flatten
+
   private def filters = List(
-    usernames map { u ⇒ termFilter(fields.uids, u.toLowerCase) },
+    usernames map { termFilter(fields.uids, _) },
+    toFilters(winner, fields.winner),
     turns filters fields.turns,
     averageElo filters fields.averageElo,
     duration map (60 *) filters fields.duration,
@@ -108,25 +115,4 @@ object Query {
   }
 
   val statuses = Status.finishedNotCheated map { s ⇒ s.id -> s.name }
-
-  def test = Query(
-    usernames = List("thibault"),
-    duration = Range(1.some, 3.some),
-    sorting = Sorting(fields.averageElo, "desc")
-  )
-  def test2 = Query(
-    opening = "A04".some,
-    sorting = Sorting(fields.turns, "desc")
-  )
-  def test3 = Query(
-    usernames = List("controlaltdelete"),
-    variant = 1.some,
-    turns = Range(20.some, 100.some),
-    averageElo = Range(1100.some, 2000.some),
-    opening = "A00".some,
-    hasAi = true.some,
-    aiLevel = Range.none,
-    date = Range(Some(DateTime.now - 1.year), none),
-    sorting = Sorting(fields.date, "desc")
-  )
 }
