@@ -30,17 +30,6 @@ final class Indexer(
 
   def count(request: CountRequest): Int = request.in(indexName, typeName)(es)
 
-  def index(game: DbGame): IO[Unit] = (Game from game).fold(
-    doc ⇒ (for {
-      _ ← putStrLn("Search indexing game " + game.id + " as " + doc)
-      _ ← io(es.index(indexName, typeName, game.id, Json generate doc))
-      _ ← optimize
-    } yield ()) except { e ⇒
-      putStrLn("Search index: fail to index game " + game.id + " - " + e.getMessage)
-    },
-    putStrLn("Search index: fail to produce a document from game " + game.id)
-  )
-
   def indexQueue: IO[Unit] = for {
     ids ← queue next 1000
     _ ← ids.toNel.fold(
@@ -78,7 +67,7 @@ final class Indexer(
     nb
   }
 
-  private def optimize: IO[Unit] = io {
+  def optimize: IO[Unit] = io {
     es.optimize(Seq(indexName))
   }
 
