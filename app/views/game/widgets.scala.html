@@ -11,7 +11,7 @@
       @if(g.isBeingPlayed) {
       <a class="link" href="@routes.Round.watcher(g.id, firstPlayer.color.name)">@trans.playingRightNow()</a>,
       } else {
-      @g.updatedAt.orElse(g.createdAt).map(showDate)
+      @showDate(g.updatedAt | g.createdAt)
       }
     </b>-
     @if(g.finishedOrAborted) {

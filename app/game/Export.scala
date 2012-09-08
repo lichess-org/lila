@@ -33,7 +33,7 @@ final class Export(user: User, gameRepo: GameRepo) {
     val player = game player user
     List(
       id,
-      game.createdAt.fold(dateFormatter.print, "?"),
+      dateFormatter.print(game.createdAt),
       player.fold(_.color.name, "?"),
       (player map game.opponent flatMap (_.userId)) | "anonymous",
       PgnDump result game,
