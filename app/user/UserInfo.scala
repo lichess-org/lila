@@ -12,9 +12,6 @@ import scalaz.effects._
 case class UserInfo(
     user: User,
     rank: Option[(Int, Int)],
-    nbWin: Int,
-    nbDraw: Int,
-    nbLoss: Int,
     nbPlaying: Int,
     nbWithMe: Option[Int],
     nbBookmark: Int,
@@ -47,9 +44,6 @@ object UserInfo {
         Some(rank -> countUsers())
       },
       io(None))
-    nbWin = user.nbWins
-    nbLoss = user.nbLosses
-    nbDraw = user.nbDraws
     nbPlaying ← (ctx is user).fold(
       gameRepo count (_ notFinished user) map (_.some),
       io(none)
@@ -61,7 +55,7 @@ object UserInfo {
     nbBookmark = bookmarkApi countByUser user
     eloChart ← eloChartBuilder(user)
     winChart = (user.nbRatedGames > 0) option {
-      new WinChart(nbWin, nbDraw, nbLoss)
+      new WinChart(user.nbWinsH, user.nbDrawsH, user.nbLossesH, user.nbAi)
     }
     eloWithMe = ctx.me.filter(user!=) map { me ⇒
       List(
@@ -73,9 +67,6 @@ object UserInfo {
   } yield new UserInfo(
     user = user,
     rank = rank,
-    nbWin = nbWin,
-    nbDraw = nbDraw,
-    nbLoss = nbLoss,
     nbPlaying = nbPlaying | 0,
     nbWithMe = nbWithMe,
     nbBookmark = nbBookmark,

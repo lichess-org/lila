@@ -14,6 +14,10 @@ case class User(
     nbWins: Int,
     nbLosses: Int,
     nbDraws: Int,
+    nbWinsH: Int, // only against human opponents
+    nbLossesH: Int, // only against human opponents
+    nbDrawsH: Int, // only against human opponents
+    nbAi: Int,
     isChatBan: Boolean = false,
     enabled: Boolean,
     roles: List[String],

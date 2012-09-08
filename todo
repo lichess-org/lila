@@ -43,4 +43,4 @@ count ai games in nb wins/losses http://en.lichess.org/@/ivym http://en.lichess.
 index game positions
 integrate with google+
 elo stats
-feedback changes to do http://en.lichess.org/forum/lichess-feedback/new-feature-landing-advanced-search#3
+player search autocomplete regex escapement
