@@ -256,10 +256,6 @@ div.lichess_overboard p.explanations {
   z-index: 50;
 }
 
-div.lichess_table_wait_next {
-  background-image: url(../images/loader2.gif);
-}
-
 input.lichess_id_input {
   margin-top: 10px;
   border: none;
@@ -465,8 +461,6 @@ div.lichess_control div.rematch_alert {
   margin-bottom: 1em;
 }
 div.lichess_control div.rematch_wait {
-  background: url(../images/loader2.gif) center left no-repeat;
-  padding-left: 40px;
   margin-bottom: 1em;
 }
 
