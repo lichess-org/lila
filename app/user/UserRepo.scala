@@ -136,7 +136,8 @@ class UserRepo(collection: MongoCollection)
   val countEnabled: IO[Int] = io { count(enabledQuery).toInt }
 
   def usernamesLike(username: String): IO[List[String]] = io {
-    val regex = "^" + normalize(username) + ".*$"
+    val escaped = """^([\w-]*).*$""".r.replaceAllIn(normalize(username), _ group 1)
+    val regex = "^" + escaped + ".*$"
     collection.find(
       DBObject("_id" -> regex.r),
       DBObject("username" -> 1))
