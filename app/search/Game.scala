@@ -2,7 +2,7 @@ package lila
 package search
 
 import game.DbGame
-import chess.OpeningExplorer
+import chess.{ OpeningExplorer, Status }
 
 import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
 
@@ -51,7 +51,7 @@ object Game {
   def from(game: DbGame) = for {
     createdAt ← game.createdAt
   } yield game.id -> (List(
-    status -> game.status.id.some,
+    status -> game.status.is(_.Timeout).fold(Status.Resign, game.status).id.some,
     turns -> game.turns.some,
     rated -> game.rated.some,
     variant -> game.variant.id.some,
