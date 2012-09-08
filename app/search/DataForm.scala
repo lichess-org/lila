@@ -38,14 +38,14 @@ final class DataForm {
     )(SearchSort.apply)(SearchSort.unapply)
   )(SearchData.apply)(SearchData.unapply))
 
-  private def numberIn(choices: Seq[(Int, String)]) =
+  private def numberIn(choices: Iterable[(Int, String)]) =
     optional(number.verifying(hasKey(choices, _)))
 
-  private def stringIn(choices: Seq[(String, String)]) =
+  private def stringIn(choices: Iterable[(String, String)]) =
     optional(nonEmptyText.verifying(hasKey(choices, _)))
 
-  private def hasKey[A](choices: Seq[(A, _)], key: A) =
-    choices map (_._1) contains key
+  private def hasKey[A](choices: Iterable[(A, _)], key: A) =
+    choices.map(_._1).toList contains key
 }
 
 case class SearchData(
@@ -88,6 +88,7 @@ case class SearchData(
 
   private val DateDelta = """^(\d+)(\w)$""".r
   private def toDate(delta: String): Option[DateTime] = delta match {
+    case DateDelta(n, "h") ⇒ parseIntOption(n) map (DateTime.now - _.hours)
     case DateDelta(n, "d") ⇒ parseIntOption(n) map (DateTime.now - _.days)
     case DateDelta(n, "w") ⇒ parseIntOption(n) map (DateTime.now - _.weeks)
     case DateDelta(n, "m") ⇒ parseIntOption(n) map (DateTime.now - _.months)
