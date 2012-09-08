@@ -24,20 +24,20 @@ case class Query(
     duration: Range[Int] = Range.none,
     sorting: Sorting = Sorting.default) {
 
-  def nonEmpty = 
+  def nonEmpty =
     user1.nonEmpty ||
-    user2.nonEmpty ||
-    winner.nonEmpty ||
-    variant.nonEmpty ||
-    status.nonEmpty ||
-    turns.nonEmpty ||
-    averageElo.nonEmpty ||
-    hasAi.nonEmpty ||
-    aiLevel.nonEmpty ||
-    rated.nonEmpty ||
-    opening.nonEmpty ||
-    date.nonEmpty ||
-    duration.nonEmpty 
+      user2.nonEmpty ||
+      winner.nonEmpty ||
+      variant.nonEmpty ||
+      status.nonEmpty ||
+      turns.nonEmpty ||
+      averageElo.nonEmpty ||
+      hasAi.nonEmpty ||
+      aiLevel.nonEmpty ||
+      rated.nonEmpty ||
+      opening.nonEmpty ||
+      date.nonEmpty ||
+      duration.nonEmpty
 
   def searchRequest(from: Int = 0, size: Int = 10) = SearchRequest(
     query = matchAllQuery,
@@ -79,9 +79,7 @@ case class Query(
 
 object Query {
 
-  val durations = List(1, 2, 3, 5, 10, 15, 20, 30) map { d ⇒
-    d -> (d + " minutes")
-  }
+  val durations = options(List(1, 2, 3, 5, 10, 15, 20, 30), "%d minute{s}")
 
   val variants = Variant.all map { v ⇒ v.id -> v.name }
 
@@ -91,28 +89,34 @@ object Query {
     case (code, name, _) ⇒ code -> (code + " " + name.take(50))
   }
 
-  val turns = {
-    (1 to 5) ++ (10 to 45 by 5) ++ (50 to 90 by 10) ++ (100 to 300 by 25)
-  }.toList map { t ⇒ t -> (t + " turns") }
+  val turns = options(
+    (1 to 5) ++ (10 to 45 by 5) ++ (50 to 90 by 10) ++ (100 to 300 by 25),
+    "%d turn{s}")
 
   val averageElos = (800 to 2300 by 100).toList map { e ⇒ e -> (e + " ELO") }
 
-  val hasAis = List(
-    0 -> "Human opponent",
-    1 -> "Computer opponent")
+  val hasAis = List(0 -> "Human opponent", 1 -> "Computer opponent")
 
   val aiLevels = (1 to 8) map { l ⇒ l -> ("Stockfish level " + l) }
 
-  val dates = List("0d" -> "Today") ++ {
-    (1 to 6) map { d ⇒ (d + "d") -> (d + " days ago") }
-  } ++ {
-    (1 to 3) map { w ⇒ (w + "w") -> (w + " weeks ago") }
-  } ++ {
-    (1 to 6) map { m ⇒ (m + "m") -> (m + " months ago") }
-  } ++ {
-    (1 to 3) map { y ⇒ (y + "y") -> (y + " years ago") }
+  val dates = List("0d" -> "Now") ++
+    options(List(1, 2, 6), "h", "%d hour{s} ago") ++
+    options(1 to 6, "d", "%d day{s} ago") ++
+    options(1 to 3, "w", "%d week{s} ago") ++
+    options(1 to 6, "m", "%d month{s} ago") ++
+    options(1 to 4, "y", "%d year{s} ago")
+
+  private def options(it: Iterable[Int], pattern: String) = it map { d ⇒
+    d -> (pluralize(pattern, d) format d)
   }
 
-  val statuses = 
-    Status.finishedNotCheated filterNot (_.is(_.Timeout)) map { s ⇒ s.id -> s.name } 
+  private def options(it: Iterable[Int], code: String, pattern: String) = it map { d ⇒
+    (d + code) -> (pluralize(pattern, d) format d)
+  }
+
+  private def pluralize(pattern: String, nb: Int) =
+    pattern.replace("{s}", (nb > 1).fold("s", ""))
+
+  val statuses =
+    Status.finishedNotCheated filterNot (_.is(_.Timeout)) map { s ⇒ s.id -> s.name }
 }

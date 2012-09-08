@@ -1,4 +1,4 @@
-@(field: play.api.data.Field, options: Seq[(Any,String)], default: Option[String] = None)
+@(field: play.api.data.Field, options: Iterable[(Any,String)], default: Option[String] = None)
 
 <select id="@field.id" name="@field.name">
   @default.map { d =>
