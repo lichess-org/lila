@@ -5,15 +5,11 @@ player timeout depending on game duration
 do not count games vs engine as win/loss
 start chess960 after both player move http://fr.lichess.org/forum/lichess-feedback/clock-fairness-in-chess960-games
 chess960 confirmation http://fr.lichess.org/forum/lichess-feedback/separate-960-lobby?page=1#7
-use play-navigator router case class MyRegexStr(value: String); implicit val MyRegexStrPathParam: PathParam[MyRegexStr] = new PathParam[MyRegexStr] { def apply(s: MyRegexStr) = s.value}; def unapply(s: String) = val Rx = "(\w+)".r; s match { case Rx(x) => Some(x); case _ => None } }
-http://codetunes.com/2012/05/09/scala-dsl-tutorial-writing-web-framework-router
 use POST instead of GET where it makes sense
-make the wiki static html pages managed by git?
 guess friend list
 tournaments http://www.chess.com/tournaments/help.html
 use twitter tooltip instead of tipsy http://twitter.github.com/bootstrap/javascript.html#tooltip
 volume control
-check(mate) sound
 takeback play 2 times ?? http://en.lichess.org/analyse/nfjchnmo/black move 45
 movetimes chart
 show lobby chat to anon (and rated games?) or show empty chat
