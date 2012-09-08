@@ -19,9 +19,9 @@ final class MoveNotifier(
     Akka.system.actorFor("/user/" + name)
   }
 
-  def apply(gameId: String, fen: String) {
+  def apply(gameId: String, fen: String, lastMove: Option[String]) {
     countMove()
-    val message = Fen(gameId, fen)
+    val message = Fen(gameId, fen, lastMove)
     hubRefs foreach (_ ! message)
   }
 }

@@ -25,7 +25,7 @@ final class Hand(
     moretimeSeconds: Int) extends Handler(gameRepo) {
 
   type IOValidEvents = IO[Valid[List[Event]]]
-  type PlayResult = Future[Valid[(List[Event], String)]]
+  type PlayResult = Future[Valid[(List[Event], String, Option[String])]]
 
   def play(
     povRef: PovRef,
@@ -47,8 +47,7 @@ final class Hand(
         _ ← gameRepo save progress
         finishEvents ← finisher.moveFinish(progress.game, color)
         events = progress.events ::: finishEvents
-        fen = fenBoard(progress)
-      } yield success(events -> fen)).toFuture
+      } yield playResult(events, progress)).toFuture
       else if (progress.game.player.isAi && progress.game.playable) for {
         initialFen ← progress.game.variant.standard.fold(
           io(none[String]),
@@ -63,17 +62,21 @@ final class Hand(
               _ ← gameRepo save progress2
               finishEvents ← finisher.moveFinish(progress2.game, !color)
               events = progress2.events ::: finishEvents
-              fen = fenBoard(progress2)
-            } yield success(events -> fen)).toFuture
+            } yield playResult(events, progress2)).toFuture
           }): PlayResult
       } yield eventsAndFen
       else (for {
         _ ← gameRepo save progress
         events = progress.events
-        fen = fenBoard(progress)
-      } yield success(events -> fen)).toFuture
+      } yield playResult(events, progress)).toFuture
     )
   }
+
+  private def playResult(events: List[Event], progress: Progress) = success((
+    events,
+    Forsyth exportBoard progress.game.toChess.board,
+    progress.game.lastMove
+  ))
 
   def abort(fullId: String): IOValidEvents = attempt(fullId, finisher.abort)
 
@@ -248,7 +251,4 @@ final class Hand(
       } yield progress2.events
     } toValid "cannot add moretime"
   )
-
-  private def fenBoard(progress: Progress) =
-    Forsyth exportBoard progress.game.toChess.board
 }

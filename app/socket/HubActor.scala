@@ -16,26 +16,26 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
   // generic message handler
   def receiveGeneric: Receive = {
 
-    case Ping(uid)               ⇒ ping(uid)
+    case Ping(uid)                  ⇒ ping(uid)
 
-    case Broom                   ⇒ broom()
+    case Broom                      ⇒ broom()
 
     // when a member quits
-    case Quit(uid)               ⇒ quit(uid)
+    case Quit(uid)                  ⇒ quit(uid)
 
-    case GetNbMembers            ⇒ sender ! members.size
+    case GetNbMembers               ⇒ sender ! members.size
 
-    case NbMembers(nb)           ⇒ pong = makePong(nb)
+    case NbMembers(nb)              ⇒ pong = makePong(nb)
 
-    case GetUsernames            ⇒ sender ! usernames
+    case GetUsernames               ⇒ sender ! usernames
 
-    case LiveGames(uid, gameIds) ⇒ registerLiveGames(uid, gameIds)
+    case LiveGames(uid, gameIds)    ⇒ registerLiveGames(uid, gameIds)
 
-    case Fen(gameId, fen)        ⇒ notifyFen(gameId, fen)
+    case Fen(gameId, fen, lastMove) ⇒ notifyFen(gameId, fen, lastMove)
 
-    case SendTo(userId, msg)     ⇒ sendTo(userId, msg)
+    case SendTo(userId, msg)        ⇒ sendTo(userId, msg)
 
-    case Resync(uid)             ⇒ resync(uid)
+    case Resync(uid)                ⇒ resync(uid)
   }
 
   def receive = receiveSpecific orElse receiveGeneric
@@ -101,10 +101,12 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
 
   def usernames: Iterable[String] = members.values.map(_.username).flatten
 
-  def notifyFen(gameId: String, fen: String) {
+  def notifyFen(gameId: String, fen: String, lastMove: Option[String]) {
     val msg = makeMessage("fen", JsObject(Seq(
       "id" -> JsString(gameId),
-      "fen" -> JsString(fen))))
+      "fen" -> JsString(fen),
+      "lm" -> lastMove.fold(JsString(_), JsNull)
+    )))
     members.values filter (_ liveGames gameId) foreach (_.channel push msg)
   }
 
