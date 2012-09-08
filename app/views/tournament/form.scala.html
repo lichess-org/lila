@@ -1,0 +1,8 @@
+@(form: Form[_])(implicit ctx: Context)
+
+@tournament.layout(
+title = "New tournament") {
+<h1>New tournament</h1>
+<form action="@routes.Tournament.create" method="POST">
+</form>
+}

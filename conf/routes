@@ -38,8 +38,14 @@ GET   /$gameId<[\w\-]{8}>/$color<white|black>/table  controllers.Round.tableWatc
 GET   /$fullId<[\w\-]{12}>/table                     controllers.Round.tablePlayer(fullId: String)
 GET   /$gameId<[\w\-]{8}>/players                    controllers.Round.players(gameId: String)
 
+# Tournament
+GET   /tournament                        controllers.Tournament.home 
+GET   /tournament/$id<[\w\-]{8}>         controllers.Tournament.show(id: String) 
+GET   /tournament/new                    controllers.Tournament.form
+POST  /tournament/new                    controllers.Tournament.create
+
 # Analyse
-GET   /analyse/$gameId<[\w\-]{8}>       controllers.Analyse.replay(gameId: String, color: String = "white")
+GET   /analyse/$gameId<[\w\-]{8}>        controllers.Analyse.replay(gameId: String, color: String = "white")
 GET   /analyse/$gameId<[\w\-]{8}>/$color<white|black> controllers.Analyse.replay(gameId: String, color: String)
 POST  /analyse/$gameId<[\w\-]{8}>/$color<white|black>/computer controllers.Analyse.computer(gameId: String, color: String)
 GET   /$gameId<[\w\-]{8}>/stats          controllers.Analyse.stats(gameId: String)

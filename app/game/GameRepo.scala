@@ -174,9 +174,9 @@ class GameRepo(collection: MongoCollection)
 
   def recentGames(limit: Int): IO[List[DbGame]] = io {
     find(Query.started ++ Query.turnsGt(1))
-      .sort(DBObject("createdAt" -> -1))
+      .sort(Query.sortCreated)
       .limit(limit)
-      .toList.map(_.decode).flatten sortBy (_.id)
+      .toList.map(_.decode).flatten 
   }
 
   def games(ids: List[String]): IO[List[DbGame]] = io {

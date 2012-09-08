@@ -40,6 +40,8 @@ final class Settings(config: Config) {
   val RoundCollectionRoom = getString("round.collection.room")
   val RoundCollectionWatcherRoom = getString("round.collection.watcher_room")
 
+  val TournamentCollectionTournament = getString("tournament.collection.tournament")
+
   val AnalyseCachedNbTtl = millis("analyse.cached.nb.ttl")
 
   val UserPaginatorMaxPerPage = getInt("user.paginator.max_per_page")

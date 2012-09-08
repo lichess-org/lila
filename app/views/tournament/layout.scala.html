@@ -1,0 +1,12 @@
+@(title: String)(body: Html)(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("tournament.css")
+}
+
+@base.layout(
+title = title,
+moreCss = moreCss,
+active = siteMenu.tournament.some) {
+<div id="tournament">@body</div>
+}

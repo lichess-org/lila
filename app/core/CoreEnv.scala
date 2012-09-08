@@ -97,6 +97,10 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     flood = security.flood,
     indexGame = search.indexGame)
 
+  lazy val tournament = new lila.tournament.TournamentEnv(
+    settings = settings,
+    mongodb = mongodb.apply _)
+
   lazy val analyse = new lila.analyse.AnalyseEnv(
     settings = settings,
     gameRepo = game.gameRepo,

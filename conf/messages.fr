@@ -138,4 +138,5 @@ yourOpponentProposesATakeback=Votre adversaire propose l'annulation du coup
 bookmarkThisGame=Mettre cette partie en favoris
 toggleBackground=Changer la couleur d'arrière plan
 advancedSearch=Recherche avancée
+tournament=Tournoi
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Jeu d'échecs gratuit en ligne. Jouez aux échecs immédiatement avec une interface simple. Pas d'inscription obligatoire, pas de pub, pas de plugin. Jouez aux échecs contre l'ordinateur, des amis ou des adversaires en ligne.
