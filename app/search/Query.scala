@@ -118,5 +118,7 @@ object Query {
     pattern.replace("{s}", (nb > 1).fold("s", ""))
 
   val statuses =
-    Status.finishedNotCheated filterNot (_.is(_.Timeout)) map { s ⇒ s.id -> s.name }
+    Status.finishedNotCheated filterNot (_.is(_.Timeout)) map { s ⇒ 
+    s.id -> s.is(_.Outoftime).fold("Clock Flag", s.name)
+    }
 }

@@ -52,7 +52,7 @@ object Game {
     createdAt ← game.createdAt
   } yield game.id -> (List(
     status -> game.status.is(_.Timeout).fold(Status.Resign, game.status).id.some,
-    turns -> game.turns.some,
+    turns -> Some(math.ceil(game.turns.toFloat / 2)),
     rated -> game.rated.some,
     variant -> game.variant.id.some,
     uids -> (game.userIds.toNel map (_.list)),
