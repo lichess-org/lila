@@ -91,7 +91,7 @@ object Query {
 
   val turns = options(
     (1 to 5) ++ (10 to 45 by 5) ++ (50 to 90 by 10) ++ (100 to 300 by 25),
-    "%d turn{s}")
+    "%d move{s}")
 
   val averageElos = (800 to 2300 by 100).toList map { e ⇒ e -> (e + " ELO") }
 
@@ -118,7 +118,7 @@ object Query {
     pattern.replace("{s}", (nb > 1).fold("s", ""))
 
   val statuses =
-    Status.finishedNotCheated filterNot (_.is(_.Timeout)) map { s ⇒ 
-    s.id -> s.is(_.Outoftime).fold("Clock Flag", s.name)
+    Status.finishedNotCheated filterNot (_.is(_.Timeout)) map { s ⇒
+      s.id -> s.is(_.Outoftime).fold("Clock Flag", s.name)
     }
 }
