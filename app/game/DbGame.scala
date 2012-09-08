@@ -33,7 +33,7 @@ case class DbGame(
     lastMoveTime: Option[Int] = None,
     bookmarks: Int = 0,
     is960Rematch: Boolean = false,
-    createdAt: Option[DateTime] = None,
+    createdAt: DateTime = DateTime.now,
     updatedAt: Option[DateTime] = None) {
 
   val players = List(whitePlayer, blackPlayer)
@@ -403,7 +403,7 @@ object DbGame {
     mode = mode,
     variant = variant,
     lastMoveTime = None,
-    createdAt = DateTime.now.some)
+    createdAt = DateTime.now)
 }
 
 case class RawDbGame(
@@ -424,7 +424,7 @@ case class RawDbGame(
     lmt: Option[Int] = None,
     bm: Option[Int] = None,
     r960: Option[Boolean] = None,
-    createdAt: Option[DateTime],
+    createdAt: DateTime,
     updatedAt: Option[DateTime]) {
 
   def decode: Option[DbGame] = for {

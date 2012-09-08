@@ -27,7 +27,7 @@ final class PgnDump(
     whiteUser ← user(game.whitePlayer)
     blackUser ← user(game.blackPlayer)
   } yield "lichess_pgn_%s_%s_vs_%s.%s.pgn".format(
-    game.createdAt.fold(dateFormat.print, "_"),
+    dateFormat.print(game.createdAt),
     player(game.whitePlayer, whiteUser),
     player(game.blackPlayer, blackUser),
     game.id)
@@ -52,7 +52,7 @@ final class PgnDump(
   } yield List(
     Tag(_.Event, game.rated.fold("Rated game", "Casual game")),
     Tag(_.Site, baseUrl + game.id),
-    Tag(_.Date, game.createdAt.fold(dateFormat.print, "?")),
+    Tag(_.Date, dateFormat.print(game.createdAt)),
     Tag(_.White, player(game.whitePlayer, whiteUser)),
     Tag(_.Black, player(game.blackPlayer, blackUser)),
     Tag(_.Result, result(game)),
