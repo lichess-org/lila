@@ -1,0 +1,31 @@
+#tournament table {
+  margin-top: 2em;
+}
+#tournament table td {
+  padding: 0.5em;
+}
+
+#tournament form label {
+  margin-right: 10px;
+}
+
+#tournament form input {
+  width: 96%;
+  padding: 0.5% 1%;
+}
+
+#tournament form select {
+  padding: 0.5% 1%;
+  text-transform: capitalize;
+  width: 99%;
+}
+
+#tournament form input.submit {
+  width: 99%;
+}
+
+/* Errors */
+#tournament form .error {
+  margin-left: 160px;
+  color: red;
+}

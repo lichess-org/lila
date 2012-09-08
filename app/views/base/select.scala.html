@@ -2,7 +2,7 @@
 
 <select id="@field.id" name="@field.name">
   @default.map { d =>
-  <option value=""></option>
+  <option value="">@d</option>
   }
   @options.map { v =>
   <option value="@v._1" @(if(field.value == Some(v._1.toString)) "selected" else "")>@v._2</option>
