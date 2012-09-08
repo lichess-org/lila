@@ -48,9 +48,7 @@ object Game {
     )
   }
 
-  def from(game: DbGame) = for {
-    createdAt ← game.createdAt
-  } yield game.id -> (List(
+  def from(game: DbGame) = game.id -> (List(
     status -> game.status.is(_.Timeout).fold(Status.Resign, game.status).id.some,
     turns -> Some(math.ceil(game.turns.toFloat / 2)),
     rated -> game.rated.some,
@@ -59,7 +57,7 @@ object Game {
     winner -> (game.winner flatMap (_.userId)),
     averageElo -> game.averageUsersElo,
     ai -> game.aiLevel,
-    date -> (dateFormatter print createdAt).some,
+    date -> (dateFormatter print game.createdAt).some,
     duration -> game.estimateTotalTime.some,
     opening -> (OpeningExplorer openingOf game.pgn map (_.code.toLowerCase))
   ) collect {

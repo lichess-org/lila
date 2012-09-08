@@ -57,7 +57,7 @@ final class Indexer(
     var nb = 0
     for (games ← cursor grouped 5000) {
       if (logging) println("Indexing %d of %d".format(nb, size))
-      val actions = games map (_.decode flatMap Game.from) collect {
+      val actions = games map (_.decode map Game.from) collect {
         case Some((id, doc)) ⇒
           es.index_prepare(indexName, typeName, id, Json generate doc).request
       }
