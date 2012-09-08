@@ -91,7 +91,7 @@ final class Finisher(
 
   private def incNbGames(game: DbGame, color: Color): IO[Unit] =
     game.player(color).userId.fold(
-      id ⇒ userRepo.incNbGames(id, game.rated,
+      id ⇒ userRepo.incNbGames(id, game.rated, game.hasAi,
         result = game.wonBy(color).fold(_.fold(1, -1), 0).some filterNot (_ ⇒ game.hasAi || game.aborted)
       ),
       io()

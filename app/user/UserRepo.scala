@@ -41,16 +41,27 @@ class UserRepo(collection: MongoCollection)
     collection.update(byIdQuery(id), $set("elo" -> elo))
   }
 
-  def incNbGames(id: String, rated: Boolean, result: Option[Int]): IO[Unit] = io {
+  def incNbGames(
+    id: String,
+    rated: Boolean,
+    ai: Boolean,
+    result: Option[Int]): IO[Unit] = io {
     val incs = List(
       "nbGames".some,
       "nbRatedGames".some filter (_ ⇒ rated),
+      "nbAi".some filter (_ ⇒ ai),
       (result match {
         case Some(-1) ⇒ "nbLosses".some
         case Some(1)  ⇒ "nbWins".some
         case Some(0)  ⇒ "nbDraws".some
         case _        ⇒ none[String]
-      })
+      }),
+      (result match {
+        case Some(-1) ⇒ "nbLossesH".some
+        case Some(1)  ⇒ "nbWinsH".some
+        case Some(0)  ⇒ "nbDrawsH".some
+        case _        ⇒ none[String]
+      }) filterNot (_ ⇒ ai)
     ).flatten.map(_ -> 1)
     collection.update(byIdQuery(id), $inc(incs: _*))
   }
