@@ -1,13 +1,11 @@
-@(tournaments: List[lila.tournament.Tournament])(implicit ctx: Context) 
+@(tournaments: List[lila.tournament.Tournament])(implicit ctx: Context)
 
 @tournament.layout(
 title = "Tournaments") {
 
-<div class="content_box tournament_box">
-  <h1 class="lichess_title">Tournaments</h1>
-  <div class="body">
-    list of tournaments
-  </div>
-  <a href="@routes.Tournament.form()" class="action button">Create a new tournament</a>
+<h1 class="lichess_title">Tournaments</h1>
+<div class="body">
+  list of tournaments
 </div>
+<a href="@routes.Tournament.form()" class="action button">Create a new tournament</a>
 }

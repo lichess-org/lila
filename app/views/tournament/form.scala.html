@@ -1,8 +1,27 @@
 @(form: Form[_])(implicit ctx: Context)
 
+@import lila.tournament.Tournament
+
 @tournament.layout(
 title = "New tournament") {
 <h1>New tournament</h1>
 <form action="@routes.Tournament.create" method="POST">
+  <table>
+    <tr>
+      <th>
+        <label for="@form("maxUsers").id">Number of players</label>
+      </th>
+      <td>
+        @base.select(form("maxUsers"), Tournament.maxUsersChoices)
+      </td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>
+        <input type="submit" class="submit" value="Create the tournament" />
+      </td>
+    </tr>
+  </table>
 </form>
+</div>
 }

@@ -29,8 +29,8 @@ moreCss = moreCss) {
           <label>Players</label>
         </th>
         <td class="usernames">
-          <div class="half">@input(form("players")("a"))</div>
-          <div class="half">vs @input(form("players")("b"))</div>
+          <div class="half">@base.input(form("players")("a"))</div>
+          <div class="half">vs @base.input(form("players")("b"))</div>
         </td>
       </tr>
       <tr class="winner none">
@@ -48,8 +48,8 @@ moreCss = moreCss) {
           <label>Players ELO</label>
         </th>
         <td>
-          <div class="half">From @select(form("eloMin"), Query.averageElos, "Any ELO".some)</div>
-          <div class="half">To @select(form("eloMax"), Query.averageElos, "Any ELO".some)</div>
+          <div class="half">From @base.select(form("eloMin"), Query.averageElos, "".some)</div>
+          <div class="half">To @base.select(form("eloMax"), Query.averageElos, "".some)</div>
         </td>
         <th class="help">Average of both players ELO</th>
       </tr>
@@ -58,7 +58,7 @@ moreCss = moreCss) {
           <label for="@form("hasAi").id">Opponent</label>
         </th>
         <td class="single opponent">
-          @select(form("hasAi"), Query.hasAis, "Human or Computer".some)
+          @base.select(form("hasAi"), Query.hasAis, "".some)
         </td>
       </tr>
       <tr class="aiLevel none">
@@ -66,8 +66,8 @@ moreCss = moreCss) {
           <label for="@form("aiLevel").id">Stockfish level</label>
         </th>
         <td>
-          <div class="half">From @select(form("aiLevelMin"), Query.aiLevels, "Any Stockfish level".some)</div>
-          <div class="half">To @select(form("aiLevelMax"), Query.aiLevels, "Any Stockfish level".some)</div>
+          <div class="half">From @base.select(form("aiLevelMin"), Query.aiLevels, "".some)</div>
+          <div class="half">To @base.select(form("aiLevelMax"), Query.aiLevels, "".some)</div>
         </td>
       </tr>
       <tr>
@@ -75,7 +75,7 @@ moreCss = moreCss) {
           <label for="@form("variant").id">@trans.variant()</label>
         </th>
         <td class="single">
-          @select(form("variant"), Query.variants, "Any variant".some)
+          @base.select(form("variant"), Query.variants, "".some)
         </td>
       </tr>
       <tr>
@@ -83,7 +83,7 @@ moreCss = moreCss) {
           <label for="@form("mode").id">@trans.mode()</label>
         </th>
         <td class="single">
-          @select(form("mode"), Query.modes, "Casual or Rated".some)
+          @base.select(form("mode"), Query.modes, "".some)
         </td>
       </tr>
       <tr>
@@ -91,7 +91,7 @@ moreCss = moreCss) {
           <label for="@form("opening").id">@trans.opening()</label>
         </th>
         <td class="single">
-          @select(form("opening"), Query.openings, "Any opening".some)
+          @base.select(form("opening"), Query.openings, "".some)
         </td>
       </tr>
       <tr>
@@ -99,8 +99,8 @@ moreCss = moreCss) {
           <label>Number of turns</label>
         </th>
         <td>
-          <div class="half">From @select(form("turnsMin"), Query.turns, "Any number of turns".some)</div>
-          <div class="half">To @select(form("turnsMax"), Query.turns, "Any number of turns".some)</div>
+          <div class="half">From @base.select(form("turnsMin"), Query.turns, "".some)</div>
+          <div class="half">To @base.select(form("turnsMax"), Query.turns, "".some)</div>
         </td>
       </tr>
       <tr>
@@ -108,8 +108,8 @@ moreCss = moreCss) {
           <label>Duration</label>
         </th>
         <td>
-          <div class="half">From @select(form("durationMin"), Query.durations, "Any duration".some)</div>
-          <div class="half">To @select(form("durationMax"), Query.durations, "Any duration".some)</div>
+          <div class="half">From @base.select(form("durationMin"), Query.durations, "".some)</div>
+          <div class="half">To @base.select(form("durationMax"), Query.durations, "".some)</div>
         </td>
       </tr>
       <tr>
@@ -117,7 +117,7 @@ moreCss = moreCss) {
           <label for="@form("status").id">Result</label>
         </th>
         <td class="single">
-          @select(form("status"), Query.statuses, "Any result".some)
+          @base.select(form("status"), Query.statuses, "".some)
         </td>
       </tr>
       <tr>
@@ -125,8 +125,8 @@ moreCss = moreCss) {
           <label>Date</label>
         </th>
         <td>
-          <div class="half">From @select(form("dateMin"), Query.dates, "Any date".some)</div>
-          <div class="half">To @select(form("dateMax"), Query.dates, "Any date".some)</div>
+          <div class="half">From @base.select(form("dateMin"), Query.dates, "".some)</div>
+          <div class="half">To @base.select(form("dateMax"), Query.dates, "".some)</div>
         </td>
       </tr>
       <tr>
@@ -134,8 +134,8 @@ moreCss = moreCss) {
           <label>Sort</label>
         </th>
         <td>
-          <div class="half">By @select(form("sort")("field"), Sorting.fields)</div>
-          <div class="half">Order @select(form("sort")("order"), Sorting.orders)</div>
+          <div class="half">By @base.select(form("sort")("field"), Sorting.fields)</div>
+          <div class="half">Order @base.select(form("sort")("order"), Sorting.orders)</div>
         </td>
       </tr>
     </table>

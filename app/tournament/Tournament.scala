@@ -17,4 +17,7 @@ case class Tournament(
 
 object Tournament {
 
+  val maxUsers = 3 to 8
+
+  val maxUsersChoices = maxUsers map { x => x -> x.toString }
 }
