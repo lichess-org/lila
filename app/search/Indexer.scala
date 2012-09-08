@@ -21,7 +21,7 @@ final class Indexer(
 
   def rebuildAll: IO[Unit] = for {
     _ ← clear
-    nb ← indexQuery(DBObject())
+    nb ← indexQuery(DBObject(), true)
     _ ← io { es.waitTillCountAtLeast(Seq(indexName), typeName, nb) }
     _ ← optimize
   } yield ()
@@ -51,11 +51,12 @@ final class Indexer(
     es.refresh()
   } 
 
-  private def indexQuery(query: DBObject): IO[Int] = io {
+  private def indexQuery(query: DBObject, logging: Boolean = false): IO[Int] = io {
     val cursor = gameRepo find (GameQuery.frozen ++ query) sort GameQuery.sortCreated //limit 3000
+    val size = cursor.count
     var nb = 0
     for (games ← cursor grouped 5000) {
-      //println("Indexing from %d to %d".format(nb, nb + games.size))
+      if (logging) println("Indexing %d of %d".format(nb, size))
       val actions = games map (_.decode flatMap Game.from) collect {
         case Some((id, doc)) ⇒
           es.index_prepare(indexName, typeName, id, Json generate doc).request
