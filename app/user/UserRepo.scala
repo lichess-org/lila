@@ -118,9 +118,13 @@ class UserRepo(collection: MongoCollection)
           "elo" -> User.STARTING_ELO,
           "nbGames" -> 0,
           "nbRatedGames" -> 0,
+          "nbAi" -> 0,
           "nbWins" -> 0,
           "nbLosses" -> 0,
           "nbDraws" -> 0,
+          "nbWinsH" -> 0,
+          "nbLossesH" -> 0,
+          "nbDrawsH" -> 0,
           "enabled" -> true,
           "roles" -> Nil,
           "createdAt" -> DateTime.now)
