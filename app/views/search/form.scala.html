@@ -158,7 +158,10 @@ moreCss = moreCss) {
       @game.widgets(pager.currentPageResults)
     </div>
     } else {
-    <div class="search_status">No game found</div>
+    <div class="search_status">
+      No game found -
+      <a class="permalink" href="@routes.Search.form()">Permalink</a>
+    </div>
     }
     }.getOrElse {
     <div class="search_status">Search ready</div>

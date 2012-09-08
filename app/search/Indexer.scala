@@ -52,7 +52,7 @@ final class Indexer(
   } 
 
   private def indexQuery(query: DBObject): IO[Int] = io {
-    val cursor = gameRepo find (GameQuery.finished ++ query) sort GameQuery.sortCreated //limit 3000
+    val cursor = gameRepo find (GameQuery.frozen ++ query) sort GameQuery.sortCreated //limit 3000
     var nb = 0
     for (games ← cursor grouped 5000) {
       //println("Indexing from %d to %d".format(nb, nb + games.size))
