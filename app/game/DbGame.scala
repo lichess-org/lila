@@ -32,6 +32,7 @@ case class DbGame(
     next: Option[String] = None,
     lastMoveTime: Option[Int] = None,
     bookmarks: Int = 0,
+    is960Rematch: Boolean = false,
     createdAt: Option[DateTime] = None,
     updatedAt: Option[DateTime] = None) {
 
@@ -351,6 +352,7 @@ case class DbGame(
     next = next,
     lmt = lastMoveTime,
     bm = bookmarks.some filter (0 <),
+    r960 = is960Rematch option true,
     createdAt = createdAt,
     updatedAt = updatedAt
   )
@@ -364,6 +366,8 @@ case class DbGame(
     case a :: Nil      ⇒ Some((a + 1200) / 2)
     case Nil           ⇒ None
   }
+
+  def with960Rematch(v: Boolean) = this.copy(is960Rematch = v)
 
   private def playerMaps[A](f: DbPlayer ⇒ Option[A]): List[A] = players.map(f).flatten
 }
@@ -419,6 +423,7 @@ case class RawDbGame(
     next: Option[String] = None,
     lmt: Option[Int] = None,
     bm: Option[Int] = None,
+    r960: Option[Boolean] = None,
     createdAt: Option[DateTime],
     updatedAt: Option[DateTime]) {
 
@@ -448,6 +453,7 @@ case class RawDbGame(
     next = next,
     lastMoveTime = lmt,
     bookmarks = bm | 0,
+    is960Rematch = r960 | false,
     createdAt = createdAt,
     updatedAt = updatedAt
   )

@@ -1,7 +1,7 @@
 package lila
 package setup
 
-import chess.{ Game, Board, Clock, Color ⇒ ChessColor }
+import chess.{ Game, Board, Clock, Variant, Color ⇒ ChessColor }
 import ChessColor.{ White, Black }
 import chess.format.Forsyth
 import game.{ GameRepo, DbGame, DbPlayer, Pov, Handler, Namer }
@@ -67,11 +67,15 @@ final class Rematcher(
   private def returnGame(pov: Pov): IO[DbGame] = for {
     pieces ← pov.game.variant.standard.fold(
       io(pov.game.variant.pieces),
-      gameRepo initialFen pov.game.id map { fenOption ⇒
-        (fenOption flatMap Forsyth.<< map { situation ⇒
-          situation.board.pieces
-        }) | pov.game.variant.pieces
-      })
+      pov.game.is960Rematch.fold(
+        io(Variant.Chess960.pieces),
+        gameRepo initialFen pov.game.id map { fenOption ⇒
+          (fenOption flatMap Forsyth.<< map { situation ⇒
+            situation.board.pieces
+          }) | pov.game.variant.pieces
+        }
+      )
+    )
     whitePlayer ← returnPlayer(pov.game, White)
     blackPlayer ← returnPlayer(pov.game, Black)
   } yield DbGame(
@@ -83,7 +87,8 @@ final class Rematcher(
     ai = None,
     creatorColor = !pov.color,
     mode = pov.game.mode,
-    variant = pov.game.variant)
+    variant = pov.game.variant
+  ) with960Rematch !pov.game.is960Rematch
 
   private def returnPlayer(game: DbGame, color: ChessColor): IO[DbPlayer] =
     DbPlayer(color = color, aiLevel = None) |> { player ⇒
