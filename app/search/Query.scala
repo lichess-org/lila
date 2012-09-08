@@ -113,5 +113,6 @@ object Query {
     (1 to 3) map { y ⇒ (y + "y") -> (y + " years ago") }
   }
 
-  val statuses = Status.finishedNotCheated map { s ⇒ s.id -> s.name }
+  val statuses = 
+    Status.finishedNotCheated filterNot (_.is(_.Timeout)) map { s ⇒ s.id -> s.name } 
 }
