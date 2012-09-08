@@ -11,13 +11,13 @@ case lila.user.GameFilter.Rated => {
 @info.nbRated @trans.rated()
 }
 case lila.user.GameFilter.Win => {
-@trans.nbWins(info.nbWin)
+@trans.nbWins(info.user.nbWins)
 }
 case lila.user.GameFilter.Loss => {
-@trans.nbLosses(info.nbLoss)
+@trans.nbLosses(info.user.nbLosses)
 }
 case lila.user.GameFilter.Draw => {
-@trans.nbDraws(info.nbDraw)
+@trans.nbDraws(info.user.nbDraws)
 }
 case lila.user.GameFilter.Playing => {
 @info.nbPlaying playing

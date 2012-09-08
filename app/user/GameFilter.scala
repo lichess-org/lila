@@ -44,9 +44,9 @@ object GameFilterMenu extends NonEmptyLists {
     val all = nel(All, List(
       info.nbWithMe.fold(_ > 0, false) option Me,
       (info.nbRated > 0) option Rated,
-      (info.nbWin > 0) option Win,
-      (info.nbLoss > 0) option Loss,
-      (info.nbDraw > 0) option Draw,
+      (info.user.nbWins > 0) option Win,
+      (info.user.nbLosses > 0) option Loss,
+      (info.user.nbDraws > 0) option Draw,
       (info.nbPlaying > 0) option Playing,
       (info.nbBookmark > 0) option Bookmark
     ).flatten)
@@ -67,9 +67,9 @@ object GameFilterMenu extends NonEmptyLists {
     val cachedNb: Option[Int] = current match {
       case All   ⇒ info.user.nbGames.some
       case Rated ⇒ info.nbRated.some
-      case Win   ⇒ info.nbWin.some
-      case Loss  ⇒ info.nbLoss.some
-      case Draw  ⇒ info.nbDraw.some
+      case Win   ⇒ info.user.nbWins.some
+      case Loss  ⇒ info.user.nbLosses.some
+      case Draw  ⇒ info.user.nbDraws.some
       case _     ⇒ None
     }
 
