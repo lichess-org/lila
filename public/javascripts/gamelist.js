@@ -10,7 +10,8 @@ $(function() {
       var withKeys = $this.hasClass('with_keys');
       var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
       var fen = $this.data('fen').replace(/\//g, '');
-      var lastMove = $this.data('lastmove').split(' ');
+      var lm = $this.data('lastmove');
+      var lastMove = lm ? lm.split(' ') : [];
       var x, y, html = '', scolor, pcolor, pclass, c, d, increment;
       var pclasses = {'p':'pawn', 'r':'rook', 'n':'knight', 'b':'bishop', 'q':'queen', 'k':'king'};
       var pregex = /(p|r|n|b|q|k)/;
