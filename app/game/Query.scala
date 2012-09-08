@@ -29,6 +29,8 @@ object Query {
 
   val notFinished: DBObject = DBObject("status" -> Status.Started.id)
 
+  val frozen: DBObject = "status" $gte Status.Mate.id
+
   val popular: DBObject = "bm" $gt 0
 
   def clock(c: Boolean): DBObject = "clock.l" $exists c
