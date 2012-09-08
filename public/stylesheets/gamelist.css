@@ -80,12 +80,16 @@ div.lmcs.white {
 div.lmcs.black {
   background: #cacaca;
 }
+div.lmcs.moved {
+  background-image: url(../images/sprite_mini3.png);
+  background-position: -168px 0;
+}
 
 div.lcmp {
   position: absolute;
   width: 28px;
   height: 28px;
-  background-image: url(../images/sprite_mini2.png);
+  background-image: url(../images/sprite_mini3.png);
 }
 
 div.lcmp.pawn.white{

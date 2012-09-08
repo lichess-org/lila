@@ -92,12 +92,13 @@ trait GameHelper { self: I18nHelper with UserHelper with StringHelper with AiHel
       o ⇒ routes.Round.player(game fullIdOf o.color),
       routes.Round.watcher(game.id, color.name)
     )
-    """<a href="%s" title="%s" class="mini_board parse_fen %s" data-live="%s" data-color="%s" data-fen="%s"></a>""".format(
+    """<a href="%s" title="%s" class="mini_board parse_fen %s" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"></a>""".format(
       url,
       trans.viewInFullSize(),
       live.fold("live live_" + game.id, ""),
       live.fold(game.id, ""),
       color.name,
-      Forsyth exportBoard game.toChess.board)
+      Forsyth exportBoard game.toChess.board,
+      game.lastMove | "")
   }
 }

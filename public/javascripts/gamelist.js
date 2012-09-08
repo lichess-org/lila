@@ -10,6 +10,7 @@ $(function() {
       var withKeys = $this.hasClass('with_keys');
       var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
       var fen = $this.data('fen').replace(/\//g, '');
+      var lastMove = $this.data('lastmove').split(' ');
       var x, y, html = '', scolor, pcolor, pclass, c, d, increment;
       var pclasses = {'p':'pawn', 'r':'rook', 'n':'knight', 'b':'bishop', 'q':'queen', 'k':'king'};
       var pregex = /(p|r|n|b|q|k)/;
@@ -22,12 +23,11 @@ $(function() {
         var increment = function() { y--; if(y < 1) { y = 8; x++; } };
       }
       function openSquare(x, y) {
+        var key = 'white' == color ? letters[y - 1] + x : letters[8 - y] + (9 - x);
         var scolor = (x+y)%2 ? 'white' : 'black';
+        if ($.inArray(key, lastMove) != -1) scolor += " moved";
         var html = '<div class="lmcs '+scolor+'" style="top:'+(28*(8-x))+'px;left:'+(28*(y-1))+'px;"';
         if (withKeys) {
-          var key = 'white' == color 
-            ? letters[y - 1] + x
-            : letters[8 - y] + (9 - x);
           html += ' data-key="' + key + '"';
         }
         return html + '>';
@@ -84,7 +84,7 @@ $(function() {
   lichess.socketDefaults.events.fen = function(e) {
     $('a.live_' + e.id).each(function() {
       var $this = $(this);
-      parseFen($this.data("fen", e.fen));
+      parseFen($this.data("fen", e.fen).data("lastmove", e.lm));
     });
   };
 

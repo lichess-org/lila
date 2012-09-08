@@ -70,9 +70,9 @@ final class Socket(
               hub ! Resync(uid)
               println(fs.shows)
             }
-            case Success((events, fen)) ⇒ {
+            case Success((events, fen, lastMove)) ⇒ {
               send(povRef.gameId, events)
-              moveNotifier(povRef.gameId, fen)
+              moveNotifier(povRef.gameId, fen, lastMove)
             }
           }
         }
