@@ -19,6 +19,6 @@ final class WinChart(nbWin: Int, nbDraw: Int, nbLoss: Int, nbAi: Int) {
       List(trans.nbWins.str(nbWin), nbWin),
       List(trans.nbLosses.str(nbLoss), nbLoss),
       List(trans.nbDraws.str(nbDraw), nbDraw),
-      List("AI", nbAi))
+      List("%d AI" format nbAi, nbAi))
   }
 }
