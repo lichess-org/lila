@@ -74,17 +74,6 @@ trait LilaController
       }
     )
 
-  def UAFirewall[A <: Result](a: ⇒ A)(implicit ctx: Context): Result = Firewall {
-    val uas = List(
-      "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.89 Safari/537.1",
-      "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.89 Safari/537.1")
-    val ua = ctx.req.headers.get("User-Agent").|("?")
-    if (ctx.isAnon && uas.contains(ua.pp)) {
-      println("blocked " + ua)
-      Redirect(routes.Lobby.home())
-    } else a
-  }
-
   def JsonOk(map: Map[String, Any]) = Ok(toJson(map)) as JSON
 
   def JsonOk(list: List[Any]) = Ok(Json generate list) as JSON
