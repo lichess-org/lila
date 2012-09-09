@@ -3,14 +3,14 @@
 @moreCss = {
 @cssTag("tournament.css")
 }
+@moreJs = {
+@jsTag("tournament.js")
+}
 
 @base.layout(
 title = title,
 moreCss = moreCss,
+moreJs = moreJs,
 active = siteMenu.tournament.some) {
-<div id="tournament">
-  <div class="content_box tournament_box">
-    @body
-  </div>
-</div>
+@body
 }

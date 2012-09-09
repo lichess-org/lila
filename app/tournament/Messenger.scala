@@ -11,13 +11,11 @@ final class Messenger(
 
   import Room._
 
-  def init(tour: Created): IO[List[Message]] =
-    userRepo byId tour.data.createdBy flatMap {
-      _.fold(
-        user ⇒ systemMessage(tour, "%s creates the tournament" format user) map { List(_) },
-        io(Nil)
-      )
-    }
+  def init(tour: Created): IO[List[Message]] = for {
+    userOption ← userRepo byId tour.data.createdBy
+    username = userOption.fold(_.username, tour.data.createdBy)
+    message ← systemMessage(tour, "%s creates the tournament" format username) 
+  } yield List(message)
 
   def userMessage(tour: Tournament, text: String, username: String): IO[Valid[Message]] = for {
     userOption ← userRepo byId username
@@ -30,7 +28,7 @@ final class Messenger(
   } yield message
 
   def systemMessage(tour: Tournament, text: String): IO[Message] =
-    Message(none, text) |> { message =>
-      roomRepo.addMessage(tour.id, message) map (_ => message)
+    Message(none, text) |> { message ⇒
+      roomRepo.addMessage(tour.id, message) map (_ ⇒ message)
     }
 }

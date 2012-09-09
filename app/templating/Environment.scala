@@ -29,7 +29,8 @@ object Environment
     with i18n.I18nHelper 
     with bookmark.BookmarkHelper
     with notification.NotificationHelper
-    with analyse.AnalyseHelper {
+    with analyse.AnalyseHelper
+    with tournament.TournamentHelper {
 
   protected def env = coreEnv
 }

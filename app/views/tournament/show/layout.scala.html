@@ -1,0 +1,15 @@
+@(tour: lila.tournament.Tournament, title: String)(body: Html)(implicit ctx: Context)
+
+@tournament.layout(
+title = title) {
+<div id="tournament">
+  <div 
+    class="content_box tournament_box tournament_show"
+    data-socket-url="@routes.Tournament.websocket(tour.id)">
+    @body
+  </div>
+</div>
+<script type="text/javascript">
+  var lichess_data = @Html(tournamentJsData(tour, 0))
+</script>
+}

@@ -6,7 +6,9 @@ import tournament.{ Created }
 import http.Context
 
 import scalaz.effects._
-import play.api.mvc.Result
+import play.api.mvc._
+import play.api.libs.json._
+import play.api.libs.iteratee._
 
 object Tournament extends LilaController {
 
@@ -42,5 +44,15 @@ object Tournament extends LilaController {
             Redirect(routes.Tournament.show(tournament.id))
           ))
       }
+  }
+
+  def websocket(fullId: String) = WebSocket.async[JsValue] { req ⇒
+    implicit val ctx = reqToCtx(req)
+    throw new Exception("oups")
+    //socket.joinPlayer(
+      //fullId,
+      //getInt("version"),
+      //get("uid"),
+      //ctx.me).unsafePerformIO
   }
 }
