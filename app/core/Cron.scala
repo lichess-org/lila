@@ -22,7 +22,7 @@ object Cron {
 
     println("Start cron mode " + current.mode)
 
-    unsafe(5 seconds) {
+    unsafe(5 seconds, "meta hub: broom") {
       env.metaHub ! socket.Broom
     }
 
@@ -34,7 +34,7 @@ object Cron {
       env.lobby.hub -> lobby.WithHooks(env.lobby.hookMemo.putAll)
     }
 
-    unsafe(2 seconds) {
+    unsafe(2 seconds, "meta hub: refresh") {
       env.metaHub.?[Int](socket.GetNbMembers) map (_.sum) onSuccess {
         case nb ⇒ env.metaHub ! socket.NbMembers(nb)
       }
@@ -48,7 +48,7 @@ object Cron {
       env.lobby.hookRepo.cleanupOld
     }
 
-    unsafe(3 seconds) {
+    unsafe(3 seconds, "usernameMemo: refresh") {
       env.metaHub.?[Iterable[String]](socket.GetUsernames) map (_.flatten) onSuccess {
         case xs ⇒ (env.user.usernameMemo putAll xs).unsafePerformIO
       }
@@ -68,11 +68,11 @@ object Cron {
 
       env.ai.clientDiagnose
     }
-    unsafe(10 seconds) {
+    unsafe(10 seconds, "ai: diagnose") {
       env.ai.clientDiagnose
     }
 
-    effect(5 minute, "search: index finished games") {
+    effect(5 seconds, "search: index finished games") {
       env.search.indexer.indexQueue
     }
 
@@ -80,7 +80,7 @@ object Cron {
       env.search.indexer.optimize
     }
 
-    unsafe(10 minutes) {
+    unsafe(10 minutes, "firewall: refresh") {
       env.security.firewall.refresh
     }
 
@@ -88,16 +88,27 @@ object Cron {
       Akka.system.scheduler.schedule(freq, freq.randomize(), to._1, to._2)
     }
 
-    def effect(freq: Duration, name: String)(op: IO[_]) {
+    def effect(freq: Duration, name: String)(op: ⇒ IO[_]) {
       val f = freq.randomize()
       println("schedule effect %s every %s -> %s".format(name, freq, f))
       Akka.system.scheduler.schedule(f, f) {
-        op.unsafePerformIO
+        tryNamed(name, op.unsafePerformIO)
       }
     }
 
-    def unsafe(freq: Duration)(op: ⇒ Unit) {
-      Akka.system.scheduler.schedule(freq, freq.randomize()) { op }
+    def unsafe(freq: Duration, name: String)(op: ⇒ Unit) {
+      Akka.system.scheduler.schedule(freq, freq.randomize()) {
+        tryNamed(name, op)
+      }
+    }
+  }
+
+  private def tryNamed(name: String, op: ⇒ Unit) {
+    try {
+      op
+    }
+    catch {
+      case e ⇒ println("[CRON ERROR] (" + name + ") " + e.getMessage)
     }
   }
 }
