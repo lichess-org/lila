@@ -35,7 +35,7 @@ final class Firewall(
       if (!blocksIp(ip)) {
         log("Block IP: " + ip)
         collection += DBObject("_id" -> ip, "date" -> new Date)
-        ips = fetch
+        refresh
       }
     }
     else log("Invalid IP block: " + ip)
@@ -50,6 +50,8 @@ final class Firewall(
   def logBlock(req: RequestHeader) {
     log("Block " + formatReq(req))
   }
+
+  def refresh { ips = fetch }
 
   private def log(msg: Any) {
     println("[%s] %s".format("firewall", msg.toString))
