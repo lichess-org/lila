@@ -9,8 +9,8 @@ import play.api.mvc.Result
 
 object Search extends LilaController with BaseGame {
 
-  val indexer = env.search.indexer
-  val forms = env.search.forms
+  def indexer = env.search.indexer
+  def forms = env.search.forms
 
   def form(page: Int) = OpenBody { implicit ctx ⇒
     reasonable(page) {
