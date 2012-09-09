@@ -2,6 +2,7 @@ package controllers
 
 import lila._
 import views._
+import tournament.{ Created }
 import http.Context
 
 import scalaz.effects._
@@ -20,7 +21,10 @@ object Tournament extends LilaController {
   }
 
   def show(id: String) = Open { implicit ctx ⇒
-    Ok(id)
+    IOptionOk(repo byId id) {
+      case t: Created ⇒ html.tournament.show.created(t)
+      case _          ⇒ throw new Exception("oups")
+    }
   }
 
   def form = Auth { implicit ctx ⇒
@@ -34,7 +38,7 @@ object Tournament extends LilaController {
         implicit val req = ctx.body
         forms.create.bindFromRequest.fold(
           err ⇒ io(BadRequest(html.message.form(err))),
-          data ⇒ api.makeTournament(data, me).map(tournament ⇒
+          setup ⇒ api.createTournament(setup, me).map(tournament ⇒
             Redirect(routes.Tournament.show(tournament.id))
           ))
       }
