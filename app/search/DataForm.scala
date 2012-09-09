@@ -11,41 +11,34 @@ import chess.{ Mode }
 
 final class DataForm {
 
+  import lila.core.Form._
+
   val search = Form(mapping(
     "players" -> mapping(
       "a" -> optional(nonEmptyText),
       "b" -> optional(nonEmptyText),
       "winner" -> optional(nonEmptyText)
     )(SearchPlayer.apply)(SearchPlayer.unapply),
-    "variant" -> numberIn(Query.variants),
-    "mode" -> numberIn(Query.modes),
-    "opening" -> stringIn(Query.openings),
-    "turnsMin" -> numberIn(Query.turns),
-    "turnsMax" -> numberIn(Query.turns),
-    "eloMin" -> numberIn(Query.averageElos),
-    "eloMax" -> numberIn(Query.averageElos),
-    "hasAi" -> numberIn(Query.hasAis),
-    "aiLevelMin" -> numberIn(Query.aiLevels),
-    "aiLevelMax" -> numberIn(Query.aiLevels),
-    "durationMin" -> numberIn(Query.durations),
-    "durationMax" -> numberIn(Query.durations),
-    "dateMin" -> stringIn(Query.dates),
-    "dateMax" -> stringIn(Query.dates),
-    "status" -> numberIn(Query.statuses),
+    "variant" -> optional(numberIn(Query.variants)),
+    "mode" -> optional(numberIn(Query.modes)),
+    "opening" -> optional(stringIn(Query.openings)),
+    "turnsMin" -> optional(numberIn(Query.turns)),
+    "turnsMax" -> optional(numberIn(Query.turns)),
+    "eloMin" -> optional(numberIn(Query.averageElos)),
+    "eloMax" -> optional(numberIn(Query.averageElos)),
+    "hasAi" -> optional(numberIn(Query.hasAis)),
+    "aiLevelMin" -> optional(numberIn(Query.aiLevels)),
+    "aiLevelMax" -> optional(numberIn(Query.aiLevels)),
+    "durationMin" -> optional(numberIn(Query.durations)),
+    "durationMax" -> optional(numberIn(Query.durations)),
+    "dateMin" -> optional(stringIn(Query.dates)),
+    "dateMax" -> optional(stringIn(Query.dates)),
+    "status" -> optional(numberIn(Query.statuses)),
     "sort" -> mapping(
-      "field" -> nonEmptyText.verifying(hasKey(Sorting.fields, _)),
-      "order" -> nonEmptyText.verifying(hasKey(Sorting.orders, _))
+      "field" -> stringIn(Sorting.fields),
+      "order" -> stringIn(Sorting.orders)
     )(SearchSort.apply)(SearchSort.unapply)
-  )(SearchData.apply)(SearchData.unapply))
-
-  private def numberIn(choices: Iterable[(Int, String)]) =
-    optional(number.verifying(hasKey(choices, _)))
-
-  private def stringIn(choices: Iterable[(String, String)]) =
-    optional(nonEmptyText.verifying(hasKey(choices, _)))
-
-  private def hasKey[A](choices: Iterable[(A, _)], key: A) =
-    choices.map(_._1).toList contains key
+  )(SearchData.apply)(SearchData.unapply)) fill SearchData()
 }
 
 case class SearchData(

@@ -7,10 +7,12 @@ import play.api.data.validation.Constraints._
 
 final class DataForm {
 
+  import lila.core.Form._
+
   val create = Form(mapping(
-    "maxUsers" -> number.verifying(min(3), max(8))
-  )(TournamentSetup.apply)(TournamentSetup.unapply))
+    "minutes" -> numberIn(Tournament.minuteChoices)
+  )(TournamentSetup.apply)(TournamentSetup.unapply)) fill TournamentSetup()
 }
 
 case class TournamentSetup(
-  maxUsers: Int)
+  minutes: Int = Tournament.minuteDefault)
