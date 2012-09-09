@@ -4,7 +4,6 @@ package round
 import socket._
 import chess.{ Color, White, Black }
 import game.PovRef
-import user.User
 
 import akka.actor._
 import akka.util.duration._
@@ -40,8 +39,7 @@ final class Hub(
       }
     }
 
-    case Ack(uid) => withMember(uid) { _.channel push ackEvent }
-
+    case Ack(uid) ⇒ withMember(uid) { _.channel push ackEvent }
 
     case Broom ⇒ {
       broom()

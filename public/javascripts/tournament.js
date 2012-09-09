@@ -9,7 +9,7 @@ $(function() {
   var $chat = $("div.lichess_chat");
   var $chatToggle = $chat.find('input.toggle_chat');
   var chatExists = $chat.length > 0;
-  var websocketUrl = $wrap.data("socket-url");
+  var socketUrl = $wrap.data("socket-url");
 
   if (chatExists) {
     var $form = $chat.find('form');
@@ -56,7 +56,7 @@ $(function() {
     return html;
   }
 
-  lichess.socket = new $.websocket(lichess.socketUrl + socketUrl, lichess_preload.version, $.extend(true, lichess.socketDefaults, {
+  lichess.socket = new $.websocket(lichess.socketUrl + socketUrl, lichess_data.version, $.extend(true, lichess.socketDefaults, {
     events: {
       talk: function(e) { if (chatExists && e.txt) addToChat(buildChatMessage(e.txt, e.u)); }
     },

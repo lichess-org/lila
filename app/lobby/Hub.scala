@@ -9,8 +9,8 @@ import play.api.libs.iteratee._
 
 final class Hub(
     messenger: Messenger,
-    history: History,
-    timeout: Int) extends HubActor[Member](timeout) {
+    val history: History,
+    timeout: Int) extends HubActor[Member](timeout) with Historical[Member] {
 
   def receiveSpecific = {
 
@@ -60,19 +60,6 @@ final class Hub(
       }
 
     case ChangeFeatured(oldId, newId) ⇒ notifyFeatured(oldId, newId)
-  }
-
-  def notifyMember(t: String, data: JsValue)(member: Member) {
-    val msg = JsObject(Seq("t" -> JsString(t), "d" -> data))
-    member.channel push msg
-  }
-
-  def notifyVersion(t: String, data: JsValue) {
-    val vmsg = history += makeMessage(t, data)
-    members.values.foreach(_.channel push vmsg)
-  }
-  def notifyVersion(t: String, data: Seq[(String, JsValue)]) {
-    notifyVersion(t, JsObject(data))
   }
 
   def notifyFeatured(oldId: Option[String], newId: String) {
