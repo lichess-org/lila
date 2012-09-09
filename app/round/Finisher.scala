@@ -84,8 +84,8 @@ final class Finisher(
       winnerId = winner flatMap (g.player(_).userId)
       _ ← gameRepo.finish(g.id, winnerId)
       _ ← updateElo(g)
-      _ ← incNbGames(g, White)
-      _ ← incNbGames(g, Black)
+      _ ← incNbGames(g, White) doIf (g.status >= Status.Mate)
+      _ ← incNbGames(g, Black) doIf (g.status >= Status.Mate)
       _ ← indexGame(g)
     } yield p2.events)
 
