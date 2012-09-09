@@ -16,6 +16,8 @@ case class Data(
   lazy val duration = new Duration(minutes * 60 * 1000)
 
   def missingUsers = minUsers - users.size
+
+  def contains(username: String) = users contains username
 }
 
 sealed trait Tournament {

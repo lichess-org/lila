@@ -29,10 +29,10 @@ final class Hub(
       sender ! Connected(enumerator, channel)
     }
 
-    case Talk(txt, u) ⇒ messenger(txt, u).unsafePerformIO foreach { message ⇒
+    case Talk(u, txt) ⇒ messenger(u, txt).unsafePerformIO foreach { message ⇒
       notifyVersion("talk", Seq(
-        "txt" -> JsString(message.text),
-        "u" -> JsString(message.username)
+        "u" -> JsString(message.username),
+        "txt" -> JsString(message.text)
       ))
     }
 

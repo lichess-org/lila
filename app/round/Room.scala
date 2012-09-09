@@ -3,7 +3,6 @@ package round
 
 import com.novus.salat.annotations.Key
 import org.apache.commons.lang3.StringEscapeUtils.escapeXml
-import scala.collection.JavaConversions._
 
 case class Room(
     @Key("_id") id: String,
