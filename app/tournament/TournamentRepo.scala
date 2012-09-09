@@ -10,20 +10,20 @@ import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 
 class TournamentRepo(collection: MongoCollection)
-    extends SalatDAO[Tournament, String](collection) {
+    extends SalatDAO[RawTournament, String](collection) {
 
   def byId(id: String): IO[Option[Tournament]] = io {
-    findOneById(id)
+    findOneById(id) flatMap (_.any)
   }
 
-  def created: IO[List[Tournament]] = io {
-    find(DBObject("status" -> Status.Created))
+  def created: IO[List[Created]] = io {
+    find(DBObject("status" -> Status.Created.id))
       .sort(DBObject("createdAt" -> -1))
-      .toList
+      .toList.map(_.created).flatten
   }
 
   def saveIO(tournament: Tournament): IO[Unit] = io {
-    save(tournament)
+    save(tournament.encode)
   }
 
   private def idSelector(id: String): DBObject = DBObject("_id" -> id)

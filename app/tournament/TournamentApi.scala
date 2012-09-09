@@ -3,17 +3,18 @@ package tournament
 
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
+import scalaz.effects._
 
 import user.User
 
 final class TournamentApi(
     repo: TournamentRepo) {
 
-  def makeTournament(data: TournamentSetup, me: User) = {
+  def createTournament(setup: TournamentSetup, me: User): IO[Created] = {
     val tournament = Tournament(
       createdBy = me.id,
-      startsAt = DateTime.now,
-      minutes = data.minutes)
+      minutes = setup.minutes,
+      minUsers = setup.minUsers)
     for {
       _ ← repo saveIO tournament
     } yield tournament

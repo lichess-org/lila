@@ -1,0 +1,19 @@
+@(tour: lila.tournament.Created)(implicit ctx: Context)
+
+@import tour.data._
+
+@title = @{ tour.showClock + " tournament" }
+
+@tournament.layout(
+title = title) {
+
+<h1>@title pending</h1>
+<div>
+  Waiting for @missingUsers players
+</div>
+<div>
+  Players: @users.map { user =>
+  @userIdLink(user.some)
+  }
+</div>
+}

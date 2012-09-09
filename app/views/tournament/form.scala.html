@@ -9,10 +9,18 @@ title = "New tournament") {
   <table>
     <tr>
       <th>
-        <label for="@form("maxUsers").id">Total duration</label>
+        <label for="@form("minutes").id">Total duration</label>
       </th>
       <td>
         @base.select(form("minutes"), Tournament.minuteChoices)
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <label for="@form("minUsers").id">Number of Players</label>
+      </th>
+      <td>
+        @base.select(form("minUsers"), Tournament.minUserChoices)
       </td>
     </tr>
     <tr>
