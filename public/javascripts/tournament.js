@@ -2,6 +2,7 @@
 $(function() {
 
   var $wrap = $('div.tournament_show');
+  var $userTag = $('#user_tag');
   if (!$wrap.length) return;
   if (!$.websocket.available) return;
 
