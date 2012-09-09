@@ -30,7 +30,7 @@ final class Indexer(
 
   def count(request: CountRequest): Int = request.in(indexName, typeName)(es)
 
-  def indexQueue: IO[Unit] = for {
+  val indexQueue: IO[Unit] = for {
     ids ← queue next 1000
     _ ← ids.toNel.fold(
       neIds ⇒ for {
@@ -69,7 +69,7 @@ final class Indexer(
     nb
   }
 
-  def optimize: IO[Unit] = io {
+  val optimize: IO[Unit] = io {
     es.optimize(Seq(indexName))
   }
 
