@@ -12,9 +12,10 @@ import play.api.libs.iteratee._
 
 object Tournament extends LilaController {
 
-  val repo = env.tournament.repo
-  val forms = env.tournament.forms
-  val api = env.tournament.api
+  private def repo = env.tournament.repo
+  private def forms = env.tournament.forms
+  private def api = env.tournament.api
+  private def socket = env.tournament.socket
 
   val home = Open { implicit ctx ⇒
     IOk(repo.created map { tournaments ⇒
@@ -46,13 +47,8 @@ object Tournament extends LilaController {
       }
   }
 
-  def websocket(fullId: String) = WebSocket.async[JsValue] { req ⇒
+  def websocket(id: String) = WebSocket.async[JsValue] { req ⇒
     implicit val ctx = reqToCtx(req)
-    throw new Exception("oups")
-    //socket.joinPlayer(
-      //fullId,
-      //getInt("version"),
-      //get("uid"),
-      //ctx.me).unsafePerformIO
+    socket.join(id, getInt("version"), get("uid"), ctx.me).unsafePerformIO
   }
 }

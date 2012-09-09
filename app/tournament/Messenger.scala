@@ -3,22 +3,22 @@ package tournament
 
 import scalaz.effects._
 
-import user.{ User, UserRepo }
+import user.User
 
 final class Messenger(
     roomRepo: RoomRepo,
-    userRepo: UserRepo) extends core.Room {
+    getUser: String => IO[Option[User]]) extends core.Room {
 
   import Room._
 
   def init(tour: Created): IO[List[Message]] = for {
-    userOption ← userRepo byId tour.data.createdBy
+    userOption ← getUser(tour.data.createdBy)
     username = userOption.fold(_.username, tour.data.createdBy)
     message ← systemMessage(tour, "%s creates the tournament" format username) 
   } yield List(message)
 
   def userMessage(tour: Tournament, text: String, username: String): IO[Valid[Message]] = for {
-    userOption ← userRepo byId username
+    userOption ← getUser(username)
     message = for {
       user ← userOption filter (_.canChat) toValid "This user cannot chat"
       msg ← createMessage(user, text)

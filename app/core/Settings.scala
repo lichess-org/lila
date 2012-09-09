@@ -41,6 +41,10 @@ final class Settings(config: Config) {
   val RoundCollectionWatcherRoom = getString("round.collection.watcher_room")
 
   val TournamentCollectionTournament = getString("tournament.collection.tournament")
+  val TournamentCollectionRoom = getString("tournament.collection.room")
+  val TournamentMessageLifetime = millis("tournament.message.lifetime")
+  val TournamentUidTimeout = millis("tournament.uid.timeout")
+  val TournamentHubTimeout = millis("tournament.hub.timeout")
 
   val AnalyseCachedNbTtl = millis("analyse.cached.nb.ttl")
 
@@ -126,6 +130,7 @@ final class Settings(config: Config) {
   val ActorRoundHubMaster = "game_hub_master"
   val ActorLobbyHub = "lobby_hub"
   val ActorMonitorHub = "monitor_hub"
+  val ActorTournamentHubMaster = "tournament_hub_master"
 
   val ModlogCollectionModlog = getString("modlog.collection.modlog")
 

@@ -13,6 +13,7 @@ import timeline.Entry
 import user.{ User, UserRepo }
 import game.{ DbGame, Featured }
 import round.{ Socket ⇒ RoundSocket, Messenger ⇒ RoundMessenger }
+import socket.History
 import security.Flood
 import core.Settings
 
@@ -36,7 +37,7 @@ final class LobbyEnv(
     messageRepo = messageRepo,
     userRepo = userRepo)
 
-  lazy val hub = Akka.system.actorOf(Props(new Hub(
+  lazy val hub: ActorRef = Akka.system.actorOf(Props(new Hub(
     messenger = messenger,
     history = history,
     timeout = SiteUidTimeout

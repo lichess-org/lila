@@ -45,6 +45,10 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
     members.values.foreach(_.channel push msg)
   }
 
+  def notifyMember(t: String, data: JsValue)(member: M) {
+    member.channel push makeMessage(t, data)
+  }
+
   def makeMessage(t: String, data: JsValue) =
     JsObject(Seq("t" -> JsString(t), "d" -> data))
 

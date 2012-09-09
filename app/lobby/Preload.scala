@@ -5,6 +5,7 @@ import timeline.Entry
 import game.{ DbGame, Featured }
 import forum.PostView
 import controllers.routes
+import socket.History
 
 import play.api.mvc.Call
 import play.api.libs.concurrent.Akka
