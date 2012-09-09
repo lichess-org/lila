@@ -4,32 +4,35 @@
 
 @tournament.layout(
 title = "New tournament") {
-<h1>New tournament</h1>
-<form action="@routes.Tournament.create" method="POST">
-  <table>
-    <tr>
-      <th>
-        <label for="@form("minutes").id">Total duration</label>
-      </th>
-      <td>
-        @base.select(form("minutes"), Tournament.minuteChoices)
-      </td>
-    </tr>
-    <tr>
-      <th>
-        <label for="@form("minUsers").id">Number of Players</label>
-      </th>
-      <td>
-        @base.select(form("minUsers"), Tournament.minUserChoices)
-      </td>
-    </tr>
-    <tr>
-      <th></th>
-      <td>
-        <input type="submit" class="submit" value="Create the tournament" />
-      </td>
-    </tr>
-  </table>
-</form>
+<div id="tournament">
+  <div class="content_box tournament_box">
+    <h1>New tournament</h1>
+    <form action="@routes.Tournament.create" method="POST">
+      <table>
+        <tr>
+          <th>
+            <label for="@form("minutes").id">Total duration</label>
+          </th>
+          <td>
+            @base.select(form("minutes"), Tournament.minuteChoices)
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <label for="@form("minUsers").id">Number of Players</label>
+          </th>
+          <td>
+            @base.select(form("minUsers"), Tournament.minUserChoices)
+          </td>
+        </tr>
+        <tr>
+          <th></th>
+          <td>
+            <input type="submit" class="submit" value="Create the tournament" />
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
 </div>
 }
