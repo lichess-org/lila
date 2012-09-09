@@ -25,7 +25,7 @@ case class Join(
   username: Option[String],
   version: Int,
   hookOwnerId: Option[String])
-case class Talk(txt: String, u: String)
+case class Talk(u: String, txt: String)
 case class Connected(
   enumerator: JsEnumerator, 
   channel: JsChannel)

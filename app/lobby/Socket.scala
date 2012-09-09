@@ -37,7 +37,7 @@ final class Socket(hub: ActorRef, flood: Flood) {
               txt ← data str "txt"
               if flood.allowMessage(uid, txt)
               uname ← username
-            } hub ! Talk(txt, uname)
+            } hub ! Talk(uname, txt)
             case Some("p") ⇒ e int "v" foreach { v ⇒
               hub ! PingVersion(uid, v)
             }
