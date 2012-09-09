@@ -17,4 +17,7 @@ final class TournamentEnv(
 
   lazy val repo = new TournamentRepo(
     collection = mongodb(TournamentCollectionTournament))
+
+  lazy val api = new TournamentApi(
+    repo = repo)
 }

@@ -15,7 +15,7 @@ object Search extends LilaController with BaseGame {
   def form(page: Int) = OpenBody { implicit ctx ⇒
     reasonable(page) {
       implicit def req = ctx.body
-      forms.search.fill(SearchData()).bindFromRequest.fold(
+      forms.search.bindFromRequest.fold(
         failure ⇒ Ok(html.search.form(makeListMenu, failure)),
         data ⇒ {
           Ok(html.search.form(

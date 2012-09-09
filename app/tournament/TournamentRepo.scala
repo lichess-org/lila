@@ -22,6 +22,10 @@ class TournamentRepo(collection: MongoCollection)
       .toList
   }
 
+  def saveIO(tournament: Tournament): IO[Unit] = io {
+    save(tournament)
+  }
+
   private def idSelector(id: String): DBObject = DBObject("_id" -> id)
   private def idSelector(tournament: Tournament): DBObject = idSelector(tournament.id)
 }

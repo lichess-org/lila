@@ -78,6 +78,8 @@ case class Query(
 }
 
 object Query {
+  
+  import lila.core.Form._
 
   val durations = options(List(1, 2, 3, 5, 10, 15, 20, 30), "%d minute{s}")
 
@@ -105,17 +107,6 @@ object Query {
     options(1 to 3, "w", "%d week{s} ago") ++
     options(1 to 6, "m", "%d month{s} ago") ++
     options(1 to 4, "y", "%d year{s} ago")
-
-  private def options(it: Iterable[Int], pattern: String) = it map { d ⇒
-    d -> (pluralize(pattern, d) format d)
-  }
-
-  private def options(it: Iterable[Int], code: String, pattern: String) = it map { d ⇒
-    (d + code) -> (pluralize(pattern, d) format d)
-  }
-
-  private def pluralize(pattern: String, nb: Int) =
-    pattern.replace("{s}", (nb > 1).fold("s", ""))
 
   val statuses =
     Status.finishedNotCheated filterNot (_.is(_.Timeout)) map { s ⇒
