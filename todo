@@ -29,3 +29,4 @@ recognize tor IPs http://en.lichess.org/forum/staff/cheater-101#9 https://check.
 index game positions
 integrate with google+
 elo stats (branch elostats)
+lobby concurrency http://en.lichess.org/forum/lichess-feedback/bug-multiple-players-can-accept-the-same-game-proposal#1
