@@ -1,0 +1,23 @@
+@(tour: lila.tournament.Started, roomHtml: Html, version: Int, users: List[User])(implicit ctx: Context)
+
+@title = @{ tour.showClock + " tournament in progress" }
+
+@tournament.show.layout(
+tour = tour,
+roomHtml = roomHtml,
+version = version,
+title = title) {
+
+<h1>@title</h1>
+<div class="user_list" data-href="@routes.Tournament.userList(tour.id)">
+  @tournament.userList(users)
+</div>
+
+@ctx.me.filter(tour.contains).map { me =>
+<div>
+  <form action="@routes.Tournament.withdraw(tour.id)" method="POST">
+    <input type="submit" class="submit button" value="Withdraw" />
+  </form>
+</div>
+}
+}

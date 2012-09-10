@@ -1,4 +1,4 @@
-@(tournaments: List[lila.tournament.Tournament])(implicit ctx: Context)
+@(createds: List[lila.tournament.Created], starteds: List[lila.tournament.Started])(implicit ctx: Context)
 
 @tournament.layout(
 title = "Tournaments") {
@@ -7,9 +7,62 @@ title = "Tournaments") {
 
     <h1 class="lichess_title">Tournaments</h1>
     <div class="body">
-      list of tournaments
+      <table class="createds tournaments">
+        <thead>
+          <tr>
+            <th rowspan="4">Incoming tournaments</th>
+          </tr>
+        </thead>
+        <tbody>
+        @createds.map { tournament =>
+        <tr>
+          <td>
+            <a href="@routes.Tournament.show(tournament.id)">
+              @userIdToUsername(tournament.createdBy)'s tournament
+            </a>
+          </td>
+          <td>@tournament.showClock</td>
+          <td>@tournament.minutes minutes</td>
+          <td>@tournament.nbUsers / @tournament.minUsers players</td>
+          <td>
+            @if(ctx.me.fold(tournament.contains, false)) {
+            JOINED
+            }
+          </td>
+        </tr>
+        }
+        </tbody>
+      </table>
+      <table class="starteds tournaments">
+        <thead>
+          <tr>
+            <th rowspan="4">In progress</th>
+          </tr>
+        </thead>
+        <tbody>
+        @starteds.map { tournament =>
+        <tr>
+          <td>
+            <a href="@routes.Tournament.show(tournament.id)">
+              @userIdToUsername(tournament.createdBy)'s tournament
+            </a>
+          </td>
+          <td>@tournament.showClock</td>
+          <td>@tournament.minutes minutes</td>
+          <td>@tournament.nbUsers / @tournament.minUsers players</td>
+          <td>
+            @if(ctx.me.fold(tournament.contains, false)) {
+            JOINED
+            }
+          </td>
+        </tr>
+        }
+        </tbody>
+      </table>
     </div>
-    <a href="@routes.Tournament.form()" class="action button">Create a new tournament</a>
+    <div>
+    <a href="@routes.Tournament.form()" class="action">Create a new tournament</a>
+  </div>
   </div>
 </div>
 }

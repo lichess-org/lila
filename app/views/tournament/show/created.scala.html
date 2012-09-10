@@ -1,8 +1,6 @@
 @(tour: lila.tournament.Created, roomHtml: Html, version: Int, users: List[User])(implicit ctx: Context)
 
-@import tour._
-
-@title = @{ tour.showClock + " tournament" }
+@title = @{ tour.showClock + " tournament pending" }
 
 @tournament.show.layout(
 tour = tour,
@@ -10,11 +8,11 @@ roomHtml = roomHtml,
 version = version,
 title = title) {
 
-<h1>@title pending</h1>
+<h1>@title</h1>
 <div>
-  Waiting for @missingUsers players
+  Waiting for @tour.missingUsers players
 </div>
-<div class="user_list" data-href="@routes.Tournament.userList(id)">
+<div class="user_list" data-href="@routes.Tournament.userList(tour.id)">
   @tournament.userList(users)
 </div>
 

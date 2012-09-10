@@ -86,12 +86,12 @@ object Cron {
 
     // also sent when the last player joins
     message(8 seconds) {
-      env.tournament.organizer -> tournament.StartTournament
+      env.tournament.organizer -> tournament.StartTournaments
     }
 
     // also sent when a player completes a game
     message(5 seconds) {
-      env.tournament.organizer -> tournament.StartPairing
+      env.tournament.organizer -> tournament.StartPairings
     }
 
     def message(freq: Duration)(to: (ActorRef, Any)) {

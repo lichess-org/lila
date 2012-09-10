@@ -34,7 +34,7 @@ package object lila
   }
   RegisterJodaTimeConversionHelpers()
 
-  def !![A](msg: String) = msg.failNel[A]
+  def !![A](msg: String): Valid[A] = msg.failNel[A]
 
   def nowMillis: Double = System.currentTimeMillis
   def nowSeconds: Int = (nowMillis / 1000).toInt

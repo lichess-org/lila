@@ -2,7 +2,7 @@ package controllers
 
 import lila._
 import views._
-import tournament.{ Created }
+import tournament.{ Created, Started }
 import http.Context
 
 import scalaz.effects._
@@ -21,30 +21,49 @@ object Tournament extends LilaController {
   private def userRepo = env.user.userRepo
 
   val home = Open { implicit ctx ⇒
-    IOk(repo.created map { tournaments ⇒
-      html.tournament.home(tournaments)
-    })
+    IOk(
+      for {
+        createds ← repo.created
+        starteds ← repo.started
+      } yield html.tournament.home(createds, starteds)
+    )
   }
 
   def show(id: String) = Open { implicit ctx ⇒
     IOptionIOk(repo byId id) {
-      case tour: Created ⇒ for {
-        roomHtml ← messenger render tour
-        users ← userRepo byIds tour.data.users
-      } yield html.tournament.show.created(
-        tour = tour,
-        roomHtml = Html(roomHtml),
-        version = version(tour.id),
-        users = users
-      )
-      case _ ⇒ throw new Exception("oups")
+      case tour: Created ⇒ showCreated(tour)
+      case tour: Started ⇒ showStarted(tour)
+      case _             ⇒ throw new Exception("uuuh")
     }
   }
+
+  private def showCreated(tour: Created)(implicit ctx: Context) = for {
+    roomHtml ← messenger render tour
+    users ← userRepo byIds tour.data.users
+  } yield html.tournament.show.created(
+    tour = tour,
+    roomHtml = Html(roomHtml),
+    version = version(tour.id),
+    users = users)
+
+  private def showStarted(tour: Started)(implicit ctx: Context) = for {
+    roomHtml ← messenger render tour
+    users ← userRepo byIds tour.data.users
+  } yield html.tournament.show.started(
+    tour = tour,
+    roomHtml = Html(roomHtml),
+    version = version(tour.id),
+    users = users)
 
   def join(id: String) = Auth { implicit ctx ⇒
     implicit me ⇒
       IOptionIORedirect(repo createdById id) { tour ⇒
-        api.join(tour, me) map { _ ⇒ routes.Tournament.show(tour.id) }
+        api.join(tour, me) map { result ⇒
+          result.fold(
+            err ⇒ { println(err.shows); routes.Tournament.home() },
+            _ ⇒ routes.Tournament.show(tour.id)
+          )
+        }
       }
   }
 
@@ -75,7 +94,10 @@ object Tournament extends LilaController {
         forms.create.bindFromRequest.fold(
           err ⇒ io(BadRequest(html.message.form(err))),
           setup ⇒ api.createTournament(setup, me).map(tournament ⇒
-            Redirect(routes.Tournament.show(tournament.id))
+            tournament.fold(
+              err ⇒ { println(err.shows); Redirect(routes.Tournament.home()) },
+              tour ⇒ Redirect(routes.Tournament.show(tour.id))
+            )
           ))
       }
   }

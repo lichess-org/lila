@@ -5,6 +5,7 @@ import org.joda.time.{ DateTime, Duration }
 import org.scala_tools.time.Imports._
 import com.novus.salat.annotations.Key
 import ornicar.scalalib.OrnicarRandom
+import scalaz.NonEmptyList
 
 import user.User
 
@@ -21,16 +22,18 @@ sealed trait Tournament {
   val data: Data
   def encode: RawTournament
 
-  import data._
-
+  def minutes = data.minutes
   lazy val duration = new Duration(minutes * 60 * 1000)
 
-  def missingUsers = minUsers - users.size
-
+  def users = data.users
+  def nbUsers = users.size
+  def minUsers = data.minUsers
   def contains(username: String): Boolean = users contains username
   def contains(user: User): Boolean = contains(user.id)
+  def missingUsers = minUsers - users.size
 
   def showClock = "2 + 0"
+  def createdBy = data.createdBy
 }
 
 case class Created(
@@ -67,30 +70,15 @@ case class Started(
     startedAt: DateTime,
     pairings: List[Pairing]) extends Tournament {
 
+  def addPairings(ps: NonEmptyList[Pairing]) =
+    copy(pairings = pairings ::: ps.list)
+
   def encode = new RawTournament(
     id = id,
-    status = Status.Created.id,
+    status = Status.Started.id,
     data = data,
     startedAt = startedAt.some,
     pairings = pairings map (_.encode))
-}
-
-case class Pairing(
-    gameId: String,
-    status: chess.Status,
-    users: List[String]) {
-
-  def encode: RawPairing = RawPairing(gameId, status.id, users)
-}
-
-case class RawPairing(
-    g: String,
-    s: Int,
-    u: List[String]) {
-
-  def decode: Option[Pairing] = chess.Status(s) map { status ⇒
-    Pairing(g, status, u)
-  }
 }
 
 case class RawTournament(
@@ -106,7 +94,7 @@ case class RawTournament(
 
   def started: Option[Started] = for {
     stAt ← startedAt
-    if status == Status.Created.id
+    if status == Status.Started.id
   } yield Started(
     id = id,
     data = data,
@@ -115,7 +103,11 @@ case class RawTournament(
 
   def decodePairings = pairings map (_.decode) flatten
 
-  def any: Option[Tournament] = created
+  def any: Option[Tournament] = Status(status) flatMap {
+    case Status.Created ⇒ created
+    case Status.Started ⇒ started
+    case _              ⇒ None
+  }
 }
 
 object Tournament {
@@ -141,5 +133,5 @@ object Tournament {
 
   val minUsers = (2 to 4) ++ (5 to 30 by 5)
   val minUserDefault = 10
-  val minUserChoices = options(minUsers, "%d players{s}")
+  val minUserChoices = options(minUsers, "%d player{s}")
 }
