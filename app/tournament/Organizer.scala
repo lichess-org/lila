@@ -9,23 +9,33 @@ import akka.pattern.{ ask, pipe }
 import akka.dispatch.{ Future, Promise }
 import play.api.libs.concurrent._
 import play.api.Play.current
+import scalaz.effects._
 
 final class Organizer(
-  api: TournamentApi,
-  repo: TournamentRepo) extends Actor {
+    api: TournamentApi,
+    repo: TournamentRepo) extends Actor {
 
   implicit val timeout = Timeout(1 second)
   implicit val executor = Akka.system.dispatcher
 
   def receive = {
 
-    case StartTournament => startTournaments.unsafePerformIO
+    case StartTournament ⇒ startTournament.unsafePerformIO
+
+    case StartPairing    ⇒ startPairing.unsafePerformIO
   }
 
   def startTournament = for {
-    tours <- repo.created
+    tours ← repo.created
   } yield (tours filter (_.readyToStart) map api.start).sequence
 
-
+  def startPairing = for {
+    tours ← repo.started
+  } yield (for {
+    tour ← tours
+  } yield Pairer(tour).toNel.fold(
+    pairings ⇒ api.makePairings(tour, pairings),
+    io()
+  )).toList.sequence
 
 }

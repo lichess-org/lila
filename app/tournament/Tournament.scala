@@ -9,11 +9,11 @@ import ornicar.scalalib.OrnicarRandom
 import user.User
 
 case class Data(
-    minutes: Int,
-    minUsers: Int,
-    createdAt: DateTime,
-    createdBy: String,
-    users: List[String]) 
+  minutes: Int,
+  minUsers: Int,
+  createdAt: DateTime,
+  createdBy: String,
+  users: List[String])
 
 sealed trait Tournament {
 
@@ -41,7 +41,10 @@ case class Created(
 
   def readyToStart = users.size >= minUsers
 
-  def encode = RawTournament.created(id, data)
+  def encode = new RawTournament(
+    id = id,
+    status = Status.Created.id,
+    data = data)
 
   def join(user: User): Valid[Created] = contains(user).fold(
     !!("User %s is already part of the tournament" format user.id),
@@ -53,29 +56,66 @@ case class Created(
     !!("User %s is not part of the tournament" format user.id)
   )
 
+  def start = Started(id, data, DateTime.now, Nil)
+
   private def withUsers(x: List[String]) = copy(data = data.copy(users = x))
+}
+
+case class Started(
+    id: String,
+    data: Data,
+    startedAt: DateTime,
+    pairings: List[Pairing]) extends Tournament {
+
+  def encode = new RawTournament(
+    id = id,
+    status = Status.Created.id,
+    data = data,
+    startedAt = startedAt.some,
+    pairings = pairings map (_.encode))
+}
+
+case class Pairing(
+    gameId: String,
+    status: chess.Status,
+    users: List[String]) {
+
+  def encode: RawPairing = RawPairing(gameId, status.id, users)
+}
+
+case class RawPairing(
+    g: String,
+    s: Int,
+    u: List[String]) {
+
+  def decode: Option[Pairing] = chess.Status(s) map { status ⇒
+    Pairing(g, status, u)
+  }
 }
 
 case class RawTournament(
     @Key("_id") id: String,
     status: Int,
-    data: Data) {
+    data: Data,
+    startedAt: Option[DateTime] = None,
+    pairings: List[RawPairing] = Nil) {
 
   def created: Option[Created] = (status == Status.Created.id) option Created(
     id = id,
     data = data)
 
+  def started: Option[Started] = for {
+    stAt ← startedAt
+    if status == Status.Created.id
+  } yield Started(
+    id = id,
+    data = data,
+    startedAt = stAt,
+    decodePairings)
+
+  def decodePairings = pairings map (_.decode) flatten
+
   def any: Option[Tournament] = created
-}
-
-object RawTournament {
-
-  def created(id: String, data: Data) = {
-    new RawTournament(
-      id = id,
-      status = Status.Created.id,
-      data = data)
-  }
 }
 
 object Tournament {

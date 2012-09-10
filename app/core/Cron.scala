@@ -84,6 +84,16 @@ object Cron {
       env.security.firewall.refresh
     }
 
+    // also sent when the last player joins
+    message(8 seconds) {
+      env.tournament.organizer -> tournament.StartTournament
+    }
+
+    // also sent when a player completes a game
+    message(5 seconds) {
+      env.tournament.organizer -> tournament.StartPairing
+    }
+
     def message(freq: Duration)(to: (ActorRef, Any)) {
       Akka.system.scheduler.schedule(freq, freq.randomize(), to._1, to._2)
     }
