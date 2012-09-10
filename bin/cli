@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ -z $* ]; then
+if [ -z "$*" ]; then
   bin/play -Dcore.cron.enabled=false 
 else
   bin/play -Dcore.cron.enabled=false ";project cli;run $*"
