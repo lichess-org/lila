@@ -13,14 +13,14 @@ import scalaz.effects._
 
 object Lobby extends LilaController with Results {
 
-  def preloader = env.lobby.preloader
-  def hookRepo = env.lobby.hookRepo
-  def fisherman = env.lobby.fisherman
-  def joiner = env.setup.hookJoiner
-  def forumRecent = env.forum.recent
-  def timelineRecent = env.timeline.entryRepo.recent
-  def messageRepo = env.lobby.messageRepo
-  def featured = env.game.featured
+  private def preloader = env.lobby.preloader
+  private def hookRepo = env.lobby.hookRepo
+  private def fisherman = env.lobby.fisherman
+  private def joiner = env.setup.hookJoiner
+  private def forumRecent = env.forum.recent
+  private def timelineRecent = env.timeline.entryRepo.recent
+  private def messageRepo = env.lobby.messageRepo
+  private def featured = env.game.featured
 
   val home = Open { implicit ctx ⇒
     Async {

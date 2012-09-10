@@ -12,8 +12,8 @@ import scalaz.effects._
 
 object Message extends LilaController {
 
-  def api = env.message.api
-  def forms = env.message.forms
+  private def api = env.message.api
+  private def forms = env.message.forms
 
   def inbox(page: Int) = Auth { implicit ctx ⇒
     implicit me ⇒

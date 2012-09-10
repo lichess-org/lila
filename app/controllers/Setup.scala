@@ -12,12 +12,12 @@ import scalaz.effects._
 
 object Setup extends LilaController with TheftPrevention with RoundEventPerformer {
 
-  def forms = env.setup.formFactory
-  def processor = env.setup.processor
-  def friendConfigMemo = env.setup.friendConfigMemo
-  def joiner = env.setup.friendJoiner
-  def gameRepo = env.game.gameRepo
-  def bookmarkApi = env.bookmark.api
+  private def forms = env.setup.formFactory
+  private def processor = env.setup.processor
+  private def friendConfigMemo = env.setup.friendConfigMemo
+  private def joiner = env.setup.friendJoiner
+  private def gameRepo = env.game.gameRepo
+  private def bookmarkApi = env.bookmark.api
 
   val aiForm = Open { implicit ctx ⇒
     IOk(forms.aiFilled map { html.setup.ai(_) })
