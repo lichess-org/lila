@@ -4,6 +4,7 @@ package tournament
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 import scalaz.effects._
+import scalaz.NonEmptyList
 
 import user.User
 
@@ -11,15 +12,20 @@ final class TournamentApi(
     repo: TournamentRepo,
     socket: Socket) {
 
-  def createTournament(setup: TournamentSetup, me: User): IO[Created] = {
-    val tournament = Tournament(
+  def makePairings(tour: Started, pairings: NonEmptyList[Pairing]): IO[Unit] = {
+    io()
+  }
+
+  def createTournament(setup: TournamentSetup, me: User): IO[Created] =
+    Tournament(
       createdBy = me.id,
       minutes = setup.minutes,
-      minUsers = setup.minUsers)
-    for {
-      _ ← repo saveIO tournament
-    } yield tournament
-  }
+      minUsers = setup.minUsers
+    ) |> { created ⇒
+        repo saveIO created map (_ ⇒ created)
+      }
+
+  def start(created: Created): IO[Unit] = repo saveIO created.start
 
   def join(tour: Created, me: User): IO[Unit] = (tour join me).fold(
     err ⇒ putStrLn(err.shows),

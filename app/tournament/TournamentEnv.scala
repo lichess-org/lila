@@ -57,7 +57,7 @@ final class TournamentEnv(
     hubTimeout = TournamentHubTimeout
   )), name = ActorTournamentHubMaster)
 
-  lazy val organizer = Akka.system.actorOf(Props(new HubMaster(
+  lazy val organizer = Akka.system.actorOf(Props(new Organizer(
     repo = repo,
     api = api
   )), name = ActorTournamentOrganizer)

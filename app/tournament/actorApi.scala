@@ -40,3 +40,4 @@ case object GetNbHubs
 
 // organizer
 case object StartTournament
+case object StartPairing

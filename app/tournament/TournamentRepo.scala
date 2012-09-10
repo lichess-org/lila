@@ -26,10 +26,15 @@ class TournamentRepo(collection: MongoCollection)
       .toList.map(_.created).flatten
   }
 
+  def started: IO[List[Started]] = io {
+    find(DBObject("status" -> Status.Started.id))
+      .sort(DBObject("createdAt" -> -1))
+      .toList.map(_.started).flatten
+  }
+
   def setUsers(tourId: String, userIds: List[String]): IO[Unit] = io {
     update(idSelector(tourId), $set("data.users" -> userIds.distinct))
   }
-
 
   def saveIO(tournament: Tournament): IO[Unit] = io {
     save(tournament.encode)
