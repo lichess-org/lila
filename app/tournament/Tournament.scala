@@ -71,7 +71,7 @@ case class Started(
     pairings: List[Pairing]) extends Tournament {
 
   def addPairings(ps: NonEmptyList[Pairing]) =
-    copy(pairings = pairings ::: ps.list)
+    copy(pairings = ps.list ::: pairings)
 
   def encode = new RawTournament(
     id = id,
