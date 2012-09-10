@@ -131,6 +131,7 @@ final class Settings(config: Config) {
   val ActorLobbyHub = "lobby_hub"
   val ActorMonitorHub = "monitor_hub"
   val ActorTournamentHubMaster = "tournament_hub_master"
+  val ActorTournamentOrganizer = "tournament_organizer"
 
   val ModlogCollectionModlog = getString("modlog.collection.modlog")
 

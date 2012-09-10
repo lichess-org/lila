@@ -48,6 +48,21 @@ object Tournament extends LilaController {
       }
   }
 
+  def withdraw(id: String) = Auth { implicit ctx ⇒
+    implicit me ⇒
+      IOptionIORedirect(repo createdById id) { tour ⇒
+        api.withdraw(tour, me) map { _ ⇒ routes.Tournament.show(tour.id) }
+      }
+  }
+
+  def userList(id: String) = Open { implicit ctx ⇒
+    IOptionIOk(repo byId id) { tour ⇒
+      userRepo byIds tour.data.users map { users ⇒
+        html.tournament.userList(users)
+      }
+    }
+  }
+
   def form = Auth { implicit ctx ⇒
     me ⇒
       Ok(html.tournament.form(forms.create))

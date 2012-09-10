@@ -41,6 +41,8 @@ final class Hub(
         notifyVersion("talk", JsString(message.render))
       }
 
+    case ReloadUserList          ⇒ notifyVersion("users", JsNull)
+
     case GetTournamentVersion(_) ⇒ sender ! history.version
 
     case Join(uid, user, version) ⇒ {

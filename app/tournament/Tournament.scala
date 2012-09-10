@@ -13,19 +13,22 @@ case class Data(
     minUsers: Int,
     createdAt: DateTime,
     createdBy: String,
-    users: List[String]) {
+    users: List[String]) 
+
+sealed trait Tournament {
+
+  val id: String
+  val data: Data
+  def encode: RawTournament
+
+  import data._
 
   lazy val duration = new Duration(minutes * 60 * 1000)
 
   def missingUsers = minUsers - users.size
 
-  def contains(username: String) = users contains username
-}
-
-sealed trait Tournament {
-
-  def id: String
-  def encode: RawTournament
+  def contains(username: String): Boolean = users contains username
+  def contains(user: User): Boolean = contains(user.id)
 
   def showClock = "2 + 0"
 }
@@ -34,12 +37,23 @@ case class Created(
     id: String,
     data: Data) extends Tournament {
 
+  import data._
+
+  def readyToStart = users.size >= minUsers
+
   def encode = RawTournament.created(id, data)
 
-  def join(user: User): Valid[Created] = (data contains user.id).fold(
+  def join(user: User): Valid[Created] = contains(user).fold(
     !!("User %s is already part of the tournament" format user.id),
-    copy(data = data.copy(users = data.users :+ user.id)).success
+    withUsers(users :+ user.id).success
   )
+
+  def withdraw(user: User): Valid[Created] = contains(user).fold(
+    withUsers(users filterNot (user.id ==)).success,
+    !!("User %s is not part of the tournament" format user.id)
+  )
+
+  private def withUsers(x: List[String]) = copy(data = data.copy(users = x))
 }
 
 case class RawTournament(
@@ -85,7 +99,7 @@ object Tournament {
   val minuteDefault = 10
   val minuteChoices = options(minutes, "%d minute{s}")
 
-  val minUsers = 5 to 30 by 5
+  val minUsers = (2 to 4) ++ (5 to 30 by 5)
   val minUserDefault = 10
   val minUserChoices = options(minUsers, "%d players{s}")
 }

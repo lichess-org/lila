@@ -33,5 +33,10 @@ case class Talk(u: String, txt: String)
 case class GetTournamentVersion(tournamentId: String)
 case class CloseTournament(tournamentId: String)
 case class GetHub(tournamentId: String)
+case class Forward(tournamentId: String, msg: Any)
+case object ReloadUserList
 case object HubTimeout
 case object GetNbHubs
+
+// organizer
+case object StartTournament

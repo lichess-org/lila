@@ -30,7 +30,8 @@ final class TournamentEnv(
     collection = mongodb(TournamentCollectionTournament))
 
   lazy val api = new TournamentApi(
-    repo = repo)
+    repo = repo,
+    socket = socket)
 
   lazy val roomRepo = new RoomRepo(
     collection = mongodb(TournamentCollectionRoom)
@@ -55,4 +56,9 @@ final class TournamentEnv(
     uidTimeout = TournamentUidTimeout,
     hubTimeout = TournamentHubTimeout
   )), name = ActorTournamentHubMaster)
+
+  lazy val organizer = Akka.system.actorOf(Props(new HubMaster(
+    repo = repo,
+    api = api
+  )), name = ActorTournamentOrganizer)
 }

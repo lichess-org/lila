@@ -1,6 +1,6 @@
 @(tour: lila.tournament.Created, roomHtml: Html, version: Int, users: List[User])(implicit ctx: Context)
 
-@import tour.data
+@import tour._
 
 @title = @{ tour.showClock + " tournament" }
 
@@ -12,17 +12,23 @@ title = title) {
 
 <h1>@title pending</h1>
 <div>
-  Waiting for @data.missingUsers players
+  Waiting for @missingUsers players
 </div>
-<div>
-  Players: @users.map { user =>
-  @userLink(user)
-  }
+<div class="user_list" data-href="@routes.Tournament.userList(id)">
+  @tournament.userList(users)
 </div>
 
+@ctx.me.map { me =>
 <div>
-  <form action="@routes.Tournament.join(tour.id)" method="POST">
-    <input type="submit" class="submit button" />
+  @if(tour contains me) {
+  <form action="@routes.Tournament.withdraw(tour.id)" method="POST">
+    <input type="submit" class="submit button" value="Withdraw" />
   </form>
+  } else {
+  <form action="@routes.Tournament.join(tour.id)" method="POST">
+    <input type="submit" class="submit button" value="Join tournament" />
+  </form>
+  }
 </div>
+}
 }
