@@ -1,10 +1,10 @@
-@(tour: lila.tournament.Tournament, title: String)(body: Html)(implicit ctx: Context)
+@(tour: lila.tournament.Tournament, title: String, roomHtml: Html, version: Int)(body: Html)(implicit ctx: Context)
 
 @chat = {
 @for(m <- ctx.me; if m.canChat) {
-<div class="lichess_chat tournament_chat">
+<div class="lichess_chat anon_chat tournament_chat">
   <div class="lichess_chat_top">
-    <span class="title">@trans.chatRoom()</span>
+    <span class="title">Tournament room</span>
     <input
     data-href="@routes.Setting.set("chat")"
     data-enabled="@setting.chat.fold("true", "false")"
@@ -13,7 +13,7 @@
     type="checkbox" />
   </div>
   <div class="lichess_chat_inner">
-    <ol class="lichess_messages"></ol>
+    <ol class="lichess_messages">@roomHtml</ol>
     <form action="#">
       <input class="lichess_say lichess_hint" value="@trans.talkInChat()" />
       <a class="send"></a>
@@ -34,6 +34,6 @@ chat = chat.some) {
   </div>
 </div>
 <script type="text/javascript">
-  var lichess_data = @Html(tournamentJsData(tour, 0, ctx.me))
+  var lichess_data = @Html(tournamentJsData(tour, version, ctx.me))
 </script>
 }

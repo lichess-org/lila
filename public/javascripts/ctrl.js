@@ -40,7 +40,7 @@ var lichess = {
   onProduction: /.+\.lichess\.org/.test(document.domain),
   socketUrl: document.domain + ":9000"
 };
-//lichess.socketDefaults.options.debug = !lichess.onProduction;
+lichess.socketDefaults.options.debug = !lichess.onProduction;
 
 $(function() {
 

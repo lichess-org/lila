@@ -49,16 +49,10 @@ $(function() {
     $chat.find('.lichess_messages').append(html)[0].scrollTop = 9999999;
     $('body').trigger('lichess.content_loaded');
   }
-  function buildChatMessage(txt, username) {
-    var html = '<li><span>'
-      html += '<a class="user_link" href="/@/'+username+'">'+username.substr(0, 12) + '</a>';
-    html += '</span>' + urlToLink(txt) + '</li>';
-    return html;
-  }
 
   lichess.socket = new $.websocket(lichess.socketUrl + socketUrl, lichess_data.version, $.extend(true, lichess.socketDefaults, {
     events: {
-      talk: function(e) { if (chatExists && e.txt) addToChat(buildChatMessage(e.txt, e.u)); }
+      talk: function(e) { if (chatExists) addToChat(e); }
     },
     options: {
       name: "tournament"

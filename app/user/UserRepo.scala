@@ -29,6 +29,13 @@ class UserRepo(collection: MongoCollection)
       .toList
   }
 
+  def byOrderedIds(ids: Iterable[String]): IO[List[User]] = io {
+    find("_id" $in ids.map(normalize)).toList
+  } map { us ⇒
+    val usMap = us.map(u ⇒ u.id -> u).toMap
+    ids.map(usMap.get).flatten.toList
+  }
+
   def username(userId: String): IO[Option[String]] = io {
     primitiveProjection[String](byIdQuery(userId), "username")
   }
