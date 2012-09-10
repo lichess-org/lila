@@ -10,14 +10,26 @@ case class Room(
     messages: List[String]) {
 
   def render: String =
-    messages map ((Room.render _) compose Room.decode) mkString ""
+    messages map (((m: Room.Message) ⇒ m.render) compose Room.decode) mkString ""
 
   def nonEmpty = messages.nonEmpty
 }
 
 object Room {
 
-  case class Message(author: Option[String], text: String)
+  case class Message(author: Option[String], text: String) {
+
+    def render: String =
+      """<li><span>%s</span>%s</li>""".format(
+        author.fold(
+          u ⇒ """<a class="user_link" href="%s">%s</a>""".format(
+            userRoute(u), u take 12
+          ),
+          """<span class="system"></span>"""
+        ),
+        escapeXml(text)
+      )
+  }
 
   def encode(msg: Message): String = (msg.author | "_") + " " + msg.text
 
@@ -25,15 +37,4 @@ object Room {
     case "_"  ⇒ Message(none, encoded.drop(2))
     case user ⇒ Message(user.some, encoded.drop(user.size + 1))
   }
-
-  def render(msg: Message): String =
-    """<li><span>%s</span>%s</li>""".format(
-      msg.author.fold(
-        u ⇒ """<a class="user_link" href="%s">%s</a>""".format(
-          userRoute(u), u take 12
-        ),
-        """<span class="system"></span>"""
-      ),
-      escapeXml(msg.text)
-    )
 }

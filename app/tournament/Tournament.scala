@@ -6,6 +6,8 @@ import org.scala_tools.time.Imports._
 import com.novus.salat.annotations.Key
 import ornicar.scalalib.OrnicarRandom
 
+import user.User
+
 case class Data(
     minutes: Int,
     minUsers: Int,
@@ -33,6 +35,11 @@ case class Created(
     data: Data) extends Tournament {
 
   def encode = RawTournament.created(id, data)
+
+  def join(user: User): Valid[Created] = (data contains user.id).fold(
+    !!("User %s is already part of the tournament" format user.id),
+    copy(data = data.copy(users = data.users :+ user.id)).success
+  )
 }
 
 case class RawTournament(

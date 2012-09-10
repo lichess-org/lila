@@ -9,6 +9,7 @@ import scalaz.effects._
 import play.api.mvc._
 import play.api.libs.json._
 import play.api.libs.iteratee._
+import play.api.templates.Html
 
 object Tournament extends LilaController {
 
@@ -16,6 +17,8 @@ object Tournament extends LilaController {
   private def forms = env.tournament.forms
   private def api = env.tournament.api
   private def socket = env.tournament.socket
+  private def messenger = env.tournament.messenger
+  private def userRepo = env.user.userRepo
 
   val home = Open { implicit ctx ⇒
     IOk(repo.created map { tournaments ⇒
@@ -24,10 +27,25 @@ object Tournament extends LilaController {
   }
 
   def show(id: String) = Open { implicit ctx ⇒
-    IOptionOk(repo byId id) {
-      case t: Created ⇒ html.tournament.show.created(t)
-      case _          ⇒ throw new Exception("oups")
+    IOptionIOk(repo byId id) {
+      case tour: Created ⇒ for {
+        roomHtml ← messenger render tour
+        users ← userRepo byIds tour.data.users
+      } yield html.tournament.show.created(
+        tour = tour,
+        roomHtml = Html(roomHtml),
+        version = version(tour.id),
+        users = users
+      )
+      case _ ⇒ throw new Exception("oups")
     }
+  }
+
+  def join(id: String) = Auth { implicit ctx ⇒
+    implicit me ⇒
+      IOptionIORedirect(repo createdById id) { tour ⇒
+        api.join(tour, me) map { _ ⇒ routes.Tournament.show(tour.id) }
+      }
   }
 
   def form = Auth { implicit ctx ⇒
@@ -51,4 +69,6 @@ object Tournament extends LilaController {
     implicit val ctx = reqToCtx(req)
     socket.join(id, getInt("version"), get("uid"), ctx.me).unsafePerformIO
   }
+
+  private def version(tournamentId: String): Int = socket blockingVersion tournamentId
 }

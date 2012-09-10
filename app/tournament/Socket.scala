@@ -5,6 +5,7 @@ import akka.actor._
 import akka.pattern.ask
 import akka.util.duration._
 import akka.util.Timeout
+import akka.dispatch.Await
 import play.api.libs.json._
 import play.api.libs.iteratee._
 import play.api.libs.concurrent._
@@ -57,17 +58,20 @@ final class Socket(
     hub: ActorRef,
     uid: String,
     member: Member,
-    tournamentId: String): JsValue ⇒ Unit =
-    (e: JsValue) ⇒ e str "t" match {
-      case Some("p") ⇒ e int "v" foreach { v ⇒
-        hub ! PingVersion(uid, v)
-      }
-      case Some("talk") ⇒ for {
-        username ← member.username
-        data ← e obj "d"
-        txt ← data str "txt"
-        if flood.allowMessage(uid, txt)
-      } hub ! Talk(username, txt)
-      case _ ⇒
+    tournamentId: String): JsValue ⇒ Unit = e ⇒ e str "t" match {
+    case Some("p") ⇒ e int "v" foreach { v ⇒
+      hub ! PingVersion(uid, v)
     }
+    case Some("talk") ⇒ for {
+      username ← member.username
+      data ← e obj "d"
+      txt ← data str "txt"
+      if flood.allowMessage(uid, txt)
+    } hub ! Talk(username, txt)
+    case _ ⇒
+  }
+
+  def blockingVersion(tournamentId: String): Int = Await.result(
+    hubMaster ? GetTournamentVersion(tournamentId) mapTo manifest[Int],
+    timeoutDuration)
 }

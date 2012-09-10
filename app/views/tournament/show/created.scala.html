@@ -1,20 +1,28 @@
-@(tour: lila.tournament.Created)(implicit ctx: Context)
+@(tour: lila.tournament.Created, roomHtml: Html, version: Int, users: List[User])(implicit ctx: Context)
 
-@import tour.data._
+@import tour.data
 
 @title = @{ tour.showClock + " tournament" }
 
 @tournament.show.layout(
 tour = tour,
+roomHtml = roomHtml,
+version = version,
 title = title) {
 
 <h1>@title pending</h1>
 <div>
-  Waiting for @missingUsers players
+  Waiting for @data.missingUsers players
 </div>
 <div>
   Players: @users.map { user =>
-  @userIdLink(user.some)
+  @userLink(user)
   }
+</div>
+
+<div>
+  <form action="@routes.Tournament.join(tour.id)" method="POST">
+    <input type="submit" class="submit button" />
+  </form>
 </div>
 }

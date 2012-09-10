@@ -134,7 +134,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     gameRepo = game.gameRepo)
 
   lazy val metaHub = new lila.socket.MetaHub(
-    List(site.hub, lobby.hub, round.hubMaster))
+    List(site.hub, lobby.hub, round.hubMaster, tournament.hubMaster))
 
   lazy val notificationApi = new lila.notification.Api(
     metaHub = metaHub)

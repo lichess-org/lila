@@ -19,4 +19,9 @@ final class TournamentApi(
       _ ← repo saveIO tournament
     } yield tournament
   }
+
+  def join(tour: Created, me: User): IO[Unit] = (tour join me).fold(
+    err => putStrLn(err.shows),
+    tour2 ⇒ repo saveIO tour2
+  )
 }

@@ -36,7 +36,10 @@ final class TournamentEnv(
     collection = mongodb(TournamentCollectionRoom)
   )
 
-  lazy val messenger = new Messenger(roomRepo, getUser)
+  lazy val messenger = new Messenger(
+    roomRepo = roomRepo, 
+    getTournament = repo.byId,
+    getUser = getUser)
 
   lazy val socket = new Socket(
     getTournament = repo.byId,
@@ -48,6 +51,7 @@ final class TournamentEnv(
 
   lazy val hubMaster = Akka.system.actorOf(Props(new HubMaster(
     makeHistory = history,
+    messenger = messenger,
     uidTimeout = TournamentUidTimeout,
     hubTimeout = TournamentHubTimeout
   )), name = ActorTournamentHubMaster)

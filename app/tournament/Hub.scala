@@ -13,6 +13,7 @@ import scalaz.effects._
 final class Hub(
     tournamentId: String,
     val history: History,
+    messenger: Messenger,
     uidTimeout: Int,
     hubTimeout: Int) extends HubActor[Member](uidTimeout) with Historical[Member] {
 
@@ -34,6 +35,11 @@ final class Hub(
         context.parent ! CloseTournament(tournamentId)
       }
     }
+
+    case Talk(u, txt) ⇒
+      messenger.userMessage(tournamentId, u, txt).unsafePerformIO foreach { message ⇒
+        notifyVersion("talk", JsString(message.render))
+      }
 
     case GetTournamentVersion(_) ⇒ sender ! history.version
 
