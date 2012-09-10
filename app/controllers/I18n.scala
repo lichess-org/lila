@@ -11,12 +11,12 @@ import i18n._
 
 object I18n extends LilaController {
 
-  def transInfos = env.i18n.transInfos
-  def pool = env.i18n.pool
-  def translator = env.i18n.translator
-  def forms = env.i18n.forms
-  def i18nKeys = env.i18n.keys
-  def repo = env.i18n.translationRepo
+  private def transInfos = env.i18n.transInfos
+  private def pool = env.i18n.pool
+  private def translator = env.i18n.translator
+  private def forms = env.i18n.forms
+  private def i18nKeys = env.i18n.keys
+  private def repo = env.i18n.translationRepo
 
   val contribute = Open { implicit ctx ⇒
     val mines = (pool fixedReqAcceptLanguages ctx.req map { lang ⇒

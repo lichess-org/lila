@@ -8,8 +8,8 @@ import scalaz.effects._
 
 object Bookmark extends LilaController {
 
-  val api = env.bookmark.api
-  val gameRepo = env.game.gameRepo
+  private def api = env.bookmark.api
+  private def gameRepo = env.game.gameRepo
 
   def toggle(gameId: String) = Auth { implicit ctx ⇒
     me ⇒

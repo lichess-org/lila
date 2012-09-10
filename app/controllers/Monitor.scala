@@ -14,25 +14,25 @@ import monitor._
 
 object Monitor extends LilaController {
 
-  def reporting = env.monitor.reporting
-  def usernameMemo = env.user.usernameMemo
-  implicit val timeout = Timeout(500 millis)
+  private def reporting = env.monitor.reporting
+  private def usernameMemo = env.user.usernameMemo
+  private implicit def timeout = Timeout(500 millis)
 
-  val index = Action {
+  def index = Action {
     Ok(views.html.monitor.monitor())
   }
 
-  val websocket = WebSocket.async[JsValue] { implicit req ⇒
+  def websocket = WebSocket.async[JsValue] { implicit req ⇒
     env.monitor.socket.join(uidOption = get("uid", req))
   }
 
-  val status = Action {
+  def status = Action {
     Async {
       (reporting ? GetStatus).mapTo[String].asPromise map { Ok(_) }
     }
   }
 
-  val nbPlayers = Action {
+  def nbPlayers = Action {
     Async {
       (reporting ? GetNbMembers).mapTo[Int].asPromise map { players ⇒
         Ok("%d %d".format(players, usernameMemo.preciseCount))
@@ -40,7 +40,7 @@ object Monitor extends LilaController {
     }
   }
 
-  val nbMoves = Action {
+  def nbMoves = Action {
     Async {
       (reporting ? GetNbMoves).mapTo[Int].asPromise map { Ok(_) }
     }

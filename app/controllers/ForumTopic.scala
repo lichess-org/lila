@@ -7,10 +7,10 @@ import scalaz.effects._
 
 object ForumTopic extends LilaController with forum.Controller {
 
-  def categApi = env.forum.topicApi
-  def topicApi = env.forum.topicApi
-  def categRepo = env.forum.categRepo
-  def forms = env.forum.forms
+  private def categApi = env.forum.topicApi
+  private def topicApi = env.forum.topicApi
+  private def categRepo = env.forum.categRepo
+  private def forms = env.forum.forms
 
   def form(categSlug: String) = Open { implicit ctx ⇒
     CategGrant(categSlug) {

@@ -15,14 +15,14 @@ import scalaz.effects._
 
 object Round extends LilaController with TheftPrevention with RoundEventPerformer {
 
-  def gameRepo = env.game.gameRepo
-  def socket = env.round.socket
-  def hand = env.round.hand
-  def messenger = env.round.messenger
-  def rematcher = env.setup.rematcher
-  def bookmarkApi = env.bookmark.api
-  def userRepo = env.user.userRepo
-  def analyser = env.analyse.analyser
+  private def gameRepo = env.game.gameRepo
+  private def socket = env.round.socket
+  private def hand = env.round.hand
+  private def messenger = env.round.messenger
+  private def rematcher = env.setup.rematcher
+  private def bookmarkApi = env.bookmark.api
+  private def userRepo = env.user.userRepo
+  private def analyser = env.analyse.analyser
 
   def websocketWatcher(gameId: String, color: String) = WebSocket.async[JsValue] { req ⇒
     implicit val ctx = reqToCtx(req)

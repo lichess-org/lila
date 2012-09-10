@@ -11,7 +11,7 @@ import scalaz.effects._
 
 trait RoundEventPerformer {
 
-  def env: CoreEnv
+  protected def env: CoreEnv
 
   protected type IOValidEvents = IO[Valid[List[Event]]]
 

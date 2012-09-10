@@ -11,8 +11,8 @@ import play.api.mvc.Results._
 
 object Auth extends LilaController {
 
-  def userRepo = env.user.userRepo
-  def forms = env.security.forms
+  private def userRepo = env.user.userRepo
+  private def forms = env.security.forms
 
   def login = Open { implicit ctx ⇒
     Ok(html.auth.login(loginForm))

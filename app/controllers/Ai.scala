@@ -12,9 +12,9 @@ import akka.dispatch.Future
 
 object Ai extends LilaController {
 
-  val stockfishServer = env.ai.stockfishServer
-  val isServer = env.ai.isServer
-  implicit val executor = Akka.system.dispatcher
+  private def stockfishServer = env.ai.stockfishServer
+  private def isServer = env.ai.isServer
+  private implicit def executor = Akka.system.dispatcher
 
   def playStockfish = Action { implicit req ⇒
     implicit val ctx = Context(req, None)

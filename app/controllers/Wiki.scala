@@ -5,7 +5,7 @@ import views._
 
 object Wiki extends LilaController {
 
-  def api = env.wiki.api
+  private def api = env.wiki.api
 
   val home = Open { implicit ctx ⇒
     Redirect(routes.Wiki.show("Lichess-Wiki"))

@@ -7,7 +7,6 @@ start chess960 after both player move http://fr.lichess.org/forum/lichess-feedba
 chess960 confirmation http://fr.lichess.org/forum/lichess-feedback/separate-960-lobby?page=1#7
 use POST instead of GET where it makes sense
 guess friend list
-tournaments http://www.chess.com/tournaments/help.html
 use twitter tooltip instead of tipsy http://twitter.github.com/bootstrap/javascript.html#tooltip
 volume control
 takeback play 2 times ?? http://en.lichess.org/analyse/nfjchnmo/black move 45
@@ -30,3 +29,4 @@ recognize tor IPs http://en.lichess.org/forum/staff/cheater-101#9 https://check.
 index game positions
 integrate with google+
 elo stats (branch elostats)
+lobby concurrency http://en.lichess.org/forum/lichess-feedback/bug-multiple-players-can-accept-the-same-game-proposal#1
