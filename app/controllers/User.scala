@@ -13,14 +13,14 @@ import play.api.libs.concurrent.Akka
 
 object User extends LilaController {
 
-  def userRepo = env.user.userRepo
-  def paginator = env.user.paginator
-  def gamePaginator = env.game.paginator
-  def forms = user.DataForm
-  def eloUpdater = env.user.eloUpdater
-  def bookmarkApi = env.bookmark.api
-  def securityStore = env.security.store
-  def modApi = env.mod.api
+  private def userRepo = env.user.userRepo
+  private def paginator = env.user.paginator
+  private def gamePaginator = env.game.paginator
+  private def forms = user.DataForm
+  private def eloUpdater = env.user.eloUpdater
+  private def bookmarkApi = env.bookmark.api
+  private def securityStore = env.security.store
+  private def modApi = env.mod.api
 
   def show(username: String) = showFilter(username, "all", 1)
 

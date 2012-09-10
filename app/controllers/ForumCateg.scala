@@ -5,7 +5,7 @@ import views._
 
 object ForumCateg extends LilaController with forum.Controller {
 
-  def categApi = env.forum.categApi
+  private def categApi = env.forum.categApi
 
   val index = Open { implicit ctx ⇒
     IOk(categApi.list map { html.forum.categ.index(_) })

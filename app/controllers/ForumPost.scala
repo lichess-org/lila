@@ -6,9 +6,9 @@ import security.Permission
 
 object ForumPost extends LilaController with forum.Controller {
 
-  def topicApi = env.forum.topicApi
-  def postApi = env.forum.postApi
-  def forms = env.forum.forms
+  private def topicApi = env.forum.topicApi
+  private def postApi = env.forum.postApi
+  private def forms = env.forum.forms
 
   val recent = Open { implicit ctx ⇒
     IOk(env.forum.recent(ctx.me) map { posts =>
