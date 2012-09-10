@@ -5,7 +5,7 @@ import views._
 
 object Notification extends LilaController {
 
-  def api = env.notificationApi
+  private def api = env.notificationApi
 
   def remove(id: String) = Auth { implicit ctx ⇒
     me ⇒

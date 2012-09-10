@@ -11,8 +11,8 @@ import scalaz.effects._
 
 object Mod extends LilaController {
 
-  def modApi = env.mod.api
-  def modLogApi = env.mod.logApi
+  private def modApi = env.mod.api
+  private def modLogApi = env.mod.logApi
 
   def engine(username: String) = Secure(Permission.MarkEngine) { _ ⇒
     me ⇒

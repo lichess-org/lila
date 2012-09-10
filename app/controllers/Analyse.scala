@@ -13,14 +13,14 @@ import scalaz.effects._
 
 object Analyse extends LilaController {
 
-  def gameRepo = env.game.gameRepo
-  def pgnDump = env.analyse.pgnDump
-  def openingExplorer = chess.OpeningExplorer
-  def bookmarkApi = env.bookmark.api
-  def roundMessenger = env.round.messenger
-  def roundSocket = env.round.socket
-  def roundHubMaster = env.round.hubMaster
-  def analyser = env.analyse.analyser
+  private def gameRepo = env.game.gameRepo
+  private def pgnDump = env.analyse.pgnDump
+  private def openingExplorer = chess.OpeningExplorer
+  private def bookmarkApi = env.bookmark.api
+  private def roundMessenger = env.round.messenger
+  private def roundSocket = env.round.socket
+  private def roundHubMaster = env.round.hubMaster
+  private def analyser = env.analyse.analyser
 
   def computer(id: String, color: String) = Auth { implicit ctx ⇒
     me ⇒

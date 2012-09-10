@@ -8,9 +8,9 @@ import play.api.mvc.Result
 
 object Game extends LilaController with BaseGame {
 
-  def paginator = env.game.paginator
-  def analysePaginator = env.analyse.paginator
-  def cached = env.game.cached
+  private def paginator = env.game.paginator
+  private def analysePaginator = env.analyse.paginator
+  private def cached = env.game.cached
 
   val realtime = Open { implicit ctx ⇒
     IOk(gameRepo recentGames 9 map { games ⇒

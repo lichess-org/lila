@@ -11,7 +11,7 @@ import play.api.libs.concurrent.Akka
 
 object Main extends LilaController {
 
-  val websocket = WebSocket.async[JsValue] { implicit req ⇒
+  def websocket = WebSocket.async[JsValue] { implicit req ⇒
     implicit val ctx = reqToCtx(req)
     env.site.socket.join(
       uidOption = get("uid"),
