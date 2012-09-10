@@ -39,5 +39,7 @@ case object HubTimeout
 case object GetNbHubs
 
 // organizer
-case object StartTournament
-case object StartPairing
+case object StartTournaments
+case class StartTournament(tour: Created)
+case object StartPairings
+case class StartPairing(tour: Started)

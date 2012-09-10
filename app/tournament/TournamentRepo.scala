@@ -36,6 +36,12 @@ class TournamentRepo(collection: MongoCollection)
     update(idSelector(tourId), $set("data.users" -> userIds.distinct))
   }
 
+  def userHasRunningTournament(username: String): IO[Boolean] = io {
+    collection.findOne(
+      ("status" $ne Status.Finished.id) ++ ("data.users" -> username)
+    ).isDefined
+  }
+
   def saveIO(tournament: Tournament): IO[Unit] = io {
     save(tournament.encode)
   }

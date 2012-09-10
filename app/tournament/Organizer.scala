@@ -20,22 +20,24 @@ final class Organizer(
 
   def receive = {
 
-    case StartTournament ⇒ startTournament.unsafePerformIO
+    case StartTournaments               ⇒ startTournaments.unsafePerformIO
+    case StartTournament(tour: Created) ⇒ api.start(tour).unsafePerformIO
 
-    case StartPairing    ⇒ startPairing.unsafePerformIO
+    case StartPairings                  ⇒ startPairings.unsafePerformIO
+    case StartPairing(tour: Started)    ⇒ startPairing(tour).unsafePerformIO
   }
 
-  def startTournament = for {
-    tours ← repo.created
-  } yield (tours filter (_.readyToStart) map api.start).sequence
+  def startTournaments = repo.created flatMap { created =>
+    (created map api.start).sequence
+  } 
 
-  def startPairing = for {
-    tours ← repo.started
-  } yield (for {
-    tour ← tours
-  } yield Pairer(tour).toNel.fold(
-    pairings ⇒ api.makePairings(tour, pairings),
-    io()
-  )).toList.sequence
+  def startPairings = repo.started flatMap { started =>
+    (started map startPairing).sequence
+  }
+  def startPairing(tour: Started) =
+    Pairing.createNewPairings(tour.users, tour.pairings).toNel.fold(
+      pairings ⇒ api.makePairings(tour, pairings),
+      io()
+    )
 
 }
