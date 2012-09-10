@@ -63,6 +63,21 @@ class PairingTest extends LilaSpec {
       }
     }
   }
+  "4 players" should {
+    val users = List(u1, u2, u3, u4)
+    "finished pairing" in {
+      val pairings = List(mate(u1, u2))
+      pairs(users, pairings) must_== List(u3 -> u4)
+    }
+    "started pairing" in {
+      val pairings = List(started(u1, u2))
+      pairs(users, pairings) must_== List(u3 -> u4)
+    }
+    "finished and started pairing" in {
+      val pairings = List(mate(u1, u2), started(u3, u4))
+      pairs(users, pairings) must_== Nil
+    }
+  }
 
   private def pairs(users: List[String], pairings: Pairings) =
     createNewPairings(users, pairings) map (_.usersPair) map {
