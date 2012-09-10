@@ -9,6 +9,7 @@ $(function() {
   var $chat = $("div.lichess_chat");
   var $chatToggle = $chat.find('input.toggle_chat');
   var chatExists = $chat.length > 0;
+  var $userList = $wrap.find("div.user_list");
   var socketUrl = $wrap.data("socket-url");
 
   if (chatExists) {
@@ -50,9 +51,14 @@ $(function() {
     $('body').trigger('lichess.content_loaded');
   }
 
+  function reloadUserList() {
+    $userList.load($userList.data("href"));
+  }
+
   lichess.socket = new $.websocket(lichess.socketUrl + socketUrl, lichess_data.version, $.extend(true, lichess.socketDefaults, {
     events: {
-      talk: function(e) { if (chatExists) addToChat(e); }
+      talk: function(e) { if (chatExists) addToChat(e); },
+      users: reloadUserList
     },
     options: {
       name: "tournament"

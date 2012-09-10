@@ -27,6 +27,10 @@ final class Socket(
   private val timeoutDuration = 1 second
   implicit private val timeout = Timeout(timeoutDuration)
 
+  def reloadUserList(tournamentId: String) {
+    hubMaster ! Forward(tournamentId, ReloadUserList)
+  }
+
   def join(
     tournamentId: String,
     version: Option[Int],
