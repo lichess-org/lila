@@ -358,7 +358,6 @@ ul.language_links a {
   display: block;
   padding: 0.4em 0.5em;
   text-decoration: none;
-  text-transform: capitalize;
 }
 ul.language_links a:hover {
   background: #F0F0F0;
