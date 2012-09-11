@@ -1,0 +1,3 @@
+#!/bin/sh
+
+bin/play -Dcore.cron.enabled=false "compile"
