@@ -2,7 +2,7 @@ package lila
 package message
 
 import org.joda.time.DateTime
-import ornicar.scalalib.OrnicarRandom
+import ornicar.scalalib.Random
 
 case class Post(
     id: String,
@@ -23,7 +23,7 @@ object Post {
   def apply(
     text: String,
     isByCreator: Boolean): Post = Post(
-    id = OrnicarRandom nextString idSize,
+    id = Random nextString idSize,
     text = text,
     isByCreator = isByCreator,
     isRead = false,

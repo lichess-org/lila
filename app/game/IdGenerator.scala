@@ -1,11 +1,11 @@
 package lila
 package game
 
-import ornicar.scalalib.OrnicarRandom
+import ornicar.scalalib.Random
 
 object IdGenerator {
 
-  def game = OrnicarRandom nextString DbGame.gameIdSize
+  def game = Random nextString DbGame.gameIdSize
 
-  def player = OrnicarRandom nextString DbGame.playerIdSize
+  def player = Random nextString DbGame.playerIdSize
 }

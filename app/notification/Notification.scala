@@ -3,7 +3,7 @@ package notification
 
 import user.User
 
-import ornicar.scalalib.OrnicarRandom.nextString
+import ornicar.scalalib.Random.nextString
 
 case class Notification(
   id: String,

@@ -5,7 +5,7 @@ import user.User
 
 import org.joda.time.DateTime
 import com.novus.salat.annotations.Key
-import ornicar.scalalib.OrnicarRandom
+import ornicar.scalalib.Random
 
 case class Thread(
     @Key("_id") id: String,
@@ -55,7 +55,7 @@ object Thread {
     text: String,
     creator: User,
     invited: User): Thread = Thread(
-    id = OrnicarRandom nextString idSize,
+    id = Random nextString idSize,
     name = name,
     createdAt = DateTime.now,
     updatedAt = DateTime.now,

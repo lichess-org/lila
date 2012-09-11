@@ -5,7 +5,7 @@ import akka.util.Duration
 import akka.util.duration._
 import scala.util.Random
 import scala.math.round
-import ornicar.scalalib.OrnicarRandom.approximatly
+import ornicar.scalalib.Random.approximatly
 
 object RichDuration {
 

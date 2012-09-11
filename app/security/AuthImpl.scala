@@ -13,7 +13,7 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.data.format.Formats._
 import play.api.data.validation.Constraints
-import ornicar.scalalib.OrnicarRandom
+import ornicar.scalalib.Random
 
 import core.CoreEnv
 
@@ -35,7 +35,7 @@ trait AuthImpl {
     Redirect(routes.Lobby.home) withCookies LilaCookie.session("access_uri", req.uri)
 
   protected def saveAuthentication(username: String)(implicit req: RequestHeader): String =
-    (OrnicarRandom nextString 12) ~ { sessionId ⇒
+    (Random nextString 12) ~ { sessionId ⇒
       env.security.store.save(sessionId, username, req)
     }
 
