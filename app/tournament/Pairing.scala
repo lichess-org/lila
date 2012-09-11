@@ -47,8 +47,20 @@ object Pairing {
     user1 = user1,
     user2 = user2)
 
-  def createNewPairings(users: List[String], pairings: Pairings): Pairings = 
-    pairings.isEmpty.fold(naivePairings(users), smartPairings(users, pairings))
+  def createNewPairings(users: List[String], pairings: Pairings): Pairings = {
+
+    val idles: List[String] = Random shuffle {
+      users.toSet diff { (pairings filter (_.playing) flatMap (_.users)).toSet } toList
+    }
+
+    pairings.isEmpty.fold(
+      naivePairings(idles), 
+      (pairings.size > 12).fold(
+        naivePairings(idles),
+        smartPairings(idles, pairings)
+      )
+    )
+  }
 
   private def naivePairings(users: List[String]) = 
     Random shuffle users grouped 2 collect {
@@ -56,11 +68,6 @@ object Pairing {
     } toList
 
   private def smartPairings(users: List[String], pairings: Pairings): Pairings = {
-    val idles: List[String] = Random shuffle {
-      users.toSet diff {
-        (pairings filter (_.playing) flatMap (_.users)).toSet
-      } toList
-    }
 
     def lastOpponent(user: String): Option[String] =
       pairings find (_ contains user) flatMap (_ opponentOf user)
@@ -78,7 +85,7 @@ object Pairing {
         - timeSincePlay(a) - timeSincePlay(b))
     }
 
-    (idles match {
+    (users match {
       case x if x.size < 2 ⇒ Nil
       case List(u1, u2) if (justPlayedTogether(u1, u2) && users.size > 2) ⇒ Nil
       case List(u1, u2) ⇒ List(u1 -> u2)
@@ -90,16 +97,12 @@ object Pairing {
     }) map Pairing.apply
   }
 
-  def allPairCombinations(list: List[String]): List[List[P]] = list match {
+  def allPairCombinations(list: List[String]): List[List[(String, String)]] = list match {
     case a :: rest ⇒ for {
       b ← rest
       init = (a -> b)
-      queue = rest filter (b !=)
-      nextPairs = allPairCombinations(queue)
-      ps ← nextPairs.isEmpty.fold(
-        List(List(init)),
-        nextPairs map (np ⇒ init :: np)
-      )
+      nps = allPairCombinations(rest filter (b !=))
+      ps ← nps.isEmpty.fold(List(List(init)), nps map (np ⇒ init :: np))
     } yield ps
     case _ ⇒ Nil
   }
