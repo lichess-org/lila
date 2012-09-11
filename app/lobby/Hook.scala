@@ -7,7 +7,7 @@ import elo.EloRange
 import user.User
 
 import com.novus.salat.annotations.Key
-import ornicar.scalalib.OrnicarRandom
+import ornicar.scalalib.Random
 
 case class Hook(
     @Key("_id") id: String,
@@ -81,8 +81,8 @@ object Hook {
   }
 
   private def generateId =
-    OrnicarRandom nextString idSize
+    Random nextString idSize
 
   private def generateOwnerId =
-    OrnicarRandom nextString (ownerIdSize - idSize)
+    Random nextString (ownerIdSize - idSize)
 }

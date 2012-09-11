@@ -9,7 +9,7 @@ import play.api.mvc.Results.Redirect
 import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.Imports._
 import java.util.Date
-import ornicar.scalalib.OrnicarRandom
+import ornicar.scalalib.Random
 
 final class Firewall(
     collection: MongoCollection,
@@ -43,7 +43,7 @@ final class Firewall(
 
   def infectCookie(implicit req: RequestHeader) = Action {
     log("Infect cookie " + formatReq(req))
-    val cookie = LilaCookie.cookie(blockCookieName, OrnicarRandom nextString 32)
+    val cookie = LilaCookie.cookie(blockCookieName, Random nextString 32)
     Redirect(routes.Lobby.home()) withCookies cookie
   }
 

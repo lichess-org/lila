@@ -4,7 +4,7 @@ package tournament
 import org.joda.time.{ DateTime, Duration }
 import org.scala_tools.time.Imports._
 import com.novus.salat.annotations.Key
-import ornicar.scalalib.OrnicarRandom
+import ornicar.scalalib.Random
 import scalaz.NonEmptyList
 
 import user.User
@@ -118,7 +118,7 @@ object Tournament {
     createdBy: String,
     minutes: Int,
     minUsers: Int): Created = Created(
-    id = OrnicarRandom nextString 8,
+    id = Random nextString 8,
     data = Data(
       createdBy = createdBy,
       createdAt = DateTime.now,

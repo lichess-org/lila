@@ -5,7 +5,6 @@ import user.User
 
 import org.joda.time.DateTime
 import com.novus.salat.annotations.Key
-import ornicar.scalalib.OrnicarRandom
 import java.text.Normalizer
 
 case class Page(

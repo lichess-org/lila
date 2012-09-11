@@ -3,7 +3,7 @@ package forum
 
 import org.joda.time.DateTime
 import com.novus.salat.annotations.Key
-import ornicar.scalalib.OrnicarRandom
+import ornicar.scalalib.Random
 
 case class Topic(
     @Key("_id") id: String,
@@ -27,7 +27,7 @@ object Topic {
     categId: String,
     slug: String,
     name: String): Topic = Topic(
-    id = OrnicarRandom nextString idSize,
+    id = Random nextString idSize,
     categId = categId,
     slug = slug,
     name = name,

@@ -8,7 +8,7 @@ import com.mongodb.casbah.query.Imports._
 import scalaz.effects._
 import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
-import ornicar.scalalib.OrnicarRandom
+import ornicar.scalalib.Random
 
 class UserRepo(collection: MongoCollection)
     extends SalatDAO[User, String](collection) {
@@ -116,7 +116,7 @@ class UserRepo(collection: MongoCollection)
     userOption ← exists.fold(
       io(none),
       io {
-        val salt = OrnicarRandom nextString 32
+        val salt = Random nextString 32
         val obj = DBObject(
           "_id" -> normalize(username),
           "username" -> username,

@@ -3,7 +3,7 @@ package forum
 
 import org.joda.time.DateTime
 import com.novus.salat.annotations.Key
-import ornicar.scalalib.OrnicarRandom
+import ornicar.scalalib.Random
 
 import user.User
 
@@ -31,7 +31,7 @@ object Post {
     ip: Option[String],
     text: String,
     number: Int): Post = Post(
-    id = OrnicarRandom nextString idSize,
+    id = Random nextString idSize,
     topicId = topicId,
     author = author,
     userId = userId,
