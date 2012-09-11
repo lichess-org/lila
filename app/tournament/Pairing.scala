@@ -55,7 +55,7 @@ object Pairing {
 
     pairings.isEmpty.fold(
       naivePairings(idles), 
-      (pairings.size > 12).fold(
+      (idles.size > 12).fold(
         naivePairings(idles),
         smartPairings(idles, pairings)
       )
