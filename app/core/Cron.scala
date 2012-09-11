@@ -89,8 +89,7 @@ object Cron {
       env.tournament.organizer -> tournament.StartTournaments
     }
 
-    // also sent when a player completes a game
-    message(5 seconds) {
+    message(3 seconds) {
       env.tournament.organizer -> tournament.StartPairings
     }
 

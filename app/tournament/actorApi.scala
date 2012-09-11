@@ -3,6 +3,7 @@ package tournament
 
 import socket.SocketMember
 import user.User
+import game.DbGame
 
 import akka.actor.ActorRef
 import scalaz.effects.IO
@@ -37,9 +38,11 @@ case class Forward(tournamentId: String, msg: Any)
 case object ReloadUserList
 case object HubTimeout
 case object GetNbHubs
+case class StartGame(game: DbGame)
 
 // organizer
 case object StartTournaments
 case class StartTournament(tour: Created)
 case object StartPairings
 case class StartPairing(tour: Started)
+case class GetTournamentUsernames(tournamentId: String)

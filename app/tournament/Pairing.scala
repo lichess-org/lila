@@ -47,22 +47,25 @@ object Pairing {
     user1 = user1,
     user2 = user2)
 
-  def createNewPairings(users: List[String], pairings: Pairings): Pairings = {
+  def createNewPairings(users: List[String], pairings: Pairings): Pairings =
 
-    val idles: List[String] = Random shuffle {
-      users.toSet diff { (pairings filter (_.playing) flatMap (_.users)).toSet } toList
+    if (users.size < 2)
+      Nil
+    else {
+      val idles: List[String] = Random shuffle {
+        users.toSet diff { (pairings filter (_.playing) flatMap (_.users)).toSet } toList
+      }
+
+      pairings.isEmpty.fold(
+        naivePairings(idles),
+        (idles.size > 12).fold(
+          naivePairings(idles),
+          smartPairings(idles, pairings)
+        )
+      )
     }
 
-    pairings.isEmpty.fold(
-      naivePairings(idles), 
-      (idles.size > 12).fold(
-        naivePairings(idles),
-        smartPairings(idles, pairings)
-      )
-    )
-  }
-
-  private def naivePairings(users: List[String]) = 
+  private def naivePairings(users: List[String]) =
     Random shuffle users grouped 2 collect {
       case List(u1, u2) ⇒ Pairing(u1, u2)
     } toList
@@ -82,7 +85,7 @@ object Pairing {
     def score(pair: P): Int = pair match {
       case (a, b) ⇒ justPlayedTogether(a, b).fold(
         100,
-        - timeSincePlay(a) - timeSincePlay(b))
+        -timeSincePlay(a) - timeSincePlay(b))
     }
 
     (users match {

@@ -70,7 +70,7 @@ $.websocket.prototype = {
   scheduleConnect: function(delay) {
     var self = this;
     clearTimeout(self.connectSchedule);
-    self.debug("schedule connect in " + delay + " ms");
+    //self.debug("schedule connect in " + delay + " ms");
     self.connectSchedule = setTimeout(function() { 
       if (self.options.offlineTag) self.options.offlineTag.show();
       self.connect(); 
@@ -88,7 +88,7 @@ $.websocket.prototype = {
     clearTimeout(self.pingSchedule);
     clearTimeout(self.connectSchedule);
     try {
-      self.debug("ping " + self.pingData());
+      //self.debug("ping " + self.pingData());
       self.ws.send(self.pingData());
       self.lastPingTime = self.now();
     } catch (e) {

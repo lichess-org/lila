@@ -9,35 +9,44 @@ import akka.pattern.{ ask, pipe }
 import akka.dispatch.{ Future, Promise }
 import play.api.libs.concurrent._
 import play.api.Play.current
-import scalaz.effects._
 
 final class Organizer(
     api: TournamentApi,
-    repo: TournamentRepo) extends Actor {
+    repo: TournamentRepo,
+    hubMaster: ActorRef) extends Actor {
 
   implicit val timeout = Timeout(1 second)
   implicit val executor = Akka.system.dispatcher
 
   def receive = {
 
-    case StartTournaments               ⇒ startTournaments.unsafePerformIO
-    case StartTournament(tour: Created) ⇒ api.start(tour).unsafePerformIO
+    case StartTournaments               ⇒ startTournaments
+    case StartTournament(tour: Created) ⇒ startTournament(tour)
 
-    case StartPairings                  ⇒ startPairings.unsafePerformIO
-    case StartPairing(tour: Started)    ⇒ startPairing(tour).unsafePerformIO
+    case StartPairings                  ⇒ startPairings
+    case StartPairing(tour: Started)    ⇒ startPairing(tour)
   }
 
-  def startTournaments = repo.created flatMap { created =>
-    (created map api.start).sequence
-  } 
-
-  def startPairings = repo.started flatMap { started =>
-    (started map startPairing).sequence
+  def startTournaments {
+    repo.created.unsafePerformIO foreach startTournament
   }
-  def startPairing(tour: Started) =
-    Pairing.createNewPairings(tour.users, tour.pairings).toNel.fold(
-      pairings ⇒ api.makePairings(tour, pairings),
-      io()
-    )
 
+  def startTournament(tour: Created) {
+    (api start tour).unsafePerformIO
+  }
+
+  def startPairings {
+    repo.started.unsafePerformIO foreach startPairing
+  }
+
+  def startPairing(tour: Started) {
+    (hubMaster ? GetTournamentUsernames(tour.id)).mapTo[Iterable[String]] onSuccess {
+      case usernames ⇒
+        (tour.users intersect usernames.toList) |> { users ⇒
+          Pairing.createNewPairings(users, tour.pairings).toNel foreach { pairings ⇒
+            api.makePairings(tour, pairings).unsafePerformIO
+          }
+        }
+    }
+  }
 }

@@ -20,10 +20,8 @@ final class TournamentApi(
     (tour addPairings pairings) |> { tour2 ⇒
       for {
         _ ← repo saveIO tour2
-        games ← (pairings map makeGame).sequence
-        _ ← (games map { game ⇒
-          io() // send events here
-        }).sequence
+        games ← (pairings map makeGame(tour.id)).sequence
+        _ ← (games map socket.notifyPairing).sequence
       } yield ()
     }
 
@@ -61,11 +59,11 @@ final class TournamentApi(
     err ⇒ putStrLn(err.shows),
     tour2 ⇒ for {
       _ ← repo saveIO tour2
-      _ ← io(socket reloadUserList tour.id)
+      _ ← socket reloadUserList tour.id
     } yield ()
   )
 
-  private def makeGame(pairing: Pairing): IO[DbGame] = for {
+  private def makeGame(tournamentId: String)(pairing: Pairing): IO[DbGame] = for {
     user1 ← getUser(pairing.user1) map (_ err "No such user " + pairing)
     user2 ← getUser(pairing.user2) map (_ err "No such user " + pairing)
     variant = chess.Variant.Standard
@@ -80,7 +78,9 @@ final class TournamentApi(
       creatorColor = chess.Color.White,
       mode = chess.Mode.Rated,
       variant = variant
-    ).start
+    ).withTournamentId(tournamentId)
+      .withId(pairing.gameId)
+      .start
     _ ← gameRepo insert game
     _ ← timelinePush(game)
   } yield game

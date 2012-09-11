@@ -58,7 +58,10 @@ $(function() {
   lichess.socket = new $.websocket(lichess.socketUrl + socketUrl, lichess_data.version, $.extend(true, lichess.socketDefaults, {
     events: {
       talk: function(e) { if (chatExists) addToChat(e); },
-      users: reloadUserList
+      users: reloadUserList,
+      redirect: function(e) {
+        location.href = 'http://'+location.hostname+'/'+e;
+      }
     },
     options: {
       name: "tournament"
