@@ -85,7 +85,7 @@ object LangList {
     "kl" -> "kalaallisut, kalaallit oqaasi",
     "kn" -> "ಕನ್ನಡ",
     "kr" -> "Kanuri",
-    "kk" -> "Қазақ тіл",
+    "kk" -> "Қазақ тілі",
     "km" -> "ភាសាខ្មែ",
     "ki" -> "Gĩkũy",
     "rw" -> "Ikinyarwand",
