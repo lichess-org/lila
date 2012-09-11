@@ -10,6 +10,10 @@
     @game.updatedAt.map(showDate)
     }
     <br /><br />
+    @game.tournamentId.map { tourId =>
+    <a class="tournament_link s16" href="@routes.Tournament.show(tourId)">Tournament</a>
+    <br /><br />
+    }
     @if(game.finishedOrAborted) {
     @gameEndStatus(game),
     @game.winner.map { winner =>

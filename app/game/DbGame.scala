@@ -78,6 +78,8 @@ case class DbGame(
   def isTournament = tournamentId.isDefined
   def nonTournament = tournamentId.isEmpty
 
+  def hasChat = nonTournament || nonAi
+
   lazy val toChess: Game = {
 
     def posPiece(posCode: Char, roleCode: Char, color: Color): Option[(Pos, Piece)] = for {
@@ -242,6 +244,7 @@ case class DbGame(
   def aiLevel: Option[Int] = players find (_.isAi) flatMap (_.aiLevel)
 
   def hasAi: Boolean = players exists (_.isAi)
+  def nonAi = !hasAi
 
   def mapPlayers(f: DbPlayer ⇒ DbPlayer) = copy(
     whitePlayer = f(whitePlayer),
@@ -294,6 +297,8 @@ case class DbGame(
   def loser = winner map opponent
 
   def winnerColor: Option[Color] = winner map (_.color)
+
+  def winnerUserId: Option[String] = winner flatMap (_.userId)
 
   def wonBy(c: Color): Option[Boolean] = winnerColor map (_ == c)
 

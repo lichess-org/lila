@@ -163,6 +163,13 @@ $.widget("lichess.game", {
             });
           });
         },
+        post_end: function() {
+          if (!self.options.player.spectator) {
+            self.$table.find("a.view_tournament").each(function() {
+              location.href = $(this).attr("href");
+            });
+          }
+        },
         reload_table: function() {
           self.element.queue(function() {
             self.reloadTable(function() {

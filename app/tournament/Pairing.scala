@@ -9,9 +9,10 @@ case class Pairing(
     gameId: String,
     status: chess.Status,
     user1: String,
-    user2: String) {
+    user2: String,
+    winner: Option[String]) {
 
-  def encode: RawPairing = RawPairing(gameId, status.id, users)
+  def encode: RawPairing = RawPairing(gameId, status.id, users, winner)
 
   def users = List(user1, user2)
   def usersPair = user1 -> user2
@@ -25,15 +26,20 @@ case class Pairing(
     if (user == user1) user2.some else if (user == user2) user1.some else none
 
   def withStatus(s: chess.Status) = copy(status = s)
+
+  def finish(s: chess.Status, w: Option[String]) = copy(
+    status = s,
+    winner = w
+  )
 }
 
-case class RawPairing(g: String, s: Int, u: List[String]) {
+case class RawPairing(g: String, s: Int, u: List[String], w: Option[String]) {
 
   def decode: Option[Pairing] = for {
     status ← chess.Status(s)
     user1 ← u.lift(0)
     user2 ← u.lift(1)
-  } yield Pairing(g, status, user1, user2)
+  } yield Pairing(g, status, user1, user2, w)
 }
 
 object Pairing {
@@ -45,7 +51,8 @@ object Pairing {
     gameId = IdGenerator.game,
     status = chess.Status.Created,
     user1 = user1,
-    user2 = user2)
+    user2 = user2,
+    winner = none)
 
   def createNewPairings(users: List[String], pairings: Pairings): Pairings =
 

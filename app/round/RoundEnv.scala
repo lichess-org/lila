@@ -37,7 +37,8 @@ final class RoundEnv(
     makeHistory = history,
     uidTimeout = RoundUidTimeout,
     hubTimeout = RoundHubTimeout,
-    playerTimeout = RoundPlayerTimeout
+    playerTimeout = RoundPlayerTimeout,
+    tournamentOrganizerActorName = ActorTournamentOrganizer
   )), name = ActorRoundHubMaster)
 
   lazy val moveNotifier = new MoveNotifier(

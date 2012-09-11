@@ -17,7 +17,8 @@ final class HubMaster(
     makeHistory: () ⇒ History,
     uidTimeout: Int,
     hubTimeout: Int,
-    playerTimeout: Int) extends Actor {
+    playerTimeout: Int,
+    tournamentOrganizerActorName: String) extends Actor {
 
   implicit val timeout = Timeout(1 second)
   implicit val executor = Akka.system.dispatcher
@@ -75,6 +76,7 @@ final class HubMaster(
     history = makeHistory(),
     uidTimeout = uidTimeout,
     hubTimeout = hubTimeout,
-    playerTimeout = playerTimeout
+    playerTimeout = playerTimeout,
+    tournamentOrganizerActorName = tournamentOrganizerActorName
   )), name = "game_hub_" + gameId)
 }
