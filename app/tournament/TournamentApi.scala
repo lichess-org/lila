@@ -91,6 +91,7 @@ final class TournamentApi(
     ).withTournamentId(tournamentId)
       .withId(pairing.gameId)
       .start
+      .startClock(2)
     _ ← gameRepo insert game
     _ ← timelinePush(game)
   } yield game

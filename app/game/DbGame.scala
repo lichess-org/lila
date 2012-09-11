@@ -227,6 +227,11 @@ case class DbGame(
     updatedAt = DateTime.now.some
   ))
 
+  def startClock(delay: Float) = clock filterNot (_.isRunning) fold (
+    c ⇒ copy(clock = Some(c step delay)),
+    this
+  )
+
   def hasMoveTimes = players forall (_.hasMoveTimes)
 
   def started = status >= Status.Started
@@ -252,7 +257,7 @@ case class DbGame(
   )
 
   def playerCanOfferDraw(color: Color) =
-    started && playable && 
+    started && playable &&
       turns >= 2 &&
       !player(color).isOfferingDraw &&
       !(opponent(color).isAi) &&
