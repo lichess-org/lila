@@ -101,6 +101,8 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     app = app,
     settings = settings,
     getUser = user.userRepo.byId,
+    gameRepo = game.gameRepo,
+    timelinePush = timeline.push.apply,
     flood = security.flood,
     mongodb = mongodb.apply _)
 

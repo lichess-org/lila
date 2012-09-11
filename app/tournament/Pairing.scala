@@ -75,7 +75,7 @@ object Pairing {
     def score(pair: P): Int = pair match {
       case (a, b) ⇒ justPlayedTogether(a, b).fold(
         100,
-        0 - timeSincePlay(a) - timeSincePlay(b))
+        - timeSincePlay(a) - timeSincePlay(b))
     }
 
     (idles match {
