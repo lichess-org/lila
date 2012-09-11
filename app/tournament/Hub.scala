@@ -1,6 +1,7 @@
 package lila
 package tournament
 
+import game.DbGame
 import socket._
 
 import akka.actor._
@@ -20,6 +21,13 @@ final class Hub(
   var lastPingTime = nowMillis
 
   def receiveSpecific = {
+
+    case StartGame(game: DbGame) ⇒ game.players foreach { player ⇒
+      for {
+        userId ← player.userId
+        member ← memberByUserId(userId)
+      } notifyMember("redirect", JsString(game fullIdOf player.color))(member)
+    }
 
     case PingVersion(uid, v) ⇒ {
       ping(uid)

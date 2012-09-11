@@ -54,9 +54,10 @@ final class HubMaster(
       (hub ? GetNbMembers).mapTo[Int]
     } map (_.sum) pipeTo sender
 
-    case GetUsernames ⇒ Future.traverse(hubs.values) { hub ⇒
-      (hub ? GetUsernames).mapTo[Iterable[String]]
-    } map (_.flatten) pipeTo sender
+    case GetTournamentUsernames(id) ⇒ hubs get id fold (
+      hub ⇒ (hub ? GetUsernames).mapTo[Iterable[String]] pipeTo sender,
+      sender ! Nil
+    )
 
     case msg @ NbMembers(_) ⇒ hubs.values foreach (_ ! msg)
   }

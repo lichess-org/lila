@@ -34,7 +34,8 @@ case class DbGame(
     bookmarks: Int = 0,
     is960Rematch: Boolean = false,
     createdAt: DateTime = DateTime.now,
-    updatedAt: Option[DateTime] = None) {
+    updatedAt: Option[DateTime] = None,
+    tournamentId: Option[String] = None) {
 
   val players = List(whitePlayer, blackPlayer)
 
@@ -73,6 +74,9 @@ case class DbGame(
     (players contains player) option id + player.id
 
   def fullIdOf(color: Color): String = id + player(color).id
+
+  def isTournament = tournamentId.isDefined
+  def nonTournament = tournamentId.isEmpty
 
   lazy val toChess: Game = {
 
@@ -245,7 +249,7 @@ case class DbGame(
   )
 
   def playerCanOfferDraw(color: Color) =
-    started && playable &&
+    started && playable && 
       turns >= 2 &&
       !player(color).isOfferingDraw &&
       !(opponent(color).isAi) &&
@@ -255,14 +259,16 @@ case class DbGame(
     player(color).lastDrawOffer.fold(_ >= turns - 1, false)
 
   def playerCanRematch(color: Color) =
-    finishedOrAborted && opponent(color).isHuman
+    finishedOrAborted && opponent(color).isHuman && nonTournament
 
   def playerCanProposeTakeback(color: Color) =
-    started && playable &&
-      turns >= 2 &&
+    started && playable && nonTournament &&
+      bothPlayersHaveMoved &&
       !opponent(color).isProposingTakeback
 
-  def abortable = status == Status.Started && turns < 2
+  def moretimeable = playable && nonTournament && hasClock
+
+  def abortable = status == Status.Started && turns < 2 && nonTournament
 
   def resignable = playable && !abortable
 
@@ -293,7 +299,7 @@ case class DbGame(
 
   def outoftimePlayer: Option[DbPlayer] = for {
     c ← clock
-    if this.playable
+    if playable
     if !c.isRunning || (c outoftime player.color)
   } yield player
 
@@ -354,7 +360,8 @@ case class DbGame(
     bm = bookmarks.some filter (0 <),
     r960 = is960Rematch option true,
     createdAt = createdAt,
-    updatedAt = updatedAt
+    updatedAt = updatedAt,
+    tid = tournamentId
   )
 
   def userIds = playerMaps(_.userId)
@@ -368,6 +375,10 @@ case class DbGame(
   }
 
   def with960Rematch(v: Boolean) = this.copy(is960Rematch = v)
+
+  def withTournamentId(id: String) = this.copy(tournamentId = id.some)
+
+  def withId(newId: String) = this.copy(id = newId)
 
   private def playerMaps[A](f: DbPlayer ⇒ Option[A]): List[A] = players.map(f).flatten
 }
@@ -425,7 +436,8 @@ case class RawDbGame(
     bm: Option[Int] = None,
     r960: Option[Boolean] = None,
     createdAt: DateTime,
-    updatedAt: Option[DateTime]) {
+    updatedAt: Option[DateTime],
+    tid: Option[String]) {
 
   def decode: Option[DbGame] = for {
     whitePlayer ← players find (_.c == "white") flatMap (_.decode)
@@ -455,6 +467,7 @@ case class RawDbGame(
     bookmarks = bm | 0,
     is960Rematch = r960 | false,
     createdAt = createdAt,
-    updatedAt = updatedAt
+    updatedAt = updatedAt,
+    tournamentId = tid
   )
 }

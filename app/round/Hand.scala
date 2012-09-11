@@ -176,7 +176,7 @@ final class Hand(
   })
 
   def takebackAccept(fullId: String): IOValidEvents = fromPov(fullId) { pov ⇒
-    if (pov.opponent.isProposingTakeback) for {
+    if (pov.opponent.isProposingTakeback && pov.game.nonTournament) for {
       fen ← gameRepo initialFen pov.game.id
       res ← takeback(pov.game, fen).sequence
     } yield res
@@ -187,7 +187,7 @@ final class Hand(
 
   def takebackOffer(fullId: String): IOValidEvents = fromPov(fullId) {
     case pov @ Pov(g1, color) ⇒
-      if (g1.playable && g1.bothPlayersHaveMoved) {
+      if (g1.playable && g1.bothPlayersHaveMoved && g1.nonTournament) {
         gameRepo initialFen pov.game.id flatMap { fen ⇒
           if (g1.player(!color).isAi)
             takeback.double(pov.game, fen).sequence
@@ -236,7 +236,7 @@ final class Hand(
   })
 
   def moretime(ref: PovRef): IO[Valid[List[Event]]] = attemptRef(ref, pov ⇒
-    pov.game.clock filter (_ ⇒ pov.game.playable) map { clock ⇒
+    pov.game.clock filter (_ ⇒ pov.game.moretimeable) map { clock ⇒
       val color = !pov.color
       val newClock = clock.giveTime(color, moretimeSeconds)
       val progress = pov.game withClock newClock

@@ -13,6 +13,7 @@ import play.api.Play.current
 import scalaz.effects._
 
 import user.User
+import game.DbGame
 import socket.{ PingVersion, Quit, Resync }
 import socket.Util.connectionFail
 import security.Flood
@@ -27,8 +28,14 @@ final class Socket(
   private val timeoutDuration = 1 second
   implicit private val timeout = Timeout(timeoutDuration)
 
-  def reloadUserList(tournamentId: String) {
+  def reloadUserList(tournamentId: String) = io {
     hubMaster ! Forward(tournamentId, ReloadUserList)
+  }
+
+  def notifyPairing(game: DbGame) = io {
+    game.tournamentId foreach { tid ⇒
+      hubMaster ! Forward(tid, StartGame(game))
+    }
   }
 
   def join(

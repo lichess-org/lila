@@ -41,7 +41,7 @@ underchat = underchat.some) {
       </div>
       @game.clock.map { c =>
       @round.clock(c, pov.color, "bottom")
-      @if(!game.finished) {
+      @if(game.moretimeable) {
       <a class="moretime" href="#" title="@trans.giveNbSeconds(moretimeSeconds)"></a>
       }
       }

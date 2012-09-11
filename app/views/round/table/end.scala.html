@@ -6,6 +6,9 @@
   @round.table.result(game)
 </div>
 <div class="lichess_control buttons">
+  @game.tournamentId.map { tourId =>
+  <a class="button" href="@routes.Tournament.show(tourId)">View Tournament</a>
+  }.getOrElse {
   @if(opponent.isHuman) {
   <div class="lichess_separator"></div>
   @if(opponent.isOfferingRematch) {
@@ -29,4 +32,5 @@
   <a class="button" title="@trans.playWithTheSameOpponentAgain()" href="@routes.Lobby.home()#ai">@trans.rematch()</a>
   }
   <a class="lichess_new_game button" title="@trans.playWithAnotherOpponent()" href="@routes.Lobby.home()">@trans.newOpponent()</a>
+  }
 </div>
