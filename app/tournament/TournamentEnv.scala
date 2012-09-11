@@ -18,6 +18,8 @@ final class TournamentEnv(
     app: Application,
     settings: Settings,
     getUser: String => IO[Option[User]],
+    gameRepo: GameRepo,
+    timelinePush: DbGame ⇒ IO[Unit],
     flood: Flood,
     mongodb: String ⇒ MongoCollection) {
 
@@ -31,6 +33,9 @@ final class TournamentEnv(
 
   lazy val api = new TournamentApi(
     repo = repo,
+    gameRepo = gameRepo, 
+    getUser = getUser,
+    timelinePush = timelinePush,
     socket = socket)
 
   lazy val roomRepo = new RoomRepo(

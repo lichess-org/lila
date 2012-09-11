@@ -4,20 +4,25 @@ package tournament
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 import scalaz.effects._
-import scalaz.NonEmptyList
+import scalaz.{ NonEmptyList, Success, Failure }
 
+import game.{ DbGame, DbPlayer, GameRepo }
 import user.User
 
 final class TournamentApi(
     repo: TournamentRepo,
+    gameRepo: GameRepo,
+    timelinePush: DbGame ⇒ IO[Unit],
+    getUser: String ⇒ IO[Option[User]],
     socket: Socket) {
 
   def makePairings(tour: Started, pairings: NonEmptyList[Pairing]): IO[Unit] =
     (tour addPairings pairings) |> { tour2 ⇒
       for {
         _ ← repo saveIO tour2
-        _ ← (pairings map { pairing ⇒
-          io() // create the game
+        games ← (pairings map makeGame).sequence
+        _ ← (games map { game ⇒
+          io() // send events here
         }).sequence
       } yield ()
     }
@@ -60,6 +65,26 @@ final class TournamentApi(
     } yield ()
   )
 
-  private def alreadyInATournament[A](user: User) = 
+  private def makeGame(pairing: Pairing): IO[DbGame] = for {
+    user1 ← getUser(pairing.user1) map (_ err "No such user " + pairing)
+    user2 ← getUser(pairing.user2) map (_ err "No such user " + pairing)
+    variant = chess.Variant.Standard
+    game = DbGame(
+      game = chess.Game(
+        board = chess.Board init variant,
+        clock = chess.Clock(120, 0).some
+      ),
+      ai = None,
+      whitePlayer = DbPlayer.white withUser user1,
+      blackPlayer = DbPlayer.black withUser user2,
+      creatorColor = chess.Color.White,
+      mode = chess.Mode.Rated,
+      variant = variant
+    ).start
+    _ ← gameRepo insert game
+    _ ← timelinePush(game)
+  } yield game
+
+  private def alreadyInATournament[A](user: User) =
     !![A]("%s already has a tournament in progress" format user.username)
 }
