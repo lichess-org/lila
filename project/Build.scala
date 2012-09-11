@@ -32,7 +32,7 @@ trait Dependencies {
   val actuarius = "eu.henkelmann" %% "actuarius" % "0.2.3"
   val jodaTime = "joda-time" % "joda-time" % "2.1"
   val jodaConvert = "org.joda" % "joda-convert" % "1.2"
-  val scalastic = "default" % "scalastic_2.9.2" % "0.0.6-SNAPSHOT"
+  val scalastic = "com.traackr" % "scalastic_2.9.2" % "0.0.6-HACKED"
 }
 
 object ApplicationBuild extends Build with Resolvers with Dependencies {
