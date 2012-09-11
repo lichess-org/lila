@@ -16,6 +16,8 @@ class TournamentRepo(collection: MongoCollection)
 
   def createdById(id: String): IO[Option[Created]] = byIdAs(id, _.created)
 
+  def startedById(id: String): IO[Option[Started]] = byIdAs(id, _.started)
+
   private def byIdAs[A](id: String, as: RawTournament => Option[A]): IO[Option[A]] = io {
     findOneById(id) flatMap as
   }

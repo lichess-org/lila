@@ -10,6 +10,7 @@ import akka.util.duration._
 import play.api.libs.json._
 import play.api.libs.iteratee._
 import play.api.Play.current
+import play.api.libs.concurrent.Akka
 import scalaz.effects._
 
 final class Hub(
@@ -17,13 +18,17 @@ final class Hub(
     history: History,
     uidTimeout: Int,
     hubTimeout: Int,
-    playerTimeout: Int) extends HubActor[Member](uidTimeout) {
+    playerTimeout: Int,
+    tournamentOrganizerActorName: String) extends HubActor[Member](uidTimeout) {
 
   var lastPingTime = nowMillis
 
   // when the players have been seen online for the last time
   var whiteTime = nowMillis
   var blackTime = nowMillis
+
+  lazy val tournamentOrganizerActor = 
+    Akka.system.actorFor("/user/" + tournamentOrganizerActorName)
 
   def receiveSpecific = {
 
@@ -106,6 +111,7 @@ final class Hub(
   def notify(events: List[Event]) {
     val vevents = events map history.+=
     members.values foreach { m ⇒ batch(m, vevents) }
+    if (events contains Event.End()) notifyEnd
   }
 
   def batch(member: Member, vevents: List[VersionedEvent]) {
@@ -122,6 +128,13 @@ final class Hub(
 
   def notifyGone(color: Color, gone: Boolean) {
     notifyOwner(!color, "gone", JsBoolean(gone))
+  }
+
+  def notifyEnd {
+    tournamentOrganizerActor ! FinishGame(gameId)
+    Akka.system.scheduler.scheduleOnce(3 seconds) {
+      notify(List(Event.PostEnd()))
+    }
   }
 
   def makeEvent(t: String, data: JsValue): JsObject =

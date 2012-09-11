@@ -50,8 +50,8 @@ $.websocket.prototype = {
     };
     self.ws.onmessage = function(e) {
       var m = JSON.parse(e.data);
-      self.debug(m);
       if (m.t == "n") { self.pong(); }
+      else self.debug(m);
       if (m.t == "batch") {
         $(m.d || []).each(function() { self.handle(this); });
       } else {

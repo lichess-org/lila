@@ -63,6 +63,16 @@ final class TournamentApi(
     } yield ()
   )
 
+  def finishGame(gameId: String): IO[Unit] = for {
+    gameOption ← gameRepo game gameId
+    tourOption ← gameOption flatMap (_.tournamentId) fold (repo.startedById, io(None))
+    _ ← {
+      (gameOption |@| tourOption) apply { (game: DbGame, tour: Started) ⇒
+        repo saveIO tour.updatePairing(game.id, _.finish(game.status, game.winnerUserId))
+      }
+    } | io()
+  } yield ()
+
   private def makeGame(tournamentId: String)(pairing: Pairing): IO[DbGame] = for {
     user1 ← getUser(pairing.user1) map (_ err "No such user " + pairing)
     user2 ← getUser(pairing.user2) map (_ err "No such user " + pairing)

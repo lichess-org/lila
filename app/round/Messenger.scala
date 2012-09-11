@@ -54,7 +54,7 @@ final class Messenger(
     )
 
   def systemMessages(game: DbGame, messages: List[SelectI18nKey]): IO[List[Event]] =
-    game.invited.isHuman.fold(
+    game.hasChat.fold(
       (messages map messageToEn) |> { messageKeys ⇒
         roomRepo.addSystemMessages(game.id, messageKeys) map { _ ⇒
           messageKeys map { Message("system", _) }
@@ -64,7 +64,7 @@ final class Messenger(
     )
 
   def systemMessage(game: DbGame, message: SelectI18nKey): IO[List[Event]] =
-    game.invited.isHuman.fold(
+    game.hasChat.fold(
       messageToEn(message) |> { messageKey ⇒
         roomRepo.addSystemMessage(game.id, messageKey) map { _ ⇒
           List(Message("system", messageKey))
@@ -73,7 +73,7 @@ final class Messenger(
       io(Nil))
 
   def render(game: DbGame): IO[Option[String]] =
-    game.hasAi.fold(io(None), render(game.id) map (_.some))
+    game.hasChat.fold(io(None), render(game.id) map (_.some))
 
   def render(roomId: String): IO[String] =
     roomRepo room roomId map (_.render)

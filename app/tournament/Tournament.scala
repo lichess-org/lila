@@ -73,6 +73,10 @@ case class Started(
   def addPairings(ps: NonEmptyList[Pairing]) =
     copy(pairings = ps.list ::: pairings)
 
+  def updatePairing(gameId: String, f: Pairing ⇒ Pairing) = copy(
+    pairings = pairings map { p ⇒ (p.gameId == gameId).fold(f(p), p) }
+  )
+
   def encode = new RawTournament(
     id = id,
     status = Status.Started.id,

@@ -130,6 +130,10 @@ object Event {
     def typ = "end"
   }
 
+  case class PostEnd() extends Empty {
+    def typ = "post_end"
+  }
+
   case class Threefold() extends Empty {
     def typ = "threefold_repetition"
   }

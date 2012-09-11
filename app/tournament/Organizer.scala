@@ -1,6 +1,9 @@
 package lila
 package tournament
 
+import game.DbGame
+import round.FinishGame
+
 import akka.actor._
 import akka.actor.ReceiveTimeout
 import akka.util.duration._
@@ -25,6 +28,12 @@ final class Organizer(
 
     case StartPairings                  ⇒ startPairings
     case StartPairing(tour: Started)    ⇒ startPairing(tour)
+
+    case FinishGame(gameId: String)     ⇒ finishGame(gameId)
+  }
+
+  def finishGame(gameId: String) {
+    api.finishGame(gameId).unsafePerformIO
   }
 
   def startTournaments {
