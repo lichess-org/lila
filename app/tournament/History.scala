@@ -1,19 +1,16 @@
 package lila
-package round
+package tournament
 
 import play.api.libs.json._
 import scalaz.effects._
 
-import chess.Color
 import memo.Builder
 
 case class VersionedEvent(
     version: Int,
     typ: String,
     data: JsValue,
-    only: Option[Color],
-    owner: Boolean,
-    watcher: Boolean) {
+    only: Option[String]) {
 
   def jsFor(m: Member): JsObject = visibleBy(m).fold(
     JsObject(Seq(
@@ -27,9 +24,7 @@ case class VersionedEvent(
   )
 
   private def visibleBy(m: Member): Boolean =
-    if (watcher && m.owner) false
-    else if (owner && m.watcher) false 
-    else only.fold(_ == m.color, true)
+    only.fold(u ⇒ m.username.fold(u ==, false), true)
 }
 
 final class History(timeout: Int) {
@@ -55,9 +50,7 @@ final class History(timeout: Int) {
       version = version,
       typ = event.typ,
       data = event.data,
-      only = event.only,
-      owner = event.owner,
-      watcher = event.watcher)
+      only = event.only)
     events.put(version, vevent)
     vevent
   }
