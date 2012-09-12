@@ -48,7 +48,7 @@ final class Finisher(
   def outoftime(game: DbGame): ValidIOEvents = game.outoftimePlayer.fold(
     player ⇒ finish(game, Outoftime,
       Some(!player.color) filter game.toChess.board.hasEnoughMaterialToMate),
-    !!("no outoftime applicable " + game.clock)
+    !!("no outoftime applicable " + game.clock.fold(_.remainingTimes, "-"))
   )
 
   def outoftimes(games: List[DbGame]): List[IO[Unit]] =
