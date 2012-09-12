@@ -49,7 +49,7 @@ final class Finisher(
     game.outoftimePlayer some { player ⇒
       finish(game, Outoftime,
         Some(!player.color) filter game.toChess.board.hasEnoughMaterialToMate)
-    } none !!("no outoftime applicable " + game.clock)
+    } none !!("no outoftime applicable " + game.clock.fold(_.remainingTimes, "-"))
 
   def outoftimes(games: List[DbGame]): List[IO[Unit]] =
     games map { g ⇒
