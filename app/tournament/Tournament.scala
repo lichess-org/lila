@@ -21,9 +21,12 @@ sealed trait Tournament {
   val id: String
   val data: Data
   def encode: RawTournament
+  def pairings: List[Pairing]
 
   def minutes = data.minutes
   lazy val duration = new Duration(minutes * 60 * 1000)
+
+  lazy val players = Player of this
 
   def users = data.users
   def nbUsers = users.size
@@ -43,6 +46,8 @@ case class Created(
   import data._
 
   def readyToStart = users.size >= minUsers
+
+  def pairings = Nil
 
   def encode = new RawTournament(
     id = id,
@@ -76,6 +81,8 @@ case class Started(
   def updatePairing(gameId: String, f: Pairing ⇒ Pairing) = copy(
     pairings = pairings map { p ⇒ (p.gameId == gameId).fold(f(p), p) }
   )
+
+  def numerotedPairings: Seq[(Int, Pairing)] = (pairings.size to 1 by -1) zip pairings
 
   def encode = new RawTournament(
     id = id,

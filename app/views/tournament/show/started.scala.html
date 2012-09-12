@@ -13,6 +13,41 @@ title = title) {
   @tournament.userList(users)
 </div>
 
+<table class="pairings">
+  <thead>
+    <tr>
+      <th rowspan="4">Tournament games</th>
+    </tr>
+  </thead>
+  <tbody>
+    @tour.numerotedPairings.map {
+    case (number, pairing) => {
+    <tr>
+      <td>
+        <a href="@routes.Round.watcher(pairing.gameId, "white")">
+          Game @number
+        </a>
+      </td>
+      @pairing.users.map { userId =>
+      <td>
+        <a href="@routes.User.show(userId)">@userIdLink(userId.some)</a>
+      </td>
+      }
+      <td>
+        @if(pairing.finished) {
+        @pairing.winner.map { w =>
+        won by @userIdToUsername(w) 
+        }.getOrElse("Draw")
+        } else {
+        Now playing
+        }
+      </td>
+    </tr>
+    }
+    }
+  </tbody>
+</table>
+
 @ctx.me.filter(tour.contains).map { me =>
 <div>
   <form action="@routes.Tournament.withdraw(tour.id)" method="POST">

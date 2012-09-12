@@ -7,7 +7,7 @@
 </div>
 <div class="lichess_control buttons">
   @game.tournamentId.map { tourId =>
-  <a class="button view_tournament" href="@routes.Tournament.show(tourId)">View Tournament</a>
+  <a class="button view_tournament" href="@routes.Tournament.show(tourId)">Back to Tournament</a>
   }.getOrElse {
   @if(opponent.isHuman) {
   <div class="lichess_separator"></div>
