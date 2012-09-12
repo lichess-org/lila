@@ -30,3 +30,4 @@ index game positions
 integrate with google+
 elo stats (branch elostats)
 lobby concurrency http://en.lichess.org/forum/lichess-feedback/bug-multiple-players-can-accept-the-same-game-proposal#1
+possible timeout bug http://en.lichess.org/forum/lichess-feedback/possible-timeout-bug#1
