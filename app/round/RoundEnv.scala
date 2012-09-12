@@ -73,7 +73,7 @@ final class RoundEnv(
     finisherLock = finisherLock,
     indexGame = indexGame)
 
-  lazy val eloCalculator = new chess.EloCalculator(true)
+  lazy val eloCalculator = new chess.EloCalculator(false)
 
   lazy val finisherLock = new FinisherLock(timeout = FinisherLockTimeout)
 
