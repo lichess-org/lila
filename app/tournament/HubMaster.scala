@@ -59,6 +59,8 @@ final class HubMaster(
       sender ! Nil
     )
 
+    case GetTournamentIds => hubs.keys
+
     case GetUsernames ⇒ Future.traverse(hubs.values) { hub ⇒
       (hub ? GetUsernames).mapTo[Iterable[String]]
     } map (_.flatten) pipeTo sender

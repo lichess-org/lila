@@ -26,7 +26,7 @@ sealed trait Tournament {
   def minutes = data.minutes
   lazy val duration = new Duration(minutes * 60 * 1000)
 
-  lazy val players = Player of this
+  lazy val standing = Standing of this
 
   def users = data.users
   def nbUsers = users.size

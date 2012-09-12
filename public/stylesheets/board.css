@@ -377,6 +377,13 @@ div.lichess_table div.username.offline {
   background: url(../images/s16.png) no-repeat;
   background-position: 0 -128px;
 }
+div.lichess_table a.button.strong {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
 div.clock {
   width: 70px;
   border: 1px solid #ccc;
@@ -477,6 +484,7 @@ div.lichess_control.buttons a.button {
   display: block;
   margin-bottom: 0.7em;
   text-align: center;
+  text-decoration: none;
 }
 
 div.lichess_claim_draw_zone,

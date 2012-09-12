@@ -67,4 +67,8 @@ final class TournamentEnv(
     api = api,
     hubMaster = hubMaster
   )), name = ActorTournamentOrganizer)
+
+  lazy val memo = new Memo(
+    hubMaster = hubMaster,
+    ttl = TournamentMemoTtl)
 }

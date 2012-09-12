@@ -45,6 +45,7 @@ final class Settings(config: Config) {
   val TournamentMessageLifetime = millis("tournament.message.lifetime")
   val TournamentUidTimeout = millis("tournament.uid.timeout")
   val TournamentHubTimeout = millis("tournament.hub.timeout")
+  val TournamentMemoTtl = millis("tournament.memo.ttl")
 
   val AnalyseCachedNbTtl = millis("analyse.cached.nb.ttl")
 
