@@ -44,6 +44,10 @@ class TournamentRepo(collection: MongoCollection)
     ).isDefined
   }
 
+  val inProgressIds: IO[List[String]] = io {
+    primitiveProjections(DBObject("status" -> Status.Started.id), "_id")
+  }
+
   def saveIO(tournament: Tournament): IO[Unit] = io {
     save(tournament.encode)
   }

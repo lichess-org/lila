@@ -6,6 +6,7 @@ import user.User
 import core.Settings
 import security.Flood
 import socket.History
+import memo.MonoMemo
 
 import com.traackr.scalastic.elasticsearch
 import com.mongodb.casbah.MongoCollection
@@ -68,7 +69,8 @@ final class TournamentEnv(
     hubMaster = hubMaster
   )), name = ActorTournamentOrganizer)
 
-  lazy val memo = new Memo(
-    hubMaster = hubMaster,
-    ttl = TournamentMemoTtl)
+  def tournamentIds = tournamentIdsMemo.apply
+
+  private lazy val tournamentIdsMemo = 
+    new MonoMemo(TournamentMemoTtl, repo.inProgressIds)
 }

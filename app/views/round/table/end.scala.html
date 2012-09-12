@@ -6,8 +6,10 @@
   @round.table.result(game)
 </div>
 <div class="lichess_control buttons">
-  @game.tournamentId.filter(_ => tournamentInProgress).map { tourId =>
-  <a class="button strong view_tournament" href="@routes.Tournament.show(tourId)">Back to Tournament</a>
+  @game.tournamentId.map { tourId =>
+  <a 
+    class="button @tournamentInProgress.fold("strong", "") view_tournament" 
+    href="@routes.Tournament.show(tourId)">Back to Tournament</a>
   }.getOrElse {
   @if(opponent.isHuman) {
   <div class="lichess_separator"></div>
