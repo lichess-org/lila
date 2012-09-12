@@ -26,6 +26,7 @@ case class Pairing(
     if (user == user1) user2.some else if (user == user2) user1.some else none
 
   def wonBy(user: String): Boolean = winner.fold(user ==, false)
+  def draw: Boolean = status is (_.Draw)
 
   def withStatus(s: chess.Status) = copy(status = s)
 
