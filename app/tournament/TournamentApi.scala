@@ -50,7 +50,7 @@ final class TournamentApi(
       err ⇒ io(failure(err)),
       tour2 ⇒ for {
         _ ← repo saveIO tour2
-        _ ← io(socket reloadUserList tour.id)
+        _ ← io(socket reload tour.id)
       } yield ().success
     ): IO[Valid[Unit]]
   } yield result
@@ -59,19 +59,22 @@ final class TournamentApi(
     err ⇒ putStrLn(err.shows),
     tour2 ⇒ for {
       _ ← repo saveIO tour2
-      _ ← socket reloadUserList tour.id
+      _ ← socket reload tour.id
     } yield ()
   )
 
-  def finishGame(gameId: String): IO[Unit] = for {
+  def finishGame(gameId: String): IO[Option[Tournament]] = for {
     gameOption ← gameRepo game gameId
     tourOption ← gameOption flatMap (_.tournamentId) fold (repo.startedById, io(None))
-    _ ← {
+    result ← {
       (gameOption |@| tourOption) apply { (game: DbGame, tour: Started) ⇒
-        repo saveIO tour.updatePairing(game.id, _.finish(game.status, game.winnerUserId))
+        repo saveIO tour.updatePairing(
+          game.id,
+          _.finish(game.status, game.winnerUserId)
+        ) map (_ ⇒ tour.some)
       }
-    } | io()
-  } yield ()
+    } | io(none)
+  } yield result
 
   private def makeGame(tournamentId: String)(pairing: Pairing): IO[DbGame] = for {
     user1 ← getUser(pairing.user1) map (_ err "No such user " + pairing)

@@ -28,8 +28,8 @@ final class Socket(
   private val timeoutDuration = 1 second
   implicit private val timeout = Timeout(timeoutDuration)
 
-  def reloadUserList(tournamentId: String) = io {
-    hubMaster ! Forward(tournamentId, ReloadUserList)
+  def reload(tournamentId: String) = io {
+    hubMaster ! Forward(tournamentId, Reload)
   }
 
   def notifyPairing(game: DbGame) = io {

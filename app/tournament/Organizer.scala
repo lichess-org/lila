@@ -33,7 +33,9 @@ final class Organizer(
   }
 
   def finishGame(gameId: String) {
-    api.finishGame(gameId).unsafePerformIO
+    api.finishGame(gameId).unsafePerformIO foreach { tour =>
+      hubMaster ! Forward(tour.id, Reload)
+    }
   }
 
   def startTournaments {

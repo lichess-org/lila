@@ -27,15 +27,11 @@
 title = title,
 goodies = goodies.some,
 chat = chat.some) {
-@side.map { s =>
-<div id="tournament_side">@s</div>
-}
-<div id="tournament">
-  <div 
-    class="content_box small_box tournament_box tournament_show"
-    data-socket-url="@routes.Tournament.websocket(tour.id)">
-    @body
-  </div>
+<div 
+  id="tournament" 
+  data-href="@routes.Tournament.reload(tour.id)"
+  data-socket-url="@routes.Tournament.websocket(tour.id)">
+  @tournament.show.inner(side)(body)
 </div>
 <script type="text/javascript">
   var lichess_data = @Html(tournamentJsData(tour, version, ctx.me))

@@ -26,8 +26,13 @@ final class Hub(
       for {
         userId ← player.userId
         member ← memberByUserId(userId)
-      } notifyMember("redirect", JsString(game fullIdOf player.color))(member)
+      } {
+        notifyMember("redirect", JsString(game fullIdOf player.color))(member)
+        notifyReload
+      }
     }
+
+    case Reload ⇒ notifyReload
 
     case PingVersion(uid, v) ⇒ {
       ping(uid)
@@ -49,8 +54,6 @@ final class Hub(
         notifyVersion("talk", JsString(message.render))
       }
 
-    case ReloadUserList          ⇒ notifyVersion("users", JsNull)
-
     case GetTournamentVersion(_) ⇒ sender ! history.version
 
     case Join(uid, user, version) ⇒ {
@@ -64,5 +67,9 @@ final class Hub(
       members.values foreach { _.channel.end() }
       self ! PoisonPill
     }
+  }
+
+  def notifyReload {
+    notifyAll("reload", JsNull)
   }
 }
