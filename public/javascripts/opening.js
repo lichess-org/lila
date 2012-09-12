@@ -297,7 +297,7 @@ $(function() {
         if (hook.action == "join" && (myElo < parseInt(hook.emin) || myElo > parseInt(hook.emax))) {
           eloRestriction = true;
         }
-        if (hook.emin > 700 || hook.emax < 2300) {
+        if (hook.emin > 800 || hook.emax < 2500) {
           mode += "<span class='elorange" + (eloRestriction ? ' nope' : '') + "'>" + hook.emin + ' - ' + hook.emax + '</span>';
         }
       }
