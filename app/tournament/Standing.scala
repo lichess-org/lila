@@ -39,10 +39,11 @@ object Standing {
         w ⇒ if (w == username) true -> false else false -> true,
         false -> false)
       val newWinSeq = if (win) prevWin.fold(winSeq + 1, 1) else 0
+      val points = win.fold(newWinSeq * 2, loss.fold(0, 1))
       copy(
         nbWin = nbWin + win.fold(1, 0),
         nbLoss = nbLoss + loss.fold(1, 0),
-        score = score + win.fold(newWinSeq, loss.fold(-1, 0)),
+        score = score + points,
         winSeq = newWinSeq,
         bestWinSeq = math.max(bestWinSeq, newWinSeq),
         prevWin = win)
