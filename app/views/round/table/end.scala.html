@@ -1,4 +1,4 @@
-@(pov: Pov)(implicit ctx: Context)
+@(pov: Pov, tournamentInProgress: Boolean)(implicit ctx: Context)
 
 @import pov._
 
@@ -6,8 +6,8 @@
   @round.table.result(game)
 </div>
 <div class="lichess_control buttons">
-  @game.tournamentId.map { tourId =>
-  <a class="button view_tournament" href="@routes.Tournament.show(tourId)">Back to Tournament</a>
+  @game.tournamentId.filter(_ => tournamentInProgress).map { tourId =>
+  <a class="button strong view_tournament" href="@routes.Tournament.show(tourId)">Back to Tournament</a>
   }.getOrElse {
   @if(opponent.isHuman) {
   <div class="lichess_separator"></div>

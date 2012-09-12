@@ -80,7 +80,7 @@ final class TournamentApi(
     game = DbGame(
       game = chess.Game(
         board = chess.Board init variant,
-        clock = chess.Clock(10, 0).some
+        clock = chess.Clock(1, 0).some
       ),
       ai = None,
       whitePlayer = DbPlayer.white withUser user1,
@@ -91,7 +91,7 @@ final class TournamentApi(
     ).withTournamentId(tournamentId)
       .withId(pairing.gameId)
       .start
-      .startClock
+      .startClock(2)
     _ ← gameRepo insert game
     _ ← gameRepo denormalizeStarted game
     _ ← timelinePush(game)

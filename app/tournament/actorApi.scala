@@ -33,6 +33,7 @@ case class Connected(
 case class Talk(u: String, txt: String)
 case class GetTournamentVersion(tournamentId: String)
 case class CloseTournament(tournamentId: String)
+case object GetTournamentIds
 case class GetHub(tournamentId: String)
 case class Forward(tournamentId: String, msg: Any)
 case object ReloadUserList

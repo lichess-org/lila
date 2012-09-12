@@ -132,9 +132,6 @@ final class Hub(
 
   def notifyEnd {
     tournamentOrganizerActor ! FinishGame(gameId)
-    Akka.system.scheduler.scheduleOnce(3 seconds) {
-      notify(List(Event.PostEnd()))
-    }
   }
 
   def makeEvent(t: String, data: JsValue): JsObject =

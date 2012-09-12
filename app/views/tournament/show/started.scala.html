@@ -9,14 +9,14 @@ version = version,
 title = title) {
 
 <h1>@title</h1>
-<div class="user_list" data-href="@routes.Tournament.userList(tour.id)">
-  @tournament.userList(users)
+<div class="player_list" data-href="@routes.Tournament.standing(tour.id)">
+  @tournament.standing(tour.standing)
 </div>
 
 <table class="pairings">
   <thead>
     <tr>
-      <th rowspan="4">Tournament games</th>
+      <th colspan="4">Tournament games</th>
     </tr>
   </thead>
   <tbody>

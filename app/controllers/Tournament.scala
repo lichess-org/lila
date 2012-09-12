@@ -82,6 +82,12 @@ object Tournament extends LilaController {
     }
   }
 
+  def standing(id: String) = Open { implicit ctx ⇒
+    IOptionOk(repo byId id) { tour ⇒
+      html.tournament.standing(tour.standing)
+    }
+  }
+
   def form = Auth { implicit ctx ⇒
     me ⇒
       Ok(html.tournament.form(forms.create))

@@ -31,3 +31,6 @@ integrate with google+
 elo stats (branch elostats)
 lobby concurrency http://en.lichess.org/forum/lichess-feedback/bug-multiple-players-can-accept-the-same-game-proposal#1
 possible timeout bug http://en.lichess.org/forum/lichess-feedback/possible-timeout-bug#1
+add elo titles (like 2300+ = FM)
+tournament replace game->tour redirect with big link
+tournament berserker = half time, double points

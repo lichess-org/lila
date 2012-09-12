@@ -23,6 +23,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
   private def bookmarkApi = env.bookmark.api
   private def userRepo = env.user.userRepo
   private def analyser = env.analyse.analyser
+  private def memo = env.round.memo
 
   def websocketWatcher(gameId: String, color: String) = WebSocket.async[JsValue] { req ⇒
     implicit val ctx = reqToCtx(req)
@@ -60,7 +61,8 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
             engine,
             roomHtml map { Html(_) },
             bookmarkers,
-            analysed))
+            analysed,
+            tournamentInProgress = memo isTournamentInProgress pov.game.tournamentId))
         },
         io(Redirect(routes.Setup.await(fullId)))
       )
@@ -126,7 +128,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
     IOptionOk(gameRepo pov fullId) { pov ⇒
       pov.game.playable.fold(
         html.round.table.playing(pov),
-        html.round.table.end(pov))
+        html.round.table.end(pov, memo isTournamentInProgress pov.game.tournamentId))
     }
   }
 

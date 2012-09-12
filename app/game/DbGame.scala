@@ -227,8 +227,8 @@ case class DbGame(
     updatedAt = DateTime.now.some
   ))
 
-  def startClock = clock filterNot (_.isRunning) fold (
-    c ⇒ copy(clock = Some(c.run)),
+  def startClock(compensation: Float) = clock filterNot (_.isRunning) fold (
+    c ⇒ copy(clock = c.run.giveTime(creatorColor, compensation).some),
     this
   )
 

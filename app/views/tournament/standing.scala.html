@@ -1,0 +1,32 @@
+@(standing: lila.tournament.Standing)(implicit ctx: Context)
+
+<table class="players">
+  <thead>
+    <tr>
+      <th colspan="4">Tournament standing</th>
+    </tr>
+  </thead>
+  <tbody>
+    @standing.ranked.map {
+    case (rank, player) => {
+    <tr>
+      <td>@rank</td>
+      <td>
+        <a href="@routes.User.show(player.username)">
+          @userIdToUsername(player.username)
+        </a>
+      </td>
+      <td>@player.nbWin wins</td>
+      <td>@player.nbLoss losses</td>
+      <td>
+        @if(player.winStreak > 1) {
+        @player.winStreak wins in a row
+        }
+      </td>
+      <td>@player.score points</td>
+    </tr>
+    }
+    }
+  </tbody>
+</table>
+
