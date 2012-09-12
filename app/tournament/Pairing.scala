@@ -97,7 +97,7 @@ object Pairing {
 
     (users match {
       case x if x.size < 2 ⇒ Nil
-      case List(u1, u2) if (justPlayedTogether(u1, u2) && users.size > 2) ⇒ Nil
+      case List(u1, u2) if justPlayedTogether(u1, u2) ⇒ Nil
       case List(u1, u2) ⇒ List(u1 -> u2)
       case us ⇒ allPairCombinations(us)
         .map(c ⇒ c -> c.map(score).sum)

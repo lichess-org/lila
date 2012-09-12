@@ -59,6 +59,10 @@ final class HubMaster(
       sender ! Nil
     )
 
+    case GetUsernames ⇒ Future.traverse(hubs.values) { hub ⇒
+      (hub ? GetUsernames).mapTo[Iterable[String]]
+    } map (_.flatten) pipeTo sender
+
     case msg @ NbMembers(_) ⇒ hubs.values foreach (_ ! msg)
   }
 

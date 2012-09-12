@@ -45,11 +45,11 @@ final class Finisher(
       finish(pov.game, Draw, None, Some(_.drawOfferAccepted))
     else !!("opponent is not proposing a draw")
 
-  def outoftime(game: DbGame): ValidIOEvents =
-    game.outoftimePlayer some { player ⇒
-      finish(game, Outoftime,
-        Some(!player.color) filter game.toChess.board.hasEnoughMaterialToMate)
-    } none !!("no outoftime applicable " + game.clock)
+  def outoftime(game: DbGame): ValidIOEvents = game.outoftimePlayer.fold(
+    player ⇒ finish(game, Outoftime,
+      Some(!player.color) filter game.toChess.board.hasEnoughMaterialToMate),
+    !!("no outoftime applicable " + game.clock)
+  )
 
   def outoftimes(games: List[DbGame]): List[IO[Unit]] =
     games map { g ⇒
