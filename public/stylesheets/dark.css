@@ -27,6 +27,7 @@ body.dark div.clock,
 body.dark #GameText,
 body.dark #GameBoard table.boardTable,
 body.dark div.lichess_table .button.strong,
+body.dark #tournament_side,
 body.dark div.content_box
 {
   box-shadow: 0 0 5px #505050;
@@ -58,6 +59,7 @@ body.dark div.game_extra,
 body.dark div.clock,
 body.dark .button,
 body.dark #GameText,
+body.dark #tournament_side,
 body.dark #GameBoard table.boardTable,
 body.dark div.content_box,
 body.dark div.content_box_top,
@@ -180,6 +182,7 @@ body.dark div.lichess_table a.lichess_button.active {
 body.dark div.content_box,
 body.dark div.content_box_inter a.active,
 body.dark #GameText,
+body.dark #tournament_side,
 body.dark table.translations tbody tr,
 body.dark form.translation_form div.message
 {
@@ -201,6 +204,7 @@ body.dark #lichess_message tr:nth-child(even),
 body.dark div.user_show .elo_with_me,
 body.dark div.content_box_inter,
 body.dark #GameText tr:nth-child(even),
+body.dark #tournament table.standing tbody tr:nth-child(even),
 body.dark table.translations tbody tr:nth-child(even),
 body.dark form.translation_form div.message:nth-child(even),
 body.dark div.content_box table.datatable tr:nth-child(odd),
@@ -274,7 +278,8 @@ body.dark div.content_box_top,
 body.dark div.hooks tr,
 body.dark a.translation_call,
 body.dark div.notification,
-body.dark div.locale_menu a
+body.dark div.locale_menu a,
+body.dark #tournament thead.big_table_head
 {
   background: #3a3a3a;
   color: #b0b0b0;

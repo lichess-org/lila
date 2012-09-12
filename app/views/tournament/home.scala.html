@@ -3,7 +3,7 @@
 @tournament.layout(
 title = "Tournaments") {
 <div id="tournament">
-  <div class="content_box tournament_box">
+  <div class="content_box small_box tournament_box">
 
     <h1 class="lichess_title">Tournaments</h1>
     <div class="body">
@@ -18,7 +18,7 @@ title = "Tournaments") {
         <tr>
           <td>
             <a href="@routes.Tournament.show(tournament.id)">
-              @userIdToUsername(tournament.createdBy)'s tournament
+              @nameOf(tournament)
             </a>
           </td>
           <td>@tournament.showClock</td>

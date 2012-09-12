@@ -24,8 +24,64 @@
   width: 99%;
 }
 
+#tournament table {
+  width: 100%;
+}
+
+#tournament thead.big_table_head .large {
+  font-size: 1.5em;
+  padding: 0.4em 0.6em;
+}
+
+#tournament table.standing td {
+  font-size: 1.2em;
+}
+#tournament table.standing tbody tr:nth-child(even) {
+  background: #f4f4f4;
+}
+#tournament table.standing span.rank {
+  font-weight: bold;
+}
+#tournament table.standing tbody tr:first-child span.rank {
+  padding-right: 20px;
+  background: transparent url(../images/s16.png) top right no-repeat;
+  background-position: right -304px;
+}
+
 /* Errors */
 #tournament form .error {
   margin-left: 160px;
   color: red;
+}
+
+#tournament_side {
+  float: right;
+  width: 193px;
+  max-height: 507px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 3px;
+  background: #f7f7f7;
+  box-shadow: 0 0 7px #D0D0D0;
+}
+#tournament_side div.pairings a {
+  padding: 0.3em 0.2em;
+  display: block;
+  text-decoration: none;
+}
+#tournament_side div.pairings a:hover {
+  text-decoration: underline;
+}
+#tournament_side div.pairings span {
+  font-weight: bold;
+}
+#tournament_side div.pairings span.win {
+  color: #00aa00;
+}
+#tournament_side div.pairings span.loss {
+  color: #aa0000;
+}
+#tournament_side div.pairings span.draw {
+  color: #aaaa00;
 }

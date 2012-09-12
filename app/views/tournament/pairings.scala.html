@@ -1,0 +1,17 @@
+@(tour: lila.tournament.Tournament)(implicit ctx: Context)
+
+<div class="pairings">
+  @tour.numerotedPairings.map {
+  case (number, pairing) => {
+     <a href="@routes.Round.watcher(pairing.gameId, "white")">
+       @number
+      @{ Html(pairing.users.map(u =>
+      "<span class='%s'>%s</span>".format(
+      pairing.finished.fold(pairing.draw.fold("draw", pairing.wonBy(u).fold("win", "loss")), "playing"),
+      userIdToUsername(u)
+      )).mkString(" vs "))
+      }
+    </a>
+  }
+  }
+</div>

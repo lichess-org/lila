@@ -23,6 +23,8 @@ sealed trait Tournament {
   def encode: RawTournament
   def pairings: List[Pairing]
 
+  def numerotedPairings: Seq[(Int, Pairing)] = (pairings.size to 1 by -1) zip pairings
+
   def minutes = data.minutes
   lazy val duration = new Duration(minutes * 60 * 1000)
 
@@ -37,6 +39,12 @@ sealed trait Tournament {
 
   def showClock = "2 + 0"
   def createdBy = data.createdBy
+  def createdAt = data.createdAt
+}
+
+sealed trait StartedOrFinished extends Tournament {
+
+  def startedAt: DateTime
 }
 
 case class Created(
@@ -73,7 +81,7 @@ case class Started(
     id: String,
     data: Data,
     startedAt: DateTime,
-    pairings: List[Pairing]) extends Tournament {
+    pairings: List[Pairing]) extends StartedOrFinished {
 
   def addPairings(ps: NonEmptyList[Pairing]) =
     copy(pairings = ps.list ::: pairings)
@@ -81,8 +89,6 @@ case class Started(
   def updatePairing(gameId: String, f: Pairing ⇒ Pairing) = copy(
     pairings = pairings map { p ⇒ (p.gameId == gameId).fold(f(p), p) }
   )
-
-  def numerotedPairings: Seq[(Int, Pairing)] = (pairings.size to 1 by -1) zip pairings
 
   def encode = new RawTournament(
     id = id,

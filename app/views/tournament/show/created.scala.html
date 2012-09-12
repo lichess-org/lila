@@ -1,12 +1,15 @@
 @(tour: lila.tournament.Created, roomHtml: Html, version: Int, users: List[User])(implicit ctx: Context)
 
-@title = @{ tour.showClock + " tournament pending" }
+@title = { 
+@tournament.nameOf(tour) 
+}
 
 @tournament.show.layout(
 tour = tour,
 roomHtml = roomHtml,
+goodies = tournament.infoBox(tour),
 version = version,
-title = title) {
+title = title.text) {
 
 <h1>@title</h1>
 <div>

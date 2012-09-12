@@ -1,52 +1,21 @@
 @(tour: lila.tournament.Started, roomHtml: Html, version: Int, users: List[User])(implicit ctx: Context)
 
-@title = @{ tour.showClock + " tournament in progress" }
+@title = {
+@tournament.nameOf(tour)
+}
 
 @tournament.show.layout(
 tour = tour,
 roomHtml = roomHtml,
+goodies = tournament.infoBox(tour),
 version = version,
-title = title) {
+side = tournament.pairings(tour).some,
+title = title.text) {
 
 <h1>@title</h1>
 <div class="player_list" data-href="@routes.Tournament.standing(tour.id)">
   @tournament.standing(tour.standing)
 </div>
-
-<table class="pairings">
-  <thead>
-    <tr>
-      <th colspan="4">Tournament games</th>
-    </tr>
-  </thead>
-  <tbody>
-    @tour.numerotedPairings.map {
-    case (number, pairing) => {
-    <tr>
-      <td>
-        <a href="@routes.Round.watcher(pairing.gameId, "white")">
-          Game @number
-        </a>
-      </td>
-      @pairing.users.map { userId =>
-      <td>
-        <a href="@routes.User.show(userId)">@userIdLink(userId.some)</a>
-      </td>
-      }
-      <td>
-        @if(pairing.finished) {
-        @pairing.winner.map { w =>
-        won by @userIdToUsername(w) 
-        }.getOrElse("Draw")
-        } else {
-        Now playing
-        }
-      </td>
-    </tr>
-    }
-    }
-  </tbody>
-</table>
 
 @ctx.me.filter(tour.contains).map { me =>
 <div>

@@ -1,0 +1,11 @@
+@(tour: lila.tournament.Tournament)(implicit ctx: Context)
+
+<div class="lichess_goodies">
+  <div class="box">
+    @showDate(tour.createdAt)
+    <br /><br />
+    @tour.nbUsers / @tour.minUsers players
+    <br /><br />
+    <span class="s16 clock">@tour.showClock</span>
+  </div>
+</div>

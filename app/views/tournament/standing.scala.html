@@ -1,29 +1,33 @@
 @(standing: lila.tournament.Standing)(implicit ctx: Context)
 
-<table class="players">
-  <thead>
+<table class="standing">
+  <thead class="big_table_head">
     <tr>
-      <th colspan="4">Tournament standing</th>
+      <th class="large" colspan="2">Standing</th>
+      <th>Points</th>
+      <th>Wins</th>
+      <th>Losses</th>
+      <th>Winning Streak</th>
     </tr>
   </thead>
   <tbody>
     @standing.ranked.map {
     case (rank, player) => {
     <tr>
-      <td>@rank</td>
+      <td><span class="rank">@rank</span></td>
       <td>
-        <a href="@routes.User.show(player.username)">
+        <a class="username" href="@routes.User.show(player.username)">
           @userIdToUsername(player.username)
         </a>
       </td>
-      <td>@player.nbWin wins</td>
-      <td>@player.nbLoss losses</td>
+      <td><strong>@player.score</strong></td>
+      <td>@player.nbWin</td>
+      <td>@player.nbLoss</td>
       <td>
         @if(player.winStreak > 1) {
-        @player.winStreak wins in a row
+        @player.winStreak games
         }
       </td>
-      <td>@player.score points</td>
     </tr>
     }
     }

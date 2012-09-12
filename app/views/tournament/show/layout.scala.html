@@ -1,4 +1,4 @@
-@(tour: lila.tournament.Tournament, title: String, roomHtml: Html, version: Int)(body: Html)(implicit ctx: Context)
+@(tour: lila.tournament.Tournament, title: String, roomHtml: Html, version: Int, goodies: Html, side: Option[Html] = None)(body: Html)(implicit ctx: Context)
 
 @chat = {
 @for(m <- ctx.me; if m.canChat) {
@@ -25,10 +25,14 @@
 
 @tournament.layout(
 title = title,
+goodies = goodies.some,
 chat = chat.some) {
+@side.map { s =>
+<div id="tournament_side">@s</div>
+}
 <div id="tournament">
   <div 
-    class="content_box tournament_box tournament_show"
+    class="content_box small_box tournament_box tournament_show"
     data-socket-url="@routes.Tournament.websocket(tour.id)">
     @body
   </div>
