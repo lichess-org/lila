@@ -20,6 +20,7 @@ trait RoundHelper { self: ConfigHelper ⇒
         "started" -> game.started,
         "finished" -> game.finishedOrAborted,
         "clock" -> game.hasClock,
+        "clockRunning" -> game.isClockRunning,
         "player" -> game.turnColor.name,
         "turns" -> game.turns,
         "lastMove" -> game.lastMove
@@ -35,7 +36,8 @@ trait RoundHelper { self: ConfigHelper ⇒
         "ai" -> opponent.isAi
       ),
       "possible_moves" -> possibleMoves(pov),
-      "animation_delay" -> animationDelay(pov)
+      "animation_delay" -> animationDelay(pov),
+      "tournament" -> pov.game.tournamentId
     )
   }
 
@@ -49,6 +51,7 @@ trait RoundHelper { self: ConfigHelper ⇒
         "started" -> game.started,
         "finished" -> game.finishedOrAborted,
         "clock" -> game.hasClock,
+        "clockRunning" -> game.isClockRunning,
         "player" -> game.turnColor.name,
         "turns" -> game.turns,
         "lastMove" -> game.lastMove

@@ -47,6 +47,10 @@
     </span>
     <br /><br />
     }
+    @g.tournamentId.map { tourId =>
+    <a class="tournament_link s16" href="@routes.Tournament.show(tourId)">Tournament</a>
+    <br />
+    }
     @if(g.rated) {
     @trans.thisGameIsRated()
     <br /><br />

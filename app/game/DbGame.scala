@@ -227,8 +227,8 @@ case class DbGame(
     updatedAt = DateTime.now.some
   ))
 
-  def startClock(delay: Float) = clock filterNot (_.isRunning) fold (
-    c ⇒ copy(clock = Some(c step delay)),
+  def startClock = clock filterNot (_.isRunning) fold (
+    c ⇒ copy(clock = Some(c.run)),
     this
   )
 
@@ -314,6 +314,8 @@ case class DbGame(
   } yield player
 
   def hasClock = clock.isDefined
+
+  def isClockRunning = clock.fold(_.isRunning, false)
 
   def withClock(c: Clock) = Progress(this, copy(clock = Some(c)))
 
