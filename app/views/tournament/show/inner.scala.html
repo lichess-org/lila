@@ -1,0 +1,10 @@
+@(side: Option[Html])(body: Html)(implicit ctx: Context)
+
+@side.map { s =>
+<div id="tournament_side">@s</div>
+}
+<div id="tournament_main">
+  <div class="content_box tournament_box tournament_show">
+    @body
+  </div>
+</div>

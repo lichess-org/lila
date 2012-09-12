@@ -1,0 +1,25 @@
+@(tour: lila.tournament.Started, games: List[DbGame])(implicit ctx: Context)
+
+<h1>@tournament.nameOf(tour)</h1>
+
+@tournament.standing(tour.standing)
+
+<div class="game_list realtime clearfix">
+  @games.map { game =>
+  <div>
+    @gameFen(game, game.creator.color)
+    <div class="vstext">
+      @usernameWithElo(game.creator) - @usernameWithElo(game.invited)
+    </div>
+  </div>
+  }
+</div>
+
+@ctx.me.filter(tour.contains).map { me =>
+<div>
+  <form action="@routes.Tournament.withdraw(tour.id)" method="POST">
+    <input type="submit" class="submit button" value="Withdraw" />
+  </form>
+</div>
+}
+

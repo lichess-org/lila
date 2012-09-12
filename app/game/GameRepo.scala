@@ -179,6 +179,13 @@ class GameRepo(collection: MongoCollection)
       .toList.map(_.decode).flatten 
   }
 
+  def recentTournamentGames(tournamentId: String, limit: Int): IO[List[DbGame]] = io {
+    find(DBObject("tid" -> tournamentId))
+      .sort(Query.sortCreated)
+      .limit(limit)
+      .toList.map(_.decode).flatten 
+  }
+
   def games(ids: List[String]): IO[List[DbGame]] = io {
     find("_id" $in ids).toList.map(_.decode).flatten
   } map { gs ⇒

@@ -19,6 +19,7 @@ object Tournament extends LilaController {
   private def socket = env.tournament.socket
   private def messenger = env.tournament.messenger
   private def userRepo = env.user.userRepo
+  private def gameRepo = env.game.gameRepo
 
   val home = Open { implicit ctx ⇒
     IOk(
@@ -49,11 +50,13 @@ object Tournament extends LilaController {
   private def showStarted(tour: Started)(implicit ctx: Context) = for {
     roomHtml ← messenger render tour
     users ← userRepo byIds tour.data.users
+    games ← gameRepo.recentTournamentGames(tour.id, 4)
   } yield html.tournament.show.started(
     tour = tour,
     roomHtml = Html(roomHtml),
     version = version(tour.id),
-    users = users)
+    users = users,
+    games = games)
 
   def join(id: String) = Auth { implicit ctx ⇒
     implicit me ⇒
@@ -74,17 +77,13 @@ object Tournament extends LilaController {
       }
   }
 
-  def userList(id: String) = Open { implicit ctx ⇒
-    IOptionIOk(repo byId id) { tour ⇒
-      userRepo byIds tour.data.users map { users ⇒
-        html.tournament.userList(users)
+  def reload(id: String) = Open { implicit ctx ⇒
+    IOptionIOk(repo startedById id) { tour ⇒
+      gameRepo.recentTournamentGames(tour.id, 4) map { games ⇒
+        val pairings = html.tournament.pairings(tour)
+        val inner = html.tournament.show.startedInner(tour, games)
+        html.tournament.show.inner(pairings.some)(inner)
       }
-    }
-  }
-
-  def standing(id: String) = Open { implicit ctx ⇒
-    IOptionOk(repo byId id) { tour ⇒
-      html.tournament.standing(tour.standing)
     }
   }
 

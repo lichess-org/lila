@@ -1,7 +1,7 @@
 // tournament
 $(function() {
 
-  var $wrap = $('div.tournament_show');
+  var $wrap = $('#tournament');
   var $userTag = $('#user_tag');
   if (!$wrap.length) return;
   if (!$.websocket.available) return;
@@ -51,14 +51,18 @@ $(function() {
     $('body').trigger('lichess.content_loaded');
   }
 
-  function reloadUserList() {
-    $userList.load($userList.data("href"));
+  function reload() {
+    $wrap.each(function() {
+      $(this).load($(this).data("href"), function() {
+        $('body').trigger('lichess.content_loaded');
+      });
+    });
   }
 
   lichess.socket = new $.websocket(lichess.socketUrl + socketUrl, lichess_data.version, $.extend(true, lichess.socketDefaults, {
     events: {
       talk: function(e) { if (chatExists) addToChat(e); },
-      users: reloadUserList,
+      reload: reload,
       redirect: function(e) {
         location.href = 'http://'+location.hostname+'/'+e;
       }

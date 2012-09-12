@@ -1,8 +1,4 @@
-@(tour: lila.tournament.Started, roomHtml: Html, version: Int, users: List[User])(implicit ctx: Context)
-
-@title = {
-@tournament.nameOf(tour)
-}
+@(tour: lila.tournament.Started, roomHtml: Html, version: Int, users: List[User], games: List[DbGame])(implicit ctx: Context)
 
 @tournament.show.layout(
 tour = tour,
@@ -10,18 +6,6 @@ roomHtml = roomHtml,
 goodies = tournament.infoBox(tour),
 version = version,
 side = tournament.pairings(tour).some,
-title = title.text) {
-
-<h1>@title</h1>
-<div class="player_list" data-href="@routes.Tournament.standing(tour.id)">
-  @tournament.standing(tour.standing)
-</div>
-
-@ctx.me.filter(tour.contains).map { me =>
-<div>
-  <form action="@routes.Tournament.withdraw(tour.id)" method="POST">
-    <input type="submit" class="submit button" value="Withdraw" />
-  </form>
-</div>
-}
+title = tournament.nameOf(tour).text) {
+@tournament.show.startedInner(tour, games)
 }

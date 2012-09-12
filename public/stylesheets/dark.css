@@ -89,6 +89,9 @@ body.dark div.search_status
 {
   border-color: #3e3e3e;
 }
+body.dark #tournament table {
+  border-color: #505050;
+}
 
 body.dark .ui-slider,
 body.dark div.progressbar,
