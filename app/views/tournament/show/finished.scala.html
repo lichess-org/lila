@@ -1,4 +1,4 @@
-@(tour: lila.tournament.Started, roomHtml: Html, version: Int, games: List[DbGame])(implicit ctx: Context)
+@(tour: lila.tournament.Finished, roomHtml: Html, version: Int, games: List[DbGame])(implicit ctx: Context)
 
 @tournament.show.layout(
 tour = tour,
@@ -7,5 +7,5 @@ goodies = tournament.infoBox(tour),
 version = version,
 side = tournament.pairings(tour).some,
 title = tournament.nameOf(tour).text) {
-@tournament.show.startedInner(tour, games)
+@tournament.show.finishedInner(tour, games)
 }

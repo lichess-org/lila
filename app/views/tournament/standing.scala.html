@@ -1,4 +1,4 @@
-@(standing: lila.tournament.Standing)(implicit ctx: Context)
+@(tour: lila.tournament.StartedOrFinished)(implicit ctx: Context)
 
 <table class="standing">
   <thead class="big_table_head">
@@ -11,7 +11,7 @@
     </tr>
   </thead>
   <tbody>
-    @standing.ranked.map {
+    @tour.rankedStanding.map {
     case (rank, player) => {
     <tr>
       <td><span class="rank">@rank</span></td>

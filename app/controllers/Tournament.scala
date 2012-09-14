@@ -2,7 +2,7 @@ package controllers
 
 import lila._
 import views._
-import tournament.{ Created, Started }
+import tournament.{ Created, Started, Finished }
 import http.Context
 
 import scalaz.effects._
@@ -26,15 +26,16 @@ object Tournament extends LilaController {
       for {
         createds ← repo.created
         starteds ← repo.started
-      } yield html.tournament.home(createds, starteds)
+        finisheds ← repo finished 20
+      } yield html.tournament.home(createds, starteds, finisheds)
     )
   }
 
   def show(id: String) = Open { implicit ctx ⇒
     IOptionIOk(repo byId id) {
-      case tour: Created ⇒ showCreated(tour)
-      case tour: Started ⇒ showStarted(tour)
-      case _             ⇒ throw new Exception("uuuh")
+      case tour: Created  ⇒ showCreated(tour)
+      case tour: Started  ⇒ showStarted(tour)
+      case tour: Finished ⇒ showFinished(tour)
     }
   }
 
@@ -49,13 +50,20 @@ object Tournament extends LilaController {
 
   private def showStarted(tour: Started)(implicit ctx: Context) = for {
     roomHtml ← messenger render tour
-    users ← userRepo byIds tour.data.users
     games ← gameRepo.recentTournamentGames(tour.id, 4)
   } yield html.tournament.show.started(
     tour = tour,
     roomHtml = Html(roomHtml),
     version = version(tour.id),
-    users = users,
+    games = games)
+
+  private def showFinished(tour: Finished)(implicit ctx: Context) = for {
+    roomHtml ← messenger render tour
+    games ← gameRepo.recentTournamentGames(tour.id, 4)
+  } yield html.tournament.show.finished(
+    tour = tour,
+    roomHtml = Html(roomHtml),
+    version = version(tour.id),
     games = games)
 
   def join(id: String) = Auth { implicit ctx ⇒

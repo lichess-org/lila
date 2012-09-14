@@ -1,4 +1,4 @@
-@(createds: List[lila.tournament.Created], starteds: List[lila.tournament.Started])(implicit ctx: Context)
+@(createds: List[lila.tournament.Created], starteds: List[lila.tournament.Started], finisheds: List[lila.tournament.Finished])(implicit ctx: Context)
 
 @tournament.layout(
 title = "Tournaments") {
@@ -14,18 +14,13 @@ title = "Tournaments") {
           </tr>
         </thead>
         <tbody>
-        @createds.map { tournament =>
+        @createds.map { tour =>
         <tr>
+          <td>@linkTo(tour)</td>
+          <td>@tour.minutes minutes</td>
+          <td>@tour.nbUsers / @tour.minUsers players</td>
           <td>
-            <a href="@routes.Tournament.show(tournament.id)">
-              @nameOf(tournament)
-            </a>
-          </td>
-          <td>@tournament.showClock</td>
-          <td>@tournament.minutes minutes</td>
-          <td>@tournament.nbUsers / @tournament.minUsers players</td>
-          <td>
-            @if(ctx.me.fold(tournament.contains, false)) {
+            @if(ctx.me.fold(tour.contains, false)) {
             JOINED
             }
           </td>
@@ -40,21 +35,35 @@ title = "Tournaments") {
           </tr>
         </thead>
         <tbody>
-        @starteds.map { tournament =>
+        @starteds.map { tour =>
         <tr>
+          <td>@linkTo(tour)</td>
+          <td>@tour.minutes minutes</td>
+          <td>@tour.nbUsers / @tour.minUsers players</td>
           <td>
-            <a href="@routes.Tournament.show(tournament.id)">
-              @userIdToUsername(tournament.createdBy)'s tournament
-            </a>
-          </td>
-          <td>@tournament.showClock</td>
-          <td>@tournament.minutes minutes</td>
-          <td>@tournament.nbUsers / @tournament.minUsers players</td>
-          <td>
-            @if(ctx.me.fold(tournament.contains, false)) {
+            @if(ctx.me.fold(tour.contains, false)) {
             JOINED
             }
           </td>
+        </tr>
+        }
+        </tbody>
+      </table>
+      <table class="finisheds tournaments">
+        <thead>
+          <tr>
+            <th rowspan="4">Completed</th>
+          </tr>
+        </thead>
+        <tbody>
+        @finisheds.map { tour =>
+        <tr>
+          <td>@linkTo(tour)</td>
+          <td>@tour.minutes minutes</td>
+          <td>@tour.nbUsers / @tour.minUsers players</td>
+          @tour.winnerUserId.map { winner =>
+            <td>Won by @userIdLink(winner.some, withOnline = false)</td>
+          }
         </tr>
         }
         </tbody>

@@ -1,0 +1,7 @@
+@(tour: lila.tournament.Finished, games: List[DbGame])(implicit ctx: Context)
+
+<h1>@tournament.nameOf(tour)</h1>
+
+@tournament.standing(tour)
+
+@tournament.games(games)
