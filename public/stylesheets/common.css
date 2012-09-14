@@ -619,6 +619,7 @@ div.lichess_table .button.strong,
 div.content_box
 {
   box-shadow: 0 0 7px #d0d0d0;
+  border-radius: 4px;
 }
 
 div.checkmateFen {
