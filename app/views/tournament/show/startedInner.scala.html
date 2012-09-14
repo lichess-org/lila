@@ -2,18 +2,9 @@
 
 <h1>@tournament.nameOf(tour)</h1>
 
-@tournament.standing(tour.standing)
+@tournament.standing(tour)
 
-<div class="game_list realtime clearfix">
-  @games.map { game =>
-  <div>
-    @gameFen(game, game.creator.color)
-    <div class="vstext">
-      @usernameWithElo(game.creator) - @usernameWithElo(game.invited)
-    </div>
-  </div>
-  }
-</div>
+@tournament.games(games)
 
 @ctx.me.filter(tour.contains).map { me =>
 <div>

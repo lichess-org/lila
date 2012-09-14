@@ -34,6 +34,8 @@ possible timeout bug http://en.lichess.org/forum/lichess-feedback/possible-timeo
 add elo titles (like 2300+ = FM)
 tournament replace game->tour redirect with big link
 tournament berserker = half time, double points
+add opera to supported browsers
+detected opera but no websockets = help message
 
 next deploy
 -----------

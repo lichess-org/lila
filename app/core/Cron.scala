@@ -90,6 +90,10 @@ object Cron {
     }
 
     message(3 seconds) {
+      env.tournament.organizer -> tournament.FinishTournaments
+    }
+
+    message(3 seconds) {
       env.tournament.organizer -> tournament.StartPairings
     }
 

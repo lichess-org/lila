@@ -26,6 +26,9 @@ final class Organizer(
     case StartTournaments               ⇒ startTournaments
     case StartTournament(tour: Created) ⇒ startTournament(tour)
 
+    case FinishTournaments               ⇒ finishTournaments
+    case FinishTournament(tour: Started) ⇒ finishTournament(tour)
+
     case StartPairings                  ⇒ startPairings
     case StartPairing(tour: Started)    ⇒ startPairing(tour)
 
@@ -44,6 +47,14 @@ final class Organizer(
 
   def startTournament(tour: Created) {
     (api start tour).unsafePerformIO
+  }
+
+  def finishTournaments {
+    repo.started.unsafePerformIO foreach finishTournament
+  }
+
+  def finishTournament(tour: Started) {
+    (api finish tour).unsafePerformIO
   }
 
   def startPairings {

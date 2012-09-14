@@ -4,6 +4,7 @@ package tournament
 import org.joda.time.{ DateTime, Duration }
 import org.scala_tools.time.Imports._
 import com.novus.salat.annotations.Key
+import com.mongodb.casbah.query.Imports.DBObject
 import ornicar.scalalib.Random
 import scalaz.NonEmptyList
 
@@ -28,8 +29,6 @@ sealed trait Tournament {
   def minutes = data.minutes
   lazy val duration = new Duration(minutes * 60 * 1000)
 
-  lazy val standing = Standing of this
-
   def users = data.users
   def nbUsers = users.size
   def minUsers = data.minUsers
@@ -37,7 +36,7 @@ sealed trait Tournament {
   def contains(user: User): Boolean = contains(user.id)
   def missingUsers = minUsers - users.size
 
-  def showClock = "2 + 0"
+  def showClock = "2+0"
   def createdBy = data.createdBy
   def createdAt = data.createdAt
 }
@@ -45,6 +44,21 @@ sealed trait Tournament {
 sealed trait StartedOrFinished extends Tournament {
 
   def startedAt: DateTime
+
+  def standing: Standing
+  def rankedStanding = (1 to standing.size) zip standing
+
+  def winner = standing.headOption
+  def winnerUserId = winner map (_.username)
+
+  def encode(status: Status) = new RawTournament(
+    id = id,
+    status = status.id,
+    data = data,
+    startedAt = startedAt.some,
+    pairings = pairings map (_.encode))
+
+  def finishedAt = startedAt + duration
 }
 
 case class Created(
@@ -56,6 +70,7 @@ case class Created(
   def readyToStart = users.size >= minUsers
 
   def pairings = Nil
+  lazy val standing = Standing of this
 
   def encode = new RawTournament(
     id = id,
@@ -83,6 +98,8 @@ case class Started(
     startedAt: DateTime,
     pairings: List[Pairing]) extends StartedOrFinished {
 
+  lazy val standing = Standing of this
+
   def addPairings(ps: NonEmptyList[Pairing]) =
     copy(pairings = ps.list ::: pairings)
 
@@ -90,12 +107,26 @@ case class Started(
     pairings = pairings map { p ⇒ (p.gameId == gameId).fold(f(p), p) }
   )
 
-  def encode = new RawTournament(
+  def readyToFinish = DateTime.now > finishedAt
+
+  def finish = Finished(
     id = id,
-    status = Status.Started.id,
     data = data,
-    startedAt = startedAt.some,
-    pairings = pairings map (_.encode))
+    startedAt = startedAt,
+    pairings = pairings,
+    standing = standing)
+
+  def encode = encode(Status.Started)
+}
+
+case class Finished(
+    id: String,
+    data: Data,
+    startedAt: DateTime,
+    pairings: List[Pairing],
+    standing: Standing) extends StartedOrFinished {
+
+  def encode = encode(Status.Finished) withStanding standing
 }
 
 case class RawTournament(
@@ -103,7 +134,8 @@ case class RawTournament(
     status: Int,
     data: Data,
     startedAt: Option[DateTime] = None,
-    pairings: List[RawPairing] = Nil) {
+    pairings: List[RawPairing] = Nil,
+    standing: Standing = Nil) {
 
   def created: Option[Created] = (status == Status.Created.id) option Created(
     id = id,
@@ -118,13 +150,25 @@ case class RawTournament(
     startedAt = stAt,
     decodePairings)
 
+  def finished: Option[Finished] = for {
+    stAt ← startedAt
+    if status == Status.Finished.id
+  } yield Finished(
+    id = id,
+    data = data,
+    startedAt = stAt,
+    decodePairings,
+    standing = standing)
+
   def decodePairings = pairings map (_.decode) flatten
 
   def any: Option[Tournament] = Status(status) flatMap {
-    case Status.Created ⇒ created
-    case Status.Started ⇒ started
-    case _              ⇒ None
+    case Status.Created  ⇒ created
+    case Status.Started  ⇒ started
+    case Status.Finished ⇒ finished
   }
+
+  def withStanding(s: Standing) = copy(standing = s)
 }
 
 object Tournament {

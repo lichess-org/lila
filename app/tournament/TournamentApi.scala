@@ -40,6 +40,9 @@ final class TournamentApi(
   def start(created: Created): IO[Unit] =
     repo saveIO created.start doIf created.readyToStart
 
+  def finish(started: Started): IO[Unit] =
+    repo saveIO started.finish doIf started.readyToFinish
+
   def join(tour: Created, me: User): IO[Valid[Unit]] = for {
     hasTournament ← repo userHasRunningTournament me.id
     tour2Valid = for {

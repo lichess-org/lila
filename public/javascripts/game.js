@@ -15,6 +15,12 @@ $.widget("lichess.game", {
     self.options.socketUrl = self.element.data('socket-url');
     self.socketAckTimeout;
 
+    setInterval(function() {
+        $('a.view_tournament').each(function() {
+          location.href = $(this).attr("href");
+        });
+    }, 3000);
+
     if (self.options.game.started) {
       self.indicateTurn();
       self.initSquaresAndPieces();

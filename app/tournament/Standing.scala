@@ -1,29 +1,24 @@
 package lila
 package tournament
 
-case class Standing(players: List[Standing.Player]) {
+import com.mongodb.casbah.query.Imports._
 
-  def ranked = (1 to players.size) zip players
+case class Player(
+    username: String,
+    nbWin: Int,
+    nbLoss: Int,
+    winStreak: Int,
+    score: Int) {
 }
 
 object Standing {
 
-  case class Player(
-      username: String,
-      nbWin: Int,
-      nbLoss: Int,
-      winStreak: Int,
-      score: Int) {
-  }
-
-  def of(tour: Tournament): Standing = Standing {
-    tour.users.map { user ⇒
-      tour.pairings
-        .filter(_ contains user)
-        .foldLeft(Builder(user))(_ + _.winner)
-        .player
-    } sortBy (p ⇒ -p.score)
-  }
+  def of(tour: Tournament): Standing = tour.users.map { user ⇒
+    tour.pairings
+      .filter(_ contains user)
+      .foldLeft(Builder(user))(_ + _.winner)
+      .player
+  } sortBy (p ⇒ -p.score)
 
   private case class Builder(
       username: String,
