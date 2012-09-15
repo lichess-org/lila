@@ -1,4 +1,4 @@
-playWithAFriend=Spelen tegen een vriend
+playWithAFriend=Speel tegen een vriend
 inviteAFriendToPlayWithYou=Nodig een vriend of kennis uit om tegen te spelen
 playWithTheMachine=Spelen tegen de computer
 challengeTheArtificialIntelligence=Daag het programma uit
