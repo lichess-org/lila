@@ -27,19 +27,19 @@ class TournamentRepo(collection: MongoCollection)
 
   val created: IO[List[Created]] = io {
     find(DBObject("status" -> Status.Created.id))
-      .sort(DBObject("data.createdAt" -> -1))
+      .sort(DBObject("createdAt" -> -1))
       .toList.map(_.created).flatten
   }
 
   val started: IO[List[Started]] = io {
     find(DBObject("status" -> Status.Started.id))
-      .sort(DBObject("data.createdAt" -> -1))
+      .sort(DBObject("createdAt" -> -1))
       .toList.map(_.started).flatten
   }
 
   def finished(limit: Int): IO[List[Finished]] = io {
     find(DBObject("status" -> Status.Finished.id))
-      .sort(DBObject("data.createdAt" -> -1))
+      .sort(DBObject("createdAt" -> -1))
       .limit(limit)
       .toList.map(_.finished).flatten
   }
