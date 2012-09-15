@@ -23,20 +23,20 @@ final class Organizer(
 
   def receive = {
 
-    case StartTournaments               ⇒ startTournaments
-    case StartTournament(tour: Created) ⇒ startTournament(tour)
+    case StartTournaments                ⇒ startTournaments
+    case StartTournament(tour: Created)  ⇒ startTournament(tour)
 
     case FinishTournaments               ⇒ finishTournaments
     case FinishTournament(tour: Started) ⇒ finishTournament(tour)
 
-    case StartPairings                  ⇒ startPairings
-    case StartPairing(tour: Started)    ⇒ startPairing(tour)
+    case StartPairings                   ⇒ startPairings
+    case StartPairing(tour: Started)     ⇒ startPairing(tour)
 
-    case FinishGame(gameId: String)     ⇒ finishGame(gameId)
+    case FinishGame(gameId: String)      ⇒ finishGame(gameId)
   }
 
   def finishGame(gameId: String) {
-    api.finishGame(gameId).unsafePerformIO foreach { tour =>
+    api.finishGame(gameId).unsafePerformIO foreach { tour ⇒
       hubMaster ! Forward(tour.id, Reload)
     }
   }
