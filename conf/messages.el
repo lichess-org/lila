@@ -138,4 +138,5 @@ yourOpponentProposesATakeback=Ο αντίπαλός σας πρότεινε ακ
 bookmarkThisGame=Προσθέστε σελιδοδείκτη για αυτό το παιχνίδι
 toggleBackground=Αλλάξτε το χρώμα του φόντου
 advancedSearch=Προχωρημένη Αναζήτηση
+tournament=Πρωτάθλημα
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Δωρεάν διαδικτυακό παιχνίδι Σκακιού. Παίξτε Σκάκι τώρα με καθαρό γραφικό περιβάλλον. Χωρίς εγγραφές, χωρίς διαφημίσεις, χωρίς πρόσθετα. Παίξτε Σκάκι με τον υπολογιστή, με φίλους ή με τυχαίους αντιπάλους.
