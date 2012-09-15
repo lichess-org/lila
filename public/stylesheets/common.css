@@ -475,6 +475,10 @@ span.s16.clock {
   background-position: 0 -224px;
   padding-bottom: 1px;
 }
+a.s16.tournament {
+  background-position: 0 -304px;
+  padding-bottom: 1px;
+}
 
 .user_link.white, .user_link.black, .user_link.online, .user_link.offline {
   line-height: 16px;

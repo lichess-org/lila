@@ -197,7 +197,7 @@ object Tournament {
       users = List(createdBy))
   )
 
-  val minutes = 5 to 30 by 5
+  val minutes = 5 to 60 by 5
   val minuteDefault = 10
   val minuteChoices = options(minutes, "%d minute{s}")
 
