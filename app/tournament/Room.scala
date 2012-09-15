@@ -27,7 +27,7 @@ object Room {
           ),
           """<span class="system"></span>"""
         ),
-        escapeXml(text)
+        text
       )
   }
 

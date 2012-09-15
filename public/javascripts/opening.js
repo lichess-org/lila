@@ -35,7 +35,7 @@ $(function() {
           $input.attr('value', ui.value);
           $form.find('.color_submits button').toggle(
             $timeInput.val() > 0 || $incrementInput.val() > 0
-          );
+            );
         }
       }));
     });
@@ -176,8 +176,8 @@ $(function() {
     $('body').trigger('lichess.content_loaded');
   }
   function buildChatMessage(txt, username) {
-    var html = '<li><span>'
-      html += '<a class="user_link" href="/@/'+username+'">'+username.substr(0, 12) + '</a>';
+    var html = '<li><span>';
+    html += '<a class="user_link" href="/@/'+username+'">'+username.substr(0, 12) + '</a>';
     html += '</span>' + urlToLink(txt) + '</li>';
     return html;
   }
@@ -213,14 +213,14 @@ $(function() {
     },
     events: {
       talk: function(e) { if (chatExists && e.txt) addToChat(buildChatMessage(e.txt, e.u)); },
-      entry: function(e) { renderTimeline([e]); },
-      hook_add: addHook,
-      hook_remove: removeHook,
-      featured: changeFeatured,
-      redirect: function(e) {
-        $.lichessOpeningPreventClicks();
-        location.href = 'http://'+location.hostname+'/'+e;
-      }
+    entry: function(e) { renderTimeline([e]); },
+    hook_add: addHook,
+    hook_remove: removeHook,
+    featured: changeFeatured,
+    redirect: function(e) {
+      $.lichessOpeningPreventClicks();
+      location.href = 'http://'+location.hostname+'/'+e;
+    }
     },
     options: {
       name: "lobby"
@@ -232,13 +232,13 @@ $(function() {
     $('div.featured_game').each(function() {
       var $featured = $(this);
       $.get(
-        $featured.data("href"), 
+        $featured.data("href"),
         { id: data.newId },
         function(html) {
           $featured.replaceWith(html);
           $('body').trigger('lichess.content_loaded');
         }
-      );
+        );
     });
   }
 
