@@ -18,7 +18,7 @@ import java.util.Date
 import scala.util.Random
 import scalaz.effects._
 
-class GameRepo(collection: MongoCollection)
+final class GameRepo(collection: MongoCollection)
     extends SalatDAO[RawDbGame, String](collection) {
 
   def game(gameId: String): IO[Option[DbGame]] = io {

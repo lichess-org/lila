@@ -1,7 +1,8 @@
 package lila
 package tournament
 
-import game.IdGenerator
+import game.{ PovRef, IdGenerator }
+import chess.Color
 
 import scala.util.Random
 
@@ -27,6 +28,14 @@ case class Pairing(
 
   def wonBy(user: String): Boolean = winner.fold(user ==, false)
   def draw: Boolean = status is (_.Draw)
+
+  def colorOf(userId: String): Option[Color] =
+    if (userId == user1) Color.White.some
+    else if (userId == user2) Color.Black.some
+    else none
+
+  def povRef(userId: String): Option[PovRef] =
+    colorOf(userId) map { PovRef(gameId, _) }
 
   def withStatus(s: chess.Status) = copy(status = s)
 
@@ -99,9 +108,9 @@ object Pairing {
     }
 
     (users match {
-      case x if x.size < 2 ⇒ Nil
+      case x if x.size < 2                            ⇒ Nil
       case List(u1, u2) if justPlayedTogether(u1, u2) ⇒ Nil
-      case List(u1, u2) ⇒ List(u1 -> u2)
+      case List(u1, u2)                               ⇒ List(u1 -> u2)
       case us ⇒ allPairCombinations(us)
         .map(c ⇒ c -> c.map(score).sum)
         .sortBy(_._2)

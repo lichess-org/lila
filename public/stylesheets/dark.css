@@ -27,6 +27,7 @@ body.dark div.clock,
 body.dark #GameText,
 body.dark #GameBoard table.boardTable,
 body.dark .button.strong,
+body.dark .button.shadowed,
 body.dark #tournament_side,
 body.dark div.content_box
 {

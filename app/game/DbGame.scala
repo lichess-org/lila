@@ -78,7 +78,7 @@ case class DbGame(
   def isTournament = tournamentId.isDefined
   def nonTournament = tournamentId.isEmpty
 
-  def hasChat = nonTournament || nonAi
+  def hasChat = nonTournament && nonAi
 
   lazy val toChess: Game = {
 

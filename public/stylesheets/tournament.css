@@ -9,6 +9,17 @@
   font-weight: bold;
 }
 
+#tournament a.pov {
+  display: block;
+  margin-top: 1em;
+  text-align: center;
+  font-size: 1.5em;
+}
+#tournament a.pov span {
+  display: block;
+  font-weight: bold;
+}
+
 #tournament table.data {
   margin-top: 2em;
   margin-left: -24px;

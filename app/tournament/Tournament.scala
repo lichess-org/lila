@@ -9,6 +9,7 @@ import ornicar.scalalib.Random
 import scalaz.NonEmptyList
 
 import user.User
+import game.PovRef
 
 case class Data(
   name: String,
@@ -89,6 +90,8 @@ case class Created(
 
   def readyToStart = players.size >= minPlayers
 
+  def isEmpty = players.isEmpty
+
   def pairings = Nil
 
   def winner = None
@@ -140,6 +143,12 @@ case class Started(
   def remainingSeconds: Int = math.max(0, finishedAt.getSeconds - nowSeconds).toInt
 
   def clockStatus = "%02d:%02d".format(remainingSeconds / 60, remainingSeconds % 60)
+
+  def userCurrentPov(userId: String): Option[PovRef] = {
+    pairings filter (_.playing) map { _ povRef userId }
+  }.flatten.headOption
+  def userCurrentPov(user: Option[User]): Option[PovRef] =
+    user.fold(u ⇒ userCurrentPov(u.id), none)
 
   def finish = refreshPlayers |> { tour ⇒
     Finished(
