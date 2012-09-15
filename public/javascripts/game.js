@@ -15,11 +15,11 @@ $.widget("lichess.game", {
     self.options.socketUrl = self.element.data('socket-url');
     self.socketAckTimeout;
 
-    setInterval(function() {
-        $('a.view_tournament').each(function() {
-          location.href = $(this).attr("href");
-        });
-    }, 3000);
+    //setInterval(function() {
+        //$('a.view_tournament').each(function() {
+          //location.href = $(this).attr("href");
+        //});
+    //}, 3000);
 
     if (self.options.game.started) {
       self.indicateTurn();
@@ -697,7 +697,6 @@ $.widget("lichess.clock", {
     self.element.addClass('running');
     var end_time = new Date().getTime() + self.options.time;
     self.options.interval = setInterval(function() {
-      console.debug(this);
       if (self.options.state == 'running') {
         var current_time = Math.round(end_time - new Date().getTime());
         if (current_time <= 0) {

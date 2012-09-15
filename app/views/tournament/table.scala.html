@@ -13,16 +13,16 @@
   @tours.map { tour =>
   <tr>
     <td>@linkTo(tour)</td>
-    <td><span class="s16 clock">@tour.showClock</span></td>
+    <td><span class="s16 clock">@tour.clock.show</span></td>
     <td>@{tour.minutes}m</td>
-    <td>@tour.nbUsers/@tour.minUsers</td>
+    <td>@tour.nbPlayers/@tour.minPlayers</td>
     <td>
       @if(tour contains ctx.me) {
       <span class="label">JOINED</span>
       }
     </td>
   </tr>
-  @moreTr
   }
+  @moreTr
 </tbody>
 }

@@ -12,11 +12,12 @@ import user.User
 
 case class Data(
   name: String,
+  clock: TournamentClock,
   minutes: Int,
-  minUsers: Int,
+  minPlayers: Int,
   createdAt: DateTime,
   createdBy: String,
-  users: List[String])
+  players: Players)
 
 sealed trait Tournament {
 
@@ -30,19 +31,21 @@ sealed trait Tournament {
   def name = data.name
   def nameT = name + " tournament"
 
+  def clock = data.clock
   def minutes = data.minutes
   lazy val duration = new Duration(minutes * 60 * 1000)
 
-  def users = data.users
-  def nbUsers = users.size
-  def minUsers = data.minUsers
-  def contains(username: String): Boolean = users contains username
+  def players = data.players
+  def userIds = players map (_.id)
+  def activeUserIds = players filter (_.active) map (_.id)
+  def nbPlayers = players.size
+  def minPlayers = data.minPlayers
+  def playerRatio = "%d/%d".format(nbPlayers, minPlayers)
+  def contains(userId: String): Boolean = userIds contains userId
   def contains(user: User): Boolean = contains(user.id)
-  def contains(user: Option[User]): Boolean =
-    user.fold(u ⇒ contains(u.id), false)
-  def missingUsers = minUsers - users.size
+  def contains(user: Option[User]): Boolean = user.fold(u ⇒ contains(u.id), false)
+  def missingPlayers = minPlayers - players.size
 
-  def showClock = "2+0"
   def createdBy = data.createdBy
   def createdAt = data.createdAt
 }
@@ -51,10 +54,9 @@ sealed trait StartedOrFinished extends Tournament {
 
   def startedAt: DateTime
 
-  def standing: Standing
-  def rankedStanding = (1 to standing.size) zip standing
+  def rankedPlayers = (1 to players.size) zip players
 
-  def winner = standing.headOption
+  def winner = players.headOption
   def winnerUserId = winner map (_.username)
 
   def encode(status: Status) = new RawTournament(
@@ -62,7 +64,8 @@ sealed trait StartedOrFinished extends Tournament {
     status = status.id,
     data = data,
     startedAt = startedAt.some,
-    pairings = pairings map (_.encode))
+    pairings = pairings map (_.encode),
+    players = players)
 
   def finishedAt = startedAt + duration
 }
@@ -73,10 +76,9 @@ case class Created(
 
   import data._
 
-  def readyToStart = users.size >= minUsers
+  def readyToStart = players.size >= minPlayers
 
   def pairings = Nil
-  lazy val standing = Standing of this
 
   def encode = new RawTournament(
     id = id,
@@ -85,17 +87,17 @@ case class Created(
 
   def join(user: User): Valid[Created] = contains(user).fold(
     !!("User %s is already part of the tournament" format user.id),
-    withUsers(users :+ user.id).success
+    withPlayers(players :+ Player(user)).success
   )
 
   def withdraw(user: User): Valid[Created] = contains(user).fold(
-    withUsers(users filterNot (user.id ==)).success,
+    withPlayers(players filterNot (_ is user)).success,
     !!("User %s is not part of the tournament" format user.id)
   )
 
-  def start = Started(id, data, DateTime.now, Nil)
+  private def withPlayers(s: Players) = copy(data = data.copy(players = s))
 
-  private def withUsers(x: List[String]) = copy(data = data.copy(users = x))
+  def start = Started(id, data, DateTime.now, Nil)
 }
 
 case class Started(
@@ -103,8 +105,6 @@ case class Started(
     data: Data,
     startedAt: DateTime,
     pairings: List[Pairing]) extends StartedOrFinished {
-
-  lazy val standing = Standing of this
 
   def addPairings(ps: NonEmptyList[Pairing]) =
     copy(pairings = ps.list ::: pairings)
@@ -117,24 +117,36 @@ case class Started(
 
   def remainingSeconds: Int = math.max(0, finishedAt.getSeconds - nowSeconds).toInt
 
-  def finish = Finished(
-    id = id,
-    data = data,
-    startedAt = startedAt,
-    pairings = pairings,
-    standing = standing)
+  def finish = refreshPlayers |> { tour ⇒
+    Finished(
+      id = tour.id,
+      data = tour.data,
+      startedAt = tour.startedAt,
+      pairings = tour.pairings)
+  }
 
-  def encode = encode(Status.Started)
+  def withdraw(user: User): Valid[Started] = contains(user).fold(
+    withPlayers(players map {
+      case p if p is user ⇒ p.doWithdraw
+      case p              ⇒ p
+    }).success,
+    !!("User %s is not part of the tournament" format user.id)
+  )
+
+  private def withPlayers(s: Players) = copy(data = data.copy(players = s))
+
+  private def refreshPlayers = withPlayers(Player refresh this)
+
+  def encode = refreshPlayers.encode(Status.Started)
 }
 
 case class Finished(
     id: String,
     data: Data,
     startedAt: DateTime,
-    pairings: List[Pairing],
-    standing: Standing) extends StartedOrFinished {
+    pairings: List[Pairing]) extends StartedOrFinished {
 
-  def encode = encode(Status.Finished) withStanding standing
+  def encode = encode(Status.Finished)
 }
 
 case class RawTournament(
@@ -143,7 +155,7 @@ case class RawTournament(
     data: Data,
     startedAt: Option[DateTime] = None,
     pairings: List[RawPairing] = Nil,
-    standing: List[Player] = Nil) {
+    players: List[Player] = Nil) {
 
   def created: Option[Created] = (status == Status.Created.id) option Created(
     id = id,
@@ -165,8 +177,7 @@ case class RawTournament(
     id = id,
     data = data,
     startedAt = stAt,
-    decodePairings,
-    standing = standing)
+    decodePairings)
 
   def decodePairings = pairings map (_.decode) flatten
 
@@ -176,7 +187,7 @@ case class RawTournament(
     case Status.Finished ⇒ finished
   }
 
-  def withStanding(s: Standing) = copy(standing = s)
+  def withPlayers(s: Players) = copy(players = s)
 }
 
 object Tournament {
@@ -184,24 +195,34 @@ object Tournament {
   import lila.core.Form._
 
   def apply(
-    createdBy: String,
+    createdBy: User,
+    clock: TournamentClock,
     minutes: Int,
-    minUsers: Int): Created = Created(
+    minPlayers: Int): Created = Created(
     id = Random nextString 8,
     data = Data(
       name = RandomName(),
-      createdBy = createdBy,
+      clock = clock,
+      createdBy = createdBy.id,
       createdAt = DateTime.now,
       minutes = minutes,
-      minUsers = minUsers,
-      users = List(createdBy))
+      minPlayers = minPlayers,
+      players = List(Player(createdBy)))
   )
+
+  val clockTimes = 0 to 10 by 1
+  val clockTimeDefault = 2
+  val clockTimeChoices = options(clockTimes, "%d minute{s}")
+
+  val clockIncrements = 0 to 5 by 1
+  val clockIncrementDefault = 0
+  val clockIncrementChoices = options(clockIncrements, "%d second{s}")
 
   val minutes = 5 to 60 by 5
   val minuteDefault = 10
   val minuteChoices = options(minutes, "%d minute{s}")
 
-  val minUsers = (2 to 4) ++ (5 to 30 by 5)
-  val minUserDefault = 10
-  val minUserChoices = options(minUsers, "%d player{s}")
+  val minPlayers = (2 to 4) ++ (5 to 30 by 5)
+  val minPlayerDefault = 10
+  val minPlayerChoices = options(minPlayers, "%d player{s}")
 }

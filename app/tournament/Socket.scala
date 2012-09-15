@@ -29,7 +29,7 @@ final class Socket(
   implicit private val timeout = Timeout(timeoutDuration)
 
   def reload(tournamentId: String) = io {
-    hubMaster ! Forward(tournamentId, Reload)
+    hubMaster ! Forward(tournamentId, Reload).pp
   }
 
   def notifyPairing(game: DbGame) = io {

@@ -26,7 +26,7 @@ body.dark div.undergame_box,
 body.dark div.clock,
 body.dark #GameText,
 body.dark #GameBoard table.boardTable,
-body.dark div.lichess_table .button.strong,
+body.dark .button.strong,
 body.dark #tournament_side,
 body.dark div.content_box
 {
@@ -86,6 +86,7 @@ body.dark div.adv_chart,
 body.dark #top .dropdown,
 body.dark div.lichess_overboard p.explanations,
 body.dark div.search_status,
+body.dark #tournament table.data,
 body.dark #tournament table.data thead th,
 #tournament table.data 
 {
@@ -294,7 +295,7 @@ body.dark #tournament table.data thead
 }
 /* strong inactive gradient */
 body.dark div.hooks td.action,
-body.dark div.lichess_table .button.strong,
+body.dark .button.strong,
 body.dark .button:hover
 {
   background: #505050;
@@ -315,7 +316,7 @@ body.dark div.pagination span.current,
 body.dark #top span.new_messages.unread,
 body.dark div.hooks td.action:hover,
 body.dark div.hooks table.empty_table tr:hover,
-body.dark div.lichess_table .button.strong:hover,
+body.dark .button.strong:hover,
 body.dark div.progressbar.flashy div,
 body.dark div.locale_menu a.active
 {

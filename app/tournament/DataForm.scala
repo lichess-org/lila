@@ -8,13 +8,18 @@ import play.api.data.validation.Constraints._
 final class DataForm {
 
   import lila.core.Form._
+  import Tournament._
 
   val create = Form(mapping(
-    "minutes" -> numberIn(Tournament.minuteChoices),
-    "minUsers" -> numberIn(Tournament.minUserChoices)
+    "clockTime" -> numberIn(clockTimeChoices),
+    "clockIncrement" -> numberIn(clockIncrementChoices),
+    "minutes" -> numberIn(minuteChoices),
+    "minPlayers" -> numberIn(minPlayerChoices)
   )(TournamentSetup.apply)(TournamentSetup.unapply)) fill TournamentSetup()
 }
 
 case class TournamentSetup(
+  clockTime: Int = Tournament.clockTimeDefault,
+  clockIncrement: Int = Tournament.clockIncrementDefault,
   minutes: Int = Tournament.minuteDefault,
-  minUsers: Int = Tournament.minUserDefault)
+  minPlayers: Int = Tournament.minPlayerDefault)

@@ -59,34 +59,40 @@
   width: 511px;
 }
 
-#tournament form {
+#tournament form.inline {
+  display: inline;
+  float: right;
+  padding-right: 0.6em;
+}
+
+#tournament form.plain {
   margin-top: 2em;
 }
 
-#tournament form td {
+#tournament form.plain td {
   padding: 0.6em;
 }
 
-#tournament form label {
+#tournament form.plain label {
   margin-right: 10px;
 }
 
-#tournament form input {
+#tournament form.plain input {
   width: 96%;
   padding: 0.5% 1%;
 }
 
-#tournament form select {
+#tournament form.plain select {
   padding: 0.5% 1%;
   text-transform: capitalize;
   width: 99%;
 }
 
-#tournament form input.submit {
+#tournament form.plain input.submit {
   width: 99%;
 }
 
-#tournament form .error {
+#tournament form.plain .error {
   margin-left: 160px;
   color: red;
 }

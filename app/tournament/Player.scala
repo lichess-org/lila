@@ -3,25 +3,41 @@ package tournament
 
 import com.mongodb.casbah.query.Imports._
 
+import user.User
+
 case class Player(
+    id: String,
     username: String,
-    nbWin: Int,
-    nbLoss: Int,
-    winStreak: Int,
-    score: Int) {
+    elo: Int,
+    withdraw: Boolean = false,
+    nbWin: Int = 0,
+    nbLoss: Int = 0,
+    winStreak: Int = 0,
+    score: Int = 0) {
+
+  def active = !withdraw
+
+  def is(user: User) = id == user.id
+
+  def doWithdraw = copy(withdraw = true)
 }
 
-object Standing {
+object Player {
 
-  def of(tour: Tournament): Standing = tour.users.map { user ⇒
+  def apply(user: User): Player = new Player(
+    id = user.id,
+    username = user.username,
+    elo = user.elo)
+
+  def refresh(tour: Tournament): Players = tour.players.map { player ⇒
     tour.pairings
-      .filter(_ contains user)
-      .foldLeft(Builder(user))(_ + _.winner)
-      .player
+      .filter(_ contains player.id)
+      .foldLeft(Builder(player))(_ + _.winner)
+      .toPlayer
   } sortBy (p ⇒ -p.score)
 
   private case class Builder(
-      username: String,
+      player: Player,
       nbWin: Int = 0,
       nbLoss: Int = 0,
       score: Int = 0,
@@ -31,7 +47,7 @@ object Standing {
 
     def +(winner: Option[String]) = {
       val (win, loss) = winner.fold(
-        w ⇒ if (w == username) true -> false else false -> true,
+        w ⇒ if (w == player.id) true -> false else false -> true,
         false -> false)
       val newWinSeq = if (win) prevWin.fold(winSeq + 1, 1) else 0
       val points = win.fold(newWinSeq * 2, loss.fold(0, 1))
@@ -44,6 +60,10 @@ object Standing {
         prevWin = win)
     }
 
-    def player = Player(username, nbWin, nbLoss, bestWinSeq, score)
+    def toPlayer = player.copy(
+      nbWin = nbWin, 
+      nbLoss = nbLoss, 
+      winStreak = bestWinSeq, 
+      score = score)
   }
 }

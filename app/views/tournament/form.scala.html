@@ -7,8 +7,24 @@ title = "New tournament") {
 <div id="tournament">
   <div class="content_box tournament_box">
     <h1>New tournament</h1>
-    <form action="@routes.Tournament.create" method="POST">
+    <form class="plain" action="@routes.Tournament.create" method="POST">
       <table>
+        <tr>
+          <th>
+            <label for="@form("clockTime").id">Clock time</label>
+          </th>
+          <td>
+            @base.select(form("clockTime"), Tournament.clockTimeChoices)
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <label for="@form("clockIncrement").id">Clock increment</label>
+          </th>
+          <td>
+            @base.select(form("clockIncrement"), Tournament.clockIncrementChoices)
+          </td>
+        </tr>
         <tr>
           <th>
             <label for="@form("minutes").id">Duration</label>
@@ -19,10 +35,10 @@ title = "New tournament") {
         </tr>
         <tr>
           <th>
-            <label for="@form("minUsers").id">Players</label>
+            <label for="@form("minPlayers").id">Players</label>
           </th>
           <td>
-            @base.select(form("minUsers"), Tournament.minUserChoices)
+            @base.select(form("minPlayers"), Tournament.minPlayerChoices)
           </td>
         </tr>
         <tr>
