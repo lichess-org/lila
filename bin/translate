@@ -2,30 +2,41 @@
 
 version=$(cat bin/.translate_version)
 
+show() {
+  printf "Log translation %s\n" $version
+  git log -p t/$(echo $version)
+}
+
+next() {
+  printf "Increment translation version\n"
+  version=$(($version+1))
+  echo $version > bin/.translate_version
+}
+
 if [ "$1" = "set" ]; then
-    if [ "$2" ]; then
-        version="$2"
-        printf "Set version to %s\n" $2
-    fi
+  if [ "$2" ]; then
+    version="$2"
+    printf "Set version to %s\n" $2
+    echo $version > bin/.translate_version
+  fi
 elif [ "$1" = "fetch" ]; then
-    printf "Fetch from version %s\n" $version
-    bin/cli i18n-fetch $(echo $version) 
+  printf "Fetch from version %s\n" $version
+  bin/cli i18n-fetch $(echo $version)
 elif [ "$1" = "show" ]; then
-    printf "Log translation %s\n" $version
-    git log -p t/$(echo $version)
+  show
 elif [ "$1" = "apply" ]; then
-    printf "Apply translation %s\n" $version
-    git cherry-pick t/$(echo $version)
-    version=$(($version+1))
+  printf "Apply translation %s\n" $version
+  git cherry-pick t/$(echo $version)
+  next
+  show
 elif [ "$1" = "next" ]; then
-    printf "Increment translation version\n"
-    version=$(($version+1))
+  next
+  show
 elif [ "$1" = "commit" ]; then
-    printf "Commit resolved conflict\n"
-    (( prevVersion = version -1 ))
-    git clean -f
-    git commit -C t/$(echo $prevVersion)
+  printf "Commit resolved conflict\n"
+  (( prevVersion = version -1 ))
+  git clean -f
+  git commit -C t/$(echo $prevVersion)
 fi
 
-echo $version > bin/.translate_version
 printf "current version: %s\n" $version
