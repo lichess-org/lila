@@ -40,9 +40,7 @@ chat icons (k) (K)
 blind accessible
 home anon replace chat with mini boards
 make hand and finisher actors to avoid racing conditions
-
-next deploy
------------
-db.game2.ensureIndex({tid:1},{sparse:true})
-db.tournament.ensureIndex({status:1})
-db.tournament.ensureIndex({createdAt:-1})
+tournament scroll chat
+tournament fix clock display in infoBox
+tournament no matching
+tournament chat encoding
