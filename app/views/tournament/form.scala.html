@@ -7,7 +7,10 @@ title = "New tournament") {
 <div id="tournament">
   <div class="content_box tournament_box">
     <h1>New tournament</h1>
-    <form class="plain" action="@routes.Tournament.create" method="POST">
+    <form class="plain create" action="@routes.Tournament.create" method="POST">
+      @form.globalError.map { error =>
+      <p class="error">@error.message</p>
+      }
       <table>
         <tr>
           <th>
@@ -45,6 +48,8 @@ title = "New tournament") {
           <th></th>
           <td>
             <input type="submit" class="submit" value="Create the tournament" />
+            <br /><br />
+            or <a href="@routes.Tournament.home()">cancel</a>
           </td>
         </tr>
       </table>

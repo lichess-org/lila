@@ -1,27 +1,8 @@
 @(createds: List[lila.tournament.Created], starteds: List[lila.tournament.Started], finisheds: List[lila.tournament.Finished])(implicit ctx: Context)
 
-@createTr = {
-@if(ctx.isAuth) {
-<tr class="create">
-  <td colspan="5">
-    <a href="@routes.Tournament.form()" class="action">Create a new tournament</a>
-  </td>
-</tr>
-}
-}
-
 @tournament.layout(
 title = "Tournaments") {
-<div id="tournament">
-  <div class="content_box tournament_box">
-    <h1 class="lichess_title">Tournaments</h1>
-    <div class="body">
-      <table class="data all_tournaments">
-        @table(createds, "Open tournaments", "high", createTr)
-        @table(starteds, "Now playing", "high")
-        @table(finisheds, "Finished")
-      </table>
-    </div>
-  </div>
+<div id="tournament" data-href="@routes.Tournament.homeReload()">
+@tournament.homeInner(createds, starteds, finisheds)
 </div>
 }

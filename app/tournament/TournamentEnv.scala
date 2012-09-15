@@ -22,6 +22,7 @@ final class TournamentEnv(
     gameRepo: GameRepo,
     timelinePush: DbGame ⇒ IO[Unit],
     flood: Flood,
+    siteSocket: site.Socket,
     mongodb: String ⇒ MongoCollection) {
 
   implicit val ctx = app
@@ -37,7 +38,8 @@ final class TournamentEnv(
     gameRepo = gameRepo, 
     getUser = getUser,
     timelinePush = timelinePush,
-    socket = socket)
+    socket = socket,
+    siteSocket = siteSocket)
 
   lazy val roomRepo = new RoomRepo(
     collection = mongodb(TournamentCollectionRoom)

@@ -1,6 +1,6 @@
-@(tours: List[lila.tournament.Tournament], name: String, cssClass: String = "", moreTr: Html = Html(""))(implicit ctx: Context)
+@(tours: List[lila.tournament.Tournament], name: String, cssClass: String = "", moreTr: Html = Html(""), showEmpty: Boolean = false)(implicit ctx: Context)
 
-@if(tours.nonEmpty) {
+@if(showEmpty || tours.nonEmpty) {
 <thead>
   <tr>
     <th class="large">@name</th>

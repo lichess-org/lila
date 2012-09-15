@@ -16,15 +16,18 @@ case class Data(
   minutes: Int,
   minPlayers: Int,
   createdAt: DateTime,
-  createdBy: String,
-  players: Players)
+  createdBy: String)
 
 sealed trait Tournament {
 
   val id: String
   val data: Data
   def encode: RawTournament
+  def players: Players
+  def winner: Option[Player]
   def pairings: List[Pairing]
+  def isRunning: Boolean = false
+  def isFinished: Boolean = false
 
   def numerotedPairings: Seq[(Int, Pairing)] = (pairings.size to 1 by -1) zip pairings
 
@@ -35,7 +38,6 @@ sealed trait Tournament {
   def minutes = data.minutes
   lazy val duration = new Duration(minutes * 60 * 1000)
 
-  def players = data.players
   def userIds = players map (_.id)
   def activeUserIds = players filter (_.active) map (_.id)
   def nbPlayers = players.size
@@ -43,7 +45,10 @@ sealed trait Tournament {
   def playerRatio = "%d/%d".format(nbPlayers, minPlayers)
   def contains(userId: String): Boolean = userIds contains userId
   def contains(user: User): Boolean = contains(user.id)
-  def contains(user: Option[User]): Boolean = user.fold(u ⇒ contains(u.id), false)
+  def contains(user: Option[User]): Boolean = user.fold(contains, false)
+  def isActive(userId: String): Boolean = activeUserIds contains userId
+  def isActive(user: User): Boolean = isActive(user.id)
+  def isActive(user: Option[User]): Boolean = user.fold(isActive, false)
   def missingPlayers = minPlayers - players.size
 
   def createdBy = data.createdBy
@@ -64,15 +69,16 @@ sealed trait StartedOrFinished extends Tournament {
     status = status.id,
     data = data,
     startedAt = startedAt.some,
-    pairings = pairings map (_.encode),
-    players = players)
+    players = players,
+    pairings = pairings map (_.encode))
 
   def finishedAt = startedAt + duration
 }
 
 case class Created(
     id: String,
-    data: Data) extends Tournament {
+    data: Data,
+    players: Players) extends Tournament {
 
   import data._
 
@@ -80,10 +86,13 @@ case class Created(
 
   def pairings = Nil
 
+  def winner = None
+
   def encode = new RawTournament(
     id = id,
     status = Status.Created.id,
-    data = data)
+    data = data,
+    players = players)
 
   def join(user: User): Valid[Created] = contains(user).fold(
     !!("User %s is already part of the tournament" format user.id),
@@ -95,16 +104,19 @@ case class Created(
     !!("User %s is not part of the tournament" format user.id)
   )
 
-  private def withPlayers(s: Players) = copy(data = data.copy(players = s))
+  private def withPlayers(s: Players) = copy(players = s)
 
-  def start = Started(id, data, DateTime.now, Nil)
+  def start = Started(id, data, DateTime.now, players, Nil)
 }
 
 case class Started(
     id: String,
     data: Data,
     startedAt: DateTime,
+    players: Players,
     pairings: List[Pairing]) extends StartedOrFinished {
+
+  override def isRunning = true
 
   def addPairings(ps: NonEmptyList[Pairing]) =
     copy(pairings = ps.list ::: pairings)
@@ -122,6 +134,7 @@ case class Started(
       id = tour.id,
       data = tour.data,
       startedAt = tour.startedAt,
+      players = players,
       pairings = tour.pairings)
   }
 
@@ -133,7 +146,7 @@ case class Started(
     !!("User %s is not part of the tournament" format user.id)
   )
 
-  private def withPlayers(s: Players) = copy(data = data.copy(players = s))
+  private def withPlayers(s: Players) = copy(players = s)
 
   private def refreshPlayers = withPlayers(Player refresh this)
 
@@ -144,7 +157,10 @@ case class Finished(
     id: String,
     data: Data,
     startedAt: DateTime,
+    players: Players,
     pairings: List[Pairing]) extends StartedOrFinished {
+
+  override def isFinished = true
 
   def encode = encode(Status.Finished)
 }
@@ -154,12 +170,13 @@ case class RawTournament(
     status: Int,
     data: Data,
     startedAt: Option[DateTime] = None,
-    pairings: List[RawPairing] = Nil,
-    players: List[Player] = Nil) {
+    players: List[Player] = Nil,
+    pairings: List[RawPairing] = Nil) {
 
   def created: Option[Created] = (status == Status.Created.id) option Created(
     id = id,
-    data = data)
+    data = data,
+    players = players)
 
   def started: Option[Started] = for {
     stAt ← startedAt
@@ -168,7 +185,8 @@ case class RawTournament(
     id = id,
     data = data,
     startedAt = stAt,
-    decodePairings)
+    players = players,
+    pairings = decodePairings)
 
   def finished: Option[Finished] = for {
     stAt ← startedAt
@@ -177,7 +195,8 @@ case class RawTournament(
     id = id,
     data = data,
     startedAt = stAt,
-    decodePairings)
+    players = players,
+    pairings = decodePairings)
 
   def decodePairings = pairings map (_.decode) flatten
 
@@ -186,8 +205,6 @@ case class RawTournament(
     case Status.Started  ⇒ started
     case Status.Finished ⇒ finished
   }
-
-  def withPlayers(s: Players) = copy(players = s)
 }
 
 object Tournament {
@@ -206,8 +223,8 @@ object Tournament {
       createdBy = createdBy.id,
       createdAt = DateTime.now,
       minutes = minutes,
-      minPlayers = minPlayers,
-      players = List(Player(createdBy)))
+      minPlayers = minPlayers),
+    players = List(Player(createdBy))
   )
 
   val clockTimes = 0 to 10 by 1
@@ -222,7 +239,7 @@ object Tournament {
   val minuteDefault = 10
   val minuteChoices = options(minutes, "%d minute{s}")
 
-  val minPlayers = (2 to 4) ++ (5 to 30 by 5)
+  val minPlayers = (3 to 4) ++ (5 to 30 by 5)
   val minPlayerDefault = 10
   val minPlayerChoices = options(minPlayers, "%d player{s}")
 }

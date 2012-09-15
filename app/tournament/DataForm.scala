@@ -15,11 +15,16 @@ final class DataForm {
     "clockIncrement" -> numberIn(clockIncrementChoices),
     "minutes" -> numberIn(minuteChoices),
     "minPlayers" -> numberIn(minPlayerChoices)
-  )(TournamentSetup.apply)(TournamentSetup.unapply)) fill TournamentSetup()
+  )(TournamentSetup.apply)(TournamentSetup.unapply)
+    .verifying("Invalid clock", _.validClock)
+  ) fill TournamentSetup()
 }
 
 case class TournamentSetup(
-  clockTime: Int = Tournament.clockTimeDefault,
-  clockIncrement: Int = Tournament.clockIncrementDefault,
-  minutes: Int = Tournament.minuteDefault,
-  minPlayers: Int = Tournament.minPlayerDefault)
+    clockTime: Int = Tournament.clockTimeDefault,
+    clockIncrement: Int = Tournament.clockIncrementDefault,
+    minutes: Int = Tournament.minuteDefault,
+    minPlayers: Int = Tournament.minPlayerDefault) {
+
+  def validClock = (clockTime + clockIncrement) > 0
+}

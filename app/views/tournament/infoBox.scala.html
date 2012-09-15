@@ -6,6 +6,16 @@
     <br /><br />
     @tour.minPlayers players
     <br /><br />
-    <span class="s16 clock">@tour.clock.show</span>
+    <span class="s16 clock">@tour.clock.show, @tour.minutes minutes</span>
+    @if(tour.isRunning && (tour isActive ctx.me)) {
+    <br /><br />
+    <form action="@routes.Tournament.withdraw(tour.id)" method="POST">
+      <input type="submit" class="submit button strong" value="Withdraw" />
+    </form>
+    }
+    @tour.winner.filter(_ => tour.isFinished).map { winner =>
+    <br /><br />
+    Won by @userInfosLink(winner.username, winner.elo.some, withOnline = false)
+    }
   </div>
 </div>

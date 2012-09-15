@@ -1,4 +1,4 @@
-@(tour: lila.tournament.Created, users: List[User])(implicit ctx: Context)
+@(tour: lila.tournament.Created)(implicit ctx: Context)
 
 <h1>@tour.nameT</h1>
 <div class="user_list">
@@ -28,9 +28,9 @@
       </tr>
     </thead>
     <tbody>
-      @users.map { user =>
+      @tour.players.map { player =>
       <tr>
-        <td colspan="2">@userLink(user)</td>
+        <td colspan="2">@userInfosLink(player.username, player.elo.some)</td>
       </tr>
       }
     </tbody>

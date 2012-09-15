@@ -31,6 +31,16 @@ object Tournament extends LilaController {
     )
   }
 
+  val homeReload = Open { implicit ctx ⇒
+    IOk(
+      for {
+        createds ← repo.created
+        starteds ← repo.started
+        finisheds ← repo finished 20
+      } yield html.tournament.homeInner(createds, starteds, finisheds)
+    )
+  }
+
   def show(id: String) = Open { implicit ctx ⇒
     IOptionIOk(repo byId id) {
       case tour: Created  ⇒ showCreated(tour)
@@ -41,12 +51,10 @@ object Tournament extends LilaController {
 
   private def showCreated(tour: Created)(implicit ctx: Context) = for {
     roomHtml ← messenger render tour
-    users ← userRepo byIds tour.userIds
   } yield html.tournament.show.created(
     tour = tour,
     roomHtml = Html(roomHtml),
-    version = version(tour.id),
-    users = users)
+    version = version(tour.id))
 
   private def showStarted(tour: Started)(implicit ctx: Context) = for {
     roomHtml ← messenger render tour
@@ -78,7 +86,7 @@ object Tournament extends LilaController {
 
   def withdraw(id: String) = Auth { implicit ctx ⇒
     implicit me ⇒
-      IOptionIORedirect(repo createdById id) { tour ⇒
+      IOptionIORedirect(repo byId id) { tour ⇒
         api.withdraw(tour, me) map { _ ⇒ routes.Tournament.show(tour.id) }
       }
   }
@@ -91,11 +99,10 @@ object Tournament extends LilaController {
     }
   }
 
-  private def reloadCreated(tour: Created)(implicit ctx: Context) =
-    userRepo byIds tour.userIds map { users ⇒
-      val inner = html.tournament.show.createdInner(tour, users)
-      html.tournament.show.inner(none)(inner)
-    }
+  private def reloadCreated(tour: Created)(implicit ctx: Context) = io {
+    val inner = html.tournament.show.createdInner(tour)
+    html.tournament.show.inner(none)(inner)
+  }
 
   private def reloadStarted(tour: Started)(implicit ctx: Context) =
     gameRepo.recentTournamentGames(tour.id, 4) map { games ⇒
@@ -121,13 +128,10 @@ object Tournament extends LilaController {
       IOResult {
         implicit val req = ctx.body
         forms.create.bindFromRequest.fold(
-          err ⇒ io(BadRequest(html.message.form(err))),
-          setup ⇒ api.createTournament(setup, me).map(tournament ⇒
-            tournament.fold(
-              err ⇒ { println(err.shows); Redirect(routes.Tournament.home()) },
-              tour ⇒ Redirect(routes.Tournament.show(tour.id))
-            )
-          ))
+          err ⇒ io(BadRequest(html.tournament.form(err))),
+          setup ⇒ api.createTournament(setup, me) map { tour ⇒
+            Redirect(routes.Tournament.show(tour.id))
+          })
       }
   }
 

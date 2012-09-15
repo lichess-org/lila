@@ -46,9 +46,24 @@ trait UserHelper {
     cssClass: Option[String] = None,
     withElo: Boolean = true) = Html {
     """<a class="user_link%s%s" href="%s">%s</a>""".format(
-      isUsernameOnline(user.username).fold(" online", " offline"),
+      isUsernameOnline(user.id).fold(" online", " offline"),
       cssClass.fold(" " + _, ""),
       routes.User.show(user.username),
       withElo.fold(user.usernameWithElo, user.username))
+  }
+
+  def userInfosLink(
+    username: String,
+    elo: Option[Int],
+    cssClass: Option[String] = None,
+    withOnline: Boolean = true) = Html {
+    """<a class="user_link%s%s" href="%s">%s</a>""".format(
+      withOnline.fold(
+        isUsernameOnline(username).fold(" online", " offline"),
+        ""),
+      cssClass.fold(" " + _, ""),
+      routes.User.show(username),
+      elo.fold(e => "%s (%d)".format(username, e), username)
+    )
   }
 }

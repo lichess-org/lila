@@ -11,10 +11,15 @@ final class Hub(timeout: Int) extends HubActor[Member](timeout) {
 
   def receiveSpecific = {
 
-    case Join(uid, username) ⇒ {
+    case Join(uid, username, tags) ⇒ {
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      addMember(uid, Member(channel, username))
+      addMember(uid, Member(channel, username, tags))
       sender ! Connected(enumerator, channel)
     }
+
+    case SendToFlag(flag, message) ⇒
+      members.values filter (_ hasFlag flag) foreach {
+        _.channel push message
+      }
   }
 }

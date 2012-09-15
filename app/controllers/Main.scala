@@ -15,6 +15,8 @@ object Main extends LilaController {
     implicit val ctx = reqToCtx(req)
     env.site.socket.join(
       uidOption = get("uid"),
-      username = ctx.me map (_.username))
+      username = ctx.me map (_.username),
+      flag = get("flag")
+    )
   }
 }
