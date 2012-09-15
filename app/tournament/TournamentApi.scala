@@ -105,7 +105,7 @@ final class TournamentApi(
       whitePlayer = DbPlayer.white withUser user1,
       blackPlayer = DbPlayer.black withUser user2,
       creatorColor = chess.Color.White,
-      mode = chess.Mode.Rated,
+      mode = chess.Mode.Casual,
       variant = variant
     ).withTournamentId(tour.id)
       .withId(pairing.gameId)
