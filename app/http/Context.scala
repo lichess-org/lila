@@ -17,7 +17,7 @@ sealed abstract class Context(val req: RequestHeader, val me: Option[User]) {
   def isGranted(permission: Permission): Boolean =
     me.fold(Granter(permission), false)
 
-  def is(user: User) = me == Some(user)
+  def is(user: User): Boolean = me == Some(user)
 
   def userId = me map (_.id)
 }

@@ -20,7 +20,7 @@ final class TournamentApi(
     (tour addPairings pairings) |> { tour2 ⇒
       for {
         _ ← repo saveIO tour2
-        games ← (pairings map makeGame(tour.id)).sequence
+        games ← (pairings map makeGame(tour)).sequence
         _ ← (games map socket.notifyPairing).sequence
       } yield ()
     }
@@ -30,9 +30,10 @@ final class TournamentApi(
     tournament ← hasTournament.fold(
       io(alreadyInATournament(me)),
       Tournament(
-        createdBy = me.id,
+        createdBy = me,
+        clock = TournamentClock(setup.clockTime, setup.clockIncrement),
         minutes = setup.minutes,
-        minUsers = setup.minUsers
+        minPlayers = setup.minPlayers
       ) |> { created ⇒ repo saveIO created map (_ ⇒ created.success) }
     )
   } yield tournament
@@ -43,20 +44,13 @@ final class TournamentApi(
   def finish(started: Started): IO[Unit] =
     repo saveIO started.finish doIf started.readyToFinish
 
-  def join(tour: Created, me: User): IO[Valid[Unit]] = for {
-    hasTournament ← repo userHasRunningTournament me.id
-    tour2Valid = for {
-      tour2 ← tour join me
-      _ ← hasTournament.fold(alreadyInATournament(me), true.success)
-    } yield tour2
-    result ← tour2Valid.fold(
-      err ⇒ io(failure(err)),
-      tour2 ⇒ for {
-        _ ← repo saveIO tour2
-        _ ← io(socket reload tour.id)
-      } yield ().success
-    ): IO[Valid[Unit]]
-  } yield result
+  def join(tour: Created, me: User): Valid[IO[Unit]] = for {
+    tour2 ← tour join me
+  } yield for {
+    withdrawIds ← repo withdraw me
+    _ ← repo saveIO tour2
+    _ ← ((tour.id :: withdrawIds) map socket.reload).sequence
+  } yield ()
 
   def withdraw(tour: Created, me: User): IO[Unit] = (tour withdraw me).fold(
     err ⇒ putStrLn(err.shows),
@@ -79,14 +73,14 @@ final class TournamentApi(
     } | io(none)
   } yield result
 
-  private def makeGame(tournamentId: String)(pairing: Pairing): IO[DbGame] = for {
+  private def makeGame(tour: Started)(pairing: Pairing): IO[DbGame] = for {
     user1 ← getUser(pairing.user1) map (_ err "No such user " + pairing)
     user2 ← getUser(pairing.user2) map (_ err "No such user " + pairing)
     variant = chess.Variant.Standard
     game = DbGame(
       game = chess.Game(
         board = chess.Board init variant,
-        clock = chess.Clock(1, 0).some
+        clock = tour.clock.chessClock.some
       ),
       ai = None,
       whitePlayer = DbPlayer.white withUser user1,
@@ -94,7 +88,7 @@ final class TournamentApi(
       creatorColor = chess.Color.White,
       mode = chess.Mode.Rated,
       variant = variant
-    ).withTournamentId(tournamentId)
+    ).withTournamentId(tour.id)
       .withId(pairing.gameId)
       .start
       .startClock(2)

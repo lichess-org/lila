@@ -11,13 +11,13 @@
     </tr>
   </thead>
   <tbody>
-    @tour.rankedStanding.map {
+    @tour.rankedPlayers.map {
     case (rank, player) => {
     <tr>
       <td><span class="rank">@rank</span></td>
       <td>
-        <a class="username" href="@routes.User.show(player.username)">
-          @userIdToUsername(player.username)
+        <a class="username" href="@routes.User.show(player.id)">
+          @player.username
         </a>
       </td>
       <td><strong>@player.score</strong></td>
@@ -33,4 +33,3 @@
     }
   </tbody>
 </table>
-

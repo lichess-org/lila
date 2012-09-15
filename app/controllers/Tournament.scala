@@ -41,7 +41,7 @@ object Tournament extends LilaController {
 
   private def showCreated(tour: Created)(implicit ctx: Context) = for {
     roomHtml ← messenger render tour
-    users ← userRepo byIds tour.data.users
+    users ← userRepo byIds tour.userIds
   } yield html.tournament.show.created(
     tour = tour,
     roomHtml = Html(roomHtml),
@@ -69,12 +69,10 @@ object Tournament extends LilaController {
   def join(id: String) = Auth { implicit ctx ⇒
     implicit me ⇒
       IOptionIORedirect(repo createdById id) { tour ⇒
-        api.join(tour, me) map { result ⇒
-          result.fold(
-            err ⇒ { println(err.shows); routes.Tournament.home() },
-            _ ⇒ routes.Tournament.show(tour.id)
-          )
-        }
+        api.join(tour, me).fold(
+          err ⇒ putStrLn(err.shows) map (_ ⇒ routes.Tournament.home()),
+          res ⇒ res map (_ ⇒ routes.Tournament.show(tour.id))
+        )
       }
   }
 
@@ -86,14 +84,32 @@ object Tournament extends LilaController {
   }
 
   def reload(id: String) = Open { implicit ctx ⇒
-    IOptionIOk(repo startedById id) { tour ⇒
-      gameRepo.recentTournamentGames(tour.id, 4) map { games ⇒
-        val pairings = html.tournament.pairings(tour)
-        val inner = html.tournament.show.startedInner(tour, games)
-        html.tournament.show.inner(pairings.some)(inner)
-      }
+    IOptionIOk(repo byId id) {
+      case tour: Created  ⇒ reloadCreated(tour)
+      case tour: Started  ⇒ reloadStarted(tour)
+      case tour: Finished ⇒ reloadFinished(tour)
     }
   }
+
+  private def reloadCreated(tour: Created)(implicit ctx: Context) =
+    userRepo byIds tour.userIds map { users ⇒
+      val inner = html.tournament.show.createdInner(tour, users)
+      html.tournament.show.inner(none)(inner)
+    }
+
+  private def reloadStarted(tour: Started)(implicit ctx: Context) =
+    gameRepo.recentTournamentGames(tour.id, 4) map { games ⇒
+      val pairings = html.tournament.pairings(tour)
+      val inner = html.tournament.show.startedInner(tour, games)
+      html.tournament.show.inner(pairings.some)(inner)
+    }
+
+  private def reloadFinished(tour: Finished)(implicit ctx: Context) =
+    gameRepo.recentTournamentGames(tour.id, 4) map { games ⇒
+      val pairings = html.tournament.pairings(tour)
+      val inner = html.tournament.show.finishedInner(tour, games)
+      html.tournament.show.inner(pairings.some)(inner)
+    }
 
   def form = Auth { implicit ctx ⇒
     me ⇒

@@ -6,8 +6,11 @@ import com.novus.salat.dao._
 import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.query.Imports._
 import scalaz.effects._
+import scalaz.Success
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
+
+import user.User
 
 class TournamentRepo(collection: MongoCollection)
     extends SalatDAO[RawTournament, String](collection) {
@@ -18,7 +21,7 @@ class TournamentRepo(collection: MongoCollection)
 
   def startedById(id: String): IO[Option[Started]] = byIdAs(id, _.started)
 
-  private def byIdAs[A](id: String, as: RawTournament => Option[A]): IO[Option[A]] = io {
+  private def byIdAs[A](id: String, as: RawTournament ⇒ Option[A]): IO[Option[A]] = io {
     findOneById(id) flatMap as
   }
 
@@ -58,6 +61,17 @@ class TournamentRepo(collection: MongoCollection)
   def saveIO(tournament: Tournament): IO[Unit] = io {
     save(tournament.encode)
   }
+
+  def withdraw(user: User): IO[List[String]] = for {
+    createds ← created
+    createdIds ← (createds map (_ withdraw user) collect {
+      case Success(tour) ⇒ saveIO(tour) map (_ ⇒ tour.id)
+    }).sequence
+    starteds ← started
+    startedIds ← (starteds map (_ withdraw user) collect {
+      case Success(tour) ⇒ saveIO(tour) map (_ ⇒ tour.id)
+    }).sequence
+  } yield createdIds ::: startedIds
 
   private def idSelector(id: String): DBObject = DBObject("_id" -> id)
   private def idSelector(tournament: Tournament): DBObject = idSelector(tournament.id)

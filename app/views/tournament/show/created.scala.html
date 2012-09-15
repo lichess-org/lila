@@ -7,25 +7,5 @@ goodies = tournament.infoBox(tour),
 version = version,
 title = tour.nameT) {
 
-<h1>@tour.nameT</h1>
-<div>
-  Waiting for @tour.missingUsers players
-</div>
-<div class="user_list">
-  @tournament.userList(users)
-</div>
-
-@ctx.me.map { me =>
-<div>
-  @if(tour contains me) {
-  <form action="@routes.Tournament.withdraw(tour.id)" method="POST">
-    <input type="submit" class="submit button" value="Withdraw" />
-  </form>
-  } else {
-  <form action="@routes.Tournament.join(tour.id)" method="POST">
-    <input type="submit" class="submit button" value="Join tournament" />
-  </form>
-  }
-</div>
-}
+@tournament.show.createdInner(tour, users)
 }

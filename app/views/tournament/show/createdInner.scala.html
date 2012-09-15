@@ -1,0 +1,41 @@
+@(tour: lila.tournament.Created, users: List[User])(implicit ctx: Context)
+
+<h1>@tour.nameT</h1>
+<div class="user_list">
+  <table class="data user_list">
+    <thead>
+      <tr>
+        <th class="large">
+          @if(tour.readyToStart) {
+          Tournament is starting!
+          } else {
+          Waiting for @tour.missingPlayers players
+          }
+        </th>
+        @ctx.me.map { me =>
+        <th>
+          @if(tour contains me) {
+          <form class="inline" action="@routes.Tournament.withdraw(tour.id)" method="POST">
+            <input type="submit" class="submit button strong" value="Withdraw" />
+          </form>
+          } else {
+          <form class="inline" action="@routes.Tournament.join(tour.id)" method="POST">
+            <input type="submit" class="submit button strong" value="Join tournament" />
+          </form>
+          }
+        </th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @users.map { user =>
+      <tr>
+        <td colspan="2">@userLink(user)</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+<br />
+The tournament will start as soon as @tour.minPlayers players join it.
+
