@@ -25,7 +25,9 @@ $(function() {
 
   if (chatExists) {
     var $form = $chat.find('form');
-    $chat.find('.lichess_messages').scrollable();
+    var $msgs = $chat.find('.lichess_messages');
+    $msgs.scrollable();
+    $msgs[0].scrollTop = 9999999;
     var $input = $chat.find('input.lichess_say').one("focus", function() {
       $input.val('').removeClass('lichess_hint');
     });
