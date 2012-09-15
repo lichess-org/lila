@@ -31,6 +31,7 @@ var lichess = {
         document.title = "/!\\ ANALYSIS READY! " + document.title;
       }
     },
+    params: {},
     options: {
       name: "site",
       offlineTag: $('#connection_lost'),

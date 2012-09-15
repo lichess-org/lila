@@ -13,8 +13,9 @@
   <tbody>
     @tour.rankedPlayers.map {
     case (rank, player) => {
+    @defining(if(rank == 1) "winner" else if (player.withdraw) "withdraw" else "") { flag =>
     <tr>
-      <td><span class="rank">@rank</span></td>
+      <td><span class="rank @flag tipsyme" title="@flag.capitalize">@rank</span></td>
       <td>
         <a class="username" href="@routes.User.show(player.id)">
           @player.username
@@ -25,10 +26,11 @@
       <td>@player.nbLoss</td>
       <td>
         @if(player.winStreak > 1) {
-        @player.winStreak 
+        @player.winStreak
         }
       </td>
     </tr>
+    }
     }
     }
   </tbody>

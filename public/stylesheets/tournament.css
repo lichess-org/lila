@@ -2,6 +2,13 @@
   width: 476px;
 }
 
+#tournament .tournament_clock {
+  float: right;
+  font-size: 20px;
+  font-family: monospace;
+  font-weight: bold;
+}
+
 #tournament table.data {
   margin-top: 2em;
   margin-left: -24px;
@@ -47,10 +54,14 @@
 
 #tournament table.data span.rank {
   font-weight: bold;
-}
-#tournament table.data tbody tr:first-child span.rank {
   padding-right: 20px;
   background: transparent url(../images/s16.png) top right no-repeat;
+  background-position: right 900px;
+}
+#tournament table.data tbody span.withdraw {
+  background-position: right -320px;
+}
+#tournament table.data tbody span.winner {
   background-position: right -304px;
 }
 

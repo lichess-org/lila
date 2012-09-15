@@ -17,12 +17,17 @@ final class Socket(hub: ActorRef) {
 
   implicit val timeout = Timeout(300 millis)
 
+  def sendToFlag(flag: String, message: JsObject) {
+    hub ! SendToFlag(flag, message)
+  }
+
   def join(
     uidOption: Option[String],
-    username: Option[String]): SocketPromise = {
+    username: Option[String],
+    flag: Option[String]): SocketPromise = {
     val promise: Option[SocketPromise] = for {
       uid ← uidOption
-    } yield (hub ? Join(uid, username)).asPromise map {
+    } yield (hub ? Join(uid, username, flag)).asPromise map {
       case Connected(enumerator, channel) ⇒
         val iteratee = Iteratee.foreach[JsValue] { e ⇒
           e str "t" match {

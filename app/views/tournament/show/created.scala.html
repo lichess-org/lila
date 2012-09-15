@@ -1,4 +1,4 @@
-@(tour: lila.tournament.Created, roomHtml: Html, version: Int, users: List[User])(implicit ctx: Context)
+@(tour: lila.tournament.Created, roomHtml: Html, version: Int)(implicit ctx: Context)
 
 @tournament.show.layout(
 tour = tour,
@@ -7,5 +7,5 @@ goodies = tournament.infoBox(tour),
 version = version,
 title = tour.nameT) {
 
-@tournament.show.createdInner(tour, users)
+@tournament.show.createdInner(tour)
 }

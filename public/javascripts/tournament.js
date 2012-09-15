@@ -1,22 +1,27 @@
 // tournament
 $(function() {
-  
-  if (typeof lichess_data == "undefined") return;
 
   var $wrap = $('#tournament');
   var $userTag = $('#user_tag');
   if (!$wrap.length) return;
+
   if (!$.websocket.available) return;
+  if (typeof lichess_data == "undefined") {
+    // handle tournament list
+    lichess.socketDefaults.params.flag = "tournament";
+    lichess.socketDefaults.events.reload = function() {
+      $wrap.load($wrap.data("href"), function() {
+        $('body').trigger('lichess.content_loaded');
+      });
+    };
+    return;
+  }
 
   var $chat = $("div.lichess_chat");
   var $chatToggle = $chat.find('input.toggle_chat');
   var chatExists = $chat.length > 0;
   var $userList = $wrap.find("div.user_list");
   var socketUrl = $wrap.data("socket-url");
-
-  $("span.tournament_clock").each(function() {
-    $(this).clock({time: $(this).data("time")}).clock("start");
-  });
 
   if (chatExists) {
     var $form = $chat.find('form');
@@ -57,21 +62,27 @@ $(function() {
     $('body').trigger('lichess.content_loaded');
   }
 
+  function startClock() {
+    $("span.tournament_clock").each(function() {
+      $(this).clock({time: $(this).data("time")}).clock("start");
+    });
+  }
+  startClock();
+
   function reload() {
-    $wrap.each(function() {
-      $(this).load($(this).data("href"), function() {
-        $('body').trigger('lichess.content_loaded');
-      });
+    $wrap.load($wrap.data("href"), function() {
+      startClock();
+      $('body').trigger('lichess.content_loaded');
     });
   }
 
   lichess.socket = new $.websocket(lichess.socketUrl + socketUrl, lichess_data.version, $.extend(true, lichess.socketDefaults, {
     events: {
       talk: function(e) { if (chatExists) addToChat(e); },
-      reload: reload,
-      redirect: function(e) {
-        location.href = 'http://'+location.hostname+'/'+e;
-      }
+    reload: reload,
+    redirect: function(e) {
+      location.href = 'http://'+location.hostname+'/'+e;
+    }
     },
     options: {
       name: "tournament"
