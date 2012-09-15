@@ -138,4 +138,5 @@ yourOpponentProposesATakeback=Nasprotnik prosi za popravek poteze
 bookmarkThisGame=Označi partijo
 toggleBackground=Spremeni barvo ozadja
 advancedSearch=Napredno iskanje
+tournament=Turnir
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Brazplačen internetni šah. Igraj šah v enostavnem vmesniku. Brez registracije, brez reklam in brez dodatnih vtičnikov. Igraj šah proti računalniku, prijatelju ali naključnemu nasprotniku.
