@@ -31,7 +31,7 @@ final class TournamentApi(
     withdrawIds ← repo withdraw me
     created = Tournament(
       createdBy = me,
-      clock = TournamentClock(setup.clockTime, setup.clockIncrement),
+      clock = TournamentClock(setup.clockTime * 60, setup.clockIncrement),
       minutes = setup.minutes,
       minPlayers = setup.minPlayers)
     _ ← repo saveIO created
