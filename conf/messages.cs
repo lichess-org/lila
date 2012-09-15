@@ -138,4 +138,5 @@ yourOpponentProposesATakeback=Soupeř navrhuje vrácení tahu
 bookmarkThisGame=Přidat tuto partii do záložek
 toggleBackground=Přepnout barvu pozadí
 advancedSearch=Pokročilé vyhledávání
+tournament=Turnaj
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Šachy online zdarma. Hrajte šachy přímo ve Vašem prohlížeči, bez registrace, bez reklam, bez dalšího stahování. Hrajte proti počítači, kamarádům nebo náhodně vybraným soupeřům.
