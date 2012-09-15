@@ -539,7 +539,7 @@ $.widget("lichess.game", {
       }
     }
     self.$table.find('div.clock').clock('stop');
-    if (self.options.game.clockRunning) {
+    if (self.options.game.turns > 0 || self.options.game.clockRunning) {
       self.$table.find('div.clock_' + self.options.game.player).clock('start');
     }
   },
