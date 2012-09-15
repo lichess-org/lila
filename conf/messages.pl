@@ -138,4 +138,5 @@ yourOpponentProposesATakeback=Przeciwnik proponuje cofnięcie ruchu
 bookmarkThisGame=zakładka to gra
 toggleBackground=Zmień kolor tła
 advancedSearch=Wyszukiwanie zaawansowane
+tournament=Turniej
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Darmowa gra w szachy online. Zagraj teraz w szachy. Prosty interfejs. Bez rejestracji, bez reklam, bez instalowania wtyczek. Graj w szachy z komputerem, przyjaciółmi lub losowymi przeciwnikami.
