@@ -67,7 +67,12 @@ sealed trait StartedOrFinished extends Tournament {
   def encode(status: Status) = new RawTournament(
     id = id,
     status = status.id,
-    data = data,
+    name = data.name,
+    clock = data.clock,
+    minutes = data.minutes,
+    minPlayers = data.minPlayers,
+    createdAt = data.createdAt,
+    createdBy = data.createdBy,
     startedAt = startedAt.some,
     players = players,
     pairings = pairings map (_.encode))
@@ -91,7 +96,12 @@ case class Created(
   def encode = new RawTournament(
     id = id,
     status = Status.Created.id,
-    data = data,
+    name = data.name,
+    clock = data.clock,
+    minutes = data.minutes,
+    minPlayers = data.minPlayers,
+    createdAt = data.createdAt,
+    createdBy = data.createdBy,
     players = players)
 
   def join(user: User): Valid[Created] = contains(user).fold(
@@ -128,6 +138,8 @@ case class Started(
   def readyToFinish = remainingSeconds == 0
 
   def remainingSeconds: Int = math.max(0, finishedAt.getSeconds - nowSeconds).toInt
+
+  def clockStatus = "%02d:%02d".format(remainingSeconds / 60, remainingSeconds % 60)
 
   def finish = refreshPlayers |> { tour ⇒
     Finished(
@@ -167,15 +179,20 @@ case class Finished(
 
 case class RawTournament(
     @Key("_id") id: String,
+    name: String,
+    clock: TournamentClock,
+    minutes: Int,
+    minPlayers: Int,
+    createdAt: DateTime,
+    createdBy: String,
     status: Int,
-    data: Data,
     startedAt: Option[DateTime] = None,
     players: List[Player] = Nil,
     pairings: List[RawPairing] = Nil) {
 
   def created: Option[Created] = (status == Status.Created.id) option Created(
     id = id,
-    data = data,
+    data = Data(name, clock, minutes, minPlayers, createdAt, createdBy),
     players = players)
 
   def started: Option[Started] = for {
@@ -183,7 +200,7 @@ case class RawTournament(
     if status == Status.Started.id
   } yield Started(
     id = id,
-    data = data,
+    data = Data(name, clock, minutes, minPlayers, createdAt, createdBy),
     startedAt = stAt,
     players = players,
     pairings = decodePairings)
@@ -193,7 +210,7 @@ case class RawTournament(
     if status == Status.Finished.id
   } yield Finished(
     id = id,
-    data = data,
+    data = Data(name, clock, minutes, minPlayers, createdAt, createdBy),
     startedAt = stAt,
     players = players,
     pairings = decodePairings)

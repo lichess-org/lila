@@ -34,6 +34,8 @@ final class Hub(
 
     case Reload ⇒ notifyReload
 
+    case ReloadPage ⇒ notifyAll("reloadPage", JsNull)
+
     case PingVersion(uid, v) ⇒ {
       ping(uid)
       lastPingTime = nowMillis

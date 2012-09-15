@@ -44,3 +44,5 @@ make hand and finisher actors to avoid racing conditions
 next deploy
 -----------
 db.game2.ensureIndex({tid:1},{sparse:true})
+db.tournament.ensureIndex({status:1})
+db.tournament.ensureIndex({createdAt:-1})
