@@ -80,6 +80,9 @@ $(function() {
     events: {
       talk: function(e) { if (chatExists) addToChat(e); },
     reload: reload,
+    reloadPage: function() {
+      location.reload();
+    },
     redirect: function(e) {
       location.href = 'http://'+location.hostname+'/'+e;
     }

@@ -1,6 +1,8 @@
 @(tour: lila.tournament.Started, games: List[DbGame])(implicit ctx: Context)
 
-<span class="tournament_clock" data-time="@tour.remainingSeconds"></span>
+<span class="tournament_clock" data-time="@tour.remainingSeconds">
+  @tour.clockStatus
+</span>
 
 <h1>@tour.nameT</h1>
 
