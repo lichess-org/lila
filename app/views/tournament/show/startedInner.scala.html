@@ -1,16 +1,9 @@
 @(tour: lila.tournament.Started, games: List[DbGame])(implicit ctx: Context)
 
-<h1>@tournament.nameOf(tour)</h1>
+<h1>@tour.nameT</h1>
+
+In progress <span class="tournament_clock" data-time="@tour.remainingSeconds"></span>
 
 @tournament.standing(tour)
 
 @tournament.games(games)
-
-@ctx.me.filter(tour.contains).map { me =>
-<div>
-  <form action="@routes.Tournament.withdraw(tour.id)" method="POST">
-    <input type="submit" class="submit button" value="Withdraw" />
-  </form>
-</div>
-}
-

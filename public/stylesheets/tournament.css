@@ -1,8 +1,46 @@
-#tournament table {
-  margin-top: 2em;
+#tournament div.tournament_box {
+  width: 476px;
 }
-#tournament table td {
+
+#tournament table.data {
+  margin-top: 2em;
+  margin-left: -24px;
+  width: 524px;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+#tournament table.data thead th {
+  border-top: 1px solid #d4d4d4;
+  padding: 0.4em 0.6em;
+}
+#tournament table.data thead th.large {
+  font-size: 1.4em;
+}
+
+#tournament table.data td {
   padding: 0.5em;
+  font-size: 1.2em;
+}
+#tournament table.data tbody tr:nth-child(even) {
+  background: #f4f4f4;
+}
+#tournament table.data td:first-child,
+#tournament table.data th:first-child {
+  padding-left: 24px;
+}
+
+#tournament table.data span.rank {
+  font-weight: bold;
+}
+#tournament table.data tbody tr:first-child span.rank {
+  padding-right: 20px;
+  background: transparent url(../images/s16.png) top right no-repeat;
+  background-position: right -304px;
+}
+
+#tournament div.game_list.realtime {
+  margin: 2em 0 0 -10px;
+  width: 511px;
 }
 
 #tournament form label {
@@ -24,41 +62,6 @@
   width: 99%;
 }
 
-#tournament div.tournament_box {
-  width: 476px;
-}
-
-#tournament table {
-  width: 100%;
-  border: 1px solid #d4d4d4;
-}
-
-#tournament thead.big_table_head .large {
-  font-size: 1.4em;
-  padding: 0.4em 0.6em;
-}
-
-#tournament table.standing td {
-  font-size: 1.2em;
-}
-#tournament table.standing tbody tr:nth-child(even) {
-  background: #f4f4f4;
-}
-#tournament table.standing span.rank {
-  font-weight: bold;
-}
-#tournament table.standing tbody tr:first-child span.rank {
-  padding-right: 20px;
-  background: transparent url(../images/s16.png) top right no-repeat;
-  background-position: right -304px;
-}
-
-#tournament div.game_list.realtime {
-  margin: 2em 0 0 -10px;
-  width: 511px;
-}
-
-/* Errors */
 #tournament form .error {
   margin-left: 160px;
   color: red;

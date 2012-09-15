@@ -697,6 +697,7 @@ $.widget("lichess.clock", {
     self.element.addClass('running');
     var end_time = new Date().getTime() + self.options.time;
     self.options.interval = setInterval(function() {
+      console.debug(this);
       if (self.options.state == 'running') {
         var current_time = Math.round(end_time - new Date().getTime());
         if (current_time <= 0) {

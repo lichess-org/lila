@@ -1,0 +1,23 @@
+@(tours: List[lila.tournament.Tournament], name: String)(implicit ctx: Context)
+
+@if(tours.nonEmpty) {
+<thead class="big_table_head">
+  <tr>
+    <th class="large" colspan="4">@name</th>
+  </tr>
+</thead>
+<tbody>
+  @tours.map { tour =>
+  <tr>
+    <td>@linkTo(tour)</td>
+    <td>@tour.minutes minutes</td>
+    <td>@tour.nbUsers / @tour.minUsers</td>
+    <td>
+      @if(tour contains ctx.me) {
+      JOINED
+      }
+    </td>
+  </tr>
+  }
+</tbody>
+}
