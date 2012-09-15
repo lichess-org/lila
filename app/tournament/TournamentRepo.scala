@@ -62,6 +62,10 @@ class TournamentRepo(collection: MongoCollection)
     save(tournament.encode)
   }
 
+  def removeIO(tournament: Tournament): IO[Unit] = io {
+    remove(idSelector(tournament))
+  }
+
   def withdraw(user: User): IO[List[String]] = for {
     createds ← created
     createdIds ← (createds map (_ withdraw user) collect {

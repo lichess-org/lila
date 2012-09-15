@@ -45,9 +45,14 @@ final class TournamentApi(
     _ ← reloadSiteSocket
   } yield ()) doIf created.readyToStart
 
+  def wipeEmpty(created: Created): IO[Unit] = (for {
+    _ ← repo removeIO created
+    _ ← reloadSiteSocket
+  } yield ()) doIf created.isEmpty
+
   def finish(started: Started): IO[Unit] = (for {
     _ ← repo saveIO started.finish
-    _ ← socket reload started.id
+    _ ← socket reloadPage started.id
     _ ← reloadSiteSocket
   } yield ()) doIf started.readyToFinish
 
@@ -60,9 +65,9 @@ final class TournamentApi(
     _ ← reloadSiteSocket
   } yield ()
 
-  def withdraw(tour: Tournament, me: User): IO[Unit] = (tour match {
-    case created: Created   ⇒ created withdraw me
-    case started: Started   ⇒ started withdraw me
+  def withdraw(tour: Tournament, user: User): IO[Unit] = (tour match {
+    case created: Created   ⇒ created withdraw user
+    case started: Started   ⇒ started withdraw user
     case finished: Finished ⇒ !!("Cannot withdraw from finished tournament " + finished.id)
   }).fold(
     err ⇒ putStrLn(err.shows),

@@ -46,7 +46,8 @@ final class Organizer(
   }
 
   def startTournament(tour: Created) {
-    (api start tour).unsafePerformIO
+    if (tour.isEmpty) (api wipeEmpty tour).unsafePerformIO
+    else (api start tour).unsafePerformIO
   }
 
   def finishTournaments {

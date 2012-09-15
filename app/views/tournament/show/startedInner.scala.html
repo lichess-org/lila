@@ -1,10 +1,17 @@
-@(tour: lila.tournament.Started, games: List[DbGame])(implicit ctx: Context)
+@(tour: lila.tournament.Started, games: List[DbGame], pov: Option[Pov])(implicit ctx: Context)
 
 <span class="tournament_clock" data-time="@tour.remainingSeconds">
   @tour.clockStatus
 </span>
 
 <h1>@tour.nameT</h1>
+
+@pov.map { p =>
+<a class="pov button shadowed" href="@routes.Round.player(p.fullId)">
+  You are playing against @userIdToUsername(p.opponent.userId)
+  <span class="pov_join">Join the game</span>
+</a>
+}
 
 @tournament.standing(tour)
 

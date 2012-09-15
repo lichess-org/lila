@@ -33,7 +33,7 @@ final class Socket(
   }
 
   def reloadPage(tournamentId: String) = io {
-    hubMaster ! Forward(tournamentId, ReloadPage).pp
+    hubMaster ! Forward(tournamentId, ReloadPage)
   }
 
   def notifyPairing(game: DbGame) = io {
