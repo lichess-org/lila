@@ -2,7 +2,7 @@
 . bin/lilarc
 
 URL=$PROD_URL
-TIMEOUT=5 # Restart if it takes longer than that
+TIMEOUT=8 # Restart if it takes longer than that
 DELAY=20 # Check every delay
 MSG="Connect to $URL in less than $TIMEOUT seconds"
 

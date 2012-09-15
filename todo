@@ -36,6 +36,10 @@ tournament replace game->tour redirect with big link
 tournament berserker = half time, double points
 add opera to supported browsers
 detected opera but no websockets = help message
+chat icons (k) (K)
+blind accessible
+home anon replace chat with mini boards
+make hand and finisher actors to avoid racing conditions
 
 next deploy
 -----------

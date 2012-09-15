@@ -11,6 +11,7 @@ import scalaz.NonEmptyList
 import user.User
 
 case class Data(
+  name: String,
   minutes: Int,
   minUsers: Int,
   createdAt: DateTime,
@@ -26,6 +27,9 @@ sealed trait Tournament {
 
   def numerotedPairings: Seq[(Int, Pairing)] = (pairings.size to 1 by -1) zip pairings
 
+  def name = data.name
+  def nameT = name + " tournament"
+
   def minutes = data.minutes
   lazy val duration = new Duration(minutes * 60 * 1000)
 
@@ -34,6 +38,8 @@ sealed trait Tournament {
   def minUsers = data.minUsers
   def contains(username: String): Boolean = users contains username
   def contains(user: User): Boolean = contains(user.id)
+  def contains(user: Option[User]): Boolean =
+    user.fold(u ⇒ contains(u.id), false)
   def missingUsers = minUsers - users.size
 
   def showClock = "2+0"
@@ -107,7 +113,9 @@ case class Started(
     pairings = pairings map { p ⇒ (p.gameId == gameId).fold(f(p), p) }
   )
 
-  def readyToFinish = DateTime.now > finishedAt
+  def readyToFinish = remainingSeconds == 0
+
+  def remainingSeconds: Int = math.max(0, finishedAt.getSeconds - nowSeconds).toInt
 
   def finish = Finished(
     id = id,
@@ -135,7 +143,7 @@ case class RawTournament(
     data: Data,
     startedAt: Option[DateTime] = None,
     pairings: List[RawPairing] = Nil,
-    standing: Standing = Nil) {
+    standing: List[Player] = Nil) {
 
   def created: Option[Created] = (status == Status.Created.id) option Created(
     id = id,
@@ -181,6 +189,7 @@ object Tournament {
     minUsers: Int): Created = Created(
     id = Random nextString 8,
     data = Data(
+      name = RandomName(),
       createdBy = createdBy,
       createdAt = DateTime.now,
       minutes = minutes,

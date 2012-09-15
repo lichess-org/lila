@@ -1,5 +1,7 @@
 // tournament
 $(function() {
+  
+  if (typeof lichess_data == "undefined") return;
 
   var $wrap = $('#tournament');
   var $userTag = $('#user_tag');
@@ -11,6 +13,10 @@ $(function() {
   var chatExists = $chat.length > 0;
   var $userList = $wrap.find("div.user_list");
   var socketUrl = $wrap.data("socket-url");
+
+  $("span.tournament_clock").each(function() {
+    $(this).clock({time: $(this).data("time")}).clock("start");
+  });
 
   if (chatExists) {
     var $form = $chat.find('form');

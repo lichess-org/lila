@@ -7,71 +7,15 @@ title = "Tournaments") {
 
     <h1 class="lichess_title">Tournaments</h1>
     <div class="body">
-      <table class="createds tournaments">
-        <thead>
-          <tr>
-            <th colspan="4">Incoming tournaments</th>
-          </tr>
-        </thead>
-        <tbody>
-        @createds.map { tour =>
-        <tr>
-          <td>@linkTo(tour)</td>
-          <td>@tour.minutes minutes</td>
-          <td>@tour.nbUsers / @tour.minUsers players</td>
-          <td>
-            @if(ctx.me.fold(tour.contains, false)) {
-            JOINED
-            }
-          </td>
-        </tr>
-        }
-        </tbody>
-      </table>
-      <table class="starteds tournaments">
-        <thead>
-          <tr>
-            <th rowspan="4">In progress</th>
-          </tr>
-        </thead>
-        <tbody>
-        @starteds.map { tour =>
-        <tr>
-          <td>@linkTo(tour)</td>
-          <td>@tour.minutes minutes</td>
-          <td>@tour.nbUsers / @tour.minUsers players</td>
-          <td>
-            @if(ctx.me.fold(tour.contains, false)) {
-            JOINED
-            }
-          </td>
-        </tr>
-        }
-        </tbody>
-      </table>
-      <table class="finisheds tournaments">
-        <thead>
-          <tr>
-            <th rowspan="4">Completed</th>
-          </tr>
-        </thead>
-        <tbody>
-        @finisheds.map { tour =>
-        <tr>
-          <td>@linkTo(tour)</td>
-          <td>@tour.minutes minutes</td>
-          <td>@tour.nbUsers / @tour.minUsers players</td>
-          @tour.winnerUserId.map { winner =>
-            <td>Won by @userIdLink(winner.some, withOnline = false)</td>
-          }
-        </tr>
-        }
-        </tbody>
+      <table class="data all_tournaments">
+        @table(createds, "Open tournaments")
+        @table(starteds, "Now playing")
+        @table(finisheds, "Finished")
       </table>
     </div>
     <div>
-    <a href="@routes.Tournament.form()" class="action">Create a new tournament</a>
-  </div>
+      <a href="@routes.Tournament.form()" class="action">Create a new tournament</a>
+    </div>
   </div>
 </div>
 }
