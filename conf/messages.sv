@@ -138,4 +138,5 @@ yourOpponentProposesATakeback=Din motståndare föreslår ett bakåtsteg
 bookmarkThisGame=Bokmärk detta spel
 toggleBackground=Ställa in bakgrundsfärg
 advancedSearch=Avancerad Sökning
+tournament=Turnering
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Gratis Schack på internet. Spela Schack nu, med ett enkelt gränssnitt. Ingen registrering, inga annonser, inga instickningsprogram behövs. Spela Schack mot datorn, vänner eller vem som helst.
