@@ -21,6 +21,7 @@ object Lobby extends LilaController with Results {
   private def timelineRecent = env.timeline.entryRepo.recent
   private def messageRepo = env.lobby.messageRepo
   private def featured = env.game.featured
+  private def openTours = env.tournament.repo.created
 
   val home = Open { implicit ctx ⇒
     Async {
@@ -42,13 +43,15 @@ object Lobby extends LilaController with Results {
       chat = ctx.canSeeChat,
       myHook = myHook,
       timeline = timelineRecent,
-      posts = forumRecent(ctx.me)
+      posts = forumRecent(ctx.me),
+      tours = openTours
     ).map(_.fold(
         url ⇒ Redirect(url), {
-          case (preload, posts, featured) ⇒ status(html.lobby.home(
+          case (preload, posts, tours, featured) ⇒ status(html.lobby.home(
             toJson(preload),
             myHook,
             posts,
+            tours,
             featured))
         }
       )).asPromise

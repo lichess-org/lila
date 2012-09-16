@@ -1,0 +1,23 @@
+@(tours: List[lila.tournament.Created])
+
+@if(tours.isEmpty) {
+<tr class="create">
+  <td colspan="5">
+    <a href="@routes.Tournament.form()" class="action">Create a new tournament</a>
+  </td>
+</tr>
+} else {
+@tours.map { tour =>
+<tr>
+  <td>@tournament.linkTo(tour)</td>
+  <td>@tour.clock.show</td>
+  <td>@{tour.minutes}m</td>
+  <td>@tour.playerRatio</td>
+  <td>
+    <form action="@routes.Tournament.join(tour.id)" method="POST">
+      <input type="submit" class="submit button" value="Join" />
+    </form>
+  </td>
+</tr>
+}
+}

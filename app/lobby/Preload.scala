@@ -6,6 +6,7 @@ import game.{ DbGame, Featured }
 import forum.PostView
 import controllers.routes
 import socket.History
+import tournament.Created
 
 import play.api.mvc.Call
 import play.api.libs.concurrent.Akka
@@ -25,7 +26,7 @@ final class Preload(
 
   private implicit val executor = Akka.system.dispatcher
   private implicit val timeout = Timeout(1 second)
-  private type RightResponse = (Map[String, Any], List[PostView], Option[DbGame])
+  private type RightResponse = (Map[String, Any], List[PostView], List[Created], Option[DbGame])
   private type Response = Either[Call, RightResponse]
 
   def apply(
@@ -33,7 +34,8 @@ final class Preload(
     chat: Boolean,
     myHook: Option[Hook],
     timeline: IO[List[Entry]],
-    posts: IO[List[PostView]]): Future[Response] =
+    posts: IO[List[PostView]],
+    tours: IO[List[Created]]): Future[Response] =
     myHook.flatMap(_.gameId).fold(
       gameId ⇒ futureGame(gameId) map { gameOption ⇒
         Left(gameOption.fold(
@@ -45,13 +47,14 @@ final class Preload(
       futureMessages(chat) zip 
       ioToFuture(timeline) zip
       ioToFuture(posts) zip
+      ioToFuture(tours) zip
       featured.one map {
-        case ((((hooks, messages), entries), posts), feat) ⇒ (Right((Map(
+        case (((((hooks, messages), entries), posts), tours), feat) ⇒ (Right((Map(
           "version" -> history.version,
           "pool" -> renderHooks(hooks, myHook),
           "chat" -> (messages.reverse map (_.render)),
           "timeline" -> (entries.reverse map (_.render))
-        ), posts, feat))): Response
+        ), posts, tours, feat))): Response
       }
     )
 

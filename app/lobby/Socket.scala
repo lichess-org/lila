@@ -69,4 +69,8 @@ final class Socket(hub: ActorRef, flood: Flood) {
   def biteHook(hook: Hook, game: DbGame): IO[Unit] = io {
     hub ! BiteHook(hook, game)
   }
+
+  def reloadTournaments(html: String): IO[Unit] = io {
+    hub ! ReloadTournaments(html)
+  }
 }

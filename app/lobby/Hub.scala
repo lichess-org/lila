@@ -36,6 +36,8 @@ final class Hub(
       ))
     }
 
+    case ReloadTournaments(html) => notifyTournaments(html)
+
     case AddEntry(entry) ⇒ notifyVersion("entry", JsString(entry.render))
 
     case AddHook(hook) ⇒ notifyVersion("hook_add", Seq(
@@ -66,6 +68,11 @@ final class Hub(
     val msg = makeMessage("featured", JsObject(Seq(
       "oldId" -> oldId.fold(JsString(_), JsNull),
       "newId" -> JsString(newId))))
+    members.values foreach (_.channel push msg)
+  }
+
+  def notifyTournaments(html: String) {
+    val msg = makeMessage("tournaments", JsString(html))
     members.values foreach (_.channel push msg)
   }
 

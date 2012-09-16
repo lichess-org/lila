@@ -27,6 +27,7 @@ sealed trait Tournament {
   def players: Players
   def winner: Option[Player]
   def pairings: List[Pairing]
+  def isOpen: Boolean = false
   def isRunning: Boolean = false
   def isFinished: Boolean = false
 
@@ -87,6 +88,8 @@ case class Created(
     players: Players) extends Tournament {
 
   import data._
+
+  override def isOpen = true
 
   def readyToStart = players.size >= minPlayers
 

@@ -15,6 +15,7 @@ case class Member(
   def ownsHook(hook: Hook) = Some(hook.ownerId) == hookOwnerId
 }
 
+case class ReloadTournaments(html: String)
 case class WithHooks(op: Iterable[String] ⇒ IO[Unit])
 case class AddHook(hook: Hook)
 case class RemoveHook(hook: Hook)

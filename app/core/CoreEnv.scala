@@ -105,6 +105,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     timelinePush = timeline.push.apply,
     flood = security.flood,
     siteSocket = site.socket,
+    lobbyNotify = lobby.socket.reloadTournaments,
     mongodb = mongodb.apply _)
 
   lazy val analyse = new lila.analyse.AnalyseEnv(
