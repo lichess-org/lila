@@ -142,7 +142,7 @@ case class Started(
     pairings = pairings map { p ⇒ (p.gameId == gameId).fold(f(p), p) }
   )
 
-  def readyToFinish = remainingSeconds == 0
+  def readyToFinish = (remainingSeconds == 0) || (nbActiveUsers < 2)
 
   def remainingSeconds: Int = math.max(0, finishedAt.getSeconds - nowSeconds).toInt
 

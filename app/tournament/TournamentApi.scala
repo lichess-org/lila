@@ -70,19 +70,29 @@ final class TournamentApi(
     _ ← lobbyReload
   } yield ()
 
-  def withdraw(tour: Tournament, userId: String): IO[Unit] = (tour match {
-    case created: Created   ⇒ created withdraw userId
-    case started: Started   ⇒ started withdraw userId
-    case finished: Finished ⇒ !!("Cannot withdraw from finished tournament " + finished.id)
-  }).fold(
-    err ⇒ putStrLn(err.shows),
-    tour2 ⇒ for {
-      _ ← repo saveIO tour2
-      _ ← socket reload tour2.id
-      _ ← reloadSiteSocket
-      _ ← lobbyReload doIf tour2.isOpen
-    } yield ()
-  )
+  def withdraw(tour: Tournament, userId: String): IO[Unit] = tour match {
+    case created: Created ⇒ (created withdraw userId).fold(
+      err ⇒ putStrLn(err.shows),
+      tour ⇒ for {
+        _ ← repo saveIO tour
+        _ ← socket reload tour.id
+        _ ← reloadSiteSocket
+        _ ← lobbyReload
+      } yield ()
+    )
+    case started: Started ⇒ (started withdraw userId).fold(
+      err ⇒ putStrLn(err.shows),
+      tour ⇒ tour.readyToFinish.fold(
+        finish(tour),
+        for {
+          _ ← repo saveIO tour
+          _ ← socket reload tour.id
+          _ ← reloadSiteSocket
+        } yield ()
+      )
+    )
+    case finished: Finished ⇒ putStrLn("Cannot withdraw from finished tournament " + finished.id)
+  }
 
   def finishGame(game: DbGame): IO[Option[Tournament]] = for {
     tourOption ← game.tournamentId.fold(repo.startedById, io(None))
