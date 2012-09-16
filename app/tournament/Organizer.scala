@@ -32,11 +32,11 @@ final class Organizer(
     case StartPairings                    ⇒ startPairings
     case StartPairing(tour: Started)      ⇒ startPairing(tour)
 
-    case FinishGame(gameId: String)       ⇒ finishGame(gameId)
+    case FinishGame(game)       ⇒ finishGame(game)
   }
 
-  def finishGame(gameId: String) {
-    api.finishGame(gameId).unsafePerformIO foreach { tour ⇒
+  def finishGame(game: DbGame) {
+    api.finishGame(game).unsafePerformIO foreach { tour ⇒
       hubMaster ! Forward(tour.id, Reload)
     }
   }

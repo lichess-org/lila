@@ -78,17 +78,14 @@ final class TournamentApi(
     } yield ()
   )
 
-  def finishGame(gameId: String): IO[Option[Tournament]] = for {
-    gameOption ← gameRepo game gameId
-    tourOption ← gameOption flatMap (_.tournamentId) fold (repo.startedById, io(None))
-    result ← {
-      (gameOption |@| tourOption) apply { (game: DbGame, tour: Started) ⇒
-        repo saveIO tour.updatePairing(
-          game.id,
-          _.finish(game.status, game.winnerUserId)
-        ) map (_ ⇒ tour.some)
-      }
-    } | io(none)
+  def finishGame(game: DbGame): IO[Option[Tournament]] = for {
+    tourOption ← game.tournamentId.fold(repo.startedById, io(None))
+    result ← tourOption.filter(_ ⇒ game.finished).fold(
+      tour ⇒ repo saveIO tour.updatePairing(
+        game.id, _.finish(game.status, game.winnerUserId)
+      ) map (_ ⇒ tour.some),
+      io(none)
+    )
   } yield result
 
   private val reloadMessage = JsObject(Seq("t" -> JsString("reload"), "d" -> JsNull))

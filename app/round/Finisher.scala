@@ -93,7 +93,7 @@ final class Finisher(
       _ ← incNbGames(g, White) doIf (g.status >= Status.Mate)
       _ ← incNbGames(g, Black) doIf (g.status >= Status.Mate)
       _ ← indexGame(g)
-      _ ← io { tournamentOrganizerActor ! FinishGame(g.id) }
+      _ ← io { tournamentOrganizerActor ! FinishGame(g) }
     } yield p2.events)
 
   private def incNbGames(game: DbGame, color: Color): IO[Unit] =
