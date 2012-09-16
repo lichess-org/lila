@@ -37,8 +37,7 @@ final class RoundEnv(
     makeHistory = history,
     uidTimeout = RoundUidTimeout,
     hubTimeout = RoundHubTimeout,
-    playerTimeout = RoundPlayerTimeout,
-    tournamentOrganizerActorName = ActorTournamentOrganizer
+    playerTimeout = RoundPlayerTimeout
   )), name = ActorRoundHubMaster)
 
   lazy val moveNotifier = new MoveNotifier(
@@ -72,7 +71,8 @@ final class RoundEnv(
     eloUpdater = eloUpdater,
     eloCalculator = eloCalculator,
     finisherLock = finisherLock,
-    indexGame = indexGame)
+    indexGame = indexGame,
+    tournamentOrganizerActorName = ActorTournamentOrganizer)
 
   lazy val eloCalculator = new chess.EloCalculator(false)
 
