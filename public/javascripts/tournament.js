@@ -93,5 +93,4 @@ $(function() {
       name: "tournament"
     }
   }));
-  $('body').trigger('lichess.content_loaded');
 });

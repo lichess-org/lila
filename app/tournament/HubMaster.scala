@@ -1,7 +1,7 @@
 package lila
 package tournament
 
-import socket.{ History, Broom, Close, GetNbMembers, GetUsernames, NbMembers, SendTo }
+import socket.{ History, Broom, Close, GetNbMembers, GetUsernames, NbMembers, SendTo, Fen }
 
 import akka.actor._
 import akka.actor.ReceiveTimeout
@@ -59,13 +59,15 @@ final class HubMaster(
       sender ! Nil
     )
 
-    case GetTournamentIds => hubs.keys
+    case GetTournamentIds ⇒ hubs.keys
 
     case GetUsernames ⇒ Future.traverse(hubs.values) { hub ⇒
       (hub ? GetUsernames).mapTo[Iterable[String]]
     } map (_.flatten) pipeTo sender
 
     case msg @ NbMembers(_) ⇒ hubs.values foreach (_ ! msg)
+
+    case msg @ Fen(_, _, _) ⇒ hubs.values foreach (_ ! msg)
   }
 
   private def mkHub(tournamentId: String): ActorRef =

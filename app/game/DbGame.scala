@@ -346,8 +346,7 @@ case class DbGame(
   }
 
   def isBeingPlayed =
-    !finishedOrAborted && updatedAt.fold(
-      _ > DateTime.now - 20.seconds, false)
+    !finishedOrAborted && updatedAt.fold(_ > DateTime.now - 20.seconds, false)
 
   def hasBookmarks = bookmarks > 0
 
