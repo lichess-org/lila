@@ -32,6 +32,10 @@ final class Finisher(
     if (pov.game.abortable) finish(pov.game, Aborted)
     else !!("game is not abortable")
 
+  def forceAbort(game: DbGame): ValidIOEvents = 
+    if (game.playable) finish(game, Aborted)
+    else !!("game is not playable, cannot be force aborted")
+
   def resign(pov: Pov): ValidIOEvents =
     if (pov.game.resignable) finish(pov.game, Resign, Some(!pov.color))
     else !!("game is not resignable")

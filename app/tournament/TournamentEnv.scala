@@ -24,6 +24,7 @@ final class TournamentEnv(
     flood: Flood,
     siteSocket: site.Socket,
     lobbyNotify: String ⇒ IO[Unit],
+    abortGame: String ⇒ IO[Unit],
     mongodb: String ⇒ MongoCollection) {
 
   implicit val ctx = app
@@ -41,7 +42,8 @@ final class TournamentEnv(
     timelinePush = timelinePush,
     socket = socket,
     siteSocket = siteSocket,
-    lobbyNotify = lobbyNotify)
+    lobbyNotify = lobbyNotify,
+    abortGame = abortGame)
 
   lazy val roomRepo = new RoomRepo(
     collection = mongodb(TournamentCollectionRoom)

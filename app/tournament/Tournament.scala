@@ -149,10 +149,12 @@ case class Started(
   def clockStatus = "%02d:%02d".format(remainingSeconds / 60, remainingSeconds % 60)
 
   def userCurrentPov(userId: String): Option[PovRef] = {
-    pairings filter (_.playing) map { _ povRef userId }
+    playingPairings map { _ povRef userId }
   }.flatten.headOption
   def userCurrentPov(user: Option[User]): Option[PovRef] =
     user.fold(u ⇒ userCurrentPov(u.id), none)
+
+  def playingPairings = pairings filter (_.playing)
 
   def finish = refreshPlayers |> { tour ⇒
     Finished(

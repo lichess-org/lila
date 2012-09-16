@@ -44,9 +44,7 @@ make hand and finisher actors to avoid racing conditions
 tournament crowd
 tournament monitor
 all hub members should use userIds rather than usernames
-finish games when tournament is over
 add opera to list of supported browsers (with websocket trick)
 tournament ties
 tournament detect leavers and withdraw them (started) (also use force resign)
-tournament end when all but one players resigned
 send lobby new forum posts html through websockets
