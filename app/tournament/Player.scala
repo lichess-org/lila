@@ -31,7 +31,7 @@ object Player {
 
   def refresh(tour: Tournament): Players = tour.players.map { player ⇒
     tour.pairings
-      .filter(_ contains player.id)
+      .filter(p ⇒ p.finished && (p contains player.id))
       .foldLeft(Builder(player))(_ + _.winner)
       .toPlayer
   } sortBy (p ⇒ -p.score)
@@ -61,9 +61,9 @@ object Player {
     }
 
     def toPlayer = player.copy(
-      nbWin = nbWin, 
-      nbLoss = nbLoss, 
-      winStreak = bestWinSeq, 
+      nbWin = nbWin,
+      nbLoss = nbLoss,
+      winStreak = bestWinSeq,
       score = score)
   }
 }
