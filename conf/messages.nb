@@ -138,4 +138,5 @@ yourOpponentProposesATakeback=Din motstander foreslår å angre
 bookmarkThisGame=Bokmerk dette spillet
 toggleBackground=Velg bakgrunnsfarge
 advancedSearch=Avansert søk
+tournament=Turnering
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Gratis online sjakk. Spill sjakk nå med et rent grensesnitt. Ingen registrering, ingen reklame og ingen nettlesertillegg nødvendig. Spill sjakk mot datamaskinen, en venn eller tilfeldige motstandere.
