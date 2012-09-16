@@ -41,13 +41,9 @@ blind accessible
 home anon replace chat with mini boards
 make hand and finisher actors to avoid racing conditions
 1024 screen issue http://awesomescreenshot.com/0b7g69503
-tournament crowd
 tournament monitor
 all hub members should use userIds rather than usernames
 add opera to list of supported browsers (with websocket trick)
 tournament ties
 tournament detect leavers and withdraw them (started) (also use force resign)
 send lobby new forum posts html through websockets
-
-next deploy
-db.game2.dropIndex("tid_1")
