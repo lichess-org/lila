@@ -15,6 +15,10 @@ $.widget("lichess.game", {
     self.options.socketUrl = self.element.data('socket-url');
     self.socketAckTimeout;
 
+    $("div.game_tournament .clock").each(function() {
+      $(this).clock({time: $(this).data("time")}).clock("start");
+    });
+
     if (self.options.game.started) {
       self.indicateTurn();
       self.initSquaresAndPieces();

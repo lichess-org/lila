@@ -21,6 +21,7 @@ object Analyse extends LilaController {
   private def roundSocket = env.round.socket
   private def roundHubMaster = env.round.hubMaster
   private def analyser = env.analyse.analyser
+  private def tournamentRepo = env.tournament.repo
 
   def computer(id: String, color: String) = Auth { implicit ctx ⇒
     me ⇒
@@ -41,6 +42,7 @@ object Analyse extends LilaController {
         bookmarkers ← bookmarkApi usersByGame pov.game
         pgn ← pgnDump >> pov.game
         analysis ← analyser get pov.game.id
+        tour ← tournamentRepo byId pov.game.tournamentId
       } yield html.analyse.replay(
         pov,
         pgn.toString,
@@ -48,7 +50,8 @@ object Analyse extends LilaController {
         bookmarkers,
         openingExplorer openingOf pov.game.pgn,
         analysis,
-        roundSocket blockingVersion pov.gameId)
+        roundSocket blockingVersion pov.gameId,
+        tour)
     }
   }
 

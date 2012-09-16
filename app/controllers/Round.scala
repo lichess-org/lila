@@ -23,8 +23,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
   private def bookmarkApi = env.bookmark.api
   private def userRepo = env.user.userRepo
   private def analyser = env.analyse.analyser
-  private def isTournamentInProgress(id: Option[String]) = 
-    id.fold(env.tournament.tournamentIds.contains, false)
+  private def tournamentRepo = env.tournament.repo
 
   def websocketWatcher(gameId: String, color: String) = WebSocket.async[JsValue] { req ⇒
     implicit val ctx = reqToCtx(req)
@@ -55,6 +54,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
             u ⇒ userRepo isEngine u,
             io(false))
           analysed ← analyser has pov.gameId
+          tour ← tournamentRepo byId pov.game.tournamentId
         } yield PreventTheft(pov) {
           Ok(html.round.player(
             pov,
@@ -63,7 +63,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
             roomHtml map { Html(_) },
             bookmarkers,
             analysed,
-            tournamentInProgress = isTournamentInProgress(pov.game.tournamentId)))
+            tour = tour))
         },
         io(Redirect(routes.Setup.await(fullId)))
       )
@@ -89,7 +89,8 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
     )
     roomHtml ← messenger renderWatcher pov.game
     analysed ← analyser has pov.gameId
-  } yield Ok(html.round.watcher(pov, version(pov.gameId), Html(roomHtml), bookmarkers, analysed))
+    tour ← tournamentRepo byId pov.game.tournamentId
+  } yield Ok(html.round.watcher(pov, version(pov.gameId), Html(roomHtml), bookmarkers, analysed, tour))
 
   def abort(fullId: String) = performAndRedirect(fullId, hand.abort)
   def resign(fullId: String) = performAndRedirect(fullId, hand.resign)
@@ -126,10 +127,12 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
   }
 
   def tablePlayer(fullId: String) = Open { implicit ctx ⇒
-    IOptionOk(gameRepo pov fullId) { pov ⇒
-      pov.game.playable.fold(
-        html.round.table.playing(pov),
-        html.round.table.end(pov, isTournamentInProgress(pov.game.tournamentId)))
+    IOptionIOk(gameRepo pov fullId) { pov ⇒
+      tournamentRepo byId pov.game.tournamentId map { tour ⇒
+        pov.game.playable.fold(
+          html.round.table.playing(pov),
+          html.round.table.end(pov, tour))
+      }
     }
   }
 

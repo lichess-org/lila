@@ -7,7 +7,7 @@
        @number
       @{ Html(pairing.users.map(u =>
       "<span class='%s'>%s</span>".format(
-      pairing.finished.fold(pairing.hasWinner.fold(pairing.wonBy(u).fold("win", "loss"), "draw"), "playing"),
+      pairing.finished.fold(pairing.draw.fold("draw", pairing.wonBy(u).fold("win", "loss")), "playing"),
       userIdToUsername(u)
       )).mkString(" vs "))
       }

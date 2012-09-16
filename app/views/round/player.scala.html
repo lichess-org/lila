@@ -1,4 +1,4 @@
-@(pov: Pov, version: Int, engine: Boolean, roomHtml: Option[Html], bookmarkers: List[User], analysed: Boolean, tournamentInProgress: Boolean)(implicit ctx: Context)
+@(pov: Pov, version: Int, engine: Boolean, roomHtml: Option[Html], bookmarkers: List[User], analysed: Boolean, tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
 
 @import pov._
 
@@ -12,7 +12,7 @@
 
 @round.layout(
 title = title, 
-goodies = views.html.game.infoBox(pov),
+goodies = views.html.game.infoBox(pov, tour),
 chat = roomHtml.map(round.room(_, false)),
 underchat = underchat.some) {
 <div class="lichess_game clearfix lichess_player_@color not_spectator"
@@ -36,7 +36,7 @@ underchat = underchat.some) {
         </div>
         <div class="lichess_separator"></div>
         <div class="table_inner">
-          @game.playable.fold(round.table.playing(pov), round.table.end(pov, tournamentInProgress))
+          @game.playable.fold(round.table.playing(pov), round.table.end(pov, tour))
         </div>
       </div>
       @game.clock.map { c =>
@@ -51,7 +51,7 @@ underchat = underchat.some) {
 </div>
 <script type="text/javascript">var lichess_data = @Html(roundPlayerJsData(pov, version))</script>
 @analyse.link(pov, analysed)
-@if(!tournamentInProgress) {
+@if(!tour.fold(_.isRunning, false)) {
 @views.html.game.more(pov, bookmarkers) {
 <nav>
 <a href="@routes.Analyse.replay(gameId, color.name)">@trans.replayAndAnalyse()</a>
