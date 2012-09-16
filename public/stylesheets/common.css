@@ -52,6 +52,7 @@ div.content {
 
 #top {
   width: 100%;
+  min-width: 1005px;
   height: 24px;
   border-bottom: 1px solid #c4c4c4;
 }
