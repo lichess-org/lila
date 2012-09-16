@@ -17,7 +17,8 @@ final class TournamentApi(
     getUser: String ⇒ IO[Option[User]],
     socket: Socket,
     siteSocket: site.Socket,
-    lobbyNotify: String ⇒ IO[Unit]) {
+    lobbyNotify: String ⇒ IO[Unit],
+    abortGame: String ⇒ IO[Unit]) {
 
   def makePairings(tour: Started, pairings: NonEmptyList[Pairing]): IO[Unit] =
     (tour addPairings pairings) |> { tour2 ⇒
@@ -58,6 +59,7 @@ final class TournamentApi(
     _ ← repo saveIO started.finish
     _ ← socket reloadPage started.id
     _ ← reloadSiteSocket
+    _ ← (started.playingPairings map (_.gameId) map abortGame).sequence
   } yield ()) doIf started.readyToFinish
 
   def join(tour: Created, me: User): Valid[IO[Unit]] = for {

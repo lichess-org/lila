@@ -17,7 +17,10 @@ final class DataForm(isDev: Boolean) {
   val clockIncrementDefault = 0
   val clockIncrementChoices = options(clockIncrements, "%d second{s}")
 
-  val minutes = 10 to 60 by 5
+  val minutes = isDev.fold(
+    (1 to 9) ++ (10 to 60 by 5),
+    10 to 60 by 5
+  )
   val minuteDefault = 30
   val minuteChoices = options(minutes, "%d minute{s}")
 

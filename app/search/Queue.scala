@@ -9,7 +9,8 @@ import scalaz.effects._
 
 final class Queue(collection: MongoCollection)  {
 
-  def enqueue(game: DbGame): IO[Unit] = enqueue(game.id)
+  def enqueue(game: DbGame): IO[Unit] = 
+    game.finished.fold(enqueue(game.id), io())
 
   def enqueue(id: String): IO[Unit] = io {
     collection += DBObject("_id" -> id)
