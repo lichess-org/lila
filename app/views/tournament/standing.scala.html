@@ -17,9 +17,7 @@
     <tr>
       <td><span class="rank @flag tipsyme" title="@flag.capitalize">@rank</span></td>
       <td>
-        <a class="username" href="@routes.User.show(player.id)">
-          @player.username
-        </a>
+        @userInfosLink(player.id, player.elo.some, withOnline = false)
       </td>
       <td><strong>@player.score</strong></td>
       <td>@player.nbWin</td>

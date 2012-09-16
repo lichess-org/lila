@@ -66,13 +66,13 @@ class TournamentRepo(collection: MongoCollection)
     remove(idSelector(tournament))
   }
 
-  def withdraw(user: User): IO[List[String]] = for {
+  def withdraw(userId: String): IO[List[String]] = for {
     createds ← created
-    createdIds ← (createds map (_ withdraw user) collect {
+    createdIds ← (createds map (_ withdraw userId) collect {
       case Success(tour) ⇒ saveIO(tour) map (_ ⇒ tour.id)
     }).sequence
     starteds ← started
-    startedIds ← (starteds map (_ withdraw user) collect {
+    startedIds ← (starteds map (_ withdraw userId) collect {
       case Success(tour) ⇒ saveIO(tour) map (_ ⇒ tour.id)
     }).sequence
   } yield createdIds ::: startedIds

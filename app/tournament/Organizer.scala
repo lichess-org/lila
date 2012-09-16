@@ -23,16 +23,16 @@ final class Organizer(
 
   def receive = {
 
-    case StartTournaments                ⇒ startTournaments
-    case StartTournament(tour: Created)  ⇒ startTournament(tour)
+    case CreatedTournaments               ⇒ createdTournaments
+    case CreatedTournament(tour: Created) ⇒ createdTournament(tour)
 
-    case FinishTournaments               ⇒ finishTournaments
-    case FinishTournament(tour: Started) ⇒ finishTournament(tour)
+    case StartedTournaments               ⇒ startedTournaments
+    case StartedTournament(tour: Started) ⇒ startedTournament(tour)
 
-    case StartPairings                   ⇒ startPairings
-    case StartPairing(tour: Started)     ⇒ startPairing(tour)
+    case StartPairings                    ⇒ startPairings
+    case StartPairing(tour: Started)      ⇒ startPairing(tour)
 
-    case FinishGame(gameId: String)      ⇒ finishGame(gameId)
+    case FinishGame(gameId: String)       ⇒ finishGame(gameId)
   }
 
   def finishGame(gameId: String) {
@@ -41,20 +41,25 @@ final class Organizer(
     }
   }
 
-  def startTournaments {
-    repo.created.unsafePerformIO foreach startTournament
+  def createdTournaments {
+    repo.created.unsafePerformIO foreach createdTournament
   }
 
-  def startTournament(tour: Created) {
+  def createdTournament(tour: Created) {
     if (tour.isEmpty) (api wipeEmpty tour).unsafePerformIO
-    else (api start tour).unsafePerformIO
+    else if (tour.readyToStart) (api start tour).unsafePerformIO
+    else (hubMaster ? GetTournamentUsernames(tour.id)).mapTo[Iterable[String]] onSuccess {
+      case usernames ⇒ (tour.userIds diff usernames.toList.map(_.toLowerCase)) |> { leavers ⇒
+        leavers.map(u ⇒ api.withdraw(tour, u)).sequence.unsafePerformIO
+      }
+    }
   }
 
-  def finishTournaments {
-    repo.started.unsafePerformIO foreach finishTournament
+  def startedTournaments {
+    repo.started.unsafePerformIO foreach startedTournament
   }
 
-  def finishTournament(tour: Started) {
+  def startedTournament(tour: Started) {
     (api finish tour).unsafePerformIO
   }
 

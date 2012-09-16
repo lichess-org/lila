@@ -28,7 +28,7 @@ final class TournamentApi(
     }
 
   def createTournament(setup: TournamentSetup, me: User): IO[Created] = for {
-    withdrawIds ← repo withdraw me
+    withdrawIds ← repo withdraw me.id
     created = Tournament(
       createdBy = me,
       clock = TournamentClock(setup.clockTime * 60, setup.clockIncrement),
@@ -59,15 +59,15 @@ final class TournamentApi(
   def join(tour: Created, me: User): Valid[IO[Unit]] = for {
     tour2 ← tour join me
   } yield for {
-    withdrawIds ← repo withdraw me
+    withdrawIds ← repo withdraw me.id
     _ ← repo saveIO tour2
     _ ← ((tour.id :: withdrawIds) map socket.reload).sequence
     _ ← reloadSiteSocket
   } yield ()
 
-  def withdraw(tour: Tournament, user: User): IO[Unit] = (tour match {
-    case created: Created   ⇒ created withdraw user
-    case started: Started   ⇒ started withdraw user
+  def withdraw(tour: Tournament, userId: String): IO[Unit] = (tour match {
+    case created: Created   ⇒ created withdraw userId
+    case started: Started   ⇒ started withdraw userId
     case finished: Finished ⇒ !!("Cannot withdraw from finished tournament " + finished.id)
   }).fold(
     err ⇒ putStrLn(err.shows),

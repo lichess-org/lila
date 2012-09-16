@@ -1,12 +1,25 @@
 #tournament div.tournament_box {
-  width: 476px;
+  padding: 0;
+}
+#tournament div.tournament_box h1 {
+  display: block;
+  padding: 20px 25px;
 }
 
-#tournament .tournament_clock {
+#tournament .title_tag {
   float: right;
   font-size: 20px;
   font-family: monospace;
   font-weight: bold;
+  margin: 21px 25px 0 0;
+}
+
+#tournament div.tournament_show {
+  width: 525px;
+}
+
+#tournament div.tournament_show div.game_list {
+  margin: 25px 0 0 15px;
 }
 
 #tournament a.pov {
@@ -21,9 +34,7 @@
 }
 
 #tournament table.data {
-  margin-top: 2em;
-  margin-left: -24px;
-  width: 524px;
+  width: 100%;
   border-bottom: 1px solid #d4d4d4;
 }
 
@@ -38,9 +49,6 @@
 #tournament table.data td {
   padding: 0.6em;
   font-size: 1.2em;
-}
-#tournament table.data .high td {
-  padding: 1.2em 0.6em;
 }
 #tournament table.data .create td {
   padding: 0.6em 1.2em 0.6em 0.6em;
@@ -60,7 +68,7 @@
 }
 #tournament table.data td:first-child,
 #tournament table.data th:first-child {
-  padding-left: 24px;
+  padding-left: 25px;
 }
 
 #tournament table.data span.rank {
@@ -74,11 +82,6 @@
 }
 #tournament table.data tbody span.winner {
   background-position: right -304px;
-}
-
-#tournament div.game_list.realtime {
-  margin: 2em 0 0 -10px;
-  width: 511px;
 }
 
 #tournament form.inline {
