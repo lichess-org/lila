@@ -8,6 +8,7 @@ import akka.actor._
 
 import play.api.libs.concurrent._
 import play.api.Application
+import play.api.Mode.Dev
 
 import ui._
 
@@ -167,6 +168,6 @@ object CoreEnv {
 
   def apply(app: Application) = new CoreEnv(
     app,
-    new Settings(app.configuration.underlying)
+    new Settings(app.configuration.underlying, app.mode == Dev)
   )
 }

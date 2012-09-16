@@ -71,7 +71,7 @@ final class Organizer(
     (hubMaster ? GetTournamentUsernames(tour.id)).mapTo[Iterable[String]] onSuccess {
       case usernames ⇒
         (tour.activeUserIds intersect usernames.toList.map(_.toLowerCase)) |> { users ⇒
-          Pairing.createNewPairings(users, tour.pairings).toNel foreach { pairings ⇒
+          Pairing.createNewPairings(users, tour.pairings, tour.nbActiveUsers).toNel foreach { pairings ⇒
             api.makePairings(tour, pairings).unsafePerformIO
           }
         }

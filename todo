@@ -48,5 +48,5 @@ finish games when tournament is over
 add opera to list of supported browsers (with websocket trick)
 tournament ties
 tournament detect leavers and withdraw them (started) (also use force resign)
-tournament stalled with 2 players http://en.lichess.org/tournament/6ad411tf
 tournament end when all but one players resigned
+send lobby new forum posts html through websockets

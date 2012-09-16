@@ -66,7 +66,7 @@ object Pairing {
     user2 = user2,
     winner = none)
 
-  def createNewPairings(users: List[String], pairings: Pairings): Pairings =
+  def createNewPairings(users: List[String], pairings: Pairings, nbActiveUsers: Int): Pairings =
 
     if (users.size < 2)
       Nil
@@ -79,7 +79,7 @@ object Pairing {
         naivePairings(idles),
         (idles.size > 12).fold(
           naivePairings(idles),
-          smartPairings(idles, pairings)
+          smartPairings(idles, pairings, nbActiveUsers)
         )
       )
     }
@@ -89,7 +89,7 @@ object Pairing {
       case List(u1, u2) ⇒ Pairing(u1, u2)
     } toList
 
-  private def smartPairings(users: List[String], pairings: Pairings): Pairings = {
+  private def smartPairings(users: List[String], pairings: Pairings, nbActiveUsers: Int): Pairings = {
 
     def lastOpponent(user: String): Option[String] =
       pairings find (_ contains user) flatMap (_ opponentOf user)
@@ -109,6 +109,7 @@ object Pairing {
 
     (users match {
       case x if x.size < 2                            ⇒ Nil
+      case List(u1, u2) if nbActiveUsers == 2         ⇒ List(u1 -> u2)
       case List(u1, u2) if justPlayedTogether(u1, u2) ⇒ Nil
       case List(u1, u2)                               ⇒ List(u1 -> u2)
       case us ⇒ allPairCombinations(us)
