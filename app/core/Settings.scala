@@ -4,7 +4,7 @@ package core
 import com.typesafe.config.Config
 import scalaz.{ Success, Failure }
 
-final class Settings(config: Config) {
+final class Settings(config: Config, val IsDev: Boolean) {
 
   import config._
 

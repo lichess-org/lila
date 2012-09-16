@@ -1,6 +1,6 @@
-@(form: Form[_])(implicit ctx: Context)
+@(form: Form[_], config: lila.tournament.DataForm)(implicit ctx: Context)
 
-@import lila.tournament.Tournament
+@import config._
 
 @tournament.layout(
 title = "New tournament") {
@@ -17,7 +17,7 @@ title = "New tournament") {
             <label for="@form("clockTime").id">Clock time</label>
           </th>
           <td>
-            @base.select(form("clockTime"), Tournament.clockTimeChoices)
+            @base.select(form("clockTime"), config.clockTimeChoices)
           </td>
         </tr>
         <tr>
@@ -25,7 +25,7 @@ title = "New tournament") {
             <label for="@form("clockIncrement").id">Clock increment</label>
           </th>
           <td>
-            @base.select(form("clockIncrement"), Tournament.clockIncrementChoices)
+            @base.select(form("clockIncrement"), config.clockIncrementChoices)
           </td>
         </tr>
         <tr>
@@ -33,7 +33,7 @@ title = "New tournament") {
             <label for="@form("minutes").id">Duration</label>
           </th>
           <td>
-            @base.select(form("minutes"), Tournament.minuteChoices)
+            @base.select(form("minutes"), config.minuteChoices)
           </td>
         </tr>
         <tr>
@@ -41,7 +41,7 @@ title = "New tournament") {
             <label for="@form("minPlayers").id">Players</label>
           </th>
           <td>
-            @base.select(form("minPlayers"), Tournament.minPlayerChoices)
+            @base.select(form("minPlayers"), config.minPlayerChoices)
           </td>
         </tr>
         <tr>

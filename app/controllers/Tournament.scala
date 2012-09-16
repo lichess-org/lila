@@ -124,7 +124,7 @@ object Tournament extends LilaController {
 
   def form = Auth { implicit ctx ⇒
     me ⇒
-      Ok(html.tournament.form(forms.create))
+      Ok(html.tournament.form(forms.create, forms))
   }
 
   def create = AuthBody { implicit ctx ⇒
@@ -132,7 +132,7 @@ object Tournament extends LilaController {
       IOResult {
         implicit val req = ctx.body
         forms.create.bindFromRequest.fold(
-          err ⇒ io(BadRequest(html.tournament.form(err))),
+          err ⇒ io(BadRequest(html.tournament.form(err, forms))),
           setup ⇒ api.createTournament(setup, me) map { tour ⇒
             Redirect(routes.Tournament.show(tour.id))
           })

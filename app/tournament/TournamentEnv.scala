@@ -29,7 +29,7 @@ final class TournamentEnv(
   implicit val ctx = app
   import settings._
 
-  lazy val forms = new DataForm
+  lazy val forms = new DataForm(IsDev)
 
   lazy val repo = new TournamentRepo(
     collection = mongodb(TournamentCollectionTournament))

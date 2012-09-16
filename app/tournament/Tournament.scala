@@ -42,6 +42,7 @@ sealed trait Tournament {
 
   def userIds = players map (_.id)
   def activeUserIds = players filter (_.active) map (_.id)
+  def nbActiveUsers = players count (_.active) 
   def nbPlayers = players.size
   def minPlayers = data.minPlayers
   def playerRatio = "%d/%d".format(nbPlayers, minPlayers)
@@ -255,20 +256,4 @@ object Tournament {
       minPlayers = minPlayers),
     players = List(Player(createdBy))
   )
-
-  val clockTimes = 0 to 10 by 1
-  val clockTimeDefault = 2
-  val clockTimeChoices = options(clockTimes, "%d minute{s}")
-
-  val clockIncrements = 0 to 2 by 1
-  val clockIncrementDefault = 0
-  val clockIncrementChoices = options(clockIncrements, "%d second{s}")
-
-  val minutes = 10 to 60 by 5
-  val minuteDefault = 20
-  val minuteChoices = options(minutes, "%d minute{s}")
-
-  val minPlayers = (5 to 9) ++ (10 to 30 by 5)
-  val minPlayerDefault = 10
-  val minPlayerChoices = options(minPlayers, "%d player{s}")
 }
