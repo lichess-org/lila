@@ -32,7 +32,7 @@ trait AuthImpl {
     Redirect(routes.Lobby.home)
 
   protected def authenticationFailed(implicit req: RequestHeader): PlainResult =
-    Redirect(routes.Lobby.home) withCookies LilaCookie.session("access_uri", req.uri)
+    Redirect(routes.Auth.signup) withCookies LilaCookie.session("access_uri", req.uri)
 
   protected def saveAuthentication(username: String)(implicit req: RequestHeader): String =
     (Random nextString 12) ~ { sessionId ⇒
