@@ -32,9 +32,9 @@ final class Hub(
       }
     }
 
-    case Reload ⇒ notifyReload
+    case Reload     ⇒ notifyReload
 
-    case ReloadPage ⇒ notifyAll("reloadPage", JsNull)
+    case ReloadPage ⇒ notifyVersion("reloadPage", JsNull)
 
     case PingVersion(uid, v) ⇒ {
       ping(uid)
@@ -62,7 +62,13 @@ final class Hub(
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user)
       addMember(uid, member)
+      notifyCrowd
       sender ! Connected(enumerator, member)
+    }
+
+    case Quit(uid) ⇒ {
+      quit(uid)
+      notifyCrowd
     }
 
     case Close ⇒ {
@@ -71,7 +77,23 @@ final class Hub(
     }
   }
 
+  def notifyCrowd {
+    notifyVersion("crowd", JsArray({
+      members.values
+        .map(_.username)
+        .toList.partition(_.isDefined) match {
+          case (users, anons) ⇒ users.flatten.distinct |> { userList ⇒
+            anons.size match {
+              case 0 ⇒ userList
+              case 1 ⇒ userList :+ "Anonymous"
+              case x ⇒ userList :+ ("Anonymous (%d)" format x)
+            }
+          }
+        }
+    } map { JsString(_) }))
+  }
+
   def notifyReload {
-    notifyAll("reload", JsNull)
+    notifyVersion("reload", JsNull)
   }
 }
