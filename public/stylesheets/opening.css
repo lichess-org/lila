@@ -224,21 +224,37 @@ div.undertable a.user_link {
 div.undertable a.user_link:hover {
   text-decoration: underline;
 }
-
-div.lichess_bot table {
+div.undertable table {
   width: 100%;
   height: 100%;
 }
-div.lichess_bot tr {
-  cursor: pointer;
-}
-div.lichess_bot td {
+div.undertable td {
   padding: 6px 5px 6px 5px;
   background: #fff;
   border-top: 1px solid #eaeaea;
 }
-div.lichess_bot tr:nth-child(even) td {
+div.undertable tr:first-child td {
+  border-top: none;
+}
+div.undertable tr:nth-child(even) td {
   background: #f0f0f0;
+}
+
+div.open_tournaments div.undertable_inner {
+  height: auto;
+}
+div.open_tournaments input.submit {
+  padding: 0.2em 1em;
+}
+div.open_tournaments td:first-child {
+  padding-left: 1em;
+}
+div.open_tournaments tr.create td {
+  text-align: center;
+}
+
+div.lichess_bot tr {
+  cursor: pointer;
 }
 div.lichess_bot a.watch {
   display: block;

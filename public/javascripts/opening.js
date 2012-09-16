@@ -220,13 +220,18 @@ $(function() {
     redirect: function(e) {
       $.lichessOpeningPreventClicks();
       location.href = 'http://'+location.hostname+'/'+e;
-    }
+    },
+    tournaments: reloadTournaments
     },
     options: {
       name: "lobby"
     }
   }));
   $('body').trigger('lichess.content_loaded');
+
+  function reloadTournaments(data) {
+    $("table.tournaments").html(data);
+  }
 
   function changeFeatured(data) {
     $('div.featured_game').each(function() {

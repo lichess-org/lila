@@ -16,7 +16,8 @@ final class TournamentApi(
     timelinePush: DbGame ⇒ IO[Unit],
     getUser: String ⇒ IO[Option[User]],
     socket: Socket,
-    siteSocket: site.Socket) {
+    siteSocket: site.Socket,
+    lobbyNotify: String ⇒ IO[Unit]) {
 
   def makePairings(tour: Started, pairings: NonEmptyList[Pairing]): IO[Unit] =
     (tour addPairings pairings) |> { tour2 ⇒
@@ -37,17 +38,20 @@ final class TournamentApi(
     _ ← repo saveIO created
     _ ← (withdrawIds map socket.reload).sequence
     _ ← reloadSiteSocket
+    _ ← lobbyReload
   } yield created
 
   def start(created: Created): IO[Unit] = (for {
     _ ← repo saveIO created.start
     _ ← socket reload created.id
     _ ← reloadSiteSocket
+    _ ← lobbyReload
   } yield ()) doIf created.readyToStart
 
   def wipeEmpty(created: Created): IO[Unit] = (for {
     _ ← repo removeIO created
     _ ← reloadSiteSocket
+    _ ← lobbyReload
   } yield ()) doIf created.isEmpty
 
   def finish(started: Started): IO[Unit] = (for {
@@ -63,6 +67,7 @@ final class TournamentApi(
     _ ← repo saveIO tour2
     _ ← ((tour.id :: withdrawIds) map socket.reload).sequence
     _ ← reloadSiteSocket
+    _ ← lobbyReload
   } yield ()
 
   def withdraw(tour: Tournament, userId: String): IO[Unit] = (tour match {
@@ -75,6 +80,7 @@ final class TournamentApi(
       _ ← repo saveIO tour2
       _ ← socket reload tour2.id
       _ ← reloadSiteSocket
+      _ ← lobbyReload doIf tour2.isOpen
     } yield ()
   )
 
@@ -87,6 +93,11 @@ final class TournamentApi(
       io(none)
     )
   } yield result
+
+  private def lobbyReload = for {
+    tours ← repo.created
+    _ ← lobbyNotify(views.html.tournament.createdTable(tours).toString)
+  } yield ()
 
   private val reloadMessage = JsObject(Seq("t" -> JsString("reload"), "d" -> JsNull))
   private def sendToSiteSocket(message: JsObject) = io {

@@ -1,4 +1,4 @@
-@(preload: String, myHook: Option[lila.lobby.Hook], forumRecent: List[lila.forum.PostView], featured: Option[DbGame])(implicit ctx: Context)
+@(preload: String, myHook: Option[lila.lobby.Hook], forumRecent: List[lila.forum.PostView], tours: List[lila.tournament.Created], featured: Option[DbGame])(implicit ctx: Context)
 
 @chat = {
 @for(m <- ctx.me; if m.canChat) {
@@ -57,6 +57,17 @@ underchat = underchat.some) {
     </div>
   </div>
   @lobby.buttons()
+  <div class="open_tournaments undertable">
+    <div class="undertable_top">
+      <a class="more" title="See all tournaments" href="@routes.Tournament.home()">More »</a>
+      <span class="title">Open tournaments</span>
+    </div>
+    <div class="undertable_inner">
+      <table class="tournaments">
+        @tournament.createdTable(tours)
+      </table>
+    </div>
+  </div>
   <div class="lichess_bot undertable">
     <div class="undertable_top">
       <a class="more" title="@trans.seeTheGamesBeingPlayedInRealTime()" href="@routes.Game.realtime()">@trans.games() »</a>

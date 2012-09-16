@@ -18,11 +18,12 @@ import play.api.Application
 final class TournamentEnv(
     app: Application,
     settings: Settings,
-    getUser: String => IO[Option[User]],
+    getUser: String ⇒ IO[Option[User]],
     gameRepo: GameRepo,
     timelinePush: DbGame ⇒ IO[Unit],
     flood: Flood,
     siteSocket: site.Socket,
+    lobbyNotify: String ⇒ IO[Unit],
     mongodb: String ⇒ MongoCollection) {
 
   implicit val ctx = app
@@ -35,18 +36,19 @@ final class TournamentEnv(
 
   lazy val api = new TournamentApi(
     repo = repo,
-    gameRepo = gameRepo, 
+    gameRepo = gameRepo,
     getUser = getUser,
     timelinePush = timelinePush,
     socket = socket,
-    siteSocket = siteSocket)
+    siteSocket = siteSocket,
+    lobbyNotify = lobbyNotify)
 
   lazy val roomRepo = new RoomRepo(
     collection = mongodb(TournamentCollectionRoom)
   )
 
   lazy val messenger = new Messenger(
-    roomRepo = roomRepo, 
+    roomRepo = roomRepo,
     getTournament = repo.byId,
     getUser = getUser)
 
@@ -73,6 +75,6 @@ final class TournamentEnv(
 
   def tournamentIds = tournamentIdsMemo.apply
 
-  private lazy val tournamentIdsMemo = 
+  private lazy val tournamentIdsMemo =
     new MonoMemo(TournamentMemoTtl, repo.inProgressIds)
 }

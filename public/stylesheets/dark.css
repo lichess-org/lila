@@ -40,6 +40,7 @@ body.dark div.lichess_chat_top,
 body.dark div.lichess_chat ol,
 body.dark div.undertable_top,
 body.dark div.undertable_inner,
+body.dark div.undertable td,
 body.dark div.lichess_table .lichess_button,
 body.dark div.lichess_chat form input,
 body.dark div.lichess_board_wrap,
@@ -47,7 +48,6 @@ body.dark a.translation_call,
 body.dark div.hooks,
 body.dark div.hooks table,
 body.dark div.hooks td.action,
-body.dark div.lichess_bot td,
 body.dark div.footer_wrap,
 body.dark div.game_config .optional_config,
 body.dark .ui-state-default,
@@ -137,7 +137,7 @@ body.dark div.lichess_chat_inner,
 body.dark div.undertable_inner,
 body.dark div.lichess_goodies div.box,
 body.dark div.undergame_box,
-body.dark div.lichess_bot td,
+body.dark div.undertable td,
 body.dark div.lichess_table,
 body.dark div.lichess_table_wrap div.clock,
 body.dark div.footer_wrap
@@ -161,7 +161,7 @@ body.dark div.hooks_wrap {
   background: -ms-linear-gradient(top, rgba(33,33,33,0.9) 0%,rgba(15,15,15,0.5) 100%);
   background: -o-linear-gradient(top, rgba(33,33,33,0.9) 0%,rgba(15,15,15,0.5) 100%);
 }
-body.dark div.lichess_bot tr:nth-child(even) td
+body.dark div.undertable tr:nth-child(even) td
 {
   background: #303030;
 }
