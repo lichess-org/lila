@@ -47,8 +47,6 @@ add opera to list of supported browsers (with websocket trick)
 tournament ties
 tournament detect leavers and withdraw them (started) (also use force resign)
 ^ game with no move = withdraw
-tournament show clock on game page
 tournament withdraw resigns playing games
 tournament make pairings overflow hidden http://en.lichess.org/tournament/kswnkqr3
-tournament only show trophy when tour is over
 send lobby new forum posts html through websockets

@@ -69,7 +69,7 @@ object Tournament extends LilaController {
 
   private def showFinished(tour: Finished)(implicit ctx: Context) = for {
     roomHtml ← messenger render tour
-    games ← gameRepo games (tour recentGameIds 4).pp
+    games ← gameRepo games (tour recentGameIds 4)
   } yield html.tournament.show.finished(
     tour = tour,
     roomHtml = Html(roomHtml),
