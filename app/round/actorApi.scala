@@ -3,7 +3,7 @@ package round
 
 import chess.Color
 import socket.SocketMember
-import game.PovRef
+import game.{ PovRef, DbGame }
 import user.User
 
 import akka.actor.ActorRef
@@ -76,4 +76,4 @@ case object HubTimeout
 case object GetNbHubs
 case class AnalysisAvailable(gameId: String)
 case class Ack(uid: String)
-case class FinishGame(gameId: String)
+case class FinishGame(game: DbGame)
