@@ -13,9 +13,10 @@ import play.api.Play.current
 final class MoveNotifier(
     siteHubName: String,
     lobbyHubName: String,
+    tournamentHubMasterName: String,
     countMove: () ⇒ Unit) {
 
-  lazy val hubRefs = List(siteHubName, lobbyHubName) map { name ⇒
+  lazy val hubRefs = List(siteHubName, lobbyHubName, tournamentHubMasterName) map { name ⇒
     Akka.system.actorFor("/user/" + name)
   }
 

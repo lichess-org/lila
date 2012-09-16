@@ -14,7 +14,7 @@ import scalaz.effects._
 
 import user.User
 import game.DbGame
-import socket.{ PingVersion, Quit, Resync }
+import socket.{ PingVersion, Quit, Resync, LiveGames }
 import socket.Util.connectionFail
 import security.Flood
 import implicits.RichJs._
@@ -76,6 +76,9 @@ final class Socket(
     tournamentId: String): JsValue ⇒ Unit = e ⇒ e str "t" match {
     case Some("p") ⇒ e int "v" foreach { v ⇒
       hub ! PingVersion(uid, v)
+    }
+    case Some("liveGames") ⇒ e str "d" foreach { ids ⇒
+      hub ! LiveGames(uid, ids.split(' ').toList)
     }
     case Some("talk") ⇒ for {
       username ← member.username
