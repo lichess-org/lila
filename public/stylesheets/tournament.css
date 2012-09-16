@@ -24,7 +24,7 @@
 
 #tournament a.pov {
   display: block;
-  margin-top: 1em;
+  margin: 0 25px 1em 25px;
   text-align: center;
   font-size: 1.5em;
 }
