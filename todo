@@ -44,3 +44,5 @@ make hand and finisher actors to avoid racing conditions
 join link on tournament page
 tournament crowd
 tournament monitor
+all hub members should use userIds rather than usernames
+tournament miniboards are not updating
