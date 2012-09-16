@@ -48,3 +48,5 @@ all hub members should use userIds rather than usernames
 tournament miniboards are not updating
 finish games when tournament is over
 tournament players are winning one point just by having a game in progress!
+add opera to list of supported browsers (with websocket trick)
+finish pairing on resign

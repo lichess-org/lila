@@ -18,17 +18,13 @@ final class Hub(
     history: History,
     uidTimeout: Int,
     hubTimeout: Int,
-    playerTimeout: Int,
-    tournamentOrganizerActorName: String) extends HubActor[Member](uidTimeout) {
+    playerTimeout: Int) extends HubActor[Member](uidTimeout) {
 
   var lastPingTime = nowMillis
 
   // when the players have been seen online for the last time
   var whiteTime = nowMillis
   var blackTime = nowMillis
-
-  lazy val tournamentOrganizerActor = 
-    Akka.system.actorFor("/user/" + tournamentOrganizerActorName)
 
   def receiveSpecific = {
 
@@ -111,7 +107,6 @@ final class Hub(
   def notify(events: List[Event]) {
     val vevents = events map history.+=
     members.values foreach { m ⇒ batch(m, vevents) }
-    if (events contains Event.End()) notifyEnd
   }
 
   def batch(member: Member, vevents: List[VersionedEvent]) {
@@ -128,10 +123,6 @@ final class Hub(
 
   def notifyGone(color: Color, gone: Boolean) {
     notifyOwner(!color, "gone", JsBoolean(gone))
-  }
-
-  def notifyEnd {
-    tournamentOrganizerActor ! FinishGame(gameId)
   }
 
   def makeEvent(t: String, data: JsValue): JsObject =

@@ -10,6 +10,8 @@ import Status._
 import Color._
 
 import scalaz.effects._
+import play.api.Play.current
+import play.api.libs.concurrent.Akka
 
 final class Finisher(
     userRepo: UserRepo,
@@ -18,9 +20,13 @@ final class Finisher(
     eloUpdater: EloUpdater,
     eloCalculator: EloCalculator,
     finisherLock: FinisherLock,
-    indexGame: DbGame ⇒ IO[Unit]) {
+    indexGame: DbGame ⇒ IO[Unit],
+    tournamentOrganizerActorName: String) {
 
   type ValidIOEvents = Valid[IO[List[Event]]]
+
+  private lazy val tournamentOrganizerActor =
+    Akka.system.actorFor("/user/" + tournamentOrganizerActorName)
 
   def abort(pov: Pov): ValidIOEvents =
     if (pov.game.abortable) finish(pov.game, Aborted)
@@ -87,6 +93,7 @@ final class Finisher(
       _ ← incNbGames(g, White) doIf (g.status >= Status.Mate)
       _ ← incNbGames(g, Black) doIf (g.status >= Status.Mate)
       _ ← indexGame(g)
+      _ ← io { tournamentOrganizerActor ! FinishGame(g.id) }
     } yield p2.events)
 
   private def incNbGames(game: DbGame, color: Color): IO[Unit] =
