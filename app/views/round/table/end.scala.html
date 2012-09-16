@@ -1,4 +1,4 @@
-@(pov: Pov, tournamentInProgress: Boolean)(implicit ctx: Context)
+@(pov: Pov, tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
 
 @import pov._
 
@@ -8,7 +8,7 @@
 <div class="lichess_control buttons">
   @game.tournamentId.map { tourId =>
   <a 
-    class="button @tournamentInProgress.fold("strong", "") view_tournament" 
+    class="button @tour.fold(_.isRunning, false).fold("strong", "") view_tournament" 
     href="@routes.Tournament.show(tourId)">Back to Tournament</a>
   }.getOrElse {
   @if(opponent.isHuman) {

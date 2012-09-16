@@ -74,9 +74,4 @@ final class TournamentEnv(
     api = api,
     hubMaster = hubMaster
   )), name = ActorTournamentOrganizer)
-
-  def tournamentIds = tournamentIdsMemo.apply
-
-  private lazy val tournamentIdsMemo =
-    new MonoMemo(TournamentMemoTtl, repo.inProgressIds)
 }

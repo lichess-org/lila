@@ -703,6 +703,21 @@ div.lichess_chat.hidden ol.lichess_messages, div.lichess_chat.hidden form {
   opacity: 0;
 }
 
+div.game_tournament {
+  text-align: center;
+}
+div.game_tournament .title {
+  display: block;
+  font-weight: bold;
+}
+div.game_tournament .clock {
+  display: block;
+  margin-top: 5px;
+  font-size: 20px;
+  font-family: monospace;
+  font-weight: bold;
+}
+
 div.inline_userlist span.list {
   display: inline;
   color: #9a9a9a;

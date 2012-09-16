@@ -42,7 +42,7 @@ sealed trait Tournament {
 
   def userIds = players map (_.id)
   def activeUserIds = players filter (_.active) map (_.id)
-  def nbActiveUsers = players count (_.active) 
+  def nbActiveUsers = players count (_.active)
   def nbPlayers = players.size
   def minPlayers = data.minPlayers
   def playerRatio = "%d/%d".format(nbPlayers, minPlayers)
@@ -147,9 +147,13 @@ case class Started(
 
   def readyToFinish = (remainingSeconds == 0) || (nbActiveUsers < 2)
 
-  def remainingSeconds: Int = math.max(0, finishedAt.getSeconds - nowSeconds).toInt
+  def remainingSeconds: Float = math.max(0f,
+    ((finishedAt.getMillis - nowMillis) / 1000).toFloat
+  )
 
-  def clockStatus = "%02d:%02d".format(remainingSeconds / 60, remainingSeconds % 60)
+  def clockStatus = remainingSeconds.toInt |> { s ⇒
+    "%02d:%02d".format(s / 60, s % 60)
+  }
 
   def userCurrentPov(userId: String): Option[PovRef] = {
     playingPairings map { _ povRef userId }

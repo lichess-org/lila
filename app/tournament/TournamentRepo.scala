@@ -16,6 +16,7 @@ class TournamentRepo(collection: MongoCollection)
     extends SalatDAO[RawTournament, String](collection) {
 
   def byId(id: String): IO[Option[Tournament]] = byIdAs(id, _.any)
+  def byId(id: Option[String]): IO[Option[Tournament]] = id.fold(byId, io(none))
 
   def createdById(id: String): IO[Option[Created]] = byIdAs(id, _.created)
 
