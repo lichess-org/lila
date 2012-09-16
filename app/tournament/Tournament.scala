@@ -112,9 +112,9 @@ case class Created(
     withPlayers(players :+ Player(user)).success
   )
 
-  def withdraw(user: User): Valid[Created] = contains(user).fold(
-    withPlayers(players filterNot (_ is user)).success,
-    !!("User %s is not part of the tournament" format user.id)
+  def withdraw(userId: String): Valid[Created] = contains(userId).fold(
+    withPlayers(players filterNot (_ is userId)).success,
+    !!("User %s is not part of the tournament" format userId)
   )
 
   private def withPlayers(s: Players) = copy(players = s)
@@ -159,12 +159,12 @@ case class Started(
       pairings = tour.pairings)
   }
 
-  def withdraw(user: User): Valid[Started] = contains(user).fold(
+  def withdraw(userId: String): Valid[Started] = contains(userId).fold(
     withPlayers(players map {
-      case p if p is user ⇒ p.doWithdraw
-      case p              ⇒ p
+      case p if p is userId ⇒ p.doWithdraw
+      case p                ⇒ p
     }).success,
-    !!("User %s is not part of the tournament" format user.id)
+    !!("User %s is not part of the tournament" format userId)
   )
 
   private def withPlayers(s: Players) = copy(players = s)
@@ -257,15 +257,15 @@ object Tournament {
   val clockTimeDefault = 2
   val clockTimeChoices = options(clockTimes, "%d minute{s}")
 
-  val clockIncrements = 0 to 5 by 1
+  val clockIncrements = 0 to 2 by 1
   val clockIncrementDefault = 0
   val clockIncrementChoices = options(clockIncrements, "%d second{s}")
 
-  val minutes = 5 to 60 by 5
-  val minuteDefault = 10
+  val minutes = 10 to 60 by 5
+  val minuteDefault = 20
   val minuteChoices = options(minutes, "%d minute{s}")
 
-  val minPlayers = (3 to 4) ++ (5 to 30 by 5)
+  val minPlayers = (5 to 9) ++ (10 to 30 by 5)
   val minPlayerDefault = 10
   val minPlayerChoices = options(minPlayers, "%d player{s}")
 }

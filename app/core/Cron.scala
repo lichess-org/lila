@@ -86,11 +86,11 @@ object Cron {
 
     // also sent when the last player joins
     message(8 seconds) {
-      env.tournament.organizer -> tournament.StartTournaments
+      env.tournament.organizer -> tournament.CreatedTournaments
     }
 
     message(3 seconds) {
-      env.tournament.organizer -> tournament.FinishTournaments
+      env.tournament.organizer -> tournament.StartedTournaments
     }
 
     message(3 seconds) {

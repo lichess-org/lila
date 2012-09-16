@@ -1,22 +1,91 @@
 @(createds: List[lila.tournament.Created], starteds: List[lila.tournament.Started], finisheds: List[lila.tournament.Finished])(implicit ctx: Context)
 
-@createTr = {
-@if(ctx.isAuth) {
-<tr class="create">
-  <td colspan="5">
-    <a href="@routes.Tournament.form()" class="action">Create a new tournament</a>
-  </td>
-</tr>
-}
-}
-
 <div class="content_box tournament_box">
-  <h1 class="lichess_title">Tournaments</h1>
-  <div class="body">
-    <table class="data all_tournaments">
-      @table(createds, "Open tournaments", "high", createTr, true)
-      @table(starteds, "Now playing", "high")
-      @table(finisheds, "Finished")
+  <h1>Tournaments</h1>
+  <table class="data all_tournaments">
+    <thead>
+      <tr>
+        <th class="large">Open tournaments</th>
+        <th>Clock</th>
+        <th>Duration</th>
+        <th colspan="2">Players</th>
+      </tr>
+    </thead>
+    <tbody>
+      @createds.map { tour =>
+      <tr>
+        <td>@linkTo(tour)</td>
+        <td>@tour.clock.show</td>
+        <td>@{tour.minutes}m</td>
+        <td>@tour.playerRatio</td>
+        <td>
+          @ctx.me.map { me =>
+          @if(tour contains me) {
+          <span class="label">JOINED</span>
+          } else {
+          <form class="inline" action="@routes.Tournament.join(tour.id)" method="POST">
+            <input type="submit" class="submit button" value="Join" />
+          </form>
+          }
+          }
+        </td>
+      </tr>
+      }
+      @if(ctx.isAuth) {
+      <tr class="create">
+        <td colspan="5">
+          <a href="@routes.Tournament.form()" class="action">Create a new tournament</a>
+        </td>
+      </tr>
+      }
+    </tbody>
+    @if(starteds.nonEmpty) {
+    <thead>
+      <tr>
+        <th class="large">Now Playing</th>
+        <th>Clock</th>
+        <th>Duration</th>
+        <th>Players</th>
+        <th>Leader</th>
+      </tr>
+    </thead>
+    <tbody>
+      @starteds.map { tour =>
+      <tr>
+        <td>@linkTo(tour)</td>
+        <td>@tour.clock.show</td>
+        <td>@{tour.minutes}m</td>
+        <td>@tour.playerRatio</td>
+        <td>@tour.winner.map { player =>
+          @userInfosLink(player.id, player.elo.some, withOnline = false)
+          }
+        </td>
+      </tr>
+      }
+    </tbody>
+    }
+    <thead>
+      <tr>
+        <th class="large">Finished</th>
+        <th>Clock</th>
+        <th>Duration</th>
+        <th>Players</th>
+        <th>Winner</th>
+      </tr>
+    </thead>
+    <tbody>
+      @finisheds.map { tour =>
+      <tr>
+        <td>@linkTo(tour)</td>
+        <td>@tour.clock.show</td>
+        <td>@{tour.minutes}m</td>
+        <td>@tour.playerRatio</td>
+        <td>@tour.winner.map { player =>
+          @userInfosLink(player.id, player.elo.some, withOnline = false)
+          }
+        </td>
+        </tr>
+        }
+      </tbody>
     </table>
   </div>
-</div>

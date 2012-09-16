@@ -17,7 +17,8 @@ case class Player(
 
   def active = !withdraw
 
-  def is(user: User) = id == user.id
+  def is(userId: String): Boolean = id == userId
+  def is(user: User): Boolean = is(user.id)
 
   def doWithdraw = copy(withdraw = true)
 }

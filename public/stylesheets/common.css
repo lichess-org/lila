@@ -142,7 +142,7 @@ div.content_box.small_box {
 div.content_box.no_padding {
   padding: 0;
 }
-div.content_box_title {
+.content_box_title {
   padding: 20px 25px 0 25px;
 }
 div.content_box_top {
@@ -164,7 +164,7 @@ div.content_box_top a {
 div.content_box_top .link:hover {
   background: #fff;
 }
-div.content_box_content {
+.content_box_content {
   padding: 20px 25px 25px 25px;
 }
 div.content_box_inter {

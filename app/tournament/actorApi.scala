@@ -43,10 +43,10 @@ case object GetNbHubs
 case class StartGame(game: DbGame)
 
 // organizer
-case object StartTournaments
-case class StartTournament(tour: Created)
-case object FinishTournaments
-case class FinishTournament(tour: Started)
+case object CreatedTournaments
+case class CreatedTournament(tour: Created)
+case object StartedTournaments
+case class StartedTournament(tour: Started)
 case object StartPairings
 case class StartPairing(tour: Started)
 case class GetTournamentUsernames(tournamentId: String)
