@@ -110,7 +110,7 @@ div.footer div.right {
   text-align: right;
 }
 
-.button {
+.button, a.button {
   border-radius: 5px;
   border: 1px solid #DADADA;
   padding: 0.4em 1em;
