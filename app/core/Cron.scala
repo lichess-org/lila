@@ -84,8 +84,7 @@ object Cron {
       env.security.firewall.refresh
     }
 
-    // also sent when the last player joins
-    message(8 seconds) {
+    message(5 seconds) {
       env.tournament.organizer -> tournament.CreatedTournaments
     }
 

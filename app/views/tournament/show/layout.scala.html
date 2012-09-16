@@ -23,10 +23,17 @@
 }
 }
 
+@underchat = {
+<div class="watchers inline_userlist">
+  <span class="list"></span>
+</div>
+}
+
 @tournament.layout(
 title = title,
 goodies = goodies.some,
-chat = chat.some) {
+chat = chat.some,
+underchat = underchat.some) {
 <div 
   id="tournament" 
   data-href="@routes.Tournament.reload(tour.id)"

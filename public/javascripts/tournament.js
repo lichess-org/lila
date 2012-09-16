@@ -22,6 +22,7 @@ $(function() {
   var chatExists = $chat.length > 0;
   var $userList = $wrap.find("div.user_list");
   var socketUrl = $wrap.data("socket-url");
+  var $watchers = $("div.watchers").watchers();
 
   if (chatExists) {
     var $form = $chat.find('form');
@@ -87,6 +88,9 @@ $(function() {
     },
     redirect: function(e) {
       location.href = 'http://'+location.hostname+'/'+e;
+    },
+    crowd: function(data) {
+      $watchers.watchers("set", data);
     }
     },
     options: {
