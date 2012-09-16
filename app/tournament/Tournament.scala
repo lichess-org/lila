@@ -67,6 +67,9 @@ sealed trait StartedOrFinished extends Tournament {
   def winner = players.headOption
   def winnerUserId = winner map (_.username)
 
+  def playingPairings = pairings filter (_.playing)
+  def recentGameIds(max: Int) = pairings take max map (_.gameId)
+
   def encode(status: Status) = new RawTournament(
     id = id,
     status = status.id,
@@ -154,15 +157,13 @@ case class Started(
   def userCurrentPov(user: Option[User]): Option[PovRef] =
     user.fold(u ⇒ userCurrentPov(u.id), none)
 
-  def playingPairings = pairings filter (_.playing)
-
   def finish = refreshPlayers |> { tour ⇒
     Finished(
       id = tour.id,
       data = tour.data,
       startedAt = tour.startedAt,
       players = players,
-      pairings = tour.pairings)
+      pairings = tour.pairings filterNot (_.playing))
   }
 
   def withdraw(userId: String): Valid[Started] = contains(userId).fold(

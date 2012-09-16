@@ -58,7 +58,7 @@ object Tournament extends LilaController {
 
   private def showStarted(tour: Started)(implicit ctx: Context) = for {
     roomHtml ← messenger render tour
-    games ← gameRepo.recentTournamentGames(tour.id, 4)
+    games ← gameRepo games (tour recentGameIds 4)
     pov ← tour.userCurrentPov(ctx.me).fold(gameRepo.pov, io(none))
   } yield html.tournament.show.started(
     tour = tour,
@@ -69,7 +69,7 @@ object Tournament extends LilaController {
 
   private def showFinished(tour: Finished)(implicit ctx: Context) = for {
     roomHtml ← messenger render tour
-    games ← gameRepo.recentTournamentGames(tour.id, 4)
+    games ← gameRepo games (tour recentGameIds 4).pp
   } yield html.tournament.show.finished(
     tour = tour,
     roomHtml = Html(roomHtml),
@@ -107,7 +107,7 @@ object Tournament extends LilaController {
   }
 
   private def reloadStarted(tour: Started)(implicit ctx: Context) = for {
-    games ← gameRepo.recentTournamentGames(tour.id, 4)
+    games ← gameRepo games (tour recentGameIds 4)
     pov ← tour.userCurrentPov(ctx.me).fold(gameRepo.pov, io(none))
   } yield {
     val pairings = html.tournament.pairings(tour)
@@ -116,7 +116,7 @@ object Tournament extends LilaController {
   }
 
   private def reloadFinished(tour: Finished)(implicit ctx: Context) =
-    gameRepo.recentTournamentGames(tour.id, 4) map { games ⇒
+    gameRepo games (tour recentGameIds 4) map { games ⇒
       val pairings = html.tournament.pairings(tour)
       val inner = html.tournament.show.finishedInner(tour, games)
       html.tournament.show.inner(pairings.some)(inner)
