@@ -7,7 +7,7 @@ title = "New tournament") {
 <div id="tournament">
   <div class="content_box tournament_box">
     <h1>New tournament</h1>
-    <form class="plain create" action="@routes.Tournament.create" method="POST">
+    <form class="plain create content_box_content" action="@routes.Tournament.create" method="POST">
       @form.globalError.map { error =>
       <p class="error">@error.message</p>
       }
