@@ -23,6 +23,10 @@ $(function() {
       return false;
     });
   }
+
+  $("div.user_spy .toggle").click(function() {
+    $(this).parent().find(".inner").toggle();
+  });
 });
 function str_repeat(input, multiplier) {
   return new Array(multiplier + 1).join(input);

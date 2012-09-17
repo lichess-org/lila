@@ -69,3 +69,10 @@ div.user_show div.elo_with_me strong {
 div.user_show div.games {
   margin-top: 10px;
 }
+
+div.user_show .user_spy {
+  margin-top: 1em;
+}
+div.user_show .user_spy .inner {
+  display: none;
+}
