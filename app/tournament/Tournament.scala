@@ -166,7 +166,7 @@ case class Started(
       id = tour.id,
       data = tour.data,
       startedAt = tour.startedAt,
-      players = players,
+      players = tour.players,
       pairings = tour.pairings filterNot (_.playing))
   }
 

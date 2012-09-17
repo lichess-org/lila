@@ -58,10 +58,10 @@ final class TournamentApi(
   def finish(started: Started): IO[Tournament] = started.readyToFinish.fold({
     val finished = started.finish
     for {
-      _ ← repo saveIO started.finish
-      _ ← socket reloadPage started.id
+      _ ← repo saveIO finished
+      _ ← socket reloadPage finished.id
       _ ← reloadSiteSocket
-      _ ← (started.playingPairings map (_.gameId) map abortGame).sequence
+      _ ← (finished.playingPairings map (_.gameId) map abortGame).sequence
     } yield finished
   }, io(started))
 
@@ -105,7 +105,7 @@ final class TournamentApi(
       tour ⇒ {
         val tour2 = tour.updatePairing(game.id, _.finish(game.status, game.winnerUserId))
         for {
-          tour3 ← game.playerWhoDidNotMove.flatMap(_.userId).fold(
+          tour3 ← userIdWhoLostOnTimeWithoutMoving(game).fold(
             userId ⇒ withdraw(tour2, userId),
             repo saveIO tour2 inject tour2
           ): IO[Tournament]
@@ -114,6 +114,11 @@ final class TournamentApi(
       io(none)
     )
   } yield result
+
+  private def userIdWhoLostOnTimeWithoutMoving(game: DbGame): Option[String] = 
+    game.playerWhoDidNotMove
+      .flatMap(_.userId)
+      .filter(_ ⇒ List(chess.Status.Timeout, chess.Status.Outoftime) contains game.status)
 
   private def lobbyReload = for {
     tours ← repo.created
