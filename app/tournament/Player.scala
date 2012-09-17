@@ -35,7 +35,9 @@ object Player {
       .filter(p ⇒ p.finished && (p contains player.id))
       .foldLeft(Builder(player))(_ + _.winner)
       .toPlayer
-  } sortBy (p ⇒ -p.score)
+  } sortBy { p ⇒ 
+    p.withdraw.fold(Int.MaxValue, 0) - p.score 
+  }
 
   private case class Builder(
       player: Player,
