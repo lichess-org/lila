@@ -37,9 +37,7 @@ final class TournamentEnv(
 
   lazy val api = new TournamentApi(
     repo = repo,
-    gameRepo = gameRepo,
-    getUser = getUser,
-    timelinePush = timelinePush,
+    joiner = joiner,
     socket = socket,
     siteSocket = siteSocket,
     lobbyNotify = lobbyNotify,
@@ -74,4 +72,10 @@ final class TournamentEnv(
     api = api,
     hubMaster = hubMaster
   )), name = ActorTournamentOrganizer)
+
+  private lazy val joiner = new GameJoiner(
+    gameRepo = gameRepo,
+    roundMeddler = roundMeddler,
+    timelinePush = timelinePush,
+    getUser = getUser)
 }

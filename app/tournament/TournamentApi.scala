@@ -7,14 +7,12 @@ import scalaz.effects._
 import scalaz.{ NonEmptyList, Success, Failure }
 import play.api.libs.json._
 
-import game.{ DbGame, DbPlayer, GameRepo }
+import game.DbGame
 import user.User
 
 final class TournamentApi(
     repo: TournamentRepo,
-    gameRepo: GameRepo,
-    timelinePush: DbGame ⇒ IO[Unit],
-    getUser: String ⇒ IO[Option[User]],
+    joiner: GameJoiner,
     socket: Socket,
     siteSocket: site.Socket,
     lobbyNotify: String ⇒ IO[Unit],
@@ -24,7 +22,7 @@ final class TournamentApi(
     (tour addPairings pairings) |> { tour2 ⇒
       for {
         _ ← repo saveIO tour2
-        games ← (pairings map makeGame(tour)).sequence
+        games ← (pairings map joiner(tour)).sequence
         _ ← (games map socket.notifyPairing).sequence
       } yield ()
     }
@@ -123,28 +121,4 @@ final class TournamentApi(
     siteSocket.sendToFlag("tournament", message)
   }
   private val reloadSiteSocket = sendToSiteSocket(reloadMessage)
-
-  private def makeGame(tour: Started)(pairing: Pairing): IO[DbGame] = for {
-    user1 ← getUser(pairing.user1) map (_ err "No such user " + pairing)
-    user2 ← getUser(pairing.user2) map (_ err "No such user " + pairing)
-    variant = chess.Variant.Standard
-    game = DbGame(
-      game = chess.Game(
-        board = chess.Board init variant,
-        clock = tour.clock.chessClock.some
-      ),
-      ai = None,
-      whitePlayer = DbPlayer.white withUser user1,
-      blackPlayer = DbPlayer.black withUser user2,
-      creatorColor = chess.Color.White,
-      mode = chess.Mode.Casual,
-      variant = variant
-    ).withTournamentId(tour.id)
-      .withId(pairing.gameId)
-      .start
-      .startClock(2)
-    _ ← gameRepo insert game
-    _ ← gameRepo denormalizeStarted game
-    _ ← timelinePush(game)
-  } yield game
 }
