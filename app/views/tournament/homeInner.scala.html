@@ -57,7 +57,7 @@
         <td>@{tour.minutes}m</td>
         <td>@tour.playerRatio</td>
         <td>@tour.winner.map { player =>
-          @userInfosLink(player.id, player.elo.some, withOnline = false)
+          @userInfosLink(player.username, player.elo.some, withOnline = false)
           }
         </td>
       </tr>
@@ -81,11 +81,11 @@
         <td>@{tour.minutes}m</td>
         <td>@tour.playerRatio</td>
         <td>@tour.winner.map { player =>
-          @userInfosLink(player.id, player.elo.some, withOnline = false)
+          @userInfosLink(player.username, player.elo.some, withOnline = false)
           }
         </td>
-        </tr>
-        }
-      </tbody>
-    </table>
-  </div>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
