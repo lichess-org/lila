@@ -55,12 +55,15 @@ final class TournamentApi(
     _ ← lobbyReload
   } yield ()) doIf created.isEmpty
 
-  def finish(started: Started): IO[Unit] = (for {
-    _ ← repo saveIO started.finish
-    _ ← socket reloadPage started.id
-    _ ← reloadSiteSocket
-    _ ← (started.playingPairings map (_.gameId) map abortGame).sequence
-  } yield ()) doIf started.readyToFinish
+  def finish(started: Started): IO[Tournament] = started.readyToFinish.fold({
+    val finished = started.finish
+    for {
+      _ ← repo saveIO started.finish
+      _ ← socket reloadPage started.id
+      _ ← reloadSiteSocket
+      _ ← (started.playingPairings map (_.gameId) map abortGame).sequence
+    } yield finished
+  }, io(started))
 
   def join(tour: Created, me: User): Valid[IO[Unit]] = for {
     tour2 ← tour join me
@@ -72,36 +75,42 @@ final class TournamentApi(
     _ ← lobbyReload
   } yield ()
 
-  def withdraw(tour: Tournament, userId: String): IO[Unit] = tour match {
+  def withdraw(tour: Tournament, userId: String): IO[Tournament] = tour match {
     case created: Created ⇒ (created withdraw userId).fold(
-      err ⇒ putStrLn(err.shows),
-      tour ⇒ for {
-        _ ← repo saveIO tour
-        _ ← socket reload tour.id
+      err ⇒ putStrLn(err.shows) inject tour,
+      tour2 ⇒ for {
+        _ ← repo saveIO tour2
+        _ ← socket reload tour2.id
         _ ← reloadSiteSocket
         _ ← lobbyReload
-      } yield ()
+      } yield tour2
     )
     case started: Started ⇒ (started withdraw userId).fold(
-      err ⇒ putStrLn(err.shows),
-      tour ⇒ tour.readyToFinish.fold(
-        finish(tour),
+      err ⇒ putStrLn(err.shows) inject tour,
+      tour2 ⇒ tour2.readyToFinish.fold(
+        finish(tour2),
         for {
-          _ ← repo saveIO tour
-          _ ← socket reload tour.id
+          _ ← repo saveIO tour2
+          _ ← socket reload tour2.id
           _ ← reloadSiteSocket
-        } yield ()
+        } yield tour2
       )
     )
-    case finished: Finished ⇒ putStrLn("Cannot withdraw from finished tournament " + finished.id)
+    case finished: Finished ⇒ putStrLn("Cannot withdraw from finished tournament " + finished.id) inject tour
   }
 
   def finishGame(game: DbGame): IO[Option[Tournament]] = for {
     tourOption ← game.tournamentId.fold(repo.startedById, io(None))
     result ← tourOption.filter(_ ⇒ game.finished).fold(
-      tour ⇒ repo saveIO tour.updatePairing(
-        game.id, _.finish(game.status, game.winnerUserId)
-      ) map (_ ⇒ tour.some),
+      tour ⇒ {
+        val tour2 = tour.updatePairing(game.id, _.finish(game.status, game.winnerUserId))
+        for {
+          tour3 ← game.playerWhoDidNotMove.flatMap(_.userId).fold(
+            userId ⇒ withdraw(tour2, userId),
+            repo saveIO tour2 inject tour2
+          ): IO[Tournament]
+        } yield tour3.some
+      },
       io(none)
     )
   } yield result
