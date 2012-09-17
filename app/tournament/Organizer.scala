@@ -32,7 +32,7 @@ final class Organizer(
     case StartPairings                    ⇒ startPairings
     case StartPairing(tour: Started)      ⇒ startPairing(tour)
 
-    case FinishGame(game)       ⇒ finishGame(game)
+    case FinishGame(game)                 ⇒ finishGame(game)
   }
 
   def finishGame(game: DbGame) {
@@ -60,7 +60,7 @@ final class Organizer(
   }
 
   def startedTournament(tour: Started) {
-    (api finish tour).unsafePerformIO
+    if (tour.readyToFinish) (api finish tour).unsafePerformIO
   }
 
   def startPairings {

@@ -242,9 +242,9 @@ case class DbGame(
 
   def playable = status < Status.Aborted
 
-  def playableBy(p: DbPlayer) = playable && turnOf(p)
+  def playableBy(p: DbPlayer): Boolean = playable && turnOf(p)
 
-  def playableBy(c: Color) = playable && turnOf(player(c))
+  def playableBy(c: Color): Boolean = playableBy(player(c))
 
   def aiLevel: Option[Int] = players find (_.isAi) flatMap (_.aiLevel)
 
@@ -331,6 +331,12 @@ case class DbGame(
   def invited = player(invitedColor)
 
   def pgnList = pgn.split(' ').toList
+
+  def playerWhoDidNotMove: Option[DbPlayer] = turns match {
+    case 0 ⇒ player(White).some 
+    case 1 ⇒ player(Black).some
+    case _ ⇒ none
+  }
 
   def bothPlayersHaveMoved = turns > 1
 
