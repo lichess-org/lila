@@ -73,6 +73,10 @@ class UserRepo(collection: MongoCollection)
     collection.update(byIdQuery(id), $inc(incs: _*))
   }
 
+  def incToints(id: String)(nb: Int): IO[Unit] = io {
+    collection.update(byIdQuery(id), $inc("toints" -> nb))
+  }
+
   val averageElo: IO[Float] = io {
     val elos = find(DBObject()).toList map (_.elo)
     elos.sum / elos.size.toFloat

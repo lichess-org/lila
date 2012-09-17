@@ -16,7 +16,8 @@ final class TournamentApi(
     socket: Socket,
     siteSocket: site.Socket,
     lobbyNotify: String ⇒ IO[Unit],
-    roundMeddler: round.Meddler) {
+    roundMeddler: round.Meddler,
+    incToints: String ⇒ Int ⇒ IO[Unit]) {
 
   def makePairings(tour: Started, pairings: NonEmptyList[Pairing]): IO[Unit] =
     (tour addPairings pairings) |> { tour2 ⇒
@@ -60,6 +61,7 @@ final class TournamentApi(
       _ ← socket reloadPage finished.id
       _ ← reloadSiteSocket
       _ ← (finished.playingPairings map (_.gameId) map roundMeddler.forceAbort).sequence
+      _ ← finished.players.filter(_.score > 0).map(p ⇒ incToints(p.id)(p.score)).sequence
     } yield finished
   }, io(started))
 

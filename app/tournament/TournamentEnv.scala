@@ -25,6 +25,7 @@ final class TournamentEnv(
     siteSocket: site.Socket,
     lobbyNotify: String ⇒ IO[Unit],
     roundMeddler: round.Meddler,
+    incToints: String ⇒ Int ⇒ IO[Unit],
     mongodb: String ⇒ MongoCollection) {
 
   implicit val ctx = app
@@ -41,7 +42,8 @@ final class TournamentEnv(
     socket = socket,
     siteSocket = siteSocket,
     lobbyNotify = lobbyNotify,
-    roundMeddler = roundMeddler)
+    roundMeddler = roundMeddler,
+    incToints = incToints)
 
   lazy val roomRepo = new RoomRepo(
     collection = mongodb(TournamentCollectionRoom)

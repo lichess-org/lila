@@ -76,3 +76,7 @@ div.user_show .user_spy {
 div.user_show .user_spy .inner {
   display: none;
 }
+div.user_show .tournament_points {
+  display: block;
+  margin: 5px 0;
+}

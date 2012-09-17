@@ -24,6 +24,7 @@ case class User(
     settings: Map[String, String] = Map.empty,
     bio: Option[String] = None,
     engine: Boolean = false,
+    toints: Int = 0,
     createdAt: DateTime) {
 
   def muted = isChatBan

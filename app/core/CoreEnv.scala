@@ -108,6 +108,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     siteSocket = site.socket,
     lobbyNotify = lobby.socket.reloadTournaments,
     roundMeddler = round.meddler,
+    incToints = user.userRepo.incToints,
     mongodb = mongodb.apply _)
 
   lazy val analyse = new lila.analyse.AnalyseEnv(
