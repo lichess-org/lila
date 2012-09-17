@@ -102,12 +102,7 @@ final class TournamentApi(
     result ← tourOption.filter(_ ⇒ game.finished).fold(
       tour ⇒ {
         val tour2 = tour.updatePairing(game.id, _.finish(game.status, game.winnerUserId))
-        for {
-          tour3 ← userIdWhoLostOnTimeWithoutMoving(game).fold(
-            userId ⇒ withdraw(tour2, userId),
-            repo saveIO tour2 inject tour2
-          ): IO[Tournament]
-        } yield tour3.some
+        repo saveIO tour2 inject tour2.some
       },
       io(none)
     )
