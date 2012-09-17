@@ -46,9 +46,6 @@ all hub members should use userIds rather than usernames
 add opera to list of supported browsers (with websocket trick)
 tournament ties
 tournament detect leavers and withdraw them (started) (also use force resign)
-^ game with no move = withdraw
-tournament withdraw resigns playing games
-tournament make pairings overflow hidden http://en.lichess.org/tournament/kswnkqr3
 tournament warmup games
 send lobby new forum posts html through websockets
 un-ban IP mechanism (deleting cookies)
