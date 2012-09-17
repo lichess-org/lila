@@ -46,6 +46,7 @@ all hub members should use userIds rather than usernames
 add opera to list of supported browsers (with websocket trick)
 tournament ties
 tournament detect leavers and withdraw them (started) (also use force resign)
+-> or show current tournament on every page, with (join) and (redraw) buttons
 tournament warmup games
 send lobby new forum posts html through websockets
 un-ban IP mechanism (deleting cookies)
