@@ -13,22 +13,31 @@ import ornicar.scalalib.Random
 
 final class Firewall(
     collection: MongoCollection,
-    blockCookieName: String,
+    cookieName: Option[String],
     enabled: Boolean) {
 
-  def requestHandler(implicit req: RequestHeader): Option[Handler] = if (enabled) {
-    val bIp = blocksIp(req.remoteAddress)
-    val bCs = blocksCookies(req.cookies)
-    if (bIp && !bCs) infectCookie.some
-    else if (bCs && !bIp) { blockIp(req.remoteAddress); none }
-    else none
-  }
-  else none
+  val requestHandler: (RequestHeader ⇒ Option[Handler]) = enabled.fold(
+    cookieName.fold(
+      cn ⇒ req ⇒ {
+        val bIp = blocksIp(req.remoteAddress)
+        val bCs = blocksCookies(req.cookies, cn)
+        if (bIp && !bCs) infectCookie(cn)(req).some
+        else if (bCs && !bIp) { blockIp(req.remoteAddress); none }
+        else none
+      },
+      _ ⇒ None),
+    _ ⇒ None)
 
-  def blocks(req: RequestHeader): Boolean =
-    enabled && (blocksIp(req.remoteAddress) || blocksCookies(req.cookies))
+  val blocks: (RequestHeader) ⇒ Boolean = enabled.fold(
+    cookieName.fold(
+      cn ⇒ req ⇒ (blocksIp(req.remoteAddress) || blocksCookies(req.cookies, cn)),
+      req ⇒ blocksIp(req.remoteAddress)
+    ),
+    _ ⇒ false)
 
   def accepts(req: RequestHeader): Boolean = !blocks(req)
+
+  def refresh { ips = fetch }
 
   def blockIp(ip: String) {
     if (validIp(ip)) {
@@ -41,9 +50,13 @@ final class Firewall(
     else log("Invalid IP block: " + ip)
   }
 
-  def infectCookie(implicit req: RequestHeader) = Action {
+  private def redirectHome(implicit req: RequestHeader) = Action {
+    Redirect(routes.Lobby.home())
+  }
+
+  private def infectCookie(name: String)(implicit req: RequestHeader) = Action {
     log("Infect cookie " + formatReq(req))
-    val cookie = LilaCookie.cookie(blockCookieName, Random nextString 32)
+    val cookie = LilaCookie.cookie(name, Random nextString 32)
     Redirect(routes.Lobby.home()) withCookies cookie
   }
 
@@ -51,18 +64,17 @@ final class Firewall(
     log("Block " + formatReq(req))
   }
 
-  def refresh { ips = fetch }
-
   private def log(msg: Any) {
     println("[%s] %s".format("firewall", msg.toString))
   }
 
-  private def formatReq(req: RequestHeader) = 
+  private def formatReq(req: RequestHeader) =
     "%s %s".format(req.remoteAddress, req.headers.get("User-Agent") | "?")
 
   private def blocksIp(ip: String) = ips contains ip
 
-  private def blocksCookies(cookies: Cookies) = (cookies get blockCookieName).isDefined
+  private def blocksCookies(cookies: Cookies, name: String) =
+    (cookies get name).isDefined
 
   // http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address
   private val ipRegex = """^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$""".r

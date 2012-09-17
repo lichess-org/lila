@@ -20,11 +20,11 @@ final class SecurityEnv(
 
   lazy val firewall = new security.Firewall(
     collection = mongodb(FirewallCollectionFirewall),
-    blockCookieName = FirewallBlockCookie,
+    cookieName = FirewallCookieName.some filter (_ ⇒ FirewallCookieEnabled),
     enabled = FirewallEnabled)
 
   lazy val flood = new security.Flood
-  
+
   lazy val forms = new DataForm(
     userRepo = userRepo,
     captcher = captcha)

@@ -111,7 +111,8 @@ final class Settings(config: Config, val IsDev: Boolean) {
   val AnalyseCollectionAnalysis = getString("analyse.collection.analysis")
 
   val FirewallEnabled = getBoolean("firewall.enabled")
-  val FirewallBlockCookie = getString("firewall.block_cookie")
+  val FirewallCookieEnabled = getBoolean("firewall.cookie.enabled")
+  val FirewallCookieName = getString("firewall.cookie.name")
   val FirewallCollectionFirewall = getString("firewall.collection.firewall")
 
   val MessageCollectionThread = getString("message.collection.thread")
