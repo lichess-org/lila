@@ -97,6 +97,9 @@ evenMoreCss = evenMoreCss) {
       @info.winChart.map { winChart =>
       <div class="win_stats" title="@trans.gamesPlayed(): @u.nbGames" data-columns="@winChart.columns" data-rows="@winChart.rows(trans)"></div>
       }
+      <span class="tournament s16 tournament_points">
+        Tournament points: <strong>@u.toints</strong>
+      </span>
       @actions
       @info.spy.map { spy =>
       <div class="user_spy">
