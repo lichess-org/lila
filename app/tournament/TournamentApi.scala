@@ -18,7 +18,7 @@ final class TournamentApi(
     socket: Socket,
     siteSocket: site.Socket,
     lobbyNotify: String ⇒ IO[Unit],
-    abortGame: String ⇒ IO[Unit]) {
+    roundMeddler: round.Meddler) {
 
   def makePairings(tour: Started, pairings: NonEmptyList[Pairing]): IO[Unit] =
     (tour addPairings pairings) |> { tour2 ⇒
@@ -61,7 +61,7 @@ final class TournamentApi(
       _ ← repo saveIO finished
       _ ← socket reloadPage finished.id
       _ ← reloadSiteSocket
-      _ ← (finished.playingPairings map (_.gameId) map abortGame).sequence
+      _ ← (finished.playingPairings map (_.gameId) map roundMeddler.forceAbort).sequence
     } yield finished
   }, io(started))
 
@@ -87,14 +87,12 @@ final class TournamentApi(
     )
     case started: Started ⇒ (started withdraw userId).fold(
       err ⇒ putStrLn(err.shows) inject tour,
-      tour2 ⇒ tour2.readyToFinish.fold(
-        finish(tour2),
-        for {
-          _ ← repo saveIO tour2
-          _ ← socket reload tour2.id
-          _ ← reloadSiteSocket
-        } yield tour2
-      )
+      tour2 ⇒ for {
+        _ ← repo saveIO tour2
+        _ ← (tour2 userCurrentPov userId).fold(roundMeddler.resign, io())
+        _ ← socket reload tour2.id
+        _ ← reloadSiteSocket
+      } yield tour2
     )
     case finished: Finished ⇒ putStrLn("Cannot withdraw from finished tournament " + finished.id) inject tour
   }
@@ -115,7 +113,7 @@ final class TournamentApi(
     )
   } yield result
 
-  private def userIdWhoLostOnTimeWithoutMoving(game: DbGame): Option[String] = 
+  private def userIdWhoLostOnTimeWithoutMoving(game: DbGame): Option[String] =
     game.playerWhoDidNotMove
       .flatMap(_.userId)
       .filter(_ ⇒ List(chess.Status.Timeout, chess.Status.Outoftime) contains game.status)

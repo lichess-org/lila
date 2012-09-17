@@ -93,7 +93,7 @@ final class RoundEnv(
   lazy val watcherRoomRepo = new WatcherRoomRepo(
     mongodb(RoundCollectionWatcherRoom))
 
-  lazy val forceAbort = new ForceAbort(
+  lazy val meddler = new Meddler(
     gameRepo = gameRepo,
     finisher = finisher,
     socket = socket)
