@@ -1,7 +1,7 @@
 package lila
 package round
 
-import game.{ DbGame, GameRepo, PovRef }
+import game.{ DbGame, GameRepo, PovRef, Pov }
 
 import scalaz.effects._
 
@@ -24,17 +24,16 @@ final class Meddler(
     )
   } yield ()
 
+  def resign(pov: Pov): IO[Unit] = (finisher resign pov).fold(
+    err ⇒ putStrLn(err.shows),
+    ioEvents ⇒ for {
+      events ← ioEvents
+      _ ← io { socket.send(pov.game.id, events) }
+    } yield ()
+  )
+
   def resign(povRef: PovRef): IO[Unit] = for {
     povOption ← gameRepo pov povRef
-    _ ← povOption.fold(
-      pov ⇒ (finisher resign pov).fold(
-        err ⇒ putStrLn(err.shows),
-        ioEvents ⇒ for {
-          events ← ioEvents
-          _ ← io { socket.send(pov.game.id, events) }
-        } yield ()
-      ),
-      putStrLn("Cannot resign missing game " + povRef)
-    )
+    _ ← povOption.fold(resign, putStrLn("Cannot resign missing game " + povRef))
   } yield ()
 }
