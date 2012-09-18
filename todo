@@ -48,5 +48,4 @@ tournament ties
 tournament detect leavers and withdraw them (started) (also use force resign)
 -> or show current tournament on every page, with (join) and (redraw) buttons
 tournament warmup games
-tournament give users permanent tourney points
 send lobby new forum posts html through websockets

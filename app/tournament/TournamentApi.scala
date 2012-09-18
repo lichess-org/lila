@@ -55,12 +55,13 @@ final class TournamentApi(
   } yield ()) doIf created.isEmpty
 
   def finish(started: Started): IO[Tournament] = started.readyToFinish.fold({
+    val pairingsToAbort = started.playingPairings
     val finished = started.finish
     for {
       _ ← repo saveIO finished
       _ ← socket reloadPage finished.id
       _ ← reloadSiteSocket
-      _ ← (finished.playingPairings map (_.gameId) map roundMeddler.forceAbort).sequence
+      _ ← (pairingsToAbort map (_.gameId) map roundMeddler.forceAbort).sequence
       _ ← finished.players.filter(_.score > 0).map(p ⇒ incToints(p.id)(p.score)).sequence
     } yield finished
   }, io(started))
