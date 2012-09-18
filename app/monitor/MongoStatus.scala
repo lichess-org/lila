@@ -8,8 +8,8 @@ case class MongoStatus(
     memory: Int = 0,
     connection: Int = 0,
     query: Int = 0,
-    totalTime: Double = 0,
-    lockTime: Double = 0,
+    totalTime: Long = 0,
+    lockTime: Long = 0,
     qps: Int = 0,
     lock: Double = 0d) {
 }
@@ -21,8 +21,8 @@ case object MongoStatus {
   def apply(mongodb: MongoDB)(prev: MongoStatus): MongoStatus = {
     val status: MongoDBObject = mongodb.command("serverStatus")
     val query = status.expand[Int]("network.numRequests") | 0
-    val totalTime = status.expand[Double]("globalLock.totalTime") | 0
-    val lockTime = status.expand[Double]("globalLock.lockTime") | 0
+    val totalTime = status.expand[Long]("globalLock.totalTime") | 0
+    val lockTime = status.expand[Long]("globalLock.lockTime") | 0
     new MongoStatus(
       memory = status.expand[Int]("mem.resident") | 0,
       connection = status.expand[Int]("connections.current") | 0,
