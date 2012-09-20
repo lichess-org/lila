@@ -52,3 +52,4 @@ send lobby new forum posts html through websockets
 in table, hide lichess_control when it's empty (watcher mode)
 BUG tournament idle resign: based on 20 seconds added time! can make black resign by playing after 19s
 tournament join, sometimes withdraws by cron
+tournament: no cheater

@@ -37,6 +37,13 @@ final class Firewall(
 
   def accepts(req: RequestHeader): Boolean = !blocks(req)
 
+  def acceptsOrLog(req: RequestHeader): Boolean =
+    if (accepts(req)) true
+    else {
+      logBlock(req)
+      false
+    }
+
   def refresh { ips = fetch }
 
   def blockIp(ip: String) {
