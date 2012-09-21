@@ -29,7 +29,7 @@ trait Dependencies {
   val csv = "com.github.tototoshi" %% "scala-csv" % "0.3"
   val hasher = "com.roundeights" % "hasher" % "0.3" from "http://cloud.github.com/downloads/Nycto/Hasher/hasher_2.9.1-0.3.jar"
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "1.3.0.201202151440-r"
-  val actuarius = "eu.henkelmann" %% "actuarius" % "0.2.3"
+  val actuarius = "eu.henkelmann" % "actuarius_2.9.2" % "0.2.4"
   val jodaTime = "joda-time" % "joda-time" % "2.1"
   val jodaConvert = "org.joda" % "joda-convert" % "1.2"
   val scalastic = "com.traackr" % "scalastic_2.9.2" % "0.0.6-HACKED"
