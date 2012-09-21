@@ -7,7 +7,6 @@ public/trans
 serve/
 serve/README
 target
-target-*
 bin/.translate_version
 data/
 RUNNING_PID
