@@ -74,6 +74,9 @@ trait LilaController
       }
     )
 
+  protected def NoEngine[A <: Result](a: ⇒ A)(implicit ctx: Context): Result =
+    ctx.me.fold(_.engine, false).fold(Forbidden(views.html.site.noEngine()), a)
+
   protected def JsonOk(map: Map[String, Any]) = Ok(toJson(map)) as JSON
 
   protected def JsonOk(list: List[Any]) = Ok(Json generate list) as JSON
