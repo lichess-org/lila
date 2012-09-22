@@ -144,8 +144,10 @@ $.widget("lichess.game", {
           });
         },
         gone: function(event) {
-          self.$table.find("div.force_resign_zone").toggle(event);
-          self.centerTable();
+          if (!self.options.opponent.ai) {
+            self.$table.find("div.force_resign_zone").toggle(event);
+            self.centerTable();
+          }
         },
         end: function() {
           // Game end must be applied firt: no queue
