@@ -76,13 +76,15 @@ object Tournament extends LilaController {
     version = version(tour.id),
     games = games)
 
-  def join(id: String) = Auth { implicit ctx ⇒
+  def join(id: String) = AuthBody { implicit ctx ⇒
     implicit me ⇒
-      IOptionIORedirect(repo createdById id) { tour ⇒
-        api.join(tour, me).fold(
-          err ⇒ putStrLn(err.shows) map (_ ⇒ routes.Tournament.home()),
-          res ⇒ res map (_ ⇒ routes.Tournament.show(tour.id))
-        )
+      NoEngine {
+        IOptionIORedirect(repo createdById id) { tour ⇒
+          api.join(tour, me).fold(
+            err ⇒ putStrLn(err.shows) map (_ ⇒ routes.Tournament.home()),
+            res ⇒ res map (_ ⇒ routes.Tournament.show(tour.id))
+          )
+        }
       }
   }
 
@@ -124,18 +126,22 @@ object Tournament extends LilaController {
 
   def form = Auth { implicit ctx ⇒
     me ⇒
-      Ok(html.tournament.form(forms.create, forms))
+      NoEngine {
+        Ok(html.tournament.form(forms.create, forms))
+      }
   }
 
   def create = AuthBody { implicit ctx ⇒
     implicit me ⇒
-      IOResult {
-        implicit val req = ctx.body
-        forms.create.bindFromRequest.fold(
-          err ⇒ io(BadRequest(html.tournament.form(err, forms))),
-          setup ⇒ api.createTournament(setup, me) map { tour ⇒
-            Redirect(routes.Tournament.show(tour.id))
-          })
+      NoEngine {
+        IOResult {
+          implicit val req = ctx.body
+          forms.create.bindFromRequest.fold(
+            err ⇒ io(BadRequest(html.tournament.form(err, forms))),
+            setup ⇒ api.createTournament(setup, me) map { tour ⇒
+              Redirect(routes.Tournament.show(tour.id))
+            })
+        }
       }
   }
 
