@@ -40,7 +40,7 @@ final class RoundEnv(
     playerTimeout = RoundPlayerTimeout
   )), name = ActorRoundHubMaster)
 
-  lazy val moveNotifier = new MoveNotifier(
+  private lazy val moveNotifier = new MoveNotifier(
     siteHubName = ActorSiteHub,
     lobbyHubName = ActorLobbyHub,
     tournamentHubMasterName = ActorTournamentHubMaster,

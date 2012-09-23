@@ -342,6 +342,8 @@ case class DbGame(
 
   def playerMoves(color: Color): Int = (turns + color.fold(1, 0)) / 2
 
+  def playerHasMoved(color: Color) = playerMoves(color) > 0
+
   def playerBlurPercent(color: Color): Int = (turns > 5).fold(
     (player(color).blurs * 100) / playerMoves(color),
     0
