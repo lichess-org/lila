@@ -63,7 +63,8 @@ object Contributors {
     "ps" -> List("Eimal Dorani"),
     "is" -> List("Sir Gizmo Gunn Myr Basque", "cyberpunk"),
     "kk" -> List("Arsakay Madi"),
-    "io" -> List("Anonymous"))
+    "io" -> List("Anonymous"),
+    "gu" -> List("Anonnymous"))
 
   def apply(code: String): List[String] = ~(all get code)
 }
