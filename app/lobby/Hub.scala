@@ -61,13 +61,11 @@ final class Hub(
         members.values filter (_ ownsHook hook) foreach fn
       }
 
-    case ChangeFeatured(oldId, newId) ⇒ notifyFeatured(oldId, newId)
+    case ChangeFeatured(html) ⇒ notifyFeatured(html)
   }
 
-  def notifyFeatured(oldId: Option[String], newId: String) {
-    val msg = makeMessage("featured", JsObject(Seq(
-      "oldId" -> oldId.fold(JsString(_), JsNull),
-      "newId" -> JsString(newId))))
+  def notifyFeatured(html: String) {
+    val msg = makeMessage("featured", JsString(html))
     members.values foreach (_.channel push msg)
   }
 

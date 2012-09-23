@@ -35,12 +35,11 @@ final class Featured(
     }
 
     private def getOne = oneId flatMap fetch filter valid orElse {
-      feature ~ { o ⇒
-        val newOneId = o map (_.id)
-        newOneId foreach { newId ⇒
-          lobbyRef ! ChangeFeatured(oneId, newId)
+      feature ~ { newOne ⇒
+        oneId = newOne map (_.id)
+        newOne foreach { game ⇒
+          lobbyRef ! ChangeFeatured(views.html.game.featuredJsNoCtx(game).toString)
         }
-        oneId = newOneId
       }
     }
 
