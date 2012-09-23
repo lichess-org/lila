@@ -4,7 +4,7 @@ package memo
 import scalaz.effects._
 import scala.collection.JavaConversions._
 
-abstract class BooleanExpiryMemo(timeout: Int) {
+final class BooleanExpiryMemo(timeout: Int) {
 
   protected val cache = Builder.expiry[String, Boolean](timeout)
 

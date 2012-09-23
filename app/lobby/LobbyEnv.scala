@@ -16,6 +16,7 @@ import round.{ Socket ⇒ RoundSocket, Messenger ⇒ RoundMessenger }
 import socket.History
 import security.Flood
 import core.Settings
+import memo.BooleanExpiryMemo
 
 final class LobbyEnv(
     app: Application,
@@ -58,7 +59,7 @@ final class LobbyEnv(
 
   lazy val hookRepo = new HookRepo(mongodb(LobbyCollectionHook))
 
-  lazy val hookMemo = new HookMemo(timeout = MemoHookTimeout)
+  lazy val hookMemo = new BooleanExpiryMemo(timeout = MemoHookTimeout)
 
   lazy val preloader = new Preload(
     fisherman = fisherman,

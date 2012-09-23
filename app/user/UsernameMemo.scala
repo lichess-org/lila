@@ -5,16 +5,22 @@ import memo.BooleanExpiryMemo
 
 import scalaz.effects._
 
-final class UsernameMemo(timeout: Int) extends BooleanExpiryMemo(timeout) {
+final class UsernameMemo(timeout: Int) {
+
+  private val internal = new BooleanExpiryMemo(timeout)
 
   def normalize(name: String) = name.toLowerCase
 
-  override def get(key: String): Boolean = 
-    super.get(normalize(key))
+  def get(key: String): Boolean = 
+    internal get normalize(key)
 
-  override def put(key: String): IO[Unit] = 
-    super.put(normalize(key))
+  def put(key: String): IO[Unit] = 
+    internal put normalize(key)
 
-  override def putAll(keys: Iterable[String]): IO[Unit] = 
-    super.putAll(keys map normalize)
+  def putAll(keys: Iterable[String]): IO[Unit] = 
+    internal putAll (keys map normalize)
+
+  def keys = internal.keys
+
+  def preciseCount = internal.preciseCount
 }

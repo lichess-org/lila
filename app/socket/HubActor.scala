@@ -1,13 +1,15 @@
 package lila
 package socket
 
+import memo.BooleanExpiryMemo
+
 import akka.actor._
 import play.api.libs.json._
 
 abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
 
   var members = Map.empty[String, M]
-  val aliveUids = new PingMemo(uidTimeout)
+  val aliveUids = new BooleanExpiryMemo(uidTimeout)
   var pong = makePong(0)
 
   // to be defined in subclassing actor
