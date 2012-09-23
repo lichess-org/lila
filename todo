@@ -52,7 +52,6 @@ send lobby new forum posts html through websockets
 in table, hide lichess_control when it's empty (watcher mode)
 BUG tournament idle resign: based on 20 seconds added time! can make black resign by playing after 19s
 tournament join, sometimes withdraws by cron
-tournament: no cheater
 AI thinks during your time (premove?) http://en.lichess.org/forum/lichess-feedback/y-u-so-greedy-with-time-stockfish#4
 - in fact it does not, but the UI clocks only update once the ai made the move
 - solution: do AI asynchronously. Send player move events right away,
