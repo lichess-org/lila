@@ -40,10 +40,12 @@ $.websocket.prototype = {
     self.debug("connection attempt to " + self.fullUrl);
     if (window.MozWebSocket) self.ws = new MozWebSocket(self.fullUrl);
     else if (window.WebSocket) self.ws = new WebSocket(self.fullUrl);
-    else throw "no websockets on this browser!";
+    else throw "no websockets found on this browser!";
 
+    self.ws.onerror = self.onError;
     self.ws.onopen = function() {
       self.debug("connected to " + self.fullUrl);
+      self.onSuccess();
       if (self.options.offlineTag) self.options.offlineTag.hide();
       self.pingNow();
       $('body').trigger('socket.open');
@@ -71,16 +73,16 @@ $.websocket.prototype = {
     var self = this;
     clearTimeout(self.connectSchedule);
     //self.debug("schedule connect in " + delay + " ms");
-    self.connectSchedule = setTimeout(function() { 
+    self.connectSchedule = setTimeout(function() {
       if (self.options.offlineTag) self.options.offlineTag.show();
-      self.connect(); 
+      self.connect();
     }, delay);
   },
   schedulePing: function(delay) {
     var self = this;
     clearTimeout(self.pingSchedule);
-    self.pingSchedule = setTimeout(function() { 
-      self.pingNow(); 
+    self.pingSchedule = setTimeout(function() {
+      self.pingNow();
     }, delay);
   },
   pingNow: function() {
@@ -123,7 +125,7 @@ $.websocket.prototype = {
       self.debug("set version " + self.version);
     }
     if (m.t) {
-      if (m.t == "resync") { 
+      if (m.t == "resync") {
         location.reload();
         return;
       }
@@ -132,14 +134,26 @@ $.websocket.prototype = {
       else if(!self.options.ignoreUnknownMessages) {
         self.debug(m.t + " not supported");
       }
-    } 
+    }
   },
   now: function() { return new Date().getTime(); },
   debug: function(msg) { if (this.options.debug) console.debug("[" + this.options.name + "]", msg); },
-  destroy: function() { 
+  destroy: function() {
     var self = this;
     clearTimeout(self.pingSchedule);
     clearTimeout(self.connectSchedule);
-    if (self.ws) { self.ws.close(); self.ws = null; } 
+    if (self.ws) { self.ws.close(); self.ws = null; }
+  },
+  onError: function(e) {
+    if ($("#websocket-fail").length == 0) {
+      $.ajax("/assets/websocket-fail.html", {
+        success: function(html) {
+          $('body').prepend("<div id='websocket-fail'>" + html + "</div>");
+        }
+      });
+    }
+  },
+  onSuccess: function() {
+    $("#websocket-fail").remove();
   }
 }
