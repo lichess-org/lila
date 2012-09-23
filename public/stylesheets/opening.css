@@ -184,7 +184,7 @@ div.hooks a.user_link {
   padding-left: 0;
 }
 
-div.featured_game div.vstext {
+#featured_game div.vstext {
   margin-top: 0.7em;
   text-align: center;
 }

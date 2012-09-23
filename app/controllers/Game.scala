@@ -48,10 +48,4 @@ object Game extends LilaController with BaseGame {
       Ok(html.game.analysed(analysePaginator games page, makeListMenu))
     }
   }
-
-  def featuredJs(id: String) = Open { implicit ctx ⇒
-    IOk(gameRepo game id map { gameOption =>
-      html.game.featuredJs(gameOption)
-    })
-  }
 }

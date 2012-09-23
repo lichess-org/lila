@@ -47,4 +47,3 @@ save game prefs in cookie
 redis pubsub / rabbitmq for ai
 IP smart tools for admins
 lsof show the open websockets on prod. The recurrent bug could come from the open descriptors limit (ulimit -n)
-send featured fen through websocket instead of multiple ajax call

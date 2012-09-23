@@ -233,18 +233,9 @@ $(function() {
     $("table.tournaments").html(data);
   }
 
-  function changeFeatured(data) {
-    $('div.featured_game').each(function() {
-      var $featured = $(this);
-      $.get(
-        $featured.data("href"),
-        { id: data.newId },
-        function(html) {
-          $featured.replaceWith(html);
-          $('body').trigger('lichess.content_loaded');
-        }
-        );
-    });
+  function changeFeatured(html) {
+    $('#featured_game').html(html);
+    $('body').trigger('lichess.content_loaded');
   }
 
   function renderTimeline(data) {

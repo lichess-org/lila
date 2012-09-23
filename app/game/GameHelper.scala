@@ -101,4 +101,15 @@ trait GameHelper { self: I18nHelper with UserHelper with StringHelper with AiHel
       Forsyth exportBoard game.toChess.board,
       game.lastMove | "")
   }
+
+  def gameFenNoCtx(game: DbGame, color: Color) = Html {
+    var live = game.isBeingPlayed
+    """<a href="%s" class="mini_board parse_fen %s" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"></a>""".format(
+      routes.Round.watcher(game.id, color.name),
+      live.fold("live live_" + game.id, ""),
+      live.fold(game.id, ""),
+      color.name,
+      Forsyth exportBoard game.toChess.board,
+      game.lastMove | "")
+  }
 }
