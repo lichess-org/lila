@@ -245,7 +245,6 @@ div.side_menu a.active {
 #nb_connected_players {
   float: left;
   color: #999;
-  font-style: italic;
   border-left: 1px solid #ccc;
 }
 a.goto_nav {

@@ -145,7 +145,7 @@ $.websocket.prototype = {
     if (self.ws) { self.ws.close(); self.ws = null; }
   },
   onError: function(e) {
-    if ($("#websocket-fail").length == 0) {
+    if (!$.cookie("wsok") && $("#websocket-fail").length == 0) {
       $.ajax("/assets/websocket-fail.html", {
         success: function(html) {
           $('body').prepend("<div id='websocket-fail'>" + html + "</div>");
@@ -154,6 +154,7 @@ $.websocket.prototype = {
     }
   },
   onSuccess: function() {
+    $.cookie("wsok", 1);
     $("#websocket-fail").remove();
   }
 }
