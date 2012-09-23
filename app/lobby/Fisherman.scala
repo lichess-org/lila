@@ -2,12 +2,13 @@ package lila
 package lobby
 
 import game.DbGame
+import memo.BooleanExpiryMemo
 
 import scalaz.effects._
 
 final class Fisherman(
     hookRepo: HookRepo,
-    hookMemo: HookMemo,
+    hookMemo: BooleanExpiryMemo,
     socket: Socket) {
 
   def delete(hook: Hook): IO[Unit] = for {

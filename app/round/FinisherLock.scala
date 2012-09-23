@@ -6,9 +6,11 @@ import memo.BooleanExpiryMemo
 
 import scalaz.effects._
 
-final class FinisherLock(timeout: Int) extends BooleanExpiryMemo(timeout) {
+final class FinisherLock(timeout: Int) {
 
-  def isLocked(game: DbGame): Boolean = get(game.id)
+  private val internal = new BooleanExpiryMemo(timeout)
 
-  def lock(game: DbGame): IO[Unit] = put(game.id)
+  def isLocked(game: DbGame): Boolean = internal get game.id
+
+  def lock(game: DbGame): IO[Unit] = internal put game.id
 }

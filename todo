@@ -56,3 +56,6 @@ AI thinks during your time (premove?) http://en.lichess.org/forum/lichess-feedba
 - solution: do AI asynchronously. Send player move events right away,
 - and ai events when the ai completes
 save game prefs in cookie
+redis pubsub / rabbitmq for ai
+IP smart tools for admins
+lsof show the open websockets on prod. The recurrent bug could come from the open descriptors limit (ulimit -n)
