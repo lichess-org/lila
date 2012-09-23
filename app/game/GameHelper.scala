@@ -56,7 +56,7 @@ trait GameHelper { self: I18nHelper with UserHelper with StringHelper with AiHel
             diff ⇒ " (%s)".format(showNumber(diff)),
             ""),
           engine.fold(
-            """<span class="engine_mark tipsyme" title="%s"></span>""" format trans.thisPlayerUsesChessComputerAssistance(),
+            """<span class="engine_mark" title="%s"></span>""" format trans.thisPlayerUsesChessComputerAssistance(),
             "")
         )
       },

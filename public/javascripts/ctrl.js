@@ -125,15 +125,6 @@ $(function() {
   translateTexts();
   $('body').on('lichess.content_loaded', translateTexts);
 
-  $.tipsyfy = function($elem) {
-    $elem.find('a:not(div.game_list_inner a):not(.notipsy):not(#boardTable a), input, label, .tipsyme, button').filter('[title]').tipsy({
-      fade: true,
-      html: false,
-      live: true
-    });
-  };
-  $.tipsyfy($('body'));
-
   if ($autocomplete = $('input.autocomplete').orNot()) {
     $autocomplete.autocomplete({
       source: $autocomplete.attr('data-provider'),

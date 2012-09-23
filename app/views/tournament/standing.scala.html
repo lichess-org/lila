@@ -15,7 +15,7 @@
     case (rank, player) => {
     @defining(if(tour.isFinished && rank == 1) "winner" else if (player.withdraw) "withdraw" else "") { flag =>
     <tr>
-      <td><span class="rank @flag tipsyme" title="@flag.capitalize">@rank</span></td>
+      <td><span class="rank @flag" title="@flag.capitalize">@rank</span></td>
       <td>
         @userInfosLink(player.username, player.elo.some, withOnline = false)
       </td>
