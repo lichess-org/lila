@@ -519,7 +519,11 @@ $.widget("lichess.game", {
     });
   },
   centerTable: function() {
-    this.$table.css('top', (256 - this.$table.height() / 2) + 'px');
+    var self = this;
+    self.$table.find(".lichess_control").each(function() {
+      $(this).toggleClass("none", $(this).html().trim() == "");
+    });
+    self.$table.css('top', (256 - self.$table.height() / 2) + 'px');
   },
   initClocks: function() {
     var self = this;
