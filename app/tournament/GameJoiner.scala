@@ -1,7 +1,8 @@
 package lila
 package tournament
 
-import game.{ DbGame, DbPlayer, GameRepo, Pov }
+import chess.Color
+import game.{ DbGame, DbPlayer, GameRepo, Pov, PovRef }
 import user.User
 import round.Meddler
 
@@ -15,6 +16,8 @@ final class GameJoiner(
     roundMeddler: Meddler,
     timelinePush: DbGame ⇒ IO[Unit],
     getUser: String ⇒ IO[Option[User]]) {
+
+  private val secondsToMove = 20
 
   def apply(tour: Started)(pairing: Pairing): IO[DbGame] = for {
     user1 ← getUser(pairing.user1) map (_ err "No such user " + pairing)
@@ -38,23 +41,31 @@ final class GameJoiner(
     _ ← gameRepo insert game
     _ ← gameRepo denormalizeStarted game
     _ ← timelinePush(game)
-    _ ← scheduleIdleCheck(game.id)
+    _ ← scheduleIdleCheck(PovRef(game.id, Color.White), secondsToMove)
   } yield game
 
-  private def scheduleIdleCheck(gameId: String) = io {
-    Akka.system.scheduler.scheduleOnce(20 seconds)(idleCheck(gameId))
+  private def scheduleIdleCheck(povRef: PovRef, in: Int) = io {
+    Akka.system.scheduler.scheduleOnce(in seconds)(idleCheck(povRef))
+  } map (_ ⇒ ())
+
+  private def idleCheck(povRef: PovRef) {
+    (for {
+      povOption ← gameRepo pov povRef
+      _ ← povOption.filter(_.game.playable).fold(idleResult, io())
+    } yield ()).unsafePerformIO
   }
 
-  private def idleCheck(gameId: String) {
-    (for {
-      gameOption ← gameRepo game gameId
-      _ ← gameOption.fold(
-        game ⇒ game.playerWhoDidNotMove.fold(
-          player ⇒ roundMeddler resign Pov(game, player),
-          io()
-        ),
+  private def idleResult(pov: Pov) = {
+    val idle = !pov.game.playerHasMoved(pov.color)
+    idle.fold(
+      roundMeddler resign pov,
+      (pov.color.white && !pov.game.playerHasMoved(Color.Black)).fold(
+        scheduleIdleCheck(!pov.ref, pov.game.lastMoveTime.fold(
+          lastMoveTime ⇒ lastMoveTime - nowSeconds + secondsToMove,
+          secondsToMove
+        )),
         io()
       )
-    } yield ()).unsafePerformIO
+    )
   }
 }

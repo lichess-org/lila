@@ -33,4 +33,7 @@ object Pov {
     game player playerId map { p ⇒ new Pov(game, p.color) }
 }
 
-case class PovRef(gameId: String, color: Color)
+case class PovRef(gameId: String, color: Color) {
+
+  def unary_! = PovRef(gameId, !color)
+}

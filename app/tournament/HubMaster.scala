@@ -30,7 +30,7 @@ final class HubMaster(
 
     case msg @ SendTo(_, _) ⇒ hubs.values foreach (_ ! msg)
 
-    case Forward(id, msg)   ⇒ hubs.get(id).foreach(_ ! msg)
+    case Forward(id, msg)   ⇒ hubs get id foreach (_ ! msg)
 
     case GetHub(id: String) ⇒ sender ! {
       (hubs get id) | {
