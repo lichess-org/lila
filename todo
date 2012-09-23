@@ -34,15 +34,11 @@ possible timeout bug http://en.lichess.org/forum/lichess-feedback/possible-timeo
 add elo titles (like 2300+ = FM)
 tournament replace game->tour redirect with big link
 tournament berserker = half time, double points
-add opera to supported browsers
-detected opera but no websockets = help message
 chat icons (k) (K)
 blind accessible
-home anon replace chat with mini boards
 make hand and finisher actors to avoid racing conditions
 tournament monitor
 all hub members should use userIds rather than usernames
-add opera to list of supported browsers (with websocket trick)
 tournament ties
 tournament detect leavers and withdraw them (started) (also use force resign)
 -> or show current tournament on every page, with (join) and (redraw) buttons

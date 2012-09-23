@@ -46,7 +46,12 @@ lichess.socketDefaults.options.debug = !lichess.onProduction;
 $(function() {
 
   if (!$.websocket.available) {
-    $.ajax('/assets/browser.html', { success: function(html) { $('body').prepend(html); } });
+    if (window.opera) {
+      var inUrFaceUrl = '/assets/opera-websocket.html';
+    } else {
+      var inUrFaceUrl = '/assets/browser.html';
+    }
+    $.ajax(inUrFaceUrl, { success: function(html) { $('body').prepend(html); } });
   }
 
   // Start game
