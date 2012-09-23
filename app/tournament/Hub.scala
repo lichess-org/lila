@@ -3,6 +3,7 @@ package tournament
 
 import game.DbGame
 import socket._
+import memo.BooleanExpiryMemo
 
 import akka.actor._
 import akka.util.duration._
@@ -17,6 +18,8 @@ final class Hub(
     messenger: Messenger,
     uidTimeout: Int,
     hubTimeout: Int) extends HubActor[Member](uidTimeout) with Historical[Member] {
+
+  val joiningMemo = new BooleanExpiryMemo(uidTimeout)
 
   var lastPingTime = nowMillis
 
@@ -75,7 +78,11 @@ final class Hub(
       members.values foreach { _.channel.end() }
       self ! PoisonPill
     }
+
+    case Joining(userId) ⇒ (joiningMemo put userId).unsafePerformIO
   }
+
+  override def usernames = (super.usernames ++ joiningMemo.keys).toList.distinct
 
   def notifyCrowd {
     notifyVersion("crowd", JsArray({

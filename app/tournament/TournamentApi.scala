@@ -71,6 +71,7 @@ final class TournamentApi(
   } yield for {
     withdrawIds ← repo withdraw me.id
     _ ← repo saveIO tour2
+    _ ← socket.notifyJoining(tour.id, me.id)
     _ ← ((tour.id :: withdrawIds) map socket.reload).sequence
     _ ← reloadSiteSocket
     _ ← lobbyReload

@@ -42,6 +42,10 @@ final class Socket(
     }
   }
 
+  def notifyJoining(tournamentId: String, userId: String) = io {
+    hubMaster ! Forward(tournamentId, Joining(userId))
+  }
+
   def join(
     tournamentId: String,
     version: Option[Int],
