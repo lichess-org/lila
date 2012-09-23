@@ -488,7 +488,6 @@ $.widget("lichess.game", {
     var self = this;
     self.get(self.options.tableUrl, {
       success: function(html) {
-        $('body > div.tipsy').remove();
         self.$tableInner.html(html);
         self.initTable();
         $.isFunction(callback) && callback();
@@ -510,9 +509,6 @@ $.widget("lichess.game", {
   initTable: function() {
     var self = this;
     self.centerTable();
-    self.$table.find('a, input, label').tipsy({
-      fade: true
-    });
     self.$table.find('a.moretime').unbind("click").click(function() {
       lichess.socket.send("moretime");
       return false;
