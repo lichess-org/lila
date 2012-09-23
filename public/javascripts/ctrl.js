@@ -5,6 +5,11 @@ if (typeof console == "undefined" || typeof console.log == "undefined") console 
 // declare now, populate later
 var lichess_translations = [];
 
+$.cookie.defaults = {
+  path: '/',
+  domain: document.domain.replace(/^\w+\.(.+)$/, '$1')
+};
+
 var lichess = {
   socket: null,
   socketDefaults: {
