@@ -68,7 +68,7 @@ trait AuthImpl {
 
   protected def restoreUser(req: RequestHeader): Option[User] = for {
     sessionId ← req.session.get("sessionId")
-    if env.security.firewall acceptsOrLog req
+    if env.security.firewall accepts req
     username ← env.security.store.getUsername(sessionId)
     user ← (env.user.userRepo byId username).unsafePerformIO
   } yield user
