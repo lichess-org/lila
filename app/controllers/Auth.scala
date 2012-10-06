@@ -19,13 +19,15 @@ object Auth extends LilaController {
   }
 
   def authenticate = OpenBody { implicit ctx ⇒
-    implicit val req = ctx.body
-    loginForm.bindFromRequest.fold(
-      err ⇒ BadRequest(html.auth.login(err)),
-      userOption ⇒ gotoLoginSucceeded(
-        userOption.err("authenticate error").username
+    Firewall {
+      implicit val req = ctx.body
+      loginForm.bindFromRequest.fold(
+        err ⇒ BadRequest(html.auth.login(err)),
+        userOption ⇒ gotoLoginSucceeded(
+          userOption.err("authenticate error").username
+        )
       )
-    )
+    }
   }
 
   def logout = Open { implicit ctx ⇒
@@ -43,9 +45,7 @@ object Auth extends LilaController {
       err ⇒ BadRequest(html.auth.signup(err, forms.captchaCreate)),
       data ⇒ Firewall {
         val user = userRepo.create(data.username, data.password).unsafePerformIO
-        gotoSignupSucceeded(
-          user.err("register error").username
-        )
+        gotoSignupSucceeded(user.err("register error").username)
       }
     )
   }
