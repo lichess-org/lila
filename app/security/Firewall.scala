@@ -69,7 +69,7 @@ final class Firewall(
   }
 
   private def formatReq(req: RequestHeader) =
-    "%s %s".format(req.remoteAddress, req.headers.get("User-Agent") | "?")
+    "%s %s %s".format(req.uri, req.remoteAddress, req.headers.get("User-Agent") | "?")
 
   private def blocksIp(ip: String) = ips contains ip
 
