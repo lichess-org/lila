@@ -70,8 +70,8 @@ final class Server(
 
   private implicit val executor = Akka.system.dispatcher
 
-  private val playAtMost = 5 seconds
-  private val analyseAtMost = 10 minutes
+  private val playAtMost = 20 seconds
+  private val analyseAtMost = 20 minutes
 
   private lazy val process = Process(execPath, "StockFish") _
   private lazy val actor = Akka.system.actorOf(Props(
