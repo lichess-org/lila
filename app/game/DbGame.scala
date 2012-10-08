@@ -333,7 +333,7 @@ case class DbGame(
   def pgnList = pgn.split(' ').toList
 
   def playerWhoDidNotMove: Option[DbPlayer] = turns match {
-    case 0 ⇒ player(White).some 
+    case 0 ⇒ player(White).some
     case 1 ⇒ player(Black).some
     case _ ⇒ none
   }
@@ -355,6 +355,11 @@ case class DbGame(
 
   def isBeingPlayed =
     !finishedOrAborted && updatedAt.fold(_ > DateTime.now - 20.seconds, false)
+
+  def abandoned = updatedAt.fold(
+    u ⇒ (status <= Status.Started) && (u <= DbGame.abandonedDate),
+    false
+  )
 
   def hasBookmarks = bookmarks > 0
 
@@ -407,6 +412,8 @@ object DbGame {
   val gameIdSize = 8
   val playerIdSize = 4
   val fullIdSize = 12
+
+  def abandonedDate = DateTime.now - 10.days
 
   def takeGameId(fullId: String) = fullId take gameIdSize
 

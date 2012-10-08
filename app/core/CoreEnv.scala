@@ -154,6 +154,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
   lazy val titivate = new lila.core.Titivate(
     gameRepo = game.gameRepo,
     finisher = round.finisher,
+    meddler = round.meddler,
     bookmarkApi = bookmark.api)
 
   lazy val mod = new lila.mod.ModEnv(

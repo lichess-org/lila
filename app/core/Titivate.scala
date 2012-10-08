@@ -2,7 +2,7 @@ package lila
 package core
 
 import game.GameRepo
-import round.Finisher
+import round.{ Finisher, Meddler }
 import bookmark.BookmarkApi
 
 import com.mongodb.casbah.query.Imports._
@@ -11,18 +11,26 @@ import org.scala_tools.time.Imports._
 import scalaz.effects._
 
 final class Titivate(
-  gameRepo: GameRepo, 
-  finisher: Finisher,
-  bookmarkApi: BookmarkApi) {
+    gameRepo: GameRepo,
+    finisher: Finisher,
+    meddler: Meddler,
+    bookmarkApi: BookmarkApi) {
 
-  val finishByClock: IO[Unit] =
-    for {
-      games ← gameRepo.candidatesToAutofinish
-      _ ← (finisher outoftimes games).sequence
-    } yield ()
+  val finishByClock: IO[Unit] = for {
+    games ← gameRepo.candidatesToAutofinish
+    _ ← putStrLn("[titivate] Finish %d games by clock" format games.size)
+    _ ← (finisher outoftimes games).sequence
+  } yield ()
 
-  val cleanupUnplayed = for {
+  val finishAbandoned: IO[Unit] = for {
+    games ← gameRepo abandoned 200
+    _ ← putStrLn("[titivate] Finish %d abandoned games" format games.size)
+    _ ← (games map meddler.finishAbandoned).sequence
+  } yield ()
+
+  val cleanupUnplayed: IO[Unit] = for {
     ids ← gameRepo.unplayedIds
+    _ ← putStrLn("[titivate] Remove %d unplayed games" format ids.size)
     _ ← gameRepo removeIds ids
     _ ← bookmarkApi removeByGameIds ids
   } yield ()

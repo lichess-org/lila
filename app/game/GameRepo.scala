@@ -133,8 +133,8 @@ final class GameRepo(collection: MongoCollection)
 
   val unplayedIds: IO[List[String]] = io {
     primitiveProjections[String](
-      ("turns" $lt 2) ++ 
-      ("createdAt" $lt (DateTime.now - 2.day) $gt (DateTime.now - 1.month)),
+      ("turns" $lt 2) ++
+        ("createdAt" $lt (DateTime.now - 2.day) $gt (DateTime.now - 1.month)),
       "_id"
     )
   }
@@ -148,7 +148,7 @@ final class GameRepo(collection: MongoCollection)
     remove("_id" $in ids)
   }
 
-  def candidatesToAutofinish: IO[List[DbGame]] = io {
+  val candidatesToAutofinish: IO[List[DbGame]] = io {
     find(Query.playable ++
       Query.clock(true) ++
       ("createdAt" $gt (DateTime.now - 1.day)) ++ // index
@@ -156,7 +156,13 @@ final class GameRepo(collection: MongoCollection)
     ).toList.map(_.decode).flatten
   }
 
-  def featuredCandidates: IO[List[DbGame]] = io {
+  def abandoned(max: Int): IO[List[DbGame]] = io {
+    find(
+      Query.notFinished ++ ("updatedAt" $lt DbGame.abandonedDate)
+    ).limit(max).toList.map(_.decode).flatten
+  }
+
+  val featuredCandidates: IO[List[DbGame]] = io {
     find(Query.playable ++
       Query.clock(true) ++
       ("turns" $gt 1) ++
@@ -177,7 +183,7 @@ final class GameRepo(collection: MongoCollection)
     find(Query.started ++ Query.turnsGt(1))
       .sort(Query.sortCreated)
       .limit(limit)
-      .toList.map(_.decode).flatten 
+      .toList.map(_.decode).flatten
   }
 
   def games(ids: List[String]): IO[List[DbGame]] = io {
