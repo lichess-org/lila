@@ -36,4 +36,14 @@ final class Meddler(
     povOption ← gameRepo pov povRef
     _ ← povOption.fold(resign, putStrLn("Cannot resign missing game " + povRef))
   } yield ()
+
+  def finishAbandoned(game: DbGame): IO[Unit] = game.abandoned.fold(
+    finisher.resign(Pov(game, game.player))
+      .prefixFailuresWith("Finish abandoned game " + game.id)
+      .fold(
+        err ⇒ putStrLn(err.shows),
+        _ map (_ ⇒ ()) // discard the events
+      ),
+    putStrLn("Game is not abandoned") 
+  )
 }

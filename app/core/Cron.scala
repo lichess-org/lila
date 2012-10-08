@@ -40,11 +40,11 @@ object Cron {
       }
     }
 
-    effect(2 seconds, "fisherman cleanup") {
+    effect(2 seconds, "fisherman: cleanup") {
       env.lobby.fisherman.cleanup
     }
 
-    effect(10 seconds, "lobby cleanup") {
+    effect(10 seconds, "lobby: cleanup") {
       env.lobby.hookRepo.cleanupOld
     }
 
@@ -56,18 +56,23 @@ object Cron {
 
     if (current.mode != Mode.Dev) {
 
-      effect(4.1 hours, "game cleanup") {
+      env.ai.clientDiagnose
+
+      effect(4.17 hours, "game: cleanup") {
         env.titivate.cleanupUnplayed flatMap { _ ⇒
           env.titivate.cleanupNext
         }
       }
 
-      effect(1 hour, "game finish") {
+      effect(1.13 hour, "game: finish by clock") {
         env.titivate.finishByClock
       }
 
-      env.ai.clientDiagnose
+      effect(1 minutes, "game: finish abandoned") {
+        env.titivate.finishAbandoned
+      }
     }
+
     unsafe(10 seconds, "ai: diagnose") {
       env.ai.clientDiagnose
     }

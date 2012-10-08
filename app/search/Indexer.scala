@@ -31,7 +31,7 @@ final class Indexer(
   def count(request: CountRequest): Int = request.in(indexName, typeName)(es)
 
   val indexQueue: IO[Unit] = for {
-    ids ← queue next 1000
+    ids ← queue next 2000
     _ ← ids.toNel.fold(
       neIds ⇒ for {
         _ ← putStrLn("Search indexing %d games" format neIds.list.size)

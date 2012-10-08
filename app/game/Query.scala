@@ -27,7 +27,7 @@ object Query {
 
   val finished: DBObject = "status" $in List(Status.Mate.id, Status.Resign.id, Status.Outoftime.id, Status.Timeout.id)
 
-  val notFinished: DBObject = DBObject("status" -> Status.Started.id)
+  val notFinished: DBObject = "status" $lte Status.Started.id
 
   val frozen: DBObject = "status" $gte Status.Mate.id
 
