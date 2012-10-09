@@ -84,9 +84,10 @@ final class GameRepo(collection: MongoCollection)
     update(
       idSelector(id),
       winnerId.fold(userId ⇒
-        $set("positionHashes" -> "", "winId" -> userId),
-        $set("positionHashes" -> ""))
+        $set("winId" -> userId),
+        $set())
         ++ $unset(
+          "positionHashes",
           "players.0.previousMoveTs",
           "players.1.previousMoveTs",
           "players.0.lastDrawOffer",
@@ -103,8 +104,7 @@ final class GameRepo(collection: MongoCollection)
     find(DBObject(
       "status" -> Status.Mate.id,
       "v" -> Variant.Standard.id
-    ))
-      .sort(DBObject("createdAt" -> -1))
+    )).sort(DBObject("createdAt" -> -1))
       .limit(1)
       .skip(Random nextInt distribution)
       .toList.map(_.decode).flatten.headOption
