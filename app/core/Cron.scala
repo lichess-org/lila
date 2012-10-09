@@ -58,7 +58,7 @@ object Cron {
 
       env.ai.clientDiagnose
 
-      effect(4.17 hours, "game: cleanup") {
+      effect(4.5 hours, "game: cleanup") {
         env.titivate.cleanupUnplayed flatMap { _ ⇒
           env.titivate.cleanupNext
         }
@@ -68,7 +68,7 @@ object Cron {
         env.titivate.finishByClock
       }
 
-      effect(1 minutes, "game: finish abandoned") {
+      effect(2.3 hour, "game: finish abandoned") {
         env.titivate.finishAbandoned
       }
     }
