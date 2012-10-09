@@ -23,7 +23,7 @@ final class Titivate(
   } yield ()
 
   val finishAbandoned: IO[Unit] = for {
-    games ← gameRepo abandoned 200
+    games ← gameRepo abandoned 300
     _ ← putStrLn("[titivate] Finish %d abandoned games" format games.size)
     _ ← (games map meddler.finishAbandoned).sequence
   } yield ()
