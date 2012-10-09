@@ -144,9 +144,6 @@ div.lichess_piece {
   height: 64px;
   background-image: url(../images/sprite.png);
 }
-body.hide_pieces div.lichess_piece {
-  background-image: url(../images/sprite_question.png);
-}
 
 div.my_turn div.lichess_piece.ui-draggable {
   cursor: move;
