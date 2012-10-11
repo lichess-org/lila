@@ -19,17 +19,17 @@ object Query {
 
   val started: DBObject = ("s" $gte Status.Started.id)
 
-  val playable: DBObject = ("status" $lt Status.Aborted.id)
+  val playable: DBObject = ("s" $lt Status.Aborted.id)
 
-  val mate: DBObject = DBObject("status" -> Status.Mate.id)
+  val mate: DBObject = DBObject("s" -> Status.Mate.id).pp
 
-  val draw: DBObject = "status" $in List(Status.Draw.id, Status.Stalemate.id)
+  val draw: DBObject = "s" $in List(Status.Draw.id, Status.Stalemate.id)
 
-  val finished: DBObject = "status" $in List(Status.Mate.id, Status.Resign.id, Status.Outoftime.id, Status.Timeout.id)
+  val finished: DBObject = "s" $in List(Status.Mate.id, Status.Resign.id, Status.Outoftime.id, Status.Timeout.id)
 
-  val notFinished: DBObject = "status" $lte Status.Started.id
+  val notFinished: DBObject = "s" $lte Status.Started.id
 
-  val frozen: DBObject = "status" $gte Status.Mate.id
+  val frozen: DBObject = "s" $gte Status.Mate.id
 
   val popular: DBObject = "bm" $gt 0
 
