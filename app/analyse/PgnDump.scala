@@ -66,7 +66,7 @@ final class PgnDump(
     ))
 
   private def turns(game: DbGame): List[pgn.Turn] =
-    (game.pgnList grouped 2).zipWithIndex.toList map {
+    (game.pgn split ' ' grouped 2).zipWithIndex.toList map {
       case (moves, index) ⇒ pgn.Turn(
         number = index + 1,
         white = moves.headOption map { pgn.Move(_) },

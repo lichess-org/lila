@@ -26,7 +26,7 @@ case class DbPlayer(
         if (dead) piece.role.forsyth.toUpper
         else piece.role.forsyth
       }
-    } mkString " "
+    } mkString ""
 
   def withEncodedPieces(allPieces: Iterable[(Pos, Piece, Boolean)]) = copy(
     ps = encodePieces(allPieces)
@@ -72,9 +72,8 @@ case class DbPlayer(
 
   def encode: RawDbPlayer = RawDbPlayer(
     id = id,
-    c = color.name,
     ps = ps,
-    aiLevel = aiLevel,
+    ai = aiLevel,
     w = isWinner,
     elo = elo,
     ed = eloDiff,
@@ -84,7 +83,7 @@ case class DbPlayer(
     isProposingTakeback = if (isProposingTakeback) Some(true) else None,
     uid = userId,
     mts = Some(moveTimes) filter ("" !=),
-    blurs = Some(blurs) filter (0 !=)
+    bs = Some(blurs) filter (0 !=)
   )
 }
 
@@ -104,9 +103,8 @@ object DbPlayer {
 
 case class RawDbPlayer(
     id: String,
-    c: String,
     ps: String,
-    aiLevel: Option[Int],
+    ai: Option[Int],
     w: Option[Boolean],
     elo: Option[Int],
     ed: Option[Int],
@@ -116,15 +114,13 @@ case class RawDbPlayer(
     isProposingTakeback: Option[Boolean],
     uid: Option[String],
     mts: Option[String],
-    blurs: Option[Int]) {
+    bs: Option[Int]) {
 
-  def decode: Option[DbPlayer] = for {
-    trueColor ← Color(c)
-  } yield DbPlayer(
+  def decode(color: Color): DbPlayer = DbPlayer(
     id = id,
-    color = trueColor,
+    color = color,
     ps = ps,
-    aiLevel = aiLevel,
+    aiLevel = ai,
     isWinner = w,
     elo = elo,
     eloDiff = ed,
@@ -134,6 +130,6 @@ case class RawDbPlayer(
     isProposingTakeback = isProposingTakeback | false,
     userId = uid,
     moveTimes = mts | "",
-    blurs = blurs | 0
+    blurs = bs | 0
   )
 }
