@@ -55,7 +55,7 @@ final class GameRepo(collection: MongoCollection)
   def save(progress: Progress): IO[Unit] =
     new GameDiff(progress.origin.encode, progress.game.encode)() |> { diffs ⇒
       if (diffs.nonEmpty) {
-        val fullDiffs = ("updatedAt" -> new Date) :: diffs
+        val fullDiffs = ("ua" -> new Date) :: diffs
         io { update(idSelector(progress.origin), $set(fullDiffs: _*)) }
       }
       else io()
@@ -68,11 +68,11 @@ final class GameRepo(collection: MongoCollection)
   // makes the asumption that player 0 is white!
   // proved to be true on prod DB at March 31 2012
   def setEloDiffs(id: String, white: Int, black: Int) = io {
-    update(idSelector(id), $set("players.0.ed" -> white, "players.1.ed" -> black))
+    update(idSelector(id), $set("p.0.ed" -> white, "p.1.ed" -> black))
   }
 
   def setUser(id: String, color: Color, user: User) = io {
-    val pn = "players.%d".format(color.fold(0, 1))
+    val pn = "p.%d".format(color.fold(0, 1))
     update(idSelector(id), $set(pn + ".uid" -> user.id, pn + ".elo" -> user.elo))
   }
 
@@ -84,57 +84,53 @@ final class GameRepo(collection: MongoCollection)
     update(
       idSelector(id),
       winnerId.fold(userId ⇒
-        $set("winId" -> userId),
+        $set("wid" -> userId),
         $set())
         ++ $unset(
-          "positionHashes",
-          "players.0.previousMoveTs",
-          "players.1.previousMoveTs",
-          "players.0.lastDrawOffer",
-          "players.1.lastDrawOffer",
-          "players.0.isOfferingDraw",
-          "players.1.isOfferingDraw",
-          "players.0.isProposingTakeback",
-          "players.1.isProposingTakeback"
+          "c.t",
+          "ph",
+          "p.0.previousMoveTs",
+          "p.1.previousMoveTs",
+          "p.0.lastDrawOffer",
+          "p.1.lastDrawOffer",
+          "p.0.isOfferingDraw",
+          "p.1.isOfferingDraw",
+          "p.0.isProposingTakeback",
+          "p.1.isProposingTakeback"
         )
     )
   }
 
   def findRandomStandardCheckmate(distribution: Int): IO[Option[DbGame]] = io {
-    find(DBObject(
-      "status" -> Status.Mate.id,
-      "v" -> Variant.Standard.id
-    )).sort(DBObject("createdAt" -> -1))
+    find(Query.mate + ("v" -> Variant.Standard.id))
+      .sort(Query.sortCreated)
       .limit(1)
       .skip(Random nextInt distribution)
       .toList.map(_.decode).flatten.headOption
   }
 
   def denormalizeStarted(game: DbGame): IO[Unit] = io {
-    update(idSelector(game),
-      $set("userIds" -> game.players.map(_.userId).flatten))
-    update(idSelector(game), game.mode.rated.fold(
-      $set("isRated" -> true), $unset("isRated")))
-    if (game.variant.exotic) update(idSelector(game),
-      $set("initialFen" -> (Forsyth >> game.toChess)))
+    val userIds = game.players.map(_.userId).flatten
+    if (userIds.nonEmpty) update(idSelector(game), $set("uids" -> userIds))
+    if (game.mode.rated) update(idSelector(game), $set("ra" -> true))
+    if (game.variant.exotic) update(idSelector(game), $set("if" -> (Forsyth >> game.toChess)))
   }
 
   def saveNext(game: DbGame, nextId: String): IO[Unit] = io {
     update(
       idSelector(game),
       $set("next" -> nextId) ++
-        $unset("players.0.isOfferingRematch", "players.1.isOfferingRematch")
+        $unset("p.0.isOfferingRematch", "p.1.isOfferingRematch")
     )
   }
 
   def initialFen(gameId: String): IO[Option[String]] = io {
-    primitiveProjection[String](idSelector(gameId), "initialFen")
+    primitiveProjection[String](idSelector(gameId), "if")
   }
 
   val unplayedIds: IO[List[String]] = io {
     primitiveProjections[String](
-      ("turns" $lt 2) ++
-        ("createdAt" $lt (DateTime.now - 1.day) $gt (DateTime.now - 1.week)),
+      ("t" $lt 2) ++ ("ca" $lt (DateTime.now - 1.day) $gt (DateTime.now - 1.week)),
       "_id"
     )
   }
@@ -151,23 +147,23 @@ final class GameRepo(collection: MongoCollection)
   val candidatesToAutofinish: IO[List[DbGame]] = io {
     find(Query.playable ++
       Query.clock(true) ++
-      ("createdAt" $gt (DateTime.now - 1.day)) ++ // index
-      ("updatedAt" $lt (DateTime.now - 2.hour))
+      ("ca" $gt (DateTime.now - 1.day)) ++ // index
+      ("ua" $lt (DateTime.now - 2.hour))
     ).toList.map(_.decode).flatten
   }
 
   def abandoned(max: Int): IO[List[DbGame]] = io {
     find(
-      Query.notFinished ++ ("updatedAt" $lt DbGame.abandonedDate)
+      Query.notFinished ++ ("ua" $lt DbGame.abandonedDate)
     ).limit(max).toList.map(_.decode).flatten
   }
 
   val featuredCandidates: IO[List[DbGame]] = io {
     find(Query.playable ++
       Query.clock(true) ++
-      ("turns" $gt 1) ++
-      ("createdAt" $gt (DateTime.now - 4.minutes)) ++
-      ("updatedAt" $gt (DateTime.now - 15.seconds))
+      ("t" $gt 1) ++
+      ("ca" $gt (DateTime.now - 4.minutes)) ++
+      ("ua" $gt (DateTime.now - 15.seconds))
     ).toList.map(_.decode).flatten
   }
 
@@ -196,7 +192,7 @@ final class GameRepo(collection: MongoCollection)
   def nbPerDay(days: Int): IO[List[Int]] = ((days to 1 by -1).toList map { day ⇒
     val from = DateTime.now.withTimeAtStartOfDay - day.days
     val to = from + 1.day
-    count(("createdAt" $gte from $lt to))
+    count(("ca" $gte from $lt to))
   }).sequence
 
   private def idSelector(game: DbGame): DBObject = idSelector(game.id)

@@ -12,29 +12,29 @@ final class GameDiff(a: RawDbGame, b: RawDbGame) {
     }
 
     d("pgn", _.pgn)
-    d("status", _.status)
-    d("turns", _.turns)
-    d("lastMove", _.lastMove)
-    d("check", _.check)
-    d("positionHashes", _.positionHashes)
-    d("castles", _.castles)
+    d("s", _.s)
+    d("t", _.t)
+    d("lm", _.lm) // lastMove
+    d("ck", _.ck) // check
+    d("ph", _.ph) // positionHashes
+    d("cs", _.cs) // castles
     d("lmt", _.lmt)
     for (i ← 0 to 1) {
-      val name = "players." + i + "."
-      d(name + "ps", _.players(i).ps)
-      d(name + "w", _.players(i).w)
-      d(name + "lastDrawOffer", _.players(i).lastDrawOffer)
-      d(name + "isOfferingDraw", _.players(i).isOfferingDraw)
-      d(name + "isOfferingRematch", _.players(i).isOfferingRematch)
-      d(name + "isProposingTakeback", _.players(i).isProposingTakeback)
-      d(name + "blurs", _.players(i).blurs)
-      d(name + "mts", _.players(i).mts)
+      val name = "p." + i + "."
+      d(name + "ps", _.p(i).ps) // pieces
+      d(name + "w", _.p(i).w) // winner
+      d(name + "lastDrawOffer", _.p(i).lastDrawOffer)
+      d(name + "isOfferingDraw", _.p(i).isOfferingDraw)
+      d(name + "isOfferingRematch", _.p(i).isOfferingRematch)
+      d(name + "isProposingTakeback", _.p(i).isProposingTakeback)
+      d(name + "bs", _.p(i).bs) // blurs
+      d(name + "mts", _.p(i).mts) // movetimes
     }
-    a.clock foreach { c ⇒
-      d("clock.c", _.clock.get.c)
-      d("clock.w", _.clock.get.w)
-      d("clock.b", _.clock.get.b)
-      d("clock.timer", _.clock.get.timer)
+    a.c foreach { c ⇒
+      d("c.c", _.c.get.c)
+      d("c.w", _.c.get.w)
+      d("c.b", _.c.get.b)
+      d("c.t", _.c.get.t) // timer
     }
     builder.toList
   }
