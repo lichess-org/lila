@@ -42,7 +42,7 @@ object Query {
   def rated(u: User): DBObject = user(u) ++ rated
 
   // use the uids index
-  def win(u: User): DBObject = DBObject("uids" -> u.id, "wid" -> u.id)
+  def win(u: User): DBObject = user(u) ++ ("wid" -> u.id)
 
   def draw(u: User): DBObject = user(u) ++ draw
 

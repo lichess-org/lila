@@ -18,8 +18,8 @@ final class Cached(
   private val memo = ActorMemo(loadFromDb, nbTtl, 5.seconds)
 
   private def loadFromDb(key: Key) = key match {
-    case NbGames ⇒ gameRepo.count(_.all).unsafePerformIO
-    case NbMates ⇒ gameRepo.count(_.mate).unsafePerformIO
+    case NbGames   ⇒ gameRepo.count(_.all).unsafePerformIO
+    case NbMates   ⇒ gameRepo.count(_.mate).unsafePerformIO
     case NbPopular ⇒ gameRepo.count(_.popular).unsafePerformIO
   }
 }
