@@ -102,7 +102,7 @@ final class GameRepo(collection: MongoCollection)
   }
 
   def findRandomStandardCheckmate(distribution: Int): IO[Option[DbGame]] = io {
-    find(Query.mate + ("v" -> Variant.Standard.id))
+    find(Query.mate ++ ("v" -> Variant.Standard.id))
       .sort(Query.sortCreated)
       .limit(1)
       .skip(Random nextInt distribution)
