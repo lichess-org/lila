@@ -21,7 +21,7 @@ object Query {
 
   val playable: DBObject = ("s" $lt Status.Aborted.id)
 
-  val mate: DBObject = DBObject("s" -> Status.Mate.id).pp
+  val mate: DBObject = DBObject("s" -> Status.Mate.id)
 
   val draw: DBObject = "s" $in List(Status.Draw.id, Status.Stalemate.id)
 
@@ -41,7 +41,8 @@ object Query {
 
   def rated(u: User): DBObject = user(u) ++ rated
 
-  def win(u: User): DBObject = DBObject("wid" -> u.id)
+  // use the uids index
+  def win(u: User): DBObject = DBObject("uids" -> u.id, "wid" -> u.id)
 
   def draw(u: User): DBObject = user(u) ++ draw
 
