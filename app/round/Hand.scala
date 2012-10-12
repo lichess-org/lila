@@ -43,35 +43,38 @@ final class Hand(
       newChessGameAndMove ← g2.toChess(orig, dest, promotion, lag)
       (newChessGame, move) = newChessGameAndMove
     } yield g2.update(newChessGame, move, blur)).prefixFailuresWith(povRef + " - ").fold(
-      e ⇒ Future(failure(e)),
-      progress ⇒ if (progress.game.finished) (for {
-        _ ← gameRepo save progress
-        finishEvents ← finisher.moveFinish(progress.game, color)
-        events = progress.events ::: finishEvents
-      } yield playResult(events, progress)).toFuture
-      else if (progress.game.player.isAi && progress.game.playable) for {
-        initialFen ← progress.game.variant.standard.fold(
-          io(none[String]),
-          gameRepo initialFen progress.game.id).toFuture
-        pgnString ← (pgnRepo get povRef.gameId).toFuture
-        aiResult ← ai().play(progress.game, pgnString, initialFen)
-        eventsAndFen ← aiResult.fold(
-          err ⇒ Future(failure(err)), {
-            case (newChessGame, move) ⇒ (for {
-              progress2 ← io {
-                progress flatMap { _.update(newChessGame, move) }
+      e ⇒ Future(failure(e)), {
+        case (progress, pgn) ⇒ if (progress.game.finished) (for {
+          _ ← gameRepo save progress
+          _ ← pgnRepo.save(povRef.gameId, pgn)
+          finishEvents ← finisher.moveFinish(progress.game, color)
+          events = progress.events ::: finishEvents
+        } yield playResult(events, progress)).toFuture
+        else if (progress.game.player.isAi && progress.game.playable) for {
+          initialFen ← progress.game.variant.standard.fold(
+            io(none[String]),
+            gameRepo initialFen progress.game.id).toFuture
+          aiResult ← ai().play(progress.game, pgn.pp, initialFen)
+          eventsAndFen ← aiResult.fold(
+            err ⇒ Future(failure(err)), {
+              case (newChessGame, move) ⇒ {
+                val (prog2, pgn2) = progress.game.update(newChessGame, move)
+                val progress2 = progress flatMap { _ ⇒ prog2 }
+                (for {
+                  _ ← gameRepo save progress2
+                  _ ← pgnRepo.save(povRef.gameId, pgn2)
+                  finishEvents ← finisher.moveFinish(progress2.game, !color)
+                  events = progress2.events ::: finishEvents
+                } yield playResult(events, progress2)).toFuture
               }
-              _ ← gameRepo save progress2
-              finishEvents ← finisher.moveFinish(progress2.game, !color)
-              events = progress2.events ::: finishEvents
-            } yield playResult(events, progress2)).toFuture
-          }): PlayResult
-      } yield eventsAndFen
-      else (for {
-        _ ← gameRepo save progress
-        events = progress.events
-      } yield playResult(events, progress)).toFuture
-    )
+            }): PlayResult
+        } yield eventsAndFen
+        else (for {
+          _ ← gameRepo save progress
+          _ ← pgnRepo.save(povRef.gameId, pgn)
+          events = progress.events
+        } yield playResult(events, progress)).toFuture
+      })
   }
 
   private def playResult(events: List[Event], progress: Progress) = success((

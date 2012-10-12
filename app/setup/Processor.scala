@@ -42,8 +42,9 @@ final class Processor(
         pgnString ← pgnRepo get game.id
         aiResult ← { ai().play(game, pgnString, initialFen) map (_.err) }.toIo
         (newChessGame, move) = aiResult
-        progress = game.update(newChessGame, move)
+        (progress, pgn) = game.update(newChessGame, move)
         _ ← gameRepo save progress
+        _ ← pgnRepo.save(game.id, pgn)
       } yield pov withGame progress.game
     )
   } yield pov2
