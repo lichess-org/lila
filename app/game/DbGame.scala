@@ -116,7 +116,7 @@ case class DbGame(
   def update(
     game: Game,
     move: Move,
-    blur: Boolean = false): Progress = {
+    blur: Boolean = false): (Progress, String) = {
     val (history, situation) = (game.board.history, game.situation)
     val events =
       Event.possibleMoves(game.situation, White) ::
@@ -167,7 +167,7 @@ case class DbGame(
         )).fold(Color.all map Event.ReloadTable, Nil)
       }
 
-    Progress(this, updated, finalEvents)
+    Progress(this, updated, finalEvents) -> game.pgnMoves
   }
 
   def updatePlayer(color: Color, f: DbPlayer ⇒ DbPlayer) = color match {

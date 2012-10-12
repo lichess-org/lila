@@ -51,5 +51,4 @@ not possible to copy the link URL invite when using a iOS device. Can this be ea
 search bug http://en.lichess.org/games/search?players.a=&players.b=&players.winner=&eloMin=&eloMax=&hasAi=&aiLevelMin=&aiLevelMax=&variant=&mode=1&opening=&turnsMin=&turnsMax=&durationMin=&durationMax=&status=35&dateMin=&dateMax=&sort.field=tu&sort.order=asc
 
 ==== deploy
-remove space in lastMove
 upgrade to game3
