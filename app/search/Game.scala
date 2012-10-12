@@ -48,7 +48,7 @@ object Game {
     )
   }
 
-  def from(game: DbGame) = game.id -> (List(
+  def from(pgn: String)(game: DbGame) = game.id -> (List(
     status -> game.status.is(_.Timeout).fold(Status.Resign, game.status).id.some,
     turns -> Some(math.ceil(game.turns.toFloat / 2)),
     rated -> game.rated.some,
@@ -59,7 +59,7 @@ object Game {
     ai -> game.aiLevel,
     date -> (dateFormatter print game.createdAt).some,
     duration -> game.estimateTotalTime.some,
-    opening -> (OpeningExplorer openingOf game.pgn map (_.code.toLowerCase))
+    opening -> (OpeningExplorer openingOf pgn map (_.code.toLowerCase))
   ) collect {
       case (x, Some(y)) ⇒ x -> y
     }).toMap

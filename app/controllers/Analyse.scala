@@ -14,6 +14,7 @@ import scalaz.effects._
 object Analyse extends LilaController {
 
   private def gameRepo = env.game.gameRepo
+  private def pgnRepo = env.game.pgnRepo
   private def pgnDump = env.analyse.pgnDump
   private def openingExplorer = chess.OpeningExplorer
   private def bookmarkApi = env.bookmark.api
@@ -40,7 +41,8 @@ object Analyse extends LilaController {
       for {
         roomHtml ← roundMessenger renderWatcher pov.game
         bookmarkers ← bookmarkApi usersByGame pov.game
-        pgn ← pgnDump >> pov.game
+        pgnString ← pgnRepo get id
+        pgn ← pgnDump(pov.game, pgnString)
         analysis ← analyser get pov.game.id
         tour ← tournamentRepo byId pov.game.tournamentId
       } yield html.analyse.replay(
@@ -48,7 +50,7 @@ object Analyse extends LilaController {
         pgn.toString,
         Html(roomHtml),
         bookmarkers,
-        openingExplorer openingOf pov.game.pgn,
+        openingExplorer openingOf pgnString,
         analysis,
         roundSocket blockingVersion pov.gameId,
         tour)
@@ -68,7 +70,8 @@ object Analyse extends LilaController {
       gameOption ← gameRepo game id
       res ← gameOption.fold(
         game ⇒ for {
-          pgnObj ← pgnDump >> game
+          pgnString ← pgnRepo get id
+          pgnObj ← pgnDump(game, pgnString)
           content = pgnObj.toString
           filename ← pgnDump filename game
         } yield Ok(content).withHeaders(

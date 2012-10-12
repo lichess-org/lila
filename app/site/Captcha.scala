@@ -13,7 +13,7 @@ import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 
 // only works with standard chess (not chess960)
-final class Captcha(gameRepo: GameRepo) {
+final class Captcha(gameRepo: GameRepo, pgnRepo: PgnRepo) {
 
   import Captcha._
 
@@ -51,23 +51,27 @@ final class Captcha(gameRepo: GameRepo) {
     val gameOption = findCheckmateInDb(100) orElse findCheckmateInDb(1)
     for {
       game ← gameOption toValid "No checkmate available in db"
-      challenge ← makeChallenge(game)
+      pgnString = getGamePgn(game.id)
+      challenge ← makeChallenge(game, pgnString)
     } yield challenge
   }
 
   private def findCheckmateInDb(distribution: Int) =
     gameRepo.findRandomStandardCheckmate(distribution).unsafePerformIO 
 
+  private def getGamePgn(id: String) = (pgnRepo get id).unsafePerformIO
+
   private def getFromDb(id: String): Valid[Challenge] = {
     val gameOption = (gameRepo game id).unsafePerformIO
     for {
       game ← gameOption toValid "No such game: " + id
-      challenge ← makeChallenge(game)
+      pgnString = getGamePgn(game.id)
+      challenge ← makeChallenge(game, pgnString)
     } yield challenge
   }
 
-  private def makeChallenge(game: DbGame): Valid[Challenge] = for {
-    rewinded ← rewind(game)
+  private def makeChallenge(game: DbGame, pgnString: String): Valid[Challenge] = for {
+    rewinded ← rewind(game, pgnString)
     solutions ← solve(rewinded)
   } yield Challenge(game.id, fen(rewinded), rewinded.player, solutions)
 
@@ -81,8 +85,8 @@ final class Captcha(gameRepo: GameRepo) {
       }
     } map (_.notation)
 
-  private def rewind(game: DbGame): Valid[Game] =
-    pgn.Reader.withSans(game.pgn, _.init) map (_.game) mapFail failInfo(game)
+  private def rewind(game: DbGame, pgnString: String): Valid[Game] =
+    pgn.Reader.withSans(pgnString, _.init) map (_.game) mapFail failInfo(game)
 
   private def fen(game: Game): String = Forsyth >> game takeWhile (_ != ' ')
 

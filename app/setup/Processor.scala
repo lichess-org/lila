@@ -2,9 +2,9 @@ package lila
 package setup
 
 import http.Context
-import game.{ DbGame, GameRepo, Pov }
+import game.{ DbGame, GameRepo, PgnRepo, Pov }
 import user.User
-import chess.{ Game, Board, Color => ChessColor }
+import chess.{ Game, Board, Color ⇒ ChessColor }
 import ai.Ai
 import lobby.{ Hook, Fisherman }
 import i18n.I18nDomain
@@ -16,6 +16,7 @@ final class Processor(
     configRepo: UserConfigRepo,
     friendConfigMemo: FriendConfigMemo,
     gameRepo: GameRepo,
+    pgnRepo: PgnRepo,
     fisherman: Fisherman,
     timelinePush: DbGame ⇒ IO[Unit],
     ai: () ⇒ Ai) extends core.Futuristic {
@@ -38,7 +39,8 @@ final class Processor(
         initialFen ← game.variant.standard.fold(
           io(none[String]),
           gameRepo initialFen game.id)
-        aiResult ← { ai().play(game, initialFen) map (_.err) }.toIo
+        pgnString ← pgnRepo get game.id
+        aiResult ← { ai().play(game, pgnString, initialFen) map (_.err) }.toIo
         (newChessGame, move) = aiResult
         progress = game.update(newChessGame, move)
         _ ← gameRepo save progress

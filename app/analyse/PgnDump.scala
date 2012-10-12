@@ -2,7 +2,7 @@ package lila
 package analyse
 
 import chess.format.Forsyth
-import chess.format.pgn
+import chess.format.{ pgn => chessPgn }
 import chess.format.pgn.{ Pgn, Tag }
 import game.{ DbGame, DbPlayer, GameRepo }
 import user.{ User, UserRepo }
@@ -17,9 +17,9 @@ final class PgnDump(
 
   import PgnDump._
 
-  def >>(game: DbGame): IO[Pgn] = for {
+  def apply(game: DbGame, pgn: String): IO[Pgn] = for {
     ts ← tags(game)
-    pgnObj = Pgn(ts, turns(game))
+    pgnObj = Pgn(ts, turns(pgn))
     analysis ← analyser get game.id
   } yield analysis.fold(Annotator(pgnObj, _), pgnObj)
 
@@ -65,12 +65,12 @@ final class PgnDump(
       Tag("SetUp", "1")
     ))
 
-  private def turns(game: DbGame): List[pgn.Turn] =
-    (game.pgn split ' ' grouped 2).zipWithIndex.toList map {
-      case (moves, index) ⇒ pgn.Turn(
+  private def turns(pgn: String): List[chessPgn.Turn] =
+    (pgn split ' ' grouped 2).zipWithIndex.toList map {
+      case (moves, index) ⇒ chessPgn.Turn(
         number = index + 1,
-        white = moves.headOption map { pgn.Move(_) },
-        black = moves.tail.headOption map { pgn.Move(_) })
+        white = moves.headOption map { chessPgn.Move(_) },
+        black = moves.tail.headOption map { chessPgn.Move(_) })
     }
 }
 

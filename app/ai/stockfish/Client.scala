@@ -18,14 +18,14 @@ final class Client(
     val playUrl: String,
     analyseUrl: String) extends ai.Client with Stockfish {
 
-  def play(dbGame: DbGame, initialFen: Option[String]): Future[Valid[(Game, Move)]] = {
-    fetchMove(dbGame.pgn, initialFen | "", dbGame.aiLevel | 1) map {
+  def play(dbGame: DbGame, pgn: String, initialFen: Option[String]): Future[Valid[(Game, Move)]] = {
+    fetchMove(pgn, initialFen | "", dbGame.aiLevel | 1) map {
       applyMove(dbGame, _)
     }
   }
 
-  def analyse(dbGame: DbGame, initialFen: Option[String]): Future[Valid[Analysis]] =
-    fetchAnalyse(dbGame.pgn, initialFen | "") map {
+  def analyse(pgn: String, initialFen: Option[String]): Future[Valid[Analysis]] =
+    fetchAnalyse(pgn, initialFen | "") map {
       Analysis(_, true)
     } recover {
       case e ⇒ !![Analysis](e.getMessage)

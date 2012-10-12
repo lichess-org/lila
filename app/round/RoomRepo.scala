@@ -7,7 +7,7 @@ import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.query.Imports._
 import scalaz.effects._
 
-class RoomRepo(collection: MongoCollection)
+final class RoomRepo(collection: MongoCollection)
     extends SalatDAO[Room, String](collection) {
 
   def room(id: String): IO[Room] = io {

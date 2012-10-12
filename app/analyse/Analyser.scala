@@ -1,7 +1,7 @@
 package lila
 package analyse
 
-import game.{ DbGame, GameRepo }
+import game.{ DbGame, GameRepo, PgnRepo }
 
 import scalaz.effects._
 import play.api.libs.concurrent.Akka
@@ -13,7 +13,8 @@ import akka.util.Timeout
 final class Analyser(
     analysisRepo: AnalysisRepo,
     gameRepo: GameRepo,
-    generator: () ⇒ (DbGame, Option[String]) ⇒ Future[Valid[Analysis]]) {
+    pgnRepo: PgnRepo,
+    generator: () ⇒ (String, Option[String]) ⇒ Future[Valid[Analysis]]) {
 
   private implicit val executor = Akka.system.dispatcher
   private implicit val timeout = Timeout(5 minutes)
@@ -35,11 +36,12 @@ final class Analyser(
           analysisRepo userInProgress userId
         ))
         gameOption ← ioToFuture(gameRepo game id)
+        pgnString <- ioToFuture(pgnRepo get id) 
         result ← gameOption.filterNot(_ ⇒ userInProgress).fold(
           game ⇒ for {
             _ ← ioToFuture(analysisRepo.progress(id, userId))
             initialFen ← ioToFuture(gameRepo initialFen id)
-            analysis ← generator()(game, initialFen)
+            analysis ← generator()(pgnString, initialFen)
             _ ← ioToFuture(analysis.fold(
               analysisRepo.fail(id, _),
               analysisRepo.done(id, _)

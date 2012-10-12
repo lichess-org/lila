@@ -1,23 +1,29 @@
 package lila
 package round
 
-import game.{ GameRepo, DbGame }
+import game.{ GameRepo, PgnRepo, DbGame, Rewind }
 import scalaz.effects._
 
 final class Takeback(
     gameRepo: GameRepo,
+    pgnRepo: PgnRepo,
+    rewind: Rewind,
     messenger: Messenger) {
 
-  def apply(game: DbGame, initialFen: Option[String]): Valid[IO[List[Event]]] =
-    game rewind initialFen map save mapFail failInfo(game)
+  def apply(game: DbGame, pgn: String, initialFen: Option[String]): Valid[IO[List[Event]]] =
+    rewind(game, pgn, initialFen) map {
+      case (progress, newPgn) ⇒ pgnRepo.save(game.id, newPgn) flatMap { _ ⇒ save(progress) }
+    } mapFail failInfo(game)
 
-  def double(game: DbGame, initialFen: Option[String]): Valid[IO[List[Event]]] = {
+  def double(game: DbGame, pgn: String, initialFen: Option[String]): Valid[IO[List[Event]]] = {
     for {
-      p1 ← game rewind initialFen
-      p2 ← p1.game rewind initialFen map { p ⇒
-        p1 withGame p.game
+      first ← rewind(game, pgn, initialFen)
+      (prog1, pgn1) = first
+      second ← rewind(prog1.game, pgn1, initialFen) map {
+        case (progress, newPgn) ⇒ (prog1 withGame progress.game, newPgn)
       }
-    } yield save(p2)
+      (prog2, pgn2) = second
+    } yield pgnRepo.save(game.id, pgn2) flatMap { _ ⇒ save(prog2) }
   } mapFail failInfo(game)
 
   def failInfo(game: DbGame) =

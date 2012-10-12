@@ -5,7 +5,6 @@ import round.{ Event, Progress }
 import user.User
 import chess.{ History ⇒ ChessHistory, Role, Board, Move, Pos, Game, Clock, Status, Color, Piece, Variant, Mode }
 import Color._
-import chess.format.{ pgn ⇒ chessPgn }
 import chess.Pos.piotr
 import chess.Role.forsyth
 
@@ -18,7 +17,6 @@ case class DbGame(
     id: String,
     whitePlayer: DbPlayer,
     blackPlayer: DbPlayer,
-    pgn: String,
     status: Status,
     turns: Int,
     clock: Option[Clock],
@@ -104,7 +102,6 @@ case class DbGame(
     Game(
       board = Board(pieces, toChessHistory, variant),
       player = Color(0 == turns % 2),
-      pgnMoves = pgn,
       clock = clock,
       deads = deads,
       turns = turns
@@ -145,7 +142,6 @@ case class DbGame(
     )
 
     val updated = copy(
-      pgn = game.pgnMoves,
       whitePlayer = copyPlayer(whitePlayer),
       blackPlayer = copyPlayer(blackPlayer),
       turns = game.turns,
@@ -172,43 +168,6 @@ case class DbGame(
       }
 
     Progress(this, updated, finalEvents)
-  }
-
-  def rewind(initialFen: Option[String]): Valid[Progress] = {
-    chessPgn.Reader.withSans(
-      pgn = pgn,
-      op = _.init,
-      tags = initialFen.fold(
-        fen ⇒ List(
-          chessPgn.Tag(_.FEN, fen),
-          chessPgn.Tag(_.Variant, variant.name)
-        ),
-        Nil)
-    ) map { replay ⇒
-        val rewindedGame = replay.game
-        val rewindedHistory = rewindedGame.board.history
-        val rewindedSituation = rewindedGame.situation
-        def rewindPlayer(player: DbPlayer) = player.copy(
-          ps = player encodePieces rewindedGame.allPieces,
-          isProposingTakeback = false)
-        Progress(this, copy(
-          pgn = rewindedGame.pgnMoves,
-          whitePlayer = rewindPlayer(whitePlayer),
-          blackPlayer = rewindPlayer(blackPlayer),
-          turns = rewindedGame.turns,
-          positionHashes = rewindedHistory.positionHashes mkString,
-          castles = rewindedHistory.castleNotation,
-          lastMove = rewindedHistory.lastMove map { case (a, b) ⇒ a + " " + b },
-          status =
-            if (rewindedSituation.checkMate) Status.Mate
-            else if (rewindedSituation.staleMate) Status.Stalemate
-            else if (rewindedSituation.autoDraw) Status.Draw
-            else status,
-          clock = clock map (_.switch),
-          check = if (rewindedSituation.check) rewindedSituation.kingPos else None,
-          lastMoveTime = nowSeconds.some
-        ))
-      }
   }
 
   def updatePlayer(color: Color, f: DbPlayer ⇒ DbPlayer) = color match {
@@ -366,7 +325,6 @@ case class DbGame(
   def encode = RawDbGame(
     id = id,
     p = players map (_.encode),
-    pgn = Some(pgn),
     s = status.id,
     t = turns,
     c = clock map RawDbClock.encode,
@@ -426,7 +384,6 @@ object DbGame {
     id = IdGenerator.game,
     whitePlayer = whitePlayer withEncodedPieces game.allPieces,
     blackPlayer = blackPlayer withEncodedPieces game.allPieces,
-    pgn = "",
     status = Status.Created,
     turns = game.turns,
     clock = game.clock,
@@ -444,7 +401,6 @@ object DbGame {
 case class RawDbGame(
     @Key("_id") id: String,
     p: List[RawDbPlayer],
-    pgn: Option[String],
     s: Int,
     t: Int,
     c: Option[RawDbClock],
@@ -471,7 +427,6 @@ case class RawDbGame(
     id = id,
     whitePlayer = whitePlayer,
     blackPlayer = blackPlayer,
-    pgn = pgn | "",
     status = trueStatus,
     turns = t,
     clock = c map (_.decode),
