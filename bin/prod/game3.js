@@ -74,10 +74,9 @@ gamesToMigrate.forEach(function(g) {
     cleanOrRename(g, 'isRated', 'ra');
   }
   if (finishedOrAborted(g)) {
-    clean(g, 'pgn');
-  }
-  if (finishedOrAborted(g)) {
     delete g.positionHashes
+    delete g.lmt;
+    clean(g, 'pgn');
   } else {
     cleanOrRename(g, 'positionHashes', 'ph');
   }

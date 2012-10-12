@@ -16,7 +16,6 @@ trait Resolvers {
 
 trait Dependencies {
   val scalaz = "org.scalaz" %% "scalaz-core" % "6.0.4"
-  val specs2 = "org.specs2" %% "specs2" % "1.12"
   val salat = "com.novus" %% "salat-core" % "1.9.1"
   val scalalib = "com.github.ornicar" %% "scalalib" % "2.5"
   val config = "com.typesafe" % "config" % "0.4.1"
@@ -43,7 +42,6 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     scalaVersion := "2.9.1",
     resolvers := Seq(iliaz, codahale, sonatype, sonatypeS, typesafe, t2v, guice, jgitMaven, christophs),
     libraryDependencies := Seq(scalaz, scalalib, hasher),
-    libraryDependencies in test := Seq(specs2),
     shellPrompt := {
       (state: State) ⇒ "%s> ".format(Project.extract(state).currentProject.id)
     },
