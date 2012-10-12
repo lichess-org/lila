@@ -11,7 +11,7 @@ $(function() {
       var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
       var fen = $this.data('fen').replace(/\//g, '');
       var lm = $this.data('lastmove');
-      var lastMove = lm ? lm.split(' ') : [];
+      var lastMove = lm ? [lm[0] + lm[1], lm[2] + lm[3]] : [];
       var x, y, html = '', scolor, pcolor, pclass, c, d, increment;
       var pclasses = {'p':'pawn', 'r':'rook', 'n':'knight', 'b':'bishop', 'q':'queen', 'k':'king'};
       var pregex = /(p|r|n|b|q|k)/;
