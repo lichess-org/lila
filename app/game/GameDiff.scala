@@ -11,7 +11,6 @@ final class GameDiff(a: RawDbGame, b: RawDbGame) {
       if (f(a) != f(b)) builder += name -> f(b)
     }
 
-    d("pgn", _.pgn)
     d("s", _.s)
     d("t", _.t)
     d("lm", _.lm) // lastMove

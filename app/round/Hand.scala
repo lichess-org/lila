@@ -2,7 +2,7 @@ package lila
 package round
 
 import ai.Ai
-import game.{ GameRepo, Pov, PovRef, Handler }
+import game.{ GameRepo, PgnRepo, Pov, PovRef, Handler }
 import i18n.I18nKey.{ Select ⇒ SelectI18nKey }
 import chess.Role
 import chess.Pos.posAt
@@ -17,6 +17,7 @@ import akka.util.Timeout
 
 final class Hand(
     gameRepo: GameRepo,
+    pgnRepo: PgnRepo,
     messenger: Messenger,
     takeback: Takeback,
     ai: () ⇒ Ai,
@@ -52,7 +53,8 @@ final class Hand(
         initialFen ← progress.game.variant.standard.fold(
           io(none[String]),
           gameRepo initialFen progress.game.id).toFuture
-        aiResult ← ai().play(progress.game, initialFen)
+        pgnString ← (pgnRepo get povRef.gameId).toFuture
+        aiResult ← ai().play(progress.game, pgnString, initialFen)
         eventsAndFen ← aiResult.fold(
           err ⇒ Future(failure(err)), {
             case (newChessGame, move) ⇒ (for {
@@ -178,7 +180,8 @@ final class Hand(
   def takebackAccept(fullId: String): IOValidEvents = fromPov(fullId) { pov ⇒
     if (pov.opponent.isProposingTakeback && pov.game.nonTournament) for {
       fen ← gameRepo initialFen pov.game.id
-      res ← takeback(pov.game, fen).sequence
+      pgn ← pgnRepo get pov.game.id
+      res ← takeback(pov.game, pgn, fen).sequence
     } yield res
     else io {
       !!("opponent is not proposing a takeback")
@@ -188,11 +191,13 @@ final class Hand(
   def takebackOffer(fullId: String): IOValidEvents = fromPov(fullId) {
     case pov @ Pov(g1, color) ⇒
       if (g1.playable && g1.bothPlayersHaveMoved && g1.nonTournament) {
-        gameRepo initialFen pov.game.id flatMap { fen ⇒
-          if (g1.player(!color).isAi)
-            takeback.double(pov.game, fen).sequence
+        for {
+          fen ← gameRepo initialFen pov.game.id
+          pgn ← pgnRepo get pov.game.id
+          result ← if (g1.player(!color).isAi)
+            takeback.double(pov.game, pgn, fen).sequence
           else if (g1.player(!color).isProposingTakeback)
-            takeback(pov.game, fen).sequence
+            takeback(pov.game, pgn, fen).sequence
           else for {
             p1 ← messenger.systemMessage(g1, _.takebackPropositionSent) map { es ⇒
               Progress(g1, Event.ReloadTable(!color) :: es)
@@ -200,7 +205,7 @@ final class Hand(
             p2 = p1 map { g ⇒ g.updatePlayer(color, _.proposeTakeback) }
             _ ← gameRepo save p2
           } yield success(p2.events)
-        }
+        } yield result
       }
       else io {
         !!("invalid takeback proposition " + fullId)

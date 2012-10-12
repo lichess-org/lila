@@ -2,7 +2,7 @@ package lila
 package setup
 
 import core.Settings
-import game.{ DbGame, GameRepo }
+import game.{ DbGame, GameRepo, PgnRepo }
 import lobby.{ HookRepo, Fisherman }
 import round.Messenger
 import ai.Ai
@@ -15,6 +15,7 @@ final class SetupEnv(
     settings: Settings,
     mongodb: String ⇒ MongoCollection,
     gameRepo: GameRepo,
+    pgnRepo: PgnRepo,
     hookRepo: HookRepo,
     fisherman: Fisherman,
     userRepo: UserRepo,
@@ -33,6 +34,7 @@ final class SetupEnv(
     configRepo = configRepo,
     friendConfigMemo = friendConfigMemo,
     gameRepo = gameRepo,
+    pgnRepo = pgnRepo,
     fisherman = fisherman,
     timelinePush = timelinePush,
     ai = ai)

@@ -7,7 +7,7 @@ import akka.actor.Props
 import play.api.libs.concurrent._
 import play.api.Application
 
-import game.{ GameRepo, DbGame }
+import game.{ GameRepo, PgnRepo, DbGame, Rewind }
 import user.{ UserRepo, User }
 import elo.EloUpdater
 import ai.Ai
@@ -20,6 +20,8 @@ final class RoundEnv(
     settings: Settings,
     mongodb: String ⇒ MongoCollection,
     gameRepo: GameRepo,
+    pgnRepo: PgnRepo,
+    rewind: Rewind,
     userRepo: UserRepo,
     eloUpdater: EloUpdater,
     i18nKeys: I18nKeys,
@@ -57,6 +59,7 @@ final class RoundEnv(
 
   lazy val hand = new Hand(
     gameRepo = gameRepo,
+    pgnRepo = pgnRepo,
     messenger = messenger,
     ai = ai,
     finisher = finisher,
@@ -80,6 +83,8 @@ final class RoundEnv(
 
   lazy val takeback = new Takeback(
     gameRepo = gameRepo,
+    pgnRepo = pgnRepo,
+    rewind = rewind,
     messenger = messenger)
 
   lazy val messenger = new Messenger(

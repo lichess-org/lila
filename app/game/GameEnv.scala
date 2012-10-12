@@ -13,6 +13,8 @@ final class GameEnv(
 
   lazy val gameRepo = new GameRepo(mongodb(GameCollectionGame))
 
+  lazy val pgnRepo = new PgnRepo(mongodb(GameCollectionPgn))
+
   lazy val cached = new Cached(
     gameRepo = gameRepo,
     nbTtl = GameCachedNbTtl)
@@ -29,4 +31,6 @@ final class GameEnv(
   lazy val export = Export(gameRepo) _
 
   lazy val listMenu = ListMenu(cached) _
+
+  lazy val rewind = new Rewind
 }

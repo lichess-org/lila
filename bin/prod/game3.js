@@ -2,10 +2,12 @@ var gamesToMigrate = db.game2.find();
 var max = gamesToMigrate.count();
 var batchSize = 10000;
 var collection = db.game3;
+var pgnCollection = db.pgn;
 
 print("Migrating " + max + " games");
 
 collection.drop();
+pgnCollection.drop();
 
 function rename(arr, from, to) {
   if (typeof arr[from] !== 'undefined') {
@@ -41,7 +43,7 @@ function compactPs(ps) { return ps.replace(/ /g, ''); }
 
 function finishedOrAborted(game) { return game.status >= 25; }
 
-var c, z;
+var c, z, pgn;
 var it = 0;
 var dat = new Date().getTime() / 1000;
 var finishedPlayerFieldsToRemove = ['previousMoveTs', 'lastDrawOffer', 'isOfferingDraw', 'isProposingTakeback'];
@@ -76,7 +78,6 @@ gamesToMigrate.forEach(function(g) {
   if (finishedOrAborted(g)) {
     delete g.positionHashes
     delete g.lmt;
-    clean(g, 'pgn');
   } else {
     cleanOrRename(g, 'positionHashes', 'ph');
   }
@@ -108,7 +109,12 @@ gamesToMigrate.forEach(function(g) {
     delete p.isAi;
     rename(p, 'aiLevel', 'ai');
   });
+  pgn = g.pgn;
+  delete g.pgn;
   collection.insert(g);
+  if (pgn !== null && pgn !== "") {
+    pgnCollection.insert({_id: g.id, p: pgn});
+  }
   ++it;
   if (it % batchSize == 0) {
     var percent = Math.round((it / max) * 100);

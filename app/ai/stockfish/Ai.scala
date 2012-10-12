@@ -15,13 +15,13 @@ final class Ai(server: Server) extends lila.ai.Ai with Stockfish {
 
   import model._
 
-  def play(dbGame: DbGame, initialFen: Option[String]): Future[Valid[(Game, Move)]] =
-    server.play(dbGame.pgn, initialFen, dbGame.aiLevel | 1) map { validMove ⇒
+  def play(dbGame: DbGame, pgn: String, initialFen: Option[String]): Future[Valid[(Game, Move)]] =
+    server.play(pgn, initialFen, dbGame.aiLevel | 1) map { validMove ⇒
       validMove flatMap { applyMove(dbGame, _) }
     }
 
-  def analyse(dbGame: DbGame, initialFen: Option[String]): Future[Valid[Analysis]] =
-    server.analyse(dbGame.pgn, initialFen)
+  def analyse(pgn: String, initialFen: Option[String]): Future[Valid[Analysis]] =
+    server.analyse(pgn, initialFen)
 
   private implicit val executor = Akka.system.dispatcher
 }

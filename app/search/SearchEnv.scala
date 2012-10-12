@@ -1,7 +1,7 @@
 package lila
 package search
 
-import game.{ GameRepo, DbGame }
+import game.{ GameRepo, PgnRepo, DbGame }
 import core.Settings
 
 import com.traackr.scalastic.elasticsearch
@@ -10,7 +10,8 @@ import com.mongodb.casbah.MongoCollection
 final class SearchEnv(
     settings: Settings,
     mongodb: String ⇒ MongoCollection,
-    gameRepo: GameRepo) {
+    gameRepo: GameRepo,
+    pgnRepo: PgnRepo) {
 
   import settings._
 
@@ -19,6 +20,7 @@ final class SearchEnv(
   lazy val indexer = new Indexer(
     es = esIndexer,
     gameRepo = gameRepo,
+    pgnRepo = pgnRepo,
     queue = queue)
 
   lazy val paginator = new PaginatorBuilder(

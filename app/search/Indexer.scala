@@ -1,7 +1,7 @@
 package lila
 package search
 
-import game.{ GameRepo, DbGame, Query ⇒ GameQuery }
+import game.{ GameRepo, PgnRepo, DbGame, Query ⇒ GameQuery }
 
 import scalaz.effects._
 import com.codahale.jerkson.Json
@@ -14,6 +14,7 @@ import com.mongodb.casbah.query.Imports._
 final class Indexer(
     es: EsIndexer,
     gameRepo: GameRepo,
+    pgnRepo: PgnRepo,
     queue: Queue) {
 
   val indexName = "lila"
@@ -49,15 +50,19 @@ final class Indexer(
     es.waitTillActive()
     es.putMapping(indexName, typeName, Json generate Map(typeName -> Game.mapping))
     es.refresh()
-  } 
+  }
 
   private def indexQuery(query: DBObject, logging: Boolean = false): IO[Int] = io {
     val cursor = gameRepo find (GameQuery.frozen ++ query) sort GameQuery.sortCreated //limit 3000
     val size = cursor.count
     var nb = 0
     for (games ← cursor grouped 5000) {
+      val pgns = games.map(g ⇒ pgnRepo get g.id).sequence.unsafePerformIO
+      val gamesWithPgn = games zip pgns
       if (logging) println("Indexing %d of %d".format(nb, size))
-      val actions = games map (_.decode map Game.from) collect {
+      val actions = gamesWithPgn map {
+        case (game, pgn) ⇒ game.decode map Game.from(pgn)
+      } collect {
         case Some((id, doc)) ⇒
           es.index_prepare(indexName, typeName, id, Json generate doc).request
       }

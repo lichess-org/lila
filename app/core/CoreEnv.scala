@@ -65,6 +65,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     settings = settings,
     mongodb = mongodb.apply _,
     gameRepo = game.gameRepo,
+    pgnRepo = game.pgnRepo,
     hookRepo = lobby.hookRepo,
     fisherman = lobby.fisherman,
     userRepo = user.userRepo,
@@ -90,6 +91,8 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     settings = settings,
     mongodb = mongodb.apply _,
     gameRepo = game.gameRepo,
+    pgnRepo = game.pgnRepo,
+    rewind = game.rewind,
     userRepo = user.userRepo,
     eloUpdater = user.eloUpdater,
     i18nKeys = i18n.keys,
@@ -114,6 +117,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
   lazy val analyse = new lila.analyse.AnalyseEnv(
     settings = settings,
     gameRepo = game.gameRepo,
+    pgnRepo = game.pgnRepo,
     userRepo = user.userRepo,
     mongodb = mongodb.apply _,
     () ⇒ ai.ai().analyse _)
@@ -127,7 +131,8 @@ final class CoreEnv private (application: Application, val settings: Settings) {
   lazy val site = new lila.site.SiteEnv(
     app = app,
     settings = settings,
-    gameRepo = game.gameRepo)
+    gameRepo = game.gameRepo,
+    pgnRepo = game.pgnRepo)
 
   lazy val security = new lila.security.SecurityEnv(
     settings = settings,
@@ -138,7 +143,8 @@ final class CoreEnv private (application: Application, val settings: Settings) {
   lazy val search = new lila.search.SearchEnv(
     settings = settings,
     mongodb = mongodb.apply _,
-    gameRepo = game.gameRepo)
+    gameRepo = game.gameRepo,
+    pgnRepo = game.pgnRepo)
 
   lazy val metaHub = new lila.socket.MetaHub(
     List(site.hub, lobby.hub, round.hubMaster, tournament.hubMaster))
