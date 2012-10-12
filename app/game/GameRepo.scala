@@ -89,6 +89,7 @@ final class GameRepo(collection: MongoCollection)
         ++ $unset(
           "c.t",
           "ph",
+          "lmt",
           "p.0.previousMoveTs",
           "p.1.previousMoveTs",
           "p.0.lastDrawOffer",

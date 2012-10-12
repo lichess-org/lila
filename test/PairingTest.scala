@@ -151,7 +151,7 @@ class PairingTest extends LilaSpec {
   }
 
   private def pairs(users: List[String], pairings: Pairings): List[(String, String)] =
-    createNewPairings(users, pairings) map (_.usersPair) map {
+    createNewPairings(users, pairings, users.size) map (_.usersPair) map {
       case (a, b) ⇒ (a < b).fold(a -> b, b -> a)
     }
 
