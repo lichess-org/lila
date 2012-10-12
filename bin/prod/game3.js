@@ -39,7 +39,7 @@ function cleanOrRename(arr, from, to) {
   rename(arr, from, to);
 }
 
-function compactPs(ps) { return ps.replace(/ /g, ''); }
+function removeSpace(str) { return str.replace(/ /g, ''); }
 
 function finishedOrAborted(game) { return game.status >= 25; }
 
@@ -57,6 +57,7 @@ gamesToMigrate.forEach(function(g) {
   }
   cleanOrRename(g, 'check', 'ck');
   cleanOrRename(g, 'lastMove', 'lm');
+  map(g, 'lm', removeSpace);
   cleanOrRename(g, 'initialFen', 'if');
   clean(g, 'clock');
   cleanArray(g, 'userIds');
@@ -95,7 +96,7 @@ gamesToMigrate.forEach(function(g) {
   rename(g, 'players', 'p');
   g.p.forEach(function(p) {
     delete p.c;
-    map(p, 'ps', compactPs);
+    map(p, 'ps', removeSpace);
     if (finishedOrAborted(g) && typeof p.blurs !== 'undefined' && p.blurs < 7) {
       delete p.blurs;
     } else {
@@ -113,7 +114,7 @@ gamesToMigrate.forEach(function(g) {
   delete g.pgn;
   collection.insert(g);
   if (pgn !== null && pgn !== "") {
-    pgnCollection.insert({_id: g.id, p: pgn});
+    pgnCollection.insert({_id: g._id, p: pgn});
   }
   ++it;
   if (it % batchSize == 0) {
