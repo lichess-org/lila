@@ -10,10 +10,11 @@ Back in 2009 lichess was using mysql, with tables for `game`, `player` and even 
 So I implemented a custom storage based on model binary serialization with file persistence... which of course was very hard to query. 
 Finally, in 2010, I learnt about document databases and chose mongodb for its update performances and sql-like indexes. 
 
-Lichess database
-----------------
+Numbers
+-------
 
-The schema is made of 25 collections. At the time of writing (Oct 13 2012), the DB contains 10,2 million objects and occupies 12,8 GB on the filesystem. All indexes fit in 824 MB.
+The schema is composed by 25 collections. At the time of writing (Oct 13 2012), the DB contains 10,2 million objects and occupies 12,8 GB on the filesystem. All indexes fit in 824 MB.
+More than 10,000 games are added every day. Each game is updated 60 times in average, once per chess move. There are also the forum posts, private messages and millions of chat messages.
 
 Storing games
 -------------
@@ -113,3 +114,41 @@ All models are immutable. In fact all lichess code is immutable. No increments, 
 I find immutable models much easier to deal with regardless of the database backend used. Not only they allow trivial parallelism but they just feel "right" and joyful to use.
 Basically, when I fetch, say, a game, the DB document is mapped to an algebraic data type, "case class" in scala.
 Every change to this object results in a new object. Then I can just send the final object to the DB; there is some logic to compute the `$set` and `$unset` operations from the original to the final object.
+
+### Querying with casbah/salat
+
+First I define some query objects:
+
+```scala
+// app/game/Query.scala
+val finished = "s" $in List(
+  Status.Mate.id, 
+  Status.Resign.id, 
+  Status.Outoftime.id, 
+  Status.Timeout.id)
+def user(u: User) = DBObject("uids" -> u.id)
+def loss(u: User) = user(u) ++ finished ++ ("wid" $ne u.id)
+```
+
+That I apply to the collection wraper object:
+
+```scala
+// app/game/GameRepo.scala
+val games = gameRepo find Query.loss(user)
+```
+
+Which yields a game list of type `IO[List[DbGame]]`
+
+Search
+------
+
+Searching in mongodb just does not work, so the [search engine](http://en.lichess.org/games/search) is powered by elasticsearch. When a game is finished, its ID is stored in the `index_queue` mongodb collection, then a daemon periodically batch inserts them into the elasticsearch index.
+
+Monitoring
+----------
+
+I made a fancy realtime monitoring tool! Check it on http://en.lichess.org/monitor. It tracks the mongodb memory usage, number of open connections, queries per second and global lock; all using the `serverStatus` command (app/monitor/MongoStatus.scala)
+
+There are also munin graphs visible on http://en.lichess.org/monitor/munin/balrog/balrog/index.html#mongodb
+
+But they seem a bit messed up by the recent mongodb 2.2 upgrade.

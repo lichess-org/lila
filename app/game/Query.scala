@@ -17,36 +17,36 @@ object Query {
 
   val rated: DBObject = DBObject("ra" -> true)
 
-  val started: DBObject = ("s" $gte Status.Started.id)
+  def rated(u: User): DBObject = user(u) ++ rated
 
-  val playable: DBObject = ("s" $lt Status.Aborted.id)
-
-  val mate: DBObject = DBObject("s" -> Status.Mate.id)
-
-  val draw: DBObject = "s" $in List(Status.Draw.id, Status.Stalemate.id)
-
-  val finished: DBObject = "s" $in List(Status.Mate.id, Status.Resign.id, Status.Outoftime.id, Status.Timeout.id)
-
-  val notFinished: DBObject = "s" $lte Status.Started.id
-
-  val frozen: DBObject = "s" $gte Status.Mate.id
-
-  val popular: DBObject = "bm" $gt 0
-
-  def clock(c: Boolean): DBObject = "c" $exists c
-
-  def user(u: User): DBObject = DBObject("uids" -> u.id)
+  val started: DBObject = "s" $gte Status.Started.id
 
   def started(u: User): DBObject = user(u) ++ started
 
-  def rated(u: User): DBObject = user(u) ++ rated
+  val playable = "s" $lt Status.Aborted.id
 
-  // use the uids index
-  def win(u: User): DBObject = user(u) ++ ("wid" -> u.id)
+  val mate = DBObject("s" -> Status.Mate.id)
+
+  val draw: DBObject = "s" $in List(Status.Draw.id, Status.Stalemate.id)
 
   def draw(u: User): DBObject = user(u) ++ draw
 
-  def loss(u: User): DBObject = user(u) ++ finished ++ ("wid" $ne u.id)
+  val finished = "s" $in List(Status.Mate.id, Status.Resign.id, Status.Outoftime.id, Status.Timeout.id)
+
+  val notFinished: DBObject = "s" $lte Status.Started.id
+
+  val frozen = "s" $gte Status.Mate.id
+
+  val popular = "bm" $gt 0
+
+  def clock(c: Boolean) = "c" $exists c
+
+  def user(u: User) = DBObject("uids" -> u.id)
+
+  // use the uids index
+  def win(u: User) = user(u) ++ ("wid" -> u.id)
+
+  def loss(u: User) = user(u) ++ finished ++ ("wid" $ne u.id)
 
   def notFinished(u: User): DBObject = user(u) ++ notFinished
 
