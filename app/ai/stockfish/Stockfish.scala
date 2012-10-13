@@ -6,8 +6,9 @@ import game.DbGame
 
 trait Stockfish {
 
-  protected def applyMove(dbGame: DbGame, move: String) = for {
+  protected def applyMove(dbGame: DbGame, pgn: String, move: String) = for {
     bestMove ← BestMove(move.some filter ("" !=)).parse toValid "Wrong bestmove " + move
-    result ← dbGame.toChess(bestMove.orig, bestMove.dest)
+    chessGame = dbGame.toChess withPgnMoves pgn
+    result ← chessGame(bestMove.orig, bestMove.dest)
   } yield result
 }
