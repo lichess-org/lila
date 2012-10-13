@@ -40,7 +40,8 @@ final class Hand(
       orig ← posAt(origString) toValid "Wrong orig " + origString
       dest ← posAt(destString) toValid "Wrong dest " + destString
       promotion = Role promotable promString
-      newChessGameAndMove ← g2.toChess(orig, dest, promotion, lag)
+      chessGame = g2.toChess withPgnMoves (pgnRepo unsafeGet g2.id)
+      newChessGameAndMove ← chessGame(orig, dest, promotion, lag)
       (newChessGame, move) = newChessGameAndMove
     } yield g2.update(newChessGame, move, blur)).prefixFailuresWith(povRef + " - ").fold(
       e ⇒ Future(failure(e)), {
@@ -54,7 +55,7 @@ final class Hand(
           initialFen ← progress.game.variant.standard.fold(
             io(none[String]),
             gameRepo initialFen progress.game.id).toFuture
-          aiResult ← ai().play(progress.game, pgn.pp, initialFen)
+          aiResult ← ai().play(progress.game, pgn, initialFen)
           eventsAndFen ← aiResult.fold(
             err ⇒ Future(failure(err)), {
               case (newChessGame, move) ⇒ {

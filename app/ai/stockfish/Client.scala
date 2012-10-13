@@ -20,7 +20,7 @@ final class Client(
 
   def play(dbGame: DbGame, pgn: String, initialFen: Option[String]): Future[Valid[(Game, Move)]] = {
     fetchMove(pgn, initialFen | "", dbGame.aiLevel | 1) map {
-      applyMove(dbGame, _)
+      applyMove(dbGame, pgn, _)
     }
   }
 

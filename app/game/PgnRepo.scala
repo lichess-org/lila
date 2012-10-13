@@ -14,8 +14,11 @@ final class PgnRepo(collection: MongoCollection) {
   }
 
   def save(id: String, pgn: String): IO[Unit] = io {
-    collection.update(idSelector(id), DBObject("p" -> pgn), upsert = true, multi = false)
+    collection.update(idSelector(id), $set("p" -> pgn), upsert = true, multi = false)
   }
+
+  def unsafeGet(id: String): String = 
+    collection.findOne(idSelector(id)).flatMap(_.getAs[String]("p")) | ""
 
   private def idSelector(id: String) = DBObject("_id" -> id)
 }

@@ -17,7 +17,7 @@ final class Ai(server: Server) extends lila.ai.Ai with Stockfish {
 
   def play(dbGame: DbGame, pgn: String, initialFen: Option[String]): Future[Valid[(Game, Move)]] =
     server.play(pgn, initialFen, dbGame.aiLevel | 1) map { validMove ⇒
-      validMove flatMap { applyMove(dbGame, _) }
+      validMove flatMap { applyMove(dbGame, pgn, _) }
     }
 
   def analyse(pgn: String, initialFen: Option[String]): Future[Valid[Analysis]] =
