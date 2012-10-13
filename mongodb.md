@@ -86,7 +86,7 @@ Capped collections also rotate moderator actions logs.
 Sharding and replication
 ------------------------
 
-Eeeer no, it's all on the same server. The same one that runs the scala application. Only the artificial intelligence runs on a separated server.
+Eeeer no, it's all on the same server. The same one that runs the application. Only the artificial intelligence runs on a separated server.
 
 Talking about that, the way I do backups is awful. I just rsync the DB directory without locking anything. It works for now but I'm certain it's horribly wrong.
 
@@ -95,7 +95,15 @@ Driver and mapping
 
 lichess.org is built in scala using the Play2 web framework. The scala driver is [casbah](https://github.com/mongodb/casbah) which wraps the Java mongodb driver.
 
-Most of the time I map the mongodb documents to scala objects using [salat](https://github.com/novus/salat), a lightweight serialization library that does *not* use reflection.
+Most of the time I map the mongodb documents to scala objects using [salat](https://github.com/novus/salat), a lightweight serialization library that does **not** use reflection.
+
+Migrations
+----------
+
+Sometimes a collection grows fat and I must split it and/or compress its data. Then I write mongodb JS scripts like [this one](https://github.com/ornicar/lila/blob/master/bin/prod/game3.js) or [that one](https://github.com/ornicar/lila/blob/master/bin/prod/game4.js).
+
+I never update a collection in place, because it always results in lost disk space: either the documents get smaller, and there is extra padding, or they get bigger and mongodb has to move them. 
+Instead, I copy the collection to a new one while performing the modifications. Not only the new collection only uses the exact space it needs on the disk, but the old one is still available... you know, just in case.
 
 Scala model
 -----------
@@ -104,4 +112,4 @@ All models are immutable. In fact all lichess code is immutable. No increments, 
 
 I find immutable models much easier to deal with regardless of the database backend used. Not only they allow trivial parallelism but they just feel "right" and joyful to use.
 Basically, when I fetch, say, a game, the DB document is mapped to an algebraic data type, "case class" in scala.
-Every change to this object results in a new object. Then I can just send the final object to the DB. There is some logic to compute the $set and $unset operations from the original to the final object.
+Every change to this object results in a new object. Then I can just send the final object to the DB; there is some logic to compute the `$set` and `$unset` operations from the original to the final object.
