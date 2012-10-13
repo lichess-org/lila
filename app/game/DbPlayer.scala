@@ -46,10 +46,9 @@ case class DbPlayer(
 
   def wins = isWinner getOrElse false
 
-  def hasMoveTimes = moveTimes.size > 8
+  def hasMoveTimes = moveTimes.size > 4
 
-  def moveTimeList: List[Int] = 
-    moveTimes.split(" ").toList map parseIntOption flatten
+  def moveTimeList: List[Int] = MoveTime decode moveTimes
 
   def finish(winner: Boolean) = copy(
     isWinner = if (winner) Some(true) else None
