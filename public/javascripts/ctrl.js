@@ -51,12 +51,14 @@ lichess.socketDefaults.options.debug = !lichess.onProduction;
 $(function() {
 
   if (!$.websocket.available) {
-    if (window.opera) {
-      var inUrFaceUrl = '/assets/opera-websocket.html';
-    } else {
-      var inUrFaceUrl = '/assets/browser.html';
-    }
-    $.ajax(inUrFaceUrl, { success: function(html) { $('body').prepend(html); } });
+    setTimeout(function() {
+      if (window.opera) {
+        var inUrFaceUrl = '/assets/opera-websocket.html';
+      } else {
+        var inUrFaceUrl = '/assets/browser.html';
+      }
+      $.ajax(inUrFaceUrl, { success: function(html) { $('body').prepend(html); } });
+    }, 2000);
   }
 
   // Start game

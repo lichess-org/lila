@@ -145,13 +145,15 @@ $.websocket.prototype = {
     if (self.ws) { self.ws.close(); self.ws = null; }
   },
   onError: function(e) {
-    if (!$.cookie("wsok") && $("#websocket-fail").length == 0) {
-      $.ajax("/assets/websocket-fail.html", {
-        success: function(html) {
-          $('body').prepend("<div id='websocket-fail'>" + html + "</div>");
-        }
-      });
-    }
+    setTimeout(function() {
+      if (!$.cookie("wsok") && $("#websocket-fail").length == 0) {
+        $.ajax("/assets/websocket-fail.html", {
+          success: function(html) {
+            $('body').prepend("<div id='websocket-fail'>" + html + "</div>");
+          }
+        });
+      }
+    }, 1000);
   },
   onSuccess: function() {
     $.cookie("wsok", 1);
