@@ -5,7 +5,7 @@ Backend of http://lichess.org
 
 - Scala 2.9 with Play2, Akka 2, Scalaz and Salat
 - [Scalachess](https://github.com/ornicar/scalachess)
-- MongoDB 2
+- MongoDB 2.2
 
 Installation
 ============
