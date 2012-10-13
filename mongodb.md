@@ -13,7 +13,7 @@ Finally, in 2010, I learnt about document databases and chose mongodb for its up
 Lichess database
 ----------------
 
-The schema is made of 26 collections. At the time of writing (Oct 13 2012), the DB contains 10,2 million objects and occupies 12,8 GB on the filesystem. All indexes fit in 824 MB.
+The schema is made of 25 collections. At the time of writing (Oct 13 2012), the DB contains 10,2 million objects and occupies 12,8 GB on the filesystem. All indexes fit in 824 MB.
 
 Storing games
 -------------
@@ -28,6 +28,8 @@ A game data is span in 4 collections:
 
 - `pgn` contains the game history in pgn format, allowing for replays, analysis and takeback.
 
+So each game results in 4 objects in 4 distinct collections. Everything could fit in a single nested object, but I prefer separating the data based on use cases. I only need the `game` informations to display a board or apply a move. Having 4 collections keeps the very busy `game` collection small, so most operations are cheap.
+
 ### Compression!
 
 There are more than 10,000 games played every day, so I try to shrink their DB representation as much as possible to reduce data transfer and keep the whole thing in memory.
@@ -36,6 +38,7 @@ In mongodb key names are stored for each object, so I reduced them to one or two
 I also use data custom encodings to save as many bytes as possible. For instance, here's how piece positions are stored: `1pCkJqJPKNKPJPJNKBJQkRtBtRMPGPPP`.
 
 In average, a game fits in 1,24 KB:
+
     > db.game4.stats().avgObjSize + db.room.stats().avgObjSize + db.watcher_room.stats().avgObjSize + db.pgn.stats().avgObjSize
     1241.775641951236
 
@@ -65,5 +68,11 @@ User data is split in 4 collections:
 
 - `security` associates usernames (= user ids) to browser cookies and IP addresses. It is used for authentication and spam prevention.
 
-So each user results in 4 objects in 4 distinct collections. Everything could fit in a single nested object, but I prefer separating the data based on use cases. For instance I only need the user `config` when he creates a game, or the `user_history` when displaying his profile.
+Like for `game` I could have it all in a big object, but I like keeping the `user` collection small.
 
+The schema
+----------
+
+All collections and references:
+
+![lichess.org mongodb schema](https://raw.github.com/ornicar/lila/master/public/images/lichess_mongodb_schema.png)
