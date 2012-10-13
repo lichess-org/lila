@@ -131,10 +131,8 @@ case class DbGame(
       moveTimes = (move.color == player.color).fold(
         lastMoveTime.fold(
           lmt ⇒ (nowSeconds - lmt) |> { mt ⇒
-            player.moveTimes.isEmpty.fold(
-              mt.toString,
-              player.moveTimes + " " + mt
-            )
+            val encoded = MoveTime encode mt
+            player.moveTimes.isEmpty.fold(encoded.toString, player.moveTimes + encoded)
           },
           ""
         ),
