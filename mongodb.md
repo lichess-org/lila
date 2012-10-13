@@ -70,9 +70,38 @@ User data is split in 4 collections:
 
 Like for `game` I could have it all in a big object, but I like keeping the `user` collection small.
 
-The schema
-----------
+The big picture
+---------------
 
 All collections and references:
 
 ![lichess.org mongodb schema](https://raw.github.com/ornicar/lila/master/public/images/lichess_mongodb_schema.png)
+
+Capped collections
+------------------
+
+I use them for the homepage public chat room (`lobby_room`). Only 2 MB worth of silly chatting is stored.
+Capped collections also rotate moderator actions logs.
+
+Sharding and replication
+------------------------
+
+Eeeer no, it's all on the same server. The same one that runs the scala application. Only the artificial intelligence runs on a separated server.
+
+Talking about that, the way I do backups is awful. I just rsync the DB directory without locking anything. It works for now but I'm certain it's horribly wrong.
+
+Driver and mapping
+------------------
+
+lichess.org is built in scala using the Play2 web framework. The scala driver is [casbah](https://github.com/mongodb/casbah) which wraps the Java mongodb driver.
+
+Most of the time I map the mongodb documents to scala objects using [salat](https://github.com/novus/salat), a lightweight serialization library that does *not* use reflection.
+
+Scala model
+-----------
+
+All models are immutable. In fact all lichess code is immutable. No increments, no setters, and no side effects (but haskell-style IO monads).
+
+I find immutable models much easier to deal with regardless of the database backend used. Not only they allow trivial parallelism but they just feel "right" and joyful to use.
+Basically, when I fetch, say, a game, the DB document is mapped to an algebraic data type, "case class" in scala.
+Every change to this object results in a new object. Then I can just send the final object to the DB. There is some logic to compute the $set and $unset operations from the original to the final object.
