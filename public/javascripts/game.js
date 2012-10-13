@@ -509,11 +509,9 @@ $.widget("lichess.game", {
   initTable: function() {
     var self = this;
     self.centerTable();
-    self.$table.find('a.moretime').unbind("click").click(function() {
-      lichess.socket.send("moretime");
-      return false;
-    });
+    self.$table.find('a.moretime').unbind("click").click(self.moretime);
   },
+  moretime: _.throttle(function() { lichess.socket.send('moretime'); }, 800),
   centerTable: function() {
     var self = this;
     self.$table.find(".lichess_control").each(function() {
@@ -521,6 +519,7 @@ $.widget("lichess.game", {
     });
     self.$table.css('top', (256 - self.$table.height() / 2) + 'px');
   },
+  outoftime: _.debounce(function() { lichess.socket.send('outoftime'); }, 200),
   initClocks: function() {
     var self = this;
     if (!self.canRunClock()) return;
@@ -529,7 +528,7 @@ $.widget("lichess.game", {
         time: $(this).attr('data-time'),
         buzzer: function() {
           if (!self.options.game.finished && ! self.options.player.spectator) {
-            lichess.socket.send("outoftime");
+            self.outoftime();
           }
         }
       });
