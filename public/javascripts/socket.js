@@ -54,7 +54,7 @@ $.websocket.prototype = {
       var m = JSON.parse(e.data);
       if (m.t == "n") { self.pong(); }
       else self.debug(m);
-      if (m.t == "batch") {
+      if (m.t == "b") {
         $(m.d || []).each(function() { self.handle(this); });
       } else {
         self.handle(m);
