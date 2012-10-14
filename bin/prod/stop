@@ -1,5 +1,15 @@
 #!/bin/sh
 . bin/lilarc
 
+lilapid=$(cat RUNNING_PID)
+
+lilalog "Running with pid $lilapid"
+
 lilalog "Stop application"
-kill $(cat RUNNING_PID)
+kill $lilapid
+rm RUNNING_PID
+
+sleep 1
+
+lilalog "Force kill in case port 9000 is still bound"
+pkill -9 --echo --full "java -Dconfig.file=conf/local.conf -Dhttp.port=9000"
