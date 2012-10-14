@@ -167,7 +167,11 @@ And of course I keep an eye on the slow queries log and the mongostat output on 
 Mongodb 2.2
 -----------
 
-For some reason I'm seeing a lot more slow queries (my threshold is set to 30ms) than with mongodb 2.0. Especially on updates, and even when the document was not moved.
+For some reason I'm seeing a lot more slow queries (my threshold is set to 30ms) than with mongodb 2.0. Especially on updates, and even when the document was not moved. Example:
+
+    Sun Oct 14 02:44:17 [conn42] update lichess.game4 query: { _id: "tkkq75vm" } update: { $set: { ua: new Date(1350175457048), t: 100, lm: "d5f3", ph: "617c06985559f3c3405a9f90d6bf9cef283f8c19", lmt: 1350175457, p.0.ps: "KkEp5rtbDpsPFPyP?NzRzBzPSQCNCP1P", p.0.mts: "2al97do88iadqlxd5BKmeEbw5Z4g76fb5jn2c4e7av745r4mbb9", p.1.ps: "vbjparspZkzNSQCN1PSPzB?RXPIPVPFP", p.1.mts: "000000000010000000000000000 0000001000000000000111011" } } idhack:1 nupdated:1 keyUpdates:0 locks(micros) w:168 193ms
+    Sun Oct 14 02:44:18 [conn105] update lichess.room query: { _id: "sdjnry56" } update: { $push: { messages: "w-w-" } } idhack:1 nupdated:1 keyUpdates:0 locks(micros) w:69 46ms
+    Sun Oct 14 02:44:19 [conn191] update lichess.f_topic query: { _id: "cfce6plt" } update: { $inc: { views: 1 } } idhack:1 nupdated:1 keyUpdates:0 locks(micros) w:48 44ms
 
 Also, and I don't think it has been documented yet, the format of `serverStatus` output has changed.
 
