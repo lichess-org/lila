@@ -1,14 +1,22 @@
 package lila
 package game
 
-final class GameDiff(a: RawDbGame, b: RawDbGame) {
+object GameDiff {
 
-  def apply(): List[(String, Any)] = {
+  type Set = (String, Any)
+  type Unset = String
 
-    val builder = scala.collection.mutable.ListBuffer[(String, Any)]()
+  def apply(a: RawDbGame, b: RawDbGame): (List[Set], List[Unset]) = {
+
+    val setBuilder = scala.collection.mutable.ListBuffer[Set]()
+    val unsetBuilder = scala.collection.mutable.ListBuffer[Unset]()
 
     def d[A](name: String, f: RawDbGame ⇒ A) {
-      if (f(a) != f(b)) builder += name -> f(b)
+      val (va, vb) = (f(a), f(b))
+      if (va != vb) {
+        if (vb == None || vb == null || vb == "") unsetBuilder += name
+        else setBuilder += name -> vb
+      }
     }
 
     d("s", _.s)
@@ -35,6 +43,7 @@ final class GameDiff(a: RawDbGame, b: RawDbGame) {
       d("c.b", _.c.get.b)
       d("c.t", _.c.get.t) // timer
     }
-    builder.toList
+
+    (setBuilder.toList, unsetBuilder.toList)
   }
 }

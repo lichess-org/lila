@@ -53,12 +53,15 @@ final class GameRepo(collection: MongoCollection)
   }
 
   def save(progress: Progress): IO[Unit] =
-    new GameDiff(progress.origin.encode, progress.game.encode)() |> { diffs ⇒
-      if (diffs.nonEmpty) {
-        val fullDiffs = ("ua" -> new Date) :: diffs
-        io { update(idSelector(progress.origin), $set(fullDiffs: _*)) }
+    GameDiff(progress.origin.encode, progress.game.encode) |> {
+      case (Nil, Nil) ⇒ io()
+      case (sets, unsets) ⇒ io {
+        val fullSets = ("ua" -> new Date) :: sets
+        update(
+          idSelector(progress.origin),
+          ($set(fullSets: _*) ++ $unset(unsets: _*)).pp
+        )
       }
-      else io()
     }
 
   def insert(game: DbGame): IO[Option[String]] = io {
