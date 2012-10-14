@@ -6,7 +6,7 @@ $(function() {
   if (!$wrap.length) return;
 
   if (!$.websocket.available) return;
-  if (typeof lichess_data == "undefined") {
+  if (typeof _ld_ == "undefined") {
     // handle tournament list
     lichess.socketDefaults.params.flag = "tournament";
     lichess.socketDefaults.events.reload = function() {
@@ -79,7 +79,7 @@ $(function() {
     });
   }
 
-  lichess.socket = new $.websocket(lichess.socketUrl + socketUrl, lichess_data.version, $.extend(true, lichess.socketDefaults, {
+  lichess.socket = new $.websocket(lichess.socketUrl + socketUrl, _ld_.version, $.extend(true, lichess.socketDefaults, {
     events: {
       talk: function(e) { if (chatExists) addToChat(e); },
     reload: reload,

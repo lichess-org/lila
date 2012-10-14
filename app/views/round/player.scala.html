@@ -49,7 +49,7 @@ underchat = underchat.some) {
     @round.cemetery(!pov, "bottom")
   </div>
 </div>
-<script type="text/javascript">var lichess_data = @Html(roundPlayerJsData(pov, version))</script>
+<script type="text/javascript">var _ld_ = @Html(roundPlayerJsData(pov, version))</script>
 @analyse.link(pov, analysed)
 @if(!tour.fold(_.isRunning, false)) {
 @views.html.game.more(pov, bookmarkers) {
