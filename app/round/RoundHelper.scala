@@ -36,8 +36,7 @@ trait RoundHelper { self: ConfigHelper ⇒
         "ai" -> opponent.isAi
       ),
       "possible_moves" -> possibleMoves(pov),
-      "animation_delay" -> animationDelay(pov),
-      "tournament" -> pov.game.tournamentId
+      "animation_delay" -> animationDelay(pov)
     )
   }
 
