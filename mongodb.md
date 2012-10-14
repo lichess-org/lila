@@ -3,7 +3,16 @@ lichess and mongodb
 
 I'm not a mongodb expert. This document gives no recommendation, but describes the choices I made for lichess. Please let me know what can be improved!
 
-The good ol time
+The big picture
+---------------
+
+All collections and references:
+
+![lichess.org mongodb schema](https://raw.github.com/ornicar/lila/master/public/images/lichess_mongodb_schema.png)
+
+Note that I always favor [manual references](http://docs.mongodb.org/manual/applications/database-references/#document-references) over [DBRef](http://docs.mongodb.org/manual/applications/database-references/#dbref).
+
+A bit of history
 ----------------
 
 Back in 2009 lichess was using mysql, with tables for `game`, `player` and even `piece` models. It required quite a lot of JOIN and lacked schema flexibility.
@@ -13,8 +22,9 @@ Finally, in 2010, I learnt about document databases and chose mongodb for its up
 Numbers
 -------
 
-The schema is composed by 25 collections. At the time of writing (Oct 13 2012), the DB contains 10,2 million objects and occupies 12,8 GB on the filesystem. All indexes fit in 824 MB.
-More than 10,000 games are added every day. Each game is updated 60 times in average, once per chess move. There are also the forum posts, private messages and millions of chat messages.
+At the time of writing (Oct 13 2012), the DB contains 10,2 million objects and occupies 12,8 GB on the filesystem. All indexes fit in 824 MB.
+More than 10,000 games are added every day. Each game is updated 60 times in average, once per chess move. There are also the forum posts, tournaments, private messages and bazillions of chat messages.
+On average, lichess performs around 150 queries, 40 updates and 50 commands per second.
 
 Storing games
 -------------
@@ -71,25 +81,23 @@ User data is split in 4 collections:
 
 Like for `game` I could have it all in a big object, but I like keeping the `user` collection small.
 
-The big picture
----------------
-
-All collections and references:
-
-![lichess.org mongodb schema](https://raw.github.com/ornicar/lila/master/public/images/lichess_mongodb_schema.png)
-
 Capped collections
 ------------------
 
 I use them for the homepage public chat room (`lobby_room`). Only 2 MB worth of silly chatting is stored.
 Capped collections also rotate moderator actions logs.
 
+Map reduce
+----------
+
+You can see some in action to [count unread messages of a user](https://github.com/ornicar/lila/blob/master/app/message/ThreadRepo.scala#L30). 
+
 Sharding and replication
 ------------------------
 
 Eeeer no, it's all on the same server. The same one that runs the application. Only the artificial intelligence runs on a separated server.
 
-Talking about that, the way I do backups is awful. I just rsync the DB directory without locking anything. It works for now but I'm certain it's horribly wrong.
+Talking about that, the way I do backups is awful. I just rsync the DB directory without locking anything. It works for now (thanks to journal files) but I'm certain it's horribly wrong.
 
 Driver and mapping
 ------------------
@@ -106,8 +114,8 @@ Sometimes a collection grows fat and I must split it and/or compress its data. T
 I never update a collection in place, because it always results in lost disk space: either the documents get smaller, and there is extra padding, or they get bigger and mongodb has to move them. 
 Instead, I copy the collection to a new one while performing the modifications. Not only the new collection only uses the exact space it needs on the disk, but the old one is still available... you know, just in case.
 
-Scala model
------------
+Scala integration
+-----------------
 
 All models are immutable. In fact all lichess code is immutable. No increments, no setters, and no side effects (but haskell-style IO monads).
 
@@ -152,3 +160,10 @@ I made a fancy realtime monitoring tool! Check it on http://en.lichess.org/monit
 There are also munin graphs visible on http://en.lichess.org/monitor/munin/balrog/balrog/index.html#mongodb
 
 But they seem a bit messed up by the recent mongodb 2.2 upgrade.
+
+And of course I keep an eye on the slow queries log and the mongostat output on my server terminal multiplexer.http://en.lichess.org/monitor/munin/balrog/balrog/index.html#mongode
+
+Mongodb 2.2
+-----------
+
+For some reason I'm seeing a lot more slow queries (my threshold is set to 30ms) than with mongodb 2.0. Especially on updates, and even when the document was not moved.
