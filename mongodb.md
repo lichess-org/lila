@@ -1,5 +1,7 @@
-lichess and mongodb
-===================
+[lichess.org](http://lichess.org) and mongodb
+=============================================
+
+Lichess is an free and ad-less online chess game. It's also my favorite hobby project.
 
 I'm not a mongodb expert. This document gives no recommendation, but describes the choices I made for lichess. Please let me know what can be improved!
 
@@ -43,12 +45,12 @@ So each game results in 4 objects in 4 distinct collections. Everything could fi
 
 ### Compression!
 
-There are more than 10,000 games played every day, so I try to shrink their DB representation as much as possible to reduce data transfer and keep the whole thing in memory.
+I try to shrink DB games as much as possible to reduce data transfer and keep the whole thing in memory.
 
 In mongodb key names are stored for each object, so I reduced them to one or two chars.
 I also use data custom encodings to save as many bytes as possible. For instance, here's how piece positions are stored: `1pCkJqJPKNKPJPJNKBJQkRtBtRMPGPPP`.
 
-In average, a game fits in 1,24 KB:
+In average, a full game fits in 1,24 KB:
 
     > db.game4.stats().avgObjSize + db.room.stats().avgObjSize + db.watcher_room.stats().avgObjSize + db.pgn.stats().avgObjSize
     1241.775641951236
@@ -64,14 +66,14 @@ Here are the indexes I need on the `game` collection for my common queries:
 - userIds + createdAt compound index: to show one player's games in chronological order
 - bookmark sparse int: number of player bookmarks used to show popular games
 
-The `_id` is a random 8 chars string used in urls. `room`, `watcher_room` and `pgn` objects are linked to the `game` objects by using the same `_id`.
+The `_id` is a random 8 chars string also used in urls. `room`, `watcher_room` and `pgn` objects are linked to the `game` objects by using the same `_id`.
 
 Storing users
 -------------
 
 User data is split in 4 collections:
 
-- `user` for the frequently accessed data. See an [example of user object](https://gist.github.com/3886345). It contains security data, user preferences and a good deal of denormalized game counts. Note that the `_id` field is the lowercased username. It allows readable references to users in other collection objects. It also allows doing html links to users without loading them from the database, as the `_id` is enough to make a link like http://lichess.org/@/thibault. 
+- `user` for the frequently accessed data. See an [example of user object](https://gist.github.com/3886345). It contains security data, user preferences and denormalized game counts. Note that the `_id` field is the lowercased username; it allows readable references to users in other collection objects. It also allows doing html links to users without loading them from the database, as the `_id` is enough to make a link like http://lichess.org/@/thibault. 
 
 - `config` stores user preferences for AI, friend and lobby games. Here's a [config object from the database](https://gist.github.com/3886367). The config `_id` is the user `_id`.
 
@@ -95,16 +97,9 @@ You can see some in action to [count unread messages of a user](https://github.c
 Sharding and replication
 ------------------------
 
-Eeeer no, it's all on the same server. The same one that runs the application. Only the artificial intelligence runs on a separated server.
+Eeeer no, it's all on the same server. The same one that runs the application. Only the artificial intelligence runs on a distinct server.
 
-Talking about that, the way I do backups is awful. I just rsync the DB directory without locking anything. It works for now (thanks to journal files) but I'm certain it's horribly wrong.
-
-Driver and mapping
-------------------
-
-lichess.org is built in scala using the Play2 web framework. The scala driver is [casbah](https://github.com/mongodb/casbah) which wraps the Java mongodb driver.
-
-Most of the time I map the mongodb documents to scala objects using [salat](https://github.com/novus/salat), a lightweight serialization library that does **not** use reflection.
+Talking about that, the way I do backups is awful. I just [rsync the DB directory](https://github.com/ornicar/dotfiles/blob/master/scripts/backup-balrog) without locking anything. It works for now (thanks to journal files) but I'm certain it's horribly wrong.
 
 Migrations
 ----------
@@ -116,6 +111,12 @@ Instead, I copy the collection to a new one while performing the modifications. 
 
 Scala integration
 -----------------
+
+### Driver and mapping
+
+lichess.org is built in scala using the Play2 web framework. The scala driver is [casbah](https://github.com/mongodb/casbah) which wraps the Java mongodb driver.
+
+Most of the time I map the mongodb documents to scala objects using [salat](https://github.com/novus/salat), a lightweight serialization library that does **not** use reflection.
 
 All models are immutable. In fact all lichess code is immutable. No increments, no setters, and no side effects (but haskell-style IO monads).
 
@@ -167,3 +168,11 @@ Mongodb 2.2
 -----------
 
 For some reason I'm seeing a lot more slow queries (my threshold is set to 30ms) than with mongodb 2.0. Especially on updates, and even when the document was not moved.
+
+Also, and I don't think it has been documented yet, the format of `serverStatus` output has changed.
+
+Besides that it's all good, and I'm looking forward trying the aggregation framework!
+
+---
+
+Thanks for reading and happy coding.
