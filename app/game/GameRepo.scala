@@ -10,7 +10,7 @@ import user.User
 
 import com.novus.salat._
 import com.novus.salat.dao._
-import com.mongodb.casbah.MongoCollection
+import com.mongodb.casbah.{ WriteConcern, MongoCollection }
 import com.mongodb.casbah.query.Imports._
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
@@ -52,15 +52,17 @@ final class GameRepo(collection: MongoCollection)
     update(idSelector(game), _grater asDBObject game.encode)
   }
 
-  def save(progress: Progress): IO[Unit] =
+  def save(progress: Progress): IO[Unit] = 
     GameDiff(progress.origin.encode, progress.game.encode) |> {
       case (Nil, Nil) ⇒ io()
-      case (sets, unsets) ⇒ io {
+      case (sets, unsets) ⇒ {
         val fullSets = ("ua" -> new Date) :: sets
-        update(
-          idSelector(progress.origin),
-          ($set(fullSets: _*) ++ $unset(unsets: _*)).pp
+        val ops = unsets.isEmpty.fold(
+          $set(fullSets: _*), 
+          $set(fullSets: _*) ++ $unset(unsets: _*)
         )
+        val wc = WriteConcern.None
+        io { collection.update(idSelector(progress.origin), ops, concern = wc) }
       }
     }
 
