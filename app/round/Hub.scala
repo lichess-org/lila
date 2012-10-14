@@ -110,7 +110,7 @@ final class Hub(
 
   def batch(member: Member, vevents: List[VersionedEvent]) {
     if (vevents.nonEmpty) {
-      member.channel push makeEvent("batch", JsArray(vevents map (_ jsFor member)))
+      member.channel push makeEvent("b", JsArray(vevents map (_ jsFor member)))
     }
   }
 
