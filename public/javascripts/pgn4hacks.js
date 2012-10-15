@@ -1,32 +1,4 @@
-$(function() {
-  SetImagePath("/assets/vendor/pgn4web/lichess/64"); // use "" path if images are in the same folder as this javascript file
-  SetImageType("png");
-  SetShortcutKeysEnabled(false);
-  clearShortcutSquares("BCDEFGH", "12345678");
-  clearShortcutSquares("A", "1234567");
-  var $game = $("#GameBoard");
-  var $chat = $("div.lichess_chat").chat();
-  var $watchers = $("div.watchers").watchers();
-
-  lichess.socket = new $.websocket(
-    lichess.socketUrl + $game.data("socket-url"),
-    parseInt($game.data("version")),
-    $.extend(true, lichess.socketDefaults, {
-      options: {
-        name: "analyse",
-        ignoreUnknownMessages: true
-      },
-      events: {
-        message: function(event) {
-          $chat.chat("append", event);
-        },
-        crowd: function(event) {
-          $watchers.watchers("set", event.watchers);
-        }
-      }
-    }));
-});
-
+// these functions must remain on root namespace 
 function customFunctionOnPgnGameLoad() {
   var $text = $('#ShowPgnText');
   var html = '<table><tbody><tr>';
