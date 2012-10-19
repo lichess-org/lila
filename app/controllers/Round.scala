@@ -32,26 +32,16 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
       color,
       getInt("version"),
       get("sri"),
-      ctx.me).unsafePerformIO
+      ctx).unsafePerformIO
   }
 
   def websocketPlayer(fullId: String) = WebSocket.async[JsValue] { req ⇒
     implicit val ctx = reqToCtx(req)
-    get("sri").fold(
-      sri ⇒ socket.joinPlayer(
+      socket.joinPlayer(
         fullId,
         getInt("version"),
-        sri,
-        ctx.me),
-      putStrLn("Round Websocket: Hijack detected on %s by %s".format(fullId, ctx)) flatMap { _ ⇒
-        socket.joinWatcher(
-          fullId take 8,
-          "white",
-          getInt("version"),
-          "hijacked".some,
-          ctx.me)
-      }
-    ).unsafePerformIO
+        get("sri"),
+        ctx).unsafePerformIO
   }
 
   def player(fullId: String) = Open { implicit ctx ⇒
