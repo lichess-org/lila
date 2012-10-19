@@ -117,9 +117,9 @@ final class Socket(
   def joinPlayer(
     fullId: String,
     version: Option[Int],
-    uid: Option[String],
+    uid: String,
     user: Option[User]): IO[SocketPromise] =
-    getPlayerPov(fullId) map { join(_, true, version, uid, user) }
+    getPlayerPov(fullId) map { join(_, true, version, uid.some, user) }
 
   private def parseMove(event: JsValue) = for {
     d ← event obj "d"
