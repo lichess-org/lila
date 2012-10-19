@@ -16,7 +16,7 @@ var strongSocket = function(url, version, settings) {
   self.settings = {
     events: {},
     params: {
-      uid: Math.random().toString(36).substring(5) // 8 chars
+      sri: Math.random().toString(36).substring(5) // 8 chars
     },
     options: {
       name: "unnamed",

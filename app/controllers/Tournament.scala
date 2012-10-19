@@ -147,7 +147,7 @@ object Tournament extends LilaController {
 
   def websocket(id: String) = WebSocket.async[JsValue] { req ⇒
     implicit val ctx = reqToCtx(req)
-    socket.join(id, getInt("version"), get("uid"), ctx.me).unsafePerformIO
+    socket.join(id, getInt("version"), get("sri"), ctx.me).unsafePerformIO
   }
 
   private def version(tournamentId: String): Int = socket blockingVersion tournamentId

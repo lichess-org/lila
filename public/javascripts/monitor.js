@@ -173,8 +173,8 @@
       window.document.body.className = s;
     }
 
-    var uid = Math.random().toString(36).substring(5);
-    var wsUrl = "ws://" + document.domain + ":9000/monitor/socket?uid=" + uid;
+    var sri = Math.random().toString(36).substring(5);
+    var wsUrl = "ws://" + document.domain + ":9000/monitor/socket?sri=" + sri;
     var ws = window.MozWebSocket ? new MozWebSocket(wsUrl) : new WebSocket(wsUrl);
     ws.onmessage = function(e) {
       var m = JSON.parse(e.data);

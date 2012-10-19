@@ -14,7 +14,7 @@ object Main extends LilaController {
   def websocket = WebSocket.async[JsValue] { implicit req ⇒
     implicit val ctx = reqToCtx(req)
     env.site.socket.join(
-      uidOption = get("uid"),
+      uidOption = get("sri"),
       username = ctx.me map (_.username),
       flag = get("flag")
     )

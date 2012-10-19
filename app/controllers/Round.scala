@@ -31,7 +31,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
       gameId,
       color,
       getInt("version"),
-      get("uid"),
+      get("sri"),
       ctx.me).unsafePerformIO
   }
 
@@ -40,7 +40,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
     socket.joinPlayer(
       fullId,
       getInt("version"),
-      get("uid"),
+      get("sri"),
       ctx.me).unsafePerformIO
   }
 
