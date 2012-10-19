@@ -53,3 +53,4 @@ takeback substract time for person granting
 computer analysis reproducible failure http://en.lichess.org/analyse/3xr4jf80/black
 
 detect added script and push it to server logs
+add fullscreen mode for spectators and load new games in a loop (based on certain filter options) - thus creating a chess tv channel
