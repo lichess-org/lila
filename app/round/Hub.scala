@@ -57,7 +57,8 @@ final class Hub(
 
     case IsGone(_, color)            ⇒ sender ! playerIsGone(color)
 
-    case Join(uid, user, version, color, owner) ⇒ {
+    case Join(uid, user, version, color, ownerWish) ⇒ {
+      val owner = ownerWish && !ownerExists(color)
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user, color, owner)
       addMember(uid, member)
@@ -86,6 +87,8 @@ final class Hub(
       self ! PoisonPill
     }
   }
+
+  def ownerExists(color: Color) = ownerOf(color).isDefined
 
   def crowdEvent = Event.Crowd(
     white = ownerOf(White).isDefined,

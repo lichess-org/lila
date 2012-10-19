@@ -49,5 +49,7 @@ lsof show the open websockets on prod. The recurrent bug could come from the ope
 lobby game filters http://en.lichess.org/forum/lichess-feedback/feature-request-game-filter#2
 not possible to copy the link URL invite when using a iOS device. Can this be easily fixed by adding an automatic "copy" button next to the link?
 search bug http://en.lichess.org/games/search?players.a=&players.b=&players.winner=&eloMin=&eloMax=&hasAi=&aiLevelMin=&aiLevelMax=&variant=&mode=1&opening=&turnsMin=&turnsMax=&durationMin=&durationMax=&status=35&dateMin=&dateMax=&sort.field=tu&sort.order=asc
+takeback substract time for person granting
+computer analysis reproducible failure http://en.lichess.org/analyse/3xr4jf80/black
 
 detect added script and push it to server logs

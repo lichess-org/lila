@@ -20,6 +20,7 @@ import socket.{ PingVersion, Quit, Resync }
 import socket.Util.connectionFail
 import security.Flood
 import implicits.RichJs._
+import http.Context
 
 final class Socket(
     getWatcherPov: (String, String) ⇒ IO[Option[Pov]],
@@ -111,15 +112,15 @@ final class Socket(
     colorName: String,
     version: Option[Int],
     uid: Option[String],
-    user: Option[User]): IO[SocketPromise] =
-    getWatcherPov(gameId, colorName) map { join(_, false, version, uid, user) }
+    ctx: Context): IO[SocketPromise] =
+    getWatcherPov(gameId, colorName) map { join(_, false, version, uid, ctx) }
 
   def joinPlayer(
     fullId: String,
     version: Option[Int],
-    uid: String,
-    user: Option[User]): IO[SocketPromise] =
-    getPlayerPov(fullId) map { join(_, true, version, uid.some, user) }
+    uid: Option[String],
+    ctx: Context): IO[SocketPromise] =
+    getPlayerPov(fullId) map { join(_, true, version, uid, ctx) }
 
   private def parseMove(event: JsValue) = for {
     d ← event obj "d"
@@ -135,25 +136,27 @@ final class Socket(
     owner: Boolean,
     versionOption: Option[Int],
     uidOption: Option[String],
-    user: Option[User]): SocketPromise =
+    ctx: Context): SocketPromise =
     ((povOption |@| uidOption |@| versionOption) apply {
       (pov: Pov, uid: String, version: Int) ⇒
         (for {
           hub ← hubMaster ? GetHub(pov.gameId) mapTo manifest[ActorRef]
           socket ← hub ? Join(
             uid = uid,
-            user = user,
+            user = ctx.me,
             version = version,
             color = pov.color,
             owner = owner
           ) map {
-              case Connected(enumerator, member) ⇒ (
-                Iteratee.foreach[JsValue](
+              case Connected(enumerator, member) ⇒ {
+                if (owner && !member.owner) println("Websocket hijacking detected! " + ctx.toString)
+                (Iteratee.foreach[JsValue](
                   controller(hub, uid, member, PovRef(pov.gameId, member.color))
                 ) mapDone { _ ⇒
                     hub ! Quit(uid)
                   },
                   enumerator)
+              }
             }
         } yield socket).asPromise: SocketPromise
     }) | connectionFail
