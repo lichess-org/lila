@@ -59,7 +59,7 @@ object Lobby extends LilaController with Results {
   def socket = WebSocket.async[JsValue] { implicit req ⇒
     implicit val ctx = reqToCtx(req)
     env.lobby.socket.join(
-      uidOption = get("uid"),
+      uidOption = get("sri"),
       username = ctx.me map (_.username),
       versionOption = getInt("version"),
       hook = get("hook")

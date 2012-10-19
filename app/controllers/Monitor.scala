@@ -23,7 +23,7 @@ object Monitor extends LilaController {
   }
 
   def websocket = WebSocket.async[JsValue] { implicit req ⇒
-    env.monitor.socket.join(uidOption = get("uid", req))
+    env.monitor.socket.join(uidOption = get("sri", req))
   }
 
   def status = Action {
