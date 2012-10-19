@@ -149,7 +149,7 @@ final class Socket(
             owner = owner
           ) map {
               case Connected(enumerator, member) ⇒ {
-                if (owner && !member.owner) println("Websocket hijacking detected! " + ctx.toString)
+                if (owner && !member.owner) println("Websocket hijacking detected (%s) %s".format(pov.gameId, ctx.toString))
                 (Iteratee.foreach[JsValue](
                   controller(hub, uid, member, PovRef(pov.gameId, member.color))
                 ) mapDone { _ ⇒
