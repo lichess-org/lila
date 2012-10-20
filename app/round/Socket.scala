@@ -149,7 +149,7 @@ final class Socket(
             user = ctx.me,
             version = version,
             color = pov.color,
-            owner = owner && token == pov.game.token
+            owner = owner && !isHijack(pov, token)
           ) map {
               case Connected(enumerator, member) ⇒ {
                 if (owner && !member.owner) {
@@ -165,4 +165,12 @@ final class Socket(
             }
         } yield socket).asPromise: SocketPromise
     }) | connectionFail
+
+  // full game ids that have been hijacked
+  private val hijacks = collection.mutable.Set[String]()
+
+  private def isHijack(pov: Pov, token: String) =
+    if (hijacks contains pov.fullId) true
+    else if (token != pov.game.token) true ~ { _ ⇒ hijacks += pov.fullId }
+    else false
 }
