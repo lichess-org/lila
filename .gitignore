@@ -4,6 +4,7 @@ logs
 project/project
 project/target
 public/trans
+public/compiled
 serve/
 serve/README
 target

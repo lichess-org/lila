@@ -24,6 +24,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
   private def userRepo = env.user.userRepo
   private def analyser = env.analyse.analyser
   private def tournamentRepo = env.tournament.repo
+  private def gameJs = env.game.gameJs
 
   def websocketWatcher(gameId: String, color: String) = WebSocket.async[JsValue] { req ⇒
     implicit val ctx = reqToCtx(req)
@@ -32,16 +33,22 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
       color,
       getInt("version"),
       get("sri"),
+      get("tk"),
       ctx).unsafePerformIO
   }
 
   def websocketPlayer(fullId: String) = WebSocket.async[JsValue] { req ⇒
     implicit val ctx = reqToCtx(req)
-      socket.joinPlayer(
-        fullId,
-        getInt("version"),
-        get("sri"),
-        ctx).unsafePerformIO
+    socket.joinPlayer(
+      fullId,
+      getInt("version"),
+      get("sri"),
+      get("tk"),
+      ctx).unsafePerformIO
+  }
+
+  def signedJs(gameId: String) = Open { implicit ctx ⇒
+    JsIOk(gameRepo token gameId map gameJs.sign, CACHE_CONTROL -> "max-age=3600")
   }
 
   def player(fullId: String) = Open { implicit ctx ⇒

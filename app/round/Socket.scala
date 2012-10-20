@@ -112,15 +112,17 @@ final class Socket(
     colorName: String,
     version: Option[Int],
     uid: Option[String],
+    token: Option[String],
     ctx: Context): IO[SocketPromise] =
-    getWatcherPov(gameId, colorName) map { join(_, false, version, uid, ctx) }
+    getWatcherPov(gameId, colorName) map { join(_, false, version, uid, token, ctx) }
 
   def joinPlayer(
     fullId: String,
     version: Option[Int],
     uid: Option[String],
+    token: Option[String],
     ctx: Context): IO[SocketPromise] =
-    getPlayerPov(fullId) map { join(_, true, version, uid, ctx) }
+    getPlayerPov(fullId) map { join(_, true, version, uid, token, ctx) }
 
   private def parseMove(event: JsValue) = for {
     d ← event obj "d"
@@ -136,9 +138,10 @@ final class Socket(
     owner: Boolean,
     versionOption: Option[Int],
     uidOption: Option[String],
+    tokenOption: Option[String],
     ctx: Context): SocketPromise =
-    ((povOption |@| uidOption |@| versionOption) apply {
-      (pov: Pov, uid: String, version: Int) ⇒
+    ((povOption |@| uidOption |@| tokenOption |@| versionOption) apply {
+      (pov: Pov, uid: String, token: String, version: Int) ⇒
         (for {
           hub ← hubMaster ? GetHub(pov.gameId) mapTo manifest[ActorRef]
           socket ← hub ? Join(
@@ -146,10 +149,12 @@ final class Socket(
             user = ctx.me,
             version = version,
             color = pov.color,
-            owner = owner
+            owner = owner && token == pov.game.token
           ) map {
               case Connected(enumerator, member) ⇒ {
-                if (owner && !member.owner) println("Websocket hijacking detected (%s) %s".format(pov.gameId, ctx.toString))
+                if (owner && !member.owner) {
+                  println("Websocket hijacking detected %s %s".format(pov.gameId, ctx.toString))
+                }
                 (Iteratee.foreach[JsValue](
                   controller(hub, uid, member, PovRef(pov.gameId, member.color))
                 ) mapDone { _ ⇒

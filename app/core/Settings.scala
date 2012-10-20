@@ -25,6 +25,7 @@ final class Settings(config: Config, val IsDev: Boolean) {
   val GamePaginatorMaxPerPage = getInt("game.paginator.max_per_page")
   val GameCollectionGame = getString("game.collection.game")
   val GameCollectionPgn = getString("game.collection.pgn")
+  val GameJsPath = getString("game.js_path")
 
   val SearchESHost = getString("search.elasticsearch.host")
   val SearchESPort = getInt("search.elasticsearch.port")

@@ -1,0 +1,7 @@
+#!/bin/sh
+. bin/lilarc
+
+lilalog "Compiling javascript"
+
+mkdir -p public/compiled
+closure --js public/javascripts/big.js --js_output_file public/compiled/big.js

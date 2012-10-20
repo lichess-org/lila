@@ -1,3 +1,7 @@
+// ==ClosureCompiler==
+// @compilation_level ADVANCED_OPTIMIZATIONS
+// @externs_url http://closure-compiler.googlecode.com/svn/trunk/contrib/externs/jquery-1.7.js
+// ==/ClosureCompiler==
 if (typeof console == "undefined" || typeof console.log == "undefined") console = {
   log: function() {}
 };
@@ -512,7 +516,7 @@ $.widget("lichess.game", {
     self.options.tableUrl = self.element.data('table-url');
     self.options.playersUrl = self.element.data('players-url');
     self.options.socketUrl = self.element.data('socket-url');
-    self.socketAckTimeout;
+    self.socketAckTimeout = null;
 
     $("div.game_tournament .clock").each(function() {
       $(this).clock({time: $(this).data("time")}).clock("start");
@@ -567,6 +571,7 @@ $.widget("lichess.game", {
           options: {
             name: "game"
           },
+        params: { tk: "--tkph--"},
         events: {
           ack: function() {
             clearTimeout(self.socketAckTimeout);
@@ -871,12 +876,12 @@ $.widget("lichess.game", {
         moveData.promotion = "queen";
         sendMoveRequest(moveData);
       } else {
-        var $choices = $('<div class="lichess_promotion_choice">').appendTo(self.$board).html('\
-            <div data-piece="queen" class="lichess_piece queen ' + color + '"></div>\
-            <div data-piece="knight" class="lichess_piece knight ' + color + '"></div>\
-            <div data-piece="rook" class="lichess_piece rook ' + color + '"></div>\
-            <div data-piece="bishop" class="lichess_piece bishop ' + color + '"></div>').fadeIn(self.options.animation_delay).find('div.lichess_piece').click(function() {
-              moveData.promotion = $(this).attr('data-piece');
+        var $choices = $('<div class="lichess_promotion_choice">')
+          .appendTo(self.$board)
+          .html('<div data-piece="queen" class="lichess_piece queen ' + color + '"></div><div data-piece="knight" class="lichess_piece knight ' + color + '"></div><div data-piece="rook" class="lichess_piece rook ' + color + '"></div><div data-piece="bishop" class="lichess_piece bishop ' + color + '"></div>')
+          .fadeIn(self.options.animation_delay)
+          .find('div.lichess_piece')
+          .click(function() { moveData.promotion = $(this).attr('data-piece');
               sendMoveRequest(moveData);
               $choices.fadeOut(self.options.animation_delay, function() {
                 $choices.remove();
@@ -1169,7 +1174,7 @@ $.widget("lichess.chat", {
   },
   append: function(msg) {
     var self = this;
-    self.$msgs.append(urlToLink(msg))[0];
+    self.$msgs.append(urlToLink(msg));
     $('body').trigger('lichess.content_loaded');
     self.$msgs[0].scrollTop = 9999999;
   }

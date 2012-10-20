@@ -14,7 +14,8 @@
 title = title, 
 goodies = views.html.game.infoBox(pov, tour),
 chat = roomHtml.map(round.room(_, false)),
-underchat = underchat.some) {
+underchat = underchat.some,
+signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
 <div class="lichess_game clearfix lichess_player_@color not_spectator"
   data-socket-url="@routes.Round.websocketPlayer(fullId)"
   data-table-url="@routes.Round.tablePlayer(fullId)"
