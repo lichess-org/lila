@@ -11,6 +11,7 @@ if [ -z $1 ]; then
 elif [ $1 = "main" ]; then
   REMOTE="balrog"
   REMOTE_DIR="/home/lila"
+  bin/closure
 elif [ $1 = "ai" ]; then
   REMOTE="marty"
   REMOTE_DIR="/home/lila3"

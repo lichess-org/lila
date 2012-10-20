@@ -48,6 +48,10 @@ final class GameRepo(collection: MongoCollection)
 
   def pov(ref: PovRef): IO[Option[Pov]] = pov(ref.gameId, ref.color)
 
+  def token(id: String): IO[String] = io {
+    primitiveProjection[String](idSelector(id), "tk") | DbGame.defaultToken
+  }
+
   def save(game: DbGame): IO[Unit] = io {
     update(idSelector(game), _grater asDBObject game.encode)
   }

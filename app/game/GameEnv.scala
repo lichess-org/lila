@@ -33,4 +33,6 @@ final class GameEnv(
   lazy val listMenu = ListMenu(cached) _
 
   lazy val rewind = new Rewind
+
+  lazy val gameJs = new GameJs(settings.GameJsPath)
 }

@@ -15,6 +15,7 @@ import scala.math.min
 
 case class DbGame(
     id: String,
+    token: String,
     whitePlayer: DbPlayer,
     blackPlayer: DbPlayer,
     status: Status,
@@ -322,6 +323,7 @@ case class DbGame(
 
   def encode = RawDbGame(
     id = id,
+    tk = token.some filter (DbGame.defaultToken !=),
     p = players map (_.encode),
     s = status.id,
     t = turns,
@@ -366,6 +368,8 @@ object DbGame {
   val gameIdSize = 8
   val playerIdSize = 4
   val fullIdSize = 12
+  val tokenSize = 4
+  val defaultToken = "-tk-"
 
   def abandonedDate = DateTime.now - 10.days
 
@@ -380,6 +384,7 @@ object DbGame {
     mode: Mode,
     variant: Variant): DbGame = DbGame(
     id = IdGenerator.game,
+    token = IdGenerator.token,
     whitePlayer = whitePlayer withEncodedPieces game.allPieces,
     blackPlayer = blackPlayer withEncodedPieces game.allPieces,
     status = Status.Created,
@@ -398,6 +403,7 @@ object DbGame {
 
 case class RawDbGame(
     @Key("_id") id: String,
+    tk: Option[String] = None,
     p: List[RawDbPlayer],
     s: Int,
     t: Int,
@@ -423,6 +429,7 @@ case class RawDbGame(
     trueStatus ← Status(s)
   } yield DbGame(
     id = id,
+    token = tk | DbGame.defaultToken,
     whitePlayer = whitePlayer,
     blackPlayer = blackPlayer,
     status = trueStatus,
