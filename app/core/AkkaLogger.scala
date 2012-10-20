@@ -6,7 +6,7 @@ import akka.actor._
 
 class AkkaLogger extends Actor with StdOutLogger {
 
-  private val closedSocketMessage = "Getting messages on a supposedly closed socket? frame: EOF"
+  private val closedSocketMessage = "Getting messages on a supposedly closed socket?"
 
   private var closedSocketCount = 0
   private val closedSocketBatch = 1000
