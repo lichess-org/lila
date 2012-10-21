@@ -25,6 +25,8 @@ final class SecurityEnv(
 
   lazy val flood = new security.Flood
 
+  lazy val wiretap = new security.Wiretap(SecurityWiretapIps.toSet)
+
   lazy val forms = new DataForm(
     userRepo = userRepo,
     captcher = captcha)

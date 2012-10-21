@@ -31,6 +31,7 @@ object Global extends GlobalSettings {
     }
     else {
       env.monitor.rpsProvider.countRequest()
+      env.security.wiretap(req)
       env.security.firewall.requestHandler(req) orElse
         env.i18n.requestHandler(req) orElse
         super.onRouteRequest(req)

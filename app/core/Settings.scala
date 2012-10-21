@@ -3,6 +3,7 @@ package core
 
 import com.typesafe.config.Config
 import scalaz.{ Success, Failure }
+import scala.collection.JavaConversions._
 
 final class Settings(config: Config, val IsDev: Boolean) {
 
@@ -128,6 +129,7 @@ final class Settings(config: Config, val IsDev: Boolean) {
   val CoreCronEnabled = getBoolean("core.cron.enabled")
 
   val SecurityCollectionSecurity = getString("security.collection.security")
+  val SecurityWiretapIps = getStringList("security.wiretap.ips").toList
 
   val ActorReporting = "reporting"
   val ActorSiteHub = "site_hub"
