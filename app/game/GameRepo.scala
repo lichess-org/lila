@@ -140,7 +140,7 @@ final class GameRepo(collection: MongoCollection)
 
   val unplayedIds: IO[List[String]] = io {
     primitiveProjections[String](
-      ("t" $lt 2) ++ ("ca" $lt (DateTime.now - 1.day) $gt (DateTime.now - 1.week)),
+      ("t" $lt 2) ++ ("ca" $lt (DateTime.now - 3.day) $gt (DateTime.now - 1.week)),
       "_id"
     )
   }
