@@ -33,7 +33,6 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
       color,
       getInt("version"),
       get("sri"),
-      get("tk"),
       ctx).unsafePerformIO
   }
 
