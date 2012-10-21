@@ -1,9 +1,9 @@
 #! /usr/bin/python2
 
 #config
-schemeName = "wood"
-bgImgWhite = "../images/woodenboard_white.jpg"
-bgImgBlack = "../images/woodenboard_black.jpg"
+schemeName = "canvas"
+bgImgWhite = "../images/canvasboard_white.jpg"
+bgImgBlack = "../images/canvasboard_black.jpg"
 
 # adv. config
 squareSize = 64 # width of a square in pixel
@@ -18,6 +18,6 @@ for y in range(0,8):
       img = bgImgWhite
     else:
       img = bgImgBlack
-    print "body." + schemeName + " #GameBoard #tcol"+str(x)+"trow"+str(y)+", body." + schemeName + " #"+str(chr(ord('a') + x))+str(8-y) + " { background-position: "+str((-x)*squareSize)+"px " +str((-y)*squareSize) +"px; }";
+    print "body." + schemeName + " #tcol"+str(x)+"trow"+str(y)+", body." + schemeName + " #"+str(chr(ord('a') + x))+str(8-y) + " { background-position: "+str((-x)*squareSize)+"px " +str((-y)*squareSize) +"px; }";
     white = not white
   white = not white

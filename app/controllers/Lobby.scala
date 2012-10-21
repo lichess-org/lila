@@ -45,16 +45,14 @@ object Lobby extends LilaController with Results {
       timeline = timelineRecent,
       posts = forumRecent(ctx.me),
       tours = openTours
-    ).map(_.fold(
-        url ⇒ Redirect(url), {
-          case (preload, posts, tours, featured) ⇒ status(html.lobby.home(
-            toJson(preload),
-            myHook,
-            posts,
-            tours,
-            featured))
-        }
-      )).asPromise
+    ).map(_.fold(Redirect(_), {
+        case (preload, posts, tours, featured) ⇒ status(html.lobby.home(
+          toJson(preload),
+          myHook,
+          posts,
+          tours,
+          featured))
+      })).asPromise
 
   def socket = WebSocket.async[JsValue] { implicit req ⇒
     implicit val ctx = reqToCtx(req)
