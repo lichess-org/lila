@@ -148,12 +148,9 @@ final class Socket(
             user = ctx.me,
             version = version,
             color = pov.color,
-            owner = owner && !isHijack(pov, tokenOption)
+            owner = owner && !isHijack(pov, tokenOption, ctx)
           ) map {
               case Connected(enumerator, member) ⇒ {
-                if (owner && !member.owner) {
-                  println("Websocket hijacking detected %s %s".format(pov.fullId, ctx.toString))
-                }
                 (Iteratee.foreach[JsValue](
                   controller(hub, uid, member, PovRef(pov.gameId, member.color))
                 ) mapDone { _ ⇒
@@ -168,8 +165,11 @@ final class Socket(
   // full game ids that have been hijacked
   private val hijacks = collection.mutable.Set[String]()
 
-  private def isHijack(pov: Pov, token: Option[String]) =
+  private def isHijack(pov: Pov, token: Option[String], ctx: Context) =
     if (hijacks contains pov.fullId) true
-    else if (token != pov.game.token.some) true ~ { _ ⇒ hijacks += pov.fullId }
+    else if (token != pov.game.token.some) true ~ { _ ⇒ 
+      println("Websocket hijacking detected %s %s".format(pov.fullId, ctx.toString))
+      hijacks += pov.fullId 
+    }
     else false
 }
