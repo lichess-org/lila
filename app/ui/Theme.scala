@@ -3,16 +3,25 @@ package ui
 
 import scalaz.NonEmptyLists
 
-sealed class Theme private (val name: String) {
+sealed class Theme private (val name: String, val image: Boolean = false) {
 
   override def toString = name
+
+  def cssClass = name + image.fold(" txtr", "")
 }
 
 object Theme extends NonEmptyLists {
 
-  val all = nel("brown", "blue", "wood", "grey", "green") map { name ⇒
-    new Theme(name)
-  }
+  val all = nel(
+    "brown" -> false,
+    "blue" -> false,
+    "green" -> false,
+    "grey" -> false,
+    "wood" -> true,
+    "canvas" -> true
+  ) map {
+      case (name, image) ⇒ new Theme(name, image)
+    }
 
   val list = all.list
 
