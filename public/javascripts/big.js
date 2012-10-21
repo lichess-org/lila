@@ -25,9 +25,9 @@ var strongSocket = function(url, version, settings) {
     options: {
       name: "unnamed",
       debug: false,
-      offlineDelay: 5000, // time before showing offlineTag
+      offlineDelay: 8000, // time before showing offlineTag
       offlineTag: false, // jQuery object showing connection error
-      pingMaxLag: 5000, // time to wait for pong before reseting the connection
+      pingMaxLag: 8000, // time to wait for pong before reseting the connection
       pingDelay: 1500, // time between pong and ping
       lagTag: false, // jQuery object showing ping lag
       ignoreUnknownMessages: false
