@@ -27,12 +27,12 @@ final class AnalysisRepo(val collection: MongoCollection) {
     collection.update(
       DBObject("_id" -> id),
       DBObject(
+        "_id" -> id,
         "uid" -> userId,
         "done" -> false,
         "date" -> DateTime.now
       ),
-      upsert = true
-    )
+      upsert = true)
   }
 
   def byId(id: String): IO[Option[Analysis]] = io {
