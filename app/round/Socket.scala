@@ -112,9 +112,8 @@ final class Socket(
     colorName: String,
     version: Option[Int],
     uid: Option[String],
-    token: Option[String],
     ctx: Context): IO[SocketPromise] =
-    getWatcherPov(gameId, colorName) map { join(_, false, version, uid, token, ctx) }
+    getWatcherPov(gameId, colorName) map { join(_, false, version, uid, none, ctx) }
 
   def joinPlayer(
     fullId: String,
@@ -140,8 +139,8 @@ final class Socket(
     uidOption: Option[String],
     tokenOption: Option[String],
     ctx: Context): SocketPromise =
-    ((povOption |@| uidOption |@| tokenOption |@| versionOption) apply {
-      (pov: Pov, uid: String, token: String, version: Int) ⇒
+    ((povOption |@| uidOption |@| versionOption) apply {
+      (pov: Pov, uid: String, version: Int) ⇒
         (for {
           hub ← hubMaster ? GetHub(pov.gameId) mapTo manifest[ActorRef]
           socket ← hub ? Join(
@@ -149,7 +148,7 @@ final class Socket(
             user = ctx.me,
             version = version,
             color = pov.color,
-            owner = owner && !isHijack(pov, token)
+            owner = owner && !isHijack(pov, tokenOption)
           ) map {
               case Connected(enumerator, member) ⇒ {
                 if (owner && !member.owner) {
@@ -169,8 +168,8 @@ final class Socket(
   // full game ids that have been hijacked
   private val hijacks = collection.mutable.Set[String]()
 
-  private def isHijack(pov: Pov, token: String) =
+  private def isHijack(pov: Pov, token: Option[String]) =
     if (hijacks contains pov.fullId) true
-    else if (token != pov.game.token) true ~ { _ ⇒ hijacks += pov.fullId }
+    else if (token != pov.game.token.some) true ~ { _ ⇒ hijacks += pov.fullId }
     else false
 }
