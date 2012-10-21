@@ -27,7 +27,7 @@ final class Analyser(
     getOrGenerateIO(id, userId, admin)
 
   private def getOrGenerateIO(id: String, userId: String, admin: Boolean): Future[Valid[Analysis]] = for {
-    a ← ioToFuture(analysisRepo byId id)
+    a ← ioToFuture(analysisRepo doneById id)
     b ← a.fold(
       x ⇒ Future(success(x)),
       for {
@@ -36,14 +36,17 @@ final class Analyser(
           analysisRepo userInProgress userId
         ))
         gameOption ← ioToFuture(gameRepo game id)
-        pgnString <- ioToFuture(pgnRepo get id) 
+        pgnString ← ioToFuture(pgnRepo get id)
         result ← gameOption.filterNot(_ ⇒ userInProgress).fold(
           game ⇒ for {
             _ ← ioToFuture(analysisRepo.progress(id, userId))
             initialFen ← ioToFuture(gameRepo initialFen id)
             analysis ← generator()(pgnString, initialFen)
-            _ ← ioToFuture(analysis.fold(
-              analysisRepo.fail(id, _),
+            _ ← ioToFuture(analysis.prefixFailuresWith("Analysis").fold(
+              fail ⇒ for {
+                _ ← putFailures(fail)
+                _ ← analysisRepo.fail(id, fail)
+              } yield (),
               analysisRepo.done(id, _)
             ))
           } yield analysis,
