@@ -571,7 +571,7 @@ $.widget("lichess.game", {
           options: {
             name: "game"
           },
-        params: { tk: "--tkph--"},
+        params: { tk: "--tkph--", tr: "a"},
         events: {
           ack: function() {
             clearTimeout(self.socketAckTimeout);

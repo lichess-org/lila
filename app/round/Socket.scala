@@ -120,8 +120,11 @@ final class Socket(
     version: Option[Int],
     uid: Option[String],
     token: Option[String],
-    ctx: Context): IO[SocketPromise] =
+    trap: String,
+    ctx: Context): IO[SocketPromise] = {
+    if (trap != "a") println("[websocket] trap %s %s".format(fullId, ctx.toString))
     getPlayerPov(fullId) map { join(_, true, version, uid, token, ctx) }
+  }
 
   private def parseMove(event: JsValue) = for {
     d ← event obj "d"
@@ -168,7 +171,7 @@ final class Socket(
   private def isHijack(pov: Pov, token: Option[String], ctx: Context) =
     if (hijacks contains pov.fullId) true
     else if (token != pov.game.token.some) true ~ { _ ⇒ 
-      println("Websocket hijacking detected %s %s".format(pov.fullId, ctx.toString))
+      println("[websocket] hijacking detected %s %s".format(pov.fullId, ctx.toString))
       hijacks += pov.fullId 
     }
     else false
