@@ -25,5 +25,9 @@ final class PgnRepo(collection: MongoCollection) {
   def unsafeGet(id: String): String = 
     collection.findOne(idSelector(id)).flatMap(_.getAs[String]("p")) | ""
 
+  def removeIds(ids: List[String]): IO[Unit] = io {
+    collection.remove("_id" $in ids)
+  }
+
   private def idSelector(id: String) = DBObject("_id" -> id)
 }

@@ -1,7 +1,7 @@
 package lila
 package core
 
-import game.GameRepo
+import game.{ GameRepo, PgnRepo }
 import round.{ Finisher, Meddler }
 import bookmark.BookmarkApi
 
@@ -12,6 +12,7 @@ import scalaz.effects._
 
 final class Titivate(
     gameRepo: GameRepo,
+    pgnRepo: PgnRepo,
     finisher: Finisher,
     meddler: Meddler,
     bookmarkApi: BookmarkApi) {
@@ -33,6 +34,7 @@ final class Titivate(
     _ ← putStrLn("[titivate] Remove %d unplayed games" format ids.size)
     _ ← gameRepo removeIds ids
     _ ← bookmarkApi removeByGameIds ids
+    _ ← pgnRepo removeIds ids
   } yield ()
 
   val cleanupNext: IO[Unit] = {
