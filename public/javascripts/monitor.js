@@ -106,20 +106,20 @@
 
     app.users = new SpeedOMeter({
       name : "USERS",
-      maxVal : 500,
+      maxVal : 600,
       container : container
     });
 
     app.lobby = new SpeedOMeter({
       name : "LOBBY",
-      maxVal : 100,
+      maxVal : 150,
       threshold: 1,
       container : container
     });
 
     app.game = new SpeedOMeter({
       name : "GAME",
-      maxVal : 300,
+      maxVal : 500,
       threshold: 1,
       container : container
     });
@@ -133,7 +133,7 @@
 
     app.dbConn = new SpeedOMeter({
       name : "DB CONN",
-      maxVal : 300,
+      maxVal : 200,
       threshold: 0.8,
       container : container
     });
@@ -147,13 +147,13 @@
 
     app.dbLock = new SpeedOMeter({
       name : "DB LOCK",
-      maxVal : 1,
+      maxVal : 5,
       container : container
     });
 
     app.ai = new SpeedOMeter({
       name : "AI PING",
-      maxVal : 200,
+      maxVal : 1000,
       container : container
     });
 
@@ -165,7 +165,7 @@
 
     app.mps = new SpeedOMeter({
       name : "MOVES",
-      maxVal : 20,
+      maxVal : 30,
       container : container
     });
 
