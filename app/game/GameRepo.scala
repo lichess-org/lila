@@ -145,11 +145,12 @@ final class GameRepo(collection: MongoCollection)
     )
   }
 
-  // bookmarks should also be removed
+  // bookmarks and pgns should also be removed
   def remove(id: String): IO[Unit] = io {
     remove(idSelector(id))
   }
 
+  // bookmarks and pgns should also be removed
   def removeIds(ids: List[String]): IO[Unit] = io {
     remove("_id" $in ids)
   }
