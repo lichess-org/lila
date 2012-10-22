@@ -9,7 +9,7 @@ lilalog "Stop application"
 kill $lilapid
 rm RUNNING_PID
 
-sleep 1
+sleep 2
 
 lilalog "Force kill in case port 9000 is still bound"
 pkill -9 --echo --full "java -Dconfig.file=conf/local.conf -Dhttp.port=9000"
