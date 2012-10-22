@@ -21,8 +21,16 @@ case object MongoStatus {
   def apply(mongodb: MongoDB)(prev: MongoStatus): MongoStatus = {
     val status: MongoDBObject = mongodb.command("serverStatus")
     val query = status.expand[Int]("network.numRequests") | 0
-    val totalTime = status.expand[Long]("globalLock.totalTime") | 0
-    val lockTime = status.expand[Long]("globalLock.lockTime") | 0
+    val lockNumbers = for {
+      locks ← status.getAs[DBObject]("locks").toList
+      dbName ← List("lichess", ".")
+      dbLocks ← locks.getAs[DBObject](dbName).toList
+      statName ← List("timeLockedMicros", "timeAcquiringMicros")
+      statLocks ← dbLocks.getAs[DBObject](statName).toList
+      opName ← List("r", "w", "R", "W")
+    } yield statLocks.getAs[Long](opName) map (_ / 1000)
+    val lockTime = lockNumbers.flatten.sum
+    val totalTime = status.getAs[Long]("uptimeMillis") | 0
     new MongoStatus(
       memory = status.expand[Int]("mem.resident") | 0,
       connection = status.expand[Int]("connections.current") | 0,
@@ -32,7 +40,7 @@ case object MongoStatus {
       qps = query - prev.query,
       lock = (totalTime - prev.totalTime == 0).fold(
         0d,
-        (lockTime - prev.lockTime)/(totalTime - prev.totalTime) * 100
+        (lockTime - prev.lockTime).toDouble / (totalTime - prev.totalTime) * 100
       )
     )
   }
