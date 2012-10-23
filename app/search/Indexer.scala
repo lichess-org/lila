@@ -35,7 +35,7 @@ final class Indexer(
     ids ← queue next 2000
     _ ← ids.toNel.fold(
       neIds ⇒ for {
-        _ ← putStrLn("Search indexing %d games" format neIds.list.size)
+        _ ← putStrLn("[search] indexing %d games" format neIds.list.size)
         _ ← indexQuery("_id" $in neIds.list)
         _ ← queue remove neIds.list
       } yield (),
