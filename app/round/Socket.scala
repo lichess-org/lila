@@ -80,11 +80,11 @@ final class Socket(
       }
       case Some("moretime") ⇒ (for {
         res ← hand moretime povRef
-        op ← res.fold(putFailures, events ⇒ io(hub ! Events(events)))
+        op ← res.fold(_ ⇒ io(), events ⇒ io(hub ! Events(events)))
       } yield op).unsafePerformIO
       case Some("outoftime") ⇒ (for {
         res ← hand outoftime povRef
-        op ← res.fold(putFailures, events ⇒ io(hub ! Events(events)))
+        op ← res.fold(_ ⇒ io(), events ⇒ io(hub ! Events(events)))
       } yield op).unsafePerformIO
       case _ ⇒
     }
@@ -170,9 +170,9 @@ final class Socket(
 
   private def isHijack(pov: Pov, token: Option[String], ctx: Context) =
     if (hijacks contains pov.fullId) true
-    else if (token != pov.game.token.some) true ~ { _ ⇒ 
+    else if (token != pov.game.token.some) true ~ { _ ⇒
       println("[websocket] hijacking detected %s %s".format(pov.fullId, ctx.toString))
-      hijacks += pov.fullId 
+      hijacks += pov.fullId
     }
     else false
 }

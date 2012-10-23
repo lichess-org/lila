@@ -23,7 +23,7 @@ trait RoundEventPerformer {
 
   protected def perform(fullId: String, op: String ⇒ IOValidEvents): IO[Unit] =
     op(fullId) flatMap { validEvents ⇒
-      validEvents.fold(putFailures, performEvents(fullId))
+      validEvents.fold(_ => io(), performEvents(fullId))
     }
 
   protected def performEvents(fullId: String)(events: List[Event]): IO[Unit] = io {
