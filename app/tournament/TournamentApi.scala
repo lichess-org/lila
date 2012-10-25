@@ -10,7 +10,7 @@ import play.api.libs.json._
 import game.DbGame
 import user.User
 
-final class TournamentApi(
+private[tournament] final class TournamentApi(
     repo: TournamentRepo,
     joiner: GameJoiner,
     socket: Socket,
@@ -41,12 +41,14 @@ final class TournamentApi(
     _ ← lobbyReload
   } yield created
 
-  def start(created: Created): IO[Unit] = (for {
-    _ ← repo saveIO created.start
-    _ ← socket reload created.id
-    _ ← reloadSiteSocket
-    _ ← lobbyReload
-  } yield ()) doIf created.readyToStart
+  def start(created: Created): Option[IO[Started]] = created.start map { started ⇒
+    for {
+      _ ← repo saveIO started
+      _ ← socket reload started.id
+      _ ← reloadSiteSocket
+      _ ← lobbyReload
+    } yield started
+  }
 
   def wipeEmpty(created: Created): IO[Unit] = (for {
     _ ← repo removeIO created

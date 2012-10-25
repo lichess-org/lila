@@ -200,10 +200,13 @@ var lichess = {
         $('#nb_messages').text(e || "0").toggleClass("unread", e > 0);
       },
       notificationAdd: function(html) {
-        $('div.notifications ').prepend(html);
+        $('div.notifications').prepend(html);
       },
       notificationRemove: function(id) {
         $('#' + id).remove();
+      },
+      tournamentReminder: function(html) {
+        $('#tournament_reminder').html(html).show();
       },
       analysisAvailable: function() {
         $("div.game_analysis.status").remove();

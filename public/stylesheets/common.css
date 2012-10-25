@@ -755,7 +755,7 @@ div.notifications {
   width: 1005px;
   margin: 0 auto -10px auto;
 }
-div.notification {
+div.notifications > div {
   margin-left: 211px;
   width: 498px;
   border: 1px solid #404040;
@@ -763,10 +763,13 @@ div.notification {
   margin-bottom: 8px;
   border-radius: 3px;
 }
-div.notification a.close {
+div.notifications > div a.close {
   text-decoration: none;
   float: right;
 }
-div.notification a.close:hover {
+div.notifications > div a.close:hover {
   font-weight: bold;
+}
+div.notifications > div form {
+  float: right;
 }

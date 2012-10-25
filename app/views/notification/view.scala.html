@@ -1,11 +1,9 @@
-@(notif: lila.notification.Notification)
+@(id: String, from: Option[String] = None)(html: Html)
 
-<div id="@notif.id" class="notification">
-  <a class="close" href="@routes.Notification.remove(notif.id)">X</a>
-  @notif.from.map { user =>
-  @userLink(user, none)
+<div id="@id" class="notification">
+  <a class="close" href="@routes.Notification.remove(id)">X</a>
+  @from.map { user =>
+  @userIdLink(user, none)
   }
-  <div class="inner">
-    @Html(notif.html)
-  </div>
+  <div class="inner">@html</div>
 </div>
