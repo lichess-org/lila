@@ -1,8 +1,5 @@
 chat should autoscroll only when at bottom
 finish flagged game
-It's possible to join your own game and win it, which will then be displayed as a win and I saw players who abuse this to manipulate their stats. 
-player timeout depending on game duration
-do not count games vs engine as win/loss
 start chess960 after both player move http://fr.lichess.org/forum/lichess-feedback/clock-fairness-in-chess960-games
 chess960 confirmation http://fr.lichess.org/forum/lichess-feedback/separate-960-lobby?page=1#7
 use POST instead of GET where it makes sense
