@@ -9,6 +9,6 @@ object Notification extends LilaController {
 
   def remove(id: String) = Auth { implicit ctx ⇒
     me ⇒
-      Ok(api.remove(me, id))
+      Ok(api.remove(me.id, id))
   }
 }

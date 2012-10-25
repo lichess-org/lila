@@ -1,0 +1,11 @@
+@(tour: lila.tournament.Tournament)
+
+@notification.view("tournament_reminder") {
+@linkTo(tour) in progress!
+<form action="@routes.Tournament.join(tour.id)" method="POST">
+  <input type="submit" class="submit button" value="Join" />
+</form>
+<form action="@routes.Tournament.withdraw(tour.id)" method="POST">
+  <input type="submit" class="submit button strong" value="Withdraw" />
+</form>
+}

@@ -26,6 +26,7 @@ case object Broom
 case class Quit(uid: String)
 
 case class SendTo(userId: String, message: JsObject)
+case class SendTos(userIds: Set[String], message: JsObject)
 case class Fen(gameId: String, fen: String, lastMove: Option[String])
 case class LiveGames(uid: String, gameIds: List[String])
 case class ChangeFeatured(html: String)

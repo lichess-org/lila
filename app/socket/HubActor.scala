@@ -37,6 +37,8 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
 
     case SendTo(userId, msg)        ⇒ sendTo(userId, msg)
 
+    case SendTos(userIds, msg)      ⇒ sendTos(userIds, msg)
+
     case Resync(uid)                ⇒ resync(uid)
   }
 
@@ -63,6 +65,10 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
 
   def sendTo(userId: String, msg: JsObject) {
     memberByUserId(userId) foreach (_.channel push msg)
+  }
+
+  def sendTos(userIds: Set[String], msg: JsObject) {
+    membersByUserIds(userIds) foreach (_.channel push msg)
   }
 
   def broom() {
@@ -103,6 +109,10 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
   def memberByUserId(userId: String): Option[M] = {
     val someId = Some(userId)
     members.values find (_.userId == someId)
+  }
+
+  def membersByUserIds(userIds: Set[String]): Iterable[M] = {
+    members.values filter (_.userId.fold(userIds.contains, false))
   }
 
   def usernames: Iterable[String] = members.values.map(_.username).flatten

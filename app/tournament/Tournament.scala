@@ -126,7 +126,7 @@ case class Created(
 
   private def withPlayers(s: Players) = copy(players = s)
 
-  def start = Started(id, data, DateTime.now, players, Nil)
+  def start = readyToStart option Started(id, data, DateTime.now, players, Nil)
 }
 
 case class Started(

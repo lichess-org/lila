@@ -7,16 +7,16 @@ import ornicar.scalalib.Random.nextString
 
 case class Notification(
   id: String,
-  user: User,
+  user: String,
   html: String,
-  from: Option[User])
+  from: Option[String])
 
 object Notification {
 
   def apply(
-  user: User,
+  user: String,
   html: String,
-  from: Option[User]): Notification = new Notification(
+  from: Option[String]): Notification = new Notification(
     id = nextString(8),
     user = user,
     html = html,

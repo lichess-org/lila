@@ -5,7 +5,6 @@ import game.DbGame
 import round.FinishGame
 
 import akka.actor._
-import akka.actor.ReceiveTimeout
 import akka.util.duration._
 import akka.util.Timeout
 import akka.pattern.{ ask, pipe }
@@ -13,13 +12,14 @@ import akka.dispatch.{ Future, Promise }
 import play.api.libs.concurrent._
 import play.api.Play.current
 
-final class Organizer(
+private[tournament] final class Organizer(
     api: TournamentApi,
     repo: TournamentRepo,
+    reminder: ActorRef,
+    register: ActorRef,
     hubMaster: ActorRef) extends Actor {
 
   implicit val timeout = Timeout(1 second)
-  implicit val executor = Akka.system.dispatcher
 
   def receive = {
 
@@ -47,7 +47,7 @@ final class Organizer(
 
   def createdTournament(tour: Created) {
     if (tour.isEmpty) (api wipeEmpty tour).unsafePerformIO
-    else if (tour.readyToStart) (api start tour).unsafePerformIO
+    else if (tour.readyToStart) api start tour map (_.unsafePerformIO) foreach { reminder ! _ }
     else (hubMaster ? GetTournamentUsernames(tour.id)).mapTo[Iterable[String]] onSuccess {
       case usernames ⇒ (tour.userIds diff usernames.toList.map(_.toLowerCase)) |> { leavers ⇒
         leavers.map(u ⇒ api.withdraw(tour, u)).sequence.unsafePerformIO
@@ -56,7 +56,10 @@ final class Organizer(
   }
 
   def startedTournaments {
-    repo.started.unsafePerformIO foreach startedTournament
+    repo.started.unsafePerformIO ~ { tours ⇒
+      tours foreach startedTournament
+      register ! SetTournaments(tours)
+    }
   }
 
   def startedTournament(tour: Started) {

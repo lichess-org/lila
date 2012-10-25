@@ -138,6 +138,8 @@ final class Settings(config: Config, val IsDev: Boolean) {
   val ActorMonitorHub = "monitor_hub"
   val ActorTournamentHubMaster = "tournament_hub_master"
   val ActorTournamentOrganizer = "tournament_organizer"
+  val ActorTournamentReminder = "tournament_reminder"
+  val ActorTournamentRegister = "tournament_register"
 
   val ModlogCollectionModlog = getString("modlog.collection.modlog")
 
