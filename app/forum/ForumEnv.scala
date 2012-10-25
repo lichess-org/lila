@@ -30,7 +30,8 @@ final class ForumEnv(
   lazy val postApi = new PostApi(this, modLog, ForumPostMaxPerPage)
 
   lazy val recent = new Recent(
-    env = this,
+    postRepo = postRepo,
+    postApi = postApi,
     timeout = ForumRecentTimeout)
   
   lazy val forms = new DataForm(captcha)
