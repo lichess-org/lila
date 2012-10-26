@@ -16,7 +16,6 @@ private[tournament] final class Organizer(
     api: TournamentApi,
     repo: TournamentRepo,
     reminder: ActorRef,
-    register: ActorRef,
     hubMaster: ActorRef) extends Actor {
 
   implicit val timeout = Timeout(1 second)
@@ -47,7 +46,7 @@ private[tournament] final class Organizer(
 
   def createdTournament(tour: Created) {
     if (tour.isEmpty) (api wipeEmpty tour).unsafePerformIO
-    else if (tour.readyToStart) api start tour map (_.unsafePerformIO) foreach { reminder ! _ }
+    else if (tour.readyToStart) api start tour map (_.unsafePerformIO) 
     else (hubMaster ? GetTournamentUsernames(tour.id)).mapTo[Iterable[String]] onSuccess {
       case usernames ⇒ (tour.userIds diff usernames.toList.map(_.toLowerCase)) |> { leavers ⇒
         leavers.map(u ⇒ api.withdraw(tour, u)).sequence.unsafePerformIO
@@ -58,7 +57,7 @@ private[tournament] final class Organizer(
   def startedTournaments {
     repo.started.unsafePerformIO ~ { tours ⇒
       tours foreach startedTournament
-      register ! SetTournaments(tours)
+      reminder ! RemindTournaments(tours)
     }
   }
 
