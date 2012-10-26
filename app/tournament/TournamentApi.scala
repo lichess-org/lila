@@ -41,13 +41,13 @@ private[tournament] final class TournamentApi(
     _ ← lobbyReload
   } yield created
 
-  def start(created: Created): Option[IO[Started]] = created.start map { started ⇒
+  def start(created: Created): Option[IO[Unit]] = created.start map { started ⇒
     for {
       _ ← repo saveIO started
       _ ← socket reload started.id
       _ ← reloadSiteSocket
       _ ← lobbyReload
-    } yield started
+    } yield ()
   }
 
   def wipeEmpty(created: Created): IO[Unit] = (for {

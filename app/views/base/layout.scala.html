@@ -51,8 +51,8 @@
         <div class="themes dropdown" data-href="@routes.Setting.set("theme")">
           @themeList.map { theme =>
           <div class="theme" data-theme="@theme.name"><div class="inner">
-            <div class="lcs black @theme.name"></div>
-            <div class="lcs white @theme.name"></div>
+              <div class="lcs black @theme.name"></div>
+              <div class="lcs white @theme.name"></div>
           </div></div>
           }
         </div>
@@ -61,11 +61,9 @@
         <span></span>
       </a>
     </div>
-        <div class="notifications">
-          <div id="tournament_reminder">
-          </div>
-          @ctx.me.map(notifications(_))
-        </div>
+    @ctx.me.map { me =>
+    <div class="notifications">@notifications(me)</div>
+    }
     <div class="content">
       <div class="header">
         <h1>

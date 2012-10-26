@@ -20,10 +20,14 @@ private[tournament] final class Reminder(hubNames: List[String]) extends Actor {
   implicit val timeout = Timeout(1 second)
 
   def receive = {
-    case tour: Started ⇒ {
-      val msg = SendTos(tour.userIds.toSet, JsObject(Seq(
+
+    case RemindTournaments(tours) ⇒ tours foreach { tour =>
+      val msg = SendTos(tour.activeUserIds.toSet, JsObject(Seq(
         "t" -> JsString("tournamentReminder"),
-        "d" -> JsString(views.html.tournament.reminder(tour).toString)
+        "d" -> JsObject(Seq(
+          "id" -> JsString(tour.id),
+          "html" -> JsString(views.html.tournament.reminder(tour).toString)
+        ))
       )))
       hubRefs foreach { _ ! msg }
     }

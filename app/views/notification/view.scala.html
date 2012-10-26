@@ -1,7 +1,9 @@
-@(id: String, from: Option[String] = None)(html: Html)
+@(id: String, from: Option[String] = None, closable: Boolean = true)(html: Html)
 
 <div id="@id" class="notification">
+  @if(closable) {
   <a class="close" href="@routes.Notification.remove(id)">X</a>
+  }
   @from.map { user =>
   @userIdLink(user, none)
   }

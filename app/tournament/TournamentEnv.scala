@@ -73,15 +73,12 @@ final class TournamentEnv(
     repo = repo,
     api = api,
     reminder = reminder,
-    register = register,
     hubMaster = hubMaster
   )), name = ActorTournamentOrganizer)
   
   lazy val reminder = Akka.system.actorOf(Props(new Reminder(List(
     ActorLobbyHub, ActorSiteHub, ActorRoundHubMaster, ActorTournamentHubMaster
   ))), name = ActorTournamentReminder)
-  
-  lazy val register = Akka.system.actorOf(Props(new Register), name = ActorTournamentRegister)
 
   private lazy val joiner = new GameJoiner(
     gameRepo = gameRepo,

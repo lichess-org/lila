@@ -199,14 +199,14 @@ var lichess = {
       nbm: function(e) {
         $('#nb_messages').text(e || "0").toggleClass("unread", e > 0);
       },
-      notificationAdd: function(html) {
-        $('div.notifications').prepend(html);
-      },
-      notificationRemove: function(id) {
-        $('#' + id).remove();
-      },
-      tournamentReminder: function(html) {
-        $('#tournament_reminder').html(html).show();
+      tournamentReminder: function(data) {
+        if (!$('#tournament_reminder').length && $('body').data("tournament-id") != data.id) {
+          $('div.notifications').append(data.html).find("a.withdraw").click(function() {
+            $.post($(this).attr("href"));
+            $('#tournament_reminder').remove();
+            return false;
+          });
+        }
       },
       analysisAvailable: function() {
         $("div.game_analysis.status").remove();
@@ -405,20 +405,6 @@ $(function() {
     return false;
   });
 
-  $("div.notifications").on("click", "div.notification a", function(e) {
-    var $a = $(this);
-    var $notif = $a.closest("div.notification");
-    var follow = !$a.hasClass("close");
-    $.ajax($notif.find("a.close").attr("href"), {
-      type: "delete",
-      success: function() {
-        if (follow) location.href = $a.attr("href");
-      }
-    });
-    $notif.remove();
-    return false;
-  });
-
   $("form.request_analysis a").click(function() {
     $(this).parent().submit();
   });
@@ -524,6 +510,10 @@ $.widget("lichess.game", {
     $("div.game_tournament .clock").each(function() {
       $(this).clock({time: $(this).data("time")}).clock("start");
     });
+
+    if (self.options.tournament_id) {
+      $('body').data('tournament-id', self.options.tournament_id);
+    }
 
     if (self.options.game.started) {
       self.indicateTurn();
@@ -1713,6 +1703,8 @@ $(function() {
     };
     return;
   }
+
+  $('body').data('tournament-id', _ld_.tournament.id);
 
   var $chat = $("div.lichess_chat");
   var $chatToggle = $chat.find('input.toggle_chat');

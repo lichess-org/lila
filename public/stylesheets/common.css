@@ -770,6 +770,8 @@ div.notifications > div a.close {
 div.notifications > div a.close:hover {
   font-weight: bold;
 }
-div.notifications > div form {
+#tournament_reminder .action {
   float: right;
+  display: block;
+  margin-left: 8px;
 }
