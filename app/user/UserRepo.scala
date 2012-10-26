@@ -168,11 +168,8 @@ class UserRepo(collection: MongoCollection)
   }
 
   def isEngine(username: String): IO[Boolean] = io {
-    for {
-      obj ← collection.findOne(byIdQuery(username), DBObject("engine" -> true))
-      engine ← obj.getAs[Boolean]("engine")
-    } yield engine
-  } map (_ | false)
+    collection.find(byIdQuery(username) ++ DBObject("engine" -> true)).size != 0
+  } 
 
   def setBio(user: User, bio: String) = updateIO(user)($set("bio" -> bio))
 

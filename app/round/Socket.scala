@@ -120,9 +120,7 @@ final class Socket(
     version: Option[Int],
     uid: Option[String],
     token: Option[String],
-    trap: String,
     ctx: Context): IO[SocketPromise] = {
-    if (trap != "a") println("[websocket] trap %s %s".format(fullId, ctx.toString))
     getPlayerPov(fullId) map { join(_, true, version, uid, token, ctx) }
   }
 
