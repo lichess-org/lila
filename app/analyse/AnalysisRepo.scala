@@ -50,13 +50,12 @@ final class AnalysisRepo(val collection: MongoCollection) {
   def doneById(id: String): IO[Option[Analysis]] = byId(id) map { _ filter (_.done) }
 
   def isDone(id: String): IO[Boolean] = io {
-    collection.count(DBObject("_id" -> id, "done" -> true)) > 0
+    collection.find(DBObject("_id" -> id, "done" -> true)).limit(1).size == 1
   }
 
   def userInProgress(uid: String): IO[Boolean] = io {
-    collection.count(
-      ("fail" $exists false) ++
-        DBObject("uid" -> uid, "done" -> false)
-    ) > 0
+    collection.find(
+      ("fail" $exists false) ++ DBObject("uid" -> uid, "done" -> false)
+    ).limit(1).size > 0
   }
 }

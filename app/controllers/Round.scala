@@ -43,7 +43,6 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
       getInt("version"),
       get("sri"),
       get("tk"),
-      get("tr") | "-",
       ctx).unsafePerformIO
   }
 
@@ -56,10 +55,8 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
       pov.game.started.fold(
         for {
           roomHtml ← messenger render pov.game
-          bookmarkers ← bookmarkApi usersByGame pov.game
-          engine ← pov.opponent.userId.fold(
-            u ⇒ userRepo isEngine u,
-            io(false))
+          bookmarkers ← pov.game.hasBookmarks.fold(bookmarkApi usersByGame pov.game, io(Nil))
+          engine ← pov.opponent.userId.fold(userRepo.isEngine, io(false))
           analysed ← analyser has pov.gameId
           tour ← tournamentRepo byId pov.game.tournamentId
         } yield PreventTheft(pov) {
@@ -67,7 +64,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
             pov,
             version(pov.gameId),
             engine,
-            roomHtml map { Html(_) },
+            roomHtml map Html.apply,
             bookmarkers,
             analysed,
             tour = tour))
@@ -90,10 +87,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
   }
 
   private def watch(pov: Pov)(implicit ctx: Context): IO[Result] = for {
-    bookmarkers ← pov.game.hasBookmarks.fold(
-      bookmarkApi usersByGame pov.game,
-      io(Nil)
-    )
+    bookmarkers ← pov.game.hasBookmarks.fold(bookmarkApi usersByGame pov.game, io(Nil))
     roomHtml ← messenger renderWatcher pov.game
     analysed ← analyser has pov.gameId
     tour ← tournamentRepo byId pov.game.tournamentId

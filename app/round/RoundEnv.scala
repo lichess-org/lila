@@ -43,9 +43,7 @@ final class RoundEnv(
   )), name = ActorRoundHubMaster)
 
   private lazy val moveNotifier = new MoveNotifier(
-    siteHubName = ActorSiteHub,
-    lobbyHubName = ActorLobbyHub,
-    tournamentHubMasterName = ActorTournamentHubMaster,
+    hubNames = List(ActorSiteHub, ActorLobbyHub, ActorTournamentHubMaster),
     countMove = countMove)
 
   lazy val socket = new Socket(

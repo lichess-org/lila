@@ -23,19 +23,11 @@ object Lobby extends LilaController with Results {
   private def featured = env.game.featured
   private def openTours = env.tournament.repo.created
 
-  val home = Open { implicit ctx ⇒
-    Async {
-      renderHome(none, Ok)
-    }
-  }
+  val home = Open { implicit ctx ⇒ Async { renderHome(none, Ok) } }
 
-  def handleNotFound(req: RequestHeader): Result =
-    handleNotFound(reqToCtx(req))
+  def handleNotFound(req: RequestHeader): Result = handleNotFound(reqToCtx(req))
 
-  def handleNotFound(implicit ctx: Context): Result =
-    Async {
-      renderHome(none, NotFound)
-    }
+  def handleNotFound(implicit ctx: Context): Result = Async { renderHome(none, NotFound) }
 
   private def renderHome[A](myHook: Option[Hook], status: Status)(implicit ctx: Context): Promise[Result] =
     preloader(
