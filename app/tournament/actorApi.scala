@@ -36,6 +36,7 @@ case class CloseTournament(tournamentId: String)
 case object GetTournamentIds
 case class GetHub(tournamentId: String)
 case class Forward(tournamentId: String, msg: Any)
+case object Start
 case object Reload
 case object ReloadPage
 case object HubTimeout

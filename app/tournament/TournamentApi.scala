@@ -44,7 +44,7 @@ private[tournament] final class TournamentApi(
   def start(created: Created): Option[IO[Unit]] = created.start map { started ⇒
     for {
       _ ← repo saveIO started
-      _ ← socket reload started.id
+      _ ← socket start started.id
       _ ← reloadSiteSocket
       _ ← lobbyReload
     } yield ()

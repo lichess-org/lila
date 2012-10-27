@@ -1768,9 +1768,15 @@ $(function() {
     });
   }
 
+  function start() {
+    alert("Tournament is starting!");
+    reload();
+  }
+
   lichess.socket = new strongSocket(lichess.socketUrl + socketUrl, _ld_.version, $.extend(true, lichess.socketDefaults, {
     events: {
       talk: function(e) { if (chatExists) addToChat(e); },
+    start: start,
     reload: reload,
     reloadPage: function() {
       location.reload();
