@@ -89,7 +89,7 @@ body.dark div.lichess_overboard p.explanations,
 body.dark div.search_status,
 body.dark #tournament table.data,
 body.dark #tournament table.data thead th,
-#tournament table.data 
+body.dark div.notifications > div 
 {
   border-color: #3e3e3e;
 }

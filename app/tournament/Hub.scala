@@ -37,6 +37,8 @@ final class Hub(
 
     case Reload     ⇒ notifyReload
 
+    case Start      ⇒ notifyVersion("start", JsNull)
+
     case ReloadPage ⇒ notifyVersion("reloadPage", JsNull)
 
     case PingVersion(uid, v) ⇒ {
