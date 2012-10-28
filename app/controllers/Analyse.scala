@@ -40,7 +40,7 @@ object Analyse extends LilaController {
     IOptionIOk(gameRepo.pov(id, color)) { pov ⇒
       for {
         roomHtml ← roundMessenger renderWatcher pov.game
-        bookmarkers ← bookmarkApi usersByGame pov.game
+        bookmarkers ← bookmarkApi userIdsByGame pov.game
         pgnString ← pgnRepo get id
         pgn ← pgnDump(pov.game, pgnString)
         analysis ← analyser get pov.game.id

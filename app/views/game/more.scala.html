@@ -1,8 +1,6 @@
-@(pov: Pov, bookmarkers: List[User] = Nil)(extra: Html)(implicit ctx: Context)
+@(pov: Pov, bookmarkers: List[String] = Nil)(extra: Html)(implicit ctx: Context)
 
 @import pov._
-
-@bookmarkerLink(user: User) = {<a href="@routes.User.show(user.username)">@user.username</a>}
 
 @defining("http://lichess.org" + routes.Round.watcher(gameId, color.name)) { url =>
 <div class="undergame_box game_more">
@@ -18,7 +16,7 @@
     <div class="bookmarkers inline_userlist">
       <p>@trans.bookmarkedByNbPlayers(bookmarkers.size)</p>
       <span class="list">
-        @Html(bookmarkers.map(bookmarkerLink).mkString(", "))
+        @Html(bookmarkers.map(userIdLinkMini).mkString(", "))
       </span>
     </div>
     }
