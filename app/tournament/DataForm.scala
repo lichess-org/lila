@@ -38,6 +38,7 @@ final class DataForm(isDev: Boolean) {
     "minPlayers" -> numberIn(minPlayerChoices)
   )(TournamentSetup.apply)(TournamentSetup.unapply)
     .verifying("Invalid clock", _.validClock)
+    .verifying("Increase tournament duration, or decrease game clock", _.validTiming)
   ) fill TournamentSetup(
     clockTime = clockTimeDefault,
     clockIncrement = clockIncrementDefault,
@@ -45,11 +46,15 @@ final class DataForm(isDev: Boolean) {
     minPlayers = minPlayerDefault)
 }
 
-case class TournamentSetup(
+private[tournament] case class TournamentSetup(
     clockTime: Int,
     clockIncrement: Int,
     minutes: Int,
     minPlayers: Int) {
 
   def validClock = (clockTime + clockIncrement) > 0
+
+  def validTiming = (minutes * 60) >= (3 * estimatedGameDuration)
+
+  private def estimatedGameDuration = 60 * clockTime + 30 * clockIncrement
 }
