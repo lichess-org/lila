@@ -31,6 +31,8 @@ object Tournament extends LilaController {
     )
   }
 
+  val faq = Open { implicit ctx ⇒ Ok(html.tournament.faqPage()) }
+
   val homeReload = Open { implicit ctx ⇒
     IOk(
       for {

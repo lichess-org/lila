@@ -92,6 +92,7 @@
 
 #tournament form.plain td {
   padding: 0.6em;
+  white-space: nowrap;
 }
 
 #tournament form.plain label {
@@ -107,6 +108,9 @@
   padding: 0.5% 1%;
   text-transform: capitalize;
   width: 99%;
+}
+#tournament form.plain .inline select {
+  width: 46%;
 }
 
 #tournament form.plain input.submit {
@@ -150,4 +154,23 @@
 }
 #tournament_side div.pairings span.draw {
   color: #aaaa00;
+}
+
+#tournament article.faq h2 {
+  font-weight: bold;
+  font-style: italic;
+}
+#tournament article.faq p {
+  margin: 0.5em 0 2em 0;
+}
+div.faq_page h1 {
+  display: block;
+  margin-bottom: 1em;
+}
+div.faq_box {
+  margin-top: 15px;
+}
+
+div.header .tournament_links {
+  margin-top: 2em;
 }

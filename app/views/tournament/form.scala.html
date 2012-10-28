@@ -5,7 +5,7 @@
 @tournament.layout(
 title = "New tournament") {
 <div id="tournament">
-  <div class="content_box tournament_box">
+  <div class="content_box small_box tournament_box">
     <h1>New tournament</h1>
     <form class="plain create content_box_content" action="@routes.Tournament.create" method="POST">
       @form.globalError.map { error =>
@@ -14,23 +14,17 @@ title = "New tournament") {
       <table>
         <tr>
           <th>
-            <label for="@form("clockTime").id">Clock time</label>
+            <label>Game clock</label>
           </th>
-          <td>
+          <td class="inline">
             @base.select(form("clockTime"), config.clockTimeChoices)
-          </td>
-        </tr>
-        <tr>
-          <th>
-            <label for="@form("clockIncrement").id">Clock increment</label>
-          </th>
-          <td>
+            +
             @base.select(form("clockIncrement"), config.clockIncrementChoices)
           </td>
         </tr>
         <tr>
           <th>
-            <label for="@form("minutes").id">Duration</label>
+            <label for="@form("minutes").id">Tournament duration</label>
           </th>
           <td>
             @base.select(form("minutes"), config.minuteChoices)
@@ -38,7 +32,7 @@ title = "New tournament") {
         </tr>
         <tr>
           <th>
-            <label for="@form("minPlayers").id">Players</label>
+            <label for="@form("minPlayers").id">Number of players</label>
           </th>
           <td>
             @base.select(form("minPlayers"), config.minPlayerChoices)
@@ -54,6 +48,9 @@ title = "New tournament") {
         </tr>
       </table>
     </form>
+  </div>
+  <div class="content_box small_box faq_box tournament_box">
+    <div class="content_box_content">@tournament.faq()</div>
   </div>
 </div>
 }

@@ -1,7 +1,14 @@
 @(createds: List[lila.tournament.Created], starteds: List[lila.tournament.Started], finisheds: List[lila.tournament.Finished])(implicit ctx: Context)
 
+@goodies = {
+<div class="tournament_links">
+  <a href="@routes.Tournament.faq()">Tournament FAQ</a>
+</div>
+}
+
 @tournament.layout(
-title = "Tournaments") {
+title = "Tournaments",
+goodies = goodies.some) {
 <div id="tournament" data-href="@routes.Tournament.homeReload()">
 @tournament.homeInner(createds, starteds, finisheds)
 </div>

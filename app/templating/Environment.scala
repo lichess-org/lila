@@ -8,6 +8,7 @@ object Environment
     with scalaz.Options
     with scalaz.Booleans
     with StringHelper
+    with MarkdownHelper
     with AssetHelper
     with UiHelper
     with RequestHelper
