@@ -41,6 +41,13 @@ trait UserHelper {
     userId: String,
     cssClass: Option[String]): Html = userIdLink(userId.some, cssClass)
 
+  def userIdLinkMini(userId: String) = Html {
+    """<a href="%s">%s</a>""".format(
+      routes.User.show(userId), 
+      (cached username userId) | userId
+    )
+  }
+
   def userLink(
     user: User,
     cssClass: Option[String] = None,

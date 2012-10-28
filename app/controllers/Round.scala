@@ -55,7 +55,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
       pov.game.started.fold(
         for {
           roomHtml ← messenger render pov.game
-          bookmarkers ← pov.game.hasBookmarks.fold(bookmarkApi usersByGame pov.game, io(Nil))
+          bookmarkers ← bookmarkApi userIdsByGame pov.game
           engine ← pov.opponent.userId.fold(userRepo.isEngine, io(false))
           analysed ← analyser has pov.gameId
           tour ← tournamentRepo byId pov.game.tournamentId
@@ -87,7 +87,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
   }
 
   private def watch(pov: Pov)(implicit ctx: Context): IO[Result] = for {
-    bookmarkers ← pov.game.hasBookmarks.fold(bookmarkApi usersByGame pov.game, io(Nil))
+    bookmarkers ← bookmarkApi userIdsByGame pov.game
     roomHtml ← messenger renderWatcher pov.game
     analysed ← analyser has pov.gameId
     tour ← tournamentRepo byId pov.game.tournamentId

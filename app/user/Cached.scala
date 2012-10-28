@@ -12,7 +12,7 @@ final class Cached(
 
   import Cached._
 
-  def username(userId: String) =
+  def username(userId: String): Option[String] =
     usernameCache.getOrElseUpdate(
       userId.toLowerCase,
       (userRepo username userId).unsafePerformIO 

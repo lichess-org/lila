@@ -33,9 +33,6 @@ make hand and finisher actors to avoid racing conditions
 tournament monitor
 all hub members should use userIds rather than usernames
 tournament ties
-tournament detect leavers and withdraw them (started) (also use force resign)
--> or show current tournament on every page, with (join) and (redraw) buttons
-tournament warmup games
 AI thinks during your time (premove?) http://en.lichess.org/forum/lichess-feedback/y-u-so-greedy-with-time-stockfish#4
 - in fact it does not, but the UI clocks only update once the ai made the move
 - solution: do AI asynchronously. Send player move events right away,

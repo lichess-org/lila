@@ -30,11 +30,8 @@ final class BookmarkApi(
   def countByUser(user: User): Int =
     cached.count(user.id)
 
-  def usersByGame(game: DbGame): IO[List[User]] = 
-    if (game.hasBookmarks) for {
-      userIds ← bookmarkRepo userIdsByGameId game.id
-      users ← (userIds map userRepo.byId).sequence
-    } yield users.flatten
+  def userIdsByGame(game: DbGame): IO[List[String]] = 
+    if (game.hasBookmarks) bookmarkRepo userIdsByGameId game.id
     else io(Nil)
 
   def removeByGame(game: DbGame): IO[Unit] =
