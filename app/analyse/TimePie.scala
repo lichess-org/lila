@@ -8,14 +8,14 @@ import com.codahale.jerkson.Json
 final class TimePie(val pov: Pov) {
 
   def columns = Json generate List(
-    "string" :: "Move time" :: Nil,
-    "number" :: "Moves" :: Nil)
+    "string" :: "Time in seconds" :: Nil,
+    "number" :: "Number of moves" :: Nil)
 
   def rows = Json generate {
 
     import pov._
 
-    val steps = (0 to 5) ++ (6 to 12 by 2) ++ (15 to 30 by 3) ++ (35 to 60 by 5)
+    val steps = (0 to 1) ++ (2 to 6 by 2) ++ (10 to 20 by 5) ++ (20 to 60 by 10)
 
     val ranges = steps zip (steps drop 1) map { case (a, b) ⇒ Range(a, b) }
 

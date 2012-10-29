@@ -97,11 +97,12 @@ function drawCharts() {
     var data = elemToData(this);
     var chart = new google.visualization.PieChart(this);
     chart.draw(data, {
-      width: 312,
-      height: 200,
-      titlePosition: 'none',
+      width: 366,
+      height: 300,
+      title: $(this).data('title'),
       legend: {textStyle: textcolor},
-      chartArea:{left:"0%",width:"100%",height:"100%"},
+      titleTextStyle: textcolor,
+      chartArea:{left:"0%",width:"100%",height:"80%"},
       is3D: true,
       backgroundColor: bg
     });
