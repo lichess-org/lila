@@ -3,6 +3,7 @@ package controllers
 import lila._
 import views._
 import analyse._
+import game.Pov
 import round.AnalysisAvailable
 
 import play.api.mvc._
@@ -61,7 +62,8 @@ object Analyse extends LilaController {
     IOptionOk(gameRepo game id) { game ⇒
       html.analyse.stats(
         game = game,
-        timeChart = new TimeChart(game))
+        timeChart = new TimeChart(game),
+        timePies = Pov(game) map { new TimePie(_) })
     }
   }
 

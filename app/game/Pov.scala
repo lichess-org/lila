@@ -27,6 +27,8 @@ case class Pov(game: DbGame, color: Color) {
 
 object Pov {
 
+  def apply(game: DbGame): List[Pov] = game.players.map { apply(game, _) }
+
   def apply(game: DbGame, player: DbPlayer) = new Pov(game, player.color)
 
   def apply(game: DbGame, playerId: String): Option[Pov] =
