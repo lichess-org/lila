@@ -4,8 +4,6 @@ start chess960 after both player move http://fr.lichess.org/forum/lichess-feedba
 chess960 confirmation http://fr.lichess.org/forum/lichess-feedback/separate-960-lobby?page=1#7
 use POST instead of GET where it makes sense
 guess friend list
-use twitter tooltip instead of tipsy http://twitter.github.com/bootstrap/javascript.html#tooltip
-volume control
 takeback play 2 times ?? http://en.lichess.org/analyse/nfjchnmo/black move 45
 movetimes chart
 show lobby chat to anon (and rated games?) or show empty chat

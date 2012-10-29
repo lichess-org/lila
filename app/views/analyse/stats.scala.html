@@ -1,4 +1,4 @@
-@(game: DbGame, timeChart: lila.analyse.TimeChart)(implicit ctx: Context)
+@(game: DbGame, timeChart: lila.analyse.TimeChart, timePies: List[lila.analyse.TimePie])(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("gamestats.css")
@@ -24,5 +24,12 @@ moreJs = moreJs) {
     data-title="Time per move evolution" 
     data-columns="@timeChart.columns" 
     data-rows="@timeChart.rows"></div>
+  @timePies.map { pie =>
+  <div 
+    class="move-times" 
+    data-title="@userIdToUsername(pie.pov.player.userId)"
+    data-columns="@pie.columns" 
+    data-rows="@pie.rows"></div>
+    }
 </div>
 }

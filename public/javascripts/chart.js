@@ -93,6 +93,20 @@ function drawCharts() {
     });
   });
 
+  $('div.move-times').each(function() {
+    var data = elemToData(this);
+    var chart = new google.visualization.PieChart(this);
+    chart.draw(data, {
+      width: 312,
+      height: 200,
+      titlePosition: 'none',
+      legend: {textStyle: textcolor},
+      chartArea:{left:"0%",width:"100%",height:"100%"},
+      is3D: true,
+      backgroundColor: bg
+    });
+  });
+
   $('div.adv_chart').each(function() {
     var data = elemToData(this);
     var chart = new google.visualization.AreaChart(this);
