@@ -19,17 +19,21 @@ moreJs = moreJs) {
     Game <a href="@routes.Round.watcher(game.id, "white")">#@game.id</a> time stats
   </h1>
   <br /><br />
-  <div 
-    class="move-time" 
-    data-title="Time per move evolution" 
-    data-columns="@timeChart.columns" 
+  <div
+    class="move-time"
+    data-title="Time per move evolution"
+    data-columns="@timeChart.columns"
     data-rows="@timeChart.rows"></div>
-  @timePies.map { pie =>
-  <div 
-    class="move-times" 
-    data-title="@userIdToUsername(pie.pov.player.userId)"
-    data-columns="@pie.columns" 
-    data-rows="@pie.rows"></div>
+  <br /><br />
+  <div class="clearfix">
+    @timePies.map { pie =>
+    <div
+      class="move-times"
+      style="float:left;"
+      data-title="@pie.pov.color.name - @userIdToUsername(pie.pov.player.userId) move times"
+      data-columns="@pie.columns"
+      data-rows="@pie.rows"></div>
     }
+  </div>
 </div>
 }
