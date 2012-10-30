@@ -10,14 +10,14 @@ import play.api.libs.json._
 import controllers.routes
 import game.DbGame
 import user.User
+import lobby.{ Socket ⇒ LobbySocket }
 
 private[tournament] final class TournamentApi(
     repo: TournamentRepo,
     joiner: GameJoiner,
     socket: Socket,
     siteSocket: site.Socket,
-    lobbyNotify: String ⇒ IO[Unit],
-    lobbyMessage: String ⇒ IO[Unit],
+    lobbySocket: LobbySocket,
     roundMeddler: round.Meddler,
     incToints: String ⇒ Int ⇒ IO[Unit]) {
 
@@ -57,6 +57,7 @@ private[tournament] final class TournamentApi(
     _ ← repo removeIO created
     _ ← reloadSiteSocket
     _ ← lobbyReload
+    _ ← removeLobbyMessage(created)
   } yield ()) doIf created.isEmpty
 
   def finish(started: Started): IO[Tournament] = started.readyToFinish.fold({
@@ -120,10 +121,9 @@ private[tournament] final class TournamentApi(
       .flatMap(_.userId)
       .filter(_ ⇒ List(chess.Status.Timeout, chess.Status.Outoftime) contains game.status)
 
-  private def lobbyReload = for {
-    tours ← repo.created
-    _ ← lobbyNotify(views.html.tournament.createdTable(tours).toString)
-  } yield ()
+  private def lobbyReload = repo.created flatMap { tours ⇒
+    lobbySocket reloadTournaments views.html.tournament.createdTable(tours).toString
+  }
 
   private val reloadMessage = JsObject(Seq("t" -> JsString("reload"), "d" -> JsNull))
   private def sendToSiteSocket(message: JsObject) = io {
@@ -131,7 +131,12 @@ private[tournament] final class TournamentApi(
   }
   private val reloadSiteSocket = sendToSiteSocket(reloadMessage)
 
-  private def sendLobbyMessage(tour: Created) = lobbyMessage {
+  private def sendLobbyMessage(tour: Created) = lobbySocket sysTalk {
     """<a href="%s">%s tournament created</a>""".format(routes.Tournament.show(tour.id), tour.name)
   }
+
+  private def removeLobbyMessage(tour: Created) = lobbySocket unTalk {
+    ("%s tournament created" format tour.name).r
+  }
+
 }

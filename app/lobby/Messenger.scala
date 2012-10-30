@@ -25,4 +25,6 @@ final class Messenger(
   }
 
   def mute(username: String): IO[Unit] = messageRepo censorUsername username
+
+  val remove = messageRepo.removeRegex _
 }
