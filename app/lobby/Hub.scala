@@ -36,13 +36,17 @@ final class Hub(
       ))
     }
 
-    case SysTalk(txt) ⇒ messenger.system(txt).unsafePerformIO |> { message ⇒
+    case SysTalk(txt) ⇒ messenger.system(txt).unsafePerformIO ~ { message ⇒
       notifyVersion("talk", Seq("txt" -> JsString(message.text)))
     }
 
-    case ReloadTournaments(html) => notifyTournaments(html)
+    case UnTalk(regex) ⇒ messenger.remove(regex).unsafePerformIO ~ { _ ⇒
+      notifyVersion("untalk", Seq("regex" -> JsString(regex.toString)))
+    }
 
-    case AddEntry(entry) ⇒ notifyVersion("entry", JsString(entry.render))
+    case ReloadTournaments(html) ⇒ notifyTournaments(html)
+
+    case AddEntry(entry)         ⇒ notifyVersion("entry", JsString(entry.render))
 
     case AddHook(hook) ⇒ notifyVersion("hook_add", Seq(
       "id" -> JsString(hook.id),

@@ -28,6 +28,7 @@ case class Join(
   hookOwnerId: Option[String])
 case class Talk(u: String, txt: String)
 case class SysTalk(txt: String)
+case class UnTalk(r: util.matching.Regex)
 case class Connected(
   enumerator: JsEnumerator, 
   channel: JsChannel)

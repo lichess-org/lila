@@ -20,6 +20,20 @@ final class Socket(hub: ActorRef, flood: Flood) {
 
   implicit val timeout = Timeout(1 second)
 
+  def addEntry(entry: Entry): IO[Unit] = io { hub ! AddEntry(entry) }
+
+  def removeHook(hook: Hook): IO[Unit] = io { hub ! RemoveHook(hook) }
+
+  def addHook(hook: Hook): IO[Unit] = io { hub ! AddHook(hook) }
+
+  def biteHook(hook: Hook, game: DbGame): IO[Unit] = io { hub ! BiteHook(hook, game) }
+
+  def reloadTournaments(html: String): IO[Unit] = io { hub ! ReloadTournaments(html) }
+
+  def sysTalk(text: String): IO[Unit] = io { hub ! SysTalk(text) }
+
+  def unTalk(regex: util.matching.Regex): IO[Unit] = io { hub ! UnTalk(regex) }
+
   def join(
     uidOption: Option[String],
     username: Option[String],
@@ -52,29 +66,5 @@ final class Socket(hub: ActorRef, flood: Flood) {
         (iteratee, enumerator)
     }: SocketPromise
     promise | Util.connectionFail
-  }
-
-  def addEntry(entry: Entry): IO[Unit] = io {
-    hub ! AddEntry(entry)
-  }
-
-  def removeHook(hook: Hook): IO[Unit] = io {
-    hub ! RemoveHook(hook)
-  }
-
-  def addHook(hook: Hook): IO[Unit] = io {
-    hub ! AddHook(hook)
-  }
-
-  def biteHook(hook: Hook, game: DbGame): IO[Unit] = io {
-    hub ! BiteHook(hook, game)
-  }
-
-  def reloadTournaments(html: String): IO[Unit] = io {
-    hub ! ReloadTournaments(html)
-  }
-
-  def sysTalk(text: String): IO[Unit] = io {
-    hub ! SysTalk(text)
   }
 }

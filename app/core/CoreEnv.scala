@@ -109,8 +109,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     timelinePush = timeline.push.apply,
     flood = security.flood,
     siteSocket = site.socket,
-    lobbyNotify = lobby.socket.reloadTournaments,
-    lobbyMessage = lobby.socket.sysTalk,
+    lobbySocket = lobby.socket,
     roundMeddler = round.meddler,
     incToints = user.userRepo.incToints,
     mongodb = mongodb.apply _)

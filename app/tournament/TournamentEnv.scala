@@ -5,6 +5,7 @@ import game.{ GameRepo, DbGame }
 import user.User
 import core.Settings
 import security.Flood
+import lobby.{ Socket ⇒ LobbySocket }
 import socket.History
 import memo.MonoMemo
 
@@ -23,8 +24,7 @@ final class TournamentEnv(
     timelinePush: DbGame ⇒ IO[Unit],
     flood: Flood,
     siteSocket: site.Socket,
-    lobbyNotify: String ⇒ IO[Unit],
-    lobbyMessage: String ⇒ IO[Unit],
+    lobbySocket: LobbySocket,
     roundMeddler: round.Meddler,
     incToints: String ⇒ Int ⇒ IO[Unit],
     mongodb: String ⇒ MongoCollection) {
@@ -42,8 +42,7 @@ final class TournamentEnv(
     joiner = joiner,
     socket = socket,
     siteSocket = siteSocket,
-    lobbyNotify = lobbyNotify,
-    lobbyMessage = lobbyMessage,
+    lobbySocket = lobbySocket,
     roundMeddler = roundMeddler,
     incToints = incToints)
 
@@ -77,7 +76,7 @@ final class TournamentEnv(
     reminder = reminder,
     hubMaster = hubMaster
   )), name = ActorTournamentOrganizer)
-  
+
   lazy val reminder = Akka.system.actorOf(Props(new Reminder(List(
     ActorLobbyHub, ActorSiteHub, ActorRoundHubMaster, ActorTournamentHubMaster
   ))), name = ActorTournamentReminder)

@@ -1347,7 +1347,7 @@ $(function() {
 });
 
 ////////////////
-// opening.js //
+// lobby.js //
 ////////////////
 
 $(function() {
@@ -1537,6 +1537,12 @@ $(function() {
     html += '</span>' + urlToLink(txt) + '</li>';
     return html;
   }
+  function removeFromChat(regex) {
+    var r = new RegExp(regex);
+    $chat.find('.lichess_messages li').filter(function() {
+      return r.test($(this).html());
+    }).remove();
+  }
 
   $bot.on("click", "tr", function() { location.href = $(this).find('a.watch').attr("href"); });
   $bot.find('.undertable_inner').scrollable();
@@ -1569,6 +1575,7 @@ $(function() {
     },
     events: {
       talk: function(e) { if (chatExists && e.txt) addToChat(buildChatMessage(e.txt, e.u)); },
+      untalk: function(e) { if (chatExists && e.regex) removeFromChat(e.regex); },
     entry: function(e) { renderTimeline([e]); },
     hook_add: addHook,
     hook_remove: removeHook,
