@@ -20,5 +20,9 @@ final class Messenger(
     _ ← message.fold(_ ⇒ io(), messageRepo.add)
   } yield message
 
+  def system(text: String): IO[Message] = Message(username = "", text = text) |> { message =>
+    messageRepo add message inject message
+  }
+
   def mute(username: String): IO[Unit] = messageRepo censorUsername username
 }

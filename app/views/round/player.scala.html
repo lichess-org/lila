@@ -50,7 +50,7 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
     @round.cemetery(!pov, "bottom")
   </div>
 </div>
-<script type="text/javascript">var _ld_ = @Html(roundPlayerJsData(pov, version))</script>
+@embedJs("var _ld_ = " + roundPlayerJsData(pov, version))
 @analyse.link(pov, analysed)
 @if(!tour.fold(_.isRunning, false)) {
 @views.html.game.more(pov, bookmarkers) {

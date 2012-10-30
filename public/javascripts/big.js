@@ -1529,7 +1529,11 @@ $(function() {
   }
   function buildChatMessage(txt, username) {
     var html = '<li><span>';
-    html += '<a class="user_link" href="/@/'+username+'">'+username.substr(0, 12) + '</a>';
+    if (typeof username != "undefined" && username != "") {
+      html += '<a class="user_link" href="/@/'+username+'">'+username.substr(0, 12) + '</a>';
+    } else {
+      html += '-';
+    }
     html += '</span>' + urlToLink(txt) + '</li>';
     return html;
   }
@@ -1575,9 +1579,7 @@ $(function() {
     },
     tournaments: reloadTournaments
     },
-    options: {
-      name: "lobby"
-    }
+    options: { name: "lobby" }
   }));
   $('body').trigger('lichess.content_loaded');
 

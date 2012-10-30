@@ -36,6 +36,10 @@ final class Hub(
       ))
     }
 
+    case SysTalk(txt) ⇒ messenger.system(txt).unsafePerformIO |> { message ⇒
+      notifyVersion("talk", Seq("txt" -> JsString(message.text)))
+    }
+
     case ReloadTournaments(html) => notifyTournaments(html)
 
     case AddEntry(entry) ⇒ notifyVersion("entry", JsString(entry.render))

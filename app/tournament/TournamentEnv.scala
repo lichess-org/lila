@@ -24,6 +24,7 @@ final class TournamentEnv(
     flood: Flood,
     siteSocket: site.Socket,
     lobbyNotify: String ⇒ IO[Unit],
+    lobbyMessage: String ⇒ IO[Unit],
     roundMeddler: round.Meddler,
     incToints: String ⇒ Int ⇒ IO[Unit],
     mongodb: String ⇒ MongoCollection) {
@@ -42,6 +43,7 @@ final class TournamentEnv(
     socket = socket,
     siteSocket = siteSocket,
     lobbyNotify = lobbyNotify,
+    lobbyMessage = lobbyMessage,
     roundMeddler = roundMeddler,
     incToints = incToints)
 

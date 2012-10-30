@@ -25,5 +25,5 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
     </div>
   </div>
 </div>
-<script type="text/javascript">var _ld_ = @Html(roundPlayerJsData(pov, version))</script>
+@embedJs("var _ld_ = " + roundPlayerJsData(pov, version))
 }
