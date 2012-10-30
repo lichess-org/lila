@@ -7,6 +7,7 @@ import scalaz.effects._
 import scalaz.{ NonEmptyList, Success, Failure }
 import play.api.libs.json._
 
+import controllers.routes
 import game.DbGame
 import user.User
 
@@ -16,6 +17,7 @@ private[tournament] final class TournamentApi(
     socket: Socket,
     siteSocket: site.Socket,
     lobbyNotify: String ⇒ IO[Unit],
+    lobbyMessage: String ⇒ IO[Unit],
     roundMeddler: round.Meddler,
     incToints: String ⇒ Int ⇒ IO[Unit]) {
 
@@ -39,6 +41,7 @@ private[tournament] final class TournamentApi(
     _ ← (withdrawIds map socket.reload).sequence
     _ ← reloadSiteSocket
     _ ← lobbyReload
+    _ ← sendLobbyMessage(created)
   } yield created
 
   def start(created: Created): Option[IO[Unit]] = created.start map { started ⇒
@@ -127,4 +130,8 @@ private[tournament] final class TournamentApi(
     siteSocket.sendToFlag("tournament", message)
   }
   private val reloadSiteSocket = sendToSiteSocket(reloadMessage)
+
+  private def sendLobbyMessage(tour: Created) = lobbyMessage {
+    """<a href="%s">%s tournament created</a>""".format(routes.Tournament.show(tour.id), tour.name)
+  }
 }

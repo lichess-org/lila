@@ -73,4 +73,8 @@ final class Socket(hub: ActorRef, flood: Flood) {
   def reloadTournaments(html: String): IO[Unit] = io {
     hub ! ReloadTournaments(html)
   }
+
+  def sysTalk(text: String): IO[Unit] = io {
+    hub ! SysTalk(text)
+  }
 }

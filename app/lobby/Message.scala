@@ -10,9 +10,7 @@ case class Message(
     username: String,
     text: String) {
 
-  def render = Map(
-    "txt" -> text,
-    "u" -> username)
+  def render = Map("txt" -> text, "u" -> username)
 
   def createdAt = new DateTime(id.getTime)
 

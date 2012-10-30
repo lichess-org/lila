@@ -40,7 +40,5 @@ underchat = underchat.some) {
   data-socket-url="@routes.Tournament.websocket(tour.id)">
   @tournament.show.inner(side)(body)
 </div>
-<script type="text/javascript">
-  var _ld_ = @Html(tournamentJsData(tour, version, ctx.me))
-</script>
+@embedJs("var _ld_ = " + tournamentJsData(tour, version, ctx.me))
 }

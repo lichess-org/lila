@@ -7,7 +7,7 @@ import play.api.templates.Html
 
 trait AssetHelper {
 
-  val assetVersion = 13
+  val assetVersion = 14
 
   def cssTag(name: String) = css("stylesheets/" + name)
 
@@ -29,4 +29,10 @@ trait AssetHelper {
   def jsAt(path: String) = Html {
     """<script src="%s?v=%d"></script>""".format(path, assetVersion)
   }
+
+  def embedJs(js: String): Html = Html("""<script type="text/javascript">
+/* <![CDATA[ */
+%s
+/* ]]> */
+</script>""" format js)
 }
