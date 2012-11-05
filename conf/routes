@@ -17,7 +17,7 @@ GET   /$gameId<[\w\-]{8}>                            controllers.Round.watcher(g
 GET   /$gameId<[\w\-]{8}>/$color<white|black>        controllers.Round.watcher(gameId: String, color: String)
 GET   /$fullId<[\w\-]{12}>                           controllers.Round.player(fullId: String)
 GET   /$gameId<[\w\-]{8}>/$color<white|black>/socket controllers.Round.websocketWatcher(gameId: String, color: String)
-GET   /$gameId<[\w\-]{8}>/signed.js                  controllers.Round.signedJs(gameId: String)
+GET   /$gameId<[\w\-]{8}>/s.js                       controllers.Round.signedJs(gameId: String)
 GET   /$fullId<[\w\-]{12}>/socket                    controllers.Round.websocketPlayer(fullId: String)
 GET   /$fullId<[\w\-]{12}>/abort                     controllers.Round.abort(fullId: String)
 GET   /$fullId<[\w\-]{12}>/resign                    controllers.Round.resign(fullId: String)
