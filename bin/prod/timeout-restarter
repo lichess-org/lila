@@ -12,13 +12,16 @@ while true; do
 
   sleep $DELAY
 
-  curl $URL --max-time $TIMEOUT -so /dev/null
+  code=$(curl $URL --max-time $TIMEOUT -sL -w "%{http_code}" -o /dev/null)
 
-  if [ $? = 0 ]; then
-    echo -n "."
-  else
+  if [[ $? != 0 ]]; then
     lilalog "FAIL $MSG"
     bin/prod/restart
+  elif [[ $code != 200 ]]; then
+    lilalog "CODE $code"
+    bin/prod/restart
+  else
+    echo -n "."
   fi
 
 done
