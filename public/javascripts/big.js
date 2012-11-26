@@ -229,6 +229,21 @@ lichess.socketDefaults.options.debug = !lichess.onProduction;
 
 $(function() {
 
+  // small layout
+  function onResize() {
+    if($(document.body).width() < 1000) {
+      $(document.body).addClass("tight");
+      $('div.content').prepend($('div.header h1'));
+      $('#lichess h1').after($('div.header div.side_menu'));
+      // hack for gecko
+      if($('div.content').offset().top > 40) { $('div.content').css('marginTop', '-8px'); }
+    } else {
+      $(document.body).removeClass("tight");
+    }
+  }
+  $(window).resize(onResize);
+  onResize();
+
   if (!strongSocket.available) {
     setTimeout(function() {
       var inUrFaceUrl = window.opera ? '/assets/opera-websocket.html' : '/assets/browser.html';

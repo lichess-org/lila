@@ -40,6 +40,9 @@ div.header {
   float: left;
   position: relative;
 }
+body.tight div.header {
+  display: none;
+}
 div.header strong {
   font-weight: normal;
 }
@@ -49,12 +52,20 @@ div.content {
   min-height: 590px;
   margin: 30px auto 30px auto;
 }
+body.tight div.content {
+  width: auto;
+  min-width: 780px;
+  margin-top: 5px;
+}
 
 #top {
   width: 100%;
   min-width: 1005px;
   height: 24px;
   border-bottom: 1px solid #c4c4c4;
+}
+body.tight #top {
+  min-width: 780px;
 }
 #site_description {
   position: absolute;
@@ -63,6 +74,9 @@ div.content {
 
 #lichess {
   margin-left: 211px;
+}
+body.tight #lichess {
+  margin-left: 10px;
 }
 
 #site_title {
@@ -74,6 +88,9 @@ div.content {
   text-decoration: none;
   display: block;
   margin-bottom: 3px;
+}
+body.tight #site_title {
+  margin-left: 10px;
 }
 #site_title span.extension {
   color: #c8c8c8;
@@ -89,6 +106,9 @@ div.content {
   font-style: italic;
   color: #afafaf;
 }
+body.tight #site_baseline {
+  display: none;
+}
 
 div.footer_wrap {
   width: 100%;
@@ -103,6 +123,10 @@ div.footer {
   width: 1000px;
   margin: auto;
   line-height: 2em;
+}
+body.tight div.footer {
+  width: auto;
+  padding: 0 10px;
 }
 
 div.footer div.right {
@@ -216,17 +240,20 @@ div.lichess_goodies div.box .player {
   margin: 4px 0;
 }
 
-div.side_menu {
+div.header div.side_menu {
   margin-top: 15px;
 }
-div.side_menu a {
+div.header div.side_menu a {
   padding: 8px 0 8px 8px;
   display: block;
   text-decoration: none;
   width: 203px;
   font-weight: bold;
 }
-div.side_menu a.active {
+body.tight div.side_menu a {
+  padding-right: 10px;
+}
+div.header div.side_menu a.active {
   background: white;
   border: 1px solid #dadada;
   border-right: none;
