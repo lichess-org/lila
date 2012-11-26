@@ -96,7 +96,7 @@ standard=مرسوم
 unlimited=نا محدود
 mode=حالت
 casual=غیر رسمی
-rated=رتبه داده شد
+rated=رسمی
 thisGameIsRated=این بازی رتبه بندی می شود
 rematch=دوباره
 rematchOfferSent=درخواست بازی دوباره فرستاده شد
@@ -138,5 +138,5 @@ yourOpponentProposesATakeback=حریف پیشنهاد پس گرفتن حرکت �
 bookmarkThisGame=این بازی را بوک مارک کن
 toggleBackground=رنگ پس زمینه
 advancedSearch=جستجوی پیشرفته
-tournament=مسابقات
+tournament=مسابقه
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=بازی شطرنج آنلاین. بازی شطرنج در حال حاضر در یک رابط تمیز. بدون نیاز به ثبت نام ، بدون تبلیغات ، هیچ پلاگین مورد نیاز، در دسترس است. بازی شطرنج با کامپیوتر، دوستان و یا حریفان تصادفی.
