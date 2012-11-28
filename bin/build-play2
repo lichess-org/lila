@@ -1,5 +1,0 @@
-#!/bin/sh
-
-cd play/framework
-./build build-repository
-cd -
