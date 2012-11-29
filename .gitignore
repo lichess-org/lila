@@ -10,5 +10,4 @@ serve/README
 target
 bin/.translate_version
 data/
-/play*
 RUNNING_PID

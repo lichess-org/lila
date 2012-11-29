@@ -125,7 +125,7 @@ object Cron {
       op
     }
     catch {
-      case e ⇒ println("[CRON ERROR] (" + name + ") " + e.getMessage)
+      case e: Exception ⇒ println("[CRON ERROR] (" + name + ") " + e.getMessage)
     }
   }
 }
