@@ -49,18 +49,12 @@ final class PostApi(
 
   def get(postId: String): IO[Option[(Topic, Post)]] = for {
     postOption ← env.postRepo byId postId
-    topicOption ← postOption.fold(
-      post ⇒ env.topicRepo byId post.topicId,
-      io(none[Topic])
-    )
+    topicOption ← postOption.fold(io(none[Topic]))(post ⇒ env.topicRepo byId post.topicId)
   } yield (topicOption |@| postOption).tupled
 
   def view(post: Post): IO[Option[PostView]] = for {
     topicOption ← env.topicRepo byId post.topicId
-    categOption ← topicOption.fold(
-      topic ⇒ env.categRepo bySlug topic.categId,
-      io(none[Categ])
-    )
+    categOption ← topicOption.fold(io(none[Categ]))(topic ⇒ env.categRepo bySlug topic.categId)
   } yield topicOption |@| categOption apply {
     case (topic, categ) ⇒ PostView(post, topic, categ, lastPageOf(topic))
   }
@@ -83,7 +77,7 @@ final class PostApi(
 
   def delete(postId: String, mod: User): IO[Unit] = for {
     postOption ← env.postRepo byId postId
-    viewOption ← postOption.fold(view, io(none))
+    viewOption ← postOption.fold(io(none))(view)
     _ ← viewOption.fold(
       view ⇒ for {
         _ ← (view.topic.nbPosts == 1).fold(

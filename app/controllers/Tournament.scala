@@ -2,6 +2,7 @@ package controllers
 
 import lila._
 import views._
+import game.Pov
 import tournament.{ Created, Started, Finished }
 import http.Context
 
@@ -61,7 +62,7 @@ object Tournament extends LilaController {
   private def showStarted(tour: Started)(implicit ctx: Context) = for {
     roomHtml ← messenger render tour
     games ← gameRepo games (tour recentGameIds 4)
-    pov ← tour.userCurrentPov(ctx.me).fold(gameRepo.pov, io(none))
+    pov ← tour.userCurrentPov(ctx.me).fold(io(none[Pov]))(gameRepo.pov)
   } yield html.tournament.show.started(
     tour = tour,
     roomHtml = Html(roomHtml),
@@ -112,7 +113,7 @@ object Tournament extends LilaController {
 
   private def reloadStarted(tour: Started)(implicit ctx: Context) = for {
     games ← gameRepo games (tour recentGameIds 4)
-    pov ← tour.userCurrentPov(ctx.me).fold(gameRepo.pov, io(none))
+    pov ← tour.userCurrentPov(ctx.me).fold(io(none[Pov]))(gameRepo.pov)
   } yield {
     val pairings = html.tournament.pairings(tour)
     val inner = html.tournament.show.startedInner(tour, games, pov)

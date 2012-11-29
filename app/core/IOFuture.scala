@@ -3,10 +3,9 @@ package core
 
 import play.api.Play.current
 import play.api.libs.concurrent._
-import akka.dispatch.{ Future, Await }
 import akka.util.Timeout
-import akka.util.Duration
-import akka.util.duration._
+import scala.concurrent.{ Future, Await }
+import scala.concurrent.duration._
 import scalaz.effects._
 
 trait Futuristic {

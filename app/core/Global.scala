@@ -47,7 +47,7 @@ object Global extends GlobalSettings {
   override def onError(request: RequestHeader, ex: Throwable) =
     env.ai.isServer.fold(
       InternalServerError(ex.getMessage),
-      Option(coreEnv).fold(_.app.mode, Mode.Prod) match {
+      Option(coreEnv).fold(Mode.Prod)(_.app.mode) match {
         case Mode.Prod ⇒ InternalServerError(
           views.html.base.errorPage(ex)(http.Context(request, none))
         )

@@ -17,7 +17,7 @@ object Writer {
     file.exists.fold(
       io(webPath), {
         println("Export " + file)
-        val writer = new CSVWriter(file)
+        val writer = new CSVWriter(file, "UTF-8")
         io {
           writer writeAll lines.map(_ map (_.toString))
           writer.close()

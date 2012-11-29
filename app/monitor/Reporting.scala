@@ -6,7 +6,7 @@ import round.GetNbHubs
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
-import akka.util.duration._
+import scala.concurrent.duration._
 import akka.util.{ Duration, Timeout }
 import akka.dispatch.{ Future, Promise }
 import play.api.libs.concurrent._

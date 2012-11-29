@@ -12,7 +12,7 @@ import play.api.mvc.Call
 import play.api.libs.concurrent.Akka
 import play.api.Play.current
 import akka.dispatch.Future
-import akka.util.duration._
+import scala.concurrent.duration._
 import akka.util.Timeout
 import scalaz.effects._
 

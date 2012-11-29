@@ -22,14 +22,14 @@ object Setting extends LilaController {
       case "bg" ⇒ setBg.some
       case _       ⇒ none
     }
-    setter.fold({
+    setter.fold(notFound) {
       case (form, process) ⇒
         FormResult(form) { value ⇒
           Ok("ok") withCookies {
             process(HttpSetting(ctx), value).unsafePerformIO
           }
         }
-    }, NotFound)
+    }
   }
 
   private type Setter = (Form[String], (HttpSetting, String) ⇒ IO[Cookie])

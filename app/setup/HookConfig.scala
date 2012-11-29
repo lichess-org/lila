@@ -39,16 +39,14 @@ case class HookConfig(
 object HookConfig extends BaseHumanConfig {
 
   def <<(v: Int, k: Boolean, t: Int, i: Int, m: Option[Int], e: Option[String], c: String) = {
-    val realMode = m.fold(Mode.orDefault, Mode.default)
+    val realMode = m.fold(Mode.default)(Mode.orDefault)
     new HookConfig(
       variant = Variant(v) err "Invalid game variant " + v,
       clock = k,
       time = t,
       increment = i,
       mode = realMode,
-      eloRange = e.filter(_ ⇒ realMode.rated).fold(
-        EloRange.orDefault, 
-        EloRange.default),
+      eloRange = e.filter(_ ⇒ realMode.rated).fold(EloRange.default)(EloRange.orDefault),
       color = Color(c) err "Invalid color " + c)
   }
 

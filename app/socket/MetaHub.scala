@@ -3,8 +3,8 @@ package socket
 
 import akka.actor.ActorRef
 import akka.pattern.{ ask, pipe }
-import akka.dispatch.{ Future, Promise }
-import akka.util.duration._
+import scala.concurrent._
+import scala.concurrent.duration._
 import akka.util.{ Duration, Timeout }
 import play.api.libs.concurrent._
 import play.api.Play.current

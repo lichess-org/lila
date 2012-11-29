@@ -45,7 +45,7 @@ final class Titivate(
     )
     val unsetNext = (id: String) ⇒ gameRepo.collection.update(
       DBObject("_id" -> id),
-      $unset("next")
+      $unset(Seq("next"))
     )
 
     io {

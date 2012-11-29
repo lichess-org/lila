@@ -32,6 +32,7 @@ trait Dependencies {
   val jodaTime = "joda-time" % "joda-time" % "2.1"
   val jodaConvert = "org.joda" % "joda-convert" % "1.2"
   val scalastic = "com.traackr" % "scalastic_2.9.2" % "0.0.6-HACKED"
+  val findbugs = "com.google.code.findbugs" % "jsr305" % "1.3.+"
 }
 
 object ApplicationBuild extends Build with Resolvers with Dependencies {
@@ -45,12 +46,12 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       "-deprecation",
       "-unchecked",
       "-feature",
-      "-language:implicitConversions,reflectiveCalls,postfixOps,higherKinds,existentials")
+      "-language:_")
   )
 
   lazy val lila = play.Project("lila", "3", Seq(
     scalaz, scalalib, hasher, config, salat, guava, apache, scalaTime,
-    paginator, paginatorSalat, csv, jgit, actuarius, scalastic
+    paginator, paginatorSalat, csv, jgit, actuarius, scalastic, findbugs
   ), settings = Defaults.defaultSettings ++ buildSettings).settings(
     scalaVersion := "2.10.0-RC3",
     templatesImport ++= Seq(

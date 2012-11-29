@@ -3,7 +3,7 @@ package monitor
 
 import akka.actor._
 import akka.pattern.ask
-import akka.util.duration._
+import scala.concurrent.duration._
 import akka.util.Timeout
 import play.api.libs.json._
 import play.api.libs.iteratee._

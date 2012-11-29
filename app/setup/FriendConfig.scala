@@ -40,7 +40,7 @@ object FriendConfig extends BaseHumanConfig {
       clock = k,
       time = t,
       increment = i,
-      mode = m.fold(Mode.orDefault, Mode.default),
+      mode = m.fold(Mode.default)(Mode.orDefault),
       color = Color(c) err "Invalid color " + c)
 
   val default = FriendConfig(

@@ -42,10 +42,10 @@ trait LilaController
   protected def Auth(f: Context ⇒ UserModel ⇒ Result): Action[AnyContent] =
     Auth(BodyParsers.parse.anyContent)(f)
 
-  protected def Auth[A](p: BodyParser[A])(f: Context ⇒ UserModel ⇒ Result): Action[A] =
+  protected def Auth[A](p: BodyParser[A])(f: Context ⇒ UserModel ⇒ PlainResult): Action[A] =
     Action(p)(req ⇒ {
       val ctx = reqToCtx(req)
-      ctx.me.fold(me ⇒ f(ctx)(me), authenticationFailed(ctx.req))
+      ctx.me.fold(authenticationFailed(ctx.req))(me ⇒ f(ctx)(me))
     })
 
   protected def AuthBody(f: BodyContext ⇒ UserModel ⇒ Result): Action[AnyContent] =
@@ -54,7 +54,7 @@ trait LilaController
   protected def AuthBody[A](p: BodyParser[A])(f: BodyContext ⇒ UserModel ⇒ Result): Action[A] =
     Action(p)(req ⇒ {
       val ctx = reqToCtx(req)
-      ctx.me.fold(me ⇒ f(ctx)(me), authenticationFailed(ctx.req))
+      ctx.me.fold(authenticationFailed(ctx.req))(me ⇒ f(ctx)(me))
     })
 
   protected def Secure(perm: Permission)(f: Context ⇒ UserModel ⇒ Result): Action[AnyContent] =
@@ -75,7 +75,7 @@ trait LilaController
     )
 
   protected def NoEngine[A <: Result](a: ⇒ A)(implicit ctx: Context): Result =
-    ctx.me.fold(_.engine, false).fold(Forbidden(views.html.site.noEngine()), a)
+    ctx.me.fold(false)(_.engine).fold(Forbidden(views.html.site.noEngine()), a)
 
   protected def JsonOk(map: Map[String, Any]) = Ok(toJson(map)) as JSON
 
@@ -125,10 +125,10 @@ trait LilaController
     implicit writer: Writeable[B],
     ctype: ContentTypeOf[B],
     ctx: Context) =
-    oa.fold(a ⇒ Ok(op(a)), notFound(ctx))
+    oa.fold(notFound(ctx))(a ⇒ Ok(op(a)))
 
   protected def OptionResult[A](oa: Option[A])(op: A ⇒ Result)(implicit ctx: Context) =
-    oa.fold(op, notFound(ctx))
+    oa.fold(notFound(ctx))(op)
 
   protected def IOptionOk[A, B](ioa: IO[Option[A]])(op: A ⇒ B)(
     implicit writer: Writeable[B],
@@ -147,20 +147,20 @@ trait LilaController
     } unsafePerformIO
 
   protected def IOptionIOResult[A](ioa: IO[Option[A]])(op: A ⇒ IO[Result])(implicit ctx: Context) =
-    ioa flatMap { _.fold(op, io(notFound(ctx))) } unsafePerformIO
+    ioa flatMap { _.fold(op)(io(notFound(ctx))) } unsafePerformIO
 
   protected def IOptionRedirect[A](ioa: IO[Option[A]])(op: A ⇒ Call)(implicit ctx: Context) =
     ioa map {
-      _.fold(a ⇒ Redirect(op(a)), io(notFound(ctx)))
+      _.fold(notFound(ctx))(a ⇒ Redirect(op(a)))
     } unsafePerformIO
 
   protected def IOptionIORedirect[A](ioa: IO[Option[A]])(op: A ⇒ IO[Call])(implicit ctx: Context) =
     (ioa flatMap {
-      _.fold(a ⇒ op(a) map { b ⇒ Redirect(b) }, io(notFound(ctx)))
+      _.fold(io(notFound(ctx)))(a ⇒ op(a) map { b ⇒ Redirect(b) })
     }: IO[Result]).unsafePerformIO
 
   protected def IOptionResult[A](ioa: IO[Option[A]])(op: A ⇒ Result)(implicit ctx: Context) =
-    ioa.unsafePerformIO.fold(a ⇒ op(a), notFound(ctx))
+    ioa.unsafePerformIO.fold(notFound(ctx))(a ⇒ op(a))
 
   protected def notFound(implicit ctx: Context) = Lobby handleNotFound ctx
 

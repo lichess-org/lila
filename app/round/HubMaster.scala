@@ -5,7 +5,7 @@ import socket.{ Broom, Close, GetNbMembers, GetUsernames, NbMembers, SendTo, Sen
 
 import akka.actor._
 import akka.actor.ReceiveTimeout
-import akka.util.duration._
+import scala.concurrent.duration._
 import akka.util.Timeout
 import akka.pattern.{ ask, pipe }
 import akka.dispatch.Future
