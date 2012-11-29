@@ -27,7 +27,7 @@ final class I18nPool(val langs: Set[Lang], val default: Lang) {
     }.getOrElse(Nil)
   }
   catch {
-    case e ⇒ Nil
+    case e: Exception ⇒ Nil
   }
 
   def domainLang(req: RequestHeader) =

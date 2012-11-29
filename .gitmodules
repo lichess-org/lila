@@ -3,4 +3,4 @@
 	url = git://github.com/ornicar/scalachess
 [submodule "play"]
 	path = play
-	url = git://github.com/ornicar/Play20
+	url = git://github.com/playframework/Play20

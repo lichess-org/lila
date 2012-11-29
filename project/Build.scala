@@ -15,11 +15,11 @@ trait Resolvers {
 }
 
 trait Dependencies {
-  val scalaz = "org.scalaz" % "scalaz-core_2.9.2" % "6.0.4"
+  val scalaz = "org.scalaz" % "scalaz-core_2.10.0-RC3" % "6.0.4"
   val salat = "com.novus" % "salat-core_2.9.2" % "1.9.1"
   val scalalib = "com.github.ornicar" % "scalalib_2.9.1" % "2.5"
   val config = "com.typesafe" % "config" % "1.0.0"
-  val guava = "com.google.guava" % "guava" % "13.0"
+  val guava = "com.google.guava" % "guava" % "13.0.1"
   val apache = "org.apache.commons" % "commons-lang3" % "3.1"
   val scalaTime = "org.scala-tools.time" % "time_2.9.1" % "0.5"
   val slf4jNop = "org.slf4j" % "slf4j-nop" % "1.6.4"
@@ -38,29 +38,21 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
 
   // private val buildSettings = Project.defaultSettings ++ Seq(
   private val buildSettings = Seq(
-    // scalaVersion := "2.10.0-RC1",
-    // resolvers := Seq(iliaz, sonatype, sonatypeS, typesafe, t2v, guice, jgitMaven, christophs),
     shellPrompt := {
       (state: State) ⇒ "%s> ".format(Project.extract(state).currentProject.id)
     },
-    scalacOptions := Seq("-deprecation", "-unchecked")
+    scalacOptions := Seq(
+      "-deprecation",
+      "-unchecked",
+      "-feature",
+      "-language:implicitConversions,reflectiveCalls,postfixOps,higherKinds,existentials")
   )
 
   lazy val lila = play.Project("lila", "3", Seq(
-    scalaz, 
-    scalalib, 
-    hasher,
-    config,
-    salat,
-    guava,
-    apache,
-    scalaTime,
-    paginator,
-    paginatorSalat,
-    csv,
-    jgit,
-    actuarius,
-    scalastic)).settings(
+    scalaz, scalalib, hasher, config, salat, guava, apache, scalaTime,
+    paginator, paginatorSalat, csv, jgit, actuarius, scalastic
+  ), settings = Defaults.defaultSettings ++ buildSettings).settings(
+    scalaVersion := "2.10.0-RC3",
     templatesImport ++= Seq(
       "lila.game.{ DbGame, DbPlayer, Pov }",
       "lila.user.User",
@@ -70,14 +62,15 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       "lila.http.Context",
       "com.github.ornicar.paginator.Paginator"),
     resolvers ++= Seq(iliaz, sonatype, sonatypeS, typesafe, t2v, guice, jgitMaven, christophs)
-  ) //dependsOn scalachess aggregate scalachess
+  ) dependsOn scalachess aggregate scalachess
 
-  // lazy val scalachess = Project("scalachess", file("scalachess")).settings(
-  //   resolvers := Seq(iliaz),
-  //   libraryDependencies := Seq(scalaz, scalalib, hasher, jodaTime, jodaConvert)
-  // )
+  lazy val scalachess = Project("scalachess", file("scalachess"), settings = Project.defaultSettings ++ buildSettings).settings(
+    resolvers := Seq(iliaz, sonatype),
+    scalaVersion := "2.10.0-RC3",
+    libraryDependencies := Seq(scalaz, scalalib, hasher, jodaTime, jodaConvert)
+  )
 
-  // lazy val cli = Project("cli", file("cli"), settings = buildSettings).settings(
-  //   libraryDependencies ++= Seq(scalastic)
-  // ) dependsOn lila
+  lazy val cli = Project("cli", file("cli"), settings = buildSettings).settings(
+    libraryDependencies ++= Seq(scalastic)
+  ) dependsOn lila
 }
