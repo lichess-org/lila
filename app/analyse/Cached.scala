@@ -1,7 +1,7 @@
 package lila
 package analyse
 
-import akka.util.duration._
+import scala.concurrent.duration._
 
 import memo.ActorMemo
 

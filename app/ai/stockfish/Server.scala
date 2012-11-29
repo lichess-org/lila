@@ -9,8 +9,8 @@ import analyse.Analysis
 import model.{ GetQueueSize, QueueSize }
 
 import akka.util.Timeout
-import akka.util.Duration
-import akka.util.duration._
+import scala.concurrent.Duration
+import scala.concurrent.duration._
 import akka.dispatch.{ Future, Await }
 import akka.actor.{ Props, Actor, ActorRef, Kill }
 import akka.pattern.{ ask, AskTimeoutException }

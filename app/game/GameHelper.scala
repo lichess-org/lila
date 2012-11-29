@@ -45,26 +45,27 @@ trait GameHelper { self: I18nHelper with UserHelper with StringHelper with AiHel
     withDiff: Boolean = true,
     engine: Boolean = false)(implicit ctx: Context) = Html {
     player.userId.fold(
-      userId ⇒ userIdToUsername(userId) |> { username ⇒
-        """<a class="user_link%s%s" href="%s">%s%s</a>""".format(
-          cssClass.fold(" " + _, ""),
-          withOnline.fold(
-            isUsernameOnline(username).fold(" online", " offline"),
-            ""),
-          routes.User.show(username),
-          usernameWithElo(player) + player.eloDiff.filter(_ ⇒ withDiff).fold(
-            diff ⇒ " (%s)".format(showNumber(diff)),
-            ""),
-          engine.fold(
-            """<span class="engine_mark" title="%s"></span>""" format trans.thisPlayerUsesChessComputerAssistance(),
-            "")
-        )
-      },
       """<span class="user_link %s">%s</span>""".format(
         cssClass | "",
         player.aiLevel.fold(aiName, User.anonymous)
       )
-    )
+    ) { userId ⇒
+        userIdToUsername(userId) |> { username ⇒
+          """<a class="user_link%s%s" href="%s">%s%s</a>""".format(
+            cssClass.fold(" " + _, ""),
+            withOnline.fold(
+              isUsernameOnline(username).fold(" online", " offline"),
+              ""),
+            routes.User.show(username),
+            usernameWithElo(player) + player.eloDiff.filter(_ ⇒ withDiff).fold(
+              diff ⇒ " (%s)".format(showNumber(diff)),
+              ""),
+            engine.fold(
+              """<span class="engine_mark" title="%s"></span>""" format trans.thisPlayerUsesChessComputerAssistance(),
+              "")
+          )
+        }
+      }
   }
 
   def gameEndStatus(game: DbGame)(implicit ctx: Context): Html = game.status match {

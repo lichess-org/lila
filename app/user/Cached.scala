@@ -3,7 +3,7 @@ package user
 
 import memo.ActorMemo
 
-import akka.util.duration._
+import scala.concurrent.duration._
 import scala.collection.mutable
 
 final class Cached(

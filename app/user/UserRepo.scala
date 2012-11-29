@@ -171,11 +171,11 @@ class UserRepo(collection: MongoCollection)
     collection.find(byIdQuery(username) ++ DBObject("engine" -> true)).size != 0
   } 
 
-  def setBio(user: User, bio: String) = updateIO(user)($set("bio" -> bio))
+  def setBio(user: User, bio: String) = updateIO(user)($set(Seq("bio" -> bio)))
 
-  def enable(user: User) = updateIO(user)($set("enabled" -> true))
+  def enable(user: User) = updateIO(user)($set(Seq("enabled" -> true)))
 
-  def disable(user: User) = updateIO(user)($set("enabled" -> false))
+  def disable(user: User) = updateIO(user)($set(Seq("enabled" -> false)))
 
   def passwd(user: User, password: String): IO[Valid[Unit]] = for {
     obj ← io {

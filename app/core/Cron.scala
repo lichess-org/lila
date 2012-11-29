@@ -3,14 +3,12 @@ package core
 
 import akka.actor.ActorRef
 import akka.pattern.{ ask, pipe }
-import akka.dispatch.{ Future, Promise }
-import akka.util.duration._
-import akka.util.{ Duration, Timeout }
-import play.api.Mode
+import akka.util.Timeout
+import scala.concurrent.duration._
+import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.concurrent._
+import play.api.Mode
 import scalaz.effects._
-
-import implicits.RichDuration._
 
 object Cron {
 
@@ -101,12 +99,12 @@ object Cron {
       env.tournament.organizer -> tournament.StartPairings
     }
 
-    def message(freq: Duration)(to: (ActorRef, Any)) {
-      Akka.system.scheduler.schedule(freq, freq.randomize(), to._1, to._2)
+    def message(freq: FiniteDuration)(to: (ActorRef, Any)) {
+      Akka.system.scheduler.schedule(freq, randomize(freq), to._1, to._2)
     }
 
     def effect(freq: Duration, name: String)(op: ⇒ IO[_]) {
-      val f = freq.randomize()
+      val f = randomize(freq)
       println("schedule effect %s every %s -> %s".format(name, freq, f))
       Akka.system.scheduler.schedule(f, f) {
         tryNamed(name, op.unsafePerformIO)
@@ -114,7 +112,7 @@ object Cron {
     }
 
     def unsafe(freq: Duration, name: String)(op: ⇒ Unit) {
-      Akka.system.scheduler.schedule(freq, freq.randomize()) {
+      Akka.system.scheduler.schedule(freq, randomize(freq)) {
         tryNamed(name, op)
       }
     }
@@ -127,5 +125,13 @@ object Cron {
     catch {
       case e: Exception ⇒ println("[CRON ERROR] (" + name + ") " + e.getMessage)
     }
+  }
+
+  private def randomize(d: Duration, ratio: Float = 0.1f): FiniteDuration = {
+    import scala.util.Random
+    import scala.math.round
+    import ornicar.scalalib.Random.approximatly
+
+    approximatly(0.1f)(d.toMillis) millis
   }
 }

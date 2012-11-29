@@ -9,7 +9,7 @@ import round.Meddler
 import scalaz.effects._
 import play.api.libs.concurrent._
 import play.api.Play.current
-import akka.util.duration._
+import scala.concurrent.duration._
 
 final class GameJoiner(
     gameRepo: GameRepo,

@@ -59,10 +59,9 @@ object User extends LilaController {
   }
 
   val autocomplete = Action { implicit req ⇒
-    get("term", req).filter(""!=).fold(
-      term ⇒ JsonOk((userRepo usernamesLike term).unsafePerformIO),
-      BadRequest("No search term provided")
-    )
+    get("term", req).filter(""!=).fold(BadRequest("No search term provided")) { term ⇒
+      JsonOk((userRepo usernamesLike term).unsafePerformIO)
+    }
   }
 
   val getBio = Auth { ctx ⇒ me ⇒ Ok(me.bio) }

@@ -4,8 +4,8 @@ package game
 import akka.actor._
 import akka.dispatch.{ Future, Await }
 import akka.pattern.ask
-import akka.util.Duration
-import akka.util.duration._
+import scala.concurrent.Duration
+import scala.concurrent.duration._
 import akka.util.Timeout
 import play.api.Play.current
 import play.api.libs.concurrent.Akka

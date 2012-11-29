@@ -5,7 +5,7 @@ import play.api.libs.Comet
 import play.api.libs.concurrent._
 import play.api.libs.json._
 import akka.pattern.ask
-import akka.util.duration._
+import scala.concurrent.duration._
 import akka.util.Timeout
 
 import lila._

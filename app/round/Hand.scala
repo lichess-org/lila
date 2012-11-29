@@ -12,7 +12,7 @@ import scalaz.effects._
 import akka.actor._
 import akka.dispatch.{ Future, Await }
 import akka.pattern.ask
-import akka.util.duration._
+import scala.concurrent.duration._
 import akka.util.Timeout
 
 final class Hand(
