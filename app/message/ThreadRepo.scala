@@ -61,7 +61,7 @@ final class ThreadRepo(
     for (i ← 1 to thread.nbUnread) {
       collection.update(
         selectId(thread.id) ++ DBObject("posts.isRead" -> false),
-        $set("posts.$.isRead" -> true)
+        $set(Seq("posts.$.isRead" -> true))
       )
     }
   }

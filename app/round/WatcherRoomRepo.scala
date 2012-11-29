@@ -20,7 +20,7 @@ class WatcherRoomRepo(collection: MongoCollection)
     Message(username, text) ~ { message ⇒
       collection.update(
         DBObject("_id" -> id),
-        $push("messages" -> (WatcherRoom encode message)),
+        $push(Seq("messages" -> (WatcherRoom encode message))),
         upsert = true,
         multi = false
       )

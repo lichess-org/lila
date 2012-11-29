@@ -26,13 +26,11 @@ final class ModApi(
 
   def mute(mod: User, username: String): IO[Unit] = for {
     userOption ← userRepo byId username
-    _ ← userOption.fold(
-      user ⇒ for {
-        _ ← userRepo toggleMute user.id
-        _ ← lobbyMessenger mute user.username doUnless user.isChatBan
-        _ ← logApi.mute(mod, user, !user.isChatBan)
-      } yield (),
-      io())
+    _ ← ~userOption.map(user ⇒ for {
+      _ ← userRepo toggleMute user.id
+      _ ← lobbyMessenger mute user.username doUnless user.isChatBan
+      _ ← logApi.mute(mod, user, !user.isChatBan)
+    } yield ())
   } yield ()
 
   def ban(mod: User, username: String): IO[Unit] = withUser(username) { user ⇒
@@ -51,6 +49,6 @@ final class ModApi(
 
   private def withUser(username: String)(userIo: User ⇒ IO[Unit]) = for {
     userOption ← userRepo byId username
-    _ ← userOption.fold(userIo, io())
+    _ ← ~userOption.map(userIo)
   } yield ()
 }

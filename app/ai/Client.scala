@@ -3,7 +3,8 @@ package ai
 
 import scalaz.effects._
 import scala.concurrent.Future
-import play.api.libs.concurrent.execution.Implicits._
+import play.api.libs.concurrent.Execution.Implicits._
+import scala.util.{Try, Success, Failure}
 
 trait Client extends Ai {
 
@@ -22,11 +23,11 @@ trait Client extends Ai {
   def currentHealth = isHealthy(ping)
 
   def diagnose: Unit = tryPing onComplete {
-    case Left(e) ⇒ {
+    case Failure(e) ⇒ {
       println("remote AI error: " + e.getMessage)
       changePing(none)
     }
-    case Right(p) ⇒ changePing(p.some)
+    case Success(p) ⇒ changePing(p.some)
   }
 
   private def changePing(p: Option[Int]) = {

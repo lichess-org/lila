@@ -10,6 +10,7 @@ import play.api.libs.json._
 import play.api.libs.iteratee._
 import play.api.libs.concurrent._
 import play.api.Play.current
+import play.api.libs.concurrent.Execution.Implicits._
 import scalaz.effects._
 import scalaz.{ Success, Failure }
 
@@ -139,7 +140,7 @@ final class Socket(
     versionOption: Option[Int],
     uidOption: Option[String],
     tokenOption: Option[String],
-    ctx: Context): SocketPromise =
+    ctx: Context): SocketFuture =
     ((povOption |@| uidOption |@| versionOption) apply {
       (pov: Pov, uid: String, version: Int) ⇒
         (for {

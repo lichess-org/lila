@@ -30,10 +30,10 @@ final class MessageRepo(collection: MongoCollection, max: Int)
     "t" -> obj.text)
 
   def censorUsername(username: String): IO[Unit] = io {
-    collection.update(DBObject("u" -> username), $set("t" -> ""), upsert = false, multi = true)
+    collection.update(DBObject("u" -> username), $set(Seq("t" -> "")), upsert = false, multi = true)
   }
 
   def removeRegex(regex: util.matching.Regex): IO[Unit] = io {
-    collection.update(DBObject("t" -> regex), $set("t" -> ""), upsert = false, multi = true)
+    collection.update(DBObject("t" -> regex), $set(Seq("t" -> "")), upsert = false, multi = true)
   }
 }

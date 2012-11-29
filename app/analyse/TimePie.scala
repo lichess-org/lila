@@ -33,7 +33,7 @@ final class TimePie(val pov: Pov) {
 
     Json toJson {
       ranges zip (ranges map nbMoves) collect {
-        case (range, nb) if nb > 0 ⇒ List(nameRange(range), nb)
+        case (range, nb) if nb > 0 ⇒ Json.arr(nameRange(range), nb)
       }
     }
   }

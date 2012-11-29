@@ -36,7 +36,7 @@ class HookRepo(collection: MongoCollection)
   }
 
   def setGame(hook: Hook, game: DbGame) = io {
-    update(idSelector(hook), $set("match" -> true) ++ $set("gameId" -> game.id))
+    update(idSelector(hook), $set(Seq("match" -> true, "gameId" -> game.id)))
   }
 
   def removeId(id: String): IO[Unit] = io {

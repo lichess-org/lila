@@ -12,16 +12,15 @@ final class Meddler(
 
   def forceAbort(id: String): IO[Unit] = for {
     gameOption ← gameRepo game id
-    _ ← gameOption.fold(
-      game ⇒ (finisher forceAbort game).fold(
+    _ ← gameOption.fold(putStrLn("Cannot abort missing game " + id)) { game ⇒
+      (finisher forceAbort game).fold(
         err ⇒ putStrLn(err.shows),
         ioEvents ⇒ for {
           events ← ioEvents
           _ ← io { socket.send(game.id, events) }
         } yield ()
-      ),
-      putStrLn("Cannot abort missing game " + id)
-    )
+      )
+    }
   } yield ()
 
   def resign(pov: Pov): IO[Unit] = (finisher resign pov).fold(
@@ -34,7 +33,7 @@ final class Meddler(
 
   def resign(povRef: PovRef): IO[Unit] = for {
     povOption ← gameRepo pov povRef
-    _ ← povOption.fold(resign, putStrLn("Cannot resign missing game " + povRef))
+    _ ← povOption.fold(putStrLn("Cannot resign missing game " + povRef))(resign)
   } yield ()
 
   def finishAbandoned(game: DbGame): IO[Unit] = game.abandoned.fold(
@@ -44,6 +43,6 @@ final class Meddler(
         err ⇒ putStrLn(err.shows),
         _ map (_ ⇒ ()) // discard the events
       ),
-    putStrLn("Game is not abandoned") 
+    putStrLn("Game is not abandoned")
   )
 }

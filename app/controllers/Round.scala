@@ -56,7 +56,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
         for {
           roomHtml ← messenger render pov.game
           bookmarkers ← bookmarkApi userIdsByGame pov.game
-          engine ← pov.opponent.userId.fold(userRepo.isEngine, io(false))
+          engine ← pov.opponent.userId.fold(io(false))(userRepo.isEngine)
           analysed ← analyser has pov.gameId
           tour ← tournamentRepo byId pov.game.tournamentId
         } yield PreventTheft(pov) {

@@ -9,7 +9,7 @@ import core.Global
 import play.api.mvc._
 import play.api.data.Form
 import play.api.http._
-import play.api.libs.json.Json
+import play.api.libs.json.{ Json, WritesJson }
 import scalaz.effects._
 
 trait LilaController
@@ -25,7 +25,7 @@ trait LilaController
   override implicit def lang(implicit req: RequestHeader) =
     env.i18n.pool.lang(req)
 
-  protected def toJson(map: Map[String, Any]) = Json toJson map
+  protected def toJson[A : WritesJson](data: A) = Json toJson data
 
   protected def Open(f: Context ⇒ Result): Action[AnyContent] =
     Open(BodyParsers.parse.anyContent)(f)
@@ -77,13 +77,11 @@ trait LilaController
   protected def NoEngine[A <: Result](a: ⇒ A)(implicit ctx: Context): Result =
     ctx.me.fold(false)(_.engine).fold(Forbidden(views.html.site.noEngine()), a)
 
-  protected def JsonOk(map: Map[String, Any]) = Ok(Json toJson map) as JSON
+  protected def JsonOk[A : WritesJson](data: A) = Ok(Json toJson data) as JSON
 
-  protected def JsonOk(list: List[Any]) = Ok(Json toJson list) as JSON
+  protected def JsonIOk[A : WritesJson](data: IO[A]) = JsonOk(data.unsafePerformIO)
 
-  protected def JsonIOk(map: IO[Map[String, Any]]) = JsonOk(map.unsafePerformIO)
-
-  protected def JsIOk(js: IO[String], headers: (String, String)*) = 
+  protected def JsIOk(js: IO[String], headers: (String, String)*) =
     Ok(js.unsafePerformIO) as JAVASCRIPT withHeaders (headers: _*)
 
   protected def ValidOk(valid: Valid[Unit]) = valid.fold(
@@ -141,9 +139,7 @@ trait LilaController
     ctype: ContentTypeOf[B],
     ctx: Context) =
     ioa flatMap { aOption ⇒
-      aOption.fold(io(notFound(ctx))) { a =>
-        a ⇒ op(a) map { Ok(_) }
-      }//: IO[Result]
+      aOption.fold(io(notFound(ctx))) { a ⇒ op(a) map { Ok(_) } } //: IO[Result]
     } unsafePerformIO
 
   protected def IOptionIOResult[A](ioa: IO[Option[A]])(op: A ⇒ IO[Result])(implicit ctx: Context) =

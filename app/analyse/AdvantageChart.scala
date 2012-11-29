@@ -18,7 +18,7 @@ final class AdvantageChart(advices: Analysis.InfoAdvices) {
 
     def move(info: Info, advice: Option[Advice]) = info.color.fold(
       "%d. %s", "%d... %s"
-    ).format(info.turn, info.move.uci) + advice.fold(" " + _.nag.symbol, "")
+    ).format(info.turn, info.move.uci) + ~advice.map(" " + _.nag.symbol)
 
     (advices sliding 2 collect {
       case (info, advice) :: (next, _) :: Nil ⇒

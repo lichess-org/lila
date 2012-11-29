@@ -24,10 +24,7 @@ abstract class Handler(gameRepo: GameRepo) extends core.Futuristic {
 
   protected def fromPov[A](povIO: IO[Option[Pov]])(op: Pov ⇒ IO[Valid[A]]): IO[Valid[A]] =
     povIO flatMap { povOption ⇒
-      povOption.fold(
-        pov ⇒ op(pov),
-        io { "No such game".failNel }
-      )
+      povOption.fold(io { "No such game".failNel })(op)
     }
 
   protected def fromPovFuture[A](ref: PovRef)(op: Pov ⇒ Future[Valid[A]]): Future[Valid[A]] =
@@ -35,9 +32,6 @@ abstract class Handler(gameRepo: GameRepo) extends core.Futuristic {
 
   protected def fromPovFuture[A](povIO: IO[Option[Pov]])(op: Pov ⇒ Future[Valid[A]]): Future[Valid[A]] =
     povIO.toFuture flatMap { povOption ⇒
-      povOption.fold(
-        pov ⇒ op(pov),
-        Future("No such game".failNel)
-      )
+      povOption.fold(Future("No such game".failNel))(op)
     }
 }

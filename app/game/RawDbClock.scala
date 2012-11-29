@@ -13,20 +13,20 @@ case class RawDbClock(
     t: Option[Double] = None) {
 
   def decode: Clock = t.fold(
-    timer ⇒ RunningClock(
-      color = Color(c),
-      increment = i,
-      limit = l,
-      whiteTime = w,
-      blackTime = b,
-      timer = timer),
     PausedClock(
       color = Color(c),
       increment = i,
       limit = l,
       whiteTime = w,
-      blackTime = b)
-  )
+      blackTime = b)) { timer ⇒
+      RunningClock(
+        color = Color(c),
+        increment = i,
+        limit = l,
+        whiteTime = w,
+        blackTime = b,
+        timer = timer)
+    }
 }
 
 object RawDbClock {

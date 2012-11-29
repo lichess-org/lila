@@ -4,7 +4,7 @@ package search
 import game.{ GameRepo, PgnRepo, DbGame, Query ⇒ GameQuery }
 
 import scalaz.effects._
-import com.codahale.jerkson.Json
+import play.api.libs.json.Json
 
 import org.elasticsearch.action.search.SearchResponse
 
@@ -33,14 +33,11 @@ final class Indexer(
 
   val indexQueue: IO[Unit] = for {
     ids ← queue next 2000
-    _ ← ids.toNel.fold(
-      neIds ⇒ for {
-        _ ← putStrLn("[search] indexing %d games" format neIds.list.size)
-        _ ← indexQuery("_id" $in neIds.list)
-        _ ← queue remove neIds.list
-      } yield (),
-      io()
-    )
+    _ ← ~ids.toNel.map(neIds ⇒ for {
+      _ ← putStrLn("[search] indexing %d games" format neIds.list.size)
+      _ ← indexQuery("_id" $in neIds.list)
+      _ ← queue remove neIds.list
+    } yield ())
   } yield ()
 
   private def clear: IO[Unit] = io {
@@ -48,7 +45,7 @@ final class Indexer(
   } map (_ ⇒ ()) except { e ⇒ putStrLn("Index does not exist yet") } map { _ ⇒
     es.createIndex(indexName, settings = Map())
     es.waitTillActive()
-    es.putMapping(indexName, typeName, Json generate Map(typeName -> Game.mapping))
+    es.putMapping(indexName, typeName, Json toJson Map(typeName -> Game.mapping))
     es.refresh()
   }
 
@@ -64,7 +61,7 @@ final class Indexer(
         case (game, pgn) ⇒ game.decode map Game.from(pgn)
       } collect {
         case Some((id, doc)) ⇒
-          es.index_prepare(indexName, typeName, id, Json generate doc).request
+          es.index_prepare(indexName, typeName, id, Json toJson doc).request
       }
       if (actions.nonEmpty) {
         es bulk actions

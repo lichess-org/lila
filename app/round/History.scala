@@ -29,7 +29,7 @@ case class VersionedEvent(
   private def visibleBy(m: Member): Boolean =
     if (watcher && m.owner) false
     else if (owner && m.watcher) false 
-    else only.fold(_ == m.color, true)
+    else only.fold(true)(_ == m.color)
 }
 
 final class History(timeout: Int) {

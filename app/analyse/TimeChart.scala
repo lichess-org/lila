@@ -19,7 +19,7 @@ final class TimeChart(game: DbGame) {
   def rows = Json stringify {
     Json toJson {
       (game.player(White).moveTimeList zip game.player(Black).moveTimeList).zipWithIndex map {
-        case ((white, black), move) ⇒ List(move.toString, white, black)
+        case ((white, black), move) ⇒ Json.arr(move.toString, white, black)
       }
     }
   }

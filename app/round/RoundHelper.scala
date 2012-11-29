@@ -5,17 +5,15 @@ import http.Context
 import game.Pov
 import templating.ConfigHelper
 
-import com.codahale.jerkson.Json
+import play.api.libs.json.Json
 import scala.math.{ min, max, round }
 
 trait RoundHelper { self: ConfigHelper ⇒
 
-  def roundPlayerJsData(pov: Pov, version: Int) = Json generate {
-
+  def roundPlayerJsData(pov: Pov, version: Int) = {
     import pov._
-
-    Map(
-      "game" -> Map(
+    Json.obj(
+      "game" -> Json.obj(
         "id" -> gameId,
         "started" -> game.started,
         "finished" -> game.finishedOrAborted,
@@ -25,13 +23,13 @@ trait RoundHelper { self: ConfigHelper ⇒
         "turns" -> game.turns,
         "lastMove" -> game.lastMove
       ),
-      "player" -> Map(
+      "player" -> Json.obj(
         "id" -> player.id,
         "color" -> player.color.name,
         "version" -> version,
         "spectator" -> false
       ),
-      "opponent" -> Map(
+      "opponent" -> Json.obj(
         "color" -> opponent.color.name,
         "ai" -> opponent.isAi
       ),
@@ -41,12 +39,10 @@ trait RoundHelper { self: ConfigHelper ⇒
     )
   }
 
-  def roundWatcherJsData(pov: Pov, version: Int) = Json generate {
-
+  def roundWatcherJsData(pov: Pov, version: Int) = {
     import pov._
-
-    Map(
-      "game" -> Map(
+    Json.obj(
+      "game" -> Json.obj(
         "id" -> gameId,
         "started" -> game.started,
         "finished" -> game.finishedOrAborted,
@@ -56,12 +52,12 @@ trait RoundHelper { self: ConfigHelper ⇒
         "turns" -> game.turns,
         "lastMove" -> game.lastMove
       ),
-      "player" -> Map(
+      "player" -> Json.obj(
         "color" -> player.color.name,
         "version" -> version,
         "spectator" -> true
       ),
-      "opponent" -> Map(
+      "opponent" -> Json.obj(
         "color" -> opponent.color.name,
         "ai" -> opponent.isAi
       ),

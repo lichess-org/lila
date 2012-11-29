@@ -7,7 +7,7 @@ import round.GetNbHubs
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 import scala.concurrent.duration._
-import akka.util.{ Duration, Timeout }
+import akka.util.{ Timeout }
 import scala.concurrent.{ Future, Promise }
 import play.api.libs.concurrent._
 import play.api.Play.current
@@ -16,11 +16,10 @@ import java.lang.management.ManagementFactory
 import com.mongodb.casbah.MongoDB
 
 final class Reporting(
-  rpsProvider: RpsProvider,
-  mpsProvider: RpsProvider,
-  mongodb: MongoDB,
-  hub: ActorRef
-) extends Actor {
+    rpsProvider: RpsProvider,
+    mpsProvider: RpsProvider,
+    mongodb: MongoDB,
+    hub: ActorRef) extends Actor {
 
   case class SiteSocket(nbMembers: Int)
   case class LobbySocket(nbMembers: Int)
@@ -69,12 +68,13 @@ final class Reporting(
         (env.lobby.hub ? GetNbMembers).mapTo[Int],
         (env.round.hubMaster ? GetNbHubs).mapTo[Int],
         (env.round.hubMaster ? GetNbMembers).mapTo[Int]
-      )) onSuccess {
-        case List(
+      )) onComplete {
+        case Failure(e) ⇒ println("Reporting: " + e.getMessage)
+        case Success(List(
           siteMembers,
           lobbyMembers,
           gameHubs,
-          gameMembers) ⇒ {
+          gameMembers)) ⇒ {
           latency = (nowMillis - before).toInt
           site = SiteSocket(siteMembers)
           lobby = LobbySocket(lobbyMembers)
@@ -88,12 +88,7 @@ final class Reporting(
           mps = mpsProvider.rps
           cpu = ((cpuStats.getCpuUsage() * 1000).round / 10.0).toInt
           clientAi = env.ai.clientPing
-        }
-      } onComplete {
-        case Left(a) ⇒ println("Reporting: " + a.getMessage)
-        case a       ⇒ {
           hub ! MonitorData(monitorData)
-          //display()
         }
       }
     }
