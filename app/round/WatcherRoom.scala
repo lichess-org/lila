@@ -1,7 +1,7 @@
 package lila
 package round
 
-import controllers.routes.User.{ show => userRoute }
+import controllers.routes.User.{ show ⇒ userRoute }
 
 import com.novus.salat.annotations.Key
 import org.apache.commons.lang3.StringEscapeUtils.escapeXml
@@ -37,12 +37,9 @@ object WatcherRoom {
 
   def render(msg: Message): String =
     """<li><span>%s</span>%s</li>""".format(
-      msg.username.fold(
-        u ⇒ """<a class="user_link" href="%s">%s</a>""".format(
-          userRoute(u), u take 12
-        ),
-        "Anonymous"
-      ),
+      msg.username.fold("Anonymous") { u ⇒
+        """<a class="user_link" href="%s">%s</a>""".format(userRoute(u), u take 12)
+      },
       escapeXml(msg.text)
     )
 }

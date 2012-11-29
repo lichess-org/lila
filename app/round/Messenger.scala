@@ -34,24 +34,24 @@ final class Messenger(
     _ ← (nextWR.nonEmpty).fold(watcherRoomRepo insertIO nextWR, io())
   } yield ()
 
-  def playerMessage(ref: PovRef, text: String): IO[List[Event]] =
-    cleanupText(text).fold(
-      t ⇒ roomRepo.addMessage(ref.gameId, ref.color.name, t) map { _ ⇒
+  def playerMessage(ref: PovRef, text: String): IO[List[Event.Message]] = ~{
+    cleanupText(text) map { t ⇒
+      roomRepo.addMessage(ref.gameId, ref.color.name, t) map { _ ⇒
         List(Message(ref.color.name, t))
-      },
-      io(Nil)
-    )
+      }
+    }
+  }
 
   def watcherMessage(
     gameId: String,
     username: Option[String],
-    text: String): IO[List[Event]] =
-    cleanupText(text).fold(
-      t ⇒ watcherRoomRepo.addMessage(gameId, username, t) map { msg ⇒
+    text: String): IO[List[Event.WatcherMessage]] = ~{
+    cleanupText(text) map { t ⇒
+      watcherRoomRepo.addMessage(gameId, username, t) map { msg ⇒
         List(WatcherMessage(msg))
-      },
-      io(Nil)
-    )
+      }
+    }
+  }
 
   def systemMessages(game: DbGame, messages: List[SelectI18nKey]): IO[List[Event]] =
     game.hasChat.fold(

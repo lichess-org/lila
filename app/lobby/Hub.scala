@@ -17,7 +17,7 @@ final class Hub(
     case PingVersion(uid, v) ⇒ {
       ping(uid)
       withMember(uid) { m ⇒
-        history.since(v).fold(_ foreach m.channel.push, resync(m))
+        history.since(v).fold(resync(m))(_ foreach m.channel.push)
       }
     }
 
@@ -51,7 +51,7 @@ final class Hub(
     case AddHook(hook) ⇒ notifyVersion("hook_add", Seq(
       "id" -> JsString(hook.id),
       "username" -> JsString(hook.username),
-      "elo" -> hook.elo.fold(JsNumber(_), JsNull),
+      "elo" -> hook.elo.fold(JsNull)(JsNumber(_)),
       "mode" -> JsString(hook.realMode.toString),
       "variant" -> JsString(hook.realVariant.toString),
       "color" -> JsString(hook.color),

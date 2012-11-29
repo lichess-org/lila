@@ -8,6 +8,7 @@ import akka.util.Timeout
 import play.api.libs.json._
 import play.api.libs.iteratee._
 import play.api.libs.concurrent._
+import play.api.libs.concurrent.execution.Implicits._
 import scalaz.effects._
 
 import implicits.RichJs._
@@ -32,7 +33,7 @@ final class Socket(hub: ActorRef, flood: Flood) {
 
   def sysTalk(text: String): IO[Unit] = io { hub ! SysTalk(text) }
 
-  def unTalk(regex: util.matching.Regex): IO[Unit] = io { hub ! UnTalk(regex) }
+  def unTalk(regex: scala.util.matching.Regex): IO[Unit] = io { hub ! UnTalk(regex) }
 
   def join(
     uidOption: Option[String],
@@ -64,7 +65,7 @@ final class Socket(hub: ActorRef, flood: Flood) {
           hub ! Quit(uid)
         }
         (iteratee, enumerator)
-    }: SocketPromise
+    }: SocketFuture
     promise | Util.connectionFail
   }
 }

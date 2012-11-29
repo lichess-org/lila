@@ -74,10 +74,10 @@ object Hook {
       mode = mode.id,
       color = color,
       userId = user map (_.id),
-      username = user.fold(_.username, User.anonymous),
+      username = user.fold(User.anonymous)(_.username),
       elo = user map (_.elo),
       eloRange = eloRange.toString,
-      engine = user.fold(_.engine, false))
+      engine = ~user.map(_.engine))
   }
 
   private def generateId =

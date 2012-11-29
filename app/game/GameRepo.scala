@@ -77,12 +77,12 @@ final class GameRepo(collection: MongoCollection)
   // makes the asumption that player 0 is white!
   // proved to be true on prod DB at March 31 2012
   def setEloDiffs(id: String, white: Int, black: Int) = io {
-    update(idSelector(id), $set("p.0.ed" -> white, "p.1.ed" -> black))
+    update(idSelector(id), $set(Seq("p.0.ed" -> white, "p.1.ed" -> black)))
   }
 
   def setUser(id: String, color: Color, user: User) = io {
     val pn = "p.%d".format(color.fold(0, 1))
-    update(idSelector(id), $set(pn + ".uid" -> user.id, pn + ".elo" -> user.elo))
+    update(idSelector(id), $set(Seq(pn + ".uid" -> user.id, pn + ".elo" -> user.elo)))
   }
 
   def incBookmarks(id: String, value: Int) = io {
@@ -93,9 +93,9 @@ final class GameRepo(collection: MongoCollection)
     update(
       idSelector(id),
       winnerId.fold(userId ⇒
-        $set("wid" -> userId),
-        $set())
-        ++ $unset(
+        $set(Seq("wid" -> userId)),
+        $set(Seq.empty))
+        ++ $unset(Seq(
           "c.t",
           "ph",
           "lmt",
@@ -107,7 +107,7 @@ final class GameRepo(collection: MongoCollection)
           "p.1.isOfferingDraw",
           "p.0.isProposingTakeback",
           "p.1.isProposingTakeback"
-        )
+        ))
     )
   }
 
@@ -121,16 +121,16 @@ final class GameRepo(collection: MongoCollection)
 
   def denormalizeStarted(game: DbGame): IO[Unit] = io {
     val userIds = game.players.map(_.userId).flatten
-    if (userIds.nonEmpty) update(idSelector(game), $set("uids" -> userIds))
-    if (game.mode.rated) update(idSelector(game), $set("ra" -> true))
-    if (game.variant.exotic) update(idSelector(game), $set("if" -> (Forsyth >> game.toChess)))
+    if (userIds.nonEmpty) update(idSelector(game), $set(Seq("uids" -> userIds)))
+    if (game.mode.rated) update(idSelector(game), $set(Seq("ra" -> true)))
+    if (game.variant.exotic) update(idSelector(game), $set(Seq("if" -> (Forsyth >> game.toChess))))
   }
 
   def saveNext(game: DbGame, nextId: String): IO[Unit] = io {
     update(
       idSelector(game),
-      $set("next" -> nextId) ++
-        $unset("p.0.isOfferingRematch", "p.1.isOfferingRematch")
+      $set(Seq("next" -> nextId)) ++
+        $unset(Seq("p.0.isOfferingRematch", "p.1.isOfferingRematch"))
     )
   }
 

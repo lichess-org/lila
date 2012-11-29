@@ -10,7 +10,7 @@ import scalaz.effects._
 import scala.concurrent.Future
 import play.api.Play.current
 import play.api.libs.concurrent._
-import play.api.libs.concurrent.execution.Implicits._
+import play.api.libs.concurrent.Execution.Implicits._
 
 final class Ai(server: Server) extends lila.ai.Ai with Stockfish {
 

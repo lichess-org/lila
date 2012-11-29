@@ -17,7 +17,7 @@ trait Resolvers {
 trait Dependencies {
   val scalaz = "org.scalaz" % "scalaz-core_2.10.0-RC3" % "6.0.4"
   val salat = "com.novus" % "salat-core_2.9.2" % "1.9.1"
-  val scalalib = "com.github.ornicar" % "scalalib_2.9.1" % "2.5"
+  val scalalib = "com.github.ornicar" %% "scalalib" % "3.1"
   val config = "com.typesafe" % "config" % "1.0.0"
   val guava = "com.google.guava" % "guava" % "13.0.1"
   val apache = "org.apache.commons" % "commons-lang3" % "3.1"

@@ -22,12 +22,12 @@ trait GameHelper { self: I18nHelper with UserHelper with StringHelper with AiHel
   }
 
   def clockName(clock: Option[Clock])(implicit ctx: Context): String =
-    clock.fold(clockName, trans.unlimited.str())
+    clock.fold(Namer.clock, trans.unlimited.str())
 
   def clockName(clock: Clock): String = Namer clock clock
 
   def shortClockName(clock: Option[Clock])(implicit ctx: Context): String =
-    clock.fold(shortClockName, trans.unlimited.str())
+    clock.fold(Namer.shortClock, trans.unlimited.str())
 
   def shortClockName(clock: Clock): String = Namer shortClock clock
 
@@ -89,10 +89,9 @@ trait GameHelper { self: I18nHelper with UserHelper with StringHelper with AiHel
   def gameFen(game: DbGame, color: Color, ownerLink: Boolean = false)(implicit ctx: Context) = Html {
     val owner = ownerLink.fold(ctx.me flatMap game.player, none)
     var live = game.isBeingPlayed
-    val url = owner.fold(
-      o ⇒ routes.Round.player(game fullIdOf o.color),
-      routes.Round.watcher(game.id, color.name)
-    )
+    val url = owner.fold(routes.Round.watcher(game.id, color.name)) { o =>
+      routes.Round.player(game fullIdOf o.color)
+    }
     """<a href="%s" title="%s" class="mini_board parse_fen %s" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"></a>""".format(
       url,
       trans.viewInFullSize(),

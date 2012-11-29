@@ -10,8 +10,9 @@ import play.api.mvc._
 import play.api.http.ContentTypes
 import play.api.templates.Html
 import play.api.libs.concurrent._
+import play.api.libs.concurrent.execution.Implicits._
 import scalaz.effects._
-import scala.util.{Try, Success, Failure}
+import scala.util.{ Try, Success, Failure }
 
 object Analyse extends LilaController {
 
@@ -71,7 +72,7 @@ object Analyse extends LilaController {
   def pgn(id: String) = Open { implicit ctx ⇒
     IOResult(for {
       gameOption ← gameRepo game id
-      res ← gameOption.fold(io(NotFound("No such game")), { game =>
+      res ← gameOption.fold(io(NotFound("No such game"))) { game ⇒
         for {
           pgnString ← pgnRepo get id
           pgnObj ← pgnDump(game, pgnString)

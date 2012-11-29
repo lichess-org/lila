@@ -35,7 +35,7 @@ final class Hub(
         playerTime(o.color, lastPingTime)
       }
       withMember(uid) { m ⇒
-        history.since(v).fold(batch(m, _), resync(m))
+        history.since(v).fold(resync(m))(batch(m, _))
       }
     }
 

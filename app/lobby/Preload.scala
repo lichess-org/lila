@@ -37,26 +37,26 @@ final class Preload(
     posts: IO[List[PostView]],
     tours: IO[List[Created]]): Future[Response] =
     myHook.flatMap(_.gameId).fold(
-      gameId ⇒ futureGame(gameId) map { gameOption ⇒
-        Left(gameOption.fold(
-          game ⇒ routes.Round.player(game fullIdOf game.creatorColor),
-          routes.Lobby.home()
-        )): Response
-      },
-      futureHooks(auth) zip 
-      futureMessages(chat) zip 
-      ioToFuture(timeline) zip
-      ioToFuture(posts) zip
-      ioToFuture(tours) zip
-      featured.one map {
-        case (((((hooks, messages), entries), posts), tours), feat) ⇒ (Right((Map(
-          "version" -> history.version,
-          "pool" -> renderHooks(hooks, myHook),
-          "chat" -> (messages.reverse map (_.render)),
-          "timeline" -> (entries.reverse map (_.render))
-        ), posts, tours, feat))): Response
+      futureHooks(auth) zip
+        futureMessages(chat) zip
+        ioToFuture(timeline) zip
+        ioToFuture(posts) zip
+        ioToFuture(tours) zip
+        featured.one map {
+          case (((((hooks, messages), entries), posts), tours), feat) ⇒ (Right((Map(
+            "version" -> history.version,
+            "pool" -> renderHooks(hooks, myHook),
+            "chat" -> (messages.reverse map (_.render)),
+            "timeline" -> (entries.reverse map (_.render))
+          ), posts, tours, feat))): Response
+        }) { gameId ⇒
+        futureGame(gameId) map { gameOption ⇒
+          Left(gameOption.fold(
+            game ⇒ routes.Round.player(game fullIdOf game.creatorColor),
+            routes.Lobby.home()
+          )): Response
+        }
       }
-    )
 
   private def futureHooks(auth: Boolean): Future[List[Hook]] = ioToFuture {
     auth.fold(hookRepo.allOpen, hookRepo.allOpenCasual)

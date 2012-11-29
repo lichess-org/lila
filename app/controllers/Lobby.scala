@@ -8,7 +8,7 @@ import views._
 import play.api.mvc._
 import play.api.libs.json.JsValue
 import play.api.libs.concurrent._
-import play.api.libs.concurrent.execution.Implicits._
+import play.api.libs.concurrent.Execution.Implicits._
 import scala.concurrent.{ Future, Promise }
 import scalaz.effects._
 

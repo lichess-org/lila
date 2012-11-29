@@ -45,8 +45,8 @@ object TransInfos {
         lang = Lang(code),
         name = name,
         contributors = Contributors(code),
-        nbTranslated = (api.messages get code).fold(_.size, 0),
-        nbMissing = nbMessages - (api.messages get code).fold(_.size, 0)
+        nbTranslated = ~(api.messages get code map (_.size)),
+        nbMissing = nbMessages - ~(api.messages get code map (_.size))
       )
     }
   }

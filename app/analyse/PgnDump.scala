@@ -37,9 +37,11 @@ final class PgnDump(
 
   private def elo(p: DbPlayer) = p.elo.fold("?")(_.toString)
 
-  private def user(p: DbPlayer): IO[Option[User]] = p.userId.fold(io(none[User]))(userRepo.byId)
+  private def user(p: DbPlayer): IO[Option[User]] = 
+    p.userId.fold(io(none[User]))(userRepo.byId)
 
-  private def player(p: DbPlayer, u: Option[User]) = p.aiLevel.fold(u.fold(_.username, "Anonymous"))("AI level " + _)
+  private def player(p: DbPlayer, u: Option[User]) = 
+    p.aiLevel.fold(u.fold("Anonymous")(_.username))("AI level " + _)
 
   private def tags(game: DbGame): IO[List[Tag]] = for {
     whiteUser ← user(game.whitePlayer)

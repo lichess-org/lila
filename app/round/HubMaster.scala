@@ -40,10 +40,9 @@ final class HubMaster(
       }
     }
 
-    case msg @ GetGameVersion(gameId) ⇒ (hubs get gameId).fold(
-      _ ? msg pipeTo sender,
-      sender ! 0
-    )
+    case msg @ GetGameVersion(gameId) ⇒ (hubs get gameId).fold(sender ! 0) {
+      _ ? msg pipeTo sender
+    }
 
     case msg @ AnalysisAvailable(gameId) ⇒
       hubs get gameId foreach (_ forward msg)
@@ -53,11 +52,13 @@ final class HubMaster(
       hubs = hubs - gameId
     }
 
-    case msg @ IsConnectedOnGame(gameId, color) ⇒ (hubs get gameId).fold(
-      _ ? msg pipeTo sender, sender ! false)
+    case msg @ IsConnectedOnGame(gameId, color) ⇒ (hubs get gameId).fold(sender ! false) {
+      _ ? msg pipeTo sender
+    }
 
-    case msg @ IsGone(gameId, color) ⇒ (hubs get gameId).fold(
-      _ ? msg pipeTo sender, sender ! false)
+    case msg @ IsGone(gameId, color) ⇒ (hubs get gameId).fold(sender ! false) {
+      _ ? msg pipeTo sender
+    }
 
     case GetNbHubs ⇒ sender ! hubs.size
 

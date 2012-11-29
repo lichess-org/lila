@@ -23,7 +23,7 @@ object Member {
     color: Color,
     owner: Boolean): Member = {
     val username = user map (_.username)
-    val muted = user.fold(_.muted, false)
+    val muted = ~user.map(_.muted)
     owner.fold(
       Owner(channel, username, color, muted),
       Watcher(channel, username, color, muted))

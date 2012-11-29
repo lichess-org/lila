@@ -32,7 +32,7 @@ final class Finisher(
     if (pov.game.abortable) finish(pov.game, Aborted)
     else !!("game is not abortable")
 
-  def forceAbort(game: DbGame): ValidIOEvents = 
+  def forceAbort(game: DbGame): ValidIOEvents =
     if (game.playable) finish(game, Aborted)
     else !!("game is not playable, cannot be force aborted")
 
@@ -56,10 +56,10 @@ final class Finisher(
     else !!("opponent is not proposing a draw")
 
   def outoftime(game: DbGame): ValidIOEvents = game.outoftimePlayer.fold(
-    player ⇒ finish(game, Outoftime,
-      Some(!player.color) filter game.toChess.board.hasEnoughMaterialToMate),
-    !!("no outoftime applicable " + game.clock.fold(_.remainingTimes, "-"))
-  )
+    !!("no outoftime applicable " + game.clock.fold("-")(_.remainingTimes.toString))
+  ) { player ⇒ 
+    finish(game, Outoftime, Some(!player.color) filter game.toChess.board.hasEnoughMaterialToMate)
+  }
 
   def outoftimes(games: List[DbGame]): List[IO[Unit]] =
     games map { g ⇒
@@ -85,10 +85,9 @@ final class Finisher(
     else success(for {
       _ ← finisherLock lock game
       p1 = game.finish(status, winner)
-      p2 ← message.fold(
-        m ⇒ messenger.systemMessage(p1.game, m) map p1.++,
-        io(p1)
-      )
+      p2 ← message.fold(io(p1)) { m ⇒
+        messenger.systemMessage(p1.game, m) map p1.++
+      }
       _ ← gameRepo save p2
       g = p2.game
       winnerId = winner flatMap (g.player(_).userId)
@@ -101,12 +100,11 @@ final class Finisher(
     } yield p2.events)
 
   private def incNbGames(game: DbGame, color: Color): IO[Unit] =
-    game.player(color).userId.fold(
-      id ⇒ userRepo.incNbGames(id, game.rated, game.hasAi,
-        result = game.wonBy(color).fold(_.fold(1, -1), 0).some filterNot (_ ⇒ game.hasAi || game.aborted)
-      ),
-      io()
-    )
+    game.player(color).userId.fold(io()) { id ⇒
+      userRepo.incNbGames(id, game.rated, game.hasAi,
+        result = game.wonBy(color).fold(0)(_.fold(1, -1)).some filterNot (_ ⇒ game.hasAi || game.aborted)
+      )
+    }
 
   private def updateElo(game: DbGame): IO[Unit] =
     if (!game.finished || !game.rated || game.turns < 2) io()
@@ -129,7 +127,7 @@ final class Finisher(
               _ ← eloUpdater.game(blackUser, blackElo, game.id) doUnless cheaterWin
             } yield ()
           }
-        ).fold(identity, io())
+        ).fold(io())(identity)
       } yield ()
     } | io()
 }

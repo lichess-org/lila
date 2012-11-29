@@ -16,7 +16,7 @@ final class PgnRepo(collection: MongoCollection) {
   def save(id: String, pgn: String): IO[Unit] = io {
     collection.update(
       idSelector(id), 
-      $set("p" -> pgn), 
+      $set(Seq("p" -> pgn)), 
       upsert = true, 
       multi = false, 
       concern = WriteConcern.None)

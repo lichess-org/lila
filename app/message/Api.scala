@@ -25,13 +25,10 @@ final class Api(
 
   def thread(id: String, me: User): IO[Option[Thread]] = for {
     threadOption ← threadRepo byId id map (_ filter (_ hasUser me))
-    _ ← threadOption.filter(_ isUnReadBy me).fold(
-      thread ⇒ for {
-        _ ← threadRepo setRead thread
-        _ ← updateUser(me)
-      } yield (),
-      io()
-    )
+    _ ← ~threadOption.filter(_ isUnReadBy me).map(thread ⇒ for {
+      _ ← threadRepo setRead thread
+      _ ← updateUser(me)
+    } yield ())
   } yield threadOption
 
   def makeThread(data: DataForm.ThreadData, me: User) = {
@@ -64,6 +61,6 @@ final class Api(
 
   def deleteThread(id: String, me: User): IO[Unit] = for {
     threadOption ← thread(id, me)
-    _ ← threadOption.fold(threadRepo.deleteFor(me), io())
+    _ ← ~threadOption.map(threadRepo.deleteFor(me))
   } yield ()
 }

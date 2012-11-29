@@ -36,7 +36,9 @@ final class Analyser(
       gameOption ← ioToFuture(gameRepo game id)
       pgnString ← ioToFuture(pgnRepo get id)
       result ← gameOption.filterNot(_ ⇒ userInProgress).fold(
-        game ⇒ for {
+        Future(!!("No such game " + id): Valid[Analysis])
+      ) { game ⇒ 
+        for {
           _ ← ioToFuture(analysisRepo.progress(id, userId))
           initialFen ← ioToFuture(gameRepo initialFen id)
           analysis ← generator()(pgnString, initialFen)
@@ -47,9 +49,8 @@ final class Analyser(
             } yield (),
             analysisRepo.done(id, _)
           ))
-        } yield analysis,
-        Future(!!("No such game " + id): Valid[Analysis])
-      )
+        } yield analysis
+      }
     } yield result) { x ⇒ Future(success(x)) }
   } yield b
 
