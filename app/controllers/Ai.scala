@@ -8,7 +8,7 @@ import mvc._
 
 import play.api.libs.concurrent._
 import play.api.Play.current
-import akka.dispatch.Future
+import scala.concurrent.Future
 
 object Ai extends LilaController {
 
@@ -24,7 +24,7 @@ object Ai extends LilaController {
           pgn = getOr("pgn", ""),
           initialFen = get("initialFen"),
           level = getIntOr("level", 1)
-        ).asPromise map (_.fold(
+        ) map (_.fold(
             err ⇒ BadRequest(err.shows),
             Ok(_)
           ))
@@ -39,7 +39,7 @@ object Ai extends LilaController {
         stockfishServer.analyse(
           pgn = getOr("pgn", ""),
           initialFen = get("initialFen")
-        ).asPromise map (_.fold(
+        ) map (_.fold(
             err ⇒ InternalServerError(err.shows),
             analyse ⇒ Ok(analyse.encode)
           ))
@@ -50,10 +50,7 @@ object Ai extends LilaController {
   def reportStockfish = Action { implicit req ⇒
     IfServer {
       Async {
-        env.ai.stockfishServerReport.fold(
-          _ map { Ok(_) },
-          Future(NotFound)
-        ).asPromise
+        env.ai.stockfishServerReport.fold(Future(NotFound)) { _ map { Ok(_) } }
       }
     }
   }

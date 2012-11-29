@@ -130,15 +130,12 @@ case class DbGame(
       ps = player encodePieces game.allPieces,
       blurs = player.blurs + (blur && move.color == player.color).fold(1, 0),
       moveTimes = (move.color == player.color).fold(
-        lastMoveTime.fold(
-          lmt ⇒ (nowSeconds - lmt) |> { mt ⇒
+        lastMoveTime.fold("") { lmt ⇒
+          (nowSeconds - lmt) |> { mt ⇒
             val encoded = MoveTime encode mt
             player.moveTimes.isEmpty.fold(encoded.toString, player.moveTimes + encoded)
-          },
-          ""
-        ),
-        player.moveTimes)
-    )
+          }
+        }, player.moveTimes))
 
     val updated = copy(
       whitePlayer = copyPlayer(whitePlayer),
@@ -158,7 +155,7 @@ case class DbGame(
     )
 
     val finalEvents = events :::
-      updated.clock.fold(c ⇒ List(Event.Clock(c)), Nil) ::: {
+      ~updated.clock.map(c ⇒ List(Event.Clock(c))) ::: {
         (updated.playable && (
           abortable != updated.abortable || (Color.all exists { color ⇒
             playerCanOfferDraw(color) != updated.playerCanOfferDraw(color)
@@ -185,10 +182,9 @@ case class DbGame(
     updatedAt = DateTime.now.some
   ))
 
-  def startClock(compensation: Float) = clock filterNot (_.isRunning) fold (
-    c ⇒ copy(clock = c.run.giveTime(creatorColor, compensation).some),
-    this
-  )
+  def startClock(compensation: Float) = clock.filterNot(_.isRunning).fold(this) { c ⇒
+    copy(clock = c.run.giveTime(creatorColor, compensation).some)
+  }
 
   def hasMoveTimes = players forall (_.hasMoveTimes)
 
@@ -222,7 +218,7 @@ case class DbGame(
       !(playerHasOfferedDraw(color))
 
   def playerHasOfferedDraw(color: Color) =
-    player(color).lastDrawOffer.fold(_ >= turns - 1, false)
+    player(color).lastDrawOffer.fold(false)(_ >= turns - 1)
 
   def playerCanRematch(color: Color) =
     finishedOrAborted && opponent(color).isHuman && nonTournament
@@ -273,14 +269,11 @@ case class DbGame(
 
   def hasClock = clock.isDefined
 
-  def isClockRunning = clock.fold(_.isRunning, false)
+  def isClockRunning = clock.fold(false)(_.isRunning)
 
   def withClock(c: Clock) = Progress(this, copy(clock = Some(c)))
 
-  def estimateTotalTime = clock.fold(
-    c ⇒ c.limit + 30 * c.increment,
-    1200 // default to 20 minutes
-  )
+  def estimateTotalTime = clock.fold(1200) { c ⇒ c.limit + 30 * c.increment }
 
   def creator = player(creatorColor)
 
@@ -310,12 +303,11 @@ case class DbGame(
   }
 
   def isBeingPlayed =
-    !finishedOrAborted && updatedAt.fold(_ > DateTime.now - 20.seconds, false)
+    !finishedOrAborted && updatedAt.fold(false)(_ > DateTime.now - 20.seconds)
 
-  def abandoned = updatedAt.fold(
-    u ⇒ (status <= Status.Started) && (u <= DbGame.abandonedDate),
-    false
-  )
+  def abandoned = updatedAt.fold(false) { u =>
+    (status <= Status.Started) && (u <= DbGame.abandonedDate)
+  }
 
   def hasBookmarks = bookmarks > 0
 
@@ -437,7 +429,7 @@ case class RawDbGame(
     clock = c map (_.decode),
     lastMove = lm,
     check = ck flatMap Pos.posAt,
-    creatorColor = cc.fold(Color.apply, Color.White),
+    creatorColor = cc.fold(Color.white)(Color.apply),
     positionHashes = ph | "",
     castles = cs | "-",
     mode = (ra map Mode.apply) | Mode.Casual,

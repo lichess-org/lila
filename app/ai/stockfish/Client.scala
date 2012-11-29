@@ -8,10 +8,11 @@ import game.DbGame
 import analyse.Analysis
 
 import scalaz.effects._
-import akka.dispatch.Future
+import scala.concurrent.Future
 import scala.concurrent.duration._
 import play.api.Play.current
 import play.api.libs.concurrent._
+import play.api.libs.concurrent.execution.Implicits._
 import play.api.libs.ws.WS
 
 final class Client(
@@ -38,26 +39,17 @@ final class Client(
   }
 
   private def fetchMove(pgn: String, initialFen: String, level: Int): Future[String] =
-    toAkkaFuture(WS.url(playUrl).withQueryString(
+    WS.url(playUrl).withQueryString(
       "pgn" -> pgn,
       "initialFen" -> initialFen,
       "level" -> level.toString
-    ).get() map (_.body))
+    ).get() map (_.body)
 
   private def fetchAnalyse(pgn: String, initialFen: String): Future[String] =
-    toAkkaFuture(WS.url(analyseUrl).withQueryString(
+    WS.url(analyseUrl).withQueryString(
       "pgn" -> pgn,
       "initialFen" -> initialFen
-    ).get() map (_.body))
+    ).get() map (_.body)
 
   private implicit val executor = Akka.system.dispatcher
-
-  private def toAkkaFuture[A](promise: Promise[A]): Future[A] = {
-    val p = akka.dispatch.Promise[A]()
-    promise extend1 {
-      case Redeemed(value) ⇒ p success value
-      case Thrown(exn)     ⇒ p failure exn
-    }
-    p.future
-  }
 }

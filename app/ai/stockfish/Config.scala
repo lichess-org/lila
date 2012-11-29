@@ -44,7 +44,7 @@ final class Config(settings: Settings) {
       setoption("OwnBook", true),
       "isready"))
 
-  def go(task: Task) = task.fold(
+  def go(task: Task): List[String] = task.fold(
     play ⇒ List(
       position(play.fen, play.moves),
       "go movetime %d%s".format(
@@ -62,7 +62,7 @@ final class Config(settings: Settings) {
   private def analyseMoveTime = settings.AiStockfishAnalyseMoveTime
 
   private def position(fen: Option[String], moves: String) =
-    "position %s moves %s".format(fen.fold("fen " + _, "startpos"), moves)
+    "position %s moves %s".format(fen.fold("startpos")("fen " + _), moves)
 
   private def setoption(name: String, value: Any) =
     "setoption name %s value %s".format(name, value)

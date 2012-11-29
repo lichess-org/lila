@@ -5,6 +5,7 @@ import play.api.libs.concurrent.Promise
 import play.api.libs.iteratee.{ Iteratee, Enumerator }
 import play.api.libs.iteratee.Concurrent.Channel
 import play.api.Play.current
+import scala.concurrent.{ Future, Promise }
 
 import com.novus.salat.{ Context, TypeHintFrequency, StringTypeHintStrategy }
 import com.mongodb.casbah.commons.conversions.scala.RegisterJodaTimeConversionHelpers
@@ -20,6 +21,7 @@ package object lila
     with scalaz.NonEmptyLists
     with scalaz.Strings
     with scalaz.Lists
+    with scalaz.Zeros
     with scalaz.Booleans {
 
   type JsChannel = Channel[JsValue]

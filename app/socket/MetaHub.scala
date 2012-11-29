@@ -5,7 +5,7 @@ import akka.actor.ActorRef
 import akka.pattern.{ ask, pipe }
 import scala.concurrent._
 import scala.concurrent.duration._
-import akka.util.{ Duration, Timeout }
+import akka.util.{ Timeout }
 import play.api.libs.concurrent._
 import play.api.Play.current
 import play.api.libs.json._

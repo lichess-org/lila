@@ -47,19 +47,19 @@ trait GameHelper { self: I18nHelper with UserHelper with StringHelper with AiHel
     player.userId.fold(
       """<span class="user_link %s">%s</span>""".format(
         cssClass | "",
-        player.aiLevel.fold(aiName, User.anonymous)
+        player.aiLevel.fold(User.anonymous)(aiName)
       )
     ) { userId ⇒
         userIdToUsername(userId) |> { username ⇒
           """<a class="user_link%s%s" href="%s">%s%s</a>""".format(
-            cssClass.fold(" " + _, ""),
+            ~cssClass.map(" " + _),
             withOnline.fold(
               isUsernameOnline(username).fold(" online", " offline"),
               ""),
             routes.User.show(username),
-            usernameWithElo(player) + player.eloDiff.filter(_ ⇒ withDiff).fold(
-              diff ⇒ " (%s)".format(showNumber(diff)),
-              ""),
+            usernameWithElo(player) + ~(player.eloDiff filter (_ ⇒ withDiff) map { diff ⇒
+              " (%s)".format(showNumber(diff))
+            }),
             engine.fold(
               """<span class="engine_mark" title="%s"></span>""" format trans.thisPlayerUsesChessComputerAssistance(),
               "")

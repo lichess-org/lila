@@ -37,7 +37,7 @@ final class Translator(api: MessagesApi, pool: I18nPool) {
     Some(if (args.isEmpty) pattern else pattern.format(args: _*))
   }
   catch {
-    case e ⇒ {
+    case e: Exception ⇒ {
       println("Failed to translate %s -> %s (%s) - %s".format(
         key, pattern, args, e.getMessage))
       None

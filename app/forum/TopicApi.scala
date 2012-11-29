@@ -12,9 +12,7 @@ final class TopicApi(env: ForumEnv, maxPerPage: Int) {
   def show(categSlug: String, slug: String, page: Int): IO[Option[(Categ, Topic, Paginator[Post])]] =
     for {
       data ← get(categSlug, slug)
-      _ ← data.fold({
-        case (_, topic) ⇒ env.topicRepo incViews topic
-      }, io())
+      _ ← data.fold(io())({ case (_, topic) ⇒ env.topicRepo incViews topic })
     } yield data map {
       case (categ, topic) ⇒ (categ, topic, env.postApi.paginator(topic, page))
     }

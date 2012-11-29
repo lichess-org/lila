@@ -54,7 +54,7 @@ final class Api(
     for {
       _ ← threadRepo saveIO newThread
       receiver ← userRepo byId (thread receiverOf post)
-      _ ← receiver.fold(updateUser, io())
+      _ ← receiver.fold(io())(updateUser)
     } yield thread
   }
 

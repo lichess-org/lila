@@ -2,7 +2,8 @@ package lila
 package ai
 
 import scalaz.effects._
-import akka.dispatch.Future
+import scala.concurrent.Future
+import play.api.libs.concurrent.execution.Implicits._
 
 trait Client extends Ai {
 
@@ -36,7 +37,7 @@ trait Client extends Ai {
     ping = p
   }
 
-  private def isHealthy(p: Option[Int]) = p.fold(isFast, false)
+  private def isHealthy(p: Option[Int]) = p.fold(false)(isFast)
 
   private def isFast(p: Int) = p < pingAlert
 }

@@ -28,13 +28,13 @@ object Monitor extends LilaController {
 
   def status = Action {
     Async {
-      (reporting ? GetStatus).mapTo[String].asPromise map { Ok(_) }
+      (reporting ? GetStatus).mapTo[String] map { Ok(_) }
     }
   }
 
   def nbPlayers = Action {
     Async {
-      (reporting ? GetNbMembers).mapTo[Int].asPromise map { players ⇒
+      (reporting ? GetNbMembers).mapTo[Int] map { players ⇒
         Ok("%d %d".format(players, usernameMemo.preciseCount))
       }
     }
@@ -42,7 +42,7 @@ object Monitor extends LilaController {
 
   def nbMoves = Action {
     Async {
-      (reporting ? GetNbMoves).mapTo[Int].asPromise map { Ok(_) }
+      (reporting ? GetNbMoves).mapTo[Int] map { Ok(_) }
     }
   }
 }

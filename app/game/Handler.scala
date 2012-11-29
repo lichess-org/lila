@@ -2,7 +2,7 @@ package lila
 package game
 
 import scalaz.effects._
-import akka.dispatch.Future
+import scala.concurrent.Future
 
 abstract class Handler(gameRepo: GameRepo) extends core.Futuristic {
 

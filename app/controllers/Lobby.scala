@@ -8,7 +8,8 @@ import views._
 import play.api.mvc._
 import play.api.libs.json.JsValue
 import play.api.libs.concurrent._
-import akka.dispatch.Future
+import play.api.libs.concurrent.execution.Implicits._
+import scala.concurrent.{ Future, Promise }
 import scalaz.effects._
 
 object Lobby extends LilaController with Results {
@@ -44,7 +45,7 @@ object Lobby extends LilaController with Results {
           posts,
           tours,
           featured))
-      })).asPromise
+      }))
 
   def socket = WebSocket.async[JsValue] { implicit req ⇒
     implicit val ctx = reqToCtx(req)
@@ -59,11 +60,8 @@ object Lobby extends LilaController with Results {
   def hook(ownerId: String) = Open { implicit ctx ⇒
     Async {
       hookRepo.ownedHook(ownerId).unsafePerformIO.fold(
-        hook ⇒ renderHome(hook.some, Ok),
-        Promise.pure {
-          Redirect(routes.Lobby.home)
-        }
-      )
+        Promise pure { Redirect(routes.Lobby.home) }
+      ) { hook ⇒ renderHome(hook.some, Ok) }
     }
   }
 
@@ -72,7 +70,7 @@ object Lobby extends LilaController with Results {
       val myHookId = get("cancel")
       joiner(hookId, myHookId)(ctx.me) map { result ⇒
         result.fold(
-          _ ⇒ myHookId.fold(routes.Lobby.hook(_), routes.Lobby.home),
+          _ ⇒ myHookId.fold(routes.Lobby.home)(routes.Lobby.hook(_)),
           pov ⇒ routes.Round.player(pov.fullId))
       }
     }
@@ -82,7 +80,7 @@ object Lobby extends LilaController with Results {
     IORedirect {
       for {
         hook ← hookRepo ownedHook ownerId
-        _ ← hook.fold(fisherman.delete, io())
+        _ ← hook.fold(io())(fisherman.delete)
       } yield routes.Lobby.home
     }
   }

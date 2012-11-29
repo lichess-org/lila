@@ -8,7 +8,7 @@ import akka.actor._
 import akka.pattern.{ ask, pipe }
 import scala.concurrent.duration._
 import akka.util.{ Duration, Timeout }
-import akka.dispatch.{ Future, Promise }
+import scala.concurrent.{ Future, Promise }
 import play.api.libs.concurrent._
 import play.api.Play.current
 import scala.io.Source

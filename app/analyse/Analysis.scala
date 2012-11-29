@@ -158,7 +158,7 @@ case class Info(
     encode(mate)
   ) mkString Info.separator
 
-  private def encode(oa: Option[Any]): String = oa.fold(_.toString, "_")
+  private def encode(oa: Option[Any]): String = oa.fold("_")(_.toString)
 }
 
 object Info {

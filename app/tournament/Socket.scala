@@ -5,7 +5,7 @@ import akka.actor._
 import akka.pattern.ask
 import scala.concurrent.duration._
 import akka.util.Timeout
-import akka.dispatch.Await
+import scala.concurrent.Await
 import play.api.libs.json._
 import play.api.libs.iteratee._
 import play.api.libs.concurrent._
@@ -73,7 +73,7 @@ final class Socket(
                     },
                     enumerator)
               }
-          } yield socket).asPromise: SocketPromise
+          } yield socket): SocketPromise
       }) | connectionFail
     }
 

@@ -9,7 +9,7 @@ import core.Global
 import play.api.mvc._
 import play.api.data.Form
 import play.api.http._
-import com.codahale.jerkson.Json
+import play.api.libs.json.Json
 import scalaz.effects._
 
 trait LilaController
@@ -25,7 +25,7 @@ trait LilaController
   override implicit def lang(implicit req: RequestHeader) =
     env.i18n.pool.lang(req)
 
-  protected def toJson(map: Map[String, Any]) = Json generate map
+  protected def toJson(map: Map[String, Any]) = Json toJson map
 
   protected def Open(f: Context ⇒ Result): Action[AnyContent] =
     Open(BodyParsers.parse.anyContent)(f)
@@ -77,9 +77,9 @@ trait LilaController
   protected def NoEngine[A <: Result](a: ⇒ A)(implicit ctx: Context): Result =
     ctx.me.fold(false)(_.engine).fold(Forbidden(views.html.site.noEngine()), a)
 
-  protected def JsonOk(map: Map[String, Any]) = Ok(toJson(map)) as JSON
+  protected def JsonOk(map: Map[String, Any]) = Ok(Json toJson map) as JSON
 
-  protected def JsonOk(list: List[Any]) = Ok(Json generate list) as JSON
+  protected def JsonOk(list: List[Any]) = Ok(Json toJson list) as JSON
 
   protected def JsonIOk(map: IO[Map[String, Any]]) = JsonOk(map.unsafePerformIO)
 
@@ -134,16 +134,16 @@ trait LilaController
     implicit writer: Writeable[B],
     ctype: ContentTypeOf[B],
     ctx: Context) =
-    ioa.unsafePerformIO.fold(a ⇒ Ok(op(a)), notFound(ctx))
+    ioa.unsafePerformIO.fold(notFound(ctx))(a ⇒ Ok(op(a)))
 
   protected def IOptionIOk[A, B](ioa: IO[Option[A]])(op: A ⇒ IO[B])(
     implicit writer: Writeable[B],
     ctype: ContentTypeOf[B],
     ctx: Context) =
     ioa flatMap { aOption ⇒
-      aOption.fold(
-        a ⇒ op(a) map { Ok(_) },
-        io(notFound(ctx))): IO[Result]
+      aOption.fold(io(notFound(ctx))) { a =>
+        a ⇒ op(a) map { Ok(_) }
+      }//: IO[Result]
     } unsafePerformIO
 
   protected def IOptionIOResult[A](ioa: IO[Option[A]])(op: A ⇒ IO[Result])(implicit ctx: Context) =

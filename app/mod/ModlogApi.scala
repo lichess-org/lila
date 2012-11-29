@@ -25,7 +25,7 @@ final class ModlogApi(repo: ModlogRepo) {
 
   def deletePost(mod: User, userId: Option[String], author: Option[String], ip: Option[String], text: String) = add {
     Modlog(mod.id, userId, Modlog.deletePost, details = Some(
-      author.fold(_ + " ", "") + ip.fold(_ + " ", "") + text.take(140)
+      author.fold("")(_ + " ") + ip.fold("")(_ + " ") + text.take(140)
     ))
   }
 
