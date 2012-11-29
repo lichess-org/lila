@@ -140,11 +140,11 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
   def players(gameId: String) = Open { implicit ctx ⇒
     import templating.Environment.playerLink
     JsonIOk(gameRepo game gameId map { gameOption ⇒
-      gameOption.fold(Map()) { game ⇒
+      ~(gameOption map { game ⇒
         (game.players collect {
           case player if player.isHuman ⇒ player.color.name -> playerLink(player).text
-        } toMap) ++ ctx.me.fold(me ⇒ Map("me" -> me.usernameWithElo), Map())
-      }
+        } toMap) ++ ~ctx.me.map(me ⇒ Map("me" -> me.usernameWithElo))
+      })
     })
   }
 

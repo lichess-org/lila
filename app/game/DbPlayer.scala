@@ -42,7 +42,7 @@ case class DbPlayer(
 
   def hasUser = userId.isDefined
 
-  def isUser(u: User) = userId.fold(_ == u.id, false)
+  def isUser(u: User) = userId.fold(false)(_ == u.id)
 
   def wins = isWinner getOrElse false
 

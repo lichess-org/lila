@@ -9,9 +9,8 @@ import analyse.Analysis
 import model.{ GetQueueSize, QueueSize }
 
 import akka.util.Timeout
-import scala.concurrent.Duration
 import scala.concurrent.duration._
-import akka.dispatch.{ Future, Await }
+import scala.concurrent.{ Future, Await }
 import akka.actor.{ Props, Actor, ActorRef, Kill }
 import akka.pattern.{ ask, AskTimeoutException }
 import play.api.Play.current
@@ -30,7 +29,7 @@ final class Server(
     } yield play).fold(
       err ⇒ Future(failure(err)),
       play ⇒ actor ? play mapTo bestMoveManifest map { m ⇒
-        success(m.move | "")
+        success(~m.move)
       } onFailure reboot
     )
   }
@@ -52,15 +51,15 @@ final class Server(
     }
   }
 
-  private def chess960Fen(fen: String) = (Forsyth << fen).fold(
-    situation ⇒ fen.replace("KQkq", situation.board.pieces.toList filter {
+  private def chess960Fen(fen: String) = (Forsyth << fen).fold(fen) { situation =>
+    fen.replace("KQkq", situation.board.pieces.toList filter {
       case (_, piece) ⇒ piece is Rook
     } sortBy {
       case (pos, _) ⇒ (pos.y, pos.x)
     } map {
       case (pos, piece) ⇒ piece.color.fold(pos.file.toUpperCase, pos.file)
-    } mkString ""),
-    fen)
+    } mkString "")
+  }
 
   private val reboot: PartialFunction[Throwable, Unit] = {
     case e: AskTimeoutException ⇒ actor ! model.RebootException

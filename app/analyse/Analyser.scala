@@ -6,7 +6,7 @@ import game.{ DbGame, GameRepo, PgnRepo }
 import scalaz.effects._
 import play.api.libs.concurrent.Akka
 import play.api.Play.current
-import akka.dispatch.Future
+import scala.concurrent.Future
 import scala.concurrent.duration._
 import akka.util.Timeout
 
@@ -28,32 +28,29 @@ final class Analyser(
 
   private def getOrGenerateIO(id: String, userId: String, admin: Boolean): Future[Valid[Analysis]] = for {
     a ← ioToFuture(analysisRepo doneById id)
-    b ← a.fold(
-      x ⇒ Future(success(x)),
-      for {
-        userInProgress ← ioToFuture(admin.fold(
-          io(false),
-          analysisRepo userInProgress userId
-        ))
-        gameOption ← ioToFuture(gameRepo game id)
-        pgnString ← ioToFuture(pgnRepo get id)
-        result ← gameOption.filterNot(_ ⇒ userInProgress).fold(
-          game ⇒ for {
-            _ ← ioToFuture(analysisRepo.progress(id, userId))
-            initialFen ← ioToFuture(gameRepo initialFen id)
-            analysis ← generator()(pgnString, initialFen)
-            _ ← ioToFuture(analysis.prefixFailuresWith("Analysis").fold(
-              fail ⇒ for {
-                _ ← putFailures(fail)
-                _ ← analysisRepo.fail(id, fail)
-              } yield (),
-              analysisRepo.done(id, _)
-            ))
-          } yield analysis,
-          Future(!!("No such game " + id): Valid[Analysis])
-        )
-      } yield result
-    )
+    b ← a.fold(for {
+      userInProgress ← ioToFuture(admin.fold(
+        io(false),
+        analysisRepo userInProgress userId
+      ))
+      gameOption ← ioToFuture(gameRepo game id)
+      pgnString ← ioToFuture(pgnRepo get id)
+      result ← gameOption.filterNot(_ ⇒ userInProgress).fold(
+        game ⇒ for {
+          _ ← ioToFuture(analysisRepo.progress(id, userId))
+          initialFen ← ioToFuture(gameRepo initialFen id)
+          analysis ← generator()(pgnString, initialFen)
+          _ ← ioToFuture(analysis.prefixFailuresWith("Analysis").fold(
+            fail ⇒ for {
+              _ ← putFailures(fail)
+              _ ← analysisRepo.fail(id, fail)
+            } yield (),
+            analysisRepo.done(id, _)
+          ))
+        } yield analysis,
+        Future(!!("No such game " + id): Valid[Analysis])
+      )
+    } yield result) { x ⇒ Future(success(x)) }
   } yield b
 
   private def ioToFuture[A](ioa: IO[A]) = Future {

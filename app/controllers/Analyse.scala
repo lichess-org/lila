@@ -11,6 +11,7 @@ import play.api.http.ContentTypes
 import play.api.templates.Html
 import play.api.libs.concurrent._
 import scalaz.effects._
+import scala.util.{Try, Success, Failure}
 
 object Analyse extends LilaController {
 
@@ -28,8 +29,8 @@ object Analyse extends LilaController {
   def computer(id: String, color: String) = Auth { implicit ctx ⇒
     me ⇒
       analyser.getOrGenerate(id, me.id, isGranted(_.MarkEngine)) onComplete {
-        case Left(e) ⇒ println(e.getMessage)
-        case Right(a) ⇒ a.fold(
+        case Failure(e) ⇒ println(e.getMessage)
+        case Success(a) ⇒ a.fold(
           err ⇒ println("Computer analysis failure: " + err.shows),
           analysis ⇒ roundHubMaster ! AnalysisAvailable(id)
         )
@@ -70,8 +71,8 @@ object Analyse extends LilaController {
   def pgn(id: String) = Open { implicit ctx ⇒
     IOResult(for {
       gameOption ← gameRepo game id
-      res ← gameOption.fold(
-        game ⇒ for {
+      res ← gameOption.fold(io(NotFound("No such game")), { game =>
+        for {
           pgnString ← pgnRepo get id
           pgnObj ← pgnDump(game, pgnString)
           content = pgnObj.toString
@@ -80,9 +81,8 @@ object Analyse extends LilaController {
           CONTENT_LENGTH -> content.size.toString,
           CONTENT_TYPE -> ContentTypes.TEXT,
           CONTENT_DISPOSITION -> ("attachment; filename=" + filename)
-        ),
-        io(NotFound("No such game"))
-      )
+        )
+      }
     } yield res)
   }
 }

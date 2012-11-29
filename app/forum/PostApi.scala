@@ -77,9 +77,9 @@ final class PostApi(
 
   def delete(postId: String, mod: User): IO[Unit] = for {
     postOption ← env.postRepo byId postId
-    viewOption ← postOption.fold(io(none))(view)
-    _ ← viewOption.fold(
-      view ⇒ for {
+    viewOption ← postOption.fold(io(none[PostView]))(view)
+    _ ← viewOption.fold(io()) { view ⇒
+      for {
         _ ← (view.topic.nbPosts == 1).fold(
           env.topicApi.delete(view.categ, view.topic),
           for {
@@ -90,10 +90,9 @@ final class PostApi(
           } yield ()
         )
         post = view.post
-        _ ← modLog.deletePost(mod, post.userId, post.author, post.ip, 
+        _ ← modLog.deletePost(mod, post.userId, post.author, post.ip,
           text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text))
-      } yield (),
-      io()
-    )
+      } yield ()
+    }
   } yield ()
 }

@@ -37,7 +37,7 @@ final class GameRepo(collection: MongoCollection)
     }
 
   def pov(gameId: String, color: String): IO[Option[Pov]] =
-    Color(color).fold(pov(gameId, _), io(None))
+    Color(color).fold(io(none[Pov]))(pov(gameId, _))
 
   def pov(fullId: String): IO[Option[Pov]] =
     game(fullId take gameIdSize) map { gameOption ⇒
@@ -62,8 +62,8 @@ final class GameRepo(collection: MongoCollection)
       case (sets, unsets) ⇒ {
         val fullSets = ("ua" -> new Date) :: sets
         val ops = unsets.isEmpty.fold(
-          $set(fullSets: _*), 
-          $set(fullSets: _*) ++ $unset(unsets: _*)
+          $set(fullSets), 
+          $set(fullSets) ++ $unset(unsets)
         )
         val wc = WriteConcern.None
         io { collection.update(idSelector(progress.origin), ops, concern = wc) }

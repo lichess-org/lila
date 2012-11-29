@@ -7,7 +7,7 @@ import core.Settings
 
 import com.mongodb.casbah.MongoCollection
 import scalaz.effects._
-import akka.dispatch.Future
+import scala.concurrent.Future
 
 final class AnalyseEnv(
     settings: Settings,

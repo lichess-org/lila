@@ -3,15 +3,17 @@ package analyse
 
 import game.{ DbPlayer, Pov }
 
-import com.codahale.jerkson.Json
+import play.api.libs.json.Json
 
 final class TimePie(val pov: Pov) {
 
-  def columns = Json generate List(
-    "string" :: "Time in seconds" :: Nil,
-    "number" :: "Number of moves" :: Nil)
+  def columns = Json stringify {
+    Json toJson List(
+      "string" :: "Time in seconds" :: Nil,
+      "number" :: "Number of moves" :: Nil)
+  }
 
-  def rows = Json generate {
+  def rows = Json stringify {
 
     import pov._
 
@@ -29,8 +31,10 @@ final class TimePie(val pov: Pov) {
       else "%d to %d seconds".format(min, max)
     }
 
-    ranges zip (ranges map nbMoves) collect {
-      case (range, nb) if nb > 0 ⇒ List(nameRange(range), nb)
+    Json toJson {
+      ranges zip (ranges map nbMoves) collect {
+        case (range, nb) if nb > 0 ⇒ List(nameRange(range), nb)
+      }
     }
   }
 }

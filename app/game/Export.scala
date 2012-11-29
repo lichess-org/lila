@@ -34,22 +34,22 @@ final class Export(user: User, gameRepo: GameRepo) {
     List(
       id,
       dateFormatter.print(game.createdAt),
-      player.fold(_.color.name, "?"),
+      player.fold("?")(_.color.name),
       (player map game.opponent flatMap (_.userId)) | "anonymous",
       PgnDump result game,
       game.status,
       game.turns - 1,
       game.variant,
       game.mode,
-      game.clock.fold(c ⇒ "%d %d".format(
-        c.limitInMinutes, c.increment),
-        "unlimited"),
-      (player flatMap (_.elo)).fold(_.toString, "?"),
-      (player flatMap (_.eloDiff)).fold(showEloDiff, "?"),
-      (player map game.opponent flatMap (_.elo)).fold(_.toString, "?"),
-      (player map game.opponent flatMap (_.eloDiff)).fold(showEloDiff, "?"),
-      baseUrl + routes.Round.watcher(game.id, player.fold(_.color.name, "white")),
-      baseUrl + routes.Analyse.replay(game.id, player.fold(_.color.name, "white")),
+      game.clock.fold("unlimited") { c ⇒ 
+        "%d %d".format(c.limitInMinutes, c.increment)
+      }
+      (player flatMap (_.elo)).fold("?")(_.toString),
+      (player flatMap (_.eloDiff)).fold("?")(showEloDiff),
+      (player map game.opponent flatMap (_.elo)).fold("?")(_.toString),
+      (player map game.opponent flatMap (_.eloDiff)).fold("?")(showEloDiff),
+      baseUrl + routes.Round.watcher(game.id, player.fold("white")(_.color.name)),
+      baseUrl + routes.Analyse.replay(game.id, player.fold("white")(_.color.name)),
       baseUrl + routes.Analyse.pgn(game.id)
     )
   }

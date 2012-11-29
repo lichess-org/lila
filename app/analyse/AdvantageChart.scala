@@ -1,17 +1,18 @@
 package lila
 package analyse
 
-import com.codahale.jerkson.Json
+import play.api.libs.json.Json
 
 final class AdvantageChart(advices: Analysis.InfoAdvices) {
 
   val max = 15
 
-  def columns = Json generate List(
-    "string" :: "Move" :: Nil,
-    "number" :: "Advantage" :: Nil)
+  def columns = Json.arr(
+    Json.arr("string", "Move"),
+    Json.arr("number", "Advantage")
+  )
 
-  def rows = Json generate {
+  def rows = Json.toJson {
 
     val scale = floatBox(-max to max) _
 

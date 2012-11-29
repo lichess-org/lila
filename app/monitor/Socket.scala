@@ -21,7 +21,7 @@ final class Socket(hub: ActorRef) {
     uidOption: Option[String]): SocketPromise = {
     val promise: Option[SocketPromise] = for {
       uid ← uidOption
-    } yield (hub ? Join(uid)).asPromise map {
+    } yield (hub ? Join(uid)) map {
       case Connected(enumerator, channel) ⇒
         val iteratee = Iteratee.foreach[JsValue] { e ⇒
           e str "t" match {

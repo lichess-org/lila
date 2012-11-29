@@ -5,7 +5,7 @@ import chess.{ Game, Move }
 import game.DbGame
 import analyse.Analysis
 
-import akka.dispatch.Future
+import scala.concurrent.Future
 
 trait Ai {
 

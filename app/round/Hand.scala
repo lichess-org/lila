@@ -10,7 +10,7 @@ import chess.format.Forsyth
 
 import scalaz.effects._
 import akka.actor._
-import akka.dispatch.{ Future, Await }
+import scala.concurrent.{ Future, Await }
 import akka.pattern.ask
 import scala.concurrent.duration._
 import akka.util.Timeout

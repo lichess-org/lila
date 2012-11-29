@@ -12,14 +12,14 @@ final class AnalysisRepo(val collection: MongoCollection) {
   def done(id: String, a: Analysis) = io {
     collection.update(
       DBObject("_id" -> id),
-      $set("done" -> true, "encoded" -> a.encode) ++ $unset("fail")
+      $set(Seq("done" -> true, "encoded" -> a.encode)) ++ $unset(Seq("fail"))
     )
   }
 
   def fail(id: String, err: Failures) = io {
     collection.update(
       DBObject("_id" -> id),
-      $set("fail" -> err.shows)
+      $set(Seq("fail" -> err.shows))
     )
   }
 

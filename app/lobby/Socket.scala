@@ -42,7 +42,7 @@ final class Socket(hub: ActorRef, flood: Flood) {
     val promise = for {
       version ← versionOption
       uid ← uidOption
-    } yield (hub ? Join(uid, username, version, hook)).asPromise map {
+    } yield (hub ? Join(uid, username, version, hook)) map {
       case Connected(enumerator, channel) ⇒
         val iteratee = Iteratee.foreach[JsValue] { e ⇒
           e str "t" match {

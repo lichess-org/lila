@@ -83,11 +83,11 @@ class UserRepo(collection: MongoCollection)
   }
 
   def toggleChatBan(user: User): IO[Unit] = io {
-    collection.update(byIdQuery(user), $set("isChatBan" -> !user.isChatBan))
+    collection.update(byIdQuery(user), $set(Seq("isChatBan" -> !user.isChatBan)))
   }
 
   def saveSetting(user: User, key: String, value: String) = io {
-    collection.update(byIdQuery(user), $set(("settings." + key) -> value))
+    collection.update(byIdQuery(user), $set(Seq(("settings." + key) -> value)))
   }
 
   def exists(username: String): IO[Boolean] = io {

@@ -11,7 +11,7 @@ import tournament.Created
 import play.api.mvc.Call
 import play.api.libs.concurrent.Akka
 import play.api.Play.current
-import akka.dispatch.Future
+import scala.concurrent.Future
 import scala.concurrent.duration._
 import akka.util.Timeout
 import scalaz.effects._

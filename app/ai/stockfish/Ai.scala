@@ -7,9 +7,10 @@ import game.DbGame
 import analyse.Analysis
 
 import scalaz.effects._
-import akka.dispatch.Future
+import scala.concurrent.Future
 import play.api.Play.current
 import play.api.libs.concurrent._
+import play.api.libs.concurrent.execution.Implicits._
 
 final class Ai(server: Server) extends lila.ai.Ai with Stockfish {
 

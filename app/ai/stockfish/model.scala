@@ -26,9 +26,9 @@ object model {
     override def toString = getClass.getName + " = " + queue.size
   }
   case class Todo(queue: Vector[Task] = Vector.empty) extends Data {
-    def doing[A](withTask: Doing ⇒ A, without: Todo ⇒ A) = dequeue.fold({
+    def doing[A](withTask: Doing ⇒ A, without: Todo ⇒ A) = dequeue.fold(without(this)) {
       case (task, rest) ⇒ withTask(Doing(task, rest))
-    }, without(this))
+    }
     def fold[A](todo: Todo ⇒ A, doing: Doing ⇒ A): A = todo(this)
     def enqueue(task: Task) = copy(queue :+ task)
   }

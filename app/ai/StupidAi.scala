@@ -5,7 +5,7 @@ import chess.{ Game, Move }
 import game.DbGame
 
 import scalaz.effects._
-import akka.dispatch.Future
+import scala.concurrent.Future
 
 final class StupidAi extends Ai with core.Futuristic {
 

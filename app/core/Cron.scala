@@ -103,7 +103,7 @@ object Cron {
       Akka.system.scheduler.schedule(freq, randomize(freq), to._1, to._2)
     }
 
-    def effect(freq: Duration, name: String)(op: ⇒ IO[_]) {
+    def effect(freq: FiniteDuration, name: String)(op: ⇒ IO[_]) {
       val f = randomize(freq)
       println("schedule effect %s every %s -> %s".format(name, freq, f))
       Akka.system.scheduler.schedule(f, f) {
@@ -111,7 +111,7 @@ object Cron {
       }
     }
 
-    def unsafe(freq: Duration, name: String)(op: ⇒ Unit) {
+    def unsafe(freq: FiniteDuration, name: String)(op: ⇒ Unit) {
       Akka.system.scheduler.schedule(freq, randomize(freq)) {
         tryNamed(name, op)
       }
@@ -127,7 +127,7 @@ object Cron {
     }
   }
 
-  private def randomize(d: Duration, ratio: Float = 0.1f): FiniteDuration = {
+  private def randomize(d: FiniteDuration, ratio: Float = 0.1f): FiniteDuration = {
     import scala.util.Random
     import scala.math.round
     import ornicar.scalalib.Random.approximatly
