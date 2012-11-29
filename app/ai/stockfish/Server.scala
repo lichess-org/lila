@@ -7,6 +7,7 @@ import chess.format.UciDump
 import chess.format.Forsyth
 import analyse.Analysis
 import model.{ GetQueueSize, QueueSize }
+import model.play.BestMove
 
 import akka.util.Timeout
 import scala.concurrent.duration._
@@ -28,9 +29,9 @@ final class Server(
       play = model.play.Task.Builder(moves, initialFen map chess960Fen, level)
     } yield play).fold(
       err ⇒ Future(failure(err)),
-      play ⇒ actor ? play mapTo bestMoveManifest map { m ⇒
-        success(~m.move)
-      } onFailure reboot
+      play ⇒ {
+        (actor ? play).mapTo[BestMove] map ((m: BestMove) ⇒ success(~m.move))
+      } ~ { _ onFailure reboot }
     )
   }
 
@@ -40,7 +41,7 @@ final class Server(
       moves ⇒ {
         val analyse = model.analyse.Task.Builder(moves, initialFen map chess960Fen)
         implicit val timeout = Timeout(analyseAtMost)
-        actor ? analyse mapTo analysisManifest onFailure reboot
+        (actor ? analyse).mapTo[Valid[Analysis]] ~ { _ onFailure reboot }
       }
     )
 
@@ -64,8 +65,6 @@ final class Server(
   private val reboot: PartialFunction[Throwable, Unit] = {
     case e: AskTimeoutException ⇒ actor ! model.RebootException
   }
-  private val analysisManifest = manifest[Valid[Analysis]]
-  private val bestMoveManifest = manifest[model.play.BestMove]
 
   private implicit val executor = Akka.system.dispatcher
 

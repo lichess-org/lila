@@ -21,12 +21,9 @@ object Room {
 
     def render: String =
       """<li><span>%s</span>%s</li>""".format(
-        author.fold(
-          u ⇒ """<a class="user_link" href="%s">%s</a>""".format(
-            userRoute(u), u take 12
-          ),
-          """<span class="system"></span>"""
-        ),
+        author.fold("""<span class="system"></span>""") { u ⇒
+          """<a class="user_link" href="%s">%s</a>""".format(userRoute(u), u take 12)
+        },
         text
       )
   }

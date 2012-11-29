@@ -9,7 +9,7 @@ import core.Global
 import play.api.mvc._
 import play.api.data.Form
 import play.api.http._
-import play.api.libs.json.{ Json, WritesJson }
+import play.api.libs.json.{ Json, Writes ⇒ WritesJson }
 import scalaz.effects._
 
 trait LilaController
@@ -25,7 +25,7 @@ trait LilaController
   override implicit def lang(implicit req: RequestHeader) =
     env.i18n.pool.lang(req)
 
-  protected def toJson[A : WritesJson](data: A) = Json toJson data
+  protected def toJson[A: WritesJson](data: A) = Json toJson data
 
   protected def Open(f: Context ⇒ Result): Action[AnyContent] =
     Open(BodyParsers.parse.anyContent)(f)
@@ -77,9 +77,9 @@ trait LilaController
   protected def NoEngine[A <: Result](a: ⇒ A)(implicit ctx: Context): Result =
     ctx.me.fold(false)(_.engine).fold(Forbidden(views.html.site.noEngine()), a)
 
-  protected def JsonOk[A : WritesJson](data: A) = Ok(Json toJson data) as JSON
+  protected def JsonOk[A: WritesJson](data: A) = Ok(Json toJson data) as JSON
 
-  protected def JsonIOk[A : WritesJson](data: IO[A]) = JsonOk(data.unsafePerformIO)
+  protected def JsonIOk[A: WritesJson](data: IO[A]) = JsonOk(data.unsafePerformIO)
 
   protected def JsIOk(js: IO[String], headers: (String, String)*) =
     Ok(js.unsafePerformIO) as JAVASCRIPT withHeaders (headers: _*)

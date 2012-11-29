@@ -16,7 +16,8 @@ class TournamentRepo(collection: MongoCollection)
     extends SalatDAO[RawTournament, String](collection) {
 
   def byId(id: String): IO[Option[Tournament]] = byIdAs(id, _.any)
-  def byId(id: Option[String]): IO[Option[Tournament]] = id.fold(byId, io(none))
+  def byId(id: Option[String]): IO[Option[Tournament]] =
+    id.fold(io(none[Tournament])) { i ⇒ byIdAs(i, _.any) }
 
   def createdById(id: String): IO[Option[Created]] = byIdAs(id, _.created)
 
@@ -46,7 +47,7 @@ class TournamentRepo(collection: MongoCollection)
   }
 
   def setUsers(tourId: String, userIds: List[String]): IO[Unit] = io {
-    update(idSelector(tourId), $set("data.users" -> userIds.distinct))
+    update(idSelector(tourId), $set(Seq("data.users" -> userIds.distinct)))
   }
 
   def userHasRunningTournament(username: String): IO[Boolean] = io {

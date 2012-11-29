@@ -20,7 +20,7 @@ object Member {
   def apply(channel: JsChannel, user: Option[User]): Member = Member(
     channel = channel,
     username = user map (_.username),
-    muted = user.fold(_.muted, false))
+    muted = ~user.map(_.muted))
 }
 
 case class Join(
