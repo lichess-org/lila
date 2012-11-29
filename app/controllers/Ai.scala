@@ -50,7 +50,7 @@ object Ai extends LilaController {
   def reportStockfish = Action { implicit req ⇒
     IfServer {
       Async {
-        env.ai.stockfishServerReport.fold(Future(NotFound)) { _ map { Ok(_) } }
+        env.ai.stockfishServerReport.fold(Future(NotFound): Future[PlainResult]) { _ map { Ok(_) } }
       }
     }
   }

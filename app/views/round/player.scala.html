@@ -52,7 +52,7 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
 </div>
 @embedJs("var _ld_ = " + roundPlayerJsData(pov, version))
 @analyse.link(pov, analysed)
-@if(!tour.fold(_.isRunning, false)) {
+@if(!tour.fold(false)(_.isRunning)) {
 @views.html.game.more(pov, bookmarkers) {
 <nav>
 <a href="@routes.Analyse.replay(gameId, color.name)">@trans.replayAndAnalyse()</a>

@@ -61,7 +61,7 @@ evenMoreJs = evenMoreJs,
 evenMoreCss = evenMoreCss) {
 <div class="content_box no_padding user_show">
   <div class="content_box_top">
-    @if(ctx.me.fold(u !=, false)) {
+    @if(ctx.me.fold(false)(u !=)) {
     <a href="@routes.Message.form()?username=@u.username" class="send_message">@trans.composeMessage()</a>
     }
     <form id="exportform" action="@routes.User.export(u.username)" method="POST">
@@ -82,7 +82,7 @@ evenMoreCss = evenMoreCss) {
     @info.eloChart.map { eloChart =>
     <div class="elo_history" title="Elo history" data-columns="@eloChart.columns" data-rows="@eloChart.rows"></div>
     }
-    @if(u.engine && ctx.me.fold(u !=, true)) {
+    @if(u.engine && ctx.me.fold(true)(u !=)) {
     <div class="engine_warning">@trans.thisPlayerUsesChessComputerAssistance()</div>
     }
     @bio

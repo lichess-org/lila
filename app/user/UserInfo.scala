@@ -48,10 +48,9 @@ object UserInfo {
       gameRepo count (_ notFinished user) map (_.some),
       io(none)
     )
-    nbWithMe ← ctx.me.filter(user!=).fold(
-      me ⇒ gameRepo count (_.opponents(user, me)) map (_.some),
-      io(none)
-    )
+    nbWithMe ← ~(ctx.me filter (user!=) map { me ⇒ 
+      gameRepo count (_.opponents(user, me)) map (_.some)
+    })
     nbBookmark = bookmarkApi countByUser user
     eloChart ← eloChartBuilder(user)
     winChart = (user.nbRatedGames > 0) option {
@@ -63,7 +62,7 @@ object UserInfo {
         "draw" -> eloCalculator.diff(me, user, None),
         "loss" -> eloCalculator.diff(me, user, Color.Black.some))
     }
-    spy ← userSpy.fold(_(user.id) map (_.some), io(none[UserSpy])): IO[Option[UserSpy]]
+    spy ← ~(userSpy map (_(user.id) map (_.some))): IO[Option[UserSpy]]
   } yield new UserInfo(
     user = user,
     rank = rank,

@@ -6,7 +6,7 @@ import play.api.libs.concurrent._
 import play.api.libs.json._
 import akka.pattern.ask
 import scala.concurrent.duration._
-import play.api.libs.concurrent.execution.Implicits._
+import play.api.libs.concurrent.Execution.Implicits._
 import akka.util.Timeout
 
 import lila._

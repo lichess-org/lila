@@ -45,7 +45,7 @@ class UserRepo(collection: MongoCollection)
   }
 
   def setElo(id: String, elo: Int): IO[Unit] = io {
-    collection.update(byIdQuery(id), $set("elo" -> elo))
+    collection.update(byIdQuery(id), $set(Seq("elo" -> elo)))
   }
 
   def incNbGames(
@@ -160,16 +160,16 @@ class UserRepo(collection: MongoCollection)
   }
 
   def toggleMute(username: String): IO[Unit] = updateIO(username) { user ⇒
-    $set("isChatBan" -> !user.isChatBan)
+    $set(Seq("isChatBan" -> !user.isChatBan))
   }
 
   def toggleEngine(username: String): IO[Unit] = updateIO(username) { user ⇒
-    $set("engine" -> !user.engine)
+    $set(Seq("engine" -> !user.engine))
   }
 
   def isEngine(username: String): IO[Boolean] = io {
     collection.find(byIdQuery(username) ++ DBObject("engine" -> true)).size != 0
-  } 
+  }
 
   def setBio(user: User, bio: String) = updateIO(user)($set(Seq("bio" -> bio)))
 
@@ -183,18 +183,17 @@ class UserRepo(collection: MongoCollection)
         byIdQuery(user), DBObject("salt" -> true)
       ) flatMap (_.getAs[String]("salt"))
     }
-    res ← obj.fold(
-      salt ⇒ updateIO(user)($set(
+    res ← obj.fold(io(!!("No salt found"): Valid[Unit])) { salt ⇒
+      updateIO(user)($set(Seq(
         "password" -> hash(password, salt),
         "sha512" -> false
-      )) map { _ ⇒ success(Unit): Valid[Unit] },
-      io(!!("No salt found"))
-    )
+      ))) map { _ ⇒ success(Unit): Valid[Unit] }
+    }
   } yield res
 
   def updateIO(username: String)(op: User ⇒ DBObject): IO[Unit] = for {
     userOption ← byId(username)
-    _ ← userOption.fold(user ⇒ updateIO(user)(op(user)), io())
+    _ ← ~userOption.map(user ⇒ updateIO(user)(op(user)))
   } yield ()
 
   def updateIO(user: User)(obj: DBObject): IO[Unit] = io {

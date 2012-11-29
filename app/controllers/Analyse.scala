@@ -10,7 +10,7 @@ import play.api.mvc._
 import play.api.http.ContentTypes
 import play.api.templates.Html
 import play.api.libs.concurrent._
-import play.api.libs.concurrent.execution.Implicits._
+import play.api.libs.concurrent.Execution.Implicits._
 import scalaz.effects._
 import scala.util.{ Try, Success, Failure }
 

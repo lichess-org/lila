@@ -3,7 +3,7 @@ package user
 
 import scala.math.round
 import scalaz.effects._
-import com.codahale.jerkson.Json
+import play.api.libs.json.Json
 import org.joda.time.DateTime
 import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
 
@@ -17,9 +17,9 @@ final class EloChart(elos: List[(Int, Int)]) {
 
   def columns = EloChart.columns
 
-  def rows = Json generate {
+  def rows = Json toJson {
     withMedian(reduce(elos)) map {
-      case (ts, elo, med) ⇒ List(date(ts), elo, med)
+      case (ts, elo, med) ⇒ Json.arr(date(ts), elo, med)
     }
   }
 
@@ -48,10 +48,11 @@ final class EloChart(elos: List[(Int, Int)]) {
 
 object EloChart {
 
-  val columns = Json generate List(
-    "string" :: "Game" :: Nil,
-    "number" :: "Elo" :: Nil,
-    "number" :: "Average" :: Nil)
+  val columns = Json.arr(
+    Json.arr("string", "Game"),
+    Json.arr("number", "Elo"),
+    Json.arr("number", "Average")
+  )
 
   def apply(historyRepo: HistoryRepo)(user: User): IO[Option[EloChart]] =
     historyRepo userElos user.username map { elos ⇒

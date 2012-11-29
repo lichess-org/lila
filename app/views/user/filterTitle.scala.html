@@ -5,7 +5,7 @@ case lila.user.GameFilter.All => {
 @info.user.nbGames @trans.gamesPlayed()
 }
 case lila.user.GameFilter.Me => {
-@ctx.me.fold(me => "%d vs me".format(info.nbWithMe | 0), "-")
+@ctx.me.fold("-")(me => "%d vs me".format(info.nbWithMe | 0))
 }
 case lila.user.GameFilter.Rated => {
 @info.nbRated @trans.rated()

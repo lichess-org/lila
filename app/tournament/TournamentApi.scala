@@ -97,7 +97,7 @@ private[tournament] final class TournamentApi(
       err ⇒ putStrLn(err.shows) inject tour,
       tour2 ⇒ for {
         _ ← repo saveIO tour2
-        _ ← (tour2 userCurrentPov userId).fold(roundMeddler.resign, io())
+        _ ← ~(tour2 userCurrentPov userId map roundMeddler.resign)
         _ ← socket reload tour2.id
         _ ← reloadSiteSocket
       } yield tour2
@@ -106,14 +106,11 @@ private[tournament] final class TournamentApi(
   }
 
   def finishGame(game: DbGame): IO[Option[Tournament]] = for {
-    tourOption ← game.tournamentId.fold(repo.startedById, io(None))
-    result ← tourOption.filter(_ ⇒ game.finished).fold(
-      tour ⇒ {
-        val tour2 = tour.updatePairing(game.id, _.finish(game.status, game.winnerUserId))
-        repo saveIO tour2 inject tour2.some
-      },
-      io(none)
-    )
+    tourOption ← ~(game.tournamentId map repo.startedById)
+    result ← ~(tourOption.filter(_ ⇒ game.finished).map(tour ⇒ {
+      val tour2 = tour.updatePairing(game.id, _.finish(game.status, game.winnerUserId))
+      repo saveIO tour2 inject tour2.some
+    }))
   } yield result
 
   private def userIdWhoLostOnTimeWithoutMoving(game: DbGame): Option[String] =

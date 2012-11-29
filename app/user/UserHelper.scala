@@ -17,7 +17,7 @@ trait UserHelper {
     cached usernameOrAnonymous userId
 
   def userIdToUsername(userId: Option[String]): String =
-    userId.fold(userIdToUsername, User.anonymous)
+    userId.fold(User.anonymous)(cached.usernameOrAnonymous)
 
   def isUsernameOnline(username: String) = usernameMemo get username
 
@@ -25,16 +25,15 @@ trait UserHelper {
     userId: Option[String],
     cssClass: Option[String] = None,
     withOnline: Boolean = true): Html = Html {
-    (userId flatMap cached.username).fold(
-      username ⇒ """<a class="user_link%s%s" href="%s">%s</a>""".format(
+    (userId flatMap cached.username).fold(User.anonymous) { username ⇒
+      """<a class="user_link%s%s" href="%s">%s</a>""".format(
         withOnline.fold(
           isUsernameOnline(username).fold(" online", " offline"),
           ""),
-        cssClass.fold(" " + _, ""),
+        ~cssClass.map(" " + _),
         routes.User.show(username),
-        username),
-      User.anonymous
-    )
+        username)
+    }
   }
 
   def userIdLink(
@@ -43,7 +42,7 @@ trait UserHelper {
 
   def userIdLinkMini(userId: String) = Html {
     """<a href="%s">%s</a>""".format(
-      routes.User.show(userId), 
+      routes.User show userId,
       (cached username userId) | userId
     )
   }
@@ -54,7 +53,7 @@ trait UserHelper {
     withElo: Boolean = true) = Html {
     """<a class="user_link%s%s" href="%s">%s</a>""".format(
       isUsernameOnline(user.id).fold(" online", " offline"),
-      cssClass.fold(" " + _, ""),
+      ~cssClass.map(" " + _),
       routes.User.show(user.username),
       withElo.fold(user.usernameWithElo, user.username))
   }
@@ -68,9 +67,9 @@ trait UserHelper {
       withOnline.fold(
         isUsernameOnline(username).fold(" online", " offline"),
         ""),
-      cssClass.fold(" " + _, ""),
+      ~cssClass.map(" " + _),
       routes.User.show(username),
-      elo.fold(e => "%s (%d)".format(username, e), username)
+      elo.fold(username)(e ⇒ "%s (%d)".format(username, e))
     )
   }
 }

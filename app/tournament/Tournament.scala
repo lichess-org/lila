@@ -48,10 +48,10 @@ sealed trait Tournament {
   def playerRatio = "%d/%d".format(nbPlayers, minPlayers)
   def contains(userId: String): Boolean = userIds contains userId
   def contains(user: User): Boolean = contains(user.id)
-  def contains(user: Option[User]): Boolean = user.fold(contains, false)
+  def contains(user: Option[User]): Boolean = ~user.map(contains)
   def isActive(userId: String): Boolean = activeUserIds contains userId
   def isActive(user: User): Boolean = isActive(user.id)
-  def isActive(user: Option[User]): Boolean = user.fold(isActive, false)
+  def isActive(user: Option[User]): Boolean = ~user.map(isActive)
   def missingPlayers = minPlayers - players.size
 
   def createdBy = data.createdBy
@@ -159,7 +159,7 @@ case class Started(
     playingPairings map { _ povRef userId }
   }.flatten.headOption
   def userCurrentPov(user: Option[User]): Option[PovRef] =
-    user.fold(u ⇒ userCurrentPov(u.id), none)
+    user.flatMap(u ⇒ userCurrentPov(u.id))
 
   def finish = refreshPlayers |> { tour ⇒
     Finished(

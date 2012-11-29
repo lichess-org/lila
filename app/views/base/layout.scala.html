@@ -45,7 +45,7 @@
       <div id="nb_connected_players" class="nb_connected_players none">
         @trans.nbConnectedPlayers("<strong>0</strong>")
       </div>
-      @ctx.me.fold(auth.loggedIn(_), auth.miniLogin())
+      @ctx.me.fold(auth.miniLogin)(auth.loggedIn(_))
       <div class="themepicker">
         <a class="theme_toggle toggle"><span class="theme_demo">@trans.color()</span></a>
         <div class="themes dropdown" data-href="@routes.Setting.set("theme")">
@@ -105,7 +105,7 @@
       </div>
     </div>
     @jsTag("deps.min.js")
-    @signedJs.fold(jsAt, true.fold(jsTagC("big.js"), jsTag("big.js")))
+    @signedJs.fold(true.fold(jsTagC("big.js"), jsTag("big.js")))(jsAt)
     @moreJs
     @if(lang.language != "en") {
     <script src="@routes.Assets.at("trans/" + lang.language + ".js")?v=@assetVersion"></script>

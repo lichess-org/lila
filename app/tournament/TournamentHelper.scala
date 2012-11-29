@@ -4,23 +4,22 @@ package tournament
 import http.Context
 import user.User
 
-import com.codahale.jerkson.Json
+import play.api.libs.json.Json
 import scala.math.{ min, max, round }
 
-trait TournamentHelper { 
+trait TournamentHelper {
 
   def tournamentJsData(
-    tour: Tournament, 
+    tour: Tournament,
     version: Int,
-    user: Option[User]) = Json generate {
+    user: Option[User]) = {
 
-    Map(
-      "tournament" -> Map(
-        "id" -> tour.id
-      ),
+    val data = Json.obj(
+      "tournament" -> Json.obj("id" -> tour.id),
       "version" -> version
-    ).combine(user) { (map, u) => 
-      map + ("username" -> u.username)
+    )
+    Json stringify {
+      user.fold(data) { u ⇒ data ++ Json.obj("username" -> u.username) }
     }
   }
 }
