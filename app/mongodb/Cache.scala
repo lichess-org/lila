@@ -4,6 +4,8 @@ package mongodb
 import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.Imports._
 
+import scala.reflect.{ClassTag, classTag}
+
 final class Cache(collection: MongoCollection) {
 
   private val field = "v"
@@ -17,10 +19,9 @@ final class Cache(collection: MongoCollection) {
     v ← Option(o get field)
   } yield v
 
-  def getAs[T](key: String)(implicit m: ClassManifest[T]): Option[T] = for {
+  def getAs[T : ClassTag](key: String): Option[T] = for {
     v ← get(key)
-    typed ← (m.erasure.isAssignableFrom(v.getClass)) option v.asInstanceOf[T]
-  } yield typed
+  } yield v.asInstanceOf[T]
 
   def remove(key: String) {
     collection remove select(key)
