@@ -31,8 +31,7 @@ package object lila
   // custom salat context
   implicit val customSalatContext = new Context {
     val name = "Lila Context"
-    override val typeHintStrategy = StringTypeHintStrategy(
-      when = TypeHintFrequency.Never)
+    override val typeHintStrategy = StringTypeHintStrategy(when = TypeHintFrequency.Never)
   }
   RegisterJodaTimeConversionHelpers()
 
