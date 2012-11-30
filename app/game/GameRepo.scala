@@ -56,13 +56,13 @@ final class GameRepo(collection: MongoCollection)
     update(idSelector(game), _grater asDBObject game.encode)
   }
 
-  def save(progress: Progress): IO[Unit] = 
+  def save(progress: Progress): IO[Unit] =
     GameDiff(progress.origin.encode, progress.game.encode) |> {
       case (Nil, Nil) ⇒ io()
       case (sets, unsets) ⇒ {
         val fullSets = ("ua" -> new Date) :: sets
         val ops = unsets.isEmpty.fold(
-          $set(fullSets), 
+          $set(fullSets),
           $set(fullSets) ++ $unset(unsets)
         )
         val wc = WriteConcern.None
@@ -92,22 +92,19 @@ final class GameRepo(collection: MongoCollection)
   def finish(id: String, winnerId: Option[String]) = io {
     update(
       idSelector(id),
-      winnerId.fold(userId ⇒
-        $set(Seq("wid" -> userId)),
-        $set(Seq.empty))
-        ++ $unset(Seq(
-          "c.t",
-          "ph",
-          "lmt",
-          "p.0.previousMoveTs",
-          "p.1.previousMoveTs",
-          "p.0.lastDrawOffer",
-          "p.1.lastDrawOffer",
-          "p.0.isOfferingDraw",
-          "p.1.isOfferingDraw",
-          "p.0.isProposingTakeback",
-          "p.1.isProposingTakeback"
-        ))
+      (winnerId.fold($set(Seq.empty)) { userId ⇒ $set(Seq("wid" -> userId)) }) ++ $unset(Seq(
+        "c.t",
+        "ph",
+        "lmt",
+        "p.0.previousMoveTs",
+        "p.1.previousMoveTs",
+        "p.0.lastDrawOffer",
+        "p.1.lastDrawOffer",
+        "p.0.isOfferingDraw",
+        "p.1.isOfferingDraw",
+        "p.0.isProposingTakeback",
+        "p.1.isProposingTakeback"
+      ))
     )
   }
 

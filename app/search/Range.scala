@@ -6,13 +6,11 @@ import org.joda.time.DateTime
 
 final class Range[A] private (val a: Option[A], val b: Option[A]) {
 
-  def filters(name: String) = a.fold(
-    aa ⇒ b.fold(
-      bb ⇒ List(rangeFilter(name) gte aa lte bb),
-      List(rangeFilter(name) gte aa)
-    ),
-    b.toList map { bb ⇒ rangeFilter(name) lte bb }
-  )
+  def filters(name: String) = a.fold(b.toList map { bb ⇒ rangeFilter(name) lte bb }) { aa ⇒
+    b.fold(List(rangeFilter(name) gte aa)) { bb ⇒
+      List(rangeFilter(name) gte aa lte bb)
+    }
+  }
 
   def map[B](f: A ⇒ B) = new Range(a map f, b map f)
 
@@ -26,7 +24,7 @@ object Range {
       case (Some(aa), Some(bb)) ⇒ o.lt(aa, bb).fold(
         new Range(a, b), new Range(b, a)
       )
-      case (x, y)               ⇒ new Range(x, y)
+      case (x, y) ⇒ new Range(x, y)
     }
 
   def none[A]: Range[A] = new Range(None, None)

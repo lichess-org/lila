@@ -18,7 +18,7 @@ case class RawDbClock(
       increment = i,
       limit = l,
       whiteTime = w,
-      blackTime = b)) { timer ⇒
+      blackTime = b): Clock) { timer ⇒
       RunningClock(
         color = Color(c),
         increment = i,

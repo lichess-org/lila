@@ -23,7 +23,8 @@ final class Finisher(
     indexGame: DbGame ⇒ IO[Unit],
     tournamentOrganizerActorName: String) {
 
-  type ValidIOEvents = Valid[IO[List[Event]]]
+  type IOEvents = IO[List[Event]]
+  type ValidIOEvents = Valid[IOEvents]
 
   private lazy val tournamentOrganizerActor =
     Akka.system.actorFor("/user/" + tournamentOrganizerActorName)
@@ -56,7 +57,7 @@ final class Finisher(
     else !!("opponent is not proposing a draw")
 
   def outoftime(game: DbGame): ValidIOEvents = game.outoftimePlayer.fold(
-    !!("no outoftime applicable " + game.clock.fold("-")(_.remainingTimes.toString))
+    !![IOEvents]("no outoftime applicable " + game.clock.fold("-")(_.remainingTimes.toString))
   ) { player ⇒ 
     finish(game, Outoftime, Some(!player.color) filter game.toChess.board.hasEnoughMaterialToMate)
   }

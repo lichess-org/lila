@@ -9,6 +9,7 @@ import play.api.mvc._
 import play.api.libs.json.JsValue
 import play.api.libs.concurrent._
 import play.api.libs.concurrent.Execution.Implicits._
+import play.api.libs.json.Json
 import scala.concurrent.{ Future, Promise }
 import scalaz.effects._
 
@@ -30,7 +31,7 @@ object Lobby extends LilaController with Results {
 
   def handleNotFound(implicit ctx: Context): Result = Async { renderHome(none, NotFound) }
 
-  private def renderHome[A](myHook: Option[Hook], status: Status)(implicit ctx: Context): Promise[Result] =
+  private def renderHome[A](myHook: Option[Hook], status: Status)(implicit ctx: Context): Future[Result] =
     preloader(
       auth = ctx.isAuth,
       chat = ctx.canSeeChat,
@@ -40,7 +41,7 @@ object Lobby extends LilaController with Results {
       tours = openTours
     ).map(_.fold(Redirect(_), {
         case (preload, posts, tours, featured) ⇒ status(html.lobby.home(
-          toJson(preload),
+          Json stringify preload,
           myHook,
           posts,
           tours,
@@ -60,7 +61,7 @@ object Lobby extends LilaController with Results {
   def hook(ownerId: String) = Open { implicit ctx ⇒
     Async {
       hookRepo.ownedHook(ownerId).unsafePerformIO.fold(
-        Promise pure { Redirect(routes.Lobby.home) }
+        Future successful { Redirect(routes.Lobby.home): Result }
       ) { hook ⇒ renderHome(hook.some, Ok) }
     }
   }

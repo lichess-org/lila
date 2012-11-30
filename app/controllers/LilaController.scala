@@ -42,7 +42,7 @@ trait LilaController
   protected def Auth(f: Context ⇒ UserModel ⇒ Result): Action[AnyContent] =
     Auth(BodyParsers.parse.anyContent)(f)
 
-  protected def Auth[A](p: BodyParser[A])(f: Context ⇒ UserModel ⇒ PlainResult): Action[A] =
+  protected def Auth[A](p: BodyParser[A])(f: Context ⇒ UserModel ⇒ Result): Action[A] =
     Action(p)(req ⇒ {
       val ctx = reqToCtx(req)
       ctx.me.fold(authenticationFailed(ctx.req))(me ⇒ f(ctx)(me))
@@ -143,7 +143,7 @@ trait LilaController
     } unsafePerformIO
 
   protected def IOptionIOResult[A](ioa: IO[Option[A]])(op: A ⇒ IO[Result])(implicit ctx: Context) =
-    ioa flatMap { _.fold(op)(io(notFound(ctx))) } unsafePerformIO
+    ioa flatMap { _.fold(io(notFound(ctx)))(op) } unsafePerformIO
 
   protected def IOptionRedirect[A](ioa: IO[Option[A]])(op: A ⇒ Call)(implicit ctx: Context) =
     ioa map {

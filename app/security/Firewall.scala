@@ -17,22 +17,21 @@ final class Firewall(
     enabled: Boolean) {
 
   val requestHandler: (RequestHeader ⇒ Option[Handler]) = enabled.fold(
-    cookieName.fold(
-      cn ⇒ req ⇒ {
+    cookieName.fold((_: RequestHeader) ⇒ none[Handler]) { cn ⇒
+      req ⇒ {
         val bIp = blocksIp(req.remoteAddress)
         val bCs = blocksCookies(req.cookies, cn)
         if (bIp && !bCs) infectCookie(cn)(req).some
         else if (bCs && !bIp) { blockIp(req.remoteAddress); none }
         else none
-      },
-      _ ⇒ None),
+      }
+    },
     _ ⇒ None)
 
   val blocks: (RequestHeader) ⇒ Boolean = enabled.fold(
-    cookieName.fold(
-      cn ⇒ req ⇒ (blocksIp(req.remoteAddress) || blocksCookies(req.cookies, cn)),
-      req ⇒ blocksIp(req.remoteAddress)
-    ),
+    cookieName.fold((req: RequestHeader) ⇒ blocksIp(req.remoteAddress)) { cn ⇒
+      req ⇒ (blocksIp(req.remoteAddress) || blocksCookies(req.cookies, cn))
+    },
     _ ⇒ false)
 
   def accepts(req: RequestHeader): Boolean = !blocks(req)

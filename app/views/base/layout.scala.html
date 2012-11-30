@@ -45,7 +45,7 @@
       <div id="nb_connected_players" class="nb_connected_players none">
         @trans.nbConnectedPlayers("<strong>0</strong>")
       </div>
-      @ctx.me.fold(auth.miniLogin)(auth.loggedIn(_))
+      @ctx.me.fold(auth.miniLogin())(auth.loggedIn(_))
       <div class="themepicker">
         <a class="theme_toggle toggle"><span class="theme_demo">@trans.color()</span></a>
         <div class="themes dropdown" data-href="@routes.Setting.set("theme")">

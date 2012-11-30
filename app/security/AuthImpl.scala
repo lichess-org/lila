@@ -31,7 +31,7 @@ trait AuthImpl {
   protected def logoutSucceeded(req: RequestHeader): PlainResult =
     Redirect(routes.Lobby.home)
 
-  protected def authenticationFailed(implicit req: RequestHeader): PlainResult =
+  protected def authenticationFailed(implicit req: RequestHeader): Result =
     Redirect(routes.Auth.signup) withCookies LilaCookie.session("access_uri", req.uri)
 
   protected def saveAuthentication(username: String)(implicit req: RequestHeader): String =
@@ -60,7 +60,7 @@ trait AuthImpl {
     Redirect(uri)
   }
 
-  protected def authorizationFailed(req: RequestHeader): PlainResult =
+  protected def authorizationFailed(req: RequestHeader): Result =
     Forbidden("no permission")
 
   protected def authenticateUser(username: String, password: String): Option[User] =

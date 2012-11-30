@@ -12,6 +12,7 @@ import scala.concurrent.{ Future, Promise }
 import play.api.libs.concurrent._
 import play.api.Play.current
 import scala.io.Source
+import scala.util.{ Success, Failure }
 import java.lang.management.ManagementFactory
 import com.mongodb.casbah.MongoDB
 

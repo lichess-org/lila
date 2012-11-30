@@ -20,20 +20,16 @@ final class HookJoiner(
   def apply(hookId: String, myHookId: Option[String])(me: Option[User]): IO[Valid[Pov]] =
     for {
       hookOption ← hookRepo hook hookId
-      myHookOption ← myHookId.fold(hookRepo.ownedHook, io(none))
-      result ← hookOption.fold(
-        hook ⇒ canJoin(hook, me).fold(
-          join(hook, myHookOption)(me) map success,
-          io(!!("Can not join hook"))
-        ),
-        io(!!("No such hook"))
-      )
-
+      myHookOption ← ~(myHookId map hookRepo.ownedHook)
+      result ← hookOption.fold(io(!![Pov]("No such hook"))) { hook ⇒
+        if (canJoin(hook, me)) join(hook, myHookOption)(me) map success
+        else io(!![Pov]("Can not join hook"))
+      }
     } yield result
 
   private def join(hook: Hook, myHook: Option[Hook])(me: Option[User]): IO[Pov] = for {
-    _ ← myHook.fold(fisherman.delete, io())
-    ownerOption ← hook.userId.fold(userRepo.byId, io(none))
+    _ ← ~(myHook map fisherman.delete)
+    ownerOption ← hook.userId.fold(io(none[User]))(userRepo.byId)
     game = blame(
       _.invitedColor, me,
       blame(_.creatorColor, ownerOption, makeGame(hook))
@@ -48,9 +44,7 @@ final class HookJoiner(
   } yield Pov(game, game.invitedColor)
 
   def blame(color: DbGame ⇒ ChessColor, userOption: Option[User], game: DbGame) =
-    userOption.fold(
-      user ⇒ game.updatePlayer(color(game), _ withUser user),
-      game)
+    userOption.fold(game)(user ⇒ game.updatePlayer(color(game), _ withUser user))
 
   def makeGame(hook: Hook) = DbGame(
     game = Game(
@@ -71,7 +65,7 @@ final class HookJoiner(
   private def canJoin(hook: Hook, me: Option[User]) =
     !hook.`match` && {
       hook.realMode.casual || (me exists { u ⇒
-        hook.realEloRange.fold(_ contains u.elo, true)
+        hook.realEloRange.fold(true)(_ contains u.elo)
       })
     }
 }

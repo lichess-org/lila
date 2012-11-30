@@ -305,7 +305,7 @@ case class DbGame(
   def isBeingPlayed =
     !finishedOrAborted && updatedAt.fold(false)(_ > DateTime.now - 20.seconds)
 
-  def abandoned = updatedAt.fold(false) { u =>
+  def abandoned = updatedAt.fold(false) { u ⇒
     (status <= Status.Started) && (u <= DbGame.abandonedDate)
   }
 
@@ -343,7 +343,7 @@ case class DbGame(
   def averageUsersElo = userElos match {
     case a :: b :: Nil ⇒ Some((a + b) / 2)
     case a :: Nil      ⇒ Some((a + 1200) / 2)
-    case Nil           ⇒ None
+    case _             ⇒ None
   }
 
   def with960Rematch(v: Boolean) = this.copy(is960Rematch = v)

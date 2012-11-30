@@ -27,10 +27,10 @@ final class FormFactory(
     )(AiConfig.<<)(_.>>)
   )
 
-  def aiConfig(implicit ctx: Context): IO[AiConfig] = ctx.me.fold(
-    user ⇒ configRepo.config(user) map (_.ai),
-    io(AiConfig.default)
-  )
+  def aiConfig(implicit ctx: Context): IO[AiConfig] =
+    ctx.me.fold(io(AiConfig.default)) { user ⇒
+      configRepo.config(user) map (_.ai)
+    }
 
   def friendFilled(implicit ctx: Context): IO[Form[FriendConfig]] =
     friendConfig map friend(ctx).fill
@@ -46,10 +46,10 @@ final class FormFactory(
     )(FriendConfig.<<)(_.>>) verifying ("Invalid clock", _.validClock)
   )
 
-  def friendConfig(implicit ctx: Context): IO[FriendConfig] = ctx.me.fold(
-    user ⇒ configRepo.config(user) map (_.friend),
-    io(FriendConfig.default)
-  )
+  def friendConfig(implicit ctx: Context): IO[FriendConfig] =
+    ctx.me.fold(io(FriendConfig.default)) { user ⇒
+      configRepo.config(user) map (_.friend)
+    }
 
   def hookFilled(implicit ctx: Context): IO[Form[HookConfig]] =
     hookConfig map hook(ctx).fill
@@ -68,8 +68,8 @@ final class FormFactory(
       .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited)
   )
 
-  def hookConfig(implicit ctx: Context): IO[HookConfig] = ctx.me.fold(
-    user ⇒ configRepo.config(user) map (_.hook),
-    io(HookConfig.default)
-  )
+  def hookConfig(implicit ctx: Context): IO[HookConfig] =
+    ctx.me.fold(io(HookConfig.default)) { user ⇒
+      configRepo.config(user) map (_.hook)
+    }
 }

@@ -17,7 +17,7 @@ object LilaCookie {
   def cookie(name: String, value: String, maxAge: Option[Int] = None)(implicit req: RequestHeader): Cookie = Cookie(
     name,
     value,
-    maxAge | Session.maxAge,
+    maxAge orElse Session.maxAge orElse 86400.some,
     "/",
     domain(req).some,
     Session.secure,

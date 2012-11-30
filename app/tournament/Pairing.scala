@@ -26,7 +26,7 @@ case class Pairing(
   def opponentOf(user: String): Option[String] =
     if (user == user1) user2.some else if (user == user2) user1.some else none
 
-  def wonBy(user: String): Boolean = winner.fold(user ==, false)
+  def wonBy(user: String): Boolean = ~winner.map(user ==)
   def draw: Boolean = finished && winner.isEmpty
 
   def colorOf(userId: String): Option[Color] =

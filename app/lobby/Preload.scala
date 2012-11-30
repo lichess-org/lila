@@ -11,6 +11,7 @@ import tournament.Created
 import play.api.mvc.Call
 import play.api.libs.concurrent.Akka
 import play.api.Play.current
+import play.api.libs.json.{ Json, JsObject, JsArray }
 import scala.concurrent.Future
 import scala.concurrent.duration._
 import akka.util.Timeout
@@ -26,7 +27,7 @@ final class Preload(
 
   private implicit val executor = Akka.system.dispatcher
   private implicit val timeout = Timeout(1 second)
-  private type RightResponse = (Map[String, Any], List[PostView], List[Created], Option[DbGame])
+  private type RightResponse = (JsObject, List[PostView], List[Created], Option[DbGame])
   private type Response = Either[Call, RightResponse]
 
   def apply(
@@ -43,7 +44,7 @@ final class Preload(
         ioToFuture(posts) zip
         ioToFuture(tours) zip
         featured.one map {
-          case (((((hooks, messages), entries), posts), tours), feat) ⇒ (Right((Map(
+          case (((((hooks, messages), entries), posts), tours), feat) ⇒ (Right((Json.obj(
             "version" -> history.version,
             "pool" -> renderHooks(hooks, myHook),
             "chat" -> (messages.reverse map (_.render)),
@@ -51,10 +52,9 @@ final class Preload(
           ), posts, tours, feat))): Response
         }) { gameId ⇒
         futureGame(gameId) map { gameOption ⇒
-          Left(gameOption.fold(
-            game ⇒ routes.Round.player(game fullIdOf game.creatorColor),
-            routes.Lobby.home()
-          )): Response
+          Left(gameOption.fold(routes.Lobby.home()) { game ⇒
+            routes.Round.player(game fullIdOf game.creatorColor)
+          }): Response
         }
       }
 
@@ -76,9 +76,11 @@ final class Preload(
 
   private def renderHooks(
     hooks: List[Hook],
-    myHook: Option[Hook]) = hooks map { h ⇒
-    myHook.exists(_.id == h.id).fold(
-      h.render ++ Map("ownerId" -> h.ownerId),
-      h.render)
+    myHook: Option[Hook]): JsArray = JsArray {
+    hooks map { h ⇒
+      myHook.exists(_.id == h.id).fold(
+        h.render ++ Json.obj("ownerId" -> h.ownerId),
+        h.render)
+    }
   }
 }

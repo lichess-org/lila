@@ -27,11 +27,9 @@ final class Setting(ctx: Context) {
     } getOrElse default
 
   private def set(name: String, value: String)(userRepo: UserRepo): IO[Cookie] =
-    ctx.me.fold(io()) { m ⇒
-      userRepo.saveSetting(m, name, value.toString)
-    } map { _ ⇒
-      LilaCookie.session(name, value.toString)(ctx.req)
-    }
+    ~(ctx.me map { m ⇒
+      userRepo.saveSetting(m, name, value.toString).void
+    }) inject LilaCookie.session(name, value.toString)(ctx.req)
 }
 
 object Setting {

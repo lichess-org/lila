@@ -9,6 +9,7 @@ import round.Meddler
 import scalaz.effects._
 import play.api.libs.concurrent._
 import play.api.Play.current
+import play.api.libs.concurrent.Execution.Implicits._
 import scala.concurrent.duration._
 
 final class GameJoiner(
@@ -51,19 +52,18 @@ final class GameJoiner(
   private def idleCheck(povRef: PovRef) {
     (for {
       povOption ← gameRepo pov povRef
-      _ ← povOption.filter(_.game.playable).fold(idleResult, io())
+      _ ← ~(povOption filter (_.game.playable) map idleResult)
     } yield ()).unsafePerformIO
   }
 
-  private def idleResult(pov: Pov) = {
+  private def idleResult(pov: Pov): IO[Unit] = {
     val idle = !pov.game.playerHasMoved(pov.color)
     idle.fold(
       roundMeddler resign pov,
       (pov.color.white && !pov.game.playerHasMoved(Color.Black)).fold(
-        scheduleIdleCheck(!pov.ref, pov.game.lastMoveTime.fold(
-          lastMoveTime ⇒ lastMoveTime - nowSeconds + secondsToMove,
-          secondsToMove
-        )),
+        scheduleIdleCheck(!pov.ref, pov.game.lastMoveTime.fold(secondsToMove) { lmt ⇒
+          lmt - nowSeconds + secondsToMove
+        }),
         io()
       )
     )

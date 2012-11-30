@@ -43,7 +43,7 @@ final class Export(user: User, gameRepo: GameRepo) {
       game.mode,
       game.clock.fold("unlimited") { c ⇒ 
         "%d %d".format(c.limitInMinutes, c.increment)
-      }
+      },
       (player flatMap (_.elo)).fold("?")(_.toString),
       (player flatMap (_.eloDiff)).fold("?")(showEloDiff),
       (player map game.opponent flatMap (_.elo)).fold("?")(_.toString),

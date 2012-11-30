@@ -23,10 +23,7 @@ final class Rematcher(
     attempt(fullId, {
       case pov @ Pov(game, color) if game playerCanRematch color ⇒
         success(game.opponent(color).isOfferingRematch.fold(
-          game.next.fold(
-            rematchExists(pov),
-            rematchJoin(pov)
-          ),
+          game.next.fold(rematchJoin(pov))(rematchExists(pov)),
           rematchCreate(pov)
         ))
       case _ ⇒ !!("invalid rematch offer " + fullId)
@@ -34,9 +31,7 @@ final class Rematcher(
 
   private def rematchExists(pov: Pov)(nextId: String): IO[Result] =
     gameRepo.pov(nextId, !pov.color) map { nextPovOption ⇒
-      nextPovOption.fold(
-        _.fullId -> Nil,
-        pov.fullId -> Nil)
+      nextPovOption.fold(pov.fullId -> Nil)(_.fullId -> Nil)
     }
 
   private def rematchJoin(pov: Pov): IO[Result] = for {
@@ -92,17 +87,13 @@ final class Rematcher(
 
   private def returnPlayer(game: DbGame, color: ChessColor): IO[DbPlayer] =
     DbPlayer(color = color, aiLevel = None) |> { player ⇒
-      game.player(!color).userId.fold(
-        userId ⇒ userRepo byId userId map { userOption ⇒
-          userOption.fold(
-            user ⇒ player withUser user,
-            player)
-        },
-        io(player))
+      game.player(!color).userId.fold(io(player)) { userId ⇒
+        userRepo byId userId map { _.fold(player)(player.withUser) }
+      }
     }
 
   private def clockName(clock: Option[Clock]): String =
-    clock.fold(Namer.clock, "Unlimited")
+    clock.fold("Unlimited")(Namer.clock)
 
   private def playerUrl(game: DbGame, color: ChessColor): String =
     routes.Round.player(game fullIdOf color).url

@@ -10,6 +10,7 @@ import lobby.{ Hook, Fisherman }
 import i18n.I18nDomain
 import controllers.routes
 
+import play.api.libs.json.{ Json, JsObject }
 import scalaz.effects._
 
 final class Processor(
@@ -22,14 +23,9 @@ final class Processor(
     ai: () ⇒ Ai) extends core.Futuristic {
 
   def ai(config: AiConfig)(implicit ctx: Context): IO[Pov] = for {
-    _ ← ctx.me.fold(
-      user ⇒ configRepo.update(user)(_ withAi config),
-      io()
-    )
+    _ ← ~(ctx.me map (user ⇒ configRepo.update(user)(_ withAi config)))
     pov = config.pov
-    game = ctx.me.fold(
-      user ⇒ pov.game.updatePlayer(pov.color, _ withUser user),
-      pov.game)
+    game = ctx.me.fold(pov.game)(user ⇒ pov.game.updatePlayer(pov.color, _ withUser user))
     _ ← gameRepo insert game
     _ ← gameRepo denormalizeStarted game
     _ ← timelinePush(game)
@@ -50,40 +46,32 @@ final class Processor(
   } yield pov2
 
   def friend(config: FriendConfig)(implicit ctx: Context): IO[Pov] = for {
-    _ ← ctx.me.fold(
-      user ⇒ configRepo.update(user)(_ withFriend config),
-      io()
-    )
+    _ ← ~(ctx.me map (user ⇒ configRepo.update(user)(_ withFriend config)))
     pov = config.pov
-    game = ctx.me.fold(
-      user ⇒ pov.game.updatePlayer(pov.color, _ withUser user),
-      pov.game)
+    game = ctx.me.fold(pov.game)(user ⇒ pov.game.updatePlayer(pov.color, _ withUser user))
     _ ← gameRepo insert game
     _ ← timelinePush(game)
     _ ← friendConfigMemo.set(pov.game.id, config)
   } yield pov
 
   def hook(config: HookConfig)(implicit ctx: Context): IO[Hook] = for {
-    _ ← ctx.me.fold(
-      user ⇒ configRepo.update(user)(_ withHook config),
-      io()
-    )
+    _ ← ~(ctx.me map { user ⇒ configRepo.update(user)(_ withHook config) })
     hook = config hook ctx.me
     _ ← fisherman add hook
   } yield hook
 
-  def api(implicit ctx: Context): IO[Map[String, Any]] = {
+  def api(implicit ctx: Context): IO[JsObject] = {
     val domain = "http://" + I18nDomain(ctx.req.domain).commonDomain
     val config = ApiConfig
     val pov = config.pov
-    val game = ctx.me.fold(
-      user ⇒ pov.game.updatePlayer(pov.color, _ withUser user),
-      pov.game).start
+    val game = ctx.me.fold(pov.game)(user ⇒ pov.game.updatePlayer(pov.color, _ withUser user)).start
+    import chess.Color._
     for {
       _ ← gameRepo insert game
       _ ← timelinePush(game)
-    } yield ChessColor.all map { color ⇒
-      color.name -> (domain + routes.Round.player(game fullIdOf color).url)
-    } toMap
+    } yield Json.obj(
+      White.name -> (domain + routes.Round.player(game fullIdOf White).url),
+      Black.name -> (domain + routes.Round.player(game fullIdOf Black).url)
+    )
   }
 }
