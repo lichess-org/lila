@@ -4,3 +4,4 @@
 [submodule "play"]
 	path = play
 	url = git://github.com/playframework/Play20
+  ignore = untracked
