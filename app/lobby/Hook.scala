@@ -8,6 +8,7 @@ import user.User
 
 import com.novus.salat.annotations.Key
 import ornicar.scalalib.Random
+import play.api.libs.json.{ Json, JsObject }
 
 case class Hook(
     @Key("_id") id: String,
@@ -34,7 +35,7 @@ case class Hook(
 
   lazy val realEloRange: Option[EloRange] = EloRange noneIfDefault eloRange
 
-  def render = Map(
+  def render: JsObject = Json.obj(
     "id" -> id,
     "username" -> username,
     "elo" -> elo,
@@ -43,8 +44,9 @@ case class Hook(
     "color" -> color,
     "clock" -> clockOrUnlimited,
     "emin" -> realEloRange.map(_.min),
-    "emax" -> realEloRange.map(_.max)
-  ) +? (engine, "engine" -> true)
+    "emax" -> realEloRange.map(_.max),
+    "engine" -> engine
+  ) 
 
   def clockOrUnlimited = 
     ((time filter (_ ⇒ hasClock)) |@| increment apply renderClock _) | "Unlimited"

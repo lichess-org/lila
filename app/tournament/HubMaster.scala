@@ -40,10 +40,9 @@ final class HubMaster(
       }
     }
 
-    case msg @ GetTournamentVersion(id) ⇒ (hubs get id).fold(
-      _ ? msg pipeTo sender,
-      sender ! 0
-    )
+    case msg @ GetTournamentVersion(id) ⇒ (hubs get id).fold(sender ! 0) {
+      _ ? msg pipeTo sender
+    }
 
     case CloseTournament(id) ⇒ hubs get id foreach { hub ⇒
       hub ! Close
@@ -56,10 +55,9 @@ final class HubMaster(
       (hub ? GetNbMembers).mapTo[Int]
     } map (_.sum) pipeTo sender
 
-    case GetTournamentUsernames(id) ⇒ hubs get id fold (
-      hub ⇒ (hub ? GetUsernames).mapTo[Iterable[String]] pipeTo sender,
-      sender ! Nil
-    )
+    case GetTournamentUsernames(id) ⇒ (hubs get id).fold(sender ! Nil) { hub ⇒
+      (hub ? GetUsernames).mapTo[Iterable[String]] pipeTo sender
+    }
 
     case GetTournamentIds ⇒ hubs.keys
 

@@ -113,7 +113,7 @@ final class Socket(
     colorName: String,
     version: Option[Int],
     uid: Option[String],
-    ctx: Context): IO[SocketPromise] =
+    ctx: Context): IO[SocketFuture] =
     getWatcherPov(gameId, colorName) map { join(_, false, version, uid, none, ctx) }
 
   def joinPlayer(
@@ -121,7 +121,7 @@ final class Socket(
     version: Option[Int],
     uid: Option[String],
     token: Option[String],
-    ctx: Context): IO[SocketPromise] = {
+    ctx: Context): IO[SocketFuture] = {
     getPlayerPov(fullId) map { join(_, true, version, uid, token, ctx) }
   }
 
@@ -161,7 +161,7 @@ final class Socket(
                   enumerator)
               }
             }
-        } yield socket): SocketPromise
+        } yield socket): SocketFuture
     }) | connectionFail
 
   // full game ids that have been hijacked

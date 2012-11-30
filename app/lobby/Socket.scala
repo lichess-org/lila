@@ -39,7 +39,7 @@ final class Socket(hub: ActorRef, flood: Flood) {
     uidOption: Option[String],
     username: Option[String],
     versionOption: Option[Int],
-    hook: Option[String]): SocketPromise = {
+    hook: Option[String]): SocketFuture = {
     val promise = for {
       version ← versionOption
       uid ← uidOption

@@ -3,33 +3,33 @@ package controllers
 import lila._
 
 import play.api.http._
-import scala.io.Codec
+import play.api.mvc.Codec
 
 trait ResponseWriter {
 
   // I like Unit requests.
-  implicit def wUnit: Writeable[Unit] =
-    Writeable[Unit](_ ⇒ Codec toUTF8 "ok")
+  implicit def wUnit(implicit codec: Codec): Writeable[Unit] =
+    Writeable[Unit]((_: Unit) ⇒ codec encode "ok")
   implicit def ctoUnit: ContentTypeOf[Unit] =
     ContentTypeOf[Unit](Some(ContentTypes.TEXT))
 
-  implicit def wFloat: Writeable[Float] =
-    Writeable[Float](f ⇒ Codec toUTF8 f.toString)
+  implicit def wFloat(implicit codec: Codec): Writeable[Float] =
+    Writeable[Float]((f: Float) ⇒ codec encode f.toString)
   implicit def ctoFloat: ContentTypeOf[Float] =
     ContentTypeOf[Float](Some(ContentTypes.TEXT))
 
-  implicit def wLong: Writeable[Long] =
-    Writeable[Long](a ⇒ Codec toUTF8 a.toString)
+  implicit def wLong(implicit codec: Codec): Writeable[Long] =
+    Writeable[Long]((a: Long) ⇒ codec encode a.toString)
   implicit def ctoLong: ContentTypeOf[Long] =
     ContentTypeOf[Long](Some(ContentTypes.TEXT))
 
-  implicit def wInt: Writeable[Int] =
-    Writeable[Int](i ⇒ Codec toUTF8 i.toString)
+  implicit def wInt(implicit codec: Codec): Writeable[Int] =
+    Writeable[Int]((i: Int) ⇒ codec encode i.toString)
   implicit def ctoInt: ContentTypeOf[Int] =
     ContentTypeOf[Int](Some(ContentTypes.TEXT))
 
-  implicit def wOptionString: Writeable[Option[String]] =
-    Writeable[Option[String]](i ⇒ Codec toUTF8 i.getOrElse(""))
+  implicit def wOptionString(implicit codec: Codec): Writeable[Option[String]] =
+    Writeable[Option[String]]((i: Option[String]) ⇒ codec encode ~i)
   implicit def ctoOptionString: ContentTypeOf[Option[String]] =
     ContentTypeOf[Option[String]](Some(ContentTypes.TEXT))
 }

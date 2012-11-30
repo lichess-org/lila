@@ -45,7 +45,7 @@ final class Hub(
       ping(uid)
       lastPingTime = nowMillis
       withMember(uid) { m ⇒
-        history.since(v).fold(_ foreach m.channel.push, resync(m))
+        history.since(v).fold(resync(m))(_ foreach m.channel.push)
       }
     }
 

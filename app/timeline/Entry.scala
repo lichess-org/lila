@@ -17,7 +17,7 @@ case class Entry(
     whiteName -> whiteId,
     blackName -> blackId)
 
-  def render =
+  def render: String =
     "<td>%s</td><td>%s</td><td class='trans_me'>%s</td><td class='trans_me'>%s</td><td class='trans_me'>%s</td>".format(
       "<a class='watch' href='/%s'></a>" format gameId,
       players map {

@@ -45,7 +45,7 @@ final class Indexer(
   } map (_ ⇒ ()) except { e ⇒ putStrLn("Index does not exist yet") } map { _ ⇒
     es.createIndex(indexName, settings = Map())
     es.waitTillActive()
-    es.putMapping(indexName, typeName, Json toJson Map(typeName -> Game.mapping))
+    es.putMapping(indexName, typeName, Json stringify Json.obj(typeName -> Game.jsonMapping))
     es.refresh()
   }
 
@@ -61,7 +61,7 @@ final class Indexer(
         case (game, pgn) ⇒ game.decode map Game.from(pgn)
       } collect {
         case Some((id, doc)) ⇒
-          es.index_prepare(indexName, typeName, id, Json toJson doc).request
+          es.index_prepare(indexName, typeName, id, Json stringify doc).request
       }
       if (actions.nonEmpty) {
         es bulk actions

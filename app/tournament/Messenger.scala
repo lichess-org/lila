@@ -14,7 +14,7 @@ final class Messenger(
 
   def init(tour: Created): IO[List[Message]] = for {
     userOption ← getUser(tour.data.createdBy)
-    username = userOption.fold(_.username, tour.data.createdBy)
+    username = userOption.fold(tour.data.createdBy)(_.username)
     message ← systemMessage(tour, "%s creates the tournament" format username)
   } yield List(message)
 

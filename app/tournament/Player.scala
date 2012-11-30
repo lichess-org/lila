@@ -49,9 +49,9 @@ object Player {
       prevWin: Boolean = false) {
 
     def +(winner: Option[String]) = {
-      val (win, loss): Pair[Boolean, Boolean] = winner.fold(
-        w ⇒ if (w == player.id) true -> false else false -> true,
-        false -> false)
+      val (win, loss): Pair[Boolean, Boolean] = winner.fold(false -> false) { w =>
+        if (w == player.id) true -> false else false -> true
+      }
       val newWinSeq = if (win) prevWin.fold(winSeq + 1, 1) else 0
       val points = win.fold(1 + newWinSeq, loss.fold(0, 1))
       copy(

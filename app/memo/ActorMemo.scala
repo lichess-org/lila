@@ -8,13 +8,14 @@ import scala.concurrent.duration._
 import akka.util.Timeout
 
 import play.api.Play.current
+import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.concurrent._
 
 import com.google.common.cache.LoadingCache
 
 final class ActorMemo[K, V] private (
     cache: LoadingCache[K, V],
-    atMost: Duration,
+    atMost: FiniteDuration,
     valMan: Manifest[V]) {
 
   def apply(key: K): V = Await.result(async(key), atMost)
@@ -33,7 +34,7 @@ final class ActorMemo[K, V] private (
 
 object ActorMemo {
 
-  def apply[K, V](load: K ⇒ V, ttl: Int, atMost: Duration)(
+  def apply[K, V](load: K ⇒ V, ttl: Int, atMost: FiniteDuration)(
       implicit valMan: Manifest[V]) = new ActorMemo(
     cache = Builder.cache[K, V](ttl, load),
     atMost = atMost,

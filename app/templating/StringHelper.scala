@@ -42,7 +42,7 @@ trait StringHelper {
 
   def showNumber(n: Int): String = (n > 0).fold("+" + n, n.toString)
 
-  implicit def richString(str: String) = new {
+  implicit def lilaRichString(str: String) = new {
     def active(other: String, one: String = "active") = 
       (str == other).fold(one, "")
   }

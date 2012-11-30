@@ -1,11 +1,11 @@
 package lila
 package templating
 
-import com.codahale.jerkson.Json
+import play.api.libs.json.Json
 
 trait JsonHelper {
 
-  def mapToJson(map: Map[String, Any]) = Json generate map
+  // def toJson(data: Write) = Json generate map
 
-  def listToJson(list: List[Any]) = Json generate list
+  // def listToJson(list: List[Any]) = Json generate list
 }

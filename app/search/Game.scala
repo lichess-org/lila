@@ -4,6 +4,7 @@ package search
 import game.DbGame
 import chess.{ OpeningExplorer, Status }
 
+import play.api.libs.json.{ Json, JsObject, JsString, JsNumber }
 import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
 
 object Game {
@@ -23,16 +24,23 @@ object Game {
   }
   import fields._
 
-  def mapping = {
-    def field(name: String, typ: String, analyzed: Boolean = false, attrs: Map[String, Any] = Map.empty) =
-      name -> (Map(
+  def jsonMapping: JsObject = {
+
+    def field(
+      name: String,
+      typ: String,
+      analyzed: Boolean = false,
+      attrs: JsObject = JsObject(Nil)): (String, JsObject) =
+      name -> (Json.obj(
         "type" -> typ,
         "index" -> analyzed.fold("analyzed", "not_analyzed")
       ) ++ attrs)
-    def obj(name: String, properties: Map[String, Any]) =
-      name -> Map("type" -> "object", "properties" -> properties)
-    Map(
-      "properties" -> List(
+
+    def obj(name: String, properties: JsObject) =
+      name -> Json.obj("type" -> "object", "properties" -> properties)
+
+    Json.obj(
+      "properties" -> JsObject(List(
         field(status, "short"),
         field(turns, "short"),
         field(rated, "boolean"),
@@ -42,27 +50,25 @@ object Game {
         field(averageElo, "short"),
         field(ai, "short"),
         field(opening, "string"),
-        field(date, "date", attrs = Map("format" -> dateFormat)),
+        field(date, "date", attrs = Json.obj("format" -> dateFormat)),
         field(duration, "short")
-      ).toMap
+      ))
     )
   }
 
-  def from(pgn: String)(game: DbGame) = game.id -> (List(
-    status -> game.status.is(_.Timeout).fold(Status.Resign, game.status).id.some,
-    turns -> Some(math.ceil(game.turns.toFloat / 2)),
-    rated -> game.rated.some,
-    variant -> game.variant.id.some,
-    uids -> (game.userIds.toNel map (_.list)),
-    winner -> (game.winner flatMap (_.userId)),
-    averageElo -> game.averageUsersElo,
-    ai -> game.aiLevel,
-    date -> (dateFormatter print game.createdAt).some,
-    duration -> game.estimateTotalTime.some,
-    opening -> (OpeningExplorer openingOf pgn map (_.code.toLowerCase))
-  ) collect {
-      case (x, Some(y)) ⇒ x -> y
-    }).toMap
+  def from(pgn: String)(game: DbGame) = game.id -> Json.obj(
+    status -> game.status.is(_.Timeout).fold(Status.Resign, game.status).id,
+    turns -> math.ceil(game.turns.toFloat / 2),
+    rated -> game.rated,
+    variant -> game.variant.id,
+    uids -> game.userIds,
+    winner -> Json.toJson(game.winner flatMap (_.userId)),
+    averageElo -> Json.toJson(game.averageUsersElo),
+    ai -> Json.toJson(game.aiLevel),
+    date -> (dateFormatter print game.createdAt),
+    duration -> game.estimateTotalTime,
+    opening -> Json.toJson(OpeningExplorer openingOf pgn map (_.code.toLowerCase))
+  )
 
   private val dateFormat = "YYYY-MM-dd HH:mm:ss"
   val dateFormatter: DateTimeFormatter = DateTimeFormat forPattern dateFormat

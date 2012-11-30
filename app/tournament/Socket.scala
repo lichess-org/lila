@@ -54,7 +54,7 @@ final class Socket(
     tournamentId: String,
     version: Option[Int],
     uid: Option[String],
-    user: Option[User]): IO[SocketPromise] =
+    user: Option[User]): IO[SocketFuture] =
     getTournament(tournamentId) map { tourOption ⇒
       ((tourOption |@| uid |@| version) apply {
         (tour: Tournament, uid: String, version: Int) ⇒
@@ -73,7 +73,7 @@ final class Socket(
                     },
                     enumerator)
               }
-          } yield socket): SocketPromise
+          } yield socket): SocketFuture
       }) | connectionFail
     }
 

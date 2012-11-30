@@ -26,7 +26,6 @@ package object lila
 
   type JsChannel = Channel[JsValue]
   type JsEnumerator = Enumerator[JsValue]
-  type SocketPromise = Promise[(Iteratee[JsValue, _], JsEnumerator)]
   type SocketFuture = Future[(Iteratee[JsValue, _], JsEnumerator)]
 
   // custom salat context

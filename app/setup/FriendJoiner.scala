@@ -18,11 +18,11 @@ final class FriendJoiner(
     game.notStarted option {
       val color = game.invitedColor
       for {
-        p1 ← user.fold(
-          u ⇒ gameRepo.setUser(game.id, color, u) map { _ ⇒
+        p1 ← user.fold(io(Progress(game))) { u ⇒
+          gameRepo.setUser(game.id, color, u) map { _ ⇒
             Progress(game, game.updatePlayer(color, _ withUser u))
-          },
-          io(Progress(game)))
+          }
+        }
         p2 = p1 map (_.start)
         p3 ← messenger init p2.game map { evts ⇒
           p2 + Event.RedirectOwner(!color, playerUrl(p2.game, !color)) ++ evts

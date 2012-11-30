@@ -51,13 +51,13 @@ final class Hub(
     case AddHook(hook) ⇒ notifyVersion("hook_add", Seq(
       "id" -> JsString(hook.id),
       "username" -> JsString(hook.username),
-      "elo" -> hook.elo.fold(JsNull)(JsNumber(_)),
+      "elo" -> Json.toJson(hook.elo),
       "mode" -> JsString(hook.realMode.toString),
       "variant" -> JsString(hook.realVariant.toString),
       "color" -> JsString(hook.color),
       "clock" -> JsString(hook.clockOrUnlimited),
-      "emin" -> hook.realEloRange.fold(range ⇒ JsNumber(range.min), JsNull),
-      "emax" -> hook.realEloRange.fold(range ⇒ JsNumber(range.max), JsNull),
+      "emin" -> Json.toJson(hook.realEloRange.map(_.min)),
+      "emax" -> Json.toJson(hook.realEloRange.map(_.max)),
       "engine" -> JsBoolean(hook.engine))
     )
 

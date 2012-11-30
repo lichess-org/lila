@@ -111,9 +111,8 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
     members.values find (_.userId == someId)
   }
 
-  def membersByUserIds(userIds: Set[String]): Iterable[M] = {
-    members.values filter (_.userId.fold(userIds.contains, false))
-  }
+  def membersByUserIds(userIds: Set[String]): Iterable[M] =
+    members.values filter (member ⇒ ~member.userId.map(userIds.contains))
 
   def usernames: Iterable[String] = members.values.map(_.username).flatten
 
@@ -121,7 +120,7 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
     val msg = makeMessage("fen", JsObject(Seq(
       "id" -> JsString(gameId),
       "fen" -> JsString(fen),
-      "lm" -> lastMove.fold(JsString(_), JsNull)
+      "lm" -> Json.toJson(lastMove)
     )))
     members.values filter (_ liveGames gameId) foreach (_.channel push msg)
   }

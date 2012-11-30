@@ -58,7 +58,7 @@ object I18n extends LilaController {
 
   def fetch(from: Int) = Open { implicit ctx ⇒
     JsonOk((repo findFrom from map {
-      _ map (_.toMap)
+      _ map (_.toJson)
     }).unsafePerformIO)
   }
 

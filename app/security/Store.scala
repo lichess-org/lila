@@ -35,7 +35,7 @@ final class Store(collection: MongoCollection) {
   def delete(sessionId: String) {
     collection.update(
       DBObject("_id" -> sessionId),
-      $set("up" -> false))
+      $set(Seq("up" -> false)))
   }
 
   // useful when closing an account,
@@ -43,7 +43,7 @@ final class Store(collection: MongoCollection) {
   def deleteUsername(username: String) {
     collection.update(
       DBObject("user" -> normalize(username)),
-      $set("up" -> false))
+      $set(Seq("up" -> false)))
   }
 
   def userSpy(username: String): IO[UserSpy] = io {

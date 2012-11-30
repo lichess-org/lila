@@ -22,7 +22,7 @@ final class Cached(
     username(userId) | User.anonymous
 
   def usernameOrAnonymous(userId: Option[String]): String = 
-    userId.fold(usernameOrAnonymous, User.anonymous)
+    (userId flatMap username) | User.anonymous
 
   def countEnabled: Int = memo(CountEnabled)
 

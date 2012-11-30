@@ -1,7 +1,7 @@
 package lila
 package game
 
-import chess._
+import chess.{ Pos, Piece, Color }
 import user.User
 
 case class DbPlayer(
@@ -123,10 +123,10 @@ case class RawDbPlayer(
     isWinner = w,
     elo = elo,
     eloDiff = ed,
-    isOfferingDraw = isOfferingDraw | false,
-    isOfferingRematch = isOfferingRematch | false,
+    isOfferingDraw = ~isOfferingDraw,
+    isOfferingRematch = ~isOfferingRematch,
     lastDrawOffer = lastDrawOffer,
-    isProposingTakeback = isProposingTakeback | false,
+    isProposingTakeback = ~isProposingTakeback,
     userId = uid,
     moveTimes = mts | "",
     blurs = bs | 0

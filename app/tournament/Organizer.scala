@@ -10,7 +10,7 @@ import akka.util.Timeout
 import akka.pattern.{ ask, pipe }
 import scala.concurrent.{ Future, Promise }
 import play.api.libs.concurrent._
-import play.api.Play.current
+import play.api.libs.concurrent.Execution.Implicits._
 
 private[tournament] final class Organizer(
     api: TournamentApi,
