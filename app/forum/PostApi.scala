@@ -4,10 +4,13 @@ package forum
 import user.User
 import http.Context
 import mod.ModlogApi
+import core.Futuristic._
 
 import scalaz.effects._
 import com.github.ornicar.paginator._
 import scala.math.ceil
+
+import play.api.libs.concurrent.Execution.Implicits._
 
 final class PostApi(
     env: ForumEnv,

@@ -10,6 +10,8 @@ import play.api.libs.concurrent._
 import play.api.Application
 import play.api.Mode.Dev
 
+import play.modules.reactivemongo._
+
 import ui._
 
 final class CoreEnv private (application: Application, val settings: Settings) {
@@ -20,6 +22,10 @@ final class CoreEnv private (application: Application, val settings: Settings) {
   def configName = ConfigName
 
   lazy val mongodb = new lila.mongodb.MongoDbEnv(
+    settings = settings)
+
+  lazy val mongo2 = new lila.mongodb.Mongo2Env(
+    db = ReactiveMongoPlugin.db, 
     settings = settings)
 
   lazy val i18n = new lila.i18n.I18nEnv(
@@ -171,7 +177,8 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     firewall = security.firewall,
     eloUpdater = user.eloUpdater,
     lobbyMessenger = lobby.messenger,
-    mongodb = mongodb.apply _)
+    mongodb = mongodb.apply _,
+    db = mongo2.db)
 }
 
 object CoreEnv {

@@ -11,6 +11,8 @@ import com.novus.salat.{ Context, TypeHintFrequency, StringTypeHintStrategy }
 import com.mongodb.casbah.commons.conversions.scala.RegisterJodaTimeConversionHelpers
 import scalaz.effects.{ io, IO }
 
+import reactivemongo.api.{ DB, Collection }
+
 package object lila
     extends scalalib.Validation
     with scalalib.Common
@@ -27,6 +29,8 @@ package object lila
   type JsChannel = Channel[JsValue]
   type JsEnumerator = Enumerator[JsValue]
   type SocketFuture = Future[(Iteratee[JsValue, _], JsEnumerator)]
+
+  type LilaDB = DB[Collection]
 
   // custom salat context
   implicit val customSalatContext = new Context {

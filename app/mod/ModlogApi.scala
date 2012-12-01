@@ -3,7 +3,7 @@ package mod
 
 import user.User
 
-import scalaz.effects._
+import scala.concurrent.Future
 
 final class ModlogApi(repo: ModlogRepo) {
 
@@ -31,5 +31,5 @@ final class ModlogApi(repo: ModlogRepo) {
 
   def recent = repo recent 100
 
-  private def add(modLog: Modlog): IO[Unit] = repo saveIO modLog
+  private def add(modLog: Modlog): Future[Unit] = repo insert modLog
 }

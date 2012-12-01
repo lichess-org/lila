@@ -5,8 +5,10 @@ import user.{ User, UserRepo }
 import elo.EloUpdater
 import lobby.Messenger
 import security.{ Firewall, Store ⇒ SecurityStore }
+import core.Futuristic._
 
 import scalaz.effects._
+import play.api.libs.concurrent.Execution.Implicits._
 
 final class ModApi(
     logApi: ModlogApi,

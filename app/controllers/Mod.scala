@@ -7,6 +7,7 @@ import http.Context
 
 import play.api.mvc._
 import play.api.mvc.Results._
+import play.api.libs.concurrent.Execution.Implicits._
 import scalaz.effects._
 
 object Mod extends LilaController {
@@ -41,7 +42,10 @@ object Mod extends LilaController {
   }
 
   val log = Auth { implicit ctx ⇒
-    me =>
-      IOk(modLogApi.recent map { html.mod.log(_) })
+    me ⇒ Async {
+      modLogApi.recent map { docs ⇒
+        Ok(html.mod.log(docs))
+      }
+    }
   }
 }
