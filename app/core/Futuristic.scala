@@ -8,6 +8,8 @@ import scala.concurrent.{ Future, Await }
 import scala.concurrent.duration._
 import scalaz.effects._
 
+object Futuristic extends Futuristic
+
 trait Futuristic {
 
   protected implicit val ttl = 1 minute
@@ -20,10 +22,16 @@ trait Futuristic {
 
   implicit def futureToIo[A](fa: Future[A]) = new {
 
-    def toIo: IO[A] = toIo(1 minute)
+    def toIo: IO[A] = toIo(ttl)
 
     def toIo(duration: Duration): IO[A] = io {
       Await.result(fa, duration)
     }
+  }
+
+  implicit def autoIoToFuture[A](ioa: IO[A]) = Future(ioa.unsafePerformIO)
+
+  implicit def autoFutureToIo[A](fa: Future[A]) = io {
+    Await.result(fa, ttl)
   }
 }

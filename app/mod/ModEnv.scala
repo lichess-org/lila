@@ -16,11 +16,12 @@ final class ModEnv(
     firewall: Firewall,
     eloUpdater: EloUpdater,
     lobbyMessenger: Messenger,
-    mongodb: String ⇒ MongoCollection) {
+    mongodb: String ⇒ MongoCollection,
+    db: LilaDB) {
 
   import settings._
 
-  lazy val modlogRepo = new ModlogRepo(mongodb(ModlogCollectionModlog))
+  lazy val modlogRepo = new ModlogRepo(db, ModlogCollectionModlog)
 
   lazy val logApi = new ModlogApi(
     repo = modlogRepo)

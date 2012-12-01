@@ -32,4 +32,17 @@ object Modlog {
   val ban = "ban"
   val ipban = "ipban"
   val deletePost = "deletePost"
+
+  import play.api.libs.json._
+  import play.api.libs.functional.syntax._
+
+  val json = JsonTube((
+    (__ \ 'mod).read[String] and
+    (__ \ 'user).read[Option[String]] and
+    (__ \ 'action).read[String] and
+    (__ \ 'details).read[Option[String]] and
+    (__ \ 'date).read[DateTime]
+  )(Modlog.apply _),
+    Json.writes[Modlog]
+  )
 }
