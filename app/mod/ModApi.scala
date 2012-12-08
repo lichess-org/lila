@@ -18,15 +18,13 @@ final class ModApi(
     eloUpdater: EloUpdater,
     lobbyMessenger: Messenger) {
 
-  def adjust(mod: User, username: String): IO[Unit] = withUser(username) { user ⇒
-    for {
-      _ ← userRepo toggleEngine user.id
-      _ ← eloUpdater adjust user
-      _ ← logApi.engine(mod, user, !user.engine)
-    } yield ()
+  def adjust(mod: User, username: String): Funit = withUser(username) { user ⇒
+    logApi.engine(mod, user, !user.engine) zip
+    userRepo.toggleEngine(user.id) zip
+    eloUpdater.adjust(user) map toVoid
   }
 
-  def mute(mod: User, username: String): IO[Unit] = for {
+  def mute(mod: User, username: String): Funit = for {
     userOption ← userRepo byId username
     _ ← ~userOption.map(user ⇒ for {
       _ ← userRepo toggleMute user.id
@@ -35,7 +33,7 @@ final class ModApi(
     } yield ())
   } yield ()
 
-  def ban(mod: User, username: String): IO[Unit] = withUser(username) { user ⇒
+  def ban(mod: User, username: String): Funit = withUser(username) { user ⇒
     for {
       spy ← securityStore userSpy username
       _ ← io(spy.ips foreach firewall.blockIp)
@@ -44,13 +42,13 @@ final class ModApi(
     } yield ()
   }
 
-  def ipban(mod: User, ip: String): IO[Unit] = for {
+  def ipban(mod: User, ip: String): Funit = for {
     _ ← io(firewall blockIp ip)
     _ ← logApi.ipban(mod, ip)
   } yield ()
 
-  private def withUser(username: String)(userIo: User ⇒ IO[Unit]) = for {
+  private def withUser(username: String)(op: User ⇒ Funit): Funit = for {
     userOption ← userRepo byId username
-    _ ← ~userOption.map(userIo)
+    _ ← ~userOption.map(op)
   } yield ()
 }

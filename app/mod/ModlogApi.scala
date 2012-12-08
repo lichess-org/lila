@@ -31,5 +31,5 @@ final class ModlogApi(repo: ModlogRepo) {
 
   def recent = repo recent 100
 
-  private def add(modLog: Modlog): Future[Unit] = repo insert modLog
+  private def add(m: Modlog) = repo uncheckedInsert m
 }

@@ -17,6 +17,7 @@ trait LilaController
     with ContentTypes
     with RequestGetter
     with ResponseWriter
+    with AsyncResults
     with AuthImpl {
 
   protected lazy val env = Global.env

@@ -30,7 +30,11 @@ package object lila
   type JsEnumerator = Enumerator[JsValue]
   type SocketFuture = Future[(Iteratee[JsValue, _], JsEnumerator)]
 
+  type Fu[A] = Future[A]
+  type Funit = Fu[Unit]
   type LilaDB = DB[Collection]
+
+  val toVoid = (_: Any) ⇒ ()
 
   // custom salat context
   implicit val customSalatContext = new Context {
@@ -63,10 +67,10 @@ package object lila
   }
 
   def intBox(in: Range.Inclusive)(v: Int): Int =
-    math.max(in.start, math.min(v, in.end)) 
+    math.max(in.start, math.min(v, in.end))
 
   def floatBox(in: Range.Inclusive)(v: Float): Float =
-    math.max(in.start, math.min(v, in.end)) 
+    math.max(in.start, math.min(v, in.end))
 
   def printToFile(f: java.io.File)(op: java.io.PrintWriter ⇒ Unit): IO[Unit] = io {
     val p = new java.io.PrintWriter(f)
