@@ -16,29 +16,25 @@ object Mod extends LilaController {
   private def modLogApi = env.mod.logApi
 
   def engine(username: String) = Secure(Permission.MarkEngine) { _ ⇒
-    me ⇒
-      IORedirect {
-        modApi.adjust(me, username) map { _ ⇒ routes.User show username }
-      }
+    me ⇒ AsyncRedirect {
+      modApi.adjust(me, username) map { _ ⇒ routes.User show username }
+    }
   }
 
   def mute(username: String) = Secure(Permission.MutePlayer) { _ ⇒
-    me ⇒
-      IORedirect {
-        modApi.mute(me, username) map { _ ⇒ routes.User show username }
-      }
+    me ⇒ AsyncRedirect {
+      modApi.mute(me, username) map { _ ⇒ routes.User show username }
+    }
   }
 
   def ban(username: String) = Secure(Permission.IpBan) { implicit ctx ⇒
-    me ⇒
-      IORedirect {
-        modApi.ban(me, username) map { _ ⇒ routes.User show username }
-      }
+    me ⇒ AsyncRedirect {
+      modApi.ban(me, username) map { _ ⇒ routes.User show username }
+    }
   }
 
   def ipban(ip: String) = Secure(Permission.IpBan) { implicit ctx ⇒
-    me ⇒
-      IOk(modApi.ipban(me, ip))
+    me ⇒ AsyncOk(modApi.ipban(me, ip))
   }
 
   val log = Auth { implicit ctx ⇒
