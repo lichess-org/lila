@@ -89,7 +89,9 @@ body.dark div.lichess_overboard p.explanations,
 body.dark div.search_status,
 body.dark #tournament table.data,
 body.dark #tournament table.data thead th,
-body.dark div.notifications > div 
+body.dark div.notifications > div,
+body.dark form.wide input[type="text"], 
+body.dark form.wide textarea 
 {
   border-color: #3e3e3e;
 }

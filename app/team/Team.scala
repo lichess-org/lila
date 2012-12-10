@@ -27,7 +27,7 @@ object Team {
     location: Option[String],
     description: String,
     createdBy: User): Team = new Team(
-    id = core.Text.slugify(name),
+    id = templating.StringHelper.slugify(name),
     name = name,
     location = location,
     description = description,

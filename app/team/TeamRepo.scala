@@ -19,7 +19,7 @@ final class TeamRepo(collection: MongoCollection)
   }
 
   def byUser(user: User): IO[List[Team]] = io {
-    find(userQuery(user)).sort(sortQuery).toList
+    find(userQuery(user)).sort(sortPopular).toList
   }
 
   def saveIO(team: Team): IO[Unit] = io {
@@ -37,5 +37,7 @@ final class TeamRepo(collection: MongoCollection)
 
   def selectId(id: String) = DBObject("_id" -> id)
 
-  val sortQuery = DBObject("updatedAt" -> -1)
+  val queryAll = DBObject()
+
+  val sortPopular = DBObject("nbMembers" -> -1)
 }

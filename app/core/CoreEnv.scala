@@ -52,6 +52,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
 
   lazy val team = new lila.team.TeamEnv(
     settings = settings,
+    captcha = site.captcha,
     mongodb = mongodb.apply _)
 
   lazy val lobby = new lila.lobby.LobbyEnv(

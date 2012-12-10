@@ -8,7 +8,7 @@ title = "New forum topic") {
 </ol>
 <br />
 <h1>New topic</h1>
-<form action="@routes.ForumTopic.create(categ.slug)" method="POST" novalidate>
+<form class="wide" action="@routes.ForumTopic.create(categ.slug)" method="POST" novalidate>
   <label>
     <span class="required">Subject</span>
     <input class="subject" value="@form("name").value" type="text" name="@form("name").name" id="@form("name").id">

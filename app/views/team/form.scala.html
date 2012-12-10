@@ -1,0 +1,35 @@
+@(form: Form[_], captcha: lila.site.Captcha.Challenge)(implicit ctx: Context)
+
+@team.layout(
+title = "New Team") {
+<div id="team">
+  <div class="content_box team_box">
+    <h1>@trans.newTeam()</h1>
+    <form class="new-team wide" action="@routes.Team.create()" method="POST">
+      <section class="team-data">
+      <label>
+        <span class="required">Name</span>
+        @base.input(form("name"))
+        @errMsg(form("name"))
+      </label>
+      <label>
+        <span>Location</span>
+        @base.input(form("location"))
+        @errMsg(form("location"))
+      </label>
+      <label>
+        <span class="required">Description</span>
+        @defining(form("description")) { desc =>
+        <textarea name="@desc.name" id="@desc.id">@desc.value</textarea>
+        @errMsg(desc)
+        }
+      </label>
+      </section>
+      @base.captcha(form("team")("move"), form("team")("gameId"), captcha)
+      @errMsg(form("team"))
+      <button class="submit button" type="submit">@trans.newTeam()</button>
+      <a href="@routes.Team.home(1)" style="margin-left:20px">Cancel</a>
+    </form>
+  </div>
+</div>
+}
