@@ -50,6 +50,10 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     settings = settings,
     mongodb = mongodb.apply _)
 
+  lazy val team = new lila.team.TeamEnv(
+    settings = settings,
+    mongodb = mongodb.apply _)
+
   lazy val lobby = new lila.lobby.LobbyEnv(
     app = app,
     settings = settings,
