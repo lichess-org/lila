@@ -36,7 +36,7 @@ object Modlog {
   import play.api.libs.json._
   import play.api.libs.functional.syntax._
 
-  val json = JsonTube((
+  val json = mongodb.JsonTube((
     (__ \ 'mod).read[String] and
     (__ \ 'user).read[Option[String]] and
     (__ \ 'action).read[String] and

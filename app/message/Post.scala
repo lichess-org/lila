@@ -20,7 +20,7 @@ object Post {
 
   val idSize = 8
 
-  def apply(
+  def make(
     text: String,
     isByCreator: Boolean): Post = Post(
     id = Random nextString idSize,
@@ -28,4 +28,17 @@ object Post {
     isByCreator = isByCreator,
     isRead = false,
     createdAt = DateTime.now)
+
+  import play.api.libs.json._
+  import play.api.libs.functional.syntax._
+
+  val json = mongodb.JsonTube((
+    (__ \ 'id).read[String] and
+    (__ \ 'text).read[String] and
+    (__ \ 'isByCreator).read[Boolean] and
+    (__ \ 'isRead).read[Boolean] and
+    (__ \ 'createdAt).read[DateTime]
+  )(Post.apply _),
+    Json.writes[Post]
+  )
 }

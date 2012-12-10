@@ -1,5 +1,5 @@
 package lila
-package mod
+package mongodb
 
 import reactivemongo.api._
 import reactivemongo.bson._
@@ -35,13 +35,18 @@ abstract class Coll[Doc](db: LilaDB, name: String, json: JsonTube[Doc]) {
   def count(query: QueryBuilder): Fu[Int] = db command Count(name, query.makeQueryDocument.some)
   def count: Fu[Int] = db command Count(name, none)
 
-  def findOne(query: QueryBuilder): Fu[Option[Doc]] = coll.find[Doc](query).headOption
+  def findOne(query: QueryBuilder): Fu[Option[Doc]] = cursor(query).headOption
 
-  def find(query: QueryBuilder): Fu[List[Doc]] = coll.find[Doc](query).toList
-  def find(query: QueryBuilder, nb: Int): Fu[List[Doc]] = coll.find[Doc](query) toList nb
+  def find(query: QueryBuilder): Fu[List[Doc]] = cursor(query).toList
+  def find(query: QueryBuilder, nb: Int): Fu[List[Doc]] = cursor(query) toList nb
 
-  def recent(nb: Int): Fu[List[Doc]] =
-    find(QueryBuilder().sort("$natural" -> SortOrder.Descending), nb)
+  def cursor(query: QueryBuilder): FlattenedCursor[Doc] = coll.find[Doc](query)
+
+  def query = QueryBuilder()
+
+  ///////////// sorting /////////////
+  
+  def sortNaturalDesc = BSONDocument("$natural" -> BSONInteger(-1))
 
   private val coll = db(name)
 }
