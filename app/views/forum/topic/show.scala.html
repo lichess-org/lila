@@ -39,7 +39,7 @@ title = topic.name) {
   case (form, captcha) => {
   <div class="topicReply">
     <h2 class="postNewTitle" id="reply">Reply to this topic</h2>
-    <form action="@routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)#reply" method="POST" novalidate>
+    <form class="wide" action="@routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)#reply" method="POST" novalidate>
       @forum.post.formFields(form("text"), form("author"))
       @base.captcha(form("move"), form("gameId"), captcha)
       @errMsg(form)

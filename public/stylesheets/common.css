@@ -340,6 +340,12 @@ a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hove
   border-bottom: 1px solid #dadada;
   margin-bottom: 8px
 }
+
+form.wide input[type="text"], form.wide textarea {
+  padding: 0.5em;
+  border: 1px solid #D4D4D4;
+}
+
 #top a.toggle {
   display:block;
   padding-right: 4px;

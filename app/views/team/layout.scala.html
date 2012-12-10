@@ -1,0 +1,22 @@
+@(title: String)(body: Html)(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("team.css")
+}
+
+@goodies = {
+<div class="sidebar">
+  <a href="@routes.Team.home(1)">@trans.allTeams()</a>
+  @if(ctx.me.fold(_.canMessage, false)) {
+  <a href="@routes.Team.form()">@trans.newTeam()</a>
+  }
+</div>
+}
+
+@base.layout(
+title = title,
+moreCss = moreCss,
+goodies = goodies.some,
+active = siteMenu.team.some) {
+@body
+}

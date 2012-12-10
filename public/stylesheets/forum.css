@@ -180,19 +180,13 @@ div.category .description {
 
 #lichess_forum form input.subject {
   width: 500px;
-  padding: 0.5em;
-  border: 1px solid #D4D4D4;
 }
 #lichess_forum form textarea {
   width: 500px;
   height: 150px;
-  padding: 0.5em;
-  border: 1px solid #D4D4D4;
 }
 #lichess_forum form input.author {
-  padding: 0.5em;
   width: 300px;
-  border: 1px solid #D4D4D4;
 }
 #lichess_forum form .submit {
   margin-left: 110px;

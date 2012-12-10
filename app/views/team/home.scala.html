@@ -1,0 +1,30 @@
+@(teams: Paginator[lila.team.Team])(implicit ctx: Context)
+
+@team.layout(
+title = trans.teams.str()) {
+<div class="head">
+  <h1>@trans.teams()</h1>
+</div>
+<table>
+  <tbody class="infinitescroll">
+    @if(teams.hasToPaginate) {
+    <tr><th class="pager none">
+        <a href="@routes.Team.home(teams.nextPage | 1)">Next</a>
+    </th></tr>
+    }
+    @teams.currentPageResults.map { team =>
+    <tr class="paginated_element">
+      <td class="subject">
+        <a href="@routes.Team.show(team.id)">@team.name</a>
+        @autoLink(team.description)
+      </td>
+      <td class="info">
+        <p>@trans.nbMembers(team.nbMembers)</p>
+      </td>
+    </tr>
+    }
+  </tbody>
+</tbody>
+</table>
+}
+

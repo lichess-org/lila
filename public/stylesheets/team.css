@@ -1,0 +1,38 @@
+form.new-team {
+  margin-top: 2em;
+  font-size: 1.3em;
+}
+form.new-team label {
+  display: block;
+  margin-bottom: 2em;
+}
+
+form.new-team label span {
+  float: left;
+  display: block;
+  width: 100px;
+  text-align: right;
+  margin-right: 10px;
+  margin-top: 3px;
+}
+form.new-team label span.required:after {
+  content: "*";
+  color: #FF6666;
+  margin-left: 3px;
+}
+
+form.new-team .team-data input, form.new-team textarea {
+  width: 550px;
+}
+form.new-team textarea {
+  height: 8em;
+}
+form.new-team .submit {
+  margin-left: 110px;
+}
+
+form.new-team p.error {
+  margin-left: 110px;
+  margin-bottom: 10px;
+  color: red;
+}
