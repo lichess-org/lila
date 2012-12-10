@@ -123,6 +123,8 @@ final class Settings(config: Config, val IsDev: Boolean) {
   val WikiCollectionPage = getString("wiki.collection.page")
   val WikiGitUrl = getString("wiki.git_url")
 
+  val TeamCollectionTeam = getString("team.collection.team")
+
   val BookmarkCollectionBookmark = getString("bookmark.collection.bookmark")
 
   val CoreCollectionCache = getString("core.collection.cache")
