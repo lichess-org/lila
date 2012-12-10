@@ -32,7 +32,7 @@ final class Api(
   } yield threadOption
 
   def makeThread(data: DataForm.ThreadData, me: User) = {
-    val thread = Thread(
+    val thread = Thread.make(
       name = data.subject,
       text = data.text,
       creator = me,
@@ -44,7 +44,7 @@ final class Api(
   }
 
   def makePost(thread: Thread, text: String, me: User) = {
-    val post = Post(
+    val post = Post.make(
       text = text,
       isByCreator = thread isCreator me)
     val newThread = thread + post

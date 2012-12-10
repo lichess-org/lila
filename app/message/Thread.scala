@@ -50,7 +50,7 @@ object Thread {
 
   val idSize = 8
 
-  def apply(
+  def make(
     name: String,
     text: String,
     creator: User,
@@ -59,11 +59,28 @@ object Thread {
     name = name,
     createdAt = DateTime.now,
     updatedAt = DateTime.now,
-    posts = List(Post(
+    posts = List(Post.make(
       text = text,
       isByCreator = true
     )),
     creatorId = creator.id,
     invitedId = invited.id,
     visibleByUserIds = List(creator.id, invited.id))
+
+  import play.api.libs.json._
+  import play.api.libs.functional.syntax._
+  import Post.json.implicits._
+
+  val json = mongodb.JsonTube((
+    (__ \ 'id).read[String] and
+    (__ \ 'name).read[String] and
+    (__ \ 'createdAt).read[DateTime] and
+    (__ \ 'updatedAt).read[DateTime] and
+    (__ \ 'posts).read[List[Post]] and
+    (__ \ 'creatorId).read[String] and
+    (__ \ 'invitedId).read[String] and
+    (__ \ 'visibleByUserIds).read[List[String]] 
+  )(Thread.apply _),
+    Json.writes[Thread]
+  )
 }

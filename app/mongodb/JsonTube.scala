@@ -1,11 +1,16 @@
 package lila
-package mod
+package mongodb
 
 import play.api.libs.json._
 
 case class JsonTube[Doc](
     reads: Reads[Doc],
     writes: Writes[Doc]) {
+
+  lazy val implicits = new {
+    implicit val iReads = reads
+    implicit val iWrites = writes
+  }
 
   def read(js: JsObject): JsResult[Doc] = reads reads js
 

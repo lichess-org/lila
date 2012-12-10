@@ -7,7 +7,6 @@ import play.api.mvc.Codec
 
 trait ResponseWriter {
 
-  // I like Unit requests.
   implicit def wUnit(implicit codec: Codec): Writeable[Unit] =
     Writeable[Unit]((_: Unit) ⇒ codec encode "ok")
   implicit def ctoUnit: ContentTypeOf[Unit] =
