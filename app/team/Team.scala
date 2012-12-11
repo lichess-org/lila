@@ -15,12 +15,15 @@ case class Team(
     description: String,
     nbMembers: Int,
     enabled: Boolean,
+    open: Boolean,
     createdAt: DateTime,
     createdBy: String) {
 
   def slug = id
 
   def disabled = !enabled
+
+  def isCreator(user: String) = user == createdBy
 }
 
 object Team {
@@ -29,6 +32,7 @@ object Team {
     name: String,
     location: Option[String],
     description: String,
+    open: Boolean,
     createdBy: User): Team = new Team(
     id = nameToId(name),
     name = name,
@@ -36,6 +40,7 @@ object Team {
     description = description,
     nbMembers = 1,
     enabled = true,
+    open = open,
     createdAt = DateTime.now,
     createdBy = createdBy.id)
 

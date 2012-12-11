@@ -148,3 +148,6 @@ myTeams=My teams
 noTeamFound=No team found
 joinTeam=Join team
 quitTeam=Quit team
+anyoneCanJoin=Anyone can join
+aConfirmationIsRequiredToJoin=A confirmation is required to join
+joiningPolicy=Joining policy

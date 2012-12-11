@@ -14,6 +14,10 @@ currentTab = "form".some) {
         @errMsg(form("name"))
       </label>
       <label>
+        <span>@trans.joiningPolicy()</span>
+        @base.select(form("open"), Seq(0 -> trans.anyoneCanJoin.str(), 1 -> trans.aConfirmationIsRequiredToJoin.str()))
+      </label>
+      <label>
         <span>Location</span>
         @base.input(form("location"))
         @errMsg(form("location"))

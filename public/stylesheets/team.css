@@ -10,7 +10,7 @@ form.new-team label {
 form.new-team label span {
   float: left;
   display: block;
-  width: 100px;
+  width: 180px;
   text-align: right;
   margin-right: 10px;
   margin-top: 3px;
@@ -22,7 +22,7 @@ form.new-team label span.required:after {
 }
 
 form.new-team .team-data input, form.new-team textarea {
-  width: 550px;
+  width: 480px;
 }
 form.new-team textarea {
   height: 8em;

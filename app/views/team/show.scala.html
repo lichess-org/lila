@@ -1,7 +1,6 @@
-@(t: lila.team.Team, members: Paginator[lila.team.MemberWithUser], isMine: Boolean)(implicit ctx: Context)
+@(t: lila.team.Team, members: Paginator[lila.team.MemberWithUser], relation: lila.team.TeamRelation)(implicit ctx: Context)
 
-@team.layout(
-title = t.name) {
+@team.layout(title = t.name) {
 <div id="team" class="content_box no_padding team_show">
   <div class="content_box_top">
     <span class="righty">@trans.nbMembers(t.nbMembers)</span>
@@ -14,12 +13,16 @@ title = t.name) {
   <div class="content_box_content clearfix">
     @autoLink(t.description)
   </div>
-  @if(t.enabled && !isMine) {
+  @if(t.enabled && !relation.mine) {
+  @if(relation.isRequested) {
+  Your join request is being reviewed by the team leader
+  } else {
   <form class="inline" method="post" action="@routes.Team.join(t.id)">
     <input class="submit button" type="submit" value="@trans.joinTeam()" />
   </form>
   }
-  @if(isMine) {
+  }
+  @if(relation.mine && !(~ctx.me.map(_.id).map(t.isCreator))) {
   <form class="inline" method="post" action="@routes.Team.quit(t.id)">
     <input class="submit button" type="submit" value="@trans.quitTeam()" />
   </form>

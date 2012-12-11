@@ -19,6 +19,8 @@ final class TeamEnv(
 
   lazy val memberRepo = new MemberRepo(mongodb(TeamCollectionMember))
 
+  lazy val requestRepo = new RequestRepo(mongodb(TeamCollectionRequest))
+
   lazy val paginator = new PaginatorBuilder(
     memberRepo = memberRepo,
     teamRepo = teamRepo,
@@ -28,6 +30,7 @@ final class TeamEnv(
   lazy val api = new TeamApi(
     teamRepo = teamRepo,
     memberRepo = memberRepo,
+    requestRepo = requestRepo,
     userRepo = userRepo,
     paginator = paginator)
 
