@@ -9,15 +9,11 @@ import com.mongodb.casbah.Imports._
 import scalaz.effects._
 import org.joda.time.DateTime
 
-// db.member.ensureIndex({t:1})
-// db.member.ensureIndex({u:1})
-// db.member.ensureIndex({d: -1})
+// db.team_member.ensureIndex({team:1})
+// db.team_member.ensureIndex({user:1})
+// db.team_member.ensureIndex({date: -1})
 final class MemberRepo(collection: MongoCollection)
     extends SalatDAO[Member, String](collection) {
-
-  // def byTeamId(teamId: String): IO[List[Member]] = io {
-  //   find(teamIdQuery(teamId)).toList
-  // }
 
   def userIdsByTeamId(teamId: String): IO[List[String]] = io {
     (collection find teamIdQuery(teamId) sort sortQuery(1) map { obj ⇒

@@ -47,3 +47,12 @@ make chess captcha more usable
 tournament 404 page
 log off = tournament resign
 teams
+
+team deploy:
+db.team.ensureIndex({enabled: 1, nbMembers: -1})
+db.team.ensureIndex({createdAt: -1})
+db.team_member.ensureIndex({team:1})
+db.team_member.ensureIndex({user:1})
+db.team_member.ensureIndex({date: -1})
+db.team_request.ensureIndex({team:1})
+db.team_request.ensureIndex({date: -1})

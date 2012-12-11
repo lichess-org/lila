@@ -18,8 +18,11 @@ final class TeamRepo(collection: MongoCollection)
     findOneById(id)
   }
 
-  def byUser(user: User): IO[List[Team]] = io {
-    find(userQuery(user)).sort(sortPopular).toList
+  def byOrderedIds(ids: Iterable[String]): IO[List[Team]] = io {
+    find("_id" $in ids).toList
+  } map { ts ⇒
+    val tsMap = ts.map(u ⇒ u.id -> u).toMap
+    ids.map(tsMap.get).flatten.toList
   }
 
   def saveIO(team: Team): IO[Unit] = io {
@@ -46,7 +49,11 @@ final class TeamRepo(collection: MongoCollection)
     update(selectId(teamId), $inc("nbMembers" -> by))
   }
 
-  def userQuery(user: User) = DBObject("members.id" -> user.id)
+  def addRequest(teamId: String, request: Request): IO[Unit] = io {
+    update(
+      selectId(teamId) ++ ("requests.user" $ne request.user), 
+      $push("requests" -> request.user))
+  }
 
   def selectId(id: String) = DBObject("_id" -> id)
 

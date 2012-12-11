@@ -11,6 +11,7 @@ import http.Context
 final class TeamApi(
     teamRepo: TeamRepo,
     memberRepo: MemberRepo,
+    requestRepo: RequestRepo,
     userRepo: UserRepo,
     paginator: PaginatorBuilder) {
 
@@ -21,10 +22,19 @@ final class TeamApi(
       name = s.name,
       location = s.location,
       description = s.description,
+      open = s.isOpen,
       createdBy = me) |> { team ⇒
-        teamRepo saveIO team inject team
+        for {
+          _ ← teamRepo saveIO team
+          _ ← memberRepo.add(team.id, me.id)
+        } yield team
       }
   }
+
+  def mine(me: User): IO[List[Team]] = for {
+    teamIds ← memberRepo teamIdsByUserId me.id
+    teams ← teamRepo byOrderedIds teamIds
+  } yield teams
 
   def hasCreatedRecently(me: User): IO[Boolean] =
     teamRepo.userHasCreatedSince(me.id, creationPeriod)
@@ -32,18 +42,42 @@ final class TeamApi(
   def isMine(team: Team)(implicit ctx: Context): IO[Boolean] =
     ~ctx.me.map(me ⇒ belongsTo(team, me))
 
-  def join(teamId: String)(implicit ctx: Context): IO[Option[Team]] = for {
+  def relationTo(team: Team)(implicit ctx: Context): IO[TeamRelation] = ~ctx.me.map(me ⇒
+    for {
+      mine ← isMine(team)
+      request ← requestRepo.find(team.id, me.id)
+    } yield TeamRelation(mine, request)
+  )
+
+  def join(teamId: String)(implicit ctx: Context): IO[Option[Requesting]] = for {
     teamOption ← teamRepo byId teamId
     result ← ~(teamOption |@| ctx.me).tupled.map({
-      case (team, user) ⇒ for {
+      case (team, user) if team.open ⇒ for {
         exists ← belongsTo(team, user)
         _ ← (for {
           _ ← memberRepo.add(team.id, user.id)
           _ ← teamRepo.incMembers(team.id, +1)
         } yield ()) doUnless exists
-      } yield team.some
+      } yield Joined(team).some: Option[Requesting]
+      case (team, user) ⇒ io(Motivate(team).some: Option[Requesting])
     })
   } yield result
+
+  def requestable(teamId: String, user: User): IO[Option[Team]] = for {
+    teamOption ← teamRepo byId teamId
+    able ← ~teamOption.map({ requestable(_, user) })
+  } yield teamOption filter (_ ⇒ able)
+
+  def requestable(team: Team, user: User): IO[Boolean] = for {
+    exists ← requestRepo.exists(team.id, user.id)
+    mine ← belongsTo(team, user)
+  } yield !exists && !mine
+
+  def createRequest(team: Team, setup: RequestSetup, user: User): IO[Unit] = for {
+    able ← requestable(team, user)
+    request = Request(team = team.id, user = user.id, message = setup.message)
+    _ ← requestRepo add request doIf able
+  } yield ()
 
   def quit(teamId: String)(implicit ctx: Context): IO[Option[Team]] = for {
     teamOption ← teamRepo byId teamId

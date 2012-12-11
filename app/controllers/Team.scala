@@ -1,6 +1,7 @@
 package controllers
 
 import lila._
+import team.{ Joined, Motivate }
 import user.{ User ⇒ UserModel }
 import views._
 import http.Context
@@ -25,8 +26,8 @@ object Team extends LilaController {
 
   def show(id: String, page: Int) = Open { implicit ctx ⇒
     IOptionIOk(teamRepo byId id) { team ⇒
-      api isMine team map { isMine ⇒
-        html.team.show(team, paginator.teamMembers(team, page), isMine)
+      api relationTo team map { relation ⇒
+        html.team.show(team, paginator.teamMembers(team, page), relation)
       }
     }
   }
@@ -51,14 +52,31 @@ object Team extends LilaController {
   }
 
   def mine = Auth { implicit ctx ⇒
-    me ⇒ IOk(teamRepo byUser me map { html.team.mine(_) })
+    me ⇒ IOk(api mine me map { html.team.mine(_) })
   }
 
   def join(id: String) = Auth { implicit ctx ⇒
     implicit me ⇒ IOResult(api join id map {
-      case Some(team) ⇒ Redirect(routes.Team.show(team.id))
-      case _          ⇒ notFound
+      case Some(Joined(team))   ⇒ Redirect(routes.Team.show(team.id))
+      case Some(Motivate(team)) ⇒ Redirect(routes.Team.requestForm(team.id))
+      case _                    ⇒ notFound
     })
+  }
+
+  def requestForm(id: String) = Auth { implicit ctx ⇒
+    me ⇒ IOptionOk(api.requestable(id, me)) { team ⇒
+      html.team.requestForm(team, forms.request, forms.captchaCreate)
+    }
+  }
+
+  def requestCreate(id: String) = AuthBody { implicit ctx ⇒
+    me ⇒ IOptionIOResult(api.requestable(id, me)) { team ⇒
+      implicit val req = ctx.body
+      forms.request.bindFromRequest.fold(
+        err ⇒ io(BadRequest(html.team.requestForm(team, err, forms.captchaCreate))),
+        setup ⇒ api.createRequest(team, setup, me) inject Redirect(routes.Team.show(team.id))
+      )
+    }
   }
 
   def quit(id: String) = Auth { implicit ctx ⇒
