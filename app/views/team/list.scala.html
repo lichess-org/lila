@@ -1,0 +1,47 @@
+@(name: String, teams: Paginator[lila.team.Team], next: Option[Call], tab: String)(implicit ctx: Context)
+
+@title = @{ "%s - page %d".format(name, teams.currentPage) }
+
+@moreJs = {
+@jsTag("vendor/jquery.infinitescroll.min.js")
+}
+
+@team.layout(
+title = title,
+currentTab = tab.some,
+moreJs = moreJs) {
+<div id="team" class="content_box team_box no_padding">
+  <h1>@name</h1>
+  <table class="slist">
+  @if(teams.nbResults > 0) {
+    <tbody class="infinitescroll">
+      @next.map { n =>
+      <div class="pager none"><a href="@n">Next</a></div>
+      }.getOrElse {
+      <div class="none"></div>
+      }
+      @teams.currentPageResults.map { team =>
+      <tr class="paginated_element">
+        <td class="subject">
+          <a class="team-name" href="@routes.Team.show(team.id)">@team.name</a>
+          @shorten(team.description, 200)
+        </td>
+        <td class="info">
+          <p>@trans.nbMembers(team.nbMembers)</p>
+        </td>
+      </tr>
+      }
+    </tbody>
+    } else {
+  <tbody>
+    <tr>
+      <td colspan="2">
+        <br />
+        No team found
+      </td>
+    </tr>
+  </tbody>
+    }
+  </table>
+</div>
+}

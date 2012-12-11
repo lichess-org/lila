@@ -1,7 +1,8 @@
 @(form: Form[_], captcha: lila.site.Captcha.Challenge)(implicit ctx: Context)
 
 @team.layout(
-title = "New Team") {
+title = "New Team",
+currentTab = "form".some) {
 <div id="team">
   <div class="content_box team_box">
     <h1>@trans.newTeam()</h1>
@@ -25,8 +26,8 @@ title = "New Team") {
         }
       </label>
       </section>
-      @base.captcha(form("team")("move"), form("team")("gameId"), captcha)
-      @errMsg(form("team"))
+      @base.captcha(form("move"), form("gameId"), captcha)
+      @errMsg(form)
       <button class="submit button" type="submit">@trans.newTeam()</button>
       <a href="@routes.Team.home(1)" style="margin-left:20px">Cancel</a>
     </form>

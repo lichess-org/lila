@@ -6,7 +6,7 @@ import com.novus.salat.dao._
 import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.query.Imports._
 import scalaz.effects._
-import org.joda.time.DateTime
+import org.joda.time.{ DateTime, Period }
 import org.scala_tools.time.Imports._
 
 import user.User
@@ -31,6 +31,15 @@ final class TeamRepo(collection: MongoCollection)
 
   def removeIO(team: Team): IO[Unit] = io {
     remove(selectId(team.id))
+  }
+
+  def exists(id: String): IO[Boolean] = byId(id) map (_.nonEmpty)
+
+  def userHasCreatedSince(userId: String, duration: Period): IO[Boolean] = io {
+    collection.find(
+      ("createdAt" $gt (DateTime.now - duration)) +
+        ("createdBy" -> userId)
+    ).limit(1).size > 0
   }
 
   def userQuery(user: User) = DBObject("members.id" -> user.id)

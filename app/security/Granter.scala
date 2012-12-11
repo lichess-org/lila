@@ -10,4 +10,8 @@ object Granter {
 
   def option(permission: Permission)(user: Option[User]): Boolean = 
     user.fold(apply(permission), false)
+
+  def superAdmin(user: User): Boolean =  apply(Permission.SuperAdmin)(user)
+
+  def superAdmin(user: Option[User]): Boolean = ~(user map superAdmin)
 }

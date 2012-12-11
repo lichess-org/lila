@@ -1,11 +1,3 @@
-#tournament div.tournament_box {
-  padding: 0;
-}
-#tournament div.tournament_box h1 {
-  display: block;
-  padding: 20px 25px;
-}
-
 #tournament .title_tag {
   float: right;
   font-size: 20px;
@@ -33,51 +25,18 @@
   font-weight: bold;
 }
 
-#tournament table.data {
-  width: 100%;
-  border-bottom: 1px solid #d4d4d4;
-}
-
-#tournament table.data thead th {
-  border-top: 1px solid #d4d4d4;
-  padding: 0.4em 0.6em;
-}
-#tournament table.data thead th.large {
-  font-size: 1.4em;
-}
-
-#tournament table.data td {
-  padding: 0.6em;
-  font-size: 1.2em;
-}
-#tournament table.data .create td {
+#tournament table.slist .create td {
   padding: 0.6em 1.2em 0.6em 0.6em;
   text-align: center;
 }
-#tournament table.data td .label {
-  font-family: monospace;
-  font-size: 10px;
-}
-#tournament table.data .s16 {
-  display: block;
-  height: 16px;
-  padding: 0 0 0 20px;
-}
-#tournament table.data tbody tr:nth-child(even) {
-  background: #f4f4f4;
-}
-#tournament table.data td:first-child,
-#tournament table.data th:first-child {
-  padding-left: 25px;
-}
 
-#tournament table.data span.rank {
+#tournament table.slist span.rank {
   font-weight: bold;
   padding-right: 20px;
   background: transparent url(../images/s16.png) top right no-repeat;
   background-position: right 900px;
 }
-#tournament table.data tbody span.withdraw {
+#tournament table.slist tbody span.withdraw {
   background-position: right -320px;
 }
 #tournament table.data tbody span.winner {

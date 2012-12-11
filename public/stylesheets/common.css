@@ -166,6 +166,11 @@ div.content_box.small_box {
 div.content_box.no_padding {
   padding: 0;
 }
+div.content_box.no_padding h1 {
+  display: block;
+  padding: 20px 25px;
+}
+
 .content_box_title {
   padding: 20px 25px 0 25px;
 }
@@ -220,11 +225,48 @@ div.content_box .lichess_title {
   margin-bottom: 0.5em;
 }
 
+div.content_box table.datatable {
+  margin-top: 20px;
+}
 div.content_box table.datatable td {
   padding: 5px 10px 5px 10px;
 }
 div.content_box table.datatable tr:nth-child(odd) {
   background: #f7f7f7;
+}
+
+table.slist {
+  width: 100%;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+table.slist thead th {
+  border-top: 1px solid #d4d4d4;
+  padding: 0.4em 0.6em;
+}
+table.slist thead th.large {
+  font-size: 1.4em;
+}
+
+table.slist td {
+  padding: 0.6em;
+  font-size: 1.2em;
+}
+table.slist td .label {
+  font-family: monospace;
+  font-size: 10px;
+}
+table.slist .s16 {
+  display: block;
+  height: 16px;
+  padding: 0 0 0 20px;
+}
+table.slist tbody tr:nth-child(even) {
+  background: #f4f4f4;
+}
+table.slist td:first-child,
+table.slist th:first-child {
+  padding-left: 25px;
 }
 
 div.lichess_goodies div.box {
@@ -586,7 +628,7 @@ div.content_box_top,
 div.hooks tr,
 a.translation_call,
 div.locale_menu a,
-#tournament table.data thead {
+table.data thead {
   color: #666;
   background: #fafafa;
   background: -moz-linear-gradient(center top , #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;

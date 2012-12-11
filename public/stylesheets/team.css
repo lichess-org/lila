@@ -36,3 +36,13 @@ form.new-team p.error {
   margin-bottom: 10px;
   color: red;
 }
+
+#team table a.team-name {
+  font-size: 1.3em;
+  display: block;
+  margin-bottom: 4px;
+}
+#team table .info {
+  font-size: 0.9em;
+  white-space: nowrap;
+}

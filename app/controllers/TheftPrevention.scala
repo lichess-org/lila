@@ -4,7 +4,7 @@ import lila._
 import views._
 import http.Context
 import game.{ DbGame, Pov }
-import security.{ Permission, Granter }
+import security.Granter
 
 import play.api.mvc._
 import play.api.mvc.Results.Redirect
@@ -15,5 +15,5 @@ trait TheftPrevention {
     isTheft(pov).fold(Redirect(routes.Round.watcher(pov.gameId, pov.color.name)), ok)
 
   protected def isTheft(pov: Pov)(implicit ctx: Context) =
-    pov.player.userId != ctx.userId && !Granter.option(Permission.SuperAdmin)(ctx.me)
+    pov.player.userId != ctx.userId && !Granter.superAdmin(ctx.me)
 }

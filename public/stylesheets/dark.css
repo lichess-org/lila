@@ -87,8 +87,8 @@ body.dark div.adv_chart,
 body.dark #top .dropdown,
 body.dark div.lichess_overboard p.explanations,
 body.dark div.search_status,
-body.dark #tournament table.data,
-body.dark #tournament table.data thead th,
+body.dark table.slist,
+body.dark table.slist thead th,
 body.dark div.notifications > div,
 body.dark form.wide input[type="text"], 
 body.dark form.wide textarea 
@@ -211,7 +211,7 @@ body.dark #lichess_message tr:nth-child(even),
 body.dark div.user_show .elo_with_me,
 body.dark div.content_box_inter,
 body.dark #GameText tr:nth-child(even),
-body.dark #tournament table.data tbody tr:nth-child(even),
+body.dark table.slist tbody tr:nth-child(even),
 body.dark table.translations tbody tr:nth-child(even),
 body.dark form.translation_form div.message:nth-child(even),
 body.dark div.content_box table.datatable tr:nth-child(odd),
@@ -286,7 +286,7 @@ body.dark div.hooks tr,
 body.dark a.translation_call,
 body.dark div.notification,
 body.dark div.locale_menu a,
-body.dark #tournament table.data thead
+body.dark table.slist thead
 {
   background: #3a3a3a;
   color: #b0b0b0;
