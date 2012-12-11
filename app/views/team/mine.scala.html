@@ -1,7 +1,35 @@
-@(teams: Paginator[lila.team.Team])(implicit ctx: Context)
+@(teams: List[lila.team.Team])(implicit ctx: Context)
 
-@team.list(
-name = trans.teams.str(),
-teams = teams,
-next = teams.nextPage map { n => routes.Team.home(n) },
-tab = "all")
+@team.layout(
+title = trans.myTeams.str(),
+currentTab = "mine".some) {
+<div id="team" class="content_box team_box no_padding">
+  <h1>@trans.myTeams()</h1>
+  <table class="slist">
+  @if(teams.size > 0) {
+    <tbody>
+      @teams.map { team =>
+      <tr class="paginated_element">
+        <td class="subject">
+          <a class="team-name" href="@routes.Team.show(team.id)">@team.name</a>
+          @shorten(team.description, 200)
+        </td>
+        <td class="info">
+          <p>@trans.nbMembers(team.nbMembers)</p>
+        </td>
+      </tr>
+      }
+    </tbody>
+    } else {
+  <tbody>
+    <tr>
+      <td colspan="2">
+        <br />
+        @trans.noTeamFound()
+      </td>
+    </tr>
+  </tbody>
+    }
+  </table>
+</div>
+}

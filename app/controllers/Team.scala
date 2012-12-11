@@ -46,9 +46,11 @@ object Team extends LilaController {
   }
 
   def mine = Auth { implicit ctx ⇒
-    me ⇒
-      IOk(api mine me map { html.team.mine(_) })
+    me ⇒ IOk(repo byUser me map { html.team.mine(_) })
   }
+
+  def join(id: String) = TODO
+  def leave(id: String) = TODO
 
   private def OnePerWeek[A <: Result](me: UserModel)(a: ⇒ A)(implicit ctx: Context): Result = {
     !Granter.superAdmin(me) &&

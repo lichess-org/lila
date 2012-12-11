@@ -46,7 +46,7 @@ final class TeamRepo(collection: MongoCollection)
 
   def selectId(id: String) = DBObject("_id" -> id)
 
-  val queryAll = DBObject()
+  val enabledQuery = DBObject("enabled" -> true)
 
   val sortPopular = DBObject("nbMembers" -> -1)
 }

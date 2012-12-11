@@ -8,8 +8,8 @@ import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 
 final class DataForm(
-  repo: TeamRepo,
-  captcher: Captcha) {
+    repo: TeamRepo,
+    captcher: Captcha) {
 
   import lila.core.Form._
 
@@ -32,7 +32,7 @@ final class DataForm(
   def captchaCreate: Captcha.Challenge = captcher.create
 
   private def teamExists(setup: TeamSetup) =
-    repo.exists(Team nameToId setup.name).unsafePerformIO
+    repo.exists(Team nameToId setup.trim.name).unsafePerformIO
 }
 
 private[team] case class TeamSetup(
@@ -40,4 +40,10 @@ private[team] case class TeamSetup(
     location: Option[String],
     description: String,
     gameId: String,
-    move: String) 
+    move: String) {
+
+  def trim = copy(
+    name = name.trim,
+    location = location map (_.trim),
+    description = description.trim)
+}
