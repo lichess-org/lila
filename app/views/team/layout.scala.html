@@ -1,14 +1,23 @@
-@(title: String)(body: Html)(implicit ctx: Context)
+@(title: String, currentTab: Option[String] = None, moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("team.css")
 }
 
 @goodies = {
-<div class="sidebar">
-  <a href="@routes.Team.home(1)">@trans.allTeams()</a>
-  @if(ctx.me.fold(_.canMessage, false)) {
-  <a href="@routes.Team.form()">@trans.newTeam()</a>
+<div class="side_menu">
+  @defining(~currentTab) { tab =>
+  <a class="@tab.active("all")" href="@routes.Team.home()">
+    @trans.allTeams()
+  </a>
+  @if(ctx.me.fold(_.canCreateTeam, false)) {
+  <a class="@tab.active("mine")" href="@routes.Team.mine()">
+    @trans.myTeams()
+  </a>
+  <a class="@tab.active("form")" href="@routes.Team.form()">
+    @trans.newTeam()
+  </a>
+  }
   }
 </div>
 }
@@ -16,6 +25,7 @@
 @base.layout(
 title = title,
 moreCss = moreCss,
+moreJs = moreJs,
 goodies = goodies.some,
 active = siteMenu.team.some) {
 @body

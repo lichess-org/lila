@@ -27,7 +27,7 @@ object Team {
     location: Option[String],
     description: String,
     createdBy: User): Team = new Team(
-    id = templating.StringHelper.slugify(name),
+    id = nameToId(name),
     name = name,
     location = location,
     description = description,
@@ -35,4 +35,6 @@ object Team {
     nbMembers = 1,
     createdAt = DateTime.now,
     createdBy = createdBy.id)
+
+    def nameToId(name: String) = templating.StringHelper slugify name
 }

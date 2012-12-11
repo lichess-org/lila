@@ -1,0 +1,11 @@
+@(active: String)(implicit ctx: Context)
+
+<a class="@active.active("all")" href="@routes.Team.home()">
+  @trans.allTeams()
+</a>
+<a class="@active.active("form")" href="@routes.Team.form()">
+  @trans.newTeam()
+</a>
+<a class="@active.active("mine")" href="@routes.Team.mine()">
+  @trans.myTeams
+</a>

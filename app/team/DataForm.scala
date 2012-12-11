@@ -7,22 +7,32 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 
-final class DataForm(captcher: Captcha) {
+final class DataForm(
+  repo: TeamRepo,
+  captcher: Captcha) {
 
   import lila.core.Form._
 
   val create = Form(mapping(
     "name" -> text(minLength = 3, maxLength = 60),
     "location" -> optional(text(minLength = 3, maxLength = 80)),
-    "description" -> text(minLength = 60, maxLength = 1000),
-    "gameId" -> nonEmptyText,
-    "move" -> nonEmptyText
+    "description" -> text(minLength = 30, maxLength = 2000),
+    "gameId" -> text,
+    "move" -> text
   )(TeamSetup.apply)(TeamSetup.unapply)
+    .verifying("This team already exists", d ⇒ !teamExists(d))
+    .verifying(
+      "Not a checkmate",
+      data ⇒ captcher get data.gameId valid data.move.trim.toLowerCase
+    )
   )
 
   def createWithCaptcha = create -> captchaCreate
 
   def captchaCreate: Captcha.Challenge = captcher.create
+
+  private def teamExists(setup: TeamSetup) =
+    repo.exists(Team nameToId setup.name).unsafePerformIO
 }
 
 private[team] case class TeamSetup(

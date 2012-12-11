@@ -36,6 +36,11 @@ case class User(
 
   def canMessage = !muted
 
+  def canCreateTeam = 
+    !isChatBan && 
+    nbGames >= 3 &&
+    createdAt < (DateTime.now - 3.hours)
+
   def disabled = !enabled
 
   def usernameWithElo = "%s (%d)".format(username, elo)

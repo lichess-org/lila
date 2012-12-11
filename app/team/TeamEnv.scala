@@ -19,5 +19,5 @@ final class TeamEnv(
     repo = repo,
     maxPerPage = TeamPaginatorMaxPerPage)
 
-  lazy val forms = new DataForm(captcha)
+  lazy val forms = new DataForm(repo, captcha)
 }

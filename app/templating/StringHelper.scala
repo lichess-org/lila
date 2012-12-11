@@ -18,8 +18,11 @@ trait StringHelper {
     slug.toLowerCase
   }
 
-  def shorten(text: String, length: Int): String =
-    text.replace("\n", " ") take length
+  def shorten(text: String, length: Int, sep: String = " [...]"): String = {
+    val t = text.replace("\n", " ") 
+    if (t.size > (length + sep.size)) (t take length) ++ sep
+    else t
+  }
 
   def shortenWithBr(text: String, length: Int) = Html {
     nl2br(escape(text).take(length))

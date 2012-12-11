@@ -1,0 +1,19 @@
+@(title: String)(message: Html)(implicit ctx: Context)
+
+@site.layout(title = title) {
+
+<div class="content_box small_box">
+  <div class="head">
+    <h1>@title</h1>
+  </div>
+  <br />
+  <br />
+  <p>
+    @message
+  </p>
+  <br />
+  <script>
+    document.write('<a href="' + document.referrer + '">Go Back</a>');
+  </script>
+</div>
+}
