@@ -6,24 +6,19 @@ import user.User
 import org.joda.time.DateTime
 import com.novus.salat.annotations.Key
 import java.text.Normalizer
+import scalaz.effects._
 
 case class Team(
     @Key("_id") id: String, // also the url slug
     name: String,
     location: Option[String],
     description: String,
-    members: List[Member],
     nbMembers: Int,
     enabled: Boolean,
     createdAt: DateTime,
     createdBy: String) {
 
   def slug = id
-
-  def contains(userId: String): Boolean = members exists (_ is userId) 
-  def contains(user: User): Boolean = contains(user.id)
-  
-  def canJoin(user: User) = true
 
   def disabled = !enabled
 }
@@ -39,11 +34,10 @@ object Team {
     name = name,
     location = location,
     description = description,
-    members = Member(createdBy) :: Nil,
     nbMembers = 1,
     enabled = true,
     createdAt = DateTime.now,
     createdBy = createdBy.id)
 
-    def nameToId(name: String) = templating.StringHelper slugify name
+  def nameToId(name: String) = templating.StringHelper slugify name
 }

@@ -42,6 +42,10 @@ final class TeamRepo(collection: MongoCollection)
     ).limit(1).size > 0
   }
 
+  def incMembers(teamId: String, by: Int): IO[Unit] = io {
+    update(selectId(teamId), $inc("nbMembers" -> by))
+  }
+
   def userQuery(user: User) = DBObject("members.id" -> user.id)
 
   def selectId(id: String) = DBObject("_id" -> id)

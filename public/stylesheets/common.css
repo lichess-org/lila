@@ -174,6 +174,7 @@ div.content_box.no_padding h1 {
 .content_box_title {
   padding: 20px 25px 0 25px;
 }
+
 div.content_box_top {
   padding-left: 25px;
   height: 40px;
@@ -192,6 +193,18 @@ div.content_box_top a {
 }
 div.content_box_top .link:hover {
   background: #fff;
+}
+div.content_box_top h1.lichess_title {
+  display: inline;
+  padding: 0;
+}
+div.content_box_top .icon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  float: left;
+  background: transparent url(/assets/images/s16.png) top left no-repeat;
+  margin: 12px 8px 0 -10px;
 }
 .content_box_content {
   padding: 20px 25px 25px 25px;

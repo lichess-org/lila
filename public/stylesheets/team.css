@@ -46,3 +46,13 @@ form.new-team p.error {
   font-size: 0.9em;
   white-space: nowrap;
 }
+#team div.content_box_top .icon {
+  background-position: 0 -336px;
+}
+#team.team_show .lichess_title {
+  font-size: 1.8em;
+}
+#team.team_show .content_box_top .righty {
+  float: right;
+  margin-right: 20px;
+}

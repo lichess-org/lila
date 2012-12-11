@@ -67,7 +67,7 @@ evenMoreCss = evenMoreCss) {
     <form id="exportform" action="@routes.User.export(u.username)" method="POST">
       <a onclick="document.getElementById('exportform').submit();">@trans.exportGames()</a>
     </form>
-    <div class="status @isUsernameOnline(u.username).fold("connected", "")"></div>
+    <div class="icon status @isUsernameOnline(u.username).fold("connected", "")"></div>
     <h1 class="lichess_title">@u.usernameWithElo</h1>
     @info.rank.map { r =>
     <span class="rank">
