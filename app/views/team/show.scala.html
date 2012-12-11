@@ -2,4 +2,25 @@
 
 @team.layout(
 title = t.name) {
+<div class="content_box no_padding team_show">
+  <div class="content_box_top">
+    @if(~ctx.me.map(t.contains)) {
+    <a href="@routes.Team.leave(t.id)" class="send_message">@trans.leaveTeam()</a>
+    } else {
+    if (~ctx.me.map(t.canJoin)) {
+    <a href="@routes.Team.join(t.id)" class="send_message">@trans.joinTeam()</a>
+    }
+    }
+    <h1 class="lichess_title">@t.name</h1>
+    <span class="rank">
+          @trans.nbMembers(t.nbMembers)
+    </span>
+    @if(t.disabled) {
+    <span class="staff">CLOSED</span>
+    }
+  </div>
+  <div class="content_box_content clearfix">
+    @autoLink(t.description)
+  </div>
+</div>
 }

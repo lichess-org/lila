@@ -54,8 +54,10 @@ GET   /tournament/faq                         controllers.Tournament.faq
 GET   /team                                   controllers.Team.home(page: Int ?= 1)
 GET   /team/new                               controllers.Team.form
 POST  /team/new                               controllers.Team.create
-POST  /team/me                                controllers.Team.mine
+GET   /team/me                                controllers.Team.mine
 GET   /team/:id                               controllers.Team.show(id: String)
+POST  /team/:id/join                          controllers.Team.join(id: String)
+POST  /team/:id/leave                         controllers.Team.leave(id: String)
 
 # Analyse
 GET   /analyse/$gameId<[\w\-]{8}>        controllers.Analyse.replay(gameId: String, color: String = "white")

@@ -16,22 +16,22 @@ final class TeamApi(
   def popular(page: Int): Paginator[Team] = Paginator(
     SalatAdapter(
       dao = repo,
-      query = repo.queryAll,
+      query = repo.enabledQuery,
       sort = repo.sortPopular),
     currentPage = page,
     maxPerPage = maxPerPage
   ) | popular(1)
 
-  def mine(me: User): List[Team] = repo byUser user.id
+  def create(setup: TeamSetup, me: User): IO[Team] = setup.trim |> { s ⇒
+    Team(
+      name = s.name,
+      location = s.location,
+      description = s.description,
+      createdBy = me) |> { team ⇒
+        repo saveIO team inject team
+      }
+  }
 
-  def create(setup: TeamSetup, me: User): IO[Team] = Team(
-    name = setup.name,
-    location = setup.location,
-    description = setup.description,
-    createdBy = me) |> { team ⇒
-      repo saveIO team inject team
-    }
-
-  def hasCreatedRecently(me: User): IO[Boolean] = 
+  def hasCreatedRecently(me: User): IO[Boolean] =
     repo.userHasCreatedSince(me.id, creationPeriod)
 }

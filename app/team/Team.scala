@@ -14,10 +14,18 @@ case class Team(
     description: String,
     members: List[Member],
     nbMembers: Int,
+    enabled: Boolean,
     createdAt: DateTime,
     createdBy: String) {
 
   def slug = id
+
+  def contains(userId: String): Boolean = members exists (_ is userId) 
+  def contains(user: User): Boolean = contains(user.id)
+  
+  def canJoin(user: User) = true
+
+  def disabled = !enabled
 }
 
 object Team {
@@ -33,6 +41,7 @@ object Team {
     description = description,
     members = Member(createdBy) :: Nil,
     nbMembers = 1,
+    enabled = true,
     createdAt = DateTime.now,
     createdBy = createdBy.id)
 
