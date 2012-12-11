@@ -1,26 +1,41 @@
-@(t: lila.team.Team)(implicit ctx: Context)
+@(t: lila.team.Team, members: Paginator[lila.team.MemberWithUser], isMine: Boolean)(implicit ctx: Context)
 
 @team.layout(
 title = t.name) {
-<div class="content_box no_padding team_show">
+<div id="team" class="content_box no_padding team_show">
   <div class="content_box_top">
-    @if(~ctx.me.map(t.contains)) {
-    <a href="@routes.Team.leave(t.id)" class="send_message">@trans.leaveTeam()</a>
-    } else {
-    if (~ctx.me.map(t.canJoin)) {
-    <a href="@routes.Team.join(t.id)" class="send_message">@trans.joinTeam()</a>
-    }
-    }
+    <span class="righty">@trans.nbMembers(t.nbMembers)</span>
+    <div class="icon"></div>
     <h1 class="lichess_title">@t.name</h1>
-    <span class="rank">
-          @trans.nbMembers(t.nbMembers)
-    </span>
     @if(t.disabled) {
     <span class="staff">CLOSED</span>
     }
   </div>
   <div class="content_box_content clearfix">
     @autoLink(t.description)
+  </div>
+  @if(t.enabled && !isMine) {
+  <form class="inline" method="post" action="@routes.Team.join(t.id)">
+    <input class="submit button" type="submit" value="@trans.joinTeam()" />
+  </form>
+  }
+  @if(isMine) {
+  <form class="inline" method="post" action="@routes.Team.quit(t.id)">
+    <input class="submit button" type="submit" value="@trans.quitTeam()" />
+  </form>
+  }
+  <div class="team-members">
+    <table class="slist">
+      <tbody>
+        @members.currentPageResults.map { member =>
+        <tr class="paginated_element">
+          <td class="subject">
+            @userLink(member.user)
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
   </div>
 </div>
 }

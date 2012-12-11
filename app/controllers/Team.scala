@@ -14,16 +14,21 @@ import play.api.templates.Html
 
 object Team extends LilaController {
 
-  private def repo = env.team.repo
+  private def teamRepo = env.team.teamRepo
   private def forms = env.team.forms
   private def api = env.team.api
+  private def paginator = env.team.paginator
 
   def home(page: Int) = Open { implicit ctx ⇒
-    Ok(html.team.home(api popular page))
+    Ok(html.team.home(paginator popularTeams page))
   }
 
-  def show(id: String) = Open { implicit ctx ⇒
-    IOptionOk(repo byId id) { html.team.show(_) }
+  def show(id: String, page: Int) = Open { implicit ctx ⇒
+    IOptionIOk(teamRepo byId id) { team ⇒
+      api isMine team map { isMine ⇒
+        html.team.show(team, paginator.teamMembers(team, page), isMine)
+      }
+    }
   }
 
   def form = Auth { implicit ctx ⇒
@@ -46,11 +51,22 @@ object Team extends LilaController {
   }
 
   def mine = Auth { implicit ctx ⇒
-    me ⇒ IOk(repo byUser me map { html.team.mine(_) })
+    me ⇒ IOk(teamRepo byUser me map { html.team.mine(_) })
   }
 
-  def join(id: String) = TODO
-  def leave(id: String) = TODO
+  def join(id: String) = Auth { implicit ctx ⇒
+    implicit me ⇒ IOResult(api join id map {
+      case Some(team) ⇒ Redirect(routes.Team.show(team.id))
+      case _          ⇒ notFound
+    })
+  }
+
+  def quit(id: String) = Auth { implicit ctx ⇒
+    implicit me ⇒ IOResult(api quit id map {
+      case Some(team) ⇒ Redirect(routes.Team.show(team.id))
+      case _          ⇒ notFound
+    })
+  }
 
   private def OnePerWeek[A <: Result](me: UserModel)(a: ⇒ A)(implicit ctx: Context): Result = {
     !Granter.superAdmin(me) &&

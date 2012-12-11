@@ -9,7 +9,7 @@ currentTab = "mine".some) {
   @if(teams.size > 0) {
     <tbody>
       @teams.map { team =>
-      <tr class="paginated_element">
+      <tr>
         <td class="subject">
           <a class="team-name" href="@routes.Team.show(team.id)">@team.name</a>
           @shorten(team.description, 200)

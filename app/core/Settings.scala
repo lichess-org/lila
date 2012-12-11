@@ -124,6 +124,7 @@ final class Settings(config: Config, val IsDev: Boolean) {
   val WikiGitUrl = getString("wiki.git_url")
 
   val TeamCollectionTeam = getString("team.collection.team")
+  val TeamCollectionMember = getString("team.collection.member")
   val TeamPaginatorMaxPerPage = getInt("team.paginator.max_per_page")
 
   val BookmarkCollectionBookmark = getString("bookmark.collection.bookmark")

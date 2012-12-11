@@ -1,16 +1,7 @@
-div.user_show .lichess_title {
-  display: inline;
-}
-div.user_show div.content_box_top .status {
-  display: block;
-  width: 16px;
-  height: 16px;
-  float: left;
-  background: transparent url(/assets/images/s16.png) top left no-repeat;
+div.user_show div.content_box_top .icon {
   background-position: 0 -160px;
-  margin: 12px 8px 0 -10px;
 }
-div.user_show div.content_box_top .status.connected {
+div.user_show div.content_box_top .icon.connected {
   background-position: 0 -208px;
 }
 div.user_show .staff {
