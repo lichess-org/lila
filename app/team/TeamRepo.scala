@@ -14,8 +14,10 @@ import user.User
 final class TeamRepo(collection: MongoCollection)
     extends SalatDAO[Team, String](collection) {
 
-  def byId(id: String): IO[Option[Team]] = io {
-    findOneById(id)
+  def byId(id: String): IO[Option[Team]] = io { findOneById(id) }
+
+  def owned(id: String, createdBy: String): IO[Option[Team]] = io {
+    findOne(selectId(id) ++ ("createdBy" -> createdBy))
   }
 
   def byOrderedIds(ids: Iterable[String]): IO[List[Team]] = io {

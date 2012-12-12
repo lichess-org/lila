@@ -1,0 +1,24 @@
+@(t: lila.team.Team, requests: List[lila.team.RequestWithUser])(implicit ctx: Context)
+
+<table class="requests datatable">
+  <thead>
+    <tr>
+      <th colspan=4>New join requests</th>
+    </tr>
+  </thead>
+  <tbody>
+    @requests.map { request =>
+    <tr>
+      <td>@userLink(request.user)</td>
+      <td>@autoLink(request.message)</td>
+      <td>@showDate(request.date)</td>
+      <td class="process">
+        <form class="process-request" action="@routes.Team.requestProcess(request.id)" method="post">
+          <button name="process" class="submit button small" value="accept">@trans.accept()</button>
+          <button name="process" class="submit button" value="decline">@trans.decline()</button>
+        </form>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>

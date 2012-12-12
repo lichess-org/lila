@@ -45,27 +45,31 @@ final class TeamApi(
   def relationTo(team: Team)(implicit ctx: Context): IO[TeamRelation] = ~ctx.me.map(me ⇒
     for {
       mine ← isMine(team)
-      request ← requestRepo.find(team.id, me.id)
-    } yield TeamRelation(mine, request)
+      myRequest ← requestRepo.find(team.id, me.id)
+      requests ← requestsWithUsers(team) doIf { team.enabled && (team isCreator me.id) }
+    } yield TeamRelation(mine, myRequest, requests)
   )
+
+  def requestsWithUsers(team: Team): IO[List[RequestWithUser]] = for {
+    requests ← requestRepo findByTeamId team.id
+    users ← userRepo byOrderedIds requests.map(_.user)
+  } yield requests zip users map {
+    case (request, user) ⇒ RequestWithUser(request, user)
+  }
 
   def join(teamId: String)(implicit ctx: Context): IO[Option[Requesting]] = for {
     teamOption ← teamRepo byId teamId
     result ← ~(teamOption |@| ctx.me).tupled.map({
-      case (team, user) if team.open ⇒ for {
-        exists ← belongsTo(team, user)
-        _ ← (for {
-          _ ← memberRepo.add(team.id, user.id)
-          _ ← teamRepo.incMembers(team.id, +1)
-        } yield ()) doUnless exists
-      } yield Joined(team).some: Option[Requesting]
-      case (team, user) ⇒ io(Motivate(team).some: Option[Requesting])
+      case (team, user) if team.open ⇒
+        (doJoin(team, user) inject Joined(team).some): IO[Option[Requesting]]
+      case (team, user) ⇒
+        io(Motivate(team).some: Option[Requesting])
     })
   } yield result
 
   def requestable(teamId: String, user: User): IO[Option[Team]] = for {
     teamOption ← teamRepo byId teamId
-    able ← ~teamOption.map({ requestable(_, user) })
+    able ← ~teamOption.map(requestable(_, user))
   } yield teamOption filter (_ ⇒ able)
 
   def requestable(team: Team, user: User): IO[Boolean] = for {
@@ -77,6 +81,20 @@ final class TeamApi(
     able ← requestable(team, user)
     request = Request(team = team.id, user = user.id, message = setup.message)
     _ ← requestRepo add request doIf able
+  } yield ()
+
+  def processRequest(team: Team, request: Request, accept: Boolean): IO[Unit] = for {
+    _ ← requestRepo remove request.id
+    userOption ← userRepo byId request.user
+    _ ← ~userOption.map(doJoin(team, _))
+  } yield ()
+
+  private def doJoin(team: Team, user: User): IO[Unit] = for {
+    exists ← belongsTo(team, user)
+    _ ← (for {
+      _ ← memberRepo.add(team.id, user.id)
+      _ ← teamRepo.incMembers(team.id, +1)
+    } yield ()) doUnless exists
   } yield ()
 
   def quit(teamId: String)(implicit ctx: Context): IO[Option[Team]] = for {

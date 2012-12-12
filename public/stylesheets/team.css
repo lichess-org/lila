@@ -1,13 +1,13 @@
-form.new-team {
+#team form {
   margin-top: 2em;
   font-size: 1.3em;
 }
-form.new-team label {
+#team form label {
   display: block;
   margin-bottom: 2em;
 }
 
-form.new-team label span {
+#team form label span {
   float: left;
   display: block;
   width: 180px;
@@ -15,23 +15,23 @@ form.new-team label span {
   margin-right: 10px;
   margin-top: 3px;
 }
-form.new-team label span.required:after {
+#team form label span.required:after {
   content: "*";
   color: #FF6666;
   margin-left: 3px;
 }
 
-form.new-team .team-data input, form.new-team textarea {
+#team form .team-data input, #team form textarea {
   width: 480px;
 }
-form.new-team textarea {
+#team form textarea {
   height: 8em;
 }
-form.new-team .submit {
+#team form .submit {
   margin-left: 110px;
 }
 
-form.new-team p.error {
+#team form p.error {
   margin-left: 110px;
   margin-bottom: 10px;
   color: red;
@@ -55,4 +55,21 @@ form.new-team p.error {
 #team.team_show .content_box_top .righty {
   float: right;
   margin-right: 20px;
+}
+
+#team table.requests form {
+  margin: 0;
+}
+#team table.requests th {
+  padding: 0.5em;
+  text-align: center;
+  font-size: 1.4em;
+}
+#team table.requests .process {
+  white-space: nowrap;
+}
+#team table.requests button {
+  font-size: 0.8em;
+  display: inline;
+  margin-left: 5px;
 }

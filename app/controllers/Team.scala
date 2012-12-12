@@ -16,6 +16,7 @@ import play.api.templates.Html
 object Team extends LilaController {
 
   private def teamRepo = env.team.teamRepo
+  private def requestRepo = env.team.requestRepo
   private def forms = env.team.forms
   private def api = env.team.api
   private def paginator = env.team.paginator
@@ -76,6 +77,21 @@ object Team extends LilaController {
         err ⇒ io(BadRequest(html.team.requestForm(team, err, forms.captchaCreate))),
         setup ⇒ api.createRequest(team, setup, me) inject Redirect(routes.Team.show(team.id))
       )
+    }
+  }
+
+  def requestProcess(requestId: String) = AuthBody { implicit ctx ⇒
+    me ⇒ IOptionIORedirect(for {
+      requestOption ← requestRepo byId requestId
+      teamOption ← ~requestOption.map(req ⇒ teamRepo.owned(req.team, me.id))
+    } yield (teamOption |@| requestOption).tupled) {
+      case (team, request) ⇒ {
+        implicit val req = ctx.body
+        forms.processRequest.bindFromRequest.fold(
+          err ⇒ io(),
+          res ⇒ api.processRequest(team, request, (res == "accept"))
+        ) inject routes.Team.show(team.id)
+      }
     }
   }
 
