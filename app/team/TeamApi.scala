@@ -25,11 +25,16 @@ final class TeamApi(
       description = s.description,
       open = s.isOpen,
       createdBy = me) |> { team ⇒
-        for {
-          _ ← teamRepo saveIO team
-          _ ← memberRepo.add(team.id, me.id)
-        } yield team
+        (teamRepo saveIO team) >> memberRepo.add(team.id, me.id) inject team
       }
+  }
+
+  def update(team: Team, edit: TeamEdit, me: User): IO[Unit] = edit.trim |> { e ⇒
+    team.copy(
+      location = e.location,
+      description = e.description,
+      open = e.isOpen
+    ) |> teamRepo.saveIO
   }
 
   def mine(me: User): IO[List[Team]] = for {

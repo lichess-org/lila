@@ -91,7 +91,9 @@ body.dark table.slist,
 body.dark table.slist thead th,
 body.dark div.notifications > div,
 body.dark form.wide input[type="text"], 
-body.dark form.wide textarea 
+body.dark form.wide textarea,
+body.dark #team .team-left,
+body.dark #team .team-left h2
 {
   border-color: #3e3e3e;
 }
@@ -212,6 +214,7 @@ body.dark div.user_show .elo_with_me,
 body.dark div.content_box_inter,
 body.dark #GameText tr:nth-child(even),
 body.dark table.slist tbody tr:nth-child(even),
+body.dark #team .userlist li:nth-child(even), 
 body.dark table.translations tbody tr:nth-child(even),
 body.dark form.translation_form div.message:nth-child(even),
 body.dark div.content_box table.datatable tr:nth-child(odd),
