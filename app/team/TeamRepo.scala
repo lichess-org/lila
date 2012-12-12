@@ -40,6 +40,10 @@ final class TeamRepo(collection: MongoCollection)
 
   def exists(id: String): IO[Boolean] = byId(id) map (_.nonEmpty)
 
+  def name(id: String): IO[Option[String]] = io {
+    primitiveProjection[String](selectId(id), "name")
+  }
+
   def userHasCreatedSince(userId: String, duration: Period): IO[Boolean] = io {
     collection.find(
       ("createdAt" $gt (DateTime.now - duration)) +

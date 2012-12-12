@@ -19,6 +19,9 @@ final class CategApi(env: ForumEnv) {
     }).sequence
   } yield views
 
+  def getTeamNbPosts(slug: String): IO[Int] =
+    env.categRepo nbPosts ("team-" + slug)
+
   def makeTeam(slug: String, name: String): IO[Unit] = for {
     position ← env.categRepo.nextPosition
     categ = Categ(

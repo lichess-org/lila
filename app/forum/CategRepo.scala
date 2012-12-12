@@ -33,6 +33,10 @@ final class CategRepo(
       }).flatten.toList.headOption | 0
   } map (_ + 1)
 
+  def nbPosts(id: String): IO[Int] = io {
+    primitiveProjection[Int](idSelector(id), "nbPosts")
+  } map (_ | 0)
+
   private def idSelector(categ: Categ) = DBObject("_id" -> categ.slug)
 
   private def idSelector(slug: String) = DBObject("_id" -> slug)
