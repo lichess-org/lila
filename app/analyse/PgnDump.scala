@@ -13,6 +13,8 @@ import scalaz.effects._
 final class PgnDump(
     gameRepo: GameRepo,
     analyser: Analyser,
+    annotator: Annotator,
+    netBaseUrl: String,
     userRepo: UserRepo) {
 
   import PgnDump._
@@ -21,7 +23,7 @@ final class PgnDump(
     ts ← tags(game)
     pgnObj = Pgn(ts, turns(pgn))
     analysis ← analyser get game.id
-  } yield analysis.fold(Annotator(pgnObj, _), pgnObj)
+  } yield analysis.fold(annotator(pgnObj, _), pgnObj)
 
   def filename(game: DbGame): IO[String] = for {
     whiteUser ← user(game.whitePlayer)
@@ -32,7 +34,6 @@ final class PgnDump(
     player(game.blackPlayer, blackUser),
     game.id)
 
-  private val baseUrl = "http://lichess.org/"
   private val dateFormat = DateTimeFormat forPattern "yyyy-MM-dd";
 
   private def elo(p: DbPlayer) = p.elo.fold(_.toString, "?")
@@ -51,7 +52,7 @@ final class PgnDump(
     initialFen ← game.variant.standard.fold(io(none), gameRepo initialFen game.id)
   } yield List(
     Tag(_.Event, game.rated.fold("Rated game", "Casual game")),
-    Tag(_.Site, baseUrl + game.id),
+    Tag(_.Site, netBaseUrl + "/" + game.id),
     Tag(_.Date, dateFormat.print(game.createdAt)),
     Tag(_.White, player(game.whitePlayer, whiteUser)),
     Tag(_.Black, player(game.blackPlayer, blackUser)),

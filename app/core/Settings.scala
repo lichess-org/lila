@@ -133,6 +133,9 @@ final class Settings(config: Config, val IsDev: Boolean) {
   val CoreCollectionCache = getString("core.collection.cache")
   val CoreCronEnabled = getBoolean("core.cron.enabled")
 
+  val NetDomain = getString("net.domain")
+  val NetBaseUrl = getString("net.base_url")
+
   val SecurityCollectionSecurity = getString("security.collection.security")
   val SecurityWiretapIps = getStringList("security.wiretap.ips").toList
 

@@ -3,11 +3,11 @@ package analyse
 
 import chess.format.pgn
 
-object Annotator {
+final class Annotator(netDomain: String) {
 
   def apply(p: pgn.Pgn, analysis: Analysis): pgn.Pgn =
     annotateTurns(p, analysis.advices).copy(
-      tags = p.tags :+ pgn.Tag("Annotator", "lichess.org")
+      tags = p.tags :+ pgn.Tag("Annotator", netDomain)
     )
 
   private def annotateTurns(p: pgn.Pgn, advices: List[Advice]): pgn.Pgn =

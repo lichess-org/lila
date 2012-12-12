@@ -34,4 +34,7 @@ object Environment
     with tournament.TournamentHelper {
 
   protected def env = coreEnv
+
+  def netDomain = env.settings.NetDomain
+  def netBaseUrl = env.settings.NetBaseUrl
 }

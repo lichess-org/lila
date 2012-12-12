@@ -28,7 +28,7 @@ final class GameEnv(
     gameRepo = gameRepo,
     lobbyHubName = ActorLobbyHub)
 
-  lazy val export = Export(gameRepo) _
+  lazy val export = Export(gameRepo, NetBaseUrl) _
 
   lazy val listMenu = ListMenu(cached) _
 

@@ -10,9 +10,8 @@
     <span class="staff">CLOSED</span>
     }
   </div>
-  <div class="content_box_content clearfix">
-    @autoLink(t.description)
-  </div>
+  <p class="description">@autoLink(t.description)</p>
+  @trans.teamLeader(): @userIdLinkMini(t.createdBy)
   @if(t.enabled && !relation.mine) {
   @if(relation.isRequestedByMe) {
   <div class="content_box_content">Your join request is being reviewed by the team leader</div>

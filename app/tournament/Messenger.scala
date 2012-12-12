@@ -8,7 +8,8 @@ import user.User
 final class Messenger(
     roomRepo: RoomRepo,
     getTournament: String ⇒ IO[Option[Tournament]],
-    getUser: String ⇒ IO[Option[User]]) extends core.Room {
+    getUser: String ⇒ IO[Option[User]],
+    val netDomain: String) extends core.Room {
 
   import Room._
 

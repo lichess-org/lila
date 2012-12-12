@@ -239,6 +239,7 @@ div.content_box .lichess_title {
 }
 
 div.content_box table.datatable {
+  width: 100%;
   margin-top: 20px;
 }
 div.content_box table.datatable td {

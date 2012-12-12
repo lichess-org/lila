@@ -11,10 +11,9 @@ import org.joda.time.DateTime
 import org.joda.time.format.{ DateTimeFormat, ISODateTimeFormat, DateTimeFormatter }
 import scalaz.effects._
 
-final class Export(user: User, gameRepo: GameRepo) {
+final class Export(user: User, gameRepo: GameRepo, netBaseUrl: String) {
 
-  val dateFormatter = ISODateTimeFormat.dateTime
-  val baseUrl = "http://lichess.org/"
+  private val dateFormatter = ISODateTimeFormat.dateTime
 
   // returns the web path
   def apply: IO[String] = for {
@@ -48,9 +47,9 @@ final class Export(user: User, gameRepo: GameRepo) {
       (player flatMap (_.eloDiff)).fold(showEloDiff, "?"),
       (player map game.opponent flatMap (_.elo)).fold(_.toString, "?"),
       (player map game.opponent flatMap (_.eloDiff)).fold(showEloDiff, "?"),
-      baseUrl + routes.Round.watcher(game.id, player.fold(_.color.name, "white")),
-      baseUrl + routes.Analyse.replay(game.id, player.fold(_.color.name, "white")),
-      baseUrl + routes.Analyse.pgn(game.id)
+      netBaseUrl + "/" + routes.Round.watcher(game.id, player.fold(_.color.name, "white")),
+      netBaseUrl + "/" + routes.Analyse.replay(game.id, player.fold(_.color.name, "white")),
+      netBaseUrl + "/" + routes.Analyse.pgn(game.id)
     )
   }
 
@@ -68,5 +67,6 @@ final class Export(user: User, gameRepo: GameRepo) {
 
 object Export {
 
-  def apply(gameRepo: GameRepo)(user: User) = new Export(user, gameRepo)
+  def apply(gameRepo: GameRepo, netBaseUrl: String)(user: User) = 
+    new Export(user, gameRepo, netBaseUrl)
 }

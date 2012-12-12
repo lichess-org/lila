@@ -53,7 +53,8 @@ final class TournamentEnv(
   lazy val messenger = new Messenger(
     roomRepo = roomRepo,
     getTournament = repo.byId,
-    getUser = getUser)
+    getUser = getUser,
+    netDomain = NetDomain)
 
   lazy val socket = new Socket(
     getTournament = repo.byId,

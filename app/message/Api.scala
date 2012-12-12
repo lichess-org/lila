@@ -26,25 +26,22 @@ final class Api(
   def thread(id: String, me: User): IO[Option[Thread]] = for {
     threadOption ← threadRepo byId id map (_ filter (_ hasUser me))
     _ ← threadOption.filter(_ isUnReadBy me).fold(
-      thread ⇒ for {
-        _ ← threadRepo setRead thread
-        _ ← updateUser(me)
-      } yield (),
+      thread ⇒ (threadRepo setRead thread) >> updateUser(me.id),
       io()
     )
   } yield threadOption
 
-  def makeThread(data: DataForm.ThreadData, me: User) = {
+  def makeThread(data: DataForm.ThreadData, me: User): IO[Thread] = {
     val thread = Thread(
       name = data.subject,
       text = data.text,
-      creator = me,
-      invited = data.user)
-    for {
-      _ ← threadRepo saveIO thread
-      _ ← updateUser(data.user)
-    } yield thread
+      creator = me.id,
+      invited = data.user.id)
+    (threadRepo saveIO thread) >> updateUser(data.user.id) inject thread
   }
+
+  def lichessThread(lt: LichessThread): IO[Unit] =
+    (threadRepo saveIO lt.toThread) >> updateUser(lt.to)
 
   def makePost(thread: Thread, text: String, me: User) = {
     val post = Post(
@@ -58,9 +55,10 @@ final class Api(
     } yield thread
   }
 
-  private def updateUser(user: User) = io {
-    notifyUnread(user.id, unreadCache refresh user)
+  private def updateUser(user: String): IO[Unit] = io {
+    notifyUnread(user, unreadCache refresh user)
   }
+  private def updateUser(user: User): IO[Unit] = updateUser(user.id)
 
   def deleteThread(id: String, me: User): IO[Unit] = for {
     threadOption ← thread(id, me)
