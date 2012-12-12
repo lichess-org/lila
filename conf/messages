@@ -152,3 +152,5 @@ anyoneCanJoin=Anyone can join
 aConfirmationIsRequiredToJoin=A confirmation is required to join
 joiningPolicy=Joining policy
 teamLeader=Team leader
+teamBestPlayers=Team best players
+averageElo=Average ELO

@@ -1,4 +1,4 @@
-@(t: lila.team.Team, members: Paginator[lila.team.MemberWithUser], relation: lila.team.TeamRelation)(implicit ctx: Context)
+@(t: lila.team.Team, members: Paginator[lila.team.MemberWithUser], info: lila.team.TeamInfo)(implicit ctx: Context)
 
 @team.layout(title = t.name) {
 <div id="team" class="content_box no_padding team_show">
@@ -11,9 +11,18 @@
     }
   </div>
   <p class="description">@autoLink(t.description)</p>
-  @trans.teamLeader(): @userIdLinkMini(t.createdBy)
-  @if(t.enabled && !relation.mine) {
-  @if(relation.isRequestedByMe) {
+  <p>@trans.teamLeader(): @userIdLinkMini(t.createdBy)</p>
+  <p>
+    @trans.teamBestPlayers():
+    <ol>
+      @info.bestPlayers.map { player =>
+      <li>@userLink(player)</li>
+      }
+    </ol>
+  </p>
+  <p>@trans.averageElo(): @info.averageElo</p>
+  @if(t.enabled && !info.mine) {
+  @if(info.requestedByMe) {
   <div class="content_box_content">Your join request is being reviewed by the team leader</div>
   } else {
   <form class="inline" method="post" action="@routes.Team.join(t.id)">
@@ -21,10 +30,10 @@
   </form>
   }
   }
-  @if(relation.hasRequests) {
-  @team.requests(t, relation.requests)
+  @if(info.hasRequests) {
+  @team.requests(t, info.requests)
   }
-  @if(relation.mine && !(~ctx.me.map(_.id).map(t.isCreator))) {
+  @if(info.mine && !info.createdByMe) {
   <form class="inline" method="post" action="@routes.Team.quit(t.id)">
     <input class="submit button" type="submit" value="@trans.quitTeam()" />
   </form>

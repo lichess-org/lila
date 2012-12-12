@@ -16,15 +16,15 @@ final class MemberRepo(collection: MongoCollection)
     extends SalatDAO[Member, String](collection) {
 
   def userIdsByTeamId(teamId: String): IO[List[String]] = io {
-    (collection find teamIdQuery(teamId) sort sortQuery(1) map { obj ⇒
+    (collection.find(teamIdQuery(teamId), DBObject("user" -> true)) map { obj ⇒
       obj.getAs[String]("user")
     }).flatten.toList
   }
 
-  def teamIdsByUserId(userId: String): IO[Set[String]] = io {
-    (collection find userIdQuery(userId) map { obj ⇒
+  def teamIdsByUserId(userId: String): IO[List[String]] = io {
+    (collection.find(userIdQuery(userId), DBObject("team" -> true)) map { obj ⇒
       obj.getAs[String]("team")
-    }).flatten.toSet
+    }).flatten.toList
   }
 
   def removeByteamId(teamId: String): IO[Unit] = io {
