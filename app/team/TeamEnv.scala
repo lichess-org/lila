@@ -14,6 +14,7 @@ final class TeamEnv(
     captcha: Captcha,
     userRepo: UserRepo,
     sendMessage: LichessThread ⇒ IO[Unit],
+    makeForum: (String, String) ⇒ IO[Unit],
     mongodb: String ⇒ MongoCollection) {
 
   import settings._
@@ -40,6 +41,7 @@ final class TeamEnv(
     requestRepo = requestRepo,
     userRepo = userRepo,
     messenger = messenger,
+    makeForum = makeForum,
     paginator = paginator)
 
   lazy val teamInfo = TeamInfo(

@@ -8,8 +8,7 @@ import com.mongodb.casbah.Imports._
 import scalaz.effects._
 
 final class CategRepo(
-    collection: MongoCollection
-  ) extends SalatDAO[Categ, String](collection) {
+    collection: MongoCollection) extends SalatDAO[Categ, String](collection) {
 
   def bySlug(slug: String): IO[Option[Categ]] = io {
     findOneById(slug)
@@ -25,6 +24,14 @@ final class CategRepo(
       _grater asDBObject categ,
       upsert = true)
   }
+
+  val nextPosition: IO[Int] = io {
+    (collection.find(DBObject(), DBObject("pos" -> true))
+      .sort(DBObject("pos" -> -1))
+      .limit(1) map { obj ⇒
+        obj.getAs[Int]("pos")
+      }).flatten.toList.headOption | 0
+  } map (_ + 1)
 
   private def idSelector(categ: Categ) = DBObject("_id" -> categ.slug)
 

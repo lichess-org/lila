@@ -14,6 +14,7 @@ final class TeamApi(
     requestRepo: RequestRepo,
     userRepo: UserRepo,
     messenger: TeamMessenger,
+    makeForum: (String, String) ⇒ IO[Unit],
     paginator: PaginatorBuilder) {
 
   val creationPeriod = 1 week
@@ -25,7 +26,11 @@ final class TeamApi(
       description = s.description,
       open = s.isOpen,
       createdBy = me) |> { team ⇒
-        (teamRepo saveIO team) >> memberRepo.add(team.id, me.id) inject team
+        for {
+          _ ← teamRepo saveIO team
+          _ ← memberRepo.add(team.id, me.id)
+          _ ← makeForum(team.id, team.name)
+        } yield team
       }
   }
 
