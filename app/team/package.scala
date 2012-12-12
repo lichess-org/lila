@@ -8,8 +8,10 @@ trait TeamImplicits {
 
   import team.TeamRelation
 
-  implicit def TeamRelationZero: Zero[TeamRelation] = new Zero[TeamRelation] {
-    val zero = TeamRelation(mine = false, request = none)
+  implicit def TeamRelationZero = new Zero[team.TeamRelation] {
+    val zero = team.TeamRelation(
+      mine = false,
+      myRequest = none,
+      requests = Nil)
   }
-
 }

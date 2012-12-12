@@ -60,6 +60,7 @@ POST  /team/:id/join                          controllers.Team.join(id: String)
 POST  /team/:id/quit                          controllers.Team.quit(id: String)
 GET   /team/:id/request/new                   controllers.Team.requestForm(id: String)
 POST  /team/:id/request/new                   controllers.Team.requestCreate(id: String)
+POST  /team/:id/request/process               controllers.Team.requestProcess(id: String)
 
 # Analyse
 GET   /analyse/$gameId<[\w\-]{8}>        controllers.Analyse.replay(gameId: String, color: String = "white")

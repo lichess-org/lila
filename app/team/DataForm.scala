@@ -37,7 +37,14 @@ final class DataForm(
       "Not a checkmate",
       data ⇒ captcher get data.gameId valid data.move.trim.toLowerCase
     )
-  )
+  ) fill RequestSetup(
+    message = "Hello, I would like to join the team!",
+    gameId = "",
+    move = "")
+
+  val processRequest = Form(single(
+    "process" -> nonEmptyText
+  ))
 
   def createWithCaptcha = create -> captchaCreate
 
@@ -64,6 +71,6 @@ private[team] case class TeamSetup(
 }
 
 private[team] case class RequestSetup(
-    message: String,
-    gameId: String,
-    move: String) 
+  message: String,
+  gameId: String,
+  move: String)

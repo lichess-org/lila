@@ -1,16 +1,18 @@
 package lila
 package team
 
+import user.User
+
 import com.novus.salat.annotations.Key
 import org.joda.time.DateTime
 
 case class Request(
-    @Key("_id") id: String, 
+    @Key("_id") id: String,
     team: String,
     user: String,
     message: String,
     date: DateTime) {
-    }
+}
 
 object Request {
 
@@ -18,10 +20,16 @@ object Request {
 
   def apply(team: String, user: String, message: String): Request = new Request(
     id = makeId(team, user),
-    user = user, 
-    team = team, 
+    user = user,
+    team = team,
     message = message.trim,
     date = DateTime.now)
+}
+
+case class RequestWithUser(request: Request, user: User) {
+  def id = request.id
+  def message = request.message
+  def date = request.date
 }
 
 sealed trait Requesting

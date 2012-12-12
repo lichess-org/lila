@@ -6,13 +6,17 @@
 <div id="team">
   <div class="content_box team_box">
     <h1>@title</h1>
-    <form class="wide" action="@routes.Team.requestCreate(t.id)" method="POST">
+    <form class="wide team-request" action="@routes.Team.requestCreate(t.id)" method="POST">
       <label>
         <span class="required">Message</span>
-        @defining(form("text")) { text =>
-        <textarea name="@text.name" id="@text.id">@text.value</textarea>
-        @errMsg(text)
+        @defining(form("message")) { message =>
+        <textarea name="@message.name" id="@message.id">@message.value</textarea>
+        @errMsg(message)
         }
+      </label>
+      <label>
+        <span></span>
+        <p class="info">Your join request will be reviewed by the team leader.</p>
       </label>
       @base.captcha(form("move"), form("gameId"), captcha)
       @errMsg(form)

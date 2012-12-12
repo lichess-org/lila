@@ -3,7 +3,10 @@ package team
 
 case class TeamRelation(
     mine: Boolean,
-    request: Option[Request]) {
+    myRequest: Option[Request],
+    requests: List[RequestWithUser]) {
 
-  def isRequested = request.nonEmpty
+  def isRequestedByMe = myRequest.nonEmpty
+
+  def hasRequests = requests.nonEmpty
 }
