@@ -5,6 +5,7 @@ import core.Settings
 import site.Captcha
 import user.UserRepo
 import message.LichessThread
+import forum.Categ
 
 import com.mongodb.casbah.MongoCollection
 import scalaz.effects._
@@ -15,6 +16,7 @@ final class TeamEnv(
     userRepo: UserRepo,
     sendMessage: LichessThread ⇒ IO[Unit],
     makeForum: (String, String) ⇒ IO[Unit],
+    getForumNbPosts: String ⇒ IO[Int],
     mongodb: String ⇒ MongoCollection) {
 
   import settings._
@@ -48,7 +50,10 @@ final class TeamEnv(
     api = api,
     memberRepo = memberRepo,
     requestRepo = requestRepo,
-    userRepo = userRepo) _
+    userRepo = userRepo,
+    getForumNbPosts = getForumNbPosts) _
 
   lazy val forms = new DataForm(teamRepo, captcha)
+
+  lazy val cached = new Cached(teamRepo)
 }

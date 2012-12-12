@@ -3,11 +3,19 @@
 @forum.layout(
 title = topic.name) {
 <div class="topic">
+  @categ.team.map { team =>
+  <ol class="crumbs">
+    <li>@teamLink(team)</li>
+    <li><a href="@routes.ForumCateg.show(categ.slug)">Forum</a></li>
+    <li><h1>@topic.name</h1></li>
+  </ol>
+  }.getOrElse {
   <ol class="crumbs">
     <li><a href="@routes.ForumCateg.index">Forum</a></li>
     <li><a href="@routes.ForumCateg.show(categ.slug)">@categ.name</a></li>
     <li><h1>@topic.name</h1></li>
   </ol>
+  }
   <div class="bar top clearfix">
     <div class="pagination">
       @forum.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts)

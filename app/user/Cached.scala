@@ -6,9 +6,7 @@ import memo.ActorMemo
 import akka.util.duration._
 import scala.collection.mutable
 
-final class Cached(
-  userRepo: UserRepo,
-  nbTtl: Int) {
+final class Cached(userRepo: UserRepo, nbTtl: Int) {
 
   import Cached._
 
