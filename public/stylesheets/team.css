@@ -60,6 +60,9 @@
 #team table.requests form {
   margin: 0;
 }
+#team table.requests {
+  border: 1px solid #909090;
+}
 #team table.requests th {
   padding: 0.5em;
   text-align: center;

@@ -2,7 +2,7 @@
 
 @import pov._
 
-@defining("http://lichess.org" + routes.Round.watcher(gameId, color.name)) { url =>
+@defining(netBaseUrl + routes.Round.watcher(gameId, color.name)) { url =>
 <div class="undergame_box game_more">
   <div class="more_top">
     @bookmark.toggle(game)

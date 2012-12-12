@@ -7,6 +7,8 @@ import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 
 trait Room {
 
+  def netDomain: String
+
   def createMessage(user: User, text: String): Valid[(String, String)] =
     if (user.isChatBan) !!("Chat banned " + user)
     else if (user.disabled) !!("User disabled " + user)
@@ -14,13 +16,14 @@ trait Room {
       (escaped.nonEmpty).fold(
         success((
           user.username,
-          urlRegex.replaceAllIn(escaped, m ⇒ "lichess.org/" + (m group 1))
+          urlRegex.replaceAllIn(escaped, m ⇒ netDomain + "/" + (m group 1))
         )),
         !!("Empty message")
       )
     }
 
-  private val urlRegex = """lichess\.org/([\w-]{8})[\w-]{4}""".r
+  private val domainRegex = netDomain.replace(".", """\.""")
+  private val urlRegex = (domainRegex + """/([\w-]{8})[\w-]{4}""").r
 
   private def cleanupText(text: String) = {
     val cleanedUp = text.trim.replace(""""""", "'")

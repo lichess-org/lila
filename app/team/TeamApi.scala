@@ -13,6 +13,7 @@ final class TeamApi(
     memberRepo: MemberRepo,
     requestRepo: RequestRepo,
     userRepo: UserRepo,
+    messenger: TeamMessenger,
     paginator: PaginatorBuilder) {
 
   val creationPeriod = 1 week
@@ -80,7 +81,8 @@ final class TeamApi(
   def createRequest(team: Team, setup: RequestSetup, user: User): IO[Unit] = for {
     able ← requestable(team, user)
     request = Request(team = team.id, user = user.id, message = setup.message)
-    _ ← requestRepo add request doIf able
+    rwu = RequestWithUser(request, user)
+    _ ← (requestRepo.add(request) >> messenger.joinRequest(team, rwu)) doIf able
   } yield ()
 
   def processRequest(team: Team, request: Request, accept: Boolean): IO[Unit] = for {
