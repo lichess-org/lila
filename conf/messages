@@ -153,4 +153,7 @@ aConfirmationIsRequiredToJoin=A confirmation is required to join
 joiningPolicy=Joining policy
 teamLeader=Team leader
 teamBestPlayers=Team best players
+teamRecentMembers=Team recent members
 averageElo=Average ELO
+location=Location
+settings=Settings

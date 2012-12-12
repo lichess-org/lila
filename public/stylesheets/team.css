@@ -59,13 +59,43 @@
 
 #team .team-left {
   float: left;
-  width: 300px;
+  width: 280px;
+  font-size: 1.2em;
+  border-right: 1px solid #ccc;
+}
+#team .team-left h2 {
+  font-size: 1.0em;
+  font-weight: bold;
+  padding-left: 25px;
+  border-bottom: 1px solid #ccc;
+}
+#team .team-left .infos {
+  margin: 20px 0 20px 25px;
+}
+#team .team-right {
+  margin-left: 300px;
+}
+#team .description {
+  margin: 20px 0;
+}
+
+#team .userlist {
+  margin-bottom: 20px;
+}
+
+#team .userlist li {
+  padding: 10px 0 10px 25px;
+}
+
+#team .userlist li:nth-child(even) {
+  background: none repeat scroll 0 0 #F4F4F4;
 }
 
 #team table.requests form {
   margin: 0;
 }
 #team table.requests {
+  margin: 0;
   border: 1px solid #909090;
 }
 #team table.requests th {
