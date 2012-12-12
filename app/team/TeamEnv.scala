@@ -42,5 +42,11 @@ final class TeamEnv(
     messenger = messenger,
     paginator = paginator)
 
+  lazy val teamInfo = TeamInfo(
+    api = api,
+    memberRepo = memberRepo,
+    requestRepo = requestRepo,
+    userRepo = userRepo) _
+
   lazy val forms = new DataForm(teamRepo, captcha)
 }

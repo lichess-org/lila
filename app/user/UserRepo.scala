@@ -5,6 +5,7 @@ import com.novus.salat._
 import com.novus.salat.dao._
 import com.mongodb.casbah.{ MongoCollection, WriteConcern }
 import com.mongodb.casbah.query.Imports._
+import com.mongodb.casbah.map_reduce.MapReduceInlineOutput
 import scalaz.effects._
 import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
@@ -34,6 +35,29 @@ class UserRepo(collection: MongoCollection)
   } map { us ⇒
     val usMap = us.map(u ⇒ u.id -> u).toMap
     ids.map(usMap.get).flatten.toList
+  }
+
+  def byIdsSortByElo(ids: Iterable[String], nb: Int): IO[List[User]] = io {
+    find("_id" $in ids.map(normalize))
+      .sort(DBObject("elo" -> -1))
+      .limit(nb)
+      .toList
+  }
+
+  def idsAverageElo(ids: Iterable[String]): IO[Int] = io {
+    val result = collection.mapReduce(
+      mapFunction = """function() { emit("e", this.elo); }""",
+      reduceFunction = """function(key, values) {
+  var sum = 0;
+  for(var i in values) { sum += values[i]; }
+  return Math.round(sum / values.length);
+}""",
+      output = MapReduceInlineOutput,
+      query = ("_id" $in ids.map(normalize)).some)
+    (for {
+      row ← result.hasNext option result.next
+      sum ← row.getAs[Double]("value")
+    } yield sum.toInt) | 0
   }
 
   def username(userId: String): IO[Option[String]] = io {
@@ -169,7 +193,7 @@ class UserRepo(collection: MongoCollection)
 
   def isEngine(username: String): IO[Boolean] = io {
     collection.find(byIdQuery(username) ++ DBObject("engine" -> true)).size != 0
-  } 
+  }
 
   def setBio(user: User, bio: String) = updateIO(user)($set("bio" -> bio))
 

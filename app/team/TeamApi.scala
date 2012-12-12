@@ -40,17 +40,6 @@ final class TeamApi(
   def hasCreatedRecently(me: User): IO[Boolean] =
     teamRepo.userHasCreatedSince(me.id, creationPeriod)
 
-  def isMine(team: Team)(implicit ctx: Context): IO[Boolean] =
-    ~ctx.me.map(me ⇒ belongsTo(team, me))
-
-  def relationTo(team: Team)(implicit ctx: Context): IO[TeamRelation] = ~ctx.me.map(me ⇒
-    for {
-      mine ← isMine(team)
-      myRequest ← requestRepo.find(team.id, me.id)
-      requests ← requestsWithUsers(team) doIf { team.enabled && (team isCreator me.id) }
-    } yield TeamRelation(mine, myRequest, requests)
-  )
-
   def requestsWithUsers(team: Team): IO[List[RequestWithUser]] = for {
     requests ← requestRepo findByTeamId team.id
     users ← userRepo byOrderedIds requests.map(_.user)

@@ -9,9 +9,8 @@ import security.Granter
 
 import scalaz.effects._
 import play.api.mvc._
-import play.api.libs.json._
-import play.api.libs.iteratee._
 import play.api.templates.Html
+import play.api.libs.concurrent.Akka
 
 object Team extends LilaController {
 
@@ -26,11 +25,13 @@ object Team extends LilaController {
   }
 
   def show(id: String, page: Int) = Open { implicit ctx ⇒
-    IOptionIOk(teamRepo byId id) { team ⇒
-      api relationTo team map { relation ⇒
-        html.team.show(team, paginator.teamMembers(team, page), relation)
+    Async(Akka.future {
+      IOptionIOk(teamRepo byId id) { team ⇒
+        env.team.teamInfo(team, ctx.me) map { info ⇒
+          html.team.show(team, paginator.teamMembers(team, page), info)
+        }
       }
-    }
+    })
   }
 
   def form = Auth { implicit ctx ⇒
