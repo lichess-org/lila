@@ -55,6 +55,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     captcha = site.captcha,
     userRepo = user.userRepo,
     sendMessage = message.api.lichessThread,
+    makeForum = forum.categApi.makeTeam,
     mongodb = mongodb.apply _)
 
   lazy val lobby = new lila.lobby.LobbyEnv(

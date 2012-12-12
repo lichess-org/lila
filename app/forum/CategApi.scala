@@ -19,6 +19,39 @@ final class CategApi(env: ForumEnv) {
     }).sequence
   } yield views
 
+  def makeTeam(slug: String, name: String): IO[Unit] = for {
+    position ← env.categRepo.nextPosition
+    categ = Categ(
+      slug = "team-" + slug,
+      name = name,
+      desc = "Forum of the team " + name,
+      pos = position,
+      team = slug.some)
+    topic = Topic(
+      categId = categ.slug,
+      slug = slug + "-forum",
+      name = name + " forum")
+    post = Post(
+      topicId = topic.id,
+      author = none,
+      userId = "lichess".some,
+      ip = none,
+      text = "Welcome to the %s forum!\nOnly members of the team can post here" format name,
+      number = 1)
+    _ ← env.categRepo saveIO categ
+    _ ← env.postRepo saveIO post
+    // denormalize topic
+    _ ← env.topicRepo saveIO topic.copy(
+      nbPosts = 1,
+      lastPostId = post.id,
+      updatedAt = post.createdAt)
+    // denormalize categ
+    _ ← env.categRepo saveIO categ.copy(
+      nbTopics = categ.nbTopics + 1,
+      nbPosts = categ.nbPosts + 1,
+      lastPostId = post.id)
+  } yield ()
+
   def show(slug: String, page: Int): IO[Option[(Categ, Paginator[TopicView])]] =
     env.categRepo bySlug slug map {
       _ map { categ ⇒
