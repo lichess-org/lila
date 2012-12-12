@@ -88,7 +88,10 @@ final class TeamApi(
   def processRequest(team: Team, request: Request, accept: Boolean): IO[Unit] = for {
     _ ← requestRepo remove request.id
     userOption ← userRepo byId request.user
-    _ ← ~userOption.map(doJoin(team, _))
+    _ ← ~userOption.map(user ⇒ accept.fold(
+      doJoin(team, user) >> messenger.acceptRequest(team, request),
+      messenger.declineRequest(team, request)
+    ))
   } yield ()
 
   private def doJoin(team: Team, user: User): IO[Unit] = for {
