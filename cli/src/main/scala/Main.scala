@@ -19,6 +19,7 @@ object Main {
     def infos = Infos(env)
     def wiki = Wiki(env.wiki)
     def search = Search(env.search)
+    def teams = Teams(env.team.teamRepo, env.user.userRepo, env.team.api)
 
     args.toList match {
       case "average-elo" :: Nil               ⇒ infos.averageElo
@@ -38,8 +39,8 @@ object Main {
       case "game-per-day" :: days :: Nil      ⇒ games.perDay(parseIntOption(days) err "days: Int")
       case "wiki-fetch" :: Nil                ⇒ wiki.fetch
       case "search-reset" :: Nil              ⇒ search.reset
-      case _ ⇒
-        putStrLn("Unknown command: " + args.mkString(" "))
+      case "team-join" :: team :: users       ⇒ teams.join(team, users)
+      case _                                  ⇒ putStrLn("Unknown command: " + args.mkString(" "))
     }
   }
 

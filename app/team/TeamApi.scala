@@ -83,12 +83,9 @@ final class TeamApi(
     ))
   } yield ()
 
-  private def doJoin(team: Team, user: User): IO[Unit] = for {
+  def doJoin(team: Team, user: User): IO[Unit] = for {
     exists ← belongsTo(team, user)
-    _ ← (for {
-      _ ← memberRepo.add(team.id, user.id)
-      _ ← teamRepo.incMembers(team.id, +1)
-    } yield ()) doUnless exists
+    _ ← (memberRepo.add(team.id, user.id) >> teamRepo.incMembers(team.id, +1)) doUnless exists
   } yield ()
 
   def quit(teamId: String)(implicit ctx: Context): IO[Option[Team]] = for {

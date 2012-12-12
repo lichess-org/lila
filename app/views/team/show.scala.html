@@ -10,46 +10,46 @@
     <span class="staff">CLOSED</span>
     }
   </div>
-  <p class="description">@autoLink(t.description)</p>
-  <p>@trans.teamLeader(): @userIdLinkMini(t.createdBy)</p>
-  <p>
-    @trans.teamBestPlayers():
-    <ol>
-      @info.bestPlayers.map { player =>
-      <li>@userLink(player)</li>
-      }
-    </ol>
-  </p>
-  <p>@trans.averageElo(): @info.averageElo</p>
-  @if(t.enabled && !info.mine) {
-  @if(info.requestedByMe) {
-  <div class="content_box_content">Your join request is being reviewed by the team leader</div>
-  } else {
-  <form class="inline" method="post" action="@routes.Team.join(t.id)">
-    <input class="submit button" type="submit" value="@trans.joinTeam()" />
-  </form>
-  }
-  }
-  @if(info.hasRequests) {
-  @team.requests(t, info.requests)
-  }
-  @if(info.mine && !info.createdByMe) {
-  <form class="inline" method="post" action="@routes.Team.quit(t.id)">
-    <input class="submit button" type="submit" value="@trans.quitTeam()" />
-  </form>
-  }
-  <div class="team-members">
-    <table class="slist">
-      <tbody>
-        @members.currentPageResults.map { member =>
-        <tr class="paginated_element">
-          <td class="subject">
-            @userLink(member.user)
-          </td>
-        </tr>
+  <div class="team-content clearfix">
+    <div class="team-left">
+      <p class="line">@trans.averageElo(): @info.averageElo</p>
+      <p class="line">@trans.teamLeader(): @userIdLinkMini(t.createdBy)</p>
+      <h2>@trans.teamBestPlayers()</h2>
+      <ol>
+        @info.bestPlayers.map { player =>
+        <li>@userLink(player)</li>
         }
-      </tbody>
-    </table>
+      </ol>
+      <table class="slist">
+        <tbody>
+          @members.currentPageResults.map { member =>
+          <tr class="paginated_element">
+            <td class="subject">
+              @userLink(member.user)
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="description">@autoLink(t.description)</p>
+    @if(t.enabled && !info.mine) {
+    @if(info.requestedByMe) {
+    <div class="content_box_content">Your join request is being reviewed by the team leader</div>
+    } else {
+    <form class="inline" method="post" action="@routes.Team.join(t.id)">
+      <input class="submit button" type="submit" value="@trans.joinTeam()" />
+    </form>
+    }
+    }
+    @if(info.hasRequests) {
+    @team.requests(t, info.requests)
+    }
+    @if(info.mine && !info.createdByMe) {
+    <form class="inline" method="post" action="@routes.Team.quit(t.id)">
+      <input class="submit button" type="submit" value="@trans.quitTeam()" />
+    </form>
+    }
   </div>
 </div>
 }
