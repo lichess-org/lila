@@ -7,17 +7,17 @@ import scalaz.effects._
 case class Users(userRepo: UserRepo, securityStore: Store) {
 
   def enable(username: String): IO[Unit] =
-    perform(username, "Enable", userRepo.enable)
+    perform(username, userRepo.enable)
 
   def disable(username: String): IO[Unit] =
-    perform(username, "Disable", user ⇒
+    perform(username, user ⇒
       userRepo disable user map { _ ⇒
         securityStore deleteUsername username
       }
     )
 
   def passwd(username: String, password: String) =
-    perform(username, "Change password", user ⇒ {
+    perform(username, user ⇒ {
       userRepo.passwd(user, password) map (_.fold(
         errors ⇒ throw new RuntimeException(errors.shows),
         _ ⇒ io()
@@ -31,8 +31,7 @@ case class Users(userRepo: UserRepo, securityStore: Store) {
     ))
   }
 
-  private def perform(username: String, action: String, op: User ⇒ IO[Unit]) = for {
-    _ ← putStrLn(action + " " + username)
+  private def perform(username: String, op: User ⇒ IO[Unit]) = for {
     userOption ← userRepo byId username
     _ ← userOption.fold(
       u ⇒ op(u) flatMap { _ ⇒ putStrLn("Success") },
