@@ -30,7 +30,7 @@ object TeamInfo {
     userRepo: UserRepo,
     getForumNbPosts: String ⇒ IO[Int],
     getForumPosts: String ⇒ IO[List[PostView]])(team: Team, me: Option[User]): IO[TeamInfo] = for {
-    mine ← ~me.map(api.belongsTo(team, _))
+    mine ← ~me.map(m ⇒ api.belongsTo(team.id, m.id))
     requestedByMe ← ~me.map(m ⇒ requestRepo.exists(team.id, m.id)) doUnless mine
     requests ← api.requestsWithUsers(team) doIf {
       team.enabled && ~me.map(m ⇒ team.isCreator(m.id))

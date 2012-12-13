@@ -17,7 +17,7 @@ object ForumPost extends LilaController with forum.Controller {
   }
 
   def create(categSlug: String, slug: String, page: Int) = OpenBody { implicit ctx ⇒
-    CategGrant(categSlug) {
+    CategGrantWrite(categSlug) {
       implicit val req = ctx.body
       IOptionResult(topicApi.show(categSlug, slug, page)) {
         case (categ, topic, posts) ⇒ forms.post.bindFromRequest.fold(

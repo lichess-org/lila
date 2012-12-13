@@ -13,7 +13,7 @@ object ForumTopic extends LilaController with forum.Controller {
   private def forms = env.forum.forms
 
   def form(categSlug: String) = Open { implicit ctx ⇒
-    CategGrant(categSlug) {
+    CategGrantWrite(categSlug) {
       IOptionOk(categRepo bySlug categSlug) { categ ⇒
         html.forum.topic.form(categ, forms.topic, forms.captchaCreate)
       }
@@ -21,7 +21,7 @@ object ForumTopic extends LilaController with forum.Controller {
   }
 
   def create(categSlug: String) = OpenBody { implicit ctx ⇒
-    CategGrant(categSlug) {
+    CategGrantWrite(categSlug) {
       implicit val req = ctx.body
       IOptionResult(categRepo bySlug categSlug) { categ ⇒
         forms.topic.bindFromRequest.fold(
@@ -36,10 +36,10 @@ object ForumTopic extends LilaController with forum.Controller {
   }
 
   def show(categSlug: String, slug: String, page: Int) = Open { implicit ctx ⇒
-    CategGrant(categSlug) {
+    CategGrantRead(categSlug) {
       IOptionOk(topicApi.show(categSlug, slug, page)) {
         case (categ, topic, posts) ⇒ {
-          val form = (!posts.hasNextPage) option forms.postWithCaptcha
+          val form = (!posts.hasNextPage && isGrantedWrite(categSlug)) option forms.postWithCaptcha
           html.forum.topic.show(categ, topic, posts, form)
         }
       }

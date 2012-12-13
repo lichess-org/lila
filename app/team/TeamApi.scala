@@ -74,7 +74,7 @@ final class TeamApi(
 
   def requestable(team: Team, user: User): IO[Boolean] = for {
     exists ← requestRepo.exists(team.id, user.id)
-    mine ← belongsTo(team, user)
+    mine ← belongsTo(team.id, user.id)
   } yield !exists && !mine
 
   def createRequest(team: Team, setup: RequestSetup, user: User): IO[Unit] = for {
@@ -94,7 +94,7 @@ final class TeamApi(
   } yield ()
 
   def doJoin(team: Team, user: User): IO[Unit] = for {
-    exists ← belongsTo(team, user)
+    exists ← belongsTo(team.id, user.id)
     _ ← (memberRepo.add(team.id, user.id) >> teamRepo.incMembers(team.id, +1)) doUnless exists
   } yield ()
 
@@ -102,7 +102,7 @@ final class TeamApi(
     teamOption ← teamRepo byId teamId
     result ← ~(teamOption |@| ctx.me).tupled.map({
       case (team, user) ⇒ for {
-        exists ← belongsTo(team, user)
+        exists ← belongsTo(team.id, user.id)
         _ ← (for {
           _ ← memberRepo.remove(team.id, user.id)
           _ ← teamRepo.incMembers(team.id, -1)
@@ -111,6 +111,6 @@ final class TeamApi(
     })
   } yield result
 
-  def belongsTo(team: Team, user: User): IO[Boolean] =
-    memberRepo.exists(teamId = team.id, userId = user.id)
+  def belongsTo(teamId: String, userId: String): IO[Boolean] =
+    memberRepo.exists(teamId = teamId, userId = userId)
 }

@@ -6,7 +6,9 @@ import templating.StringHelper
 
 import play.api.templates.Html
 
-trait ForumHelper { self: UserHelper with StringHelper ⇒
+trait ForumHelper extends ForumGranter { self: UserHelper with StringHelper ⇒
+
+  protected def userBelongsToTeam = env.team.api.belongsTo _
 
   def authorName(post: Post) =
     post.userId.fold(userIdToUsername, escape(post.showAuthor))

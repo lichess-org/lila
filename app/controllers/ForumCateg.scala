@@ -12,7 +12,7 @@ object ForumCateg extends LilaController with forum.Controller {
   }
 
   def show(slug: String, page: Int) = Open { implicit ctx ⇒
-    CategGrant(slug) {
+    CategGrantRead(slug) {
       IOptionOk(categApi.show(slug, page)) {
         case (categ, topics) ⇒ html.forum.categ.show(categ, topics)
       }
