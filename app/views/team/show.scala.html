@@ -4,7 +4,7 @@
 <div id="team" class="content_box no_padding team_show">
   <div class="content_box_top">
     <span class="righty">@trans.nbMembers("<strong>" + t.nbMembers + "</strong>")</span>
-    <div class="icon"></div>
+    <div class="icon team-icon @myTeam(t.id).fold("mine", "")"></div>
     <h1 class="lichess_title">@t.name</h1>
     @if(t.disabled) {
     <span class="staff">CLOSED</span>

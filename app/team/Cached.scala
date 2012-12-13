@@ -9,7 +9,7 @@ final class Cached(
 
   def name(id: String): Option[String] = NameCache(id)
 
-  def teamIds(userId: String): List[String] = TeamIdsCache(userId.pp).pp
+  def teamIds(userId: String): List[String] = TeamIdsCache(userId)
 
   def invalidateTeamIds(userId: String) { TeamIdsCache invalidate userId }
 
