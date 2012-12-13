@@ -45,13 +45,21 @@
   font-size: 1.3em;
   display: block;
   margin-bottom: 4px;
+  padding-bottom: 5px;
+}
+#team .team-icon {
+  background-position: 0 -336px;
+}
+#team .team-icon.mine {
+  background-position: 0 -352px;
+}
+#team table.slist a.team-name span.team-icon {
+  float: left;
+  margin-top: 4px;
 }
 #team table.slist .info {
   font-size: 0.9em;
   white-space: nowrap;
-}
-#team div.content_box_top .icon {
-  background-position: 0 -336px;
 }
 #team.team_show .lichess_title {
   font-size: 1.8em;
