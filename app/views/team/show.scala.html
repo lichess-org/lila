@@ -18,7 +18,6 @@
       <section class="infos">
       <p>@trans.averageElo(): <strong>@info.averageElo</strong></p>
       <p>@trans.teamLeader(): @userIdLinkMini(t.createdBy)</p>
-      <p><a href="@teamForumUrl(t.id)">@trans.forum() (@info.forumNbPosts)</a>
       </section>
       <h2>@trans.teamBestPlayers()</h2>
       <ol class="userlist">
@@ -50,14 +49,34 @@
         </form>
         }
         }
-        @if(info.mine && !info.createdByMe) {
-        <form class="inline" method="post" action="@routes.Team.quit(t.id)">
-          <input class="submit button" type="submit" value="@trans.quitTeam()" />
-        </form>
-        }
-        @if(info.createdByMe) {
-        <a href="@routes.Team.edit(t.id)" class="submit button">@trans.settings()</a>
-        }
+      </div>
+      <div class="forum">
+        <h2><a href="@teamForumUrl(t.id)">@trans.forum() (@info.forumNbPosts)</a></h2>
+        <ol class="posts">
+          @info.forumPosts.take(5).map { v =>
+          @defining(routes.ForumTopic.show(v.categ.slug, v.topic.slug, v.topicLastPage) + "#" + v.post.number) { postUrl =>
+          <li>
+            <p class="meta clearfix">
+              <a href="@postUrl">@v.topic.name</a>
+              @authorLink(v.post, withOnline = false)
+              <span class="date">@showDate(v.post.createdAt)</span>
+            </p>
+            <p>@shorten(v.post.text, 200)</p>
+          </li>
+          }
+          }
+        </ol>
+        <a class="more" href="@teamForumUrl(t.id)">@t.name @trans.forum() »</a>
+        <div class="actions">
+          @if(info.mine && !info.createdByMe) {
+          <form class="quit" method="post" action="@routes.Team.quit(t.id)">
+            <input class="submit button small confirm" type="submit" value="@trans.quitTeam()" />
+          </form>
+          }
+          @if(info.createdByMe) {
+          <a href="@routes.Team.edit(t.id)" class="submit button small">@trans.settings()</a>
+          }
+        </div>
       </div>
     </div>
   </div>

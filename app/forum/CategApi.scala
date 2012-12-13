@@ -40,7 +40,8 @@ final class CategApi(env: ForumEnv) {
       userId = "lichess".some,
       ip = none,
       text = "Welcome to the %s forum!\nOnly members of the team can post here" format name,
-      number = 1)
+      number = 1,
+      categId = categ.id)
     _ ← env.categRepo saveIO categ
     _ ← env.postRepo saveIO post
     // denormalize topic

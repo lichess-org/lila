@@ -33,7 +33,8 @@ final class PostApi(
       userId = ctx.me map (_.id),
       ip = ctx.isAnon option ctx.req.remoteAddress,
       text = data.text,
-      number = number + 1)
+      number = number + 1,
+      categId = categ.id)
     _ ← env.postRepo saveIO post
     // denormalize topic
     _ ← env.topicRepo saveIO topic.copy(
@@ -55,15 +56,18 @@ final class PostApi(
     )
   } yield (topicOption |@| postOption).tupled
 
-  def view(post: Post): IO[Option[PostView]] = for {
-    topicOption ← env.topicRepo byId post.topicId
-    categOption ← topicOption.fold(
-      topic ⇒ env.categRepo bySlug topic.categId,
-      io(none[Categ])
-    )
-  } yield topicOption |@| categOption apply {
-    case (topic, categ) ⇒ PostView(post, topic, categ, lastPageOf(topic))
-  }
+  def views(posts: List[Post]): IO[List[PostView]] = for {
+    topics ← env.topicRepo byIds posts.map(_.topicId).distinct
+    categs ← env.categRepo byIds topics.map(_.categId).distinct
+  } yield (for {
+      post ← posts
+    } yield for {
+      topic ← topics find (_.id == post.topicId)
+      categ ← categs find (_.slug == topic.categId)
+    } yield PostView(post, topic, categ, lastPageOf(topic))
+  ).flatten
+
+  def view(post: Post): IO[Option[PostView]] = views(List(post)) map (_.headOption)
 
   def lastNumberOf(topic: Topic): IO[Int] =
     env.postRepo lastByTopics List(topic) map (_.number)
@@ -96,7 +100,7 @@ final class PostApi(
           } yield ()
         )
         post = view.post
-        _ ← modLog.deletePost(mod, post.userId, post.author, post.ip, 
+        _ ← modLog.deletePost(mod, post.userId, post.author, post.ip,
           text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text))
       } yield (),
       io()

@@ -26,8 +26,8 @@ final class PostRepo(
     find(DBObject()).toList
   }
 
-  def recent(nb: Int): IO[List[Post]] = io {
-    find(DBObject()).sort(sortQuery(-1)).limit(nb).toList.reverse
+  def recentInCategs(nb: Int)(categIds: List[String]): IO[List[Post]] = io {
+    find("categId" $in categIds).sort(sortQuery(-1)).limit(nb).toList
   }
 
   val sortQuery: DBObject = sortQuery(1)

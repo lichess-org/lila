@@ -14,6 +14,10 @@ final class TopicRepo(
     findOneById(id)
   }
 
+  def byIds(ids: Iterable[String]): IO[List[Topic]] = io {
+    find("_id" $in ids).toList
+  }
+
   def byCateg(categ: Categ): IO[List[Topic]] = io {
     find(DBObject("categId" -> categ.slug)).toList
   }

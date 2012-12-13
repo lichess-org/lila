@@ -27,7 +27,7 @@
 #team form textarea {
   height: 8em;
 }
-#team form .submit {
+#team form.wide .submit {
   margin-left: 110px;
 }
 
@@ -37,12 +37,16 @@
   color: red;
 }
 
-#team table a.team-name {
+#team table.slist td {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+#team table.slist a.team-name {
   font-size: 1.3em;
   display: block;
   margin-bottom: 4px;
 }
-#team table .info {
+#team table.slist .info {
   font-size: 0.9em;
   white-space: nowrap;
 }
@@ -66,17 +70,19 @@
 #team .team-left h2 {
   font-size: 1.0em;
   font-weight: bold;
-  padding-left: 25px;
+  padding: 0 0 5px 25px;
   border-bottom: 1px solid #ccc;
 }
 #team .team-left .infos {
   margin: 20px 0 20px 25px;
 }
 #team .team-right {
-  margin-left: 300px;
+  margin-left: 280px;
+  border-left: 1px solid #ccc;
 }
 #team .description {
-  margin: 20px 0;
+  font-size: 1.2em;
+  margin: 20px 0 20px 20px;
 }
 
 #team .userlist {
@@ -87,8 +93,47 @@
   padding: 10px 0 10px 25px;
 }
 
-#team .userlist li:nth-child(even) {
+#team .actions {
+  margin-left: 20px;
+}
+
+#team .forum {
+  margin-top: 30px;
+  width: 100%;
+}
+#team .forum h2 {
+  font-size: 1.2em;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  padding: 0 0 5px 20px;
+} 
+#team .forum h2 a {
+  text-decoration: none;
+}
+#team .forum li {
+  padding: 20px 10px 20px 20px;
+}
+#team .forum li:nth-child(odd) {
   background: none repeat scroll 0 0 #F4F4F4;
+}
+#team .forum a.user_link {
+  font-weight: bold;
+  margin-right: 6px;
+  color: #aaa;
+  text-decoration: none;
+}
+#team .forum .date {
+  font-size: 0.8em;
+}
+#team .forum .meta > * {
+  display: block;
+  float: left;
+  margin-right: 1em;
+}
+#team .forum a.more {
+  display: block;
+  text-align: right;
+  margin: 10px 10px 0 0;
 }
 
 #team table.requests form {
@@ -110,4 +155,8 @@
   font-size: 0.8em;
   display: inline;
   margin-left: 5px;
+}
+
+#team .button.small {
+  font-size: 12px;
 }
