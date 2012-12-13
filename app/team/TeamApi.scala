@@ -12,6 +12,7 @@ final class TeamApi(
     teamRepo: TeamRepo,
     memberRepo: MemberRepo,
     requestRepo: RequestRepo,
+    cached: Cached,
     userRepo: UserRepo,
     messenger: TeamMessenger,
     makeForum: (String, String) ⇒ IO[Unit],
@@ -59,7 +60,7 @@ final class TeamApi(
 
   def join(teamId: String)(implicit ctx: Context): IO[Option[Requesting]] = for {
     teamOption ← teamRepo byId teamId
-    result ← ~(teamOption |@| ctx.me).tupled.map({
+    result ← ~(teamOption |@| ctx.me)({
       case (team, user) if team.open ⇒
         (doJoin(team, user) inject Joined(team).some): IO[Option[Requesting]]
       case (team, user) ⇒
@@ -72,10 +73,10 @@ final class TeamApi(
     able ← ~teamOption.map(requestable(_, user))
   } yield teamOption filter (_ ⇒ able)
 
-  def requestable(team: Team, user: User): IO[Boolean] = for {
-    exists ← requestRepo.exists(team.id, user.id)
-    mine ← belongsTo(team.id, user.id)
-  } yield !exists && !mine
+  def requestable(team: Team, user: User): IO[Boolean] =
+    requestRepo.exists(team.id, user.id) map { exists ⇒
+      !exists && !belongsTo(team.id, user.id)
+    }
 
   def createRequest(team: Team, setup: RequestSetup, user: User): IO[Unit] = for {
     able ← requestable(team, user)
@@ -93,24 +94,26 @@ final class TeamApi(
     ))
   } yield ()
 
-  def doJoin(team: Team, user: User): IO[Unit] = for {
-    exists ← belongsTo(team.id, user.id)
-    _ ← (memberRepo.add(team.id, user.id) >> teamRepo.incMembers(team.id, +1)) doUnless exists
-  } yield ()
+  def doJoin(team: Team, user: User): IO[Unit] = {
+    memberRepo.add(team.id, user.id) >>
+      teamRepo.incMembers(team.id, +1) >>
+      io(cached invalidateTeamIds user.id)
+  } doUnless belongsTo(team.id, user.id)
 
   def quit(teamId: String)(implicit ctx: Context): IO[Option[Team]] = for {
     teamOption ← teamRepo byId teamId
-    result ← ~(teamOption |@| ctx.me).tupled.map({
-      case (team, user) ⇒ for {
-        exists ← belongsTo(team.id, user.id)
-        _ ← (for {
-          _ ← memberRepo.remove(team.id, user.id)
-          _ ← teamRepo.incMembers(team.id, -1)
-        } yield ()) doIf exists
-      } yield team.some
+    result ← ~(teamOption |@| ctx.me)({
+      case (team, user) ⇒ doQuit(team, user) inject team.some
     })
   } yield result
 
-  def belongsTo(teamId: String, userId: String): IO[Boolean] =
-    memberRepo.exists(teamId = teamId, userId = userId)
+  def doQuit(team: Team, user: User): IO[Unit] = {
+    memberRepo.remove(team.id, user.id) >>
+      teamRepo.incMembers(team.id, -1) >>
+      io(cached invalidateTeamIds user.id)
+  } doIf belongsTo(team.id, user.id)
+
+  def teamIds = cached.teamIds _
+
+  def belongsTo(teamId: String, userId: String): Boolean = teamIds(userId) contains teamId
 }
