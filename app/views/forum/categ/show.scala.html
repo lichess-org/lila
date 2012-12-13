@@ -1,5 +1,11 @@
 @(categ: lila.forum.Categ, topics: Paginator[lila.forum.TopicView])(implicit ctx: Context)
 
+@newTopicButton = {
+@if(isGrantedWrite(categ.slug)) {
+<a href="@routes.ForumTopic.form(categ.slug)" class="action button">Create a new topic</a>
+}
+}
+
 @forum.layout(
 title = categ.name) {
 <div class="category">
@@ -24,7 +30,7 @@ title = categ.name) {
     <div class="pagination">
       @forum.pagination(routes.ForumCateg.show(categ.slug, 1), topics)
     </div>
-    <a href="@routes.ForumTopic.form(categ.slug)" class="action button">Create a new topic</a>
+    @newTopicButton
   </div>
 
   <table class="forum_topics_list">
@@ -56,7 +62,7 @@ title = categ.name) {
     <div class="pagination">
       @forum.pagination(routes.ForumCateg.show(categ.slug, 1), topics)
     </div>
-    <a href="@routes.ForumTopic.create(categ.slug)" class="action button">Create a new topic</a>
+    @newTopicButton
   </div>
 </div>
 }

@@ -19,7 +19,11 @@ final class CategRepo(
   }
 
   val all: IO[List[Categ]] = io {
-    find(DBObject()).sort(DBObject("pos" -> 1)).toList
+    find(DBObject()).sort(sortPos).toList
+  }
+
+  val allButTeams: IO[List[Categ]] = io {
+    find("team" $exists false).sort(sortPos).toList
   }
 
   def saveIO(categ: Categ): IO[Unit] = io {
@@ -44,4 +48,6 @@ final class CategRepo(
   private def idSelector(categ: Categ) = DBObject("_id" -> categ.slug)
 
   private def idSelector(slug: String) = DBObject("_id" -> slug)
+
+  private val sortPos = DBObject("pos" -> 1)
 }

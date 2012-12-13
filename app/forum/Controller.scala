@@ -1,22 +1,25 @@
 package lila
 package forum
 
-import security.{ Permission, Granter }
+import core.CoreEnv
 import http.Context
 
 import play.api.mvc._
 import play.api.mvc.Results._
 
-trait Controller {
+trait Controller extends ForumGranter { self: controllers.LilaController ⇒
 
-  def CategGrant[A <: Result](categSlug: String)(a: ⇒ A)(implicit ctx: Context): Result =
-    isGranted(categSlug)(ctx).fold(
-      a,
+  protected def env: CoreEnv
+
+  protected def userBelongsToTeam = env.team.api.belongsTo _
+
+  protected def CategGrantRead[A <: Result](categSlug: String)(a: ⇒ A)(implicit ctx: Context): Result =
+    isGrantedRead(categSlug).fold(a,
       Forbidden("You cannot access to this category")
     )
 
-  private def isGranted(categSlug: String)(ctx: Context) =
-    (categSlug == "staff").fold(
-      ctx.me exists { u ⇒ Granter(Permission.StaffForum)(u) },
-      true)
+  protected def CategGrantWrite[A <: Result](categSlug: String)(a: ⇒ A)(implicit ctx: Context): Result =
+    isGrantedWrite(categSlug).fold(a,
+      Forbidden("You cannot post to this category")
+    )
 }
