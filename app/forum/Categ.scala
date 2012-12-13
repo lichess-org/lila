@@ -16,4 +16,6 @@ case class Categ(
   def isStaff = slug == "staff"
 
   def isTeam = team.nonEmpty
+
+  def id = slug
 }

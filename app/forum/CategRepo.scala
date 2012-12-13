@@ -14,6 +14,10 @@ final class CategRepo(
     findOneById(slug)
   }
 
+  def byIds(ids: Iterable[String]): IO[List[Categ]] = io {
+    find("_id" $in ids).toList
+  }
+
   val all: IO[List[Categ]] = io {
     find(DBObject()).sort(DBObject("pos" -> 1)).toList
   }

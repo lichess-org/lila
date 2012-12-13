@@ -1,5 +1,5 @@
 @(posts: List[lila.forum.PostView])(implicit ctx: Context)
-@for(v <- posts) {
+@for(v <- posts.reverse) {
 @defining(routes.ForumTopic.show(v.categ.slug, v.topic.slug, v.topicLastPage) + "#" + v.post.number) { postUrl =>
 <li>
 <a class="post_link" href="@postUrl">@v.topic.name</a>

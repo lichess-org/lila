@@ -33,7 +33,8 @@ final class TopicApi(env: ForumEnv, maxPerPage: Int) {
       userId = ctx.me map (_.id),
       ip = ctx.isAnon option ctx.req.remoteAddress,
       text = data.post.text,
-      number = 1)
+      number = 1,
+      categId = categ.id)
     _ ← env.postRepo saveIO post
     // denormalize topic
     _ ← env.topicRepo saveIO topic.copy(

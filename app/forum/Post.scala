@@ -10,6 +10,7 @@ import user.User
 case class Post(
     @Key("_id") id: String,
     topicId: String,
+    categId: String,
     author: Option[String],
     userId: Option[String],
     ip: Option[String],
@@ -26,6 +27,7 @@ object Post {
 
   def apply(
     topicId: String,
+    categId: String,
     author: Option[String],
     userId: Option[String],
     ip: Option[String],
@@ -38,5 +40,6 @@ object Post {
     ip = ip,
     text = text,
     number = number,
-    createdAt = DateTime.now)
+    createdAt = DateTime.now,
+    categId = categId)
 }
