@@ -32,7 +32,6 @@
 
 @actions = {
 @if(ctx is u) {
-<br />
 <a class="small" href="@routes.User.passwd">Change password</a>
 <a class="small" href="@routes.User.close">Close account</a>
 } else {
@@ -78,43 +77,58 @@ evenMoreCss = evenMoreCss) {
     <span class="staff">CLOSED</span>
     }
   </div>
-  <div class="content_box_content clearfix">
+  <div class="clearfix">
     @info.eloChart.map { eloChart =>
-    <div class="elo_history" title="Elo history" data-columns="@eloChart.columns" data-rows="@eloChart.rows"></div>
-    }
-    @if(u.engine && ctx.me.fold(u !=, true)) {
-    <div class="engine_warning">@trans.thisPlayerUsesChessComputerAssistance()</div>
-    }
-    @bio
-    @info.eloWithMe.map { eloWithMe =>
-    <div class="elo_with_me">
-      @eloWithMe.map { e =>
-      @e._1.capitalize: <strong>@showNumber(e._2)</strong>
-      }
+    <div class="elo_history" title="Elo history" data-columns="@eloChart.columns" data-rows="@eloChart.rows">
+      <span>Chart loading...</span>
     </div>
     }
-    <div class="stats">
-      @info.winChart.map { winChart =>
-      <div class="win_stats" title="@trans.gamesPlayed(): @u.nbGames" data-columns="@winChart.columns" data-rows="@winChart.rows(trans)"></div>
+    <div class="user-infos">
+      @if(u.engine && ctx.me.fold(u !=, true)) {
+      <div class="engine_warning">@trans.thisPlayerUsesChessComputerAssistance()</div>
       }
-      <span class="tournament s16 tournament_points">
-        Tournament points: <strong>@u.toints</strong>
-      </span>
-      @actions
-      @info.spy.map { spy =>
-      <div class="user_spy">
-        <a class="toggle">Show IPs and UAs</a>
-        <div class="inner">
-          <strong>IP addresses:</strong> <ul>@spy.ips.map { ip =>
-            <li>@ip</li>
-            }</ul>
-          <strong>User agents:</strong> <ul>@spy.uas.map { ua =>
-            <li>@ua</li>
-            }</ul>
-        </div>
+      @bio
+      @info.eloWithMe.map { eloWithMe =>
+      <div class="elo_with_me">
+        @eloWithMe.map { e =>
+        @e._1.capitalize: <strong>@showNumber(e._2)</strong>
+        }
       </div>
       }
+      <div class="stats">
+        <p class="numbers">
+          @trans.nbWins(strong(u.nbWinsH)),
+          @trans.nbLosses(strong(u.nbLossesH)),
+          @trans.nbDraws(strong(u.nbDrawsH)),
+          @Html(strong(u.nbAi)) AI
+        </p>
+        <span class="tournament s16 tournament_points">
+          Tournament points: <strong>@u.toints</strong>
+        </span>
+        <div class="teams">
+          @teamIds(u.id).sortBy(t => !myTeam(t)).map { teamId =>
+          @teamLink(teamId, ("s16 team" + myTeam(teamId).fold(" mine", "")).some)
+          }
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="actions clearfix">
+    @actions
+    @info.spy.map { spy =>
+    <div class="user_spy">
+      <a class="toggle">Show IPs and UAs</a>
+      <div class="inner">
+        <br />
+        <strong>IP addresses:</strong> <ul>@spy.ips.map { ip =>
+          <li>@ip</li>
+          }</ul>
+        <strong>User agents:</strong> <ul>@spy.uas.map { ua =>
+          <li>@ua</li>
+          }</ul>
+      </div>
+    </div>
+    }
   </div>
   @if(u.hasGames) {
   <div class="content_box_inter clearfix">

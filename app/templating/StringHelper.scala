@@ -49,4 +49,7 @@ trait StringHelper {
     def active(other: String, then: String = "active") = 
       (str == other).fold(then, "")
   }
+
+  def strong(x: Int): String = strong(x.toString)
+  def strong(x: String): String = "<strong>" + x + "</strong>"
 }
