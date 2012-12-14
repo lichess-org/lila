@@ -1,7 +1,11 @@
-@(title: String, currentTab: Option[String] = None, moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
+@(title: String, currentTab: Option[String] = None)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("team.css")
+}
+
+@moreJs = {
+@jsTag("vendor/jquery.infinitescroll.min.js")
 }
 
 @goodies = {
