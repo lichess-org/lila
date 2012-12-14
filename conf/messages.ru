@@ -141,6 +141,7 @@ advancedSearch=Поиск с параметрами
 tournament=Турнир
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Бесплатные онлайн-шахматы. Играй в шахматы прямо сейчас в понятном интерфейсе . Без регистрации, рекламы и дополнений. Играй в шахматы с компьютером, с друзьями или случайным соперником.
 teams=Команды
+nbMembers=%s участников
 allTeams=Все команды
 newTeam=Новая команда
 myTeams=Мои команды
