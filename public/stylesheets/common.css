@@ -651,7 +651,7 @@ div.content_box_top,
 div.hooks tr,
 a.translation_call,
 div.locale_menu a,
-table.data thead {
+table.slist thead {
   color: #666;
   background: #fafafa;
   background: -moz-linear-gradient(center top , #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
