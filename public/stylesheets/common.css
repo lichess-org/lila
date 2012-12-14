@@ -568,6 +568,15 @@ span.s16.clock {
   background-position: 0 -304px;
   padding-bottom: 1px;
 }
+.s16.team {
+  background-position: 0 -336px;
+  padding-bottom: 1px;
+  display: block;
+  height: 16px;
+}
+.s16.team.mine {
+  background-position: 0 -352px;
+}
 
 .user_link.white, .user_link.black, .user_link.online, .user_link.offline {
   line-height: 16px;

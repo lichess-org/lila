@@ -25,27 +25,13 @@ function drawCharts() {
     { color: "blue", type: "area", lineWidth: 2 },
       { color: "red", type: "line", lineWidth: 2 }
     ],
-      width: 460,
+      width: 500,
       height: 340,
       axisTitlePosition: 'none',
       chartArea:{left:"10%",top:"2%",width:"90%",height:"96%"},
       titlePosition: 'none',
       hAxis: {textPosition: "none"},
-      vAxis: {textStyle: textcolor, gridlines: lineColor},
-      backgroundColor: bg
-    });
-  });
-
-  $('div.win_stats').each(function() {
-    var data = elemToData(this);
-    var chart = new google.visualization.PieChart(this);
-    chart.draw(data, {
-      width: 312,
-      height: 200,
-      titlePosition: 'none',
-      legend: {textStyle: textcolor},
-      chartArea:{left:"0%",width:"100%",height:"100%"},
-      is3D: true,
+      vAxis: {textStyle: textcolor, gridlines: lineColor, baselineColor: weak},
       backgroundColor: bg
     });
   });
