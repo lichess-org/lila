@@ -48,7 +48,7 @@ object Team extends LilaController {
         forms.edit(team).bindFromRequest.fold(
           err ⇒ io(BadRequest(html.team.edit(team, err))),
           data ⇒ api.update(team, data, me) inject Redirect(routes.Team.show(team.id))
-        ).unsafePerformIO : Result
+        ).unsafePerformIO: Result
       }
     }
   }
@@ -73,6 +73,15 @@ object Team extends LilaController {
 
   def mine = Auth { implicit ctx ⇒
     me ⇒ IOk(api mine me map { html.team.mine(_) })
+  }
+
+  def joinPage(id: String) = Auth { implicit ctx ⇒
+    me ⇒ IOptionResult(api.requestable(id, me)) { team ⇒
+      team.open.fold(
+        Ok(html.team.join(team)),
+        Redirect(routes.Team.requestForm(team.id))
+      )
+    }
   }
 
   def join(id: String) = Auth { implicit ctx ⇒
