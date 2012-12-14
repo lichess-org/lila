@@ -20,17 +20,22 @@
       <p>@trans.teamLeader(): @userIdLinkMini(t.createdBy)</p>
       </section>
       <h2>@trans.teamBestPlayers()</h2>
-      <ol class="userlist">
+      <ol class="userlist best_players">
         @info.bestPlayers.map { player =>
         <li>@userLink(player)</li>
         }
       </ol>
       <h2>@trans.teamRecentMembers()</h2>
-      <ol class="userlist">
-        @members.currentPageResults.map { member =>
-        <li class="paginated_element">@userLink(member.user)</li>
+      <div class="infinitescroll">
+        @if(members.hasToPaginate) {
+        <div class="pager none"><a href="@routes.Team.show(t.id, members.nextPage | 1)">Next</a></div>
         }
-      </ol>
+        <ol class="userlist paginated_element">
+          @members.currentPageResults.map { member =>
+          <li>@userLink(member.user)</li>
+          }
+        </ol>
+      </div>
     </div>
     <div class="team-right">
       <p class="description">

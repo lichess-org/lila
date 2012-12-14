@@ -30,6 +30,7 @@ final class TeamApi(
         for {
           _ ← teamRepo saveIO team
           _ ← memberRepo.add(team.id, me.id)
+          _ ← io(cached invalidateTeamIds me.id)
           _ ← makeForum(team.id, team.name)
         } yield team
       }
