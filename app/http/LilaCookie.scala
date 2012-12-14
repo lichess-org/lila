@@ -10,9 +10,14 @@ object LilaCookie {
   private def domain(req: RequestHeader): String =
     domainRegex.replaceAllIn(req.domain, _ group 1)
 
-  def session(name: String, value: String)(implicit req: RequestHeader): Cookie = cookie(
+  def session(name: String, value: String)(implicit req: RequestHeader): Cookie = withSession { session =>
+    session + (name -> value)
+  }
+
+  def withSession(op: Session ⇒ Session)(implicit req: RequestHeader): Cookie = cookie(
     Session.COOKIE_NAME,
-    Session.encode(Session.serialize(req.session + (name -> value))))
+    Session.encode(Session.serialize(op(req.session)))
+  )
 
   def cookie(name: String, value: String, maxAge: Option[Int] = None)(implicit req: RequestHeader): Cookie = Cookie(
     name,
