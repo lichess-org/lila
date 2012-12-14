@@ -40,6 +40,10 @@ object Main {
       case "wiki-fetch" :: Nil                ⇒ wiki.fetch
       case "search-reset" :: Nil              ⇒ search.reset
       case "team-join" :: team :: users       ⇒ teams.join(team, users)
+      case "team-quit" :: team :: users       ⇒ teams.quit(team, users)
+      case "team-enable" :: uid :: Nil        ⇒ teams enable uid
+      case "team-disable" :: uid :: Nil       ⇒ teams disable uid
+      case "team-delete" :: uid :: Nil        ⇒ teams delete uid
       case _                                  ⇒ putStrLn("Unknown command: " + args.mkString(" "))
     }
   }

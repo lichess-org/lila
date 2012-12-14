@@ -55,13 +55,27 @@ final class TeamRepo(collection: MongoCollection)
     update(selectId(teamId), $inc("nbMembers" -> by))
   }
 
+  def enable(team: Team) = updateIO(team)($set("enabled" -> true))
+
+  def disable(team: Team) = updateIO(team)($set("enabled" -> false))
+
+  def updateIO(teamId: String)(op: Team ⇒ DBObject): IO[Unit] = for {
+    teamOption ← byId(teamId)
+    _ ← ~teamOption.map(team ⇒ updateIO(team)(op(team)))
+  } yield ()
+
+  def updateIO(team: Team)(obj: DBObject): IO[Unit] = io {
+    update(selectId(team), obj)
+  }
+
   def addRequest(teamId: String, request: Request): IO[Unit] = io {
     update(
       selectId(teamId) ++ ("requests.user" $ne request.user), 
       $push("requests" -> request.user))
   }
 
-  def selectId(id: String) = DBObject("_id" -> id)
+  def selectId(id: String): DBObject = DBObject("_id" -> id)
+  def selectId(team: Team): DBObject = selectId(team.id)
 
   val enabledQuery = DBObject("enabled" -> true)
 
