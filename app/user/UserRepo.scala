@@ -218,7 +218,7 @@ class UserRepo(collection: MongoCollection)
 
   def updateIO(username: String)(op: User ⇒ DBObject): IO[Unit] = for {
     userOption ← byId(username)
-    _ ← userOption.fold(user ⇒ updateIO(user)(op(user)), io())
+    _ ← ~userOption.map(user ⇒ updateIO(user)(op(user)))
   } yield ()
 
   def updateIO(user: User)(obj: DBObject): IO[Unit] = io {

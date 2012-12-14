@@ -114,6 +114,10 @@ final class TeamApi(
       io(cached invalidateTeamIds user.id)
   } doIf belongsTo(team.id, user.id)
 
+  // delete for ever, with members but not forums
+  def delete(team: Team): IO[Unit] = 
+    teamRepo.removeIO(team) >> memberRepo.removeByteamId(team.id) 
+
   def teamIds = cached.teamIds _
 
   def belongsTo(teamId: String, userId: String): Boolean = teamIds(userId) contains teamId

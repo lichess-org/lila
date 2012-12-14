@@ -11,11 +11,26 @@ case class Teams(
     api: TeamApi) {
 
   def join(teamId: String, userIds: List[String]): IO[Unit] =
-    perform(teamId, userIds) { (team: Team, user: User) ⇒
-      api.doJoin(team, user)
-    }
+    perform2(teamId, userIds)(api.doJoin _)
 
-  private def perform(teamId: String, userIds: List[String])(op: (Team, User) ⇒ IO[Unit]) = for {
+  def quit(teamId: String, userIds: List[String]): IO[Unit] =
+    perform2(teamId, userIds)(api.doQuit _)
+
+  def enable(teamId: String): IO[Unit] = perform(teamId)(teamRepo.enable _)
+
+  def disable(teamId: String): IO[Unit] = perform(teamId)(teamRepo.disable _)
+
+  def delete(teamId: String): IO[Unit] = perform(teamId)(api.delete _)
+
+  private def perform(teamId: String)(op: Team ⇒ IO[Unit]) = for {
+    teamOption ← teamRepo byId teamId.pp
+    _ ← teamOption.fold(
+      u ⇒ op(u) flatMap { _ ⇒ putStrLn("Success") },
+      putStrLn("Team not found")
+    )
+  } yield ()
+
+  private def perform2(teamId: String, userIds: List[String])(op: (Team, User) ⇒ IO[Unit]) = for {
     teamOption ← teamRepo byId teamId
     _ ← teamOption.fold(
       team ⇒ for {
