@@ -35,7 +35,6 @@ AI thinks during your time (premove?) http://en.lichess.org/forum/lichess-feedba
 - in fact it does not, but the UI clocks only update once the ai made the move
 - solution: do AI asynchronously. Send player move events right away,
 - and ai events when the ai completes
-save game prefs in cookie
 IP smart tools for admins
 lsof show the open websockets on prod. The recurrent bug could come from the open descriptors limit (ulimit -n)
 lobby game filters http://en.lichess.org/forum/lichess-feedback/feature-request-game-filter#2
@@ -46,15 +45,4 @@ add fullscreen mode for spectators and load new games in a loop (based on certai
 make chess captcha more usable
 tournament 404 page
 log off = tournament resign
-teams
-
-team deploy:
-db.team.ensureIndex({enabled: 1, nbMembers: -1})
-db.team.ensureIndex({createdAt: -1})
-db.team_member.ensureIndex({team:1})
-db.team_member.ensureIndex({user:1})
-db.team_member.ensureIndex({date: -1})
-db.team_request.ensureIndex({team: 1})
-db.team_request.ensureIndex({date: -1})
-db.f_post.ensureIndex({categId: 1})
-db.f_categ.ensureIndex({team: 1})
+[!!!!!!!!!!!!!!] save game prefs in cookie (for anons)
