@@ -52,7 +52,7 @@ title = topic.name) {
       @base.captcha(form("move"), form("gameId"), captcha)
       @errMsg(form)
       <input type="submit" class="submit button" value="Reply" />
-      <a href="@routes.ForumCateg.show(categ.slug)" style="margin-left:20px">Cancel</a>
+      <a href="@routes.ForumCateg.show(categ.slug)" style="margin-left:20px">@trans.cancel()</a>
     </form>
   </div>
   }

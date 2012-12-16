@@ -150,3 +150,6 @@ quitTeam=Forlat laget
 anyoneCanJoin=Alle kan bli med
 aConfirmationIsRequiredToJoin=En bekreftelse kreves for å bli med.
 joiningPolicy=Regler for å bli med
+averageElo=Gjennomsnittlig ELO
+location=Sted
+settings=Instillinger
