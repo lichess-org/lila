@@ -22,10 +22,7 @@ final class Processor(
     ai: () ⇒ Ai) extends core.Futuristic {
 
   def ai(config: AiConfig)(implicit ctx: Context): IO[Pov] = for {
-    _ ← ctx.me.fold(
-      user ⇒ configRepo.update(user)(_ withAi config),
-      io()
-    )
+    _ ← ~ctx.me.map(user ⇒ configRepo.update(user)(_ withAi config))
     pov = config.pov
     game = ctx.me.fold(
       user ⇒ pov.game.updatePlayer(pov.color, _ withUser user),
