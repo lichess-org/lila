@@ -2,6 +2,7 @@ package lila
 package setup
 
 import user.User
+import ornicar.scalalib.Random
 
 import com.novus.salat.annotations.Key
 
@@ -26,8 +27,8 @@ case class UserConfig(
 
 object UserConfig {
 
-  def default(user: User) = UserConfig(
-    id = user.id,
+  def default(id: String): UserConfig = UserConfig(
+    id = id,
     ai = AiConfig.default,
     friend = FriendConfig.default,
     hook = HookConfig.default)
@@ -39,7 +40,7 @@ case class RawUserConfig(
     friend: RawFriendConfig,
     hook: RawHookConfig) {
 
-  def decode = for {
+  def decode: Option[UserConfig] = for {
     trueAi ← ai.decode
     trueFriend ← friend.decode
     trueHook ← hook.decode

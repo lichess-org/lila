@@ -59,6 +59,8 @@ final class Settings(config: Config, val IsDev: Boolean) {
   val UserCollectionHistory = getString("user.collection.history")
   val UserCollectionConfig = getString("user.collection.config")
 
+  val AnonCollectionConfig = getString("anon.collection.config")
+
   val ForumTopicMaxPerPage = getInt("forum.topic.max_per_page")
   val ForumPostMaxPerPage = getInt("forum.post.max_per_page")
   val ForumRecentTimeout = millis("forum.recent.timeout")

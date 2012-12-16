@@ -19,9 +19,9 @@ final class UserConfigRepo(collection: MongoCollection)
     findOneById(user.id) flatMap (_.decode)
   } except { e ⇒
     putStrLn("Can't load config: " + e.getMessage) map (_ ⇒ none[UserConfig])
-  } map (_ | UserConfig.default(user))
+  } map (_ | UserConfig.default(user.id))
 
-  def save(config: UserConfig): IO[Unit] = io {
+  private def save(config: UserConfig): IO[Unit] = io {
     update(
       DBObject("_id" -> config.id),
       _grater asDBObject config.encode,
