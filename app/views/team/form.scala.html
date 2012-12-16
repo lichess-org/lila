@@ -33,7 +33,7 @@ currentTab = "form".some) {
       @base.captcha(form("move"), form("gameId"), captcha)
       @errMsg(form)
       <button class="submit button" type="submit">@trans.newTeam()</button>
-      <a href="@routes.Team.home(1)" style="margin-left:20px">Cancel</a>
+      <a href="@routes.Team.home(1)" style="margin-left:20px">@trans.cancel()</a>
     </form>
   </div>
 </div>
