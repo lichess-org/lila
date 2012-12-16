@@ -25,13 +25,17 @@ final class SetupEnv(
 
   import settings._
 
-  lazy val configRepo = new UserConfigRepo(mongodb(UserCollectionConfig))
+  lazy val userConfigRepo = new UserConfigRepo(mongodb(UserCollectionConfig))
+
+  lazy val anonConfigRepo = new AnonConfigRepo(mongodb(AnonCollectionConfig))
 
   lazy val formFactory = new FormFactory(
-    configRepo = configRepo)
+    userConfigRepo = userConfigRepo,
+    anonConfigRepo = anonConfigRepo)
 
   lazy val processor = new Processor(
-    configRepo = configRepo,
+    userConfigRepo = userConfigRepo,
+    anonConfigRepo = anonConfigRepo,
     friendConfigMemo = friendConfigMemo,
     gameRepo = gameRepo,
     pgnRepo = pgnRepo,

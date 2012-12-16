@@ -13,7 +13,8 @@ import controllers.routes
 import scalaz.effects._
 
 final class Processor(
-    configRepo: UserConfigRepo,
+    userConfigRepo: UserConfigRepo,
+    anonConfigRepo: AnonConfigRepo,
     friendConfigMemo: FriendConfigMemo,
     gameRepo: GameRepo,
     pgnRepo: PgnRepo,
@@ -22,7 +23,7 @@ final class Processor(
     ai: () ⇒ Ai) extends core.Futuristic {
 
   def ai(config: AiConfig)(implicit ctx: Context): IO[Pov] = for {
-    _ ← ~ctx.me.map(user ⇒ configRepo.update(user)(_ withAi config))
+    _ ← saveConfig(_ withAi config)
     pov = config.pov
     game = ctx.me.fold(
       user ⇒ pov.game.updatePlayer(pov.color, _ withUser user),
@@ -47,10 +48,7 @@ final class Processor(
   } yield pov2
 
   def friend(config: FriendConfig)(implicit ctx: Context): IO[Pov] = for {
-    _ ← ctx.me.fold(
-      user ⇒ configRepo.update(user)(_ withFriend config),
-      io()
-    )
+    _ ← saveConfig(_ withFriend config)
     pov = config.pov
     game = ctx.me.fold(
       user ⇒ pov.game.updatePlayer(pov.color, _ withUser user),
@@ -61,10 +59,7 @@ final class Processor(
   } yield pov
 
   def hook(config: HookConfig)(implicit ctx: Context): IO[Hook] = for {
-    _ ← ctx.me.fold(
-      user ⇒ configRepo.update(user)(_ withHook config),
-      io()
-    )
+    _ ← saveConfig(_ withHook config)
     hook = config hook ctx.me
     _ ← fisherman add hook
   } yield hook
@@ -83,4 +78,11 @@ final class Processor(
       color.name -> (domain + routes.Round.player(game fullIdOf color).url)
     } toMap
   }
+
+  private def saveConfig(map: UserConfig ⇒ UserConfig)(implicit ctx: Context): IO[Unit] =
+    ctx.me.fold(
+      user ⇒ userConfigRepo.update(user) _,
+      anonConfigRepo.update(ctx.req) _
+    )(map)
+
 }

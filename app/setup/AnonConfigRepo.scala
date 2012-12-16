@@ -1,26 +1,47 @@
 package lila
 package setup
 
-import play.api.mvc.{ Cookie, RequestHeader }
+import http.LilaCookie
 
-final class AnonConfigRepo {
+import play.api.mvc._
 
-  private val name = "setup"
+import com.novus.salat._
+import com.novus.salat.dao._
+import com.mongodb.casbah.MongoCollection
+import com.mongodb.casbah.Imports._
+import scalaz.effects._
 
-  def update(map: UserConfig ⇒ UserConfig)(implicit req: RequestHeader): Cookie =
-    LilaCookie.session(name, value.toString)(ctx.req)
-    config(user) flatMap { c ⇒ save(map(c)) }
+final class AnonConfigRepo(collection: MongoCollection)
+    extends SalatDAO[RawUserConfig, String](collection) {
 
-  def config(implicit req: RequestHeader): IO[UserConfig] = io {
-    findOneById(user.id) flatMap (_.decode)
-  } except { e ⇒
-    putStrLn("Can't load config: " + e.getMessage) inject none[UserConfig]
-  } map (_ | UserConfig.default(user))
+  private val sessionKey = "setup"
 
-  def save(config: UserConfig)(implicit req: RequestHeader): IO[Unit] = io {
+  def update(req: RequestHeader)(map: UserConfig ⇒ UserConfig): IO[Unit] =
+    configOption(req) flatMap { co ⇒
+      ~co.map(config ⇒ save(map(config)))
+    }
+
+  def config(req: RequestHeader): IO[UserConfig] =
+    configOption(req) map (_ | UserConfig.default("nocookie"))
+
+  private def config(sid: String): IO[UserConfig] = {
+    io {
+      findOneById(sid) flatMap (_.decode)
+    } except { e ⇒
+      putStrLn("Can't load config: " + e.getMessage) map (_ ⇒ none[UserConfig])
+    }
+  } map (_ | UserConfig.default(sid))
+
+  private def configOption(req: RequestHeader): IO[Option[UserConfig]] =
+    ~sessionId(req).map(s ⇒ config(s) map (_.some))
+
+  private def save(config: UserConfig): IO[Unit] = io {
     update(
       DBObject("_id" -> config.id),
       _grater asDBObject config.encode,
       upsert = true)
   }
+
+  private def sessionId(req: RequestHeader): Option[String] =
+    req.session.get(LilaCookie.sessionId)
 }

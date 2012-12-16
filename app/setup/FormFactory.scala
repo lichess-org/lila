@@ -9,7 +9,8 @@ import play.api.data.Forms._
 import scalaz.effects._
 
 final class FormFactory(
-    configRepo: UserConfigRepo) {
+    userConfigRepo: UserConfigRepo,
+    anonConfigRepo: AnonConfigRepo) {
 
   import Mappings._
 
@@ -27,10 +28,7 @@ final class FormFactory(
     )(AiConfig.<<)(_.>>)
   )
 
-  def aiConfig(implicit ctx: Context): IO[AiConfig] = ctx.me.fold(
-    user ⇒ configRepo.config(user) map (_.ai),
-    io(AiConfig.default)
-  )
+  def aiConfig(implicit ctx: Context): IO[AiConfig] = savedConfig map (_.ai)
 
   def friendFilled(implicit ctx: Context): IO[Form[FriendConfig]] =
     friendConfig map friend(ctx).fill
@@ -46,10 +44,7 @@ final class FormFactory(
     )(FriendConfig.<<)(_.>>) verifying ("Invalid clock", _.validClock)
   )
 
-  def friendConfig(implicit ctx: Context): IO[FriendConfig] = ctx.me.fold(
-    user ⇒ configRepo.config(user) map (_.friend),
-    io(FriendConfig.default)
-  )
+  def friendConfig(implicit ctx: Context): IO[FriendConfig] = savedConfig map (_.friend)
 
   def hookFilled(implicit ctx: Context): IO[Form[HookConfig]] =
     hookConfig map hook(ctx).fill
@@ -68,8 +63,10 @@ final class FormFactory(
       .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited)
   )
 
-  def hookConfig(implicit ctx: Context): IO[HookConfig] = ctx.me.fold(
-    user ⇒ configRepo.config(user) map (_.hook),
-    io(HookConfig.default)
-  )
+  def hookConfig(implicit ctx: Context): IO[HookConfig] = savedConfig map (_.hook)
+
+  private def savedConfig(implicit ctx: Context): IO[UserConfig] = ctx.me.fold(
+    userConfigRepo.config,
+    anonConfigRepo config ctx.req
+  ) 
 }

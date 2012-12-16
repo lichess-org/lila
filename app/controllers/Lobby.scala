@@ -1,7 +1,7 @@
 package controllers
 
 import lila._
-import http.Context
+import http.{ Context, LilaCookie }
 import lobby.Hook
 import views._
 
@@ -43,7 +43,12 @@ object Lobby extends LilaController with Results {
           myHook,
           posts,
           tours,
-          featured))
+          featured)) |> { response ⇒
+          ctx.req.session.data.contains(LilaCookie.sessionId).fold(
+            response,
+            response withCookies LilaCookie.makeSessionId(ctx.req)
+          )
+        }
       })).asPromise
 
   def socket = WebSocket.async[JsValue] { implicit req ⇒
