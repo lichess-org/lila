@@ -22,8 +22,11 @@ final class CategRepo(
     find(DBObject()).sort(sortPos).toList
   }
 
-  val allButTeams: IO[List[Categ]] = io {
-    find("team" $exists false).sort(sortPos).toList
+  def withTeams(teams: List[String]): IO[List[Categ]] = io {
+    find(DBObject("$or" -> DBList(
+      "team" $exists false, 
+      "team" $in teams
+    ))).sort(sortPos).toList
   }
 
   def saveIO(categ: Categ): IO[Unit] = io {
