@@ -9,9 +9,10 @@ object ForumPost extends LilaController with forum.Controller {
   private def topicApi = env.forum.topicApi
   private def postApi = env.forum.postApi
   private def forms = env.forum.forms
+  private def teamCache = env.team.cached
 
   val recent = Open { implicit ctx ⇒
-    IOk(env.forum.recent(ctx.me) map { posts =>
+    IOk(env.forum.recent(ctx.me, teamCache.teamIds) map { posts ⇒
       html.forum.post.recent(posts)
     })
   }
@@ -26,11 +27,11 @@ object ForumPost extends LilaController with forum.Controller {
           data ⇒ Firewall {
             val post = postApi.makePost(categ, topic, data).unsafePerformIO
             Redirect("%s#%d".format(
-            routes.ForumTopic.show(
-              categ.slug,
-              topic.slug,
-              postApi lastPageOf topic.incNbPosts),
-            post.number))
+              routes.ForumTopic.show(
+                categ.slug,
+                topic.slug,
+                postApi lastPageOf topic.incNbPosts),
+              post.number))
           }
         )
       }

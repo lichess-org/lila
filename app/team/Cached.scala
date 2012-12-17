@@ -1,6 +1,8 @@
 package lila
 package team
 
+import user.User
+
 import scala.collection.mutable
 
 final class Cached(
@@ -10,6 +12,7 @@ final class Cached(
   def name(id: String): Option[String] = NameCache(id)
 
   def teamIds(userId: String): List[String] = TeamIdsCache(userId)
+  def teamIds(user: User): List[String] = teamIds(user.id)
 
   def invalidateTeamIds(userId: String) { TeamIdsCache invalidate userId }
 

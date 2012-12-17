@@ -118,7 +118,6 @@ final class TeamApi(
   def delete(team: Team): IO[Unit] = 
     teamRepo.removeIO(team) >> memberRepo.removeByteamId(team.id) 
 
-  def teamIds = cached.teamIds _
-
-  def belongsTo(teamId: String, userId: String): Boolean = teamIds(userId) contains teamId
+  def belongsTo(teamId: String, userId: String): Boolean = 
+    cached teamIds userId contains teamId
 }

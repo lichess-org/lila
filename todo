@@ -45,5 +45,9 @@ add fullscreen mode for spectators and load new games in a loop (based on certai
 make chess captcha more usable
 tournament 404 page
 log off = tournament resign
-[!!!!!!!!!!!!!!] save game prefs in cookie (for anons)
-show team forums in forum list http://en.lichess.org/forum/lichess-feedback/new-feature-teams?page=1http://en.lichess.org/forum/lichess-feedback/new
+[!!!!] chrome shows checkboxes on setup screen
+show all join requests
+show join requests in teams list
+kick someone out of a team
+team search
+expire anon configs http://docs.mongodb.org/manual/tutorial/expire-data/

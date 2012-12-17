@@ -16,7 +16,7 @@ trait TeamHelper {
   def myTeam(teamId: String)(implicit ctx: Context): Boolean =
     ~ctx.me.map(me ⇒ env.team.api.belongsTo(teamId, me.id))
 
-  def teamIds(userId: String): List[String] = env.team.api.teamIds(userId)
+  def teamIds(userId: String): List[String] = env.team.cached.teamIds(userId)
 
   def teamIdToName(id: String): String = (cached name id) | id
 
