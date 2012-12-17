@@ -3,7 +3,7 @@ package team
 
 import user.{ User, UserRepo }
 import game.{ GameRepo, DbGame }
-import forum.PostView
+import forum.PostLiteView
 import http.Context
 
 import scalaz.effects._
@@ -16,7 +16,7 @@ case class TeamInfo(
     bestPlayers: List[User],
     averageElo: Int,
     forumNbPosts: Int,
-    forumPosts: List[PostView]) {
+    forumPosts: List[PostLiteView]) {
 
   def hasRequests = requests.nonEmpty
 }
@@ -29,7 +29,7 @@ object TeamInfo {
     requestRepo: RequestRepo,
     userRepo: UserRepo,
     getForumNbPosts: String ⇒ IO[Int],
-    getForumPosts: String ⇒ IO[List[PostView]])(team: Team, me: Option[User]): IO[TeamInfo] = for {
+    getForumPosts: String ⇒ IO[List[PostLiteView]])(team: Team, me: Option[User]): IO[TeamInfo] = for {
     requests ← api.requestsWithUsers(team) doIf {
       team.enabled && ~me.map(m ⇒ team.isCreator(m.id))
     }

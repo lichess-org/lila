@@ -45,7 +45,7 @@
     <h2><a href="@teamForumUrl(t.id)">@trans.forum() (@info.forumNbPosts)</a></h2>
     <ol class="posts">
       @info.forumPosts.take(5).map { v =>
-      @defining(routes.ForumTopic.show(v.categ.slug, v.topic.slug, v.topicLastPage) + "#" + v.post.number) { postUrl =>
+      @defining(routes.ForumTopic.show(v.topic.categId, v.topic.slug, v.topicLastPage) + "#" + v.post.number) { postUrl =>
       <li>
         <p class="meta clearfix">
           <a href="@postUrl">@v.topic.name</a>

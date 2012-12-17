@@ -27,7 +27,9 @@ case class TopicView(
 }
 
 case class PostView(
-    post: Post,
-    topic: Topic,
-    categ: Categ,
-    topicLastPage: Int)
+  post: Post,
+  topic: Topic,
+  categ: Categ,
+  topicLastPage: Int)
+
+case class PostLiteView(post: Post, topic: Topic, topicLastPage: Int)
