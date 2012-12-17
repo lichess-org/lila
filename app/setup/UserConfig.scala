@@ -4,6 +4,7 @@ package setup
 import user.User
 import ornicar.scalalib.Random
 
+import org.joda.time.DateTime
 import com.novus.salat.annotations.Key
 
 case class UserConfig(
@@ -22,7 +23,8 @@ case class UserConfig(
     id = id,
     ai = ai.encode,
     friend = friend.encode,
-    hook = hook.encode)
+    hook = hook.encode,
+    date = DateTime.now)
 }
 
 object UserConfig {
@@ -38,7 +40,8 @@ case class RawUserConfig(
     @Key("_id") id: String,
     ai: RawAiConfig,
     friend: RawFriendConfig,
-    hook: RawHookConfig) {
+    hook: RawHookConfig,
+    date: DateTime) {
 
   def decode: Option[UserConfig] = for {
     trueAi ← ai.decode
