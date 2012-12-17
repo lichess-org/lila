@@ -9,7 +9,7 @@ object ForumCateg extends LilaController with forum.Controller {
   private def teamCache = env.team.cached
 
   val index = Open { implicit ctx ⇒
-    IOk(categApi list ~ctx.me.map(_.id).map(teamCache.teamIds) map {
+    IOk(categApi list ~ctx.me.map(teamCache.teamIds) map {
       html.forum.categ.index(_)
     })
   }

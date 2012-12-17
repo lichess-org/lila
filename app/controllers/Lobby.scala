@@ -22,6 +22,7 @@ object Lobby extends LilaController with Results {
   private def messageRepo = env.lobby.messageRepo
   private def featured = env.game.featured
   private def openTours = env.tournament.repo.created
+  private def teamCache = env.team.cached
 
   val home = Open { implicit ctx ⇒ Async { renderHome(none, Ok) } }
 
@@ -35,7 +36,7 @@ object Lobby extends LilaController with Results {
       chat = ctx.canSeeChat,
       myHook = myHook,
       timeline = timelineRecent,
-      posts = forumRecent(ctx.me),
+      posts = forumRecent(ctx.me, teamCache.teamIds),
       tours = openTours
     ).map(_.fold(Redirect(_), {
         case (preload, posts, tours, featured) ⇒ status(html.lobby.home(
