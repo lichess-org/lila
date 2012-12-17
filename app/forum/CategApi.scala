@@ -6,8 +6,8 @@ import com.github.ornicar.paginator.Paginator
 
 final class CategApi(env: ForumEnv) {
 
-  val list: IO[List[CategView]] = for {
-    categs ← env.categRepo.allButTeams
+  def list(teams: List[String]): IO[List[CategView]] = for {
+    categs ← env.categRepo withTeams teams
     views ← (categs map { categ ⇒
       env.postApi get categ.lastPostId map { topicPost ⇒
         CategView(categ, topicPost map {
