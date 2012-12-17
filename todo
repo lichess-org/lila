@@ -49,4 +49,3 @@ show all join requests
 show join requests in teams list
 kick someone out of a team
 team search
-expire anon configs http://docs.mongodb.org/manual/tutorial/expire-data/
