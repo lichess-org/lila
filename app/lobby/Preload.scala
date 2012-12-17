@@ -3,7 +3,7 @@ package lobby
 
 import timeline.Entry
 import game.{ DbGame, Featured }
-import forum.PostView
+import forum.PostLiteView
 import controllers.routes
 import socket.History
 import tournament.Created
@@ -26,7 +26,7 @@ final class Preload(
 
   private implicit val executor = Akka.system.dispatcher
   private implicit val timeout = Timeout(1 second)
-  private type RightResponse = (Map[String, Any], List[PostView], List[Created], Option[DbGame])
+  private type RightResponse = (Map[String, Any], List[PostLiteView], List[Created], Option[DbGame])
   private type Response = Either[Call, RightResponse]
 
   def apply(
@@ -34,7 +34,7 @@ final class Preload(
     chat: Boolean,
     myHook: Option[Hook],
     timeline: IO[List[Entry]],
-    posts: IO[List[PostView]],
+    posts: IO[List[PostLiteView]],
     tours: IO[List[Created]]): Future[Response] =
     myHook.flatMap(_.gameId).fold(
       gameId ⇒ futureGame(gameId) map { gameOption ⇒

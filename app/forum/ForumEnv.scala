@@ -30,6 +30,7 @@ final class ForumEnv(
   lazy val postApi = new PostApi(this, modLog, ForumPostMaxPerPage)
 
   lazy val recent = new Recent(
+    categRepo = categRepo,
     postRepo = postRepo,
     postApi = postApi,
     timeout = ForumRecentTimeout)
