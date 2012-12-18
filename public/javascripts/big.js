@@ -377,7 +377,7 @@ $(function() {
   $('a.delete, input.delete').click(function() {
     return confirm('Delete?');
   });
-  $('input.confirm').click(function() {
+  $('input.confirm, button.confirm').click(function() {
     return confirm('Confirm this action?');
   });
   $('a.ipban').one("click", function() {
