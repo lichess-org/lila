@@ -36,7 +36,8 @@ final class TeamEnv(
     memberRepo = memberRepo,
     teamRepo = teamRepo,
     userRepo = userRepo,
-    maxPerPage = TeamPaginatorMaxPerPage)
+    maxPerPage = TeamPaginatorMaxPerPage,
+    maxUserPerPage = TeamPaginatorMaxUserPerPage)
 
   lazy val api = new TeamApi(
     teamRepo = teamRepo,

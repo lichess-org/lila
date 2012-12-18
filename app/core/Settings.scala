@@ -129,6 +129,7 @@ final class Settings(config: Config, val IsDev: Boolean) {
   val TeamCollectionMember = getString("team.collection.member")
   val TeamCollectionRequest = getString("team.collection.request")
   val TeamPaginatorMaxPerPage = getInt("team.paginator.max_per_page")
+  val TeamPaginatorMaxUserPerPage = getInt("team.paginator.max_user_per_page")
 
   val BookmarkCollectionBookmark = getString("bookmark.collection.bookmark")
 
