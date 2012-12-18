@@ -12,23 +12,24 @@ final class PaginatorBuilder(
     memberRepo: MemberRepo,
     teamRepo: TeamRepo,
     userRepo: UserRepo,
-    maxPerPage: Int) {
+    maxPerPage: Int,
+    maxUserPerPage: Int) {
 
   def popularTeams(page: Int): Paginator[Team] = paginator(
     SalatAdapter(
       dao = teamRepo,
       query = teamRepo.enabledQuery,
-      sort = teamRepo.sortPopular), page)
+      sort = teamRepo.sortPopular), page, maxPerPage)
 
   def teamMembers(team: Team, page: Int): Paginator[MemberWithUser] =
-    paginator(new TeamAdapter(team), page)
+    paginator(new TeamAdapter(team), page, maxUserPerPage)
 
-  private def paginator[A](adapter: Adapter[A], page: Int): Paginator[A] =
+  private def paginator[A](adapter: Adapter[A], page: Int, mpp: Int): Paginator[A] =
     Paginator(
       adapter,
       currentPage = page,
-      maxPerPage = maxPerPage
-    ) | paginator(adapter, 1)
+      maxPerPage = mpp
+    ) | paginator(adapter, 1, mpp)
 
   final class TeamAdapter(team: Team) extends Adapter[MemberWithUser] {
 

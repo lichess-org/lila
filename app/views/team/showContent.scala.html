@@ -12,15 +12,13 @@
     }
   </ol>
   <h2>@trans.teamRecentMembers()</h2>
-  <div class="infinitescroll">
-    @if(members.hasToPaginate) {
-    <div class="pager none"><a href="@routes.Team.show(t.id, members.nextPage | 1)">Next</a></div>
+  <div class="userlist infinitescroll">
+    @members.nextPage.map { np =>
+    <div class="pager none"><a href="@routes.Team.show(t.id, np)">Next</a></div>
     }
-    <ol class="userlist paginated_element">
-      @members.currentPageResults.map { member =>
-      <li>@userLink(member.user)</li>
-      }
-    </ol>
+    @members.currentPageResults.map { member =>
+    <div class="paginated_element">@userLink(member.user)</div>
+    }
   </div>
 </div>
 <div class="team-right">

@@ -101,7 +101,7 @@
   margin-bottom: 20px;
 }
 
-#team .userlist li {
+#team .userlist > * {
   padding: 10px 0 10px 25px;
 }
 
