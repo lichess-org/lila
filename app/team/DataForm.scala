@@ -63,6 +63,10 @@ final class DataForm(
     "process" -> nonEmptyText
   ))
 
+  val kick = Form(single(
+    "user" -> nonEmptyText
+  ))
+
   def createWithCaptcha = create -> captchaCreate
 
   def captchaCreate: Captcha.Challenge = captcher.create

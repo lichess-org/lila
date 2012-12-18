@@ -95,7 +95,7 @@ final class TeamApi(
     ))
   } yield ()
 
-  def doJoin(team: Team, user: User): IO[Unit] = {
+  private def doJoin(team: Team, user: User): IO[Unit] = {
     memberRepo.add(team.id, user.id) >>
       teamRepo.incMembers(team.id, +1) >>
       io(cached invalidateTeamIds user.id)
@@ -104,15 +104,17 @@ final class TeamApi(
   def quit(teamId: String)(implicit ctx: Context): IO[Option[Team]] = for {
     teamOption ← teamRepo byId teamId
     result ← ~(teamOption |@| ctx.me)({
-      case (team, user) ⇒ doQuit(team, user) inject team.some
+      case (team, user) ⇒ doQuit(team, user.id) inject team.some
     })
   } yield result
 
-  def doQuit(team: Team, user: User): IO[Unit] = {
-    memberRepo.remove(team.id, user.id) >>
+  private def doQuit(team: Team, userId: String): IO[Unit] = {
+    memberRepo.remove(team.id, userId) >>
       teamRepo.incMembers(team.id, -1) >>
-      io(cached invalidateTeamIds user.id)
-  } doIf belongsTo(team.id, user.id)
+      io(cached invalidateTeamIds userId)
+  } doIf belongsTo(team.id, userId)
+
+  def kick(team: Team, userId: String): IO[Unit] = doQuit(team, userId)
 
   // delete for ever, with members but not forums
   def delete(team: Team): IO[Unit] = 
