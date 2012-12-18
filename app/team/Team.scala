@@ -46,6 +46,7 @@ object Team {
     createdBy = createdBy.id)
 
   def nameToId(name: String) = (templating.StringHelper slugify name) |> { slug ⇒
-    slug.isEmpty.fold(Random nextString 8, slug)
+    // if most chars are not latin, go for random slug
+    (slug.size > (name.size / 2)).fold(slug, Random nextString 8)
   }
 }
