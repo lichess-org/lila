@@ -165,6 +165,12 @@
   text-align: center;
   font-size: 1.4em;
 }
+#team table.requests.all td {
+  padding: 2.3em 1em;
+}
+#team table.requests .user_link {
+  margin-bottom: 0.7em;
+}
 #team table.requests .process {
   white-space: nowrap;
 }
