@@ -12,13 +12,12 @@
     @requests.map { request =>
     <tr>
       @if(t.isEmpty) {
-      <td>@teamLink(request.team, "s16 team".some)</td>
-      }
+      <td>@userLink(request.user) @teamLink(request.team, "s16 team".some)</td>
+      } else {
       <td>@userLink(request.user)</td>
-      <td>@autoLink(request.message)</td>
-      @if(t.nonEmpty) {
-      <td>@showDate(request.date)</td>
       }
+      <td>@autoLink(request.message)</td>
+      <td>@showDate(request.date)</td>
       <td class="process">
         <form class="process-request" action="@routes.Team.requestProcess(request.id)" method="post">
           <input type="hidden" name="url" value="@t.fold(te => routes.Team.show(te.id), routes.Team.requests())" />
