@@ -64,7 +64,7 @@ final class DataForm(
   ))
 
   val kick = Form(single(
-    "user" -> nonEmptyText
+    "userId" -> nonEmptyText
   ))
 
   def createWithCaptcha = create -> captchaCreate

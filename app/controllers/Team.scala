@@ -69,7 +69,7 @@ object Team extends LilaController {
       Owner(team) {
         implicit val req = ctx.body
         forms.kick.bindFromRequest.fold(
-          _ ⇒ io(),
+          _ ⇒ io(), 
           userId ⇒ api.kick(team, userId)
         ) inject Redirect(routes.Team.show(team.id))
       }

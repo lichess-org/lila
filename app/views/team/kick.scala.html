@@ -8,7 +8,7 @@
     <h1>@title</h1>
     <p>Who do you want to kick out of the team?</p>
     <form class="kick" action="@routes.Team.kick(t.id)" method="POST">
-      @userIds.map { userId =>
+      @userIds.sorted.map { userId =>
       <button name="userId" class="submit button small" value="@userId">@userIdToUsername(userId)</button>
       }
     </form>
