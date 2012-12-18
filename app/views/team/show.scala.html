@@ -12,7 +12,7 @@
   </div>
   @if(info.mine || t.enabled) {
   @if(info.hasRequests) {
-  @team.requests(t, info.requests)
+  @team.requests(info.requests, t.some)
   }
   <div class="team-content clearfix">
     @team.showContent(t, members, info)

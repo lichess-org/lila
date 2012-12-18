@@ -30,6 +30,7 @@ case class RequestWithUser(request: Request, user: User) {
   def id = request.id
   def message = request.message
   def date = request.date
+  def team = request.team
 }
 
 sealed trait Requesting

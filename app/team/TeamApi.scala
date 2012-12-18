@@ -59,6 +59,14 @@ final class TeamApi(
     case (request, user) ⇒ RequestWithUser(request, user)
   }
 
+  def requestsWithUsers(user: User): IO[List[RequestWithUser]] = for {
+    teamIds <- teamRepo teamIdsByCreator user.id
+    requests ← requestRepo findByTeamIds teamIds
+    users ← userRepo byOrderedIds requests.map(_.user)
+  } yield requests zip users map {
+    case (request, user) ⇒ RequestWithUser(request, user)
+  }
+
   def join(teamId: String)(implicit ctx: Context): IO[Option[Requesting]] = for {
     teamOption ← teamRepo byId teamId
     result ← ~(teamOption |@| ctx.me)({
@@ -83,11 +91,16 @@ final class TeamApi(
     able ← requestable(team, user)
     request = Request(team = team.id, user = user.id, message = setup.message)
     rwu = RequestWithUser(request, user)
-    _ ← (requestRepo.add(request) >> messenger.joinRequest(team, rwu)) doIf able
+    _ ← {
+      requestRepo.add(request) >>
+        messenger.joinRequest(team, rwu) >>
+        io(cached invalidateNbRequests team.createdBy)
+    } doIf able
   } yield ()
 
   def processRequest(team: Team, request: Request, accept: Boolean): IO[Unit] = for {
     _ ← requestRepo remove request.id
+    _ ← io(cached invalidateNbRequests team.createdBy)
     userOption ← userRepo byId request.user
     _ ← ~userOption.map(user ⇒ accept.fold(
       doJoin(team, user.id) >> messenger.acceptRequest(team, request),
@@ -117,9 +130,9 @@ final class TeamApi(
   def kick(team: Team, userId: String): IO[Unit] = doQuit(team, userId)
 
   // delete for ever, with members but not forums
-  def delete(team: Team): IO[Unit] = 
-    teamRepo.removeIO(team) >> memberRepo.removeByteamId(team.id) 
+  def delete(team: Team): IO[Unit] =
+    teamRepo.removeIO(team) >> memberRepo.removeByteamId(team.id)
 
-  def belongsTo(teamId: String, userId: String): Boolean = 
+  def belongsTo(teamId: String, userId: String): Boolean =
     cached teamIds userId contains teamId
 }

@@ -159,6 +159,11 @@ trait LilaController
       _.fold(a ⇒ op(a) map { b ⇒ Redirect(b) }, io(notFound(ctx)))
     }: IO[Result]).unsafePerformIO
 
+  protected def IOptionIORedirectUrl[A](ioa: IO[Option[A]])(op: A ⇒ IO[String])(implicit ctx: Context) =
+    (ioa flatMap {
+      _.fold(a ⇒ op(a) map { b ⇒ Redirect(b) }, io(notFound(ctx)))
+    }: IO[Result]).unsafePerformIO
+
   protected def IOptionResult[A](ioa: IO[Option[A]])(op: A ⇒ Result)(implicit ctx: Context) =
     ioa.unsafePerformIO.fold(a ⇒ op(a), notFound(ctx))
 
