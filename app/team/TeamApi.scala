@@ -63,7 +63,7 @@ final class TeamApi(
     teamOption ← teamRepo byId teamId
     result ← ~(teamOption |@| ctx.me)({
       case (team, user) if team.open ⇒
-        (doJoin(team, user) inject Joined(team).some): IO[Option[Requesting]]
+        (doJoin(team, user.id) inject Joined(team).some): IO[Option[Requesting]]
       case (team, user) ⇒
         io(Motivate(team).some: Option[Requesting])
     })
@@ -90,16 +90,16 @@ final class TeamApi(
     _ ← requestRepo remove request.id
     userOption ← userRepo byId request.user
     _ ← ~userOption.map(user ⇒ accept.fold(
-      doJoin(team, user) >> messenger.acceptRequest(team, request),
+      doJoin(team, user.id) >> messenger.acceptRequest(team, request),
       messenger.declineRequest(team, request)
     ))
   } yield ()
 
-  private def doJoin(team: Team, user: User): IO[Unit] = {
-    memberRepo.add(team.id, user.id) >>
+  def doJoin(team: Team, userId: String): IO[Unit] = {
+    memberRepo.add(team.id, userId) >>
       teamRepo.incMembers(team.id, +1) >>
-      io(cached invalidateTeamIds user.id)
-  } doUnless belongsTo(team.id, user.id)
+      io(cached invalidateTeamIds userId)
+  } doUnless belongsTo(team.id, userId)
 
   def quit(teamId: String)(implicit ctx: Context): IO[Option[Team]] = for {
     teamOption ← teamRepo byId teamId
@@ -108,7 +108,7 @@ final class TeamApi(
     })
   } yield result
 
-  private def doQuit(team: Team, userId: String): IO[Unit] = {
+  def doQuit(team: Team, userId: String): IO[Unit] = {
     memberRepo.remove(team.id, userId) >>
       teamRepo.incMembers(team.id, -1) >>
       io(cached invalidateTeamIds userId)

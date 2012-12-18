@@ -30,12 +30,12 @@ case class Teams(
     )
   } yield ()
 
-  private def perform2(teamId: String, userIds: List[String])(op: (Team, User) ⇒ IO[Unit]) = for {
+  private def perform2(teamId: String, userIds: List[String])(op: (Team, String) ⇒ IO[Unit]) = for {
     teamOption ← teamRepo byId teamId
     _ ← teamOption.fold(
       team ⇒ for {
         users ← userRepo byIds userIds
-        _ ← users.map(user ⇒ putStrLn(user.username) >> op(team, user)).sequence
+        _ ← users.map(user ⇒ putStrLn(user.username) >> op(team, user.id)).sequence
       } yield (),
       putStrLn("Team not found")
     )
