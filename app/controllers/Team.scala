@@ -16,6 +16,7 @@ object Team extends LilaController {
 
   private def teamRepo = env.team.teamRepo
   private def requestRepo = env.team.requestRepo
+  private def memberRepo = env.team.memberRepo
   private def forms = env.team.forms
   private def api = env.team.api
   private def paginator = env.team.paginator
@@ -37,7 +38,7 @@ object Team extends LilaController {
 
   def edit(id: String) = Auth { implicit ctx ⇒
     me ⇒ IOptionResult(teamRepo byId id) { team ⇒
-      Owner(team) { Ok(html.team.edit(team, forms edit team)) }
+      Owner(team) { io(Ok(html.team.edit(team, forms edit team))) }
     }
   }
 
@@ -48,7 +49,29 @@ object Team extends LilaController {
         forms.edit(team).bindFromRequest.fold(
           err ⇒ io(BadRequest(html.team.edit(team, err))),
           data ⇒ api.update(team, data, me) inject Redirect(routes.Team.show(team.id))
-        ).unsafePerformIO: Result
+        )
+      }
+    }
+  }
+
+  def kickForm(id: String) = Auth { implicit ctx ⇒
+    me ⇒ IOptionResult(teamRepo byId id) { team ⇒
+      Owner(team) { 
+        memberRepo userIdsByTeamId team.id map { userIds =>
+          Ok(html.team.kick(team, userIds filterNot (me.id ==)))
+        }
+      }
+    }
+  }
+
+  def kick(id: String) = AuthBody { implicit ctx ⇒
+    implicit me ⇒ IOptionResult(teamRepo byId id) { team ⇒
+      Owner(team) {
+        implicit val req = ctx.body
+        forms.kick.bindFromRequest.fold(
+          _ ⇒ io(),
+          userId ⇒ api.kick(team, userId)
+        ) inject Redirect(routes.Team.show(team.id))
       }
     }
   }
@@ -116,7 +139,7 @@ object Team extends LilaController {
       case (team, request) ⇒ {
         implicit val req = ctx.body
         forms.processRequest.bindFromRequest.fold(
-          err ⇒ io(),
+          _ ⇒ io(),
           res ⇒ api.processRequest(team, request, (res == "accept"))
         ) inject routes.Team.show(team.id)
       }
@@ -135,7 +158,7 @@ object Team extends LilaController {
       api.hasCreatedRecently(me).unsafePerformIO
   } fold (Forbidden(views.html.team.createLimit()), a)
 
-  private def Owner[A <: Result](team: TeamModel)(a: ⇒ A)(implicit ctx: Context): Result = {
+  private def Owner(team: TeamModel)(a: ⇒ IO[Result])(implicit ctx: Context): Result = {
     ~ctx.me.map(me ⇒ team.isCreator(me.id) || Granter.superAdmin(me))
-  } fold (a, Forbidden(renderTeam(team).unsafePerformIO))
+  }.fold(a, renderTeam(team) map { Forbidden(_) }).unsafePerformIO
 }
