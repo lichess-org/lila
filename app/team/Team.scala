@@ -3,6 +3,7 @@ package team
 
 import user.User
 
+import ornicar.scalalib.Random
 import org.joda.time.DateTime
 import com.novus.salat.annotations.Key
 import java.text.Normalizer
@@ -44,5 +45,7 @@ object Team {
     createdAt = DateTime.now,
     createdBy = createdBy.id)
 
-  def nameToId(name: String) = templating.StringHelper slugify name
+  def nameToId(name: String) = (templating.StringHelper slugify name) |> { slug ⇒
+    slug.isEmpty.fold(Random nextString 8, slug)
+  }
 }
