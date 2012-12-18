@@ -172,3 +172,11 @@
 #team .button.small {
   font-size: 12px;
 }
+
+#team .undertitle {
+  margin-top: 1.5em;
+}
+
+#team .kick .button {
+  margin-bottom: 5px;
+}

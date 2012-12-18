@@ -6,9 +6,9 @@
 <div id="team">
   <div class="content_box team_box">
     <h1>@title</h1>
-    <div class="links">
+    <p class="links undertitle">
       <a href="@routes.Team.kick(t.id)">Kick someone out of the team</a>
-    </div>
+    </p>
     <form class="new-team wide" action="@routes.Team.update(t.id)" method="POST">
       <section class="team-data">
       <label>
