@@ -34,7 +34,7 @@ final class Recent(
     }.mkString(";")
   }
 
-  def team(teamId: String): IO[List[PostLiteView]] = io { cache get teamId }
+  def team(teamId: String): IO[List[PostLiteView]] = io { cache get teamSlug(teamId) }
 
   val invalidate: IO[Unit] = io(cache.invalidateAll)
 
