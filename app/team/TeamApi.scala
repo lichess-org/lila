@@ -60,7 +60,7 @@ final class TeamApi(
   }
 
   def requestsWithUsers(user: User): IO[List[RequestWithUser]] = for {
-    teamIds <- teamRepo teamIdsByCreator user.id
+    teamIds ← teamRepo teamIdsByCreator user.id
     requests ← requestRepo findByTeamIds teamIds
     users ← userRepo byOrderedIds requests.map(_.user)
   } yield requests zip users map {
@@ -93,7 +93,6 @@ final class TeamApi(
     rwu = RequestWithUser(request, user)
     _ ← {
       requestRepo.add(request) >>
-        messenger.joinRequest(team, rwu) >>
         io(cached invalidateNbRequests team.createdBy)
     } doIf able
   } yield ()
@@ -102,10 +101,9 @@ final class TeamApi(
     _ ← requestRepo remove request.id
     _ ← io(cached invalidateNbRequests team.createdBy)
     userOption ← userRepo byId request.user
-    _ ← ~userOption.map(user ⇒ accept.fold(
-      doJoin(team, user.id) >> messenger.acceptRequest(team, request),
-      messenger.declineRequest(team, request)
-    ))
+    _ ← ~userOption.map(user ⇒
+      (doJoin(team, user.id) >> messenger.acceptRequest(team, request)) doIf accept
+    )
   } yield ()
 
   def doJoin(team: Team, userId: String): IO[Unit] = {
