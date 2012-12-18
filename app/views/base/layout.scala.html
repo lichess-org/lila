@@ -33,13 +33,26 @@
         </ul>
       </div>
       @siteMenu.all(ctx.me).map { elem =>
-      @if(elem.code == "message") {
+      @elem.code match {
+      case "message" => {
       <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@elem.route">
         @elem.name()
         <span id="nb_messages" class="new_messages @{ (messageNbUnread(ctx) > 0).fold("unread", "") }">@messageNbUnread(ctx)</span>
       </a>
-      } else {
-      <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@elem.route">@elem.name()</a>
+      }
+      case "team" => {
+      @defining(teamNbRequests(ctx)) { nbr =>
+      <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@{ (nbr > 0).fold(routes.Team.requests, elem.route) }">
+        @elem.name()
+        <span id="nb_messages" class="new_messages @{ (nbr > 0).fold("unread", "") }">@nbr</span>
+      </a>
+      }
+      }
+      case _ => {
+      <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@elem.route">
+        @elem.name()
+      </a>
+      }
       }
       }
       <div id="nb_connected_players" class="nb_connected_players none">

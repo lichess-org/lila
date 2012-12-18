@@ -56,8 +56,8 @@ object Team extends LilaController {
 
   def kickForm(id: String) = Auth { implicit ctx ⇒
     me ⇒ IOptionResult(teamRepo byId id) { team ⇒
-      Owner(team) { 
-        memberRepo userIdsByTeamId team.id map { userIds =>
+      Owner(team) {
+        memberRepo userIdsByTeamId team.id map { userIds ⇒
           Ok(html.team.kick(team, userIds filterNot (me.id ==)))
         }
       }
@@ -69,7 +69,7 @@ object Team extends LilaController {
       Owner(team) {
         implicit val req = ctx.body
         forms.kick.bindFromRequest.fold(
-          _ ⇒ io(), 
+          _ ⇒ io(),
           userId ⇒ api.kick(team, userId)
         ) inject Redirect(routes.Team.show(team.id))
       }
@@ -115,6 +115,12 @@ object Team extends LilaController {
     })
   }
 
+  val requests = Auth { implicit ctx ⇒
+    me ⇒ IOk(api requestsWithUsers me map { requests ⇒
+      html.team.allRequests(requests)
+    })
+  }
+
   def requestForm(id: String) = Auth { implicit ctx ⇒
     me ⇒ IOptionOk(api.requestable(id, me)) { team ⇒
       html.team.requestForm(team, forms.request, forms.captchaCreate)
@@ -132,16 +138,18 @@ object Team extends LilaController {
   }
 
   def requestProcess(requestId: String) = AuthBody { implicit ctx ⇒
-    me ⇒ IOptionIORedirect(for {
+    me ⇒ IOptionIORedirectUrl(for {
       requestOption ← requestRepo byId requestId
       teamOption ← ~requestOption.map(req ⇒ teamRepo.owned(req.team, me.id))
     } yield (teamOption |@| requestOption).tupled) {
       case (team, request) ⇒ {
         implicit val req = ctx.body
         forms.processRequest.bindFromRequest.fold(
-          _ ⇒ io(),
-          res ⇒ api.processRequest(team, request, (res == "accept"))
-        ) inject routes.Team.show(team.id)
+          _ ⇒ io(routes.Team.show(team.id).toString), {
+            case (decision, url) ⇒ 
+              api.processRequest(team, request, (decision === "accept")) inject url
+          }
+        ) 
       }
     }
   }

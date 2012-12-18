@@ -28,4 +28,6 @@ trait TeamHelper {
   }
 
   def teamForumUrl(id: String) = routes.ForumCateg.show("team-" + id)
+
+  def teamNbRequests(ctx: Context) = ~ctx.me.map(cached.nbRequests)
 }

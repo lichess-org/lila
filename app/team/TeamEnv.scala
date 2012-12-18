@@ -59,5 +59,5 @@ final class TeamEnv(
 
   lazy val forms = new DataForm(teamRepo, captcha)
 
-  lazy val cached = new Cached(teamRepo, memberRepo)
+  lazy val cached = new Cached(teamRepo, memberRepo, requestRepo)
 }

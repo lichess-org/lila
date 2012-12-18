@@ -59,8 +59,9 @@ final class DataForm(
     gameId = "",
     move = "")
 
-  val processRequest = Form(single(
-    "process" -> nonEmptyText
+  val processRequest = Form(tuple(
+    "process" -> nonEmptyText,
+    "url" -> nonEmptyText
   ))
 
   val kick = Form(single(

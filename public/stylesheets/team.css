@@ -153,6 +153,11 @@
 }
 #team table.requests {
   margin: 0;
+}
+#team table.requests.all {
+  margin-bottom: 20px;
+}
+#team table.requests.for-team {
   border: 1px solid #909090;
 }
 #team table.requests th {

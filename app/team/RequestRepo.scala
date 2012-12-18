@@ -28,14 +28,23 @@ final class RequestRepo(collection: MongoCollection)
     count(teamIdQuery(teamId)).toInt
   }
 
+  def countByTeamIds(teamIds: List[String]): IO[Int] = io {
+    count(teamIdsQuery(teamIds)).toInt
+  }
+
   def findByTeamId(teamId: String): IO[List[Request]] = io {
     find(teamIdQuery(teamId)).toList
+  }
+
+  def findByTeamIds(teamIds: List[String]): IO[List[Request]] = io {
+    find(teamIdsQuery(teamIds)).toList
   }
 
   def idQuery(teamId: String, userId: String) = DBObject("_id" -> id(teamId, userId))
   def idQuery(id: String) = DBObject("_id" -> id)
   def id(teamId: String, userId: String) = Request.makeId(teamId, userId)
   def teamIdQuery(teamId: String) = DBObject("team" -> teamId)
+  def teamIdsQuery(teamIds: List[String]) = "team" $in teamIds
   def sortQuery(order: Int = -1) = DBObject("date" -> order)
 
   def add(request: Request): IO[Unit] = io { insert(request) }

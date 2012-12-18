@@ -27,6 +27,12 @@ final class TeamRepo(collection: MongoCollection)
     ids.map(tsMap.get).flatten.toList
   }
 
+  def teamIdsByCreator(userId: String): IO[List[String]] = io {
+    (collection.find(DBObject("createdBy" -> userId), DBObject("_id" -> true)) map { obj ⇒
+      obj.getAs[String]("_id")
+    }).flatten.toList
+  }
+
   def saveIO(team: Team): IO[Unit] = io {
     update(
       selectId(team.id),
