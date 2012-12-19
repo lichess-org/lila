@@ -4,7 +4,7 @@ package search
 import game.{ GameRepo, PgnRepo, DbGame }
 import core.Settings
 
-import com.traackr.scalastic.elasticsearch
+import scalastic.elasticsearch
 import com.mongodb.casbah.MongoCollection
 
 final class SearchEnv(

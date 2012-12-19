@@ -8,7 +8,7 @@ import com.codahale.jerkson.Json
 
 import org.elasticsearch.action.search.SearchResponse
 
-import com.traackr.scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
+import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
 import com.mongodb.casbah.query.Imports._
 
 final class Indexer(
