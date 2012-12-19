@@ -1,15 +1,14 @@
-package lila.cli
+package lila
+package cli
 
 import scalaz.effects._
-import play.api.{ Mode, Application, Play }
-import java.io.File
 
 import lila.parseIntOption
 import lila.core.{ Global, CoreEnv }
 
 object Main {
 
-  def main(args: Array[String]): Unit = withApp { env ⇒
+  def main(env: CoreEnv)(args: Array[String]): IO[Unit] = { 
 
     def users = Users(env.user.userRepo, env.security.store)
     def games = Games(env)
@@ -45,22 +44,6 @@ object Main {
       case "team-disable" :: uid :: Nil       ⇒ teams disable uid
       case "team-delete" :: uid :: Nil        ⇒ teams delete uid
       case _                                  ⇒ putStrLn("Unknown command: " + args.mkString(" "))
-    }
-  }
-
-  private def withApp(op: CoreEnv ⇒ IO[_]): Int = {
-    val app = new Application(
-      path = new File("."),
-      classloader = this.getClass.getClassLoader,
-      sources = None,
-      mode = Mode.Dev)
-    try {
-      Play start app
-      op(Global.env).unsafePerformIO
-      0
-    }
-    finally {
-      Play.stop()
     }
   }
 }

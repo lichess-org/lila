@@ -1,7 +1,5 @@
 #!/bin/sh
 
-if [ -z "$*" ]; then
-  bin/play -Dcore.cron.enabled=false 
-else
-  bin/play -Dcore.cron.enabled=false ";project cli;run $*"
-fi
+echo "curl -d \"c=$*\" http://en.l.org"
+
+# curl -d "c=$*" http://en.l.org

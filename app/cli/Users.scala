@@ -1,10 +1,11 @@
-package lila.cli
+package lila
+package cli
 
 import lila.user.{ User, UserRepo }
 import lila.security.Store
 import scalaz.effects._
 
-case class Users(userRepo: UserRepo, securityStore: Store) {
+private[cli] case class Users(userRepo: UserRepo, securityStore: Store) {
 
   def enable(username: String): IO[Unit] =
     perform(username, userRepo.enable)
