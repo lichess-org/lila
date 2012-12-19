@@ -93,6 +93,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     settings = settings)
 
   lazy val game = new lila.game.GameEnv(
+    app = app,
     settings = settings,
     mongodb = mongodb.apply _)
 

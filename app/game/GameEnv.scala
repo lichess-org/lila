@@ -1,11 +1,13 @@
 package lila
 package game
 
+import play.api.Application
 import com.mongodb.casbah.MongoCollection
 
 import core.Settings
 
 final class GameEnv(
+    app: Application,
     settings: Settings,
     mongodb: String ⇒ MongoCollection) {
 
@@ -34,5 +36,5 @@ final class GameEnv(
 
   lazy val rewind = new Rewind
 
-  lazy val gameJs = new GameJs(settings.GameJsPath)
+  lazy val gameJs = new GameJs(app.path.getCanonicalPath + "/" + settings.GameJsPath)
 }
