@@ -52,12 +52,12 @@ final class Indexer(
     es.refresh()
   }
 
-  private def indexQuery(query: DBObject, logging: Boolean = false): IO[Int] = io {
+  private def indexQuery(query: DBObject, logging: Boolean = true): IO[Int] = io {
     val cursor = gameRepo find (GameQuery.frozen ++ query) sort GameQuery.sortCreated //limit 3000
     val size = cursor.count
     var nb = 0
     for (games ← cursor grouped 5000) {
-      val pgns = games.map(g ⇒ pgnRepo get g.id).sequence.unsafePerformIO
+      val pgns = games.map(g ⇒ (pgnRepo get g.id).unsafePerformIO)
       val gamesWithPgn = games zip pgns
       if (logging) println("Indexing %d of %d".format(nb, size))
       val actions = gamesWithPgn map {
