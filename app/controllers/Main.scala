@@ -9,7 +9,11 @@ import play.api.libs.json._
 import play.api.libs.iteratee._
 import play.api.libs.concurrent.Akka
 
+import scalaz.effects.io
+
 object Main extends LilaController {
+
+  private lazy val runCommand = lila.cli.Main.main(env) _
 
   def websocket = WebSocket.async[JsValue] { implicit req ⇒
     implicit val ctx = reqToCtx(req)

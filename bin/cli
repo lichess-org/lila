@@ -1,7 +1,6 @@
 #!/bin/sh
 
-if [ -z "$*" ]; then
-  bin/play -Dcore.cron.enabled=false 
-else
-  bin/play -Dcore.cron.enabled=false ";project cli;run $*"
-fi
+COMMAND=$*
+PASSWORD=$LILA_CLI_PASSWORD
+
+curl -d "password=$PASSWORD&command=$COMMAND" http://en.l.org/cli

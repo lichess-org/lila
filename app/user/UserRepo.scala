@@ -133,10 +133,7 @@ class UserRepo(collection: MongoCollection)
       salt ← data.getAs[String]("salt")
       enabled ← data.getAs[Boolean]("enabled")
       sha512 = data.getAs[Boolean]("sha512") | false
-    } yield enabled && hashed == sha512.fold(
-      hash512(password, salt),
-      hash(password, salt)
-    )
+    } yield enabled && hashed == sha512.fold(hash512(password, salt), hash(password, salt))
   } map (_ | false)
 
   def create(username: String, password: String): IO[Option[User]] = for {

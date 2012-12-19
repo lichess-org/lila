@@ -5,7 +5,7 @@ import user.{ User, UserRepo }
 import team.{ Team, TeamRepo, TeamApi }
 import scalaz.effects._
 
-case class Teams(
+private[cli] case class Teams(
     teamRepo: TeamRepo,
     userRepo: UserRepo,
     api: TeamApi) {

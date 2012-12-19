@@ -1,9 +1,10 @@
-package lila.cli
+package lila
+package cli
 
 import lila.forum.ForumEnv
 import scalaz.effects._
 
-case class Forum(env: ForumEnv) {
+private[cli] case class Forum(env: ForumEnv) {
 
   def denormalize: IO[Unit] = env.denormalize
 
