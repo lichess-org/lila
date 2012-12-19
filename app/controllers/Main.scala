@@ -5,6 +5,8 @@ import views._
 
 import play.api.mvc._
 import play.api.mvc.Results._
+import play.api.data._
+import play.api.data.Forms._
 import play.api.libs.json._
 import play.api.libs.iteratee._
 import play.api.libs.concurrent.Akka
@@ -22,5 +24,17 @@ object Main extends LilaController {
       username = ctx.me map (_.username),
       flag = get("flag")
     )
+  }
+
+  def cli = OpenBody { implicit ctx ⇒
+    implicit val req = ctx.body
+    IOResult {
+      Form(single(
+        "c" -> nonEmptyText
+      )).bindFromRequest.fold(
+        err ⇒ io(BadRequest()),
+        command ⇒ runCommand(command.split(" ")) map { res ⇒ Ok(res) }
+      )
+    }
   }
 }
