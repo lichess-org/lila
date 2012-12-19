@@ -1,3 +1,6 @@
 #!/bin/sh
 
-curl -d "c=$*" http://en.lichess.org
+COMMAND=$*
+PASSWORD=$LILA_CLI_PASSWORD
+
+curl -d "password=$PASSWORD&command=$COMMAND" http://en.hollie.lichess.org/cli
