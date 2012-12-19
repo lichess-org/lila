@@ -8,8 +8,8 @@ import org.elasticsearch.index.query.QueryBuilder
 import org.elasticsearch.index.query._, FilterBuilders._, QueryBuilders._
 import org.elasticsearch.search._, facet._, terms._, sort._, SortBuilders._, builder._
 
-import com.traackr.scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
-import com.traackr.scalastic.elasticsearch.SearchParameterTypes
+import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
+import scalastic.elasticsearch.SearchParameterTypes
 
 import Game.fields._
 

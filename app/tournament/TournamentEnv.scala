@@ -9,7 +9,7 @@ import lobby.{ Socket ⇒ LobbySocket }
 import socket.History
 import memo.MonoMemo
 
-import com.traackr.scalastic.elasticsearch
+import scalastic.elasticsearch
 import com.mongodb.casbah.MongoCollection
 import scalaz.effects._
 import akka.actor.Props
