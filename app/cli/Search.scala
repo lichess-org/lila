@@ -1,10 +1,11 @@
-package lila.cli
+package lila
+package cli
 
 import lila.search.SearchEnv
 import lila.search.Query
 import scalaz.effects._
 
-case class Search(env: SearchEnv) {
+private[cli] case class Search(env: SearchEnv) {
 
   def reset: IO[Unit] = env.indexer.rebuildAll
 

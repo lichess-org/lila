@@ -1,9 +1,10 @@
-package lila.cli
+package lila
+package cli
 
 import lila.wiki.WikiEnv
 import scalaz.effects._
 
-case class Wiki(env: WikiEnv) {
+private[cli] case class Wiki(env: WikiEnv) {
 
   def fetch: IO[Unit] = for {
     _ ← putStrLn("Fetching wiki from github")

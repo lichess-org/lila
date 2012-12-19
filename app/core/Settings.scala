@@ -136,6 +136,8 @@ final class Settings(config: Config, val IsDev: Boolean) {
   val CoreCollectionCache = getString("core.collection.cache")
   val CoreCronEnabled = getBoolean("core.cron.enabled")
 
+  val CliUsername = getString("cli.username")
+
   val NetDomain = getString("net.domain")
   val NetBaseUrl = getString("net.base_url")
 

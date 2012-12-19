@@ -174,5 +174,7 @@ GET   /monitor/players                 controllers.Monitor.nbPlayers
 GET   /monitor/mps                     controllers.Monitor.nbMoves
 GET   /monitor/status                  controllers.Monitor.status
 
+POST  /cli                             controllers.Cli.command
+
 # Assets
 GET   /assets/*file                    controllers.Assets.at(path="/public", file)

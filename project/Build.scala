@@ -75,8 +75,4 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     resolvers := Seq(iliaz),
     libraryDependencies := Seq(scalaz, scalalib, hasher, jodaTime, jodaConvert)
   )
-
-  lazy val cli = Project("cli", file("cli"), settings = buildSettings).settings(
-    libraryDependencies ++= Seq(scalastic)
-  ) dependsOn lila
 }
