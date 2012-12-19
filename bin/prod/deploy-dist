@@ -11,7 +11,6 @@ if [ -z $1 ]; then
 elif [ $1 = "main" ]; then
   REMOTE="hollie"
   REMOTE_DIR="/home/lila"
-  # bin/closure
 # elif [ $1 = "ai" ]; then
 #   REMOTE="marty"
 #   REMOTE_DIR="/home/lila3"
@@ -24,12 +23,15 @@ fi
 
 lilalog "Deploy to $1 server $REMOTE:$REMOTE_DIR"
 
-# bin/play dist
 APP_NAME=lila-1.0
-APP_DIR=$REMOTE_DIR/$APP_NAME
+
+bin/closure
+
+bin/play dist
 cd dist
 rm -rf $APP_NAME
 unzip $APP_NAME.zip
+chmod +x $APP_NAME/start
 cd ..
 
 RSYNC_OPTIONS=" \
@@ -39,13 +41,14 @@ RSYNC_OPTIONS=" \
   --progress \
   --compress \
   --checksum \
-  --exclude $APP_NAME/logs";
+  --exclude local.conf \
+  --exclude logs \
+  --exclude RUNNING_PID";
 
-lilalog "Rsync binaries"
-rsync $RSYNC_OPTIONS dist/$APP_NAME $REMOTE:$REMOTE_DIR
+lilalog "Rsync binaries, scripts and assets"
+rsync $RSYNC_OPTIONS dist/$APP_NAME/* bin public $REMOTE:$REMOTE_DIR
 
-lilalog "Install"
-ssh $REMOTE "chmod +x $APP_DIR/start && rm $APP_DIR/local.conf && cp $REMOTE_DIR/prod.conf $APP_DIR/local.conf"
+lilalog "Restart lila"
+ssh $REMOTE "service lila restart"
 
-lilalog "Rsync assets"
-rsync $RSYNC_OPTIONS public $REMOTE:$REMOTE_DIR
+lilalog "Deploy complete"
