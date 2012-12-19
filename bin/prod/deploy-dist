@@ -1,0 +1,51 @@
+#!/bin/sh
+. bin/lilarc
+
+fail () {
+  echo "Deploy main or ai"
+  exit 1
+}
+
+if [ -z $1 ]; then
+  fail
+elif [ $1 = "main" ]; then
+  REMOTE="hollie"
+  REMOTE_DIR="/home/lila"
+  # bin/closure
+# elif [ $1 = "ai" ]; then
+#   REMOTE="marty"
+#   REMOTE_DIR="/home/lila3"
+elif [ $1 = "local" ]; then
+  REMOTE="localhost"
+  REMOTE_DIR="/tmp/"
+else
+  fail
+fi
+
+lilalog "Deploy to $1 server $REMOTE:$REMOTE_DIR"
+
+# bin/play dist
+APP_NAME=lila-1.0
+APP_DIR=$REMOTE_DIR/$APP_NAME
+cd dist
+rm -rf $APP_NAME
+unzip $APP_NAME.zip
+cd ..
+
+RSYNC_OPTIONS=" \
+  --archive \
+  --force \
+  --delete \
+  --progress \
+  --compress \
+  --checksum \
+  --exclude $APP_NAME/logs";
+
+lilalog "Rsync binaries"
+rsync $RSYNC_OPTIONS dist/$APP_NAME $REMOTE:$REMOTE_DIR
+
+lilalog "Install"
+ssh $REMOTE "chmod +x $APP_DIR/start && rm $APP_DIR/local.conf && cp $REMOTE_DIR/prod.conf $APP_DIR/local.conf"
+
+lilalog "Rsync assets"
+rsync $RSYNC_OPTIONS public $REMOTE:$REMOTE_DIR
