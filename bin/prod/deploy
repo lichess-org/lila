@@ -11,9 +11,9 @@ if [ -z $1 ]; then
 elif [ $1 = "main" ]; then
   REMOTE="hollie"
   REMOTE_DIR="/home/lila"
-# elif [ $1 = "ai" ]; then
-#   REMOTE="marty"
-#   REMOTE_DIR="/home/lila3"
+elif [ $1 = "ai" ]; then
+  REMOTE="cook"
+  REMOTE_DIR="/home/lila-ai"
 elif [ $1 = "local" ]; then
   REMOTE="localhost"
   REMOTE_DIR="/tmp/"
