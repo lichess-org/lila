@@ -28,6 +28,10 @@ APP_NAME=lila-1.0
 bin/closure
 
 bin/play dist
+if [ $? != 0 ]; then
+  lilalog "Deploy canceled"
+  exit 1
+fi
 cd dist
 rm -rf $APP_NAME
 unzip $APP_NAME.zip
