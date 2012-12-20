@@ -1,7 +1,0 @@
-#!/bin/sh
-. bin/lilarc
-
-bin/prod/stop
-bin/prod/start
-wait_warmup
-curl_prod
