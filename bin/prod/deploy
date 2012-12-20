@@ -9,17 +9,34 @@ fail () {
 if [ -z $1 ]; then
   fail
 elif [ $1 = "main" ]; then
-  REMOTE="balrog"
+  REMOTE="hollie"
   REMOTE_DIR="/home/lila"
-  bin/closure
-elif [ $1 = "ai" ]; then
-  REMOTE="marty"
-  REMOTE_DIR="/home/lila3"
+# elif [ $1 = "ai" ]; then
+#   REMOTE="marty"
+#   REMOTE_DIR="/home/lila3"
+elif [ $1 = "local" ]; then
+  REMOTE="localhost"
+  REMOTE_DIR="/tmp/"
 else
   fail
 fi
 
 lilalog "Deploy to $1 server $REMOTE:$REMOTE_DIR"
+
+APP_NAME=lila-1.0
+
+bin/closure
+
+bin/play dist
+if [ $? != 0 ]; then
+  lilalog "Deploy canceled"
+  exit 1
+fi
+cd dist
+rm -rf $APP_NAME
+unzip $APP_NAME.zip
+chmod +x $APP_NAME/start
+cd ..
 
 RSYNC_OPTIONS=" \
   --archive \
@@ -28,6 +45,18 @@ RSYNC_OPTIONS=" \
   --progress \
   --compress \
   --checksum \
-  --exclude-from=bin/prod/rsync_exclude";
+  --exclude local.conf \
+  --exclude logs \
+  --exclude RUNNING_PID";
 
-rsync $RSYNC_OPTIONS ./ $REMOTE:$REMOTE_DIR
+lilalog "Rsync binaries, scripts and assets"
+rsync $RSYNC_OPTIONS dist/$APP_NAME/* bin public $REMOTE:$REMOTE_DIR
+
+lilalog "Restart lila"
+ssh $REMOTE "service lila restart"
+
+lilalog "Deploy complete"
+
+sleep 2
+
+curl_prod
