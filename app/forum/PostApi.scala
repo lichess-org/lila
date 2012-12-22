@@ -60,11 +60,11 @@ final class PostApi(
     topics ← env.topicRepo byIds posts.map(_.topicId).distinct
     categs ← env.categRepo byIds topics.map(_.categId).distinct
   } yield (for {
-      post ← posts
-    } yield for {
-      topic ← topics find (_.id == post.topicId)
-      categ ← categs find (_.slug == topic.categId)
-    } yield PostView(post, topic, categ, lastPageOf(topic))
+    post ← posts
+  } yield for {
+    topic ← topics find (_.id == post.topicId)
+    categ ← categs find (_.slug == topic.categId)
+  } yield PostView(post, topic, categ, lastPageOf(topic))
   ).flatten
 
   def view(post: Post): IO[Option[PostView]] = views(List(post)) map (_.headOption)
@@ -72,10 +72,10 @@ final class PostApi(
   def liteViews(posts: List[Post]): IO[List[PostLiteView]] = for {
     topics ← env.topicRepo byIds posts.map(_.topicId).distinct
   } yield (for {
-      post ← posts
-    } yield for {
-      topic ← topics find (_.id == post.topicId)
-    } yield PostLiteView(post, topic, lastPageOf(topic))
+    post ← posts
+  } yield for {
+    topic ← topics find (_.id == post.topicId)
+  } yield PostLiteView(post, topic, lastPageOf(topic))
   ).flatten
 
   def lastNumberOf(topic: Topic): IO[Int] =
@@ -96,23 +96,21 @@ final class PostApi(
 
   def delete(postId: String, mod: User): IO[Unit] = for {
     postOption ← env.postRepo byId postId
-    viewOption ← postOption.fold(view, io(none))
-    _ ← viewOption.fold(
-      view ⇒ for {
-        _ ← (view.topic.nbPosts == 1).fold(
-          env.topicApi.delete(view.categ, view.topic),
-          for {
-            _ ← env.postRepo removeIO view.post
-            _ ← env.topicApi denormalize view.topic
-            _ ← env.categApi denormalize view.categ
-            _ ← env.recent.invalidate
-          } yield ()
-        )
-        post = view.post
-        _ ← modLog.deletePost(mod, post.userId, post.author, post.ip,
-          text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text))
-      } yield (),
-      io()
-    )
+    viewOption ← ~postOption.map(view)
+    _ ← ~viewOption.map(view ⇒ for {
+      deleteTopic ← env.postRepo.isFirstPost(view.topic.id, view.post.id)
+      _ ← deleteTopic.fold(
+        env.topicApi.delete(view.categ, view.topic),
+        for {
+          _ ← env.postRepo removeIO view.post
+          _ ← env.topicApi denormalize view.topic
+          _ ← env.categApi denormalize view.categ
+          _ ← env.recent.invalidate
+        } yield ()
+      )
+      post = view.post
+      _ ← modLog.deletePost(mod, post.userId, post.author, post.ip,
+        text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text))
+    } yield ())
   } yield ()
 }

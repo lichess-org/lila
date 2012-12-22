@@ -14,6 +14,14 @@ final class PostRepo(
     findOneById(id)
   }
 
+  def isFirstPost(topicId: String, postId: String): IO[Boolean] = io {
+    ~find(byTopicIdQuery(topicId))
+      .sort(sortQuery(1))
+      .limit(1)
+      .toList
+      .headOption.map(_.id == postId)
+  }
+
   def countByTopics(topics: List[Topic]): IO[Int] = io {
     count(byTopicsQuery(topics)).toInt
   }
@@ -45,7 +53,13 @@ final class PostRepo(
     remove(DBObject("_id" -> post.id))
   }
 
-  def byTopicQuery(topic: Topic) = DBObject("topicId" -> topic.id)
+  def removeByTopicId(topicId: String): IO[Unit] = io {
+    remove(byTopicIdQuery(topicId))
+  }
+
+  def byTopicQuery(topic: Topic) = byTopicIdQuery(topic.id)
+
+  def byTopicIdQuery(topicId: String) = DBObject("topicId" -> topicId)
 
   private def byTopicsQuery(topics: List[Topic]) =
     "topicId" $in topics.map(_.id)
