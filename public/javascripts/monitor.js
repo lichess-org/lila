@@ -86,7 +86,7 @@
 
     app.thread = new SpeedOMeter({
       name : "THREAD",
-      maxVal : 300,
+      maxVal : 500,
       threshold: 0.8,
       container : container
     });

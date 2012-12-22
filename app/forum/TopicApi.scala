@@ -69,6 +69,7 @@ final class TopicApi(env: ForumEnv, maxPerPage: Int) {
     ) | paginator(categ, 1)
 
   def delete(categ: Categ, topic: Topic): IO[Unit] = for {
+    _ ← env.postRepo removeByTopicId topic.id
     _ ← env.topicRepo removeIO topic
     _ ← env.categApi denormalize categ
     _ ← env.recent.invalidate
