@@ -38,4 +38,6 @@ object Environment
 
   def netDomain = env.settings.NetDomain
   def netBaseUrl = env.settings.NetBaseUrl
+
+  def isDev = env.settings.IsDev
 }

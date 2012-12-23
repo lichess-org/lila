@@ -37,4 +37,8 @@ object Main extends LilaController {
       )
     }
   }
+
+  def captchaCheck(id: String) = Open { implicit ctx ⇒
+    Ok(env.site.captcha get id valid ~get("solution") fold(1, 0))
+  }
 }
