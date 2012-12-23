@@ -93,7 +93,14 @@ object Tournament extends LilaController {
   def withdraw(id: String) = Auth { implicit ctx ⇒
     implicit me ⇒
       IOptionIORedirect(repo byId id) { tour ⇒
-        api.withdraw(tour, me.id) map { _ ⇒ routes.Tournament.show(tour.id) }
+        api.withdraw(tour, me.id) inject routes.Tournament.show(tour.id)
+      }
+  }
+
+  def earlyStart(id: String) = Auth { implicit ctx ⇒
+    implicit me ⇒
+      IOptionIORedirect(repo.createdByIdAndCreator(id, me.id)) { tour ⇒
+        ~api.earlyStart(tour) inject routes.Tournament.show(tour.id)
       }
   }
 

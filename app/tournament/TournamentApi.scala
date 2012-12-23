@@ -44,14 +44,17 @@ private[tournament] final class TournamentApi(
     _ ← sendLobbyMessage(created)
   } yield created
 
-  def start(created: Created): Option[IO[Unit]] = created.start map { started ⇒
-    for {
-      _ ← repo saveIO started
-      _ ← socket start started.id
-      _ ← reloadSiteSocket
-      _ ← lobbyReload
-    } yield ()
-  }
+  def startIfReady(created: Created): Option[IO[Unit]] = created.startIfReady map doStart
+
+  def earlyStart(created: Created): Option[IO[Unit]] = 
+    created.readyToEarlyStart option doStart(created.start)
+
+  private def doStart(started: Started): IO[Unit] = for {
+    _ ← repo saveIO started
+    _ ← socket start started.id
+    _ ← reloadSiteSocket
+    _ ← lobbyReload
+  } yield ()
 
   def wipeEmpty(created: Created): IO[Unit] = (for {
     _ ← repo removeIO created
@@ -83,7 +86,7 @@ private[tournament] final class TournamentApi(
     _ ← lobbyReload
   } yield ()
 
-  def withdraw(tour: Tournament, userId: String): IO[Tournament] = tour match {
+  def withdraw(tour: Tournament, userId: String): IO[Unit] = tour match {
     case created: Created ⇒ (created withdraw userId).fold(
       err ⇒ putStrLn(err.shows) inject tour,
       tour2 ⇒ for {
@@ -91,7 +94,7 @@ private[tournament] final class TournamentApi(
         _ ← socket reload tour2.id
         _ ← reloadSiteSocket
         _ ← lobbyReload
-      } yield tour2
+      } yield ()
     )
     case started: Started ⇒ (started withdraw userId).fold(
       err ⇒ putStrLn(err.shows) inject tour,

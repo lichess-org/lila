@@ -46,7 +46,7 @@ private[tournament] final class Organizer(
 
   def createdTournament(tour: Created) {
     if (tour.isEmpty) (api wipeEmpty tour).unsafePerformIO
-    else if (tour.readyToStart) api start tour map (_.unsafePerformIO) 
+    else if (tour.readyToStart) api startIfReady tour map (_.unsafePerformIO) 
     else (hubMaster ? GetTournamentUsernames(tour.id)).mapTo[Iterable[String]] onSuccess {
       case usernames ⇒ (tour.userIds diff usernames.toList.map(_.toLowerCase)) |> { leavers ⇒
         leavers.map(u ⇒ api.withdraw(tour, u)).sequence.unsafePerformIO

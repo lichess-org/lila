@@ -56,6 +56,8 @@ sealed trait Tournament {
 
   def createdBy = data.createdBy
   def createdAt = data.createdAt
+
+  def isCreator(userId: String) = data.createdBy == userId
 }
 
 sealed trait StartedOrFinished extends Tournament {
@@ -97,6 +99,8 @@ case class Created(
 
   def readyToStart = players.size >= minPlayers
 
+  def readyToEarlyStart = players.size >= 5
+
   def isEmpty = players.isEmpty
 
   def pairings = Nil
@@ -126,7 +130,9 @@ case class Created(
 
   private def withPlayers(s: Players) = copy(players = s)
 
-  def start = readyToStart option Started(id, data, DateTime.now, players, Nil)
+  def startIfReady = readyToStart option start
+
+  def start = Started(id, data, DateTime.now, players, Nil)
 }
 
 case class Started(
