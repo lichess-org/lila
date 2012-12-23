@@ -1351,35 +1351,28 @@ $(function() {
   $('div.checkmateCaptcha').each(function() {
     var $captcha = $(this);
     var $squares = $captcha.find('div.lmcs');
-    var $input = $captcha.find('input');
-    var i1, i2;
+    var $input = $captcha.find('input').val('');
     $captcha.find('button.retry').click(function() {
-      i2 = '';
+      $input.val("");
       $squares.removeClass('selected');
       $captcha.removeClass("success failure");
       return false;
     });
     $squares.click(function() {
       var key = $(this).data('key');
-      i1 = $input.val();
-      if(i1.length > 3) {
-        $squares.removeClass('selected');
-        i2 = key;
-      } else {
-        i2 = i1 + " " + key;
-      }
-      $(this).addClass('selected');
-      $input.val(i2);
       $captcha.removeClass("success failure");
-      if(i2.length == 5) {
+      if($input.val().length == 2) {
+        $input.val($.trim($input.val() + " " + key));
         $.ajax({
           url: $captcha.data('check-url'),
-          data: { solution: i2 },
-          success: function(data) {
-            $captcha.addClass(data == 1 ? "success" : "failure");
-          }
+          data: { solution: $input.val() },
+          success: function(data) { $captcha.addClass(data == 1 ? "success" : "failure"); }
         });
+      } else {
+        $squares.removeClass('selected');
+        $input.val(key);
       }
+      $(this).addClass('selected');
     });
   });
 });
