@@ -732,17 +732,35 @@ div.checkmateFen {
   cursor: pointer;
 }
 div.checkmateFen div.lmcs:hover {
-  background: #ddddff;
+  background: #eebb77!important;
+}
+div.checkmateFen div.lmcs.selected {
+  background: #77eeaa!important;
 }
 div.checkmateSection {
   float: left;
 }
-div.checkmateCaptcha input {
-  padding: 0.5em;
-  border: 1px solid #D4D4D4;
-  background: #dfdfff;
+div.checkmateSection div.result {
+  display: none;
+  height: 48px;
+  line-height: 48px;
+  vertical-align: middle;
+  padding-left: 54px;
   font-weight: bold;
-  width: 5em;
+}
+div.checkmateSection div.success {
+  background: url(../images/tick-48.png) no-repeat;
+  color: #00aa00;
+}
+div.checkmateSection div.failure {
+  background: url(../images/cross-48.png) no-repeat;
+  color: #aa0000;
+}
+div.checkmateCaptcha.success div.success {
+  display: block;
+}
+div.checkmateCaptcha.failure div.failure {
+  display: block;
 }
 
 div.undergame_box {

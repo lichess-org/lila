@@ -174,7 +174,9 @@ GET   /monitor/players                 controllers.Monitor.nbPlayers
 GET   /monitor/mps                     controllers.Monitor.nbMoves
 GET   /monitor/status                  controllers.Monitor.status
 
+# Misc
 POST  /cli                             controllers.Cli.command
+GET   /captcha/$id<[\w]{8}>            controllers.Main.captchaCheck(id: String)
 
 # Assets
 GET   /assets/*file                    controllers.Assets.at(path="/public", file)

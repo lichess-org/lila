@@ -275,9 +275,6 @@ body.dark div.lichess_table_wrap div.clock.outoftime {
   background-color: #a00000;
   color: #d0d0d0;
 }
-body.dark div.checkmateFen div.lmcs:hover {
-  background: #aaaaee;
-}
 
 /* soft inactive gradient */
 body.dark #top,
