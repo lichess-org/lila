@@ -22,6 +22,9 @@ class TournamentRepo(collection: MongoCollection)
 
   def startedById(id: String): IO[Option[Started]] = byIdAs(id, _.started)
 
+  def createdByIdAndCreator(id: String, userId: String): IO[Option[Created]] =
+    createdById(id) map { tour ⇒ tour filter (_ isCreator userId) }
+
   private def byIdAs[A](id: String, as: RawTournament ⇒ Option[A]): IO[Option[A]] = io {
     findOneById(id) flatMap as
   }

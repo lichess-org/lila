@@ -42,7 +42,8 @@ not possible to copy the link URL invite when using a iOS device. Can this be ea
 search bug http://en.lichess.org/games/search?players.a=&players.b=&players.winner=&eloMin=&eloMax=&hasAi=&aiLevelMin=&aiLevelMax=&variant=&mode=1&opening=&turnsMin=&turnsMax=&durationMin=&durationMax=&status=35&dateMin=&dateMax=&sort.field=tu&sort.order=asc
 takeback substract time for person granting
 add fullscreen mode for spectators and load new games in a loop (based on certain filter options) - thus creating a chess tv channel
-make chess captcha more usable
 tournament 404 page
 log off = tournament resign
 team search
+only team forum posts on the homepage?
+look at gameknot teams (to steal ideas)

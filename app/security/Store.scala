@@ -43,7 +43,9 @@ final class Store(collection: MongoCollection) {
   def deleteUsername(username: String) {
     collection.update(
       DBObject("user" -> normalize(username)),
-      $set("up" -> false))
+      $set("up" -> false),
+      upsert = false,
+      multi = true)
   }
 
   def userSpy(username: String): IO[UserSpy] = io {

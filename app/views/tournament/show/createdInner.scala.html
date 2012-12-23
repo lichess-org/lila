@@ -15,6 +15,11 @@
         @ctx.me.map { me =>
         <th>
           @if(tour contains me) {
+          @if(tour.isCreator(me.id) && tour.readyToEarlyStart) {
+          <form class="inline" action="@routes.Tournament.earlyStart(tour.id)" method="POST">
+            <input type="submit" class="submit button strong" value="Early Start" />
+          </form>
+          }
           <form class="inline" action="@routes.Tournament.withdraw(tour.id)" method="POST">
             <input type="submit" class="submit button strong" value="Withdraw" />
           </form>
