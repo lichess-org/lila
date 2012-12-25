@@ -5,7 +5,7 @@ import core.Settings
 import site.Captcha
 import user.UserRepo
 import message.LichessThread
-import forum.{ Categ, PostLiteView }
+import forum.PostLiteView
 
 import com.mongodb.casbah.MongoCollection
 import scalaz.effects._

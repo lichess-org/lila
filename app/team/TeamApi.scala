@@ -90,11 +90,7 @@ final class TeamApi(
   def createRequest(team: Team, setup: RequestSetup, user: User): IO[Unit] = for {
     able ← requestable(team, user)
     request = Request(team = team.id, user = user.id, message = setup.message)
-    rwu = RequestWithUser(request, user)
-    _ ← {
-      requestRepo.add(request) >>
-        io(cached invalidateNbRequests team.createdBy)
-    } doIf able
+    _ ← requestRepo.add(request) >> io(cached invalidateNbRequests team.createdBy) doIf able
   } yield ()
 
   def processRequest(team: Team, request: Request, accept: Boolean): IO[Unit] = for {
