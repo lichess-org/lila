@@ -4,7 +4,7 @@ package team
 import com.novus.salat.annotations.Key
 import org.joda.time.DateTime
 
-import user.{ User, UserRepo }
+import user.User
 
 case class Member(
     @Key("_id") id: String, 
