@@ -19,7 +19,6 @@ elo range must contain player elo
 complete analysis movetimes with tsinnema - requires ms movetimes and db migration
 localize elo chart dates
 index game positions
-integrate with google+
 elo stats (branch elostats)
 lobby concurrency http://en.lichess.org/forum/lichess-feedback/bug-multiple-players-can-accept-the-same-game-proposal#1
 possible timeout bug http://en.lichess.org/forum/lichess-feedback/possible-timeout-bug#1
@@ -28,7 +27,6 @@ tournament berserker = half time, double points
 chat icons (k) (K)
 blind accessible
 make hand and finisher actors to avoid racing conditions
-tournament monitor
 all hub members should use userIds rather than usernames
 tournament ties
 AI thinks during your time (premove?) http://en.lichess.org/forum/lichess-feedback/y-u-so-greedy-with-time-stockfish#4
@@ -38,12 +36,11 @@ AI thinks during your time (premove?) http://en.lichess.org/forum/lichess-feedba
 IP smart tools for admins
 lsof show the open websockets on prod. The recurrent bug could come from the open descriptors limit (ulimit -n)
 lobby game filters http://en.lichess.org/forum/lichess-feedback/feature-request-game-filter#2
-not possible to copy the link URL invite when using a iOS device. Can this be easily fixed by adding an automatic "copy" button next to the link?
+not possible to copy the link URL invite when using a touch device. Can this be easily fixed by adding an automatic "copy" button next to the link?
 search bug http://en.lichess.org/games/search?players.a=&players.b=&players.winner=&eloMin=&eloMax=&hasAi=&aiLevelMin=&aiLevelMax=&variant=&mode=1&opening=&turnsMin=&turnsMax=&durationMin=&durationMax=&status=35&dateMin=&dateMax=&sort.field=tu&sort.order=asc
 takeback substract time for person granting
 add fullscreen mode for spectators and load new games in a loop (based on certain filter options) - thus creating a chess tv channel
 tournament 404 page
-log off = tournament resign
 team search
 only team forum posts on the homepage?
 look at gameknot teams (to steal ideas)
