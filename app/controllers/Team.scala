@@ -88,7 +88,10 @@ object Team extends LilaController {
         implicit val req = ctx.body
         forms.create.bindFromRequest.fold(
           err ⇒ io(BadRequest(html.team.form(err, forms.captchaCreate))),
-          data ⇒ api.create(data, me) map { team ⇒ Redirect(routes.Team.show(team.id)) }
+          data ⇒ api.create(data, me).fold(
+            _ map { team ⇒ Redirect(routes.Team.show(team.id)) },
+            io(notFound)
+          )
         )
       }
     }
@@ -146,10 +149,10 @@ object Team extends LilaController {
         implicit val req = ctx.body
         forms.processRequest.bindFromRequest.fold(
           _ ⇒ io(routes.Team.show(team.id).toString), {
-            case (decision, url) ⇒ 
+            case (decision, url) ⇒
               api.processRequest(team, request, (decision === "accept")) inject url
           }
-        ) 
+        )
       }
     }
   }
