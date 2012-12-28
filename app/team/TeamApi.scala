@@ -20,20 +20,22 @@ final class TeamApi(
 
   val creationPeriod = 1 week
 
-  def create(setup: TeamSetup, me: User): IO[Team] = setup.trim |> { s ⇒
-    Team(
-      name = s.name,
-      location = s.location,
-      description = s.description,
-      open = s.isOpen,
-      createdBy = me) |> { team ⇒
-        for {
-          _ ← teamRepo saveIO team
-          _ ← memberRepo.add(team.id, me.id)
-          _ ← io(cached invalidateTeamIds me.id)
-          _ ← makeForum(team.id, team.name)
-        } yield team
-      }
+  def create(setup: TeamSetup, me: User): Option[IO[Team]] = me.canTeam option {
+    setup.trim |> { s ⇒
+      Team(
+        name = s.name,
+        location = s.location,
+        description = s.description,
+        open = s.isOpen,
+        createdBy = me) |> { team ⇒
+          for {
+            _ ← teamRepo saveIO team
+            _ ← memberRepo.add(team.id, me.id)
+            _ ← io(cached invalidateTeamIds me.id)
+            _ ← makeForum(team.id, team.name)
+          } yield team
+        }
+    }
   }
 
   def update(team: Team, edit: TeamEdit, me: User): IO[Unit] = edit.trim |> { e ⇒
@@ -69,7 +71,7 @@ final class TeamApi(
 
   def join(teamId: String)(implicit ctx: Context): IO[Option[Requesting]] = for {
     teamOption ← teamRepo byId teamId
-    result ← ~(teamOption |@| ctx.me)({
+    result ← ~(teamOption |@| ctx.me.filter(_.canTeam))({
       case (team, user) if team.open ⇒
         (doJoin(team, user.id) inject Joined(team).some): IO[Option[Requesting]]
       case (team, user) ⇒
