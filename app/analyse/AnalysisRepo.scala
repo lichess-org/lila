@@ -58,7 +58,7 @@ final class AnalysisRepo(val collection: MongoCollection) {
     collection.find(
       ("fail" $exists false) ++ 
       DBObject("uid" -> uid, "done" -> false) ++
-      ("date" $lt (DateTime.now - 1.hour))
+      ("date" $lt (DateTime.now - 15.minutes))
     ).limit(1).size > 0
   }
 }
