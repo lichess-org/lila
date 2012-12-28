@@ -125,6 +125,8 @@ final class TeamApi(
       io(cached invalidateTeamIds userId)
   } doIf belongsTo(team.id, userId)
 
+  def quitAll(userId: String): IO[Unit] = memberRepo.removeByUserId(userId)
+
   def kick(team: Team, userId: String): IO[Unit] = doQuit(team, userId)
 
   // delete for ever, with members but not forums
