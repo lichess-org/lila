@@ -6,8 +6,7 @@ import scalaz.effects._
 
 private[cli] case class Infos(env: CoreEnv) {
 
-  def averageElo: IO[Unit] = for {
+  def averageElo: IO[String] = for {
     avg ← env.user.userRepo.averageElo
-    _ ← putStrLn("Average elo is %f" format avg)
-  } yield ()
+  } yield "Average elo is %f" 
 }

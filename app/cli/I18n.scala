@@ -9,19 +9,16 @@ import scalaz.effects._
 
 private[cli] case class I18n(i18n: I18nEnv) {
 
-  def jsDump: IO[Unit] = for {
-    _ ← putStrLn("Dumping JavaScript translations")
+  def jsDump: IO[String] = for {
     _ ← i18n.jsDump.apply
-  } yield ()
+  } yield "Dumped JavaScript translations"
 
-  def fileFix: IO[Unit] = for {
-    _ ← putStrLn("Fixing translation files")
+  def fileFix: IO[String] = for {
     _ ← i18n.fileFix.apply
-  } yield ()
+  } yield "Fixed translation files"
 
-  def fetch(from: String): IO[Unit] = for {
-    _ ← putStrLn("Fetch translations from upstream")
+  def fetch(from: String): IO[String] = for {
     translations ← i18n.upstreamFetch apply parseIntOption(from).err("bad from arg")
     _ ← i18n.gitWrite apply translations
-  } yield ()
+  } yield "Fetched translations from upstream"
 }

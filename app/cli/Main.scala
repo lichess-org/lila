@@ -8,7 +8,7 @@ import lila.core.{ Global, CoreEnv }
 
 object Main {
 
-  def main(env: CoreEnv)(args: Array[String]): IO[Unit] = { 
+  def main(env: CoreEnv)(args: Array[String]): IO[String] = { 
 
     def users = Users(env.user.userRepo, env.security.store)
     def games = Games(env)
@@ -31,9 +31,9 @@ object Main {
       case "user-track" :: uid :: Nil         ⇒ users track uid
       case "forum-denormalize" :: Nil         ⇒ forum.denormalize
       case "forum-typecheck" :: Nil           ⇒ forum.typecheck
-      case "game-cleanup-next" :: Nil         ⇒ titivate.cleanupNext
-      case "game-cleanup-unplayed" :: Nil     ⇒ titivate.cleanupUnplayed
-      case "game-finish" :: Nil               ⇒ titivate.finishByClock
+      case "game-cleanup-next" :: Nil         ⇒ titivate.cleanupNext inject "Done"
+      case "game-cleanup-unplayed" :: Nil     ⇒ titivate.cleanupUnplayed inject "Done"
+      case "game-finish" :: Nil               ⇒ titivate.finishByClock inject "Done"
       case "game-per-day" :: Nil              ⇒ games.perDay(30)
       case "game-per-day" :: days :: Nil      ⇒ games.perDay(parseIntOption(days) err "days: Int")
       case "wiki-fetch" :: Nil                ⇒ wiki.fetch
@@ -43,7 +43,7 @@ object Main {
       case "team-enable" :: uid :: Nil        ⇒ teams enable uid
       case "team-disable" :: uid :: Nil       ⇒ teams disable uid
       case "team-delete" :: uid :: Nil        ⇒ teams delete uid
-      case _                                  ⇒ putStrLn("Unknown command: " + args.mkString(" "))
+      case _                                  ⇒ io("Unknown command: " + args.mkString(" "))
     }
   }
 }

@@ -6,11 +6,11 @@ import scalaz.effects._
 
 private[cli] case class Forum(env: ForumEnv) {
 
-  def denormalize: IO[Unit] = env.denormalize
+  def denormalize: IO[String] = env.denormalize inject "Forum denormalized"
 
-  def typecheck: IO[Unit] = for {
+  def typecheck: IO[String] = for {
     _ ← env.categRepo.all
     _ ← env.topicRepo.all
     _ ← env.postRepo.all
-  } yield ()
+  } yield "Forum type checked"
 }
