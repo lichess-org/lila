@@ -11,7 +11,7 @@ import play.api.libs.json._
 import play.api.libs.iteratee._
 import play.api.libs.concurrent.Akka
 
-import scalaz.effects.io
+import scalaz.effects._
 
 object Main extends LilaController {
 
@@ -32,13 +32,17 @@ object Main extends LilaController {
       Form(single(
         "c" -> nonEmptyText
       )).bindFromRequest.fold(
-        err ⇒ io(BadRequest()),
-        command ⇒ runCommand(command.split(" ")) map { res ⇒ Ok(res) }
+        err ⇒ putStrLn("bad command") inject BadRequest(),
+        command ⇒ for {
+          _ ← putStrLn(command)
+          res ← runCommand(command.split(" "))
+          _ ← putStrLn(res)
+        } yield Ok(res)
       )
     }
   }
 
   def captchaCheck(id: String) = Open { implicit ctx ⇒
-    Ok(env.site.captcha get id valid ~get("solution") fold(1, 0))
+    Ok(env.site.captcha get id valid ~get("solution") fold (1, 0))
   }
 }

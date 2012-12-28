@@ -7,10 +7,10 @@ import scalaz.effects._
 
 private[cli] case class Users(userRepo: UserRepo, securityStore: Store) {
 
-  def enable(username: String): IO[Unit] =
+  def enable(username: String): IO[String] =
     perform(username, userRepo.enable)
 
-  def disable(username: String): IO[Unit] =
+  def disable(username: String): IO[String] =
     perform(username, user ⇒
       userRepo disable user map { _ ⇒
         securityStore deleteUsername username
@@ -26,17 +26,14 @@ private[cli] case class Users(userRepo: UserRepo, securityStore: Store) {
     })
 
   def track(username: String) = io {
-    println("%s = %s".format(
-      username, 
-      securityStore explore username mkString ", "
-    ))
+    "%s = %s".format(username, securityStore explore username mkString ", ")
   }
 
-  private def perform(username: String, op: User ⇒ IO[Unit]) = for {
+  private def perform(username: String, op: User ⇒ IO[Unit]): IO[String] = for {
     userOption ← userRepo byId username
-    _ ← userOption.fold(
-      u ⇒ op(u) flatMap { _ ⇒ putStrLn("Success") },
-      putStrLn("Not found")
+    res ← userOption.fold(
+      u ⇒ op(u) inject "Success",
+      io("User not found")
     )
-  } yield ()
+  } yield res
 }
