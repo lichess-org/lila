@@ -77,7 +77,7 @@ div.hooks_wrap {
   top: 51px;
   left: 52px;
   padding: 12px;
-  border-radius: 3px;
+  border-radius: 3px 0 3px 3px;
   box-shadow: 0 0 20px #444;
   background: rgba(245,245,245,0.8);
   background: -moz-linear-gradient(top, rgba(212,212,212,0.9) 0%, rgba(240,240,240,0.5) 100%);
@@ -85,6 +85,7 @@ div.hooks_wrap {
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(212,212,212,0.9)), to(rgba(240,240,240,0.5)));
   background: -ms-linear-gradient(top, rgba(212,212,212,0.9) 0%,rgba(240,240,240,0.5) 100%);
   background: -o-linear-gradient(top, rgba(212,212,212,0.9) 0%,rgba(240,240,240,0.5) 100%);
+  background: linear-gradient(top, rgba(212,212,212,0.9) 0%,rgba(240,240,240,0.5) 100%);
 }
 div.hooks_wrap.large {
   height: 512px;
@@ -94,6 +95,57 @@ div.hooks_wrap.large {
 div.hooks_wrap.hidden {
   display: none;
 }
+div.hooks_wrap a.filter {
+  position: absolute;
+  top: -21px;
+  right: -1px;
+  height: 20px;
+  line-height: 20px;
+  padding: 0 2px 0 10px;
+  background: rgba(212,212,212,0.9);
+  background: -moz-linear-gradient(top,rgba(212,212,212,1) 0%, rgba(212,212,212,0.9) 100%);
+  border: 1px solid #444;
+  border-bottom: 0;
+  display: block;
+  border-radius: 3px 3px 0 0;
+  color: #333;
+  text-decoration: none;
+}
+div.hooks_wrap a.filter:hover,
+div.hooks_wrap a.filter.active {
+  background: #fff;
+}
+div.hooks_wrap a.filter span {
+  background-position: right -192px;
+  padding-left: 0;
+  padding-right: 20px;
+}
+div.hooks_wrap div.filter {
+  position: absolute;
+  display: none;
+  top: 0px;
+  right: 0px;
+  min-height: 181px;
+  width: 244px;
+  padding: 12px;
+  border: 1px solid #444;
+  border-width: 0 0 1px 1px;
+  background: #fff;
+}
+div.hooks_wrap div.filter select {
+  width: 100%;
+  margin-bottom: 12px;
+  text-transform: capitalize;
+  padding: 6px;
+}
+div.hooks_wrap div.filter .actions {
+  text-align: right;
+}
+div.hooks_wrap div.filter .actions button {
+  padding: 6px;
+  margin-left: 12px;
+}
+
 div.hooks {
   border: 1px solid #bababa;
   border-top: 0

@@ -41,7 +41,7 @@ object Lobby extends LilaController with Results {
       filter = env.setup.filter
     ).map(_.fold(Redirect(_), {
         case (preload, posts, tours, featured) ⇒ status(html.lobby.home(
-          toJson(preload).pp,
+          toJson(preload),
           myHook,
           posts,
           tours,

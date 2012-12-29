@@ -1520,6 +1520,36 @@ $(function() {
   var myElo = isRegistered ? parseInt($userTag.data('elo')) : null;
   var hookOwnerId = $hooks.data('my-hook');
 
+  $wrap.find('a.filter').click(function() {
+    $(this).toggleClass('active');
+    if($(this).hasClass('active')) {
+      var $filter = $wrap.find('div.filter').fadeIn(200);
+      $.ajax({
+        url: $(this).attr('href'),
+        success: function(html) {
+          $filter.html(html).find('select').change(_.throttle(function() {
+            var $form = $filter.find('form');
+            $.ajax({
+              url: $form.attr('action'),
+              data: $form.serialize(),
+              type: 'post',
+              success: function(filter) {
+                lichess_preload.filter = filter;
+                updateHookTable();
+              }
+            });
+          }, 500));
+          $filter.find('a.reset').click(function() {
+            $filter.find('select').val('').change();
+          });
+        }
+      });
+    } else {
+      var $filter = $wrap.find('div.filter').fadeOut(200);
+    }
+    return false;
+  }).click();
+
   if (chatExists) {
     var $form = $chat.find('form');
     $chat.find('.lichess_messages').scrollable();
@@ -1645,8 +1675,7 @@ $(function() {
   }
   function addHooks(hooks) {
     var html = "";
-    for (i in hooks) html += renderHook(hooks[i]);
-    $hooksTable.append(html);
+    for (i in hooks) html += $hooksTable.append(renderHook(hooks[i]));
     updateHookTable();
   }
   function addHook(hook) {
@@ -1654,6 +1683,14 @@ $(function() {
     updateHookTable();
   }
   function updateHookTable() {
+    var filter = lichess_preload.filter;
+    $hooksTable.find('tr.hook').each(function() {
+      var hook = $(this).data('hook');
+      var hide = (filter.variant != null && filter.variant != hook.variant); 
+      hide = hide && (hook.action != 'cancel');
+      if (hide) $(this).hide(); else $(this).show();
+    });
+
     if (0 == $hooksTable.find('tr.hook').length) {
       $hooksTable.addClass('empty_table').html('<tr class="create_game"><td colspan="5">'+$.trans("No game available right now, create one!")+'</td></tr>');
     } else {
@@ -1708,8 +1745,10 @@ $(function() {
         var cancelParam = hookOwnerId ? "?cancel=" + hookOwnerId : ""
           html += '<a href="'+actionUrls.join.replace(/\/0{8}/, '/'+hook.id)+cancelParam+'" class="join"></a>';
       }
+      html += '</td>';
     }
-    return html;
+    html += '</tr>';
+    return $(html).data('hook', hook);
   }
 
   function resizeLobby() {

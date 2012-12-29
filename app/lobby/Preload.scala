@@ -17,7 +17,7 @@ import akka.util.duration._
 import akka.util.Timeout
 import scalaz.effects._
 
-final class Preload(
+private[lobby] final class Preload(
     fisherman: Fisherman,
     history: History,
     hookRepo: HookRepo,
@@ -54,10 +54,10 @@ final class Preload(
       ioToFuture(filter) map {
         case ((((((hooks, messages), entries), posts), tours), feat), filter) ⇒ (Right((Map(
           "version" -> history.version,
-          "pool" -> renderHooks(hooks, myHook),
+          "pool" -> renderHooks(hooks, myHook).pp,
           "chat" -> (messages.reverse map (_.render)),
           "timeline" -> (entries.reverse map (_.render)),
-          "filter" -> filter.toMap
+          "filter" -> filter.render
         ), posts, tours, feat))): Response
       }
     )
