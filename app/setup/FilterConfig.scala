@@ -9,6 +9,10 @@ case class FilterConfig(variant: Option[Variant]) {
   def encode = RawFilterConfig(
     v = ~variant.map(_.id)
   )
+
+  def >> = Some((variant map (_.id)))
+
+  def toMap = Map("variant" -> variant.map(_.id))
 }
 
 object FilterConfig {
@@ -17,9 +21,10 @@ object FilterConfig {
     variant = none)
 
   val variants = 0 :: Config.variants
-  val variantChoices = variants map { id ⇒
-    (Config.variantChoices.toMap get id.toString map ("Only " +)) | "All"
-  }
+
+  def <<(v: Option[Int]) = new FilterConfig(
+    variant = v flatMap Variant.apply
+  )
 }
 
 private[setup] case class RawFilterConfig(v: Int) {

@@ -11,7 +11,7 @@ import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.Imports._
 import scalaz.effects._
 
-final class AnonConfigRepo(collection: MongoCollection)
+private[setup] final class AnonConfigRepo(collection: MongoCollection)
     extends SalatDAO[RawUserConfig, String](collection) {
 
   private val sessionKey = "setup"
@@ -34,6 +34,15 @@ final class AnonConfigRepo(collection: MongoCollection)
 
   private def configOption(req: RequestHeader): IO[Option[UserConfig]] =
     ~sessionId(req).map(s ⇒ config(s) map (_.some))
+
+  def filter(req: RequestHeader): IO[FilterConfig] = io {
+    for {
+      sid ← sessionId(req)
+      obj ← collection.findOneByID(sid, DBObject("filter" -> true))
+      variant ← obj.getAs[Int]("v")
+      config ← RawFilterConfig(variant).decode
+    } yield config
+  } map (_ | FilterConfig.default)
 
   private def save(config: UserConfig): IO[Unit] = io {
     update(
