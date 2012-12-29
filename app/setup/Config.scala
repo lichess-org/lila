@@ -1,7 +1,7 @@
 package lila
 package setup
 
-import chess.{ Game, Board, Variant, Clock }
+import chess.{ Game, Board, Variant, Clock, Speed }
 import game.{ GameRepo, DbGame, Pov }
 
 trait Config {
@@ -46,6 +46,8 @@ trait BaseConfig {
   val variants = Variant.all map (_.id)
   val variantChoices = Variant.all map { v ⇒ v.id.toString -> v.name }
   val variantDefault = Variant.Standard
+
+  val speeds = Speed.all map (_.id)
 
   val timeMin = 0
   val timeMax = 30

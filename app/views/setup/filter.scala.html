@@ -1,9 +1,9 @@
 @(form: Form[_])(implicit ctx: Context)
 
 @helper.form(action = routes.Setup.filter(), 'novalidate -> "novalidate") {
-<div class="variants">
-  @base.select(form("variant"), translatedVariantChoices, "Any variant".some)
-</div>
+@base.select(form("variant"), translatedVariantChoices, "Any variant".some)
+@base.select(form("mode"), translatedModeChoices, "Any mode".some)
+@base.select(form("speed"), translatedSpeedChoices, "Any speed".some)
 <div class="actions">
   <a class="reset">Reset</a>
   <button type="submit" class="submit">Done</button>

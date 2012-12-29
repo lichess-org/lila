@@ -39,8 +39,7 @@ private[setup] final class AnonConfigRepo(collection: MongoCollection)
     for {
       sid ← sessionId(req)
       obj ← collection.findOneByID(sid, DBObject("filter" -> true))
-      variant ← obj.getAs[Int]("v")
-      config ← RawFilterConfig(variant).decode
+      config ← FilterConfig fromDB obj
     } yield config
   } map (_ | FilterConfig.default)
 

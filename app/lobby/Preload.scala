@@ -54,7 +54,7 @@ private[lobby] final class Preload(
       ioToFuture(filter) map {
         case ((((((hooks, messages), entries), posts), tours), feat), filter) ⇒ (Right((Map(
           "version" -> history.version,
-          "pool" -> renderHooks(hooks, myHook).pp,
+          "pool" -> renderHooks(hooks, myHook),
           "chat" -> (messages.reverse map (_.render)),
           "timeline" -> (entries.reverse map (_.render)),
           "filter" -> filter.render

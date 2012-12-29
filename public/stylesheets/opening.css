@@ -103,7 +103,12 @@ div.hooks_wrap a.filter {
   line-height: 20px;
   padding: 0 2px 0 10px;
   background: rgba(212,212,212,0.9);
-  background: -moz-linear-gradient(top,rgba(212,212,212,1) 0%, rgba(212,212,212,0.9) 100%);
+  background: -moz-linear-gradient(top,rgba(250,250,250,1) 0%, rgba(212,212,212,0.9) 100%);
+  background: -webkit-linear-gradient(top, rgba(250,250,250,1) 0%,rgba(212,212,212,0.9) 100%);
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(250,250,250,1)), to(rgba(212,212,212,0.9)));
+  background: -ms-linear-gradient(top, rgba(250,250,250,1) 0%,rgba(212,212,212,0.9) 100%);
+  background: -o-linear-gradient(top, rgba(250,250,250,1) 0%,rgba(212,212,212,0.9) 100%);
+  background: linear-gradient(top, rgba(250,250,250,1) 0%,rgba(212,212,212,0.9) 100%);
   border: 1px solid #444;
   border-bottom: 0;
   display: block;
