@@ -192,6 +192,8 @@ class UserRepo(collection: MongoCollection)
     collection.find(byIdQuery(username) ++ DBObject("engine" -> true)).size != 0
   }
 
+  def setRoles(user: User, roles: List[String]) = updateIO(user)($set("roles" -> roles))
+
   def setBio(user: User, bio: String) = updateIO(user)($set("bio" -> bio))
 
   def enable(user: User) = updateIO(user)($set("enabled" -> true))

@@ -46,4 +46,6 @@ object Permission {
   def apply(name: String): Option[Permission] = allByName get name
 
   def apply(names: List[String]): List[Permission] = (names map apply).flatten
+
+  def exists(name: String) = allByName contains name
 }

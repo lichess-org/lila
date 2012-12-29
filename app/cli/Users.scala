@@ -2,10 +2,19 @@ package lila
 package cli
 
 import lila.user.{ User, UserRepo }
-import lila.security.Store
+import lila.security.{ Store, Permission }
 import scalaz.effects._
 
 private[cli] case class Users(userRepo: UserRepo, securityStore: Store) {
+
+  def roles(username: String): IO[String] = for {
+    userOption ← userRepo byId username
+  } yield userOption.fold(_.roles mkString " ", "User not found")
+
+  def grant(username: String, roles: List[String]): IO[String] =
+    perform(username, { user ⇒
+      userRepo.setRoles(user, roles map (_.toUpperCase))
+    })
 
   def enable(username: String): IO[String] =
     perform(username, userRepo.enable)
