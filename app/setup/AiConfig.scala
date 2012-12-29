@@ -58,7 +58,7 @@ object AiConfig extends BaseConfig {
   val levelChoices = levels map { l ⇒ l.toString -> l.toString }
 }
 
-case class RawAiConfig(
+private[setup] case class RawAiConfig(
     v: Int,
     k: Boolean,
     t: Int,

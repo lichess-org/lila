@@ -62,7 +62,7 @@ object HookConfig extends BaseHumanConfig {
     color = Color.default)
 }
 
-case class RawHookConfig(
+private[setup] case class RawHookConfig(
     v: Int,
     k: Boolean,
     t: Int,
