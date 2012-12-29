@@ -24,7 +24,8 @@ private[setup] final class UserConfigRepo(collection: MongoCollection)
   def filter(user: User): IO[FilterConfig] = io {
     for {
       obj ← collection.findOneByID(user.id, DBObject("filter" -> true))
-      variant ← obj.getAs[Int]("v")
+      filter ← obj.getAs[DBObject]("filter")
+      variant ← filter.getAs[Int]("v")
       config ← RawFilterConfig(variant).decode
     } yield config
   } map (_ | FilterConfig.default)

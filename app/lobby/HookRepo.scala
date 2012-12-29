@@ -11,7 +11,7 @@ import scalaz.effects._
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 
-class HookRepo(collection: MongoCollection)
+final class HookRepo(collection: MongoCollection)
     extends SalatDAO[Hook, String](collection) {
 
   def hook(hookId: String): IO[Option[Hook]] = io {

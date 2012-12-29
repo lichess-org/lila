@@ -12,7 +12,7 @@ case class FilterConfig(variant: Option[Variant]) {
 
   def >> = Some((variant map (_.id)))
 
-  def toMap = Map("variant" -> variant.map(_.id))
+  def render = Map("variant" -> variant.map(_.toString))
 }
 
 object FilterConfig {
