@@ -22,12 +22,7 @@ private[setup] final class UserConfigRepo(collection: MongoCollection)
   } map (_ | UserConfig.default(user.id))
 
   def filter(user: User): IO[FilterConfig] = io {
-    for {
-      obj ← collection.findOneByID(user.id, DBObject("filter" -> true))
-      filter ← obj.getAs[DBObject]("filter")
-      variant ← filter.getAs[Int]("v")
-      config ← RawFilterConfig(variant).decode
-    } yield config
+    collection.findOneByID(user.id, DBObject("filter" -> true)) flatMap FilterConfig.fromDB
   } map (_ | FilterConfig.default)
 
   private def save(config: UserConfig): IO[Unit] = io {

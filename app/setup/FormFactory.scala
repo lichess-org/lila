@@ -19,7 +19,9 @@ private[setup] final class FormFactory(
 
   def filter(ctx: Context) = Form(
     mapping(
-      "variant" -> optional(variant)
+      "variant" -> optional(variant),
+      "mode" -> mode(true),
+      "speed" -> optional(speed)
     )(FilterConfig.<<)(_.>>)
   )
 

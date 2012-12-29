@@ -277,10 +277,7 @@ case class DbGame(
 
   def withClock(c: Clock) = Progress(this, copy(clock = Some(c)))
 
-  def estimateTotalTime = clock.fold(
-    c ⇒ c.limit + 30 * c.increment,
-    1200 // default to 20 minutes
-  )
+  def estimateTotalTime = clock.fold(_.estimateTotalTime, 1200)
 
   def creator = player(creatorColor)
 
