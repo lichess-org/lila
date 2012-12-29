@@ -8,7 +8,7 @@ import lila.core.{ Global, CoreEnv }
 
 object Main {
 
-  def main(env: CoreEnv)(args: Array[String]): IO[String] = { 
+  def main(env: CoreEnv)(args: Array[String]): IO[String] = {
 
     def users = Users(env.user.userRepo, env.security.store)
     def games = Games(env)
@@ -29,6 +29,8 @@ object Main {
       case "user-disable" :: uid :: Nil       ⇒ users disable uid
       case "user-passwd" :: uid :: pwd :: Nil ⇒ users.passwd(uid, pwd)
       case "user-track" :: uid :: Nil         ⇒ users track uid
+      case "user-roles" :: uid :: Nil         ⇒ users roles uid
+      case "user-grant" :: uid :: roles       ⇒ users.grant(uid, roles)
       case "forum-denormalize" :: Nil         ⇒ forum.denormalize
       case "forum-typecheck" :: Nil           ⇒ forum.typecheck
       case "game-cleanup-next" :: Nil         ⇒ titivate.cleanupNext inject "Done"
