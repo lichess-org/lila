@@ -15,7 +15,8 @@ div.game_config div.ui-buttonset {
 #config_level .ui-button {
   margin-right: -0.6em;
 }
-div.game_config .ui-button-text {
+div.game_config .ui-button-text, 
+div.game_config select {
   text-transform: capitalize;
 }
 div.game_config div.ui-slider {

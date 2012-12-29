@@ -8,11 +8,22 @@ import play.api.data._
 import play.api.data.Forms._
 import scalaz.effects._
 
-final class FormFactory(
+private[setup] final class FormFactory(
     userConfigRepo: UserConfigRepo,
     anonConfigRepo: AnonConfigRepo) {
 
   import Mappings._
+
+  def filterFilled(implicit ctx: Context): IO[Form[FilterConfig]] =
+    filterConfig map filter(ctx).fill
+
+  def filter(ctx: Context) = Form(
+    mapping(
+      "variant" -> optional(variant)
+    )(FilterConfig.<<)(_.>>)
+  )
+
+  def filterConfig(implicit ctx: Context): IO[FilterConfig] = savedConfig map (_.filter)
 
   def aiFilled(implicit ctx: Context): IO[Form[AiConfig]] =
     aiConfig map ai(ctx).fill

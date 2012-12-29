@@ -14,6 +14,8 @@ case class UserConfig(
     hook: HookConfig,
     filter: FilterConfig) {
 
+  def withFilter(c: FilterConfig) = copy(filter = c)
+
   def withAi(c: AiConfig) = copy(ai = c)
 
   def withFriend(c: FriendConfig) = copy(friend = c)

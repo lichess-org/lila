@@ -37,10 +37,11 @@ object Lobby extends LilaController with Results {
       myHook = myHook,
       timeline = timelineRecent,
       posts = forumRecent(ctx.me, teamCache.teamIds),
-      tours = openTours
+      tours = openTours,
+      filter = env.setup.filter
     ).map(_.fold(Redirect(_), {
         case (preload, posts, tours, featured) ⇒ status(html.lobby.home(
-          toJson(preload),
+          toJson(preload).pp,
           myHook,
           posts,
           tours,

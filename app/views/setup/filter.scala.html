@@ -1,0 +1,13 @@
+@(form: Form[_])(implicit ctx: Context)
+
+<div class="lichess_overboard auto_center game_config game_config_filter">
+  <h2>@trans.filterGames()</h2>
+  <div class="game_config_form">
+    @helper.form(action = routes.Setup.filter, 'novalidate -> "novalidate") {
+    <div class="variants">
+      @base.select(form("variant"), translatedVariantChoices, "Any variant".some)
+    </div>
+    <button type="submit" class="submit">Save filter</button>
+    }
+  </div>
+</div>
