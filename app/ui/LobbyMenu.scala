@@ -33,5 +33,13 @@ final class LobbyMenu(i18nKeys: I18nKeys) {
     i18nKeys.playWithTheMachine,
     i18nKeys.challengeTheArtificialIntelligence)
 
-  val all = List(hook, friend, ai)
+  val filter = new Elem(
+    "filter",
+    routes.Setup.filterForm, 
+    i18nKeys.filterGames,
+    i18nKeys.filterGames)
+
+  val allAnon = List(hook, friend, ai)
+
+  val allUser = allAnon :+ filter
 }

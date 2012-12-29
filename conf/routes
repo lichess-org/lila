@@ -89,6 +89,8 @@ GET   /$fullId<[\w\-]{12}>/cancel      controllers.Setup.cancel(fullId: String)
 POST  /$id<[\w\-]{8}>/join             controllers.Setup.join(id: String)
 GET   /setup/hook                      controllers.Setup.hookForm
 POST  /setup/hook                      controllers.Setup.hook
+GET   /setup/filter                    controllers.Setup.filterForm
+POST  /setup/filter                    controllers.Setup.filter
 POST  /api/game/new                    controllers.Setup.api
 
 # I18n

@@ -52,6 +52,13 @@ object Setup extends LilaController with TheftPrevention with RoundEventPerforme
       }
   }
 
+  val filterForm = TODO
+  // Open { implicit ctx ⇒
+  //   IOk(forms.filterFilled map { html.setup.filter(_) })
+  // }
+
+  val filter = TODO
+
   def join(id: String) = Open { implicit ctx ⇒
     IOptionIOResult(gameRepo game id) { game ⇒
       joiner(game, ctx.me).fold(
