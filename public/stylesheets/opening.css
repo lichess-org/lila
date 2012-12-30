@@ -203,9 +203,6 @@ div.hooks span.elorange {
   font-style: italic;
   color: #999;
 }
-div.hooks span.elorange.nope {
-  color: #dd8888;
-}
 div.hooks a.user_link.engine {
   color: #cc7070;
 }
