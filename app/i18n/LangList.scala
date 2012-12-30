@@ -1,7 +1,7 @@
 package lila
 package i18n
 
-object LangList {
+private[i18n] object LangList {
 
   def name(code: String) = all get code 
 

@@ -5,22 +5,19 @@ import play.api.i18n.Lang
 import java.io._
 import scalaz.effects._
 
-case class JsDump(
+private[i18n] case class JsDump(
     path: String,
     pool: I18nPool,
     keys: I18nKeys) {
 
-  val apply: IO[Unit] = for {
-    _ ← io(pathFile.mkdir)
-    _ ← (pool.nonDefaultLangs.toList map write).sequence
-  } yield ()
+  val apply: IO[Unit] = 
+    io(pathFile.mkdir) >> (pool.nonDefaultLangs.toList map write).sequence.void
 
   private val messages = List(
     keys.unlimited,
     keys.standard,
     keys.rated,
     keys.casual,
-    keys.noGameAvailableRightNowCreateOne,
     keys.thisGameIsRated,
     keys.whiteCreatesTheGame,
     keys.blackCreatesTheGame,
