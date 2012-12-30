@@ -1510,7 +1510,7 @@ var lichess_translations = [];
     var $newposts = $("div.new_posts");
     var $newpostsinner = $newposts.find('.undertable_inner');
     var $hooks = $wrap.find('div.hooks');
-    var $hooksTable = $hooks.find("table");
+    var $hooksTable = $hooks.find("table").on('click', 'a.join', $.lichessOpeningPreventClicks);
     var actionUrls = {
       'cancel': $hooks.data('cancel-url'),
     'join': $hooks.data('join-url')
@@ -1521,9 +1521,18 @@ var lichess_translations = [];
     var hookOwnerId = $hooks.data('my-hook');
 
     $wrap.find('a.filter').click(function() {
+      var $a = $(this);
+      var $div = $wrap.find('div.filter');
+      setTimeout(function() {
+        $div.click(function(e) { e.stopPropagation(); });
+        $('html').one('click', function(e) { 
+          $div.off('click').fadeOut(200); 
+          $a.removeClass('active');
+        });
+      }, 10);
       $(this).toggleClass('active');
       if($(this).hasClass('active')) {
-        var $filter = $wrap.find('div.filter').fadeIn(200);
+        var $filter = $div.fadeIn(200);
         if ($filter.is(':empty')) {
           $.ajax({
             url: $(this).attr('href'),
@@ -1551,7 +1560,7 @@ var lichess_translations = [];
           });
         }
       } else {
-        var $filter = $wrap.find('div.filter').fadeOut(200);
+        $div.fadeOut(200);
       }
       return false;
     });
@@ -1705,7 +1714,7 @@ var lichess_translations = [];
         $hooksTable.removeClass('empty_table').find('tr.create_game').remove();
       }
       resizeLobby();
-      $hooksTable.find('a.join').click($.lichessOpeningPreventClicks);
+      $wrap.find('a.filter').toggleClass('on', filter.mode != null || filter.variant != null || filter.speed != null);
     }
 
     function renderHook(hook) {
