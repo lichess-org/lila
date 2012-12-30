@@ -23,6 +23,7 @@ function drawCharts() {
     chart.draw(data, {
       series: [
     { color: "blue", type: "area", lineWidth: 2 },
+      { color: "grey", type: "line", lineWidth: 1 },
       { color: "red", type: "line", lineWidth: 2 }
     ],
       width: 500,
