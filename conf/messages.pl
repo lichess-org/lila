@@ -157,3 +157,4 @@ teamRecentMembers=Członkowie, którzy ostatnio dołączyli do zespołu
 averageElo=Przeciętne ELO
 location=Miejsce
 settings=Ustawienia
+filterGames=Sortuj gry
