@@ -157,4 +157,4 @@ teamRecentMembers=Недавние члены команды
 averageElo=Среднее ЭЛО
 location=Местоположение
 settings=Настройки
-filterGames=Выбрать игры
+Фильтр партий
