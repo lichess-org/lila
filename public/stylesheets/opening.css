@@ -114,12 +114,18 @@ div.hooks_wrap a.filter:hover,
 div.hooks_wrap a.filter.active {
   background: #fff;
 }
+div.hooks_wrap a.filter span.number {
+  display: none;
+}
 div.hooks_wrap a.filter.on {
   padding: 0 10px 0 2px;
 }
-div.hooks_wrap a.filter.on span {
+div.hooks_wrap a.filter.on span.s16 {
   padding: 0 0 0 20px;
   background-position: left -112px;
+}
+div.hooks_wrap a.filter.on span.number {
+  display: inline;
 }
 div.hooks_wrap div.filter {
   position: absolute;

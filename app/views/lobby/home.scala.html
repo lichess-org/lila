@@ -51,7 +51,10 @@ underchat = underchat.some) {
     @board.white()
     @widget.connection()
     <div class="hooks_wrap">
-      <a class="filter" href="@routes.Setup.filterForm()"><span class="s16 ddown">@trans.filterGames()</span></a>
+      <a class="filter" href="@routes.Setup.filterForm()">
+        <span class="s16 ddown">@trans.filterGames()</span>
+        <span class="number">(0)</span>
+      </a>
       <div class="filter"></div>
       <div class="hooks"
         data-my-hook="@myHook.map(_.ownerId)"

@@ -1713,7 +1713,9 @@ var lichess_translations = [];
       $hooksTable.toggleClass("none", visibleHooks == 0);
       $hooksTableEmpty.toggleClass("none", visibleHooks != 0);
       resizeLobby();
-      $wrap.find('a.filter').toggleClass('on', filter.mode != null || filter.variant != null || filter.speed != null);
+      $wrap.find('a.filter')
+        .toggleClass('on', filter.mode != null || filter.variant != null || filter.speed != null)
+        .find('span.number').text('(' + $hooksTable.find('tr.hook.none').length + ')');
     }
 
     function renderHook(hook) {
@@ -1762,7 +1764,7 @@ var lichess_translations = [];
       $wrap.toggleClass("large", $hooks.find("tr").length > 6);
     }
 
-    $hooks.on('click', 'table.empty_table tr', function() {
+    $hooks.on('click', 'table.empty tr', function() {
       $('#start_buttons a.config_hook').click();
     });
   });
