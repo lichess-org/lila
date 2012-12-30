@@ -157,3 +157,4 @@ teamRecentMembers=Lag senaste spelare
 averageElo=Medeltal ELO
 location=Plats
 settings=Inställningra
+filterGames=Filtrera partier
