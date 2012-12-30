@@ -157,3 +157,4 @@ teamRecentMembers=Nedávný členové týmu
 averageElo=Průměrné ELO
 location=Poloha
 settings=Nastavení
+filterGames=Filtrovat partie
