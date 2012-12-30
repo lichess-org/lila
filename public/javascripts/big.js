@@ -1,6 +1,6 @@
 // ==ClosureCompiler==
 // @compilation_level ADVANCED_OPTIMIZATIONS
-// @externs_url http://closure-compiler.googlecode.com/svn/trunk/contrib/externs/jquery-1.7.js
+// @externs_url http://closure-compiler.googlecode.com/svn/trunk/contrib/externs/jquery-1.8.js
 // ==/ClosureCompiler==
 if (typeof console == "undefined" || typeof console.log == "undefined") console = {
   log: function() {}
@@ -19,19 +19,19 @@ var lichess_translations = [];
     var self = this;
     self.settings = {
       events: {},
-  params: {
-    sri: Math.random().toString(36).substring(5) // 8 chars
-  },
-  options: {
-    name: "unnamed",
-  debug: false,
-  offlineDelay: 8000, // time before showing offlineTag
-  offlineTag: false, // jQuery object showing connection error
-  pingMaxLag: 8000, // time to wait for pong before reseting the connection
-  pingDelay: 1500, // time between pong and ping
-  lagTag: false, // jQuery object showing ping lag
-  ignoreUnknownMessages: false
-  }
+      params: {
+        sri: Math.random().toString(36).substring(5) // 8 chars
+      },
+      options: {
+        name: "unnamed",
+        debug: false,
+        offlineDelay: 8000, // time before showing offlineTag
+        offlineTag: false, // jQuery object showing connection error
+        pingMaxLag: 8000, // time to wait for pong before reseting the connection
+        pingDelay: 1500, // time between pong and ping
+        lagTag: false, // jQuery object showing ping lag
+        ignoreUnknownMessages: false
+      }
     };
     $.extend(true, self.settings, settings);
     self.url = url;
