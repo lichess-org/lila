@@ -52,20 +52,18 @@ object Setup extends LilaController with TheftPrevention with RoundEventPerforme
       }
   }
 
-  val filterForm = Auth { implicit ctx ⇒
-    me ⇒
-      IOk(forms.filterFilled map { html.setup.filter(_) })
+  val filterForm = Open { implicit ctx ⇒
+    IOk(forms.filterFilled map { html.setup.filter(_) })
   }
 
-  val filter = AuthBody { implicit ctx ⇒
-    me ⇒
-      implicit val req = ctx.body
-      IOResult {
-        forms.filter(ctx).bindFromRequest.fold(
-          f ⇒ putStrLn(f.errors.toString) inject BadRequest(),
-          config ⇒ processor filter config inject JsonOk(config.render)
-        )
-      }
+  val filter = OpenBody { implicit ctx ⇒
+    implicit val req = ctx.body
+    IOResult {
+      forms.filter(ctx).bindFromRequest.fold(
+        f ⇒ putStrLn(f.errors.toString) inject BadRequest(),
+        config ⇒ processor filter config inject JsonOk(config.render)
+      )
+    }
   }
 
   def join(id: String) = Open { implicit ctx ⇒

@@ -25,7 +25,7 @@
       </a>
       <div class="lichess_language">
         <a class="toggle_language toggle">
-          <span class="s16">@langName(lang)</span>
+          <span class="s16 ddown">@langName(lang)</span>
         </a>
         <ul class="language_links dropdown">
           @otherLangLinks(lang)
@@ -60,7 +60,7 @@
       </div>
       @ctx.me.fold(auth.loggedIn(_), auth.miniLogin())
       <div class="themepicker">
-        <a class="theme_toggle toggle"><span class="theme_demo">@trans.color()</span></a>
+        <a class="theme_toggle toggle"><span class="theme_demo ddown">@trans.color()</span></a>
         <div class="themes dropdown" data-href="@routes.Setting.set("theme")">
           @themeList.map { theme =>
           <div class="theme" data-theme="@theme.name"><div class="inner">

@@ -168,6 +168,12 @@ body.dark div.hooks_wrap {
   background: -ms-linear-gradient(top, rgba(33,33,33,0.9) 0%,rgba(15,15,15,0.5) 100%);
   background: -o-linear-gradient(top, rgba(33,33,33,0.9) 0%,rgba(15,15,15,0.5) 100%);
 }
+body.dark div.hooks_wrap a.filter {
+  background-color: rgba(10,10,10,0.8);
+  border-color: #444;
+  color: #e0e0e0;
+}
+
 body.dark div.undertable tr:nth-child(even) td
 {
   background: #303030;
@@ -348,4 +354,7 @@ body.dark #top a.goto_nav.current {
 }
 body.dark div.hooks td.action.empty {
   background: none;
+}
+body.dark .s16.ddown {
+  background-position: right -368px;
 }

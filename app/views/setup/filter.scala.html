@@ -2,8 +2,12 @@
 
 @helper.form(action = routes.Setup.filter(), 'novalidate -> "novalidate") {
 @base.select(form("variant"), translatedVariantChoices, "Any variant".some)
-@base.select(form("mode"), translatedModeChoices, "Any mode".some)
 @base.select(form("speed"), translatedSpeedChoices, "Any speed".some)
+@if(ctx.isAuth) {
+@base.select(form("mode"), translatedModeChoices, "Any mode".some)
+} else {
+@base.select(form("mode"), translatedModeChoices take 1)
+}
 <div class="actions">
   <a class="reset">Reset</a>
   <button type="submit" class="submit">Done</button>
