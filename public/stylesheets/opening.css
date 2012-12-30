@@ -160,7 +160,7 @@ div.hooks table {
   background: none;
   border-top: 1px solid #bababa;
 }
-div.hooks table.empty_table {
+div.hooks table.empty {
   margin-top: 152px;
 }
 div.hooks td {
@@ -174,11 +174,11 @@ div.hooks a {
 div.hooks tr:last-child td {
   border-bottom: none;
 }
-div.hooks table.empty_table tr {
+div.hooks table.empty tr {
   text-align: center;
   cursor: pointer;
 }
-div.hooks table.empty_table td {
+div.hooks table.empty td {
   padding: 0;
   height: 80px;
 }

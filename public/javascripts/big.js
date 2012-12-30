@@ -1510,7 +1510,8 @@ var lichess_translations = [];
     var $newposts = $("div.new_posts");
     var $newpostsinner = $newposts.find('.undertable_inner');
     var $hooks = $wrap.find('div.hooks');
-    var $hooksTable = $hooks.find("table").on('click', 'a.join', $.lichessOpeningPreventClicks);
+    var $hooksTable = $hooks.find("table.some").on('click', 'a.join', $.lichessOpeningPreventClicks);
+    var $hooksTableEmpty = $hooks.find("table.empty");
     var actionUrls = {
       'cancel': $hooks.data('cancel-url'),
     'join': $hooks.data('join-url')
@@ -1549,7 +1550,7 @@ var lichess_translations = [];
                   }
                 });
               }, 500));
-              $filter.find('a.reset').click(function() {
+              $filter.find('button.reset').click(function() {
                 $filter.find('select').val('').change();
               });
               $filter.find('button').click(function() {
@@ -1705,14 +1706,12 @@ var lichess_translations = [];
         (filter.mode != null && filter.mode != hook.mode) ||
         (filter.speed != null && filter.speed != hook.speed);
         hide = hide && (hook.action != 'cancel');
-        if (hide) $(this).hide(); else $(this).show();
+        $(this).toggleClass('none', hide);
       });
 
-      if (0 == $hooksTable.find('tr.hook').length) {
-        $hooksTable.addClass('empty_table').html('<tr class="create_game"><td colspan="5">'+$.trans("No game available right now, create one!")+'</td></tr>');
-      } else {
-        $hooksTable.removeClass('empty_table').find('tr.create_game').remove();
-      }
+      var visibleHooks = $hooksTable.find('tr.hook:not(.none)').length > 0;
+      $hooksTable.toggleClass("none", visibleHooks == 0);
+      $hooksTableEmpty.toggleClass("none", visibleHooks != 0);
       resizeLobby();
       $wrap.find('a.filter').toggleClass('on', filter.mode != null || filter.variant != null || filter.speed != null);
     }

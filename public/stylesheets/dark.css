@@ -335,7 +335,7 @@ body.dark .ui-widget-header,
 body.dark div.pagination span.current,
 body.dark #top span.new_messages.unread,
 body.dark div.hooks td.action:hover,
-body.dark div.hooks table.empty_table tr:hover,
+body.dark div.hooks table.empty tr:hover,
 body.dark .button.strong:hover,
 body.dark div.progressbar.flashy div,
 body.dark div.locale_menu a.active
