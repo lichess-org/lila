@@ -157,3 +157,4 @@ teamRecentMembers=Miembros recientes del equipo
 averageElo=ELO promedio
 location=Ubicación
 settings=Configuración
+filterGames=Filtrar partidas
