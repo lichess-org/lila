@@ -1,7 +1,7 @@
 package lila
 package i18n
 
-object Contributors {
+private[i18n] object Contributors {
 
   val all = Map(
     "fr" -> List("Thibault Duplessis"),

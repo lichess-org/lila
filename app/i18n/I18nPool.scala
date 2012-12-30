@@ -4,7 +4,7 @@ package i18n
 import play.api.mvc.{ Action, RequestHeader, Handler }
 import play.api.i18n.Lang
 
-final class I18nPool(val langs: Set[Lang], val default: Lang) {
+private[i18n] final class I18nPool(val langs: Set[Lang], val default: Lang) {
 
   private val cache = scala.collection.mutable.Map[String, Option[Lang]]()
 

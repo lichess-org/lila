@@ -67,7 +67,7 @@ final class DataForm(
   private def sanitize(message: String) = message.replace("""\n""", " ").trim
 }
 
-case class TransMetadata(
+private[i18n] case class TransMetadata(
   author: Option[String],
   comment: Option[String],
   gameId: String,
