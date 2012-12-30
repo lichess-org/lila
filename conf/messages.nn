@@ -147,3 +147,7 @@ newTeam=Nytt lag
 myTeams=mine lag
 noTeamFound=Kan ikke finne laget
 joinTeam=Bli med lag
+anyoneCanJoin=Alle kan vere med
+teamLeader=Gruppeleier
+teamBestPlayers=Gruppens beste spelare
+settings=Instillinger
