@@ -157,3 +157,4 @@ teamRecentMembers=Recente groepsleden
 averageElo=Gemiddelde ELO
 location=Plaats
 settings=Instellingen
+filterGames=spellen filteren
