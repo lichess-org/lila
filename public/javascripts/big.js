@@ -1758,7 +1758,16 @@ var lichess_translations = [];
       }
       html += '</td>';
       html += '</tr>';
-      return $(html).data('hook', hook);
+      var $hook = $(html).data('hook', hook);
+      if (hook.variant == "Chess960") {
+        $hook.find('a.join').click(function() {
+          if ($.cookie('c960') == 1) return true;
+          var c = confirm("This is a Chess960 game!\n\nThe starting position of the pieces on the players' home ranks is randomized.\nRead more: http://wikipedia.org/wiki/Chess960\n\nDo you want to play Chess960?");
+          if (c) $.cookie('c960', 1);
+          return c;
+        });
+      }
+      return $hook;
     }
 
     $hooks.on('click', 'table.empty tr', function() {
