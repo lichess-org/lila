@@ -407,11 +407,6 @@ form.wide input[type="text"], form.wide textarea {
   padding-right: 4px;
   float: left;
 }
-#top a.toggle span.s16 {
-  background-position: right -192px;
-  padding-left: 0;
-  padding-right: 20px;
-}
 #top .dropdown {
   display: none;
   position: absolute;
@@ -576,6 +571,11 @@ span.s16.clock {
 }
 .s16.team.mine {
   background-position: 0 -352px;
+}
+.s16.ddown {
+  background-position: right -192px;
+  padding-left: 0;
+  padding-right: 20px;
 }
 
 .user_link.white, .user_link.black, .user_link.online, .user_link.offline {

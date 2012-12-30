@@ -3,6 +3,7 @@ package setup
 
 import http.Context
 import i18n.I18nHelper
+import templating.StringHelper
 import chess.{ Mode, Variant, Speed }
 
 trait SetupHelper { self: I18nHelper ⇒
@@ -14,10 +15,10 @@ trait SetupHelper { self: I18nHelper ⇒
 
   def translatedVariantChoices(implicit ctx: Context) = List(
     Variant.Standard.id.toString -> trans.standard.str(),
-    Variant.Chess960.id.toString -> Variant.Chess960.name
+    Variant.Chess960.id.toString -> StringHelper.ucFirst(Variant.Chess960.name)
   )
 
   def translatedSpeedChoices(implicit ctx: Context) = Speed.all map { s ⇒
-    s.id.toString -> (s.toString + " - " + s.name)
+    s.id.toString -> (s.toString + " - " + StringHelper.ucFirst(s.name))
   }
 }

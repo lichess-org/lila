@@ -8,22 +8,24 @@ case class FilterConfig(
     mode: Option[Mode],
     speed: Option[Speed]) {
 
+  def withModeCasual = copy(mode = Mode.Casual.some)
+
   def encode = RawFilterConfig(
     v = ~variant.map(_.id),
     m = mode.map(_.id) | -1,
     s = ~speed.map(_.id)
   )
 
-  def >> = Some((
+  def >> = (
     variant map (_.id),
     mode map (_.id),
     speed map (_.id)
-  ))
+  ).some
 
   def render = Map(
     "variant" -> variant.map(_.toString),
     "mode" -> mode.map(_.toString),
-    "speed" -> speed.map(_.toString)
+    "speed" -> speed.map(_.id)
   )
 }
 
@@ -55,10 +57,7 @@ object FilterConfig {
   } yield config
 }
 
-private[setup] case class RawFilterConfig(
-    v: Int,
-    m: Int,
-    s: Int) {
+private[setup] case class RawFilterConfig(v: Int, m: Int, s: Int) {
 
   def decode = FilterConfig(
     variant = Variant(v),

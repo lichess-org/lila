@@ -11,6 +11,8 @@ object StringHelper extends StringHelper
 
 trait StringHelper {
 
+  def ucFirst(str: String) = ~(str lift 0).map(_.toUpper) + (str drop 1)
+
   def slugify(input: String) = {
     val nowhitespace = input.trim.replace(" ", "-")
     val normalized = Normalizer.normalize(nowhitespace, Normalizer.Form.NFD)

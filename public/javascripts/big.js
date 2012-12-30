@@ -1524,35 +1524,37 @@ var lichess_translations = [];
       $(this).toggleClass('active');
       if($(this).hasClass('active')) {
         var $filter = $wrap.find('div.filter').fadeIn(200);
-        $.ajax({
-          url: $(this).attr('href'),
-          success: function(html) {
-            $filter.html(html).find('select').change(_.throttle(function() {
-              var $form = $filter.find('form');
-              $.ajax({
-                url: $form.attr('action'),
-                data: $form.serialize(),
-                type: 'post',
-                success: function(filter) {
-                  lichess_preload.filter = filter;
-                  updateHookTable();
-                }
+        if ($filter.is(':empty')) {
+          $.ajax({
+            url: $(this).attr('href'),
+            success: function(html) {
+              $filter.html(html).find('select').change(_.throttle(function() {
+                var $form = $filter.find('form');
+                $.ajax({
+                  url: $form.attr('action'),
+                  data: $form.serialize(),
+                  type: 'post',
+                  success: function(filter) {
+                    lichess_preload.filter = filter;
+                    updateHookTable();
+                  }
+                });
+              }, 500));
+              $filter.find('a.reset').click(function() {
+                $filter.find('select').val('').change();
               });
-            }, 500));
-            $filter.find('a.reset').click(function() {
-              $filter.find('select').val('').change();
-            });
-            $filter.find('button').click(function() {
-              $wrap.find('a.filter').click();
-              return false;
-            });
-          }
-        });
+              $filter.find('button').click(function() {
+                $wrap.find('a.filter').click();
+                return false;
+              });
+            }
+          });
+        }
       } else {
         var $filter = $wrap.find('div.filter').fadeOut(200);
       }
       return false;
-    }).click();
+    });
 
     if (chatExists) {
       var $form = $chat.find('form');
@@ -1691,7 +1693,8 @@ var lichess_translations = [];
       $hooksTable.find('tr.hook').each(function() {
         var hook = $(this).data('hook');
         var hide = (filter.variant != null && filter.variant != hook.variant) ||
-        (filter.mode != null && filter.mode != hook.mode);
+        (filter.mode != null && filter.mode != hook.mode) ||
+        (filter.speed != null && filter.speed != hook.speed);
         hide = hide && (hook.action != 'cancel');
         if (hide) $(this).hide(); else $(this).show();
       });
