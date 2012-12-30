@@ -24,7 +24,7 @@ historyToMigrate.forEach(function(h) {
     }
     h2.entries.push(e2);
   }
-  collection.insert(h2);
+  collection.update({_id: h2._id}, {$set: h2}, {upsert: true});
   ++it;
   if (it % batchSize == 0) {
     var percent = Math.round((it / max) * 100);
