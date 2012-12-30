@@ -157,3 +157,4 @@ teamRecentMembers=Nedavni člani ekipe
 averageElo=Povprečen ELO
 location=Lokacija
 settings=Nastavitve
+filterGames=Filtriraj
