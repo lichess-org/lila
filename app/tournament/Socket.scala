@@ -14,7 +14,7 @@ import scalaz.effects._
 
 import user.User
 import game.DbGame
-import socket.{ PingVersion, Quit, Resync, LiveGames }
+import socket.{ PingVersion, Quit, LiveGames }
 import socket.Util.connectionFail
 import security.Flood
 import implicits.RichJs._
