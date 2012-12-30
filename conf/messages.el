@@ -157,3 +157,4 @@ teamRecentMembers=Πρόσφατα μέλη ομάδας
 averageElo=Μέσος όρος ELO
 location=Τοποθεσία
 settings=Επιλογές
+filterGames=Φιλτράρετε τα παιχνίδια
