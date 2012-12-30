@@ -1719,8 +1719,9 @@ var lichess_translations = [];
 
     function renderHook(hook) {
       if (!isRegistered && hook.mode == "Rated") return "";
-      var html = "", isEngine, engineMark, userClass, mode, eloRestriction;
       hook.action = hook.ownerId ? "cancel" : "join";
+      if (hook.emin && hook.action == "join" && (myElo < parseInt(hook.emin) || myElo > parseInt(hook.emax))) return "";
+      var html = "", isEngine, engineMark, userClass, mode;
       html += '<tr id="'+hook.id+'" class="hook'+(hook.action == 'join' ? ' joinable' : '')+'">';
       html += '<td class="color"><span class="'+hook.color+'"></span></td>';
       isEngine = hook.engine && hook.action == 'join';
@@ -1732,16 +1733,10 @@ var lichess_translations = [];
         html += '<td>'+hook.username+'</td>';
       }
       html += '</td>';
-      eloRestriction = false;
       if (isRegistered) {
         mode = $.trans(hook.mode);
-        if (hook.emin) {
-          if (hook.action == "join" && (myElo < parseInt(hook.emin) || myElo > parseInt(hook.emax))) {
-            eloRestriction = true;
-          }
-          if (hook.emin > 800 || hook.emax < 2500) {
-            mode += "<span class='elorange" + (eloRestriction ? ' nope' : '') + "'>" + hook.emin + ' - ' + hook.emax + '</span>';
-          }
+        if (hook.emin && (hook.emin > 800 || hook.emax < 2500)) {
+          mode += "<span class='elorange'>" + hook.emin + ' - ' + hook.emax + '</span>';
         }
       } else {
         mode = "";
@@ -1752,18 +1747,14 @@ var lichess_translations = [];
         html += '<td>'+mode+'</td>';
       }
       html += '<td>'+$.trans(hook.clock)+'</td>';
-      if (eloRestriction) {
-        html += '<td class="action empty"></td>';
+      html += '<td class="action">';
+      if (hook.action == "cancel") {
+        html += '<a href="'+actionUrls.cancel.replace(/\/0{12}/, '/'+hook.ownerId)+'" class="cancel"></a>';
       } else {
-        html += '<td class="action">';
-        if (hook.action == "cancel") {
-          html += '<a href="'+actionUrls.cancel.replace(/\/0{12}/, '/'+hook.ownerId)+'" class="cancel"></a>';
-        } else {
-          var cancelParam = hookOwnerId ? "?cancel=" + hookOwnerId : ""
-            html += '<a href="'+actionUrls.join.replace(/\/0{8}/, '/'+hook.id)+cancelParam+'" class="join"></a>';
-        }
-        html += '</td>';
+        var cancelParam = hookOwnerId ? "?cancel=" + hookOwnerId : ""
+          html += '<a href="'+actionUrls.join.replace(/\/0{8}/, '/'+hook.id)+cancelParam+'" class="join"></a>';
       }
+      html += '</td>';
       html += '</tr>';
       return $(html).data('hook', hook);
     }
