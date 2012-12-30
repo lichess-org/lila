@@ -1709,13 +1709,14 @@ var lichess_translations = [];
         $(this).toggleClass('none', hide);
       });
 
-      var visibleHooks = $hooksTable.find('tr.hook:not(.none)').length > 0;
-      $hooksTable.toggleClass("none", visibleHooks == 0);
-      $hooksTableEmpty.toggleClass("none", visibleHooks != 0);
-      resizeLobby();
-      $wrap.find('a.filter')
-        .toggleClass('on', filter.mode != null || filter.variant != null || filter.speed != null)
-        .find('span.number').text('(' + $hooksTable.find('tr.hook.none').length + ')');
+      var nbVisibleHooks = $hooksTable.find('tr.hook:not(.none)').length;
+      $hooksTable.toggleClass("none", nbVisibleHooks == 0);
+      $hooksTableEmpty.toggleClass("none", nbVisibleHooks != 0);
+      $wrap
+        .toggleClass("large", nbVisibleHooks > 6)
+        .find('a.filter')
+          .toggleClass('on', filter.mode != null || filter.variant != null || filter.speed != null)
+          .find('span.number').text('(' + $hooksTable.find('tr.hook.none').length + ')');
     }
 
     function renderHook(hook) {
@@ -1758,10 +1759,6 @@ var lichess_translations = [];
       html += '</td>';
       html += '</tr>';
       return $(html).data('hook', hook);
-    }
-
-    function resizeLobby() {
-      $wrap.toggleClass("large", $hooks.find("tr").length > 6);
     }
 
     $hooks.on('click', 'table.empty tr', function() {
