@@ -167,14 +167,14 @@ class UserRepo(collection: MongoCollection)
 
   val countEnabled: IO[Int] = io { count(enabledQuery).toInt }
 
-  def usernamesLike(username: String): IO[List[String]] = io {
+  def usernamesLike(username: String, max: Int = 10): IO[List[String]] = io {
     val escaped = """^([\w-]*).*$""".r.replaceAllIn(normalize(username), _ group 1)
     val regex = "^" + escaped + ".*$"
     collection.find(
       DBObject("_id" -> regex.r),
       DBObject("username" -> 1))
       .sort(DBObject("_id" -> 1))
-      .limit(10)
+      .limit(max)
       .toList
       .map(_.getAs[String]("username"))
       .flatten
