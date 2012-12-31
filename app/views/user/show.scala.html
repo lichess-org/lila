@@ -69,9 +69,7 @@ evenMoreCss = evenMoreCss) {
     <div class="icon status @isUsernameOnline(u.username).fold("connected", "")"></div>
     <h1 class="lichess_title">@u.usernameWithElo</h1>
     @info.rank.map { r =>
-    <span class="rank">
-      @trans.rank(): <strong>@r._1</strong> / @r._2
-    </span>
+    <span class="rank" title="@trans.rank()"><strong>@r._1</strong> / @r._2.localize</span>
     }
     @if(u.disabled) {
     <span class="staff">CLOSED</span>
