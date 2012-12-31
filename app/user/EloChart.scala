@@ -38,8 +38,8 @@ final class EloChart(rawElos: List[(Int, Int, Option[Int])]) {
     val opValues = elos map (_._3)
     elos.zipWithIndex map {
       case ((ts, elo, op), i) ⇒ (ts, elo,
-        opValues.slice(i - opMedian, i + opMedian).flatten |> { vs ⇒ 
-          vs.nonEmpty option (vs.sum / vs.size) 
+        opValues.slice(i - opMedian, i + opMedian).flatten |> { vs ⇒
+          vs.nonEmpty option (vs.sum / vs.size)
         },
         eloValues.slice(i - eloMedian, i + eloMedian) |> { vs ⇒ vs.sum / vs.size }
       )
@@ -60,6 +60,8 @@ object EloChart {
 
   def apply(historyRepo: HistoryRepo)(user: User): IO[Option[EloChart]] =
     historyRepo userElos user.username map { elos ⇒
-      (elos.size > 1) option { new EloChart(elos) }
+      (elos.size > 1) option {
+        new EloChart((user.createdAt.getSeconds.toInt, User.STARTING_ELO, None) :: elos)
+      }
     }
 }
