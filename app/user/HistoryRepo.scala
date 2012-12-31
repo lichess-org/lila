@@ -28,10 +28,10 @@ final class HistoryRepo(collection: MongoCollection) {
     ).map(history ⇒
     (history.as[MongoDBList]("entries").toList collect { 
           case elem: com.mongodb.BasicDBList ⇒ for {
-            ts ← elem.getAs[Int](0)
-            elo ← elem.getAs[Int](1)
-            op = if (elem.size > 2) elem.getAs[Int](2) else None
-          } yield (ts, elo, op)
+            ts ← elem.getAs[Double](0)
+            elo ← elem.getAs[Double](1)
+            op = if (elem.size > 2) elem.getAs[Double](2) else None
+          } yield (ts.toInt, elo.toInt, op map (_.toInt))
         }).flatten sortBy (_._1) 
       )
   } except { err ⇒ putStrLn("ERR while parsing user history: " + err.getMessage) inject Nil }

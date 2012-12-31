@@ -23,7 +23,11 @@ games.forEach(function(game) {
   for (pi in game.p) {
     try {
       var p = game.p[pi], op = game.p[1 - pi];
-      var entry = [ parseInt(game.ca.getTime() / 1000), p.elo + p.ed, op.elo ];
+      var entry = [ 
+        parseInt(game.ca.getTime() / 1000), 
+        parseInt(p.elo + p.ed), 
+        parseInt(op.elo)
+      ];
       if(typeof cache[p.uid] == "undefined") cache[p.uid] = [entry];
       else cache[p.uid].push(entry);
     } catch(e) {
