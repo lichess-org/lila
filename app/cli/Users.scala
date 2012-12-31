@@ -1,11 +1,16 @@
 package lila
 package cli
 
-import lila.user.{ User, UserRepo }
+import lila.user.{ UserEnv, User, UserRepo }
 import lila.security.{ Store, Permission }
 import scalaz.effects._
 
-private[cli] case class Users(userRepo: UserRepo, securityStore: Store) {
+private[cli] case class Users(userEnv: UserEnv, securityStore: Store) {
+
+  private def userRepo = userEnv.userRepo
+
+  def rewriteHistory: IO[String] = 
+    userEnv.historyRepo.fixAll inject "History rewritten"
 
   def roles(username: String): IO[String] = for {
     userOption ← userRepo byId username

@@ -29,10 +29,10 @@ final class HistoryRepo(collection: MongoCollection) {
         (history.as[MongoDBList]("entries").toList collect {
           case elem: com.mongodb.BasicDBList ⇒ try {
             for {
-              ts ← elem.getAs[Double](0)
-              elo ← elem.getAs[Double](1)
-              op = if (elem.size > 2) elem.getAs[Double](2) else None
-            } yield (ts.toInt, elo.toInt, op map (_.toInt))
+              ts ← elem.getAs[Int](0)
+              elo ← elem.getAs[Int](1)
+              op = if (elem.size > 2) elem.getAs[Int](2) else None
+            } yield (ts, elo, op)
           }
           catch {
             case (err: Exception) ⇒ {
@@ -42,5 +42,40 @@ final class HistoryRepo(collection: MongoCollection) {
           }
         }).flatten sortBy (_._1)
       )
+  }
+
+  def fixAll = io {
+    collection.find() foreach { history ⇒
+      val initEntries = history.as[MongoDBList]("entries").toList
+      val entries = (initEntries collect {
+        case elem: com.mongodb.BasicDBList ⇒ try {
+          for {
+            ts ← elem.getAs[Double](0)
+            elo ← elem.getAs[Double](1)
+            op = if (elem.size > 2) elem.getAs[Double](2) else None
+          } yield op.fold(
+            o ⇒ List(ts.toInt, elo.toInt, o.toInt),
+            List(ts.toInt, elo.toInt)
+          )
+        }
+        catch {
+          case (err: Exception) ⇒
+            for {
+              ts ← elem.getAs[Int](0)
+              elo ← elem.getAs[Int](1)
+              op = if (elem.size > 2) elem.getAs[Int](2) else None
+            } yield op.fold(
+              o ⇒ List(ts, elo, o),
+              List(ts, elo)
+            )
+        }
+      }).flatten sortBy (_.head)
+      val id = history.as[String]("_id")
+      println("%s: %d -> %d".format(id, initEntries.size, entries.size))
+      collection.update(
+        DBObject("_id" -> id),
+        $set("entries" -> entries)
+      )
+  }
   }
 }
