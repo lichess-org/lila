@@ -253,16 +253,7 @@ var lichess_translations = [];
 
     // Start game
     var $game = $('div.lichess_game').orNot();
-    if ($game) {
-      $game.game(_ld_);
-      if (!_ld_.player.spectator) {
-        $('a.blank_if_play').click(function() {
-          if ($game.game('isPlayable')) {
-            $(this).attr('target', '_blank');
-          }
-        });
-      }
-    }
+    if ($game) $game.game(_ld_);
 
     setTimeout(function() {
       if (lichess.socket == null && $('div.server_error_box').length == 0) {
