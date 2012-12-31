@@ -19,6 +19,8 @@ case class Post(
     createdAt: DateTime) {
 
   def showAuthor = (author map (_.trim) filter ("" !=)) | User.anonymous
+
+  def isTeam = categId startsWith "team-"
 }
 
 object Post {
