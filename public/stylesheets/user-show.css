@@ -47,6 +47,10 @@ div.user_show .teams {
   display: block;
   margin-top: 1.6em;
 }
+div.user_show .teams {
+  max-height: 200px;
+  overflow: auto;
+}
 div.user_show .teams a {
   display: block;
   margin: 5px 0;
