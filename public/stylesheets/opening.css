@@ -329,6 +329,12 @@ div.new_posts li {
   line-height: 14px;
   white-space: nowrap;
 }
+div.new_posts li.s16 {
+  padding-left: 20px;
+  margin-left: 5px;
+  height: 15px;
+  display: block;
+}
 div.new_posts a.post_link {
   margin-right: 7px;
 }
