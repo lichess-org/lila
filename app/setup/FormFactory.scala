@@ -26,7 +26,7 @@ private[setup] final class FormFactory(
   )
 
   def filterConfig(implicit ctx: Context): IO[FilterConfig] = savedConfig map { config ⇒
-    ctx.isAuth.fold(config.filter.withModeCasual, config.filter)
+    ctx.isAuth.fold(config.filter, config.filter.withModeCasual)
   }
 
   def aiFilled(implicit ctx: Context): IO[Form[AiConfig]] =
