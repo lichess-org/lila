@@ -5,7 +5,7 @@ import game.DbGame
 
 import com.github.ornicar.paginator._
 
-final class PaginatorBuilder(
+private[search] final class PaginatorBuilder(
     indexer: Indexer,
     maxPerPage: Int) {
 
@@ -15,7 +15,7 @@ final class PaginatorBuilder(
     maxPerPage = maxPerPage).fold(_ ⇒ apply(query, 0), identity)
 }
 
-final class ESAdapter(
+private[search] final class ESAdapter(
     indexer: Indexer,
     query: Query) extends Adapter[DbGame] {
 
