@@ -1,10 +1,10 @@
 @(form: Form[_])(implicit ctx: Context)
 
 @helper.form(action = routes.Setup.filter(), 'novalidate -> "novalidate") {
-@base.select(form("variant"), translatedVariantChoices, "Any variant".some)
-@base.select(form("speed"), translatedSpeedChoices, "Any speed".some)
+@base.select(form("variant"), translatedVariantChoices, trans.variant.str().some)
+@base.select(form("speed"), translatedSpeedChoices, trans.timeControl.str().some)
 @if(ctx.isAuth) {
-@base.select(form("mode"), translatedModeChoices, "Any mode".some)
+@base.select(form("mode"), translatedModeChoices,trans.mode.str().some)
 } else {
 @base.select(form("mode"), translatedModeChoices take 1)
 }
