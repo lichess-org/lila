@@ -550,11 +550,14 @@ var lichess_translations = [];
       }
 
       if (!self.options.opponent.ai && !self.options.player.spectator) {
-        setTimeout(self.updateTitle = function() {
-          document.title = (self.isMyTurn() && self.options.game.started && !self.options.game.finished) ? document.title = document.title.indexOf('/\\/') == 0 ? '\\/\\ ' + document.title.replace(/\/\\\/ /, '') : '/\\/ ' + document.title.replace(/\\\/\\ /, '') : document.title;
-          setTimeout(self.updateTitle, 400);
-        },
-        400);
+        function resetFavicon() { $.favicon('assets/images/favicon-32-white.png'); }
+        function shouldNotify() { return self.isMyTurn() && self.options.game.started && !self.options.game.finished; }
+        setInterval(function() {
+          if (shouldNotify()) {
+            $.favicon('assets/images/favicon-32-black.png');
+            setTimeout(resetFavicon, 400);
+          } else resetFavicon();
+        }, 800);
       }
 
       lichess.socket = new strongSocket(

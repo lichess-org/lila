@@ -36,5 +36,7 @@ final class GameEnv(
 
   lazy val rewind = new Rewind
 
-  lazy val gameJs = new GameJs(app.path.getCanonicalPath + "/" + settings.GameJsPath)
+  lazy val gameJs = new GameJs(
+    path = app.path.getCanonicalPath + "/" + IsDev.fold(GameJsPathRaw, GameJsPathCompiled),
+    useCache = !IsDev)
 }
