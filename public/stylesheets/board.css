@@ -256,7 +256,7 @@ div.lichess_overboard p.explanations {
   z-index: 50;
 }
 
-input.lichess_id_input {
+div.lichess_id_input {
   margin-top: 10px;
   border: none;
   background: #fff;
@@ -264,6 +264,7 @@ input.lichess_id_input {
   text-align: center;
   color: #444;
   font-size: 1.2em;
+  padding: 1em 0;
 }
 
 div.lichess_promotion_choice {

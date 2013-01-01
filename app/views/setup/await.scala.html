@@ -12,11 +12,7 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
     @color.fold(board.white(), board.black())
     <div class="lichess_overboard auto_center">
       @trans.toInviteSomeoneToPlayGiveThisUrl():
-      <input 
-      class="lichess_id_input" 
-      readonly="readonly" 
-      value="@protocol@commonDomain@routes.Round.watcher(gameId, "white")" 
-      />
+      <div class="lichess_id_input">@protocol@commonDomain@routes.Round.watcher(gameId, "white")</div>
       <p class="explanations">
         @trans.theFirstPersonToComeOnThisUrlWillPlayWithYou()
         <a href="@routes.Setup.cancel(fullId)">@trans.cancel()</a>
