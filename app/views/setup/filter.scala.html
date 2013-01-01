@@ -9,7 +9,7 @@
 @base.select(form("mode"), translatedModeChoices take 1)
 }
 <div class="actions">
-  <button type="submit" class="reset">Reset</button>
-  <button type="submit" class="submit">Apply</button>
+  <button type="submit" class="reset">@trans.reset()</button>
+  <button type="submit" class="submit">@trans.apply()</button>
 </div>
 }
