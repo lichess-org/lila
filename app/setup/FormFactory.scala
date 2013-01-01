@@ -21,7 +21,8 @@ private[setup] final class FormFactory(
     mapping(
       "variant" -> optional(variant),
       "mode" -> mode(ctx.isAuth),
-      "speed" -> optional(speed)
+      "speed" -> optional(speed),
+      "eloDiff" -> eloDiff
     )(FilterConfig.<<)(_.>>)
   )
 
