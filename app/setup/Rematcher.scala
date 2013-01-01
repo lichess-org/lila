@@ -11,7 +11,7 @@ import controllers.routes
 
 import scalaz.effects._
 
-final class Rematcher(
+private[setup] final class Rematcher(
     gameRepo: GameRepo,
     userRepo: UserRepo,
     messenger: Messenger,
