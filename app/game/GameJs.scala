@@ -1,11 +1,11 @@
 package lila
 package game
 
-final class GameJs(path: String) { 
+private[game] final class GameJs(path: String) {
 
-  lazy val unsigned: String = {
+  def unsigned: String = {
     val source = scala.io.Source fromFile path
-    source.mkString ~ { _ => source.close }
+    source.mkString ~ { _ ⇒ source.close }
   }
 
   val placeholder = "--tkph--"
