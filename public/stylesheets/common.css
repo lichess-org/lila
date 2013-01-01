@@ -66,6 +66,7 @@ body.tight div.content {
 }
 body.tight #top {
   min-width: 780px;
+  overflow: hidden;
 }
 #site_description {
   position: absolute;
