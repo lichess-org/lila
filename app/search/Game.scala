@@ -6,7 +6,7 @@ import chess.{ OpeningExplorer, Status }
 
 import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
 
-object Game {
+private[search] object Game {
 
   object fields {
     val status = "st"

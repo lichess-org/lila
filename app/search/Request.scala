@@ -13,7 +13,7 @@ import scalastic.elasticsearch.SearchParameterTypes
 
 import Game.fields._
 
-case class SearchRequest(
+private[search] case class SearchRequest(
     query: QueryBuilder,
     filter: Option[FilterBuilder] = None,
     size: Int = 10,
@@ -32,7 +32,7 @@ case class SearchRequest(
     )
 }
 
-case class CountRequest(
+private[search] case class CountRequest(
     query: QueryBuilder,
     filter: Option[FilterBuilder] = None) {
 
