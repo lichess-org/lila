@@ -158,3 +158,5 @@ averageElo=Moyenne ELO
 location=Lieu
 settings=Paramètres
 filterGames=Filtrer les parties
+reset=Réinitialiser
+apply=Appliquer
