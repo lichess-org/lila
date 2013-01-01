@@ -2,9 +2,6 @@
 // @compilation_level ADVANCED_OPTIMIZATIONS
 // @externs_url http://closure-compiler.googlecode.com/svn/trunk/contrib/externs/jquery-1.8.js
 // ==/ClosureCompiler==
-if (typeof console == "undefined" || typeof console.log == "undefined") console = {
-  log: function() {}
-};
 
 // declare now, populate later in a distinct script.
 var lichess_translations = [];
@@ -260,8 +257,6 @@ var lichess_translations = [];
         lichess.socket = new strongSocket(lichess.socketUrl + "/socket", 0, lichess.socketDefaults);
       }
     }, 1000);
-
-    $('input.lichess_id_input').select();
 
     if ($board = $('div.with_marks').orNot()) {
       $.displayBoardMarks($board.parent(), $('#lichess > div.lichess_player_white').length);
@@ -555,9 +550,8 @@ var lichess_translations = [];
       }
 
       if (!self.options.opponent.ai && !self.options.player.spectator) {
-        // update document title to show playing state
         setTimeout(self.updateTitle = function() {
-          document.title = (self.isMyTurn() && ! self.options.game.finished) ? document.title = document.title.indexOf('/\\/') == 0 ? '\\/\\ ' + document.title.replace(/\/\\\/ /, '') : '/\\/ ' + document.title.replace(/\\\/\\ /, '') : document.title;
+          document.title = (self.isMyTurn() && self.options.game.started && !self.options.game.finished) ? document.title = document.title.indexOf('/\\/') == 0 ? '\\/\\ ' + document.title.replace(/\/\\\/ /, '') : '/\\/ ' + document.title.replace(/\\\/\\ /, '') : document.title;
           setTimeout(self.updateTitle, 400);
         },
         400);

@@ -1,9 +1,9 @@
 package lila
 package game
 
-private[game] final class GameJs(path: String) {
+final class GameJs(path: String) {
 
-  def unsigned: String = {
+  lazy val unsigned: String = {
     val source = scala.io.Source fromFile path
     source.mkString ~ { _ ⇒ source.close }
   }
