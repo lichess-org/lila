@@ -47,11 +47,15 @@ object Tournament extends LilaController {
     repo.created.toFuture zip repo.started.toFuture zip repo.finished(20).toFuture
 
   def show(id: String) = Open { implicit ctx ⇒
-    IOptionIOk(repo byId id) {
-      case tour: Created  ⇒ showCreated(tour)
-      case tour: Started  ⇒ showStarted(tour)
-      case tour: Finished ⇒ showFinished(tour)
-    }
+    IOResult(for {
+      t ← repo byId id
+      res ← t match {
+        case Some(tour: Created)  ⇒ showCreated(tour) map { Ok(_) }
+        case Some(tour: Started)  ⇒ showStarted(tour) map { Ok(_) } 
+        case Some(tour: Finished) ⇒ showFinished(tour) map { Ok(_) }
+        case _                    ⇒ io(NotFound(html.tournament.notFound()))
+      }
+    } yield res)
   }
 
   private def showCreated(tour: Created)(implicit ctx: Context) = for {
