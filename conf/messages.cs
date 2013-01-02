@@ -158,3 +158,5 @@ averageElo=Průměrné ELO
 location=Poloha
 settings=Nastavení
 filterGames=Filtrovat partie
+reset=Zrušit
+apply=OK
