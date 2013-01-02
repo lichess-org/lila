@@ -158,3 +158,5 @@ averageElo=Gennemsnitlig ELO
 location=Sted
 settings=Indstillinger
 filterGames=Filtrér spil
+reset=Nulstil
+apply=Anvend
