@@ -1531,8 +1531,7 @@ var lichess_translations = [];
           $a.removeClass('active');
         });
       }, 10);
-      $(this).toggleClass('active');
-      if($(this).hasClass('active')) {
+      if($(this).toggleClass('active').hasClass('active')) {
         var $filter = $div.fadeIn(200);
         if ($filter.is(':empty')) {
           $.ajax({
@@ -1704,9 +1703,9 @@ var lichess_translations = [];
         var hook = $(this).data('hook');
         var hide = (filter.variant != null && filter.variant != hook.variant) ||
         (filter.mode != null && filter.mode != hook.mode) ||
-        (filter.speed != null && filter.speed != hook.speed);
-        hide = hide && (hook.action != 'cancel');
-        $(this).toggleClass('none', hide);
+        (filter.speed != null && filter.speed != hook.speed) ||
+        (filter.eloDiff > 0 && (!hook.elo || hook.elo > (myElo + filter.eloDiff) || hook.elo < (myElo - filter.eloDiff)));
+        $(this).toggleClass('none', hide && (hook.action != 'cancel'));
       });
 
       var nbVisibleHooks = $hooksTable.find('tr.hook:not(.none)').length;
@@ -1715,7 +1714,7 @@ var lichess_translations = [];
       $wrap
         .toggleClass("large", nbVisibleHooks > 6)
         .find('a.filter')
-          .toggleClass('on', filter.mode != null || filter.variant != null || filter.speed != null)
+          .toggleClass('on', filter.mode != null || filter.variant != null || filter.speed != null || filter.eloDiff > 0)
           .find('span.number').text('(' + $hooksTable.find('tr.hook.none').length + ')');
     }
 

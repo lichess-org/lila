@@ -21,4 +21,11 @@ trait SetupHelper { self: I18nHelper ⇒
   def translatedSpeedChoices(implicit ctx: Context) = Speed.all map { s ⇒
     s.id.toString -> (s.toString + " - " + StringHelper.ucFirst(s.name))
   }
+
+  def eloDiffChoices(elo: Int)(implicit ctx: Context) = FilterConfig.eloDiffs map { diff ⇒
+    diff -> (diff == 0).fold(
+      trans.eloRange.str(), 
+      "%d - %d (+-%d)".format(elo - diff, elo + diff, diff)
+    )
+  }
 }
