@@ -24,9 +24,9 @@ Finally, in 2010, I learnt about document databases and chose mongodb for its up
 Numbers
 -------
 
-At the time of writing (Oct 13 2012), the DB contains 10,2 million objects and occupies 12,8 GB on the filesystem. All indexes fit in 824 MB.
-More than 10,000 games are added every day. Each game is updated 60 times in average, once per chess move. There are also the forum posts, tournaments, private messages and bazillions of chat messages.
-On average, lichess performs around 150 queries, 40 updates and 50 commands per second.
+At the time of writing (Jan 1 2013), the DB contains 14 million objects and occupies 12,8 GB on the filesystem. All indexes fit in 1.4Gb
+Around 20,000 games are played every day. Each game is updated 60 times in average, once per chess move. There are also the forum posts, tournaments, private messages and bazillions of chat messages.
+On average, lichess performs around 150 queries, 40 updates and 30 commands per second.
 
 Storing games
 -------------
@@ -130,11 +130,7 @@ First I define some query objects:
 
 ```scala
 // app/game/Query.scala
-val finished = "s" $in List(
-  Status.Mate.id, 
-  Status.Resign.id, 
-  Status.Outoftime.id, 
-  Status.Timeout.id)
+val finished = "s" $in List(Status.Mate.id, Status.Resign.id, Status.Outoftime.id, Status.Timeout.id)
 def user(u: User) = DBObject("uids" -> u.id)
 def loss(u: User) = user(u) ++ finished ++ ("wid" $ne u.id)
 ```
@@ -173,6 +169,8 @@ For some reason I'm seeing a lot more slow queries (my threshold is set to 30ms)
     Sun Oct 14 02:44:18 [conn105] update lichess.room query: { _id: "sdjnry56" } update: { $push: { messages: "w-w-" } } idhack:1 nupdated:1 keyUpdates:0 locks(micros) w:69 46ms
     Sun Oct 14 02:44:19 [conn191] update lichess.f_topic query: { _id: "cfce6plt" } update: { $inc: { views: 1 } } idhack:1 nupdated:1 keyUpdates:0 locks(micros) w:48 44ms
 
+> Jan 2014 update: on a new server with SSD storage, the latency is gone.
+
 Also, and I don't think it has been documented yet, the format of `serverStatus` output has changed.
 
 Besides that it's all good, and I'm looking forward trying the aggregation framework!
@@ -182,7 +180,7 @@ Implementation details
 
 ### 3 move repetition, fifty-move rule
 
-To implement these rules, a board position hash is generated every move, stored in the DB, and cleared when a pawn is moved or a piece taken.
+To implement these rules, a board position hash string is generated every move, stored in the DB, and cleared when a pawn is moved or a piece taken.
 
 Hash the pieces on the board: 
 
