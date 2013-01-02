@@ -49,8 +49,8 @@ RSYNC_OPTIONS=" \
   --exclude logs \
   --exclude RUNNING_PID";
 
-lilalog "Rsync binaries, scripts and assets"
-rsync $RSYNC_OPTIONS dist/$APP_NAME/* bin public $REMOTE:$REMOTE_DIR
+lilalog "Rsync scripts, binaries and assets"
+rsync $RSYNC_OPTIONS bin dist/$APP_NAME/* public $REMOTE:$REMOTE_DIR
 
 lilalog "Restart lila"
 ssh $REMOTE "service lila restart"
