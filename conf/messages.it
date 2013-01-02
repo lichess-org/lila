@@ -158,3 +158,5 @@ averageElo=Media ELO
 location=Luogo
 settings=Impostazioni
 filterGames=Filtra partite
+reset=Azzera
+apply=Applica
