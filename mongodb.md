@@ -177,6 +177,51 @@ Also, and I don't think it has been documented yet, the format of `serverStatus`
 
 Besides that it's all good, and I'm looking forward trying the aggregation framework!
 
+Implementation details
+----------------------
+
+### 3 move repetition, fifty-move rule
+
+To implement these rules, a board position hash is generated every move, stored in the DB, and cleared when a pawn is moved or a piece taken.
+
+Hash the pieces on the board: 
+
+```scala
+def positionHash = Hasher(actors.values map (_.hash) mkString).md5.toString
+```
+
+Append it to the previous position hashes:
+
+```scala
+def appendPositionHash = (hash take History.hashSize) :: positionHashes
+```
+
+In the database, it looks like `ph: e707cd52bae9c27a0326ee88a`.
+
+Clear the position hash when needed:
+
+```scala
+if ((piece is Pawn) || captures || promotes || castles) Nil
+else h1 positionHashesWith after.positionHash
+```
+
+Detect threefold repetition:  
+
+```scala
+// check if the current position hash
+// exists 3 time in the historical position hashes
+def threefoldRepetition = positionHashes.size > 6 && {
+  positionHashes.headOption map { hash ⇒ positionHashes.count(_ == hash) >= 3 } | false
+}
+```
+
+Detect fifty-move rule:
+
+```scala
+// position hashes represent half move clock
+def fiftyMove = history.positionHashes.size > 100 
+```
+
 ---
 
 Thanks for reading and happy coding.
