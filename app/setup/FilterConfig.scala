@@ -22,7 +22,7 @@ case class FilterConfig(
     variant map (_.id),
     mode map (_.id),
     speed map (_.id),
-    eloDiff
+    eloDiff.some
   ).some
 
   def render = Map(
@@ -46,11 +46,11 @@ object FilterConfig {
   val speeds = 0 :: Config.speeds
   val eloDiffs = 0 :: 100 :: 200 :: 300 :: 500 :: Nil
 
-  def <<(v: Option[Int], m: Option[Int], s: Option[Int], e: Int) = new FilterConfig(
+  def <<(v: Option[Int], m: Option[Int], s: Option[Int], e: Option[Int]) = new FilterConfig(
     variant = v flatMap Variant.apply,
     mode = m flatMap Mode.apply,
     speed = s flatMap Speed.apply,
-    eloDiff = e
+    eloDiff = ~e
   )
 
   import com.mongodb.casbah.Imports._
