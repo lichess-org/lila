@@ -174,8 +174,6 @@ DELETE /notification/$id<[\w]{8}>      controllers.Notification.remove(id)
 # Monitor
 GET   /monitor                         controllers.Monitor.index
 GET   /monitor/socket                  controllers.Monitor.websocket
-GET   /monitor/players                 controllers.Monitor.nbPlayers
-GET   /monitor/mps                     controllers.Monitor.nbMoves
 GET   /monitor/status                  controllers.Monitor.status
 
 # Misc

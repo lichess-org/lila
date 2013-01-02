@@ -28,25 +28,14 @@ object Monitor extends LilaController {
   }
 
   def status = Open { implicit ctx ⇒
-    ~get("key") match {
-      case "avg-elo" ⇒ IOk(userRepo.idsAverageElo(usernameMemo.keys))
-      case _ ⇒ Async {
-        (reporting ? GetStatus).mapTo[String].asPromise map { Ok(_) }
-      }
-    }
-  }
-
-  def nbPlayers = Action {
     Async {
-      (reporting ? GetNbMembers).mapTo[Int].asPromise map { players ⇒
-        Ok("%d %d".format(players, usernameMemo.preciseCount))
-      }
-    }
-  }
-
-  def nbMoves = Action {
-    Async {
-      (reporting ? GetNbMoves).mapTo[Int].asPromise map { Ok(_) }
+      import core.Futuristic.ioToFuture
+      (~get("key") match {
+        case "elo"   ⇒ userRepo.idsAverageElo(usernameMemo.keys).toFuture
+        case "moves" ⇒ (reporting ? GetNbMoves).mapTo[Int]
+        case "players" ⇒ (reporting ? GetNbMembers).mapTo[Int] map { "%d %d".format(_, usernameMemo.preciseCount) }
+        case _ ⇒ (reporting ? GetStatus).mapTo[String]
+      }).asPromise map { x ⇒ Ok(x.toString) }
     }
   }
 }
