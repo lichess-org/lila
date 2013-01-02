@@ -158,3 +158,5 @@ averageElo=Ortalama ELO
 location=Yer
 settings=Ayarlar
 filterGames=Oyunları ayıkla
+reset=Reset
+apply=Onay
