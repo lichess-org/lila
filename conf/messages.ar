@@ -158,3 +158,5 @@ averageElo=متوسط تصنيف ELO
 location=الموقع
 settings=الإعدادات
 filterGames=تصفية اللّعب
+reset=إعادة للإفتراضي
+apply=قبول
