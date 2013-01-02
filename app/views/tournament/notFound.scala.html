@@ -1,0 +1,15 @@
+@()(implicit ctx: Context)
+
+@tournament.layout(title = "Tournament not found") {
+<div id="tournament">
+  <div class="content_box small_box faq_page">
+    <h1>Tournament not found</h1>
+    This tournament does not exist.<br />
+    It may have been canceled, if all players left it before the tournament starts.
+    <br />
+    <br />
+    <a href="@routes.Tournament.home()">Back to tournaments homepage</a>
+  </div>
+</div>
+}
+
