@@ -6,8 +6,6 @@
 @ctx.me.map { me =>
 @base.select(form("mode"), translatedModeChoices, trans.mode.str().some)
 @base.select(form("eloDiff"), eloDiffChoices(me.elo))
-}.getOrElse {
-@base.select(form("mode"), translatedModeChoices take 1)
 }
 <div class="actions">
   <button type="submit" class="reset">@trans.reset()</button>
