@@ -64,6 +64,22 @@ class UserRepo(collection: MongoCollection)
     } yield sum.toInt) | 0
   }
 
+  def idsSumToints(ids: Iterable[String]): IO[Int] = io {
+    val result = collection.mapReduce(
+      mapFunction = """function() { emit("e", this.toints); }""",
+      reduceFunction = """function(key, values) {
+  var sum = 0;
+  for(var i in values) { sum += values[i]; }
+  return sum;
+}""",
+      output = MapReduceInlineOutput,
+      query = ("_id" $in ids.map(normalize)).some)
+    (for {
+      row ← result.hasNext option result.next
+      sum ← row.getAs[Double]("value")
+    } yield sum.toInt) | 0
+  }
+
   def username(userId: String): IO[Option[String]] = io {
     primitiveProjection[String](byIdQuery(userId), "username")
   }
