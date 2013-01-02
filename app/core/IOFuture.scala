@@ -9,6 +9,8 @@ import akka.util.Duration
 import akka.util.duration._
 import scalaz.effects._
 
+object Futuristic extends Futuristic
+
 trait Futuristic {
 
   protected implicit val ttl = 1 minute

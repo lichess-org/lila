@@ -44,6 +44,10 @@ class UserRepo(collection: MongoCollection)
       .toList
   }
 
+  def sortedByToints(nb: Int): IO[List[User]] = io {
+    find(DBObject()).sort(DBObject("toints" -> -1)).limit(nb).toList
+  }
+
   def idsAverageElo(ids: Iterable[String]): IO[Int] = io {
     val result = collection.mapReduce(
       mapFunction = """function() { emit("e", this.elo); }""",

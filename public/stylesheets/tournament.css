@@ -131,5 +131,20 @@ div.faq_box {
 }
 
 div.header .tournament_links {
-  margin-top: 2em;
+  margin-top: 30px;
+}
+
+.leaderboard_title {
+  font-size: 1.5em;
+  margin-top: 30px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid #ccc;
+}
+ol.tournament_leaderboard li {
+  font-size: 1.2em;
+  padding: 5px 0;
+  list-style: decimal-leading-zero inside;
+}
+ol.tournament_leaderboard a {
+  text-decoration: none;
 }

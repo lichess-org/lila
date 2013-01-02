@@ -160,3 +160,4 @@ settings=Paramètres
 filterGames=Filtrer les parties
 reset=Réinitialiser
 apply=Appliquer
+leaderboard=Classement
