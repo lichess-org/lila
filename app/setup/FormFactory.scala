@@ -22,7 +22,7 @@ private[setup] final class FormFactory(
       "variant" -> optional(variant),
       "mode" -> mode(ctx.isAuth),
       "speed" -> optional(speed),
-      "eloDiff" -> eloDiff
+      "eloDiff" -> optional(eloDiff)
     )(FilterConfig.<<)(_.>>)
   )
 
