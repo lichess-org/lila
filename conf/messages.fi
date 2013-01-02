@@ -157,3 +157,6 @@ teamRecentMembers=Joukkueen viimeaikaiset jäsenet
 averageElo=Keskimääräinen ELO
 location=Paikka
 settings=Asetukset
+filterGames=Suodata pelejä
+reset=Nollaa
+apply=Ota käyttöön
