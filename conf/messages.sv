@@ -158,3 +158,5 @@ averageElo=Medeltal ELO
 location=Plats
 settings=Inställningra
 filterGames=Filtrera partier
+reset=Ställ tillbaka
+apply=Använd
