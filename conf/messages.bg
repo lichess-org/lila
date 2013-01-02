@@ -158,3 +158,5 @@ averageElo=Средно ELO
 location=Местоположение
 settings=Настройки
 filterGames=Филтрирай игри
+reset=Занули
+apply=Приложи
