@@ -31,7 +31,7 @@ object Team extends LilaController {
     })
   }
 
-  def renderTeam(team: TeamModel, page: Int = 1)(implicit ctx: Context) =
+  private def renderTeam(team: TeamModel, page: Int = 1)(implicit ctx: Context) =
     env.team.teamInfo(team, ctx.me) map { info ⇒
       html.team.show(team, paginator.teamMembers(team, page), info)
     }

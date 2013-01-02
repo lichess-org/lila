@@ -15,6 +15,7 @@ case class TeamInfo(
     requests: List[RequestWithUser],
     bestPlayers: List[User],
     averageElo: Int,
+    toints: Int,
     forumNbPosts: Int,
     forumPosts: List[PostLiteView]) {
 
@@ -41,6 +42,7 @@ object TeamInfo {
     userIds ← memberRepo userIdsByTeamId team.id
     bestPlayers ← userRepo.byIdsSortByElo(userIds, 5)
     averageElo ← userRepo.idsAverageElo(userIds)
+    toints ← userRepo.idsSumToints(userIds)
     forumNbPosts ← getForumNbPosts(team.id)
     forumPosts ← getForumPosts(team.id)
   } yield TeamInfo(
@@ -50,6 +52,7 @@ object TeamInfo {
     requests = requests,
     bestPlayers = bestPlayers,
     averageElo = averageElo,
+    toints = toints,
     forumNbPosts = forumNbPosts,
     forumPosts = forumPosts)
 }
