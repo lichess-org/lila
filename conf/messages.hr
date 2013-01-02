@@ -158,3 +158,5 @@ averageElo=Prosječna ocjena
 location=Lokacija
 settings=Postavke
 filterGames=Filtriraj igre
+reset=Ponovno namjesti
+apply=Primjeni
