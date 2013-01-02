@@ -16,6 +16,7 @@ object Monitor extends LilaController {
 
   private def reporting = env.monitor.reporting
   private def usernameMemo = env.user.usernameMemo
+  private def userRepo = env.user.userRepo
   private implicit def timeout = Timeout(500 millis)
 
   def index = Action {
@@ -26,9 +27,12 @@ object Monitor extends LilaController {
     env.monitor.socket.join(uidOption = get("sri", req))
   }
 
-  def status = Action {
-    Async {
-      (reporting ? GetStatus).mapTo[String].asPromise map { Ok(_) }
+  def status = Open { implicit ctx ⇒
+    ~get("key") match {
+      case "avg-elo" ⇒ IOk(userRepo.idsAverageElo(usernameMemo.keys))
+      case _ ⇒ Async {
+        (reporting ? GetStatus).mapTo[String].asPromise map { Ok(_) }
+      }
     }
   }
 
