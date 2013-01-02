@@ -101,7 +101,7 @@ evenMoreCss = evenMoreCss) {
           @Html(strong(u.nbAi)) AI
         </p>
         <span class="tournament s16 tournament_points">
-          Tournament points: <strong>@u.toints</strong>
+          @trans.tournamentPoints(): <strong>@u.toints</strong>
         </span>
         <div class="teams">
           @teamIds(u.id).sortBy(t => !myTeam(t)).map { teamId =>
