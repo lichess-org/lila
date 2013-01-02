@@ -158,3 +158,5 @@ averageElo=Среднее ЭЛО
 location=Местоположение
 settings=Настройки
 filterGames=Фильтр партий
+reset=Сбросить
+apply=Применить
