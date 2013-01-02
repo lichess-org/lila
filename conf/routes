@@ -1,5 +1,6 @@
 #Site
 GET   /socket             controllers.Main.websocket
+GET   /embed.js           controllers.Main.embed
 
 # Game
 GET   /games              controllers.Game.realtime
@@ -180,6 +181,7 @@ GET   /monitor/status                  controllers.Monitor.status
 # Misc
 POST  /cli                             controllers.Cli.command
 GET   /captcha/$id<[\w]{8}>            controllers.Main.captchaCheck(id: String)
+GET   /developers                      controllers.Main.developers
 
 # Assets
 GET   /assets/*file                    controllers.Assets.at(path="/public", file)

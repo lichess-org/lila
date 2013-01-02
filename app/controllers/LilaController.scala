@@ -83,8 +83,10 @@ trait LilaController
 
   protected def JsonIOk(map: IO[Map[String, Any]]) = JsonOk(map.unsafePerformIO)
 
-  protected def JsIOk(js: IO[String], headers: (String, String)*) = 
-    Ok(js.unsafePerformIO) as JAVASCRIPT withHeaders (headers: _*)
+  protected def JsIOk(js: IO[String], headers: (String, String)*) = JsOk(js.unsafePerformIO)
+
+  protected def JsOk(js: String, headers: (String, String)*) = 
+    Ok(js) as JAVASCRIPT withHeaders (headers: _*)
 
   protected def ValidOk(valid: Valid[Unit]) = valid.fold(
     e ⇒ BadRequest(e.shows),

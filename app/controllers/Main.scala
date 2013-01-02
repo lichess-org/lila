@@ -45,4 +45,15 @@ object Main extends LilaController {
   def captchaCheck(id: String) = Open { implicit ctx ⇒
     Ok(env.site.captcha get id valid ~get("solution") fold (1, 0))
   }
+
+  def embed = Open { implicit ctx ⇒
+    JsOk("""document.write("<iframe src='%s?embed=" + document.domain + "' class='lichess-iframe' allowtransparency='true' frameBorder='0' style='width: %dpx; height: %dpx;' title='Lichess free online chess'></iframe>");"""
+      .format(env.settings.NetBaseUrl, getInt("w") | 820, getInt("h") | 650),
+      CACHE_CONTROL -> "max-age=86400"
+    )
+  }
+
+  def developers = Open { implicit ctx ⇒
+    Ok(views.html.site.developers())
+  }
 }
