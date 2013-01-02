@@ -3,9 +3,10 @@
 @helper.form(action = routes.Setup.filter(), 'novalidate -> "novalidate") {
 @base.select(form("variant"), translatedVariantChoices, trans.variant.str().some)
 @base.select(form("speed"), translatedSpeedChoices, trans.timeControl.str().some)
-@if(ctx.isAuth) {
-@base.select(form("mode"), translatedModeChoices,trans.mode.str().some)
-} else {
+@ctx.me.map { me =>
+@base.select(form("mode"), translatedModeChoices, trans.mode.str().some)
+@base.select(form("eloDiff"), eloDiffChoices(me.elo))
+}.getOrElse {
 @base.select(form("mode"), translatedModeChoices take 1)
 }
 <div class="actions">

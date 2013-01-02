@@ -60,7 +60,7 @@ object FilterConfig {
     variant ← filter.getAs[Int]("v")
     mode ← filter.getAs[Int]("m")
     speed ← filter.getAs[Int]("s")
-    eloDiff = ~filter.getAs[Int]("e")
+    eloDiff ← filter.getAs[Int]("e")
     config ← RawFilterConfig(variant, mode, speed, eloDiff).decode
   } yield config
 }
