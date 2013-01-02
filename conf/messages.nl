@@ -158,3 +158,5 @@ averageElo=Gemiddelde ELO
 location=Plaats
 settings=Instellingen
 filterGames=spellen filteren
+reset=Herstel
+apply=Toepassen
