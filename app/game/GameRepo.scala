@@ -12,6 +12,7 @@ import com.novus.salat._
 import com.novus.salat.dao._
 import com.mongodb.casbah.{ WriteConcern, MongoCollection }
 import com.mongodb.casbah.query.Imports._
+import com.mongodb.casbah.map_reduce.MapReduceInlineOutput
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 import java.util.Date
@@ -56,13 +57,13 @@ final class GameRepo(collection: MongoCollection)
     update(idSelector(game), _grater asDBObject game.encode)
   }
 
-  def save(progress: Progress): IO[Unit] = 
+  def save(progress: Progress): IO[Unit] =
     GameDiff(progress.origin.encode, progress.game.encode) |> {
       case (Nil, Nil) ⇒ io()
       case (sets, unsets) ⇒ {
         val fullSets = ("ua" -> new Date) :: sets
         val ops = unsets.isEmpty.fold(
-          $set(fullSets: _*), 
+          $set(fullSets: _*),
           $set(fullSets: _*) ++ $unset(unsets: _*)
         )
         val wc = WriteConcern.None
@@ -205,6 +206,38 @@ final class GameRepo(collection: MongoCollection)
     val to = from + 1.day
     count(("ca" $gte from $lt to))
   }).sequence
+
+  def recentAverageElo(minutes: Int): IO[(Int, Int)] = io {
+    val result = collection.mapReduce(
+      mapFunction = """function() { 
+        emit(!!this.ra, this.p); 
+      }""",
+      reduceFunction = """function(rated, values) {
+  var sum = 0, nb = 0;
+  values.forEach(function(game) {
+    if(typeof game[0] != "undefined") {
+      game.forEach(function(player) {
+        if(player.elo) {
+          sum += player.elo; 
+          ++nb;
+        }
+      });
+    }
+  });
+  return nb == 0 ? nb : Math.round(sum / nb);
+}""",
+      output = MapReduceInlineOutput,
+      query = Some {
+        ("ca" $gte (DateTime.now - minutes.minutes)) ++ ("p.elo" $exists true)
+      }
+    )
+    (for {
+      ratedRow ← result.hasNext option result.next
+      rated ← ratedRow.getAs[Double]("value")
+      casualRow ← result.hasNext option result.next
+      casual ← casualRow.getAs[Double]("value")
+    } yield rated.toInt -> casual.toInt) | (0, 0)
+  }
 
   private def idSelector(game: DbGame): DBObject = idSelector(game.id)
   private def idSelector(id: String): DBObject = DBObject("_id" -> id)
