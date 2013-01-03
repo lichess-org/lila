@@ -17,6 +17,7 @@ object Monitor extends LilaController {
   private def reporting = env.monitor.reporting
   private def usernameMemo = env.user.usernameMemo
   private def userRepo = env.user.userRepo
+  private def gameRepo = env.game.gameRepo
   private implicit def timeout = Timeout(500 millis)
 
   def index = Action {
@@ -31,10 +32,14 @@ object Monitor extends LilaController {
     Async {
       import core.Futuristic.ioToFuture
       (~get("key") match {
-        case "elo"   ⇒ userRepo.idsAverageElo(usernameMemo.keys).toFuture
-        case "moves" ⇒ (reporting ? GetNbMoves).mapTo[Int]
+        case "elo" ⇒
+          userRepo.idsAverageElo(usernameMemo.keys).toFuture zip
+            gameRepo.recentAverageElo(100000).toFuture map {
+              case (users, (rated, casual)) ⇒ List(users, rated, casual) mkString " "
+            }
+        case "moves"   ⇒ (reporting ? GetNbMoves).mapTo[Int]
         case "players" ⇒ (reporting ? GetNbMembers).mapTo[Int] map { "%d %d".format(_, usernameMemo.preciseCount) }
-        case _ ⇒ (reporting ? GetStatus).mapTo[String]
+        case _         ⇒ (reporting ? GetStatus).mapTo[String]
       }).asPromise map { x ⇒ Ok(x.toString) }
     }
   }
