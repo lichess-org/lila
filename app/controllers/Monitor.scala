@@ -34,7 +34,7 @@ object Monitor extends LilaController {
       (~get("key") match {
         case "elo" ⇒
           userRepo.idsAverageElo(usernameMemo.keys).toFuture zip
-            gameRepo.recentAverageElo(100000).toFuture map {
+            gameRepo.recentAverageElo(5).toFuture map {
               case (users, (rated, casual)) ⇒ List(users, rated, casual) mkString " "
             }
         case "moves"   ⇒ (reporting ? GetNbMoves).mapTo[Int]
