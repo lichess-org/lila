@@ -161,4 +161,4 @@ settings=Configuración
 filterGames=Filtrar partidas
 reset=Reiniciar
 apply=Aplicar
-leaderboard=Tabla de posiciones
+leaderboard=Clasificación
