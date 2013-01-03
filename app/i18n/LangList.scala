@@ -26,7 +26,7 @@ private[i18n] object LangList {
     "az" -> "azərbaycan dili",
     "bm" -> "bamanankan",
     "ba" -> "башҡорт теле",
-    "eu" -> "euskara, euskera",
+    "eu" -> "Euskara",
     "be" -> "Беларуская",
     "bn" -> "বাংলা",
     "bh" -> "भोजपुरी",
