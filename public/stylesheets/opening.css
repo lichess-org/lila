@@ -59,7 +59,7 @@ div.game_config div.color_submits button.submit {
   margin: 0 5px;
 }
 div.game_config div.color_submits button.submit:disabled {
-  opacity: 0.2;
+  opacity: 0;
   cursor: auto;
 }
 div.game_config div.color_submits button.submit span {
