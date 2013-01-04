@@ -9,7 +9,7 @@
 @setup.clock(form, lila.setup.FriendConfig)
 @if(ctx.isAuth) {
 <div class="mode_choice buttons">
-  @setup.radios(form("mode"), lila.setup.FriendConfig.modeChoices)
+  @setup.radios(form("mode"), translatedModeChoices)
 </div>
 }
 }
