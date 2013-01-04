@@ -1023,6 +1023,7 @@ var lichess_translations = [];
         self.$table.find('div.clock').each(function() {
           $(this).clock({
             time: $(this).attr('data-time'),
+            emerg: $(this).attr('data-emerg'),
             buzzer: function() {
               if (!self.options.game.finished && ! self.options.player.spectator) {
                 self.outoftime();
@@ -1177,6 +1178,7 @@ var lichess_translations = [];
     _create: function() {
       var self = this;
       this.options.time = parseFloat(this.options.time) * 1000;
+      this.options.emerg = parseFloat(this.options.emerg) * 1000;
       $.extend(this.options, {
         duration: this.options.time,
         state: 'ready'
@@ -1221,10 +1223,12 @@ var lichess_translations = [];
       clearInterval(this.options.interval);
       this.options.state = 'stop';
       this.element.removeClass('running');
+      this.element.toggleClass('outoftime', this.options.time <= 0);
     },
 
     _show: function() {
       this.element.text(this._formatDate(new Date(this.options.time)));
+      this.element.toggleClass('emerg', this.options.time < this.options.emerg);
     },
 
     _formatDate: function(date) {
