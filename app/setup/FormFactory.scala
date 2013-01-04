@@ -77,6 +77,7 @@ private[setup] final class FormFactory(
     )(HookConfig.<<)(_.>>)
       .verifying("Invalid clock", _.validClock)
       .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited)
+      .verifying("Can't choose color in rated", _.noRatedColor)
   )
 
   def hookConfig(implicit ctx: Context): IO[HookConfig] = savedConfig map (_.hook)

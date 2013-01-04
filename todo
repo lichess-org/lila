@@ -53,4 +53,5 @@ block user creation from an IP
 mute IP
 time color toward end http://fr.lichess.org/forum/lichess-feedback/suggestion-time-color-towards-end#5
 fast join game = creator not redirected properly?
-resign popup on close window
+start clock after black move http://en.lichess.org/forum/lichess-feedback/shouldnt-the-time-start-time-after-blacks-first-move#3
+don't choose color for rated games http://en.lichess.org/forum/lichess-feedback/can-we-have-an-option-to-filter-out-games-with-predetermined-white-and-black-sides#5
