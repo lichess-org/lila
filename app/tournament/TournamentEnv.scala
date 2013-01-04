@@ -39,6 +39,7 @@ final class TournamentEnv(
 
   lazy val api = new TournamentApi(
     repo = repo,
+    roomRepo = roomRepo,
     joiner = joiner,
     socket = socket,
     siteSocket = siteSocket,
