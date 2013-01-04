@@ -14,6 +14,7 @@ import lobby.{ Socket ⇒ LobbySocket }
 
 private[tournament] final class TournamentApi(
     repo: TournamentRepo,
+    roomRepo: RoomRepo,
     joiner: GameJoiner,
     socket: Socket,
     siteSocket: site.Socket,
@@ -58,6 +59,7 @@ private[tournament] final class TournamentApi(
 
   def wipeEmpty(created: Created): IO[Unit] = (for {
     _ ← repo removeIO created
+    _ ← roomRepo removeIO created.id
     _ ← reloadSiteSocket
     _ ← lobbyReload
     _ ← removeLobbyMessage(created)

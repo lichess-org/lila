@@ -28,4 +28,8 @@ class RoomRepo(collection: MongoCollection)
   def insertIO(room: Room) = io {
     insert(room)
   }
+
+  def removeIO(id: String): IO[Unit] = io {
+    remove(DBObject("_id" -> id))
+  }
 }
