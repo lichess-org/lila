@@ -44,7 +44,6 @@ blackLeftTheGame=Nèyr a modà la passa
 shareThisUrlToLetSpectatorsSeeTheGame=Partàji cetì lèm per lassèr de spector véyre dèns la passa
 youAreViewingThisGameAsASpectator=T'avèses cetà passa como un spectator
 replayAndAnalyse=Rejoyèr é analisar
-viewGameStats=View game stats
 flipBoard=Virèr la tràbla
 threefoldRepetition=Tripla repeticion
 claimADraw=Cllamar l'egalità

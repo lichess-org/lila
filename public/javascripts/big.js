@@ -1437,6 +1437,7 @@ var lichess_translations = [];
           if (isHook && rated && $clockCheckbox.attr('checked') != 'checked') {
             $clockCheckbox.click();
           }
+          $form.find('button.white, button.black').attr('disabled', rated);
           $.centerOverboard();
         }).trigger('change');
       });
