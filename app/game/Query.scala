@@ -50,7 +50,7 @@ object Query {
 
   def notFinished(u: User): DBObject = user(u) ++ notFinished
 
-  def opponents(u1: User, u2: User) = "uids" $all List(u1.id, u2.id)
+  def opponents(u1: User, u2: User) = "uids" $all List(u1, u2).sortBy(_.nbGames).map(_.id)
 
   def turnsGt(nb: Int) = "t" $gt nb
 
