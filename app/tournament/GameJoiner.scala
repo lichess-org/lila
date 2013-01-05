@@ -22,18 +22,17 @@ final class GameJoiner(
   def apply(tour: Started)(pairing: Pairing): IO[DbGame] = for {
     user1 ← getUser(pairing.user1) map (_ err "No such user " + pairing)
     user2 ← getUser(pairing.user2) map (_ err "No such user " + pairing)
-    variant = chess.Variant.Standard
     game = DbGame(
       game = chess.Game(
-        board = chess.Board init variant,
+        board = chess.Board init tour.variant,
         clock = tour.clock.chessClock.some
       ),
       ai = None,
       whitePlayer = DbPlayer.white withUser user1,
       blackPlayer = DbPlayer.black withUser user2,
       creatorColor = chess.Color.White,
-      mode = chess.Mode.Casual,
-      variant = variant
+      mode = tour.mode,
+      variant = tour.variant
     ).withTournamentId(tour.id)
       .withId(pairing.gameId)
       .start

@@ -14,6 +14,22 @@ title = "New tournament") {
       <table>
         <tr>
           <th>
+            <label for="@form("variant").id">@trans.variant()</label>
+          </th>
+          <td>
+            @base.select(form("variant"), translatedVariantChoices)
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <label for="@form("mode").id">@trans.mode()</label>
+          </th>
+          <td>
+            @base.select(form("mode"), translatedModeChoices)
+          </td>
+        </tr>
+        <tr>
+          <th>
             <label>Game clock</label>
           </th>
           <td class="inline">

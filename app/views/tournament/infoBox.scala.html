@@ -6,15 +6,10 @@
     <br />
     Created by @userIdLink(tour.createdBy.some, withOnline = false)
     <br /><br />
-    @tour.playerRatio players,
-    @if(false) {
-    rated
-    } else {
-    casual
-    }
+    <span class="s16 clock">@tour.clock.show</span>,
+    @variantName(tour.variant).capitalize, 
+    @{ tour.rated.fold(trans.rated(), trans.casual()) }
     <br /><br />
-    <span class="s16 clock">@tour.clock.show</span>
-    <br />
     Duration: @tour.minutes minutes
     @if(tour.isRunning && (tour isActive ctx.me)) {
     <br /><br />

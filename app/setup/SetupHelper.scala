@@ -15,11 +15,11 @@ trait SetupHelper { self: I18nHelper ⇒
 
   def translatedVariantChoices(implicit ctx: Context) = List(
     Variant.Standard.id.toString -> trans.standard.str(),
-    Variant.Chess960.id.toString -> StringHelper.ucFirst(Variant.Chess960.name)
+    Variant.Chess960.id.toString -> Variant.Chess960.name.capitalize
   )
 
   def translatedSpeedChoices(implicit ctx: Context) = Speed.all map { s ⇒
-    s.id.toString -> (s.toString + " - " + StringHelper.ucFirst(s.name))
+    s.id.toString -> (s.toString + " - " + s.name.capitalize)
   }
 
   def eloDiffChoices(elo: Int)(implicit ctx: Context) = FilterConfig.eloDiffs map { diff ⇒
