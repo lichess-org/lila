@@ -7,6 +7,7 @@ import scalaz.effects._
 import scalaz.{ NonEmptyList, Success, Failure }
 import play.api.libs.json._
 
+import chess.{ Mode, Variant }
 import controllers.routes
 import game.DbGame
 import user.User
@@ -37,7 +38,9 @@ private[tournament] final class TournamentApi(
       createdBy = me,
       clock = TournamentClock(setup.clockTime * 60, setup.clockIncrement),
       minutes = setup.minutes,
-      minPlayers = setup.minPlayers)
+      minPlayers = setup.minPlayers,
+      mode = Mode orDefault ~setup.mode,
+      variant = Variant orDefault setup.variant)
     _ ← repo saveIO created
     _ ← (withdrawIds map socket.reload).sequence
     _ ← reloadSiteSocket
@@ -47,15 +50,11 @@ private[tournament] final class TournamentApi(
 
   def startIfReady(created: Created): Option[IO[Unit]] = created.startIfReady map doStart
 
-  def earlyStart(created: Created): Option[IO[Unit]] = 
+  def earlyStart(created: Created): Option[IO[Unit]] =
     created.readyToEarlyStart option doStart(created.start)
 
-  private def doStart(started: Started): IO[Unit] = for {
-    _ ← repo saveIO started
-    _ ← socket start started.id
-    _ ← reloadSiteSocket
-    _ ← lobbyReload
-  } yield ()
+  private def doStart(started: Started): IO[Unit] =
+    (repo saveIO started) >> (socket start started.id) >> reloadSiteSocket >> lobbyReload
 
   def wipeEmpty(created: Created): IO[Unit] = (for {
     _ ← repo removeIO created

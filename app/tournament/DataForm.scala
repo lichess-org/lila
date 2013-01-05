@@ -1,6 +1,9 @@
 package lila
 package tournament
 
+import chess.{ Mode, Variant }
+import lila.setup.Mappings
+
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
@@ -35,7 +38,9 @@ final class DataForm(isDev: Boolean) {
     "clockTime" -> numberIn(clockTimeChoices),
     "clockIncrement" -> numberIn(clockIncrementChoices),
     "minutes" -> numberIn(minuteChoices),
-    "minPlayers" -> numberIn(minPlayerChoices)
+    "minPlayers" -> numberIn(minPlayerChoices),
+    "variant" -> Mappings.variant,
+    "mode" -> Mappings.mode(true)
   )(TournamentSetup.apply)(TournamentSetup.unapply)
     .verifying("Invalid clock", _.validClock)
     .verifying("Increase tournament duration, or decrease game clock", _.validTiming)
@@ -43,14 +48,18 @@ final class DataForm(isDev: Boolean) {
     clockTime = clockTimeDefault,
     clockIncrement = clockIncrementDefault,
     minutes = minuteDefault,
-    minPlayers = minPlayerDefault)
+    minPlayers = minPlayerDefault,
+    variant = Variant.Standard.id,
+    mode = Mode.Casual.id.some)
 }
 
 private[tournament] case class TournamentSetup(
     clockTime: Int,
     clockIncrement: Int,
     minutes: Int,
-    minPlayers: Int) {
+    minPlayers: Int,
+    variant: Int,
+    mode: Option[Int]) {
 
   def validClock = (clockTime + clockIncrement) > 0
 

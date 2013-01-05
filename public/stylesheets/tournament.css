@@ -42,6 +42,9 @@
 #tournament table.slist tbody span.winner {
   background-position: right -304px;
 }
+#tournament table.slist .small {
+  font-size: 0.8em;
+}
 
 #tournament form.inline {
   display: inline;
