@@ -12,7 +12,7 @@ final class DataForm(isDev: Boolean) {
 
   import lila.core.Form._
 
-  val clockTimes = 0 to 5 by 1
+  val clockTimes = 0 to 7 by 1
   val clockTimeDefault = 2
   val clockTimeChoices = options(clockTimes, "%d minute{s}")
 
