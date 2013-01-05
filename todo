@@ -54,3 +54,5 @@ mute IP
 time color toward end http://fr.lichess.org/forum/lichess-feedback/suggestion-time-color-towards-end#5
 fast join game = creator not redirected properly?
 start clock after black move http://en.lichess.org/forum/lichess-feedback/shouldnt-the-time-start-time-after-blacks-first-move#3
+optimize Query.opponents (user with less games first)
+check denormalization of user game fields
