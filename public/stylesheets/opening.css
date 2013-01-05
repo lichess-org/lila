@@ -58,10 +58,6 @@ div.game_config div.color_submits button.submit {
   padding: 5px 14px;
   margin: 0 5px;
 }
-div.game_config div.color_submits button.submit:disabled {
-  opacity: 0;
-  cursor: auto;
-}
 div.game_config div.color_submits button.submit span {
   background: url(../images/sprite_color.png) no-repeat;
   width: 50px;
