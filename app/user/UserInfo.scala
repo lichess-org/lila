@@ -47,10 +47,7 @@ object UserInfo {
       gameRepo count (_ notFinished user) map (_.some),
       io(none)
     )
-    nbWithMe ← ctx.me.filter(user!=).fold(
-      me ⇒ gameRepo count (_.opponents(user, me)) map (_.some),
-      io(none)
-    )
+    nbWithMe ← ~ctx.me.filter(user!=).map(me ⇒ gameRepo count (_.opponents(user, me)) map (_.some))
     nbBookmark = bookmarkApi countByUser user
     eloChart ← eloChartBuilder(user)
     eloWithMe = ctx.me.filter(user!=) map { me ⇒
