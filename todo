@@ -57,3 +57,5 @@ start clock after black move http://en.lichess.org/forum/lichess-feedback/should
 optimize Query.opponents (user with less games first)
 check denormalization of user game fields
 opponent history http://imgur.com/ur1Mt http://en.lichess.org/forum/lichess-feedback/match-history#10
+rated tournaments
+show tournament trophies on user profile
