@@ -140,4 +140,6 @@ toggleBackground=Змяніць фонавы колер
 advancedSearch=Пашыраны пошук
 tournament=Турнір
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Бясплатныя анлайн шахматы. Гуляй у шахматы са зручным інтэрфейсам. Без рэгістрацыі, без рэкламы, без дадатковых праграм. Гуляй у шахматы з кампутарам, сябрамі ці выпадковым супернікам.
-settings=Наладкі
+averageElo=Сярэдні рэйтынг
+settings=Налады
+filterGames=фільтраваць гульні
