@@ -83,7 +83,8 @@ trait LilaController
 
   protected def JsonIOk(map: IO[Map[String, Any]]) = JsonOk(map.unsafePerformIO)
 
-  protected def JsIOk(js: IO[String], headers: (String, String)*) = JsOk(js.unsafePerformIO)
+  protected def JsIOk(js: IO[String], headers: (String, String)*) = 
+    JsOk(js.unsafePerformIO, headers: _*)
 
   protected def JsOk(js: String, headers: (String, String)*) = 
     Ok(js) as JAVASCRIPT withHeaders (headers: _*)
