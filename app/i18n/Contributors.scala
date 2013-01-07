@@ -63,7 +63,7 @@ private[i18n] object Contributors {
     "ps" -> List("Eimal Dorani"),
     "is" -> List("Sir Gizmo Gunn Myr Basque", "cyberpunk"),
     "kk" -> List("Arsakay Madi"),
-    "io" -> List("Anonymous"),
+    "io" -> List("Fabian Mokross"),
     "gu" -> List("Anonymous"),
     "fo" -> List("Anonymous"),
     "eu" -> List("Anonymous"))
