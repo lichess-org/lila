@@ -5,14 +5,15 @@ import user.{ User, UserRepo }
 import elo.EloUpdater
 import lobby.Messenger
 import core.Settings
-import security.{ Firewall, Store => SecurityStore }
+import security.{ Firewall, UserSpy }
 
 import com.mongodb.casbah.MongoCollection
+import scalaz.effects.IO
 
 final class ModEnv(
     settings: Settings,
     userRepo: UserRepo,
-    securityStore: SecurityStore,
+    userSpy: String ⇒ IO[UserSpy],
     firewall: Firewall,
     eloUpdater: EloUpdater,
     lobbyMessenger: Messenger,
@@ -22,13 +23,12 @@ final class ModEnv(
 
   lazy val modlogRepo = new ModlogRepo(mongodb(ModlogCollectionModlog))
 
-  lazy val logApi = new ModlogApi(
-    repo = modlogRepo)
+  lazy val logApi = new ModlogApi(repo = modlogRepo)
 
   lazy val api = new ModApi(
     logApi = logApi,
     userRepo = userRepo,
-    securityStore = securityStore,
+    userSpy = userSpy,
     firewall = firewall,
     eloUpdater = eloUpdater,
     lobbyMessenger = lobbyMessenger)
