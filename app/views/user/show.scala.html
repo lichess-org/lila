@@ -115,9 +115,11 @@ evenMoreCss = evenMoreCss) {
     @actions
     @info.spy.map { spy =>
     <div class="user_spy">
-      <a class="toggle">Show IPs and UAs</a>
+      <a class="toggle">Show Mod infos</a>
       <div class="inner">
         <br />
+        <strong>Other usernames:</strong>
+        <div class="usernames">@Html(spy.otherUsernames.map(userIdLinkMini).mkString(", "))</div>
         <strong>IP addresses:</strong> <ul>@spy.ips.map { ip =>
           <li>@ip</li>
           }</ul>
