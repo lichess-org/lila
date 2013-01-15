@@ -10,7 +10,7 @@ object Main {
 
   def main(env: CoreEnv)(args: Array[String]): IO[String] = {
 
-    def users = Users(env.user, env.security.store)
+    def users = Users(env.user, env.security.store.deleteUsername)
     def games = Games(env)
     def i18n = I18n(env.i18n)
     def titivate = env.titivate
@@ -28,7 +28,6 @@ object Main {
       case "user-enable" :: uid :: Nil        ⇒ users enable uid
       case "user-disable" :: uid :: Nil       ⇒ users disable uid
       case "user-passwd" :: uid :: pwd :: Nil ⇒ users.passwd(uid, pwd)
-      case "user-track" :: uid :: Nil         ⇒ users track uid
       case "user-roles" :: uid :: Nil         ⇒ users roles uid
       case "user-grant" :: uid :: roles       ⇒ users.grant(uid, roles)
       case "user-rewrite-history" :: Nil      ⇒ users.rewriteHistory

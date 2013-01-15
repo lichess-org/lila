@@ -58,3 +58,7 @@ optimize Query.opponents (user with less games first)
 check denormalization of user game fields
 opponent history http://imgur.com/ur1Mt http://en.lichess.org/forum/lichess-feedback/match-history#10
 show tournament trophies on user profile
+
+deploy
+------
+delete bobo2 security entries

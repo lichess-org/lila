@@ -11,7 +11,7 @@ import scalaz.effects._
 
 case class UserSpy(ips: List[String], uas: List[String])
 
-final class Store(collection: MongoCollection) {
+private[security] final class Store(collection: MongoCollection) {
 
   def save(sessionId: String, username: String, req: RequestHeader) {
     collection += DBObject(
@@ -40,7 +40,7 @@ final class Store(collection: MongoCollection) {
 
   // useful when closing an account,
   // we want to logout too
-  def deleteUsername(username: String) {
+  def deleteUsername(username: String): IO[Unit] = io {
     collection.update(
       DBObject("user" -> normalize(username)),
       $set("up" -> false),

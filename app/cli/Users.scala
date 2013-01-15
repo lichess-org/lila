@@ -5,11 +5,11 @@ import lila.user.{ UserEnv, User, UserRepo }
 import lila.security.{ Store, Permission }
 import scalaz.effects._
 
-private[cli] case class Users(userEnv: UserEnv, securityStore: Store) {
+private[cli] case class Users(userEnv: UserEnv, deleteUsername: String ⇒ IO[Unit]) {
 
   private def userRepo = userEnv.userRepo
 
-  def rewriteHistory: IO[String] = 
+  def rewriteHistory: IO[String] =
     userEnv.historyRepo.fixAll inject "History rewritten"
 
   def roles(username: String): IO[String] = for {
@@ -27,7 +27,7 @@ private[cli] case class Users(userEnv: UserEnv, securityStore: Store) {
   def disable(username: String): IO[String] =
     perform(username, user ⇒
       userRepo disable user map { _ ⇒
-        securityStore deleteUsername username
+        deleteUsername(username)
       }
     )
 
@@ -38,10 +38,6 @@ private[cli] case class Users(userEnv: UserEnv, securityStore: Store) {
         _ ⇒ io()
       ))
     })
-
-  def track(username: String) = io {
-    "%s = %s".format(username, securityStore explore username mkString ", ")
-  }
 
   private def perform(username: String, op: User ⇒ IO[Unit]): IO[String] = for {
     userOption ← userRepo byId username

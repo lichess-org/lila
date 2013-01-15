@@ -178,7 +178,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
   lazy val mod = new lila.mod.ModEnv(
     settings = settings,
     userRepo = user.userRepo,
-    securityStore = security.store,
+    userSpy = security.store.userSpy _,
     firewall = security.firewall,
     eloUpdater = user.eloUpdater,
     lobbyMessenger = lobby.messenger,
