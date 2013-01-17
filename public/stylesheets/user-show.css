@@ -74,7 +74,7 @@ div.user_show div.games {
 div.user_show .actions {
   margin-bottom: 1em;
 }
-div.user_show .actions a.toggle,
+div.user_show .actions a.action,
 div.user_show .actions form {
   display: block;
   float: left;
