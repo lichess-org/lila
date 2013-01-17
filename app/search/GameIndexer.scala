@@ -21,9 +21,9 @@ final class GameIndexer(
   val indexName = "lila"
   val typeName = "game"
 
-  private val indexer = new TypeIndexer(es, typeName, Game.mapping)
+  private val indexer = new TypeIndexer(es, typeName, Game.mapping, indexQuery)
 
-  val rebuildAll = indexer.rebuildAll(indexQuery)
+  val rebuildAll = indexer.rebuildAll
 
   val optimize = indexer.optimize
 

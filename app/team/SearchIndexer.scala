@@ -16,17 +16,15 @@ final class SearchIndexer(es: EsIndexer, teamRepo: TeamRepo) {
   val indexName = "lila"
   val typeName = "team"
 
-  private val indexer = new TypeIndexer(es, typeName, SearchMapping.mapping)
+  private val indexer = new TypeIndexer(es, typeName, SearchMapping.mapping, indexQuery)
 
-  val rebuildAll = indexer.rebuildAll(indexQuery)
+  val rebuildAll = indexer.rebuildAll
 
   val optimize = indexer.optimize
 
   val search = indexer.search _
 
   val count = indexer.count _
-
-  // def count(request: CountRequest): Int = request.in(indexName, typeName)(es)
 
   private def indexQuery(query: DBObject): IO[Int] = io {
     val cursor = teamRepo find query
