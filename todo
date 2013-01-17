@@ -37,7 +37,6 @@ not possible to copy the link URL invite when using a touch device. Can this be 
 search bug http://en.lichess.org/games/search?players.a=&players.b=&players.winner=&eloMin=&eloMax=&hasAi=&aiLevelMin=&aiLevelMax=&variant=&mode=1&opening=&turnsMin=&turnsMax=&durationMin=&durationMax=&status=35&dateMin=&dateMax=&sort.field=tu&sort.order=asc
 takeback substract time for person granting
 add fullscreen mode for spectators and load new games in a loop (based on certain filter options) - thus creating a chess tv channel
-team search
 only team forum posts on the homepage?
 look at gameknot teams (to steal ideas)
 clock color (or end of time indication)
@@ -59,3 +58,4 @@ check denormalization of user game fields
 opponent history http://imgur.com/ur1Mt http://en.lichess.org/forum/lichess-feedback/match-history#10
 show tournament trophies on user profile
 lots of bookmarks break the page style http://en.lichess.org/rc7l3n66
+team, forum, message search
