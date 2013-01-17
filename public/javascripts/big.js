@@ -341,6 +341,7 @@ var lichess_translations = [];
           $p.click(function(e) { e.stopPropagation(); });
           $('html').one('click', function(e) { $p.removeClass('shown').off('click'); });
         }, 10);
+        return false;
       });
     });
 
