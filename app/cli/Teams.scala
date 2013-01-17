@@ -2,13 +2,16 @@ package lila
 package cli
 
 import user.{ User, UserRepo }
-import team.{ Team, TeamRepo, TeamApi }
+import team.{ Team, TeamRepo, TeamApi, SearchIndexer }
 import scalaz.effects._
 
 private[cli] case class Teams(
     teamRepo: TeamRepo,
     userRepo: UserRepo,
+    indexer: SearchIndexer,
     api: TeamApi) {
+
+  def searchReset: IO[String] = indexer.rebuildAll inject "Search index reset"
 
   def join(teamId: String, userIds: List[String]): IO[String] =
     perform2(teamId, userIds)(api.doJoin _)

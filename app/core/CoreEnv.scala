@@ -52,6 +52,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
 
   lazy val team = new lila.team.TeamEnv(
     settings = settings,
+    esIndexer = search.esIndexer,
     captcha = site.captcha,
     userRepo = user.userRepo,
     sendMessage = message.api.lichessThread,

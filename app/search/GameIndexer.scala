@@ -1,6 +1,7 @@
 package lila
 package search
 
+import ElasticSearch.Request
 import game.{ GameRepo, PgnRepo, DbGame, Query ⇒ GameQuery }
 
 import scalaz.effects._
@@ -26,11 +27,9 @@ final class GameIndexer(
 
   val optimize = indexer.optimize
 
-  private val clear = indexer.clear
+  val search = indexer.search _
 
-  def search(request: SearchRequest): SearchResponse = request.in(indexName, typeName)(es)
-
-  def count(request: CountRequest): Int = request.in(indexName, typeName)(es)
+  val count = indexer.count _
 
   val indexQueue: IO[Unit] = queue next 2000 flatMap { ids ⇒
     ~ids.toNel.map(neIds ⇒
@@ -62,8 +61,7 @@ final class GameIndexer(
     nb
   }
 
-  def toGames(response: SearchResponse): IO[List[DbGame]] =
-    gameRepo games {
-      response.hits.hits.toList map (_.id)
-    }
+  def toGames(response: SearchResponse): IO[List[DbGame]] = gameRepo games {
+    response.hits.hits.toList map (_.id)
+  }
 }

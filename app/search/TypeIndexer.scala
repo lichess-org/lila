@@ -10,13 +10,17 @@ import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
 import com.mongodb.casbah.query.Imports._
 
 final class TypeIndexer(
-  es: EsIndexer, 
-  typeName: String,
-  mapping: Map[String, Any]) {
+    es: EsIndexer,
+    typeName: String,
+    mapping: Map[String, Any]) {
 
   private val indexName = "lila"
 
-  def rebuildAll(indexQuery: DBObject => IO[Int]): IO[Unit] = for {
+  def search(request: ElasticSearch.Request.Search): SearchResponse = request.in(indexName, typeName)(es)
+
+  def count(request: ElasticSearch.Request.Count): Int = request.in(indexName, typeName)(es)
+
+  def rebuildAll(indexQuery: DBObject ⇒ IO[Int]): IO[Unit] = for {
     _ ← clear
     nb ← indexQuery(DBObject())
     _ ← io { es.waitTillCountAtLeast(Seq(indexName), typeName, nb) }
