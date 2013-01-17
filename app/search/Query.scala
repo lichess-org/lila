@@ -57,7 +57,7 @@ case class Query(
     turns filters fields.turns,
     averageElo filters fields.averageElo,
     duration map (60 *) filters fields.duration,
-    date map Game.dateFormatter.print filters fields.date,
+    date map ElasticSearch.Date.formatter.print filters fields.date,
     hasAiFilters,
     (hasAi | true).fold(aiLevel filters fields.ai, Nil),
     toFilters(variant, fields.variant),

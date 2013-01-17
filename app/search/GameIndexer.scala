@@ -11,7 +11,7 @@ import org.elasticsearch.action.search.SearchResponse
 import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
 import com.mongodb.casbah.query.Imports._
 
-final class Indexer(
+final class GameIndexer(
     es: EsIndexer,
     gameRepo: GameRepo,
     pgnRepo: PgnRepo,
@@ -20,36 +20,24 @@ final class Indexer(
   val indexName = "lila"
   val typeName = "game"
 
-  def rebuildAll: IO[Unit] = for {
-    _ ← clear
-    nb ← indexQuery(DBObject())
-    _ ← io { es.waitTillCountAtLeast(Seq(indexName), typeName, nb) }
-    _ ← optimize
-  } yield ()
+  private val indexer = new TypeIndexer(es, typeName, Game.mapping)
+
+  val rebuildAll = indexer.rebuildAll(indexQuery)
+
+  val optimize = indexer.optimize
+
+  private val clear = indexer.clear
 
   def search(request: SearchRequest): SearchResponse = request.in(indexName, typeName)(es)
 
   def count(request: CountRequest): Int = request.in(indexName, typeName)(es)
 
-  val indexQueue: IO[Unit] = for {
-    ids ← queue next 2000
-    _ ← ids.toNel.fold(
-      neIds ⇒ for {
-        _ ← putStrLn("[search] indexing %d games" format neIds.list.size)
-        _ ← indexQuery("_id" $in neIds.list)
-        _ ← queue remove neIds.list
-      } yield (),
-      io()
+  val indexQueue: IO[Unit] = queue next 2000 flatMap { ids ⇒
+    ~ids.toNel.map(neIds ⇒
+      putStrLn("[search] indexing %d games" format neIds.list.size) >>
+        indexQuery("_id" $in neIds.list) >>
+        (queue remove neIds.list)
     )
-  } yield ()
-
-  private def clear: IO[Unit] = io {
-    es.deleteIndex(Seq(indexName))
-  } map (_ ⇒ ()) except { e ⇒ putStrLn("Index does not exist yet") } map { _ ⇒
-    es.createIndex(indexName, settings = Map())
-    es.waitTillActive()
-    es.putMapping(indexName, typeName, Json generate Map(typeName -> Game.mapping))
-    es.refresh()
   }
 
   private def indexQuery(query: DBObject): IO[Int] = io {
@@ -72,10 +60,6 @@ final class Indexer(
       }
     }
     nb
-  }
-
-  val optimize: IO[Unit] = io {
-    es.optimize(Seq(indexName))
   }
 
   def toGames(response: SearchResponse): IO[List[DbGame]] =
