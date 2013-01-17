@@ -32,8 +32,8 @@
 
 @actions = {
 @if(ctx is u) {
-<a class="small" href="@routes.User.passwd">Change password</a>
-<a class="small" href="@routes.User.close">Close account</a>
+<a class="small action" href="@routes.User.passwd">Change password</a>
+<a class="small action" href="@routes.User.close">Close account</a>
 } else {
 @if(isGranted(Permission.MarkEngine)) {
 <form method="post" action="@routes.Mod.engine(u.username)">
@@ -115,7 +115,7 @@ evenMoreCss = evenMoreCss) {
     @actions
     @info.spy.map { spy =>
     <div class="user_spy">
-      <a class="toggle">Show Mod infos</a>
+      <a class="action toggle">Show Mod infos</a>
       <div class="inner">
         <br />
         <strong>Other usernames:</strong>
