@@ -28,9 +28,9 @@ final class TypeIndexer(
   } yield ()
 
   val clear: IO[Unit] = io {
-    es.deleteIndex(Seq(indexName))
-  } inject () except { e ⇒ putStrLn("Index does not exist yet") } map { _ ⇒
     es.createIndex(indexName, settings = Map())
+  } inject () except { e ⇒ putStrLn("Index already exists") } map { _ ⇒
+    es.deleteByQuery(Seq(indexName), Seq(typeName))
     es.waitTillActive()
     es.putMapping(indexName, typeName, Json generate Map(typeName -> mapping))
     es.refresh()
