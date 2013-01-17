@@ -6,7 +6,7 @@ import game.DbGame
 import com.github.ornicar.paginator._
 
 private[search] final class PaginatorBuilder(
-    indexer: Indexer,
+    indexer: GameIndexer,
     maxPerPage: Int) {
 
   def apply(query: Query, page: Int): Paginator[DbGame] = Paginator(
@@ -16,7 +16,7 @@ private[search] final class PaginatorBuilder(
 }
 
 private[search] final class ESAdapter(
-    indexer: Indexer,
+    indexer: GameIndexer,
     query: Query) extends Adapter[DbGame] {
 
   def nbResults = indexer count query.countRequest
