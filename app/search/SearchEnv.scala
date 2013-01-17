@@ -32,7 +32,7 @@ final class SearchEnv(
   private lazy val queue = new Queue(
     collection = mongodb(SearchCollectionQueue))
 
-  private lazy val esIndexer = elasticsearch.Indexer.transport(
+  lazy val esIndexer = elasticsearch.Indexer.transport(
     settings = Map(
       "cluster.name" -> SearchESCluster
     ),

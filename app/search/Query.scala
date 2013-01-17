@@ -1,6 +1,7 @@
 package lila
 package search
 
+import ElasticSearch.Request
 import Game.fields
 import chess.{ Variant, Mode, Status, EcoDb }
 import elo.EloRange
@@ -40,14 +41,14 @@ case class Query(
       date.nonEmpty ||
       duration.nonEmpty
 
-  def searchRequest(from: Int = 0, size: Int = 10) = SearchRequest(
+  def searchRequest(from: Int = 0, size: Int = 10) = Request.Search(
     query = matchAllQuery,
     filter = filters,
     sortings = List(sorting.fieldSort),
     from = from,
     size = size)
 
-  def countRequest = CountRequest(matchAllQuery, filters)
+  def countRequest = Request.Count(matchAllQuery, filters)
 
   def usernames = List(user1, user2).flatten
 

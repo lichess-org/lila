@@ -8,10 +8,12 @@ import message.LichessThread
 import forum.{ Categ, PostLiteView }
 
 import com.mongodb.casbah.MongoCollection
+import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
 import scalaz.effects._
 
 final class TeamEnv(
     settings: Settings,
+    esIndexer: EsIndexer,
     captcha: Captcha,
     userRepo: UserRepo,
     sendMessage: LichessThread ⇒ IO[Unit],
@@ -21,6 +23,8 @@ final class TeamEnv(
     mongodb: String ⇒ MongoCollection) {
 
   import settings._
+
+  lazy val indexer = new SearchIndexer(es = esIndexer, teamRepo = teamRepo)
 
   lazy val teamRepo = new TeamRepo(mongodb(TeamCollectionTeam))
 
