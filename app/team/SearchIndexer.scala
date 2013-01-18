@@ -32,7 +32,7 @@ final class SearchIndexer(es: EsIndexer, teamRepo: TeamRepo) {
       es bulk {
         teams map SearchMapping.apply map {
           case (id, doc) ⇒ es.index_prepare(indexName, typeName, id, Json generate doc).request
-        }
+        } 
       }
     }
     cursor.count
