@@ -25,24 +25,30 @@ final class TypeIndexer(
 
   private val indexName = "lila"
 
+  private case object Clear
   private case object RebuildAll
   private case object Optimize
 
   private lazy val actor = Akka.system.actorOf(Props(new Actor {
 
     def receive = {
-      case RebuildAll ⇒ doRebuildAll.unsafePerformIO
-      case Optimize   ⇒ doRebuildAll.unsafePerformIO
+      case Clear ⇒ {
+        // try {
+        es.createIndex(indexName, settings = Map())
+        // } catch {
+        // }
+        es.deleteByQuery(Seq(indexName), Seq(typeName))
+        es.waitTillActive()
+        es.putMapping(indexName, typeName, Json generate Map(typeName -> mapping))
+        es.refresh()
+      }
+      case RebuildAll ⇒ {
+        clear >> indexQuery(DBObject()) flatMap { nb ⇒
+          io { es.waitTillCountAtLeast(Seq(indexName), typeName, nb) }
+        } >> optimize
+      }.unsafePerformIO
+      case Optimize ⇒ es.optimize(Seq(indexName))
     }
-
-    private val doRebuildAll: IO[Unit] = for {
-      _ ← clear
-      nb ← indexQuery(DBObject())
-      _ ← io { es.waitTillCountAtLeast(Seq(indexName), typeName, nb) }
-      _ ← optimize
-    } yield ()
-
-    private val doOptimize: IO[Unit] = io { es.optimize(Seq(indexName)) }
   }))
 
   def search(request: ElasticSearch.Request.Search): SearchResponse = request.in(indexName, typeName)(es)
@@ -53,12 +59,5 @@ final class TypeIndexer(
 
   val optimize: IO[Unit] = io { actor ! Optimize }
 
-  val clear: IO[Unit] = io {
-    es.createIndex(indexName, settings = Map())
-  } inject () except { e ⇒ putStrLn("Index already exists") } map { _ ⇒
-    es.deleteByQuery(Seq(indexName), Seq(typeName))
-    es.waitTillActive()
-    es.putMapping(indexName, typeName, Json generate Map(typeName -> mapping))
-    es.refresh()
-  }
+  val clear: IO[Unit] = io { actor ! Clear }
 }
