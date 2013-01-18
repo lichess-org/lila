@@ -32,22 +32,27 @@ final class TypeIndexer(
   private lazy val actor = Akka.system.actorOf(Props(new Actor {
 
     def receive = {
-      case Clear ⇒ {
-        // try {
-        es.createIndex(indexName, settings = Map())
-        // } catch {
-        // }
-        es.deleteByQuery(Seq(indexName), Seq(typeName))
-        es.waitTillActive()
-        es.putMapping(indexName, typeName, Json generate Map(typeName -> mapping))
-        es.refresh()
-      }
-      case RebuildAll ⇒ {
-        clear >> indexQuery(DBObject()) flatMap { nb ⇒
-          io { es.waitTillCountAtLeast(Seq(indexName), typeName, nb) }
-        } >> optimize
-      }.unsafePerformIO
+      case Clear ⇒ doClear
+      case RebuildAll ⇒ (for {
+        _ ← io { doClear }
+        nb ← indexQuery(DBObject())
+        _ ← io { es.waitTillCountAtLeast(Seq(indexName), typeName, nb) }
+        _ ← optimize
+      } yield ()).unsafePerformIO
       case Optimize ⇒ es.optimize(Seq(indexName))
+    }
+
+    private def doClear {
+      try {
+        es.createIndex(indexName, settings = Map())
+      }
+      catch {
+        case e: org.elasticsearch.indices.IndexAlreadyExistsException ⇒
+      }
+      es.deleteByQuery(Seq(indexName), Seq(typeName))
+      es.waitTillActive()
+      es.putMapping(indexName, typeName, Json generate Map(typeName -> mapping))
+      es.refresh()
     }
   }))
 
