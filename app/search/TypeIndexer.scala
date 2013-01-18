@@ -51,6 +51,7 @@ final class TypeIndexer(
       }
       es.deleteByQuery(Seq(indexName), Seq(typeName))
       es.waitTillActive()
+      es.deleteMapping(indexName :: Nil, typeName.some)
       es.putMapping(indexName, typeName, Json generate Map(typeName -> mapping))
       es.refresh()
     }

@@ -18,7 +18,10 @@ object ElasticSearch {
       name -> (Map(
         "type" -> typ,
         "index" -> analyzed.fold("analyzed", "not_analyzed")
-      ) ++ attrs)
+      ) ++ attrs).pp
+
+    def boost(name: String, typ: String, b: Int = 1, attrs: Map[String, Any] = Map.empty) =
+      field(name, typ, true, Map("boost" -> b) ++ attrs)
 
     def obj(name: String, properties: Map[String, Any]) =
       name -> Map("type" -> "object", "properties" -> properties)
