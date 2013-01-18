@@ -12,13 +12,13 @@ private[team] object SearchMapping {
     val nbMembers = "nbm"
   }
   import fields._
-  import Mapping.field
+  import Mapping._
 
   def mapping = Map(
     "properties" -> List(
-      field(name, "string"),
-      field(description, "string"),
-      field(location, "string"),
+      boost(name, "string", 3),
+      boost(description, "string"),
+      boost(location, "string"),
       field(nbMembers, "short")
     ).toMap
   )
