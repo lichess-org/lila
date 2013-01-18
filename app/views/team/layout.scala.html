@@ -19,9 +19,6 @@
   <a class="@tab.active("all")" href="@routes.Team.home()">
     @trans.allTeams()
   </a>
-  <a class="@tab.active("search")" href="@routes.Team.search()">
-    @trans.searchATeam()
-  </a>
   @if(~ctx.me.map(_.canTeam)) {
   <a class="@tab.active("mine")" href="@routes.Team.mine()">
     @trans.myTeams()

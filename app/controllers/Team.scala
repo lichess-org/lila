@@ -20,6 +20,7 @@ object Team extends LilaController {
   private def forms = env.team.forms
   private def api = env.team.api
   private def paginator = env.team.paginator
+  private def searchPaginator = env.team.searchPaginator
 
   def home(page: Int) = Open { implicit ctx ⇒
     Ok(html.team.home(paginator popularTeams page))
@@ -31,18 +32,13 @@ object Team extends LilaController {
     })
   }
 
-  def search(page: Int) = TODO 
-  // OpenBody { implicit ctx ⇒
-  //   implicit def req = ctx.body
-  //   forms.search.bindFromRequest.fold(
-  //     failure ⇒ Ok(html.team.home(paginator popularTeams page)),
-  //     text ⇒ {
-  //       Ok(html.team.search(
-  //         option env.search.paginator(data.query, page)
-  //       ))
-  //     }
-  //   )
-  // }
+  def search(page: Int) = OpenBody { implicit ctx ⇒
+    implicit def req = ctx.body
+    forms.search.bindFromRequest.fold(
+      failure ⇒ Ok(html.team.home(paginator popularTeams page)),
+      text ⇒ Ok(html.team.search(text, searchPaginator(text, page)))
+    )
+  }
 
   private def renderTeam(team: TeamModel, page: Int = 1)(implicit ctx: Context) =
     env.team.teamInfo(team, ctx.me) map { info ⇒

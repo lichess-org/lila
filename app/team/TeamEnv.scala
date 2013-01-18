@@ -43,6 +43,10 @@ final class TeamEnv(
     maxPerPage = TeamPaginatorMaxPerPage,
     maxUserPerPage = TeamPaginatorMaxUserPerPage)
 
+  lazy val searchPaginator = new SearchPaginatorBuilder(
+    indexer = indexer,
+    maxPerPage = TeamPaginatorMaxPerPage)
+
   lazy val api = new TeamApi(
     teamRepo = teamRepo,
     memberRepo = memberRepo,

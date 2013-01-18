@@ -10,7 +10,7 @@ import scalastic.elasticsearch.SearchParameterTypes.FieldSort
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 
-case class SearchQuery(text: Option[String] = None) {
+case class SearchQuery(text: String) {
 
   def nonEmpty = text.nonEmpty
 
