@@ -1,7 +1,12 @@
 #!/bin/sh
 . bin/lilarc
 
-URL=$PROD_URL
+if [ $1 = "ai" ]; then
+  URL="http://localhost:9000/ai/stockfish/play"
+else
+  URL=$AI_PROD_URL
+fi
+
 TIMEOUT=10 # Restart if it takes longer than that
 DELAY=20 # Check every delay
 MSG="Connect to $URL in less than $TIMEOUT seconds"
