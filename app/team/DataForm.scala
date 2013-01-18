@@ -22,6 +22,8 @@ final class DataForm(
     val move = "move" -> text
   }
 
+  val search = Form(single("text" -> nonEmptyText))
+
   val create = Form(mapping(
     Fields.name,
     Fields.location,
