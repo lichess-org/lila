@@ -9,10 +9,10 @@ private[team] final class SearchPaginatorBuilder(
     indexer: SearchIndexer,
     maxPerPage: Int) {
 
-  def apply(query: SearchQuery, page: Int): Paginator[Team] = Paginator(
-    adapter = new ESAdapter(indexer, query),
+  def apply(text: String, page: Int): Paginator[Team] = Paginator(
+    adapter = new ESAdapter(indexer, SearchQuery(text)),
     currentPage = page,
-    maxPerPage = maxPerPage).fold(_ ⇒ apply(query, 0), identity)
+    maxPerPage = maxPerPage).fold(_ ⇒ apply(text, 0), identity)
 
   private class ESAdapter(
       indexer: SearchIndexer,
