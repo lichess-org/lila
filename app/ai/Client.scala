@@ -13,7 +13,7 @@ trait Client extends Ai {
   // tells whether the remote AI is healthy or not
   // frequently updated by a scheduled actor
   protected var ping = none[Int]
-  protected val pingAlert = 3000
+  protected val pingAlert = 5000
 
   def or(fallback: Ai) = if (currentHealth) this else fallback
 
