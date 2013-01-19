@@ -34,12 +34,12 @@ final class GameIndexer(
   val indexQueue: IO[Unit] = queue next 2000 flatMap { ids ⇒
     ~ids.toNel.map(neIds ⇒
       putStrLn("[search] indexing %d games" format neIds.list.size) >>
-        indexQuery("_id" $in neIds.list) >>
+        io(indexQuery("_id" $in neIds.list)) >>
         (queue remove neIds.list)
     )
   }
 
-  private def indexQuery(query: DBObject): IO[Int] = io {
+  private def indexQuery(query: DBObject) {
     val cursor = gameRepo find (GameQuery.frozen ++ query) sort GameQuery.sortCreated //limit 3000
     val size = cursor.count
     var nb = 0
