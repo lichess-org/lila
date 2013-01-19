@@ -26,14 +26,12 @@ final class SearchIndexer(es: EsIndexer, teamRepo: TeamRepo) {
 
   val count = indexer.count _
 
-  private def indexQuery(query: DBObject): IO[Int] = io {
+  val indexOne = indexer.indexOne _
+
+  private def indexQuery(query: DBObject) {
     val cursor = teamRepo find query
     for (teams ← cursor grouped 5000) {
-      es bulk {
-        teams map SearchMapping.apply map {
-          case (id, doc) ⇒ es.index_prepare(indexName, typeName, id, Json generate doc).request
-        } 
-      }
+      indexer.indexMany(teams.map(SearchMapping.apply).toMap).unsafePerformIO
     }
     cursor.count
   }

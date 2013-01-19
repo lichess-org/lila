@@ -21,25 +21,37 @@ final class TypeIndexer(
     es: EsIndexer,
     typeName: String,
     mapping: Map[String, Any],
-    indexQuery: DBObject ⇒ IO[Int]) {
+    indexQuery: DBObject ⇒ Unit) {
 
   private val indexName = "lila"
 
   private case object Clear
   private case object RebuildAll
   private case object Optimize
+  private case class IndexOne(id: String, doc: Map[String, Any])
+  private case class IndexMany(list: Map[String, Map[String, Any]])
 
   private lazy val actor = Akka.system.actorOf(Props(new Actor {
 
     def receive = {
+
       case Clear ⇒ doClear
-      case RebuildAll ⇒ (for {
-        _ ← io { doClear }
-        nb ← indexQuery(DBObject())
-        _ ← io { es.waitTillCountAtLeast(Seq(indexName), typeName, nb) }
-        _ ← optimize
-      } yield ()).unsafePerformIO
-      case Optimize ⇒ es.optimize(Seq(indexName))
+
+      case RebuildAll ⇒ {
+        doClear 
+        indexQuery(DBObject())
+        self ! Optimize
+      } 
+
+      case Optimize          ⇒ es.optimize(Seq(indexName))
+
+      case IndexOne(id, doc) ⇒ es.index(indexName, typeName, id, Json generate doc)
+
+      case IndexMany(list) ⇒ es bulk {
+        list map {
+          case (id, doc) ⇒ es.index_prepare(indexName, typeName, id, Json generate doc).request
+        }
+      }
     }
 
     private def doClear {
@@ -66,4 +78,8 @@ final class TypeIndexer(
   val optimize: IO[Unit] = io { actor ! Optimize }
 
   val clear: IO[Unit] = io { actor ! Clear }
+
+  def indexOne(id: String, doc: Map[String, Any]) = io { actor ! IndexOne(id, doc) }
+
+  def indexMany(list: Map[String, Map[String, Any]]) = io { actor ! IndexMany(list) }
 }
