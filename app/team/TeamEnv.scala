@@ -55,7 +55,8 @@ final class TeamEnv(
     userRepo = userRepo,
     messenger = messenger,
     makeForum = makeForum,
-    paginator = paginator)
+    paginator = paginator,
+    indexTeam = indexer.indexOne _)
 
   lazy val teamInfo = TeamInfo(
     api = api,

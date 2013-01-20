@@ -16,7 +16,8 @@ final class TeamApi(
     userRepo: UserRepo,
     messenger: TeamMessenger,
     makeForum: (String, String) ⇒ IO[Unit],
-    paginator: PaginatorBuilder) {
+    paginator: PaginatorBuilder,
+    indexTeam: Team ⇒ IO[Unit]) {
 
   val creationPeriod = 1 week
 
@@ -33,6 +34,7 @@ final class TeamApi(
             _ ← memberRepo.add(team.id, me.id)
             _ ← io(cached invalidateTeamIds me.id)
             _ ← makeForum(team.id, team.name)
+            _ ← indexTeam(team)
           } yield team
         }
     }
@@ -43,7 +45,7 @@ final class TeamApi(
       location = e.location,
       description = e.description,
       open = e.isOpen
-    ) |> teamRepo.saveIO
+    ) |> { team ⇒ teamRepo.saveIO(team) >> indexTeam(team) }
   }
 
   def mine(me: User): IO[List[Team]] = for {

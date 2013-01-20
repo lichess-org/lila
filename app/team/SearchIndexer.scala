@@ -26,7 +26,9 @@ final class SearchIndexer(es: EsIndexer, teamRepo: TeamRepo) {
 
   val count = indexer.count _
 
-  val indexOne = indexer.indexOne _
+  def indexOne(team: Team) = SearchMapping(team) match {
+    case (id, doc) ⇒ indexer.indexOne(id, doc)
+  }
 
   private def indexQuery(query: DBObject) {
     val cursor = teamRepo find query
