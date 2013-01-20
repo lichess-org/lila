@@ -7,6 +7,7 @@ import scalaz.effects._
 import com.codahale.jerkson.Json
 
 import org.elasticsearch.action.search.SearchResponse
+import org.elasticsearch.index.query._, QueryBuilders._
 
 import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
 import com.mongodb.casbah.query.Imports._
@@ -37,6 +38,14 @@ private[forum] final class SearchIndexer(
   } yield ()
 
   def removeOne(post: Post) = indexer removeOne post.id
+
+  def removeTopic(topic: Topic) = io {
+    es.deleteByQuery(
+      Seq(indexName), 
+      Seq(typeName), 
+      termQuery(SearchMapping.fields.topicId, topic.id)
+    )
+  }
 
   private def indexQuery(query: DBObject) {
     val cursor = postRepo find query

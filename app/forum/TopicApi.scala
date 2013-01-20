@@ -47,6 +47,7 @@ final class TopicApi(env: ForumEnv, maxPerPage: Int) {
       nbPosts = categ.nbPosts + 1,
       lastPostId = post.id)
     _ ← env.recent.invalidate
+    _ ← env.indexer insertOne post
   } yield topic
 
   def get(categSlug: String, slug: String) = for {
@@ -73,6 +74,7 @@ final class TopicApi(env: ForumEnv, maxPerPage: Int) {
     _ ← env.topicRepo removeIO topic
     _ ← env.categApi denormalize categ
     _ ← env.recent.invalidate
+    _ ← env.indexer removeTopic topic
   } yield ()
 
   def denormalize(topic: Topic): IO[Unit] = for {
