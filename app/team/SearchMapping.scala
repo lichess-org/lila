@@ -20,7 +20,14 @@ private[team] object SearchMapping {
       boost(description, "string"),
       boost(location, "string"),
       field(nbMembers, "short")
-    ).toMap
+    ).toMap,
+    "analyzer" -> "snowball",
+    "analysis" -> Map(
+      "analyzer" -> Map(
+        "type" -> "snowball",
+        "language" -> "english"
+      )
+    )
   )
 
   def apply(team: Team): Pair[String, Map[String, Any]] = team.id -> Map(

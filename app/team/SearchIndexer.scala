@@ -11,7 +11,7 @@ import org.elasticsearch.action.search.SearchResponse
 import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
 import com.mongodb.casbah.query.Imports._
 
-final class SearchIndexer(es: EsIndexer, teamRepo: TeamRepo) {
+private[team] final class SearchIndexer(es: EsIndexer, teamRepo: TeamRepo) {
 
   val indexName = "lila"
   val typeName = "team"
@@ -26,14 +26,16 @@ final class SearchIndexer(es: EsIndexer, teamRepo: TeamRepo) {
 
   val count = indexer.count _
 
-  def indexOne(team: Team) = SearchMapping(team) match {
-    case (id, doc) ⇒ indexer.indexOne(id, doc)
+  def insertOne(team: Team) = SearchMapping(team) match {
+    case (id, doc) ⇒ indexer.insertOne(id, doc)
   }
+
+  def removeOne(team: Team) = indexer removeOne team.id
 
   private def indexQuery(query: DBObject) {
     val cursor = teamRepo find query
     for (teams ← cursor grouped 5000) {
-      indexer.indexMany(teams.map(SearchMapping.apply).toMap).unsafePerformIO
+      indexer.insertMany(teams.map(SearchMapping.apply).toMap).unsafePerformIO
     }
     cursor.count
   }

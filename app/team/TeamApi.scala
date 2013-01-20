@@ -17,27 +17,23 @@ final class TeamApi(
     messenger: TeamMessenger,
     makeForum: (String, String) ⇒ IO[Unit],
     paginator: PaginatorBuilder,
-    indexTeam: Team ⇒ IO[Unit]) {
+    indexer: SearchIndexer) {
 
   val creationPeriod = 1 week
 
   def create(setup: TeamSetup, me: User): Option[IO[Team]] = me.canTeam option {
-    setup.trim |> { s ⇒
-      Team(
-        name = s.name,
-        location = s.location,
-        description = s.description,
-        open = s.isOpen,
-        createdBy = me) |> { team ⇒
-          for {
-            _ ← teamRepo saveIO team
-            _ ← memberRepo.add(team.id, me.id)
-            _ ← io(cached invalidateTeamIds me.id)
-            _ ← makeForum(team.id, team.name)
-            _ ← indexTeam(team)
-          } yield team
-        }
-    }
+    val s = setup.trim
+    val team = Team(
+      name = s.name,
+      location = s.location,
+      description = s.description,
+      open = s.isOpen,
+      createdBy = me)
+    (teamRepo saveIO team) >>
+      memberRepo.add(team.id, me.id) >>
+      io(cached invalidateTeamIds me.id) >>
+      makeForum(team.id, team.name) >>
+      (indexer insertOne team) inject team
   }
 
   def update(team: Team, edit: TeamEdit, me: User): IO[Unit] = edit.trim |> { e ⇒
@@ -45,7 +41,7 @@ final class TeamApi(
       location = e.location,
       description = e.description,
       open = e.isOpen
-    ) |> { team ⇒ teamRepo.saveIO(team) >> indexTeam(team) }
+    ) |> { team ⇒ teamRepo.saveIO(team) >> indexer.insertOne(team) }
   }
 
   def mine(me: User): IO[List[Team]] = for {
@@ -133,9 +129,17 @@ final class TeamApi(
 
   def kick(team: Team, userId: String): IO[Unit] = doQuit(team, userId)
 
+  def enable(team: Team): IO[Unit] =
+    teamRepo.enable(team) >> indexer.insertOne(team)
+
+  def disable(team: Team): IO[Unit] =
+    teamRepo.disable(team) >> indexer.removeOne(team)
+
   // delete for ever, with members but not forums
   def delete(team: Team): IO[Unit] =
-    teamRepo.removeIO(team) >> memberRepo.removeByteamId(team.id)
+    teamRepo.removeIO(team) >>
+      memberRepo.removeByteamId(team.id) >>
+      indexer.removeOne(team)
 
   def belongsTo(teamId: String, userId: String): Boolean =
     cached teamIds userId contains teamId

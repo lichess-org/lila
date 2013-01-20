@@ -25,11 +25,28 @@ final class TypeIndexer(
 
   private val indexName = "lila"
 
+  def search(request: ElasticSearch.Request.Search): SearchResponse = request.in(indexName, typeName)(es)
+
+  def count(request: ElasticSearch.Request.Count): Int = request.in(indexName, typeName)(es)
+
+  val rebuildAll: IO[Unit] = io { actor ! RebuildAll }
+
+  val optimize: IO[Unit] = io { actor ! Optimize }
+
+  val clear: IO[Unit] = io { actor ! Clear }
+
+  def insertOne(id: String, doc: Map[String, Any]) = io { actor ! InsertOne(id, doc) }
+
+  def insertMany(list: Map[String, Map[String, Any]]) = io { actor ! InsertMany(list) }
+
+  def removeOne(id: String) = io { actor ! RemoveOne(id) }
+
   private case object Clear
   private case object RebuildAll
   private case object Optimize
-  private case class IndexOne(id: String, doc: Map[String, Any])
-  private case class IndexMany(list: Map[String, Map[String, Any]])
+  private case class InsertOne(id: String, doc: Map[String, Any])
+  private case class InsertMany(list: Map[String, Map[String, Any]])
+  private case class RemoveOne(id: String)
 
   private lazy val actor = Akka.system.actorOf(Props(new Actor {
 
@@ -38,20 +55,21 @@ final class TypeIndexer(
       case Clear ⇒ doClear
 
       case RebuildAll ⇒ {
-        doClear 
+        doClear
         indexQuery(DBObject())
-        self ! Optimize
-      } 
+      }
 
-      case Optimize          ⇒ es.optimize(Seq(indexName))
+      case Optimize           ⇒ es.optimize(Seq(indexName))
 
-      case IndexOne(id, doc) ⇒ es.index(indexName, typeName, id, Json generate doc)
+      case InsertOne(id, doc) ⇒ es.index(indexName, typeName, id, Json generate doc)
 
-      case IndexMany(list) ⇒ es bulk {
+      case InsertMany(list) ⇒ es bulk {
         list map {
           case (id, doc) ⇒ es.index_prepare(indexName, typeName, id, Json generate doc).request
         }
       }
+
+      case RemoveOne(id) ⇒ es.delete(indexName, typeName, id)
     }
 
     private def doClear {
@@ -68,18 +86,4 @@ final class TypeIndexer(
       es.refresh()
     }
   }))
-
-  def search(request: ElasticSearch.Request.Search): SearchResponse = request.in(indexName, typeName)(es)
-
-  def count(request: ElasticSearch.Request.Count): Int = request.in(indexName, typeName)(es)
-
-  val rebuildAll: IO[Unit] = io { actor ! RebuildAll }
-
-  val optimize: IO[Unit] = io { actor ! Optimize }
-
-  val clear: IO[Unit] = io { actor ! Clear }
-
-  def indexOne(id: String, doc: Map[String, Any]) = io { actor ! IndexOne(id, doc) }
-
-  def indexMany(list: Map[String, Map[String, Any]]) = io { actor ! IndexMany(list) }
 }

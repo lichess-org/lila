@@ -2,16 +2,19 @@ package lila
 package cli
 
 import user.{ User, UserRepo }
-import team.{ Team, TeamRepo, TeamApi, SearchIndexer }
+import team.{ TeamEnv, Team }
 import scalaz.effects._
 
-private[cli] case class Teams(
-    teamRepo: TeamRepo,
-    userRepo: UserRepo,
-    indexer: SearchIndexer,
-    api: TeamApi) {
+private[cli] case class Teams(env: TeamEnv, userRepo: UserRepo) {
+
+  import env._
 
   def searchReset: IO[String] = indexer.rebuildAll inject "Search index reset"
+
+  def search(text: String) = io {
+    val paginator = searchPaginator(text, 1)
+    (paginator.nbResults + " results") :: paginator.currentPageResults.map(_.name)
+  } map (_ mkString "\n")
 
   def join(teamId: String, userIds: List[String]): IO[String] =
     perform2(teamId, userIds)(api.doJoin _)
@@ -19,9 +22,9 @@ private[cli] case class Teams(
   def quit(teamId: String, userIds: List[String]): IO[String] =
     perform2(teamId, userIds)(api.doQuit _)
 
-  def enable(teamId: String): IO[String] = perform(teamId)(teamRepo.enable _)
+  def enable(teamId: String): IO[String] = perform(teamId)(api.enable _)
 
-  def disable(teamId: String): IO[String] = perform(teamId)(teamRepo.disable _)
+  def disable(teamId: String): IO[String] = perform(teamId)(api.disable _)
 
   def delete(teamId: String): IO[String] = perform(teamId)(api.delete _)
 
