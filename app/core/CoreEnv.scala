@@ -35,6 +35,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
 
   lazy val forum = new lila.forum.ForumEnv(
     settings = settings,
+    esIndexer = search.esIndexer,
     captcha = site.captcha,
     mongodb = mongodb.apply _,
     userRepo = user.userRepo,

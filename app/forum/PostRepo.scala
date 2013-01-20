@@ -14,6 +14,13 @@ final class PostRepo(
     findOneById(id)
   }
 
+  def byOrderedIds(ids: Iterable[String]): IO[List[Post]] = io {
+    find("_id" $in ids).toList
+  } map { ts ⇒
+    val tsMap = ts.map(u ⇒ u.id -> u).toMap
+    ids.map(tsMap.get).flatten.toList
+  }
+
   def isFirstPost(topicId: String, postId: String): IO[Boolean] = io {
     ~find(byTopicIdQuery(topicId))
       .sort(sortQuery(1))

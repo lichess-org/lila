@@ -67,6 +67,9 @@ final class PostApi(
   } yield PostView(post, topic, categ, lastPageOf(topic))
   ).flatten
 
+  def viewsFromIds(postIds: List[String]): IO[List[PostView]] = 
+    env.postRepo byOrderedIds postIds flatMap views
+
   def view(post: Post): IO[Option[PostView]] = views(List(post)) map (_.headOption)
 
   def liteViews(posts: List[Post]): IO[List[PostLiteView]] = for {
@@ -77,6 +80,8 @@ final class PostApi(
     topic ← topics find (_.id == post.topicId)
   } yield PostLiteView(post, topic, lastPageOf(topic))
   ).flatten
+
+  def liteView(post: Post): IO[Option[PostLiteView]] = liteViews(List(post)) map (_.headOption)
 
   def lastNumberOf(topic: Topic): IO[Int] =
     env.postRepo lastByTopics List(topic) map (_.number)
