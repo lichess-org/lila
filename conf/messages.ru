@@ -155,6 +155,7 @@ joiningPolicy=Политика вступления (присоединения)
 teamLeader=Лидер команды
 teamBestPlayers=Лучшие игроки команды
 teamRecentMembers=Недавние члены команды
+searchATeam=поиск команды
 averageElo=Среднее ЭЛО
 location=Местоположение
 settings=Настройки
