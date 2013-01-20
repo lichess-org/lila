@@ -67,6 +67,7 @@ signUp=Регистрация
 people=Люди
 games=Игры
 forum=Форумы
+searchInForum=Искать на форуме
 chessPlayers=Шахматисты
 minutesPerSide=Минут на партию
 variant=Вариант
