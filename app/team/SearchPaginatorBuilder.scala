@@ -14,9 +14,7 @@ private[team] final class SearchPaginatorBuilder(
     currentPage = page,
     maxPerPage = maxPerPage).fold(_ ⇒ apply(text, 0), identity)
 
-  private class ESAdapter(
-      indexer: SearchIndexer,
-      query: SearchQuery) extends Adapter[Team] {
+  private class ESAdapter(indexer: SearchIndexer, query: SearchQuery) extends Adapter[Team] {
 
     def nbResults = indexer count query.countRequest
 
