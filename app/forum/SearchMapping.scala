@@ -8,6 +8,7 @@ private[forum] object SearchMapping {
   object fields {
     val body = "bo"
     val topic = "to"
+    val topicId = "ti"
     val author = "au"
   }
   import fields._
@@ -17,7 +18,8 @@ private[forum] object SearchMapping {
     "properties" -> List(
       boost(body, "string", 4),
       boost(topic, "string", 2),
-      boost(author, "string")
+      boost(author, "string"),
+      field(topicId, "string")
     ).toMap,
     "analyzer" -> "snowball"
   )
@@ -25,6 +27,7 @@ private[forum] object SearchMapping {
   def apply(view: PostLiteView): Pair[String, Map[String, Any]] = view.post.id -> Map(
     body -> view.post.text,
     topic -> view.topic.name,
-    author -> ~(view.post.userId orElse view.post.author)
+    author -> ~(view.post.userId orElse view.post.author),
+    topicId -> view.topic.id
   )
 }
