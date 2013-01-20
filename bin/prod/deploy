@@ -47,7 +47,8 @@ RSYNC_OPTIONS=" \
   --checksum \
   --exclude local.conf \
   --exclude logs \
-  --exclude RUNNING_PID";
+  --exclude RUNNING_PID \
+  --exclude bin/.translate_version";
 
 lilalog "Rsync scripts, binaries and assets"
 rsync $RSYNC_OPTIONS bin dist/$APP_NAME/* public $REMOTE:$REMOTE_DIR
