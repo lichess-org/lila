@@ -155,6 +155,7 @@ joiningPolicy=Liittymissäännöt
 teamLeader=Joukkueen johtaja
 teamBestPlayers=Joukkueen paras pelaaja
 teamRecentMembers=Joukkueen viimeaikaiset jäsenet
+searchATeam=Etsi joukkuetta
 averageElo=Keskimääräinen ELO
 location=Paikka
 settings=Asetukset
