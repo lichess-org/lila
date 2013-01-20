@@ -155,6 +155,7 @@ joiningPolicy=Anslutningspolicy
 teamLeader=Lagledare
 teamBestPlayers=Lag bästa spelare
 teamRecentMembers=Lag senaste spelare
+searchATeam=Sök efter ett lag
 averageElo=Medeltal ELO
 location=Plats
 settings=Inställningra
