@@ -1,12 +1,12 @@
 package lila
-package team
+package forum
 
 import search.ElasticSearch
 import SearchMapping.fields
 
 import org.elasticsearch.index.query._, QueryBuilders._
 
-private[team] final class SearchQuery private(text: String) {
+private[forum] final class SearchQuery private(text: String) {
 
   def searchRequest(from: Int = 0, size: Int = 10) = ElasticSearch.Request.Search(
     query = makeQuery,
@@ -18,9 +18,9 @@ private[team] final class SearchQuery private(text: String) {
   private def makeQuery = {
     import SearchMapping.fields._
     boolQuery
-    .should(fuzzyQuery(name, text))
-    .should(fuzzyQuery(description, text))
-    .should(fuzzyQuery(location, text))
+    .should(fuzzyQuery(body, text))
+    .should(fuzzyQuery(topic, text))
+    .should(fuzzyQuery(author, text))
   }
 }
 
