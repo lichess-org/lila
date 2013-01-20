@@ -155,6 +155,7 @@ joiningPolicy=Política para unirse
 teamLeader=Capitán del equipo
 teamBestPlayers=Mejores jugadores del equipo
 teamRecentMembers=Miembros recientes del equipo
+searchATeam=Busca un equipo
 averageElo=ELO promedio
 location=Ubicación
 settings=Configuración
