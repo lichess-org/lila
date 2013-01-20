@@ -67,6 +67,7 @@ signUp=Inscription
 people=Membres
 games=Parties
 forum=Forum
+searchInForum=Chercher dans le forum
 chessPlayers=Joueurs
 minutesPerSide=Minutes par joueur
 variant=Variante
