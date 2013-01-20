@@ -7,15 +7,23 @@ import site.Captcha
 import mod.ModlogApi
 
 import com.mongodb.casbah.MongoCollection
+import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
 
 final class ForumEnv(
     settings: Settings,
+    esIndexer: EsIndexer,
     captcha: Captcha,
     mongodb: String ⇒ MongoCollection,
     userRepo: UserRepo,
     modLog: ModlogApi) {
 
   import settings._
+
+  lazy val indexer = new SearchIndexer(esIndexer, postApi, postRepo)
+
+  lazy val searchPaginator = new SearchPaginatorBuilder(
+    indexer = indexer,
+    maxPerPage = ForumSearchMaxPerPage)
 
   lazy val categRepo = new CategRepo(mongodb(ForumCollectionCateg))
 

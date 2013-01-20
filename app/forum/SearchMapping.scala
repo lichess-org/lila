@@ -22,7 +22,7 @@ private[forum] object SearchMapping {
     "analyzer" -> "snowball"
   )
 
-  def apply(view: PostView): Pair[String, Map[String, Any]] = view.post.id -> Map(
+  def apply(view: PostLiteView): Pair[String, Map[String, Any]] = view.post.id -> Map(
     body -> view.post.text,
     topic -> view.topic.name,
     author -> ~(view.post.userId orElse view.post.author)

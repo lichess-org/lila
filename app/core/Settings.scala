@@ -64,6 +64,7 @@ final class Settings(config: Config, val IsDev: Boolean) {
 
   val ForumTopicMaxPerPage = getInt("forum.topic.max_per_page")
   val ForumPostMaxPerPage = getInt("forum.post.max_per_page")
+  val ForumSearchMaxPerPage = getInt("forum.search.max_per_page")
   val ForumRecentTimeout = millis("forum.recent.timeout")
   val ForumCollectionCateg = getString("forum.collection.categ")
   val ForumCollectionTopic = getString("forum.collection.topic")
