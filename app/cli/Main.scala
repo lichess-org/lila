@@ -33,6 +33,8 @@ object Main {
       case "user-rewrite-history" :: Nil      ⇒ users.rewriteHistory
       case "forum-denormalize" :: Nil         ⇒ forum.denormalize
       case "forum-typecheck" :: Nil           ⇒ forum.typecheck
+      case "forum-search" :: text :: Nil      ⇒ forum.search(text)
+      case "forum-search-reset" :: Nil        ⇒ forum.searchReset
       case "game-cleanup-next" :: Nil         ⇒ titivate.cleanupNext inject "Done"
       case "game-cleanup-unplayed" :: Nil     ⇒ titivate.cleanupUnplayed inject "Done"
       case "game-finish" :: Nil               ⇒ titivate.finishByClock inject "Done"

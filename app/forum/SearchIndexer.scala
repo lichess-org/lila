@@ -40,7 +40,7 @@ private[forum] final class SearchIndexer(
 
   private def indexQuery(query: DBObject) {
     val cursor = postRepo find query
-    for (posts ← cursor grouped 1000) {
+    for (posts ← cursor grouped 500) {
       val views = (postApi liteViews posts.toList).unsafePerformIO
       indexer.insertMany(views.map(SearchMapping.apply).toMap).unsafePerformIO
     }
