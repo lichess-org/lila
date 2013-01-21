@@ -16,8 +16,8 @@ private[forum] object SearchMapping {
 
   def mapping = Map(
     "properties" -> List(
-      boost(body, "string", 4),
-      boost(topic, "string", 2),
+      boost(body, "string", 2),
+      boost(topic, "string", 4),
       boost(author, "string"),
       field(topicId, "string")
     ).toMap,

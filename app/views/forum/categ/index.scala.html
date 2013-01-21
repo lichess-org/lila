@@ -1,11 +1,8 @@
 @(categs: List[lila.forum.CategView])(implicit ctx: Context)
 
-@forum.layout(
-title = trans.forum.str()) {
+@forum.layout(title = trans.forum.str()) {
 
-<form class="search" action="@routes.Forum.search()">
-  <input name="text" value="@search" placeholder="@trans.searchInForum()" />
-</form>
+@forum.searchForm()
 <h1>Lichess Forum</h1>
 @forum.categ.table(categs.filterNot(_.categ.isTeam))
 

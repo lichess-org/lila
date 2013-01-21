@@ -1,17 +1,18 @@
-@(title: String)(body: Html)(implicit ctx: Context)
+@(title: String, moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("forum.css")
 }
 
-@moreJs = {
+@forumJs = {
+@moreJs
 @jsTag("forum.js")
 }
 
 @base.layout(
 title = title, 
 moreCss = moreCss,
-moreJs = moreJs,
+moreJs = forumJs,
 active = siteMenu.forum.some) {
 <div id="lichess_forum" class="content_box">
   @body
