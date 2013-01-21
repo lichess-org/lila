@@ -10,6 +10,7 @@ private[forum] object SearchMapping {
     val topic = "to"
     val topicId = "ti"
     val author = "au"
+    val staff = "st"
   }
   import fields._
   import Mapping._
@@ -19,7 +20,8 @@ private[forum] object SearchMapping {
       boost(body, "string", 2),
       boost(topic, "string", 4),
       boost(author, "string"),
-      field(topicId, "string")
+      field(topicId, "string"),
+      field(staff, "boolean")
     ).toMap,
     "analyzer" -> "snowball"
   )
@@ -28,6 +30,7 @@ private[forum] object SearchMapping {
     body -> view.post.text,
     topic -> view.topic.name,
     author -> ~(view.post.userId orElse view.post.author),
-    topicId -> view.topic.id
+    topicId -> view.topic.id,
+    staff -> view.post.isStaff
   )
 }

@@ -23,6 +23,8 @@ case class Post(
   def showUsernameOrAuthor = userId | showAuthor
 
   def isTeam = categId startsWith "team-"
+
+  def isStaff = categId == "staff"
 }
 
 object Post {

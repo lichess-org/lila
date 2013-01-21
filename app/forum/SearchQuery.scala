@@ -4,27 +4,31 @@ package forum
 import search.ElasticSearch
 import SearchMapping.fields
 
-import org.elasticsearch.index.query._, QueryBuilders._
+import org.elasticsearch.index.query._, QueryBuilders._, FilterBuilders._
 
-private[forum] final class SearchQuery private(text: String) {
+private[forum] final class SearchQuery private(text: String, staff: Boolean) {
 
   def searchRequest(from: Int = 0, size: Int = 10) = ElasticSearch.Request.Search(
     query = makeQuery,
+    filter = makeFilters,
     from = from,
     size = size)
 
   def countRequest = ElasticSearch.Request.Count(makeQuery)
 
   private def makeQuery = {
-    import SearchMapping.fields._
     boolQuery
-    .should(fuzzyQuery(body, text))
-    .should(fuzzyQuery(topic, text))
-    .should(fuzzyQuery(author, text))
+    .should(fuzzyQuery(fields.body, text))
+    .should(fuzzyQuery(fields.topic, text))
+    .should(fuzzyQuery(fields.author, text))
   }
+
+  private def makeFilters = !staff option termFilter(fields.staff, false)
+
 }
 
 object SearchQuery {
 
-  def apply(text: String): SearchQuery = new SearchQuery(text.trim.toLowerCase)
+  def apply(text: String, staff: Boolean): SearchQuery = 
+    new SearchQuery(text.trim.toLowerCase, staff)
 }

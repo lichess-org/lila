@@ -14,7 +14,7 @@ private[cli] case class Forum(env: ForumEnv) {
   def searchReset: IO[String] = env.indexer.rebuildAll inject "Search index reset"
 
   def search(text: String) = io {
-    val paginator = env.searchPaginator(text, 1)
+    val paginator = env.searchPaginator(text, 1, true)
     (paginator.nbResults + " results") :: paginator.currentPageResults.map(_.show)
   } map (_ mkString "\n")
 }
