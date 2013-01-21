@@ -25,7 +25,7 @@ trait StringHelper {
   }
 
   def shortenWithBr(text: String, length: Int) = Html {
-    nl2br(escape(text).take(length))
+    nl2br(escape(text).take(length)).replace("<br /><br />", "<br />")
   }
 
   def pluralize(s: String, n: Int) = "%d %s%s".format(n, s, if (n > 1) "s" else "")

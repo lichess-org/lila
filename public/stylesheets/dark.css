@@ -74,7 +74,7 @@ body.dark div.user_lists div.all_users,
 body.dark div.user_show div.elo_with_me,
 body.dark #lichess_forum div.post,
 body.dark #lichess_forum textarea,
-body.dark #lichess_forum input,
+body.dark #lichess_forum form.wide input,
 body.dark #lichess_message tr,
 body.dark #lichess_message div.thread_message,
 body.dark #lichess_message textarea,
@@ -225,7 +225,7 @@ body.dark .mini_board {
 }
 
 body.dark div.game_row:nth-child(odd),
-body.dark #lichess_forum tr:nth-child(odd),
+body.dark #lichess_forum table.forum_table tr:nth-child(odd),
 body.dark #lichess_message tr:nth-child(even),
 body.dark div.user_show .elo_with_me,
 body.dark div.content_box_inter,
@@ -240,10 +240,10 @@ body.dark div.search_status
 {
   background: #343434;
 }
-body.dark #lichess_forum thead tr:nth-child(odd) {
+body.dark #lichess_forum table.forum_table thead tr:nth-child(odd) {
   background: #2b2b2b;
 }
-body.dark #lichess_forum td.subject a {
+body.dark #lichess_forum table.forum_table td.subject a {
   color: #44a0b0;
 }
 body.dark #lichess_forum div.post .message,
