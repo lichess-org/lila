@@ -11,12 +11,12 @@ moreJs = jsTag("vendor/jquery.infinitescroll.min.js")
 
 <h1>@title</h1>
 
-<table class="slist">
+<table class="slist search_results">
   @if(views.nbResults > 0) {
   <tbody class="infinitescroll">
     @views.nextPage.map { n =>
     <tr><th class="pager none">
-        <a href="@routes.Team.search(n)">Next</a>
+        <a href="@routes.ForumPost.search(n)">Next</a>
     </th></tr>
     <tr></tr>
     }
@@ -24,11 +24,12 @@ moreJs = jsTag("vendor/jquery.infinitescroll.min.js")
     @defining(routes.ForumTopic.show(view.categ.slug, view.topic.slug, view.topicLastPage) + "#" + view.post.number) { url =>
     <tr class="paginated_element">
       <td>
-        <a href="@url">@view.topic.name</a>
+        <a class="post" href="@url">@view.categ.name - @view.topic.name #@view.post.number</a>
         <p>@shortenWithBr(view.post.text, 200)</p>
       </td>
-      <td class="last_post">
-        <a href="@url">@showDate(view.post.createdAt)</a><br />by @Html(authorName(view.post))
+      <td class="info">
+        <span class="date">@showDate(view.post.createdAt)</span>
+        by @Html(authorName(view.post))
       </td>
     </tr>
     }
