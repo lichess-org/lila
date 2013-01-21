@@ -30,6 +30,12 @@ ol.crumbs li:last-child:after {
 ol.crumbs li:first-child {
   margin-left: 0;
 }
+
+#lichess_forum form.search {
+  float: right;
+  margin: 0px;
+}
+
 #lichess_forum ol.crumbs h1 {
   display: inline;
   margin: 0;
