@@ -16,7 +16,7 @@ object ForumPost extends LilaController with forum.Controller {
     implicit def req = ctx.body
     forms.search.bindFromRequest.fold(
       failure ⇒ Redirect(routes.ForumCateg.index),
-      text ⇒ Ok(html.forum.search(text, searchPaginator(text, page)))
+      text ⇒ Ok(html.forum.search(text, searchPaginator(text, page, isGranted(_.StaffForum))))
     )
   }
 

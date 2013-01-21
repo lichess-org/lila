@@ -75,13 +75,17 @@ final class TypeIndexer(
     private def doClear {
       try {
         es.createIndex(indexName, settings = Map())
+      }
+      catch {
+        case e: org.elasticsearch.indices.IndexAlreadyExistsException ⇒ 
+      }
+      try {
         es.deleteByQuery(Seq(indexName), Seq(typeName))
         es.waitTillActive()
         es.deleteMapping(indexName :: Nil, typeName.some)
       }
       catch {
-        case e: org.elasticsearch.indices.IndexAlreadyExistsException ⇒
-        case e: org.elasticsearch.indices.TypeMissingException ⇒
+        case e: org.elasticsearch.indices.TypeMissingException ⇒ 
       }
       es.putMapping(indexName, typeName, Json generate Map(typeName -> mapping))
       es.refresh()
