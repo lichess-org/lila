@@ -27,9 +27,7 @@ title = categ.name) {
     }
   </p>
   <div class="bar top clearfix">
-    <div class="pagination">
-      @forum.pagination(routes.ForumCateg.show(categ.slug, 1), topics)
-    </div>
+    @forum.pagination(routes.ForumCateg.show(categ.slug, 1), topics)
     @newTopicButton
   </div>
 
@@ -59,9 +57,7 @@ title = categ.name) {
   </table>
 
   <div class="bar bottom clearfix">
-    <div class="pagination">
-      @forum.pagination(routes.ForumCateg.show(categ.slug, 1), topics)
-    </div>
+    @forum.pagination(routes.ForumCateg.show(categ.slug, 1), topics)
     @newTopicButton
   </div>
 </div>

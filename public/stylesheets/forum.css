@@ -14,6 +14,11 @@ a.forum_feed_link {
   margin-right: 1em;
 }
 
+ol.crumbs {
+  padding: 20px 24px 0 24px;
+}
+
+
 ol.crumbs li {
   display: inline;
   margin-left: 1em;
@@ -29,6 +34,13 @@ ol.crumbs li:last-child:after {
 }
 ol.crumbs li:first-child {
   margin-left: 0;
+}
+
+#lichess_forum ol.crumbs h1 {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
 }
 
 #lichess_forum form.search {
@@ -53,12 +65,6 @@ ol.crumbs li:first-child {
 #lichess_forum .search_results td {
   padding-bottom: 1em;
   padding-top: 1em;
-}
-
-#lichess_forum ol.crumbs h1 {
-  display: inline;
-  margin: 0;
-  vertical-align: middle;
 }
 
 #lichess_forum table.forum_table {
@@ -126,7 +132,7 @@ ol.crumbs li:first-child {
 
 div.post {
   font-size: 1.2em;
-  padding: 2em 0em 1em 0em;
+  padding: 2em 24px 1em 24px;
   border-top: 1px solid #D4D4D4;
   margin-top: 1em;
   position: relative;
@@ -140,7 +146,7 @@ div.post:last-child {
 div.post .anchor {
   position: absolute;
   top: 2em;
-  right: 0;
+  right: 24px;
 }
 
 div.post .author {
@@ -243,7 +249,7 @@ div.bar .button {
   float: left;
 }
 div.bar div.pagination {
-  margin-top: 0.4em;
+  margin: 0.4em 24px 0 0;
   float: right;
 }
 
