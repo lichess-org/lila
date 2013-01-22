@@ -58,7 +58,7 @@ GET   /team/new                               controllers.Team.form
 POST  /team/new                               controllers.Team.create
 GET   /team/me                                controllers.Team.mine
 GET   /team/requests                          controllers.Team.requests
-GET   /team/search                            controllers.Team.search(page: Int ?= 1)
+GET   /team/search                            controllers.Team.search(text: String ?= "", page: Int ?= 1)
 GET   /team/:id                               controllers.Team.show(id: String, page: Int ?= 1)
 GET   /team/:id/join                          controllers.Team.joinPage(id: String)
 POST  /team/:id/join                          controllers.Team.join(id: String)

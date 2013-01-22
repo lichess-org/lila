@@ -32,12 +32,11 @@ object Team extends LilaController {
     })
   }
 
-  def search(page: Int) = OpenBody { implicit ctx ⇒
-    implicit def req = ctx.body
-    forms.search.bindFromRequest.fold(
-      failure ⇒ Ok(html.team.home(paginator popularTeams page)),
-      text ⇒ Ok(html.team.search(text, searchPaginator(text, page)))
-    )
+  def search(text: String, page: Int) = OpenBody { implicit ctx ⇒
+    text.trim match {
+      case ""   ⇒ Ok(html.team.home(paginator popularTeams page))
+      case text ⇒ Ok(html.team.search(text, searchPaginator(text, page)))
+    }
   }
 
   private def renderTeam(team: TeamModel, page: Int = 1)(implicit ctx: Context) =
