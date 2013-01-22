@@ -6,7 +6,7 @@ import SearchMapping.fields
 
 import org.elasticsearch.index.query._, QueryBuilders._
 
-private[team] final class SearchQuery private(text: String) {
+private[team] final class SearchQuery private (terms: List[String]) {
 
   def searchRequest(from: Int = 0, size: Int = 10) = ElasticSearch.Request.Search(
     query = makeQuery,
@@ -15,16 +15,16 @@ private[team] final class SearchQuery private(text: String) {
 
   def countRequest = ElasticSearch.Request.Count(makeQuery)
 
-  private def makeQuery = {
-    import SearchMapping.fields._
-    boolQuery
-    .should(fuzzyQuery(name, text))
-    .should(fuzzyQuery(description, text))
-    .should(fuzzyQuery(location, text))
+  private def makeQuery = terms.foldLeft(boolQuery()) {
+    case (query, term) ⇒ query must {
+      multiMatchQuery(term, fields.name, fields.description, fields.location)
+    }
   }
 }
 
 object SearchQuery {
 
-  def apply(text: String): SearchQuery = new SearchQuery(text.trim.toLowerCase)
+  def apply(text: String): SearchQuery = new SearchQuery(
+    ElasticSearch.Request decomposeTextQuery text
+  )
 }
