@@ -3,6 +3,6 @@
 @team.list(
 name = trans.searchATeam.str() + " \"" + text + "\"",
 teams = teams,
-next = teams.nextPage map { n => routes.Team.search(n) },
+next = teams.nextPage map { n => routes.Team.search(text, n) },
 tab = "all",
 search = text)
