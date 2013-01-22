@@ -51,5 +51,7 @@ object Main {
       case "team-delete" :: uid :: Nil        ⇒ teams delete uid
       case _                                  ⇒ io("Unknown command: " + args.mkString(" "))
     }
+  } flatMap { output ⇒
+    putStrLn("[cli] " + (args mkString " ")) >> putStrLn(output) inject output
   }
 }
