@@ -16,7 +16,7 @@ moreJs = jsTag("vendor/jquery.infinitescroll.min.js")
   <tbody class="infinitescroll">
     @views.nextPage.map { n =>
     <tr><th class="pager none">
-        <a href="@routes.ForumPost.search(n)">Next</a>
+        <a href="@routes.ForumPost.search(text, n)">Next</a>
     </th></tr>
     <tr></tr>
     }
