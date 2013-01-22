@@ -12,12 +12,14 @@ object ForumPost extends LilaController with forum.Controller {
   private def teamCache = env.team.cached
   private def searchPaginator = env.forum.searchPaginator
 
-  def search(page: Int) = OpenBody { implicit ctx ⇒
-    implicit def req = ctx.body
-    forms.search.bindFromRequest.fold(
-      failure ⇒ Redirect(routes.ForumCateg.index),
-      text ⇒ Ok(html.forum.search(text, searchPaginator(text, page, isGranted(_.StaffForum))))
-    )
+  def search(text: String, page: Int) = OpenBody { implicit ctx ⇒
+    text.trim match {
+      case "" ⇒ Redirect(routes.ForumCateg.index)
+      case text ⇒ Ok(html.forum.search(
+        text,
+        searchPaginator(text, page, isGranted(_.StaffForum))
+      ))
+    }
   }
 
   val recent = Open { implicit ctx ⇒

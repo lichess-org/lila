@@ -29,8 +29,6 @@ final class DataForm(captcher: Captcha) {
     "post" -> postMapping
   )(TopicData.apply)(TopicData.unapply))
 
-  val search = Form(single("text" -> nonEmptyText))
-
   def captchaCreate: Captcha.Challenge = captcher.create
 }
 
