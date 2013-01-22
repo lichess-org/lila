@@ -155,6 +155,7 @@ joiningPolicy=Pravidla vstupu
 teamLeader=Vedoucí týmu
 teamBestPlayers=Nejlepší hráči týmu
 teamRecentMembers=Nedávní členové týmu
+searchATeam=Vyhľadať tím
 averageElo=Průměrné ELO
 location=Poloha
 settings=Nastavení
