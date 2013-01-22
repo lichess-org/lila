@@ -174,18 +174,19 @@ div.post .message {
   line-height: 1.5em;
 }
 
-div.topicReply {
-  margin-top: 1em;
+div.topicReply,
+div.category .description {
+  margin: 1em 24px 0 24px;
 }
+
 .postNewTitle {
   font-size: 1.5em;
   font-style: italic;
 }
 
-div.category .description {
-  margin-top: 1em;
+#lichess_forum form.wide {
+  margin-bottom: 1em;
 }
-
 #lichess_forum form {
   margin-top: 2em;
   font-size: 1.3em;
@@ -247,6 +248,7 @@ div.bar {
 }
 div.bar .button {
   float: left;
+  margin-left: 24px;
 }
 div.bar div.pagination {
   margin: 0.4em 24px 0 0;
