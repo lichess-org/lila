@@ -70,5 +70,7 @@ object ElasticSearch {
       }.hits.totalHits.toInt
     }
 
+    def decomposeTextQuery(text: String): List[String] = 
+      text.trim.toLowerCase.replace("+", " ").split(" ").toList
   }
 }
