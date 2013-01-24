@@ -67,6 +67,7 @@ signUp=Registrera dig
 people=Människor
 games=Partier
 forum=Forum
+searchInForum=Söker forum
 chessPlayers=Schackspelare
 minutesPerSide=Minuter per spelare
 variant=Variant
