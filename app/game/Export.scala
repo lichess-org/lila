@@ -47,9 +47,9 @@ final class Export(user: User, gameRepo: GameRepo, netBaseUrl: String) {
       (player flatMap (_.eloDiff)).fold(showEloDiff, "?"),
       (player map game.opponent flatMap (_.elo)).fold(_.toString, "?"),
       (player map game.opponent flatMap (_.eloDiff)).fold(showEloDiff, "?"),
-      netBaseUrl + "/" + routes.Round.watcher(game.id, player.fold(_.color.name, "white")),
-      netBaseUrl + "/" + routes.Analyse.replay(game.id, player.fold(_.color.name, "white")),
-      netBaseUrl + "/" + routes.Analyse.pgn(game.id)
+      netBaseUrl + routes.Round.watcher(game.id, player.fold(_.color.name, "white")),
+      netBaseUrl + routes.Analyse.replay(game.id, player.fold(_.color.name, "white")),
+      netBaseUrl + routes.Analyse.pgn(game.id)
     )
   }
 
