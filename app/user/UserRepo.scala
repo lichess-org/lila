@@ -188,7 +188,8 @@ class UserRepo(collection: MongoCollection)
   val countEnabled: IO[Int] = io { count(enabledQuery).toInt }
 
   def usernamesLike(username: String, max: Int = 10): IO[List[String]] = io {
-    val escaped = """^([\w-]*).*$""".r.replaceAllIn(normalize(username), _ group 1)
+    import java.util.regex.Matcher.quoteReplacement
+    val escaped = """^([\w-]*).*$""".r.replaceAllIn(normalize(username), m ⇒ quoteReplacement(m group 1))
     val regex = "^" + escaped + ".*$"
     collection.find(
       DBObject("_id" -> regex.r),

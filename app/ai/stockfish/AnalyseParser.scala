@@ -2,6 +2,7 @@ package lila
 package ai.stockfish
 
 import analyse.Info
+import java.util.regex.Matcher.quoteReplacement
 
 object AnalyseParser {
 
@@ -15,18 +16,18 @@ object AnalyseParser {
   private val bestMoveRegex = """^bestmove\s(\w+).*$""".r
   private def findBestMove(lines: List[String]) =
     lines.headOption map { line ⇒
-      bestMoveRegex.replaceAllIn(line, m ⇒ m group 1)
+      bestMoveRegex.replaceAllIn(line, m ⇒ quoteReplacement(m group 1))
     }
 
   private val cpRegex = """^info.*\scp\s(\-?\d+).*$""".r
   private def findCp(lines: List[String]) =
     lines.tail.headOption map { line ⇒
-      cpRegex.replaceAllIn(line, m ⇒ m group 1)
+      cpRegex.replaceAllIn(line, m ⇒ quoteReplacement(m group 1))
     } flatMap parseIntOption 
 
   private val mateRegex = """^info.*\smate\s(\-?\d+).*$""".r
   private def findMate(lines: List[String]) =
     lines.tail.headOption map { line ⇒
-      mateRegex.replaceAllIn(line, m ⇒ m group 1)
+      mateRegex.replaceAllIn(line, m ⇒ quoteReplacement(m group 1))
     } flatMap parseIntOption
 }
