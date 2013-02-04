@@ -263,6 +263,8 @@ case class DbGame(
 
   def winnerUserId: Option[String] = winner flatMap (_.userId)
 
+  def loserUserId: Option[String] = loser flatMap (_.userId)
+
   def wonBy(c: Color): Option[Boolean] = winnerColor map (_ == c)
 
   def outoftimePlayer: Option[DbPlayer] = for {
