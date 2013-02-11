@@ -1590,17 +1590,10 @@ var lichess_translations = [];
     }
 
     function addToChat(html) {
-      var bScrollDown = true,
-          oLichessMessages = $chat.find('.lichess_messages');
-      if (oChatLog.height() + oLichessMessages.scrollTop() < oLichessMessages[0].scrollHeight)
-      {
-        bScrollDown = false;
-      }
-      oLichessMessages.append(html);
-      if (bScrollDown)
-      {
-        oLichessMessages.scrollTop(oLichessMessages[0].scrollHeight);
-      }
+      var $messages = $chat.find('.lichess_messages');
+      var shouldScroll = ($messages.height() + $messages.scrollTop()) >= ($messages[0].scrollHeight - 10);
+      $messages.append(html);
+      if (shouldScroll) $messages.scrollTop($messages[0].scrollHeight);
       $('body').trigger('lichess.content_loaded');
     }
     function buildChatMessage(txt, username) {
