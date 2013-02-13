@@ -36,9 +36,6 @@ search bug http://en.lichess.org/games/search?players.a=&players.b=&players.winn
 takeback substract time for person granting
 add fullscreen mode for spectators and load new games in a loop (based on certain filter options) - thus creating a chess tv channel
 only team forum posts on the homepage?
-look at gameknot teams (to steal ideas)
-clock color (or end of time indication)
-team elo 
 team list sort by date, name, popularity, avg elo, team elo, ...?
 team timeline (forum posts, joins)
 download 10.000 best elo games http://en.lichess.org/inbox/v1p6hokg#bottom
@@ -47,7 +44,6 @@ make signup more visible
 traduction intégrale
 block user creation from an IP
 mute IP
-time color toward end http://fr.lichess.org/forum/lichess-feedback/suggestion-time-color-towards-end#5
 fast join game = creator not redirected properly?
 start clock after black move http://en.lichess.org/forum/lichess-feedback/shouldnt-the-time-start-time-after-blacks-first-move#3
 national flags http://en.lichess.org/forum/lichess-feedback/suggestion-display-national-flag#4
@@ -62,3 +58,4 @@ games with me http://en.lichess.org/forum/general-chess-discussion/-vs-me#2
 ssl websocket would pass through proxies http://en.lichess.org/forum/lichess-feedback/layout-bug-and-proxies#2 requires play 2.1
 tournament 3 losses by time-out = resign
 custom css scrollers for chats http://manos.malihu.gr/jquery-custom-content-scroller/
+team chat

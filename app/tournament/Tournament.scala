@@ -175,6 +175,7 @@ case class Started(
   def userCurrentPov(userId: String): Option[PovRef] = {
     playingPairings map { _ povRef userId }
   }.flatten.headOption
+
   def userCurrentPov(user: Option[User]): Option[PovRef] =
     user.fold(u ⇒ userCurrentPov(u.id), none)
 
@@ -194,6 +195,10 @@ case class Started(
     }).success,
     !!("User %s is not part of the tournament" format userId)
   )
+
+  def quickLossStreak(user: String): Boolean = 
+
+  private def userPairings(user: String) = pairings filter (_ contains user)
 
   private def withPlayers(s: Players) = copy(players = s)
 
