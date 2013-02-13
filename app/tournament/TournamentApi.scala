@@ -113,13 +113,15 @@ private[tournament] final class TournamentApi(
     tourOption ← game.tournamentId.fold(repo.startedById, io(None))
     result ← ~tourOption.filter(_ ⇒ game.finished).map(tour ⇒ {
       val tour2 = tour.updatePairing(game.id, _.finish(game.status, game.winnerUserId, game.turns))
-      (repo saveIO tour2) >> tripleQuickLossWithdraw(game.loserUserId) inject tour2.some
+      (repo saveIO tour2) >>
+        tripleQuickLossWithdraw(tour2, game.loserUserId) inject tour2.some
     })
   } yield result
 
-  private def tripleQuickLossWithdraw(loser: Option[String]): IO[Unit] = ~loser.map(user ⇒
-    io()
-  )
+  private def tripleQuickLossWithdraw(tour: Started, loser: Option[String]): IO[Unit] =
+    ~loser.map(user ⇒
+      io()
+    )
 
   private def userIdWhoLostOnTimeWithoutMoving(game: DbGame): Option[String] =
     game.playerWhoDidNotMove
