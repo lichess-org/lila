@@ -1590,7 +1590,10 @@ var lichess_translations = [];
     }
 
     function addToChat(html) {
-      $chat.find('.lichess_messages').append(html)[0].scrollTop = 9999999;
+      var $messages = $chat.find('.lichess_messages');
+      var shouldScroll = ($messages.height() + $messages.scrollTop()) >= ($messages[0].scrollHeight - 10);
+      $messages.append(html);
+      if (shouldScroll) $messages.scrollTop($messages[0].scrollHeight);
       $('body').trigger('lichess.content_loaded');
     }
     function buildChatMessage(txt, username) {
