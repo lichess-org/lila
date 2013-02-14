@@ -375,3 +375,8 @@ body.dark .nano > .pane {
 body.dark .nano > .pane > .slider {
   background: #ccc;
   background: rgba(255,255,255,.4);
+}
+body.dark ::-webkit-input-placeholder { color: #666; }
+body.dark :-moz-placeholder { color: #666; }
+body.dark ::-moz-placeholder { color: #666; }
+body.dark :-ms-input-placeholder { color: #666; }
