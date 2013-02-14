@@ -1,7 +1,7 @@
 @(posts: List[lila.forum.PostLiteView])(implicit ctx: Context)
 @posts.reverse.map { v =>
 @defining(routes.ForumTopic.show(v.topic.categId, v.topic.slug, v.topicLastPage) + "#" + v.post.number) { postUrl =>
-<li>
+<li @v.post.isTeam.fold("class='s16 team'", "")>
 <a class="post_link" href="@postUrl">@v.topic.name</a>
 <span>@authorLink(v.post, withOnline = false)</span>
 @shorten(v.post.text, 80)

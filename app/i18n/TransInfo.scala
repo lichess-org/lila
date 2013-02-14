@@ -23,7 +23,7 @@ case class TransInfo(
   def nonComplete = !complete
 }
 
-case class TransInfos(all: List[TransInfo]) {
+private[i18n] case class TransInfos(all: List[TransInfo]) {
 
   lazy val byCode = all map { info ⇒
     info.code -> info
@@ -34,7 +34,7 @@ case class TransInfos(all: List[TransInfo]) {
   def get(lang: Lang): Option[TransInfo] = get(lang.language)
 }
 
-object TransInfos {
+private[i18n] object TransInfos {
 
   val defaultCode = "en"
 

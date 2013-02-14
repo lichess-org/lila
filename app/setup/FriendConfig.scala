@@ -52,7 +52,7 @@ object FriendConfig extends BaseHumanConfig {
     color = Color.default)
 }
 
-case class RawFriendConfig(
+private[setup] case class RawFriendConfig(
     v: Int,
     k: Boolean,
     t: Int,

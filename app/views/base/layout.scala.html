@@ -3,126 +3,151 @@
 <html lang="@lang.language">
   <head>
     <title>lichess @title | @trans.freeOnlineChess()</title>
+    @cssTag("dark.css")
     @cssTag("vendor.css")
     @cssTag("common.css")
     @cssTag("board.css")
     @cssTag("gamelist.css")
     @cssTag("opening.css")
-    @cssTag("dark.css")
     @moreCss
     <meta content="@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()" name="description">
     <meta charset="utf-8">
-    <link rel="shortcut icon" href="@routes.Assets.at("favicon.ico")" type="image/x-icon" />
+    <link rel="shortcut icon" href="@routes.Assets.at("images/favicon-32-white.png")" type="image/x-icon" />
     @if(!robots) {
     <meta content="noindex, nofollow" name="robots">
     }
-  </head>
-  <body class="@setting.theme.cssClass @setting.bg" data-sound-file="@routes.Assets.at("sound/alert.ogg")">
-    <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
-    <div id="top" class="clearfix">
-      <a href="@routes.Setting.set("sound")" title="@trans.toggleSound()" id="sound_state" class="available @soundString">
-        <span></span>
-      </a>
-      <div class="lichess_language">
-        <a class="toggle_language toggle">
-          <span class="s16">@langName(lang)</span>
-        </a>
-        <ul class="language_links dropdown">
-          @otherLangLinks(lang)
-          <li><a href="@routes.I18n.contribute">Help translate Lichess!</a></li>
-        </ul>
-      </div>
-      @siteMenu.all(ctx.me).map { elem =>
-      @elem.code match {
-      case "message" => {
-      <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@elem.route">
-        @elem.name()
-        <span id="nb_messages" class="new_messages @{ (messageNbUnread(ctx) > 0).fold("unread", "") }">@messageNbUnread(ctx)</span>
-      </a>
-      }
-      case "team" if teamNbRequests(ctx) > 0 => {
-      @defining(teamNbRequests(ctx)) { nbr =>
-      <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@routes.Team.requests()">
-        @elem.name()
-        <span id="nb_messages" class="new_messages unread">@nbr</span>
-      </a>
-      }
-      }
-      case _ => {
-      <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@elem.route">
-        @elem.name()
-      </a>
-      }
-      }
-      }
-      <div id="nb_connected_players" class="nb_connected_players none">
-        @trans.nbConnectedPlayers("<strong>0</strong>")
-      </div>
-      @ctx.me.fold(auth.loggedIn(_), auth.miniLogin())
-      <div class="themepicker">
-        <a class="theme_toggle toggle"><span class="theme_demo">@trans.color()</span></a>
-        <div class="themes dropdown" data-href="@routes.Setting.set("theme")">
-          @themeList.map { theme =>
-          <div class="theme" data-theme="@theme.name"><div class="inner">
-              <div class="lcs black @theme.name"></div>
-              <div class="lcs white @theme.name"></div>
-          </div></div>
-          }
-        </div>
-      </div>
-      <a href="@routes.Setting.set("bg")" title="@trans.toggleBackground()" class="bgpicker">
-        <span></span>
-      </a>
-    </div>
-    @ctx.me.map { me =>
-    <div class="notifications">@notifications(me)</div>
-    }
-    <div class="content">
-      <div class="header">
-        <h1>
-          <a id="site_title" href="@routes.Lobby.home">
-            lichess<span class="extension">.org</span>
-          </a>
-          @baseline
-        </h1>
-        @menu.map { side =>
-        <div class="side_menu">@side</div>
-        }
-        @goodies
-        @chat
-        @underchat.map { g =>
-        <div class="under_chat">@g</div>
-        }
-      </div>
-      <div id="lichess">
-        @body
-      </div>
-    </div>
-    <div class="footer_wrap">
-      <div class="lichess_social">
-        <div class="addtochrome"><a class="button" href="https://chrome.google.com/webstore/detail/kiefmccciemniajdkgikpnocipidaaeg">Add To Chrome</a></div>
-        <br />
-      </div>
-      <div class="footer">
-        <div class="right">
-          <a href="http://github.com/ornicar">github.com/ornicar</a> | <a class="js_email">email me</a><br />
-          <a href="@routes.Wiki.home()" class="blank_if_play">@trans.learnMoreAboutLichess()</a><br />
-          <a href="http://www.facebook.com/appcenter/510511915639555">Facebook app</a>
-        </div>
-        <a href="@routes.Wiki.home()">Wiki</a> |
-        <a href="@routes.ForumCateg.show("lichess-feedback", 1)" title="Having a suggestion, feature request or bug report? Let me know">Feedback</a> |
-        <a href="http://github.com/ornicar/lila" target="_blank" title="See what's inside, fork and contribute">Source Code</a><br />
-        <a href="@routes.Monitor.index">Monitor</a> |
-        <a href="@routes.I18n.contribute">Translate Lichess</a>
-        <br />
-        Ping: <span id="connection_lag">?</span>
-      </div>
-    </div>
-    @jsTag("deps.min.js")
-    @signedJs.fold(jsAt, isDev.fold(jsTag("big.js"), jsTagC("big.js")))
-    @moreJs
-    @if(lang.language != "en") {
-    <script src="@routes.Assets.at("trans/" + lang.language + ".js")?v=@assetVersion"></script>
-    }
-  </body>
-</html>
+    <script type="text/javascript">
+      (function() {
+       var s = document.createElement('script');
+       var t = document.getElementsByTagName('script')[0];
+       s.type = 'text/javascript';
+       s.async = true;
+       s.src = '//api.flattr.com/js/0.6/load.js?mode=auto&uid=ornicar&category=software&language=@lang.language&button=compact';
+       t.parentNode.insertBefore(s, t);
+       })();
+     </script>
+   </head>
+   <body class="@setting.theme.cssClass @setting.bg" data-sound-file="@routes.Assets.at("sound/alert.ogg")">
+     <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
+     <div id="top" class="clearfix">
+       <a href="@routes.Setting.set("sound")" title="@trans.toggleSound()" id="sound_state" class="available @soundString">
+         <span></span>
+       </a>
+       <div class="lichess_language">
+         <a class="toggle_language toggle" href="#">
+           <span class="s16 ddown">@langName(lang)</span>
+         </a>
+         <ul class="language_links dropdown">
+           @otherLangLinks(lang)
+           <li><a href="@routes.I18n.contribute">Help translate Lichess!</a></li>
+         </ul>
+       </div>
+       @siteMenu.all(ctx.me).map { elem =>
+       @elem.code match {
+       case "message" => {
+       <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@elem.route">
+         @elem.name()
+         <span id="nb_messages" class="new_messages @{ (messageNbUnread(ctx) > 0).fold("unread", "") }">@messageNbUnread(ctx)</span>
+       </a>
+       }
+       case "team" if teamNbRequests(ctx) > 0 => {
+       @defining(teamNbRequests(ctx)) { nbr =>
+       <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@routes.Team.requests()">
+         @elem.name()
+         <span id="nb_messages" class="new_messages unread">@nbr</span>
+       </a>
+       }
+       }
+       case _ => {
+       <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@elem.route">
+         @elem.name()
+       </a>
+       }
+       }
+       }
+       <div id="nb_connected_players" class="nb_connected_players none">
+         @trans.nbConnectedPlayers("<strong>0</strong>")
+       </div>
+       @ctx.me.fold(auth.loggedIn(_), auth.miniLogin())
+       <div class="themepicker">
+         <a class="theme_toggle toggle" href="#"><span class="theme_demo ddown">@trans.color()</span></a>
+         <div class="themes dropdown" data-href="@routes.Setting.set("theme")">
+           @themeList.map { theme =>
+           <div class="theme" data-theme="@theme.name"><div class="inner">
+               <div class="lcs black @theme.name"></div>
+               <div class="lcs white @theme.name"></div>
+           </div></div>
+           }
+         </div>
+       </div>
+       <a href="@routes.Setting.set("bg")" title="@trans.toggleBackground()" class="bgpicker">
+         <span></span>
+       </a>
+     </div>
+     @ctx.me.map { me =>
+     <div class="notifications">@notifications(me)</div>
+     }
+     <div class="content">
+       <div class="header">
+         <h1>
+           <a id="site_title" href="@routes.Lobby.home">
+             lichess<span class="extension">.org</span>
+           </a>
+           @baseline
+         </h1>
+         @menu.map { side =>
+         <div class="side_menu">@side</div>
+         }
+         @goodies
+         @chat
+         @underchat.map { g =>
+         <div class="under_chat">@g</div>
+         }
+       </div>
+       <div id="lichess">
+         @body
+       </div>
+     </div>
+     <div class="footer_wrap">
+       <div class="lichess_social">
+         <div class="addtochrome"><a class="button" href="https://chrome.google.com/webstore/detail/kiefmccciemniajdkgikpnocipidaaeg">Add To Chrome</a></div>
+         <a class="FlattrButton" style="display:none;"
+           title="Lichess.org server"
+           data-flattr-uid="ornicar"
+           data-flattr-tags="software, chess, game, opensource"
+           data-flattr-category="software"
+           href="http://lichess.org">I develop and host http://lichess.org, a free online chess game.
+
+           It's entirely free and without ads. I count on users to help me pay for the server.
+
+           It is a dedicated server with 8 CPUs and 24Gb RAM. It costs €131 ($171) per month.
+           Server description: http://www.ovh.com/fr/serveurs_dedies/eg_best_of.xml (french)
+
+           If you enjoy lichess, please consider contributing.
+
+           Oh by the way, the code is open source :) https://github.com/ornicar/lila</a>
+         <br />
+       </div>
+       <div class="footer">
+         <div class="right">
+           <a href="http://github.com/ornicar">github.com/ornicar</a> | <a class="js_email">email me</a><br />
+           <a href="@routes.Main.developers">Developers</a> |
+           <a href="http://www.facebook.com/appcenter/510511915639555">Facebook app</a>
+         </div>
+         <a href="@routes.Wiki.home()" title="@trans.learnMoreAboutLichess()">Wiki</a> |
+         <a href="@routes.ForumCateg.show("lichess-feedback", 1)" title="Having a suggestion, feature request or bug report? Let me know">Feedback</a> |
+         <a href="http://github.com/ornicar/lila" target="_blank" title="See what's inside, fork and contribute">Source Code</a><br />
+         <a href="@routes.Monitor.index">Monitor</a> |
+         <a href="@routes.I18n.contribute">Translate Lichess</a>
+         <br />
+         Ping: <span id="connection_lag">?</span>
+       </div>
+     </div>
+     @jsTag("deps.min.js")
+     @signedJs.fold(jsAt, isDev.fold(jsTag("big.js"), jsTagC("big.js")))
+     @moreJs
+     @if(lang.language != "en") {
+     <script src="@routes.Assets.at("trans/" + lang.language + ".js")?v=@assetVersion"></script>
+     }
+   </body>
+ </html>

@@ -4,7 +4,7 @@ package i18n
 import com.novus.salat.annotations.Key
 import org.joda.time.DateTime
 
-case class Translation(
+private[i18n] case class Translation(
   @Key("_id") id: Int,
   code: String, // 2-chars code
   text: String,

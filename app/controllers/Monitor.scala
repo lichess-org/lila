@@ -16,6 +16,8 @@ object Monitor extends LilaController {
 
   private def reporting = env.monitor.reporting
   private def usernameMemo = env.user.usernameMemo
+  private def userRepo = env.user.userRepo
+  private def gameRepo = env.game.gameRepo
   private implicit def timeout = Timeout(500 millis)
 
   def index = Action {
@@ -26,23 +28,19 @@ object Monitor extends LilaController {
     env.monitor.socket.join(uidOption = get("sri", req))
   }
 
-  def status = Action {
+  def status = Open { implicit ctx ⇒
     Async {
-      (reporting ? GetStatus).mapTo[String].asPromise map { Ok(_) }
-    }
-  }
-
-  def nbPlayers = Action {
-    Async {
-      (reporting ? GetNbMembers).mapTo[Int].asPromise map { players ⇒
-        Ok("%d %d".format(players, usernameMemo.preciseCount))
-      }
-    }
-  }
-
-  def nbMoves = Action {
-    Async {
-      (reporting ? GetNbMoves).mapTo[Int].asPromise map { Ok(_) }
+      import core.Futuristic.ioToFuture
+      (~get("key") match {
+        case "elo" ⇒
+          userRepo.idsAverageElo(usernameMemo.keys).toFuture zip
+            gameRepo.recentAverageElo(5).toFuture map {
+              case (users, (rated, casual)) ⇒ List(users, rated, casual) mkString " "
+            }
+        case "moves"   ⇒ (reporting ? GetNbMoves).mapTo[Int]
+        case "players" ⇒ (reporting ? GetNbMembers).mapTo[Int] map { "%d %d".format(_, usernameMemo.preciseCount) }
+        case _         ⇒ (reporting ? GetStatus).mapTo[String]
+      }).asPromise map { x ⇒ Ok(x.toString) }
     }
   }
 }

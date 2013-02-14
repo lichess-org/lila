@@ -22,6 +22,9 @@ final class Processor(
     timelinePush: DbGame ⇒ IO[Unit],
     ai: () ⇒ Ai) extends core.Futuristic {
 
+  def filter(config: FilterConfig)(implicit ctx: Context): IO[Unit] = 
+    saveConfig(_ withFilter config)
+
   def ai(config: AiConfig)(implicit ctx: Context): IO[Pov] = for {
     _ ← saveConfig(_ withAi config)
     pov = config.pov

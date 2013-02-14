@@ -35,6 +35,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
 
   lazy val forum = new lila.forum.ForumEnv(
     settings = settings,
+    esIndexer = search.esIndexer,
     captcha = site.captcha,
     mongodb = mongodb.apply _,
     userRepo = user.userRepo,
@@ -52,6 +53,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
 
   lazy val team = new lila.team.TeamEnv(
     settings = settings,
+    esIndexer = search.esIndexer,
     captcha = site.captcha,
     userRepo = user.userRepo,
     sendMessage = message.api.lichessThread,
@@ -184,7 +186,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
   lazy val mod = new lila.mod.ModEnv(
     settings = settings,
     userRepo = user.userRepo,
-    securityStore = security.store,
+    userSpy = security.store.userSpy _,
     firewall = security.firewall,
     eloUpdater = user.eloUpdater,
     lobbyMessenger = lobby.messenger,

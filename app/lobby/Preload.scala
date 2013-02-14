@@ -7,6 +7,7 @@ import forum.PostLiteView
 import controllers.routes
 import socket.History
 import tournament.Created
+import setup.FilterConfig
 
 import play.api.mvc.Call
 import play.api.libs.concurrent.Akka
@@ -16,7 +17,7 @@ import akka.util.duration._
 import akka.util.Timeout
 import scalaz.effects._
 
-final class Preload(
+private[lobby] final class Preload(
     fisherman: Fisherman,
     history: History,
     hookRepo: HookRepo,
@@ -35,7 +36,8 @@ final class Preload(
     myHook: Option[Hook],
     timeline: IO[List[Entry]],
     posts: IO[List[PostLiteView]],
-    tours: IO[List[Created]]): Future[Response] =
+    tours: IO[List[Created]], 
+    filter: IO[FilterConfig]): Future[Response] =
     myHook.flatMap(_.gameId).fold(
       gameId ⇒ futureGame(gameId) map { gameOption ⇒
         Left(gameOption.fold(
@@ -48,12 +50,14 @@ final class Preload(
       ioToFuture(timeline) zip
       ioToFuture(posts) zip
       ioToFuture(tours) zip
-      featured.one map {
-        case (((((hooks, messages), entries), posts), tours), feat) ⇒ (Right((Map(
+      featured.one zip
+      ioToFuture(filter) map {
+        case ((((((hooks, messages), entries), posts), tours), feat), filter) ⇒ (Right((Map(
           "version" -> history.version,
           "pool" -> renderHooks(hooks, myHook),
           "chat" -> (messages.reverse map (_.render)),
-          "timeline" -> (entries.reverse map (_.render))
+          "timeline" -> (entries.reverse map (_.render)),
+          "filter" -> filter.render
         ), posts, tours, feat))): Response
       }
     )

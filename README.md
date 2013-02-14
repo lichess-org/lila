@@ -73,3 +73,29 @@ Restart on timeout
 ```sh
 bin/prod/timeout-restarter
 ```
+
+Notes to self
+=============
+
+Elasticsearch mongodb river
+---------------------------
+
+cd $ES_HOME;
+bin/plugin -url https://github.com/downloads/richardwilly98/elasticsearch-river-mongodb/elasticsearch-river-mongodb-1.6.1.zip -install river-mongodb
+service elasticsearch restart
+
+curl -XPUT 'http://localhost:9200/_river/team/_meta' -d '{ 
+    "type": "mongodb", 
+    "mongodb": { 
+        "db": "lichess", 
+        "collection": "team"
+    }, 
+    "index": {
+        "name": "lila", 
+        "type": "team" 
+    }
+}'
+
+/etc/mongodb.conf
+replSet=rs0
+oplogSize=100

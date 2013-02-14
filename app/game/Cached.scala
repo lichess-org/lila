@@ -5,7 +5,7 @@ import akka.util.duration._
 
 import memo.ActorMemo
 
-final class Cached(
+private[game] final class Cached(
     gameRepo: GameRepo,
     nbTtl: Int) {
 
@@ -24,7 +24,7 @@ final class Cached(
   }
 }
 
-object Cached {
+private[game] object Cached {
 
   sealed trait Key
 

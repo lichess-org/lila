@@ -11,7 +11,10 @@ case class UserConfig(
     id: String,
     ai: AiConfig,
     friend: FriendConfig,
-    hook: HookConfig) {
+    hook: HookConfig,
+    filter: FilterConfig) {
+
+  def withFilter(c: FilterConfig) = copy(filter = c)
 
   def withAi(c: AiConfig) = copy(ai = c)
 
@@ -24,6 +27,7 @@ case class UserConfig(
     ai = ai.encode,
     friend = friend.encode,
     hook = hook.encode,
+    filter = filter.encode.some,
     date = DateTime.now)
 }
 
@@ -33,7 +37,8 @@ object UserConfig {
     id = id,
     ai = AiConfig.default,
     friend = FriendConfig.default,
-    hook = HookConfig.default)
+    hook = HookConfig.default,
+    filter = FilterConfig.default)
 }
 
 case class RawUserConfig(
@@ -41,15 +46,18 @@ case class RawUserConfig(
     ai: RawAiConfig,
     friend: RawFriendConfig,
     hook: RawHookConfig,
+    filter: Option[RawFilterConfig],
     date: DateTime) {
 
   def decode: Option[UserConfig] = for {
     trueAi ← ai.decode
     trueFriend ← friend.decode
     trueHook ← hook.decode
+    trueFilter = filter.flatMap(_.decode) | FilterConfig.default
   } yield UserConfig(
     id = id,
     ai = trueAi,
     friend = trueFriend,
-    hook = trueHook)
+    hook = trueHook,
+    filter = trueFilter)
 }

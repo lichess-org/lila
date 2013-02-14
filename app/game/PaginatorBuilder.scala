@@ -8,7 +8,7 @@ import mongodb.CachedAdapter
 import com.github.ornicar.paginator._
 import com.mongodb.casbah.Imports._
 
-final class PaginatorBuilder(
+private[game] final class PaginatorBuilder(
     gameRepo: GameRepo,
     cached: Cached,
     maxPerPage: Int) {

@@ -14,13 +14,12 @@ final class PostApi(
     modLog: ModlogApi,
     maxPerPage: Int) {
 
-  def create(categSlug: String, slug: String, page: Int): IO[Option[(Categ, Topic, Paginator[Post])]] =
-    for {
-      categOption ← env.categRepo bySlug categSlug
-      topicOption ← env.topicRepo.byTree(categSlug, slug)
-    } yield categOption |@| topicOption apply {
-      case (categ, topic) ⇒ (categ, topic, env.postApi.paginator(topic, page))
-    }
+  def create(categSlug: String, slug: String, page: Int): IO[Option[(Categ, Topic, Paginator[Post])]] = for {
+    categOption ← env.categRepo bySlug categSlug
+    topicOption ← env.topicRepo.byTree(categSlug, slug)
+  } yield categOption |@| topicOption apply {
+    case (categ, topic) ⇒ (categ, topic, env.postApi.paginator(topic, page))
+  }
 
   def makePost(
     categ: Categ,
@@ -46,6 +45,7 @@ final class PostApi(
       nbPosts = categ.nbPosts + 1,
       lastPostId = post.id)
     _ ← env.recent.invalidate
+    _ ← env.indexer insertOne post
   } yield post
 
   def get(postId: String): IO[Option[(Topic, Post)]] = for {
@@ -67,6 +67,9 @@ final class PostApi(
   } yield PostView(post, topic, categ, lastPageOf(topic))
   ).flatten
 
+  def viewsFromIds(postIds: List[String]): IO[List[PostView]] =
+    env.postRepo byOrderedIds postIds flatMap views
+
   def view(post: Post): IO[Option[PostView]] = views(List(post)) map (_.headOption)
 
   def liteViews(posts: List[Post]): IO[List[PostLiteView]] = for {
@@ -77,6 +80,8 @@ final class PostApi(
     topic ← topics find (_.id == post.topicId)
   } yield PostLiteView(post, topic, lastPageOf(topic))
   ).flatten
+
+  def liteView(post: Post): IO[Option[PostLiteView]] = liteViews(List(post)) map (_.headOption)
 
   def lastNumberOf(topic: Topic): IO[Int] =
     env.postRepo lastByTopics List(topic) map (_.number)
@@ -111,6 +116,7 @@ final class PostApi(
       post = view.post
       _ ← modLog.deletePost(mod, post.userId, post.author, post.ip,
         text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text))
+      _ ← env.indexer removeOne post
     } yield ())
   } yield ()
 }

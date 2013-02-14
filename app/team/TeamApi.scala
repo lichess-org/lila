@@ -16,24 +16,24 @@ final class TeamApi(
     userRepo: UserRepo,
     messenger: TeamMessenger,
     makeForum: (String, String) ⇒ IO[Unit],
-    paginator: PaginatorBuilder) {
+    paginator: PaginatorBuilder,
+    indexer: SearchIndexer) {
 
   val creationPeriod = 1 week
 
-  def create(setup: TeamSetup, me: User): IO[Team] = setup.trim |> { s ⇒
-    Team(
+  def create(setup: TeamSetup, me: User): Option[IO[Team]] = me.canTeam option {
+    val s = setup.trim
+    val team = Team(
       name = s.name,
       location = s.location,
       description = s.description,
       open = s.isOpen,
-      createdBy = me) |> { team ⇒
-        for {
-          _ ← teamRepo saveIO team
-          _ ← memberRepo.add(team.id, me.id)
-          _ ← io(cached invalidateTeamIds me.id)
-          _ ← makeForum(team.id, team.name)
-        } yield team
-      }
+      createdBy = me)
+    (teamRepo saveIO team) >>
+      memberRepo.add(team.id, me.id) >>
+      io(cached invalidateTeamIds me.id) >>
+      makeForum(team.id, team.name) >>
+      (indexer insertOne team) inject team
   }
 
   def update(team: Team, edit: TeamEdit, me: User): IO[Unit] = edit.trim |> { e ⇒
@@ -41,7 +41,7 @@ final class TeamApi(
       location = e.location,
       description = e.description,
       open = e.isOpen
-    ) |> teamRepo.saveIO
+    ) |> { team ⇒ teamRepo.saveIO(team) >> indexer.insertOne(team) }
   }
 
   def mine(me: User): IO[List[Team]] = for {
@@ -69,7 +69,7 @@ final class TeamApi(
 
   def join(teamId: String)(implicit ctx: Context): IO[Option[Requesting]] = for {
     teamOption ← teamRepo byId teamId
-    result ← ~(teamOption |@| ctx.me)({
+    result ← ~(teamOption |@| ctx.me.filter(_.canTeam))({
       case (team, user) if team.open ⇒
         (doJoin(team, user.id) inject Joined(team).some): IO[Option[Requesting]]
       case (team, user) ⇒
@@ -121,11 +121,21 @@ final class TeamApi(
       io(cached invalidateTeamIds userId)
   } doIf belongsTo(team.id, userId)
 
+  def quitAll(userId: String): IO[Unit] = memberRepo.removeByUserId(userId)
+
   def kick(team: Team, userId: String): IO[Unit] = doQuit(team, userId)
+
+  def enable(team: Team): IO[Unit] =
+    teamRepo.enable(team) >> indexer.insertOne(team)
+
+  def disable(team: Team): IO[Unit] =
+    teamRepo.disable(team) >> indexer.removeOne(team)
 
   // delete for ever, with members but not forums
   def delete(team: Team): IO[Unit] =
-    teamRepo.removeIO(team) >> memberRepo.removeByteamId(team.id)
+    teamRepo.removeIO(team) >>
+      memberRepo.removeByteamId(team.id) >>
+      indexer.removeOne(team)
 
   def belongsTo(teamId: String, userId: String): Boolean =
     cached teamIds userId contains teamId

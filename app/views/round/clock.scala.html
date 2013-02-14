@@ -7,7 +7,8 @@
   clock_@position
   clock_@color
   @{ (time == 0).fold("outoftime", "") }"
-  data-time="@time">
+  data-time="@time"
+  data-emerg="@{ clock.estimateTotalTime / 10f }">
   @{ """%02d:%02d""".format(floor(time / 60d).toInt, (time % 60).toInt) }
 </div>
 }

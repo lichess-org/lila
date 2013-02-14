@@ -4,11 +4,13 @@ import lila._
 import views._
 import tournament.{ Created, Started, Finished }
 import http.Context
+import core.Futuristic.ioToFuture
 
 import scalaz.effects._
 import play.api.mvc._
 import play.api.libs.json._
 import play.api.libs.iteratee._
+import play.api.libs.concurrent._
 import play.api.templates.Html
 
 object Tournament extends LilaController {
@@ -22,33 +24,38 @@ object Tournament extends LilaController {
   private def gameRepo = env.game.gameRepo
 
   val home = Open { implicit ctx ⇒
-    IOk(
-      for {
-        createds ← repo.created
-        starteds ← repo.started
-        finisheds ← repo finished 20
-      } yield html.tournament.home(createds, starteds, finisheds)
-    )
+    Async {
+      futureTournaments zip userRepo.sortedByToints(10).toFuture map {
+        case (((created, started), finished), leaderboard) ⇒
+          Ok(html.tournament.home(created, started, finished, leaderboard))
+      } asPromise
+    }
   }
 
   val faq = Open { implicit ctx ⇒ Ok(html.tournament.faqPage()) }
 
   val homeReload = Open { implicit ctx ⇒
-    IOk(
-      for {
-        createds ← repo.created
-        starteds ← repo.started
-        finisheds ← repo finished 20
-      } yield html.tournament.homeInner(createds, starteds, finisheds)
-    )
+    Async {
+      futureTournaments map {
+        case ((created, started), finished) ⇒
+          Ok(html.tournament.homeInner(created, started, finished))
+      } asPromise
+    }
   }
 
+  private def futureTournaments =
+    repo.created.toFuture zip repo.started.toFuture zip repo.finished(20).toFuture
+
   def show(id: String) = Open { implicit ctx ⇒
-    IOptionIOk(repo byId id) {
-      case tour: Created  ⇒ showCreated(tour)
-      case tour: Started  ⇒ showStarted(tour)
-      case tour: Finished ⇒ showFinished(tour)
-    }
+    IOResult(for {
+      t ← repo byId id
+      res ← t match {
+        case Some(tour: Created)  ⇒ showCreated(tour) map { Ok(_) }
+        case Some(tour: Started)  ⇒ showStarted(tour) map { Ok(_) } 
+        case Some(tour: Finished) ⇒ showFinished(tour) map { Ok(_) }
+        case _                    ⇒ io(NotFound(html.tournament.notFound()))
+      }
+    } yield res)
   }
 
   private def showCreated(tour: Created)(implicit ctx: Context) = for {

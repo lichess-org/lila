@@ -24,7 +24,14 @@ object Lobby extends LilaController with Results {
   private def openTours = env.tournament.repo.created
   private def teamCache = env.team.cached
 
-  val home = Open { implicit ctx ⇒ Async { renderHome(none, Ok) } }
+  val home = Open { implicit ctx ⇒
+    Async {
+      renderHome(none, Ok).map(_.withHeaders(
+        CACHE_CONTROL -> "no-cache",
+        PRAGMA -> "no-cache"
+      ))
+    }
+  }
 
   def handleNotFound(req: RequestHeader): Result = handleNotFound(reqToCtx(req))
 
@@ -37,7 +44,8 @@ object Lobby extends LilaController with Results {
       myHook = myHook,
       timeline = timelineRecent,
       posts = forumRecent(ctx.me, teamCache.teamIds),
-      tours = openTours
+      tours = openTours,
+      filter = env.setup.filter
     ).map(_.fold(Redirect(_), {
         case (preload, posts, tours, featured) ⇒ status(html.lobby.home(
           toJson(preload),

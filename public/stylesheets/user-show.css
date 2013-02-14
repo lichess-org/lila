@@ -47,6 +47,10 @@ div.user_show .teams {
   display: block;
   margin-top: 1.6em;
 }
+div.user_show .teams {
+  max-height: 200px;
+  overflow: auto;
+}
 div.user_show .teams a {
   display: block;
   margin: 5px 0;
@@ -70,7 +74,7 @@ div.user_show div.games {
 div.user_show .actions {
   margin-bottom: 1em;
 }
-div.user_show .actions a,
+div.user_show .actions a.action,
 div.user_show .actions form {
   display: block;
   float: left;
@@ -82,4 +86,14 @@ div.user_show .user_spy {
 div.user_show .user_spy .inner {
   display: none;
   margin: 1em 0 0 20px;
+}
+div.user_show .user_spy .usernames a {
+  text-decoration: none;
+}
+div.user_show .user_spy .usernames a:hover {
+  text-decoration: underline;
+}
+div.user_show .user_spy strong {
+  display: block;
+  margin-top: 0.5em;
 }

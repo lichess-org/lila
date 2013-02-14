@@ -256,7 +256,7 @@ div.lichess_overboard p.explanations {
   z-index: 50;
 }
 
-input.lichess_id_input {
+div.lichess_id_input {
   margin-top: 10px;
   border: none;
   background: #fff;
@@ -264,6 +264,7 @@ input.lichess_id_input {
   text-align: center;
   color: #444;
   font-size: 1.2em;
+  padding: 1em 0;
 }
 
 div.lichess_promotion_choice {
@@ -387,14 +388,18 @@ div.lichess_table a.button.strong {
 div.clock {
   width: 70px;
   border: 1px solid #ccc;
-  padding: 4px 0 4px 10px;
-  font-size: 20px;
+  padding: 4px 0 2px 10px;
+  font-size: 22px;
   font-family: monospace;
   font-weight: bold;
   box-shadow: 0 0 7px #d0d0d0;
 }
 div.clock.running {
   background: #fff077;
+  color: #444;
+}
+div.clock.running.emerg {
+  background-color: #eFAAAA;
   color: #444;
 }
 div.clock.outoftime {

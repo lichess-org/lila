@@ -1,7 +1,7 @@
 package lila
 package i18n
 
-object Contributors {
+private[i18n] object Contributors {
 
   val all = Map(
     "fr" -> List("Thibault Duplessis"),
@@ -63,9 +63,12 @@ object Contributors {
     "ps" -> List("Eimal Dorani"),
     "is" -> List("Sir Gizmo Gunn Myr Basque", "cyberpunk"),
     "kk" -> List("Arsakay Madi"),
-    "io" -> List("Anonymous"),
-    "gu" -> List("Anonnymous"),
-    "fo" -> List("Anonnymous"))
+    "io" -> List("Fabian Mokross"),
+    "gu" -> List("Anonymous"),
+    "fo" -> List("Anonymous"),
+    "eu" -> List("Anonymous"),
+    "bn" -> List("Ankit Peet"),
+    "id" -> List("KenXeiko"))
 
   def apply(code: String): List[String] = ~(all get code)
 }

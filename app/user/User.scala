@@ -36,7 +36,10 @@ case class User(
 
   def canMessage = !muted
 
-  def canCreateTeam = !isChatBan  
+  def canTeam = 
+    !isChatBan && 
+    nbGames >= 3 &&
+    createdAt < (DateTime.now - 1.day)
 
   def disabled = !enabled
 
