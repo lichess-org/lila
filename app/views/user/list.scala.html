@@ -2,16 +2,7 @@
 
 @title = @{ "%s - page %d".format(trans.chessPlayers(), paginator.currentPage) }
 
-@goodies = {
-<div class="lichess_goodies">
-  <br />
-  <a href="@routes.User.stats()">See player stats</a>
-</div>
-}
-
-@user.layout(
-title = title,
-goodies = goodies.some) {
+@user.layout(title = title) {
 <div class="content_box">
   <div class="user_lists clearfix">
     <div class="all_users">
