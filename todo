@@ -30,7 +30,6 @@ AI thinks during your time (premove?) http://en.lichess.org/forum/lichess-feedba
 - in fact it does not, but the UI clocks only update once the ai made the move
 - solution: do AI asynchronously. Send player move events right away,
 - and ai events when the ai completes
-lsof show the open websockets on prod. The recurrent bug could come from the open descriptors limit (ulimit -n)
 not possible to copy the link URL invite when using a touch device. Can this be easily fixed by adding an automatic "copy" button next to the link?
 search bug http://en.lichess.org/games/search?players.a=&players.b=&players.winner=&eloMin=&eloMax=&hasAi=&aiLevelMin=&aiLevelMax=&variant=&mode=1&opening=&turnsMin=&turnsMax=&durationMin=&durationMax=&status=35&dateMin=&dateMax=&sort.field=tu&sort.order=asc
 takeback substract time for person granting
