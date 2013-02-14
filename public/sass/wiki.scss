@@ -1,49 +1,36 @@
-/* line 1, ../sass/wiki.scss */
 #wiki .body {
   margin-top: 2em;
   text-align: left;
   min-height: 400px;
 }
-
-/* line 6, ../sass/wiki.scss */
 #wiki div.wiki_box {
   text-align: center;
   font-size: 1.1em;
 }
-
-/* line 10, ../sass/wiki.scss */
 #wiki div.wiki_box em {
   font-style: italic;
 }
-
-/* line 13, ../sass/wiki.scss */
 #wiki div.wiki_box strong em {
   font-weight: bold;
 }
 
-/* line 17, ../sass/wiki.scss */
 #wiki div.wiki_box li {
   list-style: disc inside;
   margin-left: 1em;
 }
 
-/* line 22, ../sass/wiki.scss */
 #wiki div.wiki_box p {
   margin: 1em;
 }
 
-/* line 26, ../sass/wiki.scss */
 #wiki h2 {
   font-size: 1.5em;
   line-height: 2em;
 }
 
-/* line 31, ../sass/wiki.scss */
 div.sidebar {
   margin-top: 30px;
 }
-
-/* line 34, ../sass/wiki.scss */
 div.sidebar a {
   display: block;
   font-size: 1.2em;

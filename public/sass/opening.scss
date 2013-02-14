@@ -1,42 +1,28 @@
-/* line 1, ../sass/opening.scss */
 div.game_config h2, div.game_config button {
   font-size: 1.4em;
   padding: 0 2em;
 }
-
-/* line 5, ../sass/opening.scss */
 div.game_config button {
   letter-spacing: 1px;
 }
 
-/* line 9, ../sass/opening.scss */
 div.game_config h2 {
   margin-bottom: 1em;
 }
-
-/* line 12, ../sass/opening.scss */
 div.game_config div.ui-buttonset {
   margin-bottom: 1em;
 }
-
-/* line 15, ../sass/opening.scss */
 #config_level .ui-button {
   margin-right: -0.6em;
 }
-
-/* line 19, ../sass/opening.scss */
-div.game_config .ui-button-text,
+div.game_config .ui-button-text, 
 div.game_config select {
   text-transform: capitalize;
 }
-
-/* line 22, ../sass/opening.scss */
 div.game_config div.ui-slider {
   font-size: 1.3em;
   margin: 0 15px;
 }
-
-/* line 26, ../sass/opening.scss */
 div.game_config .optional_config {
   background: #f4f4f4;
   margin-bottom: 1em;
@@ -44,8 +30,6 @@ div.game_config .optional_config {
   border-top: solid 1px #e4e4e4;
   border-bottom: solid 1px #e4e4e4;
 }
-
-/* line 35, ../sass/opening.scss */
 div.game_config .time_choice,
 div.game_config .increment_choice,
 div.game_config .elo_range_config {
@@ -53,30 +37,20 @@ div.game_config .elo_range_config {
   text-align: left;
   text-indent: 15px;
 }
-
-/* line 40, ../sass/opening.scss */
 div.game_config .time_choice span {
   font-weight: bold;
 }
-
-/* line 43, ../sass/opening.scss */
 div.game_config .clock_config label {
   cursor: pointer;
 }
-
-/* line 46, ../sass/opening.scss */
 div.game_config button.submit {
   margin-top: 0.5em;
 }
-
-/* line 49, ../sass/opening.scss */
 div.game_config div.color_submits {
   margin-top: 1em;
   margin-left: 18px;
   height: 65px;
 }
-
-/* line 54, ../sass/opening.scss */
 div.game_config div.color_submits button.submit {
   float: left;
   width: 80px;
@@ -84,26 +58,18 @@ div.game_config div.color_submits button.submit {
   padding: 5px 14px;
   margin: 0 5px;
 }
-
-/* line 61, ../sass/opening.scss */
 div.game_config div.color_submits button.submit span {
   background: url(../images/sprite_color.png) no-repeat;
   width: 50px;
   height: 51px;
   padding: 0;
 }
-
-/* line 67, ../sass/opening.scss */
 div.game_config div.color_submits button.black span {
   background-position: 0 -51px;
 }
-
-/* line 70, ../sass/opening.scss */
 div.game_config div.color_submits button.random span {
   background-position: 0 -102px;
 }
-
-/* line 73, ../sass/opening.scss */
 div.hooks_wrap {
   position: absolute;
   width: 384px;
@@ -112,28 +78,23 @@ div.hooks_wrap {
   left: 52px;
   padding: 12px;
   border-radius: 3px 0 3px 3px;
-  box-shadow: 0 0 20px #444444;
-  background: rgba(245, 245, 245, 0.8);
-  background: -moz-linear-gradient(top, rgba(212, 212, 212, 0.9) 0%, rgba(240, 240, 240, 0.5) 100%);
-  background: -webkit-linear-gradient(top, rgba(212, 212, 212, 0.9) 0%, rgba(240, 240, 240, 0.5) 100%);
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(212, 212, 212, 0.9)), to(rgba(240, 240, 240, 0.5)));
-  background: -ms-linear-gradient(top, rgba(212, 212, 212, 0.9) 0%, rgba(240, 240, 240, 0.5) 100%);
-  background: -o-linear-gradient(top, rgba(212, 212, 212, 0.9) 0%, rgba(240, 240, 240, 0.5) 100%);
-  background: linear-gradient(top, rgba(212, 212, 212, 0.9) 0%, rgba(240, 240, 240, 0.5) 100%);
+  box-shadow: 0 0 20px #444;
+  background: rgba(245,245,245,0.8);
+  background: -moz-linear-gradient(top, rgba(212,212,212,0.9) 0%, rgba(240,240,240,0.5) 100%);
+  background: -webkit-linear-gradient(top, rgba(212,212,212,0.9) 0%,rgba(240,240,240,0.5) 100%);
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(212,212,212,0.9)), to(rgba(240,240,240,0.5)));
+  background: -ms-linear-gradient(top, rgba(212,212,212,0.9) 0%,rgba(240,240,240,0.5) 100%);
+  background: -o-linear-gradient(top, rgba(212,212,212,0.9) 0%,rgba(240,240,240,0.5) 100%);
+  background: linear-gradient(top, rgba(212,212,212,0.9) 0%,rgba(240,240,240,0.5) 100%);
 }
-
-/* line 90, ../sass/opening.scss */
 div.hooks_wrap.large {
   height: 512px;
   top: -13px;
 }
 
-/* line 95, ../sass/opening.scss */
 div.hooks_wrap.hidden {
   display: none;
 }
-
-/* line 98, ../sass/opening.scss */
 div.hooks_wrap a.filter {
   position: absolute;
   top: -21px;
@@ -141,43 +102,31 @@ div.hooks_wrap a.filter {
   height: 20px;
   line-height: 20px;
   padding: 0 2px 0 10px;
-  background: rgba(212, 212, 212, 0.9);
-  border: 1px solid #888888;
+  background: rgba(212,212,212,0.9);
+  border: 1px solid #888;
   color: #333;
   border-bottom: 0;
   display: block;
   border-radius: 3px 3px 0 0;
   text-decoration: none;
 }
-
-/* line 114, ../sass/opening.scss */
 div.hooks_wrap a.filter:hover,
 div.hooks_wrap a.filter.active {
   background: #fff;
 }
-
-/* line 117, ../sass/opening.scss */
 div.hooks_wrap a.filter span.number {
   display: none;
 }
-
-/* line 120, ../sass/opening.scss */
 div.hooks_wrap a.filter.on {
   padding: 0 10px 0 2px;
 }
-
-/* line 123, ../sass/opening.scss */
 div.hooks_wrap a.filter.on span.s16 {
   padding: 0 0 0 20px;
   background-position: left -112px;
 }
-
-/* line 127, ../sass/opening.scss */
 div.hooks_wrap a.filter.on span.number {
   display: inline;
 }
-
-/* line 130, ../sass/opening.scss */
 div.hooks_wrap div.filter {
   position: absolute;
   display: none;
@@ -186,37 +135,28 @@ div.hooks_wrap div.filter {
   min-height: 181px;
   width: 244px;
   padding: 12px;
-  border: 1px solid #888888;
+  border: 1px solid #888;
   border-width: 0 0 1px 1px;
   background: #fff;
   border-radius: 0 0 0 3px;
 }
-
-/* line 143, ../sass/opening.scss */
 div.hooks_wrap div.filter select {
   width: 100%;
   margin-bottom: 12px;
   padding: 6px;
 }
-
-/* line 148, ../sass/opening.scss */
 div.hooks_wrap div.filter .actions {
   text-align: right;
 }
-
-/* line 151, ../sass/opening.scss */
 div.hooks_wrap div.filter .actions button {
   padding: 6px;
   margin-left: 12px;
 }
 
-/* line 156, ../sass/opening.scss */
 div.hooks {
   border: 1px solid #bababa;
-  border-top: 0;
+  border-top: 0
 }
-
-/* line 160, ../sass/opening.scss */
 div.hooks table {
   width: 100%;
   max-height: 424px;
@@ -226,92 +166,62 @@ div.hooks table {
   background: none;
   border-top: 1px solid #bababa;
 }
-
-/* line 169, ../sass/opening.scss */
 div.hooks table.empty {
   margin-top: 152px;
 }
-
-/* line 172, ../sass/opening.scss */
 div.hooks td {
   padding: 0 8px 0 12px;
   height: 64px;
   margin: 0;
 }
-
-/* line 177, ../sass/opening.scss */
 div.hooks a {
   color: #666;
 }
-
-/* line 180, ../sass/opening.scss */
 div.hooks tr:last-child td {
   border-bottom: none;
 }
-
-/* line 183, ../sass/opening.scss */
 div.hooks table.empty tr {
   text-align: center;
   cursor: pointer;
 }
-
-/* line 187, ../sass/opening.scss */
 div.hooks table.empty td {
   padding: 0;
   height: 80px;
 }
-
-/* line 191, ../sass/opening.scss */
 div.hooks td.color {
   width: 24px;
   padding-right: 0;
 }
-
-/* line 195, ../sass/opening.scss */
 div.hooks td.color span {
   height: 24px;
   width: 24px;
   display: block;
   background: url(../images/sprite_color_24.png) no-repeat;
 }
-
-/* line 201, ../sass/opening.scss */
 div.hooks td.color span.black {
   background-position: 0 -24px;
 }
-
-/* line 204, ../sass/opening.scss */
 div.hooks td.color span.random {
   background-position: 0 -49px;
 }
-
-/* line 207, ../sass/opening.scss */
 div.hooks span.elorange {
   display: block;
   font-style: italic;
   color: #999;
 }
-
-/* line 212, ../sass/opening.scss */
 div.hooks a.user_link.engine {
   color: #cc7070;
 }
-
-/* line 215, ../sass/opening.scss */
 div.hooks td.action {
   cursor: pointer;
   border-left: 1px solid #cacaca;
   width: 63px;
   padding: 0;
 }
-
-/* line 221, ../sass/opening.scss */
 div.hooks td.action.empty {
   cursor: default;
   background: none;
 }
-
-/* line 226, ../sass/opening.scss */
 div.hooks a.cancel,
 div.hooks a.join {
   height: 32px;
@@ -319,128 +229,91 @@ div.hooks a.join {
   display: block;
   padding: 12px 14px;
 }
-
-/* line 232, ../sass/opening.scss */
 div.hooks a.cancel {
-  background: url(../images/close24.png)16px no-repeat;
+  background: url(../images/close24.png) +16px no-repeat;
 }
-
-/* line 235, ../sass/opening.scss */
 div.hooks a.join {
-  background: url(../images/play32.png)16px no-repeat;
+  background: url(../images/play32.png) +16px no-repeat;
 }
 
-/* line 239, ../sass/opening.scss */
 div.hooks a.user_link {
   background: transparent;
   padding-left: 0;
 }
 
-/* line 244, ../sass/opening.scss */
 #featured_game div.vstext {
   margin-top: 0.7em;
   text-align: center;
 }
 
-/* line 249, ../sass/opening.scss */
 div.undertable {
   width: 514px;
   font-size: 11.5px;
   margin-top: 15px;
 }
-
-/* line 254, ../sass/opening.scss */
 div.undertable_top {
   border-radius: 4px 4px 0 0;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   padding: 3px 5px;
 }
-
-/* line 259, ../sass/opening.scss */
 div.undertable_top a.more {
   float: right;
   padding-right: 2px;
   text-decoration: none;
 }
-
-/* line 264, ../sass/opening.scss */
 div.undertable_top span.title {
   font-weight: bold;
   color: #999;
   padding-left: 4px;
 }
-
-/* line 269, ../sass/opening.scss */
 div.undertable_inner {
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   border-top: 0;
   border-radius: 0 0 4px 4px;
   height: 204px;
   width: auto;
-  overflow: hidden;
+  overflow:hidden;
 }
-
-/* line 277, ../sass/opening.scss */
 div.undertable a.user_link {
   text-decoration: none;
   font-weight: bold;
   color: #999;
 }
-
-/* line 282, ../sass/opening.scss */
 div.undertable a.user_link:hover {
   text-decoration: underline;
 }
-
-/* line 285, ../sass/opening.scss */
 div.undertable table {
   width: 100%;
   height: 100%;
 }
-
-/* line 289, ../sass/opening.scss */
 div.undertable td {
   padding: 6px 5px 6px 5px;
   background: #fff;
   border-top: 1px solid #eaeaea;
 }
-
-/* line 294, ../sass/opening.scss */
 div.undertable tr:first-child td {
   border-top: none;
 }
-
-/* line 297, ../sass/opening.scss */
 div.undertable tr:nth-child(even) td {
   background: #f0f0f0;
 }
 
-/* line 301, ../sass/opening.scss */
 div.open_tournaments div.undertable_inner {
   height: auto;
 }
-
-/* line 304, ../sass/opening.scss */
 div.open_tournaments input.submit {
   padding: 0.2em 1em;
 }
-
-/* line 307, ../sass/opening.scss */
 div.open_tournaments td:first-child {
   padding-left: 1em;
 }
-
-/* line 310, ../sass/opening.scss */
 div.open_tournaments tr.create td {
   text-align: center;
 }
 
-/* line 314, ../sass/opening.scss */
 div.lichess_bot tr {
   cursor: pointer;
 }
-
-/* line 317, ../sass/opening.scss */
 div.lichess_bot a.watch {
   display: block;
   width: 24px;
@@ -448,41 +321,29 @@ div.lichess_bot a.watch {
   background: url(../images/eye.png) top left no-repeat;
   opacity: 0.4;
 }
-
-/* line 324, ../sass/opening.scss */
 div.lichess_bot tr:hover a.watch {
   opacity: 1;
 }
-
-/* line 327, ../sass/opening.scss */
 div.new_posts li {
   margin: 0.6em 0;
   padding-left: 9px;
   line-height: 14px;
   white-space: nowrap;
 }
-
-/* line 333, ../sass/opening.scss */
 div.new_posts li.s16 {
   padding-left: 20px;
   margin-left: 5px;
   height: 15px;
   display: block;
 }
-
-/* line 339, ../sass/opening.scss */
 div.new_posts a.post_link {
   margin-right: 7px;
 }
-
-/* line 342, ../sass/opening.scss */
 div.new_posts li span {
   font-weight: bold;
   margin-right: 6px;
   color: #aaa;
 }
-
-/* line 347, ../sass/opening.scss */
 div.lichess_overboard.joining input.submit {
   font-size: 1.2em;
   margin-top: 1em;

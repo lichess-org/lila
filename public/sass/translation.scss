@@ -1,46 +1,31 @@
-/* line 1, ../sass/translation.scss */
 h2 {
   margin-top: 1em;
   font-size: 1.5em;
 }
 
-/* line 6, ../sass/translation.scss */
 table.translations {
   margin-top: 1em;
   width: 100%;
 }
-
-/* line 10, ../sass/translation.scss */
 table.translations th {
   font-weight: bold;
 }
-
-/* line 13, ../sass/translation.scss */
 table.translations td, table.translations th {
   padding: 5px 5px 5px 5px;
 }
-
-/* line 16, ../sass/translation.scss */
 table.translations tbody tr:nth-child(odd) {
   background: #f4f4f4;
 }
-
-/* line 19, ../sass/translation.scss */
 table.translations td.progress {
   white-space: nowrap;
 }
-
-/* line 22, ../sass/translation.scss */
 table.translations div.progressbar {
   width: 200px;
 }
 
-/* line 26, ../sass/translation.scss */
 div.locale_menu {
   margin-top: 2em;
 }
-
-/* line 29, ../sass/translation.scss */
 div.locale_menu a {
   display: block;
   float: left;
@@ -48,63 +33,48 @@ div.locale_menu a {
   border: 1px solid #dadada;
   margin-right: 1em;
   text-decoration: none;
-  border-radius: 4px;
+  border-radius:4px;
 }
-
-/* line 38, ../sass/translation.scss */
 div.locale_menu a:hover {
   box-shadow: 0 0 9px #d85000;
 }
 
-/* line 42, ../sass/translation.scss */
 .error {
   color: red;
 }
 
-/* line 46, ../sass/translation.scss */
 .notice {
   margin: 1em;
   padding: 1em;
   text-align: center;
   font-size: 1.2em;
-  border: 1px solid #dadada;
+  border: 1px solid #DADADA;
   color: #000;
 }
-
-/* line 54, ../sass/translation.scss */
 .notice {
   background: #AAFFAA;
 }
 
-/* line 58, ../sass/translation.scss */
 div.messages {
-  margin-bottom: 1em;
+  margin-bottom:1em;
   padding-bottom: 1em;
   max-height: 500px;
   overflow: auto;
   border: 1px solid #dadada;
 }
-
-/* line 65, ../sass/translation.scss */
 div.message {
-  padding: 1em;
+  padding:1em;
   font-size: 1.2em;
   position: relative;
 }
-
-/* line 70, ../sass/translation.scss */
 div.message:nth-child(odd) {
   background: #f4f4f4;
 }
-
-/* line 73, ../sass/translation.scss */
 div.message label {
   display: block;
   color: #444;
   margin-left: 9%;
 }
-
-/* line 78, ../sass/translation.scss */
 div.message input {
   width: 90%;
   margin-left: 9%;
@@ -112,26 +82,20 @@ div.message input {
   padding: 3px 5px;
   border: 1px solid #dadada;
 }
-
-/* line 85, ../sass/translation.scss */
 div.message .number {
   position: absolute;
   top: 25px;
   left: 10px;
 }
 
-/* line 91, ../sass/translation.scss */
 div.optional {
   margin-bottom: 1em;
 }
-
-/* line 94, ../sass/translation.scss */
 div.optional input {
   padding: 3px 5px;
   border: 1px solid #dadada;
 }
 
-/* line 99, ../sass/translation.scss */
 input.submit {
   padding: 5px 10px;
   font-size: 1.3em;

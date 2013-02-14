@@ -1,14 +1,11 @@
-/* line 1, ../sass/search.scss */
 form.search {
   padding: 10px 25px;
 }
 
-/* line 5, ../sass/search.scss */
 form.search td {
   padding: 5px 0;
 }
 
-/* line 9, ../sass/search.scss */
 form.search .half {
   float: left;
   width: 49%;
@@ -16,50 +13,41 @@ form.search .half {
   text-align: right;
 }
 
-/* line 16, ../sass/search.scss */
 form.search label {
   margin-right: 10px;
 }
 
-/* line 20, ../sass/search.scss */
 form.search input {
   width: 96%;
   padding: 0.5% 1%;
 }
 
-/* line 25, ../sass/search.scss */
 form.search select {
   padding: 0.5% 1%;
   text-transform: capitalize;
 }
 
-/* line 30, ../sass/search.scss */
 form.search .single select {
   width: 99%;
 }
 
-/* line 35, ../sass/search.scss */
 form.search .half select,
 form.search .half input {
   width: 80%;
 }
 
-/* line 39, ../sass/search.scss */
 form.search input.submit {
   width: 99%;
 }
 
-/* line 43, ../sass/search.scss */
 form.search div.level {
   display: inline;
 }
 
-/* line 47, ../sass/search.scss */
 form.search th.help {
   padding-left: 10px;
 }
 
-/* line 51, ../sass/search.scss */
 div.search_status {
   margin-top: 10px;
   padding: 10px 25px;
@@ -69,8 +57,8 @@ div.search_status {
   font-weight: bold;
 }
 
+
 /* Errors */
-/* line 62, ../sass/search.scss */
 form.search .error {
   margin-left: 160px;
   color: red;

@@ -1,4 +1,3 @@
-/* line 1, ../sass/tournament.scss */
 #tournament .title_tag {
   float: right;
   font-size: 20px;
@@ -7,120 +6,95 @@
   margin: 21px 25px 0 0;
 }
 
-/* line 9, ../sass/tournament.scss */
 #tournament div.tournament_show {
   width: 525px;
 }
 
-/* line 13, ../sass/tournament.scss */
 #tournament div.tournament_show div.game_list {
   margin: 25px 0 0 15px;
 }
 
-/* line 17, ../sass/tournament.scss */
 #tournament a.pov {
   display: block;
   margin: 0 25px 1em 25px;
   text-align: center;
   font-size: 1.5em;
 }
-
-/* line 23, ../sass/tournament.scss */
 #tournament a.pov span {
   display: block;
   font-weight: bold;
 }
 
-/* line 28, ../sass/tournament.scss */
 #tournament table.slist .create td {
   padding: 0.6em 1.2em 0.6em 0.6em;
   text-align: center;
 }
 
-/* line 33, ../sass/tournament.scss */
 #tournament table.slist span.rank {
   font-weight: bold;
   padding-right: 20px;
   background: transparent url(../images/s16.png) top right no-repeat;
   background-position: right 900px;
 }
-
-/* line 39, ../sass/tournament.scss */
 #tournament table.slist tbody span.withdraw {
   background-position: right -320px;
 }
-
-/* line 42, ../sass/tournament.scss */
 #tournament table.slist tbody span.winner {
   background-position: right -304px;
 }
-
-/* line 45, ../sass/tournament.scss */
 #tournament table.slist .small {
   font-size: 0.8em;
 }
 
-/* line 49, ../sass/tournament.scss */
 #tournament form.inline {
   display: inline;
   float: right;
   padding-right: 0.6em;
 }
 
-/* line 55, ../sass/tournament.scss */
 #tournament form.plain td {
   padding: 0.6em;
   white-space: nowrap;
 }
 
-/* line 60, ../sass/tournament.scss */
 #tournament form.plain label {
   margin-right: 10px;
 }
 
-/* line 64, ../sass/tournament.scss */
 #tournament form.plain input {
   width: 96%;
   padding: 0.5% 1%;
 }
 
-/* line 69, ../sass/tournament.scss */
 #tournament form.plain select {
   padding: 0.5% 1%;
   text-transform: capitalize;
   width: 99%;
 }
-
-/* line 74, ../sass/tournament.scss */
 #tournament form.plain .inline select {
   width: 46%;
 }
 
-/* line 78, ../sass/tournament.scss */
 #tournament form.plain input.submit {
   width: 99%;
 }
 
-/* line 82, ../sass/tournament.scss */
 #tournament form.plain .error {
   margin-left: 160px;
   color: red;
 }
 
-/* line 87, ../sass/tournament.scss */
 #tournament_side {
   float: right;
   width: 246px;
   max-height: 860px;
   overflow-y: auto;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   border-radius: 4px;
   padding: 3px;
   background: #f7f7f7;
-  box-shadow: 0 0 7px #d0d0d0;
+  box-shadow: 0 0 7px #D0D0D0;
 }
-
-/* line 98, ../sass/tournament.scss */
 #tournament_side div.pairings a {
   padding: 0.3em 0.2em;
   display: block;
@@ -128,75 +102,52 @@
   white-space: nowrap;
   overflow: hidden;
 }
-
-/* line 105, ../sass/tournament.scss */
 #tournament_side div.pairings a:hover {
   text-decoration: underline;
 }
-
-/* line 108, ../sass/tournament.scss */
 #tournament_side div.pairings span {
   font-weight: bold;
 }
-
-/* line 111, ../sass/tournament.scss */
 #tournament_side div.pairings span.win {
   color: #00aa00;
 }
-
-/* line 114, ../sass/tournament.scss */
 #tournament_side div.pairings span.loss {
   color: #aa0000;
 }
-
-/* line 117, ../sass/tournament.scss */
 #tournament_side div.pairings span.draw {
   color: #aaaa00;
 }
 
-/* line 121, ../sass/tournament.scss */
 #tournament article.faq h2 {
   font-weight: bold;
   font-style: italic;
 }
-
-/* line 125, ../sass/tournament.scss */
 #tournament article.faq p {
   margin: 0.5em 0 2em 0;
 }
-
-/* line 128, ../sass/tournament.scss */
 div.faq_page h1 {
   display: block;
   margin-bottom: 1em;
 }
-
-/* line 132, ../sass/tournament.scss */
 div.faq_box {
   margin-top: 15px;
 }
 
-/* line 136, ../sass/tournament.scss */
 div.header .tournament_links {
   margin-top: 30px;
 }
 
-/* line 140, ../sass/tournament.scss */
 .leaderboard_title {
   font-size: 1.5em;
   margin-top: 30px;
   margin-bottom: 6px;
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #ccc;
 }
-
-/* line 146, ../sass/tournament.scss */
 ol.tournament_leaderboard li {
   font-size: 1.2em;
   padding: 5px 0;
   list-style: decimal-leading-zero inside;
 }
-
-/* line 151, ../sass/tournament.scss */
 ol.tournament_leaderboard a {
   text-decoration: none;
 }

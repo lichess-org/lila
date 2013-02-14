@@ -1,5 +1,3 @@
-@charset "IBM866";
-/* line 1, ../sass/forum.scss */
 a.forum_feed_link {
   width: 16px;
   height: 16px;
@@ -8,45 +6,36 @@ a.forum_feed_link {
   float: right;
 }
 
-/* line 10, ../sass/forum.scss */
 .metas .delete,
 .metas .ipban {
   margin-left: 1em;
 }
-
-/* line 13, ../sass/forum.scss */
 .forum_topics_list .delete {
   margin-right: 1em;
 }
 
-/* line 17, ../sass/forum.scss */
 ol.crumbs {
   padding: 20px 24px 0 24px;
 }
 
-/* line 22, ../sass/forum.scss */
+
 ol.crumbs li {
   display: inline;
   margin-left: 1em;
 }
 
-/* line 27, ../sass/forum.scss */
 ol.crumbs li:after {
   content: "›";
   padding-left: 1em;
 }
 
-/* line 32, ../sass/forum.scss */
 ol.crumbs li:last-child:after {
   display: none;
 }
-
-/* line 35, ../sass/forum.scss */
 ol.crumbs li:first-child {
   margin-left: 0;
 }
 
-/* line 39, ../sass/forum.scss */
 #lichess_forum ol.crumbs h1 {
   display: inline;
   margin: 0;
@@ -54,77 +43,59 @@ ol.crumbs li:first-child {
   vertical-align: middle;
 }
 
-/* line 46, ../sass/forum.scss */
 #lichess_forum form.search {
   float: right;
   margin: 20px;
 }
 
-/* line 51, ../sass/forum.scss */
 #lichess_forum .search_results {
   margin-top: 1em;
 }
-
-/* line 54, ../sass/forum.scss */
 #lichess_forum .search_results .date {
   font-size: 0.8em;
   white-space: nowrap;
-  display: block;
+  display: block
 }
-
-/* line 59, ../sass/forum.scss */
 #lichess_forum .search_results a.post {
   display: block;
   font-size: 1.1em;
   margin-bottom: 4px;
   padding-bottom: 5px;
 }
-
-/* line 65, ../sass/forum.scss */
 #lichess_forum .search_results td {
   padding-bottom: 1em;
   padding-top: 1em;
 }
 
-/* line 70, ../sass/forum.scss */
 #lichess_forum table.forum_table {
   width: 100%;
   margin-bottom: 5px;
 }
 
-/* line 75, ../sass/forum.scss */
 #lichess_forum table.forum_table th {
   padding: 1em 0 0.5em 0;
 }
-
-/* line 78, ../sass/forum.scss */
 #lichess_forum table.forum_table th:last {
   padding-left: 1em;
 }
 
-/* line 82, ../sass/forum.scss */
 #lichess_forum table.forum_table td.subject {
   padding: 2em 1em;
 }
 
-/* line 86, ../sass/forum.scss */
 #lichess_forum table.forum_table td.right, #lichess_forum table.forum_table th.right {
   text-align: right;
   padding-right: 2em;
 }
 
-/* line 91, ../sass/forum.scss */
 #lichess_forum table.forum_table td.last_post {
   min-width: 150px;
   padding-right: 1em;
 }
-
-/* line 95, ../sass/forum.scss */
 #lichess_forum table.forum_table td.feed {
   padding-right: 1em;
 }
 
-/* line 99, ../sass/forum.scss */
 #lichess_forum table.forum_table td.subject a {
   font-size: 1.2em;
   font-weight: bold;
@@ -134,76 +105,60 @@ ol.crumbs li:first-child {
   padding-left: 20px;
 }
 
-/* line 108, ../sass/forum.scss */
 #lichess_forum table.forum_table td .description {
   margin-top: 0.5em;
   display: block;
 }
 
-/* line 113, ../sass/forum.scss */
 #lichess_forum th {
   font-weight: bold;
   color: #A0A0A0;
 }
 
-/* line 118, ../sass/forum.scss */
 #lichess_forum h1 {
   font-size: 1.4em;
   margin-bottom: 0.5em;
 }
-
-/* line 122, ../sass/forum.scss */
 .forum_baseline {
   margin-bottom: 1em;
 }
 
-/* line 126, ../sass/forum.scss */
 #lichess_forum table.forum_table tr:nth-child(odd) {
   background: #F7F7F7;
 }
-
-/* line 129, ../sass/forum.scss */
 #lichess_forum table.forum_table tr.thead {
   background: #fff;
 }
 
-/* line 133, ../sass/forum.scss */
 div.post {
   font-size: 1.2em;
   padding: 2em 24px 1em 24px;
-  border-top: 1px solid #d4d4d4;
+  border-top: 1px solid #D4D4D4;
   margin-top: 1em;
   position: relative;
 }
-
-/* line 140, ../sass/forum.scss */
 div.post:last-child {
-  border-bottom: 1px solid #d4d4d4;
+  border-bottom: 1px solid #D4D4D4;
   padding-bottom: 2em;
   margin-bottom: 2em;
 }
 
-/* line 146, ../sass/forum.scss */
 div.post .anchor {
   position: absolute;
   top: 2em;
   right: 24px;
 }
 
-/* line 152, ../sass/forum.scss */
 div.post .author {
   font-size: 1.2em;
   font-weight: bold;
   float: left;
 }
-
-/* line 157, ../sass/forum.scss */
 div.post .author a {
   height: 16px;
   display: block;
 }
 
-/* line 162, ../sass/forum.scss */
 div.post .createdAt {
   font-size: 0.8em;
   font-style: italic;
@@ -213,43 +168,34 @@ div.post .createdAt {
   float: left;
 }
 
-/* line 171, ../sass/forum.scss */
 div.post .message {
   margin-top: 1.5em;
   color: #555;
   line-height: 1.5em;
 }
 
-/* line 178, ../sass/forum.scss */
 div.topicReply,
 div.category .description {
   margin: 1em 24px 0 24px;
 }
 
-/* line 182, ../sass/forum.scss */
 .postNewTitle {
   font-size: 1.5em;
   font-style: italic;
 }
 
-/* line 187, ../sass/forum.scss */
 #lichess_forum form.wide {
   margin-bottom: 1em;
 }
-
-/* line 190, ../sass/forum.scss */
 #lichess_forum form {
   margin-top: 2em;
   font-size: 1.3em;
 }
-
-/* line 194, ../sass/forum.scss */
 #lichess_forum form label {
   display: block;
   margin-bottom: 2em;
 }
 
-/* line 199, ../sass/forum.scss */
 #lichess_forum form label span {
   float: left;
   display: block;
@@ -258,43 +204,32 @@ div.category .description {
   margin-right: 10px;
   margin-top: 3px;
 }
-
-/* line 207, ../sass/forum.scss */
 #lichess_forum form label span.required:after {
   content: "*";
   color: #FF6666;
   margin-left: 3px;
 }
 
-/* line 213, ../sass/forum.scss */
 #lichess_forum form.wide input.subject {
   width: 500px;
 }
-
-/* line 216, ../sass/forum.scss */
 #lichess_forum form textarea {
   width: 500px;
   height: 150px;
 }
-
-/* line 220, ../sass/forum.scss */
 #lichess_forum form input.author {
   width: 300px;
 }
-
-/* line 223, ../sass/forum.scss */
 #lichess_forum form .submit {
   margin-left: 110px;
 }
 
-/* line 227, ../sass/forum.scss */
 #lichess_forum form p.error {
   margin-left: 110px;
   margin-bottom: 10px;
   color: red;
 }
 
-/* line 233, ../sass/forum.scss */
 div.pagination a, div.pagination span {
   font-size: 1.1em;
   font-weight: bold;
@@ -302,32 +237,24 @@ div.pagination a, div.pagination span {
   text-decoration: none;
   margin: 0 2px;
 }
-
-/* line 240, ../sass/forum.scss */
 div.pagination span {
   color: #aaa;
   padding: 0.1em 0.3em;
 }
 
-/* line 245, ../sass/forum.scss */
 div.bar {
   margin-top: 1em;
   width: 100%;
 }
-
-/* line 249, ../sass/forum.scss */
 div.bar .button {
   float: left;
   margin-left: 24px;
 }
-
-/* line 253, ../sass/forum.scss */
 div.bar div.pagination {
   margin: 0.4em 24px 0 0;
   float: right;
 }
 
-/* line 258, ../sass/forum.scss */
 #lichess_forum div.checkmateCaptcha p.error {
   margin-left: 0;
 }

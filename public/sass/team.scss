@@ -1,16 +1,12 @@
-/* line 1, ../sass/team.scss */
 #team form {
   margin-top: 2em;
   font-size: 1.3em;
 }
-
-/* line 5, ../sass/team.scss */
 #team form label {
   display: block;
   margin-bottom: 2em;
 }
 
-/* line 10, ../sass/team.scss */
 #team form label span {
   float: left;
   display: block;
@@ -19,259 +15,184 @@
   margin-right: 10px;
   margin-top: 3px;
 }
-
-/* line 18, ../sass/team.scss */
 #team form label span.required:after {
   content: "*";
   color: #FF6666;
   margin-left: 3px;
 }
 
-/* line 24, ../sass/team.scss */
 #team form .team-data input, #team form textarea {
   width: 480px;
 }
-
-/* line 27, ../sass/team.scss */
 #team form textarea {
   height: 8em;
 }
-
-/* line 30, ../sass/team.scss */
 #team form.wide .submit {
   margin-left: 110px;
 }
 
-/* line 34, ../sass/team.scss */
 #team form p.error {
   margin-left: 110px;
   margin-bottom: 10px;
   color: red;
 }
 
-/* line 40, ../sass/team.scss */
 #team form.search {
   float: right;
   margin: 20px;
 }
 
-/* line 45, ../sass/team.scss */
 #team table.slist td {
   padding-top: 1em;
   padding-bottom: 1em;
 }
-
-/* line 49, ../sass/team.scss */
 #team table.slist a.team-name {
   font-size: 1.3em;
   display: block;
   margin-bottom: 4px;
   padding-bottom: 5px;
 }
-
-/* line 55, ../sass/team.scss */
 #team .team-icon {
   background-position: 0 -336px;
 }
-
-/* line 58, ../sass/team.scss */
 #team .team-icon.mine {
   background-position: 0 -352px;
 }
-
-/* line 61, ../sass/team.scss */
 #team table.slist a.team-name span.team-icon {
   float: left;
   margin-top: 4px;
 }
-
-/* line 65, ../sass/team.scss */
 #team table.slist .info {
   font-size: 0.9em;
   white-space: nowrap;
 }
-
-/* line 69, ../sass/team.scss */
 #team.team_show .lichess_title {
   font-size: 1.8em;
 }
-
-/* line 72, ../sass/team.scss */
 #team.team_show .lichess_title span {
   color: #909090;
   font-size: 0.8em;
 }
-
-/* line 76, ../sass/team.scss */
 #team.team_show .content_box_top .righty {
   float: right;
   margin-right: 20px;
 }
 
-/* line 81, ../sass/team.scss */
 #team .team-left {
   float: left;
   width: 280px;
   font-size: 1.2em;
-  border-right: 1px solid #cccccc;
+  border-right: 1px solid #ccc;
 }
-
-/* line 87, ../sass/team.scss */
 #team .team-left h2 {
   font-size: 1.0em;
   font-weight: bold;
   padding: 0 0 5px 25px;
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #ccc;
 }
-
-/* line 93, ../sass/team.scss */
 #team .team-left .infos {
   margin: 20px 0 20px 25px;
 }
-
-/* line 96, ../sass/team.scss */
 #team .team-right {
   margin-left: 280px;
-  border-left: 1px solid #cccccc;
+  border-left: 1px solid #ccc;
 }
-
-/* line 100, ../sass/team.scss */
 #team .description {
   font-size: 1.2em;
   margin: 20px 0 20px 20px;
 }
 
-/* line 105, ../sass/team.scss */
 #team .best_players {
   margin-bottom: 20px;
 }
 
-/* line 109, ../sass/team.scss */
 #team .userlist > * {
   padding: 10px 0 10px 25px;
 }
 
-/* line 113, ../sass/team.scss */
 #team .actions {
   margin-left: 20px;
 }
 
-/* line 117, ../sass/team.scss */
 #team .forum {
   margin-top: 30px;
   width: 100%;
 }
-
-/* line 121, ../sass/team.scss */
 #team .forum h2 {
   font-size: 1.2em;
   font-weight: bold;
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #ccc;
   padding: 0 0 5px 20px;
-}
-
-/* line 127, ../sass/team.scss */
+} 
 #team .forum h2 a {
   text-decoration: none;
 }
-
-/* line 130, ../sass/team.scss */
 #team .forum li {
   padding: 20px 10px 20px 20px;
 }
-
-/* line 133, ../sass/team.scss */
 #team .forum li:nth-child(odd) {
-  background: none repeat scroll 0 0 #f4f4f4;
+  background: none repeat scroll 0 0 #F4F4F4;
 }
-
-/* line 136, ../sass/team.scss */
 #team .forum a.user_link {
   font-weight: bold;
   margin-right: 6px;
   color: #aaa;
   text-decoration: none;
 }
-
-/* line 142, ../sass/team.scss */
 #team .forum .date {
   font-size: 0.8em;
 }
-
-/* line 145, ../sass/team.scss */
 #team .forum .meta > * {
   display: block;
   float: left;
   margin-right: 1em;
 }
-
-/* line 150, ../sass/team.scss */
 #team .forum a.more {
   display: block;
   text-align: right;
   margin: 10px 10px 0 0;
 }
 
-/* line 156, ../sass/team.scss */
 #team table.requests form {
   margin: 0;
 }
-
-/* line 159, ../sass/team.scss */
 #team table.requests {
   margin: 0;
 }
-
-/* line 162, ../sass/team.scss */
 #team table.requests.all {
   margin-bottom: 20px;
 }
-
-/* line 165, ../sass/team.scss */
 #team table.requests.for-team {
   border: 1px solid #909090;
 }
-
-/* line 168, ../sass/team.scss */
 #team table.requests th {
   padding: 0.5em;
   text-align: center;
   font-size: 1.4em;
 }
-
-/* line 173, ../sass/team.scss */
 #team table.requests.all td {
   padding: 2.3em 1em;
 }
-
-/* line 176, ../sass/team.scss */
 #team table.requests .user_link {
   margin-bottom: 0.7em;
 }
-
-/* line 179, ../sass/team.scss */
 #team table.requests .process {
   white-space: nowrap;
 }
-
-/* line 182, ../sass/team.scss */
 #team table.requests button {
   font-size: 0.8em;
   display: inline;
   margin-left: 5px;
 }
 
-/* line 188, ../sass/team.scss */
 #team .button.small {
   font-size: 12px;
 }
 
-/* line 192, ../sass/team.scss */
 #team .undertitle {
   margin-top: 1.5em;
 }
 
-/* line 196, ../sass/team.scss */
 #team .kick .button {
   margin-bottom: 5px;
 }

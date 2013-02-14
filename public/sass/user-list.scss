@@ -1,41 +1,28 @@
-/* line 1, ../sass/user-list.scss */
 #lichess div.user_lists h1 {
   display: block;
 }
-
-/* line 4, ../sass/user-list.scss */
 div.user_lists h2 {
   font-size: 1.5em;
   margin-bottom: 0.5em;
 }
-
-/* line 8, ../sass/user-list.scss */
 div.user_lists div.all_users {
   float: left;
   width: 358px;
   margin-right: 20px;
-  border: 1px solid #dadada;
+  border: 1px solid #DADADA;
   border-width: 0 1px 0 0;
 }
-
-/* line 15, ../sass/user-list.scss */
 div.user_lists div.online_users {
   float: left;
   margin-left: 20px;
   width: 342px;
 }
-
-/* line 20, ../sass/user-list.scss */
 div.user_lists h1.lichess_title {
   margin-bottom: 1em;
 }
-
-/* line 23, ../sass/user-list.scss */
 div.user_lists div.online_users ul {
   margin-bottom: 1.5em;
 }
-
-/* line 26, ../sass/user-list.scss */
 div.user_lists ul.anonymous_users li {
   background: url(/assets/images/s16.png) top left no-repeat;
   background-position: 0 -208px;
@@ -46,36 +33,26 @@ div.user_lists ul.anonymous_users li {
   margin: 0 8px 8px 0;
 }
 
-/* line 36, ../sass/user-list.scss */
 div.user_lists form.search_user_form {
   margin: 0 0 2em 0;
 }
-
-/* line 39, ../sass/user-list.scss */
 div.user_lists form.search_user_form input {
-  border: 1px solid #dadada;
+  border: 1px solid #DADADA;
   padding: 3px 5px;
 }
 
-/* line 44, ../sass/user-list.scss */
 div.user_lists .users li {
   font-size: 1.2em;
   padding: 5px 0;
 }
-
-/* line 48, ../sass/user-list.scss */
 div.user_lists ol.users li {
   list-style: decimal-leading-zero inside;
 }
-
-/* line 51, ../sass/user-list.scss */
 div.user_lists .users a.send {
   font-size: 0.8em;
   margin-left: 1em;
   color: #fff;
 }
-
-/* line 56, ../sass/user-list.scss */
 div.user_lists .users li:hover a.send {
   color: #888;
 }

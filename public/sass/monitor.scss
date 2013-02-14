@@ -1,4 +1,3 @@
-/* line 1, ../sass/monitor.scss */
 body {
   background: url(/assets/images/monitor/background.png);
   font-family: "Myriad Pro", Helvetica, Arial, Serif;
@@ -10,71 +9,46 @@ body {
   width: 960px;
 }
 
-/* line 12, ../sass/monitor.scss */
-.clearfix:after {
-  content: ".";
-  display: block;
-  height: 0;
-  clear: both;
-  visibility: hidden;
-}
+.clearfix:after { content:"."; display:block; height:0; clear:both; visibility:hidden; }
+.clearfix {display:inline-block;}
 
-/* line 13, ../sass/monitor.scss */
-.clearfix {
-  display: inline-block;
-}
-
-/* line 15, ../sass/monitor.scss */
 h1 {
   text-align: center;
   font-size: 36px;
   color: #222;
   text-transform: uppercase;
 }
-
-/* line 21, ../sass/monitor.scss */
 h1 .down {
   color: #aa4444;
   display: none;
 }
-
-/* line 25, ../sass/monitor.scss */
 h1 .up {
   color: #446644;
   display: none;
 }
-
-/* line 29, ../sass/monitor.scss */
 body.down h1 .down {
   display: inline;
 }
-
-/* line 32, ../sass/monitor.scss */
 body.down h1 .up {
   display: none;
 }
 
-/* line 36, ../sass/monitor.scss */
 #actions {
   margin: 70px 0 20px 0;
   text-align: center;
 }
 
-/* line 41, ../sass/monitor.scss */
 a {
   font-size: 14px;
   color: #888;
   font-family: monospace;
 }
-
-/* line 46, ../sass/monitor.scss */
 a.back {
   position: absolute;
   top: 3em;
-  left: 3em;
+  left:3em;
 }
 
-/* line 52, ../sass/monitor.scss */
 .monitor {
   float: left;
   margin: 20px 8px 0 8px;
@@ -83,8 +57,8 @@ a.back {
   background: url(/assets/images/monitor/monitor.png);
   position: relative;
 }
-
-/* line 62, ../sass/monitor.scss */
+.monitor.alert {
+}
 .monitor .title {
   color: #d0d0d0;
   font-size: 10px;
@@ -92,14 +66,12 @@ a.back {
   top: 10px;
   left: 223px;
 }
-
-/* line 69, ../sass/monitor.scss */
 .monitor .screen {
   display: block;
   position: absolute;
   font-size: 14px;
   color: #858f8f;
-  text-shadow: 0 1px 0px black;
+  text-shadow: 0 1px 0px #000000;
   background: black;
   border-radius: 4px;
   width: 60px;
@@ -112,25 +84,17 @@ a.back {
   background-image: -webkit-gradient(linear, 0 0, 100% 100%, from(rgba(255, 255, 255, 0.1)), to(rgba(255, 255, 255, 0)));
   box-shadow: 0px 1px 1px #494e54, inset 0px 1px 2px rgba(0, 0, 0, 0.6);
 }
-
-/* line 87, ../sass/monitor.scss */
 .monitor .screen.current {
   top: 28px;
   left: 214px;
 }
-
-/* line 91, ../sass/monitor.scss */
 .monitor.alert .screen.current {
   /*color: #884444;*/
 }
-
-/* line 94, ../sass/monitor.scss */
 .monitor .screen.max {
   top: 55px;
   left: 214px;
 }
-
-/* line 98, ../sass/monitor.scss */
 .wheel {
   position: absolute;
   width: 13px;
@@ -139,8 +103,6 @@ a.back {
   left: 99px;
   background: url(/assets/images/monitor/wheel.png);
 }
-
-/* line 106, ../sass/monitor.scss */
 .needle {
   -webkit-transform-origin: 100% 50%;
   -o-transform-origin: 100% 50%;
@@ -152,8 +114,6 @@ a.back {
   width: 76px;
   background: url(/assets/images/monitor/needle.png);
 }
-
-/* line 117, ../sass/monitor.scss */
 div.light {
   width: 26px;
   height: 26px;
@@ -163,13 +123,9 @@ div.light {
   background: url(/assets/images/status.png);
   background-position: 0 -52px;
 }
-
-/* line 126, ../sass/monitor.scss */
-.monitor.alert div.light {
+.monitor.alert div.light {  
   background-position: 0 -26px;
 }
-
-/* line 129, ../sass/monitor.scss */
-body.up div.light {
+body.up div.light  {
   background-position: 0 0;
 }
