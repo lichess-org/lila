@@ -47,8 +47,7 @@ final class Socket(hub: ActorRef, flood: Flood) {
         val iteratee = Iteratee.foreach[JsValue] { e ⇒
           e str "t" match {
             case Some("talk") ⇒ for {
-              data ← e obj "d"
-              txt ← data str "txt"
+              txt ← e str "d"
               if flood.allowMessage(uid, txt)
               uname ← username
             } hub ! Talk(uname, txt)
