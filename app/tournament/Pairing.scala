@@ -24,6 +24,7 @@ case class Pairing(
   def finished = status >= chess.Status.Mate
   def playing = !finished
 
+  def lostBy(user: String) = ~winner.map(user !=)
   def quickLoss = finished && ~turns.map(10 >)
 
   def opponentOf(user: String): Option[String] =

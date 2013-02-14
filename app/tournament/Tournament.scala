@@ -196,7 +196,9 @@ case class Started(
     !!("User %s is not part of the tournament" format userId)
   )
 
-  def quickLossStreak(user: String): Boolean = 
+  def quickLossStreak(user: String): Boolean = {
+    userPairings(user) takeWhile { pair ⇒ (pair lostBy user) && pair.quickLoss }
+  }.size >= 3
 
   private def userPairings(user: String) = pairings filter (_ contains user)
 

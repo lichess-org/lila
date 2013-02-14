@@ -98,15 +98,15 @@ private[tournament] final class TournamentApi(
       } yield ()
     )
     case started: Started ⇒ (started withdraw userId).fold(
-      err ⇒ putStrLn(err.shows) inject tour,
+      err ⇒ putStrLn(err.shows),
       tour2 ⇒ for {
         _ ← repo saveIO tour2
         _ ← (tour2 userCurrentPov userId).fold(roundMeddler.resign, io())
         _ ← socket reload tour2.id
         _ ← reloadSiteSocket
-      } yield tour2
+      } yield ()
     )
-    case finished: Finished ⇒ putStrLn("Cannot withdraw from finished tournament " + finished.id) inject tour
+    case finished: Finished ⇒ putStrLn("Cannot withdraw from finished tournament " + finished.id) 
   }
 
   def finishGame(game: DbGame): IO[Option[Tournament]] = for {
@@ -119,9 +119,7 @@ private[tournament] final class TournamentApi(
   } yield result
 
   private def tripleQuickLossWithdraw(tour: Started, loser: Option[String]): IO[Unit] =
-    ~loser.map(user ⇒
-      io()
-    )
+    ~loser.filter(tour.quickLossStreak).map(withdraw(tour, _))
 
   private def userIdWhoLostOnTimeWithoutMoving(game: DbGame): Option[String] =
     game.playerWhoDidNotMove
