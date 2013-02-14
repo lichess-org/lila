@@ -51,11 +51,8 @@ restrict hook creation by IP
 check denormalization of user game fields
 opponent history http://imgur.com/ur1Mt http://en.lichess.org/forum/lichess-feedback/match-history#10
 show tournament trophies on user profile
-lots of bookmarks break the page style http://en.lichess.org/rc7l3n66
-forum, message search
 mute ip
 games with me http://en.lichess.org/forum/general-chess-discussion/-vs-me#2
 ssl websocket would pass through proxies http://en.lichess.org/forum/lichess-feedback/layout-bug-and-proxies#2 requires play 2.1
-tournament 3 losses by time-out = resign
-custom css scrollers for chats http://manos.malihu.gr/jquery-custom-content-scroller/
+custom css scrollers for chats http://manos.malihu.gr/jquery-custom-content-scroller/ (branch scrollbar)
 team chat

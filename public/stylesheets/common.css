@@ -779,7 +779,7 @@ div.undergame_box a:hover {
   text-decoration: underline;
 }
 div.undergame_box div.inner {
-  padding: 10px;
+  padding: 10px 10px 0 10px;
 }
 
 div.game_analysis {
@@ -797,6 +797,7 @@ div.game_more div.more_top {
   padding: 3px 10px;
   width: 492px;
   height: 29px;
+  border-bottom: 1px solid #ccc;
 }
 div.game_more div.more_top span.bookmark {
   margin-top: 2px;
@@ -818,9 +819,6 @@ div.game_more textarea {
   border: 1px solid #eaeaea;
   padding: 5px;
   border-radius: 3px;
-}
-div.game_extra {
-  border-top: 1px solid #ccc;
 }
 
 div.game_extra div.bookmarkers {
