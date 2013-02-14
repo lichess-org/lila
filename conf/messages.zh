@@ -125,7 +125,6 @@ giveNbSeconds=加 %s 秒
 searchAPlayer=查找玩家
 whoIsOnline=在线玩家
 allPlayers=所有玩家
-namedPlayers=有名棋手
 premoveEnabledClickAnywhereToCancel=提前走棋
 thisPlayerUsesChessComputerAssistance=这位棋手使用国际象棋电脑援助
 opening=正在打开

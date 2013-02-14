@@ -125,7 +125,6 @@ giveNbSeconds=Даць %s секунд
 searchAPlayer=Шукаць гульца
 whoIsOnline=Хто анлайн
 allPlayers=Усе гульцы
-namedPlayers=Зарэгістраваныя гульцы
 premoveEnabledClickAnywhereToCancel=Наступны ход вызначаны - Пстрыкніце ў любым месцы каб скасаваць яго
 thisPlayerUsesChessComputerAssistance=Гэты гулец выкарыстоўвае шахматную праграму
 opening=адкрыццё

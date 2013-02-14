@@ -125,7 +125,6 @@ giveNbSeconds=Přidat %s sekund
 searchAPlayer=Hledat hráče
 whoIsOnline=Kdo je online
 allPlayers=Všichni hráči
-namedPlayers=Registrovaní hráči
 premoveEnabledClickAnywhereToCancel=Předtah byl zadán - kliknutím kamkoliv na šachovnici jej zrušíte
 thisPlayerUsesChessComputerAssistance=Tento uživatel hrává s pomocí počítače
 opening=Zahájení

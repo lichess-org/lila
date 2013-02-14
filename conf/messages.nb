@@ -125,7 +125,6 @@ giveNbSeconds=Gi %s sekunder
 searchAPlayer=Søk etter en spiller
 whoIsOnline=Hvem er pålogget
 allPlayers=Alle spillere
-namedPlayers=Navngitte spillere
 premoveEnabledClickAnywhereToCancel=Forhåndstrekk aktivert - klikk hvor som helst for å avbryte
 thisPlayerUsesChessComputerAssistance=Denne spilleren bruker datahjelp
 opening=Åpning

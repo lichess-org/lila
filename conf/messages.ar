@@ -125,7 +125,6 @@ giveNbSeconds=اعطاء %s ثوان
 searchAPlayer=البحث عن لاعب
 whoIsOnline=المتواجدون حالياً
 allPlayers=كل اللاعبين
-namedPlayers=لاعبين مسجلين
 premoveEnabledClickAnywhereToCancel=إزالة تفعيل خاصية "اضغط في أي مكان للإلغاء"
 thisPlayerUsesChessComputerAssistance=هذا اللاعب يستعين ببرامج شطرنج
 opening=افتتاحية

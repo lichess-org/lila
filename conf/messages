@@ -125,7 +125,6 @@ giveNbSeconds=Give %s seconds
 searchAPlayer=Search a player
 whoIsOnline=Who is online
 allPlayers=All players
-namedPlayers=Named players
 premoveEnabledClickAnywhereToCancel=Premove enabled - Click anywhere to cancel
 thisPlayerUsesChessComputerAssistance=This player uses chess computer assistance
 opening=Opening

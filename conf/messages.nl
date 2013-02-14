@@ -125,7 +125,6 @@ giveNbSeconds=Geef %s seconden
 searchAPlayer=Zoek een speler
 whoIsOnline=Wie is online
 allPlayers=Alle spelers
-namedPlayers=Geregistreerde spelers
 premoveEnabledClickAnywhereToCancel=Vooruitzetten mogelijk - klik ergens om op te heffen
 thisPlayerUsesChessComputerAssistance=Deze speler maakt gebruik van een schaakprogramma
 opening=Beginnen

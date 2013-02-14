@@ -125,7 +125,6 @@ giveNbSeconds=%s秒を与える
 searchAPlayer=プレイヤー検索
 whoIsOnline=オンライン中のプレイヤー
 allPlayers=全プレイヤー
-namedPlayers=登録しているプレイヤー
 premoveEnabledClickAnywhereToCancel=次の指しを予約しました－キャンセルするならどこかをクリックしてください
 thisPlayerUsesChessComputerAssistance=このプレイヤーはチェス・ソフトを使用しています
 opening=序盤

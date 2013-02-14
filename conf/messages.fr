@@ -125,7 +125,6 @@ giveNbSeconds=Donner %s secondes
 searchAPlayer=Rechercher un joueur
 whoIsOnline=Qui est en ligne ?
 allPlayers=Tous les joueurs
-namedPlayers=Joueurs nommés
 premoveEnabledClickAnywhereToCancel=Premove activé (cliquez ailleurs pour annuler)
 thisPlayerUsesChessComputerAssistance=Ce joueur utilise un programme d'échecs
 opening=Ouverture

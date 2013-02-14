@@ -124,7 +124,6 @@ giveNbSeconds=Thoir %s diog(an)
 searchAPlayer=Lorg cluicheadair
 whoIsOnline=Cò tha air loidhne
 allPlayers=A h-uile cluicheadair
-namedPlayers=Cluicheadairean ainmichte
 premoveEnabledClickAnywhereToCancel=Ro-ghluasad an comas - dèan briogadh àite sam bith gus sgur dheth
 thisPlayerUsesChessComputerAssistance=Tha an cluicheadair seo a’ cleachdadh taic coimpiutair taileisg
 opening=Fosgladh

@@ -125,7 +125,6 @@ giveNbSeconds=Ge  %s sekunder
 searchAPlayer=Sök en spelare
 whoIsOnline=Vem är online
 allPlayers=Alla spelare
-namedPlayers=Namngivna spelare
 premoveEnabledClickAnywhereToCancel=Preppdrag är möjliggjord-Klicka var som helst för att avbryta
 thisPlayerUsesChessComputerAssistance=Den här spelaren använder schackmotor hjälp
 opening=Öppning

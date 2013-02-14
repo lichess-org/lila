@@ -125,7 +125,6 @@ giveNbSeconds=Dodaj %s sekund
 searchAPlayer=Szukaj zawodnika
 whoIsOnline=Kto jest online
 allPlayers=Wszyscy gracze
-namedPlayers=Nazwani gracze
 premoveEnabledClickAnywhereToCancel=Funkcja planowanego ruchu aktywna - Kliknij gdziekolwiek, aby ją wyłączyć
 thisPlayerUsesChessComputerAssistance=Ten gracz korzysta z pomocy programu szachowego
 opening=Otwieranie

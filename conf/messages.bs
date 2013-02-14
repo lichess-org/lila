@@ -124,7 +124,6 @@ giveNbSeconds=Daj protivniku %s sekundi
 searchAPlayer=Nađi igrača
 whoIsOnline=Ko je trenutno spojen
 allPlayers=Svi igrači
-namedPlayers=Imenovani igrači
 premoveEnabledClickAnywhereToCancel=Potez unaprijed uključen - Klikni bilo gdje da otkažeš
 thisPlayerUsesChessComputerAssistance=Ovaj igrac koristi šahovski računar za pomoć
 opening=Otvaranje
