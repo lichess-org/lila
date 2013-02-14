@@ -271,6 +271,7 @@ div.undertable_inner {
   border-top: 0;
   border-radius: 0 0 4px 4px;
   height: 204px;
+  width: auto;
   overflow:hidden;
 }
 div.undertable a.user_link {
