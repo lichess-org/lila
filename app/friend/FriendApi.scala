@@ -16,7 +16,7 @@ final class FriendApi(
 
   val friendIds = cached friendIds _
 
-  def requestable(userId: String, friendId: String): IO[Boolean] = 
+  def requestable(userId: String, friendId: String): IO[Boolean] =
     requestRepo.exists(userId, friendId) map (!_)
 
   def createRequest(friend: User, setup: RequestSetup, user: User): IO[Unit] = for {
@@ -36,11 +36,13 @@ final class FriendApi(
     _ ← requestRepo remove request.id
     _ ← io(cached invalidateNbRequests userId)
     requesterOption ← userRepo byId request.user
-    _ ← ~userOption.map(requester ⇒
-      (doFriend(requester, userId) >> messenger.acceptRequest(userId, request)) doIf accept
+    _ ← ~requesterOption.map(requester ⇒
+      friendRepo.add(requester.id, userId) >> 
+      io(cached.invalidateFriendIds(requester.id)) >>
+      io(cached.invalidateFriendIds(userId)) doIf accept
     )
   } yield ()
 
-  def friendsOf(userId: String): IO[List[User]] = 
+  def friendsOf(userId: String): IO[List[User]] =
     userRepo byIds friendIds(userId) map { _ sortBy (_.id) }
 }

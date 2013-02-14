@@ -23,6 +23,10 @@ private[friend] final class FriendRepo(collection: MongoCollection)
     ).map(_.getAs[List[String]]("users")).flatten.toList.flatten.filterNot(userId ==)
   }
 
+  def add(u1: String, u2: String) = io {
+    insert(Friend(u1, u2))
+  }
+
   def selectId(id: String): DBObject = DBObject("_id" -> id)
   def selectId(friend: Friend): DBObject = selectId(friend.id)
 }
