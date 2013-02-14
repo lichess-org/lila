@@ -2,7 +2,6 @@ finish flagged game
 start chess960 after both player move http://fr.lichess.org/forum/lichess-feedback/clock-fairness-in-chess960-games
 guess friend list
 takeback play 2 times ?? http://en.lichess.org/analyse/nfjchnmo/black move 45
-movetimes chart
 show lobby chat to anon (and rated games?) or show empty chat
 also translate websockets error message
 @someone = link to someone's profile
@@ -53,5 +52,4 @@ show tournament trophies on user profile
 mute ip
 games with me http://en.lichess.org/forum/general-chess-discussion/-vs-me#2
 ssl websocket would pass through proxies http://en.lichess.org/forum/lichess-feedback/layout-bug-and-proxies#2 requires play 2.1
-custom css scrollers for chats http://manos.malihu.gr/jquery-custom-content-scroller/ (branch scrollbar)
 team chat
