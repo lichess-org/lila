@@ -113,8 +113,6 @@ object User extends LilaController {
       }
   }
 
-  val stats = todo
-
   def export(username: String) = Open { implicit ctx ⇒
     IOptionIOResult(userRepo byId username) { u ⇒
       env.game.export(u).apply map { path ⇒
