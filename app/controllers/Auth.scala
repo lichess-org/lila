@@ -12,6 +12,7 @@ import play.api.mvc.Results._
 object Auth extends LilaController {
 
   private def userRepo = env.user.userRepo
+  private def historyRepo = env.user.historyRepo
   private def forms = env.security.forms
 
   def login = Open { implicit ctx ⇒
@@ -44,8 +45,9 @@ object Auth extends LilaController {
     forms.signup.bindFromRequest.fold(
       err ⇒ BadRequest(html.auth.signup(err, forms.captchaCreate)),
       data ⇒ Firewall {
-        val user = userRepo.create(data.username, data.password).unsafePerformIO
-        gotoSignupSucceeded(user.err("register error").username)
+        val user = userRepo.create(data.username, data.password).unsafePerformIO.err("register error")
+        historyRepo.addEntry(user.id, user.elo, none).unsafePerformIO
+        gotoSignupSucceeded(user.username)
       }
     )
   }

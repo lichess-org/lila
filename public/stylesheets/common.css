@@ -66,6 +66,7 @@ body.tight div.content {
 }
 body.tight #top {
   min-width: 780px;
+  overflow: hidden;
 }
 #site_description {
   position: absolute;
@@ -407,11 +408,6 @@ form.wide input[type="text"], form.wide textarea {
   padding-right: 4px;
   float: left;
 }
-#top a.toggle span.s16 {
-  background-position: right -192px;
-  padding-left: 0;
-  padding-right: 20px;
-}
 #top .dropdown {
   display: none;
   position: absolute;
@@ -572,10 +568,15 @@ span.s16.clock {
   background-position: 0 -336px;
   padding-bottom: 1px;
   display: block;
-  height: 16px;
+  height: 15px;
 }
 .s16.team.mine {
   background-position: 0 -352px;
+}
+.s16.ddown {
+  background-position: right -192px;
+  padding-left: 0;
+  padding-right: 20px;
 }
 
 .user_link.white, .user_link.black, .user_link.online, .user_link.offline {
@@ -778,7 +779,7 @@ div.undergame_box a:hover {
   text-decoration: underline;
 }
 div.undergame_box div.inner {
-  padding: 10px;
+  padding: 10px 10px 0 10px;
 }
 
 div.game_analysis {
@@ -796,6 +797,7 @@ div.game_more div.more_top {
   padding: 3px 10px;
   width: 492px;
   height: 29px;
+  border-bottom: 1px solid #ccc;
 }
 div.game_more div.more_top span.bookmark {
   margin-top: 2px;
@@ -817,9 +819,6 @@ div.game_more textarea {
   border: 1px solid #eaeaea;
   padding: 5px;
   border-radius: 3px;
-}
-div.game_extra {
-  border-top: 1px solid #ccc;
 }
 
 div.game_extra div.bookmarkers {

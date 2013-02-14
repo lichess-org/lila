@@ -5,6 +5,7 @@ import memo.BooleanExpiryMemo
 
 import akka.actor._
 import play.api.libs.json._
+import scala.util.Random
 
 abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
 
@@ -86,11 +87,18 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
     members = members - uid
   }
 
-  def resync(member: M) {
-    member.channel push makeMessage("resync", JsNull)
+  private lazy val resyncMessage = makeMessage("resync", JsNull)
+
+  protected def resync(member: M) {
+    import play.api.libs.concurrent._
+    import play.api.Play.current
+    import akka.util.duration._
+    Akka.system.scheduler.scheduleOnce((Random nextInt 4).seconds) {
+      member.channel push resyncMessage
+    }
   }
 
-  def resync(uid: String) {
+  protected def resync(uid: String) {
     withMember(uid)(resync)
   }
 

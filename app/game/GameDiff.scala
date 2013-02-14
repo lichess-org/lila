@@ -1,7 +1,7 @@
 package lila
 package game
 
-object GameDiff {
+private[game] object GameDiff {
 
   type Set = (String, Any)
   type Unset = String

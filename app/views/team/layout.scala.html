@@ -19,10 +19,10 @@
   <a class="@tab.active("all")" href="@routes.Team.home()">
     @trans.allTeams()
   </a>
+  @if(~ctx.me.map(_.canTeam)) {
   <a class="@tab.active("mine")" href="@routes.Team.mine()">
     @trans.myTeams()
   </a>
-  @if(ctx.me.fold(_.canCreateTeam, false)) {
   <a class="@tab.active("form")" href="@routes.Team.form()">
     @trans.newTeam()
   </a>

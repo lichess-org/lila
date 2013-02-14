@@ -5,7 +5,7 @@ import play.api.i18n.{ MessagesApi, Lang }
 import play.api.mvc.RequestHeader
 import play.api.templates.Html
 
-final class Translator(api: MessagesApi, pool: I18nPool) {
+private[i18n] final class Translator(api: MessagesApi, pool: I18nPool) {
 
   private val messages = api.messages
   private val defaultMessages = messages.get("default") err "No default messages"

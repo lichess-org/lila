@@ -12,7 +12,7 @@ import org.joda.time.DateTime
 // db.team_member.ensureIndex({team:1})
 // db.team_member.ensureIndex({user:1})
 // db.team_member.ensureIndex({date: -1})
-final class MemberRepo(collection: MongoCollection)
+private[team] final class MemberRepo(collection: MongoCollection)
     extends SalatDAO[Member, String](collection) {
 
   def userIdsByTeamId(teamId: String): IO[List[String]] = io {
@@ -29,6 +29,10 @@ final class MemberRepo(collection: MongoCollection)
 
   def removeByteamId(teamId: String): IO[Unit] = io {
     remove(teamIdQuery(teamId))
+  }
+
+  def removeByUserId(userId: String): IO[Unit] = io {
+    remove(userIdQuery(userId))
   }
 
   def exists(teamId: String, userId: String): IO[Boolean] = io {

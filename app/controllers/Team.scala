@@ -20,6 +20,7 @@ object Team extends LilaController {
   private def forms = env.team.forms
   private def api = env.team.api
   private def paginator = env.team.paginator
+  private def searchPaginator = env.team.searchPaginator
 
   def home(page: Int) = Open { implicit ctx ⇒
     Ok(html.team.home(paginator popularTeams page))
@@ -31,7 +32,14 @@ object Team extends LilaController {
     })
   }
 
-  def renderTeam(team: TeamModel, page: Int = 1)(implicit ctx: Context) =
+  def search(text: String, page: Int) = OpenBody { implicit ctx ⇒
+    text.trim match {
+      case ""   ⇒ Ok(html.team.home(paginator popularTeams page))
+      case text ⇒ Ok(html.team.search(text, searchPaginator(text, page)))
+    }
+  }
+
+  private def renderTeam(team: TeamModel, page: Int = 1)(implicit ctx: Context) =
     env.team.teamInfo(team, ctx.me) map { info ⇒
       html.team.show(team, paginator.teamMembers(team, page), info)
     }
@@ -88,7 +96,10 @@ object Team extends LilaController {
         implicit val req = ctx.body
         forms.create.bindFromRequest.fold(
           err ⇒ io(BadRequest(html.team.form(err, forms.captchaCreate))),
-          data ⇒ api.create(data, me) map { team ⇒ Redirect(routes.Team.show(team.id)) }
+          data ⇒ api.create(data, me).fold(
+            _ map { team ⇒ Redirect(routes.Team.show(team.id)) },
+            io(notFound)
+          )
         )
       }
     }
@@ -146,10 +157,10 @@ object Team extends LilaController {
         implicit val req = ctx.body
         forms.processRequest.bindFromRequest.fold(
           _ ⇒ io(routes.Team.show(team.id).toString), {
-            case (decision, url) ⇒ 
+            case (decision, url) ⇒
               api.processRequest(team, request, (decision === "accept")) inject url
           }
-        ) 
+        )
       }
     }
   }

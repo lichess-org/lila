@@ -144,10 +144,8 @@ moreCss = moreCss) {
     @paginator.map { pager =>
     @if(pager.nbResults > 0) {
     <div class="search_status">
-      @paginator.map { pager =>
       @pager.nbResults.localize games found - 
       <a class="permalink" href="@routes.Search.form()">Permalink</a>
-      }
     </div>
     <div class="all_games search_infinitescroll">
       @pager.nextPage.map { n =>

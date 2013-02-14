@@ -11,9 +11,10 @@ case class Pairing(
     status: chess.Status,
     user1: String,
     user2: String,
-    winner: Option[String]) {
+    winner: Option[String],
+    turns: Option[Int]) {
 
-  def encode: RawPairing = RawPairing(gameId, status.id, users, winner)
+  def encode: RawPairing = RawPairing(gameId, status.id, users, winner, turns)
 
   def users = List(user1, user2)
   def usersPair = user1 -> user2
@@ -22,6 +23,9 @@ case class Pairing(
 
   def finished = status >= chess.Status.Mate
   def playing = !finished
+
+  def lostBy(user: String) = ~winner.map(user !=)
+  def quickLoss = finished && ~turns.map(10 >)
 
   def opponentOf(user: String): Option[String] =
     if (user == user1) user2.some else if (user == user2) user1.some else none
@@ -39,19 +43,20 @@ case class Pairing(
 
   def withStatus(s: chess.Status) = copy(status = s)
 
-  def finish(s: chess.Status, w: Option[String]) = copy(
+  def finish(s: chess.Status, w: Option[String], t: Int) = copy(
     status = s,
-    winner = w
+    winner = w,
+    turns = t.some
   )
 }
 
-case class RawPairing(g: String, s: Int, u: List[String], w: Option[String]) {
+case class RawPairing(g: String, s: Int, u: List[String], w: Option[String], t: Option[Int]) {
 
   def decode: Option[Pairing] = for {
     status ← chess.Status(s)
     user1 ← u.lift(0)
     user2 ← u.lift(1)
-  } yield Pairing(g, status, user1, user2, w)
+  } yield Pairing(g, status, user1, user2, w, t)
 }
 
 object Pairing {
@@ -64,7 +69,8 @@ object Pairing {
     status = chess.Status.Created,
     user1 = user1,
     user2 = user2,
-    winner = none)
+    winner = none,
+    turns = none)
 
   def createNewPairings(users: List[String], pairings: Pairings, nbActiveUsers: Int): Pairings =
 
@@ -129,5 +135,4 @@ object Pairing {
     } yield ps
     case _ ⇒ Nil
   }
-
 }

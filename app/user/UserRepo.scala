@@ -44,6 +44,10 @@ class UserRepo(collection: MongoCollection)
       .toList
   }
 
+  def sortedByToints(nb: Int): IO[List[User]] = io {
+    find(DBObject()).sort(DBObject("toints" -> -1)).limit(nb).toList
+  }
+
   def idsAverageElo(ids: Iterable[String]): IO[Int] = io {
     val result = collection.mapReduce(
       mapFunction = """function() { emit("e", this.elo); }""",
@@ -51,6 +55,22 @@ class UserRepo(collection: MongoCollection)
   var sum = 0;
   for(var i in values) { sum += values[i]; }
   return Math.round(sum / values.length);
+}""",
+      output = MapReduceInlineOutput,
+      query = ("_id" $in ids.map(normalize)).some)
+    (for {
+      row ← result.hasNext option result.next
+      sum ← row.getAs[Double]("value")
+    } yield sum.toInt) | 0
+  }
+
+  def idsSumToints(ids: Iterable[String]): IO[Int] = io {
+    val result = collection.mapReduce(
+      mapFunction = """function() { emit("e", this.toints); }""",
+      reduceFunction = """function(key, values) {
+  var sum = 0;
+  for(var i in values) { sum += values[i]; }
+  return sum;
 }""",
       output = MapReduceInlineOutput,
       query = ("_id" $in ids.map(normalize)).some)
@@ -167,14 +187,15 @@ class UserRepo(collection: MongoCollection)
 
   val countEnabled: IO[Int] = io { count(enabledQuery).toInt }
 
-  def usernamesLike(username: String): IO[List[String]] = io {
-    val escaped = """^([\w-]*).*$""".r.replaceAllIn(normalize(username), _ group 1)
+  def usernamesLike(username: String, max: Int = 10): IO[List[String]] = io {
+    import java.util.regex.Matcher.quoteReplacement
+    val escaped = """^([\w-]*).*$""".r.replaceAllIn(normalize(username), m ⇒ quoteReplacement(m group 1))
     val regex = "^" + escaped + ".*$"
     collection.find(
       DBObject("_id" -> regex.r),
       DBObject("username" -> 1))
       .sort(DBObject("_id" -> 1))
-      .limit(10)
+      .limit(max)
       .toList
       .map(_.getAs[String]("username"))
       .flatten
@@ -191,6 +212,8 @@ class UserRepo(collection: MongoCollection)
   def isEngine(username: String): IO[Boolean] = io {
     collection.find(byIdQuery(username) ++ DBObject("engine" -> true)).size != 0
   }
+
+  def setRoles(user: User, roles: List[String]) = updateIO(user)($set("roles" -> roles))
 
   def setBio(user: User, bio: String) = updateIO(user)($set("bio" -> bio))
 

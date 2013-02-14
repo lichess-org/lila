@@ -1,7 +1,7 @@
 package lila
 package game
 
-object MoveTime {
+private[game] object MoveTime {
 
   def encode(mts: List[Int]): String = mts map { mt ⇒
     encodeHash get mt getOrElse lastChar

@@ -37,6 +37,11 @@
   color: red;
 }
 
+#team form.search {
+  float: right;
+  margin: 20px;
+}
+
 #team table.slist td {
   padding-top: 1em;
   padding-bottom: 1em;

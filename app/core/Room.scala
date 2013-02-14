@@ -4,6 +4,7 @@ package core
 import user.User
 
 import org.apache.commons.lang3.StringEscapeUtils.escapeXml
+import java.util.regex.Matcher.quoteReplacement
 
 trait Room {
 
@@ -16,7 +17,7 @@ trait Room {
       (escaped.nonEmpty).fold(
         success((
           user.username,
-          urlRegex.replaceAllIn(escaped, m ⇒ netDomain + "/" + (m group 1))
+          urlRegex.replaceAllIn(escaped, m ⇒ quoteReplacement(netDomain + "/" + (m group 1)))
         )),
         !!("Empty message")
       )

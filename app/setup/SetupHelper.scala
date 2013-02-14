@@ -3,7 +3,8 @@ package setup
 
 import http.Context
 import i18n.I18nHelper
-import chess.{ Mode, Variant }
+import templating.StringHelper
+import chess.{ Mode, Variant, Speed }
 
 trait SetupHelper { self: I18nHelper ⇒
 
@@ -14,6 +15,17 @@ trait SetupHelper { self: I18nHelper ⇒
 
   def translatedVariantChoices(implicit ctx: Context) = List(
     Variant.Standard.id.toString -> trans.standard.str(),
-    Variant.Chess960.id.toString -> Variant.Chess960.name
+    Variant.Chess960.id.toString -> Variant.Chess960.name.capitalize
   )
+
+  def translatedSpeedChoices(implicit ctx: Context) = Speed.all map { s ⇒
+    s.id.toString -> (s.toString + " - " + s.name.capitalize)
+  }
+
+  def eloDiffChoices(elo: Int)(implicit ctx: Context) = FilterConfig.eloDiffs map { diff ⇒
+    diff -> (diff == 0).fold(
+      trans.eloRange.str(), 
+      "%d - %d (+-%d)".format(elo - diff, elo + diff, diff)
+    )
+  }
 }

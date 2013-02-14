@@ -8,10 +8,12 @@ import message.LichessThread
 import forum.PostLiteView
 
 import com.mongodb.casbah.MongoCollection
+import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
 import scalaz.effects._
 
 final class TeamEnv(
     settings: Settings,
+    esIndexer: EsIndexer,
     captcha: Captcha,
     userRepo: UserRepo,
     sendMessage: LichessThread ⇒ IO[Unit],
@@ -21,6 +23,8 @@ final class TeamEnv(
     mongodb: String ⇒ MongoCollection) {
 
   import settings._
+
+  lazy val indexer = new SearchIndexer(es = esIndexer, teamRepo = teamRepo)
 
   lazy val teamRepo = new TeamRepo(mongodb(TeamCollectionTeam))
 
@@ -39,6 +43,10 @@ final class TeamEnv(
     maxPerPage = TeamPaginatorMaxPerPage,
     maxUserPerPage = TeamPaginatorMaxUserPerPage)
 
+  lazy val searchPaginator = new SearchPaginatorBuilder(
+    indexer = indexer,
+    maxPerPage = TeamPaginatorMaxPerPage)
+
   lazy val api = new TeamApi(
     teamRepo = teamRepo,
     memberRepo = memberRepo,
@@ -47,7 +55,8 @@ final class TeamEnv(
     userRepo = userRepo,
     messenger = messenger,
     makeForum = makeForum,
-    paginator = paginator)
+    paginator = paginator,
+    indexer = indexer)
 
   lazy val teamInfo = TeamInfo(
     api = api,

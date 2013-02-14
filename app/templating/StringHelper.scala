@@ -6,6 +6,7 @@ import java.text.Normalizer
 import java.util.Date
 import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 import play.api.templates.Html
+import java.util.regex.Matcher.quoteReplacement
 
 object StringHelper extends StringHelper
 
@@ -19,13 +20,13 @@ trait StringHelper {
   }
 
   def shorten(text: String, length: Int, sep: String = " [...]"): String = {
-    val t = text.replace("\n", " ") 
+    val t = text.replace("\n", " ")
     if (t.size > (length + sep.size)) (t take length) ++ sep
     else t
   }
 
   def shortenWithBr(text: String, length: Int) = Html {
-    nl2br(escape(text).take(length))
+    nl2br(escape(text).take(length)).replace("<br /><br />", "<br />")
   }
 
   def pluralize(s: String, n: Int) = "%d %s%s".format(n, s, if (n > 1) "s" else "")
@@ -40,13 +41,15 @@ trait StringHelper {
 
   private val urlRegex = """(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))""".r
 
-  def addLinks(text: String) = urlRegex.replaceAllIn(text, m ⇒
-    "<a href='%s'>%s</a>".format(m group 1, m group 1))
+  def addLinks(text: String) = urlRegex.replaceAllIn(text, m ⇒ "<a href='%s'>%s</a>".format(
+    quoteReplacement(m group 1),
+    quoteReplacement(m group 1)
+  ))
 
   def showNumber(n: Int): String = (n > 0).fold("+" + n, n.toString)
 
   implicit def richString(str: String) = new {
-    def active(other: String, then: String = "active") = 
+    def active(other: String, then: String = "active") =
       (str == other).fold(then, "")
   }
 

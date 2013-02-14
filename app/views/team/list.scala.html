@@ -1,4 +1,4 @@
-@(name: String, teams: Paginator[lila.team.Team], next: Option[Call], tab: String)(implicit ctx: Context)
+@(name: String, teams: Paginator[lila.team.Team], next: Option[Call], tab: String, search: String = "")(implicit ctx: Context)
 
 @title = @{ "%s - page %d".format(name, teams.currentPage) }
 
@@ -6,6 +6,9 @@
 title = title,
 currentTab = tab.some) {
 <div id="team" class="content_box team_box no_padding">
+  <form class="search" action="@routes.Team.search()">
+    <input name="text" value="@search" placeholder="@trans.searchATeam()" />
+  </form>
   <h1>@name</h1>
   <table class="slist">
     @if(teams.nbResults > 0) {

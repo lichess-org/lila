@@ -51,12 +51,21 @@ underchat = underchat.some) {
     @board.white()
     @widget.connection()
     <div class="hooks_wrap">
+      <a class="filter" href="@routes.Setup.filterForm()">
+        <span class="s16 ddown">@trans.filterGames()</span>
+        <span class="number">(0)</span>
+      </a>
+      <div class="filter"></div>
       <div class="hooks"
         data-my-hook="@myHook.map(_.ownerId)"
         data-cancel-url="@routes.Lobby.cancel("000000000000")"
-        data-join-url="@routes.Lobby.join("00000000")"
-        >
-        <table></table>
+        data-join-url="@routes.Lobby.join("00000000")">
+        <table class="some"></table>
+        <table class="empty">
+          <tr class="create_game">
+            <td colspan="5">@trans.noGameAvailableRightNowCreateOne()</td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>
@@ -91,5 +100,5 @@ underchat = underchat.some) {
     </div>
   </div>
 </div>
-@embedJs("var lichess_preload = " + preload) 
+@embedJs("var lichess_preload = " + preload)
 }

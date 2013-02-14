@@ -8,7 +8,7 @@ import com.github.ornicar.paginator._
 import com.mongodb.casbah.Imports._
 import org.joda.time.DateTime
 
-final class PaginatorBuilder(
+private[team] final class PaginatorBuilder(
     memberRepo: MemberRepo,
     teamRepo: TeamRepo,
     userRepo: UserRepo,

@@ -1,9 +1,15 @@
-@(createds: List[lila.tournament.Created], starteds: List[lila.tournament.Started], finisheds: List[lila.tournament.Finished])(implicit ctx: Context)
+@(createds: List[lila.tournament.Created], starteds: List[lila.tournament.Started], finisheds: List[lila.tournament.Finished], leaderboard: List[User])(implicit ctx: Context)
 
 @goodies = {
 <div class="tournament_links">
   <a href="@routes.Tournament.faq()">Tournament FAQ</a>
 </div>
+<h2 class="leaderboard_title">@trans.leaderboard()</h2>
+<ol class="tournament_leaderboard">
+@leaderboard.map { user =>
+<li>@userLink(user, withOnline = false, cssClass = "inline".some, text = Some(user.username + " [" + user.toints + "]"))</li>
+}
+</ol>
 }
 
 @tournament.layout(

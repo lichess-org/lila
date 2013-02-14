@@ -7,46 +7,75 @@ import com.mongodb.casbah.query.Imports._
 import java.lang.Float.parseFloat
 import java.lang.Integer.parseInt
 import scalaz.effects._
+import org.joda.time.DateTime
 
 final class HistoryRepo(collection: MongoCollection) {
 
-  import HistoryRepo._
-
-  def addEntry(
-    username: String,
-    elo: Int,
-    gameId: Option[String] = None,
-    entryType: Int = TYPE_GAME): IO[Unit] = io {
+  def addEntry(userId: String, elo: Int, opponentElo: Option[Int]): IO[Unit] = io {
     collection.update(
-      DBObject("_id" -> username.toLowerCase),
-      $set(("entries." + nowSeconds) -> DBObject(
-        "t" -> entryType,
-        "e" -> elo,
-        "g" -> (gameId | null)
-      )),
-      multi = false, upsert = true
-    )
+      DBObject("_id" -> userId),
+      $push("entries" -> opponentElo.fold(
+        DBList(DateTime.now.getSeconds.toInt, elo, _),
+        DBList(DateTime.now.getSeconds.toInt, elo))
+      ),
+      multi = false,
+      upsert = true)
   }
 
-  def userElos(username: String): IO[List[(Int, Int)]] = io {
-    collection.findOne(
+  def userElos(username: String): IO[List[(Int, Int, Option[Int])]] = io {
+    ~collection.findOne(
       DBObject("_id" -> username.toLowerCase)
-    ).fold(
-        history ⇒ {
-          for {
-            (ts, v) ← history.as[DBObject]("entries")
-            elo = v.asInstanceOf[DBObject]("e").toString
-          } yield parseInt(ts) -> parseFloat(elo).toInt
-        }.toList,
-        Nil)
-  } map (_.toList sortBy (_._1)) except { err ⇒
-    putStrLn(err.getMessage) map (_ ⇒ Nil)
+    ).map(history ⇒
+        (history.as[MongoDBList]("entries").toList collect {
+          case elem: com.mongodb.BasicDBList ⇒ try {
+            for {
+              ts ← elem.getAs[Int](0)
+              elo ← elem.getAs[Int](1)
+              op = if (elem.size > 2) elem.getAs[Int](2) else None
+            } yield (ts, elo, op)
+          }
+          catch {
+            case (err: Exception) ⇒ {
+              println("ERR while parsing %s history: %s(%s)".format(username, err.getClass, err.getMessage))
+              none
+            }
+          }
+        }).flatten sortBy (_._1)
+      )
   }
-}
 
-object HistoryRepo {
-
-  val TYPE_START = 1;
-  val TYPE_GAME = 2;
-  val TYPE_ADJUST = 3;
+  def fixAll = io {
+    collection.find() foreach { history ⇒
+      val initEntries = history.as[MongoDBList]("entries").toList
+      val entries = (initEntries collect {
+        case elem: com.mongodb.BasicDBList ⇒ try {
+          for {
+            ts ← elem.getAs[Double](0)
+            elo ← elem.getAs[Double](1)
+            op = if (elem.size > 2) elem.getAs[Double](2) else None
+          } yield op.fold(
+            o ⇒ List(ts.toInt, elo.toInt, o.toInt),
+            List(ts.toInt, elo.toInt)
+          )
+        }
+        catch {
+          case (err: Exception) ⇒
+            for {
+              ts ← elem.getAs[Int](0)
+              elo ← elem.getAs[Int](1)
+              op = if (elem.size > 2) elem.getAs[Int](2) else None
+            } yield op.fold(
+              o ⇒ List(ts, elo, o),
+              List(ts, elo)
+            )
+        }
+      }).flatten sortBy (_.head)
+      val id = history.as[String]("_id")
+      println("%s: %d -> %d".format(id, initEntries.size, entries.size))
+      collection.update(
+        DBObject("_id" -> id),
+        $set("entries" -> entries)
+      )
+  }
+  }
 }

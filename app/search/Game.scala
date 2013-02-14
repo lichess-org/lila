@@ -1,12 +1,11 @@
 package lila
 package search
 
+import ElasticSearch._
 import game.DbGame
 import chess.{ OpeningExplorer, Status }
 
-import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
-
-object Game {
+private[search] object Game {
 
   object fields {
     val status = "st"
@@ -24,13 +23,7 @@ object Game {
   import fields._
 
   def mapping = {
-    def field(name: String, typ: String, analyzed: Boolean = false, attrs: Map[String, Any] = Map.empty) =
-      name -> (Map(
-        "type" -> typ,
-        "index" -> analyzed.fold("analyzed", "not_analyzed")
-      ) ++ attrs)
-    def obj(name: String, properties: Map[String, Any]) =
-      name -> Map("type" -> "object", "properties" -> properties)
+    import Mapping._
     Map(
       "properties" -> List(
         field(status, "short"),
@@ -42,7 +35,7 @@ object Game {
         field(averageElo, "short"),
         field(ai, "short"),
         field(opening, "string"),
-        field(date, "date", attrs = Map("format" -> dateFormat)),
+        field(date, "date", attrs = Map("format" -> Date.format)),
         field(duration, "short")
       ).toMap
     )
@@ -57,13 +50,10 @@ object Game {
     winner -> (game.winner flatMap (_.userId)),
     averageElo -> game.averageUsersElo,
     ai -> game.aiLevel,
-    date -> (dateFormatter print game.createdAt).some,
+    date -> (Date.formatter print game.createdAt).some,
     duration -> game.estimateTotalTime.some,
     opening -> (OpeningExplorer openingOf pgn map (_.code.toLowerCase))
   ) collect {
       case (x, Some(y)) ⇒ x -> y
     }).toMap
-
-  private val dateFormat = "YYYY-MM-dd HH:mm:ss"
-  val dateFormatter: DateTimeFormatter = DateTimeFormat forPattern dateFormat
 }

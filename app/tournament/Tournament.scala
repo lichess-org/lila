@@ -8,6 +8,7 @@ import com.mongodb.casbah.query.Imports.DBObject
 import ornicar.scalalib.Random
 import scalaz.NonEmptyList
 
+import chess.{ Variant, Mode }
 import user.User
 import game.PovRef
 
@@ -16,6 +17,8 @@ case class Data(
   clock: TournamentClock,
   minutes: Int,
   minPlayers: Int,
+  variant: Variant,
+  mode: Mode,
   createdAt: DateTime,
   createdBy: String)
 
@@ -39,6 +42,10 @@ sealed trait Tournament {
   def clock = data.clock
   def minutes = data.minutes
   lazy val duration = new Duration(minutes * 60 * 1000)
+
+  def variant = data.variant
+  def mode = data.mode
+  def rated = mode.rated
 
   def userIds = players map (_.id)
   def activeUserIds = players filter (_.active) map (_.id)
@@ -79,6 +86,8 @@ sealed trait StartedOrFinished extends Tournament {
     clock = data.clock,
     minutes = data.minutes,
     minPlayers = data.minPlayers,
+    variant = data.variant.id,
+    mode = data.mode.id,
     createdAt = data.createdAt,
     createdBy = data.createdBy,
     startedAt = startedAt.some,
@@ -112,6 +121,8 @@ case class Created(
     status = Status.Created.id,
     name = data.name,
     clock = data.clock,
+    variant = data.variant.id,
+    mode = data.mode.id,
     minutes = data.minutes,
     minPlayers = data.minPlayers,
     createdAt = data.createdAt,
@@ -164,6 +175,7 @@ case class Started(
   def userCurrentPov(userId: String): Option[PovRef] = {
     playingPairings map { _ povRef userId }
   }.flatten.headOption
+
   def userCurrentPov(user: Option[User]): Option[PovRef] =
     user.fold(u ⇒ userCurrentPov(u.id), none)
 
@@ -183,6 +195,12 @@ case class Started(
     }).success,
     !!("User %s is not part of the tournament" format userId)
   )
+
+  def quickLossStreak(user: String): Boolean = {
+    userPairings(user) takeWhile { pair ⇒ (pair lostBy user) && pair.quickLoss }
+  }.size >= 3
+
+  private def userPairings(user: String) = pairings filter (_ contains user)
 
   private def withPlayers(s: Players) = copy(players = s)
 
@@ -214,11 +232,13 @@ case class RawTournament(
     status: Int,
     startedAt: Option[DateTime] = None,
     players: List[Player] = Nil,
-    pairings: List[RawPairing] = Nil) {
+    pairings: List[RawPairing] = Nil,
+    variant: Int = Variant.Standard.id,
+    mode: Int = Mode.Casual.id) {
 
   def created: Option[Created] = (status == Status.Created.id) option Created(
     id = id,
-    data = Data(name, clock, minutes, minPlayers, createdAt, createdBy),
+    data = Data(name, clock, minutes, minPlayers, Variant orDefault variant, Mode orDefault mode, createdAt, createdBy),
     players = players)
 
   def started: Option[Started] = for {
@@ -226,7 +246,7 @@ case class RawTournament(
     if status == Status.Started.id
   } yield Started(
     id = id,
-    data = Data(name, clock, minutes, minPlayers, createdAt, createdBy),
+    data = Data(name, clock, minutes, minPlayers, Variant orDefault variant, Mode orDefault mode, createdAt, createdBy),
     startedAt = stAt,
     players = players,
     pairings = decodePairings)
@@ -236,7 +256,7 @@ case class RawTournament(
     if status == Status.Finished.id
   } yield Finished(
     id = id,
-    data = Data(name, clock, minutes, minPlayers, createdAt, createdBy),
+    data = Data(name, clock, minutes, minPlayers, Variant orDefault variant, Mode orDefault mode, createdAt, createdBy),
     startedAt = stAt,
     players = players,
     pairings = decodePairings)
@@ -258,13 +278,17 @@ object Tournament {
     createdBy: User,
     clock: TournamentClock,
     minutes: Int,
-    minPlayers: Int): Created = Created(
+    minPlayers: Int,
+    variant: Variant,
+    mode: Mode): Created = Created(
     id = Random nextString 8,
     data = Data(
       name = RandomName(),
       clock = clock,
       createdBy = createdBy.id,
       createdAt = DateTime.now,
+      variant = variant,
+      mode = mode,
       minutes = minutes,
       minPlayers = minPlayers),
     players = List(Player(createdBy))

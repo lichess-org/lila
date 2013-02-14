@@ -1,5 +1,6 @@
 #Site
 GET   /socket             controllers.Main.websocket
+GET   /embed.js           controllers.Main.embed
 
 # Game
 GET   /games              controllers.Game.realtime
@@ -57,6 +58,7 @@ GET   /team/new                               controllers.Team.form
 POST  /team/new                               controllers.Team.create
 GET   /team/me                                controllers.Team.mine
 GET   /team/requests                          controllers.Team.requests
+GET   /team/search                            controllers.Team.search(text: String ?= "", page: Int ?= 1)
 GET   /team/:id                               controllers.Team.show(id: String, page: Int ?= 1)
 GET   /team/:id/join                          controllers.Team.joinPage(id: String)
 POST  /team/:id/join                          controllers.Team.join(id: String)
@@ -89,6 +91,8 @@ GET   /$fullId<[\w\-]{12}>/cancel      controllers.Setup.cancel(fullId: String)
 POST  /$id<[\w\-]{8}>/join             controllers.Setup.join(id: String)
 GET   /setup/hook                      controllers.Setup.hookForm
 POST  /setup/hook                      controllers.Setup.hook
+GET   /setup/filter                    controllers.Setup.filterForm
+POST  /setup/filter                    controllers.Setup.filter
 POST  /api/game/new                    controllers.Setup.api
 
 # I18n
@@ -150,6 +154,7 @@ POST   /bookmark/$gameId<[\w\-]{8}>    controllers.Bookmark.toggle(gameId: Strin
 # Forum
 GET   /forum                           controllers.ForumCateg.index
 GET   /forum/recent                    controllers.ForumPost.recent
+GET   /forum/search                    controllers.ForumPost.search(text: String ?= "", page: Int ?= 1)
 GET   /forum/:slug                     controllers.ForumCateg.show(slug: String, page: Int ?= 1)
 GET   /forum/:categSlug/form           controllers.ForumTopic.form(categSlug: String)
 POST  /forum/:categSlug/new            controllers.ForumTopic.create(categSlug: String)
@@ -171,13 +176,12 @@ DELETE /notification/$id<[\w]{8}>      controllers.Notification.remove(id)
 # Monitor
 GET   /monitor                         controllers.Monitor.index
 GET   /monitor/socket                  controllers.Monitor.websocket
-GET   /monitor/players                 controllers.Monitor.nbPlayers
-GET   /monitor/mps                     controllers.Monitor.nbMoves
 GET   /monitor/status                  controllers.Monitor.status
 
 # Misc
 POST  /cli                             controllers.Cli.command
 GET   /captcha/$id<[\w]{8}>            controllers.Main.captchaCheck(id: String)
+GET   /developers                      controllers.Main.developers
 
 # Assets
 GET   /assets/*file                    controllers.Assets.at(path="/public", file)

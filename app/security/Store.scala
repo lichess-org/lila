@@ -9,9 +9,12 @@ import com.mongodb.casbah.query.Imports._
 import org.joda.time.DateTime
 import scalaz.effects._
 
-case class UserSpy(ips: List[String], uas: List[String])
+case class UserSpy(
+  ips: List[String], 
+  uas: List[String],
+  otherUsernames: Set[String])
 
-final class Store(collection: MongoCollection) {
+private[security] final class Store(collection: MongoCollection) {
 
   def save(sessionId: String, username: String, req: RequestHeader) {
     collection += DBObject(
@@ -40,7 +43,7 @@ final class Store(collection: MongoCollection) {
 
   // useful when closing an account,
   // we want to logout too
-  def deleteUsername(username: String) {
+  def deleteUsername(username: String): IO[Unit] = io {
     collection.update(
       DBObject("user" -> normalize(username)),
       $set("up" -> false),
@@ -51,12 +54,14 @@ final class Store(collection: MongoCollection) {
   def userSpy(username: String): IO[UserSpy] = io {
     collection.find(DBObject("user" -> normalize(username))).toList
   } map { objs ⇒
-    val ips = objs.map(_.getAs[String]("ip")).flatten.distinct
-    val uas = objs.map(_.getAs[String]("ua")).flatten.distinct
-    UserSpy(ips, uas)
+    UserSpy(
+      ips = objs.map(_.getAs[String]("ip")).flatten.distinct,
+      uas = objs.map(_.getAs[String]("ua")).flatten.distinct,
+      otherUsernames = explore(normalize(username))
+    )
   }
 
-  def explore(username: String, withKnown: Set[String] = Set.empty): Set[String] = {
+  private def explore(username: String, withKnown: Set[String] = Set.empty): Set[String] = {
     val known = withKnown + username
     val children = newSiblings(username, known)
     children.foldLeft(children) {

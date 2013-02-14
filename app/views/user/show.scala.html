@@ -32,8 +32,8 @@
 
 @actions = {
 @if(ctx is u) {
-<a class="small" href="@routes.User.passwd">Change password</a>
-<a class="small" href="@routes.User.close">Close account</a>
+<a class="small action" href="@routes.User.passwd">Change password</a>
+<a class="small action" href="@routes.User.close">Close account</a>
 } else {
 @if(isGranted(Permission.MarkEngine)) {
 <form method="post" action="@routes.Mod.engine(u.username)">
@@ -69,9 +69,7 @@ evenMoreCss = evenMoreCss) {
     <div class="icon status @isUsernameOnline(u.username).fold("connected", "")"></div>
     <h1 class="lichess_title">@u.usernameWithElo</h1>
     @info.rank.map { r =>
-    <span class="rank">
-      @trans.rank(): <strong>@r._1</strong> / @r._2
-    </span>
+    <span class="rank" title="@trans.rank()"><strong>@r._1</strong> / @r._2.localize</span>
     }
     @if(u.disabled) {
     <span class="staff">CLOSED</span>
@@ -103,7 +101,7 @@ evenMoreCss = evenMoreCss) {
           @Html(strong(u.nbAi)) AI
         </p>
         <span class="tournament s16 tournament_points">
-          Tournament points: <strong>@u.toints</strong>
+          @trans.tournamentPoints(): <strong>@u.toints</strong>
         </span>
         <div class="teams">
           @teamIds(u.id).sortBy(t => !myTeam(t)).map { teamId =>
@@ -117,9 +115,11 @@ evenMoreCss = evenMoreCss) {
     @actions
     @info.spy.map { spy =>
     <div class="user_spy">
-      <a class="toggle">Show IPs and UAs</a>
+      <a class="action toggle">Show Mod infos</a>
       <div class="inner">
         <br />
+        <strong>Other usernames:</strong>
+        <div class="usernames">@Html(spy.otherUsernames.map(userIdLinkMini).mkString(", "))</div>
         <strong>IP addresses:</strong> <ul>@spy.ips.map { ip =>
           <li>@ip</li>
           }</ul>

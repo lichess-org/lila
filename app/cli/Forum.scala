@@ -6,11 +6,15 @@ import scalaz.effects._
 
 private[cli] case class Forum(env: ForumEnv) {
 
-  def denormalize: IO[Unit] = env.denormalize
+  def denormalize: IO[String] = env.denormalize inject "Forum denormalized"
 
-  def typecheck: IO[Unit] = for {
-    _ ← env.categRepo.all
-    _ ← env.topicRepo.all
-    _ ← env.postRepo.all
-  } yield ()
+  def typecheck: IO[String] = 
+    env.categRepo.all >> env.topicRepo.all >> env.postRepo.all inject "Forum type checked"
+
+  def searchReset: IO[String] = env.indexer.rebuildAll inject "Search index reset"
+
+  def search(text: String) = io {
+    val paginator = env.searchPaginator(text, 1, true)
+    (paginator.nbResults + " results") :: paginator.currentPageResults.map(_.show)
+  } map (_ mkString "\n")
 }

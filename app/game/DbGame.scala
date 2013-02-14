@@ -263,6 +263,8 @@ case class DbGame(
 
   def winnerUserId: Option[String] = winner flatMap (_.userId)
 
+  def loserUserId: Option[String] = loser flatMap (_.userId)
+
   def wonBy(c: Color): Option[Boolean] = winnerColor map (_ == c)
 
   def outoftimePlayer: Option[DbPlayer] = for {
@@ -277,10 +279,7 @@ case class DbGame(
 
   def withClock(c: Clock) = Progress(this, copy(clock = Some(c)))
 
-  def estimateTotalTime = clock.fold(
-    c ⇒ c.limit + 30 * c.increment,
-    1200 // default to 20 minutes
-  )
+  def estimateTotalTime = clock.fold(_.estimateTotalTime, 1200)
 
   def creator = player(creatorColor)
 

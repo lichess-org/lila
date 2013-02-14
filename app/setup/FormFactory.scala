@@ -8,11 +8,27 @@ import play.api.data._
 import play.api.data.Forms._
 import scalaz.effects._
 
-final class FormFactory(
+private[setup] final class FormFactory(
     userConfigRepo: UserConfigRepo,
     anonConfigRepo: AnonConfigRepo) {
 
   import Mappings._
+
+  def filterFilled(implicit ctx: Context): IO[Form[FilterConfig]] =
+    filterConfig map filter(ctx).fill
+
+  def filter(ctx: Context) = Form(
+    mapping(
+      "variant" -> optional(variant),
+      "mode" -> mode(ctx.isAuth),
+      "speed" -> optional(speed),
+      "eloDiff" -> optional(eloDiff)
+    )(FilterConfig.<<)(_.>>)
+  )
+
+  def filterConfig(implicit ctx: Context): IO[FilterConfig] = savedConfig map { config ⇒
+    ctx.isAuth.fold(config.filter, config.filter.withModeCasual)
+  }
 
   def aiFilled(implicit ctx: Context): IO[Form[AiConfig]] =
     aiConfig map ai(ctx).fill
@@ -68,5 +84,5 @@ final class FormFactory(
   private def savedConfig(implicit ctx: Context): IO[UserConfig] = ctx.me.fold(
     userConfigRepo.config,
     anonConfigRepo config ctx.req
-  ) 
+  )
 }

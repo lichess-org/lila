@@ -1,19 +1,33 @@
 package lila
 package cli
 
-import lila.user.{ User, UserRepo }
-import lila.security.Store
+import lila.user.{ UserEnv, User, UserRepo }
+import lila.security.{ Store, Permission }
 import scalaz.effects._
 
-private[cli] case class Users(userRepo: UserRepo, securityStore: Store) {
+private[cli] case class Users(userEnv: UserEnv, deleteUsername: String ⇒ IO[Unit]) {
 
-  def enable(username: String): IO[Unit] =
+  private def userRepo = userEnv.userRepo
+
+  def rewriteHistory: IO[String] =
+    userEnv.historyRepo.fixAll inject "History rewritten"
+
+  def roles(username: String): IO[String] = for {
+    userOption ← userRepo byId username
+  } yield userOption.fold(_.roles mkString " ", "User not found")
+
+  def grant(username: String, roles: List[String]): IO[String] =
+    perform(username, { user ⇒
+      userRepo.setRoles(user, roles map (_.toUpperCase))
+    })
+
+  def enable(username: String): IO[String] =
     perform(username, userRepo.enable)
 
-  def disable(username: String): IO[Unit] =
+  def disable(username: String): IO[String] =
     perform(username, user ⇒
       userRepo disable user map { _ ⇒
-        securityStore deleteUsername username
+        deleteUsername(username)
       }
     )
 
@@ -25,18 +39,11 @@ private[cli] case class Users(userRepo: UserRepo, securityStore: Store) {
       ))
     })
 
-  def track(username: String) = io {
-    println("%s = %s".format(
-      username, 
-      securityStore explore username mkString ", "
-    ))
-  }
-
-  private def perform(username: String, op: User ⇒ IO[Unit]) = for {
+  private def perform(username: String, op: User ⇒ IO[Unit]): IO[String] = for {
     userOption ← userRepo byId username
-    _ ← userOption.fold(
-      u ⇒ op(u) flatMap { _ ⇒ putStrLn("Success") },
-      putStrLn("Not found")
+    res ← userOption.fold(
+      u ⇒ op(u) inject "Success",
+      io("User not found")
     )
-  } yield ()
+  } yield res
 }

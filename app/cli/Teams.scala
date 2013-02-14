@@ -2,42 +2,48 @@ package lila
 package cli
 
 import user.{ User, UserRepo }
-import team.{ Team, TeamRepo, TeamApi }
+import team.{ TeamEnv, Team }
 import scalaz.effects._
 
-private[cli] case class Teams(
-    teamRepo: TeamRepo,
-    userRepo: UserRepo,
-    api: TeamApi) {
+private[cli] case class Teams(env: TeamEnv, userRepo: UserRepo) {
 
-  def join(teamId: String, userIds: List[String]): IO[Unit] =
+  import env._
+
+  def searchReset: IO[String] = indexer.rebuildAll inject "Search index reset"
+
+  def search(text: String) = io {
+    val paginator = searchPaginator(text, 1)
+    (paginator.nbResults + " results") :: paginator.currentPageResults.map(_.name)
+  } map (_ mkString "\n")
+
+  def join(teamId: String, userIds: List[String]): IO[String] =
     perform2(teamId, userIds)(api.doJoin _)
 
-  def quit(teamId: String, userIds: List[String]): IO[Unit] =
+  def quit(teamId: String, userIds: List[String]): IO[String] =
     perform2(teamId, userIds)(api.doQuit _)
 
-  def enable(teamId: String): IO[Unit] = perform(teamId)(teamRepo.enable _)
+  def enable(teamId: String): IO[String] = perform(teamId)(api.enable _)
 
-  def disable(teamId: String): IO[Unit] = perform(teamId)(teamRepo.disable _)
+  def disable(teamId: String): IO[String] = perform(teamId)(api.disable _)
 
-  def delete(teamId: String): IO[Unit] = perform(teamId)(api.delete _)
+  def delete(teamId: String): IO[String] = perform(teamId)(api.delete _)
 
   private def perform(teamId: String)(op: Team ⇒ IO[Unit]) = for {
     teamOption ← teamRepo byId teamId.pp
-    _ ← teamOption.fold(
-      u ⇒ op(u) flatMap { _ ⇒ putStrLn("Success") },
-      putStrLn("Team not found")
+    res ← teamOption.fold(
+      u ⇒ op(u) inject "Success",
+      io("Team not found")
     )
-  } yield ()
+  } yield res
 
   private def perform2(teamId: String, userIds: List[String])(op: (Team, String) ⇒ IO[Unit]) = for {
     teamOption ← teamRepo byId teamId
-    _ ← teamOption.fold(
+    res ← teamOption.fold(
       team ⇒ for {
         users ← userRepo byIds userIds
         _ ← users.map(user ⇒ putStrLn(user.username) >> op(team, user.id)).sequence
-      } yield (),
-      putStrLn("Team not found")
+      } yield "Success",
+      io("Team not found")
     )
-  } yield ()
+  } yield res
 }

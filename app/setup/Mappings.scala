@@ -18,4 +18,6 @@ object Mappings {
   val eloRange = optional(nonEmptyText.verifying(EloRange valid _))
   val color = nonEmptyText.verifying(Color.names contains _)
   val level = number.verifying(AiConfig.levels contains _)
+  val speed = number.verifying(Config.speeds contains _)
+  val eloDiff = number.verifying(FilterConfig.eloDiffs contains _)
 }

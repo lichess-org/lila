@@ -1,0 +1,14 @@
+@(form: Form[_])(implicit ctx: Context)
+
+@helper.form(action = routes.Setup.filter(), 'novalidate -> "novalidate") {
+@base.select(form("variant"), translatedVariantChoices, trans.variant.str().some)
+@base.select(form("speed"), translatedSpeedChoices, trans.timeControl.str().some)
+@ctx.me.map { me =>
+@base.select(form("mode"), translatedModeChoices, trans.mode.str().some)
+@base.select(form("eloDiff"), eloDiffChoices(me.elo))
+}
+<div class="actions">
+  <button type="submit" class="reset">@trans.reset()</button>
+  <button type="submit" class="submit">@trans.apply()</button>
+</div>
+}

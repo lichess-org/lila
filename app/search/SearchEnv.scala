@@ -17,7 +17,7 @@ final class SearchEnv(
 
   lazy val forms = new DataForm
 
-  lazy val indexer = new Indexer(
+  lazy val indexer = new GameIndexer(
     es = esIndexer,
     gameRepo = gameRepo,
     pgnRepo = pgnRepo,
@@ -32,7 +32,7 @@ final class SearchEnv(
   private lazy val queue = new Queue(
     collection = mongodb(SearchCollectionQueue))
 
-  private lazy val esIndexer = elasticsearch.Indexer.transport(
+  lazy val esIndexer = elasticsearch.Indexer.transport(
     settings = Map(
       "cluster.name" -> SearchESCluster
     ),
