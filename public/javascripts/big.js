@@ -1619,8 +1619,9 @@ var lichess_translations = [];
   function renderTimeline(data) {
     var html = "";
     for (i in data) { html += '<tr>' + data[i] + '</tr>'; }
-    $bot.find('.lichess_messages').append(html).parent();
+    $bot.find('.lichess_messages').append(html);
     $('body').trigger('lichess.content_loaded');
+    $bot.find('.nano').nanoScroller({scroll:'bottom'});
   }
 
   function removeHook(id) {
