@@ -64,7 +64,7 @@ function customFunctionOnMove() {
 }
 
 function redrawBoardMarks() {
-  $.displayBoardMarks($('#GameBoard'), ! $('#GameBoard').hasClass('flip'));
+  $.displayBoardMarks($('#GameBoard'), !$('#GameBoard').hasClass('flip'));
 }
 
 function refreshButtonset() {

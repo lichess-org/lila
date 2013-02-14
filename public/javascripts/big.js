@@ -259,7 +259,7 @@ var lichess_translations = [];
     }, 1000);
 
     if ($board = $('div.with_marks').orNot()) {
-      displayBoardMarks($board.parent(), $('#lichess > div.lichess_player_white').length);
+      $.displayBoardMarks($board.parent(), $('#lichess > div.lichess_player_white').length);
     }
 
     // themepicker
@@ -465,7 +465,7 @@ var lichess_translations = [];
     return lichess_translations[text] ? lichess_translations[text] : text;
   }
 
-  function displayBoardMarks($board, isWhite) {
+  $.displayBoardMarks = function($board, isWhite) {
     if (isWhite) {
       var factor = 1;
       var base = 0;
