@@ -1132,7 +1132,7 @@ var lichess_translations = [];
       if (this.options.resize) {
         var headerHeight = self.element.parent().height();
         self.element.css("top", headerHeight + 13);
-        self.$msgs.css("height", 454 - headerHeight);
+        self.$nano.css("height", 458 - headerHeight);
       }
       var $form = self.element.find('form');
       var $input = self.element.find('input.lichess_say');

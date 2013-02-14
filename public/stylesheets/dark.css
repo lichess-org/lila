@@ -368,3 +368,10 @@ body.dark div.hooks td.action.empty {
 body.dark .s16.ddown {
   background-position: right -368px;
 }
+
+body.dark .nano > .pane {
+  background : rgba(255,255,255,.15);
+}
+body.dark .nano > .pane > .slider {
+  background: #ccc;
+  background: rgba(255,255,255,.4);
