@@ -900,12 +900,12 @@ div.notifications > div a.close:hover {
 }
 .nano .content {
   position      : absolute;
-  overflow      : scroll;
-  overflow-x    : hidden;
+  overflow      : hidden;
   top           : 0;
   right         : 0;
   bottom        : 0;
   left          : 0;
+  padding-right : 16px;
 }
 .nano .content:focus {
   outline: thin dotted;
