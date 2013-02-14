@@ -125,7 +125,6 @@ giveNbSeconds=Donar %s sekundi
 searchAPlayer=Serchar ludero
 whoIsOnline=Qui es enlinea
 allPlayers=Omna luderi
-namedPlayers=Nomizita luderi
 premoveEnabledClickAnywhereToCancel=Avanstroko enswichata - Klikez irgaloke por abrogar
 thisPlayerUsesChessComputerAssistance=Ica ludero uzas helpo di shakokomputero
 opening=Komenco

@@ -106,7 +106,6 @@ giveNbSeconds=%s секунд қосу
 searchAPlayer=Ойыншыны издеу
 whoIsOnline=Қазір онлайн
 allPlayers=Барлық ойыншылар
-namedPlayers=Онлайн ойыншылар
 premoveEnabledClickAnywhereToCancel=Алдын - ала жүріс қосылды. Болдырмау үшін кеқ келген жерде басыңыз
 thisPlayerUsesChessComputerAssistance=Бұл ойыншы компьютер бағдарламасын қолданады
 opening=Дебют

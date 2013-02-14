@@ -125,7 +125,6 @@ giveNbSeconds=Дать %s секунд
 searchAPlayer=Поиск игрока
 whoIsOnline=Кто онлайн
 allPlayers=Всего игроков
-namedPlayers=Игроки онлайн
 premoveEnabledClickAnywhereToCancel=Предварительный ход включен. Нажмите где угодно для отмены
 thisPlayerUsesChessComputerAssistance=Этот игрок использует шахматную программу
 opening=Дебют

@@ -125,7 +125,6 @@ giveNbSeconds=%s saniye ver
 searchAPlayer=Oyuncu ara
 whoIsOnline=Çevrimiçi kişiler
 allPlayers=Tüm oyuncular
-namedPlayers=Kayıtlı oyuncular
 premoveEnabledClickAnywhereToCancel=Bir sonraki hamlenizi iptal etmek için herhangi bir yere basın
 thisPlayerUsesChessComputerAssistance=Bu oyuncu satranç asistan programı kullanıyor.
 opening=Açılış

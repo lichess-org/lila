@@ -125,7 +125,6 @@ giveNbSeconds=Donar %s segons
 searchAPlayer=Cerca un jugador
 whoIsOnline=Qui hi ha connectat
 allPlayers=Tots els jugadors
-namedPlayers=Jugadors registrats
 premoveEnabledClickAnywhereToCancel=Moviment automàtic activat - Clica en qualsevol lloc per a cancel·lar-lo
 thisPlayerUsesChessComputerAssistance=Aquest jugador utilitza un programa informàtic d'escacs
 opening=Obertura

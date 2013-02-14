@@ -125,7 +125,6 @@ giveNbSeconds=Dodaj %s sekund
 searchAPlayer=Išči igralca
 whoIsOnline=Kdo je prisoten
 allPlayers=Vsi Igralci
-namedPlayers=Imenovani igralci
 premoveEnabledClickAnywhereToCancel=Predpremik omogočen - klikni kjerkoli za preklic
 thisPlayerUsesChessComputerAssistance=Ta igralec uporablja pomoč računalnika
 opening=Otvoritev

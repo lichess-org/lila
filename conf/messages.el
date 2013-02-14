@@ -125,7 +125,6 @@ giveNbSeconds=Δώστε %s δευτερόλεπτα
 searchAPlayer=Αναζήτηση παίκτη
 whoIsOnline=Ποιοι είναι συνδεδεμένοι
 allPlayers=Όλοι οι παίκτες
-namedPlayers=Συνδεδεμένοι παίκτες με ονόματα
 premoveEnabledClickAnywhereToCancel=Προεπιλογή κίνησης ενεργοποιημένη - Κλίκ οπουδήποτε για ακύρωση
 thisPlayerUsesChessComputerAssistance=Αυτός ο παίκτης χρησιμοποιεί υποβοήθηση υπολογιστή
 opening=Άνοιγμα
