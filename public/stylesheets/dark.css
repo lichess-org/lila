@@ -37,7 +37,7 @@ body.dark div.content_box
 body.dark #top,
 body.dark #nb_connected_players,
 body.dark div.lichess_chat_top,
-body.dark div.lichess_chat ol,
+body.dark div.lichess_chat .nano,
 body.dark div.undertable_top,
 body.dark div.undertable_inner,
 body.dark div.undertable td,
@@ -141,7 +141,7 @@ body.dark #top span.new_messages {
   background: #606060;
 }
 
-body.dark div.lichess_chat_inner,
+body.dark div.lichess_chat .nano,
 body.dark div.undertable_inner,
 body.dark div.lichess_goodies div.box,
 body.dark div.undergame_box,

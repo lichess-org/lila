@@ -2,7 +2,7 @@
 
 @chat = {
 @for(m <- ctx.me; if m.canChat) {
-<div class="lichess_chat anon_chat lobby_chat">
+<div id="asrtoien" class="lichess_chat anon_chat lobby_chat">
   <div class="lichess_chat_top">
     <span class="title">@trans.chatRoom()</span>
     <input
@@ -13,11 +13,13 @@
     type="checkbox" />
   </div>
   <div class="lichess_chat_inner">
-    <ol class="lichess_messages">
-      <li><a href="@routes.Lobby.log()">View older messages</a></li>
-    </ol>
+    <div class="nano">
+      <ol class="lichess_messages content">
+        <li><a href="@routes.Lobby.log()">View older messages</a></li>
+      </ol>
+    </div>
     <form action="#">
-      <input class="lichess_say lichess_hint" value="@trans.talkInChat()" />
+      <input class="lichess_say" value="" placeholder="@trans.talkInChat()" />
       <a class="send"></a>
     </form>
   </div>
@@ -86,8 +88,10 @@ underchat = underchat.some) {
       <a class="more" title="@trans.seeTheGamesBeingPlayedInRealTime()" href="@routes.Game.realtime()">@trans.games() »</a>
       <span class="title">@trans.gamesBeingPlayedRightNow()</span>
     </div>
-    <div class="undertable_inner">
+    <div class="undertable_inner nano">
+      <div class="content">
       <table class="lichess_messages"></table>
+    </div>
     </div>
   </div>
   <div class="new_posts undertable" data-url="@routes.ForumPost.recent">
@@ -95,8 +99,10 @@ underchat = underchat.some) {
       <a class="more" title="@trans.talkAboutChessAndDiscussLichessFeaturesInTheForum()" href="@routes.ForumCateg.index">@trans.forum() »</a>
       <span class="title">@trans.forum()</span>
     </div>
-    <div class="undertable_inner">
-      <ol>@forum.post.recent(forumRecent)</ol>
+    <div class="undertable_inner nano">
+      <div class="content">
+        <ol>@forum.post.recent(forumRecent)</ol>
+      </div>
     </div>
   </div>
 </div>
