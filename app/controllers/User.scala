@@ -104,10 +104,11 @@ object User extends LilaController {
 
   val closeConfirm = Auth { ctx ⇒
     me ⇒
-      IORedirect {
-        (userRepo disable me) >> env.team.api.quitAll(me.id) inject { 
-          env.security.store deleteUsername me.username
-          routes.User show me.username
+      IOResult {
+        (userRepo disable me) >> 
+        env.team.api.quitAll(me.id) >>
+        (env.security.store deleteUsername me.username) inject { 
+          Redirect(routes.User show me.username).withNewSession
         }
       }
   }
