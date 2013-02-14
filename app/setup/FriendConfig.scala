@@ -16,7 +16,7 @@ case class FriendConfig(
   def >> = (variant.id, clock, time, increment, mode.id.some, color.name).some
 
   def game = DbGame(
-    game = makeGame,
+    game = makeGame(none),
     ai = None,
     whitePlayer = DbPlayer.white,
     blackPlayer = DbPlayer.black,
