@@ -520,7 +520,9 @@ var lichess_translations = [];
         self.initSquaresAndPieces();
         self.initTable();
         self.initClocks();
-        if (self.$chat) self.$chat.chat();
+        if (self.$chat) self.$chat.chat({
+          resize: true
+        });
         self.$watchers.watchers();
         if (self.isMyTurn() && self.options.game.turns == 0) {
           self.element.one('lichess.audio_ready', function() {
@@ -1121,7 +1123,7 @@ var lichess_translations = [];
   $.widget("lichess.chat", {
     _create: function() {
       this.options = $.extend({
-        render: function(t) { return t; },
+        render: function(t) { return urlToLink(t); },
         resize: false
       }, this.options);
       var self = this;
@@ -1738,48 +1740,11 @@ var lichess_translations = [];
 
     $('body').data('tournament-id', _ld_.tournament.id);
 
-    var $chat = $("div.lichess_chat");
-    var $chatToggle = $chat.find('input.toggle_chat');
-    var chatExists = $chat.length > 0;
     var $userList = $wrap.find("div.user_list");
     var socketUrl = $wrap.data("socket-url");
     var $watchers = $("div.watchers").watchers();
 
-    if (chatExists) {
-      var $form = $chat.find('form');
-      var $msgs = $chat.find('.lichess_messages');
-      var $input = $chat.find('input.lichess_say');
-
-      // send a message
-      $form.submit(function() {
-        var text = $.trim($input.val());
-        if (!text) return false;
-        if (text.length > 140) {
-          alert('Max length: 140 chars. ' + text.length + ' chars used.');
-          return false;
-        }
-        $input.val('');
-        lichess.socket.send('talk', { txt: text });
-        return false;
-      });
-      $chat.find('a.send').click(function() { $input.trigger('click'); $form.submit(); });
-
-      // toggle the chat
-      $chatToggle.change(function() {
-        var enabled = $chatToggle.is(':checked');
-        $chat.toggleClass('hidden', !enabled);
-        $.post($chatToggle.data('href'), {"chat": enabled});
-      });
-      if (!$chatToggle.data("enabled")) {
-        $chat.addClass('hidden');
-      }
-      $chatToggle[0].checked = $chatToggle.data("enabled");
-    }
-
-    function addToChat(html) {
-      $chat.find('.lichess_messages').append(html);
-      $('body').trigger('lichess.content_loaded');
-    }
+    var $chat = $("div.lichess_chat").chat();
 
     function startClock() {
       $("span.tournament_clock").each(function() {
@@ -1802,7 +1767,7 @@ var lichess_translations = [];
 
     lichess.socket = new strongSocket(lichess.socketUrl + socketUrl, _ld_.version, $.extend(true, lichess.socketDefaults, {
       events: {
-        talk: function(e) { if (chatExists) addToChat(e); },
+        talk: function(e) { $chat.chat('append', e); },
       start: start,
       reload: reload,
       reloadPage: function() {
