@@ -2,6 +2,7 @@ package lila
 package setup
 
 import chess.{ Game, Board, Variant, Clock, Speed }
+import chess.format.Forsyth
 import game.{ GameRepo, DbGame, Pov }
 
 trait Config {
@@ -23,9 +24,18 @@ trait Config {
 
   lazy val creatorColor = color.resolve
 
-  def makeGame = Game(
-    board = Board init variant,
-    clock = makeClock)
+  def makeGame(fen: Option[String]): Game = fen.fold(
+    f ⇒ Forsyth << f |> {
+      _.fold(
+        situation ⇒ Game(
+          board = situation.board, 
+          player = situation.color,
+          clock = makeClock),
+        makeGame(none)
+      )
+    },
+    Game(board = Board init variant, clock = makeClock)
+  )
 
   def validClock = clock.fold(time + increment > 0, true)
 

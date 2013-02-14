@@ -15,7 +15,7 @@ case object ApiConfig extends Config with GameGenerator {
   val increment = 8
 
   def game = DbGame(
-    game = makeGame,
+    game = makeGame(none),
     ai = None,
     whitePlayer = DbPlayer.white,
     blackPlayer = DbPlayer.black,

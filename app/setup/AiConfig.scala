@@ -12,10 +12,12 @@ case class AiConfig(
     level: Int,
     color: Color) extends Config with GameGenerator {
 
+  def pgn = "r2q1rk1/ppp2pp1/1bnpbn1p/4p3/4P3/1BNPBN1P/PPPQ1PP1/R3K2R w KQ - 7 10".some
+
   def >> = (variant.id, clock, time, increment, level, color.name).some
 
   def game = DbGame(
-    game = makeGame,
+    game = makeGame(none),
     ai = Some(!creatorColor -> level),
     whitePlayer = DbPlayer(
       color = ChessColor.White,
