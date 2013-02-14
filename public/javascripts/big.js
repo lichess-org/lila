@@ -259,7 +259,7 @@ var lichess_translations = [];
     }, 1000);
 
     if ($board = $('div.with_marks').orNot()) {
-      $.displayBoardMarks($board.parent(), $('#lichess > div.lichess_player_white').length);
+      displayBoardMarks($board.parent(), $('#lichess > div.lichess_player_white').length);
     }
 
     // themepicker
@@ -465,7 +465,7 @@ var lichess_translations = [];
     return lichess_translations[text] ? lichess_translations[text] : text;
   }
 
-  $.displayBoardMarks = function($board, isWhite) {
+  function displayBoardMarks($board, isWhite) {
     if (isWhite) {
       var factor = 1;
       var base = 0;
@@ -473,14 +473,12 @@ var lichess_translations = [];
       var factor = - 1;
       var base = 575;
     }
-    $board.find('span.board_mark').remove();
-    var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-    var marks = '';
+    var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'], marks = '';
     for (i = 1; i < 9; i++) {
       marks += '<span class="board_mark vert" style="bottom:' + (factor * i * 64 - 38 + base) + 'px;">' + i + '</span>';
       marks += '<span class="board_mark horz" style="left:' + (factor * i * 64 - 35 + base) + 'px;">' + letters[i - 1] + '</span>';
     }
-    $board.append(marks);
+    $board.remove('span.board_mark').append(marks);
   };
 
   function urlToLink(text) {
