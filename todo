@@ -53,3 +53,6 @@ mute ip
 games with me http://en.lichess.org/forum/general-chess-discussion/-vs-me#2
 ssl websocket would pass through proxies http://en.lichess.org/forum/lichess-feedback/layout-bug-and-proxies#2 requires play 2.1
 team chat
+chat input prompt indicator
+chat padding right
+play a game from a position, also allows http://en.lichess.org/forum/lichess-feedback/feature-request-to-finish-playing-a-game-with-a-computer-when-your-opponent-resigned#1
