@@ -1,75 +1,99 @@
-div.game_config h2, div.game_config button {
-  font-size: 1.4em;
-  padding: 0 2em;
-}
-div.game_config button {
-  letter-spacing: 1px;
+@import "variables";
+
+div.game_config {
+
+  h2, button {
+    font-size: 1.4em;
+    padding: 0 2em;
+  }
+
+  button {
+    letter-spacing: 1px;
+  }
+
+  h2 {
+    margin-bottom: 1em;
+  }
+
+  div.ui-buttonset {
+    margin-bottom: 1em;
+  }
+
+  .ui-button-text,
+  select {
+    text-transform: capitalize;
+  }
+
+  div.ui-slider {
+    font-size: 1.3em;
+    margin: 0 15px;
+  }
+
+  .optional_config {
+    background: #f4f4f4;
+    margin-bottom: 1em;
+    padding: 3px 0;
+    border-top: solid 1px #e4e4e4;
+    border-bottom: solid 1px #e4e4e4;
+  }
+
+  .time_choice,
+  .increment_choice,
+  .elo_range_config {
+    padding-bottom: 1em;
+    text-align: left;
+    text-indent: 15px;
+  }
+
+  .time_choice span {
+    font-weight: bold;
+  }
+
+  .clock_config label {
+    cursor: pointer;
+  }
+
+  button.submit {
+    margin-top: 0.5em;
+  }
+
+  @import "color/*.png";
+
+  div.color_submits {
+    margin-top: 1em;
+    margin-left: 18px;
+    height: 65px;
+
+    button {
+      &.submit {
+        float: left;
+        width: 80px;
+        height: 65px;
+        padding: 5px 14px;
+        margin: 0 5px;
+
+        span {
+          @include color-sprite(color_white);
+          width: 50px;
+          height: 51px;
+          padding: 0;
+        }
+      }
+      &.black span {
+        @include color-sprite(color_black);
+      }
+      &.random span {
+        @include color-sprite(color_random);
+      }
+    }
+  }
+
 }
 
-div.game_config h2 {
-  margin-bottom: 1em;
-}
-div.game_config div.ui-buttonset {
-  margin-bottom: 1em;
-}
 #config_level .ui-button {
   margin-right: -0.6em;
 }
-div.game_config .ui-button-text, 
-div.game_config select {
-  text-transform: capitalize;
-}
-div.game_config div.ui-slider {
-  font-size: 1.3em;
-  margin: 0 15px;
-}
-div.game_config .optional_config {
-  background: #f4f4f4;
-  margin-bottom: 1em;
-  padding: 3px 0;
-  border-top: solid 1px #e4e4e4;
-  border-bottom: solid 1px #e4e4e4;
-}
-div.game_config .time_choice,
-div.game_config .increment_choice,
-div.game_config .elo_range_config {
-  padding-bottom: 1em;
-  text-align: left;
-  text-indent: 15px;
-}
-div.game_config .time_choice span {
-  font-weight: bold;
-}
-div.game_config .clock_config label {
-  cursor: pointer;
-}
-div.game_config button.submit {
-  margin-top: 0.5em;
-}
-div.game_config div.color_submits {
-  margin-top: 1em;
-  margin-left: 18px;
-  height: 65px;
-}
-div.game_config div.color_submits button.submit {
-  float: left;
-  width: 80px;
-  height: 65px;
-  padding: 5px 14px;
-  margin: 0 5px;
-}
-div.game_config div.color_submits button.submit span {
-  background: url(../images/sprite_color.png) no-repeat;
-  width: 50px;
-  height: 51px;
-  padding: 0;
-}
-div.game_config div.color_submits button.black span {
-  background-position: 0 -51px;
-}
-div.game_config div.color_submits button.random span {
-  background-position: 0 -102px;
-}
+
 div.hooks_wrap {
   position: absolute;
   width: 384px;
@@ -77,168 +101,189 @@ div.hooks_wrap {
   top: 51px;
   left: 52px;
   padding: 12px;
-  border-radius: 3px 0 3px 3px;
-  box-shadow: 0 0 20px #444;
+  @include border-radius(3px 0 3px 3px);
+  @include box-shadow(0 0 20px #444);
+  @include background-image(linear-gradient(top, rgba(212,212,212,0.9) 0%,rgba(240,240,240,0.5) 100%));
+  // Fallback
   background: rgba(245,245,245,0.8);
-  background: -moz-linear-gradient(top, rgba(212,212,212,0.9) 0%, rgba(240,240,240,0.5) 100%);
-  background: -webkit-linear-gradient(top, rgba(212,212,212,0.9) 0%,rgba(240,240,240,0.5) 100%);
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(212,212,212,0.9)), to(rgba(240,240,240,0.5)));
-  background: -ms-linear-gradient(top, rgba(212,212,212,0.9) 0%,rgba(240,240,240,0.5) 100%);
-  background: -o-linear-gradient(top, rgba(212,212,212,0.9) 0%,rgba(240,240,240,0.5) 100%);
-  background: linear-gradient(top, rgba(212,212,212,0.9) 0%,rgba(240,240,240,0.5) 100%);
-}
-div.hooks_wrap.large {
-  height: 512px;
-  top: -13px;
-}
 
-div.hooks_wrap.hidden {
-  display: none;
-}
-div.hooks_wrap a.filter {
-  position: absolute;
-  top: -21px;
-  right: -1px;
-  height: 20px;
-  line-height: 20px;
-  padding: 0 2px 0 10px;
-  background: rgba(212,212,212,0.9);
-  border: 1px solid #888;
-  color: #333;
-  border-bottom: 0;
-  display: block;
-  border-radius: 3px 3px 0 0;
-  text-decoration: none;
-}
-div.hooks_wrap a.filter:hover,
-div.hooks_wrap a.filter.active {
-  background: #fff;
-}
-div.hooks_wrap a.filter span.number {
-  display: none;
-}
-div.hooks_wrap a.filter.on {
-  padding: 0 10px 0 2px;
-}
-div.hooks_wrap a.filter.on span.s16 {
-  padding: 0 0 0 20px;
-  background-position: left -112px;
-}
-div.hooks_wrap a.filter.on span.number {
-  display: inline;
-}
-div.hooks_wrap div.filter {
-  position: absolute;
-  display: none;
-  top: 0px;
-  right: 0px;
-  min-height: 181px;
-  width: 244px;
-  padding: 12px;
-  border: 1px solid #888;
-  border-width: 0 0 1px 1px;
-  background: #fff;
-  border-radius: 0 0 0 3px;
-}
-div.hooks_wrap div.filter select {
-  width: 100%;
-  margin-bottom: 12px;
-  padding: 6px;
-}
-div.hooks_wrap div.filter .actions {
-  text-align: right;
-}
-div.hooks_wrap div.filter .actions button {
-  padding: 6px;
-  margin-left: 12px;
+  &.large {
+    height: 512px;
+    top: -13px;
+  }
+  &.hidden {
+    display: none;
+  }
+
+  a.filter {
+    position: absolute;
+    top: -21px;
+    right: -1px;
+    height: 20px;
+    line-height: 20px;
+    padding: 0 2px 0 10px;
+    background: rgba(212,212,212,0.9);
+    border: 1px solid #888;
+    color: #333;
+    border-bottom: 0;
+    display: block;
+    border-radius: 3px 3px 0 0;
+    text-decoration: none;
+
+    &:hover,
+    &.active {
+      background: $white;
+    }
+    &.on {
+      padding: 0 10px 0 2px;
+
+      span.s16 {
+        padding: 0 0 0 20px;
+        background-position: left -112px;
+      }
+      span.number {
+        display: inline;
+      }
+    }
+
+    span.number {
+      display: none;
+    }
+  }
+
+  div.filter {
+    position: absolute;
+    display: none;
+    top: 0px;
+    right: 0px;
+    min-height: 181px;
+    width: 244px;
+    padding: 12px;
+    border: 1px solid #888;
+    border-width: 0 0 1px 1px;
+    background: $white;
+    @include border-radius(0 0 0 3px);
+
+    select {
+      width: 100%;
+      margin-bottom: 12px;
+      padding: 6px;
+    }
+
+    .actions {
+      text-align: right;
+
+      button {
+        padding: 6px;
+        margin-left: 12px;
+      }
+    }
+  }
 }
 
 div.hooks {
   border: 1px solid #bababa;
   border-top: 0
-}
-div.hooks table {
-  width: 100%;
-  max-height: 424px;
-  overflow: hidden;
-  text-align: left;
-  border-collapse: collapse;
-  background: none;
-  border-top: 1px solid #bababa;
-}
-div.hooks table.empty {
-  margin-top: 152px;
-}
-div.hooks td {
-  padding: 0 8px 0 12px;
-  height: 64px;
-  margin: 0;
-}
-div.hooks a {
-  color: #666;
-}
-div.hooks tr:last-child td {
-  border-bottom: none;
-}
-div.hooks table.empty tr {
-  text-align: center;
-  cursor: pointer;
-}
-div.hooks table.empty td {
-  padding: 0;
-  height: 80px;
-}
-div.hooks td.color {
-  width: 24px;
-  padding-right: 0;
-}
-div.hooks td.color span {
-  height: 24px;
-  width: 24px;
-  display: block;
-  background: url(../images/sprite_color_24.png) no-repeat;
-}
-div.hooks td.color span.black {
-  background-position: 0 -24px;
-}
-div.hooks td.color span.random {
-  background-position: 0 -49px;
-}
-div.hooks span.elorange {
-  display: block;
-  font-style: italic;
-  color: #999;
-}
-div.hooks a.user_link.engine {
-  color: #cc7070;
-}
-div.hooks td.action {
-  cursor: pointer;
-  border-left: 1px solid #cacaca;
-  width: 63px;
-  padding: 0;
-}
-div.hooks td.action.empty {
-  cursor: default;
-  background: none;
-}
-div.hooks a.cancel,
-div.hooks a.join {
-  height: 32px;
-  width: 31px;
-  display: block;
-  padding: 12px 14px;
-}
-div.hooks a.cancel {
-  background: url(../images/close24.png) +16px no-repeat;
-}
-div.hooks a.join {
-  background: url(../images/play32.png) +16px no-repeat;
-}
 
-div.hooks a.user_link {
-  background: transparent;
-  padding-left: 0;
+  table {
+    width: 100%;
+    max-height: 424px;
+    overflow: hidden;
+    text-align: left;
+    border-collapse: collapse;
+    background: none;
+    border-top: 1px solid #bababa;
+  }
+
+  table.empty {
+    margin-top: 152px;
+
+    tr {
+      text-align: center;
+      cursor: pointer;
+    }
+
+    td {
+      padding: 0;
+      height: 80px;
+    }
+  }
+
+  td {
+    padding: 0 8px 0 12px;
+    height: 64px;
+    margin: 0;
+
+    &.color {
+      width: 24px;
+      padding-right: 0;
+
+      span {
+        height: 24px;
+        width: 24px;
+        display: block;
+        background: url(../images/sprite_color_24.png) no-repeat;
+
+        &.black {
+          background-position: 0 -24px;
+        }
+        &.random {
+          background-position: 0 -49px;
+        }
+      }
+    }
+  }
+
+  td.action {
+    cursor: pointer;
+    border-left: 1px solid #cacaca;
+    width: 63px;
+    padding: 0;
+
+    &.empty {
+      cursor: default;
+      background: none;
+    }
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  a {
+    color: #666;
+
+    &.user_link.engine {
+      color: #cc7070;
+    }
+  }
+
+  span.elorange {
+    display: block;
+    font-style: italic;
+    color: #999;
+  }
+
+  a.cancel,
+  a.join {
+    height: 32px;
+    width: 31px;
+    display: block;
+    padding: 12px 14px;
+  }
+
+  a.cancel {
+    background: url(../images/close24.png) +16px no-repeat;
+  }
+
+  a.join {
+    background: url(../images/play32.png) +16px no-repeat;
+  }
+
+  a.user_link {
+    background: transparent;
+    padding-left: 0;
+  }
 }
 
 #featured_game div.vstext {
@@ -250,22 +295,55 @@ div.undertable {
   width: 514px;
   font-size: 11.5px;
   margin-top: 15px;
+
+  a.user_link {
+    text-decoration: none;
+    font-weight: bold;
+    color: #999;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  table {
+    width: 100%;
+    height: 100%;
+  }
+
+  td {
+    padding: 6px 5px 6px 5px;
+    background: $white;
+    border-top: 1px solid #eaeaea;
+  }
+
+  tr:first-child td {
+    border-top: none;
+  }
+
+  tr:nth-child(even) td {
+    background: #f0f0f0;
+  }
 }
+
 div.undertable_top {
-  border-radius: 4px 4px 0 0;
+  @include border-radius(4px 4px 0 0);
   border: 1px solid #ccc;
   padding: 3px 5px;
+
+  a.more {
+    float: right;
+    padding-right: 2px;
+    text-decoration: none;
+  }
+
+  span.title {
+    font-weight: bold;
+    color: #999;
+    padding-left: 4px;
+  }
 }
-div.undertable_top a.more {
-  float: right;
-  padding-right: 2px;
-  text-decoration: none;
-}
-div.undertable_top span.title {
-  font-weight: bold;
-  color: #999;
-  padding-left: 4px;
-}
+
 div.undertable_inner {
   border: 1px solid #ccc;
   border-top: 0;
@@ -274,76 +352,69 @@ div.undertable_inner {
   width: auto;
   overflow:hidden;
 }
-div.undertable a.user_link {
-  text-decoration: none;
-  font-weight: bold;
-  color: #999;
-}
-div.undertable a.user_link:hover {
-  text-decoration: underline;
-}
-div.undertable table {
-  width: 100%;
-  height: 100%;
-}
-div.undertable td {
-  padding: 6px 5px 6px 5px;
-  background: #fff;
-  border-top: 1px solid #eaeaea;
-}
-div.undertable tr:first-child td {
-  border-top: none;
-}
-div.undertable tr:nth-child(even) td {
-  background: #f0f0f0;
+
+div.open_tournaments {
+  div.undertable_inner {
+    height: auto;
+  }
+
+  input.submit {
+    padding: 0.2em 1em;
+  }
+
+  td:first-child {
+    padding-left: 1em;
+  }
+
+  tr.create td {
+    text-align: center;
+  }
 }
 
-div.open_tournaments div.undertable_inner {
-  height: auto;
-}
-div.open_tournaments input.submit {
-  padding: 0.2em 1em;
-}
-div.open_tournaments td:first-child {
-  padding-left: 1em;
-}
-div.open_tournaments tr.create td {
-  text-align: center;
+div.lichess_bot {
+  tr {
+    cursor: pointer;
+
+    &:hover a.watch {
+      @include opacity(1);
+    }
+  }
+
+  a.watch {
+    display: block;
+    width: 24px;
+    height: 24px;
+    background: url(../images/eye.png) top left no-repeat;
+    @include opacity(0.4);
+  }
 }
 
-div.lichess_bot tr {
-  cursor: pointer;
+div.new_posts {
+  li {
+    margin: 0.6em 0;
+    padding-left: 9px;
+    line-height: 14px;
+    white-space: nowrap;
+
+    span {
+      font-weight: bold;
+      margin-right: 6px;
+      color: #aaa;
+    }
+
+    &.s16 {
+      padding-left: 20px;
+      margin-left: 5px;
+      height: 15px;
+      display: block;
+    }
+  }
+
+  a.post_link {
+    margin-right: 7px;
+  }
 }
-div.lichess_bot a.watch {
-  display: block;
-  width: 24px;
-  height: 24px;
-  background: url(../images/eye.png) top left no-repeat;
-  opacity: 0.4;
-}
-div.lichess_bot tr:hover a.watch {
-  opacity: 1;
-}
-div.new_posts li {
-  margin: 0.6em 0;
-  padding-left: 9px;
-  line-height: 14px;
-  white-space: nowrap;
-}
-div.new_posts li.s16 {
-  padding-left: 20px;
-  margin-left: 5px;
-  height: 15px;
-  display: block;
-}
-div.new_posts a.post_link {
-  margin-right: 7px;
-}
-div.new_posts li span {
-  font-weight: bold;
-  margin-right: 6px;
-  color: #aaa;
-}
+
 div.lichess_overboard.joining input.submit {
   font-size: 1.2em;
   margin-top: 1em;
