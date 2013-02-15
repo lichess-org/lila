@@ -1,3 +1,5 @@
+@import "variables";
+
 /*
 Copyright (c) 2010, Yahoo! Inc. All rights reserved.
 Code licensed under the BSD License:
@@ -25,12 +27,10 @@ input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;
     border-color: #aaa;
 }
 button.ui-state-hover {
-    box-shadow: 0 0 9px #d85000;
-    -moz-box-shadow: 0 0 9px #d85000;
-    -webkit-box-shadow: 0 0 9px #d85000;
+    @include box-shadow(0 0 9px $orange);
 }
 .ui-state-active {
-    border: 1px solid #d85000;
+    border: 1px solid $orange;
 }
 .ui-state-active.ui-state-hover {
     border-color: #984000;

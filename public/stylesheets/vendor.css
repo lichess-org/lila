@@ -5,46 +5,46 @@ http://developer.yahoo.com/yui/license.html
 version: 3.3.0
 build: 3167
 */
-/* line 8, ../sass/vendor.scss */
+/* line 10, ../sass/vendor.scss */
 body, ul, ol, li, h1, h2, form, legend, input, textarea, p, th, td {
   margin: 0;
   padding: 0;
 }
 
-/* line 9, ../sass/vendor.scss */
+/* line 11, ../sass/vendor.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 10, ../sass/vendor.scss */
+/* line 12, ../sass/vendor.scss */
 img {
   border: 0;
 }
 
-/* line 11, ../sass/vendor.scss */
+/* line 13, ../sass/vendor.scss */
 em, strong, th {
   font-style: normal;
   font-weight: normal;
 }
 
-/* line 12, ../sass/vendor.scss */
+/* line 14, ../sass/vendor.scss */
 li {
   list-style: none;
 }
 
-/* line 13, ../sass/vendor.scss */
+/* line 15, ../sass/vendor.scss */
 th {
   text-align: left;
 }
 
-/* line 14, ../sass/vendor.scss */
+/* line 16, ../sass/vendor.scss */
 h1, h2, h3 {
   font-size: 100%;
   font-weight: normal;
 }
 
-/* line 15, ../sass/vendor.scss */
+/* line 17, ../sass/vendor.scss */
 input, textarea, select {
   font-family: inherit;
   font-size: inherit;
@@ -53,12 +53,12 @@ input, textarea, select {
 
 /* jquery-ui */
 /* button */
-/* line 19, ../sass/vendor.scss */
+/* line 21, ../sass/vendor.scss */
 .ui-helper-hidden {
   display: none;
 }
 
-/* line 20, ../sass/vendor.scss */
+/* line 22, ../sass/vendor.scss */
 .ui-helper-hidden-accessible {
   border: 0;
   clip: rect(0 0 0 0);
@@ -70,21 +70,21 @@ input, textarea, select {
   width: 1px;
 }
 
-/* line 21, ../sass/vendor.scss */
+/* line 23, ../sass/vendor.scss */
 .ui-state-default {
   border: 1px solid lightgrey;
 }
 
-/* line 24, ../sass/vendor.scss */
+/* line 26, ../sass/vendor.scss */
 .ui-state-default.ui-state-hover {
   border-color: #aaa;
 }
 
-/* line 27, ../sass/vendor.scss */
+/* line 29, ../sass/vendor.scss */
 button.ui-state-hover {
-  box-shadow: 0 0 9px #d85000;
-  -moz-box-shadow: 0 0 9px #d85000;
   -webkit-box-shadow: 0 0 9px #d85000;
+  -moz-box-shadow: 0 0 9px #d85000;
+  box-shadow: 0 0 9px #d85000;
 }
 
 /* line 32, ../sass/vendor.scss */

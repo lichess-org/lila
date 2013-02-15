@@ -1,81 +1,98 @@
+@import "variables";
+
 #lichess_message {
   min-height: 300px;
+
+  table {
+    @include leader;
+    width: 100%;
+  }
+
+  tr {
+    border-top: 1px solid #eaeaea;
+
+    &:nth-child(even) {
+      background: #f7f7f7;
+    }
+
+    &.new td.subject a {
+      color: #0090b0;
+      font-weight: bold;
+    }
+  }
+
+  td.subject a {
+    display: block;
+    padding: 1em;
+    font-size: 120%;
+  }
+
+  td.author, td.date {
+    white-space: nowrap;
+    padding-right: 1em;
+  }
+
+  div.thread_actions {
+    margin-top: 0.4em;
+    float: right;
+  }
+
+  div.thread_message {
+    font-size: 1.2em;
+    margin-top: 2em;
+    border-top: 1px solid #d4d4d4;
+    padding-top: 2em;
+
+    span.infos {
+      margin-bottom: 1em;
+      display: block;
+    }
+  }
+
+  div.answer {
+    margin-top: 3em;
+  }
+
+  div.form {
+    font-size: 1.1em;
+    padding-top: 2em;
+  }
+
+  div.form,
+  div.answer {
+
+    div.actions {
+      padding: 0.5em 0;
+      font-size: 1.1em;
+
+      a{
+        margin-left: 1em;
+      }
+    }
+
+  }
+
+  label {
+    float: left;
+    width: 60px;
+    text-align: right;
+    margin-right: 10px;
+    vertical-align: middle;
+    margin-top: 3px;
+  }
+
 }
 
 div.sidebar {
   margin-top: 30px;
-}
-div.sidebar a {
-  display: block;
-  font-size: 1.2em;
-  padding: 1em 0 1em 1em;
+
+  a {
+    display: block;
+    font-size: 1.2em;
+    padding: 1em 0 1em 1em;
+  }
 }
 
-#lichess_message table {
-  margin-top: 1.5em;
-  width: 100%;
-}
-#lichess_message tr {
-  border-top: 1px solid #eaeaea;
-}
-#lichess_message tr:nth-child(even) {
-  background: #f7f7f7;
-}
-
-#lichess_message td.subject a {
-  display: block;
-  padding: 1em;
-  font-size: 120%;
-}
-#lichess_message tr.new td.subject a {
-  color: #0090b0;
-  font-weight: bold;
-}
-#lichess_message td.author, #lichess_message td.date {
-  white-space: nowrap;
-  padding-right: 1em;
-}
-
-#lichess_message div.thread_actions {
-  margin-top: 0.4em;
-  float: right;
-}
-
-#lichess_message div.thread_message {
-  font-size: 1.2em;
-  margin-top: 2em;
-  border-top: 1px solid #d4d4d4;
-  padding-top: 2em;
-}
-#lichess_message div.thread_message span.infos {
-  margin-bottom: 1em;
-  display: block;
-}
-#lichess_message div.answer {
-  margin-top: 3em;
-}
-
-#lichess_message div.form {
-  font-size: 1.1em;
-  padding-top: 2em;
-}
-#lichess_message div.form div.actions,
-#lichess_message div.answer div.actions {
-  padding: 0.5em 0;
-  font-size: 1.1em;
-}
-#lichess_message div.form .actions a,
-#lichess_message div.answer div.actions a {
-  margin-left: 1em;
-}
-#lichess_message label {
-  float: left;
-  width: 60px;
-  text-align: right;
-  margin-right: 10px;
-  vertical-align: middle;
-  margin-top: 3px;
-}
 #lichess_message .field_to input,
 #lichess_message .field_subject input {
   width: 450px;

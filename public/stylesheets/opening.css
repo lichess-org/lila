@@ -138,6 +138,10 @@ div.hooks_wrap a.filter {
   color: #333;
   border-bottom: 0;
   display: block;
+  -webkit-border-radius: 3px 3px 0 0;
+  -moz-border-radius: 3px 3px 0 0;
+  -ms-border-radius: 3px 3px 0 0;
+  -o-border-radius: 3px 3px 0 0;
   border-radius: 3px 3px 0 0;
   text-decoration: none;
 }
@@ -329,7 +333,7 @@ div.undertable table {
 }
 /* line 314, ../sass/opening.scss */
 div.undertable td {
-  padding: 6px 5px 6px 5px;
+  padding: 6px 5px;
   background: white;
   border-top: 1px solid #eaeaea;
 }
@@ -369,6 +373,10 @@ div.undertable_top span.title {
 div.undertable_inner {
   border: 1px solid #cccccc;
   border-top: 0;
+  -webkit-border-radius: 0 0 4px 4px;
+  -moz-border-radius: 0 0 4px 4px;
+  -ms-border-radius: 0 0 4px 4px;
+  -o-border-radius: 0 0 4px 4px;
   border-radius: 0 0 4px 4px;
   height: 204px;
   width: auto;

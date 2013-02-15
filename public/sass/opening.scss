@@ -127,7 +127,7 @@ div.hooks_wrap {
     color: #333;
     border-bottom: 0;
     display: block;
-    border-radius: 3px 3px 0 0;
+    @include border-radius(3px 3px 0 0);
     text-decoration: none;
 
     &:hover,
@@ -312,7 +312,7 @@ div.undertable {
   }
 
   td {
-    padding: 6px 5px 6px 5px;
+    padding: 6px 5px;
     background: $white;
     border-top: 1px solid #eaeaea;
   }
@@ -347,7 +347,7 @@ div.undertable_top {
 div.undertable_inner {
   border: 1px solid #ccc;
   border-top: 0;
-  border-radius: 0 0 4px 4px;
+  @include border-radius(0 0 4px 4px);
   height: 204px;
   width: auto;
   overflow:hidden;

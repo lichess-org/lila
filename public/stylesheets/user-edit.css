@@ -7,25 +7,24 @@ div.editable span {
   display: block;
   margin-bottom: 1em;
 }
-
 /* line 9, ../sass/user-edit.scss */
 div.editable span:hover {
   border-color: blue;
 }
 
-/* line 13, ../sass/user-edit.scss */
+/* line 14, ../sass/user-edit.scss */
 div.editable form {
   margin-bottom: 1em;
 }
 
-/* line 16, ../sass/user-edit.scss */
+/* line 17, ../sass/user-edit.scss */
 div.editable textarea {
   width: 290px;
   padding: 5px;
   height: 7em;
 }
 
-/* line 21, ../sass/user-edit.scss */
+/* line 22, ../sass/user-edit.scss */
 div.editable input {
   margin-right: 5px;
 }

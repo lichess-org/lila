@@ -26,7 +26,7 @@ div.lichess_board {
   width: 512px;
   height: 512px;
   position: relative;
-  border-radius: 5px;
+  @include border-radius(5px);
 }
 
 div.lcs {
@@ -114,31 +114,32 @@ body.txtr #tcol5trow7, body.txtr #f1 { background-position: -320px -448px; }
 body.txtr #tcol6trow7, body.txtr #g1 { background-position: -384px -448px; }
 body.txtr #tcol7trow7, body.txtr #h1 { background-position: -448px -448px; }
 
+@import "sover/*.png";
+
 div.lcsi {
   position: absolute;
   width: 64px;
   height: 64px;
-  background: url(../images/sover.png) top left no-repeat;
-  background-position: 0 -320px;
+  @include sover-sprite(empty);
 
   div.lcs.moved & {
-    background-position: 0 -192px;
+    @include sover-sprite(moved);
   }
   div.lcs.check & {
-    background-position: 0 -256px;
+    @include sover-sprite(check);
   }
   div.lcs.premoved & {
-    background-position: 0 -64px !important;
+    @include sover-sprite(droppable_hover);
   }
   div.my_turn.not_spectator div.lcs:hover & {
-    background-position: 0 0px;
+    @include sover-sprite(my_turn_hover);
   }
   div.lcs.droppable-hover & {
-    background-position: 0 -64px !important;
+    @include sover-sprite(droppable_hover);
   }
   div.lichess_board div.lcs.selected &,
   div.lichess_board div.lcs.selectable & {
-    background-position: 0 -64px !important;
+    @include sover-sprite(droppable_hover);
     cursor: pointer;
   }
 }

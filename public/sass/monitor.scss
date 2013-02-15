@@ -6,14 +6,15 @@ body {
   font-family: $MyriadProFontFamily;
   font-size: 8px;
   color: $black;
-  @include text-shadow(0px 1px 1px transparentise($white, 0.9));
+  @include text-shadow(0px 1px 1px transparentize($white, 0.9));
   padding-top: 2px;
   margin: auto;
   width: 960px;
 }
 
-.clearfix:after { content:"."; display:block; height:0; clear:both; visibility:hidden; }
-.clearfix {display:inline-block;}
+#monitors {
+  @include clearfix();
+}
 
 h1 {
   text-align: center;
@@ -93,8 +94,8 @@ a {
     padding: 2px 5px;
     margin-top: 4px;
     text-align: center;
-    @include background-image(linear-gradient(top left, transparentise($white, 0.9), transparentise($white, 1)));
-    @include box-shadow(0px 1px 1px #494e54, inset 0px 1px 2px transparentise($black, 0.4));
+    @include background-image(linear-gradient(top left, transparentize($white, 0.9), transparentize($white, 1)));
+    @include box-shadow(0px 1px 1px #494e54, inset 0px 1px 2px transparentize($black, 0.4));
 
     &.current {
       top: 28px;

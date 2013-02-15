@@ -1,45 +1,57 @@
-#team form {
-  margin-top: 2em;
-  font-size: 1.3em;
-}
-#team form label {
-  display: block;
-  margin-bottom: 2em;
-}
+#team {
+  form {
+    margin-top: 2em;
+    font-size: 1.3em;
 
-#team form label span {
-  float: left;
-  display: block;
-  width: 180px;
-  text-align: right;
-  margin-right: 10px;
-  margin-top: 3px;
-}
-#team form label span.required:after {
-  content: "*";
-  color: #FF6666;
-  margin-left: 3px;
-}
+    label {
+      display: block;
+      margin-bottom: 2em;
 
-#team form .team-data input, #team form textarea {
-  width: 480px;
-}
-#team form textarea {
-  height: 8em;
-}
-#team form.wide .submit {
-  margin-left: 110px;
-}
+      span {
+        float: left;
+        display: block;
+        width: 180px;
+        text-align: right;
+        margin-right: 10px;
+        margin-top: 3px;
 
-#team form p.error {
-  margin-left: 110px;
-  margin-bottom: 10px;
-  color: red;
-}
+        &.required:after {
+          content: "*";
+          color: #FF6666;
+          margin-left: 3px;
+        }
+      }
+    }
 
-#team form.search {
-  float: right;
-  margin: 20px;
+    textarea {
+      height: 8em;
+    }
+
+    &.search {
+      float: right;
+      margin: 20px;
+    }
+
+    .team-data input, textarea {
+      width: 480px;
+    }
+
+    &.wide .submit {
+      margin-left: 110px;
+    }
+
+    p.error {
+      margin-left: 110px;
+      margin-bottom: 10px;
+      color: red;
+    }
+  }
+
+  .forum {
+    margin-top: 30px;
+    width: 100%;
+  }
+
 }
 
 #team table.slist td {
@@ -54,10 +66,12 @@
 }
 #team .team-icon {
   background-position: 0 -336px;
+
+  &.mine {
+    background-position: 0 -352px;
+  }
 }
-#team .team-icon.mine {
-  background-position: 0 -352px;
-}
+
 #team table.slist a.team-name span.team-icon {
   float: left;
   margin-top: 4px;
@@ -68,11 +82,13 @@
 }
 #team.team_show .lichess_title {
   font-size: 1.8em;
+
+  span {
+    color: #909090;
+    font-size: 0.8em;
+  }
 }
-#team.team_show .lichess_title span {
-  color: #909090;
-  font-size: 0.8em;
-}
+
 #team.team_show .content_box_top .righty {
   float: right;
   margin-right: 20px;
@@ -83,16 +99,19 @@
   width: 280px;
   font-size: 1.2em;
   border-right: 1px solid #ccc;
+
+  h2 {
+    font-size: 1.0em;
+    font-weight: bold;
+    padding: 0 0 5px 25px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .infos {
+    margin: 20px 0 20px 25px;
+  }
 }
-#team .team-left h2 {
-  font-size: 1.0em;
-  font-weight: bold;
-  padding: 0 0 5px 25px;
-  border-bottom: 1px solid #ccc;
-}
-#team .team-left .infos {
-  margin: 20px 0 20px 25px;
-}
+
 #team .team-right {
   margin-left: 280px;
   border-left: 1px solid #ccc;
@@ -114,19 +133,17 @@
   margin-left: 20px;
 }
 
-#team .forum {
-  margin-top: 30px;
-  width: 100%;
-}
 #team .forum h2 {
   font-size: 1.2em;
   font-weight: bold;
   border-bottom: 1px solid #ccc;
   padding: 0 0 5px 20px;
+
+  a {
+    text-decoration: none;
+  }
 } 
-#team .forum h2 a {
-  text-decoration: none;
-}
+
 #team .forum li {
   padding: 20px 10px 20px 20px;
 }

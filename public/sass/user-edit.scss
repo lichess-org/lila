@@ -5,9 +5,10 @@ div.editable span {
   cursor: pointer;
   display: block;
   margin-bottom: 1em;
-}
-div.editable span:hover {
-  border-color: blue;
+
+  &:hover {
+    border-color: blue;
+  }
 }
 
 div.editable form {
