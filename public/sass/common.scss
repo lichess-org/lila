@@ -1,3 +1,5 @@
+@import "variables";
+
 .clearfix:after { content:"."; display:block; height:0; clear:both; visibility:hidden; }
 .clearfix {display:inline-block;}
 
@@ -11,7 +13,7 @@
 }
 
 body {
-  font:12px 'Lucida Grande','Lucida Sans Unicode',Geneva,Verdana,Sans-Serif;
+  font:12px 'Lucanida Grde','Lucida Sans Unicode',Geneva,Verdana,Sans-Serif;
   color: #848484;
   background: #F7F7F7 url(../images/head_bg.png) top left repeat-x;
   background-position: left +25px;
@@ -75,9 +77,10 @@ body.tight #top {
 
 #lichess {
   margin-left: 211px;
-}
-body.tight #lichess {
-  margin-left: 10px;
+
+  & #lichess {
+    margin-left: 10px;
+  }
 }
 
 #site_title {
@@ -89,26 +92,33 @@ body.tight #lichess {
   text-decoration: none;
   display: block;
   margin-bottom: 3px;
+
+  body.tight & {
+    margin-left: 10px;
+  }
+
+  span.extension {
+    color: #c8c8c8;
+    font-weight: normal;
+  }
+
+  &:hover {
+    color: #8899aa;
+
+    span.extension {
+      color: #99aabb;
+    }
+  }
+
 }
-body.tight #site_title {
-  margin-left: 10px;
-}
-#site_title span.extension {
-  color: #c8c8c8;
-  font-weight: normal;
-}
-#site_title:hover {
-  color: #8899aa;
-}
-#site_title:hover span.extension {
-  color: #99aabb;
-}
+
 #site_baseline {
   font-style: italic;
   color: #afafaf;
-}
-body.tight #site_baseline {
-  display: none;
+
+  body.tight & {
+    display: none;
+  }
 }
 
 div.footer_wrap {
@@ -124,15 +134,16 @@ div.footer {
   width: 1000px;
   margin: auto;
   line-height: 2em;
-}
-body.tight div.footer {
-  width: auto;
-  padding: 0 10px;
-}
 
-div.footer div.right {
-  float: right;
-  text-align: right;
+  body.tight & {
+    width: auto;
+    padding: 0 10px;
+  }
+
+  div.right {
+    float: right;
+    text-align: right;
+  }
 }
 
 .button, a.button {
@@ -151,25 +162,27 @@ a.easy_button {
 div.content_box {
   border: 1px solid #ccc;
   border-radius: 5px;
-  background: #fff;
+  background: $white;
   padding: 20px 24px 24px 24px;
   text-align: left;
-}
-div.content_box h1 {
-  font-size: 1.8em;
-  color: #666;
-  font-weight: normal;
-  display: inline;
-}
-div.content_box.small_box {
-  width: 530px;
-}
-div.content_box.no_padding {
-  padding: 0;
-}
-div.content_box.no_padding h1 {
-  display: block;
-  padding: 20px 25px;
+
+  h1 {
+    font-size: 1.8em;
+    color: #666;
+    font-weight: normal;
+    display: inline;
+  }
+  &.small_box {
+    width: 530px;
+  }
+  &.no_padding {
+    padding: 0;
+
+    h1 {
+      display: block;
+      padding: 20px 25px;
+    }
+  }
 }
 
 .content_box_title {
@@ -180,32 +193,36 @@ div.content_box_top {
   padding-left: 25px;
   height: 40px;
   line-height: 40px;
-  border-radius: 4px 4px 0 0;
+  @include border-radius(4px 4px 0 0);
   border-bottom: 1px solid #ccc;
-}
-div.content_box_top a {
-  float: right;
-  text-decoration: none;
-  font-size: 1.2em;
-  font-weight: bold;
-  line-height: 40px;
-  padding: 0 12px;
-  border-left: 1px solid #ccc;
-}
-div.content_box_top .link:hover {
-  background: #fff;
-}
-div.content_box_top h1.lichess_title {
-  display: inline;
-  padding: 0;
-}
-div.content_box_top .icon {
-  display: block;
-  width: 16px;
-  height: 16px;
-  float: left;
-  background: transparent url(/assets/images/s16.png) top left no-repeat;
-  margin: 12px 8px 0 -10px;
+
+  a {
+    float: right;
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: bold;
+    line-height: 40px;
+    padding: 0 12px;
+    border-left: 1px solid #ccc;
+  }
+
+  .link:hover {
+    background: $white;
+  }
+
+  h1.lichess_title {
+    display: inline;
+    padding: 0;
+  }
+
+  .icon {
+    display: block;
+    width: 16px;
+    height: 16px;
+    float: left;
+    background: transparent url(/assets/images/s16.png) top left no-repeat;
+    margin: 12px 8px 0 -10px;
+  }
 }
 .content_box_content {
   padding: 20px 25px 25px 25px;
@@ -266,10 +283,11 @@ table.slist thead th.large {
 table.slist td {
   padding: 0.6em;
   font-size: 1.2em;
-}
-table.slist td .label {
-  font-family: monospace;
-  font-size: 10px;
+
+  .label {
+    font-family: monospace;
+    font-size: 10px;
+  }
 }
 table.slist .s16 {
   display: block;
@@ -290,11 +308,12 @@ div.lichess_goodies div.box {
   width: 212px;
   border: 1px solid #C0C0C0;
   padding: 7px;
-  border-radius: 4px;
-  box-shadow: 0 0 7px #d0d0d0;
-}
-div.lichess_goodies div.box .player {
-  margin: 4px 0;
+  @include border-radius(4px);
+  @include box-shadow(0 0 7px #d0d0d0);
+
+  .player {
+    margin: 4px 0;
+  }
 }
 
 div.header div.side_menu {
@@ -346,7 +365,7 @@ a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hove
 #top span.new_messages {
   padding: 1px 5px 1px 4px;
   background: #bbb;
-  color: white;
+  color: $white;
   font-weight: bold;
   border-radius:4px;
   font-size: 0.9em;
@@ -413,7 +432,7 @@ form.wide input[type="text"], form.wide textarea {
   position: absolute;
   right: -1px;
   top: 24px;
-  background: #fff;
+  background: $white;
   border: 1px solid #dadada;
   border-top: none;
   z-index: 1;
@@ -422,7 +441,7 @@ div.auth input.username, div.auth input.password {
   border: 1px solid #dadada;
   padding: 2px 3px;
   width: 100px;
-  background: #fff;
+  background: $white;
 }
 div.auth input.login {
   padding: 0 3px;
@@ -457,7 +476,7 @@ ul.language_links li:last-child {
   position: relative;
 }
 #top div.themepicker span.theme_demo {
-  color: #fff;
+  color: $white;
   display: block;
   margin: 3px 0.5em 0 0;
   padding: 1px 5px;
@@ -818,7 +837,7 @@ div.game_more textarea {
   color: #888;
   border: 1px solid #eaeaea;
   padding: 5px;
-  border-radius: 3px;
+  @include border-radius(3px);
 }
 
 div.game_extra div.bookmarkers {

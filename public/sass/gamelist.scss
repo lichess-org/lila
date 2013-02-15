@@ -1,4 +1,5 @@
 @import "variables";
+@import "mini_pieces2/*.png";
 
 div.game_row {
   display: block;
@@ -54,7 +55,7 @@ div.game_row {
 
 div.game_list {
   &.realtime {
-    margin-top: 1.4em;
+    @include leader;
 
     > div {
       float: left;
@@ -74,9 +75,6 @@ div.game_list {
 
 div.lmcs {
   position: absolute;
-  width: 28px;
-  height: 28px;
-  background-image: url(../images/sprite_mini3.png);
 
   &.white {
     background: $white;
@@ -85,44 +83,43 @@ div.lmcs {
     background: #cacaca;
   }
   &.moved {
-    background-image: url(../images/sprite_mini3.png);
-    background-position: -168px 0;
+    @include mini-pieces2-sprite(green_circle);
   }
   &.pawn.white {
-    background-position: 0 0;
+    @include mini-pieces2-sprite(white_pawn);
   }
   &.bishop.white {
-    background-position: -28px 0;
+    @include mini-pieces2-sprite(white_bishop);
   }
   &.knight.white {
-    background-position: -56px 0;
+    @include mini-pieces2-sprite(white_knight);
   }
   &.rook.white{
-    background-position: -84px 0;
+    @include mini-pieces2-sprite(white_rook);
   }
   &.queen.white{
-    background-position: -112px 0;
+    @include mini-pieces2-sprite(white_queen);
   }
   &.king.white{
-    background-position: -140px 0;
+    @include mini-pieces2-sprite(white_king);
   }
   &.pawn.black{
-    background-position: 0px bottom;
+    @include mini-pieces2-sprite(black_pawn);
   }
   &.bishop.black{
-    background-position: -28px bottom;
+    @include mini-pieces2-sprite(black_bishop);
   }
   &.knight.black{
-    background-position: -56px bottom;
+    @include mini-pieces2-sprite(black_knight);
   }
   &.rook.black{
-    background-position: -84px bottom;
+    @include mini-pieces2-sprite(black_rook);
   }
   &.queen.black{
-    background-position: -112px bottom;
+    @include mini-pieces2-sprite(black_queen);
   }
   &.king.black{
-    background-position: -140px bottom;
+    @include mini-pieces2-sprite(black_king);
   }
 }
 
