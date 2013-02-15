@@ -24,7 +24,8 @@
   float: left;
   width: 49%;
   margin-right: 2%;
-}
-.half.last {
-  margin-right: 0;
+
+  &.last {
+    margin-right: 0;
+  }
 }

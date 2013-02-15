@@ -1,4 +1,4 @@
-/* line 1, ../sass/gamelist.scss */
+/* line 3, ../sass/gamelist.scss */
 div.game_row {
   display: block;
   padding: 1.4em 20px;
@@ -7,69 +7,58 @@ div.game_row {
   border-bottom: 1px solid #eaeaea;
   position: relative;
 }
-
-/* line 9, ../sass/gamelist.scss */
+/* line 11, ../sass/gamelist.scss */
 div.game_row:nth-child(odd) {
   background: #f4f4f4;
 }
-
-/* line 12, ../sass/gamelist.scss */
+/* line 16, ../sass/gamelist.scss */
 div.game_row div.infos span.win {
   color: #00AA00;
 }
-
-/* line 15, ../sass/gamelist.scss */
+/* line 19, ../sass/gamelist.scss */
 div.game_row div.infos span.loss {
   color: #AA0000;
 }
-
-/* line 18, ../sass/gamelist.scss */
+/* line 24, ../sass/gamelist.scss */
 div.game_row a.go_analyse {
   position: absolute;
   bottom: 16px;
   right: 25px;
   text-decoration: none;
 }
-
-/* line 25, ../sass/gamelist.scss */
+/* line 31, ../sass/gamelist.scss */
 div.game_row table td {
   padding: 4px 0;
 }
-
-/* line 28, ../sass/gamelist.scss */
+/* line 36, ../sass/gamelist.scss */
 div.game_row span.color {
   line-height: 16px;
   display: block;
   margin-right: 1em;
 }
-
-/* line 33, ../sass/gamelist.scss */
+/* line 41, ../sass/gamelist.scss */
 div.game_row span.white {
   background-position: 0 -240px;
 }
-
-/* line 36, ../sass/gamelist.scss */
+/* line 44, ../sass/gamelist.scss */
 div.game_row span.black {
   background-position: 0 -256px;
 }
-
-/* line 39, ../sass/gamelist.scss */
+/* line 49, ../sass/gamelist.scss */
 div.game_row .bookmark {
   margin-right: 26px;
 }
 
-/* line 43, ../sass/gamelist.scss */
+/* line 56, ../sass/gamelist.scss */
 div.game_list.realtime {
   margin-top: 1.4em;
 }
-
-/* line 46, ../sass/gamelist.scss */
+/* line 59, ../sass/gamelist.scss */
 div.game_list.realtime > div {
   float: left;
-  margin: 0px 12px 12px 12px;
+  margin: 0px 12px 12px;
 }
-
-/* line 50, ../sass/gamelist.scss */
+/* line 64, ../sass/gamelist.scss */
 div.game_list.realtime div.vstext {
   font-size: 11.5px;
   text-align: center;
@@ -79,108 +68,88 @@ div.game_list.realtime div.vstext {
   margin-top: 5px;
 }
 
-/* line 59, ../sass/gamelist.scss */
+/* line 75, ../sass/gamelist.scss */
+div.lmcs {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  background-image: url(../images/sprite_mini3.png);
+}
+/* line 81, ../sass/gamelist.scss */
+div.lmcs.white {
+  background: white;
+}
+/* line 84, ../sass/gamelist.scss */
+div.lmcs.black {
+  background: #cacaca;
+}
+/* line 87, ../sass/gamelist.scss */
+div.lmcs.moved {
+  background-image: url(../images/sprite_mini3.png);
+  background-position: -168px 0;
+}
+/* line 91, ../sass/gamelist.scss */
+div.lmcs.pawn.white {
+  background-position: 0 0;
+}
+/* line 94, ../sass/gamelist.scss */
+div.lmcs.bishop.white {
+  background-position: -28px 0;
+}
+/* line 97, ../sass/gamelist.scss */
+div.lmcs.knight.white {
+  background-position: -56px 0;
+}
+/* line 100, ../sass/gamelist.scss */
+div.lmcs.rook.white {
+  background-position: -84px 0;
+}
+/* line 103, ../sass/gamelist.scss */
+div.lmcs.queen.white {
+  background-position: -112px 0;
+}
+/* line 106, ../sass/gamelist.scss */
+div.lmcs.king.white {
+  background-position: -140px 0;
+}
+/* line 109, ../sass/gamelist.scss */
+div.lmcs.pawn.black {
+  background-position: 0px bottom;
+}
+/* line 112, ../sass/gamelist.scss */
+div.lmcs.bishop.black {
+  background-position: -28px bottom;
+}
+/* line 115, ../sass/gamelist.scss */
+div.lmcs.knight.black {
+  background-position: -56px bottom;
+}
+/* line 118, ../sass/gamelist.scss */
+div.lmcs.rook.black {
+  background-position: -84px bottom;
+}
+/* line 121, ../sass/gamelist.scss */
+div.lmcs.queen.black {
+  background-position: -112px bottom;
+}
+/* line 124, ../sass/gamelist.scss */
+div.lmcs.king.black {
+  background-position: -140px bottom;
+}
+
+/* line 129, ../sass/gamelist.scss */
 .mini_board {
   width: 224px;
   height: 224px;
   position: relative;
   display: block;
+  -webkit-box-shadow: 0 0 5px #666666;
+  -moz-box-shadow: 0 0 5px #666666;
   box-shadow: 0 0 5px #666666;
 }
 
-/* line 66, ../sass/gamelist.scss */
+/* line 136, ../sass/gamelist.scss */
 div.all_games a.mini_board {
   float: left;
   margin: 0 20px 20px 10px;
-}
-
-/* line 71, ../sass/gamelist.scss */
-div.lmcs {
-  position: absolute;
-  width: 28px;
-  height: 28px;
-}
-
-/* line 77, ../sass/gamelist.scss */
-div.lmcs.white {
-  background: #FFFFFF;
-}
-
-/* line 80, ../sass/gamelist.scss */
-div.lmcs.black {
-  background: #cacaca;
-}
-
-/* line 83, ../sass/gamelist.scss */
-div.lmcs.moved {
-  background-image: url(../images/sprite_mini3.png);
-  background-position: -168px 0;
-}
-
-/* line 88, ../sass/gamelist.scss */
-div.lcmp {
-  position: absolute;
-  width: 28px;
-  height: 28px;
-  background-image: url(../images/sprite_mini3.png);
-}
-
-/* line 95, ../sass/gamelist.scss */
-div.lcmp.pawn.white {
-  background-position: 0 0;
-}
-
-/* line 98, ../sass/gamelist.scss */
-div.lcmp.bishop.white {
-  background-position: -28px 0;
-}
-
-/* line 101, ../sass/gamelist.scss */
-div.lcmp.knight.white {
-  background-position: -56px 0;
-}
-
-/* line 104, ../sass/gamelist.scss */
-div.lcmp.rook.white {
-  background-position: -84px 0;
-}
-
-/* line 107, ../sass/gamelist.scss */
-div.lcmp.queen.white {
-  background-position: -112px 0;
-}
-
-/* line 110, ../sass/gamelist.scss */
-div.lcmp.king.white {
-  background-position: -140px 0;
-}
-
-/* line 114, ../sass/gamelist.scss */
-div.lcmp.pawn.black {
-  background-position: 0px bottom;
-}
-
-/* line 117, ../sass/gamelist.scss */
-div.lcmp.bishop.black {
-  background-position: -28px bottom;
-}
-
-/* line 120, ../sass/gamelist.scss */
-div.lcmp.knight.black {
-  background-position: -56px bottom;
-}
-
-/* line 123, ../sass/gamelist.scss */
-div.lcmp.rook.black {
-  background-position: -84px bottom;
-}
-
-/* line 126, ../sass/gamelist.scss */
-div.lcmp.queen.black {
-  background-position: -112px bottom;
-}
-
-/* line 129, ../sass/gamelist.scss */
-div.lcmp.king.black {
-  background-position: -140px bottom;
 }
