@@ -468,79 +468,76 @@ div.lichess_board div.lcs.selectable div.lichess_piece {
 }
 
 /* line 144, ../sass/board.scss */
-div.lichess_piece {
-  position: absolute;
-  width: 64px;
-  height: 64px;
-  background-image: url(../images/sprite.png);
-}
-
-/* line 151, ../sass/board.scss */
 div.my_turn div.lichess_piece.ui-draggable {
   cursor: move;
 }
 
+/* line 132, pieces/*.png */
+.pieces-sprite, div.lichess_piece.pawn.white, div.lichess_piece.bishop.white, div.lichess_piece.knight.white, div.lichess_piece.rook.white, div.lichess_piece.queen.white, div.lichess_piece.king.white, div.lichess_piece.pawn.black, div.lichess_piece.bishop.black, div.lichess_piece.knight.black, div.lichess_piece.rook.black, div.lichess_piece.queen.black, div.lichess_piece.king.black {
+  background: url('/public/images/pieces-s5044817b46.png') no-repeat;
+}
+
+/* line 150, ../sass/board.scss */
+div.lichess_piece {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+}
 /* line 155, ../sass/board.scss */
-div.lichess_piece.bishop.white {
-  background-position: -64px 0;
+div.lichess_piece.pawn.white {
+  background-position: 0 -512px;
 }
-
 /* line 158, ../sass/board.scss */
-div.lichess_piece.knight.white {
-  background-position: -128px 0;
+div.lichess_piece.bishop.white {
+  background-position: 0 -320px;
 }
-
 /* line 161, ../sass/board.scss */
-div.lichess_piece.rook.white {
-  background-position: -192px 0;
+div.lichess_piece.knight.white {
+  background-position: 0 -384px;
 }
-
 /* line 164, ../sass/board.scss */
-div.lichess_piece.queen.white {
-  background-position: -256px 0;
+div.lichess_piece.rook.white {
+  background-position: 0 -640px;
 }
-
 /* line 167, ../sass/board.scss */
+div.lichess_piece.queen.white {
+  background-position: 0 0;
+}
+/* line 170, ../sass/board.scss */
 div.lichess_piece.king.white {
-  background-position: -320px 0;
+  background-position: 0 -128px;
 }
-
-/* line 171, ../sass/board.scss */
+/* line 173, ../sass/board.scss */
 div.lichess_piece.pawn.black {
-  background-position: 0 bottom;
+  background-position: 0 -576px;
 }
-
-/* line 174, ../sass/board.scss */
+/* line 176, ../sass/board.scss */
 div.lichess_piece.bishop.black {
-  background-position: -64px bottom;
+  background-position: 0 -448px;
 }
-
-/* line 177, ../sass/board.scss */
+/* line 179, ../sass/board.scss */
 div.lichess_piece.knight.black {
-  background-position: -128px bottom;
+  background-position: 0 -256px;
 }
-
-/* line 180, ../sass/board.scss */
+/* line 182, ../sass/board.scss */
 div.lichess_piece.rook.black {
-  background-position: -192px bottom;
+  background-position: 0 -704px;
 }
-
-/* line 183, ../sass/board.scss */
+/* line 185, ../sass/board.scss */
 div.lichess_piece.queen.black {
-  background-position: -256px bottom;
+  background-position: 0 -192px;
 }
-
-/* line 186, ../sass/board.scss */
+/* line 188, ../sass/board.scss */
 div.lichess_piece.king.black {
-  background-position: -320px bottom;
+  background-position: 0 -64px;
 }
 
-/* line 190, ../sass/board.scss */
+/* line 193, ../sass/board.scss */
 div.lichess_game_not_started {
   position: relative;
 }
 
-/* line 194, ../sass/board.scss */
+/* line 197, ../sass/board.scss */
 div.lichess_overboard {
   position: absolute;
   z-index: 3;
@@ -557,7 +554,7 @@ div.lichess_overboard {
   text-align: center;
 }
 
-/* line 209, ../sass/board.scss */
+/* line 212, ../sass/board.scss */
 div.lichess_overboard a.close {
   float: right;
   width: 32px;
@@ -570,12 +567,12 @@ div.lichess_overboard a.close {
   opacity: 0.4;
 }
 
-/* line 220, ../sass/board.scss */
+/* line 223, ../sass/board.scss */
 div.lichess_overboard a.close:hover {
   opacity: 1;
 }
 
-/* line 224, ../sass/board.scss */
+/* line 227, ../sass/board.scss */
 div.lichess_overboard p.explanations {
   margin-top: 1em;
   border-top: 1px solid #cccccc;
@@ -586,7 +583,7 @@ div.lichess_overboard p.explanations {
   padding-left: 1em;
 }
 
-/* line 234, ../sass/board.scss */
+/* line 237, ../sass/board.scss */
 #connection_lost {
   display: none;
   top: 224px;
@@ -597,7 +594,7 @@ div.lichess_overboard p.explanations {
   box-shadow: 0px 0px 20px #d85000;
 }
 
-/* line 244, ../sass/board.scss */
+/* line 247, ../sass/board.scss */
 #premove, #dont_touch {
   display: none;
   position: absolute;
@@ -613,7 +610,7 @@ div.lichess_overboard p.explanations {
   z-index: 50;
 }
 
-/* line 259, ../sass/board.scss */
+/* line 262, ../sass/board.scss */
 div.lichess_id_input {
   margin-top: 10px;
   border: none;
@@ -625,7 +622,7 @@ div.lichess_id_input {
   padding: 1em 0;
 }
 
-/* line 270, ../sass/board.scss */
+/* line 273, ../sass/board.scss */
 div.lichess_promotion_choice {
   display: none;
   position: absolute;
@@ -639,7 +636,7 @@ div.lichess_promotion_choice {
   padding: 224px 0 0 108px;
 }
 
-/* line 283, ../sass/board.scss */
+/* line 286, ../sass/board.scss */
 div.lichess_promotion_choice div.lichess_piece {
   float: left;
   position: static;
@@ -652,36 +649,36 @@ div.lichess_promotion_choice div.lichess_piece {
   box-shadow: 0 0 5px #444444;
 }
 
-/* line 295, ../sass/board.scss */
+/* line 298, ../sass/board.scss */
 div.lichess_promotion_choice div.lichess_piece:hover {
   box-shadow: 0 0 10px blue;
 }
 
-/* line 300, ../sass/board.scss */
+/* line 303, ../sass/board.scss */
 div.lichess_player_white #a8,
 div.lichess_player_black #h1 {
   border-radius: 4px 0 0 0;
 }
 
-/* line 305, ../sass/board.scss */
+/* line 308, ../sass/board.scss */
 div.lichess_player_white #h8,
 div.lichess_player_black #a1 {
   border-radius: 0 4px 0 0;
 }
 
-/* line 310, ../sass/board.scss */
+/* line 313, ../sass/board.scss */
 div.lichess_player_white #a1,
 div.lichess_player_black #h8 {
   border-radius: 0 0 0 4px;
 }
 
-/* line 315, ../sass/board.scss */
+/* line 318, ../sass/board.scss */
 div.lichess_player_white #h1,
 div.lichess_player_black #a8 {
   border-radius: 0 0 4px 0;
 }
 
-/* line 319, ../sass/board.scss */
+/* line 322, ../sass/board.scss */
 div.lichess_join_url {
   display: none;
   background: none;
@@ -689,7 +686,7 @@ div.lichess_join_url {
   margin: 1em 0 0 0;
 }
 
-/* line 326, ../sass/board.scss */
+/* line 329, ../sass/board.scss */
 div.lichess_join_url span {
   display: block;
   padding: 0.5em;
@@ -699,14 +696,14 @@ div.lichess_join_url span {
   border-radius: 4px;
 }
 
-/* line 335, ../sass/board.scss */
+/* line 338, ../sass/board.scss */
 div.lichess_ground {
   position: relative;
   margin-left: 532px;
   height: 514px;
 }
 
-/* line 341, ../sass/board.scss */
+/* line 344, ../sass/board.scss */
 div.lichess_table_wrap {
   position: absolute;
   top: 176px;
@@ -714,7 +711,7 @@ div.lichess_table_wrap {
   width: 242px;
 }
 
-/* line 347, ../sass/board.scss */
+/* line 350, ../sass/board.scss */
 div.lichess_table {
   border: 1px solid #cccccc;
   border-radius: 4px;
@@ -723,17 +720,17 @@ div.lichess_table {
   padding: 10px;
 }
 
-/* line 354, ../sass/board.scss */
+/* line 357, ../sass/board.scss */
 div.lichess_table.table_with_clock {
   border-radius: 0 4px 4px 0;
 }
 
-/* line 357, ../sass/board.scss */
+/* line 360, ../sass/board.scss */
 div.lichess_table.spectator {
   top: 160px;
 }
 
-/* line 360, ../sass/board.scss */
+/* line 363, ../sass/board.scss */
 div.lichess_table_not_started {
   position: absolute;
   top: 176px;
@@ -745,24 +742,24 @@ div.lichess_table_not_started {
   top: 100px;
 }
 
-/* line 370, ../sass/board.scss */
+/* line 373, ../sass/board.scss */
 div.lichess_table div.username {
   padding-left: 16px;
 }
 
-/* line 373, ../sass/board.scss */
+/* line 376, ../sass/board.scss */
 div.lichess_table div.username.connected {
   background: url(../images/s16.png) no-repeat;
   background-position: 0 -112px;
 }
 
-/* line 377, ../sass/board.scss */
+/* line 380, ../sass/board.scss */
 div.lichess_table div.username.offline {
   background: url(../images/s16.png) no-repeat;
   background-position: 0 -128px;
 }
 
-/* line 381, ../sass/board.scss */
+/* line 384, ../sass/board.scss */
 div.lichess_table a.button.strong {
   padding-top: 1em;
   padding-bottom: 1em;
@@ -770,7 +767,7 @@ div.lichess_table a.button.strong {
   font-size: 1.2em;
 }
 
-/* line 388, ../sass/board.scss */
+/* line 391, ../sass/board.scss */
 div.clock {
   width: 70px;
   border: 1px solid #cccccc;
@@ -781,38 +778,38 @@ div.clock {
   box-shadow: 0 0 7px #d0d0d0;
 }
 
-/* line 397, ../sass/board.scss */
+/* line 400, ../sass/board.scss */
 div.clock.running {
   background: #fff077;
   color: #444;
 }
 
-/* line 401, ../sass/board.scss */
+/* line 404, ../sass/board.scss */
 div.clock.running.emerg {
   background-color: #eFAAAA;
   color: #444;
 }
 
-/* line 405, ../sass/board.scss */
+/* line 408, ../sass/board.scss */
 div.clock.outoftime {
   background-color: #eFAAAA;
   font-weight: bold;
   color: #444;
 }
 
-/* line 410, ../sass/board.scss */
+/* line 413, ../sass/board.scss */
 div.clock_top {
   border-bottom: 0;
   border-radius: 4px 4px 0 0;
 }
 
-/* line 414, ../sass/board.scss */
+/* line 417, ../sass/board.scss */
 div.clock_bottom {
   border-top: 0;
   border-radius: 0 0 4px 4px;
 }
 
-/* line 418, ../sass/board.scss */
+/* line 421, ../sass/board.scss */
 div.lichess_table_wrap a.moretime {
   opacity: 0.4;
   position: absolute;
@@ -824,74 +821,74 @@ div.lichess_table_wrap a.moretime {
   background: url(../images/add.png) no-repeat;
 }
 
-/* line 428, ../sass/board.scss */
+/* line 431, ../sass/board.scss */
 div.lichess_table_wrap a.moretime:hover {
   opacity: 1;
 }
 
-/* line 432, ../sass/board.scss */
+/* line 435, ../sass/board.scss */
 div.lichess_table_wrap .player_blurs {
   margin-top: 1em;
 }
 
-/* line 436, ../sass/board.scss */
+/* line 439, ../sass/board.scss */
 div.lichess_table_next {
   top: 145px;
 }
 
-/* line 440, ../sass/board.scss */
+/* line 443, ../sass/board.scss */
 div.lichess_separator {
   margin: 10px 0;
   border-bottom: 1px solid #dddddd;
 }
 
-/* line 445, ../sass/board.scss */
+/* line 448, ../sass/board.scss */
 div.lichess_control {
   margin-top: 20px;
 }
 
-/* line 449, ../sass/board.scss */
+/* line 452, ../sass/board.scss */
 div.lichess_control a {
   font-size: 90%;
 }
 
-/* line 453, ../sass/board.scss */
+/* line 456, ../sass/board.scss */
 div.lichess_control label {
   margin-right: 1em;
   cursor: pointer;
 }
 
-/* line 457, ../sass/board.scss */
+/* line 460, ../sass/board.scss */
 div.lichess_control input {
   vertical-align: middle;
   margin-right: 0.3em;
 }
 
-/* line 461, ../sass/board.scss */
+/* line 464, ../sass/board.scss */
 div.lichess_control a.lichess_play_again {
   margin-left: 1em;
 }
 
-/* line 465, ../sass/board.scss */
+/* line 468, ../sass/board.scss */
 div.lichess_control div.lichess_play_again_join a.lichess_play_again {
   margin-left: 0;
   font-size: 150%;
   display: block;
 }
 
-/* line 470, ../sass/board.scss */
+/* line 473, ../sass/board.scss */
 div.lichess_control div.rematch_alert {
   background: url(../images/rematch.gif) center left no-repeat;
   padding-left: 60px;
   margin-bottom: 1em;
 }
 
-/* line 475, ../sass/board.scss */
+/* line 478, ../sass/board.scss */
 div.lichess_control div.rematch_wait {
   margin-bottom: 1em;
 }
 
-/* line 482, ../sass/board.scss */
+/* line 485, ../sass/board.scss */
 div.lichess_control a.lichess_resign,
 div.lichess_control a.lichess_abort,
 div.lichess_control a.propose_takeback,
@@ -901,7 +898,7 @@ div.lichess_control a.offer_draw {
   margin-left: 1em;
 }
 
-/* line 488, ../sass/board.scss */
+/* line 491, ../sass/board.scss */
 div.lichess_control.buttons a.button {
   display: block;
   margin-bottom: 0.7em;
@@ -909,7 +906,7 @@ div.lichess_control.buttons a.button {
   text-decoration: none;
 }
 
-/* line 498, ../sass/board.scss */
+/* line 501, ../sass/board.scss */
 div.lichess_claim_draw_zone,
 div.force_resign_zone,
 div.proposed_takeback,
@@ -919,18 +916,18 @@ div.offered_draw {
   border-top: 1px solid #dddddd;
 }
 
-/* line 503, ../sass/board.scss */
+/* line 506, ../sass/board.scss */
 div.force_resign_zone {
   display: none;
 }
 
-/* line 507, ../sass/board.scss */
+/* line 510, ../sass/board.scss */
 div.lichess_separator {
   margin: 10px 0;
   border-bottom: 1px solid #dddddd;
 }
 
-/* line 512, ../sass/board.scss */
+/* line 515, ../sass/board.scss */
 div.lichess_table .lichess_button {
   margin: 2.5em 0 0 0;
   font-size: 1.3em;
@@ -944,31 +941,31 @@ div.lichess_table .lichess_button {
   font-weight: normal;
 }
 
-/* line 525, ../sass/board.scss */
+/* line 528, ../sass/board.scss */
 div.lichess_table a.lichess_button:hover,
 div.lichess_table a.lichess_button.active {
   box-shadow: 0 0 9px #d85000;
   border: 1px solid #d85000;
 }
 
-/* line 530, ../sass/board.scss */
+/* line 533, ../sass/board.scss */
 div.lichess_current_player {
   height: 64px;
 }
 
-/* line 533, ../sass/board.scss */
+/* line 536, ../sass/board.scss */
 div.lichess_current_player div.lichess_player {
   position: absolute;
   margin-left: -5px;
 }
 
-/* line 537, ../sass/board.scss */
+/* line 540, ../sass/board.scss */
 div.lichess_current_player div.lichess_player div.lichess_piece {
   top: 0;
   left: 0;
 }
 
-/* line 541, ../sass/board.scss */
+/* line 544, ../sass/board.scss */
 div.lichess_current_player div.lichess_player p {
   height: 64px;
   line-height: 64px;
@@ -978,13 +975,13 @@ div.lichess_current_player div.lichess_player p {
   margin: 0 0 0 64px;
 }
 
-/* line 550, ../sass/board.scss */
+/* line 553, ../sass/board.scss */
 div.lichess_table.finished div.lichess_player p {
   line-height: 2em;
   margin-top: 3px;
 }
 
-/* line 555, ../sass/board.scss */
+/* line 558, ../sass/board.scss */
 div.lichess_cemetery {
   height: 108px;
   width: 262px;
@@ -992,19 +989,19 @@ div.lichess_cemetery {
   left: 0px;
 }
 
-/* line 561, ../sass/board.scss */
+/* line 564, ../sass/board.scss */
 div.lichess_cemetery_top {
   top: 0;
   margin-bottom: 10px;
 }
 
-/* line 565, ../sass/board.scss */
+/* line 568, ../sass/board.scss */
 div.lichess_cemetery_bottom {
   bottom: 0;
   margin-top: 10px;
 }
 
-/* line 570, ../sass/board.scss */
+/* line 573, ../sass/board.scss */
 div.lichess_cemetery div.lichess_tomb {
   display: block;
   float: left;
@@ -1013,12 +1010,12 @@ div.lichess_cemetery div.lichess_tomb {
   height: 64px;
 }
 
-/* line 577, ../sass/board.scss */
+/* line 580, ../sass/board.scss */
 div.lichess_cemetery div.lichess_piece {
   opacity: 0.5;
 }
 
-/* line 581, ../sass/board.scss */
+/* line 584, ../sass/board.scss */
 div.under_chat {
   width: 224px;
   margin-left: -28px;
@@ -1027,7 +1024,7 @@ div.under_chat {
   left: 0;
 }
 
-/* line 589, ../sass/board.scss */
+/* line 592, ../sass/board.scss */
 div.lichess_chat {
   font-size: 11.5px;
   position: absolute;
@@ -1036,35 +1033,35 @@ div.lichess_chat {
   border-radius: 4px;
 }
 
-/* line 596, ../sass/board.scss */
+/* line 599, ../sass/board.scss */
 div.lichess_chat.small_chat {
   left: 0px;
 }
 
-/* line 599, ../sass/board.scss */
+/* line 602, ../sass/board.scss */
 div.lichess_chat.lobby_chat {
   top: 126px;
 }
 
-/* line 602, ../sass/board.scss */
+/* line 605, ../sass/board.scss */
 div.lichess_chat_top {
   border-radius: 4px 4px 0 0;
   border: 1px solid #cccccc;
   padding: 3px 5px;
 }
 
-/* line 607, ../sass/board.scss */
+/* line 610, ../sass/board.scss */
 div.lichess_chat_top span.title {
   font-weight: bold;
   color: #999;
 }
 
-/* line 611, ../sass/board.scss */
+/* line 614, ../sass/board.scss */
 div.lichess_chat_top span.title span {
   font-weight: normal;
 }
 
-/* line 615, ../sass/board.scss */
+/* line 618, ../sass/board.scss */
 div.lichess_chat input.toggle_chat {
   cursor: pointer;
   position: absolute;
@@ -1073,7 +1070,7 @@ div.lichess_chat input.toggle_chat {
   z-index: 1;
 }
 
-/* line 623, ../sass/board.scss */
+/* line 626, ../sass/board.scss */
 div.lichess_chat .nano {
   height: 263px;
   width: 226px;
@@ -1081,27 +1078,27 @@ div.lichess_chat .nano {
   border-top: none;
 }
 
-/* line 629, ../sass/board.scss */
+/* line 632, ../sass/board.scss */
 div.lichess_chat.small_chat .nano {
   width: 186px;
 }
 
-/* line 632, ../sass/board.scss */
+/* line 635, ../sass/board.scss */
 div.lichess_chat.lobby_chat .nano {
   height: 341px;
 }
 
-/* line 635, ../sass/board.scss */
+/* line 638, ../sass/board.scss */
 div.lichess_chat .nano .content {
   overflow: hidden;
 }
 
-/* line 639, ../sass/board.scss */
+/* line 642, ../sass/board.scss */
 div.lichess_chat form {
   position: relative;
 }
 
-/* line 642, ../sass/board.scss */
+/* line 645, ../sass/board.scss */
 div.lichess_chat form input {
   border: 1px solid #cccccc;
   border-top: 0;
@@ -1110,12 +1107,12 @@ div.lichess_chat form input {
   width: 202px;
 }
 
-/* line 649, ../sass/board.scss */
+/* line 652, ../sass/board.scss */
 div.lichess_chat.small_chat form input {
   width: 172px;
 }
 
-/* line 652, ../sass/board.scss */
+/* line 655, ../sass/board.scss */
 div.lichess_chat a.send {
   position: absolute;
   top: 0px;
@@ -1130,42 +1127,42 @@ div.lichess_chat a.send {
   opacity: 0.5;
 }
 
-/* line 665, ../sass/board.scss */
+/* line 668, ../sass/board.scss */
 div.lichess_chat a.send:hover {
   opacity: 1;
 }
 
-/* line 669, ../sass/board.scss */
+/* line 672, ../sass/board.scss */
 div.lichess_chat li {
   padding-left: 3px;
   line-height: 14px;
   margin: 0.6em 0 0.6em 3px;
 }
 
-/* line 674, ../sass/board.scss */
+/* line 677, ../sass/board.scss */
 div.lichess_chat.kings ol.lichess_messages {
   margin-left: 5px;
 }
 
-/* line 677, ../sass/board.scss */
+/* line 680, ../sass/board.scss */
 div.lichess_chat.kings li {
   margin: 0.6em 0;
   padding-left: 18px;
 }
 
-/* line 681, ../sass/board.scss */
+/* line 684, ../sass/board.scss */
 div.lichess_chat span.title {
   padding-left: 3px;
 }
 
-/* line 684, ../sass/board.scss */
+/* line 687, ../sass/board.scss */
 div.lichess_chat li span {
   font-weight: bold;
   margin-right: 6px;
   color: #aaa;
 }
 
-/* line 689, ../sass/board.scss */
+/* line 692, ../sass/board.scss */
 div.lichess_chat a.user_link {
   padding: 0;
   color: #aaa;
@@ -1173,38 +1170,38 @@ div.lichess_chat a.user_link {
   font-weight: bold;
 }
 
-/* line 695, ../sass/board.scss */
+/* line 698, ../sass/board.scss */
 div.lichess_chat a.user_link:hover {
   text-decoration: underline;
 }
 
-/* line 699, ../sass/board.scss */
+/* line 702, ../sass/board.scss */
 div.lichess_chat ol.lichess_messages li.white {
   background: url(../images/klw14.png) no-repeat;
 }
 
-/* line 702, ../sass/board.scss */
+/* line 705, ../sass/board.scss */
 div.lichess_chat ol.lichess_messages li.black {
   background: url(../images/klb14.png) no-repeat;
 }
 
-/* line 705, ../sass/board.scss */
+/* line 708, ../sass/board.scss */
 div.lichess_chat.hidden ol.lichess_messages, div.lichess_chat.hidden form {
   opacity: 0;
 }
 
-/* line 709, ../sass/board.scss */
+/* line 712, ../sass/board.scss */
 div.game_tournament {
   text-align: center;
 }
 
-/* line 712, ../sass/board.scss */
+/* line 715, ../sass/board.scss */
 div.game_tournament .title {
   display: block;
   font-weight: bold;
 }
 
-/* line 716, ../sass/board.scss */
+/* line 719, ../sass/board.scss */
 div.game_tournament .clock {
   display: block;
   margin-top: 5px;
@@ -1213,20 +1210,20 @@ div.game_tournament .clock {
   font-weight: bold;
 }
 
-/* line 724, ../sass/board.scss */
+/* line 727, ../sass/board.scss */
 div.inline_userlist span.list {
   display: inline;
   color: #9a9a9a;
 }
 
-/* line 728, ../sass/board.scss */
+/* line 731, ../sass/board.scss */
 div.inline_userlist a {
   color: #aaa;
   text-decoration: none;
   font-weight: bold;
 }
 
-/* line 733, ../sass/board.scss */
+/* line 736, ../sass/board.scss */
 div.inline_userlist a:hover {
   text-decoration: underline;
 }

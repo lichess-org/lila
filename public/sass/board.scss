@@ -141,50 +141,53 @@ div.lichess_board div.lcs.selectable div.lichess_piece {
   cursor: pointer;
 }
 
-div.lichess_piece {
-  position: absolute;
-  width: 64px;
-  height: 64px;
-  background-image: url(../images/sprite.png);
-}
-
 div.my_turn div.lichess_piece.ui-draggable {
   cursor: move;
 }
 
-div.lichess_piece.bishop.white{
-  background-position: -64px 0;
-}
-div.lichess_piece.knight.white{
-  background-position: -128px 0;
-}
-div.lichess_piece.rook.white{
-  background-position: -192px 0;
-}
-div.lichess_piece.queen.white{
-  background-position: -256px 0;
-}
-div.lichess_piece.king.white{
-  background-position: -320px 0;
-}
+@import "pieces/*.png";
 
-div.lichess_piece.pawn.black{
-  background-position: 0 bottom;
-}
-div.lichess_piece.bishop.black{
-  background-position: -64px bottom;
-}
-div.lichess_piece.knight.black{
-  background-position: -128px bottom;
-}
-div.lichess_piece.rook.black{
-  background-position: -192px bottom;
-}
-div.lichess_piece.queen.black{
-  background-position: -256px bottom;
-}
-div.lichess_piece.king.black{
-  background-position: -320px bottom;
+div.lichess_piece {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+
+  &.pawn.white{
+    @include pieces-sprite(white_pawn);
+  }
+  &.bishop.white{
+    @include pieces-sprite(white_bishop);
+  }
+  &.knight.white{
+    @include pieces-sprite(white_knight);
+  }
+  &.rook.white{
+    @include pieces-sprite(white_rook);
+  }
+  &.queen.white{
+    @include pieces-sprite(white_queen);
+  }
+  &.king.white{
+    @include pieces-sprite(white_king);
+  }
+  &.pawn.black{
+    @include pieces-sprite(black_pawn);
+  }
+  &.bishop.black{
+    @include pieces-sprite(black_bishop);
+  }
+  &.knight.black{
+    @include pieces-sprite(black_knight);
+  }
+  &.rook.black{
+    @include pieces-sprite(black_rook);
+  }
+  &.queen.black{
+    @include pieces-sprite(black_queen);
+  }
+  &.king.black{
+    @include pieces-sprite(black_king);
+  }
 }
 
 div.lichess_game_not_started {

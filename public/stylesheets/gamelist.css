@@ -76,69 +76,71 @@ div.game_list.realtime div.vstext {
 /* line 76, ../sass/gamelist.scss */
 div.lmcs {
   position: absolute;
+  height: 28px;
+  width: 28px;
 }
-/* line 79, ../sass/gamelist.scss */
+/* line 81, ../sass/gamelist.scss */
 div.lmcs.white {
   background: white;
 }
-/* line 82, ../sass/gamelist.scss */
+/* line 84, ../sass/gamelist.scss */
 div.lmcs.black {
   background: #cacaca;
 }
-/* line 85, ../sass/gamelist.scss */
+/* line 87, ../sass/gamelist.scss */
 div.lmcs.moved {
   background-position: 0 -28px;
 }
-/* line 88, ../sass/gamelist.scss */
+/* line 90, ../sass/gamelist.scss */
 div.lmcs.pawn.white {
   background-position: 0 -308px;
 }
-/* line 91, ../sass/gamelist.scss */
+/* line 93, ../sass/gamelist.scss */
 div.lmcs.bishop.white {
   background-position: 0 -196px;
 }
-/* line 94, ../sass/gamelist.scss */
+/* line 96, ../sass/gamelist.scss */
 div.lmcs.knight.white {
   background-position: 0 -112px;
 }
-/* line 97, ../sass/gamelist.scss */
+/* line 99, ../sass/gamelist.scss */
 div.lmcs.rook.white {
   background-position: 0 -168px;
 }
-/* line 100, ../sass/gamelist.scss */
+/* line 102, ../sass/gamelist.scss */
 div.lmcs.queen.white {
   background-position: 0 -56px;
 }
-/* line 103, ../sass/gamelist.scss */
+/* line 105, ../sass/gamelist.scss */
 div.lmcs.king.white {
   background-position: 0 0;
 }
-/* line 106, ../sass/gamelist.scss */
+/* line 108, ../sass/gamelist.scss */
 div.lmcs.pawn.black {
   background-position: 0 -336px;
 }
-/* line 109, ../sass/gamelist.scss */
+/* line 111, ../sass/gamelist.scss */
 div.lmcs.bishop.black {
   background-position: 0 -252px;
 }
-/* line 112, ../sass/gamelist.scss */
+/* line 114, ../sass/gamelist.scss */
 div.lmcs.knight.black {
   background-position: 0 -280px;
 }
-/* line 115, ../sass/gamelist.scss */
+/* line 117, ../sass/gamelist.scss */
 div.lmcs.rook.black {
   background-position: 0 -224px;
 }
-/* line 118, ../sass/gamelist.scss */
+/* line 120, ../sass/gamelist.scss */
 div.lmcs.queen.black {
   background-position: 0 -84px;
 }
-/* line 121, ../sass/gamelist.scss */
+/* line 123, ../sass/gamelist.scss */
 div.lmcs.king.black {
   background-position: 0 -140px;
 }
 
-/* line 126, ../sass/gamelist.scss */
+/* line 128, ../sass/gamelist.scss */
 .mini_board {
   width: 224px;
   height: 224px;
@@ -149,7 +151,7 @@ div.lmcs.king.black {
   box-shadow: 0 0 5px #666666;
 }
 
-/* line 133, ../sass/gamelist.scss */
+/* line 135, ../sass/gamelist.scss */
 div.all_games a.mini_board {
   float: left;
   margin: 0 20px 20px 10px;

@@ -75,6 +75,8 @@ div.game_list {
 
 div.lmcs {
   position: absolute;
+  height: 28px;
+  width: 28px;
 
   &.white {
     background: $white;
