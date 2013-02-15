@@ -1,9 +1,12 @@
+@import "variables";
+@import "monitor/*.png";
+
 body {
-  background: url(/assets/images/monitor/background.png);
-  font-family: "Myriad Pro", Helvetica, Arial, Serif;
+  background: url(/assets/images/monitor/background.jpg);
+  font-family: $MyriadProFontFamily;
   font-size: 8px;
-  color: black;
-  text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.1);
+  color: $black;
+  @include text-shadow(0px 1px 1px transparentise($white, 0.9));
   padding-top: 2px;
   margin: auto;
   width: 960px;
@@ -17,20 +20,25 @@ h1 {
   font-size: 36px;
   color: #222;
   text-transform: uppercase;
-}
-h1 .down {
-  color: #aa4444;
-  display: none;
-}
-h1 .up {
-  color: #446644;
-  display: none;
-}
-body.down h1 .down {
-  display: inline;
-}
-body.down h1 .up {
-  display: none;
+
+  .down {
+    color: #aa4444;
+    display: none;
+  }
+
+  .up {
+    color: #446644;
+    display: none;
+  }
+
+  body.down & {
+    .down {
+      display: inline;
+    }
+    .up {
+      display: none;
+    }
+  }
 }
 
 #actions {
@@ -41,12 +49,13 @@ body.down h1 .up {
 a {
   font-size: 14px;
   color: #888;
-  font-family: monospace;
-}
-a.back {
-  position: absolute;
-  top: 3em;
-  left:3em;
+  font-family: $monospaceFontFamily;
+
+  .back {
+    position: absolute;
+    top: 3em;
+    left:3em;
+  }
 }
 
 .monitor {
@@ -54,78 +63,84 @@ a.back {
   margin: 20px 8px 0 8px;
   width: 302px;
   height: 123px;
-  background: url(/assets/images/monitor/monitor.png);
+  @include monitor-sprite(monitor);
   position: relative;
+
+  &.alert {
+    .screen.current {
+      /*color: #884444;*/
+    }
+  }
+
+  .title {
+    color: #d0d0d0;
+    font-size: 10px;
+    position: absolute;
+    top: 10px;
+    left: 223px;
+  }
+
+  .screen {
+    display: block;
+    position: absolute;
+    font-size: 14px;
+    color: #858f8f;
+    @include text-shadow(0 1px 0px $black);
+    background: $black;
+    @include border-radius(4px);
+    width: 60px;
+    height: 18px;
+    padding: 2px 5px;
+    margin-top: 4px;
+    text-align: center;
+    @include background-image(linear-gradient(top left, transparentise($white, 0.9), transparentise($white, 1)));
+    @include box-shadow(0px 1px 1px #494e54, inset 0px 1px 2px transparentise($black, 0.4));
+
+    &.current {
+      top: 28px;
+      left: 214px;
+    }
+    &.max {
+      top: 55px;
+      left: 214px;
+    }
+  }
 }
-.monitor.alert {
-}
-.monitor .title {
-  color: #d0d0d0;
-  font-size: 10px;
-  position: absolute;
-  top: 10px;
-  left: 223px;
-}
-.monitor .screen {
-  display: block;
-  position: absolute;
-  font-size: 14px;
-  color: #858f8f;
-  text-shadow: 0 1px 0px #000000;
-  background: black;
-  border-radius: 4px;
-  width: 60px;
-  height: 18px;
-  padding: 2px 5px 2px 5px;
-  margin-top: 4px;
-  text-align: center;
-  background-image: -moz-linear-gradient(top left, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-  background-image: -o-linear-gradient(top left, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-  background-image: -webkit-gradient(linear, 0 0, 100% 100%, from(rgba(255, 255, 255, 0.1)), to(rgba(255, 255, 255, 0)));
-  box-shadow: 0px 1px 1px #494e54, inset 0px 1px 2px rgba(0, 0, 0, 0.6);
-}
-.monitor .screen.current {
-  top: 28px;
-  left: 214px;
-}
-.monitor.alert .screen.current {
-  /*color: #884444;*/
-}
-.monitor .screen.max {
-  top: 55px;
-  left: 214px;
-}
+
 .wheel {
   position: absolute;
   width: 13px;
   height: 13px;
   top: 97px;
   left: 99px;
-  background: url(/assets/images/monitor/wheel.png);
+  @include monitor-sprite(wheel);
 }
+
 .needle {
-  -webkit-transform-origin: 100% 50%;
-  -o-transform-origin: 100% 50%;
-  -moz-transform-origin: 100% 50%;
+  @include transform-origin(100% 50%);
   position: absolute;
   top: 101px;
   left: 30px;
   height: 7px;
   width: 76px;
-  background: url(/assets/images/monitor/needle.png);
+  @include monitor-sprite(needle);
 }
+
+@import "status/*.png";
+
 div.light {
   width: 26px;
   height: 26px;
   position: absolute;
   top: 2px;
   left: 200px;
-  background: url(/assets/images/status.png);
-  background-position: 0 -52px;
-}
-.monitor.alert div.light {  
-  background-position: 0 -26px;
-}
-body.up div.light  {
-  background-position: 0 0;
+  @include status-sprite(light);
+
+  .monitor.alert & {
+    @include status-sprite(offline);
+  }
+
+  body.up & {
+    @include status-sprite(online);
+  }
 }

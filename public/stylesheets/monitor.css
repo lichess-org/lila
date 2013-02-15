@@ -1,175 +1,95 @@
-/* line 1, ../sass/monitor.scss */
-body {
-  background: url(/assets/images/monitor/background.png);
-  font-family: "Myriad Pro", Helvetica, Arial, Serif;
-  font-size: 8px;
-  color: black;
-  text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.1);
-  padding-top: 2px;
-  margin: auto;
-  width: 960px;
-}
+/*
+Syntax error: Not a valid color stop: Sass::Script::String: transparentise(white, 0.9)
+        on line 96 of C:/Users/monin_000/Desktop/GitHub/lila/public/sass/monitor.scss, in `background-image'
+        from line 96 of C:/Users/monin_000/Desktop/GitHub/lila/public/sass/monitor.scss
 
-/* line 12, ../sass/monitor.scss */
-.clearfix:after {
-  content: ".";
-  display: block;
-  height: 0;
-  clear: both;
-  visibility: hidden;
-}
-
-/* line 13, ../sass/monitor.scss */
-.clearfix {
-  display: inline-block;
-}
-
-/* line 15, ../sass/monitor.scss */
-h1 {
-  text-align: center;
-  font-size: 36px;
-  color: #222;
-  text-transform: uppercase;
-}
-
-/* line 21, ../sass/monitor.scss */
-h1 .down {
-  color: #aa4444;
-  display: none;
-}
-
-/* line 25, ../sass/monitor.scss */
-h1 .up {
-  color: #446644;
-  display: none;
-}
-
-/* line 29, ../sass/monitor.scss */
-body.down h1 .down {
-  display: inline;
-}
-
-/* line 32, ../sass/monitor.scss */
-body.down h1 .up {
-  display: none;
-}
-
-/* line 36, ../sass/monitor.scss */
-#actions {
-  margin: 70px 0 20px 0;
-  text-align: center;
-}
-
-/* line 41, ../sass/monitor.scss */
-a {
-  font-size: 14px;
-  color: #888;
+Backtrace:
+C:/Users/monin_000/Desktop/GitHub/lila/public/sass/monitor.scss:96:in `background-image'
+C:/Users/monin_000/Desktop/GitHub/lila/public/sass/monitor.scss:96
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/lib/compass/sass_extensions/functions/gradient_support.rb:249:in `block in color_stops'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/lib/compass/sass_extensions/functions/gradient_support.rb:239:in `map'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/lib/compass/sass_extensions/functions/gradient_support.rb:239:in `color_stops'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/lib/compass/sass_extensions/functions/gradient_support.rb:296:in `linear_gradient'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/script/funcall.rb:106:in `_perform'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/script/node.rb:40:in `perform'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/perform.rb:257:in `block in visit_mixin'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/perform.rb:257:in `map'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/perform.rb:257:in `visit_mixin'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/base.rb:37:in `visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/perform.rb:98:in `visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/base.rb:53:in `map'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/perform.rb:107:in `block in visit_children'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/perform.rb:119:in `with_environment'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/perform.rb:106:in `visit_children'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/perform.rb:318:in `visit_rule'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/base.rb:37:in `visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/perform.rb:98:in `visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/base.rb:53:in `map'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/perform.rb:107:in `block in visit_children'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/perform.rb:119:in `with_environment'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/perform.rb:106:in `visit_children'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/perform.rb:318:in `visit_rule'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/base.rb:37:in `visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/perform.rb:98:in `visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/base.rb:53:in `map'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/perform.rb:107:in `block in visit_children'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/perform.rb:119:in `with_environment'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/perform.rb:106:in `visit_children'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/perform.rb:126:in `visit_root'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/base.rb:37:in `visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/perform.rb:98:in `visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/visitors/perform.rb:7:in `visit'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/tree/root_node.rb:20:in `render'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/engine.rb:315:in `_render'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/sass-3.2.5/lib/sass/engine.rb:262:in `render'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/lib/compass/compiler.rb:140:in `block (2 levels) in compile'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/lib/compass/compiler.rb:126:in `timed'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/lib/compass/compiler.rb:139:in `block in compile'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/lib/compass/logger.rb:45:in `red'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/lib/compass/compiler.rb:138:in `compile'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/lib/compass/compiler.rb:118:in `compile_if_required'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/lib/compass/compiler.rb:103:in `block (2 levels) in run'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/lib/compass/compiler.rb:101:in `each'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/lib/compass/compiler.rb:101:in `block in run'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/lib/compass/compiler.rb:126:in `timed'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/lib/compass/compiler.rb:100:in `run'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/lib/compass/commands/watch_project.rb:147:in `recompile'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/fssm-0.2.10/lib/fssm/path.rb:73:in `call'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/fssm-0.2.10/lib/fssm/path.rb:73:in `run_callback'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/fssm-0.2.10/lib/fssm/path.rb:55:in `callback_action'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/fssm-0.2.10/lib/fssm/path.rb:35:in `update'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/fssm-0.2.10/lib/fssm/state/directory.rb:39:in `block in modified'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/fssm-0.2.10/lib/fssm/state/directory.rb:37:in `each'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/fssm-0.2.10/lib/fssm/state/directory.rb:37:in `modified'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/fssm-0.2.10/lib/fssm/state/directory.rb:18:in `refresh'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/fssm-0.2.10/lib/fssm/backends/polling.rb:17:in `block (2 levels) in run'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/fssm-0.2.10/lib/fssm/backends/polling.rb:17:in `each'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/fssm-0.2.10/lib/fssm/backends/polling.rb:17:in `block in run'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/fssm-0.2.10/lib/fssm/backends/polling.rb:15:in `loop'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/fssm-0.2.10/lib/fssm/backends/polling.rb:15:in `run'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/fssm-0.2.10/lib/fssm/monitor.rb:26:in `run'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/fssm-0.2.10/lib/fssm.rb:70:in `monitor'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/lib/compass/commands/watch_project.rb:87:in `perform'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/lib/compass/commands/base.rb:18:in `execute'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/lib/compass/commands/project_base.rb:19:in `execute'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/lib/compass/exec/sub_command_ui.rb:43:in `perform!'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/lib/compass/exec/sub_command_ui.rb:15:in `run!'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/bin/compass:29:in `block in <top (required)>'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/bin/compass:43:in `call'
+C:/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.0/bin/compass:43:in `<top (required)>'
+C:/Ruby193/bin/compass:23:in `load'
+C:/Ruby193/bin/compass:23:in `<main>'
+*/
+body:before {
+  white-space: pre;
   font-family: monospace;
-}
-
-/* line 46, ../sass/monitor.scss */
-a.back {
-  position: absolute;
-  top: 3em;
-  left: 3em;
-}
-
-/* line 52, ../sass/monitor.scss */
-.monitor {
-  float: left;
-  margin: 20px 8px 0 8px;
-  width: 302px;
-  height: 123px;
-  background: url(/assets/images/monitor/monitor.png);
-  position: relative;
-}
-
-/* line 62, ../sass/monitor.scss */
-.monitor .title {
-  color: #d0d0d0;
-  font-size: 10px;
-  position: absolute;
-  top: 10px;
-  left: 223px;
-}
-
-/* line 69, ../sass/monitor.scss */
-.monitor .screen {
-  display: block;
-  position: absolute;
-  font-size: 14px;
-  color: #858f8f;
-  text-shadow: 0 1px 0px black;
-  background: black;
-  border-radius: 4px;
-  width: 60px;
-  height: 18px;
-  padding: 2px 5px 2px 5px;
-  margin-top: 4px;
-  text-align: center;
-  background-image: -moz-linear-gradient(top left, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-  background-image: -o-linear-gradient(top left, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-  background-image: -webkit-gradient(linear, 0 0, 100% 100%, from(rgba(255, 255, 255, 0.1)), to(rgba(255, 255, 255, 0)));
-  box-shadow: 0px 1px 1px #494e54, inset 0px 1px 2px rgba(0, 0, 0, 0.6);
-}
-
-/* line 87, ../sass/monitor.scss */
-.monitor .screen.current {
-  top: 28px;
-  left: 214px;
-}
-
-/* line 91, ../sass/monitor.scss */
-.monitor.alert .screen.current {
-  /*color: #884444;*/
-}
-
-/* line 94, ../sass/monitor.scss */
-.monitor .screen.max {
-  top: 55px;
-  left: 214px;
-}
-
-/* line 98, ../sass/monitor.scss */
-.wheel {
-  position: absolute;
-  width: 13px;
-  height: 13px;
-  top: 97px;
-  left: 99px;
-  background: url(/assets/images/monitor/wheel.png);
-}
-
-/* line 106, ../sass/monitor.scss */
-.needle {
-  -webkit-transform-origin: 100% 50%;
-  -o-transform-origin: 100% 50%;
-  -moz-transform-origin: 100% 50%;
-  position: absolute;
-  top: 101px;
-  left: 30px;
-  height: 7px;
-  width: 76px;
-  background: url(/assets/images/monitor/needle.png);
-}
-
-/* line 117, ../sass/monitor.scss */
-div.light {
-  width: 26px;
-  height: 26px;
-  position: absolute;
-  top: 2px;
-  left: 200px;
-  background: url(/assets/images/status.png);
-  background-position: 0 -52px;
-}
-
-/* line 126, ../sass/monitor.scss */
-.monitor.alert div.light {
-  background-position: 0 -26px;
-}
-
-/* line 129, ../sass/monitor.scss */
-body.up div.light {
-  background-position: 0 0;
-}
+  content: "Syntax error: Not a valid color stop: Sass::Script::String: transparentise(white, 0.9)\A         on line 96 of C:/Users/monin_000/Desktop/GitHub/lila/public/sass/monitor.scss, in `background-image'\A         from line 96 of C:/Users/monin_000/Desktop/GitHub/lila/public/sass/monitor.scss"; }

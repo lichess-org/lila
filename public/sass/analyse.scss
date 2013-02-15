@@ -1,3 +1,5 @@
+@import "variables";
+
 #lichess h1 {
   font-size: 2em;
   margin-bottom: 5px;
@@ -11,22 +13,25 @@ div.board_wrap {
   width: 514px;
   min-height: 558px;
 }
+
 div.moves_wrap {
   margin-left: 532px;
   position: relative;
 }
+
 span.board_mark {
   position: absolute;
   text-transform: uppercase;
   font-size: 10px;
   color: #bbb;
   font-weight: bold;
-}
-span.board_mark.vert {
-  right: -10px;
-}
-span.board_mark.horz {
-  bottom: -14px;
+
+  &.vert {
+    right: -10px;
+  }
+  &.horz {
+    bottom: -14px;
+  }
 }
 
 @font-face {
@@ -37,39 +42,46 @@ span.board_mark.horz {
 
 #GameBoard {
   position: relative;
+
+  table.boardTable {
+    @include box-shadow(0 0 7px #bbb);
+    border: 1px solid #ccc;
+    @include border-radius(5px);
+  }
+
+  td.highlightWhiteSquare img,
+  td.highlightBlackSquare img {
+    background: url(../images/over5.png) no-repeat;
+  }
+
+  td {
+    img {
+      width: 64px;
+      height: 64px;
+      display: block;
+
+      &.bestmove {
+        background: url(../images/sover.png) no-repeat;
+        background-position: 0 -64px;
+      }
+    }
+  }
+
+  &.flip {
+    table, img.pieceImage {
+      @include transform(rotate(180deg));
+    }
+  }
 }
 
-#GameBoard table.boardTable {
-  box-shadow: 0 0 7px #bbb;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-#GameBoard.flip table, #GameBoard.flip img.pieceImage {
-  -o-transform: rotate(180deg);
-  -webkit-transform: rotate(180deg);
-  -moz-transform: rotate(180deg);
-  transform: rotate(180deg);
-}
-#GameBoard td.highlightWhiteSquare img,
-#GameBoard td.highlightBlackSquare img {
-  background: url(../images/over5.png) no-repeat;
-}
-#GameBoard td img.bestmove {
-  background: url(../images/sover.png) no-repeat;
-  background-position: 0 -64px;
-}
-#GameBoard td img {
-  width: 64px;
-  height: 64px;
-  display: block;
-}
 
 #GameButtons {
   margin-top: 20px;
-}
-#GameButtons input {
-  width: 100px;
-  height: 2em;
+
+  input {
+    width: 100px;
+    height: 2em;
+  }
 }
 
 #GameText {
@@ -80,56 +92,70 @@ span.board_mark.horz {
   background: #f7f7f7;
   border: 1px solid #C0C0C0;
   overflow: auto;
-  border-radius: 4px;
-  box-shadow: 0 0 7px #d0d0d0;
+  @include border-radius(4px);
+  @include box-shadow(0 0 7px #d0d0d0);
+
+  table {
+    width: 100%;
+  }
+
+  tr:nth-child(even) {
+    background: #f0f0f0;
+  }
+
+  th {
+    padding-left: 8px;
+  }
+
+  a {
+    &.move {
+      font-family: 'pgn4web ChessSansMerida', 'pgn4web Liberation Sans', sans-serif;
+      text-decoration: none;
+      padding: 5px 10px;
+      display: block;
+      color: #444;
+    }
+
+    &:hover {
+      background: #e0e0e0;
+    }
+
+    &.moveOn {
+      background: #FFE73B;
+    }
+  }
 }
-#GameText table {
-  width: 100%;
-}
-#GameText tr:nth-child(even) {
-  background: #f0f0f0;
-}
-#GameText th {
-  padding-left: 8px;
-}
-#GameText a.move {
-  font-family: 'pgn4web ChessSansMerida', 'pgn4web Liberation Sans', sans-serif;
-  text-decoration: none;
-  padding: 5px 10px;
-  display: block;
-  color: #444;
-}
-#GameText a:hover {
-  background: #e0e0e0;
-}
-#GameText a.moveOn {
-  background: #FFE73B;
-}
+
 #GameLastComment {
   position: absolute;
   top: 512px;
   margin-top: 1em;
   width: 220px;
+
+  .comment {
+    margin-top: 0.2em;
+    font-size: 1.3em;
+    display: block;
+  }
 }
-#GameLastComment .comment {
-  margin-top: 0.2em;
-  font-size: 1.3em;
-  display: block;
-}
+
 div.advice_summary {
   position: absolute;
   top: 740px;
   width: 280px;
-}
-div.advice_summary div {
-  margin-bottom: 1em;
+
+  div {
+    margin-bottom: 1em;
+  }
 }
 
 div.adv_chart {
   margin-top: 10px;
   height: 150px;
   width: 512px;
+
+  iframe {
+    height: 150px;
+  }
 }
-div.adv_chart iframe {
-  height: 150px;
-}
+

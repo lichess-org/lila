@@ -1,28 +1,28 @@
-/* line 1, ../sass/analyse.scss */
+/* line 3, ../sass/analyse.scss */
 #lichess h1 {
   font-size: 2em;
   margin-bottom: 5px;
 }
 
-/* line 5, ../sass/analyse.scss */
+/* line 7, ../sass/analyse.scss */
 #pgnText {
   display: none;
 }
 
-/* line 9, ../sass/analyse.scss */
+/* line 11, ../sass/analyse.scss */
 div.board_wrap {
   float: left;
   width: 514px;
   min-height: 558px;
 }
 
-/* line 14, ../sass/analyse.scss */
+/* line 17, ../sass/analyse.scss */
 div.moves_wrap {
   margin-left: 532px;
   position: relative;
 }
 
-/* line 18, ../sass/analyse.scss */
+/* line 22, ../sass/analyse.scss */
 span.board_mark {
   position: absolute;
   text-transform: uppercase;
@@ -30,13 +30,11 @@ span.board_mark {
   color: #bbb;
   font-weight: bold;
 }
-
-/* line 25, ../sass/analyse.scss */
+/* line 29, ../sass/analyse.scss */
 span.board_mark.vert {
   right: -10px;
 }
-
-/* line 28, ../sass/analyse.scss */
+/* line 32, ../sass/analyse.scss */
 span.board_mark.horz {
   bottom: -14px;
 }
@@ -47,57 +45,58 @@ span.board_mark.horz {
   src: url("/assets/vendor/pgn4web/fonts/ChessSansMerida.eot?#iefix") format("embedded-opentype"), url("/assets/vendor/pgn4web/fonts/ChessSansMerida.woff") format("woff"), url("/assets/vendor/pgn4web/fonts/ChessSansMerida.ttf") format("truetype"), url("/assets/vendor/pgn4web/fonts/ChessSansMerida.svg#ChessSansMerida") format("svg");
 }
 
-/* line 38, ../sass/analyse.scss */
+/* line 43, ../sass/analyse.scss */
 #GameBoard {
   position: relative;
 }
-
-/* line 42, ../sass/analyse.scss */
+/* line 46, ../sass/analyse.scss */
 #GameBoard table.boardTable {
+  -webkit-box-shadow: 0 0 7px #bbbbbb;
+  -moz-box-shadow: 0 0 7px #bbbbbb;
   box-shadow: 0 0 7px #bbbbbb;
   border: 1px solid #cccccc;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
   border-radius: 5px;
 }
-
-/* line 47, ../sass/analyse.scss */
-#GameBoard.flip table, #GameBoard.flip img.pieceImage {
-  -o-transform: rotate(180deg);
-  -webkit-transform: rotate(180deg);
-  -moz-transform: rotate(180deg);
-  transform: rotate(180deg);
-}
-
-/* line 54, ../sass/analyse.scss */
+/* line 53, ../sass/analyse.scss */
 #GameBoard td.highlightWhiteSquare img,
 #GameBoard td.highlightBlackSquare img {
   background: url(../images/over5.png) no-repeat;
 }
-
-/* line 57, ../sass/analyse.scss */
-#GameBoard td img.bestmove {
-  background: url(../images/sover.png) no-repeat;
-  background-position: 0 -64px;
-}
-
-/* line 61, ../sass/analyse.scss */
+/* line 58, ../sass/analyse.scss */
 #GameBoard td img {
   width: 64px;
   height: 64px;
   display: block;
 }
+/* line 63, ../sass/analyse.scss */
+#GameBoard td img.bestmove {
+  background: url(../images/sover.png) no-repeat;
+  background-position: 0 -64px;
+}
+/* line 71, ../sass/analyse.scss */
+#GameBoard.flip table, #GameBoard.flip img.pieceImage {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
 
-/* line 67, ../sass/analyse.scss */
+/* line 78, ../sass/analyse.scss */
 #GameButtons {
   margin-top: 20px;
 }
-
-/* line 70, ../sass/analyse.scss */
+/* line 81, ../sass/analyse.scss */
 #GameButtons input {
   width: 100px;
   height: 2em;
 }
 
-/* line 75, ../sass/analyse.scss */
+/* line 87, ../sass/analyse.scss */
 #GameText {
   font-size: 1.4em;
   width: 220px;
@@ -106,26 +105,28 @@ span.board_mark.horz {
   background: #f7f7f7;
   border: 1px solid silver;
   overflow: auto;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
   border-radius: 4px;
+  -webkit-box-shadow: 0 0 7px #d0d0d0;
+  -moz-box-shadow: 0 0 7px #d0d0d0;
   box-shadow: 0 0 7px #d0d0d0;
 }
-
-/* line 86, ../sass/analyse.scss */
+/* line 98, ../sass/analyse.scss */
 #GameText table {
   width: 100%;
 }
-
-/* line 89, ../sass/analyse.scss */
+/* line 102, ../sass/analyse.scss */
 #GameText tr:nth-child(even) {
   background: #f0f0f0;
 }
-
-/* line 92, ../sass/analyse.scss */
+/* line 106, ../sass/analyse.scss */
 #GameText th {
   padding-left: 8px;
 }
-
-/* line 95, ../sass/analyse.scss */
+/* line 111, ../sass/analyse.scss */
 #GameText a.move {
   font-family: "pgn4web ChessSansMerida", "pgn4web Liberation Sans", sans-serif;
   text-decoration: none;
@@ -133,52 +134,47 @@ span.board_mark.horz {
   display: block;
   color: #444;
 }
-
-/* line 102, ../sass/analyse.scss */
+/* line 119, ../sass/analyse.scss */
 #GameText a:hover {
   background: #e0e0e0;
 }
-
-/* line 105, ../sass/analyse.scss */
+/* line 123, ../sass/analyse.scss */
 #GameText a.moveOn {
   background: #FFE73B;
 }
 
-/* line 108, ../sass/analyse.scss */
+/* line 129, ../sass/analyse.scss */
 #GameLastComment {
   position: absolute;
   top: 512px;
   margin-top: 1em;
   width: 220px;
 }
-
-/* line 114, ../sass/analyse.scss */
+/* line 135, ../sass/analyse.scss */
 #GameLastComment .comment {
   margin-top: 0.2em;
   font-size: 1.3em;
   display: block;
 }
 
-/* line 119, ../sass/analyse.scss */
+/* line 142, ../sass/analyse.scss */
 div.advice_summary {
   position: absolute;
   top: 740px;
   width: 280px;
 }
-
-/* line 124, ../sass/analyse.scss */
+/* line 147, ../sass/analyse.scss */
 div.advice_summary div {
   margin-bottom: 1em;
 }
 
-/* line 128, ../sass/analyse.scss */
+/* line 152, ../sass/analyse.scss */
 div.adv_chart {
   margin-top: 10px;
   height: 150px;
   width: 512px;
 }
-
-/* line 133, ../sass/analyse.scss */
+/* line 157, ../sass/analyse.scss */
 div.adv_chart iframe {
   height: 150px;
 }
