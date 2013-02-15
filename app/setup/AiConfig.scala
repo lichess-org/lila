@@ -1,7 +1,8 @@
 package lila
 package setup
 
-import chess.{ Variant, Mode, Color ⇒ ChessColor }
+import chess.{ Variant, Mode, Situation, Game, Color ⇒ ChessColor }
+import chess.format.Forsyth
 import game.{ DbGame, DbPlayer }
 
 case class AiConfig(
@@ -16,18 +17,30 @@ case class AiConfig(
 
   def >> = (variant.id, clock, time, increment, level, color.name).some
 
-  def game = DbGame(
-    game = makeGame(none),
-    ai = Some(!creatorColor -> level),
-    whitePlayer = DbPlayer(
-      color = ChessColor.White,
-      aiLevel = creatorColor.black option level),
-    blackPlayer = DbPlayer(
-      color = ChessColor.Black,
-      aiLevel = creatorColor.white option level),
-    creatorColor = creatorColor,
-    mode = Mode.Casual,
-    variant = variant).start
+  def game = {
+    val state = pgn.flatMap(Forsyth.<<<)
+    val chessGame = state.fold({
+      case Forsyth.SituationPlus(Situation(board, color), _, turns) ⇒
+        Game(board = board, player = color, turns = turns)
+    }, makeGame)
+    val dbGame = DbGame(
+      game = chessGame,
+      ai = Some(!creatorColor -> level),
+      whitePlayer = DbPlayer(
+        color = ChessColor.White,
+        aiLevel = creatorColor.black option level),
+      blackPlayer = DbPlayer(
+        color = ChessColor.Black,
+        aiLevel = creatorColor.white option level),
+      creatorColor = creatorColor,
+      mode = Mode.Casual,
+      variant = variant)
+    state.fold({
+      case Forsyth.SituationPlus(_, history, turns) ⇒ dbGame.copy(
+        castles = history.castleNotation,
+        turns = turns)
+    }, game)
+  }.start
 
   def encode = RawAiConfig(
     v = variant.id,

@@ -24,18 +24,7 @@ trait Config {
 
   lazy val creatorColor = color.resolve
 
-  def makeGame(fen: Option[String]): Game = fen.fold(
-    f ⇒ Forsyth << f |> {
-      _.fold(
-        situation ⇒ Game(
-          board = situation.board, 
-          player = situation.color,
-          clock = makeClock),
-        makeGame(none)
-      )
-    },
-    Game(board = Board init variant, clock = makeClock)
-  )
+  def makeGame = Game(board = Board init variant, clock = makeClock)
 
   def validClock = clock.fold(time + increment > 0, true)
 
