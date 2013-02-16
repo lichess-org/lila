@@ -1,0 +1,422 @@
+@import "variables";
+
+div.game_config {
+
+  h2, button {
+    font-size: 1.4em;
+    padding: 0 2em;
+  }
+
+  button {
+    letter-spacing: 1px;
+  }
+
+  h2 {
+    margin-bottom: 1em;
+  }
+
+  div.ui-buttonset {
+    margin-bottom: 1em;
+  }
+
+  .ui-button-text,
+  select {
+    text-transform: capitalize;
+  }
+
+  div.ui-slider {
+    font-size: 1.3em;
+    margin: 0 15px;
+  }
+
+  .optional_config {
+    background: #f4f4f4;
+    margin-bottom: 1em;
+    padding: 3px 0;
+    border-top: solid 1px #e4e4e4;
+    border-bottom: solid 1px #e4e4e4;
+  }
+
+  .time_choice,
+  .increment_choice,
+  .elo_range_config {
+    padding-bottom: 1em;
+    text-align: left;
+    text-indent: 15px;
+  }
+
+  .time_choice span {
+    font-weight: bold;
+  }
+
+  .clock_config label {
+    cursor: pointer;
+  }
+
+  button.submit {
+    margin-top: 0.5em;
+  }
+
+  @import "color/*.png";
+
+  div.color_submits {
+    margin-top: 1em;
+    margin-left: 18px;
+    height: 65px;
+
+    button {
+      &.submit {
+        float: left;
+        width: 80px;
+        height: 65px;
+        padding: 5px 14px;
+        margin: 0 5px;
+
+        span {
+          @include color-sprite(color_white);
+          width: 50px;
+          height: 51px;
+          padding: 0;
+        }
+      }
+      &.black span {
+        @include color-sprite(color_black);
+      }
+      &.random span {
+        @include color-sprite(color_random);
+      }
+    }
+  }
+
+}
+
+#config_level .ui-button {
+  margin-right: -0.6em;
+}
+
+div.hooks_wrap {
+  position: absolute;
+  width: 384px;
+  height: 384px;
+  top: 51px;
+  left: 52px;
+  padding: 12px;
+  @include border-radius(3px 0 3px 3px);
+  @include box-shadow(0 0 20px #444);
+  @include background-image(linear-gradient(top, rgba(212,212,212,0.9) 0%,rgba(240,240,240,0.5) 100%));
+  // Fallback
+  background: rgba(245,245,245,0.8);
+
+  &.large {
+    height: 512px;
+    top: -13px;
+  }
+  &.hidden {
+    display: none;
+  }
+
+  a.filter {
+    position: absolute;
+    top: -21px;
+    right: -1px;
+    height: 20px;
+    line-height: 20px;
+    padding: 0 2px 0 10px;
+    background: rgba(212,212,212,0.9);
+    border: 1px solid #888;
+    color: #333;
+    border-bottom: 0;
+    display: block;
+    @include border-radius(3px 3px 0 0);
+    text-decoration: none;
+
+    &:hover,
+    &.active {
+      background: $white;
+    }
+    &.on {
+      padding: 0 10px 0 2px;
+
+      span.s16 {
+        padding: 0 0 0 20px;
+        background-position: left -112px;
+      }
+      span.number {
+        display: inline;
+      }
+    }
+
+    span.number {
+      display: none;
+    }
+  }
+
+  div.filter {
+    position: absolute;
+    display: none;
+    top: 0px;
+    right: 0px;
+    min-height: 181px;
+    width: 244px;
+    padding: 12px;
+    border: 1px solid #888;
+    border-width: 0 0 1px 1px;
+    background: $white;
+    @include border-radius(0 0 0 3px);
+
+    select {
+      width: 100%;
+      margin-bottom: 12px;
+      padding: 6px;
+    }
+
+    .actions {
+      text-align: right;
+
+      button {
+        padding: 6px;
+        margin-left: 12px;
+      }
+    }
+  }
+}
+
+div.hooks {
+  border: 1px solid #bababa;
+  border-top: 0
+
+  table {
+    width: 100%;
+    max-height: 424px;
+    overflow: hidden;
+    text-align: left;
+    border-collapse: collapse;
+    background: none;
+    border-top: 1px solid #bababa;
+  }
+
+  table.empty {
+    margin-top: 152px;
+
+    tr {
+      text-align: center;
+      cursor: pointer;
+    }
+
+    td {
+      padding: 0;
+      height: 80px;
+    }
+  }
+
+  td {
+    padding: 0 8px 0 12px;
+    height: 64px;
+    margin: 0;
+
+    &.color {
+      width: 24px;
+      padding-right: 0;
+
+      span {
+        height: 24px;
+        width: 24px;
+        display: block;
+        background: url(../images/sprite_color_24.png) no-repeat;
+
+        &.black {
+          background-position: 0 -24px;
+        }
+        &.random {
+          background-position: 0 -49px;
+        }
+      }
+    }
+  }
+
+  td.action {
+    cursor: pointer;
+    border-left: 1px solid #cacaca;
+    width: 63px;
+    padding: 0;
+
+    &.empty {
+      cursor: default;
+      background: none;
+    }
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  a {
+    color: #666;
+
+    &.user_link.engine {
+      color: #cc7070;
+    }
+  }
+
+  span.elorange {
+    display: block;
+    font-style: italic;
+    color: #999;
+  }
+
+  a.cancel,
+  a.join {
+    height: 32px;
+    width: 31px;
+    display: block;
+    padding: 12px 14px;
+  }
+
+  a.cancel {
+    background: url(../images/close24.png) +16px no-repeat;
+  }
+
+  a.join {
+    background: url(../images/play32.png) +16px no-repeat;
+  }
+
+  a.user_link {
+    background: transparent;
+    padding-left: 0;
+  }
+}
+
+#featured_game div.vstext {
+  margin-top: 0.7em;
+  text-align: center;
+}
+
+div.undertable {
+  width: 514px;
+  font-size: 11.5px;
+  margin-top: 15px;
+
+  a.user_link {
+    text-decoration: none;
+    font-weight: bold;
+    color: #999;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  table {
+    width: 100%;
+    height: 100%;
+  }
+
+  td {
+    padding: 6px 5px;
+    background: $white;
+    border-top: 1px solid #eaeaea;
+  }
+
+  tr:first-child td {
+    border-top: none;
+  }
+
+  tr:nth-child(even) td {
+    background: #f0f0f0;
+  }
+}
+
+div.undertable_top {
+  @include border-radius(4px 4px 0 0);
+  border: 1px solid #ccc;
+  padding: 3px 5px;
+
+  a.more {
+    float: right;
+    padding-right: 2px;
+    text-decoration: none;
+  }
+
+  span.title {
+    font-weight: bold;
+    color: #999;
+    padding-left: 4px;
+  }
+}
+
+div.undertable_inner {
+  border: 1px solid #ccc;
+  border-top: 0;
+  @include border-radius(0 0 4px 4px);
+  height: 204px;
+  width: auto;
+  overflow:hidden;
+}
+
+div.open_tournaments {
+  div.undertable_inner {
+    height: auto;
+  }
+
+  input.submit {
+    padding: 0.2em 1em;
+  }
+
+  td:first-child {
+    padding-left: 1em;
+  }
+
+  tr.create td {
+    text-align: center;
+  }
+}
+
+div.lichess_bot {
+  tr {
+    cursor: pointer;
+
+    &:hover a.watch {
+      @include opacity(1);
+    }
+  }
+
+  a.watch {
+    display: block;
+    width: 24px;
+    height: 24px;
+    background: url(../images/eye.png) top left no-repeat;
+    @include opacity(0.4);
+  }
+}
+
+div.new_posts {
+  li {
+    margin: 0.6em 0;
+    padding-left: 9px;
+    line-height: 14px;
+    white-space: nowrap;
+
+    span {
+      font-weight: bold;
+      margin-right: 6px;
+      color: #aaa;
+    }
+
+    &.s16 {
+      padding-left: 20px;
+      margin-left: 5px;
+      height: 15px;
+      display: block;
+    }
+  }
+
+  a.post_link {
+    margin-right: 7px;
+  }
+}
+
+div.lichess_overboard.joining input.submit {
+  font-size: 1.2em;
+  margin-top: 1em;
+  padding: 0.6em 1em;
+}

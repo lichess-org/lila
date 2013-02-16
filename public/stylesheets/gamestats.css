@@ -1,9 +1,12 @@
+/* line 1, ../sass/gamestats.scss */
 .title {
   font-size: 1.8em;
   color: #666;
   font-weight: normal;
   margin-bottom: 0.5em;
 }
+
+/* line 7, ../sass/gamestats.scss */
 .section-title {
   font-size: 1.6em;
   color: #999;
@@ -14,17 +17,22 @@
   padding: 0.5em 0;
   text-align: right;
 }
+
+/* line 17, ../sass/gamestats.scss */
 .chart-title {
   font-size: 1.4em;
   color: #666;
   font-weight: normal;
   margin-bottom: 0.5em;
 }
+
+/* line 23, ../sass/gamestats.scss */
 .half {
   float: left;
   width: 49%;
   margin-right: 2%;
 }
+/* line 28, ../sass/gamestats.scss */
 .half.last {
   margin-right: 0;
 }

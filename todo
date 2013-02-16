@@ -55,3 +55,11 @@ ssl websocket would pass through proxies http://en.lichess.org/forum/lichess-fee
 team chat
 play a game from a position, also allows http://en.lichess.org/forum/lichess-feedback/feature-request-to-finish-playing-a-game-with-a-computer-when-your-opponent-resigned#1
 let players block other players
+
+// Sass migration
+Break big files into pieces for better readability
+Replace hardcoded colors with variables
+Set correct paths in config.rb
+Use mixins from vertical rhythm, and it's calculated values instead of hardcoded font-size/line-height values
+Add modular-scale plugin
+Use rhythm values for padding and margin

@@ -1,0 +1,65 @@
+form.search {
+  padding: 10px 25px;
+}
+
+form.search td {
+  padding: 5px 0;
+}
+
+form.search .half {
+  float: left;
+  width: 49%;
+  padding-right: 1%;
+  text-align: right;
+}
+
+form.search label {
+  margin-right: 10px;
+}
+
+form.search input {
+  width: 96%;
+  padding: 0.5% 1%;
+}
+
+form.search select {
+  padding: 0.5% 1%;
+  text-transform: capitalize;
+}
+
+form.search .single select {
+  width: 99%;
+}
+
+form.search .half select,
+form.search .half input {
+  width: 80%;
+}
+
+form.search input.submit {
+  width: 99%;
+}
+
+form.search div.level {
+  display: inline;
+}
+
+form.search th.help {
+  padding-left: 10px;
+}
+
+div.search_status {
+  margin-top: 10px;
+  padding: 10px 25px;
+  background: #f4f4f4;
+  border-top: 1px solid #e4e4e4;
+  border-bottom: 1px solid #e4e4e4;
+  font-weight: bold;
+}
+
+
+/* Errors */
+form.search .error {
+  margin-left: 160px;
+  color: red;
+}

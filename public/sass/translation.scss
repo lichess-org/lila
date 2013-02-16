@@ -1,0 +1,117 @@
+@import "variables";
+
+h2 {
+  margin-top: 1em;
+  font-size: 1.5em;
+}
+
+table.translations {
+  margin-top: 1em;
+  width: 100%;
+
+  th {
+    font-weight: bold;
+  }
+
+  td, th {
+    padding: 5px;
+  }
+
+  td.progress {
+    white-space: nowrap;
+  }
+
+  div.progressbar {
+    width: 200px;
+  }
+
+  tbody tr:nth-child(odd) {
+    background: #f4f4f4;
+  }
+}
+
+div.locale_menu {
+  margin-top: 2em;
+
+  a {
+    display: block;
+    float: left;
+    padding: 0.5em 1em;
+    border: 1px solid #dadada;
+    margin-right: 1em;
+    text-decoration: none;
+    @include border-radius(4px);
+
+    &:hover {
+      @include box-shadow(0 0 9px $orange);
+    }
+  }
+}
+
+.error {
+  color: red;
+}
+
+.notice {
+  margin: 1em;
+  padding: 1em;
+  text-align: center;
+  font-size: 1.2em;
+  border: 1px solid #DADADA;
+  color: #000;
+}
+
+.notice {
+  background: #AAFFAA;
+}
+
+div.messages {
+  margin-bottom:1em;
+  padding-bottom: 1em;
+  max-height: 500px;
+  overflow: auto;
+  border: 1px solid #dadada;
+}
+div.message {
+  padding:1em;
+  font-size: 1.2em;
+  position: relative;
+
+  &:nth-child(odd) {
+    background: #f4f4f4;
+  }
+
+  label {
+    display: block;
+    color: #444;
+    margin-left: 9%;
+  }
+
+  input {
+    width: 90%;
+    margin-left: 9%;
+    margin-top: 3px;
+    padding: 3px 5px;
+    border: 1px solid #dadada;
+  }
+
+  .number {
+    position: absolute;
+    top: 25px;
+    left: 10px;
+  }
+}
+
+div.optional {
+  margin-bottom: 1em;
+
+  input {
+    padding: 3px 5px;
+    border: 1px solid #dadada;
+  }
+}
+
+input.submit {
+  padding: 5px 10px;
+  font-size: 1.3em;
+}

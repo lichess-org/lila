@@ -1,0 +1,117 @@
+@import "variables";
+
+#lichess_message {
+  min-height: 300px;
+
+  table {
+    @include leader;
+    width: 100%;
+  }
+
+  tr {
+    border-top: 1px solid #eaeaea;
+
+    &:nth-child(even) {
+      background: #f7f7f7;
+    }
+
+    &.new td.subject a {
+      color: #0090b0;
+      font-weight: bold;
+    }
+  }
+
+  td.subject a {
+    display: block;
+    padding: 1em;
+    font-size: 120%;
+  }
+
+  td.author, td.date {
+    white-space: nowrap;
+    padding-right: 1em;
+  }
+
+  div.thread_actions {
+    margin-top: 0.4em;
+    float: right;
+  }
+
+  div.thread_message {
+    font-size: 1.2em;
+    margin-top: 2em;
+    border-top: 1px solid #d4d4d4;
+    padding-top: 2em;
+
+    span.infos {
+      margin-bottom: 1em;
+      display: block;
+    }
+  }
+
+  div.answer {
+    margin-top: 3em;
+  }
+
+  div.form {
+    font-size: 1.1em;
+    padding-top: 2em;
+  }
+
+  div.form,
+  div.answer {
+
+    div.actions {
+      padding: 0.5em 0;
+      font-size: 1.1em;
+
+      a{
+        margin-left: 1em;
+      }
+    }
+
+  }
+
+  .field_to,
+  .field_subject {
+    margin-bottom: 1em;
+
+    input {
+      width: 450px;
+      border: 1px solid #D4D4D4;
+      padding: 3px 5px;
+    }
+  }
+
+  form textarea {
+    width: 547px;
+    height: 150px;
+    padding: 10px;
+    border: 1px solid #D4D4D4;
+  }
+
+  label {
+    float: left;
+    width: 60px;
+    text-align: right;
+    margin-right: 10px;
+    vertical-align: middle;
+    margin-top: 3px;
+  }
+
+  .error {
+    color: red;
+    margin-left: 60px;
+  }
+
+}
+
+div.sidebar {
+  margin-top: 30px;
+
+  a {
+    display: block;
+    font-size: 1.2em;
+    padding: 1em 0 1em 1em;
+  }
+}

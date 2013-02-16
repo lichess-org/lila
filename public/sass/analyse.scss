@@ -1,0 +1,160 @@
+@import "variables";
+
+#lichess h1 {
+  font-size: 2em;
+  margin-bottom: 5px;
+}
+#pgnText {
+  display: none;
+}
+
+div.board_wrap {
+  float: left;
+  width: 514px;
+  min-height: 558px;
+}
+
+div.moves_wrap {
+  margin-left: 532px;
+  position: relative;
+}
+
+span.board_mark {
+  position: absolute;
+  text-transform: uppercase;
+  font-size: 10px;
+  color: #bbb;
+  font-weight: bold;
+
+  &.vert {
+    right: -10px;
+  }
+  &.horz {
+    bottom: -14px;
+  }
+}
+
+@include font-face('pgn4web ChessSansMerida', font-files('/assets/stylesheets/fonts/ChessSansMerida.woff', 'woff',
+                                                         '/assets/stylesheets/fonts/ChessSansMerida.ttf', 'truetype',
+                                                         '/assets/stylesheets/fonts/ChessSansMerida.svg#ChessSansMerida', 'svg'),
+                                                         '/assets/stylesheets/fonts/ChessSansMerida.eot');
+
+#GameBoard {
+  position: relative;
+
+  table.boardTable {
+    @include box-shadow(0 0 7px #bbb);
+    border: 1px solid #ccc;
+    @include border-radius(5px);
+  }
+
+  td.highlightWhiteSquare img,
+  td.highlightBlackSquare img {
+    background: url(../images/over5.png) no-repeat;
+  }
+
+  td {
+    img {
+      width: 64px;
+      height: 64px;
+      display: block;
+
+      &.bestmove {
+        background: url(../images/sover.png) no-repeat;
+        background-position: 0 -64px;
+      }
+    }
+  }
+
+  &.flip {
+    table, img.pieceImage {
+      @include transform(rotate(180deg));
+    }
+  }
+}
+
+
+#GameButtons {
+  margin-top: 20px;
+
+  input {
+    width: 100px;
+    height: 2em;
+  }
+}
+
+#GameText {
+  font-size: 1.4em;
+  width: 220px;
+  height: 512px;
+  margin-bottom: 1em;
+  background: #f7f7f7;
+  border: 1px solid #C0C0C0;
+  overflow: auto;
+  @include border-radius(4px);
+  @include box-shadow(0 0 7px #d0d0d0);
+
+  table {
+    width: 100%;
+  }
+
+  tr:nth-child(even) {
+    background: #f0f0f0;
+  }
+
+  th {
+    padding-left: 8px;
+  }
+
+  a {
+    &.move {
+      font-family: $ChessSansMeridaFontFamily;
+      text-decoration: none;
+      padding: 5px 10px;
+      display: block;
+      color: #444;
+    }
+
+    &:hover {
+      background: #e0e0e0;
+    }
+
+    &.moveOn {
+      background: #FFE73B;
+    }
+  }
+}
+
+#GameLastComment {
+  position: absolute;
+  top: 512px;
+  margin-top: 1em;
+  width: 220px;
+
+  .comment {
+    margin-top: 0.2em;
+    font-size: 1.3em;
+    display: block;
+  }
+}
+
+div.advice_summary {
+  position: absolute;
+  top: 740px;
+  width: 280px;
+
+  div {
+    margin-bottom: 1em;
+  }
+}
+
+div.adv_chart {
+  margin-top: 10px;
+  height: 150px;
+  width: 512px;
+
+  iframe {
+    height: 150px;
+  }
+}
+

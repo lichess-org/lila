@@ -1,31 +1,40 @@
+/* line 3, ../sass/translation.scss */
 h2 {
   margin-top: 1em;
   font-size: 1.5em;
 }
 
+/* line 8, ../sass/translation.scss */
 table.translations {
   margin-top: 1em;
   width: 100%;
 }
+/* line 12, ../sass/translation.scss */
 table.translations th {
   font-weight: bold;
 }
+/* line 16, ../sass/translation.scss */
 table.translations td, table.translations th {
-  padding: 5px 5px 5px 5px;
+  padding: 5px;
 }
-table.translations tbody tr:nth-child(odd) {
-  background: #f4f4f4;
-}
+/* line 20, ../sass/translation.scss */
 table.translations td.progress {
   white-space: nowrap;
 }
+/* line 24, ../sass/translation.scss */
 table.translations div.progressbar {
   width: 200px;
 }
+/* line 28, ../sass/translation.scss */
+table.translations tbody tr:nth-child(odd) {
+  background: #f4f4f4;
+}
 
+/* line 33, ../sass/translation.scss */
 div.locale_menu {
   margin-top: 2em;
 }
+/* line 36, ../sass/translation.scss */
 div.locale_menu a {
   display: block;
   float: left;
@@ -33,48 +42,63 @@ div.locale_menu a {
   border: 1px solid #dadada;
   margin-right: 1em;
   text-decoration: none;
-  border-radius:4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
 }
+/* line 45, ../sass/translation.scss */
 div.locale_menu a:hover {
+  -webkit-box-shadow: 0 0 9px #d85000;
+  -moz-box-shadow: 0 0 9px #d85000;
   box-shadow: 0 0 9px #d85000;
 }
 
+/* line 51, ../sass/translation.scss */
 .error {
   color: red;
 }
 
+/* line 55, ../sass/translation.scss */
 .notice {
   margin: 1em;
   padding: 1em;
   text-align: center;
   font-size: 1.2em;
-  border: 1px solid #DADADA;
+  border: 1px solid #dadada;
   color: #000;
 }
+
+/* line 64, ../sass/translation.scss */
 .notice {
   background: #AAFFAA;
 }
 
+/* line 68, ../sass/translation.scss */
 div.messages {
-  margin-bottom:1em;
+  margin-bottom: 1em;
   padding-bottom: 1em;
   max-height: 500px;
   overflow: auto;
   border: 1px solid #dadada;
 }
+
+/* line 75, ../sass/translation.scss */
 div.message {
-  padding:1em;
+  padding: 1em;
   font-size: 1.2em;
   position: relative;
 }
+/* line 80, ../sass/translation.scss */
 div.message:nth-child(odd) {
   background: #f4f4f4;
 }
+/* line 84, ../sass/translation.scss */
 div.message label {
   display: block;
   color: #444;
   margin-left: 9%;
 }
+/* line 90, ../sass/translation.scss */
 div.message input {
   width: 90%;
   margin-left: 9%;
@@ -82,20 +106,24 @@ div.message input {
   padding: 3px 5px;
   border: 1px solid #dadada;
 }
+/* line 98, ../sass/translation.scss */
 div.message .number {
   position: absolute;
   top: 25px;
   left: 10px;
 }
 
+/* line 105, ../sass/translation.scss */
 div.optional {
   margin-bottom: 1em;
 }
+/* line 108, ../sass/translation.scss */
 div.optional input {
   padding: 3px 5px;
   border: 1px solid #dadada;
 }
 
+/* line 114, ../sass/translation.scss */
 input.submit {
   padding: 5px 10px;
   font-size: 1.3em;

@@ -1,12 +1,17 @@
+/* line 1, ../sass/user-passwd.scss */
 .content_box form {
   font-size: 1.3em;
 }
+
+/* line 4, ../sass/user-passwd.scss */
 .content_box form li {
   display: block;
   list-style: none outside none;
   margin: 1em 0;
   position: relative;
 }
+
+/* line 10, ../sass/user-passwd.scss */
 .content_box form label {
   display: block;
   float: left;
@@ -15,18 +20,23 @@
   text-align: right;
   width: 150px;
 }
-.content_box form  input.passwd {
-  border: 1px solid #D4D4D4;
+
+/* line 18, ../sass/user-passwd.scss */
+.content_box form input.passwd {
+  border: 1px solid #d4d4d4;
   padding: 3px 5px;
   width: 200px;
 }
+
+/* line 23, ../sass/user-passwd.scss */
 .content_box form input.submit {
   margin-left: 160px;
   margin-right: 20px;
   padding: 3px 1em;
 }
+
+/* line 28, ../sass/user-passwd.scss */
 form .error {
   color: red;
   margin-left: 160px;
 }
-

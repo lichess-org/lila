@@ -1,0 +1,397 @@
+@import "variables";
+
+body.dark {
+  background: #1a1a1a url(../images/head_bg_dark.png) top left repeat-x;
+  background-position: left +25px;
+  color: #909090;
+
+  a, a:visited {
+    color: #909090;
+  }
+
+  input, textarea {
+    background: #1a1a1a;
+    color: #909090;
+  }
+
+  /* standard shadow */
+  div.lichess_chat,
+  div.undertable,
+  div.lichess_board_wrap,
+  div.lichess_table .lichess_button,
+  div.lichess_goodies div.box,
+  div.lichess_table,
+  div.undergame_box,
+  div.clock,
+  #GameBoard table.boardTable,
+  .button.strong,
+  .button.shadowed,
+  #tournament_side,
+  div.content_box {
+    @include box-shadow(0 0 5px #505050);
+  }
+
+  #top,
+  #nb_connected_players,
+  div.lichess_chat_top,
+  div.lichess_chat .nano,
+  div.undertable_top,
+  div.undertable_inner,
+  div.undertable td,
+  div.lichess_table .lichess_button,
+  div.lichess_chat form input,
+  div.lichess_board_wrap,
+  a.translation_call,
+  div.hooks,
+  div.hooks table,
+  div.hooks td.action,
+  div.footer_wrap,
+  div.game_config .optional_config,
+  .ui-state-default,
+  .ui-widget-content,
+  div.lichess_goodies div.box,
+  div.lichess_table,
+  div.lichess_separator,
+  div.undergame_box,
+  div.game_more div.more_top,
+  div.clock,
+  .button,
+  #tournament_side,
+  #GameBoard table.boardTable,
+  div.content_box,
+  div.content_box_top,
+  div.content_box_top a,
+  div.content_box_inter,
+  div.content_box_inter a.active,
+  div.header div.side_menu a.active,
+  div.game_row,
+  div.user_lists form.search_user_form input,
+  div.user_lists div.all_users,
+  div.user_show div.elo_with_me,
+  #lichess_forum div.post,
+  #lichess_forum textarea,
+  #lichess_forum form.wide input,
+  #lichess_message tr,
+  #lichess_message div.thread_message,
+  #lichess_message textarea,
+  #lichess_message input,
+  div.progressbar,
+  form.translation_form div.messages,
+  form.translation_form input,
+  div.locale_menu a,
+  div.adv_chart,
+  #top .dropdown,
+  div.lichess_overboard p.explanations,
+  div.search_status,
+  table.slist,
+  table.slist thead th,
+  div.notifications > div,
+  form.wide input[type="text"],
+  form.wide textarea,
+  #team .team-left,
+  #team .team-right,
+  #team h2,
+  .leaderboard_title
+  {
+    border-color: #3e3e3e;
+  }
+
+  .ui-slider,
+  div.progressbar,
+  #top div.themepicker.shown div.theme:hover {
+    background-color: #505050;
+  }
+
+  #top div.auth .links a:hover,
+  #top ul.language_links a:hover {
+    background-color: #3e3e3e;
+    color: $light_gray;
+  }
+
+  #site_title,
+  #site_baseline,
+  div.lichess_chat span,
+  div.lichess_chat a.user_link,
+  div.lichess_chat a.user_link,
+  div.new_posts li span,
+  #team .forum a.user_link,
+  span.board_mark {
+    color: #808080;
+  }
+  #site_title span.extension {
+    color: #707070;
+  }
+
+  #top a.goto_nav:hover,
+  #top a.toggle:hover,
+  #top a.bgpicker:hover,
+  a#sound_state:hover,
+  #top .dropdown,
+  #top .shown a.toggle {
+    background: $black;
+  }
+
+  #top span.new_messages {
+    background: #606060;
+  }
+
+  .user_link {
+    &.white {
+      background-position: 0 -288px;
+    }
+    &.black {
+      background-position: 0 -272px;
+    }
+  }
+
+  div.lichess_chat .nano,
+  div.undertable_inner,
+  div.lichess_goodies div.box,
+  div.undergame_box,
+  div.undertable td,
+  div.lichess_table_wrap div.clock,
+  div.footer_wrap {
+    background: #242424;
+  }
+
+  div.hooks_wrap {
+    background: rgba(10,10,10,0.8);
+    @include box-shadow(0 0 20px #444);
+    @include background-image(linear-gradient(top, rgba(33,33,33,0.9) 0%,rgba(15,15,15,0.5) 100%));
+
+    a.filter {
+      background-color: rgba(10,10,10,0.8);
+      border-color: #444;
+      color: #e0e0e0;
+
+      &:hover, &.active {
+        background: $black;
+      }
+    }
+
+    div.filter {
+      background-color: $black;
+      border-color: #505050;
+    }
+  }
+
+  div.undertable tr:nth-child(even) td {
+    background: #303030;
+  }
+
+  div.lichess_overboard {
+    background: #2b2b2b;
+
+    &.game_config {
+      @include box-shadow(0 0 20px #d0d0d0);
+    }
+  }
+
+  div.lichess_table_not_started {
+    @include box-shadow(none);
+    background: none;
+  }
+
+  div.lichess_table {
+    background: #242424;
+
+    a.lichess_button {
+      &:hover,
+      &.active {
+        @include box-shadow(0 0 9px $orange);
+        border: 1px solid $orange;
+      }
+    }
+  }
+
+  div.content_box,
+  div.content_box_inter a.active,
+  #tournament_side,
+  table.translations tbody tr,
+  form.translation_form div.message {
+    background: #2b2b2b;
+  }
+
+  div.header div.side_menu a.active {
+    @include box-shadow(-3px 0 5px #505050);
+    background: #2b2b2b;
+  }
+
+  .mini_board {
+    @include box-shadow(none);
+  }
+
+  div.game_row:nth-child(odd),
+  #lichess_forum table.forum_table tr:nth-child(odd),
+  #lichess_message tr:nth-child(even),
+  div.user_show .elo_with_me,
+  div.content_box_inter,
+  table.slist tbody tr:nth-child(even),
+  #team .forum li:nth-child(odd),
+  table.translations tbody tr:nth-child(even),
+  form.translation_form div.message:nth-child(even),
+  div.content_box table.datatable tr:nth-child(odd),
+  div.game_config .optional_config,
+  div.search_status {
+    background: #343434;
+  }
+
+  #lichess_forum {
+    table.forum_table {
+      thead tr:nth-child(odd) {
+        background: #2b2b2b;
+      }
+      td.subject a {
+        color: $aqua;
+      }
+    }
+  }
+
+  #lichess_forum div.post .message,
+  form.translation_form div.message label,
+  div.content_box h1,
+  div.hooks a {
+    color: $light_gray;
+  }
+
+  #GameText {
+    background: #2b2b2b;
+    border-color: #3e3e3e;
+    @include box-shadow(0 0 5px #505050);
+
+    tr:nth-child(even) {
+      background: #343434;
+    }
+
+    a {
+      &:hover {
+        background: $black;
+      }
+      &.moveOn {
+        background: $light_gray;
+        color: $black;
+      }
+      &.move {
+        color: $light_gray;
+      }
+    }
+  }
+
+  div.lmcs {
+    &.white {
+      background-color: $light_gray;
+    }
+    &.black {
+      background-color: #8a8a8a;
+    }
+  }
+
+  div.lichess_cemetery div.lichess_piece,
+  div.lichess_table div.lichess_piece {
+    background-image: url(../images/sprite_invert.png);
+  }
+
+  div.lichess_chat ol.lichess_messages {
+    li {
+      &.white {
+        background: url(../images/kdw14.png) no-repeat;
+      }
+      &.black {
+        background: url(../images/kdb14.png) no-repeat;
+      }
+    }
+  }
+
+  div.lichess_table_wrap div.clock.running {
+    background: #505a60;
+    color: $white;
+
+    &.emerg,
+    &.outoftime {
+      background-color: $darkred;
+      color: #d0d0d0;
+    }
+  }
+
+  /* soft inactive gradient */
+  #top,
+  div.lichess_chat_top,
+  div.undertable_top,
+  .button,
+  .button:visited,
+  .ui-state-default,
+  div.content_box_top,
+  div.hooks tr,
+  a.translation_call,
+  div.notification,
+  div.locale_menu a,
+  table.slist thead
+    {
+    // fallback
+    background: #3a3a3a;
+    color: $light_gray;
+    @include background-image(linear-gradient(top , #3a3a3a, #202020));
+  }
+
+  /* strong inactive gradient */
+  div.hooks td.action,
+  .button.strong,
+  .button:hover {
+    background: #505050;
+    @include background-image(linear-gradient(top , #505050, #202020));
+  }
+
+  /* active gradient */
+  #top a.goto_nav.active,
+  .button.active,
+  .button.active:hover,
+  .ui-state-active,
+  .ui-widget-header,
+  div.pagination span.current,
+  #top span.new_messages.unread,
+  div.hooks td.action:hover,
+  div.hooks table.empty tr:hover,
+  .button.strong:hover,
+  div.progressbar.flashy div,
+  div.locale_menu a.active {
+    color: $white;
+    background: $orange;
+    @include background-image(linear-gradient(top , #f49c00, $orange));
+  }
+
+  /* current gradient */
+  #top a.goto_nav.current {
+    color: $white;
+    background: #808080;
+    @include background-image(linear-gradient(top , #808080, #606060));
+  }
+
+  div.hooks td.action.empty {
+    background: none;
+  }
+
+  #lichess_message div.thread_message div.thread_message_body {
+    color: $light_gray;
+  }
+
+  .s16.ddown {
+    background-position: right -368px;
+  }
+
+  .nano > .pane {
+    background : transparentize($white, 0.85);
+
+    > .slider {
+      background: #ccc;
+      background: transparentize($white, 0.6);
+    }
+  }
+
+  input, textarea {
+    @include input-placeholder("&") {
+      color: #666;
+    }
+  }
+}
+
+

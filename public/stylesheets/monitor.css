@@ -1,5 +1,11 @@
+/* line 95, monitor/*.png */
+.monitor-sprite, .monitor, .wheel, .needle {
+  background: url('/images/monitor-s4db31b6e84.png') no-repeat;
+}
+
+/* line 4, ../sass/monitor.scss */
 body {
-  background: url(/assets/images/monitor/background.png);
+  background: url(/assets/images/monitor/background.jpg);
   font-family: "Myriad Pro", Helvetica, Arial, Serif;
   font-size: 8px;
   color: black;
@@ -9,56 +15,71 @@ body {
   width: 960px;
 }
 
-.clearfix:after { content:"."; display:block; height:0; clear:both; visibility:hidden; }
-.clearfix {display:inline-block;}
+/* line 15, ../sass/monitor.scss */
+#monitors {
+  overflow: hidden;
+  *zoom: 1;
+}
 
+/* line 19, ../sass/monitor.scss */
 h1 {
   text-align: center;
   font-size: 36px;
   color: #222;
   text-transform: uppercase;
 }
+/* line 25, ../sass/monitor.scss */
 h1 .down {
   color: #aa4444;
   display: none;
 }
+/* line 30, ../sass/monitor.scss */
 h1 .up {
   color: #446644;
   display: none;
 }
+/* line 36, ../sass/monitor.scss */
 body.down h1 .down {
   display: inline;
 }
+/* line 39, ../sass/monitor.scss */
 body.down h1 .up {
   display: none;
 }
 
+/* line 45, ../sass/monitor.scss */
 #actions {
   margin: 70px 0 20px 0;
   text-align: center;
 }
 
+/* line 50, ../sass/monitor.scss */
 a {
   font-size: 14px;
   color: #888;
   font-family: monospace;
 }
-a.back {
+/* line 55, ../sass/monitor.scss */
+a .back {
   position: absolute;
   top: 3em;
-  left:3em;
+  left: 3em;
 }
 
+/* line 62, ../sass/monitor.scss */
 .monitor {
   float: left;
   margin: 20px 8px 0 8px;
   width: 302px;
   height: 123px;
-  background: url(/assets/images/monitor/monitor.png);
+  background-position: 0 -78px;
   position: relative;
 }
-.monitor.alert {
+/* line 71, ../sass/monitor.scss */
+.monitor.alert .screen.current {
+  /*color: #884444;*/
 }
+/* line 76, ../sass/monitor.scss */
 .monitor .title {
   color: #d0d0d0;
   font-size: 10px;
@@ -66,66 +87,86 @@ a.back {
   top: 10px;
   left: 223px;
 }
+/* line 84, ../sass/monitor.scss */
 .monitor .screen {
   display: block;
   position: absolute;
   font-size: 14px;
   color: #858f8f;
-  text-shadow: 0 1px 0px #000000;
+  text-shadow: 0 1px 0px black;
   background: black;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
   border-radius: 4px;
   width: 60px;
   height: 18px;
-  padding: 2px 5px 2px 5px;
+  padding: 2px 5px;
   margin-top: 4px;
   text-align: center;
+  background-image: -webkit-gradient(linear, 0% 0%, 100% 100%, color-stop(0%, rgba(255, 255, 255, 0.1)), color-stop(100%, rgba(255, 255, 255, 0)));
+  background-image: -webkit-linear-gradient(top left, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
   background-image: -moz-linear-gradient(top left, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
   background-image: -o-linear-gradient(top left, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-  background-image: -webkit-gradient(linear, 0 0, 100% 100%, from(rgba(255, 255, 255, 0.1)), to(rgba(255, 255, 255, 0)));
+  background-image: linear-gradient(top left, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  -webkit-box-shadow: 0px 1px 1px #494e54, inset 0px 1px 2px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 1px 1px #494e54, inset 0px 1px 2px rgba(0, 0, 0, 0.6);
   box-shadow: 0px 1px 1px #494e54, inset 0px 1px 2px rgba(0, 0, 0, 0.6);
 }
+/* line 100, ../sass/monitor.scss */
 .monitor .screen.current {
   top: 28px;
   left: 214px;
 }
-.monitor.alert .screen.current {
-  /*color: #884444;*/
-}
+/* line 104, ../sass/monitor.scss */
 .monitor .screen.max {
   top: 55px;
   left: 214px;
 }
+
+/* line 111, ../sass/monitor.scss */
 .wheel {
   position: absolute;
   width: 13px;
   height: 13px;
   top: 97px;
   left: 99px;
-  background: url(/assets/images/monitor/wheel.png);
+  background-position: 0 -215px;
 }
+
+/* line 120, ../sass/monitor.scss */
 .needle {
-  -webkit-transform-origin: 100% 50%;
-  -o-transform-origin: 100% 50%;
-  -moz-transform-origin: 100% 50%;
+  -webkit-transform-origin: 100% 50% 50%;
+  -moz-transform-origin: 100% 50% 50%;
+  -ms-transform-origin: 100% 50% 50%;
+  -o-transform-origin: 100% 50% 50%;
+  transform-origin: 100% 50% 50%;
   position: absolute;
   top: 101px;
   left: 30px;
   height: 7px;
   width: 76px;
-  background: url(/assets/images/monitor/needle.png);
+  background-position: 0 -201px;
 }
+
+/* line 63, status/*.png */
+.status-sprite, div.light, .monitor.alert div.light, body.up div.light {
+  background: url('/images/status-sd927079eaa.png') no-repeat;
+}
+
+/* line 132, ../sass/monitor.scss */
 div.light {
   width: 26px;
   height: 26px;
   position: absolute;
   top: 2px;
   left: 200px;
-  background: url(/assets/images/status.png);
-  background-position: 0 -52px;
+  background-position: 0 0;
 }
-.monitor.alert div.light {  
+/* line 140, ../sass/monitor.scss */
+.monitor.alert div.light {
   background-position: 0 -26px;
 }
-body.up div.light  {
-  background-position: 0 0;
+/* line 144, ../sass/monitor.scss */
+body.up div.light {
+  background-position: 0 -52px;
 }

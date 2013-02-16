@@ -1,12 +1,14 @@
+/* line 1, ../sass/developers.scss */
 div.developers p {
   font-size: 1.2em;
   line-height: 1.7em;
 }
 
+/* line 6, ../sass/developers.scss */
 div.developers pre {
   font-size: 1.2em;
   font: monospace;
   margin: 3em 0;
-  display; block;
+  display: block;
   overflow: visible;
 }

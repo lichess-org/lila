@@ -1,0 +1,141 @@
+@import "variables";
+@import "mini_pieces2/*.png";
+
+div.game_row {
+  display: block;
+  padding: 1.4em 20px;
+  height: 224px;
+  line-height: 1.6em;
+  border-bottom: 1px solid #eaeaea;
+  position: relative;
+
+  &:nth-child(odd) {
+    background: #f4f4f4;
+  }
+
+  div.infos span{
+    &.win {
+      color: #00AA00;
+    }
+    &.loss {
+      color: #AA0000;
+    }
+  }
+
+  a.go_analyse {
+    position: absolute;
+    bottom: 16px;
+    right: 25px;
+    text-decoration: none;
+  }
+
+  table td {
+    padding: 4px 0;
+  }
+
+  span {
+    &.color {
+      line-height: 16px;
+      display: block;
+      margin-right: 1em;
+    }
+    &.white {
+      background-position: 0 -240px;
+    }
+    &.black {
+      background-position: 0 -256px;
+    }
+  }
+
+  .bookmark {
+    margin-right: 26px;
+  }
+
+}
+
+div.game_list {
+  &.realtime {
+    @include leader;
+
+    > div {
+      float: left;
+      margin: 0px 12px 12px;
+    }
+
+    div.vstext {
+      font-size: 11.5px;
+      text-align: center;
+      width: 224px;
+      overflow: hidden;
+      white-space: nowrap;
+      margin-top: 5px;
+    }
+  }
+}
+
+div.lmcs {
+  position: absolute;
+  height: 28px;
+  width: 28px;
+
+  &.white {
+    background: $white;
+  }
+  &.black {
+    background: #cacaca;
+  }
+  &.moved {
+    @include mini-pieces2-sprite(green_circle);
+  }
+  &.pawn.white {
+    @include mini-pieces2-sprite(white_pawn);
+  }
+  &.bishop.white {
+    @include mini-pieces2-sprite(white_bishop);
+  }
+  &.knight.white {
+    @include mini-pieces2-sprite(white_knight);
+  }
+  &.rook.white{
+    @include mini-pieces2-sprite(white_rook);
+  }
+  &.queen.white{
+    @include mini-pieces2-sprite(white_queen);
+  }
+  &.king.white{
+    @include mini-pieces2-sprite(white_king);
+  }
+  &.pawn.black{
+    @include mini-pieces2-sprite(black_pawn);
+  }
+  &.bishop.black{
+    @include mini-pieces2-sprite(black_bishop);
+  }
+  &.knight.black{
+    @include mini-pieces2-sprite(black_knight);
+  }
+  &.rook.black{
+    @include mini-pieces2-sprite(black_rook);
+  }
+  &.queen.black{
+    @include mini-pieces2-sprite(black_queen);
+  }
+  &.king.black{
+    @include mini-pieces2-sprite(black_king);
+  }
+}
+
+.mini_board {
+  width: 224px;
+  height: 224px;
+  position: relative;
+  display: block;
+  @include box-shadow(0 0 5px #666);
+}
+div.all_games a.mini_board {
+  float: left;
+  margin: 0 20px 20px 10px;
+}
+
+
+

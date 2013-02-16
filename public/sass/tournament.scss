@@ -1,0 +1,153 @@
+#tournament .title_tag {
+  float: right;
+  font-size: 20px;
+  font-family: monospace;
+  font-weight: bold;
+  margin: 21px 25px 0 0;
+}
+
+#tournament div.tournament_show {
+  width: 525px;
+}
+
+#tournament div.tournament_show div.game_list {
+  margin: 25px 0 0 15px;
+}
+
+#tournament a.pov {
+  display: block;
+  margin: 0 25px 1em 25px;
+  text-align: center;
+  font-size: 1.5em;
+}
+#tournament a.pov span {
+  display: block;
+  font-weight: bold;
+}
+
+#tournament table.slist .create td {
+  padding: 0.6em 1.2em 0.6em 0.6em;
+  text-align: center;
+}
+
+#tournament table.slist span.rank {
+  font-weight: bold;
+  padding-right: 20px;
+  background: transparent url(../images/s16.png) top right no-repeat;
+  background-position: right 900px;
+}
+#tournament table.slist tbody span.withdraw {
+  background-position: right -320px;
+}
+#tournament table.slist tbody span.winner {
+  background-position: right -304px;
+}
+#tournament table.slist .small {
+  font-size: 0.8em;
+}
+
+#tournament form.inline {
+  display: inline;
+  float: right;
+  padding-right: 0.6em;
+}
+
+#tournament form.plain td {
+  padding: 0.6em;
+  white-space: nowrap;
+}
+
+#tournament form.plain label {
+  margin-right: 10px;
+}
+
+#tournament form.plain input {
+  width: 96%;
+  padding: 0.5% 1%;
+}
+
+#tournament form.plain select {
+  padding: 0.5% 1%;
+  text-transform: capitalize;
+  width: 99%;
+}
+#tournament form.plain .inline select {
+  width: 46%;
+}
+
+#tournament form.plain input.submit {
+  width: 99%;
+}
+
+#tournament form.plain .error {
+  margin-left: 160px;
+  color: red;
+}
+
+#tournament_side {
+  float: right;
+  width: 246px;
+  max-height: 860px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 3px;
+  background: #f7f7f7;
+  box-shadow: 0 0 7px #D0D0D0;
+}
+#tournament_side div.pairings a {
+  padding: 0.3em 0.2em;
+  display: block;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+}
+#tournament_side div.pairings a:hover {
+  text-decoration: underline;
+}
+#tournament_side div.pairings span {
+  font-weight: bold;
+}
+#tournament_side div.pairings span.win {
+  color: #00aa00;
+}
+#tournament_side div.pairings span.loss {
+  color: #aa0000;
+}
+#tournament_side div.pairings span.draw {
+  color: #aaaa00;
+}
+
+#tournament article.faq h2 {
+  font-weight: bold;
+  font-style: italic;
+}
+#tournament article.faq p {
+  margin: 0.5em 0 2em 0;
+}
+div.faq_page h1 {
+  display: block;
+  margin-bottom: 1em;
+}
+div.faq_box {
+  margin-top: 15px;
+}
+
+div.header .tournament_links {
+  margin-top: 30px;
+}
+
+.leaderboard_title {
+  font-size: 1.5em;
+  margin-top: 30px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid #ccc;
+}
+ol.tournament_leaderboard li {
+  font-size: 1.2em;
+  padding: 5px 0;
+  list-style: decimal-leading-zero inside;
+}
+ol.tournament_leaderboard a {
+  text-decoration: none;
+}

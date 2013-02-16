@@ -1,0 +1,147 @@
+@import "variables";
+@import "monitor/*.png";
+
+body {
+  background: url(/assets/images/monitor/background.jpg);
+  font-family: $MyriadProFontFamily;
+  font-size: 8px;
+  color: $black;
+  @include text-shadow(0px 1px 1px transparentize($white, 0.9));
+  padding-top: 2px;
+  margin: auto;
+  width: 960px;
+}
+
+#monitors {
+  @include clearfix();
+}
+
+h1 {
+  text-align: center;
+  font-size: 36px;
+  color: #222;
+  text-transform: uppercase;
+
+  .down {
+    color: #aa4444;
+    display: none;
+  }
+
+  .up {
+    color: #446644;
+    display: none;
+  }
+
+  body.down & {
+    .down {
+      display: inline;
+    }
+    .up {
+      display: none;
+    }
+  }
+}
+
+#actions {
+  margin: 70px 0 20px 0;
+  text-align: center;
+}
+
+a {
+  font-size: 14px;
+  color: #888;
+  font-family: $monospaceFontFamily;
+
+  .back {
+    position: absolute;
+    top: 3em;
+    left:3em;
+  }
+}
+
+.monitor {
+  float: left;
+  margin: 20px 8px 0 8px;
+  width: 302px;
+  height: 123px;
+  @include monitor-sprite(monitor);
+  position: relative;
+
+  &.alert {
+    .screen.current {
+      /*color: #884444;*/
+    }
+  }
+
+  .title {
+    color: #d0d0d0;
+    font-size: 10px;
+    position: absolute;
+    top: 10px;
+    left: 223px;
+  }
+
+  .screen {
+    display: block;
+    position: absolute;
+    font-size: 14px;
+    color: #858f8f;
+    @include text-shadow(0 1px 0px $black);
+    background: $black;
+    @include border-radius(4px);
+    width: 60px;
+    height: 18px;
+    padding: 2px 5px;
+    margin-top: 4px;
+    text-align: center;
+    @include background-image(linear-gradient(top left, transparentize($white, 0.9), transparentize($white, 1)));
+    @include box-shadow(0px 1px 1px #494e54, inset 0px 1px 2px transparentize($black, 0.4));
+
+    &.current {
+      top: 28px;
+      left: 214px;
+    }
+    &.max {
+      top: 55px;
+      left: 214px;
+    }
+  }
+}
+
+.wheel {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  top: 97px;
+  left: 99px;
+  @include monitor-sprite(wheel);
+}
+
+.needle {
+  @include transform-origin(100% 50%);
+  position: absolute;
+  top: 101px;
+  left: 30px;
+  height: 7px;
+  width: 76px;
+  @include monitor-sprite(needle);
+}
+
+@import "status/*.png";
+
+div.light {
+  width: 26px;
+  height: 26px;
+  position: absolute;
+  top: 2px;
+  left: 200px;
+  @include status-sprite(light);
+
+  .monitor.alert & {
+    @include status-sprite(offline);
+  }
+
+  body.up & {
+    @include status-sprite(online);
+  }
+}

@@ -1,30 +1,33 @@
+/* line 2, ../sass/user-signup.scss */
+div.signup_box h1 {
+  margin-bottom: 2em;
+}
+/* line 6, ../sass/user-signup.scss */
 div.signup_box p.explanation {
   font-size: 1.2em;
   margin-bottom: 1em;
 }
+/* line 10, ../sass/user-signup.scss */
 div.signup_box p.explanation em {
   font-style: italic;
 }
-
-div.signup_box h1 {
-  margin-bottom: 2em;
-}
-
+/* line 15, ../sass/user-signup.scss */
 div.signup_box .alternative {
   font-size: 0.8em;
 }
 
+/* line 20, ../sass/user-signup.scss */
 .content_box form {
   font-size: 1.3em;
 }
-
+/* line 23, ../sass/user-signup.scss */
 .content_box form li {
   list-style: none;
   display: block;
   margin: 1em 0 1em 0;
   position: relative;
 }
-
+/* line 30, ../sass/user-signup.scss */
 .content_box form label {
   float: left;
   display: block;
@@ -33,14 +36,14 @@ div.signup_box .alternative {
   margin-right: 10px;
   margin-top: 2px;
 }
-
+/* line 39, ../sass/user-signup.scss */
 .content_box form .username input, .content_box form .password input {
   width: 200px;
   padding: 0 3px;
-  border: 1px solid #D4D4D4;
+  border: 1px solid #d4d4d4;
   padding: 3px 5px;
 }
-
+/* line 46, ../sass/user-signup.scss */
 .content_box form input.submit {
   margin-left: 160px;
   margin-right: 20px;
@@ -48,17 +51,21 @@ div.signup_box .alternative {
 }
 
 /* Errors */
+/* line 54, ../sass/user-signup.scss */
 form .error {
   margin-left: 160px;
   color: red;
 }
 
+/* line 59, ../sass/user-signup.scss */
 div.checkmateCaptcha {
   margin-top: 2em;
 }
+/* line 62, ../sass/user-signup.scss */
 div.checkmateCaptcha div.checkmateFen {
   margin-left: 0;
 }
+/* line 66, ../sass/user-signup.scss */
 div.checkmateCaptcha label {
   width: 250px;
   text-align: left;
