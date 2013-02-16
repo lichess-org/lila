@@ -9,7 +9,9 @@
 @moreJs = {
 @jsVendorTag("pgn4web/pgn4web.js")
 @jsTag("pgn4hacks.js")
+@if(analysis.isDefined) {
 @jsTag("chart.js")
+}
 }
 
 @underchat = {
