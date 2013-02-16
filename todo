@@ -55,3 +55,4 @@ ssl websocket would pass through proxies http://en.lichess.org/forum/lichess-fee
 team chat
 play a game from a position, also allows http://en.lichess.org/forum/lichess-feedback/feature-request-to-finish-playing-a-game-with-a-computer-when-your-opponent-resigned#1
 let players block other players
+detect lack of support for date formatting (gl) and use 2013-02-15 13:48:00 instead
