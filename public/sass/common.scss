@@ -254,21 +254,26 @@ div.content_box_inter {
   }
 }
 
-div.content_box .lichess_title {
-  font-size: 2em;
-  display: block;
-  margin-bottom: 0.5em;
-}
+div.content_box {
 
-div.content_box table.datatable {
-  width: 100%;
-  margin-top: 20px;
-}
-div.content_box table.datatable td {
-  padding: 5px 10px;
-}
-div.content_box table.datatable tr:nth-child(odd) {
-  background: #f7f7f7;
+  .lichess_title {
+    font-size: 2em;
+    display: block;
+    margin-bottom: 0.5em;
+  }
+
+  table.datatable {
+    width: 100%;
+    margin-top: 20px;
+
+    td {
+      padding: 5px 10px;
+    }
+
+    tr:nth-child(odd) {
+      background: #f7f7f7;
+    }
+  }
 }
 
 table.slist {
@@ -514,26 +519,30 @@ ul.language_links li:last-child {
     text-decoration: none;
     line-height: normal;
   }
-}
 
-#top div.themepicker.shown div.themes {
-  display: block;
-}
-#top div.themepicker.shown div.theme {
-  padding: 5px 10px;
-  cursor: pointer;
-}
-#top div.themepicker.shown div.theme:hover {
-  background: #f0f0f0;
-}
-#top div.themepicker.shown div.inner {
-  border: 1px solid #dadada;
-  position: relative;
-  width: 128px;
-  height: 64px;
-}
-#top div.themepicker.shown div.white {
-  left: 64px;
+  &.shown {
+
+    div.themes {
+      display: block;
+    }
+    div.theme {
+      padding: 5px 10px;
+      cursor: pointer;
+
+      &:hover {
+        background: #f0f0f0;
+      }
+    }
+    div.inner {
+      border: 1px solid #dadada;
+      position: relative;
+      width: 128px;
+      height: 64px;
+    }
+    div.white {
+      left: 64px;
+    }
+  }
 }
 
 #top a.bgpicker {

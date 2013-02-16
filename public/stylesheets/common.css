@@ -298,69 +298,66 @@ div.content_box_inter a.active {
   text-decoration: none;
 }
 
-/* line 257, ../sass/common.scss */
+/* line 259, ../sass/common.scss */
 div.content_box .lichess_title {
   font-size: 2em;
   display: block;
   margin-bottom: 0.5em;
 }
-
-/* line 263, ../sass/common.scss */
+/* line 265, ../sass/common.scss */
 div.content_box table.datatable {
   width: 100%;
   margin-top: 20px;
 }
-
-/* line 267, ../sass/common.scss */
+/* line 269, ../sass/common.scss */
 div.content_box table.datatable td {
   padding: 5px 10px;
 }
-
-/* line 270, ../sass/common.scss */
+/* line 273, ../sass/common.scss */
 div.content_box table.datatable tr:nth-child(odd) {
   background: #f7f7f7;
 }
 
-/* line 274, ../sass/common.scss */
+/* line 279, ../sass/common.scss */
 table.slist {
   width: 100%;
   border-bottom: 1px solid #d4d4d4;
 }
-/* line 278, ../sass/common.scss */
+/* line 283, ../sass/common.scss */
 table.slist thead th {
   border-top: 1px solid #d4d4d4;
   padding: 0.4em 0.6em;
 }
-/* line 282, ../sass/common.scss */
+/* line 287, ../sass/common.scss */
 table.slist thead th.large {
   font-size: 1.4em;
 }
-/* line 287, ../sass/common.scss */
+/* line 292, ../sass/common.scss */
 table.slist td {
   padding: 0.6em;
   font-size: 1.2em;
 }
-/* line 291, ../sass/common.scss */
+/* line 296, ../sass/common.scss */
 table.slist td .label {
   font-family: monospace;
   font-size: 10px;
 }
-/* line 297, ../sass/common.scss */
+/* line 302, ../sass/common.scss */
 table.slist tbody tr:nth-child(even) {
   background: #f4f4f4;
 }
-/* line 302, ../sass/common.scss */
+/* line 307, ../sass/common.scss */
 table.slist td:first-child, table.slist th:first-child {
   padding-left: 25px;
 }
-/* line 307, ../sass/common.scss */
+/* line 312, ../sass/common.scss */
 table.slist .s16 {
   display: block;
   height: 16px;
   padding: 0 0 0 20px;
 }
 
-/* line 315, ../sass/common.scss */
+/* line 320, ../sass/common.scss */
 div.lichess_goodies div.box {
   margin-top: 1em;
   margin-left: -30px;
@@ -374,16 +371,16 @@ div.lichess_goodies div.box {
   -moz-box-shadow: 0 0 7px #d0d0d0;
   box-shadow: 0 0 7px #d0d0d0;
 }
-/* line 324, ../sass/common.scss */
+/* line 329, ../sass/common.scss */
 div.lichess_goodies div.box .player {
   margin: 4px 0;
 }
 
-/* line 329, ../sass/common.scss */
+/* line 334, ../sass/common.scss */
 div.header div.side_menu {
   margin-top: 15px;
 }
-/* line 332, ../sass/common.scss */
+/* line 337, ../sass/common.scss */
 div.header div.side_menu a {
   padding: 8px 0 8px 8px;
   display: block;
@@ -391,7 +388,7 @@ div.header div.side_menu a {
   width: 203px;
   font-weight: bold;
 }
-/* line 339, ../sass/common.scss */
+/* line 344, ../sass/common.scss */
 div.header div.side_menu a.active {
   background: white;
   border: 1px solid #dadada;
@@ -404,12 +401,12 @@ div.header div.side_menu a.active {
   box-shadow: -3px 0 5px #d0d0d0;
 }
 
-/* line 349, ../sass/common.scss */
+/* line 354, ../sass/common.scss */
 body.tight div.side_menu a {
   padding-right: 10px;
 }
 
-/* line 353, ../sass/common.scss */
+/* line 358, ../sass/common.scss */
 #nb_connected_players, a.goto_nav, #top a.toggle, #top a.bgpicker, a#sound_state {
   text-decoration: none;
   font-size: 13px;
@@ -419,24 +416,24 @@ body.tight div.side_menu a {
   text-decoration: none;
 }
 
-/* line 361, ../sass/common.scss */
+/* line 366, ../sass/common.scss */
 #nb_connected_players {
   float: left;
   color: #999;
   border-left: 1px solid #cccccc;
 }
 
-/* line 366, ../sass/common.scss */
+/* line 371, ../sass/common.scss */
 a.goto_nav {
   float: left;
 }
 
-/* line 369, ../sass/common.scss */
+/* line 374, ../sass/common.scss */
 a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hover {
   background: white;
 }
 
-/* line 372, ../sass/common.scss */
+/* line 377, ../sass/common.scss */
 #top .s16 {
   display: block;
   height: 16px;
@@ -444,7 +441,7 @@ a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hove
   line-height: 16px;
 }
 
-/* line 378, ../sass/common.scss */
+/* line 383, ../sass/common.scss */
 #top span.new_messages {
   padding: 1px 5px 1px 4px;
   background: #bbb;
@@ -455,82 +452,82 @@ a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hove
   border-radius: 4px;
   font-size: 0.9em;
 }
-/* line 386, ../sass/common.scss */
+/* line 391, ../sass/common.scss */
 #top span.new_messages.unread {
   font-size: 1em;
 }
 
-/* line 391, ../sass/common.scss */
+/* line 396, ../sass/common.scss */
 #top .shown a.toggle {
   background: white;
 }
 
-/* line 394, ../sass/common.scss */
+/* line 399, ../sass/common.scss */
 #top div.auth {
   float: right;
   position: relative;
 }
-/* line 400, ../sass/common.scss */
+/* line 405, ../sass/common.scss */
 #top div.auth.shown form,
 #top div.auth.shown .links {
   display: block;
 }
-/* line 405, ../sass/common.scss */
+/* line 410, ../sass/common.scss */
 #top div.auth form {
   padding: 1em;
 }
-/* line 408, ../sass/common.scss */
+/* line 413, ../sass/common.scss */
 #top div.auth form input {
   margin-bottom: 8px;
 }
-/* line 415, ../sass/common.scss */
+/* line 420, ../sass/common.scss */
 #top div.auth .links .goto_logout {
   background-position: 0 -48px;
 }
-/* line 419, ../sass/common.scss */
+/* line 424, ../sass/common.scss */
 #top div.auth .links .goto_profile {
   background-position: 0 -208px;
 }
-/* line 423, ../sass/common.scss */
+/* line 428, ../sass/common.scss */
 #top div.auth .links a {
   display: block;
   padding: 6px 10px;
   text-decoration: none;
   text-transform: capitalize;
 }
-/* line 429, ../sass/common.scss */
+/* line 434, ../sass/common.scss */
 #top div.auth .links a:hover {
   background: #F0F0F0;
   color: #444;
 }
 
-/* line 439, ../sass/common.scss */
+/* line 444, ../sass/common.scss */
 #top div.auth form .username,
 #top div.auth form .password {
   width: 120px;
 }
 
-/* line 442, ../sass/common.scss */
+/* line 447, ../sass/common.scss */
 #top div.auth form div.button_wrap {
   text-align: right;
   border-bottom: 1px solid #dadada;
   margin-bottom: 8px;
 }
 
-/* line 448, ../sass/common.scss */
+/* line 453, ../sass/common.scss */
 form.wide input[type="text"], form.wide textarea {
   padding: 0.5em;
   border: 1px solid #d4d4d4;
 }
 
-/* line 453, ../sass/common.scss */
+/* line 458, ../sass/common.scss */
 #top a.toggle {
   display: block;
   padding-right: 4px;
   float: left;
 }
 
-/* line 458, ../sass/common.scss */
+/* line 463, ../sass/common.scss */
 #top .dropdown {
   display: none;
   position: absolute;
@@ -542,7 +539,7 @@ form.wide input[type="text"], form.wide textarea {
   z-index: 1;
 }
 
-/* line 468, ../sass/common.scss */
+/* line 473, ../sass/common.scss */
 div.auth input.username, div.auth input.password {
   border: 1px solid #dadada;
   padding: 2px 3px;
@@ -550,51 +547,51 @@ div.auth input.username, div.auth input.password {
   background: white;
 }
 
-/* line 474, ../sass/common.scss */
+/* line 479, ../sass/common.scss */
 div.auth input.login {
   padding: 0 3px;
 }
 
-/* line 477, ../sass/common.scss */
+/* line 482, ../sass/common.scss */
 div.lichess_language {
   float: right;
   position: relative;
 }
 
-/* line 481, ../sass/common.scss */
+/* line 486, ../sass/common.scss */
 ul.language_links {
   width: 183px;
   max-height: 600px;
   overflow: auto;
 }
-/* line 486, ../sass/common.scss */
+/* line 491, ../sass/common.scss */
 ul.language_links a {
   display: block;
   padding: 0.4em 0.5em;
   text-decoration: none;
 }
-/* line 491, ../sass/common.scss */
+/* line 496, ../sass/common.scss */
 ul.language_links a:hover {
   background: #F0F0F0;
   color: #444;
 }
 
-/* line 497, ../sass/common.scss */
+/* line 502, ../sass/common.scss */
 #top div.lichess_language.shown ul.language_links {
   display: block;
 }
 
-/* line 501, ../sass/common.scss */
+/* line 506, ../sass/common.scss */
 ul.language_links li:last-child {
   border-top: 1px solid #dddddd;
 }
 
-/* line 505, ../sass/common.scss */
+/* line 510, ../sass/common.scss */
 #top div.themepicker {
   float: right;
   position: relative;
 }
-/* line 509, ../sass/common.scss */
+/* line 514, ../sass/common.scss */
 #top div.themepicker span.theme_demo {
   color: white;
   display: block;
@@ -603,41 +600,36 @@ ul.language_links li:last-child {
   text-decoration: none;
   line-height: normal;
 }
-
-/* line 519, ../sass/common.scss */
+/* line 525, ../sass/common.scss */
 #top div.themepicker.shown div.themes {
   display: block;
 }
-
-/* line 522, ../sass/common.scss */
+/* line 528, ../sass/common.scss */
 #top div.themepicker.shown div.theme {
   padding: 5px 10px;
   cursor: pointer;
 }
-
-/* line 526, ../sass/common.scss */
+/* line 532, ../sass/common.scss */
 #top div.themepicker.shown div.theme:hover {
   background: #f0f0f0;
 }
-
-/* line 529, ../sass/common.scss */
+/* line 536, ../sass/common.scss */
 #top div.themepicker.shown div.inner {
   border: 1px solid #dadada;
   position: relative;
   width: 128px;
   height: 64px;
 }
-
-/* line 535, ../sass/common.scss */
+/* line 542, ../sass/common.scss */
 #top div.themepicker.shown div.white {
   left: 64px;
 }
 
-/* line 539, ../sass/common.scss */
+/* line 548, ../sass/common.scss */
 #top a.bgpicker {
   float: right;
 }
-/* line 542, ../sass/common.scss */
+/* line 551, ../sass/common.scss */
 #top a.bgpicker span {
   width: 24px;
   height: 24px;
@@ -648,11 +640,11 @@ ul.language_links li:last-child {
   display: block;
 }
 
-/* line 552, ../sass/common.scss */
+/* line 561, ../sass/common.scss */
 a#sound_state {
   float: right;
 }
-/* line 555, ../sass/common.scss */
+/* line 564, ../sass/common.scss */
 a#sound_state span {
   margin-top: 4px;
   width: 18px;
@@ -663,16 +655,16 @@ a#sound_state span {
   background-position: 0 -64px;
   display: block;
 }
-/* line 565, ../sass/common.scss */
+/* line 574, ../sass/common.scss */
 a#sound_state.sound_state_on span {
   background-position: 0 -80px;
 }
-/* line 569, ../sass/common.scss */
+/* line 578, ../sass/common.scss */
 a#sound_state.unavailable {
   display: none;
 }
 
-/* line 574, ../sass/common.scss */
+/* line 583, ../sass/common.scss */
 #call_boxes {
   position: absolute;
   top: 30px;
@@ -680,7 +672,7 @@ a#sound_state.unavailable {
   width: 250px;
 }
 
-/* line 581, ../sass/common.scss */
+/* line 590, ../sass/common.scss */
 a.translation_call {
   margin-top: 1em;
   padding: 0.5em;
@@ -692,16 +684,16 @@ a.translation_call {
   text-decoration: none;
   position: relative;
 }
-/* line 590, ../sass/common.scss */
+/* line 599, ../sass/common.scss */
 a.translation_call span.action {
   float: right;
   margin-right: 2px;
 }
-/* line 595, ../sass/common.scss */
+/* line 604, ../sass/common.scss */
 a.translation_call span.name {
   font-weight: bold;
 }
-/* line 599, ../sass/common.scss */
+/* line 608, ../sass/common.scss */
 a.translation_call .close {
   position: absolute;
   bottom: 0.4em;
@@ -709,33 +701,33 @@ a.translation_call .close {
   text-decoration: none;
   font-weight: bold;
 }
-/* line 606, ../sass/common.scss */
+/* line 615, ../sass/common.scss */
 a.translation_call .close:hover {
   color: red;
   font-size: 1.4em;
   bottom: 0.2em;
   right: 0.3em;
 }
-/* line 614, ../sass/common.scss */
+/* line 623, ../sass/common.scss */
 a.translation_call div.progressbar {
   margin-top: 0.5em;
   background: white;
   margin-bottom: 0.4em;
 }
 
-/* line 621, ../sass/common.scss */
+/* line 630, ../sass/common.scss */
 span.s16.clock {
   background-position: 0 -224px;
   padding-bottom: 1px;
 }
 
-/* line 625, ../sass/common.scss */
+/* line 634, ../sass/common.scss */
 .s16.tournament {
   background-position: 0 -304px;
   padding-bottom: 1px;
 }
 
-/* line 629, ../sass/common.scss */
+/* line 638, ../sass/common.scss */
 .s16.team {
   background-position: 0 -336px;
   padding-bottom: 1px;
@@ -743,19 +735,19 @@ span.s16.clock {
   height: 15px;
 }
 
-/* line 635, ../sass/common.scss */
+/* line 644, ../sass/common.scss */
 .s16.team.mine {
   background-position: 0 -352px;
 }
 
-/* line 638, ../sass/common.scss */
+/* line 647, ../sass/common.scss */
 .s16.ddown {
   background-position: right -192px;
   padding-left: 0;
   padding-right: 20px;
 }
 
-/* line 645, ../sass/common.scss */
+/* line 654, ../sass/common.scss */
 .user_link.white, .user_link.black, .user_link.online, .user_link.offline {
   line-height: 16px;
   display: block;
@@ -763,36 +755,36 @@ span.s16.clock {
   padding-left: 20px;
   white-space: nowrap;
 }
-/* line 653, ../sass/common.scss */
+/* line 662, ../sass/common.scss */
 .user_link.white {
   background-position: 0 -240px;
 }
-/* line 656, ../sass/common.scss */
+/* line 665, ../sass/common.scss */
 .user_link.black {
   background-position: 0 -256px;
 }
-/* line 659, ../sass/common.scss */
+/* line 668, ../sass/common.scss */
 .user_link.offline {
   padding-left: 20px;
   background-position: 0 -160px;
 }
-/* line 663, ../sass/common.scss */
+/* line 672, ../sass/common.scss */
 .user_link.online {
   padding-left: 20px;
   background-position: 0 -208px;
 }
-/* line 667, ../sass/common.scss */
+/* line 676, ../sass/common.scss */
 .user_link.inline {
   display: inline-block;
 }
 
-/* line 672, ../sass/common.scss */
+/* line 681, ../sass/common.scss */
 .tournament_link {
   padding-left: 20px;
   background-position: 0 -304px;
 }
 
-/* line 677, ../sass/common.scss */
+/* line 686, ../sass/common.scss */
 div.engine_warning {
   padding: 5px 5px 5px 40px;
   background: #f2dede url(../images/engine_big.png) 8px 5px no-repeat;
@@ -802,14 +794,14 @@ div.engine_warning {
   width: 240px;
   margin-bottom: 15px;
 }
-/* line 686, ../sass/common.scss */
+/* line 695, ../sass/common.scss */
 div.ui-tooltip div.engine_warning {
   margin: 10px 0 10px 5px;
   width: auto;
   background-position: 8px 0px;
 }
 
-/* line 693, ../sass/common.scss */
+/* line 702, ../sass/common.scss */
 .engine_mark {
   display: inline-block;
   width: 16px;
@@ -820,19 +812,19 @@ div.ui-tooltip div.engine_warning {
   vertical-align: bottom;
 }
 
-/* line 702, ../sass/common.scss */
+/* line 711, ../sass/common.scss */
 div.lichess_social {
   height: 0px;
   text-align: center;
 }
-/* line 706, ../sass/common.scss */
+/* line 715, ../sass/common.scss */
 div.lichess_social div.addtochrome {
   display: none;
   margin-bottom: 15px;
 }
 
 /* soft inactive gradient */
-/* line 723, ../sass/common.scss */
+/* line 732, ../sass/common.scss */
 #top,
 div.lichess_chat_top,
 div.undertable_top,
@@ -854,7 +846,7 @@ table.slist thead {
 }
 
 /* active gradient */
-/* line 742, ../sass/common.scss */
+/* line 751, ../sass/common.scss */
 #top a.goto_nav.active,
 .button.active,
 .button.active:hover,
@@ -877,7 +869,7 @@ div.locale_menu a.active {
 }
 
 /* strong inactive gradient */
-/* line 753, ../sass/common.scss */
+/* line 762, ../sass/common.scss */
 div.hooks td.action,
 .button:hover,
 .button.strong,
@@ -891,7 +883,7 @@ div.notification {
 }
 
 /* current gradient */
-/* line 759, ../sass/common.scss */
+/* line 768, ../sass/common.scss */
 #top a.goto_nav.current {
   color: white;
   background: #999;
@@ -903,7 +895,7 @@ div.notification {
 }
 
 /* standard shadow */
-/* line 772, ../sass/common.scss */
+/* line 781, ../sass/common.scss */
 div.lichess_chat,
 div.undertable,
 div.lichess_board_wrap,
@@ -918,27 +910,27 @@ div.content_box {
   border-radius: 4px;
 }
 
-/* line 777, ../sass/common.scss */
+/* line 786, ../sass/common.scss */
 div.checkmateFen {
   float: left;
   width: 250px;
   margin-left: 110px;
   cursor: pointer;
 }
-/* line 784, ../sass/common.scss */
+/* line 793, ../sass/common.scss */
 div.checkmateFen div.lmcs:hover {
   background: #eebb77!important;
 }
-/* line 788, ../sass/common.scss */
+/* line 797, ../sass/common.scss */
 div.checkmateFen div.lmcs.selected {
   background: #77eeaa!important;
 }
 
-/* line 794, ../sass/common.scss */
+/* line 803, ../sass/common.scss */
 div.checkmateSection {
   float: left;
 }
-/* line 797, ../sass/common.scss */
+/* line 806, ../sass/common.scss */
 div.checkmateSection div.result {
   display: none;
   height: 48px;
@@ -947,23 +939,23 @@ div.checkmateSection div.result {
   padding-left: 54px;
   font-weight: bold;
 }
-/* line 806, ../sass/common.scss */
+/* line 815, ../sass/common.scss */
 div.checkmateSection div.success {
   background: url(../images/tick-48.png) no-repeat;
   color: #00aa00;
 }
-/* line 811, ../sass/common.scss */
+/* line 820, ../sass/common.scss */
 div.checkmateSection div.failure {
   background: url(../images/cross-48.png) no-repeat;
   color: #aa0000;
 }
 
-/* line 819, ../sass/common.scss */
+/* line 828, ../sass/common.scss */
 div.checkmateCaptcha.success div.success, div.checkmateCaptcha.failure div.failure {
   display: block;
 }
 
-/* line 824, ../sass/common.scss */
+/* line 833, ../sass/common.scss */
 div.undergame_box {
   margin-top: 10px;
   width: 512px;
@@ -976,25 +968,25 @@ div.undergame_box {
   box-shadow: 0 0 7px #d0d0d0;
   line-height: 24px;
 }
-/* line 832, ../sass/common.scss */
+/* line 841, ../sass/common.scss */
 div.undergame_box a {
   text-decoration: none;
 }
-/* line 835, ../sass/common.scss */
+/* line 844, ../sass/common.scss */
 div.undergame_box a:hover {
   text-decoration: underline;
 }
-/* line 840, ../sass/common.scss */
+/* line 849, ../sass/common.scss */
 div.undergame_box div.inner {
   padding: 10px 10px 0 10px;
 }
 
-/* line 845, ../sass/common.scss */
+/* line 854, ../sass/common.scss */
 div.game_analysis {
   padding: 10px;
   width: 492px;
 }
-/* line 849, ../sass/common.scss */
+/* line 858, ../sass/common.scss */
 div.game_analysis a {
   background: url("../images/s24.png") no-repeat 0 -72px;
   display: block;
@@ -1002,24 +994,24 @@ div.game_analysis a {
   padding-left: 30px;
 }
 
-/* line 858, ../sass/common.scss */
+/* line 867, ../sass/common.scss */
 div.game_more div.more_top {
   padding: 3px 10px;
   width: 492px;
   height: 29px;
   border-bottom: 1px solid #cccccc;
 }
-/* line 864, ../sass/common.scss */
+/* line 873, ../sass/common.scss */
 div.game_more div.more_top span.bookmark {
   margin-top: 2px;
   margin-right: 34px;
 }
-/* line 870, ../sass/common.scss */
+/* line 879, ../sass/common.scss */
 div.game_more a.game_permalink {
   float: left;
   margin-top: 3px;
 }
-/* line 875, ../sass/common.scss */
+/* line 884, ../sass/common.scss */
 div.game_more textarea {
   display: block;
   width: 100%;
@@ -1036,19 +1028,19 @@ div.game_more textarea {
   border-radius: 3px;
 }
 
-/* line 890, ../sass/common.scss */
+/* line 899, ../sass/common.scss */
 div.game_extra div.bookmarkers {
   float: right;
   max-width: 48%;
 }
 
-/* line 895, ../sass/common.scss */
+/* line 904, ../sass/common.scss */
 span.bookmark {
   position: relative;
   float: right;
   margin-right: 14px;
 }
-/* line 900, ../sass/common.scss */
+/* line 909, ../sass/common.scss */
 span.bookmark .icon {
   position: absolute;
   top: 0;
@@ -1061,16 +1053,16 @@ span.bookmark .icon {
   text-decoration: none;
   color: #a0a0a0;
 }
-/* line 912, ../sass/common.scss */
+/* line 921, ../sass/common.scss */
 span.bookmark .icon.bookmarked {
   background-position: 0 -24px;
 }
-/* line 917, ../sass/common.scss */
+/* line 926, ../sass/common.scss */
 span.bookmark a {
   outline: none;
 }
 
-/* line 922, ../sass/common.scss */
+/* line 931, ../sass/common.scss */
 div.progressbar {
   background: #eaeaea;
   border: 1px solid #e0e0e0;
@@ -1079,7 +1071,7 @@ div.progressbar {
   border-radius: 5px;
   padding: 1px;
 }
-/* line 928, ../sass/common.scss */
+/* line 937, ../sass/common.scss */
 div.progressbar div {
   background: #d8a050;
   height: 12px;
@@ -1087,17 +1079,17 @@ div.progressbar div {
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
-/* line 934, ../sass/common.scss */
+/* line 943, ../sass/common.scss */
 div.progressbar.flashy.green div {
   background: #90d050;
 }
 
-/* line 939, ../sass/common.scss */
+/* line 948, ../sass/common.scss */
 div.notifications {
   width: 1005px;
   margin: 0 auto -10px auto;
 }
-/* line 943, ../sass/common.scss */
+/* line 952, ../sass/common.scss */
 div.notifications > div {
   margin-left: 211px;
   width: 498px;
@@ -1108,17 +1100,17 @@ div.notifications > div {
   -moz-border-radius: 3px;
   border-radius: 3px;
 }
-/* line 951, ../sass/common.scss */
+/* line 960, ../sass/common.scss */
 div.notifications > div a.close {
   text-decoration: none;
   float: right;
 }
-/* line 955, ../sass/common.scss */
+/* line 964, ../sass/common.scss */
 div.notifications > div a.close:hover {
   font-weight: bold;
 }
 
-/* line 962, ../sass/common.scss */
+/* line 971, ../sass/common.scss */
 #tournament_reminder .action {
   float: right;
   display: block;
@@ -1126,14 +1118,14 @@ div.notifications > div a.close:hover {
 }
 
 /* scroll */
-/* line 969, ../sass/common.scss */
+/* line 978, ../sass/common.scss */
 .nano {
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
-/* line 975, ../sass/common.scss */
+/* line 984, ../sass/common.scss */
 .nano .content {
   overflow: hidden;
   position: absolute;
@@ -1143,15 +1135,15 @@ div.notifications > div a.close:hover {
   right: 0;
   padding-right: 16px;
 }
-/* line 980, ../sass/common.scss */
+/* line 989, ../sass/common.scss */
 .nano .content:focus {
   outline: thin dotted;
 }
-/* line 984, ../sass/common.scss */
+/* line 993, ../sass/common.scss */
 .nano .content::-webkit-scrollbar {
   visibility: hidden;
 }
-/* line 989, ../sass/common.scss */
+/* line 998, ../sass/common.scss */
 .nano > .pane {
   background: rgba(0, 0, 0, 0.15);
   position: absolute;
@@ -1168,7 +1160,7 @@ div.notifications > div a.close:hover {
   -o-transition: 0.2s;
   transition: 0.2s;
 }
-/* line 997, ../sass/common.scss */
+/* line 1006, ../sass/common.scss */
 .nano > .pane > .slider {
   background: #444;
   background: rgba(0, 0, 0, 0.4);
@@ -1180,12 +1172,12 @@ div.notifications > div a.close:hover {
   cursor: pointer;
 }
 
-/* line 1008, ../sass/common.scss */
+/* line 1017, ../sass/common.scss */
 .has-scrollbar .content::-webkit-scrollbar {
   visibility: visible;
 }
 
-/* line 1012, ../sass/common.scss */
+/* line 1021, ../sass/common.scss */
 .nano:hover > .pane, .pane.active, .pane.flashed {
   visibility: visible\9;
   /* Target only IE7 and IE8 with this hack */

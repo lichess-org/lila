@@ -34,10 +34,10 @@ span.board_mark {
   }
 }
 
-@include font-face('pgn4web ChessSansMerida', font-files('/assets/vendor/pgn4web/fonts/ChessSansMerida.woff', 'woff',
-                                                         '/assets/vendor/pgn4web/fonts/ChessSansMerida.ttf', 'truetype',
-                                                         '/assets/vendor/pgn4web/fonts/ChessSansMerida.svg#ChessSansMerida', 'svg'),
-                                                         '/assets/vendor/pgn4web/fonts/ChessSansMerida.eot');
+@include font-face('pgn4web ChessSansMerida', font-files('/assets/stylesheets/fonts/ChessSansMerida.woff', 'woff',
+                                                         '/assets/stylesheets/fonts/ChessSansMerida.ttf', 'truetype',
+                                                         '/assets/stylesheets/fonts/ChessSansMerida.svg#ChessSansMerida', 'svg'),
+                                                         '/assets/stylesheets/fonts/ChessSansMerida.eot');
 
 #GameBoard {
   position: relative;
