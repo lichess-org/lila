@@ -780,6 +780,7 @@ div.undergame_box a:hover {
 }
 div.undergame_box div.inner {
   padding: 10px 10px 0 10px;
+  width: 492px;
 }
 
 div.game_analysis {
