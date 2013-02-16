@@ -13,7 +13,7 @@ case class AiConfig(
     level: Int,
     color: Color) extends Config with GameGenerator {
 
-  def initialFen = "r2q1rk1/ppp2pp1/1bnpbn1p/4p3/4P3/1BNPBN1P/PPPQ1PP1/R3K2R w KQ - 7 10".some
+  def initialFen = "r2q1rk1/ppp2pp1/1bnpbn1p/4p3/4P3/1BNPBN1P/PPPQ1PP1/R3K2R b KQ - 7 10".some
 
   def >> = (variant.id, clock, time, increment, level, color.name).some
 
