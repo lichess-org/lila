@@ -155,7 +155,9 @@ div.hooks_wrap div.filter .actions button {
 
 div.hooks {
   border: 1px solid #bababa;
-  border-top: 0
+  border-top: 0;
+  max-height: 514px;
+  overflow: auto;
 }
 div.hooks table {
   width: 100%;
