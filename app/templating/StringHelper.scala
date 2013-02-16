@@ -35,7 +35,10 @@ trait StringHelper {
     nl2br(addLinks(escape(text)))
   }
 
-  def escape(text: String) = escapeXml(text)
+  // the replace quot; -> " is required
+  // to avoid issues caused by addLinks
+  // when an url is surrounded by quotes
+  def escape(text: String) = escapeXml(text).replace("&quot;", "\"")
 
   def nl2br(text: String) = text.replace("\r\n", "<br />").replace("\n", "<br />")
 
