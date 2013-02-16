@@ -1,6 +1,7 @@
 @import "compass/css3";
 @import "compass/utilities";
 @import "compass/typography";
+@import "compass/layout";
 
 // Colors
 $black: #000 !default;
@@ -12,4 +13,7 @@ $aqua: #44a0b0 !default;
 
 // Fonts
 $MyriadProFontFamily: "Myriad Pro", Helvetica, Arial, Serif !default;
+$LucidaSansFontFamily: "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+$TrebuchetMSFontFamily: 'Trebuchet MS', 'Helvetica Neue', Arial, sans-serif;
+$ChessSansMeridaFontFamily: 'pgn4web ChessSansMerida', 'pgn4web Liberation Sans', sans-serif;
 $monospaceFontFamily: monospace !default;

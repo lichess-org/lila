@@ -1,50 +1,53 @@
-div.signup_box p.explanation {
-  font-size: 1.2em;
-  margin-bottom: 1em;
-}
-div.signup_box p.explanation em {
-  font-style: italic;
-}
+div.signup_box {
+  h1 {
+    margin-bottom: 2em;
+  }
 
-div.signup_box h1 {
-  margin-bottom: 2em;
-}
+  p.explanation {
+    font-size: 1.2em;
+    margin-bottom: 1em;
 
-div.signup_box .alternative {
-  font-size: 0.8em;
+    em {
+      font-style: italic;
+    }
+  }
+
+  .alternative {
+    font-size: 0.8em;
+  }
 }
 
 .content_box form {
   font-size: 1.3em;
-}
 
-.content_box form li {
-  list-style: none;
-  display: block;
-  margin: 1em 0 1em 0;
-  position: relative;
-}
+  li {
+    list-style: none;
+    display: block;
+    margin: 1em 0 1em 0;
+    position: relative;
+  }
 
-.content_box form label {
-  float: left;
-  display: block;
-  width: 150px;
-  text-align: right;
-  margin-right: 10px;
-  margin-top: 2px;
-}
+  label {
+    float: left;
+    display: block;
+    width: 150px;
+    text-align: right;
+    margin-right: 10px;
+    margin-top: 2px;
+  }
 
-.content_box form .username input, .content_box form .password input {
-  width: 200px;
-  padding: 0 3px;
-  border: 1px solid #D4D4D4;
-  padding: 3px 5px;
-}
+  .username input, .password input {
+    width: 200px;
+    padding: 0 3px;
+    border: 1px solid #D4D4D4;
+    padding: 3px 5px;
+  }
 
-.content_box form input.submit {
-  margin-left: 160px;
-  margin-right: 20px;
-  padding: 3px 1em;
+  input.submit {
+    margin-left: 160px;
+    margin-right: 20px;
+    padding: 3px 1em;
+  }
 }
 
 /* Errors */
@@ -55,11 +58,13 @@ form .error {
 
 div.checkmateCaptcha {
   margin-top: 2em;
-}
-div.checkmateCaptcha div.checkmateFen {
-  margin-left: 0;
-}
-div.checkmateCaptcha label {
-  width: 250px;
-  text-align: left;
+
+  div.checkmateFen {
+    margin-left: 0;
+  }
+
+  label {
+    width: 250px;
+    text-align: left;
+  }
 }

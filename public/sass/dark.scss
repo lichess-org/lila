@@ -388,10 +388,8 @@ body.dark {
   }
 
   input, textarea {
-    @each $placeholder in ":-moz", ":-ms-input", "::-webkit-input" {
-      &#{$placeholder}#{"-placeholder"} {
-        color: #666;
-      }
+    @include input-placeholder("&") {
+      color: #666;
     }
   }
 }

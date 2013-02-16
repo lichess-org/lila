@@ -34,11 +34,10 @@ span.board_mark {
   }
 }
 
-@font-face {
-  font-family: 'pgn4web ChessSansMerida';
-  src: url('ChessSansMerida.eot');
-  src: url('/assets/vendor/pgn4web/fonts/ChessSansMerida.eot?#iefix') format('embedded-opentype'), url('/assets/vendor/pgn4web/fonts/ChessSansMerida.woff') format('woff'), url('/assets/vendor/pgn4web/fonts/ChessSansMerida.ttf') format('truetype'), url('/assets/vendor/pgn4web/fonts/ChessSansMerida.svg#ChessSansMerida') format('svg');
-}
+@include font-face('pgn4web ChessSansMerida', font-files('/assets/vendor/pgn4web/fonts/ChessSansMerida.woff', 'woff',
+                                                         '/assets/vendor/pgn4web/fonts/ChessSansMerida.ttf', 'truetype',
+                                                         '/assets/vendor/pgn4web/fonts/ChessSansMerida.svg#ChessSansMerida', 'svg'),
+                                                         '/assets/vendor/pgn4web/fonts/ChessSansMerida.eot');
 
 #GameBoard {
   position: relative;
@@ -109,7 +108,7 @@ span.board_mark {
 
   a {
     &.move {
-      font-family: 'pgn4web ChessSansMerida', 'pgn4web Liberation Sans', sans-serif;
+      font-family: $ChessSansMeridaFontFamily;
       text-decoration: none;
       padding: 5px 10px;
       display: block;

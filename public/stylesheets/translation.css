@@ -44,8 +44,6 @@ div.locale_menu a {
   text-decoration: none;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
   border-radius: 4px;
 }
 /* line 45, ../sass/translation.scss */

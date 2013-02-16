@@ -1,6 +1,6 @@
-/* line 140, mini_pieces2/*.png */
+/* line 143, mini_pieces2/*.png */
 .mini_pieces2-sprite, div.lmcs.moved, div.lmcs.pawn.white, div.lmcs.bishop.white, div.lmcs.knight.white, div.lmcs.rook.white, div.lmcs.queen.white, div.lmcs.king.white, div.lmcs.pawn.black, div.lmcs.bishop.black, div.lmcs.knight.black, div.lmcs.rook.black, div.lmcs.queen.black, div.lmcs.king.black {
-  background: url('/public/images/mini_pieces2-sefb5641370.png') no-repeat;
+  background: url('/images/mini_pieces2-s30d6fb324b.png') no-repeat;
 }
 
 /* line 4, ../sass/gamelist.scss */
@@ -89,11 +89,11 @@ div.lmcs.black {
 }
 /* line 87, ../sass/gamelist.scss */
 div.lmcs.moved {
-  background-position: 0 -28px;
+  background-position: 0 -168px;
 }
 /* line 90, ../sass/gamelist.scss */
 div.lmcs.pawn.white {
-  background-position: 0 -308px;
+  background-position: 0 -280px;
 }
 /* line 93, ../sass/gamelist.scss */
 div.lmcs.bishop.white {
@@ -101,43 +101,43 @@ div.lmcs.bishop.white {
 }
 /* line 96, ../sass/gamelist.scss */
 div.lmcs.knight.white {
-  background-position: 0 -112px;
+  background-position: 0 -252px;
 }
 /* line 99, ../sass/gamelist.scss */
 div.lmcs.rook.white {
-  background-position: 0 -168px;
+  background-position: 0 -336px;
 }
 /* line 102, ../sass/gamelist.scss */
 div.lmcs.queen.white {
-  background-position: 0 -56px;
+  background-position: 0 -308px;
 }
 /* line 105, ../sass/gamelist.scss */
 div.lmcs.king.white {
-  background-position: 0 0;
+  background-position: 0 -224px;
 }
 /* line 108, ../sass/gamelist.scss */
 div.lmcs.pawn.black {
-  background-position: 0 -336px;
+  background-position: 0 -84px;
 }
 /* line 111, ../sass/gamelist.scss */
 div.lmcs.bishop.black {
-  background-position: 0 -252px;
+  background-position: 0 0;
 }
 /* line 114, ../sass/gamelist.scss */
 div.lmcs.knight.black {
-  background-position: 0 -280px;
+  background-position: 0 -56px;
 }
 /* line 117, ../sass/gamelist.scss */
 div.lmcs.rook.black {
-  background-position: 0 -224px;
+  background-position: 0 -140px;
 }
 /* line 120, ../sass/gamelist.scss */
 div.lmcs.queen.black {
-  background-position: 0 -84px;
+  background-position: 0 -112px;
 }
 /* line 123, ../sass/gamelist.scss */
 div.lmcs.king.black {
-  background-position: 0 -140px;
+  background-position: 0 -28px;
 }
 
 /* line 128, ../sass/gamelist.scss */

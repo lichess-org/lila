@@ -68,7 +68,26 @@
 #lichess_message div.answer div.actions a {
   margin-left: 1em;
 }
-/* line 75, ../sass/message.scss */
+/* line 76, ../sass/message.scss */
+#lichess_message .field_to,
+#lichess_message .field_subject {
+  margin-bottom: 1em;
+}
+/* line 79, ../sass/message.scss */
+#lichess_message .field_to input,
+#lichess_message .field_subject input {
+  width: 450px;
+  border: 1px solid #d4d4d4;
+  padding: 3px 5px;
+}
+/* line 86, ../sass/message.scss */
+#lichess_message form textarea {
+  width: 547px;
+  height: 150px;
+  padding: 10px;
+  border: 1px solid #d4d4d4;
+}
+/* line 93, ../sass/message.scss */
 #lichess_message label {
   float: left;
   width: 60px;
@@ -77,42 +96,19 @@
   vertical-align: middle;
   margin-top: 3px;
 }
+/* line 102, ../sass/message.scss */
+#lichess_message .error {
+  color: red;
+  margin-left: 60px;
+}
 
-/* line 86, ../sass/message.scss */
+/* line 109, ../sass/message.scss */
 div.sidebar {
   margin-top: 30px;
 }
-/* line 89, ../sass/message.scss */
+/* line 112, ../sass/message.scss */
 div.sidebar a {
   display: block;
   font-size: 1.2em;
   padding: 1em 0 1em 1em;
-}
-
-/* line 97, ../sass/message.scss */
-#lichess_message .field_to input,
-#lichess_message .field_subject input {
-  width: 450px;
-  border: 1px solid #d4d4d4;
-  padding: 3px 5px;
-}
-
-/* line 103, ../sass/message.scss */
-#lichess_message .field_to,
-#lichess_message .field_subject {
-  margin-bottom: 1em;
-}
-
-/* line 106, ../sass/message.scss */
-#lichess_message form textarea {
-  width: 547px;
-  height: 150px;
-  padding: 10px;
-  border: 1px solid #d4d4d4;
-}
-
-/* line 112, ../sass/message.scss */
-#lichess_message .error {
-  color: red;
-  margin-left: 60px;
 }

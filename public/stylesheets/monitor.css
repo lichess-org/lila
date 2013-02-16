@@ -1,6 +1,6 @@
-/* line 92, monitor/*.png */
+/* line 95, monitor/*.png */
 .monitor-sprite, .monitor, .wheel, .needle {
-  background: url('/public/images/monitor-s6d2146dac7.png') no-repeat;
+  background: url('/images/monitor-s4db31b6e84.png') no-repeat;
 }
 
 /* line 4, ../sass/monitor.scss */
@@ -72,7 +72,7 @@ a .back {
   margin: 20px 8px 0 8px;
   width: 302px;
   height: 123px;
-  background-position: 0 0;
+  background-position: 0 -78px;
   position: relative;
 }
 /* line 71, ../sass/monitor.scss */
@@ -97,8 +97,6 @@ a .back {
   background: black;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
   border-radius: 4px;
   width: 60px;
   height: 18px;
@@ -109,7 +107,6 @@ a .back {
   background-image: -webkit-linear-gradient(top left, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
   background-image: -moz-linear-gradient(top left, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
   background-image: -o-linear-gradient(top left, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-  background-image: -ms-linear-gradient(top left, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
   background-image: linear-gradient(top left, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
   -webkit-box-shadow: 0px 1px 1px #494e54, inset 0px 1px 2px rgba(0, 0, 0, 0.6);
   -moz-box-shadow: 0px 1px 1px #494e54, inset 0px 1px 2px rgba(0, 0, 0, 0.6);
@@ -133,7 +130,7 @@ a .back {
   height: 13px;
   top: 97px;
   left: 99px;
-  background-position: 0 -194px;
+  background-position: 0 -215px;
 }
 
 /* line 120, ../sass/monitor.scss */
@@ -148,12 +145,12 @@ a .back {
   left: 30px;
   height: 7px;
   width: 76px;
-  background-position: 0 -221px;
+  background-position: 0 -201px;
 }
 
-/* line 60, status/*.png */
+/* line 63, status/*.png */
 .status-sprite, div.light, .monitor.alert div.light, body.up div.light {
-  background: url('/public/images/status-s09aa4bd931.png') no-repeat;
+  background: url('/images/status-sd927079eaa.png') no-repeat;
 }
 
 /* line 132, ../sass/monitor.scss */
@@ -163,13 +160,13 @@ div.light {
   position: absolute;
   top: 2px;
   left: 200px;
-  background-position: 0 -26px;
+  background-position: 0 0;
 }
 /* line 140, ../sass/monitor.scss */
 .monitor.alert div.light {
-  background-position: 0 -52px;
+  background-position: 0 -26px;
 }
 /* line 144, ../sass/monitor.scss */
 body.up div.light {
-  background-position: 0 0;
+  background-position: 0 -52px;
 }

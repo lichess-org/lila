@@ -53,9 +53,9 @@ div.game_config .clock_config label {
 div.game_config button.submit {
   margin-top: 0.5em;
 }
-/* line 60, color/*.png */
+/* line 63, color/*.png */
 div.game_config .color-sprite, div.game_config div.color_submits button.submit span, div.game_config div.color_submits button.black span, div.game_config div.color_submits button.random span {
-  background: url('/public/images/color-s66fc0933ec.png') no-repeat;
+  background: url('/images/color-s436e594e68.png') no-repeat;
 }
 /* line 62, ../sass/opening.scss */
 div.game_config div.color_submits {
@@ -73,7 +73,7 @@ div.game_config div.color_submits button.submit {
 }
 /* line 75, ../sass/opening.scss */
 div.game_config div.color_submits button.submit span {
-  background-position: 0 -51px;
+  background-position: 0 -102px;
   width: 50px;
   height: 51px;
   padding: 0;
@@ -84,7 +84,7 @@ div.game_config div.color_submits button.black span {
 }
 /* line 85, ../sass/opening.scss */
 div.game_config div.color_submits button.random span {
-  background-position: 0 -102px;
+  background-position: 0 -51px;
 }
 
 /* line 93, ../sass/opening.scss */
@@ -100,10 +100,8 @@ div.hooks_wrap {
   top: 51px;
   left: 52px;
   padding: 12px;
-  -webkit-border-radius: 3px 0 3px 3px;
+  -webkit-border-radius: 3px;
   -moz-border-radius: 3px 0 3px 3px;
-  -ms-border-radius: 3px 0 3px 3px;
-  -o-border-radius: 3px 0 3px 3px;
   border-radius: 3px 0 3px 3px;
   -webkit-box-shadow: 0 0 20px #444444;
   -moz-box-shadow: 0 0 20px #444444;
@@ -112,7 +110,6 @@ div.hooks_wrap {
   background-image: -webkit-linear-gradient(top, rgba(212, 212, 212, 0.9) 0%, rgba(240, 240, 240, 0.5) 100%);
   background-image: -moz-linear-gradient(top, rgba(212, 212, 212, 0.9) 0%, rgba(240, 240, 240, 0.5) 100%);
   background-image: -o-linear-gradient(top, rgba(212, 212, 212, 0.9) 0%, rgba(240, 240, 240, 0.5) 100%);
-  background-image: -ms-linear-gradient(top, rgba(212, 212, 212, 0.9) 0%, rgba(240, 240, 240, 0.5) 100%);
   background-image: linear-gradient(top, rgba(212, 212, 212, 0.9) 0%, rgba(240, 240, 240, 0.5) 100%);
   background: rgba(245, 245, 245, 0.8);
 }
@@ -138,10 +135,8 @@ div.hooks_wrap a.filter {
   color: #333;
   border-bottom: 0;
   display: block;
-  -webkit-border-radius: 3px 3px 0 0;
+  -webkit-border-radius: 3px;
   -moz-border-radius: 3px 3px 0 0;
-  -ms-border-radius: 3px 3px 0 0;
-  -o-border-radius: 3px 3px 0 0;
   border-radius: 3px 3px 0 0;
   text-decoration: none;
 }
@@ -178,10 +173,8 @@ div.hooks_wrap div.filter {
   border: 1px solid #888888;
   border-width: 0 0 1px 1px;
   background: white;
-  -webkit-border-radius: 0 0 0 3px;
+  -webkit-border-radius: 0;
   -moz-border-radius: 0 0 0 3px;
-  -ms-border-radius: 0 0 0 3px;
-  -o-border-radius: 0 0 0 3px;
   border-radius: 0 0 0 3px;
 }
 /* line 167, ../sass/opening.scss */
@@ -348,10 +341,8 @@ div.undertable tr:nth-child(even) td {
 
 /* line 329, ../sass/opening.scss */
 div.undertable_top {
-  -webkit-border-radius: 4px 4px 0 0;
+  -webkit-border-radius: 4px;
   -moz-border-radius: 4px 4px 0 0;
-  -ms-border-radius: 4px 4px 0 0;
-  -o-border-radius: 4px 4px 0 0;
   border-radius: 4px 4px 0 0;
   border: 1px solid #cccccc;
   padding: 3px 5px;
@@ -373,10 +364,8 @@ div.undertable_top span.title {
 div.undertable_inner {
   border: 1px solid #cccccc;
   border-top: 0;
-  -webkit-border-radius: 0 0 4px 4px;
+  -webkit-border-radius: 0;
   -moz-border-radius: 0 0 4px 4px;
-  -ms-border-radius: 0 0 4px 4px;
-  -o-border-radius: 0 0 4px 4px;
   border-radius: 0 0 4px 4px;
   height: 204px;
   width: auto;

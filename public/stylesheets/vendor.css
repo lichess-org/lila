@@ -1,64 +1,76 @@
-/*
-Copyright (c) 2010, Yahoo! Inc. All rights reserved.
-Code licensed under the BSD License:
-http://developer.yahoo.com/yui/license.html
-version: 3.3.0
-build: 3167
-*/
-/* line 10, ../sass/vendor.scss */
-body, ul, ol, li, h1, h2, form, legend, input, textarea, p, th, td {
+/* line 17, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
   margin: 0;
   padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
 }
 
-/* line 11, ../sass/vendor.scss */
+/* line 22, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 12, ../sass/vendor.scss */
-img {
-  border: 0;
-}
-
-/* line 13, ../sass/vendor.scss */
-em, strong, th {
-  font-style: normal;
-  font-weight: normal;
-}
-
-/* line 14, ../sass/vendor.scss */
-li {
-  list-style: none;
-}
-
-/* line 15, ../sass/vendor.scss */
-th {
+/* line 28, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
   text-align: left;
-}
-
-/* line 16, ../sass/vendor.scss */
-h1, h2, h3 {
-  font-size: 100%;
   font-weight: normal;
+  vertical-align: middle;
 }
 
-/* line 17, ../sass/vendor.scss */
-input, textarea, select {
-  font-family: inherit;
-  font-size: inherit;
-  font-weight: inherit;
+/* line 30, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.13.alpha.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
 }
 
 /* jquery-ui */
 /* button */
-/* line 21, ../sass/vendor.scss */
+/* line 7, ../sass/vendor.scss */
 .ui-helper-hidden {
   display: none;
 }
 
-/* line 22, ../sass/vendor.scss */
+/* line 8, ../sass/vendor.scss */
 .ui-helper-hidden-accessible {
   border: 0;
   clip: rect(0 0 0 0);
@@ -70,35 +82,35 @@ input, textarea, select {
   width: 1px;
 }
 
-/* line 23, ../sass/vendor.scss */
+/* line 9, ../sass/vendor.scss */
 .ui-state-default {
   border: 1px solid lightgrey;
 }
 
-/* line 26, ../sass/vendor.scss */
+/* line 12, ../sass/vendor.scss */
 .ui-state-default.ui-state-hover {
   border-color: #aaa;
 }
 
-/* line 29, ../sass/vendor.scss */
+/* line 15, ../sass/vendor.scss */
 button.ui-state-hover {
   -webkit-box-shadow: 0 0 9px #d85000;
   -moz-box-shadow: 0 0 9px #d85000;
   box-shadow: 0 0 9px #d85000;
 }
 
-/* line 32, ../sass/vendor.scss */
+/* line 18, ../sass/vendor.scss */
 .ui-state-active {
   border: 1px solid #d85000;
 }
 
-/* line 35, ../sass/vendor.scss */
+/* line 21, ../sass/vendor.scss */
 .ui-state-active.ui-state-hover {
   border-color: #984000;
 }
 
 /* defaults */
-/* line 39, ../sass/vendor.scss */
+/* line 25, ../sass/vendor.scss */
 .ui-button {
   display: inline-block;
   position: relative;
@@ -112,49 +124,49 @@ button.ui-state-hover {
 }
 
 /* the overflow property removes extra width in IE */
-/* line 40, ../sass/vendor.scss */
+/* line 26, ../sass/vendor.scss */
 .ui-button-icon-only {
   width: 2.2em;
 }
 
 /* to make room for the icon, a width needs to be set here */
-/* line 41, ../sass/vendor.scss */
+/* line 27, ../sass/vendor.scss */
 button.ui-button-icon-only {
   width: 2.4em;
 }
 
 /* button elements seem to need a little more width */
-/* line 42, ../sass/vendor.scss */
+/* line 28, ../sass/vendor.scss */
 .ui-button-icons-only {
   width: 3.4em;
 }
 
-/* line 43, ../sass/vendor.scss */
+/* line 29, ../sass/vendor.scss */
 button.ui-button-icons-only {
   width: 3.7em;
 }
 
 /*button text element */
-/* line 45, ../sass/vendor.scss */
+/* line 31, ../sass/vendor.scss */
 .ui-button .ui-button-text {
   display: block;
   line-height: 1.4;
 }
 
-/* line 46, ../sass/vendor.scss */
+/* line 32, ../sass/vendor.scss */
 .ui-button-text-only .ui-button-text {
   padding: 0.4em 1em;
 }
 
 /*button sets*/
-/* line 48, ../sass/vendor.scss */
+/* line 34, ../sass/vendor.scss */
 .ui-buttonset .ui-button {
   margin-left: 0;
   margin-right: -.3em;
 }
 
 /* Corner radius */
-/* line 50, ../sass/vendor.scss */
+/* line 36, ../sass/vendor.scss */
 .ui-corner-right {
   -moz-border-radius-topright: 4px;
   -webkit-border-top-right-radius: 4px;
@@ -164,7 +176,7 @@ button.ui-button-icons-only {
   border-bottom-right-radius: 4px;
 }
 
-/* line 51, ../sass/vendor.scss */
+/* line 37, ../sass/vendor.scss */
 .ui-corner-left {
   -moz-border-radius-topleft: 4px;
   -webkit-border-top-left-radius: 4px;
@@ -174,22 +186,22 @@ button.ui-button-icons-only {
   border-bottom-left-radius: 4px;
 }
 
-/* line 52, ../sass/vendor.scss */
+/* line 38, ../sass/vendor.scss */
 .ui-corner-all {
-  -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
   border-radius: 4px;
 }
 
 /* workarounds */
-/* line 54, ../sass/vendor.scss */
+/* line 40, ../sass/vendor.scss */
 button.ui-button::-moz-focus-inner {
   border: 0;
   padding: 0;
 }
 
 /* reset extra padding in Firefox */
-/* line 55, ../sass/vendor.scss */
+/* line 41, ../sass/vendor.scss */
 ul.ui-autocomplete {
   width: 200px;
   background: #FAFAFA;
@@ -198,42 +210,42 @@ ul.ui-autocomplete {
   overflow: auto;
 }
 
-/* line 62, ../sass/vendor.scss */
+/* line 48, ../sass/vendor.scss */
 ul.ui-autocomplete li a {
   display: block;
   padding: 0.6em 1em;
   text-decoration: none;
 }
 
-/* line 67, ../sass/vendor.scss */
+/* line 53, ../sass/vendor.scss */
 ul.ui-autocomplete li a.ui-state-focus {
   background: #E1F6F8;
   color: #444;
 }
 
 /* slider */
-/* line 72, ../sass/vendor.scss */
+/* line 58, ../sass/vendor.scss */
 .ui-widget-content {
   border: 1px solid #dddddd;
   background: #EEE;
   color: #333;
 }
 
-/* line 77, ../sass/vendor.scss */
+/* line 63, ../sass/vendor.scss */
 .ui-widget-header {
   border: 1px solid #e78f08;
   color: white;
   font-weight: bold;
 }
 
-/* line 82, ../sass/vendor.scss */
+/* line 68, ../sass/vendor.scss */
 .ui-slider {
   background: #fff;
   position: relative;
   text-align: left;
 }
 
-/* line 83, ../sass/vendor.scss */
+/* line 69, ../sass/vendor.scss */
 .ui-slider .ui-slider-handle {
   position: absolute;
   z-index: 2;
@@ -242,7 +254,7 @@ ul.ui-autocomplete li a.ui-state-focus {
   cursor: default;
 }
 
-/* line 84, ../sass/vendor.scss */
+/* line 70, ../sass/vendor.scss */
 .ui-slider .ui-slider-range {
   position: absolute;
   z-index: 1;
@@ -252,58 +264,58 @@ ul.ui-autocomplete li a.ui-state-focus {
   background-position: 0 0;
 }
 
-/* line 85, ../sass/vendor.scss */
+/* line 71, ../sass/vendor.scss */
 .ui-slider-horizontal {
   height: .8em;
 }
 
-/* line 86, ../sass/vendor.scss */
+/* line 72, ../sass/vendor.scss */
 .ui-slider-horizontal .ui-slider-handle {
   top: -.3em;
   margin-left: -.6em;
 }
 
-/* line 87, ../sass/vendor.scss */
+/* line 73, ../sass/vendor.scss */
 .ui-slider-horizontal .ui-slider-range {
   top: 0;
   height: 100%;
 }
 
-/* line 88, ../sass/vendor.scss */
+/* line 74, ../sass/vendor.scss */
 .ui-slider-horizontal .ui-slider-range-min {
   left: 0;
 }
 
-/* line 89, ../sass/vendor.scss */
+/* line 75, ../sass/vendor.scss */
 .ui-slider-horizontal .ui-slider-range-max {
   right: 0;
 }
 
-/* line 90, ../sass/vendor.scss */
+/* line 76, ../sass/vendor.scss */
 .ui-slider-vertical {
   width: .8em;
   height: 100px;
 }
 
-/* line 91, ../sass/vendor.scss */
+/* line 77, ../sass/vendor.scss */
 .ui-slider-vertical .ui-slider-handle {
   left: -.3em;
   margin-left: 0;
   margin-bottom: -.6em;
 }
 
-/* line 92, ../sass/vendor.scss */
+/* line 78, ../sass/vendor.scss */
 .ui-slider-vertical .ui-slider-range {
   left: 0;
   width: 100%;
 }
 
-/* line 93, ../sass/vendor.scss */
+/* line 79, ../sass/vendor.scss */
 .ui-slider-vertical .ui-slider-range-min {
   bottom: 0;
 }
 
-/* line 94, ../sass/vendor.scss */
+/* line 80, ../sass/vendor.scss */
 .ui-slider-vertical .ui-slider-range-max {
   top: 0;
 }

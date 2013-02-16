@@ -72,6 +72,24 @@
 
   }
 
+  .field_to,
+  .field_subject {
+    margin-bottom: 1em;
+
+    input {
+      width: 450px;
+      border: 1px solid #D4D4D4;
+      padding: 3px 5px;
+    }
+  }
+
+  form textarea {
+    width: 547px;
+    height: 150px;
+    padding: 10px;
+    border: 1px solid #D4D4D4;
+  }
+
   label {
     float: left;
     width: 60px;
@@ -79,6 +97,11 @@
     margin-right: 10px;
     vertical-align: middle;
     margin-top: 3px;
+  }
+
+  .error {
+    color: red;
+    margin-left: 60px;
   }
 
 }
@@ -91,25 +114,4 @@ div.sidebar {
     font-size: 1.2em;
     padding: 1em 0 1em 1em;
   }
-}
-
-#lichess_message .field_to input,
-#lichess_message .field_subject input {
-  width: 450px;
-  border: 1px solid #D4D4D4;
-  padding: 3px 5px;
-}
-#lichess_message .field_to,
-#lichess_message .field_subject {
-  margin-bottom: 1em;
-}
-#lichess_message form textarea {
-  width: 547px;
-  height: 150px;
-  padding: 10px;
-  border: 1px solid #D4D4D4;
-}
-#lichess_message .error {
-  color: red;
-  margin-left: 60px;
 }

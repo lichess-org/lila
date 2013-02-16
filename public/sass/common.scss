@@ -1,8 +1,5 @@
 @import "variables";
 
-.clearfix:after { content:"."; display:block; height:0; clear:both; visibility:hidden; }
-.clearfix {display:inline-block;}
-
 .none {
   display: none;
 }
@@ -13,7 +10,8 @@
 }
 
 body {
-  font:12px 'Lucanida Grde','Lucida Sans Unicode',Geneva,Verdana,Sans-Serif;
+  font-family: $LucidaSansFontFamily;
+  font-size: 12px;
   color: #848484;
   background: #F7F7F7 url(../images/head_bg.png) top left repeat-x;
   background-position: left +25px;
@@ -51,24 +49,26 @@ div.header strong {
 
 body > div.content {
   width: 1005px;
-  min-height: 590px;
+  @include min-height(590px);
   margin: 30px auto 30px auto;
 }
 body.tight > div.content {
   width: auto;
-  min-width: 780px;
+  @include min-width(780px);
   margin-top: 5px;
 }
 
 #top {
+  @include clearfix();
   width: 100%;
-  min-width: 1005px;
+  @include min-width(1005px);
   height: 24px;
   border-bottom: 1px solid #c4c4c4;
-}
-body.tight #top {
-  min-width: 780px;
-  overflow: hidden;
+
+  body.tight & {
+    @include min-width(780px);
+    overflow: hidden;
+  }
 }
 #site_description {
   position: absolute;
@@ -86,7 +86,7 @@ body.tight #top {
 #site_title {
   width: 130px;
   color: #666;
-  font-family: 'Trebuchet MS', 'Helvetica Neue', Arial, Sans-Serif;
+  font-family: $TrebuchetMSFontFamily;
   font-size: 30px;
   color: #afafaf;
   text-decoration: none;
@@ -147,7 +147,7 @@ div.footer {
 }
 
 .button, a.button {
-  border-radius: 5px;
+  @include border-radius(5px);
   border: 1px solid #DADADA;
   padding: 0.4em 1em;
   text-decoration: none;
@@ -161,7 +161,7 @@ a.easy_button {
 
 div.content_box {
   border: 1px solid #ccc;
-  border-radius: 5px;
+  @include border-radius(5px);
   background: $white;
   padding: 20px 24px 24px 24px;
   text-align: left;
@@ -224,9 +224,11 @@ div.content_box_top {
     margin: 12px 8px 0 -10px;
   }
 }
+
 .content_box_content {
   padding: 20px 25px 25px 25px;
 }
+
 div.content_box_inter {
   padding-left: 25px;
   line-height: 40px;
@@ -234,20 +236,22 @@ div.content_box_inter {
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   display: block;
-}
-div.content_box_inter a {
-  float: left;
-  line-height: 40px;
-  margin: 5px 0 -1px 0;
-  padding: 0 0.7em;
-  font-size: 1.2em;
-  text-decoration: none;
-}
-div.content_box_inter a.active {
-  background: white;
-  border: 1px solid #ccc;
-  border-bottom: 0;
-  text-decoration: none;
+
+  a {
+    float: left;
+    line-height: 40px;
+    margin: 5px 0 -1px 0;
+    padding: 0 0.7em;
+    font-size: 1.2em;
+    text-decoration: none;
+
+    &.active {
+      background: $white;
+      border: 1px solid #ccc;
+      border-bottom: 0;
+      text-decoration: none;
+    }
+  }
 }
 
 div.content_box .lichess_title {
@@ -261,7 +265,7 @@ div.content_box table.datatable {
   margin-top: 20px;
 }
 div.content_box table.datatable td {
-  padding: 5px 10px 5px 10px;
+  padding: 5px 10px;
 }
 div.content_box table.datatable tr:nth-child(odd) {
   background: #f7f7f7;
@@ -270,37 +274,43 @@ div.content_box table.datatable tr:nth-child(odd) {
 table.slist {
   width: 100%;
   border-bottom: 1px solid #d4d4d4;
-}
 
-table.slist thead th {
-  border-top: 1px solid #d4d4d4;
-  padding: 0.4em 0.6em;
-}
-table.slist thead th.large {
-  font-size: 1.4em;
-}
+  thead th {
+    border-top: 1px solid #d4d4d4;
+    padding: 0.4em 0.6em;
 
-table.slist td {
-  padding: 0.6em;
-  font-size: 1.2em;
+    &.large {
+      font-size: 1.4em;
+    }
+  }
 
-  .label {
-    font-family: monospace;
-    font-size: 10px;
+  td {
+    padding: 0.6em;
+    font-size: 1.2em;
+
+    .label {
+      font-family: $monospaceFontFamily;
+      font-size: 10px;
+    }
+  }
+
+  tbody tr:nth-child(even) {
+    background: #f4f4f4;
+  }
+
+  td, th {
+    &:first-child {
+      padding-left: 25px;
+    }
+  }
+
+  .s16 {
+    display: block;
+    height: 16px;
+    padding: 0 0 0 20px;
   }
 }
-table.slist .s16 {
-  display: block;
-  height: 16px;
-  padding: 0 0 0 20px;
-}
-table.slist tbody tr:nth-child(even) {
-  background: #f4f4f4;
-}
-table.slist td:first-child,
-table.slist th:first-child {
-  padding-left: 25px;
-}
+
 
 div.lichess_goodies div.box {
   margin-top: 1em;
@@ -318,23 +328,26 @@ div.lichess_goodies div.box {
 
 div.header div.side_menu {
   margin-top: 15px;
+
+  a {
+    padding: 8px 0 8px 8px;
+    display: block;
+    text-decoration: none;
+    width: 203px;
+    font-weight: bold;
+
+    &.active {
+      background: white;
+      border: 1px solid #dadada;
+      border-right: none;
+      @include border-radius(4px 0 0 4px);
+      @include box-shadow(-3px 0 5px #d0d0d0);
+    }
+  }
 }
-div.header div.side_menu a {
-  padding: 8px 0 8px 8px;
-  display: block;
-  text-decoration: none;
-  width: 203px;
-  font-weight: bold;
-}
+
 body.tight div.side_menu a {
   padding-right: 10px;
-}
-div.header div.side_menu a.active {
-  background: white;
-  border: 1px solid #dadada;
-  border-right: none;
-  border-radius: 4px 0 0 4px;
-  box-shadow: -3px 0 5px #d0d0d0;
 }
 
 #nb_connected_players, a.goto_nav, #top a.toggle, #top a.bgpicker, a#sound_state {
@@ -354,7 +367,7 @@ a.goto_nav {
   float: left;
 }
 a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hover {
-  background: #fff;
+  background: $white;
 }
 #top .s16 {
   display:block;
@@ -367,46 +380,61 @@ a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hove
   background: #bbb;
   color: $white;
   font-weight: bold;
-  border-radius:4px;
+  @include border-radius(4px);
   font-size: 0.9em;
+
+  &.unread {
+    font-size: 1em;
+  }
 }
-#top span.new_messages.unread {
-  font-size: 1em;
-}
+
 #top .shown a.toggle {
-  background: #fff;
+  background: $white;
 }
 #top div.auth {
   float: right;
   position: relative;
-}
-#top div.auth.shown form,
-#top div.auth.shown .links {
-  display: block;
-}
-#top div.auth .links a {
-  display: block;
-  padding: 6px 10px;
-  text-decoration: none;
-  text-transform: capitalize;
-}
-#top div.auth .links a:hover {
-  background: #F0F0F0;
-  color: #444;
-}
-#top div.auth .links .goto_logout {
-  background-position: 0 -48px;
-}
-#top div.auth .links .goto_profile {
-  background-position: 0 -208px;
+
+  &.shown {
+    form,
+    .links {
+      display: block;
+    }
+  }
+
+  form {
+    padding: 1em;
+
+    input {
+      margin-bottom: 8px;
+    }
+  }
+
+  .links {
+
+    .goto_logout {
+      background-position: 0 -48px;
+    }
+
+    .goto_profile {
+      background-position: 0 -208px;
+    }
+
+    a {
+      display: block;
+      padding: 6px 10px;
+      text-decoration: none;
+      text-transform: capitalize;
+
+      &:hover {
+        background: #F0F0F0;
+        color: #444;
+      }
+    }
+  }
+
 }
 
-#top div.auth form {
-  padding: 1em;
-}
-#top div.auth form input {
-  margin-bottom: 8px;
-}
 #top div.auth form .username,
 #top div.auth form .password {
   width: 120px;
@@ -453,20 +481,23 @@ div.lichess_language {
 ul.language_links {
   width: 183px;
   max-height: 600px;
-  overflow:auto;
+  overflow: auto;
+
+  a {
+    display: block;
+    padding: 0.4em 0.5em;
+    text-decoration: none;
+
+    &:hover {
+      background: #F0F0F0;
+      color: #444;
+    }
+  }
 }
 #top div.lichess_language.shown ul.language_links {
   display: block;
 }
-ul.language_links a {
-  display: block;
-  padding: 0.4em 0.5em;
-  text-decoration: none;
-}
-ul.language_links a:hover {
-  background: #F0F0F0;
-  color: #444;
-}
+
 ul.language_links li:last-child {
   border-top: 1px solid #ddd;
 }
@@ -474,15 +505,17 @@ ul.language_links li:last-child {
 #top div.themepicker {
   float: right;
   position: relative;
+
+  span.theme_demo {
+    color: $white;
+    display: block;
+    margin: 3px 0.5em 0 0;
+    padding: 1px 5px;
+    text-decoration: none;
+    line-height: normal;
+  }
 }
-#top div.themepicker span.theme_demo {
-  color: $white;
-  display: block;
-  margin: 3px 0.5em 0 0;
-  padding: 1px 5px;
-  text-decoration: none;
-  line-height: normal;
-}
+
 #top div.themepicker.shown div.themes {
   display: block;
 }
@@ -505,33 +538,37 @@ ul.language_links li:last-child {
 
 #top a.bgpicker {
   float: right;
-}
-#top a.bgpicker span {
-  width: 24px;
-  height: 24px;
-  opacity: 0.7;
-  background: url(../images/s24.png) no-repeat;
-  background-position: 0 -48px;
-  display: block;
+
+  span {
+    width: 24px;
+    height: 24px;
+    @include opacity(0.7);
+    background: url(../images/s24.png) no-repeat;
+    background-position: 0 -48px;
+    display: block;
+  }
 }
 
 a#sound_state {
   float: right;
-}
-a#sound_state span {
-  margin-top: 4px;
-  width: 18px;
-  height: 15px;
-  opacity: 0.7;
-  background: url(../images/s16.png) no-repeat;
-  background-position: 0 -64px;
-  display: block;
-}
-a#sound_state.sound_state_on span {
-  background-position: 0 -80px;
-}
-a#sound_state.unavailable {
-  display: none;
+
+  span {
+    margin-top: 4px;
+    width: 18px;
+    height: 15px;
+    @include opacity(0.7);
+    background: url(../images/s16.png) no-repeat;
+    background-position: 0 -64px;
+    display: block;
+  }
+
+  &.sound_state_on span {
+    background-position: 0 -80px;
+  }
+
+  &.unavailable {
+    display: none;
+  }
 }
 
 #call_boxes {
@@ -540,39 +577,45 @@ a#sound_state.unavailable {
   right: 10px;
   width: 250px;
 }
+
 a.translation_call {
   margin-top: 1em;
   padding: 0.5em;
   border: 1px solid #d0d0d0;
   display: block;
-  border-radius: 4px;
+  @include border-radius(4px);
   text-decoration: none;
   position: relative;
-}
-a.translation_call span.action {
-  float: right;
-  margin-right: 2px;
-}
-a.translation_call span.name {
-  font-weight: bold;
-}
-a.translation_call div.progressbar {
-  margin-top: 0.5em;
-  background: #fff;
-  margin-bottom: 0.4em;
-}
-a.translation_call .close {
-  position: absolute;
-  bottom: 0.4em;
-  right: 0.6em;
-  text-decoration: none;
-  font-weight: bold;
-}
-a.translation_call .close:hover {
-  color: red;
-  font-size: 1.4em;
-  bottom: 0.2em;
-  right: 0.3em;
+
+  span.action {
+    float: right;
+    margin-right: 2px;
+  }
+
+  span.name {
+    font-weight: bold;
+  }
+
+  .close {
+    position: absolute;
+    bottom: 0.4em;
+    right: 0.6em;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      color: red;
+      font-size: 1.4em;
+      bottom: 0.2em;
+      right: 0.3em;
+    }
+  }
+
+  div.progressbar {
+    margin-top: 0.5em;
+    background: $white;
+    margin-bottom: 0.4em;
+  }
 }
 
 span.s16.clock {
@@ -598,35 +641,39 @@ span.s16.clock {
   padding-right: 20px;
 }
 
-.user_link.white, .user_link.black, .user_link.online, .user_link.offline {
-  line-height: 16px;
-  display: block;
-  background: url(../images/s16.png) no-repeat;
-  padding-left: 20px;
-  white-space: nowrap;
-}
-.user_link.white {
-  background-position: 0 -240px;
-}
-.user_link.black {
-  background-position: 0 -256px;
-}
-.user_link.offline {
-  padding-left: 20px;
-  background-position: 0 -160px;
-}
-.user_link.online {
-  padding-left: 20px;
-  background-position: 0 -208px;
-}
-.user_link.inline {
-  display: inline-block;
+.user_link {
+  &.white, &.black, &.online, &.offline {
+    line-height: 16px;
+    display: block;
+    background: url(../images/s16.png) no-repeat;
+    padding-left: 20px;
+    white-space: nowrap;
+  }
+
+  &.white {
+    background-position: 0 -240px;
+  }
+  &.black {
+    background-position: 0 -256px;
+  }
+  &.offline {
+    padding-left: 20px;
+    background-position: 0 -160px;
+  }
+  &.online {
+    padding-left: 20px;
+    background-position: 0 -208px;
+  }
+  &.inline {
+    display: inline-block;
+  }
 }
 
 .tournament_link {
   padding-left: 20px;
   background-position: 0 -304px;
 }
+
 div.engine_warning {
   padding: 5px 5px 5px 40px;
   background: #f2dede url(../images/engine_big.png) 8px 5px no-repeat;
@@ -635,11 +682,12 @@ div.engine_warning {
   color: #894a48;
   width: 240px;
   margin-bottom: 15px;
-}
-div.ui-tooltip div.engine_warning {
-  margin: 10px 0 10px 5px;
-  width: auto;
-  background-position: 8px 0px;
+
+  div.ui-tooltip & {
+    margin: 10px 0 10px 5px;
+    width: auto;
+    background-position: 8px 0px;
+  }
 }
 
 .engine_mark {
@@ -647,17 +695,18 @@ div.ui-tooltip div.engine_warning {
   width: 16px;
   height: 16px;
   background: transparent url(../images/engine_small.png) top left no-repeat;
-  opacity: 0.8;
+  @include opacity(0.8);
   vertical-align: bottom;
 }
 
 div.lichess_social {
   height: 0px;
   text-align: center;
-}
-div.lichess_social div.addtochrome {
-  display: none;
-  margin-bottom: 15px;
+
+  div.addtochrome {
+    display: none;
+    margin-bottom: 15px;
+  }
 }
 
 /* soft inactive gradient */
@@ -674,12 +723,7 @@ div.locale_menu a,
 table.slist thead {
   color: #666;
   background: #fafafa;
-  background: -moz-linear-gradient(center top , #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fafafa), to(#e0e0e0));
-  background: -webkit-linear-gradient(top , #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
-  background: -ms-linear-gradient(top , #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
-  background: -o-linear-gradient(top , #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
-  background: linear-gradient(top , #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
+  @include background-image(linear-gradient(top , #fafafa, #e0e0e0));
 }
 
 /* active gradient */
@@ -696,14 +740,9 @@ div.progressbar.flashy div,
 .button.strong:hover,
 div.locale_menu a.active
 {
-  color: #fff;
-  background: #d85000;
-  background: -moz-linear-gradient(center top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f49c00), to(#d85000));
-  background: -webkit-linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
-  background: -ms-linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
-  background: -o-linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
-  background: linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
+  color: $white;
+  background: $orange;
+  @include background-image(linear-gradient(top , #f49c00, $orange));
 }
 
 /* strong inactive gradient */
@@ -712,25 +751,15 @@ div.hooks td.action,
 .button.strong,
 div.notification
 {
-  background: #ffffff;
-  background: -moz-linear-gradient(center top , #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff), to(#c0c0c0));
-  background: -webkit-linear-gradient(top , #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
-  background: -ms-linear-gradient(top , #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
-  background: -o-linear-gradient(top , #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
-  background: linear-gradient(top , #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
+  background: $white;
+  @include background-image(linear-gradient(top , $white, #c0c0c0));
 }
 
 /* current gradient */
 #top a.goto_nav.current {
-  color: #fff;
+  color: $white;
   background: #999;
-  background: -moz-linear-gradient(center top , #aaa, #999) repeat scroll 0 0 #999;
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#aaa), to(#999));
-  background: -webkit-linear-gradient(top , #aaa, #999) repeat scroll 0 0 #999;
-  background: -ms-linear-gradient(top , #aaa, #999) repeat scroll 0 0 #999;
-  background: -o-linear-gradient(top , #aaa, #999) repeat scroll 0 0 #999;
-  background: linear-gradient(top , #aaa, #999) repeat scroll 0 0 #999;
+  @include background-image(linear-gradient(top , #aaa, #999));
 }
 
 /* standard shadow */
@@ -741,8 +770,8 @@ div.lichess_board_wrap,
 .button.shadowed,
 div.content_box
 {
-  box-shadow: 0 0 7px #d0d0d0;
-  border-radius: 4px;
+  @include box-shadow(0 0 7px #d0d0d0);
+  @include border-radius(4px);
 }
 
 div.checkmateFen {
@@ -750,94 +779,112 @@ div.checkmateFen {
   width: 250px;
   margin-left: 110px;
   cursor: pointer;
+
+  div.lmcs {
+    &:hover {
+      background: #eebb77!important;
+    }
+
+    &.selected {
+      background: #77eeaa!important;
+    }
+  }
 }
-div.checkmateFen div.lmcs:hover {
-  background: #eebb77!important;
-}
-div.checkmateFen div.lmcs.selected {
-  background: #77eeaa!important;
-}
+
 div.checkmateSection {
   float: left;
+
+  div.result {
+    display: none;
+    height: 48px;
+    line-height: 48px;
+    vertical-align: middle;
+    padding-left: 54px;
+    font-weight: bold;
+  }
+
+  div.success {
+    background: url(../images/tick-48.png) no-repeat;
+    color: #00aa00;
+  }
+
+  div.failure {
+    background: url(../images/cross-48.png) no-repeat;
+    color: #aa0000;
+  }
 }
-div.checkmateSection div.result {
-  display: none;
-  height: 48px;
-  line-height: 48px;
-  vertical-align: middle;
-  padding-left: 54px;
-  font-weight: bold;
-}
-div.checkmateSection div.success {
-  background: url(../images/tick-48.png) no-repeat;
-  color: #00aa00;
-}
-div.checkmateSection div.failure {
-  background: url(../images/cross-48.png) no-repeat;
-  color: #aa0000;
-}
-div.checkmateCaptcha.success div.success {
-  display: block;
-}
-div.checkmateCaptcha.failure div.failure {
-  display: block;
+
+div.checkmateCaptcha {
+  &.success div.success,
+  &.failure div.failure {
+    display: block;
+  }
 }
 
 div.undergame_box {
   margin-top: 10px;
   width: 512px;
-  box-shadow: 0 0 7px #d0d0d0;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  @include border-radius(5px);
+  @include box-shadow(0 0 7px #d0d0d0);
   line-height: 24px;
-}
-div.undergame_box a {
-  text-decoration: none;
-}
-div.undergame_box a:hover {
-  text-decoration: underline;
-}
-div.undergame_box div.inner {
-  padding: 10px 10px 0 10px;
+
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  div.inner {
+    padding: 10px 10px 0 10px;
+  }
 }
 
 div.game_analysis {
   padding: 10px;
   width: 492px;
-}
-div.game_analysis a {
-  background: url("../images/s24.png") no-repeat 0 -72px;
-  display: block;
-  height: 24px;
-  padding-left: 30px;
+
+  a {
+    background: url("../images/s24.png") no-repeat 0 -72px;
+    display: block;
+    height: 24px;
+    padding-left: 30px;
+  }
 }
 
-div.game_more div.more_top {
-  padding: 3px 10px;
-  width: 492px;
-  height: 29px;
-  border-bottom: 1px solid #ccc;
-}
-div.game_more div.more_top span.bookmark {
-  margin-top: 2px;
-  margin-right: 34px;
-}
-div.game_more a.game_permalink {
-  float: left;
-  margin-top: 3px;
-}
-div.game_more textarea {
-  display: block;
-  width: 100%;
-  height: 200px;
-  font-family: monospace;
-  line-height: normal;
-  margin: 0;
-  background: #fff;
-  color: #888;
-  border: 1px solid #eaeaea;
-  padding: 5px;
-  @include border-radius(3px);
+div.game_more {
+  div.more_top {
+    padding: 3px 10px;
+    width: 492px;
+    height: 29px;
+    border-bottom: 1px solid #ccc;
+
+    span.bookmark {
+      margin-top: 2px;
+      margin-right: 34px;
+    }
+  }
+
+  a.game_permalink {
+    float: left;
+    margin-top: 3px;
+  }
+
+  textarea {
+    display: block;
+    width: 100%;
+    height: 200px;
+    font-family: $monospaceFontFamily;
+    line-height: normal;
+    margin: 0;
+    background: $white;
+    color: #888;
+    border: 1px solid #eaeaea;
+    padding: 5px;
+    @include border-radius(3px);
+  }
 }
 
 div.game_extra div.bookmarkers {
@@ -849,61 +896,69 @@ span.bookmark {
   position: relative;
   float: right;
   margin-right: 14px;
-}
-span.bookmark .icon {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: transparent url(../images/s24.png) top left no-repeat;
-  height: 24px;
-  display: block;
-  padding-left: 28px;
-  line-height: 28px;
-  text-decoration: none;
-  color: #a0a0a0;
-}
-span.bookmark .icon.bookmarked {
-  background-position: 0 -24px;
-}
-span.bookmark a {
-  outline: none;
+
+  .icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: transparent url(../images/s24.png) top left no-repeat;
+    height: 24px;
+    display: block;
+    padding-left: 28px;
+    line-height: 28px;
+    text-decoration: none;
+    color: #a0a0a0;
+
+    &.bookmarked {
+      background-position: 0 -24px;
+    }
+  }
+
+  a {
+    outline: none;
+  }
 }
 
 div.progressbar {
   background: #eaeaea;
   border: 1px solid #e0e0e0;
-  border-radius: 5px;
+  @include border-radius(5px);
   padding: 1px;
-}
 
-div.progressbar div {
-  background: #d8a050;
-  height: 12px;
-  border-radius: 4px;
-}
-div.progressbar.flashy.green div {
-  background: #90d050;
+  div {
+    background: #d8a050;
+    height: 12px;
+    @include border-radius(4px);
+  }
+
+  &.flashy.green div {
+    background: #90d050;
+  }
 }
 
 div.notifications {
   width: 1005px;
   margin: 0 auto -10px auto;
+
+  > div {
+    margin-left: 211px;
+    width: 498px;
+    border: 1px solid #c0c0c0;
+    padding: 6px 8px 7px 8px;
+    margin-bottom: 8px;
+    @include border-radius(3px);
+
+    a.close {
+      text-decoration: none;
+      float: right;
+
+      &:hover {
+        font-weight: bold;
+      }
+    }
+  }
 }
-div.notifications > div {
-  margin-left: 211px;
-  width: 498px;
-  border: 1px solid #c0c0c0;
-  padding: 6px 8px 7px 8px;
-  margin-bottom: 8px;
-  border-radius: 3px;
-}
-div.notifications > div a.close {
-  text-decoration: none;
-  float: right;
-}
-div.notifications > div a.close:hover {
-  font-weight: bold;
-}
+
 #tournament_reminder .action {
   float: right;
   display: block;
@@ -912,59 +967,55 @@ div.notifications > div a.close:hover {
 
 /* scroll */
 .nano {
-  position : relative;
-  width    : 100%;
-  height   : 100%;
-  overflow : hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  .content {
+    overflow: hidden;
+    @include stretch();
+    padding-right: 16px;
+
+    &:focus {
+      outline: thin dotted;
+    }
+
+    &::-webkit-scrollbar {
+      visibility: hidden;
+    }
+  }
+
+  > .pane {
+    background: transparentize($black, 0.85);
+    @include stretch(0, 0, 0, false);
+    width: 10px;
+    visibility: hidden\9; /* Target only IE7 and IE8 with this hack */
+    @include opacity(0.01);
+    @include transition(.2s);
+
+    > .slider {
+      background: #444;
+      background: transparentize($black, 0.6);
+      position: relative;
+      margin: 0 1px;
+      @include border-radius(3px);
+      cursor: pointer;
+    }
+  }
 }
-.nano .content {
-  position      : absolute;
-  overflow      : hidden;
-  top           : 0;
-  right         : 0;
-  bottom        : 0;
-  left          : 0;
-  padding-right : 16px;
-}
-.nano .content:focus {
-  outline: thin dotted;
-}
-.nano .content::-webkit-scrollbar {
-  visibility: hidden;
-}
+
 .has-scrollbar .content::-webkit-scrollbar {
   visibility: visible;
 }
-.nano > .pane {
-  background : rgba(0,0,0,.15);
-  position   : absolute;
-  width      : 10px;
-  right      : 0;
-  top        : 0;
-  bottom     : 0;
-  visibility : hidden\9; /* Target only IE7 and IE8 with this hack */
-  opacity    : .01;
-  -webkit-transition    : .2s;
-  -moz-transition       : .2s;
-  -o-transition         : .2s;
-  transition            : .2s;
-}
-.nano > .pane > .slider {
-  background: #444;
-  background: rgba(0,0,0,.4);
-  position              : relative;
-  margin                : 0 1px;
-  -moz-border-radius    : 3px;
-  -webkit-border-radius : 3px;
-  border-radius         : 3px;
-  cursor: pointer;
-}
+
 .nano:hover > .pane, .pane.active, .pane.flashed {
-  visibility : visible\9; /* Target only IE7 and IE8 with this hack */
-  opacity    : 0.99;
+  visibility: visible\9; /* Target only IE7 and IE8 with this hack */
+  @include opacity(0.99);
 }
 
-input:focus::-webkit-input-placeholder { color: transparent; }
-input:focus:-moz-placeholder { color: transparent; }
-input:focus::-moz-placeholder { color: transparent; }
-input:focus:-ms-input-placeholder { color: transparent; }
+input {
+  @include input-placeholder("&:focus") {
+    color: transparent;
+  }
+}
