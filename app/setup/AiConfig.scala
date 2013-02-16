@@ -2,7 +2,7 @@ package lila
 package setup
 
 import chess.{ Variant, Mode, Situation, Game, Color ⇒ ChessColor }
-import chess.format.Forsyth
+import chess.format.Forsyth, Forsyth.SituationPlus
 import game.{ DbGame, DbPlayer }
 
 case class AiConfig(
@@ -13,15 +13,16 @@ case class AiConfig(
     level: Int,
     color: Color) extends Config with GameGenerator {
 
-  def initialFen = "r2q1rk1/ppp2pp1/1bnpbn1p/4p3/4P3/1BNPBN1P/PPPQ1PP1/R3K2R b KQ - 7 10".some
+  // def initialFen = "r2q1rk1/ppp2pp1/1bnpbn1p/4p3/4P3/1BNPBN1P/PPPQ1PP1/R3K2R b KQ - 7 10".some
+  def initialFen = "qnr3kr/p4p1p/1p4p1/4P3/2p4P/2P1N3/PPBN1P2/2Q1BK1b b kq - 0 18".some
 
   def >> = (variant.id, clock, time, increment, level, color.name).some
 
   def game = {
     val state = initialFen flatMap Forsyth.<<<
     val chessGame = state.fold({
-      case Forsyth.SituationPlus(Situation(board, color), _, turns) ⇒
-        Game(board = board, player = color, turns = turns)
+      case sit @ SituationPlus(Situation(board, color), _, _) ⇒
+        Game(board = board, player = color, turns = sit.turns)
     }, makeGame)
     val dbGame = DbGame(
       game = chessGame,
@@ -37,9 +38,9 @@ case class AiConfig(
       variant = state.isEmpty ? variant | Variant.FromPosition
     )
     state.fold({
-      case Forsyth.SituationPlus(_, history, turns) ⇒ dbGame.copy(
+      case sit @ SituationPlus(_, history, _) ⇒ dbGame.copy(
         castles = history.castleNotation,
-        turns = turns)
+        turns = sit.turns)
     }, game)
   }.start
 
