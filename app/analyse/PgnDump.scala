@@ -22,7 +22,9 @@ private[analyse] final class PgnDump(
 
   def apply(game: DbGame, pgn: String): IO[Pgn] = for {
     ts ← tags(game)
-    pgnObj = Pgn(ts, turns(pgn))
+    fenSituation  = ts find (_.name == Tag.FEN) flatMap { case Tag(_, fen) ⇒ Forsyth <<< fen } 
+    pgn2 = (~fenSituation.map(_.situation.color.black)).fold(".. " + pgn, pgn)
+    pgnObj = Pgn(ts, turns(pgn2, fenSituation.map(_.fullMoveNumber) | 1))
     analysis ← analyser get game.id
   } yield analysis.fold(annotator(pgnObj, _), pgnObj)
 
@@ -67,12 +69,12 @@ private[analyse] final class PgnDump(
       Tag("SetUp", "1")
     ))
 
-  private def turns(pgn: String): List[chessPgn.Turn] =
+  private def turns(pgn: String, from: Int): List[chessPgn.Turn] =
     (pgn split ' ' grouped 2).zipWithIndex.toList map {
       case (moves, index) ⇒ chessPgn.Turn(
-        number = index + 1,
-        white = moves.headOption map { chessPgn.Move(_) },
-        black = moves.tail.headOption map { chessPgn.Move(_) })
+        number = index + from,
+        white = moves.headOption filter (".." !=) map { chessPgn.Move(_) },
+        black = moves lift 1 map { chessPgn.Move(_) })
     }
 }
 
