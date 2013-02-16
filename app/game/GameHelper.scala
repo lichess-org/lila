@@ -19,6 +19,7 @@ trait GameHelper { self: I18nHelper with UserHelper with StringHelper with AiHel
   def variantName(variant: Variant)(implicit ctx: Context) = variant match {
     case Variant.Standard ⇒ trans.standard.str()
     case Variant.Chess960 ⇒ "chess960"
+    case Variant.FromPosition ⇒ "from position"
   }
 
   def clockName(clock: Option[Clock])(implicit ctx: Context): String =
