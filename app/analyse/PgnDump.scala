@@ -10,7 +10,7 @@ import user.{ User, UserRepo }
 import org.joda.time.format.DateTimeFormat
 import scalaz.effects._
 
-final class PgnDump(
+private[analyse] final class PgnDump(
     gameRepo: GameRepo,
     analyser: Analyser,
     annotator: Annotator,
@@ -60,7 +60,7 @@ final class PgnDump(
     Tag("WhiteElo", elo(game.whitePlayer)),
     Tag("BlackElo", elo(game.blackPlayer)),
     Tag("PlyCount", game.turns),
-    Tag(_.Variant, game.variant.name)
+    Tag(_.Variant, game.variant.name.capitalize)
   ) ::: game.variant.standard.fold(Nil, List(
       Tag(_.FEN, initialFen | "?"),
       Tag("SetUp", "1")
