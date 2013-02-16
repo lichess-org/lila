@@ -6,6 +6,7 @@ import chess.format.{ pgn => chessPgn }
 import chess.format.pgn.{ Pgn, Tag }
 import game.{ DbGame, DbPlayer, GameRepo }
 import user.{ User, UserRepo }
+import controllers.routes
 
 import org.joda.time.format.DateTimeFormat
 import scalaz.effects._
@@ -52,7 +53,7 @@ final class PgnDump(
     initialFen ← game.variant.standard.fold(io(none), gameRepo initialFen game.id)
   } yield List(
     Tag(_.Event, game.rated.fold("Rated game", "Casual game")),
-    Tag(_.Site, netBaseUrl + "/" + game.id),
+    Tag(_.Site, netBaseUrl + routes.Analyse.replay(game.id, "white")),
     Tag(_.Date, dateFormat.print(game.createdAt)),
     Tag(_.White, player(game.whitePlayer, whiteUser)),
     Tag(_.Black, player(game.blackPlayer, blackUser)),
