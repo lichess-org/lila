@@ -407,6 +407,11 @@ var lichess_translations = [];
       return false;
     });
 
+    $("a.continue_from_here").one("click", function() {
+      $(this).hide().parent().find('.opponent_choice').show();
+      return false;
+    });
+
     $("form.request_analysis a").click(function() {
       $(this).parent().submit();
     });

@@ -5,8 +5,7 @@ import round.{ Event, Progress }
 import user.User
 import chess.{ History ⇒ ChessHistory, Role, Board, Move, Pos, Game, Clock, Status, Color, Piece, Variant, Mode }
 import Color._
-import chess.Pos.piotr
-import chess.Role.forsyth
+import chess.Pos.piotr, chess.Role.forsyth, chess.format.Forsyth
 
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
@@ -203,6 +202,10 @@ case class DbGame(
   def playableBy(p: DbPlayer): Boolean = playable && turnOf(p)
 
   def playableBy(c: Color): Boolean = playableBy(player(c))
+
+  def continuable = status != Status.Mate && status != Status.Stalemate
+
+  def fenString = Forsyth >> toChess
 
   def aiLevel: Option[Int] = players find (_.isAi) flatMap (_.aiLevel)
 
