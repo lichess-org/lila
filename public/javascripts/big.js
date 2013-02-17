@@ -1451,9 +1451,9 @@ var lichess_translations = [];
         });
         var $eloRangeConfig = $this.parent();
         $modeChoices.on('change', function() {
-          var rated = $rated.attr('checked') == 'checked';
+          var rated = $rated.prop('checked');
           $eloRangeConfig.toggle(rated);
-          if (isHook && rated && $clockCheckbox.attr('checked') != 'checked') {
+          if (isHook && rated && !$clockCheckbox.prop('checked')) {
             $clockCheckbox.click();
           }
           $.centerOverboard();
