@@ -1,8 +1,7 @@
 package lila
 package setup
 
-import chess.{ Variant, Mode, Situation, Game, Color ⇒ ChessColor }
-import chess.format.Forsyth, Forsyth.SituationPlus
+import chess.{ Variant, Mode, Game, Color ⇒ ChessColor }
 import game.{ DbGame, DbPlayer }
 
 case class AiConfig(
@@ -12,17 +11,12 @@ case class AiConfig(
     increment: Int,
     level: Int,
     color: Color,
-    fen: Option[String] = None) extends Config with GameGenerator {
+    fen: Option[String] = None) extends Config with GameGenerator with Positional {
 
   def >> = (variant.id, clock, time, increment, level, color.name, fen).some
 
-  def game = {
-    val state = fen filter (_ ⇒ variant == Variant.FromPosition) flatMap Forsyth.<<<
-    val chessGame = state.fold({
-      case sit @ SituationPlus(Situation(board, color), _, _) ⇒
-        Game(board = board, player = color, turns = sit.turns)
-    }, makeGame)
-    val dbGame = DbGame(
+  def game = fenDbGame { chessGame ⇒
+    DbGame(
       game = chessGame,
       ai = Some(!creatorColor -> level),
       whitePlayer = DbPlayer(
@@ -33,14 +27,9 @@ case class AiConfig(
         aiLevel = creatorColor.white option level),
       creatorColor = creatorColor,
       mode = Mode.Casual,
-      variant = state.isEmpty ? variant | Variant.FromPosition
+      variant = variant
     )
-    state.fold({
-      case sit @ SituationPlus(_, history, _) ⇒ dbGame.copy(
-        castles = history.castleNotation,
-        turns = sit.turns)
-    }, dbGame)
-  }.start
+  } start
 
   def encode = RawAiConfig(
     v = variant.id,
@@ -81,7 +70,7 @@ private[setup] case class RawAiConfig(
     t: Int,
     i: Int,
     l: Int,
-    f: String) {
+    f: String = "") {
 
   def decode = for {
     variant ← Variant(v)

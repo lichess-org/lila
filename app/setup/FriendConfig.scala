@@ -11,37 +11,42 @@ case class FriendConfig(
     time: Int,
     increment: Int,
     mode: Mode,
-    color: Color) extends HumanConfig with GameGenerator {
+    color: Color,
+    fen: Option[String] = None) extends HumanConfig with GameGenerator with Positional {
 
-  def >> = (variant.id, clock, time, increment, mode.id.some, color.name).some
+  def >> = (variant.id, clock, time, increment, mode.id.some, color.name, fen).some
 
-  def game = DbGame(
-    game = makeGame,
-    ai = None,
-    whitePlayer = DbPlayer.white,
-    blackPlayer = DbPlayer.black,
-    creatorColor = creatorColor,
-    mode = mode,
-    variant = variant)
+  def game = fenDbGame { chessGame ⇒
+    DbGame(
+      game = chessGame,
+      ai = None,
+      whitePlayer = DbPlayer.white,
+      blackPlayer = DbPlayer.black,
+      creatorColor = creatorColor,
+      mode = mode,
+      variant = variant)
+  }
 
   def encode = RawFriendConfig(
     v = variant.id,
     k = clock,
     t = time,
     i = increment,
-    m = mode.id)
+    m = mode.id,
+    f = ~fen)
 }
 
 object FriendConfig extends BaseHumanConfig {
 
-  def <<(v: Int, k: Boolean, t: Int, i: Int, m: Option[Int], c: String) =
+  def <<(v: Int, k: Boolean, t: Int, i: Int, m: Option[Int], c: String, fen: Option[String]) =
     new FriendConfig(
       variant = Variant(v) err "Invalid game variant " + v,
       clock = k,
       time = t,
       increment = i,
       mode = m.fold(Mode.orDefault, Mode.default),
-      color = Color(c) err "Invalid color " + c)
+      color = Color(c) err "Invalid color " + c,
+      fen = fen)
 
   val default = FriendConfig(
     variant = variantDefault,
@@ -57,7 +62,8 @@ private[setup] case class RawFriendConfig(
     k: Boolean,
     t: Int,
     i: Int,
-    m: Int) {
+    m: Int,
+    f: String = "") {
 
   def decode = for {
     variant ← Variant(v)
@@ -68,5 +74,6 @@ private[setup] case class RawFriendConfig(
     time = t,
     increment = i,
     mode = mode,
-    color = Color.White)
+    color = Color.White,
+    fen = f.some filter (_.nonEmpty))
 }

@@ -1,7 +1,7 @@
 package lila
 package setup
 
-import chess.{ Game, Board, Variant, Clock, Speed }
+import chess.{ Game, Board, Situation, Variant, Clock, Speed }
 import chess.format.Forsyth
 import game.{ GameRepo, DbGame, Pov }
 
@@ -36,6 +36,28 @@ trait GameGenerator { self: Config ⇒
   def game: DbGame
 
   def pov = Pov(game, creatorColor)
+}
+
+trait Positional { self: Config ⇒
+
+  import chess.format.Forsyth, Forsyth.SituationPlus
+
+  def fen: Option[String]
+
+  def fenDbGame(builder: Game ⇒ DbGame): DbGame = {
+    val state = fen filter (_ ⇒ variant == Variant.FromPosition) flatMap Forsyth.<<<
+    val chessGame = state.fold({
+      case sit @ SituationPlus(Situation(board, color), _, _) ⇒
+        Game(board = board, player = color, turns = sit.turns)
+    }, makeGame)
+    val dbGame = builder(chessGame)
+    state.fold({
+      case sit @ SituationPlus(_, history, _) ⇒ dbGame.copy(
+        variant = Variant.FromPosition,
+        castles = history.castleNotation,
+        turns = sit.turns)
+    }, dbGame)
+  }
 }
 
 object Config extends BaseConfig
