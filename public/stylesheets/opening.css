@@ -40,6 +40,7 @@ div.game_config input#fen.success {
 }
 div.game_config input#fen.failure {
   border-color: #aa0000;
+  color: #aa0000;
 }
 div.game_config .time_choice,
 div.game_config .increment_choice,
