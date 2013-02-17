@@ -31,7 +31,7 @@ object Setup extends LilaController with TheftPrevention with RoundEventPerforme
   }
 
   val friendForm = Open { implicit ctx ⇒
-    IOk(forms.friendFilled map { html.setup.friend(_) })
+    IOk(forms friendFilled get("fen") map { html.setup.friend(_) })
   }
 
   val friend = process(forms.friend) { config ⇒

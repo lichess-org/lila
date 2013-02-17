@@ -1,6 +1,7 @@
 package lila
 package setup
 
+import chess.Variant
 import http.Context
 import elo.EloRange
 
@@ -31,7 +32,12 @@ private[setup] final class FormFactory(
   }
 
   def aiFilled(fen: Option[String])(implicit ctx: Context): IO[Form[AiConfig]] =
-    aiConfig map { config ⇒ ai(ctx) fill fen.fold(f ⇒ config.copy(fen = f.some), config) }
+    aiConfig map { config ⇒
+      ai(ctx) fill fen.fold(
+        f ⇒ config.copy(fen = f.some, variant = Variant.FromPosition),
+        config
+      )
+    }
 
   def ai(ctx: Context) = Form(
     mapping(
@@ -47,8 +53,13 @@ private[setup] final class FormFactory(
 
   def aiConfig(implicit ctx: Context): IO[AiConfig] = savedConfig map (_.ai)
 
-  def friendFilled(implicit ctx: Context): IO[Form[FriendConfig]] =
-    friendConfig map friend(ctx).fill
+  def friendFilled(fen: Option[String])(implicit ctx: Context): IO[Form[FriendConfig]] =
+    friendConfig map { config ⇒
+      friend(ctx) fill fen.fold(
+        f ⇒ config.copy(fen = f.some, variant = Variant.FromPosition),
+        config
+      )
+    }
 
   def friend(ctx: Context) = Form(
     mapping(
