@@ -23,6 +23,6 @@
   <a class="button" href="@routes.Round.watcher(next, opponent.color.name)">@trans.viewRematch()</a>
   }
   @game.tournamentId.map { tourId =>
-  <a class="button" href="@routes.Tournament.show(tourId)">View Tournament</a>
+  <a class="button" href="@routes.Tournament.show(tourId)">@trans.viewTournament()</a>
   }
 </div>

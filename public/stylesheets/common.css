@@ -782,6 +782,9 @@ div.undergame_box div.inner {
   padding: 10px 10px 0 10px;
   width: 492px;
 }
+div.undergame_box .opponent_choice {
+  display: none;
+}
 
 div.game_analysis {
   padding: 10px;
