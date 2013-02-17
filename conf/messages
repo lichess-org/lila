@@ -163,3 +163,5 @@ filterGames=Filter games
 reset=Reset
 apply=Apply
 leaderboard=Leaderboard
+pasteTheFenStringHere=Paste the FEN string here
+fromPosition=From position

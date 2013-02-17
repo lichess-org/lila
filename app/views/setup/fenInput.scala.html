@@ -1,5 +1,5 @@
-@(field: play.api.data.Field)
+@(field: play.api.data.Field)(implicit ctx: Context)
 
 <div class="fen_position optional_config" data-validate-url="@routes.Setup.validateFen">
-  @base.input(field, placeholder="Paste the FEN string here".some)
+  @base.input(field, placeholder=trans.pasteTheFenStringHere.str().some)
 </div>
