@@ -14,13 +14,10 @@ case class AiConfig(
     color: Color,
     fen: Option[String] = None) extends Config with GameGenerator {
 
-  // def fen = "r2q1rk1/ppp2pp1/1bnpbn1p/4p3/4P3/1BNPBN1P/PPPQ1PP1/R3K2R b KQ - 7 10".some
-  // def fen = "qnr3kr/p4p1p/1p4p1/4P3/2p4P/2P1N3/PPBN1P2/2Q1BK1b b kq - 0 18".some
-
   def >> = (variant.id, clock, time, increment, level, color.name, fen).some
 
   def game = {
-    val state = fen flatMap Forsyth.<<<
+    val state = fen filter (_ ⇒ variant == Variant.FromPosition) flatMap Forsyth.<<<
     val chessGame = state.fold({
       case sit @ SituationPlus(Situation(board, color), _, _) ⇒
         Game(board = board, player = color, turns = sit.turns)
@@ -42,7 +39,7 @@ case class AiConfig(
       case sit @ SituationPlus(_, history, _) ⇒ dbGame.copy(
         castles = history.castleNotation,
         turns = sit.turns)
-    }, game)
+    }, dbGame)
   }.start
 
   def encode = RawAiConfig(
@@ -50,7 +47,8 @@ case class AiConfig(
     k = clock,
     t = time,
     i = increment,
-    l = level)
+    l = level,
+    f = ~fen)
 }
 
 object AiConfig extends BaseConfig {
@@ -82,7 +80,8 @@ private[setup] case class RawAiConfig(
     k: Boolean,
     t: Int,
     i: Int,
-    l: Int) {
+    l: Int,
+    f: String) {
 
   def decode = for {
     variant ← Variant(v)
@@ -92,5 +91,6 @@ private[setup] case class RawAiConfig(
     time = t,
     increment = i,
     level = l,
-    color = Color.White)
+    color = Color.White,
+    fen = f.some filter (_.nonEmpty))
 }

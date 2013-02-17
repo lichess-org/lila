@@ -30,8 +30,8 @@ private[setup] final class FormFactory(
     ctx.isAuth.fold(config.filter, config.filter.withModeCasual)
   }
 
-  def aiFilled(implicit ctx: Context): IO[Form[AiConfig]] =
-    aiConfig map ai(ctx).fill
+  def aiFilled(fen: Option[String])(implicit ctx: Context): IO[Form[AiConfig]] =
+    aiConfig map { config ⇒ ai(ctx) fill fen.fold(f ⇒ config.copy(fen = f.some), config) }
 
   def ai(ctx: Context) = Form(
     mapping(
