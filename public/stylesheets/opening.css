@@ -30,6 +30,11 @@ div.game_config .optional_config {
   border-top: solid 1px #e4e4e4;
   border-bottom: solid 1px #e4e4e4;
 }
+div.game_config input[type="text"] {
+  border: 1px solid #ccc;
+  width: 87%;
+  padding: 2px 3px;
+}
 div.game_config .time_choice,
 div.game_config .increment_choice,
 div.game_config .elo_range_config {
@@ -42,6 +47,9 @@ div.game_config .time_choice span {
 }
 div.game_config .clock_config label {
   cursor: pointer;
+}
+div.game_config .fen_position {
+  display: none;
 }
 div.game_config button.submit {
   margin-top: 0.5em;
