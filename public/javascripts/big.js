@@ -1486,13 +1486,15 @@ var lichess_translations = [];
       var $fenInput = $fenPosition.find('input');
       var validateFen = _.debounce(function() {
         $fenInput.removeClass("success failure");
-        $.ajax({
-          url: $fenInput.parent().data('validate-url'),
-          data: { fen: $fenInput.val() },
-          success: function(data) { 
-            $fenInput.addClass(data == 1 ? "success" : "failure"); 
-          }
-        });
+        if($fenInput.val()) {
+          $.ajax({
+            url: $fenInput.parent().data('validate-url'),
+            data: { fen: $fenInput.val() },
+            success: function(data) { 
+              $fenInput.addClass(data == 1 ? "success" : "failure"); 
+            }
+          });
+        }
       }, 500);
       $fenInput.on('keyup', validateFen);
       if($fenInput.val() != '') validateFen();

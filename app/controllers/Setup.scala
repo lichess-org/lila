@@ -111,7 +111,7 @@ object Setup extends LilaController with TheftPrevention with RoundEventPerforme
   }
 
   val validateFen = Open { implicit ctx ⇒
-    Ok((chess.format.Forsyth <<< ~get("fen")).isDefined fold (1, 0))
+    Ok((chess.format.Forsyth <<< ~get("fen") filter (_.situation.playable)).isDefined fold (1, 0))
   }
 
   private def process[A](form: Context ⇒ Form[A])(op: A ⇒ BodyContext ⇒ IO[Call]) =
