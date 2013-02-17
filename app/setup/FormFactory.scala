@@ -52,12 +52,13 @@ private[setup] final class FormFactory(
 
   def friend(ctx: Context) = Form(
     mapping(
-      "variant" -> variant,
+      "variant" -> variantWithFen,
       "clock" -> clock,
       "time" -> time,
       "increment" -> increment,
       "mode" -> mode(ctx.isAuth),
-      "color" -> color
+      "color" -> color,
+      "fen" -> fen
     )(FriendConfig.<<)(_.>>) verifying ("Invalid clock", _.validClock)
   )
 
