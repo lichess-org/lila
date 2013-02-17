@@ -55,15 +55,7 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
 @if(!tour.fold(_.isRunning, false)) {
 @views.html.game.more(pov, bookmarkers) {
 <nav>
-@if(game.finished && game.continuable) {
-<a class="continue_from_here" title="@trans.continueFromHere()">@game.fenString</a>
-<span class="opponent_choice">
-  @trans.continueFromHere() :
-  <a href="@routes.Lobby.home?fen=@game.fenString#ai">@trans.playWithTheMachine()</a> |
-  <a href="@routes.Lobby.home?fen=@game.fenString#friend">@trans.playWithAFriend()</a>
-</span>
-<br />
-}
+@continueFromHere(game)
 <a href="@routes.Analyse.replay(gameId, color.name)">@trans.replayAndAnalyse()</a>
 <br />
 <a href="@routes.Analyse.stats(gameId)">@trans.viewGameStats()</a>
