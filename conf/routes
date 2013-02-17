@@ -93,6 +93,7 @@ GET   /setup/hook                      controllers.Setup.hookForm
 POST  /setup/hook                      controllers.Setup.hook
 GET   /setup/filter                    controllers.Setup.filterForm
 POST  /setup/filter                    controllers.Setup.filter
+GET   /setup/validate-fen              controllers.Setup.validateFen
 POST  /api/game/new                    controllers.Setup.api
 
 # I18n

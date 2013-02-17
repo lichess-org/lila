@@ -35,6 +35,12 @@ div.game_config input[type="text"] {
   width: 87%;
   padding: 2px 3px;
 }
+div.game_config input#fen.success {
+  border-color: #00aa00;
+}
+div.game_config input#fen.failure {
+  border-color: #aa0000;
+}
 div.game_config .time_choice,
 div.game_config .increment_choice,
 div.game_config .elo_range_config {

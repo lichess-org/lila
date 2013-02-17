@@ -110,6 +110,10 @@ object Setup extends LilaController with TheftPrevention with RoundEventPerforme
     JsonIOk(processor.api)
   }
 
+  val validateFen = Open { implicit ctx ⇒
+    Ok((chess.format.Forsyth <<< ~get("fen")).isDefined fold (1, 0))
+  }
+
   private def process[A](form: Context ⇒ Form[A])(op: A ⇒ BodyContext ⇒ IO[Call]) =
     OpenBody { ctx ⇒
       implicit val req = ctx.body
