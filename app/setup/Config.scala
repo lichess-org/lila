@@ -42,9 +42,10 @@ object Config extends BaseConfig
 
 trait BaseConfig {
 
-  val variants = Variant.all map (_.id)
-  val variantChoices = Variant.all map { v ⇒ v.id.toString -> v.name }
+  val variants = List(Variant.Standard.id, Variant.Chess960.id)
   val variantDefault = Variant.Standard
+
+  val variantsWithFen = variants :+ Variant.FromPosition.id
 
   val speeds = Speed.all map (_.id)
 

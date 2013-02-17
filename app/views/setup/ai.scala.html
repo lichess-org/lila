@@ -2,7 +2,10 @@
 
 @fields = {
 <div class="variants buttons">
-  @setup.radios(form("variant"), translatedVariantChoices)
+  @setup.radios(form("variant"), translatedVariantChoicesWithFen)
+</div>
+<div class="fen_position optional_config">
+  @base.input(form("fen"), placeholder="Paste the FEN string here".some)
 </div>
 @setup.clock(form, lila.setup.AiConfig)
 @trans.level()

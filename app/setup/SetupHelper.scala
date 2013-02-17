@@ -18,6 +18,9 @@ trait SetupHelper { self: I18nHelper ⇒
     Variant.Chess960.id.toString -> Variant.Chess960.name.capitalize
   )
 
+  def translatedVariantChoicesWithFen(implicit ctx: Context) = 
+    translatedVariantChoices(ctx) :+ (Variant.FromPosition.id.toString -> "FEN")
+
   def translatedSpeedChoices(implicit ctx: Context) = Speed.all map { s ⇒
     s.id.toString -> (s.toString + " - " + s.name.capitalize)
   }

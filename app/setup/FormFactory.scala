@@ -35,12 +35,13 @@ private[setup] final class FormFactory(
 
   def ai(ctx: Context) = Form(
     mapping(
-      "variant" -> variant,
+      "variant" -> variantWithFen,
       "clock" -> clock,
       "time" -> time,
       "increment" -> increment,
       "level" -> level,
-      "color" -> color
+      "color" -> color,
+      "fen" -> fen
     )(AiConfig.<<)(_.>>)
   )
 

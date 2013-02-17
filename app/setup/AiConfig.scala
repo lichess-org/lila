@@ -11,15 +11,16 @@ case class AiConfig(
     time: Int,
     increment: Int,
     level: Int,
-    color: Color) extends Config with GameGenerator {
+    color: Color,
+    fen: Option[String] = None) extends Config with GameGenerator {
 
-  // def initialFen = "r2q1rk1/ppp2pp1/1bnpbn1p/4p3/4P3/1BNPBN1P/PPPQ1PP1/R3K2R b KQ - 7 10".some
-  def initialFen = "qnr3kr/p4p1p/1p4p1/4P3/2p4P/2P1N3/PPBN1P2/2Q1BK1b b kq - 0 18".some
+  // def fen = "r2q1rk1/ppp2pp1/1bnpbn1p/4p3/4P3/1BNPBN1P/PPPQ1PP1/R3K2R b KQ - 7 10".some
+  // def fen = "qnr3kr/p4p1p/1p4p1/4P3/2p4P/2P1N3/PPBN1P2/2Q1BK1b b kq - 0 18".some
 
-  def >> = (variant.id, clock, time, increment, level, color.name).some
+  def >> = (variant.id, clock, time, increment, level, color.name, fen).some
 
   def game = {
-    val state = initialFen flatMap Forsyth.<<<
+    val state = fen flatMap Forsyth.<<<
     val chessGame = state.fold({
       case sit @ SituationPlus(Situation(board, color), _, _) ⇒
         Game(board = board, player = color, turns = sit.turns)
@@ -54,13 +55,14 @@ case class AiConfig(
 
 object AiConfig extends BaseConfig {
 
-  def <<(v: Int, k: Boolean, t: Int, i: Int, level: Int, c: String) = new AiConfig(
+  def <<(v: Int, k: Boolean, t: Int, i: Int, level: Int, c: String, fen: Option[String]) = new AiConfig(
     variant = Variant(v) err "Invalid game variant " + v,
     clock = k,
     time = t,
     increment = i,
     level = level,
-    color = Color(c) err "Invalid color " + c)
+    color = Color(c) err "Invalid color " + c,
+    fen = fen)
 
   val default = AiConfig(
     variant = variantDefault,

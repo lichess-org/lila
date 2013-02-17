@@ -1402,7 +1402,10 @@ var lichess_translations = [];
     function prepareForm() {
       var $form = $('div.lichess_overboard');
       var $modeChoices = $form.find('.mode_choice input');
+      var $variantChoices = $form.find('.variants input');
       var $casual = $modeChoices.eq(0), $rated = $modeChoices.eq(1);
+      var $fenVariant = $variantChoices.eq(2);
+      var $fenPosition = $form.find(".fen_position");
       var $clockCheckbox = $form.find('.clock_choice input');
       var isHook = $form.hasClass('game_config_hook');
       $form.find('div.buttons').buttonset().disableSelection();
@@ -1468,6 +1471,13 @@ var lichess_translations = [];
         $.centerOverboard();
       }).trigger('change');
       var $eloRangeConfig = $form.find('.elo_range_config');
+
+      $variantChoices.on('change', function() {
+        var fen = $fenVariant.prop('checked');
+        $fenPosition.toggle(fen);
+        $.centerOverboard();
+      }).trigger('change');
+
       $form.prepend($('<a class="close"></a>').click(function() {
         $form.remove();
         $startButtons.find('a.active').removeClass('active');

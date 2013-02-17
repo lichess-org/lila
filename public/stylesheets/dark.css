@@ -95,7 +95,8 @@ body.dark form.wide textarea,
 body.dark #team .team-left,
 body.dark #team .team-right,
 body.dark #team h2,
-body.dark .leaderboard_title
+body.dark .leaderboard_title,
+body.dark div.game_config input[type="text"] 
 {
   border-color: #3e3e3e;
 }
