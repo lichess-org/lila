@@ -20,7 +20,7 @@ object Setup extends LilaController with TheftPrevention with RoundEventPerforme
   private def bookmarkApi = env.bookmark.api
 
   val aiForm = Open { implicit ctx ⇒
-    IOk(forms.aiFilled map { html.setup.ai(_) })
+    IOk(forms aiFilled get("fen") map { html.setup.ai(_) })
   }
 
   val ai = process(forms.ai) { config ⇒

@@ -1502,7 +1502,11 @@ var lichess_translations = [];
     $('#lichess').on('submit', 'form', $.lichessOpeningPreventClicks);
 
     if (window.location.hash) {
-      $startButtons.find('a.config_'+window.location.hash.replace(/#/, '')).click();
+      $startButtons
+        .find('a.config_'+location.hash.replace(/#/, ''))
+        .each(function() {
+          $(this).attr("href", $(this).attr("href") + location.search);
+        }).click();
     }
   });
 
