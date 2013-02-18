@@ -77,7 +77,8 @@ moreJs = moreJs) {
 }
 @analyse.link(pov)
 @views.html.game.more(pov, bookmarkers) {
-@trans.opening() @opening.map { o =>
+@round.continueFromHere(pov.game)
+@trans.opening(): @opening.map { o =>
 <a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a>
 }.getOrElse { "Unknown" }
 <nav>
@@ -91,7 +92,6 @@ moreJs = moreJs) {
 <a class="rotate_board" href="@routes.Analyse.replay(gameId, (!color).name)">@trans.flipBoard()</a>
 <br />
 <a class="view_pgn_toggle" href="@routes.Analyse.pgn(game.id)">View PGN</a>
-<div id="CurrentFen"></div>
 </nav>
 }
 }

@@ -1,6 +1,5 @@
 @(game: DbGame)(implicit ctx: Context)
 
-@if(game.finished && game.continuable) {
 <a class="continue_from_here" title="@trans.continueFromHere()">@game.fenString</a>
 <span class="opponent_choice">
   @trans.continueFromHere() :
@@ -8,4 +7,3 @@
   <a href="@routes.Lobby.home?fen=@game.fenString#friend">@trans.playWithAFriend()</a>
 </span>
 <br />
-}
