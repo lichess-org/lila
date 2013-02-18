@@ -164,5 +164,6 @@ filterGames=Filtrar jogos
 reset=Reiniciar
 apply=Aplicar
 leaderboard=Tabela de classificação
+pasteTheFenStringHere=Cole a frase FEN aqui
 fromPosition=Desta posição
 continueFromHere=Continue daqui
