@@ -60,7 +60,11 @@ function customFunctionOnMove() {
       $gameText.scrollTop($gameText.scrollTop() + y + height * 4 - 512);
     }
   }
-  $('#CurrentFen').text(CurrentFEN());
+  var fen = CurrentFEN();
+  $('div.undergame_box .continue_from_here').text(fen)
+    .parent().find('.opponent_choice a').each(function() {
+    $(this).attr('href', $(this).attr('href').replace(/fen=.+\#/, "fen=" + fen + "#"));
+  });
 }
 
 function redrawBoardMarks() {
