@@ -164,4 +164,6 @@ filterGames=دستچین کردن بازی ها
 reset=تنظیم مجدد
 apply=اجرا کردن
 leaderboard=تخته ی برندگان مسابقه
+pasteTheFenStringHere=رشته FEN را در این قسمت قرار دهید
+fromPosition=از موقعیت
 continueFromHere=ادامه از اینجا
