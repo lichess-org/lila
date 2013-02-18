@@ -1,6 +1,6 @@
 /* line 95, monitor/*.png */
 .monitor-sprite, .monitor, .wheel, .needle {
-  background: url('/images/monitor-s4db31b6e84.png') no-repeat;
+  background: url('/public/images/monitor-s4db31b6e84.png') no-repeat;
 }
 
 /* line 4, ../sass/monitor.scss */
@@ -150,7 +150,7 @@ a .back {
 
 /* line 63, status/*.png */
 .status-sprite, div.light, .monitor.alert div.light, body.up div.light {
-  background: url('/images/status-sd927079eaa.png') no-repeat;
+  background: url('/public/images/status-sd927079eaa.png') no-repeat;
 }
 
 /* line 132, ../sass/monitor.scss */

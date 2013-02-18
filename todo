@@ -63,3 +63,5 @@ Set correct paths in config.rb
 Use mixins from vertical rhythm, and it's calculated values instead of hardcoded font-size/line-height values
 Add modular-scale plugin
 Use rhythm values for padding and margin
+Combine several stylesheets into one application.css
+Remove these div's before selectors

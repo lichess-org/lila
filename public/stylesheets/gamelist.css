@@ -1,6 +1,6 @@
 /* line 143, mini_pieces2/*.png */
 .mini_pieces2-sprite, div.lmcs.moved, div.lmcs.pawn.white, div.lmcs.bishop.white, div.lmcs.knight.white, div.lmcs.rook.white, div.lmcs.queen.white, div.lmcs.king.white, div.lmcs.pawn.black, div.lmcs.bishop.black, div.lmcs.knight.black, div.lmcs.rook.black, div.lmcs.queen.black, div.lmcs.king.black {
-  background: url('/images/mini_pieces2-s30d6fb324b.png') no-repeat;
+  background: url('/public/images/mini_pieces2-s30d6fb324b.png') no-repeat;
 }
 
 /* line 4, ../sass/gamelist.scss */

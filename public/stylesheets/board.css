@@ -425,7 +425,7 @@ body.txtr #tcol7trow7, body.txtr #h1 {
 
 /* line 87, sover/*.png */
 .sover-sprite, div.lcsi, div.lcs.moved div.lcsi, div.lcs.check div.lcsi, div.lcs.premoved div.lcsi, div.my_turn.not_spectator div.lcs:hover div.lcsi, div.lcs.droppable-hover div.lcsi, div.lichess_board div.lcs.selected div.lcsi, div.lichess_board div.lcs.selectable div.lcsi {
-  background: url('/images/sover-sedc916e8e5.png') no-repeat;
+  background: url('/public/images/sover-sedc916e8e5.png') no-repeat;
 }
 
 /* line 119, ../sass/board.scss */
@@ -468,7 +468,7 @@ div.my_turn div.lichess_piece.ui-draggable {
 
 /* line 135, pieces/*.png */
 .pieces-sprite, div.lichess_piece.pawn.white, div.lichess_piece.bishop.white, div.lichess_piece.knight.white, div.lichess_piece.rook.white, div.lichess_piece.queen.white, div.lichess_piece.king.white, div.lichess_piece.pawn.black, div.lichess_piece.bishop.black, div.lichess_piece.knight.black, div.lichess_piece.rook.black, div.lichess_piece.queen.black, div.lichess_piece.king.black {
-  background: url('/images/pieces-s621f684760.png') no-repeat;
+  background: url('/public/images/pieces-s621f684760.png') no-repeat;
 }
 
 /* line 153, ../sass/board.scss */

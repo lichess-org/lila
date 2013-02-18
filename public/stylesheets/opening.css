@@ -55,7 +55,7 @@ div.game_config button.submit {
 }
 /* line 63, color/*.png */
 div.game_config .color-sprite, div.game_config div.color_submits button.submit span, div.game_config div.color_submits button.black span, div.game_config div.color_submits button.random span {
-  background: url('/images/color-s436e594e68.png') no-repeat;
+  background: url('/public/images/color-s436e594e68.png') no-repeat;
 }
 /* line 62, ../sass/opening.scss */
 div.game_config div.color_submits {

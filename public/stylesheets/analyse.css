@@ -42,7 +42,7 @@ span.board_mark.horz {
 @font-face {
   font-family: "pgn4web ChessSansMerida";
   src: url(/assets/stylesheets/fonts/ChessSansMerida.eot);
-  src: url(/assets/stylesheets/fonts/ChessSansMerida.eot?#iefix) format('eot'), url('/stylesheets/fonts/ChessSansMerida.woff') format('woff'), url(/assets/stylesheets/fonts/ChessSansMerida.ttf) format('truetype'), url(/assets/stylesheets/fonts/ChessSansMerida.svg#ChessSansMerida) format('svg');
+  src: url(/assets/stylesheets/fonts/ChessSansMerida.eot?#iefix) format('eot'), url(/assets/stylesheets/fonts/ChessSansMerida.woff) format('woff'), url(/assets/stylesheets/fonts/ChessSansMerida.ttf) format('truetype'), url(/assets/stylesheets/fonts/ChessSansMerida.svg#ChessSansMerida) format('svg');
 }
 
 /* line 42, ../sass/analyse.scss */

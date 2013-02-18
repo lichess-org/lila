@@ -1,33 +1,28 @@
-/* line 1, ../sass/user-show.scss */
-div.user_show div.content_box_top .icon {
-  background-position: 0 -160px;
-}
-
-/* line 4, ../sass/user-show.scss */
-div.user_show div.content_box_top .icon.connected {
-  background-position: 0 -208px;
-}
-
-/* line 7, ../sass/user-show.scss */
+/* line 5, ../sass/user-show.scss */
 div.user_show .staff {
   color: #aa3333;
   font-weight: bold;
   margin-bottom: 1em;
 }
-
-/* line 12, ../sass/user-show.scss */
-div.user_show div.content_box_top .rank {
-  margin-left: 1em;
-}
-
-/* line 15, ../sass/user-show.scss */
+/* line 11, ../sass/user-show.scss */
 div.user_show span.user_bio {
   margin-bottom: 1em;
   font-style: italic;
   display: block;
 }
-
+/* line 18, ../sass/user-show.scss */
+div.user_show div.content_box_top .rank {
+  margin-left: 1em;
+}
 /* line 21, ../sass/user-show.scss */
+div.user_show div.content_box_top .icon {
+  background-position: 0 -160px;
+}
+/* line 24, ../sass/user-show.scss */
+div.user_show div.content_box_top .icon.connected {
+  background-position: 0 -208px;
+}
+/* line 30, ../sass/user-show.scss */
 div.user_show .elo_history {
   float: left;
   display: block;
@@ -36,47 +31,62 @@ div.user_show .elo_history {
   margin: -8px 0 0 -50px;
   position: relative;
 }
-
-/* line 29, ../sass/user-show.scss */
+/* line 38, ../sass/user-show.scss */
 div.user_show .elo_history span {
   position: absolute;
   left: 240px;
   top: 170px;
 }
-
-/* line 35, ../sass/user-show.scss */
+/* line 45, ../sass/user-show.scss */
 div.user_show .user-infos {
   margin: 20px 0 0 470px;
 }
-
-/* line 39, ../sass/user-show.scss */
+/* line 49, ../sass/user-show.scss */
 div.user_show .win_stats {
   display: block;
   min-height: 200px;
 }
-
-/* line 46, ../sass/user-show.scss */
+/* line 57, ../sass/user-show.scss */
 div.user_show .elo_with_me,
 div.user_show .numbers,
 div.user_show .tournament_points,
 div.user_show .teams {
+  margin-top: 1.5em;
   display: block;
-  margin-top: 1.6em;
 }
-
-/* line 50, ../sass/user-show.scss */
+/* line 62, ../sass/user-show.scss */
 div.user_show .teams {
   max-height: 200px;
   overflow: auto;
 }
-
-/* line 54, ../sass/user-show.scss */
+/* line 66, ../sass/user-show.scss */
 div.user_show .teams a {
   display: block;
   margin: 5px 0;
 }
-
-/* line 59, ../sass/user-show.scss */
+/* line 72, ../sass/user-show.scss */
+div.user_show .user_spy {
+  display: inline;
+}
+/* line 75, ../sass/user-show.scss */
+div.user_show .user_spy .inner {
+  display: none;
+  margin: 1em 0 0 20px;
+}
+/* line 80, ../sass/user-show.scss */
+div.user_show .user_spy .usernames a {
+  text-decoration: none;
+}
+/* line 83, ../sass/user-show.scss */
+div.user_show .user_spy .usernames a:hover {
+  text-decoration: underline;
+}
+/* line 88, ../sass/user-show.scss */
+div.user_show .user_spy strong {
+  display: block;
+  margin-top: 0.5em;
+}
+/* line 94, ../sass/user-show.scss */
 div.user_show div.elo_with_me {
   padding: 5px 8px;
   border: 1px solid #eaeaea;
@@ -84,53 +94,22 @@ div.user_show div.elo_with_me {
   width: 270px;
   text-align: center;
 }
-
-/* line 66, ../sass/user-show.scss */
+/* line 101, ../sass/user-show.scss */
 div.user_show div.elo_with_me strong {
   padding-right: 1em;
 }
-
-/* line 70, ../sass/user-show.scss */
+/* line 106, ../sass/user-show.scss */
 div.user_show div.games {
   margin-top: 10px;
 }
-
-/* line 74, ../sass/user-show.scss */
+/* line 110, ../sass/user-show.scss */
 div.user_show .actions {
   margin-bottom: 1em;
 }
-
-/* line 78, ../sass/user-show.scss */
+/* line 114, ../sass/user-show.scss */
 div.user_show .actions a.action,
 div.user_show .actions form {
   display: block;
   float: left;
   margin-left: 25px;
-}
-
-/* line 83, ../sass/user-show.scss */
-div.user_show .user_spy {
-  display: inline;
-}
-
-/* line 86, ../sass/user-show.scss */
-div.user_show .user_spy .inner {
-  display: none;
-  margin: 1em 0 0 20px;
-}
-
-/* line 90, ../sass/user-show.scss */
-div.user_show .user_spy .usernames a {
-  text-decoration: none;
-}
-
-/* line 93, ../sass/user-show.scss */
-div.user_show .user_spy .usernames a:hover {
-  text-decoration: underline;
-}
-
-/* line 96, ../sass/user-show.scss */
-div.user_show .user_spy strong {
-  display: block;
-  margin-top: 0.5em;
 }

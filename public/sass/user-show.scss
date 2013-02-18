@@ -1,99 +1,122 @@
-div.user_show div.content_box_top .icon {
-  background-position: 0 -160px;
-}
-div.user_show div.content_box_top .icon.connected {
-  background-position: 0 -208px;
-}
-div.user_show .staff {
-  color: #aa3333;
-  font-weight: bold;
-  margin-bottom: 1em;
-}
-div.user_show div.content_box_top .rank {
-  margin-left: 1em;
-}
-div.user_show span.user_bio {
-  margin-bottom: 1em;
-  font-style: italic;
-  display: block;
+@import "variables";
+
+div.user_show {
+
+  .staff {
+    color: #aa3333;
+    font-weight: bold;
+    margin-bottom: 1em;
+  }
+
+  span.user_bio {
+    margin-bottom: 1em;
+    font-style: italic;
+    display: block;
+  }
+
+  div.content_box_top {
+    .rank {
+      margin-left: 1em;
+    }
+    .icon {
+      background-position: 0 -160px;
+
+      &.connected {
+        background-position: 0 -208px;
+      }
+    }
+  }
+
+  .elo_history {
+    float: left;
+    display: block;
+    width: 500px;
+    height: 340px;
+    margin: -8px 0 0 -50px;
+    position: relative;
+
+    span {
+      position: absolute;
+      left: 240px;
+      top: 170px;
+    }
+  }
+
+  .user-infos {
+    margin: 20px 0 0 470px;
+  }
+
+  .win_stats {
+    display: block;
+    min-height: 200px;
+  }
+
+  .elo_with_me,
+  .numbers,
+  .tournament_points,
+  .teams {
+    @include leader;
+    display: block;
+  }
+
+  .teams {
+    max-height: 200px;
+    overflow: auto;
+
+    a {
+      display: block;
+      margin: 5px 0;
+    }
+  }
+
+  .user_spy {
+    display: inline;
+
+    .inner {
+      display: none;
+      margin: 1em 0 0 20px;
+    }
+
+    .usernames a {
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    strong {
+      display: block;
+      margin-top: 0.5em;
+    }
+  }
+
+  div.elo_with_me {
+    padding: 5px 8px;
+    border: 1px solid #eaeaea;
+    background: #fafafa;
+    width: 270px;
+    text-align: center;
+
+    strong {
+      padding-right: 1em;
+    }
+  }
+
+  div.games {
+    margin-top: 10px;
+  }
+
+  .actions {
+    margin-bottom: 1em;
+
+    a.action,
+    form {
+      display: block;
+      float: left;
+      margin-left: 25px;
+    }
+  }
 }
 
-div.user_show .elo_history {
-  float: left;
-  display: block;
-  width: 500px;
-  height: 340px;
-  margin: -8px 0 0 -50px;
-  position: relative;
-}
-div.user_show .elo_history span {
-  position: absolute;
-  left: 240px;
-  top: 170px;
-}
 
-div.user_show .user-infos {
-  margin: 20px 0 0 470px;
-}
-
-div.user_show .win_stats {
-  display: block;
-  min-height: 200px;
-}
-div.user_show .elo_with_me,
-div.user_show .numbers,
-div.user_show .tournament_points,
-div.user_show .teams {
-  display: block;
-  margin-top: 1.6em;
-}
-div.user_show .teams {
-  max-height: 200px;
-  overflow: auto;
-}
-div.user_show .teams a {
-  display: block;
-  margin: 5px 0;
-}
-
-div.user_show div.elo_with_me {
-  padding: 5px 8px;
-  border: 1px solid #eaeaea;
-  background: #fafafa;
-  width: 270px;
-  text-align: center;
-}
-div.user_show div.elo_with_me strong {
-  padding-right: 1em;
-}
-
-div.user_show div.games {
-  margin-top: 10px;
-}
-
-div.user_show .actions {
-  margin-bottom: 1em;
-}
-div.user_show .actions a.action,
-div.user_show .actions form {
-  display: block;
-  float: left;
-  margin-left: 25px;
-}
-div.user_show .user_spy {
-  display: inline;
-}
-div.user_show .user_spy .inner {
-  display: none;
-  margin: 1em 0 0 20px;
-}
-div.user_show .user_spy .usernames a {
-  text-decoration: none;
-}
-div.user_show .user_spy .usernames a:hover {
-  text-decoration: underline;
-}
-div.user_show .user_spy strong {
-  display: block;
-  margin-top: 0.5em;
-}
