@@ -164,5 +164,6 @@ filterGames=Filtruj gry
 reset=Reset
 apply=Dołącz
 leaderboard=Najlepsi Gracze
+pasteTheFenStringHere=Wprowadź tu napis FEN
 fromPosition=Z pozycji
 continueFromHere=Kontynuuj z tej pozycji
