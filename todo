@@ -65,3 +65,4 @@ Add modular-scale plugin
 Use rhythm values for padding and margin
 Combine several stylesheets into one application.css
 Remove these div's before selectors
+All tr/td/th must be inside a table selector

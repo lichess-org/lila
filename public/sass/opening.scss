@@ -1,6 +1,6 @@
 @import "variables";
 
-div.game_config {
+.game_config {
 
   h2, button {
     font-size: 1.4em;
@@ -15,7 +15,7 @@ div.game_config {
     margin-bottom: 1em;
   }
 
-  div.ui-buttonset {
+  .ui-buttonset {
     margin-bottom: 1em;
   }
 
@@ -24,7 +24,7 @@ div.game_config {
     text-transform: capitalize;
   }
 
-  div.ui-slider {
+  .ui-slider {
     font-size: 1.3em;
     margin: 0 15px;
   }
@@ -59,7 +59,7 @@ div.game_config {
 
   @import "color/*.png";
 
-  div.color_submits {
+  .color_submits {
     margin-top: 1em;
     margin-left: 18px;
     height: 65px;
@@ -94,7 +94,7 @@ div.game_config {
   margin-right: -0.6em;
 }
 
-div.hooks_wrap {
+.hooks_wrap {
   position: absolute;
   width: 384px;
   height: 384px;
@@ -291,7 +291,7 @@ div.hooks {
   text-align: center;
 }
 
-div.undertable {
+.undertable {
   width: 514px;
   font-size: 11.5px;
   margin-top: 15px;
@@ -326,7 +326,7 @@ div.undertable {
   }
 }
 
-div.undertable_top {
+.undertable_top {
   @include border-radius(4px 4px 0 0);
   border: 1px solid #ccc;
   padding: 3px 5px;
@@ -344,7 +344,7 @@ div.undertable_top {
   }
 }
 
-div.undertable_inner {
+.undertable_inner {
   border: 1px solid #ccc;
   border-top: 0;
   @include border-radius(0 0 4px 4px);
@@ -389,7 +389,7 @@ div.lichess_bot {
   }
 }
 
-div.new_posts {
+.new_posts {
   li {
     margin: 0.6em 0;
     padding-left: 9px;
