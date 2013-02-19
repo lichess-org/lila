@@ -35,12 +35,18 @@ div.game_config input[type="text"] {
   width: 87%;
   padding: 2px 3px;
 }
+div.game_config .fen_position {
+  display: none;
+}
 div.game_config input#fen.success {
   border-color: #00aa00;
 }
 div.game_config input#fen.failure {
   border-color: #aa0000;
   color: #aa0000;
+}
+div.game_config .fen_position .mini_board{
+  margin: 10px auto;
 }
 div.game_config .time_choice,
 div.game_config .increment_choice,
@@ -54,9 +60,6 @@ div.game_config .time_choice span {
 }
 div.game_config .clock_config label {
   cursor: pointer;
-}
-div.game_config .fen_position {
-  display: none;
 }
 div.game_config button.submit {
   margin-top: 0.5em;

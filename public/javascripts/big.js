@@ -290,7 +290,7 @@ var lichess_translations = [];
 
     $.centerOverboard = function() {
       if ($overboard = $('div.lichess_overboard.auto_center').orNot()) {
-        $overboard.css('top', (238 - $overboard.height() / 2) + 'px').show();
+        $overboard.css('top', Math.max(-30, 238 - $overboard.height() / 2) + 'px').show();
       }
     };
     $.centerOverboard();
@@ -1188,10 +1188,10 @@ var lichess_translations = [];
         $('body').trigger('lichess.content_loaded');
         this.$nano.nanoScroller({scroll:'bottom'});
       },
-    remove: function(regex) {
-      var r = new RegExp(regex);
-      $this.$msgs.find('li').filter(function() { return r.test($(this).html()); }).remove();
-    }
+      remove: function(regex) {
+        var r = new RegExp(regex);
+        $this.$msgs.find('li').filter(function() { return r.test($(this).html()); }).remove();
+      }
   });
 
   $.widget("lichess.clock", {
@@ -1277,7 +1277,7 @@ var lichess_translations = [];
         var color = $this.data('color') || "white";
         var withKeys = $this.hasClass('with_keys');
         var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-        var fen = $this.data('fen').replace(/\//g, '');
+        var fen = $this.data('fen').split(' ')[0].replace(/\//g, '');
         var lm = $this.data('lastmove');
         var lastMove = lm ? [lm[0] + lm[1], lm[2] + lm[3]] : [];
         var x, y, html = '', scolor, pcolor, pclass, c, d, increment;
@@ -1490,8 +1490,16 @@ var lichess_translations = [];
           $.ajax({
             url: $fenInput.parent().data('validate-url'),
             data: { fen: $fenInput.val() },
-            success: function(data) { 
-              $fenInput.addClass(data == 1 ? "success" : "failure"); 
+            success: function(data) {
+              $fenInput.addClass("success");
+              $fenPosition.find('.preview').html(data);
+              $('body').trigger('lichess.content_loaded');
+              $.centerOverboard();
+            },
+            error: function() {
+              $fenInput.addClass("failure");
+              $fenPosition.find('.preview').html("");
+              $.centerOverboard();
             }
           });
         }
