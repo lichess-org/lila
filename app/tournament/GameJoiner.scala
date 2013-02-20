@@ -38,7 +38,7 @@ final class GameJoiner(
       .start
       .startClock(2)
     _ ← gameRepo insert game
-    _ ← gameRepo denormalizeStarted game
+    _ ← gameRepo denormalize game
     _ ← timelinePush(game)
     _ ← scheduleIdleCheck(PovRef(game.id, Color.White), secondsToMove)
   } yield game

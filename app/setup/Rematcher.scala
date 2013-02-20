@@ -43,7 +43,7 @@ private[setup] final class Rematcher(
     nextGame ← returnGame(pov) map (_.start)
     _ ← gameRepo insert nextGame
     nextId = nextGame.id
-    _ ← gameRepo denormalizeStarted nextGame
+    _ ← gameRepo denormalize nextGame
     _ ← gameRepo.saveNext(pov.game, nextGame.id)
     _ ← timelinePush(nextGame)
     // messenges are not sent to the next game socket

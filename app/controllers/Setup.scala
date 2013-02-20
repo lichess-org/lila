@@ -118,8 +118,7 @@ object Setup extends LilaController with TheftPrevention with RoundEventPerforme
         strict = get("strict").isDefined
         if (parsed.situation playable strict)
         validated = chess.format.Forsyth >> parsed
-      } yield """<div class="mini_board parse_fen" data-color="%s" data-fen="%s"></div> """.format(
-        parsed.situation.color.name, validated)
+      } yield html.game.miniBoard(validated, parsed.situation.color.name)
     } fold (Ok(_), BadRequest)
   }
 
