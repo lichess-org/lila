@@ -26,7 +26,7 @@ final class Ai(server: Server) extends lila.ai.Ai with Stockfish {
     server.analyse(pgn, initialFen)
 
   private def withValidSituation[A](dbGame: DbGame)(op: ⇒ Future[Valid[A]]): Future[Valid[A]] =
-    if (dbGame.toChess.situation.playable) op
+    if (dbGame.toChess.situation playable true) op
     else Future { !!("Invalid game situation: " + dbGame.toChess.situation) }
 
   private implicit val executor = Akka.system.dispatcher

@@ -23,7 +23,7 @@ object Mappings {
   val speed = number.verifying(Config.speeds contains _)
   val eloDiff = number.verifying(FilterConfig.eloDiffs contains _)
 
-  val fen = optional {
-    nonEmptyText verifying { source ⇒ ~(Forsyth <<< source).map(_.situation.playable) }
+  def fen(strict: Boolean) = optional {
+    nonEmptyText verifying { source ⇒ ~(Forsyth <<< source).map(_.situation playable strict) }
   }
 }
