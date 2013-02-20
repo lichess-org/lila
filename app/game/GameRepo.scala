@@ -120,7 +120,7 @@ final class GameRepo(collection: MongoCollection)
       .toList.map(_.decode).flatten.headOption
   }
 
-  def denormalizeStarted(game: DbGame): IO[Unit] = io {
+  def denormalize(game: DbGame): IO[Unit] = io {
     val userIds = game.players.map(_.userId).flatten
     if (userIds.nonEmpty) update(idSelector(game), $set("uids" -> userIds))
     if (game.mode.rated) update(idSelector(game), $set("ra" -> true))
