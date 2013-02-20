@@ -4,7 +4,7 @@
 <div class="variants buttons">
   @setup.radios(form("variant"), translatedVariantChoicesWithFen)
 </div>
-@fenInput(form("fen"))
+@fenInput(form("fen"), true)
 @setup.clock(form, lila.setup.AiConfig)
 @trans.level()
 <div class="level buttons">

@@ -47,7 +47,7 @@ private[setup] final class FormFactory(
       "increment" -> increment,
       "level" -> level,
       "color" -> color,
-      "fen" -> fen
+      "fen" -> fen(true)
     )(AiConfig.<<)(_.>>)
   )
 
@@ -69,7 +69,7 @@ private[setup] final class FormFactory(
       "increment" -> increment,
       "mode" -> mode(ctx.isAuth),
       "color" -> color,
-      "fen" -> fen
+      "fen" -> fen(false)
     )(FriendConfig.<<)(_.>>) verifying ("Invalid clock", _.validClock)
   )
 
