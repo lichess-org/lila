@@ -1,4 +1,4 @@
-@(title: String, active: Option[ui.SiteMenu.Elem] = None, baseline: Option[Html] = None, goodies: Option[Html] = None, menu: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, robots: Boolean = true, moreCss: Html = Html(""), moreJs: Html = Html(""), signedJs: Option[String] = None)(body: Html)(implicit ctx: Context)
+@(title: String, active: Option[ui.SiteMenu.Elem] = None, baseline: Option[Html] = None, goodies: Option[Html] = None, menu: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, robots: Boolean = true, moreCss: Html = Html(""), moreJs: Html = Html(""), signedJs: Option[String] = None, flattr: Boolean = false)(body: Html)(implicit ctx: Context)
 <!doctype html>
 <html lang="@lang.language">
   <head>
@@ -101,6 +101,7 @@
     <div class="footer_wrap">
       <div class="lichess_social">
         <div class="addtochrome"><a class="button" href="https://chrome.google.com/webstore/detail/kiefmccciemniajdkgikpnocipidaaeg">Add To Chrome</a></div>
+        @if(flattr) {
         <a class="FlattrButton" style="display:none;"
           title="Lichess.org server"
           data-flattr-uid="ornicar"
@@ -117,6 +118,7 @@
 
           Oh by the way, the code is open source :) https://github.com/ornicar/lila</a>
         <br />
+        }
       </div>
       <div class="footer">
         <div class="right">
@@ -139,7 +141,7 @@
     @if(lang.language != "en") {
     <script src="@routes.Assets.at("trans/" + lang.language + ".js")?v=@assetVersion"></script>
     }
-    @if(!isDev) {
+    @if(flattr && !isDev) {
     <script type="text/javascript">
       (function() {
        var s = document.createElement('script');
