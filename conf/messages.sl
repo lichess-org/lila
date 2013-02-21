@@ -164,5 +164,6 @@ filterGames=Filtriraj
 reset=Ponastavi
 apply=Uporabi
 leaderboard=Lestvica
+pasteTheFenStringHere=Prilepi FEN niz tukaj
 fromPosition=S položaja
 continueFromHere=Nadaljuj od tukaj
