@@ -4,7 +4,7 @@ import lila._
 import views._
 import security.Permission
 import user.{ GameFilter, User ⇒ UserModel }
-import http.Context
+import http.{ Context, LilaCookie }
 
 import play.api.mvc._
 import play.api.mvc.Results._
@@ -104,11 +104,12 @@ object User extends LilaController {
 
   val closeConfirm = Auth { ctx ⇒
     me ⇒
+    implicit val req = ctx.req
       IOResult {
         (userRepo disable me) >> 
         env.team.api.quitAll(me.id) >>
         (env.security.store deleteUsername me.username) inject { 
-          Redirect(routes.User show me.username).withNewSession
+          Redirect(routes.User show me.username) withCookies LilaCookie.newSession
         }
       }
   }

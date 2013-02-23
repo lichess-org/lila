@@ -55,8 +55,8 @@ trait AuthImpl {
   }
 
   protected def gotoLogoutSucceeded(implicit req: RequestHeader) = {
-    req.session.get("sessionId") foreach env.security.store.delete
-    logoutSucceeded(req).withNewSession
+    req.session get "sessionId" foreach env.security.store.delete
+    logoutSucceeded(req) withCookies LilaCookie.newSession
   }
 
   protected def authorizationFailed(req: RequestHeader): PlainResult =
