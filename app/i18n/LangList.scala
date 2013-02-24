@@ -95,6 +95,7 @@ private[i18n] object LangList {
     "kj" -> "Kuanyam",
     "lb" -> "Lëtzebuergesch",
     "lg" -> "Luganda",
+    "la" -> "lingua latīna",
     "li" -> "Limburgs",
     "ln" -> "Lingála",
     "lo" -> "ພາສາລາວ",
