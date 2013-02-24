@@ -6,6 +6,9 @@
 <a class="@active.active("search")" href="@routes.Search.form()">
   @trans.advancedSearch()
 </a>
+<a class="@active.active("import")" href="@routes.Game.importGame()">
+  @trans.importGame()
+</a>
 <a class="@active.active("all")" href="@routes.Game.all()">
   @trans.viewAllNbGames(listMenu.nbGames.localize)
 </a>

@@ -39,4 +39,6 @@ final class GameEnv(
   lazy val gameJs = new GameJs(
     path = app.path.getCanonicalPath + "/" + IsDev.fold(GameJsPathRaw, GameJsPathCompiled),
     useCache = !IsDev)
+
+  lazy val forms = new DataForm
 }

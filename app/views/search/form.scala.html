@@ -17,11 +17,7 @@ menu = game.sideMenu(listMenu, "search").some,
 moreJs = moreJs,
 moreCss = moreCss) {
 <div class="content_box no_padding">
-  <div class="content_box_title">
-    <h1 class="title">
-      @trans.advancedSearch()
-    </h1>
-  </div>
+  <h1 class="title">@trans.advancedSearch()</h1>
   <form class="search" action="@routes.Search.form()" method="get">
     <table>
       <tr>
@@ -144,7 +140,7 @@ moreCss = moreCss) {
     @paginator.map { pager =>
     @if(pager.nbResults > 0) {
     <div class="search_status">
-      @pager.nbResults.localize games found - 
+      @pager.nbResults.localize games found -
       <a class="permalink" href="@routes.Search.form()">Permalink</a>
     </div>
     <div class="all_games search_infinitescroll">
@@ -163,7 +159,7 @@ moreCss = moreCss) {
     }
     }.getOrElse {
     <div class="search_status">Search ready</div>
-      }
+    }
   </div>
 </div>
 }
