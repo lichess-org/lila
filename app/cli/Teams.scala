@@ -29,7 +29,7 @@ private[cli] case class Teams(env: TeamEnv, userRepo: UserRepo) {
   def delete(teamId: String): IO[String] = perform(teamId)(api.delete _)
 
   private def perform(teamId: String)(op: Team ⇒ IO[Unit]) = for {
-    teamOption ← teamRepo byId teamId.pp
+    teamOption ← teamRepo byId teamId
     res ← teamOption.fold(
       u ⇒ op(u) inject "Success",
       io("Team not found")
