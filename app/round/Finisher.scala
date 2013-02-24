@@ -55,6 +55,8 @@ final class Finisher(
       finish(pov.game, Draw, None, Some(_.drawOfferAccepted))
     else !!("opponent is not proposing a draw")
 
+  def drawForce(game: DbGame): ValidIOEvents = finish(game, Draw, None, None)
+
   def outoftime(game: DbGame): ValidIOEvents = game.outoftimePlayer.fold(
     player ⇒ finish(game, Outoftime,
       Some(!player.color) filter game.toChess.board.hasEnoughMaterialToMate),
@@ -80,7 +82,7 @@ final class Finisher(
     game: DbGame,
     status: Status,
     winner: Option[Color] = None,
-    message: Option[SelectI18nKey] = None): Valid[IO[List[Event]]] =
+    message: Option[SelectI18nKey] = None): ValidIOEvents =
     if (finisherLock isLocked game) !!("game finish is locked")
     else success(for {
       _ ← finisherLock lock game

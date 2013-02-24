@@ -1,31 +1,46 @@
 package lila
 package importer
 
-import chess.Move
+import chess.{ Move, Status }
 import core.Futuristic
 import game.{ DbGame, GameRepo, PovRef }
-import round.Hand
+import round.{ Hand, Finisher }
 
 import scalaz.effects._
 import akka.dispatch.Future
 
 final class Importer(
     gameRepo: GameRepo,
-    hand: Hand) extends Futuristic {
+    hand: Hand,
+    finisher: Finisher) extends Futuristic {
 
-  def apply(data: ImportData): Future[Option[DbGame]] = {
-    val (game, moves) = data.game.err
-    for {
+  val delayInMs = 100
+
+  def apply(data: ImportData): Future[Option[DbGame]] = data.preprocess match {
+    case scalaz.Success(Preprocessed(game, moves, result)) ⇒ for {
       _ ← (gameRepo insert game).toFuture
       _ ← (gameRepo denormalize game).toFuture
       success ← applyMoves(game.id, moves)
+      dbGame ← (gameRepo game game.id).toFuture
+      _ ← (((result filter (_ ⇒ success)) |@| dbGame) apply {
+        case (res, dbg) ⇒ finish(dbg, res)
+      }) | Future()
     } yield success option game
+    case _ ⇒ Future(none)
+  }
+
+  private def finish(game: DbGame, result: Result): Future[Unit] = result match {
+    case Result(Status.Draw, _)             ⇒ (finisher drawForce game).fold(_ ⇒ io(), _.void).toFuture
+    case Result(Status.Resign, Some(color)) ⇒ (hand resign game.fullIdOf(color)).void.toFuture
+    case _                                  ⇒ Future()
   }
 
   private def applyMoves(id: String, moves: List[Move]): Future[Boolean] = moves match {
     case Nil ⇒ Future(true)
-    case move :: rest ⇒ applyMove(id, move.pp) flatMap { success ⇒
-      success.fold(applyMoves(id, rest), Future(false))
+    case move :: rest ⇒ applyMove(id, move) flatMap { success ⇒
+      success.fold(
+        Future(Thread sleep delayInMs) flatMap { _ ⇒ applyMoves(id, rest) },
+        Future(false))
     }
   }
 

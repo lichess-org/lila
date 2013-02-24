@@ -27,3 +27,6 @@
   margin-bottom: 10px;
   color: red;
 }
+#import_game form .wait {
+  display: none;
+}

@@ -416,6 +416,11 @@ var lichess_translations = [];
       $(this).parent().submit();
     });
 
+    $("#import_game form").on('submit', function() {
+      $(this).find('button').hide().end().find('.wait').show();
+      return true;
+    });
+
     var elem = document.createElement('audio');
     var canPlayAudio = !! elem.canPlayType && elem.canPlayType('audio/ogg; codecs="vorbis"');
     var $soundToggle = $('#sound_state');

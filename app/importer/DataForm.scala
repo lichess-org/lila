@@ -4,7 +4,7 @@ package importer
 import game._
 import chess.format.pgn.{ Parser, Reader, ParsedPgn, Tag, TagType }
 import chess.format.Forsyth
-import chess.{ Game, Board, Replay, Color, Mode, Variant, Move }
+import chess.{ Game, Board, Replay, Color, Mode, Variant, Move, Status }
 
 import play.api.data._
 import play.api.data.Forms._
@@ -16,29 +16,40 @@ final class DataForm {
     "pgn" -> nonEmptyText.verifying("Invalid PGN", checkPgn _)
   )(ImportData.apply)(ImportData.unapply))
 
-  private def checkPgn(pgn: String): Boolean = ImportData(pgn).game.isSuccess
+  private def checkPgn(pgn: String): Boolean = ImportData(pgn).preprocess.isSuccess
 }
+
+case class Result(status: Status, winner: Option[Color])
+case class Preprocessed(game: DbGame, moves: List[Move], result: Option[Result])
 
 case class ImportData(pgn: String) {
 
-  def game: Valid[(DbGame, List[Move])] = (Parser(pgn) |@| Reader(pgn)) apply {
+  def preprocess: Valid[Preprocessed] = (Parser(pgn) |@| Reader(pgn)) apply {
     case (ParsedPgn(tags, _), replay @ Replay(game, _)) ⇒ {
 
       def tag(which: Tag.type ⇒ TagType): Option[String] =
         tags find (_.name == which(Tag)) map (_.value)
 
       val variant = tag(_.Variant).flatMap(v ⇒ Variant(v.value)) | Variant.Standard
-      val board = tag(_.FEN) flatMap Forsyth.<< map (_.board)
+      val initBoard = tag(_.FEN) flatMap Forsyth.<< map (_.board)
 
-      DbGame(
-        game = Game(board = board | (Board init variant)),
+      val result = tag(_.Result) filterNot (_ ⇒ game.situation.end) collect {
+        case "1-0"     ⇒ Result(Status.Resign, Color.White.some)
+        case "0-1"     ⇒ Result(Status.Resign, Color.Black.some)
+        case "1/2-1/2" ⇒ Result(Status.Draw, none)
+      }
+
+      val dbGame = DbGame(
+        game = Game(board = initBoard | (Board init variant)),
         ai = None,
         whitePlayer = DbPlayer.white,
         blackPlayer = DbPlayer.black,
         creatorColor = Color.White,
         mode = Mode.Casual,
         variant = variant,
-        source = Source.Import) -> replay.chronoMoves
+        source = Source.Import)
+
+      Preprocessed(dbGame, replay.chronoMoves, result)
     }
   }
 }
