@@ -3,7 +3,7 @@ package setup
 
 import chess.{ Variant, Mode, Clock, Color ⇒ ChessColor }
 import elo.EloRange
-import game.{ DbGame, DbPlayer }
+import game.{ DbGame, DbPlayer, Source }
 
 case class FriendConfig(
     variant: Variant,
@@ -24,7 +24,8 @@ case class FriendConfig(
       blackPlayer = DbPlayer.black,
       creatorColor = creatorColor,
       mode = mode,
-      variant = variant)
+      variant = variant,
+      source = Source.Friend)
   }
 
   def encode = RawFriendConfig(

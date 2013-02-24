@@ -66,7 +66,8 @@ final class HookJoiner(
     blackPlayer = DbPlayer.black,
     creatorColor = hook.realColor.resolve,
     mode = hook.realMode,
-    variant = hook.realVariant)
+    variant = hook.realVariant,
+    source = game.Source.Lobby)
 
   private def canJoin(hook: Hook, me: Option[User]) =
     !hook.`match` && {

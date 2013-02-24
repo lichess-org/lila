@@ -4,7 +4,7 @@ package setup
 import chess.{ Game, Board, Clock, Variant, Color ⇒ ChessColor }
 import ChessColor.{ White, Black }
 import chess.format.Forsyth
-import game.{ GameRepo, DbGame, DbPlayer, Pov, Handler, Namer }
+import game.{ GameRepo, DbGame, DbPlayer, Pov, Handler, Namer, Source }
 import round.{ Event, Progress, Messenger }
 import user.UserRepo
 import controllers.routes
@@ -87,7 +87,8 @@ private[setup] final class Rematcher(
     ai = None,
     creatorColor = !pov.color,
     mode = pov.game.mode,
-    variant = pov.game.variant
+    variant = pov.game.variant,
+    source = pov.game.source | Source.Lobby
   ) with960Rematch !pov.game.is960Rematch
 
   private def returnPlayer(game: DbGame, color: ChessColor): IO[DbPlayer] =

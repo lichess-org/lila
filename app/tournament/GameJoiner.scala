@@ -2,7 +2,7 @@ package lila
 package tournament
 
 import chess.Color
-import game.{ DbGame, DbPlayer, GameRepo, Pov, PovRef }
+import game.{ DbGame, DbPlayer, GameRepo, Pov, PovRef, Source }
 import user.User
 import round.Meddler
 
@@ -32,7 +32,8 @@ final class GameJoiner(
       blackPlayer = DbPlayer.black withUser user2,
       creatorColor = chess.Color.White,
       mode = tour.mode,
-      variant = tour.variant
+      variant = tour.variant,
+      source = Source.Tournament
     ).withTournamentId(tour.id)
       .withId(pairing.gameId)
       .start

@@ -33,7 +33,8 @@ case class DbGame(
     is960Rematch: Boolean = false,
     createdAt: DateTime = DateTime.now,
     updatedAt: Option[DateTime] = None,
-    tournamentId: Option[String] = None) {
+    tournamentId: Option[String] = None,
+    source: Option[Source] = None) {
 
   val players = List(whitePlayer, blackPlayer)
 
@@ -343,7 +344,8 @@ case class DbGame(
     r960 = is960Rematch option true,
     ca = createdAt,
     ua = updatedAt,
-    tid = tournamentId
+    tid = tournamentId,
+    so = source map (_.id)
   )
 
   def userIds = playerMaps(_.userId)
@@ -384,7 +386,8 @@ object DbGame {
     ai: Option[(Color, Int)],
     creatorColor: Color,
     mode: Mode,
-    variant: Variant): DbGame = DbGame(
+    variant: Variant,
+    source: Source): DbGame = DbGame(
     id = IdGenerator.game,
     token = IdGenerator.token,
     whitePlayer = whitePlayer withEncodedPieces game.allPieces,
@@ -400,6 +403,7 @@ object DbGame {
     mode = mode,
     variant = variant,
     lastMoveTime = None,
+    source = source.some,
     createdAt = DateTime.now)
 }
 
@@ -423,7 +427,8 @@ case class RawDbGame(
     r960: Option[Boolean] = None,
     ca: DateTime,
     ua: Option[DateTime],
-    tid: Option[String]) {
+    tid: Option[String],
+    so: Option[Int]) {
 
   def decode: Option[DbGame] = for {
     whitePlayer ← p.headOption map (_ decode Color.White)
@@ -450,6 +455,7 @@ case class RawDbGame(
     is960Rematch = r960 | false,
     createdAt = ca,
     updatedAt = ua,
-    tournamentId = tid
+    tournamentId = tid,
+    source = so flatMap Source.apply
   )
 }
