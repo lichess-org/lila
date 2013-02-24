@@ -55,3 +55,4 @@ team chat
 let players block other players
 detect lack of support for date formatting (gl) and use 2013-02-15 13:48:00 instead
 recognize pgn in forum and show a pgn4web
+localize in chrome web store
