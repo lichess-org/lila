@@ -147,11 +147,7 @@ case class DbGame(
       positionHashes = history.positionHashes mkString,
       castles = history.castleNotation,
       lastMove = history.lastMoveString,
-      status =
-        if (situation.checkMate) Status.Mate
-        else if (situation.staleMate) Status.Stalemate
-        else if (situation.autoDraw) Status.Draw
-        else status,
+      status = situation.status | status,
       clock = game.clock,
       check = if (situation.check) situation.kingPos else None,
       lastMoveTime = nowSeconds.some

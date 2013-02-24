@@ -114,6 +114,10 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     flood = security.flood,
     indexGame = search.indexGame)
 
+  lazy val importer = new lila.importer.ImporterEnv(
+    gameRepo = game.gameRepo,
+    hand = round.hand)
+
   lazy val tournament = new lila.tournament.TournamentEnv(
     app = app,
     settings = settings,

@@ -10,7 +10,7 @@ menu = game.sideMenu(listMenu, "import").some,
 moreCss = moreCss) {
 <div id="import_game" class="content_box">
   <h1 class="title">@trans.importGame()</h1>
-  <form class="import" action="@routes.Game.sendGame()" method="post">
+  <form class="import" action="@routes.Importer.sendGame()" method="post">
     <label>
       <span>@trans.pasteThePgnStringHere() :</span>
       @defining(form("pgn")) { field =>
@@ -18,7 +18,6 @@ moreCss = moreCss) {
       @errMsg(field)
       }
     </label>
-    @errMsg(form)
     <button class="submit button" type="submit">@trans.importGame()</button>
   </form>
 </div>
