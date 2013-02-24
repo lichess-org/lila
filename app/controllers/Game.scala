@@ -11,7 +11,6 @@ object Game extends LilaController with BaseGame {
   private def paginator = env.game.paginator
   private def analysePaginator = env.analyse.paginator
   private def cached = env.game.cached
-  private def forms = env.game.forms
 
   val realtime = Open { implicit ctx ⇒
     IOk(gameRepo recentGames 9 map { games ⇒
@@ -48,17 +47,5 @@ object Game extends LilaController with BaseGame {
     reasonable(page) {
       Ok(html.game.analysed(analysePaginator games page, makeListMenu))
     }
-  }
-
-  val importGame = Open { implicit ctx ⇒
-    Ok(html.game.importGame(makeListMenu, forms.importForm))
-  }
-
-  val sendGame = OpenBody { implicit ctx =>
-    implicit def req = ctx.body
-    forms.importForm.bindFromRequest.fold(
-        failure ⇒ Ok(html.game.importGame(makeListMenu, failure)),
-        data ⇒ Ok(html.game.importGame(makeListMenu, forms.importForm))
-    )
   }
 }
