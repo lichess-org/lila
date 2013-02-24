@@ -2,7 +2,7 @@ package lila
 package setup
 
 import chess.{ Variant, Mode, Game, Color ⇒ ChessColor }
-import game.{ DbGame, DbPlayer }
+import game.{ DbGame, DbPlayer, Source }
 
 case class AiConfig(
     variant: Variant,
@@ -27,8 +27,8 @@ case class AiConfig(
         aiLevel = creatorColor.white option level),
       creatorColor = creatorColor,
       mode = Mode.Casual,
-      variant = variant
-    )
+      variant = variant,
+      source = Source.Ai)
   } start
 
   def encode = RawAiConfig(
