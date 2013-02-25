@@ -675,7 +675,8 @@ div.hooks td.action:hover,
 div.hooks table.empty_table tr:hover,
 div.progressbar.flashy div,
 .button.strong:hover,
-div.locale_menu a.active
+div.locale_menu a.active,
+#import_game .progression 
 {
   color: #fff;
   background: #d85000;
