@@ -20,12 +20,12 @@ final class Importer(
     case scalaz.Success(Preprocessed(game, moves, result)) ⇒ for {
       _ ← (gameRepo insert game).toFuture
       _ ← (gameRepo denormalize game).toFuture
-      success ← applyMoves(game.id, moves)
+      _ ← applyMoves(game.id, moves)
       dbGame ← (gameRepo game game.id).toFuture
-      _ ← (((result filter (_ ⇒ success)) |@| dbGame) apply {
+      _ ← ((result |@| dbGame) apply {
         case (res, dbg) ⇒ finish(dbg, res)
       }) | Future()
-    } yield success option game
+    } yield game.some
     case _ ⇒ Future(none)
   }
 
@@ -35,12 +35,13 @@ final class Importer(
     case _                                  ⇒ Future()
   }
 
-  private def applyMoves(id: String, moves: List[Move]): Future[Boolean] = moves match {
-    case Nil ⇒ Future(true)
+  private def applyMoves(id: String, moves: List[Move]): Future[Unit] = moves match {
+    case Nil ⇒ Future()
     case move :: rest ⇒ applyMove(id, move) flatMap { success ⇒
       success.fold(
         Future(Thread sleep delayInMs) flatMap { _ ⇒ applyMoves(id, rest) },
-        Future(false))
+        Future()
+      )
     }
   }
 

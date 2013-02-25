@@ -23,8 +23,7 @@
 }
 
 #import_game form p.error {
-  margin-left: 110px;
-  margin-bottom: 10px;
+  margin: 10px 0;
   color: red;
 }
 #import_game form .wait {
