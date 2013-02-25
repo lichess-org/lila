@@ -29,3 +29,12 @@
 #import_game form .wait {
   display: none;
 }
+
+#import_game .progression {
+  margin: 20px 0;
+  width: 0px;
+  display: none;
+  height: 2em;
+  border-radius: 5px;
+  border: 1px solid #888;
+}
