@@ -10,7 +10,8 @@ case class ListMenu(
   nbMates: Int,
   nbPopular: Int,
   nbBookmarks: Option[Int],
-  nbAnalysed: Int)
+  nbAnalysed: Int,
+  nbImported: Int)
 
 object ListMenu {
 
@@ -22,5 +23,6 @@ object ListMenu {
       nbMates = cached.nbMates,
       nbPopular = cached.nbPopular,
       nbBookmarks = me map countBookmarks,
-      nbAnalysed = countAnalysed)
+      nbAnalysed = countAnalysed,
+      nbImported = cached.nbImported)
 }

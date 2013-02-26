@@ -169,4 +169,4 @@ pasteThePgnStringHere=Paste the PGN string here
 fromPosition=From position
 continueFromHere=Continue from here
 importGame=Import game
-nbImports=%d imports
+nbImportedGames=%s Imported games
