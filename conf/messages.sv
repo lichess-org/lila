@@ -167,3 +167,4 @@ leaderboard=Rankinglista
 pasteTheFenStringHere=Klistra in FEN-strängen här
 fromPosition=Från position
 continueFromHere=Fortsätt härifrån
+importGame=Importera parti
