@@ -6,6 +6,7 @@ import user.User
 import chess.{ History ⇒ ChessHistory, Role, Board, Move, Pos, Game, Clock, Status, Color, Piece, Variant, Mode }
 import Color._
 import chess.Pos.piotr, chess.Role.forsyth, chess.format.Forsyth
+import importer.PgnImport
 
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
@@ -34,7 +35,7 @@ case class DbGame(
     createdAt: DateTime = DateTime.now,
     updatedAt: Option[DateTime] = None,
     tournamentId: Option[String] = None,
-    source: Option[Source] = None) {
+    metadata: Option[Metadata] = None) {
 
   val players = List(whitePlayer, blackPlayer)
 
@@ -341,8 +342,7 @@ case class DbGame(
     ca = createdAt,
     ua = updatedAt,
     tid = tournamentId,
-    so = source map (_.id)
-  )
+    me = metadata map (_.encode))
 
   def userIds = playerMaps(_.userId)
 
@@ -359,6 +359,8 @@ case class DbGame(
   def withTournamentId(id: String) = this.copy(tournamentId = id.some)
 
   def withId(newId: String) = this.copy(id = newId)
+
+  def source = metadata map (_.source)
 
   private def playerMaps[A](f: DbPlayer ⇒ Option[A]): List[A] = players.map(f).flatten
 }
@@ -383,7 +385,8 @@ object DbGame {
     creatorColor: Color,
     mode: Mode,
     variant: Variant,
-    source: Source): DbGame = DbGame(
+    source: Source,
+    pgnImport: Option[PgnImport]): DbGame = DbGame(
     id = IdGenerator.game,
     token = IdGenerator.token,
     whitePlayer = whitePlayer withEncodedPieces game.allPieces,
@@ -399,7 +402,9 @@ object DbGame {
     mode = mode,
     variant = variant,
     lastMoveTime = None,
-    source = source.some,
+    metadata = Metadata(
+      source = source,
+      pgnImport = pgnImport).some,
     createdAt = DateTime.now)
 }
 
@@ -424,12 +429,13 @@ case class RawDbGame(
     ca: DateTime,
     ua: Option[DateTime],
     tid: Option[String],
-    so: Option[Int]) {
+    me: Option[RawMetadata]) {
 
   def decode: Option[DbGame] = for {
     whitePlayer ← p.headOption map (_ decode Color.White)
     blackPlayer ← p lift 1 map (_ decode Color.Black)
     trueStatus ← Status(s)
+    metadata <- me map (_.decode)
   } yield DbGame(
     id = id,
     token = tk | DbGame.defaultToken,
@@ -452,6 +458,6 @@ case class RawDbGame(
     createdAt = ca,
     updatedAt = ua,
     tournamentId = tid,
-    source = so flatMap Source.apply
+    metadata = me flatMap (_.decode)
   )
 }

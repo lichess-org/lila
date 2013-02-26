@@ -24,7 +24,7 @@ object Importer extends LilaController with BaseGame {
         failure ⇒ Akka.future {
           Ok(html.game.importGame(makeListMenu, failure))
         },
-        data ⇒ (importer(data) map {
+        data ⇒ (importer(data, ctx.userId) map {
           _.fold(
             game ⇒ Redirect(routes.Analyse.replay(game.id, "white")),
             Redirect(routes.Importer.importGame)

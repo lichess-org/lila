@@ -25,7 +25,8 @@ case class FriendConfig(
       creatorColor = creatorColor,
       mode = mode,
       variant = variant,
-      source = Source.Friend)
+      source = Source.Friend,
+      pgnImport = None)
   }
 
   def encode = RawFriendConfig(

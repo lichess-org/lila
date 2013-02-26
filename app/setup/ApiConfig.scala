@@ -22,5 +22,6 @@ case object ApiConfig extends Config with GameGenerator {
     creatorColor = creatorColor,
     mode = mode,
     variant = variant,
-    source = Source.Api)
+    source = Source.Api,
+    pgnImport = None)
 }

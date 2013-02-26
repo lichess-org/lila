@@ -16,18 +16,19 @@ final class Importer(
 
   val delayInMs = 100
 
-  def apply(data: ImportData): Future[Option[DbGame]] = data.preprocess match {
-    case scalaz.Success(Preprocessed(game, moves, result)) ⇒ for {
-      _ ← (gameRepo insert game).toFuture
-      _ ← (gameRepo denormalize game).toFuture
-      _ ← applyMoves(game.id, moves)
-      dbGame ← (gameRepo game game.id).toFuture
-      _ ← ((result |@| dbGame) apply {
-        case (res, dbg) ⇒ finish(dbg, res)
-      }) | Future()
-    } yield game.some
-    case _ ⇒ Future(none)
-  }
+  def apply(data: ImportData, user: Option[String]): Future[Option[DbGame]] =
+    data preprocess user match {
+      case scalaz.Success(Preprocessed(game, moves, result)) ⇒ for {
+        _ ← (gameRepo insert game).toFuture
+        _ ← (gameRepo denormalize game).toFuture
+        _ ← applyMoves(game.id, moves)
+        dbGame ← (gameRepo game game.id).toFuture
+        _ ← ((result |@| dbGame) apply {
+          case (res, dbg) ⇒ finish(dbg, res)
+        }) | Future()
+      } yield game.some
+      case _ ⇒ Future(none)
+    }
 
   private def finish(game: DbGame, result: Result): Future[Unit] = result match {
     case Result(Status.Draw, _)             ⇒ (finisher drawForce game).fold(_ ⇒ io(), _.void).toFuture
