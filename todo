@@ -57,3 +57,5 @@ detect lack of support for date formatting (gl) and use 2013-02-15 13:48:00 inst
 recognize pgn in forum and show a pgn4web
 localize in chrome web store
 spectator room (analyse mode) height and hide
+make deploy of translations easier (new project?)
+show language list on 2/3 columns
