@@ -362,6 +362,8 @@ case class DbGame(
 
   def source = metadata map (_.source)
 
+  def pgnImport = metadata flatMap(_.pgnImport)
+
   private def playerMaps[A](f: DbPlayer ⇒ Option[A]): List[A] = players.map(f).flatten
 }
 

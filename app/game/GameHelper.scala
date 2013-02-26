@@ -63,7 +63,7 @@ trait GameHelper { self: I18nHelper with UserHelper with StringHelper with AiHel
       },
       """<span class="user_link %s">%s</span>""".format(
         cssClass | "",
-        player.aiLevel.fold(aiName, User.anonymous)
+        player.aiLevel.fold(aiName, player.name | User.anonymous)
       )
     )
   }
