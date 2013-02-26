@@ -2,22 +2,16 @@ package lila
 package templating
 
 import java.text.SimpleDateFormat
-import java.text.Normalizer
 import java.util.Date
 import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 import play.api.templates.Html
 import java.util.regex.Matcher.quoteReplacement
 
-object StringHelper extends StringHelper
-
 trait StringHelper {
 
-  def slugify(input: String) = {
-    val nowhitespace = input.trim.replace(" ", "-")
-    val normalized = Normalizer.normalize(nowhitespace, Normalizer.Form.NFD)
-    val slug = """[^\w-]""".r.replaceAllIn(normalized, "")
-    slug.toLowerCase
-  }
+  def netDomain: String
+
+  val slugify = core.String.slugify _
 
   def shorten(text: String, length: Int, sep: String = " [...]"): String = {
     val t = text.replace("\n", " ")
@@ -31,9 +25,7 @@ trait StringHelper {
 
   def pluralize(s: String, n: Int) = "%d %s%s".format(n, s, if (n > 1) "s" else "")
 
-  def autoLink(text: String) = Html {
-    nl2br(addLinks(escape(text)))
-  }
+  def autoLink(text: String) = Html { (nl2br _ compose addLinks _ compose escape _)(text) }
 
   // the replace quot; -> " is required
   // to avoid issues caused by addLinks
@@ -45,9 +37,16 @@ trait StringHelper {
   private val urlRegex = """(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))""".r
 
   def addLinks(text: String) = urlRegex.replaceAllIn(text, m ⇒ "<a href='%s'>%s</a>".format(
-    quoteReplacement(m group 1),
-    quoteReplacement(m group 1)
+    (prependHttp _ compose delocalize _ compose quoteReplacement _)(m group 1),
+    (delocalize _ compose quoteReplacement _)(m group 1)
   ))
+
+  private def prependHttp(url: String): String = 
+    url startsWith "http" fold(url, "http://" + url)
+
+  private val delocalizeRegex = ("""\w+\.""" + quoteReplacement(netDomain)).r
+
+  private def delocalize(url: String) = delocalizeRegex.replaceAllIn(url, netDomain)
 
   def showNumber(n: Int): String = (n > 0).fold("+" + n, n.toString)
 

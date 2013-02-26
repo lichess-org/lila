@@ -30,7 +30,7 @@ final class TopicRepo(
   }
 
   def nextSlug(categ: Categ, name: String, it: Int = 1): IO[String] = {
-    val slug = templating.StringHelper.slugify(name) + (it == 1).fold("", "-" + it)
+    val slug = core.String.slugify(name) + (it == 1).fold("", "-" + it)
     byTree(categ.slug, slug) flatMap {
       _.isDefined.fold(
         nextSlug(categ, name, it + 1),
