@@ -432,8 +432,9 @@ div.lichess_language {
   position: relative;
 }
 ul.language_links {
-  width: 183px;
-  max-height: 600px;
+  width: 500px;
+  padding: 10px;
+  max-height: 700px;
   overflow:auto;
 }
 #top div.lichess_language.shown ul.language_links {
@@ -447,6 +448,13 @@ ul.language_links a {
 ul.language_links a:hover {
   background: #F0F0F0;
   color: #444;
+}
+ul.language_links li {
+  width: 33%;
+  height: 24px;
+  float: left;
+  display: block;
+  overflow: hidden;
 }
 ul.language_links li:last-child {
   border-top: 1px solid #ddd;
