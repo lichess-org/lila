@@ -78,7 +78,7 @@ private[setup] final class Rematcher(
     )
     whitePlayer ← returnPlayer(pov.game, White)
     blackPlayer ← returnPlayer(pov.game, Black)
-  } yield DbGame(
+  } yield DbGame.apply(
     game = Game(
       board = Board(pieces, variant = pov.game.variant),
       clock = pov.game.clock map (_.reset)),
@@ -88,8 +88,8 @@ private[setup] final class Rematcher(
     creatorColor = !pov.color,
     mode = pov.game.mode,
     variant = pov.game.variant,
-    source = pov.game.source | Source.Lobby
-  ) with960Rematch !pov.game.is960Rematch
+    source = pov.game.source | Source.Lobby,
+    pgnImport = None) with960Rematch !pov.game.is960Rematch
 
   private def returnPlayer(game: DbGame, color: ChessColor): IO[DbPlayer] =
     DbPlayer(color = color, aiLevel = None) |> { player ⇒

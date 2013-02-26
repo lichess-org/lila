@@ -33,7 +33,8 @@ final class GameJoiner(
       creatorColor = chess.Color.White,
       mode = tour.mode,
       variant = tour.variant,
-      source = Source.Tournament
+      source = Source.Tournament,
+      pgnImport = None
     ).withTournamentId(tour.id)
       .withId(pairing.gameId)
       .start

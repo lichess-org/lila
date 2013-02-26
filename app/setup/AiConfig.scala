@@ -28,7 +28,8 @@ case class AiConfig(
       creatorColor = creatorColor,
       mode = Mode.Casual,
       variant = variant,
-      source = Source.Ai)
+      source = Source.Ai,
+      pgnImport = None)
   } start
 
   def encode = RawAiConfig(
