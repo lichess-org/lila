@@ -7,13 +7,11 @@
 }
 
 @game.layout(
-title = title, 
+title = title,
 moreJs = moreJs,
 menu = menu.some) {
 <div class="content_box no_padding">
-  <div class="content_box_title">
-    <h1 class="title">@name</h1>
-  </div>
+  <h1 class="title">@name</h1>
   <div class="all_games infinitescroll">
     @next.map { n =>
     <div class="pager none"><a href="@n">Next</a></div>
