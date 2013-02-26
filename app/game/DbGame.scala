@@ -130,7 +130,7 @@ case class DbGame(
     def copyPlayer(player: DbPlayer) = player.copy(
       ps = player encodePieces game.allPieces,
       blurs = player.blurs + (blur && move.color == player.color).fold(1, 0),
-      moveTimes = (move.color == player.color).fold(
+      moveTimes = ((!isPgnImport) && (move.color == player.color)).fold(
         lastMoveTime.fold(
           lmt ⇒ (nowSeconds - lmt) |> { mt ⇒
             val encoded = MoveTime encode mt
@@ -364,6 +364,8 @@ case class DbGame(
 
   def pgnImport = metadata flatMap(_.pgnImport)
 
+  def isPgnImport = pgnImport.isDefined
+
   private def playerMaps[A](f: DbPlayer ⇒ Option[A]): List[A] = players.map(f).flatten
 }
 
@@ -437,7 +439,7 @@ case class RawDbGame(
     whitePlayer ← p.headOption map (_ decode Color.White)
     blackPlayer ← p lift 1 map (_ decode Color.Black)
     trueStatus ← Status(s)
-    metadata <- me map (_.decode)
+    metadata = me map (_.decode)
   } yield DbGame(
     id = id,
     token = tk | DbGame.defaultToken,
