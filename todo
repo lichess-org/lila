@@ -64,3 +64,4 @@ correspondance chess https://github.com/ornicar/lila/issues/12
 add source to chess search
 add pgn names to chess search
 convert forum pgn to replayed games
+kid mode (on subdomain?) or start-from-scratch mode (connect to DB depending on subdomain)
