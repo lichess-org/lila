@@ -43,7 +43,7 @@ final class Importer(
 
   private def finish(game: DbGame, result: Result): Future[Unit] = result match {
     case Result(Status.Draw, _)             ⇒ (finisher drawForce game).fold(_ ⇒ io(), _.void).toFuture
-    case Result(Status.Resign, Some(color)) ⇒ (hand resign game.fullIdOf(color)).void.toFuture
+    case Result(Status.Resign, Some(color)) ⇒ (hand resign game.fullIdOf(!color)).void.toFuture
     case _                                  ⇒ Future()
   }
 
