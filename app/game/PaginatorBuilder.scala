@@ -22,6 +22,9 @@ private[game] final class PaginatorBuilder(
   def popular(page: Int): Paginator[DbGame] =
     paginator(popularAdapter, page)
 
+  def imported(page: Int): Paginator[DbGame] =
+    paginator(importedAdapter, page)
+
   def recentlyCreated(query: DBObject, nb: Option[Int] = None) = 
     apply(query, Query.sortCreated, nb) _
 
@@ -42,6 +45,9 @@ private[game] final class PaginatorBuilder(
 
   private val popularAdapter =
     adapter(Query.popular, Query.sortPopular, cached.nbPopular)
+
+  private val importedAdapter =
+    adapter(Query.imported, Query.sortCreated, cached.nbImported)
 
   private def adapter(
     query: DBObject,

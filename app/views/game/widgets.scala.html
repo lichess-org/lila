@@ -28,6 +28,13 @@
     <br />
     @trans.variant(): <strong>@g.variant.name</strong>
     }
+    @g.metadata.flatMap(_.pgnDate).map { date =>
+    <br />
+    PGN Import @date
+    @g.metadata.flatMap(_.pgnUser).map { user =>
+    - @userIdLinkMini(user)
+    }
+    }
     <br /><br />
     <table class="game_players">
       @List(g.opponent(firstPlayer), firstPlayer).map { p =>
