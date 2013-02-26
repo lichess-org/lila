@@ -57,4 +57,10 @@ detect lack of support for date formatting (gl) and use 2013-02-15 13:48:00 inst
 recognize pgn in forum and show a pgn4web
 localize in chrome web store
 make deploy of translations easier (new project?)
-show language list on 2/3 columns
+analyse wrong blunder count http://en.lichess.org/analyse/95ioy2y5
+board creator from chesspaste.com
+xx.lichess.org -> http://lichess.org in forum and messages
+correspondance chess https://github.com/ornicar/lila/issues/12
+add source to chess search
+add pgn names to chess search
+convert forum pgn to replayed games

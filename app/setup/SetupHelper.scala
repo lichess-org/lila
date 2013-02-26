@@ -3,7 +3,6 @@ package setup
 
 import http.Context
 import i18n.I18nHelper
-import templating.StringHelper
 import chess.{ Mode, Variant, Speed }
 
 trait SetupHelper { self: I18nHelper ⇒
