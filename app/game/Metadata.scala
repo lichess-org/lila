@@ -8,6 +8,8 @@ case class Metadata(
     pgnImport: Option[PgnImport] = None) {
 
   def encode = RawMetadata(so = source.id, pgni = pgnImport)
+
+  def pgnDate = pgnImport flatMap (_.date)
 }
 
 case class RawMetadata(

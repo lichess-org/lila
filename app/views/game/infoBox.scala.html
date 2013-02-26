@@ -4,10 +4,14 @@
 
 <div class="lichess_goodies">
   <div class="box">
+    @game.metadata.flatMap(_.pgnDate).map { date =>
+    PGN Import @date
+    }.getOrElse {
     @if(game.isBeingPlayed) {
     @trans.playingRightNow()
     } else {
     @game.updatedAt.map(showDate)
+    }
     }
     <br /><br />
     @tour.map { t =>
