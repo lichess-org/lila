@@ -1855,7 +1855,7 @@ var lichess_translations = [];
     clearShortcutSquares("BCDEFGH", "12345678");
     clearShortcutSquares("A", "1234567");
     var $game = $("#GameBoard");
-    var $chat = $("div.lichess_chat").chat();
+    var $chat = $("div.lichess_chat").chat({resize: true});
     var $watchers = $("div.watchers").watchers();
 
     lichess.socket = new strongSocket(

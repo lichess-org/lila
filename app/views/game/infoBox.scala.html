@@ -6,6 +6,10 @@
   <div class="box">
     @game.metadata.flatMap(_.pgnDate).map { date =>
     PGN Import @date
+    @game.metadata.flatMap(_.pgnUser).map { user =>
+    <br />
+    @userIdLink(user.some)
+    }
     }.getOrElse {
     @if(game.isBeingPlayed) {
     @trans.playingRightNow()
