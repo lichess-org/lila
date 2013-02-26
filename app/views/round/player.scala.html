@@ -59,8 +59,10 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
 @continueFromHere(game)
 }
 <a href="@routes.Analyse.replay(gameId, color.name)">@trans.replayAndAnalyse()</a>
+@if(game.pgnImport.isEmpty) {
 <br />
 <a href="@routes.Analyse.stats(gameId)">@trans.viewGameStats()</a>
+}
 <br />
 <a class="view_pgn_toggle" href="@routes.Analyse.pgn(game.id)">View PGN</a>
 </nav>

@@ -25,6 +25,8 @@ case class Preprocessed(game: DbGame, moves: List[Move], result: Option[Result])
 
 case class ImportData(pgn: String) {
 
+  private type TagPicker = Tag.type ⇒ TagType
+
   def preprocess(user: Option[String]): Valid[Preprocessed] = (Parser(pgn) |@| Reader(pgn)) apply {
     case (ParsedPgn(tags, _), replay @ Replay(game, _)) ⇒ {
 
@@ -42,11 +44,14 @@ case class ImportData(pgn: String) {
 
       val date = tag(_.Date)
 
+      def name(whichName: TagPicker, whichElo: TagPicker): String =
+        tag(whichName).fold(n ⇒ n.value + tag(whichElo).fold(e ⇒ " (%s)" format e, ""), "?")
+
       val dbGame = DbGame(
         game = Game(board = initBoard | (Board init variant)),
         ai = None,
-        whitePlayer = DbPlayer.white,
-        blackPlayer = DbPlayer.black,
+        whitePlayer = DbPlayer.white withName name(_.White, _.WhiteElo),
+        blackPlayer = DbPlayer.black withName name(_.Black, _.BlackElo),
         creatorColor = Color.White,
         mode = Mode.Casual,
         variant = variant,
