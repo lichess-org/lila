@@ -58,7 +58,3 @@ recognize pgn in forum and show a pgn4web
 localize in chrome web store
 make deploy of translations easier (new project?)
 show language list on 2/3 columns
-
-deploy
-------
-db.game4.ensureIndex({"me.pgni.user":1},{sparse:1})
