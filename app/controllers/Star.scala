@@ -12,7 +12,6 @@ object Bookmark extends LilaController {
   private def gameRepo = env.game.gameRepo
 
   def toggle(gameId: String) = Auth { implicit ctx ⇒
-    me ⇒
-      IOk(api.toggle(gameId, me)) 
+    me ⇒ IOk(api.toggle(gameId, me.id))
   }
 }

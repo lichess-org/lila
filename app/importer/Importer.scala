@@ -12,7 +12,8 @@ import akka.dispatch.Future
 final class Importer(
     gameRepo: GameRepo,
     hand: Hand,
-    finisher: Finisher) extends Futuristic {
+    finisher: Finisher,
+    bookmark: (String, String) ⇒ IO[Unit]) extends Futuristic {
 
   val delayInMs = 100
 
@@ -25,6 +26,9 @@ final class Importer(
         dbGame ← (gameRepo game game.id).toFuture
         _ ← ((result |@| dbGame) apply {
           case (res, dbg) ⇒ finish(dbg, res)
+        }) | Future()
+        _ ← ((dbGame |@| user) apply {
+          case (dbg, u) ⇒ bookmark(dbg.id, u).toFuture
         }) | Future()
       } yield game.some
       case _ ⇒ Future(none)
