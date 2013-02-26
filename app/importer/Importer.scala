@@ -18,20 +18,27 @@ final class Importer(
   val delayInMs = 100
 
   def apply(data: ImportData, user: Option[String]): Future[Option[DbGame]] =
-    data preprocess user match {
-      case scalaz.Success(Preprocessed(game, moves, result)) ⇒ for {
-        _ ← (gameRepo insert game).toFuture
-        _ ← (gameRepo denormalize game).toFuture
-        _ ← applyMoves(game.id, moves)
-        dbGame ← (gameRepo game game.id).toFuture
-        _ ← ((result |@| dbGame) apply {
-          case (res, dbg) ⇒ finish(dbg, res)
-        }) | Future()
-        _ ← ((dbGame |@| user) apply {
-          case (dbg, u) ⇒ bookmark(dbg.id, u).toFuture
-        }) | Future()
-      } yield game.some
-      case _ ⇒ Future(none)
+    gameExists(data.pgn) {
+      data preprocess user match {
+        case scalaz.Success(Preprocessed(game, moves, result)) ⇒ for {
+          _ ← (gameRepo insert game).toFuture
+          _ ← (gameRepo denormalize game).toFuture
+          _ ← applyMoves(game.id, moves)
+          dbGame ← (gameRepo game game.id).toFuture
+          _ ← ((result |@| dbGame) apply {
+            case (res, dbg) ⇒ finish(dbg, res)
+          }) | Future()
+          _ ← ((dbGame |@| user) apply {
+            case (dbg, u) ⇒ bookmark(dbg.id, u).toFuture
+          }) | Future()
+        } yield game.some
+        case _ ⇒ Future(none)
+      }
+    }
+
+  private def gameExists(pgn: String)(processing: ⇒ Future[Option[DbGame]]): Future[Option[DbGame]] =
+    gameRepo.game(game.Query pgnImport pgn).toFuture flatMap {
+      _.fold(game ⇒ Future(game.some), processing)
     }
 
   private def finish(game: DbGame, result: Result): Future[Unit] = result match {

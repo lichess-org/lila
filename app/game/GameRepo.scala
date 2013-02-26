@@ -27,6 +27,10 @@ final class GameRepo(collection: MongoCollection)
     else findOneById(gameId) flatMap (_.decode)
   }
 
+  def game(query: DBObject): IO[Option[DbGame]] = io {
+    super.findOne(query) flatMap (_.decode)
+  }
+
   def player(gameId: String, color: Color): IO[Option[DbPlayer]] =
     game(gameId) map { gameOption ⇒
       gameOption map { _ player color }
