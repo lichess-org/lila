@@ -41,6 +41,8 @@ object Query {
 
   val imported = DBObject("me.so" -> Source.Import.id)
 
+  def pgnImport(pgn: String) = imported ++ ("me.pgni.pgn" -> pgn)
+
   def clock(c: Boolean) = "c" $exists c
 
   def user(u: User) = DBObject("uids" -> u.id)
