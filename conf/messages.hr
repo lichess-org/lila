@@ -165,5 +165,7 @@ reset=Ponovno namjesti
 apply=Primjeni
 leaderboard=Ljestvica vodećih
 pasteTheFenStringHere=Zalijepi FEN niz ovdje
+pasteThePgnStringHere=Zalijepi PGN niz ovdje
 fromPosition=Od pozicije
 continueFromHere=Nastavi odavde
+importGame=Uvezi igru
