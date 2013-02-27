@@ -7,7 +7,7 @@ import org.eclipse.jgit.storage.file.FileRepository
 import scalaz.effects._
 import scala.collection.JavaConversions._
 
-final class GitWrite(
+private[i18n] final class GitWrite(
     transRelPath: String,
     repoPath: String) {
 

@@ -47,12 +47,12 @@ div.header strong {
   font-weight: normal;
 }
 
-div.content {
+body > div.content {
   width: 1005px;
   min-height: 590px;
   margin: 30px auto 30px auto;
 }
-body.tight div.content {
+body.tight > div.content {
   width: auto;
   min-width: 780px;
   margin-top: 5px;
@@ -66,6 +66,7 @@ body.tight div.content {
 }
 body.tight #top {
   min-width: 780px;
+  overflow: hidden;
 }
 #site_description {
   position: absolute;
@@ -166,9 +167,15 @@ div.content_box.small_box {
 div.content_box.no_padding {
   padding: 0;
 }
+div.content_box.no_padding h1 {
+  display: block;
+  padding: 20px 25px;
+}
+
 .content_box_title {
   padding: 20px 25px 0 25px;
 }
+
 div.content_box_top {
   padding-left: 25px;
   height: 40px;
@@ -188,6 +195,18 @@ div.content_box_top a {
 div.content_box_top .link:hover {
   background: #fff;
 }
+div.content_box_top h1.lichess_title {
+  display: inline;
+  padding: 0;
+}
+div.content_box_top .icon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  float: left;
+  background: transparent url(/assets/images/s16.png) top left no-repeat;
+  margin: 12px 8px 0 -10px;
+}
 .content_box_content {
   padding: 20px 25px 25px 25px;
 }
@@ -204,7 +223,7 @@ div.content_box_inter a {
   line-height: 40px;
   margin: 5px 0 -1px 0;
   padding: 0 0.7em;
-  font-size: 1.2em;
+  font-size: 1em;
   text-decoration: none;
 }
 div.content_box_inter a.active {
@@ -220,11 +239,49 @@ div.content_box .lichess_title {
   margin-bottom: 0.5em;
 }
 
+div.content_box table.datatable {
+  width: 100%;
+  margin-top: 20px;
+}
 div.content_box table.datatable td {
   padding: 5px 10px 5px 10px;
 }
 div.content_box table.datatable tr:nth-child(odd) {
   background: #f7f7f7;
+}
+
+table.slist {
+  width: 100%;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+table.slist thead th {
+  border-top: 1px solid #d4d4d4;
+  padding: 0.4em 0.6em;
+}
+table.slist thead th.large {
+  font-size: 1.4em;
+}
+
+table.slist td {
+  padding: 0.6em;
+  font-size: 1.2em;
+}
+table.slist td .label {
+  font-family: monospace;
+  font-size: 10px;
+}
+table.slist .s16 {
+  display: block;
+  height: 16px;
+  padding: 0 0 0 20px;
+}
+table.slist tbody tr:nth-child(even) {
+  background: #f4f4f4;
+}
+table.slist td:first-child,
+table.slist th:first-child {
+  padding-left: 25px;
 }
 
 div.lichess_goodies div.box {
@@ -340,15 +397,16 @@ a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hove
   border-bottom: 1px solid #dadada;
   margin-bottom: 8px
 }
+
+form.wide input[type="text"], form.wide textarea {
+  padding: 0.5em;
+  border: 1px solid #D4D4D4;
+}
+
 #top a.toggle {
   display:block;
   padding-right: 4px;
   float: left;
-}
-#top a.toggle span.s16 {
-  background-position: right -192px;
-  padding-left: 0;
-  padding-right: 20px;
 }
 #top .dropdown {
   display: none;
@@ -374,8 +432,9 @@ div.lichess_language {
   position: relative;
 }
 ul.language_links {
-  width: 183px;
-  max-height: 600px;
+  width: 500px;
+  padding: 10px;
+  max-height: 700px;
   overflow:auto;
 }
 #top div.lichess_language.shown ul.language_links {
@@ -389,6 +448,13 @@ ul.language_links a {
 ul.language_links a:hover {
   background: #F0F0F0;
   color: #444;
+}
+ul.language_links li {
+  width: 33%;
+  height: 24px;
+  float: left;
+  display: block;
+  overflow: hidden;
 }
 ul.language_links li:last-child {
   border-top: 1px solid #ddd;
@@ -506,6 +572,20 @@ span.s16.clock {
   background-position: 0 -304px;
   padding-bottom: 1px;
 }
+.s16.team {
+  background-position: 0 -336px;
+  padding-bottom: 1px;
+  display: block;
+  height: 15px;
+}
+.s16.team.mine {
+  background-position: 0 -352px;
+}
+.s16.ddown {
+  background-position: right -192px;
+  padding-left: 0;
+  padding-right: 20px;
+}
 
 .user_link.white, .user_link.black, .user_link.online, .user_link.offline {
   line-height: 16px;
@@ -580,7 +660,7 @@ div.content_box_top,
 div.hooks tr,
 a.translation_call,
 div.locale_menu a,
-#tournament table.data thead {
+table.slist thead {
   color: #666;
   background: #fafafa;
   background: -moz-linear-gradient(center top , #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
@@ -603,7 +683,8 @@ div.hooks td.action:hover,
 div.hooks table.empty_table tr:hover,
 div.progressbar.flashy div,
 .button.strong:hover,
-div.locale_menu a.active
+div.locale_menu a.active,
+#import_game .progression 
 {
   color: #fff;
   background: #d85000;
@@ -661,17 +742,35 @@ div.checkmateFen {
   cursor: pointer;
 }
 div.checkmateFen div.lmcs:hover {
-  background: #ddddff;
+  background: #eebb77!important;
+}
+div.checkmateFen div.lmcs.selected {
+  background: #77eeaa!important;
 }
 div.checkmateSection {
   float: left;
 }
-div.checkmateCaptcha input {
-  padding: 0.5em;
-  border: 1px solid #D4D4D4;
-  background: #dfdfff;
+div.checkmateSection div.result {
+  display: none;
+  height: 48px;
+  line-height: 48px;
+  vertical-align: middle;
+  padding-left: 54px;
   font-weight: bold;
-  width: 5em;
+}
+div.checkmateSection div.success {
+  background: url(../images/tick-48.png) no-repeat;
+  color: #00aa00;
+}
+div.checkmateSection div.failure {
+  background: url(../images/cross-48.png) no-repeat;
+  color: #aa0000;
+}
+div.checkmateCaptcha.success div.success {
+  display: block;
+}
+div.checkmateCaptcha.failure div.failure {
+  display: block;
 }
 
 div.undergame_box {
@@ -689,7 +788,11 @@ div.undergame_box a:hover {
   text-decoration: underline;
 }
 div.undergame_box div.inner {
-  padding: 10px;
+  padding: 10px 10px 0 10px;
+  width: 492px;
+}
+div.undergame_box .opponent_choice {
+  display: none;
 }
 
 div.game_analysis {
@@ -707,6 +810,7 @@ div.game_more div.more_top {
   padding: 3px 10px;
   width: 492px;
   height: 29px;
+  border-bottom: 1px solid #ccc;
 }
 div.game_more div.more_top span.bookmark {
   margin-top: 2px;
@@ -728,9 +832,6 @@ div.game_more textarea {
   border: 1px solid #eaeaea;
   padding: 5px;
   border-radius: 3px;
-}
-div.game_extra {
-  border-top: 1px solid #ccc;
 }
 
 div.game_extra div.bookmarkers {
@@ -802,3 +903,62 @@ div.notifications > div a.close:hover {
   display: block;
   margin-left: 8px;
 }
+
+/* scroll */
+.nano {
+  position : relative;
+  width    : 100%;
+  height   : 100%;
+  overflow : hidden;
+}
+.nano .content {
+  position      : absolute;
+  overflow      : hidden;
+  top           : 0;
+  right         : 0;
+  bottom        : 0;
+  left          : 0;
+  padding-right : 16px;
+}
+.nano .content:focus {
+  outline: thin dotted;
+}
+.nano .content::-webkit-scrollbar {
+  visibility: hidden;
+}
+.has-scrollbar .content::-webkit-scrollbar {
+  visibility: visible;
+}
+.nano > .pane {
+  background : rgba(0,0,0,.15);
+  position   : absolute;
+  width      : 10px;
+  right      : 0;
+  top        : 0;
+  bottom     : 0;
+  visibility : hidden\9; /* Target only IE7 and IE8 with this hack */
+  opacity    : .01;
+  -webkit-transition    : .2s;
+  -moz-transition       : .2s;
+  -o-transition         : .2s;
+  transition            : .2s;
+}
+.nano > .pane > .slider {
+  background: #444;
+  background: rgba(0,0,0,.4);
+  position              : relative;
+  margin                : 0 1px;
+  -moz-border-radius    : 3px;
+  -webkit-border-radius : 3px;
+  border-radius         : 3px;
+  cursor: pointer;
+}
+.nano:hover > .pane, .pane.active, .pane.flashed {
+  visibility : visible\9; /* Target only IE7 and IE8 with this hack */
+  opacity    : 0.99;
+}
+
+input:focus::-webkit-input-placeholder { color: transparent; }
+input:focus:-moz-placeholder { color: transparent; }
+input:focus::-moz-placeholder { color: transparent; }
+input:focus:-ms-input-placeholder { color: transparent; }

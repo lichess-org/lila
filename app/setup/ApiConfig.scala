@@ -3,7 +3,7 @@ package setup
 
 import chess.{ Variant, Mode, Clock, Color ⇒ ChessColor }
 import elo.EloRange
-import game.{ DbGame, DbPlayer }
+import game.{ DbGame, DbPlayer, Source }
 
 case object ApiConfig extends Config with GameGenerator {
 
@@ -21,5 +21,7 @@ case object ApiConfig extends Config with GameGenerator {
     blackPlayer = DbPlayer.black,
     creatorColor = creatorColor,
     mode = mode,
-    variant = variant)
+    variant = variant,
+    source = Source.Api,
+    pgnImport = None)
 }

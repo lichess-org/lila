@@ -6,7 +6,7 @@ import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.query.Imports._
 import scalaz.effects._
 
-final class MessageRepo(collection: MongoCollection, max: Int)
+private[lobby] final class MessageRepo(collection: MongoCollection, max: Int)
     extends CappedRepo[Message](collection, max) {
 
   val all = io {

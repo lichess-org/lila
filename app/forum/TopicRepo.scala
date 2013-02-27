@@ -14,6 +14,10 @@ final class TopicRepo(
     findOneById(id)
   }
 
+  def byIds(ids: Iterable[String]): IO[List[Topic]] = io {
+    find("_id" $in ids).toList
+  }
+
   def byCateg(categ: Categ): IO[List[Topic]] = io {
     find(DBObject("categId" -> categ.slug)).toList
   }
@@ -26,20 +30,12 @@ final class TopicRepo(
   }
 
   def nextSlug(categ: Categ, name: String, it: Int = 1): IO[String] = {
-    val slug = slugify(name) + (it == 1).fold("", "-" + it)
+    val slug = core.String.slugify(name) + (it == 1).fold("", "-" + it)
     byTree(categ.slug, slug) flatMap {
       _.isDefined.fold(
         nextSlug(categ, name, it + 1),
         io(slug))
     }
-  }
-
-  def slugify(input: String) = {
-    import java.text.Normalizer
-    val nowhitespace = input.replace(" ", "-")
-    val normalized = Normalizer.normalize(nowhitespace, Normalizer.Form.NFD)
-    val slug = """[^\w-]""".r.replaceAllIn(normalized, "")
-    slug.toLowerCase
   }
 
   val all: IO[List[Topic]] = io {

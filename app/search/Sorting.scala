@@ -2,7 +2,7 @@ package lila
 package search
 
 import org.elasticsearch.search.sort._, SortBuilders._
-import com.traackr.scalastic.elasticsearch.SearchParameterTypes.FieldSort
+import scalastic.elasticsearch.SearchParameterTypes.FieldSort
 
 case class Sorting(field: String, order: String) {
 

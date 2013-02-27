@@ -1,8 +1,13 @@
 #!/bin/sh
 . bin/lilarc
 
-URL=$PROD_URL
-TIMEOUT=8 # Restart if it takes longer than that
+if [ $1 = "ai" ]; then
+  URL="http://localhost:9000/ai/stockfish/play"
+else
+  URL=$AI_PROD_URL
+fi
+
+TIMEOUT=10 # Restart if it takes longer than that
 DELAY=20 # Check every delay
 MSG="Connect to $URL in less than $TIMEOUT seconds"
 
@@ -16,10 +21,10 @@ while true; do
 
   if [[ $? != 0 ]]; then
     lilalog "FAIL $MSG"
-    bin/prod/restart
+    service lila restart
   elif [[ $code != 200 ]]; then
     lilalog "CODE $code"
-    bin/prod/restart
+    service lila restart
   else
     echo -n "."
   fi

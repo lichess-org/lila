@@ -32,7 +32,7 @@ trait Dependencies {
   val actuarius = "eu.henkelmann" % "actuarius_2.9.2" % "0.2.4"
   val jodaTime = "joda-time" % "joda-time" % "2.1"
   val jodaConvert = "org.joda" % "joda-convert" % "1.2"
-  val scalastic = "com.traackr" % "scalastic_2.9.2" % "0.0.6-HACKED"
+  val scalastic = "scalastic" % "scalastic_2.9.2" % "0.20.1-THIB"
   val findbugs = "com.google.code.findbugs" % "jsr305" % "1.3.+"
   val reactivemongo = "org.reactivemongo" %% "reactivemongo" % "0.9-SNAPSHOT"
   val playReactivemongo = "play.modules.reactivemongo" %% "play2-reactivemongo" % "0.1-SNAPSHOT" cross CrossVersion.full
@@ -74,8 +74,4 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     scalaVersion := "2.10.0",
     libraryDependencies := Seq(scalaz, scalalib, hasher, jodaTime, jodaConvert)
   )
-
-  lazy val cli = Project("cli", file("cli"), settings = buildSettings).settings(
-    libraryDependencies ++= Seq(scalastic)
-  ) dependsOn lila
 }

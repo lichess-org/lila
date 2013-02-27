@@ -1,8 +1,6 @@
 package lila
 package tournament
 
-import com.mongodb.casbah.query.Imports._
-
 import user.User
 
 case class Player(

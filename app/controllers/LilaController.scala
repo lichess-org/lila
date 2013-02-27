@@ -82,8 +82,13 @@ trait LilaController
 
   protected def JsonIOk[A: WritesJson](data: IO[A]) = JsonOk(data.unsafePerformIO)
 
-  protected def JsIOk(js: IO[String], headers: (String, String)*) =
-    Ok(js.unsafePerformIO) as JAVASCRIPT withHeaders (headers: _*)
+  protected def JsonIOk(map: IO[Map[String, Any]]) = JsonOk(map.unsafePerformIO)
+
+  protected def JsIOk(js: IO[String], headers: (String, String)*) = 
+    JsOk(js.unsafePerformIO, headers: _*)
+
+  protected def JsOk(js: String, headers: (String, String)*) = 
+    Ok(js) as JAVASCRIPT withHeaders (headers: _*)
 
   protected def ValidOk(valid: Valid[Unit]) = valid.fold(
     e ⇒ BadRequest(e.shows),
@@ -154,6 +159,11 @@ trait LilaController
   protected def IOptionIORedirect[A](ioa: IO[Option[A]])(op: A ⇒ IO[Call])(implicit ctx: Context) =
     (ioa flatMap {
       _.fold(io(notFound(ctx)))(a ⇒ op(a) map { b ⇒ Redirect(b) })
+    }: IO[Result]).unsafePerformIO
+
+  protected def IOptionIORedirectUrl[A](ioa: IO[Option[A]])(op: A ⇒ IO[String])(implicit ctx: Context) =
+    (ioa flatMap {
+      _.fold(a ⇒ op(a) map { b ⇒ Redirect(b) }, io(notFound(ctx)))
     }: IO[Result]).unsafePerformIO
 
   protected def IOptionResult[A](ioa: IO[Option[A]])(op: A ⇒ Result)(implicit ctx: Context) =

@@ -1,12 +1,25 @@
 @(categ: lila.forum.Categ, topics: Paginator[lila.forum.TopicView])(implicit ctx: Context)
 
+@newTopicButton = {
+@if(isGrantedWrite(categ.slug)) {
+<a href="@routes.ForumTopic.form(categ.slug)" class="action button">Create a new topic</a>
+}
+}
+
 @forum.layout(
 title = categ.name) {
 <div class="category">
+  @categ.team.map { team =>
+  <ol class="crumbs">
+    <li>@teamLink(team)</li>
+    <li><h1>Forum</h1></li>
+  </ol>
+  }.getOrElse {
   <ol class="crumbs">
     <li><a href="@routes.ForumCateg.index">Forum</a></li>
     <li><h1>@categ.name</h1></li>
   </ol>
+  }
 
   <p class="description">@categ.desc
     @if(categ.isStaff) {
@@ -14,13 +27,11 @@ title = categ.name) {
     }
   </p>
   <div class="bar top clearfix">
-    <div class="pagination">
-      @forum.pagination(routes.ForumCateg.show(categ.slug, 1), topics)
-    </div>
-    <a href="@routes.ForumTopic.form(categ.slug)" class="action button">Create a new topic</a>
+    @forum.pagination(routes.ForumCateg.show(categ.slug, 1), topics)
+    @newTopicButton
   </div>
 
-  <table class="forum_topics_list">
+  <table class="forum_table forum_topics_list">
     <thead>
       <tr class="thead">
         <th></th>
@@ -46,10 +57,8 @@ title = categ.name) {
   </table>
 
   <div class="bar bottom clearfix">
-    <div class="pagination">
-      @forum.pagination(routes.ForumCateg.show(categ.slug, 1), topics)
-    </div>
-    <a href="@routes.ForumTopic.create(categ.slug)" class="action button">Create a new topic</a>
+    @forum.pagination(routes.ForumCateg.show(categ.slug, 1), topics)
+    @newTopicButton
   </div>
 </div>
 }

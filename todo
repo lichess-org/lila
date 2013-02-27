@@ -1,17 +1,12 @@
-chat should autoscroll only when at bottom
-finish flagged game
 start chess960 after both player move http://fr.lichess.org/forum/lichess-feedback/clock-fairness-in-chess960-games
-chess960 confirmation http://fr.lichess.org/forum/lichess-feedback/separate-960-lobby?page=1#7
-use POST instead of GET where it makes sense
 guess friend list
 takeback play 2 times ?? http://en.lichess.org/analyse/nfjchnmo/black move 45
-movetimes chart
 show lobby chat to anon (and rated games?) or show empty chat
 also translate websockets error message
 @someone = link to someone's profile
 analysis not the fastest checkmate, but no best move? http://en.lichess.org/analyse/w3xw8fsw/black 
 finish games per day chart
-untranslated = https://github.com/ornicar/lila/issues/4 
+untranslated = https://github.com/ornicar/lila/issues/4 http://en.lichess.org/forum/lichess-feedback/please-make-more-strings-translatable#4
 game stats timeline issues http://en.lichess.org/forum/lichess-feedback/move-times
 analyse: show main line for every move http://en.lichess.org/forum/lichess-feedback/about-the-analysis-feature#5
 try to show last analysis cp on graph (move 26) http://en.lichess.org/analyse/bwxnx0al
@@ -19,7 +14,6 @@ elo range must contain player elo
 complete analysis movetimes with tsinnema - requires ms movetimes and db migration
 localize elo chart dates
 index game positions
-integrate with google+
 elo stats (branch elostats)
 lobby concurrency http://en.lichess.org/forum/lichess-feedback/bug-multiple-players-can-accept-the-same-game-proposal#1
 possible timeout bug http://en.lichess.org/forum/lichess-feedback/possible-timeout-bug#1
@@ -28,21 +22,45 @@ tournament berserker = half time, double points
 chat icons (k) (K)
 blind accessible
 make hand and finisher actors to avoid racing conditions
-tournament monitor
 all hub members should use userIds rather than usernames
 tournament ties
 AI thinks during your time (premove?) http://en.lichess.org/forum/lichess-feedback/y-u-so-greedy-with-time-stockfish#4
 - in fact it does not, but the UI clocks only update once the ai made the move
 - solution: do AI asynchronously. Send player move events right away,
 - and ai events when the ai completes
-save game prefs in cookie
-IP smart tools for admins
-lsof show the open websockets on prod. The recurrent bug could come from the open descriptors limit (ulimit -n)
-lobby game filters http://en.lichess.org/forum/lichess-feedback/feature-request-game-filter#2
-not possible to copy the link URL invite when using a iOS device. Can this be easily fixed by adding an automatic "copy" button next to the link?
+not possible to copy the link URL invite when using a touch device. Can this be easily fixed by adding an automatic "copy" button next to the link?
 search bug http://en.lichess.org/games/search?players.a=&players.b=&players.winner=&eloMin=&eloMax=&hasAi=&aiLevelMin=&aiLevelMax=&variant=&mode=1&opening=&turnsMin=&turnsMax=&durationMin=&durationMax=&status=35&dateMin=&dateMax=&sort.field=tu&sort.order=asc
 takeback substract time for person granting
 add fullscreen mode for spectators and load new games in a loop (based on certain filter options) - thus creating a chess tv channel
-make chess captcha more usable
-tournament 404 page
-log off = tournament resign
+only team forum posts on the homepage?
+team list sort by date, name, popularity, avg elo, team elo, ...?
+team timeline (forum posts, joins)
+download 10.000 best elo games http://en.lichess.org/inbox/v1p6hokg#bottom
+sound config (like sound on game join, not moves)
+make signup more visible
+traduction intégrale
+block user creation from an IP
+mute IP
+fast join game = creator not redirected properly?
+start clock after black move http://en.lichess.org/forum/lichess-feedback/shouldnt-the-time-start-time-after-blacks-first-move#3
+national flags http://en.lichess.org/forum/lichess-feedback/suggestion-display-national-flag#4
+restrict hook creation by IP
+check denormalization of user game fields
+opponent history http://imgur.com/ur1Mt http://en.lichess.org/forum/lichess-feedback/match-history#10
+show tournament trophies on user profile
+mute ip
+games with me http://en.lichess.org/forum/general-chess-discussion/-vs-me#2
+ssl websocket would pass through proxies http://en.lichess.org/forum/lichess-feedback/layout-bug-and-proxies#2 requires play 2.1
+team chat
+let players block other players
+detect lack of support for date formatting (gl) and use 2013-02-15 13:48:00 instead
+recognize pgn in forum and show a pgn4web
+localize in chrome web store
+make deploy of translations easier (new project?)
+analyse wrong blunder count http://en.lichess.org/analyse/95ioy2y5
+board creator from chesspaste.com
+correspondance chess https://github.com/ornicar/lila/issues/12
+add source to chess search
+add pgn names to chess search
+convert forum pgn to replayed games
+kid mode (on subdomain?) or start-from-scratch mode (connect to DB depending on subdomain)

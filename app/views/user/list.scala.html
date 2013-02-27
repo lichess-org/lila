@@ -2,20 +2,11 @@
 
 @title = @{ "%s - page %d".format(trans.chessPlayers(), paginator.currentPage) }
 
-@goodies = {
-<div class="lichess_goodies">
-  <br />
-  <a href="@routes.User.stats()">See player stats</a>
-</div>
-}
-
-@user.layout(
-title = title,
-goodies = goodies.some) {
+@user.layout(title = title) {
 <div class="content_box">
   <div class="user_lists clearfix">
     <div class="all_users">
-      <h1 class="lichess_title">@trans.chessPlayers() (@paginator.nbResults)</h1>
+      <h1 class="lichess_title">@trans.chessPlayers() (@paginator.nbResults.localize)</h1>
       <form class="search_user_form" action="@routes.User.show("")">
         <label for="search_user_input">@trans.searchAPlayer()</label>
         <input id="search_user_input" class="search_user autocomplete" data-provider="@routes.User.autocomplete" />

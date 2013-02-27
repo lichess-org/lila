@@ -5,8 +5,8 @@ import round.{ Event, Progress }
 import user.User
 import chess.{ History ⇒ ChessHistory, Role, Board, Move, Pos, Game, Clock, Status, Color, Piece, Variant, Mode }
 import Color._
-import chess.Pos.piotr
-import chess.Role.forsyth
+import chess.Pos.piotr, chess.Role.forsyth, chess.format.Forsyth
+import importer.PgnImport
 
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
@@ -34,7 +34,8 @@ case class DbGame(
     is960Rematch: Boolean = false,
     createdAt: DateTime = DateTime.now,
     updatedAt: Option[DateTime] = None,
-    tournamentId: Option[String] = None) {
+    tournamentId: Option[String] = None,
+    metadata: Option[Metadata] = None) {
 
   val players = List(whitePlayer, blackPlayer)
 
@@ -129,13 +130,14 @@ case class DbGame(
     def copyPlayer(player: DbPlayer) = player.copy(
       ps = player encodePieces game.allPieces,
       blurs = player.blurs + (blur && move.color == player.color).fold(1, 0),
-      moveTimes = (move.color == player.color).fold(
-        lastMoveTime.fold("") { lmt ⇒
+      moveTimes = ((!isPgnImport) && (move.color == player.color)).fold(player.moveTimes) {
+        lastMoveTime.fold("") { lmt ⇒ 
           (nowSeconds - lmt) |> { mt ⇒
             val encoded = MoveTime encode mt
             player.moveTimes.isEmpty.fold(encoded.toString, player.moveTimes + encoded)
           }
-        }, player.moveTimes))
+        }
+      }
 
     val updated = copy(
       whitePlayer = copyPlayer(whitePlayer),
@@ -144,11 +146,7 @@ case class DbGame(
       positionHashes = history.positionHashes mkString,
       castles = history.castleNotation,
       lastMove = history.lastMoveString,
-      status =
-        if (situation.checkMate) Status.Mate
-        else if (situation.staleMate) Status.Stalemate
-        else if (situation.autoDraw) Status.Draw
-        else status,
+      status = situation.status | status,
       clock = game.clock,
       check = if (situation.check) situation.kingPos else None,
       lastMoveTime = nowSeconds.some
@@ -199,6 +197,10 @@ case class DbGame(
   def playableBy(p: DbPlayer): Boolean = playable && turnOf(p)
 
   def playableBy(c: Color): Boolean = playableBy(player(c))
+
+  def continuable = status != Status.Mate && status != Status.Stalemate
+
+  def fenString = Forsyth >> toChess
 
   def aiLevel: Option[Int] = players find (_.isAi) flatMap (_.aiLevel)
 
@@ -259,6 +261,8 @@ case class DbGame(
 
   def winnerUserId: Option[String] = winner flatMap (_.userId)
 
+  def loserUserId: Option[String] = loser flatMap (_.userId)
+
   def wonBy(c: Color): Option[Boolean] = winnerColor map (_ == c)
 
   def outoftimePlayer: Option[DbPlayer] = for {
@@ -273,7 +277,7 @@ case class DbGame(
 
   def withClock(c: Clock) = Progress(this, copy(clock = Some(c)))
 
-  def estimateTotalTime = clock.fold(1200) { c ⇒ c.limit + 30 * c.increment }
+  def estimateTotalTime = clock.fold(1200)(_.estimateTotalTime)
 
   def creator = player(creatorColor)
 
@@ -333,8 +337,8 @@ case class DbGame(
     r960 = is960Rematch option true,
     ca = createdAt,
     ua = updatedAt,
-    tid = tournamentId
-  )
+    tid = tournamentId,
+    me = metadata map (_.encode))
 
   def userIds = playerMaps(_.userId)
 
@@ -351,6 +355,12 @@ case class DbGame(
   def withTournamentId(id: String) = this.copy(tournamentId = id.some)
 
   def withId(newId: String) = this.copy(id = newId)
+
+  def source = metadata map (_.source)
+
+  def pgnImport = metadata flatMap(_.pgnImport)
+
+  def isPgnImport = pgnImport.isDefined
 
   private def playerMaps[A](f: DbPlayer ⇒ Option[A]): List[A] = players.map(f).flatten
 }
@@ -374,7 +384,9 @@ object DbGame {
     ai: Option[(Color, Int)],
     creatorColor: Color,
     mode: Mode,
-    variant: Variant): DbGame = DbGame(
+    variant: Variant,
+    source: Source,
+    pgnImport: Option[PgnImport]): DbGame = DbGame(
     id = IdGenerator.game,
     token = IdGenerator.token,
     whitePlayer = whitePlayer withEncodedPieces game.allPieces,
@@ -390,6 +402,9 @@ object DbGame {
     mode = mode,
     variant = variant,
     lastMoveTime = None,
+    metadata = Metadata(
+      source = source,
+      pgnImport = pgnImport).some,
     createdAt = DateTime.now)
 }
 
@@ -413,12 +428,14 @@ case class RawDbGame(
     r960: Option[Boolean] = None,
     ca: DateTime,
     ua: Option[DateTime],
-    tid: Option[String]) {
+    tid: Option[String],
+    me: Option[RawMetadata]) {
 
   def decode: Option[DbGame] = for {
     whitePlayer ← p.headOption map (_ decode Color.White)
     blackPlayer ← p lift 1 map (_ decode Color.Black)
     trueStatus ← Status(s)
+    metadata = me map (_.decode)
   } yield DbGame(
     id = id,
     token = tk | DbGame.defaultToken,
@@ -440,6 +457,7 @@ case class RawDbGame(
     is960Rematch = r960 | false,
     createdAt = ca,
     updatedAt = ua,
-    tournamentId = tid
+    tournamentId = tid,
+    metadata = me flatMap (_.decode)
   )
 }

@@ -6,6 +6,7 @@ import com.mongodb.casbah.query.Imports._
 
 import scalaz.effects._
 import org.joda.time.DateTime
+import org.scala_tools.time.Imports._
 
 final class AnalysisRepo(val collection: MongoCollection) {
 
@@ -55,7 +56,9 @@ final class AnalysisRepo(val collection: MongoCollection) {
 
   def userInProgress(uid: String): IO[Boolean] = io {
     collection.find(
-      ("fail" $exists false) ++ DBObject("uid" -> uid, "done" -> false)
+      ("fail" $exists false) ++ 
+      DBObject("uid" -> uid, "done" -> false) ++
+      ("date" $lt (DateTime.now - 15.minutes))
     ).limit(1).size > 0
   }
 }

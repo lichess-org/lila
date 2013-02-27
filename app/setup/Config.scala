@@ -1,7 +1,8 @@
 package lila
 package setup
 
-import chess.{ Game, Board, Variant, Clock }
+import chess.{ Game, Board, Situation, Variant, Clock, Speed }
+import chess.format.Forsyth
 import game.{ GameRepo, DbGame, Pov }
 
 trait Config {
@@ -23,9 +24,7 @@ trait Config {
 
   lazy val creatorColor = color.resolve
 
-  def makeGame = Game(
-    board = Board init variant,
-    clock = makeClock)
+  def makeGame = Game(board = Board init variant, clock = makeClock)
 
   def validClock = clock.fold(time + increment > 0, true)
 
@@ -39,13 +38,38 @@ trait GameGenerator { self: Config ⇒
   def pov = Pov(game, creatorColor)
 }
 
+trait Positional { self: Config ⇒
+
+  import chess.format.Forsyth, Forsyth.SituationPlus
+
+  def fen: Option[String]
+
+  def fenDbGame(builder: Game ⇒ DbGame): DbGame = {
+    val state = fen filter (_ ⇒ variant == Variant.FromPosition) flatMap Forsyth.<<<
+    val chessGame = state.fold({
+      case sit @ SituationPlus(Situation(board, color), _) ⇒
+        Game(board = board, player = color, turns = sit.turns)
+    }, makeGame)
+    val dbGame = builder(chessGame)
+    state.fold({
+      case sit @ SituationPlus(Situation(board, _), _) ⇒ dbGame.copy(
+        variant = Variant.FromPosition,
+        castles = board.history.castleNotation,
+        turns = sit.turns)
+    }, dbGame)
+  }
+}
+
 object Config extends BaseConfig
 
 trait BaseConfig {
 
-  val variants = Variant.all map (_.id)
-  val variantChoices = Variant.all map { v ⇒ v.id.toString -> v.name }
+  val variants = List(Variant.Standard.id, Variant.Chess960.id)
   val variantDefault = Variant.Standard
+
+  val variantsWithFen = variants :+ Variant.FromPosition.id
+
+  val speeds = Speed.all map (_.id)
 
   val timeMin = 0
   val timeMax = 30

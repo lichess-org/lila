@@ -113,6 +113,5 @@ giveNbSeconds=Додај %s секунди
 searchAPlayer=Побарај играч
 whoIsOnline=Кој е вклучен
 allPlayers=Сите играчи
-namedPlayers=Имиња на играчи
 thisPlayerUsesChessComputerAssistance=Овој играч користи компјутерска помош
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Бесплатна онлајн шах игра. Играј шах во чист интерфејс. Без регистрација, без реклами, без додатни plugin-и. Играј шах со компјутер, пријатели или случајни противници.

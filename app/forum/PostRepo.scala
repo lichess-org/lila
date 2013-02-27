@@ -14,6 +14,21 @@ final class PostRepo(
     findOneById(id)
   }
 
+  def byOrderedIds(ids: Iterable[String]): IO[List[Post]] = io {
+    find("_id" $in ids).toList
+  } map { ts ⇒
+    val tsMap = ts.map(u ⇒ u.id -> u).toMap
+    ids.map(tsMap.get).flatten.toList
+  }
+
+  def isFirstPost(topicId: String, postId: String): IO[Boolean] = io {
+    ~find(byTopicIdQuery(topicId))
+      .sort(sortQuery(1))
+      .limit(1)
+      .toList
+      .headOption.map(_.id == postId)
+  }
+
   def countByTopics(topics: List[Topic]): IO[Int] = io {
     count(byTopicsQuery(topics)).toInt
   }
@@ -26,8 +41,8 @@ final class PostRepo(
     find(DBObject()).toList
   }
 
-  def recent(nb: Int): IO[List[Post]] = io {
-    find(DBObject()).sort(sortQuery(-1)).limit(nb).toList.reverse
+  def recentInCategs(nb: Int)(categIds: List[String]): IO[List[Post]] = io {
+    find("categId" $in categIds).sort(sortQuery(-1)).limit(nb).toList
   }
 
   val sortQuery: DBObject = sortQuery(1)
@@ -45,7 +60,13 @@ final class PostRepo(
     remove(DBObject("_id" -> post.id))
   }
 
-  def byTopicQuery(topic: Topic) = DBObject("topicId" -> topic.id)
+  def removeByTopicId(topicId: String): IO[Unit] = io {
+    remove(byTopicIdQuery(topicId))
+  }
+
+  def byTopicQuery(topic: Topic) = byTopicIdQuery(topic.id)
+
+  def byTopicIdQuery(topicId: String) = DBObject("topicId" -> topicId)
 
   private def byTopicsQuery(topics: List[Topic]) =
     "topicId" $in topics.map(_.id)

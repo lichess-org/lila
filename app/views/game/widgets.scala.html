@@ -11,7 +11,7 @@
       @if(g.isBeingPlayed) {
       <a class="link" href="@routes.Round.watcher(g.id, firstPlayer.color.name)">@trans.playingRightNow()</a>,
       } else {
-      @showDate(g.updatedAt | g.createdAt)
+      @showDate(g.createdAt)
       }
     </b>-
     @if(g.finishedOrAborted) {
@@ -27,6 +27,13 @@
     @if(g.variant.exotic) {
     <br />
     @trans.variant(): <strong>@g.variant.name</strong>
+    }
+    @g.metadata.flatMap(_.pgnDate).map { date =>
+    <br />
+    PGN Import @date
+    @g.metadata.flatMap(_.pgnUser).map { user =>
+    - @userIdLinkMini(user)
+    }
     }
     <br /><br />
     <table class="game_players">

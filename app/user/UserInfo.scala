@@ -17,7 +17,6 @@ case class UserInfo(
     nbBookmark: Int,
     eloWithMe: Option[List[(String, Int)]],
     eloChart: Option[EloChart],
-    winChart: Option[WinChart],
     spy: Option[UserSpy]) {
 
   def nbRated = user.nbRatedGames
@@ -31,7 +30,7 @@ object UserInfo {
 
   def apply(
     userRepo: UserRepo,
-    countUsers: () => Int,
+    countUsers: () ⇒ Int,
     gameRepo: GameRepo,
     eloCalculator: EloCalculator,
     eloChartBuilder: User ⇒ IO[Option[EloChart]])(
@@ -48,14 +47,9 @@ object UserInfo {
       gameRepo count (_ notFinished user) map (_.some),
       io(none)
     )
-    nbWithMe ← ~(ctx.me filter (user!=) map { me ⇒ 
-      gameRepo count (_.opponents(user, me)) map (_.some)
-    })
+    nbWithMe ← ~ctx.me.filter(user!=).map(me ⇒ gameRepo count (_.opponents(user, me)) map (_.some))
     nbBookmark = bookmarkApi countByUser user
     eloChart ← eloChartBuilder(user)
-    winChart = (user.nbRatedGames > 0) option {
-      new WinChart(user.nbWinsH, user.nbDrawsH, user.nbLossesH, user.nbAi)
-    }
     eloWithMe = ctx.me.filter(user!=) map { me ⇒
       List(
         "win" -> eloCalculator.diff(me, user, Color.White.some),
@@ -71,6 +65,5 @@ object UserInfo {
     nbBookmark = nbBookmark,
     eloWithMe = eloWithMe,
     eloChart = eloChart,
-    winChart = winChart,
     spy = spy)
 }

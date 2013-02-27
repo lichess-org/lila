@@ -1,0 +1,42 @@
+@(text: String, views: Paginator[lila.forum.PostView])(implicit ctx: Context)
+
+@title = @{ trans.searchInForum.str() + " \"" + text + "\"" }
+
+@forum.layout(
+title = title,
+moreJs = jsTag("vendor/jquery.infinitescroll.min.js")
+) {
+
+@forum.searchForm(text)
+
+<h1>@title</h1>
+
+<table class="slist search_results">
+  @if(views.nbResults > 0) {
+  <tbody class="infinitescroll">
+    @views.nextPage.map { n =>
+    <tr><th class="pager none">
+        <a href="@routes.ForumPost.search(text, n)">Next</a>
+    </th></tr>
+    <tr></tr>
+    }
+    @views.currentPageResults.map { view =>
+    @defining(routes.ForumTopic.show(view.categ.slug, view.topic.slug, view.topicLastPage) + "#" + view.post.number) { url =>
+    <tr class="paginated_element">
+      <td>
+        <a class="post" href="@url">@view.categ.name - @view.topic.name #@view.post.number</a>
+        <p>@shortenWithBr(view.post.text, 200)</p>
+      </td>
+      <td class="info">
+        <span class="date">@showDate(view.post.createdAt)</span>
+        by @Html(authorName(view.post))
+      </td>
+    </tr>
+    }
+    }
+  </tbody>
+  } else {
+  <tbody><tr><td>No forum post found</td></tr></tbody>
+  }
+</table>
+}

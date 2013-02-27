@@ -1,0 +1,32 @@
+#!/usr/bin/env php
+<?php
+
+$logs = array(
+    "main_log" => 'cat /home/lila/logs/output.log | wc -l', 
+    "ai_log" => 'ssh ai2.lichess.org "cat /home/lila/logs/output.log | wc -l"', 
+    "mongo_log" => 'cat /var/log/mongodb/mongodb.log | wc -l',
+    "nginx_log" => 'cat /var/log/nginx/lila.error.log | wc -l'
+);
+
+if(isset($argv[1]) && 'config' == $argv[1]) {
+  echo "graph_title Lichess log size growth
+graph_args --base 1000 --lower-limit 0.01 --logarithmic
+graph_vlabel growth
+graph_category lichess
+";
+
+foreach ($logs as $log => $c) {
+    $name = str_replace('_', ' ', $log);
+    echo "$log.label $name
+$log.draw LINE
+$log.type DERIVE
+$log.min 0
+";
+}
+  exit;
+}
+
+foreach ($logs as $log => $command) {
+    echo "$log.value ";
+    echo exec($command) . "\n";
+}

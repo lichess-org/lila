@@ -14,7 +14,7 @@ import scalaz.effects._
 
 import user.User
 import game.DbGame
-import socket.{ PingVersion, Quit, Resync, LiveGames }
+import socket.{ PingVersion, Quit, LiveGames }
 import socket.Util.connectionFail
 import security.Flood
 import implicits.RichJs._
@@ -90,8 +90,7 @@ final class Socket(
     }
     case Some("talk") ⇒ for {
       username ← member.username
-      data ← e obj "d"
-      txt ← data str "txt"
+      txt ← e str "d"
       if flood.allowMessage(uid, txt)
     } hub ! Talk(username, txt)
     case _ ⇒

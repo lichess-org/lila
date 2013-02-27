@@ -30,6 +30,9 @@ object Global extends GlobalSettings {
       else Action(NotFound("I am an AI server")).some
     }
     else {
+      req.queryString get "embed" flatMap (_.headOption) filter (""!=) foreach { embed ⇒
+        println("[embed] %s -> %s".format(embed, req.path))
+      }
       env.monitor.rpsProvider.countRequest()
       env.security.wiretap(req)
       env.security.firewall.requestHandler(req) orElse

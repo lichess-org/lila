@@ -31,7 +31,8 @@ final class TopicApi(env: ForumEnv, maxPerPage: Int) {
       userId = ctx.me map (_.id),
       ip = ctx.isAnon option ctx.req.remoteAddress,
       text = data.post.text,
-      number = 1)
+      number = 1,
+      categId = categ.id)
     _ ← env.postRepo saveIO post
     // denormalize topic
     _ ← env.topicRepo saveIO topic.copy(
@@ -44,6 +45,7 @@ final class TopicApi(env: ForumEnv, maxPerPage: Int) {
       nbPosts = categ.nbPosts + 1,
       lastPostId = post.id)
     _ ← env.recent.invalidate
+    _ ← env.indexer insertOne post
   } yield topic
 
   def get(categSlug: String, slug: String) = for {
@@ -66,9 +68,11 @@ final class TopicApi(env: ForumEnv, maxPerPage: Int) {
     ) | paginator(categ, 1)
 
   def delete(categ: Categ, topic: Topic): IO[Unit] = for {
+    _ ← env.postRepo removeByTopicId topic.id
     _ ← env.topicRepo removeIO topic
     _ ← env.categApi denormalize categ
     _ ← env.recent.invalidate
+    _ ← env.indexer removeTopic topic
   } yield ()
 
   def denormalize(topic: Topic): IO[Unit] = for {

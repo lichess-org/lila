@@ -8,7 +8,8 @@ import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 
 final class Messenger(
     messageRepo: MessageRepo,
-    userRepo: UserRepo) extends core.Room {
+    userRepo: UserRepo,
+    val netDomain: String) extends core.Room {
 
   def apply(username: String, text: String): IO[Valid[Message]] = for {
     userOption ← userRepo byId username

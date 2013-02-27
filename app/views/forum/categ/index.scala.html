@@ -1,41 +1,15 @@
 @(categs: List[lila.forum.CategView])(implicit ctx: Context)
 
-@forum.layout(
-title = trans.forum.str()) {
+@forum.layout(title = trans.forum.str()) {
 
-<div class="forum forum_index">
-	<h1>Lichess Forum</h1>
-</div>
-<table class="categories">
-	<thead>
-		<tr class="thead">
-			<th></th>
-			<th class="right">Topics</th>
-			<th class="right">Posts</th>
-			<th>Last Post</th>
-		</tr>
-	</thead>
-	<tbody>
-		@categs.map { categ =>
-		@if(categ.slug != "staff" || isGranted(Permission.StaffForum)) {
-		<tr>
-			<td class="subject">
-				<a class="category_name" href="@routes.ForumCateg.show(categ.slug)">@categ.name</a>
-				<h2 class="description">@categ.desc</h2>
-			</td>
-			<td class="right">@categ.nbTopics</td>
-			<td class="right">@categ.nbPosts</td>
-			<td class="last_post">
-				@categ.lastPost.map {
-				case (topic, post, page) => {
-				<a href="@routes.ForumTopic.show(categ.slug, topic.slug, page)#@post.number">@showDate(post.createdAt)</a><br />by @Html(authorName(post))
-				}
-				}
-			</td>
-		</td>
-	</tr>
-	}
-	}
-</tbody>
-</table>
+@forum.searchForm()
+<h1>Lichess Forum</h1>
+@forum.categ.table(categs.filterNot(_.categ.isTeam))
+
+@if(categs.exists(_.categ.isTeam)) {
+<br />
+<br />
+<h1>Your teams boards</h1>
+@forum.categ.table(categs.filter(_.categ.isTeam))
+}
 }

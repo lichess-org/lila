@@ -1,0 +1,4 @@
+@(search: String = "")(implicit ctx: Context)
+<form class="search" action="@routes.ForumPost.search()">
+  <input name="text" value="@search" placeholder="@trans.searchInForum()" />
+</form>

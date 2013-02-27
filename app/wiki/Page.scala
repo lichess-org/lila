@@ -6,6 +6,7 @@ import user.User
 import org.joda.time.DateTime
 import com.novus.salat.annotations.Key
 import java.text.Normalizer
+import java.util.regex.Matcher.quoteReplacement
 
 case class Page(
     @Key("_id") id: String,
@@ -31,5 +32,5 @@ object Page {
   }
 
   private def dropNumber(input: String) = 
-    """^\d+_(.+)$""".r.replaceAllIn(input, _ group 1)
+    """^\d+_(.+)$""".r.replaceAllIn(input, m => quoteReplacement(m group 1))
 }

@@ -19,6 +19,13 @@ object Permission {
   case object UserSpy extends Permission("ROLE_USER_SPY")
   case object IpBan extends Permission("ROLE_IP_BAN")
 
+  case object Hunter extends Permission("ROLE_HUNTER") {
+    override val children = List(
+      ViewBlurs, 
+      MarkEngine, 
+      StaffForum,
+      UserSpy)
+  }
   case object Admin extends Permission("ROLE_ADMIN") {
     override val children = List(
       ViewBlurs, 
@@ -33,12 +40,12 @@ object Permission {
     override val children = List(Admin)
   }
 
-  val all: List[Permission] = List(SuperAdmin, Admin)
-  val allByName: Map[String, Permission] = all map { p ⇒
-    (p.name, p)
-  } toMap
+  val all: List[Permission] = List(SuperAdmin, Admin, Hunter)
+  val allByName: Map[String, Permission] = all map { p ⇒ (p.name, p) } toMap
 
   def apply(name: String): Option[Permission] = allByName get name
 
   def apply(names: List[String]): List[Permission] = (names map apply).flatten
+
+  def exists(name: String) = allByName contains name
 }

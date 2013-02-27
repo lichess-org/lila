@@ -36,7 +36,8 @@ final class LobbyEnv(
 
   lazy val messenger = new Messenger(
     messageRepo = messageRepo,
-    userRepo = userRepo)
+    userRepo = userRepo,
+    netDomain = NetDomain)
 
   lazy val hub: ActorRef = Akka.system.actorOf(Props(new Hub(
     messenger = messenger,

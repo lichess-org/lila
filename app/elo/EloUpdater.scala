@@ -11,20 +11,14 @@ final class EloUpdater(
     historyRepo: HistoryRepo,
     floor: Int) {
 
-  def game(user: User, elo: Int, gameId: String): IO[Unit] = {
-    val newElo = max(elo, floor)
-    userRepo.setElo(user.id, newElo) flatMap { _ ⇒
-      historyRepo.addEntry(user.id, newElo, Some(gameId))
-    }
+  def game(user: User, elo: Int, opponentElo: Int): IO[Unit] = max(elo, floor) |> { newElo ⇒
+    userRepo.setElo(user.id, newElo) >>
+      historyRepo.addEntry(user.id, newElo, opponentElo.some)
   }
 
-  val adjustTo = User.STARTING_ELO
+  private val adjustTo = User.STARTING_ELO
 
-  def adjust(u: User) = for {
-    _ ← (!u.engine && u.elo > adjustTo).fold(
-      userRepo.setElo(u.id, adjustTo) flatMap { _ ⇒
-        historyRepo.addEntry(u.id, adjustTo, entryType = HistoryRepo.TYPE_ADJUST)
-      },
-      io())
-  } yield ()
+  def adjust(u: User) =
+    userRepo.setElo(u.id, adjustTo) >>
+      historyRepo.addEntry(u.id, adjustTo, none) doIf (!u.engine && u.elo > adjustTo)
 }

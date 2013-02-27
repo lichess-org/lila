@@ -1,0 +1,20 @@
+#!/usr/bin/env php
+<?php
+
+if(isset($argv[1]) && 'config' == $argv[1]) {
+  echo "graph_title Lichess Forum posts per today
+graph_args --base 1000 -l 0
+graph_vlabel posts/day
+graph_category lichess
+posts.label posts/day
+posts.draw AREA
+";
+  exit;
+}
+
+echo "posts.value ";
+
+$mongo = new Mongo();
+$collection = $mongo->selectCollection('lichess', 'f_post');
+echo $collection->count(array('createdAt' => array('$gte' => new MongoDate(date_create('- 1 day')->getTimestamp()))));
+echo "\n";

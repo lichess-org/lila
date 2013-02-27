@@ -30,4 +30,9 @@ case class PostView(
     post: Post,
     topic: Topic,
     categ: Categ,
-    topicLastPage: Int)
+    topicLastPage: Int) {
+
+  def show = post.showUsernameOrAuthor + " @ " + topic.name + " - " + post.text.take(80)
+}
+
+case class PostLiteView(post: Post, topic: Topic, topicLastPage: Int)

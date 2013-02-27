@@ -9,15 +9,27 @@ object ForumPost extends LilaController with forum.Controller {
   private def topicApi = env.forum.topicApi
   private def postApi = env.forum.postApi
   private def forms = env.forum.forms
+  private def teamCache = env.team.cached
+  private def searchPaginator = env.forum.searchPaginator
+
+  def search(text: String, page: Int) = OpenBody { implicit ctx ⇒
+    text.trim match {
+      case "" ⇒ Redirect(routes.ForumCateg.index)
+      case text ⇒ Ok(html.forum.search(
+        text,
+        searchPaginator(text, page, isGranted(_.StaffForum))
+      ))
+    }
+  }
 
   val recent = Open { implicit ctx ⇒
-    IOk(env.forum.recent(ctx.me) map { posts =>
+    IOk(env.forum.recent(ctx.me, teamCache.teamIds) map { posts ⇒
       html.forum.post.recent(posts)
     })
   }
 
   def create(categSlug: String, slug: String, page: Int) = OpenBody { implicit ctx ⇒
-    CategGrant(categSlug) {
+    CategGrantWrite(categSlug) {
       implicit val req = ctx.body
       IOptionResult(topicApi.show(categSlug, slug, page)) {
         case (categ, topic, posts) ⇒ forms.post.bindFromRequest.fold(
@@ -26,11 +38,11 @@ object ForumPost extends LilaController with forum.Controller {
           data ⇒ Firewall {
             val post = postApi.makePost(categ, topic, data).unsafePerformIO
             Redirect("%s#%d".format(
-            routes.ForumTopic.show(
-              categ.slug,
-              topic.slug,
-              postApi lastPageOf topic.incNbPosts),
-            post.number))
+              routes.ForumTopic.show(
+                categ.slug,
+                topic.slug,
+                postApi lastPageOf topic.incNbPosts),
+              post.number))
           }
         )
       }

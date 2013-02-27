@@ -1,13 +1,13 @@
 @(createds: List[lila.tournament.Created], starteds: List[lila.tournament.Started], finisheds: List[lila.tournament.Finished])(implicit ctx: Context)
 
-<div class="content_box tournament_box">
+<div class="content_box tournament_box no_padding">
   <h1>Tournaments</h1>
-  <table class="data all_tournaments">
+  <table class="slist all_tournaments">
     <thead>
       <tr>
         <th class="large">Open tournaments</th>
-        <th>Clock</th>
-        <th>Duration</th>
+        <th>@trans.mode()</th>
+        <th>@trans.timeControl()</th>
         <th colspan="2">Players</th>
       </tr>
     </thead>
@@ -15,8 +15,15 @@
       @createds.map { tour =>
       <tr>
         <td>@linkTo(tour)</td>
-        <td>@tour.clock.show</td>
-        <td>@{tour.minutes}m</td>
+        <td class="small">
+          @if(tour.variant.exotic) { 
+          960
+          }
+          @if(tour.rated) {
+          @trans.rated()
+          }
+        </td>
+        <td>@tour.clock.show | @{tour.minutes}m</td>
         <td>@tour.playerRatio</td>
         <td>
           @ctx.me.map { me =>
@@ -43,8 +50,8 @@
     <thead>
       <tr>
         <th class="large">Now Playing</th>
-        <th>Clock</th>
-        <th>Duration</th>
+        <th>@trans.mode()</th>
+        <th>@trans.timeControl()</th>
         <th>Players</th>
         <th>Leader</th>
       </tr>
@@ -53,8 +60,15 @@
       @starteds.map { tour =>
       <tr>
         <td>@linkTo(tour)</td>
-        <td>@tour.clock.show</td>
-        <td>@{tour.minutes}m</td>
+        <td class="small">
+          @if(tour.variant.exotic) { 
+          960
+          }
+          @if(tour.rated) {
+          @trans.rated()
+          }
+        </td>
+        <td>@tour.clock.show | @{tour.minutes}m</td>
         <td>@tour.playerRatio</td>
         <td>@tour.winner.map { player =>
           @userInfosLink(player.username, player.elo.some, withOnline = false)
@@ -67,8 +81,8 @@
     <thead>
       <tr>
         <th class="large">Finished</th>
-        <th>Clock</th>
-        <th>Duration</th>
+        <th>@trans.mode()</th>
+        <th>@trans.timeControl()</th>
         <th>Players</th>
         <th>Winner</th>
       </tr>
@@ -77,8 +91,15 @@
       @finisheds.map { tour =>
       <tr>
         <td>@linkTo(tour)</td>
-        <td>@tour.clock.show</td>
-        <td>@{tour.minutes}m</td>
+        <td class="small">
+          @if(tour.variant.exotic) { 
+          960
+          }
+          @if(tour.rated) {
+          @trans.rated()
+          }
+        </td>
+        <td>@tour.clock.show | @{tour.minutes}m</td>
         <td>@tour.playerRatio</td>
         <td>@tour.winner.map { player =>
           @userInfosLink(player.username, player.elo.some, withOnline = false)

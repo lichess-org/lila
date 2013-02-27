@@ -9,7 +9,7 @@ import scala.io.Source
 import play.api.libs.json._
 import org.joda.time.DateTime
 
-final class UpstreamFetch(upstreamDomain: String) {
+private[i18n] final class UpstreamFetch(upstreamDomain: String) {
 
   def apply(from: Int): IO[List[Translation]] = 
     fetch(upstreamUrl(from)) map parse

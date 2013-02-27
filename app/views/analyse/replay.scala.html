@@ -9,7 +9,9 @@
 @moreJs = {
 @jsVendorTag("pgn4web/pgn4web.js")
 @jsTag("pgn4hacks.js")
+@if(analysis.isDefined) {
 @jsTag("chart.js")
+}
 }
 
 @underchat = {
@@ -75,7 +77,8 @@ moreJs = moreJs) {
 }
 @analyse.link(pov)
 @views.html.game.more(pov, bookmarkers) {
-@trans.opening() @opening.map { o =>
+@round.continueFromHere(pov.game)
+@trans.opening(): @opening.map { o =>
 <a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a>
 }.getOrElse { "Unknown" }
 <nav>
@@ -84,12 +87,13 @@ moreJs = moreJs) {
   <a>Request a computer analysis</a>
 </form>
 }
+@if(game.pgnImport.isEmpty) {
 <a href="@routes.Analyse.stats(gameId)">@trans.viewGameStats()</a>
 <br />
+}
 <a class="rotate_board" href="@routes.Analyse.replay(gameId, (!color).name)">@trans.flipBoard()</a>
 <br />
 <a class="view_pgn_toggle" href="@routes.Analyse.pgn(game.id)">View PGN</a>
-<div id="CurrentFen"></div>
 </nav>
 }
 }

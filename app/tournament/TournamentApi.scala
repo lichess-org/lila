@@ -7,6 +7,7 @@ import scalaz.effects._
 import scalaz.{ NonEmptyList, Success, Failure }
 import play.api.libs.json._
 
+import chess.{ Mode, Variant }
 import controllers.routes
 import game.DbGame
 import user.User
@@ -14,6 +15,7 @@ import lobby.{ Socket ⇒ LobbySocket }
 
 private[tournament] final class TournamentApi(
     repo: TournamentRepo,
+    roomRepo: RoomRepo,
     joiner: GameJoiner,
     socket: Socket,
     siteSocket: site.Socket,
@@ -36,7 +38,9 @@ private[tournament] final class TournamentApi(
       createdBy = me,
       clock = TournamentClock(setup.clockTime * 60, setup.clockIncrement),
       minutes = setup.minutes,
-      minPlayers = setup.minPlayers)
+      minPlayers = setup.minPlayers,
+      mode = Mode orDefault ~setup.mode,
+      variant = Variant orDefault setup.variant)
     _ ← repo saveIO created
     _ ← (withdrawIds map socket.reload).sequence
     _ ← reloadSiteSocket
@@ -44,17 +48,17 @@ private[tournament] final class TournamentApi(
     _ ← sendLobbyMessage(created)
   } yield created
 
-  def start(created: Created): Option[IO[Unit]] = created.start map { started ⇒
-    for {
-      _ ← repo saveIO started
-      _ ← socket start started.id
-      _ ← reloadSiteSocket
-      _ ← lobbyReload
-    } yield ()
-  }
+  def startIfReady(created: Created): Option[IO[Unit]] = created.startIfReady map doStart
+
+  def earlyStart(created: Created): Option[IO[Unit]] =
+    created.readyToEarlyStart option doStart(created.start)
+
+  private def doStart(started: Started): IO[Unit] =
+    (repo saveIO started) >> (socket start started.id) >> reloadSiteSocket >> lobbyReload
 
   def wipeEmpty(created: Created): IO[Unit] = (for {
     _ ← repo removeIO created
+    _ ← roomRepo removeIO created.id
     _ ← reloadSiteSocket
     _ ← lobbyReload
     _ ← removeLobbyMessage(created)
@@ -83,7 +87,7 @@ private[tournament] final class TournamentApi(
     _ ← lobbyReload
   } yield ()
 
-  def withdraw(tour: Tournament, userId: String): IO[Tournament] = tour match {
+  def withdraw(tour: Tournament, userId: String): IO[Unit] = tour match {
     case created: Created ⇒ (created withdraw userId).fold(
       err ⇒ putStrLn(err.shows) inject tour,
       tour2 ⇒ for {
@@ -91,27 +95,32 @@ private[tournament] final class TournamentApi(
         _ ← socket reload tour2.id
         _ ← reloadSiteSocket
         _ ← lobbyReload
-      } yield tour2
+      } yield ()
     )
     case started: Started ⇒ (started withdraw userId).fold(
-      err ⇒ putStrLn(err.shows) inject tour,
+      err ⇒ putStrLn(err.shows),
       tour2 ⇒ for {
         _ ← repo saveIO tour2
         _ ← ~(tour2 userCurrentPov userId map roundMeddler.resign)
         _ ← socket reload tour2.id
         _ ← reloadSiteSocket
-      } yield tour2
+      } yield ()
     )
-    case finished: Finished ⇒ putStrLn("Cannot withdraw from finished tournament " + finished.id) inject tour
+    case finished: Finished ⇒ putStrLn("Cannot withdraw from finished tournament " + finished.id) 
   }
 
   def finishGame(game: DbGame): IO[Option[Tournament]] = for {
     tourOption ← ~(game.tournamentId map repo.startedById)
     result ← ~(tourOption.filter(_ ⇒ game.finished).map(tour ⇒ {
-      val tour2 = tour.updatePairing(game.id, _.finish(game.status, game.winnerUserId))
+      val tour2 = tour.updatePairing(game.id, _.finish(game.status, game.winnerUserId, game.turns))
       repo saveIO tour2 inject tour2.some
+      (repo saveIO tour2) >>
+        tripleQuickLossWithdraw(tour2, game.loserUserId) inject tour2.some
     }))
   } yield result
+
+  private def tripleQuickLossWithdraw(tour: Started, loser: Option[String]): IO[Unit] =
+    ~loser.filter(tour.quickLossStreak).map(withdraw(tour, _))
 
   private def userIdWhoLostOnTimeWithoutMoving(game: DbGame): Option[String] =
     game.playerWhoDidNotMove

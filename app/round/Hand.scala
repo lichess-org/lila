@@ -36,7 +36,7 @@ final class Hand(
     blur: Boolean = false,
     lag: Int = 0): PlayResult = fromPovFuture(povRef) {
     case Pov(g1, color) ⇒ (for {
-      g2 ← g1.validIf(g1 playableBy color, "Game not playable")
+      g2 ← g1.validIf(g1 playableBy color, "Game not playable %s %s, on move %d".format(origString, destString, g1.toChess.fullMoveNumber))
       orig ← posAt(origString) toValid "Wrong orig " + origString
       dest ← posAt(destString) toValid "Wrong dest " + destString
       promotion = Role promotable promString

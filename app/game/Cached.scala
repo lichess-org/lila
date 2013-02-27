@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 
 import memo.ActorMemo
 
-final class Cached(
+private[game] final class Cached(
     gameRepo: GameRepo,
     nbTtl: Int) {
 
@@ -14,21 +14,24 @@ final class Cached(
   def nbGames: Int = memo(NbGames)
   def nbMates: Int = memo(NbMates)
   def nbPopular: Int = memo(NbPopular)
+  def nbImported: Int = memo(NbImported)
 
   private val memo = ActorMemo(loadFromDb, nbTtl, 5.seconds)
 
   private def loadFromDb(key: Key) = key match {
-    case NbGames   ⇒ gameRepo.count(_.all).unsafePerformIO
-    case NbMates   ⇒ gameRepo.count(_.mate).unsafePerformIO
-    case NbPopular ⇒ gameRepo.count(_.popular).unsafePerformIO
+    case NbGames    ⇒ gameRepo.count(_.all).unsafePerformIO
+    case NbMates    ⇒ gameRepo.count(_.mate).unsafePerformIO
+    case NbPopular  ⇒ gameRepo.count(_.popular).unsafePerformIO
+    case NbImported ⇒ gameRepo.count(_.imported).unsafePerformIO
   }
 }
 
-object Cached {
+private[game] object Cached {
 
   sealed trait Key
 
   case object NbGames extends Key
   case object NbMates extends Key
   case object NbPopular extends Key
+  case object NbImported extends Key
 }

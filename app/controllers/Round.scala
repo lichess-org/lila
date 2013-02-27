@@ -42,7 +42,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
       fullId,
       getInt("version"),
       get("sri"),
-      get("tk"),
+      get("tk2"),
       ctx).unsafePerformIO
   }
 
@@ -80,11 +80,12 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
     }
   }
 
-  private def join(pov: Pov)(implicit ctx: Context): IO[Result] = io {
-    Ok(html.setup.join(
-      pov, version(pov.gameId), env.setup.friendConfigMemo get pov.game.id
-    ))
-  }
+  private def join(pov: Pov)(implicit ctx: Context): IO[Result] =
+    gameRepo initialFen pov.gameId map { initialFen ⇒
+      Ok(html.setup.join(
+        pov, version(pov.gameId), env.setup.friendConfigMemo get pov.game.id, initialFen
+      ))
+    }
 
   private def watch(pov: Pov)(implicit ctx: Context): IO[Result] = for {
     bookmarkers ← bookmarkApi userIdsByGame pov.game

@@ -20,7 +20,7 @@ object Setup extends LilaController with TheftPrevention with RoundEventPerforme
   private def bookmarkApi = env.bookmark.api
 
   val aiForm = Open { implicit ctx ⇒
-    IOk(forms.aiFilled map { html.setup.ai(_) })
+    IOk(forms aiFilled get("fen") map { html.setup.ai(_) })
   }
 
   val ai = process(forms.ai) { config ⇒
@@ -31,7 +31,7 @@ object Setup extends LilaController with TheftPrevention with RoundEventPerforme
   }
 
   val friendForm = Open { implicit ctx ⇒
-    IOk(forms.friendFilled map { html.setup.friend(_) })
+    IOk(forms friendFilled get("fen") map { html.setup.friend(_) })
   }
 
   val friend = process(forms.friend) { config ⇒
@@ -50,6 +50,20 @@ object Setup extends LilaController with TheftPrevention with RoundEventPerforme
       processor hook config map { hook ⇒
         routes.Lobby.hook(hook.ownerId)
       }
+  }
+
+  val filterForm = Open { implicit ctx ⇒
+    IOk(forms.filterFilled map { html.setup.filter(_) })
+  }
+
+  val filter = OpenBody { implicit ctx ⇒
+    implicit val req = ctx.body
+    IOResult {
+      forms.filter(ctx).bindFromRequest.fold(
+        f ⇒ putStrLn(f.errors.toString) inject BadRequest(),
+        config ⇒ processor filter config inject JsonOk(config.render)
+      )
+    }
   }
 
   def join(id: String) = Open { implicit ctx ⇒
@@ -96,11 +110,23 @@ object Setup extends LilaController with TheftPrevention with RoundEventPerforme
     JsonIOk(processor.api)
   }
 
+  val validateFen = Open { implicit ctx ⇒
+    {
+      for {
+        fen ← get("fen")
+        parsed ← chess.format.Forsyth <<< fen
+        strict = get("strict").isDefined
+        if (parsed.situation playable strict)
+        validated = chess.format.Forsyth >> parsed
+      } yield html.game.miniBoard(validated, parsed.situation.color.name)
+    } fold (Ok(_), BadRequest)
+  }
+
   private def process[A](form: Context ⇒ Form[A])(op: A ⇒ BodyContext ⇒ IO[Call]) =
     OpenBody { ctx ⇒
       implicit val req = ctx.body
       IORedirect(form(ctx).bindFromRequest.fold(
-        f ⇒ putStrLn(f.errors.toString) map { _ ⇒ routes.Lobby.home },
+        f ⇒ putStrLn(f.errors.toString) inject routes.Lobby.home,
         config ⇒ op(config)(ctx)
       ))
     }

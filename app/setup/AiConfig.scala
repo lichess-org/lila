@@ -1,8 +1,8 @@
 package lila
 package setup
 
-import chess.{ Variant, Mode, Color ⇒ ChessColor }
-import game.{ DbGame, DbPlayer }
+import chess.{ Variant, Mode, Game, Color ⇒ ChessColor }
+import game.{ DbGame, DbPlayer, Source }
 
 case class AiConfig(
     variant: Variant,
@@ -10,40 +10,47 @@ case class AiConfig(
     time: Int,
     increment: Int,
     level: Int,
-    color: Color) extends Config with GameGenerator {
+    color: Color,
+    fen: Option[String] = None) extends Config with GameGenerator with Positional {
 
-  def >> = (variant.id, clock, time, increment, level, color.name).some
+  def >> = (variant.id, clock, time, increment, level, color.name, fen).some
 
-  def game = DbGame(
-    game = makeGame,
-    ai = Some(!creatorColor -> level),
-    whitePlayer = DbPlayer(
-      color = ChessColor.White,
-      aiLevel = creatorColor.black option level),
-    blackPlayer = DbPlayer(
-      color = ChessColor.Black,
-      aiLevel = creatorColor.white option level),
-    creatorColor = creatorColor,
-    mode = Mode.Casual,
-    variant = variant).start
+  def game = fenDbGame { chessGame ⇒
+    DbGame(
+      game = chessGame,
+      ai = Some(!creatorColor -> level),
+      whitePlayer = DbPlayer(
+        color = ChessColor.White,
+        aiLevel = creatorColor.black option level),
+      blackPlayer = DbPlayer(
+        color = ChessColor.Black,
+        aiLevel = creatorColor.white option level),
+      creatorColor = creatorColor,
+      mode = Mode.Casual,
+      variant = variant,
+      source = Source.Ai,
+      pgnImport = None)
+  } start
 
   def encode = RawAiConfig(
     v = variant.id,
     k = clock,
     t = time,
     i = increment,
-    l = level)
+    l = level,
+    f = ~fen)
 }
 
 object AiConfig extends BaseConfig {
 
-  def <<(v: Int, k: Boolean, t: Int, i: Int, level: Int, c: String) = new AiConfig(
+  def <<(v: Int, k: Boolean, t: Int, i: Int, level: Int, c: String, fen: Option[String]) = new AiConfig(
     variant = Variant(v) err "Invalid game variant " + v,
     clock = k,
     time = t,
     increment = i,
     level = level,
-    color = Color(c) err "Invalid color " + c)
+    color = Color(c) err "Invalid color " + c,
+    fen = fen)
 
   val default = AiConfig(
     variant = variantDefault,
@@ -58,12 +65,13 @@ object AiConfig extends BaseConfig {
   val levelChoices = levels map { l ⇒ l.toString -> l.toString }
 }
 
-case class RawAiConfig(
+private[setup] case class RawAiConfig(
     v: Int,
     k: Boolean,
     t: Int,
     i: Int,
-    l: Int) {
+    l: Int,
+    f: String = "") {
 
   def decode = for {
     variant ← Variant(v)
@@ -73,5 +81,6 @@ case class RawAiConfig(
     time = t,
     increment = i,
     level = l,
-    color = Color.White)
+    color = Color.White,
+    fen = f.some filter (_.nonEmpty))
 }

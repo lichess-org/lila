@@ -6,13 +6,16 @@ import views._
 object ForumCateg extends LilaController with forum.Controller {
 
   private def categApi = env.forum.categApi
+  private def teamCache = env.team.cached
 
   val index = Open { implicit ctx ⇒
-    IOk(categApi.list map { html.forum.categ.index(_) })
+    IOk(categApi list ~ctx.me.map(teamCache.teamIds) map {
+      html.forum.categ.index(_)
+    })
   }
 
   def show(slug: String, page: Int) = Open { implicit ctx ⇒
-    CategGrant(slug) {
+    CategGrantRead(slug) {
       IOptionOk(categApi.show(slug, page)) {
         case (categ, topics) ⇒ html.forum.categ.show(categ, topics)
       }

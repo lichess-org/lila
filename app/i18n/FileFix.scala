@@ -5,7 +5,7 @@ import play.api.i18n.{ MessagesApi, Lang }
 import java.io._
 import scalaz.effects._
 
-final class FileFix(
+private[i18n] final class FileFix(
     pool: I18nPool,
     path: String,
     keys: I18nKeys,

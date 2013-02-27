@@ -53,8 +53,8 @@ object Thread {
   def make(
     name: String,
     text: String,
-    creator: User,
-    invited: User): Thread = Thread(
+    creator: String,
+    invited: String): Thread = Thread(
     id = Random nextString idSize,
     name = name,
     createdAt = DateTime.now,
@@ -63,8 +63,8 @@ object Thread {
       text = text,
       isByCreator = true
     )),
-    creatorId = creator.id,
-    invitedId = invited.id,
+    creatorId = creator,
+    invitedId = invited,
     visibleByUserIds = List(creator.id, invited.id))
 
   import play.api.libs.json._

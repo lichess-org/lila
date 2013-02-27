@@ -1,11 +1,13 @@
 package lila
 package game
 
+import play.api.Application
 import com.mongodb.casbah.MongoCollection
 
 import core.Settings
 
 final class GameEnv(
+    app: Application,
     settings: Settings,
     mongodb: String ⇒ MongoCollection) {
 
@@ -28,11 +30,13 @@ final class GameEnv(
     gameRepo = gameRepo,
     lobbyHubName = ActorLobbyHub)
 
-  lazy val export = Export(gameRepo) _
+  lazy val export = Export(gameRepo, NetBaseUrl) _
 
   lazy val listMenu = ListMenu(cached) _
 
   lazy val rewind = new Rewind
 
-  lazy val gameJs = new GameJs(settings.GameJsPath)
+  lazy val gameJs = new GameJs(
+    path = app.path.getCanonicalPath + "/" + IsDev.fold(GameJsPathRaw, GameJsPathCompiled),
+    useCache = !IsDev)
 }

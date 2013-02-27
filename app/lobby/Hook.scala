@@ -43,15 +43,17 @@ case class Hook(
     "mode" -> realMode.toString,
     "color" -> color,
     "clock" -> clockOrUnlimited,
+    "speed" -> chess.Speed(clockOption).id,
     "emin" -> realEloRange.map(_.min),
     "emax" -> realEloRange.map(_.max),
     "engine" -> engine
   ) 
 
-  def clockOrUnlimited = 
-    ((time filter (_ ⇒ hasClock)) |@| increment apply renderClock _) | "Unlimited"
+  def clockOrUnlimited = clockOption.fold(c ⇒ renderClock(c.limit, c.increment), "Unlimited")
 
-  def renderClock(time: Int, inc: Int) = "%d + %d".format(time/60, inc)
+  private def clockOption = (time filter (_ ⇒ hasClock)) |@| increment apply Clock.apply
+
+  private def renderClock(time: Int, inc: Int) = "%d + %d".format(time / 60, inc)
 }
 
 object Hook {

@@ -10,4 +10,5 @@ serve/README
 target
 bin/.translate_version
 data/
+dist/
 RUNNING_PID

@@ -1,13 +1,14 @@
 package lila
 package search
 
+import ElasticSearch._
 import game.DbGame
 import chess.{ OpeningExplorer, Status }
 
 import play.api.libs.json.{ Json, JsObject, JsString, JsNumber }
-import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
 
 object Game {
+private[search] object Game {
 
   object fields {
     val status = "st"
@@ -25,6 +26,8 @@ object Game {
   import fields._
 
   def jsonMapping: JsObject = {
+
+    import Mapping._
 
     def field(
       name: String,
@@ -50,7 +53,7 @@ object Game {
         field(averageElo, "short"),
         field(ai, "short"),
         field(opening, "string"),
-        field(date, "date", attrs = Json.obj("format" -> dateFormat)),
+        field(date, "date", attrs = Json.obj("format" -> Date.format)),
         field(duration, "short")
       ))
     )
@@ -65,11 +68,8 @@ object Game {
     winner -> Json.toJson(game.winner flatMap (_.userId)),
     averageElo -> Json.toJson(game.averageUsersElo),
     ai -> Json.toJson(game.aiLevel),
-    date -> (dateFormatter print game.createdAt),
+    date -> (Date.formatter print game.createdAt),
     duration -> game.estimateTotalTime,
     opening -> Json.toJson(OpeningExplorer openingOf pgn map (_.code.toLowerCase))
   )
-
-  private val dateFormat = "YYYY-MM-dd HH:mm:ss"
-  val dateFormatter: DateTimeFormatter = DateTimeFormat forPattern dateFormat
 }
