@@ -14,7 +14,7 @@ case class JsonTube[Doc](
 
   def read(js: JsObject): JsResult[Doc] = reads reads js
 
-  def unsafeRead(js: JsObject): Doc = read(js) recover { err ⇒
+  def unsafeRead(js: JsObject): Doc = read(js) recoverTotal { err ⇒
     throw new Exception(Json.stringify(JsError toFlatJson err))
   }
 
