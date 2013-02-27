@@ -4,14 +4,14 @@ package setup
 import chess.{ Game, Board, Clock, Variant, Color ⇒ ChessColor }
 import ChessColor.{ White, Black }
 import chess.format.Forsyth
-import game.{ GameRepo, DbGame, DbPlayer, Pov, Handler, Namer }
+import game.{ GameRepo, DbGame, DbPlayer, Pov, Handler, Namer, Source }
 import round.{ Event, Progress, Messenger }
 import user.UserRepo
 import controllers.routes
 
 import scalaz.effects._
 
-final class Rematcher(
+private[setup] final class Rematcher(
     gameRepo: GameRepo,
     userRepo: UserRepo,
     messenger: Messenger,
@@ -38,7 +38,7 @@ final class Rematcher(
     nextGame ← returnGame(pov) map (_.start)
     _ ← gameRepo insert nextGame
     nextId = nextGame.id
-    _ ← gameRepo denormalizeStarted nextGame
+    _ ← gameRepo denormalize nextGame
     _ ← gameRepo.saveNext(pov.game, nextGame.id)
     _ ← timelinePush(nextGame)
     // messenges are not sent to the next game socket
@@ -73,7 +73,7 @@ final class Rematcher(
     )
     whitePlayer ← returnPlayer(pov.game, White)
     blackPlayer ← returnPlayer(pov.game, Black)
-  } yield DbGame(
+  } yield DbGame.apply(
     game = Game(
       board = Board(pieces, variant = pov.game.variant),
       clock = pov.game.clock map (_.reset)),
@@ -82,8 +82,9 @@ final class Rematcher(
     ai = None,
     creatorColor = !pov.color,
     mode = pov.game.mode,
-    variant = pov.game.variant
-  ) with960Rematch !pov.game.is960Rematch
+    variant = pov.game.variant,
+    source = pov.game.source | Source.Lobby,
+    pgnImport = None) with960Rematch !pov.game.is960Rematch
 
   private def returnPlayer(game: DbGame, color: ChessColor): IO[DbPlayer] =
     DbPlayer(color = color, aiLevel = None) |> { player ⇒

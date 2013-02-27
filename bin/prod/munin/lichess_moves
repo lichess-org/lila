@@ -1,0 +1,27 @@
+#!/usr/bin/env php
+<?php
+
+if(isset($argv[1]) && 'config' == $argv[1]) {
+  echo "graph_title Lichess moves per second
+graph_args --base 1000 -l 0
+graph_vlabel moves
+graph_category lichess
+moves.label moves
+moves.draw AREA
+";
+  exit;
+}
+
+$url = 'http://en.lichess.org/monitor/mps';
+
+$curl = curl_init();
+curl_setopt_array($curl, array(
+      CURLOPT_URL             => $url,
+      CURLOPT_PORT            => 80,
+      CURLOPT_USERAGENT       => 'munin',
+      CURLOPT_RETURNTRANSFER  => true,
+      CURLOPT_TIMEOUT         => 2
+    ));
+$moves = curl_exec($curl);
+
+echo "moves.value ".$moves."\n";

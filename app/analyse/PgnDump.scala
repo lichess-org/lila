@@ -6,20 +6,25 @@ import chess.format.{ pgn ⇒ chessPgn }
 import chess.format.pgn.{ Pgn, Tag }
 import game.{ DbGame, DbPlayer, GameRepo }
 import user.{ User, UserRepo }
+import controllers.routes
 
 import org.joda.time.format.DateTimeFormat
 import scalaz.effects._
 
-final class PgnDump(
+private[analyse] final class PgnDump(
     gameRepo: GameRepo,
     analyser: Analyser,
+    annotator: Annotator,
+    netBaseUrl: String,
     userRepo: UserRepo) {
 
   import PgnDump._
 
   def apply(game: DbGame, pgn: String): IO[Pgn] = for {
     ts ← tags(game)
-    pgnObj = Pgn(ts, turns(pgn))
+    fenSituation  = ts find (_.name == Tag.FEN) flatMap { case Tag(_, fen) ⇒ Forsyth <<< fen } 
+    pgn2 = (~fenSituation.map(_.situation.color.black)).fold(".. " + pgn, pgn)
+    pgnObj = Pgn(ts, turns(pgn2, fenSituation.map(_.fullMoveNumber) | 1))
     analysis ← analyser get game.id
   } yield analysis.fold(pgnObj)(Annotator(pgnObj, _))
 
@@ -32,7 +37,6 @@ final class PgnDump(
     player(game.blackPlayer, blackUser),
     game.id)
 
-  private val baseUrl = "http://lichess.org/"
   private val dateFormat = DateTimeFormat forPattern "yyyy-MM-dd";
 
   private def elo(p: DbPlayer) = p.elo.fold("?")(_.toString)
@@ -49,7 +53,7 @@ final class PgnDump(
     initialFen ← game.variant.standard.fold(io(none), gameRepo initialFen game.id)
   } yield List(
     Tag(_.Event, game.rated.fold("Rated game", "Casual game")),
-    Tag(_.Site, baseUrl + game.id),
+    Tag(_.Site, netBaseUrl + routes.Analyse.replay(game.id, "white")),
     Tag(_.Date, dateFormat.print(game.createdAt)),
     Tag(_.White, player(game.whitePlayer, whiteUser)),
     Tag(_.Black, player(game.blackPlayer, blackUser)),
@@ -57,18 +61,18 @@ final class PgnDump(
     Tag("WhiteElo", elo(game.whitePlayer)),
     Tag("BlackElo", elo(game.blackPlayer)),
     Tag("PlyCount", game.turns),
-    Tag(_.Variant, game.variant.name)
+    Tag(_.Variant, game.variant.name.capitalize)
   ) ::: game.variant.standard.fold(Nil, List(
       Tag(_.FEN, initialFen | "?"),
       Tag("SetUp", "1")
     ))
 
-  private def turns(pgn: String): List[chessPgn.Turn] =
+  private def turns(pgn: String, from: Int): List[chessPgn.Turn] =
     (pgn split ' ' grouped 2).zipWithIndex.toList map {
       case (moves, index) ⇒ chessPgn.Turn(
-        number = index + 1,
-        white = moves.headOption map { chessPgn.Move(_) },
-        black = moves.tail.headOption map { chessPgn.Move(_) })
+        number = index + from,
+        white = moves.headOption filter (".." !=) map { chessPgn.Move(_) },
+        black = moves lift 1 map { chessPgn.Move(_) })
     }
 }
 

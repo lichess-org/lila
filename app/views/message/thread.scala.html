@@ -22,7 +22,7 @@ title = thread.name) {
 </div>
 }
 
-@if(me.canMessage) {
+@if(me.canMessage && thread.creatorId != "lichess") {
 <div class="answer" id="bottom">
   <form action="@routes.Message.answer(thread.id)" method="post">
     <div class="field_body">

@@ -8,7 +8,7 @@ import mongodb.CachedAdapter
 import com.github.ornicar.paginator._
 import com.mongodb.casbah.Imports._
 
-final class PaginatorBuilder(
+private[game] final class PaginatorBuilder(
     gameRepo: GameRepo,
     cached: Cached,
     maxPerPage: Int) {
@@ -22,7 +22,10 @@ final class PaginatorBuilder(
   def popular(page: Int): Paginator[DbGame] =
     paginator(popularAdapter, page)
 
-  def recentlyCreated(query: DBObject, nb: Option[Int] = None) =
+  def imported(page: Int): Paginator[DbGame] =
+    paginator(importedAdapter, page)
+
+  def recentlyCreated(query: DBObject, nb: Option[Int] = None) = 
     apply(query, Query.sortCreated, nb) _
 
   def apply(query: DBObject, sort: DBObject, nb: Option[Int] = None)(page: Int): Paginator[DbGame] =
@@ -41,6 +44,9 @@ final class PaginatorBuilder(
 
   private val popularAdapter =
     adapter(Query.popular, Query.sortPopular, cached.nbPopular)
+
+  private val importedAdapter =
+    adapter(Query.imported, Query.sortCreated, cached.nbImported)
 
   private def adapter(
     query: DBObject,

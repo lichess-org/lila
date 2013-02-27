@@ -74,9 +74,8 @@ object Analyse extends LilaController {
       gameOption ← gameRepo game id
       res ← gameOption.fold(io(NotFound("No such game"))) { game ⇒
         for {
-          pgnString ← pgnRepo get id
-          pgnObj ← pgnDump(game, pgnString)
-          content = pgnObj.toString
+          pgnString ← game.pgnImport.map(_.pgn).fold(io(_), pgnRepo get id)
+          content ← game.pgnImport.map(_.pgn).fold(io(_), pgnDump(game, pgnString) map (_.toString))
           filename ← pgnDump filename game
         } yield Ok(content).withHeaders(
           CONTENT_LENGTH -> content.size.toString,

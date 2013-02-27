@@ -18,7 +18,8 @@ case class DbPlayer(
     elo: Option[Int] = None,
     eloDiff: Option[Int] = None,
     moveTimes: String = "",
-    blurs: Int = 0) {
+    blurs: Int = 0,
+    name: Option[String] = None) {
 
   def encodePieces(allPieces: Iterable[(Pos, Piece, Boolean)]): String =
     allPieces withFilter (_._2.color == color) map {
@@ -69,6 +70,8 @@ case class DbPlayer(
 
   def removeTakebackProposition = copy(isProposingTakeback = false)
 
+  def withName(name: String) = copy(name = name.some)
+
   def encode: RawDbPlayer = RawDbPlayer(
     id = id,
     ps = ps,
@@ -82,7 +85,8 @@ case class DbPlayer(
     isProposingTakeback = if (isProposingTakeback) Some(true) else None,
     uid = userId,
     mts = Some(moveTimes) filter ("" !=),
-    bs = Some(blurs) filter (0 !=)
+    bs = Some(blurs) filter (0 !=),
+    na = name
   )
 }
 
@@ -113,7 +117,8 @@ case class RawDbPlayer(
     isProposingTakeback: Option[Boolean],
     uid: Option[String],
     mts: Option[String],
-    bs: Option[Int]) {
+    bs: Option[Int],
+    na: Option[String]) {
 
   def decode(color: Color): DbPlayer = DbPlayer(
     id = id,
@@ -129,6 +134,7 @@ case class RawDbPlayer(
     isProposingTakeback = ~isProposingTakeback,
     userId = uid,
     moveTimes = mts | "",
-    blurs = bs | 0
+    blurs = bs | 0,
+    name = na
   )
 }

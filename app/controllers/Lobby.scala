@@ -1,7 +1,7 @@
 package controllers
 
 import lila._
-import http.Context
+import http.{ Context, LilaCookie }
 import lobby.Hook
 import views._
 
@@ -24,8 +24,16 @@ object Lobby extends LilaController with Results {
   private def messageRepo = env.lobby.messageRepo
   private def featured = env.game.featured
   private def openTours = env.tournament.repo.created
+  private def teamCache = env.team.cached
 
-  val home = Open { implicit ctx ⇒ Async { renderHome(none, Ok) } }
+  val home = Open { implicit ctx ⇒
+    Async {
+      renderHome(none, Ok).map(_.withHeaders(
+        CACHE_CONTROL -> "no-cache",
+        PRAGMA -> "no-cache"
+      ))
+    }
+  }
 
   def handleNotFound(req: RequestHeader): Result = handleNotFound(reqToCtx(req))
 
@@ -37,15 +45,21 @@ object Lobby extends LilaController with Results {
       chat = ctx.canSeeChat,
       myHook = myHook,
       timeline = timelineRecent,
-      posts = forumRecent(ctx.me),
-      tours = openTours
+      posts = forumRecent(ctx.me, teamCache.teamIds),
+      tours = openTours,
+      filter = env.setup.filter
     ).map(_.fold(Redirect(_), {
         case (preload, posts, tours, featured) ⇒ status(html.lobby.home(
           Json stringify preload,
           myHook,
           posts,
           tours,
-          featured))
+          featured)) |> { response ⇒
+          ctx.req.session.data.contains(LilaCookie.sessionId).fold(
+            response,
+            response withCookies LilaCookie.makeSessionId(ctx.req)
+          )
+        }
       }))
 
   def socket = WebSocket.async[JsValue] { implicit req ⇒

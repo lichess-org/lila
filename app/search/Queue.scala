@@ -7,7 +7,7 @@ import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.query.Imports._
 import scalaz.effects._
 
-final class Queue(collection: MongoCollection)  {
+private[search] final class Queue(collection: MongoCollection)  {
 
   def enqueue(game: DbGame): IO[Unit] = 
     game.finished.fold(enqueue(game.id), io())

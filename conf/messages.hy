@@ -113,7 +113,6 @@ giveNbSeconds=Տալ %s վայրկան
 searchAPlayer=Որոնել խաղընկերոջ
 whoIsOnline=Ովքե՞ր են օնլայն
 allPlayers=Բոլոր խաղացողները
-namedPlayers=Անվանակիր խաղացողները
 premoveEnabledClickAnywhereToCancel=Նախորոք քայլ կատարելու հնարավորությունը ակտիվացված է, կարող եք այն անջատել՝ մկնիկի ստեղնակին սեղմելով
 thisPlayerUsesChessComputerAssistance=Այղ խաղացողը դիմում է համակարգչի օգնությանը
 freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents=Անճար օնլայն շախմատ: Խաղացցեք հաճելի ինտերֆեյսով, առանց գրանցման և գովազդի: Խաղացեք համակարգչի, ընկերների կամ անծանոթների հետ:

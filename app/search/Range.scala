@@ -4,7 +4,7 @@ package search
 import org.elasticsearch.index.query._, FilterBuilders._
 import org.joda.time.DateTime
 
-final class Range[A] private (val a: Option[A], val b: Option[A]) {
+private[search] final class Range[A] private (val a: Option[A], val b: Option[A]) {
 
   def filters(name: String) = a.fold(b.toList map { bb ⇒ rangeFilter(name) lte bb }) { aa ⇒
     b.fold(List(rangeFilter(name) gte aa)) { bb ⇒
@@ -17,7 +17,7 @@ final class Range[A] private (val a: Option[A], val b: Option[A]) {
   def nonEmpty = a.nonEmpty || b.nonEmpty
 }
 
-object Range {
+private[search] object Range {
 
   def apply[A](a: Option[A], b: Option[A])(implicit o: Ordering[A]): Range[A] =
     (a, b) match {

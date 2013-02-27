@@ -48,4 +48,10 @@ object Game extends LilaController with BaseGame {
       Ok(html.game.analysed(analysePaginator games page, makeListMenu))
     }
   }
+
+  def imported(page: Int) = Open { implicit ctx ⇒
+    reasonable(page) {
+      Ok(html.game.imported(paginator imported page, makeListMenu))
+    }
+  }
 }

@@ -1,5 +1,6 @@
 #Site
 GET   /socket             controllers.Main.websocket
+GET   /embed.js           controllers.Main.embed
 
 # Game
 GET   /games              controllers.Game.realtime
@@ -8,6 +9,7 @@ GET   /games/checkmate    controllers.Game.checkmate(page: Int ?= 1)
 GET   /games/bookmark     controllers.Game.bookmark(page: Int ?= 1)
 GET   /games/popular      controllers.Game.popular(page: Int ?= 1)
 GET   /games/analysed     controllers.Game.analysed(page: Int ?= 1)
+GET   /games/imported     controllers.Game.imported(page: Int ?= 1)
 
 # Search
 GET   /games/search       controllers.Search.form(page: Int ?= 1)
@@ -43,12 +45,32 @@ GET   /tournament                             controllers.Tournament.home
 GET   /tournament/reload                      controllers.Tournament.homeReload
 GET   /tournament/new                         controllers.Tournament.form
 POST  /tournament/new                         controllers.Tournament.create
-GET   /tournament/$id<[\\w\\-]{8}>              controllers.Tournament.show(id: String) 
-GET   /tournament/$id<[\\w\\-]{8}>/socket       controllers.Tournament.websocket(id: String)
-POST  /tournament/$id<[\\w\\-]{8}>/join         controllers.Tournament.join(id: String)
-POST  /tournament/$id<[\\w\\-]{8}>/withdraw     controllers.Tournament.withdraw(id: String)
-GET   /tournament/$id<[\\w\\-]{8}>/reload       controllers.Tournament.reload(id: String)
+GET   /tournament/$id<[\w\-]{8}>              controllers.Tournament.show(id: String) 
+GET   /tournament/$id<[\w\-]{8}>/socket       controllers.Tournament.websocket(id: String)
+POST  /tournament/$id<[\w\-]{8}>/join         controllers.Tournament.join(id: String)
+POST  /tournament/$id<[\w\-]{8}>/withdraw     controllers.Tournament.withdraw(id: String)
+GET   /tournament/$id<[\w\-]{8}>/reload       controllers.Tournament.reload(id: String)
+POST  /tournament/$id<[\w\-]{8}>/early-start  controllers.Tournament.earlyStart(id: String)
 GET   /tournament/faq                         controllers.Tournament.faq 
+
+# Team
+GET   /team                                   controllers.Team.home(page: Int ?= 1)
+GET   /team/new                               controllers.Team.form
+POST  /team/new                               controllers.Team.create
+GET   /team/me                                controllers.Team.mine
+GET   /team/requests                          controllers.Team.requests
+GET   /team/search                            controllers.Team.search(text: String ?= "", page: Int ?= 1)
+GET   /team/:id                               controllers.Team.show(id: String, page: Int ?= 1)
+GET   /team/:id/join                          controllers.Team.joinPage(id: String)
+POST  /team/:id/join                          controllers.Team.join(id: String)
+POST  /team/:id/quit                          controllers.Team.quit(id: String)
+GET   /team/:id/request/new                   controllers.Team.requestForm(id: String)
+POST  /team/:id/request/new                   controllers.Team.requestCreate(id: String)
+POST  /team/:id/request/process               controllers.Team.requestProcess(id: String)
+GET   /team/:id/edit                          controllers.Team.edit(id: String)
+POST  /team/:id/edit                          controllers.Team.update(id: String)
+GET   /team/:id/kick                          controllers.Team.kickForm(id: String)
+POST  /team/:id/kick                          controllers.Team.kick(id: String)
 
 # Analyse
 GET   /analyse/$gameId<[\\w\\-]{8}>        controllers.Analyse.replay(gameId: String, color: String = "white")
@@ -70,6 +92,9 @@ GET   /$fullId<[\\w\\-]{12}>/cancel      controllers.Setup.cancel(fullId: String
 POST  /$id<[\\w\\-]{8}>/join             controllers.Setup.join(id: String)
 GET   /setup/hook                      controllers.Setup.hookForm
 POST  /setup/hook                      controllers.Setup.hook
+GET   /setup/filter                    controllers.Setup.filterForm
+POST  /setup/filter                    controllers.Setup.filter
+GET   /setup/validate-fen              controllers.Setup.validateFen
 POST  /api/game/new                    controllers.Setup.api
 
 # I18n
@@ -91,7 +116,6 @@ POST  /@/:username/export              controllers.User.export(username: String)
 GET   /@/:username/:filterName         controllers.User.showFilter(username: String, filterName: String, page: Int ?= 1)
 GET   /@/:username                     controllers.User.show(username: String)
 GET   /people                          controllers.User.list(page: Int ?= 1)
-GET   /people/stats                    controllers.User.stats
 GET   /people/autocomplete             controllers.User.autocomplete
 GET   /people/online                   controllers.User.online
 GET   /account/bio                     controllers.User.getBio
@@ -131,6 +155,7 @@ POST   /bookmark/$gameId<[\\w\\-]{8}>    controllers.Bookmark.toggle(gameId: Str
 # Forum
 GET   /forum                           controllers.ForumCateg.index
 GET   /forum/recent                    controllers.ForumPost.recent
+GET   /forum/search                    controllers.ForumPost.search(text: String ?= "", page: Int ?= 1)
 GET   /forum/:slug                     controllers.ForumCateg.show(slug: String, page: Int ?= 1)
 GET   /forum/:categSlug/form           controllers.ForumTopic.form(categSlug: String)
 POST  /forum/:categSlug/new            controllers.ForumTopic.create(categSlug: String)
@@ -149,12 +174,19 @@ POST  /inbox/$id<[\\w]{8}>/delete       controllers.Message.delete(id: String)
 # Notification
 DELETE /notification/$id<[\\w]{8}>      controllers.Notification.remove(id)
 
+# Import
+GET   /import                          controllers.Importer.importGame
+POST  /import                          controllers.Importer.sendGame
+
 # Monitor
 GET   /monitor                         controllers.Monitor.index
 GET   /monitor/socket                  controllers.Monitor.websocket
-GET   /monitor/players                 controllers.Monitor.nbPlayers
-GET   /monitor/mps                     controllers.Monitor.nbMoves
 GET   /monitor/status                  controllers.Monitor.status
+
+# Misc
+POST  /cli                             controllers.Cli.command
+GET   /captcha/$id<[\w]{8}>            controllers.Main.captchaCheck(id: String)
+GET   /developers                      controllers.Main.developers
 
 # Assets
 GET   /assets/*file                    controllers.Assets.at(path="/public", file)

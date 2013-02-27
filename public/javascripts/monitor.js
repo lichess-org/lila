@@ -86,7 +86,7 @@
 
     app.thread = new SpeedOMeter({
       name : "THREAD",
-      maxVal : 300,
+      maxVal : 500,
       threshold: 0.8,
       container : container
     });
@@ -106,41 +106,41 @@
 
     app.users = new SpeedOMeter({
       name : "USERS",
-      maxVal : 600,
+      maxVal : 1000,
       container : container
     });
 
     app.lobby = new SpeedOMeter({
       name : "LOBBY",
-      maxVal : 150,
+      maxVal : 300,
       threshold: 1,
       container : container
     });
 
     app.game = new SpeedOMeter({
       name : "GAME",
-      maxVal : 500,
+      maxVal : 700,
       threshold: 1,
       container : container
     });
 
     app.dbMemory = new SpeedOMeter({
       name : "DB MEMORY",
-      maxVal : 2000,
+      maxVal : 4000,
       threshold: 0.8,
       container : container
     });
 
     app.dbConn = new SpeedOMeter({
       name : "DB CONN",
-      maxVal : 200,
+      maxVal : 300,
       threshold: 0.8,
       container : container
     });
 
     app.dbQps = new SpeedOMeter({
       name : "DB QPS",
-      maxVal : 300,
+      maxVal : 500,
       threshold: 0.8,
       container : container
     });

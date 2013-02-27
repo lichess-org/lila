@@ -12,6 +12,7 @@ import com.novus.salat._
 import com.novus.salat.dao._
 import com.mongodb.casbah.{ WriteConcern, MongoCollection }
 import com.mongodb.casbah.query.Imports._
+import com.mongodb.casbah.map_reduce.MapReduceInlineOutput
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 import java.util.Date
@@ -24,6 +25,10 @@ final class GameRepo(collection: MongoCollection)
   def game(gameId: String): IO[Option[DbGame]] = io {
     if (gameId.size != gameIdSize) None
     else findOneById(gameId) flatMap (_.decode)
+  }
+
+  def game(query: DBObject): IO[Option[DbGame]] = io {
+    super.findOne(query) flatMap (_.decode)
   }
 
   def player(gameId: String, color: Color): IO[Option[DbPlayer]] =
@@ -116,7 +121,7 @@ final class GameRepo(collection: MongoCollection)
       .toList.map(_.decode).flatten.headOption
   }
 
-  def denormalizeStarted(game: DbGame): IO[Unit] = io {
+  def denormalize(game: DbGame): IO[Unit] = io {
     val userIds = game.players.map(_.userId).flatten
     if (userIds.nonEmpty) update(idSelector(game), $set(Seq("uids" -> userIds)))
     if (game.mode.rated) update(idSelector(game), $set(Seq("ra" -> true)))
@@ -202,6 +207,38 @@ final class GameRepo(collection: MongoCollection)
     val to = from + 1.day
     count(("ca" $gte from $lt to))
   }).sequence
+
+  def recentAverageElo(minutes: Int): IO[(Int, Int)] = io {
+    val result = collection.mapReduce(
+      mapFunction = """function() { 
+        emit(!!this.ra, this.p); 
+      }""",
+      reduceFunction = """function(rated, values) {
+  var sum = 0, nb = 0;
+  values.forEach(function(game) {
+    if(typeof game[0] != "undefined") {
+      game.forEach(function(player) {
+        if(player.elo) {
+          sum += player.elo; 
+          ++nb;
+        }
+      });
+    }
+  });
+  return nb == 0 ? nb : Math.round(sum / nb);
+}""",
+      output = MapReduceInlineOutput,
+      query = Some {
+        ("ca" $gte (DateTime.now - minutes.minutes)) ++ ("p.elo" $exists true)
+      }
+    )
+    (for {
+      ratedRow ← result.hasNext option result.next
+      rated ← ratedRow.getAs[Double]("value")
+      casualRow ← result.hasNext option result.next
+      casual ← casualRow.getAs[Double]("value")
+    } yield rated.toInt -> casual.toInt) | (0, 0)
+  }
 
   private def idSelector(game: DbGame): DBObject = idSelector(game.id)
   private def idSelector(id: String): DBObject = DBObject("_id" -> id)

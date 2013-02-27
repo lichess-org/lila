@@ -19,7 +19,7 @@ function customFunctionOnPgnGameLoad() {
     return false;
   });
   redrawBoardMarks();
-  $("#GameButtons table").css('width', '514px').buttonset();
+  $("#GameButtons table").css('width', '514px').find("input").button();
   $("#autoplayButton").click(refreshButtonset);
 }
 
@@ -60,13 +60,17 @@ function customFunctionOnMove() {
       $gameText.scrollTop($gameText.scrollTop() + y + height * 4 - 512);
     }
   }
-  $('#CurrentFen').text(CurrentFEN());
+  var fen = CurrentFEN();
+  $('div.undergame_box .continue_from_here').text(fen)
+    .parent().find('.opponent_choice a').each(function() {
+    $(this).attr('href', $(this).attr('href').replace(/fen=.+\#/, "fen=" + fen + "#"));
+  });
 }
 
 function redrawBoardMarks() {
-  $.displayBoardMarks($('#GameBoard'), ! $('#GameBoard').hasClass('flip'));
+  $.displayBoardMarks($('#GameBoard'), !$('#GameBoard').hasClass('flip'));
 }
 
 function refreshButtonset() {
-  $("#autoplayButton").addClass("ui-button ui-widget ui-state-default");
+  $("#autoplayButton").addClass("ui-button ui-widget ui-state-default ui-corner-all");
 }

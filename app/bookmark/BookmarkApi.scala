@@ -13,15 +13,15 @@ final class BookmarkApi(
     userRepo: UserRepo,
     paginator: PaginatorBuilder) {
 
-  def toggle(gameId: String, user: User): IO[Unit] = for {
+  def toggle(gameId: String, userId: String): IO[Unit] = for {
     gameOption ← gameRepo game gameId
-    _ ← gameOption.fold(io()) { game =>
+    _ ← ~gameOption.map(game =>
       for {
         bookmarked ← bookmarkRepo.toggle(game.id, user.id)
         _ ← gameRepo.incBookmarks(game.id, bookmarked.fold(1, -1))
         _ ← io(cached invalidateUserId user.id)
       } yield ()
-    }
+    )
   } yield ()
 
   def bookmarked(game: DbGame, user: User): Boolean =

@@ -3,10 +3,11 @@ package lobby
 
 import timeline.Entry
 import game.{ DbGame, Featured }
-import forum.PostView
+import forum.PostLiteView
 import controllers.routes
 import socket.History
 import tournament.Created
+import setup.FilterConfig
 
 import play.api.mvc.Call
 import play.api.libs.concurrent.Akka
@@ -17,7 +18,7 @@ import scala.concurrent.duration._
 import akka.util.Timeout
 import scalaz.effects._
 
-final class Preload(
+private[lobby] final class Preload(
     fisherman: Fisherman,
     history: History,
     hookRepo: HookRepo,
@@ -35,20 +36,23 @@ final class Preload(
     chat: Boolean,
     myHook: Option[Hook],
     timeline: IO[List[Entry]],
-    posts: IO[List[PostView]],
-    tours: IO[List[Created]]): Future[Response] =
+    posts: IO[List[PostLiteView]],
+    tours: IO[List[Created]], 
+    filter: IO[FilterConfig]): Future[Response] =
     myHook.flatMap(_.gameId).fold(
       futureHooks(auth) zip
         futureMessages(chat) zip
         ioToFuture(timeline) zip
         ioToFuture(posts) zip
         ioToFuture(tours) zip
-        featured.one map {
-          case (((((hooks, messages), entries), posts), tours), feat) ⇒ (Right((Json.obj(
+        featured.one zip
+        ioToFuture(filter) map {
+          case ((((((hooks, messages), entries), posts), tours), feat), filter) ⇒ (Right((Json.obj(
             "version" -> history.version,
             "pool" -> renderHooks(hooks, myHook),
             "chat" -> (messages.reverse map (_.render)),
-            "timeline" -> (entries.reverse map (_.render))
+            "timeline" -> (entries.reverse map (_.render)),
+            "filter" -> filter.render
           ), posts, tours, feat))): Response
         }) { gameId ⇒
         futureGame(gameId) map { gameOption ⇒

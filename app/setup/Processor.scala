@@ -14,7 +14,8 @@ import play.api.libs.json.{ Json, JsObject }
 import scalaz.effects._
 
 final class Processor(
-    configRepo: UserConfigRepo,
+    userConfigRepo: UserConfigRepo,
+    anonConfigRepo: AnonConfigRepo,
     friendConfigMemo: FriendConfigMemo,
     gameRepo: GameRepo,
     pgnRepo: PgnRepo,
@@ -22,12 +23,15 @@ final class Processor(
     timelinePush: DbGame ⇒ IO[Unit],
     ai: () ⇒ Ai) extends core.Futuristic {
 
+  def filter(config: FilterConfig)(implicit ctx: Context): IO[Unit] = 
+    saveConfig(_ withFilter config)
+
   def ai(config: AiConfig)(implicit ctx: Context): IO[Pov] = for {
-    _ ← ~(ctx.me map (user ⇒ configRepo.update(user)(_ withAi config)))
+    _ ← saveConfig(_ withAi config)
     pov = config.pov
     game = ctx.me.fold(pov.game)(user ⇒ pov.game.updatePlayer(pov.color, _ withUser user))
     _ ← gameRepo insert game
-    _ ← gameRepo denormalizeStarted game
+    _ ← gameRepo denormalize game
     _ ← timelinePush(game)
     pov2 ← game.player.isHuman.fold(
       io(pov),
@@ -46,16 +50,17 @@ final class Processor(
   } yield pov2
 
   def friend(config: FriendConfig)(implicit ctx: Context): IO[Pov] = for {
-    _ ← ~(ctx.me map (user ⇒ configRepo.update(user)(_ withFriend config)))
+    _ ← saveConfig(_ withFriend config)
     pov = config.pov
     game = ctx.me.fold(pov.game)(user ⇒ pov.game.updatePlayer(pov.color, _ withUser user))
     _ ← gameRepo insert game
+    _ ← gameRepo denormalize game // to get the initialFen before the game starts
     _ ← timelinePush(game)
     _ ← friendConfigMemo.set(pov.game.id, config)
   } yield pov
 
   def hook(config: HookConfig)(implicit ctx: Context): IO[Hook] = for {
-    _ ← ~(ctx.me map { user ⇒ configRepo.update(user)(_ withHook config) })
+    _ ← saveConfig(_ withHook config)
     hook = config hook ctx.me
     _ ← fisherman add hook
   } yield hook
@@ -74,4 +79,8 @@ final class Processor(
       Black.name -> (domain + routes.Round.player(game fullIdOf Black).url)
     )
   }
+
+  private def saveConfig(map: UserConfig ⇒ UserConfig)(implicit ctx: Context): IO[Unit] =
+    ctx.me.fold(anonConfigRepo.update(ctx.req) _)(user ⇒ userConfigRepo.update(user) _)(map)
+
 }

@@ -1,0 +1,41 @@
+@(title: String, currentTab: Option[String] = None)(body: Html)(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("team.css")
+}
+
+@moreJs = {
+@jsTag("vendor/jquery.infinitescroll.min.js")
+}
+
+@goodies = {
+<div class="side_menu">
+  @defining(~currentTab) { tab =>
+  @if(teamNbRequests(ctx) > 0) {
+  <a class="@tab.active("requests")" href="@routes.Team.requests()">
+    @teamNbRequests(ctx) join requests
+  </a>
+  }
+  <a class="@tab.active("all")" href="@routes.Team.home()">
+    @trans.allTeams()
+  </a>
+  @if(~ctx.me.map(_.canTeam)) {
+  <a class="@tab.active("mine")" href="@routes.Team.mine()">
+    @trans.myTeams()
+  </a>
+  <a class="@tab.active("form")" href="@routes.Team.form()">
+    @trans.newTeam()
+  </a>
+  }
+  }
+</div>
+}
+
+@base.layout(
+title = title,
+moreCss = moreCss,
+moreJs = moreJs,
+goodies = goodies.some,
+active = siteMenu.team.some) {
+@body
+}

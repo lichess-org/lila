@@ -28,11 +28,13 @@ trait AuthImpl {
 
   protected def env: CoreEnv
 
+  private def AccessUri = "access_uri"
+
   protected def logoutSucceeded(req: RequestHeader): PlainResult =
     Redirect(routes.Lobby.home)
 
   protected def authenticationFailed(implicit req: RequestHeader): Result =
-    Redirect(routes.Auth.signup) withCookies LilaCookie.session("access_uri", req.uri)
+    Redirect(routes.Auth.signup) withCookies LilaCookie.session(AccessUri, req.uri)
 
   protected def saveAuthentication(username: String)(implicit req: RequestHeader): String =
     (Random nextString 12) ~ { sessionId ⇒
@@ -41,7 +43,10 @@ trait AuthImpl {
 
   protected def gotoLoginSucceeded[A](username: String)(implicit req: RequestHeader) = {
     val sessionId = saveAuthentication(username)
-    loginSucceeded(req) withCookies LilaCookie.session("sessionId", sessionId)
+    val uri = req.session.get(AccessUri) | routes.Lobby.home.url
+    Redirect(uri) withCookies LilaCookie.withSession { session ⇒
+      session + ("sessionId" -> sessionId) - AccessUri
+    }
   }
 
   protected def gotoSignupSucceeded[A](username: String)(implicit req: RequestHeader) = {
@@ -50,14 +55,8 @@ trait AuthImpl {
   }
 
   protected def gotoLogoutSucceeded(implicit req: RequestHeader) = {
-    req.session.get("sessionId") foreach env.security.store.delete
-    logoutSucceeded(req).withNewSession
-  }
-
-  protected def loginSucceeded(req: RequestHeader): PlainResult = {
-    val uri = req.session.get("access_uri").getOrElse(routes.Lobby.home.url)
-    req.session - "access_uri"
-    Redirect(uri)
+    req.session get "sessionId" foreach env.security.store.delete
+    logoutSucceeded(req) withCookies LilaCookie.newSession
   }
 
   protected def authorizationFailed(req: RequestHeader): Result =

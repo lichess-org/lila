@@ -11,7 +11,7 @@
 }
 
 @round.layout(
-title = title, 
+title = title,
 goodies = views.html.game.infoBox(pov, tour),
 chat = roomHtml.map(round.room(_, false)),
 underchat = underchat.some,
@@ -55,11 +55,16 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
 @if(!tour.fold(false)(_.isRunning)) {
 @views.html.game.more(pov, bookmarkers) {
 <nav>
+@if(game.continuable) {
+@continueFromHere(game)
+}
 <a href="@routes.Analyse.replay(gameId, color.name)">@trans.replayAndAnalyse()</a>
+@if(game.pgnImport.isEmpty) {
 <br />
 <a href="@routes.Analyse.stats(gameId)">@trans.viewGameStats()</a>
+}
 <br />
-<a class="view_pgn_toggle" href="@routes.Analyse.pgn(game.id)">View PGN</a> 
+<a class="view_pgn_toggle" href="@routes.Analyse.pgn(game.id)">View PGN</a>
 </nav>
 }
 }

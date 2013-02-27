@@ -1,16 +1,7 @@
-div.user_show .lichess_title {
-  display: inline;
-}
-div.user_show div.content_box_top .status {
-  display: block;
-  width: 16px;
-  height: 16px;
-  float: left;
-  background: transparent url(/assets/images/s16.png) top left no-repeat;
+div.user_show div.content_box_top .icon {
   background-position: 0 -160px;
-  margin: 12px 8px 0 -10px;
 }
-div.user_show div.content_box_top .status.connected {
+div.user_show div.content_box_top .icon.connected {
   background-position: 0 -208px;
 }
 div.user_show .staff {
@@ -21,10 +12,6 @@ div.user_show .staff {
 div.user_show div.content_box_top .rank {
   margin-left: 1em;
 }
-div.user_show div.content_box_content {
-  display: block;
-  padding-right: 0;
-}
 div.user_show span.user_bio {
   margin-bottom: 1em;
   font-style: italic;
@@ -32,30 +19,44 @@ div.user_show span.user_bio {
 }
 
 div.user_show .elo_history {
-  float:right;
+  float: left;
   display: block;
-  width: 460px;
+  width: 500px;
   height: 340px;
-  margin-top: -12px;
+  margin: -8px 0 0 -50px;
+  position: relative;
+}
+div.user_show .elo_history span {
+  position: absolute;
+  left: 240px;
+  top: 170px;
+}
+
+div.user_show .user-infos {
+  margin: 20px 0 0 470px;
 }
 
 div.user_show .win_stats {
   display: block;
-  width: 307px;
-  height: 200px;
+  min-height: 200px;
 }
-div.user_show .stats form {
-  display: inline;
+div.user_show .elo_with_me,
+div.user_show .numbers,
+div.user_show .tournament_points,
+div.user_show .teams {
+  display: block;
+  margin-top: 1.6em;
 }
-div.user_show .chat_messages {
+div.user_show .teams {
+  max-height: 200px;
   overflow: auto;
-  height: 7em;
-  border: 1px solid #dadada;
-  padding: 1px 5px;
+}
+div.user_show .teams a {
+  display: block;
+  margin: 5px 0;
 }
 
 div.user_show div.elo_with_me {
-  margin-bottom: 1.5em;
   padding: 5px 8px;
   border: 1px solid #eaeaea;
   background: #fafafa;
@@ -70,13 +71,29 @@ div.user_show div.games {
   margin-top: 10px;
 }
 
+div.user_show .actions {
+  margin-bottom: 1em;
+}
+div.user_show .actions a.action,
+div.user_show .actions form {
+  display: block;
+  float: left;
+  margin-left: 25px;
+}
 div.user_show .user_spy {
-  margin-top: 1em;
+  display: inline;
 }
 div.user_show .user_spy .inner {
   display: none;
+  margin: 1em 0 0 20px;
 }
-div.user_show .tournament_points {
+div.user_show .user_spy .usernames a {
+  text-decoration: none;
+}
+div.user_show .user_spy .usernames a:hover {
+  text-decoration: underline;
+}
+div.user_show .user_spy strong {
   display: block;
-  margin: 5px 0;
+  margin-top: 0.5em;
 }

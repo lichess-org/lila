@@ -39,6 +39,10 @@ object Query {
 
   val popular = "bm" $gt 0
 
+  val imported = DBObject("me.so" -> Source.Import.id)
+
+  def pgnImport(pgn: String) = imported ++ ("me.pgni.pgn" -> pgn)
+
   def clock(c: Boolean) = "c" $exists c
 
   def user(u: User) = DBObject("uids" -> u.id)
@@ -50,7 +54,7 @@ object Query {
 
   def notFinished(u: User): DBObject = user(u) ++ notFinished
 
-  def opponents(u1: User, u2: User) = "uids" $all List(u1.id, u2.id)
+  def opponents(u1: User, u2: User) = "uids" $all List(u1, u2).sortBy(_.nbGames).map(_.id)
 
   def turnsGt(nb: Int) = "t" $gt nb
 

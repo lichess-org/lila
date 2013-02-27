@@ -22,6 +22,8 @@ final class AnalyseEnv(
   lazy val pgnDump = new PgnDump(
     gameRepo = gameRepo,
     analyser = analyser,
+    annotator = annotator,
+    netBaseUrl = NetBaseUrl,
     userRepo = userRepo)
 
   lazy val analysisRepo = new AnalysisRepo(
@@ -38,6 +40,8 @@ final class AnalyseEnv(
     cached = cached,
     gameRepo = gameRepo,
     maxPerPage = GamePaginatorMaxPerPage)
+
+  lazy val annotator = new Annotator(NetDomain)
 
   lazy val cached = new Cached(
     analysisRepo = analysisRepo,

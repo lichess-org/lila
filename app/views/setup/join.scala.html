@@ -1,4 +1,4 @@
-@(pov: Pov, version: Int, config: Option[lila.setup.FriendConfig])(implicit ctx: Context)
+@(pov: Pov, version: Int, config: Option[lila.setup.FriendConfig], initialFen: Option[String])(implicit ctx: Context)
 
 @import pov._
 
@@ -18,6 +18,9 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
         @trans.timeControl(): @clockName(c.makeClock)<br />
         @trans.mode(): @modeName(c.mode)
       </p>
+      }
+      @initialFen.map { fen =>
+      @views.html.game.miniBoard(fen)
       }
       <form action="@routes.Setup.join(gameId)" method="post">
         <input name="submit" type="submit" class="submit button" value="@trans.joinTheGame()" />

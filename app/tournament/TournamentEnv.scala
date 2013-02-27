@@ -9,7 +9,7 @@ import lobby.{ Socket ⇒ LobbySocket }
 import socket.History
 import memo.MonoMemo
 
-import com.traackr.scalastic.elasticsearch
+import scalastic.elasticsearch
 import com.mongodb.casbah.MongoCollection
 import scalaz.effects._
 import akka.actor.Props
@@ -39,6 +39,7 @@ final class TournamentEnv(
 
   lazy val api = new TournamentApi(
     repo = repo,
+    roomRepo = roomRepo,
     joiner = joiner,
     socket = socket,
     siteSocket = siteSocket,
@@ -53,7 +54,8 @@ final class TournamentEnv(
   lazy val messenger = new Messenger(
     roomRepo = roomRepo,
     getTournament = repo.byId,
-    getUser = getUser)
+    getUser = getUser,
+    netDomain = NetDomain)
 
   lazy val socket = new Socket(
     getTournament = repo.byId,

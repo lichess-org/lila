@@ -15,7 +15,8 @@ div.game_config div.ui-buttonset {
 #config_level .ui-button {
   margin-right: -0.6em;
 }
-div.game_config .ui-button-text {
+div.game_config .ui-button-text, 
+div.game_config select {
   text-transform: capitalize;
 }
 div.game_config div.ui-slider {
@@ -28,6 +29,24 @@ div.game_config .optional_config {
   padding: 3px 0;
   border-top: solid 1px #e4e4e4;
   border-bottom: solid 1px #e4e4e4;
+}
+div.game_config input[type="text"] {
+  border: 1px solid #ccc;
+  width: 87%;
+  padding: 2px 3px;
+}
+div.game_config .fen_position {
+  display: none;
+}
+div.game_config input#fen.success {
+  border-color: #00aa00;
+}
+div.game_config input#fen.failure {
+  border-color: #aa0000;
+  color: #aa0000;
+}
+div.game_config .fen_position .mini_board{
+  margin: 10px auto;
 }
 div.game_config .time_choice,
 div.game_config .increment_choice,
@@ -76,7 +95,7 @@ div.hooks_wrap {
   top: 51px;
   left: 52px;
   padding: 12px;
-  border-radius: 3px;
+  border-radius: 3px 0 3px 3px;
   box-shadow: 0 0 20px #444;
   background: rgba(245,245,245,0.8);
   background: -moz-linear-gradient(top, rgba(212,212,212,0.9) 0%, rgba(240,240,240,0.5) 100%);
@@ -84,6 +103,7 @@ div.hooks_wrap {
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(212,212,212,0.9)), to(rgba(240,240,240,0.5)));
   background: -ms-linear-gradient(top, rgba(212,212,212,0.9) 0%,rgba(240,240,240,0.5) 100%);
   background: -o-linear-gradient(top, rgba(212,212,212,0.9) 0%,rgba(240,240,240,0.5) 100%);
+  background: linear-gradient(top, rgba(212,212,212,0.9) 0%,rgba(240,240,240,0.5) 100%);
 }
 div.hooks_wrap.large {
   height: 512px;
@@ -93,9 +113,69 @@ div.hooks_wrap.large {
 div.hooks_wrap.hidden {
   display: none;
 }
+div.hooks_wrap a.filter {
+  position: absolute;
+  top: -21px;
+  right: -1px;
+  height: 20px;
+  line-height: 20px;
+  padding: 0 2px 0 10px;
+  background: rgba(212,212,212,0.9);
+  border: 1px solid #888;
+  color: #333;
+  border-bottom: 0;
+  display: block;
+  border-radius: 3px 3px 0 0;
+  text-decoration: none;
+}
+div.hooks_wrap a.filter:hover,
+div.hooks_wrap a.filter.active {
+  background: #fff;
+}
+div.hooks_wrap a.filter span.number {
+  display: none;
+}
+div.hooks_wrap a.filter.on {
+  padding: 0 10px 0 2px;
+}
+div.hooks_wrap a.filter.on span.s16 {
+  padding: 0 0 0 20px;
+  background-position: left -112px;
+}
+div.hooks_wrap a.filter.on span.number {
+  display: inline;
+}
+div.hooks_wrap div.filter {
+  position: absolute;
+  display: none;
+  top: 0px;
+  right: 0px;
+  min-height: 181px;
+  width: 244px;
+  padding: 12px;
+  border: 1px solid #888;
+  border-width: 0 0 1px 1px;
+  background: #fff;
+  border-radius: 0 0 0 3px;
+}
+div.hooks_wrap div.filter select {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 6px;
+}
+div.hooks_wrap div.filter .actions {
+  text-align: right;
+}
+div.hooks_wrap div.filter .actions button {
+  padding: 6px;
+  margin-left: 12px;
+}
+
 div.hooks {
   border: 1px solid #bababa;
-  border-top: 0
+  border-top: 0;
+  max-height: 514px;
+  overflow: auto;
 }
 div.hooks table {
   width: 100%;
@@ -106,7 +186,7 @@ div.hooks table {
   background: none;
   border-top: 1px solid #bababa;
 }
-div.hooks table.empty_table {
+div.hooks table.empty {
   margin-top: 152px;
 }
 div.hooks td {
@@ -120,11 +200,11 @@ div.hooks a {
 div.hooks tr:last-child td {
   border-bottom: none;
 }
-div.hooks table.empty_table tr {
+div.hooks table.empty tr {
   text-align: center;
   cursor: pointer;
 }
-div.hooks table.empty_table td {
+div.hooks table.empty td {
   padding: 0;
   height: 80px;
 }
@@ -148,9 +228,6 @@ div.hooks span.elorange {
   display: block;
   font-style: italic;
   color: #999;
-}
-div.hooks span.elorange.nope {
-  color: #dd8888;
 }
 div.hooks a.user_link.engine {
   color: #cc7070;
@@ -214,6 +291,7 @@ div.undertable_inner {
   border-top: 0;
   border-radius: 0 0 4px 4px;
   height: 204px;
+  width: auto;
   overflow:hidden;
 }
 div.undertable a.user_link {
@@ -272,6 +350,12 @@ div.new_posts li {
   line-height: 14px;
   white-space: nowrap;
 }
+div.new_posts li.s16 {
+  padding-left: 20px;
+  margin-left: 5px;
+  height: 15px;
+  display: block;
+}
 div.new_posts a.post_link {
   margin-right: 7px;
 }
@@ -284,4 +368,7 @@ div.lichess_overboard.joining input.submit {
   font-size: 1.2em;
   margin-top: 1em;
   padding: 0.6em 1em;
+}
+div.lichess_overboard.joining .mini_board {
+  margin: 10px auto;
 }

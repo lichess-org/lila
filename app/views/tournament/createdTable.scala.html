@@ -10,6 +10,14 @@
 @tours.map { tour =>
 <tr>
   <td>@tournament.linkTo(tour)</td>
+  <td class="small">
+    @if(tour.variant.exotic) {
+    960
+    }
+    @if(tour.rated) {
+    rated
+    }
+  </td>
   <td>@tour.clock.show</td>
   <td>@{tour.minutes}m</td>
   <td>@tour.playerRatio</td>

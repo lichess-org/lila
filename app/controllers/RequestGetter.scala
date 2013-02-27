@@ -13,7 +13,7 @@ trait RequestGetter {
     req.queryString get name flatMap (_.headOption) filter (""!=)
 
   protected def getInt(name: String)(implicit ctx: Context) =
-    get(name)(ctx) map (_.toInt)
+    get(name)(ctx) flatMap parseIntOption
 
   protected def getOr(name: String, default: String)(implicit ctx: Context) =
     get(name)(ctx) getOrElse default

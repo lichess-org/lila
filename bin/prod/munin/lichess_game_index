@@ -1,0 +1,21 @@
+#!/usr/bin/env php
+<?php
+
+if(isset($argv[1]) && 'config' == $argv[1]) {
+  echo "graph_title Lichess game index growth
+graph_args --base 1000 -l 0
+graph_vlabel games
+graph_category lichess
+games.label games
+games.draw AREA
+games.type DERIVE
+";
+  exit;
+}
+
+echo "games.value ";
+
+$response = file_get_contents("http://localhost:9200/lila/game/_count");
+$count = json_decode($response)->count;
+echo $count;
+echo "\n";

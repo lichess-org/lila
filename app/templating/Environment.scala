@@ -31,7 +31,13 @@ object Environment
     with bookmark.BookmarkHelper
     with notification.NotificationHelper
     with analyse.AnalyseHelper
-    with tournament.TournamentHelper {
+    with tournament.TournamentHelper 
+    with team.TeamHelper {
 
   protected def env = coreEnv
+
+  def netDomain = env.settings.NetDomain
+  def netBaseUrl = env.settings.NetBaseUrl
+
+  def isDev = env.settings.IsDev
 }

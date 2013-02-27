@@ -26,7 +26,8 @@ final class Settings(config: Config, val IsDev: Boolean) {
   val GamePaginatorMaxPerPage = getInt("game.paginator.max_per_page")
   val GameCollectionGame = getString("game.collection.game")
   val GameCollectionPgn = getString("game.collection.pgn")
-  val GameJsPath = getString("game.js_path")
+  val GameJsPathRaw = getString("game.js_path.raw")
+  val GameJsPathCompiled = getString("game.js_path.compiled")
 
   val SearchESHost = getString("search.elasticsearch.host")
   val SearchESPort = getInt("search.elasticsearch.port")
@@ -59,8 +60,11 @@ final class Settings(config: Config, val IsDev: Boolean) {
   val UserCollectionHistory = getString("user.collection.history")
   val UserCollectionConfig = getString("user.collection.config")
 
+  val AnonCollectionConfig = getString("anon.collection.config")
+
   val ForumTopicMaxPerPage = getInt("forum.topic.max_per_page")
   val ForumPostMaxPerPage = getInt("forum.post.max_per_page")
+  val ForumSearchMaxPerPage = getInt("forum.search.max_per_page")
   val ForumRecentTimeout = millis("forum.recent.timeout")
   val ForumCollectionCateg = getString("forum.collection.categ")
   val ForumCollectionTopic = getString("forum.collection.topic")
@@ -123,10 +127,21 @@ final class Settings(config: Config, val IsDev: Boolean) {
   val WikiCollectionPage = getString("wiki.collection.page")
   val WikiGitUrl = getString("wiki.git_url")
 
+  val TeamCollectionTeam = getString("team.collection.team")
+  val TeamCollectionMember = getString("team.collection.member")
+  val TeamCollectionRequest = getString("team.collection.request")
+  val TeamPaginatorMaxPerPage = getInt("team.paginator.max_per_page")
+  val TeamPaginatorMaxUserPerPage = getInt("team.paginator.max_user_per_page")
+
   val BookmarkCollectionBookmark = getString("bookmark.collection.bookmark")
 
   val CoreCollectionCache = getString("core.collection.cache")
   val CoreCronEnabled = getBoolean("core.cron.enabled")
+
+  val CliUsername = getString("cli.username")
+
+  val NetDomain = getString("net.domain")
+  val NetBaseUrl = getString("net.base_url")
 
   val SecurityCollectionSecurity = getString("security.collection.security")
   val SecurityWiretapIps = getStringList("security.wiretap.ips").toList

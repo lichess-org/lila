@@ -1,0 +1,40 @@
+@(form: Form[_], captcha: lila.site.Captcha.Challenge)(implicit ctx: Context)
+
+@team.layout(
+title = "New Team",
+currentTab = "form".some) {
+<div id="team">
+  <div class="content_box team_box">
+    <h1>@trans.newTeam()</h1>
+    <form class="new-team wide" action="@routes.Team.create()" method="POST">
+      <section class="team-data">
+      <label>
+        <span class="required">Name</span>
+        @base.input(form("name"))
+        @errMsg(form("name"))
+      </label>
+      <label>
+        <span>@trans.joiningPolicy()</span>
+        @base.select(form("open"), Seq(1 -> trans.anyoneCanJoin.str(), 0 -> trans.aConfirmationIsRequiredToJoin.str()))
+      </label>
+      <label>
+        <span>@trans.location()</span>
+        @base.input(form("location"))
+        @errMsg(form("location"))
+      </label>
+      <label>
+        <span class="required">Description</span>
+        @defining(form("description")) { desc =>
+        <textarea name="@desc.name" id="@desc.id">@desc.value</textarea>
+        @errMsg(desc)
+        }
+      </label>
+      </section>
+      @base.captcha(form("move"), form("gameId"), captcha)
+      @errMsg(form)
+      <button class="submit button" type="submit">@trans.newTeam()</button>
+      <a href="@routes.Team.home(1)" style="margin-left:20px">@trans.cancel()</a>
+    </form>
+  </div>
+</div>
+}

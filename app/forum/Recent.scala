@@ -7,24 +7,37 @@ import security.{ Permission, Granter }
 
 import scalaz.effects._
 
-final class Recent(postRepo: PostRepo, postApi: PostApi, timeout: Int) {
+final class Recent(
+    categRepo: CategRepo,
+    postRepo: PostRepo,
+    postApi: PostApi,
+    timeout: Int) {
 
-  val nb = 30
+  private val nb = 20
 
-  private val cache = Builder.cache[Boolean, List[PostView]](timeout, staff ⇒
-    fetch(staff).unsafePerformIO
+  private def teamSlug(id: String) = "team-" + id
+
+  private lazy val publicCategIds =
+    categRepo.withTeams(Nil).unsafePerformIO.map(_.slug) filterNot ("staff" ==)
+
+  private lazy val staffCategIds = "staff" :: publicCategIds
+
+  private val cache = Builder.cache[String, List[PostLiteView]](timeout, key ⇒
+    fetch(key).unsafePerformIO
   )
 
-  def apply(user: Option[User]): IO[List[PostView]] = io {
-    cache get Granter.option(Permission.StaffForum)(user)
+  def apply(user: Option[User], teams: User ⇒ List[String]): IO[List[PostLiteView]] = io {
+    cache get {
+      Granter.option(Permission.StaffForum)(user).fold(
+        staffCategIds, publicCategIds
+      ) ::: (~user.map(teams)).map(teamSlug)
+    }.mkString(";")
   }
+
+  def team(teamId: String): IO[List[PostLiteView]] = io { cache get teamSlug(teamId) }
 
   val invalidate: IO[Unit] = io(cache.invalidateAll)
 
-  private def fetch(staff: Boolean): IO[List[PostView]] = for {
-    posts ← postRepo.recent(nb)
-    views ← (posts map postApi.view).sequence
-  } yield views collect {
-    case Some(v) if (staff || v.categ.slug != "staff") ⇒ v
-  }
+  private def fetch(key: String): IO[List[PostLiteView]] =
+    postRepo.recentInCategs(nb)(key.split(";").toList) flatMap postApi.liteViews
 }

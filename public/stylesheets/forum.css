@@ -14,6 +14,11 @@ a.forum_feed_link {
   margin-right: 1em;
 }
 
+ol.crumbs {
+  padding: 20px 24px 0 24px;
+}
+
+
 ol.crumbs li {
   display: inline;
   margin-left: 1em;
@@ -30,42 +35,68 @@ ol.crumbs li:last-child:after {
 ol.crumbs li:first-child {
   margin-left: 0;
 }
+
 #lichess_forum ol.crumbs h1 {
   display: inline;
   margin: 0;
+  padding: 0;
   vertical-align: middle;
 }
 
-#lichess_forum table {
+#lichess_forum form.search {
+  float: right;
+  margin: 20px;
+}
+
+#lichess_forum .search_results {
+  margin-top: 1em;
+}
+#lichess_forum .search_results .date {
+  font-size: 0.8em;
+  white-space: nowrap;
+  display: block
+}
+#lichess_forum .search_results a.post {
+  display: block;
+  font-size: 1.1em;
+  margin-bottom: 4px;
+  padding-bottom: 5px;
+}
+#lichess_forum .search_results td {
+  padding-bottom: 1em;
+  padding-top: 1em;
+}
+
+#lichess_forum table.forum_table {
   width: 100%;
   margin-bottom: 5px;
 }
 
-#lichess_forum th {
+#lichess_forum table.forum_table th {
   padding: 1em 0 0.5em 0;
 }
-#lichess_forum th:last {
+#lichess_forum table.forum_table th:last {
   padding-left: 1em;
 }
 
-#lichess_forum td.subject {
+#lichess_forum table.forum_table td.subject {
   padding: 2em 1em;
 }
 
-#lichess_forum td.right, #lichess_forum th.right {
+#lichess_forum table.forum_table td.right, #lichess_forum table.forum_table th.right {
   text-align: right;
   padding-right: 2em;
 }
 
-#lichess_forum td.last_post {
+#lichess_forum table.forum_table td.last_post {
   min-width: 150px;
   padding-right: 1em;
 }
-#lichess_forum td.feed {
+#lichess_forum table.forum_table td.feed {
   padding-right: 1em;
 }
 
-#lichess_forum td.subject a {
+#lichess_forum table.forum_table td.subject a {
   font-size: 1.2em;
   font-weight: bold;
   color: #0090B0;
@@ -74,7 +105,7 @@ ol.crumbs li:first-child {
   padding-left: 20px;
 }
 
-#lichess_forum td .description {
+#lichess_forum table.forum_table td .description {
   margin-top: 0.5em;
   display: block;
 }
@@ -92,16 +123,16 @@ ol.crumbs li:first-child {
   margin-bottom: 1em;
 }
 
-#lichess_forum tr:nth-child(odd) {
+#lichess_forum table.forum_table tr:nth-child(odd) {
   background: #F7F7F7;
 }
-#lichess_forum tr.thead {
+#lichess_forum table.forum_table tr.thead {
   background: #fff;
 }
 
 div.post {
   font-size: 1.2em;
-  padding: 2em 0em 1em 0em;
+  padding: 2em 24px 1em 24px;
   border-top: 1px solid #D4D4D4;
   margin-top: 1em;
   position: relative;
@@ -115,7 +146,7 @@ div.post:last-child {
 div.post .anchor {
   position: absolute;
   top: 2em;
-  right: 0;
+  right: 24px;
 }
 
 div.post .author {
@@ -143,18 +174,19 @@ div.post .message {
   line-height: 1.5em;
 }
 
-div.topicReply {
-  margin-top: 1em;
+div.topicReply,
+div.category .description {
+  margin: 1em 24px 0 24px;
 }
+
 .postNewTitle {
   font-size: 1.5em;
   font-style: italic;
 }
 
-div.category .description {
-  margin-top: 1em;
+#lichess_forum form.wide {
+  margin-bottom: 1em;
 }
-
 #lichess_forum form {
   margin-top: 2em;
   font-size: 1.3em;
@@ -178,21 +210,15 @@ div.category .description {
   margin-left: 3px;
 }
 
-#lichess_forum form input.subject {
+#lichess_forum form.wide input.subject {
   width: 500px;
-  padding: 0.5em;
-  border: 1px solid #D4D4D4;
 }
 #lichess_forum form textarea {
   width: 500px;
   height: 150px;
-  padding: 0.5em;
-  border: 1px solid #D4D4D4;
 }
 #lichess_forum form input.author {
-  padding: 0.5em;
   width: 300px;
-  border: 1px solid #D4D4D4;
 }
 #lichess_forum form .submit {
   margin-left: 110px;
@@ -202,34 +228,6 @@ div.category .description {
   margin-left: 110px;
   margin-bottom: 10px;
   color: red;
-}
-
-form.forum_search {
-  margin: 2em 0 0 0;
-  font-size: 14px;
-}
-form.forum_search input {
-  padding: 2px 5px;
-}
-form.forum_search input.query {
-  width: 145px;
-}
-form.forum_search input.hinted {
-  color: #aaa;
-}
-
-div.search_results .result {
-  padding: 1em;
-  border-top: 1px solid #eaeaea;
-}
-div.search_results .result.even {
-  background: #f4f4f4;
-}
-div.search_results .result .subject {
-  font-size: 1.2em;
-  font-weight: bold;
-  margin-bottom: 0.3em;
-  display: block;
 }
 
 div.pagination a, div.pagination span {
@@ -250,9 +248,10 @@ div.bar {
 }
 div.bar .button {
   float: left;
+  margin-left: 24px;
 }
 div.bar div.pagination {
-  margin-top: 0.4em;
+  margin: 0.4em 24px 0 0;
   float: right;
 }
 

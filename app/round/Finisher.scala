@@ -56,6 +56,8 @@ final class Finisher(
       finish(pov.game, Draw, None, Some(_.drawOfferAccepted))
     else !!("opponent is not proposing a draw")
 
+  def drawForce(game: DbGame): ValidIOEvents = finish(game, Draw, None, None)
+
   def outoftime(game: DbGame): ValidIOEvents = game.outoftimePlayer.fold(
     !![IOEvents]("no outoftime applicable " + game.clock.fold("-")(_.remainingTimes.toString))
   ) { player ⇒ 
@@ -81,7 +83,7 @@ final class Finisher(
     game: DbGame,
     status: Status,
     winner: Option[Color] = None,
-    message: Option[SelectI18nKey] = None): Valid[IO[List[Event]]] =
+    message: Option[SelectI18nKey] = None): ValidIOEvents =
     if (finisherLock isLocked game) !!("game finish is locked")
     else success(for {
       _ ← finisherLock lock game
@@ -107,28 +109,24 @@ final class Finisher(
       )
     }
 
-  private def updateElo(game: DbGame): IO[Unit] =
-    if (!game.finished || !game.rated || game.turns < 2) io()
-    else {
-      for {
-        whiteUserId ← game.player(White).userId
-        blackUserId ← game.player(Black).userId
-        if whiteUserId != blackUserId
-      } yield for {
-        whiteUserOption ← userRepo byId whiteUserId
-        blackUserOption ← userRepo byId blackUserId
-        _ ← (whiteUserOption |@| blackUserOption).apply(
-          (whiteUser, blackUser) ⇒ {
-            val (whiteElo, blackElo) = eloCalculator.calculate(whiteUser, blackUser, game.winnerColor)
-            val (whiteDiff, blackDiff) = (whiteElo - whiteUser.elo, blackElo - blackUser.elo)
-            val cheaterWin = (whiteDiff > 0 && whiteUser.engine) || (blackDiff > 0 && blackUser.engine)
-            for {
-              _ ← gameRepo.setEloDiffs(game.id, whiteDiff, blackDiff)
-              _ ← eloUpdater.game(whiteUser, whiteElo, game.id) doUnless cheaterWin
-              _ ← eloUpdater.game(blackUser, blackElo, game.id) doUnless cheaterWin
-            } yield ()
-          }
-        ).fold(io())(identity)
-      } yield ()
-    } | io()
+  private def updateElo(game: DbGame): IO[Unit] = ~{
+    for {
+      whiteUserId ← game.player(White).userId
+      blackUserId ← game.player(Black).userId
+      if whiteUserId != blackUserId
+    } yield for {
+      whiteUserOption ← userRepo byId whiteUserId
+      blackUserOption ← userRepo byId blackUserId
+      _ ← ~(whiteUserOption |@| blackUserOption).apply(
+        (whiteUser, blackUser) ⇒ {
+          val (whiteElo, blackElo) = eloCalculator.calculate(whiteUser, blackUser, game.winnerColor)
+          val (whiteDiff, blackDiff) = (whiteElo - whiteUser.elo, blackElo - blackUser.elo)
+          val cheaterWin = (whiteDiff > 0 && whiteUser.engine) || (blackDiff > 0 && blackUser.engine)
+          gameRepo.setEloDiffs(game.id, whiteDiff, blackDiff) >>
+            eloUpdater.game(whiteUser, whiteElo, blackUser.elo) >>
+            eloUpdater.game(blackUser, blackElo, whiteUser.elo) doUnless cheaterWin
+        }
+      )
+    } yield ()
+  } doUnless (!game.finished || !game.rated || game.turns < 2)
 }

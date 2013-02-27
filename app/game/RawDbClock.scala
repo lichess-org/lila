@@ -4,7 +4,7 @@ package game
 import chess._
 import scala.math.round
 
-case class RawDbClock(
+private[game] case class RawDbClock(
     c: Boolean,
     i: Int,
     l: Int,
@@ -29,7 +29,7 @@ case class RawDbClock(
     }
 }
 
-object RawDbClock {
+private[game] object RawDbClock {
 
   def encode(clock: Clock): RawDbClock = {
     import clock._

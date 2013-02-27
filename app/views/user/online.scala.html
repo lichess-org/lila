@@ -1,5 +1,5 @@
 @(users: List[User])(implicit ctx: Context)
-<h1>@trans.namedPlayers() (@users.size)</h1>
+<h1>@trans.whoIsOnline() (@users.size)</h1>
 <br />
 <br />
 <ul class="users">@users.map { u => <li>@userLink(u, None, true)</li> }</ul>

@@ -8,7 +8,7 @@ title = "New forum topic") {
 </ol>
 <br />
 <h1>New topic</h1>
-<form action="@routes.ForumTopic.create(categ.slug)" method="POST" novalidate>
+<form class="wide" action="@routes.ForumTopic.create(categ.slug)" method="POST" novalidate>
   <label>
     <span class="required">Subject</span>
     <input class="subject" value="@form("name").value" type="text" name="@form("name").name" id="@form("name").id">
@@ -18,6 +18,6 @@ title = "New forum topic") {
   @base.captcha(form("post")("move"), form("post")("gameId"), captcha)
   @errMsg(form("post"))
   <button class="submit button" type="submit">Create the topic</button>
-  <a href="@routes.ForumCateg.show(categ.slug)" style="margin-left:20px">Cancel</a>
+  <a href="@routes.ForumCateg.show(categ.slug)" style="margin-left:20px">@trans.cancel()</a>
 </form>
 }

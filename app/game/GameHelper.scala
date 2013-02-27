@@ -19,6 +19,7 @@ trait GameHelper { self: I18nHelper with UserHelper with StringHelper with AiHel
   def variantName(variant: Variant)(implicit ctx: Context) = variant match {
     case Variant.Standard ⇒ trans.standard.str()
     case Variant.Chess960 ⇒ "chess960"
+    case Variant.FromPosition ⇒ trans.fromPosition.str()
   }
 
   def clockName(clock: Option[Clock])(implicit ctx: Context): String =
@@ -47,7 +48,7 @@ trait GameHelper { self: I18nHelper with UserHelper with StringHelper with AiHel
     player.userId.fold(
       """<span class="user_link %s">%s</span>""".format(
         cssClass | "",
-        player.aiLevel.fold(User.anonymous)(aiName)
+        player.aiLevel.fold(player.name | User.anonymous)(aiName)
       )
     ) { userId ⇒
         userIdToUsername(userId) |> { username ⇒

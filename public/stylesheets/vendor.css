@@ -16,7 +16,8 @@ input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;
 
 /* jquery-ui */
 /* button */
-.ui-helper-hidden-accessible { position: absolute; left: -99999999px; }
+.ui-helper-hidden { display: none; }
+.ui-helper-hidden-accessible { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
 .ui-state-default {
     border: 1px solid #d3d3d3;
 }
@@ -63,7 +64,7 @@ ul.ui-autocomplete li a {
     padding: 0.6em 1em;
     text-decoration: none;
 }
-ul.ui-autocomplete li a.ui-state-hover {
+ul.ui-autocomplete li a.ui-state-focus {
     background: #E1F6F8;
     color: #444;
 }

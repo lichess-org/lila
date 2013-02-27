@@ -35,7 +35,7 @@ final class HookJoiner(
       blame(_.creatorColor, ownerOption, makeGame(hook))
     ).start
     _ ← gameRepo insert game
-    _ ← gameRepo denormalizeStarted game
+    _ ← gameRepo denormalize game
     _ ← timelinePush(game)
     // messenges are not sent to the game socket
     // as nobody is there to see them yet
@@ -60,7 +60,9 @@ final class HookJoiner(
     blackPlayer = DbPlayer.black,
     creatorColor = hook.realColor.resolve,
     mode = hook.realMode,
-    variant = hook.realVariant)
+    variant = hook.realVariant,
+    source = game.Source.Lobby,
+    pgnImport = None)
 
   private def canJoin(hook: Hook, me: Option[User]) =
     !hook.`match` && {

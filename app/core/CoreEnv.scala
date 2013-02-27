@@ -41,6 +41,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
 
   lazy val forum = new lila.forum.ForumEnv(
     settings = settings,
+    esIndexer = search.esIndexer,
     captcha = site.captcha,
     mongodb = mongodb.apply _,
     userRepo = user.userRepo,
@@ -54,6 +55,17 @@ final class CoreEnv private (application: Application, val settings: Settings) {
 
   lazy val wiki = new lila.wiki.WikiEnv(
     settings = settings,
+    mongodb = mongodb.apply _)
+
+  lazy val team = new lila.team.TeamEnv(
+    settings = settings,
+    esIndexer = search.esIndexer,
+    captcha = site.captcha,
+    userRepo = user.userRepo,
+    sendMessage = message.api.lichessThread,
+    makeForum = forum.categApi.makeTeam,
+    getForumNbPosts = forum.categApi.getTeamNbPosts,
+    getForumPosts = forum.recent.team,
     mongodb = mongodb.apply _)
 
   lazy val lobby = new lila.lobby.LobbyEnv(
@@ -89,6 +101,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     settings = settings)
 
   lazy val game = new lila.game.GameEnv(
+    app = app,
     settings = settings,
     mongodb = mongodb.apply _)
 
@@ -106,6 +119,12 @@ final class CoreEnv private (application: Application, val settings: Settings) {
     countMove = monitor.mpsProvider.countRequest,
     flood = security.flood,
     indexGame = search.indexGame)
+
+  lazy val importer = new lila.importer.ImporterEnv(
+    gameRepo = game.gameRepo,
+    hand = round.hand,
+    finisher = round.finisher,
+    bookmark = bookmark.api.toggle _)
 
   lazy val tournament = new lila.tournament.TournamentEnv(
     app = app,
@@ -173,7 +192,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
   lazy val mod = new lila.mod.ModEnv(
     settings = settings,
     userRepo = user.userRepo,
-    securityStore = security.store,
+    userSpy = security.store.userSpy _,
     firewall = security.firewall,
     eloUpdater = user.eloUpdater,
     lobbyMessenger = lobby.messenger,
