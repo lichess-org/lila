@@ -64,3 +64,5 @@ add source to chess search
 add pgn names to chess search
 convert forum pgn to replayed games
 kid mode (on subdomain?) or start-from-scratch mode (connect to DB depending on subdomain)
+explain point of importing games
+create game - late reload - game accepted = homepage without game
