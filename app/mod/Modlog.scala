@@ -23,7 +23,7 @@ case class Modlog(
   }
 }
 
-object Modlog {
+object Modlog extends Function5[String, Option[String], String, Option[String], DateTime, Modlog] {
 
   val engine = "engine"
   val unengine = "unengine"
@@ -33,16 +33,7 @@ object Modlog {
   val ipban = "ipban"
   val deletePost = "deletePost"
 
-  import play.api.libs.json._
-  import play.api.libs.functional.syntax._
+  import play.api.libs.json.Json
 
-  val json = mongodb.JsonTube((
-    (__ \ 'mod).read[String] and
-    (__ \ 'user).read[Option[String]] and
-    (__ \ 'action).read[String] and
-    (__ \ 'details).read[Option[String]] and
-    (__ \ 'date).read[DateTime]
-  )(Modlog.apply _),
-    Json.writes[Modlog]
-  )
+  val json = mongodb.JsonTube(Json.reads[Modlog], Json.writes[Modlog])
 }
