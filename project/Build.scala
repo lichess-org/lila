@@ -50,7 +50,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       "-unchecked",
       "-feature",
       "-language:_",
-      "-Dscalac.patmat.analysisBudget=512")
+      "-Dscalac.patmat.analysisBudget=off")
   )
 
   lazy val lila = play.Project("lila", "3", Seq(

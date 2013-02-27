@@ -88,15 +88,12 @@ trait LilaController
   protected def JsOk(js: String, headers: (String, String)*) = 
     Ok(js) as JAVASCRIPT withHeaders (headers: _*)
 
-  protected def ValidOk(valid: Valid[Unit]) = valid.fold(
+  protected def ValidOk(valid: Valid[Unit]): Result = valid.fold(
     e ⇒ BadRequest(e.shows),
     _ ⇒ Ok("ok")
   )
 
-  protected def ValidIOk(valid: IO[Valid[Unit]]) = valid.unsafePerformIO.fold(
-    e ⇒ BadRequest(e.shows),
-    _ ⇒ Ok("ok")
-  )
+  protected def ValidIOk(valid: IO[Valid[Unit]]): Result = ValidOk(valid.unsafePerformIO)
 
   protected def FormResult[A](form: Form[A])(op: A ⇒ Result)(implicit req: Request[_]) =
     form.bindFromRequest.fold(
