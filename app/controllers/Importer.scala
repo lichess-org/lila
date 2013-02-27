@@ -7,6 +7,7 @@ import http.Context
 import play.api.mvc.Result
 import play.api.libs.concurrent._
 import play.api.Play.current
+import play.api.libs.concurrent.Execution.Implicits._
 
 object Importer extends LilaController with BaseGame {
 
@@ -25,11 +26,10 @@ object Importer extends LilaController with BaseGame {
           Ok(html.game.importGame(makeListMenu, failure))
         },
         data ⇒ (importer(data, ctx.userId) map {
-          _.fold(
-            game ⇒ Redirect(routes.Analyse.replay(game.id, "white")),
-            Redirect(routes.Importer.importGame)
-          )
-        }).asPromise
+          _.fold(Redirect(routes.Importer.importGame)) { game =>
+            Redirect(routes.Analyse.replay(game.id, "white"))
+          }
+        })
       )
     }
   }

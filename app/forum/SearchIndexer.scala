@@ -4,13 +4,14 @@ package forum
 import search.{ ElasticSearch, TypeIndexer }
 
 import scalaz.effects._
-import com.codahale.jerkson.Json
 
 import org.elasticsearch.action.search.SearchResponse
 import org.elasticsearch.index.query._, QueryBuilders._
 
 import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
 import com.mongodb.casbah.query.Imports._
+
+import play.api.libs.json._
 
 private[forum] final class SearchIndexer(
   es: EsIndexer, 

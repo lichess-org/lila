@@ -17,10 +17,13 @@ final class EloChart(rawElos: List[(Int, Int, Option[Int])]) {
 
   def columns = EloChart.columns
 
-<<<<<<< HEAD
   def rows = Json toJson {
     withMedian(reduce(rawElos)) map {
-      case (ts, elo, op, med) ⇒ List(date(ts), elo, op, med)
+      case (ts, elo, op, med) ⇒ Json toJson List(
+        Json toJson date(ts), 
+        Json toJson elo, 
+        Json toJson op, 
+        Json toJson med)
     }
   }
 

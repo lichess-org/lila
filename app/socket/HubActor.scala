@@ -92,7 +92,9 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
   protected def resync(member: M) {
     import play.api.libs.concurrent._
     import play.api.Play.current
-    import akka.util.duration._
+    import scala.concurrent.duration._
+    import play.api.libs.concurrent.Execution.Implicits._
+
     Akka.system.scheduler.scheduleOnce((Random nextInt 4).seconds) {
       member.channel push resyncMessage
     }

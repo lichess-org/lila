@@ -26,7 +26,7 @@ private[analyse] final class PgnDump(
     pgn2 = (~fenSituation.map(_.situation.color.black)).fold(".. " + pgn, pgn)
     pgnObj = Pgn(ts, turns(pgn2, fenSituation.map(_.fullMoveNumber) | 1))
     analysis ← analyser get game.id
-  } yield analysis.fold(pgnObj)(Annotator(pgnObj, _))
+  } yield analysis.fold(pgnObj)(annotator(pgnObj, _))
 
   def filename(game: DbGame): IO[String] = for {
     whiteUser ← user(game.whitePlayer)

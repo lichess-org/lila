@@ -17,9 +17,9 @@ final class BookmarkApi(
     gameOption ← gameRepo game gameId
     _ ← ~gameOption.map(game =>
       for {
-        bookmarked ← bookmarkRepo.toggle(game.id, user.id)
-        _ ← gameRepo.incBookmarks(game.id, bookmarked.fold(1, -1))
-        _ ← io(cached invalidateUserId user.id)
+        bookmarked ← bookmarkRepo.toggle(gameId, userId)
+        _ ← gameRepo.incBookmarks(gameId, bookmarked.fold(1, -1))
+        _ ← io(cached invalidateUserId userId)
       } yield ()
     )
   } yield ()

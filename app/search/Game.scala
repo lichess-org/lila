@@ -7,7 +7,6 @@ import chess.{ OpeningExplorer, Status }
 
 import play.api.libs.json.{ Json, JsObject, JsString, JsNumber }
 
-object Game {
 private[search] object Game {
 
   object fields {

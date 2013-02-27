@@ -30,20 +30,18 @@ private[cli] case class Teams(env: TeamEnv, userRepo: UserRepo) {
 
   private def perform(teamId: String)(op: Team ⇒ IO[Unit]) = for {
     teamOption ← teamRepo byId teamId
-    res ← teamOption.fold(
-      u ⇒ op(u) inject "Success",
-      io("Team not found")
-    )
+    res ← teamOption.fold(io("Team not found")) { u ⇒
+      op(u) inject "Success"
+    }
   } yield res
 
   private def perform2(teamId: String, userIds: List[String])(op: (Team, String) ⇒ IO[Unit]) = for {
     teamOption ← teamRepo byId teamId
-    res ← teamOption.fold(
-      team ⇒ for {
+    res ← teamOption.fold(io("Team not found")) { team ⇒
+      for {
         users ← userRepo byIds userIds
         _ ← users.map(user ⇒ putStrLn(user.username) >> op(team, user.id)).sequence
-      } yield "Success",
-      io("Team not found")
-    )
+      } yield "Success"
+    }
   } yield res
 }

@@ -78,11 +78,9 @@ trait LilaController
   protected def NoEngine[A <: Result](a: ⇒ A)(implicit ctx: Context): Result =
     ctx.me.fold(false)(_.engine).fold(Forbidden(views.html.site.noEngine()), a)
 
-  protected def JsonOk[A: WritesJson](data: A) = Ok(Json toJson data) as JSON
+  protected def JsonOk[A: WritesJson](data: A) = Ok(toJson(data)) as JSON
 
   protected def JsonIOk[A: WritesJson](data: IO[A]) = JsonOk(data.unsafePerformIO)
-
-  protected def JsonIOk(map: IO[Map[String, Any]]) = JsonOk(map.unsafePerformIO)
 
   protected def JsIOk(js: IO[String], headers: (String, String)*) = 
     JsOk(js.unsafePerformIO, headers: _*)
@@ -163,7 +161,7 @@ trait LilaController
 
   protected def IOptionIORedirectUrl[A](ioa: IO[Option[A]])(op: A ⇒ IO[String])(implicit ctx: Context) =
     (ioa flatMap {
-      _.fold(a ⇒ op(a) map { b ⇒ Redirect(b) }, io(notFound(ctx)))
+      _.fold(io(notFound(ctx)))(a ⇒ op(a) map { b ⇒ Redirect(b) })
     }: IO[Result]).unsafePerformIO
 
   protected def IOptionResult[A](ioa: IO[Option[A]])(op: A ⇒ Result)(implicit ctx: Context) =

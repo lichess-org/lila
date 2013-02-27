@@ -7,7 +7,7 @@ import game.{ DbGame, GameRepo, PovRef }
 import round.{ Hand, Finisher }
 
 import scalaz.effects._
-import akka.dispatch.Future
+import scala.concurrent.Future
 
 final class Importer(
     gameRepo: GameRepo,
@@ -38,7 +38,7 @@ final class Importer(
 
   private def gameExists(pgn: String)(processing: ⇒ Future[Option[DbGame]]): Future[Option[DbGame]] =
     gameRepo.game(game.Query pgnImport pgn).toFuture flatMap {
-      _.fold(game ⇒ Future(game.some), processing)
+      _.fold(processing)(game ⇒ Future(game.some))
     }
 
   private def finish(game: DbGame, result: Result): Future[Unit] = result match {

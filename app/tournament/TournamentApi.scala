@@ -89,22 +89,15 @@ private[tournament] final class TournamentApi(
 
   def withdraw(tour: Tournament, userId: String): IO[Unit] = tour match {
     case created: Created ⇒ (created withdraw userId).fold(
-      err ⇒ putStrLn(err.shows) inject tour,
-      tour2 ⇒ for {
-        _ ← repo saveIO tour2
-        _ ← socket reload tour2.id
-        _ ← reloadSiteSocket
-        _ ← lobbyReload
-      } yield ()
+      err ⇒ putStrLn(err.shows),
+      tour2 ⇒ (repo saveIO tour2) >> (socket reload tour2.id) >> reloadSiteSocket >> lobbyReload
     )
     case started: Started ⇒ (started withdraw userId).fold(
       err ⇒ putStrLn(err.shows),
-      tour2 ⇒ for {
-        _ ← repo saveIO tour2
-        _ ← ~(tour2 userCurrentPov userId map roundMeddler.resign)
-        _ ← socket reload tour2.id
-        _ ← reloadSiteSocket
-      } yield ()
+      tour2 ⇒ (repo saveIO tour2) >>
+        ~(tour2 userCurrentPov userId map roundMeddler.resign) >>
+        (socket reload tour2.id) >>
+        reloadSiteSocket
     )
     case finished: Finished ⇒ putStrLn("Cannot withdraw from finished tournament " + finished.id) 
   }

@@ -4,7 +4,7 @@ package team
 import search.{ ElasticSearch, TypeIndexer }
 
 import scalaz.effects._
-import com.codahale.jerkson.Json
+import play.api.libs.json._
 
 import org.elasticsearch.action.search.SearchResponse
 

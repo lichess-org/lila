@@ -14,11 +14,10 @@ private[cli] case class Users(userEnv: UserEnv, deleteUsername: String ⇒ IO[Un
 
   def roles(username: String): IO[String] = for {
     userOption ← userRepo byId username
-  } yield userOption.fold(_.roles mkString " ", "User not found")
+  } yield userOption.fold("User not found")(_.roles mkString " ")
 
-  def grant(username: String, roles: List[String]): IO[String] =
-    perform(username, { user ⇒
-      userRepo.setRoles(user, roles map (_.toUpperCase))
+  def grant(username: String, roles: List[String]): IO[String] = perform(username, { user ⇒ userRepo.setRoles(user, roles map
+    (_.toUpperCase))
     })
 
   def enable(username: String): IO[String] =
@@ -41,9 +40,6 @@ private[cli] case class Users(userEnv: UserEnv, deleteUsername: String ⇒ IO[Un
 
   private def perform(username: String, op: User ⇒ IO[Unit]): IO[String] = for {
     userOption ← userRepo byId username
-    res ← userOption.fold(
-      u ⇒ op(u) inject "Success",
-      io("User not found")
-    )
+    res ← userOption.fold(io("User not found")) { u ⇒ op(u) inject "Success" }
   } yield res
 }

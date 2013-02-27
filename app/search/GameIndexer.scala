@@ -5,12 +5,12 @@ import ElasticSearch.Request
 import game.{ GameRepo, PgnRepo, DbGame, Query ⇒ GameQuery }
 
 import scalaz.effects._
-import com.codahale.jerkson.Json
 
 import org.elasticsearch.action.search.SearchResponse
 
 import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
 import com.mongodb.casbah.query.Imports._
+import play.api.libs.json.Json
 
 final class GameIndexer(
     es: EsIndexer,
@@ -21,7 +21,7 @@ final class GameIndexer(
   val indexName = "lila"
   val typeName = "game"
 
-  private val indexer = new TypeIndexer(es, typeName, Game.mapping, indexQuery)
+  private val indexer = new TypeIndexer(es, typeName, Game.jsonMapping, indexQuery)
 
   val rebuildAll = indexer.rebuildAll
 
@@ -51,7 +51,7 @@ final class GameIndexer(
         case (game, pgn) ⇒ game.decode map Game.from(pgn)
       } collect {
         case Some((id, doc)) ⇒
-          es.index_prepare(indexName, typeName, id, Json generate doc).request
+          es.index_prepare(indexName, typeName, id, Json stringify doc).request
       }
       if (actions.nonEmpty) {
         es bulk actions

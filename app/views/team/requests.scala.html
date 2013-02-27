@@ -20,7 +20,7 @@
       <td>@showDate(request.date)</td>
       <td class="process">
         <form class="process-request" action="@routes.Team.requestProcess(request.id)" method="post">
-          <input type="hidden" name="url" value="@t.fold(te => routes.Team.show(te.id), routes.Team.requests())" />
+          <input type="hidden" name="url" value="@t.fold(routes.Team.requests())(te => routes.Team.show(te.id))" />
           <button name="process" class="submit button small" value="accept">@trans.accept()</button>
           <button name="process" class="submit button" value="decline">@trans.decline()</button>
         </form>

@@ -22,7 +22,7 @@ trait TeamHelper {
 
   def teamLink(id: String, cssClass: Option[String] = None): Html = Html {
     """<a class="%s" href="%s">%s</a>""".format(
-      cssClass.fold(" " + _, ""),
+      ~cssClass.map(" " + _),
       routes.Team.show(id),
       teamIdToName(id))
   }

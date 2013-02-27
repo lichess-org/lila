@@ -2,7 +2,6 @@ package lila
 package search
 
 import scalaz.effects._
-import com.codahale.jerkson.Json
 
 import org.elasticsearch.action.search.SearchResponse
 
@@ -10,17 +9,18 @@ import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
 import com.mongodb.casbah.query.Imports._
 
 import akka.actor._
-import akka.util.duration._
 import akka.util.Timeout
 import akka.pattern.{ ask, pipe }
-import akka.dispatch.{ Future, Promise }
+import scala.concurrent.duration._
+import scala.concurrent.{ Future, Promise }
 import play.api.libs.concurrent._
+import play.api.libs.json._
 import play.api.Play.current
 
 final class TypeIndexer(
     es: EsIndexer,
     typeName: String,
-    mapping: Map[String, Any],
+    mapping: JsObject,
     indexQuery: DBObject ⇒ Unit) {
 
   private val indexName = "lila"
@@ -35,17 +35,17 @@ final class TypeIndexer(
 
   val clear: IO[Unit] = io { actor ! Clear }
 
-  def insertOne(id: String, doc: Map[String, Any]) = io { actor ! InsertOne(id, doc) }
+  def insertOne(id: String, doc: JsObject) = io { actor ! InsertOne(id, doc) }
 
-  def insertMany(list: Map[String, Map[String, Any]]) = io { actor ! InsertMany(list) }
+  def insertMany(list: Map[String, JsObject]) = io { actor ! InsertMany(list) }
 
   def removeOne(id: String) = io { actor ! RemoveOne(id) }
 
   private case object Clear
   private case object RebuildAll
   private case object Optimize
-  private case class InsertOne(id: String, doc: Map[String, Any])
-  private case class InsertMany(list: Map[String, Map[String, Any]])
+  private case class InsertOne(id: String, doc: JsObject)
+  private case class InsertMany(list: Map[String, JsObject])
   private case class RemoveOne(id: String)
 
   private lazy val actor = Akka.system.actorOf(Props(new Actor {
@@ -61,11 +61,11 @@ final class TypeIndexer(
 
       case Optimize           ⇒ es.optimize(Seq(indexName))
 
-      case InsertOne(id, doc) ⇒ es.index(indexName, typeName, id, Json generate doc)
+      case InsertOne(id, doc) ⇒ es.index(indexName, typeName, id, Json stringify doc)
 
       case InsertMany(list) ⇒ es bulk {
         list map {
-          case (id, doc) ⇒ es.index_prepare(indexName, typeName, id, Json generate doc).request
+          case (id, doc) ⇒ es.index_prepare(indexName, typeName, id, Json stringify doc).request
         }
       }
 
@@ -77,7 +77,7 @@ final class TypeIndexer(
         es.createIndex(indexName, settings = Map())
       }
       catch {
-        case e: org.elasticsearch.indices.IndexAlreadyExistsException ⇒ 
+        case e: org.elasticsearch.indices.IndexAlreadyExistsException ⇒
       }
       try {
         es.deleteByQuery(Seq(indexName), Seq(typeName))
@@ -85,9 +85,9 @@ final class TypeIndexer(
         es.deleteMapping(indexName :: Nil, typeName.some)
       }
       catch {
-        case e: org.elasticsearch.indices.TypeMissingException ⇒ 
+        case e: org.elasticsearch.indices.TypeMissingException ⇒
       }
-      es.putMapping(indexName, typeName, Json generate Map(typeName -> mapping))
+      es.putMapping(indexName, typeName, Json stringify Json.obj(typeName -> mapping))
       es.refresh()
     }
   }))
