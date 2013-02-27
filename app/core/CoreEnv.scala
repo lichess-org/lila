@@ -21,7 +21,7 @@ final class CoreEnv private (application: Application, val settings: Settings) {
 
   def configName = ConfigName
 
-  lazy val mongodb = new lila.mongodb.MongoDbEnv(
+  def mongodb = new lila.mongodb.MongoDbEnv(
     settings = settings)
 
   lazy val mongo2 = new lila.mongodb.Mongo2Env(
