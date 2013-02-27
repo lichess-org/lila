@@ -61,9 +61,9 @@ final class TeamRepo(collection: MongoCollection)
     update(selectId(teamId), $inc("nbMembers" -> by))
   }
 
-  def enable(team: Team) = updateIO(team)($set("enabled" -> true))
+  def enable(team: Team) = updateIO(team)($set(Seq("enabled" -> true)))
 
-  def disable(team: Team) = updateIO(team)($set("enabled" -> false))
+  def disable(team: Team) = updateIO(team)($set(Seq("enabled" -> false)))
 
   def updateIO(teamId: String)(op: Team ⇒ DBObject): IO[Unit] = for {
     teamOption ← byId(teamId)
@@ -77,7 +77,7 @@ final class TeamRepo(collection: MongoCollection)
   def addRequest(teamId: String, request: Request): IO[Unit] = io {
     update(
       selectId(teamId) ++ ("requests.user" $ne request.user), 
-      $push("requests" -> request.user))
+      $push(Seq("requests" -> request.user)))
   }
 
   def selectId(id: String): DBObject = DBObject("_id" -> id)

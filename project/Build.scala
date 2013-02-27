@@ -13,12 +13,13 @@ trait Resolvers {
   val jgitMaven = "jgit-maven" at "http://download.eclipse.org/jgit/maven"
   val christophs = "Christophs Maven Repo" at "http://maven.henkelmann.eu/"
   val sgodbillon = "sgodbillon" at "https://bitbucket.org/sgodbillon/repository/raw/master/snapshots/"
+  val awesomepom = "awesomepom" at "https://raw.github.com/jibs/maven-repo-scala/master"
 }
 
 trait Dependencies {
   val scalaz = "org.scalaz" %% "scalaz-core" % "6.0.4"
   val salat = "com.novus" % "salat-core_2.9.2" % "1.9.1"
-  val scalalib = "com.github.ornicar" %% "scalalib" % "3.1"
+  val scalalib = "com.github.ornicar" %% "scalalib" % "3.3"
   val config = "com.typesafe" % "config" % "1.0.0"
   val guava = "com.google.guava" % "guava" % "13.0.1"
   val apache = "org.apache.commons" % "commons-lang3" % "3.1"
@@ -27,7 +28,7 @@ trait Dependencies {
   val paginator = "com.github.ornicar" % "paginator-core_2.9.1" % "1.6"
   val paginatorSalat = "com.github.ornicar" % "paginator-salat-adapter_2.9.1" % "1.5"
   val csv = "com.github.tototoshi" % "scala-csv_2.9.1" % "0.3"
-  val hasher = "com.roundeights" % "hasher" % "0.3" from "http://cloud.github.com/downloads/Nycto/Hasher/hasher_2.9.1-0.3.jar"
+  val hasher = "hasher" %% "hasher" % "0.3.1" 
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "1.3.0.201202151440-r"
   val actuarius = "eu.henkelmann" % "actuarius_2.9.2" % "0.2.4"
   val jodaTime = "joda-time" % "joda-time" % "2.1"
@@ -40,7 +41,6 @@ trait Dependencies {
 
 object ApplicationBuild extends Build with Resolvers with Dependencies {
 
-  // private val buildSettings = Project.defaultSettings ++ Seq(
   private val buildSettings = Seq(
     shellPrompt := {
       (state: State) ⇒ "%s> ".format(Project.extract(state).currentProject.id)
@@ -49,7 +49,8 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       "-deprecation",
       "-unchecked",
       "-feature",
-      "-language:_")
+      "-language:_",
+      "-Dscalac.patmat.analysisBudget=512")
   )
 
   lazy val lila = play.Project("lila", "3", Seq(
@@ -66,11 +67,11 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       "lila.ui",
       "lila.http.Context",
       "com.github.ornicar.paginator.Paginator"),
-    resolvers ++= Seq(sgodbillon, iliaz, sonatype, sonatypeS, typesafe, t2v, guice, jgitMaven, christophs)
+    resolvers ++= Seq(awesomepom, sgodbillon, iliaz, sonatype, sonatypeS, typesafe, t2v, guice, jgitMaven, christophs)
   ) dependsOn scalachess aggregate scalachess
 
   lazy val scalachess = Project("scalachess", file("scalachess"), settings = Project.defaultSettings ++ buildSettings).settings(
-    resolvers := Seq(iliaz, sonatype),
+    resolvers := Seq(iliaz, sonatype, awesomepom),
     scalaVersion := "2.10.0",
     libraryDependencies := Seq(scalaz, scalalib, hasher, jodaTime, jodaConvert)
   )

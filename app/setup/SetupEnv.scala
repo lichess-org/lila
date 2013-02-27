@@ -65,8 +65,6 @@ final class SetupEnv(
     timelinePush = timelinePush,
     messenger = roundMessenger)
 
-  def filter(implicit ctx: http.Context): IO[FilterConfig] = ctx.me.fold(
-    userConfigRepo.filter,
-    anonConfigRepo filter ctx.req
-  ) 
+  def filter(implicit ctx: http.Context): IO[FilterConfig] = 
+    ctx.me.fold(anonConfigRepo filter ctx.req)(userConfigRepo.filter)
 }

@@ -5,7 +5,7 @@ import views._
 import http.{ Context, BodyContext, Setting ⇒ HttpSetting }
 
 import play.api.data.Form
-import play.api.mvc.Cookie
+import play.api.mvc.{ Result, Cookie }
 import scalaz.effects._
 
 object Setting extends LilaController {
@@ -15,7 +15,7 @@ object Setting extends LilaController {
 
   def set(name: String) = OpenBody { implicit ctx ⇒
     implicit val req = ctx.body
-    (setters get name).fold(NotFound) {
+    (setters get name).fold(NotFound: Result) {
       case (form, process) ⇒
         FormResult(form) { value ⇒
           Ok() withCookies process(HttpSetting(ctx), value).unsafePerformIO

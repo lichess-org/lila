@@ -21,7 +21,7 @@ trait ForumGranter {
 
   def isGrantedWrite(categSlug: String)(implicit ctx: Context): Boolean = categSlug match {
     case StaffSlug               ⇒ ctx.me exists { u ⇒ Granter(Permission.StaffForum)(u) }
-    case TeamSlugPattern(teamId) ⇒ ctx.me.fold(me ⇒ userBelongsToTeam(teamId, me.id), false)
+    case TeamSlugPattern(teamId) ⇒ ~ctx.me.map(me ⇒ userBelongsToTeam(teamId, me.id))
     case _                       ⇒ true
   }
 }

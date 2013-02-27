@@ -14,10 +14,9 @@ final class HistoryRepo(collection: MongoCollection) {
   def addEntry(userId: String, elo: Int, opponentElo: Option[Int]): IO[Unit] = io {
     collection.update(
       DBObject("_id" -> userId),
-      $push("entries" -> opponentElo.fold(
-        DBList(DateTime.now.getSeconds.toInt, elo, _),
-        DBList(DateTime.now.getSeconds.toInt, elo))
-      ),
+      $push(Seq("entries" -> opponentElo.fold(DBList(DateTime.now.getSeconds.toInt, elo)) {
+        DBList(DateTime.now.getSeconds.toInt, elo, _)
+      })),
       multi = false,
       upsert = true)
   }
@@ -53,10 +52,9 @@ final class HistoryRepo(collection: MongoCollection) {
             ts ← elem.getAs[Double](0)
             elo ← elem.getAs[Double](1)
             op = if (elem.size > 2) elem.getAs[Double](2) else None
-          } yield op.fold(
-            o ⇒ List(ts.toInt, elo.toInt, o.toInt),
-            List(ts.toInt, elo.toInt)
-          )
+          } yield op.fold(List(ts.toInt, elo.toInt)) { o ⇒
+            List(ts.toInt, elo.toInt, o.toInt)
+          }
         }
         catch {
           case (err: Exception) ⇒
@@ -64,18 +62,15 @@ final class HistoryRepo(collection: MongoCollection) {
               ts ← elem.getAs[Int](0)
               elo ← elem.getAs[Int](1)
               op = if (elem.size > 2) elem.getAs[Int](2) else None
-            } yield op.fold(
-              o ⇒ List(ts, elo, o),
-              List(ts, elo)
-            )
+            } yield op.fold(List(ts, elo)) { o ⇒ List(ts, elo, o) }
         }
       }).flatten sortBy (_.head)
       val id = history.as[String]("_id")
       println("%s: %d -> %d".format(id, initEntries.size, entries.size))
       collection.update(
         DBObject("_id" -> id),
-        $set("entries" -> entries)
+        $set(Seq("entries" -> entries))
       )
-  }
+    }
   }
 }

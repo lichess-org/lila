@@ -5,7 +5,7 @@ import views._
 import setup._
 import http.{ Context, BodyContext }
 
-import play.api.mvc.Call
+import play.api.mvc.{ Result, Call }
 import play.api.data.Form
 
 import scalaz.effects._
@@ -119,7 +119,7 @@ object Setup extends LilaController with TheftPrevention with RoundEventPerforme
         if (parsed.situation playable strict)
         validated = chess.format.Forsyth >> parsed
       } yield html.game.miniBoard(validated, parsed.situation.color.name)
-    } fold (Ok(_), BadRequest)
+    }.fold(BadRequest: Result)(Ok(_))
   }
 
   private def process[A](form: Context ⇒ Form[A])(op: A ⇒ BodyContext ⇒ IO[Call]) =

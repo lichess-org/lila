@@ -130,14 +130,15 @@ case class DbGame(
     def copyPlayer(player: DbPlayer) = player.copy(
       ps = player encodePieces game.allPieces,
       blurs = player.blurs + (blur && move.color == player.color).fold(1, 0),
-      moveTimes = ((!isPgnImport) && (move.color == player.color)).fold(player.moveTimes) {
-        lastMoveTime.fold("") { lmt ⇒ 
+      moveTimes = ((!isPgnImport) && (move.color == player.color)).fold(
+        lastMoveTime.fold("") { lmt ⇒
           (nowSeconds - lmt) |> { mt ⇒
             val encoded = MoveTime encode mt
             player.moveTimes.isEmpty.fold(encoded.toString, player.moveTimes + encoded)
           }
-        }
-      }
+        }, player.moveTimes
+      )
+    )
 
     val updated = copy(
       whitePlayer = copyPlayer(whitePlayer),
@@ -358,7 +359,7 @@ case class DbGame(
 
   def source = metadata map (_.source)
 
-  def pgnImport = metadata flatMap(_.pgnImport)
+  def pgnImport = metadata flatMap (_.pgnImport)
 
   def isPgnImport = pgnImport.isDefined
 

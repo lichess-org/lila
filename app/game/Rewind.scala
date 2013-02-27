@@ -13,12 +13,10 @@ final class Rewind {
     initialFen: Option[String]): Valid[(Progress, String)] = chessPgn.Reader.withSans(
     pgn = pgn,
     op = _.init,
-    tags = initialFen.fold(
-      fen ⇒ List(
-        chessPgn.Tag(_.FEN, fen),
-        chessPgn.Tag(_.Variant, game.variant.name)
-      ),
-      Nil)
+    tags = ~initialFen.map(fen ⇒ List(
+      chessPgn.Tag(_.FEN, fen),
+      chessPgn.Tag(_.Variant, game.variant.name)
+    ))
   ) map { replay ⇒
       val rewindedGame = replay.game
       val rewindedHistory = rewindedGame.board.history

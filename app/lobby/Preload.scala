@@ -28,7 +28,7 @@ private[lobby] final class Preload(
 
   private implicit val executor = Akka.system.dispatcher
   private implicit val timeout = Timeout(1 second)
-  private type RightResponse = (JsObject, List[PostView], List[Created], Option[DbGame])
+  private type RightResponse = (JsObject, List[PostLiteView], List[Created], Option[DbGame])
   private type Response = Either[Call, RightResponse]
 
   def apply(

@@ -34,8 +34,8 @@ final class Api(
     val thread = Thread.make(
       name = data.subject,
       text = data.text,
-      creator = me.id,
-      invited = data.user.id)
+      creatorId = me.id,
+      invitedId = data.user.id)
     (threadRepo saveIO thread) >> updateUser(data.user.id) inject thread
   }
 

@@ -2,6 +2,7 @@ package lila
 package setup
 
 import chess.{ Variant, Mode, Speed }
+import play.api.libs.json._
 
 case class FilterConfig(
     variant: Option[Variant],
@@ -25,7 +26,7 @@ case class FilterConfig(
     eloDiff.some
   ).some
 
-  def render = Map(
+  def render = Json.obj(
     "variant" -> variant.map(_.toString),
     "mode" -> mode.map(_.toString),
     "speed" -> speed.map(_.id),

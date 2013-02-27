@@ -49,7 +49,7 @@ case class Hook(
     "engine" -> engine
   ) 
 
-  def clockOrUnlimited = clockOption.fold(c ⇒ renderClock(c.limit, c.increment), "Unlimited")
+  def clockOrUnlimited = clockOption.fold("Unlimited")(c ⇒ renderClock(c.limit, c.increment))
 
   private def clockOption = (time filter (_ ⇒ hasClock)) |@| increment apply Clock.apply
 

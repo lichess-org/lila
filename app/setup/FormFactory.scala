@@ -33,10 +33,9 @@ private[setup] final class FormFactory(
 
   def aiFilled(fen: Option[String])(implicit ctx: Context): IO[Form[AiConfig]] =
     aiConfig map { config ⇒
-      ai(ctx) fill fen.fold(
-        f ⇒ config.copy(fen = f.some, variant = Variant.FromPosition),
-        config
-      )
+      ai(ctx) fill fen.fold(config) { f ⇒ 
+        config.copy(fen = f.some, variant = Variant.FromPosition)
+      }
     }
 
   def ai(ctx: Context) = Form(
@@ -55,10 +54,9 @@ private[setup] final class FormFactory(
 
   def friendFilled(fen: Option[String])(implicit ctx: Context): IO[Form[FriendConfig]] =
     friendConfig map { config ⇒
-      friend(ctx) fill fen.fold(
-        f ⇒ config.copy(fen = f.some, variant = Variant.FromPosition),
-        config
-      )
+      friend(ctx) fill fen.fold(config) { f ⇒ 
+        config.copy(fen = f.some, variant = Variant.FromPosition)
+      }
     }
 
   def friend(ctx: Context) = Form(

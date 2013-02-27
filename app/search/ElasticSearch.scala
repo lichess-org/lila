@@ -1,6 +1,8 @@
 package lila
 package search
 
+import play.api.libs.json._
+
 object ElasticSearch {
 
   object Date {
@@ -14,17 +16,17 @@ object ElasticSearch {
 
   object Mapping {
 
-    def field(name: String, typ: String, analyzed: Boolean = false, attrs: Map[String, Any] = Map.empty) =
-      name -> (Map(
+    def field(name: String, typ: String, analyzed: Boolean = false, attrs: JsObject = Json.obj()) =
+      name -> (Json.obj(
         "type" -> typ,
         "index" -> analyzed.fold("analyzed", "not_analyzed")
       ) ++ attrs)
 
-    def boost(name: String, typ: String, b: Int = 1, attrs: Map[String, Any] = Map.empty) =
-      field(name, typ, true, Map("boost" -> b) ++ attrs)
+    def boost(name: String, typ: String, b: Int = 1, attrs: JsObject = Json.obj()) =
+      field(name, typ, true, Json.obj("boost" -> b) ++ attrs)
 
-    def obj(name: String, properties: Map[String, Any]) =
-      name -> Map("type" -> "object", "properties" -> properties)
+    def obj(name: String, properties: JsObject) =
+      name -> Json.obj("type" -> "object", "properties" -> properties)
   }
 
   object Request {

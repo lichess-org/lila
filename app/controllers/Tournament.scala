@@ -13,6 +13,7 @@ import play.api.libs.json._
 import play.api.libs.iteratee._
 import play.api.libs.concurrent._
 import play.api.templates.Html
+import play.api.libs.concurrent.Execution.Implicits._
 
 object Tournament extends LilaController {
 
@@ -29,7 +30,7 @@ object Tournament extends LilaController {
       futureTournaments zip userRepo.sortedByToints(10).toFuture map {
         case (((created, started), finished), leaderboard) ⇒
           Ok(html.tournament.home(created, started, finished, leaderboard))
-      } asPromise
+      } 
     }
   }
 
@@ -40,7 +41,7 @@ object Tournament extends LilaController {
       futureTournaments map {
         case ((created, started), finished) ⇒
           Ok(html.tournament.homeInner(created, started, finished))
-      } asPromise
+      } 
     }
   }
 

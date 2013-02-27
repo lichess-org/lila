@@ -46,17 +46,17 @@ trait Positional { self: Config ⇒
 
   def fenDbGame(builder: Game ⇒ DbGame): DbGame = {
     val state = fen filter (_ ⇒ variant == Variant.FromPosition) flatMap Forsyth.<<<
-    val chessGame = state.fold({
+    val chessGame = state.fold(makeGame) {
       case sit @ SituationPlus(Situation(board, color), _) ⇒
         Game(board = board, player = color, turns = sit.turns)
-    }, makeGame)
+    }
     val dbGame = builder(chessGame)
-    state.fold({
+    state.fold(dbGame) {
       case sit @ SituationPlus(Situation(board, _), _) ⇒ dbGame.copy(
         variant = Variant.FromPosition,
         castles = board.history.castleNotation,
         turns = sit.turns)
-    }, dbGame)
+    }
   }
 }
 

@@ -6,10 +6,10 @@ case class LichessThread(
     subject: String,
     message: String) {
 
-  def toThread: Thread = Thread(
+  def toThread: Thread = Thread.make(
     name = subject,
     text = message,
-    creator = "lichess",
-    invited = to
+    creatorId = "lichess",
+    invitedId = to
   )
 }
