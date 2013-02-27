@@ -12,7 +12,7 @@ trait Resolvers {
   val guice = "guice-maven" at "http://guice-maven.googlecode.com/svn/trunk"
   val jgitMaven = "jgit-maven" at "http://download.eclipse.org/jgit/maven"
   val christophs = "Christophs Maven Repo" at "http://maven.henkelmann.eu/"
-	val sgodbillon = "sgodbillon" at "https://bitbucket.org/sgodbillon/repository/raw/master/snapshots/"
+  val sgodbillon = "sgodbillon" at "https://bitbucket.org/sgodbillon/repository/raw/master/snapshots/"
 }
 
 trait Dependencies {
@@ -34,8 +34,8 @@ trait Dependencies {
   val jodaConvert = "org.joda" % "joda-convert" % "1.2"
   val scalastic = "com.traackr" % "scalastic_2.9.2" % "0.0.6-HACKED"
   val findbugs = "com.google.code.findbugs" % "jsr305" % "1.3.+"
-  val reactivemongo = "reactivemongo" % "reactivemongo_2.10.0-RC2" % "0.1-SNAPSHOT" 
-  val playReactivemongo = "play.modules.reactivemongo" % "play2-reactivemongo_2.10.0-RC2" % "0.1-SNAPSHOT" 
+  val reactivemongo = "org.reactivemongo" %% "reactivemongo" % "0.9-SNAPSHOT"
+  val playReactivemongo = "play.modules.reactivemongo" %% "play2-reactivemongo" % "0.1-SNAPSHOT" cross CrossVersion.full
 }
 
 object ApplicationBuild extends Build with Resolvers with Dependencies {
@@ -57,7 +57,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     paginator, paginatorSalat, csv, jgit, actuarius, scalastic, findbugs,
     reactivemongo, playReactivemongo
   ), settings = Defaults.defaultSettings ++ buildSettings).settings(
-    scalaVersion := "2.10.0-RC3",
+    scalaVersion := "2.10.0",
     templatesImport ++= Seq(
       "lila.game.{ DbGame, DbPlayer, Pov }",
       "lila.user.User",
@@ -71,7 +71,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
 
   lazy val scalachess = Project("scalachess", file("scalachess"), settings = Project.defaultSettings ++ buildSettings).settings(
     resolvers := Seq(iliaz, sonatype),
-    scalaVersion := "2.10.0-RC3",
+    scalaVersion := "2.10.0",
     libraryDependencies := Seq(scalaz, scalalib, hasher, jodaTime, jodaConvert)
   )
 
