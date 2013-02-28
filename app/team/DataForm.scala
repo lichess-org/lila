@@ -11,7 +11,7 @@ final class DataForm(
     repo: TeamRepo,
     captcher: Captcha) {
 
-  import lila.core.Form._
+  import lila.common.Form._
 
   object Fields {
     val name = "name" -> text(minLength = 3, maxLength = 60)

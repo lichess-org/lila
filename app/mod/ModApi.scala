@@ -5,7 +5,7 @@ import user.{ User, UserRepo }
 import elo.EloUpdater
 import lobby.Messenger
 import security.{ Firewall, UserSpy, Store ⇒ SecurityStore }
-import core.Futuristic._
+import common.Futuristic._
 
 import scalaz.effects._
 import play.api.libs.concurrent.Execution.Implicits._

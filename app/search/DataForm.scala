@@ -11,7 +11,7 @@ import chess.{ Mode }
 
 final class DataForm {
 
-  import lila.core.Form._
+  import lila.common.Form._
 
   val search = Form(mapping(
     "players" -> mapping(

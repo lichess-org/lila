@@ -10,7 +10,7 @@ import play.api.data.validation.Constraints._
 
 final class DataForm(isDev: Boolean) {
 
-  import lila.core.Form._
+  import lila.common.Form._
 
   val clockTimes = 0 to 7 by 1
   val clockTimeDefault = 2

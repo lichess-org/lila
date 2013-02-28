@@ -11,7 +11,7 @@ trait StringHelper {
 
   def netDomain: String
 
-  val slugify = core.String.slugify _
+  val slugify = common.String.slugify _
 
   def shorten(text: String, length: Int, sep: String = " [...]"): String = {
     val t = text.replace("\n", " ")
