@@ -1,4 +1,4 @@
-@(preload: String, myHook: Option[lila.lobby.Hook], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], featured: Option[DbGame])(implicit ctx: Context)
+@(preload: String, myHook: Option[lila.app.lobby.Hook], forumRecent: List[lila.app.forum.PostLiteView], tours: List[lila.app.tournament.Created], featured: Option[DbGame])(implicit ctx: Context)
 
 @chat = {
 @for(m <- ctx.me; if m.canChat) {

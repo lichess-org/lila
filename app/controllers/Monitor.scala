@@ -31,7 +31,7 @@ object Monitor extends LilaController {
 
   def status = Open { implicit ctx ⇒
     Async {
-      import common.Futuristic.ioToFuture
+      import lila.common.Futuristic.ioToFuture
       (~get("key") match {
         case "elo" ⇒
           userRepo.idsAverageElo(usernameMemo.keys).toFuture zip

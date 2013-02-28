@@ -1,4 +1,4 @@
-@(tour: lila.tournament.Tournament, title: String, roomHtml: Html, version: Int, goodies: Html, side: Option[Html] = None)(body: Html)(implicit ctx: Context)
+@(tour: lila.app.tournament.Tournament, title: String, roomHtml: Html, version: Int, goodies: Html, side: Option[Html] = None)(body: Html)(implicit ctx: Context)
 
 @chat = {
 @for(m <- ctx.me; if m.canChat) {

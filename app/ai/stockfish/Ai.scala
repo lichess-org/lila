@@ -12,7 +12,7 @@ import play.api.Play.current
 import play.api.libs.concurrent._
 import play.api.libs.concurrent.Execution.Implicits._
 
-final class Ai(server: Server) extends lila.ai.Ai with Stockfish {
+final class Ai(server: Server) extends lila.app.ai.Ai with Stockfish {
 
   import model._
 

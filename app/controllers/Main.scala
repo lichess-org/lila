@@ -15,7 +15,7 @@ import scalaz.effects._
 
 object Main extends LilaController {
 
-  private lazy val runCommand = lila.cli.Main.main(env) _
+  private lazy val runCommand = lila.app.cli.Main.main(env) _
 
   def websocket = WebSocket.async[JsValue] { implicit req ⇒
     implicit val ctx = reqToCtx(req)

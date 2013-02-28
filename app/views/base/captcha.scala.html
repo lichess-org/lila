@@ -1,4 +1,4 @@
-@(move: Field, gameId: Field, captcha: lila.site.Captcha.Challenge)(implicit ctx: Context)
+@(move: Field, gameId: Field, captcha: lila.app.site.Captcha.Challenge)(implicit ctx: Context)
 <input type="hidden" name="@gameId.name" id="@gameId.id" value="@captcha.gameId" />
 <div class="checkmateCaptcha clearfix" data-check-url="@routes.Main.captchaCheck(captcha.gameId)">
   <div class="checkmateFen">

@@ -7,7 +7,7 @@ import game.DbGame
 import scalaz.effects._
 import scala.concurrent.Future
 
-final class StupidAi extends Ai with common.Futuristic {
+final class StupidAi extends Ai with lila.common.Futuristic {
 
   def play(dbGame: DbGame, pgn: String, initialFen: Option[String]): Future[Valid[(Game, Move)]] = Future {
 

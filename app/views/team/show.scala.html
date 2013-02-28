@@ -1,4 +1,4 @@
-@(t: lila.team.Team, members: Paginator[lila.team.MemberWithUser], info: lila.team.TeamInfo)(implicit ctx: Context)
+@(t: lila.app.team.Team, members: Paginator[lila.app.team.MemberWithUser], info: lila.app.team.TeamInfo)(implicit ctx: Context)
 
 @team.layout(title = t.name) {
 <div id="team" class="content_box no_padding team_show">

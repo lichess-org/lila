@@ -1,4 +1,4 @@
-@(paginator: Paginator[DbGame], listMenu: lila.game.ListMenu)(implicit ctx: Context)
+@(paginator: Paginator[DbGame], listMenu: lila.app.game.ListMenu)(implicit ctx: Context)
 
 @game.list(
 name = trans.nbAnalysedGames.str(listMenu.nbAnalysed.localize), 

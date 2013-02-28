@@ -7,7 +7,7 @@
 <div class="variants buttons">
   @setup.radios(form("variant"), translatedVariantChoices)
 </div>
-@setup.clock(form, lila.setup.HookConfig)
+@setup.clock(form, lila.app.setup.HookConfig)
 @if(ctx.isAuth) {
 <div class="mode_choice buttons">
   @setup.radios(form("mode"), translatedModeChoices)

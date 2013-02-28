@@ -3,7 +3,6 @@ package cli
 
 import scalaz.effects._
 
-import lila.app.parseIntOption
 import lila.app.core.{ Global, CoreEnv }
 
 object Main {
