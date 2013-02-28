@@ -1,9 +1,6 @@
-package lila.app
-package mongodb
+package lila.db
 
 import reactivemongo.api._
-
-import core.Settings
 
 final class Mongo2Env(val db: DB[Collection], settings: Settings) {
 

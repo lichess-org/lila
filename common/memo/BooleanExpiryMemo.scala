@@ -1,5 +1,4 @@
-package lila.app
-package memo
+package lila.common.memo
 
 import scalaz.effects._
 import scala.collection.JavaConversions._

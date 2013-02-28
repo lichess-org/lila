@@ -5,7 +5,7 @@ import play.api.libs.json._
 import scalaz.effects._
 
 import chess.Color
-import memo.Builder
+import lila.common.memo.Builder
 
 case class VersionedEvent(
     version: Int,

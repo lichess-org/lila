@@ -1,5 +1,4 @@
-package lila.app
-package mongodb
+package lila.db
 
 import reactivemongo.api._
 import reactivemongo.bson._

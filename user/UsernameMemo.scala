@@ -1,7 +1,6 @@
-package lila.app
-package user
+package lila.user
 
-import memo.BooleanExpiryMemo
+import lila.common.memo.BooleanExpiryMemo
 
 import scalaz.effects._
 

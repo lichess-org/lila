@@ -1,5 +1,4 @@
-package lila.app
-package user
+package lila.user
 
 import com.novus.salat.annotations.Key
 import org.joda.time.DateTime

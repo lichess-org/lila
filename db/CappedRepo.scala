@@ -1,5 +1,4 @@
-package lila.app
-package mongodb
+package lila.db
 
 import com.mongodb.casbah.MongoCollection
 import com.mongodb.casbah.Imports._

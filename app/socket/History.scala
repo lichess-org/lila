@@ -5,7 +5,7 @@ import scala.math.max
 import play.api.libs.json._
 import scalaz.effects._
 
-import memo.Builder
+import lila.common.memo.Builder
 
 final class History(timeout: Int) {
 

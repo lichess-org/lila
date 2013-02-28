@@ -1,5 +1,3 @@
 package lila
 
-package object common extends lila.common.PackageObject {
-
-}
+package object common extends common.PackageObject 

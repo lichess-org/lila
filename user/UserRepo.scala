@@ -1,5 +1,4 @@
-package lila.app
-package user
+package lila.user
 
 import com.novus.salat._
 import com.novus.salat.dao._

@@ -1,7 +1,5 @@
 package lila
 
-import ornicar.scalalib
-
 import com.novus.salat.{ Context, TypeHintFrequency, StringTypeHintStrategy }
 import com.mongodb.casbah.commons.conversions.scala.RegisterJodaTimeConversionHelpers
 

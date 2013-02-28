@@ -1,10 +1,7 @@
-package lila.app
-package user
+package lila.user
 
 import play.api.data._
 import play.api.data.Forms._
-
-import ui.Theme
 
 object DataForm {
 

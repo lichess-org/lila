@@ -1,19 +1,15 @@
-package lila.app
-package mongodb
+package lila.db
 
 import com.mongodb.casbah.MongoConnection
 import com.mongodb.{ Mongo, MongoOptions, ServerAddress ⇒ MongoServer }
 
-import core.Settings
-
-final class MongoDbEnv(
-    settings: Settings) {
+final class MongoDbEnv(settings: Settings) {
 
   import settings._
 
   def apply(coll: String) = connection(coll)
 
-  lazy val cache = new Cache(connection(CoreCollectionCache))
+  // lazy val cache = new Cache(connection(CoreCollectionCache))
 
   lazy val connection = MongoConnection(server, options)(MongoDbName)
 

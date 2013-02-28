@@ -2,7 +2,7 @@ package lila.app
 package templating
 
 import http.{ Context, Setting }
-import ui.Theme
+import lila.user.Theme
 
 import play.api.templates.Html
 

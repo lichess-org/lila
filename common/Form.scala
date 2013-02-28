@@ -1,5 +1,4 @@
-package lila
-package common
+package lila.common
 
 import play.api.data.Forms._
 

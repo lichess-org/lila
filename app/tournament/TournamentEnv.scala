@@ -7,7 +7,7 @@ import core.Settings
 import security.Flood
 import lobby.{ Socket ⇒ LobbySocket }
 import socket.History
-import memo.MonoMemo
+import lila.common.memo.MonoMemo
 
 import scalastic.elasticsearch
 import com.mongodb.casbah.MongoCollection

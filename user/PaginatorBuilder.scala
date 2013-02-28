@@ -1,5 +1,4 @@
-package lila.app
-package user
+package lila.user
 
 import com.github.ornicar.paginator._
 import com.mongodb.casbah.Imports.DBObject

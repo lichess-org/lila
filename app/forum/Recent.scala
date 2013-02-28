@@ -1,7 +1,7 @@
 package lila.app
 package forum
 
-import memo.Builder
+import lila.common.memo.Builder
 import user.User
 import security.{ Permission, Granter }
 

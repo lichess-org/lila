@@ -1,5 +1,4 @@
-package lila.app
-package ui
+package lila.user
 
 import scalaz.NonEmptyLists
 

@@ -16,7 +16,7 @@ import round.{ Socket ⇒ RoundSocket, Messenger ⇒ RoundMessenger }
 import socket.History
 import security.Flood
 import core.Settings
-import memo.BooleanExpiryMemo
+import lila.common.memo.BooleanExpiryMemo
 
 final class LobbyEnv(
     app: Application,
