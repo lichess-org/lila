@@ -1,6 +1,6 @@
 package controllers
 
-import lila._
+import lila.app._
 import http.{ Context, LilaCookie }
 import lobby.Hook
 import views._

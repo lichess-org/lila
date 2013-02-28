@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package templating
 
 import java.text.SimpleDateFormat

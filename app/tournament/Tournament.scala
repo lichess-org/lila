@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package tournament
 
 import org.joda.time.{ DateTime, Duration }
@@ -272,7 +272,7 @@ case class RawTournament(
 
 object Tournament {
 
-  import lila.core.Form._
+  import lila.app.core.Form._
 
   def apply(
     createdBy: User,

@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package round
 
 import com.novus.salat.annotations.Key

@@ -1,6 +1,6 @@
 package controllers
 
-import lila._
+import lila.app._
 import views._
 import http.Context
 import game.{ DbGame, Pov }

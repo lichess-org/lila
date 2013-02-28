@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package tournament
 
 import socket.{ History, Broom, Close, GetNbMembers, GetUsernames, NbMembers, SendTo, SendTos, Fen }

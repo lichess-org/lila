@@ -1,7 +1,7 @@
-package lila
+package lila.app
 package mongodb
 
-import lila.core.Global
+import lila.app.core.Global
 
 import play.api.Application
 import play.api.cache.{ CacheAPI, CachePlugin => PlayCachePlugin }

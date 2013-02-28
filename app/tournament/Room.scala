@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package tournament
 
 import controllers.routes.User.{ show ⇒ userRoute }

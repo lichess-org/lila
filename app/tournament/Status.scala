@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package tournament
 
 sealed abstract class Status(val id: Int) extends Ordered[Status] {

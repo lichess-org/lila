@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package monitor
 
 import play.api.libs.concurrent.Promise

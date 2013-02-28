@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package security
 
 sealed abstract class Permission(val name: String) {

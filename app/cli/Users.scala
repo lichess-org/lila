@@ -1,8 +1,8 @@
-package lila
+package lila.app
 package cli
 
-import lila.user.{ UserEnv, User, UserRepo }
-import lila.security.{ Store, Permission }
+import lila.app.user.{ UserEnv, User, UserRepo }
+import lila.app.security.{ Store, Permission }
 import scalaz.effects._
 
 private[cli] case class Users(userEnv: UserEnv, deleteUsername: String ⇒ IO[Unit]) {

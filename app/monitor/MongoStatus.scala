@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package monitor
 
 import com.mongodb.casbah.MongoDB

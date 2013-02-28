@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package templating
 
 import com.github.ornicar.paginator.Paginator

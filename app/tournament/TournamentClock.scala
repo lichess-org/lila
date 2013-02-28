@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package tournament
 
 // All durations are expressed in seconds

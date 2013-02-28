@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package csv
 
 import com.github.tototoshi.csv.CSVWriter

@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package mongodb
 
 import com.github.ornicar.paginator._

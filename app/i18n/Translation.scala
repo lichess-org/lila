@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package i18n
 
 import com.novus.salat.annotations.Key

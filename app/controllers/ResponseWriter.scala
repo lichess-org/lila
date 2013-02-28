@@ -1,6 +1,6 @@
 package controllers
 
-import lila._
+import lila.app._
 
 import play.api.http._
 import play.api.mvc.Codec

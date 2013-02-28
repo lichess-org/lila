@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 import play.api.libs.concurrent.Execution.Implicits._
 import akka.util.Timeout
 
-import lila._
+import lila.app._
 import socket.GetNbMembers
 import monitor._
 

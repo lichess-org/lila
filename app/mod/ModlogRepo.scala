@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package mod
 
 final class ModlogRepo(db: LilaDB, name: String)

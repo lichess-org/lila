@@ -1,6 +1,6 @@
 package controllers
 
-import lila._
+import lila.app._
 import team.{ Joined, Motivate, Team ⇒ TeamModel, TeamEdit }
 import user.{ User ⇒ UserModel }
 import views._

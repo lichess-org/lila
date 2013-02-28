@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package i18n
 
 private[i18n] object Contributors {

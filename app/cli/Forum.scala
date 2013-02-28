@@ -1,7 +1,7 @@
-package lila
+package lila.app
 package cli
 
-import lila.forum.ForumEnv
+import lila.app.forum.ForumEnv
 import scalaz.effects._
 
 private[cli] case class Forum(env: ForumEnv) {

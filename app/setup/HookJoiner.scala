@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package setup
 
 import lobby.{ HookRepo, Hook, Fisherman }

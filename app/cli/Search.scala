@@ -1,8 +1,8 @@
-package lila
+package lila.app
 package cli
 
-import lila.search.SearchEnv
-import lila.search.Query
+import lila.app.search.SearchEnv
+import lila.app.search.Query
 import scalaz.effects._
 
 private[cli] case class Search(env: SearchEnv) {
