@@ -1,7 +1,7 @@
 package lila.app
 package security
 
-import memo.Builder
+import lila.common.memo.Builder
 
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._

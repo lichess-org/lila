@@ -1,5 +1,4 @@
-package lila.app
-package user
+package lila.user
 
 import scala.math.round
 import scalaz.effects._

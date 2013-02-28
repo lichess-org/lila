@@ -1,5 +1,4 @@
-package lila.app
-package memo
+package lila.common.memo
 
 import com.google.common.base.Function
 import com.google.common.cache._

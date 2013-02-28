@@ -1,5 +1,4 @@
-package lila.app
-package mongodb
+package lila.db
 
 import com.github.ornicar.paginator._
 import com.novus.salat.dao.DAO

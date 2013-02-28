@@ -1,7 +1,7 @@
 package lila.app
 package setup
 
-import memo.Builder
+import lila.common.memo.Builder
 
 import scalaz.effects._
 

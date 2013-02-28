@@ -1,8 +1,8 @@
 package lila.app
 package http
 
-import ui.Theme
-import user.UserRepo
+import lila.user.Theme
+import lila.user.UserRepo
 
 import scalaz.effects._
 import play.api.mvc.Cookie

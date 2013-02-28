@@ -3,7 +3,7 @@ package game
 
 import scala.concurrent.duration._
 
-import memo.ActorMemo
+import lila.common.memo.ActorMemo
 
 private[game] final class Cached(
     gameRepo: GameRepo,

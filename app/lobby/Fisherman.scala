@@ -2,7 +2,7 @@ package lila.app
 package lobby
 
 import game.DbGame
-import memo.BooleanExpiryMemo
+import lila.common.memo.BooleanExpiryMemo
 
 import scalaz.effects._
 

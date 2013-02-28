@@ -1,7 +1,6 @@
-package lila.app
-package user
+package lila.user
 
-import memo.ActorMemo
+import lila.common.memo.ActorMemo
 
 import scala.concurrent.duration._
 import scala.collection.mutable

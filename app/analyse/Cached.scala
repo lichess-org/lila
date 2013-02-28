@@ -3,7 +3,7 @@ package analyse
 
 import scala.concurrent.duration._
 
-import memo.ActorMemo
+import lila.common.memo.ActorMemo
 
 final class Cached(
     analysisRepo: AnalysisRepo,

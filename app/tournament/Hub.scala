@@ -3,7 +3,7 @@ package tournament
 
 import game.DbGame
 import socket._
-import memo.BooleanExpiryMemo
+import lila.common.memo.BooleanExpiryMemo
 
 import akka.actor._
 import scala.concurrent.duration._

@@ -28,7 +28,7 @@ trait Dependencies {
   val paginator = "com.github.ornicar" % "paginator-core_2.9.1" % "1.6"
   val paginatorSalat = "com.github.ornicar" % "paginator-salat-adapter_2.9.1" % "1.5"
   val csv = "com.github.tototoshi" % "scala-csv_2.9.1" % "0.3"
-  val hasher = "hasher" %% "hasher" % "0.3.1" 
+  val hasher = "hasher" %% "hasher" % "0.3.1"
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "1.3.0.201202151440-r"
   val actuarius = "eu.henkelmann" % "actuarius_2.9.2" % "0.2.4"
   val jodaTime = "joda-time" % "joda-time" % "2.1"
@@ -44,7 +44,11 @@ trait Dependencies {
 object ApplicationBuild extends Build with Resolvers with Dependencies {
 
   private val buildSettings = Defaults.defaultSettings ++ Seq(
-    scalaVersion := "2.10.0",
+    organization in ThisBuild := "org.lichess",
+    scalaVersion in ThisBuild := "2.10.0",
+    resolvers in ThisBuild ++= Seq(
+      awesomepom, sgodbillon, iliaz, sonatype, sonatypeS, 
+      typesafe, t2v, guice, jgitMaven, christophs),
     scalacOptions := Seq(
       "-deprecation",
       "-unchecked",
@@ -52,36 +56,43 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       "-language:_")
   )
 
-  lazy val lila = play.Project("lila", "3", Seq(
-    scalaz, scalalib, hasher, config, salat, guava, apache, scalaTime,
-    paginator, paginatorSalat, csv, jgit, actuarius, scalastic, findbugs,
-    reactivemongo, playReactivemongo
-  ), settings = buildSettings).settings(
-    templatesImport ++= Seq(
-      "lila.app.game.{ DbGame, DbPlayer, Pov }",
-      "lila.app.user.User",
-      "lila.app.security.Permission",
-      "lila.app.templating.Environment._",
-      "lila.app.ui",
-      "lila.app.http.Context",
-      "com.github.ornicar.paginator.Paginator"),
-    resolvers ++= Seq(awesomepom, sgodbillon, iliaz, sonatype, sonatypeS, typesafe, t2v, guice, jgitMaven, christophs)
-  ) dependsOn (scalachess, common, game) aggregate (scalachess, common, game)
+  lazy val lila = play.Project("lila", "4",
+    settings = buildSettings ++ Seq(
+      libraryDependencies := Seq(
+        scalaz, scalalib, hasher, config, salat, guava, apache, scalaTime,
+        paginator, paginatorSalat, csv, jgit, actuarius, scalastic, findbugs,
+        reactivemongo),
+      templatesImport ++= Seq(
+        "lila.app.game.{ DbGame, DbPlayer, Pov }",
+        "lila.app.user.User",
+        "lila.app.security.Permission",
+        "lila.app.templating.Environment._",
+        "lila.app.ui",
+        "lila.app.http.Context",
+        "com.github.ornicar.paginator.Paginator")
+    )) dependsOn (user) aggregate (scalachess, common, db, user)
 
   lazy val common = project("common").settings(
-    resolvers := Seq(iliaz, sonatype),
-    libraryDependencies := Seq(scalaz, scalalib, jodaTime, jodaConvert, playProvided)
+    libraryDependencies := Seq(scalaz, scalalib, jodaTime, jodaConvert, playProvided, guava, 
+      reactivemongo)
   )
 
-  lazy val user = project("user").settings(
-    resolvers := Seq(iliaz, sonatype),
-    libraryDependencies := Seq(scalaz, scalalib, jodaTime, jodaConvert, playProvided)
-  ) dependsOn (scalachess)
+  lazy val db = project("db", Seq(common)).settings(
+    libraryDependencies := Seq(scalaz, scalalib, playProvided, guava, salat, reactivemongo,
+      paginator, paginatorSalat, playReactivemongo)
+  )
+
+  lazy val user = project("user", Seq(scalachess, common, db)).settings(
+    libraryDependencies := Seq(scalaz, scalalib, jodaTime, jodaConvert, playProvided, salat,
+      paginator, paginatorSalat)
+  ) 
 
   lazy val scalachess = project("scalachess").settings(
-    resolvers := Seq(iliaz, sonatype, awesomepom),
     libraryDependencies := Seq(scalaz, scalalib, hasher, jodaTime, jodaConvert)
   )
 
-  private def project(name: String) = Project(name, file(name), settings = buildSettings)
+  private type DepType = sbt.ClasspathDep[sbt.ProjectReference]
+
+  private def project(name: String, deps: Seq[DepType] = Seq.empty) = 
+    Project(name, file(name), settings = buildSettings, dependencies = deps)
 }

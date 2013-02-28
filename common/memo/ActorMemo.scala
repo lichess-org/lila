@@ -1,5 +1,4 @@
-package lila.app
-package memo
+package lila.common.memo
 
 import akka.actor._
 import scala.concurrent.{ Future, Await }
