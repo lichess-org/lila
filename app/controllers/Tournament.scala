@@ -5,7 +5,7 @@ import views._
 import game.Pov
 import tournament.{ Created, Started, Finished }
 import http.Context
-import common.Futuristic.ioToFuture
+import lila.common.Futuristic.ioToFuture
 
 import scalaz.effects._
 import play.api.mvc._

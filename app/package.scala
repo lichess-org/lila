@@ -1,9 +1,11 @@
+package lila
+
 import ornicar.scalalib
 
 import com.novus.salat.{ Context, TypeHintFrequency, StringTypeHintStrategy }
 import com.mongodb.casbah.commons.conversions.scala.RegisterJodaTimeConversionHelpers
 
-package object lila extends common.PackageObject {
+package object app extends lila.common.PackageObject {
 
   // custom salat context
   implicit val customSalatContext = new Context {

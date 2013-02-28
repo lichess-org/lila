@@ -13,7 +13,7 @@ import scalaz.effects._
 object Cli extends LilaController {
 
   private def userRepo = env.user.userRepo
-  private def runCommand = lila.cli.Main.main(env) _
+  private def runCommand = lila.app.cli.Main.main(env) _
 
   private lazy val form = Form(tuple(
     "command" -> nonEmptyText,

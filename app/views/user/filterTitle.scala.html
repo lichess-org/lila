@@ -1,28 +1,28 @@
-@(info: lila.user.UserInfo, filter: lila.user.GameFilter)(implicit ctx: Context)
+@(info: lila.app.user.UserInfo, filter: lila.app.user.GameFilter)(implicit ctx: Context)
 
 @filter match {
-case lila.user.GameFilter.All => {
+case lila.app.user.GameFilter.All => {
 @info.user.nbGames @trans.gamesPlayed()
 }
-case lila.user.GameFilter.Me => {
+case lila.app.user.GameFilter.Me => {
 @ctx.me.fold("-")(me => "%d vs me".format(info.nbWithMe | 0))
 }
-case lila.user.GameFilter.Rated => {
+case lila.app.user.GameFilter.Rated => {
 @info.nbRated @trans.rated()
 }
-case lila.user.GameFilter.Win => {
+case lila.app.user.GameFilter.Win => {
 @trans.nbWins(info.user.nbWins)
 }
-case lila.user.GameFilter.Loss => {
+case lila.app.user.GameFilter.Loss => {
 @trans.nbLosses(info.user.nbLosses)
 }
-case lila.user.GameFilter.Draw => {
+case lila.app.user.GameFilter.Draw => {
 @trans.nbDraws(info.user.nbDraws)
 }
-case lila.user.GameFilter.Playing => {
+case lila.app.user.GameFilter.Playing => {
 @info.nbPlaying playing
 }
-case lila.user.GameFilter.Bookmark => {
+case lila.app.user.GameFilter.Bookmark => {
 @info.nbBookmark bookmarks
 }
 }

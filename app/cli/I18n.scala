@@ -1,7 +1,6 @@
 package lila.app
 package cli
 
-import lila.app.parseIntOption
 import lila.app.i18n.I18nEnv
 import play.api.i18n.Lang
 import java.io._

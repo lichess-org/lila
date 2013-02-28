@@ -1,4 +1,4 @@
-@(u: User, info: lila.user.UserInfo, games: Paginator[DbGame], filters: lila.user.GameFilterMenu)(implicit ctx: Context)
+@(u: User, info: lila.app.user.UserInfo, games: Paginator[DbGame], filters: lila.app.user.GameFilterMenu)(implicit ctx: Context)
 
 @title = @{ "%s : %s - page %d".format(u.username, filterTitle(info, filters.current), games.currentPage) }
 
