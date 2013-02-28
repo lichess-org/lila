@@ -2,18 +2,9 @@ package lila.common
 
 import ornicar.scalalib
 
-import play.api.libs.json.JsValue
-import play.api.libs.concurrent.Promise
-import play.api.libs.iteratee.{ Iteratee, Enumerator }
-import play.api.libs.iteratee.Concurrent.Channel
-import play.api.Play.current
-import scala.concurrent.{ Future, Promise }
-
 import scalaz.effects.{ io, IO }
 
-import reactivemongo.api.{ DB, Collection }
-
-trait PackageObject 
+trait PackageObject
     extends scalalib.Validation
     with scalalib.Common
     with scalalib.Regex
@@ -25,14 +16,6 @@ trait PackageObject
     with scalaz.Lists
     with scalaz.Zeros
     with scalaz.Booleans {
-
-  type JsChannel = Channel[JsValue]
-  type JsEnumerator = Enumerator[JsValue]
-  type SocketFuture = Future[(Iteratee[JsValue, _], JsEnumerator)]
-
-  type Fu[A] = Future[A]
-  type Funit = Fu[Unit]
-  type LilaDB = DB[Collection]
 
   val toVoid = (_: Any) ⇒ ()
 
@@ -72,4 +55,28 @@ trait PackageObject
 
   def printToFile(f: String)(op: java.io.PrintWriter ⇒ Unit): IO[Unit] =
     printToFile(new java.io.File(f))(op)
+}
+
+trait WithDb { self: PackageObject ⇒
+
+  import reactivemongo.api.{ DB, Collection }
+
+  type LilaDB = DB[Collection]
+}
+
+trait WithPlay { self: PackageObject ⇒
+
+  import play.api.libs.json.JsValue
+  import play.api.libs.concurrent.Promise
+  import play.api.libs.iteratee.{ Iteratee, Enumerator }
+  import play.api.libs.iteratee.Concurrent.Channel
+  import play.api.Play.current
+  import scala.concurrent.{ Future, Promise }
+
+  type JsChannel = Channel[JsValue]
+  type JsEnumerator = Enumerator[JsValue]
+  type SocketFuture = Future[(Iteratee[JsValue, _], JsEnumerator)]
+
+  type Fu[A] = Future[A]
+  type Funit = Fu[Unit]
 }

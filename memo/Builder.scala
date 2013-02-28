@@ -1,4 +1,4 @@
-package lila.common.memo
+package lila.memo
 
 import com.google.common.base.Function
 import com.google.common.cache._
@@ -12,11 +12,6 @@ object Builder {
    */
   def cache[K, V](ttl: Int, f: K ⇒ V): LoadingCache[K, V] =
     cacheBuilder[K, V](ttl)
-      .build[K, V](f)
-
-  def cacheWithRemovalListener[K, V](ttl: Int, f: K ⇒ V)(onRemove: (K, V) ⇒ Unit): LoadingCache[K, V] =
-    cacheBuilder[K, V](ttl)
-      .removalListener(onRemove)
       .build[K, V](f)
 
   def expiry[K, V](ttl: Int): Cache[K, V] =

@@ -1,10 +1,9 @@
 package lila.user
 
 import com.mongodb.casbah.MongoCollection
+import akka.actor.ActorSystem
 
 import chess.EloCalculator
-import elo.EloUpdater
-import core.Settings
 
 final class UserEnv(
     settings: Settings,
@@ -12,26 +11,26 @@ final class UserEnv(
 
   import settings._
 
-  lazy val historyRepo = new HistoryRepo(mongodb(UserCollectionHistory))
+  lazy val historyRepo = new HistoryRepo(mongodb(CollectionHistory))
 
   lazy val userRepo = new UserRepo(
-    collection = mongodb(UserCollectionUser))
+    collection = mongodb(CollectionUser))
 
   lazy val paginator = new PaginatorBuilder(
     userRepo = userRepo,
     countUsers = () ⇒ cached.countEnabled,
-    maxPerPage = UserPaginatorMaxPerPage)
+    maxPerPage = PaginatorMaxPerPage)
 
   lazy val eloUpdater = new EloUpdater(
     userRepo = userRepo,
     historyRepo = historyRepo,
-    floor = UserEloUpdaterFloor)
+    floor = EloUpdaterFloor)
 
-  lazy val usernameMemo = new UsernameMemo(timeout = MemoUsernameTimeout)
+  lazy val usernameMemo = new UsernameMemo(ttl = OnlineTtl)
 
   lazy val cached = new Cached(
     userRepo = userRepo,
-    nbTtl = UserCachedNbTtl)
+    nbTtl = CachedNbTtl)
 
   lazy val eloChart = EloChart(historyRepo) _
 }
