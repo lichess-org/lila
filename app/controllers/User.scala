@@ -38,7 +38,7 @@ object User extends LilaController {
   private def userShow(u: UserModel, filterName: String, page: Int)(implicit ctx: Context) =
     (u.enabled || isGranted(_.MarkEngine)).fold({
       val userSpy = isGranted(_.UserSpy) option securityStore.userSpy _
-      env.user.userInfo(u, bookmarkApi, userSpy, ctx) map { info ⇒
+      env.userInfo(u, bookmarkApi, userSpy, ctx) map { info ⇒
         val filters = user.GameFilterMenu(info, ctx.me, filterName)
         val paginator = filters.query.fold(bookmarkApi.gamePaginatorByUser(u, page)) { query ⇒
           gamePaginator.recentlyCreated(query, filters.cachedNb)(page)

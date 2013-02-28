@@ -4,14 +4,12 @@ package user
 import com.mongodb.casbah.MongoCollection
 
 import chess.EloCalculator
-import game.GameRepo
 import elo.EloUpdater
 import core.Settings
 
 final class UserEnv(
     settings: Settings,
-    mongodb: String ⇒ MongoCollection,
-    gameRepo: GameRepo) {
+    mongodb: String ⇒ MongoCollection) {
 
   import settings._
 
@@ -37,11 +35,4 @@ final class UserEnv(
     nbTtl = UserCachedNbTtl)
 
   lazy val eloChart = EloChart(historyRepo) _
-
-  lazy val userInfo = UserInfo(
-    userRepo = userRepo,
-    countUsers = () ⇒ cached.countEnabled,
-    gameRepo = gameRepo,
-    eloCalculator = new EloCalculator,
-    eloChartBuilder = eloChart) _
 }

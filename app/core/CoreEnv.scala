@@ -36,8 +36,14 @@ final class CoreEnv private (application: Application, val settings: Settings) {
 
   lazy val user = new lila.app.user.UserEnv(
     settings = settings,
-    mongodb = mongodb.apply _,
-    gameRepo = game.gameRepo)
+    mongodb = mongodb.apply _)
+
+  lazy val userInfo = lila.app.user.UserInfo(
+    userRepo = user.userRepo,
+    countUsers = () ⇒ user.cached.countEnabled,
+    gameRepo = game.gameRepo,
+    eloCalculator = new chess.EloCalculator,
+    eloChartBuilder = user.eloChart) _
 
   lazy val forum = new lila.app.forum.ForumEnv(
     settings = settings,
