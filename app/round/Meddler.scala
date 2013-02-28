@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package round
 
 import game.{ DbGame, GameRepo, PovRef, Pov }

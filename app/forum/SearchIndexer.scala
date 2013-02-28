@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package forum
 
 import search.{ ElasticSearch, TypeIndexer }

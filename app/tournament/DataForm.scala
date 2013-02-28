@@ -1,8 +1,8 @@
-package lila
+package lila.app
 package tournament
 
 import chess.{ Mode, Variant }
-import lila.setup.Mappings
+import lila.app.setup.Mappings
 
 import play.api.data._
 import play.api.data.Forms._
@@ -10,7 +10,7 @@ import play.api.data.validation.Constraints._
 
 final class DataForm(isDev: Boolean) {
 
-  import lila.core.Form._
+  import lila.app.core.Form._
 
   val clockTimes = 0 to 7 by 1
   val clockTimeDefault = 2

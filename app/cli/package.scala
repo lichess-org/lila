@@ -1,4 +1,4 @@
-package lila
+package lila.app
 
 import ornicar.scalalib
 

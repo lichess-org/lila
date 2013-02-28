@@ -1,6 +1,6 @@
 package controllers
 
-import lila._
+import lila.app._
 import user.{ User ⇒ UserModel }
 import security.{ AuthImpl, Permission, Granter }
 import http.{ Context, HeaderContext, BodyContext }

@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package core
 
 import akka.actor.ActorRef

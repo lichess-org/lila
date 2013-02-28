@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package user
 
 import play.api.data._

@@ -1,10 +1,10 @@
-package lila
+package lila.app
 package cli
 
 import scalaz.effects._
 
-import lila.parseIntOption
-import lila.core.{ Global, CoreEnv }
+import lila.app.parseIntOption
+import lila.app.core.{ Global, CoreEnv }
 
 object Main {
 

@@ -1,7 +1,7 @@
-package lila
+package lila.app
 package cli
 
-import lila.core.CoreEnv
+import lila.app.core.CoreEnv
 import scalaz.effects._
 
 private[cli] case class Infos(env: CoreEnv) {

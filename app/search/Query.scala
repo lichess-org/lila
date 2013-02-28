@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package search
 
 import ElasticSearch.Request
@@ -81,7 +81,7 @@ case class Query(
 
 object Query {
   
-  import lila.core.Form._
+  import lila.app.core.Form._
 
   val durations = options(List(1, 2, 3, 5, 10, 15, 20, 30), "%d minute{s}")
 

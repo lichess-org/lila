@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package analyse
 
 import chess.{ Pos, Color, White, Black }

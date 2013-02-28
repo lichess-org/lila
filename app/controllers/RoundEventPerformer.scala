@@ -1,6 +1,6 @@
 package controllers
 
-import lila._
+import lila.app._
 import core.CoreEnv
 import round.Event
 import game.{ DbGame, Pov }

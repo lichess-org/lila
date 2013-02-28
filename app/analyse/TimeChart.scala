@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package analyse
 
 import game.{ DbPlayer, DbGame, Namer }

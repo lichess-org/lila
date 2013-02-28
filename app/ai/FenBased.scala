@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package ai
 
 import chess.{ Game, Move, ReverseEngineering, Variant }

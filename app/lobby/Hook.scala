@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package lobby
 
 import chess.{ Variant, Mode, Clock }

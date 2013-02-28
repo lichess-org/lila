@@ -1,7 +1,7 @@
 @(listMenu: lila.game.ListMenu, form: Form[_], paginator: Option[Paginator[DbGame]] = None)(implicit ctx: Context)
 
-@import lila.search.Query
-@import lila.search.Sorting
+@import lila.app.search.Query
+@import lila.app.search.Sorting
 
 @moreCss = {
 @cssTag("search.css")

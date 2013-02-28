@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package security
 
 import play.api.mvc.RequestHeader

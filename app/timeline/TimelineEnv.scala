@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package timeline
 
 import com.mongodb.casbah.MongoCollection

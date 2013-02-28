@@ -1,8 +1,8 @@
-package lila
+package lila.app
 package cli
 
-import lila.parseIntOption
-import lila.i18n.I18nEnv
+import lila.app.parseIntOption
+import lila.app.i18n.I18nEnv
 import play.api.i18n.Lang
 import java.io._
 import scalaz.effects._

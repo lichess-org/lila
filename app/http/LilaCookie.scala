@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package http
 
 import play.api.mvc.{ Cookie, Session, RequestHeader }

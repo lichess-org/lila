@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package mongodb
 
 import play.api.libs.json._

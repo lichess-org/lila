@@ -1,7 +1,7 @@
 // Generated with bin/trans-dump
-package lila.i18n
+package lila.app.i18n
 
-import lila.http.Context
+import lila.app.http.Context
 
 import play.api.templates.Html
 import play.api.i18n.Lang

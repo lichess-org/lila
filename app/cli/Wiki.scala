@@ -1,7 +1,7 @@
-package lila
+package lila.app
 package cli
 
-import lila.wiki.WikiEnv
+import lila.app.wiki.WikiEnv
 import scalaz.effects._
 
 private[cli] case class Wiki(env: WikiEnv) {

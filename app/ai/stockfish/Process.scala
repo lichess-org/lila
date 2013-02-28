@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package ai.stockfish
 
 import java.io.OutputStream

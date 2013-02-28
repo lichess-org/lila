@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package setup
 
 import scala.util.Random.nextBoolean

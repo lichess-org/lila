@@ -1,4 +1,4 @@
-package lila
+package lila.app
 package message
 
 import user.{ User, UserRepo }
