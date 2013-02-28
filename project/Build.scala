@@ -37,14 +37,13 @@ trait Dependencies {
   val findbugs = "com.google.code.findbugs" % "jsr305" % "1.3.+"
   val reactivemongo = "org.reactivemongo" %% "reactivemongo" % "0.9-SNAPSHOT"
   val playReactivemongo = "play.modules.reactivemongo" %% "play2-reactivemongo" % "0.1-SNAPSHOT" cross CrossVersion.full
+  val playProvided = "play" %% "play" % "2.1-SNAPSHOT" % "provided"
 }
 
 object ApplicationBuild extends Build with Resolvers with Dependencies {
 
-  private val buildSettings = Seq(
-    shellPrompt := {
-      (state: State) ⇒ "%s> ".format(Project.extract(state).currentProject.id)
-    },
+  private val buildSettings = Defaults.defaultSettings ++ Seq(
+    scalaVersion := "2.10.0",
     scalacOptions := Seq(
       "-deprecation",
       "-unchecked",
@@ -57,8 +56,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     scalaz, scalalib, hasher, config, salat, guava, apache, scalaTime,
     paginator, paginatorSalat, csv, jgit, actuarius, scalastic, findbugs,
     reactivemongo, playReactivemongo
-  ), settings = Defaults.defaultSettings ++ buildSettings).settings(
-    scalaVersion := "2.10.0",
+  ), settings = buildSettings).settings(
     templatesImport ++= Seq(
       "lila.game.{ DbGame, DbPlayer, Pov }",
       "lila.user.User",
@@ -68,11 +66,22 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       "lila.http.Context",
       "com.github.ornicar.paginator.Paginator"),
     resolvers ++= Seq(awesomepom, sgodbillon, iliaz, sonatype, sonatypeS, typesafe, t2v, guice, jgitMaven, christophs)
-  ) dependsOn scalachess aggregate scalachess
+  ) dependsOn (scalachess, common, game) aggregate (scalachess, common, game)
 
-  lazy val scalachess = Project("scalachess", file("scalachess"), settings = Project.defaultSettings ++ buildSettings).settings(
+  lazy val common = project("common").settings(
+    resolvers := Seq(iliaz, sonatype),
+    libraryDependencies := Seq(scalaz, scalalib, jodaTime, jodaConvert, playProvided)
+  )
+
+  lazy val game = project("game").settings(
+    resolvers := Seq(iliaz, sonatype),
+    libraryDependencies := Seq(scalaz, scalalib, jodaTime, jodaConvert, playProvided)
+  )
+
+  lazy val scalachess = project("scalachess").settings(
     resolvers := Seq(iliaz, sonatype, awesomepom),
-    scalaVersion := "2.10.0",
     libraryDependencies := Seq(scalaz, scalalib, hasher, jodaTime, jodaConvert)
   )
+
+  private def project(name: String) = Project(name, file(name), settings = buildSettings)
 }

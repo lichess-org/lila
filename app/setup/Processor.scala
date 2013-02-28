@@ -21,7 +21,7 @@ final class Processor(
     pgnRepo: PgnRepo,
     fisherman: Fisherman,
     timelinePush: DbGame ⇒ IO[Unit],
-    ai: () ⇒ Ai) extends core.Futuristic {
+    ai: () ⇒ Ai) extends common.Futuristic {
 
   def filter(config: FilterConfig)(implicit ctx: Context): IO[Unit] = 
     saveConfig(_ withFilter config)

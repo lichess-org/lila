@@ -272,7 +272,7 @@ case class RawTournament(
 
 object Tournament {
 
-  import lila.core.Form._
+  import lila.common.Form._
 
   def apply(
     createdBy: User,

@@ -1,5 +1,5 @@
 package lila
-package core
+package common
 
 import play.api.data.Forms._
 
