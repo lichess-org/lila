@@ -48,8 +48,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       "-deprecation",
       "-unchecked",
       "-feature",
-      "-language:_",
-      "-Dscalac.patmat.analysisBudget=off")
+      "-language:_")
   )
 
   lazy val lila = play.Project("lila", "3", Seq(
@@ -58,12 +57,12 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     reactivemongo, playReactivemongo
   ), settings = buildSettings).settings(
     templatesImport ++= Seq(
-      "lila.game.{ DbGame, DbPlayer, Pov }",
-      "lila.user.User",
-      "lila.security.Permission",
-      "lila.templating.Environment._",
-      "lila.ui",
-      "lila.http.Context",
+      "lila.app.game.{ DbGame, DbPlayer, Pov }",
+      "lila.app.user.User",
+      "lila.app.security.Permission",
+      "lila.app.templating.Environment._",
+      "lila.app.ui",
+      "lila.app.http.Context",
       "com.github.ornicar.paginator.Paginator"),
     resolvers ++= Seq(awesomepom, sgodbillon, iliaz, sonatype, sonatypeS, typesafe, t2v, guice, jgitMaven, christophs)
   ) dependsOn (scalachess, common, game) aggregate (scalachess, common, game)
