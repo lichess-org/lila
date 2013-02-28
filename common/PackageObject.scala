@@ -79,4 +79,6 @@ trait WithPlay { self: PackageObject ⇒
 
   type Fu[A] = Future[A]
   type Funit = Fu[Unit]
+
+  def funit = Future successful ()
 }

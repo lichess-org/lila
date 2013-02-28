@@ -1,11 +1,11 @@
 package lila.user
 
-import com.novus.salat.annotations.Key
+import lila.db.JsonTube
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 
 case class User(
-    @Key("_id") id: String,
+    id: String,
     username: String,
     elo: Int,
     nbGames: Int,
@@ -28,17 +28,17 @@ case class User(
 
   def muted = isChatBan
 
-  def canChat = 
-    !isChatBan && 
-    nbGames >= 3 &&
-    createdAt < (DateTime.now - 3.hours)
+  def canChat =
+    !isChatBan &&
+      nbGames >= 3 &&
+      createdAt < (DateTime.now - 3.hours)
 
   def canMessage = !muted
 
-  def canTeam = 
-    !isChatBan && 
-    nbGames >= 3 &&
-    createdAt < (DateTime.now - 1.day)
+  def canTeam =
+    !isChatBan &&
+      nbGames >= 3 &&
+      createdAt < (DateTime.now - 1.day)
 
   def disabled = !enabled
 
@@ -51,9 +51,13 @@ case class User(
   def hasGames = nbGames > 0
 }
 
-object User {
+object Users {
 
   val STARTING_ELO = 1200
 
   val anonymous = "Anonymous"
+
+  import play.api.libs.json.Json
+
+  val json = JsonTube(Json.reads[User], Json.writes[User])
 }
