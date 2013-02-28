@@ -1,5 +1,4 @@
-package lila.app
-package elo
+package lila.common
 
 case class EloRange(min: Int, max: Int) {
 

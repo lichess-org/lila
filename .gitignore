@@ -11,4 +11,7 @@ target
 bin/.translate_version
 data/
 dist/
+
+db/lib/
+
 RUNNING_PID

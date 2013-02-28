@@ -3,12 +3,9 @@ package lila.user
 import com.github.ornicar.paginator._
 import com.mongodb.casbah.Imports.DBObject
 
-import mongodb.CachedAdapter
+import lila.db.CachedAdapter
 
-final class PaginatorBuilder(
-    userRepo: UserRepo,
-    countUsers: () ⇒ Int,
-    maxPerPage: Int) {
+final class PaginatorBuilder(userRepo: UserRepo, countUsers: () ⇒ Int, maxPerPage: Int) {
 
   def elo(page: Int): Paginator[User] =
     paginator(recentAdapter, page)
