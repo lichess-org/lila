@@ -2,7 +2,7 @@ package lila.app
 package importer
 
 import chess.{ Move, Status }
-import core.Futuristic
+import common.Futuristic
 import game.{ DbGame, GameRepo, PovRef }
 import round.{ Hand, Finisher }
 

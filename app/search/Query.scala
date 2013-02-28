@@ -81,7 +81,7 @@ case class Query(
 
 object Query {
   
-  import lila.app.core.Form._
+  import lila.common.Form._
 
   val durations = options(List(1, 2, 3, 5, 10, 15, 20, 30), "%d minute{s}")
 

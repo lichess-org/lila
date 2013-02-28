@@ -4,7 +4,7 @@ package forum
 import user.User
 import http.Context
 import mod.ModlogApi
-import core.Futuristic._
+import common.Futuristic._
 
 import scalaz.effects._
 import com.github.ornicar.paginator._

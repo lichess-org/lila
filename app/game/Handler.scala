@@ -4,7 +4,7 @@ package game
 import scalaz.effects._
 import scala.concurrent.Future
 
-abstract class Handler(gameRepo: GameRepo) extends core.Futuristic {
+abstract class Handler(gameRepo: GameRepo) extends common.Futuristic {
 
   protected def attempt[A](
     fullId: String,

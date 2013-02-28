@@ -1,5 +1,5 @@
-package lila.app
-package core
+package lila
+package common
 
 import play.api.Play.current
 import play.api.libs.concurrent._
