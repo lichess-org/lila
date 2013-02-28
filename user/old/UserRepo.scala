@@ -1,12 +1,11 @@
 package lila.user
 
-import lila.db.Coll
-
 import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
-final class UserRepo(db: LilaDB, name: String) extends Coll[User](db, name, Users.json) {
+final class UserRepo(db: LilaDB, name: String)
+    extends mongodb.Coll[User](db, name, Users.json) {
 
   def normalize(id: String) = id.toLowerCase
 }

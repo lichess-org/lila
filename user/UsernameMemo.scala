@@ -1,13 +1,13 @@
 package lila.user
 
-import lila.common.memo.BooleanExpiryMemo
+import lila.memo.BooleanExpiryMemo
 
 import scala.concurrent.duration._
 import scalaz.effects._
 
 final class UsernameMemo(ttl: Duration) {
 
-  private val cache = new BooleanExpiryMemo(timeout)
+  private val internal = new BooleanExpiryMemo(ttl.toMillis.toInt)
 
   def normalize(name: String) = name.toLowerCase
 
