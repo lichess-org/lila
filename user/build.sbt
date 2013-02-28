@@ -1,4 +1,4 @@
-name := "lila-game"
+name := "lila-user"
 
 organization := "org.lichess"
 
@@ -17,5 +17,5 @@ libraryDependencies ++= Seq(
   // "play" %% "play" % "2.1.0" % "provided",
   "joda-time" % "joda-time" % "2.1",
   "org.joda" % "joda-convert" % "1.2",
-  "org.reactivemongo" %% "reactivemongo" % "0.9-SNAPSHOT"
+  "org.reactivemongo" %% "reactivemongo" % "0.8"
 )

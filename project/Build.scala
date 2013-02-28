@@ -35,7 +35,8 @@ trait Dependencies {
   val jodaConvert = "org.joda" % "joda-convert" % "1.2"
   val scalastic = "scalastic" % "scalastic_2.9.2" % "0.20.1-THIB"
   val findbugs = "com.google.code.findbugs" % "jsr305" % "1.3.+"
-  val reactivemongo = "org.reactivemongo" %% "reactivemongo" % "0.9-SNAPSHOT"
+  val reactivemongoS = "org.reactivemongo" %% "reactivemongo" % "0.9-SNAPSHOT"
+  val reactivemongo = "org.reactivemongo" %% "reactivemongo" % "0.8"
   val playReactivemongo = "play.modules.reactivemongo" %% "play2-reactivemongo" % "0.1-SNAPSHOT" cross CrossVersion.full
   val playProvided = "play" %% "play" % "2.1-SNAPSHOT" % "provided"
 }
@@ -72,10 +73,10 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     libraryDependencies := Seq(scalaz, scalalib, jodaTime, jodaConvert, playProvided)
   )
 
-  lazy val game = project("game").settings(
+  lazy val user = project("user").settings(
     resolvers := Seq(iliaz, sonatype),
     libraryDependencies := Seq(scalaz, scalalib, jodaTime, jodaConvert, playProvided)
-  )
+  ) dependsOn (scalachess)
 
   lazy val scalachess = project("scalachess").settings(
     resolvers := Seq(iliaz, sonatype, awesomepom),
