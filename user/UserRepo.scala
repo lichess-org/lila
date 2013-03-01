@@ -2,6 +2,12 @@ package lila.user
 
 import lila.db.Coll
 
+import play.api.libs.json.Json
+import reactivemongo.bson.handlers._
+import reactivemongo.bson.handlers.DefaultBSONHandlers._
+import play.modules.reactivemongo._
+import play.modules.reactivemongo.PlayBsonImplicits._
+
 import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
@@ -9,40 +15,31 @@ import ornicar.scalalib.Random
 final class UserRepo(db: LilaDB, name: String) extends Coll[User](db, name, Users.json) {
 
   def normalize(id: String) = id.toLowerCase
+
+  def byIdsSortElo(ids: Iterable[ID], limit: Option[Int] = None) = 
+    find(query byIds ids sort sortEloDesc, limit.fold(query.o)(query.o.batchSize))
+
+  def allSortToints(nb: Int) = find(query.q sort ("toints" -> sort.desc), nb)
+
+  // def usernameById(id: ID) = primitiveOne(query byId id)
+
+//   def username(userId: String): IO[Option[String]] = io {
+//     primitiveProjection[String](byIdQuery(userId), "username")
+//   }
+
+//   def rank(user: User): IO[Int] = io {
+//     count(DBObject("enabled" -> true) ++ ("elo" $gt user.elo)).toInt + 1
+//   }
+
+//   def setElo(id: String, elo: Int): IO[Unit] = io {
+//     collection.update(byIdQuery(id), $set(Seq("elo" -> elo)))
+//   }
+
+  val enabledQuery = Json.obj("enabled" -> true)
+
+  val sortEloDesc = ("elo" -> sort.desc)
 }
 
-// class UserRepo(collection: MongoCollection)
-//     extends SalatDAO[User, String](collection) {
-
-//   val enabledQuery = DBObject("enabled" -> true)
-//   def byIdQuery(id: String): DBObject = DBObject("_id" -> normalize(id))
-//   def byIdQuery(user: User): DBObject = byIdQuery(user.id)
-
-//   def normalize(id: String) = id.toLowerCase
-
-//   def byId(id: String): IO[Option[User]] = io {
-//     findOneById(normalize(id))
-//   }
-
-//   def byIds(ids: Iterable[String]): IO[List[User]] = io {
-//     find("_id" $in ids.map(normalize))
-//       .sort(DBObject("elo" -> -1))
-//       .toList
-//   }
-
-//   def byOrderedIds(ids: Iterable[String]): IO[List[User]] = io {
-//     find("_id" $in ids.map(normalize)).toList
-//   } map { us ⇒
-//     val usMap = us.map(u ⇒ u.id -> u).toMap
-//     ids.map(usMap.get).flatten.toList
-//   }
-
-//   def byIdsSortByElo(ids: Iterable[String], nb: Int): IO[List[User]] = io {
-//     find("_id" $in ids.map(normalize))
-//       .sort(DBObject("elo" -> -1))
-//       .limit(nb)
-//       .toList
-//   }
 
 //   def sortedByToints(nb: Int): IO[List[User]] = io {
 //     find(DBObject()).sort(DBObject("toints" -> -1)).limit(nb).toList

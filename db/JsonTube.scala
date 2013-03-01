@@ -25,7 +25,7 @@ object JsonTube {
 
   val fromMongoTransformer = rename('id, '_id)
 
-  private def rename(from: Symbol, to: Symbol) = __.json.update( 
+  private def rename(from: Symbol, to: Symbol) = __.json update ( 
     (__ \ to).json copyFrom (__ \ from).json.pick 
   ) andThen (__ \ from).json.prune 
 
