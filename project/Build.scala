@@ -40,6 +40,7 @@ trait Dependencies {
   val reactivemongo = "org.reactivemongo" %% "reactivemongo" % "0.8"
   val playReactivemongo = "play.modules.reactivemongo" %% "play2-reactivemongo" % "0.1-SNAPSHOT" cross CrossVersion.full
   val playProvided = "play" %% "play" % "2.1-SNAPSHOT" % "provided"
+  val playTestProvided = "play" %% "play-test" % "2.1-SNAPSHOT" % "provided"
   val sprayCaching = "io.spray" % "spray-caching" % "1.1-M7"
 }
 
@@ -50,7 +51,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     scalaVersion in ThisBuild := "2.10.0",
     resolvers in ThisBuild ++= Seq(
       awesomepom, iliaz, sonatype, sonatypeS, // sgodbillon, 
-      typesafe, t2v, jgitMaven, christophs),
+      typesafe, t2v, jgitMaven, christophs, spray),
     scalacOptions := Seq(
       "-deprecation",
       "-unchecked",
@@ -77,7 +78,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
   lazy val common = project("common").settings(
     libraryDependencies := Seq(scalaz, scalalib, jodaTime, jodaConvert, playProvided, reactivemongo)
   )
-  
+
   lazy val memo = project("memo", Seq(common)).settings(
     libraryDependencies := Seq(scalaz, scalalib, guava, findbugs)
   )
@@ -92,8 +93,9 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
   lazy val user = project("user", Seq(scalachess, common, memo, db)).settings(
     libraryDependencies := Seq(
       scalaz, scalalib, jodaTime, jodaConvert, playProvided, salat,
-      paginator, paginatorSalat, sprayCaching),
-    resolvers += spray
+      paginator, paginatorSalat, sprayCaching, playTestProvided),
+    scalaSource in Compile <<= (sourceDirectory in Compile)(identity),
+    scalaSource in Test <<= (sourceDirectory in Test)(identity)
   )
 
   lazy val scalachess = project("scalachess").settings(
@@ -101,5 +103,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
   )
 
   private def project(name: String, deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]] = Seq.empty) =
-    Project(name, file(name), settings = buildSettings, dependencies = deps)
+    Project(name, file(name), dependencies = deps, settings = buildSettings ++ Seq(
+      // scalaSource in Compile <<= (sourceDirectory in Compile)(identity)
+    ))
 }

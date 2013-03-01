@@ -89,7 +89,7 @@ abstract class Coll[Doc <: WithStringId](db: LilaDB, name: String, json: JsonTub
 
   private implicit val bsonReads = new BSONReader[Option[Doc]] {
     def fromBSON(bson: BSONDocument): Option[Doc] =
-      json.read(JsObjectReader fromBSON bson.pp).asOpt
+      json.fromMongo(JsObjectReader fromBSON bson).asOpt
   }
 
   private val coll = db(name)
