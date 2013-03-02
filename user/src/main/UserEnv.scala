@@ -5,9 +5,7 @@ import akka.actor.ActorSystem
 
 import chess.EloCalculator
 
-final class UserEnv(
-    settings: Settings,
-    db: LilaDB) {
+final class UserEnv(settings: Settings, db: LilaDB) {
 
   import settings._
 

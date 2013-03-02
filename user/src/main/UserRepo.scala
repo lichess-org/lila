@@ -1,93 +1,66 @@
 package lila.user
 
-import lila.db.Coll
+import lila.db.{ Coll, DbApi }
 
 import play.api.libs.json.Json
 import reactivemongo.bson.handlers._
 import reactivemongo.bson.handlers.DefaultBSONHandlers._
 import play.modules.reactivemongo._
 import play.modules.reactivemongo.PlayBsonImplicits._
+import play.api.libs.concurrent.Execution.Implicits._
 
 import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
-final class UserRepo(db: LilaDB, name: String) extends Coll[User](db, name, Users.json) {
+final class UserRepo(
+  db: LilaDB, 
+  name: String
+) extends Coll[User](db, name, Users.json) with DbApi {
 
   def normalize(id: String) = id.toLowerCase
 
-  def byIdsSortElo(ids: Iterable[ID], limit: Option[Int] = None) = 
+  def byIdsSortElo(ids: Seq[ID], limit: Option[Int] = None) = 
     find(query byIds ids sort sortEloDesc, limit.fold(query.o)(query.o.batchSize))
 
   def allSortToints(nb: Int) = find(query.q sort ("toints" -> sort.desc), nb)
 
-  // def usernameById(id: ID) = primitiveOne(query byId id)
+  def usernameById(id: ID) = projection.primitiveOne(query byId id, "username")(_.asOpt[String])
 
-//   def username(userId: String): IO[Option[String]] = io {
-//     primitiveProjection[String](byIdQuery(userId), "username")
-//   }
+  def rank(user: User) = count(enabledQuery ++ Json.obj("elo" -> $gt(user.elo))) map (1+)
 
-//   def rank(user: User): IO[Int] = io {
-//     count(DBObject("enabled" -> true) ++ ("elo" $gt user.elo)).toInt + 1
-//   }
-
-//   def setElo(id: String, elo: Int): IO[Unit] = io {
-//     collection.update(byIdQuery(id), $set(Seq("elo" -> elo)))
-//   }
+  def setElo(id: String, elo: Int): Funit = update(select(id), $set("elo" -> elo))
 
   val enabledQuery = Json.obj("enabled" -> true)
 
   val sortEloDesc = ("elo" -> sort.desc)
+
+  def incNbGames(
+    id: String,
+    rated: Boolean,
+    ai: Boolean,
+    result: Option[Int]): Funit = {
+    val incs = List(
+      "nbGames".some,
+      "nbRatedGames".some filter (_ ⇒ rated),
+      "nbAi".some filter (_ ⇒ ai),
+      (result match {
+        case Some(-1) ⇒ "nbLosses".some
+        case Some(1)  ⇒ "nbWins".some
+        case Some(0)  ⇒ "nbDraws".some
+        case _        ⇒ none[String]
+      }),
+      (result match {
+        case Some(-1) ⇒ "nbLossesH".some
+        case Some(1)  ⇒ "nbWinsH".some
+        case Some(0)  ⇒ "nbDrawsH".some
+        case _        ⇒ none[String]
+      }) filterNot (_ ⇒ ai)
+    ).flatten.map(_ -> 1)
+    funit
+    // update(select(id), $inc(incs: _*))
+  }
 }
-
-
-//   def sortedByToints(nb: Int): IO[List[User]] = io {
-//     find(DBObject()).sort(DBObject("toints" -> -1)).limit(nb).toList
-//   }
-
-//   def idsAverageElo(ids: Iterable[String]): IO[Int] = io {
-//     val result = collection.mapReduce(
-//       mapFunction = """function() { emit("e", this.elo); }""",
-//       reduceFunction = """function(key, values) {
-//   var sum = 0;
-//   for(var i in values) { sum += values[i]; }
-//   return Math.round(sum / values.length);
-// }""",
-//       output = MapReduceInlineOutput,
-//       query = ("_id" $in ids.map(normalize)).some)
-//     (for {
-//       row ← result.hasNext option result.next
-//       sum ← row.getAs[Double]("value")
-//     } yield sum.toInt) | 0
-//   }
-
-//   def idsSumToints(ids: Iterable[String]): IO[Int] = io {
-//     val result = collection.mapReduce(
-//       mapFunction = """function() { emit("e", this.toints); }""",
-//       reduceFunction = """function(key, values) {
-//   var sum = 0;
-//   for(var i in values) { sum += values[i]; }
-//   return sum;
-// }""",
-//       output = MapReduceInlineOutput,
-//       query = ("_id" $in ids.map(normalize)).some)
-//     (for {
-//       row ← result.hasNext option result.next
-//       sum ← row.getAs[Double]("value")
-//     } yield sum.toInt) | 0
-//   }
-
-//   def username(userId: String): IO[Option[String]] = io {
-//     primitiveProjection[String](byIdQuery(userId), "username")
-//   }
-
-//   def rank(user: User): IO[Int] = io {
-//     count(DBObject("enabled" -> true) ++ ("elo" $gt user.elo)).toInt + 1
-//   }
-
-//   def setElo(id: String, elo: Int): IO[Unit] = io {
-//     collection.update(byIdQuery(id), $set(Seq("elo" -> elo)))
-//   }
 
 //   def incNbGames(
 //     id: String,
@@ -248,4 +221,36 @@ final class UserRepo(db: LilaDB, name: String) extends Coll[User](db, name, User
 
 //   private def hash512(pass: String, salt: String): String =
 //     "%s{%s}".format(pass, salt).sha512
+
+//   def idsAverageElo(ids: Iterable[String]): IO[Int] = io {
+//     val result = collection.mapReduce(
+//       mapFunction = """function() { emit("e", this.elo); }""",
+//       reduceFunction = """function(key, values) {
+//   var sum = 0;
+//   for(var i in values) { sum += values[i]; }
+//   return Math.round(sum / values.length);
+// }""",
+//       output = MapReduceInlineOutput,
+//       query = ("_id" $in ids.map(normalize)).some)
+//     (for {
+//       row ← result.hasNext option result.next
+//       sum ← row.getAs[Double]("value")
+//     } yield sum.toInt) | 0
+//   }
+
+//   def idsSumToints(ids: Iterable[String]): IO[Int] = io {
+//     val result = collection.mapReduce(
+//       mapFunction = """function() { emit("e", this.toints); }""",
+//       reduceFunction = """function(key, values) {
+//   var sum = 0;
+//   for(var i in values) { sum += values[i]; }
+//   return sum;
+// }""",
+//       output = MapReduceInlineOutput,
+//       query = ("_id" $in ids.map(normalize)).some)
+//     (for {
+//       row ← result.hasNext option result.next
+//       sum ← row.getAs[Double]("value")
+//     } yield sum.toInt) | 0
+//   }
 // }

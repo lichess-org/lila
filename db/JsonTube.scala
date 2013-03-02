@@ -3,7 +3,10 @@ package lila.db
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
 
-case class JsonTube[Doc](reads: Reads[Doc], writes: Writes[Doc]) {
+case class JsonTube[Doc](
+    reads: Reads[Doc],
+    writes: Writes[Doc],
+    writeTransformer: Reads[JsObject]) {
 
   lazy val implicits = new {
     implicit val iReads = reads
@@ -12,11 +15,16 @@ case class JsonTube[Doc](reads: Reads[Doc], writes: Writes[Doc]) {
 
   def read(js: JsObject): JsResult[Doc] = reads reads js
 
-  def write(doc: Doc): JsValue = writes writes doc 
+  def write(doc: Doc): JsResult[JsObject] = (writes writes doc) match {
+    case obj: JsObject ⇒ obj transform writeTransformer
+    case value         ⇒ JsError()
+  }
 
-  def toMongo(doc: Doc): JsResult[JsValue] = JsonTube toMongo write(doc) 
+  def toMongo(doc: Doc): JsResult[JsObject] = write(doc) flatMap JsonTube.toMongo
 
-  def fromMongo(js: JsObject): JsResult[Doc] = (JsonTube fromMongo js).pp flatMap read
+  def fromMongo(js: JsObject): JsResult[Doc] = depath(JsonTube fromMongo js).pp flatMap read
+
+  private def depath[A](r: JsResult[A]): JsResult[A] = r.fold(JsError(_), JsSuccess(_))
 }
 
 object JsonTube {
@@ -25,10 +33,9 @@ object JsonTube {
 
   val fromMongoTransformer = rename('_id, 'id)
 
-  private def rename(from: Symbol, to: Symbol) = __.json update ( 
-    (__ \ to).json copyFrom (__ \ from).json.pick 
-  ) andThen (__ \ from).json.prune 
-
+  private def rename(from: Symbol, to: Symbol) = __.json update (
+    (__ \ to).json copyFrom (__ \ from).json.pick
+  ) andThen (__ \ from).json.prune
 
   def toMongo(js: JsValue): JsResult[JsObject] = js transform toMongoTransformer
 

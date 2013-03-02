@@ -90,9 +90,9 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     )
   )
 
-  lazy val user = project("user", Seq(scalachess, common, memo, db)).settings(
+  lazy val user = project("user", Seq(common, memo, db, scalachess)).settings(
     libraryDependencies := Seq(
-      scalaz, scalalib, jodaTime, jodaConvert, playProvided, salat,
+      scalaz, scalalib, hasher, jodaTime, jodaConvert, playProvided, salat,
       paginator, paginatorSalat, sprayCaching, playTestProvided),
     scalaSource in Compile <<= (sourceDirectory in Compile)(identity),
     scalaSource in Test <<= (sourceDirectory in Test)(identity)
