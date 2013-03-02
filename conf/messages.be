@@ -165,3 +165,5 @@ reset=Скід
 apply=Ужыць
 leaderboard=Дошка лідараў
 continueFromHere=Працягнуць адсюль
+importGame=імпартаваць гульню
+nbImportedGames=%s імпартаваныя гульні
