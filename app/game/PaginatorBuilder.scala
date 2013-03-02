@@ -1,7 +1,6 @@
 package lila.app
 package game
 
-import user.User
 import chess.Status
 import mongodb.CachedAdapter
 

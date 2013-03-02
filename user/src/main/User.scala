@@ -57,7 +57,28 @@ object Users {
 
   val anonymous = "Anonymous"
 
-  import play.api.libs.json.Json
+  import play.api.libs.json._
+  import Reads.constraints._
 
-  val json = JsonTube(Json.reads[User], Json.writes[User])
+  val defaults = Json.obj(
+    "isChatBan" -> false,
+    "settings" -> Json.obj(),
+    "engine" -> false,
+    "toints" -> 0)
+
+  val json = JsonTube[User](
+    reads = (__.json update (
+      mergeDefaults andThen readDate('createdAt)
+    )) andThen Json.reads[User],
+    writes = Json.writes[User],
+    writeTransformer = (__.json update (
+      writeDate('createdAt)
+    )) 
+  )
+
+  private def mergeDefaults = __.read[JsObject] map (defaults ++)
+  private def readDate(field: Symbol) = (__ \ field).json.update(of[JsObject] map (_ \ "$date"))
+  private def writeDate(field: Symbol) = (__ \ field).json.update(of[JsNumber] map {
+    millis ⇒ Json.obj("$date" -> millis)
+  })
 }
