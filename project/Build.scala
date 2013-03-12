@@ -36,7 +36,7 @@ trait Dependencies {
   val jodaTime = "joda-time" % "joda-time" % "2.1"
   val jodaConvert = "org.joda" % "joda-convert" % "1.2"
   val scalastic = "scalastic" % "scalastic_2.9.2" % "0.20.1-THIB"
-  val reactivemongoS = "org.reactivemongo" %% "reactivemongo" % "0.9-SNAPSHOT"
+  val reactivemongoS = "org.reactivemongo" %% "reactivemongo" % "0.9-SNAPSHOT-THIB"
   val reactivemongo = "org.reactivemongo" %% "reactivemongo" % "0.8"
   val playReactivemongo = "play.modules.reactivemongo" %% "play2-reactivemongo" % "0.1-SNAPSHOT" cross CrossVersion.full
   val playProvided = "play" %% "play" % "2.1-SNAPSHOT" % "provided"
