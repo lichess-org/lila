@@ -1,8 +1,6 @@
-package lila.common
+package lila
 
 import ornicar.scalalib
-
-import scalaz.effects.{ io, IO }
 
 trait PackageObject
     extends scalalib.Validation
@@ -48,20 +46,19 @@ trait PackageObject
   def floatBox(in: Range.Inclusive)(v: Float): Float =
     math.max(in.start, math.min(v, in.end))
 
-  def printToFile(f: java.io.File)(op: java.io.PrintWriter ⇒ Unit): IO[Unit] = io {
+  def printToFile(f: java.io.File)(op: java.io.PrintWriter ⇒ Unit) {
     val p = new java.io.PrintWriter(f)
     try { op(p) } finally { p.close() }
   }
 
-  def printToFile(f: String)(op: java.io.PrintWriter ⇒ Unit): IO[Unit] =
+  def printToFile(f: String)(op: java.io.PrintWriter ⇒ Unit) {
     printToFile(new java.io.File(f))(op)
+  }
 }
 
 trait WithDb { self: PackageObject ⇒
 
-  import reactivemongo.api.{ DB, Collection }
-
-  type LilaDB = DB[Collection]
+  type LilaDB = reactivemongo.api.DB
 }
 
 trait WithPlay { self: PackageObject ⇒

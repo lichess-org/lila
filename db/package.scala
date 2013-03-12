@@ -1,9 +1,6 @@
 package lila
 
-package object db
-    extends common.PackageObject
-    with common.WithPlay
-    with common.WithDb {
+package object db extends PackageObject with WithPlay with WithDb {
 
   type WithStringId = { def id: String }
 }
