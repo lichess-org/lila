@@ -64,7 +64,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       libraryDependencies := Seq(
         scalaz, scalalib, hasher, config, salat, apache, scalaTime,
         paginator, paginatorSalat, csv, jgit, actuarius, scalastic, findbugs,
-        reactivemongo),
+        reactivemongoS),
       templatesImport ++= Seq(
         "lila.app.game.{ DbGame, DbPlayer, Pov }",
         "lila.app.user.User",
@@ -76,7 +76,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     )) dependsOn (user) aggregate (scalachess, common, db, user)
 
   lazy val common = project("common").settings(
-    libraryDependencies := Seq(scalaz, scalalib, jodaTime, jodaConvert, playProvided, reactivemongo)
+    libraryDependencies := Seq(scalaz, scalalib, jodaTime, jodaConvert, playProvided, reactivemongoS)
   )
 
   lazy val memo = project("memo", Seq(common)).settings(
@@ -85,7 +85,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
 
   lazy val db = project("db", Seq(common)).settings(
     libraryDependencies := Seq(
-      scalaz, scalalib, playProvided, salat, reactivemongo,
+      scalaz, scalalib, playProvided, salat, reactivemongoS,
       paginator, paginatorSalat //, playReactivemongo
     )
   )
