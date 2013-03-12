@@ -1,3 +1,3 @@
 package lila
 
-package object memo extends lila.common.PackageObject 
+package object memo extends PackageObject 
