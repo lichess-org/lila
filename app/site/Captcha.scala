@@ -24,7 +24,7 @@ final class Captcha(gameRepo: GameRepo, pgnRepo: PgnRepo) {
   private object Cache extends NonEmptyLists {
     val timeout = 10 seconds
     val history = 1000
-    private var challenges: NonEmptyList[Challenge] = nel(createFromDb.err)
+    private var challenges: NonEmptyList[Challenge] = nel(createFromDb | Challenge.default)
     private var date = DateTime.now
 
     def create = { refresh; current }
@@ -57,7 +57,7 @@ final class Captcha(gameRepo: GameRepo, pgnRepo: PgnRepo) {
   }
 
   private def findCheckmateInDb(distribution: Int) =
-    gameRepo.findRandomStandardCheckmate(distribution).unsafePerformIO 
+    gameRepo.findRandomStandardCheckmate(distribution).unsafePerformIO
 
   private def getGamePgn(id: String) = (pgnRepo get id).unsafePerformIO
 
@@ -105,5 +105,14 @@ object Captcha {
       solutions: Solutions) {
 
     def valid(solution: String) = solutions.list contains solution
+  }
+
+  object Challenge {
+
+    def default = Challenge(
+      gameId = "00000000",
+      fen = "1k3b1r/r5pp/pNQppq2/2p5/4P3/P3B3/1P3PPP/n4RK1",
+      color = Color.White,
+      solutions = nel("c6 c8", Nil))
   }
 }
