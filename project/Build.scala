@@ -93,7 +93,8 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
   lazy val user = project("user", Seq(common, memo, db, scalachess)).settings(
     libraryDependencies := Seq(
       scalaz, scalalib, hasher, jodaTime, jodaConvert, playProvided, salat,
-      paginator, paginatorSalat, sprayCaching, playTestProvided),
+      paginator, paginatorSalat, sprayCaching, playTestProvided,
+      reactivemongo, playReactivemongo),
     scalaSource in Compile <<= (sourceDirectory in Compile)(identity),
     scalaSource in Test <<= (sourceDirectory in Test)(identity)
   )
