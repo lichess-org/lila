@@ -23,6 +23,6 @@ case lila.app.user.GameFilter.Playing => {
 @info.nbPlaying playing
 }
 case lila.app.user.GameFilter.Bookmark => {
-@info.nbBookmark bookmarks
+@trans.nbBookmarks(info.nbBookmark)
 }
 }

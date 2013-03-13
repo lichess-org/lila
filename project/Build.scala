@@ -36,9 +36,8 @@ trait Dependencies {
   val jodaTime = "joda-time" % "joda-time" % "2.1"
   val jodaConvert = "org.joda" % "joda-convert" % "1.2"
   val scalastic = "scalastic" % "scalastic_2.9.2" % "0.20.1-THIB"
-  val reactivemongoS = "org.reactivemongo" %% "reactivemongo" % "0.9-SNAPSHOT-THIB"
-  val reactivemongo = "org.reactivemongo" %% "reactivemongo" % "0.8"
-  val playReactivemongo = "play.modules.reactivemongo" %% "play2-reactivemongo" % "0.1-SNAPSHOT" cross CrossVersion.full
+  val reactivemongo = "org.reactivemongo" %% "reactivemongo" % "0.9-SNAPSHOT"
+  val playReactivemongo = "org.reactivemongo" %% "play2-reactivemongo" % "0.9-SNAPSHOT" 
   val playProvided = "play" %% "play" % "2.1-SNAPSHOT" % "provided"
   val playTestProvided = "play" %% "play-test" % "2.1-SNAPSHOT" % "provided"
   val sprayCaching = "io.spray" % "spray-caching" % "1.1-M7"
@@ -64,7 +63,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       libraryDependencies := Seq(
         scalaz, scalalib, hasher, config, salat, apache, scalaTime,
         paginator, paginatorSalat, csv, jgit, actuarius, scalastic, findbugs,
-        reactivemongoS),
+        reactivemongo),
       templatesImport ++= Seq(
         "lila.app.game.{ DbGame, DbPlayer, Pov }",
         "lila.app.user.User",
@@ -76,7 +75,8 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     )) dependsOn (user) aggregate (scalachess, common, db, user)
 
   lazy val common = project("common").settings(
-    libraryDependencies := Seq(scalaz, scalalib, jodaTime, jodaConvert, playProvided, reactivemongoS)
+    libraryDependencies := Seq(
+      scalaz, scalalib, jodaTime, jodaConvert, playProvided, reactivemongo)
   )
 
   lazy val memo = project("memo", Seq(common)).settings(
@@ -85,8 +85,8 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
 
   lazy val db = project("db", Seq(common)).settings(
     libraryDependencies := Seq(
-      scalaz, scalalib, playProvided, salat, reactivemongoS,
-      paginator, paginatorSalat //, playReactivemongo
+      scalaz, scalalib, playProvided, salat, reactivemongo,
+      paginator, paginatorSalat, playReactivemongo
     )
   )
 

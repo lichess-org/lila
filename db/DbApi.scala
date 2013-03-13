@@ -4,15 +4,13 @@ import play.api.libs.json._
 import Json.JsValueWrapper
 
 import reactivemongo.api._
+import reactivemongo.bson.BSONDocument
 
-import play.modules.reactivemongo.PlayBsonImplicits._
+import play.modules.reactivemongo.Implicits._
 
 trait DbApi extends operator {
-  object query extends query
   object select extends operator with select
   object sort extends sort
-
-  protected implicit def jsonToQuery(json: JsObject) = query(json)
 }
 
 trait operator {
@@ -33,19 +31,17 @@ trait operator {
   }
 }
 
-object query extends query
-trait query {
+case class Query(builder: QueryBuilder) {
 
-  val q = QueryBuilder()
-  val o = QueryOpts()
+  val opts = QueryOpts()
 
-  def apply(js: JsObject) = q query js
+  def apply(js: JsObject) = builder query js
 
-  def byId[A: Writes](id: A) = q query select.byId(id)
+  def byId[A: Writes](id: A) = builder query select.byId(id)
 
-  def byIds[A: Writes](ids: Seq[A]) = q query select.byIds(ids)
+  def byIds[A: Writes](ids: Seq[A]) = builder query select.byIds(ids)
 
-  def sorted = q sort sort.naturalDesc
+  def sorted = builder sort sort.naturalDesc
 
   implicit def jsonToQuery(js: JsObject) = apply(js)
 }
@@ -63,8 +59,8 @@ trait select { self: operator ⇒
 object sort extends sort
 trait sort {
 
-  def naturalDesc = ("$natural" -> desc)
+  def naturalDesc: BSONDocument = JsObjectWriter write Json.obj("$natural" -> desc)
 
-  def asc = SortOrder.Ascending
-  def desc = SortOrder.Descending
+  def asc = 1
+  def desc = -1
 }
