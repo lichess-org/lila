@@ -31,21 +31,6 @@ trait operator {
   }
 }
 
-case class Query(builder: QueryBuilder) {
-
-  val opts = QueryOpts()
-
-  def apply(js: JsObject) = builder query js
-
-  def byId[A: Writes](id: A) = builder query select.byId(id)
-
-  def byIds[A: Writes](ids: Seq[A]) = builder query select.byIds(ids)
-
-  def sorted = builder sort sort.naturalDesc
-
-  implicit def jsonToQuery(js: JsObject) = apply(js)
-}
-
 object select extends operator with select
 trait select { self: operator ⇒
 

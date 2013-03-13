@@ -3,43 +3,41 @@ package lila.db
 import reactivemongo.api._
 import reactivemongo.bson._
 import reactivemongo.core.commands._
-import reactivemongo.bson._
-import reactivemongo.bson.DefaultBSONHandlers._
 import reactivemongo.api.collections.default.BSONCollection
 
-import play.modules.reactivemongo._
 import play.modules.reactivemongo.Implicits._
 
 import play.api.libs.json._
+import play.api.libs.concurrent.Execution.Implicits._
 
 import scala.concurrent.Future
-import play.api.libs.concurrent.Execution.Implicits._
 
 abstract class Coll[Doc <: WithStringId](coll: BSONCollection, json: JsonTube[Doc]) {
 
-  type ID = String
+  object count {
 
-  // def count(q: QueryBuilder): Fu[Int] = db command Count(name, q.makeQueryDocument.some)
-  // def count: Fu[Int] = db command Count(name, none)
+    def apply(q: JsObject): Fu[Int] = db command Count(name, JsObjectWriter.write(q).some)
 
-  // def findOne(q: QueryBuilder): Fu[Option[Doc]] =
-  //   cursor(q, query.o batchSize 1).headOption map (_.flatten)
+    def apply: Fu[Int] = db command Count(name, none)
+  }
 
-  // def byId(id: ID): Fu[Option[Doc]] = findOne(query byId id)
+  object find {
 
-  // def byIds(ids: Seq[ID]): Fu[List[Doc]] = find(query byIds ids)
+    def one(q: JsObject): Fu[Option[Doc]] = query(q).one[Option[Doc]] map (_.flatten)
 
-  // def byOrderedIds(ids: Seq[ID]): Fu[List[Doc]] = byIds(ids) map { docs ⇒
-  //   val docsMap = docs.map(u ⇒ u.id -> u).toMap
-  //   ids.map(docsMap.get).flatten.toList
-  // }
+    def byId(id: ID): Fu[Option[Doc]] = one(select byId id)
 
-  def find(q: JsObject): Fu[List[Doc]] = cursor(q).toList map (_.flatten)
+    def byIds(ids: Seq[ID]): Fu[List[Doc]] = apply(select byIds ids)
 
-  def find(q: JsObject, nb: Int): Fu[List[Doc]] =
-    query(q).options(query.opts batchSize nb).cursor[Option[Doc]] toList nb map (_.flatten)
+    def byOrderedIds(ids: Seq[ID]): Fu[List[Doc]] = byIds(ids) map { docs ⇒
+      val docsMap = docs.map(u ⇒ u.id -> u).toMap
+      ids.map(docsMap.get).flatten.toList
+    }
 
-  def cursor(q: JsObject): Cursor[Option[Doc]] = query(q).cursor[Option[Doc]]
+    def apply(q: JsObject): Fu[List[Doc]] = cursor(q).toList map (_.flatten)
+
+    def apply(q: JsObject, nb: Int): Fu[List[Doc]] = cursor(q, nb) toList nb map (_.flatten)
+  }
 
   object insert {
 
@@ -67,35 +65,37 @@ abstract class Coll[Doc <: WithStringId](coll: BSONCollection, json: JsonTube[Do
     }
   }
 
-  // object projection {
+  object projection {
 
-  //   def primitive[A](
-  //     q: QueryBuilder,
-  //     field: String,
-  //     opts: QueryOpts = query.o)(extract: JsValue ⇒ Option[A]): Fu[List[A]] =
-  //     coll.find[BSONDocument](q projection Json.obj(field -> 1), opts).toList map (list ⇒ list map { obj ⇒
-  //       extract(JsObjectReader.fromBSON(obj) \ field)
-  //     } flatten)
+    def primitive[A](q: JsObject, field: String)(extract: JsValue ⇒ Option[A]): Fu[List[A]] =
+      coll.find(q, Json.obj(field -> 1)).cursor.toList map (list ⇒ list map { obj ⇒
+        extract(JsObjectReader.read(obj) \ field)
+      } flatten)
 
-  //   def primitiveOne[A](
-  //     q: QueryBuilder,
-  //     field: String,
-  //     opts: QueryOpts = query.o)(extract: JsValue ⇒ Option[A]): Fu[Option[A]] =
-  //     primitive(q, field, opts batchSize 1)(extract) map (_.headOption)
-  // }
+    def primitiveOne[A](q: JsObject, field: String)(extract: JsValue ⇒ Option[A]): Fu[Option[A]] =
+      coll.find(q, Json.obj(field -> 1)).one map (opt ⇒ opt map { obj ⇒
+        extract(JsObjectReader.read(obj) \ field)
+      } flatten)
+  }
+
+  type ID = String
 
   //////////////////
   // PRIVATE SHIT //
   //////////////////
 
-  protected lazy val query = Query(coll.genericQueryBuilder)
+  private def cursor(q: JsObject): Cursor[Option[Doc]] = query(q).cursor[Option[Doc]]
+  private def cursor(q: JsObject, nb: Int): Cursor[Option[Doc]] = query(q).options(opts batchSize nb).cursor[Option[Doc]]
+
+  private def builder = coll.genericQueryBuilder
+  private def query(q: JsObject) = builder query q
+  private val opts = QueryOpts()
 
   private def db = coll.db
   private def name = coll.name
 
-  private implicit val bsonReads = new BSONDocumentReader[Option[Doc]] {
-    def read(bson: BSONDocument): Option[Doc] =
-      json.fromMongo(JsObjectReader read bson).pp.asOpt
+  private implicit val bsonDocumentReader = new BSONDocumentReader[Option[Doc]] {
+    def read(bson: BSONDocument): Option[Doc] = json.fromMongo(JsObjectReader read bson).asOpt
   }
 
   private def fuck(msg: Any) = Future failed (new DbException(msg.toString))
