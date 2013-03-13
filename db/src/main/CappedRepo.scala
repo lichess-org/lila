@@ -1,21 +1,21 @@
 package lila.db
 
-import com.mongodb.casbah.MongoCollection
-import com.mongodb.casbah.Imports._
-import scalaz.effects._
+import reactivemongo.api._
+import reactivemongo.bson._
 
-abstract class CappedRepo[A](collection: MongoCollection, max: Int) {
+import play.modules.reactivemongo.Implicits._
 
-  val naturalOrder = DBObject("$natural" -> -1)
+import play.api.libs.concurrent.Execution.Implicits._
 
-  val recent: IO[List[A]] = io {
-    collection.find(DBObject())
-      .sort(naturalOrder)
-      .limit(max)
-      .toList.map(decode).flatten
+abstract class CappedRepo[Doc](coll: ReactiveColl, json: JsonTube[Doc], max: Int) extends DbApi {
+
+  val naturalOrder = sort desc "$natural" 
+
+  val recent: Fu[List[Doc]] = (
+    richerQueryBuilder(coll.genericQueryBuilder query select.all).sort(naturalOrder) limit max
+  ).cursor[Option[Doc]].toList map (_.flatten)
+
+  private implicit val bsonDocumentReader = new BSONDocumentReader[Option[Doc]] {
+    def read(bson: BSONDocument): Option[Doc] = json.fromMongo(JsObjectReader read bson).asOpt
   }
-
-  def decode(obj: DBObject): Option[A]
-
-  def encode(obj: A): DBObject
 }

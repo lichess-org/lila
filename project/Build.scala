@@ -78,36 +78,42 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     )) dependsOn (user, wiki) aggregate (scalachess, common, db, user, wiki)
 
   lazy val common = project("common").settings(
-    libraryDependencies := Seq(
-      scalaz, scalalib, jodaTime, jodaConvert, playProvided, reactivemongo)
+    libraryDependencies ++= Seq(playProvided, reactivemongo)
   )
 
   lazy val memo = project("memo", Seq(common)).settings(
-    libraryDependencies := Seq(scalaz, scalalib, guava, findbugs)
+    libraryDependencies ++= Seq(guava, findbugs)
   )
 
   lazy val db = project("db", Seq(common)).settings(
-    libraryDependencies := Seq(
-      scalaz, scalalib, playProvided, salat, reactivemongo, playReactivemongo
+    libraryDependencies ++= Seq(
+      playProvided, reactivemongo, playReactivemongo
     )
   ).settings(srcMain: _*)
 
   lazy val user = project("user", Seq(common, memo, db, scalachess)).settings(
-    libraryDependencies := Seq(
-      scalaz, scalalib, hasher, jodaTime, jodaConvert, playProvided, 
-      sprayCaching, playTestProvided, reactivemongo, playReactivemongo)
+    libraryDependencies ++= Seq(
+      hasher, playProvided, sprayCaching, playTestProvided, reactivemongo, playReactivemongo)
   ).settings(srcMain: _*)
 
   lazy val wiki = project("wiki", Seq(common, db)).settings(
-    libraryDependencies := Seq(
-      scalaz, scalalib, jodaTime, jodaConvert, playProvided, 
-      playTestProvided, reactivemongo, playReactivemongo)
+    libraryDependencies ++= Seq(
+      playProvided, reactivemongo, playReactivemongo)
   ).settings(srcMain: _*)
 
   lazy val scalachess = project("scalachess").settings(
-    libraryDependencies := Seq(scalaz, scalalib, hasher, jodaTime, jodaConvert)
+    libraryDependencies ++= Seq(hasher)
   )
 
+  private def defaultDeps = Seq(scalaz, scalalib, jodaTime, jodaConvert)
+
   private def project(name: String, deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]] = Seq.empty) =
-    Project(name, file(name), dependencies = deps, settings = buildSettings)
+    Project(
+      name, 
+      file(name), 
+      dependencies = deps, 
+      settings = Seq(
+        libraryDependencies := defaultDeps
+      ) ++ buildSettings
+    )
 }
