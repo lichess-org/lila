@@ -2,7 +2,7 @@ package lila
 
 import ornicar.scalalib
 
-import scalaz.Zero
+import scalaz.{ Zero, Functor }
 import scala.concurrent.Future
 
 trait PackageObject
@@ -66,6 +66,7 @@ trait WithFuture extends scalaz.Zeros {
   type Funit = Fu[Unit]
 
   def fuccess[A](a: A) = Future successful a
+  def fufail[A <: Throwable](a: A) = Future failed a
   def funit = fuccess(())
 
   implicit def FuZero[A: Zero]: Zero[Fu[A]] = new Zero[Fu[A]] { val zero = fuccess(∅[A]) }
@@ -73,9 +74,10 @@ trait WithFuture extends scalaz.Zeros {
 
 trait WithDb { self: PackageObject ⇒
 
-  type LilaDB = reactivemongo.api.DB
-
-  type ReactiveColl = reactivemongo.api.collections.default.BSONCollection
+  // implicit def reactiveSortJsObject(sort: (String, SortOrder)): (String, JsValueWrapper) = sort match {
+  //   case (field, SortOrder.Ascending) ⇒ field -> 1
+  //   case (field, _)                   ⇒ field -> -1
+  // }
 }
 
 trait WithPlay { self: PackageObject ⇒
@@ -91,6 +93,10 @@ trait WithPlay { self: PackageObject ⇒
   type JsEnumerator = Enumerator[JsValue]
   type SocketFuture = Future[(Iteratee[JsValue, _], JsEnumerator)]
 
+  implicit def FutureFunctor = new Functor[Fu] {
+    def fmap[A, B](r: Fu[A], f: A ⇒ B) = r map f
+  }
+
   implicit def lilaRicherFuture[A](fua: Fu[A]) = new {
 
     def >>[B](fub: Fu[B]): Fu[B] = fua flatMap (_ ⇒ fub)
@@ -100,7 +106,7 @@ trait WithPlay { self: PackageObject ⇒
     def inject[B](b: B): Fu[B] = fua map (_ ⇒ b)
   }
 
-  implicit def lilaRicherFutureZero[A : Zero](fua: Fu[A]) = new {
+  implicit def lilaRicherFutureZero[A: Zero](fua: Fu[A]) = new {
 
     def doIf(cond: Boolean): Fu[A] = cond.fold(fua, fuccess(∅[A]))
 

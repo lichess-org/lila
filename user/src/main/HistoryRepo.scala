@@ -1,6 +1,7 @@
 package lila.user
 
-import lila.db.{ Coll, DbApi }
+import lila.db.DbApi
+import lila.db.Implicits._
 
 import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._

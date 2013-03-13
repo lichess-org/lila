@@ -18,7 +18,7 @@ final class Cached(userRepo: UserRepo, ttl: Duration) {
 
   def usernameOrAnonymous(id: Option[String]): String = (id flatMap username) | Users.anonymous
 
-  def countEnabled: Int = cache.fromFuture("count-enabled")(userRepo.countEnabled).await
+  def countEnabled: Fu[Int] = cache.fromFuture("count-enabled")(userRepo.countEnabled)
 
   // id => username
   private val usernameCache = mutable.Map[String, Option[String]]()
