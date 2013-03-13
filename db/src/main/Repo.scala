@@ -49,6 +49,8 @@ abstract class Repo[Doc <: WithStringId](coll: ReactiveColl, json: JsonTube[Doc]
       ids.map(docsMap.get).flatten.toList
     }
 
+    def all: Fu[List[Doc]] = apply(select.all)
+
     def apply(q: JsObject): Fu[List[Doc]] = cursor(q).toList map (_.flatten)
     def apply(q: JsObject, nb: Int): Fu[List[Doc]] = cursor(q, nb) toList nb map (_.flatten)
 
@@ -87,6 +89,11 @@ abstract class Repo[Doc <: WithStringId](coll: ReactiveColl, json: JsonTube[Doc]
 
     def field[A : Writes](id: String, field: String, value: A) = 
       update(select(id), $set(field -> value))
+  }
+
+  object remove {
+
+    def apply(selector: JsObject): Funit = (coll remove selector).void
   }
 
   object primitive {

@@ -6,7 +6,7 @@ import play.api.libs.functional.syntax._
 case class JsonTube[Doc](
     reads: Reads[Doc],
     writes: Writes[Doc],
-    writeTransformer: Reads[JsObject]) {
+    writeTransformer: Option[Reads[JsObject]] = None) {
 
   lazy val implicits = new {
     implicit val iReads = reads
@@ -15,9 +15,10 @@ case class JsonTube[Doc](
 
   def read(js: JsObject): JsResult[Doc] = reads reads js
 
-  def write(doc: Doc): JsResult[JsObject] = (writes writes doc) match {
-    case obj: JsObject ⇒ obj transform writeTransformer
-    case value         ⇒ JsError()
+  def write(doc: Doc): JsResult[JsObject] = (writes writes doc, writeTransformer) match {
+    case (obj: JsObject, Some(transformer)) ⇒ obj transform transformer
+    case (obj: JsObject, _)                 ⇒ JsSuccess(obj)
+    case (value, _)                         ⇒ JsError()
   }
 
   def toMongo(doc: Doc): JsResult[JsObject] = write(doc) flatMap JsonTube.toMongo
