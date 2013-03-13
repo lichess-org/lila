@@ -4,7 +4,7 @@ import play.api.libs.json._
 import Json.JsValueWrapper
 
 import reactivemongo.api._
-import reactivemongo.bson.BSONDocument
+import reactivemongo.bson._
 
 import play.modules.reactivemongo.Implicits._
 
@@ -26,6 +26,8 @@ trait operator {
 
   def $in[A: Writes](values: Seq[A]) = Json.obj("$in" -> Json.arr(values))
 
+  def $reg(value: String, flags: String = "") = BSONRegex(value, flags)
+
   private def wrap[K, V : Writes](pairs: Seq[(K, V)]): Seq[(K, JsValueWrapper)] = pairs map {
     case (k, v) ⇒ k -> Json.toJsFieldJsValueWrapper(v)
   }
@@ -34,7 +36,11 @@ trait operator {
 object select extends operator with select
 trait select { self: operator ⇒
 
-  def apply[A: Writes](id: A) = byId(id)
+  def all = Json.obj()
+
+  def apply[A: Writes](id: A): JsObject = byId(id)
+
+  def apply[A <: WithStringId](doc: A): JsObject = apply(doc.id)
 
   def byId[A: Writes](id: A) = Json.obj("_id" -> id)
 

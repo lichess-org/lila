@@ -2,6 +2,9 @@ package lila
 
 import ornicar.scalalib
 
+import scalaz.Zero
+import scala.concurrent.Future
+
 trait PackageObject
     extends scalalib.Validation
     with scalalib.Common
@@ -14,6 +17,14 @@ trait PackageObject
     with scalaz.Lists
     with scalaz.Zeros
     with scalaz.Booleans {
+
+  type Fu[A] = Future[A]
+  type Funit = Fu[Unit]
+
+  def funit = fuccess(())
+  def fuccess[A](a: A) = Future successful a
+
+  implicit def FuZero[A: Zero]: Zero[Fu[A]] = new Zero[Fu[A]] { val zero = fuccess(∅[A]) }
 
   val toVoid = (_: Any) ⇒ ()
 
@@ -70,14 +81,8 @@ trait WithPlay { self: PackageObject ⇒
   import play.api.libs.iteratee.{ Iteratee, Enumerator }
   import play.api.libs.iteratee.Concurrent.Channel
   import play.api.Play.current
-  import scala.concurrent.{ Future, Promise }
 
   type JsChannel = Channel[JsValue]
   type JsEnumerator = Enumerator[JsValue]
   type SocketFuture = Future[(Iteratee[JsValue, _], JsEnumerator)]
-
-  type Fu[A] = Future[A]
-  type Funit = Fu[Unit]
-
-  def funit = Future successful ()
 }

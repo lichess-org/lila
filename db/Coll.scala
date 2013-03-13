@@ -11,7 +11,7 @@ import play.api.libs.concurrent.Execution.Implicits._
 
 import scala.concurrent.Future
 
-abstract class Coll[Doc <: WithStringId](coll: ReactiveColl, json: JsonTube[Doc]) {
+abstract class Coll[Doc <: WithStringId](coll: ReactiveColl, json: JsonTube[Doc]) extends DbApi {
 
   object query {
 
@@ -22,11 +22,20 @@ abstract class Coll[Doc <: WithStringId](coll: ReactiveColl, json: JsonTube[Doc]
     def byIds(ids: Seq[ID]) = apply(select byIds ids)
   }
 
+  implicit def jsObjectToQueryBuilder(js: JsObject): QueryBuilder = query(js)
+
   object count {
 
     def apply(q: JsObject): Fu[Int] = db command Count(name, JsObjectWriter.write(q).some)
 
     def apply: Fu[Int] = db command Count(name, none)
+  }
+
+  object exists {
+
+    def apply(q: JsObject): Fu[Boolean] = count(q) map (0 !=)
+
+    def byId(id: ID): Fu[Boolean] = apply(select(id))
   }
 
   object find {
@@ -51,10 +60,11 @@ abstract class Coll[Doc <: WithStringId](coll: ReactiveColl, json: JsonTube[Doc]
 
   object insert {
 
-    def apply(doc: Doc): Funit = (json toMongo doc).fold(fuck(_), js ⇒ for {
-      lastErr ← coll insert js
-      result ← lastErr.ok.fold(funit, fuck(lastErr.message))
-    } yield result)
+    def apply(doc: Doc): Funit = (json toMongo doc).fold(fuck(_), apply(_))
+
+    def apply(js: JsObject): Funit = coll insert js flatMap { lastErr ⇒
+      lastErr.ok.fold(funit, fuck(lastErr.message))
+    }
 
     def unchecked(doc: Doc): Funit = {
       json toMongo doc foreach { coll.insert(_) }
@@ -73,25 +83,49 @@ abstract class Coll[Doc <: WithStringId](coll: ReactiveColl, json: JsonTube[Doc]
       coll.uncheckedUpdate(selector, update, upsert = upsert, multi = multi)
       funit
     }
+
+    def doc(id: String)(op: Doc ⇒ JsObject): Funit =
+      find byId id flatMap { docOption ⇒ ~docOption.map(doc ⇒ update(select(id), op(doc))) }
+
+    def field[A : Writes](id: String, field: String, value: A) = 
+      update(select(id), $set(field -> value))
   }
 
   object primitive {
 
-    def apply[A](q: JsObject, field: String)(extract: JsValue ⇒ Option[A]): Fu[List[A]] =
-      coll.find(q, Json.obj(field -> 1)).cursor.toList map (list ⇒ list map { obj ⇒
+    def apply[A](q: JsObject, field: String, modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsValue ⇒ Option[A]): Fu[List[A]] =
+      modifier(coll.find(q, Json.obj(field -> 1))).cursor.toList map (list ⇒ list map { obj ⇒
         extract(JsObjectReader.read(obj) \ field)
       } flatten)
 
-    def one[A](q: JsObject, field: String)(extract: JsValue ⇒ Option[A]): Fu[Option[A]] =
-      coll.find(q, Json.obj(field -> 1)).one map (opt ⇒ opt map { obj ⇒
+    def one[A](q: JsObject, field: String, modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsValue ⇒ Option[A]): Fu[Option[A]] =
+      modifier(coll.find(q, Json.obj(field -> 1))).one map (opt ⇒ opt map { obj ⇒
         extract(JsObjectReader.read(obj) \ field)
       } flatten)
+  }
+
+  object projection {
+
+    def apply[A](q: JsObject, fields: Seq[String], modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsObject ⇒ Option[A]): Fu[List[A]] =
+      modifier(coll.find(q, projector(fields))).cursor.toList map (list ⇒ list map { obj ⇒
+        extract(JsObjectReader read obj)
+      } flatten)
+
+    def one[A](q: JsObject, fields: Seq[String], modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsObject ⇒ Option[A]): Fu[Option[A]] =
+      modifier(coll.find(q, projector(fields))).one map (opt ⇒ opt map { obj ⇒
+        extract(JsObjectReader read obj)
+      } flatten)
+
+    private def projector(fields: Seq[String]): JsObject = Json obj {
+      (fields map (_ -> Json.toJsFieldJsValueWrapper(1))): _*
+    }
   }
 
   type ID = String
 
   // hack, this should be in reactivemongo
-  protected implicit def queryBuilderSortable(b: QueryBuilder) = new {
+  protected implicit def richerQueryBuilder(b: QueryBuilder) = new {
+
     def sort(sorters: (String, SortOrder)*): QueryBuilder =
       if (sorters.size == 0) b
       else b sort {
@@ -102,6 +136,8 @@ abstract class Coll[Doc <: WithStringId](coll: ReactiveColl, json: JsonTube[Doc]
               case SortOrder.Descending ⇒ -1
             })).toStream)
       }
+
+    def limit(nb: Int): QueryBuilder = b.options(b.options batchSize nb)
   }
 
   //////////////////
@@ -112,7 +148,7 @@ abstract class Coll[Doc <: WithStringId](coll: ReactiveColl, json: JsonTube[Doc]
   private def cursor(q: JsObject, nb: Int): Cursor[Option[Doc]] = cursor(query(q), nb)
 
   private def cursor(b: QueryBuilder): Cursor[Option[Doc]] = b.cursor[Option[Doc]]
-  private def cursor(b: QueryBuilder, nb: Int): Cursor[Option[Doc]] = cursor(b.options(opts batchSize nb))
+  private def cursor(b: QueryBuilder, nb: Int): Cursor[Option[Doc]] = cursor(b limit nb)
 
   private def builder = coll.genericQueryBuilder
   private val opts = QueryOpts()
