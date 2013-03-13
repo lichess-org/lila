@@ -55,4 +55,7 @@ trait sort {
 
   def asc = SortOrder.Ascending
   def desc = SortOrder.Descending
+
+  def asc(field: String) = field -> SortOrder.Ascending
+  def desc(field: String) = field -> SortOrder.Descending
 }

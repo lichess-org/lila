@@ -22,8 +22,6 @@ abstract class Repo[Doc <: WithStringId](coll: ReactiveColl, json: JsonTube[Doc]
     def byIds(ids: Seq[ID]) = apply(select byIds ids)
   }
 
-  implicit def jsObjectToQueryBuilder(js: JsObject): QueryBuilder = query(js)
-
   object count {
 
     def apply(q: JsObject): Fu[Int] = db command Count(name, JsObjectWriter.write(q).some)
