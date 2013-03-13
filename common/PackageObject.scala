@@ -59,6 +59,8 @@ trait PackageObject
 trait WithDb { self: PackageObject ⇒
 
   type LilaDB = reactivemongo.api.DB
+
+  type ReactiveColl = reactivemongo.api.collections.default.BSONCollection
 }
 
 trait WithPlay { self: PackageObject ⇒

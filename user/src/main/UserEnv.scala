@@ -5,13 +5,13 @@ import akka.actor.ActorSystem
 
 import chess.EloCalculator
 
-final class UserEnv(settings: Settings, db: LilaDB) {
+final class UserEnv(settings: Settings, db: String ⇒ ReactiveColl) {
 
   import settings._
 
   // lazy val historyRepo = new HistoryRepo(mongodb(CollectionHistory))
 
-  lazy val userRepo = new UserRepo(db, CollectionUser)
+  lazy val userRepo = new UserRepo(db(CollectionUser))
 
   // lazy val paginator = new PaginatorBuilder(
   //   userRepo = userRepo,

@@ -3,7 +3,6 @@ package lila.db
 import reactivemongo.api._
 import reactivemongo.bson._
 import reactivemongo.core.commands._
-import reactivemongo.api.collections.default.BSONCollection
 
 import play.modules.reactivemongo.Implicits._
 
@@ -12,7 +11,16 @@ import play.api.libs.concurrent.Execution.Implicits._
 
 import scala.concurrent.Future
 
-abstract class Coll[Doc <: WithStringId](coll: BSONCollection, json: JsonTube[Doc]) {
+abstract class Coll[Doc <: WithStringId](coll: ReactiveColl, json: JsonTube[Doc]) {
+
+  object query {
+
+    def apply(q: JsObject) = builder query q
+
+    def all = builder
+
+    def byIds(ids: Seq[ID]) = apply(select byIds ids)
+  }
 
   object count {
 
@@ -35,8 +43,10 @@ abstract class Coll[Doc <: WithStringId](coll: BSONCollection, json: JsonTube[Do
     }
 
     def apply(q: JsObject): Fu[List[Doc]] = cursor(q).toList map (_.flatten)
-
     def apply(q: JsObject, nb: Int): Fu[List[Doc]] = cursor(q, nb) toList nb map (_.flatten)
+
+    def apply(b: QueryBuilder): Fu[List[Doc]] = cursor(b).toList map (_.flatten)
+    def apply(b: QueryBuilder, nb: Int): Fu[List[Doc]] = cursor(b, nb) toList nb map (_.flatten)
   }
 
   object insert {
@@ -65,14 +75,14 @@ abstract class Coll[Doc <: WithStringId](coll: BSONCollection, json: JsonTube[Do
     }
   }
 
-  object projection {
+  object primitive {
 
-    def primitive[A](q: JsObject, field: String)(extract: JsValue ⇒ Option[A]): Fu[List[A]] =
+    def apply[A](q: JsObject, field: String)(extract: JsValue ⇒ Option[A]): Fu[List[A]] =
       coll.find(q, Json.obj(field -> 1)).cursor.toList map (list ⇒ list map { obj ⇒
         extract(JsObjectReader.read(obj) \ field)
       } flatten)
 
-    def primitiveOne[A](q: JsObject, field: String)(extract: JsValue ⇒ Option[A]): Fu[Option[A]] =
+    def one[A](q: JsObject, field: String)(extract: JsValue ⇒ Option[A]): Fu[Option[A]] =
       coll.find(q, Json.obj(field -> 1)).one map (opt ⇒ opt map { obj ⇒
         extract(JsObjectReader.read(obj) \ field)
       } flatten)
@@ -80,15 +90,31 @@ abstract class Coll[Doc <: WithStringId](coll: BSONCollection, json: JsonTube[Do
 
   type ID = String
 
+  // hack, this should be in reactivemongo
+  protected implicit def queryBuilderSortable(b: QueryBuilder) = new {
+    def sort(sorters: (String, SortOrder)*): QueryBuilder =
+      if (sorters.size == 0) b
+      else b sort {
+        BSONDocument(
+          (for (sorter ← sorters) yield sorter._1 -> BSONInteger(
+            sorter._2 match {
+              case SortOrder.Ascending  ⇒ 1
+              case SortOrder.Descending ⇒ -1
+            })).toStream)
+      }
+  }
+
   //////////////////
   // PRIVATE SHIT //
   //////////////////
 
-  private def cursor(q: JsObject): Cursor[Option[Doc]] = query(q).cursor[Option[Doc]]
-  private def cursor(q: JsObject, nb: Int): Cursor[Option[Doc]] = query(q).options(opts batchSize nb).cursor[Option[Doc]]
+  private def cursor(q: JsObject): Cursor[Option[Doc]] = cursor(query(q))
+  private def cursor(q: JsObject, nb: Int): Cursor[Option[Doc]] = cursor(query(q), nb)
+
+  private def cursor(b: QueryBuilder): Cursor[Option[Doc]] = b.cursor[Option[Doc]]
+  private def cursor(b: QueryBuilder, nb: Int): Cursor[Option[Doc]] = cursor(b.options(opts batchSize nb))
 
   private def builder = coll.genericQueryBuilder
-  private def query(q: JsObject) = builder query q
   private val opts = QueryOpts()
 
   private def db = coll.db

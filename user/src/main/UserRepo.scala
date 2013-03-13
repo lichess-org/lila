@@ -3,29 +3,28 @@ package lila.user
 import lila.db.{ Coll, DbApi }
 
 import play.api.libs.json.Json
-import reactivemongo.bson.handlers._
-import reactivemongo.bson.handlers.DefaultBSONHandlers._
-import play.modules.reactivemongo._
-import play.modules.reactivemongo.PlayBsonImplicits._
 import play.api.libs.concurrent.Execution.Implicits._
+
+import reactivemongo.api._
+import reactivemongo.bson._
+import reactivemongo.core.commands._
+
+import play.modules.reactivemongo.Implicits._
 
 import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
-final class UserRepo(
-  db: LilaDB, 
-  name: String
-) extends Coll[User](db, name, Users.json) with DbApi {
+final class UserRepo(coll: ReactiveColl) extends Coll[User](coll, Users.json) with DbApi {
 
   def normalize(id: String) = id.toLowerCase
 
-  def byIdsSortElo(ids: Seq[ID], limit: Option[Int] = None) = 
-    find(query byIds ids sort sortEloDesc, limit.fold(query.o)(query.o.batchSize))
+  // def byIdsSortElo(ids: Seq[ID], limit: Option[Int] = None) = 
+  //   find(query byIds ids sort sortEloDesc, limit.fold(query.o)(query.o.batchSize))
 
-  def allSortToints(nb: Int) = find(query.q sort ("toints" -> sort.desc), nb)
+  def allSortToints(nb: Int) = find(query.all sort ("toints" -> sort.desc), nb)
 
-  def usernameById(id: ID) = projection.primitiveOne(query byId id, "username")(_.asOpt[String])
+  def usernameById(id: ID) = primitive.one(select byId id, "username")(_.asOpt[String])
 
   def rank(user: User) = count(enabledQuery ++ Json.obj("elo" -> $gt(user.elo))) map (1+)
 

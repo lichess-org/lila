@@ -44,8 +44,8 @@ trait select { self: operator ⇒
 object sort extends sort
 trait sort {
 
-  def naturalDesc: BSONDocument = JsObjectWriter write Json.obj("$natural" -> desc)
+  def naturalDesc = "$natural" -> desc
 
-  def asc = 1
-  def desc = -1
+  def asc = SortOrder.Ascending
+  def desc = SortOrder.Descending
 }
