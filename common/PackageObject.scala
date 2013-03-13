@@ -6,7 +6,8 @@ import scalaz.Zero
 import scala.concurrent.Future
 
 trait PackageObject
-    extends scalalib.Validation
+    extends WithFuture
+    with scalalib.Validation
     with scalalib.Common
     with scalalib.Regex
     with scalalib.IO
@@ -17,14 +18,6 @@ trait PackageObject
     with scalaz.Lists
     with scalaz.Zeros
     with scalaz.Booleans {
-
-  type Fu[A] = Future[A]
-  type Funit = Fu[Unit]
-
-  def funit = fuccess(())
-  def fuccess[A](a: A) = Future successful a
-
-  implicit def FuZero[A: Zero]: Zero[Fu[A]] = new Zero[Fu[A]] { val zero = fuccess(∅[A]) }
 
   val toVoid = (_: Any) ⇒ ()
 
@@ -67,6 +60,17 @@ trait PackageObject
   }
 }
 
+trait WithFuture extends scalaz.Zeros {
+
+  type Fu[A] = Future[A]
+  type Funit = Fu[Unit]
+
+  def fuccess[A](a: A) = Future successful a
+  def funit = fuccess(())
+
+  implicit def FuZero[A: Zero]: Zero[Fu[A]] = new Zero[Fu[A]] { val zero = fuccess(∅[A]) }
+}
+
 trait WithDb { self: PackageObject ⇒
 
   type LilaDB = reactivemongo.api.DB
@@ -81,8 +85,25 @@ trait WithPlay { self: PackageObject ⇒
   import play.api.libs.iteratee.{ Iteratee, Enumerator }
   import play.api.libs.iteratee.Concurrent.Channel
   import play.api.Play.current
+  import play.api.libs.concurrent.Execution.Implicits._
 
   type JsChannel = Channel[JsValue]
   type JsEnumerator = Enumerator[JsValue]
   type SocketFuture = Future[(Iteratee[JsValue, _], JsEnumerator)]
+
+  implicit def lilaRicherFuture[A](fua: Fu[A]) = new {
+
+    def >>[B](fub: Fu[B]): Fu[B] = fua flatMap (_ ⇒ fub)
+
+    def void: Funit = fua map (_ ⇒ Unit)
+
+    def inject[B](b: B): Fu[B] = fua map (_ ⇒ b)
+  }
+
+  implicit def lilaRicherFutureZero[A : Zero](fua: Fu[A]) = new {
+
+    def doIf(cond: Boolean): Fu[A] = cond.fold(fua, fuccess(∅[A]))
+
+    def doUnless(cond: Boolean): Fu[A] = doIf(!cond)
+  }
 }

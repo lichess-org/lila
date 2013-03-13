@@ -18,23 +18,23 @@ import ornicar.scalalib.Random
 
 final class UserRepo(coll: ReactiveColl) extends Coll[User](coll, Users.json) {
 
-  def normalize(id: String) = id.toLowerCase
+  def normalize(id: ID) = id.toLowerCase
 
   def byIdsSortElo(ids: Seq[ID], max: Int) = find(query byIds ids sort sortEloDesc limit max)
 
   def allSortToints(nb: Int) = find(query.all sort ("toints" -> sort.desc), nb)
 
-  def usernameById(id: ID) = primitive.one(select byId id, "username")(_.asOpt[String])
+  def usernameById(id: ID) = primitive.one(select(id), "username")(_.asOpt[String])
 
   def rank(user: User) = count(enabledQuery ++ Json.obj("elo" -> $gt(user.elo))) map (1+)
 
-  def setElo(id: String, elo: Int): Funit = update(select(id), $set("elo" -> elo))
+  def setElo(id: ID, elo: Int): Funit = update(select(id), $set("elo" -> elo))
 
   val enabledQuery = Json.obj("enabled" -> true)
 
   val sortEloDesc = ("elo" -> sort.desc)
 
-  def incNbGames(id: String, rated: Boolean, ai: Boolean, result: Option[Int]) = {
+  def incNbGames(id: ID, rated: Boolean, ai: Boolean, result: Option[Int]) = {
     val incs = List(
       "nbGames".some,
       "nbRatedGames".some filter (_ ⇒ rated),
@@ -56,15 +56,15 @@ final class UserRepo(coll: ReactiveColl) extends Coll[User](coll, Users.json) {
     update(select(id), $inc(incs: _*))
   }
 
-  def incToints(id: String)(nb: Int) = update(select(id), $inc("toints" -> nb))
+  def incToints(id: ID)(nb: Int) = update(select(id), $inc("toints" -> nb))
 
   val averageElo: Fu[Float] = primitive(select.all, "elo")(_.asOpt[Float]) map { elos ⇒
     elos.sum / elos.size.toFloat
   }
 
-  def saveSetting(user: User, key: String, value: String) = update(select(user), $set(("settings." + key) -> value))
+  def saveSetting(id: ID, key: String, value: String) = update(select(id), $set(("settings." + key) -> value))
 
-  def authenticate(id: String, password: String): Fu[Option[User]] = for {
+  def authenticate(id: ID, password: String): Fu[Option[User]] = for {
     greenLight ← checkPassword(id, password)
     if greenLight
     userOption ← find byId id
@@ -74,7 +74,7 @@ final class UserRepo(coll: ReactiveColl) extends Coll[User](coll, Users.json) {
     def compare(p: String) = password == sha512.fold(hash512(p, salt), hash(p, salt))
   }
 
-  def checkPassword(id: String, password: String): Fu[Boolean] = for {
+  def checkPassword(id: ID, password: String): Fu[Boolean] = for {
     dataOption ← projection.one(select(id), Seq("password", "salt", "enabled", "sha512")) { obj ⇒
       (Json.reads[AuthData] reads obj).asOpt
     }
@@ -84,7 +84,7 @@ final class UserRepo(coll: ReactiveColl) extends Coll[User](coll, Users.json) {
     existing ← exists byId normalize(username)
     userOption ← existing.fold(
       fuccess(none),
-      insert(newUser(username, password)) flatMap { _ ⇒ find byId normalize(username) }
+      insert(newUser(username, password)) >> (find byId normalize(username)) 
     )
   } yield userOption
 
@@ -101,21 +101,21 @@ final class UserRepo(coll: ReactiveColl) extends Coll[User](coll, Users.json) {
     )(_.asOpt[String])
   }
 
-  def toggleMute(id: String) = update.doc(id) { u ⇒ $set("isChatBan" -> !u.isChatBan) }
+  def toggleMute(id: ID) = update.doc(id) { u ⇒ $set("isChatBan" -> !u.isChatBan) }
 
-  def toggleEngine(id: String): Funit = update.doc(id) { u ⇒ $set("engine" -> !u.engine) }
+  def toggleEngine(id: ID): Funit = update.doc(id) { u ⇒ $set("engine" -> !u.engine) }
 
-  def isEngine(id: String): Fu[Boolean] = exists(select(id) ++ Json.obj("engine" -> true))
+  def isEngine(id: ID): Fu[Boolean] = exists(select(id) ++ Json.obj("engine" -> true))
 
-  def setRoles(id: String, roles: List[String]) = update.field(id, "roles", roles)
+  def setRoles(id: ID, roles: List[String]) = update.field(id, "roles", roles)
 
-  def setBio(id: String, bio: String) = update.field(id, "bio", bio)
+  def setBio(id: ID, bio: String) = update.field(id, "bio", bio)
 
-  def enable(id: String) = update.field(id, "enabled", true)
+  def enable(id: ID) = update.field(id, "enabled", true)
 
-  def disable(id: String) = update.field(id, "enabled", false)
+  def disable(id: ID) = update.field(id, "enabled", false)
 
-  def passwd(id: String, password: String): Funit =
+  def passwd(id: ID, password: String): Funit =
     primitive.one(select(id), "salt")(_.asOpt[String]) flatMap { saltOption ⇒
       ~saltOption.map(salt ⇒
         update(select(id), $set("password" -> hash(password, salt)) ++ $set("sha512" -> false))
