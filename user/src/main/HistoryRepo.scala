@@ -1,75 +1,71 @@
 package lila.user
 
-import com.mongodb.casbah.MongoCollection
-import com.mongodb.casbah.query.Imports._
+import lila.db.{ Coll, DbApi }
 
-import java.lang.Float.parseFloat
-import java.lang.Integer.parseInt
-import scalaz.effects._
+import play.api.libs.json._
+import play.api.libs.concurrent.Execution.Implicits._
+
+import play.modules.reactivemongo.Implicits._
+
 import org.joda.time.DateTime
 
-final class HistoryRepo(collection: MongoCollection) {
+final class HistoryRepo(coll: ReactiveColl) extends DbApi {
 
-  def addEntry(userId: String, elo: Int, opponentElo: Option[Int]): IO[Unit] = io {
-    collection.update(
-      DBObject("_id" -> userId),
-      $push(Seq("entries" -> opponentElo.fold(DBList(DateTime.now.getSeconds.toInt, elo)) {
-        DBList(DateTime.now.getSeconds.toInt, elo, _)
-      })),
-      multi = false,
-      upsert = true)
-  }
+  def addEntry(userId: String, elo: Int, opponentElo: Option[Int]): Funit =
+    coll.update(
+      select(userId),
+      $push("entries", opponentElo.fold(Json.arr(DateTime.now.getSeconds.toInt, elo)) { opElo ⇒
+        Json.arr(DateTime.now.getSeconds.toInt, elo, opElo)
+      }),
+      upsert = true
+    ).void
 
-  def userElos(username: String): IO[List[(Int, Int, Option[Int])]] = io {
-    ~collection.findOne(
-      DBObject("_id" -> username.toLowerCase)
-    ).map(history ⇒
-        (history.as[MongoDBList]("entries").toList collect {
-          case elem: com.mongodb.BasicDBList ⇒ try {
-            for {
-              ts ← elem.getAs[Int](0)
-              elo ← elem.getAs[Int](1)
-              op = if (elem.size > 2) elem.getAs[Int](2) else None
-            } yield (ts, elo, op)
-          }
-          catch {
-            case (err: Exception) ⇒ {
-              println("ERR while parsing %s history: %s(%s)".format(username, err.getClass, err.getMessage))
-              none
-            }
-          }
-        }).flatten sortBy (_._1)
-      )
-  }
-
-  def fixAll = io {
-    collection.find() foreach { history ⇒
-      val initEntries = history.as[MongoDBList]("entries").toList
-      val entries = (initEntries collect {
-        case elem: com.mongodb.BasicDBList ⇒ try {
+  def userElos(userId: String): Fu[Seq[(Int, Int, Option[Int])]] =
+    coll.find(select(userId)).one[JsObject] map { historyOption ⇒
+      ~(for {
+        history ← historyOption
+        entries ← (history \ "entries").asOpt[JsArray]
+        arrays = entries.value.map(_.asOpt[JsArray]).flatten
+        elems = arrays map { array ⇒
           for {
-            ts ← elem.getAs[Double](0)
-            elo ← elem.getAs[Double](1)
-            op = if (elem.size > 2) elem.getAs[Double](2) else None
-          } yield op.fold(List(ts.toInt, elo.toInt)) { o ⇒
-            List(ts.toInt, elo.toInt, o.toInt)
-          }
+            ts ← array(0).asOpt[Int]
+            elo ← array(1).asOpt[Int]
+            op = array(2).asOpt[Int]
+          } yield (ts, elo, op)
         }
-        catch {
-          case (err: Exception) ⇒
-            for {
-              ts ← elem.getAs[Int](0)
-              elo ← elem.getAs[Int](1)
-              op = if (elem.size > 2) elem.getAs[Int](2) else None
-            } yield op.fold(List(ts, elo)) { o ⇒ List(ts, elo, o) }
-        }
-      }).flatten sortBy (_.head)
-      val id = history.as[String]("_id")
-      println("%s: %d -> %d".format(id, initEntries.size, entries.size))
-      collection.update(
-        DBObject("_id" -> id),
-        $set(Seq("entries" -> entries))
-      )
+      } yield elems.flatten sortBy (_._1))
     }
-  }
+
+  // def fixAll = io {
+      // import java.lang.Float.parseFloat
+      // import java.lang.Integer.parseInt
+  //   collection.find() foreach { history ⇒
+  //     val initEntries = history.as[MongoDBList]("entries").toList
+  //     val entries = (initEntries collect {
+  //       case elem: com.mongodb.BasicDBList ⇒ try {
+  //         for {
+  //           ts ← elem.getAs[Double](0)
+  //           elo ← elem.getAs[Double](1)
+  //           op = if (elem.size > 2) elem.getAs[Double](2) else None
+  //         } yield op.fold(List(ts.toInt, elo.toInt)) { o ⇒
+  //           List(ts.toInt, elo.toInt, o.toInt)
+  //         }
+  //       }
+  //       catch {
+  //         case (err: Exception) ⇒
+  //           for {
+  //             ts ← elem.getAs[Int](0)
+  //             elo ← elem.getAs[Int](1)
+  //             op = if (elem.size > 2) elem.getAs[Int](2) else None
+  //           } yield op.fold(List(ts, elo)) { o ⇒ List(ts, elo, o) }
+  //       }
+  //     }).flatten sortBy (_.head)
+  //     val id = history.as[String]("_id")
+  //     println("%s: %d -> %d".format(id, initEntries.size, entries.size))
+  //     collection.update(
+  //       DBObject("_id" -> id),
+  //       $set(Seq("entries" -> entries))
+  //     )
+  //   }
+  // }
 }
