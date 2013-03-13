@@ -1,6 +1,7 @@
 package lila.user
 
-import lila.db.{ Coll, DbApi }
+import lila.db.{ Repo, DbApi }
+import lila.db.Implicits._
 
 import play.api.libs.json.Json
 import play.api.libs.concurrent.Execution.Implicits._
@@ -16,7 +17,7 @@ import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
-final class UserRepo(coll: ReactiveColl) extends Coll[User](coll, Users.json) {
+final class UserRepo(coll: ReactiveColl) extends Repo[User](coll, Users.json) {
 
   def normalize(id: ID) = id.toLowerCase
 
@@ -32,7 +33,7 @@ final class UserRepo(coll: ReactiveColl) extends Coll[User](coll, Users.json) {
 
   val enabledQuery = Json.obj("enabled" -> true)
 
-  val sortEloDesc = ("elo" -> sort.desc)
+  val sortEloDesc = "elo" -> sort.desc
 
   def incNbGames(id: ID, rated: Boolean, ai: Boolean, result: Option[Int]) = {
     val incs = List(

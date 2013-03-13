@@ -27,8 +27,6 @@ trait Dependencies {
   val slf4jNop = "org.slf4j" %% "slf4j-nop" % "1.6.4"
   val guava = "com.google.guava" % "guava" % "14.0"
   val findbugs = "com.google.code.findbugs" % "jsr305" % "2.0.1"
-  val paginator = "com.github.ornicar" % "paginator-core_2.9.1" % "1.6"
-  val paginatorSalat = "com.github.ornicar" % "paginator-salat-adapter_2.9.1" % "1.5"
   val csv = "com.github.tototoshi" % "scala-csv_2.9.1" % "0.3"
   val hasher = "hasher" %% "hasher" % "0.3.1"
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "1.3.0.201202151440-r"
@@ -37,7 +35,7 @@ trait Dependencies {
   val jodaConvert = "org.joda" % "joda-convert" % "1.2"
   val scalastic = "scalastic" % "scalastic_2.9.2" % "0.20.1-THIB"
   val reactivemongo = "org.reactivemongo" %% "reactivemongo" % "0.9-SNAPSHOT"
-  val playReactivemongo = "org.reactivemongo" %% "play2-reactivemongo" % "0.9-SNAPSHOT" 
+  val playReactivemongo = "org.reactivemongo" %% "play2-reactivemongo" % "0.9-SNAPSHOT"
   val playProvided = "play" %% "play" % "2.1-SNAPSHOT" % "provided"
   val playTestProvided = "play" %% "play-test" % "2.1-SNAPSHOT" % "provided"
   val sprayCaching = "io.spray" % "spray-caching" % "1.1-M7"
@@ -58,11 +56,16 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
       "-language:_")
   )
 
+  private val srcMain = Seq(
+    scalaSource in Compile <<= (sourceDirectory in Compile)(identity),
+    scalaSource in Test <<= (sourceDirectory in Test)(identity)
+  )
+
   lazy val lila = play.Project("lila", "4",
     settings = buildSettings ++ Seq(
       libraryDependencies := Seq(
         scalaz, scalalib, hasher, config, salat, apache, scalaTime,
-        paginator, paginatorSalat, csv, jgit, actuarius, scalastic, findbugs,
+        csv, jgit, actuarius, scalastic, findbugs,
         reactivemongo),
       templatesImport ++= Seq(
         "lila.app.game.{ DbGame, DbPlayer, Pov }",
@@ -71,8 +74,8 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
         "lila.app.templating.Environment._",
         "lila.app.ui",
         "lila.app.http.Context",
-        "com.github.ornicar.paginator.Paginator")
-    )) dependsOn (user) aggregate (scalachess, common, db, user)
+        "lila.common.paginator.Paginator")
+    )) dependsOn (user, wiki) aggregate (scalachess, common, db, user, wiki)
 
   lazy val common = project("common").settings(
     libraryDependencies := Seq(
@@ -85,26 +88,26 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
 
   lazy val db = project("db", Seq(common)).settings(
     libraryDependencies := Seq(
-      scalaz, scalalib, playProvided, salat, reactivemongo,
-      paginator, paginatorSalat, playReactivemongo
+      scalaz, scalalib, playProvided, salat, reactivemongo, playReactivemongo
     )
-  )
+  ).settings(srcMain: _*)
 
   lazy val user = project("user", Seq(common, memo, db, scalachess)).settings(
     libraryDependencies := Seq(
-      scalaz, scalalib, hasher, jodaTime, jodaConvert, playProvided, salat,
-      paginator, paginatorSalat, sprayCaching, playTestProvided,
-      reactivemongo, playReactivemongo),
-    scalaSource in Compile <<= (sourceDirectory in Compile)(identity),
-    scalaSource in Test <<= (sourceDirectory in Test)(identity)
-  )
+      scalaz, scalalib, hasher, jodaTime, jodaConvert, playProvided, 
+      sprayCaching, playTestProvided, reactivemongo, playReactivemongo)
+  ).settings(srcMain: _*)
+
+  lazy val wiki = project("wiki", Seq(common, db)).settings(
+    libraryDependencies := Seq(
+      scalaz, scalalib, jodaTime, jodaConvert, playProvided, 
+      playTestProvided, reactivemongo, playReactivemongo)
+  ).settings(srcMain: _*)
 
   lazy val scalachess = project("scalachess").settings(
     libraryDependencies := Seq(scalaz, scalalib, hasher, jodaTime, jodaConvert)
   )
 
   private def project(name: String, deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]] = Seq.empty) =
-    Project(name, file(name), dependencies = deps, settings = buildSettings ++ Seq(
-      // scalaSource in Compile <<= (sourceDirectory in Compile)(identity)
-    ))
+    Project(name, file(name), dependencies = deps, settings = buildSettings)
 }

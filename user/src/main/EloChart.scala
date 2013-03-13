@@ -1,10 +1,11 @@
 package lila.user
 
 import scala.math.round
-import scalaz.effects._
 import play.api.libs.json.Json
 import org.joda.time.DateTime
 import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
+
+import play.api.libs.concurrent.Execution.Implicits._
 
 final class EloChart(rawElos: List[(Int, Int, Option[Int])]) {
 
@@ -62,10 +63,10 @@ object EloChart {
     Json.arr("number", "Average")
   )
 
-  def apply(historyRepo: HistoryRepo)(user: User): IO[Option[EloChart]] =
+  def apply(historyRepo: HistoryRepo)(user: User): Fu[Option[EloChart]] =
     historyRepo userElos user.username map { elos ⇒
       (elos.size > 1) option {
-        new EloChart((user.createdAt.getSeconds.toInt, User.STARTING_ELO, None) :: elos)
+        new EloChart((user.createdAt.getSeconds.toInt, Users.STARTING_ELO, None) :: elos.toList)
       }
     }
 }

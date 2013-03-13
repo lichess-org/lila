@@ -11,7 +11,7 @@ import play.api.libs.concurrent.Execution.Implicits._
 
 import scala.concurrent.Future
 
-abstract class Coll[Doc <: WithStringId](coll: ReactiveColl, json: JsonTube[Doc]) extends DbApi {
+abstract class Repo[Doc <: WithStringId](coll: ReactiveColl, json: JsonTube[Doc]) extends DbApi {
 
   object query {
 
@@ -123,23 +123,6 @@ abstract class Coll[Doc <: WithStringId](coll: ReactiveColl, json: JsonTube[Doc]
 
   type ID = String
 
-  // hack, this should be in reactivemongo
-  protected implicit def richerQueryBuilder(b: QueryBuilder) = new {
-
-    def sort(sorters: (String, SortOrder)*): QueryBuilder =
-      if (sorters.size == 0) b
-      else b sort {
-        BSONDocument(
-          (for (sorter ← sorters) yield sorter._1 -> BSONInteger(
-            sorter._2 match {
-              case SortOrder.Ascending  ⇒ 1
-              case SortOrder.Descending ⇒ -1
-            })).toStream)
-      }
-
-    def limit(nb: Int): QueryBuilder = b.options(b.options batchSize nb)
-  }
-
   //////////////////
   // PRIVATE SHIT //
   //////////////////
@@ -160,5 +143,5 @@ abstract class Coll[Doc <: WithStringId](coll: ReactiveColl, json: JsonTube[Doc]
     def read(bson: BSONDocument): Option[Doc] = json.fromMongo(JsObjectReader read bson).asOpt
   }
 
-  private def fuck(msg: Any) = Future failed (new DbException(msg.toString))
+  private def fuck(msg: Any) = fufail(new DbException(msg.toString))
 }
