@@ -1,21 +1,24 @@
 package lila.wiki
 
-import lila.user.User
+import lila.db.JsonTube
 
 import org.joda.time.DateTime
 import java.text.Normalizer
 import java.util.regex.Matcher.quoteReplacement
 
-case class Page(
-    id: String,
-    name: String,
-    title: String,
-    body: String) {
+case class Page(id: String, name: String, title: String, body: String) {
 
   def slug = id
 }
 
-object Page {
+object Pages {
+
+  import play.api.libs.json._
+
+  val json = JsonTube[Page](
+    reads = Json.reads[Page],
+    writes = Json.writes[Page]
+  )
 
   def apply(name: String, body: String): Page = new Page(
     id = dropNumber(slugify(name)),
@@ -23,6 +26,7 @@ object Page {
     title = dropNumber(name.replace("-", " ")),
     body = body)
 
+  // does not lowercase
   private def slugify(input: String) = {
     val nowhitespace = input.replace(" ", "_")
     val normalized = Normalizer.normalize(nowhitespace, Normalizer.Form.NFD)
@@ -32,3 +36,4 @@ object Page {
   private def dropNumber(input: String) = 
     """^\d+_(.+)$""".r.replaceAllIn(input, m => quoteReplacement(m group 1))
 }
+

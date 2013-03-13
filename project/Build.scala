@@ -98,7 +98,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
 
   lazy val wiki = project("wiki", Seq(common, db)).settings(
     libraryDependencies ++= Seq(
-      playProvided, reactivemongo, playReactivemongo)
+      playProvided, reactivemongo, playReactivemongo, jgit, actuarius, guava)
   ).settings(srcMain: _*)
 
   lazy val scalachess = project("scalachess").settings(
