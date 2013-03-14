@@ -18,7 +18,6 @@ trait LilaController
     with RequestGetter
     with ResponseWriter {
     // with AsyncResults
-    with AuthImpl {
 
   protected lazy val env = Global.env
   protected implicit def currentApp = env.app
