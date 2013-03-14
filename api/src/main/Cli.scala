@@ -1,7 +1,5 @@
 package lila.api
 
-import lila.api.ApiEnv
-
 import play.api.libs.concurrent.Execution.Implicits._
 
 object Cli {

@@ -2,7 +2,7 @@ package lila
 
 import ornicar.scalalib
 
-import scalaz.{ Zero, Functor }
+import scalaz.{ Zero, Functor, Monad, OptionT }
 import scala.concurrent.Future
 
 trait PackageObject
@@ -17,7 +17,8 @@ trait PackageObject
     with scalaz.Strings
     with scalaz.Lists
     with scalaz.Zeros
-    with scalaz.Booleans {
+    with scalaz.Booleans
+    with scalaz.OptionTs {
 
   val toVoid = (_: Any) ⇒ ()
 
@@ -86,7 +87,7 @@ trait WithDb { self: PackageObject ⇒
 
 trait WithPlay { self: PackageObject ⇒
 
-  import play.api.libs.json.JsValue
+  import play.api.libs.json._
   import play.api.libs.concurrent.Promise
   import play.api.libs.iteratee.{ Iteratee, Enumerator }
   import play.api.libs.iteratee.Concurrent.Channel
@@ -97,9 +98,16 @@ trait WithPlay { self: PackageObject ⇒
   type JsEnumerator = Enumerator[JsValue]
   type SocketFuture = Future[(Iteratee[JsValue, _], JsEnumerator)]
 
+  // Typeclasses
   implicit def FutureFunctor = new Functor[Fu] {
     def fmap[A, B](r: Fu[A], f: A ⇒ B) = r map f
   }
+  implicit def FutureMonad = new Monad[Fu] {
+    def pure[A](a: ⇒ A) = fuccess(a)
+    def bind[A, B](r: Fu[A], f: A ⇒ Fu[B]) = r flatMap f
+  }
+
+  implicit def futureOptionT[A](fuo: Fu[Option[A]]): OptionT[Future, A] = optionT(fuo)
 
   implicit def lilaRicherFuture[A](fua: Fu[A]) = new {
 
@@ -115,5 +123,13 @@ trait WithPlay { self: PackageObject ⇒
     def doIf(cond: Boolean): Fu[A] = cond.fold(fua, fuccess(∅[A]))
 
     def doUnless(cond: Boolean): Fu[A] = doIf(!cond)
+  }
+
+  implicit def pimpJsObject(obj: JsObject) = new {
+
+    def get[T: Reads](field: String): Option[T] = (obj \ field) match {
+      case JsUndefined(_) ⇒ none
+      case value          ⇒ value.asOpt[T]
+    }
   }
 }
