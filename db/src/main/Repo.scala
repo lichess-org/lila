@@ -19,6 +19,8 @@ abstract class Repo[Doc <: WithStringId](coll: ReactiveColl, json: JsonTube[Doc]
 
     def all = builder
 
+    def byId(id: ID) = apply(select byId id)
+
     def byIds(ids: Seq[ID]) = apply(select byIds ids)
   }
 
