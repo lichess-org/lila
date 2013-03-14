@@ -1,20 +1,23 @@
-package lila.app
-package security
+package lila.security
 
-import http.LilaCookie
-import controllers.routes
+import lila.common.LilaCookie
+import lila.memo.VarMemo
+import lila.db.Implicits._
+import lila.db.DbApi
+
+import scala.concurrent.duration._
+import akka.util.Timeout
 
 import play.api.mvc.{ RequestHeader, Handler, Action, Cookies }
 import play.api.mvc.Results.Redirect
-import com.mongodb.casbah.MongoCollection
-import com.mongodb.casbah.Imports._
-import java.util.Date
+import play.api.libs.json._
+import play.api.libs.concurrent.Execution.Implicits._
+import play.modules.reactivemongo.Implicits._
+
+import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
-final class Firewall(
-    collection: MongoCollection,
-    cookieName: Option[String],
-    enabled: Boolean) {
+final class Firewall(coll: ReactiveColl, cookieName: Option[String], enabled: Boolean) {
 
   val requestHandler: (RequestHeader ⇒ Option[Handler]) = enabled.fold(
     cookieName.fold((_: RequestHeader) ⇒ none[Handler]) { cn ⇒
@@ -36,27 +39,19 @@ final class Firewall(
 
   def accepts(req: RequestHeader): Boolean = !blocks(req)
 
-  def refresh { ips = fetch }
+  def refresh: Funit = ipsMemo reload fetch
 
-  def blockIp(ip: String) {
-    if (validIp(ip)) {
-      if (!blocksIp(ip)) {
-        log("Block IP: " + ip)
-        collection += DBObject("_id" -> ip, "date" -> new Date)
-        refresh
-      }
+  def blockIp(ip: String): Funit =
+    if (validIp(ip) && !blocksIp(ip)) {
+      log("Block IP: " + ip)
+      coll.insert(Json.obj("_id" -> ip, "date" -> DateTime.now)) >> refresh
     }
-    else log("Invalid IP block: " + ip)
-  }
-
-  private def redirectHome(implicit req: RequestHeader) = Action {
-    Redirect(routes.Lobby.home())
-  }
+    else fuccess(log("Invalid IP block: " + ip))
 
   private def infectCookie(name: String)(implicit req: RequestHeader) = Action {
     log("Infect cookie " + formatReq(req))
     val cookie = LilaCookie.cookie(name, Random nextString 32)
-    Redirect(routes.Lobby.home()) withCookies cookie
+    Redirect("/") withCookies cookie
   }
 
   def logBlock(req: RequestHeader) {
@@ -70,7 +65,7 @@ final class Firewall(
   private def formatReq(req: RequestHeader) =
     "%s %s %s".format(req.remoteAddress, req.uri, req.headers.get("User-Agent") | "?")
 
-  private def blocksIp(ip: String) = ips contains ip
+  private def blocksIp(ip: String): Boolean = ips contains ip
 
   private def blocksCookies(cookies: Cookies, name: String) =
     (cookies get name).isDefined
@@ -81,11 +76,13 @@ final class Firewall(
   private def validIp(ip: String) =
     (ipRegex matches ip) && ip != "127.0.0.1" && ip != "0.0.0.0"
 
-  private var ips = fetch
+  private implicit val timeout = Timeout(2.seconds)
+  private val ipsMemo = new VarMemo(fetch, 2.seconds)
 
-  private def fetch = {
-    collection.find().toList map { obj ⇒
-      obj.getAs[String]("_id")
-    }
-  }.flatten.toSet
+  private def ips: Set[String] = ipsMemo.get.await
+
+  private def fetch: Fu[Set[String]] = 
+    coll.genericQueryBuilder
+      .projection(Json.obj("_id" -> true))
+      .cursor.toList map2 { (obj: JsObject) ⇒ obj.get[String]("_id") } map (_.flatten.toSet)
 }
