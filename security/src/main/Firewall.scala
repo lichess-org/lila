@@ -1,6 +1,6 @@
 package lila.security
 
-import lila.common.LilaCookie
+import lila.http.LilaCookie
 import lila.memo.VarMemo
 import lila.db.Implicits._
 import lila.db.DbApi

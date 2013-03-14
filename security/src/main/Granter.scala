@@ -1,7 +1,6 @@
-package lila.app
-package security
+package lila.security
 
-import user.User
+import lila.user.User
 
 object Granter {
 
