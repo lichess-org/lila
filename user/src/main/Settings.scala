@@ -3,7 +3,7 @@ package lila.user
 import lila.common.ConfigSettings
 import com.typesafe.config.Config
 
-final class Settings(config: Config) extends ConfigSettings(config getObject "user") {
+final class Settings(config: Config) extends ConfigSettings(config) {
 
   val PaginatorMaxPerPage = getInt("paginator.max_per_page")
   val EloUpdaterFloor = getInt("elo_updater.floor")

@@ -77,6 +77,12 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
         "lila.common.paginator.Paginator")
     )) dependsOn (user, wiki) aggregate (scalachess, common, db, user, wiki)
 
+  lazy val api = project("api", Seq(common, db, user, wiki)).settings(
+    libraryDependencies := Seq(
+      hasher, config, salat, apache, csv, jgit,
+      actuarius, scalastic, findbugs, reactivemongo)
+  ).settings(srcMain: _*)
+
   lazy val common = project("common").settings(
     libraryDependencies ++= Seq(playProvided, reactivemongo)
   )
@@ -93,7 +99,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
 
   lazy val user = project("user", Seq(common, memo, db, scalachess)).settings(
     libraryDependencies ++= Seq(
-      hasher, playProvided, sprayCaching, playTestProvided, reactivemongo, playReactivemongo)
+      hasher, playProvided, sprayCaching, playTestProvided, reactivemongo, playReactivemongo, jodaTime, jodaConvert)
   ).settings(srcMain: _*)
 
   lazy val wiki = project("wiki", Seq(common, db)).settings(
@@ -105,13 +111,13 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     libraryDependencies ++= Seq(hasher)
   )
 
-  private def defaultDeps = Seq(scalaz, scalalib, jodaTime, jodaConvert)
+  private def defaultDeps = Seq(scalaz, scalalib, jodaTime, jodaConvert, scalaTime)
 
   private def project(name: String, deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]] = Seq.empty) =
     Project(
-      name, 
-      file(name), 
-      dependencies = deps, 
+      name,
+      file(name),
+      dependencies = deps,
       settings = Seq(
         libraryDependencies := defaultDeps
       ) ++ buildSettings
