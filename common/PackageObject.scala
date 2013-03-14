@@ -62,6 +62,8 @@ trait PackageObject
 
 trait WithFuture extends scalaz.Zeros {
 
+  import spray.util.pimps.PimpedFuture
+
   type Fu[A] = Future[A]
   type Funit = Fu[Unit]
 
@@ -70,6 +72,8 @@ trait WithFuture extends scalaz.Zeros {
   def funit = fuccess(())
 
   implicit def FuZero[A: Zero]: Zero[Fu[A]] = new Zero[Fu[A]] { val zero = fuccess(∅[A]) }
+
+  implicit def pimpFuture[T](fut: Future[T]): PimpedFuture[T] = new PimpedFuture[T](fut)
 }
 
 trait WithDb { self: PackageObject ⇒

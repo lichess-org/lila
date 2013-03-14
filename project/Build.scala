@@ -14,7 +14,7 @@ trait Resolvers {
   val christophs = "Christophs Maven Repo" at "http://maven.henkelmann.eu/"
   val sgodbillon = "sgodbillon" at "https://bitbucket.org/sgodbillon/repository/raw/master/snapshots/"
   val awesomepom = "awesomepom" at "https://raw.github.com/jibs/maven-repo-scala/master"
-  val spray = "spray repo" at "http://repo.spray.io"
+  val sprayRepo = "spray repo" at "http://repo.spray.io"
 }
 
 trait Dependencies {
@@ -38,7 +38,10 @@ trait Dependencies {
   val playReactivemongo = "org.reactivemongo" %% "play2-reactivemongo" % "0.9-SNAPSHOT"
   val playProvided = "play" %% "play" % "2.1-SNAPSHOT" % "provided"
   val playTestProvided = "play" %% "play-test" % "2.1-SNAPSHOT" % "provided"
-  val sprayCaching = "io.spray" % "spray-caching" % "1.1-M7"
+  object spray {
+    val caching = "io.spray" % "spray-caching" % "1.1-M7"
+    val util = "io.spray" % "spray-util" % "1.1-M7"
+  }
 }
 
 object ApplicationBuild extends Build with Resolvers with Dependencies {
@@ -48,7 +51,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     scalaVersion in ThisBuild := "2.10.0",
     resolvers in ThisBuild ++= Seq(
       awesomepom, iliaz, sonatype, sonatypeS, // sgodbillon, 
-      typesafe, t2v, jgitMaven, christophs, spray),
+      typesafe, t2v, jgitMaven, christophs, sprayRepo),
     scalacOptions := Seq(
       "-deprecation",
       "-unchecked",
@@ -84,7 +87,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
   ).settings(srcMain: _*) aggregate (common, db, user, wiki)
 
   lazy val common = project("common").settings(
-    libraryDependencies ++= Seq(playProvided, reactivemongo)
+    libraryDependencies ++= Seq(playProvided, reactivemongo, spray.util)
   )
 
   lazy val memo = project("memo", Seq(common)).settings(
@@ -99,7 +102,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
 
   lazy val user = project("user", Seq(common, memo, db, scalachess)).settings(
     libraryDependencies ++= Seq(
-      hasher, playProvided, sprayCaching, playTestProvided, reactivemongo, playReactivemongo, jodaTime, jodaConvert)
+      hasher, playProvided, spray.caching, playTestProvided, reactivemongo, playReactivemongo, jodaTime, jodaConvert)
   ).settings(srcMain: _*)
 
   lazy val wiki = project("wiki", Seq(common, db)).settings(
