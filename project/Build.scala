@@ -21,40 +21,44 @@ object ApplicationBuild extends Build {
         // "lila.app.ui",
         // "lila.app.http.Context",
         "lila.common.paginator.Paginator")
-    )) dependsOn (api, user, wiki) aggregate (scalachess, api, common, db, user, wiki)
+    )) dependsOn (api, user, wiki) aggregate (scalachess, api, common, http, db, user, wiki)
 
   lazy val api = project("api", Seq(common, db, user, security, wiki)).settings(
     libraryDependencies := provided(
       hasher, config, salat, apache, csv, jgit,
       actuarius, scalastic, findbugs, reactivemongo)
-  ).settings(srcMain: _*) aggregate (common, db, user, security, wiki)
+  )
 
   lazy val common = project("common").settings(
-    libraryDependencies ++= Seq(playApi, reactivemongo, spray.util)
-  ).settings(srcMain: _*)
+    libraryDependencies ++= provided(playApi, reactivemongo)
+  )
 
   lazy val memo = project("memo", Seq(common)).settings(
-    libraryDependencies ++= Seq(guava, findbugs)
+    libraryDependencies ++= Seq(guava, findbugs) ++ provided(playApi)
   )
 
   lazy val db = project("db", Seq(common)).settings(
     libraryDependencies ++= provided(playApi) ++ Seq(reactivemongo, playReactivemongo)
-  ).settings(srcMain: _*)
+  )
 
   lazy val user = project("user", Seq(common, memo, db, scalachess)).settings(
     libraryDependencies ++= provided(
       playApi, playTest, reactivemongo, playReactivemongo, hasher, spray.caching) 
-  ).settings(srcMain: _*)
+  )
 
-  lazy val security = project("security", Seq(common, db, user)).settings(
+  lazy val http = project("http", Seq(common, user)).settings(
+    libraryDependencies ++= provided(playApi)
+  )
+
+  lazy val security = project("security", Seq(common, db, http, user)).settings(
     libraryDependencies ++= provided(
       playApi, reactivemongo, playReactivemongo) 
-  ).settings(srcMain: _*)
+  )
 
   lazy val wiki = project("wiki", Seq(common, db)).settings(
-    libraryDependencies ++= Seq(
+    libraryDependencies ++= provided(
       playApi, reactivemongo, playReactivemongo, jgit, actuarius, guava)
-  ).settings(srcMain: _*)
+  )
 
   lazy val scalachess = project("scalachess").settings(
     libraryDependencies ++= Seq(hasher)

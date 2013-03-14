@@ -1,8 +1,7 @@
-package lila.app
-package security
+package lila.security
 
-import user.User
-import http.Context
+import lila.user.User
+import lila.http.Context
 
 trait SecurityHelper {
 

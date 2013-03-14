@@ -16,7 +16,7 @@ object BuildSettings {
       "-language:_")
   )
 
-  def defaultDeps = Seq(scalaz, scalalib, jodaTime, jodaConvert, scalaTime)
+  def defaultDeps = Seq(scalaz, scalalib, jodaTime, jodaConvert, scalaTime, spray.util)
 
   def compile(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "compile")
   def provided(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "provided")
@@ -31,7 +31,7 @@ object BuildSettings {
       dependencies = deps,
       settings = Seq(
         libraryDependencies := defaultDeps
-      ) ++ buildSettings
+      ) ++ buildSettings ++ srcMain
     )
 
   val srcMain = Seq(
