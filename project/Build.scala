@@ -81,7 +81,7 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
     libraryDependencies := Seq(
       hasher, config, salat, apache, csv, jgit,
       actuarius, scalastic, findbugs, reactivemongo)
-  ).settings(srcMain: _*)
+  ).settings(srcMain: _*) aggregate (common, db, user, wiki)
 
   lazy val common = project("common").settings(
     libraryDependencies ++= Seq(playProvided, reactivemongo)

@@ -1,5 +1,7 @@
 package lila.user
 
+import lila.db.Implicits._
+
 import org.specs2.mutable._
 
 import play.api.test._
@@ -13,12 +15,12 @@ object Common {
   import scala.concurrent._
   import scala.concurrent.duration._
   import reactivemongo.api._
-  import reactivemongo.bson.handlers.DefaultBSONHandlers
+  // import reactivemongo.bson.handlers.DefaultBSONHandlers
 
   implicit val ec = ExecutionContext.Implicits.global
-  implicit val writer = DefaultBSONHandlers.DefaultBSONDocumentWriter
-  implicit val reader = DefaultBSONHandlers.DefaultBSONDocumentReader
-  implicit val handler = DefaultBSONHandlers.DefaultBSONReaderHandler
+  // implicit val writer = DefaultBSONHandlers.DefaultBSONDocumentWriter
+  // implicit val reader = DefaultBSONHandlers.DefaultBSONDocumentReader
+  // implicit val handler = DefaultBSONHandlers.DefaultBSONReaderHandler
 
   val timeout = 2 seconds
 
@@ -30,7 +32,7 @@ class RepoTest extends Specification {
 
   import Common._
 
-  val repo = new UserRepo(db, "user2")
+  val repo = new UserRepo(db("user2"))
   val user = User(
     id = "thibault",
     username = "Thibault",
@@ -55,7 +57,7 @@ class RepoTest extends Specification {
 
   "The user repo" should {
     "find user" in {
-      Await.result(repo.find(repo.query byId "thibault", 1), timeout) must haveSize(1)
+      Await.result(repo.find(repo.query byId "thibault" limit 10), timeout) must haveSize(1)
     }
     "convert user to mongo" in {
       (Users.json toMongo user) map (_ \ "createdAt" \ "$date") must beLike {
@@ -63,7 +65,7 @@ class RepoTest extends Specification {
       }
     }
     "find thibault" in {
-      Await.result(repo byId "thibault", timeout) must beSome
+      Await.result(repo.find byId "thibault", timeout) must beSome
     }
   }
 }
