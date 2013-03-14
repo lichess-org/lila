@@ -11,6 +11,9 @@ import play.modules.reactivemongo._
 
 final class ApiEnv private (application: Application, val config: Config) {
 
+  val settings = new Settings(config)
+  import settings._
+
   implicit val app = application
 
   lazy val db = new lila.db.DbEnv(ReactiveMongoPlugin.db)

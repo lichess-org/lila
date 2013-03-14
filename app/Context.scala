@@ -1,8 +1,7 @@
 package lila.app
-package http
 
-import user.User
-import security.{ Permission, Granter }
+import lila.user.User
+// import security.{ Permission, Granter }
 
 import play.api.mvc.{ Request, RequestHeader }
 
@@ -14,7 +13,7 @@ sealed abstract class Context(val req: RequestHeader, val me: Option[User]) {
 
   def canSeeChat = ~me.map(!_.isChatBan)
 
-  def isGranted(permission: Permission): Boolean = ~me.map(Granter(permission))
+  // def isGranted(permission: Permission): Boolean = ~me.map(Granter(permission))
 
   def is(user: User): Boolean = me == Some(user)
 

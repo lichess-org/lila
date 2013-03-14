@@ -2,67 +2,10 @@ import sbt._
 import Keys._
 import play.Project._
 
-trait Resolvers {
-  // val codahale = "repo.codahale.com" at "http://repo.codahale.com/"
-  val typesafe = "typesafe.com" at "http://repo.typesafe.com/typesafe/releases/"
-  val iliaz = "iliaz.com" at "http://scala.iliaz.com/"
-  val sonatype = "sonatype" at "http://oss.sonatype.org/content/repositories/releases"
-  val sonatypeS = "sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots"
-  val t2v = "t2v.jp repo" at "http://www.t2v.jp/maven-repo/"
-  // val guice = "guice-maven" at "http://guice-maven.googlecode.com/svn/trunk"
-  val jgitMaven = "jgit-maven" at "http://download.eclipse.org/jgit/maven"
-  val christophs = "Christophs Maven Repo" at "http://maven.henkelmann.eu/"
-  val sgodbillon = "sgodbillon" at "https://bitbucket.org/sgodbillon/repository/raw/master/snapshots/"
-  val awesomepom = "awesomepom" at "https://raw.github.com/jibs/maven-repo-scala/master"
-  val sprayRepo = "spray repo" at "http://repo.spray.io"
-}
+object ApplicationBuild extends Build {
 
-trait Dependencies {
-  val scalaz = "org.scalaz" %% "scalaz-core" % "6.0.4"
-  val salat = "com.novus" % "salat-core_2.9.2" % "1.9.1"
-  val scalalib = "com.github.ornicar" %% "scalalib" % "3.3"
-  val config = "com.typesafe" % "config" % "1.0.0"
-  val apache = "org.apache.commons" % "commons-lang3" % "3.1"
-  val scalaTime = "org.scala-tools.time" % "time_2.9.1" % "0.5"
-  val slf4jNop = "org.slf4j" %% "slf4j-nop" % "1.6.4"
-  val guava = "com.google.guava" % "guava" % "14.0"
-  val findbugs = "com.google.code.findbugs" % "jsr305" % "2.0.1"
-  val csv = "com.github.tototoshi" % "scala-csv_2.9.1" % "0.3"
-  val hasher = "hasher" %% "hasher" % "0.3.1"
-  val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "1.3.0.201202151440-r"
-  val actuarius = "eu.henkelmann" % "actuarius_2.9.2" % "0.2.4"
-  val jodaTime = "joda-time" % "joda-time" % "2.1"
-  val jodaConvert = "org.joda" % "joda-convert" % "1.2"
-  val scalastic = "scalastic" % "scalastic_2.9.2" % "0.20.1-THIB"
-  val reactivemongo = "org.reactivemongo" %% "reactivemongo" % "0.9-SNAPSHOT"
-  val playReactivemongo = "org.reactivemongo" %% "play2-reactivemongo" % "0.9-SNAPSHOT"
-  val playProvided = "play" %% "play" % "2.1-SNAPSHOT" % "provided"
-  val playTestProvided = "play" %% "play-test" % "2.1-SNAPSHOT" % "provided"
-  object spray {
-    val caching = "io.spray" % "spray-caching" % "1.1-M7"
-    val util = "io.spray" % "spray-util" % "1.1-M7"
-  }
-}
-
-object ApplicationBuild extends Build with Resolvers with Dependencies {
-
-  private val buildSettings = Defaults.defaultSettings ++ Seq(
-    organization in ThisBuild := "org.lichess",
-    scalaVersion in ThisBuild := "2.10.0",
-    resolvers in ThisBuild ++= Seq(
-      awesomepom, iliaz, sonatype, sonatypeS, // sgodbillon, 
-      typesafe, t2v, jgitMaven, christophs, sprayRepo),
-    scalacOptions := Seq(
-      "-deprecation",
-      "-unchecked",
-      "-feature",
-      "-language:_")
-  )
-
-  private val srcMain = Seq(
-    scalaSource in Compile <<= (sourceDirectory in Compile)(identity),
-    scalaSource in Test <<= (sourceDirectory in Test)(identity)
-  )
+  import BuildSettings._
+  import Dependencies._
 
   lazy val lila = play.Project("lila", "4",
     settings = buildSettings ++ Seq(
@@ -71,23 +14,23 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
         csv, jgit, actuarius, scalastic, findbugs,
         reactivemongo),
       templatesImport ++= Seq(
-        "lila.app.game.{ DbGame, DbPlayer, Pov }",
-        "lila.app.user.User",
-        "lila.app.security.Permission",
-        "lila.app.templating.Environment._",
-        "lila.app.ui",
-        "lila.app.http.Context",
+        // "lila.app.game.{ DbGame, DbPlayer, Pov }",
+        "lila.user.User",
+        // "lila.app.security.Permission",
+        // "lila.app.templating.Environment._",
+        // "lila.app.ui",
+        // "lila.app.http.Context",
         "lila.common.paginator.Paginator")
-    )) dependsOn (user, wiki) aggregate (scalachess, common, db, user, wiki)
+    )) dependsOn (api, user, wiki) aggregate (scalachess, api, common, db, user, wiki)
 
   lazy val api = project("api", Seq(common, db, user, wiki)).settings(
-    libraryDependencies := Seq(
+    libraryDependencies := provided(
       hasher, config, salat, apache, csv, jgit,
       actuarius, scalastic, findbugs, reactivemongo)
   ).settings(srcMain: _*) aggregate (common, db, user, wiki)
 
   lazy val common = project("common").settings(
-    libraryDependencies ++= Seq(playProvided, reactivemongo, spray.util)
+    libraryDependencies ++= Seq(playApi, reactivemongo, spray.util)
   )
 
   lazy val memo = project("memo", Seq(common)).settings(
@@ -95,34 +38,20 @@ object ApplicationBuild extends Build with Resolvers with Dependencies {
   )
 
   lazy val db = project("db", Seq(common)).settings(
-    libraryDependencies ++= Seq(
-      playProvided, reactivemongo, playReactivemongo
-    )
+    libraryDependencies ++= provided(playApi) ++ Seq(reactivemongo, playReactivemongo)
   ).settings(srcMain: _*)
 
   lazy val user = project("user", Seq(common, memo, db, scalachess)).settings(
-    libraryDependencies ++= Seq(
-      hasher, playProvided, spray.caching, playTestProvided, reactivemongo, playReactivemongo, jodaTime, jodaConvert)
+    libraryDependencies ++= provided(
+      playApi, playTest, reactivemongo, playReactivemongo, hasher, spray.caching) 
   ).settings(srcMain: _*)
 
   lazy val wiki = project("wiki", Seq(common, db)).settings(
     libraryDependencies ++= Seq(
-      playProvided, reactivemongo, playReactivemongo, jgit, actuarius, guava)
+      playApi, reactivemongo, playReactivemongo, jgit, actuarius, guava)
   ).settings(srcMain: _*)
 
   lazy val scalachess = project("scalachess").settings(
     libraryDependencies ++= Seq(hasher)
   )
-
-  private def defaultDeps = Seq(scalaz, scalalib, jodaTime, jodaConvert, scalaTime)
-
-  private def project(name: String, deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]] = Seq.empty) =
-    Project(
-      name,
-      file(name),
-      dependencies = deps,
-      settings = Seq(
-        libraryDependencies := defaultDeps
-      ) ++ buildSettings
-    )
 }
