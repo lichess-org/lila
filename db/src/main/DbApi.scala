@@ -28,6 +28,7 @@ trait operator {
   def $in[A: Writes](values: Seq[A]) = Json.obj("$in" -> Json.arr(values))
 
   def $reg(value: String, flags: String = "") = BSONRegex(value, flags)
+  // def $date(value: DateTime) = Json.obj("$date" -> value.getMillis)
 
   private def wrap[K, V : Writes](pairs: Seq[(K, V)]): Seq[(K, JsValueWrapper)] = pairs map {
     case (k, v) ⇒ k -> Json.toJsFieldJsValueWrapper(v)
