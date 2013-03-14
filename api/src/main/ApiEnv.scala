@@ -22,6 +22,11 @@ final class ApiEnv private (application: Application, val config: Config) {
     config = in("user"),
     db = db.apply)
 
+  lazy val security = new lila.security.SecurityEnv(
+    config = in("security"),
+    db = db.apply,
+    userRepo = user.userRepo)
+
   lazy val wiki = new lila.wiki.WikiEnv(
     config = in("wiki"),
     db = db.apply)
