@@ -3,9 +3,11 @@ package lila.user
 import lila.db.ReactiveColl
 
 import chess.EloCalculator
+import com.typesafe.config.Config
 
-final class UserEnv(settings: Settings, db: String ⇒ ReactiveColl) {
+final class UserEnv(config: Config, db: String ⇒ ReactiveColl) {
 
+  val settings = new Settings(config)
   import settings._
 
   lazy val historyRepo = new HistoryRepo(db(CollectionHistory))

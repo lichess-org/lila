@@ -66,14 +66,14 @@ object Users {
     "engine" -> false,
     "toints" -> 0)
 
-  val json = JsonTube[User](
+  val json = JsonTube(
     reads = (__.json update (
       mergeDefaults andThen readDate('createdAt)
     )) andThen Json.reads[User],
     writes = Json.writes[User],
     writeTransformer = (__.json update (
       writeDate('createdAt)
-    )) 
+    )).some 
   )
 
   private def mergeDefaults = __.read[JsObject] map (defaults ++)

@@ -2,15 +2,20 @@ package lila.wiki
 
 import lila.db.ReactiveColl
 
-final class WikiEnv(settings: Settings, db: String ⇒ ReactiveColl) {
+import com.typesafe.config.Config
 
+final class WikiEnv(config: Config, db: String ⇒ ReactiveColl) {
+
+  private val settings = new Settings(config)
   import settings._
 
-  // lazy val pageRepo = new PageRepo(mongodb(WikiCollectionPage))
+  lazy val api = new Api(pageRepo)
 
-  // lazy val api = new Api(pageRepo = pageRepo)
+  private lazy val pageRepo = new PageRepo(db(CollectionPage))
   
-  // lazy val fetch = new Fetch(
-  //   gitUrl = WikiGitUrl,
-  //   pageRepo = pageRepo)
+  private lazy val fetcher = new Fetch(gitUrl = GitUrl, pageRepo = pageRepo)
+
+  def cli = new {
+    def fetch = WikiEnv.this.fetcher.apply inject "Fetched wiki from github"
+  }
 }

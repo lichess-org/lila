@@ -14,10 +14,10 @@ import play.api.libs.concurrent.Execution.Implicits._
 
 final class Fetch(gitUrl: String, pageRepo: PageRepo) {
 
-  def apply: Funit = getFiles flatMap { files =>
+  def apply: Funit = getFiles flatMap { files ⇒
     val pages = files.map(filePage).flatten
     pageRepo.clear >> Future.sequence(pages.map(pageRepo.insert.apply)).void
-  } 
+  }
 
   private def filePage(file: File): Option[Page] = {
     val name = """^(.+)\.md$""".r.replaceAllIn(file.getName, _ group 1)
@@ -35,10 +35,10 @@ final class Fetch(gitUrl: String, pageRepo: PageRepo) {
     dir.listFiles.toList filter (_.isFile) sortBy (_.getName)
   }
 
-  private def fileContent(file: File) = 
+  private def fileContent(file: File) =
     scala.io.Source.fromFile(file.getCanonicalPath).mkString
 
-  private def toHtml(input: String): String = 
+  private def toHtml(input: String): String =
     new ActuariusTransformer() apply input
 
 }

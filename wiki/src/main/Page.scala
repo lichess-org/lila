@@ -15,10 +15,7 @@ object Pages {
 
   import play.api.libs.json._
 
-  val json = JsonTube[Page](
-    reads = Json.reads[Page],
-    writes = Json.writes[Page]
-  )
+  val json = JsonTube(Json.reads[Page], Json.writes[Page])
 
   def apply(name: String, body: String): Page = new Page(
     id = dropNumber(slugify(name)),
