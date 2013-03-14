@@ -8,7 +8,6 @@ import play.api.test._
 import play.api.test.Helpers._
 import play.api.libs.json._
 
-import scala.concurrent.Await
 import org.joda.time.DateTime
 
 object Common {
@@ -57,7 +56,7 @@ class RepoTest extends Specification {
 
   "The user repo" should {
     "find user" in {
-      Await.result(repo.find(repo.query byId "thibault" limit 10), timeout) must haveSize(1)
+      repo.find(repo.query byId "thibault" limit 10).await must haveSize(1)
     }
     "convert user to mongo" in {
       (Users.json toMongo user) map (_ \ "createdAt" \ "$date") must beLike {
@@ -65,7 +64,7 @@ class RepoTest extends Specification {
       }
     }
     "find thibault" in {
-      Await.result(repo.find byId "thibault", timeout) must beSome
+      (repo.find byId "thibault").await must beSome
     }
   }
 }

@@ -5,7 +5,6 @@ import scala.concurrent.duration._
 import scala.collection.mutable
 
 import spray.caching.{ LruCache, Cache }
-import spray.util._
 
 import play.api.libs.concurrent.Execution.Implicits._
 
