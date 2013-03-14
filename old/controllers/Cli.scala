@@ -1,17 +1,19 @@
 package controllers
 
-import lila.api._
+import lila.app._
+import views._
 
 import play.api.mvc._
 import play.api.mvc.Results._
 import play.api.data._
 import play.api.data.Forms._
-import play.api.libs.concurrent.Execution.Implicits._
+
+import scalaz.effects._
 
 object Cli extends LilaController {
 
   private def userRepo = env.user.userRepo
-  private def runCommand = lila.api.Cli(env) _
+  private def runCommand = lila.app.cli.Main.main(env) _
 
   private lazy val form = Form(tuple(
     "command" -> nonEmptyText,
@@ -20,9 +22,9 @@ object Cli extends LilaController {
 
   def command = OpenBody { implicit ctx ⇒
     implicit val req = ctx.body
-    Async {
+    IOResult {
       form.bindFromRequest.fold(
-        err ⇒ fuccess(Ok("bad request")), {
+        err ⇒ io(Ok("bad request")), {
           case (command, password) ⇒ CliAuth(password) {
             runCommand(command.split(" ")) map { res ⇒ Ok(res) }
           }
@@ -30,8 +32,8 @@ object Cli extends LilaController {
     }
   }
 
-  private def CliAuth(password: String)(op: Fu[Result]): Fu[Result] =
-    userRepo.checkPassword(env.settings.Cli.Username, password) flatMap { 
-      _.fold(op, fuccess(Ok("permission denied")))
+  private def CliAuth(password: String)(op: IO[Result]): IO[Result] =
+    userRepo.checkPassword(env.settings.CliUsername, password) flatMap { 
+      _.fold(op, io(Ok("permission denied")))
     }
 }
