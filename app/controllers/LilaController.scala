@@ -1,23 +1,22 @@
 package controllers
 
 import lila.app._
-import lila.api._
-// import user.{ User ⇒ UserModel }
-// import security.{ AuthImpl, Permission, Granter }
-// import core.Global
+import lila.http.{ LilaCookie, Context, HeaderContext, BodyContext }
+import lila.user.{ User ⇒ UserModel }
+import lila.security.{ Permission, Granter }
 
 import play.api.mvc._
 import play.api.data.Form
 import play.api.http._
 import play.api.libs.json.{ Json, Writes ⇒ WritesJson }
-import scalaz.effects._
+import play.api.libs.concurrent.Execution.Implicits._
 
 trait LilaController
     extends Controller
     with ContentTypes
     with RequestGetter
     with ResponseWriter {
-    // with AsyncResults
+  // with AsyncResults
 
   protected lazy val env = Global.env
   protected implicit def currentApp = env.app
@@ -33,11 +32,11 @@ trait LilaController
   // protected def Open[A](p: BodyParser[A])(f: Context ⇒ Result): Action[A] =
   //   Action(p)(req ⇒ f(reqToCtx(req)))
 
-  protected def OpenBody(f: BodyContext ⇒ Result): Action[AnyContent] =
+  protected def OpenBody(f: BodyContext ⇒ Fu[Result]): Action[AnyContent] =
     OpenBody(BodyParsers.parse.anyContent)(f)
 
-  protected def OpenBody[A](p: BodyParser[A])(f: BodyContext ⇒ Result): Action[A] =
-    Action(p)(req ⇒ f(reqToCtx(req)))
+  protected def OpenBody[A](p: BodyParser[A])(f: BodyContext ⇒ Fu[Result]): Action[A] =
+    Action(p)(req ⇒ Async(reqToCtx(req) flatMap f))
 
   // protected def Auth(f: Context ⇒ UserModel ⇒ Result): Action[AnyContent] =
   //   Auth(BodyParsers.parse.anyContent)(f)
@@ -172,13 +171,19 @@ trait LilaController
   // protected def isGranted(permission: Permission.type ⇒ Permission)(implicit ctx: Context): Boolean =
   //   Granter.option(permission(Permission))(ctx.me)
 
-  protected def reqToCtx(req: Request[_]): BodyContext =
-    Context(req, restoreUser(req) ~ setOnline)
+  protected def reqToCtx(req: Request[_]): Fu[BodyContext] =
+    env.security.api.restoreUser(req) map { user ⇒
+      setOnline(user)
+      Context(req, user)
+    }
 
-  protected def reqToCtx(req: RequestHeader): HeaderContext =
-    Context(req, restoreUser(req) ~ setOnline)
+  protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] =
+    env.security.api.restoreUser(req) map { user ⇒
+      setOnline(user)
+      Context(req, user)
+    }
 
-  // private def setOnline(user: Option[UserModel]) {
-  //   user foreach { u ⇒ env.user.usernameMemo.put(u.username).unsafePerformIO }
-  // }
+  private def setOnline(user: Option[UserModel]) {
+    user foreach { u ⇒ env.user.usernameMemo put u.username }
+  }
 }
