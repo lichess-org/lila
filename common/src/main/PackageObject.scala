@@ -18,6 +18,7 @@ trait PackageObject
     with scalaz.Lists
     with scalaz.Zeros
     with scalaz.Booleans
+    with scalaz.Options
     with scalaz.OptionTs {
 
   val toVoid = (_: Any) ⇒ ()

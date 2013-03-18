@@ -2,6 +2,9 @@
 # GET   /wiki                            controllers.Wiki.home
 # GET   /wiki/:slug                      controllers.Wiki.show(slug: String)
 
+# Lobby
+GET   /                                controllers.Lobby.home
+
 # Misc
 POST  /cli                             controllers.Cli.command
 

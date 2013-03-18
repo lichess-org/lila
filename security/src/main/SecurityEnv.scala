@@ -19,7 +19,7 @@ final class SecurityEnv(
     store = store,
     userRepo = userRepo)
 
-  private lazy val store = new Store(
+  lazy val store = new Store(
     coll = db(CollectionSecurity))
 
   lazy val firewall = new Firewall(

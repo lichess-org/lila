@@ -20,18 +20,16 @@ object Cli extends LilaController {
 
   def command = OpenBody { implicit ctx ⇒
     implicit val req = ctx.body
-    Async {
-      form.bindFromRequest.fold(
-        err ⇒ fuccess(Ok("bad request")), {
-          case (command, password) ⇒ CliAuth(password) {
-            runCommand(command.split(" ")) map { res ⇒ Ok(res) }
-          }
-        })
-    }
+    form.bindFromRequest.fold(
+      err ⇒ fuccess(Ok("bad request")), {
+        case (command, password) ⇒ CliAuth(password) {
+          runCommand(command.split(" ")) map { res ⇒ Ok(res) }
+        }
+      })
   }
 
   private def CliAuth(password: String)(op: Fu[Result]): Fu[Result] =
-    userRepo.checkPassword(env.settings.Cli.Username, password) flatMap { 
+    userRepo.checkPassword(env.settings.Cli.Username, password) flatMap {
       _.fold(op, fuccess(Ok("permission denied")))
     }
 }
