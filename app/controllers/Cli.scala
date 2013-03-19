@@ -1,5 +1,7 @@
 package controllers
 
+import lila.user.Env.{ current => userEnv }
+import lila.api.Env.{ current => apiEnv }
 import lila.api._
 
 import play.api.mvc._
@@ -9,9 +11,6 @@ import play.api.data.Forms._
 import play.api.libs.concurrent.Execution.Implicits._
 
 object Cli extends LilaController {
-
-  private def userRepo = env.user.userRepo
-  private def runCommand = lila.api.Cli(env) _
 
   private lazy val form = Form(tuple(
     "command" -> nonEmptyText,
@@ -23,13 +22,13 @@ object Cli extends LilaController {
     form.bindFromRequest.fold(
       err ⇒ fuccess(BadRequest("invalid cli call")), {
         case (command, password) ⇒ CliAuth(password) {
-          runCommand(command.split(" ").toList.pp) map { res ⇒ Ok(res) }
+          apiEnv.cli(command.split(" ").toList.pp) map { res ⇒ Ok(res) }
         }
       })
   }
 
   private def CliAuth(password: String)(op: Fu[Result]): Fu[Result] =
-    userRepo.checkPassword(env.settings.Cli.Username, password) flatMap {
+    userEnv.userRepo.checkPassword(apiEnv.settings.Cli.Username, password) flatMap {
       _.fold(op, fuccess(Unauthorized))
     }
 }

@@ -3,8 +3,11 @@ package controllers
 import lila.app._
 import lila.http.LilaCookie
 import lila.user.{ Context, HeaderContext, BodyContext, User ⇒ UserModel }
+import lila.user.Env.{ current => userEnv }
 import lila.security.{ Permission, Granter }
+import lila.security.Env.{ current => securityEnv }
 
+import play.api.Play.current
 import play.api.mvc._
 import play.api.data.Form
 import play.api.http._
@@ -17,9 +20,6 @@ trait LilaController
     with RequestGetter
     with ResponseWriter {
   // with AsyncResults
-
-  protected lazy val env = Global.env
-  protected implicit def currentApp = env.app
 
   // override implicit def lang(implicit req: RequestHeader) =
   //   env.i18n.pool.lang(req)
@@ -172,18 +172,18 @@ trait LilaController
   //   Granter.option(permission(Permission))(ctx.me)
 
   protected def reqToCtx(req: Request[_]): Fu[BodyContext] =
-    env.security.api.restoreUser(req) map { user ⇒
+    securityEnv.api restoreUser req map { user ⇒
       setOnline(user)
       Context(req, user)
     }
 
   protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] =
-    env.security.api.restoreUser(req) map { user ⇒
+    securityEnv.api restoreUser req map { user ⇒
       setOnline(user)
       Context(req, user)
     }
 
   private def setOnline(user: Option[UserModel]) {
-    user foreach { u ⇒ env.user.usernameMemo put u.username }
+    user foreach { u ⇒ userEnv.usernameMemo put u.username }
   }
 }
