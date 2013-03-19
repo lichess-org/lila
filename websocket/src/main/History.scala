@@ -1,11 +1,9 @@
-package lila.app
-package socket
+package lila.websocket
 
 import scala.math.max
 import play.api.libs.json._
-import scalaz.effects._
 
-import lila.common.memo.Builder
+import lila.memo
 
 final class History(timeout: Int) {
 

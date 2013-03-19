@@ -1,7 +1,6 @@
-package lila.app
-package socket
+package lila.websocket
 
-import lila.common.memo.BooleanExpiryMemo
+import lila.memo.BooleanExpiryMemo
 
 import akka.actor._
 import play.api.libs.json._

@@ -1,5 +1,4 @@
-package lila.app
-package socket
+package lila.websocket
 
 import play.api.libs.json.JsObject
 import scala.collection.mutable
@@ -10,7 +9,9 @@ trait SocketMember {
 
   lazy val userId: Option[String] = username map (_.toLowerCase)
 
-  val liveGames = mutable.Set[String]()
+  private val privateLiveGames = mutable.Set[String]()
+
+  def liveGames = privateLiveGames
 
   def addLiveGames(ids: List[String]) {
     ids foreach liveGames.+=

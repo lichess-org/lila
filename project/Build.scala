@@ -60,6 +60,15 @@ object ApplicationBuild extends Build {
       playApi, reactivemongo, playReactivemongo, jgit, actuarius, guava)
   )
 
+  // lazy val notification = project("notification", Seq(common, user)).settings(
+  //   libraryDependencies ++= provided(playApi)
+  // )
+
+  lazy val websocket = project("websocket", Seq(common, memo)).settings(
+    libraryDependencies ++= provided(playApi)
+  )
+
+
   lazy val scalachess = project("scalachess").settings(
     libraryDependencies ++= Seq(hasher)
   )
