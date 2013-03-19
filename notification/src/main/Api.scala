@@ -1,10 +1,9 @@
-package lila.app
-package notification
+package lila.notification
 
-import user.User
-import socket.MetaHub
+import lila.user.User
+import lila.websocket.MetaHub
 
-import collection.mutable
+import scala.collection.mutable
 import play.api.templates.Html
 
 final class Api(metaHub: MetaHub) {

@@ -1,8 +1,6 @@
-package lila.app
-package notification
+package lila.notification
 
-import core.CoreEnv
-import user.{ User, UserHelper }
+import lila.user.{ User, UserHelper }
 
 import play.api.templates.Html
 import play.api.mvc.Call
