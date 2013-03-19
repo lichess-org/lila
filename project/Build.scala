@@ -11,17 +11,15 @@ object ApplicationBuild extends Build {
     settings = buildSettings ++ Seq(
       libraryDependencies := Seq(
         scalaz, scalalib, hasher, config, apache, scalaTime,
-        csv, jgit, actuarius, scalastic, findbugs,
-        reactivemongo),
+        csv, jgit, actuarius, scalastic, findbugs),
       templatesImport ++= Seq(
         // "lila.app.game.{ DbGame, DbPlayer, Pov }",
-        "lila.user.User",
+        "lila.user.{ User, Context }",
         // "lila.app.security.Permission",
         // "lila.app.templating.Environment._",
         // "lila.app.ui",
-        // "lila.app.http.Context",
         "lila.common.paginator.Paginator")
-    )) dependsOn (api, user, wiki) aggregate (scalachess, api, common, http, db, user, wiki)
+    )) dependsOn (api, user, wiki) aggregate (scalachess, api, common, http, db, user, wiki, websocket, notification)
 
   lazy val api = project("api", Seq(common, db, user, security, wiki)).settings(
     libraryDependencies := provided(
@@ -51,8 +49,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val security = project("security", Seq(common, db, http, user)).settings(
-    libraryDependencies ++= provided(
-      playApi, reactivemongo, playReactivemongo) 
+    libraryDependencies ++= provided(playApi, reactivemongo, playReactivemongo) 
   )
 
   lazy val wiki = project("wiki", Seq(common, db)).settings(
@@ -60,14 +57,13 @@ object ApplicationBuild extends Build {
       playApi, reactivemongo, playReactivemongo, jgit, actuarius, guava)
   )
 
-  // lazy val notification = project("notification", Seq(common, user)).settings(
-  //   libraryDependencies ++= provided(playApi)
-  // )
+  lazy val notification = project("notification", Seq(common, user, websocket)).settings(
+    libraryDependencies ++= provided(playApi)
+  )
 
   lazy val websocket = project("websocket", Seq(common, memo)).settings(
     libraryDependencies ++= provided(playApi)
   )
-
 
   lazy val scalachess = project("scalachess").settings(
     libraryDependencies ++= Seq(hasher)

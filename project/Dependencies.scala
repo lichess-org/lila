@@ -22,7 +22,6 @@ object Dependencies {
   }
 
   val scalaz = "org.scalaz" %% "scalaz-core" % "6.0.4"
-  val salat = "com.novus" % "salat-core_2.9.2" % "1.9.1"
   val scalalib = "com.github.ornicar" %% "scalalib" % "3.3"
   val config = "com.typesafe" % "config" % "1.0.0"
   val apache = "org.apache.commons" % "commons-lang3" % "3.1"
