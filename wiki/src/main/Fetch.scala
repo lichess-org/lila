@@ -12,7 +12,7 @@ import scala.concurrent.Future
 
 import play.api.libs.concurrent.Execution.Implicits._
 
-final class Fetch(gitUrl: String, pageRepo: PageRepo) {
+private[wiki] final class Fetch(gitUrl: String, pageRepo: PageRepo) {
 
   def apply: Funit = getFiles flatMap { files ⇒
     val pages = files.map(filePage).flatten

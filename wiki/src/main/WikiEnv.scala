@@ -16,6 +16,6 @@ final class WikiEnv(config: Config, db: String ⇒ ReactiveColl) {
   private lazy val fetcher = new Fetch(gitUrl = GitUrl, pageRepo = pageRepo)
 
   def cli = new {
-    def fetch = WikiEnv.this.fetcher.apply inject "Fetched wiki from github"
+    def fetch = fetcher.apply inject "Fetched wiki from github"
   }
 }

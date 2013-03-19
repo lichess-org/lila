@@ -38,7 +38,7 @@ object Global extends GlobalSettings {
       //   env.i18n.requestHandler(req) orElse
       //   super.onRouteRequest(req)
     // }
-    super.onRouteRequest(req)
+    super.onRouteRequest(req) ~ { _ => println(req) }
 
   // override def onHandlerNotFound(req: RequestHeader): Result =
   //   env.ai.isServer.fold(NotFound, controllers.Lobby handleNotFound req)

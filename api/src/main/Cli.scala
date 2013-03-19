@@ -4,7 +4,7 @@ import play.api.libs.concurrent.Execution.Implicits._
 
 object Cli {
 
-  def apply(env: ApiEnv)(args: Array[String]): Fu[String] = (args.toList match {
+  def apply(env: ApiEnv)(args: List[String]): Fu[String] = (args match {
     // case "average-elo" :: Nil               ⇒ infos.averageElo
     // case "i18n-js-dump" :: Nil              ⇒ i18n.jsDump
     // case "i18n-fix" :: Nil                  ⇒ i18n.fileFix
