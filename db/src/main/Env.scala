@@ -6,9 +6,6 @@ import play.modules.reactivemongo.ReactiveMongoPlugin
 
 final class Env(config: Config) {
 
-  private val settings = new Settings(config)
-  import settings._
-
   lazy val db = {
     import play.api.Play.current
     ReactiveMongoPlugin.db
@@ -19,5 +16,5 @@ final class Env(config: Config) {
 
 object Env {
 
-  lazy val current = new Env(lila.common.PlayApp.loadConfig)
+  lazy val current = new Env(lila.common.PlayApp loadConfig "mongodb")
 }

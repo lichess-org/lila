@@ -39,7 +39,7 @@ final class Env(
 object Env {
 
   lazy val current = new Env(
-    config = lila.common.PlayApp.loadConfig,
+    config = lila.common.PlayApp loadConfig "security",
     db = lila.db.Env.current,
     userRepo = lila.user.Env.current.userRepo)
 }
