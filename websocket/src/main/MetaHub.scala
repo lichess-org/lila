@@ -1,5 +1,4 @@
-package lila.app
-package socket
+package lila.websocket
 
 import akka.actor.ActorRef
 import akka.pattern.{ ask, pipe }

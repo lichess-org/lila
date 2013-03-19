@@ -97,7 +97,7 @@ trait WithPlay { self: PackageObject ⇒
 
   type JsChannel = Channel[JsValue]
   type JsEnumerator = Enumerator[JsValue]
-  type SocketFuture = Future[(Iteratee[JsValue, _], JsEnumerator)]
+  type SocketFuture = Fu[(Iteratee[JsValue, _], JsEnumerator)]
 
   // Typeclasses
   implicit def FutureFunctor = new Functor[Fu] {
@@ -107,8 +107,6 @@ trait WithPlay { self: PackageObject ⇒
     def pure[A](a: ⇒ A) = fuccess(a)
     def bind[A, B](r: Fu[A], f: A ⇒ Fu[B]) = r flatMap f
   }
-
-  implicit def futureOptionT[A](fuo: Fu[Option[A]]): OptionT[Future, A] = optionT(fuo)
 
   implicit def lilaRicherFuture[A](fua: Fu[A]) = new {
 

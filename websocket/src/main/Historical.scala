@@ -1,9 +1,8 @@
-package lila.app
-package socket
+package lila.websocket
 
 import play.api.libs.json._
 
-trait Historical[M <: SocketMember] { self: HubActor[M] =>
+trait Historical[M <: SocketMember] { self: HubActor[M] ⇒
 
   val history: History
 
