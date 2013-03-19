@@ -13,7 +13,7 @@ final class Api(metaHub: MetaHub) {
   def add(userId: String, html: String, from: Option[String] = None) {
     val notif = Notification(userId, html, from)
     repo.update(userId, notif :: get(userId))
-    val rendered = views.html.notification.view(notif.id, notif.from)(Html(notif.html))
+    val rendered = "TODO notification rendering" //views.html.notification.view(notif.id, notif.from)(Html(notif.html))
     metaHub.addNotification(userId, rendered.toString)
   }
 

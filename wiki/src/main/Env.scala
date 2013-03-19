@@ -17,3 +17,10 @@ final class Env(config: Config, db: lila.db.Env) {
     def fetch = fetcher.apply inject "Fetched wiki from github"
   }
 }
+
+object Env {
+
+  lazy val current = new Env(
+    config = lila.common.PlayApp.loadConfig,
+    db = lila.db.Env.current)
+}

@@ -14,5 +14,15 @@ final class Env(application: Application, val config: Config) {
 
   implicit val implicitApp = application
 
+  lazy val cli = new Cli(this)
+
   val isDev = application.mode == Dev
+}
+
+object Env {
+
+  lazy val current = new Env(
+    application = play.api.Play.current,
+    config = lila.common.PlayApp.loadConfig)
+
 }

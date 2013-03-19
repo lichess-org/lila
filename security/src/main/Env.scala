@@ -35,3 +35,11 @@ final class Env(
   //   userRepo = userRepo,
   //   captcher = captcha)
 }
+
+object Env {
+
+  lazy val current = new Env(
+    config = lila.common.PlayApp.loadConfig,
+    db = lila.db.Env.current,
+    userRepo = lila.user.Env.current.userRepo)
+}

@@ -32,3 +32,10 @@ final class Env(config: Config, db: lila.db.Env) {
 
   lazy val eloChart = EloChart(historyRepo) _
 }
+
+object Env {
+
+  lazy val current = new Env(
+    config = lila.common.PlayApp.loadConfig,
+    db = lila.db.Env.current)
+}

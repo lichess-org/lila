@@ -19,7 +19,7 @@ object ApplicationBuild extends Build {
         // "lila.app.templating.Environment._",
         // "lila.app.ui",
         "lila.common.paginator.Paginator")
-    )) dependsOn (api, user, wiki) aggregate (scalachess, api, common, http, db, user, wiki, websocket, notification)
+    )) dependsOn (api, user, wiki) aggregate (scalachess, api, common, http, db, user, wiki, websocket /*, notification */)
 
   lazy val api = project("api", Seq(common, db, user, security, wiki)).settings(
     libraryDependencies := provided(

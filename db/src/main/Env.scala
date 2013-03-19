@@ -16,3 +16,8 @@ final class Env(config: Config) {
 
   def apply(name: String): ReactiveColl = db(name)
 }
+
+object Env {
+
+  lazy val current = new Env(lila.common.PlayApp.loadConfig)
+}
