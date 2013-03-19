@@ -1,4 +1,4 @@
-package lila.app
+package lila.common
 package templating
 
 import java.text.SimpleDateFormat
@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 import play.api.templates.Html
 import java.util.regex.Matcher.quoteReplacement
 
-trait StringHelper {
+object StringHelper {
 
   def netDomain: String
 
