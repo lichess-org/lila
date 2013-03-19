@@ -4,7 +4,7 @@ import play.api.libs.concurrent.Execution.Implicits._
 
 object Cli {
 
-  def apply(env: ApiEnv)(args: List[String]): Fu[String] = (args match {
+  def apply(env: Env)(args: List[String]): Fu[String] = (args match {
     // case "average-elo" :: Nil               ⇒ infos.averageElo
     // case "i18n-js-dump" :: Nil              ⇒ i18n.jsDump
     // case "i18n-fix" :: Nil                  ⇒ i18n.fileFix
@@ -24,7 +24,7 @@ object Cli {
     // case "game-finish" :: Nil               ⇒ titivate.finishByClock inject "Done"
     // case "game-per-day" :: Nil              ⇒ games.perDay(30)
     // case "game-per-day" :: days :: Nil      ⇒ games.perDay(parseIntOption(days) err "days: Int")
-    case "wiki-fetch" :: Nil ⇒ env.wiki.cli.fetch
+    case "wiki-fetch" :: Nil ⇒ lila.wiki.env.cli.fetch
     // case "search-reset" :: Nil              ⇒ search.reset
     // case "team-search" :: text :: Nil       ⇒ teams.search(text)
     // case "team-search-reset" :: Nil         ⇒ teams.searchReset
