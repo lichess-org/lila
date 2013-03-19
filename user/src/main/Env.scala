@@ -5,7 +5,7 @@ import lila.db.ReactiveColl
 import chess.EloCalculator
 import com.typesafe.config.Config
 
-final class UserEnv(config: Config, db: String ⇒ ReactiveColl) {
+final class Env(config: Config, db: lila.db.Env) {
 
   val settings = new Settings(config)
   import settings._

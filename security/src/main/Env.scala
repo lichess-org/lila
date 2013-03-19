@@ -6,10 +6,10 @@ import lila.user.{ User, UserRepo }
 
 import com.typesafe.config.Config
 
-final class SecurityEnv(
+final class Env(
     config: Config,
     // captcha: Captcha,
-    db: String ⇒ ReactiveColl,
+    db: lila.db.Env,
     userRepo: UserRepo) {
 
   val settings = new Settings(config)
