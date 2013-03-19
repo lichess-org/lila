@@ -1,7 +1,6 @@
-package lila.app
-package notification
+package lila.notification
 
-import user.User
+import lila.user.User
 
 import ornicar.scalalib.Random.nextString
 
