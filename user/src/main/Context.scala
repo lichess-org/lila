@@ -1,6 +1,4 @@
-package lila.http
-
-import lila.user.User
+package lila.user
 
 import play.api.mvc.{ Request, RequestHeader }
 

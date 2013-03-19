@@ -1,8 +1,8 @@
 package controllers
 
 import lila.app._
-import lila.http.{ LilaCookie, Context, HeaderContext, BodyContext }
-import lila.user.{ User ⇒ UserModel }
+import lila.http.LilaCookie
+import lila.user.{ Context, HeaderContext, BodyContext, User ⇒ UserModel }
 import lila.security.{ Permission, Granter }
 
 import play.api.mvc._
