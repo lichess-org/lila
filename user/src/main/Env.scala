@@ -36,6 +36,6 @@ final class Env(config: Config, db: lila.db.Env) {
 object Env {
 
   lazy val current = new Env(
-    config = lila.common.PlayApp.loadConfig,
+    config = lila.common.PlayApp loadConfig "user",
     db = lila.db.Env.current)
 }
