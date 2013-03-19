@@ -10,7 +10,7 @@ object ApplicationBuild extends Build {
   lazy val lila = play.Project("lila", "4",
     settings = buildSettings ++ Seq(
       libraryDependencies := Seq(
-        scalaz, scalalib, hasher, config, salat, apache, scalaTime,
+        scalaz, scalalib, hasher, config, apache, scalaTime,
         csv, jgit, actuarius, scalastic, findbugs,
         reactivemongo),
       templatesImport ++= Seq(
@@ -25,7 +25,7 @@ object ApplicationBuild extends Build {
 
   lazy val api = project("api", Seq(common, db, user, security, wiki)).settings(
     libraryDependencies := provided(
-      hasher, config, salat, apache, csv, jgit,
+      hasher, config, apache, csv, jgit,
       actuarius, scalastic, findbugs, reactivemongo)
   )
 
@@ -46,7 +46,7 @@ object ApplicationBuild extends Build {
       playApi, playTest, reactivemongo, playReactivemongo, hasher, spray.caching) 
   )
 
-  lazy val http = project("http", Seq(common, user)).settings(
+  lazy val http = project("http", Seq(common)).settings(
     libraryDependencies ++= provided(playApi)
   )
 

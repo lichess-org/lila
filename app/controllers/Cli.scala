@@ -23,7 +23,7 @@ object Cli extends LilaController {
     form.bindFromRequest.fold(
       err ⇒ fuccess(Ok("bad request")), {
         case (command, password) ⇒ CliAuth(password) {
-          runCommand(command.split(" ")) map { res ⇒ Ok(res) }
+          runCommand(command.split(" ").toList.pp) map { res ⇒ Ok(res) }
         }
       })
   }
