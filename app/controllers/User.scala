@@ -3,9 +3,10 @@ package controllers
 import lila.app._
 import views._
 import lila.security.Permission
-import lila.user.{ Context, GameFilterMenu, User ⇒ UserModel }
+import lila.user.{ Context, User ⇒ UserModel }
 import lila.http.LilaCookie
 import lila.user.Env.{ current => userEnv }
+import lila.security.Env.{ current => securityEnv }
 
 import play.api.mvc._
 import play.api.mvc.Results._
@@ -21,30 +22,30 @@ object User extends LilaController {
   private def securityStore = securityEnv.store
   // private def modApi = env.mod.api
 
-  def show(username: String) = showFilter(username, "all", 1)
+  def show(username: String) = TODO //showFilter(username, "all", 1)
 
-  def showFilter(username: String, filterName: String, page: Int) = Open { implicit ctx ⇒
-    Async {
-      Akka.future {
-        (page < 50).fold(
-          IOptionIOk(userRepo byId username) { userShow(_, filterName, page) },
-          BadRequest("too old")
-        )
-      }
-    }
-  }
+  // def showFilter(username: String, filterName: String, page: Int) = Open { implicit ctx ⇒
+  //   Async {
+  //     Akka.future {
+  //       (page < 50).fold(
+  //         IOptionIOk(userRepo byId username) { userShow(_, filterName, page) },
+  //         BadRequest("too old")
+  //       )
+  //     }
+  //   }
+  // }
 
-  private def userShow(u: UserModel, filterName: String, page: Int)(implicit ctx: Context) =
-    (u.enabled || isGranted(_.MarkEngine)).fold({
-      val userSpy = isGranted(_.UserSpy) option securityStore.userSpy _
-      userEnvInfo(u, bookmarkApi, userSpy, ctx) map { info ⇒
-        val filters = GameFilterMenu(info, ctx.me, filterName)
-        val paginator = filters.query.fold(bookmarkApi.gamePaginatorByUser(u, page)) { query ⇒
-          gamePaginator.recentlyCreated(query, filters.cachedNb)(page)
-        }
-        html.user.show(u, info, paginator, filters)
-      }
-    }, io(html.user.disabled(u)))
+  // private def userShow(u: UserModel, filterName: String, page: Int)(implicit ctx: Context) =
+  //   (u.enabled || isGranted(_.MarkEngine)).fold({
+  //     val userSpy = isGranted(_.UserSpy) option securityStore.userSpy _
+  //     userEnvInfo(u, bookmarkApi, userSpy, ctx) map { info ⇒
+  //       val filters = GameFilterMenu(info, ctx.me, filterName)
+  //       val paginator = filters.query.fold(bookmarkApi.gamePaginatorByUser(u, page)) { query ⇒
+  //         gamePaginator.recentlyCreated(query, filters.cachedNb)(page)
+  //       }
+  //       html.user.show(u, info, paginator, filters)
+  //     }
+  //   }, io(html.user.disabled(u)))
 
   // def list(page: Int) = Open { implicit ctx ⇒
   //   (page < 50).fold(
