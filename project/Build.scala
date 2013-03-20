@@ -53,6 +53,10 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(playApi, reactivemongo, playReactivemongo) 
   )
 
+  lazy val message = project("message", Seq(common, db, user)).settings(
+    libraryDependencies ++= provided(playApi, reactivemongo, playReactivemongo) 
+  )
+
   lazy val wiki = project("wiki", Seq(common, db)).settings(
     libraryDependencies ++= provided(
       playApi, reactivemongo, playReactivemongo, jgit, actuarius, guava)
