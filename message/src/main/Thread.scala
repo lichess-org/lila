@@ -1,14 +1,12 @@
-package lila.app
-package message
+package lila.message
 
-import user.User
+import lila.user.User
 
 import org.joda.time.DateTime
-import com.novus.salat.annotations.Key
 import ornicar.scalalib.Random
 
 case class Thread(
-    @Key("_id") id: String,
+    id: String,
     name: String,
     createdAt: DateTime,
     updatedAt: DateTime,
@@ -25,7 +23,7 @@ case class Thread(
 
   def isReadBy(user: User) = nbUnreadBy(user) == 0
 
-  def isUnReadBy(user: User) = !isReadBy(user) 
+  def isUnReadBy(user: User) = !isReadBy(user)
 
   def nbUnreadBy(user: User): Int = isCreator(user).fold(
     posts count { post ⇒ post.isByInvited && post.isUnRead },
@@ -43,10 +41,10 @@ case class Thread(
 
   def receiverOf(post: Post) = post.isByCreator.fold(invitedId, creatorId)
 
-  def nonEmptyName = (name.trim.some filter ("" !=)) | "No subject"
+  def nonEmptyName = (name.trim.some filter (_.nonEmpty)) | "No subject"
 }
 
-object Thread {
+object Threads {
 
   val idSize = 8
 
@@ -59,7 +57,7 @@ object Thread {
     name = name,
     createdAt = DateTime.now,
     updatedAt = DateTime.now,
-    posts = List(Post.make(
+    posts = List(Posts.make(
       text = text,
       isByCreator = true
     )),
@@ -67,20 +65,24 @@ object Thread {
     invitedId = invitedId,
     visibleByUserIds = List(creatorId, invitedId))
 
+  import lila.db.JsonTube
   import play.api.libs.json._
-  import play.api.libs.functional.syntax._
-  import Post.json.implicits._
+  import Reads.constraints._
 
-  val json = mongodb.JsonTube((
-    (__ \ 'id).read[String] and
-    (__ \ 'name).read[String] and
-    (__ \ 'createdAt).read[DateTime] and
-    (__ \ 'updatedAt).read[DateTime] and
-    (__ \ 'posts).read[List[Post]] and
-    (__ \ 'creatorId).read[String] and
-    (__ \ 'invitedId).read[String] and
-    (__ \ 'visibleByUserIds).read[List[String]] 
-  )(Thread.apply _),
-    Json.writes[Thread]
+  import Posts.json.implicits._
+
+  val json = JsonTube(
+    reads = (__.json update (
+      readDate('createdAt) andThen readDate('updatedAt)
+    )) andThen Json.reads[Thread],
+    writes = Json.writes[Thread],
+    writeTransformer = (__.json update (
+      writeDate('createdAt) andThen writeDate('updatedAt)
+    )).some
   )
+
+  private def readDate(field: Symbol) = (__ \ field).json.update(of[JsObject] map (_ \ "$date"))
+  private def writeDate(field: Symbol) = (__ \ field).json.update(of[JsNumber] map {
+    millis ⇒ Json.obj("$date" -> millis)
+  })
 }
