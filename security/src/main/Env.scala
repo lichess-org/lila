@@ -34,6 +34,8 @@ final class Env(
   // lazy val forms = new DataForm(
   //   userRepo = userRepo,
   //   captcher = captcha)
+
+  def cli = new Cli(this, userRepo)
 }
 
 object Env {

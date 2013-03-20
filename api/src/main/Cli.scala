@@ -4,16 +4,20 @@ import play.api.libs.concurrent.Execution.Implicits._
 
 private[api] final class Cli(env: Env) {
 
+  private def wiki = lila.wiki.Env.current.cli
+  private def user = lila.user.Env.current.cli
+  private def security = lila.security.Env.current.cli
+
   def apply(args: List[String]): Fu[String] = (args match {
     // case "average-elo" :: Nil               ⇒ infos.averageElo
     // case "i18n-js-dump" :: Nil              ⇒ i18n.jsDump
     // case "i18n-fix" :: Nil                  ⇒ i18n.fileFix
     // case "i18n-fetch" :: from :: Nil        ⇒ i18n fetch from
-    // case "user-enable" :: uid :: Nil        ⇒ users enable uid
-    // case "user-disable" :: uid :: Nil       ⇒ users disable uid
-    // case "user-passwd" :: uid :: pwd :: Nil ⇒ users.passwd(uid, pwd)
-    // case "user-roles" :: uid :: Nil         ⇒ users roles uid
-    // case "user-grant" :: uid :: roles       ⇒ users.grant(uid, roles)
+    case "security-enable" :: uid :: Nil  ⇒ security enable uid
+    case "security-disable" :: uid :: Nil ⇒ security disable uid
+    case "security-passwd" :: uid :: pwd :: Nil ⇒ security.passwd(uid, pwd)
+    case "security-roles" :: uid :: Nil         ⇒ security roles uid
+    case "security-grant" :: uid :: roles       ⇒ security.grant(uid, roles)
     // case "user-rewrite-history" :: Nil      ⇒ users.rewriteHistory
     // case "forum-denormalize" :: Nil         ⇒ forum.denormalize
     // case "forum-typecheck" :: Nil           ⇒ forum.typecheck
@@ -24,7 +28,7 @@ private[api] final class Cli(env: Env) {
     // case "game-finish" :: Nil               ⇒ titivate.finishByClock inject "Done"
     // case "game-per-day" :: Nil              ⇒ games.perDay(30)
     // case "game-per-day" :: days :: Nil      ⇒ games.perDay(parseIntOption(days) err "days: Int")
-    case "wiki-fetch" :: Nil ⇒ lila.wiki.Env.current.cli.fetch
+    case "wiki-fetch" :: Nil          ⇒ wiki.fetch
     // case "search-reset" :: Nil              ⇒ search.reset
     // case "team-search" :: text :: Nil       ⇒ teams.search(text)
     // case "team-search-reset" :: Nil         ⇒ teams.searchReset
@@ -33,7 +37,7 @@ private[api] final class Cli(env: Env) {
     // case "team-enable" :: uid :: Nil        ⇒ teams enable uid
     // case "team-disable" :: uid :: Nil       ⇒ teams disable uid
     // case "team-delete" :: uid :: Nil        ⇒ teams delete uid
-    case _                   ⇒ fuccess("Unknown command: " + args.mkString(" "))
+    case _                            ⇒ fuccess("Unknown command: " + args.mkString(" "))
   }) ~ {
     _ onSuccess { case output ⇒ println("[cli] %s\n".format(args mkString " ", output)) }
   }

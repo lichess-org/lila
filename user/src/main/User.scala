@@ -57,6 +57,8 @@ object Users {
 
   val anonymous = "Anonymous"
 
+  def normalize(username: String) = username.toLowerCase
+
   import play.api.libs.json._
   import Reads.constraints._
 

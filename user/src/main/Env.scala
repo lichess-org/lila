@@ -31,6 +31,8 @@ final class Env(config: Config, db: lila.db.Env) {
     ttl = CachedNbTtl)
 
   lazy val eloChart = EloChart(historyRepo) _
+
+  def cli = new Cli(this)
 }
 
 object Env {

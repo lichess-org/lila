@@ -19,7 +19,7 @@ import ornicar.scalalib.Random
 
 final class UserRepo(coll: ReactiveColl) extends Repo[User](coll, Users.json) {
 
-  def normalize(id: ID) = id.toLowerCase
+  val normalize = Users normalize _
 
   def byIdsSortElo(ids: Seq[ID], max: Int) = find(query byIds ids sort sortEloDesc limit max)
 
