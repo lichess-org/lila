@@ -1,8 +1,6 @@
-@(page: lila.app.wiki.Page, pages: List[lila.app.wiki.Page])(implicit ctx: Context) 
+@(page: lila.wiki.Page, pages: List[lila.wiki.Page])(implicit ctx: Context) 
 
-@wiki.layout(
-pages = pages,
-title = page.title) {
+@wiki.layout(pages = pages, title = page.title) {
 
 <div class="content_box small_box wiki_box">
   <h1 class="lichess_title">@page.title</h1>
