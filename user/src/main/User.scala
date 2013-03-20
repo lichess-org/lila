@@ -1,6 +1,5 @@
 package lila.user
 
-import lila.db.JsonTube
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 
@@ -59,6 +58,7 @@ object Users {
 
   def normalize(username: String) = username.toLowerCase
 
+  import lila.db.JsonTube
   import play.api.libs.json._
   import Reads.constraints._
 
@@ -75,7 +75,7 @@ object Users {
     writes = Json.writes[User],
     writeTransformer = (__.json update (
       writeDate('createdAt)
-    )).some 
+    )).some
   )
 
   private def mergeDefaults = __.read[JsObject] map (defaults ++)
