@@ -70,7 +70,8 @@ trait WithFuture extends scalaz.Zeros {
   type Funit = Fu[Unit]
 
   def fuccess[A](a: A) = Future successful a
-  def fufail[A <: Throwable](a: A) = Future failed a
+  def fufail[A <: Throwable, B](a: A): Fu[B] = Future failed a
+  def fufail[B](a: String): Fu[B] = Future failed (new RuntimeException(a))
   def funit = fuccess(())
 
   implicit def FuZero[A: Zero]: Zero[Fu[A]] = new Zero[Fu[A]] { val zero = fuccess(∅[A]) }
