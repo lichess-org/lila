@@ -3,9 +3,9 @@ package controllers
 import lila.app._
 import lila.http.LilaCookie
 import lila.user.{ Context, HeaderContext, BodyContext, User ⇒ UserModel }
-import lila.user.Env.{ current => userEnv }
+import lila.user.Env.{ current ⇒ userEnv }
 import lila.security.{ Permission, Granter }
-import lila.security.Env.{ current => securityEnv }
+import lila.security.Env.{ current ⇒ securityEnv }
 
 import play.api.Play.current
 import play.api.mvc._
@@ -26,17 +26,24 @@ trait LilaController
 
   // protected def toJson[A: WritesJson](data: A) = Json toJson data
 
-  // protected def Open(f: Context ⇒ Result): Action[AnyContent] =
-  //   Open(BodyParsers.parse.anyContent)(f)
+  protected def Open(f: Context ⇒ Fu[Result]): Action[AnyContent] =
+    Open(BodyParsers.parse.anyContent)(f)
 
-  // protected def Open[A](p: BodyParser[A])(f: Context ⇒ Result): Action[A] =
-  //   Action(p)(req ⇒ f(reqToCtx(req)))
+  protected def Open[A](p: BodyParser[A])(f: Context ⇒ Fu[Result]): Action[A] =
+    Action(p)(req ⇒ Async(reqToCtx(req) flatMap f))
 
   protected def OpenBody(f: BodyContext ⇒ Fu[Result]): Action[AnyContent] =
     OpenBody(BodyParsers.parse.anyContent)(f)
 
   protected def OpenBody[A](p: BodyParser[A])(f: BodyContext ⇒ Fu[Result]): Action[A] =
     Action(p)(req ⇒ Async(reqToCtx(req) flatMap f))
+
+  protected def Optional[A, B](foa: Fu[Option[A]])(op: A ⇒ B)(
+    implicit writer: Writeable[B],
+    ctype: ContentTypeOf[B],
+    ctx: Context): Fu[Result] = foa flatMap {
+    _.fold(notFound(ctx))(a ⇒ fuccess(Ok(op(a))))
+  }
 
   // protected def Auth(f: Context ⇒ UserModel ⇒ Result): Action[AnyContent] =
   //   Auth(BodyParsers.parse.anyContent)(f)
@@ -162,7 +169,8 @@ trait LilaController
   // protected def IOptionResult[A](ioa: IO[Option[A]])(op: A ⇒ Result)(implicit ctx: Context) =
   //   ioa.unsafePerformIO.fold(notFound(ctx))(a ⇒ op(a))
 
-  // protected def notFound(implicit ctx: Context) = Lobby handleNotFound ctx
+  protected def notFound(implicit ctx: Context): Fu[Result] = 
+    Lobby handleNotFound ctx
 
   // protected def todo = Open { implicit ctx ⇒
   //   NotImplemented(views.html.site.todo())

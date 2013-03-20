@@ -5,8 +5,8 @@ import views._
 import lila.security.Permission
 import lila.user.{ Context, User ⇒ UserModel }
 import lila.http.LilaCookie
-import lila.user.Env.{ current => userEnv }
-import lila.security.Env.{ current => securityEnv }
+import lila.user.Env.{ current ⇒ userEnv }
+import lila.security.Env.{ current ⇒ securityEnv }
 
 import play.api.mvc._
 import play.api.mvc.Results._

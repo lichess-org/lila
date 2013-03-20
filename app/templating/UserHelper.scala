@@ -1,5 +1,5 @@
 package lila.app
-package helper
+package templating
 
 import lila.user.{ User, Users }
 import lila.user.Env.{ current ⇒ userEnv }
