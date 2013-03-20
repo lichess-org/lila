@@ -11,7 +11,8 @@ object ApplicationBuild extends Build {
     settings = buildSettings ++ Seq(
       libraryDependencies := Seq(
         scalaz, scalalib, hasher, config, apache, scalaTime,
-        csv, jgit, actuarius, scalastic, findbugs),
+        csv, jgit, actuarius, scalastic, findbugs,
+        spray.caching),
       templatesImport ++= Seq(
         // "lila.app.game.{ DbGame, DbPlayer, Pov }",
         "lila.user.{ User, Context }",
