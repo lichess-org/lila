@@ -66,9 +66,8 @@ object Threads {
     visibleByUserIds = List(creatorId, invitedId))
 
   import lila.db.JsonTube
+  import JsonTube.Helpers._
   import play.api.libs.json._
-  import Reads.constraints._
-
   import Posts.json.implicits._
 
   val json = JsonTube(
@@ -80,9 +79,4 @@ object Threads {
       writeDate('createdAt) andThen writeDate('updatedAt)
     )).some
   )
-
-  private def readDate(field: Symbol) = (__ \ field).json.update(of[JsObject] map (_ \ "$date"))
-  private def writeDate(field: Symbol) = (__ \ field).json.update(of[JsNumber] map {
-    millis ⇒ Json.obj("$date" -> millis)
-  })
 }

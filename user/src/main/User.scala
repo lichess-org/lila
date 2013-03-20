@@ -59,8 +59,8 @@ object Users {
   def normalize(username: String) = username.toLowerCase
 
   import lila.db.JsonTube
+  import JsonTube.Helpers._
   import play.api.libs.json._
-  import Reads.constraints._
 
   val defaults = Json.obj(
     "isChatBan" -> false,
@@ -70,17 +70,11 @@ object Users {
 
   val json = JsonTube(
     reads = (__.json update (
-      mergeDefaults andThen readDate('createdAt)
+      merge(defaults) andThen readDate('createdAt)
     )) andThen Json.reads[User],
     writes = Json.writes[User],
     writeTransformer = (__.json update (
       writeDate('createdAt)
     )).some
   )
-
-  private def mergeDefaults = __.read[JsObject] map (defaults ++)
-  private def readDate(field: Symbol) = (__ \ field).json.update(of[JsObject] map (_ \ "$date"))
-  private def writeDate(field: Symbol) = (__ \ field).json.update(of[JsNumber] map {
-    millis ⇒ Json.obj("$date" -> millis)
-  })
 }
