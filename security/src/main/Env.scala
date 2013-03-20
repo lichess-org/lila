@@ -5,6 +5,7 @@ import lila.user.{ User, UserRepo }
 // import site.Captcha
 
 import com.typesafe.config.Config
+import scala.collection.JavaConversions._
 
 final class Env(
     config: Config,
@@ -12,8 +13,12 @@ final class Env(
     db: lila.db.Env,
     userRepo: UserRepo) {
 
-  val settings = new Settings(config)
-  import settings._
+  val CollectionSecurity = config getString "collection.security"
+  val WiretapIps = config.getStringList("wiretap.ips").toSet
+  val FirewallEnabled = config getBoolean "firewall.enabled"
+  val FirewallCookieName = config getString "firewall.cookie.name"
+  val FirewallCookieEnabled = config getBoolean "firewall.cookie.enabled"
+  val FirewallCollectionFirewall = config getString "firewall.collection.firewall"
 
   lazy val api = new Api(
     store = store,

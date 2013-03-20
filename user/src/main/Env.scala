@@ -1,14 +1,20 @@
 package lila.user
 
 import lila.db.ReactiveColl
+import lila.common.ConfigPimps._
 
 import chess.EloCalculator
 import com.typesafe.config.Config
 
 final class Env(config: Config, db: lila.db.Env) {
 
-  val settings = new Settings(config)
-  import settings._
+  val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
+  val EloUpdaterFloor = config getInt "elo_updater.floor"
+  val CachedNbTtl = config duration "cached.nb.ttl"
+  val OnlineTtl = config duration "online.ttl"
+  val CollectionUser = config getString "collection.user"
+  val CollectionHistory = config getString "collection.history"
+  val CollectionConfig = config getString "collection.config"
 
   lazy val historyRepo = new HistoryRepo(db(CollectionHistory))
 

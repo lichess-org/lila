@@ -9,8 +9,7 @@ import play.api.Mode.Dev
 
 final class Env(application: Application, val config: Config) {
 
-  val settings = new Settings(config)
-  import settings._
+  val CliUsername = config getString "cli.username"
 
   implicit val implicitApp = application
 
