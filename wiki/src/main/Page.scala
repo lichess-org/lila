@@ -1,11 +1,5 @@
 package lila.wiki
 
-import lila.db.JsonTube
-
-import org.joda.time.DateTime
-import java.text.Normalizer
-import java.util.regex.Matcher.quoteReplacement
-
 case class Page(id: String, name: String, title: String, body: String) {
 
   def slug = id
@@ -13,6 +7,9 @@ case class Page(id: String, name: String, title: String, body: String) {
 
 object Pages {
 
+  import java.text.Normalizer
+  import java.util.regex.Matcher.quoteReplacement
+  import lila.db.JsonTube
   import play.api.libs.json._
 
   val json = JsonTube(Json.reads[Page], Json.writes[Page])
@@ -30,7 +27,7 @@ object Pages {
     """[^\w-]""".r.replaceAllIn(normalized, "")
   }
 
-  private def dropNumber(input: String) = 
-    """^\d+_(.+)$""".r.replaceAllIn(input, m => quoteReplacement(m group 1))
+  private def dropNumber(input: String) =
+    """^\d+_(.+)$""".r.replaceAllIn(input, m ⇒ quoteReplacement(m group 1))
 }
 
