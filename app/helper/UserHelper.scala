@@ -1,23 +1,22 @@
 package lila.app
-package user
+package helper
 
-import core.CoreEnv
+import lila.user.{ User, Users }
+import lila.user.Env.{ current ⇒ userEnv }
+
 import controllers.routes
 
 import play.api.templates.Html
 
 trait UserHelper {
 
-  protected def env: CoreEnv
-
-  private def cached = env.user.cached
-  private def usernameMemo = env.user.usernameMemo
+  import userEnv._
 
   def userIdToUsername(userId: String): String =
     cached usernameOrAnonymous userId
 
   def userIdToUsername(userId: Option[String]): String =
-    userId.fold(User.anonymous)(cached.usernameOrAnonymous)
+    userId.fold(Users.anonymous)(cached.usernameOrAnonymous)
 
   def isUsernameOnline(username: String) = usernameMemo get username
 
@@ -25,7 +24,7 @@ trait UserHelper {
     userId: Option[String],
     cssClass: Option[String] = None,
     withOnline: Boolean = true): Html = Html {
-    (userId flatMap cached.username).fold(User.anonymous) { username ⇒
+    (userId flatMap cached.username).fold(Users.anonymous) { username ⇒
       """<a class="user_link%s%s" href="%s">%s</a>""".format(
         withOnline.fold(
           isUsernameOnline(username).fold(" online", " offline"),
@@ -60,7 +59,7 @@ trait UserHelper {
       ~cssClass.map(" " + _),
       routes.User.show(user.username),
       text | withElo.fold(user.usernameWithElo, user.username)
-      )
+    )
   }
 
   def userInfosLink(

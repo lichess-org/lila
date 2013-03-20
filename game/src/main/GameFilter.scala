@@ -1,5 +1,4 @@
-package lila.app
-package user
+package lila.game
 
 import http.Context
 import game.Query
