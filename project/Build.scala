@@ -29,7 +29,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val common = project("common").settings(
-    libraryDependencies ++= provided(playApi, reactivemongo)
+    libraryDependencies ++= provided(playApi, reactivemongo, csv)
   )
 
   lazy val memo = project("memo", Seq(common)).settings(
