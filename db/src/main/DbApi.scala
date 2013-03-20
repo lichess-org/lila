@@ -19,6 +19,7 @@ trait operator {
   def $set(pairs: (String, JsValueWrapper)*) = Json.obj("$set" -> Json.obj(pairs: _*))
   def $inc[A : Writes](pairs: (String, A)*) = Json.obj("$inc" -> Json.obj(wrap(pairs): _*))
   def $push[A : Writes](field: String, value: A) = Json.obj("$push" -> Json.obj(field -> value))
+  def $pull[A : Writes](field: String, value: A) = Json.obj("$pull" -> Json.obj(field -> value))
 
   def $gt[A: Writes](value: A) = Json.obj("$gt" -> value)
   def $gte[A: Writes](value: A) = Json.obj("$gte" -> value)
