@@ -12,7 +12,7 @@ import play.api.libs.json._
 final class MetaHub(hubs: List[ActorRef]) {
 
   implicit val executor = Akka.system.dispatcher
-  implicit val timeout = Timeout(1 second)
+  implicit val timeout = Timeout(5 second)
 
   def !(message: Any) {
     hubs foreach (_ ! message)

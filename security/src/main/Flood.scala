@@ -4,10 +4,10 @@ import lila.memo.Builder
 
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
+import scala.concurrent.duration.Duration
 
-final class Flood {
+final class Flood(duration: Duration) {
 
-  private val ttl = 60 * 1000
   private val floodNumber = 4
   private val floodDelay = 10 * 1000
 
@@ -17,7 +17,7 @@ final class Flood {
   }
   type Messages = List[Message]
 
-  private val messages = Builder.expiry[String, Messages](ttl)
+  private val messages = Builder.expiry[String, Messages](duration)
 
   def filterMessage[A](uid: String, text: String)(op: ⇒ Unit) {
     if (allowMessage(uid, text)) op

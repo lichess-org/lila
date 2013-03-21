@@ -1,23 +1,26 @@
 package lila.memo
 
+import scala.concurrent.duration.Duration
 import com.google.common.base.Function
 import com.google.common.cache._
 import java.util.concurrent.TimeUnit
 
 object Builder {
 
+  private implicit def durationToMillis(d: Duration): Long = d.toMillis
+
   /**
    * A caching wrapper for a function (K => V),
    * backed by a Cache from Google Collections.
    */
-  def cache[K, V](ttl: Int, f: K ⇒ V): LoadingCache[K, V] =
+  def cache[K, V](ttl: Duration, f: K ⇒ V): LoadingCache[K, V] =
     cacheBuilder[K, V](ttl)
       .build[K, V](f)
 
-  def expiry[K, V](ttl: Int): Cache[K, V] =
+  def expiry[K, V](ttl: Duration): Cache[K, V] =
     cacheBuilder[K, V](ttl).build[K, V]
 
-  private def cacheBuilder[K, V](ttl: Int): CacheBuilder[K, V] =
+  private def cacheBuilder[K, V](ttl: Duration): CacheBuilder[K, V] =
     CacheBuilder.newBuilder()
       .expireAfterWrite(ttl, TimeUnit.MILLISECONDS)
       .asInstanceOf[CacheBuilder[K, V]]

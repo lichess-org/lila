@@ -2,6 +2,7 @@ package lila.security
 
 import lila.db.ReactiveColl
 import lila.user.{ User, UserRepo }
+import lila.common.ConfigPimps._
 // import site.Captcha
 
 import com.typesafe.config.Config
@@ -19,6 +20,7 @@ final class Env(
   val FirewallCookieName = config getString "firewall.cookie.name"
   val FirewallCookieEnabled = config getBoolean "firewall.cookie.enabled"
   val FirewallCollectionFirewall = config getString "firewall.collection.firewall"
+  val FloodDuration = config duration "flood.duration"
 
   lazy val api = new Api(
     store = store,
@@ -32,7 +34,7 @@ final class Env(
     cookieName = FirewallCookieName.some filter (_ ⇒ FirewallCookieEnabled),
     enabled = FirewallEnabled)
 
-  lazy val flood = new Flood
+  lazy val flood = new Flood(FloodDuration)
 
   lazy val wiretap = new Wiretap(WiretapIps)
 

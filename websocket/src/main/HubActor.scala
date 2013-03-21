@@ -5,8 +5,9 @@ import lila.memo.BooleanExpiryMemo
 import akka.actor._
 import play.api.libs.json._
 import scala.util.Random
+import scala.concurrent.duration.Duration
 
-abstract class HubActor[M <: SocketMember](uidTimeout: Int) extends Actor {
+abstract class HubActor[M <: SocketMember](uidTimeout: Duration) extends Actor {
 
   var members = Map.empty[String, M]
   val aliveUids = new BooleanExpiryMemo(uidTimeout)
