@@ -1,10 +1,9 @@
-package lila.app
-package i18n
+package lila.i18n
 
 import play.api.mvc.{ Action, RequestHeader, Handler }
 import play.api.i18n.Lang
 
-private[i18n] final class I18nPool(val langs: Set[Lang], val default: Lang) {
+private[i18n] case class I18nPool(val langs: Set[Lang], val default: Lang) {
 
   private val cache = scala.collection.mutable.Map[String, Option[Lang]]()
 
@@ -23,7 +22,7 @@ private[i18n] final class I18nPool(val langs: Set[Lang], val default: Lang) {
   // when the header is malformed.
   def fixedReqAcceptLanguages(req: RequestHeader) = try {
     req.headers.get(play.api.http.HeaderNames.ACCEPT_LANGUAGE).map { acceptLanguage ⇒
-      acceptLanguage.split("\\s*,\\s*").map(l => play.api.i18n.Lang(l.split(";").head)).toSeq
+      acceptLanguage.split("\\s*,\\s*").map(l ⇒ play.api.i18n.Lang(l.split(";").head)).toSeq
     }.getOrElse(Nil)
   }
   catch {

@@ -5,8 +5,8 @@ import lila.common.paginator.AdapterLike
 import play.api.libs.json._
 import reactivemongo.api.SortOrder
 
-final class Adapter[A <: WithStringId](
-    repo: Repo[A],
+final class Adapter[ID, A <: Identified[ID]](
+    repo: Repo[ID, A],
     query: JsObject,
     sort: Seq[(String, SortOrder)]) extends AdapterLike[A] {
 
@@ -17,8 +17,8 @@ final class Adapter[A <: WithStringId](
   }
 }
 
-final class CachedAdapter[A <: WithStringId](
-    adapter: Adapter[A],
+final class CachedAdapter[ID, A <: Identified[ID]](
+    adapter: Adapter[ID, A],
     val nbResults: Fu[Int]) extends AdapterLike[A] {
 
   def slice(offset: Int, length: Int) = adapter.slice(offset, length)

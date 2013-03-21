@@ -14,14 +14,16 @@ import play.modules.reactivemongo.Implicits._
 import play.modules.reactivemongo.MongoJSONHelpers._
 
 private[i18n] final class TranslationRepo(coll: ReactiveColl)
-    extends Repo[Translation, Int](coll, Translations.json) {
+    extends Repo[Int, Translation](coll, Translations.json) {
 
-  val nextId: Fu[Int] = primitive.one(
-      select.all, 
-      "_id",
-      _ sort sort.descId
-    )(_.asOpt[Int]) map (opt => ~opt + 1)
+  type ID = Int
 
-  def findFrom(id: Int): Fu[List[Translation]] = 
+  val nextId: Fu[ID] = primitive.one(
+    select.all,
+    "_id",
+    _ sort sort.descId
+  )(_.asOpt[Int]) map (opt ⇒ ~opt + 1)
+
+  def findFrom(id: ID): Fu[List[Translation]] =
     find(query(Json.obj("_id" -> $lte(id))) sort sort.ascId)
 }

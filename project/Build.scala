@@ -20,7 +20,11 @@ object ApplicationBuild extends Build {
         // "lila.app.templating.Environment._",
         // "lila.app.ui",
         "lila.common.paginator.Paginator")
-    )) dependsOn (api, user, wiki, message, notification) aggregate (scalachess, api, common, http, db, user, wiki, hub, websocket, message, notification)
+    )) dependsOn (
+      api, user, wiki, message, notification, i18n
+    ) aggregate (
+      scalachess, api, common, http, db, user, wiki, 
+      hub, websocket, message, notification, i18n)
 
   lazy val api = project("api", Seq(common, db, user, security, wiki)).settings(
     libraryDependencies := provided(
@@ -58,7 +62,7 @@ object ApplicationBuild extends Build {
       playApi, reactivemongo, playReactivemongo, spray.caching) 
   )
 
-  lazy val i18n = project("i18n", Seq(common, db)).settings(
+  lazy val i18n = project("i18n", Seq(common, db, user)).settings(
     libraryDependencies ++= provided(playApi, reactivemongo, playReactivemongo) 
   )
 

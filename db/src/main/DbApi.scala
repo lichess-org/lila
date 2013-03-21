@@ -43,8 +43,6 @@ trait select { self: operator ⇒
 
   def apply[A: Writes](id: A): JsObject = byId(id)
 
-  def apply[A <: WithStringId](doc: A): JsObject = apply(doc.id)
-
   def byId[A: Writes](id: A) = Json.obj("_id" -> id)
 
   def byIds[A: Writes](ids: Seq[A]) = Json.obj("_id" -> $in(ids))

@@ -11,7 +11,7 @@ import play.api.libs.concurrent.Execution.Implicits._
 
 import scala.concurrent.Future
 
-abstract class Repo[Doc <: WithStringId](coll: ReactiveColl, json: JsonTube[Doc]) extends DbApi {
+abstract class Repo[ID : Writes, Doc <: Identified[ID]](coll: ReactiveColl, json: JsonTube[Doc]) extends DbApi {
 
   object query {
 
@@ -77,7 +77,7 @@ abstract class Repo[Doc <: WithStringId](coll: ReactiveColl, json: JsonTube[Doc]
 
     def apply(doc: Doc): Funit = (json toMongo doc).fold(
       fuck(_),
-      js ⇒ apply(select(doc), js)
+      js ⇒ apply(select(doc.id), js)
     )
 
     def apply(selector: JsObject, update: JsObject, upsert: Boolean = false, multi: Boolean = false): Funit = for {

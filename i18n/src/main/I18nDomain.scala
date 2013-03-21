@@ -1,9 +1,8 @@
-package lila.app
-package i18n
+package lila.i18n
 
 import play.api.i18n.Lang
 
-final class I18nDomain private (val domain: String) {
+case class I18nDomain(domain: String) {
 
   lazy val parts = domain.split('.').toList
 
@@ -15,9 +14,4 @@ final class I18nDomain private (val domain: String) {
   lazy val commonDomain = hasLang.fold(parts drop 1 mkString ".", domain)
 
   def withLang(lang: Lang) = I18nDomain(lang.language + "." + commonDomain)
-}
-
-object I18nDomain {
-
-  def apply(domain: String): I18nDomain = new I18nDomain(domain)
 }

@@ -17,7 +17,9 @@ import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
-final class UserRepo(coll: ReactiveColl) extends Repo[User](coll, Users.json) {
+final class UserRepo(coll: ReactiveColl) extends Repo[String, User](coll, Users.json) {
+
+  type ID = String
 
   val normalize = Users normalize _
 

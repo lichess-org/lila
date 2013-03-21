@@ -1,13 +1,10 @@
-package lila.app
-package i18n
+package lila.i18n
 
 import play.api.mvc.{ Action, RequestHeader, Handler }
 import play.api.mvc.Results.Redirect
 import play.api.i18n.Lang
 
-final class I18nRequestHandler(pool: I18nPool) {
-
-  val protocol = "http://"
+final class I18nRequestHandler(pool: I18nPool, protocol: String) {
 
   def apply(req: RequestHeader): Option[Handler] = 
     if (req.host contains ":9000") None

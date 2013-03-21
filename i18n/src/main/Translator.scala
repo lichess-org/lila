@@ -1,5 +1,4 @@
-package lila.app
-package i18n
+package lila.i18n
 
 import play.api.i18n.{ MessagesApi, Lang }
 import play.api.mvc.RequestHeader

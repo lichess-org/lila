@@ -20,7 +20,9 @@ import ornicar.scalalib.Random
 
 import scala.concurrent.Future
 
-final class ThreadRepo(coll: ReactiveColl) extends Repo[Thread](coll, Threads.json) {
+final class ThreadRepo(coll: ReactiveColl) extends Repo[String, Thread](coll, Threads.json) {
+
+  type ID = String
 
   def byUser(user: ID): Fu[List[Thread]] =
     find(query(userQuery(user)) sort recentSort)
