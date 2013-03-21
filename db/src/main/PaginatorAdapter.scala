@@ -13,7 +13,7 @@ final class Adapter[A <: WithStringId](
   def nbResults: Fu[Int] = repo count query
 
   def slice(offset: Int, length: Int): Fu[Seq[A]] = repo find {
-    richerQueryBuilder(repo query query).sort(sort: _*) skip offset limit length 
+    LilaPimpedQueryBuilder(repo query query).sort(sort: _*) skip offset limit length 
   }
 }
 
