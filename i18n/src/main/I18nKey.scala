@@ -1,7 +1,6 @@
-package lila.app
-package i18n
+package lila.i18n
 
-import lila.app.http.Context
+import lila.user.Context
 import play.api.templates.Html
 import play.api.i18n.Lang
 

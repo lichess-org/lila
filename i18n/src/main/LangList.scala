@@ -1,5 +1,4 @@
-package lila.app
-package i18n
+package lila.i18n
 
 private[i18n] object LangList {
 
