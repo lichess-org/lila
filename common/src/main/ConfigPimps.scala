@@ -10,7 +10,7 @@ object ConfigPimps {
 
     def millis(name: String): Int = config.getMilliseconds(name).toInt
     def seconds(name: String): Int = millis(name) / 1000
-    def duration(name: String): Duration = millis(name).millis
+    def duration(name: String): FiniteDuration = millis(name).millis
   }
 
   // protected implicit def validAny[A](a: A) = new {

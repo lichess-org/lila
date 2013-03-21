@@ -4,6 +4,7 @@ import lila.user.{ User, UserRepo }
 import lila.common.paginator._
 import lila.db.paginator._
 import lila.db.Implicits.docId
+import lila.hub.MetaHub
 
 import scala.math.ceil
 import play.api.libs.concurrent.Execution.Implicits._
@@ -13,7 +14,7 @@ final class Api(
     unreadCache: UnreadCache,
     userRepo: UserRepo,
     maxPerPage: Int,
-    notifyUnread: (String, Int) ⇒ Unit) {
+    metaHub: MetaHub) {
 
   def inbox(me: User, page: Int): Fu[Paginator[Thread]] = Paginator(
     new Adapter(
@@ -55,15 +56,17 @@ final class Api(
     } yield thread
   }
 
-  private def updateUser(user: String): Funit = {
-    (unreadCache refresh user) onSuccess {
-      case nb ⇒ notifyUnread(user, nb)
-    }
-    funit
-  }
-
   def deleteThread(id: String, me: User): Funit =
     thread(id, me) flatMap { threadOption ⇒
       threadOption.map(_.id).zmap(threadRepo deleteFor me.id)
     }
+
+  val nbUnreadMessages = unreadCache.apply _
+
+  private def updateUser(user: String): Funit = {
+    (unreadCache refresh user) onSuccess {
+      case nb ⇒ metaHub.to(user, "nbm", nb)
+    }
+    funit
+  }
 }

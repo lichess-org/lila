@@ -89,10 +89,10 @@ abstract class Repo[Doc <: WithStringId](coll: ReactiveColl, json: JsonTube[Doc]
       coll.uncheckedUpdate(selector, update, upsert = upsert, multi = multi)
     }
 
-    def doc(id: String)(op: Doc ⇒ JsObject): Funit =
+    def doc(id: ID)(op: Doc ⇒ JsObject): Funit =
       find byId id flatMap { docOption ⇒ ~docOption.map(doc ⇒ update(select(id), op(doc))) }
 
-    def field[A: Writes](id: String, field: String, value: A) =
+    def field[A: Writes](id: ID, field: String, value: A) =
       update(select(id), $set(field -> value))
   }
 

@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 
 final class UsernameMemo(ttl: Duration) {
 
-  private val internal = new BooleanExpiryMemo(ttl.toMillis.toInt)
+  private val internal = new BooleanExpiryMemo(ttl)
 
   def normalize(name: String) = name.toLowerCase
 

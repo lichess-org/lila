@@ -20,7 +20,7 @@ object ApplicationBuild extends Build {
         // "lila.app.templating.Environment._",
         // "lila.app.ui",
         "lila.common.paginator.Paginator")
-    )) dependsOn (api, user, wiki, message, notification) aggregate (scalachess, api, common, http, db, user, wiki, websocket, message, notification)
+    )) dependsOn (api, user, wiki, message, notification) aggregate (scalachess, api, common, http, db, user, wiki, hub, websocket, message, notification)
 
   lazy val api = project("api", Seq(common, db, user, security, wiki)).settings(
     libraryDependencies := provided(
@@ -53,9 +53,13 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(playApi, reactivemongo, playReactivemongo) 
   )
 
-  lazy val message = project("message", Seq(common, db, user)).settings(
+  lazy val message = project("message", Seq(common, db, user, hub)).settings(
     libraryDependencies ++= provided(
       playApi, reactivemongo, playReactivemongo, spray.caching) 
+  )
+
+  lazy val i18n = project("i18n", Seq(common, db)).settings(
+    libraryDependencies ++= provided(playApi, reactivemongo, playReactivemongo) 
   )
 
   lazy val wiki = project("wiki", Seq(common, db)).settings(
@@ -68,6 +72,10 @@ object ApplicationBuild extends Build {
   )
 
   lazy val websocket = project("websocket", Seq(common, memo)).settings(
+    libraryDependencies ++= provided(playApi)
+  )
+
+  lazy val hub = project("hub", Seq(common)).settings(
     libraryDependencies ++= provided(playApi)
   )
 

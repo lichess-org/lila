@@ -1,11 +1,12 @@
 package lila.websocket
 
 import scala.math.max
+import scala.concurrent.duration.Duration
 import play.api.libs.json._
 
 import lila.memo
 
-final class History(timeout: Int) {
+final class History(timeout: Duration) {
 
   private var privateVersion = 0
   private val messages = memo.Builder.expiry[Int, JsObject](timeout)
