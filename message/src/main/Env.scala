@@ -10,6 +10,8 @@ final class Env(config: Config, db: lila.db.Env) {
   val ThreadMaxPerPage = config getInt "thread.max_per_page"
 
   // lazy val threadRepo = new ThreadRepo(db(CollectionThread))
+
+  def cli = new Cli(this)
 }
 
 object Env {
