@@ -14,12 +14,16 @@ trait Implicits {
 
   type ReactiveColl = reactivemongo.api.collections.default.BSONCollection
 
-  type WithStringId = { def id: String }
+  type ID = String
+
+  type WithStringId = { def id: ID }
 
   type QueryBuilder = GenericQueryBuilder[BSONDocument, BSONDocumentReader, BSONDocumentWriter]
 
+  implicit def docId(doc: WithStringId): ID = doc.id
+
   // hack, this should be in reactivemongo
-  implicit def richerQueryBuilder(b: QueryBuilder) = new {
+  implicit final class LilaPimpedQueryBuilder(b: QueryBuilder) {
 
     def sort(sorters: (String, SortOrder)*): QueryBuilder =
       if (sorters.size == 0) b

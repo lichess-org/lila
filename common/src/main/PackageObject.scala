@@ -28,7 +28,13 @@ trait PackageObject
   def nowMillis: Double = System.currentTimeMillis
   def nowSeconds: Int = (nowMillis / 1000).toInt
 
-  implicit def richerMap[A, B](m: Map[A, B]) = new {
+  implicit final class LilaPimpedOption[A](o: Option[A]) {
+
+    def zmap[B](f: A ⇒ B)(implicit z: Zero[B]) = o.fold(z.zero)(f)
+  }
+
+  implicit final class LilaPimpedMap[A, B](m: Map[A, B]) {
+
     def +?(bp: (Boolean, (A, B))): Map[A, B] = if (bp._1) m + bp._2 else m
   }
 
@@ -74,9 +80,9 @@ trait WithFuture extends scalaz.Zeros {
   def fufail[B](a: String): Fu[B] = Future failed (new RuntimeException(a))
   def funit = fuccess(())
 
-  implicit def FuZero[A: Zero]: Zero[Fu[A]] = new Zero[Fu[A]] { val zero = fuccess(∅[A]) }
+  implicit def LilaFuZero[A: Zero]: Zero[Fu[A]] = new Zero[Fu[A]] { val zero = fuccess(∅[A]) }
 
-  implicit def pimpFuture[T](fut: Future[T]): PimpedFuture[T] = new PimpedFuture[T](fut)
+  implicit def SprayPimpedFuture[T](fut: Future[T]): PimpedFuture[T] = new PimpedFuture[T](fut)
 }
 
 trait WithDb { self: PackageObject ⇒
@@ -101,15 +107,17 @@ trait WithPlay { self: PackageObject ⇒
   type SocketFuture = Fu[(Iteratee[JsValue, _], JsEnumerator)]
 
   // Typeclasses
-  implicit def FutureFunctor = new Functor[Fu] {
+  implicit def LilaFutureFunctor = new Functor[Fu] {
     def fmap[A, B](r: Fu[A], f: A ⇒ B) = r map f
   }
-  implicit def FutureMonad = new Monad[Fu] {
+  implicit def LilaFutureMonad = new Monad[Fu] {
     def pure[A](a: ⇒ A) = fuccess(a)
     def bind[A, B](r: Fu[A], f: A ⇒ Fu[B]) = r flatMap f
   }
 
-  implicit def lilaRicherFuture[A](fua: Fu[A]) = new {
+  implicit final class LilaPimpedFuture[A](fua: Fu[A]) {
+
+    def >>(sideEffect: ⇒ Unit): Funit = >>(fuccess(sideEffect))
 
     def >>[B](fub: Fu[B]): Fu[B] = fua flatMap (_ ⇒ fub)
 
@@ -118,14 +126,14 @@ trait WithPlay { self: PackageObject ⇒
     def inject[B](b: B): Fu[B] = fua map (_ ⇒ b)
   }
 
-  implicit def lilaRicherFutureZero[A: Zero](fua: Fu[A]) = new {
+  implicit final class LilaPimpedFutureZero[A: Zero](fua: Fu[A]) {
 
     def doIf(cond: Boolean): Fu[A] = cond.fold(fua, fuccess(∅[A]))
 
     def doUnless(cond: Boolean): Fu[A] = doIf(!cond)
   }
 
-  implicit def pimpJsObject(obj: JsObject) = new {
+  implicit final class LilaPimpedJsObject(obj: JsObject) {
 
     def get[T: Reads](field: String): Option[T] = (obj \ field) match {
       case JsUndefined(_) ⇒ none
