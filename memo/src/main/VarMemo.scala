@@ -36,7 +36,3 @@ final class VarMemo[A : ClassTag](load: Fu[A], atMost: FiniteDuration = 10.secon
     }
   }))
 }
-
-object VarMemo {
-
-}

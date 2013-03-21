@@ -28,6 +28,8 @@ final class ThreadRepo(coll: ReactiveColl) extends Repo[Thread](coll, Threads.js
   def visibleByUser(user: ID): Fu[List[Thread]] =
     find(query(visibleByUserQuery(user)) sort recentSort)
 
+  def userNbUnread(userId: String): Fu[Int] = fuccess(3)
+
   // def userNbUnread(userId: String): IO[Int] = io {
   //   val result = collection.mapReduce(
   //     mapFunction = """function() {
@@ -54,13 +56,14 @@ final class ThreadRepo(coll: ReactiveColl) extends Repo[Thread](coll, Threads.js
   //   } yield sum.toInt) | 0
   // }
 
-  def setRead(thread: Thread): Funit =
-    Future.sequence(1 to thread.nbUnread map { _ ⇒
+  def setRead(thread: Thread): Funit = Future sequence {
+    List.fill(thread.nbUnread) {
       update(
         select(thread.id) ++ Json.obj("posts.isRead" -> false),
         $set("posts.$.isRead" -> true)
       )
-    }).void
+    }
+  } void
 
   def deleteFor(user: ID)(thread: ID) = 
     update(select(thread), $pull("visibleByUserIds", user))

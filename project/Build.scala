@@ -54,7 +54,8 @@ object ApplicationBuild extends Build {
   )
 
   lazy val message = project("message", Seq(common, db, user)).settings(
-    libraryDependencies ++= provided(playApi, reactivemongo, playReactivemongo) 
+    libraryDependencies ++= provided(
+      playApi, reactivemongo, playReactivemongo, spray.caching) 
   )
 
   lazy val wiki = project("wiki", Seq(common, db)).settings(
