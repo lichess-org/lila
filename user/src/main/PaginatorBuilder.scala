@@ -25,5 +25,5 @@ final class PaginatorBuilder(userRepo: UserRepo, countUsers: Fu[Int], maxPerPage
     adapter,
     currentPage = page,
     maxPerPage = maxPerPage
-  ).fold(_ ⇒ elo(0), identity)
+  )
 }

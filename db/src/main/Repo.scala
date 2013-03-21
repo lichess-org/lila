@@ -68,28 +68,31 @@ abstract class Repo[Doc <: WithStringId](coll: ReactiveColl, json: JsonTube[Doc]
       lastErr.ok.fold(funit, fuck(lastErr.message))
     }
 
-    def unchecked(doc: Doc): Funit = {
+    def unchecked(doc: Doc) {
       json toMongo doc foreach { coll.insert(_) }
-      funit
     }
   }
 
   object update {
+
+    def apply(doc: Doc): Funit = (json toMongo doc).fold(
+      fuck(_),
+      js ⇒ apply(select(doc), js)
+    )
 
     def apply(selector: JsObject, update: JsObject, upsert: Boolean = false, multi: Boolean = false): Funit = for {
       lastErr ← coll.update(selector, update, upsert = upsert, multi = multi)
       result ← lastErr.ok.fold(funit, fuck(lastErr.message))
     } yield result
 
-    def unchecked(selector: JsObject, update: JsObject, upsert: Boolean = false, multi: Boolean = false): Funit = {
+    def unchecked(selector: JsObject, update: JsObject, upsert: Boolean = false, multi: Boolean = false) {
       coll.uncheckedUpdate(selector, update, upsert = upsert, multi = multi)
-      funit
     }
 
     def doc(id: String)(op: Doc ⇒ JsObject): Funit =
       find byId id flatMap { docOption ⇒ ~docOption.map(doc ⇒ update(select(id), op(doc))) }
 
-    def field[A : Writes](id: String, field: String, value: A) = 
+    def field[A: Writes](id: String, field: String, value: A) =
       update(select(id), $set(field -> value))
   }
 
@@ -127,8 +130,6 @@ abstract class Repo[Doc <: WithStringId](coll: ReactiveColl, json: JsonTube[Doc]
       (fields map (_ -> Json.toJsFieldJsValueWrapper(1))): _*
     }
   }
-
-  type ID = String
 
   //////////////////
   // PRIVATE SHIT //

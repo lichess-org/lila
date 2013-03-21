@@ -12,7 +12,7 @@ abstract class CappedRepo[Doc](coll: ReactiveColl, json: JsonTube[Doc], max: Int
   val naturalOrder = sort desc "$natural" 
 
   val recent: Fu[List[Doc]] = (
-    richerQueryBuilder(coll.genericQueryBuilder query select.all).sort(naturalOrder) limit max
+    LilaPimpedQueryBuilder(coll.genericQueryBuilder query select.all).sort(naturalOrder) limit max
   ).cursor[Option[Doc]].toList map (_.flatten)
 
   private implicit val bsonDocumentReader = new BSONDocumentReader[Option[Doc]] {
