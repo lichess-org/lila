@@ -122,7 +122,7 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Duration) extends Actor {
   }
 
   def membersByUserIds(userIds: Set[String]): Iterable[M] =
-    members.values filter (member ⇒ ~member.userId.map(userIds.contains))
+    members.values filter (member ⇒ member.userId zmap userIds.contains)
 
   def usernames: Iterable[String] = members.values.map(_.username).flatten
 

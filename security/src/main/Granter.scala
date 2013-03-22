@@ -8,9 +8,9 @@ object Granter {
     Permission(user.roles) exists (_ is permission)
 
   def option(permission: Permission)(user: Option[User]): Boolean =
-    ~user.map(apply(permission))
+    user zmap apply(permission)
 
   def superAdmin(user: User): Boolean =  apply(Permission.SuperAdmin)(user)
 
-  def superAdmin(user: Option[User]): Boolean = ~(user map superAdmin)
+  def superAdmin(user: Option[User]): Boolean = user zmap superAdmin
 }

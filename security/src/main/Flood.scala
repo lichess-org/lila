@@ -33,10 +33,10 @@ final class Flood(duration: Duration) {
   }
 
   private def duplicateMessage(msg: Message, msgs: Messages): Boolean =
-    ~(msgs.headOption map { m ⇒
-      (m same msg) || ~(msgs.tail.headOption map (_ same msg))
-    })
+    msgs.headOption zmap { m ⇒
+      (m same msg) || (msgs.tail.headOption zmap (_ same msg))
+    }
 
   private def quickPost(msg: Message, msgs: Messages): Boolean =
-    ~(msgs lift floodNumber map (old ⇒ old.date > (msg.date - floodDelay.millis)))
+    msgs lift floodNumber zmap (old ⇒ old.date > (msg.date - floodDelay.millis))
 }
