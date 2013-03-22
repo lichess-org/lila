@@ -44,48 +44,34 @@ final class GameRepo(coll: ReactiveColl) extends Repo[String, Game](coll, Game.j
       }
     }
 
-  // def pov(ref: PovRef): Fu[Option[Pov]] = pov(ref.gameId, ref.color)
+  def pov(ref: PovRef): Fu[Option[Pov]] = pov(ref.gameId, ref.color)
 
-  // def token(id: ID): Fu[String] = io {
-  //   primitiveProjection[String](idSelector(id), "tk") | Game.defaultToken
-  // }
+  def token(id: ID): Fu[String] =
+    primitive.one[String](select(id), "tk")(_.asOpt[String]) map (_ | Game.defaultToken)
 
-  // def save(game: Game): Fu[Unit] = io {
-  //   update(idSelector(game), _grater asDBObject game.encode)
-  // }
+  def save(progress: Progress): Funit =
+    GameDiff(progress.origin.encode, progress.game.encode) |> {
+      case (Nil, Nil) ⇒ funit
+      case (sets, unsets) ⇒ update(select(progress.origin.id), unsets.isEmpty.fold(
+        $set(sets: _*),
+        $set(sets: _*) ++ $unset(unsets: _*)
+      ))
+    }
 
-  // def save(progress: Progress): Fu[Unit] =
-  //   GameDiff(progress.origin.encode, progress.game.encode) |> {
-  //     case (Nil, Nil) ⇒ io()
-  //     case (sets, unsets) ⇒ {
-  //       val fullSets = ("ua" -> new Date) :: sets
-  //       val ops = unsets.isEmpty.fold(
-  //         $set(fullSets),
-  //         $set(fullSets) ++ $unset(unsets)
-  //       )
-  //       val wc = WriteConcern.None
-  //       io { collection.update(idSelector(progress.origin), ops, concern = wc) }
-  //     }
-  //   }
+  // makes the asumption that player 0 is white!
+  // proved to be true on prod DB at March 31 2012
+  def setEloDiffs(id: ID, white: Int, black: Int) = 
+    update(select(id), $set("p.0.ed" -> white, "p.1.ed" -> black))
 
-  // def insert(game: Game): Fu[Option[String]] = io {
-  //   insert(game.encode)
-  // }
+  def setUser(id: ID, color: Color, user: User) = {
+    val pn = "p" + color.fold(0, 1)
+    update(select(id), $set(
+      pn + ".uid" -> Json.toJson(user.id), 
+      pn + ".elo" -> Json.toJson(user.elo))
+    )
+  }
 
-  // // makes the asumption that player 0 is white!
-  // // proved to be true on prod DB at March 31 2012
-  // def setEloDiffs(id: ID, white: Int, black: Int) = io {
-  //   update(idSelector(id), $set(Seq("p.0.ed" -> white, "p.1.ed" -> black)))
-  // }
-
-  // def setUser(id: ID, color: Color, user: User) = io {
-  //   val pn = "p.%d".format(color.fold(0, 1))
-  //   update(idSelector(id), $set(Seq(pn + ".uid" -> user.id, pn + ".elo" -> user.elo)))
-  // }
-
-  // def incBookmarks(id: ID, value: Int) = io {
-  //   update(idSelector(id), $inc("bm" -> value))
-  // }
+  def incBookmarks(id: ID, value: Int) = update(select(id), $inc("bm" -> value))
 
   // def finish(id: ID, winnerId: Option[String]) = io {
   //   update(
