@@ -13,7 +13,7 @@ import play.api.libs.concurrent.Execution.Implicits._
 
 import scala.concurrent.Future
 
-abstract class Repo[ID : Writes, Doc <: Identified[ID]](coll: ReactiveColl, json: JsonTube[Doc]) extends DbApi {
+abstract class Repo[ID: Writes, Doc <: Identified[ID]](coll: ReactiveColl, json: JsonTube[Doc]) extends DbApi {
 
   object query {
 
@@ -92,7 +92,9 @@ abstract class Repo[ID : Writes, Doc <: Identified[ID]](coll: ReactiveColl, json
     }
 
     def doc(id: ID)(op: Doc ⇒ JsObject): Funit =
-      find byId id flatMap { docOption ⇒ ~docOption.map(doc ⇒ update(select(id), op(doc))) }
+      find byId id flatMap { docOption ⇒
+        docOption zmap (doc ⇒ update(select(id), op(doc)))
+      }
 
     def field[A: Writes](id: ID, field: String, value: A) =
       update(select(id), $set(field -> value))

@@ -34,7 +34,7 @@ final class Api(store: Store, /* firewall: Firewall, */ userRepo: UserRepo) {
     req.session.get("sessionId").fold(fuccess(none[User])) { sessionId ⇒
       // if firewall accepts req
       store getUsername sessionId flatMap { username ⇒
-        ~username.map(userRepo.find.byId)
+        username.zmap(userRepo.find.byId)
       }
     }
 }

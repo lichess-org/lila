@@ -81,7 +81,7 @@ final class UserRepo(coll: ReactiveColl) extends Repo[String, User](coll, Users.
     dataOption ← projection.one(select(id), Seq("password", "salt", "enabled", "sha512")) { obj ⇒
       (Json.reads[AuthData] reads obj).asOpt
     }
-  } yield ~dataOption.map(data ⇒ data.enabled && data.compare(password))
+  } yield dataOption zmap (data ⇒ data.enabled && data.compare(password))
 
   def create(username: String, password: String): Fu[Option[User]] = for {
     existing ← exists byId normalize(username)
@@ -120,9 +120,9 @@ final class UserRepo(coll: ReactiveColl) extends Repo[String, User](coll, Users.
 
   def passwd(id: ID, password: String): Funit =
     primitive.one(select(id), "salt")(_.asOpt[String]) flatMap { saltOption ⇒
-      ~saltOption.map(salt ⇒
+      saltOption zmap { salt ⇒
         update(select(id), $set("password" -> hash(password, salt)) ++ $set("sha512" -> false))
-      )
+      }
     }
 
   private def newUser(username: String, password: String) = (Random nextString 32) |> { salt ⇒

@@ -8,7 +8,7 @@ sealed abstract class Context(val req: RequestHeader, val me: Option[User]) {
 
   def isAnon = !isAuth
 
-  def canSeeChat = ~me.map(!_.isChatBan)
+  def canSeeChat = me zmap (!_.isChatBan)
 
   def is(user: User): Boolean = me == Some(user)
 

@@ -1,5 +1,4 @@
-package lila.app
-package i18n
+package lila.i18n
 
 import play.api.i18n.{ MessagesApi, Lang }
 
@@ -45,8 +44,8 @@ private[i18n] object TransInfos {
         lang = Lang(code),
         name = name,
         contributors = Contributors(code),
-        nbTranslated = ~(api.messages get code map (_.size)),
-        nbMissing = nbMessages - ~(api.messages get code map (_.size))
+        nbTranslated = api.messages get code zmap (_.size),
+        nbMissing = nbMessages - (api.messages get code zmap (_.size))
       )
     }
   }
