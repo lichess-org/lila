@@ -1,7 +1,7 @@
 package lila.security
 
 import lila.user.User
-import lila.db.Implicits._
+import lila.db.Types._
 import lila.db.DbApi
 
 import play.api.mvc.RequestHeader

@@ -1,6 +1,6 @@
 package lila.user
 
-import lila.db.Implicits._
+import lila.db.Types._
 
 import org.specs2.mutable._
 

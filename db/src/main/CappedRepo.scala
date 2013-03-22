@@ -1,5 +1,7 @@
 package lila.db
 
+import Implicits._
+
 import reactivemongo.api._
 import reactivemongo.bson._
 
