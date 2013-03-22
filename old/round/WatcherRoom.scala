@@ -34,12 +34,4 @@ object WatcherRoom {
       case username :: rest ⇒ Message(Some(username), rest mkString "|")
       case Nil              ⇒ Message(None, "")
     }
-
-  def render(msg: Message): String =
-    """<li><span>%s</span>%s</li>""".format(
-      msg.username.fold("Anonymous") { u ⇒
-        """<a class="user_link" href="%s">%s</a>""".format(userRoute(u), u take 12)
-      },
-      escapeXml(msg.text)
-    )
 }
