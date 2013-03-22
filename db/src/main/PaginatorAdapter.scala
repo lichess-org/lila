@@ -1,6 +1,8 @@
 package lila.db
 package paginator
 
+import Implicits._
+
 import lila.common.paginator.AdapterLike
 import play.api.libs.json._
 import reactivemongo.api.SortOrder

@@ -7,8 +7,10 @@ import reactivemongo.api._
 import reactivemongo.api.SortOrder
 import play.modules.reactivemongo.Implicits._
 
+object Types extends Types
 object Implicits extends Implicits
-trait Implicits {
+
+trait Types {
 
   type LilaDB = reactivemongo.api.DB
 
@@ -17,6 +19,9 @@ trait Implicits {
   type QueryBuilder = GenericQueryBuilder[BSONDocument, BSONDocumentReader, BSONDocumentWriter]
 
   type Identified[ID] = { def id: ID }
+}
+
+trait Implicits extends Types {
 
   implicit def docId[ID](doc: Identified[ID]): ID = doc.id
 

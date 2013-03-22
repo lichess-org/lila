@@ -1,5 +1,7 @@
 package lila.db
 
+import Types._
+
 import com.typesafe.config.Config
 import reactivemongo.api.DB
 import play.modules.reactivemongo.ReactiveMongoPlugin

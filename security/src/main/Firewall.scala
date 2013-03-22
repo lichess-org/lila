@@ -2,7 +2,7 @@ package lila.security
 
 import lila.http.LilaCookie
 import lila.memo.VarMemo
-import lila.db.Implicits._
+import lila.db.Types._
 import lila.db.DbApi
 
 import scala.concurrent.duration._
