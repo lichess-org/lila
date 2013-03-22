@@ -1,9 +1,9 @@
-package lila.app
-package i18n
+package lila.i18n
 
 import play.api.i18n.{ MessagesApi, Lang }
+import play.api.libs.concurrent.Execution.Implicits._
+import scala.concurrent.Future
 import java.io._
-import scalaz.effects._
 
 private[i18n] final class FileFix(
     pool: I18nPool,
@@ -11,10 +11,10 @@ private[i18n] final class FileFix(
     keys: I18nKeys,
     api: MessagesApi) {
 
-  val apply: IO[Unit] =
-    (pool.nonDefaultLangs.toList map fix).sequence map (_ ⇒ Unit)
+  val apply: Funit =
+    Future.traverse(pool.nonDefaultLangs.toList)(fix).void
 
-  private def fix(lang: Lang): IO[Unit] = {
+  private def fix(lang: Lang): Funit = {
     val messages = sanitize((api.messages get lang.language) | Map.empty)
     write(lang, messages)
   }

@@ -1,6 +1,6 @@
 package lila.message
 
-import lila.db.ReactiveColl
+import lila.db.Types.ReactiveColl
 import lila.user.UserRepo
 import lila.hub.MetaHub
 

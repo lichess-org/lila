@@ -1,11 +1,12 @@
-package lila.app
-package implicits
+package lila.common
 
 import play.api.libs.json._
 
-object RichJs {
+object PimpedJson extends PimpedJson
 
-  implicit def richJsObject(js: JsObject) = new {
+trait PimpedJson {
+
+  implicit final class LilaPimpedJsObject(js: JsObject) {
 
     def str(key: String): Option[String] =
       js.value get key flatMap (_.asOpt[String])
@@ -18,9 +19,14 @@ object RichJs {
 
     def obj(key: String): Option[JsObject] =
       js.value get key flatMap (_.asOpt[JsObject])
+
+    def get[T: Reads](field: String): Option[T] = (js \ field) match {
+      case JsUndefined(_) ⇒ none
+      case value          ⇒ value.asOpt[T]
+    }
   }
 
-  implicit def richJsValue(js: JsValue) = new {
+  implicit final class LilaPimpedJsValue(js: JsValue) {
 
     def str(key: String): Option[String] = for {
       obj ← js.asOpt[JsObject]

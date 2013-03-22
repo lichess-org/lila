@@ -1,7 +1,8 @@
 package lila.security
 
+import lila.common.PimpedJson._
 import lila.user.User
-import lila.db.Types._
+import lila.db.Types.ReactiveColl
 import lila.db.DbApi
 
 import play.api.mvc.RequestHeader

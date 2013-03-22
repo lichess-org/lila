@@ -1,8 +1,8 @@
 package lila.security
 
-import lila.db.ReactiveColl
+import lila.db.Types.ReactiveColl
 import lila.user.{ User, UserRepo }
-import lila.common.ConfigPimps._
+import lila.common.PimpedConfig._
 // import site.Captcha
 
 import com.typesafe.config.Config

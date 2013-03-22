@@ -1,17 +1,17 @@
-package lila.app
-package i18n
+package lila.i18n
 
 import play.api.mvc.Request
 import play.api.data._
 import play.api.data.Forms._
-import scalaz.effects._
+import org.joda.time.DateTime
+import play.api.libs.concurrent.Execution.Implicits._
 
-import site.Captcha
+// TODO captcha
+// import site.Captcha
 
 final class DataForm(
     repo: TranslationRepo,
-    keys: I18nKeys,
-    captcher: Captcha) {
+    keys: I18nKeys/*, captcher: Captcha */) {
 
   val translation = Form(mapping(
     "author" -> optional(nonEmptyText),
@@ -20,14 +20,14 @@ final class DataForm(
     "move" -> nonEmptyText
   )(TransMetadata.apply)(TransMetadata.unapply).verifying(
       "Not a checkmate",
-      data ⇒ captcher get data.gameId valid data.move.trim.toLowerCase
+      data ⇒ true //captcher get data.gameId valid data.move.trim.toLowerCase
     ))
 
-  def translationWithCaptcha = translation -> captchaCreate
+  // def translationWithCaptcha = translation -> captchaCreate
 
-  def captchaCreate: Captcha.Challenge = captcher.create
+  // def captchaCreate: Captcha.Challenge = captcher.create
 
-  def process(code: String, metadata: TransMetadata, data: Map[String, String]): IO[Unit] = {
+  def process(code: String, metadata: TransMetadata, data: Map[String, String]): Funit = {
     val messages = (data mapValues { msg ⇒
       msg.some map sanitize filter (_.nonEmpty)
     }).toList collect {
@@ -36,8 +36,7 @@ final class DataForm(
     val sorted = (keys.keys map { key ⇒
       messages find (_._1 == key.key)
     }).flatten
-    messages.nonEmpty.fold(
-      for {
+    messages.nonEmpty.fold(for {
         id ← repo.nextId
         translation = Translation(
           id = id,
@@ -46,11 +45,10 @@ final class DataForm(
             case (key, trans) ⇒ key + "=" + trans
           } mkString "\n",
           author = metadata.author,
-          comment = metadata.comment)
-        _ ← repo insertIO translation
-      } yield (),
-      io()
-    )
+          comment = metadata.comment,
+          createdAt = DateTime.now)
+        _ ← repo insert translation
+      } yield (), funit)
   }
 
   def decodeTranslationBody(implicit req: Request[_]): Map[String, String] = req.body match {

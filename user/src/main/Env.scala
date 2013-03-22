@@ -1,7 +1,7 @@
 package lila.user
 
-import lila.db.ReactiveColl
-import lila.common.ConfigPimps._
+import lila.db.Types.ReactiveColl
+import lila.common.PimpedConfig._
 
 import chess.EloCalculator
 import com.typesafe.config.Config
