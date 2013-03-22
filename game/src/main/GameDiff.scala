@@ -1,17 +1,23 @@
-package lila.app
-package game
+package lila.game
 
+import lila.db.DbApi
+
+import play.api.libs.json._
+import Json.JsValueWrapper
+import org.joda.time.DateTime
+
+// TODO it works, but it could be more functional
 private[game] object GameDiff {
 
-  type Set = (String, Any)
+  type Set = (String, JsValueWrapper)
   type Unset = String
 
-  def apply(a: RawDbGame, b: RawDbGame): (List[Set], List[Unset]) = {
+  def apply(a: RawGame, b: RawGame): (List[Set], List[Unset]) = {
 
     val setBuilder = scala.collection.mutable.ListBuffer[Set]()
     val unsetBuilder = scala.collection.mutable.ListBuffer[Unset]()
 
-    def d[A](name: String, f: RawDbGame ⇒ A) {
+    def d[A: Writes](name: String, f: RawGame ⇒ A) {
       val (va, vb) = (f(a), f(b))
       if (va != vb) {
         if (vb == None || vb == null || vb == "") unsetBuilder += name
@@ -44,6 +50,11 @@ private[game] object GameDiff {
       d("c.t", _.c.get.t) // timer
     }
 
-    (setBuilder.toList, unsetBuilder.toList)
+    (addUa(setBuilder.toList), unsetBuilder.toList)
+  }
+
+  private def addUa(sets: List[Set]): List[Set] = sets match {
+    case Nil  ⇒ Nil
+    case sets ⇒ ("ua" -> Json.toJsFieldJsValueWrapper(DbApi $date DateTime.now)) :: sets
   }
 }
