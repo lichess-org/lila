@@ -1,9 +1,8 @@
-package lila.app
-package game
+package lila.game
 
 import chess.Color
 
-case class Pov(game: DbGame, color: Color) {
+case class Pov(game: Game, color: Color) {
 
   def player = game player color
 
@@ -22,16 +21,16 @@ case class Pov(game: DbGame, color: Color) {
 
   def ref = PovRef(game.id, color)
 
-  def withGame(g: DbGame) = Pov(g, color)
+  def withGame(g: Game) = Pov(g, color)
 }
 
 object Pov {
 
-  def apply(game: DbGame): List[Pov] = game.players.map { apply(game, _) }
+  def apply(game: Game): List[Pov] = game.players.map { apply(game, _) }
 
-  def apply(game: DbGame, player: DbPlayer) = new Pov(game, player.color)
+  def apply(game: Game, player: Player) = new Pov(game, player.color)
 
-  def apply(game: DbGame, playerId: String): Option[Pov] =
+  def apply(game: Game, playerId: String): Option[Pov] =
     game player playerId map { p ⇒ new Pov(game, p.color) }
 }
 

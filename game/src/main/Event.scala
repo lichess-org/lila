@@ -1,10 +1,10 @@
-package lila.app
-package round
+package lila.game
 
 import play.api.libs.json._
 
 import chess.{ PromotableRole, Pos, Color, Situation, Move ⇒ ChessMove, Clock ⇒ ChessClock }
 import Pos.{ piotr, allPiotrs }
+import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 
 sealed trait Event {
   def typ: String
@@ -116,15 +116,26 @@ object Event {
 
   case class Message(author: String, message: String) extends Event {
     def typ = "message"
-    def data = JsString(Room render (author, message))
+    def data = JsString(renderRoom(author, message))
     override def owner = true
   }
 
-  case class WatcherMessage(message: WatcherRoom.Message) extends Event {
+  private def renderRoom(author: String, text: String): String =
+    """<li class="%s%s">%s</li>""".format(
+      author,
+      (author == "system") ?? " trans_me",
+      escapeXml(text))
+
+  case class WatcherMessage(author: Option[String], text: String) extends Event {
     def typ = "message"
-    def data = JsString(WatcherRoom render message)
+    def data = JsString(renderWatcherRoom(author, text))
     override def watcher = true
   }
+
+  private def renderWatcherRoom(author: Option[String], text: String): String =
+    """<li><span>%s</span>%s</li>""".format(
+      author.fold("Anonymous")("@" + _),
+      escapeXml(text))
 
   case class End() extends Empty {
     def typ = "end"
