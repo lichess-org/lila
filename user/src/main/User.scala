@@ -62,7 +62,7 @@ object Users {
   import JsonTube.Helpers._
   import play.api.libs.json._
 
-  val defaults = Json.obj(
+  private val defaults = Json.obj(
     "isChatBan" -> false,
     "settings" -> Json.obj(),
     "engine" -> false,

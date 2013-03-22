@@ -1,5 +1,4 @@
-package lila.app
-package game
+package lila.game
 
 private[game] object MoveTime {
 

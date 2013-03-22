@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 
 object PimpedConfig {
 
-  implicit def pimpedConfig(config: Config) = new {
+  implicit final class LilaPimpedConfig(config: Config) {
 
     def millis(name: String): Int = config.getMilliseconds(name).toInt
     def seconds(name: String): Int = millis(name) / 1000
