@@ -1,7 +1,7 @@
 package lila.websocket
 
 import com.typesafe.config.Config
-import lila.common.ConfigPimps._
+import lila.common.PimpedConfig._
 
 final class Env(config: Config) {
 

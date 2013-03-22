@@ -1,17 +1,19 @@
-package lila.app
-package i18n
+package lila.i18n
 
 import play.api.i18n.Lang
+import play.api.libs.concurrent.Execution.Implicits._
+import scala.concurrent.Future
 import java.io._
-import scalaz.effects._
 
 private[i18n] case class JsDump(
     path: String,
     pool: I18nPool,
     keys: I18nKeys) {
 
-  val apply: IO[Unit] = 
-    io(pathFile.mkdir) >> (pool.nonDefaultLangs.toList map write).sequence.void
+  val apply: Funit = Future {
+    pathFile.mkdir
+    pool.nonDefaultLangs foreach write
+  } void
 
   private val messages = List(
     keys.unlimited,
@@ -41,7 +43,7 @@ private[i18n] case class JsDump(
 
   private val pathFile = new File(path)
 
-  private def write(lang: Lang): IO[Unit] = io {
+  private def write(lang: Lang) {
     val code = dump(lang)
     val file = new File("%s/%s.js".format(pathFile.getCanonicalPath, lang.language))
     val out = new PrintWriter(file)

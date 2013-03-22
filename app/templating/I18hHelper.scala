@@ -1,9 +1,10 @@
 package lila.app
-package i18n
+package templating
 
-import core.CoreEnv
 import controllers._
-import http.Context
+import lila.user.Context
+import lila.i18n.Env.{ current => i18nEnv }
+import lila.i18n.{ LangList, I18nDomain }
 
 import play.api.i18n.Lang
 import play.api.templates.Html
@@ -12,13 +13,12 @@ import scala.util.Random.shuffle
 
 trait I18nHelper {
 
-  protected def env: CoreEnv
+  private def pool = i18nEnv.pool
+  private def transInfos = i18nEnv.transInfos
+  private def hideCallsCookieName = i18nEnv.hideCallsCookieName
 
-  private def pool = env.i18n.pool
-  private def transInfos = env.i18n.transInfos
-  private def hideCallsCookieName = env.i18n.hideCallsCookieName
-
-  val trans = env.i18n.keys
+  lazy val trans = i18nEnv.keys
+  lazy val protocol = i18nEnv.RequestHandlerProtocol
 
   implicit def lang(implicit ctx: Context) = pool lang ctx.req
 
@@ -49,7 +49,6 @@ trait I18nHelper {
   def commonDomain(implicit ctx: Context): String =
     I18nDomain(ctx.req.domain).commonDomain
 
-  val protocol = "http://"
   val uriPlaceholder = "[URI]"
 
   private def langUrl(lang: Lang)(req: RequestHeader) =

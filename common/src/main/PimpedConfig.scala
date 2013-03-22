@@ -4,7 +4,7 @@ import com.typesafe.config.Config
 import scala.concurrent.duration._
 // import scalaz.{ Success, Failure }
 
-object ConfigPimps {
+object PimpedConfig {
 
   implicit def pimpedConfig(config: Config) = new {
 

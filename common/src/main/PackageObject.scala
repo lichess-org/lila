@@ -4,6 +4,7 @@ import ornicar.scalalib
 
 import scalaz.{ Zero, Functor, Monad, OptionT }
 import scala.concurrent.Future
+import play.api.libs.concurrent.Execution.Implicits._
 
 trait PackageObject
     extends WithFuture
@@ -58,14 +59,13 @@ trait PackageObject
   def floatBox(in: Range.Inclusive)(v: Float): Float =
     math.max(in.start, math.min(v, in.end))
 
-  def printToFile(f: java.io.File)(op: java.io.PrintWriter ⇒ Unit) {
+  def printToFile(f: java.io.File)(op: java.io.PrintWriter ⇒ Unit): Funit = Future {
     val p = new java.io.PrintWriter(f)
     try { op(p) } finally { p.close() }
   }
 
-  def printToFile(f: String)(op: java.io.PrintWriter ⇒ Unit) {
+  def printToFile(f: String)(op: java.io.PrintWriter ⇒ Unit): Funit = 
     printToFile(new java.io.File(f))(op)
-  }
 }
 
 trait WithFuture extends scalaz.Zeros {
@@ -80,9 +80,9 @@ trait WithFuture extends scalaz.Zeros {
   def fufail[B](a: String): Fu[B] = Future failed (new RuntimeException(a))
   def funit = fuccess(())
 
-  implicit def LilaFuZero[A: Zero]: Zero[Fu[A]] = new Zero[Fu[A]] { val zero = fuccess(∅[A]) }
+  implicit def LilaFuZero[A: Zero] = new Zero[Fu[A]] { val zero = fuccess(∅[A]) }
 
-  implicit def SprayPimpedFuture[T](fut: Future[T]): PimpedFuture[T] = new PimpedFuture[T](fut)
+  implicit def SprayPimpedFuture[T](fut: Future[T]) = new PimpedFuture[T](fut)
 }
 
 trait WithDb { self: PackageObject ⇒
@@ -131,13 +131,5 @@ trait WithPlay { self: PackageObject ⇒
     def doIf(cond: Boolean): Fu[A] = cond.fold(fua, fuccess(∅[A]))
 
     def doUnless(cond: Boolean): Fu[A] = doIf(!cond)
-  }
-
-  implicit final class LilaPimpedJsObject(obj: JsObject) {
-
-    def get[T: Reads](field: String): Option[T] = (obj \ field) match {
-      case JsUndefined(_) ⇒ none
-      case value          ⇒ value.asOpt[T]
-    }
   }
 }

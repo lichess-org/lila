@@ -1,8 +1,9 @@
 package lila.security
 
+import lila.common.PimpedJson._
 import lila.http.LilaCookie
 import lila.memo.VarMemo
-import lila.db.Types._
+import lila.db.Types.ReactiveColl
 import lila.db.DbApi
 
 import scala.concurrent.duration._
