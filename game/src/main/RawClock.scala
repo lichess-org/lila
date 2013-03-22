@@ -1,10 +1,9 @@
-package lila.app
-package game
+package lila.game
 
-import chess._
+import chess.{ Game ⇒ _, _ }
 import scala.math.round
 
-private[game] case class RawDbClock(
+private[game] case class RawClock(
     c: Boolean,
     i: Int,
     l: Int,
@@ -29,11 +28,11 @@ private[game] case class RawDbClock(
     }
 }
 
-private[game] object RawDbClock {
+private[game] object RawClocks {
 
-  def encode(clock: Clock): RawDbClock = {
+  def encode(clock: Clock): RawClock = {
     import clock._
-    RawDbClock(
+    RawClock(
       c = color.white,
       i = increment,
       l = limit,
@@ -42,4 +41,15 @@ private[game] object RawDbClock {
       t = timerOption
     )
   }
+
+  import lila.db.JsonTube
+  import JsonTube.Helpers._
+  import play.api.libs.json._
+
+  private val defaults = Json.obj("t" -> none[Double])
+
+  val json = JsonTube(
+    reads = (__.json update merge(defaults)) andThen Json.reads[RawClock],
+    writes = Json.writes[RawClock]
+  )
 }

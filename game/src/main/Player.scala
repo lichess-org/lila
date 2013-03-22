@@ -1,10 +1,9 @@
-package lila.app
-package game
+package lila.game
 
 import chess.{ Pos, Piece, Color }
-import user.User
+import lila.user.User
 
-case class DbPlayer(
+case class Player(
     id: String,
     color: Color,
     aiLevel: Option[Int],
@@ -33,7 +32,7 @@ case class DbPlayer(
     ps = encodePieces(allPieces)
   )
 
-  def withUser(user: User): DbPlayer = copy(
+  def withUser(user: User): Player = copy(
     userId = user.id.some,
     elo = user.elo.some)
 
@@ -72,7 +71,7 @@ case class DbPlayer(
 
   def withName(name: String) = copy(name = name.some)
 
-  def encode: RawDbPlayer = RawDbPlayer(
+  def encode: RawPlayer = RawPlayer(
     id = id,
     ps = ps,
     ai = aiLevel,
@@ -90,11 +89,11 @@ case class DbPlayer(
   )
 }
 
-object DbPlayer {
+object Player {
 
   def apply(
     color: Color,
-    aiLevel: Option[Int]): DbPlayer = DbPlayer(
+    aiLevel: Option[Int]): Player = Player(
     id = IdGenerator.player,
     color = color,
     aiLevel = aiLevel)
@@ -104,7 +103,7 @@ object DbPlayer {
   def black = apply(Color.Black, None)
 }
 
-case class RawDbPlayer(
+case class RawPlayer(
     id: String,
     ps: String,
     ai: Option[Int],
@@ -120,7 +119,7 @@ case class RawDbPlayer(
     bs: Option[Int],
     na: Option[String]) {
 
-  def decode(color: Color): DbPlayer = DbPlayer(
+  def decode(color: Color): Player = Player(
     id = id,
     color = color,
     ps = ps,
@@ -135,6 +134,31 @@ case class RawDbPlayer(
     userId = uid,
     moveTimes = mts | "",
     blurs = bs | 0,
-    name = na
+    name = na)
+}
+
+object RawPlayers {
+
+  import lila.db.JsonTube
+  import JsonTube.Helpers._
+  import play.api.libs.json._
+
+  private val defaults = Json.obj(
+    "ps" -> "",
+    "w" -> none[Boolean],
+    "isOfferingDraw" -> false,
+    "isOfferingRematch" -> false,
+    "lastDrawOffer" -> none[Int],
+    "isProposingTakeback" -> false,
+    "uid" -> none[String],
+    "elo" -> none[Int],
+    "ed" -> none[Int],
+    "mts" -> "",
+    "bs" -> 0,
+    "na" -> none[String])
+
+  val json = JsonTube(
+    reads = (__.json update merge(defaults)) andThen Json.reads[RawPlayer],
+    writes = Json.writes[RawPlayer]
   )
 }

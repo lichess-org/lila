@@ -1,5 +1,4 @@
-package lila.app
-package game
+package lila.game
 
 sealed abstract class Source(val id: Int) {
 
