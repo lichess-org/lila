@@ -1,10 +1,11 @@
-package lila.app
+// package _root_ 
 
+import ornicar.scalalib
 import play.api.{ Application, GlobalSettings, Mode }
 import play.api.mvc._
 import play.api.mvc.Results._
 
-object Global extends GlobalSettings {
+object Global extends GlobalSettings with scalalib.Common {
 
   override def onStart(app: Application) {
     // if (env.ai.isServer) println("Running as AI server")

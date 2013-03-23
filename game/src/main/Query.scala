@@ -9,8 +9,6 @@ import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 
 object Query extends DbApi {
-  
-  val all = select.all
 
   val rated: JsObject = Json.obj("ra" -> true)
 
@@ -56,7 +54,7 @@ object Query extends DbApi {
 
   def turnsGt(nb: Int) = Json.obj("t" -> $gt(nb))
 
-  val sortCreated = Json.obj("ca" -> -1)
+  val sortCreated = sort desc "ca" 
 
-  val sortPopular = Json.obj("bm" -> -1)
+  val sortPopular = sort desc "bm" 
 }

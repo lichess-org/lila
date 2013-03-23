@@ -17,9 +17,9 @@ abstract class Repo[ID: Writes, Doc <: Identified[ID]](coll: ReactiveColl, json:
 
   object query {
 
-    def apply(q: JsObject) = builder query q
-
     def all = builder
+
+    def apply(q: JsObject) = builder query q
 
     def byId(id: ID) = apply(select byId id)
 
@@ -42,7 +42,8 @@ abstract class Repo[ID: Writes, Doc <: Identified[ID]](coll: ReactiveColl, json:
 
   object find {
 
-    def one(q: JsObject): Fu[Option[Doc]] = query(q).one[Option[Doc]] map (_.flatten)
+    def one(q: JsObject, modifier: QueryBuilder ⇒ QueryBuilder = identity): Fu[Option[Doc]] = 
+      modifier(query(q)).one[Option[Doc]] map (_.flatten)
 
     def byId(id: ID): Fu[Option[Doc]] = one(select byId id)
 
@@ -103,6 +104,10 @@ abstract class Repo[ID: Writes, Doc <: Identified[ID]](coll: ReactiveColl, json:
   object remove {
 
     def apply(selector: JsObject): Funit = (coll remove selector).void
+
+    def byId(id: ID): Funit = apply(select(id))
+
+    def byIds(ids: Seq[ID]): Funit = apply(select byIds ids)
   }
 
   object primitive {
@@ -139,6 +144,10 @@ abstract class Repo[ID: Writes, Doc <: Identified[ID]](coll: ReactiveColl, json:
   // PRIVATE SHIT //
   //////////////////
 
+  protected implicit val bsonDocumentReader = new BSONDocumentReader[Option[Doc]] {
+    def read(bson: BSONDocument): Option[Doc] = json.fromMongo(JsObjectReader read bson).asOpt
+  }
+
   private def cursor(q: JsObject): Cursor[Option[Doc]] = cursor(query(q))
   private def cursor(q: JsObject, nb: Int): Cursor[Option[Doc]] = cursor(query(q), nb)
 
@@ -150,10 +159,6 @@ abstract class Repo[ID: Writes, Doc <: Identified[ID]](coll: ReactiveColl, json:
 
   private def db = coll.db
   private def name = coll.name
-
-  private implicit val bsonDocumentReader = new BSONDocumentReader[Option[Doc]] {
-    def read(bson: BSONDocument): Option[Doc] = json.fromMongo(JsObjectReader read bson).asOpt
-  }
 
   private def fuck(msg: Any) = fufail(new DbException(msg.toString))
 }

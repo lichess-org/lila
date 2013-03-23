@@ -28,12 +28,12 @@ object ApplicationBuild extends Build {
 
   lazy val api = project("api", Seq(common, db, user, security, wiki)).settings(
     libraryDependencies := provided(
-      hasher, config, apache, csv, jgit,
+      playApi, hasher, config, apache, csv, jgit,
       actuarius, scalastic, findbugs, reactivemongo)
   )
 
   lazy val common = project("common").settings(
-    libraryDependencies ++= provided(playApi, reactivemongo, csv)
+    libraryDependencies ++= provided(playApi, playTest, reactivemongo, csv)
   )
 
   lazy val memo = project("memo", Seq(common)).settings(
@@ -41,7 +41,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val db = project("db", Seq(common)).settings(
-    libraryDependencies ++= provided(playApi) ++ Seq(reactivemongo, playReactivemongo)
+    libraryDependencies ++= provided(playTest, playApi, reactivemongo, playReactivemongo)
   )
 
   lazy val user = project("user", Seq(common, memo, db, scalachess)).settings(

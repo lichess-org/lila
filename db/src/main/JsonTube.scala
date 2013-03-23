@@ -22,11 +22,14 @@ case class JsonTube[Doc](
     case (value, _)                         ⇒ JsError()
   }
 
-  def toMongo(doc: Doc): JsResult[JsObject] = write(doc) flatMap JsonTube.toMongo
+  def toMongo(doc: Doc): JsResult[JsObject] = 
+    write(doc) flatMap JsonTube.toMongo
 
-  def fromMongo(js: JsObject): JsResult[Doc] = depath(JsonTube fromMongo js).pp flatMap read
+  def fromMongo(js: JsObject): JsResult[Doc] = 
+    depath(JsonTube fromMongo js) flatMap read
 
-  private def depath[A](r: JsResult[A]): JsResult[A] = r.fold(JsError(_), JsSuccess(_))
+  private def depath[A](r: JsResult[A]): JsResult[A] = 
+    r.fold(JsError(_), JsSuccess(_))
 }
 
 object JsonTube {
@@ -45,7 +48,8 @@ object JsonTube {
       (__ \ to).json copyFrom (__ \ from).json.pick
     ) andThen (__ \ from).json.prune
 
-    def readDate(field: Symbol) = (__ \ field).json.update(of[JsObject] map (_ \ "$date"))
+    def readDate(field: Symbol) = 
+      (__ \ field).json.update(of[JsObject] map (_ \ "$date"))
 
     def writeDate(field: Symbol) = (__ \ field).json.update(of[JsNumber] map {
       millis ⇒ Json.obj("$date" -> millis)

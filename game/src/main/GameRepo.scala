@@ -15,12 +15,13 @@ import reactivemongo.bson._
 import reactivemongo.core.commands._
 
 import play.modules.reactivemongo.Implicits._
-import play.modules.reactivemongo.MongoJSONHelpers._
+// import play.modules.reactivemongo.MongoJSONHelpers._
 
 import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 import scala.util.Random
+import scala.concurrent.Future
 
 final class GameRepo(coll: ReactiveColl) extends Repo[String, Game](coll, Game.json) {
 
@@ -60,13 +61,13 @@ final class GameRepo(coll: ReactiveColl) extends Repo[String, Game](coll, Game.j
 
   // makes the asumption that player 0 is white!
   // proved to be true on prod DB at March 31 2012
-  def setEloDiffs(id: ID, white: Int, black: Int) = 
+  def setEloDiffs(id: ID, white: Int, black: Int) =
     update(select(id), $set("p.0.ed" -> white, "p.1.ed" -> black))
 
   def setUser(id: ID, color: Color, user: User) = {
     val pn = "p" + color.fold(0, 1)
     update(select(id), $set(
-      pn + ".uid" -> Json.toJson(user.id), 
+      pn + ".uid" -> Json.toJson(user.id),
       pn + ".elo" -> Json.toJson(user.elo))
     )
   }
@@ -92,57 +93,40 @@ final class GameRepo(coll: ReactiveColl) extends Repo[String, Game](coll, Game.j
   //   )
   // }
 
-  // def findRandomStandardCheckmate(distribution: Int): Fu[Option[Game]] = io {
-  //   find(Query.mate ++ ("v" $exists false))
-  //     .sort(Query.sortCreated)
-  //     .limit(1)
-  //     .skip(Random nextInt distribution)
-  //     .toList.map(_.decode).flatten.headOption
-  // }
+  def findRandomStandardCheckmate(distribution: Int): Fu[Option[Game]] = find.one(
+    Query.mate ++ Json.obj("v" -> $exists(false)),
+    _ sort Query.sortCreated limit 1 skip (Random nextInt distribution)
+  )
 
-  // def denormalize(game: Game): Fu[Unit] = io {
-  //   val userIds = game.players.map(_.userId).flatten
-  //   if (userIds.nonEmpty) update(idSelector(game), $set(Seq("uids" -> userIds)))
-  //   if (game.mode.rated) update(idSelector(game), $set(Seq("ra" -> true)))
-  //   if (game.variant.exotic) update(idSelector(game), $set(Seq("if" -> (Forsyth >> game.toChess))))
-  // }
+  def denormalize(game: Game): Funit = {
+    val userIds = game.players.map(_.userId).flatten
+    Future.sequence(List(
+      userIds.nonEmpty ?? update(select(game.id), $set("uids" -> userIds)),
+      game.mode.rated ?? update(select(game.id), $set("ra" -> true)),
+      game.variant.exotic ?? update(select(game.id), $set("if" -> (Forsyth >> game.toChess)))
+    )).void
+  }
 
-  // def saveNext(game: Game, nextId: ID): Fu[Unit] = io {
-  //   update(
-  //     idSelector(game),
-  //     $set(Seq("next" -> nextId)) ++
-  //       $unset(Seq("p.0.isOfferingRematch", "p.1.isOfferingRematch"))
-  //   )
-  // }
+  def saveNext(game: Game, nextId: ID): Funit = update(
+    select(game.id),
+    $set("next" -> nextId) ++
+      $unset("p.0.isOfferingRematch", "p.1.isOfferingRematch")
+  )
 
-  // def initialFen(gameId: ID): Fu[Option[String]] = io {
-  //   primitiveProjection[String](idSelector(gameId), "if")
-  // }
+  def initialFen(gameId: ID): Fu[Option[String]] =
+    primitive.one(select(gameId), "if")(_.asOpt[String])
 
-  // val unplayedIds: Fu[List[ID]] = io {
-  //   primitiveProjections[ID](
-  //     ("t" $lt 2) ++ ("ca" $lt (DateTime.now - 3.day) $gt (DateTime.now - 1.week)),
-  //     "_id"
-  //   )
-  // }
+  def unplayedIds: Fu[List[ID]] = primitive(
+    Json.obj("t" -> $lt(2)) ++ 
+    Json.obj("ca" -> ($lt(DateTime.now - 3.day) ++ $gt(DateTime.now - 1.week))),
+    "_id"
+  )(_.asOpt[ID])
 
-  // // bookmarks and pgns should also be removed
-  // def remove(id: ID): Fu[Unit] = io {
-  //   remove(idSelector(id))
-  // }
-
-  // // bookmarks and pgns should also be removed
-  // def removeIds(ids: List[ID]): Fu[Unit] = io {
-  //   remove("_id" $in ids)
-  // }
-
-  // val candidatesToAutofinish: Fu[List[Game]] = io {
-  //   find(Query.playable ++
-  //     Query.clock(true) ++
+  // def candidatesToAutofinish: Fu[List[Game]] = 
+  //   find(Query.playable ++ Query.clock(true) ++
   //     ("ca" $gt (DateTime.now - 1.day)) ++ // index
-  //     ("ua" $lt (DateTime.now - 2.hour))
-  //   ).toList.map(_.decode).flatten
-  // }
+  //     ("ua" $lt (DateTime.now - 2.hour)
+  //   ))
 
   // def abandoned(max: Int): Fu[List[Game]] = io {
   //   find(
