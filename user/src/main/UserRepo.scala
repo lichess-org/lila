@@ -35,7 +35,7 @@ final class UserRepo(coll: ReactiveColl) extends Repo[String, User](coll, Users.
 
   val enabledQuery = Json.obj("enabled" -> true)
 
-  val sortEloDesc = "elo" -> sort.desc
+  val sortEloDesc = sort desc "elo" 
 
   def incNbGames(id: ID, rated: Boolean, ai: Boolean, result: Option[Int]) = {
     val incs = List(

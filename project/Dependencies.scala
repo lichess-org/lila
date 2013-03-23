@@ -3,6 +3,8 @@ import Keys._
 
 object Dependencies {
 
+  private val home = "file://"+Path.userHome.absolutePath
+
   object Resolvers {
     // val codahale = "repo.codahale.com" at "http://repo.codahale.com/"
     val typesafe = "typesafe.com" at "http://repo.typesafe.com/typesafe/releases/"
@@ -16,9 +18,11 @@ object Dependencies {
     val sgodbillon = "sgodbillon" at "https://bitbucket.org/sgodbillon/repository/raw/master/snapshots/"
     val awesomepom = "awesomepom" at "https://raw.github.com/jibs/maven-repo-scala/master"
     val sprayRepo = "spray repo" at "http://repo.spray.io"
-    val local = "local repo" at "file://"+Path.userHome.absolutePath+"/local-repo/repository"
+    val local = "local repo" at home+"/local-repo/content/repositories/snapshots"
 
-    val commons = Seq(local, awesomepom, iliaz, sonatype, // sonatypeS, // sgodbillon, 
+    val commons = Seq(local,
+      sonatypeS, 
+      awesomepom, iliaz, sonatype, // sgodbillon, 
       typesafe, t2v, jgitMaven, christophs, sprayRepo)
   }
 
