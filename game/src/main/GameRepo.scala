@@ -7,7 +7,7 @@ import lila.user.User
 import lila.db.{ Repo, DbApi }
 import lila.db.Implicits._
 
-import play.api.libs.json.Json
+import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._
 
 import reactivemongo.api._
@@ -117,54 +117,35 @@ final class GameRepo(coll: ReactiveColl) extends Repo[String, Game](coll, Game.j
     "_id"
   )(_.asOpt[ID])
 
-  def candidatesToAutofinish: Fu[List[Game]] = 
-    find(Query.playable ++ Query.clock(true) ++
-      ("ca" -> $gt(DateTime.now - 1.day)) ++ // index
-      ("ua" -> $lt(DateTime.now - 2.hour))
-    )
+  def candidatesToAutofinish: Fu[List[Game]] =
+    find(Query.playable ++ Query.clock(true) ++ Json.obj(
+      "ca" -> $gt(DateTime.now - 1.day),
+      "ua" -> $lt(DateTime.now - 2.hour)
+    ))
 
-  // def abandoned(max: Int): Fu[List[Game]] = io {
-  //   find(
-  //     Query.notFinished ++ ("ua" $lt Game.abandonedDate)
-  //   ).limit(max).toList.map(_.decode).flatten
-  // }
+  def abandoned(max: Int): Fu[List[Game]] = find(
+    Query.notFinished ++ Json.obj("ua" -> $lt(Game.abandonedDate)),
+    max)
 
-  // val featuredCandidates: Fu[List[Game]] = io {
-  //   find(Query.playable ++
-  //     Query.clock(true) ++
-  //     ("t" $gt 1) ++
-  //     ("ca" $gt (DateTime.now - 4.minutes)) ++
-  //     ("ua" $gt (DateTime.now - 15.seconds))
-  //   ).toList.map(_.decode).flatten
-  // }
+  val featuredCandidates: Fu[List[Game]] = find(
+    Query.playable ++ Query.clock(true) ++ Json.obj(
+      "t" -> $gt(1),
+      "ca" -> $gt(DateTime.now - 4.minutes),
+      "ua" -> $gt(DateTime.now - 15.seconds)
+    ))
 
-  // def count(query: DBObject): Fu[Int] = io {
-  //   super.count(query).toInt
-  // }
+  def count(query: Query.type ⇒ JsObject): Fu[Int] = count(query(Query))
 
-  // def count(query: Query.type ⇒ DBObject): Fu[Int] = count(query(Query))
+  def recentGames(limit: Int): Fu[List[Game]] = find(
+    query(Query.started ++ Query.turnsGt(1)) sort Query.sortCreated limit limit
+  )
 
-  // def exists(id: ID) = count(idSelector(id)) map (_ > 0)
-
-  // def recentGames(limit: Int): Fu[List[Game]] = io {
-  //   find(Query.started ++ Query.turnsGt(1))
-  //     .sort(Query.sortCreated)
-  //     .limit(limit)
-  //     .toList.map(_.decode).flatten
-  // }
-
-  // def games(ids: List[ID]): Fu[List[Game]] = io {
-  //   find("_id" $in ids).toList.map(_.decode).flatten
-  // } map { gs ⇒
-  //   val gsMap = gs.map(g ⇒ g.id -> g).toMap
-  //   ids.map(gsMap.get).flatten
-  // }
-
-  // def nbPerDay(days: Int): Fu[List[Int]] = ((days to 1 by -1).toList map { day ⇒
-  //   val from = DateTime.now.withTimeAtStartOfDay - day.days
-  //   val to = from + 1.day
-  //   count(("ca" $gte from $lt to))
-  // }).sequence
+  def nbPerDay(days: Int): Fu[List[Int]] =
+    Future.traverse((days to 1 by -1).toList) { day ⇒
+      val from = DateTime.now.withTimeAtStartOfDay - day.days
+      val to = from + 1.day
+      count(Json.obj("ca" -> ($gte(from) ++ $lt(to))))
+    }
 
   // def recentAverageElo(minutes: Int): Fu[(Int, Int)] = io {
   //   val result = collection.mapReduce(
@@ -197,7 +178,4 @@ final class GameRepo(coll: ReactiveColl) extends Repo[String, Game](coll, Game.j
   //     casual ← casualRow.getAs[Double]("value")
   //   } yield rated.toInt -> casual.toInt) | (0, 0)
   // }
-
-  // private def idSelector(game: Game): DBObject = idSelector(game.id)
-  // private def idSelector(id: ID): DBObject = DBObject("_id" -> id)
 }
