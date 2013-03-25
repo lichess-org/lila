@@ -1,24 +1,24 @@
 package lila.app
-package game
+package templating
 
 import chess.format.Forsyth
 import chess.{ Status, Variant, Color, Clock, Mode }
-import user.{ User, UserHelper }
-import http.Context
-import i18n.I18nHelper
-import ai.AiHelper
-import templating.StringHelper
+import lila.user.{ User, Users, Context }
+import lila.game.{ Game, Player, Namer }
+
+import lila.user.Env.{ current ⇒ userEnv }
 
 import controllers.routes
 
 import play.api.templates.Html
 import play.api.mvc.Call
+import play.api.libs.concurrent.Execution.Implicits._
 
-trait GameHelper { self: I18nHelper with UserHelper with StringHelper with AiHelper ⇒
+trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper ⇒
 
   def variantName(variant: Variant)(implicit ctx: Context) = variant match {
-    case Variant.Standard ⇒ trans.standard.str()
-    case Variant.Chess960 ⇒ "chess960"
+    case Variant.Standard     ⇒ trans.standard.str()
+    case Variant.Chess960     ⇒ "chess960"
     case Variant.FromPosition ⇒ trans.fromPosition.str()
   }
 
@@ -37,18 +37,19 @@ trait GameHelper { self: I18nHelper with UserHelper with StringHelper with AiHel
     case Mode.Rated  ⇒ trans.rated.str()
   }
 
-  def usernameWithElo(player: DbPlayer) = Namer.player(player)(userIdToUsername)
+  def usernameWithElo(player: Player) =
+    Namer.player(player)(userEnv.cached.usernameOrAnonymous)
 
   def playerLink(
-    player: DbPlayer,
+    player: Player,
     cssClass: Option[String] = None,
     withOnline: Boolean = true,
     withDiff: Boolean = true,
     engine: Boolean = false)(implicit ctx: Context) = Html {
     player.userId.fold(
       """<span class="user_link %s">%s</span>""".format(
-        cssClass | "",
-        player.aiLevel.fold(player.name | User.anonymous)(aiName)
+        ~cssClass,
+        player.aiLevel.fold(player.name | Users.anonymous)(aiName)
       )
     ) { userId ⇒
         userIdToUsername(userId) |> { username ⇒
@@ -69,7 +70,7 @@ trait GameHelper { self: I18nHelper with UserHelper with StringHelper with AiHel
       }
   }
 
-  def gameEndStatus(game: DbGame)(implicit ctx: Context): Html = game.status match {
+  def gameEndStatus(game: Game)(implicit ctx: Context): Html = game.status match {
     case Status.Aborted ⇒ trans.gameAborted()
     case Status.Mate    ⇒ trans.checkmate()
     case Status.Resign ⇒ game.loser match {
@@ -87,7 +88,7 @@ trait GameHelper { self: I18nHelper with UserHelper with StringHelper with AiHel
     case _                ⇒ Html("")
   }
 
-  def gameFen(game: DbGame, color: Color, ownerLink: Boolean = false)(implicit ctx: Context) = Html {
+  def gameFen(game: Game, color: Color, ownerLink: Boolean = false)(implicit ctx: Context) = Html {
     val owner = ownerLink.fold(ctx.me flatMap game.player, none)
     var live = game.isBeingPlayed
     val url = owner.fold(routes.Round.watcher(game.id, color.name)) { o =>
@@ -103,7 +104,7 @@ trait GameHelper { self: I18nHelper with UserHelper with StringHelper with AiHel
       game.lastMove | "")
   }
 
-  def gameFenNoCtx(game: DbGame, color: Color) = Html {
+  def gameFenNoCtx(game: Game, color: Color) = Html {
     var live = game.isBeingPlayed
     """<a href="%s" class="mini_board parse_fen %s" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"></a>""".format(
       routes.Round.watcher(game.id, color.name),

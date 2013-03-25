@@ -9,12 +9,14 @@ import play.api.libs.concurrent.Execution.Implicits._
 
 final class Cached(userRepo: UserRepo, ttl: Duration) {
 
-  def username(id: String): Option[String] =
-    usernameCache.fromFuture(id.toLowerCase)(userRepo usernameById id).await
+  def username(id: String): Fu[Option[String]] =
+    usernameCache.fromFuture(id.toLowerCase)(userRepo usernameById id)
 
-  def usernameOrAnonymous(id: String): String = username(id) | Users.anonymous
+  def usernameOrAnonymous(id: String): Fu[String] = 
+    username(id) map (_ | Users.anonymous)
 
-  def usernameOrAnonymous(id: Option[String]): String = (id flatMap username) | Users.anonymous
+  def usernameOrAnonymous(id: Option[String]): Fu[String] = 
+    id.fold(fuccess(Users.anonymous))(usernameOrAnonymous)
 
   def countEnabled: Fu[Int] = countEnabledCache.fromFuture(true)(userRepo.countEnabled)
 

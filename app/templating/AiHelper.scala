@@ -1,8 +1,7 @@
 package lila.app
-package ai
+package templating
 
-import http.Context
-import i18n.I18nHelper
+import lila.user.Context
 
 trait AiHelper extends I18nHelper {
 
