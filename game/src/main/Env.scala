@@ -2,8 +2,13 @@ package lila.game
 
 import com.typesafe.config.Config
 import lila.common.PimpedConfig._
+import akka.actor._
 
-final class Env(config: Config, db: lila.db.Env) {
+final class Env(
+  config: Config, 
+  db: lila.db.Env,
+  system: ActorSystem,
+  hub: lila.hub.Env) {
 
   val CachedNbTtl = config duration "cached.nb.ttl"
   val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
@@ -23,9 +28,11 @@ final class Env(config: Config, db: lila.db.Env) {
   //   cached = cached,
   //   maxPerPage = PaginatorMaxPerPage)
 
-  // lazy val featured = new Featured(
-  //   gameRepo = gameRepo,
-  //   lobbyHubName = ActorLobbyHub)
+  lazy val featured = new Featured(
+    gameRepo = gameRepo,
+    lobbyActor = hub.lobbyActor,
+    rendererActor = hub.rendererActor,
+    system = system)
 
   // lazy val export = Export(gameRepo, NetBaseUrl) _
 
@@ -40,7 +47,11 @@ final class Env(config: Config, db: lila.db.Env) {
 
 object Env {
 
+  lazy val hub = lila.hub.Env.current
+
   lazy val current = new Env(
     config = lila.common.PlayApp loadConfig "game",
-    db = lila.db.Env.current)
+    db = lila.db.Env.current,
+    system = play.api.libs.concurrent.Akka.system(play.api.Play.current),
+    hub = lila.hub.Env.current)
 }

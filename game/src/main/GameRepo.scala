@@ -44,6 +44,10 @@ final class GameRepo(coll: ReactiveColl) extends Repo[String, Game](coll, Game.j
 
   def pov(ref: PovRef): Fu[Option[Pov]] = pov(ref.gameId, ref.color)
 
+  def recentByUser(userId: String): Fu[List[Game]] = find(
+    query(Query user userId) sort Query.sortCreated
+  )
+
   def token(id: ID): Fu[String] =
     primitive.one[String](select(id), "tk")(_.asOpt[String]) map (_ | Game.defaultToken)
 

@@ -50,7 +50,7 @@ object ApplicationBuild extends Build {
       hasher, spray.caching) 
   )
 
-  lazy val game = project("game", Seq(common, db, user, scalachess)).settings(
+  lazy val game = project("game", Seq(common, db, hub, user, scalachess)).settings(
     libraryDependencies ++= provided(
       playApi, reactivemongo, playReactivemongo, spray.caching) 
   )

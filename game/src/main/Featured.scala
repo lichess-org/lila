@@ -1,32 +1,30 @@
-package lila.app
-package game
+package lila.game
 
-import akka.actor._
 import scala.concurrent.{ Future, Await }
-import akka.pattern.ask
 import scala.concurrent.duration._
+import akka.actor._
+import akka.pattern.ask
 import akka.util.Timeout
 import play.api.Play.current
-import play.api.libs.concurrent.Akka
 import play.api.libs.concurrent.Execution.Implicits._
-import scalaz.effects._
+import play.api.libs.concurrent.Akka
+import play.api.templates.Html
 
-import socket.ChangeFeatured
 import chess.Color
 
-final class Featured(
+private[game] final class Featured(
     gameRepo: GameRepo,
-    lobbyHubName: String) {
+    lobbyActor: ActorRef,
+    rendererActor: ActorRef,
+    system: ActorSystem) {
 
   import Featured._
 
-  def one: Future[Option[DbGame]] =
-    actor ? GetOne mapTo manifest[Option[DbGame]]
+  def one: Future[Option[Game]] = actor ? GetOne mapTo manifest[Option[Game]]
 
   private implicit val timeout = Timeout(2 seconds)
-  private lazy val lobbyRef = Akka.system.actorFor("/user/" + lobbyHubName)
 
-  private val actor = Akka.system.actorOf(Props(new Actor {
+  private val actor = system.actorOf(Props(new Actor {
 
     private var oneId = none[String]
 
@@ -34,39 +32,43 @@ final class Featured(
       case GetOne ⇒ sender ! getOne
     }
 
-    private def getOne = oneId flatMap fetch filter valid orElse {
-      feature ~ { newOne ⇒
-        oneId = newOne map (_.id)
-        newOne foreach { game ⇒
-          lobbyRef ! ChangeFeatured(views.html.game.featuredJsNoCtx(game).toString)
+    // this function must block to make the actor wait for the result
+    // before accepting new messages
+    private def getOne: Option[Game] =
+      oneId flatMap fetch filter valid orElse {
+        feature ~ { newOne ⇒
+          oneId = newOne map (_.id)
+          newOne foreach { game ⇒
+            rendererActor ? actorApi.RenderFeaturedJs(game) onSuccess {
+              case html: Html ⇒ lobbyActor ! actorApi.ChangeFeatured(html)
+            }
+          }
         }
       }
-    }
 
-    private def fetch(id: String): Option[DbGame] =
-      gameRepo.game(id).unsafePerformIO
+    private def fetch(id: String): Option[Game] = (gameRepo.find byId id).await
 
-    private def valid(game: DbGame) = game.isBeingPlayed
+    private def valid(game: Game) = game.isBeingPlayed
 
-    private def feature: Option[DbGame] = Featured best {
-      gameRepo.featuredCandidates.unsafePerformIO filter valid
+    private def feature: Option[Game] = Featured best {
+      gameRepo.featuredCandidates.await filter valid
     }
   }))
 
-  Akka.system.scheduler.schedule(5.seconds, 2.seconds, actor, GetOne)
+  system.scheduler.schedule(5.seconds, 2.seconds, actor, GetOne)
 }
 
 object Featured {
 
   case object GetOne
 
-  def best(games: List[DbGame]) = (games sortBy score).lastOption
+  def best(games: List[Game]) = (games sortBy score).lastOption
 
-  def score(game: DbGame): Float = heuristics map {
+  def score(game: Game): Float = heuristics map {
     case (fn, coefficient) ⇒ heuristicBox(fn(game)) * coefficient
   } sum
 
-  private type Heuristic = DbGame ⇒ Float
+  private type Heuristic = Game ⇒ Float
   private val heuristicBox = box(0 to 1) _
   private val eloBox = box(1000 to 2000) _
   private val timeBox = box(60 to 300) _
