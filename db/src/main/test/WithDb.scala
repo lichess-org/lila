@@ -8,7 +8,7 @@ abstract class WithDb extends WithApplication(WithDb.fakeApp)
 object WithDb {
 
   val fakeApp = FakeApplication(
-    additionalPlugins = Seq("play.modules.reactivemongo.ReactiveMongoPlugin")
+    additionalPlugins = Seq("play.modules.reactivemongo.ReactiveMongoPlugin"),
+    additionalConfiguration = Map("mongodb.db" -> "test")
   )
-
 }

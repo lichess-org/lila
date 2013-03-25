@@ -1,3 +1,3 @@
 package lila
 
-package object wiki extends PackageObject with WithPlay with WithDb 
+package object wiki extends PackageObject with WithPlay 

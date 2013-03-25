@@ -73,8 +73,6 @@ object Users {
       merge(defaults) andThen readDate('createdAt)
     )) andThen Json.reads[User],
     writes = Json.writes[User],
-    writeTransformer = (__.json update (
-      writeDate('createdAt)
-    )).some
+    writeTransformer = (__.json update writeDate('createdAt)).some
   )
 }

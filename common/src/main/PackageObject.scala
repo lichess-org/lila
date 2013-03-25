@@ -85,14 +85,6 @@ trait WithFuture extends scalaz.Zeros {
   implicit def SprayPimpedFuture[T](fut: Future[T]) = new PimpedFuture[T](fut)
 }
 
-trait WithDb { self: PackageObject ⇒
-
-  // implicit def reactiveSortJsObject(sort: (String, SortOrder)): (String, JsValueWrapper) = sort match {
-  //   case (field, SortOrder.Ascending) ⇒ field -> 1
-  //   case (field, _)                   ⇒ field -> -1
-  // }
-}
-
 trait WithPlay { self: PackageObject ⇒
 
   import play.api.libs.json._

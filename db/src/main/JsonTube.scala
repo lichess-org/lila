@@ -34,9 +34,9 @@ case class JsonTube[Doc](
 
 object JsonTube {
 
-  val toMongoTransformer = Helpers.rename('id, '_id)
+  private val toMongoTransformer = Helpers.rename('id, '_id)
 
-  val fromMongoTransformer = Helpers.rename('_id, 'id)
+  private val fromMongoTransformer = Helpers.rename('_id, 'id)
 
   def toMongo(js: JsValue): JsResult[JsObject] = js transform toMongoTransformer
 
