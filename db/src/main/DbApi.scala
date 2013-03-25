@@ -6,7 +6,6 @@ import Json.JsValueWrapper
 import reactivemongo.api._
 import reactivemongo.bson._
 
-import play.modules.reactivemongo.Implicits._
 import org.joda.time.DateTime
 
 object DbApi extends DbApi

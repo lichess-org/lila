@@ -106,6 +106,7 @@ trait WithPlay { self: PackageObject ⇒
     def pure[A](a: ⇒ A) = fuccess(a)
     def bind[A, B](r: Fu[A], f: A ⇒ Fu[B]) = r flatMap f
   }
+  implicit def LilaJsObjectZero = new Zero[JsObject] { val zero = JsObject(Seq.empty) }
 
   implicit final class LilaPimpedFuture[A](fua: Fu[A]) {
 

@@ -10,9 +10,6 @@ import reactivemongo.api._
 import reactivemongo.bson._
 import reactivemongo.core.commands._
 
-import play.modules.reactivemongo.Implicits._
-import play.modules.reactivemongo.MongoJSONHelpers._
-
 private[i18n] final class TranslationRepo(coll: ReactiveColl)
     extends Repo[Int, Translation](coll, Translations.json) {
 

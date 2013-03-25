@@ -6,7 +6,8 @@ import reactivemongo.api._
 import reactivemongo.bson._
 import reactivemongo.core.commands._
 
-import play.modules.reactivemongo.Implicits._
+import play.modules.reactivemongo.Implicits.{ JsObjectWriter ⇒ _, _ }
+import PlayReactiveMongoPatch._
 
 import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._
@@ -42,7 +43,7 @@ abstract class Repo[ID: Writes, Doc <: Identified[ID]](coll: ReactiveColl, json:
 
   object find {
 
-    def one(q: JsObject, modifier: QueryBuilder ⇒ QueryBuilder = identity): Fu[Option[Doc]] = 
+    def one(q: JsObject, modifier: QueryBuilder ⇒ QueryBuilder = identity): Fu[Option[Doc]] =
       modifier(query(q)).one[Option[Doc]] map (_.flatten)
 
     def byId(id: ID): Fu[Option[Doc]] = one(select byId id)

@@ -14,9 +14,6 @@ import reactivemongo.api._
 import reactivemongo.bson._
 import reactivemongo.core.commands._
 
-import play.modules.reactivemongo.Implicits._
-// import play.modules.reactivemongo.MongoJSONHelpers._
-
 import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
@@ -74,24 +71,22 @@ final class GameRepo(coll: ReactiveColl) extends Repo[String, Game](coll, Game.j
 
   def incBookmarks(id: ID, value: Int) = update(select(id), $inc("bm" -> value))
 
-  // def finish(id: ID, winnerId: Option[String]) = io {
-  //   update(
-  //     idSelector(id),
-  //     (winnerId.fold($set(Seq.empty)) { userId ⇒ $set(Seq("wid" -> userId)) }) ++ $unset(Seq(
-  //       "c.t",
-  //       "ph",
-  //       "lmt",
-  //       "p.0.previousMoveTs",
-  //       "p.1.previousMoveTs",
-  //       "p.0.lastDrawOffer",
-  //       "p.1.lastDrawOffer",
-  //       "p.0.isOfferingDraw",
-  //       "p.1.isOfferingDraw",
-  //       "p.0.isProposingTakeback",
-  //       "p.1.isProposingTakeback"
-  //     ))
-  //   )
-  // }
+  def finish(id: ID, winnerId: Option[String]) = update(
+    select(id),
+    winnerId.zmap(wid ⇒ $set("wid" -> wid)) ++ $unset(
+      "c.t",
+      "ph",
+      "lmt",
+      "p.0.previousMoveTs",
+      "p.1.previousMoveTs",
+      "p.0.lastDrawOffer",
+      "p.1.lastDrawOffer",
+      "p.0.isOfferingDraw",
+      "p.1.isOfferingDraw",
+      "p.0.isProposingTakeback",
+      "p.1.isProposingTakeback"
+    )
+  )
 
   def findRandomStandardCheckmate(distribution: Int): Fu[Option[Game]] = find.one(
     Query.mate ++ Json.obj("v" -> $exists(false)),
@@ -117,16 +112,16 @@ final class GameRepo(coll: ReactiveColl) extends Repo[String, Game](coll, Game.j
     primitive.one(select(gameId), "if")(_.asOpt[String])
 
   def unplayedIds: Fu[List[ID]] = primitive(
-    Json.obj("t" -> $lt(2)) ++ 
-    Json.obj("ca" -> ($lt(DateTime.now - 3.day) ++ $gt(DateTime.now - 1.week))),
+    Json.obj("t" -> $lt(2)) ++
+      Json.obj("ca" -> ($lt(DateTime.now - 3.day) ++ $gt(DateTime.now - 1.week))),
     "_id"
   )(_.asOpt[ID])
 
-  // def candidatesToAutofinish: Fu[List[Game]] = 
-  //   find(Query.playable ++ Query.clock(true) ++
-  //     ("ca" $gt (DateTime.now - 1.day)) ++ // index
-  //     ("ua" $lt (DateTime.now - 2.hour)
-  //   ))
+  def candidatesToAutofinish: Fu[List[Game]] = 
+    find(Query.playable ++ Query.clock(true) ++
+      ("ca" -> $gt(DateTime.now - 1.day)) ++ // index
+      ("ua" -> $lt(DateTime.now - 2.hour))
+    )
 
   // def abandoned(max: Int): Fu[List[Game]] = io {
   //   find(
