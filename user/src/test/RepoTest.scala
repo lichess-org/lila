@@ -1,6 +1,7 @@
 package lila.user
 
 import lila.db.Implicits._
+import lila.db.DbApi._
 import lila.db.test.WithDb
 
 import org.specs2.mutable._
@@ -35,17 +36,9 @@ final class RepoTest extends Specification {
     createdAt = DateTime.now)
 
   "The user repo" should {
-    "find user" in new WithDb {
-      def repo = Env.current.userRepo
-      repo.find(repo.query byId "thibault" limit 10).await must haveSize(1)
+    "idempotency" in new WithDb {
+      lazy val repo = Env.current.userRepo ~ { _.remove(select.all).await }
+      (repo.insert(user) >> repo.find.byId(user.id)).await must_== user.some
     }
-    // "convert user to mongo" in new WithApplication {
-    //   (Users.json toMongo user) map (_ \ "createdAt" \ "$date") must beLike {
-    //     case JsSuccess(JsNumber(millis), _) ⇒ millis.toInt must be_>=(2000)
-    //   }
-    // }
-    // "find thibault" in new WithApplication {
-    //   (repo.find byId "thibault").await must beSome
-    // }
   }
 }
