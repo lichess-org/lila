@@ -5,7 +5,6 @@ import reactivemongo.api.collections.GenericQueryBuilder
 import reactivemongo.bson._
 import reactivemongo.api._
 import reactivemongo.api.SortOrder
-import play.modules.reactivemongo.Implicits._
 
 object Types extends Types
 object Implicits extends Implicits
@@ -38,8 +37,6 @@ trait Implicits extends Types {
               case SortOrder.Descending ⇒ -1
             })).toStream)
       }
-
-    // def sortJs(sorter: JsObject): QueryBuilder = b sort JsObjectWriter.write(sorter)
 
     def limit(nb: Int): QueryBuilder = b.options(b.options batchSize nb)
 

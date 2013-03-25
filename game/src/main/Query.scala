@@ -10,6 +10,8 @@ import org.scala_tools.time.Imports._
 
 object Query extends DbApi {
 
+  val all: JsObject = select.all
+
   val rated: JsObject = Json.obj("ra" -> true)
 
   def rated(u: User): JsObject = user(u) ++ rated

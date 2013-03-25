@@ -4,12 +4,13 @@ import lila.db.Implicits._
 import lila.db.DbApi._
 import lila.db.test.WithDb
 
-import org.specs2.mutable._
+import org.specs2.mutable.Specification
 
 import play.api.test._
 import play.api.libs.json._
 
 import org.joda.time.DateTime
+import org.scala_tools.time.Imports._
 
 final class RepoTest extends Specification {
 
@@ -35,10 +36,24 @@ final class RepoTest extends Specification {
     toints = 0,
     createdAt = DateTime.now)
 
+  val timeout = new akka.util.Timeout(1000)
+
+  def cleanRepo = Env.current.userRepo ~ { repo =>
+    (repo.remove(select.all) >> repo.insert(user)) await timeout
+  }
+
   "The user repo" should {
-    "idempotency" in new WithDb {
-      lazy val repo = Env.current.userRepo ~ { _.remove(select.all).await }
-      (repo.insert(user) >> repo.find.byId(user.id)).await must_== user.some
+    // "idempotency" in new WithDb {
+    //   lazy val repo = cleanRepo
+    //   repo.find.byId(user.id) await timeout must_== user.some
+    // }
+    "date selector" in {
+      "include" in new WithDb {
+        lazy val repo = cleanRepo
+        repo.find.one(Json.obj(
+          "ca" -> $gt($date(user.createdAt - RichInt(1).hours))
+        )) await timeout must_== user.some
+      }
     }
   }
 }

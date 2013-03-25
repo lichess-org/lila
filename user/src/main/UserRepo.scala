@@ -10,8 +10,7 @@ import reactivemongo.api._
 import reactivemongo.bson._
 import reactivemongo.core.commands._
 
-import play.modules.reactivemongo.Implicits._
-import play.modules.reactivemongo.MongoJSONHelpers._
+import play.modules.reactivemongo.MongoJSONHelpers.RegEx
 
 import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime

@@ -9,6 +9,7 @@ object BuildSettings {
     organization := "org.lichess",
     scalaVersion := "2.10.1",
     resolvers ++= Dependencies.Resolvers.commons,
+    parallelExecution in Test := false,
     scalacOptions := Seq(
       "-deprecation",
       "-unchecked",

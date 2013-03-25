@@ -13,7 +13,9 @@ import play.api.mvc.{ RequestHeader, Handler, Action, Cookies }
 import play.api.mvc.Results.Redirect
 import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._
-import play.modules.reactivemongo.Implicits._
+
+import play.modules.reactivemongo.Implicits.{ JsObjectWriter ⇒ _, _ }
+import lila.db.PlayReactiveMongoPatch._
 
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
