@@ -1,12 +1,11 @@
 package lila.game
 
 import lila.user.Context
-// TODO
-// import game.Query
 
-// import com.mongodb.casbah.Imports.DBObject
-// import scalaz.{ NonEmptyList, NonEmptyLists }
+import play.api.libs.json._
+import scalaz.{ NonEmptyList, NonEmptyLists }
 
+// TODO probably move to api or even app
 // sealed abstract class GameFilter(val name: String)
 
 // object GameFilter {
@@ -24,7 +23,7 @@ import lila.user.Context
 // case class GameFilterMenu(
 //     all: NonEmptyList[GameFilter],
 //     current: GameFilter,
-//     query: Option[DBObject],
+//     query: Option[JsObject],
 //     cachedNb: Option[Int]) {
 
 //   def list = all.list

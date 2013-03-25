@@ -1,36 +1,29 @@
-package lila.app
-package analyse
+package lila.game
 
 import chess.format.Forsyth
 import chess.format.{ pgn ⇒ chessPgn }
 import chess.format.pgn.{ Pgn, Tag }
-import game.{ DbGame, DbPlayer, GameRepo }
-import user.{ User, UserRepo }
-import controllers.routes
+import lila.user.User
 
+import play.api.libs.concurrent.Execution.Implicits._
 import org.joda.time.format.DateTimeFormat
-import scalaz.effects._
 
-private[analyse] final class PgnDump(
+private[game] final class PgnDump(
     gameRepo: GameRepo,
-    analyser: Analyser,
-    annotator: Annotator,
-    netBaseUrl: String,
-    userRepo: UserRepo) {
+    findUser: String ⇒ Fu[Option[User]]) {
 
   import PgnDump._
 
-  def apply(game: DbGame, pgn: String): IO[Pgn] = for {
-    ts ← tags(game)
-    fenSituation  = ts find (_.name == Tag.FEN) flatMap { case Tag(_, fen) ⇒ Forsyth <<< fen } 
-    pgn2 = (~fenSituation.map(_.situation.color.black)).fold(".. " + pgn, pgn)
-    pgnObj = Pgn(ts, turns(pgn2, fenSituation.map(_.fullMoveNumber) | 1))
-    analysis ← analyser get game.id
-  } yield analysis.fold(pgnObj)(annotator(pgnObj, _))
+  def apply(game: Game, pgn: String)(makeUrl: String ⇒ String): Fu[Pgn] =
+    tags(game, makeUrl) map { ts ⇒
+      val fenSituation = ts find (_.name == Tag.FEN) flatMap { case Tag(_, fen) ⇒ Forsyth <<< fen }
+      val pgn2 = (~fenSituation.map(_.situation.color.black)).fold(".. " + pgn, pgn)
+      Pgn(ts, turns(pgn2, fenSituation.map(_.fullMoveNumber) | 1))
+    }
 
-  def filename(game: DbGame): IO[String] = for {
-    whiteUser ← user(game.whitePlayer)
-    blackUser ← user(game.blackPlayer)
+  def filename(game: Game): Fu[String] = for {
+    whiteUser ← game.whitePlayer.userId.zmap(findUser)
+    blackUser ← game.blackPlayer.userId.zmap(findUser)
   } yield "lichess_pgn_%s_%s_vs_%s.%s.pgn".format(
     dateFormat.print(game.createdAt),
     player(game.whitePlayer, whiteUser),
@@ -39,21 +32,20 @@ private[analyse] final class PgnDump(
 
   private val dateFormat = DateTimeFormat forPattern "yyyy-MM-dd";
 
-  private def elo(p: DbPlayer) = p.elo.fold("?")(_.toString)
+  private def elo(p: Player) = p.elo.fold("?")(_.toString)
 
-  private def user(p: DbPlayer): IO[Option[User]] = 
-    p.userId.fold(io(none[User]))(userRepo.byId)
-
-  private def player(p: DbPlayer, u: Option[User]) = 
+  private def player(p: Player, u: Option[User]) =
     p.aiLevel.fold(u.fold("Anonymous")(_.username))("AI level " + _)
 
-  private def tags(game: DbGame): IO[List[Tag]] = for {
-    whiteUser ← user(game.whitePlayer)
-    blackUser ← user(game.blackPlayer)
-    initialFen ← game.variant.standard.fold(io(none), gameRepo initialFen game.id)
+  private def tags(game: Game, makeUrl: String ⇒ String): Fu[List[Tag]] = for {
+    whiteUser ← game.whitePlayer.userId.zmap(findUser)
+    blackUser ← game.blackPlayer.userId.zmap(findUser)
+    initialFen ← game.variant.standard.fold(
+      fuccess(none),
+      gameRepo initialFen game.id)
   } yield List(
     Tag(_.Event, game.rated.fold("Rated game", "Casual game")),
-    Tag(_.Site, netBaseUrl + routes.Analyse.replay(game.id, "white")),
+    Tag(_.Site, makeUrl(game.id)),
     Tag(_.Date, dateFormat.print(game.createdAt)),
     Tag(_.White, player(game.whitePlayer, whiteUser)),
     Tag(_.Black, player(game.blackPlayer, blackUser)),
@@ -78,7 +70,7 @@ private[analyse] final class PgnDump(
 
 object PgnDump {
 
-  def result(game: DbGame) = game.finished.fold(
+  def result(game: Game) = game.finished.fold(
     game.winnerColor.fold("1/2-1/2")(color ⇒ color.white.fold("1-0", "0-1")),
     "*")
 }
