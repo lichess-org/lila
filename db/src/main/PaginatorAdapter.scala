@@ -10,7 +10,7 @@ import reactivemongo.api.SortOrder
 final class Adapter[ID, A <: Identified[ID]](
     repo: Repo[ID, A],
     query: JsObject,
-    sort: Seq[(String, SortOrder)]) extends AdapterLike[A] {
+    sort: Sort) extends AdapterLike[A] {
 
   def nbResults: Fu[Int] = repo count query
 
@@ -19,9 +19,10 @@ final class Adapter[ID, A <: Identified[ID]](
   }
 }
 
-final class CachedAdapter[ID, A <: Identified[ID]](
-    adapter: Adapter[ID, A],
+final class CachedAdapter[A](
+    adapter: AdapterLike[A],
     val nbResults: Fu[Int]) extends AdapterLike[A] {
 
-  def slice(offset: Int, length: Int) = adapter.slice(offset, length)
+  def slice(offset: Int, length: Int): Fu[Seq[A]] = 
+    adapter.slice(offset, length)
 }
