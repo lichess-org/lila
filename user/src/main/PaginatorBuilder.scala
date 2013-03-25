@@ -5,7 +5,10 @@ import lila.db.paginator._
 
 import play.api.libs.json._
 
-final class PaginatorBuilder(userRepo: UserRepo, countUsers: Fu[Int], maxPerPage: Int) {
+final class PaginatorBuilder(
+  userRepo: UserRepo, 
+  countUsers: Fu[Int], 
+  maxPerPage: Int) {
 
   def elo(page: Int): Fu[Paginator[User]] = paginator(recentAdapter, page)
 

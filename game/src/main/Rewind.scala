@@ -1,14 +1,12 @@
-package lila.app
-package game
+package lila.game
 
-import round.Progress
 import chess.format.{ pgn ⇒ chessPgn }
 import chess.Status
 
-final class Rewind {
+private[game] object Rewind {
 
   def apply(
-    game: DbGame,
+    game: Game,
     pgn: String,
     initialFen: Option[String]): Valid[(Progress, String)] = chessPgn.Reader.withSans(
     pgn = pgn,
@@ -21,7 +19,7 @@ final class Rewind {
       val rewindedGame = replay.game
       val rewindedHistory = rewindedGame.board.history
       val rewindedSituation = rewindedGame.situation
-      def rewindPlayer(player: DbPlayer) = player.copy(
+      def rewindPlayer(player: Player) = player.copy(
         ps = player encodePieces rewindedGame.allPieces,
         isProposingTakeback = false)
       Progress(game, game.copy(
@@ -41,5 +39,4 @@ final class Rewind {
         lastMoveTime = nowSeconds.some
       )) -> rewindedGame.pgnMoves
     }
-
 }

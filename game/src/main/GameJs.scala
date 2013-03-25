@@ -1,5 +1,4 @@
-package lila.app
-package game
+package lila.game
 
 final class GameJs(path: String, useCache: Boolean) {
 

@@ -5,10 +5,12 @@ import lila.common.PimpedConfig._
 import akka.actor._
 
 final class Env(
-  config: Config, 
-  db: lila.db.Env,
-  system: ActorSystem,
-  hub: lila.hub.Env) {
+    config: Config,
+    db: lila.db.Env,
+    system: ActorSystem,
+    hub: lila.hub.Env,
+    appPath: String,
+    isDev: Boolean) {
 
   val CachedNbTtl = config duration "cached.nb.ttl"
   val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
@@ -19,14 +21,14 @@ final class Env(
 
   lazy val gameRepo = new GameRepo(db(CollectionGame))
 
-  // lazy val pgnRepo = new PgnRepo(db(CollectionPgn))
+  lazy val pgnRepo = new PgnRepo(db(CollectionPgn))
 
   lazy val cached = new Cached(gameRepo = gameRepo, ttl = CachedNbTtl)
 
-  // lazy val paginator = new PaginatorBuilder(
-  //   gameRepo = gameRepo,
-  //   cached = cached,
-  //   maxPerPage = PaginatorMaxPerPage)
+  lazy val paginator = new PaginatorBuilder(
+    gameRepo = gameRepo,
+    cached = cached,
+    maxPerPage = PaginatorMaxPerPage)
 
   lazy val featured = new Featured(
     gameRepo = gameRepo,
@@ -36,22 +38,27 @@ final class Env(
 
   // lazy val export = Export(gameRepo, NetBaseUrl) _
 
-  // lazy val listMenu = ListMenu(cached) _
+  lazy val listMenu = ListMenu(cached) _
 
-  // lazy val rewind = new Rewind
+  lazy val rewind = Rewind
 
-  // lazy val gameJs = new GameJs(
-  //   path = app.path.getCanonicalPath + "/" + IsDev.fold(JsPathRaw, JsPathCompiled),
-  //   useCache = !IsDev)
+  lazy val gameJs = new GameJs(path = jsPath, useCache = !isDev)
+
+  private def jsPath =
+    "%s/%s".format(appPath, isDev.fold(JsPathRaw, JsPathCompiled))
 }
 
 object Env {
 
-  lazy val hub = lila.hub.Env.current
+  private def hub = lila.hub.Env.current
+  private def app = play.api.Play.current
 
   lazy val current = new Env(
     config = lila.common.PlayApp loadConfig "game",
     db = lila.db.Env.current,
-    system = play.api.libs.concurrent.Akka.system(play.api.Play.current),
-    hub = lila.hub.Env.current)
+    system = play.api.libs.concurrent.Akka.system(app),
+    hub = lila.hub.Env.current,
+    appPath = app.path.getCanonicalPath,
+    isDev = app.mode == play.api.Mode.Dev
+  )
 }

@@ -4,7 +4,6 @@ import play.api.libs.json._, Json.JsValueWrapper
 import reactivemongo.api.collections.GenericQueryBuilder
 import reactivemongo.bson._
 import reactivemongo.api._
-import reactivemongo.api.SortOrder
 
 object Types extends Types
 object Implicits extends Implicits
@@ -18,6 +17,8 @@ trait Types {
   type QueryBuilder = GenericQueryBuilder[BSONDocument, BSONDocumentReader, BSONDocumentWriter]
 
   type Identified[ID] = { def id: ID }
+
+  type Sort = Seq[(String, SortOrder)]
 }
 
 trait Implicits extends Types {

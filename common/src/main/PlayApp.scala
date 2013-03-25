@@ -1,13 +1,14 @@
 package lila.common
 
-import play.api.Play
+import play.api.{ Play, Application }
 import com.typesafe.config.Config
 
 object PlayApp {
 
-  def loadConfig: Config =
-    Play.maybeApplication.map(_.configuration.underlying)
-      .err("Play application is not started!")
+  def loadConfig: Config = withApp(_.configuration.underlying)
 
   def loadConfig(prefix: String): Config = loadConfig getConfig prefix
+
+  private def withApp[A](op: Application => A): A = 
+    Play.maybeApplication map op err "Play application is not started!"
 }
