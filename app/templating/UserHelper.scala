@@ -7,16 +7,17 @@ import lila.user.Env.{ current ⇒ userEnv }
 import controllers.routes
 
 import play.api.templates.Html
+import play.api.libs.concurrent.Execution.Implicits._
 
 trait UserHelper {
 
   import userEnv._
 
   def userIdToUsername(userId: String): String =
-    cached usernameOrAnonymous userId
+    (cached usernameOrAnonymous userId).await
 
   def userIdToUsername(userId: Option[String]): String =
-    userId.fold(Users.anonymous)(cached.usernameOrAnonymous)
+    userId.fold(Users.anonymous)(userIdToUsername)
 
   def isUsernameOnline(username: String) = usernameMemo get username
 
@@ -24,15 +25,17 @@ trait UserHelper {
     userId: Option[String],
     cssClass: Option[String] = None,
     withOnline: Boolean = true): Html = Html {
-    (userId flatMap cached.username).fold(Users.anonymous) { username ⇒
-      """<a class="user_link%s%s" href="%s">%s</a>""".format(
-        withOnline.fold(
-          isUsernameOnline(username).fold(" online", " offline"),
-          ""),
-        ~cssClass.map(" " + _),
-        routes.User.show(username),
-        username)
-    }
+    (userId zmap cached.username) map {
+      _.fold(Users.anonymous) { username ⇒
+        """<a class="user_link%s%s" href="%s">%s</a>""".format(
+          withOnline.fold(
+            isUsernameOnline(username).fold(" online", " offline"),
+            ""),
+          ~cssClass.map(" " + _),
+          routes.User.show(username),
+          username)
+      }
+    } await
   }
 
   def userIdLink(
@@ -40,10 +43,12 @@ trait UserHelper {
     cssClass: Option[String]): Html = userIdLink(userId.some, cssClass)
 
   def userIdLinkMini(userId: String) = Html {
-    """<a href="%s">%s</a>""".format(
-      routes.User show userId,
-      (cached username userId) | userId
-    )
+    cached username userId map { username ⇒
+      """<a href="%s">%s</a>""".format(
+        routes.User show userId,
+        username | userId
+      )
+    } await
   }
 
   def userLink(
@@ -56,7 +61,7 @@ trait UserHelper {
       withOnline.fold(
         isUsernameOnline(user.id).fold(" online", " offline"),
         ""),
-      ~cssClass.map(" " + _),
+      cssClass.zmap(" " + _),
       routes.User.show(user.username),
       text | withElo.fold(user.usernameWithElo, user.username)
     )

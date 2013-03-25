@@ -12,7 +12,7 @@ object ApplicationBuild extends Build {
       libraryDependencies := Seq(
         scalaz, scalalib, hasher, config, apache, scalaTime,
         csv, jgit, actuarius, scalastic, findbugs,
-        spray.caching),
+        spray.caching, reactivemongo),
       templatesImport ++= Seq(
         // "lila.app.game.{ DbGame, DbPlayer, Pov }",
         "lila.user.{ User, Context }",
