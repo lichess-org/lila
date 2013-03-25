@@ -1,33 +1,29 @@
 package lila.game
 
 import lila.user.User
-// import analyse.PgnDump
-// import csv.Writer
-// import controllers.routes
+import lila.common.CsvServer
 
-// import com.mongodb.casbah.Imports._
-// import org.joda.time.DateTime
-// import org.joda.time.format.{ DateTimeFormat, ISODateTimeFormat, DateTimeFormatter }
-// import scalaz.effects._
+import org.joda.time.DateTime
+import org.joda.time.format.{ DateTimeFormat, ISODateTimeFormat, DateTimeFormatter }
 
-// TODO
-// final class Export(user: User, gameRepo: GameRepo, netBaseUrl: String) {
+// TODO stream that shit
+// private[game] final class Export(user: User, gameRepo: GameRepo) {
 
 //   private val dateFormatter = ISODateTimeFormat.dateTime
 
 //   // returns the web path
-//   def apply: IO[String] = for {
+//   def apply: Fu[String] = for {
 //     games ← fetchGames
 //     filename = "%s_lichess_games_%s.csv".format(user.username, date)
 //     lines = header :: doGames(games).toList
-//     webPath ← Writer(filename)(lines)
+//     webPath ← CsvServer(filename)(lines)
 //   } yield webPath
 
 //   def doGames(rawGames: Iterator[RawDbGame]) = rawGames map (_.decode) collect {
 //     case Some(game) ⇒ doGame(game)
 //   }
 
-//   def doGame(game: DbGame) = {
+//   private def doGame(game: DbGame) = {
 //     import game._
 //     val player = game player user
 //     List(
@@ -51,20 +47,17 @@ import lila.user.User
 //     )
 //   }
 
-//   def showEloDiff(n: Int): String = (n > 0).fold("+" + n, n.toString)
+//   private def showEloDiff(n: Int): String = (n > 0).fold("+" + n, n.toString)
 
 //   def header =
 //     List("#", "Date (ISO8601)", "Color", "Opponent", "Result", "Status", "Plies", "Variant", "Mode", "Time control", "Your Elo", "Your Elo change", "Opponent Elo", "Opponent Elo Change", "Game url", "Analysis url", "PGN url") 
 
-//   def fetchGames = io {
-//     gameRepo.find(Query user user).sort(DBObject("createdAt" -> -1))
-//   }
+//   private def fetchGames = gameRepo recentByUser user.id
 
-//   def date: String = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
+//   private def date: String = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
 // }
 
 // object Export {
 
-//   def apply(gameRepo: GameRepo, netBaseUrl: String)(user: User) = 
-//     new Export(user, gameRepo, netBaseUrl)
+//   def apply(gameRepo: GameRepo)(user: User) = new Export(user, gameRepo)
 // }
