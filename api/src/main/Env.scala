@@ -11,7 +11,13 @@ final class Env(application: Application, val config: Config) {
 
   val CliUsername = config getString "cli.username"
 
-  implicit val implicitApp = application
+  object Net {
+    val Domain = config getString "net.domain"
+    val Protocol = config getString "net.protocol"
+    val BaseUrl = config getString "net.base_url"
+  }
+
+  val RendererName = config getString "core.renderer.name"
 
   lazy val cli = new Cli(this)
 
