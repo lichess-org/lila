@@ -34,17 +34,11 @@ private[bookmark] final class BookmarkRepo(coll: ReactiveColl) extends DbApi {
   def gameIdsByUserId(userId: String): Fu[List[String]] =
     primitive(Json.obj("u" -> userId), "g")(_.asOpt[String])
 
-  //   def removeByGameId(gameId: String): IO[Unit] = io {
-  //     collection remove gameIdQuery(gameId)
-  //   }
+  def removeByGameId(gameId: String): Funit =
+    coll remove Json.obj("g" -> gameId) void
 
-  //   def removeByGameIds(gameIds: List[String]): IO[Unit] = io {
-  //     collection remove ("g" $in gameIds)
-  //   }
-
-  //   def idQuery(gameId: String, userId: String) = DBObject("_id" -> (gameId + userId))
-  //   def gameIdQuery(gameId: String) = DBObject("g" -> gameId)
-  //   def userIdQuery(userId: String) = DBObject("u" -> userId)
+  def removeByGameIds(gameIds: List[String]): Funit =
+    coll remove Json.obj("g" -> $in(gameIds)) void
 
   private def add(gameId: String, userId: String, date: DateTime) =
     coll.insert(Json.obj(
