@@ -99,6 +99,29 @@ trait query {
   def builder(implicit coll: ReactiveColl) = coll.genericQueryBuilder
 }
 
+trait find[ID: Writes, Doc <: Identified[ID]] {
+
+  def one(q: JsObject, modifier: QueryBuilder ⇒ QueryBuilder = identity): Fu[Option[Doc]] =
+    modifier(query(q)).one[Option[Doc]] map (_.flatten)
+
+  def byId(id: ID): Fu[Option[Doc]] = one(select byId id)
+
+  def byIds(ids: Seq[ID]): Fu[List[Doc]] = apply(select byIds ids)
+
+  def byOrderedIds(ids: Seq[ID]): Fu[List[Doc]] = byIds(ids) map { docs ⇒
+    val docsMap = docs.map(u ⇒ u.id -> u).toMap
+    ids.map(docsMap.get).flatten.toList
+  }
+
+  def all: Fu[List[Doc]] = apply(select.all)
+
+  def apply(q: JsObject): Fu[List[Doc]] = cursor(q).toList map (_.flatten)
+  def apply(q: JsObject, nb: Int): Fu[List[Doc]] = cursor(q, nb) toList nb map (_.flatten)
+
+  def apply(b: QueryBuilder): Fu[List[Doc]] = cursor(b).toList map (_.flatten)
+  def apply(b: QueryBuilder, nb: Int): Fu[List[Doc]] = cursor(b, nb) toList nb map (_.flatten)
+}
+
 object count extends count
 trait count {
 

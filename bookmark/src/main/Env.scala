@@ -13,6 +13,8 @@ final class Env(
   val CollectionBookmark = config getString "collection.bookmark"
 
   lazy val bookmarkRepo = new BookmarkRepo()(db(CollectionBookmark))
+
+  lazy val cached = new Cached(bookmarkRepo)
 }
 
 object Env {
