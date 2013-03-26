@@ -9,13 +9,15 @@ import reactivemongo.api.SortOrder
 
 final class Adapter[ID, A <: Identified[ID]](
     repo: Repo[ID, A],
-    query: JsObject,
-    sort: Sort) extends AdapterLike[A] {
+    selector: JsObject,
+    sort: Sort) extends AdapterLike[A] with api.Full {
 
-  def nbResults: Fu[Int] = repo count query
+  import repo.coll
+
+  def nbResults: Fu[Int] = count(selector)
 
   def slice(offset: Int, length: Int): Fu[Seq[A]] = repo find {
-    LilaPimpedQueryBuilder(repo query query).sort(sort: _*) skip offset limit length 
+    LilaPimpedQueryBuilder(query(selector)).sort(sort: _*) skip offset limit length
   }
 }
 
@@ -23,6 +25,6 @@ final class CachedAdapter[A](
     adapter: AdapterLike[A],
     val nbResults: Fu[Int]) extends AdapterLike[A] {
 
-  def slice(offset: Int, length: Int): Fu[Seq[A]] = 
+  def slice(offset: Int, length: Int): Fu[Seq[A]] =
     adapter.slice(offset, length)
 }

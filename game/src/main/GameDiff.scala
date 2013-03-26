@@ -1,13 +1,11 @@
 package lila.game
 
-import lila.db.DbApi
-
 import play.api.libs.json._
 import Json.JsValueWrapper
 import org.joda.time.DateTime
 
 // TODO it works, but it could be more functional
-private[game] object GameDiff {
+private[game] object GameDiff extends lila.db.api.Free {
 
   type Set = (String, JsValueWrapper)
   type Unset = String
@@ -55,6 +53,6 @@ private[game] object GameDiff {
 
   private def addUa(sets: List[Set]): List[Set] = sets match {
     case Nil  ⇒ Nil
-    case sets ⇒ ("ua" -> Json.toJsFieldJsValueWrapper(DbApi $date DateTime.now)) :: sets
+    case sets ⇒ ("ua" -> Json.toJsFieldJsValueWrapper($date(DateTime.now))) :: sets
   }
 }

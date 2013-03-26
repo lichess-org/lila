@@ -21,7 +21,7 @@ final class Env(
   val CollectionTranslation = config getString "collection.translation"
   val RequestHandlerProtocol = config getString "request_handler.protocol"
 
-  lazy val translationRepo = new TranslationRepo(db(CollectionTranslation))
+  lazy val translationRepo = new TranslationRepo()(db(CollectionTranslation))
 
   lazy val pool = new I18nPool(
     langs = Lang.availables.toSet,

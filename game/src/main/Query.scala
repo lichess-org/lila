@@ -1,13 +1,12 @@
 package lila.game
 
 import chess.{ Color, Status }
-import lila.db.DbApi
 
 import play.api.libs.json._
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 
-object Query extends DbApi {
+object Query extends lila.db.api.Free {
 
   val all: JsObject = select.all
 

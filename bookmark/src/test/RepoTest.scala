@@ -19,15 +19,23 @@ final class RepoTest extends Specification {
 
   implicit val timeout = makeTimeout.large
 
-  def cleanRepo = Env.current.bookmarkRepo ~ { repo =>
-    (repo.remove(select.all)/* >> repo.insert(bookmark) */).await
+  def cleanRepo = Env.current.bookmarkRepo ~ { repo ⇒
+    (repo.remove(select.all) /* >> repo.insert(bookmark) */ ).await
   }
 
   "The bookmark repo" should {
 
-    "toggle on" in new WithDb {
+    // "toggle on" in new WithDb {
+    //   lazy val repo = cleanRepo
+    //   (repo.toggle(game, user) >>
+    //     repo.userIdsByGameId(game)).await must_== List(user)
+    // }
+
+    "toggle on and off" in new WithDb {
       lazy val repo = cleanRepo
-      (repo.toggle(game, user) >> repo.userIdsByGameId(game)).await must_== List(user)
+      (repo.toggle(game, user) >>
+        repo.toggle(game, user) >>
+        repo.userIdsByGameId(game)).await must_== Nil
     }
   }
 }

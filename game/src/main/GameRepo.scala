@@ -4,7 +4,7 @@ import chess.{ Color, Variant, Status }
 import chess.format.Forsyth
 
 import lila.user.User
-import lila.db.{ Repo, DbApi }
+import lila.db.Repo
 import lila.db.Implicits._
 
 import play.api.libs.json._
@@ -20,7 +20,7 @@ import org.scala_tools.time.Imports._
 import scala.util.Random
 import scala.concurrent.Future
 
-final class GameRepo(coll: ReactiveColl) extends Repo[String, Game](coll, Game.json) {
+final class GameRepo(implicit coll: ReactiveColl) extends Repo[String, Game](Game.json) {
 
   type ID = String
 

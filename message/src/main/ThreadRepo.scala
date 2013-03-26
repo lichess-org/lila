@@ -2,7 +2,7 @@ package lila.message
 
 import lila.user.User
 
-import lila.db.{ Repo, DbApi }
+import lila.db.Repo
 import lila.db.Implicits._
 
 import play.api.libs.json.Json
@@ -17,7 +17,7 @@ import ornicar.scalalib.Random
 
 import scala.concurrent.Future
 
-final class ThreadRepo(coll: ReactiveColl) extends Repo[String, Thread](coll, Threads.json) {
+final class ThreadRepo(implicit coll: ReactiveColl) extends Repo[String, Thread](Threads.json) {
 
   type ID = String
 

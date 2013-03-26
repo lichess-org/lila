@@ -20,7 +20,7 @@ final class Api(
   def inbox(me: User, page: Int): Fu[Paginator[Thread]] = Paginator(
     new Adapter(
       repo = threadRepo,
-      query = threadRepo visibleByUserQuery me.id,
+      selector = threadRepo visibleByUserQuery me.id,
       sort = Seq(threadRepo.recentSort)),
     currentPage = page,
     maxPerPage = maxPerPage

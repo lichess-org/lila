@@ -25,12 +25,12 @@ private[game] final class PaginatorBuilder(
   def imported(page: Int): Fu[Paginator[Game]] =
     paginator(importedAdapter, page)
 
-  def recentlyCreated(query: JsObject, nb: Option[Fu[Int]] = None) = 
-    apply(query, Seq(Query.sortCreated), nb) _
+  def recentlyCreated(selector: JsObject, nb: Option[Fu[Int]] = None) = 
+    apply(selector, Seq(Query.sortCreated), nb) _
 
-  def apply(query: JsObject, sort: Sort, nb: Option[Fu[Int]] = None)(page: Int): Fu[Paginator[Game]] =
-    apply(nb.fold(noCacheAdapter(query, sort)) { cached ⇒
-      cacheAdapter(query, sort, cached)
+  def apply(selector: JsObject, sort: Sort, nb: Option[Fu[Int]] = None)(page: Int): Fu[Paginator[Game]] =
+    apply(nb.fold(noCacheAdapter(selector, sort)) { cached ⇒
+      cacheAdapter(selector, sort, cached)
     })(page)
 
   private def apply(adapter: AdapterLike[Game])(page: Int): Fu[Paginator[Game]] =
@@ -48,13 +48,13 @@ private[game] final class PaginatorBuilder(
   private def importedAdapter =
     cacheAdapter(Query.imported, Seq(Query.sortCreated), cached.nbImported)
 
-  private def cacheAdapter(query: JsObject, sort: Sort, nbResults: Fu[Int]): AdapterLike[Game] =
+  private def cacheAdapter(selector: JsObject, sort: Sort, nbResults: Fu[Int]): AdapterLike[Game] =
     new CachedAdapter(
-      adapter = noCacheAdapter(query, sort),
+      adapter = noCacheAdapter(selector, sort),
       nbResults = nbResults)
 
-  private def noCacheAdapter(query: JsObject, sort: Sort): AdapterLike[Game] =
-    new Adapter(repo = gameRepo, query = query, sort = sort)
+  private def noCacheAdapter(selector: JsObject, sort: Sort): AdapterLike[Game] =
+    new Adapter(repo = gameRepo, selector = selector, sort = sort)
 
   private def paginator(adapter: AdapterLike[Game], page: Int): Fu[Paginator[Game]] =
     Paginator(adapter, currentPage = page, maxPerPage = maxPerPage)
