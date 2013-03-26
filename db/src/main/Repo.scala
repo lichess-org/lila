@@ -111,36 +111,6 @@ abstract class Repo[ID: Writes, Doc <: Identified[ID]](coll: ReactiveColl, json:
     def byIds(ids: Seq[ID]): Funit = apply(select byIds ids)
   }
 
-  object primitive {
-
-    def apply[A](q: JsObject, field: String, modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsValue ⇒ Option[A]): Fu[List[A]] =
-      modifier(coll.find(q, Json.obj(field -> 1))).cursor.toList map (list ⇒ list map { obj ⇒
-        extract(JsObjectReader.read(obj) \ field)
-      } flatten)
-
-    def one[A](q: JsObject, field: String, modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsValue ⇒ Option[A]): Fu[Option[A]] =
-      modifier(coll.find(q, Json.obj(field -> 1))).one map (opt ⇒ opt map { obj ⇒
-        extract(JsObjectReader.read(obj) \ field)
-      } flatten)
-  }
-
-  object projection {
-
-    def apply[A](q: JsObject, fields: Seq[String], modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsObject ⇒ Option[A]): Fu[List[A]] =
-      modifier(coll.find(q, projector(fields))).cursor.toList map (list ⇒ list map { obj ⇒
-        extract(JsObjectReader read obj)
-      } flatten)
-
-    def one[A](q: JsObject, fields: Seq[String], modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsObject ⇒ Option[A]): Fu[Option[A]] =
-      modifier(coll.find(q, projector(fields))).one map (opt ⇒ opt map { obj ⇒
-        extract(JsObjectReader read obj)
-      } flatten)
-
-    private def projector(fields: Seq[String]): JsObject = Json obj {
-      (fields map (_ -> Json.toJsFieldJsValueWrapper(1))): _*
-    }
-  }
-
   //////////////////
   // PRIVATE SHIT //
   //////////////////
@@ -149,13 +119,13 @@ abstract class Repo[ID: Writes, Doc <: Identified[ID]](coll: ReactiveColl, json:
     def read(bson: BSONDocument): Option[Doc] = json.fromMongo(JsObjectReader read bson).asOpt
   }
 
+  protected implicit val builder: QueryBuilder = coll.genericQueryBuilder
+
   private def cursor(q: JsObject): Cursor[Option[Doc]] = cursor(query(q))
   private def cursor(q: JsObject, nb: Int): Cursor[Option[Doc]] = cursor(query(q), nb)
 
   private def cursor(b: QueryBuilder): Cursor[Option[Doc]] = b.cursor[Option[Doc]]
   private def cursor(b: QueryBuilder, nb: Int): Cursor[Option[Doc]] = cursor(b limit nb)
-
-  private def builder = coll.genericQueryBuilder
   private val opts = QueryOpts()
 
   private def db = coll.db
