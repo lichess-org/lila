@@ -32,13 +32,10 @@ private[security] final class Store(coll: ReactiveColl) extends DbApi {
       "up" -> true)).void
 
   def getUsername(sessionId: String): Fu[Option[String]] =
-    query(select(sessionId))
-      .projection(Json.obj("user" -> true, "up" -> true))
-      .one map { objOption ⇒
-        objOption flatMap { obj ⇒
-          obj.get[String]("user") filter (_ ⇒ ~(obj.get[Boolean]("up")))
-        }
-      }
+    primitive.one(
+      select(sessionId) ++ Json.obj("up" -> true), 
+      "user"
+    )(_.asOpt[String])
 
   def delete(sessionId: String): Funit =
     coll.update(select(sessionId), $set("up" -> false)).void
@@ -46,13 +43,13 @@ private[security] final class Store(coll: ReactiveColl) extends DbApi {
   // useful when closing an account,
   // we want to logout too
   def deleteUsername(username: String): Funit = coll.update(
-    Json.obj("user" -> normalize(username)),
+    selectUser(username),
     $set("up" -> false),
     upsert = false,
     multi = true).void
 
   def userSpy(username: String): Fu[UserSpy] = for {
-    objs ← query(Json.obj("user" -> normalize(username))).cursor.toList
+    objs ← builder.query(selectUser(username)).cursor.toList
     usernames ← explore(normalize(username))
   } yield UserSpy(
     ips = objs.map(_.get[String]("ip")).flatten.distinct,
@@ -77,24 +74,18 @@ private[security] final class Store(coll: ReactiveColl) extends DbApi {
     }
 
   private def userIps(username: String): Fu[Set[String]] =
-    query(Json.obj("user" -> normalize(username)))
-      .projection(Json.obj("ip" -> true))
-      .cursor.toList map { objs ⇒
-        objs.map((obj: JsObject) ⇒ obj.get[String]("ip")).flatten.toSet
-      }
+    primitive(selectUser(username), "ip")(_.asOpt[String]) map (_.toSet)
 
   private def usernamesByIp(ip: String): Fu[Set[String]] =
-    query(Json.obj("ip" -> ip))
-      .projection(Json.obj("user" -> true))
-      .cursor.toList map { objs ⇒
-        objs.map((obj: JsObject) ⇒ obj.get[String]("user")).flatten.toSet
-      }
+    primitive(Json.obj("ip" -> ip), "user")(_.asOpt[String]) map (_.toSet)
 
-  private def query(selector: JsObject) = coll.genericQueryBuilder query selector
+  protected implicit val builder = coll.genericQueryBuilder
 
   private def ip(req: RequestHeader) = req.remoteAddress
 
   private def ua(req: RequestHeader) = req.headers.get("User-Agent") | "?"
 
   private def normalize(username: String) = username.toLowerCase
+
+  private def selectUser(username: String) = Json.obj("user" -> normalize(username))
 }
