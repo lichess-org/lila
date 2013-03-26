@@ -4,7 +4,6 @@ package round
 import socket.{ Broom, Close, GetNbMembers, GetUsernames, NbMembers, SendTo, SendTos }
 
 import akka.actor._
-import akka.actor.ReceiveTimeout
 import scala.concurrent.duration._
 import akka.util.Timeout
 import akka.pattern.{ ask, pipe }

@@ -12,19 +12,21 @@ object ApplicationBuild extends Build {
       libraryDependencies := Seq(
         scalaz, scalalib, hasher, config, apache, scalaTime,
         csv, jgit, actuarius, scalastic, findbugs,
-        spray.caching, reactivemongo),
-      templatesImport ++= Seq(
-        // "lila.app.game.{ DbGame, DbPlayer, Pov }",
-        "lila.user.{ User, Context }",
-        // "lila.app.security.Permission",
-        // "lila.app.templating.Environment._",
-        // "lila.app.ui",
-        "lila.common.paginator.Paginator")
+        spray.caching, reactivemongo)
     )) dependsOn (
       api, user, wiki, message, notification, i18n, game
     ) aggregate (
-      scalachess, api, common, http, db, user, wiki, 
-      hub, websocket, message, notification, i18n, game)
+        scalachess, api, common, http, db, user, wiki,
+        hub, websocket, message, notification, i18n, game
+      ) settings (
+          templatesImport ++= Seq(
+            "lila.game.{ Game, Player, Pov }",
+            "lila.user.{ User, Context }",
+            // "lila.app.security.Permission",
+            "lila.app.templating.Environment._",
+            // "lila.app.ui",
+            "lila.common.paginator.Paginator")
+        )
 
   lazy val api = project("api", Seq(common, db, user, security, wiki)).settings(
     libraryDependencies := provided(
@@ -46,13 +48,13 @@ object ApplicationBuild extends Build {
 
   lazy val user = project("user", Seq(common, memo, db, scalachess)).settings(
     libraryDependencies ++= provided(
-      playApi, playTest, reactivemongo, playReactivemongo, 
-      hasher, spray.caching) 
+      playApi, playTest, reactivemongo, playReactivemongo,
+      hasher, spray.caching)
   )
 
   lazy val game = project("game", Seq(common, db, hub, user, scalachess)).settings(
     libraryDependencies ++= provided(
-      playApi, reactivemongo, playReactivemongo, spray.caching) 
+      playApi, reactivemongo, playReactivemongo, spray.caching)
   )
 
   lazy val http = project("http", Seq(common)).settings(
@@ -60,17 +62,17 @@ object ApplicationBuild extends Build {
   )
 
   lazy val security = project("security", Seq(common, db, http, user)).settings(
-    libraryDependencies ++= provided(playApi, reactivemongo, playReactivemongo) 
+    libraryDependencies ++= provided(playApi, reactivemongo, playReactivemongo)
   )
 
   lazy val message = project("message", Seq(common, db, user, hub)).settings(
     libraryDependencies ++= provided(
-      playApi, reactivemongo, playReactivemongo, spray.caching) 
+      playApi, reactivemongo, playReactivemongo, spray.caching)
   )
 
   lazy val i18n = project("i18n", Seq(common, db, user)).settings(
     libraryDependencies ++= provided(
-      playApi, reactivemongo, playReactivemongo, jgit) 
+      playApi, reactivemongo, playReactivemongo, jgit)
   )
 
   lazy val wiki = project("wiki", Seq(common, db)).settings(
