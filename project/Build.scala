@@ -75,6 +75,11 @@ object ApplicationBuild extends Build {
       playApi, reactivemongo, playReactivemongo, jgit)
   )
 
+  lazy val bookmark = project("bookmark", Seq(common, db, user, game)).settings(
+    libraryDependencies ++= provided(
+      playApi, playTest, reactivemongo, playReactivemongo, spray.caching)
+  )
+
   lazy val wiki = project("wiki", Seq(common, db)).settings(
     libraryDependencies ++= provided(
       playApi, reactivemongo, playReactivemongo, jgit, actuarius, guava)

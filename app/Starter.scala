@@ -4,7 +4,7 @@ import play.api.Application
 import play.api.libs.concurrent.Akka
 import akka.actor._
 
-import lila.api.Env.{ current => apiEnv }
+import lila.api.Env.{ current ⇒ apiEnv }
 
 object Starter {
 

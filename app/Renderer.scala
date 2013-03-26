@@ -5,7 +5,7 @@ import akka.actor._
 import play.api.templates._
 import views.{ html => V }
 
-final class Renderer extends Actor {
+private[app] final class Renderer extends Actor {
 
   def receive = {
 

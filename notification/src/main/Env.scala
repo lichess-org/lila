@@ -1,11 +1,8 @@
 package lila.notification
 
-import com.typesafe.config.Config
 import akka.actor.ActorRef
 
-final class Env(
-    sockets: ActorRef,
-    renderer: ActorRef) {
+final class Env(sockets: ActorRef, renderer: ActorRef) {
 
   lazy val api = new Api(sockets, renderer)
 }
