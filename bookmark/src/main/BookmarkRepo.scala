@@ -22,6 +22,8 @@ case class Bookmark(
 // db.bookmark.ensureIndex({d: -1})
 private[bookmark] final class BookmarkRepo(implicit val coll: ReactiveColl) extends lila.db.api.Full {
 
+  def >[A](op: ReactiveColl ⇒ A) = op(coll)
+
   def toggle(gameId: String, userId: String): Fu[Boolean] =
     exists(selectId(gameId, userId)) flatMap { e ⇒
       e.fold(
@@ -34,7 +36,7 @@ private[bookmark] final class BookmarkRepo(implicit val coll: ReactiveColl) exte
     primitive(Json.obj("g" -> gameId), "u")(_.asOpt[String])
 
   def gameIdsByUserId(userId: String): Fu[List[String]] =
-    primitive(Json.obj("u" -> userId), "g")(_.asOpt[String])
+    primitive(userIdQuery(userId), "g")(_.asOpt[String])
 
   def removeByGameId(gameId: String): Funit =
     coll remove Json.obj("g" -> gameId) void
@@ -49,6 +51,7 @@ private[bookmark] final class BookmarkRepo(implicit val coll: ReactiveColl) exte
       "u" -> userId,
       "d" -> date))
 
+  def userIdQuery(userId: String) = Json.obj("u" -> userId)
   def makeId(gameId: String, userId: String) = gameId + userId
   def selectId(gameId: String, userId: String) = select(makeId(gameId, userId))
 
