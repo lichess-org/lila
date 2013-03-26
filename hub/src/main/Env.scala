@@ -12,10 +12,16 @@ final class Env(config: Config, system: ActorSystem) {
   val LobbyName = config getString "lobby.name"
   val RendererName = config getString "renderer.name"
 
-  val lobbyActor = system.actorFor("/user/" + LobbyName)
-  val rendererActor = system.actorFor("/user/" + RendererName)
+  object actor {
+    val lobby = actorFor(LobbyName)
+    val renderer = actorFor(RendererName)
+  }
 
-  val meta = new MetaHub(Nil, MetaTimeout)
+  val meta = new Broadcast(List(
+    actorFor(LobbyName)
+  ), MetaTimeout)
+
+  private def actorFor(name: String) = system.actorFor("/user/" + name)
 }
 
 object Env {

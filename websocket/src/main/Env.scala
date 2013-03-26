@@ -5,8 +5,6 @@ import lila.common.PimpedConfig._
 
 final class Env(config: Config) {
 
-  val MetahubTimeout = config duration "metahub.timeout"
-  val MetahubName = config getString "metahub.name"
 }
 
 object Env {

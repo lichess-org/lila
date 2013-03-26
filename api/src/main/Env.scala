@@ -29,5 +29,4 @@ object Env {
   lazy val current = new Env(
     application = play.api.Play.current,
     config = lila.common.PlayApp.loadConfig)
-
 }
