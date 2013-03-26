@@ -4,8 +4,9 @@ import lila.user.{ User, UserRepo }
 import lila.common.paginator._
 import lila.db.paginator._
 import lila.db.Implicits.docId
-import lila.hub.MetaHub
+import lila.hub.actorApi.SendTo
 
+import akka.actor.ActorRef
 import scala.math.ceil
 import play.api.libs.concurrent.Execution.Implicits._
 
@@ -14,7 +15,7 @@ final class Api(
     unreadCache: UnreadCache,
     userRepo: UserRepo,
     maxPerPage: Int,
-    metaHub: MetaHub) {
+    sockets: ActorRef) {
 
   def inbox(me: User, page: Int): Fu[Paginator[Thread]] = Paginator(
     new Adapter(
@@ -65,7 +66,7 @@ final class Api(
 
   private def updateUser(user: String): Funit = {
     (unreadCache refresh user) onSuccess {
-      case nb ⇒ metaHub.to(user, "nbm", nb)
+      case nb ⇒ sockets ! SendTo(user, "nbm", nb)
     }
     funit
   }

@@ -156,7 +156,7 @@ GET   /wiki/:slug                      controllers.Wiki.show(slug: String)
 # POST  /inbox/$id<[\w]{8}>/delete       controllers.Message.delete(id: String)
 # 
 # Notification
-# DELETE /notification/$id<[\w]{8}>      controllers.Notification.remove(id)
+DELETE /notification/$id<[\w]{8}>      controllers.Notification.remove(id)
 # 
 # Monitor
 # GET   /monitor                         controllers.Monitor.index

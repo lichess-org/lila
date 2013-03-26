@@ -80,7 +80,7 @@ object ApplicationBuild extends Build {
       playApi, reactivemongo, playReactivemongo, jgit, actuarius, guava)
   )
 
-  lazy val notification = project("notification", Seq(common, user, websocket)).settings(
+  lazy val notification = project("notification", Seq(common, user, hub)).settings(
     libraryDependencies ++= provided(playApi)
   )
 

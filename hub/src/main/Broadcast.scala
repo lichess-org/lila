@@ -4,7 +4,6 @@ import scala.concurrent.Future
 import scala.concurrent.duration._
 import akka.actor._
 import akka.pattern.{ ask, pipe }
-import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._
 import actorApi._
 
@@ -16,7 +15,7 @@ final class Broadcast(
 
   def receive = {
 
-    case msg: SendTo[_] ⇒ tell(msg)
+    case msg: SendTo ⇒ tell(msg)
 
     case msg ⇒ tell(msg)
   }
