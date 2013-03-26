@@ -1,7 +1,7 @@
 package lila.hub
 package actorApi
 
-import play.api.libs.json.JsObject
+import play.api.libs.json.Writes
 
-case class SendTo(userId: String, message: JsObject)
-case class SendTos(userIds: Set[String], message: JsObject)
+case class SendTo[A : Writes](userId: String, message: A)
+case class SendTos[A : Writes](userIds: Set[String], message: A)

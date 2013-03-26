@@ -125,4 +125,15 @@ trait WithPlay { self: PackageObject ⇒
 
     def doUnless(cond: Boolean): Fu[A] = doIf(!cond)
   }
+
+  object makeTimeout {
+
+    import akka.util.Timeout
+    import scala.concurrent.duration._
+
+    val large = seconds(5)
+    
+    def apply(duration: FiniteDuration) = Timeout(duration)
+    def seconds(s: Int): Timeout = Timeout(s.seconds)
+  }
 }

@@ -84,7 +84,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(playApi)
   )
 
-  lazy val websocket = project("websocket", Seq(common, memo)).settings(
+  lazy val websocket = project("websocket", Seq(common, hub, memo)).settings(
     libraryDependencies ++= provided(playApi)
   )
 
