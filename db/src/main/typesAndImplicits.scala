@@ -25,6 +25,8 @@ trait Implicits extends Types {
 
   implicit def docId[ID](doc: Identified[ID]): ID = doc.id
 
+  def pimpQB(b: QueryBuilder) = new LilaPimpedQueryBuilder(b)
+
   // hack, this should be in reactivemongo
   implicit final class LilaPimpedQueryBuilder(b: QueryBuilder) {
 

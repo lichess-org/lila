@@ -1,7 +1,6 @@
 package lila.bookmark
 
-import lila.common.PimpedJson._
-import lila.db.Types.ReactiveColl
+import lila.db.Implicits._
 import lila.db.DbApi
 
 import play.api.libs.json._
@@ -26,20 +25,14 @@ private[bookmark] final class BookmarkRepo(coll: ReactiveColl) extends DbApi {
 
   def toggle(gameId: String, userId: String): Fu[Boolean] =
     add(gameId, userId, DateTime.now) inject true recoverWith {
-      case e: DatabaseException ⇒ remove(gameId, userId) inject false
+      case e: DBError ⇒ (remove(gameId, userId) >> println(e)) inject false
     }
 
-  //   def userIdsByGameId(gameId: String): IO[List[String]] = io {
-  //     (collection find gameIdQuery(gameId) sort sortQuery(1) map { obj ⇒
-  //       obj.getAs[String]("u")
-  //     }).flatten.toList
-  //   }
+  def userIdsByGameId(gameId: String): Fu[List[String]] =
+    primitive(Json.obj("g" -> gameId), "u")(_.asOpt[String])
 
-  //   def gameIdsByUserId(userId: String): IO[Set[String]] = io {
-  //     (collection find userIdQuery(userId) map { obj ⇒
-  //       obj.getAs[String]("g")
-  //     }).flatten.toSet
-  //   }
+  def gameIdsByUserId(userId: String): Fu[List[String]] =
+    primitive(Json.obj("u" -> userId), "g")(_.asOpt[String])
 
   //   def removeByGameId(gameId: String): IO[Unit] = io {
   //     collection remove gameIdQuery(gameId)
@@ -52,7 +45,6 @@ private[bookmark] final class BookmarkRepo(coll: ReactiveColl) extends DbApi {
   //   def idQuery(gameId: String, userId: String) = DBObject("_id" -> (gameId + userId))
   //   def gameIdQuery(gameId: String) = DBObject("g" -> gameId)
   //   def userIdQuery(userId: String) = DBObject("u" -> userId)
-  //   def sortQuery(order: Int = -1) = DBObject("d" -> order)
 
   private def add(gameId: String, userId: String, date: DateTime) =
     coll.insert(Json.obj(
@@ -63,8 +55,8 @@ private[bookmark] final class BookmarkRepo(coll: ReactiveColl) extends DbApi {
 
   def makeId(gameId: String, userId: String) = gameId + userId
 
-  def remove(gameId: String, userId: String) = remove(select(makeId(gameId, userId)))
-  def remove(selector: JsObject) = (coll remove selector).void
+  def remove(gameId: String, userId: String): Funit = remove(select(makeId(gameId, userId)))
+  def remove(selector: JsObject): Funit = (coll remove selector).void
 
-  private def query(selector: JsObject) = coll.genericQueryBuilder query selector
+  protected implicit val builder = coll.genericQueryBuilder
 }
