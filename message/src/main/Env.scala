@@ -2,15 +2,15 @@ package lila.message
 
 import lila.db.Types.ReactiveColl
 import lila.user.UserRepo
-import lila.hub.MetaHub
 
+import akka.actor.ActorRef
 import com.typesafe.config.Config
 
 final class Env(
     config: Config,
     db: lila.db.Env,
     userRepo: UserRepo,
-    metaHub: MetaHub) {
+    sockets: ActorRef) {
 
   val CollectionThread = config getString "collection.thread"
   val ThreadMaxPerPage = config getInt "thread.max_per_page"
@@ -26,7 +26,7 @@ final class Env(
     unreadCache = unreadCache,
     userRepo = userRepo,
     maxPerPage = ThreadMaxPerPage,
-    metaHub = metaHub)
+    sockets = sockets)
 
   def cli = new Cli(this)
 }
@@ -37,5 +37,5 @@ object Env {
     config = lila.common.PlayApp loadConfig "message",
     db = lila.db.Env.current,
     userRepo = lila.user.Env.current.userRepo,
-    metaHub = lila.hub.Env.current.meta)
+    sockets = lila.hub.Env.current.sockets)
 }

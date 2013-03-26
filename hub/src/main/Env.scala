@@ -6,8 +6,8 @@ import lila.common.PimpedConfig._
 
 final class Env(config: Config, system: ActorSystem) {
 
-  val MetaTimeout = config duration "meta.timeout"
-  val MetaName = config getString "meta.name"
+  val SocketsTimeout = config duration "sockets.timeout"
+  val SocketsName = config getString "sockets.name"
 
   val LobbyName = config getString "lobby.name"
   val RendererName = config getString "renderer.name"
@@ -17,9 +17,9 @@ final class Env(config: Config, system: ActorSystem) {
     val renderer = actorFor(RendererName)
   }
 
-  val meta = new Broadcast(List(
+  val sockets = system.actorOf(Props(new Broadcast(List(
     actorFor(LobbyName)
-  ), MetaTimeout)
+  ), SocketsTimeout)), name = SocketsName)
 
   private def actorFor(name: String) = system.actorFor("/user/" + name)
 }

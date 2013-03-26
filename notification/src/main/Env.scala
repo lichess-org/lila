@@ -1,18 +1,18 @@
 package lila.notification
 
-import lila.hub.MetaHub
-
 import com.typesafe.config.Config
 import akka.actor.ActorRef
 
 final class Env(
-    metahub: ActorRef,
+    sockets: ActorRef,
     renderer: ActorRef) {
 
-  lazy val api = new Api(metahub, renderer)
+  lazy val api = new Api(sockets, renderer)
 }
 
 object Env {
 
-  lazy val current = new Env
+  lazy val current = new Env(
+    sockets = lila.hub.Env.current.sockets,
+    renderer = lila.hub.Env.current.actor.renderer)
 }

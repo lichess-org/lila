@@ -32,8 +32,8 @@ final class Env(
 
   lazy val featured = new Featured(
     gameRepo = gameRepo,
-    lobbyActor = hub.lobbyActor,
-    rendererActor = hub.rendererActor,
+    lobbyActor = hub.actor.lobby,
+    rendererActor = hub.actor.renderer,
     system = system)
 
   // lazy val export = Export(gameRepo, NetBaseUrl) _
