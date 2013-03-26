@@ -19,9 +19,9 @@ final class Env(
   val JsPathRaw = config getString "js_path.raw"
   val JsPathCompiled = config getString "js_path.compiled"
 
-  lazy val gameRepo = new GameRepo(db(CollectionGame))
+  lazy val gameRepo = new GameRepo()(db(CollectionGame))
 
-  lazy val pgnRepo = new PgnRepo(db(CollectionPgn))
+  lazy val pgnRepo = new PgnRepo()(db(CollectionPgn))
 
   lazy val cached = new Cached(gameRepo = gameRepo, ttl = CachedNbTtl)
 

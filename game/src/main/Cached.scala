@@ -13,6 +13,8 @@ private[game] final class Cached(gameRepo: GameRepo, ttl: Duration) {
   def nbPopular: Fu[Int] = count(_.popular)
   def nbImported: Fu[Int] = count(_.imported)
 
+  private implicit val coll = gameRepo.coll
+
   private def count(selector: Query.type ⇒ JsObject) =
     selector(Query) |> { sel ⇒ cache.fromFuture(sel)(gameRepo count sel) }
 

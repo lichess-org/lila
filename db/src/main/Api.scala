@@ -1,4 +1,5 @@
 package lila.db
+package api
 
 import Implicits._
 
@@ -11,14 +12,22 @@ import play.api.libs.concurrent.Execution.Implicits._
 
 import reactivemongo.api._
 import reactivemongo.bson._
+import reactivemongo.core.commands._
 
 import org.joda.time.DateTime
 
-object DbApi extends DbApi
-
-trait DbApi extends operator {
+object Free extends Free
+trait Free extends operator {
   object select extends operator with select
   object sort extends sort
+}
+
+object Full extends Full
+
+trait Full extends Free {
+  object query extends query
+  object count extends count
+  object exists extends exists
   object primitive extends primitive
   object projection extends projection
 }
@@ -76,28 +85,66 @@ trait sort {
   val descId = desc("_id")
 }
 
+object query extends query
+trait query {
+
+  def all(implicit coll: ReactiveColl) = builder
+
+  def apply(q: JsObject)(implicit coll: ReactiveColl) = builder query q
+
+  def byId[A: Writes](id: A)(implicit coll: ReactiveColl) = apply(select byId id)
+
+  def byIds[A: Writes](ids: Seq[A])(implicit coll: ReactiveColl) = apply(select byIds ids)
+
+  def builder(implicit coll: ReactiveColl) = coll.genericQueryBuilder
+}
+
+object count extends count
+trait count {
+
+  def apply(q: JsObject)(implicit coll: ReactiveColl): Fu[Int] =
+    coll.db command Count(coll.name, JsObjectWriter.write(q).some)
+
+  def apply(implicit coll: ReactiveColl): Fu[Int] =
+    coll.db command Count(coll.name, none)
+}
+
+object exists extends exists
+trait exists { 
+
+  private object count extends count
+
+  def apply(q: JsObject)(implicit coll: ReactiveColl): Fu[Boolean] =
+    count(q) map (0 !=)
+
+  def byId[A : Writes](id: A)(implicit coll: ReactiveColl): Fu[Boolean] =
+    apply(select(id))
+}
+
+object primitive extends primitive
 trait primitive {
 
-  def apply[A](q: JsObject, field: String, modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsValue ⇒ Option[A])(implicit builder: QueryBuilder): Fu[List[A]] =
-    modifier(builder query q projection Json.obj(field -> true)).cursor.toList map (list ⇒ list map { obj ⇒
+  def apply[A](q: JsObject, field: String, modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsValue ⇒ Option[A])(implicit coll: ReactiveColl): Fu[List[A]] =
+    modifier(coll.genericQueryBuilder query q projection Json.obj(field -> true)).cursor.toList map (list ⇒ list map { obj ⇒
       extract(JsObjectReader.read(obj) \ field)
     } flatten)
 
-  def one[A](q: JsObject, field: String, modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsValue ⇒ Option[A])(implicit builder: QueryBuilder): Fu[Option[A]] =
-    modifier(builder query q projection Json.obj(field -> true)).one map (opt ⇒ opt map { obj ⇒
+  def one[A](q: JsObject, field: String, modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsValue ⇒ Option[A])(implicit coll: ReactiveColl): Fu[Option[A]] =
+    modifier(coll.genericQueryBuilder query q projection Json.obj(field -> true)).one map (opt ⇒ opt map { obj ⇒
       extract(JsObjectReader.read(obj) \ field)
     } flatten)
 }
 
+object projection extends projection
 trait projection {
 
-  def apply[A](q: JsObject, fields: Seq[String], modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsObject ⇒ Option[A])(implicit builder: QueryBuilder): Fu[List[A]] =
-    modifier(builder query q projection projector(fields)).cursor.toList map (list ⇒ list map { obj ⇒
+  def apply[A](q: JsObject, fields: Seq[String], modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsObject ⇒ Option[A])(implicit coll: ReactiveColl): Fu[List[A]] =
+    modifier(coll.genericQueryBuilder query q projection projector(fields)).cursor.toList map (list ⇒ list map { obj ⇒
       extract(JsObjectReader read obj)
     } flatten)
 
-  def one[A](q: JsObject, fields: Seq[String], modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsObject ⇒ Option[A])(implicit builder: QueryBuilder): Fu[Option[A]] =
-    modifier(builder query q projection projector(fields)).one map (opt ⇒ opt map { obj ⇒
+  def one[A](q: JsObject, fields: Seq[String], modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsObject ⇒ Option[A])(implicit coll: ReactiveColl): Fu[Option[A]] =
+    modifier(coll.genericQueryBuilder query q projection projector(fields)).one map (opt ⇒ opt map { obj ⇒
       extract(JsObjectReader read obj)
     } flatten)
 

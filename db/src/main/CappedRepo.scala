@@ -10,12 +10,15 @@ import lila.db.PlayReactiveMongoPatch._
 
 import play.api.libs.concurrent.Execution.Implicits._
 
-abstract class CappedRepo[Doc](coll: ReactiveColl, json: JsonTube[Doc], max: Int) extends DbApi {
+abstract class CappedRepo[Doc](
+  implicit coll: ReactiveColl, 
+  json: JsonTube[Doc], 
+  max: Int) extends api.Full {
 
   val naturalOrder = sort desc "$natural" 
 
   val recent: Fu[List[Doc]] = (
-    LilaPimpedQueryBuilder(coll.genericQueryBuilder query select.all).sort(naturalOrder) limit max
+    LilaPimpedQueryBuilder(query.all).sort(naturalOrder) limit max
   ).cursor[Option[Doc]].toList map (_.flatten)
 
   private implicit val bsonDocumentReader = new BSONDocumentReader[Option[Doc]] {

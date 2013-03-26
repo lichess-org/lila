@@ -15,7 +15,7 @@ final class Env(
   val CollectionThread = config getString "collection.thread"
   val ThreadMaxPerPage = config getInt "thread.max_per_page"
 
-  private lazy val threadRepo = new ThreadRepo(db(CollectionThread))
+  private lazy val threadRepo = new ThreadRepo()(db(CollectionThread))
 
   private lazy val unreadCache = new UnreadCache(threadRepo)
 

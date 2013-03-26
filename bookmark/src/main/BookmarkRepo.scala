@@ -1,14 +1,13 @@
 package lila.bookmark
 
 import lila.db.Implicits._
-import lila.db.DbApi
 
 import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._
-import reactivemongo.core.errors._
 
 import play.modules.reactivemongo.Implicits.{ JsObjectWriter ⇒ _, _ }
 import lila.db.PlayReactiveMongoPatch._
+import reactivemongo.core.commands.Count
 
 import org.joda.time.DateTime
 import scala.concurrent.Future
@@ -21,11 +20,14 @@ case class Bookmark(
 // db.bookmark.ensureIndex({g:1})
 // db.bookmark.ensureIndex({u:1})
 // db.bookmark.ensureIndex({d: -1})
-private[bookmark] final class BookmarkRepo(coll: ReactiveColl) extends DbApi {
+private[bookmark] final class BookmarkRepo(implicit val coll: ReactiveColl) extends lila.db.api.Full {
 
   def toggle(gameId: String, userId: String): Fu[Boolean] =
-    add(gameId, userId, DateTime.now) inject true recoverWith {
-      case e: DBError ⇒ (remove(gameId, userId) >> println(e)) inject false
+    exists(selectId(gameId, userId)) flatMap { e ⇒
+      e.fold(
+        remove(gameId, userId),
+        add(gameId, userId, DateTime.now)
+      ) inject !e
     }
 
   def userIdsByGameId(gameId: String): Fu[List[String]] =
@@ -48,9 +50,8 @@ private[bookmark] final class BookmarkRepo(coll: ReactiveColl) extends DbApi {
       "d" -> date))
 
   def makeId(gameId: String, userId: String) = gameId + userId
+  def selectId(gameId: String, userId: String) = select(makeId(gameId, userId))
 
-  def remove(gameId: String, userId: String): Funit = remove(select(makeId(gameId, userId)))
+  def remove(gameId: String, userId: String): Funit = remove(selectId(gameId, userId))
   def remove(selector: JsObject): Funit = (coll remove selector).void
-
-  protected implicit val builder = coll.genericQueryBuilder
 }

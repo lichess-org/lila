@@ -14,10 +14,10 @@ final class PaginatorBuilder(
 
   private val recentAdapter: AdapterLike[User] = adapter(Json.obj("enabled" -> true))
 
-  private def adapter(query: JsObject): AdapterLike[User] = new CachedAdapter(
+  private def adapter(selector: JsObject): AdapterLike[User] = new CachedAdapter(
     adapter = new Adapter(
       repo = userRepo,
-      query = query,
+      selector = selector,
       sort = Seq(userRepo.sortEloDesc)
     ),
     nbResults = countUsers

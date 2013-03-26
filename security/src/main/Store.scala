@@ -3,7 +3,6 @@ package lila.security
 import lila.common.PimpedJson._
 import lila.user.User
 import lila.db.Types.ReactiveColl
-import lila.db.DbApi
 
 import play.api.mvc.RequestHeader
 import play.api.libs.json._
@@ -20,7 +19,7 @@ case class UserSpy(
   uas: List[String],
   otherUsernames: Set[String])
 
-private[security] final class Store(coll: ReactiveColl) extends DbApi {
+private[security] final class Store(implicit coll: ReactiveColl) extends lila.db.api.Full {
 
   def save(sessionId: String, username: String, req: RequestHeader): Funit =
     coll.insert(Json.obj(

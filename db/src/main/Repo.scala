@@ -4,7 +4,6 @@ import Implicits._
 
 import reactivemongo.api._
 import reactivemongo.bson._
-import reactivemongo.core.commands._
 
 import play.modules.reactivemongo.Implicits.{ JsObjectWriter ⇒ _, _ }
 import PlayReactiveMongoPatch._
@@ -14,32 +13,8 @@ import play.api.libs.concurrent.Execution.Implicits._
 
 import scala.concurrent.Future
 
-abstract class Repo[ID: Writes, Doc <: Identified[ID]](coll: ReactiveColl, json: JsonTube[Doc]) extends DbApi {
-
-  object query {
-
-    def all = builder
-
-    def apply(q: JsObject) = builder query q
-
-    def byId(id: ID) = apply(select byId id)
-
-    def byIds(ids: Seq[ID]) = apply(select byIds ids)
-  }
-
-  object count {
-
-    def apply(q: JsObject): Fu[Int] = db command Count(name, JsObjectWriter.write(q).some)
-
-    def apply: Fu[Int] = db command Count(name, none)
-  }
-
-  object exists {
-
-    def apply(q: JsObject): Fu[Boolean] = count(q) map (0 !=)
-
-    def byId(id: ID): Fu[Boolean] = apply(select(id))
-  }
+abstract class Repo[ID: Writes, Doc <: Identified[ID]](
+    json: JsonTube[Doc])(implicit val coll: ReactiveColl) extends api.Full {
 
   object find {
 
@@ -118,8 +93,6 @@ abstract class Repo[ID: Writes, Doc <: Identified[ID]](coll: ReactiveColl, json:
   protected implicit val bsonDocumentReader = new BSONDocumentReader[Option[Doc]] {
     def read(bson: BSONDocument): Option[Doc] = json.fromMongo(JsObjectReader read bson).asOpt
   }
-
-  protected implicit val builder: QueryBuilder = coll.genericQueryBuilder
 
   private def cursor(q: JsObject): Cursor[Option[Doc]] = cursor(query(q))
   private def cursor(q: JsObject, nb: Int): Cursor[Option[Doc]] = cursor(query(q), nb)

@@ -26,8 +26,7 @@ final class Env(
     store = store,
     userRepo = userRepo)
 
-  lazy val store = new Store(
-    coll = db(CollectionSecurity))
+  lazy val store = new Store()(db(CollectionSecurity))
 
   lazy val firewall = new Firewall(
     coll = db(FirewallCollectionFirewall),

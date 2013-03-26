@@ -1,6 +1,6 @@
 package lila.i18n
 
-import lila.db.{ Repo, DbApi }
+import lila.db.Repo
 import lila.db.Implicits._
 
 import play.api.libs.json.Json
@@ -10,8 +10,8 @@ import reactivemongo.api._
 import reactivemongo.bson._
 import reactivemongo.core.commands._
 
-private[i18n] final class TranslationRepo(coll: ReactiveColl)
-    extends Repo[Int, Translation](coll, Translations.json) {
+private[i18n] final class TranslationRepo(implicit coll: ReactiveColl)
+    extends Repo[Int, Translation](Translations.json) {
 
   type ID = Int
 
