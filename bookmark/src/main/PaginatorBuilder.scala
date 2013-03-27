@@ -3,10 +3,13 @@ package lila.bookmark
 import lila.game.{ Game, GameRepo }
 import lila.user.{ User, UserRepo }
 import lila.common.paginator._
+import lila.common.PimpedJson._
 import lila.db.paginator._
-import lila.db.Types.Sort
+import lila.db.Implicits._
 
 import play.api.libs.json._
+import play.api.libs.concurrent.Execution.Implicits._
+import play.modules.reactivemongo.Implicits._
 import org.joda.time.DateTime
 
 final class PaginatorBuilder(
@@ -29,22 +32,23 @@ final class PaginatorBuilder(
 
     def nbResults: Fu[Int] = count(selector)(bookmarkRepo.coll)
 
-    def slice(offset: Int, length: Int): Fu[Seq[Bookmark]] = {
-      val objs = bookmarkRepo find {
-    LilaPimpedQueryBuilder(query(selector)).sort(sort: _*) skip offset limit length
-      }
-        for {
-          gameId ← obj.getAs[String]("g")
-          date ← obj.getAs[DateTime]("d")
-        } yield gameId -> date
-      }).flatten
-      val games = (gameRepo games objs.map(_._1)).unsafePerformIO
-      objs map { obj ⇒
-        games find (_.id == obj._1) map { game ⇒
-          Bookmark(game, user, obj._2)
+    def slice(offset: Int, length: Int): Fu[Seq[Bookmark]] = for {
+      pairs ← query(selector)(bookmarkRepo.coll)
+        .sort(sorting)
+        .skip(offset)
+        .limit(length)
+        .cursor[JsObject].toList map2 { (obj: JsObject) ⇒
+          obj.get[String]("g") flatMap { gameId ⇒
+            obj.get[DateTime]("d") map { (gameId, _) }
+          }
+        } map (_.flatten)
+      games ← gameRepo.find byIds pairs.map(_._1)
+      bookmarks = pairs map { pair ⇒
+        games find (_.id == pair._1) map { game ⇒
+          Bookmark(game, user, pair._2)
         }
       }
-    } flatten
+    } yield bookmarks.toList.flatten
 
     private def selector = bookmarkRepo userIdQuery user.id
     private def sorting = sort desc "d"
