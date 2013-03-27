@@ -16,7 +16,7 @@ final class Env(config: Config, db: lila.db.Env) {
   val CollectionHistory = config getString "collection.history"
   val CollectionConfig = config getString "collection.config"
 
-  lazy val historyRepo = new HistoryRepo(db(CollectionHistory))
+  lazy val historyRepo = new HistoryRepo()(db(CollectionHistory))
 
   lazy val userRepo = new UserRepo()(db(CollectionUser))
 
