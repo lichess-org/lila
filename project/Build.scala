@@ -14,11 +14,12 @@ object ApplicationBuild extends Build {
         csv, jgit, actuarius, scalastic, findbugs,
         spray.caching, reactivemongo)
     )) dependsOn (
-      api, user, wiki, message, notification, i18n, game, bookmark
+      api, user, wiki, message, notification, i18n, game, bookmark,
+      gameSearch
     ) aggregate (
-        scalachess, api, common, http, db, user, wiki,
+        chess, api, common, http, db, user, wiki,
         hub, websocket, message, notification, i18n, game,
-        bookmark
+        bookmark, search, gameSearch
       ) settings (
           templatesImport ++= Seq(
             "lila.game.{ Game, Player, Pov }",
@@ -51,13 +52,17 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(playApi, scalastic)
   )
 
-  lazy val user = project("user", Seq(common, memo, db, scalachess)).settings(
+  lazy val gameSearch = project("gameSearch", Seq(common, chess, search, game)).settings(
+    libraryDependencies ++= provided(playApi, reactivemongo, playReactivemongo, scalastic)
+  )
+
+  lazy val user = project("user", Seq(common, memo, db, chess)).settings(
     libraryDependencies ++= provided(
       playApi, playTest, reactivemongo, playReactivemongo,
       hasher, spray.caching)
   )
 
-  lazy val game = project("game", Seq(common, db, hub, user, scalachess)).settings(
+  lazy val game = project("game", Seq(common, db, hub, user, chess)).settings(
     libraryDependencies ++= provided(
       playApi, reactivemongo, playReactivemongo, spray.caching)
   )
@@ -102,7 +107,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(playApi)
   )
 
-  lazy val scalachess = project("scalachess").settings(
+  lazy val chess = project("scalachess").settings(
     libraryDependencies ++= Seq(hasher)
   )
 }

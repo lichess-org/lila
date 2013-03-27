@@ -1,5 +1,4 @@
-package lila.app
-package search
+package lila.gameSearch
 
 import org.elasticsearch.search.sort._, SortBuilders._
 import scalastic.elasticsearch.SearchParameterTypes.FieldSort

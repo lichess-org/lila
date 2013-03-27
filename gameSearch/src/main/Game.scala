@@ -1,13 +1,13 @@
-package lila.app
-package search
+package lila.gameSearch
 
+import lila.search.ElasticSearch
 import ElasticSearch._
-import game.DbGame
+import lila.game.Game
 import chess.{ OpeningExplorer, Status }
 
-import play.api.libs.json.{ Json, JsObject, JsString, JsNumber }
+import play.api.libs.json._
 
-private[search] object Game {
+private[gameSearch] object Game {
 
   object fields {
     val status = "st"
@@ -58,7 +58,7 @@ private[search] object Game {
     )
   }
 
-  def from(pgn: String)(game: DbGame) = game.id -> Json.obj(
+  def from(pgn: String)(game: Game) = game.id -> Json.obj(
     status -> game.status.is(_.Timeout).fold(Status.Resign, game.status).id,
     turns -> math.ceil(game.turns.toFloat / 2),
     rated -> game.rated,

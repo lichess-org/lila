@@ -1,10 +1,9 @@
-package lila.app
-package search
+package lila.gameSearch
 
-import ElasticSearch.Request
+import lila.search.{ ElasticSearch, Range }
+import lila.common.EloRange
 import Game.fields
 import chess.{ Variant, Mode, Status, EcoDb }
-import elo.EloRange
 
 import org.elasticsearch.index.query._, FilterBuilders._, QueryBuilders._
 import org.joda.time.DateTime
@@ -41,14 +40,14 @@ case class Query(
       date.nonEmpty ||
       duration.nonEmpty
 
-  def searchRequest(from: Int = 0, size: Int = 10) = Request.Search(
+  def searchRequest(from: Int = 0, size: Int = 10) = ElasticSearch.Request.Search(
     query = matchAllQuery,
     filter = filters,
     sortings = List(sorting.fieldSort),
     from = from,
     size = size)
 
-  def countRequest = Request.Count(matchAllQuery, filters)
+  def countRequest = ElasticSearch.Request.Count(matchAllQuery, filters)
 
   def usernames = List(user1, user2).flatten
 
