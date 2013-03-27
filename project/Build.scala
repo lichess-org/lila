@@ -47,6 +47,10 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(playTest, playApi, reactivemongo, playReactivemongo)
   )
 
+  lazy val search = project("search", Seq(common)).settings(
+    libraryDependencies ++= provided(playApi, scalastic)
+  )
+
   lazy val user = project("user", Seq(common, memo, db, scalachess)).settings(
     libraryDependencies ++= provided(
       playApi, playTest, reactivemongo, playReactivemongo,
