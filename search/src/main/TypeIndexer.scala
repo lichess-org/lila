@@ -5,12 +5,7 @@ import actorApi._
 import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
 
 import akka.actor._
-import akka.pattern.{ ask, pipe }
-import scala.concurrent.duration._
-import scala.concurrent.{ Future, Promise }
-import play.api.libs.concurrent._
 import play.api.libs.json._
-import play.api.Play.current
 
 final class TypeIndexer(
     es: EsIndexer,
