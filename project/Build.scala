@@ -14,15 +14,16 @@ object ApplicationBuild extends Build {
         csv, jgit, actuarius, scalastic, findbugs,
         spray.caching, reactivemongo)
     )) dependsOn (
-      api, user, wiki, message, notification, i18n, game
+      api, user, wiki, message, notification, i18n, game, bookmark
     ) aggregate (
         scalachess, api, common, http, db, user, wiki,
-        hub, websocket, message, notification, i18n, game
+        hub, websocket, message, notification, i18n, game,
+        bookmark
       ) settings (
           templatesImport ++= Seq(
             "lila.game.{ Game, Player, Pov }",
             "lila.user.{ User, Context }",
-            // "lila.app.security.Permission",
+            "lila.security.Permission",
             "lila.app.templating.Environment._",
             // "lila.app.ui",
             "lila.common.paginator.Paginator")

@@ -5,30 +5,6 @@ import scalaz.Success
 
 import play.api.libs.concurrent.Execution.Implicits._
 
-trait AdapterLike[A] {
-
-  /**
-   * Returns the total number of results.
-   */
-  def nbResults: Fu[Int]
-
-  /**
-   * Returns a slice of the results.
-   *
-   * @param   offset    The number of elements to skip, starting from zero
-   * @param   length    The maximum number of elements to return
-   */
-  def slice(offset: Int, length: Int): Fu[Seq[A]]
-
-  /**
-   * FUNCTOR INTERFACE
-   */
-  def map[B](f: A ⇒ B): AdapterLike[B] = new AdapterLike[B] {
-    def nbResults = AdapterLike.this.nbResults
-    def slice(offset: Int, length: Int) = AdapterLike.this.slice(offset, length) map2 f
-  }
-}
-
 final class Paginator[A] private[paginator] (
     val currentPage: Int,
     val maxPerPage: Int,
@@ -54,16 +30,6 @@ final class Paginator[A] private[paginator] (
    */
   def nextPage: Option[Int] =
     if (currentPage == nbPages) None else Some(currentPage + 1)
-
-  /**
-   * FUNCTOR INTERFACE
-   */
-
-  def map[B](f: A ⇒ B): Paginator[B] = new Paginator(
-    currentPage = currentPage,
-    maxPerPage = maxPerPage,
-    currentPageResults = currentPageResults map f,
-    nbResults = nbResults)
 
   /**
    * Returns the number of pages.

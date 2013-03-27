@@ -31,7 +31,7 @@ trait PackageObject
 
   implicit final class LilaPimpedOption[A](o: Option[A]) {
 
-    def zmap[B](f: A ⇒ B)(implicit z: Zero[B]) = o.fold(z.zero)(f)
+    def zmap[B : Zero](f: A ⇒ B): B = o.fold(∅[B])(f)
   }
 
   implicit final class LilaPimpedMap[A, B](m: Map[A, B]) {
@@ -64,7 +64,7 @@ trait PackageObject
     try { op(p) } finally { p.close() }
   }
 
-  def printToFile(f: String)(op: java.io.PrintWriter ⇒ Unit): Funit = 
+  def printToFile(f: String)(op: java.io.PrintWriter ⇒ Unit): Funit =
     printToFile(new java.io.File(f))(op)
 }
 
@@ -132,7 +132,7 @@ trait WithPlay { self: PackageObject ⇒
     import scala.concurrent.duration._
 
     val large = seconds(5)
-    
+
     def apply(duration: FiniteDuration) = Timeout(duration)
     def seconds(s: Int): Timeout = Timeout(s.seconds)
   }
