@@ -1,5 +1,4 @@
-package lila.app
-package search
+package lila.search
 
 import org.elasticsearch.index.query._, FilterBuilders._
 import org.joda.time.DateTime

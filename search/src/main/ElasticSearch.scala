@@ -1,5 +1,4 @@
-package lila.app
-package search
+package lila.search
 
 import play.api.libs.json._
 
