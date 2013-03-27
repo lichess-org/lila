@@ -10,11 +10,25 @@ final class Env(
     userRepo: lila.user.UserRepo,
     gameRepo: lila.game.GameRepo) {
 
-  val CollectionBookmark = config getString "collection.bookmark"
+  private val CollectionBookmark = config getString "collection.bookmark"
+  private val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
 
-  lazy val bookmarkRepo = new BookmarkRepo()(db(CollectionBookmark))
+  private lazy val bookmarkRepo = new BookmarkRepo()(db(CollectionBookmark))
 
-  lazy val cached = new Cached(bookmarkRepo)
+  private lazy val cached = new Cached(bookmarkRepo)
+
+  lazy val paginator = new PaginatorBuilder(
+    bookmarkRepo = bookmarkRepo,
+    gameRepo = gameRepo,
+    userRepo = userRepo,
+    maxPerPage = PaginatorMaxPerPage)
+
+  lazy val api = new BookmarkApi(
+    bookmarkRepo = bookmarkRepo,
+    cached = cached,
+    gameRepo = gameRepo,
+    userRepo = userRepo,
+    paginator = paginator)
 }
 
 object Env {

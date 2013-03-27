@@ -28,7 +28,7 @@ object Environment
     // with forum.ForumHelper
     // with security.SecurityHelper
     with I18nHelper
-    // with bookmark.BookmarkHelper
+    with BookmarkHelper
     with NotificationHelper {
   // with analyse.AnalyseHelper
   // with tournament.TournamentHelper 
