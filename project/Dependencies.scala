@@ -18,7 +18,7 @@ object Dependencies {
     val sgodbillon = "sgodbillon" at "https://bitbucket.org/sgodbillon/repository/raw/master/snapshots/"
     val awesomepom = "awesomepom" at "https://raw.github.com/jibs/maven-repo-scala/master"
     val sprayRepo = "spray repo" at "http://repo.spray.io"
-    val local = "local repo" at home+"/local-repo/content/repositories/snapshots"
+    val local = "local repo" at home+"/local-repo/sonatype/snapshots"
 
     val commons = Seq(local,
       sonatypeS, 

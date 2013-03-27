@@ -5,12 +5,11 @@ import lila.db.Types._
 import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._
 
-import play.modules.reactivemongo.Implicits.{ JsObjectWriter ⇒ _, _ }
-import lila.db.PlayReactiveMongoPatch._
+import play.modules.reactivemongo.Implicits._
 
 import org.joda.time.DateTime
 
-final class HistoryRepo(coll: ReactiveColl) extends lila.db.api.Full {
+final class HistoryRepo(implicit coll: ReactiveColl) extends lila.db.api.Full {
 
   def addEntry(userId: String, elo: Int, opponentElo: Option[Int]): Funit =
     coll.update(

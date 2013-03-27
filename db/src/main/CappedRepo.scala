@@ -5,8 +5,7 @@ import Implicits._
 import reactivemongo.api._
 import reactivemongo.bson._
 
-import play.modules.reactivemongo.Implicits.{ JsObjectWriter ⇒ _, _ }
-import lila.db.PlayReactiveMongoPatch._
+import play.modules.reactivemongo.Implicits._
 
 import play.api.libs.concurrent.Execution.Implicits._
 

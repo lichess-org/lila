@@ -13,7 +13,7 @@ import org.specs2.execute.{ Result, AsResult }
 abstract class WithTestColl(a: FakeApplication = FakeApplication())
     extends WithApplication(a) {
 
-  implicit lazy val conn = MongoConnection(List("localhost:27017"))
+  implicit lazy val conn = new MongoDriver connection List("localhost:27017")
 
   implicit lazy val coll: ReactiveColl = {
     val db = conn("test")

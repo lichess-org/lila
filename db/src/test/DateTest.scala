@@ -17,8 +17,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 class DateTest extends Specification {
 
   val date = DateTime.now
-  import DbApi._
-  import PlayReactiveMongoPatch._
+  import api.Free._
+  import play.modules.reactivemongo.Implicits._
 
   "date conversion" should {
     "js to bson" in {
