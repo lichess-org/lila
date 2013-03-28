@@ -91,7 +91,7 @@ abstract class Repo[ID: Writes, Doc <: Identified[ID]](
   // PRIVATE SHIT //
   //////////////////
 
-  protected implicit val bsonDocumentReader = new BSONDocumentReader[Option[Doc]] {
+  implicit val bsonReader = new BSONDocumentReader[Option[Doc]] {
     def read(bson: BSONDocument): Option[Doc] = json.fromMongo(JsObjectReader read bson).asOpt
   }
 
