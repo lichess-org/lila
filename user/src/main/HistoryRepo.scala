@@ -15,7 +15,7 @@ final class HistoryRepo(implicit coll: Coll) {
   def addEntry(userId: String, elo: Int, opponentElo: Option[Int]): Funit =
     coll.update(
       select(userId),
-      op.$push("entries", opponentElo.fold(Json.arr(DateTime.now.getSeconds.toInt, elo)) { opElo ⇒
+      $push("entries", opponentElo.fold(Json.arr(DateTime.now.getSeconds.toInt, elo)) { opElo ⇒
         Json.arr(DateTime.now.getSeconds.toInt, elo, opElo)
       }),
       upsert = true

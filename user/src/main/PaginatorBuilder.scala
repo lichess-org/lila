@@ -12,13 +12,15 @@ final class PaginatorBuilder(
 
   def elo(page: Int): Fu[Paginator[User]] = paginator(recentAdapter, page)
 
+  private implicit val coll = userRepo.coll
+
   private val recentAdapter: AdapterLike[User] = adapter(Json.obj("enabled" -> true))
 
   private def adapter(selector: JsObject): AdapterLike[User] = new CachedAdapter(
     adapter = new Adapter(
       selector = selector,
       sort = Seq(userRepo.sortEloDesc)
-    )(userRepo.coll),
+    ),
     nbResults = countUsers
   )
 

@@ -29,9 +29,9 @@ final class Env(
   lazy val store = new Store()(db(CollectionSecurity))
 
   lazy val firewall = new Firewall(
-    coll = db(FirewallCollectionFirewall),
     cookieName = FirewallCookieName.some filter (_ ⇒ FirewallCookieEnabled),
-    enabled = FirewallEnabled)
+    enabled = FirewallEnabled)(
+      db(FirewallCollectionFirewall))
 
   lazy val flood = new Flood(FloodDuration)
 

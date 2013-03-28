@@ -23,6 +23,8 @@ final class UserRepo(implicit val coll: Coll) {
 
   val normalize = Users normalize _
 
+  def named(username: String): Fu[Option[User]] = find byId normalize(username)
+
   def byIdsSortElo(ids: Seq[ID], max: Int) = find(query byIds ids sort sortEloDesc limit max)
 
   def allSortToints(nb: Int) = find(query.all sort ("toints" -> sort.desc), nb)
@@ -104,9 +106,9 @@ final class UserRepo(implicit val coll: Coll) {
     )(_.asOpt[String])
   }
 
-  def toggleMute(id: ID) = update.doc(id) { u ⇒ $set("isChatBan" -> !u.isChatBan) }
+  def toggleMute(id: ID) = update.doc[ID, User](id) { u ⇒ $set("isChatBan" -> !u.isChatBan) }
 
-  def toggleEngine(id: ID): Funit = update.doc(id) { u ⇒ $set("engine" -> !u.engine) }
+  def toggleEngine(id: ID): Funit = update.doc[ID, User](id) { u ⇒ $set("engine" -> !u.engine) }
 
   def isEngine(id: ID): Fu[Boolean] = exists(select(id) ++ Json.obj("engine" -> true))
 
