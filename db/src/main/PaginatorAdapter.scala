@@ -15,7 +15,7 @@ final class Adapter[A : Tube](
   def nbResults: Fu[Int] = count(selector)
 
   def slice(offset: Int, length: Int): Fu[Seq[A]] = find {
-    LilaPimpedQueryBuilder(query(selector)).sort(sort: _*) skip offset limit length
+    pimpQB(query(selector)).sort(sort: _*) skip offset limit length
   }
 }
 

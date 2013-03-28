@@ -57,22 +57,4 @@ object Users {
   val anonymous = "Anonymous"
 
   def normalize(username: String) = username.toLowerCase
-
-  import lila.db.Tube
-  import Tube.Helpers._
-  import play.api.libs.json._
-
-  private val defaults = Json.obj(
-    "isChatBan" -> false,
-    "settings" -> Json.obj(),
-    "engine" -> false,
-    "toints" -> 0)
-
-  val json = Tube(
-    reads = (__.json update (
-      merge(defaults) andThen readDate('createdAt)
-    )) andThen Json.reads[User],
-    writes = Json.writes[User],
-    writeTransformer = (__.json update writeDate('createdAt)).some
-  )
 }

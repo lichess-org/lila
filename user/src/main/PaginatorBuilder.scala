@@ -16,10 +16,9 @@ final class PaginatorBuilder(
 
   private def adapter(selector: JsObject): AdapterLike[User] = new CachedAdapter(
     adapter = new Adapter(
-      repo = userRepo,
       selector = selector,
       sort = Seq(userRepo.sortEloDesc)
-    ),
+    )(userRepo.coll),
     nbResults = countUsers
   )
 

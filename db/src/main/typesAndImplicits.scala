@@ -10,8 +10,6 @@ object Implicits extends Implicits
 
 trait Types {
 
-  type LilaDB = reactivemongo.api.DB
-
   type Coll = reactivemongo.api.collections.default.BSONCollection
 
   type QueryBuilder = GenericQueryBuilder[BSONDocument, BSONDocumentReader, BSONDocumentWriter]
