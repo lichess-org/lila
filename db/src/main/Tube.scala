@@ -1,5 +1,7 @@
 package lila.db
 
+import Types.Coll
+
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
 import Reads.constraints._
@@ -7,15 +9,17 @@ import reactivemongo.bson._
 import play.modules.reactivemongo.Implicits._
 
 case class Tube[Doc](
-    reader: Reads[Doc],
-    writer: Writes[Doc],
-    writeTransformer: Option[Reads[JsObject]] = None
-  ) extends Reads[Doc] with Writes[Doc] with BSONDocumentReader[Option[Doc]] {
+  reader: Reads[Doc],
+  writer: Writes[Doc],
+  writeTransformer: Option[Reads[JsObject]] = None)
+    extends Reads[Doc]
+    with Writes[Doc]
+    with BSONDocumentReader[Option[Doc]] {
 
   implicit def reads(js: JsValue): JsResult[Doc] = reader reads js
   implicit def writes(doc: Doc): JsValue = writer writes doc
 
-  def read(bson: BSONDocument): Option[Doc] = 
+  def read(bson: BSONDocument): Option[Doc] =
     fromMongo(JsObjectReader read bson).asOpt
 
   def read(js: JsObject): JsResult[Doc] = reads(js)

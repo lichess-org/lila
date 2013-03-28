@@ -2,7 +2,7 @@ package lila.message
 
 import lila.user.User
 
-import lila.db.Repo
+import lila.db.api._
 import lila.db.Implicits._
 
 import play.api.libs.json.Json
@@ -17,7 +17,9 @@ import ornicar.scalalib.Random
 
 import scala.concurrent.Future
 
-final class ThreadRepo(implicit coll: Coll) extends Repo[String, Thread](Threads.json) {
+final class ThreadRepo(implicit coll: Coll) {
+
+  def impl[A](op: Coll => A): A = op(coll)
 
   type ID = String
 

@@ -3,7 +3,8 @@ package lila.message
 import lila.user.{ User, UserRepo }
 import lila.common.paginator._
 import lila.db.paginator._
-import lila.db.Implicits.docId
+import lila.db.Implicits._
+import lila.db.api._
 import lila.hub.actorApi.SendTo
 
 import akka.actor.ActorRef
@@ -18,16 +19,18 @@ final class Api(
     sockets: ActorRef) {
 
   def inbox(me: User, page: Int): Fu[Paginator[Thread]] = Paginator(
-    new Adapter(
-      repo = threadRepo,
-      selector = threadRepo visibleByUserQuery me.id,
-      sort = Seq(threadRepo.recentSort)),
+    threadRepo impl { implicit coll ⇒
+      new Adapter(
+        selector = threadRepo visibleByUserQuery me.id,
+        sort = Seq(threadRepo.recentSort)
+      )
+    },
     currentPage = page,
     maxPerPage = maxPerPage
   )
 
   def thread(id: String, me: User): Fu[Option[Thread]] = for {
-    threadOption ← threadRepo.find byId id map (_ filter (_ hasUser me))
+    threadOption ← find.byId(id)(threadRepo.coll) map (_ filter (_ hasUser me))
     _ ← threadOption.filter(_ isUnReadBy me).zmap(thread ⇒
       (threadRepo setRead thread) >> updateUser(me.id)
     )

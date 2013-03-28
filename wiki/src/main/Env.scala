@@ -9,7 +9,7 @@ final class Env(config: Config, db: lila.db.Env) {
 
   lazy val api = new Api()(pageColl)
 
-  private lazy val pageColl = db(CollectionPage)
+  private[wiki] lazy val pageColl = db(CollectionPage)
   
   private lazy val fetcher = new Fetch(gitUrl = GitUrl)(pageColl)
 
