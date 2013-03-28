@@ -8,10 +8,9 @@ import lila.db.Types.Sort
 
 import play.api.libs.json._
 
-private[game] final class PaginatorBuilder(
-    gameRepo: GameRepo,
-    cached: Cached,
-    maxPerPage: Int) {
+private[game] final class PaginatorBuilder(cached: Cached, maxPerPage: Int) {
+
+  private implicit def tube = gameTube
 
   def recent(page: Int): Fu[Paginator[Game]] =
     paginator(recentAdapter, page)
@@ -54,7 +53,7 @@ private[game] final class PaginatorBuilder(
       nbResults = nbResults)
 
   private def noCacheAdapter(selector: JsObject, sort: Sort): AdapterLike[Game] =
-    new Adapter(repo = gameRepo, selector = selector, sort = sort)
+    new Adapter(selector = selector, sort = sort)
 
   private def paginator(adapter: AdapterLike[Game], page: Int): Fu[Paginator[Game]] =
     Paginator(adapter, currentPage = page, maxPerPage = maxPerPage)

@@ -9,7 +9,6 @@ import play.api.libs.concurrent.Execution.Implicits._
 import org.joda.time.format.DateTimeFormat
 
 private[game] final class PgnDump(
-    gameRepo: GameRepo,
     findUser: String ⇒ Fu[Option[User]]) {
 
   import PgnDump._
@@ -42,7 +41,7 @@ private[game] final class PgnDump(
     blackUser ← game.blackPlayer.userId.zmap(findUser)
     initialFen ← game.variant.standard.fold(
       fuccess(none),
-      gameRepo initialFen game.id)
+      GameRepo initialFen game.id)
   } yield List(
     Tag(_.Event, game.rated.fold("Rated game", "Casual game")),
     Tag(_.Site, makeUrl(game.id)),
