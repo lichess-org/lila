@@ -13,13 +13,16 @@ final class Env(
     // captcha: Captcha,
     db: lila.db.Env) {
 
-  private val CollectionSecurity = config getString "collection.security"
-  private val WiretapIps = config.getStringList("wiretap.ips").toSet
-  private val FirewallEnabled = config getBoolean "firewall.enabled"
-  private val FirewallCookieName = config getString "firewall.cookie.name"
-  private val FirewallCookieEnabled = config getBoolean "firewall.cookie.enabled"
-  private val FirewallCollectionFirewall = config getString "firewall.collection.firewall"
-  private val FloodDuration = config duration "flood.duration"
+  private val settings = new {
+    val CollectionSecurity = config getString "collection.security"
+    val WiretapIps = config.getStringList("wiretap.ips").toSet
+    val FirewallEnabled = config getBoolean "firewall.enabled"
+    val FirewallCookieName = config getString "firewall.cookie.name"
+    val FirewallCookieEnabled = config getBoolean "firewall.cookie.enabled"
+    val FirewallCollectionFirewall = config getString "firewall.collection.firewall"
+    val FloodDuration = config duration "flood.duration"
+  }
+  import settings._
 
   lazy val api = new Api(firewall = firewall)
 

@@ -30,7 +30,7 @@ final class Api(
   )
 
   def thread(id: String, me: User): Fu[Option[Thread]] = for {
-    threadOption ← find.byId(id) map (_ filter (_ hasUser me))
+    threadOption ← $find.byId(id) map (_ filter (_ hasUser me))
     _ ← threadOption.filter(_ isUnReadBy me).zmap(thread ⇒
       (ThreadRepo setRead thread) >> updateUser(me.id)
     )
@@ -42,11 +42,11 @@ final class Api(
       text = data.text,
       creatorId = me.id,
       invitedId = data.user.id)
-    insert(thread) >> updateUser(data.user.id) inject thread
+    $insert(thread) >> updateUser(data.user.id) inject thread
   }
 
   def lichessThread(lt: LichessThread): Funit =
-    insert(lt.toThread) >> updateUser(lt.to)
+    $insert(lt.toThread) >> updateUser(lt.to)
 
   def makePost(thread: Thread, text: String, me: User) = {
     val post = Posts.make(
@@ -54,7 +54,7 @@ final class Api(
       isByCreator = thread isCreator me)
     val newThread = thread + post
     for {
-      _ ← update[ThreadRepo.ID, Thread](newThread)
+      _ ← $update[ThreadRepo.ID, Thread](newThread)
       receiver ← UserRepo.named(thread receiverOf post)
       _ ← receiver.map(_.id) zmap updateUser
     } yield newThread

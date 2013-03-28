@@ -12,10 +12,10 @@ final class Adapter[A: TubeInColl](
     selector: JsObject,
     sort: Sort) extends AdapterLike[A] {
 
-  def nbResults: Fu[Int] = count(selector)
+  def nbResults: Fu[Int] = $count(selector)
 
-  def slice(offset: Int, length: Int): Fu[Seq[A]] = find {
-    pimpQB(query(selector)).sort(sort: _*) skip offset limit length
+  def slice(offset: Int, length: Int): Fu[Seq[A]] = $find {
+    pimpQB($query(selector)).sort(sort: _*) skip offset limit length
   }
 }
 

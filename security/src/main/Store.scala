@@ -24,7 +24,7 @@ private[security] object Store {
   private implicit def inColl = storeInColl
 
   def save(sessionId: String, username: String, req: RequestHeader): Funit =
-    insert(Json.obj(
+    $insert(Json.obj(
       "_id" -> sessionId,
       "user" -> normalize(username),
       "ip" -> ip(req),
@@ -33,17 +33,17 @@ private[security] object Store {
       "up" -> true))
 
   def getUsername(sessionId: String): Fu[Option[String]] =
-    primitive.one(
-      select(sessionId) ++ Json.obj("up" -> true), 
+    $primitive.one(
+      $select(sessionId) ++ Json.obj("up" -> true), 
       "user"
     )(_.asOpt[String])
 
   def delete(sessionId: String): Funit =
-    update(select(sessionId), $set("up" -> false))
+    $update($select(sessionId), $set("up" -> false))
 
   // useful when closing an account,
   // we want to logout too
-  def deleteUsername(username: String): Funit = update(
+  def deleteUsername(username: String): Funit = $update(
     selectUser(username),
     $set("up" -> false),
     upsert = false,
@@ -75,10 +75,10 @@ private[security] object Store {
     }
 
   private def userIps(username: String): Fu[Set[String]] =
-    primitive(selectUser(username), "ip")(_.asOpt[String]) map (_.toSet)
+    $primitive(selectUser(username), "ip")(_.asOpt[String]) map (_.toSet)
 
   private def usernamesByIp(ip: String): Fu[Set[String]] =
-    primitive(Json.obj("ip" -> ip), "user")(_.asOpt[String]) map (_.toSet)
+    $primitive(Json.obj("ip" -> ip), "user")(_.asOpt[String]) map (_.toSet)
 
   private def ip(req: RequestHeader) = req.remoteAddress
 

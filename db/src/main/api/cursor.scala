@@ -9,14 +9,13 @@ import reactivemongo.api._
 import reactivemongo.bson._
 import play.api.libs.concurrent.Execution.Implicits._
 
-object cursor extends cursor
-trait cursor {
+object $cursor {
 
   def apply[A: TubeInColl](q: JsObject): Cursor[Option[A]] =
-    apply(query(q))
+    apply($query(q))
 
   def apply[A: TubeInColl](q: JsObject, nb: Int): Cursor[Option[A]] =
-    apply(query(q), nb)
+    apply($query(q), nb)
 
   def apply[A: TubeInColl](b: QueryBuilder): Cursor[Option[A]] =
     b.cursor[Option[A]]

@@ -1,19 +1,10 @@
 package lila.message
 
-import lila.user.User
-
 import lila.db.api._
 import lila.db.Implicits._
 
 import play.api.libs.json.Json
 import play.api.libs.concurrent.Execution.Implicits._
-
-import reactivemongo.api._
-import reactivemongo.bson._
-import reactivemongo.core.commands._
-
-import org.joda.time.DateTime
-import ornicar.scalalib.Random
 
 import scala.concurrent.Future
 
@@ -24,10 +15,10 @@ object ThreadRepo {
   type ID = String
 
   def byUser(user: ID): Fu[List[Thread]] =
-    find(query(userQuery(user)) sort recentSort)
+    $find($query(userQuery(user)) sort recentSort)
 
   def visibleByUser(user: ID): Fu[List[Thread]] =
-    find(query(visibleByUserQuery(user)) sort recentSort)
+    $find($query(visibleByUserQuery(user)) sort recentSort)
 
   def userNbUnread(userId: String): Fu[Int] = fuccess(3)
 
@@ -59,19 +50,19 @@ object ThreadRepo {
 
   def setRead(thread: Thread): Funit = Future sequence {
     List.fill(thread.nbUnread) {
-      update(
-        select(thread.id) ++ Json.obj("posts.isRead" -> false),
+      $update(
+        $select(thread.id) ++ Json.obj("posts.isRead" -> false),
         $set("posts.$.isRead" -> true)
       )
     }
   } void
 
   def deleteFor(user: ID)(thread: ID) = 
-    update(select(thread), $pull("visibleByUserIds", user))
+    $update($select(thread), $pull("visibleByUserIds", user))
 
   def userQuery(user: String) = Json.obj("userIds" -> user)
 
   def visibleByUserQuery(user: String) = Json.obj("visibleByUserIds" -> user)
 
-  val recentSort = sort desc "updatedAt"
+  val recentSort = $sort desc "updatedAt"
 }

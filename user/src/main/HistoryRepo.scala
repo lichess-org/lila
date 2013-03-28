@@ -16,8 +16,8 @@ object HistoryRepo {
   implicit def inColl = historyInColl
 
   def addEntry(userId: String, elo: Int, opponentElo: Option[Int]): Funit =
-    update[History](
-      select(userId),
+    $update[History](
+      $select(userId),
       $push("entries", opponentElo.fold(Json.arr(DateTime.now.getSeconds.toInt, elo)) { opElo ⇒
         Json.arr(DateTime.now.getSeconds.toInt, elo, opElo)
       }),
@@ -25,7 +25,7 @@ object HistoryRepo {
     )
 
   def userElos(userId: String): Fu[Seq[(Int, Int, Option[Int])]] =
-    historyInColl.coll.find(select(userId)).one[JsObject] map { historyOption ⇒
+    historyInColl.coll.find($select(userId)).one[JsObject] map { historyOption ⇒
       ~(for {
         history ← historyOption
         entries ← (history \ "entries").asOpt[JsArray]

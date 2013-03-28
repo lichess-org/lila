@@ -4,8 +4,8 @@ import com.typesafe.config.Config
 
 final class Env(config: Config, db: lila.db.Env) {
 
-  val CollectionPage = config getString "collection.page"
-  val GitUrl = config getString "git.url"
+  private val CollectionPage = config getString "collection.page"
+  private val GitUrl = config getString "git.url"
 
   lazy val api = new Api()(pageColl)
 

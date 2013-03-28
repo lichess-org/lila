@@ -8,8 +8,8 @@ import reactivemongo.bson._
 
 import org.joda.time.DateTime
 
-object operator extends operator
-trait operator {
+object $operator extends $operator
+trait $operator {
 
   def $set[A: Writes](pairs: (String, A)*) = Json.obj("$set" -> Json.obj(wrap(pairs): _*))
   def $set(pairs: (String, JsValueWrapper)*) = Json.obj("$set" -> Json.obj(pairs: _*))

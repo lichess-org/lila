@@ -15,9 +15,7 @@ import reactivemongo.core.commands._
 
 import org.joda.time.DateTime
 
-
-object select extends select
-trait select { 
+object $select { 
 
   def all = Json.obj()
 
