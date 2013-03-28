@@ -1,11 +1,13 @@
 package lila.wiki
 
+import lila.db.Types.Coll
+import lila.db.api._
 import play.api.libs.concurrent.Execution.Implicits._
 
-final class Api(pageRepo: PageRepo) {
+final class Api(implicit coll: Coll) {
 
   def show(slug: String): Fu[Option[(Page, List[Page])]] = for {
-    page ← pageRepo.find byId slug
-    pages ← pageRepo.find.all
+    page ← find byId slug
+    pages ← find.all
   } yield page map { _ -> pages }
 }

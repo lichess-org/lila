@@ -1,5 +1,8 @@
 package lila.wiki
 
+import lila.db.Types.Coll
+import lila.db.api._
+
 import java.io.File
 import com.google.common.io.Files
 import org.eclipse.jgit.api.Git
@@ -12,11 +15,11 @@ import scala.concurrent.Future
 
 import play.api.libs.concurrent.Execution.Implicits._
 
-private[wiki] final class Fetch(gitUrl: String, pageRepo: PageRepo) {
+private[wiki] final class Fetch(gitUrl: String)(implicit coll: Coll) {
 
   def apply: Funit = getFiles flatMap { files ⇒
     val pages = files.map(filePage).flatten
-    pageRepo.clear >> Future.sequence(pages.map(pageRepo.insert.apply)).void
+    remove(select.all) >> Future.sequence(pages.map(insert(_))).void
   }
 
   private def filePage(file: File): Option[Page] = {

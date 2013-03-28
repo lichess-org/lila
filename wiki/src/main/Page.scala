@@ -9,10 +9,6 @@ object Pages {
 
   import java.text.Normalizer
   import java.util.regex.Matcher.quoteReplacement
-  import lila.db.Tube
-  import play.api.libs.json._
-
-  val json = Tube(Json.reads[Page], Json.writes[Page])
 
   def apply(name: String, body: String): Page = new Page(
     id = dropNumber(slugify(name)),

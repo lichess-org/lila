@@ -15,28 +15,8 @@ import reactivemongo.core.commands._
 
 import org.joda.time.DateTime
 
-object Free extends Free
-trait Free extends operator {
-  object select extends operator with select
-  object sort extends sort
-}
-
-object Full extends Full
-
-trait Full extends Free {
-  object query extends query
-  object cursor extends cursor
-  object count extends count
-  object find extends find
-  object exists extends exists
-  object primitive extends primitive
-  object projection extends projection
-  object insert extends insert
-  object update extends update
-  object remove extends remove
-}
-
-trait operator {
+object op extends op
+trait op {
 
   def $set[A: Writes](pairs: (String, A)*) = Json.obj("$set" -> Json.obj(wrap(pairs): _*))
   def $set(pairs: (String, JsValueWrapper)*) = Json.obj("$set" -> Json.obj(pairs: _*))
@@ -62,8 +42,8 @@ trait operator {
   }
 }
 
-object select extends operator with select
-trait select { self: operator ⇒
+object select extends op with select
+trait select { self: op ⇒
 
   def all = Json.obj()
 
@@ -77,8 +57,6 @@ trait select { self: operator ⇒
 object sort extends sort
 trait sort {
 
-  def naturalDesc = "$natural" -> desc
-
   def asc: SortOrder = SortOrder.Ascending
   def desc: SortOrder = SortOrder.Descending
 
@@ -87,6 +65,9 @@ trait sort {
 
   val ascId = asc("_id")
   val descId = desc("_id")
+
+  val naturalDesc = desc("$natural")
+  val naturalOrder = naturalDesc
 }
 
 object query extends query
@@ -152,6 +133,11 @@ trait find {
 
   def apply[A: Tube](b: QueryBuilder, nb: Int)(implicit coll: Coll): Fu[List[A]] =
     cursor(b, nb) toList nb map (_.flatten)
+
+  // useful in capped collections
+  def recent[A: Tube](max: Int)(implicit coll: Coll): Fu[List[A]] = (
+    pimpQB(query.all).sort(sort.naturalOrder) limit max
+  ).cursor[Option[A]].toList map (_.flatten)
 }
 
 object insert extends insert
@@ -167,9 +153,9 @@ trait insert {
 }
 
 object update extends update
-trait update extends operator {
+trait update extends op {
 
-  def apply[ID : Writes, A <: Identified[ID]](doc: A)(implicit coll: Coll, tube: Tube[A]): Funit = 
+  def apply[ID: Writes, A <: Identified[ID]](doc: A)(implicit coll: Coll, tube: Tube[A]): Funit =
     (tube toMongo doc).fold(fuck(_), js ⇒ apply(select(doc.id), js))
 
   def apply[A](selector: JsObject, update: JsObject, upsert: Boolean = false, multi: Boolean = false)(implicit coll: Coll): Funit = for {
@@ -177,12 +163,12 @@ trait update extends operator {
     result ← lastErr.ok.fold(funit, fuck(lastErr.message))
   } yield result
 
-  def doc[ID : Writes, A <: Identified[ID] : Tube](id: ID)(op: A ⇒ JsObject)(implicit coll: Coll): Funit =
+  def doc[ID: Writes, A <: Identified[ID]: Tube](id: ID)(op: A ⇒ JsObject)(implicit coll: Coll): Funit =
     find byId id flatMap { docOption ⇒
       docOption zmap (doc ⇒ update(select(id), op(doc)))
     }
 
-  def field[ID: Writes, A <: Identified[ID] : Tube](id: ID, field: String, value: A)(implicit coll: Coll): Funit =
+  def field[ID: Writes, A <: Identified[ID]: Tube](id: ID, field: String, value: A)(implicit coll: Coll): Funit =
     update(select(id), $set(field -> value))
 }
 
@@ -191,9 +177,9 @@ trait remove {
 
   def apply(selector: JsObject)(implicit coll: Coll): Funit = (coll remove selector).void
 
-  def byId[ID : Writes](id: ID)(implicit coll: Coll): Funit = apply(select(id))
+  def byId[ID: Writes](id: ID)(implicit coll: Coll): Funit = apply(select(id))
 
-  def byIds[ID : Writes](ids: Seq[ID])(implicit coll: Coll): Funit = apply(select byIds ids)
+  def byIds[ID: Writes](ids: Seq[ID])(implicit coll: Coll): Funit = apply(select byIds ids)
 }
 
 object count extends count
