@@ -18,7 +18,7 @@ private[security] final class Cli(env: Env, userRepo: UserRepo) {
     userRepo.passwd(user.id, password)
   )
 
-  def roles(username: String) = userRepo.find byId username map { 
+  def roles(username: String) = userRepo named username map { 
     _.fold(s"User $username not found")(_.roles mkString " ")
   }
 
@@ -27,7 +27,7 @@ private[security] final class Cli(env: Env, userRepo: UserRepo) {
   )
 
   private def perform(username: String, op: User ⇒ Funit): Fu[String] = 
-    userRepo.find byId Users.normalize(username) flatMap { userOption =>
+    userRepo named username flatMap { userOption =>
       userOption.fold(fufail[String](s"User $username not found")) { u ⇒ 
         op(u) inject s"User $username successfully updated" 
       }

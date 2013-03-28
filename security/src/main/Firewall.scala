@@ -4,6 +4,7 @@ import lila.common.PimpedJson._
 import lila.http.LilaCookie
 import lila.memo.VarMemo
 import lila.db.Types.Coll
+import lila.db.api._
 
 import scala.concurrent.duration._
 import akka.util.Timeout
@@ -19,27 +20,28 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
 final class Firewall(
-  coll: Coll, 
-  cookieName: Option[String], 
-  enabled: Boolean) extends lila.db.api.Full {
+    cookieName: Option[String],
+    enabled: Boolean)(implicit coll: Coll) {
 
-  val requestHandler: (RequestHeader ⇒ Option[Handler]) = enabled.fold(
-    cookieName.fold((_: RequestHeader) ⇒ none[Handler]) { cn ⇒
-      req ⇒ {
-        val bIp = blocksIp(req.remoteAddress)
-        val bCs = blocksCookies(req.cookies, cn)
-        if (bIp && !bCs) infectCookie(cn)(req).some
-        else if (bCs && !bIp) { blockIp(req.remoteAddress); none }
-        else none
+  val requestHandler: (RequestHeader ⇒ Option[Handler]) =
+    if (enabled)
+      cookieName.fold((_: RequestHeader) ⇒ none[Handler]) { cn ⇒
+        req ⇒ {
+          val bIp = blocksIp(req.remoteAddress)
+          val bCs = blocksCookies(req.cookies, cn)
+          if (bIp && !bCs) infectCookie(cn)(req).some
+          else if (bCs && !bIp) { blockIp(req.remoteAddress); none }
+          else none
+        }
       }
-    },
-    _ ⇒ None)
+    else _ ⇒ none
 
-  val blocks: (RequestHeader) ⇒ Boolean = enabled.fold(
-    cookieName.fold((req: RequestHeader) ⇒ blocksIp(req.remoteAddress)) { cn ⇒
-      req ⇒ (blocksIp(req.remoteAddress) || blocksCookies(req.cookies, cn))
-    },
-    _ ⇒ false)
+  val blocks: (RequestHeader) ⇒ Boolean =
+    if (enabled)
+      cookieName.fold((req: RequestHeader) ⇒ blocksIp(req.remoteAddress)) { cn ⇒
+        req ⇒ (blocksIp(req.remoteAddress) || blocksCookies(req.cookies, cn))
+      }
+    else _ ⇒ false
 
   def accepts(req: RequestHeader): Boolean = !blocks(req)
 
@@ -85,7 +87,7 @@ final class Firewall(
 
   private def ips: Set[String] = ipsMemo.get.await
 
-  private def fetch: Fu[Set[String]] = 
+  private def fetch: Fu[Set[String]] =
     coll.genericQueryBuilder
       .projection(Json.obj("_id" -> true))
       .cursor.toList map2 { (obj: JsObject) ⇒ obj.get[String]("_id") } map (_.flatten.toSet)

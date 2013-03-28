@@ -23,6 +23,6 @@ trait update {
       docOption zmap (doc ⇒ update(select(id), op(doc)))
     }
 
-  def field[ID: Writes, A <: Identified[ID]: Tube](id: ID, field: String, value: A)(implicit coll: Coll): Funit =
+  def field[ID: Writes, A: Writes](id: ID, field: String, value: A)(implicit coll: Coll): Funit =
     update(select(id), $set(field -> value))
 }
