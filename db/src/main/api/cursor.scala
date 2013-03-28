@@ -12,15 +12,15 @@ import play.api.libs.concurrent.Execution.Implicits._
 object cursor extends cursor
 trait cursor {
 
-  def apply[A: Tube](q: JsObject)(implicit coll: Coll): Cursor[Option[A]] =
+  def apply[A: TubeInColl](q: JsObject): Cursor[Option[A]] =
     apply(query(q))
 
-  def apply[A: Tube](q: JsObject, nb: Int)(implicit coll: Coll): Cursor[Option[A]] =
+  def apply[A: TubeInColl](q: JsObject, nb: Int): Cursor[Option[A]] =
     apply(query(q), nb)
 
-  def apply[A: Tube](b: QueryBuilder)(implicit coll: Coll): Cursor[Option[A]] =
+  def apply[A: TubeInColl](b: QueryBuilder): Cursor[Option[A]] =
     b.cursor[Option[A]]
 
-  def apply[A: Tube](b: QueryBuilder, nb: Int)(implicit coll: Coll): Cursor[Option[A]] =
+  def apply[A: TubeInColl](b: QueryBuilder, nb: Int): Cursor[Option[A]] =
     apply(b limit nb)
 }

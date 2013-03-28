@@ -8,9 +8,9 @@ import lila.common.paginator.AdapterLike
 import play.api.libs.json._
 import reactivemongo.api.SortOrder
 
-final class Adapter[A : Tube](
+final class Adapter[A : TubeInColl](
     selector: JsObject,
-    sort: Sort)(implicit coll: Coll) extends AdapterLike[A] {
+    sort: Sort) extends AdapterLike[A] {
 
   def nbResults: Fu[Int] = count(selector)
 

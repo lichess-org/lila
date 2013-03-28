@@ -27,18 +27,4 @@ object Posts {
     isByCreator = isByCreator,
     isRead = false,
     createdAt = DateTime.now)
-
-  import lila.db.Tube
-  import Tube.Helpers._
-  import play.api.libs.json._
-
-  val json = Tube(
-    reads = (__.json update (
-      readDate('createdAt) 
-    )) andThen Json.reads[Post],
-    writes = Json.writes[Post],
-    writeTransformer = (__.json update (
-      writeDate('createdAt) 
-    )).some
-  )
 }
