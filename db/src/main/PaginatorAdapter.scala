@@ -8,7 +8,7 @@ import lila.common.paginator.AdapterLike
 import play.api.libs.json._
 import reactivemongo.api.SortOrder
 
-final class Adapter[A : TubeInColl](
+final class Adapter[A: TubeInColl](
     selector: JsObject,
     sort: Sort) extends AdapterLike[A] {
 

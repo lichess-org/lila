@@ -12,10 +12,6 @@ trait Types {
 
   type Coll = reactivemongo.api.collections.default.BSONCollection
 
-  trait InColl { implicit def coll: Coll }
-
-  type TubeInColl[A] = Tube[A] with InColl
-
   type QueryBuilder = GenericQueryBuilder[BSONDocument, BSONDocumentReader, BSONDocumentWriter]
 
   type Identified[ID] = { def id: ID }

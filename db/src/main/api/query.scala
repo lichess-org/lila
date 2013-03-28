@@ -11,13 +11,13 @@ import play.api.libs.concurrent.Execution.Implicits._
 object query extends query
 trait query {
 
-  def all(implicit inColl: InColl) = builder
+  def all(implicit inColl: InColl[_]) = builder
 
-  def apply(q: JsObject)(implicit inColl: InColl) = builder query q
+  def apply(q: JsObject)(implicit inColl: InColl[_]) = builder query q
 
-  def byId[A: Writes](id: A)(implicit inColl: InColl) = apply(select byId id)
+  def byId[A: Writes](id: A)(implicit inColl: InColl[_]) = apply(select byId id)
 
-  def byIds[A: Writes](ids: Seq[A])(implicit inColl: InColl) = apply(select byIds ids)
+  def byIds[A: Writes](ids: Seq[A])(implicit inColl: InColl[_]) = apply(select byIds ids)
 
-  def builder(implicit inColl: InColl) = inColl.coll.genericQueryBuilder
+  def builder(implicit inColl: InColl[_]) = inColl.coll.genericQueryBuilder
 }

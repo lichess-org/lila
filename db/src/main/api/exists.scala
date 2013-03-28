@@ -11,9 +11,9 @@ trait exists {
 
   private object count extends count
 
-  def apply(q: JsObject)(implicit inColl: InColl): Fu[Boolean] =
+  def apply(q: JsObject)(implicit inColl: InColl[_]): Fu[Boolean] =
     count(q) map (0 !=)
 
-  def byId[A: Writes](id: A)(implicit inColl: InColl): Fu[Boolean] =
+  def byId[A: Writes](id: A)(implicit inColl: InColl[_]): Fu[Boolean] =
     apply(select(id))
 }

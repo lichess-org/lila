@@ -8,7 +8,11 @@ package object db extends PackageObject with WithPlay {
 
   import Types._
 
-  implicit def collToInColl(c: Coll): InColl = new InColl {
+  trait InColl[A] { implicit def coll: Coll }
+
+  type TubeInColl[A] = Tube[A] with InColl[A]
+
+  implicit def inColl[A](c: Coll): InColl[A] = new InColl[A] {
     def coll = c
   }
 }
