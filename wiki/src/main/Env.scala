@@ -7,11 +7,11 @@ final class Env(config: Config, db: lila.db.Env) {
   val CollectionPage = config getString "collection.page"
   val GitUrl = config getString "git.url"
 
-  lazy val api = new Api(pageRepo)
+  lazy val api = new Api()(pageColl)
 
-  private lazy val pageRepo = new PageRepo()(db(CollectionPage))
+  private lazy val pageColl = db(CollectionPage)
   
-  private lazy val fetcher = new Fetch(gitUrl = GitUrl, pageRepo = pageRepo)
+  private lazy val fetcher = new Fetch(gitUrl = GitUrl)(pageColl)
 
   def cli = new {
     def fetch = fetcher.apply inject "Fetched wiki from github"
