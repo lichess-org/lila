@@ -7,16 +7,13 @@ import lila.common.paginator.AdapterLike
 import play.api.libs.json._
 import reactivemongo.api.SortOrder
 
-final class Adapter[ID, A <: Identified[ID]](
-    repo: Repo[ID, A],
+final class Adapter[A : Tube](
     selector: JsObject,
-    sort: Sort) extends AdapterLike[A] with api.Full {
-
-  import repo.coll
+    sort: Sort)(implicit coll: Coll) extends AdapterLike[A] with api.Full {
 
   def nbResults: Fu[Int] = count(selector)
 
-  def slice(offset: Int, length: Int): Fu[Seq[A]] = repo find {
+  def slice(offset: Int, length: Int): Fu[Seq[A]] = find {
     LilaPimpedQueryBuilder(query(selector)).sort(sort: _*) skip offset limit length
   }
 }

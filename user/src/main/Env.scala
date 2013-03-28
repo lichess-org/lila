@@ -1,6 +1,6 @@
 package lila.user
 
-import lila.db.Types.ReactiveColl
+import lila.db.Types.Coll
 import lila.common.PimpedConfig._
 
 import chess.EloCalculator
@@ -18,7 +18,7 @@ final class Env(config: Config, db: lila.db.Env) {
 
   lazy val historyRepo = new HistoryRepo()(db(CollectionHistory))
 
-  lazy val userRepo = new UserRepo()(db(CollectionUser))
+  lazy val userRepo = new UserRepo()(db(CollectionUser), Users.json)
 
   lazy val paginator = new PaginatorBuilder(
     userRepo = userRepo,
@@ -37,6 +37,9 @@ final class Env(config: Config, db: lila.db.Env) {
     ttl = CachedNbTtl)
 
   lazy val eloChart = EloChart(historyRepo) _
+
+  def usernameOrAnonymous(id: String): Fu[String] = 
+    cached usernameOrAnonymous id
 
   def cli = new Cli(this)
 }

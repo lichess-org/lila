@@ -1,6 +1,6 @@
 package lila.user
 
-import lila.db.Repo
+import lila.db.{ Repo, Tube }
 import lila.db.Implicits._
 
 import play.api.libs.json.Json
@@ -16,8 +16,8 @@ import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
-final class UserRepo(implicit coll: ReactiveColl) 
-  extends Repo[String, User](Users.json) {
+final class UserRepo(implicit coll: Coll, json: Tube[User]) 
+  extends Repo[String, User] {
 
   type ID = String
 

@@ -9,7 +9,7 @@ import play.modules.reactivemongo.Implicits._
 
 import org.joda.time.DateTime
 
-final class HistoryRepo(implicit coll: ReactiveColl) extends lila.db.api.Full {
+final class HistoryRepo(implicit coll: Coll) extends lila.db.api.Full {
 
   def addEntry(userId: String, elo: Int, opponentElo: Option[Int]): Funit =
     coll.update(

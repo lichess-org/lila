@@ -42,13 +42,13 @@ private[game] object RawClocks {
     )
   }
 
-  import lila.db.JsonTube
-  import JsonTube.Helpers._
+  import lila.db.Tube
+  import Tube.Helpers._
   import play.api.libs.json._
 
   private val defaults = Json.obj("t" -> none[Double])
 
-  val json = JsonTube(
+  val json = Tube(
     reads = (__.json update merge(defaults)) andThen Json.reads[RawClock],
     writes = Json.writes[RawClock]
   )

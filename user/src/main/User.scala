@@ -58,8 +58,8 @@ object Users {
 
   def normalize(username: String) = username.toLowerCase
 
-  import lila.db.JsonTube
-  import JsonTube.Helpers._
+  import lila.db.Tube
+  import Tube.Helpers._
   import play.api.libs.json._
 
   private val defaults = Json.obj(
@@ -68,7 +68,7 @@ object Users {
     "engine" -> false,
     "toints" -> 0)
 
-  val json = JsonTube(
+  val json = Tube(
     reads = (__.json update (
       merge(defaults) andThen readDate('createdAt)
     )) andThen Json.reads[User],

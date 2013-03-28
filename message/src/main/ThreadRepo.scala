@@ -17,7 +17,7 @@ import ornicar.scalalib.Random
 
 import scala.concurrent.Future
 
-final class ThreadRepo(implicit coll: ReactiveColl) extends Repo[String, Thread](Threads.json) {
+final class ThreadRepo(implicit coll: Coll) extends Repo[String, Thread](Threads.json) {
 
   type ID = String
 

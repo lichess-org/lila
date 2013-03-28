@@ -10,7 +10,7 @@ import reactivemongo.api._
 import reactivemongo.bson._
 import reactivemongo.core.commands._
 
-private[i18n] final class TranslationRepo(implicit coll: ReactiveColl)
+private[i18n] final class TranslationRepo(implicit coll: Coll)
     extends Repo[Int, Translation](Translations.json) {
 
   type ID = Int

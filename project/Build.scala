@@ -15,11 +15,11 @@ object ApplicationBuild extends Build {
         spray.caching, reactivemongo)
     )) dependsOn (
       api, user, wiki, message, notification, i18n, game, bookmark,
-      gameSearch
+      gameSearch, timeline
     ) aggregate (
         chess, api, common, http, db, user, wiki,
         hub, websocket, message, notification, i18n, game,
-        bookmark, search, gameSearch
+        bookmark, search, gameSearch, timeline
       ) settings (
           templatesImport ++= Seq(
             "lila.game.{ Game, Player, Pov }",
@@ -54,6 +54,11 @@ object ApplicationBuild extends Build {
 
   lazy val gameSearch = project("gameSearch", Seq(common, chess, search, game)).settings(
     libraryDependencies ++= provided(playApi, reactivemongo, playReactivemongo, scalastic)
+  )
+
+  lazy val timeline = project("timeline", Seq(common, db, user, hub)).settings(
+    libraryDependencies ++= provided(
+      playApi, playTest, reactivemongo, playReactivemongo)
   )
 
   lazy val user = project("user", Seq(common, memo, db, chess)).settings(

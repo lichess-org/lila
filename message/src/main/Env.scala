@@ -1,6 +1,6 @@
 package lila.message
 
-import lila.db.Types.ReactiveColl
+import lila.db.Types.Coll
 import lila.user.UserRepo
 
 import akka.actor.ActorRef

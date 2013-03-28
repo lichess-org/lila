@@ -12,7 +12,7 @@ trait Types {
 
   type LilaDB = reactivemongo.api.DB
 
-  type ReactiveColl = reactivemongo.api.collections.default.BSONCollection
+  type Coll = reactivemongo.api.collections.default.BSONCollection
 
   type QueryBuilder = GenericQueryBuilder[BSONDocument, BSONDocumentReader, BSONDocumentWriter]
 

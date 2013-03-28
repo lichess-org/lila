@@ -3,7 +3,7 @@ package lila.security
 import lila.common.PimpedJson._
 import lila.http.LilaCookie
 import lila.memo.VarMemo
-import lila.db.Types.ReactiveColl
+import lila.db.Types.Coll
 
 import scala.concurrent.duration._
 import akka.util.Timeout
@@ -19,7 +19,7 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
 final class Firewall(
-  coll: ReactiveColl, 
+  coll: Coll, 
   cookieName: Option[String], 
   enabled: Boolean) extends lila.db.api.Full {
 
