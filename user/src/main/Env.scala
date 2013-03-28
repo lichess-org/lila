@@ -18,7 +18,7 @@ final class Env(config: Config, db: lila.db.Env) {
 
   lazy val historyRepo = new HistoryRepo()(db(CollectionHistory))
 
-  lazy val userRepo = new UserRepo()(db(CollectionUser), Users.json)
+  lazy val userRepo = new UserRepo()(db(CollectionUser))
 
   lazy val paginator = new PaginatorBuilder(
     userRepo = userRepo,
