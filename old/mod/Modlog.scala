@@ -35,5 +35,5 @@ object Modlog extends Function5[String, Option[String], String, Option[String], 
 
   import play.api.libs.json.Json
 
-  val json = mongodb.JsonTube(Json.reads[Modlog], Json.writes[Modlog])
+  val json = mongodb.Tube(Json.reads[Modlog], Json.writes[Modlog])
 }

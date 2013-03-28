@@ -65,12 +65,12 @@ object Threads {
     invitedId = invitedId,
     visibleByUserIds = List(creatorId, invitedId))
 
-  import lila.db.JsonTube
-  import JsonTube.Helpers._
+  import lila.db.Tube
+  import Tube.Helpers._
   import play.api.libs.json._
   import Posts.json.implicits._
 
-  val json = JsonTube(
+  val json = Tube(
     reads = (__.json update (
       readDate('createdAt) andThen readDate('updatedAt)
     )) andThen Json.reads[Thread],

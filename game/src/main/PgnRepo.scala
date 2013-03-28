@@ -8,7 +8,7 @@ import play.api.libs.concurrent.Execution.Implicits._
 
 import play.modules.reactivemongo.Implicits._
 
-final class PgnRepo(implicit coll: ReactiveColl) extends lila.db.api.Full {
+final class PgnRepo(implicit coll: Coll) extends lila.db.api.Full {
 
   def get(id: String): Fu[String] = query(select(id)).one map { objOption ⇒
     ~(objOption flatMap (_ str "p"))

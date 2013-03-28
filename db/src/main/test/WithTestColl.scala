@@ -15,7 +15,7 @@ abstract class WithTestColl(a: FakeApplication = FakeApplication())
 
   implicit lazy val conn = new MongoDriver connection List("localhost:27017")
 
-  implicit lazy val coll: ReactiveColl = {
+  implicit lazy val coll: Coll = {
     val db = conn("test")
     val coll = db("test")
     coll.drop().await

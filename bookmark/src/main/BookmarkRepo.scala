@@ -19,7 +19,7 @@ case class Bookmark(
 // db.bookmark.ensureIndex({g:1})
 // db.bookmark.ensureIndex({u:1})
 // db.bookmark.ensureIndex({d: -1})
-private[bookmark] final class BookmarkRepo(implicit val coll: ReactiveColl) extends lila.db.api.Full {
+private[bookmark] final class BookmarkRepo(implicit val coll: Coll) extends lila.db.api.Full {
 
   def toggle(gameId: String, userId: String): Fu[Boolean] =
     exists(selectId(gameId, userId)) flatMap { e ⇒

@@ -33,7 +33,7 @@ class DateTest extends Specification {
 
   // "save and retrieve" should {
 
-  //   val trans = __.json update JsonTube.Helpers.readDate('ca)
+  //   val trans = __.json update Tube.Helpers.readDate('ca)
 
   //   "JsObject" in new WithTestColl {
   //     (coll.insert(Json.obj("ca" -> $date(date))) >>

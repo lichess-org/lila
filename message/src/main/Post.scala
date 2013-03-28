@@ -28,11 +28,11 @@ object Posts {
     isRead = false,
     createdAt = DateTime.now)
 
-  import lila.db.JsonTube
-  import JsonTube.Helpers._
+  import lila.db.Tube
+  import Tube.Helpers._
   import play.api.libs.json._
 
-  val json = JsonTube(
+  val json = Tube(
     reads = (__.json update (
       readDate('createdAt) 
     )) andThen Json.reads[Post],

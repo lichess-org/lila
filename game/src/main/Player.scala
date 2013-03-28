@@ -139,8 +139,8 @@ case class RawPlayer(
 
 object RawPlayers {
 
-  import lila.db.JsonTube
-  import JsonTube.Helpers._
+  import lila.db.Tube
+  import Tube.Helpers._
   import play.api.libs.json._
 
   private val defaults = Json.obj(
@@ -157,7 +157,7 @@ object RawPlayers {
     "bs" -> 0,
     "na" -> none[String])
 
-  val json = JsonTube(
+  val json = Tube(
     reads = (__.json update merge(defaults)) andThen Json.reads[RawPlayer],
     writes = Json.writes[RawPlayer]
   )

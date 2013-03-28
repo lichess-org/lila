@@ -13,7 +13,7 @@ final class Env(config: Config) {
     ReactiveMongoPlugin.db
   }
 
-  def apply(name: String): ReactiveColl = db(name)
+  def apply(name: String): Coll = db(name)
 }
 
 object Env {

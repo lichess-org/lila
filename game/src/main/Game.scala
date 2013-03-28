@@ -420,10 +420,10 @@ object Game {
         pgnImport = pgnImport).some,
       createdAt = DateTime.now)
 
-  import lila.db.JsonTube
+  import lila.db.Tube
   import play.api.libs.json._
 
-  val json = JsonTube(
+  val json = Tube(
     reads = Reads[Game](js ⇒
       (for {
         obj ← js.asOpt[JsObject]
@@ -491,8 +491,8 @@ case class RawGame(
 
 object RawGames {
 
-  import lila.db.JsonTube
-  import JsonTube.Helpers._
+  import lila.db.Tube
+  import Tube.Helpers._
   import play.api.libs.json._
   import RawPlayers.json.implicits.{ iReads ⇒ playerReads, iWrites ⇒ playerWrites }
   import RawClocks.json.implicits.{ iReads ⇒ clockReads, iWrites ⇒ clockWrites }
@@ -514,7 +514,7 @@ object RawGames {
     "r960" -> none[Boolean],
     "me" -> none[RawMetadata])
 
-  val json = JsonTube(
+  val json = Tube(
     reads = (__.json update (
       merge(defaults) andThen readDate('ca) andThen readDate('ua)
     )) andThen Json.reads[RawGame],

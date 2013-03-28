@@ -20,7 +20,7 @@ import org.scala_tools.time.Imports._
 import scala.util.Random
 import scala.concurrent.Future
 
-final class GameRepo(implicit coll: ReactiveColl) extends Repo[String, Game](Game.json) {
+final class GameRepo(implicit coll: Coll) extends Repo[String, Game](Game.json) {
 
   type ID = String
 

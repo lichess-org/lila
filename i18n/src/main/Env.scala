@@ -1,6 +1,6 @@
 package lila.i18n
 
-import lila.db.Types.ReactiveColl
+import lila.db.Types.Coll
 
 import com.typesafe.config.Config
 import play.api.i18n.{ MessagesApi, MessagesPlugin }

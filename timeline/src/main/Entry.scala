@@ -1,7 +1,4 @@
-package lila.app
-package timeline
-
-import com.novus.salat.annotations._
+package lila.timeline
 
 case class Entry(
     gameId: String,
@@ -21,11 +18,18 @@ case class Entry(
     "<td>%s</td><td>%s</td><td class='trans_me'>%s</td><td class='trans_me'>%s</td><td class='trans_me'>%s</td>".format(
       "<a class='watch' href='/%s'></a>" format gameId,
       players map {
-        case (name, None) ⇒ name
-        case (name, Some(id)) ⇒
-          "<a class='user_link' href='/@/%s'>%s</a>".format(id, name)
+        case (name, None)     ⇒ name
+        case (name, Some(id)) ⇒ "<a class='user_link' href='/@/%s'>%s</a>".format(id, name)
       } mkString " vs ",
       variant.capitalize,
       rated ? "Rated" | "Casual",
       clock | "Unlimited")
+}
+
+object Entries {
+
+  import lila.db.Tube
+  import play.api.libs.json._
+
+  val json = Tube(Json.reads[Entry], Json.writes[Entry])
 }

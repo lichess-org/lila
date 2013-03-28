@@ -9,10 +9,11 @@ import play.modules.reactivemongo.Implicits._
 
 import play.api.libs.concurrent.Execution.Implicits._
 
-abstract class CappedRepo[Doc](
-  implicit coll: ReactiveColl, 
-  json: JsonTube[Doc], 
-  max: Int) extends api.Full {
+abstract class CappedRepo[Doc] extends api.Full {
+
+    def max: Int
+    def json: Tube[Doc]
+    implicit def coll: Coll
 
   val naturalOrder = sort desc "$natural" 
 
@@ -20,7 +21,7 @@ abstract class CappedRepo[Doc](
     LilaPimpedQueryBuilder(query.all).sort(naturalOrder) limit max
   ).cursor[Option[Doc]].toList map (_.flatten)
 
-  private implicit val bsonDocumentReader = new BSONDocumentReader[Option[Doc]] {
+  implicit val bsonReader = new BSONDocumentReader[Option[Doc]] {
     def read(bson: BSONDocument): Option[Doc] = json.fromMongo(JsObjectReader read bson).asOpt
   }
 }
