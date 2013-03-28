@@ -9,7 +9,7 @@ import play.api.data.Forms._
 import play.api.libs.concurrent.Execution.Implicits._
 import ornicar.scalalib.Random
 
-final class Api(store: Store, /* firewall: Firewall, */ userRepo: UserRepo) {
+final class Api(firewall: Firewall) {
 
   def AccessUri = "access_uri"
 
@@ -21,20 +21,21 @@ final class Api(store: Store, /* firewall: Firewall, */ userRepo: UserRepo) {
   )
 
   def saveAuthentication(username: String)(implicit req: RequestHeader): String =
-    (Random nextString 12) ~ { sessionId ⇒ store.save(sessionId, username, req) }
+    (Random nextString 12) ~ { sessionId ⇒ Store.save(sessionId, username, req) }
 
   def authorizationFailed(req: RequestHeader): Result =
     Forbidden("no permission")
 
   // blocking function, required by Play2 form
   def authenticateUser(username: String, password: String): Option[User] =
-    userRepo.authenticate(username, password).await
+    UserRepo.authenticate(username, password).await
 
   def restoreUser(req: RequestHeader): Fu[Option[User]] =
-    req.session.get("sessionId").fold(fuccess(none[User])) { sessionId ⇒
-      // if firewall accepts req
-      store getUsername sessionId flatMap { username ⇒
-        username.zmap(userRepo.named)
+    ~(firewall accepts req).option(
+      req.session.get("sessionId").fold(fuccess(none[User])) { sessionId ⇒
+        Store getUsername sessionId flatMap { username ⇒
+          username.zmap(UserRepo.named)
+        }
       }
-    }
+    )
 }

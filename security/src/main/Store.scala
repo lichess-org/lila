@@ -19,16 +19,18 @@ case class UserSpy(
   uas: List[String],
   otherUsernames: Set[String])
 
-private[security] final class Store(implicit coll: Coll) {
+private[security] object Store {
+
+  private implicit def inColl = storeInColl
 
   def save(sessionId: String, username: String, req: RequestHeader): Funit =
-    coll.insert(Json.obj(
+    insert(Json.obj(
       "_id" -> sessionId,
       "user" -> normalize(username),
       "ip" -> ip(req),
       "ua" -> ua(req),
       "date" -> DateTime.now,
-      "up" -> true)).void
+      "up" -> true))
 
   def getUsername(sessionId: String): Fu[Option[String]] =
     primitive.one(
@@ -37,18 +39,18 @@ private[security] final class Store(implicit coll: Coll) {
     )(_.asOpt[String])
 
   def delete(sessionId: String): Funit =
-    coll.update(select(sessionId), $set("up" -> false)).void
+    update(select(sessionId), $set("up" -> false))
 
   // useful when closing an account,
   // we want to logout too
-  def deleteUsername(username: String): Funit = coll.update(
+  def deleteUsername(username: String): Funit = update(
     selectUser(username),
     $set("up" -> false),
     upsert = false,
-    multi = true).void
+    multi = true)
 
   def userSpy(username: String): Fu[UserSpy] = for {
-    objs ← builder.query(selectUser(username)).cursor.toList
+    objs ← inColl.coll.find(selectUser(username)).cursor.toList
     usernames ← explore(normalize(username))
   } yield UserSpy(
     ips = objs.map(_.get[String]("ip")).flatten.distinct,
@@ -77,8 +79,6 @@ private[security] final class Store(implicit coll: Coll) {
 
   private def usernamesByIp(ip: String): Fu[Set[String]] =
     primitive(Json.obj("ip" -> ip), "user")(_.asOpt[String]) map (_.toSet)
-
-  protected implicit val builder = coll.genericQueryBuilder
 
   private def ip(req: RequestHeader) = req.remoteAddress
 
