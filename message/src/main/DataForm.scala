@@ -5,7 +5,7 @@ import lila.user.{ User, UserRepo }
 import play.api.data._
 import play.api.data.Forms._
 
-final class DataForm(userRepo: UserRepo) {
+final class DataForm {
 
   import DataForm._
 
@@ -24,7 +24,7 @@ final class DataForm(userRepo: UserRepo) {
     "text" -> text(minLength = 3)
   ))
 
-  private def fetchUser(username: String) = (userRepo.find byId username).await
+  private def fetchUser(username: String) = (UserRepo named username).await
 
   private def usernameExists(username: String) = fetchUser(username).isDefined
 }
