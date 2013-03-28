@@ -1,6 +1,6 @@
 package lila
 
-import lila.db.Tube
+import lila.db.{ Tube, InColl }
 import Tube.Helpers._
 import play.api.libs.json._
 
@@ -12,11 +12,15 @@ package object user extends PackageObject with WithPlay {
     "engine" -> false,
     "toints" -> 0)
 
-  implicit lazy val userTube = Tube(
+  lazy val userTube = Tube[User](
     reader = (__.json update (
       merge(userDefaults) andThen readDate('createdAt)
     )) andThen Json.reads[User],
     writer = Json.writes[User],
     writeTransformer = (__.json update writeDate('createdAt)).some
-  )(Env.current.userRepo.coll)
+  ) inColl Env.current.userColl
+
+  private[user] sealed trait History
+
+  lazy val historyInColl = InColl[History](Env.current.historyColl)
 }

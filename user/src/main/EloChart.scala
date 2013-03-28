@@ -63,8 +63,8 @@ object EloChart {
     Json.arr("number", "Average")
   )
 
-  def apply(historyRepo: HistoryRepo)(user: User): Fu[Option[EloChart]] =
-    historyRepo userElos user.username map { elos ⇒
+  def apply(user: User): Fu[Option[EloChart]] =
+    HistoryRepo userElos user.username map { elos ⇒
       (elos.size > 1) option {
         new EloChart((user.createdAt.getSeconds.toInt, Users.STARTING_ELO, None) :: elos.toList)
       }

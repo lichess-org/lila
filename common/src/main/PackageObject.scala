@@ -31,12 +31,17 @@ trait PackageObject
 
   implicit final class LilaPimpedOption[A](o: Option[A]) {
 
-    def zmap[B : Zero](f: A ⇒ B): B = o.fold(∅[B])(f)
+    def zmap[B: Zero](f: A ⇒ B): B = o.fold(∅[B])(f)
   }
 
   implicit final class LilaPimpedMap[A, B](m: Map[A, B]) {
 
     def +?(bp: (Boolean, (A, B))): Map[A, B] = if (bp._1) m + bp._2 else m
+  }
+
+  implicit final class LilaPimpedString(s: String) {
+
+    def describes[A](v: ⇒ A): A = { println(s); v }
   }
 
   def parseIntOption(str: String): Option[Int] = try {

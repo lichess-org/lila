@@ -11,13 +11,29 @@ import play.api.libs.concurrent.Execution.Implicits._
 object primitive extends primitive
 trait primitive {
 
-  def apply[A](q: JsObject, field: String, modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsValue ⇒ Option[A])(implicit coll: Coll): Fu[List[A]] =
-    modifier(coll.genericQueryBuilder query q projection Json.obj(field -> true)).cursor.toList map (list ⇒ list map { obj ⇒
+  def apply[A: InColl, B](
+    q: JsObject,
+    field: String,
+    modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsValue ⇒ Option[B]): Fu[List[B]] =
+    modifier {
+      implicitly[InColl[A]].coll
+        .genericQueryBuilder
+        .query(q)
+        .projection(Json.obj(field -> true))
+    }.cursor.toList map2 { (obj: BSONDocument) ⇒
       extract(JsObjectReader.read(obj) \ field)
-    } flatten)
+    } map (_.flatten)
 
-  def one[A](q: JsObject, field: String, modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsValue ⇒ Option[A])(implicit coll: Coll): Fu[Option[A]] =
-    modifier(coll.genericQueryBuilder query q projection Json.obj(field -> true)).one map (opt ⇒ opt map { obj ⇒
+  def one[A: InColl, B](
+    q: JsObject,
+    field: String,
+    modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsValue ⇒ Option[B]): Fu[Option[B]] =
+    modifier {
+      implicitly[InColl[A]].coll
+        .genericQueryBuilder
+        .query(q)
+        .projection(Json.obj(field -> true))
+    }.one map2 { (obj: BSONDocument) ⇒
       extract(JsObjectReader.read(obj) \ field)
-    } flatten)
+    } map (_.flatten)
 }

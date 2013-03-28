@@ -1,6 +1,5 @@
 package lila.user
 
-import lila.db.Tube
 import lila.db.Implicits._
 import lila.db.api._
 
@@ -17,7 +16,9 @@ import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
-final class UserRepo(implicit val coll: Coll) {
+object UserRepo {
+
+  implicit def tube = userTube
 
   type ID = String
 

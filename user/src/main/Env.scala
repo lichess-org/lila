@@ -16,27 +16,19 @@ final class Env(config: Config, db: lila.db.Env) {
   val CollectionHistory = config getString "collection.history"
   val CollectionConfig = config getString "collection.config"
 
-  lazy val historyRepo = new HistoryRepo()(db(CollectionHistory))
+  lazy val historyColl = db(CollectionHistory)
 
-  lazy val userRepo = new UserRepo()(db(CollectionUser))
+  lazy val userColl = db(CollectionUser)
 
   lazy val paginator = new PaginatorBuilder(
-    userRepo = userRepo,
     countUsers = cached.countEnabled,
     maxPerPage = PaginatorMaxPerPage)
 
-  lazy val eloUpdater = new EloUpdater(
-    userRepo = userRepo,
-    historyRepo = historyRepo,
-    floor = EloUpdaterFloor)
+  lazy val eloUpdater = new EloUpdater(floor = EloUpdaterFloor)
 
   lazy val usernameMemo = new UsernameMemo(ttl = OnlineTtl)
 
-  lazy val cached = new Cached(
-    userRepo = userRepo,
-    ttl = CachedNbTtl)
-
-  lazy val eloChart = EloChart(historyRepo) _
+  lazy val cached = new Cached(ttl = CachedNbTtl)
 
   def usernameOrAnonymous(id: String): Fu[String] = 
     cached usernameOrAnonymous id
@@ -46,7 +38,7 @@ final class Env(config: Config, db: lila.db.Env) {
 
 object Env {
 
-  lazy val current = new Env(
+  lazy val current: Env = "[user] boot" describes new Env(
     config = lila.common.PlayApp loadConfig "user",
-    db = lila.db.Env.current)
+    db = lila.db.Env.current) 
 }
