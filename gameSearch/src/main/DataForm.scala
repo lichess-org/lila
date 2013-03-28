@@ -1,17 +1,16 @@
-package lila.app
-package search
+package lila.gameSearch
+
+import lila.search.Range
+import lila.common.Form._
 
 import play.api.data._
 import play.api.data.Forms._
-import scalaz.effects._
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 
 import chess.{ Mode }
 
 final class DataForm {
-
-  import lila.common.Form._
 
   val search = Form(mapping(
     "players" -> mapping(

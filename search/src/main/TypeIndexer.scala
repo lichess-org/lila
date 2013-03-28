@@ -12,7 +12,7 @@ final class TypeIndexer(
     indexName: String,
     typeName: String,
     mapping: JsObject,
-    indexQuery: JsObject ⇒ Unit) extends Actor {
+    indexQuery: JsObject ⇒ Funit) extends Actor {
 
   def receive = {
 
