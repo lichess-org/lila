@@ -8,8 +8,7 @@ import play.modules.reactivemongo.Implicits._
 import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._
 
-object projection extends projection
-trait projection {
+object $projection {
 
   def apply[A: InColl, B](
     q: JsObject,

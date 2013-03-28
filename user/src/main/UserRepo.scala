@@ -24,21 +24,21 @@ object UserRepo {
 
   val normalize = Users normalize _
 
-  def named(username: String): Fu[Option[User]] = find byId normalize(username)
+  def named(username: String): Fu[Option[User]] = $find byId normalize(username)
 
-  def byIdsSortElo(ids: Seq[ID], max: Int) = find(query byIds ids sort sortEloDesc limit max)
+  def byIdsSortElo(ids: Seq[ID], max: Int) = $find($query byIds ids sort sortEloDesc limit max)
 
-  def allSortToints(nb: Int) = find(query.all sort ("toints" -> sort.desc), nb)
+  def allSortToints(nb: Int) = $find($query.all sort ("toints" -> $sort.desc), nb)
 
-  def usernameById(id: ID) = primitive.one(select(id), "username")(_.asOpt[String])
+  def usernameById(id: ID) = $primitive.one($select(id), "username")(_.asOpt[String])
 
-  def rank(user: User) = count(enabledQuery ++ Json.obj("elo" -> $gt(user.elo))) map (1+)
+  def rank(user: User) = $count(enabledQuery ++ Json.obj("elo" -> $gt(user.elo))) map (1+)
 
-  def setElo(id: ID, elo: Int): Funit = update(select(id), $set("elo" -> elo))
+  def setElo(id: ID, elo: Int): Funit = $update($select(id), $set("elo" -> elo))
 
   val enabledQuery = Json.obj("enabled" -> true)
 
-  val sortEloDesc = sort desc "elo" 
+  val sortEloDesc = $sort desc "elo" 
 
   def incNbGames(id: ID, rated: Boolean, ai: Boolean, result: Option[Int]) = {
     val incs = List(
@@ -59,21 +59,21 @@ object UserRepo {
       }) filterNot (_ ⇒ ai)
     ).flatten map (_ -> 1)
 
-    update(select(id), $inc(incs: _*))
+    $update($select(id), $inc(incs: _*))
   }
 
-  def incToints(id: ID)(nb: Int) = update(select(id), $inc("toints" -> nb))
+  def incToints(id: ID)(nb: Int) = $update($select(id), $inc("toints" -> nb))
 
-  val averageElo: Fu[Float] = primitive(select.all, "elo")(_.asOpt[Float]) map { elos ⇒
+  val averageElo: Fu[Float] = $primitive($select.all, "elo")(_.asOpt[Float]) map { elos ⇒
     elos.sum / elos.size.toFloat
   }
 
-  def saveSetting(id: ID, key: String, value: String) = update(select(id), $set(("settings." + key) -> value))
+  def saveSetting(id: ID, key: String, value: String) = $update($select(id), $set(("settings." + key) -> value))
 
   def authenticate(id: ID, password: String): Fu[Option[User]] = for {
     greenLight ← checkPassword(id, password)
     if greenLight
-    userOption ← find byId id
+    userOption ← $find byId id
   } yield userOption
 
   private case class AuthData(password: String, salt: String, enabled: Boolean, sha512: Boolean) {
@@ -81,50 +81,50 @@ object UserRepo {
   }
 
   def checkPassword(id: ID, password: String): Fu[Boolean] = for {
-    dataOption ← projection.one(select(id), Seq("password", "salt", "enabled", "sha512")) { obj ⇒
+    dataOption ← $projection.one($select(id), Seq("password", "salt", "enabled", "sha512")) { obj ⇒
       (Json.reads[AuthData] reads obj).asOpt
     }
   } yield dataOption zmap (data ⇒ data.enabled && data.compare(password))
 
   def create(username: String, password: String): Fu[Option[User]] = for {
-    existing ← exists byId normalize(username)
+    existing ← $count exists normalize(username)
     userOption ← existing.fold(
       fuccess(none),
-      insert(newUser(username, password)) >> (find byId normalize(username)) 
+      $insert(newUser(username, password)) >> ($find byId normalize(username)) 
     )
   } yield userOption
 
-  def countEnabled: Fu[Int] = count(enabledQuery)
+  def countEnabled: Fu[Int] = $count(enabledQuery)
 
   def usernamesLike(username: String, max: Int = 10): Fu[List[String]] = {
     import java.util.regex.Matcher.quoteReplacement
     val escaped = """^([\w-]*).*$""".r.replaceAllIn(normalize(username), m ⇒ quoteReplacement(m group 1))
     val regex = "^" + escaped + ".*$"
-    primitive(
+    $primitive(
       Json.obj("_id" -> RegEx(regex)),
       "username",
-      _ sort ("_id" -> sort.desc) limit max
+      _ sort ("_id" -> $sort.desc) limit max
     )(_.asOpt[String])
   }
 
-  def toggleMute(id: ID) = update.doc[ID, User](id) { u ⇒ $set("isChatBan" -> !u.isChatBan) }
+  def toggleMute(id: ID) = $update.doc[ID, User](id) { u ⇒ $set("isChatBan" -> !u.isChatBan) }
 
-  def toggleEngine(id: ID): Funit = update.doc[ID, User](id) { u ⇒ $set("engine" -> !u.engine) }
+  def toggleEngine(id: ID): Funit = $update.doc[ID, User](id) { u ⇒ $set("engine" -> !u.engine) }
 
-  def isEngine(id: ID): Fu[Boolean] = exists(select(id) ++ Json.obj("engine" -> true))
+  def isEngine(id: ID): Fu[Boolean] = $count.exists($select(id) ++ Json.obj("engine" -> true))
 
-  def setRoles(id: ID, roles: List[String]) = update.field(id, "roles", roles)
+  def setRoles(id: ID, roles: List[String]) = $update.field(id, "roles", roles)
 
-  def setBio(id: ID, bio: String) = update.field(id, "bio", bio)
+  def setBio(id: ID, bio: String) = $update.field(id, "bio", bio)
 
-  def enable(id: ID) = update.field(id, "enabled", true)
+  def enable(id: ID) = $update.field(id, "enabled", true)
 
-  def disable(id: ID) = update.field(id, "enabled", false)
+  def disable(id: ID) = $update.field(id, "enabled", false)
 
   def passwd(id: ID, password: String): Funit =
-    primitive.one(select(id), "salt")(_.asOpt[String]) flatMap { saltOption ⇒
+    $primitive.one($select(id), "salt")(_.asOpt[String]) flatMap { saltOption ⇒
       saltOption zmap { salt ⇒
-        update(select(id), $set("password" -> hash(password, salt)) ++ $set("sha512" -> false))
+        $update($select(id), $set("password" -> hash(password, salt)) ++ $set("sha512" -> false))
       }
     }
 

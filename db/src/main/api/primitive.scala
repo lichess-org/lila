@@ -8,8 +8,7 @@ import play.modules.reactivemongo.Implicits._
 import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._
 
-object primitive extends primitive
-trait primitive {
+object $primitive {
 
   def apply[A: InColl, B](
     q: JsObject,

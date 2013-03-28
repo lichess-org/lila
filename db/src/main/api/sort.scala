@@ -9,8 +9,7 @@ import reactivemongo.bson._
 
 import org.joda.time.DateTime
 
-object sort extends sort
-trait sort {
+object $sort {
 
   def asc: SortOrder = SortOrder.Ascending
   def desc: SortOrder = SortOrder.Descending

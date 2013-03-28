@@ -1,7 +1,5 @@
 package lila.message
 
-import lila.db.Types.Coll
-
 import akka.actor.ActorRef
 import com.typesafe.config.Config
 
@@ -10,8 +8,8 @@ final class Env(
     db: lila.db.Env,
     sockets: ActorRef) {
 
-  val CollectionThread = config getString "collection.thread"
-  val ThreadMaxPerPage = config getInt "thread.max_per_page"
+  private val CollectionThread = config getString "collection.thread"
+  private val ThreadMaxPerPage = config getInt "thread.max_per_page"
 
   private[message] lazy val threadColl = db(CollectionThread)
 
