@@ -1,6 +1,7 @@
 package lila.user
 
 import lila.db.Types._
+import lila.db.InColl
 import lila.db.api._
 
 import play.api.libs.json._
@@ -10,19 +11,21 @@ import play.modules.reactivemongo.Implicits._
 
 import org.joda.time.DateTime
 
-final class HistoryRepo(implicit coll: Coll) {
+object HistoryRepo {
+
+  implicit def inColl = historyInColl
 
   def addEntry(userId: String, elo: Int, opponentElo: Option[Int]): Funit =
-    coll.update(
+    update[History](
       select(userId),
       $push("entries", opponentElo.fold(Json.arr(DateTime.now.getSeconds.toInt, elo)) { opElo ⇒
         Json.arr(DateTime.now.getSeconds.toInt, elo, opElo)
       }),
       upsert = true
-    ).void
+    )
 
   def userElos(userId: String): Fu[Seq[(Int, Int, Option[Int])]] =
-    coll.find(select(userId)).one[JsObject] map { historyOption ⇒
+    historyInColl.coll.find(select(userId)).one[JsObject] map { historyOption ⇒
       ~(for {
         history ← historyOption
         entries ← (history \ "entries").asOpt[JsArray]

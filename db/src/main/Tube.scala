@@ -8,6 +8,13 @@ import Reads.constraints._
 import reactivemongo.bson._
 import play.modules.reactivemongo.Implicits._
 
+trait InColl[A] { implicit def coll: Types.Coll }
+
+object InColl {
+
+  def apply[A](c: Coll): InColl[A] = new InColl[A] { def coll = c }
+}
+
 case class Tube[Doc](
   reader: Reads[Doc],
   writer: Writes[Doc],
@@ -35,6 +42,11 @@ case class Tube[Doc](
 
   def fromMongo(js: JsObject): JsResult[Doc] =
     Tube.depath(Tube fromMongo js) flatMap read
+
+  def inColl(c: Coll): TubeInColl[Doc] = 
+    new Tube[Doc](reader, writer, writeTransformer) with InColl[Doc] {
+      def coll = c
+    }
 }
 
 object Tube {

@@ -10,14 +10,14 @@ import play.modules.reactivemongo.Implicits._
 object update extends update
 trait update {
 
-  def apply[ID: Writes, A <: Identified[ID] : TubeInColl](doc: A): Funit =
+  def apply[ID: Writes, A <: Identified[ID]: TubeInColl](doc: A): Funit =
     (implicitly[Tube[A]] toMongo doc).fold(
-      fuck(_), 
+      fuck(_),
       js ⇒ apply(select(doc.id), js)
     )
 
-  def apply(selector: JsObject, update: JsObject, upsert: Boolean = false, multi: Boolean = false)(implicit inColl: InColl[_]): Funit = for {
-    lastErr ← inColl.coll.update(selector, update, upsert = upsert, multi = multi)
+  def apply[A: InColl](selector: JsObject, update: JsObject, upsert: Boolean = false, multi: Boolean = false): Funit = for {
+    lastErr ← implicitly[InColl[A]].coll.update(selector, update, upsert = upsert, multi = multi)
     result ← lastErr.ok.fold(funit, fuck(lastErr.message))
   } yield result
 
@@ -26,6 +26,6 @@ trait update {
       docOption zmap (doc ⇒ update(select(id), op(doc)))
     }
 
-  def field[ID: Writes, A: Writes](id: ID, field: String, value: A)(implicit inColl: InColl[_]): Funit =
+  def field[ID: Writes, A: InColl, B: Writes](id: ID, field: String, value: B): Funit =
     update(select(id), $set(field -> value))
 }

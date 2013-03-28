@@ -11,9 +11,13 @@ import play.api.libs.concurrent.Execution.Implicits._
 object count extends count
 trait count {
 
-  def apply(q: JsObject)(implicit inColl: InColl[_]): Fu[Int] =
-    inColl.coll.db command Count(inColl.coll.name, JsObjectWriter.write(q).some)
+  def apply[A: InColl](q: JsObject): Fu[Int] =
+    implicitly[InColl[A]].coll |> { coll ⇒
+      coll.db command Count(coll.name, JsObjectWriter.write(q).some)
+    }
 
-  def apply(implicit inColl: InColl[_]): Fu[Int] =
-    inColl.coll.db command Count(inColl.coll.name, none)
+  def apply[A: InColl]: Fu[Int] =
+    implicitly[InColl[A]].coll |> { coll ⇒
+      coll.db command Count(coll.name, none)
+    }
 }

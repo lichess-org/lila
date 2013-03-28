@@ -11,11 +11,11 @@ import play.api.libs.concurrent.Execution.Implicits._
 object insert extends insert
 trait insert {
 
-  def apply[A](doc: A)(implicit coll: Coll, json: Tube[A]): Funit =
-    (json toMongo doc).fold(fuck(_), apply(_))
+  def apply[A : TubeInColl](doc: A): Funit =
+    (implicitly[Tube[A]] toMongo doc).fold(fuck(_), apply(_))
 
-  def apply(js: JsObject)(implicit coll: Coll): Funit =
-    coll insert js flatMap { lastErr ⇒
+  def apply[A : InColl](js: JsObject): Funit =
+    implicitly[InColl[A]].coll insert js flatMap { lastErr ⇒
       lastErr.ok.fold(funit, fuck(lastErr.message))
     }
 }

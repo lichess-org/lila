@@ -11,13 +11,19 @@ import play.api.libs.concurrent.Execution.Implicits._
 object projection extends projection
 trait projection {
 
-  def apply[A](q: JsObject, fields: Seq[String], modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsObject ⇒ Option[A])(implicit coll: Coll): Fu[List[A]] =
-    modifier(coll.genericQueryBuilder query q projection projector(fields)).cursor.toList map (list ⇒ list map { obj ⇒
+  def apply[A: InColl, B](
+    q: JsObject,
+    fields: Seq[String],
+    modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsObject ⇒ Option[B]): Fu[List[B]] =
+    modifier(implicitly[InColl[A]].coll.genericQueryBuilder query q projection projector(fields)).cursor.toList map (list ⇒ list map { obj ⇒
       extract(JsObjectReader read obj)
     } flatten)
 
-  def one[A](q: JsObject, fields: Seq[String], modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsObject ⇒ Option[A])(implicit coll: Coll): Fu[Option[A]] =
-    modifier(coll.genericQueryBuilder query q projection projector(fields)).one map (opt ⇒ opt map { obj ⇒
+  def one[A:InColl, B](
+    q: JsObject,
+    fields: Seq[String],
+    modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsObject ⇒ Option[B]): Fu[Option[B]] =
+    modifier(implicitly[InColl[A]].coll.genericQueryBuilder query q projection projector(fields)).one map (opt ⇒ opt map { obj ⇒
       extract(JsObjectReader read obj)
     } flatten)
 
