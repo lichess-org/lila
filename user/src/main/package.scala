@@ -12,7 +12,7 @@ package object user extends PackageObject with WithPlay {
     "engine" -> false,
     "toints" -> 0)
 
-  lazy val userTube = Tube[User](
+  private[user] lazy val userTube = Tube[User](
     reader = (__.json update (
       merge(userDefaults) andThen readDate('createdAt)
     )) andThen Json.reads[User],
@@ -22,5 +22,6 @@ package object user extends PackageObject with WithPlay {
 
   private[user] sealed trait History
 
-  lazy val historyInColl = InColl[History](Env.current.historyColl)
+  private[user] lazy val historyInColl = 
+    InColl[History](Env.current.historyColl)
 }

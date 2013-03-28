@@ -11,43 +11,37 @@ import scala.collection.JavaConversions._
 final class Env(
     config: Config,
     // captcha: Captcha,
-    db: lila.db.Env,
-    userRepo: UserRepo) {
+    db: lila.db.Env) {
 
-  val CollectionSecurity = config getString "collection.security"
-  val WiretapIps = config.getStringList("wiretap.ips").toSet
-  val FirewallEnabled = config getBoolean "firewall.enabled"
-  val FirewallCookieName = config getString "firewall.cookie.name"
-  val FirewallCookieEnabled = config getBoolean "firewall.cookie.enabled"
-  val FirewallCollectionFirewall = config getString "firewall.collection.firewall"
-  val FloodDuration = config duration "flood.duration"
+  private val CollectionSecurity = config getString "collection.security"
+  private val WiretapIps = config.getStringList("wiretap.ips").toSet
+  private val FirewallEnabled = config getBoolean "firewall.enabled"
+  private val FirewallCookieName = config getString "firewall.cookie.name"
+  private val FirewallCookieEnabled = config getBoolean "firewall.cookie.enabled"
+  private val FirewallCollectionFirewall = config getString "firewall.collection.firewall"
+  private val FloodDuration = config duration "flood.duration"
 
-  lazy val api = new Api(
-    store = store,
-    userRepo = userRepo)
+  lazy val api = new Api(firewall = firewall)
 
-  lazy val store = new Store()(db(CollectionSecurity))
+  lazy val storeColl = db(CollectionSecurity)
 
   lazy val firewall = new Firewall(
     cookieName = FirewallCookieName.some filter (_ ⇒ FirewallCookieEnabled),
-    enabled = FirewallEnabled)(
-      db(FirewallCollectionFirewall))
+    enabled = FirewallEnabled)(db(FirewallCollectionFirewall))
 
   lazy val flood = new Flood(FloodDuration)
 
   lazy val wiretap = new Wiretap(WiretapIps)
 
   // lazy val forms = new DataForm(
-  //   userRepo = userRepo,
   //   captcher = captcha)
 
-  def cli = new Cli(this, userRepo)
+  def cli = new Cli
 }
 
 object Env {
 
-  lazy val current = new Env(
+  lazy val current = "[security] boot" describes new Env(
     config = lila.common.PlayApp loadConfig "security",
-    db = lila.db.Env.current,
-    userRepo = lila.user.Env.current.userRepo)
+    db = lila.db.Env.current)
 }
