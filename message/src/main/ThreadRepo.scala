@@ -17,9 +17,9 @@ import ornicar.scalalib.Random
 
 import scala.concurrent.Future
 
-final class ThreadRepo(implicit coll: Coll) {
+object ThreadRepo {
 
-  def impl[A](op: Coll => A): A = op(coll)
+  private implicit def tube = threadTube
 
   type ID = String
 

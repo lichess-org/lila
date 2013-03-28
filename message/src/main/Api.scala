@@ -12,27 +12,27 @@ import scala.math.ceil
 import play.api.libs.concurrent.Execution.Implicits._
 
 final class Api(
-    threadRepo: ThreadRepo,
     unreadCache: UnreadCache,
-    userRepo: UserRepo,
     maxPerPage: Int,
     sockets: ActorRef) {
 
-  def inbox(me: User, page: Int): Fu[Paginator[Thread]] = Paginator(
-    threadRepo impl { implicit coll ⇒
-      new Adapter(
-        selector = threadRepo visibleByUserQuery me.id,
-        sort = Seq(threadRepo.recentSort)
-      )
-    },
+  private implicit def tube = threadTube
+
+  def inbox(me: User, page: Int): Fu[Paginator[Thread]] = Paginator({
+    implicit def tube = threadTube
+    new Adapter(
+      selector = ThreadRepo visibleByUserQuery me.id,
+      sort = Seq(ThreadRepo.recentSort)
+    )
+  },
     currentPage = page,
     maxPerPage = maxPerPage
   )
 
   def thread(id: String, me: User): Fu[Option[Thread]] = for {
-    threadOption ← find.byId(id)(threadRepo.coll) map (_ filter (_ hasUser me))
+    threadOption ← find.byId(id) map (_ filter (_ hasUser me))
     _ ← threadOption.filter(_ isUnReadBy me).zmap(thread ⇒
-      (threadRepo setRead thread) >> updateUser(me.id)
+      (ThreadRepo setRead thread) >> updateUser(me.id)
     )
   } yield threadOption
 
@@ -42,11 +42,11 @@ final class Api(
       text = data.text,
       creatorId = me.id,
       invitedId = data.user.id)
-    (threadRepo insert thread) >> updateUser(data.user.id) inject thread
+    insert(thread) >> updateUser(data.user.id) inject thread
   }
 
   def lichessThread(lt: LichessThread): Funit =
-    (threadRepo insert lt.toThread) >> updateUser(lt.to)
+    insert(lt.toThread) >> updateUser(lt.to)
 
   def makePost(thread: Thread, text: String, me: User) = {
     val post = Posts.make(
@@ -54,15 +54,15 @@ final class Api(
       isByCreator = thread isCreator me)
     val newThread = thread + post
     for {
-      _ ← threadRepo update newThread
-      receiver ← userRepo.find byId (thread receiverOf post)
+      _ ← update[ThreadRepo.ID, Thread](newThread)
+      receiver ← UserRepo.named(thread receiverOf post)
       _ ← receiver.map(_.id) zmap updateUser
-    } yield thread
+    } yield newThread
   }
 
   def deleteThread(id: String, me: User): Funit =
     thread(id, me) flatMap { threadOption ⇒
-      threadOption.map(_.id).zmap(threadRepo deleteFor me.id)
+      threadOption.map(_.id).zmap(ThreadRepo deleteFor me.id)
     }
 
   val nbUnreadMessages = unreadCache.apply _
