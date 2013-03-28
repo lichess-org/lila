@@ -33,13 +33,14 @@ object RawMetadatas {
   import lila.db.Tube
   import Tube.Helpers._
   import play.api.libs.json._
-  import PgnImports.json.implicits._
+
+  private implicit def importTube = PgnImports.tube
 
   private val defaults = Json.obj("t" -> none[PgnImport])
 
-  val json = Tube(
-    reads = (__.json update merge(defaults)) andThen Json.reads[RawMetadata],
-    writes = Json.writes[RawMetadata])
+  val tube = Tube(
+    reader = (__.json update merge(defaults)) andThen Json.reads[RawMetadata],
+    writer = Json.writes[RawMetadata])
 }
 
 case class PgnImport(user: Option[String], date: Option[String], pgn: String)
@@ -49,5 +50,5 @@ object PgnImports {
   import lila.db.Tube
   import play.api.libs.json._
 
-  val json = Tube(Json.reads[PgnImport], Json.writes[PgnImport])
+  val tube = Tube(Json.reads[PgnImport], Json.writes[PgnImport])
 }

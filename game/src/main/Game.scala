@@ -423,16 +423,16 @@ object Game {
   import lila.db.Tube
   import play.api.libs.json._
 
-  val json = Tube(
-    reads = Reads[Game](js ⇒
+  val tube = Tube(
+    reader = Reads[Game](js ⇒
       (for {
         obj ← js.asOpt[JsObject]
-        rawGame ← RawGames.json.read(obj).asOpt
+        rawGame ← RawGames.tube.read(obj).asOpt
         game ← rawGame.decode
       } yield JsSuccess(game): JsResult[Game]) | JsError(Seq.empty)
     ),
-    writes = Writes[Game](game ⇒
-      RawGames.json.write(game.encode) getOrElse JsUndefined(s"[db] Can't write game ${game.id}")
+    writer = Writes[Game](game ⇒
+      RawGames.tube.write(game.encode) getOrElse JsUndefined(s"[db] Can't write game ${game.id}")
     )
   )
 }
@@ -494,9 +494,9 @@ object RawGames {
   import lila.db.Tube
   import Tube.Helpers._
   import play.api.libs.json._
-  import RawPlayers.json.implicits.{ iReads ⇒ playerReads, iWrites ⇒ playerWrites }
-  import RawClocks.json.implicits.{ iReads ⇒ clockReads, iWrites ⇒ clockWrites }
-  import RawMetadatas.json.implicits.{ iReads ⇒ metadataReads, iWrites ⇒ metadataWrites }
+  private implicit def playerTube = RawPlayers.tube
+  private implicit def clockTube = RawClocks.tube
+  private implicit def metadataTube = RawMetadatas.tube
 
   private val defaults = Json.obj(
     "tk" -> none[String],
@@ -514,11 +514,11 @@ object RawGames {
     "r960" -> none[Boolean],
     "me" -> none[RawMetadata])
 
-  val json = Tube(
-    reads = (__.json update (
+  val tube = Tube(
+    reader = (__.json update (
       merge(defaults) andThen readDate('ca) andThen readDate('ua)
     )) andThen Json.reads[RawGame],
-    writes = Json.writes[RawGame],
+    writer = Json.writes[RawGame],
     writeTransformer = (__.json update (
       writeDate('ca) andThen writeDate('ua)
     )).some

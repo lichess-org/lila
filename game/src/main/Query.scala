@@ -1,14 +1,15 @@
 package lila.game
 
+import lila.db.api._
 import chess.{ Color, Status }
 
 import play.api.libs.json._
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 
-object Query extends lila.db.api.Free {
+object Query {
 
-  val all: JsObject = select.all
+  val all: JsObject = $select.all
 
   val rated: JsObject = Json.obj("ra" -> true)
 
@@ -54,7 +55,7 @@ object Query extends lila.db.api.Free {
 
   def turnsGt(nb: Int) = Json.obj("t" -> $gt(nb))
 
-  val sortCreated = sort desc "ca" 
+  val sortCreated = $sort desc "ca" 
 
-  val sortPopular = sort desc "bm" 
+  val sortPopular = $sort desc "bm" 
 }

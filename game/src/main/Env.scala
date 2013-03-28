@@ -12,31 +12,32 @@ final class Env(
     appPath: String,
     isDev: Boolean) {
 
-  val CachedNbTtl = config duration "cached.nb.ttl"
-  val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
-  val CollectionGame = config getString "collection.game"
-  val CollectionPgn = config getString "collection.pgn"
-  val JsPathRaw = config getString "js_path.raw"
-  val JsPathCompiled = config getString "js_path.compiled"
+  private val settings = new {
+    val CachedNbTtl = config duration "cached.nb.ttl"
+    val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
+    val CollectionGame = config getString "collection.game"
+    val CollectionPgn = config getString "collection.pgn"
+    val JsPathRaw = config getString "js_path.raw"
+    val JsPathCompiled = config getString "js_path.compiled"
+  }
+  import settings._
 
-  lazy val gameRepo = new GameRepo()(db(CollectionGame))
+  private[game] lazy val gameColl = db(CollectionGame)
 
-  lazy val pgnRepo = new PgnRepo()(db(CollectionPgn))
+  private[game] lazy val pgnColl = db(CollectionPgn)
 
-  lazy val cached = new Cached(gameRepo = gameRepo, ttl = CachedNbTtl)
+  lazy val cached = new Cached(ttl = CachedNbTtl)
 
   lazy val paginator = new PaginatorBuilder(
-    gameRepo = gameRepo,
     cached = cached,
     maxPerPage = PaginatorMaxPerPage)
 
   lazy val featured = new Featured(
-    gameRepo = gameRepo,
     lobbyActor = hub.actor.lobby,
     rendererActor = hub.actor.renderer,
     system = system)
 
-  // lazy val export = Export(gameRepo, NetBaseUrl) _
+  // lazy val export = Export(NetBaseUrl) _
 
   lazy val listMenu = ListMenu(cached) _
 
@@ -53,7 +54,7 @@ object Env {
   private def hub = lila.hub.Env.current
   private def app = play.api.Play.current
 
-  lazy val current = new Env(
+  lazy val current = "[game] boot" describes new Env(
     config = lila.common.PlayApp loadConfig "game",
     db = lila.db.Env.current,
     system = play.api.libs.concurrent.Akka.system(app),

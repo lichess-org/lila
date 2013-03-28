@@ -1,19 +1,18 @@
 package lila.game
 
+import lila.db.api._
+
 import scala.concurrent.{ Future, Await }
 import scala.concurrent.duration._
 import akka.actor._
 import akka.pattern.ask
-import akka.util.Timeout
 import play.api.Play.current
 import play.api.libs.concurrent.Execution.Implicits._
-import play.api.libs.concurrent.Akka
 import play.api.templates.Html
 
 import chess.Color
 
 private[game] final class Featured(
-    gameRepo: GameRepo,
     lobbyActor: ActorRef,
     rendererActor: ActorRef,
     system: ActorSystem) {
@@ -22,7 +21,9 @@ private[game] final class Featured(
 
   def one: Future[Option[Game]] = actor ? GetOne mapTo manifest[Option[Game]]
 
-  private implicit val timeout = Timeout(2 seconds)
+  private implicit val timeout = makeTimeout.large
+
+  private implicit def tube = gameTube
 
   private val actor = system.actorOf(Props(new Actor {
 
@@ -46,12 +47,12 @@ private[game] final class Featured(
         }
       }
 
-    private def fetch(id: String): Option[Game] = (gameRepo.find byId id).await
+    private def fetch(id: String): Option[Game] = ($find byId id).await
 
     private def valid(game: Game) = game.isBeingPlayed
 
     private def feature: Option[Game] = Featured best {
-      gameRepo.featuredCandidates.await filter valid
+      GameRepo.featuredCandidates.await filter valid
     }
   }))
 

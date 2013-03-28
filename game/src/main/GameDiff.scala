@@ -1,11 +1,13 @@
 package lila.game
 
+import lila.db.api._
+
 import play.api.libs.json._
 import Json.JsValueWrapper
 import org.joda.time.DateTime
 
 // TODO it works, but it could be more functional
-private[game] object GameDiff extends lila.db.api.Free {
+private[game] object GameDiff {
 
   type Set = (String, JsValueWrapper)
   type Unset = String

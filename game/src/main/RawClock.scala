@@ -48,8 +48,8 @@ private[game] object RawClocks {
 
   private val defaults = Json.obj("t" -> none[Double])
 
-  val json = Tube(
-    reads = (__.json update merge(defaults)) andThen Json.reads[RawClock],
-    writes = Json.writes[RawClock]
+  val tube = Tube(
+    reader = (__.json update merge(defaults)) andThen Json.reads[RawClock],
+    writer = Json.writes[RawClock]
   )
 }

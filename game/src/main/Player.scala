@@ -157,8 +157,8 @@ object RawPlayers {
     "bs" -> 0,
     "na" -> none[String])
 
-  val json = Tube(
-    reads = (__.json update merge(defaults)) andThen Json.reads[RawPlayer],
-    writes = Json.writes[RawPlayer]
+  val tube = Tube(
+    reader = (__.json update merge(defaults)) andThen Json.reads[RawPlayer],
+    writer = Json.writes[RawPlayer]
   )
 }
