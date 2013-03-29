@@ -6,16 +6,16 @@ import lila.common.paginator._
 import lila.common.PimpedJson._
 import lila.db.paginator._
 import lila.db.Implicits._
+import lila.db.api._
 
 import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._
+import play.modules.reactivemongo.Implicits._
 import org.joda.time.DateTime
 
-final class PaginatorBuilder(
-    bookmarkRepo: BookmarkRepo,
-    gameRepo: GameRepo,
-    userRepo: UserRepo,
-    maxPerPage: Int) extends lila.db.api.Full {
+final class PaginatorBuilder(maxPerPage: Int) {
+
+  private implicit def inColl = bookmarkInColl
 
   def byUser(user: User, page: Int): Fu[Paginator[Bookmark]] =
     paginator(new UserAdapter(user), page)
@@ -29,10 +29,10 @@ final class PaginatorBuilder(
 
   final class UserAdapter(user: User) extends AdapterLike[Bookmark] {
 
-    def nbResults: Fu[Int] = count(selector)(bookmarkRepo.coll)
+    def nbResults: Fu[Int] = $count(selector)
 
     def slice(offset: Int, length: Int): Fu[Seq[Bookmark]] = for {
-      pairs ← query(selector)(bookmarkRepo.coll)
+      pairs ← $query(selector)
         .sort(sorting)
         .skip(offset)
         .limit(length)
@@ -41,7 +41,9 @@ final class PaginatorBuilder(
             obj.get[DateTime]("d") map { (gameId, _) }
           }
         } map (_.flatten)
-      games ← gameRepo.find byIds pairs.map(_._1)
+      games ← lila.game.gameTube |> { implicit t ⇒
+        $find byIds pairs.map(_._1)
+      }
       bookmarks = pairs map { pair ⇒
         games find (_.id == pair._1) map { game ⇒
           Bookmark(game, user, pair._2)
@@ -49,7 +51,7 @@ final class PaginatorBuilder(
       }
     } yield bookmarks.toList.flatten
 
-    private def selector = bookmarkRepo userIdQuery user.id
-    private def sorting = sort desc "d"
+    private def selector = BookmarkRepo userIdQuery user.id
+    private def sorting = $sort desc "d"
   }
 }

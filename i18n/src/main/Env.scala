@@ -1,6 +1,6 @@
 package lila.i18n
 
-import lila.db.Types.Coll
+import lila.common.PlayApp
 
 import com.typesafe.config.Config
 import play.api.i18n.{ MessagesApi, MessagesPlugin }
@@ -13,15 +13,20 @@ final class Env(
     val messagesApi: MessagesApi,
     appPath: String) {
 
-  val WebPathRelative = config getString "web_path.relative"
-  val FilePathRelative = config getString "file_path.relative"
-  val UpstreamUrl = config getString "upstream.url"
-  val HideCallsCookieName = config getString "hide_calls.cookie.name"
-  val HideCallsCookieMaxAge = config getInt "hide_calls.cookie.max_age"
-  val CollectionTranslation = config getString "collection.translation"
+  private val settings = new {
+    val WebPathRelative = config getString "web_path.relative"
+    val FilePathRelative = config getString "file_path.relative"
+    val UpstreamUrl = config getString "upstream.url"
+    val HideCallsCookieName = config getString "hide_calls.cookie.name"
+    val HideCallsCookieMaxAge = config getInt "hide_calls.cookie.max_age"
+    val CollectionTranslation = config getString "collection.translation"
+  }
+  import settings._
+
+  // public settings
   val RequestHandlerProtocol = config getString "request_handler.protocol"
 
-  lazy val translationRepo = new TranslationRepo()(db(CollectionTranslation))
+  private[i18n] lazy val translationColl = db(CollectionTranslation)
 
   lazy val pool = new I18nPool(
     langs = Lang.availables.toSet,
@@ -51,7 +56,6 @@ final class Env(
     keys = keys)
 
   lazy val forms = new DataForm(
-    repo = translationRepo,
     keys = keys /*, captcher = captcha*/ )
 
   def upstreamFetch(makeUrl: Int ⇒ String) =
@@ -67,12 +71,12 @@ final class Env(
 
 object Env {
 
-  lazy val current = new Env(
+  lazy val current = "[i18n] boot" describes new Env(
     config = lila.common.PlayApp loadConfig "i18n",
     db = lila.db.Env.current,
-    messagesApi = play.api.Play.current.plugin[MessagesPlugin]
+    messagesApi = PlayApp.withApp(_.plugin[MessagesPlugin])
       .err("this plugin was not registered or disabled")
       .api,
-    appPath = play.api.Play.current.path.getCanonicalPath
+    appPath = PlayApp withApp (_.path.getCanonicalPath)
   )
 }

@@ -6,7 +6,7 @@ import spray.caching.{ LruCache, Cache }
 
 import play.api.libs.concurrent.Execution.Implicits._
 
-private[bookmark] final class Cached(bookmarkRepo: BookmarkRepo) {
+private[bookmark] final class Cached {
 
   def bookmarked(gameId: String, userId: String): Fu[Boolean] =
     userGameIds(userId) map (_ contains gameId)
@@ -20,7 +20,7 @@ private[bookmark] final class Cached(bookmarkRepo: BookmarkRepo) {
 
   private def userGameIds(userId: String): Fu[Set[String]] =
     gameIdsCache.fromFuture(userId.toLowerCase) {
-      bookmarkRepo gameIdsByUserId userId.toLowerCase map (_.toSet)
+      BookmarkRepo gameIdsByUserId userId.toLowerCase map (_.toSet)
     }
 
   private val gameIdsCache: Cache[Set[String]] = LruCache(maxCapacity = 99999)

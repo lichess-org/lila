@@ -9,14 +9,15 @@ final class Env(
     getUsername: String ⇒ Fu[String],
     sockets: ActorRef) {
 
-  val CollectionEntry = config getString "collection.entry"
-  val DisplayMax = config getString "display_max"
+  private val CollectionEntry = config getString "collection.entry"
+  private val DisplayMax = config getString "display_max"
 
+  private[timeline] lazy val entryColl = db(CollectionEntry)
 }
 
 object Env {
 
-  lazy val current = new Env(
+  lazy val current = "[timeline] boot" describes new Env(
     config = lila.common.PlayApp loadConfig "timeline",
     db = lila.db.Env.current,
     getUsername = lila.user.Env.current.usernameOrAnonymous _,

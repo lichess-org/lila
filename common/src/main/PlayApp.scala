@@ -9,6 +9,6 @@ object PlayApp {
 
   def loadConfig(prefix: String): Config = loadConfig getConfig prefix
 
-  private def withApp[A](op: Application ⇒ A): A =
+  def withApp[A](op: Application ⇒ A): A =
     Play.maybeApplication map op err "Play application is not started!"
 }
