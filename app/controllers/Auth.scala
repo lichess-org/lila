@@ -2,7 +2,6 @@ package controllers
 
 import lila.app._
 import lila.api._
-import lila.security.Env.{ current => securityEnv }
 import lila.http.LilaCookie
 
 import play.api.mvc._
@@ -27,7 +26,7 @@ object Auth extends LilaController {
   // }
 
   protected def gotoLogoutSucceeded(implicit req: RequestHeader) = {
-    req.session get "sessionId" foreach securityEnv.store.delete
+    req.session get "sessionId" foreach lila.security.Store.delete
     logoutSucceeded(req) withCookies LilaCookie.newSession
   }
 

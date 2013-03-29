@@ -11,26 +11,26 @@ import play.api.libs.concurrent.Execution.Implicits._
 object $primitive {
 
   def apply[A: InColl, B](
-    q: JsObject,
+    query: JsObject,
     field: String,
     modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsValue ⇒ Option[B]): Fu[List[B]] =
     modifier {
       implicitly[InColl[A]].coll
         .genericQueryBuilder
-        .query(q)
+        .query(query)
         .projection(Json.obj(field -> true))
     }.cursor.toList map2 { (obj: BSONDocument) ⇒
       extract(JsObjectReader.read(obj) \ field)
     } map (_.flatten)
 
   def one[A: InColl, B](
-    q: JsObject,
+    query: JsObject,
     field: String,
     modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsValue ⇒ Option[B]): Fu[Option[B]] =
     modifier {
       implicitly[InColl[A]].coll
         .genericQueryBuilder
-        .query(q)
+        .query(query)
         .projection(Json.obj(field -> true))
     }.one map2 { (obj: BSONDocument) ⇒
       extract(JsObjectReader.read(obj) \ field)

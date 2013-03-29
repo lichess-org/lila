@@ -19,7 +19,7 @@ case class UserSpy(
   uas: List[String],
   otherUsernames: Set[String])
 
-private[security] object Store {
+object Store {
 
   private implicit def inColl = storeInColl
 

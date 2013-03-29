@@ -10,8 +10,7 @@ import play.api.libs.concurrent.Execution.Implicits._
 // import site.Captcha
 
 final class DataForm(
-    repo: TranslationRepo,
-    keys: I18nKeys/*, captcher: Captcha */) {
+    keys: I18nKeys /*, captcher: Captcha */ ) {
 
   val translation = Form(mapping(
     "author" -> optional(nonEmptyText),
@@ -37,18 +36,20 @@ final class DataForm(
       messages find (_._1 == key.key)
     }).flatten
     messages.nonEmpty.fold(for {
-        id ← repo.nextId
-        translation = Translation(
-          id = id,
-          code = code,
-          text = sorted map {
-            case (key, trans) ⇒ key + "=" + trans
-          } mkString "\n",
-          author = metadata.author,
-          comment = metadata.comment,
-          createdAt = DateTime.now)
-        _ ← repo insert translation
-      } yield (), funit)
+      id ← TranslationRepo.nextId
+      translation = Translation(
+        id = id,
+        code = code,
+        text = sorted map {
+          case (key, trans) ⇒ key + "=" + trans
+        } mkString "\n",
+        author = metadata.author,
+        comment = metadata.comment,
+        createdAt = DateTime.now)
+      _ ← translationTube |> { implicit tube ⇒
+        lila.db.api.$insert(translation)
+      }
+    } yield (), funit)
   }
 
   def decodeTranslationBody(implicit req: Request[_]): Map[String, String] = req.body match {

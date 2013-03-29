@@ -13,12 +13,13 @@ import org.elasticsearch.action.search.SearchResponse
 final class Env(
   config: Config,
   system: ActorSystem,
-  esIndexer: EsIndexer,
-  implicit val gameTube: TubeInColl[GameModel]) {
+  esIndexer: EsIndexer) {
 
   private val IndexName = config getString "index"
   private val TypeName = config getString "type"
   private val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
+
+  private implicit val gameTube = lila.game.gameTube
 
   val indexer: ActorRef = system.actorOf(Props(new TypeIndexer(
     es = esIndexer,
@@ -77,6 +78,5 @@ object Env {
   lazy val current = new Env(
     config = lila.common.PlayApp loadConfig "gameSearch",
     system = play.api.libs.concurrent.Akka.system(play.api.Play.current),
-    esIndexer = lila.search.Env.current.esIndexer,
-    gameTube = lila.game.gameTube)
+    esIndexer = lila.search.Env.current.esIndexer)
 }

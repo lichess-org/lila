@@ -13,13 +13,11 @@ import play.api.mvc.Results._
 
 object User extends LilaController {
 
-  private def userRepo = userEnv.userRepo
   private def paginator = userEnv.paginator
   // private def gamePaginator = env.game.paginator
   private def forms = lila.user.DataForm
   private def eloUpdater = userEnv.eloUpdater
   // private def bookmarkApi = env.bookmark.api
-  private def securityStore = securityEnv.store
   // private def modApi = env.mod.api
 
   def show(username: String) = TODO //showFilter(username, "all", 1)

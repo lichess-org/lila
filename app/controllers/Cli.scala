@@ -1,6 +1,5 @@
 package controllers
 
-import lila.user.Env.{ current => userEnv }
 import lila.api.Env.{ current => apiEnv }
 import lila.api._
 
@@ -28,7 +27,7 @@ object Cli extends LilaController {
   }
 
   private def CliAuth(password: String)(op: Fu[Result]): Fu[Result] =
-    userEnv.userRepo.checkPassword(apiEnv.CliUsername, password) flatMap {
+    lila.user.UserRepo.checkPassword(apiEnv.CliUsername, password) flatMap {
       _.fold(op, fuccess(Unauthorized))
     }
 }
