@@ -11,8 +11,7 @@ object ApplicationBuild extends Build {
     settings = buildSettings ++ Seq(
       libraryDependencies := Seq(
         scalaz, scalalib, hasher, config, apache, scalaTime,
-        csv, jgit, actuarius, scalastic, findbugs,
-        spray.caching, reactivemongo)
+        csv, jgit, actuarius, scalastic, findbugs, reactivemongo)
     )) dependsOn (
       api, user, wiki, message, notification, i18n, game, bookmark,
       gameSearch, timeline
@@ -83,6 +82,11 @@ object ApplicationBuild extends Build {
   lazy val message = project("message", Seq(common, db, user, hub)).settings(
     libraryDependencies ++= provided(
       playApi, reactivemongo, playReactivemongo, spray.caching)
+  )
+
+  lazy val forum = project("forum", Seq(common, db, user, hub)).settings(
+    libraryDependencies ++= provided(
+      playApi, reactivemongo, playReactivemongo)
   )
 
   lazy val i18n = project("i18n", Seq(common, db, user)).settings(

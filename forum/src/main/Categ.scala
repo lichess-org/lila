@@ -1,10 +1,7 @@
-package lila.app
-package forum
-
-import com.novus.salat.annotations.Key
+package lila.forum
 
 case class Categ(
-    @Key("_id") slug: String,
+    slug: String,
     name: String,
     desc: String,
     pos: Int,
