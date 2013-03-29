@@ -32,12 +32,11 @@ final class DataForm(
     }).toList collect {
       case (key, Some(value)) ⇒ key -> value
     }
-    val sorted = (keys.keys map { key ⇒
-      messages find (_._1 == key.key)
-    }).flatten
-    messages.nonEmpty.fold(for {
-      id ← TranslationRepo.nextId
-      translation = Translation(
+    messages.nonEmpty ?? TranslationRepo.nextId flatMap { id ⇒
+      val sorted = (keys.keys map { key ⇒
+        messages find (_._1 == key.key)
+      }).flatten
+      val translation = Translation(
         id = id,
         code = code,
         text = sorted map {
@@ -46,10 +45,8 @@ final class DataForm(
         author = metadata.author,
         comment = metadata.comment,
         createdAt = DateTime.now)
-      _ ← translationTube |> { implicit tube ⇒
-        lila.db.api.$insert(translation)
-      }
-    } yield (), funit)
+      translationTube |> { implicit t ⇒ lila.db.api.$insert(translation) }
+    }
   }
 
   def decodeTranslationBody(implicit req: Request[_]): Map[String, String] = req.body match {
