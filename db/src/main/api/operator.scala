@@ -27,6 +27,8 @@ trait $operator {
   def $in[A: Writes](values: A*) = Json.obj("$in" -> Json.arr(values))
   def $exists(bool: Boolean) = Json.obj("$exists" -> bool)
 
+  def $or[A: Writes](conditions: A) = Json.obj("$or" -> conditions)
+
   def $reg(value: String, flags: String = "") = BSONRegex(value, flags)
   def $date(value: DateTime) = Json.obj("$date" -> value.getMillis)
 

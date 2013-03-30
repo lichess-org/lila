@@ -13,7 +13,10 @@ object $find {
   def one[A: TubeInColl](
     q: JsObject,
     modifier: QueryBuilder ⇒ QueryBuilder = identity): Fu[Option[A]] =
-    modifier($query(q)).one[Option[A]] map (_.flatten)
+    one(modifier($query(q)))
+
+  def one[A: TubeInColl](q: QueryBuilder): Fu[Option[A]] =
+    q.one[Option[A]] map (_.flatten)
 
   def byId[ID: Writes, A: TubeInColl](id: ID): Fu[Option[A]] =
     one($select byId id)

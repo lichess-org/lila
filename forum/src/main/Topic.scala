@@ -1,12 +1,10 @@
-package lila.app
-package forum
+package lila.forum
 
 import org.joda.time.DateTime
-import com.novus.salat.annotations.Key
 import ornicar.scalalib.Random
 
 case class Topic(
-    @Key("_id") id: String,
+    id: String,
     categId: String,
     slug: String,
     name: String,
@@ -19,7 +17,7 @@ case class Topic(
   def incNbPosts = copy(nbPosts = nbPosts + 1)
 }
 
-object Topic {
+object Topics {
 
   val idSize = 8
 

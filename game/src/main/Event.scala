@@ -26,7 +26,7 @@ object Event {
 
   def fromSituation(situation: Situation): List[Event] = List(
     if (situation.check) situation.kingPos map Check.apply else None,
-    if (situation.threefoldRepetition) Some(Threefold()) else None,
+    if (situation.threefoldRepetition) Some(Threefold) else None,
     Some(Premove(situation.color))
   ).flatten
 
@@ -40,7 +40,7 @@ object Event {
     def data = JsNull
   }
 
-  case class Start() extends Empty {
+  object Start extends Empty {
     def typ = "start"
   }
 
@@ -97,7 +97,7 @@ object Event {
     override def owner = true
   }
 
-  case class Reload() extends Empty {
+  object Reload extends Empty {
     def typ = "resync"
   }
 
@@ -137,11 +137,11 @@ object Event {
       author.fold("Anonymous")("@" + _),
       escapeXml(text))
 
-  case class End() extends Empty {
+  object End extends Empty {
     def typ = "end"
   }
 
-  case class Threefold() extends Empty {
+  object Threefold extends Empty {
     def typ = "threefold_repetition"
   }
 

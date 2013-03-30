@@ -12,3 +12,6 @@ object SendTo {
 }
 
 case class SendTos[A: Writes](userIds: Set[String], message: A)
+
+case object AnyCaptcha
+case class GetCaptcha(id: String)

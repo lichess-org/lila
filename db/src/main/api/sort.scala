@@ -22,4 +22,7 @@ object $sort {
 
   val naturalDesc = desc("$natural")
   val naturalOrder = naturalDesc
+
+  val createdAsc = asc("createdAt")
+  val createdDesc = desc("createdAt")
 }

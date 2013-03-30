@@ -45,6 +45,7 @@ final class DataForm(
         author = metadata.author,
         comment = metadata.comment,
         createdAt = DateTime.now)
+      // translationTube |> { implicit t ⇒ lila.db.api.$insert(translation) }
       translationTube |> { implicit t ⇒ lila.db.api.$insert(translation) }
     }
   }
