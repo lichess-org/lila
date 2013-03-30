@@ -21,7 +21,7 @@ object GameRepo {
 
   import Game._
 
-  private implicit def tube = gameTube
+  implicit def tube = gameTube
 
   def player(gameId: ID, color: Color): Fu[Option[Player]] =
     $find byId gameId map2 { (game: Game) ⇒ game player color }

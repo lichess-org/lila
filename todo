@@ -69,3 +69,4 @@ create game - late reload - game accepted = homepage without game
 captcha highlight opponent king
 check that all db.game4 have correct uids field
 lightning/blitz/standard/untimed ratings http://www.freechess.org/Help/HelpFiles/blitz.html
+forum close topic

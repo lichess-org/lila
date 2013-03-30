@@ -1,7 +1,6 @@
-package lila.app
-package forum
+package lila.forum
 
-import site.Captcha
+// import site.Captcha
 
 import play.api.data._
 import play.api.data.Forms._

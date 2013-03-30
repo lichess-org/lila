@@ -21,7 +21,13 @@ final class Env(
   }
   import settings._
 
+  lazy val categApi = new CategApi(this)
+
   private[forum] lazy val categColl = db(CollectionCateg)
+
+  private[forum] lazy val topicColl = db(CollectionTopic)
+
+  private[forum] lazy val postColl = db(CollectionPost)
 }
 
 object Env {

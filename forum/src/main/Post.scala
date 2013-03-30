@@ -1,14 +1,12 @@
-package lila.app
-package forum
+package lila.forum
 
 import org.joda.time.DateTime
-import com.novus.salat.annotations.Key
 import ornicar.scalalib.Random
 
-import user.User
+import lila.user.Users
 
 case class Post(
-    @Key("_id") id: String,
+    id: String,
     topicId: String,
     categId: String,
     author: Option[String],
@@ -18,7 +16,7 @@ case class Post(
     number: Int,
     createdAt: DateTime) {
 
-  def showAuthor = (author map (_.trim) filter ("" !=)) | User.anonymous
+  def showAuthor = (author map (_.trim) filter ("" !=)) | Users.anonymous
 
   def showUsernameOrAuthor = userId | showAuthor
 
@@ -27,7 +25,7 @@ case class Post(
   def isStaff = categId == "staff"
 }
 
-object Post {
+object Posts {
 
   val idSize = 8
 
