@@ -8,7 +8,7 @@ import play.api.libs.concurrent.Execution.Implicits._
 
 object TopicRepo {
 
-  private implicit def tube = topicTube
+  private[forum] implicit def tube = topicTube
 
   def byCateg(categ: Categ): Fu[List[Topic]] = 
     $find(Json.obj("categId" -> categ.slug))

@@ -4,8 +4,7 @@ import lila.common.Captcha, Captcha._
 import lila.db.api.$find
 import chess.{ Game ⇒ ChessGame, Color }
 import chess.format.{ Forsyth, pgn }
-import actorApi.NewCaptcha
-import lila.hub.actorApi.{ AnyCaptcha, GetCaptcha }
+import lila.hub.actorApi.captcha._
 
 import scalaz.{ NonEmptyList, NonEmptyLists, OptionT, OptionTs }
 import spray.caching.{ LruCache, Cache }
@@ -31,6 +30,8 @@ private final class Captcher extends Actor {
   override def preStart() {
     system.scheduler.schedule(2.seconds, 10.seconds, self, NewCaptcha)
   }
+
+  private case object NewCaptcha
 
   private object Impl extends NonEmptyLists {
 

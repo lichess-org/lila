@@ -1,7 +1,7 @@
 package lila.db
 package api
 
-import Types.Coll
+import Types._
 
 import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._
@@ -14,7 +14,13 @@ object $remove {
 
   def byId[ID: Writes, A: InColl](id: ID): Funit =
     apply($select(id))
+  def byId[A: InColl](id: String): Funit = byId(id)
 
   def byIds[ID: Writes, A: InColl](ids: Seq[ID]): Funit =
     apply($select byIds ids)
+  def byIds[A: InColl](ids: Seq[String]): Funit = byIds(ids)
+
+  def apply[ID: Writes, A <: Identified[ID]: TubeInColl](doc: A): Funit =
+    byId(doc.id)
+  def apply[A <: Identified[String]: TubeInColl](doc: A): Funit = apply(doc)
 }

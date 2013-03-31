@@ -7,8 +7,9 @@ import reactivemongo.bson._
 import play.modules.reactivemongo.Implicits._
 import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._
+import scalaz.{ OptionT, OptionTs }
 
-object $find {
+object $find extends OptionTs {
 
   def one[A: TubeInColl](
     q: JsObject,
@@ -18,17 +19,19 @@ object $find {
   def one[A: TubeInColl](q: QueryBuilder): Fu[Option[A]] =
     q.one[Option[A]] map (_.flatten)
 
-  def byId[ID: Writes, A: TubeInColl](id: ID): Fu[Option[A]] =
-    one($select byId id)
+  def byId[ID: Writes, A: TubeInColl](id: ID): Fu[Option[A]] = one($select byId id)
+  def byId[A: TubeInColl](id: String): Fu[Option[A]] = byId(id)
 
-  def byIds[ID: Writes, A: TubeInColl](ids: Seq[ID]): Fu[List[A]] =
-    apply($select byIds ids)
+  def byIds[ID: Writes, A: TubeInColl](ids: Seq[ID]): Fu[List[A]] = apply($select byIds ids)
+  def byIds[A: TubeInColl](ids: Seq[String]): Fu[List[A]] = byIds(ids)
 
   def byOrderedIds[ID: Writes, A <: Identified[ID]: TubeInColl](ids: Seq[ID]): Fu[List[A]] =
     byIds(ids) map { docs ⇒
       val docsMap = docs.map(u ⇒ u.id -> u).toMap
       ids.map(docsMap.get).flatten.toList
     }
+  def byOrderedIds[A <: Identified[String]: TubeInColl](ids: Seq[String]): Fu[List[A]] =
+    byOrderedIds(ids)
 
   def all[A: TubeInColl]: Fu[List[A]] = apply($select.all)
 

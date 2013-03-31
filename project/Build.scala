@@ -14,11 +14,11 @@ object ApplicationBuild extends Build {
         csv, jgit, actuarius, scalastic, findbugs, reactivemongo)
     )) dependsOn (
       api, user, wiki, message, notification, i18n, game, bookmark,
-      gameSearch, timeline
+      gameSearch, timeline, forum
     ) aggregate (
         chess, api, common, http, db, user, wiki,
         hub, websocket, message, notification, i18n, game,
-        bookmark, search, gameSearch, timeline
+        bookmark, search, gameSearch, timeline, forum
       ) settings (
           templatesImport ++= Seq(
             "lila.game.{ Game, Player, Pov }",
@@ -84,9 +84,9 @@ object ApplicationBuild extends Build {
       playApi, reactivemongo, playReactivemongo, spray.caching)
   )
 
-  lazy val forum = project("forum", Seq(common, db, user, hub)).settings(
+  lazy val forum = project("forum", Seq(common, db, user, security, hub)).settings(
     libraryDependencies ++= provided(
-      playApi, reactivemongo, playReactivemongo)
+      playApi, reactivemongo, playReactivemongo, spray.caching)
   )
 
   lazy val i18n = project("i18n", Seq(common, db, user)).settings(

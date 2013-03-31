@@ -8,7 +8,7 @@ import play.api.libs.concurrent.Execution.Implicits._
 
 object PostRepo {
 
-  private implicit def tube = postTube
+  private[forum] implicit def tube = postTube
 
   def isFirstPost(topicId: String, postId: String): Fu[Boolean] =
     $primitive.one(
