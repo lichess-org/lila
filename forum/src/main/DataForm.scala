@@ -1,13 +1,19 @@
 package lila.forum
 
-// import site.Captcha
+import lila.common.Captcha
+import lila.hub.actorApi.captcha._
 
 import play.api.data._
 import play.api.data.Forms._
+import play.api.libs.concurrent.Execution.Implicits._
+import akka.actor.ActorRef
+import akka.pattern.ask
 
-final class DataForm(captcher: Captcha) {
+final class DataForm(captcher: ActorRef) {
 
   import DataForm._
+
+  private implicit val timeout = makeTimeout.large
 
   val postMapping = mapping(
     "text" -> text(minLength = 3),
@@ -16,19 +22,22 @@ final class DataForm(captcher: Captcha) {
     "move" -> nonEmptyText
   )(PostData.apply)(PostData.unapply).verifying(
     "Not a checkmate", 
-    data ⇒ captcher get data.gameId valid data.move.trim.toLowerCase
+    data ⇒ getCaptcha(data.gameId).await valid data.move.trim.toLowerCase
   )
 
   val post = Form(postMapping)
 
-  def postWithCaptcha = post -> captchaCreate
+  def postWithCaptcha = anyCaptcha map (post -> _)
 
   val topic = Form(mapping(
     "name" -> text(minLength = 3),
     "post" -> postMapping
   )(TopicData.apply)(TopicData.unapply))
 
-  def captchaCreate: Captcha.Challenge = captcher.create
+  def anyCaptcha: Fu[Captcha] = 
+    (captcher ? AnyCaptcha).mapTo[Captcha]
+  def getCaptcha(id: String): Fu[Captcha] = 
+    (captcher ? GetCaptcha(id)).mapTo[Captcha]
 }
 
 object DataForm {

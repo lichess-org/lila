@@ -1,6 +1,16 @@
 package lila.forum
 
-final class CategApi(env: Env) {
+import lila.user.{ User, Context }
+import lila.common.paginator._
+import lila.db.paginator._
+import lila.db.Implicits._
+import lila.db.api._
+import allTubes._
+
+import play.api.libs.concurrent.Execution.Implicits._
+import scalaz.{ OptionT, OptionTs }
+
+private[forum] final class CategApi(env: Env) extends OptionTs {
 
   // def list(teams: List[String]): Fu[List[CategView]] = for {
   //   categs ← env.categRepo withTeams teams
@@ -18,7 +28,7 @@ final class CategApi(env: Env) {
   // def getTeamNbPosts(slug: String): Fu[Int] =
   //   env.categRepo nbPosts ("team-" + slug)
 
-  // def makeTeam(slug: String, name: String): Fu[Unit] = for {
+  // def makeTeam(slug: String, name: String): Funit = for {
   //   position ← env.categRepo.nextPosition
   //   categ = Categ(
   //     slug = "team-" + slug,
@@ -59,18 +69,19 @@ final class CategApi(env: Env) {
   //     }
   //   }
 
-  // def denormalize(categ: Categ): Fu[Unit] = for {
-  //   topics ← env.topicRepo byCateg categ
-  //   nbPosts ← env.postRepo countByTopics topics
-  //   lastPost ← env.postRepo lastByTopics topics
-  //   _ ← env.categRepo.saveFu(categ.copy(
-  //     nbTopics = topics.size,
-  //     nbPosts = nbPosts,
-  //     lastPostId = lastPost.id
-  //   ))
-  // } yield ()
+  def denormalize(categ: Categ): Funit = for {
+    topics ← TopicRepo byCateg categ
+    topicIds = topics map (_.id)
+    nbPosts ← PostRepo countByTopics topicIds
+    lastPost ← PostRepo lastByTopics topicIds
+    _ ← $update(categ.copy(
+      nbTopics = topics.size,
+      nbPosts = nbPosts,
+      lastPostId = lastPost zmap (_.id)
+    ))
+  } yield ()
 
-  // val denormalize: Fu[Unit] = for {
+  // val denormalize: Funit = for {
   //   categs ← env.categRepo.all
   //   _ ← categs.map(denormalize).sequence
   // } yield ()

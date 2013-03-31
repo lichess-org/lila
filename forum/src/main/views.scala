@@ -1,5 +1,4 @@
-package lila.app
-package forum
+package lila.forum
 
 case class CategView(
     categ: Categ,

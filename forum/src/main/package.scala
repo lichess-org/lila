@@ -36,4 +36,11 @@ package object forum extends PackageObject with WithPlay {
     writer = Json.writes[Post],
     writeTransformer = (__.json update writeDate('createdAt)).some
   ) inColl Env.current.postColl
+
+  private[forum] object allTubes {
+
+    implicit def postT = postTube
+    implicit def topicT = topicTube
+    implicit def categT = categTube
+  }
 }
