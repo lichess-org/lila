@@ -1,32 +1,23 @@
-package lila.gameSearch
-
-import lila.game.{ Game ⇒ GameModel }
+package lila.search
 
 import lila.common.paginator._
-import lila.common.PimpedJson._
-import lila.db.paginator._
-import lila.db.Implicits._
-import lila.search.actorApi
 
-import akka.actor._
+import akka.actor.ActorRef
 import akka.pattern.ask
-import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._
-import play.modules.reactivemongo.Implicits._
-import org.joda.time.DateTime
 import org.elasticsearch.action.search.SearchResponse
 
-final class PaginatorBuilder(
+final class PaginatorBuilder[A](
     indexer: ActorRef,
     maxPerPage: Int,
-    converter: SearchResponse ⇒ Fu[List[GameModel]]) {
+    converter: SearchResponse ⇒ Fu[List[A]]) {
 
-  def apply(query: Query, page: Int): Fu[Paginator[GameModel]] = Paginator(
+  def apply(query: Query, page: Int): Fu[Paginator[A]] = Paginator(
     adapter = new ESAdapter(query),
     currentPage = page,
     maxPerPage = maxPerPage)
 
-  private final class ESAdapter(query: Query) extends AdapterLike[GameModel] {
+  private final class ESAdapter(query: Query) extends AdapterLike[A] {
 
     private implicit val timeout = makeTimeout.large
 

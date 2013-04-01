@@ -9,7 +9,7 @@ import org.elasticsearch.index.query._, FilterBuilders._, QueryBuilders._
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 
-case class Query(
+private[gameSearch] case class Query(
     user1: Option[String] = None,
     user2: Option[String] = None,
     winner: Option[String] = None,
@@ -23,7 +23,7 @@ case class Query(
     opening: Option[String] = None,
     date: Range[DateTime] = Range.none,
     duration: Range[Int] = Range.none,
-    sorting: Sorting = Sorting.default) {
+    sorting: Sorting = Sorting.default) extends lila.search.Query {
 
   def nonEmpty =
     user1.nonEmpty ||
