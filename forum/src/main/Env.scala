@@ -14,7 +14,6 @@ final class Env(
   private val settings = new {
     val TopicMaxPerPage = config getInt "topic.max_per_page"
     val PostMaxPerPage = config getInt "post.max_per_page"
-    val SearchMaxPerPage = config getInt "search.max_per_page"
     val RecentTtl = config duration "recent.ttl"
     val CollectionCateg = config getString "collection.categ"
     val CollectionTopic = config getString "collection.topic"

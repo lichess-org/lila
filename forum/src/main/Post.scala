@@ -20,7 +20,7 @@ case class Post(
 
   def showUsernameOrAuthor = userId | showAuthor
 
-  def isTeam = categId startsWith "team-"
+  def isTeam = categId startsWith teamSlug("")
 
   def isStaff = categId == "staff"
 }

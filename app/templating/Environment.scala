@@ -25,7 +25,7 @@ object Environment
     with AiHelper
     with GameHelper
     with UserHelper
-    // with forum.ForumHelper
+    with ForumHelper
     // with security.SecurityHelper
     with I18nHelper
     with BookmarkHelper

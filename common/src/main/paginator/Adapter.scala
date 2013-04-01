@@ -1,6 +1,8 @@
 package lila.common
 package paginator
 
+import play.api.libs.concurrent.Execution.Implicits._
+
 trait AdapterLike[A] {
 
   /**
@@ -20,7 +22,20 @@ trait AdapterLike[A] {
    * FUNCTOR INTERFACE
    */
   def map[B](f: A ⇒ B): AdapterLike[B] = new AdapterLike[B] {
+
     def nbResults = AdapterLike.this.nbResults
-    def slice(offset: Int, length: Int) = AdapterLike.this.slice(offset, length) map2 f
+
+    def slice(offset: Int, length: Int) =
+      AdapterLike.this.slice(offset, length) map2 f
+  }
+
+  def mapFuture[B](f: A ⇒ Fu[B]): AdapterLike[B] = new AdapterLike[B] {
+
+    def nbResults = AdapterLike.this.nbResults
+
+    def slice(offset: Int, length: Int) =
+      AdapterLike.this.slice(offset, length) flatMap { results ⇒
+        results.map(f).sequence
+      }
   }
 }
