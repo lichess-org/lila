@@ -1,5 +1,5 @@
 playWithAFriend=Сыграть с другом
-inviteAFriendToPlayWithYou=Пригласить друга
+inviteAFriendToPlayWithYou=Пригласить друга для игры с вами
 playWithTheMachine=Партия с компьютером
 challengeTheArtificialIntelligence=Сразиться с искусственным интеллектом
 toInviteSomeoneToPlayGiveThisUrl=Ссылка для приглашения в игру друга
