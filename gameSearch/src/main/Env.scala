@@ -18,6 +18,7 @@ final class Env(
   private val IndexName = config getString "index"
   private val TypeName = config getString "type"
   private val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
+  private val IndexerName = config getString "indexer.name"
 
   private implicit val gameTube = lila.game.gameTube
 
@@ -27,7 +28,7 @@ final class Env(
     typeName = TypeName,
     mapping = Game.jsonMapping,
     indexQuery = indexQuery _
-  )), name = "game-type-indexer")
+  )), name = IndexerName)
 
   lazy val paginatorBuilder = new lila.search.PaginatorBuilder(
     indexer = indexer,
@@ -75,7 +76,7 @@ final class Env(
 
 object Env {
 
-  lazy val current = new Env(
+  lazy val current = "[gameSearch] boot" describes new Env(
     config = lila.common.PlayApp loadConfig "gameSearch",
     system = play.api.libs.concurrent.Akka.system(play.api.Play.current),
     esIndexer = lila.search.Env.current.esIndexer)

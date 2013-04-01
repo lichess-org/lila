@@ -59,18 +59,16 @@ private[gameSearch] object Game {
   }
 
   def from(game: GameModel, pgn: String): JsObject = Json.obj(
-    game.id -> Json.obj(
-      status -> game.status.is(_.Timeout).fold(Status.Resign, game.status).id,
-      turns -> math.ceil(game.turns.toFloat / 2),
-      rated -> game.rated,
-      variant -> game.variant.id,
-      uids -> game.userIds,
-      winner -> Json.toJson(game.winner flatMap (_.userId)),
-      averageElo -> Json.toJson(game.averageUsersElo),
-      ai -> Json.toJson(game.aiLevel),
-      date -> (Date.formatter print game.createdAt),
-      duration -> game.estimateTotalTime,
-      opening -> Json.toJson(OpeningExplorer openingOf pgn map (_.code.toLowerCase))
-    )
+    status -> game.status.is(_.Timeout).fold(Status.Resign, game.status).id,
+    turns -> math.ceil(game.turns.toFloat / 2),
+    rated -> game.rated,
+    variant -> game.variant.id,
+    uids -> game.userIds,
+    winner -> Json.toJson(game.winner flatMap (_.userId)),
+    averageElo -> Json.toJson(game.averageUsersElo),
+    ai -> Json.toJson(game.aiLevel),
+    date -> (Date.formatter print game.createdAt),
+    duration -> game.estimateTotalTime,
+    opening -> Json.toJson(OpeningExplorer openingOf pgn map (_.code.toLowerCase))
   )
 }
