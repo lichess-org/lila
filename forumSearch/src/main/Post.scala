@@ -28,12 +28,10 @@ private[forumSearch] object Post {
   )
 
   def from(view: PostLiteView): JsObject = Json.obj(
-    view.post.id -> Json.obj(
-      body -> view.post.text,
-      topic -> view.topic.name,
-      author -> ~(view.post.userId orElse view.post.author),
-      topicId -> view.topic.id,
-      staff -> view.post.isStaff
-    )
+    body -> view.post.text,
+    topic -> view.topic.name,
+    author -> ~(view.post.userId orElse view.post.author),
+    topicId -> view.topic.id,
+    staff -> view.post.isStaff
   )
 }

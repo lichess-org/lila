@@ -6,11 +6,16 @@ import lila.db.paginator._
 import lila.db.Implicits._
 import lila.db.api._
 import allTubes._
+import actorApi._
 
+import akka.actor.ActorRef
 import play.api.libs.concurrent.Execution.Implicits._
 import scalaz.{ OptionT, OptionTs }
 
-private[forum] final class TopicApi(env: Env, maxPerPage: Int) extends OptionTs {
+private[forum] final class TopicApi(
+  env: Env, 
+  indexer: ActorRef,
+  maxPerPage: Int) extends OptionTs {
 
   def show(categSlug: String, slug: String, page: Int): Fu[Option[(Categ, Topic, Paginator[Post])]] =
     for {
@@ -46,8 +51,7 @@ private[forum] final class TopicApi(env: Env, maxPerPage: Int) extends OptionTs 
           nbTopics = categ.nbTopics + 1,
           nbPosts = categ.nbPosts + 1,
           lastPostId = post.id)) >>
-        // TODO
-        // env.indexer insertOne post
+        (indexer ! InsertPost(post)) >>
         env.recent.invalidate inject topic
     }
 
@@ -73,8 +77,7 @@ private[forum] final class TopicApi(env: Env, maxPerPage: Int) extends OptionTs 
     (PostRepo removeByTopic topic.id) >>
       $remove(topic) >>
       (env.categApi denormalize categ) >>
-      // TODO
-      //   env.indexer removeTopic topic >>
+      (indexer ! RemoveTopic(topic.id)) >>
       env.recent.invalidate
 
   def denormalize(topic: Topic): Funit = for {

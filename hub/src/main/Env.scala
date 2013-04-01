@@ -13,6 +13,7 @@ final class Env(config: Config, system: ActorSystem) {
     val LobbyName = config getString "lobby.name"
     val RendererName = config getString "renderer.name"
     val CaptcherName = config getString "captcher.name"
+    val ForumIndexerName = config getString "forum_indexer.name"
   }
   import settings._
 
@@ -20,6 +21,7 @@ final class Env(config: Config, system: ActorSystem) {
     val lobby = actorFor(LobbyName)
     val renderer = actorFor(RendererName)
     val captcher = actorFor(CaptcherName)
+    val forumIndexer = actorFor(ForumIndexerName)
   }
 
   val sockets = system.actorOf(Props(new Broadcast(List(

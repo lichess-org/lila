@@ -52,6 +52,12 @@ final class TypeIndexer(
     }
 
     case RemoveOne(id) ⇒ es.delete(indexName, typeName, id)
+
+    case RemoveQuery(query) => es.deleteByQuery(
+      Seq(indexName),
+      Seq(typeName),
+      query
+    )
   }
 
   private def doClear {

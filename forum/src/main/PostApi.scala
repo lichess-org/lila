@@ -6,12 +6,14 @@ import lila.db.paginator._
 import lila.db.Implicits._
 import lila.db.api._
 import allTubes._
+import actorApi._
 
+import akka.actor.ActorRef
 import play.api.libs.json.JsObject
 import play.api.libs.concurrent.Execution.Implicits._
 import scalaz.{ OptionT, OptionTs }
 
-final class PostApi(env: Env, maxPerPage: Int) extends OptionTs {
+final class PostApi(env: Env, indexer: ActorRef, maxPerPage: Int) extends OptionTs {
 
   def create(categSlug: String, slug: String, page: Int): Fu[Option[(Categ, Topic, Paginator[Post])]] = for {
     categ ← optionT(CategRepo bySlug categSlug)
@@ -42,8 +44,7 @@ final class PostApi(env: Env, maxPerPage: Int) extends OptionTs {
         $update(categ.copy(
           nbPosts = categ.nbPosts + 1,
           lastPostId = post.id)) >>
-        // TODO
-        // env.indexer insertOne post >>
+        (indexer ! InsertPost(post)) >>
         env.recent.invalidate inject post
     }
 
@@ -102,11 +103,11 @@ final class PostApi(env: Env, maxPerPage: Int) extends OptionTs {
         $remove[Post](view.post) >>
           (env.topicApi denormalize view.topic) >>
           (env.categApi denormalize view.categ) >>
-          env.recent.invalidate)
+          env.recent.invalidate >>
+          (indexer ! RemovePost(post)))
       // TODO
       // _ ← modLog.deletePost(mod, post.userId, post.author, post.ip,
       //   text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text))
-      // _ ← env.indexer removeOne post
     } yield none[Post])
   } yield ()).value.void
 
