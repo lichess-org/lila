@@ -4,30 +4,34 @@ import lila.user.{ User, Users, UserRepo }
 
 import play.api.libs.concurrent.Execution.Implicits._
 
-private[security] final class Cli {
+private[security] final class Cli extends lila.common.Cli {
 
-  def enable(username: String) = perform(username, u ⇒ UserRepo enable u.id)
+  def process = {
 
-  def disable(username: String) = perform(username, u ⇒
-    (UserRepo disable u.id) >> (Store deleteUsername u.id)
-  )
+    case "security" :: "enable" :: uid :: Nil ⇒
+      perform(uid, u ⇒ UserRepo enable u.id)
 
-  def passwd(username: String, password: String) = perform(username, user ⇒
-    UserRepo.passwd(user.id, password)
-  )
+    case "security" :: "disable" :: uid :: Nil ⇒
+      perform(uid, u ⇒ (UserRepo disable u.id) >> (Store deleteUsername u.id))
 
-  def roles(username: String) = UserRepo named username map { 
-    _.fold(s"User $username not found")(_.roles mkString " ")
+    case "security" :: "passwd" :: uid :: pwd :: Nil ⇒
+      perform(uid, user ⇒ UserRepo.passwd(user.id, pwd))
+
+    case "security" :: "roles" :: uid :: Nil ⇒
+      UserRepo named uid map {
+        _.fold("User %s not found" format uid)(_.roles mkString " ")
+      }
+
+    case "security" :: "grant" :: uid :: roles ⇒
+      perform(uid, user ⇒
+        UserRepo.setRoles(user.id, roles map (_.toUpperCase))
+      )
   }
 
-  def grant(username: String, roles: List[String]) = perform(username, user ⇒
-    UserRepo.setRoles(user.id, roles map (_.toUpperCase))
-  )
-
-  private def perform(username: String, op: User ⇒ Funit): Fu[String] = 
-    UserRepo named username flatMap { userOption =>
-      userOption.fold(fufail[String](s"User $username not found")) { u ⇒ 
-        op(u) inject s"User $username successfully updated" 
+  private def perform(username: String, op: User ⇒ Funit): Fu[String] =
+    UserRepo named username flatMap { userOption ⇒
+      userOption.fold(fufail[String]("User %s not found" format username)) { u ⇒
+        op(u) inject "User %s successfully updated".format(username)
       }
-    } 
+    }
 }

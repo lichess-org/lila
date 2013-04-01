@@ -20,8 +20,12 @@ private[forumSearch] final class Indexer(
       }
     }
 
-    case RemovePost(id)  ⇒ lowLevel ! S.RemoveOne(id)
+    case RemovePost(id) ⇒ lowLevel ! S.RemoveOne(id)
 
-    case RemoveTopic(id) ⇒ S.RemoveQuery(termQuery(Post.fields.topicId, id))
+    case RemoveTopic(id) ⇒ lowLevel ! S.RemoveQuery(
+      termQuery(Post.fields.topicId, id)
+    )
+
+    case other ⇒ lowLevel ! other
   }
 }

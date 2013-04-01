@@ -29,7 +29,7 @@ object ApplicationBuild extends Build {
             "lila.common.paginator.Paginator")
         )
 
-  lazy val api = project("api", Seq(common, db, user, security, wiki)).settings(
+  lazy val api = project("api", Seq(common, db, user, security, wiki, forum)).settings(
     libraryDependencies := provided(
       playApi, hasher, config, apache, csv, jgit,
       actuarius, scalastic, findbugs, reactivemongo)

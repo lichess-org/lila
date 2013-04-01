@@ -8,16 +8,16 @@ private[api] final class Cli(env: Env) {
   private def user = lila.user.Env.current.cli
   private def security = lila.security.Env.current.cli
 
-  def apply(args: List[String]): Fu[String] = (((args match {
+  def apply(args: List[String]): Fu[String] = ({
+    lila.forum.Env.current.cli.process orElse 
+    lila.security.Env.current.cli.process 
+  } lift args) | fufail("Unknown command: " + args.mkString(" "))
+
+  def apply2(args: List[String]): Fu[String] = (((args match {
     // case "average-elo" :: Nil               ⇒ infos.averageElo
     // case "i18n-js-dump" :: Nil              ⇒ i18n.jsDump
     // case "i18n-fix" :: Nil                  ⇒ i18n.fileFix
     // case "i18n-fetch" :: from :: Nil        ⇒ i18n fetch from
-    case "security-enable" :: uid :: Nil        ⇒ security enable uid
-    case "security-disable" :: uid :: Nil       ⇒ security disable uid
-    case "security-passwd" :: uid :: pwd :: Nil ⇒ security.passwd(uid, pwd)
-    case "security-roles" :: uid :: Nil         ⇒ security roles uid
-    case "security-grant" :: uid :: roles       ⇒ security.grant(uid, roles)
     // case "user-rewrite-history" :: Nil      ⇒ users.rewriteHistory
     // case "forum-denormalize" :: Nil         ⇒ forum.denormalize
     // case "forum-typecheck" :: Nil           ⇒ forum.typecheck
