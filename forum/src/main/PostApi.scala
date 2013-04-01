@@ -7,10 +7,11 @@ import lila.db.Implicits._
 import lila.db.api._
 import allTubes._
 
+import play.api.libs.json.JsObject
 import play.api.libs.concurrent.Execution.Implicits._
 import scalaz.{ OptionT, OptionTs }
 
-private[forum] final class PostApi(env: Env, maxPerPage: Int) extends OptionTs {
+final class PostApi(env: Env, maxPerPage: Int) extends OptionTs {
 
   def create(categSlug: String, slug: String, page: Int): Fu[Option[(Categ, Topic, Paginator[Post])]] = for {
     categ ← optionT(CategRepo bySlug categSlug)
@@ -18,32 +19,33 @@ private[forum] final class PostApi(env: Env, maxPerPage: Int) extends OptionTs {
     tuple ← optionT(paginator(topic, page) map { (categ, topic, _).some })
   } yield tuple
 
-  // def makePost(
-  //   categ: Categ,
-  //   topic: Topic,
-  //   data: DataForm.PostData)(implicit ctx: Context): Fu[Post] = for {
-  //   number ← lastNumberOf(topic)
-  //   post = Post(
-  //     topicId = topic.id,
-  //     author = data.author,
-  //     userId = ctx.me map (_.id),
-  //     ip = ctx.isAnon option ctx.req.remoteAddress,
-  //     text = data.text,
-  //     number = number + 1,
-  //     categId = categ.id)
-  //   _ ← env.postRepo saveFu post
-  //   // denormalize topic
-  //   _ ← env.topicRepo saveFu topic.copy(
-  //     nbPosts = topic.nbPosts + 1,
-  //     lastPostId = post.id,
-  //     updatedAt = post.createdAt)
-  //   // denormalize categ
-  //   _ ← env.categRepo saveFu categ.copy(
-  //     nbPosts = categ.nbPosts + 1,
-  //     lastPostId = post.id)
-  //   _ ← env.recent.invalidate
-  //   _ ← env.indexer insertOne post
-  // } yield post
+  def makePost(
+    categ: Categ,
+    topic: Topic,
+    data: DataForm.PostData)(implicit ctx: Context): Fu[Post] =
+    lastNumberOf(topic) flatMap { number ⇒
+      val post = Posts(
+        topicId = topic.id,
+        author = data.author,
+        userId = ctx.me map (_.id),
+        ip = ctx.isAnon option ctx.req.remoteAddress,
+        text = data.text,
+        number = number + 1,
+        categId = categ.id)
+      $insert(post) >>
+        // denormalize topic
+        $update(topic.copy(
+          nbPosts = topic.nbPosts + 1,
+          lastPostId = post.id,
+          updatedAt = post.createdAt)) >>
+        // denormalize categ
+        $update(categ.copy(
+          nbPosts = categ.nbPosts + 1,
+          lastPostId = post.id)) >>
+        // TODO
+        // env.indexer insertOne post >>
+        env.recent.invalidate inject post
+    }
 
   def get(postId: String): Fu[Option[(Topic, Post)]] = for {
     post ← optionT($find.byId[Post](postId))
@@ -99,12 +101,14 @@ private[forum] final class PostApi(env: Env, maxPerPage: Int) extends OptionTs {
         env.topicApi.delete(view.categ, view.topic),
         $remove[Post](view.post) >>
           (env.topicApi denormalize view.topic) >>
-          (env.categApi denormalize view.categ)) // >>
+          (env.categApi denormalize view.categ) >>
+          env.recent.invalidate)
       // TODO
-      // env.recent.invalidate)
       // _ ← modLog.deletePost(mod, post.userId, post.author, post.ip,
       //   text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text))
       // _ ← env.indexer removeOne post
     } yield none[Post])
   } yield ()).value.void
+
+  def cursor(selector: JsObject) = $query[Post](selector).cursor[Option[Post]]
 }

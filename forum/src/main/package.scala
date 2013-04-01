@@ -43,4 +43,6 @@ package object forum extends PackageObject with WithPlay {
     implicit def topicT = topicTube
     implicit def categT = categTube
   }
+
+  private[forum] def teamSlug(id: String) = "team-" + id
 }

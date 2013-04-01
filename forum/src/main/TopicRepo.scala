@@ -11,7 +11,7 @@ object TopicRepo {
   private[forum] implicit def tube = topicTube
 
   def byCateg(categ: Categ): Fu[List[Topic]] = 
-    $find(Json.obj("categId" -> categ.slug))
+    $find(byCategQuery(categ))
 
   def byTree(categSlug: String, slug: String): Fu[Option[Topic]] = 
     $find one Json.obj("categId" -> categSlug, "slug" -> slug)
@@ -28,4 +28,6 @@ object TopicRepo {
 
   def incViews(topic: Topic): Funit = 
     $update($select(topic.id), $inc("views" -> 1))
+
+  def byCategQuery(categ: Categ) = Json.obj("categId" -> categ.slug)
 }

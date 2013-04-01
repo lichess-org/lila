@@ -12,62 +12,57 @@ import scalaz.{ OptionT, OptionTs }
 
 private[forum] final class CategApi(env: Env) extends OptionTs {
 
-  // def list(teams: List[String]): Fu[List[CategView]] = for {
-  //   categs ← env.categRepo withTeams teams
-  //   views ← (categs map { categ ⇒
-  //     env.postApi get categ.lastPostId map { topicPost ⇒
-  //       CategView(categ, topicPost map {
-  //         _ match {
-  //           case (topic, post) ⇒ (topic, post, env.postApi lastPageOf topic)
-  //         }
-  //       })
-  //     }
-  //   }).sequence
-  // } yield views
+  def list(teams: List[String]): Fu[List[CategView]] = for {
+    categs ← CategRepo withTeams teams
+    views ← (categs map { categ ⇒
+      env.postApi get categ.lastPostId map { topicPost ⇒
+        CategView(categ, topicPost map {
+          _ match {
+            case (topic, post) ⇒ (topic, post, env.postApi lastPageOf topic)
+          }
+        })
+      }
+    }).sequence
+  } yield views
 
-  // def getTeamNbPosts(slug: String): Fu[Int] =
-  //   env.categRepo nbPosts ("team-" + slug)
+  def getTeamNbPosts(slug: String): Fu[Int] = CategRepo nbPosts teamSlug(slug)
 
-  // def makeTeam(slug: String, name: String): Funit = for {
-  //   position ← env.categRepo.nextPosition
-  //   categ = Categ(
-  //     slug = "team-" + slug,
-  //     name = name,
-  //     desc = "Forum of the team " + name,
-  //     pos = position,
-  //     team = slug.some)
-  //   topic = Topic(
-  //     categId = categ.slug,
-  //     slug = slug + "-forum",
-  //     name = name + " forum")
-  //   post = Post(
-  //     topicId = topic.id,
-  //     author = none,
-  //     userId = "lichess".some,
-  //     ip = none,
-  //     text = "Welcome to the %s forum!\nOnly members of the team can post here, but everybody can read." format name,
-  //     number = 1,
-  //     categId = categ.id)
-  //   _ ← env.categRepo saveFu categ
-  //   _ ← env.postRepo saveFu post
-  //   // denormalize topic
-  //   _ ← env.topicRepo saveFu topic.copy(
-  //     nbPosts = 1,
-  //     lastPostId = post.id,
-  //     updatedAt = post.createdAt)
-  //   // denormalize categ
-  //   _ ← env.categRepo saveFu categ.copy(
-  //     nbTopics = categ.nbTopics + 1,
-  //     nbPosts = categ.nbPosts + 1,
-  //     lastPostId = post.id)
-  // } yield ()
+  def makeTeam(slug: String, name: String): Funit =
+    CategRepo.nextPosition flatMap { position ⇒
+      val categ = Categ(
+        slug = teamSlug(slug),
+        name = name,
+        desc = "Forum of the team " + name,
+        pos = position,
+        team = slug.some)
+      val topic = Topics(
+        categId = categ.slug,
+        slug = slug + "-forum",
+        name = name + " forum")
+      val post = Posts(
+        topicId = topic.id,
+        author = none,
+        userId = "lichess".some,
+        ip = none,
+        text = "Welcome to the %s forum!\nOnly members of the team can post here, but everybody can read." format name,
+        number = 1,
+        categId = categ.id)
+      $insert(categ) >>
+        $insert(post) >>
+        $insert(topic.copy(
+          nbPosts = 1,
+          lastPostId = post.id,
+          updatedAt = post.createdAt)) >>
+        $update(categ.copy(
+          nbTopics = categ.nbTopics + 1,
+          nbPosts = categ.nbPosts + 1,
+          lastPostId = post.id))
+    }
 
-  // def show(slug: String, page: Int): Fu[Option[(Categ, Paginator[TopicView])]] =
-  //   env.categRepo bySlug slug map {
-  //     _ map { categ ⇒
-  //       categ -> env.topicApi.paginator(categ, page)
-  //     }
-  //   }
+  def show(slug: String, page: Int): Fu[Option[(Categ, Paginator[TopicView])]] =
+    optionT(CategRepo bySlug slug) flatMap { categ ⇒
+      optionT(env.topicApi.paginator(categ, page) map { (categ, _).some })
+    }
 
   def denormalize(categ: Categ): Funit = for {
     topics ← TopicRepo byCateg categ
@@ -81,8 +76,7 @@ private[forum] final class CategApi(env: Env) extends OptionTs {
     ))
   } yield ()
 
-  // val denormalize: Funit = for {
-  //   categs ← env.categRepo.all
-  //   _ ← categs.map(denormalize).sequence
-  // } yield ()
+  val denormalize: Funit = $find.all[Categ] flatMap { categs ⇒
+    categs.map(denormalize).sequence
+  } void
 }

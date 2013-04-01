@@ -1,7 +1,7 @@
 package lila.forum
 
 import lila.user.User
-import lila.security.{ Permission, Granter }
+import lila.security.{ Permission, Granter ⇒ MasterGranter }
 
 import scala.concurrent.duration.Duration
 import spray.caching.{ LruCache, Cache }
@@ -16,7 +16,7 @@ private[forum] final class Recent(postApi: PostApi, ttl: Duration) {
       cache.fromFuture(key)(fetch(key))
     }
 
-  def team(teamId: String): Fu[List[PostLiteView]] = 
+  def team(teamId: String): Fu[List[PostLiteView]] =
     cache.fromFuture(teamSlug(teamId))(fetch(teamSlug(teamId)))
 
   def invalidate: Funit = fuccess(cache.clear)
@@ -26,12 +26,10 @@ private[forum] final class Recent(postApi: PostApi, ttl: Duration) {
 
   private def userCacheKey(user: Option[User], getTeams: GetTeams): Fu[String] =
     user zmap getTeams map { teams ⇒
-      ((user zmap Granter(Permission.StaffForum)).fold(
+      ((user zmap MasterGranter(Permission.StaffForum)).fold(
         staffCategIds, publicCategIds
       ) ::: (teams map teamSlug)) mkString ";"
     }
-
-  private def teamSlug(id: String) = "team-" + id
 
   private lazy val publicCategIds =
     CategRepo.withTeams(Nil).await.map(_.slug) filterNot ("staff" ==)
