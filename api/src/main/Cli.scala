@@ -8,10 +8,13 @@ private[api] final class Cli(env: Env) {
   private def user = lila.user.Env.current.cli
   private def security = lila.security.Env.current.cli
 
-  def apply(args: List[String]): Fu[String] = ({
+  def apply(args: List[String]): Fu[String] = (
     lila.forum.Env.current.cli.process orElse 
-    lila.security.Env.current.cli.process 
-  } lift args) | fufail("Unknown command: " + args.mkString(" "))
+    lila.security.Env.current.cli.process orElse
+    lila.wiki.Env.current.cli.process orElse
+    lila.i18n.Env.current.cli.process orElse
+    lila.game.Env.current.cli.process lift args
+  ) | fufail("Unknown command: " + args.mkString(" "))
 
   def apply2(args: List[String]): Fu[String] = (((args match {
     // case "average-elo" :: Nil               ⇒ infos.averageElo
@@ -19,8 +22,6 @@ private[api] final class Cli(env: Env) {
     // case "i18n-fix" :: Nil                  ⇒ i18n.fileFix
     // case "i18n-fetch" :: from :: Nil        ⇒ i18n fetch from
     // case "user-rewrite-history" :: Nil      ⇒ users.rewriteHistory
-    // case "forum-denormalize" :: Nil         ⇒ forum.denormalize
-    // case "forum-typecheck" :: Nil           ⇒ forum.typecheck
     // case "forum-search" :: text :: Nil      ⇒ forum.search(text)
     // case "forum-search-reset" :: Nil        ⇒ forum.searchReset
     // case "game-cleanup-next" :: Nil         ⇒ titivate.cleanupNext inject "Done"
@@ -28,7 +29,6 @@ private[api] final class Cli(env: Env) {
     // case "game-finish" :: Nil               ⇒ titivate.finishByClock inject "Done"
     // case "game-per-day" :: Nil              ⇒ games.perDay(30)
     // case "game-per-day" :: days :: Nil      ⇒ games.perDay(parseIntOption(days) err "days: Int")
-    case "wiki-fetch" :: Nil                    ⇒ wiki.fetch
     // case "search-reset" :: Nil              ⇒ search.reset
     // case "team-search" :: text :: Nil       ⇒ teams.search(text)
     // case "team-search-reset" :: Nil         ⇒ teams.searchReset
