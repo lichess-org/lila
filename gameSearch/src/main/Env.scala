@@ -29,7 +29,7 @@ final class Env(
     indexQuery = indexQuery _
   )), name = "game-type-indexer")
 
-  lazy val paginatorBuilder = new PaginatorBuilder(
+  lazy val paginatorBuilder = new lila.search.PaginatorBuilder(
     indexer = indexer,
     maxPerPage = PaginatorMaxPerPage,
     converter = responseToGames _)
