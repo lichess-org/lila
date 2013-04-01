@@ -29,6 +29,17 @@ final class Env(
   lazy val forms = new DataForm(captcher)
   lazy val recent = new Recent(postApi, RecentTtl)
 
+  def cli = new lila.common.Cli {
+    import lila.db.api.$find
+    import allTubes._
+    def process = {
+      case "forum" :: "denormalize" :: Nil ⇒
+        topicApi.denormalize >> categApi.denormalize inject "Forum denormalized"
+      case "forum" :: "typecheck" :: Nil ⇒
+        $find.all[Categ] >> $find.all[Topic] >> $find.all[Post] inject "Forum type checked"
+    }
+  }
+
   private[forum] lazy val categColl = db(CollectionCateg)
   private[forum] lazy val topicColl = db(CollectionTopic)
   private[forum] lazy val postColl = db(CollectionPost)
