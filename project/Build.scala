@@ -14,11 +14,11 @@ object ApplicationBuild extends Build {
         csv, jgit, actuarius, scalastic, findbugs, reactivemongo)
     )) dependsOn (
       api, user, wiki, message, notification, i18n, game, bookmark,
-      gameSearch, timeline, forum
+      gameSearch, timeline, forum, forumSearch
     ) aggregate (
         chess, api, common, http, db, user, wiki,
         hub, websocket, message, notification, i18n, game,
-        bookmark, search, gameSearch, timeline, forum
+        bookmark, search, gameSearch, timeline, forum, forumSearch
       ) settings (
           templatesImport ++= Seq(
             "lila.game.{ Game, Player, Pov }",
