@@ -12,28 +12,28 @@ object ApplicationBuild extends Build {
       libraryDependencies := Seq(
         scalaz, scalalib, hasher, config, apache, scalaTime,
         csv, jgit, actuarius, scalastic, findbugs, reactivemongo)
-    )) dependsOn (
-      api, user, wiki, message, notification, i18n, game, bookmark,
-      gameSearch, timeline, forum, forumSearch
-    ) aggregate (
-        chess, api, common, http, db, user, wiki,
-        hub, websocket, message, notification, i18n, game,
-        bookmark, search, gameSearch, timeline, forum, forumSearch
-      ) settings (
-          templatesImport ++= Seq(
-            "lila.game.{ Game, Player, Pov }",
-            "lila.user.{ User, Context }",
-            "lila.security.Permission",
-            "lila.app.templating.Environment._",
-            // "lila.app.ui",
-            "lila.common.paginator.Paginator")
-        )
+    )) dependsOn api aggregate api settings (
+      templatesImport ++= Seq(
+        "lila.game.{ Game, Player, Pov }",
+        "lila.user.{ User, Context }",
+        "lila.security.Permission",
+        "lila.app.templating.Environment._",
+        // "lila.app.ui",
+        "lila.common.paginator.Paginator")
+    )
 
-  lazy val api = project("api", Seq(common, db, user, security, wiki, forum)).settings(
+  lazy val modules = Seq(
+    chess, common, http, db, user, wiki, hub, websocket,
+    message, notification, i18n, game, bookmark, search,
+    gameSearch, timeline, forum, forumSearch)
+
+  lazy val aggregatedModules: Seq[sbt.ProjectReference] = modules
+
+  lazy val api = project("api", modules.asInstanceOf[Seq[sbt.ClasspathDep[sbt.ProjectReference]]]).settings(
     libraryDependencies := provided(
       playApi, hasher, config, apache, csv, jgit,
       actuarius, scalastic, findbugs, reactivemongo)
-  )
+  ) aggregate (aggregatedModules: _*)
 
   lazy val common = project("common").settings(
     libraryDependencies ++= provided(playApi, playTest, reactivemongo, csv)

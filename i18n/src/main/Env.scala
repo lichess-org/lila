@@ -16,7 +16,7 @@ final class Env(
   private val settings = new {
     val WebPathRelative = config getString "web_path.relative"
     val FilePathRelative = config getString "file_path.relative"
-    val UpstreamUrl = config getString "upstream.url"
+    val UpstreamUrlPattern = config getString "upstream.url_pattern"
     val HideCallsCookieName = config getString "hide_calls.cookie.name"
     val HideCallsCookieMaxAge = config getInt "hide_calls.cookie.max_age"
     val CollectionTranslation = config getString "collection.translation"
@@ -58,8 +58,7 @@ final class Env(
   lazy val forms = new DataForm(
     keys = keys /*, captcher = captcha*/ )
 
-  def upstreamFetch(makeUrl: Int ⇒ String) =
-    new UpstreamFetch(id ⇒ UpstreamUrl + makeUrl(id))
+  def upstreamFetch = new UpstreamFetch(id ⇒ UpstreamUrlPattern format id)
 
   lazy val gitWrite = new GitWrite(
     transRelPath = FilePathRelative,
@@ -67,6 +66,18 @@ final class Env(
 
   def hideCallsCookieName = HideCallsCookieName
   def hideCallsCookieMaxAge = HideCallsCookieMaxAge
+
+  def cli = new lila.common.Cli {
+    import play.api.libs.concurrent.Execution.Implicits._
+    def process = {
+      case "i18n" :: "fetch" :: from :: Nil ⇒
+        upstreamFetch(from) flatMap gitWrite.apply inject "Fetched translations from upstream"
+      case "i18n" :: "js-dump" :: Nil ⇒
+        jsDump.apply inject "Dumped JavaScript translations"
+      case "i18n" :: "file-fix" :: Nil ⇒
+        fileFix.apply inject "Fixed translation files"
+    }
+  }
 }
 
 object Env {

@@ -10,8 +10,13 @@ import org.joda.time.DateTime
 
 private[i18n] final class UpstreamFetch(upstreamUrl: Int ⇒ String) {
 
-  def apply(from: Int): Fu[List[Translation]] =
+  private type Fetched = Fu[List[Translation]]
+
+  def apply(from: Int): Fetched =
     fetch(upstreamUrl(from)) map parse
+
+  def apply(from: String): Fetched =
+    parseIntOption(from).fold(fufail("Bad from argument"): Fetched)(apply)
 
   // private def upstreamUrl(from: Int) =
   //   "http://" + upstreamDomain + routes.I18n.fetch(from)
