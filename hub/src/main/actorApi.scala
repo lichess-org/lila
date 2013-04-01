@@ -17,3 +17,7 @@ package captcha {
   case object AnyCaptcha
   case class GetCaptcha(id: String)
 }
+
+package lobby {
+  case class TimelineEntry(rendered: String)
+}

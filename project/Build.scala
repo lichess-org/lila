@@ -51,7 +51,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(playApi, scalastic)
   )
 
-  lazy val timeline = project("timeline", Seq(common, db, user, hub)).settings(
+  lazy val timeline = project("timeline", Seq(common, db, game, user, hub)).settings(
     libraryDependencies ++= provided(
       playApi, playTest, reactivemongo, playReactivemongo)
   )
