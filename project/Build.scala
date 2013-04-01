@@ -51,10 +51,6 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(playApi, scalastic)
   )
 
-  lazy val gameSearch = project("gameSearch", Seq(common, chess, search, game)).settings(
-    libraryDependencies ++= provided(playApi, reactivemongo, playReactivemongo, scalastic)
-  )
-
   lazy val timeline = project("timeline", Seq(common, db, user, hub)).settings(
     libraryDependencies ++= provided(
       playApi, playTest, reactivemongo, playReactivemongo)
@@ -69,6 +65,10 @@ object ApplicationBuild extends Build {
   lazy val game = project("game", Seq(common, db, hub, user, chess)).settings(
     libraryDependencies ++= provided(
       playApi, reactivemongo, playReactivemongo, spray.caching)
+  )
+
+  lazy val gameSearch = project("gameSearch", Seq(common, chess, search, game)).settings(
+    libraryDependencies ++= provided(playApi, reactivemongo, playReactivemongo, scalastic)
   )
 
   lazy val http = project("http", Seq(common)).settings(
@@ -87,6 +87,11 @@ object ApplicationBuild extends Build {
   lazy val forum = project("forum", Seq(common, db, user, security, hub)).settings(
     libraryDependencies ++= provided(
       playApi, reactivemongo, playReactivemongo, spray.caching)
+  )
+
+  lazy val forumSearch = project("forumSearch", Seq(common, forum, search)).settings(
+    libraryDependencies ++= provided(
+      playApi, reactivemongo, playReactivemongo, scalastic)
   )
 
   lazy val i18n = project("i18n", Seq(common, db, user)).settings(
