@@ -1,7 +1,7 @@
 package lila.security
 
 import lila.user.{ User, UserRepo }
-import lila.db.api.$exists
+import lila.db.api.$count
 
 import akka.actor.ActorRef
 import play.api.data._
@@ -26,7 +26,7 @@ final class DataForm(val captcher: ActorRef) extends lila.hub.CaptchedForm {
     "move" -> nonEmptyText
   )(SignupData.apply)(_ ⇒ None)
     .verifying("This user already exists", d ⇒ !userExists(d).await)
-    .verifying(captchaFailMessage, validateCaptcha)
+    .verifying(captchaFailMessage, validateCaptcha _)
   )
 
   def signupWithCaptcha = withCaptcha(signup)
