@@ -1,6 +1,7 @@
 package lila.game
 
 import lila.db.api._
+import lila.user.User
 import chess.{ Color, Status }
 
 import play.api.libs.json._
@@ -50,8 +51,8 @@ object Query {
 
   def loss(u: String) = user(u) ++ finished ++ Json.obj("wid" -> $ne(u))
 
-  // TODO the sort does not belong here
-  // def opponents(u1: String, u2: String) = Json.obj("uids" -> $all(u1, u2)).sortBy(_.nbGames).map(_.id)
+  def opponents(u1: User, u2: User) = 
+    Json.obj("uids" -> $all(List(u1, u2).sortBy(_.nbGames).map(_.id): _*))
 
   def turnsGt(nb: Int) = Json.obj("t" -> $gt(nb))
 
