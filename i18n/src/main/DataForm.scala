@@ -1,30 +1,25 @@
 package lila.i18n
 
+import akka.actor.ActorRef
 import play.api.mvc.Request
 import play.api.data._
 import play.api.data.Forms._
-import org.joda.time.DateTime
 import play.api.libs.concurrent.Execution.Implicits._
-
-// TODO captcha
-// import site.Captcha
+import org.joda.time.DateTime
 
 final class DataForm(
-    keys: I18nKeys /*, captcher: Captcha */ ) {
+    keys: I18nKeys, 
+    val captcher: ActorRef) extends lila.hub.CaptchedForm {
 
   val translation = Form(mapping(
     "author" -> optional(nonEmptyText),
     "comment" -> optional(nonEmptyText),
     "gameId" -> nonEmptyText,
     "move" -> nonEmptyText
-  )(TransMetadata.apply)(TransMetadata.unapply).verifying(
-      "Not a checkmate",
-      data ⇒ true //captcher get data.gameId valid data.move.trim.toLowerCase
-    ))
+  )(TransMetadata.apply)(TransMetadata.unapply)
+    .verifying(captchaFailMessage, validateCaptcha _))
 
-  // def translationWithCaptcha = translation -> captchaCreate
-
-  // def captchaCreate: Captcha.Challenge = captcher.create
+  def translationWithCaptcha = withCaptcha(translation)
 
   def process(code: String, metadata: TransMetadata, data: Map[String, String]): Funit = {
     val messages = (data mapValues { msg ⇒
@@ -45,7 +40,6 @@ final class DataForm(
         author = metadata.author,
         comment = metadata.comment,
         createdAt = DateTime.now)
-      // translationTube |> { implicit t ⇒ lila.db.api.$insert(translation) }
       translationTube |> { implicit t ⇒ lila.db.api.$insert(translation) }
     }
   }

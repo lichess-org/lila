@@ -2,6 +2,7 @@ package lila.i18n
 
 import lila.common.PlayApp
 
+import akka.actor.ActorRef
 import com.typesafe.config.Config
 import play.api.i18n.{ MessagesApi, MessagesPlugin }
 import play.api.i18n.Lang
@@ -11,6 +12,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     val messagesApi: MessagesApi,
+    captcher: ActorRef,
     appPath: String) {
 
   private val settings = new {
@@ -56,7 +58,8 @@ final class Env(
     keys = keys)
 
   lazy val forms = new DataForm(
-    keys = keys /*, captcher = captcha*/ )
+    keys = keys, 
+    captcher = captcher)
 
   def upstreamFetch = new UpstreamFetch(id ⇒ UpstreamUrlPattern format id)
 
@@ -88,6 +91,7 @@ object Env {
     messagesApi = PlayApp.withApp(_.plugin[MessagesPlugin])
       .err("this plugin was not registered or disabled")
       .api,
+    captcher = lila.hub.Env.current.actor.captcher,
     appPath = PlayApp withApp (_.path.getCanonicalPath)
   )
 }

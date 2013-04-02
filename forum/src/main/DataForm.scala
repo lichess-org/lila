@@ -1,43 +1,30 @@
 package lila.forum
 
-import lila.common.Captcha
-import lila.hub.actorApi.captcha._
-
 import play.api.data._
 import play.api.data.Forms._
 import play.api.libs.concurrent.Execution.Implicits._
 import akka.actor.ActorRef
-import akka.pattern.ask
 
-final class DataForm(captcher: ActorRef) {
+final class DataForm(val captcher: ActorRef) extends lila.hub.CaptchedForm {
 
   import DataForm._
-
-  import makeTimeout.large
 
   val postMapping = mapping(
     "text" -> text(minLength = 3),
     "author" -> optional(text),
     "gameId" -> nonEmptyText,
     "move" -> nonEmptyText
-  )(PostData.apply)(PostData.unapply).verifying(
-    "Not a checkmate", 
-    data ⇒ getCaptcha(data.gameId).await valid data.move.trim.toLowerCase
-  )
+  )(PostData.apply)(PostData.unapply)
+    .verifying(captchaFailMessage, validateCaptcha _)
 
   val post = Form(postMapping)
 
-  def postWithCaptcha = anyCaptcha map (post -> _)
+  def postWithCaptcha = withCaptcha(post)
 
   val topic = Form(mapping(
     "name" -> text(minLength = 3),
     "post" -> postMapping
   )(TopicData.apply)(TopicData.unapply))
-
-  def anyCaptcha: Fu[Captcha] = 
-    (captcher ? AnyCaptcha).mapTo[Captcha]
-  def getCaptcha(id: String): Fu[Captcha] = 
-    (captcher ? GetCaptcha(id)).mapTo[Captcha]
 }
 
 object DataForm {
