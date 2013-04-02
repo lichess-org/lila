@@ -3,14 +3,14 @@ package lila.security
 import lila.db.Types.Coll
 import lila.user.{ User, UserRepo }
 import lila.common.PimpedConfig._
-// import site.Captcha
 
+import akka.actor.ActorRef
 import com.typesafe.config.Config
 import scala.collection.JavaConversions._
 
 final class Env(
     config: Config,
-    // captcha: Captcha,
+    captcher: ActorRef,
     db: lila.db.Env) {
 
   private val settings = new {
@@ -36,8 +36,7 @@ final class Env(
 
   lazy val wiretap = new Wiretap(WiretapIps)
 
-  // lazy val forms = new DataForm(
-  //   captcher = captcha)
+  lazy val forms = new DataForm(captcher = captcher)
 
   def cli = new Cli
 }
@@ -46,5 +45,6 @@ object Env {
 
   lazy val current = "[security] boot" describes new Env(
     config = lila.common.PlayApp loadConfig "security",
-    db = lila.db.Env.current)
+    db = lila.db.Env.current,
+    captcher = lila.hub.Env.current.actor.captcher)
 }
