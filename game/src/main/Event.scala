@@ -46,12 +46,12 @@ object Event {
 
   case class Move(orig: Pos, dest: Pos, color: Color) extends Event {
     def typ = "move"
-    def data = JsObject(Seq(
-      "type" -> JsString("move"),
-      "from" -> JsString(orig.key),
-      "to" -> JsString(dest.key),
-      "color" -> JsString(color.name)
-    ))
+    def data = Json.obj(
+      "type" -> "move",
+      "from" -> orig.key,
+      "to" -> dest.key,
+      "color" -> color.name
+    )
   }
   object Move {
     def apply(move: ChessMove): Move =
@@ -77,13 +77,11 @@ object Event {
 
   case class Castling(king: (Pos, Pos), rook: (Pos, Pos), color: Color) extends Event {
     def typ = "castling"
-    def data = JsObject(Seq(
-      "king" -> jsArray(king._1.key, king._2.key),
-      "rook" -> jsArray(rook._1.key, rook._2.key),
-      "color" -> JsString(color.name)
-    ))
-
-    def jsArray(a: String, b: String) = JsArray(List(JsString(a), JsString(b)))
+    def data = Json.obj(
+      "king" -> Json.arr(king._1.key, king._2.key),
+      "rook" -> Json.arr(rook._1.key, rook._2.key),
+      "color" -> color.name
+    )
   }
 
   sealed trait Redirect extends Event {
@@ -103,10 +101,10 @@ object Event {
 
   case class Promotion(role: PromotableRole, pos: Pos) extends Event {
     def typ = "promotion"
-    def data = JsObject(Seq(
-      "key" -> JsString(pos.key),
-      "pieceClass" -> JsString(role.toString.toLowerCase)
-    ))
+    def data = Json.obj(
+      "key" -> pos.key,
+      "pieceClass" -> role.toString.toLowerCase
+    )
   }
 
   case class Check(pos: Pos) extends Event {
@@ -158,10 +156,10 @@ object Event {
 
   case class Clock(white: Float, black: Float) extends Event {
     def typ = "clock"
-    def data = JsObject(Seq(
-      "white" -> JsNumber(white),
-      "black" -> JsNumber(black)
-    ))
+    def data = Json.obj(
+      "white" -> white,
+      "black" -> black
+    )
   }
   object Clock {
     def apply(clock: ChessClock): Clock = Clock(
@@ -171,10 +169,10 @@ object Event {
 
   case class State(color: Color, turns: Int) extends Event {
     def typ = "state"
-    def data = JsObject(Seq(
-      "color" -> JsString(color.name),
-      "turns" -> JsNumber(turns)
-    ))
+    def data = Json.obj(
+      "color" -> color.name,
+      "turns" -> turns
+    )
   }
 
   case class Crowd(
@@ -182,10 +180,10 @@ object Event {
       black: Boolean,
       watchers: List[String]) extends Event {
     def typ = "crowd"
-    def data = JsObject(Seq(
-      "white" -> JsBoolean(white),
-      "black" -> JsBoolean(black),
-      "watchers" -> JsArray(watchers map JsString)
-    ))
+    def data = Json.obj(
+      "white" -> white,
+      "black" -> black,
+      "watchers" -> Json.arr(watchers map JsString)
+    )
   }
 }
