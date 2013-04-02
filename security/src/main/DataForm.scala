@@ -1,18 +1,17 @@
-package lila.app
-package security
+package lila.security
 
-import user.{ User, UserRepo }
-import site.Captcha
+import lila.user.{ User, UserRepo }
+import lila.db.api.$exists
 
+import akka.actor.ActorRef
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
 
-final class DataForm(
-    userRepo: UserRepo,
-    captcher: Captcha) {
+final class DataForm(val captcher: ActorRef) extends lila.hub.CaptchedForm {
 
   import DataForm._
+  import UserRepo.tube
 
   val signup = Form(mapping(
     "username" -> nonEmptyText.verifying(
@@ -26,19 +25,14 @@ final class DataForm(
     "gameId" -> nonEmptyText,
     "move" -> nonEmptyText
   )(SignupData.apply)(_ ⇒ None)
-    .verifying("This user already exists", d ⇒ !userExists(d))
-    .verifying(
-      "Not a checkmate",
-      data ⇒ captcher get data.gameId valid data.move.trim.toLowerCase
-    )
+    .verifying("This user already exists", d ⇒ !userExists(d).await)
+    .verifying(captchaFailMessage, validateCaptcha)
   )
 
-  def signupWithCaptcha = signup -> captchaCreate
-
-  def captchaCreate: Captcha.Challenge = captcher.create
+  def signupWithCaptcha = withCaptcha(signup)
 
   private def userExists(data: SignupData) =
-    userRepo.exists(data.username).unsafePerformIO
+    $exists[User](data.username.toLowerCase)
 }
 
 object DataForm {

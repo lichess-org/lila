@@ -76,7 +76,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(playApi)
   )
 
-  lazy val security = project("security", Seq(common, db, http, user)).settings(
+  lazy val security = project("security", Seq(common, hub, db, http, user)).settings(
     libraryDependencies ++= provided(playApi, reactivemongo, playReactivemongo)
   )
 
