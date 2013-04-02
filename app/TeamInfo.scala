@@ -1,12 +1,9 @@
 package lila.app
-package team
 
-import user.{ User, UserRepo }
-import game.{ GameRepo, DbGame }
-import forum.PostLiteView
-import http.Context
-
-import scalaz.effects._
+import lila.user.{ User, UserRepo, Context }
+import lila.game.{ GameRepo, Game }
+import lila.forum.PostLiteView
+import lila.team.{ Team, RequestWithUser, TeamApi }
 
 case class TeamInfo(
     mine: Boolean,

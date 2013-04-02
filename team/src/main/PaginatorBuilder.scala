@@ -1,0 +1,44 @@
+package lila.team
+
+import lila.user.{ User, UserRepo }
+import lila.common.paginator._
+import lila.db.paginator._
+import lila.db.api._
+import lila.db.Implicits._
+import allTubes._
+
+import play.api.libs.concurrent.Execution.Implicits._
+import org.joda.time.DateTime
+
+private[team] final class PaginatorBuilder(
+    maxPerPage: Int,
+    maxUserPerPage: Int) {
+
+  def popularTeams(page: Int): Fu[Paginator[Team]] = Paginator(
+    adapter = new Adapter[Team](
+      selector = TeamRepo.enabledQuery,
+      sort = Seq(TeamRepo.sortPopular)),
+    page,
+    maxPerPage)
+
+  def teamMembers(team: Team, page: Int): Fu[Paginator[MemberWithUser]] = Paginator(
+    adapter = new TeamAdapter(team),
+    page,
+    maxUserPerPage)
+
+  private final class TeamAdapter(team: Team) extends AdapterLike[MemberWithUser] {
+
+    val nbResults = fuccess(team.nbMembers)
+
+    private implicit def userT = lila.user.userTube
+
+    def slice(offset: Int, length: Int): Fu[Seq[MemberWithUser]] = for {
+      members ← $find[Member]($query[Member](selector) sort sorting skip offset limit length)
+      users ← $find.byOrderedIds[User](members.map(_.user))
+    } yield members zip users map {
+      case (member, user) ⇒ MemberWithUser(member, user)
+    }
+    private def selector = MemberRepo teamQuery team.id
+    private def sorting = $sort desc "date"
+  }
+}

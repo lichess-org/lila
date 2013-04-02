@@ -1,6 +1,6 @@
 package lila.security
 
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserRepo, userTube }
 import lila.db.api.$count
 
 import akka.actor.ActorRef
@@ -11,7 +11,7 @@ import play.api.data.validation.Constraints
 final class DataForm(val captcher: ActorRef) extends lila.hub.CaptchedForm {
 
   import DataForm._
-  import UserRepo.tube
+  private implicit def userT = userTube
 
   val signup = Form(mapping(
     "username" -> nonEmptyText.verifying(

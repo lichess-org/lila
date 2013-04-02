@@ -1,19 +1,17 @@
-package lila.app
-package team
+package lila.team
 
-import site.Captcha
+import lila.db.api.{ $count, $select }
 
+import akka.actor.ActorRef
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 
-final class DataForm(
-    repo: TeamRepo,
-    captcher: Captcha) {
+private[team] final class DataForm(val captcher: ActorRef) extends lila.hub.CaptchedForm {
 
   import lila.common.Form._
 
-  object Fields {
+  private object Fields {
     val name = "name" -> text(minLength = 3, maxLength = 60)
     val location = "location" -> optional(text(minLength = 3, maxLength = 80))
     val description = "description" -> text(minLength = 30, maxLength = 2000)
@@ -29,12 +27,8 @@ final class DataForm(
     Fields.open,
     Fields.gameId,
     Fields.move)(TeamSetup.apply)(TeamSetup.unapply)
-    .verifying("This team already exists", d ⇒ !teamExists(d))
-    .verifying(
-      "Not a checkmate",
-      data ⇒ captcher get data.gameId valid data.move.trim.toLowerCase
-    )
-  )
+    .verifying("This team already exists", d ⇒ !teamExists(d).await)
+    .verifying(captchaFailMessage, validateCaptcha _))
 
   def edit(team: Team) = Form(mapping(
     Fields.location,
@@ -50,10 +44,7 @@ final class DataForm(
     Fields.gameId,
     Fields.move
   )(RequestSetup.apply)(RequestSetup.unapply)
-    .verifying(
-      "Not a checkmate",
-      data ⇒ captcher get data.gameId valid data.move.trim.toLowerCase
-    )
+    .verifying(captchaFailMessage, validateCaptcha _)
   ) fill RequestSetup(
     message = "Hello, I would like to join the team!",
     gameId = "",
@@ -68,12 +59,11 @@ final class DataForm(
     "userId" -> nonEmptyText
   ))
 
-  def createWithCaptcha = create -> captchaCreate
+  def createWithCaptcha = withCaptcha(create)
 
-  def captchaCreate: Captcha.Challenge = captcher.create
-
-  private def teamExists(setup: TeamSetup) =
-    repo.exists(Team nameToId setup.trim.name).unsafePerformIO
+  private def teamExists(setup: TeamSetup) = teamTube |> { implicit tube =>
+      $count.exists($select(Teams nameToId setup.trim.name))
+    }
 }
 
 private[team] case class TeamSetup(
