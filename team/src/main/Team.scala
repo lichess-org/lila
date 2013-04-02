@@ -1,16 +1,12 @@
-package lila.app
-package team
+package lila.team
 
-import user.User
+import lila.user.User
 
 import ornicar.scalalib.Random
 import org.joda.time.DateTime
-import com.novus.salat.annotations.Key
-import java.text.Normalizer
-import scalaz.effects._
 
 case class Team(
-    @Key("_id") id: String, // also the url slug
+    id: String, // also the url slug
     name: String,
     location: Option[String],
     description: String,
@@ -27,7 +23,7 @@ case class Team(
   def isCreator(user: String) = user == createdBy
 }
 
-object Team {
+object Teams {
 
   def apply(
     name: String,
@@ -49,4 +45,13 @@ object Team {
     // if most chars are not latin, go for random slug
     (slug.size > (name.size / 2)).fold(slug, Random nextString 8)
   }
+
+  import lila.db.Tube, Tube.Helpers._
+  import play.api.libs.json._
+
+  val tube = Tube(
+    reader = (__.json update readDate('createdAt)) andThen Json.reads[Team],
+    writer = Json.writes[Team],
+    writeTransformer = (__.json update writeDate('createdAt)).some
+  ) 
 }
