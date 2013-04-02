@@ -8,7 +8,7 @@ import lila.security.{ Permission, Granter }
 import lila.security.Env.{ current ⇒ securityEnv }
 
 import play.api.Play.current
-import play.api.mvc._
+import play.api.mvc._, Results._
 import play.api.data.Form
 import play.api.http._
 import play.api.libs.json.{ Json, Writes ⇒ WritesJson }
@@ -25,6 +25,10 @@ trait LilaController
   //   env.i18n.pool.lang(req)
 
   // protected def toJson[A: WritesJson](data: A) = Json toJson data
+
+  val TODO = Action {
+    NotImplemented[play.api.templates.Html](views.html.defaultpages.todo())
+  }
 
   protected def Open(f: Context ⇒ Fu[Result]): Action[AnyContent] =
     Open(BodyParsers.parse.anyContent)(f)

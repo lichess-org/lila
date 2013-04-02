@@ -8,8 +8,9 @@ trait Granter {
   private val TeamSlugPattern = """^team-([\w-]+)$""".r
   private val StaffSlug = "staff"
 
-  //                                teamId  userId
-  protected def userBelongsToTeam: (String, String) ⇒ Fu[Boolean]
+  protected def userBelongsToTeam(teamId: String, userId: String): Fu[Boolean] = 
+  // TODO make abstract
+    fuccess(false)
 
   def isGrantedRead(categSlug: String)(implicit ctx: Context): Boolean =
     (categSlug == StaffSlug).fold(

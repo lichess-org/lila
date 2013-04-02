@@ -4,6 +4,8 @@ import lila.wiki._
 import lila.wiki.Env.{ current ⇒ wikiEnv }
 import views._
 
+import play.api.mvc._, Results._
+
 object Wiki extends LilaController {
 
   val home = Open { implicit ctx ⇒
