@@ -68,7 +68,8 @@ object UserRepo {
     elos.sum / elos.size.toFloat
   }
 
-  def saveSetting(id: ID, key: String, value: String) = $update($select(id), $set(("settings." + key) -> value))
+  def saveSetting(id: ID, key: String, value: String): Funit = 
+    $update($select(id), $set(("settings." + key) -> value))
 
   def authenticate(id: ID, password: String): Fu[Option[User]] = for {
     greenLight ← checkPassword(id, password)

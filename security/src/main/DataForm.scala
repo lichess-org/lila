@@ -32,7 +32,7 @@ final class DataForm(val captcher: ActorRef) extends lila.hub.CaptchedForm {
   def signupWithCaptcha = withCaptcha(signup)
 
   private def userExists(data: SignupData) =
-    $exists[User](data.username.toLowerCase)
+    $count.exists[User](data.username.toLowerCase)
 }
 
 object DataForm {
