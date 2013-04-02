@@ -71,10 +71,12 @@ final class Env(
         val games = gameOptions.flatten
         nb = nb + games.size
         if (size > 1000) println(s"Index $nb of $size games")
-        // #TODO fetch all pgns in one request
-        val pgns = games.map(g ⇒ (PgnRepo get g.id).await)
+        val pgns = PgnRepo.associate(games.map(_.id).toSeq).await
+        val pairs = (pgns map { 
+          case (id, pgn) => games.find(_.id == id) map (_ -> pgn)
+        }).flatten
         esIndexer bulk {
-          games zip pgns map {
+          pairs map {
             case (game, pgn) ⇒ esIndexer.index_prepare(
               IndexName,
               TypeName,
