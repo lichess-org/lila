@@ -30,15 +30,19 @@ final class Env(config: Config, db: lila.db.Env) {
 
   lazy val usernameMemo = new UsernameMemo(ttl = OnlineTtl)
 
-  lazy val cached = new Cached(ttl = CachedNbTtl)
+  private lazy val cached = new Cached(ttl = CachedNbTtl)
 
-  def usernameOption(id: String): Fu[Option[String]] =
-    cached username id
+  def usernameOption(id: String): Fu[Option[String]] = cached username id
 
-  def usernameOrAnonymous(id: String): Fu[String] =
-    cached usernameOrAnonymous id
+  def usernameOrAnonymous(id: String): Fu[String] = cached usernameOrAnonymous id
 
-  def cli = new Cli(this)
+  def cli = new lila.common.Cli {
+    import play.api.libs.concurrent.Execution.Implicits._
+    def process = {
+      case "user" :: "average" :: "elo" :: Nil ⇒
+        UserRepo.averageElo map { elo ⇒ "Average elo is %f" format elo }
+    }
+  }
 }
 
 object Env {
