@@ -47,24 +47,20 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     withDiff: Boolean = true,
     engine: Boolean = false)(implicit ctx: Context) = Html {
     player.userId.fold(
-      """<span class="user_link %s">%s</span>""".format(
-        ~cssClass,
+      """<span class="user_link%s">%s</span>""".format(
+        cssClass.zmap(" " + _),
         player.aiLevel.fold(player.name | Users.anonymous)(aiName)
       )
     ) { userId ⇒
         userIdToUsername(userId) |> { username ⇒
           """<a class="user_link%s%s" href="%s">%s%s</a>""".format(
-            ~cssClass.map(" " + _),
-            withOnline.fold(
-              isUsernameOnline(username).fold(" online", " offline"),
-              ""),
-            routes.User.show(username),
+            cssClass.zmap(" " + _),
+            withOnline ?? isUsernameOnline(username).fold(" online", " offline"),
+            routes.User show username,
             usernameWithElo(player) + ~(player.eloDiff filter (_ ⇒ withDiff) map { diff ⇒
               " (%s)".format(showNumber(diff))
             }),
-            engine.fold(
-              """<span class="engine_mark" title="%s"></span>""" format trans.thisPlayerUsesChessComputerAssistance(),
-              "")
+            engine ?? """<span class="engine_mark" title="%s"></span>""" format trans.thisPlayerUsesChessComputerAssistance()
           )
         }
       }
@@ -91,27 +87,27 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def gameFen(game: Game, color: Color, ownerLink: Boolean = false)(implicit ctx: Context) = Html {
     val owner = ownerLink.fold(ctx.me flatMap game.player, none)
     var live = game.isBeingPlayed
-    val url = owner.fold(routes.Round.watcher(game.id, color.name)) { o =>
+    val url = owner.fold(routes.Round.watcher(game.id, color.name)) { o ⇒
       routes.Round.player(game fullIdOf o.color)
     }
     """<a href="%s" title="%s" class="mini_board parse_fen %s" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"></a>""".format(
       url,
       trans.viewInFullSize(),
-      live.fold("live live_" + game.id, ""),
-      live.fold(game.id, ""),
+      live ?? ("live live_" + game.id),
+      live ?? game.id,
       color.name,
       Forsyth exportBoard game.toChess.board,
-      game.lastMove | "")
+      ~game.lastMove)
   }
 
   def gameFenNoCtx(game: Game, color: Color) = Html {
     var live = game.isBeingPlayed
     """<a href="%s" class="mini_board parse_fen %s" data-live="%s" data-color="%s" data-fen="%s" data-lastmove="%s"></a>""".format(
       routes.Round.watcher(game.id, color.name),
-      live.fold("live live_" + game.id, ""),
-      live.fold(game.id, ""),
+      live ?? ("live live_" + game.id),
+      live ?? game.id,
       color.name,
       Forsyth exportBoard game.toChess.board,
-      game.lastMove | "")
+      ~game.lastMove)
   }
 }
