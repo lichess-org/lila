@@ -32,6 +32,9 @@ final class Env(config: Config, db: lila.db.Env) {
 
   lazy val cached = new Cached(ttl = CachedNbTtl)
 
+  def usernameOption(id: String): Fu[Option[String]] =
+    cached username id
+
   def usernameOrAnonymous(id: String): Fu[String] =
     cached usernameOrAnonymous id
 
