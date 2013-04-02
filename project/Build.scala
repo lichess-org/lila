@@ -95,7 +95,7 @@ object ApplicationBuild extends Build {
       playApi, reactivemongo, playReactivemongo, scalastic)
   )
 
-  lazy val i18n = project("i18n", Seq(common, db, user)).settings(
+  lazy val i18n = project("i18n", Seq(common, db, user, hub)).settings(
     libraryDependencies ++= provided(
       playApi, reactivemongo, playReactivemongo, jgit)
   )
