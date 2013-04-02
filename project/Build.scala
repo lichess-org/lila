@@ -27,13 +27,14 @@ object ApplicationBuild extends Build {
     message, notification, i18n, game, bookmark, search,
     gameSearch, timeline, forum, forumSearch)
 
-  lazy val aggregatedModules: Seq[sbt.ProjectReference] = modules
+  lazy val moduleRefs = modules map projectToRef
+  lazy val moduleCPDeps = moduleRefs map classpathDependency
 
-  lazy val api = project("api", modules.asInstanceOf[Seq[sbt.ClasspathDep[sbt.ProjectReference]]]).settings(
+  lazy val api = project("api", moduleCPDeps).settings(
     libraryDependencies := provided(
       playApi, hasher, config, apache, csv, jgit,
       actuarius, scalastic, findbugs, reactivemongo)
-  ) aggregate (aggregatedModules: _*)
+  ) aggregate (moduleRefs: _*)
 
   lazy val common = project("common").settings(
     libraryDependencies ++= provided(playApi, playTest, reactivemongo, csv)

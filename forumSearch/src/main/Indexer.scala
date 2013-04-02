@@ -25,7 +25,5 @@ private[forumSearch] final class Indexer(
     case RemoveTopic(id) ⇒ lowLevel ! S.RemoveQuery(
       termQuery(Post.fields.topicId, id)
     )
-
-    case other ⇒ lowLevel ! other
   }
 }

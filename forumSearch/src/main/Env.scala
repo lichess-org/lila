@@ -31,6 +31,16 @@ final class Env(
     maxPerPage = PaginatorMaxPerPage,
     converter = responseToPosts _)
 
+  def cli = new lila.common.Cli {
+    import akka.pattern.ask
+    import lila.search.actorApi.RebuildAll
+    private implicit def timeout = makeTimeout minutes 20
+    def process = {
+      case "forum" :: "search" :: "reset" :: Nil ⇒
+        (lowLevelIndexer ? RebuildAll) inject "Forum search index rebuilt"
+    }
+  }
+
   private val lowLevelIndexer: ActorRef = system.actorOf(Props(new TypeIndexer(
     es = esIndexer,
     indexName = IndexName,

@@ -28,7 +28,7 @@ final class TypeIndexer(
 
     case RebuildAll ⇒ {
       self ! Clear
-      indexQuery(Json.obj())
+      sender ! indexQuery(Json.obj())
     }
 
     case Optimize ⇒ es.optimize(Seq(indexName))

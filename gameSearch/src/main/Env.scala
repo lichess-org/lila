@@ -22,20 +22,34 @@ final class Env(
 
   private implicit val gameTube = lila.game.gameTube
 
-  val indexer: ActorRef = system.actorOf(Props(new TypeIndexer(
+  val indexer: ActorRef = system.actorOf(Props(new Indexer(
+    lowLevel = lowLevelIndexer
+  )), name = IndexerName)
+
+  lazy val paginatorBuilder = new lila.search.PaginatorBuilder(
+    indexer = lowLevelIndexer,
+    maxPerPage = PaginatorMaxPerPage,
+    converter = responseToGames _)
+
+  lazy val forms = new DataForm
+
+  def cli = new lila.common.Cli {
+    import akka.pattern.ask
+    import lila.search.actorApi.RebuildAll
+    private implicit def timeout = makeTimeout minutes 20
+    def process = {
+      case "game" :: "search" :: "reset" :: Nil ⇒
+        (lowLevelIndexer ? RebuildAll) inject "Game search index rebuilt"
+    }
+  }
+
+  private val lowLevelIndexer: ActorRef = system.actorOf(Props(new TypeIndexer(
     es = esIndexer,
     indexName = IndexName,
     typeName = TypeName,
     mapping = Game.jsonMapping,
     indexQuery = indexQuery _
-  )), name = IndexerName)
-
-  lazy val paginatorBuilder = new lila.search.PaginatorBuilder(
-    indexer = indexer,
-    maxPerPage = PaginatorMaxPerPage,
-    converter = responseToGames _)
-
-  lazy val forms = new DataForm
+  )), name = IndexerName + "-low-level")
 
   private def responseToGames(response: SearchResponse): Fu[List[GameModel]] = 
     lila.db.api.$find.byOrderedIds[String, GameModel] {

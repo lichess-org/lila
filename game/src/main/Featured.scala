@@ -18,10 +18,9 @@ private[game] final class Featured(
     system: ActorSystem) {
 
   import Featured._
+  import makeTimeout.large
 
   def one: Future[Option[Game]] = actor ? GetOne mapTo manifest[Option[Game]]
-
-  private implicit val timeout = makeTimeout.large
 
   private implicit def tube = gameTube
 

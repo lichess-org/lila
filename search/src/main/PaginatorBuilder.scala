@@ -19,7 +19,7 @@ final class PaginatorBuilder[A](
 
   private final class ESAdapter(query: Query) extends AdapterLike[A] {
 
-    private implicit val timeout = makeTimeout.large
+    import makeTimeout.large
 
     def nbResults = indexer ? actorApi.Count(query.countRequest) map {
       case actorApi.CountResponse(res) ⇒ res

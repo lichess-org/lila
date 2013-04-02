@@ -21,7 +21,7 @@ private[forum] final class Recent(postApi: PostApi, ttl: Duration) {
 
   def invalidate: Funit = fuccess(cache.clear)
 
-  private implicit val timeout = makeTimeout.large
+  import makeTimeout.large
   private val nb = 20
 
   private def userCacheKey(user: Option[User], getTeams: GetTeams): Fu[String] =
