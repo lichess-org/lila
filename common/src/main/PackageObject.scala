@@ -136,9 +136,10 @@ trait WithPlay { self: PackageObject ⇒
     import akka.util.Timeout
     import scala.concurrent.duration._
 
-    val large = seconds(5)
+    implicit val large = seconds(5)
 
     def apply(duration: FiniteDuration) = Timeout(duration)
     def seconds(s: Int): Timeout = Timeout(s.seconds)
+    def minutes(m: Int): Timeout = Timeout(m.minutes)
   }
 }

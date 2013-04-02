@@ -13,7 +13,7 @@ final class DataForm(captcher: ActorRef) {
 
   import DataForm._
 
-  private implicit val timeout = makeTimeout.large
+  import makeTimeout.large
 
   val postMapping = mapping(
     "text" -> text(minLength = 3),

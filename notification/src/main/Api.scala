@@ -12,7 +12,7 @@ import akka.pattern.ask
 final class Api(sockets: ActorRef, renderer: ActorRef) {
 
   private val repo = mutable.Map[String, List[Notification]]()
-  private implicit val timeout = makeTimeout.large
+  import makeTimeout.large
 
   def add(userId: String, html: String, from: Option[String] = None) {
     val notif = Notification(userId, html, from)

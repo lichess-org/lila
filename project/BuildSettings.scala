@@ -39,4 +39,7 @@ object BuildSettings {
     scalaSource in Compile <<= (sourceDirectory in Compile)(identity),
     scalaSource in Test <<= (sourceDirectory in Test)(identity)
   )
+
+	def projectToRef(p: Project): ProjectReference = LocalProject(p.id)
+	def classpathDependency(p: ProjectReference): ClasspathDependency = new ClasspathDependency(p, None)
 }

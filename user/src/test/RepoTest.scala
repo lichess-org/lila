@@ -36,7 +36,7 @@ final class RepoTest extends Specification {
     toints = 0,
     createdAt = DateTime.now)
 
-  implicit val timeout = makeTimeout.large
+  import makeTimeout.large
 
   def cleanRepo = Env.current.userRepo ~ { repo =>
     (repo.remove(select.all) >> repo.insert(user)) await timeout

@@ -45,6 +45,16 @@ final class Env(
 
   lazy val gameJs = new GameJs(path = jsPath, useCache = !isDev)
 
+  def cli = new lila.common.Cli {
+    import play.api.libs.concurrent.Execution.Implicits._
+    def process = {
+      case "game" :: "per" :: "day" :: days ⇒
+        GameRepo nbPerDay {
+          (days.headOption flatMap parseIntOption) | 30
+        } map (_ mkString " ")
+    }
+  }
+
   private def jsPath =
     "%s/%s".format(appPath, isDev.fold(JsPathRaw, JsPathCompiled))
 }

@@ -17,7 +17,7 @@ final class RepoTest extends Specification {
   val user = "thibault"
   val game = "abcdefgh"
 
-  implicit val timeout = makeTimeout.large
+  import makeTimeout.large
 
   def cleanRepo = Env.current.bookmarkRepo ~ { repo ⇒
     (repo.remove(select.all) /* >> repo.insert(bookmark) */ ).await
