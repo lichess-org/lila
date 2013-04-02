@@ -8,7 +8,6 @@ import play.api.libs.concurrent.Execution.Implicits._
 
 import reactivemongo.api._
 import reactivemongo.bson._
-import reactivemongo.core.commands._
 
 import play.modules.reactivemongo.MongoJSONHelpers.RegEx
 

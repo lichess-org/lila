@@ -90,6 +90,11 @@ object ApplicationBuild extends Build {
       playApi, reactivemongo, playReactivemongo, spray.caching)
   )
 
+  lazy val team = project("team", Seq(common, db, user, forum, security, hub)).settings(
+    libraryDependencies ++= provided(
+      playApi, reactivemongo, playReactivemongo, spray.caching)
+  )
+
   lazy val forumSearch = project("forumSearch", Seq(common, hub, forum, search)).settings(
     libraryDependencies ++= provided(
       playApi, reactivemongo, playReactivemongo, scalastic)
