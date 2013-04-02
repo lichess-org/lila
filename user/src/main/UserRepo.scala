@@ -17,7 +17,7 @@ import ornicar.scalalib.Random
 
 object UserRepo {
 
-  implicit def tube = userTube
+  private implicit def tube = userTube
 
   type ID = String
 

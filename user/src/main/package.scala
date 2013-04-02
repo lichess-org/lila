@@ -12,7 +12,8 @@ package object user extends PackageObject with WithPlay {
     "engine" -> false,
     "toints" -> 0)
 
-  private[user] lazy val userTube = Tube[User](
+  // expose user tube
+  lazy val userTube = Tube[User](
     reader = (__.json update (
       merge(userDefaults) andThen readDate('createdAt)
     )) andThen Json.reads[User],

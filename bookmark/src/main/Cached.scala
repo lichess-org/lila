@@ -1,9 +1,6 @@
 package lila.bookmark
 
-import scala.concurrent.duration._
-
 import spray.caching.{ LruCache, Cache }
-
 import play.api.libs.concurrent.Execution.Implicits._
 
 private[bookmark] final class Cached {

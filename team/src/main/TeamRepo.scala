@@ -1,13 +1,11 @@
 package lila.team
 
-import lila.db.Implicits._
 import lila.db.api._
 
 import play.api.libs.json.Json
 import play.api.libs.concurrent.Execution.Implicits._
 
 import reactivemongo.api._
-import reactivemongo.bson._
 
 import org.joda.time.{ DateTime, Period }
 import org.scala_tools.time.Imports._
@@ -43,10 +41,10 @@ object TeamRepo {
   def disable(team: Team) = $update.field(team.id, "enabled", false)
 
   // TODO
-  // def addRequest(teamId: String, request: Request): Funit = 
-  //   $update(
-  //     $select(teamId) ++ Json.obj("requests.user" $ne request.user), 
-  //     $push("requests", request.user))
+  def addRequest(teamId: String, request: Request): Funit = 
+    $update(
+      $select(teamId) ++ Json.obj("requests.user" -> $ne(request.user)), 
+      $push("requests", request.user))
 
   val enabledQuery = Json.obj("enabled" -> true)
 

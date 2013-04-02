@@ -1,13 +1,11 @@
-package lila.app
-package team
+package lila.team
 
-import com.novus.salat.annotations.Key
 import org.joda.time.DateTime
 
-import user.{ User, UserRepo }
+import lila.user.User
 
-case class Member(
-    @Key("_id") id: String, 
+private[team] case class Member(
+    id: String, 
     team: String,
     user: String,
     date: DateTime) {
@@ -16,7 +14,7 @@ case class Member(
   def is(user: User): Boolean = is(user.id)
 }
 
-object Member {
+private[team] object Members {
 
   def makeId(team: String, user: String) = user + "@" + team
 
@@ -25,9 +23,18 @@ object Member {
     user = user, 
     team = team, 
     date = DateTime.now)
+
+  import lila.db.Tube, Tube.Helpers._
+  import play.api.libs.json._
+
+  val tube = Tube(
+    reader = (__.json update readDate('date)) andThen Json.reads[Member],
+    writer = Json.writes[Member],
+    writeTransformer = (__.json update writeDate('date)).some
+  ) 
 }
 
-case class MemberWithUser(member: Member, user: User) {
+private[team] case class MemberWithUser(member: Member, user: User) {
   def team = member.team
   def date = member.date
 }

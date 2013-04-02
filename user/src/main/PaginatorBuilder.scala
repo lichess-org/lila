@@ -9,9 +9,12 @@ final class PaginatorBuilder(
     countUsers: Fu[Int],
     maxPerPage: Int) {
 
-  import UserRepo.tube
+  private implicit def userT = userTube
 
-  def elo(page: Int): Fu[Paginator[User]] = paginator(recentAdapter, page)
+  def elo(page: Int): Fu[Paginator[User]] = Paginator(
+    adapter = recentAdapter,
+    currentPage = page,
+    maxPerPage = maxPerPage)
 
   private val recentAdapter: AdapterLike[User] = adapter(Json.obj("enabled" -> true))
 
@@ -22,11 +25,4 @@ final class PaginatorBuilder(
     ),
     nbResults = countUsers
   )
-
-  private def paginator(adapter: AdapterLike[User], page: Int): Fu[Paginator[User]] =
-    Paginator(
-      adapter,
-      currentPage = page,
-      maxPerPage = maxPerPage
-    )
 }

@@ -70,8 +70,7 @@ private[forum] final class TopicApi(
       }
     },
     currentPage = page,
-    maxPerPage = maxPerPage
-  )
+    maxPerPage = maxPerPage)
 
   def delete(categ: Categ, topic: Topic): Funit =
     (PostRepo removeByTopic topic.id) >>
