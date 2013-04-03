@@ -2,7 +2,7 @@ package lila.teamSearch
 
 import lila.search.TypeIndexer
 import lila.team.{ Team ⇒ TeamModel }
-import lila.db.api.$find
+import lila.db.api.{ $find, $cursor }
 
 import com.typesafe.config.Config
 import akka.actor._
@@ -26,20 +26,20 @@ final class Env(
     lowLevel = lowLevelIndexer
   )), name = IndexerName)
 
-  // lazy val paginatorBuilder = new lila.search.PaginatorBuilder(
-  //   indexer = lowLevelIndexer,
-  //   maxPerPage = PaginatorMaxPerPage,
-  //   converter = responseToTeams _)
+  lazy val paginatorBuilder = new lila.search.PaginatorBuilder(
+    indexer = lowLevelIndexer,
+    maxPerPage = PaginatorMaxPerPage,
+    converter = responseToTeams _)
 
-  // def cli = new lila.common.Cli {
-  //   import akka.pattern.ask
-  //   import lila.search.actorApi.RebuildAll
-  //   private implicit def timeout = makeTimeout minutes 20
-  //   def process = {
-  //     case "team" :: "search" :: "reset" :: Nil ⇒
-  //       (lowLevelIndexer ? RebuildAll) inject "team search index rebuilt"
-  //   }
-  // }
+  def cli = new lila.common.Cli {
+    import akka.pattern.ask
+    import lila.search.actorApi.RebuildAll
+    private implicit def timeout = makeTimeout minutes 20
+    def process = {
+      case "team" :: "search" :: "reset" :: Nil ⇒
+        (lowLevelIndexer ? RebuildAll) inject "team search index rebuilt"
+    }
+  }
 
   private val lowLevelIndexer: ActorRef = system.actorOf(Props(new TypeIndexer(
     es = esIndexer,
@@ -49,7 +49,7 @@ final class Env(
     indexQuery = indexQuery _
   )), name = IndexerName + "-low-level")
 
-  private def responseToTeams(response: SearchResponse): Fu[List[Team]] =
+  private def responseToTeams(response: SearchResponse): Fu[List[TeamModel]] =
     $find.byOrderedIds[TeamModel](response.hits.hits.toList map (_.id))
 
   private def indexQuery(sel: JsObject): Funit = {
@@ -57,17 +57,15 @@ final class Env(
     import play.api.libs.concurrent.Execution.Implicits._
     import play.api.libs.iteratee._
     import lila.db.api._
-    val cursor = postApi cursor sel
-    cursor.enumerateBulks(1000) run {
-      Iteratee foreach { (postOptions: Iterator[Option[TeamModel]]) ⇒
-        val views = (postApi liteViews postOptions.toList.flatten).await
+    $cursor[TeamModel](sel).enumerateBulks(100) run {
+      Iteratee foreach { (teamOptions: Iterator[Option[TeamModel]]) ⇒
         esIndexer bulk {
-          views map { view ⇒
+          teamOptions.toList.flatten map { team ⇒
             esIndexer.index_prepare(
               IndexName,
               TypeName,
-              view.post.id,
-              Json stringify Team.from(view)
+              team.id,
+              Json stringify Team.from(team)
             ).request
           }
         }
@@ -80,7 +78,6 @@ object Env {
 
   lazy val current = "[teamSearch] boot" describes new Env(
     config = lila.common.PlayApp loadConfig "teamSearch",
-    postApi = lila.team.Env.current.postApi,
     system = lila.common.PlayApp.system,
     esIndexer = lila.search.Env.current.esIndexer)
 }

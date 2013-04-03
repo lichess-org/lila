@@ -23,7 +23,6 @@ private[forumSearch] final class Query private (
   }
 
   private def makeFilters = !staff option termFilter(fields.staff, false)
-
 }
 
 object Query {
