@@ -6,26 +6,21 @@ import lila.common.PimpedConfig._
 
 final class Env(config: Config, system: ActorSystem) {
 
-  private val settings = new {
-    val SocketsTimeout = config duration "sockets.timeout"
-    val SocketsName = config getString "sockets.name"
-
-    val LobbyName = config getString "lobby.name"
-    val RendererName = config getString "renderer.name"
-    val CaptcherName = config getString "captcher.name"
-    val ForumIndexerName = config getString "forum_indexer.name"
-  }
-  import settings._
+  private val SocketsTimeout = config duration "sockets.timeout"
+  private val SocketsName = config getString "sockets.name"
 
   object actor {
-    val lobby = actorFor(LobbyName)
-    val renderer = actorFor(RendererName)
-    val captcher = actorFor(CaptcherName)
-    val forumIndexer = actorFor(ForumIndexerName)
+    val lobby = actorFor(config getString "actor.lobby.name")
+    val renderer = actorFor(config getString "actor.renderer.name")
+    val captcher = actorFor(config getString "actor.captcher.name")
+    val forumIndexer = actorFor(config getString "actor.forum_indexer.name")
+    val messenger = actorFor(config getString "actor.messenger.name")
+    val router = actorFor(config getString "actor.router.name")
+    val forum = actorFor(config getString "actor.forum.name")
   }
 
   val sockets = system.actorOf(Props(new Broadcast(List(
-    actorFor(LobbyName)
+    actor.lobby
   ), SocketsTimeout)), name = SocketsName)
 
   private def actorFor(name: String) = system.actorFor("/user/" + name)
@@ -33,7 +28,7 @@ final class Env(config: Config, system: ActorSystem) {
 
 object Env {
 
-  lazy val current = new Env(
+  lazy val current = "[hub] boot" describes new Env(
     config = lila.common.PlayApp loadConfig "hub",
     system = play.api.libs.concurrent.Akka.system(play.api.Play.current))
 }

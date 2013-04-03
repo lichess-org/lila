@@ -21,3 +21,16 @@ package captcha {
 package lobby {
   case class TimelineEntry(rendered: String)
 }
+
+package message {
+  case class LichessThread(to: String, subject: String, message: String) 
+}
+
+package router {
+  case class Abs(route: Any)
+  case class TeamShow(id: String)
+}
+
+package forum {
+  case class MakeTeam(id: String, name: String)
+}

@@ -1,18 +1,18 @@
 package lila.team
 
 import org.scala_tools.time.Imports._
+import akka.actor.ActorRef
 
 import lila.user.{ User, UserRepo, Context }
 import allTubes._
 
-// final class TeamApi(
-//     cached: Cached,
-//     messenger: TeamMessenger,
-//     makeForum: (String, String) ⇒ IO[Unit],
-//     paginator: PaginatorBuilder,
-//     indexer: SearchIndexer) {
+final class TeamApi(
+    cached: Cached,
+    notifier: Notifier,
+    forum: ActorRef,
+    paginator: PaginatorBuilder) { //, indexer: SearchIndexer) {
 
-//   val creationPeriod = 1 week
+  val creationPeriod = 1.week
 
 //   def create(setup: TeamSetup, me: User): Option[IO[Team]] = me.canTeam option {
 //     val s = setup.trim
@@ -136,4 +136,4 @@ import allTubes._
 
 //   def belongsTo(teamId: String, userId: String): Boolean =
 //     cached teamIds userId contains teamId
-// }
+}

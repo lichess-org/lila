@@ -24,7 +24,7 @@ private[forumSearch] object Post {
       field(topicId, "string"),
       field(staff, "boolean")
     ).toMap),
-    "analyzer" -> Json.toJson("snowball")
+    "analyzer" -> "snowball"
   )
 
   def from(view: PostLiteView): JsObject = Json.obj(

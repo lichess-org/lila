@@ -2,7 +2,8 @@ package lila
 
 package object team extends PackageObject with WithPlay {
 
-  private[team] lazy val teamTube = Teams.tube inColl Env.current.teamColl
+  // expose team tube
+  lazy val teamTube = Teams.tube inColl Env.current.teamColl
 
   private[team] lazy val requestTube = Requests.tube inColl Env.current.requestColl
 

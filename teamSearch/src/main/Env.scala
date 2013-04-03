@@ -1,7 +1,8 @@
-package lila.forumSearch
+package lila.teamSearch
 
 import lila.search.TypeIndexer
-import lila.forum.{ PostApi, Post ⇒ PostModel, PostView }
+import lila.team.{ Team ⇒ TeamModel }
+import lila.db.api.$find
 
 import com.typesafe.config.Config
 import akka.actor._
@@ -11,7 +12,6 @@ import org.elasticsearch.action.search.SearchResponse
 
 final class Env(
     config: Config,
-    postApi: PostApi,
     system: ActorSystem,
     esIndexer: EsIndexer) {
 
@@ -20,36 +20,37 @@ final class Env(
   private val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
   private val IndexerName = config getString "indexer.name"
 
+  private implicit val teamTube = lila.team.teamTube
+
   val indexer: ActorRef = system.actorOf(Props(new Indexer(
-    lowLevel = lowLevelIndexer,
-    postApi = postApi
+    lowLevel = lowLevelIndexer
   )), name = IndexerName)
 
-  lazy val paginatorBuilder = new lila.search.PaginatorBuilder(
-    indexer = lowLevelIndexer,
-    maxPerPage = PaginatorMaxPerPage,
-    converter = responseToPosts _)
+  // lazy val paginatorBuilder = new lila.search.PaginatorBuilder(
+  //   indexer = lowLevelIndexer,
+  //   maxPerPage = PaginatorMaxPerPage,
+  //   converter = responseToTeams _)
 
-  def cli = new lila.common.Cli {
-    import akka.pattern.ask
-    import lila.search.actorApi.RebuildAll
-    private implicit def timeout = makeTimeout minutes 20
-    def process = {
-      case "forum" :: "search" :: "reset" :: Nil ⇒
-        (lowLevelIndexer ? RebuildAll) inject "Forum search index rebuilt"
-    }
-  }
+  // def cli = new lila.common.Cli {
+  //   import akka.pattern.ask
+  //   import lila.search.actorApi.RebuildAll
+  //   private implicit def timeout = makeTimeout minutes 20
+  //   def process = {
+  //     case "team" :: "search" :: "reset" :: Nil ⇒
+  //       (lowLevelIndexer ? RebuildAll) inject "team search index rebuilt"
+  //   }
+  // }
 
   private val lowLevelIndexer: ActorRef = system.actorOf(Props(new TypeIndexer(
     es = esIndexer,
     indexName = IndexName,
     typeName = TypeName,
-    mapping = Post.jsonMapping,
+    mapping = Team.jsonMapping,
     indexQuery = indexQuery _
   )), name = IndexerName + "-low-level")
 
-  private def responseToPosts(response: SearchResponse): Fu[List[PostView]] =
-    postApi viewsFromIds (response.hits.hits.toList map (_.id))
+  private def responseToTeams(response: SearchResponse): Fu[List[Team]] =
+    $find.byOrderedIds[TeamModel](response.hits.hits.toList map (_.id))
 
   private def indexQuery(sel: JsObject): Funit = {
     import play.api.libs.json._
@@ -58,7 +59,7 @@ final class Env(
     import lila.db.api._
     val cursor = postApi cursor sel
     cursor.enumerateBulks(1000) run {
-      Iteratee foreach { (postOptions: Iterator[Option[PostModel]]) ⇒
+      Iteratee foreach { (postOptions: Iterator[Option[TeamModel]]) ⇒
         val views = (postApi liteViews postOptions.toList.flatten).await
         esIndexer bulk {
           views map { view ⇒
@@ -66,7 +67,7 @@ final class Env(
               IndexName,
               TypeName,
               view.post.id,
-              Json stringify Post.from(view)
+              Json stringify Team.from(view)
             ).request
           }
         }
@@ -77,9 +78,9 @@ final class Env(
 
 object Env {
 
-  lazy val current = "[forumSearch] boot" describes new Env(
-    config = lila.common.PlayApp loadConfig "forumSearch",
-    postApi = lila.forum.Env.current.postApi,
+  lazy val current = "[teamSearch] boot" describes new Env(
+    config = lila.common.PlayApp loadConfig "teamSearch",
+    postApi = lila.team.Env.current.postApi,
     system = lila.common.PlayApp.system,
     esIndexer = lila.search.Env.current.esIndexer)
 }

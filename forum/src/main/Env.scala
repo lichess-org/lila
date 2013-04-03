@@ -1,8 +1,9 @@
 package lila.forum
 
 import lila.common.PimpedConfig._
+import lila.hub.actorApi.forum._
 
-import akka.actor.ActorRef
+import akka.actor._
 import com.typesafe.config.Config
 
 final class Env(
@@ -10,7 +11,8 @@ final class Env(
     db: lila.db.Env,
     sockets: ActorRef,
     captcher: ActorRef,
-    indexer: ActorRef) {
+    indexer: ActorRef,
+    system: ActorSystem) {
 
   private val settings = new {
     val TopicMaxPerPage = config getInt "topic.max_per_page"
@@ -19,6 +21,7 @@ final class Env(
     val CollectionCateg = config getString "collection.categ"
     val CollectionTopic = config getString "collection.topic"
     val CollectionPost = config getString "collection.post"
+    val ActorName = config getString "actor.name"
   }
   import settings._
 
@@ -40,6 +43,12 @@ final class Env(
     }
   }
 
+  private val actor = system.actorOf(Props(new Actor {
+    def receive = {
+      case MakeTeam(id, name) ⇒ categApi.makeTeam(id, name)
+    }
+  }), name = ActorName)
+
   private[forum] lazy val categColl = db(CollectionCateg)
   private[forum] lazy val topicColl = db(CollectionTopic)
   private[forum] lazy val postColl = db(CollectionPost)
@@ -54,5 +63,6 @@ object Env {
     db = lila.db.Env.current,
     sockets = hub.sockets,
     captcher = hub.actor.captcher,
-    indexer = hub.actor.forumIndexer)
+    indexer = hub.actor.forumIndexer,
+    system = lila.common.PlayApp.system)
 }
