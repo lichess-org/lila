@@ -2,7 +2,7 @@ package lila.gameSearch
 
 import lila.search.TypeIndexer
 import lila.game.{ GameRepo, PgnRepo, Game ⇒ GameModel, Query ⇒ DbQuery }
-import lila.db.TubeInColl
+import lila.db.api.$find
 
 import com.typesafe.config.Config
 import akka.actor._
@@ -52,9 +52,7 @@ final class Env(
   )), name = IndexerName + "-low-level")
 
   private def responseToGames(response: SearchResponse): Fu[List[GameModel]] = 
-    lila.db.api.$find.byOrderedIds[String, GameModel] {
-      response.hits.hits.toList map (_.id)
-    }
+    $find.byOrderedIds[GameModel](response.hits.hits.toList map (_.id))
 
   private def indexQuery(sel: JsObject): Funit = {
     import play.api.libs.json._
@@ -94,6 +92,6 @@ object Env {
 
   lazy val current = "[gameSearch] boot" describes new Env(
     config = lila.common.PlayApp loadConfig "gameSearch",
-    system = play.api.libs.concurrent.Akka.system(play.api.Play.current),
+    system = lila.common.PlayApp.system,
     esIndexer = lila.search.Env.current.esIndexer)
 }

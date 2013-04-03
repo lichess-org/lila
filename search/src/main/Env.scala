@@ -22,6 +22,6 @@ final class Env(config: Config)  {
 
 object Env {
 
-  lazy val current = new Env(
+  lazy val current = "[search] boot" describes new Env(
     config = lila.common.PlayApp loadConfig "search")
 }

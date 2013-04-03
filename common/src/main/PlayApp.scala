@@ -11,4 +11,8 @@ object PlayApp {
 
   def withApp[A](op: Application ⇒ A): A =
     Play.maybeApplication map op err "Play application is not started!"
+
+  def system = withApp { implicit app ⇒
+    play.api.libs.concurrent.Akka.system
+  }
 }

@@ -25,7 +25,7 @@ object ApplicationBuild extends Build {
   lazy val modules = Seq(
     chess, common, http, db, user, wiki, hub, websocket,
     message, notification, i18n, game, bookmark, search,
-    gameSearch, timeline, forum, forumSearch)
+    gameSearch, timeline, forum, forumSearch, team, teamSearch)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map classpathDependency
@@ -90,12 +90,17 @@ object ApplicationBuild extends Build {
       playApi, reactivemongo, playReactivemongo, spray.caching)
   )
 
+  lazy val forumSearch = project("forumSearch", Seq(common, hub, forum, search)).settings(
+    libraryDependencies ++= provided(
+      playApi, reactivemongo, playReactivemongo, scalastic)
+  )
+
   lazy val team = project("team", Seq(common, db, user, forum, security, hub)).settings(
     libraryDependencies ++= provided(
       playApi, reactivemongo, playReactivemongo, spray.caching)
   )
 
-  lazy val forumSearch = project("forumSearch", Seq(common, hub, forum, search)).settings(
+  lazy val teamSearch = project("teamSearch", Seq(common, hub, team, search)).settings(
     libraryDependencies ++= provided(
       playApi, reactivemongo, playReactivemongo, scalastic)
   )

@@ -7,6 +7,9 @@ import lila.common.PimpedConfig._
 final class Env(
     config: Config,
     captcher: ActorRef,
+    messenger: ActorRef,
+    router: ActorRef,
+    forum: ActorRef,
     db: lila.db.Env) {
 
   private val settings = new {
@@ -26,12 +29,21 @@ final class Env(
   private[team] lazy val memberColl = db(CollectionMember)
 
   private[team] lazy val cached = new Cached(CacheCapacity)
+
+  private lazy val notifier = new Notifier(
+    messenger = messenger,
+    router = router)
 }
 
 object Env {
 
-  lazy val current = "[bookmark] boot" describes new Env(
+  private def actors = lila.hub.Env.current.actor
+
+  lazy val current = "[team] boot" describes new Env(
     config = lila.common.PlayApp loadConfig "bookmark",
-    captcher = lila.hub.Env.current.actor.captcher,
+    captcher = actors.captcher,
+    messenger = actors.messenger,
+    router = actors.router,
+    forum = actors.forum,
     db = lila.db.Env.current)
 }

@@ -6,6 +6,7 @@ import lila.db.paginator._
 import lila.db.Implicits._
 import lila.db.api._
 import lila.hub.actorApi.SendTo
+import lila.hub.actorApi.message._
 
 import akka.actor.ActorRef
 import scala.math.ceil
@@ -45,8 +46,11 @@ final class Api(
     $insert(thread) >> updateUser(data.user.id) inject thread
   }
 
-  def lichessThread(lt: LichessThread): Funit =
-    $insert(lt.toThread) >> updateUser(lt.to)
+  def lichessThread(lt: LichessThread): Funit = Threads.make(
+    name = lt.subject,
+    text = lt.message,
+    creatorId = "lichess",
+    invitedId = lt.to) |> { thread ⇒ $insert(thread) >> updateUser(lt.to) }
 
   def makePost(thread: Thread, text: String, me: User) = {
     val post = Posts.make(
