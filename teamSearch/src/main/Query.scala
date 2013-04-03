@@ -1,12 +1,11 @@
-package lila.app
-package team
+package lila.teamSearch
 
-import search.ElasticSearch
-import SearchMapping.fields
+import lila.search.ElasticSearch
+import Team.fields
 
 import org.elasticsearch.index.query._, QueryBuilders._
 
-private[team] final class SearchQuery private (terms: List[String]) {
+private[teamSearch] final class Query private (terms: List[String]) extends lila.search.Query {
 
   def searchRequest(from: Int = 0, size: Int = 10) = ElasticSearch.Request.Search(
     query = makeQuery,
@@ -22,9 +21,9 @@ private[team] final class SearchQuery private (terms: List[String]) {
   }
 }
 
-object SearchQuery {
+object Query {
 
-  def apply(text: String): SearchQuery = new SearchQuery(
+  def apply(text: String): Query = new Query(
     ElasticSearch.Request decomposeTextQuery text
   )
 }

@@ -25,7 +25,7 @@ private[teamSearch] object Team {
     "analyzer" -> "snowball"
   )
 
-  def apply(team: TeamModel): JsObject = Json.obj(
+  def from(team: TeamModel): JsObject = Json.obj(
     name -> team.name,
     description -> team.description,
     location -> ~team.location,
