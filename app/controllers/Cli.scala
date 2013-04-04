@@ -1,6 +1,6 @@
 package controllers
 
-import lila.api.Env.{ current => apiEnv }
+import lila.api.Env.{ current ⇒ apiEnv }
 import lila.api._
 
 import play.api.mvc._
@@ -18,10 +18,11 @@ object Cli extends LilaController {
 
   def command = OpenBody { implicit ctx ⇒
     implicit val req = ctx.body
+
     form.bindFromRequest.fold(
       err ⇒ fuccess(BadRequest("invalid cli call")), {
         case (command, password) ⇒ CliAuth(password) {
-          apiEnv.cli(command.split(" ").toList.pp) map { res ⇒ Ok(res) }
+          apiEnv.cli(command.split(" ").toList) map { res ⇒ Ok(res) }
         }
       })
   }

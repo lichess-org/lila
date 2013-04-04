@@ -5,9 +5,9 @@ import scalastic.elasticsearch
 
 final class Env(config: Config)  {
 
-  private val ESHost = config getString "elasticsearch.host"
-  private val ESPort = config getInt "elasticsearch.port"
-  private val ESCluster = config getString "elasticsearch.cluster"
+  private val ESHost = config getString "es.host"
+  private val ESPort = config getInt "es.port"
+  private val ESCluster = config getString "es.cluster"
 
   val esIndexer = elasticsearch.Indexer.transport(
     settings = Map("cluster.name" -> ESCluster),
