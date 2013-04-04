@@ -11,7 +11,7 @@ private[api] final class Cli(env: Env) {
   }
 
   private def run(args: List[String]): Fu[String] = {
-    (processors lift args) | fufail("Unknown command: " + args.mkString(" "))
+    (processors lift args.pp).pp | fufail("Unknown command: " + args.mkString(" "))
   } recover {
     case throwable ⇒ "ERROR " + throwable
   }
@@ -22,7 +22,8 @@ private[api] final class Cli(env: Env) {
       lila.security.Env.current.cli.process orElse
       lila.wiki.Env.current.cli.process orElse
       lila.i18n.Env.current.cli.process orElse
-      lila.game.Env.current.cli.process
+      lila.game.Env.current.cli.process orElse
+      lila.teamSearch.Env.current.cli.process
 
   // case "average-elo" :: Nil               ⇒ infos.averageElo
   // case "i18n-js-dump" :: Nil              ⇒ i18n.jsDump

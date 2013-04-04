@@ -1,4 +1,6 @@
 #!/bin/sh
 . bin/lilarc
 
-play/play $JVM_OPTIONS "$@"
+playdir=play
+
+$playdir/play $JVM_OPTIONS "$@"

@@ -63,8 +63,8 @@ object UserRepo {
 
   def incToints(id: ID)(nb: Int) = $update($select(id), $inc("toints" -> nb))
 
-  val averageElo: Fu[Float] = $primitive($select.all, "elo")(_.asOpt[Float]) map { elos ⇒
-    elos.sum / elos.size.toFloat
+  def averageElo: Fu[Float] = $primitive($select.all.pp, "elo")(_.asOpt[Float]) map { elos ⇒
+    elos.sum.pp / elos.size.toFloat
   }
 
   def saveSetting(id: ID, key: String, value: String): Funit = 
