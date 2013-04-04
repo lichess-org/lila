@@ -11,7 +11,8 @@ private[teamSearch] final class Indexer(lowLevel: ActorRef) extends Actor {
 
   def receive = {
 
-    case InsertTeam(team) ⇒
-      lowLevel ! S.InsertOne(team.id, Team from team)
+    case InsertTeam(team) ⇒ lowLevel ! S.InsertOne(team.id, Team from team)
+
+    case RemoveTeam(id) ⇒ lowLevel ! S.RemoveOne(id)
   }
 }
