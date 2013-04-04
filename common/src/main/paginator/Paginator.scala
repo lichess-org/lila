@@ -22,14 +22,12 @@ final class Paginator[A] private[paginator] (
   /**
    * Returns the previous page.
    */
-  def previousPage: Option[Int] =
-    if (currentPage == 1) None else Some(currentPage - 1)
+  def previousPage: Option[Int] = (currentPage != 1) option (currentPage - 1)
 
   /**
    * Returns the next page.
    */
-  def nextPage: Option[Int] =
-    if (currentPage == nbPages) None else Some(currentPage + 1)
+  def nextPage: Option[Int] = (currentPage != nbPages) option (currentPage + 1)
 
   /**
    * Returns the number of pages.
@@ -45,12 +43,12 @@ final class Paginator[A] private[paginator] (
   /**
    * Returns whether there is previous page or not.
    */
-  def hasPreviousPage: Boolean = None != previousPage
+  def hasPreviousPage: Boolean = previousPage.isDefined
 
   /**
    * Returns whether there is next page or not.
    */
-  def hasNextPage: Boolean = None != nextPage
+  def hasNextPage: Boolean = nextPage.isDefined
 }
 
 object Paginator {
@@ -59,10 +57,7 @@ object Paginator {
     adapter: AdapterLike[A],
     currentPage: Int = 1,
     maxPerPage: Int = 10): Fu[Paginator[A]] =
-    validate(adapter, currentPage, maxPerPage).fold(
-      _ ⇒ apply(adapter, 1, maxPerPage),
-      identity
-    )
+    validate(adapter, currentPage, maxPerPage) | apply(adapter, 1, maxPerPage)
 
   def validate[A](
     adapter: AdapterLike[A],
