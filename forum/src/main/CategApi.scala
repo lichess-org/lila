@@ -5,7 +5,7 @@ import lila.common.paginator._
 import lila.db.paginator._
 import lila.db.Implicits._
 import lila.db.api._
-import allTubes._
+import tube._
 
 import play.api.libs.concurrent.Execution.Implicits._
 import scalaz.{ OptionT, OptionTs }
@@ -35,11 +35,11 @@ private[forum] final class CategApi(env: Env) extends OptionTs {
         desc = "Forum of the team " + name,
         pos = position,
         team = slug.some)
-      val topic = Topics(
+      val topic = Topic.make(
         categId = categ.slug,
         slug = slug + "-forum",
         name = name + " forum")
-      val post = Posts(
+      val post = Post.make(
         topicId = topic.id,
         author = none,
         userId = "lichess".some,

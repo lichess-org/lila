@@ -34,7 +34,7 @@ final class Env(
 
   def cli = new lila.common.Cli {
     import lila.db.api.$find
-    import allTubes._
+    import tube._
     def process = {
       case "forum" :: "denormalize" :: Nil ⇒
         topicApi.denormalize >> categApi.denormalize inject "Forum denormalized"

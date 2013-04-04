@@ -5,7 +5,7 @@ import lila.common.paginator._
 import lila.db.paginator._
 import lila.db.Implicits._
 import lila.db.api._
-import allTubes._
+import tube._
 import actorApi._
 
 import akka.actor.ActorRef
@@ -30,11 +30,11 @@ private[forum] final class TopicApi(
     categ: Categ,
     data: DataForm.TopicData)(implicit ctx: Context): Fu[Topic] =
     TopicRepo.nextSlug(categ, data.name) flatMap { slug ⇒
-      val topic = Topics(
+      val topic = Topic.make(
         categId = categ.slug,
         slug = slug,
         name = data.name)
-      val post = Posts(
+      val post = Post.make(
         topicId = topic.id,
         author = data.post.author,
         userId = ctx.me map (_.id),

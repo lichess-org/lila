@@ -23,9 +23,9 @@ case class Team(
   def isCreator(user: String) = user == createdBy
 }
 
-object Teams {
+object Team {
 
-  def apply(
+  def make(
     name: String,
     location: Option[String],
     description: String,
@@ -49,7 +49,7 @@ object Teams {
   import lila.db.Tube, Tube.Helpers._
   import play.api.libs.json._
 
-  val tube = Tube(
+  lazy val tube = Tube(
     reader = (__.json update readDate('createdAt)) andThen Json.reads[Team],
     writer = Json.writes[Team],
     writeTransformer = (__.json update writeDate('createdAt)).some

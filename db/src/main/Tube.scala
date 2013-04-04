@@ -51,12 +51,14 @@ case class Tube[Doc](
 
 object Tube {
 
-  private val toMongoTransformer = Helpers.rename('id, '_id)
+  val json = Tube[JsObject](
+    reader = __.read[JsObject],
+    writer = __.write[JsObject])
 
+  private val toMongoTransformer = Helpers.rename('id, '_id)
   private val fromMongoTransformer = Helpers.rename('_id, 'id)
 
   def toMongo(js: JsValue): JsResult[JsObject] = js transform toMongoTransformer
-
   def fromMongo(js: JsValue): JsResult[JsObject] = js transform fromMongoTransformer
 
   object Helpers {

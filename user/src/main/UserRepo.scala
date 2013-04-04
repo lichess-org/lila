@@ -2,6 +2,7 @@ package lila.user
 
 import lila.db.Implicits._
 import lila.db.api._
+import tube.userTube
 
 import play.api.libs.json.Json
 import play.api.libs.concurrent.Execution.Implicits._
@@ -17,11 +18,9 @@ import ornicar.scalalib.Random
 
 object UserRepo {
 
-  private implicit def tube = userTube
-
   type ID = String
 
-  val normalize = Users normalize _
+  val normalize = User normalize _
 
   def named(username: String): Fu[Option[User]] = $find byId normalize(username)
 
@@ -134,7 +133,7 @@ object UserRepo {
       "username" -> username,
       "password" -> hash(password, salt),
       "salt" -> salt,
-      "elo" -> Users.STARTING_ELO,
+      "elo" -> User.STARTING_ELO,
       "nbGames" -> 0,
       "nbRatedGames" -> 0,
       "nbAi" -> 0,

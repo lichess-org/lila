@@ -1,6 +1,7 @@
 package lila.team
 
 import lila.db.api.{ $count, $select }
+import tube.teamTube
 
 import akka.actor.ActorRef
 import play.api.data._
@@ -38,7 +39,6 @@ private[team] final class DataForm(val captcher: ActorRef) extends lila.hub.Capt
     description = team.description,
     open = team.open.fold(1, 0))
 
-
   val request = Form(mapping(
     "message" -> text(minLength = 30, maxLength = 2000),
     Fields.gameId,
@@ -61,9 +61,8 @@ private[team] final class DataForm(val captcher: ActorRef) extends lila.hub.Capt
 
   def createWithCaptcha = withCaptcha(create)
 
-  private def teamExists(setup: TeamSetup) = teamTube |> { implicit tube =>
-      $count.exists($select(Teams nameToId setup.trim.name))
-    }
+  private def teamExists(setup: TeamSetup) =
+    $count.exists[Team]($select(Team nameToId setup.trim.name))
 }
 
 private[team] case class TeamSetup(

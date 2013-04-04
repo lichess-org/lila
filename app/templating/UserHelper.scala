@@ -1,7 +1,7 @@
 package lila.app
 package templating
 
-import lila.user.{ User, Users }
+import lila.user.User
 import lila.user.Env.{ current ⇒ userEnv }
 
 import controllers.routes
@@ -17,7 +17,7 @@ trait UserHelper {
     (usernameOrAnonymous(userId)).await
 
   def userIdToUsername(userId: Option[String]): String =
-    userId.fold(Users.anonymous)(userIdToUsername)
+    userId.fold(User.anonymous)(userIdToUsername)
 
   def isUsernameOnline(username: String) = usernameMemo get username
 
@@ -26,7 +26,7 @@ trait UserHelper {
     cssClass: Option[String] = None,
     withOnline: Boolean = true): Html = Html {
     (userId zmap usernameOption) map {
-      _.fold(Users.anonymous) { username ⇒
+      _.fold(User.anonymous) { username ⇒
         """<a class="user_link%s%s" href="%s">%s</a>""".format(
           withOnline ??  isUsernameOnline(username).fold(" online", " offline"),
           cssClass.zmap(" " + _),

@@ -1,11 +1,12 @@
 package lila
 
-import lila.db.InColl
+import lila.db.Tube
 
 package object security extends PackageObject with WithPlay {
 
-  private[security] sealed trait Visit
+  object tube {
 
-  private[security] lazy val storeInColl = 
-    InColl[Visit](Env.current.storeColl)
+    private[security] implicit lazy val storeTube =
+      Tube.json inColl Env.current.storeColl
+  }
 }

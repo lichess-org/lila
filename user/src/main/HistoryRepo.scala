@@ -3,6 +3,7 @@ package lila.user
 import lila.db.Types._
 import lila.db.InColl
 import lila.db.api._
+import tube.historyTube
 
 import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._
@@ -13,10 +14,8 @@ import org.joda.time.DateTime
 
 object HistoryRepo {
 
-  implicit def inColl = historyInColl
-
   def addEntry(userId: String, elo: Int, opponentElo: Option[Int]): Funit =
-    $update[History](
+    $update(
       $select(userId),
       $push("entries", opponentElo.fold(Json.arr(DateTime.now.getSeconds.toInt, elo)) { opElo ⇒
         Json.arr(DateTime.now.getSeconds.toInt, elo, opElo)
@@ -25,7 +24,7 @@ object HistoryRepo {
     )
 
   def userElos(userId: String): Fu[Seq[(Int, Int, Option[Int])]] =
-    historyInColl.coll.find($select(userId)).one[JsObject] map { historyOption ⇒
+    $find.one($select(userId)) map { historyOption ⇒
       ~(for {
         history ← historyOption
         entries ← (history \ "entries").asOpt[JsArray]

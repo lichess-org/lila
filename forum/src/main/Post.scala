@@ -3,7 +3,7 @@ package lila.forum
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
-import lila.user.Users
+import lila.user.User
 
 case class Post(
     id: String,
@@ -16,7 +16,7 @@ case class Post(
     number: Int,
     createdAt: DateTime) {
 
-  def showAuthor = (author map (_.trim) filter ("" !=)) | Users.anonymous
+  def showAuthor = (author map (_.trim) filter ("" !=)) | User.anonymous
 
   def showUsernameOrAuthor = userId | showAuthor
 
@@ -25,11 +25,11 @@ case class Post(
   def isStaff = categId == "staff"
 }
 
-object Posts {
+object Post {
 
   val idSize = 8
 
-  def apply(
+  def make(
     topicId: String,
     categId: String,
     author: Option[String],
@@ -46,4 +46,14 @@ object Posts {
     number = number,
     createdAt = DateTime.now,
     categId = categId)
+
+  import lila.db.Tube
+  import Tube.Helpers._
+  import play.api.libs.json._
+
+  lazy val tube = Tube(
+    reader = (__.json update readDate('createdAt)) andThen Json.reads[Post],
+    writer = Json.writes[Post],
+    writeTransformer = (__.json update writeDate('createdAt)).some
+  )
 }

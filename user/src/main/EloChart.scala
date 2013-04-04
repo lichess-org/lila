@@ -66,7 +66,7 @@ object EloChart {
   def apply(user: User): Fu[Option[EloChart]] =
     HistoryRepo userElos user.username map { elos ⇒
       (elos.size > 1) option {
-        new EloChart((user.createdAt.getSeconds.toInt, Users.STARTING_ELO, None) :: elos.toList)
+        new EloChart((user.createdAt.getSeconds.toInt, User.STARTING_ELO, None) :: elos.toList)
       }
     }
 }

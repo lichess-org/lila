@@ -11,11 +11,11 @@ case class Request(
     date: DateTime) {
 }
 
-object Requests {
+object Request {
 
   def makeId(team: String, user: String) = user + "@" + team
 
-  def apply(team: String, user: String, message: String): Request = new Request(
+  def make(team: String, user: String, message: String): Request = new Request(
     id = makeId(team, user),
     user = user,
     team = team,
@@ -25,7 +25,7 @@ object Requests {
   import lila.db.Tube, Tube.Helpers._
   import play.api.libs.json._
 
-  val tube = Tube(
+  lazy val tube = Tube(
     reader = (__.json update readDate('date)) andThen Json.reads[Request],
     writer = Json.writes[Request],
     writeTransformer = (__.json update writeDate('date)).some
