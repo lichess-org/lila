@@ -7,6 +7,7 @@ import lila.db.Implicits._
 import lila.db.api._
 import lila.hub.actorApi.SendTo
 import lila.hub.actorApi.message._
+import tube.threadTube
 
 import akka.actor.ActorRef
 import scala.math.ceil
@@ -17,15 +18,11 @@ final class Api(
     maxPerPage: Int,
     sockets: ActorRef) {
 
-  private implicit def tube = threadTube
-
-  def inbox(me: User, page: Int): Fu[Paginator[Thread]] = Paginator({
-    implicit def tube = threadTube
-    new Adapter(
+  def inbox(me: User, page: Int): Fu[Paginator[Thread]] = Paginator(
+    adapter = new Adapter(
       selector = ThreadRepo visibleByUserQuery me.id,
       sort = Seq(ThreadRepo.recentSort)
-    )
-  },
+    ),
     currentPage = page,
     maxPerPage = maxPerPage
   )
@@ -38,7 +35,7 @@ final class Api(
   } yield threadOption
 
   def makeThread(data: DataForm.ThreadData, me: User): Fu[Thread] = {
-    val thread = Threads.make(
+    val thread = Thread.make(
       name = data.subject,
       text = data.text,
       creatorId = me.id,
@@ -46,14 +43,14 @@ final class Api(
     $insert(thread) >> updateUser(data.user.id) inject thread
   }
 
-  def lichessThread(lt: LichessThread): Funit = Threads.make(
+  def lichessThread(lt: LichessThread): Funit = Thread.make(
     name = lt.subject,
     text = lt.message,
     creatorId = "lichess",
     invitedId = lt.to) |> { thread ⇒ $insert(thread) >> updateUser(lt.to) }
 
   def makePost(thread: Thread, text: String, me: User) = {
-    val post = Posts.make(
+    val post = Post.make(
       text = text,
       isByCreator = thread isCreator me)
     val newThread = thread + post

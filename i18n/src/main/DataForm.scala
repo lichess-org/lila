@@ -1,5 +1,8 @@
 package lila.i18n
 
+import lila.db.api.$insert
+import tube.translationTube
+
 import akka.actor.ActorRef
 import play.api.mvc.Request
 import play.api.data._
@@ -40,7 +43,7 @@ final class DataForm(
         author = metadata.author,
         comment = metadata.comment,
         createdAt = DateTime.now)
-      translationTube |> { implicit t ⇒ lila.db.api.$insert(translation) }
+      $insert(translation)
     }
   }
 

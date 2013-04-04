@@ -2,6 +2,7 @@ package lila.game
 
 import lila.common.Captcha, Captcha._
 import lila.db.api.$find
+import tube.gameTube
 import chess.{ Game ⇒ ChessGame, Color }
 import chess.format.{ Forsyth, pgn }
 import lila.hub.actorApi.captcha._
@@ -69,7 +70,7 @@ private final class Captcher extends Actor {
       GameRepo findRandomStandardCheckmate distribution
 
     private def getFromDb(id: String): Fu[Option[Captcha]] = 
-      optionT(gameTube |> { implicit t ⇒ $find byId id }) flatMap fromGame
+      optionT($find byId id) flatMap fromGame
 
     private def fromGame(game: Game): OptionT[Fu, Captcha] = 
       optionT(PgnRepo getOption game.id) flatMap { makeCaptcha(game, _) }

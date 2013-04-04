@@ -1,12 +1,13 @@
 package lila.bookmark
 
 import lila.game.{ Game, GameRepo }
-import lila.user.{ User, UserRepo }
+import lila.user.User
 import lila.common.paginator._
 import lila.common.PimpedJson._
 import lila.db.paginator._
 import lila.db.Implicits._
 import lila.db.api._
+import tube.bookmarkTube
 
 import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._
@@ -14,8 +15,6 @@ import play.modules.reactivemongo.Implicits._
 import org.joda.time.DateTime
 
 final class PaginatorBuilder(maxPerPage: Int) {
-
-  private implicit def inColl = bookmarkInColl
 
   def byUser(user: User, page: Int): Fu[Paginator[Bookmark]] =
     paginator(new UserAdapter(user), page)
@@ -41,8 +40,8 @@ final class PaginatorBuilder(maxPerPage: Int) {
             obj.get[DateTime]("d") map { (gameId, _) }
           }
         } map (_.flatten)
-      games ← lila.game.gameTube |> { implicit t ⇒
-        $find byIds pairs.map(_._1)
+      games ← lila.game.tube.gameTube |> { implicit t ⇒
+        $find.byIds[Game](pairs map (_._1))
       }
       bookmarks = pairs map { pair ⇒
         games find (_.id == pair._1) map { game ⇒

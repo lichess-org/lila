@@ -70,7 +70,7 @@ object User {
 
   def normalize(username: String) = username.toLowerCase
 
-  private val defaults = Json.obj(
+  private def defaults = Json.obj(
     "isChatBan" -> false,
     "settings" -> Json.obj(),
     "engine" -> false,

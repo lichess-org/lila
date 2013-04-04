@@ -25,7 +25,7 @@ object Categ {
 
   private implicit def topicTube = Topic.tube
 
-  private val defaults = Json.obj(
+  private def defaults = Json.obj(
     "team" -> none[String],
     "nbTopics" -> 0,
     "nbPosts" -> 0,

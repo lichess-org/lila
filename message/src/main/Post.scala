@@ -15,7 +15,7 @@ case class Post(
   def isUnRead = !isRead
 }
 
-object Posts {
+object Post {
 
   val idSize = 8
 
@@ -27,4 +27,18 @@ object Posts {
     isByCreator = isByCreator,
     isRead = false,
     createdAt = DateTime.now)
+
+  import lila.db.Tube
+  import Tube.Helpers._
+  import play.api.libs.json._
+
+  lazy val tube = Tube(
+    reader = (__.json update (
+      readDate('createdAt)
+    )) andThen Json.reads[Post],
+    writer = Json.writes[Post],
+    writeTransformer = (__.json update (
+      writeDate('createdAt)
+    )).some
+  )
 }

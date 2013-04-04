@@ -39,7 +39,7 @@ object Topic {
 
   private implicit def postTube = Post.tube
 
-  private val defaults = Json.obj(
+  private def defaults = Json.obj(
     "nbPosts" -> 0,
     "lastPostId" -> "")
 

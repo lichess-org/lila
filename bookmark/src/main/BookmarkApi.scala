@@ -1,8 +1,10 @@
 package lila.bookmark
 
 import lila.game.{ Game, GameRepo }
-import lila.user.{ User, UserRepo }
+import lila.user.User
 import lila.db.api._
+import tube.bookmarkTube
+import lila.game.tube.gameTube
 
 import play.api.libs.concurrent.Execution.Implicits._
 
@@ -10,11 +12,8 @@ final class BookmarkApi(
     cached: Cached,
     paginator: PaginatorBuilder) {
 
-  // private implicit def userTube = lila.user.userTube
-  private implicit def gameTube = lila.game.gameTube
-
   def toggle(gameId: String, userId: String): Funit =
-    $find byId gameId flatMap { gameOption ⇒
+    $find.byId[Game](gameId) flatMap { gameOption ⇒
       gameOption zmap { game ⇒
         BookmarkRepo.toggle(gameId, userId) flatMap { bookmarked ⇒
           GameRepo.incBookmarks(gameId, bookmarked.fold(1, -1)) >>
