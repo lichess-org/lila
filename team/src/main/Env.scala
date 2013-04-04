@@ -50,7 +50,7 @@ object Env {
 
   private def actors = lila.hub.Env.current.actor
 
-  lazy val current = "[team] boot" describes new Env(
+  lazy val current = "[boot] team" describes new Env(
     config = lila.common.PlayApp loadConfig "bookmark",
     captcher = actors.captcher,
     messenger = actors.messenger,

@@ -75,7 +75,7 @@ final class Env(
 
 object Env {
 
-  lazy val current = "[teamSearch] boot" describes new Env(
+  lazy val current = "[boot] teamSearch" describes new Env(
     config = lila.common.PlayApp loadConfig "teamSearch",
     system = lila.common.PlayApp.system,
     esIndexer = lila.search.Env.current.esIndexer)

@@ -85,7 +85,7 @@ final class Env(
 
 object Env {
 
-  lazy val current = "[i18n] boot" describes new Env(
+  lazy val current = "[boot] i18n" describes new Env(
     config = lila.common.PlayApp loadConfig "i18n",
     db = lila.db.Env.current,
     messagesApi = PlayApp.withApp(_.plugin[MessagesPlugin])

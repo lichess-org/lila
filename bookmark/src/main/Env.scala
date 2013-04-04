@@ -24,7 +24,7 @@ final class Env(
 
 object Env {
 
-  lazy val current = "[bookmark] boot" describes new Env(
+  lazy val current = "[boot] bookmark" describes new Env(
     config = lila.common.PlayApp loadConfig "bookmark",
     db = lila.db.Env.current)
 }

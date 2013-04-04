@@ -89,7 +89,7 @@ final class Env(
 
 object Env {
 
-  lazy val current = "[gameSearch] boot" describes new Env(
+  lazy val current = "[boot] gameSearch" describes new Env(
     config = lila.common.PlayApp loadConfig "gameSearch",
     system = lila.common.PlayApp.system,
     esIndexer = lila.search.Env.current.esIndexer)

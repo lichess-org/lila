@@ -58,7 +58,7 @@ object Env {
 
   private def hub = lila.hub.Env.current
 
-  lazy val current = "[forum] boot" describes new Env(
+  lazy val current = "[boot] forum" describes new Env(
     config = lila.common.PlayApp loadConfig "forum",
     db = lila.db.Env.current,
     sockets = hub.sockets,

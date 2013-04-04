@@ -2,8 +2,10 @@ package lila.search
 
 import com.typesafe.config.Config
 import scalastic.elasticsearch
+import scala.concurrent.Future
+import play.api.libs.concurrent.Execution.Implicits._
 
-final class Env(config: Config)  {
+final class Env(config: Config) {
 
   private val ESHost = config getString "es.host"
   private val ESPort = config getInt "es.port"
@@ -13,15 +15,17 @@ final class Env(config: Config)  {
     settings = Map("cluster.name" -> ESCluster),
     host = ESHost,
     ports = Seq(ESPort)
-  ) ~ { transport ⇒
-      println("[search] Start ElasticSearch")
-      transport.start
-      println("[search] ElasticSearch is running")
-    }
+  )
+
+  Future {
+    println("[search] Start ElasticSearch")
+    esIndexer.start
+    println("[search] ElasticSearch is running")
+  }
 }
 
 object Env {
 
-  lazy val current = "[search] boot" describes new Env(
+  lazy val current = "[boot] search" describes new Env(
     config = lila.common.PlayApp loadConfig "search")
 }

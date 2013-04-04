@@ -27,6 +27,9 @@ trait PackageObject
   def nowMillis: Double = System.currentTimeMillis
   def nowSeconds: Int = (nowMillis / 1000).toInt
 
+  lazy val logger = play.api.Logger("lila")
+  def loginfo(s: String) { logger info s }
+
   implicit final class LilaPimpedOption[A](o: Option[A]) {
 
     def zmap[B: Zero](f: A ⇒ B): B = o.fold(∅[B])(f)
@@ -39,7 +42,7 @@ trait PackageObject
 
   implicit final class LilaPimpedString(s: String) {
 
-    def describes[A](v: ⇒ A): A = { println(s); v }
+    def describes[A](v: ⇒ A): A = { logger.info(s); v }
   }
 
   def parseIntOption(str: String): Option[Int] = try {

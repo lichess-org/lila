@@ -21,7 +21,7 @@ final class Env(
 
 object Env {
 
-  lazy val current = "[timeline] boot" describes new Env(
+  lazy val current = "[boot] timeline" describes new Env(
     config = lila.common.PlayApp loadConfig "timeline",
     db = lila.db.Env.current,
     getUsername = lila.user.Env.current.usernameOrAnonymous _,

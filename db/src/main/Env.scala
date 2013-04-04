@@ -18,6 +18,6 @@ final class Env(config: Config) {
 
 object Env {
 
-  lazy val current = "[db] boot" describes new Env(
+  lazy val current = "[boot] db" describes new Env(
     lila.common.PlayApp loadConfig "mongodb")
 }

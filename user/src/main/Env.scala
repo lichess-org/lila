@@ -40,14 +40,14 @@ final class Env(config: Config, db: lila.db.Env) {
     import play.api.libs.concurrent.Execution.Implicits._
     def process = {
       case "user" :: "average" :: "elo" :: Nil ⇒
-        print("ooooooooooooooooooooo"); UserRepo.averageElo map { elo ⇒ "Average elo is %f" format elo }
+        UserRepo.averageElo map { elo ⇒ "Average elo is %f" format elo }
     }
   }
 }
 
 object Env {
 
-  lazy val current: Env = "[user] boot" describes new Env(
+  lazy val current: Env = "[boot] user" describes new Env(
     config = lila.common.PlayApp loadConfig "user",
     db = lila.db.Env.current)
 }

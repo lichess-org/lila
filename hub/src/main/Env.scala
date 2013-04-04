@@ -29,7 +29,7 @@ final class Env(config: Config, system: ActorSystem) {
 
 object Env {
 
-  lazy val current = "[hub] boot" describes new Env(
+  lazy val current = "[boot] hub" describes new Env(
     config = lila.common.PlayApp loadConfig "hub",
     system = play.api.libs.concurrent.Akka.system(play.api.Play.current))
 }

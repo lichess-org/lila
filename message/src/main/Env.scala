@@ -37,7 +37,7 @@ final class Env(
 
 object Env {
 
-  lazy val current = "[message] boot" describes new Env(
+  lazy val current = "[boot] message" describes new Env(
     config = lila.common.PlayApp loadConfig "message",
     db = lila.db.Env.current,
     sockets = lila.hub.Env.current.sockets,
