@@ -31,6 +31,7 @@ object BuildSettings {
       file(name),
       dependencies = deps,
       settings = Seq(
+        version := "1.0",
         libraryDependencies := defaultDeps
       ) ++ buildSettings ++ srcMain
     )

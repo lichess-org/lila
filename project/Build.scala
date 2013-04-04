@@ -2,6 +2,8 @@ import sbt._
 import Keys._
 import play.Project._
 
+import net.virtualvoid.sbt.graph.{ Plugin ⇒ SbtGraphPlugin }
+
 object ApplicationBuild extends Build {
 
   import BuildSettings._
@@ -26,16 +28,20 @@ object ApplicationBuild extends Build {
   lazy val modules = Seq(
     chess, common, http, db, user, wiki, hub, websocket,
     message, notification, i18n, game, bookmark, search,
-    gameSearch, timeline, forum, forumSearch, team, teamSearch)
+    gameSearch, timeline, forum, forumSearch, team, teamSearch,
+    ai)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map classpathDependency
 
-  lazy val api = project("api", moduleCPDeps).settings(
-    libraryDependencies := provided(
-      playApi, hasher, config, apache, csv, jgit,
-      actuarius, scalastic, findbugs, reactivemongo)
-  ) aggregate (moduleRefs: _*)
+  lazy val api = project("api", moduleCPDeps)
+    .settings(SbtGraphPlugin.graphSettings: _*)
+    .settings(
+      libraryDependencies := provided(
+        playApi, hasher, config, apache, csv, jgit,
+        actuarius, scalastic, findbugs, reactivemongo),
+      SbtGraphPlugin.filterScalaLibrary := true
+    ) aggregate (moduleRefs: _*)
 
   lazy val common = project("common").settings(
     libraryDependencies ++= provided(playApi, playTest, reactivemongo, csv)
@@ -71,6 +77,10 @@ object ApplicationBuild extends Build {
 
   lazy val gameSearch = project("gameSearch", Seq(common, hub, chess, search, game)).settings(
     libraryDependencies ++= provided(playApi, reactivemongo, playReactivemongo, scalastic)
+  )
+
+  lazy val ai = project("ai", Seq(common, hub, chess, game)).settings(
+    libraryDependencies ++= provided(playApi)
   )
 
   lazy val http = project("http", Seq(common)).settings(
