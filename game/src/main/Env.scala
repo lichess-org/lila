@@ -64,7 +64,7 @@ object Env {
   private def hub = lila.hub.Env.current
   private def app = play.api.Play.current
 
-  lazy val current = "[game] boot" describes new Env(
+  lazy val current = "[boot] game" describes new Env(
     config = lila.common.PlayApp loadConfig "game",
     db = lila.db.Env.current,
     system = play.api.libs.concurrent.Akka.system(app),

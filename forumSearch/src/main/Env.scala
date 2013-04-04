@@ -77,7 +77,7 @@ final class Env(
 
 object Env {
 
-  lazy val current = "[forumSearch] boot" describes new Env(
+  lazy val current = "[boot] forumSearch" describes new Env(
     config = lila.common.PlayApp loadConfig "forumSearch",
     postApi = lila.forum.Env.current.postApi,
     system = lila.common.PlayApp.system,

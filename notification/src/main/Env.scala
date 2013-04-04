@@ -9,7 +9,7 @@ final class Env(sockets: ActorRef, renderer: ActorRef) {
 
 object Env {
 
-  lazy val current = "[notification] boot" describes new Env(
+  lazy val current = "[boot] notification" describes new Env(
     sockets = lila.hub.Env.current.sockets,
     renderer = lila.hub.Env.current.actor.renderer)
 }

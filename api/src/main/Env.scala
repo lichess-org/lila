@@ -26,7 +26,7 @@ final class Env(application: Application, val config: Config) {
 
 object Env {
 
-  lazy val current = "[api] boot" describes new Env(
+  lazy val current = "[boot] api" describes new Env(
     application = play.api.Play.current,
     config = lila.common.PlayApp.loadConfig)
 }
