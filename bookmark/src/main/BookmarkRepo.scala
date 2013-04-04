@@ -2,6 +2,7 @@ package lila.bookmark
 
 import lila.db.Implicits._
 import lila.db.api._
+import tube.bookmarkTube
 
 import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._
@@ -20,8 +21,6 @@ case class Bookmark(
 // db.bookmark.ensureIndex({u:1})
 // db.bookmark.ensureIndex({d: -1})
 private[bookmark] object BookmarkRepo {
-
-  private implicit def inColl = bookmarkInColl
 
   def toggle(gameId: String, userId: String): Fu[Boolean] =
     $count exists selectId(gameId, userId) flatMap { e ⇒

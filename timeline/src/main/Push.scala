@@ -4,6 +4,7 @@ import chess.Color, Color._
 import lila.game.{ Game, Namer }
 import lila.db.api.$insert
 import lila.hub.actorApi.lobby.TimelineEntry
+import tube.entryTube
 
 import akka.actor.ActorRef
 import play.api.libs.concurrent.Execution.Implicits._
@@ -11,8 +12,6 @@ import play.api.libs.concurrent.Execution.Implicits._
 final class Push(
     lobby: ActorRef,
     getUsername: String ⇒ Fu[String]) {
-
-  private implicit def tube = entryTube
 
   def apply(game: Game): Funit = makeEntry(game) flatMap { entry ⇒
     $insert(entry) >> (lobby ! TimelineEntry(entry.render))

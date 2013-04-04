@@ -336,7 +336,7 @@ case class Game(
     p = players map (_.encode),
     s = status.id,
     t = turns,
-    c = clock map RawClocks.encode,
+    c = clock map RawClock.encode,
     lm = lastMove,
     ck = check map (_.key),
     cc = creatorColor.white.fold(None, Some(false)),
@@ -390,7 +390,7 @@ object Game {
 
   def takeGameId(fullId: String) = fullId take gameIdSize
 
-    def apply(
+    def make(
       game: ChessGame,
       whitePlayer: Player,
       blackPlayer: Player,
@@ -423,21 +423,21 @@ object Game {
   import lila.db.Tube
   import play.api.libs.json._
 
-  val tube = Tube(
+  lazy val tube = Tube(
     reader = Reads[Game](js ⇒
       (for {
         obj ← js.asOpt[JsObject]
-        rawGame ← RawGames.tube.read(obj).asOpt
+        rawGame ← RawGame.tube.read(obj).asOpt
         game ← rawGame.decode
       } yield JsSuccess(game): JsResult[Game]) | JsError(Seq.empty)
     ),
     writer = Writes[Game](game ⇒
-      RawGames.tube.write(game.encode) getOrElse JsUndefined(s"[db] Can't write game ${game.id}")
+      RawGame.tube.write(game.encode) getOrElse JsUndefined(s"[db] Can't write game ${game.id}")
     )
   )
 }
 
-case class RawGame(
+private[game] case class RawGame(
     id: String,
     tk: Option[String] = None,
     p: List[RawPlayer],
@@ -489,16 +489,17 @@ case class RawGame(
   )
 }
 
-object RawGames {
+private[game] object RawGame {
 
   import lila.db.Tube
   import Tube.Helpers._
   import play.api.libs.json._
-  private implicit def playerTube = RawPlayers.tube
-  private implicit def clockTube = RawClocks.tube
-  private implicit def metadataTube = RawMetadatas.tube
 
-  private val defaults = Json.obj(
+  private implicit def playerTube = RawPlayer.tube
+  private implicit def clockTube = RawClock.tube
+  private implicit def metadataTube = RawMetadata.tube
+
+  private def defaults = Json.obj(
     "tk" -> none[String],
     "c" -> none[RawClock],
     "lm" -> none[String],
@@ -514,7 +515,7 @@ object RawGames {
     "r960" -> none[Boolean],
     "me" -> none[RawMetadata])
 
-  val tube = Tube(
+  lazy val tube = Tube(
     reader = (__.json update (
       merge(defaults) andThen readDate('ca) andThen readDate('ua)
     )) andThen Json.reads[RawGame],

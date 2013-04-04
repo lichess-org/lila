@@ -1,8 +1,12 @@
 package lila
 
-import lila.db.InColl
+import lila.db.Tube
 
 package object bookmark extends PackageObject with WithPlay {
 
-  private[bookmark] val bookmarkInColl = InColl(Env.current.bookmarkColl)
+  object tube {
+
+    private[bookmark] implicit lazy val bookmarkTube =
+      Tube.json inColl Env.current.bookmarkColl
+  }
 }

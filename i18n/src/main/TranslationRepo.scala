@@ -2,6 +2,7 @@ package lila.i18n
 
 import lila.db.api._
 import lila.db.Implicits._
+import tube.translationTube
 
 import play.api.libs.json.Json
 import play.api.libs.concurrent.Execution.Implicits._
@@ -9,8 +10,6 @@ import play.api.libs.concurrent.Execution.Implicits._
 private[i18n] object TranslationRepo {
 
   type ID = Int
-
-  private implicit def tube = translationTube
 
   val nextId: Fu[ID] = $primitive.one(
     $select.all,

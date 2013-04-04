@@ -44,7 +44,7 @@ case class Thread(
   def nonEmptyName = (name.trim.some filter (_.nonEmpty)) | "No subject"
 }
 
-object Threads {
+object Thread {
 
   val idSize = 8
 
@@ -57,11 +57,27 @@ object Threads {
     name = name,
     createdAt = DateTime.now,
     updatedAt = DateTime.now,
-    posts = List(Posts.make(
+    posts = List(Post.make(
       text = text,
       isByCreator = true
     )),
     creatorId = creatorId,
     invitedId = invitedId,
     visibleByUserIds = List(creatorId, invitedId))
+
+  import lila.db.Tube
+  import Tube.Helpers._
+  import play.api.libs.json._
+
+  lazy val tube = Post.tube |> { implicit pt ⇒
+    Tube(
+      reader = (__.json update (
+        readDate('createdAt) andThen readDate('updatedAt)
+      )) andThen Json.reads[Thread],
+      writer = Json.writes[Thread],
+      writeTransformer = (__.json update (
+        writeDate('createdAt) andThen writeDate('updatedAt)
+      )).some
+    ) 
+  }
 }

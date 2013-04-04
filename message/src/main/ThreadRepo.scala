@@ -2,6 +2,7 @@ package lila.message
 
 import lila.db.api._
 import lila.db.Implicits._
+import tube.threadTube
 
 import play.api.libs.json.Json
 import play.api.libs.concurrent.Execution.Implicits._
@@ -9,8 +10,6 @@ import play.api.libs.concurrent.Execution.Implicits._
 import scala.concurrent.Future
 
 object ThreadRepo {
-
-  private implicit def tube = threadTube
 
   type ID = String
 

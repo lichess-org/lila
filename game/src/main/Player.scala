@@ -91,19 +91,19 @@ case class Player(
 
 object Player {
 
-  def apply(
+  def make(
     color: Color,
     aiLevel: Option[Int]): Player = Player(
     id = IdGenerator.player,
     color = color,
     aiLevel = aiLevel)
 
-  def white = apply(Color.White, None)
+  def white = make(Color.White, None)
 
-  def black = apply(Color.Black, None)
+  def black = make(Color.Black, None)
 }
 
-case class RawPlayer(
+private[game] case class RawPlayer(
     id: String,
     ps: String,
     ai: Option[Int],
@@ -137,13 +137,13 @@ case class RawPlayer(
     name = na)
 }
 
-object RawPlayers {
+private[game] object RawPlayer {
 
   import lila.db.Tube
   import Tube.Helpers._
   import play.api.libs.json._
 
-  private val defaults = Json.obj(
+  private def defaults = Json.obj(
     "ps" -> "",
     "w" -> none[Boolean],
     "isOfferingDraw" -> false,
@@ -157,7 +157,7 @@ object RawPlayers {
     "bs" -> 0,
     "na" -> none[String])
 
-  val tube = Tube(
+  lazy val tube = Tube(
     reader = (__.json update merge(defaults)) andThen Json.reads[RawPlayer],
     writer = Json.writes[RawPlayer]
   )

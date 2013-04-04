@@ -6,6 +6,7 @@ import chess.format.Forsyth
 import lila.user.User
 import lila.db.api._
 import lila.db.Implicits._
+import tube.gameTube
 
 import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._
@@ -20,8 +21,6 @@ object GameRepo {
   type ID = String
 
   import Game._
-
-  implicit def tube = gameTube
 
   def player(gameId: ID, color: Color): Fu[Option[Player]] =
     $find byId gameId map2 { (game: Game) ⇒ game player color }

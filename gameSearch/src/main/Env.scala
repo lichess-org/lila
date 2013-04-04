@@ -3,6 +3,7 @@ package lila.gameSearch
 import lila.search.TypeIndexer
 import lila.game.{ GameRepo, PgnRepo, Game ⇒ GameModel, Query ⇒ DbQuery }
 import lila.db.api.$find
+import lila.game.tube.gameTube
 
 import com.typesafe.config.Config
 import akka.actor._
@@ -19,8 +20,6 @@ final class Env(
   private val TypeName = config getString "type"
   private val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
   private val IndexerName = config getString "indexer.name"
-
-  private implicit val gameTube = lila.game.gameTube
 
   val indexer: ActorRef = system.actorOf(Props(new Indexer(
     lowLevel = lowLevelIndexer

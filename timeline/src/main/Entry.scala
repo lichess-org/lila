@@ -26,10 +26,10 @@ case class Entry(
       clock | "Unlimited")
 }
 
-object Entries {
+object Entry {
 
   import lila.db.Tube
   import play.api.libs.json._
 
-  val json = Tube(Json.reads[Entry], Json.writes[Entry])
+  lazy val tube = Tube(Json.reads[Entry], Json.writes[Entry]) 
 }

@@ -28,7 +28,7 @@ private[game] case class RawClock(
     }
 }
 
-private[game] object RawClocks {
+private[game] object RawClock {
 
   def encode(clock: Clock): RawClock = {
     import clock._
@@ -46,9 +46,9 @@ private[game] object RawClocks {
   import Tube.Helpers._
   import play.api.libs.json._
 
-  private val defaults = Json.obj("t" -> none[Double])
+  private def defaults = Json.obj("t" -> none[Double])
 
-  val tube = Tube(
+  lazy val tube = Tube(
     reader = (__.json update merge(defaults)) andThen Json.reads[RawClock],
     writer = Json.writes[RawClock]
   )

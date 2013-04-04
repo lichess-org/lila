@@ -1,6 +1,6 @@
 package lila.game
 
-case class Metadata(
+private[game] case class Metadata(
     source: Source,
     pgnImport: Option[PgnImport] = None,
     tournamentId: Option[String] = None) {
@@ -15,7 +15,7 @@ case class Metadata(
   def pgnUser = pgnImport flatMap (_.user)
 }
 
-case class RawMetadata(
+private[game] case class RawMetadata(
     so: Int,
     pgni: Option[PgnImport],
     tid: Option[String]) {
@@ -28,27 +28,30 @@ case class RawMetadata(
   }
 }
 
-object RawMetadatas {
+private[game] object RawMetadata {
 
   import lila.db.Tube
   import Tube.Helpers._
   import play.api.libs.json._
 
-  private implicit def importTube = PgnImports.tube
+  private implicit def importTube = PgnImport.tube
 
-  private val defaults = Json.obj("t" -> none[PgnImport])
+  private def defaults = Json.obj("t" -> none[PgnImport])
 
-  val tube = Tube(
+  lazy val tube = Tube(
     reader = (__.json update merge(defaults)) andThen Json.reads[RawMetadata],
     writer = Json.writes[RawMetadata])
 }
 
-case class PgnImport(user: Option[String], date: Option[String], pgn: String)
+private[game] case class PgnImport(
+  user: Option[String], 
+  date: Option[String], 
+  pgn: String)
 
-object PgnImports {
+private[game] object PgnImport {
 
   import lila.db.Tube
   import play.api.libs.json._
 
-  val tube = Tube(Json.reads[PgnImport], Json.writes[PgnImport])
+  lazy val tube = Tube(Json.reads[PgnImport], Json.writes[PgnImport])
 }
