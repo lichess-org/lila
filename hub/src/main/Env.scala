@@ -17,6 +17,7 @@ final class Env(config: Config, system: ActorSystem) {
     val messenger = actorFor(config getString "actor.messenger.name")
     val router = actorFor(config getString "actor.router.name")
     val forum = actorFor(config getString "actor.forum.name")
+    val teamIndexer = actorFor(config getString "actor.team_indexer.name")
   }
 
   val sockets = system.actorOf(Props(new Broadcast(List(

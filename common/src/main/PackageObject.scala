@@ -22,8 +22,6 @@ trait PackageObject
     with scalaz.Options
     with scalaz.OptionTs {
 
-  val toVoid = (_: Any) ⇒ ()
-
   def !![A](msg: String): Valid[A] = msg.failNel[A]
 
   def nowMillis: Double = System.currentTimeMillis
@@ -83,7 +81,7 @@ trait WithFuture extends scalaz.Zeros {
   def fuccess[A](a: A) = Future successful a
   def fufail[A <: Throwable, B](a: A): Fu[B] = Future failed a
   def fufail[B](a: String): Fu[B] = Future failed (new RuntimeException(a))
-  def funit = fuccess(())
+  val funit = fuccess(())
 
   implicit def LilaFuZero[A: Zero] = new Zero[Fu[A]] { val zero = fuccess(∅[A]) }
 
@@ -104,14 +102,14 @@ trait WithPlay { self: PackageObject ⇒
   type SocketFuture = Fu[(Iteratee[JsValue, _], JsEnumerator)]
 
   // Typeclasses
-  implicit def LilaFutureFunctor = new Functor[Fu] {
+  implicit val LilaFutureFunctor = new Functor[Fu] {
     def fmap[A, B](r: Fu[A], f: A ⇒ B) = r map f
   }
-  implicit def LilaFutureMonad = new Monad[Fu] {
+  implicit val LilaFutureMonad = new Monad[Fu] {
     def pure[A](a: ⇒ A) = fuccess(a)
     def bind[A, B](r: Fu[A], f: A ⇒ Fu[B]) = r flatMap f
   }
-  implicit def LilaJsObjectZero = new Zero[JsObject] { val zero = JsObject(Seq.empty) }
+  implicit val LilaJsObjectZero = new Zero[JsObject] { val zero = JsObject(Seq.empty) }
 
   implicit final class LilaPimpedFuture[A](fua: Fu[A]) {
 

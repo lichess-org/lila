@@ -10,6 +10,7 @@ final class Env(
     messenger: ActorRef,
     router: ActorRef,
     forum: ActorRef,
+    indexer: ActorRef,
     db: lila.db.Env) {
 
   private val settings = new {
@@ -24,11 +25,21 @@ final class Env(
 
   lazy val forms = new DataForm(captcher)
 
+  lazy val api = new TeamApi(
+    cached = cached,
+    notifier = notifier,
+    forum = forum,
+    paginator = paginator,
+    indexer = indexer)
+
   private[team] lazy val teamColl = db(CollectionTeam)
   private[team] lazy val requestColl = db(CollectionRequest)
   private[team] lazy val memberColl = db(CollectionMember)
 
   private[team] lazy val cached = new Cached(CacheCapacity)
+  private[team] lazy val paginator = new PaginatorBuilder(
+    maxPerPage = PaginatorMaxPerPage,
+    maxUserPerPage = PaginatorMaxUserPerPage)
 
   private lazy val notifier = new Notifier(
     messenger = messenger,
@@ -45,5 +56,6 @@ object Env {
     messenger = actors.messenger,
     router = actors.router,
     forum = actors.forum,
+    indexer = actors.teamIndexer,
     db = lila.db.Env.current)
 }
