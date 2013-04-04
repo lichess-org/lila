@@ -5,16 +5,21 @@ case class Page(id: String, name: String, title: String, body: String) {
   def slug = id
 }
 
-object Pages {
+object Page {
 
   import java.text.Normalizer
   import java.util.regex.Matcher.quoteReplacement
 
-  def apply(name: String, body: String): Page = new Page(
+  def make(name: String, body: String): Page = new Page(
     id = dropNumber(slugify(name)),
     name = name,
     title = dropNumber(name.replace("-", " ")),
     body = body)
+
+  import lila.db.Tube
+  import play.api.libs.json._
+
+  val tube = Tube(Json.reads[Page], Json.writes[Page]) 
 
   // does not lowercase
   private def slugify(input: String) = {
