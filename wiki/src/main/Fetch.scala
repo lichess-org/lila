@@ -2,6 +2,7 @@ package lila.wiki
 
 import lila.db.Types.Coll
 import lila.db.api._
+import tube._
 
 import java.io.File
 import com.google.common.io.Files
@@ -24,7 +25,7 @@ private[wiki] final class Fetch(gitUrl: String)(implicit coll: Coll) {
 
   private def filePage(file: File): Option[Page] = {
     val name = """^(.+)\.md$""".r.replaceAllIn(file.getName, _ group 1)
-    (name != "Home") option Pages(name, toHtml(fileContent(file)))
+    (name != "Home") option Page.make(name, toHtml(fileContent(file)))
   }
 
   private def getFiles: Fu[List[File]] = Future {
