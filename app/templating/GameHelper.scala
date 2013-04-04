@@ -3,7 +3,7 @@ package templating
 
 import chess.format.Forsyth
 import chess.{ Status, Variant, Color, Clock, Mode }
-import lila.user.{ User, Users, Context }
+import lila.user.{ User, Context }
 import lila.game.{ Game, Player, Namer }
 
 import lila.user.Env.{ current ⇒ userEnv }
@@ -49,7 +49,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     player.userId.fold(
       """<span class="user_link%s">%s</span>""".format(
         cssClass.zmap(" " + _),
-        player.aiLevel.fold(player.name | Users.anonymous)(aiName)
+        player.aiLevel.fold(player.name | User.anonymous)(aiName)
       )
     ) { userId ⇒
         userIdToUsername(userId) |> { username ⇒

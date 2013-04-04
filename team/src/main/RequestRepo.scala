@@ -1,6 +1,7 @@
 package lila.team
 
 import lila.db.api._
+import tube.requestTube
 
 import play.api.libs.json.Json
 import play.api.libs.concurrent.Execution.Implicits._
@@ -12,8 +13,6 @@ import reactivemongo.api._
 object RequestRepo {
 
   type ID = String
-
-  private implicit def tube = requestTube
 
   def exists(teamId: ID, userId: ID): Fu[Boolean] = 
     $count.exists(selectId(teamId, userId))
@@ -33,7 +32,7 @@ object RequestRepo {
   def findByTeams(teamIds: List[ID]): Fu[List[Request]] = 
     $find(teamsQuery(teamIds))
 
-  def selectId(teamId: ID, userId: ID) = $select(Requests.makeId(teamId, userId))
+  def selectId(teamId: ID, userId: ID) = $select(Request.makeId(teamId, userId))
   def teamQuery(teamId: ID) = Json.obj("team" -> teamId)
   def teamsQuery(teamIds: List[ID]) = Json.obj("team" -> $in(teamIds: _*))
 }

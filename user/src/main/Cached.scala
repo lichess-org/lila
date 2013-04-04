@@ -12,10 +12,10 @@ final class Cached(ttl: Duration) {
     usernameCache.fromFuture(id.toLowerCase)(UserRepo usernameById id)
 
   def usernameOrAnonymous(id: String): Fu[String] = 
-    username(id) map (_ | Users.anonymous)
+    username(id) map (_ | User.anonymous)
 
   def usernameOrAnonymous(id: Option[String]): Fu[String] = 
-    id.fold(fuccess(Users.anonymous))(usernameOrAnonymous)
+    id.fold(fuccess(User.anonymous))(usernameOrAnonymous)
 
   def countEnabled: Fu[Int] = countEnabledCache.fromFuture(true)(UserRepo.countEnabled)
 

@@ -50,11 +50,29 @@ case class User(
   def hasGames = nbGames > 0
 }
 
-object Users {
+object User {
 
   val STARTING_ELO = 1200
 
   val anonymous = "Anonymous"
 
+  import lila.db.Tube
+  import Tube.Helpers._
+  import play.api.libs.json._
+
+  lazy val tube = Tube[User](
+    reader = (__.json update (
+      merge(defaults) andThen readDate('createdAt)
+    )) andThen Json.reads[User],
+    writer = Json.writes[User],
+    writeTransformer = (__.json update writeDate('createdAt)).some
+  )
+
   def normalize(username: String) = username.toLowerCase
+
+  private val defaults = Json.obj(
+    "isChatBan" -> false,
+    "settings" -> Json.obj(),
+    "engine" -> false,
+    "toints" -> 0)
 }

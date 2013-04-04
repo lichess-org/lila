@@ -1,7 +1,7 @@
 package lila.game
 
 import chess.Clock
-import lila.user.{ User, Users }
+import lila.user.User
 
 import play.api.libs.concurrent.Execution.Implicits._
 
@@ -9,7 +9,7 @@ object Namer {
 
   def player(player: Player, withElo: Boolean = true)(getUsername: String ⇒ Fu[String]): Fu[String] =
     player.aiLevel.fold(
-      player.userId.fold(fuccess(Users.anonymous)) { id ⇒
+      player.userId.fold(fuccess(User.anonymous)) { id ⇒
         getUsername(id) map { username ⇒
           withElo.fold(
             "%s (%s)".format(username, player.elo getOrElse "?"),

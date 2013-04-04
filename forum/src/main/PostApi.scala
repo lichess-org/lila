@@ -5,7 +5,7 @@ import lila.common.paginator._
 import lila.db.paginator._
 import lila.db.Implicits._
 import lila.db.api._
-import allTubes._
+import tube._
 import actorApi._
 
 import akka.actor.ActorRef
@@ -26,7 +26,7 @@ final class PostApi(env: Env, indexer: ActorRef, maxPerPage: Int) extends Option
     topic: Topic,
     data: DataForm.PostData)(implicit ctx: Context): Fu[Post] =
     lastNumberOf(topic) flatMap { number ⇒
-      val post = Posts(
+      val post = Post.make(
         topicId = topic.id,
         author = data.author,
         userId = ctx.me map (_.id),

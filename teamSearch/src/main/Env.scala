@@ -2,6 +2,7 @@ package lila.teamSearch
 
 import lila.search.TypeIndexer
 import lila.team.{ Team ⇒ TeamModel }
+import lila.team.tube.teamTube
 import lila.db.api.{ $find, $cursor }
 
 import com.typesafe.config.Config
@@ -19,8 +20,6 @@ final class Env(
   private val TypeName = config getString "type"
   private val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
   private val IndexerName = config getString "indexer.name"
-
-  private implicit val teamTube = lila.team.teamTube
 
   val indexer: ActorRef = system.actorOf(Props(new Indexer(
     lowLevel = lowLevelIndexer

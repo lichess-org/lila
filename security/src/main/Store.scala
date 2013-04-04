@@ -4,6 +4,7 @@ import lila.common.PimpedJson._
 import lila.user.User
 import lila.db.Types.Coll
 import lila.db.api._
+import tube._
 
 import play.api.mvc.RequestHeader
 import play.api.libs.json._
@@ -20,8 +21,6 @@ case class UserSpy(
   otherUsernames: Set[String])
 
 object Store {
-
-  private implicit def inColl = storeInColl
 
   def save(sessionId: String, username: String, req: RequestHeader): Funit =
     $insert(Json.obj(
@@ -50,11 +49,11 @@ object Store {
     multi = true)
 
   def userSpy(username: String): Fu[UserSpy] = for {
-    objs ← inColl.coll.find(selectUser(username)).cursor.toList
+    objs ← $find(selectUser(username))
     usernames ← explore(normalize(username))
   } yield UserSpy(
-    ips = objs.map(_.get[String]("ip")).flatten.distinct,
-    uas = objs.map(_.get[String]("ua")).flatten.distinct,
+    ips = objs.map(_ str "ip").flatten.distinct,
+    uas = objs.map(_ str "ua").flatten.distinct,
     otherUsernames = usernames
   )
 

@@ -1,6 +1,6 @@
 package lila.security
 
-import lila.user.{ User, Users, UserRepo }
+import lila.user.{ User, UserRepo }
 
 import play.api.libs.concurrent.Execution.Implicits._
 

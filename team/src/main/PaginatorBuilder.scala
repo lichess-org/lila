@@ -1,11 +1,12 @@
 package lila.team
 
-import lila.user.{ User, UserRepo }
 import lila.common.paginator._
 import lila.db.paginator._
 import lila.db.api._
 import lila.db.Implicits._
-import allTubes._
+import lila.user.User
+import lila.user.tube.userTube
+import tube._
 
 import play.api.libs.concurrent.Execution.Implicits._
 import org.joda.time.DateTime
@@ -29,8 +30,6 @@ private[team] final class PaginatorBuilder(
   private final class TeamAdapter(team: Team) extends AdapterLike[MemberWithUser] {
 
     val nbResults = fuccess(team.nbMembers)
-
-    private implicit def userT = lila.user.userTube
 
     def slice(offset: Int, length: Int): Fu[Seq[MemberWithUser]] = for {
       members ← $find[Member]($query[Member](selector) sort sorting skip offset limit length)

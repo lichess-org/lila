@@ -14,11 +14,11 @@ private[team] case class Member(
   def is(user: User): Boolean = is(user.id)
 }
 
-private[team] object Members {
+private[team] object Member {
 
   def makeId(team: String, user: String) = user + "@" + team
 
-  def apply(team: String, user: String): Member = new Member(
+  def make(team: String, user: String): Member = new Member(
     id = makeId(team, user),
     user = user, 
     team = team, 
@@ -27,7 +27,7 @@ private[team] object Members {
   import lila.db.Tube, Tube.Helpers._
   import play.api.libs.json._
 
-  val tube = Tube(
+  lazy val tube = Tube(
     reader = (__.json update readDate('date)) andThen Json.reads[Member],
     writer = Json.writes[Member],
     writeTransformer = (__.json update writeDate('date)).some

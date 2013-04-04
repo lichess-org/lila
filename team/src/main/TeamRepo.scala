@@ -1,6 +1,7 @@
 package lila.team
 
 import lila.db.api._
+import tube.teamTube
 
 import play.api.libs.json.Json
 import play.api.libs.concurrent.Execution.Implicits._
@@ -15,8 +16,6 @@ import lila.user.User
 object TeamRepo {
 
   type ID = String
-
-  private implicit def tube = teamTube
 
   def owned(id: String, createdBy: String): Fu[Option[Team]] = 
     $find.one($select(id) ++ Json.obj("createdBy" -> createdBy))

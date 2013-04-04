@@ -2,13 +2,12 @@ package lila.forum
 
 import lila.db.Implicits._
 import lila.db.api._
+import tube.postTube
 
 import play.api.libs.json.Json
 import play.api.libs.concurrent.Execution.Implicits._
 
 object PostRepo {
-
-  private[forum] implicit def tube = postTube
 
   def isFirstPost(topicId: String, postId: String): Fu[Boolean] =
     $primitive.one(
