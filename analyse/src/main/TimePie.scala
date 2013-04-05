@@ -1,7 +1,6 @@
-package lila.app
-package analyse
+package lila.analyse
 
-import game.{ DbPlayer, Pov }
+import lila.game.Pov
 
 import play.api.libs.json.Json
 

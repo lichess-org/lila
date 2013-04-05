@@ -9,7 +9,6 @@ import lila.user.tube.userTube
 import tube._
 
 import play.api.libs.concurrent.Execution.Implicits._
-import org.joda.time.DateTime
 
 private[team] final class PaginatorBuilder(
     maxPerPage: Int,

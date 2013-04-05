@@ -9,7 +9,7 @@ import akka.actor.ActorRef
 import akka.pattern.ask
 import play.api.libs.concurrent.Execution.Implicits._
 
-final class Analyser(ai: ActorRef) {
+private[analyse] final class Analyser(ai: ActorRef) {
 
   private implicit val timeout = makeTimeout minutes 5
 

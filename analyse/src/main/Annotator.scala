@@ -2,7 +2,7 @@ package lila.analyse
 
 import chess.format.pgn
 
-final class Annotator(netDomain: String) {
+private[analyse] final class Annotator(netDomain: String) {
 
   def apply(p: pgn.Pgn, analysis: Analysis): pgn.Pgn =
     annotateTurns(p, analysis.advices).copy(
