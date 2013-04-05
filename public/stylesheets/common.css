@@ -225,6 +225,7 @@ div.content_box_inter a {
   padding: 0 0.7em;
   font-size: 1em;
   text-decoration: none;
+  text-transform: capitalize;
 }
 div.content_box_inter a.active {
   background: white;
