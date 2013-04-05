@@ -2,8 +2,8 @@ package lila.security
 
 import lila.common.PimpedJson._
 import lila.http.LilaCookie
-import lila.db.Types._
 import lila.db.api._
+import tube.firewallTube
 
 import scala.concurrent.duration._
 import play.api.mvc.{ RequestHeader, Handler, Action, Cookies }
@@ -18,36 +18,34 @@ import ornicar.scalalib.Random
 final class Firewall(
     cookieName: Option[String],
     enabled: Boolean,
-    cachedIpsTtl: Duration)(implicit coll: Coll) {
+    cachedIpsTtl: Duration) {
 
-  val requestHandler: (RequestHeader ⇒ Option[Handler]) =
-    if (enabled)
-      cookieName.fold((_: RequestHeader) ⇒ none[Handler]) { cn ⇒
-        req ⇒ {
-          val bIp = blocksIp(req.remoteAddress)
-          val bCs = blocksCookies(req.cookies, cn)
-          if (bIp && !bCs) infectCookie(cn)(req).some
-          else if (bCs && !bIp) { blockIp(req.remoteAddress); none }
-          else none
-        }
+  def requestHandler(req: RequestHeader): Fu[Option[Handler]] =
+    cookieName filter (_ ⇒ enabled) zmap { cn ⇒
+      blocksIp(req.remoteAddress) map { bIp ⇒
+        val bCs = blocksCookies(req.cookies, cn)
+        if (bIp && !bCs) infectCookie(cn)(req).some
+        else if (bCs && !bIp) { blockIp(req.remoteAddress); None }
+        else None
       }
-    else _ ⇒ none
+    }
 
-  val blocks: (RequestHeader) ⇒ Boolean =
-    if (enabled)
-      cookieName.fold((req: RequestHeader) ⇒ blocksIp(req.remoteAddress)) { cn ⇒
-        req ⇒ (blocksIp(req.remoteAddress) || blocksCookies(req.cookies, cn))
-      }
-    else _ ⇒ false
+  def blocks(req: RequestHeader): Fu[Boolean] = if (enabled) {
+    cookieName.fold(blocksIp(req.remoteAddress)) { cn ⇒
+      blocksIp(req.remoteAddress) map (_ || blocksCookies(req.cookies, cn))
+    }
+  }
+  else fuccess(false)
 
-  def accepts(req: RequestHeader): Boolean = !blocks(req)
+  def accepts(req: RequestHeader): Fu[Boolean] = blocks(req) map (!_)
 
-  def blockIp(ip: String): Funit =
-    if (validIp(ip) && !blocksIp(ip)) {
+  def blockIp(ip: String): Funit = blocksIp(ip) flatMap { blocked ⇒
+    if (validIp(ip) && !blocked) {
       log("Block IP: " + ip)
-      coll.insert(Json.obj("_id" -> ip, "date" -> DateTime.now)) >> cachedIps.clear
+      $insert(Json.obj("_id" -> ip, "date" -> DateTime.now)) >> cachedIps.clear
     }
     else fuccess(log("Invalid IP block: " + ip))
+  }
 
   private def infectCookie(name: String)(implicit req: RequestHeader) = Action {
     log("Infect cookie " + formatReq(req))
@@ -66,7 +64,7 @@ final class Firewall(
   private def formatReq(req: RequestHeader) =
     "%s %s %s".format(req.remoteAddress, req.uri, req.headers.get("User-Agent") | "?")
 
-  private def blocksIp(ip: String): Boolean = ips contains ip
+  private def blocksIp(ip: String): Fu[Boolean] = ips map (_ contains ip)
 
   private def blocksCookies(cookies: Cookies, name: String) =
     (cookies get name).isDefined
@@ -83,10 +81,8 @@ final class Firewall(
     def clear { cache.clear }
   }
 
-  private def ips: Set[String] = cachedIps.apply.await
+  private def ips: Fu[Set[String]] = cachedIps.apply
 
   private def fetch: Fu[Set[String]] =
-    coll.genericQueryBuilder
-      .projection(Json.obj("_id" -> true))
-      .cursor.toList map2 { (obj: JsObject) ⇒ obj.get[String]("_id") } map (_.flatten.toSet)
+    $primitive($select.all, "id")(_.asOpt[String]) map (_.toSet)
 }

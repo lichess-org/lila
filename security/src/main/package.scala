@@ -8,5 +8,8 @@ package object security extends PackageObject with WithPlay {
 
     private[security] implicit lazy val storeTube =
       Tube.json inColl Env.current.storeColl
+
+    private[security] implicit lazy val firewallTube =
+      Tube.json inColl Env.current.firewallColl
   }
 }
