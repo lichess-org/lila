@@ -80,7 +80,7 @@ object ApplicationBuild extends Build {
       playApi, reactivemongo, playReactivemongo, scalastic)
   )
 
-  lazy val analyse = project("analyse", Seq(common, hub, chess, game)).settings(
+  lazy val analyse = project("analyse", Seq(common, hub, chess, game, user)).settings(
     libraryDependencies ++= provided(
       playApi, reactivemongo, playReactivemongo, spray.caching)
   )
