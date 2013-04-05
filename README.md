@@ -1,11 +1,8 @@
 lichess.org
 ===========
 
-Backend of http://lichess.org
-
-- Scala 2.9 with Play2, Akka 2, Scalaz and Salat
-- [Scalachess](https://github.com/ornicar/scalachess)
-- MongoDB 2.2
+Complete source code of http://lichess.org,
+using Scala 2.10.1, Play 2.2, Akka 2, ReactiveMongo and Scalaz 
 
 Installation
 ============
@@ -47,55 +44,3 @@ From here you can now run the application (`run`).
 Open your web browser at `localhost:9000`.
 
 To run the test, use `test`.
-
-Production
-==========
-
-Register as daemon on archlinux
---------------------------------
-
-```sh
-cd /etc/rc.d
-sudo ln -s /path/to/lila/bin/prod/archlinux/rc.d/lila ./
-cd /etc/conf.d
-sudo ln -s /path/to/lila/bin/prod/archlinux/conf.d/lila ./
-```
-
-- Configure the daemon in /etc/conf.d/lila
-- Add lila to DAEMONS in /etc/rc.conf
-
-Optional
-ulimit -n 99999
-
-Restart on timeout
-------------------
-
-```sh
-bin/prod/timeout-restarter
-```
-
-Notes to self
-=============
-
-Elasticsearch mongodb river
----------------------------
-
-cd $ES_HOME;
-bin/plugin -url https://github.com/downloads/richardwilly98/elasticsearch-river-mongodb/elasticsearch-river-mongodb-1.6.1.zip -install river-mongodb
-service elasticsearch restart
-
-curl -XPUT 'http://localhost:9200/_river/team/_meta' -d '{ 
-    "type": "mongodb", 
-    "mongodb": { 
-        "db": "lichess", 
-        "collection": "team"
-    }, 
-    "index": {
-        "name": "lila", 
-        "type": "team" 
-    }
-}'
-
-/etc/mongodb.conf
-replSet=rs0
-oplogSize=100
