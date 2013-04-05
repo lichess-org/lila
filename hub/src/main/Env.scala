@@ -18,6 +18,7 @@ final class Env(config: Config, system: ActorSystem) {
     val router = actorFor(config getString "actor.router.name")
     val forum = actorFor(config getString "actor.forum.name")
     val teamIndexer = actorFor(config getString "actor.team_indexer.name")
+    val ai = actorFor(config getString "actor.ai.name")
   }
 
   val sockets = system.actorOf(Props(new Broadcast(List(

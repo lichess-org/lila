@@ -1,11 +1,10 @@
-package lila.app
-package analyse
+package lila.analyse
 
 import play.api.libs.json.Json
 
-final class AdvantageChart(advices: Analysis.InfoAdvices) {
+final class AdvantageChart(advices: InfoAdvices) {
 
-  val max = 15
+  private val max = 15
 
   def columns = Json.arr(
     Json.arr("string", "Move"),

@@ -18,11 +18,9 @@ import chess.{
 }
 import Color._
 import chess.Pos.piotr, chess.Role.forsyth, chess.format.Forsyth
-// import importer.PgnImport
 
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
-import scala.math.min
 
 case class Game(
     id: String,
@@ -432,7 +430,7 @@ object Game {
       } yield JsSuccess(game): JsResult[Game]) | JsError(Seq.empty)
     ),
     writer = Writes[Game](game ⇒
-      RawGame.tube.write(game.encode) getOrElse JsUndefined(s"[db] Can't write game ${game.id}")
+      RawGame.tube.write(game.encode) getOrElse JsUndefined("[db] Can't write game " + game.id)
     )
   )
 }
