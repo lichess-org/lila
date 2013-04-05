@@ -4,7 +4,7 @@ import lila.common.PimpedJson._
 import lila.user.User
 import lila.db.Types.Coll
 import lila.db.api._
-import tube._
+import tube.storeTube
 
 import play.api.mvc.RequestHeader
 import play.api.libs.json._

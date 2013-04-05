@@ -27,12 +27,13 @@ final class Env(
 
   lazy val api = new Api(firewall = firewall)
 
-  lazy val storeColl = db(CollectionSecurity)
+  private[security] lazy val storeColl = db(CollectionSecurity)
+  private[security] lazy val firewallColl = db(FirewallCollectionFirewall)
 
   lazy val firewall = new Firewall(
     cookieName = FirewallCookieName.some filter (_ ⇒ FirewallCookieEnabled),
     enabled = FirewallEnabled,
-    cachedIpsTtl = FirewallCachedIpsTtl)(db(FirewallCollectionFirewall))
+    cachedIpsTtl = FirewallCachedIpsTtl)
 
   lazy val flood = new Flood(FloodDuration)
 
