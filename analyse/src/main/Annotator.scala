@@ -1,5 +1,4 @@
-package lila.app
-package analyse
+package lila.analyse
 
 import chess.format.pgn
 

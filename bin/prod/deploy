@@ -1,6 +1,9 @@
 #!/bin/sh
 . bin/lilarc
 
+echo "Nope."
+exit 1
+
 fail () {
   echo "Deploy main or ai"
   exit 1

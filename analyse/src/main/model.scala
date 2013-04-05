@@ -1,51 +1,9 @@
-package lila.app
-package analyse
+package lila.analyse
 
 import chess.{ Pos, Color, White, Black }
 import chess.format.{ UciMove, Nag }
 
-case class Analysis(
-    infos: List[Info],
-    done: Boolean,
-    fail: Option[String] = None) {
-
-  lazy val infoAdvices: Analysis.InfoAdvices = (infos sliding 2 collect {
-    case info :: next :: Nil ⇒ info -> Advice(info, next)
-  }).toList
-
-  lazy val advices: List[Advice] = infoAdvices.map(_._2).flatten
-
-  lazy val advantageChart = new AdvantageChart(infoAdvices)
-
-  def encode: String = infos map (_.encode) mkString Analysis.separator
-
-  def summary: List[(Color, List[(CpSeverity, Int)])] = Color.all map { color ⇒
-    color -> (CpSeverity.all map { sev ⇒
-      sev -> (advices count { adv ⇒
-        adv.color == color && adv.severity == sev
-      })
-    })
-  }
-}
-
-object Analysis {
-
-  type InfoAdvices = List[(Info, Option[Advice])]
-  private val separator = " "
-
-  def apply(str: String, done: Boolean): Valid[Analysis] = decode(str) map { infos ⇒
-    new Analysis(infos, done)
-  }
-
-  def decode(str: String): Valid[List[Info]] =
-    (str.split(separator).toList.zipWithIndex map {
-      case (info, index) ⇒ Info.decode(index + 1, info)
-    }).sequence
-
-  def builder = new AnalysisBuilder(Nil)
-}
-
-sealed trait Advice {
+private[analyse] sealed trait Advice {
   def severity: Severity
   def info: Info
   def next: Info
@@ -58,13 +16,13 @@ sealed trait Advice {
   def nag = severity.nag
 }
 
-sealed abstract class Severity(val nag: Nag)
+private[analyse] sealed abstract class Severity(val nag: Nag)
 
-sealed abstract class CpSeverity(val delta: Int, nag: Nag) extends Severity(nag)
-case object CpBlunder extends CpSeverity(-300, Nag.Blunder)
-case object CpMistake extends CpSeverity(-100, Nag.Mistake)
-case object CpInaccuracy extends CpSeverity(-50, Nag.Inaccuracy)
-object CpSeverity {
+private[analyse] sealed abstract class CpSeverity(val delta: Int, nag: Nag) extends Severity(nag)
+private[analyse] case object CpBlunder extends CpSeverity(-300, Nag.Blunder)
+private[analyse] case object CpMistake extends CpSeverity(-100, Nag.Mistake)
+private[analyse] case object CpInaccuracy extends CpSeverity(-50, Nag.Inaccuracy)
+private[analyse] object CpSeverity {
   val all = List(CpInaccuracy, CpMistake, CpBlunder)
   def apply(delta: Int): Option[CpSeverity] = all.foldLeft(none[CpSeverity]) {
     case (_, severity) if severity.delta > delta ⇒ severity.some
@@ -72,7 +30,7 @@ object CpSeverity {
   }
 }
 
-case class CpAdvice(
+private[analyse] case class CpAdvice(
     severity: CpSeverity,
     info: Info,
     next: Info) extends Advice {
@@ -80,14 +38,14 @@ case class CpAdvice(
   def text = severity.nag.toString
 }
 
-sealed abstract class MateSeverity(nag: Nag, val desc: String) extends Severity(nag: Nag)
-case class MateDelayed(before: Int, after: Int) extends MateSeverity(Nag.Inaccuracy,
+private[analyse] sealed abstract class MateSeverity(nag: Nag, val desc: String) extends Severity(nag: Nag)
+private[analyse] case class MateDelayed(before: Int, after: Int) extends MateSeverity(Nag.Inaccuracy,
   desc = "Detected checkmate in %s moves, but player moved for mate in %s".format(before, after + 1))
-case object MateLost extends MateSeverity(Nag.Mistake,
+private[analyse] case object MateLost extends MateSeverity(Nag.Mistake,
   desc = "Lost forced checkmate sequence")
-case object MateCreated extends MateSeverity(Nag.Blunder,
+private[analyse] case object MateCreated extends MateSeverity(Nag.Blunder,
   desc = "Checkmate is now unavoidable")
-object MateSeverity {
+private[analyse] object MateSeverity {
   def apply(current: Option[Int], next: Option[Int]): Option[MateSeverity] =
     (current, next).some collect {
       case (None, Some(n)) if n < 0                 ⇒ MateCreated
@@ -96,7 +54,7 @@ object MateSeverity {
       case (Some(c), Some(n)) if c > 0 && n >= c    ⇒ MateDelayed(c, n)
     }
 }
-case class MateAdvice(
+private[analyse] case class MateAdvice(
     severity: MateSeverity,
     info: Info,
     next: Info) extends Advice {
@@ -104,7 +62,7 @@ case class MateAdvice(
   def text = severity.toString
 }
 
-object Advice {
+private[analyse] object Advice {
 
   def apply(info: Info, next: Info): Option[Advice] = {
     for {
@@ -128,19 +86,21 @@ object Advice {
     }
 }
 
-final class AnalysisBuilder(infos: List[Info]) {
+private[analyse] final class AnalysisBuilder(infos: List[Info]) {
 
   def size = infos.size
 
   def +(info: Int ⇒ Info) = new AnalysisBuilder(info(infos.size + 1) :: infos)
 
-  def done = new Analysis(infos.reverse.zipWithIndex map {
-    case (info, turn) ⇒
-      (turn % 2 == 0).fold(info, info.copy(score = info.score map (_.negate)))
-  }, true)
+  def done(id: String) = new Analysis(id, infos.reverse.zipWithIndex map {
+    case (info, turn) ⇒ (turn % 2 == 0).fold(
+      info, 
+      info.copy(score = info.score map (_.negate))
+    )
+  }, true, none)
 }
 
-case class Info(
+private[analyse] case class Info(
     ply: Int,
     move: UciMove,
     best: UciMove,
@@ -161,7 +121,7 @@ case class Info(
   private def encode(oa: Option[Any]): String = oa.fold("_")(_.toString)
 }
 
-object Info {
+private[analyse] object Info {
 
   private val separator = ","
 
@@ -193,7 +153,7 @@ object Info {
     mate = mate)
 }
 
-case class Score(centipawns: Int) {
+private[analyse] case class Score(centipawns: Int) {
 
   def pawns: Float = centipawns / 100f
   def showPawns: String = "%.2f" format pawns

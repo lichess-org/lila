@@ -1,9 +1,9 @@
-package lila.app
-package ai.stockfish
+package lila.ai
+package stockfish
 
 import chess.Pos.posAt
 import chess.format.UciMove
-import analyse.{ Analysis, AnalysisBuilder }
+// import analyse.{ Analysis, AnalysisBuilder }
 
 import akka.actor.ActorRef
 

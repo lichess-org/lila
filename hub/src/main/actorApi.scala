@@ -34,3 +34,7 @@ package router {
 package forum {
   case class MakeTeam(id: String, name: String)
 }
+
+package ai {
+  case class Analyse(pgn: String, initialFen: Option[String])
+}
