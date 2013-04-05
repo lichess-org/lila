@@ -2,26 +2,23 @@ package lila.security
 
 import lila.common.PimpedJson._
 import lila.http.LilaCookie
-import lila.memo.VarMemo
-import lila.db.Types.Coll
+import lila.db.Types._
 import lila.db.api._
 
 import scala.concurrent.duration._
-import akka.util.Timeout
-
 import play.api.mvc.{ RequestHeader, Handler, Action, Cookies }
 import play.api.mvc.Results.Redirect
 import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._
-
 import play.modules.reactivemongo.Implicits._
-
+import spray.caching.{ LruCache, Cache }
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
 final class Firewall(
     cookieName: Option[String],
-    enabled: Boolean)(implicit coll: Coll) {
+    enabled: Boolean,
+    cachedIpsTtl: Duration)(implicit coll: Coll) {
 
   val requestHandler: (RequestHeader ⇒ Option[Handler]) =
     if (enabled)
@@ -45,12 +42,10 @@ final class Firewall(
 
   def accepts(req: RequestHeader): Boolean = !blocks(req)
 
-  def refresh: Funit = ipsMemo reload fetch
-
   def blockIp(ip: String): Funit =
     if (validIp(ip) && !blocksIp(ip)) {
       log("Block IP: " + ip)
-      coll.insert(Json.obj("_id" -> ip, "date" -> DateTime.now)) >> refresh
+      coll.insert(Json.obj("_id" -> ip, "date" -> DateTime.now)) >> cachedIps.clear
     }
     else fuccess(log("Invalid IP block: " + ip))
 
@@ -82,10 +77,13 @@ final class Firewall(
   private def validIp(ip: String) =
     (ipRegex matches ip) && ip != "127.0.0.1" && ip != "0.0.0.0"
 
-  private implicit val timeout = Timeout(2.seconds)
-  private val ipsMemo = new VarMemo(fetch, 2.seconds)
+  private lazy val cachedIps = new {
+    private val cache: Cache[Set[String]] = LruCache(timeToLive = cachedIpsTtl)
+    def apply: Fu[Set[String]] = cache.fromFuture(true)(fetch)
+    def clear { cache.clear }
+  }
 
-  private def ips: Set[String] = ipsMemo.get.await
+  private def ips: Set[String] = cachedIps.apply.await
 
   private def fetch: Fu[Set[String]] =
     coll.genericQueryBuilder

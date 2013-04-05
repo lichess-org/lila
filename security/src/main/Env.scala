@@ -20,6 +20,7 @@ final class Env(
     val FirewallCookieName = config getString "firewall.cookie.name"
     val FirewallCookieEnabled = config getBoolean "firewall.cookie.enabled"
     val FirewallCollectionFirewall = config getString "firewall.collection.firewall"
+    val FirewallCachedIpsTtl = config duration "firewall.cached.ips.ttl"
     val FloodDuration = config duration "flood.duration"
   }
   import settings._
@@ -30,7 +31,8 @@ final class Env(
 
   lazy val firewall = new Firewall(
     cookieName = FirewallCookieName.some filter (_ ⇒ FirewallCookieEnabled),
-    enabled = FirewallEnabled)(db(FirewallCollectionFirewall))
+    enabled = FirewallEnabled,
+    cachedIpsTtl = FirewallCachedIpsTtl)(db(FirewallCollectionFirewall))
 
   lazy val flood = new Flood(FloodDuration)
 
