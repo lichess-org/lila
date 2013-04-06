@@ -38,7 +38,7 @@ private[game] object RawMetadata {
 
   private def defaults = Json.obj("t" -> none[PgnImport])
 
-  lazy val tube = Tube(
+  private[game] lazy val tube = Tube(
     reader = (__.json update merge(defaults)) andThen Json.reads[RawMetadata],
     writer = Json.writes[RawMetadata])
 }
@@ -53,5 +53,5 @@ private[game] object PgnImport {
   import lila.db.Tube
   import play.api.libs.json._
 
-  lazy val tube = Tube(Json.reads[PgnImport], Json.writes[PgnImport])
+  private[game] lazy val tube = Tube(Json.reads[PgnImport], Json.writes[PgnImport])
 }

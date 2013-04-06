@@ -14,7 +14,7 @@ object ApplicationBuild extends Build {
       libraryDependencies := Seq(
         scalaz, scalalib, hasher, config, apache, scalaTime,
         csv, jgit, actuarius, scalastic, findbugs, reactivemongo,
-        playReactivemongo)
+        playReactivemongo, spray.caching)
     )) dependsOn api aggregate api settings (
       templatesImport ++= Seq(
         "lila.game.{ Game, Player, Pov }",
@@ -29,7 +29,7 @@ object ApplicationBuild extends Build {
     chess, common, http, db, user, wiki, hub, websocket,
     message, notification, i18n, game, bookmark, search,
     gameSearch, timeline, forum, forumSearch, team, teamSearch, 
-    ai, analyse)
+    ai, analyse, mod)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map classpathDependency
@@ -60,6 +60,11 @@ object ApplicationBuild extends Build {
   )
 
   lazy val timeline = project("timeline", Seq(common, db, game, user, hub)).settings(
+    libraryDependencies ++= provided(
+      playApi, playTest, reactivemongo, playReactivemongo)
+  )
+
+  lazy val mod = project("mod", Seq(common, db, user, hub, security)).settings(
     libraryDependencies ++= provided(
       playApi, playTest, reactivemongo, playReactivemongo)
   )

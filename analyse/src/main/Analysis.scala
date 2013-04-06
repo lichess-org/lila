@@ -53,7 +53,7 @@ object Analysis {
   import lila.db.Tube
   import play.api.libs.json._
 
-  lazy val tube = Tube(
+  private[analyse] lazy val tube = Tube(
     reader = Reads[Analysis](js ⇒
       (for {
         obj ← js.asOpt[JsObject]
@@ -105,5 +105,5 @@ private[analyse] object RawAnalysis {
   import lila.db.Tube
   import play.api.libs.json._
 
-  lazy val tube = Tube(Json.reads[RawAnalysis], Json.writes[RawAnalysis])
+  private[analyse] lazy val tube = Tube(Json.reads[RawAnalysis], Json.writes[RawAnalysis])
 }

@@ -25,7 +25,7 @@ object Request {
   import lila.db.Tube, Tube.Helpers._
   import play.api.libs.json._
 
-  lazy val tube = Tube(
+  private[team] lazy val tube = Tube(
     reader = (__.json update readDate('date)) andThen Json.reads[Request],
     writer = Json.writes[Request],
     writeTransformer = (__.json update writeDate('date)).some

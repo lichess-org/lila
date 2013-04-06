@@ -60,7 +60,7 @@ object User {
   import Tube.Helpers._
   import play.api.libs.json._
 
-  lazy val tube = Tube[User](
+  private[user] lazy val tube = Tube[User](
     reader = (__.json update (
       merge(defaults) andThen readDate('createdAt)
     )) andThen Json.reads[User],

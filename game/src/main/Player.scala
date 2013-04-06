@@ -157,7 +157,7 @@ private[game] object RawPlayer {
     "bs" -> 0,
     "na" -> none[String])
 
-  lazy val tube = Tube(
+  private[game] lazy val tube = Tube(
     reader = (__.json update merge(defaults)) andThen Json.reads[RawPlayer],
     writer = Json.writes[RawPlayer]
   )

@@ -421,7 +421,7 @@ object Game {
   import lila.db.Tube
   import play.api.libs.json._
 
-  lazy val tube = Tube(
+  private[game] lazy val tube = Tube(
     reader = Reads[Game](js ⇒
       (for {
         obj ← js.asOpt[JsObject]
@@ -513,7 +513,7 @@ private[game] object RawGame {
     "r960" -> none[Boolean],
     "me" -> none[RawMetadata])
 
-  lazy val tube = Tube(
+  private[game] lazy val tube = Tube(
     reader = (__.json update (
       merge(defaults) andThen readDate('ca) andThen readDate('ua)
     )) andThen Json.reads[RawGame],
