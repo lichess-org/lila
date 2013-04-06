@@ -49,7 +49,7 @@ object Team {
   import lila.db.Tube, Tube.Helpers._
   import play.api.libs.json._
 
-  lazy val tube = Tube(
+  private[team] lazy val tube = Tube(
     reader = (__.json update readDate('createdAt)) andThen Json.reads[Team],
     writer = Json.writes[Team],
     writeTransformer = (__.json update writeDate('createdAt)).some

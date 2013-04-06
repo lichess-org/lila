@@ -35,7 +35,7 @@ final class Env(
   def cli = new lila.common.Cli {
     import akka.pattern.ask
     import lila.search.actorApi.RebuildAll
-    private implicit def timeout = makeTimeout minutes 20
+    private implicit def timeout = makeTimeout minutes 60
     def process = {
       case "game" :: "search" :: "reset" :: Nil ⇒
         (lowLevelIndexer ? RebuildAll) inject "Game search index rebuilt"

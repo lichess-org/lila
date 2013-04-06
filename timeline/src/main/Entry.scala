@@ -31,5 +31,5 @@ object Entry {
   import lila.db.Tube
   import play.api.libs.json._
 
-  lazy val tube = Tube(Json.reads[Entry], Json.writes[Entry]) 
+  private[timeline] lazy val tube = Tube(Json.reads[Entry], Json.writes[Entry]) 
 }

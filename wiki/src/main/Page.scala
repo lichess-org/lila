@@ -19,7 +19,7 @@ object Page {
   import lila.db.Tube
   import play.api.libs.json._
 
-  lazy val tube = Tube(Json.reads[Page], Json.writes[Page]) 
+  private[wiki] lazy val tube = Tube(Json.reads[Page], Json.writes[Page]) 
 
   // does not lowercase
   private def slugify(input: String) = {

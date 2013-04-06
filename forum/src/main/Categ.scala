@@ -31,7 +31,7 @@ object Categ {
     "nbPosts" -> 0,
     "lastPostId" -> "")
 
-  lazy val tube = Tube(
+  private[forum] lazy val tube = Tube(
     reader = (__.json update merge(defaults)) andThen Json.reads[Categ],
     writer = Json.writes[Categ]
   )

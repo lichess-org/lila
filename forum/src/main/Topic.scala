@@ -43,7 +43,7 @@ object Topic {
     "nbPosts" -> 0,
     "lastPostId" -> "")
 
-  lazy val tube = Tube(
+  private[forum] lazy val tube = Tube(
     reader = (__.json update (
       merge(defaults) andThen readDate('createdAt) andThen readDate('updatedAt)
     )) andThen Json.reads[Topic],

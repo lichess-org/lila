@@ -48,7 +48,7 @@ private[game] object RawClock {
 
   private def defaults = Json.obj("t" -> none[Double])
 
-  lazy val tube = Tube(
+  private[game] lazy val tube = Tube(
     reader = (__.json update merge(defaults)) andThen Json.reads[RawClock],
     writer = Json.writes[RawClock]
   )

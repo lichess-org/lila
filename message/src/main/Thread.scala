@@ -69,7 +69,7 @@ object Thread {
   import Tube.Helpers._
   import play.api.libs.json._
 
-  lazy val tube = Post.tube |> { implicit pt ⇒
+  private[message] lazy val tube = Post.tube |> { implicit pt ⇒
     Tube(
       reader = (__.json update (
         readDate('createdAt) andThen readDate('updatedAt)

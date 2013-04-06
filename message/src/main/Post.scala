@@ -32,7 +32,7 @@ object Post {
   import Tube.Helpers._
   import play.api.libs.json._
 
-  lazy val tube = Tube(
+  private[message] lazy val tube = Tube(
     reader = (__.json update (
       readDate('createdAt)
     )) andThen Json.reads[Post],
