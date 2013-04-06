@@ -35,9 +35,20 @@ case class Analysis(
 
 object Analysis {
 
-  def builder = new AnalysisBuilder(Nil)
-
   val separator = " "
+
+  def make(str: String, done: Boolean): Option[String ⇒ Analysis] =
+    Analysis.decodeInfos(str) map { infos ⇒
+      (id: String) ⇒ new Analysis(id, infos, done, none)
+    }
+
+  def decodeInfos(enc: String): Option[List[Info]] =
+    (enc.split(separator).toList.zipWithIndex map {
+      case (info, index) ⇒ Info.decode(index + 1, info)
+    }).sequence.fold(
+      err ⇒ { logger.warn("[analysis] " + err); none[List[Info]] },
+      _.some
+    )
 
   import lila.db.Tube
   import play.api.libs.json._
@@ -56,23 +67,37 @@ object Analysis {
   )
 }
 
+// TODO
+// this belongs to the Analysis object
+// but was moved here because of scala 2.10.1 compiler bug
+object AnalysisMaker {
+  def apply(str: String, done: Boolean): Option[String ⇒ Analysis] =
+    Analysis.make(str, done)
+}
+
+final class AnalysisBuilder(infos: List[Info]) {
+
+  def size = infos.size
+
+  def +(info: Int ⇒ Info) = new AnalysisBuilder(info(infos.size + 1) :: infos)
+
+  def done: String ⇒ Analysis = id ⇒ new Analysis(id, infos.reverse.zipWithIndex map {
+    case (info, turn) ⇒ (turn % 2 == 0).fold(
+      info,
+      info.copy(score = info.score map (_.negate))
+    )
+  }, true, none)
+}
+
 private[analyse] case class RawAnalysis(
     id: String,
     encoded: String,
     done: Boolean,
     fail: Option[String]) {
 
-  def decode: Option[Analysis] = decodeInfos map { infos ⇒
+  def decode: Option[Analysis] = Analysis.decodeInfos(encoded) map { infos ⇒
     new Analysis(id, infos, done, none)
   }
-
-  private def decodeInfos: Option[List[Info]] =
-    (encoded.split(Analysis.separator).toList.zipWithIndex map {
-      case (info, index) ⇒ Info.decode(index + 1, info)
-    }).sequence.fold(
-      err ⇒ { logger.warn("[analysis] " + err); none[List[Info]] },
-      _.some
-    )
 }
 
 private[analyse] object RawAnalysis {

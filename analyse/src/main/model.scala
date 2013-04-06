@@ -86,21 +86,7 @@ private[analyse] object Advice {
     }
 }
 
-private[analyse] final class AnalysisBuilder(infos: List[Info]) {
-
-  def size = infos.size
-
-  def +(info: Int ⇒ Info) = new AnalysisBuilder(info(infos.size + 1) :: infos)
-
-  def done(id: String) = new Analysis(id, infos.reverse.zipWithIndex map {
-    case (info, turn) ⇒ (turn % 2 == 0).fold(
-      info, 
-      info.copy(score = info.score map (_.negate))
-    )
-  }, true, none)
-}
-
-private[analyse] case class Info(
+case class Info(
     ply: Int,
     move: UciMove,
     best: UciMove,
@@ -121,7 +107,7 @@ private[analyse] case class Info(
   private def encode(oa: Option[Any]): String = oa.fold("_")(_.toString)
 }
 
-private[analyse] object Info {
+object Info {
 
   private val separator = ","
 

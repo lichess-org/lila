@@ -1,10 +1,14 @@
-package lila.app
-package ai.stockfish
+package lila.ai
+package stockfish
 
 import model._
-import core.Settings
 
-final class Config(settings: Settings) {
+private[ai] final class Config(
+    hashSize: Int,
+    nbThreads: Int,
+    playMaxMoveTime: Int,
+    analyseMoveTime: Int,
+    val debug: Boolean) {
 
   import Config._
 
@@ -22,12 +26,12 @@ final class Config(settings: Settings) {
     5 -> 6,
     6 -> 8,
     7 -> 10
-    // 8 -> inf
+  // 8 -> inf
   ) get levelBox(level)
 
   def init = List(
-    setoption("Hash", settings.AiStockfishHashSize),
-    setoption("Threads", settings.AiStockfishThreads),
+    setoption("Hash", hashSize),
+    setoption("Threads", nbThreads),
     setoption("Ponder", false))
 
   def prepare(task: Task) = task.fold(
@@ -54,12 +58,6 @@ final class Config(settings: Settings) {
     anal ⇒ List(
       position(anal.fen, anal.pastMoves),
       "go movetime %d".format(analyseMoveTime)))
-
-  def debug = settings.AiStockfishDebug
-
-  private def playMaxMoveTime = settings.AiStockfishPlayMaxMoveTime
-
-  private def analyseMoveTime = settings.AiStockfishAnalyseMoveTime
 
   private def position(fen: Option[String], moves: String) =
     "position %s moves %s".format(fen.fold("startpos")("fen " + _), moves)

@@ -10,19 +10,58 @@ final class Env(config: Config) {
   private val settings = new {
 
     val EngineName = config getString "engine" 
-    val ServerMode = config getBoolean "server"
-    val ClientMode = config getBoolean "client"
+    val IsServer = config getBoolean "server"
+    val IsClient = config getBoolean "client"
 
     val StockfishExecPath = config getString "stockfish.exec_path"
-    val StockfishHashSize = config getInt "stockfish.hash_size"
-    val StockfishThreads = config getInt "stockfish.threads"
     val StockfishPlayUrl = config getString "stockfish.play.url"
-    val StockfishPlayMaxMoveTime = config getInt "stockfish.play.movetime"
     val StockfishAnalyseUrl = config getString "stockfish.analyse.url"
-    val StockfishAnalyseMoveTime = config getInt "stockfish.analyse.movetime"
-    val StockfishDebug = config getBoolean "stockfish.debug"
   }
   import settings._
+
+  lazy val ai: Ai = (EngineName, IsClient) match {
+    case ("stockfish", true)  ⇒ stockfishClient or stockfishAi
+    case ("stockfish", false) ⇒ stockfishAi
+    case _                    ⇒ stupidAi
+  }
+
+  def clientDiagnose { client foreach (_.diagnose) }
+
+  def clientPing = client flatMap (_.currentPing)
+
+  def stockfishServerReport = (IsServer && EngineName == "stockfish") option {
+    stockfishServer.report
+  }
+
+  private lazy val stockfishAi = new stockfish.Ai(
+    server = stockfishServer)
+
+  private lazy val stockfishClient = new stockfish.Client(
+    playUrl = StockfishPlayUrl,
+    analyseUrl = StockfishAnalyseUrl)
+
+  private lazy val stockfishServer = new stockfish.Server(
+    execPath = StockfishExecPath,
+    config = stockfishConfig)
+
+  private lazy val stupidAi = new StupidAi
+
+  private lazy val stockfishConfig = new stockfish.Config(
+    hashSize = config getInt "stockfish.hash_size",
+    nbThreads = config getInt "stockfish.threads",
+    playMaxMoveTime = config getInt "stockfish.play.movetime",
+    analyseMoveTime = config getInt "stockfish.analyse.movetime",
+    debug = config getBoolean "stockfish.debug")
+
+  private lazy val client = (EngineName, IsClient) match {
+    case ("stockfish", true) ⇒ stockfishClient.some
+    case _                   ⇒ none
+  }
+
+  private lazy val server = (EngineName, IsServer) match {
+    case ("stockfish", true) ⇒ stockfishServer.some
+    case _                   ⇒ none
+  }
 }
 
 object Env {

@@ -1,7 +1,7 @@
-package lila.app
-package ai.stockfish
+package lila.ai
+package stockfish
 
-import analyse.Info
+import lila.analyse.Info
 import java.util.regex.Matcher.quoteReplacement
 
 object AnalyseParser {
