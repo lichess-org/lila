@@ -1,11 +1,11 @@
-package lila.app
-package ai.stockfish
+package lila.ai
+package stockfish
 
 import java.io.OutputStream
 import scala.sys.process.{ Process ⇒ SProcess, ProcessBuilder, ProcessIO }
 import scala.io.Source.fromInputStream
 
-final class Process(
+private [stockfish] final class Process(
     builder: ProcessBuilder,
     name: String,
     out: String ⇒ Unit,

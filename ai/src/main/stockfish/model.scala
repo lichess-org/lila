@@ -3,7 +3,7 @@ package stockfish
 
 import chess.Pos.posAt
 import chess.format.UciMove
-// import analyse.{ Analysis, AnalysisBuilder }
+import lila.analyse.{ Analysis, AnalysisBuilder }
 
 import akka.actor.ActorRef
 
@@ -85,7 +85,7 @@ object model {
         def apply(sender: ActorRef) = new Task(
           moves = moves.split(' ').toIndexedSeq,
           fen = fen,
-          analysis = Analysis.builder,
+          analysis = new AnalysisBuilder(Nil),
           infoBuffer = Nil,
           sender)
       }

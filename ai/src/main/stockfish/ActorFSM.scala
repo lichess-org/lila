@@ -1,11 +1,10 @@
-package lila.app
-package ai.stockfish
+package lila.ai
+package stockfish
 
 import model._
 import model.analyse._
 
 import akka.actor.{ Props, Actor, ActorRef, FSM ⇒ AkkaFSM, LoggingFSM }
-import scalaz.effects._
 
 final class ActorFSM(
   processBuilder: Process.Builder,
