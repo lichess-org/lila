@@ -18,6 +18,7 @@ final class Env(application: Application, val config: Config) {
   }
 
   val RendererName = config getString "core.renderer.name"
+  val RouterName = config getString "core.router.name"
 
   lazy val cli = new Cli(this)
 

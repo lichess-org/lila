@@ -20,6 +20,7 @@ package captcha {
 
 package lobby {
   case class TimelineEntry(rendered: String)
+  case class Censor(username: String)
 }
 
 package message {

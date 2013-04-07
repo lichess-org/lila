@@ -11,5 +11,7 @@ object Starter {
   def apply(implicit app: Application) {
 
     system.actorOf(Props(new Renderer), name = apiEnv.RendererName)
+
+    system.actorOf(Props(new Router), name = apiEnv.RouterName)
   }
 }
