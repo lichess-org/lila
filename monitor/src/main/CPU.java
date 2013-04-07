@@ -1,4 +1,4 @@
-package lila.app.monitor;
+package lila.monitor;
 
 import com.sun.management.OperatingSystemMXBean;
 import java.lang.management.*;

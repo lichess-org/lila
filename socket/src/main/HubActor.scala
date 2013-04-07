@@ -1,4 +1,4 @@
-package lila.websocket
+package lila.socket
 
 import lila.memo.BooleanExpiryMemo
 
@@ -45,7 +45,7 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Duration) extends Actor {
 
   def receive = receiveSpecific orElse receiveGeneric
 
-  def notifyAll(t: String, data: JsValue) {
+  def notifyAll[A : Writes](t: String, data: A) {
     val msg = makeMessage(t, data)
     members.values.foreach(_.channel push msg)
   }
@@ -54,10 +54,10 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Duration) extends Actor {
     member.channel push makeMessage(t, data)
   }
 
-  def makeMessage(t: String, data: JsValue) =
-    JsObject(Seq("t" -> JsString(t), "d" -> data))
+  def makeMessage[A : Writes](t: String, data: A) =
+    Json.obj("t" -> t, "d" -> data)
 
-  def makePong(nb: Int) = makeMessage("n", JsNumber(nb))
+  def makePong(nb: Int) = makeMessage("n", nb)
 
   def ping(uid: String) {
     setAlive(uid)

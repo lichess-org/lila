@@ -9,7 +9,7 @@ import com.typesafe.config.Config
 final class Env(
     config: Config,
     db: lila.db.Env,
-    sockets: ActorRef,
+    socketHub: ActorRef,
     captcher: ActorRef,
     indexer: ActorRef,
     system: ActorSystem) {
@@ -61,7 +61,7 @@ object Env {
   lazy val current = "[boot] forum" describes new Env(
     config = lila.common.PlayApp loadConfig "forum",
     db = lila.db.Env.current,
-    sockets = hub.sockets,
+    socketHub = hub.socket.hub,
     captcher = hub.actor.captcher,
     indexer = hub.actor.forumIndexer,
     system = lila.common.PlayApp.system)

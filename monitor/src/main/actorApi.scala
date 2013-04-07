@@ -1,15 +1,13 @@
-package lila.app
-package monitor
+package lila.monitor
 
-import core.CoreEnv
-import socket.SocketMember
+import lila.socket.SocketMember
 
 case object GetNbGames
 case object GetNbMoves
 case object GetStatus
 case object GetMonitorData
 
-case class Update(env: CoreEnv)
+case object Update
 
 case class Member(channel: JsChannel) extends SocketMember {
   val username = none
