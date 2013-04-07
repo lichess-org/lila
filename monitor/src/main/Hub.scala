@@ -1,13 +1,13 @@
-package lila.app
-package monitor
+package lila.monitor
 
-import socket._
+import lila.socket._
 
 import akka.actor._
 import play.api.libs.json._
 import play.api.libs.iteratee._
+import scala.concurrent.duration.Duration
 
-final class Hub(timeout: Int) extends HubActor[Member](timeout) {
+private[monitor] final class Hub(timeout: Duration) extends HubActor[Member](timeout) {
 
   def receiveSpecific = {
 
@@ -17,6 +17,6 @@ final class Hub(timeout: Int) extends HubActor[Member](timeout) {
       sender ! Connected(enumerator, channel)
     }
 
-    case MonitorData(data) ⇒ notifyAll("monitor", JsString(data mkString ";"))
+    case MonitorData(data) ⇒ notifyAll("monitor", data mkString ";")
   }
 }

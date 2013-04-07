@@ -1,4 +1,4 @@
-package lila.websocket
+package lila.socket
 
 import scala.math.max
 import scala.concurrent.duration.Duration

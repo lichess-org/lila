@@ -101,10 +101,6 @@ trait WithPlay { self: PackageObject ⇒
   import play.api.Play.current
   import play.api.libs.concurrent.Execution.Implicits._
 
-  type JsChannel = Channel[JsValue]
-  type JsEnumerator = Enumerator[JsValue]
-  type SocketFuture = Fu[(Iteratee[JsValue, _], JsEnumerator)]
-
   // Typeclasses
   implicit val LilaFutureFunctor = new Functor[Fu] {
     def fmap[A, B](r: Fu[A], f: A ⇒ B) = r map f

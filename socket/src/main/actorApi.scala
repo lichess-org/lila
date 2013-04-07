@@ -1,4 +1,4 @@
-package lila.websocket
+package lila.socket
 
 import play.api.libs.json.JsObject
 import scala.collection.mutable
