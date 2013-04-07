@@ -10,15 +10,11 @@ import play.modules.reactivemongo.Implicits._
 
 trait InColl[A] { implicit def coll: Types.Coll }
 
-object InColl {
-
-  def apply[A](c: Coll): InColl[A] = new InColl[A] { def coll = c }
-}
-
 case class Tube[Doc](
   reader: Reads[Doc],
   writer: Writes[Doc],
-  writeTransformer: Option[Reads[JsObject]] = None)
+  writeTransformer: Option[Reads[JsObject]] = None,
+  flags: Seq[Tube.Flag.type ⇒ Tube.Flag] = Seq.empty)
     extends Reads[Doc]
     with Writes[Doc]
     with BSONDocumentReader[Option[Doc]] {
@@ -37,16 +33,25 @@ case class Tube[Doc](
     case (value, _)                         ⇒ JsError()
   }
 
-  def toMongo(doc: Doc): JsResult[JsObject] =
-    write(doc) flatMap Tube.toMongo
+  def toMongo(doc: Doc): JsResult[JsObject] = flag(_.NoId)(
+    write(doc),
+    write(doc) flatMap Tube.toMongoId
+  )
 
-  def fromMongo(js: JsObject): JsResult[Doc] =
-    Tube.depath(Tube fromMongo js) flatMap read
+  def fromMongo(js: JsObject): JsResult[Doc] = flag(_.NoId)(
+    read(js),
+    Tube.depath(Tube fromMongoId js) flatMap read
+  )
 
-  def inColl(c: Coll): TubeInColl[Doc] = 
+  def inColl(c: Coll): TubeInColl[Doc] =
     new Tube[Doc](reader, writer, writeTransformer) with InColl[Doc] {
       def coll = c
     }
+
+  private lazy val flagSet = flags.map(_(Tube.Flag)).toSet
+
+  private def flag[A](f: Tube.Flag.type ⇒ Tube.Flag)(x: ⇒ A, y: ⇒ A) =
+    flagSet contains f(Tube.Flag) fold (x, y)
 }
 
 object Tube {
@@ -55,11 +60,16 @@ object Tube {
     reader = __.read[JsObject],
     writer = __.write[JsObject])
 
-  private val toMongoTransformer = Helpers.rename('id, '_id)
-  private val fromMongoTransformer = Helpers.rename('_id, 'id)
+  def toMongoId(js: JsValue): JsResult[JsObject] =
+    js transform Helpers.rename('id, '_id)
 
-  def toMongo(js: JsValue): JsResult[JsObject] = js transform toMongoTransformer
-  def fromMongo(js: JsValue): JsResult[JsObject] = js transform fromMongoTransformer
+  def fromMongoId(js: JsValue): JsResult[JsObject] =
+    js transform Helpers.rename('_id, 'id)
+
+  sealed trait Flag
+  object Flag {
+    case object NoId extends Flag
+  }
 
   object Helpers {
 

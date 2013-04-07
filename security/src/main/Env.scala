@@ -41,6 +41,8 @@ final class Env(
 
   lazy val forms = new DataForm(captcher = captcher)
 
+  lazy val userSpy = Store.userSpy _
+
   def cli = new Cli
 }
 

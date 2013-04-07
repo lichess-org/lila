@@ -1,7 +1,4 @@
-package lila.app
-package mod
-
-import user.User
+package lila.mod
 
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
@@ -23,7 +20,7 @@ case class Modlog(
   }
 }
 
-object Modlog extends Function5[String, Option[String], String, Option[String], DateTime, Modlog] {
+object Modlog {
 
   val engine = "engine"
   val unengine = "unengine"
@@ -33,7 +30,18 @@ object Modlog extends Function5[String, Option[String], String, Option[String], 
   val ipban = "ipban"
   val deletePost = "deletePost"
 
-  import play.api.libs.json.Json
+  import lila.db.Tube
+  import Tube.Helpers._
+  import play.api.libs.json._
 
-  val json = mongodb.Tube(Json.reads[Modlog], Json.writes[Modlog])
+  private[mod] lazy val tube = Tube[Modlog](
+    reader = (__.json update (
+      merge(defaults) andThen readDate('date)
+    )) andThen Json.reads[Modlog],
+    writer = Json.writes[Modlog],
+    writeTransformer = (__.json update writeDate('date)).some,
+    flags = Seq(_.NoId)
+  )
+
+  private def defaults = Json.obj("details" -> none[String])
 }

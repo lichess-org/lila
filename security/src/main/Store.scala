@@ -22,10 +22,10 @@ case class UserSpy(
 
 object Store {
 
-  def save(sessionId: String, username: String, req: RequestHeader): Funit =
+  def save(sessionId: String, user: String, req: RequestHeader): Funit =
     $insert(Json.obj(
       "_id" -> sessionId,
-      "user" -> normalize(username),
+      "user" -> normalize(user),
       "ip" -> ip(req),
       "ua" -> ua(req),
       "date" -> DateTime.now,
@@ -42,24 +42,24 @@ object Store {
 
   // useful when closing an account,
   // we want to logout too
-  def deleteUsername(username: String): Funit = $update(
-    selectUser(username),
+  def deleteUsername(user: String): Funit = $update(
+    selectUser(user),
     $set("up" -> false),
     upsert = false,
     multi = true)
 
-  def userSpy(username: String): Fu[UserSpy] = for {
-    objs ← $find(selectUser(username))
-    usernames ← explore(normalize(username))
+  def userSpy(user: String): Fu[UserSpy] = for {
+    objs ← $find(selectUser(user))
+    usernames ← explore(normalize(user))
   } yield UserSpy(
     ips = objs.map(_ str "ip").flatten.distinct,
     uas = objs.map(_ str "ua").flatten.distinct,
     otherUsernames = usernames
   )
 
-  private def explore(username: String, withKnown: Set[String] = Set.empty): Fu[Set[String]] = {
-    val known = withKnown + username
-    newSiblings(username, known) flatMap { children ⇒
+  private def explore(user: String, withKnown: Set[String] = Set.empty): Fu[Set[String]] = {
+    val known = withKnown + user
+    newSiblings(user, known) flatMap { children ⇒
       children.foldLeft(fuccess(children)) {
         case (siblings, child) ⇒ siblings flatMap { sibs ⇒
           explore(child, known ++ sibs) map (sibs ++)
@@ -68,13 +68,13 @@ object Store {
     }
   }
 
-  private def newSiblings(username: String, without: Set[String]): Fu[Set[String]] =
-    userIps(username) flatMap { ips ⇒
+  private def newSiblings(user: String, without: Set[String]): Fu[Set[String]] =
+    userIps(user) flatMap { ips ⇒
       Future.traverse(ips)(usernamesByIp) map (_.flatten diff without)
     }
 
-  private def userIps(username: String): Fu[Set[String]] =
-    $primitive(selectUser(username), "ip")(_.asOpt[String]) map (_.toSet)
+  private def userIps(user: String): Fu[Set[String]] =
+    $primitive(selectUser(user), "ip")(_.asOpt[String]) map (_.toSet)
 
   private def usernamesByIp(ip: String): Fu[Set[String]] =
     $primitive(Json.obj("ip" -> ip), "user")(_.asOpt[String]) map (_.toSet)
