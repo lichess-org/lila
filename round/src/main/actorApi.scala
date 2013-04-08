@@ -1,10 +1,10 @@
-package lila.app
-package round
+package lila.round
+package actorApi
 
 import chess.Color
-import socket.SocketMember
-import game.DbGame
-import user.User
+import lila.socket.SocketMember
+import lila.game.{ Game, Event }
+import lila.user.User
 
 sealed trait Member extends SocketMember {
 
@@ -22,17 +22,17 @@ object Member {
     user: Option[User],
     color: Color,
     owner: Boolean): Member = {
-    val username = user map (_.username)
+    val userId = user map (_.id)
     val muted = ~user.map(_.muted)
     owner.fold(
-      Owner(channel, username, color, muted),
-      Watcher(channel, username, color, muted))
+      Owner(channel, userId, color, muted),
+      Watcher(channel, userId, color, muted))
   }
 }
 
 case class Owner(
     channel: JsChannel,
-    username: Option[String],
+    userId: Option[String],
     color: Color,
     muted: Boolean) extends Member {
 
@@ -41,7 +41,7 @@ case class Owner(
 
 case class Watcher(
     channel: JsChannel,
-    username: Option[String],
+    userId: Option[String],
     color: Color,
     muted: Boolean) extends Member {
 
@@ -54,9 +54,6 @@ case class Join(
   version: Int,
   color: Color,
   owner: Boolean)
-case class Connected(
-  enumerator: JsEnumerator,
-  member: Member)
 case class Events(events: List[Event])
 case class GameEvents(gameId: String, events: List[Event])
 case class GetGameVersion(gameId: String)
@@ -69,4 +66,4 @@ case object HubTimeout
 case object GetNbHubs
 case class AnalysisAvailable(gameId: String)
 case class Ack(uid: String)
-case class FinishGame(game: DbGame)
+case class FinishGame(game: Game)

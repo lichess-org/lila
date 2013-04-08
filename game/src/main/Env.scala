@@ -61,13 +61,12 @@ final class Env(
 
 object Env {
 
-  private def hub = lila.hub.Env.current
   private def app = play.api.Play.current
 
   lazy val current = "[boot] game" describes new Env(
     config = lila.common.PlayApp loadConfig "game",
     db = lila.db.Env.current,
-    system = play.api.libs.concurrent.Akka.system(app),
+    system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
     appPath = app.path.getCanonicalPath,
     isDev = app.mode == play.api.Mode.Dev
