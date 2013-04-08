@@ -1,14 +1,14 @@
 package lila.app
-package round
+package templating
 
-import http.Context
-import game.Pov
-import templating.ConfigHelper
+import lila.user.Context
+import lila.game.Pov
+import lila.round.Env.{ current ⇒ roundEnv }
 
 import play.api.libs.json.Json
 import scala.math.{ min, max, round }
 
-trait RoundHelper { self: ConfigHelper ⇒
+trait RoundHelper {
 
   def roundPlayerJsData(pov: Pov, version: Int) = {
     import pov._
@@ -73,6 +73,9 @@ trait RoundHelper { self: ConfigHelper ⇒
   }
 
   private def animationDelay(pov: Pov) = round {
-    gameAnimationDelay * max(0, min(1.2, ((pov.game.estimateTotalTime - 60) / 60) * 0.2))
+    roundEnv.animationDelay.toMillis *
+      max(0, min(1.2,
+        ((pov.game.estimateTotalTime - 60) / 60) * 0.2
+      ))
   }
 }

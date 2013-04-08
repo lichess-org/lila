@@ -1,29 +1,31 @@
-package lila.app
-package round
+package lila.round
 
-import socket._
+import lila.socket._
+import lila.socket.actorApi._
 import chess.{ Color, White, Black }
+import lila.game.Event
+import actorApi._
+import makeTimeout.short
 
 import akka.actor._
+import akka.pattern.{ ask, pipe }
 import scala.concurrent.duration._
 import play.api.libs.json._
 import play.api.libs.iteratee._
-import play.api.Play.current
-import play.api.libs.concurrent.Akka
-import scalaz.effects._
+import play.api.libs.concurrent.Execution.Implicits._
 
-final class Hub(
+private[round] final class Socket(
     gameId: String,
-    history: History,
-    uidTimeout: Int,
-    hubTimeout: Int,
-    playerTimeout: Int) extends HubActor[Member](uidTimeout) {
+    history: ActorRef,
+    uidTimeout: Duration,
+    socketTimeout: Duration,
+    playerTimeout: Duration) extends SocketActor[Member](uidTimeout) {
 
-  var lastPingTime = nowMillis
+  private var lastPingTime = nowMillis
 
   // when the players have been seen online for the last time
-  var whiteTime = nowMillis
-  var blackTime = nowMillis
+  private var whiteTime = nowMillis
+  private var blackTime = nowMillis
 
   def receiveSpecific = {
 
@@ -34,8 +36,10 @@ final class Hub(
         if (playerIsGone(o.color)) notifyGone(o.color, false)
         playerTime(o.color, lastPingTime)
       }
-      withMember(uid) { m ⇒
-        history.since(v).fold(resync(m))(batch(m, _))
+      withMember(uid) { member ⇒
+        history ? GetEventsSince(v) foreach {
+          case MaybeEvents(events) ⇒ events.fold(resync(member))(batch(member, _))
+        }
       }
     }
 
@@ -43,7 +47,7 @@ final class Hub(
 
     case Broom ⇒ {
       broom()
-      if (lastPingTime < (nowMillis - hubTimeout)) {
+      if (lastPingTime < (nowMillis - socketTimeout.toMillis)) {
         context.parent ! CloseGame(gameId)
       }
       Color.all foreach { c ⇒
@@ -51,7 +55,7 @@ final class Hub(
       }
     }
 
-    case GetGameVersion(_)           ⇒ sender ! history.version
+    case GetGameVersion(_)           ⇒ history ? GetVersion pipeTo sender
 
     case IsConnectedOnGame(_, color) ⇒ sender ! ownerOf(color).isDefined
 
@@ -92,7 +96,7 @@ final class Hub(
     black = ownerOf(Black).isDefined,
     watchers = members.values
       .filter(_.watcher)
-      .map(_.username)
+      .map(_.userId)
       .toList.partition(_.isDefined) match {
         case (users, anons) ⇒ users.flatten.distinct |> { userList ⇒
           anons.size match {
@@ -104,8 +108,11 @@ final class Hub(
       })
 
   def notify(events: List[Event]) {
-    val vevents = events map history.+=
-    members.values foreach { m ⇒ batch(m, vevents) }
+    (events map { event ⇒
+      history ? AddEvent(event) mapTo manifest[VersionedEvent]
+    }).sequence foreach { vevents ⇒
+      members.values foreach { m ⇒ batch(m, vevents) }
+    }
   }
 
   def batch(member: Member, vevents: List[VersionedEvent]) {
@@ -143,5 +150,6 @@ final class Hub(
     color.fold(whiteTime = time, blackTime = time)
   }
 
-  def playerIsGone(color: Color) = playerTime(color) < (nowMillis - playerTimeout)
+  def playerIsGone(color: Color) =
+    playerTime(color) < (nowMillis - playerTimeout.toMillis)
 }

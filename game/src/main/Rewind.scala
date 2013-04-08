@@ -3,7 +3,7 @@ package lila.game
 import chess.format.{ pgn ⇒ chessPgn }
 import chess.Status
 
-private[game] object Rewind {
+object Rewind {
 
   def apply(
     game: Game,
@@ -11,7 +11,7 @@ private[game] object Rewind {
     initialFen: Option[String]): Valid[(Progress, String)] = chessPgn.Reader.withSans(
     pgn = pgn,
     op = _.init,
-    tags = ~initialFen.map(fen ⇒ List(
+    tags = initialFen.zmap(fen ⇒ List(
       chessPgn.Tag(_.FEN, fen),
       chessPgn.Tag(_.Variant, game.variant.name)
     ))

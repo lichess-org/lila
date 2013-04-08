@@ -1,6 +1,7 @@
 package lila.monitor
 
 import lila.socket.actorApi.GetNbMembers
+import lila.hub.actorApi.monitor._
 // import round.GetNbHubs
 
 import akka.actor._
@@ -45,6 +46,9 @@ private[monitor] final class Reporting(
   implicit val timeout = makeTimeout(100 millis)
 
   def receive = {
+
+    case AddMove        ⇒ mpsProvider.add
+    case AddRequest     ⇒ rpsProvider.add
 
     case GetNbMembers   ⇒ sender ! allMembers
 

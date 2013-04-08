@@ -15,26 +15,27 @@ object Handler {
 
   type Controller = PartialFunction[(String, JsObject), Unit]
 
-  def apply(
+  def apply[M <: SocketMember](
     socket: ActorRef,
     uid: String,
-    join: Any)(controller: Controller): Fu[JsSocketHandler] = {
+    join: Any)(controller: M ⇒ Controller): Fu[JsSocketHandler] = {
 
     val baseController: Controller = {
       case ("p", _) ⇒ socket ! Ping(uid)
+      case _        ⇒
     }
 
-    val iteratee =
+    def iteratee(member: M) =
       Iteratee.foreach[JsValue] { jsv ⇒
         jsv.asOpt[JsObject] foreach { obj ⇒
           obj str "t" foreach { t ⇒
-            ~(controller orElse baseController).lift(t -> obj)
+            ~(controller(member) orElse baseController).lift(t -> obj)
           }
         }
       } mapDone { _ ⇒ socket ! Quit(uid) }
 
     (socket ? join map {
-      case Connected(enumerator, member) ⇒ iteratee -> enumerator
+      case Connected(enumerator, member: M) ⇒ iteratee(member) -> enumerator
     }) recover {
       case t: Throwable ⇒ errorHandler(t.getMessage)
     }

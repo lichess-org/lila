@@ -4,14 +4,11 @@ import scala.concurrent.Future
 import scala.concurrent.duration._
 import akka.actor._
 import akka.pattern.{ ask, pipe }
+import akka.util.Timeout
 import play.api.libs.concurrent.Execution.Implicits._
 import actorApi._
 
-final class Broadcast(
-    routees: List[ActorRef],
-    timeout: FiniteDuration) extends Actor {
-
-  private implicit val akkaTimeout = makeTimeout(timeout)
+final class Broadcast(routees: List[ActorRef])(implicit timeout: Timeout) extends Actor {
 
   def receive = {
 

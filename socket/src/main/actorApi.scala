@@ -3,9 +3,9 @@ package actorApi
 
 import play.api.libs.json.JsObject
 
-case class Connected[A <: SocketMember](
+case class Connected[M <: SocketMember](
   enumerator: JsEnumerator,
-  member: A)
+  member: M)
 case object Close
 case object GetUserIds
 case object GetNbMembers
@@ -20,3 +20,7 @@ case class SendTos(userIds: Set[String], message: JsObject)
 case class Fen(gameId: String, fen: String, lastMove: Option[String])
 case class LiveGames(uid: String, gameIds: List[String])
 case class Resync(uid: String)
+
+case class GetSocket(id: String)
+case object GetNbSockets
+case object SocketTimeout

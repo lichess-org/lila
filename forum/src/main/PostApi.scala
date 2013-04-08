@@ -108,7 +108,7 @@ final class PostApi(env: Env, indexer: ActorRef, maxPerPage: Int) extends Option
       // TODO
       // _ ← modLog.deletePost(mod, post.userId, post.author, post.ip,
       //   text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text))
-    } yield none[Post])
+    } yield true.some)
   } yield ()).value.void
 
   def cursor(selector: JsObject) = $query[Post](selector).cursor[Option[Post]]
