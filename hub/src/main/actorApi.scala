@@ -39,3 +39,12 @@ package forum {
 package ai {
   case class Analyse(pgn: String, initialFen: Option[String])
 }
+
+package monitor {
+  case object AddMove
+  case object AddRequest
+}
+
+package round {
+  case class FinishGame(gameId: String)
+}

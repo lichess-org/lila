@@ -7,7 +7,7 @@ import lila.socket._
 private[monitor] final class SocketHandler(socket: ActorRef) {
 
   def join(uid: String): Fu[JsSocketHandler] =
-    Handler(socket, uid, Join(uid)) {
+    Handler(socket, uid, Join(uid))(_ ⇒ {
       case _ ⇒
-    }
+    })
 }

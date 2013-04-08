@@ -31,10 +31,10 @@ final class Env(
     )), name = ActorName)
 
   // requests per second
-  val rpsProvider = new RpsProvider(RpsIntervall)
+  private lazy val rpsProvider = new RpsProvider(RpsIntervall)
 
   // moves per second
-  val mpsProvider = new RpsProvider(RpsIntervall)
+  private lazy val mpsProvider = new RpsProvider(RpsIntervall)
 }
 
 object Env {

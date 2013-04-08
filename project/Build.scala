@@ -91,7 +91,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val round = project("round", Seq(
-    common, db, memo, hub, socket, chess, game, user, i18n)).settings(
+    common, db, memo, hub, socket, chess, game, user, security, i18n, ai)).settings(
     libraryDependencies ++= provided(
       playApi, reactivemongo, playReactivemongo)
   )

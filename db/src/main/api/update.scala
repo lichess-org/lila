@@ -26,6 +26,6 @@ object $update {
       docOption zmap (doc ⇒ $update($select(id), op(doc)))
     }
 
-  def field[ID: Writes, A: InColl, B: Writes](id: ID, field: String, value: B, upsert: Boolean = false): Funit =
-    $update($select(id), $set(field -> value))
+  def field[ID: Writes, A: InColl, B: Writes](id: ID, name: String, value: B, upsert: Boolean = false): Funit =
+    apply($select(id), $set(name -> value))
 }

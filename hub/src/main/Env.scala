@@ -10,16 +10,18 @@ final class Env(config: Config, system: ActorSystem) {
   private val SocketHubTimeout = config duration "socket.hub.timeout"
 
   object actor {
+    val gameIndexer = actorFor("actor.game.indexer")
     val lobby = actorFor("actor.lobby")
     val renderer = actorFor("actor.renderer")
     val captcher = actorFor("actor.captcher")
-    val forumIndexer = actorFor("actor.forum_indexer")
+    val forumIndexer = actorFor("actor.forum.indexer")
     val messenger = actorFor("actor.messenger")
     val router = actorFor("actor.router")
     val forum = actorFor("actor.forum")
-    val teamIndexer = actorFor("actor.team_indexer")
+    val teamIndexer = actorFor("actor.team.indexer")
     val ai = actorFor("actor.ai")
     val monitor = actorFor("actor.monitor")
+    val tournamentOrganizer = actorFor("actor.tournament.organizer")
   }
 
   object socket {
@@ -27,7 +29,7 @@ final class Env(config: Config, system: ActorSystem) {
     val monitor = actorFor("socket.monitor")
     val hub = system.actorOf(Props(new Broadcast(List(
       socket.lobby
-    ), SocketHubTimeout)), name = SocketHubName)
+    ))(makeTimeout(SocketHubTimeout))), name = SocketHubName)
   }
 
   private def actorFor(name: String) =

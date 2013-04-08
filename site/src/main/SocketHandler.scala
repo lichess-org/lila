@@ -15,9 +15,9 @@ private[site] final class SocketHandler(socket: ActorRef) {
     uid: String,
     userId: Option[String],
     flag: Option[String]): Fu[JsSocketHandler] =
-    Handler(socket, uid, Join(uid, userId, flag)) {
+    Handler(socket, uid, Join(uid, userId, flag))(_ ⇒ {
       case ("liveGames", o) ⇒ o str "d" foreach { ids ⇒
         socket ! LiveGames(uid, ids.split(' ').toList)
       }
-    }
+    })
 }
