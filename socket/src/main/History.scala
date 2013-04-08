@@ -1,6 +1,6 @@
 package lila.socket
 
-import scala.math.max
+import actorApi._
 import scala.concurrent.duration.Duration
 import play.api.libs.json._
 

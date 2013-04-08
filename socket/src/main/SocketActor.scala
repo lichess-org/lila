@@ -1,16 +1,17 @@
 package lila.socket
 
-import lila.memo.BooleanExpiryMemo
+import actorApi._
+import lila.memo.ExpireSetMemo
 
 import akka.actor._
 import play.api.libs.json._
 import scala.util.Random
 import scala.concurrent.duration.Duration
 
-abstract class HubActor[M <: SocketMember](uidTimeout: Duration) extends Actor {
+abstract class SocketActor[M <: Member](uidTimeout: Duration) extends Actor {
 
   var members = Map.empty[String, M]
-  val aliveUids = new BooleanExpiryMemo(uidTimeout)
+  val aliveUids = new ExpireSetMemo(uidTimeout)
   var pong = makePong(0)
 
   // to be defined in subclassing actor
@@ -30,7 +31,7 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Duration) extends Actor {
 
     case NbMembers(nb)              ⇒ pong = makePong(nb)
 
-    case GetUsernames               ⇒ sender ! usernames
+    case GetUserIds               ⇒ sender ! userIds
 
     case LiveGames(uid, gameIds)    ⇒ registerLiveGames(uid, gameIds)
 
@@ -110,9 +111,7 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Duration) extends Actor {
     setAlive(uid)
   }
 
-  def setAlive(uid: String) {
-    aliveUids putUnsafe uid
-  }
+  def setAlive(uid: String) { aliveUids put uid }
 
   def uids = members.keys
 
@@ -124,7 +123,7 @@ abstract class HubActor[M <: SocketMember](uidTimeout: Duration) extends Actor {
   def membersByUserIds(userIds: Set[String]): Iterable[M] =
     members.values filter (member ⇒ member.userId zmap userIds.contains)
 
-  def usernames: Iterable[String] = members.values.map(_.username).flatten
+  def userIds: Iterable[String] = members.values.map(_.userId).flatten
 
   def notifyFen(gameId: String, fen: String, lastMove: Option[String]) {
     val msg = makeMessage("fen", JsObject(Seq(

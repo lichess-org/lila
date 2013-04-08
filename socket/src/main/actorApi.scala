@@ -1,24 +1,13 @@
 package lila.socket
+package actorApi
 
 import play.api.libs.json.JsObject
-import scala.collection.mutable
 
-trait SocketMember {
-  val channel: JsChannel
-  val username: Option[String]
-
-  lazy val userId: Option[String] = username map (_.toLowerCase)
-
-  private val privateLiveGames = mutable.Set[String]()
-
-  def liveGames = privateLiveGames
-
-  def addLiveGames(ids: List[String]) {
-    ids foreach liveGames.+=
-  }
-}
+case class Connected[A <: Member](
+  enumerator: JsEnumerator,
+  member: A)
 case object Close
-case object GetUsernames
+case object GetUserIds
 case object GetNbMembers
 case class NbMembers(nb: Int)
 case class Ping(uid: String)

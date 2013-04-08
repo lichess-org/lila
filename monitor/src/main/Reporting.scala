@@ -1,6 +1,6 @@
 package lila.monitor
 
-import lila.socket.GetNbMembers
+import lila.socket.actorApi.GetNbMembers
 // import round.GetNbHubs
 
 import akka.actor._

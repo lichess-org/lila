@@ -36,7 +36,7 @@ final class PaginatorBuilder(maxPerPage: Int) {
         .skip(offset)
         .limit(length)
         .cursor[JsObject].toList map2 { (obj: JsObject) ⇒
-          obj.get[String]("g") flatMap { gameId ⇒
+          obj str "g" flatMap { gameId ⇒
             obj.get[DateTime]("d") map { (gameId, _) }
           }
         } map (_.flatten)

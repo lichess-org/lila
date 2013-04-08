@@ -13,14 +13,14 @@ final class Env(
     hub: lila.hub.Env) {
 
   private val ActorName = config getString "actor.name"
-  private val HubName = config getString "actor.name"
-  private val Timeout = config duration "timeout"
-  private val WebsocketUidTtl = config duration "socket.uid.ttl"
+  private val SocketName = config getString "socket.name"
+  private val RpsIntervall = config duration "rps.interval"
+  private val SocketUidTtl = config duration "socket.uid.ttl"
 
   lazy val socket = system.actorOf(
-    Props(new Hub(timeout = WebsocketUidTtl)), name = HubName)
+    Props(new Socket(timeout = SocketUidTtl)), name = SocketName)
 
-  // lazy val socket = new Socket(hub = hub)
+  lazy val socketHandler = new SocketHandler(socket)
 
   lazy val reporting = system.actorOf(
     Props(new Reporting(
@@ -31,10 +31,10 @@ final class Env(
     )), name = ActorName)
 
   // requests per second
-  val rpsProvider = new RpsProvider(Timeout)
+  val rpsProvider = new RpsProvider(RpsIntervall)
 
   // moves per second
-  val mpsProvider = new RpsProvider(Timeout)
+  val mpsProvider = new RpsProvider(RpsIntervall)
 }
 
 object Env {
