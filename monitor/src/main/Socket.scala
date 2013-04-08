@@ -1,33 +1,24 @@
 package lila.monitor
 
+import lila.socket._
+import lila.socket.actorApi.Connected
+
 import akka.actor._
-import akka.pattern.ask
-import scala.concurrent.duration._
 import play.api.libs.json._
 import play.api.libs.iteratee._
-import play.api.libs.concurrent._
-import play.api.libs.concurrent.Execution.Implicits._
+import scala.concurrent.duration.Duration
 
-import lila.socket.{ Ping, Quit }
-import lila.common.PimpedJson._
+private[monitor] final class Socket(timeout: Duration) extends SocketActor[Member](timeout) {
 
-private[monitor] final class Socket(hub: ActorRef) {
+  def receiveSpecific = {
 
-  implicit val timeout = makeTimeout(300 millis)
+    case Join(uid) ⇒ {
+      val (enumerator, channel) = Concurrent.broadcast[JsValue]
+      val member = Member(channel)
+      addMember(uid, member)
+      sender ! Connected(enumerator, member)
+    }
 
-  // TODO
-  // def join(uid: String): SocketFuture = {
-  //   val promise: Option[SocketFuture] = (hub ? Join(uid)) map {
-  //     case Connected(enumerator, channel) ⇒
-  //       val iteratee = Iteratee.foreach[JsValue] { e ⇒
-  //         e str "t" match {
-  //           case Some("p") ⇒ hub ! Ping(uid)
-  //           case _         ⇒
-  //         }
-  //       } mapDone { _ ⇒
-  //         hub ! Quit(uid)
-  //       }
-  //       (iteratee, enumerator)
-  //   }
-  //   promise | connectionFail
+    case MonitorData(data) ⇒ notifyAll("monitor", data mkString ";")
+  }
 }
