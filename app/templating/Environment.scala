@@ -8,29 +8,24 @@ object Environment
     with scalaz.Options
     with scalaz.Booleans
     with StringHelper
-    // with MarkdownHelper
+    with MarkdownHelper
     with AssetHelper
-    // with UiHelper
-    // with RequestHelper
-    // with SettingHelper
-    // with ConfigHelper 
-    // with DateHelper 
-    // with NumberHelper 
-    // with JsonHelper
-    // with PaginatorHelper
-    // with FormHelper
+    with UiHelper
+    with RequestHelper
+    with DateHelper 
+    with NumberHelper 
+    with PaginatorHelper
+    with FormHelper
     // with setup.SetupHelper
     with MessageHelper
-    // with round.RoundHelper 
+    with RoundHelper 
     with AiHelper
     with GameHelper
     with UserHelper
     with ForumHelper
-    // with security.SecurityHelper
     with I18nHelper
     with BookmarkHelper
     with NotificationHelper {
-  // with analyse.AnalyseHelper
   // with tournament.TournamentHelper 
   // with team.TeamHelper {
 

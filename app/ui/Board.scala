@@ -1,7 +1,7 @@
 package lila.app
 package ui
 
-import game.Pov
+import lila.game.Pov
 import chess.{ Pos, Color ⇒ ChessColor }
 import Pos._
 

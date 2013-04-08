@@ -1,8 +1,7 @@
 package lila.app
 package templating
 
-import http.Context
-import i18n.I18nHelper
+import lila.user.Context
 
 import org.joda.time.DateTime
 import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
