@@ -1,0 +1,25 @@
+package lila.site
+
+import lila.common.PimpedConfig._
+import akka.actor._
+import com.typesafe.config.Config
+import play.api.Play.current
+import play.api.libs.concurrent.Akka.system
+import play.api.libs.concurrent.Execution.Implicits._
+
+final class Env(config: Config) {
+
+  private val SocketUidTtl = config duration "socket.uid.ttl"
+  private val SocketName = config getString "socket.name"
+
+  lazy val socket = system.actorOf(
+    Props(new Socket(timeout = SocketUidTtl)), name = SocketName)
+
+  lazy val socketHandler = new SocketHandler(socket)
+}
+
+object Env {
+
+  lazy val current = "[boot] site" describes new Env(
+    config = lila.common.PlayApp loadConfig "site")
+}

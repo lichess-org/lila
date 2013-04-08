@@ -3,7 +3,7 @@ package actorApi
 
 import play.api.libs.json.JsObject
 
-case class Connected[A <: Member](
+case class Connected[A <: SocketMember](
   enumerator: JsEnumerator,
   member: A)
 case object Close

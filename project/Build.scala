@@ -29,7 +29,7 @@ object ApplicationBuild extends Build {
     chess, common, http, db, user, wiki, hub, socket,
     message, notification, i18n, game, bookmark, search,
     gameSearch, timeline, forum, forumSearch, team, teamSearch, 
-    ai, analyse, mod, monitor)
+    ai, analyse, mod, monitor, site)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map classpathDependency
@@ -149,6 +149,10 @@ object ApplicationBuild extends Build {
 
   lazy val monitor = project("monitor", Seq(common, hub, socket, db)).settings(
     libraryDependencies ++= provided(playApi, reactivemongo, playReactivemongo)
+  )
+
+  lazy val site = project("site", Seq(common, socket)).settings(
+    libraryDependencies ++= provided(playApi)
   )
 
   lazy val socket = project("socket", Seq(common, hub, memo)).settings(

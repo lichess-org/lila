@@ -1,6 +1,6 @@
 package lila.socket
 
-trait Member {
+trait SocketMember {
 
   val channel: JsChannel
   val userId: Option[String]
@@ -12,11 +12,11 @@ trait Member {
   def addLiveGames(ids: List[String]) { ids foreach privateLiveGames.+= }
 }
 
-object Member {
+object SocketMember {
 
-  def apply(c: JsChannel): Member = apply(c, none)
+  def apply(c: JsChannel): SocketMember = apply(c, none)
 
-  def apply(c: JsChannel, uid: Option[String]): Member = new Member {
+  def apply(c: JsChannel, uid: Option[String]): SocketMember = new SocketMember {
     val channel = c
     val userId = uid
   }

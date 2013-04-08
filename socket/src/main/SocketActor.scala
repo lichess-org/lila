@@ -8,7 +8,7 @@ import play.api.libs.json._
 import scala.util.Random
 import scala.concurrent.duration.Duration
 
-abstract class SocketActor[M <: Member](uidTimeout: Duration) extends Actor {
+abstract class SocketActor[M <: SocketMember](uidTimeout: Duration) extends Actor {
 
   var members = Map.empty[String, M]
   val aliveUids = new ExpireSetMemo(uidTimeout)
@@ -31,7 +31,7 @@ abstract class SocketActor[M <: Member](uidTimeout: Duration) extends Actor {
 
     case NbMembers(nb)              ⇒ pong = makePong(nb)
 
-    case GetUserIds               ⇒ sender ! userIds
+    case GetUserIds                 ⇒ sender ! userIds
 
     case LiveGames(uid, gameIds)    ⇒ registerLiveGames(uid, gameIds)
 
@@ -46,7 +46,7 @@ abstract class SocketActor[M <: Member](uidTimeout: Duration) extends Actor {
 
   def receive = receiveSpecific orElse receiveGeneric
 
-  def notifyAll[A : Writes](t: String, data: A) {
+  def notifyAll[A: Writes](t: String, data: A) {
     val msg = makeMessage(t, data)
     members.values.foreach(_.channel push msg)
   }
@@ -55,7 +55,7 @@ abstract class SocketActor[M <: Member](uidTimeout: Duration) extends Actor {
     member.channel push makeMessage(t, data)
   }
 
-  def makeMessage[A : Writes](t: String, data: A) =
+  def makeMessage[A: Writes](t: String, data: A) =
     Json.obj("t" -> t, "d" -> data)
 
   def makePong(nb: Int) = makeMessage("n", nb)
