@@ -1,8 +1,7 @@
 package lila.app
 package templating
 
-import http.Context
-import i18n.I18nHelper
+import lila.user.Context
 
 import java.util.Locale
 import java.text.NumberFormat
