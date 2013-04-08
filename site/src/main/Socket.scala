@@ -1,20 +1,23 @@
-package lila.app
-package site
+package lila.site
 
-import socket._
+import actorApi._
+import lila.socket._
+import lila.socket.actorApi.Connected
 
 import akka.actor._
 import play.api.libs.json._
 import play.api.libs.iteratee._
+import scala.concurrent.duration.Duration
 
-final class Hub(timeout: Int) extends HubActor[Member](timeout) {
+private[site] final class Socket(timeout: Duration) extends SocketActor[Member](timeout) {
 
   def receiveSpecific = {
 
     case Join(uid, username, tags) ⇒ {
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      addMember(uid, Member(channel, username, tags))
-      sender ! Connected(enumerator, channel)
+      val member = Member(channel, username, tags)
+      addMember(uid, member)
+      sender ! Connected(enumerator, member)
     }
 
     case SendToFlag(flag, message) ⇒
