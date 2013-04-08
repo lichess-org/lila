@@ -8,10 +8,10 @@ import play.api.libs.iteratee._
 import play.api.libs.concurrent._
 import play.api.libs.concurrent.Execution.Implicits._
 
-import lila.socket.{ Ping, Quit, WithSocket }
+import lila.socket.{ Ping, Quit }
 import lila.common.PimpedJson._
 
-private[monitor] final class Socket(hub: ActorRef) with WithSocket {
+private[monitor] final class Socket(hub: ActorRef) {
 
   implicit val timeout = makeTimeout(300 millis)
 

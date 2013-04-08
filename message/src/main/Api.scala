@@ -16,7 +16,7 @@ import play.api.libs.concurrent.Execution.Implicits._
 final class Api(
     unreadCache: UnreadCache,
     maxPerPage: Int,
-    sockets: ActorRef) {
+    socketHub: ActorRef) {
 
   def inbox(me: User, page: Int): Fu[Paginator[Thread]] = Paginator(
     adapter = new Adapter(
@@ -70,7 +70,7 @@ final class Api(
 
   private def updateUser(user: String): Funit = {
     (unreadCache refresh user) onSuccess {
-      case nb ⇒ sockets ! SendTo(user, "nbm", nb)
+      case nb ⇒ socketHub ! SendTo(user, "nbm", nb)
     }
     funit
   }
