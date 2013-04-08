@@ -35,14 +35,6 @@ final class Settings(config: Config, val IsDev: Boolean) {
   val SearchPaginatorMaxPerPage = getInt("search.paginator.max_per_page")
   val SearchCollectionQueue = getString("search.collection.queue")
 
-  val RoundMessageLifetime = millis("round.message.lifetime")
-  val RoundUidTimeout = millis("round.uid.timeout")
-  val RoundHubTimeout = millis("round.hub.timeout")
-  val RoundPlayerTimeout = millis("round.player.timeout")
-  val RoundAnimationDelay = millis("round.animation.delay")
-  val RoundMoretime = seconds("round.moretime")
-  val RoundCollectionRoom = getString("round.collection.room")
-  val RoundCollectionWatcherRoom = getString("round.collection.watcher_room")
 
   val TournamentCollectionTournament = getString("tournament.collection.tournament")
   val TournamentCollectionRoom = getString("tournament.collection.room")

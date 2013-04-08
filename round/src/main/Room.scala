@@ -1,15 +1,9 @@
-package lila.app
-package round
+package lila.round
 
-import com.novus.salat.annotations.Key
-import org.apache.commons.lang3.StringEscapeUtils.escapeXml
+case class Room(id: String, messages: List[String]) {
 
-case class Room(
-    @Key("_id") id: String,
-    messages: List[String]) {
-
-  def render: String =
-    messages map ((Room.render _) compose Room.decode) mkString ""
+  // def render: String =
+  //   messages map ((Room.render _) compose Room.decode) mkString ""
 
   def rematchCopy(id: String, nb: Int) = copy(
     id = id,
@@ -20,11 +14,16 @@ case class Room(
 
 object Room {
 
-  def encode(author: String, message: String): String = (author match {
+  import lila.db.Tube
+  import play.api.libs.json._
+
+  private[round] lazy val tube = Tube(Json.reads[Room], Json.writes[Room]) 
+
+  def encode(author: String, text: String): String = (author match {
     case "white" ⇒ "w"
     case "black" ⇒ "b"
     case _       ⇒ "s"
-  }) + message
+  }) + text
 
   def decode(encoded: String): (String, String) = (encoded take 1 match {
     case "w" ⇒ "white"
