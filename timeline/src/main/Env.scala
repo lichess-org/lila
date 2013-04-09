@@ -14,7 +14,7 @@ final class Env(
   private val DisplayMax = config getString "display_max"
   private val ActorName = config getString "actor.name"
 
-  private[timeline] lazy val push = system.actorOf(Props(new Push(
+  private lazy val push = system.actorOf(Props(new Push(
     lobby = lobby,
     getUsername = getUsername
   )), name = ActorName)

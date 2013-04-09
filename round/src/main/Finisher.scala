@@ -15,7 +15,7 @@ import akka.actor.ActorRef
 import play.api.libs.concurrent.Execution.Implicits._
 import scalaz.{ OptionTs, Success }
 
-private[round] final class Finisher(
+final class Finisher(
     tournamentOrganizer: ActorRef,
     messenger: Messenger,
     eloUpdater: EloUpdater,

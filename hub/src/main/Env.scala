@@ -23,6 +23,7 @@ final class Env(config: Config, system: ActorSystem) {
     val monitor = actorFor("monitor")
     val tournamentOrganizer = actorFor("tournament.organizer")
     val timeline = actorFor("timeline")
+    val bookmark = actorFor("bookmark")
   }
 
   object socket {
