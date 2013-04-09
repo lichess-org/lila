@@ -1,5 +1,5 @@
 [submodule "scalachess"]
-	path = scalachess
+	path = modules/chess
 	url = git://github.com/ornicar/scalachess
 [submodule "play"]
 	path = play

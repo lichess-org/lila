@@ -186,7 +186,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(playApi)
   )
 
-  lazy val chess = project("scalachess").settings(
+  lazy val chess = project("chess").settings(
     libraryDependencies ++= Seq(hasher)
   )
 }
