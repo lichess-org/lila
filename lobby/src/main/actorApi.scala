@@ -1,34 +1,29 @@
-package lila.app
-package lobby
+package lila.lobby
+package actorApi
 
-import socket.SocketMember
-import timeline.Entry
-import game.DbGame
-
-import scalaz.effects.IO
+import lila.socket.SocketMember
+import lila.timeline.Entry
+import lila.game.Game
 
 case class Member(
     channel: JsChannel,
-    username: Option[String],
+    userId: Option[String],
     hookOwnerId: Option[String]) extends SocketMember {
 
-  def ownsHook(hook: Hook) = Some(hook.ownerId) == hookOwnerId
+  def ownsHook(hook: Hook) = hookOwnerId zmap (hook.ownerId ==)
 }
 
 case class ReloadTournaments(html: String)
-case class WithHooks(op: Iterable[String] ⇒ IO[Unit])
+case class WithHooks(op: Iterable[String] ⇒ Funit)
 case class AddHook(hook: Hook)
 case class RemoveHook(hook: Hook)
-case class BiteHook(hook: Hook, game: DbGame)
+case class BiteHook(hook: Hook, game: Game)
 case class AddEntry(entry: Entry)
 case class Join(
   uid: String,
-  username: Option[String],
+  userId: Option[String],
   version: Int,
   hookOwnerId: Option[String])
 case class Talk(u: String, txt: String)
 case class SysTalk(txt: String)
 case class UnTalk(r: util.matching.Regex)
-case class Connected(
-  enumerator: JsEnumerator, 
-  channel: JsChannel)

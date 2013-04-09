@@ -6,10 +6,10 @@ import play.api.libs.json._
 
 import lila.memo
 
-final class History(timeout: Duration) {
+final class History(ttl: Duration) {
 
   private var privateVersion = 0
-  private val messages = memo.Builder.expiry[Int, JsObject](timeout)
+  private val messages = memo.Builder.expiry[Int, JsObject](ttl)
 
   def version = privateVersion
 

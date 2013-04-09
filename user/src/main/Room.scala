@@ -1,7 +1,4 @@
-package lila.app
-package core
-
-import user.User
+package lila.user
 
 import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 import java.util.regex.Matcher.quoteReplacement

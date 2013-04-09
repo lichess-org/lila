@@ -3,9 +3,9 @@ package lila.memo
 import scala.collection.JavaConversions._
 import scala.concurrent.duration.Duration
 
-final class ExpireSetMemo(timeout: Duration) {
+final class ExpireSetMemo(ttl: Duration) {
 
-  protected val cache = Builder.expiry[String, Boolean](timeout)
+  protected val cache = Builder.expiry[String, Boolean](ttl)
 
   def get(key: String): Boolean = ~Option(cache getIfPresent key) 
 
