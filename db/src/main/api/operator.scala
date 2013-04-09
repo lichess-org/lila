@@ -25,6 +25,7 @@ trait $operator {
   def $ne[A: Writes](value: A) = Json.obj("$ne" -> value)
 
   def $in[A: Writes](values: A*) = Json.obj("$in" -> Json.arr(values))
+  def $nin[A: Writes](values: A*) = Json.obj("$nin" -> Json.arr(values))
   def $all[A: Writes](values: A*) = Json.obj("$all" -> Json.arr(values))
   def $exists(bool: Boolean) = Json.obj("$exists" -> bool)
 

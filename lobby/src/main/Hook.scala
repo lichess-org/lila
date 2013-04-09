@@ -1,17 +1,14 @@
-package lila.app
-package lobby
+package lila.lobby
 
 import chess.{ Variant, Mode, Clock }
-import setup.Color
-import elo.EloRange
-import user.User
+import lila.common.EloRange
+import lila.user.User
 
-import com.novus.salat.annotations.Key
 import ornicar.scalalib.Random
-import play.api.libs.json.{ Json, JsObject }
+import play.api.libs.json._
 
 case class Hook(
-    @Key("_id") id: String,
+    id: String,
     ownerId: String,
     variant: Int,
     hasClock: Boolean,
@@ -46,8 +43,7 @@ case class Hook(
     "speed" -> chess.Speed(clockOption).id,
     "emin" -> realEloRange.map(_.min),
     "emax" -> realEloRange.map(_.max),
-    "engine" -> engine
-  ) 
+    "engine" -> engine)
 
   def clockOrUnlimited = clockOption.fold("Unlimited")(c ⇒ renderClock(c.limit, c.increment))
 
@@ -61,7 +57,7 @@ object Hook {
   val idSize = 8
   val ownerIdSize = 12
 
-  def apply(
+  def make(
     variant: Variant,
     clock: Option[Clock],
     mode: Mode,
@@ -81,8 +77,19 @@ object Hook {
       username = user.fold(User.anonymous)(_.username),
       elo = user map (_.elo),
       eloRange = eloRange.toString,
-      engine = ~user.map(_.engine))
+      engine = user.zmap(_.engine))
   }
+
+  import lila.db.Tube
+  import Tube.Helpers._
+
+  private[lobby] lazy val tube = Tube[Hook](
+    reader = (__.json update merge(defaults)) andThen Json.reads[Hook],
+    writer = Json.writes[Hook])
+
+  private def defaults = Json.obj(
+    "match" -> false,
+    "gameId" -> none[String])
 
   private def generateId =
     Random nextString idSize

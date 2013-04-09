@@ -96,6 +96,12 @@ object ApplicationBuild extends Build {
       playApi, reactivemongo, playReactivemongo)
   )
 
+  lazy val lobby = project("lobby", Seq(
+    common, db, memo, hub, socket, chess, game, user, round)).settings(
+    libraryDependencies ++= provided(
+      playApi, reactivemongo, playReactivemongo)
+  )
+
   lazy val ai = project("ai", Seq(common, hub, chess, game, analyse)).settings(
     libraryDependencies ++= provided(playApi)
   )

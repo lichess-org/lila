@@ -66,12 +66,6 @@ final class Settings(config: Config, val IsDev: Boolean) {
 
   val SetupFriendConfigMemoTtl = millis("setup.friend_config.memo.ttl")
 
-  val LobbyEntryMax = getInt("lobby.entry.max")
-  val LobbyMessageMax = getInt("lobby.message.max")
-  val LobbyMessageLifetime = millis("lobby.message.lifetime")
-  val LobbyCollectionHook = getString("lobby.collection.hook")
-  val LobbyCollectionEntry = getString("lobby.collection.entry")
-  val LobbyCollectionMessage = getString("lobby.collection.message")
 
   val MemoHookTimeout = millis("memo.hook.timeout")
   val MemoUsernameTimeout = millis("memo.username.timeout")
