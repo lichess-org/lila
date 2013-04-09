@@ -28,7 +28,7 @@ object BuildSettings {
   def project(name: String, deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]] = Seq.empty) =
     Project(
       name,
-      file(name),
+      file("modules/" + name),
       dependencies = deps,
       settings = Seq(
         version := "1.0",
