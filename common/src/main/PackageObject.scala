@@ -111,6 +111,10 @@ trait WithPlay { self: PackageObject ⇒
   }
   implicit val LilaJsObjectZero = new Zero[JsObject] { val zero = JsObject(Seq.empty) }
 
+  implicit def LilaJsResultZero[A] = new Zero[JsResult[A]] {
+    val zero = JsError(Seq.empty)
+  }
+
   implicit final class LilaPimpedFuture[A](fua: Fu[A]) {
 
     def >>(sideEffect: ⇒ Unit): Funit = >>(fuccess(sideEffect))

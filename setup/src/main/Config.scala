@@ -1,11 +1,11 @@
-package lila.app
-package setup
+package lila.setup
 
-import chess.{ Game, Board, Situation, Variant, Clock, Speed }
+import chess.{ Game => ChessGame, Board, Situation, Variant, Clock, Speed }
 import chess.format.Forsyth
-import game.{ GameRepo, DbGame, Pov }
+import lila.game.{ GameRepo, Game, Pov }
+import lila.lobby.Color
 
-trait Config {
+private[setup] trait Config {
 
   // Whether or not to use a clock
   val clock: Boolean
@@ -24,7 +24,7 @@ trait Config {
 
   lazy val creatorColor = color.resolve
 
-  def makeGame = Game(board = Board init variant, clock = makeClock)
+  def makeGame = ChessGame(board = Board init variant, clock = makeClock)
 
   def validClock = clock.fold(time + increment > 0, true)
 
@@ -33,7 +33,7 @@ trait Config {
 
 trait GameGenerator { self: Config ⇒
 
-  def game: DbGame
+  def game: Game
 
   def pov = Pov(game, creatorColor)
 }
@@ -44,15 +44,15 @@ trait Positional { self: Config ⇒
 
   def fen: Option[String]
 
-  def fenDbGame(builder: Game ⇒ DbGame): DbGame = {
+  def fenGame(builder: ChessGame ⇒ Game): Game = {
     val state = fen filter (_ ⇒ variant == Variant.FromPosition) flatMap Forsyth.<<<
     val chessGame = state.fold(makeGame) {
       case sit @ SituationPlus(Situation(board, color), _) ⇒
-        Game(board = board, player = color, turns = sit.turns)
+        ChessGame(board = board, player = color, turns = sit.turns)
     }
-    val dbGame = builder(chessGame)
-    state.fold(dbGame) {
-      case sit @ SituationPlus(Situation(board, _), _) ⇒ dbGame.copy(
+    val game = builder(chessGame)
+    state.fold(game) {
+      case sit @ SituationPlus(Situation(board, _), _) ⇒ game.copy(
         variant = Variant.FromPosition,
         castles = board.history.castleNotation,
         turns = sit.turns)

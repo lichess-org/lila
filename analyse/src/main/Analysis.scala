@@ -55,11 +55,11 @@ object Analysis {
 
   private[analyse] lazy val tube = Tube(
     reader = Reads[Analysis](js ⇒
-      (for {
+      ~(for {
         obj ← js.asOpt[JsObject]
         rawAnalysis ← RawAnalysis.tube.read(obj).asOpt
         analysis ← rawAnalysis.decode
-      } yield JsSuccess(analysis): JsResult[Analysis]) | JsError(Seq.empty)
+      } yield JsSuccess(analysis): JsResult[Analysis])
     ),
     writer = Writes[Analysis](analysis ⇒
       RawAnalysis.tube.write(analysis.encode) getOrElse JsUndefined("[db] Can't write analysis " + analysis.id)

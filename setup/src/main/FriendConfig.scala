@@ -1,11 +1,11 @@
-package lila.app
-package setup
+package lila.setup
 
 import chess.{ Variant, Mode, Clock, Color ⇒ ChessColor }
-import elo.EloRange
-import game.{ DbGame, DbPlayer, Source }
+import lila.common.EloRange
+import lila.game.{ Game, Player, Source }
+import lila.lobby.Color
 
-case class FriendConfig(
+private[setup] case class FriendConfig(
     variant: Variant,
     clock: Boolean,
     time: Int,
@@ -16,12 +16,12 @@ case class FriendConfig(
 
   def >> = (variant.id, clock, time, increment, mode.id.some, color.name, fen).some
 
-  def game = fenDbGame { chessGame ⇒
-    DbGame(
+  def game = fenGame { chessGame ⇒
+    Game.make(
       game = chessGame,
       ai = None,
-      whitePlayer = DbPlayer.white,
-      blackPlayer = DbPlayer.black,
+      whitePlayer = Player.white,
+      blackPlayer = Player.black,
       creatorColor = creatorColor,
       mode = mode,
       variant = variant,
@@ -38,7 +38,7 @@ case class FriendConfig(
     f = ~fen)
 }
 
-object FriendConfig extends BaseHumanConfig {
+private[setup] object FriendConfig extends BaseHumanConfig {
 
   def <<(v: Int, k: Boolean, t: Int, i: Int, m: Option[Int], c: String, fen: Option[String]) =
     new FriendConfig(
@@ -57,6 +57,22 @@ object FriendConfig extends BaseHumanConfig {
     increment = 8,
     mode = Mode.default,
     color = Color.default)
+
+  import lila.db.Tube
+  import play.api.libs.json._
+
+  private[setup] lazy val tube = Tube(
+    reader = Reads[FriendConfig](js ⇒
+      ~(for {
+        obj ← js.asOpt[JsObject]
+        raw ← RawFriendConfig.tube.read(obj).asOpt
+        decoded ← raw.decode
+      } yield JsSuccess(decoded): JsResult[FriendConfig])
+    ),
+    writer = Writes[FriendConfig](config ⇒
+      RawFriendConfig.tube.write(config.encode) getOrElse JsUndefined("[setup] Can't write config")
+    )
+  )
 }
 
 private[setup] case class RawFriendConfig(
@@ -78,4 +94,17 @@ private[setup] case class RawFriendConfig(
     mode = mode,
     color = Color.White,
     fen = f.some filter (_.nonEmpty))
+}
+
+private[setup] object RawFriendConfig {
+
+  import lila.db.Tube
+  import Tube.Helpers._
+  import play.api.libs.json._
+
+  private def defaults = Json.obj("f" -> none[String])
+
+  private[setup] lazy val tube = Tube(
+    reader = (__.json update merge(defaults)) andThen Json.reads[RawFriendConfig],
+    writer = Json.writes[RawFriendConfig])
 }

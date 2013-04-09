@@ -1,7 +1,8 @@
-package lila.app
-package setup
+package lila.setup
 
 import chess.{ Variant, Mode, Speed }
+import lila.common.PimpedJson._
+
 import play.api.libs.json._
 
 case class FilterConfig(
@@ -54,16 +55,30 @@ object FilterConfig {
     eloDiff = ~e
   )
 
-  import com.mongodb.casbah.Imports._
-
-  def fromDB(obj: DBObject): Option[FilterConfig] = for {
-    filter ← obj.getAs[DBObject]("filter")
-    variant ← filter.getAs[Int]("v")
-    mode ← filter.getAs[Int]("m")
-    speed ← filter.getAs[Int]("s")
-    eloDiff ← filter.getAs[Int]("e")
+  def fromDB(obj: JsObject): Option[FilterConfig] = for {
+    filter ← obj obj "filter"
+    variant ← filter int "v"
+    mode ← filter int "m"
+    speed ← filter int "s"
+    eloDiff ← filter int "e"
     config ← RawFilterConfig(variant, mode, speed, eloDiff).decode
   } yield config
+
+  import lila.db.Tube
+  import play.api.libs.json._
+
+  private[setup] lazy val tube = Tube(
+    reader = Reads[FilterConfig](js ⇒
+      ~(for {
+        obj ← js.asOpt[JsObject]
+        raw ← RawFilterConfig.tube.read(obj).asOpt
+        decoded ← raw.decode
+      } yield JsSuccess(decoded): JsResult[FilterConfig])
+    ),
+    writer = Writes[FilterConfig](config ⇒
+      RawFilterConfig.tube.write(config.encode) getOrElse JsUndefined("[setup] Can't write config")
+    )
+  )
 }
 
 private[setup] case class RawFilterConfig(v: Int, m: Int, s: Int, e: Int) {
@@ -74,4 +89,14 @@ private[setup] case class RawFilterConfig(v: Int, m: Int, s: Int, e: Int) {
     speed = Speed(s),
     eloDiff = e
   ).some
+}
+
+private[setup] object RawFilterConfig {
+
+  import lila.db.Tube
+  import play.api.libs.json.Json
+
+  private[setup] lazy val tube = Tube(
+    reader = Json.reads[RawFilterConfig],
+    writer = Json.writes[RawFilterConfig])
 }
