@@ -25,7 +25,7 @@ final class Env(
     cached = cached,
     paginator = paginator)
 
-  private val actor = system.actorOf(Props(new Actor {
+  system.actorOf(Props(new Actor {
     def receive = {
       case (gameId: String, userId: String) ⇒ api.toggle(gameId, userId)
     }

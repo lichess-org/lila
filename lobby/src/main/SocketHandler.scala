@@ -10,8 +10,6 @@ import actorApi._
 import lila.common.PimpedJson._
 import lila.socket.Handler
 import lila.socket.actorApi._
-import lila.timeline.Entry
-import lila.game.Game
 import lila.user.{ User, Context }
 import lila.security.Flood
 import makeTimeout.short

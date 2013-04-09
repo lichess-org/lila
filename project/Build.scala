@@ -109,8 +109,7 @@ object ApplicationBuild extends Build {
       playApi, reactivemongo, playReactivemongo)
   )
 
-  lazy val importer = project("importer", Seq(
-    common, chess, game, round)).settings(
+  lazy val importer = project("importer", Seq(common, chess, game, round)).settings(
     libraryDependencies ++= provided(playApi, reactivemongo, playReactivemongo)
   )
 

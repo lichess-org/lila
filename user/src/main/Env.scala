@@ -14,7 +14,6 @@ final class Env(config: Config, db: lila.db.Env) {
     val OnlineTtl = config duration "online.ttl"
     val CollectionUser = config getString "collection.user"
     val CollectionHistory = config getString "collection.history"
-    val CollectionConfig = config getString "collection.config"
   }
   import settings._
 

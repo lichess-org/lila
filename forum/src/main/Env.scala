@@ -43,7 +43,7 @@ final class Env(
     }
   }
 
-  private val actor = system.actorOf(Props(new Actor {
+  system.actorOf(Props(new Actor {
     def receive = {
       case MakeTeam(id, name) ⇒ categApi.makeTeam(id, name)
     }

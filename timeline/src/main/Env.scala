@@ -7,7 +7,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     getUsername: String ⇒ Fu[String],
-    lobby: ActorRef,
+    lobbySocket: ActorRef,
     system: ActorSystem) {
 
   private val CollectionEntry = config getString "collection.entry"
@@ -15,7 +15,7 @@ final class Env(
   private val ActorName = config getString "actor.name"
 
   private lazy val push = system.actorOf(Props(new Push(
-    lobby = lobby,
+    lobbySocket = lobbySocket,
     getUsername = getUsername
   )), name = ActorName)
 
@@ -28,6 +28,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "timeline",
     db = lila.db.Env.current,
     getUsername = lila.user.Env.current.usernameOrAnonymous _,
-    lobby = lila.hub.Env.current.actor.lobby,
+    lobbySocket = lila.hub.Env.current.socket.lobby,
     system = lila.common.PlayApp.system)
 }

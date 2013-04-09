@@ -10,13 +10,12 @@ import akka.actor._
 import play.api.libs.concurrent.Execution.Implicits._
 
 private[timeline] final class Push(
-    lobby: ActorRef,
+    lobbySocket: ActorRef,
     getUsername: String ⇒ Fu[String]) extends Actor {
 
   def receive = {
-
     case game: Game ⇒ makeEntry(game) foreach { entry ⇒
-      $insert(entry) >> (lobby ! TimelineEntry(entry.render))
+      $insert(entry) >> (lobbySocket ! TimelineEntry(entry.render))
     }
   }
 

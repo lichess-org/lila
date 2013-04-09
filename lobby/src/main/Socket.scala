@@ -4,6 +4,7 @@ import actorApi._
 import lila.socket.{ SocketActor, History, Historical }
 import lila.socket.actorApi._
 import lila.game.actorApi._
+import lila.hub.actorApi.lobby._
 
 import akka.actor._
 import play.api.libs.json._
@@ -50,12 +51,14 @@ private[lobby] final class Socket(
       notifyVersion("talk", Json.obj("txt" -> message.text))
     }
 
-    case UnTalk(regex) ⇒ (messenger remove regex) >>  
+    case UnTalk(regex) ⇒ (messenger remove regex) >>
       notifyVersion("untalk", Json.obj("regex" -> regex.toString))
 
     case ReloadTournaments(html) ⇒ notifyTournaments(html)
 
-    case AddEntry(entry)         ⇒ notifyVersion("entry", entry.render)
+    case TimelineEntry(rendered) ⇒ notifyVersion("entry", rendered)
+
+    case Censor(userId) => // TODO hide user messages right away?
 
     case AddHook(hook) ⇒ notifyVersion("hook_add", Json.obj(
       "id" -> hook.id,

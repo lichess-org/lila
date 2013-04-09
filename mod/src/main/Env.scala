@@ -11,7 +11,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     eloUpdater: EloUpdater,
-    lobby: ActorRef,
+    lobbySocket: ActorRef,
     firewall: Firewall,
     userSpy: String => Fu[UserSpy]) {
 
@@ -26,7 +26,7 @@ final class Env(
     userSpy = userSpy,
     firewall = firewall,
     eloUpdater = eloUpdater,
-    lobby = lobby)
+    lobbySocket = lobbySocket)
 }
 
 object Env {
@@ -35,7 +35,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "mod",
     db = lila.db.Env.current,
     eloUpdater = lila.user.Env.current.eloUpdater,
-    lobby = lila.hub.Env.current.actor.lobby,
+    lobbySocket = lila.hub.Env.current.socket.lobby,
     firewall = lila.security.Env.current.firewall,
     userSpy = lila.security.Env.current.userSpy)
 }
