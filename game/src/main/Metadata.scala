@@ -43,12 +43,12 @@ private[game] object RawMetadata {
     writer = Json.writes[RawMetadata])
 }
 
-private[game] case class PgnImport(
+case class PgnImport(
   user: Option[String], 
   date: Option[String], 
   pgn: String)
 
-private[game] object PgnImport {
+object PgnImport {
 
   import lila.db.Tube
   import play.api.libs.json._

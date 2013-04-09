@@ -1,29 +1,27 @@
-package lila.app
-package importer
+package lila.importer
 
-import game._
+import lila.game._
 import chess.format.pgn.{ Parser, Reader, ParsedPgn, Tag, TagType }
 import chess.format.Forsyth
-import chess.{ Game, Board, Replay, Color, Mode, Variant, Move, Status }
+import chess.{ Game => ChessGame, Board, Replay, Color, Mode, Variant, Move, Status }
 
 import play.api.data._
 import play.api.data.Forms._
-import scalaz.Success
-import org.joda.time.DateTime
 
-final class DataForm {
+private[importer] final class DataForm {
 
-  val importForm = Form(mapping(
+  lazy val importForm = Form(mapping(
     "pgn" -> nonEmptyText.verifying("Invalid PGN", checkPgn _)
   )(ImportData.apply)(ImportData.unapply))
 
-  private def checkPgn(pgn: String): Boolean = ImportData(pgn).preprocess(none).isSuccess
+  private def checkPgn(pgn: String): Boolean = 
+    ImportData(pgn).preprocess(none).isSuccess
 }
 
-case class Result(status: Status, winner: Option[Color])
-case class Preprocessed(game: DbGame, moves: List[Move], result: Option[Result])
+private[importer] case class Result(status: Status, winner: Option[Color])
+private[importer] case class Preprocessed(game: Game, moves: List[Move], result: Option[Result])
 
-case class ImportData(pgn: String) {
+private[importer] case class ImportData(pgn: String) {
 
   private type TagPicker = Tag.type ⇒ TagType
 
@@ -48,11 +46,11 @@ case class ImportData(pgn: String) {
         n.value + ~tag(whichElo).map(e ⇒ " (%s)" format e)
       }
 
-      val dbGame = DbGame(
-        game = Game(board = initBoard | (Board init variant)),
+      val dbGame = Game.make(
+        game = ChessGame(board = initBoard | (Board init variant)),
         ai = None,
-        whitePlayer = DbPlayer.white withName name(_.White, _.WhiteElo),
-        blackPlayer = DbPlayer.black withName name(_.Black, _.BlackElo),
+        whitePlayer = Player.white withName name(_.White, _.WhiteElo),
+        blackPlayer = Player.black withName name(_.Black, _.BlackElo),
         creatorColor = Color.White,
         mode = Mode.Casual,
         variant = variant,

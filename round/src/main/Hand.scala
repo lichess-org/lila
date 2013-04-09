@@ -14,7 +14,7 @@ import akka.pattern.ask
 import play.api.libs.concurrent.Execution.Implicits._
 import scala.concurrent.duration.Duration
 
-private[round] final class Hand(
+final class Hand(
     messenger: Messenger,
     takeback: Takeback,
     ai: Ai,
