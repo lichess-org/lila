@@ -9,4 +9,6 @@ import play.api.mvc.Results._
 object Team extends LilaController {
 
   def show(id: String, page: Int) = TODO 
+
+  def requests = TODO 
 }

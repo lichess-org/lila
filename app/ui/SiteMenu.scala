@@ -12,7 +12,7 @@ final class SiteMenu(trans: I18nKeys) {
   import SiteMenu._
 
   // TODO
-  // val play = new Elem("play", routes.Lobby.home, trans.play)
+  val play = new Elem("play", routes.Lobby.home, trans.play)
   // val game = new Elem("game", routes.Game.realtime, trans.games)
   // val tournament = new Elem("tournament", routes.Tournament.home, trans.tournament)
   // val user = new Elem("user", routes.User.list(page = 1), trans.people)
@@ -20,10 +20,10 @@ final class SiteMenu(trans: I18nKeys) {
   // val forum = new Elem("forum", routes.ForumCateg.index, trans.forum)
   // val message = new Elem("message", routes.Message.inbox(page = 1), trans.inbox)
 
-  // private val authenticated = List(play, game, tournament, user, team, forum, message)
-  // private val anonymous = List(play, game, tournament, user, team, forum)
+  private val authenticated = List(play)//, game, tournament, user, team, forum, message)
+  private val anonymous = List(play)//, game, tournament, user, team, forum)
 
-  // def all(me: Option[User]) = me.isDefined.fold(authenticated, anonymous)
+  def all(me: Option[User]) = me.isDefined.fold(authenticated, anonymous)
 }
 
 object SiteMenu {

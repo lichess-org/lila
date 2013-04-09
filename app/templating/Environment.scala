@@ -17,6 +17,7 @@ object Environment
     with PaginatorHelper
     with FormHelper
     with SetupHelper
+    with SettingHelper
     with MessageHelper
     with RoundHelper 
     with AiHelper
@@ -25,9 +26,9 @@ object Environment
     with ForumHelper
     with I18nHelper
     with BookmarkHelper
-    with NotificationHelper {
+    with NotificationHelper 
+    with TeamHelper {
   // with tournament.TournamentHelper 
-  // with team.TeamHelper {
 
   def netDomain = apiEnv.Net.Domain
   def netBaseUrl = apiEnv.Net.BaseUrl

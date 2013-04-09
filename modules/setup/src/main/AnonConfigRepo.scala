@@ -6,7 +6,7 @@ import tube.{ anonConfigTube, filterConfigTube }
 import lila.game.Game
 import lila.db.Implicits._
 import lila.db.api._
-import lila.http.LilaCookie
+import lila.common.LilaCookie
 
 import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._

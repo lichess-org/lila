@@ -1,7 +1,7 @@
 package lila.security
 
 import lila.common.PimpedJson._
-import lila.http.LilaCookie
+import lila.common.LilaCookie
 import lila.db.api._
 import tube.firewallTube
 

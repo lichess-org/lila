@@ -2,7 +2,7 @@ package controllers
 
 import lila.app._
 import lila.api._
-import lila.http.LilaCookie
+import lila.common.LilaCookie
 
 import play.api.mvc._
 import play.api.mvc.Results._
@@ -24,6 +24,16 @@ object Auth extends LilaController {
   //   val sessionId = saveAuthentication(username)
   //   Redirect(routes.User.show(username)) withCookies LilaCookie.session("sessionId", sessionId)
   // }
+
+  def login = TODO
+  // Open { implicit ctx ⇒
+  //   Ok(html.auth.login(loginForm))
+  // }
+
+  def authenticate = TODO
+  def logout = TODO
+  def signup = TODO
+  def signupPost = TODO
 
   protected def gotoLogoutSucceeded(implicit req: RequestHeader) = {
     req.session get "sessionId" foreach lila.security.Store.delete

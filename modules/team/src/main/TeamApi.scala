@@ -140,4 +140,10 @@ final class TeamApi(
 
   def belongsTo(teamId: String, userId: String): Fu[Boolean] =
     cached teamIds userId map (_ contains teamId)
+
+  def teamIds(userId: String) = cached teamIds userId
+
+  def teamName(teamId: String) = cached name teamId
+
+  def nbRequests(teamId: String) = cached nbRequests teamId
 }
