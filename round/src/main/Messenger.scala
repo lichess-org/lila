@@ -10,7 +10,7 @@ import lila.db.api._
 
 import play.api.libs.concurrent.Execution.Implicits._
 
-private[round] final class Messenger(i18nKeys: I18nKeys) {
+final class Messenger(i18nKeys: I18nKeys) {
 
   private val nbMessagesCopiedToRematch = 20
 

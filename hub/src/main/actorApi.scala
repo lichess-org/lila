@@ -29,7 +29,9 @@ package message {
 
 package router {
   case class Abs(route: Any)
+  case class Nolang(route: Any)
   case class TeamShow(id: String)
+  case class Player(fullId: String)
 }
 
 package forum {

@@ -9,7 +9,7 @@ import lila.db.api._
 import akka.actor.ActorRef
 import play.api.libs.concurrent.Execution.Implicits._
 
-private[lobby] final class Fisherman(
+final class Fisherman(
     hookMemo: ExpireSetMemo,
     socket: ActorRef) {
 

@@ -6,15 +6,18 @@ import lila.db.api.$insert
 import lila.hub.actorApi.lobby.TimelineEntry
 import tube.entryTube
 
-import akka.actor.ActorRef
+import akka.actor._
 import play.api.libs.concurrent.Execution.Implicits._
 
-final class Push(
+private[timeline] final class Push(
     lobby: ActorRef,
-    getUsername: String ⇒ Fu[String]) {
+    getUsername: String ⇒ Fu[String]) extends Actor {
 
-  def apply(game: Game): Funit = makeEntry(game) flatMap { entry ⇒
-    $insert(entry) >> (lobby ! TimelineEntry(entry.render))
+  def receive = {
+
+    case game: Game ⇒ makeEntry(game) foreach { entry ⇒
+      $insert(entry) >> (lobby ! TimelineEntry(entry.render))
+    }
   }
 
   private def makeEntry(game: Game): Fu[Entry] =
