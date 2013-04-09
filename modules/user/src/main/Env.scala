@@ -29,7 +29,7 @@ final class Env(config: Config, db: lila.db.Env) {
 
   lazy val usernameMemo = new UsernameMemo(ttl = OnlineTtl)
 
-  private lazy val cached = new Cached(ttl = CachedNbTtl)
+  val forms = DataForm
 
   def usernameOption(id: String): Fu[Option[String]] = cached username id
 
@@ -42,6 +42,8 @@ final class Env(config: Config, db: lila.db.Env) {
         UserRepo.averageElo map { elo ⇒ "Average elo is %f" format elo }
     }
   }
+
+  private lazy val cached = new Cached(ttl = CachedNbTtl)
 }
 
 object Env {

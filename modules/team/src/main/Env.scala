@@ -36,7 +36,7 @@ final class Env(
   private[team] lazy val requestColl = db(CollectionRequest)
   private[team] lazy val memberColl = db(CollectionMember)
 
-  private[team] lazy val cached = new Cached(CacheCapacity)
+  lazy val cached = new Cached(CacheCapacity)
   private[team] lazy val paginator = new PaginatorBuilder(
     maxPerPage = PaginatorMaxPerPage,
     maxUserPerPage = PaginatorMaxUserPerPage)

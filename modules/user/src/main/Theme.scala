@@ -1,7 +1,5 @@
 package lila.user
 
-import scalaz.NonEmptyLists
-
 sealed class Theme private (val name: String, val image: Boolean = false) {
 
   override def toString = name
@@ -9,7 +7,7 @@ sealed class Theme private (val name: String, val image: Boolean = false) {
   def cssClass = name + image.fold(" txtr", "")
 }
 
-object Theme extends NonEmptyLists {
+object Theme extends scalaz.NonEmptyLists {
 
   val all = nel(
     "brown" -> false,

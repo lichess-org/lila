@@ -1,7 +1,7 @@
 package controllers
 
 import lila.app._
-import lila.http.LilaCookie
+import lila.common.LilaCookie
 import lila.user.{ Context, HeaderContext, BodyContext, User ⇒ UserModel }
 import lila.user.Env.{ current ⇒ userEnv }
 import lila.security.{ Permission, Granter }
@@ -16,6 +16,7 @@ import play.api.libs.concurrent.Execution.Implicits._
 
 trait LilaController
     extends Controller
+    with Modules
     with ContentTypes
     with RequestGetter
     with ResponseWriter {
@@ -25,10 +26,6 @@ trait LilaController
   //   env.i18n.pool.lang(req)
 
   // protected def toJson[A: WritesJson](data: A) = Json toJson data
-
-  val TODO = Action {
-    NotImplemented[play.api.templates.Html](views.html.defaultpages.todo())
-  }
 
   protected def Open(f: Context ⇒ Fu[Result]): Action[AnyContent] =
     Open(BodyParsers.parse.anyContent)(f)
@@ -104,11 +101,10 @@ trait LilaController
 
   // protected def ValidIOk(valid: IO[Valid[Unit]]): Result = ValidOk(valid.unsafePerformIO)
 
-  // protected def FormResult[A](form: Form[A])(op: A ⇒ Result)(implicit req: Request[_]) =
-  //   form.bindFromRequest.fold(
-  //     form ⇒ BadRequest(form.errors mkString "\n"),
-  //     data ⇒ op(data)
-  //   )
+  protected def FormResult[A](form: Form[A])(op: A ⇒ Fu[Result])(implicit req: Request[_]): Fu[Result] =
+    form.bindFromRequest.fold(
+      form ⇒ fuccess(BadRequest(form.errors mkString "\n")),
+      op)
 
   // protected def FormIOResult[A, B](form: Form[A])(err: Form[A] ⇒ B)(op: A ⇒ IO[Result])(
   //   implicit writer: Writeable[B],
@@ -173,7 +169,7 @@ trait LilaController
   // protected def IOptionResult[A](ioa: IO[Option[A]])(op: A ⇒ Result)(implicit ctx: Context) =
   //   ioa.unsafePerformIO.fold(notFound(ctx))(a ⇒ op(a))
 
-  protected def notFound(implicit ctx: Context): Fu[Result] = 
+  protected def notFound(implicit ctx: Context): Fu[Result] =
     Lobby handleNotFound ctx
 
   // protected def todo = Open { implicit ctx ⇒

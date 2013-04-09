@@ -5,9 +5,6 @@
 # Lobby
 GET   /                                controllers.Lobby.home
 
-# Misc
-POST  /cli                             controllers.Cli.command
-
 # User
 # POST  /@/:username/export              controllers.User.export(username: String)
 # GET   /@/:username/:filterName         controllers.User.showFilter(username: String, filterName: String, page: Int ?= 1)
@@ -79,7 +76,7 @@ GET   /$fullId<[\w\-]{12}>                           controllers.Round.player(fu
 # GET   /team/new                               controllers.Team.form
 # POST  /team/new                               controllers.Team.create
 # GET   /team/me                                controllers.Team.mine
-# GET   /team/requests                          controllers.Team.requests
+GET   /team/requests                          controllers.Team.requests
 # GET   /team/search                            controllers.Team.search(text: String ?= "", page: Int ?= 1)
 GET   /team/:id                               controllers.Team.show(id: String, page: Int ?= 1)
 # GET   /team/:id/join                          controllers.Team.joinPage(id: String)
@@ -101,7 +98,7 @@ GET   /team/:id                               controllers.Team.show(id: String, 
 # GET   /$gameId<[\w\-]{8}>/pgn            controllers.Analyse.pgn(gameId: String)
 # 
 # Setting
-# POST  /setting/:name                   controllers.Setting.set(name: String)
+POST  /setting/:name                   controllers.Setting.set(name: String)
 # 
 # Setup
 # GET   /setup/ai                        controllers.Setup.aiForm
@@ -116,18 +113,18 @@ GET   /team/:id                               controllers.Team.show(id: String, 
 # POST  /api/game/new                    controllers.Setup.api
 # 
 # I18n
-# GET   /translation/contribute          controllers.I18n.contribute
+GET   /translation/contribute          controllers.I18n.contribute
 # GET   /translation/form/:lang          controllers.I18n.translationForm(lang: String)
 # POST  /translation/form/:lang          controllers.I18n.translationPost(lang: String)
 # GET   /translation/fetch/:from         controllers.I18n.fetch(from: Int)
 # POST  /translation/hideCalls           controllers.I18n.hideCalls
 # 
 # Authentication
-# GET   /login                           controllers.Auth.login
-# POST  /login                           controllers.Auth.authenticate
-# GET   /logout                          controllers.Auth.logout
-# GET   /signup                          controllers.Auth.signup
-# POST  /signup                          controllers.Auth.signupPost
+GET   /login                           controllers.Auth.login
+POST  /login                           controllers.Auth.authenticate
+GET   /logout                          controllers.Auth.logout
+GET   /signup                          controllers.Auth.signup
+POST  /signup                          controllers.Auth.signupPost
 # 
 # Mod
 # POST  /mod/:username/engine            controllers.Mod.engine(username: String)
@@ -159,7 +156,7 @@ GET   /wiki/:slug                      controllers.Wiki.show(slug: String)
 # Forum
 # GET   /forum                           controllers.ForumCateg.index
 # GET   /forum/recent                    controllers.ForumPost.recent
-# GET   /forum/:slug                     controllers.ForumCateg.show(slug: String, page: Int ?= 1)
+GET   /forum/:slug                     controllers.ForumCateg.show(slug: String, page: Int ?= 1)
 # GET   /forum/:categSlug/form           controllers.ForumTopic.form(categSlug: String)
 # POST  /forum/:categSlug/new            controllers.ForumTopic.create(categSlug: String)
 # GET   /forum/:categSlug/:slug          controllers.ForumTopic.show(categSlug: String, slug: String, page: Int ?= 1)
@@ -178,11 +175,16 @@ GET   /wiki/:slug                      controllers.Wiki.show(slug: String)
 DELETE /notification/$id<[\w]{8}>      controllers.Notification.remove(id)
 # 
 # Monitor
-# GET   /monitor                         controllers.Monitor.index
+GET   /monitor                         controllers.Monitor.index
 # GET   /monitor/socket                  controllers.Monitor.websocket
 # GET   /monitor/players                 controllers.Monitor.nbPlayers
 # GET   /monitor/mps                     controllers.Monitor.nbMoves
 # GET   /monitor/status                  controllers.Monitor.status
+
+# Misc
+POST  /cli                             controllers.Cli.command
+# GET   /captcha/$id<[\w]{8}>            controllers.Main.captchaCheck(id: String)
+GET   /developers                      controllers.Main.developers
 
 # Assets
 GET   /assets/*file                    controllers.Assets.at(path="/public", file)
