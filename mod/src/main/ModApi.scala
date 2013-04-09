@@ -14,7 +14,7 @@ final class ModApi(
     userSpy: String ⇒ Fu[UserSpy],
     firewall: Firewall,
     eloUpdater: EloUpdater,
-    lobby: ActorRef) {
+    lobbySocket: ActorRef) {
 
   def adjust(mod: String, username: String): Funit = withUser(username) { user ⇒
     logApi.engine(mod, user.id, !user.engine) zip
@@ -41,7 +41,7 @@ final class ModApi(
 
   private def censor(user: User) {
     // TODO handle that on lobby side
-    if (user.canChat) lobby ! Censor(user.username)
+    if (user.canChat) lobbySocket ! Censor(user.username)
   }
 
   private def withUser(username: String)(op: User ⇒ Fu[Any]): Funit =

@@ -11,13 +11,12 @@ final class Env(config: Config, system: ActorSystem) {
 
   object actor {
     val gameIndexer = actorFor("game.indexer")
-    val lobby = actorFor("lobby")
     val renderer = actorFor("renderer")
     val captcher = actorFor("captcher")
+    val forum = actorFor("forum.actor")
     val forumIndexer = actorFor("forum.indexer")
     val messenger = actorFor("messenger")
     val router = actorFor("router")
-    val forum = actorFor("forum")
     val teamIndexer = actorFor("team.indexer")
     val ai = actorFor("ai")
     val monitor = actorFor("monitor")
@@ -29,16 +28,17 @@ final class Env(config: Config, system: ActorSystem) {
   object socket {
     val lobby = socketFor("lobby")
     val monitor = socketFor("monitor")
+
     val hub = system.actorOf(Props(new Broadcast(List(
       socket.lobby
     ))(makeTimeout(SocketHubTimeout))), name = SocketHubName)
   }
 
   private def actorFor(name: String) =
-    system.actorFor("/user/" + config.getString("actor/" + name))
+    system.actorFor("/user/" + config.getString("actor." + name))
 
   private def socketFor(name: String) =
-    system.actorFor("/user/" + config.getString("socket/" + name))
+    system.actorFor("/user/" + config.getString("socket." + name))
 }
 
 object Env {

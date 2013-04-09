@@ -22,7 +22,7 @@ private[app] final class Router(
     } pipeTo sender
 
     case Nolang(route) ⇒ self ? route map { 
-      case route: String ⇒ baseUrl + route
+      case route: String ⇒ noLangBaseUrl + route
     } pipeTo sender
 
     case TeamShow(id)   ⇒ sender ! R.Team.show(id)
@@ -30,7 +30,6 @@ private[app] final class Router(
     case Player(fullId) ⇒ sender ! R.Round.player(fullId)
   }
 
-  private val noLang = 
-    protocol + I18nDomain(domain).commonDomain
+  private lazy val noLangBaseUrl = protocol + I18nDomain(domain).commonDomain
 }
 

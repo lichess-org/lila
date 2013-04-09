@@ -14,7 +14,7 @@ import play.api.templates.Html
 import chess.Color
 
 private[game] final class Featured(
-    lobbyActor: ActorRef,
+    lobbySocket: ActorRef,
     rendererActor: ActorRef,
     system: ActorSystem) {
 
@@ -39,7 +39,7 @@ private[game] final class Featured(
           oneId = newOne map (_.id)
           newOne foreach { game ⇒
             rendererActor ? actorApi.RenderFeaturedJs(game) onSuccess {
-              case html: Html ⇒ lobbyActor ! actorApi.ChangeFeatured(html)
+              case html: Html ⇒ lobbySocket ! actorApi.ChangeFeatured(html)
             }
           }
         }

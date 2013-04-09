@@ -26,7 +26,7 @@ final class Env(
     maxPerPage = ThreadMaxPerPage,
     socketHub = socketHub)
 
-  private val actor = system.actorOf(Props(new Actor {
+  system.actorOf(Props(new Actor {
     def receive = {
       case thread: LichessThread ⇒ api.lichessThread(thread)
     }

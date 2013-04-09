@@ -33,7 +33,7 @@ final class Env(
     maxPerPage = PaginatorMaxPerPage)
 
   lazy val featured = new Featured(
-    lobbyActor = hub.actor.lobby,
+    lobbySocket = hub.socket.lobby,
     rendererActor = hub.actor.renderer,
     system = system)
 
