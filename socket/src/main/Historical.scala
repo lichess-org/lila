@@ -6,11 +6,8 @@ trait Historical[M <: SocketMember] { self: SocketActor[M] ⇒
 
   val history: History
 
-  def notifyVersion(t: String, data: JsValue) {
+  def notifyVersion[A : Writes](t: String, data: A) {
     val vmsg = history += makeMessage(t, data)
     members.values.foreach(_.channel push vmsg)
-  }
-  def notifyVersion(t: String, data: Seq[(String, JsValue)]) {
-    notifyVersion(t, JsObject(data))
   }
 }

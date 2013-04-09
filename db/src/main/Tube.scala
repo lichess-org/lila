@@ -84,13 +84,6 @@ object Tube {
       millis ⇒ Json.obj("$date" -> millis)
     })
 
-    def readOid = 
-      (__ \ "id").json.update(of[JsObject] map (_ \ "$oid"))
-
-    def writeOid = (__ \ "id").json.update(of[JsString] map {
-      oid ⇒ Json.obj("$oid" -> oid)
-    })
-
     def merge(obj: JsObject) = __.read[JsObject] map (obj ++)
   }
 

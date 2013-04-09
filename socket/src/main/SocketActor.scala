@@ -8,10 +8,10 @@ import play.api.libs.json._
 import scala.util.Random
 import scala.concurrent.duration.Duration
 
-abstract class SocketActor[M <: SocketMember](uidTimeout: Duration) extends Actor {
+abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Actor {
 
   var members = Map.empty[String, M]
-  val aliveUids = new ExpireSetMemo(uidTimeout)
+  val aliveUids = new ExpireSetMemo(uidTtl)
   var pong = makePong(0)
 
   // to be defined in subclassing actor
@@ -51,7 +51,7 @@ abstract class SocketActor[M <: SocketMember](uidTimeout: Duration) extends Acto
     members.values.foreach(_.channel push msg)
   }
 
-  def notifyMember(t: String, data: JsValue)(member: M) {
+  def notifyMember[A: Writes](t: String, data: A)(member: M) {
     member.channel push makeMessage(t, data)
   }
 

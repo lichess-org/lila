@@ -27,9 +27,6 @@ case class Join(
   uid: String,
   user: Option[User],
   version: Int)
-case class Connected(
-  enumerator: JsEnumerator,
-  member: Member)
 case class Talk(u: String, txt: String)
 case class GetTournamentVersion(tournamentId: String)
 case class CloseTournament(tournamentId: String)
