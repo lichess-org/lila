@@ -10,30 +10,34 @@ final class Env(config: Config, system: ActorSystem) {
   private val SocketHubTimeout = config duration "socket.hub.timeout"
 
   object actor {
-    val gameIndexer = actorFor("actor.game.indexer")
-    val lobby = actorFor("actor.lobby")
-    val renderer = actorFor("actor.renderer")
-    val captcher = actorFor("actor.captcher")
-    val forumIndexer = actorFor("actor.forum.indexer")
-    val messenger = actorFor("actor.messenger")
-    val router = actorFor("actor.router")
-    val forum = actorFor("actor.forum")
-    val teamIndexer = actorFor("actor.team.indexer")
-    val ai = actorFor("actor.ai")
-    val monitor = actorFor("actor.monitor")
-    val tournamentOrganizer = actorFor("actor.tournament.organizer")
+    val gameIndexer = actorFor("game.indexer")
+    val lobby = actorFor("lobby")
+    val renderer = actorFor("renderer")
+    val captcher = actorFor("captcher")
+    val forumIndexer = actorFor("forum.indexer")
+    val messenger = actorFor("messenger")
+    val router = actorFor("router")
+    val forum = actorFor("forum")
+    val teamIndexer = actorFor("team.indexer")
+    val ai = actorFor("ai")
+    val monitor = actorFor("monitor")
+    val tournamentOrganizer = actorFor("tournament.organizer")
+    val timeline = actorFor("timeline")
   }
 
   object socket {
-    val lobby = actorFor("socket.lobby")
-    val monitor = actorFor("socket.monitor")
+    val lobby = socketFor("lobby")
+    val monitor = socketFor("monitor")
     val hub = system.actorOf(Props(new Broadcast(List(
       socket.lobby
     ))(makeTimeout(SocketHubTimeout))), name = SocketHubName)
   }
 
   private def actorFor(name: String) =
-    system.actorFor("/user/" + config.getString(name))
+    system.actorFor("/user/" + config.getString("actor/" + name))
+
+  private def socketFor(name: String) =
+    system.actorFor("/user/" + config.getString("socket/" + name))
 }
 
 object Env {

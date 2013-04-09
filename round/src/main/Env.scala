@@ -67,6 +67,8 @@ final class Env(
     finisher = finisher,
     socketHub = socketHub)
 
+  lazy val messenger = new Messenger(i18nKeys)
+
   val animationDelay = AnimationDelay
 
   private lazy val hijack = new Hijack(HijackTimeout)
@@ -76,8 +78,6 @@ final class Env(
   private lazy val finisherLock = new FinisherLock(timeout = FinisherLockTimeout)
 
   private lazy val takeback = new Takeback(messenger)
-
-  private lazy val messenger = new Messenger(i18nKeys)
 
   private lazy val moveNotifier = new MoveNotifier(
     hub = hub.socket.hub,
