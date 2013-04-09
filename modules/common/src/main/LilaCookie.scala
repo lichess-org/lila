@@ -1,4 +1,4 @@
-package lila.http
+package lila.common
 
 import play.api.mvc.{ Cookie, Session, RequestHeader }
 import java.util.regex.Matcher.quoteReplacement
