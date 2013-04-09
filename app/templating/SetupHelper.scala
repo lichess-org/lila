@@ -1,11 +1,11 @@
 package lila.app
-package setup
+package templating
 
-import http.Context
-import i18n.I18nHelper
+import lila.user.Context
+import lila.setup._
 import chess.{ Mode, Variant, Speed }
 
-trait SetupHelper { self: I18nHelper ⇒
+trait SetupHelper extends scalaz.Booleans { self: I18nHelper ⇒
 
   def translatedModeChoices(implicit ctx: Context) = List(
     Mode.Casual.id.toString -> trans.casual.str(),

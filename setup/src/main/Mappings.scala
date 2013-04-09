@@ -1,13 +1,13 @@
-package lila.app
-package setup
+package lila.setup
 
-import elo.EloRange
+import lila.common.EloRange
+import lila.lobby.Color
 import chess.Mode
 import chess.format.Forsyth
 
 import play.api.data.Forms._
 
-object Mappings {
+private[setup] object Mappings {
 
   val variant = number.verifying(Config.variants contains _)
   val variantWithFen = number.verifying(Config.variantsWithFen contains _)

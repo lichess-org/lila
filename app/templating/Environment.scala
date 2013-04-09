@@ -16,7 +16,7 @@ object Environment
     with NumberHelper 
     with PaginatorHelper
     with FormHelper
-    // with setup.SetupHelper
+    with SetupHelper
     with MessageHelper
     with RoundHelper 
     with AiHelper

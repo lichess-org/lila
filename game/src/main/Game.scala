@@ -423,11 +423,11 @@ object Game {
 
   private[game] lazy val tube = Tube(
     reader = Reads[Game](js ⇒
-      (for {
+      ~(for {
         obj ← js.asOpt[JsObject]
         rawGame ← RawGame.tube.read(obj).asOpt
         game ← rawGame.decode
-      } yield JsSuccess(game): JsResult[Game]) | JsError(Seq.empty)
+      } yield JsSuccess(game): JsResult[Game])
     ),
     writer = Writes[Game](game ⇒
       RawGame.tube.write(game.encode) getOrElse JsUndefined("[db] Can't write game " + game.id)

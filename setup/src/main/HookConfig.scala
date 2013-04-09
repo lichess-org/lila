@@ -1,10 +1,11 @@
-package lila.app
-package setup
+package lila.setup
 
 import chess.{ Variant, Mode, Color ⇒ ChessColor }
-import elo.EloRange
-import user.User
-import lobby.Hook
+import lila.common.EloRange
+import lila.game.{ Game, Player, Source }
+import lila.lobby.Color
+import lila.user.User
+import lila.lobby.Hook
 
 case class HookConfig(
     variant: Variant,
@@ -17,7 +18,7 @@ case class HookConfig(
 
   def >> = (variant.id, clock, time, increment, mode.id.some, eloRange.toString.some, color.name).some
 
-  def hook(user: Option[User]) = Hook(
+  def hook(user: Option[User]) = Hook.make(
     variant = variant,
     clock = makeClock,
     mode = mode,
@@ -58,6 +59,22 @@ object HookConfig extends BaseHumanConfig {
     mode = Mode.default,
     eloRange = EloRange.default,
     color = Color.default)
+
+  import lila.db.Tube
+  import play.api.libs.json._
+
+  private[setup] lazy val tube = Tube(
+    reader = Reads[HookConfig](js ⇒
+      ~(for {
+        obj ← js.asOpt[JsObject]
+        raw ← RawHookConfig.tube.read(obj).asOpt
+        decoded ← raw.decode
+      } yield JsSuccess(decoded): JsResult[HookConfig])
+    ),
+    writer = Writes[HookConfig](config ⇒
+      RawHookConfig.tube.write(config.encode) getOrElse JsUndefined("[setup] Can't write config")
+    )
+  )
 }
 
 private[setup] case class RawHookConfig(
@@ -80,4 +97,14 @@ private[setup] case class RawHookConfig(
     mode = mode,
     eloRange = eloRange,
     color = Color.White)
+}
+
+private[setup] object RawHookConfig {
+
+  import lila.db.Tube
+  import play.api.libs.json.Json
+
+  private[setup] lazy val tube = Tube(
+    reader = Json.reads[RawHookConfig],
+    writer = Json.writes[RawHookConfig])
 }

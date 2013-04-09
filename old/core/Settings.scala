@@ -50,9 +50,6 @@ final class Settings(config: Config, val IsDev: Boolean) {
   val UserCachedNbTtl = millis("user.cached.nb.ttl")
   val UserCollectionUser = getString("user.collection.user")
   val UserCollectionHistory = getString("user.collection.history")
-  val UserCollectionConfig = getString("user.collection.config")
-
-  val AnonCollectionConfig = getString("anon.collection.config")
 
   val ForumTopicMaxPerPage = getInt("forum.topic.max_per_page")
   val ForumPostMaxPerPage = getInt("forum.post.max_per_page")
@@ -63,8 +60,6 @@ final class Settings(config: Config, val IsDev: Boolean) {
   val ForumCollectionPost = getString("forum.collection.post")
 
   val MessageThreadMaxPerPage = getInt("message.thread.max_per_page")
-
-  val SetupFriendConfigMemoTtl = millis("setup.friend_config.memo.ttl")
 
 
   val MemoHookTimeout = millis("memo.hook.timeout")

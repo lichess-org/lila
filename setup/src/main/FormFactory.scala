@@ -1,21 +1,21 @@
-package lila.app
-package setup
+package lila.setup
 
 import chess.Variant
-import http.Context
-import elo.EloRange
+import lila.user.Context
+import lila.common.EloRange
+import lila.lobby.Color
+import tube.{ userConfigTube, anonConfigTube }
+import lila.db.api._
 
 import play.api.data._
 import play.api.data.Forms._
-import scalaz.effects._
+import play.api.libs.concurrent.Execution.Implicits._
 
-private[setup] final class FormFactory(
-    userConfigRepo: UserConfigRepo,
-    anonConfigRepo: AnonConfigRepo) {
+private[setup] final class FormFactory {
 
   import Mappings._
 
-  def filterFilled(implicit ctx: Context): IO[Form[FilterConfig]] =
+  def filterFilled(implicit ctx: Context): Fu[Form[FilterConfig]] =
     filterConfig map filter(ctx).fill
 
   def filter(ctx: Context) = Form(
@@ -27,11 +27,11 @@ private[setup] final class FormFactory(
     )(FilterConfig.<<)(_.>>)
   )
 
-  def filterConfig(implicit ctx: Context): IO[FilterConfig] = savedConfig map { config ⇒
+  def filterConfig(implicit ctx: Context): Fu[FilterConfig] = savedConfig map { config ⇒
     ctx.isAuth.fold(config.filter, config.filter.withModeCasual)
   }
 
-  def aiFilled(fen: Option[String])(implicit ctx: Context): IO[Form[AiConfig]] =
+  def aiFilled(fen: Option[String])(implicit ctx: Context): Fu[Form[AiConfig]] =
     aiConfig map { config ⇒
       ai(ctx) fill fen.fold(config) { f ⇒ 
         config.copy(fen = f.some, variant = Variant.FromPosition)
@@ -50,9 +50,9 @@ private[setup] final class FormFactory(
     )(AiConfig.<<)(_.>>)
   )
 
-  def aiConfig(implicit ctx: Context): IO[AiConfig] = savedConfig map (_.ai)
+  def aiConfig(implicit ctx: Context): Fu[AiConfig] = savedConfig map (_.ai)
 
-  def friendFilled(fen: Option[String])(implicit ctx: Context): IO[Form[FriendConfig]] =
+  def friendFilled(fen: Option[String])(implicit ctx: Context): Fu[Form[FriendConfig]] =
     friendConfig map { config ⇒
       friend(ctx) fill fen.fold(config) { f ⇒ 
         config.copy(fen = f.some, variant = Variant.FromPosition)
@@ -71,9 +71,9 @@ private[setup] final class FormFactory(
     )(FriendConfig.<<)(_.>>) verifying ("Invalid clock", _.validClock)
   )
 
-  def friendConfig(implicit ctx: Context): IO[FriendConfig] = savedConfig map (_.friend)
+  def friendConfig(implicit ctx: Context): Fu[FriendConfig] = savedConfig map (_.friend)
 
-  def hookFilled(implicit ctx: Context): IO[Form[HookConfig]] =
+  def hookFilled(implicit ctx: Context): Fu[Form[HookConfig]] =
     hookConfig map hook(ctx).fill
 
   def hook(ctx: Context) = Form(
@@ -90,8 +90,8 @@ private[setup] final class FormFactory(
       .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited)
   )
 
-  def hookConfig(implicit ctx: Context): IO[HookConfig] = savedConfig map (_.hook)
+  def hookConfig(implicit ctx: Context): Fu[HookConfig] = savedConfig map (_.hook)
 
-  private def savedConfig(implicit ctx: Context): IO[UserConfig] = 
-    ctx.me.fold(anonConfigRepo config ctx.req)(userConfigRepo.config)
+  def savedConfig(implicit ctx: Context): Fu[UserConfig] = 
+    ctx.me.fold(AnonConfigRepo config ctx.req)(UserConfigRepo.config)
 }
