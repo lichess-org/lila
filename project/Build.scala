@@ -21,12 +21,11 @@ object ApplicationBuild extends Build {
         "lila.user.{ User, Context }",
         "lila.security.Permission",
         "lila.app.templating.Environment._",
-        // "lila.app.ui",
         "lila.common.paginator.Paginator")
     )
 
   lazy val modules = Seq(
-    chess, common, http, db, user, wiki, hub, socket,
+    chess, common, db, user, wiki, hub, socket,
     message, notification, i18n, game, bookmark, search,
     gameSearch, timeline, forum, forumSearch, team, teamSearch,
     ai, analyse, mod, monitor, site, round, lobby, setup,
@@ -117,11 +116,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(playApi)
   )
 
-  lazy val http = project("http", Seq(common)).settings(
-    libraryDependencies ++= provided(playApi)
-  )
-
-  lazy val security = project("security", Seq(common, hub, db, http, user)).settings(
+  lazy val security = project("security", Seq(common, hub, db, user)).settings(
     libraryDependencies ++= provided(
       playApi, reactivemongo, playReactivemongo, spray.caching)
   )
