@@ -11,14 +11,12 @@ import play.api.libs.concurrent.Akka
 
 object Main extends LilaController {
 
-  // def websocket = WebSocket.async[JsValue] { implicit req ⇒
-  //   implicit val ctx = reqToCtx(req)
-  //   env.site.socket.join(
-  //     uidOption = get("sri"),
-  //     username = ctx.me map (_.username),
-  //     flag = get("flag")
-  //   )
-  // }
+  def websocket = Socket { implicit ctx ⇒
+    uid ⇒
+      Env.site.socketHandler.join(
+        uid = uid, userId = ctx.userId, flag = get("flag")
+      )
+  }
 
   // def captchaCheck(id: String) = Open { implicit ctx ⇒
   //   Ok(env.site.captcha get id valid ~get("solution") fold (1, 0))

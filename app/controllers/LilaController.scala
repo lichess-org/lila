@@ -8,7 +8,7 @@ import lila.security.{ Permission, Granter }
 import play.api.mvc._, Results._
 import play.api.data.Form
 import play.api.http._
-import play.api.libs.json.{ Json, Writes ⇒ WritesJson }
+import play.api.libs.json.{ Json, JsValue, Writes }
 
 trait LilaController
     extends Controller
@@ -30,6 +30,13 @@ trait LilaController
 
   protected def OpenBody[A](p: BodyParser[A])(f: BodyContext ⇒ Fu[Result]): Action[A] =
     Action(p)(req ⇒ Async(reqToCtx(req) flatMap f))
+
+  def Socket(fn: Context ⇒ String ⇒ Fu[JsSocketHandler]) =
+    WebSocket.async[JsValue] { req ⇒
+      reqToCtx(req) flatMap { ctx ⇒
+        get("sri")(ctx) zmap { fn(ctx)(_) }
+      }
+    }
 
   protected def Optional[A, B](foa: Fu[Option[A]])(op: A ⇒ B)(
     implicit writer: Writeable[B],
@@ -76,9 +83,9 @@ trait LilaController
   // protected def NoEngine[A <: Result](a: ⇒ A)(implicit ctx: Context): Result =
   //   ctx.me.fold(false)(_.engine).fold(Forbidden(views.html.site.noEngine()), a)
 
-  // protected def JsonOk[A: WritesJson](data: A) = Ok(toJson(data)) as JSON
+  // protected def JsonOk[A: Writes](data: A) = Ok(toJson(data)) as JSON
 
-  // protected def JsonIOk[A: WritesJson](data: IO[A]) = JsonOk(data.unsafePerformIO)
+  // protected def JsonIOk[A: Writes](data: IO[A]) = JsonOk(data.unsafePerformIO)
 
   // protected def JsIOk(js: IO[String], headers: (String, String)*) = 
   //   JsOk(js.unsafePerformIO, headers: _*)

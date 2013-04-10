@@ -20,7 +20,7 @@ GET   /@/:username                     controllers.User.show(username: String)
 # POST  /account/closeConfirm            controllers.User.closeConfirm
 
 #Site
-# GET   /socket             controllers.Main.websocket
+GET   /socket             controllers.Main.websocket
 
 # Game
 # GET   /games              controllers.Game.realtime
