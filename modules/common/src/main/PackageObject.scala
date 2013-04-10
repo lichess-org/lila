@@ -2,7 +2,7 @@ package lila
 
 import ornicar.scalalib
 
-import scalaz.{ Zero, Functor, Monad, OptionT }
+import scalaz.{ Zero, Zeros, Functor, Monad, OptionT }
 import scala.concurrent.Future
 
 trait PackageObject
@@ -66,7 +66,7 @@ trait PackageObject
     math.max(in.start, math.min(v, in.end))
 }
 
-trait WithFuture extends scalaz.Zeros {
+trait WithFuture extends Zeros {
 
   import spray.util.pimps.PimpedFuture
 
@@ -78,12 +78,12 @@ trait WithFuture extends scalaz.Zeros {
   def fufail[B](a: String): Fu[B] = Future failed (new RuntimeException(a))
   val funit = fuccess(())
 
-  implicit def LilaFuZero[A: Zero] = new Zero[Fu[A]] { val zero = fuccess(∅[A]) }
+  implicit def LilaFuZero[A: Zero] = zero(fuccess(∅[A]))
 
   implicit def SprayPimpedFuture[T](fut: Future[T]) = new PimpedFuture[T](fut)
 }
 
-trait WithPlay { self: PackageObject ⇒
+trait WithPlay extends Zeros { self: PackageObject ⇒
 
   import play.api.libs.json._
 
@@ -93,15 +93,15 @@ trait WithPlay { self: PackageObject ⇒
   implicit val LilaFutureFunctor = new Functor[Fu] {
     def fmap[A, B](r: Fu[A], f: A ⇒ B) = r map f
   }
+
   implicit val LilaFutureMonad = new Monad[Fu] {
     def pure[A](a: ⇒ A) = fuccess(a)
     def bind[A, B](r: Fu[A], f: A ⇒ Fu[B]) = r flatMap f
   }
-  implicit val LilaJsObjectZero = new Zero[JsObject] { val zero = JsObject(Seq.empty) }
 
-  implicit def LilaJsResultZero[A] = new Zero[JsResult[A]] {
-    val zero = JsError(Seq.empty)
-  }
+  implicit val LilaJsObjectZero = zero(JsObject(Seq.empty))
+
+  implicit def LilaJsResultZero[A] = zero(JsError(Seq.empty))
 
   implicit final class LilaPimpedFuture[A](fua: Fu[A]) {
 
