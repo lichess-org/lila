@@ -5,8 +5,7 @@ import views._
 import lila.user.{ Context, BodyContext, Setting ⇒ UserSetting }
 
 import play.api.data.Form
-import play.api.mvc.{ Result, Cookie }
-import play.api.mvc.Results._
+import play.api.mvc._, Results._
 import play.api.libs.concurrent.Execution.Implicits._
 
 object Setting extends LilaController {
@@ -22,7 +21,7 @@ object Setting extends LilaController {
 
   private type Setter = (Form[String], (UserSetting, String) ⇒ Fu[Cookie])
 
-  private def forms = userEnv.forms
+  private def forms = Env.user.forms
 
   private lazy val setters = Map(
     "theme" -> setTheme,

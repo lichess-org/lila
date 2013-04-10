@@ -43,7 +43,7 @@ trait PackageObject
 
   implicit final class LilaPimpedString(s: String) {
 
-    def describes[A](v: ⇒ A): A = { logger.info(s); v }
+    def describes[A](v: ⇒ A): A = { loginfo(s); v }
   }
 
   def parseIntOption(str: String): Option[Int] = try {

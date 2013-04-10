@@ -1,7 +1,6 @@
 package controllers
 
-import lila.wiki._
-import lila.wiki.Env.{ current ⇒ wikiEnv }
+import lila.app._
 import views._
 
 import play.api.mvc._, Results._
@@ -13,7 +12,7 @@ object Wiki extends LilaController {
   }
 
   def show(slug: String) = Open { implicit ctx ⇒
-    Optional(wikiEnv.api show slug) {
+    Optional(Env.wiki.api show slug) {
       case (page, pages) ⇒ "todo" // html.wiki.show(page, pages)
     }
   }

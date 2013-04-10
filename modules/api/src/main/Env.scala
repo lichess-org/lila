@@ -3,7 +3,6 @@ package lila.api
 import akka.actor._
 import com.typesafe.config.Config
 
-import play.api.libs.concurrent._
 import play.api.Application
 import play.api.Mode.Dev
 

@@ -1,0 +1,6 @@
+@(title: String, moreCss: Html = Html(""))(body: Html)(implicit ctx: Context)
+
+@base.layout(
+title = title, 
+active = none,
+moreCss = moreCss)(body)

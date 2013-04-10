@@ -5,18 +5,15 @@ import views._
 import lila.security.Permission
 import lila.user.{ Context, User ⇒ UserModel }
 import lila.common.LilaCookie
-import lila.user.Env.{ current ⇒ userEnv }
-import lila.security.Env.{ current ⇒ securityEnv }
 
-import play.api.mvc._
-import play.api.mvc.Results._
+import play.api.mvc._, Results._
 
 object User extends LilaController {
 
-  private def paginator = userEnv.paginator
+  private def paginator = Env.user.paginator
   // private def gamePaginator = env.game.paginator
   private def forms = lila.user.DataForm
-  private def eloUpdater = userEnv.eloUpdater
+  private def eloUpdater = Env.user.eloUpdater
   // private def bookmarkApi = env.bookmark.api
   // private def modApi = env.mod.api
 
@@ -36,7 +33,7 @@ object User extends LilaController {
   // private def userShow(u: UserModel, filterName: String, page: Int)(implicit ctx: Context) =
   //   (u.enabled || isGranted(_.MarkEngine)).fold({
   //     val userSpy = isGranted(_.UserSpy) option securityStore.userSpy _
-  //     userEnvInfo(u, bookmarkApi, userSpy, ctx) map { info ⇒
+  //     Env.userInfo(u, bookmarkApi, userSpy, ctx) map { info ⇒
   //       val filters = GameFilterMenu(info, ctx.me, filterName)
   //       val paginator = filters.query.fold(bookmarkApi.gamePaginatorByUser(u, page)) { query ⇒
   //         gamePaginator.recentlyCreated(query, filters.cachedNb)(page)
@@ -105,7 +102,7 @@ object User extends LilaController {
   //     IOResult {
   //       (userRepo disable me) >> 
   //       env.team.api.quitAll(me.id) >>
-  //       (securityEnv.store deleteUsername me.username) inject { 
+  //       (Env.security.store deleteUsername me.username) inject { 
   //         Redirect(routes.User show me.username) withCookies LilaCookie.newSession
   //       }
   //     }
@@ -120,5 +117,5 @@ object User extends LilaController {
   // }
 
   // private val onlineUsers: IO[List[UserModel]] =
-  //   userRepo byIds userEnv.usernameMemo.keys
+  //   userRepo byIds Env.user.usernameMemo.keys
 }

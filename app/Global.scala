@@ -1,4 +1,8 @@
 // package _root_ 
+package lila.app
+
+// import lila.app.Env
+import lila.hub.actorApi.monitor.AddRequest
 
 import ornicar.scalalib
 import play.api.{ Application, GlobalSettings, Mode }
@@ -16,25 +20,19 @@ object Global extends GlobalSettings with scalalib.Common {
     lila.app.Starter(app)
   }
 
-  private def startActors(implicit app: Application) {
-  }
-
   override def onRouteRequest(req: RequestHeader): Option[Handler] =
-    // if (env.ai.isServer) {
-    // if (req.path startsWith "/ai/") super.onRouteRequest(req)
-    // else Action(NotFound("I am an AI server")).some
-    // }
-    // else {
-    // req.queryString get "embed" flatMap (_.headOption) filter (""!=) foreach { embed ⇒
-    //   println("[embed] %s -> %s".format(embed, req.path))
-    // }
-    // env.monitor.rpsProvider.countRequest()
-    // env.security.wiretap(req)
-    // env.security.firewall.requestHandler(req) orElse
-    //   env.i18n.requestHandler(req) orElse
-    //   super.onRouteRequest(req)
-    // }
-    super.onRouteRequest(req) ~ { _ ⇒ println(req) }
+    if (Env.ai.isServer) {
+      if (req.path startsWith "/ai/") super.onRouteRequest(req)
+      else Action(NotFound("I am an AI server")).some
+    }
+    else {
+      Env.monitor.reporting ! AddRequest
+      Env.security.wiretap(req)
+      Env.security.firewall.requestHandler(req).await orElse
+        Env.i18n.requestHandler(req) orElse
+        super.onRouteRequest(req)
+    }
+  // super.onRouteRequest(req) ~ { _ ⇒ println(req) }
 
   // override def onHandlerNotFound(req: RequestHeader): Result =
   //   env.ai.isServer.fold(NotFound, controllers.Lobby handleNotFound req)

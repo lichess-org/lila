@@ -25,7 +25,7 @@ object ApplicationBuild extends Build {
     )
 
   lazy val modules = Seq(
-    chess, common, db, user, wiki, hub, socket,
+    chess, common, db, user, security, wiki, hub, socket,
     message, notification, i18n, game, bookmark, search,
     gameSearch, timeline, forum, forumSearch, team, teamSearch,
     ai, analyse, mod, monitor, site, round, lobby, setup,

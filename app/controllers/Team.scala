@@ -3,8 +3,7 @@ package controllers
 import lila.app._
 import views._
 
-import play.api.mvc._
-import play.api.mvc.Results._
+import play.api.mvc._, Results._
 
 object Team extends LilaController {
 

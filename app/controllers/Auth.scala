@@ -4,10 +4,8 @@ import lila.app._
 import lila.api._
 import lila.common.LilaCookie
 
-import play.api.mvc._
-import play.api.mvc.Results._
-import play.api.data._
-import play.api.data.Forms._
+import play.api.mvc._, Results._
+import play.api.data._, Forms._
 import play.api.libs.concurrent.Execution.Implicits._
 
 object Auth extends LilaController {
