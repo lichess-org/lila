@@ -5,7 +5,6 @@ import play.api.libs.json.Json
 import org.joda.time.DateTime
 import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
 
-import play.api.libs.concurrent.Execution.Implicits._
 
 final class EloChart(rawElos: List[(Int, Int, Option[Int])]) {
 

@@ -7,7 +7,6 @@ import akka.actor.ActorRef
 import play.api.mvc.Request
 import play.api.data._
 import play.api.data.Forms._
-import play.api.libs.concurrent.Execution.Implicits._
 import org.joda.time.DateTime
 
 final class DataForm(

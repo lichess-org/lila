@@ -3,8 +3,6 @@ package lila.round
 import lila.game.{ GameRepo, Game, Rewind, Event, Progress }
 import lila.db.api._
 
-import play.api.libs.concurrent.Execution.Implicits._
-
 private[round] final class Takeback(messenger: Messenger) {
 
   private type ValidFuEvents = Valid[Fu[List[Event]]]

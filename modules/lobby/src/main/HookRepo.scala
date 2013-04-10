@@ -6,7 +6,6 @@ import lila.db.Implicits._
 import lila.db.api._
 
 import play.api.libs.json._
-import play.api.libs.concurrent.Execution.Implicits._
 
 import reactivemongo.api._
 import reactivemongo.bson._

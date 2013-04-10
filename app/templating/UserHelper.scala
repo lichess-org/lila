@@ -7,7 +7,6 @@ import lila.user.Env.{ current ⇒ userEnv }
 import controllers.routes
 
 import play.api.templates.Html
-import play.api.libs.concurrent.Execution.Implicits._
 
 trait UserHelper {
 

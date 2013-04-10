@@ -9,7 +9,6 @@ import lila.hub.actorApi.lobby._
 import akka.actor._
 import play.api.libs.json._
 import play.api.libs.iteratee._
-import play.api.libs.concurrent.Execution.Implicits._
 import play.api.templates.Html
 import scala.concurrent.duration._
 

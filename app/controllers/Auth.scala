@@ -6,7 +6,6 @@ import lila.common.LilaCookie
 
 import play.api.mvc._, Results._
 import play.api.data._, Forms._
-import play.api.libs.concurrent.Execution.Implicits._
 
 object Auth extends LilaController {
 

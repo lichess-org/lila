@@ -9,7 +9,6 @@ import makeTimeout.short
 
 import akka.actor.ActorRef
 import akka.pattern.ask
-import play.api.libs.concurrent.Execution.Implicits._
 
 private[setup] final class FriendJoiner(
     messenger: Messenger,

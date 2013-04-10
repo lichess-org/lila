@@ -4,7 +4,6 @@ import lila.common.PimpedJson._
 
 import play.api.libs.json._
 import play.api.libs.ws.WS
-import play.api.libs.concurrent.Execution.Implicits._
 
 import org.joda.time.DateTime
 

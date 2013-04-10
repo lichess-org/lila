@@ -8,7 +8,6 @@ import scala.concurrent.duration._
 import akka.actor._
 import akka.pattern.ask
 import play.api.Play.current
-import play.api.libs.concurrent.Execution.Implicits._
 import play.api.templates.Html
 
 import chess.Color

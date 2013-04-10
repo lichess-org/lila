@@ -4,7 +4,6 @@ import scala.concurrent.duration._
 
 import spray.caching.{ LruCache, Cache }
 
-import play.api.libs.concurrent.Execution.Implicits._
 
 final class Cached(ttl: Duration) {
 

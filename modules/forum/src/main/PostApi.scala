@@ -10,7 +10,6 @@ import actorApi._
 
 import akka.actor.ActorRef
 import play.api.libs.json.JsObject
-import play.api.libs.concurrent.Execution.Implicits._
 import scalaz.{ OptionT, OptionTs }
 
 final class PostApi(env: Env, indexer: ActorRef, maxPerPage: Int) extends OptionTs {

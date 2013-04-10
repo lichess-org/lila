@@ -3,7 +3,6 @@ package lila.message
 import lila.user.User
 
 import spray.caching.{ LruCache, Cache }
-import play.api.libs.concurrent.Execution.Implicits._
 
 private[message] final class UnreadCache {
 

@@ -5,7 +5,6 @@ import lila.common.PimpedJson._
 import tube.pgnTube
 
 import play.api.libs.json._
-import play.api.libs.concurrent.Execution.Implicits._
 
 import play.modules.reactivemongo.Implicits._
 

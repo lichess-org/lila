@@ -71,7 +71,6 @@ final class Env(
   def hideCallsCookieMaxAge = HideCallsCookieMaxAge
 
   def cli = new lila.common.Cli {
-    import play.api.libs.concurrent.Execution.Implicits._
     def process = {
       case "i18n" :: "fetch" :: from :: Nil ⇒
         upstreamFetch(from) flatMap gitWrite.apply inject "Fetched translations from upstream"

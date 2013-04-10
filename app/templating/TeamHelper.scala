@@ -6,7 +6,6 @@ import lila.user.Context
 import controllers.routes
 
 import play.api.templates.Html
-import play.api.libs.concurrent.Execution.Implicits._
 
 trait TeamHelper {
 

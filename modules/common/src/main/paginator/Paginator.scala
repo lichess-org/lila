@@ -3,8 +3,6 @@ package paginator
 
 import scalaz.Success
 
-import play.api.libs.concurrent.Execution.Implicits._
-
 final class Paginator[A] private[paginator] (
     val currentPage: Int,
     val maxPerPage: Int,

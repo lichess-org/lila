@@ -4,7 +4,6 @@ import lila.app._
 
 import play.api.mvc._, Results._
 import play.api.data._, Forms._
-import play.api.libs.concurrent.Execution.Implicits._
 
 object Cli extends LilaController {
 

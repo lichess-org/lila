@@ -2,7 +2,6 @@ package lila.team
 
 import org.scala_tools.time.Imports._
 import akka.actor.ActorRef
-import play.api.libs.concurrent.Execution.Implicits._
 
 import lila.user.{ User, Context }
 import lila.user.tube.userTube

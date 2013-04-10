@@ -5,7 +5,6 @@ import lila.hub.actorApi.router._
 
 import akka.actor.ActorRef
 import akka.pattern.ask
-import play.api.libs.concurrent.Execution.Implicits._
 
 private[team] final class Notifier(
     messenger: ActorRef,

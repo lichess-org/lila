@@ -2,7 +2,6 @@ package lila.game
 
 import lila.user.User
 
-import play.api.libs.concurrent.Execution.Implicits._
 
 case class ListMenu(
   nbGames: Int,

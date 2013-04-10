@@ -12,9 +12,8 @@ import lila.game.tube.gameTube
 import lila.db.api._
 
 import akka.actor.ActorRef
-import play.api.libs.concurrent.Execution.Implicits._
 
-final class HookJoiner(
+private[setup] final class HookJoiner(
     fisherman: Fisherman,
     timeline: ActorRef,
     messenger: Messenger) {

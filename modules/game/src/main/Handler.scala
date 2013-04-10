@@ -1,6 +1,5 @@
 package lila.game
 
-import play.api.libs.concurrent.Execution.Implicits._
 
 abstract class Handler {
 

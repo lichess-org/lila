@@ -9,7 +9,6 @@ import lila.db.Implicits._
 import tube.gameTube
 
 import play.api.libs.json._
-import play.api.libs.concurrent.Execution.Implicits._
 
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._

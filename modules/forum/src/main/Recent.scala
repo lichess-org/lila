@@ -5,7 +5,6 @@ import lila.security.{ Permission, Granter ⇒ MasterGranter }
 
 import scala.concurrent.duration.Duration
 import spray.caching.{ LruCache, Cache }
-import play.api.libs.concurrent.Execution.Implicits._
 
 private[forum] final class Recent(postApi: PostApi, ttl: Duration) {
 

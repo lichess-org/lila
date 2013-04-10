@@ -36,7 +36,6 @@ final class Env(config: Config, db: lila.db.Env) {
   def usernameOrAnonymous(id: String): Fu[String] = cached usernameOrAnonymous id
 
   def cli = new lila.common.Cli {
-    import play.api.libs.concurrent.Execution.Implicits._
     def process = {
       case "user" :: "average" :: "elo" :: Nil ⇒
         UserRepo.averageElo map { elo ⇒ "Average elo is %f" format elo }

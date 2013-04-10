@@ -3,7 +3,6 @@ package test
 
 import Types._
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import play.api.Play
 import play.api.test._
 import reactivemongo.api._

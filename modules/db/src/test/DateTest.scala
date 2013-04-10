@@ -12,7 +12,6 @@ import play.api.test._
 import reactivemongo.api._
 import reactivemongo.bson._
 import org.joda.time.DateTime
-import scala.concurrent.ExecutionContext.Implicits.global
 
 class DateTest extends Specification {
 

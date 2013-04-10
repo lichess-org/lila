@@ -6,7 +6,6 @@ import lila.user.{ Context, BodyContext, Setting ⇒ UserSetting }
 
 import play.api.data.Form
 import play.api.mvc._, Results._
-import play.api.libs.concurrent.Execution.Implicits._
 
 object Setting extends LilaController {
 

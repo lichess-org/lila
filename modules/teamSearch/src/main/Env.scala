@@ -53,7 +53,6 @@ final class Env(
 
   private def indexQuery(sel: JsObject): Funit = {
     import play.api.libs.json._
-    import play.api.libs.concurrent.Execution.Implicits._
     import play.api.libs.iteratee._
     import lila.db.api._
     $cursor[TeamModel](sel).enumerateBulks(100) run {

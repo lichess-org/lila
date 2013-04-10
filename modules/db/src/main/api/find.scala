@@ -6,7 +6,6 @@ import Implicits._
 import reactivemongo.bson._
 import play.modules.reactivemongo.Implicits._
 import play.api.libs.json._
-import play.api.libs.concurrent.Execution.Implicits._
 import scalaz.{ OptionT, OptionTs }
 
 object $find extends OptionTs {

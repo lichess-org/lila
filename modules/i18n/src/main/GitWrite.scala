@@ -5,7 +5,6 @@ import org.eclipse.jgit.lib.Repository
 import org.eclipse.jgit.storage.file.FileRepository
 import scala.collection.JavaConversions._
 import scala.concurrent.Future
-import play.api.libs.concurrent.Execution.Implicits._
 
 private[i18n] final class GitWrite(transRelPath: String, repoPath: String) {
 

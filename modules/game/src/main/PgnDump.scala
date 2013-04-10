@@ -5,7 +5,6 @@ import chess.format.{ pgn ⇒ chessPgn }
 import chess.format.pgn.{ Pgn, Tag }
 import lila.user.User
 
-import play.api.libs.concurrent.Execution.Implicits._
 import org.joda.time.format.DateTimeFormat
 
 private[game] final class PgnDump(

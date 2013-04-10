@@ -5,7 +5,6 @@ import lila.db.Implicits._
 import tube.analysisTube
 
 import play.api.libs.json.Json
-import play.api.libs.concurrent.Execution.Implicits._
 
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._

@@ -7,7 +7,6 @@ import lila.hub.actorApi.lobby.TimelineEntry
 import tube.entryTube
 
 import akka.actor._
-import play.api.libs.concurrent.Execution.Implicits._
 
 private[timeline] final class Push(
     lobbySocket: ActorRef,

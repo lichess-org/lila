@@ -4,7 +4,6 @@ package stockfish
 import chess.{ Game, Move }
 import lila.analyse.Analysis
 
-import play.api.libs.concurrent.Execution.Implicits._
 
 final class Ai(server: Server) extends lila.ai.Ai {
 

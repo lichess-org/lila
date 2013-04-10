@@ -9,7 +9,6 @@ import tube._
 import actorApi._
 
 import akka.actor.ActorRef
-import play.api.libs.concurrent.Execution.Implicits._
 import scalaz.{ OptionT, OptionTs }
 
 private[forum] final class TopicApi(

@@ -4,7 +4,6 @@ import ornicar.scalalib
 
 import scalaz.{ Zero, Functor, Monad, OptionT }
 import scala.concurrent.Future
-import play.api.libs.concurrent.Execution.Implicits._
 
 trait PackageObject
     extends WithFuture
@@ -65,14 +64,6 @@ trait PackageObject
 
   def floatBox(in: Range.Inclusive)(v: Float): Float =
     math.max(in.start, math.min(v, in.end))
-
-  def printToFile(f: java.io.File)(op: java.io.PrintWriter ⇒ Unit): Funit = Future {
-    val p = new java.io.PrintWriter(f)
-    try { op(p) } finally { p.close() }
-  }
-
-  def printToFile(f: String)(op: java.io.PrintWriter ⇒ Unit): Funit =
-    printToFile(new java.io.File(f))(op)
 }
 
 trait WithFuture extends scalaz.Zeros {
@@ -95,11 +86,8 @@ trait WithFuture extends scalaz.Zeros {
 trait WithPlay { self: PackageObject ⇒
 
   import play.api.libs.json._
-  import play.api.libs.concurrent.Promise
-  import play.api.libs.iteratee.{ Iteratee, Enumerator }
-  import play.api.libs.iteratee.Concurrent.Channel
-  import play.api.Play.current
-  import play.api.libs.concurrent.Execution.Implicits._
+
+  implicit def playDefaultContext = play.api.libs.concurrent.Execution.defaultContext
 
   // Typeclasses
   implicit val LilaFutureFunctor = new Functor[Fu] {
@@ -145,4 +133,12 @@ trait WithPlay { self: PackageObject ⇒
     def seconds(s: Int): Timeout = Timeout(s.seconds)
     def minutes(m: Int): Timeout = Timeout(m.minutes)
   }
+
+  def printToFile(f: java.io.File)(op: java.io.PrintWriter ⇒ Unit): Funit = Future {
+    val p = new java.io.PrintWriter(f)
+    try { op(p) } finally { p.close() }
+  }
+
+  def printToFile(f: String)(op: java.io.PrintWriter ⇒ Unit): Funit =
+    printToFile(new java.io.File(f))(op)
 }

@@ -6,7 +6,6 @@ import Types.Coll
 import reactivemongo.bson._
 import play.modules.reactivemongo.Implicits._
 import play.api.libs.json._
-import play.api.libs.concurrent.Execution.Implicits._
 
 object $insert {
 

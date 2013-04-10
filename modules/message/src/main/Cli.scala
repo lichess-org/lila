@@ -1,9 +1,8 @@
 package lila.message
 
-import play.api.libs.concurrent.Execution.Implicits._
-
 private[message] final class Cli(env: Env) {
 
+  // TODO
   // def denormalize: IO[String] = env.denormalize inject "Forum denormalized"
 
   // def typecheck: IO[String] = 

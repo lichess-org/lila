@@ -4,7 +4,6 @@ import akka.actor._
 import scala.concurrent.Future
 import play.api.Application
 import play.api.libs.concurrent.Akka.system
-import play.api.libs.concurrent.Execution.Implicits._
 
 import lila.api.Env.{ current ⇒ apiEnv }
 

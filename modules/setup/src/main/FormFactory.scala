@@ -9,7 +9,6 @@ import lila.db.api._
 
 import play.api.data._
 import play.api.data.Forms._
-import play.api.libs.concurrent.Execution.Implicits._
 
 private[setup] final class FormFactory {
 

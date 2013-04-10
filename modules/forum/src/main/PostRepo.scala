@@ -5,7 +5,6 @@ import lila.db.api._
 import tube.postTube
 
 import play.api.libs.json.Json
-import play.api.libs.concurrent.Execution.Implicits._
 
 object PostRepo {
 

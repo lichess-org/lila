@@ -2,10 +2,9 @@ package lila.forum
 
 import play.api.data._
 import play.api.data.Forms._
-import play.api.libs.concurrent.Execution.Implicits._
 import akka.actor.ActorRef
 
-final class DataForm(val captcher: ActorRef) extends lila.hub.CaptchedForm {
+private[forum] final class DataForm(val captcher: ActorRef) extends lila.hub.CaptchedForm {
 
   import DataForm._
 

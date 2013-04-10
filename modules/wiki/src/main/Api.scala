@@ -3,7 +3,6 @@ package lila.wiki
 import lila.db.Types.Coll
 import lila.db.api._
 import tube._
-import play.api.libs.concurrent.Execution.Implicits._
 
 final class Api(implicit coll: Coll) {
 

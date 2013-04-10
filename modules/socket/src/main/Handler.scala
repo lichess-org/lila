@@ -4,8 +4,6 @@ import akka.actor.ActorRef
 import akka.pattern.ask
 import play.api.libs.json._
 import play.api.libs.iteratee.{ Iteratee, Enumerator }
-import play.api.libs.concurrent.Execution.Implicits._
-import play.api.libs.concurrent.Execution.Implicits._
 
 import actorApi._
 import makeTimeout.large
@@ -35,7 +33,7 @@ object Handler {
       } mapDone { _ ⇒ socket ! Quit(uid) }
 
     (socket ? join map {
-      case Connected(enumerator, member: M) ⇒ iteratee(member) -> enumerator
+       case Connected(enumerator, member: M) ⇒ iteratee(member) -> enumerator
     }) recover {
       case t: Throwable ⇒ errorHandler(t.getMessage)
     }
