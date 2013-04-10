@@ -3,10 +3,8 @@ package controllers
 import lila.app._
 import views._
 
-import play.api.mvc._
-import play.api.mvc.Results._
-import play.api.data._
-import play.api.data.Forms._
+import play.api.mvc._, Results._
+import play.api.data._, Forms._
 import play.api.libs.json._
 import play.api.libs.iteratee._
 import play.api.libs.concurrent.Akka
@@ -33,8 +31,9 @@ object Main extends LilaController {
   //   )
   // }
 
-  def developers = TODO
-  // Open { implicit ctx ⇒
-  //   Ok(views.html.site.developers())
-  // }
+  def developers = Open { implicit ctx ⇒
+    fuccess {
+      Ok(views.html.site.developers())
+    }
+  }
 }

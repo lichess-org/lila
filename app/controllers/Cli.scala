@@ -1,12 +1,9 @@
 package controllers
 
-import lila.api.Env.{ current ⇒ apiEnv }
-import lila.api._
+import lila.app._
 
-import play.api.mvc._
-import play.api.mvc.Results._
-import play.api.data._
-import play.api.data.Forms._
+import play.api.mvc._, Results._
+import play.api.data._, Forms._
 import play.api.libs.concurrent.Execution.Implicits._
 
 object Cli extends LilaController {
@@ -22,13 +19,13 @@ object Cli extends LilaController {
     form.bindFromRequest.fold(
       err ⇒ fuccess(BadRequest("invalid cli call")), {
         case (command, password) ⇒ CliAuth(password) {
-          apiEnv.cli(command.split(" ").toList) map { res ⇒ Ok(res) }
+          Env.api.cli(command.split(" ").toList) map { res ⇒ Ok(res) }
         }
       })
   }
 
   private def CliAuth(password: String)(op: Fu[Result]): Fu[Result] =
-    lila.user.UserRepo.checkPassword(apiEnv.CliUsername, password) flatMap {
+    lila.user.UserRepo.checkPassword(Env.api.CliUsername, password) flatMap {
       _.fold(op, fuccess(Unauthorized))
     }
 }

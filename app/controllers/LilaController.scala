@@ -3,11 +3,8 @@ package controllers
 import lila.app._
 import lila.common.LilaCookie
 import lila.user.{ Context, HeaderContext, BodyContext, User ⇒ UserModel }
-import lila.user.Env.{ current ⇒ userEnv }
 import lila.security.{ Permission, Granter }
-import lila.security.Env.{ current ⇒ securityEnv }
 
-import play.api.Play.current
 import play.api.mvc._, Results._
 import play.api.data.Form
 import play.api.http._
@@ -16,16 +13,12 @@ import play.api.libs.concurrent.Execution.Implicits._
 
 trait LilaController
     extends Controller
-    with Modules
     with ContentTypes
     with RequestGetter
     with ResponseWriter {
-  // with AsyncResults
 
-  // override implicit def lang(implicit req: RequestHeader) =
-  //   env.i18n.pool.lang(req)
-
-  // protected def toJson[A: WritesJson](data: A) = Json toJson data
+  override implicit def lang(implicit req: RequestHeader) =
+    Env.i18n.pool lang req
 
   protected def Open(f: Context ⇒ Fu[Result]): Action[AnyContent] =
     Open(BodyParsers.parse.anyContent)(f)
@@ -180,18 +173,18 @@ trait LilaController
   //   Granter.option(permission(Permission))(ctx.me)
 
   protected def reqToCtx(req: Request[_]): Fu[BodyContext] =
-    securityEnv.api restoreUser req map { user ⇒
+    Env.security.api restoreUser req map { user ⇒
       setOnline(user)
       Context(req, user)
     }
 
   protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] =
-    securityEnv.api restoreUser req map { user ⇒
+    Env.security.api restoreUser req map { user ⇒
       setOnline(user)
       Context(req, user)
     }
 
   private def setOnline(user: Option[UserModel]) {
-    user foreach { u ⇒ userEnv.usernameMemo put u.username }
+    user foreach { u ⇒ Env.user.usernameMemo put u.username }
   }
 }

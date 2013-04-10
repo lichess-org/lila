@@ -2,7 +2,7 @@ package lila.security
 
 import play.api.mvc.RequestHeader
 
-final class Wiretap(ips: Set[String]) {
+private[security] final class Wiretap(ips: Set[String]) {
 
   def apply(req: RequestHeader) {
     if (ips(req.remoteAddress)) println("[wiretap] %s %s %s".format(

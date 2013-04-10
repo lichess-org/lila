@@ -14,12 +14,10 @@ final class Env(
     system: ActorSystem) {
 
   private val settings = new {
-    val EntryMax = config getInt "lobby.entry.max"
-    val MessageMax = config getInt "lobby.message.max"
-    val MessageTtl = config duration "lobby.message.ttl"
-    val CollectionHook = config getString "lobby.collection.hook"
-    val CollectionEntry = config getString "lobby.collection.entry"
-    val CollectionMessage = config getString "lobby.collection.message"
+    val MessageMax = config getInt "message.max"
+    val MessageTtl = config duration "message.ttl"
+    val CollectionHook = config getString "collection.hook"
+    val CollectionMessage = config getString "collection.message"
     val NetDomain = config getString "net.domain"
     val SocketName = config getString "socket.name"
     val SocketUidTtl = config duration "socket.uid.ttl"
@@ -44,7 +42,6 @@ final class Env(
   private lazy val hookMemo = new ExpireSetMemo(ttl = OrphanHookTtl)
 
   private[lobby] lazy val hookColl = db(CollectionHook)
-  private[lobby] lazy val entryColl = db(CollectionEntry)
   private[lobby] lazy val messageColl = db(CollectionMessage)
 }
 

@@ -8,11 +8,9 @@ import com.typesafe.config.Config
 final class Env(config: Config) {
 
   private val settings = new {
-
     val EngineName = config getString "engine" 
     val IsServer = config getBoolean "server"
     val IsClient = config getBoolean "client"
-
     val StockfishExecPath = config getString "stockfish.exec_path"
     val StockfishPlayUrl = config getString "stockfish.play.url"
     val StockfishAnalyseUrl = config getString "stockfish.analyse.url"
@@ -32,6 +30,8 @@ final class Env(config: Config) {
   def stockfishServerReport = (IsServer && EngineName == "stockfish") option {
     stockfishServer.report
   }
+
+  def isServer = IsServer
 
   private lazy val stockfishAi = new stockfish.Ai(
     server = stockfishServer)
