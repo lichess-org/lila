@@ -13,7 +13,6 @@ import akka.actor.{ Props, Actor, ActorRef, Kill }
 import akka.pattern.{ ask, AskTimeoutException }
 import play.api.Play.current
 import play.api.libs.concurrent.Akka.system
-import play.api.libs.concurrent.Execution.Implicits._
 
 final class Server(execPath: String, config: Config) {
 

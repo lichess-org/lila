@@ -1,7 +1,6 @@
 package lila.bookmark
 
 import spray.caching.{ LruCache, Cache }
-import play.api.libs.concurrent.Execution.Implicits._
 
 private[bookmark] final class Cached {
 

@@ -6,7 +6,6 @@ import lila.i18n.I18nDomain
 import controllers.{ routes ⇒ R }
 import akka.actor._
 import akka.pattern.{ ask, pipe }
-import play.api.libs.concurrent.Execution.Implicits._
 
 private[app] final class Router(
   baseUrl: String,

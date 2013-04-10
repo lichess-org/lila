@@ -7,7 +7,6 @@ import play.api.libs.json._
 
 import reactivemongo.api._
 import reactivemongo.bson._
-import play.api.libs.concurrent.Execution.Implicits._
 
 object $cursor {
 

@@ -2,8 +2,6 @@ package lila.security
 
 import lila.user.{ User, UserRepo }
 
-import play.api.libs.concurrent.Execution.Implicits._
-
 private[security] final class Cli extends lila.common.Cli {
 
   def process = {

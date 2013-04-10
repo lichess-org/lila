@@ -7,7 +7,6 @@ import scala.concurrent.duration._
 
 import spray.caching.{ LruCache, Cache }
 import play.api.libs.json.JsObject
-import play.api.libs.concurrent.Execution.Implicits._
 
 private[game] final class Cached(ttl: Duration) {
 

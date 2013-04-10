@@ -9,7 +9,6 @@ import play.api.mvc._, Results._
 import play.api.data.Form
 import play.api.http._
 import play.api.libs.json.{ Json, Writes ⇒ WritesJson }
-import play.api.libs.concurrent.Execution.Implicits._
 
 trait LilaController
     extends Controller

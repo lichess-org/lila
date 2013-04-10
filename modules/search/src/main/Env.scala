@@ -3,7 +3,6 @@ package lila.search
 import com.typesafe.config.Config
 import scalastic.elasticsearch
 import scala.concurrent.Future
-import play.api.libs.concurrent.Execution.Implicits._
 
 final class Env(config: Config) {
 

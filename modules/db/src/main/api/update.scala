@@ -4,7 +4,6 @@ package api
 import Types._
 
 import play.api.libs.json._
-import play.api.libs.concurrent.Execution.Implicits._
 import play.modules.reactivemongo.Implicits._
 
 object $update {

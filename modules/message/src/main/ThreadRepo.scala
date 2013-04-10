@@ -5,7 +5,6 @@ import lila.db.Implicits._
 import tube.threadTube
 
 import play.api.libs.json.Json
-import play.api.libs.concurrent.Execution.Implicits._
 
 import scala.concurrent.Future
 

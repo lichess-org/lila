@@ -12,7 +12,6 @@ import akka.pattern.{ ask, pipe }
 import scala.concurrent.duration._
 import play.api.libs.json._
 import play.api.libs.iteratee._
-import play.api.libs.concurrent.Execution.Implicits._
 
 private[round] final class Socket(
     gameId: String,

@@ -3,8 +3,6 @@ package lila.round
 import lila.db.api._
 import tube.watcherRoomTube
 
-import play.api.libs.concurrent.Execution.Implicits._
-
 private[round] object WatcherRoomRepo {
 
   def room(id: String): Fu[WatcherRoom] =

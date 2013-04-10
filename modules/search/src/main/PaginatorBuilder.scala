@@ -4,7 +4,6 @@ import lila.common.paginator._
 
 import akka.actor.ActorRef
 import akka.pattern.ask
-import play.api.libs.concurrent.Execution.Implicits._
 import org.elasticsearch.action.search.SearchResponse
 
 final class PaginatorBuilder[A](

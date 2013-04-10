@@ -9,7 +9,6 @@ import lila.db.api._
 
 import akka.actor.ActorRef
 import scala.concurrent.duration.Duration
-import play.api.libs.concurrent.Execution.Implicits._
 
 private[importer] final class Importer(
     hand: Hand,

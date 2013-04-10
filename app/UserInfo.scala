@@ -6,7 +6,6 @@ import lila.user.{ User, UserRepo, Context, EloChart }
 import lila.bookmark.BookmarkApi
 import lila.security.UserSpy
 
-import play.api.libs.concurrent.Execution.Implicits._
 
 case class UserInfo(
     user: User,

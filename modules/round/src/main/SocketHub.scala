@@ -8,7 +8,6 @@ import akka.pattern.{ ask, pipe }
 import scala.concurrent.duration._
 import scala.concurrent.Future
 import play.api.libs.json._
-import play.api.libs.concurrent.Execution.Implicits._
 import makeTimeout.short
 
 private[round] final class SocketHub(

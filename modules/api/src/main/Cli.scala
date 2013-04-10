@@ -1,7 +1,5 @@
 package lila.api
 
-import play.api.libs.concurrent.Execution.Implicits._
-
 private[api] final class Cli(env: Env) {
 
   def apply(args: List[String]): Fu[String] = run(args).map(_ + "\n") ~ {

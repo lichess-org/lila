@@ -2,7 +2,6 @@ package lila.round
 
 import akka.actor._
 import akka.pattern.ask
-import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json.JsObject
 import scalaz.{ Success, Failure }
 

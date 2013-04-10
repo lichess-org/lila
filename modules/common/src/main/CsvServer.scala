@@ -3,7 +3,6 @@ package lila.common
 import com.github.tototoshi.csv.CSVWriter
 import play.api.Play
 import play.api.Play.current
-import play.api.libs.concurrent.Execution.Implicits._
 import scala.concurrent.Future
 
 object CsvServer {

@@ -7,7 +7,6 @@ import lila.game.tube.gameTube
 
 import akka.actor.ActorRef
 import akka.pattern.ask
-import play.api.libs.concurrent.Execution.Implicits._
 
 private[analyse] final class Analyser(ai: ActorRef) {
 

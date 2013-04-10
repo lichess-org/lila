@@ -8,8 +8,6 @@ import lila.game.Event
 import tube.{ roomTube, watcherRoomTube }
 import lila.db.api._
 
-import play.api.libs.concurrent.Execution.Implicits._
-
 final class Messenger(i18nKeys: I18nKeys) {
 
   private val nbMessagesCopiedToRematch = 20

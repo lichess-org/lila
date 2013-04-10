@@ -6,7 +6,6 @@ import reactivemongo.bson._
 import play.modules.reactivemongo.Implicits._
 
 import play.api.libs.json.JsObject
-import play.api.libs.concurrent.Execution.Implicits._
 
 private[monitor] case class MongoStatus(
   memory: Int = 0,

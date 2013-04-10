@@ -10,8 +10,6 @@ import lila.hub.actorApi.message._
 import tube.threadTube
 
 import akka.actor.ActorRef
-import scala.math.ceil
-import play.api.libs.concurrent.Execution.Implicits._
 
 final class Api(
     unreadCache: UnreadCache,

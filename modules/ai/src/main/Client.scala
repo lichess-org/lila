@@ -1,7 +1,6 @@
 package lila.ai
 
 import scala.concurrent.Future
-import play.api.libs.concurrent.Execution.Implicits._
 import scala.util.{ Success, Failure }
 
 trait Client extends Ai {

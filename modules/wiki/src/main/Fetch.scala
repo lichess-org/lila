@@ -14,7 +14,6 @@ import eu.henkelmann.actuarius.ActuariusTransformer
 import scala.collection.JavaConversions._
 import scala.concurrent.Future
 
-import play.api.libs.concurrent.Execution.Implicits._
 
 private[wiki] final class Fetch(gitUrl: String)(implicit coll: Coll) {
 

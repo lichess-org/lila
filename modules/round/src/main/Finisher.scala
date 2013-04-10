@@ -12,7 +12,6 @@ import lila.db.api._
 import lila.hub.actorApi.round._
 
 import akka.actor.ActorRef
-import play.api.libs.concurrent.Execution.Implicits._
 import scalaz.{ OptionTs, Success }
 
 final class Finisher(

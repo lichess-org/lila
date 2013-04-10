@@ -9,7 +9,6 @@ import lila.db.api._
 import lila.common.LilaCookie
 
 import play.api.libs.json._
-import play.api.libs.concurrent.Execution.Implicits._
 import play.api.mvc._
 
 import reactivemongo.api._

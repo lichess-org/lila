@@ -4,7 +4,6 @@ import lila.common.PimpedConfig._
 
 import akka.actor.ActorRef
 import com.typesafe.config.Config
-import play.api.libs.concurrent.Execution.Implicits._
 import spray.caching.{ LruCache, Cache }
 
 final class Env(

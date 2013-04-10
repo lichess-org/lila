@@ -5,7 +5,6 @@ import lila.db.Implicits._
 import tube.translationTube
 
 import play.api.libs.json.Json
-import play.api.libs.concurrent.Execution.Implicits._
 
 private[i18n] object TranslationRepo {
 

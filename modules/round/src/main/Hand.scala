@@ -11,7 +11,6 @@ import makeTimeout.large
 
 import akka.actor._
 import akka.pattern.ask
-import play.api.libs.concurrent.Execution.Implicits._
 import scala.concurrent.duration.Duration
 
 final class Hand(

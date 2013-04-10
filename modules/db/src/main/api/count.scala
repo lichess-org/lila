@@ -6,7 +6,6 @@ import Types._
 import play.api.libs.json._
 import reactivemongo.core.commands.Count
 import play.modules.reactivemongo.Implicits._
-import play.api.libs.concurrent.Execution.Implicits._
 
 object $count {
 

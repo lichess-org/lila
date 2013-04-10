@@ -4,7 +4,6 @@ import akka.actor._
 import akka.pattern.ask
 import play.api.libs.json._
 import play.api.libs.iteratee._
-import play.api.libs.concurrent.Execution.Implicits._
 
 import actorApi._
 import lila.common.PimpedJson._

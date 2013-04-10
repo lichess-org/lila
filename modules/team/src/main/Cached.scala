@@ -3,7 +3,6 @@ package lila.team
 import lila.user.User
 
 import spray.caching.{ LruCache, Cache }
-import play.api.libs.concurrent.Execution.Implicits._
 
 final class Cached(capacity: Int) {
 

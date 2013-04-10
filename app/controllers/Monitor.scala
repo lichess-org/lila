@@ -4,7 +4,6 @@ import play.api.mvc._
 import play.api.libs.Comet
 import play.api.libs.json._
 import akka.pattern.ask
-import play.api.libs.concurrent.Execution.Implicits._
 
 import lila.app._
 import lila.socket.actorApi.GetNbMembers

@@ -6,7 +6,6 @@ import actorApi.captcha._
 import akka.actor.ActorRef
 import akka.pattern.ask
 import play.api.data._
-import play.api.libs.concurrent.Execution.Implicits._
 
 trait CaptchedForm {
 

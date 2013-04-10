@@ -5,8 +5,6 @@ import lila.user.tube.userTube
 import tube.messageTube
 import lila.db.api._
 
-import play.api.libs.concurrent.Execution.Implicits._
-
 private[lobby] final class Messenger(val netDomain: String) extends Room {
 
   def apply(userId: String, text: String): Fu[Valid[Message]] = for {

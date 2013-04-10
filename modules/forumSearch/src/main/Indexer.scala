@@ -5,7 +5,6 @@ import lila.forum.actorApi._
 import lila.search.{ actorApi ⇒ S }
 
 import akka.actor._
-import play.api.libs.concurrent.Execution.Implicits._
 import org.elasticsearch.index.query._, FilterBuilders._, QueryBuilders._
 
 private[forumSearch] final class Indexer(

@@ -12,7 +12,6 @@ import controllers.routes
 
 import play.api.templates.Html
 import play.api.mvc.Call
-import play.api.libs.concurrent.Execution.Implicits._
 
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper ⇒
 

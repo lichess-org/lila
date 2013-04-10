@@ -1,8 +1,6 @@
 package lila.common
 package paginator
 
-import play.api.libs.concurrent.Execution.Implicits._
-
 trait AdapterLike[A] {
 
   /**

@@ -3,7 +3,6 @@ package lila.ai
 import chess.{ Game, Move }
 
 import scala.concurrent.Future
-import play.api.libs.concurrent.Execution.Implicits._
 
 private[ai] final class StupidAi extends Ai {
 

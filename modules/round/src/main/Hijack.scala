@@ -5,7 +5,6 @@ import lila.user.Context
 import lila.memo.ExpireSetMemo
 
 import scala.concurrent.duration.Duration
-import play.api.libs.concurrent.Execution.Implicits._
 
 private[round] final class Hijack(timeout: Duration) {
 

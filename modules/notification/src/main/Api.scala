@@ -5,7 +5,6 @@ import lila.hub.actorApi.SendTo
 
 import scala.collection.mutable
 import play.api.templates.Html
-import play.api.libs.concurrent.Execution.Implicits._
 import akka.actor.ActorRef
 import akka.pattern.ask
 
