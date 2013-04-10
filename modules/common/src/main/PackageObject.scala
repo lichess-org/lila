@@ -78,7 +78,7 @@ trait WithFuture extends Zeros {
   def fufail[B](a: String): Fu[B] = Future failed (new RuntimeException(a))
   val funit = fuccess(())
 
-  implicit def LilaFuZero[A: Zero] = zero(fuccess(∅[A]))
+  implicit def LilaFuZero[A: Zero]: Zero[Fu[A]] = zero(fuccess(∅[A]))
 
   implicit def SprayPimpedFuture[T](fut: Future[T]) = new PimpedFuture[T](fut)
 }
@@ -99,9 +99,9 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
     def bind[A, B](r: Fu[A], f: A ⇒ Fu[B]) = r flatMap f
   }
 
-  implicit val LilaJsObjectZero = zero(JsObject(Seq.empty))
+  implicit val LilaJsObjectZero: Zero[JsObject] = zero(JsObject(Seq.empty))
 
-  implicit def LilaJsResultZero[A] = zero(JsError(Seq.empty))
+  implicit def LilaJsResultZero[A]: Zero[JsResult[A]] = zero(JsError(Seq.empty))
 
   implicit final class LilaPimpedFuture[A](fua: Fu[A]) {
 
