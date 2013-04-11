@@ -14,12 +14,11 @@ import eu.henkelmann.actuarius.ActuariusTransformer
 import scala.collection.JavaConversions._
 import scala.concurrent.Future
 
-
 private[wiki] final class Fetch(gitUrl: String)(implicit coll: Coll) {
 
   def apply: Funit = getFiles flatMap { files ⇒
     val pages = files.map(filePage).flatten
-    $remove($select.all) >> Future.sequence(pages.map($insert(_))).void
+    $remove($select.all) >> pages.map($insert(_)).sequence.void
   }
 
   private def filePage(file: File): Option[Page] = {

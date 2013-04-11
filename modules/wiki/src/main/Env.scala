@@ -1,5 +1,8 @@
 package lila.wiki
 
+import tube.pageTube
+import lila.db.api.$find
+
 import com.typesafe.config.Config
 
 final class Env(config: Config, db: lila.db.Env) {
@@ -7,7 +10,14 @@ final class Env(config: Config, db: lila.db.Env) {
   private val CollectionPage = config getString "collection.page"
   private val GitUrl = config getString "git.url"
 
-  lazy val api = new Api()(pageColl)
+  def show(slug: String): Fu[Option[(Page, List[Page])]] = {
+    import makeTimeout.short
+    ($find.all).await.pp
+    throw new Exception("aaarg")
+    $find byId slug zip $find.all map {
+      case (page, pages) ⇒ page map { _ -> pages }
+    }
+  }
 
   private[wiki] lazy val pageColl = db(CollectionPage)
 
