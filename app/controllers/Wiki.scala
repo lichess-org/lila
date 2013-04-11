@@ -12,8 +12,8 @@ object Wiki extends LilaController {
   }
 
   def show(slug: String) = Open { implicit ctx ⇒
-    Optional(Env.wiki.api show slug) {
-      case (page, pages) ⇒ "todo" // html.wiki.show(page, pages)
+    Optional(Env.wiki show slug) {
+      case (page, pages) ⇒ html.wiki.show(page, pages)
     }
   }
 }
