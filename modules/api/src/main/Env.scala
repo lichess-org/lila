@@ -16,9 +16,6 @@ final class Env(application: Application, val config: Config) {
     val BaseUrl = config getString "net.base_url"
   }
 
-  val RendererName = config getString "core.renderer.name"
-  val RouterName = config getString "core.router.name"
-
   lazy val cli = new Cli(this)
 
   val isDev = application.mode == Dev

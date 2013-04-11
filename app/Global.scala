@@ -17,7 +17,7 @@ object Global extends GlobalSettings with scalalib.Common {
     //   println("Enable cron tasks")
     //   core.Cron start env
     // }
-    lila.app.Starter(app)
+    lila.app.Env.current
   }
 
   override def onRouteRequest(req: RequestHeader): Option[Handler] =

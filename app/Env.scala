@@ -1,6 +1,33 @@
 package lila.app
 
+import akka.actor._
+import com.typesafe.config.Config
+
+final class Env(config: Config, system: ActorSystem) {
+
+  val CliUsername = config getString "cli.username"
+  private val RendererName = config getString "app.renderer.name"
+  private val RouterName = config getString "app.router.name"
+  private val ModulePreload = config getBoolean "app.module.preload"
+
+  system.actorOf(Props(new actor.Renderer), name = RendererName)
+
+  system.actorOf(Props(new actor.Router(
+    baseUrl = Env.api.Net.BaseUrl,
+    protocol = Env.api.Net.Protocol,
+    domain = Env.api.Net.Domain
+  )), name = RouterName)
+
+  if (ModulePreload) 
+    (Env.setup, Env.game, Env.gameSearch, Env.team, 
+    Env.teamSearch, Env.forumSearch, Env.message) 
+}
+
 object Env {
+
+  lazy val current = "[boot] app" describes new Env(
+    config = lila.common.PlayApp.loadConfig,
+    system = lila.common.PlayApp.system)
 
   def api = lila.api.Env.current
   def db = lila.db.Env.current

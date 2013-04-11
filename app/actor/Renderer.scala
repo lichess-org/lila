@@ -1,4 +1,5 @@
 package lila.app
+package actor
 
 import akka.actor._
 
