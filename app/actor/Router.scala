@@ -1,4 +1,5 @@
 package lila.app
+package actor
 
 import lila.hub.actorApi.router._
 import lila.i18n.I18nDomain
