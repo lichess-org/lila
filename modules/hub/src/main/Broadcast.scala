@@ -1,6 +1,5 @@
 package lila.hub
 
-import scala.concurrent.Future
 import scala.concurrent.duration._
 import akka.actor._
 import akka.pattern.{ ask, pipe }
@@ -11,19 +10,19 @@ final class Broadcast(routees: List[ActorRef])(implicit timeout: Timeout) extend
 
   def receive = {
 
-    case msg: SendTo ⇒ tell(msg)
+    case Ask(msg) => askAll(msg) pipeTo sender
 
-    case msg ⇒ tell(msg)
+    case msg ⇒ tellAll(msg.pp)
   }
 
   // def to[A : Writes](userId: String, typ: String, data: A) {
   //   this ! SendTo(userId, Json.obj("t" -> typ, "d" -> data))
   // }
 
-  private def tell(message: Any) {
+  private def tellAll(message: Any) {
     routees foreach (_ ! message)
   }
 
-  // private def ask[A](message: Any)(implicit m: Manifest[A]): Fu[List[A]] =
-  //   Future.traverse(routees) { hub ⇒ hub ? message mapTo m }
+  private def askAll(message: Any): Fu[List[Any]] =
+    routees.map(_ ? message).sequence
 }

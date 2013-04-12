@@ -18,7 +18,8 @@ final class Env(application: Application, val config: Config) {
 
   lazy val cli = new Cli(this)
 
-  val isDev = application.mode == Dev
+  val mode = application.mode
+  val isDev = mode == Dev
 }
 
 object Env {

@@ -13,5 +13,5 @@ object $save {
       fuck(_),
       js ⇒ $update($select(doc.id), js, upsert = true)
     )
-  def apply[A <: Identified[String]: TubeInColl](doc: A): Funit = apply(doc)
+  def apply[A <: Identified[String]: TubeInColl](doc: A): Funit = apply[String, A](doc)
 }

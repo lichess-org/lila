@@ -25,7 +25,7 @@ final class Env(
   }
   import settings._
 
-  lazy val socket = system.actorOf(Props(new Socket(
+  val socket = system.actorOf(Props(new Socket(
     messenger = messenger,
     history = history,
     uidTtl = SocketUidTtl

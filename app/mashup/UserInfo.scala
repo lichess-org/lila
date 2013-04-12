@@ -1,11 +1,11 @@
 package lila.app
+package mashup
 
 import chess.{ EloCalculator, Color }
 import lila.game.{ GameRepo, Game }
 import lila.user.{ User, UserRepo, Context, EloChart }
 import lila.bookmark.BookmarkApi
 import lila.security.UserSpy
-
 
 case class UserInfo(
     user: User,

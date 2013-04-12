@@ -19,10 +19,10 @@ object $find extends OptionTs {
     q.one[Option[A]] map (_.flatten)
 
   def byId[ID: Writes, A: TubeInColl](id: ID): Fu[Option[A]] = one($select byId id)
-  def byId[A: TubeInColl](id: String): Fu[Option[A]] = byId(id)
+  def byId[A: TubeInColl](id: String): Fu[Option[A]] = byId[String, A](id)
 
   def byIds[ID: Writes, A: TubeInColl](ids: Seq[ID]): Fu[List[A]] = apply($select byIds ids)
-  def byIds[A: TubeInColl](ids: Seq[String]): Fu[List[A]] = byIds(ids)
+  def byIds[A: TubeInColl](ids: Seq[String]): Fu[List[A]] = byIds[String, A](ids)
 
   def byOrderedIds[ID: Writes, A <: Identified[ID]: TubeInColl](ids: Seq[ID]): Fu[List[A]] =
     byIds(ids) map { docs ⇒
@@ -30,7 +30,7 @@ object $find extends OptionTs {
       ids.map(docsMap.get).flatten.toList
     }
   def byOrderedIds[A <: Identified[String]: TubeInColl](ids: Seq[String]): Fu[List[A]] =
-    byOrderedIds(ids)
+    byOrderedIds[String, A](ids)
 
   def all[A: TubeInColl]: Fu[List[A]] = apply($select.all)
 

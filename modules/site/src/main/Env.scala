@@ -11,7 +11,7 @@ final class Env(config: Config) {
   private val SocketUidTtl = config duration "socket.uid.ttl"
   private val SocketName = config getString "socket.name"
 
-  lazy val socket = system.actorOf(
+  private val socket = system.actorOf(
     Props(new Socket(timeout = SocketUidTtl)), name = SocketName)
 
   lazy val socketHandler = new SocketHandler(socket)

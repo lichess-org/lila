@@ -6,9 +6,11 @@ import com.typesafe.config.Config
 final class Env(config: Config, system: ActorSystem) {
 
   val CliUsername = config getString "cli.username"
+
   private val RendererName = config getString "app.renderer.name"
   private val RouterName = config getString "app.router.name"
   private val ModulePreload = config getBoolean "app.module.preload"
+  private val CronEnabled = config getBoolean "app.cron.enabled"
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
@@ -18,9 +20,14 @@ final class Env(config: Config, system: ActorSystem) {
     domain = Env.api.Net.Domain
   )), name = RouterName)
 
-  if (ModulePreload) 
-    (Env.setup, Env.game, Env.gameSearch, Env.team, 
-    Env.teamSearch, Env.forumSearch, Env.message) 
+  if (ModulePreload) {
+    loginfo("Preloading modules")
+    (Env.setup, Env.game, Env.gameSearch, Env.team,
+      Env.teamSearch, Env.forumSearch, Env.message, Env.site)
+  }
+
+  if (Env.ai.isServer) println("Running as AI server")
+  else if (CronEnabled) Cron start system
 }
 
 object Env {

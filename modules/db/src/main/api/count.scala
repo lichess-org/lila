@@ -22,5 +22,5 @@ object $count {
   def exists[A : InColl](q: JsObject): Fu[Boolean] = apply(q) map (0 !=)
 
   def exists[ID: Writes, A: InColl](id: ID): Fu[Boolean] = exists($select(id))
-  def exists[A: InColl](id: String): Fu[Boolean] = exists(id)
+  def exists[A: InColl](id: String): Fu[Boolean] = exists[String, A](id)
 }
