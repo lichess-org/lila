@@ -11,9 +11,6 @@ final class Env(config: Config, db: lila.db.Env) {
   private val GitUrl = config getString "git.url"
 
   def show(slug: String): Fu[Option[(Page, List[Page])]] = {
-    import makeTimeout.short
-    ($find.all).await.pp
-    throw new Exception("aaarg")
     $find byId slug zip $find.all map {
       case (page, pages) ⇒ page map { _ -> pages }
     }

@@ -13,7 +13,7 @@ object $update {
       fuck(_),
       js ⇒ apply($select(doc.id), js)
     )
-  def apply[A <: Identified[String]: TubeInColl](doc: A): Funit = apply(doc)
+  def apply[A <: Identified[String]: TubeInColl](doc: A): Funit = apply[String, A](doc)
 
   def apply[A: InColl](selector: JsObject, update: JsObject, upsert: Boolean = false, multi: Boolean = false): Funit = for {
     lastErr ← implicitly[InColl[A]].coll.update(selector, update, upsert = upsert, multi = multi)

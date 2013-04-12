@@ -1,22 +1,15 @@
-// package _root_ 
 package lila.app
 
 // import lila.app.Env
 import lila.hub.actorApi.monitor.AddRequest
 
-import ornicar.scalalib
 import play.api.{ Application, GlobalSettings, Mode }
 import play.api.mvc._
 import play.api.mvc.Results._
 
-object Global extends GlobalSettings with scalalib.Common {
+object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
-    // if (env.ai.isServer) println("Running as AI server")
-    // else if (env.settings.CoreCronEnabled) {
-    //   println("Enable cron tasks")
-    //   core.Cron start env
-    // }
     lila.app.Env.current
   }
 
@@ -27,15 +20,14 @@ object Global extends GlobalSettings with scalalib.Common {
     }
     else {
       Env.monitor.reporting ! AddRequest
-      Env.security.wiretap(req)
+      Env.security.wiretap(req.pp)
       Env.security.firewall.requestHandler(req).await orElse
         Env.i18n.requestHandler(req) orElse
         super.onRouteRequest(req)
     }
-  // super.onRouteRequest(req) ~ { _ ⇒ println(req) }
 
-  // override def onHandlerNotFound(req: RequestHeader): Result =
-  //   env.ai.isServer.fold(NotFound, controllers.Lobby handleNotFound req)
+  override def onHandlerNotFound(req: RequestHeader): Result =
+    Env.ai.isServer.fold(NotFound, controllers.Lobby.handleNotFound(req).await)
 
   override def onBadRequest(req: RequestHeader, error: String) = {
     BadRequest("Bad Request: " + error)

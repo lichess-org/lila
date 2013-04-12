@@ -13,6 +13,8 @@ object SendTo {
 
 case class SendTos[A: Writes](userIds: Set[String], message: A)
 
+case class Ask(msg: Any)
+
 package captcha {
   case object AnyCaptcha
   case class GetCaptcha(id: String)

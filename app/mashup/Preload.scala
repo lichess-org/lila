@@ -1,4 +1,5 @@
-package lila.lobby
+package lila.app
+package mashup
 
 import lila.timeline.Entry
 import lila.game.{ Game, Featured }
@@ -18,7 +19,7 @@ import lila.socket.History
 // import scalaz.effects._
 
 // TODO
-// private[lobby] final class Preload(
+// final class Preload(
 //     fisherman: Fisherman,
 //     history: History,
 //     hookRepo: HookRepo,

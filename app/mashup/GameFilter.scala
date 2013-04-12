@@ -1,4 +1,5 @@
 package lila.app
+package mashup
 
 import lila.user.{ User, Context }
 import lila.game.{ Game, Query }

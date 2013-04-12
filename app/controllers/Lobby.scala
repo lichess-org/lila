@@ -14,5 +14,4 @@ object Lobby extends LilaController {
 
   def handleNotFound(implicit ctx: Context): Fu[Result] =
     fuccess(NotFound)
-
 }

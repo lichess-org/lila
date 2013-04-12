@@ -13,13 +13,13 @@ object $remove {
 
   def byId[ID: Writes, A: InColl](id: ID): Funit =
     apply($select(id))
-  def byId[A: InColl](id: String): Funit = byId(id)
+  def byId[A: InColl](id: String): Funit = byId[String, A](id)
 
   def byIds[ID: Writes, A: InColl](ids: Seq[ID]): Funit =
     apply($select byIds ids)
-  def byIds[A: InColl](ids: Seq[String]): Funit = byIds(ids)
+  def byIds[A: InColl](ids: Seq[String]): Funit = byIds[String, A](ids)
 
   def apply[ID: Writes, A <: Identified[ID]: TubeInColl](doc: A): Funit =
     byId(doc.id)
-  def apply[A <: Identified[String]: TubeInColl](doc: A): Funit = apply(doc)
+  def apply[A <: Identified[String]: TubeInColl](doc: A): Funit = apply[String, A](doc)
 }
