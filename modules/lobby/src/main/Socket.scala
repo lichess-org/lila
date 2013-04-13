@@ -2,7 +2,7 @@ package lila.lobby
 
 import actorApi._
 import lila.socket.{ SocketActor, History, Historical }
-import lila.socket.actorApi._
+import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import lila.game.actorApi._
 import lila.hub.actorApi.lobby._
 
