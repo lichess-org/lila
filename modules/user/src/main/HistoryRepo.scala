@@ -63,7 +63,7 @@ object HistoryRepo {
   //       }
   //     }).flatten sortBy (_.head)
   //     val id = history.as[String]("_id")
-  //     println("%s: %d -> %d".format(id, initEntries.size, entries.size))
+  //     loginfo("%s: %d -> %d".format(id, initEntries.size, entries.size))
   //     collection.update(
   //       DBObject("_id" -> id),
   //       $set(Seq("entries" -> entries))

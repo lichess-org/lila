@@ -57,7 +57,7 @@ final class Firewall(
   }
 
   private def log(msg: Any) {
-    println("[%s] %s".format("firewall", msg.toString))
+    loginfo("[%s] %s".format("firewall", msg.toString))
   }
 
   private def formatReq(req: RequestHeader) =

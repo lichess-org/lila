@@ -37,7 +37,7 @@ private[i18n] final class Translator(api: MessagesApi, pool: I18nPool) {
   }
   catch {
     case e: Exception ⇒ {
-      println("Failed to translate %s -> %s (%s) - %s".format(
+      logwarn("Failed to translate %s -> %s (%s) - %s".format(
         key, pattern, args, e.getMessage))
       None
     }

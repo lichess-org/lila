@@ -21,7 +21,7 @@ trait Client extends Ai {
 
   def diagnose: Unit = tryPing onComplete {
     case Failure(e) ⇒ {
-      println("remote AI error: " + e.getMessage)
+      logwarn("remote AI error: " + e.getMessage)
       changePing(none)
     }
     case Success(p) ⇒ changePing(p.some)
@@ -29,9 +29,9 @@ trait Client extends Ai {
 
   private def changePing(p: Option[Int]) = {
     if (isHealthy(p) && !currentHealth)
-      println("remote AI is up, ping = " + p)
+      loginfo("remote AI is up, ping = " + p)
     else if (!isHealthy(p) && currentHealth)
-      println("remote AI is down, ping = " + p)
+      logwarn("remote AI is down, ping = " + p)
     ping = p
   }
 

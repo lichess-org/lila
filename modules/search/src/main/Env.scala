@@ -17,9 +17,9 @@ final class Env(config: Config) {
   )
 
   Future {
-    println("[search] Start ElasticSearch")
+    loginfo("[search] Start ElasticSearch")
     esIndexer.start
-    println("[search] ElasticSearch is running")
+    loginfo("[search] ElasticSearch is running")
   }
 }
 
