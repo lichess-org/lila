@@ -7,8 +7,8 @@ import lila.db.api._
 import play.api.libs.json._
 
 import reactivemongo.api._
-import reactivemongo.bson._
-import play.modules.reactivemongo.MongoJSONHelpers.RegEx
+
+import scala.util.matching.Regex
 
 private[lobby] object MessageRepo {
 
@@ -18,9 +18,9 @@ private[lobby] object MessageRepo {
   def censorUsername(userId: String): Funit =
     $update(Json.obj("userId" -> userId), $set("text" -> ""), multi = true)
 
-  def removeRegex(regex: scala.util.matching.Regex): Funit =
+  def removeRegex(regex: Regex): Funit =
     $update(
-      Json.obj("text" -> RegEx(regex.toString)),
+      Json.obj("text" -> $regex(regex.toString)),
       $set("text" -> ""),
       multi = true)
 }

@@ -4,7 +4,7 @@ package api
 import Implicits._
 
 import reactivemongo.bson._
-import play.modules.reactivemongo.Implicits._
+import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 import play.api.libs.json._
 import scalaz.{ OptionT, OptionTs }
 

@@ -6,7 +6,7 @@ import play.api.libs.json._
 import play.api.libs.functional.syntax._
 import Reads.constraints._
 import reactivemongo.bson._
-import play.modules.reactivemongo.Implicits._
+import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 
 trait InColl[A] { implicit def coll: Types.Coll }
 

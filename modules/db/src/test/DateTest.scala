@@ -17,7 +17,7 @@ class DateTest extends Specification {
 
   val date = DateTime.now
   import api.Free._
-  import play.modules.reactivemongo.Implicits._
+  import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 
   "date conversion" should {
     "js to bson" in {

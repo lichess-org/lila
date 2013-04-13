@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 import play.api.mvc.{ RequestHeader, Handler, Action, Cookies }
 import play.api.mvc.Results.Redirect
 import play.api.libs.json._
-import play.modules.reactivemongo.Implicits._
+import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 import spray.caching.{ LruCache, Cache }
 import org.joda.time.DateTime
 import ornicar.scalalib.Random

@@ -3,7 +3,7 @@ package lila.monitor
 import reactivemongo.core.commands.Status
 import reactivemongo.api.DB
 import reactivemongo.bson._
-import play.modules.reactivemongo.Implicits._
+import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 
 import play.api.libs.json.JsObject
 
