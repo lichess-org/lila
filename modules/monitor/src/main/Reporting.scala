@@ -69,7 +69,7 @@ private[monitor] final class Reporting(
     //     (env.round.hubMaster ? GetNbHubs).mapTo[Int],
     //     (env.round.hubMaster ? GetNbMembers).mapTo[Int]
     //   ).sequence onComplete {
-    //     case Failure(e) ⇒ println("Reporting: " + e.getMessage)
+    //     case Failure(e) ⇒ logwarn("[reporting] " + e.getMessage)
     //     case Success(List(
     //       siteMembers,
     //       lobbyMembers,

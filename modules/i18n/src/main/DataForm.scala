@@ -52,7 +52,7 @@ final class DataForm(
         case (key, msgs) if key startsWith "key_" ⇒ msgs.headOption map { key.drop(4) -> _ }
       }).flatten.toMap
     case body ⇒ {
-      println("Can't parse translation request body: " + body)
+      logwarn("Can't parse translation request body: " + body)
       Map.empty
     }
   }

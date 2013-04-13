@@ -14,7 +14,7 @@ object CsvServer {
     val webPath = "/serve/" + filename
 
     file.exists.fold(funit, {
-      println("[csv] Export " + file)
+      loginfo("[csv] Export " + file)
       Future {
         val writer = new CSVWriter(file, "UTF-8")
         writer writeAll lines.map(_ map (_.toString))

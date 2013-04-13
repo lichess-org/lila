@@ -66,7 +66,7 @@ final class Env(
       Iteratee foreach { (gameOptions: Iterator[Option[GameModel]]) ⇒
         val games = gameOptions.flatten
         nb = nb + games.size
-        if (size > 1000) println(s"Index $nb of $size games")
+        if (size > 1000) loginfo(s"Index $nb of $size games")
         val pgns = PgnRepo.associate(games.map(_.id).toSeq).await
         val pairs = (pgns map { 
           case (id, pgn) => games.find(_.id == id) map (_ -> pgn)
