@@ -31,7 +31,6 @@ object Dependencies {
   val config = "com.typesafe" % "config" % "1.0.0"
   val apache = "org.apache.commons" % "commons-lang3" % "3.1"
   val scalaTime = "org.scala-tools.time" % "time_2.9.1" % "0.5"
-  val slf4jNop = "org.slf4j" %% "slf4j-nop" % "1.6.4"
   val guava = "com.google.guava" % "guava" % "14.0.1"
   val findbugs = "com.google.code.findbugs" % "jsr305" % "2.0.1"
   val csv = "com.github.tototoshi" % "scala-csv_2.9.1" % "0.3"
