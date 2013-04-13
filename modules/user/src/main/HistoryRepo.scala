@@ -7,7 +7,7 @@ import tube.historyTube
 
 import play.api.libs.json._
 
-import play.modules.reactivemongo.Implicits._
+import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 
 import org.joda.time.DateTime
 

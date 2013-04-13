@@ -6,7 +6,7 @@ import Implicits._
 import play.api.libs.json._
 import Json.JsValueWrapper
 
-import play.modules.reactivemongo.Implicits._
+import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 
 import reactivemongo.api._
 import reactivemongo.bson._

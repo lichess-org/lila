@@ -7,9 +7,6 @@ import tube.userTube
 import play.api.libs.json.Json
 
 import reactivemongo.api._
-import reactivemongo.bson._
-
-import play.modules.reactivemongo.MongoJSONHelpers.RegEx
 
 import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
@@ -99,7 +96,7 @@ object UserRepo {
     val escaped = """^([\w-]*).*$""".r.replaceAllIn(normalize(username), m ⇒ quoteReplacement(m group 1))
     val regex = "^" + escaped + ".*$"
     $primitive(
-      Json.obj("_id" -> RegEx(regex)),
+      Json.obj("_id" -> $regex(regex)),
       "username",
       _ sort ("_id" -> $sort.desc) limit max
     )(_.asOpt[String])

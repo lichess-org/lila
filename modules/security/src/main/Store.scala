@@ -9,7 +9,7 @@ import tube.storeTube
 import play.api.mvc.RequestHeader
 import play.api.libs.json._
 
-import play.modules.reactivemongo.Implicits._
+import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 
 import org.joda.time.DateTime
 import scala.concurrent.Future

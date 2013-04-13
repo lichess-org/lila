@@ -5,6 +5,7 @@ import play.api.libs.json._
 import Json.JsValueWrapper
 
 import reactivemongo.bson._
+import play.modules.reactivemongo.json.BSONFormats
 
 import org.joda.time.DateTime
 
@@ -31,8 +32,9 @@ trait $operator {
 
   def $or[A: Writes](conditions: A) = Json.obj("$or" -> conditions)
 
-  def $reg(value: String, flags: String = "") = BSONRegex(value, flags)
-  def $date(value: DateTime) = Json.obj("$date" -> value.getMillis)
+  def $regex(value: String, flags: String = "") = BSONFormats toJSON BSONRegex(value, flags)
+
+  def $date(value: DateTime) = BSONFormats toJSON BSONDateTime(value.getMillis)
 
   private def wrap[K, V: Writes](pairs: Seq[(K, V)]): Seq[(K, JsValueWrapper)] = pairs map {
     case (k, v) ⇒ k -> Json.toJsFieldJsValueWrapper(v)

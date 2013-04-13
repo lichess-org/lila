@@ -6,7 +6,7 @@ import tube.pgnTube
 
 import play.api.libs.json._
 
-import play.modules.reactivemongo.Implicits._
+import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 
 object PgnRepo {
 
