@@ -22,8 +22,8 @@ final class Env(config: Config, system: ActorSystem) {
 
   if (ModulePreload) {
     loginfo("Preloading modules")
-    (Env.setup, Env.game, Env.gameSearch, Env.team,
-      Env.teamSearch, Env.forumSearch, Env.message, Env.site)
+    (Env.site, Env.setup, Env.game, Env.gameSearch, Env.team,
+      Env.teamSearch, Env.forumSearch, Env.message)
   }
 
   if (Env.ai.isServer) println("Running as AI server")
