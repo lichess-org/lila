@@ -1,7 +1,8 @@
 package lila.user
 
+import tube.userTube
 import lila.db.Implicits._
-import lila.db.DbApi._
+import lila.db.api._
 import lila.db.test.WithDb
 
 import org.specs2.mutable.Specification
@@ -38,8 +39,8 @@ final class RepoTest extends Specification {
 
   import makeTimeout.large
 
-  def cleanRepo = Env.current.userRepo ~ { repo =>
-    (repo.remove(select.all) >> repo.insert(user)) await timeout
+  def cleanup {
+    $remove($select.all) >> $insert(user) await 
   }
 
   "The user repo" should {
@@ -49,10 +50,10 @@ final class RepoTest extends Specification {
     // }
     "date selector" in {
       "include" in new WithDb {
-        lazy val repo = cleanRepo
-        repo.find.one(Json.obj(
+        cleanup
+        $find.one(Json.obj(
           "ca" -> $gt($date(user.createdAt - RichInt(1).hours))
-        )) await timeout must_== user.some
+        )).await must_== user.some
       }
     }
   }
