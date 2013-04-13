@@ -12,28 +12,32 @@ import lila.common.PimpedJson._
 object Handler {
 
   type Controller = PartialFunction[(String, JsObject), Unit]
+  type Connecter = PartialFunction[Any, (Controller, JsEnumerator)]
 
   def apply[M <: SocketMember](
     socket: ActorRef,
     uid: String,
-    join: Any)(controller: M ⇒ Controller): Fu[JsSocketHandler] = {
+    join: Any)(connecter: Connecter): Fu[JsSocketHandler] = {
 
     val baseController: Controller = {
       case ("p", _) ⇒ socket ! Ping(uid)
       case _        ⇒
     }
 
-    def iteratee(member: M) =
+    def iteratee(controller: Controller) = {
+      val control = controller orElse baseController
       Iteratee.foreach[JsValue] { jsv ⇒
         jsv.asOpt[JsObject] foreach { obj ⇒
           obj str "t" foreach { t ⇒
-            ~(controller(member) orElse baseController).lift(t -> obj)
+            control(t -> obj)
+            // ~control.lift(t -> obj)
           }
         }
       } mapDone { _ ⇒ socket ! Quit(uid) }
+    }
 
-    (socket ? join map {
-       case Connected(enumerator, member: M) ⇒ iteratee(member) -> enumerator
+    (socket ? join map connecter map {
+       case (controller, enum) ⇒ iteratee(controller) -> enum
     }) recover {
       case t: Throwable ⇒ errorHandler(t.getMessage)
     }
@@ -42,7 +46,7 @@ object Handler {
   def errorHandler(err: String): JsSocketHandler =
     Iteratee.skipToEof[JsValue] ->
       Enumerator[JsValue](Json.obj(
-        "error" -> "Invalid socket request: %s".format(err)
+        "error" -> "Socket handler error: %s".format(err)
       )).andThen(Enumerator.eof)
 
 }

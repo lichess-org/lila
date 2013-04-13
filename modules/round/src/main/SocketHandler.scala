@@ -10,7 +10,7 @@ import lila.game.{ Pov, PovRef, GameRepo }
 import lila.user.{ User, Context }
 import chess.Color
 import lila.socket._
-import lila.socket.actorApi._
+import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import lila.security.Flood
 import lila.common.PimpedJson._
 import makeTimeout.short
@@ -26,7 +26,8 @@ private[round] final class SocketHandler(
   private def controller(
     socket: ActorRef,
     uid: String,
-    povRef: PovRef)(member: Member): Handler.Controller =
+    povRef: PovRef,
+    member: Member): Handler.Controller =
     if (member.owner) {
       case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
       case ("talk", o) ⇒ for {
@@ -104,7 +105,10 @@ private[round] final class SocketHandler(
       version = version,
       color = pov.color,
       owner = owner && !hijack(pov, token, ctx))
-    handler ← Handler(socket, uid, join)(controller(socket, uid, pov.ref))
+    handler ← Handler(socket, uid, join) {
+      case Connected(enum, member) ⇒
+        controller(socket, uid, pov.ref, member) -> enum
+    }
   } yield handler
 
   private def parseMove(o: JsObject) = for {

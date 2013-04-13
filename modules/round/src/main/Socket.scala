@@ -1,7 +1,7 @@
 package lila.round
 
 import lila.socket._
-import lila.socket.actorApi._
+import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import chess.{ Color, White, Black }
 import lila.game.Event
 import actorApi._

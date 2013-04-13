@@ -50,7 +50,7 @@ class PairingTest extends LilaSpec {
       }
     }
     "14 elems" in {
-      val elems = List.fill(14)(nextString(8)).pp
+      val elems = List.fill(14)(nextString(8))
       "size" in {
         allPairCombinations(elems).size must_== 3 * 5 * 7 * 9 * 11 * 13
       }

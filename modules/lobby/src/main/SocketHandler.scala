@@ -8,7 +8,7 @@ import play.api.libs.iteratee._
 import actorApi._
 import lila.common.PimpedJson._
 import lila.socket.Handler
-import lila.socket.actorApi._
+import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import lila.user.{ User, Context }
 import lila.security.Flood
 import makeTimeout.short
@@ -18,7 +18,8 @@ private[lobby] final class SocketHandler(socket: ActorRef, flood: Flood) {
   private def controller(
     socket: ActorRef,
     uid: String,
-    user: Option[User])(member: Member): Handler.Controller = {
+    user: Option[User],
+    member: Member): Handler.Controller = {
     case ("talk", o) ⇒ for {
       txt ← o str "d"
       if flood.allowMessage(uid, txt)
@@ -41,6 +42,9 @@ private[lobby] final class SocketHandler(socket: ActorRef, flood: Flood) {
       userId = ctx.userId,
       version = version,
       hookOwnerId = hook)
-    Handler(socket, uid, join)(controller(socket, uid, ctx.me))
-  } 
+    Handler(socket, uid, join) {
+      case Connected(enum, member) ⇒
+        controller(socket, uid, ctx.me, member) -> enum
+    }
+  }
 }

@@ -13,6 +13,7 @@ case class Member(
   def ownsHook(hook: Hook) = hookOwnerId zmap (hook.ownerId ==)
 }
 
+case class Connected(enumerator: JsEnumerator, member: Member)
 case class ReloadTournaments(html: String)
 case class WithHooks(op: Iterable[String] ⇒ Funit)
 case class AddHook(hook: Hook)
