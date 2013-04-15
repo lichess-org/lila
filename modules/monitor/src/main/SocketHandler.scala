@@ -2,7 +2,8 @@ package lila.monitor
 
 import akka.actor._
 
-import lila.socket._
+import actorApi._
+import lila.socket.Handler
 import lila.socket.actorApi.Connected
 
 private[monitor] final class SocketHandler(socket: ActorRef) {

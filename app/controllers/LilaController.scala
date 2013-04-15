@@ -191,6 +191,6 @@ trait LilaController
     }
 
   private def setOnline(user: Option[UserModel]) {
-    user foreach { u ⇒ Env.user.usernameMemo put u.username }
+    user foreach Env.user.setOnline
   }
 }

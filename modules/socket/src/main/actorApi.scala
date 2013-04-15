@@ -7,7 +7,6 @@ case class Connected[M <: SocketMember](
   enumerator: JsEnumerator,
   member: M)
 case object Close
-case object GetUserIds
 case object GetNbMembers
 case class NbMembers(nb: Int)
 case class Ping(uid: String)

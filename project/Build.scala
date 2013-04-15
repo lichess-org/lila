@@ -69,7 +69,7 @@ object ApplicationBuild extends Build {
       playApi, playTest, reactivemongo, playReactivemongo)
   )
 
-  lazy val user = project("user", Seq(common, memo, db, chess)).settings(
+  lazy val user = project("user", Seq(common, memo, db, hub, chess)).settings(
     libraryDependencies ++= provided(
       playApi, playTest, reactivemongo, playReactivemongo,
       hasher, spray.caching)

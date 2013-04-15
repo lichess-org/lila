@@ -4,8 +4,13 @@ import lila.common.PimpedConfig._
 
 import chess.EloCalculator
 import com.typesafe.config.Config
+import akka.actor.ActorSystem
 
-final class Env(config: Config, db: lila.db.Env) {
+final class Env(
+    config: Config,
+    db: lila.db.Env,
+    hub: lila.hub.Env,
+    system: ActorSystem) {
 
   private val settings = new {
     val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
@@ -27,7 +32,7 @@ final class Env(config: Config, db: lila.db.Env) {
 
   lazy val eloUpdater = new EloUpdater(floor = EloUpdaterFloor)
 
-  lazy val usernameMemo = new UsernameMemo(ttl = OnlineTtl)
+  private lazy val usernameMemo = new UsernameMemo(ttl = OnlineTtl)
 
   val forms = DataForm
 
@@ -35,10 +40,28 @@ final class Env(config: Config, db: lila.db.Env) {
 
   def usernameOrAnonymous(id: String): Fu[String] = cached usernameOrAnonymous id
 
+  def setOnline(user: User) { 
+    usernameMemo put user.id
+  }
+
   def cli = new lila.common.Cli {
     def process = {
       case "user" :: "average" :: "elo" :: Nil ⇒
         UserRepo.averageElo map { elo ⇒ "Average elo is %f" format elo }
+    }
+  }
+
+  {
+    val scheduler = new lila.common.Scheduler(system)
+    import scala.concurrent.duration._
+    import akka.pattern.{ ask, pipe }
+    import makeTimeout.short
+    import lila.hub.actorApi.GetUserIds
+
+    scheduler.effect(3 seconds, "usernameMemo: refresh") {
+      hub.socket.hub ? GetUserIds mapTo manifest[Iterable[String]] onSuccess {
+        case xs ⇒ usernameMemo putAll xs
+      }
     }
   }
 
@@ -49,5 +72,7 @@ object Env {
 
   lazy val current: Env = "[boot] user" describes new Env(
     config = lila.common.PlayApp loadConfig "user",
-    db = lila.db.Env.current)
+    db = lila.db.Env.current,
+    hub = lila.hub.Env.current,
+    system = lila.common.PlayApp.system)
 }

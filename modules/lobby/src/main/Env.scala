@@ -25,7 +25,7 @@ final class Env(
   }
   import settings._
 
-  val socket = system.actorOf(Props(new Socket(
+  private val socket = system.actorOf(Props(new Socket(
     messenger = messenger,
     history = history,
     uidTtl = SocketUidTtl
@@ -34,6 +34,23 @@ final class Env(
   lazy val socketHandler = new SocketHandler(socket = socket, flood = flood)
 
   lazy val fisherman = new Fisherman(hookMemo, socket)
+
+  {
+    val scheduler = new lila.common.Scheduler(system)
+    import scala.concurrent.duration._
+
+    scheduler.message(1 second) {
+      socket -> actorApi.WithHooks(hookMemo.putAll)
+    }
+
+    scheduler.future(2 seconds, "fisherman: cleanup") {
+      fisherman.cleanup
+    }
+
+    scheduler.future(20 seconds, "lobby: cleanup") {
+      HookRepo.cleanupOld
+    }
+  }
 
   private lazy val history = new History(ttl = MessageTtl)
 

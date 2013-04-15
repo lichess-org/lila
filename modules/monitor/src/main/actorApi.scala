@@ -1,6 +1,7 @@
 package lila.monitor
+package actorApi
 
-import lila.socket._
+import lila.socket.SocketMember
 
 case class Member(channel: JsChannel) extends SocketMember {
   val userId = none

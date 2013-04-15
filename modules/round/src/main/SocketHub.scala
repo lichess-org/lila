@@ -2,6 +2,7 @@ package lila.round
 
 import actorApi._
 import lila.socket.actorApi._
+import lila.hub.actorApi.GetUserIds
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
