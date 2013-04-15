@@ -4,9 +4,11 @@ import akka.actor._
 import com.typesafe.config.Config
 
 import play.api.Application
-import play.api.Mode.Dev
 
-final class Env(application: Application, val config: Config) {
+final class Env(
+  application: Application, 
+  config: Config,
+  val isDev: Boolean) {
 
   val CliUsername = config getString "cli.username"
 
@@ -17,14 +19,12 @@ final class Env(application: Application, val config: Config) {
   }
 
   lazy val cli = new Cli(this)
-
-  val mode = application.mode
-  val isDev = mode == Dev
 }
 
 object Env {
 
   lazy val current = "[boot] api" describes new Env(
     application = play.api.Play.current,
-    config = lila.common.PlayApp.loadConfig)
+    config = lila.common.PlayApp.loadConfig,
+    isDev = lila.common.PlayApp.isDev)
 }

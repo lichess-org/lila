@@ -1,6 +1,6 @@
 package lila.common
 
-import play.api.{ Play, Application }
+import play.api.{ Play, Application, Mode }
 import com.typesafe.config.Config
 
 object PlayApp {
@@ -15,4 +15,6 @@ object PlayApp {
   def system = withApp { implicit app ⇒
     play.api.libs.concurrent.Akka.system
   }
+
+  def isDev = withApp { _.mode == Mode.Dev }
 }

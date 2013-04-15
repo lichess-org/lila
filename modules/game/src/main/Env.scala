@@ -45,6 +45,27 @@ final class Env(
 
   lazy val gameJs = new GameJs(path = jsPath, useCache = !isDev)
 
+  if (!isDev) {
+
+    val scheduler = new lila.common.Scheduler(system)
+    import scala.concurrent.duration._
+
+    scheduler.effect(4.5 hours, "game: cleanup") {
+      titivate.cleanupUnplayed flatMap { _ ⇒
+        titivate.cleanupNext
+      }
+    }
+
+    // TODO move to round module
+    // scheduler.effect(1.13 hour, "game: finish by clock") {
+    //   titivate.finishByClock
+    // }
+
+    // scheduler.effect(2.3 hour, "game: finish abandoned") {
+    //   titivate.finishAbandoned
+    // }
+  }
+
   def cli = new lila.common.Cli {
     def process = {
       case "game" :: "per" :: "day" :: days ⇒
@@ -53,6 +74,8 @@ final class Env(
         } map (_ mkString " ")
     }
   }
+
+  private lazy val titivate = new Titivate
 
   private def jsPath =
     "%s/%s".format(appPath, isDev.fold(JsPathRaw, JsPathCompiled))
@@ -68,6 +91,6 @@ object Env {
     system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
     appPath = app.path.getCanonicalPath,
-    isDev = app.mode == play.api.Mode.Dev
+    isDev = lila.common.PlayApp.isDev
   )
 }

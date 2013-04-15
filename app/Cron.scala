@@ -13,8 +13,6 @@ object Cron {
 
   def start(system: ActorSystem) {
 
-    loginfo("[boot] cron (" + Env.api.mode + ")")
-
     // implicit val timeout = makeTimeout(500 millis)
     // val actors = Env.hub.actor
     // val sockets = Env.hub.socket
@@ -22,8 +20,6 @@ object Cron {
 
 
     // if (current.mode != Mode.Dev) {
-
-    //   Env.ai.clientDiagnose
 
     //   effect(4.5 hours, "game: cleanup") {
     //     Env.titivate.cleanupUnplayed flatMap { _ ⇒
@@ -38,10 +34,6 @@ object Cron {
     //   effect(2.3 hour, "game: finish abandoned") {
     //     Env.titivate.finishAbandoned
     //   }
-    // }
-
-    // unsafe(10 seconds, "ai: diagnose") {
-    //   Env.ai.clientDiagnose
     // }
 
     // effect(5 minutes, "search: index finished games") {
