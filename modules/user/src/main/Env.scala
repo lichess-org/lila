@@ -40,9 +40,9 @@ final class Env(
 
   def usernameOrAnonymous(id: String): Fu[String] = cached usernameOrAnonymous id
 
-  def setOnline(user: User) { 
-    usernameMemo put user.id
-  }
+  def setOnline(user: User) { usernameMemo put user.id }
+
+  def isOnline(userId: String) = usernameMemo get userId
 
   def cli = new lila.common.Cli {
     def process = {

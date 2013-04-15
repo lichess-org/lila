@@ -2,7 +2,6 @@ package lila.app
 package templating
 
 import lila.user.User
-import lila.user.Env.{ current ⇒ userEnv }
 
 import controllers.routes
 
@@ -10,24 +9,22 @@ import play.api.templates.Html
 
 trait UserHelper {
 
-  import userEnv._
-
   def userIdToUsername(userId: String): String =
-    (usernameOrAnonymous(userId)).await
+    (Env.user usernameOrAnonymous userId).await
 
   def userIdToUsername(userId: Option[String]): String =
     userId.fold(User.anonymous)(userIdToUsername)
 
-  def isUsernameOnline(username: String) = usernameMemo get username
+  def isOnline(userId: String) = Env.user isOnline userId
 
   def userIdLink(
     userId: Option[String],
     cssClass: Option[String] = None,
     withOnline: Boolean = true): Html = Html {
-    (userId zmap usernameOption) map {
+    (userId zmap Env.user.usernameOption) map {
       _.fold(User.anonymous) { username ⇒
         """<a class="user_link%s%s" href="%s">%s</a>""".format(
-          withOnline ??  isUsernameOnline(username).fold(" online", " offline"),
+          withOnline ?? isOnline(username).fold(" online", " offline"),
           cssClass.zmap(" " + _),
           routes.User.show(username),
           username)
@@ -40,7 +37,7 @@ trait UserHelper {
     cssClass: Option[String]): Html = userIdLink(userId.some, cssClass)
 
   def userIdLinkMini(userId: String) = Html {
-    usernameOption(userId) map { username ⇒
+    Env.user usernameOption userId map { username ⇒
       """<a href="%s">%s</a>""".format(
         routes.User show userId,
         username | userId
@@ -55,7 +52,7 @@ trait UserHelper {
     withOnline: Boolean = true,
     text: Option[String] = None) = Html {
     """<a class="user_link%s%s" href="%s">%s</a>""".format(
-      withOnline ??  isUsernameOnline(user.id).fold(" online", " offline"),
+      withOnline ?? isOnline(user.id).fold(" online", " offline"),
       cssClass.zmap(" " + _),
       routes.User.show(user.username),
       text | withElo.fold(user.usernameWithElo, user.username)
@@ -63,15 +60,17 @@ trait UserHelper {
   }
 
   def userInfosLink(
-    username: String,
+    userId: String,
     elo: Option[Int],
     cssClass: Option[String] = None,
-    withOnline: Boolean = true) = Html {
-    """<a class="user_link%s%s" href="%s">%s</a>""".format(
-      withOnline ??  isUsernameOnline(username).fold(" online", " offline"),
-      cssClass.zmap(" " + _),
-      routes.User.show(username),
-      elo.fold(username)(e ⇒ "%s (%d)".format(username, e))
-    )
-  }
+    withOnline: Boolean = true) = Env.user usernameOption userId map (_ | userId) map { username ⇒
+    Html {
+      """<a class="user_link%s%s" href="%s">%s</a>""".format(
+        withOnline ?? isOnline(userId).fold(" online", " offline"),
+        cssClass.zmap(" " + _),
+        routes.User.show(username),
+        elo.fold(username)(e ⇒ "%s (%d)".format(username, e))
+      )
+    }
+  } await
 }
