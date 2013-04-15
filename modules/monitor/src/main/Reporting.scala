@@ -1,5 +1,6 @@
 package lila.monitor
 
+import actorApi._
 import lila.socket.actorApi.GetNbMembers
 import lila.hub.actorApi.monitor._
 // import round.GetNbHubs

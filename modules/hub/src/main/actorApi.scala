@@ -15,6 +15,8 @@ case class SendTos[A: Writes](userIds: Set[String], message: A)
 
 case class Ask(msg: Any)
 
+case object GetUserIds
+
 package captcha {
   case object AnyCaptcha
   case class GetCaptcha(id: String)
@@ -26,7 +28,7 @@ package lobby {
 }
 
 package message {
-  case class LichessThread(to: String, subject: String, message: String) 
+  case class LichessThread(to: String, subject: String, message: String)
 }
 
 package router {
@@ -47,6 +49,7 @@ package ai {
 package monitor {
   case object AddMove
   case object AddRequest
+  case object Update
 }
 
 package round {

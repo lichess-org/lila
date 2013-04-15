@@ -15,7 +15,7 @@ case class Member(
 
 case class Connected(enumerator: JsEnumerator, member: Member)
 case class ReloadTournaments(html: String)
-case class WithHooks(op: Iterable[String] ⇒ Funit)
+case class WithHooks(op: Iterable[String] ⇒ Unit)
 case class AddHook(hook: Hook)
 case class RemoveHook(hook: Hook)
 case class BiteHook(hook: Hook, game: Game)

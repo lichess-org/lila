@@ -4,12 +4,12 @@ import lila.common.PimpedConfig._
 import akka.actor._
 import com.typesafe.config.Config
 import play.api.Play.current
-import play.api.libs.concurrent.Akka.system
 
 final class Env(
     config: Config,
     db: lila.db.Env,
-    hub: lila.hub.Env) {
+    hub: lila.hub.Env,
+    system: ActorSystem) {
 
   private val ActorName = config getString "actor.name"
   private val SocketName = config getString "socket.name"
@@ -29,6 +29,15 @@ final class Env(
       hub = hub
     )), name = ActorName)
 
+  {
+    val scheduler = new lila.common.Scheduler(system)
+    import scala.concurrent.duration._
+
+    scheduler.message(5 seconds) {
+      reporting -> actorApi.Update
+    }
+  }
+
   // requests per second
   private lazy val rpsProvider = new RpsProvider(RpsIntervall)
 
@@ -41,5 +50,6 @@ object Env {
   lazy val current = "[boot] monitor" describes new Env(
     config = lila.common.PlayApp loadConfig "monitor",
     db = lila.db.Env.current,
-    hub = lila.hub.Env.current)
+    hub = lila.hub.Env.current,
+    system = lila.common.PlayApp.system)
 }

@@ -1,5 +1,6 @@
 package lila.monitor
 
+import actorApi._
 import lila.socket._
 import lila.socket.actorApi.Connected
 

@@ -1,6 +1,7 @@
 package lila.socket
 
 import actorApi._
+import lila.hub.actorApi.GetUserIds
 import lila.memo.ExpireSetMemo
 
 import akka.actor._
