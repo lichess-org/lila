@@ -2,10 +2,10 @@ package lila.ai
 
 import lila.common.PimpedConfig._
 
-import akka.actor.ActorRef
+import akka.actor.{ ActorRef, ActorSystem }
 import com.typesafe.config.Config
 
-final class Env(config: Config) {
+final class Env(config: Config, system: ActorSystem, isDev: Boolean) {
 
   private val settings = new {
     val EngineName = config getString "engine" 
@@ -32,6 +32,16 @@ final class Env(config: Config) {
   }
 
   def isServer = IsServer
+
+  {
+    val scheduler = new lila.common.Scheduler(system)
+    import scala.concurrent.duration._
+
+    scheduler.effect(10 seconds, "ai: diagnose") {
+      clientDiagnose
+    }
+    if (!isDev) clientDiagnose
+  }
 
   private lazy val stockfishAi = new stockfish.Ai(
     server = stockfishServer)
@@ -67,5 +77,7 @@ final class Env(config: Config) {
 object Env {
 
   lazy val current = "[boot] ai" describes new Env(
-    config = lila.common.PlayApp loadConfig "ai")
+    config = lila.common.PlayApp loadConfig "ai",
+    system = lila.common.PlayApp.system,
+    isDev = lila.common.PlayApp.isDev)
 }
