@@ -89,7 +89,7 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
 
   import play.api.libs.json._
 
-  implicit def playDefaultContext = play.api.libs.concurrent.Execution.defaultContext
+  implicit def execontext = play.api.libs.concurrent.Execution.defaultContext
 
   // Typeclasses
   implicit val LilaFutureFunctor = new Functor[Fu] {
