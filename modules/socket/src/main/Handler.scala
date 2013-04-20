@@ -26,18 +26,19 @@ object Handler {
 
     def iteratee(controller: Controller) = {
       val control = controller orElse baseController
-      Iteratee.foreach[JsValue] { jsv ⇒
+      Iteratee.foreach[JsValue](jsv ⇒
         jsv.asOpt[JsObject] foreach { obj ⇒
           obj str "t" foreach { t ⇒
             control(t -> obj)
+            // TODO handle errors (with lift?)
             // ~control.lift(t -> obj)
           }
         }
-      } mapDone { _ ⇒ socket ! Quit(uid) }
+      )(execontext).mapDone(_ ⇒ socket ! Quit(uid))(execontext)
     }
 
     (socket ? join map connecter map {
-       case (controller, enum) ⇒ iteratee(controller) -> enum
+      case (controller, enum) ⇒ iteratee(controller) -> enum
     }) recover {
       case t: Throwable ⇒ errorHandler(t.getMessage)
     }

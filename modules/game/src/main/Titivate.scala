@@ -39,7 +39,7 @@ private[game] final class Titivate {
   )).projection(Json.obj("next" -> true))
     .cursor[JsObject]
     .enumerateBulks(50) run {
-      Iteratee foreach { (games: Iterator[JsObject]) ⇒
+      Iteratee.foreach((games: Iterator[JsObject]) ⇒
         games.foreach { game ⇒
           for {
             id ← game str "_id"
@@ -50,6 +50,6 @@ private[game] final class Titivate {
             }
           }
         }
-      }
+      )(execontext)
     }
 }

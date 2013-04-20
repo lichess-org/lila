@@ -57,7 +57,7 @@ final class Env(
     import lila.db.api._
     val cursor = postApi cursor sel
     cursor.enumerateBulks(1000) run {
-      Iteratee foreach { (postOptions: Iterator[Option[PostModel]]) ⇒
+      Iteratee.foreach({ (postOptions: Iterator[Option[PostModel]]) ⇒
         val views = (postApi liteViews postOptions.toList.flatten).await
         esIndexer bulk {
           views map { view ⇒
@@ -69,7 +69,7 @@ final class Env(
             ).request
           }
         }
-      }
+      })(execontext)
     }
   }
 }

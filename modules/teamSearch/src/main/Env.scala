@@ -56,7 +56,7 @@ final class Env(
     import play.api.libs.iteratee._
     import lila.db.api._
     $cursor[TeamModel](sel).enumerateBulks(100) run {
-      Iteratee foreach { (teamOptions: Iterator[Option[TeamModel]]) ⇒
+      Iteratee.foreach((teamOptions: Iterator[Option[TeamModel]]) ⇒
         esIndexer bulk {
           teamOptions.toList.flatten map { team ⇒
             esIndexer.index_prepare(
@@ -67,7 +67,7 @@ final class Env(
             ).request
           }
         }
-      }
+      )(execontext)
     }
   }
 }

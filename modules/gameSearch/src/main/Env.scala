@@ -63,7 +63,7 @@ final class Env(
     val size = $count(selector).await
     var nb = 0
     cursor.enumerateBulks(5000) run {
-      Iteratee foreach { (gameOptions: Iterator[Option[GameModel]]) ⇒
+      Iteratee.foreach((gameOptions: Iterator[Option[GameModel]]) ⇒ {
         val games = gameOptions.flatten
         nb = nb + games.size
         if (size > 1000) loginfo(s"Index $nb of $size games")
@@ -81,7 +81,7 @@ final class Env(
             ).request
           } toList
         }
-      }
+      })(execontext)
     }
   } 
 }
