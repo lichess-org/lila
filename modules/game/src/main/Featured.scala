@@ -2,6 +2,8 @@ package lila.game
 
 import lila.db.api._
 import tube.gameTube
+import Featured._
+import makeTimeout.large
 
 import scala.concurrent.{ Future, Await }
 import scala.concurrent.duration._
@@ -16,9 +18,6 @@ private[game] final class Featured(
     lobbySocket: ActorRef,
     rendererActor: ActorRef,
     system: ActorSystem) {
-
-  import Featured._
-  import makeTimeout.large
 
   def one: Future[Option[Game]] = actor ? GetOne mapTo manifest[Option[Game]]
 

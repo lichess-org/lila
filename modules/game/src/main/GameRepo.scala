@@ -20,6 +20,7 @@ object GameRepo {
   type ID = String
 
   import Game._
+  import Game.ShortFields._
 
   def player(gameId: ID, color: Color): Fu[Option[Player]] =
     $find byId gameId map2 { (game: Game) ⇒ game player color }
@@ -113,25 +114,25 @@ object GameRepo {
 
   def unplayedIds: Fu[List[ID]] = $primitive(
     Json.obj("t" -> $lt(2)) ++
-      Json.obj("ca" -> ($lt(DateTime.now - 3.day) ++ $gt(DateTime.now - 1.week))),
+      Json.obj(createdAt -> ($lt(DateTime.now - 3.day) ++ $gt(DateTime.now - 1.week))),
     "_id"
   )(_.asOpt[ID])
 
   def candidatesToAutofinish: Fu[List[Game]] =
     $find(Query.playable ++ Query.clock(true) ++ Json.obj(
-      "ca" -> $gt(DateTime.now - 1.day),
-      "ua" -> $lt(DateTime.now - 2.hour)
+      createdAt -> $gt(DateTime.now - 1.day),
+      updatedAt -> $lt(DateTime.now - 2.hour)
     ))
 
   def abandoned(max: Int): Fu[List[Game]] = $find(
-    Query.notFinished ++ Json.obj("ua" -> $lt(Game.abandonedDate)),
+    Query.notFinished ++ Json.obj(updatedAt -> $lt(Game.abandonedDate)),
     max)
 
   val featuredCandidates: Fu[List[Game]] = $find(
     Query.playable ++ Query.clock(true) ++ Json.obj(
       "t" -> $gt(1),
-      "ca" -> $gt(DateTime.now - 4.minutes),
-      "ua" -> $gt(DateTime.now - 15.seconds)
+      createdAt -> $gt(DateTime.now - 4.minutes),
+      updatedAt -> $gt(DateTime.now - 15.seconds)
     ))
 
   def count(query: Query.type ⇒ JsObject): Fu[Int] = $count(query(Query))
@@ -144,7 +145,7 @@ object GameRepo {
     Future.traverse((days to 1 by -1).toList) { day ⇒
       val from = DateTime.now.withTimeAtStartOfDay - day.days
       val to = from + 1.day
-      $count(Json.obj("ca" -> ($gte(from) ++ $lt(to))))
+      $count(Json.obj(createdAt -> ($gte(from) ++ $lt(to))))
     }
 
   // def recentAverageElo(minutes: Int): Fu[(Int, Int)] = io {
@@ -168,7 +169,7 @@ object GameRepo {
   // }""",
   //     output = MapReduceInlineOutput,
   //     query = Some {
-  //       ("ca" $gte (DateTime.now - minutes.minutes)) ++ ("p.elo" $exists true)
+  //       (createdAt $gte (DateTime.now - minutes.minutes)) ++ ("p.elo" $exists true)
   //     }
   //   )
   //   (for {
