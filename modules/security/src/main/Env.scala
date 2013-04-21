@@ -4,13 +4,14 @@ import lila.db.Types.Coll
 import lila.user.{ User, UserRepo }
 import lila.common.PimpedConfig._
 
-import akka.actor.ActorRef
+import akka.actor.{ ActorRef, ActorSystem }
 import com.typesafe.config.Config
 import scala.collection.JavaConversions._
 
 final class Env(
     config: Config,
     captcher: ActorRef,
+    system: ActorSystem,
     db: lila.db.Env) {
 
   private val settings = new {
@@ -27,9 +28,6 @@ final class Env(
 
   lazy val api = new Api(firewall = firewall)
 
-  private[security] lazy val storeColl = db(CollectionSecurity)
-  private[security] lazy val firewallColl = db(FirewallCollectionFirewall)
-
   lazy val firewall = new Firewall(
     cookieName = FirewallCookieName.some filter (_ ⇒ FirewallCookieEnabled),
     enabled = FirewallEnabled,
@@ -43,7 +41,19 @@ final class Env(
 
   lazy val userSpy = Store.userSpy _
 
+  {
+    val scheduler = new lila.common.Scheduler(system)
+    import scala.concurrent.duration._
+
+    scheduler.effect(10 minutes, "firewall: refresh") {
+      firewall.refresh
+    }
+  }
+
   def cli = new Cli
+
+  private[security] lazy val storeColl = db(CollectionSecurity)
+  private[security] lazy val firewallColl = db(FirewallCollectionFirewall)
 }
 
 object Env {
@@ -51,5 +61,6 @@ object Env {
   lazy val current = "[boot] security" describes new Env(
     config = lila.common.PlayApp loadConfig "security",
     db = lila.db.Env.current,
+    system = lila.common.PlayApp.system,
     captcher = lila.hub.Env.current.actor.captcher)
 }
