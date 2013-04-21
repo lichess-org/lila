@@ -12,7 +12,7 @@ object Wiki extends LilaController {
   }
 
   def show(slug: String) = Open { implicit ctx ⇒
-    IOptionOk(api show slug) {
+    IOptionOk(api.show(slug, lang(ctx.req).language)) {
       case (page, pages) ⇒ html.wiki.show(page, pages)
     }
   }
