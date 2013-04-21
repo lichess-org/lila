@@ -14,11 +14,19 @@ final class Fetch(
     gitUrl: String,
     pageRepo: PageRepo) {
 
+  import Page.DefaultLang
+
   def apply: IO[Unit] = for {
     files ← getFiles
     pages = files.map(filePage).flatten
+    (defaultPages, langPages) = pages partition (_.isDefaultLang)
+    newLangPages = (langPages map { page ⇒
+      defaultPages find (_.number == page.number) map { default ⇒
+        page.copy(slug = default.slug)
+      }
+    }).flatten
     _ ← pageRepo.clear
-    _ ← pages.map(pageRepo.saveIO).sequence
+    _ ← (newLangPages ::: defaultPages).map(pageRepo.saveIO).sequence
   } yield ()
 
   private def filePage(file: File): Option[Page] = {
@@ -38,10 +46,10 @@ final class Fetch(
     dir.listFiles.toList filter (_.isFile) sortBy (_.getName)
   }
 
-  private def fileContent(file: File) = 
+  private def fileContent(file: File) =
     scala.io.Source.fromFile(file.getCanonicalPath).mkString
 
-  private def toHtml(input: String): String = 
+  private def toHtml(input: String): String =
     new ActuariusTransformer() apply input
 
 }

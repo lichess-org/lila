@@ -12,7 +12,7 @@ final class Api(pageRepo: PageRepo) {
   } yield page map { _ -> menu }
 
   private def makeMenu(pages: List[Page]): List[Page] = {
-    val (defaultPages, langPages) = pages partition (_.lang == "en")
+    val (defaultPages, langPages) = pages partition (_.isDefaultLang)
     defaultPages map { dPage ⇒
       langPages find (_.number == dPage.number) getOrElse dPage
     }
