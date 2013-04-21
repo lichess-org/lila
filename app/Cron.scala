@@ -17,33 +17,6 @@ object Cron {
     // val actors = Env.hub.actor
     // val sockets = Env.hub.socket
 
-
-
-    // if (current.mode != Mode.Dev) {
-
-    //   effect(4.5 hours, "game: cleanup") {
-    //     Env.titivate.cleanupUnplayed flatMap { _ ⇒
-    //       Env.titivate.cleanupNext
-    //     }
-    //   }
-
-    //   effect(1.13 hour, "game: finish by clock") {
-    //     Env.titivate.finishByClock
-    //   }
-
-    //   effect(2.3 hour, "game: finish abandoned") {
-    //     Env.titivate.finishAbandoned
-    //   }
-    // }
-
-    // effect(5 minutes, "search: index finished games") {
-    //   Env.search.indexer.indexQueue
-    // }
-
-    // effect(2 hours, "search: optimize index") {
-    //   Env.search.indexer.optimize
-    // }
-
     // unsafe(10 minutes, "firewall: refresh") {
     //   Env.security.firewall.refresh
     // }

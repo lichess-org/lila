@@ -51,9 +51,7 @@ final class Env(
     import scala.concurrent.duration._
 
     scheduler.effect(4.5 hours, "game: cleanup") {
-      titivate.cleanupUnplayed flatMap { _ ⇒
-        titivate.cleanupNext
-      }
+      titivate.cleanupUnplayed >> titivate.cleanupNext
     }
   }
 
