@@ -66,7 +66,8 @@ final class Env(
     }
   }
 
-  private lazy val titivate = new Titivate
+  private lazy val titivate = new Titivate(
+    bookmark = hub.actor.bookmark)
 
   private def jsPath =
     "%s/%s".format(appPath, isDev.fold(JsPathRaw, JsPathCompiled))

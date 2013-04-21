@@ -151,7 +151,7 @@ object ApplicationBuild extends Build {
       playApi, reactivemongo, playReactivemongo, jgit)
   )
 
-  lazy val bookmark = project("bookmark", Seq(common, db, user, game)).settings(
+  lazy val bookmark = project("bookmark", Seq(common, db, hub, user, game)).settings(
     libraryDependencies ++= provided(
       playApi, playTest, reactivemongo, playReactivemongo, spray.caching)
   )
