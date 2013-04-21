@@ -56,6 +56,10 @@ final class Firewall(
     log("Block " + formatReq(req))
   }
 
+  private[security] def refresh {
+    cachedIps.clear
+  }
+
   private def log(msg: Any) {
     loginfo("[%s] %s".format("firewall", msg.toString))
   }

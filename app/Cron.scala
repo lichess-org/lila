@@ -17,10 +17,6 @@ object Cron {
     // val actors = Env.hub.actor
     // val sockets = Env.hub.socket
 
-    // unsafe(10 minutes, "firewall: refresh") {
-    //   Env.security.firewall.refresh
-    // }
-
     // message(5 seconds) {
     //   Env.tournament.organizer -> tournament.CreatedTournaments
     // }
