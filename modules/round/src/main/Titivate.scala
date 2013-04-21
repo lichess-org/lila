@@ -1,6 +1,6 @@
 package lila.round
 
-import lila.game.GameRepo
+import lila.game.{ Query, Game, GameRepo }
 import lila.game.tube.gameTube
 import lila.db.api._
 import lila.common.PimpedJson._
@@ -11,17 +11,19 @@ import play.api.libs.json._
 import play.api.libs.iteratee._
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 
-private[round] final class Titivate(finisher: Finisher) {
+private[round] final class Titivate(
+  finisher: Finisher,
+  meddler: Meddler) {
 
-  // TODO
-  def finishByClock: Funit = GameRepo.candidatesToAutofinish flatMap { games ⇒
-    fuloginfo("[titivate] Finish %d games by clock" format games.size) >>
-      funit //(finisher outoftimes games).sequence
-  }
+  def finishByClock: Funit =
+    $enumerate.bulk[Option[Game]]($query(Query.candidatesToAutofinish), 50) { games ⇒
+      fuloginfo("[titivate] Finish %d games by clock" format games.flatten.size) >>
+        (finisher outoftimes games.flatten)
+    }
 
-  // val finishAbandoned: Funit = for {
-  //   games ← gameRepo abandoned 300
-  //   _ ← putStrLn("[titivate] Finish %d abandoned games" format games.size)
-  //   _ ← (games map meddler.finishAbandoned).sequence
-  // } yield ()
+  def finishAbandoned: Funit =
+    $enumerate.bulk[Option[Game]]($query(Query.abandoned), 50) { games ⇒
+      fuloginfo("[titivate] Finish %d abandoned games" format games.flatten.size) >>
+        fuccess(games.flatten foreach meddler.finishAbandoned)
+    }
 }

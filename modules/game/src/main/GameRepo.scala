@@ -118,17 +118,7 @@ object GameRepo {
     "_id"
   )(_.asOpt[ID])
 
-  def candidatesToAutofinish: Fu[List[Game]] =
-    $find(Query.playable ++ Query.clock(true) ++ Json.obj(
-      createdAt -> $gt(DateTime.now - 1.day),
-      updatedAt -> $lt(DateTime.now - 2.hour)
-    ))
-
-  def abandoned(max: Int): Fu[List[Game]] = $find(
-    Query.notFinished ++ Json.obj(updatedAt -> $lt(Game.abandonedDate)),
-    max)
-
-  val featuredCandidates: Fu[List[Game]] = $find(
+  def featuredCandidates: Fu[List[Game]] = $find(
     Query.playable ++ Query.clock(true) ++ Json.obj(
       "t" -> $gt(1),
       createdAt -> $gt(DateTime.now - 4.minutes),
