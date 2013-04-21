@@ -12,7 +12,8 @@ final class Env(
     db: lila.db.Env,
     hub: lila.hub.Env,
     ai: lila.ai.Ai,
-    i18nKeys: lila.i18n.I18nKeys) {
+    i18nKeys: lila.i18n.I18nKeys,
+    isDev: Boolean) {
 
   private val settings = new {
     val MessageTtl = config duration "message.ttl"
@@ -71,6 +72,22 @@ final class Env(
 
   val animationDelay = AnimationDelay
 
+  if (!isDev) {
+
+    val scheduler = new lila.common.Scheduler(system)
+    import scala.concurrent.duration._
+
+    scheduler.future(1.13 hour, "game: finish by clock") {
+      titivate.finishByClock
+    }
+
+    // scheduler.effect(2.3 hour, "game: finish abandoned") {
+    //   titivate.finishAbandoned
+    // }
+  }
+
+  private lazy val titivate = new Titivate(finisher)
+
   private lazy val hijack = new Hijack(HijackTimeout)
 
   private lazy val eloCalculator = new chess.EloCalculator(false)
@@ -98,5 +115,6 @@ object Env {
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     ai = lila.ai.Env.current.ai,
-    i18nKeys = lila.i18n.Env.current.keys)
+    i18nKeys = lila.i18n.Env.current.keys,
+    isDev = lila.common.PlayApp.isDev)
 }

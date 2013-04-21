@@ -56,9 +56,8 @@ final class Env(
     import play.api.libs.iteratee._
     import lila.db.api._
     val cursor = postApi cursor sel
-    cursor.enumerateBulks(1000) run {
-      Iteratee.foreach({ (postOptions: Iterator[Option[PostModel]]) ⇒
-        val views = (postApi liteViews postOptions.toList.flatten).await
+    $enumerate.bulk(postApi cursor sel, 1000) { postOptions ⇒
+      (postApi liteViews postOptions.flatten) map { views ⇒
         esIndexer bulk {
           views map { view ⇒
             esIndexer.index_prepare(
@@ -69,7 +68,7 @@ final class Env(
             ).request
           }
         }
-      })(execontext)
+      }
     }
   }
 }

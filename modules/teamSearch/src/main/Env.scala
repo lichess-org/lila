@@ -55,19 +55,19 @@ final class Env(
     import play.api.libs.json._
     import play.api.libs.iteratee._
     import lila.db.api._
-    $cursor[TeamModel](sel).enumerateBulks(100) run {
-      Iteratee.foreach((teamOptions: Iterator[Option[TeamModel]]) ⇒
-        esIndexer bulk {
-          teamOptions.toList.flatten map { team ⇒
-            esIndexer.index_prepare(
-              IndexName,
-              TypeName,
-              team.id,
-              Json stringify Team.from(team)
-            ).request
+    $enumerate.bulk($cursor[TeamModel](sel), 100) { teamOptions ⇒
+        scala.concurrent.Future {
+          esIndexer bulk {
+            teamOptions.flatten map { team ⇒
+              esIndexer.index_prepare(
+                IndexName,
+                TypeName,
+                team.id,
+                Json stringify Team.from(team)
+              ).request
+            }
           }
         }
-      )(execontext)
     }
   }
 }

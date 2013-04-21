@@ -55,15 +55,6 @@ final class Env(
         titivate.cleanupNext
       }
     }
-
-    // TODO move to round module
-    // scheduler.effect(1.13 hour, "game: finish by clock") {
-    //   titivate.finishByClock
-    // }
-
-    // scheduler.effect(2.3 hour, "game: finish abandoned") {
-    //   titivate.finishAbandoned
-    // }
   }
 
   def cli = new lila.common.Cli {

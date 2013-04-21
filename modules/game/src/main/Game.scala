@@ -384,6 +384,11 @@ object Game {
   val tokenSize = 4
   val defaultToken = "-tk-"
 
+  object ShortFields {
+    val createdAt = "ca"
+    val updatedAt = "ua"
+  }
+
   def abandonedDate = DateTime.now - 10.days
 
   def takeGameId(fullId: String) = fullId take gameIdSize

@@ -12,9 +12,9 @@ import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
 import org.elasticsearch.action.search.SearchResponse
 
 final class Env(
-  config: Config,
-  system: ActorSystem,
-  esIndexer: EsIndexer) {
+    config: Config,
+    system: ActorSystem,
+    esIndexer: EsIndexer) {
 
   private val IndexName = config getString "index"
   private val TypeName = config getString "type"
@@ -50,7 +50,7 @@ final class Env(
     indexQuery = indexQuery _
   )), name = IndexerName + "-low-level")
 
-  private def responseToGames(response: SearchResponse): Fu[List[GameModel]] = 
+  private def responseToGames(response: SearchResponse): Fu[List[GameModel]] =
     $find.byOrderedIds[GameModel](response.hits.hits.toList map (_.id))
 
   private def indexQuery(sel: JsObject): Funit = {
@@ -62,14 +62,13 @@ final class Env(
     val cursor = $query(selector).sort(DbQuery.sortCreated).cursor //limit 3000
     val size = $count(selector).await
     var nb = 0
-    cursor.enumerateBulks(5000) run {
-      Iteratee.foreach((gameOptions: Iterator[Option[GameModel]]) ⇒ {
-        val games = gameOptions.flatten
-        nb = nb + games.size
-        if (size > 1000) loginfo(s"Index $nb of $size games")
-        val pgns = PgnRepo.associate(games.map(_.id).toSeq).await
-        val pairs = (pgns map { 
-          case (id, pgn) => games.find(_.id == id) map (_ -> pgn)
+    $enumerate.bulk(cursor, 5000) { gameOptions ⇒
+      val games = gameOptions.flatten
+      nb = nb + games.size
+      if (size > 1000) loginfo("Index %d of %d games".format(nb, size))
+      PgnRepo.associate(games.map(_.id).toSeq) map { pgns ⇒
+        val pairs = (pgns map {
+          case (id, pgn) ⇒ games.find(_.id == id) map (_ -> pgn)
         }).flatten
         esIndexer bulk {
           pairs map {
@@ -81,9 +80,9 @@ final class Env(
             ).request
           } toList
         }
-      })(execontext)
+      }
     }
-  } 
+  }
 }
 
 object Env {
