@@ -23,7 +23,8 @@ final class Fetch(
 
   private def filePage(file: File): Option[Page] = {
     val name = """^(.+)\.md$""".r.replaceAllIn(file.getName, _ group 1)
-    (name != "Home") option Page(name, toHtml(fileContent(file)))
+    if (name == "Home") None
+    else Page(name, toHtml(fileContent(file)))
   }
 
   private def getFiles: IO[List[File]] = io {
