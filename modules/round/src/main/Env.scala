@@ -81,12 +81,12 @@ final class Env(
       titivate.finishByClock
     }
 
-    // scheduler.effect(2.3 hour, "game: finish abandoned") {
-    //   titivate.finishAbandoned
-    // }
+    scheduler.effect(2.3 hour, "game: finish abandoned") {
+      titivate.finishAbandoned
+    }
   }
 
-  private lazy val titivate = new Titivate(finisher)
+  private lazy val titivate = new Titivate(finisher, meddler)
 
   private lazy val hijack = new Hijack(HijackTimeout)
 

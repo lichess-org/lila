@@ -10,6 +10,8 @@ import org.scala_tools.time.Imports._
 
 object Query {
 
+  import Game.ShortFields._
+
   val all: JsObject = $select.all
 
   val rated: JsObject = Json.obj("ra" -> true)
@@ -51,12 +53,19 @@ object Query {
 
   def loss(u: String) = user(u) ++ finished ++ Json.obj("wid" -> $ne(u))
 
-  def opponents(u1: User, u2: User) = 
+  def opponents(u1: User, u2: User) =
     Json.obj("uids" -> $all(List(u1, u2).sortBy(_.nbGames).map(_.id): _*))
 
   def turnsGt(nb: Int) = Json.obj("t" -> $gt(nb))
 
-  val sortCreated = $sort desc "ca" 
+  def candidatesToAutofinish = playable ++ clock(true) ++ Json.obj(
+    createdAt -> $gt(DateTime.now - 1.day),
+    updatedAt -> $lt(DateTime.now - 2.hour))
 
-  val sortPopular = $sort desc "bm" 
+  def abandoned = notFinished ++ Json.obj(updatedAt -> $lt(Game.abandonedDate))
+
+  val sortCreated = $sort desc createdAt
+
+  val sortPopular = $sort desc "bm"
+
 }
