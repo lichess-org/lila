@@ -59,10 +59,10 @@ final class Env(
     import lila.db.api._
     import lila.db.Implicits.LilaPimpedQueryBuilder
     val selector = DbQuery.frozen ++ sel
-    val cursor = $query(selector).sort(DbQuery.sortCreated).cursor //limit 3000
+    val query = $query(selector).sort(DbQuery.sortCreated) //limit 3000
     val size = $count(selector).await
     var nb = 0
-    $enumerate.bulk(cursor, 5000) { gameOptions ⇒
+    $enumerate.bulk[Option[GameModel]](query, 5000) { gameOptions ⇒
       val games = gameOptions.flatten
       nb = nb + games.size
       if (size > 1000) loginfo("Index %d of %d games".format(nb, size))

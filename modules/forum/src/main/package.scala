@@ -14,7 +14,7 @@ package object forum extends PackageObject with WithPlay {
     private[forum] implicit lazy val topicTube =
       Topic.tube inColl Env.current.topicColl
 
-    private[forum] implicit lazy val postTube =
+    implicit lazy val postTube =
       Post.tube inColl Env.current.postColl
   }
 

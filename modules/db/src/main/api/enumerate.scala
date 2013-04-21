@@ -11,8 +11,13 @@ import play.api.libs.iteratee._
 
 object $enumerate {
 
-  def bulk[A](cursor: Cursor[A], size: Int)(op: List[A] ⇒ Funit): Funit =
-    cursor.enumerateBulks(size) run {
+  def apply[A: BSONDocumentReader](query: QueryBuilder)(op: A ⇒ Funit): Funit =
+    query.cursor[A].enumerate run {
+      Iteratee.foreach((obj: A) ⇒ op(obj))(execontext)
+    }
+
+  def bulk[A: BSONDocumentReader](query: QueryBuilder, size: Int)(op: List[A] ⇒ Funit): Funit =
+    query.batch(size).cursor[A].enumerateBulks run {
       Iteratee.foreach((objs: Iterator[A]) ⇒
         op(objs.toList)
       )(execontext)

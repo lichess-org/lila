@@ -42,5 +42,7 @@ trait Implicits extends Types {
     def limit(nb: Int): QueryBuilder = b.options(b.options batchSize nb)
 
     def skip(nb: Int): QueryBuilder = b.options(b.options skip nb)
+
+    def batch(nb: Int): QueryBuilder = b.options(b.options batchSize nb)
   }
 }
