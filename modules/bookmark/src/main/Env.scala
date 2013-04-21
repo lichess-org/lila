@@ -4,6 +4,7 @@ import com.typesafe.config.Config
 import akka.actor._
 
 import lila.common.PimpedConfig._
+import lila.hub.actorApi.bookmark._
 
 final class Env(
     config: Config,
@@ -27,7 +28,8 @@ final class Env(
 
   system.actorOf(Props(new Actor {
     def receive = {
-      case (gameId: String, userId: String) ⇒ api.toggle(gameId, userId)
+      case Toggle(gameId, userId) ⇒ api.toggle(gameId, userId)
+      case Remove(gameIds)        ⇒ api removeByGameIds gameIds
     }
   }), name = ActorName)
 }

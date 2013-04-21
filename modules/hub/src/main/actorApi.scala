@@ -55,3 +55,8 @@ package monitor {
 package round {
   case class FinishGame(gameId: String)
 }
+
+package bookmark {
+  case class Toggle(gameId: String, userId: String)
+  case class Remove(gameIds: List[String])
+}
