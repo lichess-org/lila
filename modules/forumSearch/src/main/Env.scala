@@ -55,8 +55,8 @@ final class Env(
     import play.api.libs.json._
     import play.api.libs.iteratee._
     import lila.db.api._
-    val cursor = postApi cursor sel
-    $enumerate.bulk(postApi cursor sel, 1000) { postOptions ⇒
+    import lila.forum.tube.postTube
+    $enumerate.bulk[Option[PostModel]]($query[PostModel](sel), 1000) { postOptions ⇒
       (postApi liteViews postOptions.flatten) map { views ⇒
         esIndexer bulk {
           views map { view ⇒

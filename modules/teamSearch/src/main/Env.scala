@@ -55,7 +55,7 @@ final class Env(
     import play.api.libs.json._
     import play.api.libs.iteratee._
     import lila.db.api._
-    $enumerate.bulk($cursor[TeamModel](sel), 100) { teamOptions ⇒
+    $enumerate.bulk[Option[TeamModel]]($query[TeamModel](sel), 100) { teamOptions ⇒
         scala.concurrent.Future {
           esIndexer bulk {
             teamOptions.flatten map { team ⇒

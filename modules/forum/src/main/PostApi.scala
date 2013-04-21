@@ -109,6 +109,4 @@ final class PostApi(env: Env, indexer: ActorRef, maxPerPage: Int) extends Option
       //   text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text))
     } yield true.some)
   } yield ()).value.void
-
-  def cursor(selector: JsObject) = $query[Post](selector).cursor[Option[Post]]
 }

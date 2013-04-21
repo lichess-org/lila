@@ -19,18 +19,16 @@ private[game] final class Titivate {
       (tube.pgnTube |> { implicit pgnT ⇒ $remove[JsObject]($select byIds ids) })
   }
 
-  def cleanupNext: Funit = $enumerate.bulk(
+  def cleanupNext: Funit = $enumerate[JsObject](
     $query[Game](Json.obj(
       "next" -> $exists(true),
       "ca" -> $gt(DateTime.now - 3.days)
-    )).projection(Json.obj("next" -> true)).cursor[JsObject], 50) { (games: List[JsObject]) ⇒
-      (games map { game ⇒
-        ~(for {
-          id ← game str "_id"
-          nextId ← game str "nextId"
-        } yield $count.exists[Game]($select(nextId)) flatMap { exists ⇒
-          $update[Game]($select(id), $unset("next")) doUnless exists
-        })
-      }).sequence.void
+    )).projection(Json.obj("next" -> true))) { game ⇒
+      ~(for {
+        id ← game str "_id"
+        nextId ← game str "nextId"
+      } yield $count.exists[Game]($select(nextId)) flatMap { exists ⇒
+        $update[Game]($select(id), $unset("next")) doUnless exists
+      })
     }
 }
