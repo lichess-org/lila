@@ -10,17 +10,17 @@ import scalaz.effects._
 final class PageRepo(
     collection: MongoCollection) extends SalatDAO[Page, String](collection) {
 
-  private val defaultLang = "en"
+  import Page.DefaultLang
 
   def bySlugLang(slug: String, lang: String): IO[Option[Page]] = io {
     findOne(DBObject("slug" -> slug, "lang" -> lang)) orElse
-      findOne(DBObject("slug" -> slug, "lang" -> defaultLang))
+      findOne(DBObject("slug" -> slug, "lang" -> DefaultLang))
   }
 
   def forLang(lang: String): IO[List[Page]] = io {
     find(DBObject("$or" -> DBList(
       "lang" -> lang,
-      "lang" -> defaultLang
+      "lang" -> DefaultLang
     ))).sort(DBObject("number" -> 1)).toList
   }
 

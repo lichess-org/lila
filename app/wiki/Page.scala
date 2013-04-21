@@ -14,11 +14,16 @@ case class Page(
   number: Int,
   lang: String,
   title: String,
-  body: String)
+  body: String) {
+
+  def isDefaultLang = lang == Page.DefaultLang
+}
 
 object Page {
 
   val NameRegex = """^(\w{2,3})_(\d+)_(.+)$""".r
+
+  val DefaultLang = "en"
 
   // name = en_1_Some Title
   def apply(name: String, body: String): Option[Page] = name match {
