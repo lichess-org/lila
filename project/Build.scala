@@ -12,8 +12,8 @@ object ApplicationBuild extends Build {
       libraryDependencies := Seq(
         scalaz, scalalib, hasher, config, apache, scalaTime,
         csv, jgit, actuarius, scalastic, findbugs, reactivemongo,
-        playReactivemongo, spray.caching)
-    )) dependsOn api aggregate api settings (
+        playReactivemongo, spray.caching) 
+    ) ++ srcMain) dependsOn api aggregate api settings (
       templatesImport ++= Seq(
         "lila.game.{ Game, Player, Pov }",
         "lila.user.{ User, Context }",
