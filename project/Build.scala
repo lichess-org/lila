@@ -2,8 +2,6 @@ import sbt._
 import Keys._
 import play.Project._
 
-import net.virtualvoid.sbt.graph.{ Plugin ⇒ SbtGraphPlugin }
-
 object ApplicationBuild extends Build {
 
   import BuildSettings._
@@ -35,12 +33,10 @@ object ApplicationBuild extends Build {
   lazy val moduleCPDeps = moduleRefs map classpathDependency
 
   lazy val api = project("api", moduleCPDeps)
-    .settings(SbtGraphPlugin.graphSettings: _*)
     .settings(
       libraryDependencies := provided(
         playApi, hasher, config, apache, csv, jgit,
-        actuarius, scalastic, findbugs, reactivemongo),
-      SbtGraphPlugin.filterScalaLibrary := true
+        actuarius, scalastic, findbugs, reactivemongo)
     ) aggregate (moduleRefs: _*)
 
   lazy val common = project("common").settings(

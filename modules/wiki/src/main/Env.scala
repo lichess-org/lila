@@ -10,15 +10,11 @@ final class Env(config: Config, db: lila.db.Env) {
   private val CollectionPage = config getString "collection.page"
   private val GitUrl = config getString "git.url"
 
-  def show(slug: String): Fu[Option[(Page, List[Page])]] = {
-    $find byId slug zip $find.all map {
-      case (page, pages) ⇒ page map { _ -> pages }
-    }
-  }
-
-  private[wiki] lazy val pageColl = db(CollectionPage)
+  lazy val api = new Api
 
   private lazy val fetcher = new Fetch(gitUrl = GitUrl)(pageColl)
+
+  private[wiki] lazy val pageColl = db(CollectionPage)
 
   def cli = new lila.common.Cli {
     def process = {

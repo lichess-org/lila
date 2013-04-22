@@ -13,17 +13,24 @@ import eu.henkelmann.actuarius.ActuariusTransformer
 
 import scala.collection.JavaConversions._
 import scala.concurrent.Future
+import Page.DefaultLang
 
 private[wiki] final class Fetch(gitUrl: String)(implicit coll: Coll) {
 
   def apply: Funit = getFiles flatMap { files ⇒
-    val pages = files.map(filePage).flatten
-    $remove($select.all) >> pages.map($insert(_)).sequence.void
+    val (defaultPages, langPages) = files.map(filePage).flatten partition (_.isDefaultLang)
+    val newLangPages = (langPages map { page ⇒
+      defaultPages find (_.number == page.number) map { default ⇒
+        page.copy(slug = default.slug)
+      }
+    }).flatten
+    $remove($select.all) >> (newLangPages ::: defaultPages).map($insert(_)).sequence.void
   }
 
   private def filePage(file: File): Option[Page] = {
     val name = """^(.+)\.md$""".r.replaceAllIn(file.getName, _ group 1)
-    (name != "Home") option Page.make(name, toHtml(fileContent(file)))
+    if (name == "Home") None
+    else Page.make(name, toHtml(fileContent(file)))
   }
 
   private def getFiles: Fu[List[File]] = Future {
