@@ -7,7 +7,7 @@ import lila.common.LilaCookie
 import play.api.mvc._, Results._
 import play.api.data._, Forms._
 
-object Auth extends LilaController {
+iiiiobject Auth extends LilaController {
 
   // protected def gotoLoginSucceeded[A](username: String)(implicit req: RequestHeader) = {
   //   val sessionId = saveAuthentication(username)
