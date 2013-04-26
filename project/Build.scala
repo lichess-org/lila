@@ -8,12 +8,12 @@ object ApplicationBuild extends Build {
   import Dependencies._
 
   lazy val lila = play.Project("lila", "4",
-    settings = buildSettings ++ Seq(
+    settings = buildSettings ++ srcMain ++ Seq(
       libraryDependencies := Seq(
         scalaz, scalalib, hasher, config, apache, scalaTime,
         csv, jgit, actuarius, scalastic, findbugs, reactivemongo,
         playReactivemongo, spray.caching) 
-    ) ++ srcMain) dependsOn api aggregate api settings (
+    )) dependsOn api aggregate api settings (
       templatesImport ++= Seq(
         "lila.game.{ Game, Player, Pov }",
         "lila.user.{ User, Context }",
@@ -21,6 +21,14 @@ object ApplicationBuild extends Build {
         "lila.app.templating.Environment._",
         "lila.common.paginator.Paginator")
     )
+
+  // lazy val hop = play.Project("hop", "4",
+  //   settings = Defaults.defaultSettings ++ Seq(
+  //     // libraryDependencies := Seq(
+  //     //   scalaz, scalalib, hasher, config, apache, scalaTime,
+  //     //   csv, jgit, actuarius, scalastic, findbugs, reactivemongo,
+  //     //   playReactivemongo, spray.caching) 
+  //   )) //dependsOn common aggregate common 
 
   lazy val modules = Seq(
     chess, common, db, user, security, wiki, hub, socket,
