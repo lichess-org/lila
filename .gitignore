@@ -11,6 +11,7 @@ target
 bin/.translate_version
 data/
 dist/
+play/
 
 db/lib/
 
