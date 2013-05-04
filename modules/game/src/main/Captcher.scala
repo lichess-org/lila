@@ -14,6 +14,7 @@ import scala.concurrent.duration._
 import play.api.libs.concurrent.Akka.system
 import play.api.Play.current
 import akka.actor._
+import akka.pattern.{ ask, pipe }
 
 // only works with standard chess (not chess960)
 private final class Captcher extends Actor {
@@ -25,6 +26,9 @@ private final class Captcher extends Actor {
     case GetCaptcha(id: String) ⇒ sender ! Impl.get(id).await
 
     case NewCaptcha             ⇒ Impl.refresh.await
+
+    case ValidCaptcha(id: String, solution: String) ⇒
+      Impl get id map (_ valid solution) pipeTo sender
   }
 
   override def preStart() {
@@ -60,7 +64,7 @@ private final class Captcher extends Actor {
     private def find(id: String): Option[Captcha] =
       challenges.list.find(_.gameId == id)
 
-    private def createFromDb: Fu[Option[Captcha]] = 
+    private def createFromDb: Fu[Option[Captcha]] =
       optionT(findCheckmateInDb(100) flatMap {
         _.fold(findCheckmateInDb(1))(g ⇒ fuccess(g.some))
       }) flatMap fromGame
@@ -68,10 +72,10 @@ private final class Captcher extends Actor {
     private def findCheckmateInDb(distribution: Int): Fu[Option[Game]] =
       GameRepo findRandomStandardCheckmate distribution
 
-    private def getFromDb(id: String): Fu[Option[Captcha]] = 
+    private def getFromDb(id: String): Fu[Option[Captcha]] =
       optionT($find byId id) flatMap fromGame
 
-    private def fromGame(game: Game): OptionT[Fu, Captcha] = 
+    private def fromGame(game: Game): OptionT[Fu, Captcha] =
       optionT(PgnRepo getOption game.id) flatMap { makeCaptcha(game, _) }
 
     private def makeCaptcha(game: Game, pgnString: String): OptionT[Fu, Captcha] =

@@ -20,6 +20,7 @@ case object GetUserIds
 package captcha {
   case object AnyCaptcha
   case class GetCaptcha(id: String)
+  case class ValidCaptcha(id: String, solution: String)
 }
 
 package lobby {

@@ -9,7 +9,7 @@ GET   /                                controllers.Lobby.home
 # POST  /@/:username/export              controllers.User.export(username: String)
 # GET   /@/:username/:filterName         controllers.User.showFilter(username: String, filterName: String, page: Int ?= 1)
 GET   /@/:username                     controllers.User.show(username: String)
-# GET   /people                          controllers.User.list(page: Int ?= 1)
+GET   /people                          controllers.User.list(page: Int ?= 1)
 # GET   /people/autocomplete             controllers.User.autocomplete
 # GET   /people/online                   controllers.User.online
 # GET   /account/bio                     controllers.User.getBio
@@ -183,7 +183,7 @@ GET   /monitor                         controllers.Monitor.index
 
 # Misc
 POST  /cli                             controllers.Cli.command
-# GET   /captcha/$id<[\w]{8}>            controllers.Main.captchaCheck(id: String)
+GET   /captcha/$id<[\w]{8}>            controllers.Main.captchaCheck(id: String)
 GET   /developers                      controllers.Main.developers
 
 # Assets

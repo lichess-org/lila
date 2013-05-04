@@ -1,15 +1,16 @@
-@(move: Field, gameId: Field, captcha: lila.app.site.Captcha.Challenge)(implicit ctx: Context)
+@(move: Field, gameId: Field, captcha: lila.common.Captcha)(implicit ctx: Context)
 <input type="hidden" name="@gameId.name" id="@gameId.id" value="@captcha.gameId" />
+@defining(captcha.white.fold("white", "black")) { color =>
 <div class="checkmateCaptcha clearfix" data-check-url="@routes.Main.captchaCheck(captcha.gameId)">
   <div class="checkmateFen">
     <div
       class="mini_board parse_fen with_keys"
-      data-color="@captcha.color"
+      data-color="@color"
       data-fen="@captcha.fen"></div>
   </div>
   <div class="checkmateSection">
     <label>
-      <strong>@captcha.color.toString.capitalize plays; checkmate in one!</strong><br />
+      <strong>@color.capitalize plays; checkmate in one!</strong><br />
       This is a chess CAPTCHA.<br />
       Click on the board to make your move,<br />
       and prove you are human.<br /><br />
@@ -19,4 +20,4 @@
     <input type="hidden" name="@move.name" id="@move.id" value="" />
   </div>
 </div>
-
+}

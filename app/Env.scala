@@ -22,7 +22,7 @@ final class Env(config: Config, system: ActorSystem) {
 
   if (ModulePreload) {
     loginfo("Preloading modules")
-    (Env.site, Env.setup, Env.game, Env.gameSearch, Env.team,
+    (Env.site, Env.game, Env.setup, Env.game, Env.gameSearch, Env.team,
       Env.teamSearch, Env.forumSearch, Env.message)
   }
 

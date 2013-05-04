@@ -24,7 +24,8 @@ trait CaptchedForm {
   def getCaptcha(id: String): Fu[Captcha] = 
     (captcher ? GetCaptcha(id)).mapTo[Captcha]
 
-  def withCaptcha[A](form: Form[A]) = anyCaptcha map (form -> _)
+  def withCaptcha[A](form: Form[A]): Fu[(Form[A], Captcha)] = 
+    anyCaptcha map (form -> _)
 
   def validateCaptcha(data: CaptchedData) = 
     getCaptcha(data.gameId).await valid data.move.trim.toLowerCase

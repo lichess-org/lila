@@ -1,13 +1,16 @@
 package controllers
 
 import lila.app._
+import lila.hub.actorApi.captcha.ValidCaptcha
 import views._
+import makeTimeout.large
 
 import play.api.mvc._, Results._
 import play.api.data._, Forms._
 import play.api.libs.json._
 import play.api.libs.iteratee._
 import play.api.libs.concurrent.Akka
+import akka.pattern.ask
 
 object Main extends LilaController {
 
@@ -18,9 +21,11 @@ object Main extends LilaController {
       )
   }
 
-  // def captchaCheck(id: String) = Open { implicit ctx ⇒
-  //   Ok(env.site.captcha get id valid ~get("solution") fold (1, 0))
-  // }
+  def captchaCheck(id: String) = Open { implicit ctx ⇒
+    Env.hub.actor.captcher ? ValidCaptcha(id, ~get("solution")) map {
+      case valid: Boolean ⇒ Ok(valid fold (1, 0))
+    }
+  }
 
   // def embed = Open { implicit ctx ⇒
   //   JsOk("""document.write("<iframe src='%s?embed=" + document.domain + "' class='lichess-iframe' allowtransparency='true' frameBorder='0' style='width: %dpx; height: %dpx;' title='Lichess free online chess'></iframe>");"""
