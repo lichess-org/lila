@@ -1,5 +1,0 @@
-#!/bin/sh
-
-cd play/framework
-./build publish-local
-cd -
