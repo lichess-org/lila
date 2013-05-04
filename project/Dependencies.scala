@@ -22,9 +22,11 @@ object Dependencies {
 
     val commons = Seq(
       local,
-      sonatypeS, sonatype,
-      awesomepom, iliaz, typesafe, t2v, 
-      jgitMaven, christophs, sprayRepo)
+      sonatypeS, 
+      sonatype,
+      awesomepom, iliaz, 
+      typesafe, 
+      t2v, jgitMaven, christophs, sprayRepo)
   }
 
   val scalaz = "org.scalaz" %% "scalaz-core" % "6.0.4"

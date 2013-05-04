@@ -10,11 +10,7 @@ object BuildSettings {
     scalaVersion := "2.10.1",
     resolvers ++= Dependencies.Resolvers.commons,
     parallelExecution in Test := false,
-    scalacOptions := Seq(
-      "-deprecation",
-      "-unchecked",
-      "-feature",
-      "-language:_")
+    scalacOptions := compilerOptions
   )
 
   def defaultDeps = Seq(
@@ -36,6 +32,8 @@ object BuildSettings {
         libraryDependencies := defaultDeps
       ) ++ buildSettings ++ srcMain
     )
+
+  val compilerOptions = Seq("-deprecation", "-unchecked", "-feature", "-language:_")
 
   val srcMain = Seq(
     scalaSource in Compile <<= (sourceDirectory in Compile)(identity),

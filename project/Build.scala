@@ -12,6 +12,7 @@ object ApplicationBuild extends Build {
       scalaz, scalalib, hasher, config, apache, scalaTime,
       csv, jgit, actuarius, scalastic, findbugs, reactivemongo,
       playReactivemongo, spray.caching),
+      scalacOptions := compilerOptions,
       templatesImport ++= Seq(
         "lila.game.{ Game, Player, Pov }",
         "lila.user.{ User, Context }",
