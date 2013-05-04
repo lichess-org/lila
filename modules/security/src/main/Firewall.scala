@@ -41,7 +41,7 @@ final class Firewall(
   def blockIp(ip: String): Funit = blocksIp(ip) flatMap { blocked ⇒
     if (validIp(ip) && !blocked) {
       log("Block IP: " + ip)
-      $insert(Json.obj("_id" -> ip, "date" -> DateTime.now)) >> cachedIps.clear
+      $insert(Json.obj("_id" -> ip, "date" -> DateTime.now)) >> refresh
     }
     else fuccess(log("Invalid IP block: " + ip))
   }
@@ -57,7 +57,7 @@ final class Firewall(
   }
 
   private[security] def refresh {
-    cachedIps.clear
+    ips.clear
   }
 
   private def log(msg: Any) {
@@ -67,7 +67,7 @@ final class Firewall(
   private def formatReq(req: RequestHeader) =
     "%s %s %s".format(req.remoteAddress, req.uri, req.headers.get("User-Agent") | "?")
 
-  private def blocksIp(ip: String): Fu[Boolean] = ips map (_ contains ip)
+  private def blocksIp(ip: String): Fu[Boolean] = ips.apply map (_ contains ip)
 
   private def blocksCookies(cookies: Cookies, name: String) =
     (cookies get name).isDefined
@@ -78,13 +78,11 @@ final class Firewall(
   private def validIp(ip: String) =
     (ipRegex matches ip) && ip != "127.0.0.1" && ip != "0.0.0.0"
 
-  private lazy val cachedIps = new {
+  private lazy val ips = new {
     private val cache: Cache[Set[String]] = LruCache(timeToLive = cachedIpsTtl)
     def apply: Fu[Set[String]] = cache.fromFuture(true)(fetch)
     def clear { cache.clear }
   }
-
-  private def ips: Fu[Set[String]] = cachedIps.apply
 
   private def fetch: Fu[Set[String]] =
     $primitive($select.all, "id")(_.asOpt[String]) map (_.toSet)
