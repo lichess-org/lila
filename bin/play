@@ -3,7 +3,8 @@
 
 playdir=play
 
-if [ ! -d $playdir ]; then
+# install play2 if missing (first run)
+if [ ! -f $playdir/play ]; then
   echo "Downloading play..."
   curl -o play.zip http://downloads.typesafe.com/play/2.1.1/play-2.1.1.zip
   echo "Installing play..."
