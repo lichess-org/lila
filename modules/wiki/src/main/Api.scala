@@ -15,16 +15,15 @@ private[wiki] final class Api {
       $find.one(Json.obj("slug" -> slug, "lang" -> DefaultLang)) map {
         case (a, b) ⇒ a orElse b
       }
-    pages ← $find($query($or(Json.obj(
-      "lang" -> lang,
-      "lang" -> DefaultLang
-    ))).sort($sort asc "number"))
+    pages ← $find($query(Json.obj(
+      "lang" -> $in(lang, DefaultLang)
+    )).sort($sort asc "number"))
   } yield page map { _ -> makeMenu(pages) }
 
   private def makeMenu(pages: List[Page]): List[Page] = {
     val (defaultPages, langPages) = pages partition (_.isDefaultLang)
     defaultPages map { dPage ⇒
-      langPages find (_.number == dPage.number) getOrElse dPage
+      langPages.find(_.number == dPage.number) | dPage
     }
   }
 }
