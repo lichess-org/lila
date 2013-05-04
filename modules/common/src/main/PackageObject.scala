@@ -35,6 +35,8 @@ trait PackageObject
   implicit final class LilaPimpedOption[A](o: Option[A]) {
 
     def zmap[B: Zero](f: A ⇒ B): B = o.fold(∅[B])(f)
+
+    def zflatMap[B: Zero](f: A ⇒ Option[B]): B = o.fold(∅[B]) { x ⇒ ~f(x) }
   }
 
   implicit final class LilaPimpedMap[A, B](m: Map[A, B]) {

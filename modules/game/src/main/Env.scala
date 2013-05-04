@@ -15,6 +15,7 @@ final class Env(
   private val settings = new {
     val CachedNbTtl = config duration "cached.nb.ttl"
     val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
+    val CaptcherName = config getString "captcher.name"
     val CollectionGame = config getString "collection.game"
     val CollectionPgn = config getString "collection.pgn"
     val JsPathRaw = config getString "js_path.raw"
@@ -44,6 +45,9 @@ final class Env(
   lazy val rewind = Rewind
 
   lazy val gameJs = new GameJs(path = jsPath, useCache = !isDev)
+
+  // load captcher actor
+  system.actorOf(Props(new Captcher), name = CaptcherName)
 
   if (!isDev) {
 

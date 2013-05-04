@@ -1,7 +1,6 @@
 @(form: Form[_])(implicit ctx: Context)
 
-@auth.layout(
-title = trans.signIn.str()) {
+@auth.layout(title = trans.signIn.str()) {
 <div class="content_box small_box">
   <div class="signup_box">
     <h1 class="lichess_title">@trans.signIn()</h1>

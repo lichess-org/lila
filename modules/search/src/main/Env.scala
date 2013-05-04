@@ -16,8 +16,7 @@ final class Env(config: Config, system: ActorSystem) {
   val esIndexer = elasticsearch.Indexer.transport(
     settings = Map("cluster.name" -> ESCluster),
     host = ESHost,
-    ports = Seq(ESPort)
-  )
+    ports = Seq(ESPort))
 
   Future {
     loginfo("[search] Start ElasticSearch")

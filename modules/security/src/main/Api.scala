@@ -8,7 +8,7 @@ import play.api.data._
 import play.api.data.Forms._
 import ornicar.scalalib.Random
 
-final class Api(firewall: Firewall) {
+private[security] final class Api(firewall: Firewall) {
 
   def AccessUri = "access_uri"
 
@@ -19,8 +19,10 @@ final class Api(firewall: Firewall) {
     .verifying("Invalid username or password", _.isDefined)
   )
 
-  def saveAuthentication(username: String)(implicit req: RequestHeader): String =
-    (Random nextString 12) ~ { sessionId ⇒ Store.save(sessionId, username, req) }
+  def saveAuthentication(username: String)(implicit req: RequestHeader): Fu[String] = {
+    val sessionId = Random nextString 12 
+    Store.save(sessionId, username, req) inject sessionId
+  }
 
   def authorizationFailed(req: RequestHeader): Result =
     Forbidden("no permission")

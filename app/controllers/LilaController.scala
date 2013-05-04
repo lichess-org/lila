@@ -72,13 +72,13 @@ trait LilaController
   //       ctx.isGranted(perm).fold(f(ctx)(me), authorizationFailed(ctx.req))
   //   }
 
-  // protected def Firewall[A <: Result](a: ⇒ A)(implicit ctx: Context): Result =
-  //   env.security.firewall.accepts(ctx.req).fold(
-  //     a, {
-  //       env.security.firewall.logBlock(ctx.req)
-  //       Redirect(routes.Lobby.home())
-  //     }
-  //   )
+  protected def Firewall[A <: Result](a: ⇒ Fu[A])(implicit ctx: Context): Fu[Result] =
+    Env.security.firewall.accepts(ctx.req) flatMap {
+      _ fold (a, {
+        Env.security.firewall.logBlock(ctx.req)
+        fuccess { Redirect(routes.Lobby.home()) }
+      })
+    }
 
   // protected def NoEngine[A <: Result](a: ⇒ A)(implicit ctx: Context): Result =
   //   ctx.me.fold(false)(_.engine).fold(Forbidden(views.html.site.noEngine()), a)

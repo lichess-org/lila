@@ -19,8 +19,7 @@ object HistoryRepo {
       $push("entries", opponentElo.fold(Json.arr(DateTime.now.getSeconds.toInt, elo)) { opElo ⇒
         Json.arr(DateTime.now.getSeconds.toInt, elo, opElo)
       }),
-      upsert = true
-    )
+      upsert = true)
 
   def userElos(userId: String): Fu[Seq[(Int, Int, Option[Int])]] =
     $find.one($select(userId)) map { historyOption ⇒

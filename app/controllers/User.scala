@@ -3,7 +3,7 @@ package controllers
 import lila.app._
 import views._
 import lila.security.Permission
-import lila.user.{ Context, User ⇒ UserModel }
+import lila.user.{ Context, User ⇒ UserModel, UserRepo }
 import lila.common.LilaCookie
 
 import play.api.mvc._, Results._
@@ -17,7 +17,13 @@ object User extends LilaController {
   // private def bookmarkApi = env.bookmark.api
   // private def modApi = env.mod.api
 
-  def show(username: String) = TODO //showFilter(username, "all", 1)
+  def show(username: String) = Open { implicit ctx =>
+    UserRepo named username map { userOption =>
+      println(userOption)
+      NotFound
+    }
+  }
+    //showFilter(username, "all", 1)
 
   // def showFilter(username: String, filterName: String, page: Int) = Open { implicit ctx ⇒
   //   Async {
@@ -42,6 +48,7 @@ object User extends LilaController {
   //     }
   //   }, io(html.user.disabled(u)))
 
+  def list(page: Int) = TODO
   // def list(page: Int) = Open { implicit ctx ⇒
   //   (page < 50).fold(
   //     IOk(onlineUsers map { html.user.list(paginator elo page, _) }),

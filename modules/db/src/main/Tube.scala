@@ -22,8 +22,16 @@ case class Tube[Doc](
   implicit def reads(js: JsValue): JsResult[Doc] = reader reads js
   implicit def writes(doc: Doc): JsValue = writer writes doc
 
-  def read(bson: BSONDocument): Option[Doc] =
-    fromMongo(JsObjectReader read bson).asOpt
+  def read(bson: BSONDocument): Option[Doc] = {
+    val js = JsObjectReader read bson
+    fromMongo(js) match {
+      case JsSuccess(v, _) ⇒ Some(v)
+      case e ⇒ {
+        logwarn("[tube] Cannot read %s\n%s".format(js, e))
+        None
+      }
+    }
+  }
 
   def read(js: JsObject): JsResult[Doc] = reads(js)
 

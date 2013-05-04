@@ -29,9 +29,6 @@ final class Env(config: Config, system: ActorSystem) {
     val lobby = socketFor("lobby")
     val monitor = socketFor("monitor")
     val site = socketFor("site")
-    site ! 1
-    lobby ! 1
-
     val hub = system.actorOf(Props(new Broadcast(List(
       socket.lobby, socket.site
     ))(makeTimeout(SocketHubTimeout))), name = SocketHubName)
