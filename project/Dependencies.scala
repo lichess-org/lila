@@ -20,10 +20,11 @@ object Dependencies {
     val sprayRepo = "spray repo" at "http://repo.spray.io"
     val local = "local repo" at home+"/local-repo/sonatype/snapshots"
 
-    val commons = Seq(local,
-      sonatypeS, 
-      awesomepom, iliaz, sonatype, // sgodbillon, 
-      typesafe, t2v, jgitMaven, christophs, sprayRepo)
+    val commons = Seq(
+      local,
+      sonatypeS, sonatype,
+      awesomepom, iliaz, typesafe, t2v, 
+      jgitMaven, christophs, sprayRepo)
   }
 
   val scalaz = "org.scalaz" %% "scalaz-core" % "6.0.4"
@@ -40,8 +41,8 @@ object Dependencies {
   val jodaTime = "joda-time" % "joda-time" % "2.2"
   val jodaConvert = "org.joda" % "joda-convert" % "1.3.1"
   val scalastic = "scalastic" % "scalastic_2.9.2" % "0.20.5"
-  val reactivemongo = "org.reactivemongo" %% "reactivemongo" % "0.9-SNAPSHOT"
-  val playReactivemongo = "org.reactivemongo" %% "play2-reactivemongo" % "0.9-SNAPSHOT"
+  val reactivemongo = "org.reactivemongo" %% "reactivemongo" % "0.9"
+  val playReactivemongo = "org.reactivemongo" %% "play2-reactivemongo" % "0.9"
   val playApi = "play" %% "play" % "2.2-SNAPSHOT" 
   val playTest = "play" %% "play-test" % "2.2-SNAPSHOT" 
   object spray {
