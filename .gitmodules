@@ -1,7 +1,3 @@
 [submodule "scalachess"]
 	path = modules/chess
 	url = git://github.com/ornicar/scalachess
-[submodule "play"]
-	path = play
-	url = git://github.com/playframework/Play20
-  ignore = untracked
