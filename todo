@@ -12,7 +12,7 @@ analyse: show main line for every move http://en.lichess.org/forum/lichess-feedb
 try to show last analysis cp on graph (move 26) http://en.lichess.org/analyse/bwxnx0al
 elo range must contain player elo
 complete analysis movetimes with tsinnema - requires ms movetimes and db migration
-localize elo chart dates
+localize elo chart dates (oh, and all dates. ask for user timezone or guess it)
 index game positions
 elo stats (branch elostats)
 lobby concurrency http://en.lichess.org/forum/lichess-feedback/bug-multiple-players-can-accept-the-same-game-proposal#1
