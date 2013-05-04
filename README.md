@@ -2,7 +2,7 @@ lichess.org
 ===========
 
 Complete source code of http://lichess.org,
-using Scala 2.10.1, Play 2.2, Akka 2, ReactiveMongo and Scalaz 
+using Scala 2.10.1, Play 2.1, Akka 2, ReactiveMongo and Scalaz 
 
 Installation
 ============
@@ -16,8 +16,6 @@ I assume you run a Unix with mongodb.
 ```sh
 git clone git://github.com/ornicar/lila
 cd lila
-git submodule update --init
-bin/build-play2
 bin/play compile
 ```
 
