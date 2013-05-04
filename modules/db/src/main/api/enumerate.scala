@@ -13,13 +13,13 @@ object $enumerate {
 
   def apply[A: BSONDocumentReader](query: QueryBuilder)(op: A ⇒ Funit): Funit =
     query.cursor[A].enumerate run {
-      Iteratee.foreach((obj: A) ⇒ op(obj))(execontext)
+      Iteratee.foreach((obj: A) ⇒ op(obj))
     }
 
   def bulk[A: BSONDocumentReader](query: QueryBuilder, size: Int)(op: List[A] ⇒ Funit): Funit =
     query.batch(size).cursor[A].enumerateBulks run {
       Iteratee.foreach((objs: Iterator[A]) ⇒
         op(objs.toList)
-      )(execontext)
+      )
     }
 }

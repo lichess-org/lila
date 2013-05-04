@@ -45,8 +45,8 @@ object Dependencies {
   val scalastic = "scalastic" % "scalastic_2.9.2" % "0.20.5"
   val reactivemongo = "org.reactivemongo" %% "reactivemongo" % "0.9"
   val playReactivemongo = "org.reactivemongo" %% "play2-reactivemongo" % "0.9"
-  val playApi = "play" %% "play" % "2.2-SNAPSHOT" 
-  val playTest = "play" %% "play-test" % "2.2-SNAPSHOT" 
+  val playApi = "play" %% "play" % "2.1.1" 
+  val playTest = "play" %% "play-test" % "2.1.1" 
   object spray {
     val caching = "io.spray" % "spray-caching" % "1.1-M7"
     val util = "io.spray" % "spray-util" % "1.1-M7"
