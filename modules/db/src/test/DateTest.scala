@@ -1,7 +1,7 @@
 package lila.db
 
-import test.WithTestColl
 import Implicits._
+import api._
 
 import org.specs2.specification._
 import org.specs2.mutable._
@@ -13,10 +13,18 @@ import reactivemongo.api._
 import reactivemongo.bson._
 import org.joda.time.DateTime
 
-class DateTest extends Specification {
+class DateTest extends Specification with test.WithColl {
+
+  case class TestEvent(id: String, on: DateTime)
+
+  import Tube.Helpers._
+  implicit val eTube: Tube[TestEvent] = Tube[TestEvent](
+    reader = (__.json update readDate('on)) andThen Json.reads[TestEvent],
+    writer = Json.writes[TestEvent],
+    writeTransformer = (__.json update writeDate('on)).some
+  )
 
   val date = DateTime.now
-  import api.Free._
   import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 
   "date conversion" should {
@@ -24,23 +32,36 @@ class DateTest extends Specification {
       val doc = JsObjectWriter.write(Json.obj(
         "ca" -> $gt($date(date))
       ))
-      doc.getAsTry[BSONDocument]("ca") flatMap { gt =>
+      doc.getAsTry[BSONDocument]("ca") flatMap { gt ⇒
         gt.getAsTry[BSONDateTime]("$gt")
       } must_== scala.util.Success(BSONDateTime(date.getMillis))
     }
   }
 
-  // "save and retrieve" should {
+  "save and retrieve" should {
 
-  //   val trans = __.json update Tube.Helpers.readDate('ca)
+    sequential
 
-  //   "JsObject" in new WithTestColl {
-  //     (coll.insert(Json.obj("ca" -> $date(date))) >>
-  //       coll.find(Json.obj()).one[JsObject]
-  //     ).await flatMap (x ⇒ (x transform trans).asOpt) must beSome.like {
-  //         case o ⇒ o \ "ca" must_== date
-  //       }
-  //   }
+    val trans = __.json update Tube.Helpers.readDate('ca)
+
+    // "raw reactive" in {
+    //   withColl { coll ⇒
+    //     (coll.insert(Json.obj("ca" -> $date(date))) >>
+    //       coll.find(Json.obj()).one[JsObject]
+    //     ).await flatMap (x ⇒ (x transform trans).asOpt) must beSome.like {
+    //         case o ⇒ o \ "ca" must_== date
+    //       }
+    //   }
+    // }
+    "tube" in {
+      val event = TestEvent("test", date)
+      withColl { coll ⇒
+        implicit val tube = eTube inColl coll
+        ($insert(event) >> $find.one(Json.obj())).await must beSome.like {
+            case TestEvent("test", d) ⇒ d must_== date
+          }
+      }
+    }
     // "BSONDocument" in new WithTestColl {
     //   val doc = BSONDocument(
     //     "ca" -> BSONDateTime(date.getMillis)
@@ -57,5 +78,5 @@ class DateTest extends Specification {
     //   $set("foo" -> date) must_== Json.obj(
     //     "$set" -> Json.obj("foo" -> Json.obj("$date" -> date.getMillis)))
     // }
-  // }
+  }
 }
