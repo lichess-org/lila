@@ -11,7 +11,7 @@ import org.joda.time.DateTime
 
 class DbApiTest extends Specification {
 
-  import DbApi._
+  import api._
 
   val date = DateTime.now
 

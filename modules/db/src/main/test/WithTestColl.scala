@@ -3,37 +3,25 @@ package test
 
 import Types._
 
-import play.api.Play
-import play.api.test._
 import reactivemongo.api._
+import scala.concurrent._
+import scala.concurrent.duration._
 
 import org.specs2.execute.{ Result, AsResult }
 
-abstract class WithTestColl(a: FakeApplication = FakeApplication())
-    extends WithApplication(a) {
+trait WithColl {
 
-  implicit lazy val conn = new MongoDriver connection List("localhost:27017")
+  def withColl[A](f: Coll ⇒ A): A = {
 
-  implicit lazy val coll: Coll = {
-    val db = conn("test")
+    implicit val ec = ExecutionContext.Implicits.global
+
+    val timeout = 1 seconds
+
+    val conn = new MongoDriver connection List("localhost:27017")
+    val db = conn("lila-test") ~ { _.drop }
     val coll = db("test")
-    coll.drop().await
-    coll
-  }
-
-  override def around[T: AsResult](t: ⇒ T): Result = {
-    running(app)(AsResult(t))
-  }
-
-  private def running[T](fakeApp: FakeApplication)(t: ⇒ T): T = synchronized {
-    try {
-      Play.start(fakeApp)
-      t
-    }
-    finally {
-      conn.close()
-      Play.stop()
-      play.api.libs.ws.WS.resetClient()
-    }
+    val res = f(coll)
+    conn.close
+    res
   }
 }
