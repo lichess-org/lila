@@ -13,7 +13,7 @@ final class Env(
     hub: lila.hub.Env,
     ai: lila.ai.Ai,
     i18nKeys: lila.i18n.I18nKeys,
-    schedule: Boolean) {
+    scheduler: lila.common.Scheduler) {
 
   private val settings = new {
     val MessageTtl = config duration "message.ttl"
@@ -72,9 +72,7 @@ final class Env(
 
   val animationDelay = AnimationDelay
 
-  if (schedule) {
-
-    val scheduler = new lila.common.Scheduler(system)
+  {
     import scala.concurrent.duration._
 
     scheduler.future(1.13 hour, "game: finish by clock") {
@@ -116,5 +114,5 @@ object Env {
     hub = lila.hub.Env.current,
     ai = lila.ai.Env.current.ai,
     i18nKeys = lila.i18n.Env.current.keys,
-    schedule = lila.common.PlayApp.isServer)
+    scheduler = lila.common.PlayApp.scheduler)
 }

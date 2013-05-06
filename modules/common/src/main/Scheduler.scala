@@ -4,24 +4,30 @@ import akka.actor._
 import akka.pattern.{ ask, pipe }
 import scala.concurrent.duration._
 
-final class Scheduler(system: ActorSystem) {
+final class Scheduler(system: ActorSystem, enabled: Boolean) {
 
   def message(freq: FiniteDuration)(to: (ActorRef, Any)) {
-    system.scheduler.schedule(freq, randomize(freq), to._1, to._2)
+    enabled ! system.scheduler.schedule(freq, randomize(freq), to._1, to._2)
   }
 
   def effect(freq: FiniteDuration, name: String)(op: ⇒ Unit) {
-    future(freq, name)(fuccess(op))
+    enabled ! future(freq, name)(fuccess(op))
   }
 
   def future(freq: FiniteDuration, name: String)(op: ⇒ Funit) {
-    val f = randomize(freq)
-    loginfo("[cron] schedule %s every %s".format(name, freq))
-    system.scheduler.schedule(f, f) {
-      op onFailure {
-        case e: Throwable ⇒ println("[CRON ERROR] (" + name + ") " + e.getMessage)
+    enabled ! {
+      val f = randomize(freq)
+      loginfo("[cron] schedule %s every %s".format(name, freq))
+      system.scheduler.schedule(f, f) {
+        op onFailure {
+          case e: Throwable ⇒ println("[CRON ERROR] (" + name + ") " + e.getMessage)
+        }
       }
     }
+  }
+
+  def once(freq: FiniteDuration)(op: ⇒ Unit) {
+    enabled ! system.scheduler.scheduleOnce(freq)(op)
   }
 
   private def randomize(d: FiniteDuration, ratio: Float = 0.1f): FiniteDuration = {
