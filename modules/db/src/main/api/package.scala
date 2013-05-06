@@ -1,3 +1,12 @@
 package lila.db
 
-package object api extends api.$operator 
+import reactivemongo.core.commands.LastError
+
+package object api extends api.$operator {
+
+  private[api] def successful(result: Fu[LastError]): Funit = 
+    result flatMap { lastErr ⇒
+      lastErr.ok.pp.fold(funit, fuck(lastErr.stringify))
+    }
+
+}
