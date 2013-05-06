@@ -27,6 +27,7 @@ object Environment
     with I18nHelper
     with BookmarkHelper
     with NotificationHelper 
+    with SecurityHelper 
     with TeamHelper {
   // with tournament.TournamentHelper 
 

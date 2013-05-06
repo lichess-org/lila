@@ -2,7 +2,7 @@ package lila.app
 package templating
 
 import chess.format.Forsyth
-import chess.{ Status, Variant, Color, Clock, Mode }
+import chess.{ Status => S, Variant, Color, Clock, Mode }
 import lila.user.{ User, Context }
 import lila.game.{ Game, Player, Namer }
 
@@ -66,20 +66,20 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   }
 
   def gameEndStatus(game: Game)(implicit ctx: Context): Html = game.status match {
-    case Status.Aborted ⇒ trans.gameAborted()
-    case Status.Mate    ⇒ trans.checkmate()
-    case Status.Resign ⇒ game.loser match {
+    case S.Aborted ⇒ trans.gameAborted()
+    case S.Mate    ⇒ trans.checkmate()
+    case S.Resign ⇒ game.loser match {
       case Some(p) if p.color.white ⇒ trans.whiteResigned()
       case _                        ⇒ trans.blackResigned()
     }
-    case Status.Stalemate ⇒ trans.stalemate()
-    case Status.Timeout ⇒ game.loser match {
+    case S.Stalemate ⇒ trans.stalemate()
+    case S.Timeout ⇒ game.loser match {
       case Some(p) if p.color.white ⇒ trans.whiteLeftTheGame()
       case _                        ⇒ trans.blackLeftTheGame()
     }
-    case Status.Draw      ⇒ trans.draw()
-    case Status.Outoftime ⇒ trans.timeOut()
-    case Status.Cheat     ⇒ Html("Cheat detected")
+    case S.Draw      ⇒ trans.draw()
+    case S.Outoftime ⇒ trans.timeOut()
+    case S.Cheat     ⇒ Html("Cheat detected")
     case _                ⇒ Html("")
   }
 

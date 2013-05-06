@@ -131,7 +131,7 @@ POST  /signup                          controllers.Auth.signupPost
 # POST  /mod/:username/mute              controllers.Mod.mute(username: String)
 # POST  /mod/:username/ban               controllers.Mod.ban(username: String)
 # POST  /mod/:ip/ipban                   controllers.Mod.ipban(ip: String)
-# GET   /mod/log                         controllers.Mod.log
+GET   /mod/log                         controllers.Mod.log
 # 
 # Wiki
 GET   /wiki                            controllers.Wiki.home
@@ -154,14 +154,15 @@ GET   /wiki/:slug                      controllers.Wiki.show(slug: String)
 # POST   /bookmark/$gameId<[\w\-]{8}>    controllers.Bookmark.toggle(gameId: String)
 # 
 # Forum
-# GET   /forum                           controllers.ForumCateg.index
-# GET   /forum/recent                    controllers.ForumPost.recent
+GET   /forum                           controllers.ForumCateg.index
+GET   /forum/recent                    controllers.ForumPost.recent
+GET   /forum/search                    controllers.ForumPost.search(text: String ?= "", page: Int ?= 1)
 GET   /forum/:slug                     controllers.ForumCateg.show(slug: String, page: Int ?= 1)
-# GET   /forum/:categSlug/form           controllers.ForumTopic.form(categSlug: String)
-# POST  /forum/:categSlug/new            controllers.ForumTopic.create(categSlug: String)
-# GET   /forum/:categSlug/:slug          controllers.ForumTopic.show(categSlug: String, slug: String, page: Int ?= 1)
-# POST  /forum/:categSlug/:slug/new      controllers.ForumPost.create(categSlug: String, slug: String, page: Int ?= 1)
-# POST  /forum/delete/post/:id           controllers.ForumPost.delete(id: String)
+GET   /forum/:categSlug/form           controllers.ForumTopic.form(categSlug: String)
+POST  /forum/:categSlug/new            controllers.ForumTopic.create(categSlug: String)
+GET   /forum/:categSlug/:slug          controllers.ForumTopic.show(categSlug: String, slug: String, page: Int ?= 1)
+POST  /forum/:categSlug/:slug/new      controllers.ForumPost.create(categSlug: String, slug: String, page: Int ?= 1)
+POST  /forum/delete/post/:id           controllers.ForumPost.delete(id: String)
 # 
 # Message
 # GET   /inbox                           controllers.Message.inbox(page: Int ?= 1)

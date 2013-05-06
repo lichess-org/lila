@@ -1,15 +1,25 @@
 package lila.app
 package templating
 
-import lila.forum.{ Granter, Post }
+import lila.forum.Post
 import lila.team.Env.{ current ⇒ teamEnv }
+import lila.user.Context
 
 import play.api.templates.Html
 
-trait ForumHelper extends Granter { self: UserHelper with StringHelper ⇒
+trait ForumHelper { self: UserHelper with StringHelper ⇒
 
-  protected def userBelongsToTeam(teamId: String, userId: String): Fu[Boolean] =
-    teamEnv.api.belongsTo(teamId, userId)
+  private object Granter extends lila.forum.Granter {
+
+    protected def userBelongsToTeam(teamId: String, userId: String): Fu[Boolean] =
+      teamEnv.api.belongsTo(teamId, userId)
+  }
+
+  def isGrantedRead(categSlug: String)(implicit ctx: Context) = 
+    Granter.isGrantedRead(categSlug)
+
+  def isGrantedWrite(categSlug: String)(implicit ctx: Context) =
+    Granter.isGrantedWrite(categSlug).await
 
   def authorName(post: Post) =
     post.userId.fold(escape(post.showAuthor))(userIdToUsername)

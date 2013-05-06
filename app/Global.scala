@@ -26,9 +26,8 @@ object Global extends GlobalSettings {
         super.onRouteRequest(req)
     }
 
-  // TODO
-  // override def onHandlerNotFound(req: RequestHeader): Result =
-  //   Env.ai.isServer.fold(NotFound, controllers.Lobby.handleNotFound(req).await)
+  override def onHandlerNotFound(req: RequestHeader): Result =
+    Env.ai.isServer.fold(NotFound, controllers.Lobby.handleNotFound(req).await)
 
   override def onBadRequest(req: RequestHeader, error: String) = {
     BadRequest("Bad Request: " + error)

@@ -8,6 +8,13 @@ import play.api.mvc._, Results._
 
 trait ForumController extends forum.Granter { self: LilaController ⇒
 
+  protected def categApi = Env.forum.categApi
+  protected def topicApi = Env.forum.topicApi
+  protected def postApi = Env.forum.postApi
+  protected def forms = Env.forum.forms
+
+  protected def teamCache = Env.team.cached
+
   protected def userBelongsToTeam(teamId: String, userId: String): Fu[Boolean] =
     Env.team.api.belongsTo(teamId, userId)
 
