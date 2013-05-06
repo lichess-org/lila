@@ -11,7 +11,7 @@ final class Env(
     hub: lila.hub.Env,
     appPath: String,
     isProd: Boolean,
-    schedule: Boolean) {
+    scheduler: lila.common.Scheduler) {
 
   private val settings = new {
     val CachedNbTtl = config duration "cached.nb.ttl"
@@ -50,9 +50,7 @@ final class Env(
   // load captcher actor
   system.actorOf(Props(new Captcher), name = CaptcherName)
 
-  if (schedule) {
-
-    val scheduler = new lila.common.Scheduler(system)
+  {
     import scala.concurrent.duration._
 
     scheduler.effect(4.5 hours, "game: cleanup") {
@@ -87,6 +85,6 @@ object Env {
     hub = lila.hub.Env.current,
     appPath = app.path.getCanonicalPath,
     isProd = lila.common.PlayApp.isProd,
-    schedule = lila.common.PlayApp.isServer
+    scheduler = lila.common.PlayApp.scheduler
   )
 }

@@ -12,7 +12,7 @@ final class Env(
     db: lila.db.Env,
     flood: lila.security.Flood,
     system: ActorSystem,
-    schedule: Boolean) {
+    scheduler: lila.common.Scheduler) {
 
   private val settings = new {
     val MessageMax = config getInt "message.max"
@@ -36,8 +36,7 @@ final class Env(
 
   lazy val fisherman = new Fisherman(hookMemo, socket)
 
-  if (schedule) {
-    val scheduler = new lila.common.Scheduler(system)
+  {
     import scala.concurrent.duration._
 
     scheduler.message(1 second) {
@@ -70,5 +69,5 @@ object Env {
     db = lila.db.Env.current,
     flood = lila.security.Env.current.flood,
     system = lila.common.PlayApp.system,
-    schedule = lila.common.PlayApp.isServer)
+    scheduler = lila.common.PlayApp.scheduler)
 }

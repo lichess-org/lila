@@ -16,6 +16,8 @@ object PlayApp {
     play.api.libs.concurrent.Akka.system
   }
 
+  def scheduler = new Scheduler(system, enabled = isServer)
+
   def isDev = isMode(_.Dev)
   def isTest = isMode(_.Test)
   def isProd = isMode(_.Prod)

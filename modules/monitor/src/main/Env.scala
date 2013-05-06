@@ -10,7 +10,7 @@ final class Env(
     db: lila.db.Env,
     hub: lila.hub.Env,
     system: ActorSystem,
-    schedule: Boolean) {
+    scheduler: lila.common.Scheduler) {
 
   private val ActorName = config getString "actor.name"
   private val SocketName = config getString "socket.name"
@@ -30,8 +30,7 @@ final class Env(
       hub = hub
     )), name = ActorName)
 
-  if (schedule) {
-    val scheduler = new lila.common.Scheduler(system)
+  {
     import scala.concurrent.duration._
 
     scheduler.message(5 seconds) {
@@ -53,5 +52,5 @@ object Env {
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     system = lila.common.PlayApp.system,
-    schedule = lila.common.PlayApp.isServer)
+    scheduler = lila.common.PlayApp.scheduler)
 }

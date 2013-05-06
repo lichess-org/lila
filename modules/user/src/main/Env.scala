@@ -11,7 +11,7 @@ final class Env(
     db: lila.db.Env,
     hub: lila.hub.Env,
     system: ActorSystem,
-    schedule: Boolean) {
+    scheduler: lila.common.Scheduler) {
 
   private val settings = new {
     val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
@@ -52,8 +52,7 @@ final class Env(
     }
   }
 
-  if (schedule) {
-    val scheduler = new lila.common.Scheduler(system)
+  {
     import scala.concurrent.duration._
     import akka.pattern.{ ask, pipe }
     import makeTimeout.short
@@ -76,5 +75,5 @@ object Env {
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     system = lila.common.PlayApp.system,
-    schedule = lila.common.PlayApp.isServer)
+    scheduler = lila.common.PlayApp.scheduler)
 }
