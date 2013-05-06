@@ -1,7 +1,8 @@
-package lila
+package lila.app
 package game
 
-import game._
+import lila.game._
+import lila.user._
 
 class FeaturedTest extends LilaSpec {
 
@@ -34,14 +35,16 @@ class FeaturedTest extends LilaSpec {
       }
     }
 
-    val game1 = DbGame(
+    val game1 = Game.make(
       game = chess.Game(chess.Variant.default),
-      whitePlayer = DbPlayer.white.copy(elo = 1600.some),
-      blackPlayer = DbPlayer.black,
+      whitePlayer = Player.white.copy(elo = 1600.some),
+      blackPlayer = Player.black,
       ai = None,
       creatorColor = chess.Color.White,
       mode = chess.Mode.default,
-      variant = chess.Variant.default)
+      variant = chess.Variant.default,
+      source = Source.Lobby,
+      pgnImport = None)
 
     val game2 = game1.copy(
       clock = chess.Clock(180,0).some,
