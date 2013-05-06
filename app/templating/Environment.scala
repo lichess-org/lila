@@ -33,5 +33,5 @@ object Environment
   def netDomain = apiEnv.Net.Domain
   def netBaseUrl = apiEnv.Net.BaseUrl
 
-  def isDev = apiEnv.isDev
+  def isProd = apiEnv.isProd
 }

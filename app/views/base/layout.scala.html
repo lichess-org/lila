@@ -129,7 +129,7 @@ signedJs: Option[String] = None)(body: Html)(implicit ctx: Context)
       </div>
     </div>
     @jsTag("deps.min.js")
-    @signedJs.fold(isDev.fold(jsTag("big.js"), jsTagC("big.js")))(jsAt)
+    @signedJs.fold(isProd.fold(jsTagC("big.js"), jsTag("big.js")))(jsAt)
     @moreJs
     @if(lang.language != "en") {
     <script src="@routes.Assets.at("trans/" + lang.language + ".js")?v=@assetVersion"></script>

@@ -12,6 +12,7 @@ final class Env(
     config: Config,
     captcher: ActorRef,
     system: ActorSystem,
+    schedule: Boolean,
     db: lila.db.Env) {
 
   private val settings = new {
@@ -41,7 +42,7 @@ final class Env(
 
   lazy val userSpy = Store.userSpy _
 
-  {
+  if (schedule) {
     val scheduler = new lila.common.Scheduler(system)
     import scala.concurrent.duration._
 
@@ -62,5 +63,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "security",
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,
+    schedule = lila.common.PlayApp.isServer,
     captcher = lila.hub.Env.current.actor.captcher)
 }

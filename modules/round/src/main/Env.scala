@@ -13,7 +13,7 @@ final class Env(
     hub: lila.hub.Env,
     ai: lila.ai.Ai,
     i18nKeys: lila.i18n.I18nKeys,
-    isDev: Boolean) {
+    schedule: Boolean) {
 
   private val settings = new {
     val MessageTtl = config duration "message.ttl"
@@ -72,7 +72,7 @@ final class Env(
 
   val animationDelay = AnimationDelay
 
-  if (!isDev) {
+  if (schedule) {
 
     val scheduler = new lila.common.Scheduler(system)
     import scala.concurrent.duration._
@@ -116,5 +116,5 @@ object Env {
     hub = lila.hub.Env.current,
     ai = lila.ai.Env.current.ai,
     i18nKeys = lila.i18n.Env.current.keys,
-    isDev = lila.common.PlayApp.isDev)
+    schedule = lila.common.PlayApp.isServer)
 }

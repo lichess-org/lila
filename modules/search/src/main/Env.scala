@@ -6,7 +6,7 @@ import scala.concurrent.Future
 import akka.actor.ActorSystem
 import scala.collection.JavaConversions._
 
-final class Env(config: Config, system: ActorSystem) {
+final class Env(config: Config, system: ActorSystem, schedule: Boolean) {
 
   private val ESHost = config getString "es.host"
   private val ESPort = config getInt "es.port"
@@ -24,7 +24,7 @@ final class Env(config: Config, system: ActorSystem) {
     loginfo("[search] ElasticSearch is running")
   }
 
-  {
+  if (schedule) {
     val scheduler = new lila.common.Scheduler(system)
     import scala.concurrent.duration._
 
@@ -38,5 +38,6 @@ object Env {
 
   lazy val current = "[boot] search" describes new Env(
     config = lila.common.PlayApp loadConfig "search",
-    system = lila.common.PlayApp.system)
+    system = lila.common.PlayApp.system,
+    schedule = lila.common.PlayApp.isServer)
 }
