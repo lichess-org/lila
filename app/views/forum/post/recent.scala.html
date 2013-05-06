@@ -1,4 +1,4 @@
-@(posts: List[lila.app.forum.PostLiteView])(implicit ctx: Context)
+@(posts: List[lila.forum.PostLiteView])(implicit ctx: Context)
 @posts.reverse.map { v =>
 @defining(routes.ForumTopic.show(v.topic.categId, v.topic.slug, v.topicLastPage) + "#" + v.post.number) { postUrl =>
 <li @v.post.isTeam.fold("class='s16 team'", "")>

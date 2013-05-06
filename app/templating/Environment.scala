@@ -31,6 +31,8 @@ object Environment
     with TeamHelper {
   // with tournament.TournamentHelper 
 
+  type FormWithCaptcha = (play.api.data.Form[_], lila.common.Captcha)
+
   def netDomain = apiEnv.Net.Domain
   def netBaseUrl = apiEnv.Net.BaseUrl
 

@@ -5,8 +5,10 @@ import lila.common.LilaCookie
 import lila.user.{ Context, HeaderContext, BodyContext, User ⇒ UserModel }
 import lila.security.{ Permission, Granter }
 
+import scalaz.Zero
 import play.api.mvc._, Results._
 import play.api.data.Form
+import play.api.templates.Html
 import play.api.http._
 import play.api.libs.json.{ Json, JsValue, Writes }
 
@@ -14,7 +16,23 @@ trait LilaController
     extends Controller
     with ContentTypes
     with RequestGetter
-    with ResponseWriter {
+    with ResponseWriter
+    with Results {
+
+  protected implicit val LilaResultZero = new Zero[Result] {
+    val zero = Results.NotFound
+  }
+  protected implicit val LilaPlainResultZero = new Zero[PlainResult] {
+    val zero = Results.NotFound
+  }
+
+  protected implicit final class LilaPimpedResult(result: Result) {
+    def fuccess = scala.concurrent.Future successful result
+  }
+
+  protected implicit def LilaHtmlToResult(content: Html): Result = Ok(content)
+
+  protected implicit def LilaFunitToResult(funit: Funit): Fu[Result] = funit inject Ok("ok")
 
   override implicit def lang(implicit req: RequestHeader) =
     Env.i18n.pool lang req
@@ -45,14 +63,15 @@ trait LilaController
     _.fold(notFound(ctx))(a ⇒ fuccess(Ok(op(a))))
   }
 
-  // protected def Auth(f: Context ⇒ UserModel ⇒ Result): Action[AnyContent] =
-  //   Auth(BodyParsers.parse.anyContent)(f)
+  protected def Auth(f: Context ⇒ UserModel ⇒ Fu[Result]): Action[AnyContent] =
+    Auth(BodyParsers.parse.anyContent)(f)
 
-  // protected def Auth[A](p: BodyParser[A])(f: Context ⇒ UserModel ⇒ Result): Action[A] =
-  //   Action(p)(req ⇒ {
-  //     val ctx = reqToCtx(req)
-  //     ctx.me.fold(authenticationFailed(ctx.req))(me ⇒ f(ctx)(me))
-  //   })
+  protected def Auth[A](p: BodyParser[A])(f: Context ⇒ UserModel ⇒ Fu[Result]): Action[A] =
+    Action(p)(req ⇒ Async {
+      reqToCtx(req) flatMap { ctx ⇒
+        ctx.me.fold(fuccess(authenticationFailed(ctx.req)))(me ⇒ f(ctx)(me))
+      }
+    })
 
   // protected def AuthBody(f: BodyContext ⇒ UserModel ⇒ Result): Action[AnyContent] =
   //   AuthBody(BodyParsers.parse.anyContent)(f)
@@ -63,14 +82,14 @@ trait LilaController
   //     ctx.me.fold(authenticationFailed(ctx.req))(me ⇒ f(ctx)(me))
   //   })
 
-  // protected def Secure(perm: Permission)(f: Context ⇒ UserModel ⇒ Result): Action[AnyContent] =
-  //   Secure(BodyParsers.parse.anyContent)(perm)(f)
+  protected def Secure(perm: Permission)(f: Context ⇒ UserModel ⇒ Fu[Result]): Action[AnyContent] =
+    Secure(BodyParsers.parse.anyContent)(perm)(f)
 
-  // protected def Secure[A](p: BodyParser[A])(perm: Permission)(f: Context ⇒ UserModel ⇒ Result): Action[A] =
-  //   Auth(p) { ctx ⇒
-  //     me ⇒
-  //       ctx.isGranted(perm).fold(f(ctx)(me), authorizationFailed(ctx.req))
-  //   }
+  protected def Secure[A](p: BodyParser[A])(perm: Permission)(f: Context ⇒ UserModel ⇒ Fu[Result]): Action[A] =
+    Auth(p) { implicit ctx ⇒
+      me ⇒
+        isGranted(perm).fold(f(ctx)(me), fuccess(authorizationFailed(ctx.req)))
+    }
 
   protected def Firewall[A <: Result](a: ⇒ Fu[A])(implicit ctx: Context): Fu[Result] =
     Env.security.firewall.accepts(ctx.req) flatMap {
@@ -133,40 +152,38 @@ trait LilaController
   // protected def OptionResult[A](oa: Option[A])(op: A ⇒ Result)(implicit ctx: Context) =
   //   oa.fold(notFound(ctx))(op)
 
-  // protected def IOptionOk[A, B](ioa: IO[Option[A]])(op: A ⇒ B)(
-  //   implicit writer: Writeable[B],
-  //   ctype: ContentTypeOf[B],
-  //   ctx: Context) =
-  //   ioa.unsafePerformIO.fold(notFound(ctx))(a ⇒ Ok(op(a)))
+  protected def OptionOk[A, B](fua: Fu[Option[A]])(op: A ⇒ B)(
+    implicit writer: Writeable[B],
+    ctype: ContentTypeOf[B],
+    ctx: Context): Fu[Result] =
+    fua flatMap { _.fold(notFound(ctx))(a ⇒ fuccess(Ok(op(a)))) }
 
-  // protected def IOptionIOk[A, B](ioa: IO[Option[A]])(op: A ⇒ IO[B])(
-  //   implicit writer: Writeable[B],
-  //   ctype: ContentTypeOf[B],
-  //   ctx: Context) =
-  //   ioa flatMap { aOption ⇒
-  //     aOption.fold(io(notFound(ctx))) { a ⇒ op(a) map { Ok(_) } } //: IO[Result]
-  //   } unsafePerformIO
+  protected def OptionFuOk[A, B](fua: Fu[Option[A]])(op: A ⇒ Fu[B])(
+    implicit writer: Writeable[B],
+    ctype: ContentTypeOf[B],
+    ctx: Context) =
+    fua flatMap { _.fold(notFound(ctx))(a ⇒ op(a) map { Ok(_) }) }
 
-  // protected def IOptionIOResult[A](ioa: IO[Option[A]])(op: A ⇒ IO[Result])(implicit ctx: Context) =
-  //   ioa flatMap { _.fold(io(notFound(ctx)))(op) } unsafePerformIO
+  // protected def IOptionIOResult[A](fua: IO[Option[A]])(op: A ⇒ IO[Result])(implicit ctx: Context) =
+  //   fua flatMap { _.fold(io(notFound(ctx)))(op) } unsafePerformIO
 
-  // protected def IOptionRedirect[A](ioa: IO[Option[A]])(op: A ⇒ Call)(implicit ctx: Context) =
-  //   ioa map {
+  // protected def IOptionRedirect[A](fua: IO[Option[A]])(op: A ⇒ Call)(implicit ctx: Context) =
+  //   fua map {
   //     _.fold(notFound(ctx))(a ⇒ Redirect(op(a)))
   //   } unsafePerformIO
 
-  // protected def IOptionIORedirect[A](ioa: IO[Option[A]])(op: A ⇒ IO[Call])(implicit ctx: Context) =
-  //   (ioa flatMap {
+  // protected def IOptionIORedirect[A](fua: IO[Option[A]])(op: A ⇒ IO[Call])(implicit ctx: Context) =
+  //   (fua flatMap {
   //     _.fold(io(notFound(ctx)))(a ⇒ op(a) map { b ⇒ Redirect(b) })
   //   }: IO[Result]).unsafePerformIO
 
-  // protected def IOptionIORedirectUrl[A](ioa: IO[Option[A]])(op: A ⇒ IO[String])(implicit ctx: Context) =
-  //   (ioa flatMap {
+  // protected def IOptionIORedirectUrl[A](fua: IO[Option[A]])(op: A ⇒ IO[String])(implicit ctx: Context) =
+  //   (fua flatMap {
   //     _.fold(io(notFound(ctx)))(a ⇒ op(a) map { b ⇒ Redirect(b) })
   //   }: IO[Result]).unsafePerformIO
 
-  // protected def IOptionResult[A](ioa: IO[Option[A]])(op: A ⇒ Result)(implicit ctx: Context) =
-  //   ioa.unsafePerformIO.fold(notFound(ctx))(a ⇒ op(a))
+  // protected def IOptionResult[A](fua: IO[Option[A]])(op: A ⇒ Result)(implicit ctx: Context) =
+  //   fua.unsafePerformIO.fold(notFound(ctx))(a ⇒ op(a))
 
   protected def notFound(implicit ctx: Context): Fu[Result] =
     Lobby handleNotFound ctx
@@ -175,8 +192,17 @@ trait LilaController
   //   NotImplemented(views.html.site.todo())
   // }
 
-  // protected def isGranted(permission: Permission.type ⇒ Permission)(implicit ctx: Context): Boolean =
-  //   Granter.option(permission(Permission))(ctx.me)
+  protected def isGranted(permission: Permission.type ⇒ Permission)(implicit ctx: Context): Boolean =
+    isGranted(permission(Permission))
+
+  protected def isGranted(permission: Permission)(implicit ctx: Context): Boolean =
+    ctx.me.zmap(Granter(permission))
+
+  protected def authenticationFailed(implicit req: RequestHeader): Result =
+    Redirect(routes.Auth.signup) withCookies LilaCookie.session(Env.security.api.AccessUri, req.uri)
+
+  protected def authorizationFailed(req: RequestHeader): Result =
+    Forbidden("no permission")
 
   protected def reqToCtx(req: Request[_]): Fu[BodyContext] =
     Env.security.api restoreUser req map { user ⇒

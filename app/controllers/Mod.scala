@@ -9,8 +9,8 @@ import play.api.mvc.Results._
 
 object Mod extends LilaController {
 
-  // private def modApi = env.mod.api
-  // private def modLogApi = env.mod.logApi
+  private def modApi = Env.mod.api
+  private def modLogApi = Env.mod.logApi
 
   def engine(username: String) = TODO
   // Secure(Permission.MarkEngine) { _ ⇒
@@ -27,10 +27,9 @@ object Mod extends LilaController {
   //   me ⇒ AsyncRedirect(modApi.ban(me, username))(routes.User show username)
   // }
 
-  def ipban(ip: String) = TODO
-  // Secure(Permission.IpBan) { implicit ctx ⇒
-  //   me ⇒ AsyncUnit(modApi.ipban(me, ip))
-  // }
+  def ipban(ip: String) = Secure(Permission.IpBan) { implicit ctx ⇒
+    me ⇒ modApi.ipban(me.id, ip)
+  }
 
   def log = TODO
   // Auth { implicit ctx ⇒

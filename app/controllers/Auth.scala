@@ -75,7 +75,4 @@ object Auth extends LilaController {
 
   private def logoutSucceeded(req: RequestHeader): PlainResult =
     Redirect(routes.Lobby.home)
-
-  private def authenticationFailed(implicit req: RequestHeader): Result =
-    Redirect(routes.Auth.signup) withCookies LilaCookie.session(api.AccessUri, req.uri)
 }

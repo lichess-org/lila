@@ -1,4 +1,4 @@
-@(categ: lila.app.forum.Categ, topic: lila.app.forum.Topic, posts: Paginator[lila.app.forum.Post], formWithCaptcha: Option[(Form[_], lila.app.site.Captcha.Challenge)])(implicit ctx: Context)
+@(categ: lila.forum.Categ, topic: lila.forum.Topic, posts: Paginator[lila.forum.Post], formWithCaptcha: Option[FormWithCaptcha])(implicit ctx: Context)
 
 @forum.layout(
 title = topic.name) {
