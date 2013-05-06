@@ -118,21 +118,21 @@ GET   /translation/contribute          controllers.I18n.contribute
 # POST  /translation/form/:lang          controllers.I18n.translationPost(lang: String)
 # GET   /translation/fetch/:from         controllers.I18n.fetch(from: Int)
 # POST  /translation/hideCalls           controllers.I18n.hideCalls
-# 
+ 
 # Authentication
 GET   /login                           controllers.Auth.login
 POST  /login                           controllers.Auth.authenticate
 GET   /logout                          controllers.Auth.logout
 GET   /signup                          controllers.Auth.signup
 POST  /signup                          controllers.Auth.signupPost
-# 
+ 
 # Mod
-# POST  /mod/:username/engine            controllers.Mod.engine(username: String)
-# POST  /mod/:username/mute              controllers.Mod.mute(username: String)
-# POST  /mod/:username/ban               controllers.Mod.ban(username: String)
-# POST  /mod/:ip/ipban                   controllers.Mod.ipban(ip: String)
+POST  /mod/:username/engine            controllers.Mod.engine(username: String)
+POST  /mod/:username/mute              controllers.Mod.mute(username: String)
+POST  /mod/:username/ban               controllers.Mod.ban(username: String)
+POST  /mod/:ip/ipban                   controllers.Mod.ipban(ip: String)
 GET   /mod/log                         controllers.Mod.log
-# 
+ 
 # Wiki
 GET   /wiki                            controllers.Wiki.home
 GET   /wiki/:slug                      controllers.Wiki.show(slug: String)

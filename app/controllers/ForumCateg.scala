@@ -11,12 +11,11 @@ object ForumCateg extends LilaController with ForumController {
     }
   }
 
-  def show(slug: String, page: Int) = TODO
-  // Open { implicit ctx ⇒
-  //   CategGrantRead(slug) {
-  //     IOptionOk(categApi.show(slug, page)) {
-  //       case (categ, topics) ⇒ html.forum.categ.show(categ, topics)
-  //     }
-  //   }
-  // }
+  def show(slug: String, page: Int) = Open { implicit ctx ⇒
+    CategGrantRead(slug) {
+      OptionOk(categApi.show(slug, page)) {
+        case (categ, topics) ⇒ html.forum.categ.show(categ, topics)
+      }
+    }
+  }
 }

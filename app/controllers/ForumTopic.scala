@@ -30,15 +30,15 @@ object ForumTopic extends LilaController with ForumController {
   //   }
   // }
 
-  def show(categSlug: String, slug: String, page: Int) = TODO
-  // Open { implicit ctx ⇒
-  //   CategGrantRead(categSlug) {
-  //     IOptionOk(topicApi.show(categSlug, slug, page)) {
-  //       case (categ, topic, posts) ⇒ {
-  //         val form = (!posts.hasNextPage && isGrantedWrite(categSlug)) option forms.postWithCaptcha
-  //         html.forum.topic.show(categ, topic, posts, form)
-  //       }
-  //     }
-  //   }
-  // }
+  def show(categSlug: String, slug: String, page: Int) = Open { implicit ctx ⇒
+    CategGrantRead(categSlug) {
+      OptionFuOk(topicApi.show(categSlug, slug, page)) {
+        case (categ, topic, posts) ⇒ isGrantedWrite(categSlug) flatMap { granted =>
+          (!posts.hasNextPage && granted) ?? forms.postWithCaptcha.map(_.some) map { form =>
+            html.forum.topic.show(categ, topic, posts, form)
+          }
+        }
+      }
+    }
+  }
 }

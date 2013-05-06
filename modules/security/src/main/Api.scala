@@ -2,15 +2,14 @@ package lila.security
 
 import lila.user.{ User, UserRepo }
 
-import play.api.mvc._
-import play.api.mvc.Results._
+import play.api.mvc.RequestHeader
 import play.api.data._
 import play.api.data.Forms._
 import ornicar.scalalib.Random
 
 private[security] final class Api(firewall: Firewall) {
 
-  def AccessUri = "access_uri"
+  val AccessUri = "access_uri"
 
   def loginForm = Form(mapping(
     "username" -> nonEmptyText,
@@ -23,9 +22,6 @@ private[security] final class Api(firewall: Firewall) {
     val sessionId = Random nextString 12 
     Store.save(sessionId, username, req) inject sessionId
   }
-
-  def authorizationFailed(req: RequestHeader): Result =
-    Forbidden("no permission")
 
   // blocking function, required by Play2 form
   def authenticateUser(username: String, password: String): Option[User] =
