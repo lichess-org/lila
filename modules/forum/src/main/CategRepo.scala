@@ -11,10 +11,10 @@ object CategRepo {
   def bySlug(slug: String) = $find byId slug
 
   def withTeams(teams: List[String]): Fu[List[Categ]] = 
-    $find($query($or(Json.obj(
-      "team" -> $exists(false), 
-      "team" -> $in(teams)
-    ))) sort $sort.asc("pos"))
+    $find($query($or(
+      Json.obj("team" -> $exists(false)),
+      Json.obj("team" -> $in(teams))
+    )) sort $sort.asc("pos"))
 
   def nextPosition: Fu[Int] = $primitive.one(
     $select.all,

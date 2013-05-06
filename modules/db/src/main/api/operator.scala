@@ -30,7 +30,7 @@ trait $operator {
   def $all[A: Writes](values: A*) = Json.obj("$all" -> values)
   def $exists(bool: Boolean) = Json.obj("$exists" -> bool)
 
-  def $or[A: Writes](conditions: A) = Json.obj("$or" -> conditions)
+  def $or[A: Writes](conditions: A*) = Json.obj("$or" -> conditions)
 
   def $regex(value: String, flags: String = "") = BSONFormats toJSON BSONRegex(value, flags)
 
