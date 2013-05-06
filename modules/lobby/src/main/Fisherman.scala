@@ -13,14 +13,14 @@ final class Fisherman(
     socket: ActorRef) {
 
   def delete(hook: Hook): Funit =
-    $remove(hook) >> (socket ! RemoveHook(hook))
+    $remove(hook) >>- (socket ! RemoveHook(hook))
 
   def add(hook: Hook): Funit =
-    $insert(hook) >> (socket ! AddHook(hook)) >> shake(hook)
+    $insert(hook) >>- (socket ! AddHook(hook)) >>- shake(hook)
 
   def bite(hook: Hook, game: Game): Funit =
-    HookRepo.setGame(hook, game) >>
-      (socket ! RemoveHook(hook)) >>
+    HookRepo.setGame(hook, game) >>-
+      (socket ! RemoveHook(hook)) >>-
       (socket ! BiteHook(hook, game))
 
   // mark the hook as active, once

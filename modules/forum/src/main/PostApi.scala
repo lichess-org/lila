@@ -42,7 +42,7 @@ final class PostApi(env: Env, indexer: ActorRef, maxPerPage: Int) extends Option
         // denormalize categ
         $update(categ.copy(
           nbPosts = categ.nbPosts + 1,
-          lastPostId = post.id)) >>
+          lastPostId = post.id)) >>-
         (indexer ! InsertPost(post)) >>
         env.recent.invalidate inject post
     }
@@ -102,7 +102,7 @@ final class PostApi(env: Env, indexer: ActorRef, maxPerPage: Int) extends Option
         $remove[Post](view.post) >>
           (env.topicApi denormalize view.topic) >>
           (env.categApi denormalize view.categ) >>
-          env.recent.invalidate >>
+          env.recent.invalidate >>-
           (indexer ! RemovePost(post)))
       // TODO
       // _ ← modLog.deletePost(mod, post.userId, post.author, post.ip,

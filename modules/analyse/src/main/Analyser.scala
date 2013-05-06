@@ -32,7 +32,7 @@ private[analyse] final class Analyser(ai: ActorRef) {
             initialFen ← GameRepo initialFen id
             analysis ← ai ? lila.hub.actorApi.ai.Analyse(pgnString, initialFen) mapTo manifest[Valid[Analysis]]
             _ ← analysis.prefixFailuresWith("[analysis] ").fold(
-              fail ⇒ AnalysisRepo.fail(id, fail) >> fail.foreach(logwarn),
+              fail ⇒ AnalysisRepo.fail(id, fail) >>- fail.foreach(logwarn),
               AnalysisRepo.done(id, _)
             )
           } yield analysis
