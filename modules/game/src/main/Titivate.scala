@@ -15,7 +15,7 @@ private[game] final class Titivate(bookmark: ActorRef) {
 
   def cleanupUnplayed: Funit = GameRepo.unplayedIds flatMap { ids ⇒
     fuloginfo("[titivate] Remove %d unplayed games" format ids.size) >>
-      $remove[Game]($select byIds ids) >>
+      $remove[Game]($select byIds ids) >>-
       (bookmark ! Remove(ids)) >>
       (tube.pgnTube |> { implicit pgnT ⇒ $remove[JsObject]($select byIds ids) })
   }

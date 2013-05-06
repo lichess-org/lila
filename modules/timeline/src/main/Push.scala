@@ -14,7 +14,7 @@ private[timeline] final class Push(
 
   def receive = {
     case game: Game ⇒ makeEntry(game) foreach { entry ⇒
-      $insert(entry) >> (lobbySocket ! TimelineEntry(entry.render))
+      $insert(entry) >>- (lobbySocket ! TimelineEntry(entry.render))
     }
   }
 

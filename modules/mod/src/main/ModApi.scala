@@ -22,14 +22,14 @@ final class ModApi(
   }
 
   def mute(mod: String, username: String): Funit = withUser(username) { user ⇒
-    (UserRepo toggleMute user.id) >>
+    (UserRepo toggleMute user.id) >>-
     censor(user) >>
       logApi.mute(mod, user.id, !user.isChatBan)
   }
 
   def ban(mod: String, username: String): Funit = withUser(username) { user ⇒
     userSpy(username) flatMap { spy ⇒
-      (spy.ips map firewall.blockIp).sequence >>
+      (spy.ips map firewall.blockIp).sequence >>-
       censor(user) >>
         logApi.ban(mod, user.id)
     }

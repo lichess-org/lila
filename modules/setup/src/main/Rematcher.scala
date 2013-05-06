@@ -43,7 +43,7 @@ private[setup] final class Rematcher(
     nextId = nextGame.id
     _ ← $insert(nextGame) >>
       (GameRepo denormalize nextGame) >>
-      GameRepo.saveNext(pov.game, nextGame.id) >>
+      GameRepo.saveNext(pov.game, nextGame.id) >>-
       (timeline ! nextGame) >>
       // messenges are not sent to the next game socket
       // as nobody is there to see them yet

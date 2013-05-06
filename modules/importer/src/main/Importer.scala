@@ -26,7 +26,7 @@ private[importer] final class Importer(
           dbGame ← $find.byId[Game](game.id)
           _ ← ~((result |@| dbGame) apply {
             case (res, dbg) ⇒ finish(dbg, res)
-          }) >> ~((dbGame |@| user) apply {
+          }) >>- ~((dbGame |@| user) apply {
             case (dbg, u) ⇒ bookmark ! (dbg.id -> u)
           })
         } yield game.some
@@ -48,7 +48,7 @@ private[importer] final class Importer(
   private def applyMoves(id: String, moves: List[Move]): Funit = moves match {
     case Nil ⇒ funit
     case move :: rest ⇒ applyMove(id, move) flatMap {
-      _ ?? { applyMoves(id, rest) >> (Thread sleep delay.toMillis) }
+      _ ?? { applyMoves(id, rest) >>- (Thread sleep delay.toMillis) }
     }
   }
 

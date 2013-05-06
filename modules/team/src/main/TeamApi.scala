@@ -29,8 +29,8 @@ final class TeamApi(
       createdBy = me)
     $insert(team) >>
       MemberRepo.add(team.id, me.id) >>
-      (cached.teamIds invalidate me.id) >>
-      (forum ! MakeTeam(team.id, team.name)) >>
+      (cached.teamIds invalidate me.id) >>-
+      (forum ! MakeTeam(team.id, team.name)) >>-
       (indexer ! InsertTeam(team)) inject team
   }
 
@@ -39,7 +39,7 @@ final class TeamApi(
       location = e.location,
       description = e.description,
       open = e.isOpen
-    ) |> { team ⇒ $update(team) >> (indexer ! InsertTeam(team)) }
+    ) |> { team ⇒ $update(team) >>- (indexer ! InsertTeam(team)) }
   }
 
   def mine(me: User): Fu[List[Team]] =
@@ -96,7 +96,7 @@ final class TeamApi(
       _ ← cached.nbRequests invalidate team.createdBy
       userOption ← $find.byId[User](request.user)
       _ ← userOption.zmap(user ⇒
-        doJoin(team, user.id) >> notifier.acceptRequest(team, request) doIf accept
+        doJoin(team, user.id) >>- notifier.acceptRequest(team, request) doIf accept
       )
     } yield ()
 
@@ -126,15 +126,15 @@ final class TeamApi(
   def kick(team: Team, userId: String): Funit = doQuit(team, userId)
 
   def enable(team: Team): Funit =
-    TeamRepo.enable(team) >> (indexer ! InsertTeam(team))
+    TeamRepo.enable(team) >>- (indexer ! InsertTeam(team))
 
   def disable(team: Team): Funit =
-    TeamRepo.disable(team) >> (indexer ! RemoveTeam(team.id))
+    TeamRepo.disable(team) >>- (indexer ! RemoveTeam(team.id))
 
   //   // delete for ever, with members but not forums
   def delete(team: Team): Funit =
     $remove(team) >>
-      MemberRepo.removeByteam(team.id) >>
+      MemberRepo.removeByteam(team.id) >>-
       (indexer ! RemoveTeam(team.id))
 
   def belongsTo(teamId: String, userId: String): Fu[Boolean] =

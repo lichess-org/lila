@@ -30,7 +30,7 @@ private[setup] final class FriendJoiner(
           p2 + Event.RedirectOwner(!color, url) ++ evts
         }
         _ ← (GameRepo save p3) >>
-          (GameRepo denormalize p3.game) >>
+          (GameRepo denormalize p3.game) >>-
           (timeline ! p3.game)
       } yield Pov(p3.game, color) -> p3.events
     } toValid "Can't join started game " + game.id

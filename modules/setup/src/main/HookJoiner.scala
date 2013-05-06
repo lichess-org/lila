@@ -35,7 +35,7 @@ private[setup] final class HookJoiner(
       blame(_.creatorColor, ownerOption, makeGame(hook))
     ).start
     _ ← $insert(game) >>
-      (GameRepo denormalize game) >>
+      (GameRepo denormalize game) >>-
       (timeline ! game) >>
       // messenges are not sent to the game socket
       // as nobody is there to see them yet

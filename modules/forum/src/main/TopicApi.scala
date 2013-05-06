@@ -49,7 +49,7 @@ private[forum] final class TopicApi(
         $update(categ.copy(
           nbTopics = categ.nbTopics + 1,
           nbPosts = categ.nbPosts + 1,
-          lastPostId = post.id)) >>
+          lastPostId = post.id)) >>-
         (indexer ! InsertPost(post)) >>
         env.recent.invalidate inject topic
     }
@@ -74,7 +74,7 @@ private[forum] final class TopicApi(
   def delete(categ: Categ, topic: Topic): Funit =
     (PostRepo removeByTopic topic.id) >>
       $remove(topic) >>
-      (env.categApi denormalize categ) >>
+      (env.categApi denormalize categ) >>-
       (indexer ! RemoveTopic(topic.id)) >>
       env.recent.invalidate
 

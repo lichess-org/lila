@@ -41,7 +41,7 @@ final class Firewall(
   def blockIp(ip: String): Funit = blocksIp(ip) flatMap { blocked ⇒
     if (validIp(ip) && !blocked) {
       log("Block IP: " + ip)
-      $insert(Json.obj("_id" -> ip, "date" -> DateTime.now)) >> refresh
+      $insert(Json.obj("_id" -> ip, "date" -> DateTime.now)) >>- refresh
     }
     else fuccess(log("Invalid IP block: " + ip))
   }

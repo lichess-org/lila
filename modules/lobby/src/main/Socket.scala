@@ -50,7 +50,7 @@ private[lobby] final class Socket(
       notifyVersion("talk", Json.obj("txt" -> message.text))
     }
 
-    case UnTalk(regex) ⇒ (messenger remove regex) >>
+    case UnTalk(regex) ⇒ (messenger remove regex) >>-
       notifyVersion("untalk", Json.obj("regex" -> regex.toString))
 
     case ReloadTournaments(html) ⇒ notifyTournaments(html)
