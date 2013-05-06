@@ -8,7 +8,7 @@ import spray.caching.{ LruCache, Cache }
 
 private[forum] final class Recent(postApi: PostApi, ttl: Duration) {
 
-  private type GetTeams = User ⇒ Fu[List[String]]
+  private type GetTeams = String ⇒ Fu[List[String]]
 
   def apply(user: Option[User], getTeams: GetTeams): Fu[List[PostLiteView]] =
     userCacheKey(user, getTeams) flatMap { key ⇒
@@ -24,7 +24,7 @@ private[forum] final class Recent(postApi: PostApi, ttl: Duration) {
   private val nb = 20
 
   private def userCacheKey(user: Option[User], getTeams: GetTeams): Fu[String] =
-    user zmap getTeams map { teams ⇒
+    user.map(_.id) zmap getTeams map { teams ⇒
       ((user zmap MasterGranter(Permission.StaffForum)).fold(
         staffCategIds, publicCategIds
       ) ::: (teams map teamSlug)) mkString ";"

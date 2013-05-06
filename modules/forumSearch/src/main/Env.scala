@@ -20,15 +20,13 @@ final class Env(
   private val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
   private val IndexerName = config getString "indexer.name"
 
+  def apply(text: String, page: Int, staff: Boolean) = 
+    paginatorBuilder(Query(text, staff), page)
+
   val indexer: ActorRef = system.actorOf(Props(new Indexer(
     lowLevel = lowLevelIndexer,
     postApi = postApi
   )), name = IndexerName)
-
-  lazy val paginatorBuilder = new lila.search.PaginatorBuilder(
-    indexer = lowLevelIndexer,
-    maxPerPage = PaginatorMaxPerPage,
-    converter = responseToPosts _)
 
   def cli = new lila.common.Cli {
     import akka.pattern.ask
@@ -39,6 +37,11 @@ final class Env(
         (lowLevelIndexer ? RebuildAll) inject "Forum search index rebuilt"
     }
   }
+
+  private lazy val paginatorBuilder = new lila.search.PaginatorBuilder(
+    indexer = lowLevelIndexer,
+    maxPerPage = PaginatorMaxPerPage,
+    converter = responseToPosts _)
 
   private val lowLevelIndexer: ActorRef = system.actorOf(Props(new TypeIndexer(
     es = esIndexer,

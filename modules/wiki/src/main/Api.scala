@@ -16,7 +16,7 @@ private[wiki] final class Api {
         case (a, b) ⇒ a orElse b
       }
     pages ← $find($query(Json.obj(
-      "lang" -> $in(lang, DefaultLang)
+      "lang" -> $in(Seq(lang, DefaultLang))
     )).sort($sort asc "number"))
   } yield page map { _ -> makeMenu(pages) }
 

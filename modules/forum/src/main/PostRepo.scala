@@ -16,7 +16,7 @@ object PostRepo {
     )(_.asOpt[String]) map { _.zmap(postId ==) }
 
   def countByTopics(topics: List[String]): Fu[Int] =
-    $count(selectTopics(topics))
+    $count(selectTopics(topics)) 
 
   def lastByTopics(topics: List[String]): Fu[Option[Post]] =
     $find.one($query(selectTopics(topics)) sort $sort.createdDesc)
@@ -32,5 +32,5 @@ object PostRepo {
 
   def selectCategs(categIds: List[String]) = Json.obj("categId" -> $in(categIds))
 
-  def sortQuery = $sort.createdDesc
+  def sortQuery = $sort.createdAsc
 }

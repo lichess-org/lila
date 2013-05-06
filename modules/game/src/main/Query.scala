@@ -26,11 +26,11 @@ object Query {
 
   val mate = Json.obj("s" -> Status.Mate.id)
 
-  val draw: JsObject = Json.obj("s" -> $in(Status.Draw.id, Status.Stalemate.id))
+  val draw: JsObject = Json.obj("s" -> $in(Seq(Status.Draw.id, Status.Stalemate.id)))
 
   def draw(u: String): JsObject = user(u) ++ draw
 
-  val finished = Json.obj("s" -> $in(Status.Mate.id, Status.Resign.id, Status.Outoftime.id, Status.Timeout.id))
+  val finished = Json.obj("s" -> $in(Seq(Status.Mate.id, Status.Resign.id, Status.Outoftime.id, Status.Timeout.id)))
 
   val notFinished: JsObject = Json.obj("s" -> $lte(Status.Started.id))
 
@@ -54,7 +54,7 @@ object Query {
   def loss(u: String) = user(u) ++ finished ++ Json.obj("wid" -> $ne(u))
 
   def opponents(u1: User, u2: User) =
-    Json.obj("uids" -> $all(List(u1, u2).sortBy(_.nbGames).map(_.id): _*))
+    Json.obj("uids" -> $all(List(u1, u2).sortBy(_.nbGames).map(_.id)))
 
   def turnsGt(nb: Int) = Json.obj("t" -> $gt(nb))
 
