@@ -1,7 +1,7 @@
 package lila.forum
 
 case class Categ(
-    slug: String,
+    id: String, // slud
     name: String,
     desc: String,
     pos: Int,
@@ -14,7 +14,7 @@ case class Categ(
 
   def isTeam = team.nonEmpty
 
-  def id = slug
+  def slug = id
 }
 
 object Categ {
