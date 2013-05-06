@@ -16,6 +16,7 @@ I assume you run a Unix with mongodb.
 ```sh
 git clone git://github.com/ornicar/lila
 cd lila
+git submodule update --init
 bin/play compile
 ```
 
@@ -23,7 +24,7 @@ Configuration
 -------------
 
 ```sh
-cp conf/local.conf.dist conf/local.conf
+cp conf/application.conf.dist conf/application.conf
 ```
 
 `conf/local.conf` extends `conf/base.conf` and can override any value.
