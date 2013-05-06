@@ -141,7 +141,7 @@ object UserRepo {
       "nbDrawsH" -> 0,
       "enabled" -> true,
       "roles" -> Json.arr(),
-      "createdAt" -> DateTime.now)
+      "createdAt" -> $date(DateTime.now))
   }
 
   private def hash(pass: String, salt: String): String = "%s{%s}".format(pass, salt).sha1
