@@ -14,10 +14,13 @@ final class TeamApi(
     cached: Cached,
     notifier: Notifier,
     forum: ActorRef,
-    paginator: PaginatorBuilder,
     indexer: ActorRef) {
 
   val creationPeriod = 1.week
+
+  def team(id: String) = $find.byId[Team](id)
+
+  def request(id: String) = $find.byId[Request](id)
 
   def create(setup: TeamSetup, me: User): Option[Fu[Team]] = me.canTeam option {
     val s = setup.trim

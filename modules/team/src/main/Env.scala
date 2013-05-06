@@ -29,17 +29,17 @@ final class Env(
     cached = cached,
     notifier = notifier,
     forum = forum,
-    paginator = paginator,
     indexer = indexer)
+
+  lazy val paginator = new PaginatorBuilder(
+    maxPerPage = PaginatorMaxPerPage,
+    maxUserPerPage = PaginatorMaxUserPerPage)
 
   private[team] lazy val teamColl = db(CollectionTeam)
   private[team] lazy val requestColl = db(CollectionRequest)
   private[team] lazy val memberColl = db(CollectionMember)
 
   lazy val cached = new Cached(CacheCapacity)
-  private[team] lazy val paginator = new PaginatorBuilder(
-    maxPerPage = PaginatorMaxPerPage,
-    maxUserPerPage = PaginatorMaxUserPerPage)
 
   private lazy val notifier = new Notifier(
     messenger = messenger,

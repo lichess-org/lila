@@ -34,7 +34,7 @@ private[team] object Member {
   ) 
 }
 
-private[team] case class MemberWithUser(member: Member, user: User) {
+case class MemberWithUser(member: Member, user: User) {
   def team = member.team
   def date = member.date
 }

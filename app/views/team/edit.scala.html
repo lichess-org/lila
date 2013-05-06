@@ -1,18 +1,16 @@
-@(form: Form[_], captcha: lila.app.site.Captcha.Challenge)(implicit ctx: Context)
+@(t: lila.team.Team, form: Form[_])(implicit ctx: Context)
 
-@team.layout(
-title = "New Team",
-currentTab = "form".some) {
+@title = @{ "Edit Team " + t.name }
+
+@team.layout(title = title) {
 <div id="team">
   <div class="content_box team_box">
-    <h1>@trans.newTeam()</h1>
-    <form class="new-team wide" action="@routes.Team.create()" method="POST">
+    <h1>@title</h1>
+    <p class="links undertitle">
+      <a href="@routes.Team.kick(t.id)">Kick someone out of the team</a>
+    </p>
+    <form class="new-team wide" action="@routes.Team.update(t.id)" method="POST">
       <section class="team-data">
-      <label>
-        <span class="required">Name</span>
-        @base.input(form("name"))
-        @errMsg(form("name"))
-      </label>
       <label>
         <span>@trans.joiningPolicy()</span>
         @base.select(form("open"), Seq(1 -> trans.anyoneCanJoin.str(), 0 -> trans.aConfirmationIsRequiredToJoin.str()))
@@ -30,10 +28,8 @@ currentTab = "form".some) {
         }
       </label>
       </section>
-      @base.captcha(form("move"), form("gameId"), captcha)
-      @errMsg(form)
-      <button class="submit button" type="submit">@trans.newTeam()</button>
-      <a href="@routes.Team.home(1)" style="margin-left:20px">@trans.cancel()</a>
+      <button class="submit button" type="submit">@trans.apply()</button>
+      <a href="@routes.Team.show(t.id)" style="margin-left:20px">@trans.cancel()</a>
     </form>
   </div>
 </div>

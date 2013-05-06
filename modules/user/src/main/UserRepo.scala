@@ -123,6 +123,41 @@ object UserRepo {
       }
     }
 
+  def idsAverageElo(ids: Iterable[String]): Fu[Int] = fuccess(0)
+  // TODO
+//     val result = collection.mapReduce(
+//       mapFunction = """function() { emit("e", this.elo); }""",
+//       reduceFunction = """function(key, values) {
+//   var sum = 0;
+//   for(var i in values) { sum += values[i]; }
+//   return Math.round(sum / values.length);
+// }""",
+//       output = MapReduceInlineOutput,
+//       query = ("_id" $in ids.map(normalize)).some)
+//     (for {
+//       row ← result.hasNext option result.next
+//       sum ← row.getAs[Double]("value")
+//     } yield sum.toInt) | 0
+//   }
+
+  def idsSumToints(ids: Iterable[String]): Fu[Int] = fuccess(0)
+  // TODO
+//     val result = collection.mapReduce(
+//       mapFunction = """function() { emit("e", this.toints); }""",
+//       reduceFunction = """function(key, values) {
+//   var sum = 0;
+//   for(var i in values) { sum += values[i]; }
+//   return sum;
+// }""",
+//       output = MapReduceInlineOutput,
+//       query = ("_id" $in ids.map(normalize)).some)
+//     (for {
+//       row ← result.hasNext option result.next
+//       sum ← row.getAs[Double]("value")
+//     } yield sum.toInt) | 0
+//   }
+// }
+
   private def newUser(username: String, password: String) = (Random nextString 32) |> { salt ⇒
     Json.obj(
       "_id" -> normalize(username),
@@ -147,36 +182,3 @@ object UserRepo {
   private def hash(pass: String, salt: String): String = "%s{%s}".format(pass, salt).sha1
   private def hash512(pass: String, salt: String): String = "%s{%s}".format(pass, salt).sha512
 }
-
-//   def idsAverageElo(ids: Iterable[String]): IO[Int] = io {
-//     val result = collection.mapReduce(
-//       mapFunction = """function() { emit("e", this.elo); }""",
-//       reduceFunction = """function(key, values) {
-//   var sum = 0;
-//   for(var i in values) { sum += values[i]; }
-//   return Math.round(sum / values.length);
-// }""",
-//       output = MapReduceInlineOutput,
-//       query = ("_id" $in ids.map(normalize)).some)
-//     (for {
-//       row ← result.hasNext option result.next
-//       sum ← row.getAs[Double]("value")
-//     } yield sum.toInt) | 0
-//   }
-
-//   def idsSumToints(ids: Iterable[String]): IO[Int] = io {
-//     val result = collection.mapReduce(
-//       mapFunction = """function() { emit("e", this.toints); }""",
-//       reduceFunction = """function(key, values) {
-//   var sum = 0;
-//   for(var i in values) { sum += values[i]; }
-//   return sum;
-// }""",
-//       output = MapReduceInlineOutput,
-//       query = ("_id" $in ids.map(normalize)).some)
-//     (for {
-//       row ← result.hasNext option result.next
-//       sum ← row.getAs[Double]("value")
-//     } yield sum.toInt) | 0
-//   }
-// }
