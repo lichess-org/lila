@@ -109,9 +109,9 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
 
   implicit final class LilaPimpedFuture[A](fua: Fu[A]) {
 
-    def >>(sideEffect: ⇒ Unit): Funit = >>(fuccess(sideEffect))
+    def >>-(sideEffect: ⇒ Unit): Funit = >>(fuccess(sideEffect))
 
-    def >>[B](fub: Fu[B]): Fu[B] = fua flatMap (_ ⇒ fub)
+    def >>[B](fub: ⇒ Fu[B]): Fu[B] = fua flatMap (_ ⇒ fub)
 
     def void: Funit = fua map (_ ⇒ Unit)
 
