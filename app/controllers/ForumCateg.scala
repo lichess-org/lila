@@ -5,11 +5,11 @@ import views._
 
 object ForumCateg extends LilaController with ForumController {
 
-  // def index = Open { implicit ctx ⇒
-  //   IOk(categApi list ~ctx.me.map(teamCache.teamIds) map {
-  //     html.forum.categ.index(_)
-  //   })
-  // }
+  def index = Open { implicit ctx ⇒
+    ~ctx.userId.map(teamCache.teamIds.apply) flatMap { teamIds ⇒
+      categApi list teamIds map { html.forum.categ.index(_) }
+    }
+  }
 
   def show(slug: String, page: Int) = TODO
   // Open { implicit ctx ⇒
