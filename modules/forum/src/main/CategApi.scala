@@ -29,7 +29,7 @@ private[forum] final class CategApi(env: Env) extends OptionTs {
   def makeTeam(slug: String, name: String): Funit =
     CategRepo.nextPosition flatMap { position ⇒
       val categ = Categ(
-        slug = teamSlug(slug),
+        id = teamSlug(slug),
         name = name,
         desc = "Forum of the team " + name,
         pos = position,
