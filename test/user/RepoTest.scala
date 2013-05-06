@@ -44,16 +44,10 @@ final class RepoTest extends Specification {
   sequential
 
   def cleanup {
-    println("cleaning up...")
     ($remove($select.all) >> $insert(user)).await
-    println("cleaning up done")
   }
 
   "The user repo" should {
-    "idempotency" in new WithDb {
-      cleanup
-      $find.one($select(user.id)).await must_== user.some
-    }
     "date selector" in new WithDb {
       cleanup
       $find.one(Json.obj(

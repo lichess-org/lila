@@ -53,7 +53,7 @@ class DateTest extends Specification with test.WithColl {
           }
       }
     }
-    "$set DateTime" in new WithApplication {
+    "$set DateTime" in {
       $set("foo" -> date) must_== Json.obj(
         "$set" -> Json.obj("foo" -> Json.obj("$date" -> date.getMillis)))
     }
