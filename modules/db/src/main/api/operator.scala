@@ -25,12 +25,12 @@ trait $operator {
   def $lte[A: Writes](value: A) = Json.obj("$lte" -> value)
   def $ne[A: Writes](value: A) = Json.obj("$ne" -> value)
 
-  def $in[A: Writes](values: A*) = Json.obj("$in" -> values)
-  def $nin[A: Writes](values: A*) = Json.obj("$nin" -> values)
-  def $all[A: Writes](values: A*) = Json.obj("$all" -> values)
+  def $in[A: Writes](values: Iterable[A]) = Json.obj("$in" -> values)
+  def $nin[A: Writes](values: Iterable[A]) = Json.obj("$nin" -> values)
+  def $all[A: Writes](values: Iterable[A]) = Json.obj("$all" -> values)
   def $exists(bool: Boolean) = Json.obj("$exists" -> bool)
 
-  def $or[A: Writes](conditions: A*) = Json.obj("$or" -> conditions)
+  def $or[A: Writes](conditions: Iterable[A]) = Json.obj("$or" -> conditions)
 
   def $regex(value: String, flags: String = "") = BSONFormats toJSON BSONRegex(value, flags)
 

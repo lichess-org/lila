@@ -5,49 +5,43 @@ import views._
 
 object ForumPost extends LilaController with ForumController {
 
-  def search(text: String, page: Int) = TODO
-  // def search(text: String, page: Int) = OpenBody { implicit ctx ⇒
-  //   text.trim match {
-  //     case "" ⇒ Redirect(routes.ForumCateg.index)
-  //     case text ⇒ Ok(html.forum.search(
-  //       text,
-  //       searchPaginator(text, page, isGranted(_.StaffForum))
-  //     ))
-  //   }
-  // }
+  def search(text: String, page: Int) = OpenBody { implicit ctx ⇒
+    text.trim.isEmpty.fold(
+      Redirect(routes.ForumCateg.index).fuccess,
+      Env.forumSearch(text, page, isGranted(_.StaffForum)) map { paginator ⇒
+        html.forum.search(text, paginator)
+      }
+    )
+  }
 
-  def recent = TODO
-  // Open { implicit ctx ⇒
-  //   IOk(env.forum.recent(ctx.me, teamCache.teamIds) map { posts ⇒
-  //     html.forum.post.recent(posts)
-  //   })
-  // }
+  def recent = Open { implicit ctx ⇒
+    Env.forum.recent(ctx.me, teamCache.teamIds.apply) map { posts ⇒
+      html.forum.post.recent(posts)
+    }
+  }
 
-  def create(categSlug: String, slug: String, page: Int) = TODO
-  // OpenBody { implicit ctx ⇒
-  //   CategGrantWrite(categSlug) {
-  //     implicit val req = ctx.body
-  //     IOptionResult(topicApi.show(categSlug, slug, page)) {
-  //       case (categ, topic, posts) ⇒ forms.post.bindFromRequest.fold(
-  //         err ⇒ BadRequest(html.forum.topic.show(
-  //           categ, topic, posts, Some(err -> forms.captchaCreate))),
-  //         data ⇒ Firewall {
-  //           val post = postApi.makePost(categ, topic, data).unsafePerformIO
-  //           Redirect("%s#%d".format(
-  //             routes.ForumTopic.show(
-  //               categ.slug,
-  //               topic.slug,
-  //               postApi lastPageOf topic.incNbPosts),
-  //             post.number))
-  //         }
-  //       )
-  //     }
-  //   }
-  // }
+  def create(categSlug: String, slug: String, page: Int) = OpenBody { implicit ctx ⇒
+    CategGrantWrite(categSlug) {
+      implicit val req = ctx.body
+      OptionFuResult(topicApi.show(categSlug, slug, page)) {
+        case (categ, topic, posts) ⇒ forms.post.bindFromRequest.fold(
+          err ⇒ forms.anyCaptcha map { captcha ⇒
+            BadRequest(html.forum.topic.show(categ, topic, posts, Some(err -> captcha)))
+          },
+          data ⇒ Firewall {
+            postApi.makePost(categ, topic, data) map { post ⇒
+              Redirect("%s#%d".format(
+                routes.ForumTopic.show(categ.slug, topic.slug, postApi lastPageOf topic.incNbPosts),
+                post.number))
+            }
+          }
+        )
+      }
+    }
+  }
 
-  def delete(id: String) = TODO 
-  // Secure(Permission.ModerateForum) { implicit ctx ⇒
-  //   me ⇒
-  //     IOk(postApi.delete(id, me))
-  // }
+  def delete(id: String) = Secure(_.ModerateForum) { implicit ctx ⇒
+    me ⇒
+      postApi.delete(id, me)
+  }
 }

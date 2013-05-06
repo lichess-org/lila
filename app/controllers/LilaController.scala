@@ -12,7 +12,7 @@ import play.api.templates.Html
 import play.api.http._
 import play.api.libs.json.{ Json, JsValue, Writes }
 
-trait LilaController
+private[controllers] trait LilaController
     extends Controller
     with ContentTypes
     with RequestGetter
@@ -56,13 +56,6 @@ trait LilaController
       }
     }
 
-  protected def Optional[A, B](foa: Fu[Option[A]])(op: A ⇒ B)(
-    implicit writer: Writeable[B],
-    ctype: ContentTypeOf[B],
-    ctx: Context): Fu[Result] = foa flatMap {
-    _.fold(notFound(ctx))(a ⇒ fuccess(Ok(op(a))))
-  }
-
   protected def Auth(f: Context ⇒ UserModel ⇒ Fu[Result]): Action[AnyContent] =
     Auth(BodyParsers.parse.anyContent)(f)
 
@@ -81,6 +74,9 @@ trait LilaController
   //     val ctx = reqToCtx(req)
   //     ctx.me.fold(authenticationFailed(ctx.req))(me ⇒ f(ctx)(me))
   //   })
+
+  protected def Secure(perm: Permission.type => Permission)(f: Context ⇒ UserModel ⇒ Fu[Result]): Action[AnyContent] =
+    Secure(perm(Permission))(f)
 
   protected def Secure(perm: Permission)(f: Context ⇒ UserModel ⇒ Fu[Result]): Action[AnyContent] =
     Secure(BodyParsers.parse.anyContent)(perm)(f)
@@ -104,10 +100,10 @@ trait LilaController
 
   // protected def JsonOk[A: Writes](data: A) = Ok(toJson(data)) as JSON
 
-  // protected def JsonIOk[A: Writes](data: IO[A]) = JsonOk(data.unsafePerformIO)
+  // protected def JsonFuk[A: Writes](data: Fu[A]) = JsonOk(data.unsafePerformFu)
 
-  // protected def JsIOk(js: IO[String], headers: (String, String)*) = 
-  //   JsOk(js.unsafePerformIO, headers: _*)
+  // protected def JsFuk(js: Fu[String], headers: (String, String)*) = 
+  //   JsOk(js.unsafePerformFu, headers: _*)
 
   // protected def JsOk(js: String, headers: (String, String)*) = 
   //   Ok(js) as JAVASCRIPT withHeaders (headers: _*)
@@ -117,31 +113,31 @@ trait LilaController
   //   _ ⇒ Ok("ok")
   // )
 
-  // protected def ValidIOk(valid: IO[Valid[Unit]]): Result = ValidOk(valid.unsafePerformIO)
+  // protected def ValidFuk(valid: Fu[Valid[Unit]]): Result = ValidOk(valid.unsafePerformFu)
 
   protected def FormResult[A](form: Form[A])(op: A ⇒ Fu[Result])(implicit req: Request[_]): Fu[Result] =
     form.bindFromRequest.fold(
       form ⇒ fuccess(BadRequest(form.errors mkString "\n")),
       op)
 
-  // protected def FormIOResult[A, B](form: Form[A])(err: Form[A] ⇒ B)(op: A ⇒ IO[Result])(
+  // protected def FormFuResult[A, B](form: Form[A])(err: Form[A] ⇒ B)(op: A ⇒ Fu[Result])(
   //   implicit writer: Writeable[B],
   //   ctype: ContentTypeOf[B],
   //   req: Request[_]) =
   //   form.bindFromRequest.fold(
   //     form ⇒ BadRequest(err(form)),
-  //     data ⇒ op(data).unsafePerformIO
+  //     data ⇒ op(data).unsafePerformFu
   //   )
 
-  // protected def IOk[A](op: IO[A])(implicit writer: Writeable[A], ctype: ContentTypeOf[A]) =
-  //   Ok(op.unsafePerformIO)
+  // protected def Fuk[A](op: Fu[A])(implicit writer: Writeable[A], ctype: ContentTypeOf[A]) =
+  //   Ok(op.unsafePerformFu)
 
-  // protected def IOResult[A](op: IO[Result]) =
-  //   op.unsafePerformIO
+  // protected def FuResult[A](op: Fu[Result]) =
+  //   op.unsafePerformFu
 
-  // protected def IORedirect(op: IO[Call]) = Redirect(op.unsafePerformIO)
+  // protected def FuRedirect(op: Fu[Call]) = Redirect(op.unsafePerformFu)
 
-  // protected def IORedirectUrl(op: IO[String]) = Redirect(op.unsafePerformIO)
+  // protected def FuRedirectUrl(op: Fu[String]) = Redirect(op.unsafePerformFu)
 
   // protected def OptionOk[A, B](oa: Option[A])(op: A ⇒ B)(
   //   implicit writer: Writeable[B],
@@ -152,38 +148,35 @@ trait LilaController
   // protected def OptionResult[A](oa: Option[A])(op: A ⇒ Result)(implicit ctx: Context) =
   //   oa.fold(notFound(ctx))(op)
 
-  protected def OptionOk[A, B](fua: Fu[Option[A]])(op: A ⇒ B)(
-    implicit writer: Writeable[B],
-    ctype: ContentTypeOf[B],
-    ctx: Context): Fu[Result] =
-    fua flatMap { _.fold(notFound(ctx))(a ⇒ fuccess(Ok(op(a)))) }
+  protected def OptionOk[A, B : Writeable : ContentTypeOf](fua: Fu[Option[A]])(op: A ⇒ B)(implicit ctx: Context): Fu[Result] = 
+    OptionFuOk(fua) { a ⇒ fuccess(op(a)) }
 
-  protected def OptionFuOk[A, B](fua: Fu[Option[A]])(op: A ⇒ Fu[B])(
-    implicit writer: Writeable[B],
-    ctype: ContentTypeOf[B],
-    ctx: Context) =
+  protected def OptionFuOk[A, B : Writeable : ContentTypeOf](fua: Fu[Option[A]])(op: A ⇒ Fu[B])(implicit ctx: Context) =
     fua flatMap { _.fold(notFound(ctx))(a ⇒ op(a) map { Ok(_) }) }
 
-  // protected def IOptionIOResult[A](fua: IO[Option[A]])(op: A ⇒ IO[Result])(implicit ctx: Context) =
-  //   fua flatMap { _.fold(io(notFound(ctx)))(op) } unsafePerformIO
+  // protected def FuptionFuResult[A](fua: Fu[Option[A]])(op: A ⇒ Fu[Result])(implicit ctx: Context) =
+  //   fua flatMap { _.fold(io(notFound(ctx)))(op) } unsafePerformFu
 
-  // protected def IOptionRedirect[A](fua: IO[Option[A]])(op: A ⇒ Call)(implicit ctx: Context) =
+  // protected def FuptionRedirect[A](fua: Fu[Option[A]])(op: A ⇒ Call)(implicit ctx: Context) =
   //   fua map {
   //     _.fold(notFound(ctx))(a ⇒ Redirect(op(a)))
-  //   } unsafePerformIO
+  //   } unsafePerformFu
 
-  // protected def IOptionIORedirect[A](fua: IO[Option[A]])(op: A ⇒ IO[Call])(implicit ctx: Context) =
+  // protected def FuptionFuRedirect[A](fua: Fu[Option[A]])(op: A ⇒ Fu[Call])(implicit ctx: Context) =
   //   (fua flatMap {
   //     _.fold(io(notFound(ctx)))(a ⇒ op(a) map { b ⇒ Redirect(b) })
-  //   }: IO[Result]).unsafePerformIO
+  //   }: Fu[Result]).unsafePerformFu
 
-  // protected def IOptionIORedirectUrl[A](fua: IO[Option[A]])(op: A ⇒ IO[String])(implicit ctx: Context) =
+  // protected def FuptionFuRedirectUrl[A](fua: Fu[Option[A]])(op: A ⇒ Fu[String])(implicit ctx: Context) =
   //   (fua flatMap {
   //     _.fold(io(notFound(ctx)))(a ⇒ op(a) map { b ⇒ Redirect(b) })
-  //   }: IO[Result]).unsafePerformIO
+  //   }: Fu[Result]).unsafePerformFu
 
-  // protected def IOptionResult[A](fua: IO[Option[A]])(op: A ⇒ Result)(implicit ctx: Context) =
-  //   fua.unsafePerformIO.fold(notFound(ctx))(a ⇒ op(a))
+  protected def OptionResult[A](fua: Fu[Option[A]])(op: A ⇒ Result)(implicit ctx: Context) =
+    OptionFuResult(fua) { a ⇒ fuccess(op(a)) }
+
+  protected def OptionFuResult[A](fua: Fu[Option[A]])(op: A ⇒ Fu[Result])(implicit ctx: Context) =
+    fua flatMap { _.fold(notFound(ctx))(a ⇒ op(a)) }
 
   protected def notFound(implicit ctx: Context): Fu[Result] =
     Lobby handleNotFound ctx

@@ -49,7 +49,7 @@ object Topic {
     )) andThen Json.reads[Topic],
     writer = Json.writes[Topic],
     writeTransformer = (__.json update (
-      writeDate('createdAt) andThen readDate('updatedAt)
+      writeDate('createdAt) andThen writeDate('updatedAt)
     )).some
   )
 }
