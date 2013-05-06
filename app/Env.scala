@@ -9,7 +9,6 @@ final class Env(config: Config, system: ActorSystem, isServer: Boolean) {
 
   private val RendererName = config getString "app.renderer.name"
   private val RouterName = config getString "app.router.name"
-  private val ModulePreload = config getBoolean "app.module.preload"
   private val CronEnabled = config getBoolean "app.cron.enabled"
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
@@ -20,11 +19,9 @@ final class Env(config: Config, system: ActorSystem, isServer: Boolean) {
     domain = Env.api.Net.Domain
   )), name = RouterName)
 
-  if (ModulePreload && isServer) {
-    loginfo("Preloading modules")
-    (Env.site, Env.game, Env.setup, Env.game, Env.gameSearch, Env.team,
-      Env.teamSearch, Env.forumSearch, Env.message)
-  }
+  loginfo("Preloading modules")
+  (Env.site, Env.game, Env.setup, Env.game, Env.gameSearch, Env.team,
+    Env.teamSearch, Env.forumSearch, Env.message)
 
   if (Env.ai.isServer) println("Running as AI server")
   else if (CronEnabled) Cron start system
