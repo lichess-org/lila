@@ -8,7 +8,7 @@ import play.api.Application
 final class Env(
   application: Application, 
   config: Config,
-  val isDev: Boolean) {
+  val isProd: Boolean) {
 
   val CliUsername = config getString "cli.username"
 
@@ -26,5 +26,5 @@ object Env {
   lazy val current = "[boot] api" describes new Env(
     application = play.api.Play.current,
     config = lila.common.PlayApp.loadConfig,
-    isDev = lila.common.PlayApp.isDev)
+    isProd = lila.common.PlayApp.isProd)
 }

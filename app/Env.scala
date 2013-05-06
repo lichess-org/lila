@@ -3,7 +3,7 @@ package lila.app
 import akka.actor._
 import com.typesafe.config.Config
 
-final class Env(config: Config, system: ActorSystem) {
+final class Env(config: Config, system: ActorSystem, isServer: Boolean) {
 
   val CliUsername = config getString "cli.username"
 
@@ -20,7 +20,7 @@ final class Env(config: Config, system: ActorSystem) {
     domain = Env.api.Net.Domain
   )), name = RouterName)
 
-  if (ModulePreload) {
+  if (ModulePreload && isServer) {
     loginfo("Preloading modules")
     (Env.site, Env.game, Env.setup, Env.game, Env.gameSearch, Env.team,
       Env.teamSearch, Env.forumSearch, Env.message)
@@ -34,7 +34,8 @@ object Env {
 
   lazy val current = "[boot] app" describes new Env(
     config = lila.common.PlayApp.loadConfig,
-    system = lila.common.PlayApp.system)
+    system = lila.common.PlayApp.system,
+    isServer = lila.common.PlayApp.isServer)
 
   def api = lila.api.Env.current
   def db = lila.db.Env.current

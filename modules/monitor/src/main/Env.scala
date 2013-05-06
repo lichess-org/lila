@@ -9,7 +9,8 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     hub: lila.hub.Env,
-    system: ActorSystem) {
+    system: ActorSystem,
+    schedule: Boolean) {
 
   private val ActorName = config getString "actor.name"
   private val SocketName = config getString "socket.name"
@@ -29,7 +30,7 @@ final class Env(
       hub = hub
     )), name = ActorName)
 
-  {
+  if (schedule) {
     val scheduler = new lila.common.Scheduler(system)
     import scala.concurrent.duration._
 
@@ -51,5 +52,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "monitor",
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
-    system = lila.common.PlayApp.system)
+    system = lila.common.PlayApp.system,
+    schedule = lila.common.PlayApp.isServer)
 }

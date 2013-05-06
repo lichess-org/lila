@@ -10,7 +10,8 @@ final class Env(
     system: ActorSystem,
     hub: lila.hub.Env,
     appPath: String,
-    isDev: Boolean) {
+    isProd: Boolean,
+    schedule: Boolean) {
 
   private val settings = new {
     val CachedNbTtl = config duration "cached.nb.ttl"
@@ -44,12 +45,12 @@ final class Env(
 
   lazy val rewind = Rewind
 
-  lazy val gameJs = new GameJs(path = jsPath, useCache = !isDev)
+  lazy val gameJs = new GameJs(path = jsPath, useCache = isProd)
 
   // load captcher actor
   system.actorOf(Props(new Captcher), name = CaptcherName)
 
-  if (!isDev) {
+  if (schedule) {
 
     val scheduler = new lila.common.Scheduler(system)
     import scala.concurrent.duration._
@@ -72,7 +73,7 @@ final class Env(
     bookmark = hub.actor.bookmark)
 
   private def jsPath =
-    "%s/%s".format(appPath, isDev.fold(JsPathRaw, JsPathCompiled))
+    "%s/%s".format(appPath, isProd.fold(JsPathCompiled, JsPathRaw))
 }
 
 object Env {
@@ -85,6 +86,7 @@ object Env {
     system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
     appPath = app.path.getCanonicalPath,
-    isDev = lila.common.PlayApp.isDev
+    isProd = lila.common.PlayApp.isProd,
+    schedule = lila.common.PlayApp.isServer
   )
 }

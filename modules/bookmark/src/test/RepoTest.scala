@@ -1,8 +1,9 @@
 package lila.bookmark
 
 import lila.db.Implicits._
-import lila.db.DbApi._
+import lila.db.api._
 import lila.db.test.WithDb
+import tube.bookmarkTube
 
 import org.specs2.mutable.Specification
 
@@ -19,9 +20,8 @@ final class RepoTest extends Specification {
 
   import makeTimeout.large
 
-  def cleanRepo = Env.current.bookmarkRepo ~ { repo ⇒
-    (repo.remove(select.all) /* >> repo.insert(bookmark) */ ).await
-  }
+  def cleanRepo = 
+    ($remove($select.all) inject BookmarkRepo /* >> repo.insert(bookmark) */ ).await
 
   "The bookmark repo" should {
 
