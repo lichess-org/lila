@@ -12,8 +12,7 @@ object $insert {
   def apply[A : TubeInColl](doc: A): Funit =
     (implicitly[Tube[A]] toMongo doc).fold(fuck(_), apply(_))
 
-  def apply[A : InColl](js: JsObject): Funit =
-    implicitly[InColl[A]].coll insert js flatMap { lastErr ⇒
-      lastErr.ok.fold(funit, fuck(lastErr.message))
-    }
+  def apply[A : InColl](js: JsObject): Funit = successful {
+    implicitly[InColl[A]].coll insert js 
+  }
 }

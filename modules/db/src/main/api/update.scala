@@ -15,14 +15,14 @@ object $update {
     )
   def apply[A <: Identified[String]: TubeInColl](doc: A): Funit = apply[String, A](doc)
 
-  def apply[A: InColl](selector: JsObject, update: JsObject, upsert: Boolean = false, multi: Boolean = false): Funit = for {
-    lastErr ← implicitly[InColl[A]].coll.update(selector, update, upsert = upsert, multi = multi)
-    result ← lastErr.ok.fold(funit, fuck(lastErr.message))
-  } yield result
+  def apply[A: InColl](selector: JsObject, update: JsObject, upsert: Boolean = false, multi: Boolean = false): Funit =
+    successful {
+      implicitly[InColl[A]].coll.update(selector, update, upsert = upsert, multi = multi)
+    }
 
   def doc[ID: Writes, A <: Identified[ID]: TubeInColl](id: ID)(op: A ⇒ JsObject): Funit =
     $find byId id flatMap { docOption ⇒
-      docOption zmap (doc ⇒ $update($select(id), op(doc)))
+      docOption zmap (doc ⇒ apply($select(id), op(doc)))
     }
 
   def field[ID: Writes, A: InColl, B: Writes](id: ID, name: String, value: B, upsert: Boolean = false): Funit =
