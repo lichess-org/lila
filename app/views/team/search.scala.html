@@ -1,4 +1,4 @@
-@(text: String, teams: Paginator[lila.app.team.Team])(implicit ctx: Context)
+@(text: String, teams: Paginator[lila.team.Team])(implicit ctx: Context)
 
 @team.list(
 name = trans.searchATeam.str() + " \"" + text + "\"",

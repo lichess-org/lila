@@ -10,7 +10,7 @@ import reactivemongo.api._
 // db.team_member.ensureIndex({team:1})
 // db.team_member.ensureIndex({user:1})
 // db.team_member.ensureIndex({date: -1})
-private[team] object MemberRepo {
+object MemberRepo {
 
   type ID = String
 

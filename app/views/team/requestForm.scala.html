@@ -1,4 +1,4 @@
-@(t: lila.app.team.Team, form: Form[_], captcha: lila.app.site.Captcha.Challenge)(implicit ctx: Context)
+@(t: lila.team.Team, form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context)
 
 @title = @{ trans.joinTeam.str() + " " + t.name }
 

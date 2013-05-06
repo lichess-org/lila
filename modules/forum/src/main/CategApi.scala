@@ -24,7 +24,7 @@ private[forum] final class CategApi(env: Env) extends OptionTs {
     }).sequence
   } yield views
 
-  def getTeamNbPosts(slug: String): Fu[Int] = CategRepo nbPosts teamSlug(slug)
+  def teamNbPosts(slug: String): Fu[Int] = CategRepo nbPosts teamSlug(slug)
 
   def makeTeam(slug: String, name: String): Funit =
     CategRepo.nextPosition flatMap { position ⇒

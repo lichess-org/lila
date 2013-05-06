@@ -62,20 +62,21 @@ private[controllers] trait LilaController
   protected def Auth[A](p: BodyParser[A])(f: Context ⇒ UserModel ⇒ Fu[Result]): Action[A] =
     Action(p)(req ⇒ Async {
       reqToCtx(req) flatMap { ctx ⇒
-        ctx.me.fold(fuccess(authenticationFailed(ctx.req)))(me ⇒ f(ctx)(me))
+        ctx.me.fold(authenticationFailed(ctx.req).fuccess)(me ⇒ f(ctx)(me))
       }
     })
 
-  // protected def AuthBody(f: BodyContext ⇒ UserModel ⇒ Result): Action[AnyContent] =
-  //   AuthBody(BodyParsers.parse.anyContent)(f)
+  protected def AuthBody(f: BodyContext ⇒ UserModel ⇒ Fu[Result]): Action[AnyContent] =
+    AuthBody(BodyParsers.parse.anyContent)(f)
 
-  // protected def AuthBody[A](p: BodyParser[A])(f: BodyContext ⇒ UserModel ⇒ Result): Action[A] =
-  //   Action(p)(req ⇒ {
-  //     val ctx = reqToCtx(req)
-  //     ctx.me.fold(authenticationFailed(ctx.req))(me ⇒ f(ctx)(me))
-  //   })
+  protected def AuthBody[A](p: BodyParser[A])(f: BodyContext ⇒ UserModel ⇒ Fu[Result]): Action[A] =
+    Action(p)(req ⇒ Async {
+      reqToCtx(req) flatMap { ctx ⇒
+        ctx.me.fold(authenticationFailed(ctx.req).fuccess)(me ⇒ f(ctx)(me))
+      }
+    })
 
-  protected def Secure(perm: Permission.type => Permission)(f: Context ⇒ UserModel ⇒ Fu[Result]): Action[AnyContent] =
+  protected def Secure(perm: Permission.type ⇒ Permission)(f: Context ⇒ UserModel ⇒ Fu[Result]): Action[AnyContent] =
     Secure(perm(Permission))(f)
 
   protected def Secure(perm: Permission)(f: Context ⇒ UserModel ⇒ Fu[Result]): Action[AnyContent] =
@@ -137,7 +138,7 @@ private[controllers] trait LilaController
 
   // protected def FuRedirect(op: Fu[Call]) = Redirect(op.unsafePerformFu)
 
-  // protected def FuRedirectUrl(op: Fu[String]) = Redirect(op.unsafePerformFu)
+  // protected def RedirectUrl(op: Fu[String]) = Redirect(op.unsafePerformFu)
 
   // protected def OptionOk[A, B](oa: Option[A])(op: A ⇒ B)(
   //   implicit writer: Writeable[B],
@@ -148,10 +149,10 @@ private[controllers] trait LilaController
   // protected def OptionResult[A](oa: Option[A])(op: A ⇒ Result)(implicit ctx: Context) =
   //   oa.fold(notFound(ctx))(op)
 
-  protected def OptionOk[A, B : Writeable : ContentTypeOf](fua: Fu[Option[A]])(op: A ⇒ B)(implicit ctx: Context): Fu[Result] = 
+  protected def OptionOk[A, B: Writeable: ContentTypeOf](fua: Fu[Option[A]])(op: A ⇒ B)(implicit ctx: Context): Fu[Result] =
     OptionFuOk(fua) { a ⇒ fuccess(op(a)) }
 
-  protected def OptionFuOk[A, B : Writeable : ContentTypeOf](fua: Fu[Option[A]])(op: A ⇒ Fu[B])(implicit ctx: Context) =
+  protected def OptionFuOk[A, B: Writeable: ContentTypeOf](fua: Fu[Option[A]])(op: A ⇒ Fu[B])(implicit ctx: Context) =
     fua flatMap { _.fold(notFound(ctx))(a ⇒ op(a) map { Ok(_) }) }
 
   // protected def FuptionFuResult[A](fua: Fu[Option[A]])(op: A ⇒ Fu[Result])(implicit ctx: Context) =
@@ -167,10 +168,10 @@ private[controllers] trait LilaController
   //     _.fold(io(notFound(ctx)))(a ⇒ op(a) map { b ⇒ Redirect(b) })
   //   }: Fu[Result]).unsafePerformFu
 
-  // protected def FuptionFuRedirectUrl[A](fua: Fu[Option[A]])(op: A ⇒ Fu[String])(implicit ctx: Context) =
-  //   (fua flatMap {
-  //     _.fold(io(notFound(ctx)))(a ⇒ op(a) map { b ⇒ Redirect(b) })
-  //   }: Fu[Result]).unsafePerformFu
+  protected def OptionFuRedirectUrl[A](fua: Fu[Option[A]])(op: A ⇒ Fu[String])(implicit ctx: Context) =
+    fua flatMap {
+      _.fold(notFound(ctx))(a ⇒ op(a) map { b ⇒ Redirect(b) })
+    }
 
   protected def OptionResult[A](fua: Fu[Option[A]])(op: A ⇒ Result)(implicit ctx: Context) =
     OptionFuResult(fua) { a ⇒ fuccess(op(a)) }

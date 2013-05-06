@@ -4,54 +4,47 @@ package mashup
 import lila.user.{ User, UserRepo, Context }
 import lila.game.{ GameRepo, Game }
 import lila.forum.PostLiteView
-// import lila.team.{ Team, RequestWithUser, TeamApi }
+import lila.team.{ Team, Request, RequestRepo, MemberRepo, RequestWithUser, TeamApi }
+import lila.team.tube._
+import lila.db.api._
 
-// TODO
-// case class TeamInfo(
-//     mine: Boolean,
-//     createdByMe: Boolean,
-//     requestedByMe: Boolean,
-//     requests: List[RequestWithUser],
-//     bestPlayers: List[User],
-//     averageElo: Int,
-//     toints: Int,
-//     forumNbPosts: Int,
-//     forumPosts: List[PostLiteView]) {
+case class TeamInfo(
+    mine: Boolean,
+    createdByMe: Boolean,
+    requestedByMe: Boolean,
+    requests: List[RequestWithUser],
+    bestPlayers: List[User],
+    averageElo: Int,
+    toints: Int,
+    forumNbPosts: Int,
+    forumPosts: List[PostLiteView]) {
 
-//   def hasRequests = requests.nonEmpty
-// }
+  def hasRequests = requests.nonEmpty
+}
 
-// object TeamInfo {
+object TeamInfo {
 
-//   def apply(
-//     api: TeamApi,
-//     memberRepo: MemberRepo,
-//     requestRepo: RequestRepo,
-//     userRepo: UserRepo,
-//     getForumNbPosts: String ⇒ IO[Int],
-//     getForumPosts: String ⇒ IO[List[PostLiteView]])(team: Team, me: Option[User]): IO[TeamInfo] = for {
-//     requests ← api.requestsWithUsers(team) doIf {
-//       team.enabled && ~me.map(m ⇒ team.isCreator(m.id))
-//     }
-//     mine = ~me.map(m ⇒ api.belongsTo(team.id, m.id))
-//     requestedByMe ← ~me.map(m ⇒ requestRepo.exists(team.id, m.id)) doUnless mine
-//     requests ← api.requestsWithUsers(team) doIf {
-//       team.enabled && ~me.map(m ⇒ team.isCreator(m.id))
-//     }
-//     userIds ← memberRepo userIdsByTeamId team.id
-//     bestPlayers ← userRepo.byIdsSortByElo(userIds, 5)
-//     averageElo ← userRepo.idsAverageElo(userIds)
-//     toints ← userRepo.idsSumToints(userIds)
-//     forumNbPosts ← getForumNbPosts(team.id)
-//     forumPosts ← getForumPosts(team.id)
-//   } yield TeamInfo(
-//     mine = mine,
-//     createdByMe = ~me.map(m ⇒ team.isCreator(m.id)),
-//     requestedByMe = requestedByMe,
-//     requests = requests,
-//     bestPlayers = bestPlayers,
-//     averageElo = averageElo,
-//     toints = toints,
-//     forumNbPosts = forumNbPosts,
-//     forumPosts = forumPosts)
-// }
+  def apply(
+    api: TeamApi,
+    getForumNbPosts: String ⇒ Fu[Int],
+    getForumPosts: String ⇒ Fu[List[PostLiteView]])(team: Team, me: Option[User]): Fu[TeamInfo] = for {
+    requests ← (team.enabled && ~me.map(m ⇒ team.isCreator(m.id))) ?? api.requestsWithUsers(team)
+    mine ← me.zmap(m ⇒ api.belongsTo(team.id, m.id))
+    requestedByMe ← !mine ?? ~me.map(m ⇒ RequestRepo.exists(team.id, m.id))
+    userIds ← MemberRepo userIdsByTeam team.id
+    bestPlayers ← UserRepo.byIdsSortElo(userIds, 5)
+    averageElo ← UserRepo.idsAverageElo(userIds)
+    toints ← UserRepo.idsSumToints(userIds)
+    forumNbPosts ← getForumNbPosts(team.id)
+    forumPosts ← getForumPosts(team.id)
+  } yield TeamInfo(
+    mine = mine,
+    createdByMe = ~me.map(m ⇒ team.isCreator(m.id)),
+    requestedByMe = requestedByMe,
+    requests = requests,
+    bestPlayers = bestPlayers,
+    averageElo = averageElo,
+    toints = toints,
+    forumNbPosts = forumNbPosts,
+    forumPosts = forumPosts)
+}
