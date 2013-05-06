@@ -77,3 +77,9 @@ optional email http://en.lichess.org/forum/lichess-feedback/secret-question----p
 answer http://en.lichess.org/forum/lichess-feedback/expanded-chat-functionality-perhaps
 FIX TOUCHPAD SIGN IN http://en.lichess.org/forum/lichess-feedback/cant-sign-in#6
 chess variants https://github.com/ornicar/lila/issues/2://github.com/ornicar/lila/issues/25 
+
+
+DEPLOY p21
+----------
+
+mongo lichess bin/mongodb/play21.js
