@@ -175,7 +175,7 @@ object UserRepo {
       "nbLossesH" -> 0,
       "nbDrawsH" -> 0,
       "enabled" -> true,
-      "roles" -> Json.arr(),
+      "roles" -> Json.obj(),
       "createdAt" -> $date(DateTime.now))
   }
 
