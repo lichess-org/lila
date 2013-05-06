@@ -60,11 +60,11 @@ object User extends LilaController {
   //   IOk(onlineUsers map { html.user.online(_) })
   // }
 
-  // val autocomplete = Action { implicit req ⇒
-  //   get("term", req).filter(""!=).fold(BadRequest("No search term provided"): PlainResult) { term ⇒
-  //     JsonOk((userRepo usernamesLike term).unsafePerformIO)
-  //   }
-  // }
+  def autocomplete = Open { implicit ctx ⇒
+    get("term", ctx.req).filter(""!=).fold(BadRequest("No search term provided").fuccess: Fu[Result]) { term ⇒
+      JsonOk(UserRepo usernamesLike term)
+    }
+  }
 
   // val getBio = Auth { ctx ⇒ me ⇒ Ok(me.bio) }
 

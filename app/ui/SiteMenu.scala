@@ -18,9 +18,9 @@ final class SiteMenu(trans: I18nKeys) {
   val user = new Elem("user", routes.User.list(page = 1), trans.people)
   val team = new Elem("team", routes.Team.home(page = 1), trans.teams)
   val forum = new Elem("forum", routes.ForumCateg.index, trans.forum)
-  // val message = new Elem("message", routes.Message.inbox(page = 1), trans.inbox)
+  val message = new Elem("message", routes.Message.inbox(page = 1), trans.inbox)
 
-  private val authenticated = List(play, user, team, forum)//, game, tournament, user, team, forum, message)
+  private val authenticated = List(play, user, team, forum, message)//, game, tournament, user, team, forum, message)
   private val anonymous = List(play, user, team, forum)//, game, tournament, user, team, forum)
 
   def all(me: Option[User]) = me.isDefined.fold(authenticated, anonymous)

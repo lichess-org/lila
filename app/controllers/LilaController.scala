@@ -99,9 +99,9 @@ private[controllers] trait LilaController
   // protected def NoEngine[A <: Result](a: ⇒ A)(implicit ctx: Context): Result =
   //   ctx.me.fold(false)(_.engine).fold(Forbidden(views.html.site.noEngine()), a)
 
-  // protected def JsonOk[A: Writes](data: A) = Ok(toJson(data)) as JSON
-
-  // protected def JsonFuk[A: Writes](data: Fu[A]) = JsonOk(data.unsafePerformFu)
+  protected def JsonOk[A: Writes](fua: Fu[A]) = fua map { a =>
+    Ok(Json toJson a) as JSON
+  }
 
   // protected def JsFuk(js: Fu[String], headers: (String, String)*) = 
   //   JsOk(js.unsafePerformFu, headers: _*)
@@ -137,8 +137,6 @@ private[controllers] trait LilaController
   //   op.unsafePerformFu
 
   // protected def FuRedirect(op: Fu[Call]) = Redirect(op.unsafePerformFu)
-
-  // protected def RedirectUrl(op: Fu[String]) = Redirect(op.unsafePerformFu)
 
   // protected def OptionOk[A, B](oa: Option[A])(op: A ⇒ B)(
   //   implicit writer: Writeable[B],
