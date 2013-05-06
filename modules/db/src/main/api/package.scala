@@ -6,7 +6,7 @@ package object api extends api.$operator {
 
   private[api] def successful(result: Fu[LastError]): Funit = 
     result flatMap { lastErr ⇒
-      lastErr.ok.pp.fold(funit, fuck(lastErr.stringify))
+      lastErr.ok.fold(funit, fuck(lastErr.stringify))
     }
 
 }

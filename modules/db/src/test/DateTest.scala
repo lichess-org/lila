@@ -27,56 +27,35 @@ class DateTest extends Specification with test.WithColl {
   val date = DateTime.now
   import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 
-  "date conversion" should {
-    "js to bson" in {
-      val doc = JsObjectWriter.write(Json.obj(
-        "ca" -> $gt($date(date))
-      ))
-      doc.getAsTry[BSONDocument]("ca") flatMap { gt ⇒
-        gt.getAsTry[BSONDateTime]("$gt")
-      } must_== scala.util.Success(BSONDateTime(date.getMillis))
-    }
-  }
+  // "date conversion" should {
+  //   "js to bson" in {
+  //     val doc = JsObjectWriter.write(Json.obj(
+  //       "ca" -> $gt($date(date))
+  //     ))
+  //     doc.getAsTry[BSONDocument]("ca") flatMap { gt ⇒
+  //       gt.getAsTry[BSONDateTime]("$gt")
+  //     } must_== scala.util.Success(BSONDateTime(date.getMillis))
+  //   }
+  // }
 
   "save and retrieve" should {
 
     sequential
 
-    val trans = __.json update Tube.Helpers.readDate('ca)
-
-    // "raw reactive" in {
-    //   withColl { coll ⇒
-    //     (coll.insert(Json.obj("ca" -> $date(date))) >>
-    //       coll.find(Json.obj()).one[JsObject]
-    //     ).await flatMap (x ⇒ (x transform trans).asOpt) must beSome.like {
-    //         case o ⇒ o \ "ca" must_== date
-    //       }
-    //   }
-    // }
     "tube" in {
-      val event = TestEvent("test", date)
+      val event = TestEvent("test2", date)
       withColl { coll ⇒
         implicit val tube = eTube inColl coll
-        ($insert(event) >> $find.one(Json.obj())).await must beSome.like {
-            case TestEvent("test", d) ⇒ d must_== date
+        ($remove($select.all) >>
+          $insert(event) >>
+          $find.one($select.all)).await must beSome.like {
+            case TestEvent("test2", d) ⇒ d must_== date
           }
       }
     }
-    // "BSONDocument" in new WithTestColl {
-    //   val doc = BSONDocument(
-    //     "ca" -> BSONDateTime(date.getMillis)
-    //   )
-    //   coll.insert(doc).map(lastError ⇒
-    //     println("Mongo LastErorr:%s".format(lastError))
-    //   )
-    //   coll.find[JsValue](Json.obj()).one.map { person ⇒
-    //     println(person)
-    //   }
-    //   success
-    // }
-    // "$set DateTime" in new WithApplication {
-    //   $set("foo" -> date) must_== Json.obj(
-    //     "$set" -> Json.obj("foo" -> Json.obj("$date" -> date.getMillis)))
-    // }
+    "$set DateTime" in new WithApplication {
+      $set("foo" -> date) must_== Json.obj(
+        "$set" -> Json.obj("foo" -> Json.obj("$date" -> date.getMillis)))
+    }
   }
 }
