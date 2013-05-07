@@ -1,4 +1,4 @@
-@(name: String, paginator: Paginator[DbGame], next: Option[Call], menu: Html, extraTop: Option[Html] = None)(implicit ctx: Context)
+@(name: String, paginator: Paginator[Game], next: Option[Call], menu: Html, extraTop: Option[Html] = None)(implicit ctx: Context)
 
 @title = @{ "%s - page %d".format(name, paginator.currentPage) }
 

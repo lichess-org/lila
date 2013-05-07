@@ -2,7 +2,6 @@ package lila.game
 
 import lila.user.User
 
-
 case class ListMenu(
   nbGames: Int,
   nbMates: Int,
@@ -17,13 +16,13 @@ object ListMenu {
 
   def apply(cached: Cached)(
     countBookmarks: CountBookmarks,
-    countAnalysed: Fu[Int],
+    countAnalysed: () ⇒ Fu[Int],
     me: Option[User]): Fu[ListMenu] =
     cached.nbGames zip
       cached.nbMates zip
       cached.nbPopular zip
       me.zmap(countBookmarks) zip
-      countAnalysed zip
+      countAnalysed() zip
       cached.nbImported map {
         case (((((nbGames, nbMates), nbPopular), nbBookmarks), nbAnalysed), nbImported) ⇒
           new ListMenu(

@@ -6,7 +6,7 @@ import lila.forum
 
 import play.api.mvc._, Results._
 
-trait ForumController extends forum.Granter { self: LilaController ⇒
+private[controllers] trait ForumController extends forum.Granter { self: LilaController ⇒
 
   protected def categApi = Env.forum.categApi
   protected def topicApi = Env.forum.topicApi

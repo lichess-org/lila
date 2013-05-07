@@ -1,4 +1,4 @@
-@(pov: Pov, tour: Option[lila.app.tournament.Tournament])(implicit ctx: Context)
+@(pov: Pov, tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
 
 @import pov._
 
@@ -18,10 +18,12 @@
     }
     }
     <br /><br />
+    @* TODO
     @tour.map { t =>
     @tournament.linkTo(t)
     <br /><br />
     }
+    *@
     @if(game.finishedOrAborted) {
     @gameEndStatus(game),
     @game.winner.map { winner =>
@@ -44,6 +46,7 @@
     }
   </div>
 
+  @* TODO
   @tour match {
   case Some(t: lila.app.tournament.Started) => {
   <div class="game_tournament box">
@@ -56,4 +59,5 @@
   case _ => {
   }
   }
+  *@
 </div>
