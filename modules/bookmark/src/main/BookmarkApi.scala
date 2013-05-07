@@ -6,7 +6,6 @@ import lila.db.api._
 import tube.bookmarkTube
 import lila.game.tube.gameTube
 
-
 final class BookmarkApi(
     cached: Cached,
     paginator: PaginatorBuilder) {

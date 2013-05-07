@@ -29,7 +29,7 @@ final class Env(
 
   lazy val timeChart = TimeChart(nameUser) _
 
-  private lazy val cached = new {
+  lazy val cached = new {
     private val cache: Cache[Int] = LruCache(timeToLive = CachedNbTtl)
     def nbAnalysis: Fu[Int] = cache.fromFuture(true)(AnalysisRepo.count)
   }

@@ -1,4 +1,4 @@
-@(games: List[DbGame], user: Option[User] = None, ownerLink: Boolean = false, mini: Boolean = false)(implicit ctx: Context)
+@(games: Seq[Game], user: Option[User] = None, ownerLink: Boolean = false, mini: Boolean = false)(implicit ctx: Context)
 
 @games.map { g =>
 <div class="game_row paginated_element clearfix">
@@ -6,7 +6,8 @@
   @defining(fromPlayer | g.creator ) { firstPlayer =>
   @gameFen(g, firstPlayer.color, ownerLink)
   <div class="infos">
-    @bookmark.toggle(g)
+    TODO
+    @@bookmark.toggle(g)
     <b>
       @if(g.isBeingPlayed) {
       <a class="link" href="@routes.Round.watcher(g.id, firstPlayer.color.name)">@trans.playingRightNow()</a>,
@@ -54,10 +55,12 @@
     </span>
     <br /><br />
     }
+    @* TODO
     @g.tournamentId.map { tourId =>
     <a class="tournament_link s16" href="@routes.Tournament.show(tourId)">Tournament</a>
     <br />
     }
+    *@
     @if(g.rated) {
     @trans.thisGameIsRated()
     <br /><br />
