@@ -91,7 +91,7 @@ object GameRepo {
 
   def findRandomStandardCheckmate(distribution: Int): Fu[Option[Game]] = $find.one(
     Query.mate ++ Json.obj("v" -> $exists(false)),
-    _ sort Query.sortCreated limit 1 skip (Random nextInt distribution)
+    _ sort Query.sortCreated skip (Random nextInt distribution)
   )
 
   def denormalize(game: Game): Funit = {
@@ -128,7 +128,7 @@ object GameRepo {
   def count(query: Query.type ⇒ JsObject): Fu[Int] = $count(query(Query))
 
   def recentGames(limit: Int): Fu[List[Game]] = $find(
-    $query(Query.started ++ Query.turnsGt(1)) sort Query.sortCreated limit limit
+    $query(Query.started ++ Query.turnsGt(1)) sort Query.sortCreated, limit 
   )
 
   def nbPerDay(days: Int): Fu[List[Int]] =

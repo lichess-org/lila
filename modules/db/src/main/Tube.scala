@@ -111,6 +111,5 @@ object Tube {
     def merge(obj: JsObject) = __.read[JsObject] map (obj ++)
   }
 
-  private def depath[A](r: JsResult[A]): JsResult[A] =
-    r.fold(JsError(_), JsSuccess(_))
+  private def depath[A](r: JsResult[A]): JsResult[A] = r.flatMap(JsSuccess(_))
 }
