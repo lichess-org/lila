@@ -3,8 +3,11 @@ package lila.message
 import lila.db.api._
 import lila.db.Implicits._
 import tube.threadTube
+import lila.common.PimpedJson._
 
 import play.api.libs.json.Json
+import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
+import play.modules.reactivemongo.json.BSONFormats.toJSON
 
 import scala.concurrent.Future
 
@@ -18,33 +21,30 @@ object ThreadRepo {
   def visibleByUser(user: ID): Fu[List[Thread]] =
     $find($query(visibleByUserQuery(user)) sort recentSort)
 
-  def userNbUnread(userId: String): Fu[Int] = fuccess(3)
-
-  // def userNbUnread(userId: String): IO[Int] = io {
-  //   val result = collection.mapReduce(
-  //     mapFunction = """function() {
-  // var thread = this, nb = 0;
-  // thread.posts.forEach(function(p) {
-  //   if (!p.isRead) {
-  //     if (thread.creatorId == "%s") {
-  //       if (!p.isByCreator) nb++;
-  //     } else if (p.isByCreator) nb++;
-  //   }
-  // });
-  // if (nb > 0) emit("n", nb);
-  // }""" format userId,
-  //     reduceFunction = """function(key, values) {
-  // var sum = 0;
-  // for(var i in values) { sum += values[i]; }
-  // return sum;
-  // }""",
-  //     output = MapReduceInlineOutput,
-  //     query = visibleByUserQuery(userId).some)
-  //   (for {
-  //     row ← result.hasNext option result.next
-  //     sum ← row.getAs[Double]("value")
-  //   } yield sum.toInt) | 0
-  // }
+  def userNbUnread(userId: String): Fu[Int] = {
+    val command = MapReduce(
+      collectionName = tube.threadTube.coll.name,
+      mapFunction = """function() {
+  var thread = this, nb = 0;
+  thread.posts.forEach(function(p) {
+    if (!p.isRead) {
+      if (thread.creatorId == "%s") {
+        if (!p.isByCreator) nb++;
+      } else if (p.isByCreator) nb++;
+    }
+  });
+  if (nb > 0) emit("n", nb);
+  }""" format userId,
+      reduceFunction = """function(key, values) {
+  var sum = 0;
+  for(var i in values) { sum += values[i]; }
+  return sum;
+  }""",
+      query = JsObjectWriter.write(visibleByUserQuery(userId)).some)
+    tube.threadTube.coll.db.command(command) map { res ⇒
+      toJSON(res).arr("results").flatMap(_.apply(0) int "value")
+    } map (~_)
+  }
 
   def setRead(thread: Thread): Funit = Future sequence {
     List.fill(thread.nbUnread) {
