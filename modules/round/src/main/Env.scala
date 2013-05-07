@@ -70,7 +70,8 @@ final class Env(
 
   lazy val messenger = new Messenger(i18nKeys)
 
-  val animationDelay = AnimationDelay
+  def animationDelay = AnimationDelay
+  def moretimeSeconds = Moretime.toSeconds
 
   {
     import scala.concurrent.duration._

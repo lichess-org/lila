@@ -393,35 +393,35 @@ object Game {
 
   def takeGameId(fullId: String) = fullId take gameIdSize
 
-    def make(
-      game: ChessGame,
-      whitePlayer: Player,
-      blackPlayer: Player,
-      ai: Option[(Color, Int)],
-      creatorColor: Color,
-      mode: Mode,
-      variant: Variant,
-      source: Source,
-      pgnImport: Option[PgnImport]): Game = Game(
-      id = IdGenerator.game,
-      token = IdGenerator.token,
-      whitePlayer = whitePlayer withEncodedPieces game.allPieces,
-      blackPlayer = blackPlayer withEncodedPieces game.allPieces,
-      status = Status.Created,
-      turns = game.turns,
-      clock = game.clock,
-      lastMove = None,
-      check = None,
-      creatorColor = creatorColor,
-      positionHashes = "",
-      castles = "KQkq",
-      mode = mode,
-      variant = variant,
-      lastMoveTime = None,
-      metadata = Metadata(
-        source = source,
-        pgnImport = pgnImport).some,
-      createdAt = DateTime.now)
+  def make(
+    game: ChessGame,
+    whitePlayer: Player,
+    blackPlayer: Player,
+    ai: Option[(Color, Int)],
+    creatorColor: Color,
+    mode: Mode,
+    variant: Variant,
+    source: Source,
+    pgnImport: Option[PgnImport]): Game = Game(
+    id = IdGenerator.game,
+    token = IdGenerator.token,
+    whitePlayer = whitePlayer withEncodedPieces game.allPieces,
+    blackPlayer = blackPlayer withEncodedPieces game.allPieces,
+    status = Status.Created,
+    turns = game.turns,
+    clock = game.clock,
+    lastMove = None,
+    check = None,
+    creatorColor = creatorColor,
+    positionHashes = "",
+    castles = "KQkq",
+    mode = mode,
+    variant = variant,
+    lastMoveTime = None,
+    metadata = Metadata(
+      source = source,
+      pgnImport = pgnImport).some,
+    createdAt = DateTime.now)
 
   import lila.db.Tube
   import play.api.libs.json._

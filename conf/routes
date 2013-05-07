@@ -38,34 +38,34 @@ GET   /games/search       controllers.Search.form(page: Int ?= 1)
 GET   /$gameId<[\w\-]{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")
 GET   /$gameId<[\w\-]{8}>/$color<white|black>        controllers.Round.watcher(gameId: String, color: String)
 GET   /$fullId<[\w\-]{12}>                           controllers.Round.player(fullId: String)
-# GET   /$gameId<[\w\-]{8}>/$color<white|black>/socket controllers.Round.websocketWatcher(gameId: String, color: String)
-# GET   /$gameId<[\w\-]{8}>/s.js                       controllers.Round.signedJs(gameId: String)
-# GET   /$fullId<[\w\-]{12}>/socket                    controllers.Round.websocketPlayer(fullId: String)
-# GET   /$fullId<[\w\-]{12}>/abort                     controllers.Round.abort(fullId: String)
-# GET   /$fullId<[\w\-]{12}>/resign                    controllers.Round.resign(fullId: String)
-# GET   /$fullId<[\w\-]{12}>/resign/force              controllers.Round.resignForce(fullId: String)
-# GET   /$fullId<[\w\-]{12}>/draw/claim                controllers.Round.drawClaim(fullId: String)
-# GET   /$fullId<[\w\-]{12}>/draw/accept               controllers.Round.drawAccept(fullId: String)
-# GET   /$fullId<[\w\-]{12}>/draw/offer                controllers.Round.drawOffer(fullId: String)
-# GET   /$fullId<[\w\-]{12}>/draw/cancel               controllers.Round.drawCancel(fullId: String)
-# GET   /$fullId<[\w\-]{12}>/draw/decline              controllers.Round.drawDecline(fullId: String)
-# GET   /$fullId<[\w\-]{12}>/rematch                   controllers.Round.rematch(fullId: String)
-# GET   /$fullId<[\w\-]{12}>/rematch/cancel            controllers.Round.rematchCancel(fullId: String)
-# GET   /$fullId<[\w\-]{12}>/rematch/decline           controllers.Round.rematchDecline(fullId: String)
-# GET   /$fullId<[\w\-]{12}>/takeback/accept           controllers.Round.takebackAccept(fullId: String)
-# GET   /$fullId<[\w\-]{12}>/takeback/offer            controllers.Round.takebackOffer(fullId: String)
-# GET   /$fullId<[\w\-]{12}>/takeback/cancel           controllers.Round.takebackCancel(fullId: String)
-# GET   /$fullId<[\w\-]{12}>/takeback/decline          controllers.Round.takebackDecline(fullId: String)
-# GET   /$gameId<[\w\-]{8}>/$color<white|black>/table  controllers.Round.tableWatcher(gameId: String, color: String)
-# GET   /$fullId<[\w\-]{12}>/table                     controllers.Round.tablePlayer(fullId: String)
-# GET   /$gameId<[\w\-]{8}>/players                    controllers.Round.players(gameId: String)
-# 
+GET   /$gameId<[\w\-]{8}>/$color<white|black>/socket controllers.Round.websocketWatcher(gameId: String, color: String)
+GET   /$gameId<[\w\-]{8}>/s.js                       controllers.Round.signedJs(gameId: String)
+GET   /$fullId<[\w\-]{12}>/socket                    controllers.Round.websocketPlayer(fullId: String)
+GET   /$fullId<[\w\-]{12}>/abort                     controllers.Round.abort(fullId: String)
+GET   /$fullId<[\w\-]{12}>/resign                    controllers.Round.resign(fullId: String)
+GET   /$fullId<[\w\-]{12}>/resign/force              controllers.Round.resignForce(fullId: String)
+GET   /$fullId<[\w\-]{12}>/draw/claim                controllers.Round.drawClaim(fullId: String)
+GET   /$fullId<[\w\-]{12}>/draw/accept               controllers.Round.drawAccept(fullId: String)
+GET   /$fullId<[\w\-]{12}>/draw/offer                controllers.Round.drawOffer(fullId: String)
+GET   /$fullId<[\w\-]{12}>/draw/cancel               controllers.Round.drawCancel(fullId: String)
+GET   /$fullId<[\w\-]{12}>/draw/decline              controllers.Round.drawDecline(fullId: String)
+GET   /$fullId<[\w\-]{12}>/rematch                   controllers.Round.rematch(fullId: String)
+GET   /$fullId<[\w\-]{12}>/rematch/cancel            controllers.Round.rematchCancel(fullId: String)
+GET   /$fullId<[\w\-]{12}>/rematch/decline           controllers.Round.rematchDecline(fullId: String)
+GET   /$fullId<[\w\-]{12}>/takeback/accept           controllers.Round.takebackAccept(fullId: String)
+GET   /$fullId<[\w\-]{12}>/takeback/offer            controllers.Round.takebackOffer(fullId: String)
+GET   /$fullId<[\w\-]{12}>/takeback/cancel           controllers.Round.takebackCancel(fullId: String)
+GET   /$fullId<[\w\-]{12}>/takeback/decline          controllers.Round.takebackDecline(fullId: String)
+GET   /$gameId<[\w\-]{8}>/$color<white|black>/table  controllers.Round.tableWatcher(gameId: String, color: String)
+GET   /$fullId<[\w\-]{12}>/table                     controllers.Round.tablePlayer(fullId: String)
+GET   /$gameId<[\w\-]{8}>/players                    controllers.Round.players(gameId: String)
+ 
 # Tournament
 # GET   /tournament                             controllers.Tournament.home 
 # GET   /tournament/reload                      controllers.Tournament.homeReload
 # GET   /tournament/new                         controllers.Tournament.form
 # POST  /tournament/new                         controllers.Tournament.create
-# GET   /tournament/$id<[\w\-]{8}>              controllers.Tournament.show(id: String) 
+GET   /tournament/$id<[\w\-]{8}>              controllers.Tournament.show(id: String) 
 # GET   /tournament/$id<[\w\-]{8}>/socket       controllers.Tournament.websocket(id: String)
 # POST  /tournament/$id<[\w\-]{8}>/join         controllers.Tournament.join(id: String)
 # POST  /tournament/$id<[\w\-]{8}>/withdraw     controllers.Tournament.withdraw(id: String)
@@ -152,7 +152,7 @@ GET   /wiki/:slug                      controllers.Wiki.show(slug: String)
 # GET   /lobby/log                       controllers.Lobby.log
 # 
 # Bookmark
-# POST   /bookmark/$gameId<[\w\-]{8}>    controllers.Bookmark.toggle(gameId: String)
+POST   /bookmark/$gameId<[\w\-]{8}>    controllers.Bookmark.toggle(gameId: String)
  
 # Forum
 GET   /forum                           controllers.ForumCateg.index

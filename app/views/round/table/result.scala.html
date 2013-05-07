@@ -1,6 +1,6 @@
-@(game: DbGame)(implicit ctx: Context)
+@(game: Game)(implicit ctx: Context)
 
-@winner(player: DbPlayer) = {
+@winner(player: Player) = {
 <div class="lichess_player @player.color">
   <div class="lichess_piece king @player.color"></div>
   <p>

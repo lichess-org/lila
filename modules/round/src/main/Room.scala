@@ -2,8 +2,7 @@ package lila.round
 
 case class Room(id: String, messages: List[String]) {
 
-  // def render: String =
-  //   messages map ((Room.render _) compose Room.decode) mkString ""
+  def decodedMessages = messages map Room.decode
 
   def rematchCopy(id: String, nb: Int) = copy(
     id = id,

@@ -127,6 +127,12 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
     def doUnless(cond: Boolean): Fu[A] = doIf(!cond)
   }
 
+  implicit final class LilaPimpedBooleanForFuture(b: Boolean) {
+
+    def optionFu[A](v: ⇒ Fu[A]): Fu[Option[A]] = 
+      if (b) v map (_.some) else fuccess(none)
+  }
+
   object makeTimeout {
 
     import akka.util.Timeout

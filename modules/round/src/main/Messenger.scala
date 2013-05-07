@@ -65,15 +65,6 @@ final class Messenger(i18nKeys: I18nKeys) {
       }
     }
 
-  // def render(game: Game): Fu[Option[String]] =
-  //   game.hasChat.fold(render(game.id) map (_.some), io(None))
-
-  // def render(roomId: String): Fu[String] =
-  //   roomRepo room roomId map (_.render)
-
-  // def renderWatcher(game: Game): Fu[String] =
-  //   watcherRoomRepo room game.id map (_.render)
-
   private def cleanupText(text: String) = {
     val cleanedUp = text.trim.replace(""""""", "'")
     (cleanedUp.size <= 140 && cleanedUp.nonEmpty) option cleanedUp
