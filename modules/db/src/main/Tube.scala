@@ -36,7 +36,10 @@ case class Tube[Doc](
 
   def write(doc: Doc): JsResult[JsObject] = writes(doc) match {
     case obj: JsObject ⇒ JsSuccess(obj)
-    case _             ⇒ JsError()
+    case something ⇒ {
+      logwarn("[tube] Cannot write %s\ngot %s".format(doc, something))
+      JsError()
+    }
   }
 
   def toMongo(doc: Doc): JsResult[JsObject] = flag(_.NoId)(
