@@ -10,6 +10,10 @@ import scala.math.{ min, max, round }
 
 trait RoundHelper {
 
+  def moretimeSeconds = roundEnv.moretimeSeconds
+
+  def gameAnimationDelay = roundEnv.animationDelay
+
   def roundPlayerJsData(pov: Pov, version: Int) = {
     import pov._
     Json.obj(

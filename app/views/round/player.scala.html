@@ -1,4 +1,4 @@
-@(pov: Pov, version: Int, engine: Boolean, roomHtml: Option[Html], bookmarkers: List[String], analysed: Boolean, tour: Option[lila.app.tournament.Tournament])(implicit ctx: Context)
+@(pov: Pov, version: Int, engine: Boolean, roomHtml: Option[Html], bookmarkers: List[String], analysed: Boolean, tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
 
 @import pov._
 
@@ -21,8 +21,8 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
   data-table-url="@routes.Round.tablePlayer(fullId)"
   data-players-url="@routes.Round.players(gameId)">
   <div class="lichess_board_wrap">
-    @widget.connection()
-    <div class="lichess_board with_marks">@Html(ui.Board.render(pov))</div>
+    @site.connection()
+    <div class="lichess_board with_marks">@Html(lila.app.ui.Board.render(pov))</div>
     <div id="premove">@trans.premoveEnabledClickAnywhereToCancel()</div>
   </div>
   <div class="lichess_ground">
@@ -61,10 +61,14 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
 <a href="@routes.Analyse.replay(gameId, color.name)">@trans.replayAndAnalyse()</a>
 @if(game.pgnImport.isEmpty) {
 <br />
+@* TODO
 <a href="@routes.Analyse.stats(gameId)">@trans.viewGameStats()</a>
+*@
 }
 <br />
+@* TODO
 <a class="view_pgn_toggle" href="@routes.Analyse.pgn(game.id)">View PGN</a>
+*@
 </nav>
 }
 }

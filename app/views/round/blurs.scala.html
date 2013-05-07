@@ -1,4 +1,4 @@
-@(game: DbGame)(implicit ctx: Context)
+@(game: Game)(implicit ctx: Context)
 
 @if(isGranted(Permission.ViewBlurs)) {
 @game.players.map { p =>

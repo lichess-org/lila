@@ -1,11 +1,14 @@
 package controllers
 
-import lila.api._
-import lila.user.Context
-
-import play.api.mvc._, Results._
+import lila.app._
+import views._
 
 object Notification extends LilaController {
 
-  def remove(id: String) = TODO
+  private def api = Env.notification.api
+
+  def remove(id: String) = Auth { implicit ctx ⇒
+    me ⇒
+      Ok(api.remove(me.id, id)).fuccess
+  }
 }

@@ -22,6 +22,8 @@ object GameRepo {
   import Game._
   import Game.ShortFields._
 
+  def game(gameId: ID): Fu[Option[Game]] = $find byId gameId
+
   def player(gameId: ID, color: Color): Fu[Option[Player]] =
     $find byId gameId map2 { (game: Game) ⇒ game player color }
 

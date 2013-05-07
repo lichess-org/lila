@@ -3,7 +3,7 @@ package lila.round
 import lila.db.api._
 import tube.roomTube
 
-private[round] object RoomRepo {
+object RoomRepo {
 
   def room(id: String): Fu[Room] = $find byId id map (_ | Room(id, Nil))
 

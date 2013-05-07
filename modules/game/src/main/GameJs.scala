@@ -1,6 +1,6 @@
 package lila.game
 
-final class GameJs(path: String, useCache: Boolean) {
+private[game] final class GameJs(path: String, useCache: Boolean) {
 
   def unsigned: String = useCache.fold(cached, readFromSource)
 

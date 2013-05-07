@@ -1,3 +1,6 @@
 package lila.tournament
 
-case class Tournament(id: String)
+case class Tournament(id: String) {
+
+  def isRunning = false
+}

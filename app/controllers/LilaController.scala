@@ -25,6 +25,9 @@ private[controllers] trait LilaController
   protected implicit val LilaPlainResultZero = new Zero[PlainResult] {
     val zero = Results.NotFound
   }
+  protected implicit val LilaHtmlZero = new Zero[Html] {
+    val zero = Html("")
+  }
 
   protected implicit final class LilaPimpedResult(result: Result) {
     def fuccess = scala.concurrent.Future successful result
@@ -99,15 +102,16 @@ private[controllers] trait LilaController
   // protected def NoEngine[A <: Result](a: ⇒ A)(implicit ctx: Context): Result =
   //   ctx.me.fold(false)(_.engine).fold(Forbidden(views.html.site.noEngine()), a)
 
-  protected def JsonOk[A: Writes](fua: Fu[A]) = fua map { a =>
+  protected def JsonOk[A: Writes](fua: Fu[A]) = fua map { a ⇒
     Ok(Json toJson a) as JSON
   }
 
-  // protected def JsFuk(js: Fu[String], headers: (String, String)*) = 
-  //   JsOk(js.unsafePerformFu, headers: _*)
+  protected def JsonOptionOk[A: Writes](fua: Fu[Option[A]])(implicit ctx: Context) = fua flatMap {
+    _.fold(notFound(ctx))(a ⇒ fuccess(Ok(Json toJson a) as JSON))
+  }
 
-  // protected def JsOk(js: String, headers: (String, String)*) = 
-  //   Ok(js) as JAVASCRIPT withHeaders (headers: _*)
+  protected def JsOk(fua: Fu[String], headers: (String, String)*) =
+    fua map { a ⇒ Ok(a) as JAVASCRIPT withHeaders (headers: _*) }
 
   // protected def ValidOk(valid: Valid[Unit]): Result = valid.fold(
   //   e ⇒ BadRequest(e.shows),
