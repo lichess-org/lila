@@ -13,7 +13,6 @@ trait InColl[A] { implicit def coll: Types.Coll }
 case class Tube[Doc](
   reader: Reads[Doc],
   writer: Writes[Doc],
-  writeTransformer: Option[Reads[JsObject]] = None,
   flags: Seq[Tube.Flag.type ⇒ Tube.Flag] = Seq.empty)
     extends Reads[Doc]
     with Writes[Doc]
@@ -35,10 +34,9 @@ case class Tube[Doc](
 
   def read(js: JsObject): JsResult[Doc] = reads(js)
 
-  def write(doc: Doc): JsResult[JsObject] = (writes(doc), writeTransformer) match {
-    case (obj: JsObject, Some(transformer)) ⇒ obj transform transformer
-    case (obj: JsObject, _)                 ⇒ JsSuccess(obj)
-    case (value, _)                         ⇒ JsError()
+  def write(doc: Doc): JsResult[JsObject] = writes(doc) match {
+    case obj: JsObject ⇒ JsSuccess(obj)
+    case _             ⇒ JsError()
   }
 
   def toMongo(doc: Doc): JsResult[JsObject] = flag(_.NoId)(
@@ -52,7 +50,7 @@ case class Tube[Doc](
   )
 
   def inColl(c: Coll): TubeInColl[Doc] =
-    new Tube[Doc](reader, writer, writeTransformer) with InColl[Doc] {
+    new Tube[Doc](reader, writer, flags) with InColl[Doc] {
       def coll = c
     }
 
@@ -80,6 +78,21 @@ object Tube {
   }
 
   object Helpers {
+
+    // Adds Writes[A].andThen combinator, symmetric to Reads[A].andThen
+    // Defaults to original value on fail
+    implicit final class LilaTubePimpedWrites[A](writes: Writes[A]) {
+      def andThen(transformer: Reads[JsObject]): Writes[A] =
+        writes.transform(Writes[JsValue] { origin ⇒
+          origin transform transformer match {
+            case err: JsError ⇒ {
+              logwarn("[tube] Cannot transform %s\n%s".format(origin, err))
+              origin
+            }
+            case JsSuccess(js, _) ⇒ js
+          }
+        })
+    }
 
     def rename(from: Symbol, to: Symbol) = __.json update (
       (__ \ to).json copyFrom (__ \ from).json.pick

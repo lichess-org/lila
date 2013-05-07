@@ -33,12 +33,7 @@ object Post {
   import play.api.libs.json._
 
   private[message] lazy val tube = Tube(
-    reader = (__.json update (
-      readDate('createdAt)
-    )) andThen Json.reads[Post],
-    writer = Json.writes[Post],
-    writeTransformer = (__.json update (
-      writeDate('createdAt)
-    )).some
+    (__.json update readDate('createdAt)) andThen Json.reads[Post],
+    Json.writes[Post].andThen(__.json update writeDate('createdAt))
   )
 }

@@ -88,7 +88,7 @@ private[setup] object RawUserConfig {
   private implicit def filterTube = RawFilterConfig.tube
 
   private[setup] lazy val tube = Tube(
-    reader = (__.json update readDate('date)) andThen Json.reads[RawUserConfig],
-    writer = Json.writes[RawUserConfig],
-    writeTransformer = (__.json update writeDate('date)).some)
+    (__.json update readDate('date)) andThen Json.reads[RawUserConfig],
+    Json.writes[RawUserConfig] andThen (__.json update writeDate('date))
+  )
 }

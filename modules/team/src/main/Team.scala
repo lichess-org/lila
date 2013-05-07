@@ -50,8 +50,7 @@ object Team {
   import play.api.libs.json._
 
   private[team] lazy val tube = Tube(
-    reader = (__.json update readDate('createdAt)) andThen Json.reads[Team],
-    writer = Json.writes[Team],
-    writeTransformer = (__.json update writeDate('createdAt)).some
+    (__.json update readDate('createdAt)) andThen Json.reads[Team],
+    Json.writes[Team] andThen (__.json update writeDate('createdAt))
   ) 
 }

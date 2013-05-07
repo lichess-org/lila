@@ -26,9 +26,8 @@ object Request {
   import play.api.libs.json._
 
   private[team] lazy val tube = Tube(
-    reader = (__.json update readDate('date)) andThen Json.reads[Request],
-    writer = Json.writes[Request],
-    writeTransformer = (__.json update writeDate('date)).some
+    (__.json update readDate('date)) andThen Json.reads[Request],
+    Json.writes[Request] andThen (__.json update writeDate('date))
   ) 
 }
 

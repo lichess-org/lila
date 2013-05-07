@@ -6,14 +6,6 @@ object PimpedJson extends PimpedJson
 
 trait PimpedJson {
 
-  implicit final class LilaPimpedWrites[A](writes: Writes[A]) {
-
-    def andThen(transformer: Reads[JsObject]): Writes[A] =
-      writes.transform(Writes[JsValue] { js ⇒
-        js transform transformer getOrElse js
-      })
-  }
-
   implicit final class LilaPimpedJsObject(js: JsObject) {
 
     def str(key: String): Option[String] =

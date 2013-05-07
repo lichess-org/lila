@@ -71,13 +71,12 @@ object Thread {
 
   private[message] lazy val tube = Post.tube |> { implicit pt ⇒
     Tube(
-      reader = (__.json update (
+      (__.json update (
         readDate('createdAt) andThen readDate('updatedAt)
       )) andThen Json.reads[Thread],
-      writer = Json.writes[Thread],
-      writeTransformer = (__.json update (
+      Json.writes[Thread] andThen (__.json update (
         writeDate('createdAt) andThen writeDate('updatedAt)
-      )).some
+      ))
     ) 
   }
 }

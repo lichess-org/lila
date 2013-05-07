@@ -61,11 +61,10 @@ object User {
   import play.api.libs.json._
 
   private[user] lazy val tube = Tube[User](
-    reader = (__.json update (
+    (__.json update (
       merge(defaults) andThen readDate('createdAt)
     )) andThen Json.reads[User],
-    writer = Json.writes[User],
-    writeTransformer = (__.json update writeDate('createdAt)).some
+    Json.writes[User] andThen (__.json update writeDate('createdAt))
   )
 
   def normalize(username: String) = username.toLowerCase

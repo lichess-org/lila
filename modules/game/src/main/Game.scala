@@ -519,12 +519,11 @@ private[game] object RawGame {
     "me" -> none[RawMetadata])
 
   private[game] lazy val tube = Tube(
-    reader = (__.json update (
+    (__.json update (
       merge(defaults) andThen readDate('ca) andThen readDate('ua)
     )) andThen Json.reads[RawGame],
-    writer = Json.writes[RawGame],
-    writeTransformer = (__.json update (
+    Json.writes[RawGame] andThen (__.json update (
       writeDate('ca) andThen writeDate('ua)
-    )).some
+    ))
   )
 }

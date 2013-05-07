@@ -24,12 +24,9 @@ private[i18n] object Translation {
     "comment" -> none[String])
 
   private[i18n] val tube = Tube(
-    reader = (__.json update (
+    (__.json update (
       merge(defaults) andThen readDate('createdAt)
     )) andThen Json.reads[Translation],
-    writer = Json.writes[Translation],
-    writeTransformer = (__.json update (
-      writeDate('createdAt)
-    )).some
+    Json.writes[Translation] andThen (__.json update writeDate('createdAt))
   ) 
 }
