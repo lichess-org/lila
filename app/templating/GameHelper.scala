@@ -37,7 +37,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   }
 
   def usernameWithElo(player: Player) =
-    Namer.player(player)(userEnv.usernameOrAnonymous)
+    Namer.player(player)(userEnv.usernameOrAnonymous).await
 
   def playerLink(
     player: Player,
