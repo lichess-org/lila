@@ -44,12 +44,11 @@ object Topic {
     "lastPostId" -> "")
 
   private[forum] lazy val tube = Tube(
-    reader = (__.json update (
+    (__.json update (
       merge(defaults) andThen readDate('createdAt) andThen readDate('updatedAt)
     )) andThen Json.reads[Topic],
-    writer = Json.writes[Topic],
-    writeTransformer = (__.json update (
+    Json.writes[Topic] andThen (__.json update (
       writeDate('createdAt) andThen writeDate('updatedAt)
-    )).some
+    ))
   )
 }

@@ -19,9 +19,8 @@ class DateTest extends Specification with test.WithColl {
 
   import Tube.Helpers._
   implicit val eTube: Tube[TestEvent] = Tube[TestEvent](
-    reader = (__.json update readDate('on)) andThen Json.reads[TestEvent],
-    writer = Json.writes[TestEvent],
-    writeTransformer = (__.json update writeDate('on)).some
+    (__.json update readDate('on)) andThen Json.reads[TestEvent],
+    Json.writes[TestEvent] andThen (__.json update writeDate('on))
   )
 
   val date = DateTime.now

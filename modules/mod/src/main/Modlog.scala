@@ -35,11 +35,10 @@ object Modlog {
   import play.api.libs.json._
 
   private[mod] lazy val tube = Tube[Modlog](
-    reader = (__.json update (
+    (__.json update (
       merge(defaults) andThen readDate('date)
     )) andThen Json.reads[Modlog],
-    writer = Json.writes[Modlog],
-    writeTransformer = (__.json update writeDate('date)).some,
+    Json.writes[Modlog] andThen (__.json update writeDate('date)),
     flags = Seq(_.NoId)
   )
 

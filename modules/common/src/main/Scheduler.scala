@@ -17,7 +17,7 @@ final class Scheduler(system: ActorSystem, enabled: Boolean) {
   def future(freq: FiniteDuration, name: String)(op: ⇒ Funit) {
     enabled ! {
       val f = randomize(freq)
-      loginfo("[cron] schedule %s every %s".format(name, freq))
+      name.nonEmpty ! loginfo("[cron] schedule %s every %s".format(name, freq))
       system.scheduler.schedule(f, f) {
         op onFailure {
           case e: Throwable ⇒ println("[CRON ERROR] (" + name + ") " + e.getMessage)
