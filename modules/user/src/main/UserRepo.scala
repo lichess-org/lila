@@ -3,10 +3,13 @@ package lila.user
 import lila.db.Implicits._
 import lila.db.api._
 import tube.userTube
+import lila.common.PimpedJson._
 
 import play.api.libs.json.Json
 
 import reactivemongo.api._
+import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
+import play.modules.reactivemongo.json.BSONFormats.toJSON
 
 import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
@@ -32,7 +35,7 @@ object UserRepo {
 
   val enabledQuery = Json.obj("enabled" -> true)
 
-  val sortEloDesc = $sort desc "elo" 
+  val sortEloDesc = $sort desc "elo"
 
   def incNbGames(id: ID, rated: Boolean, ai: Boolean, result: Option[Int]) = {
     val incs = List(
@@ -62,7 +65,7 @@ object UserRepo {
     elos.sum / elos.size.toFloat
   }
 
-  def saveSetting(id: ID, key: String, value: String): Funit = 
+  def saveSetting(id: ID, key: String, value: String): Funit =
     $update($select(id), $set(("settings." + key) -> value))
 
   def authenticate(id: ID, password: String): Fu[Option[User]] = for {
@@ -85,7 +88,7 @@ object UserRepo {
     existing ← $count exists normalize(username)
     userOption ← existing.fold(
       fuccess(none),
-      $insert(newUser(username, password)) >> ($find byId normalize(username)) 
+      $insert(newUser(username, password)) >> ($find byId normalize(username))
     )
   } yield userOption
 
@@ -123,40 +126,41 @@ object UserRepo {
       }
     }
 
-  def idsAverageElo(ids: Iterable[String]): Fu[Int] = fuccess(0)
-  // TODO
-//     val result = collection.mapReduce(
-//       mapFunction = """function() { emit("e", this.elo); }""",
-//       reduceFunction = """function(key, values) {
-//   var sum = 0;
-//   for(var i in values) { sum += values[i]; }
-//   return Math.round(sum / values.length);
-// }""",
-//       output = MapReduceInlineOutput,
-//       query = ("_id" $in ids.map(normalize)).some)
-//     (for {
-//       row ← result.hasNext option result.next
-//       sum ← row.getAs[Double]("value")
-//     } yield sum.toInt) | 0
-//   }
+  def idsAverageElo(ids: Iterable[String]): Fu[Int] = {
+    val command = MapReduce(
+      collectionName = tube.userTube.coll.name,
+      mapFunction = """function() { emit("e", this.elo); }""",
+      reduceFunction = """function(key, values) {
+  var sum = 0;
+  for(var i in values) { sum += values[i]; }
+  return Math.round(sum / values.length);
+}""",
+      query = Some {
+        JsObjectWriter write Json.obj("_id" -> $in(ids map normalize))
+      }
+    )
+    tube.userTube.coll.db.command(command) map { res ⇒
+      toJSON(res).arr("results").flatMap(_.apply(0) int "value")
+    } map (~_)
+  }
 
-  def idsSumToints(ids: Iterable[String]): Fu[Int] = fuccess(0)
-  // TODO
-//     val result = collection.mapReduce(
-//       mapFunction = """function() { emit("e", this.toints); }""",
-//       reduceFunction = """function(key, values) {
-//   var sum = 0;
-//   for(var i in values) { sum += values[i]; }
-//   return sum;
-// }""",
-//       output = MapReduceInlineOutput,
-//       query = ("_id" $in ids.map(normalize)).some)
-//     (for {
-//       row ← result.hasNext option result.next
-//       sum ← row.getAs[Double]("value")
-//     } yield sum.toInt) | 0
-//   }
-// }
+  def idsSumToints(ids: Iterable[String]): Fu[Int] = {
+    val command = MapReduce(
+      collectionName = tube.userTube.coll.name,
+        mapFunction = """function() { emit("e", this.toints); }""",
+        reduceFunction = """function(key, values) {
+    var sum = 0;
+    for(var i in values) { sum += values[i]; }
+    return sum;
+  }""",
+      query = Some {
+        JsObjectWriter write Json.obj("_id" -> $in(ids map normalize))
+      }
+    )
+    tube.userTube.coll.db.command(command) map { res ⇒
+      toJSON(res).arr("results").flatMap(_.apply(0) int "value")
+    } map (~_)
+  }
 
   private def newUser(username: String, password: String) = (Random nextString 32) |> { salt ⇒
     Json.obj(
