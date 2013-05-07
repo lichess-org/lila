@@ -26,7 +26,7 @@ object ApplicationBuild extends Build {
     message, notification, i18n, game, bookmark, search,
     gameSearch, timeline, forum, forumSearch, team, teamSearch,
     ai, analyse, mod, monitor, site, round, lobby, setup,
-    importer)
+    importer, tournament)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map classpathDependency
@@ -87,23 +87,24 @@ object ApplicationBuild extends Build {
 
   lazy val round = project("round", Seq(
     common, db, memo, hub, socket, chess, game, user, security, i18n, ai)).settings(
-    libraryDependencies ++= provided(
-      playApi, reactivemongo, playReactivemongo)
+    libraryDependencies ++= provided(playApi, reactivemongo, playReactivemongo)
   )
 
   lazy val lobby = project("lobby", Seq(
     common, db, memo, hub, socket, chess, game, user, round, timeline)).settings(
-    libraryDependencies ++= provided(
-      playApi, reactivemongo, playReactivemongo)
+    libraryDependencies ++= provided(playApi, reactivemongo, playReactivemongo)
   )
 
   lazy val setup = project("setup", Seq(
     common, db, memo, hub, socket, chess, game, user, lobby)).settings(
-    libraryDependencies ++= provided(
-      playApi, reactivemongo, playReactivemongo)
+    libraryDependencies ++= provided(playApi, reactivemongo, playReactivemongo)
   )
 
   lazy val importer = project("importer", Seq(common, chess, game, round)).settings(
+    libraryDependencies ++= provided(playApi, reactivemongo, playReactivemongo)
+  )
+
+  lazy val tournament = project("tournament", Seq(common, chess, game, round)).settings(
     libraryDependencies ++= provided(playApi, reactivemongo, playReactivemongo)
   )
 
