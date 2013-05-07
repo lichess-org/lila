@@ -56,6 +56,8 @@ final class Env(
     scheduler.effect(4.5 hours, "game: cleanup") {
       titivate.cleanupUnplayed >> titivate.cleanupNext
     }
+
+    scheduler.effect(5.seconds, "") { featured.one }
   }
 
   def cli = new lila.common.Cli {

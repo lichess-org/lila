@@ -51,8 +51,6 @@ private[game] final class Featured(
       GameRepo.featuredCandidates.await filter valid
     }
   }))
-
-  system.scheduler.schedule(5.seconds, 2.seconds, actor, GetOne)
 }
 
 object Featured {
