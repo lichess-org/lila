@@ -1,9 +1,6 @@
 #!/bin/sh
 . bin/lilarc
 
-echo "Nope."
-exit 1
-
 fail () {
   echo "Deploy main or ai"
   exit 1
@@ -26,7 +23,7 @@ fi
 
 lilalog "Deploy to $1 server $REMOTE:$REMOTE_DIR"
 
-APP_NAME=lila-1.0
+APP_NAME=lila-4.0
 
 bin/closure
 
@@ -40,6 +37,9 @@ rm -rf $APP_NAME
 unzip $APP_NAME.zip
 chmod +x $APP_NAME/start
 cd ..
+
+echo "NOT deploying"
+exit 1
 
 RSYNC_OPTIONS=" \
   --archive \

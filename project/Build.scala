@@ -7,7 +7,7 @@ object ApplicationBuild extends Build {
   import BuildSettings._
   import Dependencies._
 
-  lazy val lila = play.Project("lila", "4") settings (
+  lazy val lila = play.Project("lila", "4.0") settings (
     libraryDependencies ++= Seq(
       scalaz, scalalib, hasher, config, apache, scalaTime,
       csv, jgit, actuarius, scalastic, findbugs, reactivemongo,
