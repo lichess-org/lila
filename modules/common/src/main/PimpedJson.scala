@@ -20,6 +20,9 @@ trait PimpedJson {
     def obj(key: String): Option[JsObject] =
       (js \ key).asOpt[JsObject]
 
+    def arr(key: String): Option[JsArray] =
+      (js \ key).asOpt[JsArray]
+
     def get[A : Reads](key: String): Option[A] =
       (js \ key).asOpt[A]
   }
@@ -44,6 +47,11 @@ trait PimpedJson {
     def obj(key: String): Option[JsObject] =
       js.asOpt[JsObject] flatMap { obj ⇒
         (obj \ key).asOpt[JsObject]
+      }
+
+    def arr(key: String): Option[JsArray] =
+      js.asOpt[JsObject] flatMap { obj ⇒
+        (obj \ key).asOpt[JsArray]
       }
   }
 }
