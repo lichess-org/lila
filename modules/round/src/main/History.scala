@@ -18,11 +18,11 @@ private[round] final class History(ttl: Duration) extends Actor {
 
     // none if version asked is > to history version
     // none if an event is missing (asked too old version)
-    case GetEventsSince(v: Int) ⇒ sender ! {
+    case GetEventsSince(v: Int) ⇒ sender ! MaybeEvents(
       if (v > version) None
       else if (v == version) Some(Nil)
       else ((v + 1 to version).toList map get).flatten.some
-    }
+    )
 
     case AddEvent(event) ⇒ {
       version = version + 1
