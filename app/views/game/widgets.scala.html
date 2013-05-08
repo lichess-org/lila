@@ -6,8 +6,7 @@
   @defining(fromPlayer | g.creator ) { firstPlayer =>
   @gameFen(g, firstPlayer.color, ownerLink)
   <div class="infos">
-    TODO
-    @@bookmark.toggle(g)
+    @bookmark.toggle(g)
     <b>
       @if(g.isBeingPlayed) {
       <a class="link" href="@routes.Round.watcher(g.id, firstPlayer.color.name)">@trans.playingRightNow()</a>,
