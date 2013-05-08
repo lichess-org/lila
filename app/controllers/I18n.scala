@@ -3,71 +3,63 @@ package controllers
 import lila.app._
 import views._
 import lila.user.Context
-import lila.common.LilaCookie
-import lila.i18n._
+import lila.i18n.{ Translation, TransInfo }
+import lila.common.{ Captcha, LilaCookie }
 
 import play.api.data.Form
 
 object I18n extends LilaController {
 
-  // private def transInfos = env.i18n.transInfos
-  // private def pool = env.i18n.pool
-  // private def translator = env.i18n.translator
-  // private def forms = env.i18n.forms
-  // private def i18nKeys = env.i18n.keys
-  // private def repo = env.i18n.translationRepo
+  private def env = Env.i18n
 
-  def contribute = TODO 
-  // Open { implicit ctx ⇒
-  //   val mines = (pool fixedReqAcceptLanguages ctx.req map { lang ⇒
-  //     transInfos get lang
-  //   }).toList.flatten
-  //   Ok(html.i18n.contribute(transInfos.all, mines))
-  // }
+  def contribute = Open { implicit ctx ⇒
+    val mines = (ctx.req.acceptLanguages map env.transInfos.get).toList.flatten
+    Ok(html.i18n.contribute(env.transInfos.all, mines)).fuccess
+  }
 
-  // def translationForm(lang: String) = Open { implicit ctx ⇒
-  //   OptionOk(transInfos get lang) { info ⇒
-  //     val (form, captcha) = forms.translationWithCaptcha
-  //     renderTranslationForm(form, info, captcha)
-  //   }
-  // }
+  def translationForm(lang: String) = Open { implicit ctx ⇒
+    OptionFuOk(fuccess(env.transInfos get lang)) { info ⇒
+      env.forms.translationWithCaptcha map {
+        case (form, captcha) ⇒ renderTranslationForm(form, info, captcha)
+      }
+    }
+  }
 
-  // def translationPost(lang: String) = OpenBody { implicit ctx ⇒
-  //   OptionResult(transInfos get lang) { info ⇒
-  //     implicit val req = ctx.body
-  //     val data = forms.decodeTranslationBody
-  //     FormIOResult(forms.translation) { form ⇒
-  //       renderTranslationForm(form, info, forms.captchaCreate, data)
-  //     } { metadata ⇒
-  //       forms.process(lang, metadata, data) map { _ ⇒
-  //         Redirect(routes.I18n.contribute).flashing("success" -> "1")
-  //       }
-  //     }
-  //   }
-  // }
+  def translationPost(lang: String) = OpenBody { implicit ctx ⇒
+    OptionFuResult(fuccess(env.transInfos get lang)) { info ⇒
+      implicit val req = ctx.body
+      val data = env.forms.decodeTranslationBody
+      FormFuResult(env.forms.translation) { form ⇒
+        env.forms.anyCaptcha map { captcha ⇒
+          renderTranslationForm(form, info, captcha, data)
+        }
+      } { metadata ⇒
+        env.forms.process(lang, metadata, data) inject
+          Redirect(routes.I18n.contribute).flashing("success" -> "1")
+      }
+    }
+  }
 
-  // private def renderTranslationForm(form: Form[_], info: TransInfo, captcha: Captcha.Challenge, data: Map[String, String] = Map.empty)(implicit ctx: Context) =
-  //   html.i18n.translationForm(
-  //     info,
-  //     form,
-  //     i18nKeys,
-  //     pool.default,
-  //     translator.rawTranslation(info.lang) _,
-  //     captcha,
-  //     data)
+  private def renderTranslationForm(form: Form[_], info: TransInfo, captcha: Captcha, data: Map[String, String] = Map.empty)(implicit ctx: Context) =
+    html.i18n.translationForm(
+      info,
+      form,
+      env.keys,
+      env.pool.default,
+      env.translator.rawTranslation(info.lang) _,
+      captcha,
+      data)
 
-  // def fetch(from: Int) = Open { implicit ctx ⇒
-  //   JsonOk((repo findFrom from map {
-  //     _ map (_.toJson)
-  //   }).unsafePerformIO)
-  // }
+  def fetch(from: Int) = Open { implicit ctx ⇒
+    JsonOk(env jsonFromVersion from)
+  }
 
-  // val hideCalls = Open { implicit ctx ⇒
-  //   implicit val req = ctx.req
-  //   val cookie = LilaCookie.cookie(
-  //     env.i18n.hideCallsCookieName,
-  //     "1",
-  //     maxAge = env.i18n.hideCallsCookieMaxAge.some)
-  //   Redirect(routes.Lobby.home()) withCookies cookie
-  // }
+  def hideCalls = Open { implicit ctx ⇒
+    implicit val req = ctx.req
+    val cookie = LilaCookie.cookie(
+      env.hideCallsCookieName,
+      "1",
+      maxAge = env.hideCallsCookieMaxAge.some)
+    fuccess(Redirect(routes.Lobby.home()) withCookies cookie)
+  }
 }

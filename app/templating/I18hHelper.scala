@@ -27,7 +27,7 @@ trait I18nHelper {
   def translationCall(implicit ctx: Context) =
     if (ctx.req.cookies.get(hideCallsCookieName).isDefined) None
     else shuffle(
-      (pool.fixedReqAcceptLanguages(ctx.req) map transInfos.get).flatten filter (_.nonComplete)
+      (ctx.req.acceptLanguages map transInfos.get).flatten filter (_.nonComplete)
     ).headOption
 
   def transValidationPattern(trans: String) =
