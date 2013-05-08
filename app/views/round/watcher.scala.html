@@ -59,14 +59,10 @@ underchat = underchat.some) {
 <a href="@routes.Round.watcher(gameId, (!color).name)">@trans.flipBoard()</a>
 @if(game.pgnImport.isEmpty) {
 <br />
-@* TODO
 <a href="@routes.Analyse.stats(gameId)">@trans.viewGameStats()</a>
-*@
 }
 <br />
-@* TODO
 <a class="view_pgn_toggle" href="@routes.Analyse.pgn(game.id)">View PGN</a> 
-*@
 </nav>
 }
 }

@@ -53,28 +53,28 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
   def player(fullId: String) = Open { implicit ctx ⇒
     OptionFuResult(GameRepo pov fullId) { pov ⇒
       pov.game.started.fold(
-        for {
-          // TODO zip that shit
-          roomHtml ← pov.game.hasChat optionFu {
+        PreventTheft(pov) {
+          (pov.game.hasChat optionFu {
             RoomRepo room pov.gameId map { room ⇒
-              html.round.room(html.round.roomInner(room.decodedMessages), false)
+              html.round.roomInner(room.decodedMessages)
             }
-          }
-          v ← version(pov.gameId)
-          bookmarkers ← bookmarkApi userIdsByGame pov.game
-          engine ← pov.opponent.userId.zmap(UserRepo.isEngine)
-          analysed ← analyser has pov.gameId
-          tour = none[Tourney]
-          // TODO tournamentRepo byId pov.game.tournamentId
-        } yield PreventTheft(pov) {
-          Ok(html.round.player(
-            pov,
-            v,
-            engine,
-            roomHtml,
-            bookmarkers,
-            analysed,
-            tour = tour))
+          }) zip
+            version(pov.gameId) zip
+            (bookmarkApi userIdsByGame pov.game) zip
+            pov.opponent.userId.zmap(UserRepo.isEngine) zip
+            (analyser has pov.gameId) zip
+            // TODO (tournamentRepo byId pov.game.tournamentId) zip
+            fuccess(none[Tourney]) map {
+              case (((((roomHtml, v), bookmarkers), engine), analysed), tour) ⇒
+                Ok(html.round.player(
+                  pov,
+                  v,
+                  engine,
+                  roomHtml,
+                  bookmarkers,
+                  analysed,
+                  tour = tour))
+            }
         },
         Ok("TODO").fuccess
       // TODO Redirect(routes.Setup.await(fullId)).fuccess
@@ -100,7 +100,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
     bookmarkApi userIdsByGame pov.game zip
       version(pov.gameId) zip
       (RoomRepo room pov.gameId map { room ⇒
-        html.round.room(html.round.roomInner(room.decodedMessages), true)
+        html.round.roomInner(room.decodedMessages)
       }) zip
       (analyser has pov.gameId) zip
       fuccess(none[Tourney]) map {

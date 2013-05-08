@@ -26,7 +26,7 @@ case class Tube[Doc](
     fromMongo(js) match {
       case JsSuccess(v, _) ⇒ Some(v)
       case e ⇒ {
-        logwarn("[tube] Cannot read %s\n%s".format(js, e))
+        logerr("[tube] Cannot read %s\n%s".format(js, e))
         None
       }
     }
@@ -37,7 +37,7 @@ case class Tube[Doc](
   def write(doc: Doc): JsResult[JsObject] = writes(doc) match {
     case obj: JsObject ⇒ JsSuccess(obj)
     case something ⇒ {
-      logwarn("[tube] Cannot write %s\ngot %s".format(doc, something))
+      logerr("[tube] Cannot write %s\ngot %s".format(doc, something))
       JsError()
     }
   }
@@ -89,7 +89,7 @@ object Tube {
         writes.transform(Writes[JsValue] { origin ⇒
           origin transform transformer match {
             case err: JsError ⇒ {
-              logwarn("[tube] Cannot transform %s\n%s".format(origin, err))
+              logerr("[tube] Cannot transform %s\n%s".format(origin, err))
               origin
             }
             case JsSuccess(js, _) ⇒ js
