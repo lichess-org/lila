@@ -47,7 +47,7 @@ object Store {
     upsert = false,
     multi = true)
 
-  def userSpy(user: String): Fu[UserSpy] = for {
+  private[security] def userSpy(user: String): Fu[UserSpy] = for {
     objs ← $find(selectUser(user))
     usernames ← explore(normalize(user))
   } yield UserSpy(

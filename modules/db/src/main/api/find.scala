@@ -21,8 +21,8 @@ object $find extends OptionTs {
   def byId[ID: Writes, A: TubeInColl](id: ID): Fu[Option[A]] = one($select byId id)
   def byId[A: TubeInColl](id: String): Fu[Option[A]] = byId[String, A](id)
 
-  def byIds[ID: Writes, A: TubeInColl](ids: Seq[ID]): Fu[List[A]] = apply($select byIds ids)
-  def byIds[A: TubeInColl](ids: Seq[String]): Fu[List[A]] = byIds[String, A](ids)
+  def byIds[ID: Writes, A: TubeInColl](ids: Iterable[ID]): Fu[List[A]] = apply($select byIds ids)
+  def byIds[A: TubeInColl](ids: Iterable[String]): Fu[List[A]] = byIds[String, A](ids)
 
   def byOrderedIds[ID: Writes, A <: Identified[ID]: TubeInColl](ids: Seq[ID]): Fu[List[A]] =
     byIds(ids) map { docs ⇒

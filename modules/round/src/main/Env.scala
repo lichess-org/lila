@@ -73,6 +73,8 @@ final class Env(
 
   lazy val messenger = new Messenger(i18nKeys)
 
+  lazy val eloCalculator = new chess.EloCalculator(false)
+
   def version(gameId: String): Fu[Int] =
     socketHub ? actorApi.GetGameVersion(gameId) mapTo manifest[Int]
 
@@ -94,8 +96,6 @@ final class Env(
   private lazy val titivate = new Titivate(finisher, meddler)
 
   private lazy val hijack = new Hijack(HijackTimeout)
-
-  private lazy val eloCalculator = new chess.EloCalculator(false)
 
   private lazy val finisherLock = new FinisherLock(timeout = FinisherLockTimeout)
 

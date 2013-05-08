@@ -22,5 +22,5 @@ object $select {
 
   def byId[A: Writes](id: A) = Json.obj("_id" -> id)
 
-  def byIds[A: Writes](ids: Seq[A]) = Json.obj("_id" -> $in(ids))
+  def byIds[A: Writes](ids: Iterable[A]) = Json.obj("_id" -> $in(ids))
 }

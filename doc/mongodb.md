@@ -142,7 +142,7 @@ That I apply to the collection wraper object:
 val games = gameRepo find Query.loss(user)
 ```
 
-Which yields a game list of type `IO[List[DbGame]]`
+Which yields a game list of type `IO[List[Game]]`
 
 Search
 ------

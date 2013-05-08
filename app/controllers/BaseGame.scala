@@ -12,11 +12,6 @@ private[controllers] trait BaseGame { self: LilaController ⇒
   protected def bookmarkApi = Env.bookmark.api
   protected def listMenu = Env.game.listMenu
 
-  private val maxPage = 40
-
-  protected def Reasonable(page: Int)(result: ⇒ Fu[Result]): Fu[Result] =
-    (page < maxPage).fold(result, BadRequest("resource too old").fuccess)
-
   protected def makeListMenu(implicit ctx: Context) =
     listMenu(bookmarkApi countByUser _, nbAnalysis, ctx.me)
 }
