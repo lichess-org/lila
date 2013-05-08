@@ -1,7 +1,3 @@
-# Wiki
-# GET   /wiki                            controllers.Wiki.home
-# GET   /wiki/:slug                      controllers.Wiki.show(slug: String)
-
 # Lobby
 GET   /                                controllers.Lobby.home
 
@@ -100,7 +96,7 @@ GET   /$gameId<[\w\-]{8}>/pgn            controllers.Analyse.pgn(gameId: String)
  
 # Setting
 POST  /setting/:name                   controllers.Setting.set(name: String)
-# 
+ 
 # Setup
 # GET   /setup/ai                        controllers.Setup.aiForm
 # POST  /setup/ai                        controllers.Setup.ai
@@ -112,13 +108,13 @@ POST  /setting/:name                   controllers.Setting.set(name: String)
 # GET   /setup/hook                      controllers.Setup.hookForm
 # POST  /setup/hook                      controllers.Setup.hook
 # POST  /api/game/new                    controllers.Setup.api
-# 
+ 
 # I18n
 GET   /translation/contribute          controllers.I18n.contribute
-# GET   /translation/form/:lang          controllers.I18n.translationForm(lang: String)
-# POST  /translation/form/:lang          controllers.I18n.translationPost(lang: String)
-# GET   /translation/fetch/:from         controllers.I18n.fetch(from: Int)
-# POST  /translation/hideCalls           controllers.I18n.hideCalls
+GET   /translation/form/:lang          controllers.I18n.translationForm(lang: String)
+POST  /translation/form/:lang          controllers.I18n.translationPost(lang: String)
+GET   /translation/fetch/:from         controllers.I18n.fetch(from: Int)
+POST  /translation/hideCalls           controllers.I18n.hideCalls
  
 # Authentication
 GET   /login                           controllers.Auth.login
@@ -149,7 +145,7 @@ GET   /ai/stockfish/analyse            controllers.Ai.analyseStockfish
 # GET   /new/$hookId<[\w\-]{8}>/join     controllers.Lobby.join(hookId: String)
 # GET   /lobby/socket                    controllers.Lobby.socket
 # GET   /lobby/log                       controllers.Lobby.log
-# 
+ 
 # Bookmark
 POST   /bookmark/$gameId<[\w\-]{8}>    controllers.Bookmark.toggle(gameId: String)
  

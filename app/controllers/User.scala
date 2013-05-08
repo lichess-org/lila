@@ -78,7 +78,7 @@ object User extends LilaController {
     me ⇒
       implicit val req = ctx.body
       FormFuResult(forms.passwd) { err ⇒
-        html.user.passwd(me, err)
+        fuccess(html.user.passwd(me, err))
       } { passwd ⇒
         for {
           ok ← UserRepo.checkPassword(me.id, passwd.oldPasswd)

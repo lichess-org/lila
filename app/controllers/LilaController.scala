@@ -125,9 +125,9 @@ private[controllers] trait LilaController
       form ⇒ fuccess(BadRequest(form.errors mkString "\n")),
       op)
 
-  protected def FormFuResult[A, B : Writeable : ContentTypeOf](form: Form[A])(err: Form[A] ⇒ B)(op: A ⇒ Fu[Result])(implicit req: Request[_]) =
+  protected def FormFuResult[A, B : Writeable : ContentTypeOf](form: Form[A])(err: Form[A] ⇒ Fu[B])(op: A ⇒ Fu[Result])(implicit req: Request[_]) =
     form.bindFromRequest.fold(
-      form ⇒ BadRequest(err(form)).fuccess,
+      form ⇒ err(form) map { BadRequest(_) },
       data ⇒ op(data)
     )
 

@@ -70,6 +70,10 @@ final class Env(
   def hideCallsCookieName = HideCallsCookieName
   def hideCallsCookieMaxAge = HideCallsCookieMaxAge
 
+  def jsonFromVersion(v: Int) = TranslationRepo findFrom v map2 {
+    (trans: Translation) => tube.translationTube writes trans
+  }
+
   def cli = new lila.common.Cli {
     def process = {
       case "i18n" :: "fetch" :: from :: Nil ⇒
