@@ -7,7 +7,6 @@ import lila.game.{ Pov, GameRepo, Game ⇒ GameModel }
 import lila.round.{ RoomRepo, Room }
 import lila.round.actorApi.GetGameVersion
 import lila.tournament.{ Tournament ⇒ Tourney }
-import makeTimeout.large
 
 import akka.pattern.ask
 import play.api.mvc._
@@ -59,7 +58,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
               html.round.roomInner(room.decodedMessages)
             }
           }) zip
-            version(pov.gameId) zip
+            env.version(pov.gameId) zip
             (bookmarkApi userIdsByGame pov.game) zip
             pov.opponent.userId.zmap(UserRepo.isEngine) zip
             (analyser has pov.gameId) zip
@@ -89,7 +88,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
   }
 
   private def join(pov: Pov)(implicit ctx: Context): Fu[Result] =
-    GameRepo initialFen pov.gameId zip version(pov.gameId) map {
+    GameRepo initialFen pov.gameId zip env.version(pov.gameId) map {
       case (fen, version) ⇒ Ok("TODO") // TODO
       // Ok(html.setup.join(
       //   pov, version, env.setup.friendConfigMemo get pov.game.id, fen
@@ -98,7 +97,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
 
   private def watch(pov: Pov)(implicit ctx: Context): Fu[Result] =
     bookmarkApi userIdsByGame pov.game zip
-      version(pov.gameId) zip
+      env.version(pov.gameId) zip
       (RoomRepo room pov.gameId map { room ⇒
         html.round.roomInner(room.decodedMessages)
       }) zip
@@ -165,7 +164,4 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
       } toMap) ++ ctx.me.zmap(me ⇒ Map("me" -> me.usernameWithElo))
     })
   }
-
-  private def version(gameId: String): Fu[Int] =
-    env.socketHub ? GetGameVersion(gameId) mapTo manifest[Int]
 }

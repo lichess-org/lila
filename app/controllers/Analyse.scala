@@ -2,27 +2,27 @@ package controllers
 
 import lila.app._
 import views._
-// import lila.analyse._
-import lila.game.Pov
+import lila.user.{ UserRepo }
+import lila.game.{ Pov, GameRepo, PgnRepo, PgnDump }
 import lila.round.actorApi.AnalysisAvailable
+import lila.round.{ RoomRepo, Room }
+import lila.tournament.{ Tournament ⇒ Tourney }
 
+import akka.pattern.ask
 import play.api.mvc._
 import play.api.http.ContentTypes
 import play.api.templates.Html
-import scala.util.{ Success, Failure }
 
 object Analyse extends LilaController {
 
-  // private def gameRepo = env.game.gameRepo
-  // private def pgnRepo = env.game.pgnRepo
-  // private def pgnDump = env.analyse.pgnDump
-  // private def openingExplorer = chess.OpeningExplorer
-  // private def bookmarkApi = env.bookmark.api
+  private def env = Env.analyse
+  private def bookmarkApi = Env.bookmark.api
+  private lazy val pgnDump = (new PgnDump(UserRepo.named)) { gameId ⇒
+    routes.Round.watcher(gameId, "white").url
+  } _
   // private def roundMessenger = env.round.messenger
   // private def roundSocket = env.round.socket
   // private def roundHubMaster = env.round.hubMaster
-  // private def analyser = env.analyse.analyser
-  // private def tournamentRepo = env.tournament.repo
 
   def computer(id: String, color: String) = TODO
   // Auth { implicit ctx ⇒
@@ -37,27 +37,32 @@ object Analyse extends LilaController {
   //     Redirect(routes.Analyse.replay(id, color))
   // }
 
-  def replay(id: String, color: String) = TODO
-  // Open { implicit ctx ⇒
-  //   IOptionIOk(gameRepo.pov(id, color)) { pov ⇒
-  //     for {
-  //       roomHtml ← roundMessenger renderWatcher pov.game
-  //       bookmarkers ← bookmarkApi userIdsByGame pov.game
-  //       pgnString ← pgnRepo get id
-  //       pgn ← pgnDump(pov.game, pgnString)
-  //       analysis ← analyser get pov.game.id
-  //       tour ← tournamentRepo byId pov.game.tournamentId
-  //     } yield html.analyse.replay(
-  //       pov,
-  //       pgn.toString,
-  //       Html(roomHtml),
-  //       bookmarkers,
-  //       openingExplorer openingOf pgnString,
-  //       analysis,
-  //       roundSocket blockingVersion pov.gameId,
-  //       tour)
-  //   }
-  // }
+  def replay(id: String, color: String) = Open { implicit ctx ⇒
+    OptionFuOk(GameRepo.pov(id, color)) { pov ⇒
+      PgnRepo get id flatMap { pgnString ⇒
+        (RoomRepo room pov.gameId map { room ⇒
+          html.round.roomInner(room.decodedMessages)
+        }) zip
+          Env.round.version(pov.gameId) zip
+          (bookmarkApi userIdsByGame pov.game) zip
+          pgnDump(pov.game, pgnString) zip
+          (env.analyser get pov.game.id) zip
+          fuccess(none[Tourney]) map {
+            // TODO (tournamentRepo byId pov.game.tournamentId) map {
+            case (((((roomHtml, version), bookmarkers), pgn), analysis), tour) ⇒
+              html.analyse.replay(
+                pov,
+                pgn.toString,
+                roomHtml,
+                bookmarkers,
+                chess.OpeningExplorer openingOf pgnString,
+                analysis,
+                version,
+                tour)
+          }
+      }
+    }
+  }
 
   def stats(id: String) = TODO
   // Open { implicit ctx ⇒

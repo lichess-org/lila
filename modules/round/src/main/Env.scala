@@ -1,8 +1,11 @@
 package lila.round
 
 import lila.common.PimpedConfig._
+import makeTimeout.large
+
 import com.typesafe.config.Config
 import akka.actor._
+import akka.pattern.ask
 
 final class Env(
     config: Config,
@@ -69,6 +72,9 @@ final class Env(
     socketHub = socketHub)
 
   lazy val messenger = new Messenger(i18nKeys)
+
+  def version(gameId: String): Fu[Int] =
+    socketHub ? actorApi.GetGameVersion(gameId) mapTo manifest[Int]
 
   def animationDelay = AnimationDelay
   def moretimeSeconds = Moretime.toSeconds

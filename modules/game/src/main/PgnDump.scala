@@ -7,13 +7,13 @@ import lila.user.User
 
 import org.joda.time.format.DateTimeFormat
 
-private[game] final class PgnDump(
+final class PgnDump(
     findUser: String ⇒ Fu[Option[User]]) {
 
   import PgnDump._
 
-  def apply(game: Game, pgn: String)(makeUrl: String ⇒ String): Fu[Pgn] =
-    tags(game, makeUrl) map { ts ⇒
+  def apply(gameUrl: String ⇒ String)(game: Game, pgn: String): Fu[Pgn] =
+    tags(game, gameUrl) map { ts ⇒
       val fenSituation = ts find (_.name == Tag.FEN) flatMap { case Tag(_, fen) ⇒ Forsyth <<< fen }
       val pgn2 = (~fenSituation.map(_.situation.color.black)).fold(".. " + pgn, pgn)
       Pgn(ts, turns(pgn2, fenSituation.map(_.fullMoveNumber) | 1))
@@ -35,7 +35,7 @@ private[game] final class PgnDump(
   private def player(p: Player, u: Option[User]) =
     p.aiLevel.fold(u.fold("Anonymous")(_.username))("AI level " + _)
 
-  private def tags(game: Game, makeUrl: String ⇒ String): Fu[List[Tag]] = for {
+  private def tags(game: Game, gameUrl: String ⇒ String): Fu[List[Tag]] = for {
     whiteUser ← game.whitePlayer.userId.zmap(findUser)
     blackUser ← game.blackPlayer.userId.zmap(findUser)
     initialFen ← game.variant.standard.fold(
@@ -43,7 +43,7 @@ private[game] final class PgnDump(
       GameRepo initialFen game.id)
   } yield List(
     Tag(_.Event, game.rated.fold("Rated game", "Casual game")),
-    Tag(_.Site, makeUrl(game.id)),
+    Tag(_.Site, gameUrl(game.id)),
     Tag(_.Date, dateFormat.print(game.createdAt)),
     Tag(_.White, player(game.whitePlayer, whiteUser)),
     Tag(_.Black, player(game.blackPlayer, blackUser)),
