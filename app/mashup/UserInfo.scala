@@ -28,11 +28,10 @@ object UserInfo {
 
   def apply(
     countUsers: () ⇒ Fu[Int],
-    eloCalculator: EloCalculator,
-    eloChartBuilder: User ⇒ Fu[Option[EloChart]])(
+    bookmarkApi: BookmarkApi,
+    eloCalculator: EloCalculator)(
       user: User,
-      bookmarkApi: BookmarkApi,
-      userSpy: Option[String ⇒ Fu[UserSpy]],
+      userSpy: Option[UserSpy],
       ctx: Context): Fu[UserInfo] = for {
     rank ← (user.elo >= rankMinElo) ?? {
       UserRepo rank user flatMap { rank ⇒
@@ -46,14 +45,13 @@ object UserInfo {
       GameRepo count (_.opponents(user, me)) map (_.some)
     }
     nbBookmark ← bookmarkApi countByUser user
-    eloChart ← eloChartBuilder(user)
+    eloChart ← EloChart(user)
     eloWithMe = ctx.me.filter(user !=) map { me ⇒
       List(
         "win" -> eloCalculator.diff(me, user, Color.White.some),
         "draw" -> eloCalculator.diff(me, user, None),
         "loss" -> eloCalculator.diff(me, user, Color.Black.some))
     }
-    spy ← (userSpy zmap (_(user.id) map (_.some)))
   } yield new UserInfo(
     user = user,
     rank = rank,
@@ -62,5 +60,5 @@ object UserInfo {
     nbBookmark = nbBookmark,
     eloWithMe = eloWithMe,
     eloChart = eloChart,
-    spy = spy)
+    spy = userSpy)
 }

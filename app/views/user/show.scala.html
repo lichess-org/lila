@@ -1,4 +1,4 @@
-@(u: User, info: lila.app.user.UserInfo, games: Paginator[DbGame], filters: lila.app.user.GameFilterMenu)(implicit ctx: Context)
+@(u: User, info: lila.app.mashup.UserInfo, games: Paginator[Game], filters: lila.app.mashup.GameFilterMenu)(implicit ctx: Context)
 
 @title = @{ "%s : %s - page %d".format(u.username, filterTitle(info, filters.current), games.currentPage) }
 
@@ -66,7 +66,7 @@ evenMoreCss = evenMoreCss) {
     <form id="exportform" action="@routes.User.export(u.username)" method="POST">
       <a onclick="document.getElementById('exportform').submit();">@trans.exportGames()</a>
     </form>
-    <div class="icon status @isUsernameOnline(u.username).fold("connected", "")"></div>
+    <div class="icon status @isOnline(u.username).fold("connected", "")"></div>
     <h1 class="lichess_title">@u.usernameWithElo</h1>
     @info.rank.map { r =>
     <span class="rank" title="@trans.rank()"><strong>@r._1</strong> / @r._2.localize</span>

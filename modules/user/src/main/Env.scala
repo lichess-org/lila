@@ -33,7 +33,7 @@ final class Env(
 
   lazy val eloUpdater = new EloUpdater(floor = EloUpdaterFloor)
 
-  private lazy val usernameMemo = new UsernameMemo(ttl = OnlineTtl)
+  lazy val usernameMemo = new UsernameMemo(ttl = OnlineTtl)
 
   val forms = DataForm
 
@@ -44,6 +44,8 @@ final class Env(
   def setOnline(user: User) { usernameMemo put user.id }
 
   def isOnline(userId: String) = usernameMemo get userId
+
+  def countEnabled = cached.countEnabled
 
   def cli = new lila.common.Cli {
     def process = {

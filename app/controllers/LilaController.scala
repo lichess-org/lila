@@ -125,14 +125,11 @@ private[controllers] trait LilaController
       form ⇒ fuccess(BadRequest(form.errors mkString "\n")),
       op)
 
-  // protected def FormFuResult[A, B](form: Form[A])(err: Form[A] ⇒ B)(op: A ⇒ Fu[Result])(
-  //   implicit writer: Writeable[B],
-  //   ctype: ContentTypeOf[B],
-  //   req: Request[_]) =
-  //   form.bindFromRequest.fold(
-  //     form ⇒ BadRequest(err(form)),
-  //     data ⇒ op(data).unsafePerformFu
-  //   )
+  protected def FormFuResult[A, B : Writeable : ContentTypeOf](form: Form[A])(err: Form[A] ⇒ B)(op: A ⇒ Fu[Result])(implicit req: Request[_]) =
+    form.bindFromRequest.fold(
+      form ⇒ BadRequest(err(form)).fuccess,
+      data ⇒ op(data)
+    )
 
   // protected def Fuk[A](op: Fu[A])(implicit writer: Writeable[A], ctype: ContentTypeOf[A]) =
   //   Ok(op.unsafePerformFu)
@@ -215,4 +212,8 @@ private[controllers] trait LilaController
   private def setOnline(user: Option[UserModel]) {
     user foreach Env.user.setOnline
   }
+
+  private val maxPage = 40
+  protected def Reasonable(page: Int)(result: ⇒ Fu[Result]): Fu[Result] =
+    (page < maxPage).fold(result, BadRequest("resource too old").fuccess)
 }

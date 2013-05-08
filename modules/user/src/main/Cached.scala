@@ -4,7 +4,6 @@ import scala.concurrent.duration._
 
 import spray.caching.{ LruCache, Cache }
 
-
 final class Cached(ttl: Duration) {
 
   def username(id: String): Fu[Option[String]] =

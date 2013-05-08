@@ -4,61 +4,53 @@ import lila.app._
 import views._
 import lila.security.Permission
 import lila.user.{ Context, User ⇒ UserModel, UserRepo }
+import lila.user.tube.userTube
+import lila.db.api.$find
 import lila.common.LilaCookie
 
 import play.api.mvc._, Results._
 
 object User extends LilaController {
 
-  private def paginator = Env.user.paginator
-  // private def gamePaginator = env.game.paginator
+  private def env = Env.user
+  private def gamePaginator = Env.game.paginator
   private def forms = lila.user.DataForm
-  private def eloUpdater = Env.user.eloUpdater
-  // private def bookmarkApi = env.bookmark.api
-  // private def modApi = env.mod.api
+  private lazy val makeUserInfo = mashup.UserInfo(
+    countUsers = () ⇒ env.countEnabled,
+    bookmarkApi = Env.bookmark.api,
+    eloCalculator = Env.round.eloCalculator) _
 
-  def show(username: String) = Open { implicit ctx =>
-    UserRepo named username map { userOption =>
-      println(userOption)
-      NotFound
+  def show(username: String) = showFilter(username, "all", 1)
+
+  def showFilter(username: String, filterName: String, page: Int) = Open { implicit ctx ⇒
+    Reasonable(page) {
+      OptionFuOk($find byId username) { userShow(_, filterName, page) }
     }
   }
-    //showFilter(username, "all", 1)
 
-  // def showFilter(username: String, filterName: String, page: Int) = Open { implicit ctx ⇒
-  //   Async {
-  //     Akka.future {
-  //       (page < 50).fold(
-  //         IOptionIOk(userRepo byId username) { userShow(_, filterName, page) },
-  //         BadRequest("too old")
-  //       )
-  //     }
-  //   }
-  // }
+  private def userShow(u: UserModel, filterName: String, page: Int)(implicit ctx: Context) =
+    (u.enabled || isGranted(_.MarkEngine)).fold({
+      for {
+        spy ← isGranted(_.UserSpy) optionFu Env.security.userSpy(u.id)
+        info ← makeUserInfo(u, spy, ctx)
+        filters = mashup.GameFilterMenu(info, ctx.me, filterName)
+        pag ← (filters.query.fold(Env.bookmark.api.gamePaginatorByUser(u, page)) { query ⇒
+          gamePaginator.recentlyCreated(query, filters.cachedNb)(page)
+        })
+      } yield html.user.show(u, info, pag, filters)
+    }, fuccess(html.user.disabled(u)))
 
-  // private def userShow(u: UserModel, filterName: String, page: Int)(implicit ctx: Context) =
-  //   (u.enabled || isGranted(_.MarkEngine)).fold({
-  //     val userSpy = isGranted(_.UserSpy) option securityStore.userSpy _
-  //     Env.userInfo(u, bookmarkApi, userSpy, ctx) map { info ⇒
-  //       val filters = GameFilterMenu(info, ctx.me, filterName)
-  //       val paginator = filters.query.fold(bookmarkApi.gamePaginatorByUser(u, page)) { query ⇒
-  //         gamePaginator.recentlyCreated(query, filters.cachedNb)(page)
-  //       }
-  //       html.user.show(u, info, paginator, filters)
-  //     }
-  //   }, io(html.user.disabled(u)))
+  def list(page: Int) = Open { implicit ctx ⇒
+    Reasonable(page) {
+      onlineUsers zip env.paginator.elo(page) map {
+        case (users, pag) ⇒ html.user.list(pag, users)
+      }
+    }
+  }
 
-  def list(page: Int) = TODO
-  // def list(page: Int) = Open { implicit ctx ⇒
-  //   (page < 50).fold(
-  //     IOk(onlineUsers map { html.user.list(paginator elo page, _) }),
-  //     BadRequest("too old")
-  //   )
-  // }
-
-  // val online = Open { implicit ctx ⇒
-  //   IOk(onlineUsers map { html.user.online(_) })
-  // }
+  def online = Open { implicit ctx ⇒
+    onlineUsers map { html.user.online(_) }
+  }
 
   def autocomplete = Open { implicit ctx ⇒
     get("term", ctx.req).filter(""!=).fold(BadRequest("No search term provided").fuccess: Fu[Result]) { term ⇒
@@ -66,63 +58,60 @@ object User extends LilaController {
     }
   }
 
-  // val getBio = Auth { ctx ⇒ me ⇒ Ok(me.bio) }
+  def getBio = Auth { ctx ⇒ me ⇒ Ok(me.bio).fuccess }
 
-  // val setBio = AuthBody { ctx ⇒
-  //   me ⇒
-  //     implicit val req = ctx.body
-  //     JsonIOk(forms.bio.bindFromRequest.fold(
-  //       f ⇒ putStrLn(f.errors.toString) map { _ ⇒ me.bio | "" },
-  //       bio ⇒ userRepo.setBio(me, bio) map { _ ⇒ bio }
-  //     ) map { bio ⇒ Map("bio" -> bio) })
-  // }
+  def setBio = AuthBody { ctx ⇒
+    me ⇒
+      implicit val req = ctx.body
+      JsonOk(forms.bio.bindFromRequest.fold(
+        f ⇒ fulogwarn(f.errors.toString) inject ~me.bio,
+        bio ⇒ UserRepo.setBio(me.id, bio) inject bio
+      ) map { bio ⇒ Map("bio" -> bio) })
+  }
 
-  // val passwd = Auth { implicit ctx ⇒
-  //   me ⇒
-  //     Ok(html.user.passwd(me, forms.passwd))
-  // }
+  def passwd = Auth { implicit ctx ⇒
+    me ⇒
+      Ok(html.user.passwd(me, forms.passwd)).fuccess
+  }
 
-  // val passwdApply = AuthBody { implicit ctx ⇒
-  //   me ⇒
-  //     implicit val req = ctx.body
-  //     FormIOResult(forms.passwd) { err ⇒
-  //       html.user.passwd(me, err)
-  //     } { passwd ⇒
-  //       for {
-  //         ok ← userRepo.checkPassword(me.username, passwd.oldPasswd)
-  //         _ ← userRepo.passwd(me, passwd.newPasswd1) map (_ ⇒ ()) doIf ok
-  //       } yield ok.fold(
-  //         Redirect(routes.User show me.username),
-  //         BadRequest(html.user.passwd(me, forms.passwd))
-  //       )
-  //     }
-  // }
+  def passwdApply = AuthBody { implicit ctx ⇒
+    me ⇒
+      implicit val req = ctx.body
+      FormFuResult(forms.passwd) { err ⇒
+        html.user.passwd(me, err)
+      } { passwd ⇒
+        for {
+          ok ← UserRepo.checkPassword(me.id, passwd.oldPasswd)
+          _ ← ok ?? UserRepo.passwd(me.id, passwd.newPasswd1)
+        } yield ok.fold(
+          Redirect(routes.User show me.username),
+          BadRequest(html.user.passwd(me, forms.passwd))
+        )
+      }
+  }
 
-  // val close = Auth { implicit ctx ⇒
-  //   me ⇒
-  //     Ok(html.user.close(me))
-  // }
+  def close = Auth { implicit ctx ⇒
+    me ⇒
+      Ok(html.user.close(me)).fuccess
+  }
 
-  // val closeConfirm = Auth { ctx ⇒
-  //   me ⇒
-  //   implicit val req = ctx.req
-  //     IOResult {
-  //       (userRepo disable me) >> 
-  //       env.team.api.quitAll(me.id) >>
-  //       (Env.security.store deleteUsername me.username) inject { 
-  //         Redirect(routes.User show me.username) withCookies LilaCookie.newSession
-  //       }
-  //     }
-  // }
+  def closeConfirm = Auth { ctx ⇒
+    me ⇒
+      implicit val req = ctx.req
+        (UserRepo disable me.id) >>
+          Env.team.api.quitAll(me.id) >>
+          (Env.security deleteUsername me.username) inject {
+            Redirect(routes.User show me.username) withCookies LilaCookie.newSession
+          }
+  }
 
-  // def export(username: String) = Open { implicit ctx ⇒
-  //   IOptionIOResult(userRepo byId username) { u ⇒
-  //     env.game.export(u).apply map { path ⇒
-  //       Redirect(path)
-  //     }
+  def export(username: String) = TODO
+  // Open { implicit ctx ⇒
+  //   OptionFuResult(UserRepo named username) { u ⇒
+  //     Env.game.export(u).apply map { Redirect(_) }
   //   }
   // }
 
-  // private val onlineUsers: IO[List[UserModel]] =
-  //   userRepo byIds Env.user.usernameMemo.keys
+  private val onlineUsers: Fu[List[UserModel]] =
+    $find byIds env.usernameMemo.keys
 }

@@ -28,13 +28,13 @@ private[security] final class Api(firewall: Firewall) {
     UserRepo.authenticate(username, password).await
 
   def restoreUser(req: RequestHeader): Fu[Option[User]] =
-    firewall accepts req flatMap { accepted ⇒
-      ~accepted.option(
+    firewall accepts req flatMap { 
+      _ ?? {
         req.session.get("sessionId").fold(fuccess(none[User])) { sessionId ⇒
           Store getUsername sessionId flatMap { username ⇒
             username.zmap(UserRepo.named)
           }
         }
-      )
+      }
     }
 }
