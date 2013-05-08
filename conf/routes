@@ -137,12 +137,11 @@ GET   /mod/log                         controllers.Mod.log
 # Wiki
 GET   /wiki                            controllers.Wiki.home
 GET   /wiki/:slug                      controllers.Wiki.show(slug: String)
-# 
+ 
 # AI
-# GET   /ai/stockfish/play               controllers.Ai.playStockfish
-# GET   /ai/stockfish/analyse            controllers.Ai.analyseStockfish
-# GET   /ai/stockfish/report             controllers.Ai.reportStockfish
-# 
+GET   /ai/stockfish/play               controllers.Ai.playStockfish
+GET   /ai/stockfish/analyse            controllers.Ai.analyseStockfish
+ 
 # Lobby
 # GET   /                                controllers.Lobby.home
 # GET   /new/$ownerId<[\w\-]{12}>        controllers.Lobby.hook(ownerId: String)

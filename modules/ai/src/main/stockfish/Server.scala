@@ -38,13 +38,6 @@ final class Server(execPath: String, config: Config) {
       }
     )
 
-  def report: Fu[Int] = {
-    implicit val timeout = makeTimeout(playAtMost)
-    actor ? GetQueueSize map {
-      case QueueSize(s) ⇒ s
-    }
-  }
-
   private def chess960Fen(fen: String) = (Forsyth << fen).fold(fen) { situation ⇒
     fen.replace("KQkq", situation.board.pieces.toList filter {
       case (_, piece) ⇒ piece is Rook
