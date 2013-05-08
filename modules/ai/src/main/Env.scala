@@ -30,10 +30,6 @@ final class Env(
 
   def clientPing = client flatMap (_.currentPing)
 
-  def stockfishServerReport = (IsServer && EngineName == "stockfish") option {
-    stockfishServer.report
-  }
-
   def isServer = IsServer
 
   {
@@ -53,7 +49,7 @@ final class Env(
     playUrl = StockfishPlayUrl,
     analyseUrl = StockfishAnalyseUrl)
 
-  private lazy val stockfishServer = new stockfish.Server(
+  lazy val stockfishServer = new stockfish.Server(
     execPath = StockfishExecPath,
     config = stockfishConfig)
 
