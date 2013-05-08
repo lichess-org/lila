@@ -3,6 +3,7 @@ package lila.game
 import com.typesafe.config.Config
 import lila.common.PimpedConfig._
 import akka.actor._
+import akka.pattern.pipe
 
 final class Env(
     config: Config,
@@ -21,6 +22,7 @@ final class Env(
     val CollectionPgn = config getString "collection.pgn"
     val JsPathRaw = config getString "js_path.raw"
     val JsPathCompiled = config getString "js_path.compiled"
+    val ActorName = config getString "actor.name"
   }
   import settings._
 
@@ -49,6 +51,13 @@ final class Env(
 
   // load captcher actor
   system.actorOf(Props(new Captcher), name = CaptcherName)
+
+  // api actor
+  system.actorOf(Props(new Actor {
+    def receive = {
+      case lila.hub.actorApi.game.Count ⇒ cached.nbGames pipeTo sender
+    }
+  }), name = ActorName)
 
   {
     import scala.concurrent.duration._

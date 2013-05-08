@@ -2,7 +2,7 @@ package lila.ai
 
 import lila.common.PimpedConfig._
 
-import akka.actor.{ ActorRef, ActorSystem }
+import akka.actor._
 import com.typesafe.config.Config
 
 final class Env(
@@ -17,6 +17,7 @@ final class Env(
     val StockfishExecPath = config getString "stockfish.exec_path"
     val StockfishPlayUrl = config getString "stockfish.play.url"
     val StockfishAnalyseUrl = config getString "stockfish.analyse.url"
+    val ActorName = config getString "actor.name"
   }
   import settings._
 
@@ -32,6 +33,13 @@ final class Env(
 
   def isServer = IsServer
 
+  // api actor
+  system.actorOf(Props(new Actor {
+    def receive = {
+      case lila.hub.actorApi.ai.Ping ⇒ sender ! clientPing
+    }
+  }), name = ActorName)
+
   {
     import scala.concurrent.duration._
 
@@ -39,7 +47,7 @@ final class Env(
       clientDiagnose
     }
 
-    scheduler.once(5 millis) { clientDiagnose }
+    scheduler.once(10 millis) { clientDiagnose }
   }
 
   private lazy val stockfishAi = new stockfish.Ai(

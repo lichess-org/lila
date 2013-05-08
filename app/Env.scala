@@ -20,7 +20,7 @@ final class Env(config: Config, system: ActorSystem, isServer: Boolean) {
   )), name = RouterName)
 
   loginfo("[boot] Preloading modules")
-  (Env.site, Env.game, Env.setup, Env.game, Env.gameSearch, Env.team,
+  (Env.site, Env.game, Env.ai, Env.setup, Env.round, Env.gameSearch, Env.team,
     Env.teamSearch, Env.forumSearch, Env.message, Env.socket)
 
   if (Env.ai.isServer) println("Running as AI server")

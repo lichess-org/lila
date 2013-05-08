@@ -128,7 +128,7 @@ object UserRepo {
 
   def idsAverageElo(ids: Iterable[String]): Fu[Int] = {
     val command = MapReduce(
-      collectionName = tube.userTube.coll.name,
+      collectionName = userTube.coll.name,
       mapFunction = """function() { emit("e", this.elo); }""",
       reduceFunction = """function(key, values) {
   var sum = 0;
@@ -139,14 +139,14 @@ object UserRepo {
         JsObjectWriter write Json.obj("_id" -> $in(ids map normalize))
       }
     )
-    tube.userTube.coll.db.command(command) map { res ⇒
+    userTube.coll.db.command(command) map { res ⇒
       toJSON(res).arr("results").flatMap(_.apply(0) int "value")
     } map (~_)
   }
 
   def idsSumToints(ids: Iterable[String]): Fu[Int] = {
     val command = MapReduce(
-      collectionName = tube.userTube.coll.name,
+      collectionName = userTube.coll.name,
         mapFunction = """function() { emit("e", this.toints); }""",
         reduceFunction = """function(key, values) {
     var sum = 0;
@@ -157,7 +157,7 @@ object UserRepo {
         JsObjectWriter write Json.obj("_id" -> $in(ids map normalize))
       }
     )
-    tube.userTube.coll.db.command(command) map { res ⇒
+    userTube.coll.db.command(command) map { res ⇒
       toJSON(res).arr("results").flatMap(_.apply(0) int "value")
     } map (~_)
   }

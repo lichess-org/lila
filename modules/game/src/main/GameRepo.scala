@@ -7,8 +7,11 @@ import lila.user.User
 import lila.db.api._
 import lila.db.Implicits._
 import tube.gameTube
+import lila.common.PimpedJson._
 
 import play.api.libs.json._
+import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
+import play.modules.reactivemongo.json.BSONFormats.toJSON
 
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
@@ -19,8 +22,7 @@ object GameRepo {
 
   type ID = String
 
-  import Game._
-  import Game.ShortFields._
+  import Game._, ShortFields._
 
   def game(gameId: ID): Fu[Option[Game]] = $find byId gameId
 
@@ -140,35 +142,39 @@ object GameRepo {
       $count(Json.obj(createdAt -> ($gte(from) ++ $lt(to))))
     }
 
-  // def recentAverageElo(minutes: Int): Fu[(Int, Int)] = io {
-  //   val result = collection.mapReduce(
-  //     mapFunction = """function() { 
-  //       emit(!!this.ra, this.p); 
-  //     }""",
-  //     reduceFunction = """function(rated, values) {
-  // var sum = 0, nb = 0;
-  // values.forEach(function(game) {
-  //   if(typeof game[0] != "undefined") {
-  //     game.forEach(function(player) {
-  //       if(player.elo) {
-  //         sum += player.elo; 
-  //         ++nb;
-  //       }
-  //     });
-  //   }
-  // });
-  // return nb == 0 ? nb : Math.round(sum / nb);
-  // }""",
-  //     output = MapReduceInlineOutput,
-  //     query = Some {
-  //       (createdAt $gte (DateTime.now - minutes.minutes)) ++ ("p.elo" $exists true)
-  //     }
-  //   )
-  //   (for {
-  //     ratedRow ← result.hasNext option result.next
-  //     rated ← ratedRow.getAs[Double]("value")
-  //     casualRow ← result.hasNext option result.next
-  //     casual ← casualRow.getAs[Double]("value")
-  //   } yield rated.toInt -> casual.toInt) | (0, 0)
-  // }
+  def recentAverageElo(minutes: Int): Fu[(Int, Int)] = {
+    val command = MapReduce(
+      collectionName = gameTube.coll.name,
+      mapFunction = """function() { 
+        emit(!!this.ra, this.p); 
+      }""",
+      reduceFunction = """function(rated, values) {
+  var sum = 0, nb = 0;
+  values.forEach(function(game) {
+    if(typeof game[0] != "undefined") {
+      game.forEach(function(player) {
+        if(player.elo) {
+          sum += player.elo; 
+          ++nb;
+        }
+      });
+    }
+  });
+  return nb == 0 ? nb : Math.round(sum / nb);
+  }""",
+      query = Some(JsObjectWriter write Json.obj(
+        createdAt -> $gte(DateTime.now - minutes.minutes),
+        "p.elo" -> $exists(true)
+      ))
+    )
+    gameTube.coll.db.command(command) map { res ⇒
+      toJSON(res).pp.arr("results").pp.flatMap(_.apply(0) int "value")
+    } map (~_) inject (0, 0)
+    // (for {
+    //   ratedRow ← result.hasNext option result.next
+    //   rated ← ratedRow.getAs[Double]("value")
+    //   casualRow ← result.hasNext option result.next
+    //   casual ← casualRow.getAs[Double]("value")
+    // } yield rated.toInt -> casual.toInt) | (0, 0)
+  }
 }

@@ -11,7 +11,7 @@ private[monitor] final class SocketHandler(socket: ActorRef) {
   def join(uid: String): Fu[JsSocketHandler] = {
 
     def controller: Handler.Controller = {
-      case _ =>
+      case _ ⇒
     }
 
     Handler(socket, uid, Join(uid)) {
