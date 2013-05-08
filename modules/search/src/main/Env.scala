@@ -7,9 +7,9 @@ import akka.actor.ActorSystem
 import scala.collection.JavaConversions._
 
 final class Env(
-  config: Config, 
-  system: ActorSystem, 
-  scheduler: lila.common.Scheduler) {
+    config: Config,
+    system: ActorSystem,
+    scheduler: lila.common.Scheduler) {
 
   private val ESHost = config getString "es.host"
   private val ESPort = config getInt "es.port"
@@ -21,17 +21,17 @@ final class Env(
     host = ESHost,
     ports = Seq(ESPort))
 
-  Future {
-    loginfo("[search] Start ElasticSearch")
-    esIndexer.start
-    loginfo("[search] ElasticSearch is running")
-  }
-
   {
     import scala.concurrent.duration._
 
     scheduler.effect(2 hours, "search: optimize index") {
       esIndexer.optimize(IndexesToOptimize)
+    }
+
+    scheduler.once(1 second) {
+      loginfo("[search] Start ElasticSearch")
+      esIndexer.start
+      loginfo("[search] ElasticSearch is running")
     }
   }
 }

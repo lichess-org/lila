@@ -5,10 +5,8 @@
 @defining(netBaseUrl + routes.Round.watcher(gameId, color.name)) { url =>
 <div class="undergame_box game_more">
   <div class="more_top">
-    TODO
-    @@bookmark.toggle(game)
-    <a
-      title="@trans.shareThisUrlToLetSpectatorsSeeTheGame()"
+    @bookmark.toggle(game)
+    <a title="@trans.shareThisUrlToLetSpectatorsSeeTheGame()"
       class="game_permalink blank_if_play"
       href="@url">@url</a>
   </div>

@@ -2,6 +2,6 @@
 
 @messages.map { 
 case (author, text) => {
-<li class="@author@{ (author == "system").??(" trans_me") }">@text</li>
+<li class="@author@{ (author == "system").option(" trans_me") }">@text</li>
 }
 }

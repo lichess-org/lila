@@ -21,6 +21,7 @@ object PlayApp {
   def isDev = isMode(_.Dev)
   def isTest = isMode(_.Test)
   def isProd = isMode(_.Prod)
-  def isServer = !(isDev || isTest)
+  // def isServer = !(isDev || isTest)
+  def isServer = !isTest
   def isMode(f: Mode.type ⇒ Mode.Mode) = withApp { _.mode == f(Mode) }
 }

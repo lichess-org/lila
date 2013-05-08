@@ -29,8 +29,10 @@ trait PackageObject
   lazy val logger = play.api.Logger("lila")
   def loginfo(s: String) { logger info s }
   def logwarn(s: String) { logger warn s }
+  def logerr(s: String) { logger error s }
   def fuloginfo(s: String) = fuccess { loginfo(s) }
   def fulogwarn(s: String) = fuccess { logwarn(s) }
+  def fulogerr(s: String) = fuccess { logerr(s) }
 
   implicit final class LilaPimpedOption[A](o: Option[A]) {
 

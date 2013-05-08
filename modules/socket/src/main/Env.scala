@@ -11,7 +11,6 @@ import actorApi._
 import makeTimeout.short
 
 final class Env(
-    config: Config,
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
     hub: lila.hub.Env) {
@@ -30,7 +29,6 @@ final class Env(
 object Env {
 
   lazy val current = "[boot] socket" describes new Env(
-    config = lila.common.PlayApp loadConfig "socket",
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
     hub = lila.hub.Env.current)

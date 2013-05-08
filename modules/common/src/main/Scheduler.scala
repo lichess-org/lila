@@ -26,8 +26,8 @@ final class Scheduler(system: ActorSystem, enabled: Boolean) {
     }
   }
 
-  def once(freq: FiniteDuration)(op: ⇒ Unit) {
-    enabled ! system.scheduler.scheduleOnce(freq)(op)
+  def once(delay: FiniteDuration)(op: ⇒ Unit) {
+    enabled ! system.scheduler.scheduleOnce(delay)(op)
   }
 
   private def randomize(d: FiniteDuration, ratio: Float = 0.1f): FiniteDuration = {
