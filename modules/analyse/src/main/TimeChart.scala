@@ -6,7 +6,7 @@ import chess.Color
 import scala.concurrent.Future
 import play.api.libs.json.Json
 
-private[analyse] final class TimeChart(game: Game, usernames: Map[Color, String]) {
+final class TimeChart(game: Game, usernames: Map[Color, String]) {
 
   def columns = Json stringify {
     Json toJson {

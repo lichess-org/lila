@@ -1,4 +1,4 @@
-@(pov: Pov, pgn: String, roomHtml: Html, bookmarkers: List[String], opening: Option[chess.OpeningExplorer.Opening], analysis: Option[lila.app.analyse.Analysis], version: Int, tour: Option[lila.app.tournament.Tournament])(implicit ctx: Context)
+@(pov: Pov, pgn: String, roomHtml: Html, bookmarkers: List[String], opening: Option[chess.OpeningExplorer.Opening], analysis: Option[lila.analyse.Analysis], version: Int, tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
 
 @import pov._
 
@@ -82,7 +82,7 @@ moreJs = moreJs) {
 <a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a>
 }.getOrElse { "Unknown" }
 <nav>
-@if(canRequestAnalysis && game.finished && analysis.isEmpty) {
+@if(ctx.isAuth && game.finished && analysis.isEmpty) {
 <form class="request_analysis" action="@routes.Analyse.computer(gameId, color.name)" method="post">
   <a>Request a computer analysis</a>
 </form>
