@@ -25,7 +25,7 @@ final class TimeChart(game: Game, usernames: Map[Color, String]) {
   }
 }
 
-private[analyse] object TimeChart {
+object TimeChart {
 
   def apply(nameUser: String ⇒ Fu[String])(game: Game): Fu[TimeChart] =
     Future.traverse(game.players) { p ⇒

@@ -4,6 +4,7 @@ import lila.app._
 import views._
 import lila.user.{ UserRepo }
 import lila.game.{ Pov, GameRepo, PgnRepo, PgnDump }
+import lila.analyse.{ TimeChart, TimePie }
 import lila.round.actorApi.AnalysisAvailable
 import lila.round.{ RoomRepo, Room }
 import lila.tournament.{ Tournament ⇒ Tourney }
@@ -12,30 +13,29 @@ import akka.pattern.ask
 import play.api.mvc._
 import play.api.http.ContentTypes
 import play.api.templates.Html
+import scala.util.{ Success, Failure }
 
 object Analyse extends LilaController {
 
   private def env = Env.analyse
   private def bookmarkApi = Env.bookmark.api
-  private lazy val pgnDump = (new PgnDump(UserRepo.named)) { gameId ⇒
+  private lazy val pgnDump = new PgnDump(UserRepo.named)
+  private lazy val makePgn = pgnDump { gameId ⇒
     routes.Round.watcher(gameId, "white").url
   } _
-  // private def roundMessenger = env.round.messenger
-  // private def roundSocket = env.round.socket
-  // private def roundHubMaster = env.round.hubMaster
+  private lazy val timeChart = TimeChart(Env.user.usernameOrAnonymous) _
 
-  def computer(id: String, color: String) = TODO
-  // Auth { implicit ctx ⇒
-  //   me ⇒
-  //     analyser.getOrGenerate(id, me.id, isGranted(_.MarkEngine)) onComplete {
-  //       case Failure(e) ⇒ println(e.getMessage)
-  //       case Success(a) ⇒ a.fold(
-  //         err ⇒ println("Computer analysis failure: " + err.shows),
-  //         analysis ⇒ roundHubMaster ! AnalysisAvailable(id)
-  //       )
-  //     }
-  //     Redirect(routes.Analyse.replay(id, color))
-  // }
+  def computer(id: String, color: String) = Auth { implicit ctx ⇒
+    me ⇒
+      env.analyser.getOrGenerate(id, me.id, isGranted(_.MarkEngine)) onComplete {
+        case Failure(e) ⇒ logwarn(e.getMessage)
+        case Success(a) ⇒ a.fold(
+          err ⇒ logwarn("Computer analysis failure: " + err.shows),
+          _ ⇒ Env.round.socketHub ! AnalysisAvailable(id)
+        )
+      }
+      Redirect(routes.Analyse.replay(id, color)).fuccess
+  }
 
   def replay(id: String, color: String) = Open { implicit ctx ⇒
     OptionFuOk(GameRepo.pov(id, color)) { pov ⇒
@@ -45,7 +45,7 @@ object Analyse extends LilaController {
         }) zip
           Env.round.version(pov.gameId) zip
           (bookmarkApi userIdsByGame pov.game) zip
-          pgnDump(pov.game, pgnString) zip
+          makePgn(pov.game, pgnString) zip
           (env.analyser get pov.game.id) zip
           fuccess(none[Tourney]) map {
             // TODO (tournamentRepo byId pov.game.tournamentId) map {
@@ -64,31 +64,28 @@ object Analyse extends LilaController {
     }
   }
 
-  def stats(id: String) = TODO
-  // Open { implicit ctx ⇒
-  //   IOptionOk(gameRepo game id) { game ⇒
-  //     html.analyse.stats(
-  //       game = game,
-  //       timeChart = new TimeChart(game),
-  //       timePies = Pov(game) map { new TimePie(_) })
-  //   }
-  // }
+  def stats(id: String) = Open { implicit ctx ⇒
+    OptionFuOk(GameRepo game id) { game ⇒
+      timeChart(game) map { chart ⇒
+        html.analyse.stats(
+          game = game,
+          timeChart = chart,
+          timePies = Pov(game) map { new TimePie(_) })
+      }
+    }
+  }
 
-  def pgn(id: String) = TODO
-  // Open { implicit ctx ⇒
-  //   IOResult(for {
-  //     gameOption ← gameRepo game id
-  //     res ← gameOption.fold(io(NotFound("No such game"))) { game ⇒
-  //       for {
-  //         pgnString ← game.pgnImport.map(_.pgn).fold(pgnRepo get id)(io(_))
-  //         content ← game.pgnImport.map(_.pgn).fold(pgnDump(game, pgnString) map (_.toString))(io(_))
-  //         filename ← pgnDump filename game
-  //       } yield Ok(content).withHeaders(
-  //         CONTENT_LENGTH -> content.size.toString,
-  //         CONTENT_TYPE -> ContentTypes.TEXT,
-  //         CONTENT_DISPOSITION -> ("attachment; filename=" + filename)
-  //       )
-  //     }
-  //   } yield res)
-  // }
+  def pgn(id: String) = Open { implicit ctx ⇒
+    OptionFuResult(GameRepo game id) { game ⇒
+      for {
+        pgnString ← game.pgnImport.map(_.pgn).fold(PgnRepo get id)(fuccess(_))
+        content ← game.pgnImport.map(_.pgn).fold(makePgn(game, pgnString) map (_.toString))(fuccess(_))
+        filename ← pgnDump filename game
+      } yield Ok(content).withHeaders(
+        CONTENT_LENGTH -> content.size.toString,
+        CONTENT_TYPE -> ContentTypes.TEXT,
+        CONTENT_DISPOSITION -> ("attachment; filename=" + filename)
+      )
+    }
+  }
 }
