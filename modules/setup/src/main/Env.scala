@@ -21,7 +21,10 @@ final class Env(
 
   lazy val forms = new FormFactory
 
-  def filter(implicit ctx: Context): Fu[UserConfig] = forms savedConfig ctx
+  def filter(implicit ctx: Context): Fu[FilterConfig] = ctx.me.fold(
+    UserConfigRepo.filter,
+    AnonConfigRepo filter ctx.req
+  ) 
 
   lazy val processor = new Processor(
     friendConfigMemo = friendConfigMemo,

@@ -11,6 +11,11 @@ final class Env(config: Config, system: ActorSystem, isServer: Boolean) {
   private val RouterName = config getString "app.router.name"
   private val CronEnabled = config getBoolean "app.cron.enabled"
 
+  lazy val preloader = new mashup.Preload(
+    fisherman = Env.lobby.fisherman,
+    history = Env.lobby.history,
+    featured = Env.game.featured)
+
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
   system.actorOf(Props(new actor.Router(

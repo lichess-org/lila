@@ -1,4 +1,4 @@
-@(preload: String, myHook: Option[lila.app.lobby.Hook], forumRecent: List[lila.app.forum.PostLiteView], tours: List[lila.app.tournament.Created], featured: Option[DbGame])(implicit ctx: Context)
+@(preload: String, myHook: Option[lila.lobby.Hook], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], featured: Option[Game])(implicit ctx: Context)
 
 @chat = {
 @for(m <- ctx.me; if m.canChat) {
@@ -34,12 +34,14 @@ underchat = underchat.some) {
 <div class="clearfix lichess_homepage">
   <div class="lichess_board_wrap lichess_player_white">
     @board.white()
-    @widget.connection()
+    @site.connection()
     <div class="hooks_wrap">
+      @* TODO
       <a class="filter" href="@routes.Setup.filterForm()">
         <span class="s16 ddown">@trans.filterGames()</span>
         <span class="number">(0)</span>
       </a>
+      *@
       <div class="filter"></div>
       <div class="hooks"
         data-my-hook="@myHook.map(_.ownerId)"
@@ -56,13 +58,17 @@ underchat = underchat.some) {
   </div>
   @lobby.buttons()
   <div class="open_tournaments undertable">
+    @* TODO
     <div class="undertable_top">
       <a class="more" title="See all tournaments" href="@routes.Tournament.home()">More »</a>
       <span class="title">Open tournaments</span>
     </div>
+    *@
     <div class="undertable_inner">
       <table class="tournaments">
+        @* TODO
         @tournament.createdTable(tours)
+        *@
       </table>
     </div>
   </div>

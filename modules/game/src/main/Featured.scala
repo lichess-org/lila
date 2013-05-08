@@ -14,7 +14,7 @@ import play.api.templates.Html
 
 import chess.Color
 
-private[game] final class Featured(
+final class Featured(
     lobbySocket: ActorRef,
     rendererActor: ActorRef,
     system: ActorSystem) {

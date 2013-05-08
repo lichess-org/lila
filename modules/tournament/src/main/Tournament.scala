@@ -1,6 +1,10 @@
 package lila.tournament
 
-case class Tournament(id: String) {
+sealed trait Tournament {
+  def id: String
 
   def isRunning = false
+}
+
+case class Created(id: String) {
 }

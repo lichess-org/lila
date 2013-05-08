@@ -4,7 +4,7 @@ import play.api.libs.json._
 import reactivemongo.bson._
 import org.joda.time.DateTime
 
-private[lobby] case class Message(
+case class Message(
     userId: String,
     text: String,
     date: DateTime) {
