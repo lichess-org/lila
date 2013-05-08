@@ -22,10 +22,11 @@ final class Env(
 
   lazy val socketHandler = new SocketHandler(socket)
 
-  lazy val reporting = system.actorOf(
+  val reporting = system.actorOf(
     Props(new Reporting(
       rpsProvider = rpsProvider,
       mpsProvider = mpsProvider,
+      socket = socket,
       db = db,
       hub = hub
     )), name = ActorName)
@@ -33,8 +34,8 @@ final class Env(
   {
     import scala.concurrent.duration._
 
-    scheduler.message(5 seconds) {
-      reporting -> actorApi.Update
+    scheduler.message(1 seconds) {
+      reporting -> lila.hub.actorApi.monitor.Update
     }
   }
 

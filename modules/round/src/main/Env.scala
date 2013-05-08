@@ -35,7 +35,7 @@ final class Env(
 
   lazy val history = () ⇒ new History(ttl = MessageTtl)
 
-  lazy val socketHub = system.actorOf(Props(new SocketHub(
+  val socketHub = system.actorOf(Props(new SocketHub(
     makeHistory = history,
     uidTimeout = UidTimeout,
     socketTimeout = SocketTimeout,

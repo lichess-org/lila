@@ -177,10 +177,8 @@ POST  /import                          controllers.Importer.sendGame
  
 # Monitor
 GET   /monitor                         controllers.Monitor.index
-# GET   /monitor/socket                  controllers.Monitor.websocket
-# GET   /monitor/players                 controllers.Monitor.nbPlayers
-# GET   /monitor/mps                     controllers.Monitor.nbMoves
-# GET   /monitor/status                  controllers.Monitor.status
+GET   /monitor/socket                  controllers.Monitor.websocket
+GET   /monitor/status                  controllers.Monitor.status
 
 # Misc
 POST  /cli                             controllers.Cli.command

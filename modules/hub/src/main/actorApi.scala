@@ -28,6 +28,10 @@ package lobby {
   case class Censor(username: String)
 }
 
+package game {
+  case object Count
+}
+
 package message {
   case class LichessThread(to: String, subject: String, message: String)
 }
@@ -44,6 +48,7 @@ package forum {
 }
 
 package ai {
+  case object Ping
   case class Analyse(pgn: String, initialFen: Option[String])
 }
 

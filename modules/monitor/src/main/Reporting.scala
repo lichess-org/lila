@@ -1,9 +1,8 @@
 package lila.monitor
 
 import actorApi._
-import lila.socket.actorApi.GetNbMembers
+import lila.socket.actorApi.{ GetNbMembers, GetNbHubs }
 import lila.hub.actorApi.monitor._
-// import round.GetNbHubs
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
@@ -16,6 +15,7 @@ import java.lang.management.ManagementFactory
 private[monitor] final class Reporting(
     rpsProvider: RpsProvider,
     mpsProvider: RpsProvider,
+    socket: ActorRef,
     db: lila.db.Env,
     hub: lila.hub.Env) extends Actor {
 
@@ -61,37 +61,35 @@ private[monitor] final class Reporting(
 
     case GetMonitorData ⇒ sender ! monitorData
 
-    // TODO
-    // case Update ⇒ {
-    //   val before = nowMillis
-    //   List(
-    //     (env.site.hub ? GetNbMembers).mapTo[Int],
-    //     (hub.actor.lobby ? GetNbMembers).mapTo[Int],
-    //     (env.round.hubMaster ? GetNbHubs).mapTo[Int],
-    //     (env.round.hubMaster ? GetNbMembers).mapTo[Int]
-    //   ).sequence onComplete {
-    //     case Failure(e) ⇒ logwarn("[reporting] " + e.getMessage)
-    //     case Success(List(
-    //       siteMembers,
-    //       lobbyMembers,
-    //       gameHubs,
-    //       gameMembers)) ⇒ {
-    //       latency = (nowMillis - before).toInt
-    //       site = SiteSocket(siteMembers)
-    //       lobby = LobbySocket(lobbyMembers)
-    //       game = GameSocket(gameHubs, gameMembers)
-    //       mongoStatus = MongoStatus(mongodb)(mongoStatus)
-    //       nbGames = env.game.cached.nbGames
-    //       loadAvg = osStats.getSystemLoadAverage.toFloat
-    //       nbThreads = threadStats.getThreadCount
-    //       memory = memoryStats.getHeapMemoryUsage.getUsed / 1024 / 1024
-    //       rps = rpsProvider.rps
-    //       mps = mpsProvider.rps
-    //       cpu = ((cpuStats.getCpuUsage() * 1000).round / 10.0).toInt
-    //       clientAi = env.ai.clientPing
-    //       hub ! MonitorData(monitorData)
-    //     }
-    //   }
+    case Update ⇒ {
+      val before = nowMillis
+      MongoStatus(db.db)(mongoStatus) zip
+        (hub.actor.ai ? lila.hub.actorApi.ai.Ping).mapTo[Option[Int]] zip
+        List((hub.socket.site ? GetNbMembers),
+          (hub.socket.lobby ? GetNbMembers),
+          (hub.socket.round ? GetNbHubs),
+          (hub.socket.round ? GetNbMembers),
+          (hub.actor.game ? lila.hub.actorApi.game.Count)
+        ).map(_.mapTo[Int]).sequence onComplete {
+            case Failure(e) ⇒ logwarn("[reporting] " + e.getMessage)
+            case Success(((mongoS, aiPing), List(siteMembers, lobbyMembers, gameHubs, gameMembers, games))) ⇒ {
+              latency = (nowMillis - before).toInt
+              site = SiteSocket(siteMembers)
+              lobby = LobbySocket(lobbyMembers)
+              game = GameSocket(gameHubs, gameMembers)
+              mongoStatus = mongoS
+              nbGames = games
+              loadAvg = osStats.getSystemLoadAverage.toFloat
+              nbThreads = threadStats.getThreadCount
+              memory = memoryStats.getHeapMemoryUsage.getUsed / 1024 / 1024
+              rps = rpsProvider.rps
+              mps = mpsProvider.rps
+              cpu = ((cpuStats.getCpuUsage() * 1000).round / 10.0).toInt
+              clientAi = aiPing
+              socket ! MonitorData(monitorData)
+            }
+          }
+    }
   }
 
   private def display {

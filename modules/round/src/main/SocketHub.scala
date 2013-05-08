@@ -30,6 +30,8 @@ private[round] final class SocketHub(
 
     case msg @ GameEvents(gameId, events) ⇒ sockets get gameId foreach (_ forward msg)
 
+    case GetNbHubs                        ⇒ sender ! sockets.size
+
     case GetSocket(id) ⇒ sender ! {
       (sockets get id) | {
         mkSocket(id) ~ { h ⇒ sockets = sockets + (id -> h) }
