@@ -1,5 +1,8 @@
 package lila.timeline
 
+import tube.entryTube
+import lila.db.api.$find
+
 import akka.actor._
 import com.typesafe.config.Config
 
@@ -11,8 +14,10 @@ final class Env(
     system: ActorSystem) {
 
   private val CollectionEntry = config getString "collection.entry"
-  private val DisplayMax = config getString "display_max"
+  private val DisplayMax = config getInt "display_max"
   private val ActorName = config getString "actor.name"
+
+  def recent = $find recent DisplayMax
 
   private lazy val push = system.actorOf(Props(new Push(
     lobbySocket = lobbySocket,

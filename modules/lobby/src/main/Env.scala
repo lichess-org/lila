@@ -52,7 +52,7 @@ final class Env(
     }
   }
 
-  private lazy val history = new History(ttl = MessageTtl)
+  lazy val history = new History(ttl = MessageTtl)
 
   private lazy val messenger = new Messenger(netDomain = NetDomain)
 

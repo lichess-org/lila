@@ -1,5 +1,10 @@
 # Lobby
 GET   /                                controllers.Lobby.home
+GET   /new/$ownerId<[\w\-]{12}>        controllers.Lobby.hook(ownerId: String)
+GET   /new/$ownerId<[\w\-]{12}>/cancel controllers.Lobby.cancel(ownerId: String)
+GET   /new/$hookId<[\w\-]{8}>/join     controllers.Lobby.join(hookId: String)
+GET   /lobby/socket                    controllers.Lobby.socket
+GET   /lobby/log                       controllers.Lobby.log
 
 # User
 POST  /@/:username/export              controllers.User.export(username: String)
@@ -137,14 +142,6 @@ GET   /wiki/:slug                      controllers.Wiki.show(slug: String)
 # AI
 GET   /ai/stockfish/play               controllers.Ai.playStockfish
 GET   /ai/stockfish/analyse            controllers.Ai.analyseStockfish
- 
-# Lobby
-# GET   /                                controllers.Lobby.home
-# GET   /new/$ownerId<[\w\-]{12}>        controllers.Lobby.hook(ownerId: String)
-# GET   /new/$ownerId<[\w\-]{12}>/cancel controllers.Lobby.cancel(ownerId: String)
-# GET   /new/$hookId<[\w\-]{8}>/join     controllers.Lobby.join(hookId: String)
-# GET   /lobby/socket                    controllers.Lobby.socket
-# GET   /lobby/log                       controllers.Lobby.log
  
 # Bookmark
 POST   /bookmark/$gameId<[\w\-]{8}>    controllers.Bookmark.toggle(gameId: String)

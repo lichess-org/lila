@@ -10,10 +10,14 @@ import reactivemongo.api._
 
 import scala.util.matching.Regex
 
-private[lobby] object MessageRepo {
+object MessageRepo {
+
+  private val max = 30
+
+  def recent: Fu[List[Message]] = $find recent max
 
   def nonEmpty: Fu[List[Message]] =
-    $find($select.all) map (_ filterNot (_.isEmpty))
+    $find.all map (_ filterNot (_.isEmpty))
 
   def censorUsername(userId: String): Funit =
     $update(Json.obj("userId" -> userId), $set("text" -> ""), multi = true)

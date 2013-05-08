@@ -10,7 +10,6 @@ object Environment
     with StringHelper
     with MarkdownHelper
     with AssetHelper
-    with UiHelper
     with RequestHelper
     with DateHelper 
     with NumberHelper 
@@ -37,4 +36,8 @@ object Environment
   def netBaseUrl = apiEnv.Net.BaseUrl
 
   def isProd = apiEnv.isProd
+
+  lazy val siteMenu = new lila.app.ui.SiteMenu(trans)
+
+  lazy val lobbyMenu = new lila.app.ui.LobbyMenu(trans)
 }

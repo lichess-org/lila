@@ -1,17 +1,93 @@
 package controllers
 
-import lila.api._
+import lila.app._
 import lila.user.Context
+import lila.common.LilaCookie
+import lila.lobby.{ Hook, HookRepo }
+import lila.tournament.Created
+import views._
 
-import play.api.mvc._, Results._
+import play.api.mvc._
+import play.api.libs.json.JsValue
+import play.api.libs.json.Json
 
-object Lobby extends LilaController {
+object Lobby extends LilaController with Results {
 
-  def home = TODO
+  // private def openTours = Env.tournament.repo.created
+  private def openTours = fuccess(List[Created]())
+
+  def home = Open { implicit ctx ⇒
+    renderHome(none, Ok).map(_.withHeaders(
+      CACHE_CONTROL -> "no-cache", PRAGMA -> "no-cache"
+    ))
+  }
 
   def handleNotFound(req: RequestHeader): Fu[Result] =
-    reqToCtx(req) flatMap { handleNotFound(_) }
+    reqToCtx(req) flatMap { ctx ⇒ handleNotFound(ctx) }
 
   def handleNotFound(implicit ctx: Context): Fu[Result] =
-    fuccess(NotFound)
+    renderHome(none, NotFound)
+
+  private def renderHome[A](myHook: Option[Hook], status: Status)(implicit ctx: Context): Fu[Result] =
+    Env.current.preloader(
+      auth = ctx.isAuth,
+      chat = ctx.canSeeChat,
+      myHook = myHook,
+      timeline = Env.timeline.recent,
+      posts = Env.forum.recent(ctx.me, Env.team.cached.teamIds.apply),
+      tours = openTours,
+      filter = Env.setup.filter 
+    ).map(_.fold(Redirect(_), {
+        case (preload, posts, tours, featured) ⇒ status(html.lobby.home(
+          Json stringify preload,
+          myHook,
+          posts,
+          tours,
+          featured)) |> { response ⇒
+          ctx.req.session.data.contains(LilaCookie.sessionId).fold(
+            response,
+            response withCookies LilaCookie.makeSessionId(ctx.req)
+          )
+        }
+      }))
+
+  def socket = WebSocket.async[JsValue] { implicit req ⇒
+    reqToCtx(req) flatMap { ctx ⇒
+      Env.lobby.socketHandler.join(
+        uidOption = get("sri"),
+        username = ctx.me map (_.username),
+        versionOption = getInt("version"),
+        hook = get("hook")
+      )
+    }
+  }
+
+  def hook(ownerId: String) = Open { implicit ctx ⇒
+    HookRepo.ownedHook(ownerId) map {
+      _.fold(Redirect(routes.Lobby.home).fuccess) { hook ⇒
+        renderHome(hook.some, Ok)
+      }
+    }
+  }
+
+  def join(hookId: String) = Open { implicit ctx ⇒
+    val myHookId = get("cancel")
+    Env.setup.hookJoiner(hookId, myHookId)(ctx.me) map { result ⇒
+      Redirect {
+        result.fold(
+          _ ⇒ myHookId.fold(routes.Lobby.home)(routes.Lobby.hook(_)),
+          pov ⇒ routes.Round.player(pov.fullId))
+      }
+    }
+  }
+
+  def cancel(ownerId: String) = Open { implicit ctx ⇒
+    HookRepo ownedHook ownerId flatMap { 
+      _ zmap Env.lobby.fisherman.delete inject Redirect(routes.Lobby.home)
+    }
+  }
+
+  def log = Open { implicit ctx ⇒
+    MessageRepo.all map { html.lobby.log(_) }
+  }
 }
