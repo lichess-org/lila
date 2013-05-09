@@ -42,40 +42,33 @@ final class Hand(
         (newChessGame, move) = newChessGameAndMove
       } yield g2.update(newChessGame, move, blur)).prefixFailuresWith(povRef + " - ").fold(
         e ⇒ fuccess(failure(e)), {
-          case (progress, pgn) ⇒ if (progress.game.finished) (for {
-            _ ← GameRepo save progress
-            _ ← PgnRepo.save(povRef.gameId, pgn)
-            finishEvents ← finisher.moveFinish(progress.game, color)
-            events = progress.events ::: finishEvents
-          } yield playResult(events, progress))
+          case (progress, pgn) ⇒ if (progress.game.finished)
+            (GameRepo save progress) >>
+              PgnRepo.save(povRef.gameId, pgn) >>
+              finisher.moveFinish(progress.game, color) map { finishEvents ⇒
+                playResult(progress.events ::: finishEvents, progress)
+              }
           else if (progress.game.player.isAi && progress.game.playable) for {
-            initialFen ← progress.game.variant.standard ?? {
+            initialFen ← progress.game.variant.exotic ?? {
               GameRepo initialFen progress.game.id
             }
-            aiResult ← ai.play(
-              progress.game.toChess, 
-              pgn, 
-              initialFen, 
-              ~progress.game.aiLevel)
+            aiResult ← ai.play(progress.game.toChess, pgn.pp, initialFen, ~progress.game.aiLevel)
             eventsAndFen ← aiResult.fold(
               err ⇒ fuccess(failure(err)), {
                 case (newChessGame, move) ⇒ {
                   val (prog2, pgn2) = progress.game.update(newChessGame, move)
-                  val progress2 = progress flatMap { _ ⇒ prog2 }
-                  (for {
-                    _ ← GameRepo save progress2
-                    _ ← PgnRepo.save(povRef.gameId, pgn2)
-                    finishEvents ← finisher.moveFinish(progress2.game, !color)
-                    events = progress2.events ::: finishEvents
-                  } yield playResult(events, progress2))
+                  val progress2 = progress >> prog2
+                  (GameRepo save progress2) >>
+                    PgnRepo.save(povRef.gameId, pgn2) >>
+                    finisher.moveFinish(progress2.game, !color) map { finishEvents ⇒
+                      playResult(progress2.events ::: finishEvents, progress2)
+                    }
                 }
               }): PlayResult
           } yield eventsAndFen
-          else (for {
-            _ ← GameRepo save progress
-            _ ← PgnRepo.save(povRef.gameId, pgn)
-            events = progress.events
-          } yield playResult(events, progress))
+          else (GameRepo save progress) >>
+            PgnRepo.save(povRef.gameId, pgn) inject
+            playResult(progress.events, progress)
         })
     }
   }
