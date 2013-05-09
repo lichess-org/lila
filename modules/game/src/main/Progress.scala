@@ -9,6 +9,8 @@ case class Progress(origin: Game, game: Game, events: List[Event] = Nil) {
     case Progress(_, g2, e2) ⇒ copy(game = g2, events = events ::: e2)
   }
 
+  def >>(next: ⇒ Progress): Progress = flatMap(_ ⇒ next)
+
   def +(event: Event) = copy(events = events :+ event)
 
   def ++(es: List[Event]) = copy(events = events ::: es)
