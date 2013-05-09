@@ -1,4 +1,4 @@
-@(pov: Pov, version: Int, config: Option[lila.app.setup.FriendConfig])(implicit ctx: Context)
+@(pov: Pov, version: Int, config: Option[lila.setup.FriendConfig], initialFen: Option[String])(implicit ctx: Context)
 
 @import pov._
 
@@ -6,17 +6,12 @@
 title = trans.playWithAFriend.str(),
 goodies = Html(""),
 signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
-<div class="lichess_game lichess_game_not_started waiting_opponent clearfix lichess_player_@color"
+<div class="lichess_game lichess_game_not_started clearfix lichess_player_@color"
   data-socket-url="@routes.Round.websocketPlayer(fullId)" >
   <div class="lichess_board_wrap">
     @color.fold(board.white(), board.black())
-    <div class="lichess_overboard auto_center">
-      @trans.toInviteSomeoneToPlayGiveThisUrl():
-      <div class="lichess_id_input">@protocol@commonDomain@routes.Round.watcher(gameId, "white")</div>
-      <p class="explanations">
-        @trans.theFirstPersonToComeOnThisUrlWillPlayWithYou()
-        <a href="@routes.Setup.cancel(fullId)">@trans.cancel()</a>
-      </p>
+    <div class="lichess_overboard auto_center joining">
+      @trans.joinTheGame()
       @config.map { c =>
       <p class="explanations">
         @trans.variant(): @variantName(c.variant)<br />
@@ -24,6 +19,12 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
         @trans.mode(): @modeName(c.mode)
       </p>
       }
+      @initialFen.map { fen =>
+      @views.html.game.miniBoard(fen)
+      }
+      <form action="@routes.Setup.join(gameId)" method="post">
+        <input name="submit" type="submit" class="submit button" value="@trans.joinTheGame()" />
+      </form>
     </div>
   </div>
 </div>

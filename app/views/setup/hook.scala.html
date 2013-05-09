@@ -1,13 +1,13 @@
 @(form: Form[_])(implicit ctx: Context)
 
-@import lila.app.setup.HookConfig
-@import lila.app.elo.EloRange
+@import lila.setup.HookConfig
+@import lila.common.EloRange
 
 @fields = {
 <div class="variants buttons">
   @setup.radios(form("variant"), translatedVariantChoices)
 </div>
-@setup.clock(form, lila.app.setup.HookConfig)
+@setup.clock(form, lila.setup.HookConfig)
 @if(ctx.isAuth) {
 <div class="mode_choice buttons">
   @setup.radios(form("mode"), translatedModeChoices)

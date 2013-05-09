@@ -46,8 +46,7 @@ final class Env(
     timeline = hub.actor.timeline,
     messenger = messenger)
 
-  private[setup] lazy val friendConfigMemo = new FriendConfigMemo(
-    ttl = FriendMemoTtl)
+  lazy val friendConfigMemo = new FriendConfigMemo(ttl = FriendMemoTtl)
 
   private[setup] lazy val userConfigColl = db(CollectionUserConfig)
   private[setup] lazy val anonConfigColl = db(CollectionAnonConfig)

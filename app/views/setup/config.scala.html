@@ -6,7 +6,7 @@
 		@helper.form(action = route, 'novalidate -> "novalidate") {
 		@fields
 		<div class="color_submits">
-			@lila.app.setup.Color.names.map { color =>
+			@lila.lobby.Color.names.map { color =>
 			<button type="submit" class="submit @color" name="@form("color").id" value="@color"></button>
 			}
 		</div>

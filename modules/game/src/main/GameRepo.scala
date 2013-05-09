@@ -60,6 +60,8 @@ object GameRepo {
       ))
     }
 
+  def remove(id: ID) = $remove byId id
+
   // makes the asumption that player 0 is white!
   // proved to be true on prod DB at March 31 2012
   def setEloDiffs(id: ID, white: Int, black: Int) =
