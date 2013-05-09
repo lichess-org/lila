@@ -24,15 +24,17 @@ private[round] final class History(ttl: Duration) extends Actor {
       else ((v + 1 to version).toList map get).flatten.some
     )
 
-    case AddEvent(event) ⇒ {
-      version = version + 1
-      sender ! VersionedEvent(
-        version = version,
-        typ = event.typ,
-        data = event.data,
-        only = event.only,
-        owner = event.owner,
-        watcher = event.watcher) ~ { events.put(version, _) }
+    case AddEvents(events) ⇒ sender ! {
+      events map { e ⇒
+        version = version + 1
+        VersionedEvent(
+          version = version,
+          typ = e.typ,
+          data = e.data,
+          only = e.only,
+          owner = e.owner,
+          watcher = e.watcher) ~ { events.put(version, _) }
+      }
     }
   }
 
