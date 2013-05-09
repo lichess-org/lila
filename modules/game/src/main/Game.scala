@@ -510,7 +510,7 @@ private[game] object RawGame {
       merge(defaults) andThen readDate('ca) andThen readDateOpt('ua)
     )) andThen Json.reads[RawGame],
     Json.writes[RawGame] andThen (__.json update (
-      writeDate('ca) andThen writeDate('ua)
+      writeDate('ca) andThen writeDateOpt('ua)
     ))
   )
 }
