@@ -1,7 +1,6 @@
-@(listMenu: lila.app.game.ListMenu, form: Form[_], paginator: Option[Paginator[DbGame]] = None)(implicit ctx: Context)
+@(listMenu: lila.game.ListMenu, form: Form[_], paginator: Option[Paginator[Game]] = None)(implicit ctx: Context)
 
-@import lila.app.search.Query
-@import lila.app.search.Sorting
+@import lila.gameSearch.{ Query, Sorting }
 
 @moreCss = {
 @cssTag("search.css")
@@ -18,7 +17,7 @@ moreJs = moreJs,
 moreCss = moreCss) {
 <div class="content_box no_padding">
   <h1 class="title">@trans.advancedSearch()</h1>
-  <form class="search" action="@routes.Search.form()" method="get">
+  <form class="search" action="@routes.Game.search()" method="get">
     <table>
       <tr>
         <th>
@@ -141,11 +140,11 @@ moreCss = moreCss) {
     @if(pager.nbResults > 0) {
     <div class="search_status">
       @pager.nbResults.localize games found -
-      <a class="permalink" href="@routes.Search.form()">Permalink</a>
+      <a class="permalink" href="@routes.Game.search()">Permalink</a>
     </div>
     <div class="all_games search_infinitescroll">
       @pager.nextPage.map { n =>
-      <div class="pager none"><a href="@routes.Search.form(n)">Next</a></div>
+      <div class="pager none"><a href="@routes.Game.search(n)">Next</a></div>
       }.getOrElse {
       <div class="none"></div>
       }
@@ -154,7 +153,7 @@ moreCss = moreCss) {
     } else {
     <div class="search_status">
       No game found -
-      <a class="permalink" href="@routes.Search.form()">Permalink</a>
+      <a class="permalink" href="@routes.Game.search()">Permalink</a>
     </div>
     }
     }.getOrElse {

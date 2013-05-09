@@ -40,7 +40,8 @@ final class Hand(
         newChessGameAndMove ← chessGame(orig, dest, promotion, lag)
         (newChessGame, move) = newChessGameAndMove
       } yield g2.update(newChessGame, move, blur)).prefixFailuresWith(povRef + " - ").fold(fufail(_), {
-        case (progress, pgn) ⇒ if (progress.game.finished)
+        case (progress, pgn) ⇒ 
+        if (progress.game.finished)
           (GameRepo save progress) >>
             PgnRepo.save(povRef.gameId, pgn) >>
             finisher.moveFinish(progress.game, color) map { finishEvents ⇒
@@ -50,7 +51,7 @@ final class Hand(
           initialFen ← progress.game.variant.exotic ?? {
             GameRepo initialFen progress.game.id
           }
-          aiResult ← ai.play(progress.game.toChess, pgn.pp, initialFen, ~progress.game.aiLevel)
+          aiResult ← ai.play(progress.game.toChess, pgn, initialFen, ~progress.game.aiLevel)
           eventsAndFen ← aiResult.fold(
             err ⇒ fufail("[round hand] ai response fail " + err), {
               case (newChessGame, move) ⇒ {

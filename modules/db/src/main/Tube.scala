@@ -66,7 +66,11 @@ case class Tube[Doc](
 
 object Tube {
 
-  val json = Tube[JsObject](__.read[JsObject], __.write[JsObject])
+  val json = Tube[JsObject](
+    __.read[JsObject],
+    __.write[JsObject],
+    Seq(_.NoId) // no need to rename the ID field as we are not mapping
+  )
 
   def toMongoId(js: JsValue): JsResult[JsObject] =
     js transform Helpers.rename('id, '_id)
@@ -87,7 +91,7 @@ object Tube {
       def andThen(transformer: Reads[JsObject]): Writes[A] =
         writes.transform(Writes[JsValue] { origin ⇒
           origin transform transformer match {
-            case err: JsError ⇒ throw LilaException("[tube] Cannot transform %s\n%s".format(origin, err))
+            case err: JsError     ⇒ throw LilaException("[tube] Cannot transform %s\n%s".format(origin, err))
             case JsSuccess(js, _) ⇒ js
           }
         })

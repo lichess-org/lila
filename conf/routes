@@ -33,7 +33,7 @@ GET   /games/analysed     controllers.Game.analysed(page: Int ?= 1)
 GET   /games/imported     controllers.Game.imported(page: Int ?= 1)
  
 # Search
-GET   /games/search       controllers.Search.form(page: Int ?= 1)
+GET   /games/search       controllers.Game.search(page: Int ?= 1)
  
 # Round
 GET   /$gameId<[\w\-]{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")

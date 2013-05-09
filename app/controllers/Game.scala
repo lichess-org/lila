@@ -9,6 +9,23 @@ object Game extends LilaController with BaseGame {
   private def paginator = Env.game.paginator
   private def analysePaginator = Env.analyse.paginator
   private def cached = Env.game.cached
+  private def searchEnv = Env.gameSearch
+  def searchForm = searchEnv.forms.search
+
+  def search(page: Int) = OpenBody { implicit ctx ⇒
+    Reasonable(page, 100) {
+      implicit def req = ctx.body
+      makeListMenu flatMap { listMenu ⇒
+        searchForm.bindFromRequest.fold(
+          failure ⇒ Ok(html.game.search(listMenu, failure)).fuccess,
+          data ⇒ data.nonEmptyQuery zmap { query ⇒
+            searchEnv.paginator(query, page) map (_.some)
+          } map { pager ⇒
+            Ok(html.game.search(listMenu, searchForm fill data, pager))
+          })
+      }
+    }
+  }
 
   def realtime = Open { implicit ctx ⇒
     GameRepo recentGames 9 zip makeListMenu map {

@@ -16,8 +16,8 @@ object $enumerate {
       Iteratee.foreach((obj: A) ⇒ op(obj))
     }
 
-  def bulk[A: BSONDocumentReader](query: QueryBuilder, size: Int)(op: List[A] ⇒ Funit): Funit =
-    query.batch(size).cursor[A].enumerateBulks run {
+  def bulk[A: BSONDocumentReader](query: QueryBuilder, size: Int, limit: Int = Int.MaxValue)(op: List[A] ⇒ Funit): Funit =
+    query.batch(size).cursor[A].enumerateBulks(limit) run {
       Iteratee.foreach((objs: Iterator[A]) ⇒
         op(objs.toList)
       )

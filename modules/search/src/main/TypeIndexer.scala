@@ -5,6 +5,7 @@ import actorApi._
 import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
 
 import akka.actor._
+import akka.pattern.pipe
 import play.api.libs.json._
 
 final class TypeIndexer(
@@ -28,7 +29,7 @@ final class TypeIndexer(
 
     case RebuildAll ⇒ {
       self ! Clear
-      sender ! indexQuery(Json.obj())
+      indexQuery(Json.obj()) pipeTo sender
     }
 
     case Optimize ⇒ es.optimize(Seq(indexName))
