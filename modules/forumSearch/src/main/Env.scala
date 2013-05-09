@@ -52,7 +52,7 @@ final class Env(
   )), name = IndexerName + "-low-level")
 
   private def responseToPosts(response: SearchResponse): Fu[List[PostView]] =
-    postApi viewsFromIds (response.hits.hits.toList map (_.id))
+    postApi viewsFromIds (response.getHits.hits.toList map (_.id))
 
   private def indexQuery(sel: JsObject): Funit = {
     import play.api.libs.json._

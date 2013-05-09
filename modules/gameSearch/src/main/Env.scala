@@ -51,7 +51,7 @@ final class Env(
   )), name = IndexerName + "-low-level")
 
   private def responseToGames(response: SearchResponse): Fu[List[GameModel]] =
-    $find.byOrderedIds[GameModel](response.hits.hits.toList map (_.id))
+    $find.byOrderedIds[GameModel](response.getHits.hits.toList map (_.id))
 
   private def indexQuery(sel: JsObject): Funit = {
     import play.api.libs.json._
