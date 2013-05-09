@@ -34,29 +34,27 @@ private[round] final class SocketHandler(
         txt ← o str "d"
         if member.canChat
         if flood.allowMessage(uid, txt)
-      } messenger.playerMessage(povRef, txt) foreach { events ⇒
-        socket ! Events(events)
-      }
+      } messenger.playerMessage(povRef, txt) foreach socket.!
       case ("move", o) ⇒ parseMove(o) foreach {
         case (orig, dest, prom, blur, lag) ⇒ {
           socket ! Ack(uid)
-          hand.play(povRef, orig, dest, prom, blur, lag) onSuccess {
-            case Failure(fs) ⇒ {
+          hand.play(povRef, orig, dest, prom, blur, lag) fold (
+            e ⇒ {
+              logwarn("[round socket] " + e.getMessage)
               socket ! Resync(uid)
-              logwarn(fs.shows)
-            }
-            case Success((events, fen, lastMove)) ⇒ {
-              socketHub ! GameEvents(povRef.gameId, events)
-              moveNotifier(povRef.gameId, fen, lastMove)
-            }
-          }
+            }, {
+              case ((events, fen, lastMove)) ⇒ {
+                socketHub ! GameEvents(povRef.gameId, events)
+                moveNotifier(povRef.gameId, fen, lastMove)
+              }
+            })
         }
       }
       case ("moretime", o) ⇒ hand moretime povRef foreach {
-        _ foreach { events ⇒ socket ! Events(events) }
+        _ foreach { events ⇒ socket ! events }
       }
       case ("outoftime", o) ⇒ hand outoftime povRef foreach {
-        _ foreach { events ⇒ socket ! Events(events) }
+        _ foreach socket.!
       }
     }
     else {
@@ -68,7 +66,7 @@ private[round] final class SocketHandler(
       } messenger.watcherMessage(
         povRef.gameId,
         member.userId,
-        txt) foreach { events ⇒ socket ! Events(events) }
+        txt) foreach socket.!
     }
 
   def watcher(

@@ -9,21 +9,19 @@ import play.api.mvc._, Results._
 
 trait RoundEventPerformer {
 
-  protected type FuValidEvents = Fu[Valid[List[Event]]]
+  protected type FuEvents = Fu[List[Event]]
 
-  protected def performAndRedirect(fullId: String, op: String ⇒ FuValidEvents) =
+  protected def performAndRedirect(fullId: String, op: String ⇒ FuEvents) =
     Action {
       perform(fullId, op)
       Redirect(routes.Round.player(fullId))
     }
 
-  protected def perform(fullId: String, op: String ⇒ FuValidEvents) {
-    op(fullId) foreach { validEvents ⇒
-      validEvents.fold(
-        err ⇒ logwarn("[round] fail to perform on game %s\n%s".format(fullId, err)),
-        performEvents(fullId)
-      )
-    }
+  protected def perform(fullId: String, op: String ⇒ FuEvents) {
+    op(fullId) fold (
+      err ⇒ logwarn("[round] fail to perform on game %s\n%s".format(fullId, err)),
+      performEvents(fullId)
+    )
   }
 
   protected def performEvents(fullId: String)(events: List[Event]) {

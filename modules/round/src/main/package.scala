@@ -11,4 +11,7 @@ package object round extends PackageObject with WithPlay with WithSocket {
 
     implicit lazy val watcherRoomTube = WatcherRoom.tube inColl Env.current.watcherRoomColl
   }
+
+  private[round] type Events = List[Event]
+  private[round] type FuEvents = Fu[Events]
 }

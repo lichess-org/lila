@@ -22,63 +22,57 @@ final class Finisher(
     finisherLock: FinisherLock,
     indexer: ActorRef) extends OptionTs {
 
-  private type FuEvents = Fu[List[Event]]
-  private type ValidFuEvents = Valid[FuEvents]
-
-  def abort(pov: Pov): ValidFuEvents =
+  def abort(pov: Pov): FuEvents =
     if (pov.game.abortable) finish(pov.game, Aborted)
-    else !!("game is not abortable")
+    else fufail("game is not abortable")
 
-  def forceAbort(game: Game): ValidFuEvents =
+  def forceAbort(game: Game): FuEvents =
     if (game.playable) finish(game, Aborted)
-    else !!("game is not playable, cannot be force aborted")
+    else fufail("game is not playable, cannot be force aborted")
 
-  def resign(pov: Pov): ValidFuEvents =
+  def resign(pov: Pov): FuEvents =
     if (pov.game.resignable) finish(pov.game, Resign, Some(!pov.color))
-    else !!("game is not resignable")
+    else fufail("game is not resignable")
 
-  def resignForce(pov: Pov): ValidFuEvents =
+  def resignForce(pov: Pov): FuEvents =
     if (pov.game.resignable && !pov.game.hasAi)
       finish(pov.game, Timeout, Some(pov.color))
-    else !!("game is not resignable")
+    else fufail("game is not resignable")
 
-  def drawClaim(pov: Pov): ValidFuEvents = pov match {
+  def drawClaim(pov: Pov): FuEvents = pov match {
     case Pov(game, color) if game.playable && game.player.color == color && game.toChessHistory.threefoldRepetition ⇒ finish(game, Draw)
-    case Pov(game, color) ⇒ !!("game is not threefold repetition")
+    case Pov(game, color) ⇒ fufail("game is not threefold repetition")
   }
 
-  def drawAccept(pov: Pov): ValidFuEvents =
+  def drawAccept(pov: Pov): FuEvents =
     if (pov.opponent.isOfferingDraw)
       finish(pov.game, Draw, None, Some(_.drawOfferAccepted))
-    else !!("opponent is not proposing a draw")
+    else fufail("opponent is not proposing a draw")
 
-  def drawForce(game: Game): ValidFuEvents = finish(game, Draw, None, None)
+  def drawForce(game: Game): FuEvents = finish(game, Draw, None, None)
 
-  def outoftime(game: Game): ValidFuEvents = game.outoftimePlayer.fold(
-    !![FuEvents]("no outoftime applicable " + game.clock.fold("-")(_.remainingTimes.toString))
+  def outoftime(game: Game): FuEvents = game.outoftimePlayer.fold[FuEvents](
+    fufail("no outoftime applicable " + game.clock.fold("-")(_.remainingTimes.toString))
   ) { player ⇒
       finish(game, Outoftime, Some(!player.color) filter game.toChess.board.hasEnoughMaterialToMate)
     }
 
   def outoftimes(games: List[Game]): Funit =
-    (games map outoftime collect {
-      case Success(future) ⇒ future
-    }).sequence.void
+    (games map outoftime).sequence.void
 
-  def moveFinish(game: Game, color: Color): Fu[List[Event]] =
-    (game.status match {
-      case Mate                        ⇒ finish(game, Mate, Some(color))
-      case status @ (Stalemate | Draw) ⇒ finish(game, status)
-      case _                           ⇒ success(fuccess(Nil)): ValidFuEvents
-    }) | fuccess(Nil)
+  def moveFinish(game: Game, color: Color): FuEvents = game.status match {
+    case Mate                        ⇒ finish(game, Mate, Some(color))
+    case status @ (Stalemate | Draw) ⇒ finish(game, status)
+    case _                           ⇒ fuccess(Nil): FuEvents
+  }
 
   private def finish(
     game: Game,
     status: Status,
     winner: Option[Color] = None,
-    message: Option[SelectI18nKey] = None): ValidFuEvents =
-    if (finisherLock isLocked game) !!("game finish is locked")
-    else success(for {
+    message: Option[SelectI18nKey] = None): FuEvents =
+    if (finisherLock isLocked game) fufail("game finish is locked")
+    else for {
       _ ← fuccess(finisherLock lock game)
       p1 = game.finish(status, winner)
       p2 ← message.fold(fuccess(p1)) { m ⇒
@@ -93,7 +87,7 @@ final class Finisher(
       _ ← incNbGames(g, Black) doIf (g.status >= Status.Mate)
       _ ← fuccess(indexer ! lila.game.actorApi.InsertGame(g))
       _ ← fuccess(tournamentOrganizer ! FinishGame(g.id))
-    } yield p2.events)
+    } yield p2.events
 
   private def incNbGames(game: Game, color: Color): Funit =
     game.player(color).userId zmap { id ⇒
