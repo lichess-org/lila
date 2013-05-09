@@ -2,20 +2,7 @@ package lila.game
 
 // import round.{ Event, Progress }
 import lila.user.User
-import chess.{
-  History ⇒ ChessHistory,
-  Role,
-  Board,
-  Move,
-  Pos,
-  Game ⇒ ChessGame,
-  Clock,
-  Status,
-  Color,
-  Piece,
-  Variant,
-  Mode
-}
+import chess.{ History ⇒ ChessHistory, Role, Board, Move, Pos, Game ⇒ ChessGame, Clock, Status, Color, Piece, Variant, Mode }
 import Color._
 import chess.Pos.piotr, chess.Role.forsyth, chess.format.Forsyth
 
@@ -520,7 +507,7 @@ private[game] object RawGame {
 
   private[game] lazy val tube = Tube(
     (__.json update (
-      merge(defaults) andThen readDate('ca) andThen readDate('ua)
+      merge(defaults) andThen readDate('ca) andThen readDateOpt('ua)
     )) andThen Json.reads[RawGame],
     Json.writes[RawGame] andThen (__.json update (
       writeDate('ca) andThen writeDate('ua)
