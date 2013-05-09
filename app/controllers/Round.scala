@@ -17,7 +17,6 @@ import play.api.templates.Html
 object Round extends LilaController with TheftPrevention with RoundEventPerformer {
 
   private def env = Env.round
-  // private def rematcher = Env.setup.rematcher
   private def bookmarkApi = Env.bookmark.api
   private def analyser = Env.analyse.analyser
   // private def tournamentRepo = Env.tournament.repo
@@ -67,8 +66,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
                   tour = tour))
             }
         },
-        Ok("TODO").fuccess
-      // TODO Redirect(routes.Setup.await(fullId)).fuccess
+        Redirect(routes.Setup.await(fullId)).fuccess
       )
     }
   }
@@ -81,10 +79,9 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
 
   private def join(pov: Pov)(implicit ctx: Context): Fu[Result] =
     GameRepo initialFen pov.gameId zip env.version(pov.gameId) map {
-      case (fen, version) ⇒ Ok("TODO") // TODO
-      // Ok(html.setup.join(
-      //   pov, version, env.setup.friendConfigMemo get pov.game.id, fen
-      // ))
+      case (fen, version) ⇒ Ok(html.setup.join(
+        pov, version, Env.setup.friendConfigMemo get pov.game.id, fen
+      ))
     }
 
   private def watch(pov: Pov)(implicit ctx: Context): Fu[Result] =
@@ -111,20 +108,19 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
   def drawCancel(fullId: String) = performAndRedirect(fullId, hand.drawCancel)
   def drawDecline(fullId: String) = performAndRedirect(fullId, hand.drawDecline)
 
-  def rematch(fullId: String) = TODO
-  // Action {
-  //   rematcher offerOrAccept fullId flatMap { validResult ⇒
-  //     validResult.fold(
-  //       err ⇒ putFailures(err) map { _ ⇒
-  //         Redirect(routes.Round.player(fullId))
-  //       }, {
-  //         case (nextFullId, events) ⇒ performEvents(fullId)(events) map { _ ⇒
-  //           Redirect(routes.Round.player(nextFullId))
-  //         }
-  //       }
-  //     )
-  //   }
-  // }
+  def rematch(fullId: String) = Open { implicit ctx ⇒
+    Env.setup.rematcher offerOrAccept fullId fold (
+      err ⇒ {
+        logwarn(err.getMessage)
+        Redirect(routes.Round.player(fullId))
+      }, {
+        case (nextFullId, events) ⇒ {
+          performEvents(fullId)(events)
+          Redirect(routes.Round.player(nextFullId))
+        }
+      }
+    )
+  }
   def rematchCancel(fullId: String) = performAndRedirect(fullId, hand.rematchCancel)
   def rematchDecline(fullId: String) = performAndRedirect(fullId, hand.rematchDecline)
 

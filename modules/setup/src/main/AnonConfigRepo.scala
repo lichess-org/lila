@@ -6,7 +6,7 @@ import tube.{ anonConfigTube, filterConfigTube }
 import lila.game.Game
 import lila.db.Implicits._
 import lila.db.api._
-import lila.common.LilaCookie
+import lila.common.{ LilaCookie, LilaException }
 
 import play.api.libs.json._
 import play.api.mvc._
@@ -28,7 +28,7 @@ private[setup] object AnonConfigRepo {
 
   def config(sid: String): Fu[UserConfig] =
     $find byId sid recover {
-      case e: lila.db.DbException ⇒ {
+      case e: LilaException ⇒ {
         logwarn("Can't load config: " + e.getMessage)
         none[UserConfig]
       }

@@ -68,10 +68,10 @@ object GameRepo {
     $update($select(id), $set("p.0.ed" -> white, "p.1.ed" -> black))
 
   def setUser(id: ID, color: Color, user: User) = {
-    val pn = "p" + color.fold(0, 1)
+    val pn = "p." + color.fold(0, 1) + "."
     $update($select(id), $set(
-      pn + ".uid" -> Json.toJson(user.id),
-      pn + ".elo" -> Json.toJson(user.elo))
+      (pn + "uid") -> Json.toJson(user.id),
+      (pn + "elo") -> Json.toJson(user.elo))
     )
   }
 

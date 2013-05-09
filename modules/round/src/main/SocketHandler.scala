@@ -1,9 +1,8 @@
 package lila.round
 
 import akka.actor._
-import akka.pattern.ask
+import akka.pattern.{ ask, pipe }
 import play.api.libs.json.JsObject
-import scalaz.{ Success, Failure }
 
 import actorApi._
 import lila.game.{ Pov, PovRef, GameRepo }
@@ -34,7 +33,7 @@ private[round] final class SocketHandler(
         txt ← o str "d"
         if member.canChat
         if flood.allowMessage(uid, txt)
-      } messenger.playerMessage(povRef, txt) foreach socket.!
+      } messenger.playerMessage(povRef, txt) pipeTo socket
       case ("move", o) ⇒ parseMove(o) foreach {
         case (orig, dest, prom, blur, lag) ⇒ {
           socket ! Ack(uid)
@@ -50,12 +49,8 @@ private[round] final class SocketHandler(
             })
         }
       }
-      case ("moretime", o) ⇒ hand moretime povRef foreach {
-        _ foreach { events ⇒ socket ! events }
-      }
-      case ("outoftime", o) ⇒ hand outoftime povRef foreach {
-        _ foreach socket.!
-      }
+      case ("moretime", o) ⇒ hand moretime povRef pipeTo socket
+      case ("outoftime", o) ⇒ hand outoftime povRef pipeTo socket
     }
     else {
       case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
@@ -66,7 +61,7 @@ private[round] final class SocketHandler(
       } messenger.watcherMessage(
         povRef.gameId,
         member.userId,
-        txt) foreach socket.!
+        txt) pipeTo socket
     }
 
   def watcher(

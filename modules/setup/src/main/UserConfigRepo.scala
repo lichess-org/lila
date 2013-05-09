@@ -1,11 +1,11 @@
 package lila.setup
 
 import lila.user.User
-
 import tube.{ userConfigTube, filterConfigTube }
 import lila.game.Game
 import lila.db.Implicits._
 import lila.db.api._
+import lila.common.LilaException
 
 import play.api.libs.json._
 
@@ -19,7 +19,7 @@ private[setup] object UserConfigRepo {
 
   def config(user: User): Fu[UserConfig] =
     $find byId user.id recover {
-      case e: lila.db.DbException ⇒ {
+      case e: LilaException ⇒ {
         logwarn("Can't load config: " + e.getMessage)
         none[UserConfig]
       }
