@@ -65,9 +65,7 @@ case class Tube[Doc](
 
 object Tube {
 
-  val json = Tube[JsObject](
-    reader = __.read[JsObject],
-    writer = __.write[JsObject])
+  val json = Tube[JsObject](__.read[JsObject], __.write[JsObject])
 
   def toMongoId(js: JsValue): JsResult[JsObject] =
     js transform Helpers.rename('id, '_id)
@@ -103,6 +101,8 @@ object Tube {
 
     def readDate(field: Symbol) =
       (__ \ field).json.update(of[JsObject] map (_ \ "$date"))
+
+    def readDateOpt(field: Symbol) = readDate(field) orElse json.reader
 
     def writeDate(field: Symbol) = (__ \ field).json.update(of[JsNumber] map {
       millis ⇒ Json.obj("$date" -> millis)
