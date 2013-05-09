@@ -4,7 +4,7 @@ import chess.{ Variant, Mode, Color ⇒ ChessColor }
 import lila.game.{ Game, Player, Source }
 import lila.lobby.Color
 
-private[setup] case class AiConfig(
+case class AiConfig(
     variant: Variant,
     clock: Boolean,
     time: Int,
@@ -41,7 +41,7 @@ private[setup] case class AiConfig(
     f = ~fen)
 }
 
-private[setup] object AiConfig extends BaseConfig {
+object AiConfig extends BaseConfig {
 
   def <<(v: Int, k: Boolean, t: Int, i: Int, level: Int, c: String, fen: Option[String]) = new AiConfig(
     variant = Variant(v) err "Invalid game variant " + v,

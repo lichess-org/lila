@@ -2,7 +2,7 @@ package lila.app
 package tournament
 
 import chess.{ Mode, Variant }
-import lila.app.setup.Mappings
+import lila.setup.Mappings
 
 import play.api.data._
 import play.api.data.Forms._

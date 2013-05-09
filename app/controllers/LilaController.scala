@@ -129,22 +129,7 @@ private[controllers] trait LilaController
       data ⇒ op(data)
     )
 
-  // protected def Fuk[A](op: Fu[A])(implicit writer: Writeable[A], ctype: ContentTypeOf[A]) =
-  //   Ok(op.unsafePerformFu)
-
-  // protected def FuResult[A](op: Fu[Result]) =
-  //   op.unsafePerformFu
-
-  // protected def FuRedirect(op: Fu[Call]) = Redirect(op.unsafePerformFu)
-
-  // protected def OptionOk[A, B](oa: Option[A])(op: A ⇒ B)(
-  //   implicit writer: Writeable[B],
-  //   ctype: ContentTypeOf[B],
-  //   ctx: Context) =
-  //   oa.fold(notFound(ctx))(a ⇒ Ok(op(a)))
-
-  // protected def OptionResult[A](oa: Option[A])(op: A ⇒ Result)(implicit ctx: Context) =
-  //   oa.fold(notFound(ctx))(op)
+  protected def FuRedirect(fua: Fu[Call]) = fua map { Redirect(_) }
 
   protected def OptionOk[A, B: Writeable: ContentTypeOf](fua: Fu[Option[A]])(op: A ⇒ B)(implicit ctx: Context): Fu[Result] =
     OptionFuOk(fua) { a ⇒ fuccess(op(a)) }

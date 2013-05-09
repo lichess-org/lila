@@ -5,7 +5,7 @@ import lila.common.EloRange
 import lila.game.{ Game, Player, Source }
 import lila.lobby.Color
 
-private[setup] case class FriendConfig(
+case class FriendConfig(
     variant: Variant,
     clock: Boolean,
     time: Int,
@@ -38,7 +38,7 @@ private[setup] case class FriendConfig(
     f = ~fen)
 }
 
-private[setup] object FriendConfig extends BaseHumanConfig {
+object FriendConfig extends BaseHumanConfig {
 
   def <<(v: Int, k: Boolean, t: Int, i: Int, m: Option[Int], c: String, fen: Option[String]) =
     new FriendConfig(
