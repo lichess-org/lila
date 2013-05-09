@@ -9,8 +9,7 @@ import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 object $update {
 
   def apply[ID: Writes, A <: Identified[ID]: TubeInColl](doc: A): Funit =
-    (implicitly[Tube[A]] toMongo doc).fold(
-      fuck(_),
+    (implicitly[Tube[A]] toMongo doc).fold(e ⇒ fufail(e.toString),
       js ⇒ apply($select(doc.id), js)
     )
   def apply[A <: Identified[String]: TubeInColl](doc: A): Funit = apply[String, A](doc)

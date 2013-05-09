@@ -9,10 +9,10 @@ import play.api.libs.json._
 
 object $insert {
 
-  def apply[A : TubeInColl](doc: A): Funit =
-    (implicitly[Tube[A]] toMongo doc).fold(fuck(_), apply(_))
+  def apply[A: TubeInColl](doc: A): Funit =
+    (implicitly[Tube[A]] toMongo doc).fold(e ⇒ fufail(e.toString), apply(_))
 
-  def apply[A : InColl](js: JsObject): Funit = successful {
-    implicitly[InColl[A]].coll insert js 
+  def apply[A: InColl](js: JsObject): Funit = successful {
+    implicitly[InColl[A]].coll insert js
   }
 }
