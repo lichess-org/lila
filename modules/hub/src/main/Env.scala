@@ -32,7 +32,7 @@ final class Env(config: Config, system: ActorSystem) {
     val site = socketFor("site")
     val round = socketFor("round")
     val hub = system.actorOf(Props(new Broadcast(List(
-      socket.lobby, socket.site
+      lobby, site, round
     ))(makeTimeout(SocketHubTimeout))), name = SocketHubName)
   }
 
