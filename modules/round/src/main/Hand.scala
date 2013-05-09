@@ -51,17 +51,18 @@ final class Hand(
             GameRepo initialFen progress.game.id
           }
           aiResult ← ai.play(progress.game.toChess, pgn.pp, initialFen, ~progress.game.aiLevel)
-          eventsAndFen ← aiResult.fold(fufail(_), {
-            case (newChessGame, move) ⇒ {
-              val (prog2, pgn2) = progress.game.update(newChessGame, move)
-              val progress2 = progress >> prog2
-              (GameRepo save progress2) >>
-                PgnRepo.save(povRef.gameId, pgn2) >>
-                finisher.moveFinish(progress2.game, !color) map { finishEvents ⇒
-                  playResult(progress2.events ::: finishEvents, progress2)
-                }
-            }
-          }): PlayResult
+          eventsAndFen ← aiResult.fold(
+            err ⇒ fufail("[round hand] ai response fail " + err), {
+              case (newChessGame, move) ⇒ {
+                val (prog2, pgn2) = progress.game.update(newChessGame, move)
+                val progress2 = progress >> prog2
+                (GameRepo save progress2) >>
+                  PgnRepo.save(povRef.gameId, pgn2) >>
+                  finisher.moveFinish(progress2.game, !color) map { finishEvents ⇒
+                    playResult(progress2.events ::: finishEvents, progress2)
+                  }
+              }
+            }): PlayResult
         } yield eventsAndFen
         else (GameRepo save progress) >>
           PgnRepo.save(povRef.gameId, pgn) inject
@@ -174,7 +175,7 @@ final class Hand(
         pgn ← PgnRepo get pov.game.id
         result ← if (g1.player(!color).isAi)
           takeback.double(pov.game, pgn, fen)
-        else if (g1.player(!color).isProposingTakeback) 
+        else if (g1.player(!color).isProposingTakeback)
           takeback(pov.game, pgn, fen)
         else for {
           p1 ← messenger.systemMessage(g1, _.takebackPropositionSent) map { es ⇒
