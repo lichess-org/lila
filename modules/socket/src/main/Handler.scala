@@ -44,10 +44,11 @@ object Handler {
     }
   }
 
-  def errorHandler(err: String): JsSocketHandler =
+  def errorHandler(err: String): JsSocketHandler = {
+    logwarn("[socket] " + err)
     Iteratee.skipToEof[JsValue] ->
       Enumerator[JsValue](Json.obj(
         "error" -> "Socket handler error: %s".format(err)
       )).andThen(Enumerator.eof)
-
+  }
 }

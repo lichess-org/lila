@@ -31,7 +31,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
 
   def websocketPlayer(fullId: String) = WebSocket.async[JsValue] { implicit req ⇒
     reqToCtx(req) flatMap { implicit ctx ⇒
-      (get("sri") |@| getInt("version") |@| get("token")).tupled zmap {
+      (get("sri") |@| getInt("version") |@| get("tk2")).tupled zmap {
         case (uid, version, token) ⇒ env.socketHandler.player(fullId, version, uid, token, ctx)
       }
     }

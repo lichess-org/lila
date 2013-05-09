@@ -76,7 +76,7 @@ private[round] final class Socket(
     case GameEvents(_, events) ⇒ notify(events)
 
     case msg @ AnalysisAvailable(_) ⇒ {
-      notifyAll("analysisAvailable", JsNull)
+      notifyAll("analysisAvailable", true)
     }
 
     case Quit(uid) ⇒ {
@@ -116,24 +116,24 @@ private[round] final class Socket(
 
   def batch(member: Member, vevents: List[VersionedEvent]) {
     if (vevents.nonEmpty) {
-      member.channel push makeEvent("b", JsArray(vevents map (_ jsFor member)))
+      member.channel push makeEvent("b", List(vevents map (_ jsFor member)))
     }
   }
 
-  def notifyOwner(color: Color, t: String, data: JsValue) {
+  def notifyOwner[A : Writes](color: Color, t: String, data: A) {
     ownerOf(color) foreach { m ⇒
       m.channel push makeEvent(t, data)
     }
   }
 
   def notifyGone(color: Color, gone: Boolean) {
-    notifyOwner(!color, "gone", JsBoolean(gone))
+    notifyOwner(!color, "gone", gone)
   }
 
-  def makeEvent(t: String, data: JsValue): JsObject =
-    JsObject(Seq("t" -> JsString(t), "d" -> data))
+  def makeEvent[A : Writes](t: String, data: A): JsObject =
+    Json.obj("t" -> t, "d" -> data)
 
-  lazy val ackEvent = makeEvent("ack", JsNull)
+  lazy val ackEvent = Json.obj("t" -> "ack")
 
   def ownerOf(color: Color): Option[Member] =
     members.values find { m ⇒ m.owner && m.color == color }

@@ -25,7 +25,7 @@ object Message {
   import Tube.Helpers._
 
   private[lobby] lazy val tube = Tube[Message](
-    reader = Json.reads[Message],
-    writer = Json.writes[Message],
+    (__.json update readDate('date)) andThen Json.reads[Message],
+    Json.writes[Message] andThen (__.json update writeDate('date)),
     flags = Seq(_.NoId))
 }
