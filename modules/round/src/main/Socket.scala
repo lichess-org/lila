@@ -116,7 +116,7 @@ private[round] final class Socket(
 
   def batch(member: Member, vevents: List[VersionedEvent]) {
     if (vevents.nonEmpty) {
-      member.channel push makeEvent("b", List(vevents map (_ jsFor member)))
+      member.channel push makeEvent("b", vevents map (_ jsFor member))
     }
   }
 
