@@ -26,5 +26,5 @@ object $update {
     }
 
   def field[ID: Writes, A: InColl, B: Writes](id: ID, name: String, value: B, upsert: Boolean = false): Funit =
-    apply($select(id), $set(name -> value))
+    apply($select(id), $set(name -> value), upsert = upsert)
 }
