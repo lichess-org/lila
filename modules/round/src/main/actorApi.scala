@@ -55,7 +55,6 @@ case class Join(
   color: Color,
   owner: Boolean)
 case class Connected(enumerator: JsEnumerator, member: Member)
-case class Events(events: List[Event])
 case class GameEvents(gameId: String, events: List[Event])
 case class GetGameVersion(gameId: String)
 case object GetVersion

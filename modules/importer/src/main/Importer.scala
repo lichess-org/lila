@@ -39,8 +39,8 @@ private[importer] final class Importer(
       _.fold(processing)(game ⇒ fuccess(game.some))
     }
 
-  private def finish(game: Game, result: Result): Fu[Unit] = result match {
-    case Result(Status.Draw, _)             ⇒ (finisher drawForce game).toOption zmap (_.void)
+  private def finish(game: Game, result: Result): Funit = result match {
+    case Result(Status.Draw, _)             ⇒ (finisher drawForce game).void
     case Result(Status.Resign, Some(color)) ⇒ (hand resign game.fullIdOf(!color)).void
     case _                                  ⇒ funit
   }
@@ -57,11 +57,10 @@ private[importer] final class Importer(
     origString = move.orig.toString,
     destString = move.dest.toString,
     promString = move.promotion map (_.forsyth.toString)
-  ) map (_.fold(
-      failure ⇒ {
-        logwarn("[importer] " + failure.shows)
+  ) inject true recover {
+      case e ⇒ {
+        logwarn("[importer] " + e.getMessage)
         false
-      },
-      _ ⇒ true
-    ))
+      }
+    }
 }

@@ -14,18 +14,18 @@ private[round] final class Meddler(
   def forceAbort(id: String) {
     $find.byId(id) foreach {
       _.fold(logwarn("Cannot abort missing game " + id)) { game ⇒
-        (finisher forceAbort game) fold (
-          err ⇒ logwarn(err.shows),
-          _ foreach { events ⇒ socketHub ! GameEvents(game.id, events) }
+        finisher forceAbort game fold (
+          e ⇒ logwarn(e.getMessage),
+          events ⇒ socketHub ! GameEvents(game.id, events)
         )
       }
     }
   }
 
   def resign(pov: Pov) {
-    (finisher resign pov).fold(
-      err ⇒ logwarn(err.shows),
-      _ foreach { events ⇒ socketHub ! GameEvents(pov.game.id, events) }
+    finisher resign pov fold (
+      e ⇒ logwarn(e.getMessage),
+      events ⇒ socketHub ! GameEvents(pov.game.id, events)
     )
   }
 
@@ -37,9 +37,9 @@ private[round] final class Meddler(
 
   def finishAbandoned(game: Game) {
     game.abandoned.fold(
-      finisher.resign(Pov(game, game.player))
-        .prefixFailuresWith("Finish abandoned game " + game.id)
-        .fold(err ⇒ logwarn(err.shows), _.void),
+      finisher.resign(Pov(game, game.player)) onFailure {
+        case e ⇒ logwarn("Finish abandoned game %s : ".format(game.id, e.getMessage))
+      },
       logwarn("Game is not abandoned")
     )
   }

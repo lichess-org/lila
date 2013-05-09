@@ -72,7 +72,7 @@ trait PackageObject
     math.max(in.start, math.min(v, in.end))
 }
 
-trait WithFuture extends Zeros {
+trait WithFuture extends Zeros with scalalib.Validation {
 
   import spray.util.pimps.PimpedFuture
 
@@ -81,7 +81,8 @@ trait WithFuture extends Zeros {
 
   def fuccess[A](a: A) = Future successful a
   def fufail[A <: Throwable, B](a: A): Fu[B] = Future failed a
-  def fufail[B](a: String): Fu[B] = Future failed (new RuntimeException(a))
+  def fufail[A](a: String): Fu[A] = fufail(common.LilaException(a))
+  def fufail[A](a: Failures): Fu[A] = fufail(common.LilaException(a))
   val funit = fuccess(())
 
   implicit def LilaFuZero[A: Zero]: Zero[Fu[A]] = zero(fuccess(∅[A]))
@@ -120,6 +121,13 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
     def void: Funit = fua map (_ ⇒ Unit)
 
     def inject[B](b: B): Fu[B] = fua map (_ ⇒ b)
+
+    def fold[B](fail: Throwable ⇒ Unit, succ: A ⇒ Unit) {
+      fua onComplete {
+        case scala.util.Failure(e) ⇒ fail(e)
+        case scala.util.Success(e) ⇒ succ(e)
+      }
+    }
   }
 
   implicit final class LilaPimpedFutureZero[A: Zero](fua: Fu[A]) {
@@ -131,7 +139,7 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
 
   implicit final class LilaPimpedBooleanForFuture(b: Boolean) {
 
-    def optionFu[A](v: ⇒ Fu[A]): Fu[Option[A]] = 
+    def optionFu[A](v: ⇒ Fu[A]): Fu[Option[A]] =
       if (b) v map (_.some) else fuccess(none)
   }
 

@@ -70,8 +70,8 @@ private[round] final class Socket(
       sender ! Connected(enumerator, member)
     }
 
-    case Events(Nil)           ⇒
-    case Events(events)        ⇒ notify(events)
+    case Nil           ⇒
+    case events: Events        ⇒ notify(events)
     case GameEvents(_, Nil)    ⇒
     case GameEvents(_, events) ⇒ notify(events)
 
@@ -106,7 +106,7 @@ private[round] final class Socket(
         }
       })
 
-  def notify(events: List[Event]) {
+  def notify(events: Events) {
     (events map { event ⇒
       history ? AddEvent(event) mapTo manifest[VersionedEvent]
     }).sequence foreach { vevents ⇒

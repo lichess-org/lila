@@ -24,13 +24,13 @@ private[setup] final class Rematcher(
 
   private type Result = (String, List[Event])
 
-  def offerOrAccept(fullId: String): Fu[Valid[Result]] = attempt(fullId, {
+  def offerOrAccept(fullId: String): Fu[Result] = attempt(fullId, {
     case pov @ Pov(game, color) if game playerCanRematch color ⇒
-      success(game.opponent(color).isOfferingRematch.fold(
-        game.next.fold(rematchJoin(pov))(rematchExists(pov)),
-        rematchCreate(pov)
-      ))
-    case _ ⇒ !!("invalid rematch offer " + fullId)
+    game.opponent(color).isOfferingRematch.fold(
+      game.next.fold(rematchJoin(pov))(rematchExists(pov)),
+      rematchCreate(pov)
+    )
+    case _ ⇒ fufail("invalid rematch offer " + fullId)
   })
 
   private def rematchExists(pov: Pov)(nextId: String): Fu[Result] =
