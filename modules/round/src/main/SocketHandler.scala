@@ -71,7 +71,7 @@ private[round] final class SocketHandler(
         txt) foreach { events ⇒ socket ! Events(events) }
     }
 
-  def joinWatcher(
+  def watcher(
     gameId: String,
     colorName: String,
     version: Int,
@@ -81,7 +81,7 @@ private[round] final class SocketHandler(
       _ zmap { join(_, false, version, uid, "", ctx) }
     }
 
-  def joinPlayer(
+  def player(
     fullId: String,
     version: Int,
     uid: String,

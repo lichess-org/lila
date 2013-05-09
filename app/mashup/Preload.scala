@@ -3,7 +3,7 @@ package mashup
 
 import lila.lobby.{ Fisherman, Hook, HookRepo, MessageRepo }
 import lila.timeline.Entry
-import lila.game.{ Game, Featured }
+import lila.game.{ Game, GameRepo, Featured }
 import lila.forum.PostLiteView
 import lila.socket.History
 import lila.tournament.Created
@@ -30,7 +30,7 @@ final class Preload(
     posts: Fu[List[PostLiteView]],
     tours: Fu[List[Created]],
     filter: Fu[FilterConfig]): Fu[Response] =
-    myHook.flatMap(_.gameId).fold(
+    myHook.flatMap(_.gameId).fold[Fu[Response]](
       auth.fold(HookRepo.allOpen, HookRepo.allOpenCasual) zip
         (chat ?? MessageRepo.recent) zip
         timeline zip posts zip tours zip featured.one zip filter map {
@@ -40,12 +40,12 @@ final class Preload(
             "chat" -> (messages.reverse map (_.render)),
             "timeline" -> (entries.reverse map (_.render)),
             "filter" -> filter.render
-          ), posts, tours, feat))): Response
+          ), posts, tours, feat)))
         }) { gameId ⇒
         GameRepo game gameId map { gameOption ⇒
           Left(gameOption.fold(routes.Lobby.home()) { game ⇒
             routes.Round.player(game fullIdOf game.creatorColor)
-          }): Response
+          })
         }
       }
 

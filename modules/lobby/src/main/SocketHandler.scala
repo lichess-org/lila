@@ -33,18 +33,19 @@ private[lobby] final class SocketHandler(socket: ActorRef, flood: Flood) {
     }
   }
 
-  def join(
+  def apply(
     uid: String,
     version: Int,
-    hook: Option[String])(ctx: Context): Fu[JsSocketHandler] = {
+    hook: Option[String],
+    user: Option[User]): Fu[JsSocketHandler] = {
     val join = Join(
       uid = uid,
-      userId = ctx.userId,
+      userId = user map (_.id),
       version = version,
       hookOwnerId = hook)
     Handler(socket, uid, join) {
       case Connected(enum, member) ⇒
-        controller(socket, uid, ctx.me, member) -> enum
+        controller(socket, uid, user, member) -> enum
     }
   }
 }

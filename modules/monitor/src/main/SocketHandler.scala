@@ -8,7 +8,7 @@ import lila.socket.actorApi.Connected
 
 private[monitor] final class SocketHandler(socket: ActorRef) {
 
-  def join(uid: String): Fu[JsSocketHandler] = {
+  def apply(uid: String): Fu[JsSocketHandler] = {
 
     def controller: Handler.Controller = {
       case _ ⇒

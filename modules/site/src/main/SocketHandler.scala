@@ -11,7 +11,7 @@ import lila.socket.actorApi.{ Connected, LiveGames }
 
 private[site] final class SocketHandler(socket: ActorRef) {
 
-  def join(
+  def apply(
     uid: String,
     userId: Option[String],
     flag: Option[String]): Fu[JsSocketHandler] = {

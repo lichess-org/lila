@@ -15,6 +15,8 @@ object MessageRepo {
   private val max = 30
 
   def recent: Fu[List[Message]] = $find recent max
+  
+  def all: Fu[List[Message]] = $find.all
 
   def nonEmpty: Fu[List[Message]] =
     $find.all map (_ filterNot (_.isEmpty))
