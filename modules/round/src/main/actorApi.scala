@@ -60,7 +60,7 @@ case class GetGameVersion(gameId: String)
 case object GetVersion
 case class GetEventsSince(version: Int)
 case class MaybeEvents(events: Option[List[VersionedEvent]])
-case class AddEvent(event: Event)
+case class AddEvents(events: List[Event])
 case object ClockSync
 case class IsConnectedOnGame(gameId: String, color: Color)
 case class IsGone(gameId: String, color: Color)

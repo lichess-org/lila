@@ -107,9 +107,7 @@ private[round] final class Socket(
       })
 
   def notify(events: Events) {
-    (events map { event ⇒
-      history ? AddEvent(event) mapTo manifest[VersionedEvent]
-    }).sequence foreach { vevents ⇒
+    history ? AddEvents(events) mapTo manifest[List[VersionedEvent]] foreach { vevents =>
       members.values foreach { m ⇒ batch(m, vevents) }
     }
   }
