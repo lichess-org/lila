@@ -10,7 +10,7 @@ import org.scala_tools.time.Imports._
 
 import chess.{ Mode }
 
-final class DataForm {
+private[gameSearch] final class DataForm {
 
   val search = Form(mapping(
     "players" -> mapping(
@@ -40,7 +40,7 @@ final class DataForm {
   )(SearchData.apply)(SearchData.unapply)) fill SearchData()
 }
 
-case class SearchData(
+private[gameSearch] case class SearchData(
     players: SearchPlayer = SearchPlayer(),
     variant: Option[Int] = None,
     mode: Option[Int] = None,
@@ -65,7 +65,7 @@ case class SearchData(
     winner = players.cleanWinner,
     variant = variant,
     rated = mode flatMap Mode.apply map (_.rated),
-    opening = opening map clean,
+    opening = opening map (_.trim.toLowerCase),
     turns = Range(turnsMin, turnsMax),
     averageElo = Range(eloMin, eloMax),
     hasAi = hasAi map (_ == 1),
@@ -76,7 +76,7 @@ case class SearchData(
     sorting = Sorting(sort.field, sort.order)
   )
 
-  private def clean(s: String) = s.trim.toLowerCase
+  def nonEmptyQuery = query.nonEmpty option query
 
   private val DateDelta = """^(\d+)(\w)$""".r
   private def toDate(delta: String): Option[DateTime] = delta match {
@@ -89,7 +89,7 @@ case class SearchData(
   }
 }
 
-case class SearchPlayer(
+private[gameSearch] case class SearchPlayer(
     a: Option[String] = None,
     b: Option[String] = None,
     winner: Option[String] = None) {
@@ -104,6 +104,6 @@ case class SearchPlayer(
     s map (_.trim.toLowerCase) filter (_.nonEmpty)
 }
 
-case class SearchSort(
+private[gameSearch] case class SearchSort(
   field: String = Sorting.default.field,
   order: String = Sorting.default.order)

@@ -9,7 +9,7 @@ import org.elasticsearch.index.query._, FilterBuilders._, QueryBuilders._
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 
-private[gameSearch] case class Query(
+case class Query(
     user1: Option[String] = None,
     user2: Option[String] = None,
     winner: Option[String] = None,

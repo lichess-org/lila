@@ -25,7 +25,7 @@ final class Env(
     lowLevel = lowLevelIndexer
   )), name = IndexerName)
 
-  lazy val paginatorBuilder = new lila.search.PaginatorBuilder(
+  lazy val paginator = new lila.search.PaginatorBuilder(
     indexer = lowLevelIndexer,
     maxPerPage = PaginatorMaxPerPage,
     converter = responseToGames _)
@@ -59,27 +59,35 @@ final class Env(
     import lila.db.api._
     import lila.db.Implicits.LilaPimpedQueryBuilder
     val selector = DbQuery.frozen ++ sel
-    val query = $query(selector).sort(DbQuery.sortCreated) //limit 3000
+    val query = $query(selector) sort DbQuery.sortCreated 
     val size = $count(selector).await
+    val batchSize = 1000
     var nb = 0
-    $enumerate.bulk[Option[GameModel]](query, 5000) { gameOptions ⇒
+    var nbSkipped = 0
+    var started = nowMillis
+    $enumerate.bulk[Option[GameModel]](query, batchSize) { gameOptions ⇒
       val games = gameOptions.flatten
-      nb = nb + games.size
-      if (size > 1000) loginfo("Index %d of %d games".format(nb, size))
+      val nbGames = games.size
+      nb = nb + nbGames
       PgnRepo.associate(games.map(_.id).toSeq) map { pgns ⇒
         val pairs = (pgns map {
           case (id, pgn) ⇒ games.find(_.id == id) map (_ -> pgn)
         }).flatten
-        esIndexer bulk {
-          pairs map {
+        esIndexer bulk_send {
+          (pairs map {
             case (game, pgn) ⇒ esIndexer.index_prepare(
               IndexName,
               TypeName,
               game.id,
               Json stringify Game.from(game, pgn)
             ).request
-          } toList
+          })
         }
+        nbSkipped = nbSkipped + nbGames - pairs.size
+        val perMs = batchSize / (nowMillis - started)
+        started = nowMillis
+        loginfo("[game search] Indexed %d of %d, skipped %d, at %d/s".format(
+          nb, size, nbSkipped, math.round(perMs * 1000)))
       }
     }
   }
