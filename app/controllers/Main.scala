@@ -15,10 +15,9 @@ import akka.pattern.ask
 object Main extends LilaController {
 
   def websocket = Socket { implicit ctx ⇒
-    uid ⇒
-      Env.site.socketHandler(
-        uid = uid, userId = ctx.userId, flag = get("flag")
-      )
+    get("sri") zmap { uid ⇒
+      Env.site.socketHandler(uid, ctx.userId, get("flag"))
+    }
   }
 
   def captchaCheck(id: String) = Open { implicit ctx ⇒

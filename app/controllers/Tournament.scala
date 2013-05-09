@@ -163,8 +163,7 @@ object Tournament extends LilaController {
   //     }
   // }
 
-  // def websocket(id: String) = WebSocket.async[JsValue] { req ⇒
-  //   implicit val ctx = reqToCtx(req)
+  // def websocket(id: String) = Socket[JsValue] { implicit ctx ⇒
   //   socket.join(id, getInt("version"), get("sri"), ctx.me).unsafePerformIO
   // }
 
