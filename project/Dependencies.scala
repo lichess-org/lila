@@ -3,29 +3,29 @@ import Keys._
 
 object Dependencies {
 
-  private val home = "file://"+Path.userHome.absolutePath
+  private val home = "file://" + Path.userHome.absolutePath
 
   object Resolvers {
-    // val codahale = "repo.codahale.com" at "http://repo.codahale.com/"
     val typesafe = "typesafe.com" at "http://repo.typesafe.com/typesafe/releases/"
     val iliaz = "iliaz.com" at "http://scala.iliaz.com/"
     val sonatype = "sonatype" at "http://oss.sonatype.org/content/repositories/releases"
     val sonatypeS = "sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots"
     val t2v = "t2v.jp repo" at "http://www.t2v.jp/maven-repo/"
-    // val guice = "guice-maven" at "http://guice-maven.googlecode.com/svn/trunk"
     val jgitMaven = "jgit-maven" at "http://download.eclipse.org/jgit/maven"
     val christophs = "Christophs Maven Repo" at "http://maven.henkelmann.eu/"
     val sgodbillon = "sgodbillon" at "https://bitbucket.org/sgodbillon/repository/raw/master/snapshots/"
     val awesomepom = "awesomepom" at "https://raw.github.com/jibs/maven-repo-scala/master"
     val sprayRepo = "spray repo" at "http://repo.spray.io"
-    val local = "local repo" at home+"/local-repo/sonatype/snapshots"
+    val localSonatype = "local sonatype repo" at home + "/local-repo/sonatype/snapshots"
+    val local = "local repo" at home + "/local-repo"
 
     val commons = Seq(
       local,
-      sonatypeS, 
+      localSonatype,
+      sonatypeS,
       sonatype,
-      awesomepom, iliaz, 
-      typesafe, 
+      awesomepom, iliaz,
+      typesafe,
       t2v, jgitMaven, christophs, sprayRepo)
   }
 
@@ -42,11 +42,11 @@ object Dependencies {
   val actuarius = "eu.henkelmann" %% "actuarius" % "0.2.6-THIB"
   val jodaTime = "joda-time" % "joda-time" % "2.2"
   val jodaConvert = "org.joda" % "joda-convert" % "1.3.1"
-  val scalastic = "scalastic" % "scalastic_2.9.2" % "0.20.5"
+  val scalastic = "scalastic" %% "scalastic" % "0.90.0-thib"
   val reactivemongo = "org.reactivemongo" %% "reactivemongo" % "0.9"
   val playReactivemongo = "org.reactivemongo" %% "play2-reactivemongo" % "0.9"
-  val playApi = "play" %% "play" % "2.1.1" 
-  val playTest = "play" %% "play-test" % "2.1.1" 
+  val playApi = "play" %% "play" % "2.1.1"
+  val playTest = "play" %% "play-test" % "2.1.1"
   object spray {
     val caching = "io.spray" % "spray-caching" % "1.1-M7"
     val util = "io.spray" % "spray-util" % "1.1-M7"

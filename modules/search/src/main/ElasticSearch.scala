@@ -68,7 +68,7 @@ object ElasticSearch {
           filter = filter,
           searchType = SearchType.COUNT.some
         )
-      }.hits.totalHits.toInt
+      }.getHits.totalHits.toInt
     }
 
     def decomposeTextQuery(text: String): List[String] = 
