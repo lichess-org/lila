@@ -18,7 +18,7 @@ object Monitor extends LilaController {
   }
 
   def websocket = WebSocket.async[JsValue] { implicit req ⇒
-    get("sri", req) zmap env.socketHandler.join
+    get("sri", req) zmap env.socketHandler.apply
   }
 
   def status = Open { implicit ctx ⇒

@@ -25,23 +25,17 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
 
   def websocketWatcher(gameId: String, color: String) = WebSocket.async[JsValue] { req ⇒
     reqToCtx(req) flatMap { implicit ctx ⇒
-      env.socketHandler.joinWatcher(
-        gameId,
-        color,
-        ~getInt("version"),
-        ~get("sri"),
-        ctx)
+      (get("sri") |@| getInt("version")).tupled zmap {
+        case (uid, version) ⇒ env.socketHandler.watcher(gameId, color, version, uid, ctx)
+      }
     }
   }
 
   def websocketPlayer(fullId: String) = WebSocket.async[JsValue] { req ⇒
     reqToCtx(req) flatMap { implicit ctx ⇒
-      env.socketHandler.joinPlayer(
-        fullId,
-        ~getInt("version"),
-        ~get("sri"),
-        ~get("tk2"),
-        ctx)
+      (get("sri") |@| getInt("version") |@| get("token")).tupled zmap {
+        case (uid, version, token) ⇒ env.socketHandler.player(fullId, version, uid, token, ctx)
+      }
     }
   }
 

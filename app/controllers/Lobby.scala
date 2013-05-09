@@ -3,7 +3,7 @@ package controllers
 import lila.app._
 import lila.user.Context
 import lila.common.LilaCookie
-import lila.lobby.{ Hook, HookRepo }
+import lila.lobby.{ Hook, HookRepo, MessageRepo }
 import lila.tournament.Created
 import views._
 
@@ -36,7 +36,7 @@ object Lobby extends LilaController with Results {
       timeline = Env.timeline.recent,
       posts = Env.forum.recent(ctx.me, Env.team.cached.teamIds.apply),
       tours = openTours,
-      filter = Env.setup.filter 
+      filter = Env.setup.filter
     ).map(_.fold(Redirect(_), {
         case (preload, posts, tours, featured) ⇒ status(html.lobby.home(
           Json stringify preload,
@@ -52,18 +52,19 @@ object Lobby extends LilaController with Results {
       }))
 
   def socket = WebSocket.async[JsValue] { implicit req ⇒
-    reqToCtx(req) flatMap { ctx ⇒
-      Env.lobby.socketHandler.join(
-        uidOption = get("sri"),
-        username = ctx.me map (_.username),
-        versionOption = getInt("version"),
-        hook = get("hook")
-      )
+    reqToCtx(req) flatMap { implicit ctx ⇒
+      (get("sri") |@| getInt("version")).tupled zmap {
+        case (uid, version) ⇒ Env.lobby.socketHandler(
+          uid = uid,
+          user = ctx.me,
+          version = version,
+          hook = get("hook"))
+      }
     }
   }
 
   def hook(ownerId: String) = Open { implicit ctx ⇒
-    HookRepo.ownedHook(ownerId) map {
+    HookRepo.ownedHook(ownerId) flatMap {
       _.fold(Redirect(routes.Lobby.home).fuccess) { hook ⇒
         renderHome(hook.some, Ok)
       }
@@ -82,7 +83,7 @@ object Lobby extends LilaController with Results {
   }
 
   def cancel(ownerId: String) = Open { implicit ctx ⇒
-    HookRepo ownedHook ownerId flatMap { 
+    HookRepo ownedHook ownerId flatMap {
       _ zmap Env.lobby.fisherman.delete inject Redirect(routes.Lobby.home)
     }
   }
