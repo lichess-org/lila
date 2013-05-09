@@ -69,14 +69,7 @@ final class Env(
     scheduler.effect(5.seconds, "") { featured.one }
   }
 
-  def cli = new lila.common.Cli {
-    def process = {
-      case "game" :: "per" :: "day" :: days ⇒
-        GameRepo nbPerDay {
-          (days.headOption flatMap parseIntOption) | 30
-        } map (_ mkString " ")
-    }
-  }
+  def cli = new Cli
 
   private lazy val titivate = new Titivate(
     bookmark = hub.actor.bookmark)
