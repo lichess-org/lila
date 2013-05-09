@@ -14,7 +14,7 @@ private[round] final class Meddler(
   def forceAbort(id: String) {
     $find.byId(id) foreach {
       _.fold(logwarn("Cannot abort missing game " + id)) { game ⇒
-        finisher forceAbort game fold (
+        finisher forceAbort game effectFold (
           e ⇒ logwarn(e.getMessage),
           events ⇒ socketHub ! GameEvents(game.id, events)
         )
@@ -23,7 +23,7 @@ private[round] final class Meddler(
   }
 
   def resign(pov: Pov) {
-    finisher resign pov fold (
+    finisher resign pov effectFold (
       e ⇒ logwarn(e.getMessage),
       events ⇒ socketHub ! GameEvents(pov.game.id, events)
     )

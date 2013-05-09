@@ -38,7 +38,7 @@ private[round] final class SocketHandler(
       case ("move", o) ⇒ parseMove(o) foreach {
         case (orig, dest, prom, blur, lag) ⇒ {
           socket ! Ack(uid)
-          hand.play(povRef, orig, dest, prom, blur, lag) fold (
+          hand.play(povRef, orig, dest, prom, blur, lag) effectFold (
             e ⇒ {
               logwarn("[round socket] " + e.getMessage)
               socket ! Resync(uid)

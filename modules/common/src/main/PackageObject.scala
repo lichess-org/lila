@@ -122,12 +122,18 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
 
     def inject[B](b: B): Fu[B] = fua map (_ ⇒ b)
 
-    def fold[B](fail: Throwable ⇒ Unit, succ: A ⇒ Unit) {
+    def effectFold(fail: Throwable ⇒ Unit, succ: A ⇒ Unit) {
       fua onComplete {
         case scala.util.Failure(e) ⇒ fail(e)
         case scala.util.Success(e) ⇒ succ(e)
       }
     }
+
+    def fold[B](fail: Throwable ⇒ B, succ: A ⇒ B): Fu[B] =
+      fua map succ recover { case e ⇒ fail(e) }
+
+    def flatFold[B](fail: Throwable ⇒ Fu[B], succ: A ⇒ Fu[B]): Fu[B] =
+      fua flatMap succ recoverWith { case e ⇒ fail(e) }
   }
 
   implicit final class LilaPimpedFutureZero[A: Zero](fua: Fu[A]) {

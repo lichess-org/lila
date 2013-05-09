@@ -18,7 +18,7 @@ trait RoundEventPerformer {
     }
 
   protected def perform(fullId: String, op: String ⇒ FuEvents) {
-    op(fullId) fold (
+    op(fullId) effectFold (
       err ⇒ logwarn("[round] fail to perform on game %s\n%s".format(fullId, err)),
       performEvents(fullId)
     )
