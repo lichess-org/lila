@@ -16,27 +16,25 @@ private[importer] final class Importer(
     bookmark: ActorRef,
     delay: Duration) {
 
-  def apply(data: ImportData, user: Option[String]): Fu[Option[Game]] =
-    gameExists(data.pgn) {
-      data preprocess user match {
-        case scalaz.Success(Preprocessed(game, moves, result)) ⇒ for {
+  def apply(data: ImportData, user: Option[String]): Fu[Game] = gameExists(data.pgn) {
+    (data preprocess user).fold[Fu[Game]](fufail(_), {
+        case Preprocessed(game, moves, result) ⇒ for {
           _ ← $insert(game) >>
             (GameRepo denormalize game) >>
             applyMoves(game.id, moves)
           dbGame ← $find.byId[Game](game.id)
-          _ ← ~((result |@| dbGame) apply {
-            case (res, dbg) ⇒ finish(dbg, res)
+          _ ← ~((dbGame |@| result) apply {
+            case (dbg, res) ⇒ finish(dbg, res)
           }) >>- ~((dbGame |@| user) apply {
             case (dbg, u) ⇒ bookmark ! (dbg.id -> u)
           })
-        } yield game.some
-        case _ ⇒ fuccess(none)
-      }
-    }
+        } yield game
+      })
+  }
 
-  private def gameExists(pgn: String)(processing: ⇒ Fu[Option[Game]]): Fu[Option[Game]] =
+  private def gameExists(pgn: String)(processing: ⇒ Fu[Game]): Fu[Game] =
     $find.one(lila.game.Query pgnImport pgn) flatMap {
-      _.fold(processing)(game ⇒ fuccess(game.some))
+      _.fold(processing)(game ⇒ fuccess(game))
     }
 
   private def finish(game: Game, result: Result): Funit = result match {

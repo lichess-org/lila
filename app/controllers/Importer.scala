@@ -5,28 +5,28 @@ import views._
 
 object Importer extends LilaController with BaseGame {
 
-  // private def forms = env.importer.forms
-  // private def importer = env.importer.importer
+  private def env = Env.importer
 
-  def importGame = TODO
-  // Open { implicit ctx ⇒
-  //   Ok(html.game.importGame(makeListMenu, forms.importForm))
-  // }
+  def importGame = Open { implicit ctx ⇒
+    makeListMenu map { listMenu ⇒
+      Ok(html.game.importGame(listMenu, env.forms.importForm))
+    }
+  }
 
-  def sendGame = TODO 
-  // OpenBody { implicit ctx ⇒
-  //   Async {
-  //     implicit def req = ctx.body
-  //     forms.importForm.bindFromRequest.fold(
-  //       failure ⇒ Akka.future {
-  //         Ok(html.game.importGame(makeListMenu, failure))
-  //       },
-  //       data ⇒ (importer(data, ctx.userId) map {
-  //         _.fold(Redirect(routes.Importer.importGame)) { game =>
-  //           Redirect(routes.Analyse.replay(game.id, "white"))
-  //         }
-  //       })
-  //     )
-  //   }
-  // }
+  def sendGame = OpenBody { implicit ctx ⇒
+    implicit def req = ctx.body
+    env.forms.importForm.bindFromRequest.fold(
+      failure ⇒ makeListMenu map { listMenu ⇒
+        Ok(html.game.importGame(listMenu, failure))
+      },
+      data ⇒ env.importer(data, ctx.userId) map { game ⇒
+        Redirect(routes.Analyse.replay(game.id, "white"))
+      } recover {
+        case e ⇒ {
+          logwarn(e.getMessage)
+          Redirect(routes.Importer.importGame)
+        }
+      }
+    )
+  }
 }
