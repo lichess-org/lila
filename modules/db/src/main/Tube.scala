@@ -1,6 +1,7 @@
 package lila.db
 
 import Types.Coll
+import lila.common.LilaException
 
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
@@ -81,15 +82,12 @@ object Tube {
   object Helpers {
 
     // Adds Writes[A].andThen combinator, symmetric to Reads[A].andThen
-    // Defaults to original value on fail
+    // Explodes on failure
     implicit final class LilaTubePimpedWrites[A](writes: Writes[A]) {
       def andThen(transformer: Reads[JsObject]): Writes[A] =
         writes.transform(Writes[JsValue] { origin ⇒
           origin transform transformer match {
-            case err: JsError ⇒ {
-              logerr("[tube] Cannot transform %s\n%s".format(origin, err))
-              origin
-            }
+            case err: JsError ⇒ throw LilaException("[tube] Cannot transform %s\n%s".format(origin, err))
             case JsSuccess(js, _) ⇒ js
           }
         })
@@ -107,6 +105,10 @@ object Tube {
     def writeDate(field: Symbol) = (__ \ field).json.update(of[JsNumber] map {
       millis ⇒ Json.obj("$date" -> millis)
     })
+
+    def writeDateOpt(field: Symbol) = (__ \ field).json.update(of[JsNumber] map {
+      millis ⇒ Json.obj("$date" -> millis)
+    }) orElse json.reader
 
     def merge(obj: JsObject) = __.read[JsObject] map (obj ++)
   }
