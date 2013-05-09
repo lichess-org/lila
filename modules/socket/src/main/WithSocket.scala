@@ -12,7 +12,6 @@ trait WithSocket extends Zeros {
   type JsSocketHandler = (Iteratee[JsValue, _], JsEnumerator)
 
   implicit val LilaJsSocketHandlerZero = new Zero[JsSocketHandler] {
-
-    val zero: JsSocketHandler = Handler errorHandler "default error handler used"
+    val zero = Handler errorHandler "default error handler used"
   }
 }
