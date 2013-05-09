@@ -35,7 +35,7 @@ object Game extends LilaController with BaseGame {
   def bookmark(page: Int) = Auth { implicit ctx ⇒
     me ⇒
       Reasonable(page) {
-        bookmarkApi.gamePaginatorByUser(me, page) zip makeListMenu map {
+        Env.bookmark.api.gamePaginatorByUser(me, page) zip makeListMenu map {
           case (pag, menu) ⇒ html.game.bookmarked(pag, menu)
         }
       }
