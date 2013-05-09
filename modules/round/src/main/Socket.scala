@@ -139,9 +139,7 @@ private[round] final class Socket(
   def ownerOf(uid: String): Option[Member] =
     members get uid filter (_.owner)
 
-  def playerTime(color: Color): Double = color.fold(
-    whiteTime,
-    blackTime)
+  def playerTime(color: Color): Double = color.fold(whiteTime, blackTime)
 
   def playerTime(color: Color, time: Double) {
     color.fold(whiteTime = time, blackTime = time)

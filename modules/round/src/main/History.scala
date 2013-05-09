@@ -24,8 +24,8 @@ private[round] final class History(ttl: Duration) extends Actor {
       else ((v + 1 to version).toList map get).flatten.some
     )
 
-    case AddEvents(events) ⇒ sender ! {
-      events map { e ⇒
+    case AddEvents(xs) ⇒ sender ! {
+      xs map { e ⇒
         version = version + 1
         VersionedEvent(
           version = version,

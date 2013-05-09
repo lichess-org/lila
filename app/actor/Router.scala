@@ -8,6 +8,7 @@ import controllers.{ routes ⇒ R }
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 
+// returns String urls, not Call objects
 private[app] final class Router(
   baseUrl: String,
   protocol: String,
@@ -25,9 +26,9 @@ private[app] final class Router(
       case route: String ⇒ noLangBaseUrl + route
     } pipeTo sender
 
-    case TeamShow(id)   ⇒ sender ! R.Team.show(id)
+    case TeamShow(id)   ⇒ sender ! R.Team.show(id).url
 
-    case Player(fullId) ⇒ sender ! R.Round.player(fullId)
+    case Player(fullId) ⇒ sender ! R.Round.player(fullId).url
   }
 
   private lazy val noLangBaseUrl = protocol + I18nDomain(domain).commonDomain
