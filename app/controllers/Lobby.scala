@@ -51,15 +51,13 @@ object Lobby extends LilaController with Results {
         }
       }))
 
-  def socket = WebSocket.async[JsValue] { implicit req ⇒
-    reqToCtx(req) flatMap { implicit ctx ⇒
-      (get("sri") |@| getInt("version")).tupled zmap {
-        case (uid, version) ⇒ Env.lobby.socketHandler(
-          uid = uid,
-          user = ctx.me,
-          version = version,
-          hook = get("hook"))
-      }
+  def socket = Socket[JsValue] { implicit ctx ⇒
+    (get("sri") |@| getInt("version")).tupled zmap {
+      case (uid, version) ⇒ Env.lobby.socketHandler(
+        uid = uid,
+        user = ctx.me,
+        version = version,
+        hook = get("hook"))
     }
   }
 

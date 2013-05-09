@@ -7,6 +7,8 @@ import lila.security.{ Permission, Granter }
 
 import scalaz.Zero
 import play.api.mvc._, Results._
+import play.api.mvc.WebSocket.FrameFormatter
+import play.api.libs.iteratee.{ Iteratee, Enumerator }
 import play.api.data.Form
 import play.api.templates.Html
 import play.api.http._
@@ -40,6 +42,9 @@ private[controllers] trait LilaController
   override implicit def lang(implicit req: RequestHeader) =
     Env.i18n.pool lang req
 
+  protected def Socket[A: FrameFormatter](f: Context ⇒ Fu[(Iteratee[A, _], Enumerator[A])]) =
+    WebSocket.async[A] { req ⇒ reqToCtx(req) flatMap f }
+
   protected def Open(f: Context ⇒ Fu[Result]): Action[AnyContent] =
     Open(BodyParsers.parse.anyContent)(f)
 
@@ -51,13 +56,6 @@ private[controllers] trait LilaController
 
   protected def OpenBody[A](p: BodyParser[A])(f: BodyContext ⇒ Fu[Result]): Action[A] =
     Action(p)(req ⇒ Async(reqToCtx(req) flatMap f))
-
-  def Socket(fn: Context ⇒ String ⇒ Fu[JsSocketHandler]) =
-    WebSocket.async[JsValue] { req ⇒
-      reqToCtx(req) flatMap { ctx ⇒
-        get("sri")(ctx) zmap { fn(ctx)(_) }
-      }
-    }
 
   protected def Auth(f: Context ⇒ UserModel ⇒ Fu[Result]): Action[AnyContent] =
     Auth(BodyParsers.parse.anyContent)(f)
@@ -125,7 +123,7 @@ private[controllers] trait LilaController
       form ⇒ fuccess(BadRequest(form.errors mkString "\n")),
       op)
 
-  protected def FormFuResult[A, B : Writeable : ContentTypeOf](form: Form[A])(err: Form[A] ⇒ Fu[B])(op: A ⇒ Fu[Result])(implicit req: Request[_]) =
+  protected def FormFuResult[A, B: Writeable: ContentTypeOf](form: Form[A])(err: Form[A] ⇒ Fu[B])(op: A ⇒ Fu[Result])(implicit req: Request[_]) =
     form.bindFromRequest.fold(
       form ⇒ err(form) map { BadRequest(_) },
       data ⇒ op(data)
