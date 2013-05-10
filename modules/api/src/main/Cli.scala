@@ -23,5 +23,6 @@ private[api] final class Cli(env: Env) {
       lila.gameSearch.Env.current.cli.process orElse
       lila.teamSearch.Env.current.cli.process orElse
       lila.forum.Env.current.cli.process orElse
-      lila.forumSearch.Env.current.cli.process
+      lila.forumSearch.Env.current.cli.process orElse
+      lila.message.Env.current.cli.process
 }
