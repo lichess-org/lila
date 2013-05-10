@@ -24,5 +24,5 @@ private[lobby] final class Messenger(val netDomain: String) extends Room {
 
   def mute(username: String): Funit = MessageRepo censorUsername username
 
-  def remove = MessageRepo.removeRegex _
+  def remove = MessageRepo removeRegex _
 }

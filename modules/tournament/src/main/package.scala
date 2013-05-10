@@ -1,8 +1,9 @@
 package lila
 
+import lila.socket.WithSocket
 import lila.db.{ Tube, InColl }
 
-package object tournament extends PackageObject with WithPlay {
+package object tournament extends PackageObject with WithPlay with WithSocket{
 
   object tube {
 
@@ -11,9 +12,9 @@ package object tournament extends PackageObject with WithPlay {
     private[tournament] implicit lazy val roomTube = Room.tube inColl Env.current.roomColl
   }
 
-  private[tournament]type Pairings = List[tournament.Pairing]
+  private[tournament] type Pairings = List[tournament.Pairing]
 
-  private[tournament]type Players = List[tournament.Player]
+  private[tournament] type Players = List[tournament.Player]
 
   private[tournament] object RandomName {
 

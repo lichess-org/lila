@@ -1,16 +1,15 @@
-package lila.app
-package tournament
+package lila.tournament
+package actorApi
 
-import socket.SocketMember
-import user.User
-import game.DbGame
+import lila.socket.SocketMember
+import lila.user.User
+import lila.game.Game
 
 import akka.actor.ActorRef
-import scalaz.effects.IO
 
 case class Member(
     channel: JsChannel,
-    username: Option[String],
+    userId: Option[String],
     muted: Boolean) extends SocketMember {
 
   def canChat = !muted
@@ -19,8 +18,8 @@ case class Member(
 object Member {
   def apply(channel: JsChannel, user: Option[User]): Member = Member(
     channel = channel,
-    username = user map (_.username),
-    muted = ~user.map(_.muted))
+    userId = user map (_.id),
+    muted = user.zmap(_.muted))
 }
 
 case class Join(
@@ -37,7 +36,7 @@ case object Start
 case object Reload
 case object ReloadPage
 case object HubTimeout
-case class StartGame(game: DbGame)
+case class StartGame(game: Game)
 case class Joining(userId: String)
 
 // organizer
