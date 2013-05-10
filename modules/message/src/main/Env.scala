@@ -32,7 +32,14 @@ final class Env(
     }
   }), name = ActorName)
 
-  def cli = new Cli(this)
+  def cli = new lila.common.Cli {
+    import lila.db.api.$find
+    import tube.threadTube
+    def process = {
+      case "message" :: "typecheck" :: Nil ⇒
+        $find.all[Thread] inject "Messages type checked"
+    }
+  }
 }
 
 object Env {
