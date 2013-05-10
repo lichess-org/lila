@@ -27,13 +27,13 @@ Configuration
 cp conf/application.conf.dist conf/application.conf
 ```
 
-`conf/local.conf` extends `conf/base.conf` and can override any value.
-Note that `conf/local.conf` is excluded from git index.
+`application.conf` extends `base.conf` and can override any value.
+Note that `application.conf` is excluded from git index.
 
 Run it
 ------
 
-Launch the play console using your local configuration:
+Launch the play console:
 
 ```sh
 bin/play
@@ -41,5 +41,3 @@ bin/play
 
 From here you can now run the application (`run`). 
 Open your web browser at `localhost:9000`.
-
-To run the test, use `test`.
