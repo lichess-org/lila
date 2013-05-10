@@ -7,14 +7,14 @@ import lila.db.api._
 
 private[lobby] final class Messenger(val netDomain: String) extends Room {
 
-  def apply(userId: String, text: String): Fu[Valid[Message]] = for {
+  def apply(userId: String, text: String): Fu[Message] = for {
     userOption ← $find.byId[User](userId)
-    message = for {
+    message ← (for {
       user ← userOption filter (_.canChat) toValid "This user cannot chat"
       msg ← createMessage(user, text)
       (u, t) = msg
-    } yield Message.make(u, text)
-    _ ← message.toOption.zmap($insert.apply[Message])
+    } yield Message.make(u, text)).future
+    _ ← $insert(message)
   } yield message
 
   def system(text: String): Fu[Message] =

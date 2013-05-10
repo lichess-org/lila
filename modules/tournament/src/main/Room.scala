@@ -14,9 +14,9 @@ object Room {
     Json.reads[Room], 
     Json.writes[Room])
 
-  case class Message(author: Option[String], text: String) 
+  case class Message(userId: Option[String], text: String) 
 
-  def encode(msg: Message): String = (msg.author | "_") + " " + msg.text
+  def encode(msg: Message): String = (msg.userId | "_") + " " + msg.text
 
   def decode(encoded: String): Message = encoded.takeWhile(' ' !=) match {
     case "_"  ⇒ Message(none, encoded.drop(2))
