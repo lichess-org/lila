@@ -23,6 +23,14 @@ final class Featured(
 
   private val actor = system.actorOf(Props(new Actor {
 
+    override def preStart {
+      println("SSSSSSSSSSSSSSSSSSSSSSSTTTTTTAAART")
+    }
+
+    override def postStop {
+      println("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSTOP!")
+    }
+
     private var oneId = none[String]
 
     def receive = {

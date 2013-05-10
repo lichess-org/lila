@@ -40,7 +40,7 @@ object Handler {
     (socket ? join map connecter map {
       case (controller, enum) ⇒ iteratee(controller) -> enum
     }) recover {
-      case t: Throwable ⇒ errorHandler(t.getMessage)
+      case t: Exception ⇒ errorHandler(t.getMessage)
     }
   }
 

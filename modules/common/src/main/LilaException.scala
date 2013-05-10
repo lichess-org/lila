@@ -2,7 +2,7 @@ package lila.common
 
 import ornicar.scalalib
 
-trait LilaException extends Throwable {
+trait LilaException extends Exception {
   val message: String
 
   override def getMessage: String = "LilaError['" + message + "']"
