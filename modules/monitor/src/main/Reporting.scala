@@ -1,7 +1,7 @@
 package lila.monitor
 
 import actorApi._
-import lila.socket.actorApi.{ GetNbMembers, GetNbHubs }
+import lila.socket.actorApi.{ GetNbMembers, GetNbSockets }
 import lila.hub.actorApi.monitor._
 
 import akka.actor._
@@ -67,7 +67,7 @@ private[monitor] final class Reporting(
         (hub.actor.ai ? lila.hub.actorApi.ai.Ping).mapTo[Option[Int]] zip
         List((hub.socket.site ? GetNbMembers),
           (hub.socket.lobby ? GetNbMembers),
-          (hub.socket.round ? GetNbHubs),
+          (hub.socket.round ? GetNbSockets),
           (hub.socket.round ? GetNbMembers),
           (hub.actor.game ? lila.hub.actorApi.game.Count)
         ).map(_.mapTo[Int]).sequence onComplete {

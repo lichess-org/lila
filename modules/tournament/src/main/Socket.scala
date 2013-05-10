@@ -5,8 +5,8 @@ import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import lila.memo.ExpireSetMemo
 import actorApi._
 
+import scala.concurrent.duration.Duration
 import akka.actor._
-import scala.concurrent.duration._
 import play.api.libs.iteratee._
 import play.api.libs.json._
 
@@ -16,7 +16,7 @@ private[tournament] final class Socket(
     messenger: Messenger,
     getUsername: String ⇒ Fu[Option[String]],
     uidTimeout: Duration,
-    hubTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member] {
+    socketTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member] {
 
   val joiningMemo = new ExpireSetMemo(uidTimeout)
 
@@ -50,7 +50,7 @@ private[tournament] final class Socket(
 
     case Broom ⇒ {
       broom()
-      if (lastPingTime < (nowMillis - hubTimeout.toMillis)) {
+      if (lastPingTime < (nowMillis - socketTimeout.toMillis)) {
         context.parent ! CloseTournament(tournamentId)
       }
     }

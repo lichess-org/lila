@@ -30,7 +30,6 @@ case class Talk(u: String, txt: String)
 case class GetTournamentVersion(tournamentId: String)
 case class CloseTournament(tournamentId: String)
 case object GetTournamentIds
-case class GetHub(tournamentId: String)
 case class Forward(tournamentId: String, msg: Any)
 case object Start
 case object Reload
@@ -47,5 +46,5 @@ case object StartedTournaments
 case class StartedTournament(tour: Started)
 case object StartPairings
 case class StartPairing(tour: Started)
-case class GetTournamentUsernames(tournamentId: String)
+case class GetTournamentUserIds(tournamentId: String)
 case class RemindTournaments(tours: List[Started])
