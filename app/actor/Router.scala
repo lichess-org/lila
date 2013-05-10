@@ -10,25 +10,27 @@ import akka.pattern.{ ask, pipe }
 
 // returns String urls, not Call objects
 private[app] final class Router(
-  baseUrl: String,
-  protocol: String,
-  domain: String) extends Actor {
+    baseUrl: String,
+    protocol: String,
+    domain: String) extends Actor {
 
   import makeTimeout.large
 
   def receive = {
 
-    case Abs(route) ⇒ self ? route map { 
+    case Abs(route) ⇒ self ? route map {
       case route: String ⇒ baseUrl + route
     } pipeTo sender
 
-    case Nolang(route) ⇒ self ? route map { 
+    case Nolang(route) ⇒ self ? route map {
       case route: String ⇒ noLangBaseUrl + route
     } pipeTo sender
 
-    case TeamShow(id)   ⇒ sender ! R.Team.show(id).url
-
-    case Player(fullId) ⇒ sender ! R.Round.player(fullId).url
+    case TeamShow(id)           ⇒ sender ! R.Team.show(id).url
+    case Player(fullId)         ⇒ sender ! R.Round.player(fullId).url
+    case Watcher(gameId, color) ⇒ sender ! R.Round.watcher(gameId, color).url
+    case Replay(gameId, color)  ⇒ sender ! R.Analyse.replay(gameId, color).url
+    case Pgn(gameId)            ⇒ sender ! R.Analyse.pgn(gameId)
   }
 
   private lazy val noLangBaseUrl = protocol + I18nDomain(domain).commonDomain

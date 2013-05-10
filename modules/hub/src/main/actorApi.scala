@@ -41,6 +41,9 @@ package router {
   case class Nolang(route: Any)
   case class TeamShow(id: String)
   case class Player(fullId: String)
+  case class Watcher(gameId: String, color: String)
+  case class Replay(gameId: String, color: String)
+  case class Pgn(gameId: String)
 }
 
 package forum {
