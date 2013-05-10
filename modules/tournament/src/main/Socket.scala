@@ -1,7 +1,7 @@
 package lila.tournament
 
 import lila.socket.{ SocketActor, History, Historical }
-import lila.socket.actorApi._
+import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import lila.memo.ExpireSetMemo
 import actorApi._
 

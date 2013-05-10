@@ -38,6 +38,7 @@ case object ReloadPage
 case object HubTimeout
 case class StartGame(game: Game)
 case class Joining(userId: String)
+case class Connected(enumerator: JsEnumerator, member: Member)
 
 // organizer
 case object CreatedTournaments

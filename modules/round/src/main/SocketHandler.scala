@@ -8,7 +8,7 @@ import actorApi._
 import lila.game.{ Pov, PovRef, GameRepo }
 import lila.user.{ User, Context }
 import chess.Color
-import lila.socket._
+import lila.socket.Handler
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import lila.security.Flood
 import lila.common.PimpedJson._
