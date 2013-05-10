@@ -16,7 +16,6 @@ import play.modules.reactivemongo.json.BSONFormats.toJSON
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 import scala.util.Random
-import scala.concurrent.Future
 
 object GameRepo {
 
@@ -102,11 +101,11 @@ object GameRepo {
 
   def denormalize(game: Game): Funit = {
     val userIds = game.players.map(_.userId).flatten
-    Future.sequence(List(
+    List(
       userIds.nonEmpty ?? $update($select(game.id), $set("uids" -> userIds)),
       game.mode.rated ?? $update($select(game.id), $set("ra" -> true)),
       game.variant.exotic ?? $update($select(game.id), $set("if" -> (Forsyth >> game.toChess)))
-    )).void
+    ).sequence.void
   }
 
   def saveNext(game: Game, nextId: ID): Funit = $update(
@@ -138,11 +137,11 @@ object GameRepo {
   )
 
   def nbPerDay(days: Int): Fu[List[Int]] =
-    Future.traverse((days to 1 by -1).toList) { day ⇒
+    ((days to 1 by -1).toList map { day ⇒
       val from = DateTime.now.withTimeAtStartOfDay - day.days
       val to = from + 1.day
       $count(Json.obj(createdAt -> ($gte(from) ++ $lt(to))))
-    }
+    }).sequence
 
   def recentAverageElo(minutes: Int): Fu[(Int, Int)] = {
     val command = MapReduce(
