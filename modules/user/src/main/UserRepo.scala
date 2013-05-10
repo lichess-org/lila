@@ -23,6 +23,8 @@ object UserRepo {
 
   def named(username: String): Fu[Option[User]] = $find byId normalize(username)
 
+  def nameds(usernames: List[String]): Fu[List[User]] = $find byIds usernames.map(normalize)
+
   def byIdsSortElo(ids: Seq[ID], max: Int) = $find($query byIds ids sort sortEloDesc, max)
 
   def allSortToints(nb: Int) = $find($query.all sort ("toints" -> $sort.desc), nb)
