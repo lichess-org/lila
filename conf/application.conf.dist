@@ -4,7 +4,6 @@ config_name = "development"
 
 net {
   domain = "lichess.org"
-  base_url = "http://lichess.org"
 }
 ai {
   server = false

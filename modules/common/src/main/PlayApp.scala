@@ -16,8 +16,8 @@ object PlayApp {
     play.api.libs.concurrent.Akka.system
   }
 
-  private def enableScheduler = false // isServer
-  def scheduler = new Scheduler(system, enabled = enableScheduler)
+  private def enableScheduler = loadConfig getBoolean "app.scheduler.enabled"
+  def scheduler = new Scheduler(system, enabled = enableScheduler && isServer)
 
   def isDev = isMode(_.Dev)
   def isTest = isMode(_.Test)
