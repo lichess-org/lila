@@ -1,10 +1,7 @@
-package lila.app
-package tournament
+package lila.tournament
 
 // All durations are expressed in seconds
-case class TournamentClock(
-  limit: Int,
-  increment: Int) {
+case class TournamentClock(limit: Int, increment: Int) {
 
   def limitInMinutes = limit / 60
 

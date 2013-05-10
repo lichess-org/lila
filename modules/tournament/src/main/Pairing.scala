@@ -1,12 +1,11 @@
-package lila.app
-package tournament
+package lila.tournament
 
-import game.{ PovRef, IdGenerator }
+import lila.game.{ PovRef, IdGenerator }
 import chess.Color
 
 import scala.util.Random
 
-case class Pairing(
+private[tournament] case class Pairing(
     gameId: String,
     status: chess.Status,
     user1: String,
@@ -50,7 +49,7 @@ case class Pairing(
   )
 }
 
-case class RawPairing(g: String, s: Int, u: List[String], w: Option[String], t: Option[Int]) {
+private[tournament] case class RawPairing(g: String, s: Int, u: List[String], w: Option[String], t: Option[Int]) {
 
   def decode: Option[Pairing] = for {
     status ← chess.Status(s)
@@ -59,7 +58,7 @@ case class RawPairing(g: String, s: Int, u: List[String], w: Option[String], t: 
   } yield Pairing(g, status, user1, user2, w, t)
 }
 
-object Pairing {
+private[tournament] object Pairing {
 
   type P = (String, String)
 

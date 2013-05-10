@@ -1,7 +1,6 @@
-package lila.app
-package tournament
+package lila.tournament
 
-sealed abstract class Status(val id: Int) extends Ordered[Status] {
+private[tournament] sealed abstract class Status(val id: Int) extends Ordered[Status] {
 
   def compare(other: Status) = id compare other.id
 
@@ -11,7 +10,7 @@ sealed abstract class Status(val id: Int) extends Ordered[Status] {
   def is(f: Status.type ⇒ Status): Boolean = is(f(Status))
 }
 
-object Status {
+private[tournament] object Status {
 
   case object Created extends Status(10)
   case object Started extends Status(20)
