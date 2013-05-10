@@ -9,7 +9,6 @@ case class Connected[M <: SocketMember](
 case object Close
 case object GetNbMembers
 case class NbMembers(nb: Int)
-case object GetNbHubs
 case class Ping(uid: String)
 case class PingVersion(uid: String, version: Int)
 case object Broom

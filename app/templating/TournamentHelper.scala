@@ -1,11 +1,10 @@
 package lila.app
-package tournament
+package templating
 
-import http.Context
-import user.User
+import lila.user.User
+import lila.tournament.Tournament
 
 import play.api.libs.json.Json
-import scala.math.{ min, max, round }
 
 trait TournamentHelper {
 

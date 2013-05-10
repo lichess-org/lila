@@ -24,17 +24,17 @@ private[round] final class SocketHub(
 
     case Broom                            ⇒ broadcast(Broom)
 
-    case msg @ SendTo(_, _)               ⇒ sockets.values foreach (_ ! msg)
+    case msg @ SendTo(_, _)               ⇒ broadcast(msg)
 
-    case msg @ SendTos(_, _)              ⇒ sockets.values foreach (_ ! msg)
+    case msg @ SendTos(_, _)              ⇒ broadcast(msg)
 
     case msg @ GameEvents(gameId, events) ⇒ sockets get gameId foreach (_ forward msg)
 
-    case GetNbHubs                        ⇒ sender ! sockets.size
+    case GetNbSockets                     ⇒ sender ! sockets.size
 
     case GetSocket(id) ⇒ sender ! {
       (sockets get id) | {
-        mkSocket(id) ~ { h ⇒ sockets = sockets + (id -> h) }
+        mkSocket(id) ~ { s ⇒ sockets = sockets + (id -> s) }
       }
     }
 
@@ -68,7 +68,7 @@ private[round] final class SocketHub(
       (socket ? GetUserIds).mapTo[Iterable[String]]
     } map (_.flatten) pipeTo sender
 
-    case msg @ NbMembers(_) ⇒ sockets.values foreach (_ ! msg)
+    case msg @ NbMembers(_) ⇒ broadcast(msg)
   }
 
   private def broadcast(msg: Any) {

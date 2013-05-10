@@ -90,6 +90,7 @@ private[round] final class Socket(
     }
   }
 
+  // TODO get usernames like in tournament socket
   def crowdEvent = Event.Crowd(
     white = ownerOf(White).isDefined,
     black = ownerOf(Black).isDefined,
