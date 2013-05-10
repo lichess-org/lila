@@ -20,8 +20,11 @@ final class Env(
     val MemoTtl = config duration "memo.ttl"
     val UidTimeout = config duration "uid.timeout"
     val HubTimeout = config duration "hub.timeout"
+    val NetDomain = config getString "net.domain"
   }
   import settings._
+
+  private[tournament] lazy val messenger = new Messenger(NetDomain)
 
   private[tournament] lazy val tournamentColl = db(CollectionTournament)
   private[tournament] lazy val roomColl = db(CollectionRoom)

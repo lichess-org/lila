@@ -54,7 +54,7 @@ final class Env(
 
   lazy val history = new History(ttl = MessageTtl)
 
-  private lazy val messenger = new Messenger(netDomain = NetDomain)
+  private lazy val messenger = new Messenger(NetDomain)
 
   private lazy val hookMemo = new ExpireSetMemo(ttl = OrphanHookTtl)
 
