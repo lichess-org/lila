@@ -24,7 +24,7 @@ private[analyse] final class PaginatorBuilder(
     def nbResults = cached.nbAnalysis
 
     def slice(offset: Int, length: Int): Fu[Seq[Game]] = for {
-      ids ← $primitive[Analysis, String](selector, "id", _ sort sorting skip offset limit length)(_.asOpt[String])
+      ids ← $primitive[Analysis, String](selector, "id", _ sort sorting skip offset, length)(_.asOpt[String])
       games ← $find.byOrderedIds[Game](ids)
     } yield games
 

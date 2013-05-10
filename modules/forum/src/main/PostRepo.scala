@@ -22,7 +22,7 @@ object PostRepo {
     $find.one($query(selectTopics(topics)) sort $sort.createdDesc)
 
   def recentInCategs(nb: Int)(categIds: List[String]): Fu[List[Post]] =
-    $find($query(selectCategs(categIds)) sort $sort.createdDesc limit nb)
+    $find($query(selectCategs(categIds)) sort $sort.createdDesc, nb)
 
   def removeByTopic(topicId: String): Fu[Unit] =
     $remove(selectTopic(topicId))

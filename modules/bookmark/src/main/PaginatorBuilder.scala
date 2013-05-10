@@ -33,8 +33,7 @@ final class PaginatorBuilder(maxPerPage: Int) {
       pairs ← $query(selector)
         .sort(sorting)
         .skip(offset)
-        .limit(length)
-        .cursor[JsObject].toList map2 { (obj: JsObject) ⇒
+        .cursor[JsObject] toList length map2 { (obj: JsObject) ⇒
           obj str "g" flatMap { gameId ⇒
             obj.get[DateTime]("d") map { (gameId, _) }
           }
