@@ -49,15 +49,6 @@ private[tournament] case class Pairing(
   )
 }
 
-private[tournament] case class RawPairing(g: String, s: Int, u: List[String], w: Option[String], t: Option[Int]) {
-
-  def decode: Option[Pairing] = for {
-    status ← chess.Status(s)
-    user1 ← u.lift(0)
-    user2 ← u.lift(1)
-  } yield Pairing(g, status, user1, user2, w, t)
-}
-
 private[tournament] object Pairing {
 
   type P = (String, String)
@@ -134,4 +125,29 @@ private[tournament] object Pairing {
     } yield ps
     case _ ⇒ Nil
   }
+}
+
+private[tournament] case class RawPairing(g: String, s: Int, u: List[String], w: Option[String], t: Option[Int]) {
+
+  def decode: Option[Pairing] = for {
+    status ← chess.Status(s)
+    user1 ← u.lift(0)
+    user2 ← u.lift(1)
+  } yield Pairing(g, status, user1, user2, w, t)
+}
+
+private[tournament] object RawPairing {
+
+  import lila.db.Tube
+  import Tube.Helpers._
+  import play.api.libs.json._
+
+  private def defaults = Json.obj(
+    "w" -> none[String],
+    "t" -> none[Int])
+
+  private[tournament] lazy val tube = Tube(
+    (__.json update merge(defaults)) andThen Json.reads[RawPairing],
+    Json.writes[RawPairing]
+  )
 }

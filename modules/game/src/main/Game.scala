@@ -503,7 +503,8 @@ private[game] object RawGame {
     "lmt" -> none[Int],
     "bm" -> none[Int],
     "r960" -> none[Boolean],
-    "me" -> none[RawMetadata])
+    "me" -> none[RawMetadata],
+    "ua" -> none[DateTime])
 
   private[game] lazy val tube = Tube(
     (__.json update (

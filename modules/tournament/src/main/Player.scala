@@ -22,7 +22,7 @@ private[tournament] case class Player(
 
 private[tournament] object Player {
 
-  def apply(user: User): Player = new Player(
+  def make(user: User): Player = new Player(
     id = user.id,
     username = user.username,
     elo = user.elo)
@@ -66,4 +66,20 @@ private[tournament] object Player {
       winStreak = bestWinSeq,
       score = score)
   }
+
+  import lila.db.Tube
+  import Tube.Helpers._
+  import play.api.libs.json._
+
+  private def defaults = Json.obj(
+    "withdraw" -> false,
+    "nbWin" -> 0,
+    "nbLoss" -> 0,
+    "winStreak" -> 0,
+    "score" -> 0)
+
+  private[tournament] lazy val tube = Tube(
+    (__.json update merge(defaults)) andThen Json.reads[Player],
+    Json.writes[Player]
+  )
 }

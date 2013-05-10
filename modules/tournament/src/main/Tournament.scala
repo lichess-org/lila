@@ -8,7 +8,7 @@ import chess.{ Variant, Mode }
 import lila.user.User
 import lila.game.PovRef
 
-case class Data(
+private[tournament] case class Data(
   name: String,
   clock: TournamentClock,
   minutes: Int,
@@ -127,7 +127,7 @@ case class Created(
 
   def join(user: User): Valid[Created] = contains(user).fold(
     !!("User %s is already part of the tournament" format user.id),
-    withPlayers(players :+ Player(user)).success
+    withPlayers(players :+ Player.make(user)).success
   )
 
   def withdraw(userId: String): Valid[Created] = contains(userId).fold(
@@ -217,6 +217,45 @@ case class Finished(
   def encode = encode(Status.Finished)
 }
 
+object Tournament {
+
+  import lila.db.Tube
+  import play.api.libs.json._
+
+  private[tournament] lazy val tube = Tube(
+    reader = Reads[Tournament](js ⇒
+      ~(for {
+        obj ← js.asOpt[JsObject]
+        rawTour ← RawTournament.tube.read(obj).asOpt
+        tour ← rawTour.decode
+      } yield JsSuccess(tour): JsResult[Tournament])
+    ),
+    writer = Writes[Tournament](tour ⇒
+      RawTournament.tube.write(tour.encode) getOrElse JsUndefined("[db] Can't write tournament " + tour.id)
+    )
+  )
+
+  def apply(
+    createdBy: User,
+    clock: TournamentClock,
+    minutes: Int,
+    minPlayers: Int,
+    variant: Variant,
+    mode: Mode): Created = Created(
+    id = Random nextString 8,
+    data = Data(
+      name = RandomName(),
+      clock = clock,
+      createdBy = createdBy.id,
+      createdAt = DateTime.now,
+      variant = variant,
+      mode = mode,
+      minutes = minutes,
+      minPlayers = minPlayers),
+    players = List(Player make createdBy)
+  )
+}
+
 private[tournament] case class RawTournament(
     id: String,
     name: String,
@@ -231,6 +270,8 @@ private[tournament] case class RawTournament(
     pairings: List[RawPairing] = Nil,
     variant: Int = Variant.Standard.id,
     mode: Int = Mode.Casual.id) {
+
+  def decode: Option[Tournament] = created orElse started orElse finished
 
   def created: Option[Created] = (status == Status.Created.id) option Created(
     id = id,
@@ -266,27 +307,25 @@ private[tournament] case class RawTournament(
   }
 }
 
-object Tournament {
+private[tournament] object RawTournament {
 
-  import lila.common.Form._
+  import lila.db.Tube
+  import Tube.Helpers._
+  import play.api.libs.json._
 
-  def apply(
-    createdBy: User,
-    clock: TournamentClock,
-    minutes: Int,
-    minPlayers: Int,
-    variant: Variant,
-    mode: Mode): Created = Created(
-    id = Random nextString 8,
-    data = Data(
-      name = RandomName(),
-      clock = clock,
-      createdBy = createdBy.id,
-      createdAt = DateTime.now,
-      variant = variant,
-      mode = mode,
-      minutes = minutes,
-      minPlayers = minPlayers),
-    players = List(Player(createdBy))
+  private implicit def pairingTube = RawPairing.tube
+  private implicit def clockTube = TournamentClock.tube
+  private implicit def PlayerTube = Player.tube
+
+  private def defaults = Json.obj(
+    "startedAt" -> none[DateTime])
+
+  private[tournament] lazy val tube = Tube(
+    (__.json update (
+      merge(defaults) andThen readDateOpt('startedAt) 
+    )) andThen Json.reads[RawTournament],
+    Json.writes[RawTournament] andThen (__.json update (
+      writeDateOpt('startedAt)
+    ))
   )
 }
