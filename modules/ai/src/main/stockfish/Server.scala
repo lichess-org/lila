@@ -16,25 +16,25 @@ import play.api.libs.concurrent.Akka.system
 
 final class Server(execPath: String, config: Config) {
 
-  def play(pgn: String, initialFen: Option[String], level: Int): Fu[Valid[String]] = {
+  def play(pgn: String, initialFen: Option[String], level: Int): Fu[String] = {
     implicit val timeout = makeTimeout(playAtMost)
     UciDump(pgn, initialFen) map { moves ⇒
       model.play.Task.Builder(moves, initialFen map chess960Fen, level)
     } fold (
-      err ⇒ fuccess(failure(err)),
+      err ⇒ fufail(err),
       play ⇒ {
-        (actor ? play).mapTo[BestMove] map (m ⇒ success(~m.move))
+        (actor ? play).mapTo[BestMove] map (~_.move)
       } ~ { _ onFailure reboot }
     )
   }
 
-  def analyse(pgn: String, initialFen: Option[String]): Fu[Valid[String ⇒ Analysis]] =
+  def analyse(pgn: String, initialFen: Option[String]): Fu[String ⇒ Analysis] =
     UciDump(pgn, initialFen).fold(
-      err ⇒ fuccess(failure(err)),
+      err ⇒ fufail(err),
       moves ⇒ {
         val analyse = model.analyse.Task.Builder(moves, initialFen map chess960Fen)
         implicit val timeout = makeTimeout(analyseAtMost)
-        (actor ? analyse).mapTo[Valid[String ⇒ Analysis]] ~ { _ onFailure reboot }
+        (actor ? analyse).mapTo[String ⇒ Analysis] ~ { _ onFailure reboot }
       }
     )
 

@@ -57,7 +57,7 @@ object model {
     }
 
     case class BestMove(move: Option[String]) {
-      def parse = UciMove(move | "")
+      def parse = UciMove(~move)
     }
   }
 

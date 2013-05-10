@@ -16,28 +16,29 @@ object Ai extends LilaController {
         pgn = getOr("pgn", ""),
         initialFen = get("initialFen"),
         level = getIntOr("level", 1)
-      ) map (_.fold(
+      ) fold (
           err ⇒ {
             logwarn("[ai] stochfish server play: " + err)
             BadRequest(err.shows)
-          }, Ok(_)
-        ))
+          },
+          Ok(_)
+        )
     }
   }
 
   def analyseStockfish = Open { implicit ctx ⇒
     IfServer {
-        stockfishServer.analyse(
-          pgn = getOr("pgn", ""),
-          initialFen = get("initialFen")
-        ) map (_.fold(
-            err ⇒ {
+      stockfishServer.analyse(
+        pgn = getOr("pgn", ""),
+        initialFen = get("initialFen")
+      ) fold (
+          err ⇒ {
             logwarn("[ai] stochfish server analyse: " + err)
-              InternalServerError(err.shows)
-            },
-            analyse ⇒ Ok(analyse("fakeid").encodeInfos)
-          ))
-      }
+            InternalServerError(err.shows)
+          },
+          analyse ⇒ Ok(analyse("fakeid").encodeInfos)
+        )
+    }
   }
 
   private def IfServer(result: ⇒ Fu[Result]) =
