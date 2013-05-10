@@ -20,7 +20,7 @@ final class Scheduler(system: ActorSystem, enabled: Boolean) {
       name.nonEmpty ! loginfo("[cron] schedule %s every %s".format(name, freq))
       system.scheduler.schedule(f, f) {
         op onFailure {
-          case e: Throwable ⇒ println("[CRON ERROR] (" + name + ") " + e.getMessage)
+          case e: Exception ⇒ println("[CRON ERROR] (" + name + ") " + e.getMessage)
         }
       }
     }

@@ -85,7 +85,7 @@ trait WithFuture extends Zeros with scalalib.Validation {
   type Funit = Fu[Unit]
 
   def fuccess[A](a: A) = Future successful a
-  def fufail[A <: Throwable, B](a: A): Fu[B] = Future failed a
+  def fufail[A <: Exception, B](a: A): Fu[B] = Future failed a
   def fufail[A](a: String): Fu[A] = fufail(common.LilaException(a))
   def fufail[A](a: Failures): Fu[A] = fufail(common.LilaException(a))
   val funit = fuccess(())
@@ -127,18 +127,19 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
 
     def inject[B](b: B): Fu[B] = fua map (_ ⇒ b)
 
-    def effectFold(fail: Throwable ⇒ Unit, succ: A ⇒ Unit) {
+    def effectFold(fail: Exception ⇒ Unit, succ: A ⇒ Unit) {
       fua onComplete {
-        case scala.util.Failure(e) ⇒ fail(e)
+        case scala.util.Failure(e: Exception) ⇒ fail(e)
+        case scala.util.Failure(e) ⇒ throw e // Throwables
         case scala.util.Success(e) ⇒ succ(e)
       }
     }
 
-    def fold[B](fail: Throwable ⇒ B, succ: A ⇒ B): Fu[B] =
-      fua map succ recover { case e ⇒ fail(e) }
+    def fold[B](fail: Exception ⇒ B, succ: A ⇒ B): Fu[B] =
+      fua map succ recover { case e: Exception ⇒ fail(e) }
 
-    def flatFold[B](fail: Throwable ⇒ Fu[B], succ: A ⇒ Fu[B]): Fu[B] =
-      fua flatMap succ recoverWith { case e ⇒ fail(e) }
+    def flatFold[B](fail: Exception ⇒ Fu[B], succ: A ⇒ Fu[B]): Fu[B] =
+      fua flatMap succ recoverWith { case e: Exception ⇒ fail(e) }
   }
 
   implicit final class LilaPimpedFutureZero[A: Zero](fua: Fu[A]) {
