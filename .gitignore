@@ -1,4 +1,4 @@
-conf/local.conf
+conf/application.conf
 bin/lilarc.local
 logs
 project/project
