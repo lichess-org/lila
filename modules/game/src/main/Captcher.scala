@@ -25,17 +25,11 @@ private final class Captcher extends Actor {
 
     case GetCaptcha(id: String) ⇒ sender ! Impl.get(id).await
 
-    case NewCaptcha             ⇒ Impl.refresh.await
+    case actorApi.NewCaptcha    ⇒ Impl.refresh.await
 
     case ValidCaptcha(id: String, solution: String) ⇒
       Impl get id map (_ valid solution) pipeTo sender
   }
-
-  override def preStart() {
-    system.scheduler.schedule(2.seconds, 10.seconds, self, NewCaptcha)
-  }
-
-  private case object NewCaptcha
 
   private object Impl extends NonEmptyLists {
 
