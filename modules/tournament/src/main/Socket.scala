@@ -1,36 +1,35 @@
-package lila.app
-package tournament
+package lila.tournament
 
-import game.DbGame
-import socket._
-import lila.common.memo.BooleanExpiryMemo
+import lila.socket.{ SocketActor, History, Historical }
+import lila.socket.actorApi._
+import lila.memo.ExpireSetMemo
+import actorApi._
 
 import akka.actor._
 import scala.concurrent.duration._
-import play.api.libs.json._
 import play.api.libs.iteratee._
-import play.api.Play.current
-import scalaz.effects._
+import play.api.libs.json._
 
-final class Hub(
+private[tournament] final class Socket(
     tournamentId: String,
     val history: History,
     messenger: Messenger,
-    uidTimeout: Int,
-    hubTimeout: Int) extends HubActor[Member](uidTimeout) with Historical[Member] {
+    getUsername: String ⇒ Fu[Option[String]],
+    uidTimeout: Duration,
+    hubTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member] {
 
-  val joiningMemo = new BooleanExpiryMemo(uidTimeout)
+  val joiningMemo = new ExpireSetMemo(uidTimeout)
 
   var lastPingTime = nowMillis
 
   def receiveSpecific = {
 
-    case StartGame(game: DbGame) ⇒ game.players foreach { player ⇒
+    case StartGame(game) ⇒ game.players foreach { player ⇒
       for {
         userId ← player.userId
         member ← memberByUserId(userId)
       } {
-        notifyMember("redirect", JsString(game fullIdOf player.color))(member)
+        notifyMember("redirect", game fullIdOf player.color)(member)
         notifyReload
       }
     }
@@ -51,14 +50,17 @@ final class Hub(
 
     case Broom ⇒ {
       broom()
-      if (lastPingTime < (nowMillis - hubTimeout)) {
+      if (lastPingTime < (nowMillis - hubTimeout.toMillis)) {
         context.parent ! CloseTournament(tournamentId)
       }
     }
 
     case Talk(u, txt) ⇒
-      messenger.userMessage(tournamentId, u, txt).unsafePerformIO foreach { message ⇒
-        notifyVersion("talk", JsString(message.render))
+      messenger.userMessage(tournamentId, u, txt) foreach { message ⇒
+        notifyVersion("talk", Json.obj(
+          "u" -> message.userId,
+          "txt" -> message.text
+        ))
       }
 
     case GetTournamentVersion(_) ⇒ sender ! history.version
@@ -81,25 +83,22 @@ final class Hub(
       self ! PoisonPill
     }
 
-    case Joining(userId) ⇒ (joiningMemo put userId).unsafePerformIO
+    case Joining(userId) ⇒ joiningMemo put userId
   }
 
-  override def usernames = (super.usernames ++ joiningMemo.keys).toList.distinct
+  override def userIds = (super.userIds ++ joiningMemo.keys).toList.distinct
 
   def notifyCrowd {
-    notifyVersion("crowd", JsArray({
-      members.values
-        .map(_.username)
-        .toList.partition(_.isDefined) match {
-          case (users, anons) ⇒ users.flatten.distinct |> { userList ⇒
-            anons.size match {
-              case 0 ⇒ userList
-              case 1 ⇒ userList :+ "Anonymous"
-              case x ⇒ userList :+ ("Anonymous (%d)" format x)
-            }
-          }
+    members.values.map(_.userId).toList.partition(_.isDefined) match {
+      case (users, anons) ⇒
+        (users.flatten.distinct map getUsername).sequence map (_.flatten) foreach { userList ⇒
+          notifyVersion("crowd", anons.size match {
+            case 0 ⇒ userList
+            case 1 ⇒ userList :+ "Anonymous"
+            case x ⇒ userList :+ ("Anonymous (%d)" format x)
+          })
         }
-    } map { JsString(_) }))
+    }
   }
 
   def notifyReload {

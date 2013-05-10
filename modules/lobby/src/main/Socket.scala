@@ -36,15 +36,13 @@ private[lobby] final class Socket(
       sender ! Connected(enumerator, member)
     }
 
-    case Talk(u, txt) ⇒ messenger(u, txt) foreach {
-      _.fold(
-        err ⇒ logwarn(err.shows),
-        message ⇒ notifyVersion("talk", Json.obj(
-          "u" -> message.userId,
-          "txt" -> message.text
-        ))
-      )
-    }
+    case Talk(u, txt) ⇒ messenger(u, txt) effectFold (
+      e ⇒ logwarn(e.toString),
+      message ⇒ notifyVersion("talk", Json.obj(
+        "u" -> message.userId,
+        "txt" -> message.text
+      ))
+    )
 
     case SysTalk(txt) ⇒ messenger system txt foreach { message ⇒
       notifyVersion("talk", Json.obj("txt" -> message.text))
@@ -57,7 +55,7 @@ private[lobby] final class Socket(
 
     case TimelineEntry(rendered) ⇒ notifyVersion("entry", rendered)
 
-    case Censor(userId) => // TODO hide user messages right away?
+    case Censor(userId)          ⇒ // TODO hide user messages right away?
 
     case AddHook(hook) ⇒ notifyVersion("hook_add", Json.obj(
       "id" -> hook.id,
