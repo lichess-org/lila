@@ -36,7 +36,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
     }
   }
 
-  def signedJs(gameId: String) = Open { implicit ctx ⇒
+  def signedJs(gameId: String) = OpenNoCtx { req ⇒
     JsOk(GameRepo token gameId map gameJs.sign, CACHE_CONTROL -> "max-age=3600")
   }
 
