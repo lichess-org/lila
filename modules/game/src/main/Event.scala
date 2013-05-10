@@ -183,7 +183,6 @@ object Event {
     def data = Json.obj(
       "white" -> white,
       "black" -> black,
-      "watchers" -> Json.arr(watchers map JsString)
-    )
+      "watchers" -> watchers)
   }
 }
