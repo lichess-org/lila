@@ -105,12 +105,11 @@ object User extends LilaController {
           }
   }
 
-  def export(username: String) = TODO
-  // Open { implicit ctx ⇒
-  //   OptionFuResult(UserRepo named username) { u ⇒
-  //     Env.game.export(u).apply map { Redirect(_) }
-  //   }
-  // }
+  def export(username: String) = Open { implicit ctx ⇒
+    OptionFuResult(UserRepo named username) { u ⇒
+      Env.game export u map { Redirect(_) }
+    }
+  }
 
   private val onlineUsers: Fu[List[UserModel]] =
     $find byIds env.usernameMemo.keys

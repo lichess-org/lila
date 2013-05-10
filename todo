@@ -78,6 +78,7 @@ answer http://en.lichess.org/forum/lichess-feedback/expanded-chat-functionality-
 FIX TOUCHPAD SIGN IN http://en.lichess.org/forum/lichess-feedback/cant-sign-in#6
 chess variants https://github.com/ornicar/lila/issues/2://github.com/ornicar/lila/issues/25 
 publish scalastic 0.90.0-thib
+stream game export
 
 DEPLOY p21
 ----------

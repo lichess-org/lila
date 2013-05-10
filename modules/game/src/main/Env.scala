@@ -41,7 +41,7 @@ final class Env(
     rendererActor = hub.actor.renderer,
     system = system)
 
-  // lazy val export = Export(NetBaseUrl) _
+  lazy val export = new Export(hub.actor.router).apply _
 
   lazy val listMenu = ListMenu(cached) _
 
