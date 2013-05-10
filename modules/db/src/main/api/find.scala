@@ -38,16 +38,16 @@ object $find extends OptionTs {
     $cursor(q).toList map (_.flatten)
 
   def apply[A: TubeInColl](q: JsObject, nb: Int): Fu[List[A]] =
-    $cursor(q, nb) toList nb map (_.flatten)
+    $cursor(q) toList nb map (_.flatten)
 
   def apply[A: TubeInColl](b: QueryBuilder): Fu[List[A]] =
     $cursor(b).toList map (_.flatten)
 
   def apply[A: TubeInColl](b: QueryBuilder, nb: Int): Fu[List[A]] =
-    $cursor(b, nb) toList nb map (_.flatten)
+    $cursor(b) toList nb map (_.flatten)
 
   // useful in capped collections
   def recent[A: TubeInColl](max: Int): Fu[List[A]] = (
-    pimpQB($query.all).sort($sort.naturalOrder) limit max
-  ).cursor[Option[A]].toList map (_.flatten)
+    pimpQB($query.all).sort($sort.naturalOrder) 
+  ).cursor[Option[A]] toList max map (_.flatten)
 }

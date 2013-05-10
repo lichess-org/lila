@@ -23,7 +23,7 @@ object UserRepo {
 
   def named(username: String): Fu[Option[User]] = $find byId normalize(username)
 
-  def byIdsSortElo(ids: Seq[ID], max: Int) = $find($query byIds ids sort sortEloDesc limit max)
+  def byIdsSortElo(ids: Seq[ID], max: Int) = $find($query byIds ids sort sortEloDesc, max)
 
   def allSortToints(nb: Int) = $find($query.all sort ("toints" -> $sort.desc), nb)
 
@@ -99,9 +99,10 @@ object UserRepo {
     val escaped = """^([\w-]*).*$""".r.replaceAllIn(normalize(username), m ⇒ quoteReplacement(m group 1))
     val regex = "^" + escaped + ".*$"
     $primitive(
-      Json.obj("_id" -> $regex(regex)),
+      $select byId $regex(regex),
       "username",
-      _ sort ("_id" -> $sort.desc) limit max
+      _ sort ("_id" -> $sort.desc),
+      max
     )(_.asOpt[String])
   }
 
@@ -147,8 +148,8 @@ object UserRepo {
   def idsSumToints(ids: Iterable[String]): Fu[Int] = {
     val command = MapReduce(
       collectionName = userTube.coll.name,
-        mapFunction = """function() { emit("e", this.toints); }""",
-        reduceFunction = """function(key, values) {
+      mapFunction = """function() { emit("e", this.toints); }""",
+      reduceFunction = """function(key, values) {
     var sum = 0;
     for(var i in values) { sum += values[i]; }
     return sum;

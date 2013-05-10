@@ -28,7 +28,7 @@ final class ModlogApi {
     ))
   }
 
-  def recent = $find($query($select.all) limit 100 sort $sort.naturalDesc)
+  def recent = $find($query($select.all) sort $sort.naturalDesc, 100)
 
   private def add(m: Modlog): Funit = $insert(m)
 }
