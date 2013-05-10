@@ -19,7 +19,7 @@ final class Env(
 
   private[mod] lazy val modlogColl = db(CollectionModlog)
 
-  val logApi = new ModlogApi
+  lazy val logApi = new ModlogApi
 
   lazy val api = new ModApi(
     logApi = logApi,

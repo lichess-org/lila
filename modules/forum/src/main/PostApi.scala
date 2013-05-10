@@ -2,6 +2,7 @@ package lila.forum
 
 import lila.user.{ User, Context }
 import lila.common.paginator._
+import lila.mod.ModlogApi
 import lila.db.paginator._
 import lila.db.Implicits._
 import lila.db.api._
@@ -12,7 +13,11 @@ import akka.actor.ActorRef
 import play.api.libs.json.JsObject
 import scalaz.{ OptionT, OptionTs }
 
-final class PostApi(env: Env, indexer: ActorRef, maxPerPage: Int) extends OptionTs {
+final class PostApi(
+  env: Env, 
+  indexer: ActorRef, 
+  maxPerPage: Int,
+  modLog: ModlogApi) extends OptionTs {
 
   def create(categSlug: String, slug: String, page: Int): Fu[Option[(Categ, Topic, Paginator[Post])]] = for {
     categ ← optionT(CategRepo bySlug categSlug)
@@ -104,9 +109,8 @@ final class PostApi(env: Env, indexer: ActorRef, maxPerPage: Int) extends Option
           (env.categApi denormalize view.categ) >>
           env.recent.invalidate >>-
           (indexer ! RemovePost(post)))
-      // TODO
-      // _ ← modLog.deletePost(mod, post.userId, post.author, post.ip,
-      //   text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text))
+      _ ← modLog.deletePost(mod, post.userId, post.author, post.ip,
+        text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text))
     } yield true.some)
   } yield ()).value.void
 }

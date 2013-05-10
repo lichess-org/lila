@@ -35,4 +35,3 @@ private[app] final class Router(
 
   private lazy val noLangBaseUrl = protocol + I18nDomain(domain).commonDomain
 }
-

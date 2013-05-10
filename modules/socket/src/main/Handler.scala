@@ -29,9 +29,7 @@ object Handler {
       Iteratee.foreach[JsValue](jsv ⇒
         jsv.asOpt[JsObject] foreach { obj ⇒
           obj str "t" foreach { t ⇒
-            control(t -> obj)
-            // TODO handle errors (with lift?)
-            // ~control.lift(t -> obj)
+            ~control.lift(t -> obj)
           }
         }
       ).mapDone(_ ⇒ socket ! Quit(uid))

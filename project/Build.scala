@@ -122,7 +122,7 @@ object ApplicationBuild extends Build {
       playApi, reactivemongo, playReactivemongo, spray.caching)
   )
 
-  lazy val forum = project("forum", Seq(common, db, user, security, hub)).settings(
+  lazy val forum = project("forum", Seq(common, db, user, security, hub, mod)).settings(
     libraryDependencies ++= provided(
       playApi, reactivemongo, playReactivemongo, spray.caching)
   )

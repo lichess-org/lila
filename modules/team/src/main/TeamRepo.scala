@@ -38,7 +38,6 @@ object TeamRepo {
 
   def disable(team: Team) = $update.field(team.id, "enabled", false)
 
-  // TODO
   def addRequest(teamId: String, request: Request): Funit = 
     $update(
       $select(teamId) ++ Json.obj("requests.user" -> $ne(request.user)), 
