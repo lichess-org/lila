@@ -7,6 +7,8 @@ package object tournament extends PackageObject with WithPlay {
   object tube {
 
     private[tournament] implicit lazy val tournamentTube = Tournament.tube inColl Env.current.tournamentColl
+
+    private[tournament] implicit lazy val roomTube = Room.tube inColl Env.current.roomColl
   }
 
   private[tournament]type Pairings = List[tournament.Pairing]

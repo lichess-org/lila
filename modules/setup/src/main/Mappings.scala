@@ -7,7 +7,7 @@ import chess.format.Forsyth
 
 import play.api.data.Forms._
 
-private[setup] object Mappings {
+object Mappings {
 
   val variant = number.verifying(Config.variants contains _)
   val variantWithFen = number.verifying(Config.variantsWithFen contains _)
