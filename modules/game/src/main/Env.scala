@@ -50,7 +50,7 @@ final class Env(
   lazy val gameJs = new GameJs(path = jsPath, useCache = isProd)
 
   // load captcher actor
-  system.actorOf(Props(new Captcher), name = CaptcherName)
+  private val captcher = system.actorOf(Props(new Captcher), name = CaptcherName)
 
   // api actor
   system.actorOf(Props(new Actor {
@@ -62,11 +62,15 @@ final class Env(
   {
     import scala.concurrent.duration._
 
-    scheduler.effect(4.5 hours, "game: cleanup") {
+    scheduler.effect(3.59 hours, "game: cleanup") {
       titivate.cleanupUnplayed >> titivate.cleanupNext
     }
 
     scheduler.effect(5.seconds, "") { featured.one }
+
+    scheduler.message(10.seconds) {
+      captcher -> actorApi.NewCaptcha
+    }
   }
 
   def cli = new Cli
