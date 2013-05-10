@@ -51,6 +51,11 @@ trait PackageObject
     def describes[A](v: ⇒ A): A = { loginfo(s); v }
   }
 
+  implicit final class LilaPimpedValid[A](v: Valid[A]) {
+
+    def future: Fu[A] = v fold (errs ⇒ fufail(errs.shows), fuccess)
+  }
+
   def parseIntOption(str: String): Option[Int] = try {
     Some(java.lang.Integer.parseInt(str))
   }

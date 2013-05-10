@@ -14,14 +14,12 @@ final class Client(
     val playUrl: String,
     analyseUrl: String) extends lila.ai.Client {
 
-  def play(game: Game, pgn: String, initialFen: Option[String], level: Int): Fu[Valid[(Game, Move)]] =
-    fetchMove(pgn, ~initialFen, level) map { Stockfish.applyMove(game, pgn, _) }
+  def play(game: Game, pgn: String, initialFen: Option[String], level: Int): Fu[(Game, Move)] =
+    fetchMove(pgn, ~initialFen, level) flatMap { Stockfish.applyMove(game, pgn, _) }
 
-  def analyse(pgn: String, initialFen: Option[String]): Fu[Valid[String ⇒ Analysis]] =
-    fetchAnalyse(pgn, ~initialFen) map {
-      AnalysisMaker(_, true) toValid "Can't read analysis results"
-    } recover {
-      case e ⇒ !![String ⇒ Analysis](e.getMessage)
+  def analyse(pgn: String, initialFen: Option[String]): Fu[String ⇒ Analysis] =
+    fetchAnalyse(pgn, ~initialFen) flatMap { str =>
+      (AnalysisMaker(str, true) toValid "Can't read analysis results").future
     }
 
   protected def tryPing: Fu[Int] = nowMillis |> { start ⇒
