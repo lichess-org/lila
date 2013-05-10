@@ -52,12 +52,8 @@ object Lobby extends LilaController with Results {
       }))
 
   def socket = Socket[JsValue] { implicit ctx ⇒
-    (get("sri") |@| getInt("version")).tupled zmap {
-      case (uid, version) ⇒ Env.lobby.socketHandler(
-        uid = uid,
-        user = ctx.me,
-        version = version,
-        hook = get("hook"))
+    get("sri") zmap { uid ⇒
+      Env.lobby.socketHandler(uid = uid, user = ctx.me, hook = get("hook"))
     }
   }
 

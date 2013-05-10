@@ -29,9 +29,9 @@ private[lobby] final class Socket(
 
     case WithHooks(op) ⇒ op(hookOwnerIds)
 
-    case Join(uid, userId, version, hookOwnerId) ⇒ {
+    case Join(uid, user, hookOwnerId) ⇒ {
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, userId, hookOwnerId)
+      val member = Member(channel, user, hookOwnerId)
       addMember(uid, member)
       sender ! Connected(enumerator, member)
     }

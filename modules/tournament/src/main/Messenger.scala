@@ -14,8 +14,8 @@ private[tournament] final class Messenger(val netDomain: String) extends UserRoo
     message ← systemMessage(tour, "%s creates the tournament" format username)
   } yield List(message)
 
-  def userMessage(tournamentId: String, username: String, text: String): Fu[Message] = for {
-    userOption ← UserRepo named username
+  def userMessage(tournamentId: String, userId: String, text: String): Fu[Message] = for {
+    userOption ← UserRepo named userId
     tourOption ← $find byId tournamentId
     message ← (for {
       user ← userOption filter (_.canChat) toValid "This user cannot chat"
