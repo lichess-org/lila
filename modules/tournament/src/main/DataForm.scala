@@ -1,16 +1,14 @@
-package lila.app
-package tournament
+package lila.tournament
 
 import chess.{ Mode, Variant }
 import lila.setup.Mappings
+import lila.common.Form._
 
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 
-final class DataForm(isDev: Boolean) {
-
-  import lila.common.Form._
+private[tournament] final class DataForm(isDev: Boolean) {
 
   val clockTimes = 0 to 7 by 1
   val clockTimeDefault = 2

@@ -24,6 +24,7 @@ final class Env(
   import settings._
 
   private[tournament] lazy val tournamentColl = db(CollectionTournament)
+  private[tournament] lazy val roomColl = db(CollectionRoom)
 }
 
 object Env {

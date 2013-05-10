@@ -104,7 +104,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(playApi, reactivemongo, playReactivemongo)
   )
 
-  lazy val tournament = project("tournament", Seq(common, chess, game, round)).settings(
+  lazy val tournament = project("tournament", Seq(common, chess, game, round, setup)).settings(
     libraryDependencies ++= provided(playApi, reactivemongo, playReactivemongo)
   )
 

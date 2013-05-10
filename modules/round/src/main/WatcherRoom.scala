@@ -2,9 +2,6 @@ package lila.round
 
 case class WatcherRoom(id: String, messages: List[String]) {
 
-  // def render: String =
-  //   messages map ((WatcherRoom.render _) compose WatcherRoom.decode) mkString ""
-
   def rematchCopy(id: String, nb: Int) = copy(
     id = id,
     messages = messages takeRight nb)
@@ -17,7 +14,9 @@ object WatcherRoom {
   import lila.db.Tube
   import play.api.libs.json._
 
-  private[round] lazy val tube = Tube(Json.reads[WatcherRoom], Json.writes[WatcherRoom])
+  private[round] lazy val tube = Tube(
+    Json.reads[WatcherRoom], 
+    Json.writes[WatcherRoom])
 
   def encode(userId: Option[String], text: String): String =
     ~userId + "|" + text
