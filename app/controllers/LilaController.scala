@@ -57,6 +57,9 @@ private[controllers] trait LilaController
   protected def OpenBody[A](p: BodyParser[A])(f: BodyContext ⇒ Fu[Result]): Action[A] =
     Action(p)(req ⇒ Async(reqToCtx(req) flatMap f))
 
+  protected def OpenNoCtx(f: RequestHeader ⇒ Fu[Result]): Action[AnyContent] =
+    Action(req ⇒ Async(f(req)))
+
   protected def Auth(f: Context ⇒ UserModel ⇒ Fu[Result]): Action[AnyContent] =
     Auth(BodyParsers.parse.anyContent)(f)
 
