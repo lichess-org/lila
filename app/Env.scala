@@ -9,7 +9,6 @@ final class Env(config: Config, system: ActorSystem, isServer: Boolean) {
 
   private val RendererName = config getString "app.renderer.name"
   private val RouterName = config getString "app.router.name"
-  private val CronEnabled = config getBoolean "app.cron.enabled"
 
   lazy val preloader = new mashup.Preload(
     fisherman = Env.lobby.fisherman,
@@ -29,7 +28,6 @@ final class Env(config: Config, system: ActorSystem, isServer: Boolean) {
     Env.teamSearch, Env.forumSearch, Env.message, Env.socket, Env.timeline)
 
   if (Env.ai.isServer) println("Running as AI server")
-  else if (CronEnabled) Cron start system
 }
 
 object Env {
