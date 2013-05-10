@@ -35,7 +35,7 @@ private[setup] final class Processor(
       (GameRepo denormalize game) >>-
       (timeline ! game) >>
       game.player.isHuman.fold(fuccess(pov), for {
-        initialFen ← game.variant.standard ?? (GameRepo initialFen game.id)
+        initialFen ← game.variant.exotic ?? (GameRepo initialFen game.id)
         pgnString ← PgnRepo get game.id
         aiResult ← ai.play(game.toChess, pgnString, initialFen, ~game.aiLevel) 
         (newChessGame, move) = aiResult
