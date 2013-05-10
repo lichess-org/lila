@@ -21,7 +21,15 @@ final class Env(
   private val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
   private val IndexerName = config getString "indexer.name"
 
-  val indexer: ActorRef = system.actorOf(Props(new Indexer(
+  private val lowLevelIndexer: ActorRef = system.actorOf(Props(new TypeIndexer(
+    es = esIndexer,
+    indexName = IndexName,
+    typeName = TypeName,
+    mapping = Game.jsonMapping,
+    indexQuery = indexQuery _
+  )), name = IndexerName + "-low-level")
+
+  private val indexer: ActorRef = system.actorOf(Props(new Indexer(
     lowLevel = lowLevelIndexer
   )), name = IndexerName)
 
@@ -41,14 +49,6 @@ final class Env(
         (lowLevelIndexer ? RebuildAll) inject "Game search index rebuilt"
     }
   }
-
-  private val lowLevelIndexer: ActorRef = system.actorOf(Props(new TypeIndexer(
-    es = esIndexer,
-    indexName = IndexName,
-    typeName = TypeName,
-    mapping = Game.jsonMapping,
-    indexQuery = indexQuery _
-  )), name = IndexerName + "-low-level")
 
   private def responseToGames(response: SearchResponse): Fu[List[GameModel]] =
     $find.byOrderedIds[GameModel](response.getHits.hits.toList map (_.id))

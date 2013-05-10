@@ -26,7 +26,7 @@ final class Env(config: Config, system: ActorSystem, isServer: Boolean) {
 
   loginfo("[boot] Preloading modules")
   (Env.site, Env.game, Env.ai, Env.setup, Env.round, Env.gameSearch, Env.team,
-    Env.teamSearch, Env.forumSearch, Env.message, Env.socket)
+    Env.teamSearch, Env.forumSearch, Env.message, Env.socket, Env.timeline)
 
   if (Env.ai.isServer) println("Running as AI server")
   else if (CronEnabled) Cron start system

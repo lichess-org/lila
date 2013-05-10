@@ -10,28 +10,28 @@ final class Env(config: Config, system: ActorSystem) {
   private val SocketHubTimeout = config duration "socket.hub.timeout"
 
   object actor {
-    val game = actorFor("game.actor")
-    val gameIndexer = actorFor("game.indexer")
-    val renderer = actorFor("renderer")
-    val captcher = actorFor("captcher")
-    val forum = actorFor("forum.actor")
-    val forumIndexer = actorFor("forum.indexer")
-    val messenger = actorFor("messenger")
-    val router = actorFor("router")
-    val teamIndexer = actorFor("team.indexer")
-    val ai = actorFor("ai")
-    val monitor = actorFor("monitor")
-    val tournamentOrganizer = actorFor("tournament.organizer")
-    val timeline = actorFor("timeline")
-    val bookmark = actorFor("bookmark")
+    lazy val game = actorFor("game.actor")
+    lazy val gameIndexer = actorFor("game.indexer")
+    lazy val renderer = actorFor("renderer")
+    lazy val captcher = actorFor("captcher")
+    lazy val forum = actorFor("forum.actor")
+    lazy val forumIndexer = actorFor("forum.indexer")
+    lazy val messenger = actorFor("messenger")
+    lazy val router = actorFor("router")
+    lazy val teamIndexer = actorFor("team.indexer")
+    lazy val ai = actorFor("ai")
+    lazy val monitor = actorFor("monitor")
+    lazy val tournamentOrganizer = actorFor("tournament.organizer")
+    lazy val timeline = actorFor("timeline")
+    lazy val bookmark = actorFor("bookmark")
   }
 
   object socket {
-    val lobby = socketFor("lobby")
-    val monitor = socketFor("monitor")
-    val site = socketFor("site")
-    val round = socketFor("round")
-    val hub = system.actorOf(Props(new Broadcast(List(
+    lazy val lobby = socketFor("lobby")
+    lazy val monitor = socketFor("monitor")
+    lazy val site = socketFor("site")
+    lazy val round = socketFor("round")
+    lazy val hub = system.actorOf(Props(new Broadcast(List(
       lobby, site, round
     ))(makeTimeout(SocketHubTimeout))), name = SocketHubName)
   }
