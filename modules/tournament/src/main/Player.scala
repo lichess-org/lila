@@ -1,9 +1,8 @@
-package lila.app
-package tournament
+package lila.tournament
 
-import user.User
+import lila.user.User
 
-case class Player(
+private[tournament] case class Player(
     id: String,
     username: String,
     elo: Int,
@@ -21,7 +20,7 @@ case class Player(
   def doWithdraw = copy(withdraw = true)
 }
 
-object Player {
+private[tournament] object Player {
 
   def apply(user: User): Player = new Player(
     id = user.id,
