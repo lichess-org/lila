@@ -2,6 +2,7 @@ package lila.forum
 
 import lila.common.PimpedConfig._
 import lila.hub.actorApi.forum._
+import lila.mod.ModlogApi
 
 import akka.actor._
 import com.typesafe.config.Config
@@ -9,6 +10,7 @@ import com.typesafe.config.Config
 final class Env(
     config: Config,
     db: lila.db.Env,
+    modLog: ModlogApi,
     socketHub: ActorRef,
     captcher: ActorRef,
     indexer: ActorRef,
@@ -27,7 +29,7 @@ final class Env(
 
   lazy val categApi = new CategApi(this)
   lazy val topicApi = new TopicApi(this, indexer, TopicMaxPerPage)
-  lazy val postApi = new PostApi(this, indexer, PostMaxPerPage)
+  lazy val postApi = new PostApi(this, indexer, PostMaxPerPage, modLog)
 
   lazy val forms = new DataForm(captcher)
   lazy val recent = new Recent(postApi, RecentTtl)
@@ -61,6 +63,7 @@ object Env {
   lazy val current = "[boot] forum" describes new Env(
     config = lila.common.PlayApp loadConfig "forum",
     db = lila.db.Env.current,
+    modLog = lila.mod.Env.current.logApi,
     socketHub = hub.socket.hub,
     captcher = hub.actor.captcher,
     indexer = hub.actor.forumIndexer,
