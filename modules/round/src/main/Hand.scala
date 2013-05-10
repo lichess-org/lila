@@ -52,8 +52,7 @@ final class Hand(
             GameRepo initialFen progress.game.id
           }
           aiResult ← ai.play(progress.game.toChess, pgn, initialFen, ~progress.game.aiLevel)
-          eventsAndFen ← aiResult.fold(
-            err ⇒ fufail("[round hand] ai response fail " + err), {
+          eventsAndFen ← aiResult match {
               case (newChessGame, move) ⇒ {
                 val (prog2, pgn2) = progress.game.update(newChessGame, move)
                 val progress2 = progress >> prog2
@@ -63,7 +62,7 @@ final class Hand(
                     playResult(progress2.events ::: finishEvents, progress2)
                   }
               }
-            }): PlayResult
+            }
         } yield eventsAndFen
         else (GameRepo save progress) >>
           PgnRepo.save(povRef.gameId, pgn) inject
