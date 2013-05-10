@@ -35,11 +35,13 @@ final class Env(
     maxPerPage = PaginatorMaxPerPage,
     maxUserPerPage = PaginatorMaxUserPerPage)
 
+  lazy val cli = new Cli(api)
+
+  lazy val cached = new Cached(CacheCapacity)
+
   private[team] lazy val teamColl = db(CollectionTeam)
   private[team] lazy val requestColl = db(CollectionRequest)
   private[team] lazy val memberColl = db(CollectionMember)
-
-  lazy val cached = new Cached(CacheCapacity)
 
   private lazy val notifier = new Notifier(
     messenger = messenger,

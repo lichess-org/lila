@@ -11,7 +11,7 @@ private[api] final class Cli(env: Env) {
   private def run(args: List[String]): Fu[String] = {
     (processors lift args) | fufail("Unknown command: " + args.mkString(" "))
   } recover {
-    case throwable ⇒ "ERROR " + throwable
+    case e: Exception ⇒ "ERROR " + e
   }
 
   private def processors =
@@ -24,5 +24,6 @@ private[api] final class Cli(env: Env) {
       lila.teamSearch.Env.current.cli.process orElse
       lila.forum.Env.current.cli.process orElse
       lila.forumSearch.Env.current.cli.process orElse
-      lila.message.Env.current.cli.process
+      lila.message.Env.current.cli.process orElse
+      lila.team.Env.current.cli.process
 }
