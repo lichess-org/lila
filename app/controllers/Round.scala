@@ -20,7 +20,6 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
   private def bookmarkApi = Env.bookmark.api
   private def analyser = Env.analyse.analyser
   // private def tournamentRepo = Env.tournament.repo
-  private def gameJs = Env.game.gameJs
 
   def websocketWatcher(gameId: String, color: String) = Socket[JsValue] { implicit ctx ⇒
     (get("sri") |@| getInt("version")).tupled zmap {
@@ -28,16 +27,14 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
     }
   }
 
-  def websocketPlayer(fullId: String) = WebSocket.async[JsValue] { implicit req ⇒
-    reqToCtx(req) flatMap { implicit ctx ⇒
-      (get("sri") |@| getInt("version") |@| get("tk2")).tupled zmap {
-        case (uid, version, token) ⇒ env.socketHandler.player(fullId, version, uid, token, ctx)
-      }
+  def websocketPlayer(fullId: String) = Socket[JsValue] { implicit ctx ⇒
+    (get("sri") |@| getInt("version") |@| get("tk2")).tupled zmap {
+      case (uid, version, token) ⇒ env.socketHandler.player(fullId, version, uid, token, ctx)
     }
   }
 
   def signedJs(gameId: String) = OpenNoCtx { req ⇒
-    JsOk(GameRepo token gameId map gameJs.sign, CACHE_CONTROL -> "max-age=3600")
+    JsOk(GameRepo token gameId map Env.game.gameJs.sign, CACHE_CONTROL -> "max-age=3600")
   }
 
   def player(fullId: String) = Open { implicit ctx ⇒
