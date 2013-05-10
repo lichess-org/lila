@@ -81,12 +81,12 @@ final class Finisher(
       _ ← GameRepo save p2
       g = p2.game
       winnerId = winner flatMap (g.player(_).userId)
-      _ ← GameRepo.finish(g.id, winnerId)
-      _ ← updateElo(g)
-      _ ← incNbGames(g, White) doIf (g.status >= Status.Mate)
-      _ ← incNbGames(g, Black) doIf (g.status >= Status.Mate)
-      _ ← fuccess(indexer ! lila.game.actorApi.InsertGame(g))
-      _ ← fuccess(tournamentOrganizer ! FinishGame(g.id))
+      _ ← GameRepo.finish(g.id, winnerId) >>
+      updateElo(g) >>
+      incNbGames(g, White).doIf(g.status >= Status.Mate) >>
+      incNbGames(g, Black).doIf(g.status >= Status.Mate) >>-
+      (indexer ! lila.game.actorApi.InsertGame(g)) >>-
+      (tournamentOrganizer ! FinishGame(g.id))
     } yield p2.events
 
   private def incNbGames(game: Game, color: Color): Funit =

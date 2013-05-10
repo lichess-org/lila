@@ -37,7 +37,7 @@ private[setup] final class Processor(
       game.player.isHuman.fold(fuccess(pov), for {
         initialFen ← game.variant.standard ?? (GameRepo initialFen game.id)
         pgnString ← PgnRepo get game.id
-        aiResult ← ai.play(game.toChess, pgnString, initialFen, ~game.aiLevel) map (_.err)
+        aiResult ← ai.play(game.toChess, pgnString, initialFen, ~game.aiLevel) 
         (newChessGame, move) = aiResult
         (progress, pgn) = game.update(newChessGame, move)
         _ ← (GameRepo save progress) >> PgnRepo.save(game.id, pgn)
