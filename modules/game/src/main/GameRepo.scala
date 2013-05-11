@@ -103,16 +103,14 @@ object GameRepo {
     e ⇒ fufail(e.toString),
     js ⇒ {
       val userIds = game.players.map(_.userId).flatten
-      val json = List(
+      $insert(List(
         userIds.nonEmpty option ("uids" -> Json.toJson(userIds)),
-        game.mode.rated option ("ra" -> JsBoolean(true)),
         game.variant.exotic option ("if" -> JsString(Forsyth >> game.toChess))
-      ).flatten.foldLeft(js)(_ + _)
-      $insert(json)
+      ).flatten.foldLeft(js)(_ + _))
     }
   )
 
-  def denormalizeUids(game: Game): Funit = 
+  def denormalizeUids(game: Game): Funit =
     $update.field(game.id, "uids", game.players.map(_.userId).flatten)
 
   def saveNext(game: Game, nextId: ID): Funit = $update(
