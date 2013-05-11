@@ -102,9 +102,9 @@ object GameRepo {
   def denormalize(game: Game): Funit = {
     val userIds = game.players.map(_.userId).flatten
     List(
-      userIds.nonEmpty ?? $update($select(game.id), $set("uids" -> userIds)),
-      game.mode.rated ?? $update($select(game.id), $set("ra" -> true)),
-      game.variant.exotic ?? $update($select(game.id), $set("if" -> (Forsyth >> game.toChess)))
+      userIds.nonEmpty ?? $update.field(game.id, "uids", userIds),
+      game.mode.rated ?? $update.field(game.id, "ra", true),
+      game.variant.exotic ?? $update.field(game.id, "if", Forsyth >> game.toChess)
     ).sequence.void
   }
 
