@@ -35,7 +35,7 @@ private[tournament] final class TournamentApi(
     } map {
       _.list foreach { game ⇒
         game.tournamentId foreach { tid ⇒
-          socketHub ! Forward(tid, StartGame(game))
+          sendTo(tid, StartGame(game))
         }
       }
     }
@@ -49,10 +49,10 @@ private[tournament] final class TournamentApi(
         minPlayers = setup.minPlayers,
         mode = Mode orDefault ~setup.mode,
         variant = Variant orDefault setup.variant)
-      $insert(created) >>
-        (withdrawIds map socket.reload).sequence >>
-        reloadSiteSocket >>
-        lobbyReload >>
+      $insert(created) >>-
+        (withdrawIds foreach socketReload) >>-
+        reloadSiteSocket >>-
+        lobbyReload >>-
         sendLobbyMessage(created) inject created
     }
 
@@ -62,36 +62,35 @@ private[tournament] final class TournamentApi(
     created.readyToEarlyStart option doStart(created.start)
 
   private def doStart(started: Started): Fu[Unit] =
-    $update(started) >> (socket start started.id) >> reloadSiteSocket >> lobbyReload
+    $update(started) >>-
+      sendTo(started.id, Start) >>-
+      reloadSiteSocket >>-
+      lobbyReload
 
-  def wipeEmpty(created: Created): Fu[Unit] = (for {
-    _ ← $remove(created)
-    _ ← $remove[Room](created.id)
-    _ ← reloadSiteSocket
-    _ ← lobbyReload
-    _ ← removeLobbyMessage(created)
-  } yield ()) doIf created.isEmpty
+  def wipeEmpty(created: Created): Fu[Unit] = created.isEmpty ?? {
+    $remove(created) >>
+    $remove.byId[Room](created.id) >>-
+    reloadSiteSocket >>-
+    lobbyReload >>-
+    (lobby ! UnTalk("%s tournament created".format(created.name).r))
+  } 
 
   def finish(started: Started): Fu[Tournament] = started.readyToFinish.fold({
     val pairingsToAbort = started.playingPairings
     val finished = started.finish
-    for {
-      _ ← $update(finished)
-      _ ← socket reloadPage finished.id
-      _ ← reloadSiteSocket
-      _ ← (pairingsToAbort map (_.gameId) map roundMeddler.forceAbort).sequence
-      _ ← finished.players.filter(_.score > 0).map(p ⇒ incToints(p.id)(p.score)).sequence
-    } yield finished
+    $update(finished) >>-
+      sendTo(started.id, ReloadPage) >>-
+      reloadSiteSocket >>-
+      (pairingsToAbort map (_.gameId) foreach roundMeddler.forceAbort) >>
+      finished.players.filter(_.score > 0).map(p ⇒ incToints(p.id)(p.score)).sequence inject finished
   }, fuccess(started))
 
   def join(tour: Created, me: User): Funit =
     (tour join me).future flatMap { tour2 ⇒
       TournamentRepo withdraw me.id flatMap { withdrawIds ⇒
         $update(tour2) >>-
-          (socketHub ! Forward(tour.id, Joining(me.id))) >>-
-          ((tour.id :: withdrawIds) foreach { tourId ⇒
-            socketHub ! Forward(tourId, Reload)
-          }) >>-
+          sendTo(tour.id, Joining(me.id)) >>-
+          ((tour.id :: withdrawIds) foreach socketReload) >>-
           reloadSiteSocket >>-
           lobbyReload
       }
@@ -100,13 +99,13 @@ private[tournament] final class TournamentApi(
   def withdraw(tour: Tournament, userId: String): Funit = tour match {
     case created: Created ⇒ (created withdraw userId).fold(
       err ⇒ fufail(err.shows),
-      tour2 ⇒ $update(tour2) >> (socket reload tour2.id) >> reloadSiteSocket >> lobbyReload
+      tour2 ⇒ $update(tour2) >>- socketReload(tour2.id) >>- reloadSiteSocket >>- lobbyReload
     )
     case started: Started ⇒ (started withdraw userId).fold(
       err ⇒ fufail(err.shows),
-      tour2 ⇒ $update(tour2) >>
-        ~(tour2 userCurrentPov userId map roundMeddler.resign) >>
-        (socket reload tour2.id) >>
+      tour2 ⇒ $update(tour2) >>-
+        (tour2 userCurrentPov userId foreach roundMeddler.resign) >>-
+        socketReload(tour2.id) >>-
         reloadSiteSocket
     )
     case finished: Finished ⇒ fufail("Cannot withdraw from finished tournament " + finished.id)
@@ -131,9 +130,13 @@ private[tournament] final class TournamentApi(
   private def lobbyReload {
     TournamentRepo.created foreach { tours ⇒
       renderer ? TournamentTable(tours) map {
-        case view: play.api.templates.Html ⇒ ReloadTournaments(view)
+        case view: play.api.templates.Html ⇒ ReloadTournaments(view.body)
       } pipeTo lobby
     }
+  }
+
+  private def socketReload(tourId: String) {
+    sendTo(tourId, Reload)
   }
 
   private val reloadMessage = Json.obj("t" -> "reload", "d" -> JsNull)
@@ -153,4 +156,7 @@ private[tournament] final class TournamentApi(
     lobby ! UnTalk("%s tournament created".format(tour.name).r)
   }
 
+  private def sendTo(tourId: String, msg: Any) {
+    socketHub ! Forward(tourId, msg)
+  }
 }
