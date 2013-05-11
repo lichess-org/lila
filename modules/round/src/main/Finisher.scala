@@ -83,8 +83,8 @@ final class Finisher(
       winnerId = winner flatMap (g.player(_).userId)
       _ ← GameRepo.finish(g.id, winnerId) >>
       updateElo(g) >>
-      incNbGames(g, White).doIf(g.status >= Status.Mate) >>
-      incNbGames(g, Black).doIf(g.status >= Status.Mate) >>-
+      ((g.status >= Status.Mate) ?? incNbGames(g, White)) >>
+      ((g.status >= Status.Mate) ?? incNbGames(g, Black)) >>-
       (indexer ! lila.game.actorApi.InsertGame(g)) >>-
       (tournamentOrganizer ! FinishGame(g.id))
     } yield p2.events
@@ -96,7 +96,7 @@ final class Finisher(
       )
     }
 
-  private def updateElo(game: Game): Funit = ~{
+  private def updateElo(game: Game): Funit = (game.finished && game.rated && game.turns >= 2) ?? ~{
     for {
       whiteUserId ← game.player(White).userId
       blackUserId ← game.player(Black).userId
@@ -108,10 +108,12 @@ final class Finisher(
         val (whiteElo, blackElo) = eloCalculator.calculate(whiteUser, blackUser, game.winnerColor)
         val (whiteDiff, blackDiff) = (whiteElo - whiteUser.elo, blackElo - blackUser.elo)
         val cheaterWin = (whiteDiff > 0 && whiteUser.engine) || (blackDiff > 0 && blackUser.engine)
+        (!cheaterWin) ?? {
         GameRepo.setEloDiffs(game.id, whiteDiff, blackDiff) >>
           eloUpdater.game(whiteUser, whiteElo, blackUser.elo) >>
-          eloUpdater.game(blackUser, blackElo, whiteUser.elo) doUnless cheaterWin inject true.some
+          eloUpdater.game(blackUser, blackElo, whiteUser.elo) 
+        } inject true.some
       }
     } yield ()).value.void
-  } doIf (game.finished && game.rated && game.turns >= 2)
+  } 
 }

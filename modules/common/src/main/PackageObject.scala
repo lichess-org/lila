@@ -142,13 +142,6 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
       fua flatMap succ recoverWith { case e: Exception ⇒ fail(e) }
   }
 
-  implicit final class LilaPimpedFutureZero[A: Zero](fua: Fu[A]) {
-
-    def doIf(cond: Boolean): Fu[A] = cond.fold(fua, fuccess(∅[A]))
-
-    def doUnless(cond: Boolean): Fu[A] = doIf(!cond)
-  }
-
   implicit final class LilaPimpedBooleanForFuture(b: Boolean) {
 
     def optionFu[A](v: ⇒ Fu[A]): Fu[Option[A]] =

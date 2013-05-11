@@ -23,11 +23,11 @@ final class Messenger(i18nKeys: I18nKeys) {
   def rematch(prev: Game, next: Game): Funit = for {
     prevR ← RoomRepo room prev.id
     nextR = prevR.rematchCopy(next.id, nbMessagesCopiedToRematch)
-    _ ← $insert(nextR) doIf nextR.nonEmpty
+    _ ← nextR.nonEmpty ?? $insert(nextR)
     _ ← systemMessage(next, _.rematchOfferAccepted)
     prevWR ← WatcherRoomRepo room prev.id
     nextWR = prevWR.rematchCopy(next.id, nbMessagesCopiedToRematch)
-    _ ← $insert(nextWR) doIf nextWR.nonEmpty
+    _ ← nextWR.nonEmpty ?? $insert(nextWR)
   } yield ()
 
   def playerMessage(ref: PovRef, text: String): Fu[List[Event.Message]] =

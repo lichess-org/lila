@@ -29,7 +29,7 @@ private[game] final class Titivate(bookmark: ActorRef) {
         id ← game str "_id"
         nextId ← game str "nextId"
       } yield $count.exists[Game]($select(nextId)) flatMap { exists ⇒
-        $update[Game]($select(id), $unset("next")) doUnless exists
+        (!exists) ?? $update[Game]($select(id), $unset("next")) 
       })
     }
 }

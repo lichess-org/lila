@@ -88,26 +88,30 @@ final class TeamApi(
     }
 
   def createRequest(team: Team, setup: RequestSetup, user: User): Funit =
-    requestable(team, user) flatMap { able ⇒
-      val request = Request.make(team = team.id, user = user.id, message = setup.message)
-      val rwu = RequestWithUser(request, user)
-      $insert(request) >> (cached.nbRequests invalidate team.createdBy) doIf able
+    requestable(team, user) flatMap {
+      _ ?? {
+        val request = Request.make(team = team.id, user = user.id, message = setup.message)
+        val rwu = RequestWithUser(request, user)
+        $insert(request) >> (cached.nbRequests invalidate team.createdBy)
+      }
     }
 
-    def processRequest(team: Team, request: Request, accept: Boolean): Funit = for {
-      _ ← $remove(request)
-      _ ← cached.nbRequests invalidate team.createdBy
-      userOption ← $find.byId[User](request.user)
-      _ ← userOption.zmap(user ⇒
-        doJoin(team, user.id) >>- notifier.acceptRequest(team, request) doIf accept
-      )
-    } yield ()
+  def processRequest(team: Team, request: Request, accept: Boolean): Funit = for {
+    _ ← $remove(request)
+    _ ← cached.nbRequests invalidate team.createdBy
+    userOption ← $find.byId[User](request.user)
+    _ ← userOption.filter(_ ⇒ accept).zmap(user ⇒
+      doJoin(team, user.id) >>- notifier.acceptRequest(team, request)
+    )
+  } yield ()
 
   def doJoin(team: Team, userId: String): Funit =
     belongsTo(team.id, userId) flatMap { belongs ⇒
-      MemberRepo.add(team.id, userId) >>
-        TeamRepo.incMembers(team.id, +1) >>
-        (cached.teamIds invalidate userId) doUnless belongs
+      (!belongs) ?? {
+        MemberRepo.add(team.id, userId) >>
+          TeamRepo.incMembers(team.id, +1) >>
+          (cached.teamIds invalidate userId)
+      }
     }
 
   def quit(teamId: String)(implicit ctx: Context): Fu[Option[Team]] = for {
@@ -118,10 +122,12 @@ final class TeamApi(
   } yield result
 
   def doQuit(team: Team, userId: String): Funit =
-    belongsTo(team.id, userId) flatMap { belongs ⇒
-      MemberRepo.remove(team.id, userId) >>
-        TeamRepo.incMembers(team.id, -1) >>
-        (cached.teamIds invalidate userId) doIf belongs
+    belongsTo(team.id, userId) flatMap {
+      _ ?? {
+        MemberRepo.remove(team.id, userId) >>
+          TeamRepo.incMembers(team.id, -1) >>
+          (cached.teamIds invalidate userId)
+      }
     }
 
   def quitAll(userId: String): Funit = MemberRepo.removeByUser(userId)

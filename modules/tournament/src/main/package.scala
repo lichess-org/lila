@@ -10,10 +10,10 @@ package object tournament extends PackageObject with WithPlay with WithSocket{
     private[tournament] implicit lazy val tournamentTube = Tournament.tube inColl Env.current.tournamentColl
 
     private[tournament] object tournamentTubes {
-      implicit lazy val any = tournamentTube
-      implicit lazy val created = Tournament.createdTube inColl Env.current.tournamentColl
-      implicit lazy val started = Tournament.startedTube inColl Env.current.tournamentColl
-      implicit lazy val finished = Tournament.finishedTube inColl Env.current.tournamentColl
+      implicit lazy val anyTube = tournamentTube
+      implicit lazy val createdTube = Tournament.createdTube inColl Env.current.tournamentColl
+      implicit lazy val startedTube = Tournament.startedTube inColl Env.current.tournamentColl
+      implicit lazy val finishedTube = Tournament.finishedTube inColl Env.current.tournamentColl
     }
 
     private[tournament] implicit lazy val roomTube = Room.tube inColl Env.current.roomColl
