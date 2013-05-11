@@ -70,28 +70,35 @@ object UserRepo {
   def saveSetting(id: ID, key: String, value: String): Funit =
     $update($select(id), $set(("settings." + key) -> value))
 
-  def authenticate(id: ID, password: String): Fu[Option[User]] = for {
-    greenLight ← checkPassword(id, password)
-    if greenLight
-    userOption ← $find byId id
-  } yield userOption
+  def authenticate(id: ID, password: String): Fu[Option[User]] =
+    checkPassword(id, password) flatMap { _ ?? ($find byId id) }
 
   private case class AuthData(password: String, salt: String, enabled: Boolean, sha512: Boolean) {
     def compare(p: String) = password == sha512.fold(hash512(p, salt), hash(p, salt))
   }
 
-  def checkPassword(id: ID, password: String): Fu[Boolean] = for {
-    dataOption ← $projection.one($select(id), Seq("password", "salt", "enabled", "sha512")) { obj ⇒
-      (Json.reads[AuthData] reads obj).asOpt
+  private object AuthData {
+
+    import lila.db.Tube.Helpers._
+    import play.api.libs.json._
+
+    private def defaults = Json.obj("sha512" -> false)
+
+    lazy val reader = (__.json update merge(defaults)) andThen Json.reads[AuthData]
+  }
+
+  def checkPassword(id: ID, password: String): Fu[Boolean] =
+    $projection.one($select(id), Seq("password", "salt", "enabled", "sha512")) { obj ⇒
+      (AuthData.reader reads obj).asOpt
+    } map {
+      _ zmap (data ⇒ data.enabled && data.compare(password))
     }
-  } yield dataOption zmap (data ⇒ data.enabled && data.compare(password))
 
   def create(username: String, password: String): Fu[Option[User]] = for {
-    existing ← $count exists normalize(username)
-    userOption ← existing.fold(
-      fuccess(none),
-      $insert(newUser(username, password)) >> ($find byId normalize(username))
-    )
+    exists ← $count exists normalize(username)
+    userOption ← !exists ?? {
+      $insert(newUser(username, password)) >> named(normalize(username))
+    }
   } yield userOption
 
   def countEnabled: Fu[Int] = $count(enabledQuery)
@@ -182,7 +189,6 @@ object UserRepo {
       "nbLossesH" -> 0,
       "nbDrawsH" -> 0,
       "enabled" -> true,
-      "roles" -> Json.obj(),
       "createdAt" -> $date(DateTime.now))
   }
 

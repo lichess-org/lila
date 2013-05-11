@@ -73,5 +73,7 @@ object User {
     "isChatBan" -> false,
     "settings" -> Json.obj(),
     "engine" -> false,
-    "toints" -> 0)
+    "toints" -> 0,
+    "settings" -> Json.obj(),
+    "roles" -> Json.arr())
 }
