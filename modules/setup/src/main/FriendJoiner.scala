@@ -20,9 +20,8 @@ private[setup] final class FriendJoiner(
       val color = game.invitedColor
       for {
         p1 ← user.fold(fuccess(Progress(game))) { u ⇒
-          GameRepo.setUser(game.id, color, u) map { _ ⇒
+          GameRepo.setUser(game.id, color, u) inject
             Progress(game, game.updatePlayer(color, _ withUser u))
-          }
         }
         p2 = p1 map (_.start)
         url ← playerUrl(p2.game, !color)
@@ -30,7 +29,7 @@ private[setup] final class FriendJoiner(
           p2 + Event.RedirectOwner(!color, url) ++ evts
         }
         _ ← (GameRepo save p3) >>
-          (GameRepo denormalize p3.game) >>-
+          (GameRepo denormalizeUids p3.game) >>-
           (timeline ! p3.game)
       } yield Pov(p3.game, color) -> p3.events
     } toValid "Can't join started game " + game.id
