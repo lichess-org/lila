@@ -222,20 +222,29 @@ object Tournament {
   import lila.db.Tube
   import play.api.libs.json._
 
-  private[tournament] lazy val tube = Tube(
-    reader = Reads[Tournament](js ⇒
-      ~(for {
-        obj ← js.asOpt[JsObject]
-        rawTour ← RawTournament.tube.read(obj).asOpt
-        tour ← rawTour.decode
-      } yield JsSuccess(tour): JsResult[Tournament])
-    ),
-    writer = Writes[Tournament](tour ⇒
-      RawTournament.tube.write(tour.encode) getOrElse JsUndefined("[db] Can't write tournament " + tour.id)
-    )
+  private def reader[T <: Tournament](decode: RawTournament ⇒ Option[T])(js: JsValue): JsResult[T] = ~(for {
+    obj ← js.asOpt[JsObject]
+    rawTour ← RawTournament.tube.read(obj).asOpt
+    tour ← decode(rawTour)
+  } yield JsSuccess(tour): JsResult[T])
+
+  private lazy val writer = Writes[Tournament](tour ⇒
+    RawTournament.tube.write(tour.encode) getOrElse JsUndefined("[db] Can't write tournament " + tour.id)
   )
 
-  def apply(
+  private[tournament] lazy val tube: Tube[Tournament] =
+    Tube(Reads(reader(_.decode)), writer)
+
+  private[tournament] lazy val createdTube: Tube[Created] =
+    Tube(Reads(reader(_.created)), writer)
+
+  private[tournament] lazy val startedTube: Tube[Started] =
+    Tube(Reads(reader(_.started)), writer)
+
+  private[tournament] lazy val finishedTube: Tube[Finished] =
+    Tube(Reads(reader(_.finished)), writer)
+
+  def make(
     createdBy: User,
     clock: TournamentClock,
     minutes: Int,
@@ -322,7 +331,7 @@ private[tournament] object RawTournament {
 
   private[tournament] lazy val tube = Tube(
     (__.json update (
-      merge(defaults) andThen readDateOpt('startedAt) 
+      merge(defaults) andThen readDateOpt('startedAt)
     )) andThen Json.reads[RawTournament],
     Json.writes[RawTournament] andThen (__.json update (
       writeDateOpt('startedAt)

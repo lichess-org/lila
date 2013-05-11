@@ -9,6 +9,7 @@ import actorApi._
 import lila.common.PimpedJson._
 import lila.socket.Handler
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
+import lila.hub.actorApi.lobby._
 import lila.user.{ User, Context }
 import lila.security.Flood
 import makeTimeout.short

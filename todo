@@ -79,6 +79,7 @@ FIX TOUCHPAD SIGN IN http://en.lichess.org/forum/lichess-feedback/cant-sign-in#6
 chess variants https://github.com/ornicar/lila/issues/2://github.com/ornicar/lila/issues/25 
 publish scalastic 0.90.0-thib
 stream game export
+show fen only after game is finished http://en.lichess.org/forum/lichess-feedback/please-disable-live-fen-notation?page=1
 
 DEPLOY p21
 ----------
