@@ -41,8 +41,7 @@ private[setup] final class Rematcher(
   private def rematchJoin(pov: Pov): Fu[Result] = for {
     nextGame ← returnGame(pov) map (_.start)
     nextId = nextGame.id
-    _ ← $insert(nextGame) >>
-      (GameRepo denormalize nextGame) >>
+    _ ← (GameRepo insertDenormalized nextGame) >>
       GameRepo.saveNext(pov.game, nextGame.id) >>-
       (timeline ! nextGame) >>
       // messenges are not sent to the next game socket

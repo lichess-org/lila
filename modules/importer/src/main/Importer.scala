@@ -19,9 +19,7 @@ private[importer] final class Importer(
   def apply(data: ImportData, user: Option[String]): Fu[Game] = gameExists(data.pgn) {
     (data preprocess user).fold[Fu[Game]](fufail(_), {
         case Preprocessed(game, moves, result) ⇒ for {
-          _ ← $insert(game) >>
-            (GameRepo denormalize game) >>
-            applyMoves(game.id, moves)
+          _ ← (GameRepo insertDenormalized game) >> applyMoves(game.id, moves)
           dbGame ← $find.byId[Game](game.id)
           _ ← ~((dbGame |@| result) apply {
             case (dbg, res) ⇒ finish(dbg, res)

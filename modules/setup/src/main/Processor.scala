@@ -31,8 +31,7 @@ private[setup] final class Processor(
     val pov = config.pov
     val game = ctx.me.fold(pov.game)(user ⇒ pov.game.updatePlayer(pov.color, _ withUser user))
     saveConfig(_ withAi config) >>
-      $insert(game) >>
-      (GameRepo denormalize game) >>-
+      (GameRepo insertDenormalized game) >>-
       (timeline ! game) >>
       game.player.isHuman.fold(fuccess(pov), for {
         initialFen ← game.variant.exotic ?? (GameRepo initialFen game.id)
@@ -48,9 +47,7 @@ private[setup] final class Processor(
     val pov = config.pov
     val game = ctx.me.fold(pov.game)(user ⇒ pov.game.updatePlayer(pov.color, _ withUser user))
     saveConfig(_ withFriend config) >>
-      $insert(game) >>
-      // to get the initialFen before the game starts
-      (GameRepo denormalize game) >>-
+      (GameRepo insertDenormalized game) >>-
       friendConfigMemo.set(pov.game.id, config) inject pov
   }
 

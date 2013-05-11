@@ -74,7 +74,7 @@ object GameRepo {
     )
   }
 
-  def incBookmarks(id: ID, value: Int) = 
+  def incBookmarks(id: ID, value: Int) =
     $update($select(id), $inc("bm" -> value))
 
   def finish(id: ID, winnerId: Option[String]) = $update(
@@ -99,14 +99,21 @@ object GameRepo {
     _ sort Query.sortCreated skip (Random nextInt distribution)
   )
 
-  def denormalize(game: Game): Funit = {
-    val userIds = game.players.map(_.userId).flatten
-    List(
-      userIds.nonEmpty ?? $update.field(game.id, "uids", userIds),
-      game.mode.rated ?? $update.field(game.id, "ra", true),
-      game.variant.exotic ?? $update.field(game.id, "if", Forsyth >> game.toChess)
-    ).sequence.void
-  }
+  def insertDenormalized(game: Game): Funit = (gameTube toMongo game).fold(
+    e ⇒ fufail(e.toString),
+    js ⇒ {
+      val userIds = game.players.map(_.userId).flatten
+      val json = List(
+        userIds.nonEmpty option ("uids" -> Json.toJson(userIds)),
+        game.mode.rated option ("ra" -> JsBoolean(true)),
+        game.variant.exotic option ("if" -> JsString(Forsyth >> game.toChess))
+      ).flatten.foldLeft(js)(_ + _)
+      $insert(json)
+    }
+  )
+
+  def denormalizeUids(game: Game): Funit = 
+    $update.field(game.id, "uids", game.players.map(_.userId).flatten)
 
   def saveNext(game: Game, nextId: ID): Funit = $update(
     $select(game.id),
@@ -133,7 +140,7 @@ object GameRepo {
   def count(query: Query.type ⇒ JsObject): Fu[Int] = $count(query(Query))
 
   def recentGames(limit: Int): Fu[List[Game]] = $find(
-    $query(Query.started ++ Query.turnsGt(1)) sort Query.sortCreated, limit 
+    $query(Query.started ++ Query.turnsGt(1)) sort Query.sortCreated, limit
   )
 
   def nbPerDay(days: Int): Fu[List[Int]] =
