@@ -3,7 +3,7 @@ package actor
 
 import akka.actor._
 
-import play.api.templates._
+import play.api.templates.Html
 import views.{ html => V }
 
 private[app] final class Renderer extends Actor {
@@ -15,5 +15,13 @@ private[app] final class Renderer extends Actor {
 
     case lila.notification.actorApi.RenderNotification(id, from, body) => 
       V.notification.view(id, from)(Html(body))
+
+    case lila.tournament.actorApi.RemindTournament(tournament) => 
+      // TODO
+      // V.notification.view(id, from)(Html(body))
+
+    case lila.tournament.actorApi.TournamentTable(tour) =>
+      // TODO
+      // V.tournament.createdTable(tours)
   }
 }

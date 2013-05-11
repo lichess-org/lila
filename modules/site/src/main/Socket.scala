@@ -2,7 +2,7 @@ package lila.site
 
 import actorApi._
 import lila.socket._
-import lila.socket.actorApi.Connected
+import lila.socket.actorApi.{ Connected, SendToFlag }
 
 import akka.actor._
 import play.api.libs.json._

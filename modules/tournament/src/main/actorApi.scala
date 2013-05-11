@@ -48,3 +48,5 @@ case object StartPairings
 case class StartPairing(tour: Started)
 case class GetTournamentUserIds(tournamentId: String)
 case class RemindTournaments(tours: List[Started])
+case class RemindTournament(tour: Started)
+case class TournamentTable(tours: List[Created])

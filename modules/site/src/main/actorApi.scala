@@ -13,6 +13,4 @@ case class Member(
   def hasFlag(f: String) = flag zmap (f ==)
 }
 
-case class SendToFlag(flag: String, message: JsObject) 
-
 case class Join(uid: String, userId: Option[String], flag: Option[String])

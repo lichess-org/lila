@@ -26,7 +26,6 @@ object Member {
 }
 
 case class Connected(enumerator: JsEnumerator, member: Member)
-case class ReloadTournaments(html: String)
 case class WithHooks(op: Iterable[String] ⇒ Unit)
 case class AddHook(hook: Hook)
 case class RemoveHook(hook: Hook)
@@ -36,6 +35,3 @@ case class Join(
   uid: String,
   user: Option[User],
   hookOwnerId: Option[String])
-case class Talk(u: String, txt: String)
-case class SysTalk(txt: String)
-case class UnTalk(r: util.matching.Regex)

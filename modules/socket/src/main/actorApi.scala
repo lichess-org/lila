@@ -23,3 +23,5 @@ case class Resync(uid: String)
 case class GetSocket(id: String)
 case object GetNbSockets
 case object SocketTimeout
+
+case class SendToFlag(flag: String, message: JsObject) 
