@@ -142,7 +142,7 @@ private[tournament] final class TournamentApi(
     sendTo(tourId, Reload)
   }
 
-  private val reloadMessage = Json.obj("t" -> "reload", "d" -> JsNull)
+  private val reloadMessage = Json.obj("t" -> "reload")
   private def reloadSiteSocket {
     site ! SendToFlag("tournament", reloadMessage)
   }

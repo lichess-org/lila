@@ -1729,7 +1729,9 @@ var lichess_translations = [];
 
     var $chat = $("div.lichess_chat").chat({
       render: function(txt, u) {
-        return '<li><span><a class="user_link" href="/@/' + u + '">' + u.substr(0, 12) + '</a></span>' + urlToLink(txt) + '</li>';
+        return (u || false)
+          ? '<li><span><a class="user_link" href="/@/' + u + '">' + u.substr(0, 12) + '</a></span>' + urlToLink(txt) + '</li>'
+          : '<li>' + urlToLink(txt) + '</li>';
       }
     });
 
