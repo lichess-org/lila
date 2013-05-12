@@ -20,11 +20,6 @@ private[tournament] final class SocketHub(
 
   def receiveSpecific = {
 
-    case CloseTournament(id) ⇒ sockets get id foreach { socket ⇒
-      socket ! Close
-      sockets = sockets - id
-    }
-
     case msg @ Fen(_, _, _) ⇒ broadcast(msg)
   }
 

@@ -52,7 +52,7 @@ private[tournament] final class Socket(
     case Broom ⇒ {
       broom()
       if (lastPingTime < (nowMillis - socketTimeout.toMillis)) {
-        context.parent ! CloseTournament(tournamentId)
+        context.parent ! CloseSocket(tournamentId)
       }
     }
 

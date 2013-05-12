@@ -61,6 +61,5 @@ case class AddEvents(events: List[Event])
 case object ClockSync
 case class IsConnectedOnGame(gameId: String, color: Color)
 case class IsGone(gameId: String, color: Color)
-case class CloseGame(gameId: String)
 case object AnalysisAvailable
 case class Ack(uid: String)

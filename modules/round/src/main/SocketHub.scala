@@ -21,11 +21,6 @@ private[round] final class SocketHub(
 
   def receiveSpecific = {
 
-    case CloseGame(gameId) ⇒ withSocket(gameId) { socket ⇒
-      socket ! Close
-      sockets = sockets - gameId
-    }
-
     case msg @ IsConnectedOnGame(gameId, color) ⇒ (sockets get gameId).fold(sender ! false) {
       _ ? msg pipeTo sender
     }
