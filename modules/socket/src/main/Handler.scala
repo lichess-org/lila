@@ -21,7 +21,7 @@ object Handler {
 
     val baseController: Controller = {
       case ("p", _) ⇒ socket ! Ping(uid)
-      case _        ⇒
+      case msg      ⇒ logwarn("Unhandled msg: " + msg)
     }
 
     def iteratee(controller: Controller) = {

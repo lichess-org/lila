@@ -79,16 +79,18 @@ private[lobby] final class Socket(
     case ChangeFeatured(html) ⇒ notifyFeatured(html)
   }
 
-  def notifyFeatured(html: Html) {
-    val msg = makeMessage("featured", html.toString)
+  private def notifyFeatured(html: Html) {
+    broadcast(makeMessage("featured", html.toString))
+  }
+
+  private def notifyTournaments(html: String) {
+    broadcast(makeMessage("tournaments", html))
+  }
+
+  private def broadcast(msg: JsObject) {
     members.values foreach (_.channel push msg)
   }
 
-  def notifyTournaments(html: String) {
-    val msg = makeMessage("tournaments", html)
-    members.values foreach (_.channel push msg)
-  }
-
-  def hookOwnerIds: Iterable[String] =
+  private def hookOwnerIds: Iterable[String] =
     members.values.map(_.hookOwnerId).flatten
 }

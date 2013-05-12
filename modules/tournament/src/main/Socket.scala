@@ -18,7 +18,7 @@ private[tournament] final class Socket(
     uidTimeout: Duration,
     socketTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member] {
 
-  val joiningMemo = new ExpireSetMemo(uidTimeout)
+  val joiningMemo = new ExpireSetMemo(uidTimeout * 2)
 
   var lastPingTime = nowMillis
 
