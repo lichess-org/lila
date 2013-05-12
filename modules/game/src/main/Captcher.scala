@@ -59,7 +59,7 @@ private final class Captcher extends Actor {
       challenges.list.find(_.gameId == id)
 
     private def createFromDb: Fu[Option[Captcha]] =
-      optionT(findCheckmateInDb(100) flatMap {
+      optionT(findCheckmateInDb(10) flatMap {
         _.fold(findCheckmateInDb(1))(g ⇒ fuccess(g.some))
       }) flatMap fromGame
 
