@@ -327,7 +327,11 @@ private[tournament] object RawTournament {
   private implicit def PlayerTube = Player.tube
 
   private def defaults = Json.obj(
-    "startedAt" -> none[DateTime])
+    "startedAt" -> none[DateTime],
+    "players" -> List[Player](),
+    "pairings" -> List[RawPairing](),
+    "variant" -> Variant.Standard.id,
+    "mode" -> Mode.Casual.id)
 
   private[tournament] lazy val tube = Tube(
     (__.json update (
