@@ -150,7 +150,10 @@ private[controllers] trait LilaController
     fua flatMap { _.fold(notFound(ctx))(a ⇒ op(a)) }
 
   protected def notFound(implicit ctx: Context): Fu[Result] =
-    Lobby handleNotFound ctx
+    ctx.req.headers get "X-Requested-With" zmap ("XMLHttpRequest" ==) fold (
+      NotFound("resource not found").fuccess,
+      Lobby handleNotFound ctx
+    )
 
   protected def isGranted(permission: Permission.type ⇒ Permission)(implicit ctx: Context): Boolean =
     isGranted(permission(Permission))
