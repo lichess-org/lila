@@ -14,6 +14,13 @@ object Tournament extends LilaController {
   private def env = Env.tournament
   private def repo = TournamentRepo
 
+  private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.notFound())
+
+  protected def TourOptionFuRedirect[A](fua: Fu[Option[A]])(op: A ⇒ Fu[Call])(implicit ctx: Context) =
+    fua flatMap {
+      _.fold(tournamentNotFound(ctx).fuccess)(a ⇒ op(a) map { b ⇒ Redirect(b) })
+    }
+
   val home = Open { implicit ctx ⇒
     tournaments zip UserRepo.allSortToints(10) map {
       case (((created, started), finished), leaderboard) ⇒
@@ -39,7 +46,7 @@ object Tournament extends LilaController {
         case Some(tour: Created)  ⇒ showCreated(tour) map { Ok(_) }
         case Some(tour: Started)  ⇒ showStarted(tour) map { Ok(_) }
         case Some(tour: Finished) ⇒ showFinished(tour) map { Ok(_) }
-        case _                    ⇒ NotFound(html.tournament.notFound()).fuccess
+        case _                    ⇒ tournamentNotFound.fuccess
       }
     }
   }
@@ -70,7 +77,7 @@ object Tournament extends LilaController {
   def join(id: String) = AuthBody { implicit ctx ⇒
     implicit me ⇒
       NoEngine {
-        OptionFuRedirect(repo createdById id) { tour ⇒
+        TourOptionFuRedirect(repo createdById id) { tour ⇒
           env.api.join(tour, me).fold(
             err ⇒ {
               logwarn(err.toString)
@@ -84,14 +91,14 @@ object Tournament extends LilaController {
 
   def withdraw(id: String) = Auth { implicit ctx ⇒
     implicit me ⇒
-      OptionFuRedirect(repo byId id) { tour ⇒
+      TourOptionFuRedirect(repo byId id) { tour ⇒
         env.api.withdraw(tour, me.id) inject routes.Tournament.show(tour.id)
       }
   }
 
   def earlyStart(id: String) = Auth { implicit ctx ⇒
     implicit me ⇒
-      OptionFuRedirect(repo.createdByIdAndCreator(id, me.id)) { tour ⇒
+      TourOptionFuRedirect(repo.createdByIdAndCreator(id, me.id)) { tour ⇒
         ~env.api.earlyStart(tour) inject routes.Tournament.show(tour.id)
       }
   }
