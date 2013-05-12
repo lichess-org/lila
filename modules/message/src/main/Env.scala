@@ -36,8 +36,7 @@ final class Env(
     import lila.db.api.$find
     import tube.threadTube
     def process = {
-      case "message" :: "typecheck" :: Nil ⇒
-        $find.all[Thread] inject "Messages type checked"
+      case "message" :: "typecheck" :: Nil ⇒ lila.db.Typecheck.apply[Thread]
     }
   }
 }

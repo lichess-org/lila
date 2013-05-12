@@ -39,8 +39,10 @@ final class Env(
     def process = {
       case "forum" :: "denormalize" :: Nil ⇒
         topicApi.denormalize >> categApi.denormalize inject "Forum denormalized"
-      case "forum" :: "typecheck" :: Nil ⇒
-        $find.all[Categ] >> $find.all[Topic] >> $find.all[Post] inject "Forum type checked"
+      case "forum" :: "typecheck" :: Nil ⇒ 
+      lila.db.Typecheck.apply[Categ] >>
+      lila.db.Typecheck.apply[Topic] >>
+        lila.db.Typecheck.apply[Post]
     }
   }
 
