@@ -1,4 +1,4 @@
-@(tours: List[lila.app.tournament.Tournament], name: String, cssClass: String = "", moreTr: Html = Html(""), showEmpty: Boolean = false)(implicit ctx: Context)
+@(tours: List[lila.tournament.Tournament], name: String, cssClass: String = "", moreTr: Html = Html(""), showEmpty: Boolean = false)(implicit ctx: Context)
 
 @if(showEmpty || tours.nonEmpty) {
 <thead>

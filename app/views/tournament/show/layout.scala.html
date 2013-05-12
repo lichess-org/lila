@@ -1,10 +1,10 @@
-@(tour: lila.app.tournament.Tournament, title: String, roomHtml: Html, version: Int, goodies: Html, side: Option[Html] = None)(body: Html)(implicit ctx: Context)
+@(tour: lila.tournament.Tournament, title: String, messages: List[lila.tournament.Room.Message], version: Int, goodies: Html, side: Option[Html] = None)(body: Html)(implicit ctx: Context)
 
 @chat = {
 @for(m <- ctx.me; if m.canChat) {
 @base.chatRoom(
 title = "Tournament Room",
-cssClass = "tournament_chat")(roomHtml)
+cssClass = "tournament_chat")(tournament.show.room(messages))
 }
 }
 

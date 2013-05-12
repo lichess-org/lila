@@ -8,7 +8,7 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 
-private[tournament] final class DataForm(isDev: Boolean) {
+final class DataForm(isDev: Boolean) {
 
   val clockTimes = 0 to 7 by 1
   val clockTimeDefault = 2

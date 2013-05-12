@@ -30,4 +30,7 @@ private[tournament] final class Messenger(val netDomain: String) extends UserRoo
     Message(none, text) |> { message ⇒
       RoomRepo.addMessage(tour.id, message) inject message
     }
+
+  def getMessages(tournamentId: String): Fu[List[Room.Message]] = 
+    RoomRepo room tournamentId map (_.decodedMessages)
 }
