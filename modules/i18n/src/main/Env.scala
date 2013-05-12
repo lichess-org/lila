@@ -12,7 +12,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     val messagesApi: MessagesApi,
-    captcher: ActorRef,
+    hub: lila.hub.Env,
     appPath: String) {
 
   private val settings = new {
@@ -59,7 +59,7 @@ final class Env(
 
   lazy val forms = new DataForm(
     keys = keys, 
-    captcher = captcher)
+    captcher = hub.actor.captcher)
 
   def upstreamFetch = new UpstreamFetch(id ⇒ UpstreamUrlPattern format id)
 
@@ -94,7 +94,7 @@ object Env {
     messagesApi = PlayApp.withApp(_.plugin[MessagesPlugin])
       .err("this plugin was not registered or disabled")
       .api,
-    captcher = lila.hub.Env.current.actor.captcher,
+    hub = lila.hub.Env.current,
     appPath = PlayApp withApp (_.path.getCanonicalPath)
   )
 }
