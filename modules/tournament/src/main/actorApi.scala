@@ -41,11 +41,7 @@ case class Connected(enumerator: JsEnumerator, member: Member)
 
 // organizer
 case object CreatedTournaments
-case class CreatedTournament(tour: Created)
 case object StartedTournaments
-case class StartedTournament(tour: Started)
-case object StartPairings
-case class StartPairing(tour: Started)
 case class GetTournamentUserIds(tournamentId: String)
 case class RemindTournaments(tours: List[Started])
 case class RemindTournament(tour: Started)

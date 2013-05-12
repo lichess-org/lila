@@ -14,47 +14,30 @@ private[tournament] final class Organizer(
 
   def receive = {
 
-    case CreatedTournaments               ⇒ createdTournaments
-    case CreatedTournament(tour: Created) ⇒ createdTournament(tour)
+    case CreatedTournaments ⇒ TournamentRepo.created foreach {
+      _ foreach { tour ⇒
+        if (tour.isEmpty) api wipeEmpty tour
+        else if (tour.readyToStart) api startIfReady tour
+        else withUserIds(tour.id) { ids ⇒
+          (tour.userIds diff ids) foreach { api.withdraw(tour, _) }
+        }
+      }
+    }
 
-    case StartedTournaments               ⇒ startedTournaments
-    case StartedTournament(tour: Started) ⇒ startedTournament(tour)
-
-    case StartPairings                    ⇒ startPairings
-    case StartPairing(tour: Started)      ⇒ startPairing(tour)
+    case StartedTournaments ⇒ TournamentRepo.started foreach { tours ⇒
+      tours foreach { tour ⇒
+        if (tour.readyToFinish) api finish tour
+        else startPairing(tour)
+      }
+      reminder ! RemindTournaments(tours)
+    }
 
     case FinishGame(gameId) ⇒
       api.finishGame(gameId) foreach { _ map (_.id) foreach api.socketReload }
+
   }
 
-  def createdTournaments {
-    TournamentRepo.created foreach { _ foreach createdTournament }
-  }
-
-  def createdTournament(tour: Created) {
-    if (tour.isEmpty) api wipeEmpty tour
-    else if (tour.readyToStart) api startIfReady tour
-    else withUserIds(tour.id) { ids ⇒
-      (tour.userIds diff ids) foreach { api.withdraw(tour, _) }
-    }
-  }
-
-  def startedTournaments {
-    TournamentRepo.started foreach { tours ⇒
-      tours foreach startedTournament
-      reminder ! RemindTournaments(tours)
-    }
-  }
-
-  def startedTournament(tour: Started) {
-    if (tour.readyToFinish) api finish tour
-  }
-
-  def startPairings {
-    TournamentRepo.started foreach { _ foreach startPairing }
-  }
-
-  def startPairing(tour: Started) {
+  private def startPairing(tour: Started) {
     withUserIds(tour.id) { ids ⇒
       (tour.activeUserIds intersect ids) |> { users ⇒
         Pairing.createNewPairings(users, tour.pairings, tour.nbActiveUsers).toNel foreach { pairings ⇒
@@ -69,5 +52,4 @@ private[tournament] final class Organizer(
       f(ids.toList)
     }
   }
-
 }

@@ -100,10 +100,6 @@ final class Env(
       scheduler.message(3 seconds) {
         organizer -> actorApi.StartedTournaments
       }
-
-      scheduler.message(3 seconds) {
-        organizer -> actorApi.StartPairings
-      }
     }
   }
 
