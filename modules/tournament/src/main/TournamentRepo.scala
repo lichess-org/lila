@@ -20,6 +20,8 @@ object TournamentRepo {
     case t: Finished ⇒ t
   }
 
+  def byId(id: String): Fu[Option[Tournament]] = $find byId id
+
   def createdById(id: String): Fu[Option[Created]] = byIdAs(id, asCreated)
 
   def startedById(id: String): Fu[Option[Started]] = byIdAs(id, asStarted)

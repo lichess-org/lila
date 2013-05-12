@@ -13,7 +13,6 @@ import play.api.libs.json.Json
 
 object Lobby extends LilaController with Results {
 
-  // private def openTours = Env.tournament.repo.created
   private def openTours = fuccess(List[Created]())
 
   def home = Open { implicit ctx ⇒

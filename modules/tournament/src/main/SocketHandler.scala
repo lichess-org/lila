@@ -7,6 +7,8 @@ import lila.socket.Handler
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import lila.security.Flood
 import lila.common.PimpedJson._
+import tube.tournamentTube
+import lila.db.api.$count
 import makeTimeout.short
 
 import akka.actor._
@@ -21,20 +23,25 @@ private[tournament] final class SocketHandler(
     flood: Flood) {
 
   def join(
-    tour: Tournament,
+    tourId: String,
     version: Int,
     uid: String,
-    user: Option[User]): Fu[JsSocketHandler] = for {
-    socket ← socketHub ? GetSocket(tour.id) mapTo manifest[ActorRef]
-    join = Join(
-      uid = uid,
-      user = user,
-      version = version)
-    handler ← Handler(socket, uid, join) {
-      case Connected(enum, member) ⇒
-        controller(socket, tour.id, uid, member) -> enum
+    user: Option[User]): Fu[JsSocketHandler] =
+    $count.exists(tourId) flatMap {
+      _ ?? {
+        for {
+          socket ← socketHub ? GetSocket(tourId) mapTo manifest[ActorRef]
+          join = Join(
+            uid = uid,
+            user = user,
+            version = version)
+          handler ← Handler(socket, uid, join) {
+            case Connected(enum, member) ⇒
+              controller(socket, tourId, uid, member) -> enum
+          }
+        } yield handler
+      }
     }
-  } yield handler
 
   private def controller(
     socket: ActorRef,

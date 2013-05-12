@@ -3,6 +3,8 @@ package lila.tournament
 case class Room(id: String, messages: List[String]) {
 
   def nonEmpty = messages.nonEmpty
+
+  def decodedMessages = messages map Room.decode
 }
 
 object Room {

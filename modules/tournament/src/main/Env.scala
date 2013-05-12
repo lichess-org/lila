@@ -1,10 +1,12 @@
 package lila.tournament
 
 import lila.socket.History
+import lila.common.PimpedConfig._
+import makeTimeout.short
 
 import com.typesafe.config.Config
-import lila.common.PimpedConfig._
 import akka.actor._
+import akka.pattern.ask
 
 final class Env(
     config: Config,
@@ -72,12 +74,15 @@ final class Env(
     renderer = renderer
   )), name = ReminderName)
 
+  def version(tourId: String): Fu[Int] =
+    socketHub ? actorApi.GetTournamentVersion(tourId) mapTo manifest[Int]
+
   private lazy val joiner = new GameJoiner(
     roundMeddler = roundMeddler,
     timelinePush = timelinePush,
     system = system)
 
-  private[tournament] lazy val messenger = new Messenger(NetDomain)
+  lazy val messenger = new Messenger(NetDomain)
 
   private[tournament] lazy val tournamentColl = db(CollectionTournament)
   private[tournament] lazy val roomColl = db(CollectionRoom)

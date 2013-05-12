@@ -25,6 +25,8 @@ object GameRepo {
 
   def game(gameId: ID): Fu[Option[Game]] = $find byId gameId
 
+  def games(gameIds: Seq[ID]): Fu[List[Game]] = $find byOrderedIds gameIds
+
   def finished(gameId: ID): Fu[Option[Game]] = 
     $find.one($select(gameId) ++ Query.finished)
 

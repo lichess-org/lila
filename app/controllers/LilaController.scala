@@ -100,8 +100,8 @@ private[controllers] trait LilaController
       })
     }
 
-  // protected def NoEngine[A <: Result](a: ⇒ A)(implicit ctx: Context): Result =
-  //   ctx.me.fold(false)(_.engine).fold(Forbidden(views.html.site.noEngine()), a)
+  protected def NoEngine[A <: Result](a: ⇒ Fu[A])(implicit ctx: Context): Fu[Result] =
+    ctx.me.zmap(_.engine).fold(Forbidden(views.html.site.noEngine()).fuccess, a)
 
   protected def JsonOk[A: Writes](fua: Fu[A]) = fua map { a ⇒
     Ok(Json toJson a) as JSON
@@ -113,13 +113,6 @@ private[controllers] trait LilaController
 
   protected def JsOk(fua: Fu[String], headers: (String, String)*) =
     fua map { a ⇒ Ok(a) as JAVASCRIPT withHeaders (headers: _*) }
-
-  // protected def ValidOk(valid: Valid[Unit]): Result = valid.fold(
-  //   e ⇒ BadRequest(e.shows),
-  //   _ ⇒ Ok("ok")
-  // )
-
-  // protected def ValidFuk(valid: Fu[Valid[Unit]]): Result = ValidOk(valid.unsafePerformFu)
 
   protected def FormResult[A](form: Form[A])(op: A ⇒ Fu[Result])(implicit req: Request[_]): Fu[Result] =
     form.bindFromRequest.fold(
@@ -140,18 +133,10 @@ private[controllers] trait LilaController
   protected def OptionFuOk[A, B: Writeable: ContentTypeOf](fua: Fu[Option[A]])(op: A ⇒ Fu[B])(implicit ctx: Context) =
     fua flatMap { _.fold(notFound(ctx))(a ⇒ op(a) map { Ok(_) }) }
 
-  // protected def FuptionFuResult[A](fua: Fu[Option[A]])(op: A ⇒ Fu[Result])(implicit ctx: Context) =
-  //   fua flatMap { _.fold(io(notFound(ctx)))(op) } unsafePerformFu
-
-  // protected def FuptionRedirect[A](fua: Fu[Option[A]])(op: A ⇒ Call)(implicit ctx: Context) =
-  //   fua map {
-  //     _.fold(notFound(ctx))(a ⇒ Redirect(op(a)))
-  //   } unsafePerformFu
-
-  // protected def FuptionFuRedirect[A](fua: Fu[Option[A]])(op: A ⇒ Fu[Call])(implicit ctx: Context) =
-  //   (fua flatMap {
-  //     _.fold(io(notFound(ctx)))(a ⇒ op(a) map { b ⇒ Redirect(b) })
-  //   }: Fu[Result]).unsafePerformFu
+  protected def OptionFuRedirect[A](fua: Fu[Option[A]])(op: A ⇒ Fu[Call])(implicit ctx: Context) =
+    fua flatMap {
+      _.fold(notFound(ctx))(a ⇒ op(a) map { b ⇒ Redirect(b) })
+    }
 
   protected def OptionFuRedirectUrl[A](fua: Fu[Option[A]])(op: A ⇒ Fu[String])(implicit ctx: Context) =
     fua flatMap {
@@ -166,10 +151,6 @@ private[controllers] trait LilaController
 
   protected def notFound(implicit ctx: Context): Fu[Result] =
     Lobby handleNotFound ctx
-
-  // protected def todo = Open { implicit ctx ⇒
-  //   NotImplemented(views.html.site.todo())
-  // }
 
   protected def isGranted(permission: Permission.type ⇒ Permission)(implicit ctx: Context): Boolean =
     isGranted(permission(Permission))
