@@ -30,8 +30,8 @@ private[app] final class Router(
     case Player(fullId)         ⇒ sender ! R.Round.player(fullId).url
     case Watcher(gameId, color) ⇒ sender ! R.Round.watcher(gameId, color).url
     case Replay(gameId, color)  ⇒ sender ! R.Analyse.replay(gameId, color).url
-    case Pgn(gameId)            ⇒ sender ! R.Analyse.pgn(gameId)
-    case Tourney(tourId)        ⇒ // TODO sender ! R.tournament.show(tourId)
+    case Pgn(gameId)            ⇒ sender ! R.Analyse.pgn(gameId).url
+    case Tourney(tourId)        ⇒ sender ! R.Tournament.show(tourId).url
   }
 
   private lazy val noLangBaseUrl = protocol + I18nDomain(domain).commonDomain
