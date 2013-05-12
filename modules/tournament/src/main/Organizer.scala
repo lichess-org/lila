@@ -1,6 +1,7 @@
 package lila.tournament
 
 import actorApi._
+import lila.hub.actorApi.WithSocketUserIds
 import lila.hub.actorApi.round.FinishGame
 import makeTimeout.short
 
@@ -48,8 +49,6 @@ private[tournament] final class Organizer(
   }
 
   private def withUserIds(tourId: String)(f: List[String] ⇒ Unit) {
-    (socketHub ? GetTournamentUserIds(tourId)).mapTo[Iterable[String]] foreach { ids ⇒
-      f(ids.toList)
-    }
+    socketHub ! WithSocketUserIds(tourId, ids ⇒ f(ids.toList))
   }
 }

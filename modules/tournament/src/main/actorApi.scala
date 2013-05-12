@@ -27,10 +27,7 @@ case class Join(
   user: Option[User],
   version: Int)
 case class Talk(tourId: String, u: String, txt: String)
-case class GetTournamentVersion(tournamentId: String)
 case class CloseTournament(tournamentId: String)
-case object GetTournamentIds
-case class Forward(tournamentId: String, msg: Any)
 case object Start
 case object Reload
 case object ReloadPage
@@ -42,7 +39,6 @@ case class Connected(enumerator: JsEnumerator, member: Member)
 // organizer
 case object CreatedTournaments
 case object StartedTournaments
-case class GetTournamentUserIds(tournamentId: String)
 case class RemindTournaments(tours: List[Started])
 case class RemindTournament(tour: Started)
 case class TournamentTable(tours: List[Created])

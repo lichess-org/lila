@@ -9,7 +9,7 @@ import lila.game.{ Game, GameRepo }
 import lila.user.{ User, UserRepo }
 import lila.hub.actorApi.lobby.{ SysTalk, UnTalk, ReloadTournaments }
 import lila.hub.actorApi.router.Tourney
-import lila.socket.actorApi.SendToFlag
+import lila.socket.actorApi.{ SendToFlag, Forward }
 import makeTimeout.short
 
 import org.joda.time.DateTime

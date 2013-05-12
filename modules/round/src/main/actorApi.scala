@@ -55,9 +55,6 @@ case class Join(
   color: Color,
   owner: Boolean)
 case class Connected(enumerator: JsEnumerator, member: Member)
-case class GameEvents(gameId: String, events: List[Event])
-case class GetGameVersion(gameId: String)
-case object GetVersion
 case class GetEventsSince(version: Int)
 case class MaybeEvents(events: Option[List[VersionedEvent]])
 case class AddEvents(events: List[Event])
@@ -65,5 +62,5 @@ case object ClockSync
 case class IsConnectedOnGame(gameId: String, color: Color)
 case class IsGone(gameId: String, color: Color)
 case class CloseGame(gameId: String)
-case class AnalysisAvailable(gameId: String)
+case object AnalysisAvailable
 case class Ack(uid: String)

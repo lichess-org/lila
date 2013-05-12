@@ -5,7 +5,7 @@ import views._
 import lila.user.{ Context, UserRepo }
 import lila.game.{ Pov, GameRepo, Game ⇒ GameModel }
 import lila.round.{ RoomRepo, Room }
-import lila.round.actorApi.GetGameVersion
+import lila.socket.actorApi.{ Forward, GetVersion }
 import lila.tournament.{ TournamentRepo, Tournament ⇒ Tourney }
 
 import akka.pattern.ask

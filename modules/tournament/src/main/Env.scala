@@ -2,6 +2,7 @@ package lila.tournament
 
 import lila.socket.History
 import lila.common.PimpedConfig._
+import lila.socket.actorApi.{ Forward, GetVersion }
 import makeTimeout.short
 
 import com.typesafe.config.Config
@@ -72,7 +73,7 @@ final class Env(
   )), name = ReminderName)
 
   def version(tourId: String): Fu[Int] =
-    socketHub ? actorApi.GetTournamentVersion(tourId) mapTo manifest[Int]
+    socketHub ? Forward(tourId, GetVersion) mapTo manifest[Int]
 
   def cli = new lila.common.Cli {
     import lila.db.api.$find
