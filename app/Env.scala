@@ -25,7 +25,8 @@ final class Env(config: Config, system: ActorSystem, isServer: Boolean) {
 
   loginfo("[boot] Preloading modules")
   (Env.site, Env.game, Env.ai, Env.setup, Env.round, Env.gameSearch, Env.team,
-    Env.teamSearch, Env.forumSearch, Env.message, Env.socket, Env.timeline)
+    Env.teamSearch, Env.forumSearch, Env.message, Env.socket, Env.timeline,
+    Env.tournament)
 
   if (Env.ai.isServer) println("Running as AI server")
 }
@@ -65,4 +66,5 @@ object Env {
   def lobby = lila.lobby.Env.current
   def setup = lila.setup.Env.current
   def importer = lila.importer.Env.current
+  def tournament = lila.tournament.Env.current
 }

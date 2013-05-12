@@ -31,8 +31,9 @@ final class Env(config: Config, system: ActorSystem) {
     lazy val monitor = socketFor("monitor")
     lazy val site = socketFor("site")
     lazy val round = socketFor("round")
+    lazy val tournament = socketFor("tournament")
     lazy val hub = system.actorOf(Props(new Broadcast(List(
-      lobby, site, round
+      lobby, site, round, tournament
     ))(makeTimeout(SocketHubTimeout))), name = SocketHubName)
   }
 

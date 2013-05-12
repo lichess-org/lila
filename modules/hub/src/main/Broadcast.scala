@@ -26,7 +26,6 @@ final class Broadcast(actors: List[ActorRef])(implicit timeout: Timeout) extends
 
     case Ask(msg) ⇒ askAll(msg) pipeTo sender
 
-    // case msg      ⇒ tellAll(msg)
     case msg      ⇒ router ! msg
   }
 

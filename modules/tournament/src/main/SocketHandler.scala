@@ -20,28 +20,6 @@ private[tournament] final class SocketHandler(
     messenger: Messenger,
     flood: Flood) {
 
-  //   def start(tourId: String) = io {
-  //     hubMaster ! Forward(tourId, Start)
-  //   }
-
-  //   def reload(tourId: String) = io {
-  //     hubMaster ! Forward(tourId, Reload)
-  //   }
-
-  //   def reloadPage(tourId: String) = io {
-  //     hubMaster ! Forward(tourId, ReloadPage)
-  //   }
-
-  //   def notifyPairing(game: DbGame) = io {
-  //     game.tourId foreach { tid ⇒
-  //       hubMaster ! Forward(tid, StartGame(game))
-  //     }
-  //   }
-
-  // def notifyJoining(tourId: String, userId: String) = io {
-  //   hubMaster ! Forward(tourId, Joining(userId))
-  // }
-
   def join(
     tour: Tournament,
     version: Int,
