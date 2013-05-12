@@ -74,6 +74,15 @@ final class Env(
   def version(tourId: String): Fu[Int] =
     socketHub ? actorApi.GetTournamentVersion(tourId) mapTo manifest[Int]
 
+  def cli = new lila.common.Cli {
+    import lila.db.api.$find
+    import tube.tournamentTube
+    def process = {
+      case "tournament" :: "typecheck" :: Nil ⇒
+        $find.all[Tournament] inject "Tournaments type checked"
+    }
+  }
+
   private lazy val joiner = new GameJoiner(
     roundMeddler = roundMeddler,
     timelinePush = timelinePush,
