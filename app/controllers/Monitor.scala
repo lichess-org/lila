@@ -6,7 +6,7 @@ import akka.pattern.ask
 
 import lila.app._
 import lila.monitor.actorApi._
-import lila.socket.actorApi.GetNbMembers
+import lila.hub.actorApi.GetNbMembers
 import makeTimeout.short
 
 object Monitor extends LilaController {

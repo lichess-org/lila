@@ -24,6 +24,10 @@ final class Broadcast(actors: List[ActorRef])(implicit timeout: Timeout) extends
 
   def receive = {
 
+    case GetNbMembers ⇒ askAll(GetNbMembers).mapTo[List[Int]] foreach { nbs ⇒
+      router ! NbMembers(nbs.sum)
+    }
+
     case Ask(msg) ⇒ askAll(msg) pipeTo sender
 
     case msg      ⇒ router ! msg
