@@ -57,7 +57,7 @@ private[tournament] final class SocketHandler(
       if member.canChat
       userId ← member.userId
       if flood.allowMessage(uid, txt)
-    } messenger.userMessage(tourId, userId, txt) pipeTo socket
+    } socket ! Talk(tourId, userId, txt)
     case _ ⇒
   }
 }

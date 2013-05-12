@@ -1,3 +1,14 @@
 @(messages: List[lila.tournament.Room.Message])
 
-tournament room messages!
+@messages.map { m =>
+<li>
+  <span>
+    @m.userId.map { u =>
+    @userIdLink(u.some, withOnline = false, truncate = 12)
+    }.getOrElse {
+    <span class="system"></span>
+    }
+  </span>
+  @m.text
+</li>
+}
