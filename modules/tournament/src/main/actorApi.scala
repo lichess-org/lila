@@ -26,7 +26,7 @@ case class Join(
   uid: String,
   user: Option[User],
   version: Int)
-case class Talk(u: String, txt: String)
+case class Talk(tourId: String, u: String, txt: String)
 case class GetTournamentVersion(tournamentId: String)
 case class CloseTournament(tournamentId: String)
 case object GetTournamentIds

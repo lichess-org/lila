@@ -7,7 +7,7 @@ import spray.caching.{ LruCache, Cache }
 final class Cached(ttl: Duration) {
 
   def username(id: String): Fu[Option[String]] =
-    usernameCache.fromFuture(id.toLowerCase)(UserRepo usernameById id)
+    usernameCache.fromFuture(id)(UserRepo usernameById id)
 
   def usernameOrAnonymous(id: String): Fu[String] = 
     username(id) map (_ | User.anonymous)

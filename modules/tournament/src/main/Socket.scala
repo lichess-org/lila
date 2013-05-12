@@ -55,13 +55,13 @@ private[tournament] final class Socket(
       }
     }
 
-    case Talk(u, txt) ⇒
-      messenger.userMessage(tournamentId, u, txt) foreach { message ⇒
-        notifyVersion("talk", Json.obj(
-          "u" -> message.userId,
-          "txt" -> message.text
-        ))
-      }
+    case Talk(tourId, u, txt) ⇒ messenger.userMessage(tourId, u, txt) effectFold (
+      e ⇒ logwarn(e.toString),
+      message ⇒ notifyVersion("talk", Json.obj(
+        "u" -> message.userId,
+        "txt" -> message.text
+      ))
+    )
 
     case GetTournamentVersion(_) ⇒ sender ! history.version
 
