@@ -2,7 +2,7 @@ package controllers
 
 import lila.app._
 import lila.game.Event
-import lila.round.actorApi.GameEvents
+import lila.socket.actorApi.Forward
 import lila.game.Game.takeGameId
 
 import play.api.mvc._, Results._
@@ -25,6 +25,6 @@ trait RoundEventPerformer {
   }
 
   protected def performEvents(fullId: String)(events: List[Event]) {
-    Env.round.socketHub ! GameEvents(takeGameId(fullId), events)
+    Env.round.socketHub ! Forward(takeGameId(fullId), events)
   }
 }

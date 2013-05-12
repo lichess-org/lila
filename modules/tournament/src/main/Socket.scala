@@ -41,6 +41,7 @@ private[tournament] final class Socket(
     case ReloadPage ⇒ notifyVersion("reloadPage", JsNull)
 
     case PingVersion(uid, v) ⇒ {
+      loginfo("ping " + uid)
       ping(uid)
       lastPingTime = nowMillis
       withMember(uid) { m ⇒
@@ -63,7 +64,7 @@ private[tournament] final class Socket(
       ))
     )
 
-    case GetTournamentVersion(_) ⇒ sender ! history.version
+    case GetVersion ⇒ sender ! history.version
 
     case Join(uid, user, version) ⇒ {
       val (enumerator, channel) = Concurrent.broadcast[JsValue]

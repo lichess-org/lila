@@ -1,6 +1,7 @@
 package lila.round
 
 import lila.common.PimpedConfig._
+import lila.socket.actorApi.{ Forward, GetVersion }
 import makeTimeout.large
 
 import com.typesafe.config.Config
@@ -76,7 +77,7 @@ final class Env(
   lazy val eloCalculator = new chess.EloCalculator(false)
 
   def version(gameId: String): Fu[Int] =
-    socketHub ? actorApi.GetGameVersion(gameId) mapTo manifest[Int]
+    socketHub ? Forward(gameId, GetVersion) mapTo manifest[Int]
 
   def animationDelay = AnimationDelay
   def moretimeSeconds = Moretime.toSeconds

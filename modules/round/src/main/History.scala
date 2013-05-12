@@ -1,6 +1,7 @@
 package lila.round
 
 import scala.concurrent.duration.Duration
+import lila.socket.actorApi.GetVersion
 import akka.actor._
 
 import actorApi._

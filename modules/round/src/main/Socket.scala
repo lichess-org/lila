@@ -54,7 +54,7 @@ private[round] final class Socket(
       }
     }
 
-    case GetGameVersion(_)           ⇒ history ? GetVersion pipeTo sender
+    case GetVersion           ⇒ history ? GetVersion pipeTo sender
 
     case IsConnectedOnGame(_, color) ⇒ sender ! ownerOf(color).isDefined
 
@@ -72,10 +72,8 @@ private[round] final class Socket(
 
     case Nil           ⇒
     case events: Events        ⇒ notify(events)
-    case GameEvents(_, Nil)    ⇒
-    case GameEvents(_, events) ⇒ notify(events)
 
-    case msg @ AnalysisAvailable(_) ⇒ {
+    case AnalysisAvailable ⇒ {
       notifyAll("analysisAvailable", true)
     }
 

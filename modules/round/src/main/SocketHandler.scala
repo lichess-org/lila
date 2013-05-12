@@ -43,7 +43,7 @@ private[round] final class SocketHandler(
               socket ! Resync(uid)
             }, {
               case ((events, fen, lastMove)) ⇒ {
-                socketHub ! GameEvents(povRef.gameId, events)
+                socketHub ! Forward(povRef.gameId, events)
                 notifyMove(povRef.gameId, fen, lastMove)
               }
             })

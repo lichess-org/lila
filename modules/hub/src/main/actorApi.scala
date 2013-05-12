@@ -16,6 +16,8 @@ case class SendTos[A: Writes](userIds: Set[String], message: A)
 case class Ask(msg: Any)
 
 case object GetUserIds
+case class WithUserIds(f: Iterable[String] ⇒ Unit)
+case class WithSocketUserIds(id: String, f: Iterable[String] ⇒ Unit)
 
 case object GetNbMembers
 case class NbMembers(nb: Int)

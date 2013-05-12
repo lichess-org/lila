@@ -3,6 +3,7 @@ package lila.round
 import actorApi._
 import lila.game.{ Game, GameRepo, PovRef, Pov }
 import lila.game.tube.gameTube
+import lila.socket.actorApi.Forward
 import lila.db.api._
 
 import akka.actor.ActorRef
@@ -14,7 +15,7 @@ final class Meddler(finisher: Finisher, socketHub: ActorRef) {
       _.fold(logwarn("Cannot abort missing game " + id)) { game ⇒
         finisher forceAbort game effectFold (
           e ⇒ logwarn(e.getMessage),
-          events ⇒ socketHub ! GameEvents(game.id, events)
+          events ⇒ socketHub ! Forward(game.id, events)
         )
       }
     }
@@ -23,7 +24,7 @@ final class Meddler(finisher: Finisher, socketHub: ActorRef) {
   def resign(pov: Pov) {
     finisher resign pov effectFold (
       e ⇒ logwarn(e.getMessage),
-      events ⇒ socketHub ! GameEvents(pov.game.id, events)
+      events ⇒ socketHub ! Forward(pov.game.id, events)
     )
   }
 

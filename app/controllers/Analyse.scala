@@ -6,6 +6,7 @@ import lila.user.{ UserRepo }
 import lila.game.{ Pov, GameRepo, PgnRepo, PgnDump }
 import lila.analyse.{ TimeChart, TimePie }
 import lila.round.actorApi.AnalysisAvailable
+import lila.socket.actorApi.Forward
 import lila.round.{ RoomRepo, Room }
 import lila.tournament.{ TournamentRepo, Tournament ⇒ Tourney }
 
@@ -31,7 +32,7 @@ object Analyse extends LilaController {
         case Failure(e) ⇒ logwarn(e.getMessage)
         case Success(a) ⇒ a.fold(
           err ⇒ logwarn("Computer analysis failure: " + err.shows),
-          _ ⇒ Env.round.socketHub ! AnalysisAvailable(id)
+          _ ⇒ Env.round.socketHub ! Forward(id, AnalysisAvailable)
         )
       }
       Redirect(routes.Analyse.replay(id, color)).fuccess

@@ -19,7 +19,8 @@ case class LiveGames(uid: String, gameIds: List[String])
 case class Resync(uid: String)
 
 case class GetSocket(id: String)
+case class Forward(id: String, msg: Any)
+case object GetVersion
 case object GetNbSockets
-case object SocketTimeout
 
 case class SendToFlag(flag: String, message: JsObject) 
