@@ -80,6 +80,7 @@ chess variants https://github.com/ornicar/lila/issues/2://github.com/ornicar/lil
 publish scalastic 0.90.0-thib
 stream game export
 show fen only after game is finished http://en.lichess.org/forum/lichess-feedback/please-disable-live-fen-notation?page=1
+I owe the admins decent tools
 
 DEPLOY p21
 ----------
