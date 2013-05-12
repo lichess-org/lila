@@ -6,7 +6,7 @@ import tube.tournamentTubes._
 import lila.db.api._
 import chess.{ Mode, Variant }
 import lila.game.{ Game, GameRepo }
-import lila.user.User
+import lila.user.{ User, UserRepo }
 import lila.hub.actorApi.lobby.{ SysTalk, UnTalk, ReloadTournaments }
 import lila.hub.actorApi.router.Tourney
 import lila.socket.actorApi.SendToFlag
@@ -26,8 +26,7 @@ private[tournament] final class TournamentApi(
     socketHub: ActorRef,
     site: ActorRef,
     lobby: ActorRef,
-    roundMeddler: lila.round.Meddler,
-    incToints: String ⇒ Int ⇒ Funit) extends scalaz.OptionTs {
+    roundMeddler: lila.round.Meddler) extends scalaz.OptionTs {
 
   def makePairings(tour: Started, pairings: NonEmptyList[Pairing]): Funit =
     (tour addPairings pairings) |> { tour2 ⇒
@@ -82,7 +81,7 @@ private[tournament] final class TournamentApi(
       sendTo(started.id, ReloadPage) >>-
       reloadSiteSocket >>-
       (pairingsToAbort map (_.gameId) foreach roundMeddler.forceAbort) >>
-      finished.players.filter(_.score > 0).map(p ⇒ incToints(p.id)(p.score)).sequence inject finished
+      finished.players.filter(_.score > 0).map(p ⇒ UserRepo.incToints(p.id)(p.score)).sequence inject finished
   }, fuccess(started))
 
   def join(tour: Created, me: User): Funit =
