@@ -25,6 +25,9 @@ object GameRepo {
 
   def game(gameId: ID): Fu[Option[Game]] = $find byId gameId
 
+  def finished(gameId: ID): Fu[Option[Game]] = 
+    $find.one($select(gameId) ++ Query.finished)
+
   def player(gameId: ID, color: Color): Fu[Option[Player]] =
     $find byId gameId map2 { (game: Game) ⇒ game player color }
 

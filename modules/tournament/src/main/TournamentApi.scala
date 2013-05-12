@@ -5,7 +5,7 @@ import tube.roomTube
 import tube.tournamentTubes._
 import lila.db.api._
 import chess.{ Mode, Variant }
-import lila.game.Game
+import lila.game.{ Game, GameRepo }
 import lila.user.User
 import lila.hub.actorApi.lobby.{ SysTalk, UnTalk, ReloadTournaments }
 import lila.hub.actorApi.router.Tourney
@@ -27,7 +27,7 @@ private[tournament] final class TournamentApi(
     site: ActorRef,
     lobby: ActorRef,
     roundMeddler: lila.round.Meddler,
-    incToints: String ⇒ Int ⇒ Funit) {
+    incToints: String ⇒ Int ⇒ Funit) extends scalaz.OptionTs {
 
   def makePairings(tour: Started, pairings: NonEmptyList[Pairing]): Funit =
     (tour addPairings pairings) |> { tour2 ⇒
@@ -56,24 +56,24 @@ private[tournament] final class TournamentApi(
         sendLobbyMessage(created) inject created
     }
 
-  def startIfReady(created: Created): Option[Fu[Unit]] = created.startIfReady map doStart
+  def startIfReady(created: Created): Option[Funit] = created.startIfReady map doStart
 
-  def earlyStart(created: Created): Option[Fu[Unit]] =
+  def earlyStart(created: Created): Option[Funit] =
     created.readyToEarlyStart option doStart(created.start)
 
-  private def doStart(started: Started): Fu[Unit] =
+  private def doStart(started: Started): Funit =
     $update(started) >>-
       sendTo(started.id, Start) >>-
       reloadSiteSocket >>-
       lobbyReload
 
-  def wipeEmpty(created: Created): Fu[Unit] = created.isEmpty ?? {
+  def wipeEmpty(created: Created): Funit = created.isEmpty ?? {
     $remove(created) >>
-    $remove.byId[Room](created.id) >>-
-    reloadSiteSocket >>-
-    lobbyReload >>-
-    (lobby ! UnTalk("%s tournament created".format(created.name).r))
-  } 
+      $remove.byId[Room](created.id) >>-
+      reloadSiteSocket >>-
+      lobbyReload >>-
+      (lobby ! UnTalk("%s tournament created".format(created.name).r))
+  }
 
   def finish(started: Started): Fu[Tournament] = started.readyToFinish.fold({
     val pairingsToAbort = started.playingPairings
@@ -111,13 +111,16 @@ private[tournament] final class TournamentApi(
     case finished: Finished ⇒ fufail("Cannot withdraw from finished tournament " + finished.id)
   }
 
-  def finishGame(game: Game): Fu[Option[Tournament]] = for {
-    tourOption ← ~(game.tournamentId map TournamentRepo.startedById)
-    result ← ~(tourOption.filter(_ ⇒ game.finished).map(tour ⇒ {
+  def finishGame(gameId: String): Fu[Option[Tournament]] = for {
+    game ← optionT(GameRepo finished gameId)
+    tour ← optionT(game.tournamentId zmap TournamentRepo.startedById)
+    result ← optionT {
       val tour2 = tour.updatePairing(game.id, _.finish(game.status, game.winnerUserId, game.turns))
-      $update(tour2) >> tripleQuickLossWithdraw(tour2, game.loserUserId) inject tour2.some
-    }))
-  } yield result
+      $update(tour2) >>
+        tripleQuickLossWithdraw(tour2, game.loserUserId) inject
+        tour2.some
+    }
+  } yield result.value
 
   private def tripleQuickLossWithdraw(tour: Started, loser: Option[String]): Funit =
     loser.filter(tour.quickLossStreak).zmap(withdraw(tour, _))
@@ -135,7 +138,7 @@ private[tournament] final class TournamentApi(
     }
   }
 
-  private def socketReload(tourId: String) {
+  def socketReload(tourId: String) {
     sendTo(tourId, Reload)
   }
 
