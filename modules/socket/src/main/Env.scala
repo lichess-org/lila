@@ -15,12 +15,16 @@ final class Env(
     scheduler: lila.common.Scheduler,
     hub: lila.hub.Env) {
 
-  scheduler.message(5 seconds) {
-    hub.socket.hub -> actorApi.Broom
-  }
+  // delay scheduler to prevent loading hub.socket.hub too early
+  scheduler.once(3.seconds) {
 
-  scheduler.message(2 seconds) {
-    hub.socket.hub -> GetNbMembers 
+    scheduler.message(5 seconds) {
+      hub.socket.hub -> actorApi.Broom
+    }
+
+    scheduler.message(2 seconds) {
+      hub.socket.hub -> GetNbMembers
+    }
   }
 }
 

@@ -47,7 +47,7 @@ final class Env(
     hand = hand,
     socketHub = socketHub,
     messenger = messenger,
-    moveNotifier = moveNotifier,
+    notifyMove = notifyMove,
     flood = flood,
     hijack = hijack)
 
@@ -101,9 +101,10 @@ final class Env(
 
   private lazy val takeback = new Takeback(messenger)
 
-  private lazy val moveNotifier = new MoveNotifier(
-    hub = hub.socket.hub,
-    monitor = hub.socket.monitor)
+  private def notifyMove(gameId: String, fen: String, lastMove: Option[String]) {
+    hub.socket.hub ! lila.socket.actorApi.Fen(gameId, fen, lastMove)
+    hub.socket.monitor ! lila.hub.actorApi.monitor.AddMove
+  }
 
   private[round] lazy val roomColl = db(CollectionRoom)
 

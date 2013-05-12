@@ -14,14 +14,11 @@ final class Env(
     db: lila.db.Env,
     timelinePush: ActorRef,
     flood: lila.security.Flood,
-    siteSocket: ActorRef,
-    lobbySocket: ActorRef,
-    hubSocket: ActorRef,
+    hub: lila.hub.Env,
     roundMeddler: lila.round.Meddler,
     getUsername: String ⇒ Fu[Option[String]],
-    router: ActorRef,
-    renderer: ActorRef,
-    isDev: Boolean) {
+    isDev: Boolean,
+    scheduler: lila.common.Scheduler) {
 
   private val settings = new {
     val CollectionTournament = config getString "collection.tournament"
@@ -40,11 +37,11 @@ final class Env(
 
   lazy val api = new TournamentApi(
     joiner = joiner,
-    router = router,
-    renderer = renderer,
+    router = hub.actor.router,
+    renderer = hub.actor.renderer,
     socketHub = socketHub,
-    site = siteSocket,
-    lobby = lobbySocket,
+    site = hub.socket.site,
+    lobby = hub.socket.lobby,
     roundMeddler = roundMeddler)
 
   lazy val socketHandler = new SocketHandler(
@@ -52,9 +49,9 @@ final class Env(
     messenger = messenger,
     flood = flood)
 
-  lazy val history = () ⇒ new History(ttl = MessageTtl)
+  private lazy val history = () ⇒ new History(ttl = MessageTtl)
 
-  lazy val socketHub = system.actorOf(Props(new SocketHub(
+  private val socketHub = system.actorOf(Props(new SocketHub(
     makeHistory = history,
     messenger = messenger,
     uidTimeout = UidTimeout,
@@ -63,15 +60,15 @@ final class Env(
     tournamentSocketName = name ⇒ SocketName + "-" + name
   )), name = SocketName)
 
-  lazy val organizer = system.actorOf(Props(new Organizer(
+  private lazy val organizer = system.actorOf(Props(new Organizer(
     api = api,
     reminder = reminder,
     socketHub = socketHub
   )), name = OrganizerName)
 
-  lazy val reminder = system.actorOf(Props(new Reminder(
-    hub = hubSocket,
-    renderer = renderer
+  private lazy val reminder = system.actorOf(Props(new Reminder(
+    hub = hub.socket.hub,
+    renderer = hub.actor.renderer
   )), name = ReminderName)
 
   def version(tourId: String): Fu[Int] =
@@ -81,6 +78,26 @@ final class Env(
     roundMeddler = roundMeddler,
     timelinePush = timelinePush,
     system = system)
+
+  {
+    import scala.concurrent.duration._
+
+    // delay scheduler to prevent loading hub.socket.hub too early
+    scheduler.once(3.seconds) {
+
+      scheduler.message(5 seconds) {
+        organizer -> actorApi.CreatedTournaments
+      }
+
+      scheduler.message(3 seconds) {
+        organizer -> actorApi.StartedTournaments
+      }
+
+      scheduler.message(3 seconds) {
+        organizer -> actorApi.StartPairings
+      }
+    }
+  }
 
   lazy val messenger = new Messenger(NetDomain)
 
@@ -98,12 +115,9 @@ object Env {
     db = lila.db.Env.current,
     timelinePush = hub.actor.timeline,
     flood = lila.security.Env.current.flood,
-    siteSocket = hub.socket.site,
-    lobbySocket = hub.socket.lobby,
-    hubSocket = hub.socket.hub,
+    hub = lila.hub.Env.current,
     roundMeddler = lila.round.Env.current.meddler,
     getUsername = lila.user.Env.current.usernameOption,
-    router = hub.actor.router,
-    renderer = hub.actor.renderer,
-    isDev = lila.common.PlayApp.isDev)
+    isDev = lila.common.PlayApp.isDev,
+    scheduler = lila.common.PlayApp.scheduler)
 }

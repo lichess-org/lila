@@ -11,7 +11,6 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     modLog: ModlogApi,
-    socketHub: ActorRef,
     captcher: ActorRef,
     indexer: ActorRef,
     system: ActorSystem) {
@@ -64,7 +63,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "forum",
     db = lila.db.Env.current,
     modLog = lila.mod.Env.current.logApi,
-    socketHub = hub.socket.hub,
     captcher = hub.actor.captcher,
     indexer = hub.actor.forumIndexer,
     system = lila.common.PlayApp.system)
