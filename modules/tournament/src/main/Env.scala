@@ -78,8 +78,7 @@ final class Env(
     import lila.db.api.$find
     import tube.tournamentTube
     def process = {
-      case "tournament" :: "typecheck" :: Nil ⇒
-        $find.all[Tournament] inject "Tournaments type checked"
+      case "tournament" :: "typecheck" :: Nil ⇒ lila.db.Typecheck.apply[Tournament]
     }
   }
 
