@@ -6,7 +6,7 @@ import lila.user.{ Context, UserRepo }
 import lila.game.{ Pov, GameRepo, Game ⇒ GameModel }
 import lila.round.{ RoomRepo, Room }
 import lila.round.actorApi.GetGameVersion
-import lila.tournament.{ Tournament ⇒ Tourney }
+import lila.tournament.{ TournamentRepo, Tournament ⇒ Tourney }
 
 import akka.pattern.ask
 import play.api.mvc._
@@ -19,7 +19,6 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
   private def env = Env.round
   private def bookmarkApi = Env.bookmark.api
   private def analyser = Env.analyse.analyser
-  // private def tournamentRepo = Env.tournament.repo
 
   def websocketWatcher(gameId: String, color: String) = Socket[JsValue] { implicit ctx ⇒
     (get("sri") |@| getInt("version")).tupled zmap {
@@ -50,8 +49,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
             (bookmarkApi userIdsByGame pov.game) zip
             pov.opponent.userId.zmap(UserRepo.isEngine) zip
             (analyser has pov.gameId) zip
-            // TODO (tournamentRepo byId pov.game.tournamentId) zip
-            fuccess(none[Tourney]) map {
+            (pov.game.tournamentId zmap TournamentRepo.byId) map {
               case (((((roomHtml, v), bookmarkers), engine), analysed), tour) ⇒
                 Ok(html.round.player(
                   pov,
@@ -88,8 +86,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
         html.round.roomInner(room.decodedMessages)
       }) zip
       (analyser has pov.gameId) zip
-      fuccess(none[Tourney]) map {
-        // TODO (tournamentRepo byId pov.game.tournamentId) map {
+      (pov.game.tournamentId zmap TournamentRepo.byId) map {
         case ((((bookmarkers, v), roomHtml), analysed), tour) ⇒
           Ok(html.round.watcher(
             pov, v, roomHtml, bookmarkers, analysed, tour))
@@ -132,8 +129,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
 
   def tablePlayer(fullId: String) = Open { implicit ctx ⇒
     OptionFuOk(GameRepo pov fullId) { pov ⇒
-      fuccess(none[Tourney]) map { tour ⇒
-        // TODO tournamentRepo byId pov.game.tournamentId map { tour ⇒
+      pov.game.tournamentId zmap TournamentRepo.byId map { tour ⇒
         pov.game.playable.fold(
           html.round.table.playing(pov),
           html.round.table.end(pov, tour))

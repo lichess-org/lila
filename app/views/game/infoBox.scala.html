@@ -18,12 +18,10 @@
     }
     }
     <br /><br />
-    @* TODO
     @tour.map { t =>
     @tournament.linkTo(t)
     <br /><br />
     }
-    *@
     @if(game.finishedOrAborted) {
     @gameEndStatus(game),
     @game.winner.map { winner =>
@@ -46,7 +44,6 @@
     }
   </div>
 
-  @* TODO
   @tour match {
   case Some(t: lila.tournament.Started) => {
   <div class="game_tournament box">
@@ -59,5 +56,4 @@
   case _ => {
   }
   }
-  *@
 </div>

@@ -7,7 +7,7 @@ import lila.game.{ Pov, GameRepo, PgnRepo, PgnDump }
 import lila.analyse.{ TimeChart, TimePie }
 import lila.round.actorApi.AnalysisAvailable
 import lila.round.{ RoomRepo, Room }
-import lila.tournament.{ Tournament ⇒ Tourney }
+import lila.tournament.{ TournamentRepo, Tournament ⇒ Tourney }
 
 import akka.pattern.ask
 import play.api.mvc._
@@ -47,8 +47,7 @@ object Analyse extends LilaController {
           (bookmarkApi userIdsByGame pov.game) zip
           makePgn(pov.game, pgnString) zip
           (env.analyser get pov.game.id) zip
-          fuccess(none[Tourney]) map {
-            // TODO (tournamentRepo byId pov.game.tournamentId) map {
+            (pov.game.tournamentId zmap TournamentRepo.byId) map {
             case (((((roomHtml, version), bookmarkers), pgn), analysis), tour) ⇒
               html.analyse.replay(
                 pov,
