@@ -4,7 +4,7 @@ import lila.app._
 import lila.user.Context
 import lila.common.LilaCookie
 import lila.lobby.{ Hook, HookRepo, MessageRepo }
-import lila.tournament.Created
+import lila.tournament.TournamentRepo
 import views._
 
 import play.api.mvc._
@@ -12,8 +12,6 @@ import play.api.libs.json.JsValue
 import play.api.libs.json.Json
 
 object Lobby extends LilaController with Results {
-
-  private def openTours = fuccess(List[Created]())
 
   def home = Open { implicit ctx ⇒
     renderHome(none, Ok).map(_.withHeaders(
@@ -34,7 +32,7 @@ object Lobby extends LilaController with Results {
       myHook = myHook,
       timeline = Env.timeline.recent,
       posts = Env.forum.recent(ctx.me, Env.team.cached.teamIds.apply),
-      tours = openTours,
+      tours = TournamentRepo.created,
       filter = Env.setup.filter
     ).map(_.fold(Redirect(_), {
         case (preload, posts, tours, featured) ⇒ status(html.lobby.home(
