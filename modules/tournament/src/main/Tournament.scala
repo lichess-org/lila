@@ -331,10 +331,10 @@ private[tournament] object RawTournament {
 
   private[tournament] lazy val tube = Tube(
     (__.json update (
-      merge(defaults) andThen readDateOpt('startedAt)
+      merge(defaults) andThen readDate('createdAt) andThen readDateOpt('startedAt)
     )) andThen Json.reads[RawTournament],
     Json.writes[RawTournament] andThen (__.json update (
-      writeDateOpt('startedAt)
+      writeDate('createdAt) andThen writeDateOpt('startedAt)
     ))
   )
 }
