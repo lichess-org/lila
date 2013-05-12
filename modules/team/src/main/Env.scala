@@ -4,14 +4,7 @@ import akka.actor.ActorRef
 import com.typesafe.config.Config
 import lila.common.PimpedConfig._
 
-final class Env(
-    config: Config,
-    captcher: ActorRef,
-    messenger: ActorRef,
-    router: ActorRef,
-    forum: ActorRef,
-    indexer: ActorRef,
-    db: lila.db.Env) {
+final class Env(config: Config, hub: lila.hub.Env, db: lila.db.Env) {
 
   private val settings = new {
     val CollectionTeam = config getString "collection.team"
@@ -23,13 +16,13 @@ final class Env(
   }
   import settings._
 
-  lazy val forms = new DataForm(captcher)
+  lazy val forms = new DataForm(hub.actor.captcher)
 
   lazy val api = new TeamApi(
     cached = cached,
     notifier = notifier,
-    forum = forum,
-    indexer = indexer)
+    forum = hub.actor.forum,
+    indexer = hub.actor.teamIndexer)
 
   lazy val paginator = new PaginatorBuilder(
     maxPerPage = PaginatorMaxPerPage,
@@ -44,20 +37,14 @@ final class Env(
   private[team] lazy val memberColl = db(CollectionMember)
 
   private lazy val notifier = new Notifier(
-    messenger = messenger,
-    router = router)
+    messenger = hub.actor.messenger,
+    router = hub.actor.router)
 }
 
 object Env {
 
-  private def actors = lila.hub.Env.current.actor
-
   lazy val current = "[boot] team" describes new Env(
     config = lila.common.PlayApp loadConfig "team",
-    captcher = actors.captcher,
-    messenger = actors.messenger,
-    router = actors.router,
-    forum = actors.forum,
-    indexer = actors.teamIndexer,
+    hub = lila.hub.Env.current,
     db = lila.db.Env.current)
 }

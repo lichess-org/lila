@@ -68,7 +68,7 @@ final class Env(
 
     scheduler.effect(5.seconds, "") { featured.one }
 
-    scheduler.message(10.seconds) {
+    scheduler.message(20.seconds) {
       captcher -> actorApi.NewCaptcha
     }
   }

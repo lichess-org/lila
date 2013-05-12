@@ -10,7 +10,7 @@ import scala.collection.JavaConversions._
 
 final class Env(
     config: Config,
-    captcher: ActorRef,
+    hub: lila.hub.Env,
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
     db: lila.db.Env) {
@@ -38,7 +38,7 @@ final class Env(
 
   lazy val wiretap = new Wiretap(WiretapIps)
 
-  lazy val forms = new DataForm(captcher = captcher)
+  lazy val forms = new DataForm(captcher = hub.actor.captcher)
 
   lazy val userSpy = Store userSpy _
 
@@ -65,5 +65,5 @@ object Env {
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
-    captcher = lila.hub.Env.current.actor.captcher)
+    hub = lila.hub.Env.current)
 }

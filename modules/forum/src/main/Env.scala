@@ -11,8 +11,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     modLog: ModlogApi,
-    captcher: ActorRef,
-    indexer: ActorRef,
+    hub: lila.hub.Env,
     system: ActorSystem) {
 
   private val settings = new {
@@ -27,10 +26,10 @@ final class Env(
   import settings._
 
   lazy val categApi = new CategApi(this)
-  lazy val topicApi = new TopicApi(this, indexer, TopicMaxPerPage)
-  lazy val postApi = new PostApi(this, indexer, PostMaxPerPage, modLog)
+  lazy val topicApi = new TopicApi(this, hub.actor.forumIndexer, TopicMaxPerPage)
+  lazy val postApi = new PostApi(this, hub.actor.forumIndexer, PostMaxPerPage, modLog)
 
-  lazy val forms = new DataForm(captcher)
+  lazy val forms = new DataForm(hub.actor.captcher)
   lazy val recent = new Recent(postApi, RecentTtl)
 
   def cli = new lila.common.Cli {
@@ -65,7 +64,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "forum",
     db = lila.db.Env.current,
     modLog = lila.mod.Env.current.logApi,
-    captcher = hub.actor.captcher,
-    indexer = hub.actor.forumIndexer,
+    hub = lila.hub.Env.current,
     system = lila.common.PlayApp.system)
 }
