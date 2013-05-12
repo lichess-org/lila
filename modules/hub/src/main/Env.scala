@@ -32,6 +32,7 @@ final class Env(config: Config, system: ActorSystem) {
     lazy val site = socketFor("site")
     lazy val round = socketFor("round")
     lazy val tournament = socketFor("tournament")
+    // this one must load after its broadcasted actors
     lazy val hub = system.actorOf(Props(new Broadcast(List(
       lobby, site, round, tournament
     ))(makeTimeout(SocketHubTimeout))), name = SocketHubName)

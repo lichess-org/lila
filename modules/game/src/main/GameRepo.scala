@@ -178,8 +178,9 @@ object GameRepo {
         "p.elo" -> $exists(true)
       ))
     )
+    // TODO
     gameTube.coll.db.command(command) map { res ⇒
-      toJSON(res).pp.arr("results").pp.flatMap(_.apply(0) int "value")
+      toJSON(res).arr("results").pp.flatMap(_.apply(0) int "value")
     } map (~_) inject (0, 0)
     // (for {
     //   ratedRow ← result.hasNext option result.next

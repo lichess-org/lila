@@ -18,7 +18,7 @@ private[round] final class SocketHandler(
     hand: Hand,
     socketHub: ActorRef,
     messenger: Messenger,
-    moveNotifier: MoveNotifier,
+    notifyMove: (String, String, Option[String]) ⇒ Unit,
     flood: Flood,
     hijack: Hijack) {
 
@@ -44,12 +44,12 @@ private[round] final class SocketHandler(
             }, {
               case ((events, fen, lastMove)) ⇒ {
                 socketHub ! GameEvents(povRef.gameId, events)
-                moveNotifier(povRef.gameId, fen, lastMove)
+                notifyMove(povRef.gameId, fen, lastMove)
               }
             })
         }
       }
-      case ("moretime", o) ⇒ hand moretime povRef pipeTo socket
+      case ("moretime", o)  ⇒ hand moretime povRef pipeTo socket
       case ("outoftime", o) ⇒ hand outoftime povRef pipeTo socket
     }
     else {

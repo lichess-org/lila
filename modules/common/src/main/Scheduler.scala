@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 
 final class Scheduler(system: ActorSystem, enabled: Boolean) {
 
-  def message(freq: FiniteDuration)(to: (ActorRef, Any)) {
+  def message(freq: FiniteDuration)(to: ⇒ (ActorRef, Any)) {
     enabled ! system.scheduler.schedule(freq, randomize(freq), to._1, to._2)
   }
 
