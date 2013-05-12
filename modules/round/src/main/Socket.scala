@@ -47,7 +47,7 @@ private[round] final class Socket(
     case Broom ⇒ {
       broom()
       if (lastPingTime < (nowMillis - socketTimeout.toMillis)) {
-        context.parent ! CloseGame(gameId)
+        context.parent ! CloseSocket(gameId)
       }
       Color.all foreach { c ⇒
         if (playerIsGone(c)) notifyGone(c, true)

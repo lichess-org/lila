@@ -50,6 +50,11 @@ abstract class SocketHubActor extends Actor {
         mkSocket(id) ~ { s ⇒ sockets = sockets + (id -> s) }
       }
     }
+
+    case CloseSocket(id) ⇒ withSocket(id) { socket ⇒
+      socket ! Close
+      sockets = sockets - id
+    }
   }
 
   def receive = receiveSpecific orElse receiveGeneric

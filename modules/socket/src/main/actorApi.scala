@@ -18,9 +18,11 @@ case class Fen(gameId: String, fen: String, lastMove: Option[String])
 case class LiveGames(uid: String, gameIds: List[String])
 case class Resync(uid: String)
 
+// hubs
 case class GetSocket(id: String)
 case class Forward(id: String, msg: Any)
 case object GetVersion
 case object GetNbSockets
+case class CloseSocket(id: String)
 
 case class SendToFlag(flag: String, message: JsObject) 
