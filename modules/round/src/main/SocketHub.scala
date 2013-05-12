@@ -2,7 +2,7 @@ package lila.round
 
 import actorApi._
 import lila.socket.actorApi._
-import lila.hub.actorApi.GetUserIds
+import lila.hub.actorApi.{ GetNbMembers, NbMembers, GetUserIds }
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
@@ -57,8 +57,6 @@ private[round] final class SocketHub(
     case msg @ IsGone(gameId, color) ⇒ (sockets get gameId).fold(sender ! false) {
       _ ? msg pipeTo sender
     }
-
-    case GetNbSockets ⇒ sender ! sockets.size
 
     case GetNbMembers ⇒ Future.traverse(sockets.values) { socket ⇒
       (socket ? GetNbMembers).mapTo[Int]

@@ -3,7 +3,7 @@ package lila.app
 import akka.actor._
 import com.typesafe.config.Config
 
-final class Env(config: Config, system: ActorSystem, isServer: Boolean) {
+final class Env(config: Config, system: ActorSystem) {
 
   val CliUsername = config getString "cli.username"
 
@@ -35,8 +35,7 @@ object Env {
 
   lazy val current = "[boot] app" describes new Env(
     config = lila.common.PlayApp.loadConfig,
-    system = lila.common.PlayApp.system,
-    isServer = lila.common.PlayApp.isServer)
+    system = lila.common.PlayApp.system)
 
   def api = lila.api.Env.current
   def db = lila.db.Env.current

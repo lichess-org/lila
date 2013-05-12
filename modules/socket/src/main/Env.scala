@@ -6,7 +6,7 @@ import akka.actor.ActorSystem
 import akka.pattern.{ ask, pipe }
 
 import lila.common.PimpedConfig._
-import lila.hub.actorApi.Ask
+import lila.hub.actorApi.GetNbMembers
 import actorApi._
 import makeTimeout.short
 
@@ -19,10 +19,8 @@ final class Env(
     hub.socket.hub -> actorApi.Broom
   }
 
-  scheduler.effect(2 seconds, "socket hub: refresh") {
-    hub.socket.hub ? Ask(GetNbMembers) mapTo manifest[Seq[Int]] map { nbs ⇒
-      NbMembers(nbs.sum)
-    } pipeTo hub.socket.hub
+  scheduler.message(2 seconds) {
+    hub.socket.hub -> GetNbMembers 
   }
 }
 

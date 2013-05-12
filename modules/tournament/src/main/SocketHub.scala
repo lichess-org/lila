@@ -2,7 +2,7 @@ package lila.tournament
 
 import lila.socket.History
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
-import lila.hub.actorApi.GetUserIds
+import lila.hub.actorApi.{ GetNbMembers, NbMembers, GetUserIds }
 import actorApi._
 import makeTimeout.short
 

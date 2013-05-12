@@ -17,6 +17,9 @@ case class Ask(msg: Any)
 
 case object GetUserIds
 
+case object GetNbMembers
+case class NbMembers(nb: Int)
+
 package captcha {
   case object AnyCaptcha
   case class GetCaptcha(id: String)
