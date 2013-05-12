@@ -11,15 +11,15 @@ private[app] final class Renderer extends Actor {
   def receive = {
 
     case lila.game.actorApi.RenderFeaturedJs(game) ⇒
-      V.game.featuredJsNoCtx(game)
+      sender ! V.game.featuredJsNoCtx(game)
 
     case lila.notification.actorApi.RenderNotification(id, from, body) ⇒
-      V.notification.view(id, from)(Html(body))
+      sender ! V.notification.view(id, from)(Html(body))
 
     case lila.tournament.actorApi.RemindTournament(tournament) ⇒
-      V.tournament.reminder(tournament)
+      sender ! V.tournament.reminder(tournament)
 
     case lila.tournament.actorApi.TournamentTable(tours) ⇒
-      V.tournament.createdTable(tours)
+      sender ! V.tournament.createdTable(tours)
   }
 }
