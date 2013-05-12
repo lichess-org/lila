@@ -16,7 +16,7 @@ final class Env(
   private val ESCluster = config getString "es.cluster"
   private val IndexesToOptimize = config getStringList "indexes_to_optimize"
 
-  val esIndexer = elasticsearch.Indexer.transport(
+  val esIndexer = "[search] Instanciate indexer" describing elasticsearch.Indexer.transport(
     settings = Map("cluster.name" -> ESCluster),
     host = ESHost,
     ports = Seq(ESPort))
