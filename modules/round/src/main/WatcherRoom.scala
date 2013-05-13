@@ -2,6 +2,8 @@ package lila.round
 
 case class WatcherRoom(id: String, messages: List[String]) {
 
+  def decodedMessages = messages map WatcherRoom.decode
+
   def rematchCopy(id: String, nb: Int) = copy(
     id = id,
     messages = messages takeRight nb)

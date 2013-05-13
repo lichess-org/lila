@@ -4,7 +4,7 @@
 <li>
   <span>
     @m.userId.map { u =>
-    @userIdLink(u.some, withOnline = false, truncate = 12)
+    @userIdLink(u.some, withOnline = false, truncate = 12.some)
     }.getOrElse {
     <span class="system"></span>
     }
