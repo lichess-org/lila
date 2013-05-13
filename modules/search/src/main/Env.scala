@@ -16,22 +16,23 @@ final class Env(
   private val ESCluster = config getString "es.cluster"
   private val IndexesToOptimize = config getStringList "indexes_to_optimize"
 
-  val esIndexer = "[search] Instanciate indexer" describes elasticsearch.Indexer.transport(
-    settings = Map("cluster.name" -> ESCluster),
-    host = ESHost,
-    ports = Seq(ESPort))
+  val esIndexer = Future {
+    "[search] Instanciate indexer" describes elasticsearch.Indexer.transport(
+      settings = Map("cluster.name" -> ESCluster),
+      host = ESHost,
+      ports = Seq(ESPort))
+  } andThen {
+    case scala.util.Success(indexer) ⇒
+      loginfo("[search] Start indexer")
+      indexer.start
+      loginfo("[search] Indexer is running")
+  }
 
   {
     import scala.concurrent.duration._
 
     scheduler.effect(2 hours, "search: optimize index") {
-      esIndexer.optimize(IndexesToOptimize)
-    }
-
-    scheduler.once(1 second) {
-      loginfo("[search] Start ElasticSearch")
-      esIndexer.start
-      loginfo("[search] ElasticSearch is running")
+      esIndexer foreach { _ optimize IndexesToOptimize }
     }
   }
 }

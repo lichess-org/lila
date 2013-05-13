@@ -14,7 +14,7 @@ import org.elasticsearch.action.search.SearchResponse
 final class Env(
     config: Config,
     system: ActorSystem,
-    esIndexer: EsIndexer) {
+    esIndexer: Fu[EsIndexer]) {
 
   private val IndexName = config getString "index"
   private val TypeName = config getString "type"
@@ -22,7 +22,7 @@ final class Env(
   private val IndexerName = config getString "indexer.name"
 
   private val lowLevelIndexer: ActorRef = system.actorOf(Props(new TypeIndexer(
-    es = esIndexer,
+    esIndexer = esIndexer,
     indexName = IndexName,
     typeName = TypeName,
     mapping = Game.jsonMapping,
@@ -59,35 +59,37 @@ final class Env(
     import lila.db.api._
     import lila.db.Implicits.LilaPimpedQueryBuilder
     val selector = DbQuery.frozen ++ sel
-    val query = $query(selector) sort DbQuery.sortCreated 
+    val query = $query(selector) sort DbQuery.sortCreated
     val size = $count(selector).await
     val batchSize = 1000
     var nb = 0
     var nbSkipped = 0
     var started = nowMillis
-    $enumerate.bulk[Option[GameModel]](query, batchSize) { gameOptions ⇒
-      val games = gameOptions.flatten
-      val nbGames = games.size
-      nb = nb + nbGames
-      PgnRepo.associate(games.map(_.id).toSeq) map { pgns ⇒
-        val pairs = (pgns map {
-          case (id, pgn) ⇒ games.find(_.id == id) map (_ -> pgn)
-        }).flatten
-        esIndexer bulk_send {
-          (pairs map {
-            case (game, pgn) ⇒ esIndexer.index_prepare(
-              IndexName,
-              TypeName,
-              game.id,
-              Json stringify Game.from(game, pgn)
-            ).request
-          })
+    esIndexer map { es ⇒
+      $enumerate.bulk[Option[GameModel]](query, batchSize) { gameOptions ⇒
+        val games = gameOptions.flatten
+        val nbGames = games.size
+        nb = nb + nbGames
+        PgnRepo.associate(games.map(_.id).toSeq) map { pgns ⇒
+          val pairs = (pgns map {
+            case (id, pgn) ⇒ games.find(_.id == id) map (_ -> pgn)
+          }).flatten
+          es bulk_send {
+            (pairs map {
+              case (game, pgn) ⇒ es.index_prepare(
+                IndexName,
+                TypeName,
+                game.id,
+                Json stringify Game.from(game, pgn)
+              ).request
+            })
+          }
+          nbSkipped = nbSkipped + nbGames - pairs.size
+          val perMs = batchSize / (nowMillis - started)
+          started = nowMillis
+          loginfo("[game search] Indexed %d of %d, skipped %d, at %d/s".format(
+            nb, size, nbSkipped, math.round(perMs * 1000)))
         }
-        nbSkipped = nbSkipped + nbGames - pairs.size
-        val perMs = batchSize / (nowMillis - started)
-        started = nowMillis
-        loginfo("[game search] Indexed %d of %d, skipped %d, at %d/s".format(
-          nb, size, nbSkipped, math.round(perMs * 1000)))
       }
     }
   }
