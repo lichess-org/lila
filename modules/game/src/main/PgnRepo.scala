@@ -12,6 +12,9 @@ object PgnRepo {
 
   def get(id: ID): Fu[String] = getOption(id) map (~_)
 
+  def getNonEmpty(id: ID): Fu[Option[String]] = 
+    getOption(id) map (_ filter (_.nonEmpty))
+
   def getOption(id: ID): Fu[Option[String]] =
     $find.one($select(id)) map { _ flatMap (_ str "p") }
 

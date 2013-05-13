@@ -33,7 +33,6 @@ final class Env(
   }), name = ActorName)
 
   def cli = new lila.common.Cli {
-    import lila.db.api.$find
     import tube.threadTube
     def process = {
       case "message" :: "typecheck" :: Nil ⇒ lila.db.Typecheck.apply[Thread]

@@ -17,10 +17,15 @@ private[analyse] object AnalysisRepo {
     $set("done" -> true) ++ $set("encoded" -> a.encodeInfos) ++ $unset("fail")
   )
 
-  def fail(id: ID, err: Failures) = $update.field(id, "fail", err.shows)
+  def fail(id: ID, err: Exception) = $update.field(id, "fail", err.getMessage)
 
-  def progress(id: ID, userId: ID) = $update($select(id),
-    $set("uid" -> userId) ++ $set("done" -> false) ++ $set("date" -> $date(DateTime.now)),
+  def progress(id: ID, userId: ID) = $update(
+    $select(id),
+    $set(Json.obj(
+      "uid" -> userId,
+      "done" -> false,
+      "date" -> $date(DateTime.now)
+    )),
     upsert = true)
 
   def doneById(id: ID): Fu[Option[Analysis]] =
@@ -29,12 +34,14 @@ private[analyse] object AnalysisRepo {
   def isDone(id: ID): Fu[Boolean] =
     $count.exists($select(id) ++ Json.obj("done" -> true))
 
-  def userInProgress(uid: ID): Fu[Boolean] = $count.exists(Json.obj(
-    "fail" -> $exists(false),
-    "uid" -> uid,
-    "done" -> false,
-    "date" -> $gt($date(DateTime.now - 15.minutes))
-  ))
+  def userInProgress(uid: ID): Fu[Option[String]] = $primitive.one(
+    Json.obj(
+      "fail" -> $exists(false),
+      "uid" -> uid,
+      "done" -> false,
+      "date" -> $gt($date(DateTime.now - 15.minutes))
+    ),
+    "_id")(_.asOpt[String])
 
   def count = $count($select.all)
 }

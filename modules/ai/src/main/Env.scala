@@ -3,15 +3,16 @@ package lila.ai
 import lila.common.PimpedConfig._
 
 import akka.actor._
+import akka.pattern.pipe
 import com.typesafe.config.Config
 
 final class Env(
-  config: Config, 
-  system: ActorSystem, 
-  scheduler: lila.common.Scheduler) {
+    config: Config,
+    system: ActorSystem,
+    scheduler: lila.common.Scheduler) {
 
   private val settings = new {
-    val EngineName = config getString "engine" 
+    val EngineName = config getString "engine"
     val IsServer = config getBoolean "server"
     val IsClient = config getBoolean "client"
     val StockfishExecPath = config getString "stockfish.exec_path"
@@ -37,6 +38,8 @@ final class Env(
   system.actorOf(Props(new Actor {
     def receive = {
       case lila.hub.actorApi.ai.Ping ⇒ sender ! clientPing
+      case lila.hub.actorApi.ai.Analyse(pgn, fen) ⇒
+        ai.analyse(pgn, fen) pipeTo sender
     }
   }), name = ActorName)
 
