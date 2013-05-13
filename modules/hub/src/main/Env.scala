@@ -27,12 +27,13 @@ final class Env(config: Config, system: ActorSystem) {
   }
 
   object socket {
-    val lobby = socketLazyRef("lobby")
-    val monitor = socketLazyRef("monitor")
-    val site = socketLazyRef("site")
-    val round = socketLazyRef("round")
-    val tournament = socketLazyRef("tournament")
-    val hub = system.actorOf(Props(new Broadcast(List(
+    lazy val lobby = socketFor("lobby")
+    lazy val monitor = socketFor("monitor")
+    lazy val site = socketFor("site")
+    lazy val round = socketFor("round")
+    lazy val tournament = socketFor("tournament")
+    // this one must load after its broadcasted actors
+    lazy val hub = system.actorOf(Props(new Broadcast(List(
       lobby, site, round, tournament
     ))(makeTimeout(SocketHubTimeout))), name = SocketHubName)
   }
@@ -40,8 +41,8 @@ final class Env(config: Config, system: ActorSystem) {
   private def actorFor(name: String) =
     system.actorFor("/user/" + config.getString("actor." + name))
 
-  private def socketLazyRef(name: String) =
-    ActorLazyRef(system)(config.getString("socket." + name))
+  private def socketFor(name: String) =
+    system.actorFor("/user/" + config.getString("socket." + name))
 }
 
 object Env {
