@@ -13,14 +13,14 @@ final class Env(
     config: Config,
     postApi: PostApi,
     system: ActorSystem,
-    esIndexer: EsIndexer) {
+    esIndexer: Fu[EsIndexer]) {
 
   private val IndexName = config getString "index"
   private val TypeName = config getString "type"
   private val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
   private val IndexerName = config getString "indexer.name"
 
-  def apply(text: String, page: Int, staff: Boolean) = 
+  def apply(text: String, page: Int, staff: Boolean) =
     paginatorBuilder(Query(text, staff), page)
 
   val indexer: ActorRef = system.actorOf(Props(new Indexer(
@@ -44,7 +44,7 @@ final class Env(
     converter = responseToPosts _)
 
   private val lowLevelIndexer: ActorRef = system.actorOf(Props(new TypeIndexer(
-    es = esIndexer,
+    esIndexer = esIndexer,
     indexName = IndexName,
     typeName = TypeName,
     mapping = Post.jsonMapping,
@@ -59,16 +59,18 @@ final class Env(
     import play.api.libs.iteratee._
     import lila.db.api._
     import lila.forum.tube.postTube
-    $enumerate.bulk[Option[PostModel]]($query[PostModel](sel), 1000) { postOptions ⇒
-      (postApi liteViews postOptions.flatten) map { views ⇒
-        esIndexer bulk {
-          views map { view ⇒
-            esIndexer.index_prepare(
-              IndexName,
-              TypeName,
-              view.post.id,
-              Json stringify Post.from(view)
-            ).request
+    esIndexer map { es ⇒
+      $enumerate.bulk[Option[PostModel]]($query[PostModel](sel), 1000) { postOptions ⇒
+        (postApi liteViews postOptions.flatten) map { views ⇒
+          es bulk {
+            views map { view ⇒
+              es.index_prepare(
+                IndexName,
+                TypeName,
+                view.post.id,
+                Json stringify Post.from(view)
+              ).request
+            }
           }
         }
       }

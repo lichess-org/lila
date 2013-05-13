@@ -14,7 +14,7 @@ import org.elasticsearch.action.search.SearchResponse
 final class Env(
     config: Config,
     system: ActorSystem,
-    esIndexer: EsIndexer) {
+    esIndexer: Fu[EsIndexer]) {
 
   private val IndexName = config getString "index"
   private val TypeName = config getString "type"
@@ -43,7 +43,7 @@ final class Env(
     converter = responseToTeams _)
 
   private val lowLevelIndexer: ActorRef = system.actorOf(Props(new TypeIndexer(
-    es = esIndexer,
+    esIndexer = esIndexer,
     indexName = IndexName,
     typeName = TypeName,
     mapping = Team.jsonMapping,
@@ -57,11 +57,12 @@ final class Env(
     import play.api.libs.json._
     import play.api.libs.iteratee._
     import lila.db.api._
-    $enumerate.bulk[Option[TeamModel]]($query[TeamModel](sel), 100) { teamOptions ⇒
+    esIndexer map { es ⇒
+      $enumerate.bulk[Option[TeamModel]]($query[TeamModel](sel), 100) { teamOptions ⇒
         scala.concurrent.Future {
-          esIndexer bulk {
+          es bulk {
             teamOptions.flatten map { team ⇒
-              esIndexer.index_prepare(
+              es.index_prepare(
                 IndexName,
                 TypeName,
                 team.id,
@@ -70,6 +71,7 @@ final class Env(
             }
           }
         }
+      }
     }
   }
 }
