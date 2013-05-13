@@ -20,7 +20,7 @@ private[analyse] object AnalysisRepo {
   def fail(id: ID, err: Failures) = $update.field(id, "fail", err.shows)
 
   def progress(id: ID, userId: ID) = $update($select(id),
-    $set("uid" -> userId) ++ $set("done" -> false) ++ $set("date" -> DateTime.now),
+    $set("uid" -> userId) ++ $set("done" -> false) ++ $set("date" -> $date(DateTime.now)),
     upsert = true)
 
   def doneById(id: ID): Fu[Option[Analysis]] =
@@ -33,7 +33,7 @@ private[analyse] object AnalysisRepo {
     "fail" -> $exists(false),
     "uid" -> uid,
     "done" -> false,
-    "date" -> $gt(DateTime.now - 15.minutes)
+    "date" -> $gt($date(DateTime.now - 15.minutes))
   ))
 
   def count = $count($select.all)
