@@ -41,6 +41,7 @@ private[tournament] final class Socket(
     case ReloadPage ⇒ notifyVersion("reloadPage", JsNull)
 
     case PingVersion(uid, v) ⇒ {
+      loginfo("ping " + uid)
       ping(uid)
       lastPingTime = nowMillis
       withMember(uid) { m ⇒
