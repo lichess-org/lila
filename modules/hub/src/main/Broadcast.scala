@@ -8,30 +8,24 @@ import akka.pattern.{ ask, pipe }
 import akka.util.Timeout
 import actorApi._
 
-final class Broadcast(actors: List[ActorRef])(implicit timeout: Timeout) extends Actor {
-
-  private val router = context.actorOf(Props.empty.withRouter(new RouterConfig {
-
-    def routerDispatcher: String = Dispatchers.DefaultDispatcherId
-    def supervisorStrategy: SupervisorStrategy = SupervisorStrategy.defaultStrategy
-
-    def createRoute(routeeProvider: RouteeProvider): Route = {
-      routeeProvider.registerRoutees(actors.toVector)
-      val destinations = actors map { Destination(sender, _) }
-      { case _ ⇒ destinations }
-    }
-  }))
+final class Broadcast(lazyRefs: List[ActorLazyRef])(implicit timeout: Timeout) extends Actor {
 
   def receive = {
 
     case GetNbMembers ⇒ askAll(GetNbMembers).mapTo[List[Int]] foreach { nbs ⇒
-      router ! NbMembers(nbs.sum)
+      broadcast(NbMembers(nbs.sum))
     }
 
     case Ask(msg) ⇒ askAll(msg) pipeTo sender
 
-    case msg      ⇒ router ! msg
+    case msg      ⇒ broadcast(msg)
   }
+
+  private def broadcast(msg: Any) {
+    actors foreach { _ ! msg }
+  }
+
+  private def actors = lazyRefs map (_.ref)
 
   private def askAll(message: Any): Fu[List[Any]] =
     actors.map(_ ? message).sequence
