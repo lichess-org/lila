@@ -32,6 +32,13 @@ final class Env(
     private val cache: Cache[Int] = LruCache(timeToLive = CachedNbTtl)
     def nbAnalysis: Fu[Int] = cache.fromFuture(true)(AnalysisRepo.count)
   }
+
+  def cli = new lila.common.Cli {
+    import tube.analysisTube
+    def process = {
+      case "analyse" :: "typecheck" :: Nil ⇒ lila.db.Typecheck.apply[Analysis](false)
+    }
+  }
 }
 
 object Env {

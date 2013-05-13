@@ -74,7 +74,6 @@ final class Env(
     socketHub ? Forward(tourId, GetVersion) mapTo manifest[Int]
 
   def cli = new lila.common.Cli {
-    import lila.db.api.$find
     import tube.tournamentTube
     def process = {
       case "tournament" :: "typecheck" :: Nil ⇒ lila.db.Typecheck.apply[Tournament]

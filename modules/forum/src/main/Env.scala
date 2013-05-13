@@ -33,7 +33,6 @@ final class Env(
   lazy val recent = new Recent(postApi, RecentTtl)
 
   def cli = new lila.common.Cli {
-    import lila.db.api.$find
     import tube._
     def process = {
       case "forum" :: "denormalize" :: Nil ⇒
