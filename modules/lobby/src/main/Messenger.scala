@@ -13,7 +13,7 @@ private[lobby] final class Messenger(val netDomain: String) extends Room {
       user ← userOption filter (_.canChat) toValid "This user cannot chat"
       msg ← createMessage(user, text)
       (u, t) = msg
-    } yield Message.make(u, text)).future
+    } yield Message.make(u, t)).future
     _ ← $insert(message)
   } yield message
 
