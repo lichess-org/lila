@@ -61,16 +61,14 @@ final class Env(
     tournamentSocketName = name ⇒ SocketName + "-" + name
   )), name = SocketName)
 
-  private lazy val organizer = system.actorOf(Props(new Organizer(
+  private val organizer = system.actorOf(Props(new Organizer(
     api = api,
-    reminder = reminder,
+    reminder = system.actorOf(Props(new Reminder(
+      hub = hub,
+      renderer = hub.actor.renderer
+    )), name = ReminderName),
     socketHub = socketHub
   )), name = OrganizerName)
-
-  private lazy val reminder = system.actorOf(Props(new Reminder(
-    hub = hub.socket.hub,
-    renderer = hub.actor.renderer
-  )), name = ReminderName)
 
   def version(tourId: String): Fu[Int] =
     socketHub ? Forward(tourId, GetVersion) mapTo manifest[Int]
