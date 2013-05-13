@@ -103,7 +103,15 @@ private[analyse] case class RawAnalysis(
 private[analyse] object RawAnalysis {
 
   import lila.db.Tube
+  import Tube.Helpers._
   import play.api.libs.json._
 
-  private[analyse] lazy val tube = Tube(Json.reads[RawAnalysis], Json.writes[RawAnalysis])
+  private def defaults = Json.obj(
+    "encoded" -> "",
+    "done" -> false,
+    "fail" -> none[String])
+
+  private[analyse] lazy val tube = Tube(
+    (__.json update merge(defaults)) andThen Json.reads[RawAnalysis],
+    Json.writes[RawAnalysis])
 }
