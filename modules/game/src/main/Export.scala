@@ -10,7 +10,7 @@ import akka.pattern.ask
 import org.joda.time.DateTime
 import org.joda.time.format.{ DateTimeFormat, ISODateTimeFormat, DateTimeFormatter }
 
-private[game] final class Export(router: ActorRef) {
+private[game] final class Export(router: lila.hub.ActorLazyRef) {
 
   private val dateFormatter = ISODateTimeFormat.dateTime
 

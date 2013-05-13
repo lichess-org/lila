@@ -8,7 +8,7 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 
-private[team] final class DataForm(val captcher: ActorRef) extends lila.hub.CaptchedForm {
+private[team] final class DataForm(val captcher: lila.hub.ActorLazyRef) extends lila.hub.CaptchedForm {
 
   import lila.common.Form._
 

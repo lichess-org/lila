@@ -13,7 +13,7 @@ import scalaz.{ OptionT, OptionTs }
 
 private[forum] final class TopicApi(
   env: Env, 
-  indexer: ActorRef,
+  indexer: lila.hub.ActorLazyRef,
   maxPerPage: Int) extends OptionTs {
 
   def show(categSlug: String, slug: String, page: Int): Fu[Option[(Categ, Topic, Paginator[Post])]] =

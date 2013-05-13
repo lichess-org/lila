@@ -19,8 +19,8 @@ import akka.pattern.ask
 
 private[setup] final class Rematcher(
     messenger: Messenger,
-    router: ActorRef,
-    timeline: ActorRef) extends Handler {
+    router: lila.hub.ActorLazyRef,
+    timeline: lila.hub.ActorLazyRef) extends Handler {
 
   private type Result = (String, List[Event])
 

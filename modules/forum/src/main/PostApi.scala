@@ -15,7 +15,7 @@ import scalaz.{ OptionT, OptionTs }
 
 final class PostApi(
   env: Env, 
-  indexer: ActorRef, 
+  indexer: lila.hub.ActorLazyRef, 
   maxPerPage: Int,
   modLog: ModlogApi) extends OptionTs {
 

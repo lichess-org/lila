@@ -21,11 +21,11 @@ import play.api.libs.json._
 
 private[tournament] final class TournamentApi(
     joiner: GameJoiner,
-    router: ActorRef,
-    renderer: ActorRef,
+    router: lila.hub.ActorLazyRef,
+    renderer: lila.hub.ActorLazyRef,
     socketHub: ActorRef,
-    site: ActorRef,
-    lobby: ActorRef,
+    site: lila.hub.ActorLazyRef,
+    lobby: lila.hub.ActorLazyRef,
     roundMeddler: lila.round.Meddler) extends scalaz.OptionTs {
 
   def makePairings(tour: Started, pairings: NonEmptyList[Pairing]): Funit =
@@ -134,7 +134,7 @@ private[tournament] final class TournamentApi(
     TournamentRepo.created foreach { tours ⇒
       renderer ? TournamentTable(tours) map {
         case view: play.api.templates.Html ⇒ ReloadTournaments(view.body)
-      } pipeTo lobby
+      } pipeTo lobby.ref
     }
   }
 
@@ -152,7 +152,7 @@ private[tournament] final class TournamentApi(
       case url: String ⇒ SysTalk(
         """<a href="%s">%s tournament created</a>""".format(url, tour.name)
       )
-    } pipeTo lobby
+    } pipeTo lobby.ref
   }
 
   private def removeLobbyMessage(tour: Created) {

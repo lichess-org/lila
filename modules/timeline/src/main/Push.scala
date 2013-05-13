@@ -9,7 +9,7 @@ import tube.entryTube
 import akka.actor._
 
 private[timeline] final class Push(
-    lobbySocket: ActorRef,
+    lobbySocket: lila.hub.ActorLazyRef,
     getUsername: String ⇒ Fu[String]) extends Actor {
 
   def receive = {

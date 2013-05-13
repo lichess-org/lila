@@ -13,7 +13,7 @@ final class Env(
     config: Config,
     system: ActorSystem,
     db: lila.db.Env,
-    timelinePush: ActorRef,
+    timelinePush: lila.hub.ActorLazyRef,
     flood: lila.security.Flood,
     hub: lila.hub.Env,
     roundMeddler: lila.round.Meddler,
@@ -64,7 +64,7 @@ final class Env(
   private val organizer = system.actorOf(Props(new Organizer(
     api = api,
     reminder = system.actorOf(Props(new Reminder(
-      hub = hub,
+      hub = hub.socket.hub,
       renderer = hub.actor.renderer
     )), name = ReminderName),
     socketHub = socketHub
@@ -89,16 +89,12 @@ final class Env(
   {
     import scala.concurrent.duration._
 
-    // delay scheduler to prevent loading hub.socket.hub too early
-    scheduler.once(3.seconds) {
+    scheduler.message(5 seconds) {
+      organizer -> actorApi.CreatedTournaments
+    }
 
-      scheduler.message(5 seconds) {
-        organizer -> actorApi.CreatedTournaments
-      }
-
-      scheduler.message(3 seconds) {
-        organizer -> actorApi.StartedTournaments
-      }
+    scheduler.message(3 seconds) {
+      organizer -> actorApi.StartedTournaments
     }
   }
 

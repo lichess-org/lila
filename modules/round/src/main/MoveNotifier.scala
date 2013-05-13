@@ -7,7 +7,7 @@ import akka.actor.ActorRef
 
 private[round] final class MoveNotifier(
     hub: ActorRef,
-    monitor: ActorRef) {
+    monitor: lila.hub.ActorLazyRef) {
 
   def apply(gameId: String, fen: String, lastMove: Option[String]) {
     hub ! Fen(gameId, fen, lastMove)

@@ -13,7 +13,7 @@ import scala.concurrent.duration.Duration
 private[importer] final class Importer(
     hand: Hand,
     finisher: Finisher,
-    bookmark: ActorRef,
+    bookmark: lila.hub.ActorLazyRef,
     delay: Duration) {
 
   def apply(data: ImportData, user: Option[String]): Fu[Game] = gameExists(data.pgn) {

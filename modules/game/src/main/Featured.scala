@@ -15,8 +15,8 @@ import play.api.templates.Html
 import chess.Color
 
 final class Featured(
-    lobbySocket: ActorRef,
-    rendererActor: ActorRef,
+    lobbySocket: lila.hub.ActorLazyRef,
+    rendererActor: lila.hub.ActorLazyRef,
     system: ActorSystem) {
 
   def one: Future[Option[Game]] = actor ? GetOne mapTo manifest[Option[Game]]

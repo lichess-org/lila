@@ -8,7 +8,7 @@ import play.api.templates.Html
 import akka.actor.ActorRef
 import akka.pattern.ask
 
-private[notification] final class Api(socketHub: ActorRef, renderer: ActorRef) {
+private[notification] final class Api(socketHub: lila.hub.ActorLazyRef, renderer: lila.hub.ActorLazyRef) {
 
   private val repo = mutable.Map[String, List[Notification]]()
   import makeTimeout.large

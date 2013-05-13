@@ -16,7 +16,7 @@ trait CaptchedForm {
     def move: String
   }
 
-  def captcher: ActorRef
+  def captcher: lila.hub.ActorLazyRef
 
   def anyCaptcha: Fu[Captcha] = 
     (captcher ? AnyCaptcha).mapTo[Captcha]
