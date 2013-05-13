@@ -3,7 +3,6 @@ package lila.team
 import lila.hub.actorApi.message.LichessThread
 import lila.hub.actorApi.router._
 
-import akka.actor.ActorRef
 import akka.pattern.ask
 
 private[team] final class Notifier(

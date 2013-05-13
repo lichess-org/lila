@@ -5,8 +5,6 @@ import lila.socket.SocketMember
 import lila.user.User
 import lila.game.Game
 
-import akka.actor.ActorRef
-
 case class Member(
     channel: JsChannel,
     userId: Option[String],

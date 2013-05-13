@@ -3,7 +3,6 @@ package lila.team
 import lila.db.api.{ $count, $select }
 import tube.teamTube
 
-import akka.actor.ActorRef
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._

@@ -3,7 +3,6 @@ package lila.security
 import lila.user.tube.userTube
 import lila.db.api.$count
 
-import akka.actor.ActorRef
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints

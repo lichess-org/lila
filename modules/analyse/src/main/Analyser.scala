@@ -5,7 +5,6 @@ import lila.db.api._
 import tube.analysisTube
 import lila.game.tube.gameTube
 
-import akka.actor.ActorRef
 import akka.pattern.ask
 
 private[analyse] final class Analyser(ai: lila.hub.ActorLazyRef) {

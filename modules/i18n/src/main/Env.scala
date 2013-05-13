@@ -2,7 +2,6 @@ package lila.i18n
 
 import lila.common.PlayApp
 
-import akka.actor.ActorRef
 import com.typesafe.config.Config
 import play.api.i18n.{ MessagesApi, MessagesPlugin }
 import play.api.i18n.Lang

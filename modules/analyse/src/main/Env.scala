@@ -2,7 +2,6 @@ package lila.analyse
 
 import lila.common.PimpedConfig._
 
-import akka.actor.ActorRef
 import com.typesafe.config.Config
 import spray.caching.{ LruCache, Cache }
 

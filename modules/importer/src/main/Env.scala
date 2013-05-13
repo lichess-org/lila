@@ -2,7 +2,6 @@ package lila.importer
 
 import lila.common.PimpedConfig._
 
-import akka.actor.ActorRef
 import com.typesafe.config.Config
 
 final class Env(

@@ -5,7 +5,6 @@ import lila.common.CsvServer
 import lila.hub.actorApi.{ router ⇒ R }
 import makeTimeout.short
 
-import akka.actor.ActorRef
 import akka.pattern.ask
 import org.joda.time.DateTime
 import org.joda.time.format.{ DateTimeFormat, ISODateTimeFormat, DateTimeFormatter }

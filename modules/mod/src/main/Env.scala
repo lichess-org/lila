@@ -4,7 +4,6 @@ import lila.db.Types.Coll
 import lila.security.{ Firewall, UserSpy }
 import lila.user.EloUpdater
 
-import akka.actor.ActorRef
 import com.typesafe.config.Config
 
 final class Env(

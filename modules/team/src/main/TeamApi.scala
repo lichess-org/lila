@@ -1,7 +1,6 @@
 package lila.team
 
 import org.scala_tools.time.Imports._
-import akka.actor.ActorRef
 
 import lila.user.{ User, Context }
 import lila.user.tube.userTube

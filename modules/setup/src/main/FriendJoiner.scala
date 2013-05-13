@@ -7,7 +7,6 @@ import lila.round.Messenger
 import lila.hub.actorApi.router.Player
 import makeTimeout.short
 
-import akka.actor.ActorRef
 import akka.pattern.ask
 
 private[setup] final class FriendJoiner(

@@ -3,7 +3,6 @@ package lila.i18n
 import lila.db.api.$insert
 import tube.translationTube
 
-import akka.actor.ActorRef
 import play.api.mvc.Request
 import play.api.data._
 import play.api.data.Forms._

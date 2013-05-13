@@ -9,7 +9,6 @@ import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 import play.api.libs.json._
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
-import akka.actor.ActorRef
 
 private[game] final class Titivate(bookmark: lila.hub.ActorLazyRef) {
 

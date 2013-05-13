@@ -9,7 +9,6 @@ import lila.db.api._
 import tube._
 import actorApi._
 
-import akka.actor.ActorRef
 import play.api.libs.json.JsObject
 import scalaz.{ OptionT, OptionTs }
 
