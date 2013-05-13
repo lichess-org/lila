@@ -36,7 +36,9 @@ private[game] object RawMetadata {
 
   private implicit def importTube = PgnImport.tube
 
-  private def defaults = Json.obj("t" -> none[PgnImport])
+  private def defaults = Json.obj(
+    "pgni" -> none[PgnImport],
+    "tid" -> none[String])
 
   private[game] lazy val tube = Tube(
     reader = (__.json update merge(defaults)) andThen Json.reads[RawMetadata],
