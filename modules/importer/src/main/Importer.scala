@@ -7,7 +7,6 @@ import lila.round.{ Hand, Finisher }
 import lila.game.tube.gameTube
 import lila.db.api._
 
-import akka.actor.ActorRef
 import scala.concurrent.duration.Duration
 
 private[importer] final class Importer(

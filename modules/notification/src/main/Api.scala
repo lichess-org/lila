@@ -5,7 +5,6 @@ import lila.hub.actorApi.SendTo
 
 import scala.collection.mutable
 import play.api.templates.Html
-import akka.actor.ActorRef
 import akka.pattern.ask
 
 private[notification] final class Api(socketHub: lila.hub.ActorLazyRef, renderer: lila.hub.ActorLazyRef) {

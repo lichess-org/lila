@@ -6,8 +6,6 @@ import lila.user.tube.userTube
 import lila.db.api._
 import lila.hub.actorApi.lobby.Censor
 
-import akka.actor.ActorRef
-
 final class ModApi(
     logApi: ModlogApi,
     userSpy: String ⇒ Fu[UserSpy],

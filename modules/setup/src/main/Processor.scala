@@ -14,7 +14,6 @@ import lila.game.tube.gameTube
 import lila.db.api._
 
 import play.api.libs.json.{ Json, JsObject }
-import akka.actor.ActorRef
 import akka.pattern.ask
 
 private[setup] final class Processor(

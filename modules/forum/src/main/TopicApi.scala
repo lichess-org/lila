@@ -8,7 +8,6 @@ import lila.db.api._
 import tube._
 import actorApi._
 
-import akka.actor.ActorRef
 import scalaz.{ OptionT, OptionTs }
 
 private[forum] final class TopicApi(

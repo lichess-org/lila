@@ -11,8 +11,6 @@ import lila.lobby.tube.hookTube
 import lila.game.tube.gameTube
 import lila.db.api._
 
-import akka.actor.ActorRef
-
 private[setup] final class HookJoiner(
     fisherman: Fisherman,
     timeline: lila.hub.ActorLazyRef,

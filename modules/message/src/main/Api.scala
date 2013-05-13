@@ -9,8 +9,6 @@ import lila.hub.actorApi.SendTo
 import lila.hub.actorApi.message._
 import tube.threadTube
 
-import akka.actor.ActorRef
-
 final class Api(
     unreadCache: UnreadCache,
     maxPerPage: Int,

@@ -1,6 +1,5 @@
 package lila.team
 
-import akka.actor.ActorRef
 import com.typesafe.config.Config
 import lila.common.PimpedConfig._
 
