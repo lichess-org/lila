@@ -38,8 +38,8 @@ final class Env(
   system.actorOf(Props(new Actor {
     def receive = {
       case lila.hub.actorApi.ai.Ping ⇒ sender ! clientPing
-      case lila.hub.actorApi.ai.Analyse(pgn, fen) ⇒
-        ai.analyse(pgn, fen) pipeTo sender
+      case lila.hub.actorApi.ai.Analyse(id, pgn, fen) ⇒
+        ai.analyse(pgn, fen) map { _(id) } pipeTo sender
     }
   }), name = ActorName)
 

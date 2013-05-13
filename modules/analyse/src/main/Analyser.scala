@@ -29,7 +29,9 @@ private[analyse] final class Analyser(ai: lila.hub.ActorLazyRef) {
         case (Some(game), Some(pgn)) ⇒ (for {
           _ ← AnalysisRepo.progress(id, userId)
           initialFen ← GameRepo initialFen id
-          analysis ← ai ? lila.hub.actorApi.ai.Analyse(pgn, initialFen) mapTo manifest[Analysis]
+          analysis ← {
+            ai ? lila.hub.actorApi.ai.Analyse(id, pgn, initialFen)
+          } mapTo manifest[Analysis] 
         } yield analysis) flatFold (
           e ⇒ AnalysisRepo.fail(id, e).mapTo[Analysis],
           a ⇒ AnalysisRepo.done(id, a) >> fuccess(a)

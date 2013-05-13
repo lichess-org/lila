@@ -140,6 +140,10 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
 
     def flatFold[B](fail: Exception ⇒ Fu[B], succ: A ⇒ Fu[B]): Fu[B] =
       fua flatMap succ recoverWith { case e: Exception ⇒ fail(e) }
+
+    def thenPp: Fu[A] = fua ~ {
+      _.effectFold(println, println)
+    }
   }
 
   implicit final class LilaPimpedBooleanForFuture(b: Boolean) {

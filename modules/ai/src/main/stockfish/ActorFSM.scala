@@ -4,7 +4,7 @@ package stockfish
 import model._
 import model.analyse._
 
-import akka.actor.{ Props, Actor, ActorRef, FSM ⇒ AkkaFSM, LoggingFSM }
+import akka.actor.{ Props, Actor, ActorRef, Status, FSM ⇒ AkkaFSM, LoggingFSM }
 
 final class ActorFSM(
   processBuilder: Process.Builder,
@@ -59,11 +59,11 @@ final class ActorFSM(
         anal ⇒ (anal buffer t).flush.fold(
           err ⇒ {
             log error err.shows
-            anal.ref ! failure(err)
+            anal.ref ! Status.Failure(lila.common.LilaException(err))
             nextTask(doing.done)
           },
           task ⇒ task.isDone.fold({
-            task.ref ! success(task.analysis.done)
+            task.ref ! task.analysis.done
             nextTask(doing.done)
           },
             nextTask(doing.done enqueue task)

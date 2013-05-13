@@ -13,8 +13,12 @@ private[analyse] object AnalysisRepo {
 
   type ID = String
 
-  def done(id: ID, a: Analysis) = $update($select(id),
-    $set("done" -> true) ++ $set("encoded" -> a.encodeInfos) ++ $unset("fail")
+  def done(id: ID, a: Analysis) = $update(
+    $select(id),
+    $set(Json.obj(
+      "done" -> true,
+      "encoded" -> a.encodeInfos
+    )) ++ $unset("fail")
   )
 
   def fail(id: ID, err: Exception) = $update.field(id, "fail", err.getMessage)
@@ -25,7 +29,7 @@ private[analyse] object AnalysisRepo {
       "uid" -> userId,
       "done" -> false,
       "date" -> $date(DateTime.now)
-    )),
+    ) ++ $unset("fail")),
     upsert = true)
 
   def doneById(id: ID): Fu[Option[Analysis]] =
