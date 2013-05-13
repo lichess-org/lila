@@ -14,7 +14,7 @@ import akka.actor.ActorRef
 final class Api(
     unreadCache: UnreadCache,
     maxPerPage: Int,
-    socketHub: ActorRef) {
+    socketHub: lila.hub.ActorLazyRef) {
 
   def inbox(me: User, page: Int): Fu[Paginator[Thread]] = Paginator(
     adapter = new Adapter(

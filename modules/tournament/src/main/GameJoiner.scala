@@ -10,7 +10,7 @@ import akka.actor.{ ActorRef, ActorSystem }
 
 final class GameJoiner(
     roundMeddler: Meddler,
-    timelinePush: ActorRef,
+    timelinePush: lila.hub.ActorLazyRef,
     system: ActorSystem) {
 
   private val secondsToMove = 20

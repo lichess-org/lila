@@ -10,7 +10,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     getUsername: String ⇒ Fu[String],
-    lobbySocket: ActorRef,
+    lobbySocket: lila.hub.ActorLazyRef,
     system: ActorSystem) {
 
   private val CollectionEntry = config getString "collection.entry"

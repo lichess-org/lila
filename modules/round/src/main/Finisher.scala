@@ -11,16 +11,15 @@ import lila.user.tube.userTube
 import lila.db.api._
 import lila.hub.actorApi.round._
 
-import akka.actor.ActorRef
 import scalaz.{ OptionTs, Success }
 
 final class Finisher(
-    tournamentOrganizer: ActorRef,
+    tournamentOrganizer: lila.hub.ActorLazyRef,
     messenger: Messenger,
     eloUpdater: EloUpdater,
     eloCalculator: EloCalculator,
     finisherLock: FinisherLock,
-    indexer: ActorRef) extends OptionTs {
+    indexer: lila.hub.ActorLazyRef) extends OptionTs {
 
   def abort(pov: Pov): FuEvents =
     if (pov.game.abortable) finish(pov.game, Aborted)

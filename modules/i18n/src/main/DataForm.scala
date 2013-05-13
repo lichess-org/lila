@@ -11,7 +11,7 @@ import org.joda.time.DateTime
 
 final class DataForm(
     keys: I18nKeys, 
-    val captcher: ActorRef) extends lila.hub.CaptchedForm {
+    val captcher: lila.hub.ActorLazyRef) extends lila.hub.CaptchedForm {
 
   val translation = Form(mapping(
     "author" -> optional(nonEmptyText),

@@ -15,7 +15,7 @@ import akka.actor.ActorRef
 
 private[setup] final class HookJoiner(
     fisherman: Fisherman,
-    timeline: ActorRef,
+    timeline: lila.hub.ActorLazyRef,
     messenger: Messenger) {
 
   def apply(hookId: String, myHookId: Option[String])(me: Option[User]): Fu[Valid[Pov]] = for {

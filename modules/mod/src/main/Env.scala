@@ -11,7 +11,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     eloUpdater: EloUpdater,
-    lobbySocket: ActorRef,
+    lobbySocket: lila.hub.ActorLazyRef,
     firewall: Firewall,
     userSpy: String => Fu[UserSpy]) {
 

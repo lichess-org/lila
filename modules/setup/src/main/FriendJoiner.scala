@@ -12,8 +12,8 @@ import akka.pattern.ask
 
 private[setup] final class FriendJoiner(
     messenger: Messenger,
-    timeline: ActorRef,
-    router: ActorRef) {
+    timeline: lila.hub.ActorLazyRef,
+    router: lila.hub.ActorLazyRef) {
 
   def apply(game: Game, user: Option[User]): Valid[Fu[(Pov, List[Event])]] =
     game.notStarted option {

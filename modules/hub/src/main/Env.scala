@@ -10,20 +10,20 @@ final class Env(config: Config, system: ActorSystem) {
   private val SocketHubTimeout = config duration "socket.hub.timeout"
 
   object actor {
-    lazy val game = actorFor("game.actor")
-    lazy val gameIndexer = actorFor("game.indexer")
-    lazy val renderer = actorFor("renderer")
-    lazy val captcher = actorFor("captcher")
-    lazy val forum = actorFor("forum.actor")
-    lazy val forumIndexer = actorFor("forum.indexer")
-    lazy val messenger = actorFor("messenger")
-    lazy val router = actorFor("router")
-    lazy val teamIndexer = actorFor("team.indexer")
-    lazy val ai = actorFor("ai")
-    lazy val monitor = actorFor("monitor")
-    lazy val tournamentOrganizer = actorFor("tournament.organizer")
-    lazy val timeline = actorFor("timeline")
-    lazy val bookmark = actorFor("bookmark")
+    lazy val game = actorLazyRef("game.actor")
+    lazy val gameIndexer = actorLazyRef("game.indexer")
+    lazy val renderer = actorLazyRef("renderer")
+    lazy val captcher = actorLazyRef("captcher")
+    lazy val forum = actorLazyRef("forum.actor")
+    lazy val forumIndexer = actorLazyRef("forum.indexer")
+    lazy val messenger = actorLazyRef("messenger")
+    lazy val router = actorLazyRef("router")
+    lazy val teamIndexer = actorLazyRef("team.indexer")
+    lazy val ai = actorLazyRef("ai")
+    lazy val monitor = actorLazyRef("monitor")
+    lazy val tournamentOrganizer = actorLazyRef("tournament.organizer")
+    lazy val timeline = actorLazyRef("timeline")
+    lazy val bookmark = actorLazyRef("bookmark")
   }
 
   object socket {
@@ -32,16 +32,23 @@ final class Env(config: Config, system: ActorSystem) {
     val site = socketLazyRef("site")
     val round = socketLazyRef("round")
     val tournament = socketLazyRef("tournament")
-    val hub = system.actorOf(Props(new Broadcast(List(
-      lobby, site, round, tournament
-    ))(makeTimeout(SocketHubTimeout))), name = SocketHubName)
+    val hub = lazyRef(SocketHubName)
   }
 
-  private def actorFor(name: String) =
-    system.actorFor("/user/" + config.getString("actor." + name))
+  system.actorOf(Props(new Broadcast(List(
+    socket.lobby, 
+    socket.site, 
+    socket.round, 
+    socket.tournament
+  ))(makeTimeout(SocketHubTimeout))), name = SocketHubName)
+
+  private val lazyRef = ActorLazyRef(system) _
+
+  private def actorLazyRef(name: String) =
+    lazyRef(config.getString("actor." + name))
 
   private def socketLazyRef(name: String) =
-    ActorLazyRef(system)(config.getString("socket." + name))
+    lazyRef(config.getString("socket." + name))
 }
 
 object Env {

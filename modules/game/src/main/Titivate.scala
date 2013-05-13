@@ -11,7 +11,7 @@ import play.api.libs.json._
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 import akka.actor.ActorRef
 
-private[game] final class Titivate(bookmark: ActorRef) {
+private[game] final class Titivate(bookmark: lila.hub.ActorLazyRef) {
 
   def cleanupUnplayed: Funit = GameRepo.unplayedIds flatMap { ids ⇒
     fuloginfo("[titivate] Remove %d unplayed games" format ids.size) >>

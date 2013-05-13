@@ -8,7 +8,7 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
 
-final class DataForm(val captcher: ActorRef) extends lila.hub.CaptchedForm {
+final class DataForm(val captcher: lila.hub.ActorLazyRef) extends lila.hub.CaptchedForm {
 
   import DataForm._
 

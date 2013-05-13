@@ -8,7 +8,7 @@ import lila.game.tube.gameTube
 import akka.actor.ActorRef
 import akka.pattern.ask
 
-private[analyse] final class Analyser(ai: ActorRef) {
+private[analyse] final class Analyser(ai: lila.hub.ActorLazyRef) {
 
   private implicit val timeout = makeTimeout minutes 5
 

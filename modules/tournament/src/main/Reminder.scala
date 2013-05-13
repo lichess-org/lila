@@ -11,8 +11,8 @@ import play.api.libs.json.Json
 import play.api.templates.Html
 
 private[tournament] final class Reminder(
-    hub: ActorRef,
-    renderer: ActorRef) extends Actor {
+    hub: lila.hub.ActorLazyRef,
+    renderer: lila.hub.ActorLazyRef) extends Actor {
 
   def receive = {
 

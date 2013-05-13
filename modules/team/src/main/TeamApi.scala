@@ -13,8 +13,8 @@ import lila.db.api._
 final class TeamApi(
     cached: Cached,
     notifier: Notifier,
-    forum: ActorRef,
-    indexer: ActorRef) {
+    forum: lila.hub.ActorLazyRef,
+    indexer: lila.hub.ActorLazyRef) {
 
   val creationPeriod = 1.week
 

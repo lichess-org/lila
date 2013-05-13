@@ -9,7 +9,7 @@ import spray.caching.{ LruCache, Cache }
 final class Env(
     config: Config,
     db: lila.db.Env,
-    ai: ActorRef,
+    ai: lila.hub.ActorLazyRef,
     nameUser: String => Fu[String]) {
 
   private val CollectionAnalysis = config getString "collection.analysis"

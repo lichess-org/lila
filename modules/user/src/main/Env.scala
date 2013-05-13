@@ -60,12 +60,8 @@ final class Env(
     import makeTimeout.short
     import lila.hub.actorApi.GetUserIds
 
-    // delay scheduler to prevent loading hub.socket.hub too early
-    scheduler.once(3.seconds) {
-
-      scheduler.effect(3 seconds, "usernameMemo: refresh") {
-        hub.socket.hub ? GetUserIds mapTo manifest[Iterable[String]] foreach usernameMemo.putAll
-      }
+    scheduler.effect(3 seconds, "usernameMemo: refresh") {
+      hub.socket.hub ? GetUserIds mapTo manifest[Iterable[String]] foreach usernameMemo.putAll
     }
   }
 

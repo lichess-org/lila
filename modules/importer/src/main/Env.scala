@@ -9,7 +9,7 @@ final class Env(
     config: Config,
     hand: lila.round.Hand,
     finisher: lila.round.Finisher,
-    bookmark: ActorRef) {
+    bookmark: lila.hub.ActorLazyRef) {
 
   private val Delay = config duration "delay"
 

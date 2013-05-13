@@ -7,8 +7,8 @@ import akka.actor.ActorRef
 import akka.pattern.ask
 
 private[team] final class Notifier(
-    messenger: ActorRef,
-    router: ActorRef) {
+    messenger: lila.hub.ActorLazyRef,
+    router: lila.hub.ActorLazyRef) {
 
   import makeTimeout.large
 

@@ -20,8 +20,8 @@ import akka.pattern.ask
 private[setup] final class Processor(
     friendConfigMemo: FriendConfigMemo,
     fisherman: Fisherman,
-    timeline: ActorRef,
-    router: ActorRef,
+    timeline: lila.hub.ActorLazyRef,
+    router: lila.hub.ActorLazyRef,
     ai: Ai) {
 
   def filter(config: FilterConfig)(implicit ctx: Context): Funit =
