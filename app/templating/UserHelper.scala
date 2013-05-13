@@ -21,14 +21,15 @@ trait UserHelper {
     userId: Option[String],
     cssClass: Option[String] = None,
     withOnline: Boolean = true,
-    truncate: Int = Int.MaxValue): Html = Html {
+    truncate: Option[Int] = None): Html = Html {
     (userId zmap Env.user.usernameOption) map {
       _.fold(User.anonymous) { username ⇒
         """<a class="user_link%s%s" href="%s">%s</a>""".format(
           withOnline ?? isOnline(username).fold(" online", " offline"),
           cssClass.zmap(" " + _),
           routes.User.show(username),
-          username take truncate)
+          truncate.fold(username)(username.take)
+        )
       }
     } await
   }

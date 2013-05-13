@@ -4,7 +4,7 @@ import lila.app._
 import views._
 import lila.user.{ Context, UserRepo }
 import lila.game.{ Pov, GameRepo, Game ⇒ GameModel }
-import lila.round.{ RoomRepo, Room }
+import lila.round.{ RoomRepo, WatcherRoomRepo }
 import lila.socket.actorApi.{ Forward, GetVersion }
 import lila.tournament.{ TournamentRepo, Tournament ⇒ Tourney }
 
@@ -82,8 +82,8 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
   private def watch(pov: Pov)(implicit ctx: Context): Fu[Result] =
     bookmarkApi userIdsByGame pov.game zip
       env.version(pov.gameId) zip
-      (RoomRepo room pov.gameId map { room ⇒
-        html.round.roomInner(room.decodedMessages)
+      (WatcherRoomRepo room pov.gameId map { room ⇒
+        html.round.watcherRoomInner(room.decodedMessages)
       }) zip
       (analyser has pov.gameId) zip
       (pov.game.tournamentId zmap TournamentRepo.byId) map {
