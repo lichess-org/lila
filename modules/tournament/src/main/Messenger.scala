@@ -21,8 +21,8 @@ private[tournament] final class Messenger(val netDomain: String) extends UserRoo
       user ← userOption filter (_.canChat) toValid "This user cannot chat"
       _ ← tourOption toValid "No such tournament"
       msg ← createMessage(user, text)
-      (author, text) = msg
-    } yield Message(author.some, text)).future
+      (u, t) = msg
+    } yield Message(u.some, t)).future
     _ ← RoomRepo.addMessage(tournamentId, message) 
   } yield message
 
