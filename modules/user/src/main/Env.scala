@@ -9,7 +9,7 @@ import akka.actor.ActorSystem
 final class Env(
     config: Config,
     db: lila.db.Env,
-    hub: lila.hub.Env,
+    socketHub: lila.hub.ActorLazyRef,
     system: ActorSystem,
     scheduler: lila.common.Scheduler) {
 
@@ -61,7 +61,7 @@ final class Env(
     import lila.hub.actorApi.GetUserIds
 
     scheduler.effect(3 seconds, "usernameMemo: refresh") {
-      hub.socket.hub ? GetUserIds mapTo manifest[Iterable[String]] foreach usernameMemo.putAll
+      socketHub ? GetUserIds mapTo manifest[Iterable[String]] foreach usernameMemo.putAll
     }
   }
 
@@ -73,7 +73,7 @@ object Env {
   lazy val current: Env = "[boot] user" describes new Env(
     config = lila.common.PlayApp loadConfig "user",
     db = lila.db.Env.current,
-    hub = lila.hub.Env.current,
+    socketHub = lila.hub.Env.current.socket.hub,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler)
 }

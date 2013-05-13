@@ -8,7 +8,7 @@ import com.typesafe.config.Config
 final class Env(
     config: Config,
     db: lila.db.Env,
-    hub: lila.hub.Env, 
+    socketHub: lila.hub.ActorLazyRef, 
     system: ActorSystem) {
 
   private val CollectionThread = config getString "collection.thread"
@@ -24,7 +24,7 @@ final class Env(
   lazy val api = new Api(
     unreadCache = unreadCache,
     maxPerPage = ThreadMaxPerPage,
-    socketHub = hub.socket.hub)
+    socketHub = socketHub)
 
   system.actorOf(Props(new Actor {
     def receive = {
@@ -46,6 +46,6 @@ object Env {
   lazy val current = "[boot] message" describes new Env(
     config = lila.common.PlayApp loadConfig "message",
     db = lila.db.Env.current,
-    hub = lila.hub.Env.current,
+    socketHub = lila.hub.Env.current.socket.hub,
     system = lila.common.PlayApp.system)
 }
