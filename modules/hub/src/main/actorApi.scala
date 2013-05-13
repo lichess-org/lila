@@ -62,7 +62,7 @@ package forum {
 
 package ai {
   case object Ping
-  case class Analyse(pgn: String, initialFen: Option[String])
+  case class Analyse(id: String, pgn: String, initialFen: Option[String])
 }
 
 package monitor {
