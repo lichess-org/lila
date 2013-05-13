@@ -28,13 +28,10 @@ object Analyse extends LilaController {
 
   def computer(id: String, color: String) = Auth { implicit ctx ⇒
     me ⇒
-      env.analyser.getOrGenerate(id, me.id, isGranted(_.MarkEngine)) onComplete {
-        case Failure(e) ⇒ logwarn(e.getMessage)
-        case Success(a) ⇒ a.fold(
-          err ⇒ logwarn("Computer analysis failure: " + err.shows),
-          _ ⇒ Env.round.socketHub ! Forward(id, AnalysisAvailable)
-        )
-      }
+      env.analyser.getOrGenerate(id, me.id, isGranted(_.MarkEngine)) effectFold (
+        e ⇒ logerr("[analysis] " + e.getMessage),
+        _ ⇒ Env.round.socketHub ! Forward(id, AnalysisAvailable)
+      )
       Redirect(routes.Analyse.replay(id, color)).fuccess
   }
 
@@ -48,7 +45,7 @@ object Analyse extends LilaController {
           (bookmarkApi userIdsByGame pov.game) zip
           makePgn(pov.game, pgnString) zip
           (env.analyser get pov.game.id) zip
-            (pov.game.tournamentId zmap TournamentRepo.byId) map {
+          (pov.game.tournamentId zmap TournamentRepo.byId) map {
             case (((((roomHtml, version), bookmarkers), pgn), analysis), tour) ⇒
               html.analyse.replay(
                 pov,

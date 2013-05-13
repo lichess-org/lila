@@ -15,27 +15,30 @@ private[analyse] final class Analyser(ai: lila.hub.ActorLazyRef) {
 
   def has(id: String): Fu[Boolean] = AnalysisRepo isDone id
 
-  def getOrGenerate(id: String, userId: String, admin: Boolean): Fu[Valid[Analysis]] = for {
-    a ← AnalysisRepo doneById id
-    b ← a.fold(for {
-      userInProgress ← admin.fold(
-        fuccess(false),
-        AnalysisRepo userInProgress userId)
-      gameOption ← $find.byId[Game](id)
-      pgnString ← PgnRepo get id
-      result ← gameOption.filterNot(_ ⇒ userInProgress).fold(
-        fufail("No such game " + id): Fu[Valid[Analysis]]
-      ) { game ⇒
-          for {
-            _ ← AnalysisRepo.progress(id, userId)
-            initialFen ← GameRepo initialFen id
-            analysis ← ai ? lila.hub.actorApi.ai.Analyse(pgnString, initialFen) mapTo manifest[Valid[Analysis]]
-            _ ← analysis.prefixFailuresWith("[analysis] ").fold(
-              fail ⇒ AnalysisRepo.fail(id, fail) >>- fail.foreach(logwarn),
-              AnalysisRepo.done(id, _)
-            )
-          } yield analysis
+  def getOrGenerate(id: String, userId: String, admin: Boolean): Fu[Analysis] = {
+
+    def generate: Fu[Analysis] =
+      admin.fold(fuccess(none), AnalysisRepo userInProgress userId) flatMap {
+        _.fold(doGenerate) { progressId ⇒
+          fufail("[analysis] %s already analyses %s, won't process %s".format(userId, progressId, id))
         }
-    } yield result) { x ⇒ fuccess(success(x)) }
-  } yield b
+      }
+
+    def doGenerate: Fu[Analysis] =
+      $find.byId[Game](id) zip (PgnRepo getNonEmpty id) flatMap {
+        case (Some(game), Some(pgn)) ⇒ (for {
+          _ ← AnalysisRepo.progress(id, userId)
+          initialFen ← GameRepo initialFen id
+          analysis ← ai ? lila.hub.actorApi.ai.Analyse(pgn, initialFen) mapTo manifest[Analysis]
+        } yield analysis) flatFold (
+          e ⇒ AnalysisRepo.fail(id, e).mapTo[Analysis],
+          a ⇒ AnalysisRepo.done(id, a) >> fuccess(a)
+        )
+        case _ ⇒ fufail[Analysis]("[analysis] %s no game or pgn found" format (id))
+      }
+
+    AnalysisRepo doneById id flatMap {
+      _.fold(generate)(fuccess(_))
+    }
+  }
 }
