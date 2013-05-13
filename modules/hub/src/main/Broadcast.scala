@@ -8,7 +8,7 @@ import akka.pattern.{ ask, pipe }
 import akka.util.Timeout
 import actorApi._
 
-final class Broadcast(actors: List[ActorSelection])(implicit timeout: Timeout) extends Actor {
+final class Broadcast(actors: List[ActorRef])(implicit timeout: Timeout) extends Actor {
 
   private val router = context.actorOf(Props.empty.withRouter(new RouterConfig {
 
