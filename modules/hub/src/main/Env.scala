@@ -10,20 +10,20 @@ final class Env(config: Config, system: ActorSystem) {
   private val SocketHubTimeout = config duration "socket.hub.timeout"
 
   object actor {
-    lazy val game = actorLazyRef("game.actor")
-    lazy val gameIndexer = actorLazyRef("game.indexer")
-    lazy val renderer = actorLazyRef("renderer")
-    lazy val captcher = actorLazyRef("captcher")
-    lazy val forum = actorLazyRef("forum.actor")
-    lazy val forumIndexer = actorLazyRef("forum.indexer")
-    lazy val messenger = actorLazyRef("messenger")
-    lazy val router = actorLazyRef("router")
-    lazy val teamIndexer = actorLazyRef("team.indexer")
-    lazy val ai = actorLazyRef("ai")
-    lazy val monitor = actorLazyRef("monitor")
-    lazy val tournamentOrganizer = actorLazyRef("tournament.organizer")
-    lazy val timeline = actorLazyRef("timeline")
-    lazy val bookmark = actorLazyRef("bookmark")
+    val game = actorLazyRef("game.actor")
+    val gameIndexer = actorLazyRef("game.indexer")
+    val renderer = actorLazyRef("renderer")
+    val captcher = actorLazyRef("captcher")
+    val forum = actorLazyRef("forum.actor")
+    val forumIndexer = actorLazyRef("forum.indexer")
+    val messenger = actorLazyRef("messenger")
+    val router = actorLazyRef("router")
+    val teamIndexer = actorLazyRef("team.indexer")
+    val ai = actorLazyRef("ai")
+    val monitor = actorLazyRef("monitor")
+    val tournamentOrganizer = actorLazyRef("tournament.organizer")
+    val timeline = actorLazyRef("timeline")
+    val bookmark = actorLazyRef("bookmark")
   }
 
   object socket {
