@@ -30,6 +30,10 @@ trait PackageObject
   def loginfo(s: String) { logger info s }
   def logwarn(s: String) { logger warn s }
   def logerr(s: String) { logger error s }
+  def logit(prefix: String): PartialFunction[Throwable, Unit] = {
+    case e: Exception ⇒ logwarn(prefix + " " + e.getMessage)
+    case e            ⇒ throw e
+  }
   def fuloginfo(s: String) = fuccess { loginfo(s) }
   def fulogwarn(s: String) = fuccess { logwarn(s) }
   def fulogerr(s: String) = fuccess { logerr(s) }
@@ -130,8 +134,8 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
     def effectFold(fail: Exception ⇒ Unit, succ: A ⇒ Unit) {
       fua onComplete {
         case scala.util.Failure(e: Exception) ⇒ fail(e)
-        case scala.util.Failure(e) ⇒ throw e // Throwables
-        case scala.util.Success(e) ⇒ succ(e)
+        case scala.util.Failure(e)            ⇒ throw e // Throwables
+        case scala.util.Success(e)            ⇒ succ(e)
       }
     }
 

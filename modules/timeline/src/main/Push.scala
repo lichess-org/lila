@@ -5,17 +5,25 @@ import lila.game.{ Game, Namer }
 import lila.db.api.$insert
 import lila.hub.actorApi.lobby.TimelineEntry
 import tube.entryTube
+import makeTimeout.short
 
+import play.api.templates.Html
 import akka.actor._
+import akka.pattern.{ ask, pipe }
 
 private[timeline] final class Push(
     lobbySocket: lila.hub.ActorLazyRef,
+    renderer: lila.hub.ActorLazyRef,
     getUsername: String ⇒ Fu[String]) extends Actor {
 
   def receive = {
-    case game: Game ⇒ makeEntry(game) foreach { entry ⇒
-      $insert(entry) >>- (lobbySocket ! TimelineEntry(entry.render))
-    }
+    case game: Game ⇒ makeEntry(game) map { entry ⇒
+      $insert(entry) >>- {
+        renderer ? entry map {
+          case view: Html ⇒ TimelineEntry(view.body)
+        } pipeTo lobbySocket.ref
+      }
+    } onFailure logit("[timeline] push " + game.id)
   }
 
   private def makeEntry(game: Game): Fu[Entry] =
