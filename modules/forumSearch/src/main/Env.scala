@@ -23,7 +23,7 @@ final class Env(
   def apply(text: String, page: Int, staff: Boolean) =
     paginatorBuilder(Query(text, staff), page)
 
-  val indexer: ActorRef = system.actorOf(Props(new Indexer(
+  private lazy val indexer: ActorRef = system.actorOf(Props(new Indexer(
     lowLevel = lowLevelIndexer,
     postApi = postApi
   )), name = IndexerName)
