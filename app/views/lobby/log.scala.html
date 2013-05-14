@@ -11,7 +11,7 @@
       @messages.map { message =>
       <tr>
         <td>@showDate(message.date)</td>
-        <td>@userIdLink(message.user)</td>
+        <td>@usernameLink(message.user)</td>
         <td>@Html(message.text)</td>
       </tr>
       }

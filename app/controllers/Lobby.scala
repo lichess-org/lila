@@ -80,6 +80,6 @@ object Lobby extends LilaController with Results {
   }
 
   def log = Open { implicit ctx ⇒
-    MessageRepo.all map { html.lobby.log(_) }
+    MessageRepo.nonEmpty map { html.lobby.log(_) }
   }
 }
