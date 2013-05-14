@@ -5,13 +5,14 @@ playdir=play
 
 # install play2 if missing (first run)
 if [ ! -f $playdir/play ]; then
-  echo "Downloading play..."
+  echo "[lila] first run, proceeding to play installation"
+  echo "  - Downloading play..."
   curl -o play.zip http://downloads.typesafe.com/play/2.1.1/play-2.1.1.zip
-  echo "Installing play..."
+  echo "  - Installing play..."
   unzip play.zip > /dev/null
   mv play-2.* play
   rm play.zip
-  echo "Play downloaded and installed successfuly"
+  echo "  - Play downloaded and installed successfuly"
 fi
 
 $playdir/play $JVM_OPTIONS "$@"
