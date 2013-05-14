@@ -4,13 +4,11 @@ import lila.common.PimpedConfig._
 
 import chess.EloCalculator
 import com.typesafe.config.Config
-import akka.actor.ActorSystem
 
 final class Env(
     config: Config,
     db: lila.db.Env,
     socketHub: lila.hub.ActorLazyRef,
-    system: ActorSystem,
     scheduler: lila.common.Scheduler) {
 
   private val settings = new {
@@ -74,6 +72,5 @@ object Env {
     config = lila.common.PlayApp loadConfig "user",
     db = lila.db.Env.current,
     socketHub = lila.hub.Env.current.socket.hub,
-    system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler)
 }
