@@ -21,6 +21,8 @@ object UserRepo {
 
   val normalize = User normalize _
 
+  def byId(id: ID): Fu[Option[User]] = $find byId id
+
   def named(username: String): Fu[Option[User]] = $find byId normalize(username)
 
   def nameds(usernames: List[String]): Fu[List[User]] = $find byIds usernames.map(normalize)

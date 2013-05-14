@@ -36,17 +36,15 @@ trait StringHelper {
 
   private val urlRegex = """(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))""".r
 
-  def addLinks(text: String) = urlRegex.replaceAllIn(text, m ⇒ "<a href='%s'>%s</a>".format(
-    (prependHttp _ compose delocalize _ compose quoteReplacement _)(m group 1),
-    (delocalize _ compose quoteReplacement _)(m group 1)
-  ))
+  def addLinks(text: String) = urlRegex.replaceAllIn(text, m ⇒ {
+    val url = delocalize(quoteReplacement(m group 1))
+    "<a href='%s'>%s</a>".format(prependHttp(url), url)
+  })
 
-  private def prependHttp(url: String): String = 
-    url startsWith "http" fold(url, "http://" + url)
+  private def prependHttp(url: String): String =
+    url startsWith "http" fold (url, "http://" + url)
 
-  private val delocalizeRegex = ("""\w+\.""" + quoteReplacement(netDomain)).r
-
-  private def delocalize(url: String) = delocalizeRegex.replaceAllIn(url, netDomain)
+  private val delocalize = new lila.common.String.Delocalizer(netDomain)
 
   def showNumber(n: Int): String = (n > 0).fold("+" + n, n.toString)
 

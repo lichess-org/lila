@@ -1,30 +1,31 @@
 package lila.user
 
-import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 import java.util.regex.Matcher.quoteReplacement
 
 trait Room {
 
   def netDomain: String
 
-  def createMessage(user: User, text: String): Valid[(String, String)] =
-    if (user.isChatBan) !!("Chat banned " + user)
-    else if (user.disabled) !!("User disabled " + user)
-    else escapeXml(text.replace(""""""", "'").trim take 140) |> { escaped ⇒
-      (escaped.nonEmpty).fold(
-        success((
-          user.username,
-          urlRegex.replaceAllIn(escaped, m ⇒ quoteReplacement(netDomain + "/" + (m group 1)))
-        )),
-        !!("Empty message")
-      )
+  def userMessage(userOption: Option[User], text: String): Valid[(String, String)] =
+    userOption toValid "Anonymous cannot talk in this room" flatMap { user ⇒
+      if (user.isChatBan) !!("Chat banned " + user)
+      else if (user.disabled) !!("User disabled " + user)
+      else cleanupText(text) map { user.username -> _ }
     }
 
+  def userOrAnonMessage(userOption: Option[User], text: String): Valid[(Option[String], String)] =
+    cleanupText(text) map { userOption.map(_.username) -> _ }
+
+  def cleanupText(text: String): Valid[String] =
+    (text.replace(""""""", "'").trim take 140) |> { t ⇒
+      if (t.isEmpty) !!("Empty message")
+      else success(delocalize(noPrivateUrl(t)))
+    }
+
+  private def noPrivateUrl(str: String): String = 
+    urlRegex.replaceAllIn(str, m ⇒ quoteReplacement(netDomain + "/" + (m group 1)))
+
+  private val delocalize = new lila.common.String.Delocalizer(netDomain)
   private val domainRegex = netDomain.replace(".", """\.""")
   private val urlRegex = (domainRegex + """/([\w-]{8})[\w-]{4}""").r
-
-  private def cleanupText(text: String) = {
-    val cleanedUp = text.trim.replace(""""""", "'")
-    (cleanedUp.size <= 140 && cleanedUp.nonEmpty) option cleanedUp
-  }
 }

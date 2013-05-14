@@ -82,6 +82,7 @@ stream game export
 show fen only after game is finished http://en.lichess.org/forum/lichess-feedback/please-disable-live-fen-notation?page=1
 I owe the admins decent tools
 move db game.if (initialFen) to another collection to prevent systematic loading, and doc moving
+tell opponent chat is disabled
 
 DEPLOY p21
 ----------

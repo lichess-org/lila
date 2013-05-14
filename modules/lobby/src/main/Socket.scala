@@ -39,13 +39,13 @@ private[lobby] final class Socket(
     case Talk(u, txt) ⇒ messenger(u, txt) effectFold (
       e ⇒ logwarn(e.toString),
       message ⇒ notifyVersion("talk", Json.obj(
-        "u" -> message.userId,
-        "txt" -> message.text
+        "u" -> message.user,
+        "t" -> message.text
       ))
     )
 
     case SysTalk(txt) ⇒ messenger system txt foreach { message ⇒
-      notifyVersion("talk", Json.obj("txt" -> message.text))
+      notifyVersion("talk", Json.obj("t" -> message.text))
     }
 
     case UnTalk(regex) ⇒ (messenger remove regex) >>-

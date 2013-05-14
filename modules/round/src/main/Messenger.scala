@@ -7,8 +7,14 @@ import chess.Color
 import lila.game.Event
 import tube.{ roomTube, watcherRoomTube }
 import lila.db.api._
+import lila.user.UserRepo
 
-final class Messenger(i18nKeys: I18nKeys) {
+import org.apache.commons.lang3.StringEscapeUtils.escapeXml
+
+final class Messenger(
+    val netDomain: String,
+    i18nKeys: I18nKeys,
+    getUsername: String ⇒ Fu[Option[String]]) extends lila.user.Room {
 
   private val nbMessagesCopiedToRematch = 20
 
@@ -31,7 +37,7 @@ final class Messenger(i18nKeys: I18nKeys) {
   } yield ()
 
   def playerMessage(ref: PovRef, text: String): Fu[List[Event.Message]] =
-    cleanupText(text) zmap { t ⇒
+    cleanupText(text).future flatMap { t ⇒
       RoomRepo.addMessage(ref.gameId, ref.color.name, t) inject {
         Event.Message(ref.color.name, t) :: Nil
       }
@@ -40,12 +46,12 @@ final class Messenger(i18nKeys: I18nKeys) {
   def watcherMessage(
     gameId: String,
     userId: Option[String],
-    text: String): Fu[List[Event.WatcherMessage]] =
-    cleanupText(text) zmap { t ⇒
-      WatcherRoomRepo.addMessage(gameId, userId, t) inject {
-        Event.WatcherMessage(userId, text) :: Nil
-      }
-    }
+    text: String): Fu[List[Event.WatcherMessage]] = for {
+    userOption ← userId.zmap(UserRepo.byId)
+    message ← userOrAnonMessage(userOption, text).future
+    (u, t) = message
+    _ ← WatcherRoomRepo.addMessage(gameId, u, t)
+  } yield Event.WatcherMessage(u, t) :: Nil
 
   def systemMessages(game: Game, messages: List[SelectI18nKey]): Fu[List[Event]] =
     game.hasChat ?? {
@@ -64,11 +70,6 @@ final class Messenger(i18nKeys: I18nKeys) {
         }
       }
     }
-
-  private def cleanupText(text: String) = {
-    val cleanedUp = text.trim.replace(""""""", "'")
-    (cleanedUp.size <= 140 && cleanedUp.nonEmpty) option cleanedUp
-  }
 
   private def messageToEn(message: SelectI18nKey): String =
     message(i18nKeys).en()

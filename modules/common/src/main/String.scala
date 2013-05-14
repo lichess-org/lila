@@ -1,6 +1,7 @@
 package lila.common
 
 import java.text.Normalizer
+import java.util.regex.Matcher.quoteReplacement
 
 object String {
 
@@ -9,5 +10,12 @@ object String {
     val normalized = Normalizer.normalize(nowhitespace, Normalizer.Form.NFD)
     val slug = """[^\w-]""".r.replaceAllIn(normalized, "")
     slug.toLowerCase
+  }
+
+  final class Delocalizer(netDomain: String) {
+
+    private val regex = ("""\w+\.""" + quoteReplacement(netDomain)).r
+
+    def apply(url: String) = regex.replaceAllIn(url, netDomain)
   }
 }

@@ -20,11 +20,11 @@ object WatcherRoom {
     Json.reads[WatcherRoom], 
     Json.writes[WatcherRoom])
 
-  def encode(userId: Option[String], text: String): String =
-    ~userId + "|" + text
+  def encode(username: Option[String], text: String): String =
+    ~username + "|" + text
 
   def decode(encoded: String): (Option[String], String) =
     encoded.span('|' !=) match {
-      case (userId, rest) ⇒ Some(userId).filter(_.nonEmpty) -> rest 
+      case (username, rest) ⇒ Some(username).filter(_.nonEmpty) -> rest.drop(1)
     }
 }

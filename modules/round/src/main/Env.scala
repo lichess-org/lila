@@ -16,6 +16,7 @@ final class Env(
     db: lila.db.Env,
     hub: lila.hub.Env,
     ai: lila.ai.Ai,
+    getUsername: String ⇒ Fu[Option[String]],
     i18nKeys: lila.i18n.I18nKeys,
     scheduler: lila.common.Scheduler) {
 
@@ -31,6 +32,7 @@ final class Env(
     val SocketTimeout = config duration "socket.timeout"
     val FinisherLockTimeout = config duration "finisher.lock.timeout"
     val HijackTimeout = config duration "hijack.timeout"
+    val NetDomain = config getString "net.domain"
   }
   import settings._
 
@@ -72,7 +74,7 @@ final class Env(
     finisher = finisher,
     socketHub = socketHub)
 
-  lazy val messenger = new Messenger(i18nKeys)
+  lazy val messenger = new Messenger(NetDomain, i18nKeys, getUsername)
 
   lazy val eloCalculator = new chess.EloCalculator(false)
 
@@ -122,6 +124,7 @@ object Env {
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     ai = lila.ai.Env.current.ai,
+    getUsername = lila.user.Env.current.usernameOption,
     i18nKeys = lila.i18n.Env.current.keys,
     scheduler = lila.common.PlayApp.scheduler)
 }
