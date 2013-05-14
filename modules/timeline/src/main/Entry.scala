@@ -22,5 +22,6 @@ object Entry {
 
   private[timeline] lazy val tube = Tube(
     Json.reads[Entry], 
-    Json.writes[Entry]) 
+    Json.writes[Entry],
+    Seq(_.NoId)) 
 }

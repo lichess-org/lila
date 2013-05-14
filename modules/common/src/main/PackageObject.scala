@@ -146,7 +146,10 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
       fua flatMap succ recoverWith { case e: Exception ⇒ fail(e) }
 
     def thenPp: Fu[A] = fua ~ {
-      _.effectFold(println, println)
+      _.effectFold(
+        e ⇒ logwarn("[failure] " + e),
+        a ⇒ loginfo("[success] " + a)
+      )
     }
   }
 
