@@ -17,7 +17,7 @@ private[timeline] final class Push(
     getUsername: String ⇒ Fu[String]) extends Actor {
 
   def receive = {
-    case game: Game ⇒ makeEntry(game) map { entry ⇒
+    case game: Game ⇒ makeEntry(game) flatMap { entry ⇒
       $insert(entry) >>- {
         renderer ? entry map {
           case view: Html ⇒ TimelineEntry(view.body)
