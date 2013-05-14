@@ -19,7 +19,7 @@ final class Preload(
     history: History,
     featured: Featured) {
 
-  private type RightResponse = (JsObject, List[PostLiteView], List[Created], Option[Game])
+  private type RightResponse = (JsObject, List[Entry], List[PostLiteView], List[Created], Option[Game])
   private type Response = Either[Call, RightResponse]
 
   def apply(
@@ -34,13 +34,13 @@ final class Preload(
       auth.fold(HookRepo.allOpen, HookRepo.allOpenCasual) zip
         (chat ?? MessageRepo.recent) zip
         timeline zip posts zip tours zip featured.one zip filter map {
-          case ((((((hooks, messages), entries), posts), tours), feat), filter) ⇒ (Right((Json.obj(
+          case ((((((hooks, messages), entries), posts), tours), feat), filter) ⇒ 
+          (Right((Json.obj(
             "version" -> history.version,
             "pool" -> renderHooks(hooks, myHook),
             "chat" -> (messages.reverse map (_.render)),
-            "timeline" -> (entries.reverse map (_.render)),
             "filter" -> filter.render
-          ), posts, tours, feat)))
+          ), entries, posts, tours, feat)))
         }) { gameId ⇒
         GameRepo game gameId map { gameOption ⇒
           Left(gameOption.fold(routes.Lobby.home()) { game ⇒

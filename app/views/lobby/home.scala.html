@@ -1,4 +1,4 @@
-@(preload: String, myHook: Option[lila.lobby.Hook], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], featured: Option[Game])(implicit ctx: Context)
+@(preload: String, myHook: Option[lila.lobby.Hook], timeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], featured: Option[Game])(implicit ctx: Context)
 
 @chat = {
 @for(m <- ctx.me; if m.canChat) {
@@ -73,7 +73,7 @@ underchat = underchat.some) {
     </div>
     <div class="undertable_inner nano">
       <div class="content">
-      <table class="lichess_messages"></table>
+        <table class="lichess_messages">@timelineEntries(timeline)</table>
     </div>
     </div>
   </div>

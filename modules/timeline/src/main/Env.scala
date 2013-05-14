@@ -11,6 +11,7 @@ final class Env(
     db: lila.db.Env,
     getUsername: String ⇒ Fu[String],
     lobbySocket: lila.hub.ActorLazyRef,
+    renderer: lila.hub.ActorLazyRef,
     system: ActorSystem) {
 
   private val CollectionEntry = config getString "collection.entry"
@@ -19,8 +20,9 @@ final class Env(
 
   def recent = $find recent DisplayMax
 
-  private lazy val push = system.actorOf(Props(new Push(
+  system.actorOf(Props(new Push(
     lobbySocket = lobbySocket,
+    renderer = renderer,
     getUsername = getUsername
   )), name = ActorName)
 
@@ -34,5 +36,6 @@ object Env {
     db = lila.db.Env.current,
     getUsername = lila.user.Env.current.usernameOrAnonymous _,
     lobbySocket = lila.hub.Env.current.socket.lobby,
+    renderer = lila.hub.Env.current.actor.renderer,
     system = lila.common.PlayApp.system)
 }
