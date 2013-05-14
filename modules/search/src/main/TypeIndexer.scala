@@ -18,12 +18,12 @@ final class TypeIndexer(
   def receive = {
 
     case Search(request) ⇒ withEs { es ⇒
-      sender ! SearchResponse(request.in(indexName, typeName)(es))
-    }
+      SearchResponse(request.in(indexName, typeName)(es))
+    } pipeTo sender
 
     case Count(request) ⇒ withEs { es ⇒
-      sender ! CountResponse(request.in(indexName, typeName)(es))
-    }
+      CountResponse(request.in(indexName, typeName)(es))
+    } pipeTo sender
 
     case RebuildAll ⇒ {
       self ! Clear
@@ -74,7 +74,5 @@ final class TypeIndexer(
     }
   }
 
-  private def withEs(f: EsIndexer ⇒ Unit) {
-    esIndexer foreach f
-  }
+  private def withEs[A](f: EsIndexer ⇒ A): Fu[A] = esIndexer map f
 }
