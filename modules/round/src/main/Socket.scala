@@ -54,7 +54,7 @@ private[round] final class Socket(
       }
     }
 
-    case GetVersion           ⇒ history ? GetVersion pipeTo sender
+    case GetVersion                  ⇒ history ? GetVersion pipeTo sender
 
     case IsConnectedOnGame(_, color) ⇒ sender ! ownerOf(color).isDefined
 
@@ -70,8 +70,8 @@ private[round] final class Socket(
       sender ! Connected(enumerator, member)
     }
 
-    case Nil           ⇒
-    case events: Events        ⇒ notify(events)
+    case Nil            ⇒
+    case events: Events ⇒ notify(events)
 
     case AnalysisAvailable ⇒ {
       notifyAll("analysisAvailable", true)
@@ -106,7 +106,7 @@ private[round] final class Socket(
       })
 
   def notify(events: Events) {
-    history ? AddEvents(events) mapTo manifest[List[VersionedEvent]] foreach { vevents =>
+    history ? AddEvents(events) mapTo manifest[List[VersionedEvent]] foreach { vevents ⇒
       members.values foreach { m ⇒ batch(m, vevents) }
     }
   }
@@ -117,7 +117,7 @@ private[round] final class Socket(
     }
   }
 
-  def notifyOwner[A : Writes](color: Color, t: String, data: A) {
+  def notifyOwner[A: Writes](color: Color, t: String, data: A) {
     ownerOf(color) foreach { m ⇒
       m.channel push makeEvent(t, data)
     }
@@ -127,7 +127,7 @@ private[round] final class Socket(
     notifyOwner(!color, "gone", gone)
   }
 
-  def makeEvent[A : Writes](t: String, data: A): JsObject =
+  def makeEvent[A: Writes](t: String, data: A): JsObject =
     Json.obj("t" -> t, "d" -> data)
 
   lazy val ackEvent = Json.obj("t" -> "ack")

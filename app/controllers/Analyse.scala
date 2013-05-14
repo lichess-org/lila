@@ -7,7 +7,7 @@ import lila.game.{ Pov, GameRepo, PgnRepo, PgnDump }
 import lila.analyse.{ TimeChart, TimePie }
 import lila.round.actorApi.AnalysisAvailable
 import lila.socket.actorApi.Forward
-import lila.round.{ RoomRepo, Room }
+import lila.round.{ RoomRepo, WatcherRoomRepo }
 import lila.tournament.{ TournamentRepo, Tournament ⇒ Tourney }
 
 import akka.pattern.ask
@@ -38,8 +38,8 @@ object Analyse extends LilaController {
   def replay(id: String, color: String) = Open { implicit ctx ⇒
     OptionFuOk(GameRepo.pov(id, color)) { pov ⇒
       PgnRepo get id flatMap { pgnString ⇒
-        (RoomRepo room pov.gameId map { room ⇒
-          html.round.roomInner(room.decodedMessages)
+        (WatcherRoomRepo room pov.gameId map { room ⇒
+          html.round.watcherRoomInner(room.decodedMessages)
         }) zip
           Env.round.version(pov.gameId) zip
           (bookmarkApi userIdsByGame pov.game) zip

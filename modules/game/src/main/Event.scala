@@ -112,17 +112,12 @@ object Event {
     def data = JsString(pos.key)
   }
 
-  case class Message(author: String, message: String) extends Event {
+  case class Message(author: String, text: String) extends Event {
     def typ = "message"
-    def data = JsString(renderRoom(author, message))
+    def data = JsString("""<li class="%s%s">%s</li>""".format(
+      author, (author == "system") ?? " trans_me", escapeXml(text)))
     override def owner = true
   }
-
-  private def renderRoom(author: String, text: String): String =
-    """<li class="%s%s">%s</li>""".format(
-      author,
-      (author == "system") ?? " trans_me",
-      escapeXml(text))
 
   case class WatcherMessage(author: Option[String], text: String) extends Event {
     def typ = "message"
@@ -130,6 +125,7 @@ object Event {
     override def watcher = true
   }
 
+  // TODO FIXME the username is @userId and there is no link
   private def renderWatcherRoom(author: Option[String], text: String): String =
     """<li><span>%s</span>%s</li>""".format(
       author.fold("Anonymous")("@" + _),
