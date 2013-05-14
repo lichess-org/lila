@@ -24,7 +24,7 @@ case class Join(
   uid: String,
   user: Option[User],
   version: Int)
-case class Talk(tourId: String, u: String, txt: String)
+case class Talk(tourId: String, u: String, t: String)
 case object Start
 case object Reload
 case object ReloadPage

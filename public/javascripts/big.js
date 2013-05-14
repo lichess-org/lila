@@ -204,7 +204,7 @@ var lichess_translations = [];
   };
 
   $.userLink = function(u, limit) {
-    return (u || false) ? '<a class="user_link" href="/@/' + u + '">' + u + '</a>' : 'Anonymous';
+    return (u || false) ? '<a class="user_link" href="/@/' + u + '">' + ((limit || false) ? u.substring(0, limit) : u) + '</a>' : 'Anonymous';
   }
 
   var lichess = {
@@ -1925,7 +1925,7 @@ var lichess_translations = [];
 
     var $chat = $("div.lichess_chat").chat({
       render: function(u, t) {
-        return '<li><span>' + userLink(u, 12) + '</span>' + urlToLink(t) + '</li>';
+        return '<li><span>' + $.userLink(u, 12) + '</span>' + urlToLink(t) + '</li>';
       }
     });
 
