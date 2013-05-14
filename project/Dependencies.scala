@@ -45,10 +45,18 @@ object Dependencies {
   val scalastic = "scalastic" %% "scalastic" % "0.90.0-thib"
   val reactivemongo = "org.reactivemongo" %% "reactivemongo" % "0.9"
   val playReactivemongo = "org.reactivemongo" %% "play2-reactivemongo" % "0.9"
-  val playApi = "play" %% "play" % "2.1.1"
-  val playTest = "play" %% "play-test" % "2.1.1"
+  object play {
+    val version = "2.1.1"
+    val api = "play" %% "play" % version
+    val test = "play" %% "play-test" % version
+  }
+  object akka {
+    val version = "2.1.0"
+    val agent = "com.typesafe.akka" %% "akka-agent" % version
+  }
   object spray {
-    val caching = "io.spray" % "spray-caching" % "1.1-M7"
-    val util = "io.spray" % "spray-util" % "1.1-M7"
+    val version = "1.1-M7"
+    val caching = "io.spray" % "spray-caching" % version
+    val util = "io.spray" % "spray-util" % version
   }
 }
