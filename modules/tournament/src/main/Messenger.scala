@@ -4,6 +4,8 @@ import lila.db.api._
 import tube.tournamentTube
 import lila.user.{ User, UserRepo, Room ⇒ UserRoom }
 
+import org.apache.commons.lang3.StringEscapeUtils.escapeXml
+
 private[tournament] final class Messenger(
     getUsername: String ⇒ Fu[Option[String]],
     val netDomain: String) extends UserRoom {
@@ -14,21 +16,21 @@ private[tournament] final class Messenger(
     username ← getUsername(tour.data.createdBy) flatMap { 
       _.fold[Fu[String]](fufail("No username found"))(fuccess(_))
     }
-    message ← systemMessage(tour, "%s creates the tournament" format username)
+    message ← system(tour, "%s creates the tournament" format username)
   } yield List(message)
 
-  def userMessage(tournamentId: String, userId: String, text: String): Fu[Message] = for {
+  def apply(tournamentId: String, userId: String, text: String): Fu[Message] = for {
     userOption ← UserRepo byId userId
     tourExists ← $count.exists($select(tournamentId))
     message ← (for {
-      _ ← Unit.validIf(tourExists, "No such tournament") 
+      _ ← ().validIf(tourExists, "No such tournament") 
       msg ← userMessage(userOption, text)
       (u, t) = msg
-    } yield Message(u.some, t)).future
+    } yield Message(u.some, escapeXml(t))).future
     _ ← RoomRepo.addMessage(tournamentId, message)
   } yield message
 
-  def systemMessage(tour: Tournament, text: String): Fu[Message] =
+  def system(tour: Tournament, text: String): Fu[Message] =
     Message(none, text) |> { message ⇒
       RoomRepo.addMessage(tour.id, message) inject message
     }

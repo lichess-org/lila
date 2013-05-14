@@ -53,10 +53,10 @@ private[tournament] final class SocketHandler(
       socket ! LiveGames(uid, ids.split(' ').toList)
     }
     case ("talk", o) ⇒ for {
-      txt ← o str "d"
+      t ← o str "d"
       if member.canChat
       userId ← member.userId
-      if flood.allowMessage(uid, txt)
-    } socket ! Talk(tourId, userId, txt)
+      if flood.allowMessage(uid, t)
+    } socket ! Talk(tourId, userId, t)
   }
 }

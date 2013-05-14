@@ -55,11 +55,11 @@ private[tournament] final class Socket(
       }
     }
 
-    case Talk(tourId, u, txt) ⇒ messenger.userMessage(tourId, u, txt) effectFold (
+    case Talk(tourId, u, t) ⇒ messenger(tourId, u, t) effectFold (
       e ⇒ logwarn(e.toString),
       message ⇒ notifyVersion("talk", Json.obj(
         "u" -> message.userId,
-        "txt" -> message.text
+        "t" -> message.text
       ))
     )
 
