@@ -59,7 +59,7 @@ final class Env(
     import lila.db.api._
     esIndexer map { es ⇒
       $enumerate.bulk[Option[TeamModel]]($query[TeamModel](sel), 100) { teamOptions ⇒
-        scala.concurrent.Future {
+        fuccess {
           es bulk {
             teamOptions.flatten map { team ⇒
               es.index_prepare(
