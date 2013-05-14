@@ -18,20 +18,17 @@ trait UserHelper {
   def isOnline(userId: String) = Env.user isOnline userId
 
   def userIdLink(
-    userId: Option[String],
+    userIdOption: Option[String],
     cssClass: Option[String] = None,
     withOnline: Boolean = true,
     truncate: Option[Int] = None): Html = Html {
-    (userId zmap Env.user.usernameOption) map {
-      _.fold(User.anonymous) { username ⇒
-        """<a class="user_link%s%s" href="%s">%s</a>""".format(
-          withOnline ?? isOnline(username).fold(" online", " offline"),
-          cssClass.zmap(" " + _),
-          routes.User.show(username),
-          truncate.fold(username)(username.take)
-        )
-      }
-    } await
+    userIdOption.fold(User.anonymous) { userId ⇒
+      Env.user usernameOption userId map {
+        _.fold(User.anonymous) { username ⇒
+          userIdNameLink(userId, username, cssClass, withOnline, truncate)
+        }
+      } await
+    }
   }
 
   def userIdLink(
@@ -46,6 +43,29 @@ trait UserHelper {
       )
     } await
   }
+
+  def usernameLink(
+    usernameOption: Option[String],
+    cssClass: Option[String] = None,
+    withOnline: Boolean = true,
+    truncate: Option[Int] = None): Html = Html {
+    usernameOption.fold(User.anonymous) { username ⇒
+      userIdNameLink(username.toLowerCase, username, cssClass, withOnline, truncate)
+    }
+  }
+
+  private def userIdNameLink(
+    userId: String,
+    username: String,
+    cssClass: Option[String] = None,
+    withOnline: Boolean = true,
+    truncate: Option[Int] = None): String =
+    """<a class="user_link%s%s" href="%s">%s</a>""".format(
+      withOnline ?? isOnline(userId).fold(" online", " offline"),
+      cssClass.zmap(" " + _),
+      routes.User.show(username),
+      truncate.fold(username)(username.take)
+    )
 
   def userLink(
     user: User,

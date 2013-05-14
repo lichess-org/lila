@@ -97,7 +97,7 @@ final class Env(
     }
   }
 
-  lazy val messenger = new Messenger(NetDomain)
+  lazy val messenger = new Messenger(getUsername, NetDomain)
 
   private[tournament] lazy val tournamentColl = db(CollectionTournament)
   private[tournament] lazy val roomColl = db(CollectionRoom)

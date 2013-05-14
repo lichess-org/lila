@@ -1,12 +1,7 @@
 @(messages: List[(Option[String], String)])(implicit ctx: Context)
 
 @messages.map { 
-case (author, text) => {
-<li>
-  <span>
-    @userIdLink(author, withOnline = false, truncate = 12.some)
-  </span>
-  @text
-</li>
+case (username, text) => {
+<li><span>@usernameLink(username, withOnline = false, truncate = 12.some)</span>@text</li>
 }
 }

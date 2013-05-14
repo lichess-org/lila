@@ -10,9 +10,9 @@ object WatcherRoomRepo {
 
   def addMessage(
     id: String,
-    userId: Option[String],
+    username: Option[String],
     text: String): Funit = $update(
       $select(id),
-      $push("messages", WatcherRoom.encode(userId, text)),
+      $push("messages", WatcherRoom.encode(username, text)),
       upsert = true) 
 }

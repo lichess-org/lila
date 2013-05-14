@@ -114,22 +114,17 @@ object Event {
 
   case class Message(author: String, text: String) extends Event {
     def typ = "message"
-    def data = JsString("""<li class="%s%s">%s</li>""".format(
-      author, (author == "system") ?? " trans_me", escapeXml(text)))
+    def data = Json.obj("u" -> author, "t" -> escapeXml(text))
     override def owner = true
   }
 
-  case class WatcherMessage(author: Option[String], text: String) extends Event {
+  // it *IS* a username, and not a user ID
+  // immediately used for rendering
+  case class WatcherMessage(username: Option[String], text: String) extends Event {
     def typ = "message"
-    def data = JsString(renderWatcherRoom(author, text))
+    def data = Json.obj("u" -> username, "t" -> escapeXml(text))
     override def watcher = true
   }
-
-  // TODO FIXME the username is @userId and there is no link
-  private def renderWatcherRoom(author: Option[String], text: String): String =
-    """<li><span>%s</span>%s</li>""".format(
-      author.fold("Anonymous")("@" + _),
-      escapeXml(text))
 
   object End extends Empty {
     def typ = "end"

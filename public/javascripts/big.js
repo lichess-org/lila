@@ -203,6 +203,10 @@ var lichess_translations = [];
     domain: document.domain.replace(/^\w+\.(.+)$/, '$1')
   };
 
+  $.userLink = function(u, limit) {
+    return (u || false) ? '<a class="user_link" href="/@/' + u + '">' + u + '</a>' : 'Anonymous';
+  }
+
   var lichess = {
     socket: null,
     socketDefaults: {
@@ -587,7 +591,14 @@ var lichess_translations = [];
         self.initTable();
         self.initClocks();
         if (self.$chat) self.$chat.chat({
-            resize: true
+            resize: true,
+            render: function(u, t) {
+              if (self.options.player.spectator) {
+                return '<li><span>' + $.userLink(u, 12) + '</span>' + urlToLink(t) + '</li>';
+              } else {
+                return '<li class="' + u + (u == 'system' ? ' trans_me' : '') + '">' + urlToLink(t) + '</li>';
+              }
+            }
           });
         self.$watchers.watchers();
         if (self.isMyTurn() && self.options.game.turns == 0) {
@@ -638,9 +649,9 @@ var lichess_translations = [];
           ack: function() {
             clearTimeout(self.socketAckTimeout);
           },
-          message: function(event) {
+          message: function(e) {
             self.element.queue(function() {
-              if (self.$chat) self.$chat.chat("append", event);
+              if (self.$chat) self.$chat.chat("append", e.u, e.t);
               self.element.dequeue();
             });
           },
@@ -1182,18 +1193,7 @@ var lichess_translations = [];
     set: function(users) {
       var self = this;
       if (users.length > 0) {
-        var html = [],
-          user, i, w;
-        for (i in users) {
-          w = users[i];
-          if (w.indexOf("Anonymous") == 0) {
-            user = w;
-          } else {
-            user = '<a href="/@/' + w + '">' + w + '</a>';
-          }
-          html.push(user);
-        }
-        self.list.html(html.join(", "));
+        self.list.html(_.map(users, $.userLink).join(", "));
         self.element.show();
       } else {
         self.element.hide();
@@ -1204,8 +1204,8 @@ var lichess_translations = [];
   $.widget("lichess.chat", {
     _create: function() {
       this.options = $.extend({
-        render: function(t) {
-          return urlToLink(t);
+        render: function(u, t) {
+          console.debug("How to render " + u + " " + t + " in chat?");
         },
         resize: false
       }, this.options);
@@ -1252,15 +1252,14 @@ var lichess_translations = [];
       }
       $toggle[0].checked = $toggle.data("enabled");
     },
-    append: function(msg, u) {
-      this._appendHtml(this.options.render(msg, u));
+    append: function(u, t) {
+      this._appendHtml(this.options.render(u, t));
     },
     appendMany: function(objs) {
       var self = this,
         html = "";
       $.each(objs, function() {
-        if (this.txt) html += self.options.render(this.txt, this.u);
-        else if (this.msg) html += self.options.render(this.msg, this.u);
+        html += self.options.render(this.u, this.t);
       });
       this._appendHtml(html);
     },
@@ -1728,10 +1727,8 @@ var lichess_translations = [];
     });
 
     var $chat = $("div.lichess_chat").chat({
-      render: function(txt, u) {
-        return (u || false)
-          ? '<li><span><a class="user_link" href="/@/' + u + '">' + u.substr(0, 12) + '</a></span>' + urlToLink(txt) + '</li>'
-          : '<li>' + urlToLink(txt) + '</li>';
+      render: function(u, t) {
+        return (u || false) ? '<li><span><a class="user_link" href="/@/' + u + '">' + u.substr(0, 12) + '</a></span>' + urlToLink(t) + '</li>' : '<li>' + urlToLink(t) + '</li>';
       }
     });
 
@@ -1757,7 +1754,7 @@ var lichess_translations = [];
       },
       events: {
         talk: function(e) {
-          $chat.chat('append', e.txt, e.u);
+          $chat.chat('append', e.u, e.t);
         },
         untalk: function(e) {
           $chat.chat('remove', e.regex);
@@ -1927,8 +1924,8 @@ var lichess_translations = [];
     var $watchers = $("div.watchers").watchers();
 
     var $chat = $("div.lichess_chat").chat({
-      render: function(txt, u) {
-        return '<li><span><a class="user_link" href="/@/' + u + '">' + u.substr(0, 12) + '</a></span>' + urlToLink(txt) + '</li>';
+      render: function(u, t) {
+        return '<li><span>' + userLink(u, 12) + '</span>' + urlToLink(t) + '</li>';
       }
     });
 
@@ -1956,7 +1953,7 @@ var lichess_translations = [];
     lichess.socket = new strongSocket(lichess.socketUrl + socketUrl, _ld_.version, $.extend(true, lichess.socketDefaults, {
       events: {
         talk: function(e) {
-          $chat.chat('append', e.txt, e.u);
+          $chat.chat('append', e.u, e.t);
         },
         start: start,
         reload: reload,
@@ -2004,8 +2001,8 @@ var lichess_translations = [];
         ignoreUnknownMessages: true
       },
       events: {
-        message: function(event) {
-          $chat.chat("append", event);
+        message: function(e) {
+          $chat.chat("append", e.u, e.t);
         },
         crowd: function(event) {
           $watchers.watchers("set", event.watchers);

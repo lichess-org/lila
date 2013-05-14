@@ -4,8 +4,6 @@
 
 @base.layout(title = title) {
 
-<style type="text/css">
-</style>
 <div class="content_box">
   <h1>@title</h1>
   <br /><br />
@@ -13,7 +11,7 @@
       @messages.map { message =>
       <tr>
         <td>@showDate(message.date)</td>
-        <td>@userIdLink(message.userId.some)</td>
+        <td>@userIdLink(message.user)</td>
         <td>@Html(message.text)</td>
       </tr>
       }
