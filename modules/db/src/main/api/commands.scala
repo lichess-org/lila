@@ -27,7 +27,7 @@ case class MapReduce(
     "reduce" -> BSONString(reduceFunction),
     "out" -> BSONDocument("inline" -> true),
     "query" -> query,
-    "sort" -> query,
+    "sort" -> sort,
     "limit" -> limit.map(x ⇒ BSONInteger(x)),
     "finalize" -> finalizeFunction.map(x ⇒ BSONString(x)),
     "scope" -> scope.map(x ⇒ BSONString(x)),
