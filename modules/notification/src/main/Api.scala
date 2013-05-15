@@ -5,7 +5,7 @@ import lila.hub.actorApi.SendTo
 
 import scala.collection.mutable
 import play.api.templates.Html
-import akka.pattern.ask
+import akka.pattern.{ ask, pipe }
 
 private[notification] final class Api(socketHub: lila.hub.ActorLazyRef, renderer: lila.hub.ActorLazyRef) {
 
@@ -16,9 +16,9 @@ private[notification] final class Api(socketHub: lila.hub.ActorLazyRef, renderer
     val notif = Notification(userId, html, from)
     repo.update(userId, notif :: get(userId))
     val request = actorApi.RenderNotification(notif.id, notif.from, notif.html)
-    renderer ? request mapTo manifest[Html] onSuccess {
-      case rendered ⇒ socketHub ! SendTo(userId, "notificationAdd", rendered.toString)
-    }
+    renderer ? request map {
+      case rendered: Html ⇒ SendTo(userId, "notificationAdd", rendered.toString)
+    } logFailure "[notification] cannot render" pipeTo socketHub.ref
   }
 
   def get(userId: String): List[Notification] = ~(repo get userId)

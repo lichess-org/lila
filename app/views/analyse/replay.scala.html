@@ -65,12 +65,12 @@ moreJs = moreJs) {
 } else {
 <div class="undergame_box game_analysis status">
   @a.fail.map { f =>
-  Computer analysis has failed.<br />@f<br />
+  @trans.theComputerAnalysisHasFailed()<br />@f<br />
   <form class="request_analysis" action="@routes.Analyse.computer(gameId, color.name)" method="post">
     <a>Try it again</a>
   </form>
   }.getOrElse {
-  Computer analysis in progress. You will be notified when it completes.
+  @trans.computerAnalysisInProgress()
   }
 </div>
 }
