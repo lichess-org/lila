@@ -10,7 +10,7 @@ private[security] final class Cli extends lila.common.Cli {
       perform(uid, u ⇒ UserRepo enable u.id)
 
     case "security" :: "disable" :: uid :: Nil ⇒
-      perform(uid, u ⇒ (UserRepo disable u.id) >> (Store deleteUsername u.id))
+      perform(uid, u ⇒ (UserRepo disable u.id) >> (Store deleteUser u.id))
 
     case "security" :: "passwd" :: uid :: pwd :: Nil ⇒
       perform(uid, user ⇒ UserRepo.passwd(user.id, pwd))

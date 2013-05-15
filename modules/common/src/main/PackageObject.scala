@@ -145,7 +145,7 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
       case e: Exception ⇒ logwarn(prefix(e) + " " + e.getMessage)
       case e            ⇒ throw e
     })
-    def logFailure(prefix: String): Fu[A] = fua ~ (_ onFailure {
+    def logFailure(prefix: ⇒ String): Fu[A] = fua ~ (_ onFailure {
       case e: Exception ⇒ logwarn(prefix + " " + e.getMessage)
       case e            ⇒ throw e
     })
@@ -155,6 +155,13 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
         e ⇒ logwarn("[failure] " + e),
         a ⇒ loginfo("[success] " + a)
       )
+    }
+  }
+
+  implicit final class LilaPimpedFutureOption[A](fua: Fu[Option[A]]) {
+
+    def flatten(msg: ⇒ String): Fu[A] = fua flatMap {
+      _.fold[Fu[A]](fufail(msg))(fuccess(_))
     }
   }
 
