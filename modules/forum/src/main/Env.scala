@@ -26,7 +26,7 @@ final class Env(
   import settings._
 
   lazy val categApi = new CategApi(this)
-  lazy val topicApi = new TopicApi(this, hub.actor.forumIndexer, TopicMaxPerPage)
+  lazy val topicApi = new TopicApi(this, hub.actor.forumIndexer, TopicMaxPerPage, modLog)
   lazy val postApi = new PostApi(this, hub.actor.forumIndexer, PostMaxPerPage, modLog)
 
   lazy val forms = new DataForm(hub.actor.captcher)

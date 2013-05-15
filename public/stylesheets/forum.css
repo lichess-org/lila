@@ -187,16 +187,16 @@ div.category .description {
 #lichess_forum form.wide {
   margin-bottom: 1em;
 }
-#lichess_forum form {
+#lichess_forum form.wide {
   margin-top: 2em;
   font-size: 1.3em;
 }
-#lichess_forum form label {
+#lichess_forum form.wide label {
   display: block;
   margin-bottom: 2em;
 }
 
-#lichess_forum form label span {
+#lichess_forum form.wide label span {
   float: left;
   display: block;
   width: 100px;
@@ -204,7 +204,7 @@ div.category .description {
   margin-right: 10px;
   margin-top: 3px;
 }
-#lichess_forum form label span.required:after {
+#lichess_forum form.wide label span.required:after {
   content: "*";
   color: #FF6666;
   margin-left: 3px;
@@ -213,18 +213,18 @@ div.category .description {
 #lichess_forum form.wide input.subject {
   width: 500px;
 }
-#lichess_forum form textarea {
+#lichess_forum form.wide textarea {
   width: 500px;
   height: 150px;
 }
-#lichess_forum form input.author {
+#lichess_forum form.wide input.author {
   width: 300px;
 }
-#lichess_forum form .submit {
+#lichess_forum form.wide .submit {
   margin-left: 110px;
 }
 
-#lichess_forum form p.error {
+#lichess_forum form.wide p.error {
   margin-left: 110px;
   margin-bottom: 10px;
   color: red;
@@ -257,4 +257,9 @@ div.bar div.pagination {
 
 #lichess_forum div.checkmateCaptcha p.error {
   margin-left: 0;
+}
+
+#lichess_forum div.topic form.close {
+  float: right;
+  margin-right: 24px;
 }

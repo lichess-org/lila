@@ -12,7 +12,10 @@ case class Topic(
     createdAt: DateTime,
     updatedAt: DateTime,
     nbPosts: Int = 0,
-    lastPostId: String = "") {
+    lastPostId: String = "",
+    closed: Boolean = false) {
+
+  def open = !closed
 
   def incNbPosts = copy(nbPosts = nbPosts + 1)
 }
@@ -41,7 +44,8 @@ object Topic {
 
   private def defaults = Json.obj(
     "nbPosts" -> 0,
-    "lastPostId" -> "")
+    "lastPostId" -> "",
+    "closed" -> false)
 
   private[forum] lazy val tube = Tube(
     (__.json update (

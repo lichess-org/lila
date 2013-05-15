@@ -24,7 +24,9 @@ object ForumPost extends LilaController with ForumController {
     CategGrantWrite(categSlug) {
       implicit val req = ctx.body
       OptionFuResult(topicApi.show(categSlug, slug, page)) {
-        case (categ, topic, posts) ⇒ forms.post.bindFromRequest.fold(
+        case (categ, topic, posts) ⇒ 
+        if (topic.closed) fuccess(BadRequest("This topic is closed"))
+        else forms.post.bindFromRequest.fold(
           err ⇒ forms.anyCaptcha map { captcha ⇒
             BadRequest(html.forum.topic.show(categ, topic, posts, Some(err -> captcha)))
           },
