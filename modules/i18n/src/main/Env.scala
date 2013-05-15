@@ -5,6 +5,7 @@ import lila.common.PlayApp
 import com.typesafe.config.Config
 import play.api.i18n.{ MessagesApi, MessagesPlugin }
 import play.api.i18n.Lang
+import play.api.libs.json._
 import play.api.Play.current
 
 final class Env(
@@ -57,7 +58,7 @@ final class Env(
     keys = keys)
 
   lazy val forms = new DataForm(
-    keys = keys, 
+    keys = keys,
     captcher = captcher)
 
   def upstreamFetch = new UpstreamFetch(id ⇒ UpstreamUrlPattern format id)
@@ -69,8 +70,9 @@ final class Env(
   def hideCallsCookieName = HideCallsCookieName
   def hideCallsCookieMaxAge = HideCallsCookieMaxAge
 
-  def jsonFromVersion(v: Int) = TranslationRepo findFrom v map2 {
-    (trans: Translation) => tube.translationTube writes trans
+  def jsonFromVersion(v: Int): Fu[JsValue] = {
+    import tube.translationTube
+    TranslationRepo findFrom v map { ts ⇒ Json toJson ts }
   }
 
   def cli = new lila.common.Cli {
