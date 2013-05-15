@@ -84,7 +84,7 @@ moreJs = moreJs) {
 <nav>
 @if(ctx.isAuth && game.finished && analysis.isEmpty) {
 <form class="request_analysis" action="@routes.Analyse.computer(gameId, color.name)" method="post">
-  <a>Request a computer analysis</a>
+  <a>@trans.requestAComputerAnalysis()</a>
 </form>
 }
 @if(game.pgnImport.isEmpty) {
