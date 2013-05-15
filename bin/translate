@@ -21,7 +21,7 @@ if [ "$1" = "set" ]; then
   fi
 elif [ "$1" = "fetch" ]; then
   printf "Fetch from version %s\n" $version
-  bin/cli i18n-fetch $(echo $version)
+  bin/cli i18n fetch $(echo $version)
 elif [ "$1" = "show" ]; then
   show
 elif [ "$1" = "apply" ]; then

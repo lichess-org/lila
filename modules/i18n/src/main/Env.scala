@@ -77,9 +77,9 @@ final class Env(
     def process = {
       case "i18n" :: "fetch" :: from :: Nil ⇒
         upstreamFetch(from) flatMap gitWrite.apply inject "Fetched translations from upstream"
-      case "i18n" :: "js-dump" :: Nil ⇒
+      case "i18n" :: "js" :: "dump" :: Nil ⇒
         jsDump.apply inject "Dumped JavaScript translations"
-      case "i18n" :: "file-fix" :: Nil ⇒
+      case "i18n" :: "file" :: "fix" :: Nil ⇒
         fileFix.apply inject "Fixed translation files"
     }
   }
