@@ -11,7 +11,7 @@
 	</thead>
 	<tbody>
 		@categs.map { categ =>
-		@if(categ.slug != "staff" || isGranted(Permission.StaffForum)) {
+		@if(categ.slug != "staff" || isGranted(_.StaffForum)) {
 		<tr>
 			<td class="subject">
 				<a class="category_name" href="@routes.ForumCateg.show(categ.slug)">@categ.name</a>

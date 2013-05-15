@@ -5,7 +5,6 @@ import chess.{ EloCalculator, Color }
 import lila.game.{ GameRepo, Game }
 import lila.user.{ User, UserRepo, Context, EloChart }
 import lila.bookmark.BookmarkApi
-import lila.security.UserSpy
 
 case class UserInfo(
     user: User,
@@ -14,8 +13,7 @@ case class UserInfo(
     nbWithMe: Option[Int],
     nbBookmark: Int,
     eloWithMe: Option[List[(String, Int)]],
-    eloChart: Option[EloChart],
-    spy: Option[UserSpy]) {
+    eloChart: Option[EloChart]) {
 
   def nbRated = user.nbRatedGames
 
@@ -29,10 +27,7 @@ object UserInfo {
   def apply(
     countUsers: () ⇒ Fu[Int],
     bookmarkApi: BookmarkApi,
-    eloCalculator: EloCalculator)(
-      user: User,
-      userSpy: Option[UserSpy],
-      ctx: Context): Fu[UserInfo] = for {
+    eloCalculator: EloCalculator)(user: User, ctx: Context): Fu[UserInfo] = for {
     rank ← (user.elo >= rankMinElo) ?? {
       UserRepo rank user flatMap { rank ⇒
         countUsers() map { nbUsers ⇒ (rank -> nbUsers).some }
@@ -59,6 +54,5 @@ object UserInfo {
     nbWithMe = nbWithMe,
     nbBookmark = nbBookmark,
     eloWithMe = eloWithMe,
-    eloChart = eloChart,
-    spy = userSpy)
+    eloChart = eloChart)
 }

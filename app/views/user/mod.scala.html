@@ -1,0 +1,31 @@
+@(u: User, spy: lila.security.UserSpy)(implicit ctx: Context)
+
+<div class="actions clearfix">
+  @if(isGranted(_.MarkEngine)) {
+  <form method="post" action="@routes.Mod.engine(u.username)">
+    <input class="confirm" type="submit" value="@u.engine.fold("Un-mark as engine", "Mark as engine")" />
+  </form>
+  }
+  @if(isGranted(_.MuteUser)) {
+  <form method="post" action="@routes.Mod.mute(u.username)">
+    <input class="confirm" type="submit" value="@u.isChatBan.fold("Unmute", "Mute")" />
+  </form>
+  }
+  @if(isGranted(_.IpBan)) {
+  <form method="post" action="@routes.Mod.ban(u.username)">
+    <input class="confirm" type="submit" value="IP ban" />
+  </form>
+  }
+</div>
+
+<div class="user_spy">
+  <br />
+  <strong>Other usernames:</strong>
+  <div class="usernames">@Html(spy.otherUsernames.map(userIdLinkMini).mkString(", "))</div>
+  <strong>IP addresses:</strong> <ul>@spy.ips.map { ip =>
+    <li>@ip</li>
+    }</ul>
+  <strong>User agents:</strong> <ul>@spy.uas.map { ua =>
+    <li>@ua</li>
+    }</ul>
+</div>

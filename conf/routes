@@ -8,6 +8,7 @@ GET   /lobby/log                       controllers.Lobby.log
 
 # User
 POST  /@/:username/export              controllers.User.export(username: String)
+GET   /@/:username/mod                 controllers.User.mod(username: String)
 GET   /@/:username/:filterName         controllers.User.showFilter(username: String, filterName: String, page: Int ?= 1)
 GET   /@/:username                     controllers.User.show(username: String)
 GET   /people                          controllers.User.list(page: Int ?= 1)

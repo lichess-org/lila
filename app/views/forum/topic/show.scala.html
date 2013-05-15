@@ -27,12 +27,12 @@ title = topic.name) {
         @authorLink(post, "author".some)
         <span class="createdAt">@showDate(post.createdAt)</span>
         <a class="anchor" href="@routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage)#@post.number">#@post.number</a>
-        @if(isGranted(Permission.SuperAdmin)) {
+        @if(isGranted(_.SuperAdmin)) {
         @post.ip.map { ip =>
         <a class="ipban" href="@routes.Mod.ipban(ip)">Ban @ip</a>
         }
         }
-        @if(isGranted(Permission.ModerateForum)) {
+        @if(isGranted(_.ModerateForum)) {
         <a class="delete" href="@routes.ForumPost.delete(post.id)">Delete</a>
         }
       </div>
@@ -41,7 +41,7 @@ title = topic.name) {
     }
   </div>
 
-  @if(isGranted(Permission.ModerateForum)) {
+  @if(isGranted(_.ModerateForum)) {
   <form class="close" method="post" action="@routes.ForumTopic.close(categ.slug, topic.slug)">
     <button>@topic.closed.fold("Reopen the topic", "Close the topic") </button>
   </form>

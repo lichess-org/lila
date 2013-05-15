@@ -34,23 +34,7 @@
 @if(ctx is u) {
 <a class="small action" href="@routes.User.passwd">Change password</a>
 <a class="small action" href="@routes.User.close">Close account</a>
-} else {
-@if(isGranted(Permission.MarkEngine)) {
-<form method="post" action="@routes.Mod.engine(u.username)">
-  <input class="confirm" type="submit" value="@u.engine.fold("Un-mark as engine", "Mark as engine")" />
-</form>
-}
-@if(isGranted(Permission.MutePlayer)) {
-<form method="post" action="@routes.Mod.mute(u.username)">
-  <input class="confirm" type="submit" value="@u.isChatBan.fold("Unmute", "Mute")" />
-</form>
-}
-@if(isGranted(Permission.IpBan)) {
-<form method="post" action="@routes.Mod.ban(u.username)">
-  <input class="confirm" type="submit" value="IP ban" />
-</form>
-}
-}
+} 
 }
 
 @user.layout(
@@ -113,23 +97,11 @@ evenMoreCss = evenMoreCss) {
   </div>
   <div class="actions clearfix">
     @actions
-    @info.spy.map { spy =>
-    <div class="user_spy">
-      <a class="action toggle">Show Mod infos</a>
-      <div class="inner">
-        <br />
-        <strong>Other usernames:</strong>
-        <div class="usernames">@Html(spy.otherUsernames.map(userIdLinkMini).mkString(", "))</div>
-        <strong>IP addresses:</strong> <ul>@spy.ips.map { ip =>
-          <li>@ip</li>
-          }</ul>
-        <strong>User agents:</strong> <ul>@spy.uas.map { ua =>
-          <li>@ua</li>
-          }</ul>
-      </div>
-    </div>
+    @if(isGranted(_.UserSpy)) {
+    <a class="action mod_zone_toggle" href="@routes.User.mod(u.username)">Mod zone</a>
     }
   </div>
+  <div class="mod_zone"></div>
   @if(u.hasGames) {
   <div class="content_box_inter clearfix">
     @filters.list.map { f =>
