@@ -107,7 +107,7 @@ object GameRepo {
   def insertDenormalized(game: Game): Funit = (gameTube toMongo game).fold(
     e ⇒ fufail(e.toString),
     js ⇒ {
-      val userIds = game.players.map(_.userId).flatten
+      val userIds = game.players.map(_.userId).flatten.distinct
       $insert(List(
         userIds.nonEmpty option ("uids" -> Json.toJson(userIds)),
         game.variant.exotic option ("if" -> JsString(Forsyth >> game.toChess))
@@ -116,7 +116,7 @@ object GameRepo {
   )
 
   def denormalizeUids(game: Game): Funit =
-    $update.field(game.id, "uids", game.players.map(_.userId).flatten)
+    $update.field(game.id, "uids", game.players.map(_.userId).flatten.distinct)
 
   def saveNext(game: Game, nextId: ID): Funit = $update(
     $select(game.id),
