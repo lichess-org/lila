@@ -11,6 +11,7 @@ import play.api.Play.current
 final class Env(
     config: Config,
     db: lila.db.Env,
+    system: akka.actor.ActorSystem,
     val messagesApi: MessagesApi,
     captcher: lila.hub.ActorLazyRef,
     appPath: String) {
@@ -65,7 +66,8 @@ final class Env(
 
   lazy val gitWrite = new GitWrite(
     transRelPath = FilePathRelative,
-    repoPath = appPath)
+    repoPath = appPath,
+    system = system)
 
   def hideCallsCookieName = HideCallsCookieName
   def hideCallsCookieMaxAge = HideCallsCookieMaxAge
@@ -92,6 +94,7 @@ object Env {
   lazy val current = "[boot] i18n" describes new Env(
     config = lila.common.PlayApp loadConfig "i18n",
     db = lila.db.Env.current,
+    system = PlayApp.system,
     messagesApi = PlayApp.withApp(_.plugin[MessagesPlugin])
       .err("this plugin was not registered or disabled")
       .api,
