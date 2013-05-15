@@ -21,16 +21,18 @@ object Monitor extends LilaController {
     get("sri") zmap env.socketHandler.apply
   }
 
-  def status = Open { implicit ctx ⇒
-    (~get("key") match {
-      case "elo" ⇒
-        lila.user.UserRepo.idsAverageElo(Env.user.usernameMemo.keys) zip
-          lila.game.GameRepo.recentAverageElo(5) map {
-            case (users, (rated, casual)) ⇒ List(users, rated, casual) mkString " "
-          }
-      case "moves"   ⇒ (env.reporting ? GetNbMoves).mapTo[Int]
-      case "players" ⇒ (env.reporting ? GetNbMembers).mapTo[Int] map { "%d %d".format(_, Env.user.usernameMemo.count) }
-      case _         ⇒ (env.reporting ? GetStatus).mapTo[String]
-    }) map { x ⇒ Ok(x.toString) }
+  def status = Action { implicit req ⇒
+    Async {
+      (~get("key", req) match {
+        case "elo" ⇒
+          lila.user.UserRepo.idsAverageElo(Env.user.usernameMemo.keys) zip
+            lila.game.GameRepo.recentAverageElo(5) map {
+              case (users, (rated, casual)) ⇒ List(users, rated, casual) mkString " "
+            }
+        case "moves"   ⇒ (env.reporting ? GetNbMoves).mapTo[Int]
+        case "players" ⇒ (env.reporting ? GetNbMembers).mapTo[Int] map { "%d %d".format(_, Env.user.usernameMemo.count) }
+        case _         ⇒ (env.reporting ? GetStatus).mapTo[String]
+      }) map { x ⇒ Ok(x.toString) }
+    }
   }
 }
