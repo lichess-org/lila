@@ -8,18 +8,22 @@ import scala.concurrent.Future
 object CsvServer {
 
   // returns the web path
-  def apply(filename: String)(lines: ⇒ List[List[Any]]): Fu[String] = {
-
-    val file = Play.getFile("serve/" + filename)
-    val webPath = "/serve/" + filename
-
-    file.exists.fold(funit, {
+  def apply(name: String)(lines: ⇒ List[List[Any]]): Fu[String] =
+    if (exists(name).pp) fuccess(webPath(name))
+    else {
+      val file = getFile(name)
       loginfo("[csv] Export " + file)
       Future {
-        val writer = new CSVWriter(file, "UTF-8")
-        writer writeAll lines.map(_ map (_.toString))
+        val writer = CSVWriter.open(file, "UTF-8")
+        val printable = lines.map(_ map (_.toString))
+        writer writeAll printable
         writer.close()
+        webPath(name)
       }
-    }) inject webPath
-  }
+    }
+
+  def exists(name: String) = getFile(name).exists
+
+  private def getFile(name: String) = Play.getFile("serve/" + name)
+  private def webPath(name: String) = "/serve/" + name
 }
