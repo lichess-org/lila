@@ -46,9 +46,11 @@ final class Env(
   def countEnabled = cached.countEnabled
 
   def cli = new lila.common.Cli {
+    import tube.userTube
     def process = {
       case "user" :: "average" :: "elo" :: Nil ⇒
         UserRepo.averageElo map { elo ⇒ "Average elo is %f" format elo }
+      case "user" :: "typecheck" :: Nil ⇒ lila.db.Typecheck.apply[User]
     }
   }
 
