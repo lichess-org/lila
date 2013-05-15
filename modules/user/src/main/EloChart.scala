@@ -5,7 +5,6 @@ import play.api.libs.json.Json
 import org.joda.time.DateTime
 import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
 
-
 final class EloChart(rawElos: List[(Int, Int, Option[Int])]) {
 
   private val points = 100
@@ -63,7 +62,7 @@ object EloChart {
   )
 
   def apply(user: User): Fu[Option[EloChart]] =
-    HistoryRepo userElos user.username map { elos ⇒
+    HistoryRepo userElos user.id map { elos ⇒
       (elos.size > 1) option {
         new EloChart((user.createdAt.getSeconds.toInt, User.STARTING_ELO, None) :: elos.toList)
       }
