@@ -40,6 +40,7 @@ final class Env(
 
   val socketHub = system.actorOf(Props(new SocketHub(
     makeHistory = history,
+    getUsername = getUsername,
     uidTimeout = UidTimeout,
     socketTimeout = SocketTimeout,
     playerTimeout = PlayerTimeout,

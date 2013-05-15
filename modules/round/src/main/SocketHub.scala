@@ -14,6 +14,7 @@ import makeTimeout.short
 
 private[round] final class SocketHub(
     makeHistory: () ⇒ History,
+    getUsername: String ⇒ Fu[Option[String]],
     uidTimeout: Duration,
     socketTimeout: Duration,
     playerTimeout: Duration,
@@ -36,6 +37,7 @@ private[round] final class SocketHub(
       Props(makeHistory()),
       name = gameSocketName(id) + "-history"
     ),
+    getUsername = getUsername,
     uidTimeout = uidTimeout,
     socketTimeout = socketTimeout,
     playerTimeout = playerTimeout

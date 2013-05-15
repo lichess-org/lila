@@ -136,6 +136,12 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Actor {
     members.values filter (_ liveGames gameId) foreach (_.channel push msg)
   }
 
+  def showSpectators(users: List[String], nbAnons: Int) = nbAnons match {
+    case 0 ⇒ users
+    case 1 ⇒ users :+ "Anonymous"
+    case x ⇒ users :+ ("Anonymous (%d)" format x)
+  }
+
   def registerLiveGames(uid: String, ids: List[String]) {
     withMember(uid)(_ addLiveGames ids)
   }
