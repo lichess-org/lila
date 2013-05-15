@@ -5,19 +5,21 @@
 @base.layout(title = title) {
 
 <style type="text/css">
-  table td {
-  padding: 5px 10px 5px 10px;
+  #modlog_table td {
+  padding: 8px 10px 8px 10px;
+  min-width: 8em;
   }
 </style>
-<div class="content_box">
+<div id="modlog_table" class="content_box no_padding">
   <h1>@title</h1>
   <table class="datatable"><tbody>
       @logs.map { log =>
       <tr>
         <td>@showDate(log.date)</td>
         <td>@userIdLink(log.mod.some)</td>
-        <td>@log.showAction.capitalize</td>
-        <td>@userIdLink(log.user)</td>
+        <td>@log.showAction.capitalize @log.user.map { u =>
+          @userIdLink(u.some)
+          }</td>
         <td>@log.details</td>
       </tr>
       }
