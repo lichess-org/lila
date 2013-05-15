@@ -16,6 +16,7 @@ import play.api.libs.iteratee._
 private[round] final class Socket(
     gameId: String,
     history: ActorRef,
+    getUsername: String ⇒ Fu[Option[String]],
     uidTimeout: Duration,
     socketTimeout: Duration,
     playerTimeout: Duration) extends SocketActor[Member](uidTimeout) {
@@ -64,7 +65,7 @@ private[round] final class Socket(
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user, color, owner)
       addMember(uid, member)
-      notify(crowdEvent :: Nil)
+      notifyCrowd
       if (playerIsGone(color)) notifyGone(color, false)
       playerTime(color, nowMillis)
       sender ! Connected(enumerator, member)
@@ -79,7 +80,7 @@ private[round] final class Socket(
 
     case Quit(uid) ⇒ {
       quit(uid)
-      notify(crowdEvent :: Nil)
+      notifyCrowd
     }
 
     case Close ⇒ {
@@ -88,22 +89,18 @@ private[round] final class Socket(
     }
   }
 
-  // TODO get usernames like in tournament socket
-  def crowdEvent = Event.Crowd(
-    white = ownerOf(White).isDefined,
-    black = ownerOf(Black).isDefined,
-    watchers = members.values
-      .filter(_.watcher)
-      .map(_.userId)
-      .toList.partition(_.isDefined) match {
-        case (users, anons) ⇒ users.flatten.distinct |> { userList ⇒
-          anons.size match {
-            case 0 ⇒ userList
-            case 1 ⇒ userList :+ "Anonymous"
-            case x ⇒ userList :+ ("Anonymous (%d)" format x)
-          }
-        }
-      })
+  def notifyCrowd {
+    members.values.filter(_.watcher).map(_.userId).toList.partition(_.isDefined) match {
+      case (users, anons) ⇒
+        (users.flatten.distinct map getUsername).sequence map { userList ⇒
+          notify(Event.Crowd(
+            white = ownerOf(White).isDefined,
+            black = ownerOf(Black).isDefined,
+            watchers = showSpectators(userList.flatten, anons.size)
+          ) :: Nil) 
+        } logFailure ("[round] notify crowd")
+    }
+  }
 
   def notify(events: Events) {
     history ? AddEvents(events) mapTo manifest[List[VersionedEvent]] foreach { vevents ⇒
