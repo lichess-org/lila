@@ -45,7 +45,7 @@ moreJs = moreJs) {
       @for((color, pairs) <- a.summary) {
       <div class="user_link @color.name">
         @for((sev, nb) <- pairs) {
-        @sev.nag: @nb
+        @nagName(sev.nag): @nb
         }
       </div>
       }
