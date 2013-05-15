@@ -90,5 +90,7 @@ from MoralIntentions email:
 DEPLOY p21
 ----------
 
+BLOCKING = https://github.com/zenexity/ReactiveMongo/issues/72
+
 mongo lichess bin/mongodb/play21.js
 mongo lichess bin/mongodb/denormalize-game-uids.js
