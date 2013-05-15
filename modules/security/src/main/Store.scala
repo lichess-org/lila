@@ -1,7 +1,7 @@
 package lila.security
 
 import lila.common.PimpedJson._
-import lila.user.User
+import lila.user.{ User, UserRepo }
 import lila.db.Types.Coll
 import lila.db.api._
 import tube.storeTube
@@ -17,22 +17,22 @@ import scala.concurrent.Future
 case class UserSpy(
   ips: List[String],
   uas: List[String],
-  otherUsernames: Set[String])
+  otherUsers: Set[User])
 
 object Store {
 
-  def save(sessionId: String, user: String, req: RequestHeader): Funit =
+  def save(sessionId: String, userId: String, req: RequestHeader): Funit =
     $insert(Json.obj(
       "_id" -> sessionId,
-      "user" -> normalize(user),
+      "user" -> userId,
       "ip" -> ip(req),
       "ua" -> ua(req),
       "date" -> DateTime.now,
       "up" -> true))
 
-  def getUsername(sessionId: String): Fu[Option[String]] =
+  def userId(sessionId: String): Fu[Option[String]] =
     $primitive.one(
-      $select(sessionId) ++ Json.obj("up" -> true), 
+      $select(sessionId) ++ Json.obj("up" -> true),
       "user"
     )(_.asOpt[String])
 
@@ -41,24 +41,25 @@ object Store {
 
   // useful when closing an account,
   // we want to logout too
-  def deleteUsername(user: String): Funit = $update(
-    selectUser(user),
+  def deleteUser(userId: String): Funit = $update(
+    selectUser(userId),
     $set("up" -> false),
     upsert = false,
     multi = true)
 
-  private[security] def userSpy(user: String): Fu[UserSpy] = for {
-    objs ← $find(selectUser(user))
-    usernames ← explore(normalize(user))
+  private[security] def userSpy(userId: String): Fu[UserSpy] = for {
+    user ← UserRepo byId userId flatten "[spy] user not found"
+    objs ← $find(selectUser(user.id))
+    users ← explore(user)
   } yield UserSpy(
     ips = objs.map(_ str "ip").flatten.distinct,
     uas = objs.map(_ str "ua").flatten.distinct,
-    otherUsernames = usernames
+    otherUsers = users
   )
 
-  private def explore(user: String, withKnown: Set[String] = Set.empty): Fu[Set[String]] = {
-    val known = withKnown + user
-    newSiblings(user, known) flatMap { children ⇒
+  private def explore(user: User, withKnown: Set[User] = Set.empty): Fu[Set[User]] = {
+    val known = Seq(user) ++: withKnown
+    newSiblings(user.id, known) flatMap { children ⇒
       children.foldLeft(fuccess(children)) {
         case (siblings, child) ⇒ siblings flatMap { sibs ⇒
           explore(child, known ++ sibs) map (sibs ++)
@@ -67,22 +68,22 @@ object Store {
     }
   }
 
-  private def newSiblings(user: String, without: Set[String]): Fu[Set[String]] =
+  private def newSiblings(user: String, without: Set[User]): Fu[Set[User]] =
     userIps(user) flatMap { ips ⇒
-      Future.traverse(ips)(usernamesByIp) map (_.flatten diff without)
+      usersByIps(ips) map (_ diff without)
     }
 
   private def userIps(user: String): Fu[Set[String]] =
     $primitive(selectUser(user), "ip")(_.asOpt[String]) map (_.toSet)
 
-  private def usernamesByIp(ip: String): Fu[Set[String]] =
-    $primitive(Json.obj("ip" -> ip), "user")(_.asOpt[String]) map (_.toSet)
+  private def usersByIps(ips: Set[String]): Fu[Set[User]] =
+    $primitive(
+      Json.obj("ip" -> $in(ips)), "user"
+    )(_.asOpt[String]) flatMap UserRepo.byIds map (_.toSet)
 
   private def ip(req: RequestHeader) = req.remoteAddress
 
   private def ua(req: RequestHeader) = req.headers.get("User-Agent") | "?"
 
-  private def normalize(username: String) = username.toLowerCase
-
-  private def selectUser(username: String) = Json.obj("user" -> normalize(username))
+  private def selectUser(userId: String) = Json.obj("user" -> userId)
 }

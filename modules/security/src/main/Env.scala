@@ -42,7 +42,7 @@ final class Env(
 
   lazy val userSpy = Store userSpy _
 
-  lazy val deleteUsername = Store deleteUsername _
+  lazy val deleteUser = Store deleteUser _
 
   {
     import scala.concurrent.duration._
