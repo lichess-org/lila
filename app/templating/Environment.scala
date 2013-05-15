@@ -28,6 +28,7 @@ object Environment
     with NotificationHelper
     with SecurityHelper
     with TeamHelper
+    with AnalysisHelper
     with TournamentHelper {
 
   type FormWithCaptcha = (play.api.data.Form[_], lila.common.Captcha)
