@@ -13,7 +13,7 @@ import play.api.libs.json._
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 import org.joda.time.DateTime
 
-final class PaginatorBuilder(maxPerPage: Int) {
+private[bookmark] final class PaginatorBuilder(maxPerPage: Int) {
 
   def byUser(user: User, page: Int): Fu[Paginator[Bookmark]] =
     paginator(new UserAdapter(user), page)
@@ -30,23 +30,11 @@ final class PaginatorBuilder(maxPerPage: Int) {
     def nbResults: Fu[Int] = $count(selector)
 
     def slice(offset: Int, length: Int): Fu[Seq[Bookmark]] = for {
-      pairs ← $query(selector)
-        .sort(sorting)
-        .skip(offset)
-        .cursor[JsObject] toList length map2 { (obj: JsObject) ⇒
-          obj str "g" flatMap { gameId ⇒
-            obj.get[DateTime]("d") map { (gameId, _) }
-          }
-        } map (_.flatten)
+      gameIds ← $primitive(selector, "g", _ sort sorting skip offset)(_.asOpt[String])
       games ← lila.game.tube.gameTube |> { implicit t ⇒
-        $find.byIds[Game](pairs map (_._1))
+        $find.byOrderedIds[Game](gameIds)
       }
-      bookmarks = pairs map { pair ⇒
-        games find (_.id == pair._1) map { game ⇒
-          Bookmark(game, user, pair._2)
-        }
-      }
-    } yield bookmarks.toList.flatten
+    } yield games map { g ⇒ Bookmark(g, user) }
 
     private def selector = BookmarkRepo userIdQuery user.id
     private def sorting = $sort desc "d"
