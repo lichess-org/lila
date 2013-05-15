@@ -59,7 +59,10 @@ final class Env(
     import lila.hub.actorApi.GetUserIds
 
     scheduler.effect(3 seconds, "usernameMemo: refresh") {
-      socketHub ? GetUserIds mapTo manifest[Iterable[String]] foreach usernameMemo.putAll
+      socketHub ? GetUserIds mapTo manifest[Iterable[String]] map { xs ⇒
+        println(xs)
+        usernameMemo.putAll(xs)
+      } logFailure ("[user] fail to refresh online")
     }
   }
 
