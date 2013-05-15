@@ -27,7 +27,7 @@ object GameRepo {
 
   def games(gameIds: Seq[ID]): Fu[List[Game]] = $find byOrderedIds gameIds
 
-  def finished(gameId: ID): Fu[Option[Game]] = 
+  def finished(gameId: ID): Fu[Option[Game]] =
     $find.one($select(gameId) ++ Query.finished)
 
   def player(gameId: ID, color: Color): Fu[Option[Player]] =
@@ -178,15 +178,10 @@ object GameRepo {
         "p.elo" -> $exists(true)
       ))
     )
-    // TODO
     gameTube.coll.db.command(command) map { res ⇒
-      toJSON(res).arr("results").pp.flatMap(_.apply(0) int "value")
-    } map (~_) inject (0, 0)
-    // (for {
-    //   ratedRow ← result.hasNext option result.next
-    //   rated ← ratedRow.getAs[Double]("value")
-    //   casualRow ← result.hasNext option result.next
-    //   casual ← casualRow.getAs[Double]("value")
-    // } yield rated.toInt -> casual.toInt) | (0, 0)
+      toJSON(res).arr("results").flatMap { r ⇒
+        (r(0) int "value") |@| (r(1) int "value") tupled
+      }
+    } map (~_)
   }
 }
