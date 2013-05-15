@@ -16,9 +16,10 @@ final class Broadcast(lazyRefs: List[ActorLazyRef])(implicit timeout: Timeout) e
       broadcast(NbMembers(nbs.sum))
     }
 
-    case Ask(msg) ⇒ askAll(msg) pipeTo sender
+    case Ask(msg) ⇒
+      askAll(msg) logFailure ("[broadcast] " + Ask(msg)) pipeTo sender
 
-    case msg      ⇒ broadcast(msg)
+    case msg ⇒ broadcast(msg)
   }
 
   private def broadcast(msg: Any) {

@@ -23,7 +23,7 @@ private[timeline] final class Push(
           case view: Html ⇒ TimelineEntry(view.body)
         } pipeTo lobbySocket.ref
       }
-    } onFailure logit("[timeline] push " + game.id)
+    } logFailure ("[timeline] push " + game.id)
   }
 
   private def makeEntry(game: Game): Fu[Entry] =

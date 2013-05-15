@@ -30,10 +30,6 @@ trait PackageObject
   def loginfo(s: String) { logger info s }
   def logwarn(s: String) { logger warn s }
   def logerr(s: String) { logger error s }
-  def logit(prefix: String): PartialFunction[Throwable, Unit] = {
-    case e: Exception ⇒ logwarn(prefix + " " + e.getMessage)
-    case e            ⇒ throw e
-  }
   def fuloginfo(s: String) = fuccess { loginfo(s) }
   def fulogwarn(s: String) = fuccess { logwarn(s) }
   def fulogerr(s: String) = fuccess { logerr(s) }
@@ -144,6 +140,15 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
 
     def flatFold[B](fail: Exception ⇒ Fu[B], succ: A ⇒ Fu[B]): Fu[B] =
       fua flatMap succ recoverWith { case e: Exception ⇒ fail(e) }
+
+    def logFailure(prefix: Throwable ⇒ String): Fu[A] = fua ~ (_ onFailure {
+      case e: Exception ⇒ logwarn(prefix(e) + " " + e.getMessage)
+      case e            ⇒ throw e
+    })
+    def logFailure(prefix: String): Fu[A] = fua ~ (_ onFailure {
+      case e: Exception ⇒ logwarn(prefix + " " + e.getMessage)
+      case e            ⇒ throw e
+    })
 
     def thenPp: Fu[A] = fua ~ {
       _.effectFold(
