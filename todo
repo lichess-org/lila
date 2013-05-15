@@ -49,7 +49,6 @@ opponent history http://imgur.com/ur1Mt http://en.lichess.org/forum/lichess-feed
 show tournament trophies on user profile
 mute ip
 games with me http://en.lichess.org/forum/general-chess-discussion/-vs-me#2
-ssl websocket would pass through proxies http://en.lichess.org/forum/lichess-feedback/layout-bug-and-proxies#2 requires play 2.1
 team chat
 let players block other players
 detect lack of support for date formatting (gl) and use 2013-02-15 13:48:00 instead

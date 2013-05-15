@@ -11,14 +11,12 @@ private[i18n] final class GitWrite(transRelPath: String, repoPath: String) {
   private val repo = new FileRepository(repoPath + "/.git")
   private val git = new Git(repo, debug = true)
 
-  private def putStrLn(msg: String) = fuccess(println(msg))
-
   def apply(translations: List[Translation]): Funit = for {
-    _ ← putStrLn("Working on " + repoPath)
+    _ ← fuloginfo("Working on " + repoPath)
     currentBranch ← git.currentBranch
-    _ ← putStrLn("Current branch is " + currentBranch)
-    _ ← (translations map write).sequence.void
-    _ ← putStrLn("Checkout " + currentBranch)
+    _ ← fuloginfo("Current branch is " + currentBranch)
+    _ ← (translations.pp map write).sequence.void
+    _ ← fuloginfo("Checkout " + currentBranch)
     _ ← git checkout currentBranch
   } yield ()
 
@@ -29,19 +27,19 @@ private[i18n] final class GitWrite(transRelPath: String, repoPath: String) {
     val commitMsg = commitMessage(translation, name)
     git branchExists branch flatMap {
       _.fold(
-        putStrLn("! Branch already exists: " + branch) >>
+        fuloginfo("! Branch already exists: " + branch) >>
           git.checkout(branch, true) >>
           writeMessages(translation) >>
-          putStrLn("Add " + relFileOf(translation)) >>
+          fuloginfo("Add " + relFileOf(translation)) >>
           (git add relFileOf(translation)) >>
-          putStrLn("- " + commitMsg) >>
+          fuloginfo("- " + commitMsg) >>
           (git commit commitMsg).void,
         funit)
     }
   }
 
   private def writeMessages(translation: Translation) =
-    putStrLn("Write messages to " + absFileOf(translation)) >>
+    fuloginfo("Write messages to " + absFileOf(translation)) >>
       printToFile(absFileOf(translation)) { writer ⇒
         translation.lines foreach writer.println
       }
@@ -92,7 +90,7 @@ private[i18n] final class GitWrite(transRelPath: String, repoPath: String) {
     private def cleanupBranch(branch: String) =
       branch.replace("refs/heads/", "")
 
-    private def log(msg: ⇒ Any) = debug.fold(putStrLn(msg.toString), funit)
+    private def log(msg: ⇒ Any) = debug.fold(fuloginfo(msg.toString), funit)
   }
 
 }

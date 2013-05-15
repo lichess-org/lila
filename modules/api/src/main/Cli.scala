@@ -3,8 +3,8 @@ package lila.api
 private[api] final class Cli(env: Env) {
 
   def apply(args: List[String]): Fu[String] = run(args).map(_ + "\n") ~ {
-    _ logFailure("[cli] " + args.mkString(" ")) foreach {
-      case output ⇒ loginfo("[cli] %s\n%s".format(args mkString " ", output))
+    _ logFailure ("[cli] " + args.mkString(" ")) foreach { output ⇒
+      loginfo("[cli] %s\n%s".format(args mkString " ", output))
     }
   }
 
