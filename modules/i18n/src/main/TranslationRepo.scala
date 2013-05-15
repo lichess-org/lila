@@ -17,5 +17,5 @@ private[i18n] object TranslationRepo {
   )(_.asOpt[Int]) map (opt ⇒ ~opt + 1)
 
   def findFrom(id: ID): Fu[List[Translation]] =
-    $find($query(Json.obj("_id" -> $lte(id))) sort $sort.ascId)
+    $find($query(Json.obj("_id" -> $gt(id))) sort $sort.ascId)
 }
