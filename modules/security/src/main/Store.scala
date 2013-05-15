@@ -17,9 +17,11 @@ import scala.concurrent.Future
 case class UserSpy(
   ips: List[String],
   uas: List[String],
-  otherUsers: Set[User])
+  otherUsers: List[User])
 
 object Store {
+
+  type IP = String
 
   def save(sessionId: String, userId: String, req: RequestHeader): Funit =
     $insert(Json.obj(
@@ -50,36 +52,36 @@ object Store {
   private[security] def userSpy(userId: String): Fu[UserSpy] = for {
     user ← UserRepo byId userId flatten "[spy] user not found"
     objs ← $find(selectUser(user.id))
-    users ← explore(user)
+    users ← explore(Set(user), Set.empty, Set(user))
   } yield UserSpy(
     ips = objs.map(_ str "ip").flatten.distinct,
     uas = objs.map(_ str "ua").flatten.distinct,
-    otherUsers = users
+    otherUsers = (users - user).toList.sortBy(_.createdAt)
   )
 
-  private def explore(user: User, withKnown: Set[User] = Set.empty): Fu[Set[User]] = {
-    val known = Seq(user) ++: withKnown
-    newSiblings(user.id, known) flatMap { children ⇒
-      children.foldLeft(fuccess(children)) {
-        case (siblings, child) ⇒ siblings flatMap { sibs ⇒
-          explore(child, known ++ sibs) map (sibs ++)
-        }
+  private def explore(users: Set[User], ips: Set[IP], _users: Set[User]): Fu[Set[User]] = {
+    nextIps(users, ips) flatMap { nIps ⇒
+      nextUsers(nIps, users) flatMap { nUsers ⇒
+        nUsers.isEmpty ? fuccess(users) | explore(nUsers, nIps ++: ips, nUsers ++: users)
       }
     }
   }
 
-  private def newSiblings(user: String, without: Set[User]): Fu[Set[User]] =
-    userIps(user) flatMap { ips ⇒
-      usersByIps(ips) map (_ diff without)
+  private def nextIps(users: Set[User], ips: Set[IP]): Fu[Set[IP]] =
+    users.nonEmpty ?? {
+      $primitive(
+        Json.obj("user" -> $in(users.map(_.id)), "ip" -> $nin(ips)), "ip"
+      )(_.asOpt[IP]) map (_.toSet)
     }
 
-  private def userIps(user: String): Fu[Set[String]] =
-    $primitive(selectUser(user), "ip")(_.asOpt[String]) map (_.toSet)
-
-  private def usersByIps(ips: Set[String]): Fu[Set[User]] =
-    $primitive(
-      Json.obj("ip" -> $in(ips)), "user"
-    )(_.asOpt[String]) flatMap UserRepo.byIds map (_.toSet)
+  private def nextUsers(ips: Set[IP], users: Set[User]): Fu[Set[User]] =
+    ips.nonEmpty ?? {
+      $primitive(
+        Json.obj("ip" -> $in(ips), "user" -> $nin(users.map(_.id))), "user"
+      )(_.asOpt[String]) flatMap { userIds ⇒
+          userIds.nonEmpty ?? (UserRepo byIds userIds) map (_.toSet)
+        }
+    }
 
   private def ip(req: RequestHeader) = req.remoteAddress
 

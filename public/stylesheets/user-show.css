@@ -84,6 +84,9 @@ div.user_show .mod_zone {
   display: none;
   margin: 1em 0 0 20px;
 }
+div.user_show .mod_zone form {
+  margin: 0 25px 0 0;
+}
 div.user_show .mod_zone .usernames a {
   text-decoration: none;
 }
