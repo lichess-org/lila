@@ -244,7 +244,7 @@ var lichess_translations = [];
       }
     },
     onProduction: /.+\.lichess\.org/.test(document.domain),
-    socketUrl: document.domain + ":9000"
+    socketUrl: 'socket.' + document.domain
   };
   lichess.socketDefaults.options.debug = !lichess.onProduction;
 
