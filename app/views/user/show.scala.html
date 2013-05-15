@@ -133,7 +133,7 @@ evenMoreCss = evenMoreCss) {
   @if(u.hasGames) {
   <div class="content_box_inter clearfix">
     @filters.list.map { f =>
-    <a @{ (filters.current == f).fold("class='active'", "") } href="@routes.User.showFilter(u.username, f.name)">
+    <a @{ (filters.current == f).??(Html("class=\"active\"")) } href="@routes.User.showFilter(u.username, f.name)">
       @filterTitle(info, f)
     </a>
     }
