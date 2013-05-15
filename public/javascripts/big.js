@@ -1589,14 +1589,8 @@ var lichess_translations = [];
         $.centerOverboard();
       }).trigger('change');
       var $eloRangeConfig = $form.find('.elo_range_config');
-
-      $variantChoices.on('change', function() {
-        var fen = $fenVariant.prop('checked');
-        $fenPosition.toggle(fen);
-        $.centerOverboard();
-      }).trigger('change');
-
       var $fenInput = $fenPosition.find('input');
+
       var validateFen = _.debounce(function() {
         $fenInput.removeClass("success failure");
         if ($fenInput.val()) {
@@ -1620,7 +1614,13 @@ var lichess_translations = [];
         }
       }, 500);
       $fenInput.on('keyup', validateFen);
-      if ($fenInput.val() != '') validateFen();
+
+      $variantChoices.on('change', function() {
+        var fen = $fenVariant.prop('checked');
+        if (fen && $fenInput.val() != '') validateFen();
+        $fenPosition.toggle(fen);
+        $.centerOverboard();
+      }).trigger('change');
 
       $form.prepend($('<a class="close"></a>').click(function() {
         $form.remove();
