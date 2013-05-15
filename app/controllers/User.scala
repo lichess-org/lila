@@ -24,7 +24,7 @@ object User extends LilaController {
 
   def showFilter(username: String, filterName: String, page: Int) = Open { implicit ctx ⇒
     Reasonable(page) {
-      OptionFuOk($find byId username) { userShow(_, filterName, page) }
+      OptionFuOk(UserRepo named username) { userShow(_, filterName, page) }
     }
   }
 
