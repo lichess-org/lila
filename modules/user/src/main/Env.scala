@@ -56,12 +56,11 @@ final class Env(
     import scala.concurrent.duration._
     import akka.pattern.{ ask, pipe }
     import makeTimeout.short
-    import lila.hub.actorApi.GetUserIds
+    import lila.hub.actorApi.{ Ask, GetUserIds }
 
     scheduler.effect(3 seconds, "usernameMemo: refresh") {
-      socketHub ? GetUserIds mapTo manifest[Iterable[String]] map { xs ⇒
-        println(xs)
-        usernameMemo.putAll(xs)
+      socketHub ? Ask(GetUserIds) mapTo manifest[List[List[String]]] map { xs ⇒
+        usernameMemo putAll xs.flatten
       } logFailure ("[user] fail to refresh online")
     }
   }

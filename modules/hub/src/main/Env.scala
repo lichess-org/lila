@@ -36,7 +36,7 @@ final class Env(config: Config, system: ActorSystem) {
   }
 
   system.actorOf(Props(new Broadcast(List(
-    socket.lobby, 
+    socket.lobby,
     socket.site, 
     socket.round, 
     socket.tournament
