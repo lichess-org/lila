@@ -9,7 +9,7 @@ private[i18n] case class JsDump(
     pool: I18nPool,
     keys: I18nKeys) {
 
-  val apply: Funit = Future {
+  def apply: Funit = Future {
     pathFile.mkdir
     pool.nonDefaultLangs foreach write
   } void
