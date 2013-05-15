@@ -34,7 +34,7 @@ private[bookmark] final class PaginatorBuilder(maxPerPage: Int) {
         selector, 
         "g", 
         _ sort sorting skip offset,
-        length)(_.asOpt[String])
+        length.some)(_.asOpt[String])
       games ← lila.game.tube.gameTube |> { implicit t ⇒
         $find.byOrderedIds[Game](gameIds)
       }

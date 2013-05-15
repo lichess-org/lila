@@ -42,5 +42,10 @@ trait Implicits extends Types {
     def skip(nb: Int): QueryBuilder = b.options(b.options skip nb)
 
     def batch(nb: Int): QueryBuilder = b.options(b.options batchSize nb)
+
+    def toList[A : BSONDocumentReader](limit: Option[Int]): Fu[List[A]] =
+      limit.fold(b.cursor[A].toList) { l ⇒
+        batch(math.min(l, 100)).cursor[A] toList l
+      } 
   }
 }

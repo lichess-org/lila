@@ -1,7 +1,7 @@
 package lila.db
 package api
 
-import Types._
+import Implicits._
 
 import reactivemongo.bson._
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
@@ -13,13 +13,13 @@ object $primitive {
     query: JsObject,
     field: String,
     modifier: QueryBuilder ⇒ QueryBuilder = identity,
-    max: Int = Int.MaxValue)(extract: JsValue ⇒ Option[B]): Fu[List[B]] =
+    max: Option[Int] = None)(extract: JsValue ⇒ Option[B]): Fu[List[B]] =
     modifier {
       implicitly[InColl[A]].coll
         .genericQueryBuilder
         .query(query)
         .projection(Json.obj(field -> true))
-    }.cursor toList max map2 { (obj: BSONDocument) ⇒
+    } toList max map2 { (obj: BSONDocument) ⇒
       extract(JsObjectReader.read(obj) \ field)
     } map (_.flatten)
 

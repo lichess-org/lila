@@ -113,7 +113,7 @@ object UserRepo {
       $select byId $regex(regex),
       "username",
       _ sort ("_id" -> $sort.desc),
-      max
+      max.some
     )(_.asOpt[String])
   }
 
