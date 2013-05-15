@@ -75,7 +75,7 @@ private[forum] final class CategApi(env: Env) extends OptionTs {
     ))
   } yield ()
 
-  val denormalize: Funit = $find.all[Categ] flatMap { categs ⇒
+  def denormalize: Funit = $find.all[Categ] flatMap { categs ⇒
     categs.map(denormalize).sequence
   } void
 }
