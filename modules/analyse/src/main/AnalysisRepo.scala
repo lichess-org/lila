@@ -29,7 +29,7 @@ private[analyse] object AnalysisRepo {
       "uid" -> userId,
       "done" -> false,
       "date" -> $date(DateTime.now)
-    ) ++ $unset("fail")),
+    )) ++ $unset("fail"),
     upsert = true)
 
   def doneById(id: ID): Fu[Option[Analysis]] =
