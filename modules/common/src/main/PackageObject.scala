@@ -171,6 +171,7 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
 
     implicit val short = seconds(1)
     implicit val large = seconds(5)
+    implicit val veryLarge = minutes(5)
 
     def apply(duration: FiniteDuration) = Timeout(duration)
     def seconds(s: Int): Timeout = Timeout(s.seconds)

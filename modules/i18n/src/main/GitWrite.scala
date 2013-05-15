@@ -6,6 +6,8 @@ import org.eclipse.jgit.storage.file.FileRepository
 import scala.collection.JavaConversions._
 import scala.concurrent.Future
 import akka.actor._
+import akka.pattern.ask
+import makeTimeout.veryLarge
 
 private[i18n] final class GitWrite(
     transRelPath: String,
@@ -18,22 +20,27 @@ private[i18n] final class GitWrite(
   def apply(translations: List[Translation]): Funit =
     fuloginfo("Working on " + repoPath) >>
       git.currentBranch flatMap { currentBranch ⇒
-        fuloginfo("Current branch is " + currentBranch) >>-
-          (translations foreach writer.!) >>
-          fuloginfo("Checkout " + currentBranch) >>
-          (git checkout currentBranch)
-      } void
+        loginfo("Current branch is " + currentBranch)
+        (translations map gitActor.?).sequence >>
+          (gitActor ? currentBranch mapTo manifest[Unit])
+      } 
 
-  private def writer = system.actorOf(Props(new Actor {
+  private lazy val gitActor = system.actorOf(Props(new Actor {
 
     def receive = {
+
+      case branch: String ⇒ {
+        loginfo("Checkout " + branch)
+        git checkout branch
+        sender ! ()
+      }
 
       case translation: Translation ⇒ {
         val branch = "t/" + translation.id
         val code = translation.code
         val name = (LangList name code) err "Lang does not exist: " + code
         val commitMsg = commitMessage(translation, name)
-        git branchExists branch flatMap {
+        sender ! (git branchExists branch flatMap {
           _.fold(
             fuloginfo("! Branch already exists: " + branch),
             git.checkout(branch, true) >>
@@ -41,29 +48,13 @@ private[i18n] final class GitWrite(
               fuloginfo("Add " + relFileOf(translation)) >>
               (git add relFileOf(translation)) >>
               fuloginfo("- " + commitMsg) >>
-              (git commit commitMsg).void)
-        }
-      } await
+              (git commit commitMsg).void
+          )
+        }).await
+      } 
 
     }
-  }), name = "i18n-gitwrite")
-
-  private def write(translation: Translation): Funit = {
-    val branch = "t/" + translation.id
-    val code = translation.code
-    val name = (LangList name code) err "Lang does not exist: " + code
-    val commitMsg = commitMessage(translation, name)
-    git branchExists branch flatMap {
-      _.fold(
-        fuloginfo("! Branch already exists: " + branch),
-        git.checkout(branch, true) >>
-          writeMessages(translation) >>
-          fuloginfo("Add " + relFileOf(translation)) >>
-          (git add relFileOf(translation)) >>
-          fuloginfo("- " + commitMsg) >>
-          (git commit commitMsg).void)
-    }
-  }
+  }))
 
   private def writeMessages(translation: Translation) =
     fuloginfo("Write messages to " + absFileOf(translation)) >>
@@ -91,7 +82,7 @@ private[i18n] final class GitWrite(
 
     val api = new org.eclipse.jgit.api.Git(repo)
 
-    def currentBranch = Future {
+    def currentBranch: Fu[String] = Future {
       cleanupBranch(repo.getFullBranch)
     }
 
