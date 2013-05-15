@@ -80,20 +80,17 @@ div.user_show .actions form {
   float: left;
   margin-left: 25px;
 }
-div.user_show .user_spy {
-  display: inline;
-}
-div.user_show .user_spy .inner {
+div.user_show .mod_zone {
   display: none;
   margin: 1em 0 0 20px;
 }
-div.user_show .user_spy .usernames a {
+div.user_show .mod_zone .usernames a {
   text-decoration: none;
 }
-div.user_show .user_spy .usernames a:hover {
+div.user_show .mod_zone .usernames a:hover {
   text-decoration: underline;
 }
-div.user_show .user_spy strong {
+div.user_show .mod_zone strong {
   display: block;
   margin-top: 0.5em;
 }

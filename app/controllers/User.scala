@@ -29,10 +29,9 @@ object User extends LilaController {
   }
 
   private def userShow(u: UserModel, filterName: String, page: Int)(implicit ctx: Context) =
-    (u.enabled || isGranted(_.MarkEngine)).fold({
+    (u.enabled || isGranted(_.UserSpy)).fold({
       for {
-        spy ← isGranted(_.UserSpy) optionFu Env.security.userSpy(u.id)
-        info ← makeUserInfo(u, spy, ctx)
+        info ← makeUserInfo(u, ctx)
         filters = mashup.GameFilterMenu(info, ctx.me, filterName)
         pag ← (filters.query.fold(Env.bookmark.api.gamePaginatorByUser(u, page)) { query ⇒
           gamePaginator.recentlyCreated(query, filters.cachedNb)(page)
@@ -44,6 +43,14 @@ object User extends LilaController {
     Reasonable(page) {
       onlineUsers zip env.paginator.elo(page) map {
         case (users, pag) ⇒ html.user.list(pag, users)
+      }
+    }
+  }
+
+  def mod(username: String) = Secure(_.UserSpy) { implicit ctx ⇒
+    me ⇒ OptionFuOk(UserRepo named username) { user ⇒
+      Env.security userSpy user.id map { spy ⇒
+        html.user.mod(user, spy)
       }
     }
   }
@@ -98,11 +105,11 @@ object User extends LilaController {
   def closeConfirm = Auth { ctx ⇒
     me ⇒
       implicit val req = ctx.req
-        (UserRepo disable me.id) >>
-          Env.team.api.quitAll(me.id) >>
-          (Env.security deleteUsername me.username) inject {
-            Redirect(routes.User show me.username) withCookies LilaCookie.newSession
-          }
+      (UserRepo disable me.id) >>
+        Env.team.api.quitAll(me.id) >>
+        (Env.security deleteUsername me.username) inject {
+          Redirect(routes.User show me.username) withCookies LilaCookie.newSession
+        }
   }
 
   def export(username: String) = Open { implicit ctx ⇒

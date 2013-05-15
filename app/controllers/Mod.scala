@@ -16,7 +16,7 @@ object Mod extends LilaController {
     me ⇒ modApi.adjust(me.id, username) inject Redirect(routes.User show username)
   }
 
-  def mute(username: String) = Secure(_.MutePlayer) { _ ⇒
+  def mute(username: String) = Secure(_.MuteUser) { _ ⇒
     me ⇒ modApi.mute(me.id, username) inject Redirect(routes.User show username)
   }
 

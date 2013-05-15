@@ -1,6 +1,6 @@
 @(game: Game)(implicit ctx: Context)
 
-@if(isGranted(Permission.ViewBlurs)) {
+@if(isGranted(_.ViewBlurs)) {
 @game.players.map { p =>
 @if(game.playerBlurPercent(p.color) > 30) {
 <div class="player_blurs">
