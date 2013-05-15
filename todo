@@ -22,7 +22,6 @@ tournament berserker = half time, double points
 chat icons (k) (K)
 blind accessible
 make hand and finisher actors to avoid racing conditions
-all hub members should use userIds rather than usernames
 tournament ties
 AI thinks during your time (premove?) http://en.lichess.org/forum/lichess-feedback/y-u-so-greedy-with-time-stockfish#4
 - in fact it does not, but the UI clocks only update once the ai made the move

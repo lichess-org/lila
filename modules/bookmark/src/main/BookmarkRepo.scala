@@ -11,10 +11,7 @@ import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 import org.joda.time.DateTime
 import scala.concurrent.Future
 
-case class Bookmark(
-  game: lila.game.Game,
-  user: lila.user.User,
-  date: org.joda.time.DateTime)
+case class Bookmark(game: lila.game.Game, user: lila.user.User)
 
 // db.bookmark.ensureIndex({g:1})
 // db.bookmark.ensureIndex({u:1})
