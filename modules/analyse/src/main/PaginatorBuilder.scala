@@ -28,7 +28,7 @@ private[analyse] final class PaginatorBuilder(
         selector, 
         "_id", 
         _ sort sorting skip offset, 
-        length)(_.asOpt[String])
+        length.some)(_.asOpt[String])
       games ← $find.byOrderedIds[Game](ids)
     } yield games
 
