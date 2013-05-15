@@ -5,7 +5,7 @@ include FileUtils
 
 lila_dir = pwd()
 lila_trans_dir = lila_dir + '/conf'
-lila_keys_file = lila_dir + '/i18n/src/main/I18nKeys.scala'
+lila_keys_file = lila_dir + '/modules/i18n/src/main/I18nKeys.scala'
 
 code = """// Generated with bin/trans-dump
 package lila.i18n
