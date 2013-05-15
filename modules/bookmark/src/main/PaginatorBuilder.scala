@@ -30,7 +30,11 @@ private[bookmark] final class PaginatorBuilder(maxPerPage: Int) {
     def nbResults: Fu[Int] = $count(selector)
 
     def slice(offset: Int, length: Int): Fu[Seq[Bookmark]] = for {
-      gameIds ← $primitive(selector, "g", _ sort sorting skip offset)(_.asOpt[String])
+      gameIds ← $primitive(
+        selector, 
+        "g", 
+        _ sort sorting skip offset,
+        length)(_.asOpt[String])
       games ← lila.game.tube.gameTube |> { implicit t ⇒
         $find.byOrderedIds[Game](gameIds)
       }
