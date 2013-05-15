@@ -19,9 +19,37 @@
 </div>
 
 <div class="user_spy">
-  <br />
-  <strong>Other usernames:</strong>
-  <div class="usernames">@Html(spy.otherUsernames.map(userIdLinkMini).mkString(", "))</div>
+  @if(spy.otherUsers.isEmpty) {
+  <strong>No user found with same IPs</strong>
+  } else {
+  <strong>Shares IP addresses with @spy.otherUsers.size user(s)</strong>
+  <table class="others slist">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Games</th>
+        <th>Engine</th>
+        <th>Muted</th>
+        <th>IPban</th>
+        <th>Closed</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      @spy.otherUsers.map { o =>
+      <tr>
+        <td>@userLink(o)</td>
+        <td>@o.nbGames</td>
+        <td>@{o.engine.??("X")}</td>
+        <td>@{o.muted.??("X")}</td>
+        <td></td>
+        <td>@{o.disabled.??("X")}</td>
+        <td>@showDate(o.createdAt)</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  }
   <strong>IP addresses:</strong> <ul>@spy.ips.map { ip =>
     <li>@ip</li>
     }</ul>
