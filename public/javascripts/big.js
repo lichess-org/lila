@@ -51,7 +51,7 @@ var lichess_translations = [];
     connect: function() {
       var self = this;
       self.destroy();
-      self.fullUrl = "wss://" + self.url + "?" + $.param($.extend(self.settings.params, {
+      self.fullUrl = "ws://" + self.url + "?" + $.param($.extend(self.settings.params, {
         version: self.version
       }));
       self.debug("connection attempt to " + self.fullUrl);
