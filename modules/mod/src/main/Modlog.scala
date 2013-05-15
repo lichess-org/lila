@@ -16,6 +16,8 @@ case class Modlog(
     case Modlog.deletePost ⇒ "delete forum post"
     case Modlog.ban        ⇒ "ban user"
     case Modlog.ipban      ⇒ "ban IP"
+    case Modlog.openTopic  ⇒ "reopen topic"
+    case Modlog.closeTopic ⇒ "close topic"
     case a                 ⇒ a
   }
 }
@@ -29,6 +31,8 @@ object Modlog {
   val ban = "ban"
   val ipban = "ipban"
   val deletePost = "deletePost"
+  val closeTopic = "closeTopic"
+  val openTopic = "openTopic"
 
   import lila.db.Tube
   import Tube.Helpers._

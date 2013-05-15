@@ -13,7 +13,8 @@ import scalaz.{ OptionT, OptionTs }
 private[forum] final class TopicApi(
   env: Env, 
   indexer: lila.hub.ActorLazyRef,
-  maxPerPage: Int) extends OptionTs {
+  maxPerPage: Int,
+  modLog: lila.mod.ModlogApi) extends OptionTs {
 
   def show(categSlug: String, slug: String, page: Int): Fu[Option[(Categ, Topic, Paginator[Post])]] =
     for {
@@ -76,6 +77,10 @@ private[forum] final class TopicApi(
       (env.categApi denormalize categ) >>-
       (indexer ! RemoveTopic(topic.id)) >>
       env.recent.invalidate
+
+  def toggleClose(categ: Categ, topic: Topic, mod: User): Funit = 
+    TopicRepo.close(topic.id, topic.open) >>
+      modLog.toggleCloseTopic(mod, categ.name, topic.name, topic.open)
 
   def denormalize(topic: Topic): Funit = for {
     nbPosts ← PostRepo countByTopics List(topic)

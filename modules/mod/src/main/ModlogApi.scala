@@ -24,7 +24,13 @@ final class ModlogApi {
 
   def deletePost(mod: String, user: Option[String], author: Option[String], ip: Option[String], text: String) = add {
     Modlog(mod, user, Modlog.deletePost, details = Some(
-      author.fold("")(_ + " ") + ip.fold("")(_ + " ") + text.take(140)
+      author.zmap(_ + " ") + ip.zmap(_ + " ") + text.take(140)
+    ))
+  }
+
+  def toggleCloseTopic(mod: String, categ: String, topic: String, closed: Boolean) = add {
+    Modlog(mod, none, closed ? Modlog.closeTopic | Modlog.openTopic, details = Some(
+      categ + " / " + topic
     ))
   }
 

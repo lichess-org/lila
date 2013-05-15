@@ -158,6 +158,7 @@ GET   /forum/:slug                     controllers.ForumCateg.show(slug: String,
 GET   /forum/:categSlug/form           controllers.ForumTopic.form(categSlug: String)
 POST  /forum/:categSlug/new            controllers.ForumTopic.create(categSlug: String)
 GET   /forum/:categSlug/:slug          controllers.ForumTopic.show(categSlug: String, slug: String, page: Int ?= 1)
+POST  /forum/:categSlug/:slug/close    controllers.ForumTopic.close(categSlug: String, slug: String)
 POST  /forum/:categSlug/:slug/new      controllers.ForumPost.create(categSlug: String, slug: String, page: Int ?= 1)
 POST  /forum/delete/post/:id           controllers.ForumPost.delete(id: String)
  

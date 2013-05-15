@@ -8,6 +8,9 @@ import play.api.libs.json.Json
 
 object TopicRepo {
 
+  def close(id: String, value: Boolean): Funit = 
+    $update.field(id, "closed", value)
+
   def byCateg(categ: Categ): Fu[List[Topic]] = 
     $find(byCategQuery(categ))
 
