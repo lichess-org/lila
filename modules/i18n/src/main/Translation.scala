@@ -11,6 +11,8 @@ private[i18n] case class Translation(
     createdAt: DateTime) {
 
   def lines = text.split("\n").toList
+
+  override def toString = "#%d %s".format(id, code)
 }
 
 private[i18n] object Translation {
