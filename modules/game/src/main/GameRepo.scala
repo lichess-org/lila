@@ -73,10 +73,9 @@ object GameRepo {
 
   def setUser(id: ID, color: Color, user: User) = {
     val pn = "p." + color.fold(0, 1) + "."
-    $update($select(id), $set(
-      (pn + "uid") -> Json.toJson(user.id),
-      (pn + "elo") -> Json.toJson(user.elo))
-    )
+    $update($select(id), $set(Json.obj(
+      (pn + "uid") -> user.id,
+      (pn + "elo") -> user.elo)))
   }
 
   def incBookmarks(id: ID, value: Int) =

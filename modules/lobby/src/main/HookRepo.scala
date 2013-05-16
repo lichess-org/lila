@@ -28,7 +28,7 @@ object HookRepo {
   def setGame(hook: Hook, game: Game) = 
     $update(
       $select(hook.id), 
-      $set("match" -> true) ++ $set("gameId" -> game.id))
+      $set(Json.obj("match" -> true, "gameId" -> game.id)))
 
   def removeOwnerId(ownerId: String): Funit = 
     $remove(Json.obj("ownerId" -> ownerId))
