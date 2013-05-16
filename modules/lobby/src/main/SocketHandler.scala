@@ -1,20 +1,21 @@
 package lila.lobby
 
-import akka.actor._
-import akka.pattern.ask
-import play.api.libs.json._
-import play.api.libs.iteratee._
-
 import actorApi._
 import lila.common.PimpedJson._
 import lila.socket.Handler
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import lila.hub.actorApi.lobby._
 import lila.user.{ User, Context }
-import lila.security.Flood
 import makeTimeout.short
 
-private[lobby] final class SocketHandler(socket: ActorRef, flood: Flood) {
+import akka.actor._
+import akka.pattern.{ ask, pipe }
+import play.api.libs.json._
+import play.api.libs.iteratee._
+
+private[lobby] final class SocketHandler(
+    socket: ActorRef,
+    messenger: Messenger) {
 
   private def controller(
     socket: ActorRef,
@@ -22,12 +23,10 @@ private[lobby] final class SocketHandler(socket: ActorRef, flood: Flood) {
     member: Member): Handler.Controller = {
     case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
     case ("talk", o) ⇒ for {
-      txt ← o str "d"
-      // TODO troll
-      // if member.canChat
       userId ← member.userId
-      if flood.allowMessage(uid, txt)
-    } socket ! Talk(userId, txt)
+      text ← o str "d"
+      message ← messenger(userId, text)
+    } messenger(userId, text) logFailure "[lobby] message" pipeTo socket
     case ("liveGames", o) ⇒ o str "d" foreach { ids ⇒
       socket ! LiveGames(uid, ids.split(' ').toList)
     }

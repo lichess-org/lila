@@ -1,7 +1,8 @@
 package lila.timeline
 
 import tube.entryTube
-import lila.db.api.$find
+import lila.db.api._
+import lila.db.Implicits._
 
 import akka.actor._
 import com.typesafe.config.Config
@@ -18,7 +19,8 @@ final class Env(
   private val DisplayMax = config getInt "display_max"
   private val ActorName = config getString "actor.name"
 
-  def recent = $find recent DisplayMax
+  def recent: Fu[List[Entry]] = 
+    $query($select.all) sort $sort.naturalOrder toListFlatten DisplayMax.some
 
   system.actorOf(Props(new Push(
     lobbySocket = lobbySocket,

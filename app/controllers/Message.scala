@@ -35,17 +35,17 @@ object Message extends LilaController {
 
   def form = Auth { implicit ctx ⇒
     implicit me ⇒
-        Ok(html.message.form(forms.thread, get("username"))).fuccess
+      Ok(html.message.form(forms.thread, get("username"))).fuccess
   }
 
   def create = AuthBody { implicit ctx ⇒
     implicit me ⇒
-        implicit val req = ctx.body
-        forms.thread.bindFromRequest.fold(
-          err ⇒ BadRequest(html.message.form(err)).fuccess,
-          data ⇒ api.makeThread(data, me) map { thread ⇒
-            Redirect(routes.Message.thread(thread.id))
-          })
+      implicit val req = ctx.body
+      forms.thread.bindFromRequest.fold(
+        err ⇒ BadRequest(html.message.form(err)).fuccess,
+        data ⇒ api.makeThread(data, me) map { thread ⇒
+          Redirect(routes.Message.thread(thread.id))
+        })
   }
 
   def delete(id: String) = AuthBody { implicit ctx ⇒
