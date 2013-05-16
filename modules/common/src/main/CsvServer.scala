@@ -9,7 +9,7 @@ object CsvServer {
 
   // returns the web path
   def apply(name: String)(lines: ⇒ List[List[Any]]): Fu[String] =
-    if (exists(name).pp) fuccess(webPath(name))
+    if (exists(name)) fuccess(webPath(name))
     else {
       val file = getFile(name)
       loginfo("[csv] Export " + file)

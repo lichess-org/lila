@@ -13,23 +13,26 @@ final class ModApi(
     eloUpdater: EloUpdater,
     lobbySocket: lila.hub.ActorLazyRef) {
 
-  def adjust(mod: String, username: String): Funit = withUser(username) { user ⇒
+  def adjust(mod: String, userId: String): Funit = withUser(userId) { user ⇒
     logApi.engine(mod, user.id, !user.engine) zip
       UserRepo.toggleEngine(user.id) zip
       eloUpdater.adjust(user)
   }
 
-  def mute(mod: String, username: String): Funit = withUser(username) { user ⇒
+  def mute(mod: String, userId: String): Funit = withUser(userId) { user ⇒
     (UserRepo toggleMute user.id) >>-
-    censor(user) >>
+      censor(user) >>
       logApi.mute(mod, user.id, !user.isChatBan)
   }
 
-  def ban(mod: String, username: String): Funit = withUser(username) { user ⇒
-    userSpy(username) flatMap { spy ⇒
-      (spy.ips map firewall.blockIp).sequence >>-
-      censor(user) >>
-        logApi.ban(mod, user.id)
+  def ban(mod: String, userId: String): Funit = withUser(userId) { user ⇒
+    userSpy(userId) flatMap { spy ⇒
+      UserRepo.toggleIpBan(user.id) >>
+        logApi.ban(mod, user.id, !user.ipBan) >>
+        user.ipBan.fold(
+          (spy.ipStrings map firewall.unblockIp).sequence,
+          (spy.ipStrings map firewall.blockIp).sequence >>- censor(user)
+        ) 
     }
   }
 
@@ -37,10 +40,10 @@ final class ModApi(
     (firewall blockIp ip) >> logApi.ipban(mod, ip)
 
   private def censor(user: User) {
-    // TODO handle that on lobby side
+    // TODO handle that on lobby side (or remove this message)
     if (user.canChat) lobbySocket ! Censor(user.username)
   }
 
-  private def withUser(username: String)(op: User ⇒ Fu[Any]): Funit =
-    $find.byId[User](username) flatMap { _ zmap (u ⇒ op(u).void) }
+  private def withUser(userId: String)(op: User ⇒ Fu[Any]): Funit =
+    UserRepo named userId flatMap { _ zmap (u ⇒ op(u).void) }
 }

@@ -17,6 +17,7 @@ case class User(
     nbDrawsH: Int, // only against human opponents
     nbAi: Int,
     isChatBan: Boolean = false,
+    ipBan: Boolean = false,
     enabled: Boolean,
     roles: List[String],
     settings: Map[String, String] = Map.empty,
@@ -71,6 +72,7 @@ object User {
 
   private def defaults = Json.obj(
     "isChatBan" -> false,
+    "ipBan" -> false,
     "settings" -> Json.obj(),
     "engine" -> false,
     "toints" -> 0,

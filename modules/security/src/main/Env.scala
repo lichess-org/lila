@@ -12,7 +12,6 @@ final class Env(
     config: Config,
     captcher: lila.hub.ActorLazyRef,
     system: ActorSystem,
-    scheduler: lila.common.Scheduler,
     db: lila.db.Env) {
 
   private val settings = new {
@@ -40,17 +39,9 @@ final class Env(
 
   lazy val forms = new DataForm(captcher = captcher)
 
-  lazy val userSpy = Store userSpy _
+  lazy val userSpy = UserSpy(firewall) _
 
   lazy val deleteUser = Store deleteUser _
-
-  {
-    import scala.concurrent.duration._
-
-    scheduler.effect(10 minutes, "firewall: refresh") {
-      firewall.refresh
-    }
-  }
 
   def cli = new Cli
 
@@ -64,6 +55,5 @@ object Env {
     config = lila.common.PlayApp loadConfig "security",
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,
-    scheduler = lila.common.PlayApp.scheduler,
     captcher = lila.hub.Env.current.actor.captcher)
 }

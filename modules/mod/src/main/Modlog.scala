@@ -15,7 +15,8 @@ case class Modlog(
     case Modlog.unengine   ⇒ "un-mark as engine"
     case Modlog.deletePost ⇒ "delete forum post"
     case Modlog.ban        ⇒ "ban user"
-    case Modlog.ipban      ⇒ "ban IP"
+    case Modlog.ipban      ⇒ "ban IPs"
+    case Modlog.ipunban    ⇒ "unban IPs"
     case Modlog.openTopic  ⇒ "reopen topic"
     case Modlog.closeTopic ⇒ "close topic"
     case a                 ⇒ a
@@ -30,6 +31,7 @@ object Modlog {
   val unmute = "unmute"
   val ban = "ban"
   val ipban = "ipban"
+  val ipunban = "ipunban"
   val deletePost = "deletePost"
   val closeTopic = "closeTopic"
   val openTopic = "openTopic"

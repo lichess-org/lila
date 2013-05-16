@@ -123,6 +123,8 @@ object UserRepo {
 
   def toggleEngine(id: ID): Funit = $update.doc[ID, User](id) { u ⇒ $set("engine" -> !u.engine) }
 
+  def toggleIpBan(id: ID) = $update.doc[ID, User](id) { u ⇒ $set("ipBan" -> !u.ipBan) }
+
   def isEngine(id: ID): Fu[Boolean] = $count.exists($select(id) ++ Json.obj("engine" -> true))
 
   def setRoles(id: ID, roles: List[String]) = $update.field(id, "roles", roles)
