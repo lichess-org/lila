@@ -1,7 +1,7 @@
 @(preload: String, myHook: Option[lila.lobby.Hook], timeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], featured: Option[Game])(implicit ctx: Context)
 
 @chat = {
-@for(m <- ctx.me; if m.canChat) {
+@ctx.me.map { me =>
 @base.chatRoom(
 title = trans.chatRoom.str(),
 cssClass = "lobby_chat") {

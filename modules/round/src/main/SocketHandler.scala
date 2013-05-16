@@ -31,7 +31,8 @@ private[round] final class SocketHandler(
       case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
       case ("talk", o) ⇒ for {
         txt ← o str "d"
-        if member.canChat
+        // TODO troll
+        // if member.canChat
         if flood.allowMessage(uid, txt)
       } messenger.playerMessage(povRef, txt) pipeTo socket
       case ("move", o) ⇒ parseMove(o) foreach {
@@ -56,7 +57,8 @@ private[round] final class SocketHandler(
       case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
       case ("talk", o) ⇒ for {
         txt ← o str "d"
-        if member.canChat
+        // TODO troll
+        // if member.canChat
         if flood.allowMessage(uid, txt)
       } messenger.watcherMessage(
         povRef.gameId,

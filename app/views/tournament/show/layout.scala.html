@@ -1,7 +1,7 @@
 @(tour: lila.tournament.Tournament, title: String, messages: List[lila.tournament.Room.Message], version: Int, goodies: Html, side: Option[Html] = None)(body: Html)(implicit ctx: Context)
 
 @chat = {
-@for(m <- ctx.me; if m.canChat) {
+@ctx.me.map { me =>
 @base.chatRoom(
 title = "Tournament Room",
 cssClass = "tournament_chat")(tournament.show.room(messages))

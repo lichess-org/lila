@@ -16,8 +16,8 @@ object Mod extends LilaController {
     me ⇒ modApi.adjust(me.id, username) inject Redirect(routes.User show username)
   }
 
-  def mute(username: String) = Secure(_.MuteUser) { _ ⇒
-    me ⇒ modApi.mute(me.id, username) inject Redirect(routes.User show username)
+  def troll(username: String) = Secure(_.MarkTroll) { _ ⇒
+    me ⇒ modApi.troll(me.id, username) inject Redirect(routes.User show username)
   }
 
   def ban(username: String) = Secure(_.IpBan) { implicit ctx ⇒

@@ -23,7 +23,8 @@ private[lobby] final class SocketHandler(socket: ActorRef, flood: Flood) {
     case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
     case ("talk", o) ⇒ for {
       txt ← o str "d"
-      if member.canChat
+      // TODO troll
+      // if member.canChat
       userId ← member.userId
       if flood.allowMessage(uid, txt)
     } socket ! Talk(userId, txt)

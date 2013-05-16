@@ -54,7 +54,8 @@ private[tournament] final class SocketHandler(
     }
     case ("talk", o) ⇒ for {
       t ← o str "d"
-      if member.canChat
+      // TODO troll
+      // if member.canChat
       userId ← member.userId
       if flood.allowMessage(uid, t)
     } socket ! Talk(tourId, userId, t)

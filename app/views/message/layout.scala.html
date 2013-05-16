@@ -11,9 +11,7 @@
 @goodies = {
 <div class="sidebar">
   <a href="@routes.Message.inbox(1)" class="goto_inbox">@trans.inbox()</a>
-  @if(ctx.me.fold(false)(_.canMessage)) {
   <a href="@routes.Message.form" class="goto_compose">@trans.composeMessage()</a>
-  }
 </div>
 }
 

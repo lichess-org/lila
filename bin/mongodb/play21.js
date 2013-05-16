@@ -8,6 +8,9 @@ db.user2.find({roles:{'$in':[{},[]]}}).forEach(function(user) {
   db.user2.update({'_id': user['_id']}, {'$unset':{roles:true}});
 });
 
+println("rename user.isChatBan -> user.troll");
+db.user2.update({},{$rename:{isChatBan:'troll'}}, {multi:true});
+
 print("user.settings.{chat,sound} should be a string");
 ['settings.chat', 'settings.sound'].forEach(function(name) {
   [true, false].forEach(function(value) {
