@@ -36,20 +36,19 @@ private[lobby] final class Socket(
       sender ! Connected(enumerator, member)
     }
 
-    case Talk(u, txt) ⇒ messenger(u, txt) effectFold (
-      e ⇒ logwarn(e.toString),
-      message ⇒ notifyVersion("talk", Json.obj(
-        "u" -> message.user,
-        "t" -> message.text
-      ))
-    )
+    case Message(user, text, troll, _) ⇒ notifyVersion("talk", Json.obj(
+      "u" -> user,
+      "t" -> text,
+      "x" -> troll
+    ))
 
     case SysTalk(txt) ⇒ messenger system txt foreach { message ⇒
       notifyVersion("talk", Json.obj("t" -> message.text))
     }
 
-    case UnTalk(regex) ⇒ (messenger remove regex) >>-
-      notifyVersion("untalk", Json.obj("regex" -> regex.toString))
+    case UnTalk(regex)           ⇒ notifyVersion("untalk", Json.obj(
+      "regex" -> regex.toString
+    ))
 
     case ReloadTournaments(html) ⇒ notifyTournaments(html)
 

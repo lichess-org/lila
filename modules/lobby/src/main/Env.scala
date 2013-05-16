@@ -32,7 +32,9 @@ final class Env(
     uidTtl = SocketUidTtl
   )), name = SocketName)
 
-  lazy val socketHandler = new SocketHandler(socket = socket, flood = flood)
+  lazy val socketHandler = new SocketHandler(
+    socket = socket, 
+    messenger = messenger)
 
   lazy val fisherman = new Fisherman(hookMemo, socket)
 
@@ -54,7 +56,7 @@ final class Env(
 
   lazy val history = new History(ttl = MessageTtl)
 
-  private lazy val messenger = new Messenger(NetDomain)
+  lazy val messenger = new Messenger(flood = flood, netDomain = NetDomain)
 
   private lazy val hookMemo = new ExpireSetMemo(ttl = OrphanHookTtl)
 

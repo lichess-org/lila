@@ -31,7 +31,6 @@ package captcha {
 package lobby {
   case class TimelineEntry(rendered: String)
   case class Censor(username: String)
-  case class Talk(u: String, txt: String)
   case class SysTalk(txt: String)
   case class UnTalk(r: scala.util.matching.Regex)
   case class ReloadTournaments(html: String)

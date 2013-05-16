@@ -3,7 +3,7 @@ package controllers
 import lila.app._
 import lila.user.Context
 import lila.common.LilaCookie
-import lila.lobby.{ Hook, HookRepo, MessageRepo }
+import lila.lobby.{ Hook, HookRepo }
 import lila.tournament.TournamentRepo
 import views._
 
@@ -27,8 +27,6 @@ object Lobby extends LilaController with Results {
 
   private def renderHome[A](myHook: Option[Hook], status: Status)(implicit ctx: Context): Fu[Result] =
     Env.current.preloader(
-      auth = ctx.isAuth,
-      chat = ctx.canSeeChat,
       myHook = myHook,
       timeline = Env.timeline.recent,
       posts = Env.forum.recent(ctx.me, Env.team.cached.teamIds.apply),
@@ -76,6 +74,6 @@ object Lobby extends LilaController with Results {
   }
 
   def log = Open { implicit ctx ⇒
-    MessageRepo.nonEmpty map { html.lobby.log(_) }
+    Env.lobby.messenger.recent(ctx.troll, 200) map { html.lobby.log(_) }
   }
 }

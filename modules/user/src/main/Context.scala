@@ -14,6 +14,8 @@ sealed abstract class Context(val req: RequestHeader, val me: Option[User]) {
 
   def canSeeChat = isAuth
 
+  def troll = me.zmap(_.troll)
+
   override def toString = "%s %s %s".format(
     me.fold("Anonymous")(_.username),
     req.remoteAddress, 

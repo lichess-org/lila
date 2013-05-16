@@ -8,6 +8,7 @@ import org.joda.time.DateTime
 case class Message(
     user: Option[String],
     text: String,
+    troll: Boolean,
     date: DateTime) {
 
   def render = Json.obj("u" -> user, "t" -> text)
@@ -17,9 +18,10 @@ case class Message(
 
 object Message {
 
-  def make(user: Option[String], text: String) = new Message(
+  def make(user: Option[String], text: String, troll: Boolean) = new Message(
     user = user,
     text = text,
+    troll = troll,
     date = DateTime.now)
 
   import lila.db.Tube

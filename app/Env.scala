@@ -11,6 +11,7 @@ final class Env(config: Config, system: ActorSystem) {
   private val RouterName = config getString "app.router.name"
 
   lazy val preloader = new mashup.Preload(
+    messenger = Env.lobby.messenger,
     fisherman = Env.lobby.fisherman,
     history = Env.lobby.history,
     featured = Env.game.featured)

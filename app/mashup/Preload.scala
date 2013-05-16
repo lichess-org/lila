@@ -1,13 +1,14 @@
 package lila.app
 package mashup
 
-import lila.lobby.{ Fisherman, Hook, HookRepo, MessageRepo }
+import lila.lobby.{ Fisherman, Hook, HookRepo, Messenger }
 import lila.timeline.Entry
 import lila.game.{ Game, GameRepo, Featured }
 import lila.forum.PostLiteView
 import lila.socket.History
 import lila.tournament.Created
 import lila.setup.FilterConfig
+import lila.user.Context
 import controllers.routes
 
 import play.api.mvc.Call
@@ -16,6 +17,7 @@ import makeTimeout.short
 
 final class Preload(
     fisherman: Fisherman,
+    messenger: Messenger,
     history: History,
     featured: Featured) {
 
@@ -23,16 +25,14 @@ final class Preload(
   private type Response = Either[Call, RightResponse]
 
   def apply(
-    auth: Boolean,
-    chat: Boolean,
     myHook: Option[Hook],
     timeline: Fu[List[Entry]],
     posts: Fu[List[PostLiteView]],
     tours: Fu[List[Created]],
-    filter: Fu[FilterConfig]): Fu[Response] =
+    filter: Fu[FilterConfig])(implicit ctx: Context): Fu[Response] =
     myHook.flatMap(_.gameId).fold[Fu[Response]](
-      auth.fold(HookRepo.allOpen, HookRepo.allOpenCasual) zip
-        (chat ?? MessageRepo.recent) zip
+      ctx.isAuth.fold(HookRepo.allOpen, HookRepo.allOpenCasual) zip
+        (ctx.canSeeChat ?? messenger.recent(ctx.troll, 20)) zip
         timeline zip posts zip tours zip featured.one zip filter map {
           case ((((((hooks, messages), entries), posts), tours), feat), filter) ⇒ 
           (Right((Json.obj(

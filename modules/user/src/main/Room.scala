@@ -9,8 +9,6 @@ trait Room {
   def userMessage(userOption: Option[User], text: String): Valid[(String, String)] =
     userOption toValid "Anonymous cannot talk in this room" flatMap { user ⇒
       if (user.disabled) !!("User disabled " + user)
-      // TODO troll
-      // else if (user.isChatBan) !!("Chat banned " + user)
       else cleanupText(text) map { user.username -> _ }
     }
 
