@@ -358,6 +358,17 @@ a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hove
 #top .shown a.toggle {
   background: #fff;
 }
+#top a.signin {
+  float: right;
+  position: relative;
+  display: block;
+  margin: 3px 0.5em 0 0;
+  padding: 1px 5px;
+  text-decoration: none;
+  line-height: normal;
+  border: 1px solid #d85000;
+  border-radius: 3px;
+}
 #top div.auth {
   float: right;
   position: relative;
@@ -381,22 +392,6 @@ a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hove
 }
 #top div.auth .links .goto_profile {
   background-position: 0 -208px;
-}
-
-#top div.auth form {
-  padding: 1em;
-}
-#top div.auth form input {
-  margin-bottom: 8px;
-}
-#top div.auth form .username,
-#top div.auth form .password {
-  width: 120px;
-}
-#top div.auth form div.button_wrap {
-  text-align: right;
-  border-bottom: 1px solid #dadada;
-  margin-bottom: 8px
 }
 
 form.wide input[type="text"], form.wide textarea {
@@ -465,8 +460,7 @@ ul.language_links li:last-child {
   float: right;
   position: relative;
 }
-#top div.themepicker span.theme_demo {
-  color: #fff;
+#top div.themepicker span.down {
   display: block;
   margin: 3px 0.5em 0 0;
   padding: 1px 5px;
@@ -660,6 +654,7 @@ div.undertable_top,
 div.content_box_top,
 div.hooks tr,
 a.translation_call,
+div.notification,
 div.locale_menu a,
 table.slist thead {
   color: #666;
@@ -700,8 +695,7 @@ div.locale_menu a.active,
 /* strong inactive gradient */
 div.hooks td.action,
 .button:hover,
-.button.strong,
-div.notification
+.button.strong
 {
   background: #ffffff;
   background: -moz-linear-gradient(center top , #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;

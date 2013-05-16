@@ -1,16 +1,3 @@
 @()(implicit ctx: Context)
 
-<div class="auth">
-  <a href="@routes.Auth.login" class="toggle toggle_auth">
-    <span class="s16 ddown">@trans.signIn()</span>
-  </a>
-  <form class="signin_form dropdown" action="@routes.Auth.authenticate()" method="post">
-    <input title="@trans.username()" type="text" class="username" name="username" />
-    <input title="@trans.password()" type="password" class="password" name="password" />
-    <input type="hidden" class="referrer" name="_referrer" value="@currentUrl" />
-    <div class="button_wrap">
-      <input type="submit" name="login" class="login" value="@trans.signIn()" />
-    </div>
-    <a href="@routes.Auth.signup()">@trans.signUp()</a>
-  </form>
-</div>
+<a href="@routes.Auth.login" class="signin">@trans.signIn()</a>

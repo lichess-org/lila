@@ -341,7 +341,8 @@ body.dark div.hooks td.action:hover,
 body.dark div.hooks table.empty tr:hover,
 body.dark .button.strong:hover,
 body.dark div.progressbar.flashy div,
-body.dark div.locale_menu a.active
+body.dark div.locale_menu a.active,
+#top a.signin
 {
   color: #fff;
   background: #d85000;

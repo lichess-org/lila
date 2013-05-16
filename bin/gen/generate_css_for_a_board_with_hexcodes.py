@@ -8,7 +8,7 @@ themes = {
   'brown': ['#f0d9b5', '#b58863']
 }
 
-blackPattern = 'body.{name} #GameBoard td.blackSquare, body.{name} #GameBoard td.highlightBlackSquare, body.{name} div.lcs.black, #top div.lcs.black.{name}, body.{name} span.theme_demo { background: {black}; }'
+blackPattern = 'body.{name} #GameBoard td.blackSquare, body.{name} #GameBoard td.highlightBlackSquare, body.{name} div.lcs.black, #top div.lcs.black.{name} { background: {black}; }'
 whitePattern = 'body.{name} #GameBoard td.whiteSquare, body.{name} #GameBoard td.highlightWhiteSquare, body.{name} div.lcs.white, #top div.lcs.white.{name}, body.{name} div.lichess_board { background: {white}; }'
 
 for name in themes:
