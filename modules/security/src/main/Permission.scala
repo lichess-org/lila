@@ -25,8 +25,8 @@ object Permission {
 
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(Admin))
 
-  private val all: List[Permission] = List(SuperAdmin, Admin, Hunter, ViewBlurs, StaffForum, ModerateForum, UserSpy, MuteUser, MarkEngine, IpBan)
-  private val allByName: Map[String, Permission] = all map { p ⇒ (p.name, p) } toMap
+  private lazy val all: List[Permission] = List(SuperAdmin, Admin, Hunter, ViewBlurs, StaffForum, ModerateForum, UserSpy, MuteUser, MarkEngine, IpBan)
+  private lazy val allByName: Map[String, Permission] = all map { p ⇒ (p.name, p) } toMap
 
   def apply(name: String): Option[Permission] = allByName get name
 
