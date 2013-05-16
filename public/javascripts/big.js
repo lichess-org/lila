@@ -243,6 +243,7 @@ var lichess_translations = [];
         lagTag: $('#connection_lag')
       }
     },
+    troll: $('body').data('troll'),
     onProduction: /.+\.lichess\.org/.test(document.domain),
     socketUrl: 'socket.' + document.domain
   };
@@ -1754,7 +1755,7 @@ var lichess_translations = [];
       },
       events: {
         talk: function(e) {
-          $chat.chat('append', e.u, e.t);
+          if (!e.troll || lichess.troll) $chat.chat('append', e.u, e.t);
         },
         untalk: function(e) {
           $chat.chat('remove', e.regex);

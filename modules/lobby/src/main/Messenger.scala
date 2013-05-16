@@ -29,9 +29,6 @@ final class Messenger(
       $insert(message) inject message
     }
 
-  def updateTroll(user: User): Funit =
-    $update(Json.obj("user" -> user.username), $set("troll" -> user.troll), multi = true)
-
   def recent(withTrolls: Boolean, limit: Int): Fu[List[Message]] =
     $query(withTrolls.fold(
       $select.all,
