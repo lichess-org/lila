@@ -33,17 +33,79 @@ div.lcs {
 
 /* generated - don't modify */
 body.blue #GameBoard td.whiteSquare, body.blue #GameBoard td.highlightWhiteSquare, body.blue div.lcs.white, #top div.lcs.white.blue, body.blue div.lichess_board { background: #dee3e6; }
-body.blue #GameBoard td.blackSquare, body.blue #GameBoard td.highlightBlackSquare, body.blue div.lcs.black, #top div.lcs.black.blue, body.blue span.theme_demo { background: #8ca2ad; }
+body.blue #GameBoard td.blackSquare, body.blue #GameBoard td.highlightBlackSquare, body.blue div.lcs.black, #top div.lcs.black.blue { background: #8ca2ad; }
 body.brown #GameBoard td.whiteSquare, body.brown #GameBoard td.highlightWhiteSquare, body.brown div.lcs.white, #top div.lcs.white.brown, body.brown div.lichess_board { background: #f0d9b5; }
-body.brown #GameBoard td.blackSquare, body.brown #GameBoard td.highlightBlackSquare, body.brown div.lcs.black, #top div.lcs.black.brown, body.brown span.theme_demo { background: #b58863; }
+body.brown #GameBoard td.blackSquare, body.brown #GameBoard td.highlightBlackSquare, body.brown div.lcs.black, #top div.lcs.black.brown { background: #b58863; }
 body.green #GameBoard td.whiteSquare, body.green #GameBoard td.highlightWhiteSquare, body.green div.lcs.white, #top div.lcs.white.green, body.green div.lichess_board { background: #ffffdd; }
-body.green #GameBoard td.blackSquare, body.green #GameBoard td.highlightBlackSquare, body.green div.lcs.black, #top div.lcs.black.green, body.green span.theme_demo { background: #86a666; }
+body.green #GameBoard td.blackSquare, body.green #GameBoard td.highlightBlackSquare, body.green div.lcs.black, #top div.lcs.black.green { background: #86a666; }
 body.grey #GameBoard td.whiteSquare, body.grey #GameBoard td.highlightWhiteSquare, body.grey div.lcs.white, #top div.lcs.white.grey, body.grey div.lichess_board { background: #fff; }
-body.grey #GameBoard td.blackSquare, body.grey #GameBoard td.highlightBlackSquare, body.grey div.lcs.black, #top div.lcs.black.grey, body.grey span.theme_demo { background: #c4c4c4; }
-body.wood #GameBoard td.whiteSquare, body.wood #GameBoard td.highlightWhiteSquare, body.wood div.lcs.white, #top div.lcs.white.wood, body.wood div.lichess_board { background: url(../images/woodenboard_white.jpg) no-repeat; }
-body.wood #GameBoard td.blackSquare, body.wood #GameBoard td.highlightBlackSquare, body.wood div.lcs.black, #top div.lcs.black.wood, body.wood span.theme_demo { background: url(../images/woodenboard_black.jpg) no-repeat; }
-body.canvas #GameBoard td.whiteSquare, body.canvas #GameBoard td.highlightWhiteSquare, body.canvas div.lcs.white, #top div.lcs.white.canvas, body.canvas div.lichess_board { background: url(../images/canvasboard_white.jpg) no-repeat; }
-body.canvas #GameBoard td.blackSquare, body.canvas #GameBoard td.highlightBlackSquare, body.canvas div.lcs.black, #top div.lcs.black.canvas, body.canvas span.theme_demo { background: url(../images/canvasboard_black.jpg) no-repeat; }
+body.grey #GameBoard td.blackSquare, body.grey #GameBoard td.highlightBlackSquare, body.grey div.lcs.black, #top div.lcs.black.grey { background: #c4c4c4; }
+body.canvas #GameBoard td.whiteSquare, body.canvas #GameBoard td.highlightWhiteSquare, body.canvas div.lcs.white, #top div.lcs.white.canvas, body.canvas div.lichess_board { background: url(../images/woodenboard_white.jpg) no-repeat; }
+body.canvas #GameBoard td.blackSquare, body.canvas #GameBoard td.highlightBlackSquare, body.canvas div.lcs.black, #top div.lcs.black.canvas
+body.canvas #tcol0trow0, body.canvas #a8 { background-position: 0px 0px; }
+body.canvas #tcol1trow0, body.canvas #b8 { background-position: -64px 0px; }
+body.canvas #tcol2trow0, body.canvas #c8 { background-position: -128px 0px; }
+body.canvas #tcol3trow0, body.canvas #d8 { background-position: -192px 0px; }
+body.canvas #tcol4trow0, body.canvas #e8 { background-position: -256px 0px; }
+body.canvas #tcol5trow0, body.canvas #f8 { background-position: -320px 0px; }
+body.canvas #tcol6trow0, body.canvas #g8 { background-position: -384px 0px; }
+body.canvas #tcol7trow0, body.canvas #h8 { background-position: -448px 0px; }
+body.canvas #tcol0trow1, body.canvas #a7 { background-position: 0px -64px; }
+body.canvas #tcol1trow1, body.canvas #b7 { background-position: -64px -64px; }
+body.canvas #tcol2trow1, body.canvas #c7 { background-position: -128px -64px; }
+body.canvas #tcol3trow1, body.canvas #d7 { background-position: -192px -64px; }
+body.canvas #tcol4trow1, body.canvas #e7 { background-position: -256px -64px; }
+body.canvas #tcol5trow1, body.canvas #f7 { background-position: -320px -64px; }
+body.canvas #tcol6trow1, body.canvas #g7 { background-position: -384px -64px; }
+body.canvas #tcol7trow1, body.canvas #h7 { background-position: -448px -64px; }
+body.canvas #tcol0trow2, body.canvas #a6 { background-position: 0px -128px; }
+body.canvas #tcol1trow2, body.canvas #b6 { background-position: -64px -128px; }
+body.canvas #tcol2trow2, body.canvas #c6 { background-position: -128px -128px; }
+body.canvas #tcol3trow2, body.canvas #d6 { background-position: -192px -128px; }
+body.canvas #tcol4trow2, body.canvas #e6 { background-position: -256px -128px; }
+body.canvas #tcol5trow2, body.canvas #f6 { background-position: -320px -128px; }
+body.canvas #tcol6trow2, body.canvas #g6 { background-position: -384px -128px; }
+body.canvas #tcol7trow2, body.canvas #h6 { background-position: -448px -128px; }
+body.canvas #tcol0trow3, body.canvas #a5 { background-position: 0px -192px; }
+body.canvas #tcol1trow3, body.canvas #b5 { background-position: -64px -192px; }
+body.canvas #tcol2trow3, body.canvas #c5 { background-position: -128px -192px; }
+body.canvas #tcol3trow3, body.canvas #d5 { background-position: -192px -192px; }
+body.canvas #tcol4trow3, body.canvas #e5 { background-position: -256px -192px; }
+body.canvas #tcol5trow3, body.canvas #f5 { background-position: -320px -192px; }
+body.canvas #tcol6trow3, body.canvas #g5 { background-position: -384px -192px; }
+body.canvas #tcol7trow3, body.canvas #h5 { background-position: -448px -192px; }
+body.canvas #tcol0trow4, body.canvas #a4 { background-position: 0px -256px; }
+body.canvas #tcol1trow4, body.canvas #b4 { background-position: -64px -256px; }
+body.canvas #tcol2trow4, body.canvas #c4 { background-position: -128px -256px; }
+body.canvas #tcol3trow4, body.canvas #d4 { background-position: -192px -256px; }
+body.canvas #tcol4trow4, body.canvas #e4 { background-position: -256px -256px; }
+body.canvas #tcol5trow4, body.canvas #f4 { background-position: -320px -256px; }
+body.canvas #tcol6trow4, body.canvas #g4 { background-position: -384px -256px; }
+body.canvas #tcol7trow4, body.canvas #h4 { background-position: -448px -256px; }
+body.canvas #tcol0trow5, body.canvas #a3 { background-position: 0px -320px; }
+body.canvas #tcol1trow5, body.canvas #b3 { background-position: -64px -320px; }
+body.canvas #tcol2trow5, body.canvas #c3 { background-position: -128px -320px; }
+body.canvas #tcol3trow5, body.canvas #d3 { background-position: -192px -320px; }
+body.canvas #tcol4trow5, body.canvas #e3 { background-position: -256px -320px; }
+body.canvas #tcol5trow5, body.canvas #f3 { background-position: -320px -320px; }
+body.canvas #tcol6trow5, body.canvas #g3 { background-position: -384px -320px; }
+body.canvas #tcol7trow5, body.canvas #h3 { background-position: -448px -320px; }
+body.canvas #tcol0trow6, body.canvas #a2 { background-position: 0px -384px; }
+body.canvas #tcol1trow6, body.canvas #b2 { background-position: -64px -384px; }
+body.canvas #tcol2trow6, body.canvas #c2 { background-position: -128px -384px; }
+body.canvas #tcol3trow6, body.canvas #d2 { background-position: -192px -384px; }
+body.canvas #tcol4trow6, body.canvas #e2 { background-position: -256px -384px; }
+body.canvas #tcol5trow6, body.canvas #f2 { background-position: -320px -384px; }
+body.canvas #tcol6trow6, body.canvas #g2 { background-position: -384px -384px; }
+body.canvas #tcol7trow6, body.canvas #h2 { background-position: -448px -384px; }
+body.canvas #tcol0trow7, body.canvas #a1 { background-position: 0px -448px; }
+body.canvas #tcol1trow7, body.canvas #b1 { background-position: -64px -448px; }
+body.canvas #tcol2trow7, body.canvas #c1 { background-position: -128px -448px; }
+body.canvas #tcol3trow7, body.canvas #d1 { background-position: -192px -448px; }
+body.canvas #tcol4trow7, body.canvas #e1 { background-position: -256px -448px; }
+body.canvas #tcol5trow7, body.canvas #f1 { background-position: -320px -448px; }
+body.canvas #tcol6trow7, body.canvas #g1 { background-position: -384px -448px; }
+body.canvas #tcol7trow7, body.canvas #h1 { background-position: -448px -448px; }
 
 body.txtr #tcol0trow0, body.txtr #a8 { background-position: 0px 0px; }
 body.txtr #tcol1trow0, body.txtr #b8 { background-position: -64px 0px; }
