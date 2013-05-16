@@ -136,7 +136,9 @@ object UserRepo {
   def passwd(id: ID, password: String): Funit =
     $primitive.one($select(id), "salt")(_.asOpt[String]) flatMap { saltOption ⇒
       saltOption zmap { salt ⇒
-        $update($select(id), $set("password" -> hash(password, salt)) ++ $set("sha512" -> false))
+        $update($select(id), $set(Json.obj(
+          "password" -> hash(password, salt), 
+          "sha512" -> false)))
       }
     }
 
