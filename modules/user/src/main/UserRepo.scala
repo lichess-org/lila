@@ -119,11 +119,11 @@ object UserRepo {
     )(_.asOpt[String])
   }
 
-  def toggleTroll(id: ID) = $update.doc[ID, User](id) { u ⇒ $set("troll" -> !u.troll) }
-
   def toggleEngine(id: ID): Funit = $update.doc[ID, User](id) { u ⇒ $set("engine" -> !u.engine) }
 
   def toggleIpBan(id: ID) = $update.doc[ID, User](id) { u ⇒ $set("ipBan" -> !u.ipBan) }
+
+  def updateTroll(user: User) = $update.field(user.id, "troll", user.troll)
 
   def isEngine(id: ID): Fu[Boolean] = $count.exists($select(id) ++ Json.obj("engine" -> true))
 

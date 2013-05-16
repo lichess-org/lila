@@ -25,8 +25,9 @@ private[lobby] final class SocketHandler(
     case ("talk", o) ⇒ for {
       userId ← member.userId
       text ← o str "d"
-      message ← messenger(userId, text)
-    } messenger(userId, text) logFailure "[lobby] message" pipeTo socket
+    } messenger(userId, text) logFailure "[lobby] message" foreach {
+      _ foreach { socket ! _ }
+    }
     case ("liveGames", o) ⇒ o str "d" foreach { ids ⇒
       socket ! LiveGames(uid, ids.split(' ').toList)
     }
