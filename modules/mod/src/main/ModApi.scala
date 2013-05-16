@@ -26,13 +26,15 @@ final class ModApi(
   }
 
   def ban(mod: String, userId: String): Funit = withUser(userId) { user ⇒
-    userSpy(userId) flatMap { spy ⇒
+    userSpy(user.id) flatMap { spy ⇒
       UserRepo.toggleIpBan(user.id) >>
         logApi.ban(mod, user.id, !user.ipBan) >>
         user.ipBan.fold(
           (spy.ipStrings map firewall.unblockIp).sequence,
-          (spy.ipStrings map firewall.blockIp).sequence >>- censor(user)
-        ) 
+          (spy.ipStrings map firewall.blockIp).sequence >>
+            (SecurityStore disconnect user.id) >>-
+            censor(user)
+        )
     }
   }
 

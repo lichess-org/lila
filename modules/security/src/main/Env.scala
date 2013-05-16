@@ -41,7 +41,7 @@ final class Env(
 
   lazy val userSpy = UserSpy(firewall) _
 
-  lazy val deleteUser = Store deleteUser _
+  lazy val disconnect = Store disconnect _
 
   def cli = new Cli
 
