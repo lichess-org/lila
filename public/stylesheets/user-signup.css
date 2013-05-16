@@ -1,17 +1,24 @@
-div.signup_box p.explanation {
-  font-size: 1.2em;
-  margin-bottom: 1em;
-}
-div.signup_box p.explanation em {
-  font-style: italic;
+div.content_box {
+  width: 232px;
+  padding-bottom: 10px;
+  position: relative;
 }
 
-div.signup_box h1 {
+div.signup_box p.explanation {
+  font-size: 1.2em;
   margin-bottom: 2em;
 }
 
-div.signup_box .alternative {
-  font-size: 0.8em;
+div.signup_box .lichess_title {
+  margin-bottom: 1em;
+}
+
+div.alternative {
+  display: block;
+  position: absolute;
+  top: 2em;
+  left: 312px;
+  width: 300px;
 }
 
 .content_box form {
@@ -22,34 +29,29 @@ div.signup_box .alternative {
   list-style: none;
   display: block;
   margin: 1em 0 1em 0;
-  position: relative;
 }
 
 .content_box form label {
-  float: left;
   display: block;
-  width: 150px;
-  text-align: right;
-  margin-right: 10px;
-  margin-top: 2px;
+  margin-bottom: 2px;
 }
 
-.content_box form .username input, .content_box form .password input {
-  width: 200px;
-  padding: 0 3px;
-  border: 1px solid #D4D4D4;
+.content_box form input {
+  font-size: 1.1em;
+  width: 212px;
   padding: 3px 5px;
+  border: 1px solid #D4D4D4;
+}
+.content_box form input.button {
+  width: auto;
 }
 
 .content_box form input.submit {
-  margin-left: 160px;
-  margin-right: 20px;
-  padding: 3px 1em;
+  padding: 7px 1em;
 }
 
 /* Errors */
 form .error {
-  margin-left: 160px;
   color: red;
 }
 

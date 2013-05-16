@@ -744,6 +744,7 @@ div.checkmateFen div.lmcs.selected {
 }
 div.checkmateSection {
   float: left;
+  font-size: 0.9em;
 }
 div.checkmateSection div.result {
   display: none;

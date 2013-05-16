@@ -1,11 +1,9 @@
 @(form: Form[_])(implicit ctx: Context)
 
 @auth.layout(title = trans.signIn.str()) {
-<div class="content_box small_box">
+<div class="content_box">
   <div class="signup_box">
     <h1 class="lichess_title">@trans.signIn()</h1>
-    <br />
-    <br />
     <form action="@routes.Auth.authenticate" method="POST">
       @form.globalError.map { error =>
       <p class="error">@error.message</p>
@@ -13,12 +11,15 @@
       <ul>
         @auth.formFields(form("username"), form("password"))
         <li>
-          <input type="submit" value="@trans.signIn()" class="submit">
-          <span class="alternative"><a href="@routes.Auth.signup()">@trans.signUp()</a></span>
+          <input type="submit" value="@trans.signIn()" class="submit button">
         </li>
       </ul>
       <input type="hidden" class="referrer" name="_referrer" value="@currentUrl" />
     </form>
+  </div>
+  <div class="alternative">
+    @trans.newToLichess()
+    <a href="@routes.Auth.signup()" class="button">@trans.signUp()</a>
   </div>
 </div>
 }

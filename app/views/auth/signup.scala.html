@@ -5,16 +5,8 @@ title = trans.signUp.str()) {
 <div class="content_box small_box">
   <div class="signup_box">
     <h1 class="lichess_title">@trans.signUp()</h1>
-    <br />
-    <br />
     <p class="explanation">
       @trans.allYouNeedIsAUsernameAndAPassword()
-    </p>
-    <p class="explanation">
-      <em>
-        It is <strong>not</strong> required to signup. You can play as <strong>anonymous</strong>.<br />
-        Signup if you want to save your played games and have an Elo ranking.
-      </em>
     </p>
     <form action="@routes.Auth.signupPost" method="POST">
       <ul>
@@ -24,8 +16,7 @@ title = trans.signUp.str()) {
         </li>
         @errMsg(form)
         <li>
-          <input type="submit" value="@trans.signUp()" class="submit">
-          <span class="alternative">@trans.haveAnAccount() <a href="@routes.Auth.login">@trans.signIn()</a></span>
+          <input type="submit" value="@trans.signUp()" class="submit button">
         </li>
       </ul>
       <input type="hidden" class="referrer" name="_referrer" value="@currentUrl" />
