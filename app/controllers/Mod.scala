@@ -19,10 +19,7 @@ object Mod extends LilaController {
 
   def troll(username: String) = Secure(_.MarkTroll) { _ ⇒
     me ⇒
-      modApi.troll(me.id, username) flatMap { user ⇒
-        Env.lobby.messenger.updateTroll(user) inject
-          Redirect(routes.User show user.username)
-      }
+      modApi.troll(me.id, username) inject Redirect(routes.User show username)
   }
 
   def ban(username: String) = Secure(_.IpBan) { implicit ctx ⇒

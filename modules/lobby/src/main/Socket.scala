@@ -36,17 +36,17 @@ private[lobby] final class Socket(
       sender ! Connected(enumerator, member)
     }
 
-    case Message(user, text, troll, _) ⇒ notifyVersion("talk", Json.obj(
-      "u" -> user,
-      "t" -> text,
-      "x" -> troll
-    ))
+    case Message(user, text, troll, _) ⇒ notifyVersion("talk",
+      Json.obj("u" -> user, "t" -> text) |> { obj ⇒
+        troll.fold(obj + ("troll" -> JsBoolean(true)), obj)
+      }
+    )
 
     case SysTalk(txt) ⇒ messenger system txt foreach { message ⇒
       notifyVersion("talk", Json.obj("t" -> message.text))
     }
 
-    case UnTalk(regex)           ⇒ notifyVersion("untalk", Json.obj(
+    case UnTalk(regex) ⇒ notifyVersion("untalk", Json.obj(
       "regex" -> regex.toString
     ))
 

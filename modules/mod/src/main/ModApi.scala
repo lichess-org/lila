@@ -19,10 +19,10 @@ final class ModApi(
       eloUpdater.adjust(user) void
   }
 
-  def troll(mod: String, userId: String): Fu[User] = withUser(userId) { u ⇒
-    val user = u.pp.copy(troll = !u.troll)
+  def troll(mod: String, userId: String): Funit = withUser(userId) { u ⇒
+    val user = u.copy(troll = !u.troll)
     (UserRepo updateTroll user) >>-
-      logApi.troll(mod, user.id, user.troll) inject user
+      logApi.troll(mod, user.id, user.troll) void
   }
 
   def ban(mod: String, userId: String): Funit = withUser(userId) { user ⇒
