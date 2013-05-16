@@ -72,6 +72,7 @@ viewInFullSize=Agrandir
 logOut=Déconnexion
 signIn=Connexion
 signUp=Inscription
+newToLichess=Nouveau sur Lichess?
 people=Membres
 games=Parties
 forum=Forum
