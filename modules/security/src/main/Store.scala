@@ -38,7 +38,7 @@ object Store {
 
   // useful when closing an account,
   // we want to logout too
-  def deleteUser(userId: String): Funit = $update(
+  def disconnect(userId: String): Funit = $update(
     Json.obj("user" -> userId),
     $set("up" -> false),
     upsert = false,

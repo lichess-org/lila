@@ -107,7 +107,7 @@ object User extends LilaController {
       implicit val req = ctx.req
       (UserRepo disable me.id) >>
         Env.team.api.quitAll(me.id) >>
-        (Env.security deleteUser me.id) inject {
+        (Env.security disconnect me.id) inject {
           Redirect(routes.User show me.username) withCookies LilaCookie.newSession
         }
   }
