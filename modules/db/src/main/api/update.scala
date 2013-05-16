@@ -20,8 +20,8 @@ object $update {
     }
 
   def doc[ID: Writes, A <: Identified[ID]: TubeInColl](id: ID)(op: A ⇒ JsObject): Funit =
-    $find byId id flatMap { docOption ⇒
-      docOption zmap (doc ⇒ apply($select(id), op(doc)))
+    $find byId id flatten "[db] cannot update missing doc" flatMap { doc ⇒ 
+      apply($select(id), op(doc))
     }
 
   def field[ID: Writes, A: InColl, B: Writes](id: ID, name: String, value: B, upsert: Boolean = false): Funit =

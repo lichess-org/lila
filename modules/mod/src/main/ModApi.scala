@@ -16,23 +16,24 @@ final class ModApi(
   def adjust(mod: String, userId: String): Funit = withUser(userId) { user ⇒
     logApi.engine(mod, user.id, !user.engine) zip
       UserRepo.toggleEngine(user.id) zip
-      eloUpdater.adjust(user)
+      eloUpdater.adjust(user) void
   }
 
-  def troll(mod: String, userId: String): Funit = withUser(userId) { user ⇒
-    (UserRepo toggleTroll user.id) >>-
-      logApi.troll(mod, user.id, user.noTroll)
+  def troll(mod: String, userId: String): Fu[User] = withUser(userId) { u ⇒
+    val user = u.pp.copy(troll = !u.troll)
+    (UserRepo updateTroll user) >>-
+      logApi.troll(mod, user.id, user.troll) inject user
   }
 
   def ban(mod: String, userId: String): Funit = withUser(userId) { user ⇒
     userSpy(user.id) flatMap { spy ⇒
-      UserRepo.toggleIpBan(user.id) >>
-        logApi.ban(mod, user.id, !user.ipBan) >>
+      UserRepo.toggleIpBan(user.id) zip
+        logApi.ban(mod, user.id, !user.ipBan) zip
         user.ipBan.fold(
           (spy.ipStrings map firewall.unblockIp).sequence,
           (spy.ipStrings map firewall.blockIp).sequence >>
-            (SecurityStore disconnect user.id) 
-        )
+            (SecurityStore disconnect user.id)
+        ) void
     }
   }
 
@@ -44,6 +45,6 @@ final class ModApi(
     if (user.troll) lobbySocket ! Censor(user.username)
   }
 
-  private def withUser(userId: String)(op: User ⇒ Fu[Any]): Funit =
-    UserRepo named userId flatMap { _ zmap (u ⇒ op(u).void) }
+  private def withUser[A](userId: String)(op: User ⇒ Fu[A]): Fu[A] =
+    UserRepo named userId flatten "[mod] missing user " + userId flatMap op
 }

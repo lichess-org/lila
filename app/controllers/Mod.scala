@@ -3,6 +3,7 @@ package controllers
 import lila.app._
 import views._
 import lila.security.Permission
+import lila.user.UserRepo
 
 import play.api.mvc._
 import play.api.mvc.Results._
@@ -17,7 +18,11 @@ object Mod extends LilaController {
   }
 
   def troll(username: String) = Secure(_.MarkTroll) { _ ⇒
-    me ⇒ modApi.troll(me.id, username) inject Redirect(routes.User show username)
+    me ⇒
+      modApi.troll(me.id, username) flatMap { user ⇒
+        Env.lobby.messenger.updateTroll(user) inject
+          Redirect(routes.User show user.username)
+      }
   }
 
   def ban(username: String) = Secure(_.IpBan) { implicit ctx ⇒

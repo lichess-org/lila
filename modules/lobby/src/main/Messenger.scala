@@ -13,22 +13,24 @@ final class Messenger(
     flood: Flood,
     val netDomain: String) extends Room {
 
-  def apply(userId: String, text: String): Fu[Message] = for {
-    user ← UserRepo byId userId flatten "[lobby] messenger no such user"
-    _ ← flood.allowMessage(userId, text).fold(funit, fufail("[lobby] flood detected"))
-    message ← (userMessage(user.some, text) map {
-      case (u, t) ⇒ Message.make(user.id.some, escapeXml(t), user.troll)
-    }).future
-    _ ← $insert(message)
-  } yield message
+  def apply(userId: String, text: String): Fu[Option[Message]] =
+    UserRepo byId userId flatten "[lobby] messenger no such user" flatMap { user ⇒
+      if (flood.allowMessage(userId, text)) for {
+        message ← (userMessage(user.some, text) map {
+          case (u, t) ⇒ Message.make(user.id.some, escapeXml(t), user.troll)
+        }).future
+        _ ← $insert(message)
+      } yield message.some
+      else fuloginfo("[lobby] %s is flooding the lobby room" format userId) inject none
+    }
 
   def system(text: String): Fu[Message] =
     Message.make(user = none, text = text, troll = false) |> { message ⇒
       $insert(message) inject message
     }
 
-  def setTroll(username: String, v: Boolean): Funit =
-    $update(Json.obj("user" -> username), $set("troll" -> v), multi = true)
+  def updateTroll(user: User): Funit =
+    $update(Json.obj("user" -> user.username), $set("troll" -> user.troll), multi = true)
 
   def recent(withTrolls: Boolean, limit: Int): Fu[List[Message]] =
     $query(withTrolls.fold(
