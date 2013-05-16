@@ -1,23 +1,22 @@
 @(move: Field, gameId: Field, captcha: lila.common.Captcha)(implicit ctx: Context)
 <input type="hidden" name="@gameId.name" id="@gameId.id" value="@captcha.gameId" />
-@defining(captcha.white.fold("white", "black")) { color =>
 <div class="checkmateCaptcha clearfix" data-check-url="@routes.Main.captchaCheck(captcha.gameId)">
   <div class="checkmateFen">
     <div
       class="mini_board parse_fen with_keys"
-      data-color="@color"
+      data-color="@captcha.white.fold("white", "black")"
       data-fen="@captcha.fen"></div>
   </div>
   <div class="checkmateSection">
     <label>
-      <strong>@color.capitalize plays; checkmate in one!</strong><br />
-      This is a chess CAPTCHA.<br />
-      Click on the board to make your move,<br />
-      and prove you are human.<br /><br />
-      <div class="result success">@trans.checkmate()!!</div>
-      <div class="result failure">Not a checkmate <button class="button retry">Retry</button></div>
+      <strong>@trans.colorPlaysCheckmateInOne(captcha.white.fold(trans.white, trans.black)())</strong><br />
+      <br />
+      @trans.thisIsAChessCaptcha()<br />
+      @trans.clickOnTheBoardToMakeYourMove()
+      <br /><br />
+      <div class="result success">@trans.checkmate()</div>
+      <div class="result failure">@trans.notACheckmate() <button class="button retry">@trans.retry()</button></div>
     </label>
     <input type="hidden" name="@move.name" id="@move.id" value="" />
   </div>
 </div>
-}
