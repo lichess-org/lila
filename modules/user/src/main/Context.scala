@@ -8,11 +8,11 @@ sealed abstract class Context(val req: RequestHeader, val me: Option[User]) {
 
   def isAnon = !isAuth
 
-  def canSeeChat = me zmap (!_.isChatBan)
-
   def is(user: User): Boolean = me == Some(user)
 
   def userId = me map (_.id)
+
+  def canSeeChat = isAuth
 
   override def toString = "%s %s %s".format(
     me.fold("Anonymous")(_.username),

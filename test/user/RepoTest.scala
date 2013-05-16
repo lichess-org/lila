@@ -30,7 +30,7 @@ final class RepoTest extends Specification {
     nbLossesH = 2,
     nbDrawsH = 0,
     nbAi = 3,
-    isChatBan = false,
+    troll = false,
     enabled = true,
     roles = Nil,
     settings = Map.empty,

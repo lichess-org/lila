@@ -16,7 +16,7 @@ case class User(
     nbLossesH: Int, // only against human opponents
     nbDrawsH: Int, // only against human opponents
     nbAi: Int,
-    isChatBan: Boolean = false,
+    troll: Boolean = false,
     ipBan: Boolean = false,
     enabled: Boolean,
     roles: List[String],
@@ -26,19 +26,9 @@ case class User(
     toints: Int = 0,
     createdAt: DateTime) {
 
-  def muted = isChatBan
+  def noTroll = !troll
 
-  def canChat =
-    !isChatBan &&
-      nbGames >= 3 &&
-      createdAt < (DateTime.now - 3.hours)
-
-  def canMessage = !muted
-
-  def canTeam =
-    !isChatBan &&
-      nbGames >= 3 &&
-      createdAt < (DateTime.now - 1.day)
+  def canTeam = true
 
   def disabled = !enabled
 
@@ -71,7 +61,7 @@ object User {
   def normalize(username: String) = username.toLowerCase
 
   private def defaults = Json.obj(
-    "isChatBan" -> false,
+    "troll" -> false,
     "ipBan" -> false,
     "settings" -> Json.obj(),
     "engine" -> false,

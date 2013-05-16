@@ -6,9 +6,9 @@
     <input class="confirm" type="submit" value="@u.engine.fold("Un-mark as engine", "Mark as engine")" />
   </form>
   }
-  @if(isGranted(_.MuteUser)) {
-  <form method="post" action="@routes.Mod.mute(u.username)">
-    <input class="confirm" type="submit" value="@u.isChatBan.fold("Unmute", "Mute")" />
+  @if(isGranted(_.MarkTroll)) {
+  <form method="post" action="@routes.Mod.troll(u.username)">
+    <input class="confirm" type="submit" value="@u.troll.fold("Un-mark as troll", "Mark as troll")" />
   </form>
   }
   @if(isGranted(_.IpBan)) {
@@ -41,7 +41,7 @@
         <td>@userLink(o)</td>
         <td>@o.nbGames</td>
         <td>@{o.engine.??("ENGINE")}</td>
-        <td>@{o.muted.??("MUTED")}</td>
+        <td>@{o.troll.??("TROLL")}</td>
         <td>@{o.ipBan.??("IPBAN")}</td>
         <td>@{o.disabled.??("CLOSED")}</td>
         <td>@showDate(o.createdAt)</td>

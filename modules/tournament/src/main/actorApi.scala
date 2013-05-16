@@ -8,16 +8,13 @@ import lila.game.Game
 case class Member(
     channel: JsChannel,
     userId: Option[String],
-    muted: Boolean) extends SocketMember {
-
-  def canChat = !muted
-}
+    troll: Boolean) extends SocketMember 
 
 object Member {
   def apply(channel: JsChannel, user: Option[User]): Member = Member(
     channel = channel,
     userId = user map (_.id),
-    muted = user.zmap(_.muted))
+    troll = user.zmap(_.troll))
 }
 
 case class Join(

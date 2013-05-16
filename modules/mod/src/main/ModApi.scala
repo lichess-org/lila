@@ -19,10 +19,9 @@ final class ModApi(
       eloUpdater.adjust(user)
   }
 
-  def mute(mod: String, userId: String): Funit = withUser(userId) { user ⇒
-    (UserRepo toggleMute user.id) >>-
-      censor(user) >>
-      logApi.mute(mod, user.id, !user.isChatBan)
+  def troll(mod: String, userId: String): Funit = withUser(userId) { user ⇒
+    (UserRepo toggleTroll user.id) >>-
+      logApi.troll(mod, user.id, user.noTroll)
   }
 
   def ban(mod: String, userId: String): Funit = withUser(userId) { user ⇒
@@ -32,8 +31,7 @@ final class ModApi(
         user.ipBan.fold(
           (spy.ipStrings map firewall.unblockIp).sequence,
           (spy.ipStrings map firewall.blockIp).sequence >>
-            (SecurityStore disconnect user.id) >>-
-            censor(user)
+            (SecurityStore disconnect user.id) 
         )
     }
   }
@@ -43,7 +41,7 @@ final class ModApi(
 
   private def censor(user: User) {
     // TODO handle that on lobby side (or remove this message)
-    if (user.canChat) lobbySocket ! Censor(user.username)
+    if (user.troll) lobbySocket ! Censor(user.username)
   }
 
   private def withUser(userId: String)(op: User ⇒ Fu[Any]): Funit =

@@ -27,8 +27,8 @@ object Modlog {
 
   val engine = "engine"
   val unengine = "unengine"
-  val mute = "mute"
-  val unmute = "unmute"
+  val troll = "troll"
+  val untroll = "untroll"
   val ban = "ban"
   val ipban = "ipban"
   val ipunban = "ipunban"

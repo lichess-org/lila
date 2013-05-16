@@ -10,8 +10,8 @@ final class ModlogApi {
     Modlog(mod, user.some, v.fold(Modlog.engine, Modlog.unengine))
   }
 
-  def mute(mod: String, user: String, v: Boolean) = add {
-    Modlog(mod, user.some, v.fold(Modlog.mute, Modlog.unmute))
+  def troll(mod: String, user: String, v: Boolean) = add {
+    Modlog(mod, user.some, v.fold(Modlog.troll, Modlog.untroll))
   }
 
   def ban(mod: String, user: String, v: Boolean) = add {

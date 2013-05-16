@@ -119,7 +119,7 @@ object UserRepo {
     )(_.asOpt[String])
   }
 
-  def toggleMute(id: ID) = $update.doc[ID, User](id) { u ⇒ $set("isChatBan" -> !u.isChatBan) }
+  def toggleTroll(id: ID) = $update.doc[ID, User](id) { u ⇒ $set("troll" -> !u.troll) }
 
   def toggleEngine(id: ID): Funit = $update.doc[ID, User](id) { u ⇒ $set("engine" -> !u.engine) }
 

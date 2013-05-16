@@ -10,11 +10,9 @@ case class Member(
     channel: JsChannel,
     userId: Option[String],
     hookOwnerId: Option[String],
-    muted: Boolean) extends SocketMember {
+    troll: Boolean) extends SocketMember {
 
   def ownsHook(hook: Hook) = hookOwnerId zmap (hook.ownerId ==)
-
-  def canChat = !muted
 }
 
 object Member {
@@ -22,7 +20,7 @@ object Member {
     channel = channel,
     userId = user map (_.id),
     hookOwnerId = hookOwnerId,
-    muted = user.zmap(_.muted))
+    troll = user.zmap(_.troll))
 }
 
 case class Connected(enumerator: JsEnumerator, member: Member)

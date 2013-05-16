@@ -10,10 +10,9 @@ sealed trait Member extends SocketMember {
 
   val color: Color
   val owner: Boolean
-  val muted: Boolean
+  val troll: Boolean
 
   def watcher = !owner
-  def canChat = !muted
 }
 
 object Member {
@@ -23,10 +22,10 @@ object Member {
     color: Color,
     owner: Boolean): Member = {
     val userId = user map (_.id)
-    val muted = ~user.map(_.muted)
+    val troll = user.zmap(_.troll)
     owner.fold(
-      Owner(channel, userId, color, muted),
-      Watcher(channel, userId, color, muted))
+      Owner(channel, userId, color, troll),
+      Watcher(channel, userId, color, troll))
   }
 }
 
@@ -34,7 +33,7 @@ case class Owner(
     channel: JsChannel,
     userId: Option[String],
     color: Color,
-    muted: Boolean) extends Member {
+    troll: Boolean) extends Member {
 
   val owner = true
 }
@@ -43,7 +42,7 @@ case class Watcher(
     channel: JsChannel,
     userId: Option[String],
     color: Color,
-    muted: Boolean) extends Member {
+    troll: Boolean) extends Member {
 
   val owner = false
 }
