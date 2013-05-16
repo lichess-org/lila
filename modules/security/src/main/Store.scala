@@ -79,7 +79,7 @@ object Store {
       $primitive(
         Json.obj("ip" -> $in(ips), "user" -> $nin(users.map(_.id))), "user"
       )(_.asOpt[String]) flatMap { userIds ⇒
-          userIds.nonEmpty ?? (UserRepo byIds userIds) map (_.toSet)
+          userIds.nonEmpty ?? (UserRepo byIds userIds.distinct) map (_.toSet)
         }
     }
 
