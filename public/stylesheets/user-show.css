@@ -82,10 +82,25 @@ div.user_show .actions form {
 }
 div.user_show .mod_zone {
   display: none;
-  margin: 1em 0 0 20px;
+  margin: 1em 20px;
+}
+div.user_show .mod_zone .slist {
+  font-size: 0.9em;
+}
+div.user_show .mod_zone .same {
+  font-style: italic;
+  font-weight: bold;
 }
 div.user_show .mod_zone form {
   margin: 0 25px 0 0;
+}
+div.user_show .mod_zone .listings > div {
+  max-height: 12em;
+  overflow: auto;
+}
+div.user_show .mod_zone .listings .blocked {
+  color: red;
+  font-weight: bold;
 }
 div.user_show .mod_zone .usernames a {
   text-decoration: none;

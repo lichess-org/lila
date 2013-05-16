@@ -38,12 +38,14 @@ final class Firewall(
 
   def accepts(req: RequestHeader): Fu[Boolean] = blocks(req) map (!_)
 
-  def blockIp(ip: String): Funit = blocksIp(ip) flatMap { blocked ⇒
-    if (validIp(ip) && !blocked) {
-      log("Block IP: " + ip)
-      $insert(Json.obj("_id" -> ip, "date" -> DateTime.now)) >>- refresh
-    }
-    else fuccess(log("Invalid IP block: " + ip))
+  def blockIp(ip: String): Funit = validIp(ip) ?? {
+    log("Block IP: " + ip)
+    $update(Json.obj("_id" -> ip), Json.obj("_id" -> ip, "date" -> $date(DateTime.now)), upsert = true) >>- refresh
+  }
+
+  def unblockIp(ip: String): Funit = validIp(ip) ?? {
+    log("Unblock IP: " + ip)
+    $remove($select(ip)) >>- refresh
   }
 
   private def infectCookie(name: String)(implicit req: RequestHeader) = Action {
@@ -56,7 +58,10 @@ final class Firewall(
     log("Block " + formatReq(req))
   }
 
-  private[security] def refresh {
+  def blocksIp(ip: String): Fu[Boolean] = ips.apply map (_ contains ip)
+
+  private def refresh {
+    log("refresh IPs")
     ips.clear
   }
 
@@ -66,8 +71,6 @@ final class Firewall(
 
   private def formatReq(req: RequestHeader) =
     "%s %s %s".format(req.remoteAddress, req.uri, req.headers.get("User-Agent") | "?")
-
-  private def blocksIp(ip: String): Fu[Boolean] = ips.apply map (_ contains ip)
 
   private def blocksCookies(cookies: Cookies, name: String) =
     (cookies get name).isDefined
@@ -85,5 +88,5 @@ final class Firewall(
   }
 
   private def fetch: Fu[Set[String]] =
-    $primitive($select.all, "id")(_.asOpt[String]) map (_.toSet)
+    $primitive($select.all, "_id")(_.asOpt[String]) map (_.toSet)
 }

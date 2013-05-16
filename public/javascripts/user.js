@@ -27,9 +27,9 @@ $(function() {
   $("div.user_show .mod_zone_toggle").click(function() {
     var $zone = $("div.user_show .mod_zone");
     if ($zone.is(':visible')) $zone.hide(); 
-    else $zone.show().load($(this).attr("href"));
+    else $zone.html("Loading...").show().load($(this).attr("href"));
     return false;
-  }).click();
+  });
 });
 function str_repeat(input, multiplier) {
   return new Array(multiplier + 1).join(input);

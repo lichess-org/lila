@@ -14,8 +14,8 @@ final class ModlogApi {
     Modlog(mod, user.some, v.fold(Modlog.mute, Modlog.unmute))
   }
 
-  def ban(mod: String, user: String) = add {
-    Modlog(mod, user.some, Modlog.ipban)
+  def ban(mod: String, user: String, v: Boolean) = add {
+    Modlog(mod, user.some, v.fold(Modlog.ipban, Modlog.ipunban))
   }
 
   def ipban(mod: String, ip: String) = add {
