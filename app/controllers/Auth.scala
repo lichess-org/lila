@@ -34,10 +34,13 @@ object Auth extends LilaController {
     Firewall {
       implicit val req = ctx.body
       api.loginForm.bindFromRequest.fold(
-        err ⇒ BadRequest(html.auth.login(err)) fuccess,
-        userOption ⇒ gotoLoginSucceeded(
-          userOption.err("authenticate error").username
-        )
+        err ⇒ BadRequest(html.auth.login(err)).fuccess,
+        _.fold(InternalServerError("authenticate error").fuccess) { user ⇒
+          user.ipBan.fold(
+            Env.security.firewall.blockIp(req.remoteAddress) inject BadRequest("blocked by firewall"),
+            gotoLoginSucceeded(user.username)
+          )
+        }
       )
     }
   }
