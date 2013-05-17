@@ -17,8 +17,7 @@ private[round] final class SocketHub(
     getUsername: String ⇒ Fu[Option[String]],
     uidTimeout: Duration,
     socketTimeout: Duration,
-    playerTimeout: Duration,
-    gameSocketName: String ⇒ String) extends SocketHubActor {
+    playerTimeout: Duration) extends SocketHubActor {
 
   def receiveSpecific = {
 
@@ -35,11 +34,11 @@ private[round] final class SocketHub(
     gameId = id,
     history = context.actorOf(
       Props(makeHistory()),
-      name = gameSocketName(id) + "-history"
+      name = id + "-history"
     ),
     getUsername = getUsername,
     uidTimeout = uidTimeout,
     socketTimeout = socketTimeout,
     playerTimeout = playerTimeout
-  )), name = gameSocketName(id))
+  )), name = id)
 }
