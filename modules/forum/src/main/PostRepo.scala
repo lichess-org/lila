@@ -6,7 +6,19 @@ import tube.postTube
 
 import play.api.libs.json.Json
 
-object PostRepo {
+object PostRepo extends PostRepo(false) {
+
+  def apply(troll: Boolean): PostRepo = troll.fold(PostRepoTroll, PostRepo)
+}
+
+object PostRepoTroll extends PostRepo(true)
+
+sealed abstract class PostRepo(troll: Boolean) {
+
+  private lazy val trollFilter = troll.fold(
+    Json.obj(), 
+    Json.obj("troll" -> false)
+  )
 
   def isFirstPost(topicId: String, postId: String): Fu[Boolean] =
     $primitive.one(
@@ -27,10 +39,10 @@ object PostRepo {
   def removeByTopic(topicId: String): Fu[Unit] =
     $remove(selectTopic(topicId))
 
-  def selectTopic(topicId: String) = Json.obj("topicId" -> topicId)
-  def selectTopics(topicIds: List[String]) = Json.obj("topicId" -> $in(topicIds))
+  def selectTopic(topicId: String) = Json.obj("topicId" -> topicId) ++ trollFilter
+  def selectTopics(topicIds: List[String]) = Json.obj("topicId" -> $in(topicIds)) ++ trollFilter
 
-  def selectCategs(categIds: List[String]) = Json.obj("categId" -> $in(categIds))
+  def selectCategs(categIds: List[String]) = Json.obj("categId" -> $in(categIds)) ++ trollFilter
 
   def sortQuery = $sort.createdAsc
 }

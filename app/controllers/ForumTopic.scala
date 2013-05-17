@@ -32,7 +32,7 @@ object ForumTopic extends LilaController with ForumController {
 
   def show(categSlug: String, slug: String, page: Int) = Open { implicit ctx ⇒
     CategGrantRead(categSlug) {
-      OptionFuOk(topicApi.show(categSlug, slug, page)) {
+      OptionFuOk(topicApi.show(categSlug, slug, page, ctx.troll)) {
         case (categ, topic, posts) ⇒ isGrantedWrite(categSlug) flatMap { granted ⇒
           (!posts.hasNextPage && granted && topic.open) ?? forms.postWithCaptcha.map(_.some) map { form ⇒
             html.forum.topic.show(categ, topic, posts, form)
@@ -45,7 +45,7 @@ object ForumTopic extends LilaController with ForumController {
   def close(categSlug: String, slug: String) =
     Secure(_.ModerateForum) { implicit ctx ⇒
       me ⇒
-        OptionFuRedirect(topicApi.show(categSlug, slug, 1)) {
+        OptionFuRedirect(topicApi.show(categSlug, slug, 1, ctx.troll)) {
           case (categ, topic, pag) ⇒ topicApi.toggleClose(categ, topic, me) inject
             routes.ForumTopic.show(categSlug, slug, pag.nbPages)
         }

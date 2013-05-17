@@ -13,10 +13,10 @@ import play.api.libs.json.JsObject
 import scalaz.{ OptionT, OptionTs }
 
 final class PostApi(
-  env: Env, 
-  indexer: lila.hub.ActorLazyRef, 
-  maxPerPage: Int,
-  modLog: ModlogApi) extends OptionTs {
+    env: Env,
+    indexer: lila.hub.ActorLazyRef,
+    maxPerPage: Int,
+    modLog: ModlogApi) extends OptionTs {
 
   def makePost(
     categ: Categ,
@@ -34,14 +34,9 @@ final class PostApi(
         categId = categ.id)
       $insert(post) >>
         // denormalize topic
-        $update(topic.copy(
-          nbPosts = topic.nbPosts + 1,
-          lastPostId = post.id,
-          updatedAt = post.createdAt)) >>
+        $update(topic withPost post) >>
         // denormalize categ
-        $update(categ.copy(
-          nbPosts = categ.nbPosts + 1,
-          lastPostId = post.id)) >>-
+        $update(categ withTopic post) >>-
         (indexer ! InsertPost(post)) >>
         env.recent.invalidate inject post
     }
@@ -84,9 +79,9 @@ final class PostApi(
   def lastPageOf(topic: Topic) =
     math.ceil(topic.nbPosts / maxPerPage.toFloat).toInt
 
-  def paginator(topic: Topic, page: Int): Fu[Paginator[Post]] = Paginator(
+  def paginator(topic: Topic, page: Int, troll: Boolean): Fu[Paginator[Post]] = Paginator(
     new Adapter(
-      selector = PostRepo selectTopic topic,
+      selector = PostRepo(troll) selectTopic topic,
       sort = PostRepo.sortQuery :: Nil),
     currentPage = page,
     maxPerPage = maxPerPage)

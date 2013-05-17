@@ -6,7 +6,19 @@ import tube.topicTube
 
 import play.api.libs.json.Json
 
-object TopicRepo {
+object TopicRepo extends TopicRepo(false) {
+
+  def apply(troll: Boolean): TopicRepo = troll.fold(TopicRepoTroll, TopicRepo)
+}
+
+object TopicRepoTroll extends TopicRepo(true)
+
+sealed abstract class TopicRepo(troll: Boolean) {
+
+  private lazy val trollFilter = troll.fold(
+    Json.obj(), 
+    Json.obj("troll" -> false)
+  )
 
   def close(id: String, value: Boolean): Funit = 
     $update.field(id, "closed", value)
@@ -15,11 +27,12 @@ object TopicRepo {
     $find(byCategQuery(categ))
 
   def byTree(categSlug: String, slug: String): Fu[Option[Topic]] = 
-    $find one Json.obj("categId" -> categSlug, "slug" -> slug)
+    $find.one(Json.obj("categId" -> categSlug, "slug" -> slug) ++ trollFilter)
 
   def nextSlug(categ: Categ, name: String, it: Int = 1): Fu[String] = {
     val slug = lila.common.String.slugify(name) + ~(it == 1).option("-" + it)
-    byTree(categ.slug, slug) flatMap {
+    // also take troll topic into accounts
+    TopicRepoTroll.byTree(categ.slug, slug) flatMap {
       _.isDefined.fold(
         nextSlug(categ, name, it + 1),
         fuccess(slug)
@@ -30,5 +43,5 @@ object TopicRepo {
   def incViews(topic: Topic): Funit = 
     $update($select(topic.id), $inc("views" -> 1))
 
-  def byCategQuery(categ: Categ) = Json.obj("categId" -> categ.slug)
+  def byCategQuery(categ: Categ) = Json.obj("categId" -> categ.slug) ++ trollFilter
 }

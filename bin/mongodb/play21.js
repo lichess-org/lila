@@ -21,8 +21,36 @@ db.f_topic.find().forEach(function(topic) {
   }});
 });
 
+print("add troll fields to the forum categs")
+db.f_categ.find().forEach(function(categ) {
+  db.f_categ.update({'_id': categ['_id']}, { $set: {
+    nbTopicsTroll: categ['nbTopics'],
+    nbPostsTroll: categ['nbPosts'],
+    lastPostIdTroll: categ['lastPostId']
+  }});
+});
+
+print("remove useless author names in forum posts")
+db.f_post.update({author:{$exists:true},userId:{$exists:true}},{$unset:{author:true}},{multi:true});
+
 print("mark all forum posts as not troll");
 db.f_post.update({},{$set:{troll:false}}, {multi:true});
+
+print("use troll field in forum post indexes")
+db.f_post.dropIndex('topicId_1')
+db.f_post.dropIndex('topicId_1_createdAt_1')
+db.f_post.dropIndex('categId_1')
+db.f_post.dropIndex('createdAt_-1')
+db.f_post.ensureIndex({topicId: 1, troll: 1})
+db.f_post.ensureIndex({topicId: 1, createdAt: 1, troll: 1})
+db.f_post.ensureIndex({categId: 1, troll: 1})
+db.f_post.ensureIndex({createdAt: -1, troll: 1})
+
+print("use troll field in forum topic indexes")
+db.f_topic.dropIndex('categId_1')
+db.f_topic.dropIndex('categId_1_updatedAt_-1')
+db.f_topic.ensureIndex({categId: 1, troll: 1})
+db.f_topic.ensureIndex({categId: 1, updatedAt: -1, troll: 1})
 
 print("user.settings.{chat,sound} should be a string");
 ['settings.chat', 'settings.sound'].forEach(function(name) {

@@ -6,14 +6,14 @@ import views._
 object ForumCateg extends LilaController with ForumController {
 
   def index = Open { implicit ctx ⇒
-    ~ctx.userId.map(teamCache.teamIds.apply) flatMap { teamIds ⇒
-      categApi list teamIds map { html.forum.categ.index(_) }
+    ctx.userId.zmap(teamCache.teamIds.apply) flatMap { teamIds ⇒
+      categApi.list(teamIds, ctx.troll) map { html.forum.categ.index(_) }
     }
   }
 
   def show(slug: String, page: Int) = Open { implicit ctx ⇒
     CategGrantRead(slug) {
-      OptionOk(categApi.show(slug, page)) {
+      OptionOk(categApi.show(slug, page, ctx.troll)) {
         case (categ, topics) ⇒ html.forum.categ.show(categ, topics)
       }
     }

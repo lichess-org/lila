@@ -2,27 +2,34 @@ package lila.forum
 
 case class CategView(
     categ: Categ,
-    lastPost: Option[(Topic, Post, Int)]) {
+    lastPost: Option[(Topic, Post, Int)],
+    troll: Boolean) {
+
+  def nbTopics = categ nbTopics troll
+  def nbPosts = categ nbPosts troll
+  def lastPostId = categ lastPostId troll
 
   def slug = categ.slug
   def name = categ.name
   def desc = categ.desc
-  def nbTopics = categ.nbTopics
-  def nbPosts = categ.nbPosts
 }
 
 case class TopicView(
     categ: Categ,
     topic: Topic,
     lastPost: Option[Post],
-    lastPage: Int) {
+    lastPage: Int,
+    troll: Boolean) {
+
+  def updatedAt = topic updatedAt troll
+  def nbPosts = topic nbPosts troll
+  def lastPostId = topic lastPostId troll
 
   def id = topic.id
   def slug = topic.slug
   def name = topic.name
   def views = topic.views
   def createdAt = topic.createdAt
-  def nbPosts = topic.nbPosts
 }
 
 case class PostView(
@@ -31,7 +38,7 @@ case class PostView(
     categ: Categ,
     topicLastPage: Int) {
 
-  def show = post.showUsernameOrAuthor + " @ " + topic.name + " - " + post.text.take(80)
+  def show = post.showUserIdOrAuthor + " @ " + topic.name + " - " + post.text.take(80)
 }
 
 case class PostLiteView(post: Post, topic: Topic, topicLastPage: Int)
