@@ -33,9 +33,7 @@ final class PostApi(
         troll = ctx.troll,
         categId = categ.id)
       $insert(post) >>
-        // denormalize topic
         $update(topic withPost post) >>
-        // denormalize categ
         $update(categ withTopic post) >>-
         (indexer ! InsertPost(post)) >>
         env.recent.invalidate inject post
