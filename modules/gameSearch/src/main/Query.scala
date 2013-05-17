@@ -64,9 +64,7 @@ case class Query(
     toFilters(rated, fields.rated),
     toFilters(opening, fields.opening),
     toFilters(status, fields.status)
-  ).flatten.toNel map { fs ⇒
-      andFilter(fs.list: _*)
-    }
+  ).flatten.toNel map { fs ⇒ andFilter(fs.list: _*) }
 
   private def hasAiFilters = hasAi.toList map { a ⇒
     a.fold(existsFilter(fields.ai), missingFilter(fields.ai))
