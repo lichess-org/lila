@@ -6,13 +6,17 @@ import lila.search.{ actorApi ⇒ S }
 
 import akka.actor._
 
-private[gameSearch] final class Indexer(lowLevel: ActorRef) extends Actor {
+private[gameSearch] final class Indexer(
+    lowLevel: ActorRef,
+    isAnalyzed: String ⇒ Fu[Boolean]) extends Actor {
 
   def receive = {
 
     case InsertGame(game) ⇒ PgnRepo getOption game.id foreach {
       _ foreach { pgn ⇒
-        lowLevel ! S.InsertOne(game.id, Game.from(game, pgn))
+        isAnalyzed(game.id) foreach { analyzed ⇒
+          lowLevel ! S.InsertOne(game.id, Game.from(game, pgn, analyzed))
+        }
       }
     }
   }

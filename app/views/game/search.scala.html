@@ -133,6 +133,14 @@ moreCss = moreCss) {
           <div class="half">Order @base.select(form("sort")("order"), Sorting.orders)</div>
         </td>
       </tr>
+      <tr>
+        <th>
+          <label>Analyzed</label>
+        </th>
+        <td class="single">
+          @{ base.checkbox(form("analyzed"), Query.analyzeds._2, 1) }
+        </td>
+      </tr>
     </table>
   </form>
   <div class="search_result">

@@ -33,6 +33,7 @@ private[gameSearch] final class DataForm {
     "dateMin" -> optional(stringIn(Query.dates)),
     "dateMax" -> optional(stringIn(Query.dates)),
     "status" -> optional(numberIn(Query.statuses)),
+    "analyzed" -> optional(numberIn(Query.analyzeds :: Nil)),
     "sort" -> mapping(
       "field" -> stringIn(Sorting.fields),
       "order" -> stringIn(Sorting.orders)
@@ -57,6 +58,7 @@ private[gameSearch] case class SearchData(
     dateMin: Option[String] = None,
     dateMax: Option[String] = None,
     status: Option[Int] = None,
+    analyzed: Option[Int] = None,
     sort: SearchSort = SearchSort()) {
 
   lazy val query = Query(
@@ -73,6 +75,7 @@ private[gameSearch] case class SearchData(
     duration = Range(durationMin, durationMax),
     date = Range(dateMin flatMap toDate, dateMax flatMap toDate),
     status = status,
+    analyzed = analyzed map (_ == 1),
     sorting = Sorting(sort.field, sort.order)
   )
 

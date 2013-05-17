@@ -23,7 +23,8 @@ case class Query(
     opening: Option[String] = None,
     date: Range[DateTime] = Range.none,
     duration: Range[Int] = Range.none,
-    sorting: Sorting = Sorting.default) extends lila.search.Query {
+    sorting: Sorting = Sorting.default,
+    analyzed: Option[Boolean] = None) extends lila.search.Query {
 
   def nonEmpty =
     user1.nonEmpty ||
@@ -63,7 +64,8 @@ case class Query(
     toFilters(variant, fields.variant),
     toFilters(rated, fields.rated),
     toFilters(opening, fields.opening),
-    toFilters(status, fields.status)
+    toFilters(status, fields.status),
+    toFilters(analyzed, fields.analyzed)
   ).flatten.toNel map { fs ⇒ andFilter(fs.list: _*) }
 
   private def hasAiFilters = hasAi.toList map { a ⇒
@@ -99,6 +101,8 @@ object Query {
   val hasAis = List(0 -> "Human opponent", 1 -> "Computer opponent")
 
   val aiLevels = (1 to 8) map { l ⇒ l -> ("Stockfish level " + l) }
+
+  val analyzeds = 1 -> "Analysis available"
 
   val dates = List("0d" -> "Now") ++
     options(List(1, 2, 6), "h", "%d hour{s} ago") ++

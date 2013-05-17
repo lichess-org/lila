@@ -14,7 +14,8 @@ import org.elasticsearch.action.search.SearchResponse
 final class Env(
     config: Config,
     system: ActorSystem,
-    esIndexer: Fu[EsIndexer]) {
+    esIndexer: Fu[EsIndexer],
+    analyser: lila.analyse.Analyser) {
 
   private val IndexName = config getString "index"
   private val TypeName = config getString "type"
@@ -30,7 +31,8 @@ final class Env(
   )), name = IndexerName + "-low-level")
 
   private val indexer: ActorRef = system.actorOf(Props(new Indexer(
-    lowLevel = lowLevelIndexer
+    lowLevel = lowLevelIndexer,
+    isAnalyzed = analyser.has _
   )), name = IndexerName)
 
   lazy val paginator = new lila.search.PaginatorBuilder(
@@ -68,27 +70,30 @@ final class Env(
     esIndexer map { es ⇒
       $enumerate.bulk[Option[GameModel]](query, batchSize) { gameOptions ⇒
         val games = gameOptions.flatten
+        val gameIds = games.map(_.id).toSeq
         val nbGames = games.size
         nb = nb + nbGames
-        PgnRepo.associate(games.map(_.id).toSeq) map { pgns ⇒
-          val pairs = (pgns map {
-            case (id, pgn) ⇒ games.find(_.id == id) map (_ -> pgn)
-          }).flatten
-          es bulk_send {
-            (pairs map {
-              case (game, pgn) ⇒ es.index_prepare(
-                IndexName,
-                TypeName,
-                game.id,
-                Json stringify Game.from(game, pgn)
-              ).request
-            })
+        PgnRepo.associate(gameIds) flatMap { pgns ⇒
+          analyser hasMany gameIds map { analyzedIds ⇒
+            val pairs = (pgns map {
+              case (id, pgn) ⇒ games.find(_.id == id) map (_ -> pgn)
+            }).flatten
+            es bulk_send {
+              (pairs map {
+                case (game, pgn) ⇒ es.index_prepare(
+                  IndexName,
+                  TypeName,
+                  game.id,
+                  Json stringify Game.from(game, pgn, analyzedIds contains game.id)
+                ).request
+              })
+            }
+            nbSkipped = nbSkipped + nbGames - pairs.size
+            val perMs = batchSize / (nowMillis - started)
+            started = nowMillis
+            loginfo("[game search] Indexed %d of %d, skipped %d, at %d/s".format(
+              nb, size, nbSkipped, math.round(perMs * 1000)))
           }
-          nbSkipped = nbSkipped + nbGames - pairs.size
-          val perMs = batchSize / (nowMillis - started)
-          started = nowMillis
-          loginfo("[game search] Indexed %d of %d, skipped %d, at %d/s".format(
-            nb, size, nbSkipped, math.round(perMs * 1000)))
         }
       }
     }
@@ -100,5 +105,6 @@ object Env {
   lazy val current = "[boot] gameSearch" describes new Env(
     config = lila.common.PlayApp loadConfig "gameSearch",
     system = lila.common.PlayApp.system,
-    esIndexer = lila.search.Env.current.esIndexer)
+    esIndexer = lila.search.Env.current.esIndexer,
+    analyser = lila.analyse.Env.current.analyser)
 }
