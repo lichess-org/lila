@@ -40,8 +40,8 @@ private[security] object UserSpy {
 
   private def explore(users: Set[User], ips: Set[IP], _users: Set[User]): Fu[Set[User]] = {
     nextIps(users, ips) flatMap { nIps ⇒
-      nextUsers(nIps, users) flatMap { nUsers ⇒
-        nUsers.isEmpty ? fuccess(users) | explore(nUsers, nIps ++: ips, nUsers ++: users)
+      nextUsers(nIps, users) map { nUsers ⇒
+        nUsers ++: users ++: _users 
       }
     }
   }
