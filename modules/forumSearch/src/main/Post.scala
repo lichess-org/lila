@@ -12,6 +12,7 @@ private[forumSearch] object Post {
     val topicId = "ti"
     val author = "au"
     val staff = "st"
+    val troll = "tr"
   }
   import fields._
   import ElasticSearch.Mapping._
@@ -22,7 +23,8 @@ private[forumSearch] object Post {
       boost(topic, "string", 4),
       boost(author, "string"),
       field(topicId, "string"),
-      field(staff, "boolean")
+      field(staff, "boolean"),
+      field(troll, "boolean")
     ).toMap),
     "analyzer" -> "snowball"
   )
@@ -32,6 +34,7 @@ private[forumSearch] object Post {
     topic -> view.topic.name,
     author -> ~(view.post.userId orElse view.post.author),
     topicId -> view.topic.id,
-    staff -> view.post.isStaff
+    staff -> view.post.isStaff,
+    troll -> view.post.troll
   )
 }

@@ -20,8 +20,8 @@ final class Env(
   private val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
   private val IndexerName = config getString "indexer.name"
 
-  def apply(text: String, page: Int, staff: Boolean) =
-    paginatorBuilder(Query(text, staff), page)
+  def apply(text: String, page: Int, staff: Boolean, troll: Boolean) =
+    paginatorBuilder(Query(text, staff, troll), page)
 
   private lazy val indexer: ActorRef = system.actorOf(Props(new Indexer(
     lowLevel = lowLevelIndexer,

@@ -6,7 +6,9 @@ import Post.fields
 import org.elasticsearch.index.query._, QueryBuilders._, FilterBuilders._
 
 private[forumSearch] final class Query private (
-    terms: List[String], staff: Boolean) extends lila.search.Query {
+    terms: List[String],
+    staff: Boolean,
+    troll: Boolean) extends lila.search.Query {
 
   def searchRequest(from: Int = 0, size: Int = 10) = ElasticSearch.Request.Search(
     query = makeQuery,
@@ -22,12 +24,15 @@ private[forumSearch] final class Query private (
     }
   }
 
-  private def makeFilters = !staff option termFilter(fields.staff, false)
+  private def makeFilters = List(
+    !staff option termFilter(fields.staff, false),
+    !troll option termFilter(fields.troll, false)
+  ).flatten.toNel map { fs ⇒ andFilter(fs.list: _*) }
 }
 
 object Query {
 
-  def apply(text: String, staff: Boolean): Query = new Query(
-    ElasticSearch.Request decomposeTextQuery text, staff
+  def apply(text: String, staff: Boolean, troll: Boolean): Query = new Query(
+    ElasticSearch.Request decomposeTextQuery text, staff, troll
   )
 }
