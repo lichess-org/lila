@@ -26,8 +26,6 @@ input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;
 }
 button.ui-state-hover {
     box-shadow: 0 0 9px #d85000;
-    -moz-box-shadow: 0 0 9px #d85000;
-    -webkit-box-shadow: 0 0 9px #d85000;
 }
 .ui-state-active {
     border: 1px solid #d85000;

@@ -664,7 +664,6 @@ table.slist thead {
   background: -webkit-linear-gradient(top , #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
   background: -ms-linear-gradient(top , #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
   background: -o-linear-gradient(top , #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
-  background: linear-gradient(top , #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
 }
 
 /* active gradient */
@@ -689,7 +688,6 @@ div.locale_menu a.active,
   background: -webkit-linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
   background: -ms-linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
   background: -o-linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
-  background: linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
 }
 
 /* strong inactive gradient */
@@ -703,7 +701,6 @@ div.hooks td.action,
   background: -webkit-linear-gradient(top , #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
   background: -ms-linear-gradient(top , #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
   background: -o-linear-gradient(top , #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
-  background: linear-gradient(top , #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
 }
 
 /* current gradient */
@@ -715,7 +712,6 @@ div.hooks td.action,
   background: -webkit-linear-gradient(top , #aaa, #999) repeat scroll 0 0 #999;
   background: -ms-linear-gradient(top , #aaa, #999) repeat scroll 0 0 #999;
   background: -o-linear-gradient(top , #aaa, #999) repeat scroll 0 0 #999;
-  background: linear-gradient(top , #aaa, #999) repeat scroll 0 0 #999;
 }
 
 /* standard shadow */

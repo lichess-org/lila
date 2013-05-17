@@ -46,6 +46,7 @@ ol.crumbs li:first-child {
 #lichess_forum form.search {
   float: right;
   margin: 20px;
+  font-size: 1.3em;
 }
 
 #lichess_forum .search_results {
