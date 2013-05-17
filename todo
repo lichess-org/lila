@@ -89,10 +89,11 @@ safari has high bounce rate
 DEPLOY p21
 ----------
 
-BLOCKING = https://github.com/zenexity/ReactiveMongo/issues/72
+upgrade nginx to get websocket proxying support
+wait for https://github.com/zenexity/ReactiveMongo/issues/72
 
 compare nginx conf with arch
-mongo lichess bin/mongodb/play21.js
+uncomment then run: mongo lichess bin/mongodb/play21.js
 mongo lichess bin/mongodb/denormalize-game-uids.js
 
 ANNOUNCEMENT

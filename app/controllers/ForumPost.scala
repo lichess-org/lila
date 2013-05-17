@@ -24,20 +24,18 @@ object ForumPost extends LilaController with ForumController {
     CategGrantWrite(categSlug) {
       implicit val req = ctx.body
       OptionFuResult(topicApi.show(categSlug, slug, page)) {
-        case (categ, topic, posts) ⇒ 
-        if (topic.closed) fuccess(BadRequest("This topic is closed"))
-        else forms.post.bindFromRequest.fold(
-          err ⇒ forms.anyCaptcha map { captcha ⇒
-            BadRequest(html.forum.topic.show(categ, topic, posts, Some(err -> captcha)))
-          },
-          data ⇒ Firewall {
-            postApi.makePost(categ, topic, data) map { post ⇒
+        case (categ, topic, posts) ⇒
+          if (topic.closed) fuccess(BadRequest("This topic is closed"))
+          else forms.post.bindFromRequest.fold(
+            err ⇒ forms.anyCaptcha map { captcha ⇒
+              BadRequest(html.forum.topic.show(categ, topic, posts, Some(err -> captcha)))
+            },
+            data ⇒ postApi.makePost(categ, topic, data) map { post ⇒
               Redirect("%s#%d".format(
                 routes.ForumTopic.show(categ.slug, topic.slug, postApi lastPageOf topic.incNbPosts),
                 post.number))
             }
-          }
-        )
+          )
       }
     }
   }

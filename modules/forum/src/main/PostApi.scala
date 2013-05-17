@@ -18,12 +18,6 @@ final class PostApi(
   maxPerPage: Int,
   modLog: ModlogApi) extends OptionTs {
 
-  def create(categSlug: String, slug: String, page: Int): Fu[Option[(Categ, Topic, Paginator[Post])]] = for {
-    categ ← optionT(CategRepo bySlug categSlug)
-    topic ← optionT(TopicRepo.byTree(categSlug, slug))
-    tuple ← optionT(paginator(topic, page) map { (categ, topic, _).some })
-  } yield tuple
-
   def makePost(
     categ: Categ,
     topic: Topic,
@@ -36,6 +30,7 @@ final class PostApi(
         ip = ctx.isAnon option ctx.req.remoteAddress,
         text = data.text,
         number = number + 1,
+        troll = ctx.troll,
         categId = categ.id)
       $insert(post) >>
         // denormalize topic

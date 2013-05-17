@@ -33,11 +33,15 @@ private[forum] final class CategApi(env: Env) extends OptionTs {
         name = name,
         desc = "Forum of the team " + name,
         pos = position,
-        team = slug.some)
+        team = slug.some,
+        nbTopics = 0,
+        nbPosts = 0,
+        lastPostId = "")
       val topic = Topic.make(
         categId = categ.slug,
         slug = slug + "-forum",
-        name = name + " forum")
+        name = name + " forum",
+        troll = false)
       val post = Post.make(
         topicId = topic.id,
         author = none,
@@ -45,6 +49,7 @@ private[forum] final class CategApi(env: Env) extends OptionTs {
         ip = none,
         text = "Welcome to the %s forum!\nOnly members of the team can post here, but everybody can read." format name,
         number = 1,
+        troll = false,
         categId = categ.id)
       $insert(categ) >>
         $insert(post) >>
