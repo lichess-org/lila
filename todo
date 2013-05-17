@@ -91,5 +91,15 @@ DEPLOY p21
 
 BLOCKING = https://github.com/zenexity/ReactiveMongo/issues/72
 
+compare nginx conf with arch
 mongo lichess bin/mongodb/play21.js
 mongo lichess bin/mongodb/denormalize-game-uids.js
+
+ANNOUNCEMENT
+mods  - new mod UI in user profile
+      - mark as troll
+      - can close forum topic
+
+users - more translations
+      - less latency
+      - more bugs :p
