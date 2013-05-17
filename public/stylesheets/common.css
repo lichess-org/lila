@@ -742,6 +742,9 @@ div.checkmateSection {
   float: left;
   font-size: 0.9em;
 }
+div.checkmateSection label {
+  width: 310px;
+}
 div.checkmateSection div.result {
   display: none;
   height: 48px;

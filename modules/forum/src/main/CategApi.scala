@@ -11,15 +11,15 @@ import scalaz.{ OptionT, OptionTs }
 
 private[forum] final class CategApi(env: Env) extends OptionTs {
 
-  def list(teams: List[String]): Fu[List[CategView]] = for {
+  def list(teams: List[String], troll: Boolean): Fu[List[CategView]] = for {
     categs ← CategRepo withTeams teams
     views ← (categs map { categ ⇒
-      env.postApi get categ.lastPostId map { topicPost ⇒
+      env.postApi get (categ lastPostId troll) map { topicPost ⇒
         CategView(categ, topicPost map {
           _ match {
             case (topic, post) ⇒ (topic, post, env.postApi lastPageOf topic)
           }
-        })
+        }, troll)
       }
     }).sequence
   } yield views
@@ -36,7 +36,10 @@ private[forum] final class CategApi(env: Env) extends OptionTs {
         team = slug.some,
         nbTopics = 0,
         nbPosts = 0,
-        lastPostId = "")
+        lastPostId = "",
+        nbTopicsTroll = 0,
+        nbPostsTroll = 0,
+        lastPostIdTroll = "")
       val topic = Topic.make(
         categId = categ.slug,
         slug = slug + "-forum",
@@ -53,19 +56,13 @@ private[forum] final class CategApi(env: Env) extends OptionTs {
         categId = categ.id)
       $insert(categ) >>
         $insert(post) >>
-        $insert(topic.copy(
-          nbPosts = 1,
-          lastPostId = post.id,
-          updatedAt = post.createdAt)) >>
-        $update(categ.copy(
-          nbTopics = categ.nbTopics + 1,
-          nbPosts = categ.nbPosts + 1,
-          lastPostId = post.id))
+        $insert(topic withPost post) >>
+        $update(categ withTopic post)
     }
 
-  def show(slug: String, page: Int): Fu[Option[(Categ, Paginator[TopicView])]] =
+  def show(slug: String, page: Int, troll: Boolean): Fu[Option[(Categ, Paginator[TopicView])]] =
     optionT(CategRepo bySlug slug) flatMap { categ ⇒
-      optionT(env.topicApi.paginator(categ, page) map { (categ, _).some })
+      optionT(env.topicApi.paginator(categ, page, troll) map { (categ, _).some })
     }
 
   def denormalize(categ: Categ): Funit = for {
@@ -73,10 +70,17 @@ private[forum] final class CategApi(env: Env) extends OptionTs {
     topicIds = topics map (_.id)
     nbPosts ← PostRepo countByTopics topicIds
     lastPost ← PostRepo lastByTopics topicIds
+    topicsTroll ← TopicRepoTroll byCateg categ
+    topicIdsTroll = topicsTroll map (_.id)
+    nbPostsTroll ← PostRepoTroll countByTopics topicIdsTroll
+    lastPostTroll ← PostRepoTroll lastByTopics topicIdsTroll
     _ ← $update(categ.copy(
       nbTopics = topics.size,
       nbPosts = nbPosts,
-      lastPostId = lastPost zmap (_.id)
+      lastPostId = lastPost zmap (_.id),
+      nbTopicsTroll = topicsTroll.size,
+      nbPostsTroll = nbPostsTroll,
+      lastPostIdTroll = lastPostTroll zmap (_.id)
     ))
   } yield ()
 

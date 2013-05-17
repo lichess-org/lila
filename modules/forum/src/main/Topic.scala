@@ -19,6 +19,10 @@ case class Topic(
     troll: Boolean,
     closed: Boolean) {
 
+  def updatedAt(troll: Boolean): DateTime = troll.fold(updatedAtTroll, updatedAt)
+  def nbPosts(troll: Boolean): Int = troll.fold(nbPostsTroll, nbPosts)
+  def lastPostId(troll: Boolean): String = troll.fold(lastPostIdTroll, lastPostId)
+
   def open = !closed
 
   def withPost(post: Post): Topic = copy(
