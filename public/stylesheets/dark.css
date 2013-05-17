@@ -315,7 +315,6 @@ body.dark table.slist thead
   background: -webkit-linear-gradient(top , #3a3a3a, #202020) repeat scroll 0 0 #3a3a3a;
   background: -ms-linear-gradient(top , #3a3a3a, #202020) repeat scroll 0 0 #3a3a3a;
   background: -o-linear-gradient(top , #3a3a3a, #202020) repeat scroll 0 0 #3a3a3a;
-  background: linear-gradient(top , #3a3a3a, #202020) repeat scroll 0 0 #3a3a3a;
 }
 /* strong inactive gradient */
 body.dark div.hooks td.action,
@@ -328,7 +327,6 @@ body.dark .button:hover
   background: -webkit-linear-gradient(top , #505050, #202020) repeat scroll 0 0 #505050;
   background: -ms-linear-gradient(top , #505050, #202020) repeat scroll 0 0 #505050;
   background: -o-linear-gradient(top , #505050, #202020) repeat scroll 0 0 #505050;
-  background: linear-gradient(top , #505050, #202020) repeat scroll 0 0 #505050;
 }
 /* active gradient */
 body.dark #top a.goto_nav.active,
@@ -352,7 +350,6 @@ body.dark div.locale_menu a.active,
   background: -webkit-linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
   background: -ms-linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
   background: -o-linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
-  background: linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
 }
 /* current gradient */
 body.dark #top a.goto_nav.current {
@@ -363,7 +360,6 @@ body.dark #top a.goto_nav.current {
   background: -webkit-linear-gradient(top , #808080, #606060) repeat scroll 0 0 #606060;
   background: -ms-linear-gradient(top , #808080, #606060) repeat scroll 0 0 #606060;
   background: -o-linear-gradient(top , #808080, #606060) repeat scroll 0 0 #606060;
-  background: linear-gradient(top , #808080, #606060) repeat scroll 0 0 #606060;
 }
 body.dark div.hooks td.action.empty {
   background: none;
