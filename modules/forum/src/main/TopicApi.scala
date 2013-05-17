@@ -11,10 +11,10 @@ import actorApi._
 import scalaz.{ OptionT, OptionTs }
 
 private[forum] final class TopicApi(
-  env: Env, 
-  indexer: lila.hub.ActorLazyRef,
-  maxPerPage: Int,
-  modLog: lila.mod.ModlogApi) extends OptionTs {
+    env: Env,
+    indexer: lila.hub.ActorLazyRef,
+    maxPerPage: Int,
+    modLog: lila.mod.ModlogApi) extends OptionTs {
 
   def show(categSlug: String, slug: String, page: Int): Fu[Option[(Categ, Topic, Paginator[Post])]] =
     for {
@@ -32,24 +32,20 @@ private[forum] final class TopicApi(
       val topic = Topic.make(
         categId = categ.slug,
         slug = slug,
-        name = data.name)
+        name = data.name,
+        troll = ctx.troll)
       val post = Post.make(
         topicId = topic.id,
         author = data.post.author,
         userId = ctx.me map (_.id),
         ip = ctx.isAnon option ctx.req.remoteAddress,
+        troll = ctx.troll,
         text = data.post.text,
         number = 1,
         categId = categ.id)
       $insert(post) >>
-        $insert(topic.copy(
-          nbPosts = 1,
-          lastPostId = post.id,
-          updatedAt = post.createdAt)) >>
-        $update(categ.copy(
-          nbTopics = categ.nbTopics + 1,
-          nbPosts = categ.nbPosts + 1,
-          lastPostId = post.id)) >>-
+        $insert(topic withPost post) >>
+        $update(categ withTopic post) >>-
         (indexer ! InsertPost(post)) >>
         env.recent.invalidate inject topic
     }
@@ -78,7 +74,7 @@ private[forum] final class TopicApi(
       (indexer ! RemoveTopic(topic.id)) >>
       env.recent.invalidate
 
-  def toggleClose(categ: Categ, topic: Topic, mod: User): Funit = 
+  def toggleClose(categ: Categ, topic: Topic, mod: User): Funit =
     TopicRepo.close(topic.id, topic.open) >>
       modLog.toggleCloseTopic(mod, categ.name, topic.name, topic.open)
 

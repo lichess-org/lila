@@ -14,6 +14,7 @@ case class Post(
     ip: Option[String],
     text: String,
     number: Int,
+    troll: Boolean,
     createdAt: DateTime) {
 
   def showAuthor = (author map (_.trim) filter ("" !=)) | User.anonymous
@@ -36,7 +37,8 @@ object Post {
     userId: Option[String],
     ip: Option[String],
     text: String,
-    number: Int): Post = Post(
+    number: Int,
+    troll: Boolean): Post = Post(
     id = Random nextString idSize,
     topicId = topicId,
     author = author,
@@ -44,6 +46,7 @@ object Post {
     ip = ip,
     text = text,
     number = number,
+    troll = troll,
     createdAt = DateTime.now,
     categId = categId)
 
