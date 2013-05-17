@@ -1,12 +1,13 @@
 package lila.hub
 
+import actorApi._
+
 import scala.concurrent.duration._
 import akka.actor._
 import akka.routing._
 import akka.dispatch.Dispatchers
 import akka.pattern.{ ask, pipe }
 import akka.util.Timeout
-import actorApi._
 
 final class Broadcast(lazyRefs: List[ActorLazyRef])(implicit timeout: Timeout) extends Actor {
 

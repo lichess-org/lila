@@ -38,13 +38,23 @@ final class Env(
 
   lazy val history = () ⇒ new History(ttl = MessageTtl)
 
+  lazy val roundMap = new lila.hub.ActorMap(id ⇒
+    new Round(
+      gameId = id,
+      messenger = messenger,
+      takeback = takeback,
+      ai = ai,
+      finisher = finisher,
+      socketHub = socketHub,
+      moretimeDuration = Moretime)
+  )
+
   val socketHub = system.actorOf(Props(new SocketHub(
     makeHistory = history,
     getUsername = getUsername,
     uidTimeout = UidTimeout,
     socketTimeout = SocketTimeout,
-    playerTimeout = PlayerTimeout,
-    gameSocketName = gameId ⇒ SocketName + "-" + gameId
+    playerTimeout = PlayerTimeout
   )), name = SocketName)
 
   lazy val socketHandler = new SocketHandler(

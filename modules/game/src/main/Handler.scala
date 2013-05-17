@@ -1,6 +1,6 @@
 package lila.game
 
-abstract class Handler {
+trait Handler {
 
   protected def attempt[A](
     fullId: String,
