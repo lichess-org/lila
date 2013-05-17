@@ -21,11 +21,19 @@ final class Env(
   private val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
   private val IndexerName = config getString "indexer.name"
 
-  def apply(text: String, page: Int) = paginatorBuilder(Query(text), page)
+  private val lowLevelIndexer: ActorRef = system.actorOf(Props(new TypeIndexer(
+    esIndexer = esIndexer,
+    indexName = IndexName,
+    typeName = TypeName,
+    mapping = Team.jsonMapping,
+    indexQuery = indexQuery _
+  )), name = IndexerName + "-low-level")
 
-  val indexer: ActorRef = system.actorOf(Props(new Indexer(
+  private val indexer: ActorRef = system.actorOf(Props(new Indexer(
     lowLevel = lowLevelIndexer
   )), name = IndexerName)
+
+  def apply(text: String, page: Int) = paginatorBuilder(Query(text), page)
 
   def cli = new lila.common.Cli {
     import akka.pattern.ask
@@ -41,14 +49,6 @@ final class Env(
     indexer = lowLevelIndexer,
     maxPerPage = PaginatorMaxPerPage,
     converter = responseToTeams _)
-
-  private val lowLevelIndexer: ActorRef = system.actorOf(Props(new TypeIndexer(
-    esIndexer = esIndexer,
-    indexName = IndexName,
-    typeName = TypeName,
-    mapping = Team.jsonMapping,
-    indexQuery = indexQuery _
-  )), name = IndexerName + "-low-level")
 
   private def responseToTeams(response: SearchResponse): Fu[List[TeamModel]] =
     $find.byOrderedIds[TeamModel](response.getHits.hits.toList map (_.id))

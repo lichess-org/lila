@@ -20,13 +20,21 @@ final class Env(
   private val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
   private val IndexerName = config getString "indexer.name"
 
-  def apply(text: String, page: Int, staff: Boolean, troll: Boolean) =
-    paginatorBuilder(Query(text, staff, troll), page)
+  private val lowLevelIndexer: ActorRef = system.actorOf(Props(new TypeIndexer(
+    esIndexer = esIndexer,
+    indexName = IndexName,
+    typeName = TypeName,
+    mapping = Post.jsonMapping,
+    indexQuery = indexQuery _
+  )), name = IndexerName + "-low-level")
 
-  private lazy val indexer: ActorRef = system.actorOf(Props(new Indexer(
+  private val indexer: ActorRef = system.actorOf(Props(new Indexer(
     lowLevel = lowLevelIndexer,
     postApi = postApi
   )), name = IndexerName)
+
+  def apply(text: String, page: Int, staff: Boolean, troll: Boolean) =
+    paginatorBuilder(Query(text, staff, troll), page)
 
   def cli = new lila.common.Cli {
     import akka.pattern.ask
@@ -42,14 +50,6 @@ final class Env(
     indexer = lowLevelIndexer,
     maxPerPage = PaginatorMaxPerPage,
     converter = responseToPosts _)
-
-  private val lowLevelIndexer: ActorRef = system.actorOf(Props(new TypeIndexer(
-    esIndexer = esIndexer,
-    indexName = IndexName,
-    typeName = TypeName,
-    mapping = Post.jsonMapping,
-    indexQuery = indexQuery _
-  )), name = IndexerName + "-low-level")
 
   private def responseToPosts(response: SearchResponse): Fu[List[PostView]] =
     postApi viewsFromIds (response.getHits.hits.toList map (_.id))
