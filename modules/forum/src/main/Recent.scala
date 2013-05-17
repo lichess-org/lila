@@ -38,7 +38,7 @@ private[forum] final class Recent(postApi: PostApi, ttl: Duration) {
   private val cache: Cache[List[PostLiteView]] = LruCache(timeToLive = ttl)
 
   private def fetch(key: String): Fu[List[PostLiteView]] =
-    (key.split(";").toList.pp match {
+    (key.split(";").toList match {
       case "[troll]" :: categs ⇒ PostRepoTroll.recentInCategs(nb)(categs)
       case categs              ⇒ PostRepo.recentInCategs(nb)(categs)
     }) flatMap postApi.liteViews
