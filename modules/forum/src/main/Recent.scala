@@ -25,10 +25,10 @@ private[forum] final class Recent(postApi: PostApi, ttl: Duration) {
 
   private def userCacheKey(user: Option[User], getTeams: GetTeams): Fu[String] =
     user.map(_.id) zmap getTeams map { teams ⇒
-      ((user zmap MasterGranter(Permission.StaffForum)).fold(
-        staffCategIds, publicCategIds
-      ) ::: (teams map teamSlug)) mkString ";"
-    }
+      (user.zmap(_.troll) ?? List("[troll]")) :::
+        (user zmap MasterGranter(Permission.StaffForum)).fold(staffCategIds, publicCategIds) :::
+        (teams map teamSlug)
+    } map (_ mkString ";")
 
   private lazy val publicCategIds =
     CategRepo.withTeams(Nil).await.map(_.slug) filterNot ("staff" ==)
@@ -38,5 +38,8 @@ private[forum] final class Recent(postApi: PostApi, ttl: Duration) {
   private val cache: Cache[List[PostLiteView]] = LruCache(timeToLive = ttl)
 
   private def fetch(key: String): Fu[List[PostLiteView]] =
-    PostRepo.recentInCategs(nb)(key.split(";").toList) flatMap postApi.liteViews
+    (key.split(";").toList.pp match {
+      case "[troll]" :: categs ⇒ PostRepoTroll.recentInCategs(nb)(categs)
+      case categs              ⇒ PostRepo.recentInCategs(nb)(categs)
+    }) flatMap postApi.liteViews
 }
