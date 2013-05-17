@@ -4,16 +4,18 @@ import lila.game.{ Game, GameRepo, PgnRepo }
 import lila.db.api._
 import tube.analysisTube
 import lila.game.tube.gameTube
+import makeTimeout.veryLarge
 
 import akka.pattern.ask
 
-private[analyse] final class Analyser(ai: lila.hub.ActorLazyRef) {
-
-  private implicit val timeout = makeTimeout minutes 5
+final class Analyser(ai: lila.hub.ActorLazyRef) {
 
   def get(id: String): Fu[Option[Analysis]] = $find.byId[Analysis](id)
 
   def has(id: String): Fu[Boolean] = AnalysisRepo isDone id
+
+  def hasMany(ids: Seq[String]): Fu[Set[String]] =
+    $primitive[Analysis, String]($select byIds ids, "_id")(_.asOpt[String]) map (_.toSet) 
 
   def getOrGenerate(id: String, userId: String, admin: Boolean): Fu[Analysis] = {
 
@@ -31,7 +33,7 @@ private[analyse] final class Analyser(ai: lila.hub.ActorLazyRef) {
           initialFen ← GameRepo initialFen id
           analysis ← {
             ai ? lila.hub.actorApi.ai.Analyse(id, pgn, initialFen)
-          } mapTo manifest[Analysis] 
+          } mapTo manifest[Analysis]
         } yield analysis) flatFold (
           e ⇒ AnalysisRepo.fail(id, e).mapTo[Analysis],
           a ⇒ AnalysisRepo.done(id, a) >> fuccess(a)

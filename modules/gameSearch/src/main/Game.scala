@@ -21,6 +21,7 @@ private[gameSearch] object Game {
     val opening = "op"
     val date = "da"
     val duration = "du"
+    val analyzed = "an"
   }
   import fields._
 
@@ -53,12 +54,13 @@ private[gameSearch] object Game {
         field(ai, "short"),
         field(opening, "string"),
         field(date, "date", attrs = Json.obj("format" -> Date.format)),
-        field(duration, "short")
+        field(duration, "short"),
+        field(analyzed, "boolean")
       ))
     )
   }
 
-  def from(game: GameModel, pgn: String): JsObject = Json.obj(
+  def from(game: GameModel, pgn: String, anal: Boolean): JsObject = Json.obj(
     status -> game.status.is(_.Timeout).fold(Status.Resign, game.status).id,
     turns -> math.ceil(game.turns.toFloat / 2),
     rated -> game.rated,
@@ -69,6 +71,7 @@ private[gameSearch] object Game {
     ai -> Json.toJson(game.aiLevel),
     date -> (Date.formatter print game.createdAt),
     duration -> game.estimateTotalTime,
-    opening -> Json.toJson(OpeningExplorer openingOf pgn map (_.code.toLowerCase))
+    opening -> Json.toJson(OpeningExplorer openingOf pgn map (_.code.toLowerCase)),
+    analyzed -> anal
   )
 }

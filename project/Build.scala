@@ -75,7 +75,7 @@ object ApplicationBuild extends Build {
       play.api, reactivemongo, playReactivemongo, spray.caching)
   )
 
-  lazy val gameSearch = project("gameSearch", Seq(common, hub, chess, search, game)).settings(
+  lazy val gameSearch = project("gameSearch", Seq(common, hub, chess, search, game, analyse)).settings(
     libraryDependencies ++= provided(
       play.api, reactivemongo, playReactivemongo, scalastic)
   )

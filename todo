@@ -69,7 +69,6 @@ show forum search everywhere
 better admin tools for team forums http://en.lichess.org/inbox/r8scbx64
 optional email http://en.lichess.org/forum/lichess-feedback/secret-question----password-recovery
 answer http://en.lichess.org/forum/lichess-feedback/expanded-chat-functionality-perhaps
-FIX TOUCHPAD SIGN IN http://en.lichess.org/forum/lichess-feedback/cant-sign-in#6
 chess variants https://github.com/ornicar/lila/issues/2://github.com/ornicar/lila/issues/25 
 publish scalastic 0.90.0-thib
 stream game export
@@ -77,7 +76,6 @@ show fen only after game is finished http://en.lichess.org/forum/lichess-feedbac
 I owe the admins decent tools
 tell opponent chat is disabled
 from MoralIntentions email:
-- The possibility to search for analysed games only (in Games -> Advanced Search).
 - The possibility to use a practice board to play against yourself or to demonstrate something when you're giving chess lessons with your laptop or an interactive whiteboard (with the same features as and with a button beneath "Play with the machine" in Play). 
 - A time control option of Simple delay and/or Bronstein delay (http://en.wikipedia.org/wiki/Time_control). 
 - The possibility to give other players a "thumbs up" or a "thumbs down" on their profile (which is only visible to the player who has given the thumbs up or thumbs down) so you can filter games (in Play) based on thumbs up (some players lack sportsmanship, this is a way to avoid them). It would be great if we could also filter "Who is online" (in People) that way, so we can see if it's likely that we'll find a fun opponent to play against. 
