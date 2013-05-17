@@ -22,6 +22,13 @@ case class WithSocketUserIds(id: String, f: Iterable[String] ⇒ Unit)
 case object GetNbMembers
 case class NbMembers(nb: Int)
 
+package map {
+  case class Get(id: String)
+  case class With[A](id: String, f: akka.actor.ActorRef ⇒ Fu[A])
+  case object Count
+  case class Stop(id: String)
+}
+
 package captcha {
   case object AnyCaptcha
   case class GetCaptcha(id: String)

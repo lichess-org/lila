@@ -57,8 +57,34 @@ case class Connected(enumerator: JsEnumerator, member: Member)
 case class GetEventsSince(version: Int)
 case class MaybeEvents(events: Option[List[VersionedEvent]])
 case class AddEvents(events: List[Event])
-case object ClockSync
 case class IsConnectedOnGame(gameId: String, color: Color)
 case class IsGone(gameId: String, color: Color)
 case object AnalysisAvailable
 case class Ack(uid: String)
+
+package round {
+
+  case class Play(
+    color: Color,
+    orig: String,
+    dest: String,
+    prom: Option[String] = None,
+    blur: Boolean = false,
+    lag: Int = 0)
+
+  case class Abort(fullId: String)
+  case class Resign(fullId: String, force: Boolean)
+  case class Outoftime(color: Color)
+  case class DrawClaim(fullId: String)
+  case class DrawAccept(fullId: String)
+  case class DrawOffer(fullId: String)
+  case class DrawCancel(fullId: String)
+  case class DrawDecline(fullId: String)
+  case class RematchCancel(fullId: String)
+  case class RematchDecline(fullId: String)
+  case class TakebackAccept(fullId: String)
+  case class TakebackOffer(fullId: String)
+  case class TakebackCancel(fullId: String)
+  case class TakebackDecline(fullId: String)
+  case class Moretime(color: Color)
+}
