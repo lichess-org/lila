@@ -150,7 +150,7 @@ private[controllers] trait LilaController
     fua flatMap { _.fold(notFound(ctx))(a ⇒ op(a)) }
 
   protected def notFound(implicit ctx: Context): Fu[Result] =
-    ctx.req.headers get "X-Requested-With" ?? ("XMLHttpRequest" ==) fold (
+    (ctx.req.headers get "X-Requested-With") ?? ("XMLHttpRequest" ==) fold (
       NotFound("resource not found").fuccess,
       Lobby handleNotFound ctx
     )

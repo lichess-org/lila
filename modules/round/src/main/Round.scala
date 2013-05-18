@@ -71,11 +71,11 @@ private[round] final class Round(
       }
     }
 
-    case Abort(playerId)         ⇒ sender ! blocking(playerId)(finisher.abort)
+    case Abort(playerId)  ⇒ sender ! blocking(playerId)(finisher.abort)
 
-    case Resign(playerId, false) ⇒ sender ! blocking(playerId)(finisher.resign)
+    case Resign(playerId) ⇒ sender ! blocking(playerId)(finisher.resign)
 
-    case Resign(playerId, true) ⇒ sender ! blocking(playerId) { pov ⇒
+    case ResignForce(playerId) ⇒ sender ! blocking(playerId) { pov ⇒
       socketHub ? IsGone(pov.game.id, !pov.color) flatMap {
         case true ⇒ finisher resignForce pov
         case _    ⇒ funit
