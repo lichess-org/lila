@@ -1,7 +1,8 @@
 package lila.app
 package mashup
 
-import lila.lobby.{ Fisherman, Hook, HookRepo, Messenger }
+import lila.lobby.{ Hook, HookRepo, Messenger }
+import lila.lobby.actorApi.lobby._
 import lila.timeline.Entry
 import lila.game.{ Game, GameRepo, Featured }
 import lila.forum.PostLiteView
@@ -10,13 +11,15 @@ import lila.tournament.Created
 import lila.setup.FilterConfig
 import lila.user.Context
 import controllers.routes
+import makeTimeout.large
 
+import akka.actor.ActorRef
+import akka.pattern.ask
 import play.api.mvc.Call
 import play.api.libs.json.{ Json, JsObject, JsArray }
-import makeTimeout.short
 
 final class Preload(
-    fisherman: Fisherman,
+    lobby: ActorRef,
     messenger: Messenger,
     history: History,
     featured: Featured) {
@@ -31,7 +34,7 @@ final class Preload(
     tours: Fu[List[Created]],
     filter: Fu[FilterConfig])(implicit ctx: Context): Fu[Response] =
     myHook.flatMap(_.gameId).fold[Fu[Response]](
-      ctx.isAuth.fold(HookRepo.allOpen, HookRepo.allOpenCasual) zip
+      ctx.isAuth.fold(lobby ? GetOpen, lobby ? GetOpenCasual).mapTo[List[Hook]] zip
         (ctx.canSeeChat ?? messenger.recent(ctx.troll, 20)) zip
         timeline zip posts zip tours zip featured.one zip filter map {
           case ((((((hooks, messages), entries), posts), tours), feat), filter) ⇒ 

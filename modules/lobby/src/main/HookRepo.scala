@@ -15,27 +15,26 @@ import org.scala_tools.time.Imports._
 
 object HookRepo {
 
-  def ownedHook(ownerId: String): Fu[Option[Hook]] = 
+  def ownedHook(ownerId: String): Fu[Option[Hook]] =
     $find.one(Json.obj("ownerId" -> ownerId))
 
   def allOpen = hookList(Json.obj("match" -> false))
 
   def allOpenCasual = hookList(Json.obj("match" -> false, "mode" -> 0))
 
-  def hookList(selector: JsObject): Fu[List[Hook]] = 
+  def hookList(selector: JsObject): Fu[List[Hook]] =
     $find($query(selector) sort $sort.createdAsc)
 
-  def setGame(hook: Hook, game: Game) = 
-    $update(
-      $select(hook.id), 
-      $set(Json.obj("match" -> true, "gameId" -> game.id)))
+  def setGame(hook: Hook, game: Game) = $update(
+    $select(hook.id),
+    $set(Json.obj("match" -> true, "gameId" -> game.id)))
 
-  def removeOwnerId(ownerId: String): Funit = 
+  def removeOwnerId(ownerId: String): Funit =
     $remove(Json.obj("ownerId" -> ownerId))
 
-  def unmatchedNotInOwnerIds(ids: Iterable[String]): Fu[List[Hook]] = 
+  def unmatchedNotInOwnerIds(ids: Iterable[String]): Fu[List[Hook]] =
     $find(Json.obj("ownerId" -> $nin(ids), "match" -> false))
 
-  def cleanupOld: Fu[Unit] = 
+  def cleanupOld: Fu[Unit] =
     $remove(Json.obj("createdAt" -> $lt(DateTime.now - 1.hour)))
 }

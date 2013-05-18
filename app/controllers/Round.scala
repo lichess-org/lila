@@ -7,7 +7,7 @@ import lila.game.{ Pov, PlayerRef, GameRepo, Game ⇒ GameModel }
 import lila.round.{ RoomRepo, WatcherRoomRepo }
 import lila.round.actorApi.round._
 import lila.socket.actorApi.{ Forward, GetVersion }
-import lila.hub.actorApi.map.{ Tell, Await }
+import lila.hub.actorApi.map.Tell
 import lila.tournament.{ TournamentRepo, Tournament ⇒ Tourney }
 import makeTimeout.large
 
