@@ -41,6 +41,7 @@ object Round extends LilaController with TheftPrevention {
 
   def player(fullId: String) = Open { implicit ctx ⇒
     OptionFuResult(GameRepo pov fullId) { pov ⇒
+      if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay(_ ⇒ ()))
       pov.game.started.fold(
         PreventTheft(pov) {
           (pov.game.hasChat optionFu {
