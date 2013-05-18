@@ -9,6 +9,8 @@ import lila.game.{ Game, GameRepo }
 import lila.user.{ User, UserRepo }
 import lila.hub.actorApi.lobby.{ SysTalk, UnTalk, ReloadTournaments }
 import lila.hub.actorApi.router.Tourney
+import lila.hub.actorApi.map.{ Ask, Tell }
+import lila.round.actorApi.round.{ AbortForce, ResignColor }
 import lila.socket.actorApi.{ SendToFlag, Forward }
 import makeTimeout.short
 
@@ -26,7 +28,7 @@ private[tournament] final class TournamentApi(
     socketHub: ActorRef,
     site: lila.hub.ActorLazyRef,
     lobby: lila.hub.ActorLazyRef,
-    roundMeddler: lila.round.Meddler) extends scalaz.OptionTs {
+    roundMap: ActorRef) extends scalaz.OptionTs {
 
   def makePairings(tour: Started, pairings: NonEmptyList[Pairing]): Funit =
     (tour addPairings pairings) |> { tour2 ⇒
@@ -80,8 +82,10 @@ private[tournament] final class TournamentApi(
     val finished = started.finish
     $update(finished) >>-
       sendTo(started.id, ReloadPage) >>-
-      reloadSiteSocket >>-
-      (pairingsToAbort map (_.gameId) foreach roundMeddler.forceAbort) >>
+      reloadSiteSocket >>
+      (pairingsToAbort map (_.gameId) map { gameId ⇒
+        roundMap ? Ask(gameId, AbortForce) void
+      }).sequence >>
       finished.players.filter(_.score > 0).map(p ⇒ UserRepo.incToints(p.id)(p.score)).sequence inject finished
   }, fuccess(started))
 
@@ -103,8 +107,10 @@ private[tournament] final class TournamentApi(
     )
     case started: Started ⇒ (started withdraw userId).fold(
       err ⇒ fufail(err.shows),
-      tour2 ⇒ $update(tour2) >>-
-        (tour2 userCurrentPov userId foreach roundMeddler.resign) >>-
+      tour2 ⇒ $update(tour2) >>
+        (tour2.userCurrentPov(userId) ?? { povRef ⇒
+          roundMap ? Ask(povRef.gameId, ResignColor(povRef.color)) void
+        }) >>-
         socketReload(tour2.id) >>-
         reloadSiteSocket
     )

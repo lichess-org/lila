@@ -83,6 +83,7 @@ from MoralIntentions email:
 - Several options of how points should be given to players (for example: Score * Sonneborn-Berger * Tournament Performance Rating * Percentage Score [for example: 0.64] / 1000) and therefore also several Leaderboards. 
 - The possibility of team matches (with solutions for players who are in several teams), where the team leader has to choose the board order, where the team results are shown and where the team player (who has played all of the games of the match) with the highest Percentage Score gets crowned Player of the Match of team "A".  
 safari has high bounce rate
+tell, instead of asking, the round actor. it may send the events to the socket 
 
 DEPLOY p21
 ----------

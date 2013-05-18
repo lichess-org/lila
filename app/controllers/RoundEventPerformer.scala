@@ -23,8 +23,7 @@ trait RoundEventPerformer {
     Env.round.roundMap ?
       Ask(takeGameId(fullId), makeMessage(takePlayerId(fullId))) mapTo
       manifest[List[Event]] logFailure
-      "[round] fail to perform on game %s".format(fullId) addEffect
-      { sendEvents(fullId) _ }
+      "[round] fail to perform on game %s".format(fullId) 
 
   protected def sendEvents(gameId: String)(events: List[Event]) {
     Env.round.socketHub ! Forward(gameId, events)

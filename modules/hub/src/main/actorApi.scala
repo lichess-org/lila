@@ -24,8 +24,8 @@ case class NbMembers(nb: Int)
 
 package map {
   case class Get(id: String)
-  case class Do(id: String, f: akka.actor.ActorRef ⇒ Unit)
   case class Ask(id: String, msg: Any)
+  case class Tell(id: String, msg: Any)
   case object Count
   case class Stop(id: String)
 }

@@ -83,6 +83,10 @@ private[round] final class Round(
       pov.game.resignable ?? finisher(pov.game, _.Resign, Some(!pov.color))
     }
 
+    case ResignColor(color) ⇒ sender ! blocking(color) { pov ⇒
+      pov.game.resignable ?? finisher(pov.game, _.Resign, Some(!pov.color))
+    }
+
     case ResignForce(playerId) ⇒ sender ! blocking(playerId) { pov ⇒
       (pov.game.resignable && !pov.game.hasAi) ?? {
         socketHub ? IsGone(pov.game.id, !pov.color) flatMap {
