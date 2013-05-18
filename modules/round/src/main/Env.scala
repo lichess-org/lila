@@ -44,9 +44,9 @@ final class Env(
       gameId = id,
       messenger = messenger,
       takebacker = takebacker,
-      ai = ai,
       finisher = finisher,
       rematcher = rematcher,
+      player = player,
       drawer = drawer,
       socketHub = socketHub,
       moretimeDuration = Moretime)
@@ -64,7 +64,6 @@ final class Env(
     roundMap = roundMap,
     socketHub = socketHub,
     messenger = messenger,
-    notifyMove = notifyMove,
     flood = flood,
     hijack = hijack)
 
@@ -79,6 +78,12 @@ final class Env(
     messenger = messenger,
     router = hub.actor.router,
     timeline = hub.actor.timeline)
+
+  private lazy val player: Player = new Player(
+    ai = ai,
+    notifyMove = notifyMove,
+    finisher = finisher,
+    roundMap = hub.actor.roundMap)
 
   private lazy val drawer = new Drawer(
     messenger = messenger,

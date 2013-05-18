@@ -24,6 +24,7 @@ final class Env(config: Config, system: ActorSystem) {
     val tournamentOrganizer = actorLazyRef("tournament.organizer")
     val timeline = actorLazyRef("timeline")
     val bookmark = actorLazyRef("bookmark")
+    val roundMap = actorLazyRef("round.map")
   }
 
   object socket {

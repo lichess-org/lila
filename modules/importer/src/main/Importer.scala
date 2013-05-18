@@ -51,14 +51,13 @@ private[importer] final class Importer(
   }
 
   private def applyMove(pov: Pov, move: Move) {
-    roundMap ! Tell(pov.gameId, Play(
+    roundMap ! Tell(pov.gameId, HumanPlay(
       playerId = pov.playerId,
       orig = move.orig.toString,
       dest = move.dest.toString,
       prom = move.promotion map (_.forsyth.toString),
       blur = false,
       lag = 0,
-      onSuccess = _ ⇒ (),
       onFailure = _ ⇒ ()
     ))
   }
