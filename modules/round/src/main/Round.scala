@@ -2,7 +2,7 @@ package lila.round
 
 import actorApi._, round._
 import lila.ai.Ai
-import lila.game.{ Game, GameRepo, PgnRepo, Pov, PovRef, Handler, Event, Progress }
+import lila.game.{ Game, GameRepo, PgnRepo, Pov, PovRef, PlayerRef, Event, Progress }
 import lila.i18n.I18nKey.{ Select ⇒ SelectI18nKey }
 import lila.socket.actorApi.Forward
 import chess.{ Status, Role, Color }
@@ -23,7 +23,7 @@ private[round] final class Round(
     rematcher: Rematcher,
     notifyMove: (String, String, Option[String]) ⇒ Unit,
     socketHub: ActorRef,
-    moretimeDuration: Duration) extends Handler(gameId) with Actor {
+    moretimeDuration: Duration) extends Actor {
 
   context setReceiveTimeout 30.seconds
 
@@ -34,7 +34,7 @@ private[round] final class Round(
     // guaranty that all previous blocking events were performed
     case Await          ⇒ sender ! ()
 
-    case Send(events)   ⇒ sendEvents(events)
+    case Send(events)   ⇒ publish(events)
 
     case Play(playerId, origS, destS, promS, blur, lag) ⇒ blocking[PlayResult](playerId) {
       case Pov(g1, color) ⇒ PgnRepo get g1.id flatMap { pgnString ⇒
@@ -79,28 +79,28 @@ private[round] final class Round(
       }
     } ~ {
       case PlayResult(events, fen, lastMove) ⇒ {
-        sendEvents(events)
+        publish(events)
         notifyMove(gameId, fen, lastMove)
       }
     }
 
-    case Abort(playerId) ⇒ sender ! blocking(playerId) { pov ⇒
+    case Abort(playerId) ⇒ publishing(playerId) { pov ⇒
       pov.game.abortable ?? finisher(pov.game, _.Aborted)
     }
 
-    case AbortForce ⇒ sender ! blocking { game ⇒
+    case AbortForce ⇒ publishing { game ⇒
       game.playable ?? finisher(game, _.Aborted)
     }
 
-    case Resign(playerId) ⇒ sender ! blocking(playerId) { pov ⇒
+    case Resign(playerId) ⇒ publishing(playerId) { pov ⇒
       pov.game.resignable ?? finisher(pov.game, _.Resign, Some(!pov.color))
     }
 
-    case ResignColor(color) ⇒ sender ! blocking(color) { pov ⇒
+    case ResignColor(color) ⇒ publishing(color) { pov ⇒
       pov.game.resignable ?? finisher(pov.game, _.Resign, Some(!pov.color))
     }
 
-    case ResignForce(playerId) ⇒ sender ! blocking(playerId) { pov ⇒
+    case ResignForce(playerId) ⇒ publishing(playerId) { pov ⇒
       (pov.game.resignable && !pov.game.hasAi) ?? {
         socketHub ? IsGone(pov.game.id, !pov.color) flatMap {
           case true ⇒ finisher(pov.game, _.Timeout, Some(pov.color))
@@ -108,28 +108,28 @@ private[round] final class Round(
       }
     }
 
-    case Outoftime ⇒ blocking { game ⇒
+    case Outoftime ⇒ publishing { game ⇒
       game.outoftimePlayer ?? { player ⇒
         finisher(game, _.Outoftime, Some(!player.color) filter game.toChess.board.hasEnoughMaterialToMate)
       }
-    } ~ sendEvents
+    }
 
-    case DrawClaim(playerId) ⇒ sender ! blocking(playerId) { pov ⇒
+    case DrawClaim(playerId) ⇒ publishing(playerId) { pov ⇒
       (pov.game.playable &&
         pov.game.player.color == pov.color &&
         pov.game.toChessHistory.threefoldRepetition
       ) ?? finisher(pov.game, _.Draw)
     }
 
-    case DrawAccept(playerId) ⇒ sender ! blocking(playerId) { pov ⇒
+    case DrawAccept(playerId) ⇒ publishing(playerId) { pov ⇒
       pov.opponent.isOfferingDraw ?? finisher(pov.game, _.Draw, None, Some(_.drawOfferAccepted))
     }
 
-    case DrawForce ⇒ sender ! blocking { game ⇒
+    case DrawForce ⇒ publishing { game ⇒
       finisher(game, _.Draw, None, None)
     }
 
-    case DrawOffer(playerId) ⇒ sender ! blocking(playerId) {
+    case DrawOffer(playerId) ⇒ publishing(playerId) {
       case pov @ Pov(g1, color) ⇒ (g1 playerCanOfferDraw color) ?? {
         if (g1.player(!color).isOfferingDraw)
           finisher(pov.game, _.Draw, None, Some(_.drawOfferAccepted))
@@ -143,7 +143,7 @@ private[round] final class Round(
       }
     }
 
-    case DrawCancel(playerRef) ⇒ sender ! blocking(playerRef) {
+    case DrawCancel(playerRef) ⇒ publishing(playerRef) {
       case pov @ Pov(g1, color) ⇒ (pov.player.isOfferingDraw) ?? (for {
         p1 ← messenger.systemMessage(g1, _.drawOfferCanceled) map { es ⇒
           Progress(g1, Event.ReloadTable(!color) :: es)
@@ -153,7 +153,7 @@ private[round] final class Round(
       } yield p2.events)
     }
 
-    case DrawDecline(playerRef) ⇒ sender ! blocking(playerRef) {
+    case DrawDecline(playerRef) ⇒ publishing(playerRef) {
       case pov @ Pov(g1, color) ⇒ (g1.player(!color).isOfferingDraw) ?? (for {
         p1 ← messenger.systemMessage(g1, _.drawOfferDeclined) map { es ⇒
           Progress(g1, Event.ReloadTable(!color) :: es)
@@ -163,10 +163,10 @@ private[round] final class Round(
       } yield p2.events)
     }
 
-    case RematchYes(playerRef) ⇒ blocking(playerRef)(rematcher.yes) ~ sendEvents
-    case RematchNo(playerRef)  ⇒ blocking(playerRef)(rematcher.no) ~ sendEvents
+    case RematchYes(playerRef) ⇒ publishing(playerRef)(rematcher.yes) 
+    case RematchNo(playerRef)  ⇒ publishing(playerRef)(rematcher.no) 
 
-    case TakebackAccept(playerRef) ⇒ sender ! blocking(playerRef) { pov ⇒
+    case TakebackAccept(playerRef) ⇒ publishing(playerRef) { pov ⇒
       (pov.opponent.isProposingTakeback && pov.game.nonTournament) ?? (for {
         fen ← GameRepo initialFen pov.game.id
         pgn ← PgnRepo get pov.game.id
@@ -174,7 +174,7 @@ private[round] final class Round(
       } yield res)
     }
 
-    case TakebackOffer(playerRef) ⇒ sender ! blocking(playerRef) {
+    case TakebackOffer(playerRef) ⇒ publishing(playerRef) {
       case pov @ Pov(g1, color) ⇒
         (g1.playable && g1.bothPlayersHaveMoved && g1.nonTournament) ?? (for {
           fen ← GameRepo initialFen pov.game.id
@@ -193,7 +193,7 @@ private[round] final class Round(
         } yield result)
     }
 
-    case TakebackCancel(playerRef) ⇒ sender ! blocking(playerRef) {
+    case TakebackCancel(playerRef) ⇒ publishing(playerRef) {
       case pov @ Pov(g1, color) ⇒
         (pov.player.isProposingTakeback) ?? (for {
           p1 ← messenger.systemMessage(g1, _.takebackPropositionCanceled) map { es ⇒
@@ -204,7 +204,7 @@ private[round] final class Round(
         } yield p2.events)
     }
 
-    case TakebackDecline(playerRef) ⇒ sender ! blocking(playerRef) {
+    case TakebackDecline(playerRef) ⇒ publishing(playerRef) {
       case pov @ Pov(g1, color) ⇒
         (g1.player(!color).isProposingTakeback) ?? (for {
           p1 ← messenger.systemMessage(g1, _.takebackPropositionDeclined) map { es ⇒
@@ -215,7 +215,7 @@ private[round] final class Round(
         } yield p2.events)
     }
 
-    case Moretime(playerRef) ⇒ blocking(playerRef) { pov ⇒
+    case Moretime(playerRef) ⇒ publishing(playerRef) { pov ⇒
       pov.game.clock.filter(_ ⇒ pov.game.moretimeable) ?? { clock ⇒
         val newClock = clock.giveTime(!pov.color, moretimeDuration.toSeconds)
         val progress = pov.game withClock newClock
@@ -226,10 +226,10 @@ private[round] final class Round(
           GameRepo save progress2 inject progress2.events
         }
       }
-    } ~ sendEvents
+    } 
   }
 
-  private def sendEvents(events: List[Event]) {
+  private def publish(events: List[Event]) {
     if (events.nonEmpty) socketHub ! Forward(gameId, events)
   }
 
@@ -244,4 +244,24 @@ private[round] final class Round(
     Forsyth exportBoard progress.game.toChess.board,
     progress.game.lastMove
   )
+
+  protected def blocking[A](playerId: String)(op: Pov ⇒ Fu[A]): A = {
+    GameRepo pov PlayerRef(gameId, playerId) flatten "No such game" flatMap op
+  }.await
+
+  protected def publishing(playerId: String)(op: Pov ⇒ Fu[Events]) {
+    blocking(playerId)(op) ~ publish
+  }
+
+  protected def publishing(color: Color)(op: Pov ⇒ Fu[Events]) {
+    {
+      GameRepo pov PovRef(gameId, color) flatten "No such game" flatMap op
+    }.await ~ publish
+  }
+
+  protected def publishing[A](op: Game ⇒ Fu[Events]) {
+    {
+      GameRepo game gameId flatten "No such game" flatMap op
+    }.await ~ publish
+  }
 }

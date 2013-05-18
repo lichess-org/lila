@@ -3,27 +3,27 @@ package controllers
 import lila.app._
 import lila.game.Event
 import lila.socket.actorApi.Forward
-import lila.hub.actorApi.map.Tell
+import lila.hub.actorApi.map.{ Tell, Ask }
+import lila.round.actorApi.round.Await
 import lila.game.Game.{ takeGameId, takePlayerId }
 import makeTimeout.large
 
+import akka.pattern.ask
 import play.api.mvc._, Results._
 
 trait RoundEventPerformer {
 
   protected def performAndRedirect(fullId: String, makeMessage: String ⇒ Any) = Action {
-    perform(fullId, makeMessage)
-    Redirect(routes.Round.player(fullId))
+    Async {
+      perform(fullId, makeMessage) inject Redirect(routes.Round.player(fullId))
+    }
   }
 
-  protected def perform(fullId: String, makeMessage: String ⇒ Any) {
+  protected def perform(fullId: String, makeMessage: String ⇒ Any): Funit = {
     Env.round.roundMap ! Tell(
       takeGameId(fullId),
       makeMessage(takePlayerId(fullId))
     )
-  }
-
-  protected def sendEvents(gameId: String)(events: List[Event]) {
-    Env.round.roundMap ! Tell(gameId, events)
+    Env.round.roundMap ? Ask(takeGameId(fullId), Await) void
   }
 }

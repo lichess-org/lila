@@ -24,7 +24,7 @@ private[round] final class Finisher(
     game: Game,
     status: Status.type ⇒ Status,
     winner: Option[Color] = None,
-    message: Option[SelectI18nKey] = None): FuEvents = for {
+    message: Option[SelectI18nKey] = None): Fu[Events] = for {
     p1 ← fuccess {
       game.finish(status(Status), winner)
     }
