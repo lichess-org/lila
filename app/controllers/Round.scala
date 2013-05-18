@@ -96,10 +96,6 @@ object Round extends LilaController with TheftPrevention {
             pov, v, roomHtml, bookmarkers, analysed, tour))
       }
 
-  def abort(fullId: String) = performAndRedirect(fullId, Abort(_))
-  def resign(fullId: String) = performAndRedirect(fullId, Resign(_))
-  def resignForce(fullId: String) = performAndRedirect(fullId, ResignForce(_))
-
   def tableWatcher(gameId: String, color: String) = Open { implicit ctx ⇒
     OptionOk(GameRepo.pov(gameId, color)) { html.round.table.watch(_) }
   }
@@ -121,21 +117,5 @@ object Round extends LilaController with TheftPrevention {
         case player if player.isHuman ⇒ player.color.name -> playerLink(player).body
       } toMap) ++ ctx.me.??(me ⇒ Map("me" -> me.usernameWithElo))
     })
-  }
-
-  protected def performAndRedirect(fullId: String, makeMessage: String ⇒ Any) = Action {
-    Async {
-      perform(fullId, makeMessage) recover {
-        case e: Exception ⇒ logwarn("[round] perform " + e.getMessage)
-      } inject Redirect(routes.Round.player(fullId))
-    }
-  }
-
-  protected def perform(fullId: String, makeMessage: String ⇒ Any): Funit = {
-    Env.round.roundMap ! Tell(
-      GameModel takeGameId fullId,
-      makeMessage(GameModel takePlayerId (fullId))
-    )
-    Env.round.roundMap ? Await(GameModel takeGameId fullId) void
   }
 }

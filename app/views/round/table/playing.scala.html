@@ -14,9 +14,9 @@
 </div>
 <div class="lichess_control clearfix">
   @if(game.abortable) {
-  <a href="@routes.Round.abort(fullId)" class="lichess_abort">@trans.abortGame()</a>
+  <a class="lichess_abort socket-link" data-msg="abort">@trans.abortGame()</a>
   } else {
-  <a href="@routes.Round.resign(fullId)" class="lichess_resign">@trans.resign()</a>
+  <a class="lichess_resign socket-link" data-msg="resign">@trans.resign()</a>
   @if(game.playerCanOfferDraw(color)) {
   <a class="offer_draw socket-link" data-msg="draw-yes">@trans.offerDraw()</a>
   }
@@ -28,7 +28,7 @@
 @if(game.resignable && !game.hasAi) {
 <div class="force_resign_zone">
   @trans.theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim()<br />
-  <a class="force_resign" href="@routes.Round.resignForce(fullId)">@trans.forceResignation()</a>
+  <a class="force_resign socket-link" data-msg="resign-force">@trans.forceResignation()</a>
 </div>
 }
 @if(game.turnOf(player) && game.toChessHistory.threefoldRepetition) {
