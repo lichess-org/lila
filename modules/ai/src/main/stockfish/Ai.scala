@@ -10,6 +10,7 @@ final class Ai(server: Server) extends lila.ai.Ai {
 
   def play(game: Game, pgn: String, initialFen: Option[String], level: Int): Fu[(Game, Move)] =
     withValidSituation(game) {
+      Thread sleep 5000
       server.play(pgn, initialFen, level) flatMap { 
         Stockfish.applyMove(game, pgn, _)
       }
