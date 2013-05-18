@@ -124,14 +124,16 @@ object Round extends LilaController with TheftPrevention {
 
   protected def performAndRedirect(fullId: String, makeMessage: String ⇒ Any) = Action {
     Async {
-      perform(fullId, makeMessage) inject Redirect(routes.Round.player(fullId))
+      perform(fullId, makeMessage) recover {
+        case e: Exception ⇒ logwarn("[round] perform " + e.getMessage)
+      } inject Redirect(routes.Round.player(fullId))
     }
   }
 
   protected def perform(fullId: String, makeMessage: String ⇒ Any): Funit = {
     Env.round.roundMap ! Tell(
       GameModel takeGameId fullId,
-      makeMessage(GameModel takePlayerId(fullId))
+      makeMessage(GameModel takePlayerId (fullId))
     )
     Env.round.roundMap ? Await(GameModel takeGameId fullId) void
   }
