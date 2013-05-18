@@ -66,11 +66,11 @@ final class Env(
     flood = flood,
     hijack = hijack)
 
+  // TODO make private
   lazy val finisher = new Finisher(
     messenger = messenger,
     eloUpdater = eloUpdater,
     eloCalculator = eloCalculator,
-    finisherLock = finisherLock,
     indexer = hub.actor.gameIndexer,
     tournamentOrganizer = hub.actor.tournamentOrganizer)
 
@@ -103,8 +103,6 @@ final class Env(
   private lazy val titivate = new Titivate(finisher, meddler)
 
   private lazy val hijack = new Hijack(HijackTimeout)
-
-  private lazy val finisherLock = new FinisherLock(timeout = FinisherLockTimeout)
 
   private lazy val takeback = new Takeback(messenger)
 

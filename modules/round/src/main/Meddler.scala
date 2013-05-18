@@ -8,7 +8,7 @@ import lila.db.api._
 
 import akka.actor.ActorRef
 
-final class Meddler(finisher: Finisher, socketHub: ActorRef) {
+private[round] final class Meddler(finisher: Finisher, socketHub: ActorRef) {
 
   def forceAbort(id: String) {
     $find.byId(id) foreach {
