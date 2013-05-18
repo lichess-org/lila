@@ -20,13 +20,13 @@ final class ActorMap[A <: Actor](mkActor: String ⇒ A) extends Actor {
       }
     }
 
-    case Count         ⇒ sender ! actors.size
+    case Count            ⇒ sender ! actors.size
 
-    case Ask(id, msg)  ⇒ get(id) flatMap { _ ? msg } pipeTo sender
+    case Ask(id, msg)     ⇒ get(id) flatMap { _ ? msg } pipeTo sender
 
-    case Tell(id, msg) ⇒ get(id) foreach { _ forward msg }
+    case Tell(id, msg, _) ⇒ get(id) foreach { _ forward msg }
 
-    case Stop(id)      ⇒ actors get id foreach context.stop
+    case Stop(id)         ⇒ actors get id foreach context.stop
 
     case Terminated(actor) ⇒ actors find (_._2 == actor) foreach {
       case (id, _) ⇒ actors = actors - id

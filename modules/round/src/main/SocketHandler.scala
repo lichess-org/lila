@@ -19,7 +19,6 @@ private[round] final class SocketHandler(
     roundMap: ActorRef,
     socketHub: ActorRef,
     messenger: Messenger,
-    notifyMove: (String, String, Option[String]) ⇒ Unit,
     flood: Flood,
     hijack: Hijack) {
 
@@ -29,8 +28,6 @@ private[round] final class SocketHandler(
     uid: String,
     ref: PovRef,
     member: Member): Handler.Controller = {
-
-    def askRound(msg: Any) = roundMap ? Ask(ref.gameId, msg)
 
     member.playerIdOption.fold[Handler.Controller]({
       case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
@@ -55,21 +52,15 @@ private[round] final class SocketHandler(
         case ("move", o) ⇒ parseMove(o) foreach {
           case (orig, dest, prom, blur, lag) ⇒ {
             socket ! Ack(uid)
-            askRound(Play(playerId, orig, dest, prom, blur, lag)) mapTo
-              manifest[PlayResult] effectFold (
-                e ⇒ {
-                  logwarn("[round socket] " + e.getMessage)
-                  socket ! Resync(uid)
-                }, {
-                  case PlayResult(events, fen, lastMove) ⇒ {
-                    socketHub ! Forward(ref.gameId, events)
-                    notifyMove(ref.gameId, fen, lastMove)
-                  }
-                })
+            roundMap ! Tell(
+              gameId,
+              Play(playerId, orig, dest, prom, blur, lag),
+              _ ⇒ socket ! Resync(uid)
+            )
           }
         }
-        case ("moretime", o)  ⇒ askRound(Moretime(playerId)) pipeTo socket
-        case ("outoftime", o) ⇒ askRound(Outoftime) pipeTo socket
+        case ("moretime", o)  ⇒ roundMap ! Tell(gameId, Moretime(playerId))
+        case ("outoftime", o) ⇒ roundMap ! Tell(gameId, Outoftime)
       }
     }
   }
