@@ -77,6 +77,7 @@ package round {
   case class PlayResult(events: Events, fen: String, lastMove: Option[String])
 
   case class Abort(playerId: String)
+  case object AbortForce
   case class Resign(playerId: String)
   case class ResignForce(playerId: String)
   case class DrawClaim(playerId: String)
@@ -84,6 +85,7 @@ package round {
   case class DrawOffer(playerId: String)
   case class DrawCancel(playerId: String)
   case class DrawDecline(playerId: String)
+  case object DrawForce
   case class RematchCancel(playerId: String)
   case class RematchDecline(playerId: String)
   case class TakebackAccept(playerId: String)

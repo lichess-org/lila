@@ -2,9 +2,9 @@ package lila.round
 
 import actorApi._, round._
 import lila.ai.Ai
-import lila.game.{ GameRepo, PgnRepo, Pov, PovRef, Handler, Event, Progress }
+import lila.game.{ Game, GameRepo, PgnRepo, Pov, PovRef, Handler, Event, Progress }
 import lila.i18n.I18nKey.{ Select ⇒ SelectI18nKey }
-import chess.{ Role, Color }
+import chess.{ Status, Role, Color }
 import chess.Pos.posAt
 import chess.format.Forsyth
 import makeTimeout.large
@@ -44,7 +44,7 @@ private[round] final class Round(
             if (progress.game.finished)
               (GameRepo save progress) >>
                 PgnRepo.save(gameId, pgn) >>
-                finisher.moveFinish(progress.game, color) map { finishEvents ⇒
+                moveFinish(progress.game, color) map { finishEvents ⇒
                   playResult(progress.events ::: finishEvents, progress)
                 }
             else if (progress.game.player.isAi && progress.game.playable) for {
@@ -58,7 +58,7 @@ private[round] final class Round(
                   val progress2 = progress >> prog2
                   (GameRepo save progress2) >>
                     PgnRepo.save(gameId, pgn2) >>
-                    finisher.moveFinish(progress2.game, !color) map { finishEvents ⇒
+                    moveFinish(progress2.game, !color) map { finishEvents ⇒
                       playResult(progress2.events ::: finishEvents, progress2)
                     }
                 }
@@ -71,26 +71,51 @@ private[round] final class Round(
       }
     }
 
-    case Abort(playerId)  ⇒ sender ! blocking(playerId)(finisher.abort)
+    case Abort(playerId) ⇒ sender ! blocking(playerId) { pov ⇒
+      pov.game.abortable ?? finisher(pov.game, _.Aborted)
+    }
 
-    case Resign(playerId) ⇒ sender ! blocking(playerId)(finisher.resign)
+    case AbortForce ⇒ sender ! blocking { game ⇒
+      game.playable ?? finisher(game, _.Aborted)
+    }
+
+    case Resign(playerId) ⇒ sender ! blocking(playerId) { pov ⇒
+      pov.game.resignable ?? finisher(pov.game, _.Resign, Some(!pov.color))
+    }
 
     case ResignForce(playerId) ⇒ sender ! blocking(playerId) { pov ⇒
-      socketHub ? IsGone(pov.game.id, !pov.color) flatMap {
-        case true ⇒ finisher resignForce pov
-        case _    ⇒ funit
+      (pov.game.resignable && !pov.game.hasAi) ?? {
+        socketHub ? IsGone(pov.game.id, !pov.color) flatMap {
+          case true ⇒ finisher(pov.game, _.Timeout, Some(pov.color))
+        }
       }
     }
 
-    case Outoftime            ⇒ sender ! blocking(finisher outoftime _)
+    case Outoftime ⇒ sender ! blocking { game ⇒
+      game.outoftimePlayer ?? { player ⇒
+        finisher(game, _.Outoftime, Some(!player.color) filter game.toChess.board.hasEnoughMaterialToMate)
+      }
+    }
 
-    case DrawClaim(playerId)  ⇒ sender ! blocking(playerId)(finisher.drawClaim)
+    case DrawClaim(playerId) ⇒ sender ! blocking(playerId) { pov ⇒
+      (pov.game.playable &&
+        pov.game.player.color == pov.color &&
+        pov.game.toChessHistory.threefoldRepetition
+      ) ?? finisher(pov.game, _.Draw)
+    }
 
-    case DrawAccept(playerId) ⇒ sender ! blocking(playerId)(finisher.drawAccept)
+    case DrawAccept(playerId) ⇒ sender ! blocking(playerId) { pov ⇒
+      pov.opponent.isOfferingDraw ?? finisher(pov.game, _.Draw, None, Some(_.drawOfferAccepted))
+    }
+
+    case DrawForce ⇒ sender ! blocking { game ⇒
+      finisher(game, _.Draw, None, None)
+    }
 
     case DrawOffer(playerId) ⇒ sender ! blocking(playerId) {
       case pov @ Pov(g1, color) ⇒ (g1 playerCanOfferDraw color) ?? {
-        if (g1.player(!color).isOfferingDraw) finisher drawAccept pov
+        if (g1.player(!color).isOfferingDraw) 
+          finisher(pov.game, _.Draw, None, Some(_.drawOfferAccepted))
         else for {
           p1 ← messenger.systemMessage(g1, _.drawOfferSent) map { es ⇒
             Progress(g1, Event.ReloadTable(!color) :: es)
@@ -206,6 +231,12 @@ private[round] final class Round(
         } yield progress2.events
       }
     }
+  }
+
+  private def moveFinish(game: Game, color: Color): Fu[List[Event]] = game.status match {
+    case Status.Mate                               ⇒ finisher(game, _.Mate, Some(color))
+    case status @ (Status.Stalemate | Status.Draw) ⇒ finisher(game, _ ⇒ status)
+    case _                                         ⇒ fuccess(List[Event]())
   }
 
   private def playResult(events: List[Event], progress: Progress) = PlayResult(
