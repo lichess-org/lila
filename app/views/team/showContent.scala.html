@@ -34,7 +34,7 @@
     @if(info.requestedByMe) {
     <strong>Your join request is being reviewed by the team leader</strong>
     } else {
-    @if(ctx.me.zmap(_.canTeam)) {
+    @if(ctx.me.??(_.canTeam)) {
     <form class="inline" method="post" action="@routes.Team.join(t.id)">
       <input class="submit button" type="submit" value="@trans.joinTeam()" />
     </form>

@@ -15,5 +15,5 @@ private[controllers] trait TheftPrevention {
     isTheft(pov).fold(fuccess(Redirect(routes.Round.watcher(pov.gameId, pov.color.name))), ok)
 
   protected def isTheft(pov: Pov)(implicit ctx: Context) =
-    pov.player.userId != ctx.userId && !(ctx.me zmap Granter.superAdmin)
+    pov.player.userId != ctx.userId && !(ctx.me ?? Granter.superAdmin)
 }

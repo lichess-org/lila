@@ -77,7 +77,7 @@ object Hook {
       username = user.fold(User.anonymous)(_.username),
       elo = user map (_.elo),
       eloRange = eloRange.toString,
-      engine = user.zmap(_.engine))
+      engine = user.??(_.engine))
   }
 
   import lila.db.Tube

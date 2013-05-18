@@ -15,7 +15,7 @@ import akka.pattern.ask
 object Main extends LilaController {
 
   def websocket = Socket { implicit ctx ⇒
-    get("sri") zmap { uid ⇒
+    get("sri") ?? { uid ⇒
       Env.site.socketHandler(uid, ctx.userId, get("flag"))
     }
   }

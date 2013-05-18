@@ -28,9 +28,9 @@ object TeamInfo {
     api: TeamApi,
     getForumNbPosts: String ⇒ Fu[Int],
     getForumPosts: String ⇒ Fu[List[PostLiteView]])(team: Team, me: Option[User]): Fu[TeamInfo] = for {
-    requests ← (team.enabled && me.zmap(m ⇒ team.isCreator(m.id))) ?? api.requestsWithUsers(team)
-    mine ← me.zmap(m ⇒ api.belongsTo(team.id, m.id))
-    requestedByMe ← !mine ?? me.zmap(m ⇒ RequestRepo.exists(team.id, m.id))
+    requests ← (team.enabled && me.??(m ⇒ team.isCreator(m.id))) ?? api.requestsWithUsers(team)
+    mine ← me.??(m ⇒ api.belongsTo(team.id, m.id))
+    requestedByMe ← !mine ?? me.??(m ⇒ RequestRepo.exists(team.id, m.id))
     userIds ← MemberRepo userIdsByTeam team.id
     bestPlayers ← UserRepo.byIdsSortElo(userIds, 5)
     averageElo ← UserRepo.idsAverageElo(userIds)

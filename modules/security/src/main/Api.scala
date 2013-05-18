@@ -31,7 +31,7 @@ private[security] final class Api(firewall: Firewall) {
     firewall accepts req flatMap { 
       _ ?? {
         req.session.get("sessionId").fold(fuccess(none[User])) { sessionId ⇒
-          Store userId sessionId flatMap { _.zmap(UserRepo.named) }
+          Store userId sessionId flatMap { _.??(UserRepo.named) }
         }
       }
     }

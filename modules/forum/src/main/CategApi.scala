@@ -77,10 +77,10 @@ private[forum] final class CategApi(env: Env) extends OptionTs {
     _ ← $update(categ.copy(
       nbTopics = topics.size,
       nbPosts = nbPosts,
-      lastPostId = lastPost zmap (_.id),
+      lastPostId = lastPost ?? (_.id),
       nbTopicsTroll = topicsTroll.size,
       nbPostsTroll = nbPostsTroll,
-      lastPostIdTroll = lastPostTroll zmap (_.id)
+      lastPostIdTroll = lastPostTroll ?? (_.id)
     ))
   } yield ()
 

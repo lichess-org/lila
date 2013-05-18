@@ -25,7 +25,7 @@ final class Api(
 
   def thread(id: String, me: User): Fu[Option[Thread]] = for {
     threadOption ← $find.byId(id) map (_ filter (_ hasUser me))
-    _ ← threadOption.filter(_ isUnReadBy me).zmap(thread ⇒
+    _ ← threadOption.filter(_ isUnReadBy me).??(thread ⇒
       (ThreadRepo setRead thread) >> updateUser(me.id)
     )
   } yield threadOption
@@ -53,13 +53,13 @@ final class Api(
     for {
       _ ← $update[ThreadRepo.ID, Thread](newThread)
       receiver ← UserRepo.named(thread receiverOf post)
-      _ ← receiver.map(_.id) zmap updateUser
+      _ ← receiver.map(_.id) ?? updateUser
     } yield newThread
   }
 
   def deleteThread(id: String, me: User): Funit =
     thread(id, me) flatMap { threadOption ⇒
-      threadOption.map(_.id).zmap(ThreadRepo deleteFor me.id)
+      threadOption.map(_.id).??(ThreadRepo deleteFor me.id)
     }
 
   val nbUnreadMessages = unreadCache.apply _

@@ -81,7 +81,7 @@ private[round] final class SocketHandler(
     uid: String,
     ctx: Context): Fu[JsSocketHandler] =
     GameRepo.pov(gameId, colorName) flatMap {
-      _ zmap { join(_, none, version, uid, "", ctx) }
+      _ ?? { join(_, none, version, uid, "", ctx) }
     }
 
   def player(
@@ -91,7 +91,7 @@ private[round] final class SocketHandler(
     token: String,
     ctx: Context): Fu[JsSocketHandler] =
     GameRepo.pov(fullId) flatMap {
-      _ zmap { join(_, Some(fullId take Game.gameIdSize), version, uid, token, ctx) }
+      _ ?? { join(_, Some(fullId take Game.gameIdSize), version, uid, token, ctx) }
     }
 
   private def join(

@@ -45,7 +45,7 @@ object GameRepo {
     $find byId gameId map2 { (game: Game) ⇒ Pov(game, game player color) }
 
   def pov(gameId: ID, color: String): Fu[Option[Pov]] =
-    Color(color) zmap (pov(gameId, _))
+    Color(color) ?? (pov(gameId, _))
 
   def pov(playerRef: PlayerRef): Fu[Option[Pov]] =
     $find byId playerRef.gameId map { gameOption ⇒
@@ -93,7 +93,7 @@ object GameRepo {
 
   def finish(id: ID, winnerId: Option[String]) = $update(
     $select(id),
-    winnerId.zmap(wid ⇒ $set("wid" -> wid)) ++ $unset(
+    winnerId.??(wid ⇒ $set("wid" -> wid)) ++ $unset(
       "c.t",
       "ph",
       "lmt",

@@ -20,7 +20,7 @@ trait Granter {
       case StaffSlug ⇒
         fuccess(ctx.me exists Master(Permission.StaffForum))
       case TeamSlugPattern(teamId) ⇒
-        ctx.me.zmap(me ⇒ userBelongsToTeam(teamId, me.id))
+        ctx.me.??(me ⇒ userBelongsToTeam(teamId, me.id))
       case _ ⇒ fuccess(true)
     }
 }

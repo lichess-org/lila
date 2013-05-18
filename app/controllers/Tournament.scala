@@ -61,7 +61,7 @@ object Tournament extends LilaController {
     env.version(tour.id) zip
       (env.messenger getMessages tour.id) zip
       GameRepo.games(tour recentGameIds 4) zip
-      tour.userCurrentPov(ctx.me).zmap(GameRepo.pov) map {
+      tour.userCurrentPov(ctx.me).??(GameRepo.pov) map {
         case (((version, messages), games), pov) ⇒
           html.tournament.show.started(tour, messages, version, games, pov)
       }
@@ -117,7 +117,7 @@ object Tournament extends LilaController {
 
   private def reloadStarted(tour: Started)(implicit ctx: Context) =
     GameRepo.games(tour recentGameIds 4) zip
-      tour.userCurrentPov(ctx.me).zmap(GameRepo.pov) map {
+      tour.userCurrentPov(ctx.me).??(GameRepo.pov) map {
         case (games, pov) ⇒ {
           val pairings = html.tournament.pairings(tour)
           val inner = html.tournament.show.startedInner(tour, games, pov)

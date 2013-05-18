@@ -21,7 +21,7 @@ object ListMenu {
     cached.nbGames zip
       cached.nbMates zip
       cached.nbPopular zip
-      me.zmap(countBookmarks) zip
+      me.??(countBookmarks) zip
       countAnalysed() zip
       cached.nbImported map {
         case (((((nbGames, nbMates), nbPopular), nbBookmarks), nbAnalysed), nbImported) ⇒

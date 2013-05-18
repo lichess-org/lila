@@ -62,7 +62,7 @@ trait UserHelper {
     truncate: Option[Int] = None): String =
     """<a class="user_link%s%s" href="%s">%s</a>""".format(
       withOnline ?? isOnline(userId).fold(" online", " offline"),
-      cssClass.zmap(" " + _),
+      cssClass.??(" " + _),
       routes.User.show(username),
       truncate.fold(username)(username.take)
     )
@@ -75,7 +75,7 @@ trait UserHelper {
     text: Option[String] = None) = Html {
     """<a class="user_link%s%s" href="%s">%s</a>""".format(
       withOnline ?? isOnline(user.id).fold(" online", " offline"),
-      cssClass.zmap(" " + _),
+      cssClass.??(" " + _),
       routes.User.show(user.username),
       text | withElo.fold(user.usernameWithElo, user.username)
     )
@@ -89,7 +89,7 @@ trait UserHelper {
     Html {
       """<a class="user_link%s%s" href="%s">%s</a>""".format(
         withOnline ?? isOnline(userId).fold(" online", " offline"),
-        cssClass.zmap(" " + _),
+        cssClass.??(" " + _),
         routes.User.show(username),
         elo.fold(username)(e ⇒ "%s (%d)".format(username, e))
       )

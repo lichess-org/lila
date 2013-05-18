@@ -71,7 +71,7 @@ object Team extends LilaController {
     implicit me ⇒ OptionFuResult(api team id) { team ⇒
       Owner(team) {
         implicit val req = ctx.body
-        forms.kick.bindFromRequest.value zmap { api.kick(team, _) } inject Redirect(routes.Team.show(team.id))
+        forms.kick.bindFromRequest.value ?? { api.kick(team, _) } inject Redirect(routes.Team.show(team.id))
       }
     }
   }
@@ -91,7 +91,7 @@ object Team extends LilaController {
         err ⇒ forms.anyCaptcha map { captcha ⇒
           BadRequest(html.team.form(err, captcha))
         },
-        data ⇒ api.create(data, me) zmap {
+        data ⇒ api.create(data, me) ?? {
           _ map { team ⇒ Redirect(routes.Team.show(team.id)): Result }
         }
       )
@@ -144,7 +144,7 @@ object Team extends LilaController {
   def requestProcess(requestId: String) = AuthBody { implicit ctx ⇒
     me ⇒ OptionFuRedirectUrl(for {
       requestOption ← api request requestId
-      teamOption ← requestOption.zmap(req ⇒ TeamRepo.owned(req.team, me.id))
+      teamOption ← requestOption.??(req ⇒ TeamRepo.owned(req.team, me.id))
     } yield (teamOption |@| requestOption).tupled) {
       case (team, request) ⇒ {
         implicit val req = ctx.body
@@ -172,6 +172,6 @@ object Team extends LilaController {
     }
 
   private def Owner(team: TeamModel)(a: ⇒ Fu[Result])(implicit ctx: Context): Fu[Result] = {
-    ctx.me.zmap(me ⇒ team.isCreator(me.id) || Granter.superAdmin(me))
+    ctx.me.??(me ⇒ team.isCreator(me.id) || Granter.superAdmin(me))
   }.fold(a, renderTeam(team) map { Forbidden(_) })
 }

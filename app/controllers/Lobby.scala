@@ -43,7 +43,7 @@ object Lobby extends LilaController with Results {
       }))
 
   def socket = Socket[JsValue] { implicit ctx ⇒
-    get("sri") zmap { uid ⇒
+    get("sri") ?? { uid ⇒
       Env.lobby.socketHandler(uid = uid, user = ctx.me, hook = get("hook"))
     }
   }
@@ -69,7 +69,7 @@ object Lobby extends LilaController with Results {
 
   def cancel(ownerId: String) = Open { implicit ctx ⇒
     HookRepo ownedHook ownerId flatMap {
-      _ zmap Env.lobby.fisherman.delete inject Redirect(routes.Lobby.home)
+      _ ?? Env.lobby.fisherman.delete inject Redirect(routes.Lobby.home)
     }
   }
 

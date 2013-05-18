@@ -20,7 +20,7 @@ private[setup] object AnonConfigRepo {
 
   def update(req: RequestHeader)(map: UserConfig ⇒ UserConfig): Funit =
     configOption(req) flatMap { co ⇒
-      co.zmap(config ⇒ $save(map(config)))
+      co.??(config ⇒ $save(map(config)))
     }
 
   def config(req: RequestHeader): Fu[UserConfig] =
@@ -35,9 +35,9 @@ private[setup] object AnonConfigRepo {
     } map (_ | UserConfig.default(sid))
 
   private def configOption(req: RequestHeader): Fu[Option[UserConfig]] =
-    sessionId(req).zmap(s ⇒ config(s) map (_.some))
+    sessionId(req).??(s ⇒ config(s) map (_.some))
 
-  def filter(req: RequestHeader): Fu[FilterConfig] = sessionId(req) zmap { sid ⇒
+  def filter(req: RequestHeader): Fu[FilterConfig] = sessionId(req) ?? { sid ⇒
     $primitive.one($select(sid), "filter")(_.asOpt[FilterConfig])
   } map (_ | FilterConfig.default)
 

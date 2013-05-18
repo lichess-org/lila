@@ -20,7 +20,7 @@ final class Firewall(
     cachedIpsTtl: Duration) {
 
   def requestHandler(req: RequestHeader): Fu[Option[Handler]] =
-    cookieName filter (_ ⇒ enabled) zmap { cn ⇒
+    cookieName.filter(_ ⇒ enabled) ?? { cn ⇒
       blocksIp(req.remoteAddress) map { bIp ⇒
         val bCs = blocksCookies(req.cookies, cn)
         if (bIp && !bCs) infectCookie(cn)(req).some

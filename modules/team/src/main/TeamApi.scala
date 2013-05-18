@@ -77,7 +77,7 @@ final class TeamApi(
 
   def requestable(teamId: String, user: User): Fu[Option[Team]] = for {
     teamOption ← $find.byId[Team](teamId)
-    able ← teamOption.zmap(requestable(_, user))
+    able ← teamOption.??(requestable(_, user))
   } yield teamOption filter (_ ⇒ able)
 
   def requestable(team: Team, user: User): Fu[Boolean] =
@@ -99,7 +99,7 @@ final class TeamApi(
     _ ← $remove(request)
     _ ← cached.nbRequests invalidate team.createdBy
     userOption ← $find.byId[User](request.user)
-    _ ← userOption.filter(_ ⇒ accept).zmap(user ⇒
+    _ ← userOption.filter(_ ⇒ accept).??(user ⇒
       doJoin(team, user.id) >>- notifier.acceptRequest(team, request)
     )
   } yield ()

@@ -47,7 +47,7 @@ final class Messenger(
     gameId: String,
     userId: Option[String],
     text: String): Fu[List[Event.WatcherMessage]] = for {
-    userOption ← userId.zmap(UserRepo.byId)
+    userOption ← userId.??(UserRepo.byId)
     message ← userOrAnonMessage(userOption, text).future
     (u, t) = message
     _ ← WatcherRoomRepo.addMessage(gameId, u, t)

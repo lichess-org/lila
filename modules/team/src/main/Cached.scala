@@ -21,7 +21,7 @@ final class Cached(capacity: Int) {
     def apply(userId: String): Fu[List[String]] =
       cache.fromFuture(userId)(MemberRepo teamIdsByUser userId)
 
-    def invalidate(userId: String): Funit = cache.remove(userId) zmap (_.void)
+    def invalidate(userId: String): Funit = cache.remove(userId) ?? (_.void)
   }
 
   object nbRequests {
@@ -33,6 +33,6 @@ final class Cached(capacity: Int) {
         TeamRepo teamIdsByCreator userId flatMap RequestRepo.countByTeams
       }
 
-    def invalidate(userId: String): Funit = cache.remove(userId) zmap (_.void)
+    def invalidate(userId: String): Funit = cache.remove(userId) ?? (_.void)
   }
 }

@@ -72,7 +72,7 @@ final class PostApi(
     liteViews(List(post)) map (_.headOption)
 
   def lastNumberOf(topic: Topic): Fu[Int] =
-    PostRepo lastByTopics List(topic) map { _ zmap (_.number) }
+    PostRepo lastByTopics List(topic) map { _ ?? (_.number) }
 
   def lastPageOf(topic: Topic) =
     math.ceil(topic.nbPosts / maxPerPage.toFloat).toInt

@@ -19,7 +19,7 @@
   <a class="@tab.active("all")" href="@routes.Team.home()">
     @trans.allTeams()
   </a>
-  @if(ctx.me.zmap(_.canTeam)) {
+  @if(ctx.me.??(_.canTeam)) {
   <a class="@tab.active("mine")" href="@routes.Team.mine()">
     @trans.myTeams()
   </a>

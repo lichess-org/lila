@@ -10,7 +10,7 @@ case class Member(
   userId: Option[String],
   flag: Option[String]) extends SocketMember {
 
-  def hasFlag(f: String) = flag zmap (f ==)
+  def hasFlag(f: String) = flag ?? (f ==)
 }
 
 case class Join(uid: String, userId: Option[String], flag: Option[String])

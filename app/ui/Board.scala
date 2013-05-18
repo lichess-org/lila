@@ -8,7 +8,7 @@ import Pos._
 object Board {
 
   def render(pov: Pov) = {
-    val check = pov.game.check.zmap(_.key)
+    val check = pov.game.check.??(_.key)
     val board = pov.game.toChess.board
     val moved: Pos ⇒ Boolean = 
       pov.game.toChessHistory.lastMove.fold((_: Pos) ⇒ false) { last ⇒
@@ -23,7 +23,7 @@ object Board {
         s.top,
         s.left) ++
         """<div class="lcsi"></div>""" ++ {
-          board(s.pos).zmap(piece ⇒
+          board(s.pos).??(piece ⇒
             """<div class="lichess_piece %s %s"></div>""".format(
               piece.role.name, piece.color.name)
           )
