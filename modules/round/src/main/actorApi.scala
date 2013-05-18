@@ -67,16 +67,18 @@ case class Ack(uid: String)
 package round {
 
   case class Play(
-    playerId: String,
-    orig: String,
-    dest: String,
-    prom: Option[String],
-    blur: Boolean,
-    lag: Int,
-    onSuccess: PlayResult ⇒ Unit,
-    onFailure: Exception ⇒ Unit)
+      playerId: String,
+      orig: String,
+      dest: String,
+      prom: Option[String],
+      blur: Boolean,
+      lag: Int,
+      onSuccess: PlayResult ⇒ Unit,
+      onFailure: Exception ⇒ Unit) 
 
   case class PlayResult(events: Events, fen: String, lastMove: Option[String])
+
+  case class AiPlay(onSuccess: PlayResult ⇒ Unit, onFailure: Exception ⇒ Unit)
 
   case class Send(events: Events)
   case class Abort(playerId: String)

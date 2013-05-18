@@ -48,36 +48,38 @@ private[round] final class Round(
           (newChessGame, move) = newChessGameAndMove
         } yield g2.update(newChessGame, move, blur)).prefixFailuresWith(playerId + " - ").fold(fufail(_), {
           case (progress, pgn) ⇒
-            if (progress.game.finished)
-              (GameRepo save progress) >>
-                PgnRepo.save(gameId, pgn) >>
+            (GameRepo save progress) >> PgnRepo.save(gameId, pgn) >>
+              progress.game.finished.fold(
                 moveFinish(progress.game, color) map { finishEvents ⇒
                   playResult(progress.events ::: finishEvents, progress)
-                }
-            else if (progress.game.player.isAi && progress.game.playable) for {
-              initialFen ← progress.game.variant.exotic ?? {
-                GameRepo initialFen progress.game.id
-              }
-              // TODO unblock AI
-              aiResult ← ai.play(progress.game.toChess, pgn, initialFen, ~progress.game.aiLevel)
-              eventsAndFen ← aiResult match {
-                case (newChessGame, move) ⇒ {
-                  val (prog2, pgn2) = progress.game.update(newChessGame, move)
-                  val progress2 = progress >> prog2
-                  (GameRepo save progress2) >>
-                    PgnRepo.save(gameId, pgn2) >>
-                    moveFinish(progress2.game, !color) map { finishEvents ⇒
-                      playResult(progress2.events ::: finishEvents, progress2)
-                    }
-                }
-              }
-            } yield eventsAndFen
-            else (GameRepo save progress) >>
-              PgnRepo.save(gameId, pgn) inject
-              playResult(progress.events, progress)
+                }, {
+                  if (progress.game.player.isAi && progress.game.playable)
+                    self ! AiPlay(onSuccess, onFailure)
+                  fuccess(playResult(progress.events, progress))
+                })
+
         })
         //TODO test that line
       } addEffect onSuccess addFailureEffect onFailure map (_.events)
+    }
+
+    case AiPlay(onSuccess, onFailure) ⇒ handle { game ⇒
+      game.player.isAi.fold(
+        (game.variant.exotic ?? { GameRepo initialFen game.id }) zip
+          (PgnRepo get game.id) flatMap {
+            case (fen, pgn) ⇒
+              ai.play(game.toChess, pgn, fen, ~game.aiLevel) flatMap {
+                case (newChessGame, move) ⇒ {
+                  val (progress, pgn2) = game.update(newChessGame, move)
+                  (GameRepo save progress) >> PgnRepo.save(gameId, pgn2) >>
+                    (moveFinish(progress.game, game.turnColor) map { finishEvents ⇒
+                      playResult(progress.events ::: finishEvents, progress)
+                    })
+                }
+              }
+          } addEffect onSuccess addFailureEffect onFailure map (_.events),
+        fufail("not AI turn")
+      )
     }
 
     case Abort(playerId) ⇒ handle(playerId) { pov ⇒

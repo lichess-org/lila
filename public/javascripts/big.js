@@ -148,7 +148,6 @@ var lichess_translations = [];
           return;
         }
         self.version = m.v;
-        self.debug("set version " + self.version);
       }
       if (m.t) {
         if (m.t == "resync") {
