@@ -36,7 +36,7 @@ object UserInfo {
     nbPlaying ← (ctx is user) ?? {
       GameRepo count (_ notFinished user.id) map (_.some)
     }
-    nbWithMe ← ctx.me.filter(user!=) zmap { me ⇒
+    nbWithMe ← ctx.me.filter(user!=) ?? { me ⇒
       GameRepo count (_.opponents(user, me)) map (_.some)
     }
     nbBookmark ← bookmarkApi countByUser user

@@ -123,7 +123,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Actor {
   }
 
   def membersByUserIds(userIds: Set[String]): Iterable[M] =
-    members.values filter (member ⇒ member.userId zmap userIds.contains)
+    members.values filter (member ⇒ member.userId ?? userIds.contains)
 
   def userIds: Iterable[String] = members.values.map(_.userId).flatten
 

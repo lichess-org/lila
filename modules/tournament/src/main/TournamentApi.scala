@@ -113,7 +113,7 @@ private[tournament] final class TournamentApi(
 
   def finishGame(gameId: String): Fu[Option[Tournament]] = for {
     game ← optionT(GameRepo finished gameId)
-    tour ← optionT(game.tournamentId zmap TournamentRepo.startedById)
+    tour ← optionT(game.tournamentId ?? TournamentRepo.startedById)
     result ← optionT {
       val tour2 = tour.updatePairing(game.id, _.finish(game.status, game.winnerUserId, game.turns))
       $update(tour2) >>
@@ -123,7 +123,7 @@ private[tournament] final class TournamentApi(
   } yield result.value
 
   private def tripleQuickLossWithdraw(tour: Started, loser: Option[String]): Funit =
-    loser.filter(tour.quickLossStreak).zmap(withdraw(tour, _))
+    loser.filter(tour.quickLossStreak).??(withdraw(tour, _))
 
   private def userIdWhoLostOnTimeWithoutMoving(game: Game): Option[String] =
     game.playerWhoDidNotMove

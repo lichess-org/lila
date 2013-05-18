@@ -191,7 +191,7 @@ private[round] final class Round(
     }
 
     case Moretime(playerRef) ⇒ sender ! blocking(playerRef) { pov ⇒
-      pov.game.clock.filter(_ ⇒ pov.game.moretimeable) zmap { clock ⇒
+      pov.game.clock.filter(_ ⇒ pov.game.moretimeable) ?? { clock ⇒
         val color = !pov.color
         val newClock = clock.giveTime(color, moretimeDuration.toSeconds)
         val progress = pov.game withClock newClock

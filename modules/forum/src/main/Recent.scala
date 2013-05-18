@@ -24,9 +24,9 @@ private[forum] final class Recent(postApi: PostApi, ttl: Duration) {
   private val nb = 20
 
   private def userCacheKey(user: Option[User], getTeams: GetTeams): Fu[String] =
-    user.map(_.id) zmap getTeams map { teams ⇒
-      (user.zmap(_.troll) ?? List("[troll]")) :::
-        (user zmap MasterGranter(Permission.StaffForum)).fold(staffCategIds, publicCategIds) :::
+    user.map(_.id) ?? getTeams map { teams ⇒
+      (user.??(_.troll) ?? List("[troll]")) :::
+        (user ?? MasterGranter(Permission.StaffForum)).fold(staffCategIds, publicCategIds) :::
         (teams map teamSlug)
     } map (_ mkString ";")
 

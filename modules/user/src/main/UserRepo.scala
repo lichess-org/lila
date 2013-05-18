@@ -95,7 +95,7 @@ object UserRepo {
     $projection.one($select(id), Seq("password", "salt", "enabled", "sha512")) { obj ⇒
       (AuthData.reader reads obj).asOpt
     } map {
-      _ zmap (data ⇒ data.enabled && data.compare(password))
+      _ ?? (data ⇒ data.enabled && data.compare(password))
     }
 
   def create(username: String, password: String): Fu[Option[User]] = for {
@@ -137,7 +137,7 @@ object UserRepo {
 
   def passwd(id: ID, password: String): Funit =
     $primitive.one($select(id), "salt")(_.asOpt[String]) flatMap { saltOption ⇒
-      saltOption zmap { salt ⇒
+      saltOption ?? { salt ⇒
         $update($select(id), $set(Json.obj(
           "password" -> hash(password, salt), 
           "sha512" -> false)))

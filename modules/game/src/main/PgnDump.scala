@@ -20,8 +20,8 @@ final class PgnDump(
     }
 
   def filename(game: Game): Fu[String] = for {
-    whiteUser ← game.whitePlayer.userId.zmap(findUser)
-    blackUser ← game.blackPlayer.userId.zmap(findUser)
+    whiteUser ← game.whitePlayer.userId.??(findUser)
+    blackUser ← game.blackPlayer.userId.??(findUser)
   } yield "lichess_pgn_%s_%s_vs_%s.%s.pgn".format(
     dateFormat.print(game.createdAt),
     player(game.whitePlayer, whiteUser),
@@ -36,8 +36,8 @@ final class PgnDump(
     p.aiLevel.fold(u.fold("Anonymous")(_.username))("AI level " + _)
 
   private def tags(game: Game, gameUrl: String ⇒ String): Fu[List[Tag]] = for {
-    whiteUser ← game.whitePlayer.userId.zmap(findUser)
-    blackUser ← game.blackPlayer.userId.zmap(findUser)
+    whiteUser ← game.whitePlayer.userId.??(findUser)
+    blackUser ← game.blackPlayer.userId.??(findUser)
     initialFen ← game.variant.standard.fold(
       fuccess(none),
       GameRepo initialFen game.id)

@@ -101,7 +101,7 @@ private[controllers] trait LilaController
     }
 
   protected def NoEngine[A <: Result](a: ⇒ Fu[A])(implicit ctx: Context): Fu[Result] =
-    ctx.me.zmap(_.engine).fold(Forbidden(views.html.site.noEngine()).fuccess, a)
+    ctx.me.??(_.engine).fold(Forbidden(views.html.site.noEngine()).fuccess, a)
 
   protected def JsonOk[A: Writes](fua: Fu[A]) = fua map { a ⇒
     Ok(Json toJson a) as JSON
@@ -150,7 +150,7 @@ private[controllers] trait LilaController
     fua flatMap { _.fold(notFound(ctx))(a ⇒ op(a)) }
 
   protected def notFound(implicit ctx: Context): Fu[Result] =
-    ctx.req.headers get "X-Requested-With" zmap ("XMLHttpRequest" ==) fold (
+    ctx.req.headers get "X-Requested-With" ?? ("XMLHttpRequest" ==) fold (
       NotFound("resource not found").fuccess,
       Lobby handleNotFound ctx
     )
@@ -159,7 +159,7 @@ private[controllers] trait LilaController
     isGranted(permission(Permission))
 
   protected def isGranted(permission: Permission)(implicit ctx: Context): Boolean =
-    ctx.me.zmap(Granter(permission))
+    ctx.me.??(Granter(permission))
 
   protected def authenticationFailed(implicit req: RequestHeader): Result =
     Redirect(routes.Auth.signup) withCookies LilaCookie.session(Env.security.api.AccessUri, req.uri)

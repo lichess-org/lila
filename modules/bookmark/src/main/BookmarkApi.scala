@@ -12,7 +12,7 @@ final class BookmarkApi(
 
   def toggle(gameId: String, userId: String): Funit =
     $find.byId[Game](gameId) flatMap { gameOption ⇒
-      gameOption zmap { game ⇒
+      gameOption ?? { game ⇒
         BookmarkRepo.toggle(gameId, userId) flatMap { bookmarked ⇒
           GameRepo.incBookmarks(gameId, bookmarked.fold(1, -1)) >>
             fuccess(cached invalidateUserId userId)

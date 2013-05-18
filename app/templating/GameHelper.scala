@@ -47,13 +47,13 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     engine: Boolean = false)(implicit ctx: Context) = Html {
     player.userId.fold(
       """<span class="user_link%s">%s</span>""".format(
-        cssClass.zmap(" " + _),
+        cssClass.??(" " + _),
         player.aiLevel.fold(player.name | User.anonymous)(aiName)
       )
     ) { userId ⇒
         userIdToUsername(userId) |> { username ⇒
           """<a class="user_link%s%s" href="%s">%s%s</a>""".format(
-            cssClass.zmap(" " + _),
+            cssClass.??(" " + _),
             withOnline ?? isOnline(userId).fold(" online", " offline"),
             routes.User show username,
             usernameWithElo(player) + ~(player.eloDiff filter (_ ⇒ withDiff) map { diff ⇒

@@ -14,7 +14,7 @@ object Member {
   def apply(channel: JsChannel, user: Option[User]): Member = Member(
     channel = channel,
     userId = user map (_.id),
-    troll = user.zmap(_.troll))
+    troll = user.??(_.troll))
 }
 
 case class Join(

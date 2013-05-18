@@ -23,7 +23,7 @@ final class Setting(ctx: Context) {
     } getOrElse default
 
   private def set(name: String, value: String): Fu[Cookie] =
-    ctx.me zmap { m ⇒
+    ctx.me ?? { m ⇒
       UserRepo.saveSetting(m.id, name, value.toString)
     } inject LilaCookie.session(name, value.toString)(ctx.req)
 }

@@ -23,7 +23,7 @@ object Member {
     color: Color,
     playerIdOption: Option[String]): Member = {
     val userId = user map (_.id)
-    val troll = user.zmap(_.troll)
+    val troll = user.??(_.troll)
     playerIdOption.fold[Member](Watcher(channel, userId, color, troll)) { playerId ⇒
       Owner(channel, userId, playerId, color, troll)
     }

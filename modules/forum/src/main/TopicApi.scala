@@ -22,7 +22,7 @@ private[forum] final class TopicApi(
         categ ← optionT(CategRepo bySlug categSlug)
         topic ← optionT(TopicRepo(troll).byTree(categSlug, slug))
       } yield categ -> topic).value
-      res ← data zmap {
+      res ← data ?? {
         case (categ, topic) ⇒ (TopicRepo incViews topic) >>
           (env.postApi.paginator(topic, page, troll) map { (categ, topic, _).some })
       }
@@ -83,10 +83,10 @@ private[forum] final class TopicApi(
     lastPostTroll ← PostRepoTroll lastByTopics List(topic)
     _ ← $update(topic.copy(
       nbPosts = nbPosts,
-      lastPostId = lastPost zmap (_.id),
+      lastPostId = lastPost ?? (_.id),
       updatedAt = lastPost.fold(topic.updatedAt)(_.createdAt),
       nbPostsTroll = nbPostsTroll,
-      lastPostIdTroll = lastPostTroll zmap (_.id),
+      lastPostIdTroll = lastPostTroll ?? (_.id),
       updatedAtTroll = lastPostTroll.fold(topic.updatedAtTroll)(_.createdAt)
     ))
   } yield ()

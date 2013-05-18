@@ -21,13 +21,13 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
   private def analyser = Env.analyse.analyser
 
   def websocketWatcher(gameId: String, color: String) = Socket[JsValue] { implicit ctx ⇒
-    (get("sri") |@| getInt("version")).tupled zmap {
+    (get("sri") |@| getInt("version")).tupled ?? {
       case (uid, version) ⇒ env.socketHandler.watcher(gameId, color, version, uid, ctx)
     }
   }
 
   def websocketPlayer(fullId: String) = Socket[JsValue] { implicit ctx ⇒
-    (get("sri") |@| getInt("version") |@| get("tk2")).tupled zmap {
+    (get("sri") |@| getInt("version") |@| get("tk2")).tupled ?? {
       case (uid, version, token) ⇒ env.socketHandler.player(fullId, version, uid, token, ctx)
     }
   }
@@ -47,9 +47,9 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
           }) zip
             env.version(pov.gameId) zip
             (bookmarkApi userIdsByGame pov.game) zip
-            pov.opponent.userId.zmap(UserRepo.isEngine) zip
+            pov.opponent.userId.??(UserRepo.isEngine) zip
             (analyser has pov.gameId) zip
-            (pov.game.tournamentId zmap TournamentRepo.byId) map {
+            (pov.game.tournamentId ?? TournamentRepo.byId) map {
               case (((((roomHtml, v), bookmarkers), engine), analysed), tour) ⇒
                 Ok(html.round.player(
                   pov,
@@ -86,7 +86,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
         html.round.watcherRoomInner(room.decodedMessages)
       }) zip
       (analyser has pov.gameId) zip
-      (pov.game.tournamentId zmap TournamentRepo.byId) map {
+      (pov.game.tournamentId ?? TournamentRepo.byId) map {
         case ((((bookmarkers, v), roomHtml), analysed), tour) ⇒
           Ok(html.round.watcher(
             pov, v, roomHtml, bookmarkers, analysed, tour))
@@ -129,7 +129,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
 
   def tablePlayer(fullId: String) = Open { implicit ctx ⇒
     OptionFuOk(GameRepo pov fullId) { pov ⇒
-      pov.game.tournamentId zmap TournamentRepo.byId map { tour ⇒
+      pov.game.tournamentId ?? TournamentRepo.byId map { tour ⇒
         pov.game.playable.fold(
           html.round.table.playing(pov),
           html.round.table.end(pov, tour))
@@ -142,7 +142,7 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
     JsonOptionOk(GameRepo game gameId map2 { (game: GameModel) ⇒
       (game.players collect {
         case player if player.isHuman ⇒ player.color.name -> playerLink(player).body
-      } toMap) ++ ctx.me.zmap(me ⇒ Map("me" -> me.usernameWithElo))
+      } toMap) ++ ctx.me.??(me ⇒ Map("me" -> me.usernameWithElo))
     })
   }
 }

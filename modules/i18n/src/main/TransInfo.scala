@@ -44,8 +44,8 @@ private[i18n] object TransInfos {
         lang = Lang(code),
         name = name,
         contributors = Contributors(code),
-        nbTranslated = api.messages get code zmap (_.size),
-        nbMissing = nbMessages - (api.messages get code zmap (_.size))
+        nbTranslated = api.messages.get(code) ?? (_.size),
+        nbMissing = nbMessages - (api.messages.get(code) ?? (_.size))
       )
     }
   }

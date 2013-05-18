@@ -18,7 +18,7 @@ private[setup] final class HookJoiner(
 
   def apply(hookId: String, myHookId: Option[String])(me: Option[User]): Fu[Valid[Pov]] = for {
     hookOption ← $find.byId[Hook](hookId)
-    myHookOption ← myHookId zmap HookRepo.ownedHook
+    myHookOption ← myHookId ?? HookRepo.ownedHook
     result ← hookOption.fold(fuccess(!![Pov]("No such hook"))) { hook ⇒
       if (canJoin(hook, me)) join(hook, myHookOption)(me) map success
       else fuccess(!![Pov]("Can not join hook"))
@@ -26,8 +26,8 @@ private[setup] final class HookJoiner(
   } yield result
 
   private def join(hook: Hook, myHook: Option[Hook])(me: Option[User]): Fu[Pov] = for {
-    _ ← myHook zmap fisherman.delete
-    ownerOption ← hook.userId zmap $find.byId[User]
+    _ ← myHook ?? fisherman.delete
+    ownerOption ← hook.userId ?? $find.byId[User]
     game = blame(
       _.invitedColor, me,
       blame(_.creatorColor, ownerOption, makeGame(hook))

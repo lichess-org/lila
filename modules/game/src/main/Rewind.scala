@@ -11,7 +11,7 @@ object Rewind {
     initialFen: Option[String]): Valid[(Progress, String)] = chessPgn.Reader.withSans(
     pgn = pgn,
     op = _.init,
-    tags = initialFen.zmap(fen ⇒ List(
+    tags = initialFen.??(fen ⇒ List(
       chessPgn.Tag(_.FEN, fen),
       chessPgn.Tag(_.Variant, game.variant.name)
     ))

@@ -10,7 +10,7 @@ trait SecurityHelper {
     isGranted(permission(Permission))
 
   def isGranted(permission: Permission)(implicit ctx: Context): Boolean =
-    ctx.me zmap Granter(permission)
+    ctx.me ?? Granter(permission)
 
   def isGranted(permission: Permission.type ⇒ Permission, user: User): Boolean =
     isGranted(permission(Permission), user)

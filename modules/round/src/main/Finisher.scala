@@ -89,7 +89,7 @@ final class Finisher(
     } yield p2.events
 
   private def incNbGames(game: Game, color: Color): Funit =
-    game.player(color).userId zmap { id ⇒
+    game.player(color).userId ?? { id ⇒
       UserRepo.incNbGames(id, game.rated, game.hasAi,
         result = game.wonBy(color).fold(0)(_.fold(1, -1)).some filterNot (_ ⇒ game.hasAi || game.aborted)
       )

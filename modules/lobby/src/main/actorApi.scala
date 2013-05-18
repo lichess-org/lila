@@ -12,7 +12,7 @@ case class Member(
     hookOwnerId: Option[String],
     troll: Boolean) extends SocketMember {
 
-  def ownsHook(hook: Hook) = hookOwnerId zmap (hook.ownerId ==)
+  def ownsHook(hook: Hook) = hookOwnerId ?? (hook.ownerId ==)
 }
 
 object Member {
@@ -20,7 +20,7 @@ object Member {
     channel = channel,
     userId = user map (_.id),
     hookOwnerId = hookOwnerId,
-    troll = user.zmap(_.troll))
+    troll = user.??(_.troll))
 }
 
 case class Connected(enumerator: JsEnumerator, member: Member)

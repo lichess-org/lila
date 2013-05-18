@@ -45,7 +45,7 @@ object Analyse extends LilaController {
           (bookmarkApi userIdsByGame pov.game) zip
           makePgn(pov.game, pgnString) zip
           (env.analyser get pov.game.id) zip
-          (pov.game.tournamentId zmap TournamentRepo.byId) map {
+          (pov.game.tournamentId ?? TournamentRepo.byId) map {
             case (((((roomHtml, version), bookmarkers), pgn), analysis), tour) ⇒
               html.analyse.replay(
                 pov,

@@ -11,7 +11,7 @@ object Setting extends LilaController {
 
   def set(name: String) = OpenBody { implicit ctx ⇒
     implicit val req = ctx.body
-    (setters get name) zmap {
+    (setters get name) ?? {
       case (form, fn) ⇒ FormResult(form) { v ⇒
         fn(UserSetting(ctx), v) map { Ok() withCookies _ }
       }

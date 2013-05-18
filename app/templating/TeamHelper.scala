@@ -12,7 +12,7 @@ trait TeamHelper {
   private def api = teamEnv.api
 
   def myTeam(teamId: String)(implicit ctx: Context): Boolean =
-    ctx.me.zmap(me ⇒ api.belongsTo(teamId, me.id).await)
+    ctx.me.??(me ⇒ api.belongsTo(teamId, me.id).await)
 
   def teamIds(userId: String): List[String] = 
     api.teamIds(userId).await
@@ -21,7 +21,7 @@ trait TeamHelper {
 
   def teamLink(id: String, cssClass: Option[String] = None): Html = Html {
     """<a class="%s" href="%s">%s</a>""".format(
-      cssClass.zmap(" " + _),
+      cssClass.??(" " + _),
       routes.Team.show(id),
       teamIdToName(id))
   }
@@ -29,5 +29,5 @@ trait TeamHelper {
   def teamForumUrl(id: String) = routes.ForumCateg.show("team-" + id)
 
   def teamNbRequests(ctx: Context) = 
-    (ctx.userId zmap api.nbRequests).await
+    (ctx.userId ?? api.nbRequests).await
 }
