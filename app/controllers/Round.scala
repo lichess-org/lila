@@ -7,7 +7,9 @@ import lila.game.{ Pov, PlayerRef, GameRepo, Game ⇒ GameModel }
 import lila.round.{ RoomRepo, WatcherRoomRepo }
 import lila.round.actorApi.round._
 import lila.socket.actorApi.{ Forward, GetVersion }
+import lila.hub.actorApi.map.{ Tell, Ask }
 import lila.tournament.{ TournamentRepo, Tournament ⇒ Tourney }
+import makeTimeout.large
 
 import akka.pattern.ask
 import play.api.mvc._
@@ -15,7 +17,7 @@ import play.api.libs.json._
 import play.api.libs.iteratee._
 import play.api.templates.Html
 
-object Round extends LilaController with TheftPrevention with RoundEventPerformer {
+object Round extends LilaController with TheftPrevention {
 
   private def env = Env.round
   private def bookmarkApi = Env.bookmark.api
@@ -96,16 +98,6 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
   def abort(fullId: String) = performAndRedirect(fullId, Abort(_))
   def resign(fullId: String) = performAndRedirect(fullId, Resign(_))
   def resignForce(fullId: String) = performAndRedirect(fullId, ResignForce(_))
-  def drawClaim(fullId: String) = performAndRedirect(fullId, DrawClaim(_))
-  def drawAccept(fullId: String) = performAndRedirect(fullId, DrawAccept(_))
-  def drawOffer(fullId: String) = performAndRedirect(fullId, DrawOffer(_))
-  def drawCancel(fullId: String) = performAndRedirect(fullId, DrawCancel(_))
-  def drawDecline(fullId: String) = performAndRedirect(fullId, DrawDecline(_))
-
-  def takebackAccept(fullId: String) = performAndRedirect(fullId, TakebackAccept(_))
-  def takebackOffer(fullId: String) = performAndRedirect(fullId, TakebackOffer(_))
-  def takebackCancel(fullId: String) = performAndRedirect(fullId, TakebackCancel(_))
-  def takebackDecline(fullId: String) = performAndRedirect(fullId, TakebackDecline(_))
 
   def tableWatcher(gameId: String, color: String) = Open { implicit ctx ⇒
     OptionOk(GameRepo.pov(gameId, color)) { html.round.table.watch(_) }
@@ -128,5 +120,19 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
         case player if player.isHuman ⇒ player.color.name -> playerLink(player).body
       } toMap) ++ ctx.me.??(me ⇒ Map("me" -> me.usernameWithElo))
     })
+  }
+
+  protected def performAndRedirect(fullId: String, makeMessage: String ⇒ Any) = Action {
+    Async {
+      perform(fullId, makeMessage) inject Redirect(routes.Round.player(fullId))
+    }
+  }
+
+  protected def perform(fullId: String, makeMessage: String ⇒ Any): Funit = {
+    Env.round.roundMap ! Tell(
+      GameModel takeGameId fullId,
+      makeMessage(GameModel takePlayerId(fullId))
+    )
+    Env.round.roundMap ? Ask(GameModel takeGameId fullId, Await) void
   }
 }

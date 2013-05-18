@@ -84,17 +84,13 @@ package round {
   case class ResignColor(color: Color)
   case class ResignForce(playerId: String)
   case class DrawClaim(playerId: String)
-  case class DrawAccept(playerId: String)
-  case class DrawOffer(playerId: String)
-  case class DrawCancel(playerId: String)
-  case class DrawDecline(playerId: String)
+  case class DrawYes(playerId: String)
+  case class DrawNo(playerId: String)
   case object DrawForce
   case class RematchYes(playerId: String)
   case class RematchNo(playerId: String)
-  case class TakebackAccept(playerId: String)
-  case class TakebackOffer(playerId: String)
-  case class TakebackCancel(playerId: String)
-  case class TakebackDecline(playerId: String)
+  case class TakebackYes(playerId: String)
+  case class TakebackNo(playerId: String)
   case class Moretime(playerId: String)
   case object Outoftime
 }

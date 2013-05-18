@@ -17,10 +17,11 @@ import akka.pattern.{ ask, pipe }
 private[round] final class Round(
     gameId: String,
     messenger: Messenger,
-    takeback: Takeback,
+    takebacker: Takebacker,
     ai: Ai,
     finisher: Finisher,
     rematcher: Rematcher,
+    drawer: Drawer,
     notifyMove: (String, String, Option[String]) ⇒ Unit,
     socketHub: ActorRef,
     moretimeDuration: Duration) extends Actor {
@@ -114,106 +115,16 @@ private[round] final class Round(
       }
     }
 
-    case DrawClaim(playerId) ⇒ publishing(playerId) { pov ⇒
-      (pov.game.playable &&
-        pov.game.player.color == pov.color &&
-        pov.game.toChessHistory.threefoldRepetition
-      ) ?? finisher(pov.game, _.Draw)
-    }
+    case DrawYes(playerRef)    ⇒ publishing(playerRef)(drawer.yes)
+    case DrawNo(playerRef)     ⇒ publishing(playerRef)(drawer.no)
+    case DrawClaim(playerId)   ⇒ publishing(playerId)(drawer.claim)
+    case DrawForce             ⇒ publishing(drawer force _)
 
-    case DrawAccept(playerId) ⇒ publishing(playerId) { pov ⇒
-      pov.opponent.isOfferingDraw ?? finisher(pov.game, _.Draw, None, Some(_.drawOfferAccepted))
-    }
+    case RematchYes(playerRef) ⇒ publishing(playerRef)(rematcher.yes)
+    case RematchNo(playerRef)  ⇒ publishing(playerRef)(rematcher.no)
 
-    case DrawForce ⇒ publishing { game ⇒
-      finisher(game, _.Draw, None, None)
-    }
-
-    case DrawOffer(playerId) ⇒ publishing(playerId) {
-      case pov @ Pov(g1, color) ⇒ (g1 playerCanOfferDraw color) ?? {
-        if (g1.player(!color).isOfferingDraw)
-          finisher(pov.game, _.Draw, None, Some(_.drawOfferAccepted))
-        else for {
-          p1 ← messenger.systemMessage(g1, _.drawOfferSent) map { es ⇒
-            Progress(g1, Event.ReloadTable(!color) :: es)
-          }
-          p2 = p1 map { g ⇒ g.updatePlayer(color, _ offerDraw g.turns) }
-          _ ← GameRepo save p2
-        } yield p2.events
-      }
-    }
-
-    case DrawCancel(playerRef) ⇒ publishing(playerRef) {
-      case pov @ Pov(g1, color) ⇒ (pov.player.isOfferingDraw) ?? (for {
-        p1 ← messenger.systemMessage(g1, _.drawOfferCanceled) map { es ⇒
-          Progress(g1, Event.ReloadTable(!color) :: es)
-        }
-        p2 = p1 map { g ⇒ g.updatePlayer(color, _.removeDrawOffer) }
-        _ ← GameRepo save p2
-      } yield p2.events)
-    }
-
-    case DrawDecline(playerRef) ⇒ publishing(playerRef) {
-      case pov @ Pov(g1, color) ⇒ (g1.player(!color).isOfferingDraw) ?? (for {
-        p1 ← messenger.systemMessage(g1, _.drawOfferDeclined) map { es ⇒
-          Progress(g1, Event.ReloadTable(!color) :: es)
-        }
-        p2 = p1 map { g ⇒ g.updatePlayer(!color, _.removeDrawOffer) }
-        _ ← GameRepo save p2
-      } yield p2.events)
-    }
-
-    case RematchYes(playerRef) ⇒ publishing(playerRef)(rematcher.yes) 
-    case RematchNo(playerRef)  ⇒ publishing(playerRef)(rematcher.no) 
-
-    case TakebackAccept(playerRef) ⇒ publishing(playerRef) { pov ⇒
-      (pov.opponent.isProposingTakeback && pov.game.nonTournament) ?? (for {
-        fen ← GameRepo initialFen pov.game.id
-        pgn ← PgnRepo get pov.game.id
-        res ← takeback(pov.game, pgn, fen)
-      } yield res)
-    }
-
-    case TakebackOffer(playerRef) ⇒ publishing(playerRef) {
-      case pov @ Pov(g1, color) ⇒
-        (g1.playable && g1.bothPlayersHaveMoved && g1.nonTournament) ?? (for {
-          fen ← GameRepo initialFen pov.game.id
-          pgn ← PgnRepo get pov.game.id
-          result ← if (g1.player(!color).isAi)
-            takeback.double(pov.game, pgn, fen)
-          else if (g1.player(!color).isProposingTakeback)
-            takeback(pov.game, pgn, fen)
-          else for {
-            p1 ← messenger.systemMessage(g1, _.takebackPropositionSent) map { es ⇒
-              Progress(g1, Event.ReloadTable(!color) :: es)
-            }
-            p2 = p1 map { g ⇒ g.updatePlayer(color, _.proposeTakeback) }
-            _ ← GameRepo save p2
-          } yield p2.events
-        } yield result)
-    }
-
-    case TakebackCancel(playerRef) ⇒ publishing(playerRef) {
-      case pov @ Pov(g1, color) ⇒
-        (pov.player.isProposingTakeback) ?? (for {
-          p1 ← messenger.systemMessage(g1, _.takebackPropositionCanceled) map { es ⇒
-            Progress(g1, Event.ReloadTable(!color) :: es)
-          }
-          p2 = p1 map { g ⇒ g.updatePlayer(color, _.removeTakebackProposition) }
-          _ ← GameRepo save p2
-        } yield p2.events)
-    }
-
-    case TakebackDecline(playerRef) ⇒ publishing(playerRef) {
-      case pov @ Pov(g1, color) ⇒
-        (g1.player(!color).isProposingTakeback) ?? (for {
-          p1 ← messenger.systemMessage(g1, _.takebackPropositionDeclined) map { es ⇒
-            Progress(g1, Event.ReloadTable(!color) :: es)
-          }
-          p2 = p1 map { g ⇒ g.updatePlayer(!color, _.removeTakebackProposition) }
-          _ ← GameRepo save p2
-        } yield p2.events)
-    }
+    case TakebackYes(playerRef) ⇒ publishing(playerRef)(takebacker.yes)
+    case TakebackNo(playerRef)  ⇒ publishing(playerRef)(takebacker.no)
 
     case Moretime(playerRef) ⇒ publishing(playerRef) { pov ⇒
       pov.game.clock.filter(_ ⇒ pov.game.moretimeable) ?? { clock ⇒
@@ -226,7 +137,7 @@ private[round] final class Round(
           GameRepo save progress2 inject progress2.events
         }
       }
-    } 
+    }
   }
 
   private def publish(events: List[Event]) {

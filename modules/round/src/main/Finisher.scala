@@ -40,6 +40,7 @@ private[round] final class Finisher(
       ((g.status >= Status.Mate) ?? incNbGames(g, Black)) >>-
       (indexer ! lila.game.actorApi.InsertGame(g)) >>-
       (tournamentOrganizer ! FinishGame(g.id))
+      // TODO send redirection events
   } yield p2.events
 
   private def incNbGames(game: Game, color: Color): Funit =
