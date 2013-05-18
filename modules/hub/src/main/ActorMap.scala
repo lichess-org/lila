@@ -12,10 +12,8 @@ final class ActorMap[A <: Actor](mkActor: String ⇒ A) extends Actor {
   def receive = {
 
     case Get(id) ⇒ sender ! {
-      loginfo("get actor " + id)
       (actors get id) | {
         context.actorOf(Props(mkActor(id)), name = id) ~ { actor ⇒
-          loginfo("create actor " + id)
           actors = actors + (id -> actor)
           context watch actor
         }
@@ -28,14 +26,10 @@ final class ActorMap[A <: Actor](mkActor: String ⇒ A) extends Actor {
 
     case Tell(id, msg) ⇒ get(id) foreach { _ forward msg }
 
-    case Stop(id) ⇒ "stop actor " + id describes {
-      actors get id foreach context.stop
-    }
+    case Stop(id)      ⇒ actors get id foreach context.stop
 
     case Terminated(actor) ⇒ actors find (_._2 == actor) foreach {
-      case (id, _) ⇒ "remove actor " + id describes {
-        actors = actors - id
-      }
+      case (id, _) ⇒ actors = actors - id
     }
   }
 
