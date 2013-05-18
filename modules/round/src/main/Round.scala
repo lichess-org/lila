@@ -4,6 +4,7 @@ import actorApi._, round._
 import lila.ai.Ai
 import lila.game.{ Game, GameRepo, PgnRepo, Pov, PovRef, Handler, Event, Progress }
 import lila.i18n.I18nKey.{ Select ⇒ SelectI18nKey }
+import lila.socket.actorApi.Forward
 import chess.{ Status, Role, Color }
 import chess.Pos.posAt
 import chess.format.Forsyth
@@ -19,6 +20,7 @@ private[round] final class Round(
     takeback: Takeback,
     ai: Ai,
     finisher: Finisher,
+    notifyMove: (String, String, Option[String]) ⇒ Unit,
     socketHub: ActorRef,
     moretimeDuration: Duration) extends Handler(gameId) with Actor {
 
@@ -29,7 +31,10 @@ private[round] final class Round(
 
     case ReceiveTimeout ⇒ self ! PoisonPill
 
-    case Play(playerId, origS, destS, promS, blur, lag) ⇒ sender ! blocking[PlayResult](playerId) {
+    // useful to get the game after all messages have been processed
+    case GetGame        ⇒ GameRepo game gameId pipeTo sender
+
+    case Play(playerId, origS, destS, promS, blur, lag) ⇒ blocking[PlayResult](playerId) {
       case Pov(g1, color) ⇒ PgnRepo get g1.id flatMap { pgnString ⇒
         (for {
           g2 ← g1.validIf(g1 playableBy color, "Game not playable %s %s, on move %d".format(origS, destS, g1.toChess.fullMoveNumber))
@@ -51,6 +56,7 @@ private[round] final class Round(
               initialFen ← progress.game.variant.exotic ?? {
                 GameRepo initialFen progress.game.id
               }
+              // TODO unblock AI
               aiResult ← ai.play(progress.game.toChess, pgn, initialFen, ~progress.game.aiLevel)
               eventsAndFen ← aiResult match {
                 case (newChessGame, move) ⇒ {
@@ -68,6 +74,11 @@ private[round] final class Round(
               PgnRepo.save(gameId, pgn) inject
               playResult(progress.events, progress)
         })
+      }
+    } ~ {
+      case PlayResult(events, fen, lastMove) ⇒ {
+        sendEvents(events)
+        notifyMove(gameId, fen, lastMove)
       }
     }
 
@@ -95,11 +106,11 @@ private[round] final class Round(
       }
     }
 
-    case Outoftime ⇒ sender ! blocking { game ⇒
+    case Outoftime ⇒ blocking { game ⇒
       game.outoftimePlayer ?? { player ⇒
         finisher(game, _.Outoftime, Some(!player.color) filter game.toChess.board.hasEnoughMaterialToMate)
       }
-    }
+    } ~ sendEvents
 
     case DrawClaim(playerId) ⇒ sender ! blocking(playerId) { pov ⇒
       (pov.game.playable &&
@@ -118,7 +129,7 @@ private[round] final class Round(
 
     case DrawOffer(playerId) ⇒ sender ! blocking(playerId) {
       case pov @ Pov(g1, color) ⇒ (g1 playerCanOfferDraw color) ?? {
-        if (g1.player(!color).isOfferingDraw) 
+        if (g1.player(!color).isOfferingDraw)
           finisher(pov.game, _.Draw, None, Some(_.drawOfferAccepted))
         else for {
           p1 ← messenger.systemMessage(g1, _.drawOfferSent) map { es ⇒
@@ -219,22 +230,22 @@ private[round] final class Round(
         } yield p2.events)
     }
 
-    case Moretime(playerRef) ⇒ sender ! blocking(playerRef) { pov ⇒
+    case Moretime(playerRef) ⇒ blocking(playerRef) { pov ⇒
       pov.game.clock.filter(_ ⇒ pov.game.moretimeable) ?? { clock ⇒
-        val color = !pov.color
-        val newClock = clock.giveTime(color, moretimeDuration.toSeconds)
+        val newClock = clock.giveTime(!pov.color, moretimeDuration.toSeconds)
         val progress = pov.game withClock newClock
-        for {
-          events ← messenger.systemMessage(
-            progress.game, ((_.untranslated(
-              "%s + %d seconds".format(color, moretimeDuration.toSeconds)
-            )): SelectI18nKey)
-          )
-          progress2 = progress ++ (Event.Clock(newClock) :: events)
-          _ ← GameRepo save progress2
-        } yield progress2.events
+        messenger.systemMessage(progress.game, (_.untranslated(
+          "%s + %d seconds".format(!pov.color, moretimeDuration.toSeconds)
+        ))) flatMap { events ⇒
+          val progress2 = progress ++ (Event.Clock(newClock) :: events)
+          GameRepo save progress2 inject progress2.events
+        }
       }
-    }
+    } ~ sendEvents
+  }
+
+  private def sendEvents(events: List[Event]) {
+    if (events.nonEmpty) socketHub ! Forward(gameId, events)
   }
 
   private def moveFinish(game: Game, color: Color): Fu[List[Event]] = game.status match {
