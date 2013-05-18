@@ -52,6 +52,9 @@ private[round] final class SocketHandler(
         case ("draw-yes", _)     ⇒ roundMap ! Tell(gameId, DrawYes(playerId))
         case ("draw-no", _)      ⇒ roundMap ! Tell(gameId, DrawNo(playerId))
         case ("draw-claim", _)   ⇒ roundMap ! Tell(gameId, DrawClaim(playerId))
+        case ("resign", _)       ⇒ roundMap ! Tell(gameId, Resign(playerId))
+        case ("resign-force", _) ⇒ roundMap ! Tell(gameId, ResignForce(playerId))
+        case ("abort", _)        ⇒ roundMap ! Tell(gameId, Abort(playerId))
         case ("move", o) ⇒ parseMove(o) foreach {
           case (orig, dest, prom, blur, lag) ⇒ {
             socket ! Ack(uid)
