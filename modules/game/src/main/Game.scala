@@ -221,11 +221,15 @@ case class Game(
     player(color).lastDrawOffer.fold(false)(_ >= turns - 1)
 
   def playerCanRematch(color: Color) =
-    finishedOrAborted && opponent(color).isHuman && nonTournament
+    !player(color).isOfferingRematch &&
+      finishedOrAborted &&
+      opponent(color).isHuman &&
+      nonTournament
 
   def playerCanProposeTakeback(color: Color) =
     started && playable && nonTournament &&
       bothPlayersHaveMoved &&
+      !player(color).isProposingTakeback && 
       !opponent(color).isProposingTakeback
 
   def moretimeable = playable && nonTournament && hasClock

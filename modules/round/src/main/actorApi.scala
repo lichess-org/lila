@@ -70,13 +70,14 @@ package round {
     playerId: String,
     orig: String,
     dest: String,
-    prom: Option[String] = None,
-    blur: Boolean = false,
-    lag: Int = 0)
+    prom: Option[String],
+    blur: Boolean,
+    lag: Int,
+    onSuccess: PlayResult ⇒ Unit,
+    onFailure: Exception ⇒ Unit)
 
   case class PlayResult(events: Events, fen: String, lastMove: Option[String])
 
-  case object Await
   case class Send(events: Events)
   case class Abort(playerId: String)
   case object AbortForce

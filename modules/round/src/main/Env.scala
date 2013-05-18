@@ -48,7 +48,6 @@ final class Env(
       finisher = finisher,
       rematcher = rematcher,
       drawer = drawer,
-      notifyMove = notifyMove,
       socketHub = socketHub,
       moretimeDuration = Moretime)
   )), name = ActorMapName)
@@ -65,6 +64,7 @@ final class Env(
     roundMap = roundMap,
     socketHub = socketHub,
     messenger = messenger,
+    notifyMove = notifyMove,
     flood = flood,
     hijack = hijack)
 

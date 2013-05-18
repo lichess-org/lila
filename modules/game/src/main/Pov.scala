@@ -22,6 +22,8 @@ case class Pov(game: Game, color: Color) {
   def ref = PovRef(game.id, color)
 
   def withGame(g: Game) = Pov(g, color)
+
+  override def toString = ref.toString
 }
 
 object Pov {

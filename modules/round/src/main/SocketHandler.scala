@@ -19,6 +19,7 @@ private[round] final class SocketHandler(
     roundMap: ActorRef,
     socketHub: ActorRef,
     messenger: Messenger,
+    notifyMove: (String, String, Option[String]) ⇒ Unit,
     flood: Flood,
     hijack: Hijack) {
 
@@ -45,16 +46,21 @@ private[round] final class SocketHandler(
           txt ← o str "d"
           if flood.allowMessage(uid, txt)
         } messenger.playerMessage(ref, txt) pipeTo socket
-        case ("rematch-yes", o) ⇒ roundMap ! Tell(gameId, RematchYes(playerId))
-        case ("rematch-no", o)  ⇒ roundMap ! Tell(gameId, RematchNo(playerId))
+        case ("rematch-yes", _)  ⇒ roundMap ! Tell(gameId, RematchYes(playerId))
+        case ("rematch-no", _)   ⇒ roundMap ! Tell(gameId, RematchNo(playerId))
+        case ("takeback-yes", _) ⇒ roundMap ! Tell(gameId, TakebackYes(playerId))
+        case ("takeback-no", _)  ⇒ roundMap ! Tell(gameId, TakebackNo(playerId))
+        case ("draw-yes", _)     ⇒ roundMap ! Tell(gameId, DrawYes(playerId))
+        case ("draw-no", _)      ⇒ roundMap ! Tell(gameId, DrawNo(playerId))
+        case ("draw-claim", _)   ⇒ roundMap ! Tell(gameId, DrawClaim(playerId))
         case ("move", o) ⇒ parseMove(o) foreach {
           case (orig, dest, prom, blur, lag) ⇒ {
             socket ! Ack(uid)
-            roundMap ! Tell(
-              gameId,
-              Play(playerId, orig, dest, prom, blur, lag),
+            roundMap ! Tell(gameId, Play(playerId, orig, dest, prom, blur, lag, {
+              case PlayResult(_, fen, lastMove) ⇒ notifyMove(gameId, fen, lastMove)
+            }, {
               _ ⇒ socket ! Resync(uid)
-            )
+            }))
           }
         }
         case ("moretime", o)  ⇒ roundMap ! Tell(gameId, Moretime(playerId))

@@ -55,7 +55,11 @@ private[importer] final class Importer(
       playerId = pov.playerId,
       orig = move.orig.toString,
       dest = move.dest.toString,
-      prom = move.promotion map (_.forsyth.toString)
+      prom = move.promotion map (_.forsyth.toString),
+      blur = false,
+      lag = 0,
+      onSuccess = _ ⇒ (),
+      onFailure = _ ⇒ ()
     ))
   }
 }

@@ -18,7 +18,7 @@
   } else {
   <a href="@routes.Round.resign(fullId)" class="lichess_resign">@trans.resign()</a>
   @if(game.playerCanOfferDraw(color)) {
-  <a class="offer_draw" href="@routes.Round.drawOffer(fullId)">@trans.offerDraw()</a>
+  <a class="offer_draw socket-link" data-msg="draw-yes">@trans.offerDraw()</a>
   }
   @if(game.playerCanProposeTakeback(color)) {
   <a class="propose_takeback socket-link" data-msg="takeback-yes" title="@trans.proposeATakeback()">@trans.takeback()</a>
@@ -34,20 +34,20 @@
 @if(game.turnOf(player) && game.toChessHistory.threefoldRepetition) {
 <div class="lichess_claim_draw_zone">
     @trans.threefoldRepetition().&nbsp;
-    <a class="lichess_claim_draw" href="@routes.Round.drawClaim(fullId)">@trans.claimADraw()</a>
+    <a class="lichess_claim_draw socket-link" data-msg="draw-claim">@trans.claimADraw()</a>
 </div>
 } else {
 @if(player.isOfferingDraw) {
 <div class="offered_draw">
     @trans.drawOfferSent().&nbsp;
-    <a href="@routes.Round.drawCancel(fullId)">@trans.cancel()</a>
+    <a class="socket-link" data-msg="draw-no">@trans.cancel()</a>
 </div>
 } else {
 @if(opponent.isOfferingDraw) {
 <div class="offered_draw">
     @trans.yourOpponentOffersADraw().<br />
-    <a href="@routes.Round.drawAccept(fullId)">@trans.accept()</a>&nbsp;
-    <a href="@routes.Round.drawDecline(fullId)">@trans.decline()</a>
+    <a class="socket-link" data-msg="draw-yes">@trans.accept()</a>&nbsp;
+    <a class="socket-link" data-msg="draw-no">@trans.decline()</a>
 </div>
 } else {
 @if(player.isProposingTakeback) {

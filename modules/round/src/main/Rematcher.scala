@@ -4,12 +4,10 @@ import chess.{ Game ⇒ ChessGame, Board, Clock, Variant, Color ⇒ ChessColor }
 import ChessColor.{ White, Black }
 import chess.format.Forsyth
 import lila.game.{ GameRepo, Game, Event, Progress, Pov, PlayerRef, Namer, Source }
-import lila.user.User
-import lila.hub.actorApi.router.Player
+import lila.user.UserRepo
 import makeTimeout.short
 
 import lila.game.tube.gameTube
-import lila.user.tube.userTube
 import lila.db.api._
 
 import akka.pattern.ask
@@ -101,13 +99,13 @@ private[round] final class Rematcher(
   private def returnPlayer(game: Game, color: ChessColor): Fu[lila.game.Player] =
     lila.game.Player.make(color = color, aiLevel = None) |> { player ⇒
       game.player(!color).userId.fold(fuccess(player)) { userId ⇒
-        $find.byId[User](userId) map { _.fold(player)(player.withUser) }
+        UserRepo byId userId map { _.fold(player)(player.withUser) }
       }
     }
 
   private def redirectEvents(nextGame: Game): Fu[Events] =
-    router ? Player(nextGame fullIdOf White) zip
-      router ? Player(nextGame fullIdOf Black) collect {
+    router ? lila.hub.actorApi.router.Player(nextGame fullIdOf White) zip
+      router ? lila.hub.actorApi.router.Player(nextGame fullIdOf Black) collect {
         case (whiteUrl: String, blackUrl: String) ⇒ List(
           Event.RedirectOwner(White, blackUrl),
           Event.RedirectOwner(Black, whiteUrl),

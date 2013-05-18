@@ -22,7 +22,6 @@ private[round] final class Round(
     finisher: Finisher,
     rematcher: Rematcher,
     drawer: Drawer,
-    notifyMove: (String, String, Option[String]) ⇒ Unit,
     socketHub: ActorRef,
     moretimeDuration: Duration) extends Actor {
 
@@ -30,14 +29,14 @@ private[round] final class Round(
 
   def receive = {
 
-    case ReceiveTimeout ⇒ self ! PoisonPill
+    case ReceiveTimeout                 ⇒ self ! PoisonPill
 
     // guaranty that all previous blocking events were performed
-    case Await          ⇒ sender ! ()
+    case lila.hub.actorApi.map.Await(_) ⇒ sender ! ()
 
-    case Send(events)   ⇒ publish(events)
+    case Send(events)                   ⇒ socketHub ! Forward(gameId, events)
 
-    case Play(playerId, origS, destS, promS, blur, lag) ⇒ blocking[PlayResult](playerId) {
+    case Play(playerId, origS, destS, promS, blur, lag, onSuccess, onFailure) ⇒ handle(playerId) {
       case Pov(g1, color) ⇒ PgnRepo get g1.id flatMap { pgnString ⇒
         (for {
           g2 ← g1.validIf(g1 playableBy color, "Game not playable %s %s, on move %d".format(origS, destS, g1.toChess.fullMoveNumber))
@@ -77,31 +76,27 @@ private[round] final class Round(
               PgnRepo.save(gameId, pgn) inject
               playResult(progress.events, progress)
         })
-      }
-    } ~ {
-      case PlayResult(events, fen, lastMove) ⇒ {
-        publish(events)
-        notifyMove(gameId, fen, lastMove)
-      }
+        //TODO test that line
+      } addEffect onSuccess addFailureEffect onFailure map (_.events)
     }
 
-    case Abort(playerId) ⇒ publishing(playerId) { pov ⇒
+    case Abort(playerId) ⇒ handle(playerId) { pov ⇒
       pov.game.abortable ?? finisher(pov.game, _.Aborted)
     }
 
-    case AbortForce ⇒ publishing { game ⇒
+    case AbortForce ⇒ handle { game ⇒
       game.playable ?? finisher(game, _.Aborted)
     }
 
-    case Resign(playerId) ⇒ publishing(playerId) { pov ⇒
+    case Resign(playerId) ⇒ handle(playerId) { pov ⇒
       pov.game.resignable ?? finisher(pov.game, _.Resign, Some(!pov.color))
     }
 
-    case ResignColor(color) ⇒ publishing(color) { pov ⇒
+    case ResignColor(color) ⇒ handle(color) { pov ⇒
       pov.game.resignable ?? finisher(pov.game, _.Resign, Some(!pov.color))
     }
 
-    case ResignForce(playerId) ⇒ publishing(playerId) { pov ⇒
+    case ResignForce(playerId) ⇒ handle(playerId) { pov ⇒
       (pov.game.resignable && !pov.game.hasAi) ?? {
         socketHub ? IsGone(pov.game.id, !pov.color) flatMap {
           case true ⇒ finisher(pov.game, _.Timeout, Some(pov.color))
@@ -109,24 +104,24 @@ private[round] final class Round(
       }
     }
 
-    case Outoftime ⇒ publishing { game ⇒
+    case Outoftime ⇒ handle { game ⇒
       game.outoftimePlayer ?? { player ⇒
         finisher(game, _.Outoftime, Some(!player.color) filter game.toChess.board.hasEnoughMaterialToMate)
       }
     }
 
-    case DrawYes(playerRef)    ⇒ publishing(playerRef)(drawer.yes)
-    case DrawNo(playerRef)     ⇒ publishing(playerRef)(drawer.no)
-    case DrawClaim(playerId)   ⇒ publishing(playerId)(drawer.claim)
-    case DrawForce             ⇒ publishing(drawer force _)
+    case DrawYes(playerRef)     ⇒ handle(playerRef)(drawer.yes)
+    case DrawNo(playerRef)      ⇒ handle(playerRef)(drawer.no)
+    case DrawClaim(playerId)    ⇒ handle(playerId)(drawer.claim)
+    case DrawForce              ⇒ handle(drawer force _)
 
-    case RematchYes(playerRef) ⇒ publishing(playerRef)(rematcher.yes)
-    case RematchNo(playerRef)  ⇒ publishing(playerRef)(rematcher.no)
+    case RematchYes(playerRef)  ⇒ handle(playerRef)(rematcher.yes)
+    case RematchNo(playerRef)   ⇒ handle(playerRef)(rematcher.no)
 
-    case TakebackYes(playerRef) ⇒ publishing(playerRef)(takebacker.yes)
-    case TakebackNo(playerRef)  ⇒ publishing(playerRef)(takebacker.no)
+    case TakebackYes(playerRef) ⇒ handle(playerRef)(takebacker.yes)
+    case TakebackNo(playerRef)  ⇒ handle(playerRef)(takebacker.no)
 
-    case Moretime(playerRef) ⇒ publishing(playerRef) { pov ⇒
+    case Moretime(playerRef) ⇒ handle(playerRef) { pov ⇒
       pov.game.clock.filter(_ ⇒ pov.game.moretimeable) ?? { clock ⇒
         val newClock = clock.giveTime(!pov.color, moretimeDuration.toSeconds)
         val progress = pov.game withClock newClock
@@ -138,10 +133,6 @@ private[round] final class Round(
         }
       }
     }
-  }
-
-  private def publish(events: List[Event]) {
-    if (events.nonEmpty) socketHub ! Forward(gameId, events)
   }
 
   private def moveFinish(game: Game, color: Color): Fu[List[Event]] = game.status match {
@@ -156,23 +147,27 @@ private[round] final class Round(
     progress.game.lastMove
   )
 
-  protected def blocking[A](playerId: String)(op: Pov ⇒ Fu[A]): A = {
-    GameRepo pov PlayerRef(gameId, playerId) flatten "No such game" flatMap op
-  }.await
-
-  protected def publishing(playerId: String)(op: Pov ⇒ Fu[Events]) {
-    blocking(playerId)(op) ~ publish
+  protected def handle(playerId: String)(op: Pov ⇒ Fu[Events]) {
+    blockAndPublish(GameRepo pov PlayerRef(gameId, playerId))(op)
   }
 
-  protected def publishing(color: Color)(op: Pov ⇒ Fu[Events]) {
-    {
-      GameRepo pov PovRef(gameId, color) flatten "No such game" flatMap op
-    }.await ~ publish
+  protected def handle(color: Color)(op: Pov ⇒ Fu[Events]) {
+    blockAndPublish(GameRepo pov PovRef(gameId, color))(op)
   }
 
-  protected def publishing[A](op: Game ⇒ Fu[Events]) {
-    {
-      GameRepo game gameId flatten "No such game" flatMap op
-    }.await ~ publish
+  protected def handle[A](op: Game ⇒ Fu[Events]) {
+    blockAndPublish(GameRepo game gameId)(op)
+  }
+
+  private def blockAndPublish[A](context: Fu[Option[A]])(op: A ⇒ Fu[List[Event]]) {
+    try {
+      val events = {
+        context flatten "[round] not found" flatMap op
+      } await 3.seconds
+      if (events.nonEmpty) socketHub ! Forward(gameId, events)
+    }
+    catch {
+      case e: lila.common.LilaException ⇒ logwarn("[round] " + e.message)
+    }
   }
 }

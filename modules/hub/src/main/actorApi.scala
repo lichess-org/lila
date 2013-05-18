@@ -24,11 +24,8 @@ case class NbMembers(nb: Int)
 
 package map {
   case class Get(id: String)
-  case class Ask(id: String, msg: Any)
-  case class Tell(
-    id: String,
-    msg: Any,
-    onFailure: Throwable ⇒ Unit = _ ⇒ ())
+  case class Await(id: String)
+  case class Tell(id: String, msg: Any)
   case object Count
   case class Stop(id: String)
 }
