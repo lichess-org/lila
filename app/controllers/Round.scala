@@ -102,19 +102,6 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
   def drawCancel(fullId: String) = performAndRedirect(fullId, DrawCancel(_))
   def drawDecline(fullId: String) = performAndRedirect(fullId, DrawDecline(_))
 
-  def rematch(fullId: String) = Open { implicit ctx ⇒
-    Env.setup.rematcher offerOrAccept PlayerRef(fullId) fold (
-      _ ⇒ Redirect(routes.Round.player(fullId)), {
-        case (nextFullId, events) ⇒ {
-          sendEvents(fullId)(events)
-          Redirect(routes.Round.player(nextFullId))
-        }
-      }
-    )
-  }
-  def rematchCancel(fullId: String) = performAndRedirect(fullId, RematchCancel(_))
-  def rematchDecline(fullId: String) = performAndRedirect(fullId, RematchDecline(_))
-
   def takebackAccept(fullId: String) = performAndRedirect(fullId, TakebackAccept(_))
   def takebackOffer(fullId: String) = performAndRedirect(fullId, TakebackOffer(_))
   def takebackCancel(fullId: String) = performAndRedirect(fullId, TakebackCancel(_))

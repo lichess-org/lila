@@ -20,19 +20,21 @@ private[round] final class Round(
     takeback: Takeback,
     ai: Ai,
     finisher: Finisher,
+    rematcher: Rematcher,
     notifyMove: (String, String, Option[String]) ⇒ Unit,
     socketHub: ActorRef,
     moretimeDuration: Duration) extends Handler(gameId) with Actor {
 
-  // TODO 30 seconds sounds good
-  context setReceiveTimeout 5.seconds
+  context setReceiveTimeout 30.seconds
 
   def receive = {
 
     case ReceiveTimeout ⇒ self ! PoisonPill
 
-    // useful to get the game after all messages have been processed
-    case GetGame        ⇒ GameRepo game gameId pipeTo sender
+    // guaranty that all previous blocking events were performed
+    case Await          ⇒ sender ! ()
+
+    case Send(events)   ⇒ sendEvents(events)
 
     case Play(playerId, origS, destS, promS, blur, lag) ⇒ blocking[PlayResult](playerId) {
       case Pov(g1, color) ⇒ PgnRepo get g1.id flatMap { pgnString ⇒
@@ -161,25 +163,8 @@ private[round] final class Round(
       } yield p2.events)
     }
 
-    case RematchCancel(playerRef) ⇒ sender ! blocking(playerRef) {
-      case pov @ Pov(g1, color) ⇒ (pov.player.isOfferingRematch) ?? (for {
-        p1 ← messenger.systemMessage(g1, _.rematchOfferCanceled) map { es ⇒
-          Progress(g1, Event.ReloadTable(!color) :: es)
-        }
-        p2 = p1 map { g ⇒ g.updatePlayer(color, _.removeRematchOffer) }
-        _ ← GameRepo save p2
-      } yield p2.events)
-    }
-
-    case RematchDecline(playerRef) ⇒ sender ! blocking(playerRef) {
-      case pov @ Pov(g1, color) ⇒ (g1.player(!color).isOfferingRematch) ?? (for {
-        p1 ← messenger.systemMessage(g1, _.rematchOfferDeclined) map { es ⇒
-          Progress(g1, Event.ReloadTable(!color) :: es)
-        }
-        p2 = p1 map { g ⇒ g.updatePlayer(!color, _.removeRematchOffer) }
-        _ ← GameRepo save p2
-      } yield p2.events)
-    }
+    case RematchYes(playerRef) ⇒ blocking(playerRef)(rematcher.yes) ~ sendEvents
+    case RematchNo(playerRef)  ⇒ blocking(playerRef)(rematcher.no) ~ sendEvents
 
     case TakebackAccept(playerRef) ⇒ sender ! blocking(playerRef) { pov ⇒
       (pov.opponent.isProposingTakeback && pov.game.nonTournament) ?? (for {

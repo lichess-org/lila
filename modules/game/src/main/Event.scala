@@ -140,6 +140,11 @@ object Event {
     override def only = Some(color)
   }
 
+  case object ReloadTables extends Event {
+    def typ = "reload_table"
+    def data = JsNull
+  }
+
   case class Premove(color: Color) extends Empty {
     def typ = "premove"
     override def only = Some(color)

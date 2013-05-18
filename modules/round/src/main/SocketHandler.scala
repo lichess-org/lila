@@ -33,8 +33,6 @@ private[round] final class SocketHandler(
       case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
       case ("talk", o) ⇒ for {
         txt ← o str "d"
-        // TODO troll
-        // if member.canChat
         if flood.allowMessage(uid, txt)
       } messenger.watcherMessage(
         ref.gameId,
@@ -45,10 +43,10 @@ private[round] final class SocketHandler(
         case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
         case ("talk", o) ⇒ for {
           txt ← o str "d"
-          // TODO troll
-          // if member.canChat
           if flood.allowMessage(uid, txt)
         } messenger.playerMessage(ref, txt) pipeTo socket
+        case ("rematch-yes", o) ⇒ roundMap ! Tell(gameId, RematchYes(playerId))
+        case ("rematch-no", o)  ⇒ roundMap ! Tell(gameId, RematchNo(playerId))
         case ("move", o) ⇒ parseMove(o) foreach {
           case (orig, dest, prom, blur, lag) ⇒ {
             socket ! Ack(uid)

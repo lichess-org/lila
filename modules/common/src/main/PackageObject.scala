@@ -148,7 +148,7 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
       case e            ⇒ throw e
     })
 
-    def addEffect(effect: A => Unit) = fua ~ (_ foreach effect)
+    def addEffect(effect: A ⇒ Unit) = fua ~ (_ foreach effect)
 
     def thenPp: Fu[A] = fua ~ {
       _.effectFold(
