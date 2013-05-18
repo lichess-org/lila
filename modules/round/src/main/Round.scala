@@ -63,24 +63,25 @@ private[round] final class Round(
       } addEffect onSuccess addFailureEffect onFailure map (_.events)
     }
 
-    case AiPlay(onSuccess, onFailure) ⇒ handle { game ⇒
-      game.player.isAi.fold(
-        (game.variant.exotic ?? { GameRepo initialFen game.id }) zip
-          (PgnRepo get game.id) flatMap {
-            case (fen, pgn) ⇒
-              ai.play(game.toChess, pgn, fen, ~game.aiLevel) flatMap {
-                case (newChessGame, move) ⇒ {
-                  val (progress, pgn2) = game.update(newChessGame, move)
-                  (GameRepo save progress) >> PgnRepo.save(gameId, pgn2) >>
-                    (moveFinish(progress.game, game.turnColor) map { finishEvents ⇒
-                      playResult(progress.events ::: finishEvents, progress)
-                    })
+    case AiPlay(onSuccess, onFailure) ⇒
+      blockAndPublish(GameRepo game gameId, 10.seconds) { game ⇒
+        game.player.isAi.fold(
+          (game.variant.exotic ?? { GameRepo initialFen game.id }) zip
+            (PgnRepo get game.id) flatMap {
+              case (fen, pgn) ⇒
+                ai.play(game.toChess, pgn, fen, ~game.aiLevel) flatMap {
+                  case (newChessGame, move) ⇒ {
+                    val (progress, pgn2) = game.update(newChessGame, move)
+                    (GameRepo save progress) >> PgnRepo.save(gameId, pgn2) >>
+                      (moveFinish(progress.game, game.turnColor) map { finishEvents ⇒
+                        playResult(progress.events ::: finishEvents, progress)
+                      })
+                  }
                 }
-              }
-          } addEffect onSuccess addFailureEffect onFailure map (_.events),
-        fufail("not AI turn")
-      )
-    }
+            } addEffect onSuccess addFailureEffect onFailure map (_.events),
+          fufail("not AI turn")
+        )
+      }
 
     case Abort(playerId) ⇒ handle(playerId) { pov ⇒
       pov.game.abortable ?? finisher(pov.game, _.Aborted)
@@ -161,11 +162,11 @@ private[round] final class Round(
     blockAndPublish(GameRepo game gameId)(op)
   }
 
-  private def blockAndPublish[A](context: Fu[Option[A]])(op: A ⇒ Fu[List[Event]]) {
+  private def blockAndPublish[A](context: Fu[Option[A]], timeout: FiniteDuration = 3.seconds)(op: A ⇒ Fu[List[Event]]) {
     try {
       val events = {
         context flatten "[round] not found" flatMap op
-      } await 3.seconds
+      } await makeTimeout(timeout)
       if (events.nonEmpty) socketHub ! Forward(gameId, events)
     }
     catch {
