@@ -89,7 +89,7 @@ var lichess_translations = [];
         t: t,
         d: data
       });
-      self.debug(message);
+      self.debug("send " + message);
       self.ws.send(message);
     },
     scheduleConnect: function(delay) {
@@ -585,6 +585,10 @@ var lichess_translations = [];
       if (self.options.tournament_id) {
         $('body').data('tournament-id', self.options.tournament_id);
       }
+
+      self.$tableInner.on('click', 'a.socket-link', function() {
+        lichess.socket.send($(this).data('msg'));
+      });
 
       if (self.options.game.started) {
         self.indicateTurn();

@@ -46,6 +46,7 @@ final class Env(
       takeback = takeback,
       ai = ai,
       finisher = finisher,
+      rematcher = rematcher,
       notifyMove = notifyMove,
       socketHub = socketHub,
       moretimeDuration = Moretime)
@@ -72,6 +73,11 @@ final class Env(
     eloCalculator = eloCalculator,
     indexer = hub.actor.gameIndexer,
     tournamentOrganizer = hub.actor.tournamentOrganizer)
+
+  private lazy val rematcher = new Rematcher(
+    messenger = messenger,
+    router = hub.actor.router,
+    timeline = hub.actor.timeline)
 
   lazy val meddler = new Meddler(
     roundMap = roundMap,

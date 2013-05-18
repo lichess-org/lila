@@ -22,7 +22,7 @@ final class ActorMap[A <: Actor](mkActor: String ⇒ A) extends Actor {
 
     case Count            ⇒ sender ! actors.size
 
-    case Ask(id, msg)     ⇒ get(id) flatMap { _ ? msg } pipeTo sender
+    // case Ask(id, msg)     ⇒ get(id.pp) flatMap { _ ? msg.pp } pipeTo sender
 
     case Tell(id, msg, _) ⇒ get(id) foreach { _ forward msg }
 

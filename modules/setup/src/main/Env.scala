@@ -31,11 +31,6 @@ final class Env(
     router = hub.actor.router,
     ai = ai)
 
-  lazy val rematcher = new Rematcher(
-    messenger = messenger,
-    router = hub.actor.router,
-    timeline = hub.actor.timeline)
-
   lazy val friendJoiner = new FriendJoiner(
     messenger = messenger,
     router = hub.actor.router,

@@ -16,18 +16,18 @@
   @if(opponent.isOfferingRematch) {
   <div class="lichess_play_again_join rematch_alert">
     @trans.yourOpponentWantsToPlayANewGameWithYou().&nbsp;
-    <a class="lichess_play_again lichess_rematch" title="@trans.playWithTheSameOpponentAgain()" href="@routes.Round.rematch(fullId)">@trans.joinTheGame()</a><br />
-    <a class="lichess_rematch_decline" href="@routes.Round.rematchDecline(fullId)">@trans.declineInvitation()</a>
+    <a class="lichess_play_again lichess_rematch socket-link" title="@trans.playWithTheSameOpponentAgain()" data-msg="rematch-yes">@trans.joinTheGame()</a><br />
+    <a class="lichess_rematch_decline socket-link" data-msg="rematch-no">@trans.declineInvitation()</a>
   </div>
   } else {
   @if(player.isOfferingRematch) {
   <div class="lichess_play_again_join rematch_wait">
     @trans.rematchOfferSent().<br />
     @trans.waitingForOpponent()...<br /><br />
-    <a class="lichess_rematch_cancel" href="@routes.Round.rematchCancel(fullId)">@trans.cancelRematchOffer()</a>
+    <a class="lichess_rematch_cancel socket-link" data-msg="rematch-no">@trans.cancelRematchOffer()</a>
   </div>
   } else {
-  <a class="lichess_rematch button" title="@trans.playWithTheSameOpponentAgain()" href="@routes.Round.rematch(fullId)">@trans.rematch()</a>
+  <a class="lichess_rematch button socket-link" title="@trans.playWithTheSameOpponentAgain()" data-msg="rematch-yes">@trans.rematch()</a>
   }
   }
   } else {
