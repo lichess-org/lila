@@ -32,8 +32,7 @@ private[round] final class Player(
                 notifyProgress(progress) >>
                 progress.game.finished.fold(
                   moveFinish(progress.game, color) map { progress.events ::: _ }, {
-                    if (progress.game.player.isAi && progress.game.playable)
-                      roundMap ! Tell(game.id, AiPlay(onFailure))
+                    if (progress.game.playableByAi) roundMap ! Tell(game.id, AiPlay(onFailure))
                     fuccess(progress.events)
                   })
           })

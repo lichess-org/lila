@@ -196,6 +196,8 @@ case class Game(
 
   def playableBy(c: Color): Boolean = playableBy(player(c))
 
+  def playableByAi: Boolean = playable && player.isAi
+
   def continuable = status != Status.Mate && status != Status.Stalemate
 
   def fenString = Forsyth >> toChess
