@@ -144,6 +144,11 @@ object Event {
     def typ = "reload_table"
     def data = JsNull
   }
+  case object ReloadTablesOwner extends Event {
+    def typ = "reload_table"
+    def data = JsNull
+    override def owner = true
+  }
 
   case class Premove(color: Color) extends Empty {
     def typ = "premove"

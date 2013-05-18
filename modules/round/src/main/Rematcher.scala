@@ -20,28 +20,30 @@ private[round] final class Rematcher(
     timeline: lila.hub.ActorLazyRef) {
 
   def yes(pov: Pov): Fu[Events] = pov match {
-    case Pov(game, color) ⇒ (game playerCanRematch color) ??
+    case Pov(game, color) if (game playerCanRematch color) ⇒
       game.opponent(color).isOfferingRematch.fold(
         game.next.fold(rematchJoin(pov))(rematchExists(pov)),
         rematchCreate(pov)
       )
+    case _ ⇒ fufail("[rematcher] invalid yes " + pov)
   }
 
   def no(pov: Pov): Fu[Events] = pov match {
-    case Pov(g1, color) if (pov.player.isOfferingRematch) ⇒ for {
+    case Pov(g1, color) if pov.player.isOfferingRematch ⇒ for {
       p1 ← messenger.systemMessage(g1, _.rematchOfferCanceled) map { es ⇒
-        Progress(g1, Event.ReloadTables :: es)
+        Progress(g1, Event.ReloadTablesOwner :: es)
       }
       p2 = p1 map { g ⇒ g.updatePlayer(color, _.removeRematchOffer) }
       _ ← GameRepo save p2
     } yield p2.events
-    case Pov(g1, color) if (g1.player(!color).isOfferingRematch) ⇒ for {
+    case Pov(g1, color) if pov.opponent.isOfferingRematch ⇒ for {
       p1 ← messenger.systemMessage(g1, _.rematchOfferDeclined) map { es ⇒
-        Progress(g1, Event.ReloadTables :: es)
+        Progress(g1, Event.ReloadTablesOwner :: es)
       }
       p2 = p1 map { g ⇒ g.updatePlayer(!color, _.removeRematchOffer) }
       _ ← GameRepo save p2
     } yield p2.events
+    case _ ⇒ fufail("[rematcher] invalid no " + pov)
   }
 
   private def rematchExists(pov: Pov)(nextId: String): Fu[Events] =
@@ -63,7 +65,7 @@ private[round] final class Rematcher(
 
   private def rematchCreate(pov: Pov): Fu[Events] = for {
     p1 ← messenger.systemMessage(pov.game, _.rematchOfferSent) map { es ⇒
-      Progress(pov.game, Event.ReloadTables :: es)
+      Progress(pov.game, Event.ReloadTablesOwner :: es)
     }
     p2 = p1 map { g ⇒ g.updatePlayer(pov.color, _ offerRematch) }
     _ ← GameRepo save p2

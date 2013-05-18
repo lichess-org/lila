@@ -43,10 +43,11 @@ final class Env(
     new Round(
       gameId = id,
       messenger = messenger,
-      takeback = takeback,
+      takebacker = takebacker,
       ai = ai,
       finisher = finisher,
       rematcher = rematcher,
+      drawer = drawer,
       notifyMove = notifyMove,
       socketHub = socketHub,
       moretimeDuration = Moretime)
@@ -79,6 +80,10 @@ final class Env(
     router = hub.actor.router,
     timeline = hub.actor.timeline)
 
+  private lazy val drawer = new Drawer(
+    messenger = messenger,
+    finisher = finisher)
+
   lazy val meddler = new Meddler(
     roundMap = roundMap,
     socketHub = socketHub)
@@ -109,7 +114,8 @@ final class Env(
 
   private lazy val hijack = new Hijack(HijackTimeout)
 
-  private lazy val takeback = new Takeback(messenger)
+  private lazy val takebacker = new Takebacker(
+    messenger = messenger)
 
   private def notifyMove(gameId: String, fen: String, lastMove: Option[String]) {
     hub.socket.hub ! lila.socket.actorApi.Fen(gameId, fen, lastMove)

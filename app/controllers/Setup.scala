@@ -8,7 +8,7 @@ import views._
 import play.api.mvc.{ Result, Call }
 import play.api.data.Form
 
-object Setup extends LilaController with TheftPrevention with RoundEventPerformer {
+object Setup extends LilaController with TheftPrevention {
 
   private def env = Env.setup
 
