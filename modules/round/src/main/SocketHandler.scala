@@ -91,7 +91,7 @@ private[round] final class SocketHandler(
     token: String,
     ctx: Context): Fu[JsSocketHandler] =
     GameRepo.pov(fullId) flatMap {
-      _ ?? { join(_, Some(fullId take Game.gameIdSize), version, uid, token, ctx) }
+      _ ?? { join(_, Some(Game takeGameId fullId), version, uid, token, ctx) }
     }
 
   private def join(

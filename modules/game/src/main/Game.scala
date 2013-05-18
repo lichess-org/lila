@@ -379,6 +379,7 @@ object Game {
   def abandonedDate = DateTime.now - 10.days
 
   def takeGameId(fullId: String) = fullId take gameIdSize
+  def takePlayerId(fullId: String) = fullId drop gameIdSize
 
   def make(
     game: ChessGame,

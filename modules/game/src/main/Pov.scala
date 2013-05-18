@@ -43,5 +43,5 @@ case class PlayerRef(gameId: String, playerId: String)
 
 object PlayerRef {
 
-  def apply(fullId: String): PlayerRef = PlayerRef(fullId take Game.gameIdSize, fullId drop Game.gameIdSize)
+  def apply(fullId: String): PlayerRef = PlayerRef(Game takeGameId fullId, Game takePlayerId fullId)
 }

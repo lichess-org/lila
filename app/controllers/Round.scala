@@ -3,8 +3,9 @@ package controllers
 import lila.app._
 import views._
 import lila.user.{ Context, UserRepo }
-import lila.game.{ Pov, GameRepo, Game ⇒ GameModel }
+import lila.game.{ Pov, PlayerRef, GameRepo, Game ⇒ GameModel }
 import lila.round.{ RoomRepo, WatcherRoomRepo }
+import lila.round.actorApi.round._
 import lila.socket.actorApi.{ Forward, GetVersion }
 import lila.tournament.{ TournamentRepo, Tournament ⇒ Tourney }
 
@@ -92,36 +93,32 @@ object Round extends LilaController with TheftPrevention with RoundEventPerforme
             pov, v, roomHtml, bookmarkers, analysed, tour))
       }
 
-  private def hand = env.hand
-  def abort(fullId: String) = performAndRedirect(fullId, hand.abort)
-  def resign(fullId: String) = performAndRedirect(fullId, hand.resign)
-  def resignForce(fullId: String) = performAndRedirect(fullId, hand.resignForce)
-  def drawClaim(fullId: String) = performAndRedirect(fullId, hand.drawClaim)
-  def drawAccept(fullId: String) = performAndRedirect(fullId, hand.drawAccept)
-  def drawOffer(fullId: String) = performAndRedirect(fullId, hand.drawOffer)
-  def drawCancel(fullId: String) = performAndRedirect(fullId, hand.drawCancel)
-  def drawDecline(fullId: String) = performAndRedirect(fullId, hand.drawDecline)
+  def abort(fullId: String) = performAndRedirect(fullId, Abort(_))
+  def resign(fullId: String) = performAndRedirect(fullId, Resign(_))
+  def resignForce(fullId: String) = performAndRedirect(fullId, ResignForce(_))
+  def drawClaim(fullId: String) = performAndRedirect(fullId, DrawClaim(_))
+  def drawAccept(fullId: String) = performAndRedirect(fullId, DrawAccept(_))
+  def drawOffer(fullId: String) = performAndRedirect(fullId, DrawOffer(_))
+  def drawCancel(fullId: String) = performAndRedirect(fullId, DrawCancel(_))
+  def drawDecline(fullId: String) = performAndRedirect(fullId, DrawDecline(_))
 
   def rematch(fullId: String) = Open { implicit ctx ⇒
-    Env.setup.rematcher offerOrAccept fullId fold (
-      err ⇒ {
-        logwarn(err.getMessage)
-        Redirect(routes.Round.player(fullId))
-      }, {
+    Env.setup.rematcher offerOrAccept PlayerRef(fullId) fold (
+      _ ⇒ Redirect(routes.Round.player(fullId)), {
         case (nextFullId, events) ⇒ {
-          performEvents(fullId)(events)
+          sendEvents(fullId)(events)
           Redirect(routes.Round.player(nextFullId))
         }
       }
     )
   }
-  def rematchCancel(fullId: String) = performAndRedirect(fullId, hand.rematchCancel)
-  def rematchDecline(fullId: String) = performAndRedirect(fullId, hand.rematchDecline)
+  def rematchCancel(fullId: String) = performAndRedirect(fullId, RematchCancel(_))
+  def rematchDecline(fullId: String) = performAndRedirect(fullId, RematchDecline(_))
 
-  def takebackAccept(fullId: String) = performAndRedirect(fullId, hand.takebackAccept)
-  def takebackOffer(fullId: String) = performAndRedirect(fullId, hand.takebackOffer)
-  def takebackCancel(fullId: String) = performAndRedirect(fullId, hand.takebackCancel)
-  def takebackDecline(fullId: String) = performAndRedirect(fullId, hand.takebackDecline)
+  def takebackAccept(fullId: String) = performAndRedirect(fullId, TakebackAccept(_))
+  def takebackOffer(fullId: String) = performAndRedirect(fullId, TakebackOffer(_))
+  def takebackCancel(fullId: String) = performAndRedirect(fullId, TakebackCancel(_))
+  def takebackDecline(fullId: String) = performAndRedirect(fullId, TakebackDecline(_))
 
   def tableWatcher(gameId: String, color: String) = Open { implicit ctx ⇒
     OptionOk(GameRepo.pov(gameId, color)) { html.round.table.watch(_) }

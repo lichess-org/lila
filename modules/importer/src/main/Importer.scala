@@ -42,7 +42,7 @@ private[importer] final class Importer(
     case Result(Status.Draw, _) ⇒ finisher drawForce game
     case Result(Status.Resign, Some(color)) ⇒ roundMap ? Ask(
       game.id,
-      Resign(game.player(!color).id, false)
+      Resign(game.player(!color).id)
     )
     case _ ⇒ funit
   }).void
