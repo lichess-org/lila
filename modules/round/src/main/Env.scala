@@ -66,8 +66,7 @@ final class Env(
     flood = flood,
     hijack = hijack)
 
-  // TODO make private
-  lazy val finisher = new Finisher(
+  private lazy val finisher = new Finisher(
     messenger = messenger,
     eloUpdater = eloUpdater,
     eloCalculator = eloCalculator,
@@ -75,7 +74,7 @@ final class Env(
     tournamentOrganizer = hub.actor.tournamentOrganizer)
 
   lazy val meddler = new Meddler(
-    finisher = finisher,
+    roundMap = roundMap,
     socketHub = socketHub)
 
   lazy val messenger = new Messenger(NetDomain, i18nKeys, getUsername)
@@ -100,7 +99,7 @@ final class Env(
     }
   }
 
-  private lazy val titivate = new Titivate(finisher, meddler)
+  private lazy val titivate = new Titivate(roundMap, meddler)
 
   private lazy val hijack = new Hijack(HijackTimeout)
 

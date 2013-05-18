@@ -79,6 +79,7 @@ package round {
   case class Abort(playerId: String)
   case object AbortForce
   case class Resign(playerId: String)
+  case class ResignColor(color: Color)
   case class ResignForce(playerId: String)
   case class DrawClaim(playerId: String)
   case class DrawAccept(playerId: String)

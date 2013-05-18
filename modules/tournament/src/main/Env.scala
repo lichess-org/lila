@@ -16,7 +16,7 @@ final class Env(
     timelinePush: lila.hub.ActorLazyRef,
     flood: lila.security.Flood,
     hub: lila.hub.Env,
-    roundMeddler: lila.round.Meddler,
+    roundMap: ActorRef,
     getUsername: String ⇒ Fu[Option[String]],
     isDev: Boolean,
     scheduler: lila.common.Scheduler) {
@@ -43,7 +43,7 @@ final class Env(
     socketHub = socketHub,
     site = hub.socket.site,
     lobby = hub.socket.lobby,
-    roundMeddler = roundMeddler)
+    roundMap = roundMap)
 
   lazy val socketHandler = new SocketHandler(
     socketHub = socketHub,
@@ -81,7 +81,7 @@ final class Env(
   }
 
   private lazy val joiner = new GameJoiner(
-    roundMeddler = roundMeddler,
+    roundMap = roundMap,
     timelinePush = timelinePush,
     system = system)
 
@@ -114,7 +114,7 @@ object Env {
     timelinePush = hub.actor.timeline,
     flood = lila.security.Env.current.flood,
     hub = lila.hub.Env.current,
-    roundMeddler = lila.round.Env.current.meddler,
+    roundMap = lila.round.Env.current.roundMap,
     getUsername = lila.user.Env.current.usernameOption,
     isDev = lila.common.PlayApp.isDev,
     scheduler = lila.common.PlayApp.scheduler)

@@ -22,12 +22,11 @@ final class ActorMap[A <: Actor](mkActor: String ⇒ A) extends Actor {
       }
     }
 
-    case Count ⇒ sender ! actors.size
+    case Count         ⇒ sender ! actors.size
 
-    case Do(id, f) ⇒ self ? Get(id) mapTo manifest[ActorRef] foreach f 
+    case Ask(id, msg)  ⇒ get(id) flatMap { _ ? msg } pipeTo sender
 
-    case Ask(id, msg) ⇒
-      self ? Get(id) mapTo manifest[ActorRef] flatMap { _ ? msg } pipeTo sender
+    case Tell(id, msg) ⇒ get(id) foreach { _ forward msg }
 
     case Stop(id) ⇒ "stop actor " + id describes {
       actors get id foreach context.stop
@@ -39,6 +38,8 @@ final class ActorMap[A <: Actor](mkActor: String ⇒ A) extends Actor {
       }
     }
   }
+
+  private def get(id: String): Fu[ActorRef] = self ? Get(id) mapTo manifest[ActorRef]
 
   private var actors = Map[String, ActorRef]()
 }
