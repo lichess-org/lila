@@ -98,13 +98,17 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Actor {
     import play.api.Play.current
     import scala.concurrent.duration._
 
-    Akka.system.scheduler.scheduleOnce((Random nextInt 4).seconds) {
-      member.channel push resyncMessage
+    Akka.system.scheduler.scheduleOnce((Random nextInt 3).seconds) {
+      resyncNow(member)
     }
   }
 
   protected def resync(uid: String) {
     withMember(uid)(resync)
+  }
+
+  protected def resyncNow(member: M) {
+    member.channel push resyncMessage
   }
 
   def addMember(uid: String, member: M) {

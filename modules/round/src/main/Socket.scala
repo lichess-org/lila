@@ -38,7 +38,7 @@ private[round] final class Socket(
       }
       withMember(uid) { member ⇒
         history ? GetEventsSince(v) foreach {
-          case MaybeEvents(events) ⇒ events.fold(resync(member))(batch(member, _))
+          case MaybeEvents(events) ⇒ events.fold(resyncNow(member))(batch(member, _))
         }
       }
     }
