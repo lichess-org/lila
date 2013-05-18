@@ -7,7 +7,7 @@ import lila.game.{ Pov, PlayerRef, GameRepo, Game ⇒ GameModel }
 import lila.round.{ RoomRepo, WatcherRoomRepo }
 import lila.round.actorApi.round._
 import lila.socket.actorApi.{ Forward, GetVersion }
-import lila.hub.actorApi.map.{ Tell, Ask }
+import lila.hub.actorApi.map.{ Tell, Await }
 import lila.tournament.{ TournamentRepo, Tournament ⇒ Tourney }
 import makeTimeout.large
 
@@ -133,6 +133,6 @@ object Round extends LilaController with TheftPrevention {
       GameModel takeGameId fullId,
       makeMessage(GameModel takePlayerId(fullId))
     )
-    Env.round.roundMap ? Ask(GameModel takeGameId fullId, Await) void
+    Env.round.roundMap ? Await(GameModel takeGameId fullId) void
   }
 }

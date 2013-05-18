@@ -46,7 +46,6 @@ GET   /$fullId<[\w\-]{12}>/socket                    controllers.Round.websocket
 GET   /$fullId<[\w\-]{12}>/abort                     controllers.Round.abort(fullId: String)
 GET   /$fullId<[\w\-]{12}>/resign                    controllers.Round.resign(fullId: String)
 GET   /$fullId<[\w\-]{12}>/resign/force              controllers.Round.resignForce(fullId: String)
-GET   /$fullId<[\w\-]{12}>/draw/claim                controllers.Round.drawClaim(fullId: String)
 GET   /$gameId<[\w\-]{8}>/$color<white|black>/table  controllers.Round.tableWatcher(gameId: String, color: String)
 GET   /$fullId<[\w\-]{12}>/table                     controllers.Round.tablePlayer(fullId: String)
 GET   /$gameId<[\w\-]{8}>/players                    controllers.Round.players(gameId: String)

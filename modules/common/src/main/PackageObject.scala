@@ -141,14 +141,16 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
 
     def logFailure(prefix: Throwable ⇒ String): Fu[A] = fua ~ (_ onFailure {
       case e: Exception ⇒ logwarn(prefix(e) + " " + e.getMessage)
-      case e            ⇒ throw e
     })
     def logFailure(prefix: ⇒ String): Fu[A] = fua ~ (_ onFailure {
       case e: Exception ⇒ logwarn(prefix + " " + e.getMessage)
-      case e            ⇒ throw e
     })
 
     def addEffect(effect: A ⇒ Unit) = fua ~ (_ foreach effect)
+
+    def addFailureEffect(effect: Exception ⇒ Unit) = fua ~ (_ onFailure {
+      case e: Exception ⇒ effect(e)
+    })
 
     def thenPp: Fu[A] = fua ~ {
       _.effectFold(

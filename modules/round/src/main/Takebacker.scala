@@ -1,7 +1,6 @@
 package lila.round
 
 import lila.game.{ GameRepo, Game, PgnRepo, Pov, Rewind, Event, Progress }
-import lila.db.api._
 
 private[round] final class Takebacker(messenger: Messenger) {
 

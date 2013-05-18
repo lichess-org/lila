@@ -9,7 +9,7 @@ import lila.game.{ Game, GameRepo }
 import lila.user.{ User, UserRepo }
 import lila.hub.actorApi.lobby.{ SysTalk, UnTalk, ReloadTournaments }
 import lila.hub.actorApi.router.Tourney
-import lila.hub.actorApi.map.{ Ask, Tell }
+import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round.{ AbortForce, ResignColor }
 import lila.socket.actorApi.{ SendToFlag, Forward }
 import makeTimeout.short
@@ -82,10 +82,10 @@ private[tournament] final class TournamentApi(
     val finished = started.finish
     $update(finished) >>-
       sendTo(started.id, ReloadPage) >>-
-      reloadSiteSocket >>
-      (pairingsToAbort map (_.gameId) map { gameId ⇒
-        roundMap ? Ask(gameId, AbortForce) void
-      }).sequence >>
+      reloadSiteSocket >>-
+      (pairingsToAbort foreach { pairing ⇒
+        roundMap ! Tell(pairing.gameId, AbortForce) 
+      }) >>
       finished.players.filter(_.score > 0).map(p ⇒ UserRepo.incToints(p.id)(p.score)).sequence inject finished
   }, fuccess(started))
 
@@ -107,9 +107,9 @@ private[tournament] final class TournamentApi(
     )
     case started: Started ⇒ (started withdraw userId).fold(
       err ⇒ fufail(err.shows),
-      tour2 ⇒ $update(tour2) >>
+      tour2 ⇒ $update(tour2) >>-
         (tour2.userCurrentPov(userId) ?? { povRef ⇒
-          roundMap ? Ask(povRef.gameId, ResignColor(povRef.color)) void
+          roundMap ! Tell(povRef.gameId, ResignColor(povRef.color)) 
         }) >>-
         socketReload(tour2.id) >>-
         reloadSiteSocket
