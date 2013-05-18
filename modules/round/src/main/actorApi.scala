@@ -3,15 +3,16 @@ package actorApi
 
 import chess.Color
 import lila.socket.SocketMember
-import lila.game.{ Game, Event }
+import lila.game.{ Game, Event, PlayerRef }
 import lila.user.User
 
 sealed trait Member extends SocketMember {
 
   val color: Color
-  val owner: Boolean
+  val playerIdOption: Option[String]
   val troll: Boolean
 
+  def owner = playerIdOption.isDefined
   def watcher = !owner
 }
 
@@ -20,22 +21,23 @@ object Member {
     channel: JsChannel,
     user: Option[User],
     color: Color,
-    owner: Boolean): Member = {
+    playerIdOption: Option[String]): Member = {
     val userId = user map (_.id)
     val troll = user.zmap(_.troll)
-    owner.fold(
-      Owner(channel, userId, color, troll),
-      Watcher(channel, userId, color, troll))
+    playerIdOption.fold[Member](Watcher(channel, userId, color, troll)) { playerId ⇒
+      Owner(channel, userId, playerId, color, troll)
+    }
   }
 }
 
 case class Owner(
     channel: JsChannel,
     userId: Option[String],
+    playerId: String,
     color: Color,
     troll: Boolean) extends Member {
 
-  val owner = true
+  val playerIdOption = playerId.some
 }
 
 case class Watcher(
@@ -44,7 +46,7 @@ case class Watcher(
     color: Color,
     troll: Boolean) extends Member {
 
-  val owner = false
+  val playerIdOption = none
 }
 
 case class Join(
@@ -52,7 +54,7 @@ case class Join(
   user: Option[User],
   version: Int,
   color: Color,
-  owner: Boolean)
+  playerId: Option[String])
 case class Connected(enumerator: JsEnumerator, member: Member)
 case class GetEventsSince(version: Int)
 case class MaybeEvents(events: Option[List[VersionedEvent]])
@@ -65,26 +67,28 @@ case class Ack(uid: String)
 package round {
 
   case class Play(
-    color: Color,
+    playerId: String,
     orig: String,
     dest: String,
     prom: Option[String] = None,
     blur: Boolean = false,
     lag: Int = 0)
 
-  case class Abort(fullId: String)
-  case class Resign(fullId: String, force: Boolean)
-  case class Outoftime(color: Color)
-  case class DrawClaim(fullId: String)
-  case class DrawAccept(fullId: String)
-  case class DrawOffer(fullId: String)
-  case class DrawCancel(fullId: String)
-  case class DrawDecline(fullId: String)
-  case class RematchCancel(fullId: String)
-  case class RematchDecline(fullId: String)
-  case class TakebackAccept(fullId: String)
-  case class TakebackOffer(fullId: String)
-  case class TakebackCancel(fullId: String)
-  case class TakebackDecline(fullId: String)
-  case class Moretime(color: Color)
+  case class PlayResult(events: Events, fen: String, lastMove: Option[String])
+
+  case class Abort(playerId: String)
+  case class Resign(playerId: String, force: Boolean)
+  case class DrawClaim(playerId: String)
+  case class DrawAccept(playerId: String)
+  case class DrawOffer(playerId: String)
+  case class DrawCancel(playerId: String)
+  case class DrawDecline(playerId: String)
+  case class RematchCancel(playerId: String)
+  case class RematchDecline(playerId: String)
+  case class TakebackAccept(playerId: String)
+  case class TakebackOffer(playerId: String)
+  case class TakebackCancel(playerId: String)
+  case class TakebackDecline(playerId: String)
+  case class Moretime(playerId: String)
+  case object Outoftime
 }

@@ -1,23 +1,18 @@
 package lila.game
 
-trait Handler {
+import chess.Color
 
-  protected def attempt[A](
-    fullId: String,
-    action: Pov ⇒ Fu[A]): Fu[A] =
-    fromPov(fullId)(action)
+abstract class Handler(gameId: String) {
 
-  protected def attemptRef[A](
-    ref: PovRef,
-    action: Pov ⇒ Fu[A]): Fu[A] =
-    fromPov(ref)(action)
+  protected def blocking[A](playerId: String)(op: Pov ⇒ Fu[A]): A = {
+    GameRepo pov PlayerRef(gameId, playerId) flatten "No such game" flatMap op
+  }.await
 
-  protected def fromPov[A](ref: PovRef)(op: Pov ⇒ Fu[A]): Fu[A] =
-    fromPov(GameRepo pov ref)(op)
+  protected def blocking[A](color: Color)(op: Pov ⇒ Fu[A]): A = {
+    GameRepo pov PovRef(gameId, color) flatten "No such game" flatMap op
+  }.await
 
-  protected def fromPov[A](fullId: String)(op: Pov ⇒ Fu[A]): Fu[A] =
-    fromPov(GameRepo pov fullId)(op)
-
-  protected def fromPov[A](povFu: Fu[Option[Pov]])(op: Pov ⇒ Fu[A]): Fu[A] =
-    povFu flatMap { _.fold(fufail[A]("No such game"))(op) }
+  protected def blocking[A](op: Game ⇒ Fu[A]): A = {
+    GameRepo game gameId flatten "No such game" flatMap op
+  }.await
 }

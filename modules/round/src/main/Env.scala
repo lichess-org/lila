@@ -33,12 +33,13 @@ final class Env(
     val FinisherLockTimeout = config duration "finisher.lock.timeout"
     val HijackTimeout = config duration "hijack.timeout"
     val NetDomain = config getString "net.domain"
+    val ActorMapName = config getString "actor.map.name"
   }
   import settings._
 
   lazy val history = () ⇒ new History(ttl = MessageTtl)
 
-  lazy val roundMap = new lila.hub.ActorMap(id ⇒
+  val roundMap = system.actorOf(Props(new lila.hub.ActorMap(id ⇒
     new Round(
       gameId = id,
       messenger = messenger,
@@ -47,7 +48,7 @@ final class Env(
       finisher = finisher,
       socketHub = socketHub,
       moretimeDuration = Moretime)
-  )
+  )), name = ActorMapName)
 
   val socketHub = system.actorOf(Props(new SocketHub(
     makeHistory = history,
@@ -58,20 +59,12 @@ final class Env(
   )), name = SocketName)
 
   lazy val socketHandler = new SocketHandler(
-    hand = hand,
+    roundMap = roundMap,
     socketHub = socketHub,
     messenger = messenger,
     notifyMove = notifyMove,
     flood = flood,
     hijack = hijack)
-
-  lazy val hand = new Hand(
-    messenger = messenger,
-    ai = ai,
-    finisher = finisher,
-    takeback = takeback,
-    socketHub = socketHub,
-    moretimeDuration = Moretime)
 
   lazy val finisher = new Finisher(
     messenger = messenger,

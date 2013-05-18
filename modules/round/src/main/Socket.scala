@@ -61,9 +61,9 @@ private[round] final class Socket(
 
     case IsGone(_, color)            ⇒ sender ! playerIsGone(color)
 
-    case Join(uid, user, version, color, owner) ⇒ {
+    case Join(uid, user, version, color, playerId) ⇒ {
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, user, color, owner)
+      val member = Member(channel, user, color, playerId)
       addMember(uid, member)
       notifyCrowd
       if (playerIsGone(color)) notifyGone(color, false)

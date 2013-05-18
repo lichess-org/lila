@@ -4,8 +4,9 @@ import akka.actor._
 import akka.pattern.{ ask, pipe }
 import play.api.libs.json.JsObject
 
-import actorApi._
-import lila.game.{ Pov, PovRef, GameRepo }
+import actorApi._, round._
+import lila.hub.actorApi.map._
+import lila.game.{ Game, Pov, PovRef, PlayerRef, GameRepo }
 import lila.user.{ User, Context }
 import chess.Color
 import lila.socket.Handler
@@ -15,7 +16,7 @@ import lila.common.PimpedJson._
 import makeTimeout.short
 
 private[round] final class SocketHandler(
-    hand: Hand,
+    roundMap: ActorRef,
     socketHub: ActorRef,
     messenger: Messenger,
     notifyMove: (String, String, Option[String]) ⇒ Unit,
@@ -23,37 +24,15 @@ private[round] final class SocketHandler(
     hijack: Hijack) {
 
   private def controller(
+    gameId: String,
     socket: ActorRef,
     uid: String,
-    povRef: PovRef,
-    member: Member): Handler.Controller =
-    if (member.owner) {
-      case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
-      case ("talk", o) ⇒ for {
-        txt ← o str "d"
-        // TODO troll
-        // if member.canChat
-        if flood.allowMessage(uid, txt)
-      } messenger.playerMessage(povRef, txt) pipeTo socket
-      case ("move", o) ⇒ parseMove(o) foreach {
-        case (orig, dest, prom, blur, lag) ⇒ {
-          socket ! Ack(uid)
-          hand.play(povRef, orig, dest, prom, blur, lag) effectFold (
-            e ⇒ {
-              logwarn("[round socket] " + e.getMessage)
-              socket ! Resync(uid)
-            }, {
-              case ((events, fen, lastMove)) ⇒ {
-                socketHub ! Forward(povRef.gameId, events)
-                notifyMove(povRef.gameId, fen, lastMove)
-              }
-            })
-        }
-      }
-      case ("moretime", o)  ⇒ hand moretime povRef pipeTo socket
-      case ("outoftime", o) ⇒ hand outoftime povRef pipeTo socket
-    }
-    else {
+    ref: PovRef,
+    member: Member): Handler.Controller = {
+
+    def askRound(msg: Any) = roundMap ? Ask(ref.gameId, msg)
+
+    member.playerIdOption.fold[Handler.Controller]({
       case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
       case ("talk", o) ⇒ for {
         txt ← o str "d"
@@ -61,10 +40,39 @@ private[round] final class SocketHandler(
         // if member.canChat
         if flood.allowMessage(uid, txt)
       } messenger.watcherMessage(
-        povRef.gameId,
+        ref.gameId,
         member.userId,
         txt) pipeTo socket
+    }) { playerId ⇒
+      {
+        case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
+        case ("talk", o) ⇒ for {
+          txt ← o str "d"
+          // TODO troll
+          // if member.canChat
+          if flood.allowMessage(uid, txt)
+        } messenger.playerMessage(ref, txt) pipeTo socket
+        case ("move", o) ⇒ parseMove(o) foreach {
+          case (orig, dest, prom, blur, lag) ⇒ {
+            socket ! Ack(uid)
+            askRound(Play(playerId, orig, dest, prom, blur, lag)) mapTo
+              manifest[PlayResult] effectFold (
+                e ⇒ {
+                  logwarn("[round socket] " + e.getMessage)
+                  socket ! Resync(uid)
+                }, {
+                  case PlayResult(events, fen, lastMove) ⇒ {
+                    socketHub ! Forward(ref.gameId, events)
+                    notifyMove(ref.gameId, fen, lastMove)
+                  }
+                })
+          }
+        }
+        case ("moretime", o)  ⇒ askRound(Moretime(playerId)) pipeTo socket
+        case ("outoftime", o) ⇒ askRound(Outoftime) pipeTo socket
+      }
     }
+  }
 
   def watcher(
     gameId: String,
@@ -73,7 +81,7 @@ private[round] final class SocketHandler(
     uid: String,
     ctx: Context): Fu[JsSocketHandler] =
     GameRepo.pov(gameId, colorName) flatMap {
-      _ zmap { join(_, false, version, uid, "", ctx) }
+      _ zmap { join(_, none, version, uid, "", ctx) }
     }
 
   def player(
@@ -83,12 +91,12 @@ private[round] final class SocketHandler(
     token: String,
     ctx: Context): Fu[JsSocketHandler] =
     GameRepo.pov(fullId) flatMap {
-      _ zmap { join(_, true, version, uid, token, ctx) }
+      _ zmap { join(_, Some(fullId take Game.gameIdSize), version, uid, token, ctx) }
     }
 
   private def join(
     pov: Pov,
-    owner: Boolean,
+    playerId: Option[String],
     version: Int,
     uid: String,
     token: String,
@@ -99,10 +107,10 @@ private[round] final class SocketHandler(
       user = ctx.me,
       version = version,
       color = pov.color,
-      owner = owner && !hijack(pov, token, ctx))
+      playerId = playerId filterNot (_ ⇒ hijack(pov, token, ctx)))
     handler ← Handler(socket, uid, join) {
       case Connected(enum, member) ⇒
-        controller(socket, uid, pov.ref, member) -> enum
+        controller(pov.gameId, socket, uid, pov.ref, member) -> enum
     }
   } yield handler
 
