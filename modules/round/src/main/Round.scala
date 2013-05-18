@@ -27,9 +27,6 @@ private[round] final class Round(
 
     case ReceiveTimeout                 ⇒ self ! PoisonPill
 
-    // guaranty that all previous blocking events were performed
-    case lila.hub.actorApi.map.Await(_) ⇒ sender ! ()
-
     case Send(events)                   ⇒ socketHub ! Forward(gameId, events)
 
     case p: HumanPlay                   ⇒ handle(p.playerId)(player human p)

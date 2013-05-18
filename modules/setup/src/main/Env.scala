@@ -10,7 +10,6 @@ final class Env(
     config: AppConfig,
     db: lila.db.Env,
     hub: lila.hub.Env,
-    fisherman: lila.lobby.Fisherman,
     messenger: lila.round.Messenger,
     ai: lila.ai.Ai,
     system: ActorSystem) {
@@ -25,8 +24,8 @@ final class Env(
     ctx.me.fold(AnonConfigRepo filter ctx.req)(UserConfigRepo.filter)
 
   lazy val processor = new Processor(
+    lobby = hub.actor.lobby,
     friendConfigMemo = friendConfigMemo,
-    fisherman = fisherman,
     timeline = hub.actor.timeline,
     router = hub.actor.router,
     ai = ai)
@@ -37,7 +36,7 @@ final class Env(
     timeline = hub.actor.timeline)
 
   lazy val hookJoiner = new HookJoiner(
-    fisherman = fisherman,
+    lobby = hub.actor.lobby,
     timeline = hub.actor.timeline,
     messenger = messenger)
 
@@ -53,7 +52,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "setup",
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
-    fisherman = lila.lobby.Env.current.fisherman,
     messenger = lila.round.Env.current.messenger,
     ai = lila.ai.Env.current.ai,
     system = lila.common.PlayApp.system)

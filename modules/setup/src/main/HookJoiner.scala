@@ -1,6 +1,7 @@
 package lila.setup
 
-import lila.lobby.{ HookRepo, Hook, Fisherman }
+import lila.lobby.{ HookRepo, Hook }
+import lila.lobby.actorApi.{ RemoveHook, BiteHook }
 import lila.user.{ User, UserRepo }
 import chess.{ Game ⇒ ChessGame, Board, Variant, Mode, Clock, Color ⇒ ChessColor }
 import lila.game.{ GameRepo, Game, Player, Pov, Progress }
@@ -12,7 +13,7 @@ import lila.game.tube.gameTube
 import lila.db.api._
 
 private[setup] final class HookJoiner(
-    fisherman: Fisherman,
+    lobby: lila.hub.ActorLazyRef,
     timeline: lila.hub.ActorLazyRef,
     messenger: Messenger) {
 
@@ -26,7 +27,7 @@ private[setup] final class HookJoiner(
   } yield result
 
   private def join(hook: Hook, myHook: Option[Hook])(me: Option[User]): Fu[Pov] = for {
-    _ ← myHook ?? fisherman.delete
+    _ ← fuccess(myHook foreach { h ⇒ lobby ! RemoveHook(h) })
     ownerOption ← hook.userId ?? $find.byId[User]
     game = blame(
       _.invitedColor, me,
@@ -36,8 +37,8 @@ private[setup] final class HookJoiner(
       (timeline ! game) >>
       // messenges are not sent to the game socket
       // as nobody is there to see them yet
-      (messenger init game) >>
-      fisherman.bite(hook, game)
+      (messenger init game) >>-
+      (lobby ! BiteHook(hook, game))
   } yield Pov(game, game.invitedColor)
 
   def blame(color: Game ⇒ ChessColor, userOption: Option[User], game: Game) =

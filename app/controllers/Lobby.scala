@@ -68,9 +68,12 @@ object Lobby extends LilaController with Results {
   }
 
   def cancel(ownerId: String) = Open { implicit ctx ⇒
-    HookRepo ownedHook ownerId flatMap {
-      _ ?? Env.lobby.fisherman.delete inject Redirect(routes.Lobby.home)
+    HookRepo ownedHook ownerId foreach {
+      _ foreach { hook ⇒
+        Env.lobby.lobby ! lila.lobby.actorApi.RemoveHook(hook)
+      }
     }
+    Redirect(routes.Lobby.home).fuccess
   }
 
   def log = Open { implicit ctx ⇒

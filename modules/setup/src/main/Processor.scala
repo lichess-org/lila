@@ -4,7 +4,8 @@ import lila.game.{ Game, GameRepo, PgnRepo, Pov }
 import lila.user.{ User, Context }
 import chess.{ Game ⇒ ChessGame, Board, Color ⇒ ChessColor }
 import lila.ai.Ai
-import lila.lobby.{ Hook, Fisherman }
+import lila.lobby.Hook
+import lila.lobby.actorApi.AddHook
 import lila.i18n.I18nDomain
 import lila.hub.actorApi.router.Player
 import makeTimeout.short
@@ -17,8 +18,8 @@ import play.api.libs.json.{ Json, JsObject }
 import akka.pattern.ask
 
 private[setup] final class Processor(
+    lobby: lila.hub.ActorLazyRef,
     friendConfigMemo: FriendConfigMemo,
-    fisherman: Fisherman,
     timeline: lila.hub.ActorLazyRef,
     router: lila.hub.ActorLazyRef,
     ai: Ai) {
@@ -35,7 +36,7 @@ private[setup] final class Processor(
       game.player.isHuman.fold(fuccess(pov), for {
         initialFen ← game.variant.exotic ?? (GameRepo initialFen game.id)
         pgnString ← PgnRepo get game.id
-        aiResult ← ai.play(game.toChess, pgnString, initialFen, ~game.aiLevel) 
+        aiResult ← ai.play(game.toChess, pgnString, initialFen, ~game.aiLevel)
         (newChessGame, move) = aiResult
         (progress, pgn) = game.update(newChessGame, move)
         _ ← (GameRepo save progress) >> PgnRepo.save(game.id, pgn)
@@ -52,7 +53,7 @@ private[setup] final class Processor(
 
   def hook(config: HookConfig)(implicit ctx: Context): Fu[Hook] = {
     val hook = config hook ctx.me
-    saveConfig(_ withHook config) >> (fisherman add hook) inject hook
+    saveConfig(_ withHook config) >>- (lobby ! AddHook(hook)) inject hook
   }
 
   def api(implicit ctx: Context): Fu[JsObject] = {

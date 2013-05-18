@@ -23,6 +23,7 @@ final class Env(
     val SocketName = config getString "socket.name"
     val SocketUidTtl = config duration "socket.uid.ttl"
     val OrphanHookTtl = config duration "orphan_hook.ttl"
+    val ActorName = config getString "actor.name"
   }
   import settings._
 
@@ -32,11 +33,14 @@ final class Env(
     uidTtl = SocketUidTtl
   )), name = SocketName)
 
-  lazy val socketHandler = new SocketHandler(
-    socket = socket, 
-    messenger = messenger)
+  val lobby = system.actorOf(Props(new Lobby(
+    socket = socket,
+    hookMemo = hookMemo
+  )), name = ActorName)
 
-  lazy val fisherman = new Fisherman(hookMemo, socket)
+  lazy val socketHandler = new SocketHandler(
+    socket = socket,
+    messenger = messenger)
 
   {
     import scala.concurrent.duration._
@@ -45,8 +49,8 @@ final class Env(
       socket -> actorApi.WithHooks(hookMemo.putAll)
     }
 
-    scheduler.future(2 seconds, "fisherman: cleanup") {
-      fisherman.cleanup
+    scheduler.message(2 seconds) {
+      lobby -> lila.socket.actorApi.Broom
     }
 
     scheduler.future(20 seconds, "lobby: cleanup") {

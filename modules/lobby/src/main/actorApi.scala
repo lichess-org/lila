@@ -33,3 +33,9 @@ case class Join(
   uid: String,
   user: Option[User],
   hookOwnerId: Option[String])
+
+package lobby {
+
+  case object GetOpen
+  case object GetOpenCasual
+}
