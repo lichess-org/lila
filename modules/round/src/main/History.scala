@@ -22,7 +22,9 @@ private[round] final class History(ttl: Duration) extends Actor {
     case GetEventsSince(v: Int) ⇒ sender ! MaybeEvents(
       if (v > version) None
       else if (v == version) Some(Nil)
-      else ((v + 1 to version).toList map get).flatten.some
+      else ((v + 1 to version).toList map get).flatten |> { events ⇒
+        (events.size == (version - v)) option events
+      }
     )
 
     case AddEvents(xs) ⇒ sender ! {
