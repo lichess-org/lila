@@ -5,12 +5,12 @@ import lila.db.api._
 
 private[round] final class Takeback(messenger: Messenger) {
 
-  def apply(game: Game, pgn: String, initialFen: Option[String]): FuEvents =
+  def apply(game: Game, pgn: String, initialFen: Option[String]): Fu[Events] =
     (Rewind(game, pgn, initialFen) map {
       case (progress, newPgn) ⇒ savePgn(game.id, newPgn) >> save(progress)
     }) ||| fail(game)
 
-  def double(game: Game, pgn: String, initialFen: Option[String]): FuEvents = {
+  def double(game: Game, pgn: String, initialFen: Option[String]): Fu[Events] = {
     for {
       first ← Rewind(game, pgn, initialFen)
       (prog1, pgn1) = first
@@ -29,7 +29,7 @@ private[round] final class Takeback(messenger: Messenger) {
     $update.field(gameId, "p", pgn, upsert = true)
   }
 
-  private def save(p1: Progress): FuEvents = {
+  private def save(p1: Progress): Fu[Events] = {
     val p2 = p1 + Event.Reload
     messenger.systemMessage(p1.game, _.takebackPropositionAccepted) >>
     (GameRepo save p2) inject p2.events

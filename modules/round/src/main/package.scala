@@ -13,5 +13,4 @@ package object round extends PackageObject with WithPlay with WithSocket {
   }
 
   private[round] type Events = List[Event]
-  private[round] type FuEvents = Fu[Events]
 }
