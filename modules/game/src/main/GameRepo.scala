@@ -33,18 +33,28 @@ object GameRepo {
   def player(gameId: ID, color: Color): Fu[Option[Player]] =
     $find byId gameId map2 { (game: Game) ⇒ game player color }
 
+  def player(gameId: ID, playerId: ID): Fu[Option[Player]] =
+    $find byId gameId map { gameOption ⇒
+      gameOption flatMap { _ player playerId }
+    }
+
+  def player(playerRef: PlayerRef): Fu[Option[Player]] =
+    player(playerRef.gameId, playerRef.playerId)
+
   def pov(gameId: ID, color: Color): Fu[Option[Pov]] =
     $find byId gameId map2 { (game: Game) ⇒ Pov(game, game player color) }
 
   def pov(gameId: ID, color: String): Fu[Option[Pov]] =
     Color(color) zmap (pov(gameId, _))
 
-  def pov(fullId: ID): Fu[Option[Pov]] =
-    $find byId (fullId take gameIdSize) map { gameOption ⇒
-      gameOption flatMap { g ⇒
-        g player (fullId drop gameIdSize) map { Pov(g, _) }
+  def pov(playerRef: PlayerRef): Fu[Option[Pov]] =
+    $find byId playerRef.gameId map { gameOption ⇒
+      gameOption flatMap { game ⇒
+        game player playerRef.playerId map { Pov(game, _) }
       }
     }
+
+  def pov(fullId: ID): Fu[Option[Pov]] = pov(PlayerRef(fullId))
 
   def pov(ref: PovRef): Fu[Option[Pov]] = pov(ref.gameId, ref.color)
 

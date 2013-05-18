@@ -3,7 +3,7 @@ package lila.setup
 import chess.{ Game ⇒ ChessGame, Board, Clock, Variant, Color ⇒ ChessColor }
 import ChessColor.{ White, Black }
 import chess.format.Forsyth
-import lila.game.{ GameRepo, Game, Event, Progress, Pov, Handler, Namer, Source }
+import lila.game.{ GameRepo, Game, Event, Progress, Pov, PlayerRef, Namer, Source }
 import lila.round.Messenger
 import lila.user.User
 import lila.hub.actorApi.router.Player
@@ -19,18 +19,18 @@ import akka.pattern.ask
 private[setup] final class Rematcher(
     messenger: Messenger,
     router: lila.hub.ActorLazyRef,
-    timeline: lila.hub.ActorLazyRef) extends Handler {
+    timeline: lila.hub.ActorLazyRef) {
 
   private type Result = (String, List[Event])
 
-  def offerOrAccept(fullId: String): Fu[Result] = attempt(fullId, {
-    case pov @ Pov(game, color) if game playerCanRematch color ⇒
-    game.opponent(color).isOfferingRematch.fold(
-      game.next.fold(rematchJoin(pov))(rematchExists(pov)),
-      rematchCreate(pov)
-    )
-    case _ ⇒ fufail("invalid rematch offer " + fullId)
-  })
+  def offerOrAccept(playerRef: PlayerRef): Fu[Result] =
+    GameRepo pov playerRef flatten "No such game" flatMap {
+      case pov @ Pov(game, color) ⇒ (game playerCanRematch color) ??
+        game.opponent(color).isOfferingRematch.fold(
+          game.next.fold(rematchJoin(pov))(rematchExists(pov)),
+          rematchCreate(pov)
+        )
+    }
 
   private def rematchExists(pov: Pov)(nextId: String): Fu[Result] =
     GameRepo.pov(nextId, !pov.color) map {

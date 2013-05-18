@@ -6,7 +6,7 @@ import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    hand: lila.round.Hand,
+    roundMap: akka.actor.ActorRef,
     finisher: lila.round.Finisher,
     bookmark: lila.hub.ActorLazyRef) {
 
@@ -14,14 +14,14 @@ final class Env(
 
   lazy val forms = new DataForm
 
-  lazy val importer = new Importer(hand, finisher, bookmark, Delay)
+  lazy val importer = new Importer(roundMap, finisher, bookmark, Delay)
 }
 
 object Env {
 
   lazy val current = "[boot] importer" describes new Env(
     config = lila.common.PlayApp loadConfig "importer",
-    hand = lila.round.Env.current.hand,
+    roundMap = lila.round.Env.current.roundMap,
     finisher = lila.round.Env.current.finisher,
     bookmark = lila.hub.Env.current.actor.bookmark)
 }

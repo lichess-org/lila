@@ -38,3 +38,10 @@ case class PovRef(gameId: String, color: Color) {
 
   def unary_! = PovRef(gameId, !color)
 }
+
+case class PlayerRef(gameId: String, playerId: String)
+
+object PlayerRef {
+
+  def apply(fullId: String): PlayerRef = PlayerRef(fullId take Game.gameIdSize, fullId drop Game.gameIdSize)
+}

@@ -465,7 +465,7 @@ var lichess_translations = [];
     $("#import_game form").submit(function() {
       var pgn = $(this).find('textarea').val();
       var nbMoves = parseInt(pgn.replace(/\n/g, ' ').replace(/^.+\s(\d+)\..+$/, '$1'));
-      var delay = 100;
+      var delay = 50;
       var duration = nbMoves * delay * 2.1 + 1000;
       $(this).find('button').hide().end()
         .find('.error').hide().end()
