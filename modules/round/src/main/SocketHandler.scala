@@ -19,7 +19,6 @@ private[round] final class SocketHandler(
     roundMap: ActorRef,
     socketHub: ActorRef,
     messenger: Messenger,
-    notifyMove: (String, String, Option[String]) ⇒ Unit,
     flood: Flood,
     hijack: Hijack) {
 
@@ -56,11 +55,10 @@ private[round] final class SocketHandler(
         case ("move", o) ⇒ parseMove(o) foreach {
           case (orig, dest, prom, blur, lag) ⇒ {
             socket ! Ack(uid)
-            roundMap ! Tell(gameId, Play(playerId, orig, dest, prom, blur, lag, {
-              case PlayResult(_, fen, lastMove) ⇒ notifyMove(gameId, fen, lastMove)
-            }, {
-              _ ⇒ socket ! Resync(uid)
-            }))
+            roundMap ! Tell(
+              gameId,
+              HumanPlay(playerId, orig, dest, prom, blur, lag, _ ⇒ socket ! Resync(uid))
+            )
           }
         }
         case ("moretime", o)  ⇒ roundMap ! Tell(gameId, Moretime(playerId))
