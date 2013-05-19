@@ -18,8 +18,7 @@ final class Env(
   private val settings = new {
     val CollectionFriend = config getString "collection.friend"
     val CollectionRequest = config getString "collection.request"
-    val OnlineWatcherName = config getString "online_watcher.name"
-    val OnlineWatcherFreq = config duration "online_watcher.freq"
+    val ActorNotifyFreq = config duration "actor.notify_freq"
     val ActorName = config getString "actor.name"
   }
   import settings._
@@ -38,27 +37,20 @@ final class Env(
     }
   }
 
-  system.actorOf(Props(new Actor {
-    def receive = {
-      case lila.hub.actorApi.friend.GetFriends(userId) ⇒
-        cached friendIds userId pipeTo sender
-    }
-  }), name = ActorName)
-
-  private[friend] val onlineWatcher = system.actorOf(Props(new OnlineWatcher(
+  private[friend] val actor = system.actorOf(Props(new FriendActor(
     socketHub = hub.socket.hub,
     getOnlineUserIds = getOnlineUserIds,
     getUsername = getUsername,
     getFriendIds = cached.friendIds.apply
-  )), name = OnlineWatcherName)
+  )), name = ActorName)
 
   {
     import scala.concurrent.duration._
     import makeTimeout.short
     import lila.hub.actorApi.WithUserIds
 
-    scheduler.message(OnlineWatcherFreq) {
-      onlineWatcher -> true
+    scheduler.message(ActorNotifyFreq) {
+      actor -> actorApi.NotifyMovement
     }
   }
 
