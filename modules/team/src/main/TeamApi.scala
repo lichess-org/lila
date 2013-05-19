@@ -31,7 +31,7 @@ final class TeamApi(
       createdBy = me)
     $insert(team) >>
       MemberRepo.add(team.id, me.id) >>
-      (cached.teamIds invalidate me.id) >>-
+      (cached.teamIds remove me.id) >>-
       (forum ! MakeTeam(team.id, team.name)) >>-
       (indexer ! InsertTeam(team)) inject team
   }
@@ -91,13 +91,13 @@ final class TeamApi(
       _ ?? {
         val request = Request.make(team = team.id, user = user.id, message = setup.message)
         val rwu = RequestWithUser(request, user)
-        $insert(request) >> (cached.nbRequests invalidate team.createdBy)
+        $insert(request) >> (cached.nbRequests remove team.createdBy)
       }
     }
 
   def processRequest(team: Team, request: Request, accept: Boolean): Funit = for {
     _ ← $remove(request)
-    _ ← cached.nbRequests invalidate team.createdBy
+    _ ← cached.nbRequests remove team.createdBy
     userOption ← $find.byId[User](request.user)
     _ ← userOption.filter(_ ⇒ accept).??(user ⇒
       doJoin(team, user.id) >>- notifier.acceptRequest(team, request)
@@ -109,7 +109,7 @@ final class TeamApi(
       (!belongs) ?? {
         MemberRepo.add(team.id, userId) >>
           TeamRepo.incMembers(team.id, +1) >>
-          (cached.teamIds invalidate userId)
+          (cached.teamIds remove userId)
       }
     }
 
@@ -125,7 +125,7 @@ final class TeamApi(
       _ ?? {
         MemberRepo.remove(team.id, userId) >>
           TeamRepo.incMembers(team.id, -1) >>
-          (cached.teamIds invalidate userId)
+          (cached.teamIds remove userId)
       }
     }
 
