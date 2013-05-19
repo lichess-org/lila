@@ -18,6 +18,7 @@ import makeTimeout.short
 private[round] final class SocketHandler(
     roundMap: ActorRef,
     socketHub: ActorRef,
+    hub: lila.hub.Env,
     messenger: Messenger,
     flood: Flood) {
 
@@ -101,7 +102,7 @@ private[round] final class SocketHandler(
       version = version,
       color = pov.color,
       playerId = playerId)
-    handler ← Handler(socket, uid, join) {
+    handler ← Handler(hub, socket, uid, join, ctx.userId) {
       case Connected(enum, member) ⇒
         controller(pov.gameId, socket, uid, pov.ref, member) -> enum
     }

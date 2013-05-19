@@ -1,7 +1,7 @@
 package lila.socket
 
 import actorApi._
-import lila.hub.actorApi.{ GetNbMembers, NbMembers, WithUserIds, WithSocketUserIds }
+import lila.hub.actorApi.{ GetNbMembers, NbMembers, WithUserIds, WithSocketUserIds, SendTo, SendTos }
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import makeTimeout.short
 

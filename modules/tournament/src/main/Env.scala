@@ -46,6 +46,7 @@ final class Env(
     roundMap = roundMap)
 
   lazy val socketHandler = new SocketHandler(
+    hub = hub,
     socketHub = socketHub,
     messenger = messenger,
     flood = flood)

@@ -37,6 +37,7 @@ final class Env(
   )), name = ActorName)
 
   lazy val socketHandler = new SocketHandler(
+    hub = hub,
     lobby = lobby,
     socket = socket)
 

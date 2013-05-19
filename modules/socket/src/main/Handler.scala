@@ -1,27 +1,35 @@
 package lila.socket
 
-import akka.actor.ActorRef
-import akka.pattern.ask
-import play.api.libs.json._
-import play.api.libs.iteratee.{ Iteratee, Enumerator }
-
 import actorApi._
+import lila.hub.actorApi.friend.GetFriends
 import makeTimeout.large
 import lila.common.PimpedJson._
+
+import akka.actor.ActorRef
+import akka.pattern.{ ask, pipe }
+import play.api.libs.json._
+import play.api.libs.iteratee.{ Iteratee, Enumerator }
 
 object Handler {
 
   type Controller = PartialFunction[(String, JsObject), Unit]
   type Connecter = PartialFunction[Any, (Controller, JsEnumerator)]
 
-  def apply[M <: SocketMember](
+  def apply(
+    hub: lila.hub.Env,
     socket: ActorRef,
     uid: String,
-    join: Any)(connecter: Connecter): Fu[JsSocketHandler] = {
+    join: Any,
+    userId: Option[String])(connecter: Connecter): Fu[JsSocketHandler] = {
 
     val baseController: Controller = {
       case ("p", _) ⇒ socket ! Ping(uid)
-      case msg      ⇒ logwarn("Unhandled msg: " + msg)
+      case ("init", _) ⇒ userId foreach { u ⇒
+        hub.actor.friend ? GetFriends(u) mapTo manifest[List[String]] map { friends ⇒
+          Init(uid, friends)
+        } pipeTo socket
+      }
+      case msg ⇒ logwarn("Unhandled msg: " + msg)
     }
 
     def iteratee(controller: Controller) = {

@@ -6,12 +6,16 @@ import play.api.libs.json._
 case class SendTo(userId: String, message: JsObject)
 
 object SendTo {
-
   def apply[A: Writes](userId: String, typ: String, data: A): SendTo =
     SendTo(userId, Json.obj("t" -> typ, "d" -> data))
 }
 
-case class SendTos[A: Writes](userIds: Set[String], message: A)
+case class SendTos(userIds: Set[String], message: JsObject)
+
+object SendTos {
+  def apply[A: Writes](userIds: Set[String], typ: String, data: A): SendTos =
+    SendTos(userIds, Json.obj("t" -> typ, "d" -> data))
+}
 
 case class Ask(msg: Any)
 
@@ -79,4 +83,8 @@ package round {
 package bookmark {
   case class Toggle(gameId: String, userId: String)
   case class Remove(gameIds: List[String])
+}
+
+package friend {
+  case class GetFriends(userId: String)
 }

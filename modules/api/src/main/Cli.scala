@@ -27,5 +27,6 @@ private[api] final class Cli(env: Env) {
       lila.message.Env.current.cli.process orElse
       lila.tournament.Env.current.cli.process orElse
       lila.analyse.Env.current.cli.process orElse
+      lila.friend.Env.current.cli.process orElse
       lila.team.Env.current.cli.process
 }

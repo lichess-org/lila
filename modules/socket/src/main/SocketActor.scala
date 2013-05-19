@@ -1,7 +1,7 @@
 package lila.socket
 
 import actorApi._
-import lila.hub.actorApi.{ GetUids, WithUserIds, GetNbMembers, NbMembers }
+import lila.hub.actorApi.{ GetUids, WithUserIds, GetNbMembers, NbMembers, SendTo, SendTos }
 import lila.memo.ExpireSetMemo
 
 import akka.actor._
@@ -44,7 +44,11 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Actor {
 
     case SendTos(userIds, msg)      ⇒ sendTos(userIds, msg)
 
-    case Resync(uid)                ⇒ resync(uid)
+    case Init(uid, friends) ⇒ withMember(uid) {
+      notifyMember("init", Json.obj("friends" -> friends))
+    }
+
+    case Resync(uid) ⇒ resync(uid)
   }
 
   def receive = receiveSpecific orElse receiveGeneric

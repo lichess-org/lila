@@ -18,6 +18,7 @@ import play.api.libs.json._
 import play.api.libs.iteratee._
 
 private[tournament] final class SocketHandler(
+    hub: lila.hub.Env,
     socketHub: ActorRef,
     messenger: Messenger,
     flood: Flood) {
@@ -35,7 +36,7 @@ private[tournament] final class SocketHandler(
             uid = uid,
             user = user,
             version = version)
-          handler ← Handler(socket, uid, join) {
+          handler ← Handler(hub, socket, uid, join, user map (_.id)) {
             case Connected(enum, member) ⇒
               controller(socket, tourId, uid, member) -> enum
           }
