@@ -17,7 +17,6 @@ case class Ask(msg: Any)
 
 case class Tell(id: String, msg: Any)
 
-case object GetUserIds
 case class WithUserIds(f: Iterable[String] ⇒ Unit)
 case class WithSocketUserIds(id: String, f: Iterable[String] ⇒ Unit)
 

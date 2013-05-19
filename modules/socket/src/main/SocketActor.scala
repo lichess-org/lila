@@ -1,7 +1,7 @@
 package lila.socket
 
 import actorApi._
-import lila.hub.actorApi.{ GetUserIds, GetUids, WithUserIds, GetNbMembers, NbMembers }
+import lila.hub.actorApi.{ GetUids, WithUserIds, GetNbMembers, NbMembers }
 import lila.memo.ExpireSetMemo
 
 import akka.actor._
@@ -31,8 +31,6 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Actor {
     case GetNbMembers               ⇒ sender ! members.size
 
     case NbMembers(nb)              ⇒ pong = makePong(nb)
-
-    case GetUserIds                 ⇒ sender ! userIds
 
     case WithUserIds(f)             ⇒ f(userIds)
 

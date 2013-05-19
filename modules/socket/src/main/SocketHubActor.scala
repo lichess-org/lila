@@ -1,7 +1,7 @@
 package lila.socket
 
 import actorApi._
-import lila.hub.actorApi.{ GetNbMembers, NbMembers, GetUserIds, WithUserIds, WithSocketUserIds }
+import lila.hub.actorApi.{ GetNbMembers, NbMembers, WithUserIds, WithSocketUserIds }
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import makeTimeout.short
 
@@ -25,25 +25,23 @@ abstract class SocketHubActor extends Actor {
       sockets.values.toList map (_ ? GetNbMembers mapTo manifest[Int])
     }.sequence map (_.sum) pipeTo sender
 
-    case msg @ NbMembers(_) ⇒ broadcast(msg)
+    case msg @ NbMembers(_)       ⇒ broadcast(msg)
 
     case WithSocketUserIds(id, f) ⇒ withSocket(id) { _ ! WithUserIds(f) }
 
-    case GetUserIds ⇒ {
-      sockets.values.toList map (_ ? GetUserIds mapTo manifest[Iterable[String]])
-    }.sequence map (_.flatten) pipeTo sender
+    case msg @ WithUserIds(_)     ⇒ broadcast(msg)
 
-    case Broom               ⇒ broadcast(Broom)
+    case Broom                    ⇒ broadcast(Broom)
 
-    case msg @ SendTo(_, _)  ⇒ broadcast(msg)
+    case msg @ SendTo(_, _)       ⇒ broadcast(msg)
 
-    case msg @ SendTos(_, _) ⇒ broadcast(msg)
+    case msg @ SendTos(_, _)      ⇒ broadcast(msg)
 
     case Forward(id, GetVersion) ⇒ (sockets get id).fold(sender ! 0) {
       _ ? GetVersion pipeTo sender
     }
 
-    case Forward(id, msg)    ⇒ withSocket(id)(_ forward msg)
+    case Forward(id, msg) ⇒ withSocket(id)(_ forward msg)
 
     case GetSocket(id: String) ⇒ sender ! {
       (sockets get id) | {
@@ -61,7 +59,7 @@ abstract class SocketHubActor extends Actor {
 
   var sockets = Map.empty[String, ActorRef]
 
-  def withSocket(id: String)(f: ActorRef => Unit) = 
+  def withSocket(id: String)(f: ActorRef ⇒ Unit) =
     sockets get id foreach f
 
   def broadcast(msg: Any) {
