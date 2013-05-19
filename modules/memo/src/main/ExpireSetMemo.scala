@@ -19,5 +19,7 @@ final class ExpireSetMemo(ttl: Duration) {
 
   def keys: Iterable[String] = cache.asMap.keys
 
+  def keySet: Set[String] = keys.toSet
+
   def count = keys.toList.size
 }

@@ -14,6 +14,7 @@ import play.api.libs.json._
 import play.api.libs.iteratee._
 
 private[lobby] final class SocketHandler(
+    hub: lila.hub.Env,
     lobby: ActorRef,
     socket: ActorRef) {
 
@@ -33,7 +34,7 @@ private[lobby] final class SocketHandler(
 
   def apply(uid: String, user: Option[User]): Fu[JsSocketHandler] = {
     val join = Join(uid = uid, user = user)
-    Handler(socket, uid, join) {
+    Handler(hub, socket, uid, join, user map (_.id)) {
       case Connected(enum, member) ⇒
         controller(socket, uid, member) -> enum
     }

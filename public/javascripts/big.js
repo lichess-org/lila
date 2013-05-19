@@ -66,6 +66,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         self.onSuccess();
         if (self.options.offlineTag) self.options.offlineTag.hide();
         self.pingNow();
+        self.initServer();
         $('body').trigger('socket.open');
       };
       self.ws.onmessage = function(e) {
@@ -137,6 +138,11 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         v: this.version
       });
     },
+    initServer: function() {
+      self.ws.send(JSON.stringify({
+        t: "init"
+      }));
+    },
     handle: function(m) {
       var self = this;
       if (m.v) {
@@ -203,7 +209,10 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     domain: document.domain.replace(/^\w+\.(.+)$/, '$1')
   };
 
-  $.userLink = function(u, limit) {
+  $.userLink = function(u) {
+    return $.userLinkLimit(u, false);
+  }
+  $.userLinkLimit = function(u, limit) {
     return (u || false) ? '<a class="user_link" href="/@/' + u + '">' + ((limit || false) ? u.substring(0, limit) : u) + '</a>' : 'Anonymous';
   }
 
@@ -211,6 +220,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     socket: null,
     socketDefaults: {
       events: {
+        init: function(data) {
+          $('#friend_box').friends("set", data.friends);
+        },
         n: function(e) {
           var $tag = $('#nb_connected_players');
           if ($tag.length && e) {
@@ -281,6 +293,8 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     $('#lichess').on('click', 'a.socket-link', function() {
       lichess.socket.send($(this).data('msg'), $(this).data('data'));
     });
+
+    $('#friend_box').friends();
 
     // Start game
     var $game = $('div.lichess_game').orNot();
@@ -598,7 +612,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
             resize: true,
             render: function(u, t) {
               if (self.options.player.spectator) {
-                return '<li><span>' + $.userLink(u, 12) + '</span>' + urlToLink(t) + '</li>';
+                return '<li><span>' + $.userLinkLimit(u, 12) + '</span>' + urlToLink(t) + '</li>';
               } else {
                 return '<li class="' + u + (u == 'system' ? ' trans_me' : '') + '">' + urlToLink(t) + '</li>';
               }
@@ -1202,6 +1216,17 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     }
   });
 
+  $.widget("lichess.friends", {
+    _create: function() {
+      this.nb = this.element.find('.title strong');
+      this.list = this.element.find("div.list");
+    },
+    set: function(users) {
+      this.list.html(_.map(users, $.userLink).join(""));
+      this.nb.text(users.length);
+    }
+  });
+
   $.widget("lichess.chat", {
     _create: function() {
       this.options = $.extend({
@@ -1527,6 +1552,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       var isHook = $form.hasClass('game_config_hook');
       if (isHook) {
         var $formTag = $form.find('form');
+
         function ajaxSubmit(color) {
           $.ajax({
             url: $formTag.attr('action').replace(/uid-placeholder/, lichess_sri),
@@ -1920,7 +1946,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
     var $chat = $("div.lichess_chat").chat({
       render: function(u, t) {
-        return '<li><span>' + $.userLink(u, 12) + '</span>' + urlToLink(t) + '</li>';
+        return '<li><span>' + $.userLinkLimit(u, 12) + '</span>' + urlToLink(t) + '</li>';
       }
     });
 

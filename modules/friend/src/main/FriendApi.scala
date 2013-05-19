@@ -33,10 +33,13 @@ final class FriendApi(cached: Cached) {
     $remove.byId[Request](request.id) >>
       (cached.nbRequests remove userId) >>
       accept ?? $find.byId[User](request.user) flatten "requester not found" flatMap { requester ⇒
-        FriendRepo.add(requester.id, userId) >>
-          (cached.friendIds remove requester.id) >>
-          (cached.friendIds remove userId)
+        makeFriends(requester.id, userId)
       }
+
+  private[friend] def makeFriends(u1: String, u2: String): Funit =
+    FriendRepo.add(u1, u2) >>
+      (cached.friendIds remove u1) >>
+      (cached.friendIds remove u2)
 
   def friendsOf(userId: String): Fu[List[User]] =
     cached friendIds userId flatMap UserRepo.byIds map { _ sortBy (_.id) }
