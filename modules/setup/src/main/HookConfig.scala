@@ -18,7 +18,8 @@ case class HookConfig(
 
   def >> = (variant.id, clock, time, increment, mode.id.some, eloRange.toString.some, color.name).some
 
-  def hook(user: Option[User]) = Hook.make(
+  def hook(uid: String, user: Option[User]) = Hook.make(
+    uid = uid,
     variant = variant,
     clock = makeClock,
     mode = mode,

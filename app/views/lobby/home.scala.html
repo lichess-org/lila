@@ -1,4 +1,4 @@
-@(preload: String, myHook: Option[lila.lobby.Hook], timeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], featured: Option[Game])(implicit ctx: Context)
+@(preload: String, timeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], featured: Option[Game])(implicit ctx: Context)
 
 @chat = {
 @ctx.me.map { me =>
@@ -41,7 +41,7 @@ underchat = underchat.some) {
         <span class="number">(0)</span>
       </a>
       <div class="filter"></div>
-      <div class="hooks" data-my-hook="@myHook.map(_.ownerId)">
+      <div class="hooks">
         <table class="some"></table>
         <table class="empty">
           <tr class="create_game">

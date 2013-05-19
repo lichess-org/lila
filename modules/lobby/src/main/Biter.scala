@@ -4,8 +4,6 @@ import actorApi.{ RemoveHook, BiteHook, JoinHook }
 import lila.user.{ User, UserRepo }
 import chess.{ Game ⇒ ChessGame, Board, Variant, Mode, Clock, Color ⇒ ChessColor }
 import lila.game.{ GameRepo, Game, Player, Pov, Progress }
-import lila.lobby.tube.hookTube
-import lila.db.api._
 
 import akka.actor.ActorRef
 
@@ -14,7 +12,7 @@ private[lobby] final class Biter(
     roundMessenger: lila.round.Messenger) {
 
   def apply(hookId: String, userId: Option[String]): Fu[String ⇒ JoinHook] = for {
-    hookOption ← $find.byId[Hook](hookId)
+    hookOption ← fuccess(HookRepo byId hookId)
     userOption ← userId ?? UserRepo.byId
     result ← hookOption.fold[Fu[String ⇒ JoinHook]](fufail("No such hook")) { hook ⇒
       if (canJoin(hook, userOption)) join(hook, userOption)
@@ -56,7 +54,7 @@ private[lobby] final class Biter(
     source = lila.game.Source.Lobby,
     pgnImport = None)
 
-  private def canJoin(hook: Hook, userOption: Option[User]) = !hook.`match` && {
+  private def canJoin(hook: Hook, userOption: Option[User]) = hook.open && {
     hook.realMode.casual || (userOption exists { u ⇒
       hook.realEloRange.fold(true)(_ contains u.elo)
     })

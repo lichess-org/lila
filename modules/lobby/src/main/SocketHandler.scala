@@ -24,7 +24,7 @@ private[lobby] final class SocketHandler(
     member: Member): Handler.Controller = {
     case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
     case ("join", o) ⇒ o str "d" foreach { id ⇒
-      lobby ! BiteHook(id, uid, member.userId, member.hookOwnerId)
+      lobby ! BiteHook(id, uid, member.userId)
     }
     case ("cancel", o) ⇒ o str "d" foreach { ownerId ⇒
       lobby ! CancelHook(ownerId)
@@ -40,11 +40,8 @@ private[lobby] final class SocketHandler(
     }
   }
 
-  def apply(
-    uid: String,
-    hook: Option[String],
-    user: Option[User]): Fu[JsSocketHandler] = {
-    val join = Join(uid = uid, user = user, hookOwnerId = hook)
+  def apply(uid: String, user: Option[User]): Fu[JsSocketHandler] = {
+    val join = Join(uid = uid, user = user)
     Handler(socket, uid, join) {
       case Connected(enum, member) ⇒
         controller(socket, uid, member) -> enum

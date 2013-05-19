@@ -38,11 +38,11 @@ object Setup extends LilaController with TheftPrevention {
     env.forms.hookFilled map { html.setup.hook(_) }
   }
 
-  def hook = process(env.forms.hook) { config ⇒
-    implicit ctx ⇒
-      env.processor hook config map { hook ⇒
-        routes.Lobby.hook(hook.ownerId)
-      }
+  def hook(uid: String) = OpenBody { implicit ctx ⇒
+    implicit val req = ctx.body
+    env.forms.hook(ctx).bindFromRequest.value ?? { config ⇒
+      env.processor.hook(config, uid)
+    }
   }
 
   def filterForm = Open { implicit ctx ⇒

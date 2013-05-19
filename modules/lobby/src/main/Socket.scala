@@ -16,10 +16,10 @@ import play.api.templates.Html
 import scala.concurrent.duration._
 
 private[lobby] final class Socket(
-  messenger: Messenger,
-  val history: History,
-  router: lila.hub.ActorLazyRef,
-  uidTtl: Duration) extends SocketActor[Member](uidTtl) with Historical[Member] {
+    messenger: Messenger,
+    val history: History,
+    router: lila.hub.ActorLazyRef,
+    uidTtl: Duration) extends SocketActor[Member](uidTtl) with Historical[Member] {
 
   def receiveSpecific = {
 
@@ -30,11 +30,9 @@ private[lobby] final class Socket(
       }
     }
 
-    case WithHooks(op) ⇒ op(hookOwnerIds)
-
-    case Join(uid, user, hookOwnerId) ⇒ {
+    case Join(uid, user) ⇒ {
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, user, hookOwnerId)
+      val member = Member(channel, user)
       addMember(uid, member)
       sender ! Connected(enumerator, member)
     }
@@ -71,15 +69,16 @@ private[lobby] final class Socket(
       "emax" -> hook.realEloRange.map(_.max),
       "engine" -> hook.engine))
 
-    case RemoveHook(hook) ⇒ notifyVersion("hook_remove", hook.id)
+    case RemoveHook(hookId) ⇒ notifyVersion("hook_remove", hookId)
 
-    case CancelHook(ownerId) ⇒ homeUrl foreach { url ⇒
-      hookOwner(ownerId) foreach notifyMember("redirect", url)
-    }
-
-    case JoinHook(uid, hook, game) ⇒ playerUrl(game fullIdOf game.creatorColor) foreach { url ⇒
-      hookOwner(hook.ownerId) foreach notifyMember("redirect", url)
-    }
+    case JoinHook(uid, hook, game) ⇒
+      playerUrl(game fullIdOf game.creatorColor) zip
+        playerUrl(game fullIdOf game.invitedColor) foreach {
+          case (creatorUrl, invitedUrl) ⇒ {
+            withMember(hook.uid)(notifyMember("redirect", creatorUrl))
+            withMember(uid)(notifyMember("redirect", invitedUrl))
+          }
+        }
 
     case ChangeFeatured(html) ⇒ notifyFeatured(html)
   }
@@ -98,10 +97,4 @@ private[lobby] final class Socket(
   private def broadcast(msg: JsObject) {
     members.values foreach (_.channel push msg)
   }
-
-  private def hookOwnerIds: Iterable[String] =
-    members.values.map(_.hookOwnerId).flatten
-
-  private def hookOwner(ownerId: String): Iterable[Member] =
-    members.values filter (_.hookOwnerId == ownerId.some)
 }

@@ -51,9 +51,9 @@ private[setup] final class Processor(
       friendConfigMemo.set(pov.game.id, config) inject pov
   }
 
-  def hook(config: HookConfig)(implicit ctx: Context): Fu[Hook] = {
-    val hook = config hook ctx.me
-    saveConfig(_ withHook config) >>- (lobby ! AddHook(hook)) inject hook
+  def hook(config: HookConfig, uid: String)(implicit ctx: Context): Funit = {
+    val hook = config.hook(uid, ctx.me)
+    saveConfig(_ withHook config) >>- (lobby ! AddHook(hook)) 
   }
 
   def api(implicit ctx: Context): Fu[JsObject] = {

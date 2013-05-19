@@ -1,6 +1,5 @@
 # Lobby
 GET   /                                controllers.Lobby.home
-GET   /new/$ownerId<[\w\-]{12}>        controllers.Lobby.hook(ownerId: String)
 GET   /lobby/socket                    controllers.Lobby.socket
 GET   /lobby/log                       controllers.Lobby.log
 
@@ -96,7 +95,7 @@ GET   /$fullId<[\w\-]{12}>/await       controllers.Setup.await(fullId: String)
 GET   /$fullId<[\w\-]{12}>/cancel      controllers.Setup.cancel(fullId: String)
 POST  /$id<[\w\-]{8}>/join             controllers.Setup.join(id: String)
 GET   /setup/hook                      controllers.Setup.hookForm
-POST  /setup/hook                      controllers.Setup.hook
+POST  /setup/hook/:uid                 controllers.Setup.hook(uid: String)
 GET   /setup/filter                    controllers.Setup.filterForm
 POST  /setup/filter                    controllers.Setup.filter
 GET   /setup/validate-fen              controllers.Setup.validateFen

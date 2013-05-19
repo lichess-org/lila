@@ -21,6 +21,7 @@ case class WithSocketUserIds(id: String, f: Iterable[String] ⇒ Unit)
 
 case object GetNbMembers
 case class NbMembers(nb: Int)
+case object GetUids
 
 package map {
   case class Tell(id: String, msg: Any)
