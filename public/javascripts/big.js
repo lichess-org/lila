@@ -280,12 +280,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     }
 
     $('#lichess').on('click', 'a.socket-link', function() {
-      console.debug(
-        $(this).data('msg'),
-        $(this).data('data'));
-      lichess.socket.send(
-        $(this).data('msg'),
-        $(this).data('data'));
+      lichess.socket.send($(this).data('msg'), $(this).data('data'));
     });
 
     // Start game
@@ -1214,9 +1209,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
   $.widget("lichess.chat", {
     _create: function() {
       this.options = $.extend({
-        render: function(u, t) {
-          console.debug("How to render " + u + " " + t + " in chat?");
-        },
+        // render: function(u, t) {},
         resize: false
       }, this.options);
       var self = this;
@@ -1859,7 +1852,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
     function renderHook(hook) {
       if (!isRegistered && hook.mode == "Rated") return "";
-      hook.action = hook.ownerId ? "cancel" : "join";
+      hook.action = hook.uid == lichess_sri ? "cancel" : "join";
       if (hook.emin && hook.action == "join" && (myElo < parseInt(hook.emin) || myElo > parseInt(hook.emax))) return "";
       var html = "",
         isEngine, engineMark, userClass, mode;
@@ -1890,7 +1883,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       html += '<td>' + $.trans(hook.clock) + '</td>';
       html += '<td class="action">';
       if (hook.action == "cancel") {
-        html += '<a class="cancel socket-link" data-msg="cancel" data-data=' + hook.ownerId + '"></a>';
+        html += '<a class="cancel socket-link" data-msg="cancel"></a>';
       } else {
         html += '<a class="join socket-link" data-msg="join" data-data="' + hook.id + '"></a>';
       }

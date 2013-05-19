@@ -38,6 +38,7 @@ case class Hook(
 
   def render: JsObject = Json.obj(
     "id" -> id,
+    "uid" -> uid,
     "username" -> username,
     "elo" -> elo,
     "variant" -> realVariant.toString,
