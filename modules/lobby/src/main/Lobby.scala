@@ -21,6 +21,7 @@ private[lobby] final class Lobby(
     case GetOpenCasual ⇒ sender ! HookRepo.allOpenCasual
 
     case msg @ AddHook(hook) ⇒ {
+      HookRepo byUid hook.uid foreach remove
       HookRepo save hook
       socket ! msg
     }
