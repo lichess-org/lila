@@ -1,7 +1,7 @@
 package lila.socket
 
 import actorApi._
-import lila.hub.actorApi.{ GetUserIds, WithUserIds, GetNbMembers, NbMembers }
+import lila.hub.actorApi.{ GetUserIds, GetUids, WithUserIds, GetNbMembers, NbMembers }
 import lila.memo.ExpireSetMemo
 
 import akka.actor._
@@ -35,6 +35,8 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Actor {
     case GetUserIds                 ⇒ sender ! userIds
 
     case WithUserIds(f)             ⇒ f(userIds)
+
+    case GetUids                    ⇒ sender ! uids
 
     case LiveGames(uid, gameIds)    ⇒ registerLiveGames(uid, gameIds)
 

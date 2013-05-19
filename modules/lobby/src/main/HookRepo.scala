@@ -1,40 +1,38 @@
 package lila.lobby
 
-import tube.hookTube
-import lila.game.Game
-import lila.db.Implicits._
-import lila.db.api._
-
-import play.api.libs.json._
-
-import reactivemongo.api._
-import reactivemongo.bson._
-
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 
 object HookRepo {
 
-  def ownedHook(ownerId: String): Fu[Option[Hook]] =
-    $find.one(Json.obj("ownerId" -> ownerId))
+  private var hooks = Vector[Hook]()
 
-  def allOpen = hookList(Json.obj("match" -> false))
+  def list = hooks.toList
 
-  def allOpenCasual = hookList(Json.obj("match" -> false, "mode" -> 0))
+  def byId(id: String) = hooks find (_.id == id)
 
-  def hookList(selector: JsObject): Fu[List[Hook]] =
-    $find($query(selector) sort $sort.createdAsc)
+  def byUid(uid: String) = hooks find (_.uid == uid)
 
-  def setGame(hook: Hook, game: Game) = $update(
-    $select(hook.id),
-    $set(Json.obj("match" -> true, "gameId" -> game.id)))
+  def allOpen: List[Hook] = list.filter(_.open)
 
-  def removeOwnerId(ownerId: String): Funit =
-    $remove(Json.obj("ownerId" -> ownerId))
+  def allOpenCasual = list.filter(h ⇒ h.open && h.mode == 0)
 
-  def unmatchedNotInOwnerIds(ids: Iterable[String]): Fu[List[Hook]] =
-    $find(Json.obj("ownerId" -> $nin(ids), "match" -> false))
+  def openNotInUids(uids: Set[String]): List[Hook] = allOpen.filterNot(h ⇒ uids(h.uid))
 
-  def cleanupOld: Fu[Unit] =
-    $remove(Json.obj("createdAt" -> $lt(DateTime.now - 1.hour)))
+  def save(hook: Hook) {
+    hooks = hooks.filterNot(_.id == hook.id) :+ hook
+  }
+
+  def remove(hook: Hook) {
+    hooks = hooks filterNot (_.id == hook.id)
+  }
+
+  def removeUid(uid: String) {
+    hooks = hooks filterNot (_.uid == uid)
+  }
+
+  def cleanupOld {
+    val limit = DateTime.now - 20.minutes
+    hooks = hooks filter (_.createdAt > limit)
+  }
 }

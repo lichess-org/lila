@@ -3,7 +3,6 @@ package controllers
 import lila.app._
 import lila.user.Context
 import lila.common.LilaCookie
-import lila.lobby.{ Hook, HookRepo }
 import lila.tournament.TournamentRepo
 import views._
 
@@ -14,7 +13,7 @@ import play.api.libs.json.Json
 object Lobby extends LilaController with Results {
 
   def home = Open { implicit ctx ⇒
-    renderHome(none, Ok).map(_.withHeaders(
+    renderHome(Ok).map(_.withHeaders(
       CACHE_CONTROL -> "no-cache", PRAGMA -> "no-cache"
     ))
   }
@@ -23,18 +22,17 @@ object Lobby extends LilaController with Results {
     reqToCtx(req) flatMap { ctx ⇒ handleNotFound(ctx) }
 
   def handleNotFound(implicit ctx: Context): Fu[Result] =
-    renderHome(none, NotFound)
+    renderHome(NotFound)
 
-  private def renderHome[A](myHook: Option[Hook], status: Status)(implicit ctx: Context): Fu[Result] =
+  private def renderHome[A](status: Status)(implicit ctx: Context): Fu[Result] =
     Env.current.preloader(
-      myHook = myHook,
       timeline = Env.timeline.recent,
       posts = Env.forum.recent(ctx.me, Env.team.cached.teamIds.apply),
       tours = TournamentRepo.created,
       filter = Env.setup.filter
     ).map(_.fold(Redirect(_), {
         case (preload, entries, posts, tours, featured) ⇒ status(html.lobby.home(
-          Json stringify preload, myHook, entries, posts, tours, featured)) |> { response ⇒
+          Json stringify preload, entries, posts, tours, featured)) |> { response ⇒
           ctx.req.session.data.contains(LilaCookie.sessionId).fold(
             response,
             response withCookies LilaCookie.makeSessionId(ctx.req)
@@ -44,16 +42,7 @@ object Lobby extends LilaController with Results {
 
   def socket = Socket[JsValue] { implicit ctx ⇒
     get("sri") ?? { uid ⇒
-      Env.lobby.socketHandler(uid = uid, user = ctx.me, hook = get("hook"))
-    }
-  }
-
-  def hook(ownerId: String) = Open { implicit ctx ⇒
-    HookRepo.ownedHook(ownerId) flatMap {
-      _.fold(Redirect(routes.Lobby.home).fuccess) { hook ⇒
-        Env.lobby.lobby ! lila.lobby.actorApi.ShakeHook(hook)
-        renderHome(hook.some, Ok)
-      }
+      Env.lobby.socketHandler(uid = uid, user = ctx.me)
     }
   }
 

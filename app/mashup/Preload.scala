@@ -28,37 +28,23 @@ final class Preload(
   private type Response = Either[Call, RightResponse]
 
   def apply(
-    myHook: Option[Hook],
     timeline: Fu[List[Entry]],
     posts: Fu[List[PostLiteView]],
     tours: Fu[List[Created]],
     filter: Fu[FilterConfig])(implicit ctx: Context): Fu[Response] =
-    myHook.flatMap(_.gameId).fold[Fu[Response]](
-      ctx.isAuth.fold(lobby ? GetOpen, lobby ? GetOpenCasual).mapTo[List[Hook]] zip
-        (ctx.canSeeChat ?? messenger.recent(ctx.troll, 20)) zip
-        timeline zip posts zip tours zip featured.one zip filter map {
-          case ((((((hooks, messages), entries), posts), tours), feat), filter) ⇒ 
+    ctx.isAuth.fold(lobby ? GetOpen, lobby ? GetOpenCasual).mapTo[List[Hook]] zip
+      (ctx.canSeeChat ?? messenger.recent(ctx.troll, 20)) zip
+      timeline zip posts zip tours zip featured.one zip filter map {
+        case ((((((hooks, messages), entries), posts), tours), feat), filter) ⇒
           (Right((Json.obj(
             "version" -> history.version,
-            "pool" -> renderHooks(hooks, myHook),
+            "pool" -> renderHooks(hooks),
             "chat" -> (messages.reverse map (_.render)),
             "filter" -> filter.render
           ), entries, posts, tours, feat)))
-        }) { gameId ⇒
-        GameRepo game gameId map { gameOption ⇒
-          Left(gameOption.fold(routes.Lobby.home()) { game ⇒
-            routes.Round.player(game fullIdOf game.creatorColor)
-          })
-        }
       }
 
-  private def renderHooks(
-    hooks: List[Hook],
-    myHook: Option[Hook]): JsArray = JsArray {
-    hooks map { h ⇒
-      myHook.exists(_.id == h.id).fold(
-        h.render ++ Json.obj("ownerId" -> h.ownerId),
-        h.render)
-    }
+  private def renderHooks(hooks: List[Hook]): JsArray = JsArray {
+    hooks map (_.render)
   }
 }

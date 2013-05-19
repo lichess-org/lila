@@ -5,6 +5,7 @@
 
 // declare now, populate later in a distinct script.
 var lichess_translations = [];
+var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
 (function() {
 
@@ -17,7 +18,7 @@ var lichess_translations = [];
     self.settings = {
       events: {},
       params: {
-        sri: Math.random().toString(36).substring(5) // 8 chars
+        sri: lichess_sri
       },
       options: {
         name: "unnamed",
@@ -1535,6 +1536,24 @@ var lichess_translations = [];
       var $fenPosition = $form.find(".fen_position");
       var $clockCheckbox = $form.find('.clock_choice input');
       var isHook = $form.hasClass('game_config_hook');
+      if (isHook) {
+        var $formTag = $form.find('form');
+        function ajaxSubmit(color) {
+          $.ajax({
+            url: $formTag.attr('action').replace(/uid-placeholder/, lichess_sri),
+            data: $formTag.serialize() + "&color=" + color,
+            type: 'post'
+          });
+          $form.find('a.close').click();
+          return false;
+        }
+        $formTag.find('.color_submits button').click(function() {
+          return ajaxSubmit($(this).val());
+        });
+        $formTag.submit(function() {
+          return ajaxSubmit('random');
+        });
+      }
       $form.find('div.buttons').buttonset().disableSelection();
       $form.find('button.submit').button().disableSelection();
       $form.find('.time_choice input, .increment_choice input').each(function() {
@@ -1683,7 +1702,6 @@ var lichess_translations = [];
     var $userTag = $('#user_tag');
     var isRegistered = $userTag.length > 0
     var myElo = isRegistered ? parseInt($userTag.data('elo')) : null;
-    var hookOwnerId = $hooks.data('my-hook');
 
     $wrap.find('a.filter').click(function() {
       var $a = $(this);
@@ -1754,9 +1772,6 @@ var lichess_translations = [];
     renderTimeline(lichess_preload.timeline);
     $chat.chat('appendMany', lichess_preload.chat);
     lichess.socket = new strongSocket(lichess.socketUrl + "/lobby/socket", lichess_preload.version, $.extend(true, lichess.socketDefaults, {
-      params: {
-        hook: hookOwnerId
-      },
       events: {
         talk: function(e) {
           if (!e.troll || lichess.troll) $chat.chat('append', e.u, e.t);

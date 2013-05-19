@@ -19,7 +19,6 @@ final class Env(
   private val settings = new {
     val MessageMax = config getInt "message.max"
     val MessageTtl = config duration "message.ttl"
-    val CollectionHook = config getString "collection.hook"
     val CollectionMessage = config getString "collection.message"
     val NetDomain = config getString "net.domain"
     val SocketName = config getString "socket.name"
@@ -38,8 +37,7 @@ final class Env(
 
   val lobby = system.actorOf(Props(new Lobby(
     biter = biter,
-    socket = socket,
-    hookMemo = hookMemo
+    socket = socket
   )), name = ActorName)
 
   lazy val socketHandler = new SocketHandler(
@@ -54,15 +52,11 @@ final class Env(
   {
     import scala.concurrent.duration._
 
-    scheduler.message(1 second) {
-      socket -> actorApi.WithHooks(hookMemo.putAll)
-    }
-
-    scheduler.message(2 seconds) {
+    scheduler.message(1 seconds) {
       lobby -> lila.socket.actorApi.Broom
     }
 
-    scheduler.future(30 seconds, "lobby: cleanup") {
+    scheduler.effect(30 seconds, "lobby: cleanup") {
       HookRepo.cleanupOld
     }
   }
@@ -71,9 +65,6 @@ final class Env(
     timeline = hub.actor.timeline,
     roundMessenger = roundMessenger)
 
-  private lazy val hookMemo = new ExpireSetMemo(ttl = OrphanHookTtl)
-
-  private[lobby] lazy val hookColl = db(CollectionHook)
   private[lobby] lazy val messageColl = db(CollectionMessage)
 }
 
