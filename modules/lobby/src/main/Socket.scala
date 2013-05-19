@@ -5,8 +5,11 @@ import lila.socket.{ SocketActor, History, Historical }
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import lila.game.actorApi._
 import lila.hub.actorApi.lobby._
+import lila.hub.actorApi.router.{ Homepage, Player }
+import makeTimeout.short
 
 import akka.actor._
+import akka.pattern.ask
 import play.api.libs.json._
 import play.api.libs.iteratee._
 import play.api.templates.Html
@@ -15,8 +18,8 @@ import scala.concurrent.duration._
 private[lobby] final class Socket(
   messenger: Messenger,
   val history: History,
-  uidTtl: Duration)
-    extends SocketActor[Member](uidTtl) with Historical[Member] {
+  router: lila.hub.ActorLazyRef,
+  uidTtl: Duration) extends SocketActor[Member](uidTtl) with Historical[Member] {
 
   def receiveSpecific = {
 
@@ -70,13 +73,19 @@ private[lobby] final class Socket(
 
     case RemoveHook(hook) ⇒ notifyVersion("hook_remove", hook.id)
 
-    case BiteHook(hook, game) ⇒ notifyMember(
-      "redirect", game fullIdOf game.creatorColor) _ |> { fn ⇒
-        members.values filter (_ ownsHook hook) foreach fn
-      }
+    case CancelHook(ownerId) ⇒ homeUrl foreach { url ⇒
+      hookOwner(ownerId) foreach notifyMember("redirect", url)
+    }
+
+    case JoinHook(uid, hook, game) ⇒ playerUrl(game fullIdOf game.creatorColor) foreach { url ⇒
+      hookOwner(hook.ownerId) foreach notifyMember("redirect", url)
+    }
 
     case ChangeFeatured(html) ⇒ notifyFeatured(html)
   }
+
+  private lazy val homeUrl = router ? Homepage mapTo manifest[String]
+  private def playerUrl(fullId: String) = router ? Player(fullId) mapTo manifest[String]
 
   private def notifyFeatured(html: Html) {
     broadcast(makeMessage("featured", html.toString))
@@ -92,4 +101,7 @@ private[lobby] final class Socket(
 
   private def hookOwnerIds: Iterable[String] =
     members.values.map(_.hookOwnerId).flatten
+
+  private def hookOwner(ownerId: String): Iterable[Member] =
+    members.values filter (_.hookOwnerId == ownerId.some)
 }

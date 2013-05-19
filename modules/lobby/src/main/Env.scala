@@ -10,7 +10,9 @@ import akka.actor._
 final class Env(
     config: Config,
     db: lila.db.Env,
+    hub: lila.hub.Env,
     flood: lila.security.Flood,
+    roundMessenger: lila.round.Messenger,
     system: ActorSystem,
     scheduler: lila.common.Scheduler) {
 
@@ -30,17 +32,24 @@ final class Env(
   private val socket = system.actorOf(Props(new Socket(
     messenger = messenger,
     history = history,
+    router = hub.actor.router,
     uidTtl = SocketUidTtl
   )), name = SocketName)
 
   val lobby = system.actorOf(Props(new Lobby(
+    biter = biter,
     socket = socket,
     hookMemo = hookMemo
   )), name = ActorName)
 
   lazy val socketHandler = new SocketHandler(
+    lobby = lobby,
     socket = socket,
     messenger = messenger)
+
+  lazy val messenger = new Messenger(flood = flood, netDomain = NetDomain)
+
+  lazy val history = new History(ttl = MessageTtl)
 
   {
     import scala.concurrent.duration._
@@ -53,14 +62,14 @@ final class Env(
       lobby -> lila.socket.actorApi.Broom
     }
 
-    scheduler.future(20 seconds, "lobby: cleanup") {
+    scheduler.future(30 seconds, "lobby: cleanup") {
       HookRepo.cleanupOld
     }
   }
 
-  lazy val history = new History(ttl = MessageTtl)
-
-  lazy val messenger = new Messenger(flood = flood, netDomain = NetDomain)
+  private lazy val biter = new Biter(
+    timeline = hub.actor.timeline,
+    roundMessenger = roundMessenger)
 
   private lazy val hookMemo = new ExpireSetMemo(ttl = OrphanHookTtl)
 
@@ -73,7 +82,9 @@ object Env {
   lazy val current = "[boot] lobby" describes new Env(
     config = lila.common.PlayApp loadConfig "lobby",
     db = lila.db.Env.current,
+    hub = lila.hub.Env.current,
     flood = lila.security.Env.current.flood,
+    roundMessenger = lila.round.Env.current.messenger,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler)
 }

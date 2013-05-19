@@ -26,6 +26,7 @@ private[app] final class Router(
       case route: String ⇒ noLangBaseUrl + route
     } pipeTo sender
 
+    case Homepage               ⇒ sender ! R.Lobby.home().url
     case TeamShow(id)           ⇒ sender ! R.Team.show(id).url
     case Player(fullId)         ⇒ sender ! R.Round.player(fullId).url
     case Watcher(gameId, color) ⇒ sender ! R.Round.watcher(gameId, color).url

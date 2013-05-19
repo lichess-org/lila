@@ -27,7 +27,14 @@ case class Connected(enumerator: JsEnumerator, member: Member)
 case class WithHooks(op: Iterable[String] ⇒ Unit)
 case class AddHook(hook: Hook)
 case class RemoveHook(hook: Hook)
-case class BiteHook(hook: Hook, game: Game)
+case class ShakeHook(hook: Hook)
+case class CancelHook(ownerId: String)
+case class BiteHook(
+  hookId: String, 
+  uid: String, 
+  userId: Option[String], 
+  hookOwnerId: Option[String])
+case class JoinHook(uid: String, hook: Hook, game: Game)
 case class AddEntry(entry: Entry)
 case class Join(
   uid: String,

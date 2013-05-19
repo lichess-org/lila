@@ -278,6 +278,15 @@ var lichess_translations = [];
       }, 2000);
     }
 
+    $('#lichess').on('click', 'a.socket-link', function() {
+      console.debug(
+        $(this).data('msg'),
+        $(this).data('data'));
+      lichess.socket.send(
+        $(this).data('msg'),
+        $(this).data('data'));
+    });
+
     // Start game
     var $game = $('div.lichess_game').orNot();
     if ($game) $game.game(_ld_);
@@ -584,10 +593,6 @@ var lichess_translations = [];
       if (self.options.tournament_id) {
         $('body').data('tournament-id', self.options.tournament_id);
       }
-
-      self.$tableInner.on('click', 'a.socket-link', function() {
-        lichess.socket.send($(this).data('msg'));
-      });
 
       if (self.options.game.started) {
         self.indicateTurn();
@@ -1675,10 +1680,6 @@ var lichess_translations = [];
     var $hooks = $wrap.find('div.hooks');
     var $hooksTable = $hooks.find("table.some").on('click', 'a.join', $.lichessOpeningPreventClicks);
     var $hooksTableEmpty = $hooks.find("table.empty");
-    var actionUrls = {
-      'cancel': $hooks.data('cancel-url'),
-      'join': $hooks.data('join-url')
-    };
     var $userTag = $('#user_tag');
     var isRegistered = $userTag.length > 0
     var myElo = isRegistered ? parseInt($userTag.data('elo')) : null;
@@ -1874,10 +1875,9 @@ var lichess_translations = [];
       html += '<td>' + $.trans(hook.clock) + '</td>';
       html += '<td class="action">';
       if (hook.action == "cancel") {
-        html += '<a href="' + actionUrls.cancel.replace(/\/0{12}/, '/' + hook.ownerId) + '" class="cancel"></a>';
+        html += '<a class="cancel socket-link" data-msg="cancel" data-data=' + hook.ownerId + '"></a>';
       } else {
-        var cancelParam = hookOwnerId ? "?cancel=" + hookOwnerId : ""
-        html += '<a href="' + actionUrls.join.replace(/\/0{8}/, '/' + hook.id) + cancelParam + '" class="join"></a>';
+        html += '<a class="join socket-link" data-msg="join" data-data="' + hook.id + '"></a>';
       }
       html += '</td>';
       html += '</tr>';
