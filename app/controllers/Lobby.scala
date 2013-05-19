@@ -45,8 +45,4 @@ object Lobby extends LilaController with Results {
       Env.lobby.socketHandler(uid = uid, user = ctx.me)
     }
   }
-
-  def log = Open { implicit ctx ⇒
-    Env.lobby.messenger.recent(ctx.troll, 200) map { html.lobby.log(_) }
-  }
 }

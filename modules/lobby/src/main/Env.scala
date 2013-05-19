@@ -11,15 +11,12 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     hub: lila.hub.Env,
-    flood: lila.security.Flood,
     roundMessenger: lila.round.Messenger,
     system: ActorSystem,
     scheduler: lila.common.Scheduler) {
 
   private val settings = new {
-    val MessageMax = config getInt "message.max"
     val MessageTtl = config duration "message.ttl"
-    val CollectionMessage = config getString "collection.message"
     val NetDomain = config getString "net.domain"
     val SocketName = config getString "socket.name"
     val SocketUidTtl = config duration "socket.uid.ttl"
@@ -29,7 +26,6 @@ final class Env(
   import settings._
 
   private val socket = system.actorOf(Props(new Socket(
-    messenger = messenger,
     history = history,
     router = hub.actor.router,
     uidTtl = SocketUidTtl
@@ -42,10 +38,7 @@ final class Env(
 
   lazy val socketHandler = new SocketHandler(
     lobby = lobby,
-    socket = socket,
-    messenger = messenger)
-
-  lazy val messenger = new Messenger(flood = flood, netDomain = NetDomain)
+    socket = socket)
 
   lazy val history = new History(ttl = MessageTtl)
 
@@ -64,8 +57,6 @@ final class Env(
   private lazy val biter = new Biter(
     timeline = hub.actor.timeline,
     roundMessenger = roundMessenger)
-
-  private[lobby] lazy val messageColl = db(CollectionMessage)
 }
 
 object Env {
@@ -74,7 +65,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "lobby",
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
-    flood = lila.security.Env.current.flood,
     roundMessenger = lila.round.Env.current.messenger,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler)

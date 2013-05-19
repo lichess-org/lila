@@ -12,7 +12,6 @@ final class Env(config: Config, system: ActorSystem) {
 
   lazy val preloader = new mashup.Preload(
     lobby = Env.lobby.lobby,
-    messenger = Env.lobby.messenger,
     history = Env.lobby.history,
     featured = Env.game.featured)
 

@@ -16,7 +16,6 @@ import play.api.templates.Html
 import scala.concurrent.duration._
 
 private[lobby] final class Socket(
-    messenger: Messenger,
     val history: History,
     router: lila.hub.ActorLazyRef,
     uidTtl: Duration) extends SocketActor[Member](uidTtl) with Historical[Member] {
@@ -36,20 +35,6 @@ private[lobby] final class Socket(
       addMember(uid, member)
       sender ! Connected(enumerator, member)
     }
-
-    case Message(user, text, troll, _) ⇒ notifyVersion("talk",
-      Json.obj("u" -> user, "t" -> text) |> { obj ⇒
-        troll.fold(obj + ("troll" -> JsBoolean(true)), obj)
-      }
-    )
-
-    case SysTalk(txt) ⇒ messenger system txt foreach { message ⇒
-      notifyVersion("talk", Json.obj("t" -> message.text))
-    }
-
-    case UnTalk(regex) ⇒ notifyVersion("untalk", Json.obj(
-      "regex" -> regex.toString
-    ))
 
     case ReloadTournaments(html) ⇒ notifyTournaments(html)
 
