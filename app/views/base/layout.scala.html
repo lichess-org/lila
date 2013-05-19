@@ -1,13 +1,13 @@
 @(
 title: String,
 active: Option[lila.app.ui.SiteMenu.Elem] = None,
-baseline: Option[Html] = None, 
-goodies: Option[Html] = None, 
-menu: Option[Html] = None, 
-chat: Option[Html] = None, 
-underchat: Option[Html] = None, 
-robots: Boolean = true, 
-moreCss: Html = Html(""), 
+baseline: Option[Html] = None,
+goodies: Option[Html] = None,
+menu: Option[Html] = None,
+chat: Option[Html] = None,
+underchat: Option[Html] = None,
+robots: Boolean = true,
+moreCss: Html = Html(""),
 moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
 <!doctype html>
 <html lang="@lang.language">
@@ -128,6 +128,16 @@ moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
         Ping: <span id="connection_lag">?</span>
       </div>
     </div>
+    @if(ctx.isAuth) {
+    <div id="friend_box">
+      <div class="title">Friends (<strong>3</strong>)</div>
+      <div class="content">
+        @userIdLink("mephostophilis".some, withOnline = false)
+        @userIdLink("smiling_bishop".some, withOnline = false)
+        @userIdLink("communist".some, withOnline = false)
+      </div>
+    </div>
+    }
     @jsTag("deps.min.js")
     @isProd.fold(jsTagC("big.js"), jsTag("big.js"))
     @moreJs
