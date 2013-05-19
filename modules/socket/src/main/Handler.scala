@@ -1,7 +1,7 @@
 package lila.socket
 
 import actorApi._
-import lila.hub.actorApi.friend.GetFriends
+import lila.hub.actorApi.friend.{ GetFriends, FriendsOf }
 import makeTimeout.large
 import lila.common.PimpedJson._
 
@@ -24,9 +24,9 @@ object Handler {
 
     val baseController: Controller = {
       case ("p", _) ⇒ socket ! Ping(uid)
-      case ("init", _) ⇒ userId foreach { u ⇒
+      case ("friends", _) ⇒ userId foreach { u ⇒
         hub.actor.friend ? GetFriends(u) mapTo manifest[List[String]] map { friends ⇒
-          Init(uid, friends)
+          FriendsOf(uid, friends)
         } pipeTo socket
       }
       case msg ⇒ logwarn("Unhandled msg: " + msg)

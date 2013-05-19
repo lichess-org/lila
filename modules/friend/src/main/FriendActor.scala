@@ -15,7 +15,7 @@ private[friend] final class FriendActor(
 
   def receive = {
 
-    // called only once by the websocket when it connects
+    // rarely called
     case GetFriends(userId) ⇒ getFriendIds(userId) flatMap { friendIds ⇒
       ((friendIds.toSet intersect onlineIds).toList map getUsername).sequence
     } pipeTo sender
