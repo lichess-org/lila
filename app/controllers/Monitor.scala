@@ -25,12 +25,12 @@ object Monitor extends LilaController {
     Async {
       (~get("key", req) match {
         case "elo" ⇒
-          lila.user.UserRepo.idsAverageElo(Env.user.usernameMemo.keys) zip
+          lila.user.UserRepo.idsAverageElo(Env.user.onlineUserIdMemo.keys) zip
             lila.game.GameRepo.recentAverageElo(5) map {
               case (users, (rated, casual)) ⇒ List(users, rated, casual) mkString " "
             }
         case "moves"   ⇒ (env.reporting ? GetNbMoves).mapTo[Int]
-        case "players" ⇒ (env.reporting ? GetNbMembers).mapTo[Int] map { "%d %d".format(_, Env.user.usernameMemo.count) }
+        case "players" ⇒ (env.reporting ? GetNbMembers).mapTo[Int] map { "%d %d".format(_, Env.user.onlineUserIdMemo.count) }
         case _         ⇒ (env.reporting ? GetStatus).mapTo[String]
       }) map { x ⇒ Ok(x.toString) }
     }
