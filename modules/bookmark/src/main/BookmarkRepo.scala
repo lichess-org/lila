@@ -43,7 +43,7 @@ private[bookmark] object BookmarkRepo {
       "_id" -> makeId(gameId, userId),
       "g" -> gameId,
       "u" -> userId,
-      "d" -> date))
+      "d" -> $date(date)))
 
   def userIdQuery(userId: String) = Json.obj("u" -> userId)
   def makeId(gameId: String, userId: String) = gameId + userId

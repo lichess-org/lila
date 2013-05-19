@@ -5,7 +5,6 @@ import lila.db.Implicits._
 import tube.tournamentTube
 
 import play.api.libs.json._
-import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 
 object TournamentRepo {
