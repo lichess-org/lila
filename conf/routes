@@ -1,8 +1,6 @@
 # Lobby
 GET   /                                controllers.Lobby.home
 GET   /new/$ownerId<[\w\-]{12}>        controllers.Lobby.hook(ownerId: String)
-GET   /new/$ownerId<[\w\-]{12}>/cancel controllers.Lobby.cancel(ownerId: String)
-GET   /new/$hookId<[\w\-]{8}>/join     controllers.Lobby.join(hookId: String)
 GET   /lobby/socket                    controllers.Lobby.socket
 GET   /lobby/log                       controllers.Lobby.log
 

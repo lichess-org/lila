@@ -1,45 +1,39 @@
-package lila.setup
+package lila.lobby
 
-import lila.lobby.{ HookRepo, Hook }
-import lila.lobby.actorApi.{ RemoveHook, BiteHook }
+import actorApi.{ RemoveHook, BiteHook, JoinHook }
 import lila.user.{ User, UserRepo }
 import chess.{ Game ⇒ ChessGame, Board, Variant, Mode, Clock, Color ⇒ ChessColor }
 import lila.game.{ GameRepo, Game, Player, Pov, Progress }
-import lila.round.Messenger
-
-import lila.user.tube.userTube
 import lila.lobby.tube.hookTube
-import lila.game.tube.gameTube
 import lila.db.api._
 
-private[setup] final class HookJoiner(
-    lobby: lila.hub.ActorLazyRef,
-    timeline: lila.hub.ActorLazyRef,
-    messenger: Messenger) {
+import akka.actor.ActorRef
 
-  def apply(hookId: String, myHookId: Option[String])(me: Option[User]): Fu[Valid[Pov]] = for {
+private[lobby] final class Biter(
+    timeline: lila.hub.ActorLazyRef,
+    roundMessenger: lila.round.Messenger) {
+
+  def apply(hookId: String, userId: Option[String]): Fu[String ⇒ JoinHook] = for {
     hookOption ← $find.byId[Hook](hookId)
-    myHookOption ← myHookId ?? HookRepo.ownedHook
-    result ← hookOption.fold(fuccess(!![Pov]("No such hook"))) { hook ⇒
-      if (canJoin(hook, me)) join(hook, myHookOption)(me) map success
-      else fuccess(!![Pov]("Can not join hook"))
+    userOption ← userId ?? UserRepo.byId
+    result ← hookOption.fold[Fu[String ⇒ JoinHook]](fufail("No such hook")) { hook ⇒
+      if (canJoin(hook, userOption)) join(hook, userOption)
+      else fufail("Can not join hook")
     }
   } yield result
 
-  private def join(hook: Hook, myHook: Option[Hook])(me: Option[User]): Fu[Pov] = for {
-    _ ← fuccess(myHook foreach { h ⇒ lobby ! RemoveHook(h) })
-    ownerOption ← hook.userId ?? $find.byId[User]
+  private def join(hook: Hook, userOption: Option[User]): Fu[String ⇒ JoinHook] = for {
+    ownerOption ← hook.userId ?? UserRepo.byId
     game = blame(
-      _.invitedColor, me,
+      _.invitedColor, userOption,
       blame(_.creatorColor, ownerOption, makeGame(hook))
     ).start
     _ ← (GameRepo insertDenormalized game) >>-
       (timeline ! game) >>
       // messenges are not sent to the game socket
       // as nobody is there to see them yet
-      (messenger init game) >>-
-      (lobby ! BiteHook(hook, game))
-  } yield Pov(game, game.invitedColor)
+      (roundMessenger init game)
+  } yield uid ⇒ JoinHook(uid, hook, game)
 
   def blame(color: Game ⇒ ChessColor, userOption: Option[User], game: Game) =
     userOption.fold(game)(user ⇒ game.updatePlayer(color(game), _ withUser user))
@@ -62,8 +56,8 @@ private[setup] final class HookJoiner(
     source = lila.game.Source.Lobby,
     pgnImport = None)
 
-  private def canJoin(hook: Hook, me: Option[User]) = !hook.`match` && {
-    hook.realMode.casual || (me exists { u ⇒
+  private def canJoin(hook: Hook, userOption: Option[User]) = !hook.`match` && {
+    hook.realMode.casual || (userOption exists { u ⇒
       hook.realEloRange.fold(true)(_ contains u.elo)
     })
   }

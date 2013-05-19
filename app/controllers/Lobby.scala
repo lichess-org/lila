@@ -51,29 +51,10 @@ object Lobby extends LilaController with Results {
   def hook(ownerId: String) = Open { implicit ctx ⇒
     HookRepo.ownedHook(ownerId) flatMap {
       _.fold(Redirect(routes.Lobby.home).fuccess) { hook ⇒
+        Env.lobby.lobby ! lila.lobby.actorApi.ShakeHook(hook)
         renderHome(hook.some, Ok)
       }
     }
-  }
-
-  def join(hookId: String) = Open { implicit ctx ⇒
-    val myHookId = get("cancel")
-    Env.setup.hookJoiner(hookId, myHookId)(ctx.me) map { result ⇒
-      Redirect {
-        result.fold(
-          _ ⇒ myHookId.fold(routes.Lobby.home)(routes.Lobby.hook(_)),
-          pov ⇒ routes.Round.player(pov.fullId))
-      }
-    }
-  }
-
-  def cancel(ownerId: String) = Open { implicit ctx ⇒
-    HookRepo ownedHook ownerId foreach {
-      _ foreach { hook ⇒
-        Env.lobby.lobby ! lila.lobby.actorApi.RemoveHook(hook)
-      }
-    }
-    Redirect(routes.Lobby.home).fuccess
   }
 
   def log = Open { implicit ctx ⇒

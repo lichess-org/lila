@@ -14,6 +14,7 @@ import play.api.libs.json._
 import play.api.libs.iteratee._
 
 private[lobby] final class SocketHandler(
+    lobby: ActorRef,
     socket: ActorRef,
     messenger: Messenger) {
 
@@ -22,6 +23,12 @@ private[lobby] final class SocketHandler(
     uid: String,
     member: Member): Handler.Controller = {
     case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
+    case ("join", o) ⇒ o str "d" foreach { id ⇒
+      lobby ! BiteHook(id, uid, member.userId, member.hookOwnerId)
+    }
+    case ("cancel", o) ⇒ o str "d" foreach { ownerId ⇒
+      lobby ! CancelHook(ownerId)
+    }
     case ("talk", o) ⇒ for {
       userId ← member.userId
       text ← o str "d"

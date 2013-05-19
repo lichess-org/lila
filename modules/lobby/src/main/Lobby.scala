@@ -11,6 +11,7 @@ import akka.actor._
 import akka.pattern.{ ask, pipe }
 
 private[lobby] final class Lobby(
+    biter: Biter,
     hookMemo: ExpireSetMemo,
     socket: ActorRef) extends Actor {
 
@@ -23,15 +24,15 @@ private[lobby] final class Lobby(
       $insert(hook) >>- (socket ! msg) >>- shake(hook)
     }
 
-    case msg @ RemoveHook(hook) ⇒ blocking {
-      remove(hook)
+    case msg @ CancelHook(ownerId) ⇒ socket ! blocking {
+      removeByOwnerId(ownerId) inject msg
     }
 
-    case msg @ BiteHook(hook, game) ⇒ blocking {
-      HookRepo.setGame(hook, game) >>-
-        (socket ! RemoveHook(hook)) >>-
-        (socket ! msg)
+    case BiteHook(hookId, uid, userId, hookOwnerId) ⇒ socket ! blocking {
+      (hookOwnerId ?? removeByOwnerId) >> biter(hookId, userId) map { _(uid) }
     }
+
+    case ShakeHook(hook) ⇒ shake(hook)
 
     case Broom ⇒ blocking {
       HookRepo unmatchedNotInOwnerIds hookMemo.keys flatMap { hooks ⇒
@@ -43,12 +44,13 @@ private[lobby] final class Lobby(
   // mark the hook as active, once
   private def shake(hook: Hook) { hookMemo put hook.ownerId }
 
+  private def removeByOwnerId(ownerId: String) =
+    HookRepo ownedHook ownerId flatMap { _ ?? remove }
+
   private def remove(hook: Hook) =
     $remove(hook) >>-
       (socket ! RemoveHook(hook)) >>-
       (hookMemo remove hook.ownerId)
 
-  private def blocking(f: Funit) {
-    f await 1.second
-  }
+  private def blocking[A](f: Fu[A]): A = f await 1.second
 }
