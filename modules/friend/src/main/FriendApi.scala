@@ -4,11 +4,7 @@ import org.scala_tools.time.Imports._
 
 import lila.user.{ User, UserRepo }
 
-// final class FriendApi(
-//     friendRepo: FriendRepo,
-//     requestRepo: RequestRepo,
-//     userRepo: UserRepo,
-//     cached: Cached) {
+// final class FriendApi( cached: Cached) {
 
 //   def areFriends(u1: String, u2: String) = friendIds(u1) contains u2
 

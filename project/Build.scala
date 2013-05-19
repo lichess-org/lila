@@ -43,7 +43,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val memo = project("memo", Seq(common)).settings(
-    libraryDependencies ++= Seq(guava, findbugs) ++ provided(play.api)
+    libraryDependencies ++= Seq(guava, findbugs, spray.caching) ++ provided(play.api)
   )
 
   lazy val db = project("db", Seq(common)).settings(
@@ -66,13 +66,12 @@ object ApplicationBuild extends Build {
 
   lazy val user = project("user", Seq(common, memo, db, hub, chess)).settings(
     libraryDependencies ++= provided(
-      play.api, play.test, reactivemongo, playReactivemongo,
-      hasher, spray.caching)
+      play.api, play.test, reactivemongo, playReactivemongo, hasher)
   )
 
-  lazy val game = project("game", Seq(common, db, hub, user, chess)).settings(
+  lazy val game = project("game", Seq(common, memo, db, hub, user, chess)).settings(
     libraryDependencies ++= provided(
-      play.api, reactivemongo, playReactivemongo, spray.caching)
+      play.api, reactivemongo, playReactivemongo)
   )
 
   lazy val gameSearch = project("gameSearch", Seq(common, hub, chess, search, game, analyse)).settings(
@@ -136,9 +135,9 @@ object ApplicationBuild extends Build {
       play.api, reactivemongo, playReactivemongo, scalastic)
   )
 
-  lazy val team = project("team", Seq(common, db, user, forum, security, hub)).settings(
+  lazy val team = project("team", Seq(common, memo, db, user, forum, security, hub)).settings(
     libraryDependencies ++= provided(
-      play.api, reactivemongo, playReactivemongo, spray.caching)
+      play.api, reactivemongo, playReactivemongo)
   )
 
   lazy val teamSearch = project("teamSearch", Seq(common, hub, team, search)).settings(
@@ -151,9 +150,9 @@ object ApplicationBuild extends Build {
       play.api, reactivemongo, playReactivemongo, jgit)
   )
 
-  lazy val bookmark = project("bookmark", Seq(common, db, hub, user, game)).settings(
+  lazy val bookmark = project("bookmark", Seq(common, memo, db, hub, user, game)).settings(
     libraryDependencies ++= provided(
-      play.api, play.test, reactivemongo, playReactivemongo, spray.caching)
+      play.api, play.test, reactivemongo, playReactivemongo)
   )
 
   lazy val wiki = project("wiki", Seq(common, db)).settings(

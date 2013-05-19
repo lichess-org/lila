@@ -15,7 +15,7 @@ final class BookmarkApi(
       gameOption ?? { game ⇒
         BookmarkRepo.toggle(gameId, userId) flatMap { bookmarked ⇒
           GameRepo.incBookmarks(gameId, bookmarked.fold(1, -1)) >>
-            fuccess(cached invalidateUserId userId)
+            (cached.gameIds remove userId)
         }
       }
     }

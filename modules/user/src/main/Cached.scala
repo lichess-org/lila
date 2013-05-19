@@ -1,13 +1,15 @@
 package lila.user
 
-import scala.concurrent.duration._
+import lila.db.api.$count
+import tube.userTube
+import lila.memo.AsyncCache
 
-import spray.caching.{ LruCache, Cache }
+import play.api.libs.json.JsObject
+import scala.concurrent.duration._
 
 final class Cached(ttl: Duration) {
 
-  def username(id: String): Fu[Option[String]] =
-    usernameCache.fromFuture(id)(UserRepo usernameById id)
+  val username = AsyncCache(UserRepo.usernameById, maxCapacity = 50000)
 
   def usernameOrAnonymous(id: String): Fu[String] = 
     username(id) map (_ | User.anonymous)
@@ -15,10 +17,7 @@ final class Cached(ttl: Duration) {
   def usernameOrAnonymous(id: Option[String]): Fu[String] = 
     id.fold(fuccess(User.anonymous))(usernameOrAnonymous)
 
-  def countEnabled: Fu[Int] = countEnabledCache.fromFuture(true)(UserRepo.countEnabled)
+  val count = AsyncCache((o: JsObject) ⇒ $count(o), timeToLive = ttl)
 
-  // id => username
-  private val usernameCache: Cache[Option[String]] = LruCache(maxCapacity = 99999)
-
-  private val countEnabledCache: Cache[Int] = LruCache(timeToLive = ttl)
+  def countEnabled: Fu[Int] = count(UserRepo.enabledQuery)
 }
