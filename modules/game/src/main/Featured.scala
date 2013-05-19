@@ -57,7 +57,7 @@ object Featured {
 
   case object GetOne
 
-  def best(games: List[Game]) = (games.pp sortBy score).lastOption
+  def best(games: List[Game]) = (games sortBy score).lastOption
 
   def score(game: Game): Float = heuristics map {
     case (fn, coefficient) ⇒ heuristicBox(fn(game)) * coefficient
