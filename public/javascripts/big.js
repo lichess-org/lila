@@ -139,7 +139,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       });
     },
     initServer: function() {
-      self.ws.send(JSON.stringify({
+      this.ws.send(JSON.stringify({
         t: "init"
       }));
     },
@@ -222,6 +222,12 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       events: {
         init: function(data) {
           $('#friend_box').friends("set", data.friends);
+        },
+        friend_enters: function(name) {
+          $('#friend_box').friends('enters', name);
+        },
+        friend_leaves: function(name) {
+          $('#friend_box').friends('leaves', name);
         },
         n: function(e) {
           var $tag = $('#nb_connected_players');
@@ -1221,9 +1227,20 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       this.nb = this.element.find('.title strong');
       this.list = this.element.find("div.list");
     },
+    repaint: function() {
+      this.nb.text(this.list.children().length);
+    },
     set: function(users) {
       this.list.html(_.map(users, $.userLink).join(""));
-      this.nb.text(users.length);
+      this.repaint();
+    },
+    enters: function(user) {
+      this.list.append($.userLink(user));
+      this.repaint();
+    },
+    leaves: function(user) {
+      this.list.children().filter(function(c) { return c.text() == user; }).remove();
+      this.repaint();
     }
   });
 
