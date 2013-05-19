@@ -138,15 +138,15 @@ object GameRepo {
 
   def unplayedIds: Fu[List[ID]] = $primitive(
     Json.obj("t" -> $lt(2)) ++
-      Json.obj(createdAt -> ($lt(DateTime.now - 3.day) ++ $gt(DateTime.now - 1.week))),
+      Json.obj(createdAt -> ($lt($date(DateTime.now - 3.day)) ++ $gt($date(DateTime.now - 1.week)))),
     "_id"
   )(_.asOpt[ID])
 
   def featuredCandidates: Fu[List[Game]] = $find(
     Query.playable ++ Query.clock(true) ++ Json.obj(
       "t" -> $gt(1),
-      createdAt -> $gt(DateTime.now - 4.minutes),
-      updatedAt -> $gt(DateTime.now - 15.seconds)
+      createdAt -> $gt($date(DateTime.now - 4.minutes)),
+      updatedAt -> $gt($date(DateTime.now - 15.seconds))
     ))
 
   def count(query: Query.type ⇒ JsObject): Fu[Int] = $count(query(Query))
@@ -159,7 +159,7 @@ object GameRepo {
     ((days to 1 by -1).toList map { day ⇒
       val from = DateTime.now.withTimeAtStartOfDay - day.days
       val to = from + 1.day
-      $count(Json.obj(createdAt -> ($gte(from) ++ $lt(to))))
+      $count(Json.obj(createdAt -> ($gte($date(from)) ++ $lt($date(to)))))
     }).sequence
 
   def recentAverageElo(minutes: Int): Fu[(Int, Int)] = {
@@ -183,7 +183,7 @@ object GameRepo {
   return nb == 0 ? nb : Math.round(sum / nb);
   }""",
       query = Some(JsObjectWriter write Json.obj(
-        createdAt -> $gte(DateTime.now - minutes.minutes),
+        createdAt -> $gte($date(DateTime.now - minutes.minutes)),
         "p.elo" -> $exists(true)
       ))
     )

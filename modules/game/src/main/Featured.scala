@@ -57,7 +57,7 @@ object Featured {
 
   case object GetOne
 
-  def best(games: List[Game]) = (games sortBy score).lastOption
+  def best(games: List[Game]) = (games.pp sortBy score).lastOption
 
   def score(game: Game): Float = heuristics map {
     case (fn, coefficient) ⇒ heuristicBox(fn(game)) * coefficient
@@ -76,7 +76,7 @@ object Featured {
     progressHeuristic -> 0.5f)
 
   def eloHeuristic(color: Color): Heuristic = game ⇒
-    eloBox(game.player(color).elo | 1000)
+    eloBox(game.player(color).elo | 1100)
 
   def speedHeuristic: Heuristic = game ⇒
     1 - timeBox(game.estimateTotalTime)

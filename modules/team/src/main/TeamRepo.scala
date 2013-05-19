@@ -27,7 +27,7 @@ object TeamRepo {
 
   def userHasCreatedSince(userId: String, duration: Period): Fu[Boolean] = 
     $count.exists(Json.obj(
-      "createdAt" -> $gt(DateTime.now - duration),
+      "createdAt" -> $gt($date(DateTime.now - duration)),
       "createdBy" -> userId
     ))
 
