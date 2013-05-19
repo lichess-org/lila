@@ -10,11 +10,12 @@
 }
 
 @base.layout(
-title = title, 
+title = title,
 moreCss = moreCss,
 moreJs = forumJs,
 active = siteMenu.forum.some) {
 <div id="lichess_forum" class="content_box no_padding">
+  @forum.searchForm()
   @body
 </div>
 }

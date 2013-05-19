@@ -14,18 +14,11 @@ complete analysis movetimes with tsinnema - requires ms movetimes and db migrati
 localize elo chart dates (oh, and all dates. ask for user timezone or guess it)
 index game positions
 elo stats (branch elostats)
-lobby concurrency http://en.lichess.org/forum/lichess-feedback/bug-multiple-players-can-accept-the-same-game-proposal#1
-possible timeout bug http://en.lichess.org/forum/lichess-feedback/possible-timeout-bug#1
 add elo titles (like 2300+ = FM)
 tournament berserker = half time, double points
 chat icons (k) (K)
 blind accessible
-make hand and finisher actors to avoid racing conditions
 tournament ties
-AI thinks during your time (premove?) http://en.lichess.org/forum/lichess-feedback/y-u-so-greedy-with-time-stockfish#4
-- in fact it does not, but the UI clocks only update once the ai made the move
-- solution: do AI asynchronously. Send player move events right away,
-- and ai events when the ai completes
 not possible to copy the link URL invite when using a touch device. Can this be easily fixed by adding an automatic "copy" button next to the link?
 search bug http://en.lichess.org/games/search?players.a=&players.b=&players.winner=&eloMin=&eloMax=&hasAi=&aiLevelMin=&aiLevelMax=&variant=&mode=1&opening=&turnsMin=&turnsMax=&durationMin=&durationMax=&status=35&dateMin=&dateMax=&sort.field=tu&sort.order=asc
 takeback substract time for person granting
@@ -35,10 +28,7 @@ team list sort by date, name, popularity, avg elo, team elo, ...?
 team timeline (forum posts, joins)
 download 10.000 best elo games http://en.lichess.org/inbox/v1p6hokg#bottom
 sound config (like sound on game join, not moves)
-traduction intégrale
 block user creation from an IP
-troll IP
-fast join game = creator not redirected properly?
 start clock after black move http://en.lichess.org/forum/lichess-feedback/shouldnt-the-time-start-time-after-blacks-first-move#3
 national flags http://en.lichess.org/forum/lichess-feedback/suggestion-display-national-flag#4
 restrict hook creation by IP
@@ -50,18 +40,14 @@ let players block other players
 detect lack of support for date formatting (gl) and use 2013-02-15 13:48:00 instead
 recognize pgn in forum and show a pgn4web
 localize in chrome web store
-make deploy of translations easier (new project?)
 analyse wrong blunder count http://en.lichess.org/analyse/95ioy2y5
 board creator from chesspaste.com
 correspondance chess https://github.com/ornicar/lila/issues/12
 add source to chess search
 add pgn names to chess search
-convert forum pgn to replayed games
 kid mode (on subdomain?) or start-from-scratch mode (connect to DB depending on subdomain)
 explain point of importing games
-create game - late reload - game accepted = homepage without game
 captcha highlight opponent king
-check that all db.game4 have correct uids field
 lightning/blitz/standard/untimed ratings http://www.freechess.org/Help/HelpFiles/blitz.html
 forum posts on user page http://en.lichess.org/forum/lichess-feedback/list-forum-posts-in-user-account#1
 show forum search everywhere

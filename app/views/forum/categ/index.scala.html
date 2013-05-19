@@ -2,7 +2,6 @@
 
 @forum.layout(title = trans.forum.str()) {
 
-@forum.searchForm()
 <h1>Lichess Forum</h1>
 @forum.categ.table(categs.filterNot(_.categ.isTeam))
 
