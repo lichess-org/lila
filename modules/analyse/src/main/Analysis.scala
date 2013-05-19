@@ -67,7 +67,7 @@ object Analysis {
   )
 }
 
-// TODO
+// NICETOHAVE
 // this belongs to the Analysis object
 // but was moved here because of scala 2.10.1 compiler bug
 object AnalysisMaker {

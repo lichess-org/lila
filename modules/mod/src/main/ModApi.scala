@@ -4,7 +4,6 @@ import lila.user.{ User, UserRepo, EloUpdater }
 import lila.security.{ Firewall, UserSpy, Store ⇒ SecurityStore }
 import lila.user.tube.userTube
 import lila.db.api._
-import lila.hub.actorApi.lobby.Censor
 
 final class ModApi(
     logApi: ModlogApi,
@@ -39,11 +38,6 @@ final class ModApi(
 
   def ipban(mod: String, ip: String): Funit =
     (firewall blockIp ip) >> logApi.ipban(mod, ip)
-
-  private def censor(user: User) {
-    // TODO handle that on lobby side (or remove this message)
-    if (user.troll) lobbySocket ! Censor(user.username)
-  }
 
   private def withUser[A](userId: String)(op: User ⇒ Fu[A]): Fu[A] =
     UserRepo named userId flatten "[mod] missing user " + userId flatMap op
