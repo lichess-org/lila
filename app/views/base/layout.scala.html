@@ -68,6 +68,7 @@ moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
       <div id="nb_connected_players" class="nb_connected_players none">
         @trans.nbConnectedPlayers("<strong>0</strong>")
       </div>
+      <a id="reconnecting" onclick="location.reload();">@trans.reconnecting()</a>
       <div class="themepicker">
         <a class="theme_toggle toggle" href="#"><span class="s16 ddown">@trans.color()</span></a>
         <div class="themes dropdown" data-href="@routes.Setting.set("theme")">

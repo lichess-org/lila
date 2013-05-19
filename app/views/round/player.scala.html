@@ -20,7 +20,6 @@ underchat = underchat.some) {
   data-table-url="@routes.Round.tablePlayer(fullId)"
   data-players-url="@routes.Round.players(gameId)">
   <div class="lichess_board_wrap">
-    @site.connection()
     <div class="lichess_board with_marks">@Html(lila.app.ui.Board.render(pov))</div>
     <div id="premove">@trans.premoveEnabledClickAnywhereToCancel()</div>
   </div>

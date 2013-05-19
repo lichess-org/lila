@@ -319,13 +319,18 @@ div.header div.side_menu a.active {
   box-shadow: -3px 0 5px #d0d0d0;
 }
 
-#nb_connected_players, a.goto_nav, #top a.toggle, #top a.bgpicker, a#sound_state {
+#nb_connected_players, #reconnecting, a.goto_nav, #top a.toggle, #top a.bgpicker, a#sound_state {
   text-decoration: none;
   font-size: 13px;
   height: 24px;
   line-height: 24px;
   padding: 0 8px;
   text-decoration: none;
+}
+#reconnecting {
+  display: none;
+  font-style: italic;
+  border-left: 1px solid #ccc;
 }
 #nb_connected_players {
   float: left;

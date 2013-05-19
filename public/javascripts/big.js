@@ -239,11 +239,10 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       params: {},
       options: {
         name: "site",
-        offlineTag: $('#connection_lost'),
+        offlineTag: $('#reconnecting'),
         lagTag: $('#connection_lag')
       }
     },
-    troll: $('body').data('troll'),
     onProduction: /.+\.lichess\.org/.test(document.domain),
     socketUrl: 'socket.' + document.domain
   };
@@ -1739,12 +1738,6 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       return false;
     });
 
-    var $chat = $("div.lichess_chat").chat({
-      render: function(u, t) {
-        return (u || false) ? '<li><span><a class="user_link" href="/@/' + u + '">' + u.substr(0, 12) + '</a></span>' + urlToLink(t) + '</li>' : '<li>' + urlToLink(t) + '</li>';
-      }
-    });
-
     $bot.on("click", "tr", function() {
       location.href = $(this).find('a.watch').attr("href");
     });
@@ -1760,15 +1753,8 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
     addHooks(lichess_preload.pool);
     renderTimeline(lichess_preload.timeline);
-    $chat.chat('appendMany', lichess_preload.chat);
     lichess.socket = new strongSocket(lichess.socketUrl + "/lobby/socket", lichess_preload.version, $.extend(true, lichess.socketDefaults, {
       events: {
-        talk: function(e) {
-          if (!e.troll || lichess.troll) $chat.chat('append', e.u, e.t);
-        },
-        untalk: function(e) {
-          $chat.chat('remove', e.regex);
-        },
         entry: function(e) {
           renderTimeline([e]);
         },
