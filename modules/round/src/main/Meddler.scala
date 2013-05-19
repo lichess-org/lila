@@ -3,7 +3,7 @@ package lila.round
 import actorApi._, round._
 import lila.game.{ Game, GameRepo, PovRef, Pov }
 import lila.game.tube.gameTube
-import lila.hub.actorApi.map.Tell
+import lila.hub.actorApi.Tell
 import lila.db.api._
 
 import akka.actor.ActorRef

@@ -9,7 +9,7 @@ import lila.game.{ Game, GameRepo }
 import lila.user.{ User, UserRepo }
 import lila.hub.actorApi.lobby.{ SysTalk, UnTalk, ReloadTournaments }
 import lila.hub.actorApi.router.Tourney
-import lila.hub.actorApi.map.Tell
+import lila.hub.actorApi.Tell
 import lila.round.actorApi.round.{ AbortForce, ResignColor }
 import lila.socket.actorApi.{ SendToFlag, Forward }
 import makeTimeout.short

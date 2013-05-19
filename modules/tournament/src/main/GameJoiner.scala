@@ -3,7 +3,7 @@ package lila.tournament
 import chess.Color
 import lila.game.{ Game, Player ⇒ GamePlayer, GameRepo, Pov, PovRef, Source }
 import lila.user.{ User, UserRepo }
-import lila.hub.actorApi.map.Tell
+import lila.hub.actorApi.Tell
 import lila.round.actorApi.round.ResignColor
 
 import scala.concurrent.duration._

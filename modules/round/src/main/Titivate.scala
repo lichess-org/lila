@@ -2,7 +2,7 @@ package lila.round
 
 import lila.game.{ Query, Game, GameRepo }
 import lila.game.tube.gameTube
-import lila.hub.actorApi.map.Tell
+import lila.hub.actorApi.Tell
 import lila.round.actorApi.round.Outoftime
 import lila.db.api._
 import lila.common.PimpedJson._

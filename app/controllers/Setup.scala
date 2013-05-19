@@ -64,7 +64,7 @@ object Setup extends LilaController with TheftPrevention {
           Redirect(routes.Round.watcher(id, game.creatorColor.name)),
         _ map {
           case (p, events) ⇒ {
-            Env.round.roundMap ! lila.hub.actorApi.map.Tell(p.gameId, events)
+            Env.round.roundMap ! lila.hub.actorApi.Tell(p.gameId, events)
             Redirect(routes.Round.player(p.fullId))
           }
         })

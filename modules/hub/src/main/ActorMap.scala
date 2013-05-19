@@ -1,15 +1,12 @@
 package lila.hub
 
-import actorApi.map._
+import actorApi.Tell
 
 import akka.actor._
-import akka.pattern.{ ask, pipe }
+import akka.pattern.ask
 import scala.concurrent.duration._
 import makeTimeout.short
 
-// Underlying actors must handle the Await(id: String) message
-// Implementation example:
-//    case lila.hub.actorApi.map.Await(_)       ⇒ sender ! ()
 final class ActorMap[A <: Actor](mkActor: String ⇒ A) extends Actor {
 
   private case class Get(id: String)
@@ -24,8 +21,6 @@ final class ActorMap[A <: Actor](mkActor: String ⇒ A) extends Actor {
         }
       }
     }
-
-    case Count           ⇒ sender ! actors.size
 
     case Tell(id, msg)   ⇒ get(id) foreach { _ forward msg }
 
