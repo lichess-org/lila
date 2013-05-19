@@ -32,7 +32,7 @@ object Env {
   private def app = play.api.Play.current
 
   lazy val current = "[boot] friend" describes new Env(
-    config = lila.common.PlayApp loadConfig "game",
+    config = lila.common.PlayApp loadConfig "friend",
     db = lila.db.Env.current,
     hub = lila.hub.Env.current)
 }
