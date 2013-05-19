@@ -564,6 +564,28 @@ a.translation_call .close:hover {
   right: 0.3em;
 }
 
+#friend_box {
+  position: fixed;
+  bottom: 0px;
+  right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px 4px 0 0;
+}
+#friend_box .title {
+  padding: 3px 5px;
+  border-bottom: 1px solid #ccc;
+}
+#friend_box .content a {
+  background: #fff;
+  padding: 3px 5px;
+  text-decoration: none;
+  display: block;
+}
+#friend_box .content a:hover {
+  background: #F0F0F0;
+  color: #444;
+}
+
 span.s16.clock {
   background-position: 0 -224px;
   padding-bottom: 1px;
@@ -652,6 +674,7 @@ div.lichess_social div.addtochrome {
 /* soft inactive gradient */
 #top,
 div.lichess_chat_top,
+#friend_box .title,
 div.undertable_top,
 .button,
 .button:visited,

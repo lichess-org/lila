@@ -36,6 +36,7 @@ body.dark div.content_box
 
 body.dark #top,
 body.dark #nb_connected_players,
+body.dark #connecting,
 body.dark div.lichess_chat_top,
 body.dark div.lichess_chat .nano,
 body.dark div.undertable_top,
@@ -297,6 +298,7 @@ body.dark div.lichess_table_wrap div.clock.outoftime {
 /* soft inactive gradient */
 body.dark #top,
 body.dark div.lichess_chat_top,
+body.dark #friend_box .title,
 body.dark div.undertable_top,
 body.dark .button,
 body.dark .button:visited,
