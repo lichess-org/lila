@@ -189,3 +189,6 @@ notACheckmate=Not a checkmate
 colorPlaysCheckmateInOne=%s plays; checkmate in one
 retry=Retry
 reconnecting=Reconnecting
+friends=Friends
+noFriendsOnline=No friends online
+findFriends=Find friends

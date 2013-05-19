@@ -17,6 +17,9 @@ POST  /account/passwd                  controllers.User.passwdApply
 GET   /account/close                   controllers.User.close
 POST  /account/closeConfirm            controllers.User.closeConfirm
 
+# Friend
+GET   /friend/search                   controllers.Friend.search
+
 #Site
 GET   /socket             controllers.Main.websocket
 
