@@ -70,7 +70,7 @@ div.sidebar a {
 }
 #lichess_message label {
   float: left;
-  width: 60px;
+  width: 100px;
   text-align: right;
   margin-right: 10px;
   vertical-align: middle;

@@ -73,7 +73,6 @@ chess variants https://github.com/ornicar/lila/issues/2://github.com/ornicar/lil
 publish scalastic 0.90.0-thib
 stream game export
 show fen only after game is finished http://en.lichess.org/forum/lichess-feedback/please-disable-live-fen-notation?page=1
-I owe the admins decent tools
 tell opponent chat is disabled
 from MoralIntentions email:
 - The possibility to use a practice board to play against yourself or to demonstrate something when you're giving chess lessons with your laptop or an interactive whiteboard (with the same features as and with a button beneath "Play with the machine" in Play). 
