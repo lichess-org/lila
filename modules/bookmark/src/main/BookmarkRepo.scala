@@ -5,11 +5,8 @@ import lila.db.api._
 import tube.bookmarkTube
 
 import play.api.libs.json._
-
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
-
 import org.joda.time.DateTime
-import scala.concurrent.Future
 
 case class Bookmark(game: lila.game.Game, user: lila.user.User)
 
