@@ -27,6 +27,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         offlineTag: false, // jQuery object showing connection error
         pingMaxLag: 8000, // time to wait for pong before reseting the connection
         pingDelay: 1500, // time between pong and ping
+        syncFriendsDelay: 60 * 1000, // time between two syncs
         lagTag: false, // jQuery object showing ping lag
         ignoreUnknownMessages: false
       }
@@ -39,6 +40,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     self.fullUrl = null;
     self.pingSchedule = null;
     self.connectSchedule = null;
+    self.syncFriendsSchedule = null;
     self.lastPingTime = self.now();
     self.currentLag = 0;
     self.averageLag = 0;
@@ -66,7 +68,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         self.onSuccess();
         if (self.options.offlineTag) self.options.offlineTag.hide();
         self.pingNow();
-        self.initServer();
+        self.syncFriends();
         $('body').trigger('socket.open');
       };
       self.ws.onmessage = function(e) {
@@ -138,9 +140,14 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         v: this.version
       });
     },
-    initServer: function() {
+    syncFriends: function() {
+      var self = this;
+      clearTimeout(self.syncFriendsSchedule);
+      self.syncFriendsSchedule = setTimeout(function() { 
+        self.syncFriends(); 
+      }, self.options.syncFriendsDelay);
       this.ws.send(JSON.stringify({
-        t: "init"
+        t: "friends"
       }));
     },
     handle: function(m) {
@@ -220,8 +227,8 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     socket: null,
     socketDefaults: {
       events: {
-        init: function(data) {
-          $('#friend_box').friends("set", data.friends);
+        friends: function(data) {
+          $('#friend_box').friends("set", data);
         },
         friend_enters: function(name) {
           $('#friend_box').friends('enters', name);
@@ -1239,7 +1246,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       this.repaint();
     },
     leaves: function(user) {
-      this.list.children().filter(function(c) { return c.text() == user; }).remove();
+      this.list.children().filter(function() {
+        return $(this).text() == user;
+      }).remove();
       this.repaint();
     }
   });

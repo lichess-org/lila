@@ -7,7 +7,7 @@ case class Connected[M <: SocketMember](
   enumerator: JsEnumerator,
   member: M)
 case object Close
-case class Init(uid: String, friends: List[String])
+case class Sync(uid: String, friends: List[String])
 case class Ping(uid: String)
 case class PingVersion(uid: String, version: Int)
 case object Broom

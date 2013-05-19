@@ -87,4 +87,5 @@ package bookmark {
 
 package friend {
   case class GetFriends(userId: String)
+  case class FriendsOf(userId: String, friends: List[String])
 }
