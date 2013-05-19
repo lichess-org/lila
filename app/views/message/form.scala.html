@@ -7,7 +7,7 @@ title = trans.composeMessage.str()) {
   <div class="center form">
     <form action="@routes.Message.create()" method="post">
       <div class="field_to">
-        <label for="@form("username").id">To:</label>
+        <label for="@form("username").id">@trans.recipient():</label>
         <input
         type="text"
         data-provider="@routes.User.autocomplete"
@@ -19,7 +19,7 @@ title = trans.composeMessage.str()) {
         @errMsg(form("username"))
       </div>
       <div class="field_subject">
-        <label for="@form("subject").id">Subject:</label>
+        <label for="@form("subject").id">@trans.subject():</label>
         <input
         type="text"
         required="required"
@@ -36,7 +36,7 @@ title = trans.composeMessage.str()) {
         @errMsg(form("text"))
       </div>
       <div class="actions">
-        <input class="send button" type="submit" value="Send" />
+        <input class="send button" type="submit" value="@trans.send()" />
         <a class="cancel" href="@routes.Message.inbox()">@trans.cancel()</a>
       </div>
     </form>
