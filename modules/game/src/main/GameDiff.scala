@@ -6,7 +6,7 @@ import play.api.libs.json._
 import Json.JsValueWrapper
 import org.joda.time.DateTime
 
-// TODO it works, but it could be more functional
+// NICETOHAVE it works, but it could be more functional
 private[game] object GameDiff {
 
   type Set = (String, JsValueWrapper)

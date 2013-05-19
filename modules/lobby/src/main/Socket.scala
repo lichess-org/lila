@@ -55,8 +55,6 @@ private[lobby] final class Socket(
 
     case TimelineEntry(rendered) ⇒ notifyVersion("entry", rendered)
 
-    case Censor(userId)          ⇒ // NICETOHAVE hide user messages right away?
-
     case AddHook(hook)           ⇒ notifyVersion("hook_add", hook.render)
 
     case RemoveHook(hookId)      ⇒ notifyVersion("hook_remove", hookId)
