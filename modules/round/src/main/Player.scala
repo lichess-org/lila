@@ -6,7 +6,7 @@ import chess.format.Forsyth
 import lila.ai.Ai
 import lila.game.{ Game, GameRepo, PgnRepo, Pov, Progress }
 import actorApi.round.{ HumanPlay, AiPlay, PlayResult }
-import lila.hub.actorApi.map.Tell
+import lila.hub.actorApi.Tell
 
 private[round] final class Player(
     ai: Ai,

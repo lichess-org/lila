@@ -5,7 +5,7 @@ import akka.pattern.{ ask, pipe }
 import play.api.libs.json.JsObject
 
 import actorApi._, round._
-import lila.hub.actorApi.map._
+import lila.hub.actorApi.Tell
 import lila.game.{ Game, Pov, PovRef, PlayerRef, GameRepo }
 import lila.user.{ User, Context }
 import chess.Color

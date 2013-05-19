@@ -3,7 +3,7 @@ package lila.importer
 import chess.{ Color, Move, Status }
 import lila.game.{ Game, GameRepo, Pov }
 import lila.round.actorApi.round._
-import lila.hub.actorApi.map._
+import lila.hub.actorApi.Tell
 import lila.game.tube.gameTube
 import lila.db.api._
 import makeTimeout.large
