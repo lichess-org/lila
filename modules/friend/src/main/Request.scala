@@ -1,13 +1,11 @@
-package lila
-package friend
+package lila.friend
 
-import user.User
+import lila.user.User
 
-import com.novus.salat.annotations.Key
 import org.joda.time.DateTime
 
 case class Request(
-    @Key("_id") id: String,
+    id: String,
     user: String,
     friend: String,
     message: String,
@@ -18,12 +16,21 @@ object Request {
 
   def makeId(user: String, friend: String) = user + "@" + friend
 
-  def apply(user: String, friend: String, message: String): Request = new Request(
+  def make(user: String, friend: String, message: String): Request = new Request(
     id = makeId(user, friend),
     user = user,
     friend = friend,
     message = message.trim,
     date = DateTime.now)
+
+  import lila.db.Tube
+  import Tube.Helpers._
+  import play.api.libs.json._
+
+  private[friend] lazy val tube = Tube[Request](
+    __.json update readDate('date) andThen Json.reads[Request],
+    Json.writes[Request] andThen (__.json update writeDate('date))
+  )
 }
 
 case class RequestWithUser(request: Request, user: User) {

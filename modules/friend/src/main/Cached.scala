@@ -1,13 +1,10 @@
-package lila
-package friend
+package lila.friend
 
-import user.User
+import lila.user.User
 
 import scala.collection.mutable
 
-private[friend] final class Cached(
-  friendRepo: FriendRepo,
-  requestRepo: RequestRepo) {
+private[friend] final class Cached {
 
   def friendIds(userId: String): List[String] = FriendIdsCache(userId)
   def invalidateFriendIds(userId: String) { FriendIdsCache invalidate userId }
@@ -17,8 +14,9 @@ private[friend] final class Cached(
 
   private object NbRequestsCache {
 
+    //TODO fix that crap
     def apply(userId: String): Int = cache.getOrElseUpdate(userId,
-      (requestRepo countByFriendId userId).unsafePerformIO
+      (RequestRepo countByFriendId userId).await
     )
 
     def invalidate(userId: String) { cache -= userId }
@@ -30,7 +28,7 @@ private[friend] final class Cached(
   private object FriendIdsCache {
 
     def apply(userId: String): List[String] = cache.getOrElseUpdate(userId,
-      (friendRepo friendUserIds userId).unsafePerformIO
+      (FriendRepo friendUserIds userId).await
     )
 
     def invalidate(userId: String) { cache -= userId }
