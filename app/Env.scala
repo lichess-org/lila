@@ -38,7 +38,8 @@ final class Env(config: Config, system: ActorSystem) {
     Env.timeline,
     Env.gameSearch,
     Env.teamSearch,
-    Env.forumSearch)
+    Env.forumSearch,
+    Env.friend)
   loginfo("[boot] Preloading complete")
 
   if (Env.ai.isServer) println("Running as AI server")
@@ -79,4 +80,5 @@ object Env {
   def setup = lila.setup.Env.current
   def importer = lila.importer.Env.current
   def tournament = lila.tournament.Env.current
+  def friend = lila.friend.Env.current
 }
