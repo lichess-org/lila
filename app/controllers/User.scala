@@ -118,6 +118,5 @@ object User extends LilaController {
     }
   }
 
-  private val onlineUsers: Fu[List[UserModel]] =
-    $find byIds env.usernameMemo.keys
+  private def onlineUsers: Fu[List[UserModel]] = $find byIds env.onlineUserIdMemo.keys
 }

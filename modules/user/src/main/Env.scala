@@ -1,6 +1,7 @@
 package lila.user
 
 import lila.common.PimpedConfig._
+import lila.memo.ExpireSetMemo
 
 import chess.EloCalculator
 import com.typesafe.config.Config
@@ -31,7 +32,7 @@ final class Env(
 
   lazy val eloUpdater = new EloUpdater(floor = EloUpdaterFloor)
 
-  lazy val usernameMemo = new UsernameMemo(ttl = OnlineTtl)
+  lazy val onlineUserIdMemo = new ExpireSetMemo(ttl = OnlineTtl)
 
   val forms = DataForm
 
@@ -39,9 +40,9 @@ final class Env(
 
   def usernameOrAnonymous(id: String): Fu[String] = cached usernameOrAnonymous id
 
-  def setOnline(user: User) { usernameMemo put user.id }
+  def setOnline(user: User) { onlineUserIdMemo put user.id }
 
-  def isOnline(userId: String) = usernameMemo get userId
+  def isOnline(userId: String) = onlineUserIdMemo get userId
 
   def countEnabled = cached.countEnabled
 
@@ -60,7 +61,7 @@ final class Env(
     import lila.hub.actorApi.WithUserIds
 
     scheduler.effect(3 seconds, "refresh online user ids") {
-      socketHub ! WithUserIds(usernameMemo.putAll)
+      socketHub ! WithUserIds(onlineUserIdMemo.putAll)
     }
   }
 
