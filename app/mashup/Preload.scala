@@ -1,7 +1,7 @@
 package lila.app
 package mashup
 
-import lila.lobby.{ Hook, HookRepo, Messenger }
+import lila.lobby.{ Hook, HookRepo }
 import lila.lobby.actorApi.lobby._
 import lila.timeline.Entry
 import lila.game.{ Game, GameRepo, Featured }
@@ -20,7 +20,6 @@ import play.api.libs.json.{ Json, JsObject, JsArray }
 
 final class Preload(
     lobby: ActorRef,
-    messenger: Messenger,
     history: History,
     featured: Featured) {
 
@@ -33,18 +32,12 @@ final class Preload(
     tours: Fu[List[Created]],
     filter: Fu[FilterConfig])(implicit ctx: Context): Fu[Response] =
     ctx.isAuth.fold(lobby ? GetOpen, lobby ? GetOpenCasual).mapTo[List[Hook]] zip
-      (ctx.canSeeChat ?? messenger.recent(ctx.troll, 20)) zip
       timeline zip posts zip tours zip featured.one zip filter map {
-        case ((((((hooks, messages), entries), posts), tours), feat), filter) ⇒
+        case (((((hooks, entries), posts), tours), feat), filter) ⇒
           (Right((Json.obj(
             "version" -> history.version,
-            "pool" -> renderHooks(hooks),
-            "chat" -> (messages.reverse map (_.render)),
+            "pool" -> JsArray(hooks map (_.render)),
             "filter" -> filter.render
           ), entries, posts, tours, feat)))
       }
-
-  private def renderHooks(hooks: List[Hook]): JsArray = JsArray {
-    hooks map (_.render)
-  }
 }

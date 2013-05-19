@@ -1,15 +1,5 @@
 @(preload: String, timeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], featured: Option[Game])(implicit ctx: Context)
 
-@chat = {
-@ctx.me.map { me =>
-@base.chatRoom(
-title = trans.chatRoom.str(),
-cssClass = "lobby_chat") {
-<li><a href="@routes.Lobby.log()">View older messages</a></li>
-}
-}
-}
-
 @underchat = {
 <div id="featured_game">
   @featured.map { g =>
@@ -26,7 +16,6 @@ cssClass = "lobby_chat") {
 title = "",
 baseline = baseline.some,
 active = siteMenu.play.some,
-chat = chat.some,
 underchat = underchat.some) {
 <div id="call_boxes">
   @translationCall.map(i18n.callBox(_))

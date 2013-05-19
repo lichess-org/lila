@@ -15,8 +15,7 @@ import play.api.libs.iteratee._
 
 private[lobby] final class SocketHandler(
     lobby: ActorRef,
-    socket: ActorRef,
-    messenger: Messenger) {
+    socket: ActorRef) {
 
   private def controller(
     socket: ActorRef,
@@ -27,12 +26,6 @@ private[lobby] final class SocketHandler(
       lobby ! BiteHook(id, uid, member.userId)
     }
     case ("cancel", o) ⇒ lobby ! CancelHook(uid)
-    case ("talk", o) ⇒ for {
-      userId ← member.userId
-      text ← o str "d"
-    } messenger(userId, text) logFailure "[lobby] message" foreach {
-      _ foreach { socket ! _ }
-    }
     case ("liveGames", o) ⇒ o str "d" foreach { ids ⇒
       socket ! LiveGames(uid, ids.split(' ').toList)
     }
