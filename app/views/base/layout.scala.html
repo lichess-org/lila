@@ -8,8 +8,7 @@ chat: Option[Html] = None,
 underchat: Option[Html] = None, 
 robots: Boolean = true, 
 moreCss: Html = Html(""), 
-moreJs: Html = Html(""), 
-signedJs: Option[String] = None)(body: Html)(implicit ctx: Context)
+moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
 <!doctype html>
 <html lang="@lang.language">
   <head>
@@ -129,7 +128,7 @@ signedJs: Option[String] = None)(body: Html)(implicit ctx: Context)
       </div>
     </div>
     @jsTag("deps.min.js")
-    @signedJs.fold(isProd.fold(jsTagC("big.js"), jsTag("big.js")))(jsAt)
+    @isProd.fold(jsTagC("big.js"), jsTag("big.js"))
     @moreJs
     @if(lang.language != "en") {
     <script src="@routes.Assets.at("trans/" + lang.language + ".js")?v=@assetVersion"></script>

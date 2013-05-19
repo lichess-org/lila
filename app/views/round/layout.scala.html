@@ -1,4 +1,4 @@
-@(title: String, goodies: Html, chat: Option[Html] = None, underchat: Option[Html] = None, robots: Boolean = true, signedJs: Option[String] = None)(body: Html)(implicit ctx: Context) 
+@(title: String, goodies: Html, chat: Option[Html] = None, underchat: Option[Html] = None, robots: Boolean = true)(body: Html)(implicit ctx: Context) 
 
 @base.layout(
 title = title, 
@@ -6,5 +6,4 @@ goodies = goodies.some,
 active = siteMenu.play.some, 
 chat = chat, 
 underchat = underchat, 
-robots = robots,
-signedJs = signedJs)(body)
+robots = robots)(body)

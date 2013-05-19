@@ -31,7 +31,6 @@ final class Env(
     val SocketName = config getString "socket.name"
     val SocketTimeout = config duration "socket.timeout"
     val FinisherLockTimeout = config duration "finisher.lock.timeout"
-    val HijackTimeout = config duration "hijack.timeout"
     val NetDomain = config getString "net.domain"
     val ActorMapName = config getString "actor.map.name"
   }
@@ -64,8 +63,7 @@ final class Env(
     roundMap = roundMap,
     socketHub = socketHub,
     messenger = messenger,
-    flood = flood,
-    hijack = hijack)
+    flood = flood)
 
   private lazy val finisher = new Finisher(
     messenger = messenger,
@@ -116,8 +114,6 @@ final class Env(
   }
 
   private lazy val titivate = new Titivate(roundMap, meddler)
-
-  private lazy val hijack = new Hijack(HijackTimeout)
 
   private lazy val takebacker = new Takebacker(
     messenger = messenger)

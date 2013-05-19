@@ -19,8 +19,7 @@ private[round] final class SocketHandler(
     roundMap: ActorRef,
     socketHub: ActorRef,
     messenger: Messenger,
-    flood: Flood,
-    hijack: Hijack) {
+    flood: Flood) {
 
   private def controller(
     gameId: String,
@@ -77,17 +76,16 @@ private[round] final class SocketHandler(
     uid: String,
     ctx: Context): Fu[JsSocketHandler] =
     GameRepo.pov(gameId, colorName) flatMap {
-      _ ?? { join(_, none, version, uid, "", ctx) }
+      _ ?? { join(_, none, version, uid, ctx) }
     }
 
   def player(
     fullId: String,
     version: Int,
     uid: String,
-    token: String,
     ctx: Context): Fu[JsSocketHandler] =
     GameRepo.pov(fullId) flatMap {
-      _ ?? { join(_, Some(Game takePlayerId fullId), version, uid, token, ctx) }
+      _ ?? { join(_, Some(Game takePlayerId fullId), version, uid, ctx) }
     }
 
   private def join(
@@ -95,7 +93,6 @@ private[round] final class SocketHandler(
     playerId: Option[String],
     version: Int,
     uid: String,
-    token: String,
     ctx: Context): Fu[JsSocketHandler] = for {
     socket ← socketHub ? GetSocket(pov.gameId) mapTo manifest[ActorRef]
     join = Join(
@@ -103,7 +100,7 @@ private[round] final class SocketHandler(
       user = ctx.me,
       version = version,
       color = pov.color,
-      playerId = playerId filterNot (_ ⇒ hijack(pov, token, ctx)))
+      playerId = playerId)
     handler ← Handler(socket, uid, join) {
       case Connected(enum, member) ⇒
         controller(pov.gameId, socket, uid, pov.ref, member) -> enum

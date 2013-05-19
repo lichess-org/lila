@@ -10,8 +10,6 @@ final class Env(
     db: lila.db.Env,
     system: ActorSystem,
     hub: lila.hub.Env,
-    appPath: String,
-    isProd: Boolean,
     scheduler: lila.common.Scheduler) {
 
   private val settings = new {
@@ -47,8 +45,6 @@ final class Env(
 
   lazy val rewind = Rewind
 
-  lazy val gameJs = new GameJs(path = jsPath, useCache = isProd)
-
   // load captcher actor
   private val captcher = system.actorOf(Props(new Captcher), name = CaptcherName)
 
@@ -77,9 +73,6 @@ final class Env(
 
   private lazy val titivate = new Titivate(
     bookmark = hub.actor.bookmark)
-
-  private def jsPath =
-    "%s/%s".format(appPath, isProd.fold(JsPathCompiled, JsPathRaw))
 }
 
 object Env {
@@ -91,8 +84,6 @@ object Env {
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
-    appPath = app.path.getCanonicalPath,
-    isProd = lila.common.PlayApp.isProd,
     scheduler = lila.common.PlayApp.scheduler
   )
 }
