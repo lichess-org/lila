@@ -3,7 +3,6 @@ package lila.round
 import actorApi._
 import lila.socket.actorApi._
 import lila.socket.SocketHubActor
-import lila.hub.actorApi.{ GetNbMembers, NbMembers, GetUserIds }
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
