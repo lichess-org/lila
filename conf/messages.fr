@@ -188,3 +188,4 @@ clickOnTheBoardToMakeYourMove=Cliquez sur le plateau pour jouer un coup, et prou
 notACheckmate=Ce n'est pas un échec et mat
 colorPlaysCheckmateInOne=%s joue, mat en un coup.
 retry=Réessayer
+reconnecting=Reconnexion en cours

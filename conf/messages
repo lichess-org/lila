@@ -188,3 +188,4 @@ clickOnTheBoardToMakeYourMove=Click on the board to make your move, and prove yo
 notACheckmate=Not a checkmate
 colorPlaysCheckmateInOne=%s plays; checkmate in one
 retry=Retry
+reconnecting=Reconnecting

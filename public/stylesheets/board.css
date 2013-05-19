@@ -293,16 +293,6 @@ div.lichess_overboard p.explanations {
   padding-left: 1em;
 }
 
-#connection_lost {
-  display: none;
-  top: 224px;
-  left: 146px;
-  width: 220px;
-  padding: 10px 0 0 0;
-  font-weight: bold;
-  box-shadow: 0px 0px 20px #d85000;
-}
-
 #premove, #dont_touch {
   display: none;
   position: absolute;
