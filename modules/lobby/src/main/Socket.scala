@@ -55,21 +55,11 @@ private[lobby] final class Socket(
 
     case TimelineEntry(rendered) ⇒ notifyVersion("entry", rendered)
 
-    case Censor(userId)          ⇒ // TODO hide user messages right away?
+    case Censor(userId)          ⇒ // NICETOHAVE hide user messages right away?
 
-    case AddHook(hook) ⇒ notifyVersion("hook_add", Json.obj(
-      "id" -> hook.id,
-      "username" -> hook.username,
-      "elo" -> hook.elo,
-      "mode" -> hook.realMode.toString,
-      "variant" -> hook.realVariant.toString,
-      "color" -> hook.color,
-      "clock" -> hook.clockOrUnlimited,
-      "emin" -> hook.realEloRange.map(_.min),
-      "emax" -> hook.realEloRange.map(_.max),
-      "engine" -> hook.engine))
+    case AddHook(hook)           ⇒ notifyVersion("hook_add", hook.render)
 
-    case RemoveHook(hookId) ⇒ notifyVersion("hook_remove", hookId)
+    case RemoveHook(hookId)      ⇒ notifyVersion("hook_remove", hookId)
 
     case JoinHook(uid, hook, game) ⇒
       playerUrl(game fullIdOf game.creatorColor) zip

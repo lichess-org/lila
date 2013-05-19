@@ -26,9 +26,7 @@ private[lobby] final class SocketHandler(
     case ("join", o) ⇒ o str "d" foreach { id ⇒
       lobby ! BiteHook(id, uid, member.userId)
     }
-    case ("cancel", o) ⇒ o str "d" foreach { ownerId ⇒
-      lobby ! CancelHook(ownerId)
-    }
+    case ("cancel", o) ⇒ lobby ! CancelHook(uid)
     case ("talk", o) ⇒ for {
       userId ← member.userId
       text ← o str "d"
