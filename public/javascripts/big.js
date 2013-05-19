@@ -1233,9 +1233,12 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     _create: function() {
       this.nb = this.element.find('.title strong');
       this.list = this.element.find("div.list");
+      this.nobody = this.element.find("div.nobody");
     },
     repaint: function() {
-      this.nb.text(this.list.children().length);
+      var nb = this.list.children().length;
+      this.nb.text(nb);
+      this.nobody.toggle(nb == 0);
     },
     set: function(users) {
       this.list.html(_.map(users, $.userLink).join(""));

@@ -568,12 +568,14 @@ a.translation_call .close:hover {
   position: fixed;
   bottom: 0px;
   right: 10px;
+  background: #fff;
   border: 1px solid #ccc;
   border-radius: 4px 4px 0 0;
 }
 #friend_box .title {
   padding: 3px 5px;
   border-bottom: 1px solid #ccc;
+  border-radius: 4px 4px 0 0;
 }
 #friend_box .content a {
   background: #fff;
@@ -584,6 +586,17 @@ a.translation_call .close:hover {
 #friend_box .content a:hover {
   background: #F0F0F0;
   color: #444;
+}
+#friend_box .nobody {
+  text-align: center;
+  display: none;
+  padding: 3px 5px;
+  font-style: italic;
+}
+#friend_box a.find {
+  display: block;
+  margin: 7px;
+  font-style: normal;
 }
 
 span.s16.clock {
@@ -748,6 +761,7 @@ div.undertable,
 div.lichess_board_wrap,
 .button.strong,
 .button.shadowed,
+#friend_box,
 div.content_box
 {
   box-shadow: 0 0 7px #d0d0d0;
