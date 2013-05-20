@@ -3,6 +3,7 @@ GET   /                                controllers.Lobby.home
 GET   /lobby/socket                    controllers.Lobby.socket
 
 # User
+GET   /@/:username/opponents           controllers.User.opponents(username: String)
 POST  /@/:username/export              controllers.User.export(username: String)
 GET   /@/:username/mod                 controllers.User.mod(username: String)
 GET   /@/:username/:filterName         controllers.User.showFilter(username: String, filterName: String, page: Int ?= 1)
@@ -18,7 +19,6 @@ GET   /account/close                   controllers.User.close
 POST  /account/closeConfirm            controllers.User.closeConfirm
 
 # Friend
-GET   /friend/search                   controllers.Friend.search
 
 #Site
 GET   /socket             controllers.Main.websocket

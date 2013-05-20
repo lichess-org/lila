@@ -55,6 +55,14 @@ object User extends LilaController {
     }
   }
 
+  def opponents(username: String) = Open { implicit ctx ⇒
+    OptionFuOk(UserRepo named username) { user ⇒
+      mashup.UserInfo.bestOpponents(user.id, 50) map { ops ⇒
+        html.user.opponents(user, ops)
+      }
+    }
+  }
+
   def online = Open { implicit ctx ⇒
     onlineUsers map { html.user.online(_) }
   }

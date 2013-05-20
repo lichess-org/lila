@@ -12,6 +12,8 @@ sealed abstract class Context(val req: RequestHeader, val me: Option[User]) {
 
   def userId = me map (_.id)
 
+  def username = me map (_.username)
+
   def canSeeChat = isAuth
 
   def troll = me.??(_.troll)

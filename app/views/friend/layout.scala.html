@@ -1,0 +1,5 @@
+@(title: String)(body: Html)(implicit ctx: Context)
+
+@base.layout(title = title, active = siteMenu.user.some) {
+@body
+}
