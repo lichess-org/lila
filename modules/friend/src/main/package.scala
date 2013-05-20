@@ -4,6 +4,8 @@ import lila.db.Tube
 
 package object friend extends PackageObject with WithPlay {
 
+  private[friend] type ID = String
+
   object tube {
 
     private[friend] implicit lazy val friendTube =

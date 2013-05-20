@@ -9,12 +9,16 @@ import org.joda.time.DateTime
 
 private[friend] object FriendRepo {
 
-  def byId(id: String): Fu[Option[Friend]] = $find byId id
+  def byId(id: ID): Fu[Option[Friend]] = $find byId id
 
-  def friendUserIds(userId: String): Fu[List[String]] = 
-    $primitive(Json.obj("users" -> userId), "users")(_.asOpt[List[String]]) map {
+  def byUsers(u1: ID, u2: ID): Fu[Option[Friend]] = $find byId Friend.makeId(u1, u2)
+
+  def friendUserIds(userId: ID): Fu[List[ID]] = 
+    $primitive(Json.obj("users" -> userId), "users")(_.asOpt[List[ID]]) map {
       _.flatten filterNot (userId ==)
     }
 
-  def add(u1: String, u2: String): Funit = $insert(Friend.make(u1, u2))
+  def add(u1: ID, u2: ID): Funit = $insert(Friend.make(u1, u2))
+
+  def remove(u1: ID, u2: ID): Funit = $remove byId Friend.makeId(u1, u2)
 }

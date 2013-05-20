@@ -19,7 +19,8 @@ GET   /account/close                   controllers.User.close
 POST  /account/closeConfirm            controllers.User.closeConfirm
 
 # Friend
-POST  /friend/add/:userId              controllers.Friend.add(userId: String)
+POST  /friend/yes/:userId              controllers.Friend.yes(userId: String)
+POST  /friend/no/:userId               controllers.Friend.no(userId: String)
 
 #Site
 GET   /socket             controllers.Main.websocket
