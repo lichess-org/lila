@@ -18,11 +18,15 @@ private[friend] object RequestRepo {
 
   def byUsers(u1: ID, u2: ID): Fu[Option[Request]] = $find byId Request.makeId(u1, u2)
 
+  def requestedUserIds(u: ID): Fu[List[String]] =
+    $primitive(userIdQuery(u), "friend")(_.asOpt[String])
+
   def countByFriendId(friendId: String): Fu[Int] = 
     $count(friendIdQuery(friendId))
 
   def findByFriendId(friendId: String): Fu[List[Request]] = 
     $find(friendIdQuery(friendId))
 
+  def userIdQuery(userId: String) = Json.obj("user" -> userId)
   def friendIdQuery(friendId: String) = Json.obj("friend" -> friendId)
 }
