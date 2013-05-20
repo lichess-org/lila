@@ -167,6 +167,17 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
     }
   }
 
+  implicit final class LilaPimpedFutureBoolean(fua: Fu[Boolean]) {
+
+    def >>&(fub: ⇒ Fu[Boolean]): Fu[Boolean] = 
+      fua flatMap { _.fold(fub, fuccess(false)) }
+
+    def >>|(fub: ⇒ Fu[Boolean]): Fu[Boolean] = 
+      fua flatMap { _.fold(fuccess(true), fub) }
+
+    def unary_! = fua map (!_)
+  }
+
   implicit final class LilaPimpedBooleanForFuture(b: Boolean) {
 
     def optionFu[A](v: ⇒ Fu[A]): Fu[Option[A]] =
