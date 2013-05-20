@@ -6,7 +6,7 @@ case class QuickStatus(
     friends: Boolean,
     request: Option[Boolean]) {
 
-  def requested = ~request
+  def pending = request == Some(true)
 
-  def pending = request == Some(false)
+  def requested = request == Some(false)
 }

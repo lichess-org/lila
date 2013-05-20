@@ -23,7 +23,7 @@ final class FriendApi(cached: Cached) {
       case ((_, true), _) ⇒ QuickStatus(u1, u2, false, true.some)
       case ((_, _), true) ⇒ QuickStatus(u1, u2, false, false.some)
       case _              ⇒ QuickStatus(u1, u2, false, none)
-    }
+    } 
 
   def friendsOf(userId: ID): Fu[List[User]] =
     cached friendIds userId flatMap UserRepo.byIds map { _ sortBy (_.id) }
@@ -64,9 +64,5 @@ final class FriendApi(cached: Cached) {
       accept ?? makeFriends(request.user, request.friend)
 
   private def invalidate(userIds: String*): Funit =
-    userIds.toList.map(userId ⇒
-      cached.friendIds.remove(userId) >>
-        cached.requestIds.remove(userId) >>
-        cached.nbRequests.remove(userId)
-    ).sequence.void
+    userIds.toList.map(cached.invalidate).sequence.void
 }

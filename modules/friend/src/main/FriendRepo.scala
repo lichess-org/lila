@@ -18,7 +18,7 @@ private[friend] object FriendRepo {
       _.flatten filterNot (userId ==)
     }
 
-  def add(u1: ID, u2: ID): Funit = $insert(Friend.make(u1, u2))
+  def add(u1: ID, u2: ID): Funit = $insert(Friend.make(u1, u2).pp)
 
   def remove(u1: ID, u2: ID): Funit = $remove byId Friend.makeId(u1, u2)
 }
