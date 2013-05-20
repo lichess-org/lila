@@ -100,7 +100,7 @@ private[gameSearch] case class SearchPlayer(
   def cleanA = clean(a)
   def cleanB = clean(b)
   def cleanWinner = clean(winner) |> { w ⇒
-    w filter List(a, b).flatten.contains
+    w filter List(cleanA, cleanB).flatten.contains
   }
 
   private def clean(s: Option[String]) =
