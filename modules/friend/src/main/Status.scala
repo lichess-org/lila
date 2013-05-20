@@ -17,6 +17,13 @@ case class Status(
 
 object Status {
 
+  def fromDb(u1: String, u2: String): Fu[Status] =
+    FriendRepo.byUsers(u1, u2) flatMap {
+      _.fold(RequestRepo.byUsers(u1, u2) map {
+        _.fold(Status(u1, u2))(apply)
+      })(friend ⇒ fuccess(apply(friend)))
+    }
+
   def apply(friend: Friend): Status = Status(friend.user1, friend.user2, friend.some, none)
 
   def apply(request: Request): Status = Status(request.user, request.friend, none, request.some)

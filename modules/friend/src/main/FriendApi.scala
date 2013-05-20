@@ -11,23 +11,31 @@ import org.scala_tools.time.Imports._
 
 final class FriendApi(cached: Cached) {
 
-  private type ID = String
-
   def areFriends(u1: ID, u2: ID): Fu[Boolean] =
     cached friendIds u1 map (_ contains u2)
 
-  def requestable(userId: ID, friendId: ID): Fu[Boolean] =
-    !areFriends(userId, friendId) >>& !RequestRepo.exists(userId, friendId)
+  def friendsOf(userId: ID): Fu[List[User]] =
+    cached friendIds userId flatMap UserRepo.byIds map { _ sortBy (_.id) }
 
-  def createRequest(friendId: ID, userId: ID): Fu[Status] =
-    requestable(friendId, userId) flatMap {
-      _.fold({
-        val req = Request.make(user = userId, friend = friendId)
-        $insert(req) >> (cached.nbRequests remove friendId) inject Status(req)
-      },
-        fufail("[friend] cannot create request")
-      )
-    }
+  def yes(userId: ID, friendId: ID): Fu[Status] =
+    (Status.fromDb(userId, friendId) flatMap {
+      case Status(_, _, Some(friendship), _) ⇒
+        fufail("[friend] friendship already exists" format friendship)
+      case Status(_, _, _, Some(request)) if request.by(userId) ⇒
+        fufail("[friend] request already exists" format request)
+      case Status(_, _, _, Some(request)) ⇒
+        processRequest(request, true)
+      case Status(u1, u2, _, _) ⇒
+        $insert(Request.make(u1, u2)) >> refreshNbRequests(u2)
+    }) >> Status.fromDb(userId, friendId)
+
+  def no(userId: ID, friendId: ID): Fu[Status] =
+    (Status.fromDb(userId, friendId) flatMap {
+      case Status(_, _, Some(friendship), _) ⇒
+        $remove(friendship) >> refreshFriendIds(friendship.users: _*)
+      case Status(_, _, _, Some(request)) ⇒ processRequest(request, false)
+      case _                              ⇒ fufail("[friend] no request nor friendship to revoke")
+    }) >> Status.fromDb(userId, friendId)
 
   def requestsWithUsers(userId: ID): Fu[List[RequestWithUser]] = for {
     requests ← RequestRepo findByFriendId userId
@@ -36,18 +44,17 @@ final class FriendApi(cached: Cached) {
     case (request, user) ⇒ RequestWithUser(request, user)
   }
 
-  def processRequest(userId: ID, request: Request, accept: Boolean): Funit =
-    $remove.byId[Request](request.id) >>
-      (cached.nbRequests remove userId) >>
-      accept ?? $find.byId[User](request.user) flatten "requester not found" flatMap { requester ⇒
-        makeFriends(requester.id, userId)
-      }
-
   private[friend] def makeFriends(u1: ID, u2: ID): Funit =
-    FriendRepo.add(u1, u2) >>
-      (cached.friendIds remove u1) >>
-      (cached.friendIds remove u2)
+    FriendRepo.add(u1, u2) >> refreshFriendIds(u1, u2)
 
-  def friendsOf(userId: ID): Fu[List[User]] =
-    cached friendIds userId flatMap UserRepo.byIds map { _ sortBy (_.id) }
+  private def processRequest(request: Request, accept: Boolean): Funit =
+    $remove(request) >>
+      refreshNbRequests(request.friend) >>
+      accept ?? makeFriends(request.user, request.friend)
+
+  private def refreshFriendIds(userIds: String*): Funit =
+    userIds.toList.map(cached.friendIds.remove).sequence.void
+
+  private def refreshNbRequests(userIds: String*): Funit =
+    userIds.toList.map(cached.nbRequests.remove).sequence.void
 }

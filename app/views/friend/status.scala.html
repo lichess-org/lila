@@ -7,6 +7,6 @@
 @if(status.requestBy(me.id)) {
 @trans.pendingRequest()
 } else {
-<a href="@routes.Friend.add(status.not(me.id))">@trans.addFriend()</a>
+<a href="@routes.Friend.yes(status.not(me.id))">@trans.addFriend()</a>
 }}
 </span>

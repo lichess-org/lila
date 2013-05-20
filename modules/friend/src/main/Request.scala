@@ -9,11 +9,13 @@ case class Request(
     user: String,
     friend: String,
     date: DateTime) {
+
+  def by(userId: String) = userId == user
 }
 
 object Request {
 
-  def makeId(user: String, friend: String) = user + "@" + friend
+  def makeId(u1: String, u2: String) = List(u1, u2).sorted mkString "@"
 
   def make(user: String, friend: String): Request = new Request(
     id = makeId(user, friend),

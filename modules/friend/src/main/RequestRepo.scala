@@ -14,10 +14,9 @@ private[friend] object RequestRepo {
   def byId(id: String): Fu[Option[Request]] = $find byId id
 
   def exists(userId: String, friendId: String): Fu[Boolean] = 
-    $count.exists(idQuery(userId, friendId))
+    $count.exists($select(Request.makeId(userId, friendId)))
 
-  def find(userId: String, friendId: String): Fu[Option[Request]] = 
-    $find byId id(userId, friendId)
+  def byUsers(u1: ID, u2: ID): Fu[Option[Request]] = $find byId Request.makeId(u1, u2)
 
   def countByFriendId(friendId: String): Fu[Int] = 
     $count(friendIdQuery(friendId))
@@ -25,8 +24,5 @@ private[friend] object RequestRepo {
   def findByFriendId(friendId: String): Fu[List[Request]] = 
     $find(friendIdQuery(friendId))
 
-  def idQuery(userId: String, friendId: String) = Json.obj("_id" -> id(userId, friendId))
-  def id(friendId: String, userId: String) = Request.makeId(friendId, userId)
   def friendIdQuery(friendId: String) = Json.obj("friend" -> friendId)
-  def sortQuery(order: Int = -1) = Json.obj("date" -> order)
 }
