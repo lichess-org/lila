@@ -161,6 +161,9 @@ div.content_box h1 {
   font-weight: normal;
   display: inline;
 }
+div.content_box h1 a.user_link {
+  display: inline;
+}
 div.content_box.small_box {
   width: 530px;
 }

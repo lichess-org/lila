@@ -193,4 +193,59 @@ object GameRepo {
       }
     } map (~_)
   }
+
+  // get userId opponents sorted by their number of games
+  // def bestOpponents(userId: String): Fu[List[String]] = {
+  //   val command = MapReduce(
+  //     collectionName = gameTube.coll.name,
+  //     mapFunction = """function() {
+  // for(i in this.uids) { 
+  //   if(this.uids[i] != '%s') emit(this.uids[i], 1) 
+  // }
+  // }""" format userId,
+  //     reduceFunction = """function(key, values) { return Array.sum(values); }""",
+  //     query = Some(JsObjectWriter write Json.obj("uids" -> userId))
+  //   )
+  //   gameTube.coll.db.command(command) map { obj ⇒
+  //     val pairs = toJSON(obj).arr("results") ?? { res ⇒
+  //       (res.value.toList map { o ⇒
+  //         o str "_id" flatMap { id ⇒
+  //           o int "value" map { id -> _ }
+  //         }
+  //       }).flatten
+  //     } 
+  //     pairs sortBy (_._2) map (_._1)
+  //   }
+  // }
+  def bestOpponents(userId: String, limit: Int): Fu[List[(String, Int)]] = {
+    import reactivemongo.bson._
+    import reactivemongo.core.commands._
+    // db.game4.aggregate(
+    // {$match: {uids:'controlaltdelete'}}, 
+    // {$match: {uids:{$size:2}}}, 
+    // {$unwind:'$uids'},
+    // {$match: {uids:{$ne:'controlaltdelete'}}},
+    // {$group:{_id:'$uids',games: { $sum: 1 }}},
+    // {$sort: {'games': -1}},
+    // {$limit:10},
+    // {$project:{_id:1}})
+    val command = Aggregate(gameTube.coll.name, Seq(
+      Match(BSONDocument("uids" -> userId)),
+      Match(BSONDocument("uids" -> BSONDocument("$size" -> BSONInteger(2)))),
+      Unwind("uids"),
+      Match(BSONDocument("uids" -> BSONDocument("$ne" -> BSONString(userId)))),
+      GroupField("uids")("gs" -> SumValue(1)),
+      Sort(Seq(Descending("gs"))),
+      Limit(limit)
+    ))
+    gameTube.coll.db.command(command) map { stream ⇒
+      (stream.toList map { obj ⇒
+        toJSON(obj).asOpt[JsObject] flatMap { o ⇒
+          o str "_id" flatMap { id ⇒
+            o int "gs" map { id -> _ }
+          }
+        }
+      }).flatten
+    }
+  }
 }

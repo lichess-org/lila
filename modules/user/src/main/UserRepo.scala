@@ -25,6 +25,9 @@ object UserRepo {
 
   def byIds(id: Seq[ID]): Fu[List[User]] = $find byIds id
 
+  def enabledByIds(ids: Seq[ID]): Fu[List[User]] = 
+    $find(enabledQuery ++ $select.byIds(ids))
+
   def named(username: String): Fu[Option[User]] = $find byId normalize(username)
 
   def nameds(usernames: List[String]): Fu[List[User]] = $find byIds usernames.map(normalize)

@@ -116,7 +116,7 @@ object ApplicationBuild extends Build {
       play.api, reactivemongo, playReactivemongo, spray.caching)
   )
 
-  lazy val friend = project("friend", Seq(common, db, memo, hub, user)).settings(
+  lazy val friend = project("friend", Seq(common, db, memo, hub, user, game)).settings(
     libraryDependencies ++= provided(play.api, reactivemongo, playReactivemongo)
   )
 

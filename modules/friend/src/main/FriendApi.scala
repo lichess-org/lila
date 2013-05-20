@@ -1,5 +1,6 @@
 package lila.friend
 
+import lila.game.GameRepo
 import lila.user.{ User, UserRepo }
 import lila.user.tube.userTube
 import tube.{ friendTube, requestTube }

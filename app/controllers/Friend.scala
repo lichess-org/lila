@@ -9,8 +9,5 @@ import play.api.templates.Html
 
 object Friend extends LilaController {
 
-  def search = TODO
-  // Open { implicit ctx ⇒
-  //   paginator popularTeams page map { html.team.home(_) }
-  // }
+  private def env = Env.friend
 }
