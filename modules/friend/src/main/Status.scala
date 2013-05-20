@@ -1,7 +1,5 @@
 package lila.friend
 
-import lila.user.User
-
 case class Status(
     user1: String,
     user2: String,

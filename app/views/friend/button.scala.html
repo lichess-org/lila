@@ -1,9 +1,18 @@
 @(userId: String)(implicit ctx: Context)
 
-@ctx.userId.map { myId =>
-@if(areFriends(myId, userId)) {
+@friendStatus(userId).map { status =>
+@if(status.friends) {
 <span class="friend_button">@trans.friends()</span>
 } else {
+@if(status.pending) {
+<span class="friend_button">@trans.pendingRequest</span>
+} else {
+@if(status.requested) {
+<a class="friend_button" href="@routes.Friend.yes(userId)">@trans.accept()</a>
+<a class="friend_button" href="@routes.Friend.no(userId)">@trans.decline()</a>
+} else {
 <a class="friend_button" href="@routes.Friend.yes(userId)">@trans.addFriend()</a>
+}
+}
 }
 }

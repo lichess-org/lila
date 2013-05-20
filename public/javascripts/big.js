@@ -309,6 +309,16 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
     $('#friend_box').friends();
 
+    $('#lichess').on('click', 'a.friend_button', function() {
+      var $button = $(this);
+      $.ajax({
+        url: $button.attr('href'),
+        type: 'post',
+        success: function(html) { $button.replaceWith(html); }
+      });
+      return false;
+    });
+
     // Start game
     var $game = $('div.lichess_game').orNot();
     if ($game) $game.game(_ld_);

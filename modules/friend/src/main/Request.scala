@@ -10,6 +10,8 @@ case class Request(
     friend: String,
     date: DateTime) {
 
+  def users = List(user, friend)
+
   def by(userId: String) = userId == user
 }
 
