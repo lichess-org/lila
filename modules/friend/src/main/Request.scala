@@ -8,7 +8,6 @@ case class Request(
     id: String,
     user: String,
     friend: String,
-    message: String,
     date: DateTime) {
 }
 
@@ -16,11 +15,10 @@ object Request {
 
   def makeId(user: String, friend: String) = user + "@" + friend
 
-  def make(user: String, friend: String, message: String): Request = new Request(
+  def make(user: String, friend: String): Request = new Request(
     id = makeId(user, friend),
     user = user,
     friend = friend,
-    message = message.trim,
     date = DateTime.now)
 
   import lila.db.Tube
@@ -35,6 +33,5 @@ object Request {
 
 case class RequestWithUser(request: Request, user: User) {
   def id = request.id
-  def message = request.message
   def date = request.date
 }
