@@ -123,7 +123,7 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
 
     def void: Funit = fua map (_ ⇒ Unit)
 
-    def inject[B](b: B): Fu[B] = fua map (_ ⇒ b)
+    def inject[B](b: ⇒ B): Fu[B] = fua map (_ ⇒ b)
 
     def effectFold(fail: Exception ⇒ Unit, succ: A ⇒ Unit) {
       fua onComplete {
@@ -152,18 +152,21 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
       case e: Exception ⇒ effect(e)
     })
 
-    def nevermind[A: Zero] = fua recover {
-      case e: lila.common.LilaException ⇒ {
-        logwarn(e.getMessage)
-        ∅[A]
-      }
-    }
-
     def thenPp: Fu[A] = fua ~ {
       _.effectFold(
         e ⇒ logwarn("[failure] " + e),
         a ⇒ loginfo("[success] " + a)
       )
+    }
+  }
+
+  implicit final class LilaPimpedFutureZero[A: Zero](fua: Fu[A]) {
+
+    def nevermind = fua recover {
+      case e: lila.common.LilaException ⇒ {
+        logwarn(e.getMessage)
+        ∅[A]
+      }
     }
   }
 
