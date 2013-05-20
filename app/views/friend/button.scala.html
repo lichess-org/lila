@@ -1,0 +1,9 @@
+@(userId: String)(implicit ctx: Context)
+
+@ctx.userId.map { myId =>
+@if(areFriends(myId, userId)) {
+<span class="friend_button">@trans.friends()</span>
+} else {
+<a class="friend_button" href="@routes.Friend.yes(userId)">@trans.addFriend()</a>
+}
+}

@@ -13,11 +13,11 @@ object Friend extends LilaController {
 
   def yes(friendId: String) = Auth { implicit ctx ⇒
     me ⇒
-      env.api.yes(me.id, friendId) map { status ⇒
-        html.friend.status(me, status)
-      }
+      env.api.yes(me.id, friendId) inject html.friend.button(friendId)
   }
 
-  def no(friendId: String) = TODO
-
+  def no(friendId: String) = Auth { implicit ctx =>
+    me ⇒
+      env.api.no(me.id, friendId) inject html.friend.button(friendId)
+  }
 }

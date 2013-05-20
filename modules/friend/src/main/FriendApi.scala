@@ -17,8 +17,8 @@ final class FriendApi(cached: Cached) {
   def friendsOf(userId: ID): Fu[List[User]] =
     cached friendIds userId flatMap UserRepo.byIds map { _ sortBy (_.id) }
 
-  def yes(userId: ID, friendId: ID): Fu[Status] =
-    (Status.fromDb(userId, friendId) flatMap {
+  def yes(userId: ID, friendId: ID): Funit =
+    Status.fromDb(userId, friendId) flatMap {
       case Status(_, _, Some(friendship), _) ⇒
         fufail("[friend] friendship already exists" format friendship)
       case Status(_, _, _, Some(request)) if request.by(userId) ⇒
@@ -27,15 +27,15 @@ final class FriendApi(cached: Cached) {
         processRequest(request, true)
       case Status(u1, u2, _, _) ⇒
         $insert(Request.make(u1, u2)) >> refreshNbRequests(u2)
-    }) >> Status.fromDb(userId, friendId)
+    }
 
-  def no(userId: ID, friendId: ID): Fu[Status] =
-    (Status.fromDb(userId, friendId) flatMap {
+  def no(userId: ID, friendId: ID): Funit =
+    Status.fromDb(userId, friendId) flatMap {
       case Status(_, _, Some(friendship), _) ⇒
         $remove(friendship) >> refreshFriendIds(friendship.users: _*)
       case Status(_, _, _, Some(request)) ⇒ processRequest(request, false)
       case _                              ⇒ fufail("[friend] no request nor friendship to revoke")
-    }) >> Status.fromDb(userId, friendId)
+    }
 
   def requestsWithUsers(userId: ID): Fu[List[RequestWithUser]] = for {
     requests ← RequestRepo findByFriendId userId
