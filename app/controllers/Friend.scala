@@ -13,7 +13,9 @@ object Friend extends LilaController {
 
   def add(userId: String) = Auth { implicit ctx ⇒
     me ⇒
-      env.api.createRequest(userId, me.id) map { html.friend.status(_) }
+      env.api.createRequest(userId, me.id) map { status ⇒
+        html.friend.status(me, status)
+      }
   }
 
 }
