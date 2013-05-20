@@ -421,14 +421,14 @@ object Game {
   import play.api.libs.json._
 
   private[game] lazy val tube = Tube(
-    reader = Reads[Game](js ⇒
+    Reads[Game](js ⇒
       ~(for {
         obj ← js.asOpt[JsObject]
         rawGame ← RawGame.tube.read(obj).asOpt
         game ← rawGame.decode
       } yield JsSuccess(game): JsResult[Game])
     ),
-    writer = Writes[Game](game ⇒
+    Writes[Game](game ⇒
       RawGame.tube.write(game.encode) getOrElse JsUndefined("[db] Can't write game " + game.id)
     )
   )
