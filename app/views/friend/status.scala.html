@@ -1,3 +1,12 @@
-@(status: lila.friend.Status)(implicit ctx: Context)
+@(me: User, status: lila.friend.Status)(implicit ctx: Context)
 
-
+<span class="friend_status">
+  @if(status.areFriends) {
+@trans.friends()
+} else {
+@if(status.requestBy(me.id)) {
+@trans.pendingRequest()
+} else {
+<a href="@routes.Friend.add(status.not(me.id))">@trans.addFriend()</a>
+}}
+</span>
