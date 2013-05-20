@@ -1,18 +1,21 @@
 @(userId: String)(implicit ctx: Context)
 
+<div class="friend_button">
 @friendStatus(userId).map { status =>
 @if(status.friends) {
-<span class="friend_button">@trans.friends()</span>
+@trans.friends()
 } else {
 @if(status.pending) {
-<span class="friend_button">@trans.pendingRequest</span>
+@trans.pendingRequest()
+<a class="friend_button" href="@routes.Friend.no(userId)">@trans.cancel()</a>
 } else {
 @if(status.requested) {
-<a class="friend_button" href="@routes.Friend.yes(userId)">@trans.accept()</a>
-<a class="friend_button" href="@routes.Friend.no(userId)">@trans.decline()</a>
+<a href="@routes.Friend.yes(userId)">@trans.accept()</a>
+<a href="@routes.Friend.no(userId)">@trans.decline()</a>
 } else {
-<a class="friend_button" href="@routes.Friend.yes(userId)">@trans.addFriend()</a>
+<a href="@routes.Friend.yes(userId)">@trans.addFriend()</a>
 }
 }
 }
 }
+</div>

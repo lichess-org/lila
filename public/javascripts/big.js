@@ -309,12 +309,12 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
     $('#friend_box').friends();
 
-    $('#lichess').on('click', 'a.friend_button', function() {
-      var $button = $(this);
+    $('#lichess').on('click', 'div.friend_button a', function() {
+      var $a = $(this).text('...');
       $.ajax({
-        url: $button.attr('href'),
+        url: $a.attr('href'),
         type: 'post',
-        success: function(html) { $button.replaceWith(html); }
+        success: function(html) { $a.parent().replaceWith(html); }
       });
       return false;
     });

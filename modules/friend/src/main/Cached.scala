@@ -11,4 +11,9 @@ private[friend] final class Cached {
   val requestIds = AsyncCache(RequestRepo.requestedUserIds, maxCapacity = 5000)
 
   val nbRequests = AsyncCache(RequestRepo.countByFriendId, maxCapacity = 5000)
+
+  private[friend] def invalidate(userId: ID): Funit = 
+      friendIds.remove(userId) >>
+        requestIds.remove(userId) >>
+        nbRequests.remove(userId)
 }
