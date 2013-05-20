@@ -1,0 +1,14 @@
+@(users: List[User])(implicit ctx: Context)
+
+@if(ctx.isAuth && users.nonEmpty) {
+<table>
+  <tbody>
+    @users.map { u =>
+    <tr>
+      <td>@userLink(u) @shorten(~u.bio, 80)</td>
+      <td>@friend.button(u.id)</td>
+    </tr>
+    }
+  </tbody>
+</table>
+}

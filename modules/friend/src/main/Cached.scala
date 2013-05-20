@@ -8,12 +8,13 @@ private[friend] final class Cached {
   val friendIds = AsyncCache(FriendRepo.friendUserIds, maxCapacity = 5000)
 
   // UserId => List[UserId] wanted friends of that user
-  val requestIds = AsyncCache(RequestRepo.requestedUserIds, maxCapacity = 5000)
+  val requestedIds = AsyncCache(RequestRepo.requestedUserIds, maxCapacity = 5000)
 
-  val nbRequests = AsyncCache(RequestRepo.countByFriendId, maxCapacity = 5000)
+  // UserId => List[UserId] wanabe friends of that user
+  val requesterIds = AsyncCache(RequestRepo.requesterUserIds, maxCapacity = 5000)
 
   private[friend] def invalidate(userId: ID): Funit = 
       friendIds.remove(userId) >>
-        requestIds.remove(userId) >>
-        nbRequests.remove(userId)
+        requestedIds.remove(userId) >>
+        requesterIds.remove(userId)
 }

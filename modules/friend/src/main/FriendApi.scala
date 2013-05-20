@@ -15,15 +15,17 @@ final class FriendApi(cached: Cached) {
     cached friendIds u1 map (_ contains u2)
 
   def requests(u1: ID, u2: ID): Fu[Boolean] =
-    cached requestIds u1 map (_ contains u2)
+    cached requestedIds u1 map (_ contains u2)
 
   def quickStatus(u1: ID, u2: ID): Fu[QuickStatus] =
-    areFriends(u1, u2) zip requests(u1, u2) zip requests(u2, u1) map {
-      case ((true, _), _) ⇒ QuickStatus(u1, u2, true, none)
-      case ((_, true), _) ⇒ QuickStatus(u1, u2, false, true.some)
-      case ((_, _), true) ⇒ QuickStatus(u1, u2, false, false.some)
-      case _              ⇒ QuickStatus(u1, u2, false, none)
-    } 
+    areFriends(u1, u2) zip
+      (cached requestedIds u1 map (_ contains u2)) zip
+      (cached requesterIds u1 map (_ contains u2)) map {
+        case ((true, _), _) ⇒ QuickStatus(u1, u2, true, none)
+        case ((_, true), _) ⇒ QuickStatus(u1, u2, false, true.some)
+        case ((_, _), true) ⇒ QuickStatus(u1, u2, false, false.some)
+        case _              ⇒ QuickStatus(u1, u2, false, none)
+      }
 
   def friendsOf(userId: ID): Fu[List[User]] =
     cached friendIds userId flatMap UserRepo.byIds map { _ sortBy (_.id) }
@@ -48,12 +50,8 @@ final class FriendApi(cached: Cached) {
       case _                              ⇒ fufail("[friend] no request nor friendship to revoke")
     }
 
-  def requestsWithUsers(userId: ID): Fu[List[RequestWithUser]] = for {
-    requests ← RequestRepo findByFriendId userId
-    users ← $find.byOrderedIds[User](requests.map(_.user))
-  } yield requests zip users map {
-    case (request, user) ⇒ RequestWithUser(request, user)
-  }
+  def requestersOf(userId: ID): Fu[List[User]] =
+    cached requesterIds userId flatMap $find.byIds[User]
 
   private[friend] def makeFriends(u1: ID, u2: ID): Funit =
     FriendRepo.add(u1, u2) >> invalidate(u1, u2)
