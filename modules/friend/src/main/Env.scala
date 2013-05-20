@@ -25,8 +25,6 @@ final class Env(
 
   lazy val api = new FriendApi(cached = cached)
 
-  lazy val forms = new DataForm
-
   private lazy val cached = new Cached
 
   val friendIds = cached.friendIds apply _

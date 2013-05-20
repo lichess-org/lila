@@ -19,6 +19,7 @@ GET   /account/close                   controllers.User.close
 POST  /account/closeConfirm            controllers.User.closeConfirm
 
 # Friend
+POST  /friend/add/:userId              controllers.Friend.add(userId: String)
 
 #Site
 GET   /socket             controllers.Main.websocket
