@@ -21,6 +21,9 @@ private[friend] object RequestRepo {
   def requestedUserIds(u: ID): Fu[List[String]] =
     $primitive(userIdQuery(u), "friend")(_.asOpt[String])
 
+  def requesterUserIds(u: ID): Fu[List[String]] =
+    $primitive(friendIdQuery(u), "user")(_.asOpt[String])
+
   def countByFriendId(friendId: String): Fu[Int] = 
     $count(friendIdQuery(friendId))
 
