@@ -152,6 +152,13 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
       case e: Exception ⇒ effect(e)
     })
 
+    def nevermind[A: Zero] = fua recover {
+      case e: lila.common.LilaException ⇒ {
+        logwarn(e.getMessage)
+        ∅[A]
+      }
+    }
+
     def thenPp: Fu[A] = fua ~ {
       _.effectFold(
         e ⇒ logwarn("[failure] " + e),
@@ -169,10 +176,10 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
 
   implicit final class LilaPimpedFutureBoolean(fua: Fu[Boolean]) {
 
-    def >>&(fub: ⇒ Fu[Boolean]): Fu[Boolean] = 
+    def >>&(fub: ⇒ Fu[Boolean]): Fu[Boolean] =
       fua flatMap { _.fold(fub, fuccess(false)) }
 
-    def >>|(fub: ⇒ Fu[Boolean]): Fu[Boolean] = 
+    def >>|(fub: ⇒ Fu[Boolean]): Fu[Boolean] =
       fua flatMap { _.fold(fuccess(true), fub) }
 
     def unary_! = fua map (!_)
