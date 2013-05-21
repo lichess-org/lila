@@ -441,7 +441,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       $(this).parent().remove();
     });
 
-    $('a.translation_call .close').click(function() {
+    $('#translation_call .close').click(function() {
       $.post($(this).data("href"));
       $(this).parent().fadeOut(500);
       return false;

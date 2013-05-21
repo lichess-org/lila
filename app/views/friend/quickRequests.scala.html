@@ -1,14 +1,20 @@
-@(users: List[User])(implicit ctx: Context)
+@()(implicit ctx: Context)
 
-@if(ctx.isAuth && users.nonEmpty) {
-<table>
-  <tbody>
-    @users.map { u =>
-    <tr>
-      <td>@userLink(u) @shorten(~u.bio, 80)</td>
-      <td>@friend.button(u.id)</td>
-    </tr>
-    }
-  </tbody>
-</table>
+@defining(friendRequesters) { users =>
+
+@if(users.nonEmpty) {
+<div class="quick_requests">
+  <span clas="title">@trans.friendRequests()</span>
+  <table>
+    <tbody>
+      @users.map { id =>
+      <tr>
+        <td>@userIdLink(id.some)</td>
+        <td>@friend.button(id)</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+}
 }

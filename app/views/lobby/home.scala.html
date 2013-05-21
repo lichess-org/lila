@@ -1,4 +1,4 @@
-@(preload: String, timeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], featured: Option[Game], requests: List[User])(implicit ctx: Context)
+@(preload: String, timeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], featured: Option[Game])(implicit ctx: Context)
 
 @underchat = {
 <div id="featured_game">
@@ -12,11 +12,17 @@
 <span id="site_baseline">@trans.freeOnlineChess()</span>
 }
 
+@goodies = {
+@if(ctx.isAuth) {
+@friend.quickRequests()
+}
+}
+
 @base.layout(
 title = "",
 baseline = baseline.some,
 active = siteMenu.play.some,
-goodies = requests.nonEmpty.option(views.html.friend.quickRequests(requests)),
+goodies = goodies.some,
 underchat = underchat.some) {
 <div id="call_boxes">
   @translationCall.map(i18n.callBox(_))

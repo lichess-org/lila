@@ -11,6 +11,9 @@ trait FriendHelper {
 
   def isFriend(u: String)(implicit ctx: Context) = ctx.userId ?? { areFriends(_, u) }
 
+  def friendRequesters(implicit ctx: Context): List[String] =
+    (ctx.userId ?? api.requestersOf).await
+
   def friendStatus(u: String)(implicit ctx: Context) =
     ctx.userId map { api.quickStatus(_, u).await }
 }

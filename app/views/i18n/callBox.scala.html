@@ -1,6 +1,6 @@
 @(info: lila.i18n.TransInfo)(implicit ctx: Context)
 
-@i18n.translationLink(info, cssClass = "translation_call") { text =>
+@i18n.translationLink(info, id = "translation_call".some) { text =>
 <span class="name">@info.name</span>
 <span class="action">@text</span>
 <div class="progressbar flashy">
