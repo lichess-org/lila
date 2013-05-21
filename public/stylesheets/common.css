@@ -141,7 +141,6 @@ div.footer div.right {
   padding: 0.4em 1em;
   text-decoration: none;
   cursor: pointer;
-  font-size: 1.1em;
 }
 
 a.easy_button {
@@ -333,11 +332,13 @@ div.header div.side_menu a.active {
 #reconnecting {
   display: none;
   font-style: italic;
-  border-left: 1px solid #ccc;
 }
 #nb_connected_players {
   float: left;
   color: #999;
+}
+#nb_connected_players,
+#reconnecting {
   border-left: 1px solid #ccc;
 }
 a.goto_nav {
@@ -567,6 +568,13 @@ a#sound_state.unavailable {
   right: 0.3em;
 }
 
+#quick_requests {
+  margin-top: 2em;
+}
+#quick_requests a {
+  margin: 5px 0;
+}
+
 #friend_box {
   position: fixed;
   bottom: 0px;
@@ -723,7 +731,7 @@ table.slist thead {
 div.pagination span.current,
 #top span.new_messages.unread,
 div.hooks td.action:hover,
-div.hooks table.empty_table tr:hover,
+div.hooks table.empty tr:hover,
 div.progressbar.flashy div,
 .button.strong:hover,
 div.locale_menu a.active,

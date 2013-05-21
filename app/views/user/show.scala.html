@@ -77,6 +77,9 @@ evenMoreCss = evenMoreCss) {
         }
       </div>
       }
+      @if(ctx.isAuth && !ctx.is(u)) {
+      @friend.button(u.id)
+      }
       <div class="stats">
         <p class="numbers">
           @trans.nbWins(strong(u.nbWinsH)),

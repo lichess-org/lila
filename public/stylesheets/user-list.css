@@ -56,3 +56,9 @@ div.user_lists .users a.send {
 div.user_lists .users li:hover a.send {
   color: #888;
 }
+table.best_opponents a.request {
+  opacity: 0;
+}
+table.best_opponents tr:hover a.request {
+  opacity: 1;
+}

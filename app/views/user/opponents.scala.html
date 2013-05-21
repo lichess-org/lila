@@ -5,7 +5,7 @@
 @user.layout(title = title) {
 <div id="friend" class="content_box friend_box no_padding">
   <h1>@userLink(u, withOnline = false) @trans.favoriteOpponents()</h1>
-  <table class="slist">
+  <table class="slist best_opponents">
     @if(sugs.size > 0) {
     <tbody class="infinitescroll">
       @sugs.map { sug =>

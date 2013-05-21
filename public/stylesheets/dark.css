@@ -37,6 +37,7 @@ body.dark div.content_box
 
 body.dark #top,
 body.dark #nb_connected_players,
+body.dark #reconnecting,
 body.dark #connecting,
 body.dark div.lichess_chat_top,
 body.dark div.lichess_chat .nano,

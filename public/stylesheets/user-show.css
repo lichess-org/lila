@@ -112,3 +112,6 @@ div.user_show .mod_zone strong {
   display: block;
   margin-top: 0.5em;
 }
+div.user_show div.friend_button {
+  margin-top: 24px;
+}
