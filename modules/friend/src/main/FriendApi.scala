@@ -15,7 +15,10 @@ final class FriendApi(cached: Cached) {
     cached friendIds u1 map (_ contains u2)
 
   def requests(u1: ID, u2: ID): Fu[Boolean] =
-    cached requestedIds u1 map (_ contains u2)
+    requestersOf(u1) map (_ contains u2)
+
+  def requestersOf(userId: ID): Fu[List[String]] =
+    cached requesterIds userId 
 
   def quickStatus(u1: ID, u2: ID): Fu[QuickStatus] =
     areFriends(u1, u2) zip
@@ -49,9 +52,6 @@ final class FriendApi(cached: Cached) {
       case Status(_, _, _, Some(request)) ⇒ processRequest(request, false)
       case _                              ⇒ fufail("[friend] no request nor friendship to revoke")
     }
-
-  def requestersOf(userId: ID): Fu[List[User]] =
-    cached requesterIds userId flatMap $find.byIds[User]
 
   private[friend] def makeFriends(u1: ID, u2: ID): Funit =
     FriendRepo.add(u1, u2) >> invalidate(u1, u2)

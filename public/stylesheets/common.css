@@ -532,7 +532,7 @@ a#sound_state.unavailable {
   right: 10px;
   width: 250px;
 }
-a.translation_call {
+#translation_call {
   margin-top: 1em;
   padding: 0.5em;
   border: 1px solid #d0d0d0;
@@ -541,26 +541,26 @@ a.translation_call {
   text-decoration: none;
   position: relative;
 }
-a.translation_call span.action {
+#translation_call span.action {
   float: right;
   margin-right: 2px;
 }
-a.translation_call span.name {
+#translation_call span.name {
   font-weight: bold;
 }
-a.translation_call div.progressbar {
+#translation_call div.progressbar {
   margin-top: 0.5em;
   background: #fff;
   margin-bottom: 0.4em;
 }
-a.translation_call .close {
+#translation_call .close {
   position: absolute;
   bottom: 0.4em;
   right: 0.6em;
   text-decoration: none;
   font-weight: bold;
 }
-a.translation_call .close:hover {
+#translation_call .close:hover {
   color: red;
   font-size: 1.4em;
   bottom: 0.2em;
@@ -595,6 +595,10 @@ a.translation_call .close:hover {
   display: none;
   padding: 3px 5px;
   font-style: italic;
+}
+#friend_box .nobody span {
+  display: block;
+  margin: 5px;
 }
 #friend_box a.find {
   display: block;
@@ -697,7 +701,7 @@ div.undertable_top,
 .ui-state-default,
 div.content_box_top,
 div.hooks tr,
-a.translation_call,
+#translation_call,
 div.notification,
 div.locale_menu a,
 table.slist thead {

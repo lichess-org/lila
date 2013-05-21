@@ -10,7 +10,6 @@ import lila.socket.History
 import lila.tournament.Created
 import lila.setup.FilterConfig
 import lila.user.{ User, Context }
-import lila.friend.FriendApi
 import controllers.routes
 import makeTimeout.large
 
@@ -22,10 +21,9 @@ import play.api.libs.json.{ Json, JsObject, JsArray }
 final class Preload(
     lobby: ActorRef,
     history: History,
-    featured: Featured,
-    friendApi: FriendApi) {
+    featured: Featured) {
 
-  private type RightResponse = (JsObject, List[Entry], List[PostLiteView], List[Created], Option[Game], List[User])
+  private type RightResponse = (JsObject, List[Entry], List[PostLiteView], List[Created], Option[Game])
   private type Response = Either[Call, RightResponse]
 
   def apply(
@@ -38,13 +36,12 @@ final class Preload(
       posts zip 
       tours zip 
       featured.one zip 
-      filter zip 
-      (ctx.userId ?? friendApi.requestersOf) map {
-        case ((((((hooks, entries), posts), tours), feat), filter), requests) ⇒
+      filter map { 
+        case (((((hooks, entries), posts), tours), feat), filter) ⇒
           (Right((Json.obj(
             "version" -> history.version,
             "pool" -> JsArray(hooks map (_.render)),
             "filter" -> filter.render
-          ), entries, posts, tours, feat, requests)))
+          ), entries, posts, tours, feat)))
       }
 }

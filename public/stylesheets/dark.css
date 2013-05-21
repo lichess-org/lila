@@ -29,6 +29,7 @@ body.dark #GameBoard table.boardTable,
 body.dark .button.strong,
 body.dark .button.shadowed,
 body.dark #tournament_side,
+body.dark #friend_box,
 body.dark div.content_box
 {
   box-shadow: 0 0 5px #505050;
@@ -45,7 +46,7 @@ body.dark div.undertable td,
 body.dark div.lichess_table .lichess_button,
 body.dark div.lichess_chat form input,
 body.dark div.lichess_board_wrap,
-body.dark a.translation_call,
+body.dark #translation_call,
 body.dark div.hooks,
 body.dark div.hooks table,
 body.dark div.hooks td.action,
@@ -98,6 +99,8 @@ body.dark #team .team-left,
 body.dark #team .team-right,
 body.dark #team h2,
 body.dark .leaderboard_title,
+body.dark #friend_box,
+body.dark #friend_box .title,
 body.dark div.game_config input[type="text"] 
 {
   border-color: #3e3e3e;
@@ -105,6 +108,7 @@ body.dark div.game_config input[type="text"]
 
 body.dark .ui-slider,
 body.dark div.progressbar,
+body.dark #translation_call div.progressbar,
 body.dark #top div.themepicker.shown div.theme:hover
 {
   background-color: #505050;
@@ -136,6 +140,9 @@ body.dark #top a.toggle:hover,
 body.dark #top a.bgpicker:hover,
 body.dark a#sound_state:hover,
 body.dark #top .dropdown,
+body.dark #GameText a:hover,
+body.dark div.hooks_wrap a.filter:hover,
+body.dark div.hooks_wrap a.filter.active,
 body.dark #top .shown a.toggle {
   background: #000;
 }
@@ -151,6 +158,7 @@ body.dark div.undergame_box,
 body.dark div.undertable td,
 body.dark div.lichess_table,
 body.dark div.lichess_table_wrap div.clock,
+body.dark #friend_box,
 body.dark div.footer_wrap
 {
   background: #242424;
@@ -176,10 +184,6 @@ body.dark div.hooks_wrap a.filter {
   background-color: rgba(10,10,10,0.8);
   border-color: #444;
   color: #e0e0e0;
-}
-body.dark div.hooks_wrap a.filter:hover,
-body.dark div.hooks_wrap a.filter.active {
-  background: #000;
 }
 body.dark div.hooks_wrap div.filter {
   background-color: black;
@@ -235,7 +239,7 @@ body.dark div.content_box_inter,
 body.dark #GameText tr:nth-child(even),
 body.dark table.slist tbody tr:nth-child(even),
 body.dark #team .forum li:nth-child(odd), 
-body.dark table.translations tbody tr:nth-child(even),
+body.dark table.translations tbody tr:nth-child(odd),
 body.dark form.translation_form div.message:nth-child(even),
 body.dark div.content_box table.datatable tr:nth-child(odd),
 body.dark div.game_config .optional_config,
@@ -257,9 +261,6 @@ body.dark div.content_box h1,
 body.dark div.hooks a
 {
   color: #b0b0b0;
-}
-body.dark #GameText a:hover {
-  background: #000;
 }
 body.dark #GameText a.moveOn {
   background: #b0b0b0;
@@ -305,7 +306,7 @@ body.dark .button:visited,
 body.dark .ui-state-default,
 body.dark div.content_box_top,
 body.dark div.hooks tr,
-body.dark a.translation_call,
+body.dark #translation_call,
 body.dark div.notification,
 body.dark div.locale_menu a,
 body.dark table.slist thead
