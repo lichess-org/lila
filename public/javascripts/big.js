@@ -319,6 +319,16 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       return false;
     });
 
+    $('body').on('click', 'a.user_link', function() {
+      $.ajax({
+        url: $(this).attr('href'),
+        success: function(html) {
+          console.debug(html);
+        }
+      });
+      return false;
+    });
+
     // Start game
     var $game = $('div.lichess_game').orNot();
     if ($game) $game.game(_ld_);

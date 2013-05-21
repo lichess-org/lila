@@ -20,13 +20,18 @@ object User extends LilaController {
     bookmarkApi = Env.bookmark.api,
     eloCalculator = Env.round.eloCalculator) _
 
-  def show(username: String) = showFilter(username, "all", 1)
+  def show(username: String) = Open { implicit ctx ⇒
+    isXhr.fold(mini(username), filter(username, "all", 1))
+  }
 
   def showFilter(username: String, filterName: String, page: Int) = Open { implicit ctx ⇒
+    filter(username, filterName, page)
+  }
+
+  private def filter(username: String, filterName: String, page: Int)(implicit ctx: Context) =
     Reasonable(page) {
       OptionFuOk(UserRepo named username) { userShow(_, filterName, page) }
     }
-  }
 
   private def userShow(u: UserModel, filterName: String, page: Int)(implicit ctx: Context) =
     (u.enabled || isGranted(_.UserSpy)).fold({
@@ -38,6 +43,11 @@ object User extends LilaController {
         })
       } yield html.user.show(u, info, pag, filters)
     }, fuccess(html.user.disabled(u)))
+
+  private def mini(username: String)(implicit ctx: Context) =
+    OptionOk(UserRepo named username) { user ⇒
+      html.user.mini(user)
+    }
 
   def list(page: Int) = Open { implicit ctx ⇒
     Reasonable(page) {
