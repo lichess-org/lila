@@ -149,11 +149,13 @@ private[controllers] trait LilaController
   protected def OptionFuResult[A](fua: Fu[Option[A]])(op: A ⇒ Fu[Result])(implicit ctx: Context) =
     fua flatMap { _.fold(notFound(ctx))(a ⇒ op(a)) }
 
-  protected def notFound(implicit ctx: Context): Fu[Result] =
-    (ctx.req.headers get "X-Requested-With") ?? ("XMLHttpRequest" ==) fold (
-      NotFound("resource not found").fuccess,
-      Lobby handleNotFound ctx
-    )
+  protected def notFound(implicit ctx: Context): Fu[Result] = isXhr fold (
+    NotFound("resource not found").fuccess,
+    Lobby handleNotFound ctx
+  )
+
+  protected def isXhr(implicit ctx: Context) =
+    (ctx.req.headers get "X-Requested-With") ?? ("XMLHttpRequest" ==)
 
   protected def isGranted(permission: Permission.type ⇒ Permission)(implicit ctx: Context): Boolean =
     isGranted(permission(Permission))
