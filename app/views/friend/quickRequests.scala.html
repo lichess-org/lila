@@ -3,18 +3,15 @@
 @defining(friendRequesters) { users =>
 
 @if(users.nonEmpty) {
-<div class="quick_requests">
-  <span clas="title">@trans.friendRequests()</span>
-  <table>
-    <tbody>
+<div class="lichess_goodies">
+  <div id="quick_requests" class="box">
+    <strong clas="title">@trans.friendRequests()</strong>
+    <ul>
       @users.map { id =>
-      <tr>
-        <td>@userIdLink(id.some)</td>
-        <td>@friend.button(id)</td>
-      </tr>
+      <li>@userIdLink(id.some)</li>
       }
-    </tbody>
-  </table>
+    </ul>
+  </div>
 </div>
 }
 }

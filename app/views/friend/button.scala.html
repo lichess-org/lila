@@ -7,13 +7,13 @@
 } else {
 @if(status.pending) {
 @trans.pendingRequest()
-<a class="friend_button" href="@routes.Friend.no(userId)">@trans.cancel()</a>
+<a class="button cancel" href="@routes.Friend.no(userId)">@trans.cancel()</a>
 } else {
 @if(status.requested) {
-<a href="@routes.Friend.yes(userId)">@trans.accept()</a>
-<a href="@routes.Friend.no(userId)">@trans.decline()</a>
+<a class="button accept" href="@routes.Friend.yes(userId)">@trans.accept()</a>
+<a class="decline" href="@routes.Friend.no(userId)">@trans.decline()</a>
 } else {
-<a href="@routes.Friend.yes(userId)">@trans.addFriend()</a>
+<a class="button request" href="@routes.Friend.yes(userId)">@trans.addFriend()</a>
 }
 }
 }

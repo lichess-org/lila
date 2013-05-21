@@ -310,7 +310,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     $('#friend_box').friends();
 
     $('#lichess').on('click', 'div.friend_button a', function() {
-      var $a = $(this).text('...');
+      var $a = $(this).css('opacity', 0.2);
       $.ajax({
         url: $a.attr('href'),
         type: 'post',
