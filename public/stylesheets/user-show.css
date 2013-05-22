@@ -102,12 +102,6 @@ div.user_show .mod_zone .listings .blocked {
   color: red;
   font-weight: bold;
 }
-div.user_show .mod_zone .usernames a {
-  text-decoration: none;
-}
-div.user_show .mod_zone .usernames a:hover {
-  text-decoration: underline;
-}
 div.user_show .mod_zone strong {
   display: block;
   margin-top: 0.5em;
