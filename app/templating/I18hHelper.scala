@@ -3,7 +3,7 @@ package templating
 
 import controllers._
 import lila.user.Context
-import lila.i18n.Env.{ current => i18nEnv }
+import lila.i18n.Env.{ current ⇒ i18nEnv }
 import lila.i18n.{ LangList, I18nDomain }
 
 import play.api.i18n.Lang
@@ -33,16 +33,18 @@ trait I18nHelper {
   def transValidationPattern(trans: String) =
     (trans contains "%s") option ".*%s.*"
 
-  private lazy val otherLangLinksCache =
+  private lazy val langLinksCache =
     scala.collection.mutable.Map[String, String]()
 
-  def otherLangLinks(lang: Lang)(implicit ctx: Context) = Html {
-    otherLangLinksCache.getOrElseUpdate(lang.language, {
+  def langLinks(lang: Lang)(implicit ctx: Context) = Html {
+    langLinksCache.getOrElseUpdate(lang.language, {
       val i18nDomain = I18nDomain(ctx.req.domain)
       pool.names.toList sortBy (_._1) collect {
-        case (code, name) if code != lang.language ⇒
-          """<li><a lang="%s" href="%s">%s</a></li>"""
-            .format(code, langUrl(Lang(code))(i18nDomain), name)
+        case (code, name) ⇒ """<li><a lang="%s" href="%s"%s>%s</a></li>""".format(
+          code,
+          langUrl(Lang(code))(i18nDomain),
+          (code == lang.language) ?? """ class="current"""",
+          name)
       } mkString
     }).replace(uriPlaceholder, ctx.req.uri)
   }
@@ -52,6 +54,6 @@ trait I18nHelper {
 
   val uriPlaceholder = "[URI]"
 
-  private def langUrl(lang: Lang)(i18nDomain: I18nDomain) =    
+  private def langUrl(lang: Lang)(i18nDomain: I18nDomain) =
     protocol + (i18nDomain withLang lang).domain + uriPlaceholder
 }

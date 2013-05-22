@@ -38,7 +38,7 @@ moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
           <span class="s16 ddown">@langName(lang)</span>
         </a>
         <ul class="language_links dropdown">
-          @otherLangLinks(lang)
+          @langLinks(lang)
           <li><a href="@routes.I18n.contribute">Help translate Lichess!</a></li>
         </ul>
       </div>
