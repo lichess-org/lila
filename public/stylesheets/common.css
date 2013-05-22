@@ -441,7 +441,7 @@ div.lichess_language {
   position: relative;
 }
 ul.language_links {
-  width: 500px;
+  width: 620px;
   padding: 10px;
   max-height: 700px;
   overflow:auto;
@@ -454,19 +454,25 @@ ul.language_links a {
   padding: 0.4em 0.5em;
   text-decoration: none;
 }
-ul.language_links a:hover {
+ul.language_links a.current {
+  font-weight: bold;
+}
+ul.language_links a:hover,
+ul.language_links a.current {
   background: #F0F0F0;
   color: #444;
 }
 ul.language_links li {
-  width: 33%;
+  width: 25%;
   height: 24px;
   float: left;
   display: block;
   overflow: hidden;
 }
 ul.language_links li:last-child {
-  border-top: 1px solid #ddd;
+  width: 50%;
+  font-weight: bold;
+  font-style: italic;
 }
 
 #top div.themepicker {
