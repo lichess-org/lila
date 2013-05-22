@@ -98,12 +98,8 @@
 #tournament_side div.pairings a {
   padding: 0.3em 0.2em;
   display: block;
-  text-decoration: none;
   white-space: nowrap;
   overflow: hidden;
-}
-#tournament_side div.pairings a:hover {
-  text-decoration: underline;
 }
 #tournament_side div.pairings span {
   font-weight: bold;

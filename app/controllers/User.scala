@@ -46,6 +46,7 @@ object User extends LilaController {
 
   private def mini(username: String)(implicit ctx: Context) =
     OptionOk(UserRepo named username) { user ⇒
+      Thread sleep 200
       html.user.mini(user)
     }
 

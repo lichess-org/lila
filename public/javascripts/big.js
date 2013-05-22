@@ -143,8 +143,8 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     syncFriends: function() {
       var self = this;
       clearTimeout(self.syncFriendsSchedule);
-      self.syncFriendsSchedule = setTimeout(function() { 
-        self.syncFriends(); 
+      self.syncFriendsSchedule = setTimeout(function() {
+        self.syncFriends();
       }, self.options.syncFriendsDelay);
       this.ws.send(JSON.stringify({
         t: "friends"
@@ -309,25 +309,35 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
     $('#friend_box').friends();
 
-    $('#lichess').on('click', 'div.friend_button a', function() {
+    $('body').on('click', 'div.friend_button a', function() {
       var $a = $(this).css('opacity', 0.2);
       $.ajax({
         url: $a.attr('href'),
         type: 'post',
-        success: function(html) { $a.parent().replaceWith(html); }
-      });
-      return false;
-    });
-
-    $('body').on('click', 'a.user_link', function() {
-      $.ajax({
-        url: $(this).attr('href'),
         success: function(html) {
-          console.debug(html);
+          $a.parent().replaceWith(html);
         }
       });
       return false;
     });
+
+    function userPowertips() {
+      $('a.user_link:not(.powertiped)').addClass('.powertiped').powerTip({
+        placement: 's',
+        smartPlacement: true,
+        mouseOnToPopup: true,
+        closeDelay: 9999999
+      }).on({
+        powerTipPreRender: function() {
+          $.ajax({
+            url: $(this).attr('href'),
+            success: function(html) { $('#powerTip').html(html); }
+          });
+        }
+      }).data('powertip', ' ');
+    }
+    userPowertips();
+    $('body').on('lichess.content_loaded', userPowertips);
 
     // Start game
     var $game = $('div.lichess_game').orNot();

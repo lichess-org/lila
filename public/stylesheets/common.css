@@ -22,9 +22,14 @@ a, a:visited {
   text-decoration: underline;
   cursor: pointer;
 }
-
 a:hover {
   text-decoration: none;
+}
+a.revert-underline {
+  text-decoration: none;
+}
+a.revert-underline:hover {
+  text-decoration: underline;
 }
 
 strong {
@@ -294,7 +299,6 @@ div.lichess_goodies div.box {
   border: 1px solid #C0C0C0;
   padding: 7px;
   border-radius: 4px;
-  box-shadow: 0 0 7px #d0d0d0;
 }
 div.lichess_goodies div.box .player {
   margin: 4px 0;
@@ -777,7 +781,10 @@ div.lichess_board_wrap,
 .button.strong,
 .button.shadowed,
 #friend_box,
-div.content_box
+div.content_box,
+div.undergame_box,
+div.lichess_goodies div.box,
+#powerTip
 {
   box-shadow: 0 0 7px #d0d0d0;
   border-radius: 4px;
@@ -828,16 +835,9 @@ div.checkmateCaptcha.failure div.failure {
 div.undergame_box {
   margin-top: 10px;
   width: 512px;
-  box-shadow: 0 0 7px #d0d0d0;
   border: 1px solid #ccc;
   border-radius: 5px;
   line-height: 24px;
-}
-div.undergame_box a {
-  text-decoration: none;
-}
-div.undergame_box a:hover {
-  text-decoration: underline;
 }
 div.undergame_box div.inner {
   padding: 10px 10px 0 10px;
@@ -1014,3 +1014,103 @@ input:focus::-webkit-input-placeholder { color: transparent; }
 input:focus:-moz-placeholder { color: transparent; }
 input:focus::-moz-placeholder { color: transparent; }
 input:focus:-ms-input-placeholder { color: transparent; }
+
+/* PowerTip Plugin */
+#powerTip {
+  width: 200px;
+  min-height: 6em;
+	cursor: default;
+	background-color: #f0f0f0;
+	border: 1px solid #c0c0c0;
+	border-radius: 4px;
+	display: none;
+	position: absolute;
+	z-index: 2147483647;
+}
+#powerTip > .title {
+  padding: 8px;
+  border-bottom: 1px solid #c0c0c0;
+}
+#powerTip > .content {
+  padding: 16px 8px;
+}
+#powerTip:before {
+	content: "";
+	position: absolute;
+}
+#powerTip.n:before, #powerTip.s:before {
+	border-right: 5px solid transparent;
+	border-left: 5px solid transparent;
+	left: 50%;
+	margin-left: -5px;
+}
+#powerTip.e:before, #powerTip.w:before {
+	border-bottom: 5px solid transparent;
+	border-top: 5px solid transparent;
+	margin-top: -5px;
+	top: 50%;
+}
+#powerTip.n:before {
+	border-top: 10px solid #acacac;
+	border-top: 10px solid rgba(172, 172, 172, 0.8);
+	bottom: -10px;
+}
+#powerTip.e:before {
+	border-right: 10px solid #acacac;
+	border-right: 10px solid rgba(172, 172, 172, 0.8);
+	left: -10px;
+}
+#powerTip.s:before {
+	border-bottom: 10px solid #acacac;
+	border-bottom: 10px solid rgba(172, 172, 172, 0.8);
+	top: -10px;
+}
+#powerTip.w:before {
+	border-left: 10px solid #acacac;
+	border-left: 10px solid rgba(172, 172, 172, 0.8);
+	right: -10px;
+}
+#powerTip.ne:before, #powerTip.se:before {
+	border-right: 10px solid transparent;
+	border-left: 0;
+	left: 10px;
+}
+#powerTip.nw:before, #powerTip.sw:before {
+	border-left: 10px solid transparent;
+	border-right: 0;
+	right: 10px;
+}
+#powerTip.ne:before, #powerTip.nw:before {
+	border-top: 10px solid #acacac;
+	border-top: 10px solid rgba(172, 172, 172, 0.8);
+	bottom: -10px;
+}
+#powerTip.se:before, #powerTip.sw:before {
+	border-bottom: 10px solid #acacac;
+	border-bottom: 10px solid rgba(172, 172, 172, 0.8);
+	top: -10px;
+}
+#powerTip.nw-alt:before, #powerTip.ne-alt:before,
+#powerTip.sw-alt:before, #powerTip.se-alt:before {
+	border-top: 10px solid #acacac;
+	border-top: 10px solid rgba(172, 172, 172, 0.8);
+	bottom: -10px;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	left: 10px;
+}
+#powerTip.ne-alt:before {
+	left: auto;
+	right: 10px;
+}
+#powerTip.sw-alt:before, #powerTip.se-alt:before {
+	border-top: none;
+	border-bottom: 10px solid #acacac;
+	border-bottom: 10px solid rgba(172, 172, 172, 0.8);
+	bottom: auto;
+	top: -10px;
+}
+#powerTip.se-alt:before {
+	left: auto;
+	right: 10px;
+}
