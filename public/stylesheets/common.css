@@ -812,6 +812,7 @@ div.checkmateSection {
   font-size: 0.9em;
 }
 div.checkmateSection label {
+  display: block;
   width: 310px;
 }
 div.checkmateSection div.result {

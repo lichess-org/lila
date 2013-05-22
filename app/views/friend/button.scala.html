@@ -1,21 +1,26 @@
-@(userId: String)(implicit ctx: Context)
+@(userId: String, signup: Boolean = false)(implicit ctx: Context)
 
 <div class="friend_button">
-@friendStatus(userId).map { status =>
-@if(status.friends) {
-@trans.friends()
-} else {
-@if(status.pending) {
-@trans.pendingRequest()
-<a class="button cancel" href="@routes.Friend.no(userId)">@trans.cancel()</a>
-} else {
-@if(status.requested) {
-<a class="button accept" href="@routes.Friend.yes(userId)">@trans.accept()</a>
-<a class="decline" href="@routes.Friend.no(userId)">@trans.decline()</a>
-} else {
-<a class="button request" href="@routes.Friend.yes(userId)">@trans.addFriend()</a>
-}
-}
-}
-}
+  @friendStatus(userId).map { status =>
+  @if(status.friends) {
+  @trans.friends()
+  } else {
+  @if(status.pending) {
+  @trans.pendingRequest()
+  <a class="button cancel" href="@routes.Friend.no(userId)">@trans.cancel()</a>
+  } else {
+  @if(status.requested) {
+  <a class="button accept" href="@routes.Friend.yes(userId)">@trans.accept()</a>
+  <a class="decline" href="@routes.Friend.no(userId)">@trans.decline()</a>
+  } else {
+  <a class="button request" href="@routes.Friend.yes(userId)">@trans.addFriend()</a>
+  }
+  }
+  }
+  }.getOrElse {
+  @if(signup) {
+  @trans.youNeedAUsernameToDoThat()
+  <a href="@routes.Auth.login" class="signup">@trans.signUp</a>
+  }
+  }
 </div>
