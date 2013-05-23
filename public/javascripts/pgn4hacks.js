@@ -21,6 +21,7 @@ function customFunctionOnPgnGameLoad() {
   redrawBoardMarks();
   $("#GameButtons table").css('width', '514px').find("input").button();
   $("#autoplayButton").click(refreshButtonset);
+  $("#GameBoard td").css('background', 'none');
 }
 
 function posToSquareId(pos) {
