@@ -63,7 +63,7 @@ moreJs = moreJs) {
   data-columns="@a.advantageChart.columns"
   data-rows="@a.advantageChart.rows"></div>
 } else {
-<div class="undergame_box revert-underline game_analysis status">
+<div class="undergame_box game_analysis status">
   @a.fail.map { f =>
   @trans.theComputerAnalysisHasFailed()<br />@f<br />
   <form class="request_analysis" action="@routes.Analyse.computer(gameId, color.name)" method="post">

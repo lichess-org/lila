@@ -496,14 +496,11 @@ ul.language_links li:last-child {
 #top div.themepicker.shown div.theme:hover {
   background: #f0f0f0;
 }
-#top div.themepicker.shown div.inner {
+#top div.themepicker.shown div.color_demo {
   border: 1px solid #dadada;
   position: relative;
   width: 128px;
   height: 64px;
-}
-#top div.themepicker.shown div.white {
-  left: 64px;
 }
 
 #top a.bgpicker {
@@ -850,6 +847,12 @@ div.undergame_box div.inner {
 }
 div.undergame_box .opponent_choice {
   display: none;
+}
+div.undergame_box a {
+  text-decoration: none;
+}
+div.undergame_box a:hover {
+  text-decoration: underline;
 }
 
 div.game_analysis {

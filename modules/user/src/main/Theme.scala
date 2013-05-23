@@ -1,23 +1,16 @@
 package lila.user
 
-sealed class Theme private (val name: String, val image: Boolean = false) {
+sealed class Theme private (val name: String) {
 
   override def toString = name
 
-  def cssClass = name + image.fold(" txtr", "")
+  def cssClass = name 
 }
 
 object Theme extends scalaz.NonEmptyLists {
 
-  val all = nel(
-    "brown" -> false,
-    "blue" -> false,
-    "green" -> false,
-    "grey" -> false,
-    "wood" -> true,
-    "canvas" -> true
-  ) map {
-      case (name, image) ⇒ new Theme(name, image)
+  val all = nel("brown", "blue", "green", "grey", "wood", "canvas") map {
+      case name ⇒ new Theme(name)
     }
 
   val list = all.list
