@@ -1,6 +1,7 @@
 @(userId: String, signup: Boolean = false)(implicit ctx: Context)
 
 @ctx.userId.map { myId =>
+@if(myId != userId) {
 <div class="relation_actions">
   @relationWith(userId) match {
   case None => {
@@ -20,6 +21,7 @@
   }
   }
 </div>
+} 
 }.getOrElse {
 @if(signup) {
 @trans.youNeedAUsernameToDoThat()
