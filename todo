@@ -66,7 +66,6 @@ from MoralIntentions email:
 - The possibility of team matches (with solutions for players who are in several teams), where the team leader has to choose the board order, where the team results are shown and where the team player (who has played all of the games of the match) with the highest Percentage Score gets crowned Player of the Match of team "A".  
 safari has high bounce rate
 send message to sockets when a friendship is created or revoked
-convert background board css to single image (needs gimp)
 correspondance chess http://en.lichess.org/forum/lichess-feedback/correspondence-chess#1
 takeback/enpassant glitch http://en.lichess.org/forum/lichess-feedback/i-found-a-glitch#1 
 show teams in user mini
