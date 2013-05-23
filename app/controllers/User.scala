@@ -15,10 +15,6 @@ object User extends LilaController {
   private def env = Env.user
   private def gamePaginator = Env.game.paginator
   private def forms = lila.user.DataForm
-  private lazy val makeUserInfo = mashup.UserInfo(
-    countUsers = () ⇒ env.countEnabled,
-    bookmarkApi = Env.bookmark.api,
-    eloCalculator = Env.round.eloCalculator) _
 
   def show(username: String) = Open { implicit ctx ⇒
     isXhr.fold(mini(username), filter(username, "all", 1))
@@ -36,14 +32,12 @@ object User extends LilaController {
   private def userShow(u: UserModel, filterName: String, page: Int)(implicit ctx: Context) =
     (u.enabled || isGranted(_.UserSpy)).fold({
       for {
-        info ← makeUserInfo(u, ctx)
+        info ← Env.current.userInfo(u, ctx)
         filters = mashup.GameFilterMenu(info, ctx.me, filterName)
         pag ← (filters.query.fold(Env.bookmark.api.gamePaginatorByUser(u, page)) { query ⇒
           gamePaginator.recentlyCreated(query, filters.cachedNb)(page)
         })
-        nbFollowing ← Env.relation.api nbFollowing u.id
-        nbFollowers ← Env.relation.api nbFollowers u.id
-      } yield html.user.show(u, info, pag, nbFollowing, nbFollowers, filters)
+      } yield html.user.show(u, info, pag, filters)
     }, fuccess(html.user.disabled(u)))
 
   private def mini(username: String)(implicit ctx: Context) =
@@ -70,7 +64,7 @@ object User extends LilaController {
 
   def opponents(username: String) = Open { implicit ctx ⇒
     OptionFuOk(UserRepo named username) { user ⇒
-      mashup.UserInfo.bestOpponents(user.id, 50) map { ops ⇒
+      lila.game.BestOpponents(user.id, 50) map { ops ⇒
         html.user.opponents(user, ops)
       }
     }

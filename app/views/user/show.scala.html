@@ -1,4 +1,4 @@
-@(u: User, info: lila.app.mashup.UserInfo, games: Paginator[Game], nbFollowing: Int, nbFollowers: Int, filters: lila.app.mashup.GameFilterMenu)(implicit ctx: Context)
+@(u: User, info: lila.app.mashup.UserInfo, games: Paginator[Game], filters: lila.app.mashup.GameFilterMenu)(implicit ctx: Context)
 
 @title = @{ "%s : %s - page %d".format(u.username, userGameFilterTitle(info, filters.current), games.currentPage) }
 
@@ -60,8 +60,8 @@ evenMoreCss = evenMoreCss) {
     }
   </div>
   <div class="social">
-    <a href="@routes.Relation.following(u.username)">@trans.nbFollowing(nbFollowing)</a>
-    <a href="@routes.Relation.followers(u.username)">@trans.nbFollowers(nbFollowers)</a>
+    <a href="@routes.Relation.following(u.username)">@trans.nbFollowing(info.nbFollowing)</a>
+    <a href="@routes.Relation.followers(u.username)">@trans.nbFollowers(info.nbFollowers)</a>
     @if(ctx.isAuth && !ctx.is(u)) {
     @relation.actions(u.id)
     }

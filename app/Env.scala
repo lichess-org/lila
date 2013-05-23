@@ -15,6 +15,12 @@ final class Env(config: Config, system: ActorSystem) {
     history = Env.lobby.history,
     featured = Env.game.featured)
 
+  lazy val userInfo = mashup.UserInfo(
+    countUsers = () ⇒ Env.user.countEnabled,
+    bookmarkApi = Env.bookmark.api,
+    eloCalculator = Env.round.eloCalculator,
+    relationApi = Env.relation.api) _
+
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
   system.actorOf(Props(new actor.Router(

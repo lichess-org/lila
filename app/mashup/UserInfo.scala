@@ -5,6 +5,7 @@ import chess.{ EloCalculator, Color }
 import lila.game.{ GameRepo, Game }
 import lila.user.{ User, UserRepo, Context, EloChart }
 import lila.bookmark.BookmarkApi
+import lila.relation.RelationApi
 
 case class UserInfo(
     user: User,
@@ -13,7 +14,9 @@ case class UserInfo(
     nbWithMe: Option[Int],
     nbBookmark: Int,
     eloWithMe: Option[List[(String, Int)]],
-    eloChart: Option[EloChart]) {
+    eloChart: Option[EloChart],
+    nbFollowing: Int,
+    nbFollowers: Int) {
 
   def nbRated = user.nbRatedGames
 
@@ -27,43 +30,37 @@ object UserInfo {
   def apply(
     countUsers: () ⇒ Fu[Int],
     bookmarkApi: BookmarkApi,
-    eloCalculator: EloCalculator)(user: User, ctx: Context): Fu[UserInfo] = for {
-    rank ← (user.elo >= rankMinElo) ?? {
+    eloCalculator: EloCalculator,
+    relationApi: RelationApi)(user: User, ctx: Context): Fu[UserInfo] =
+    ((user.elo >= rankMinElo) ?? {
       UserRepo rank user flatMap { rank ⇒
         countUsers() map { nbUsers ⇒ (rank -> nbUsers).some }
       }
-    }
-    nbPlaying ← (ctx is user) ?? {
-      GameRepo count (_ notFinished user.id) map (_.some)
-    }
-    nbWithMe ← ctx.me.filter(user!=) ?? { me ⇒
-      GameRepo count (_.opponents(user, me)) map (_.some)
-    }
-    nbBookmark ← bookmarkApi countByUser user
-    eloChart ← EloChart(user)
-    eloWithMe = ctx.me.filter(user !=) map { me ⇒
-      List(
-        "win" -> eloCalculator.diff(me, user, Color.White.some),
-        "draw" -> eloCalculator.diff(me, user, None),
-        "loss" -> eloCalculator.diff(me, user, Color.Black.some))
-    }
-  } yield new UserInfo(
-    user = user,
-    rank = rank,
-    nbPlaying = ~nbPlaying,
-    nbWithMe = nbWithMe,
-    nbBookmark = nbBookmark,
-    eloWithMe = eloWithMe,
-    eloChart = eloChart)
-
-  def bestOpponents(userId: String, limit: Int): Fu[List[(User, Int)]] =
-    GameRepo.bestOpponents(userId, limit) flatMap { opponents ⇒
-      UserRepo enabledByIds opponents.map(_._1) map { users ⇒
-        (users map { user ⇒
-          opponents find (_._1 == user.id) map { opponent ⇒
-            user -> opponent._2
-          }
-        }).flatten sortBy (-_._2)
+    }) zip
+      ((ctx is user) ?? {
+        GameRepo count (_ notFinished user.id) map (_.some)
+      }) zip
+      (ctx.me.filter(user!=) ?? { me ⇒
+        GameRepo count (_.opponents(user, me)) map (_.some)
+      }) zip
+      (bookmarkApi countByUser user) zip
+      EloChart(user) zip
+      relationApi.nbFollowing(user.id) zip
+      relationApi.nbFollowers(user.id) map {
+        case ((((((rank, nbPlaying), nbWithMe), nbBookmark), eloChart), nbFollowing), nbFollowers) ⇒ new UserInfo(
+          user = user,
+          rank = rank,
+          nbPlaying = ~nbPlaying,
+          nbWithMe = nbWithMe,
+          nbBookmark = nbBookmark,
+          eloWithMe = ctx.me.filter(user !=) map { me ⇒
+            List(
+              "win" -> eloCalculator.diff(me, user, Color.White.some),
+              "draw" -> eloCalculator.diff(me, user, None),
+              "loss" -> eloCalculator.diff(me, user, Color.Black.some))
+          },
+          eloChart = eloChart,
+          nbFollowing = nbFollowing,
+          nbFollowers = nbFollowers)
       }
-    }
 }
