@@ -17,6 +17,9 @@ trait PimpedJson {
     def long(key: String): Option[Long] =
       (js \ key).asOpt[Long]
 
+    def boolean(key: String): Option[Boolean] =
+      (js \ key).asOpt[Boolean]
+
     def obj(key: String): Option[JsObject] =
       (js \ key).asOpt[JsObject]
 

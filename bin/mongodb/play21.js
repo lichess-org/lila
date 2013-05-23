@@ -71,8 +71,6 @@ print('create relation collection');
 db.createCollection('relation')
 db.relation.ensureIndex({u1:1})
 db.relation.ensureIndex({u2:1})
-db.relation.ensureIndex({u1:1, f:1})
-db.relation.ensureIndex({u2:1, f:1})
 
 // print("Reset lobby_room");
 // db.lobby_room.drop();
