@@ -72,6 +72,9 @@ db.createCollection('relation')
 db.relation.ensureIndex({u1:1})
 db.relation.ensureIndex({u2:1})
 
+print('index forum post authors');
+db.f_post.ensureIndex({userId:1})
+
 // print("Reset lobby_room");
 // db.lobby_room.drop();
 // db.createCollection("lobby_room",{capped:true,size:50000})

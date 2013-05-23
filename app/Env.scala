@@ -19,7 +19,8 @@ final class Env(config: Config, system: ActorSystem) {
     countUsers = () ⇒ Env.user.countEnabled,
     bookmarkApi = Env.bookmark.api,
     eloCalculator = Env.round.eloCalculator,
-    relationApi = Env.relation.api) _
+    relationApi = Env.relation.api,
+    postApi = Env.forum.postApi) _
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 

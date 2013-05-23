@@ -12,44 +12,59 @@ div.user_show .staff {
 div.user_show div.content_box_top .rank {
   margin-left: 1em;
 }
-div.user_show span.user_bio {
-  margin-bottom: 1em;
-  font-style: italic;
-  display: block;
+
+div.user_show .social {
+  position: relative;
+  border-top: 0;
+  padding: 0 0 5px 10px;
+}
+div.user_show .relation_actions {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+div.user_show div.meat {
+  height: 325px;
+  position: relative;
 }
 
 div.user_show .elo_history {
-  float: left;
+  position: absolute;
+  top: 0;
+  left: 0;
   display: block;
   width: 500px;
   height: 340px;
-  margin: -8px 0 0 -50px;
-  position: relative;
+  margin: -8px 0 -10px -50px;
 }
 div.user_show .elo_history span {
   position: absolute;
-  left: 240px;
   top: 170px;
+  left: 240px;
 }
 
 div.user_show .user-infos {
-  margin: 20px 0 0 470px;
+  position: absolute;
+  top: 0;
+  left: 449px;
+  padding: 0 16px;
+  border-left: 1px solid #c0c0c0;
+  overflow: auto;
+  width: 310px;
+  height: 325px;
 }
 
-div.user_show .win_stats {
-  display: block;
-  min-height: 200px;
-}
+div.user_show .user_bio,
 div.user_show .elo_with_me,
 div.user_show .numbers,
 div.user_show .tournament_points,
 div.user_show .teams {
   display: block;
-  margin-top: 1.6em;
+  margin-top: 16px;
 }
-div.user_show .teams {
-  max-height: 172px;
-  overflow: auto;
+div.user_show span.user_bio {
+  font-style: italic;
 }
 div.user_show .teams a {
   display: block;
@@ -57,10 +72,10 @@ div.user_show .teams a {
 }
 
 div.user_show div.elo_with_me {
+  width: 292px;
   padding: 5px 8px;
   border: 1px solid #eaeaea;
   background: #fafafa;
-  width: 270px;
   text-align: center;
 }
 div.user_show div.elo_with_me strong {
@@ -72,13 +87,13 @@ div.user_show div.games {
 }
 
 div.user_show .actions {
-  margin-bottom: 1em;
+  margin-top: 1em;
 }
 div.user_show .actions a.action,
 div.user_show .actions form {
   display: block;
   float: left;
-  margin-left: 25px;
+  margin-right: 25px;
 }
 div.user_show .mod_zone {
   display: none;
@@ -105,7 +120,4 @@ div.user_show .mod_zone .listings .blocked {
 div.user_show .mod_zone strong {
   display: block;
   margin-top: 0.5em;
-}
-div.user_show div.friend_button {
-  margin-top: 24px;
 }

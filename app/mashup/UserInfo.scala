@@ -6,6 +6,7 @@ import lila.game.{ GameRepo, Game }
 import lila.user.{ User, UserRepo, Context, EloChart }
 import lila.bookmark.BookmarkApi
 import lila.relation.RelationApi
+import lila.forum.PostApi
 
 case class UserInfo(
     user: User,
@@ -16,7 +17,8 @@ case class UserInfo(
     eloWithMe: Option[List[(String, Int)]],
     eloChart: Option[EloChart],
     nbFollowing: Int,
-    nbFollowers: Int) {
+    nbFollowers: Int,
+    nbPosts: Int) {
 
   def nbRated = user.nbRatedGames
 
@@ -31,7 +33,8 @@ object UserInfo {
     countUsers: () ⇒ Fu[Int],
     bookmarkApi: BookmarkApi,
     eloCalculator: EloCalculator,
-    relationApi: RelationApi)(user: User, ctx: Context): Fu[UserInfo] =
+    relationApi: RelationApi,
+    postApi: PostApi)(user: User, ctx: Context): Fu[UserInfo] =
     ((user.elo >= rankMinElo) ?? {
       UserRepo rank user flatMap { rank ⇒
         countUsers() map { nbUsers ⇒ (rank -> nbUsers).some }
@@ -46,8 +49,9 @@ object UserInfo {
       (bookmarkApi countByUser user) zip
       EloChart(user) zip
       relationApi.nbFollowing(user.id) zip
-      relationApi.nbFollowers(user.id) map {
-        case ((((((rank, nbPlaying), nbWithMe), nbBookmark), eloChart), nbFollowing), nbFollowers) ⇒ new UserInfo(
+      relationApi.nbFollowers(user.id) zip 
+      postApi.nbByUser(user.id) map {
+        case (((((((rank, nbPlaying), nbWithMe), nbBookmark), eloChart), nbFollowing), nbFollowers), nbPosts) ⇒ new UserInfo(
           user = user,
           rank = rank,
           nbPlaying = ~nbPlaying,
@@ -61,6 +65,7 @@ object UserInfo {
           },
           eloChart = eloChart,
           nbFollowing = nbFollowing,
-          nbFollowers = nbFollowers)
+          nbFollowers = nbFollowers,
+          nbPosts = nbPosts)
       }
 }

@@ -54,4 +54,15 @@ trait StringHelper {
 
   def strong(x: Int): String = strong(x.toString)
   def strong(x: String): String = "<strong>" + x + "</strong>"
+
+  private val NumberFirstRegex = """^(\d+)\s(.+)$""".r
+  private val NumberLastRegex = """^(.+)\s(\d+)$""".r
+  def splitNumber(s: String): Html = Html {
+    s match {
+      case NumberFirstRegex(number, text) ⇒ "<strong>%s</strong><br />%s".format(number, text)
+      case NumberLastRegex(text, number)  ⇒ "%s<br /><strong>%s</strong>".format(text, number)
+      case h                              ⇒ h
+    }
+  }
+  def splitNumber(s: Html): Html = splitNumber(s.body)
 }
