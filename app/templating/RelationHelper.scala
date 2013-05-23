@@ -10,4 +10,7 @@ trait RelationHelper {
 
   def relationWith(userId: String)(implicit ctx: Context): Option[Relation] =
     ctx.userId flatMap { api.relation(_, userId).await }
+
+  def followsMe(userId: String)(implicit ctx: Context): Boolean =
+    ctx.userId ?? { api.follows(userId, _).await }
 }

@@ -326,7 +326,8 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         placement: 's',
         smartPlacement: true,
         mouseOnToPopup: true,
-        closeDelay: 200
+        // closeDelay: 200
+        closeDelay: 999999
       }).on({
         powerTipPreRender: function() {
           $.ajax({
