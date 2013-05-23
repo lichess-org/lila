@@ -2,7 +2,7 @@ package lila.socket
 
 import actorApi._
 import lila.hub.actorApi.{ GetUids, WithUserIds, GetNbMembers, NbMembers, SendTo, SendTos }
-import lila.hub.actorApi.friend.FriendsOf
+import lila.hub.actorApi.relation.FriendsOf
 import lila.memo.ExpireSetMemo
 
 import akka.actor._

@@ -18,9 +18,11 @@ POST  /account/passwd                  controllers.User.passwdApply
 GET   /account/close                   controllers.User.close
 POST  /account/closeConfirm            controllers.User.closeConfirm
 
-# Friend
-POST  /friend/yes/:userId              controllers.Friend.yes(userId: String)
-POST  /friend/no/:userId               controllers.Friend.no(userId: String)
+# Relation
+POST  /rel/follow/:userId              controllers.Relation.follow(userId: String)
+POST  /rel/unfollow/:userId            controllers.Relation.unfollow(userId: String)
+POST  /rel/block/:userId               controllers.Relation.block(userId: String)
+POST  /rel/unblock/:userId             controllers.Relation.unblock(userId: String)
 
 #Site
 GET   /socket             controllers.Main.websocket

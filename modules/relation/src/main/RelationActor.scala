@@ -37,8 +37,8 @@ private[relation] final class RelationActor(
 
       onlines = onlines -- leaveIds ++ enters
 
-      notifyFollowers(enters, "follower_enters")
-      notifyFollowers(leaves, "follower_leaves")
+      notifyFriends(enters, "friend_enters")
+      notifyFriends(leaves, "friend_leaves")
     }
   }
 
@@ -49,7 +49,7 @@ private[relation] final class RelationActor(
   private var onlines = Map[ID, Username]()
   private def onlineIds: Set[ID] = onlines.keySet
 
-  private def notifyFollowers(users: List[User], message: String) {
+  private def notifyFriends(users: List[User], message: String) {
     users foreach {
       case (id, name) ⇒ getFriendIds(id) foreach { ids ⇒
         val notify = ids filter onlines.contains

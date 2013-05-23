@@ -32,7 +32,7 @@ private[tournament] final class TournamentApi(
 
   def makePairings(tour: Started, pairings: NonEmptyList[Pairing]): Funit =
     (tour addPairings pairings) |> { tour2 ⇒
-      $update(tour2) >> (pairings map joiner(tour2)).sequenceFu
+      $update(tour2) >> (pairings map joiner(tour2)).sequence
     } map {
       _.list foreach { game ⇒
         game.tournamentId foreach { tid ⇒

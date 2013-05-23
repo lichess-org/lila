@@ -45,7 +45,7 @@ object Analysis {
   def decodeInfos(enc: String): Option[List[Info]] =
     (enc.split(separator).toList.zipWithIndex map {
       case (info, index) ⇒ Info.decode(index + 1, info)
-    }).sequenceFu.fold(
+    }).sequence.fold(
       err ⇒ { logger.warn("[analysis] " + err); none[List[Info]] },
       _.some
     )

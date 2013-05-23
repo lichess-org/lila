@@ -28,19 +28,19 @@ final class Env(
 
   // val relationIds = cached.frinndIds apply _
 
-  // def cli = new lila.common.Cli {
-  //   def process = {
-  //     case "follow" :: u1 :: u2 :: Nil ⇒ api.makeFollow(u1, u2) inject "done"
-  //     case "block" :: u1 :: u2 :: Nil  ⇒ api.makeBlock(u1, u2) inject "done"
-  //   }
-  // }
+  def cli = new lila.common.Cli {
+    def process = {
+      case "follow" :: u1 :: u2 :: Nil ⇒ api.follow(u1, u2) inject "done"
+      case "block" :: u1 :: u2 :: Nil  ⇒ api.block(u1, u2) inject "done"
+    }
+  }
 
-  // private[relation] val actor = system.actorOf(Props(new RelationActor(
-  //   socketHub = hub.socket.hub,
-  //   getOnlineUserIds = getOnlineUserIds,
-  //   getUsername = getUsername,
-  //   getRelationIds = cached.relationIds.apply
-  // )), name = ActorName)
+  private[relation] val actor = system.actorOf(Props(new RelationActor(
+    socketHub = hub.socket.hub,
+    getOnlineUserIds = getOnlineUserIds,
+    getUsername = getUsername,
+    getFriendIds = cached.friends.apply
+  )), name = ActorName)
 
   // {
   //   import scala.concurrent.duration._

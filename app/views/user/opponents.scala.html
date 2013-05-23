@@ -3,7 +3,7 @@
 @title = @{ "%s - %s".format(u.username, trans.favoriteOpponents()) }
 
 @user.layout(title = title) {
-<div id="friend" class="content_box friend_box no_padding">
+<div class="content_box no_padding">
   <h1>@userLink(u, withOnline = false) @trans.favoriteOpponents()</h1>
   <table class="slist best_opponents">
     @if(sugs.size > 0) {
@@ -16,7 +16,7 @@
             @sug._2 @trans.games()
           </a>
         </td>
-        <td>@friend.button(sug._1.id)</td>
+        <td>@relation.actions(sug._1.id)</td>
       </tr>
       }
     </tbody>
