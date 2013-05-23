@@ -60,10 +60,10 @@ underchat = underchat.some) {
       <a class="more" title="@trans.seeTheGamesBeingPlayedInRealTime()" href="@routes.Game.realtime()">@trans.games() »</a>
       <span class="title">@trans.gamesBeingPlayedRightNow()</span>
     </div>
-    <div class="undertable_inner nano">
+    <div class="undertable_inner">
       <div class="content">
         <table class="lichess_messages">@timelineEntries(timeline)</table>
-    </div>
+      </div>
     </div>
   </div>
   <div class="new_posts undertable" data-url="@routes.ForumPost.recent">
@@ -71,7 +71,7 @@ underchat = underchat.some) {
       <a class="more" title="@trans.talkAboutChessAndDiscussLichessFeaturesInTheForum()" href="@routes.ForumCateg.index">@trans.forum() »</a>
       <span class="title">@trans.forum()</span>
     </div>
-    <div class="undertable_inner nano">
+    <div class="undertable_inner">
       <div class="content">
         <ol>@forum.post.recent(forumRecent)</ol>
       </div>
