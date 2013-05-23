@@ -71,7 +71,7 @@ private[monitor] final class Reporting(
           (hub.socket.round ? GetNbSockets),
           (hub.socket.round ? GetNbMembers),
           (hub.actor.game ? lila.hub.actorApi.game.Count)
-        ).map(_.mapTo[Int]).sequence onComplete {
+        ).map(_.mapTo[Int]).sequenceFu onComplete {
             case Failure(e) ⇒ logwarn("[reporting] " + e.getMessage)
             case Success(((mongoS, aiPing), List(siteMembers, lobbyMembers, gameHubs, gameMembers, games))) ⇒ {
               latency = (nowMillis - before).toInt

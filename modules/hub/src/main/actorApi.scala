@@ -85,7 +85,7 @@ package bookmark {
   case class Remove(gameIds: List[String])
 }
 
-package friend {
+package relation {
   case class GetFriends(userId: String)
-  case class FriendsOf(userId: String, friends: List[String])
+  // case class FriendsOf(userId: String, friends: List[String])
 }

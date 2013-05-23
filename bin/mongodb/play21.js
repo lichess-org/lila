@@ -67,6 +67,13 @@ print("user.settings.{chat,sound} should be a string");
   });
 });
 
+print('create relation collection');
+db.createCollection('relation')
+db.relation.ensureIndex({u1:1})
+db.relation.ensureIndex({u2:1})
+db.relation.ensureIndex({u1:1, f:1})
+db.relation.ensureIndex({u2:1, f:1})
+
 // print("Reset lobby_room");
 // db.lobby_room.drop();
 // db.createCollection("lobby_room",{capped:true,size:50000})

@@ -28,7 +28,7 @@ private[team] final class Cli(api: TeamApi) extends lila.common.Cli {
     $find byId teamId flatMap {
       _.fold(fufail[String]("Team not found")) { team ⇒
         UserRepo nameds userIds flatMap { users ⇒
-          users.map(user ⇒ fuloginfo(user.username) >> op(team, user.id)).sequence
+          users.map(user ⇒ fuloginfo(user.username) >> op(team, user.id)).sequenceFu
         } inject "Success"
       }
     }

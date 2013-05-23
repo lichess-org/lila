@@ -17,5 +17,5 @@ object RoomRepo {
     addMessage(id, "system", text)
 
   def addSystemMessages(id: String, texts: Seq[String]): Funit =
-    (texts map { addSystemMessage(id, _) }).sequence.void
+    (texts map { addSystemMessage(id, _) }).sequenceFu.void
 }

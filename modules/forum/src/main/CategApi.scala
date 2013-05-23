@@ -21,7 +21,7 @@ private[forum] final class CategApi(env: Env) extends OptionTs {
           }
         }, troll)
       }
-    }).sequence
+    }).sequenceFu
   } yield views
 
   def teamNbPosts(slug: String): Fu[Int] = CategRepo nbPosts teamSlug(slug)
@@ -85,6 +85,6 @@ private[forum] final class CategApi(env: Env) extends OptionTs {
   } yield ()
 
   def denormalize: Funit = $find.all[Categ] flatMap { categs ⇒
-    categs.map(denormalize).sequence
+    categs.map(denormalize).sequenceFu
   } void
 }

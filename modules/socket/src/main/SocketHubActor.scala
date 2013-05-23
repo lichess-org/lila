@@ -23,7 +23,7 @@ abstract class SocketHubActor extends Actor {
 
     case GetNbMembers ⇒ {
       sockets.values.toList map (_ ? GetNbMembers mapTo manifest[Int])
-    }.sequence map (_.sum) pipeTo sender
+    }.sequenceFu map (_.sum) pipeTo sender
 
     case msg @ NbMembers(_)       ⇒ broadcast(msg)
 

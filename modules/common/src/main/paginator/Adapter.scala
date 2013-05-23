@@ -33,7 +33,7 @@ trait AdapterLike[A] {
 
     def slice(offset: Int, length: Int) =
       AdapterLike.this.slice(offset, length) flatMap { results ⇒
-        results.map(f).sequence
+        results.map(f).sequenceFu
       }
   }
 }

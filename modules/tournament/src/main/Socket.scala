@@ -91,7 +91,7 @@ private[tournament] final class Socket(
   def notifyCrowd {
     members.values.map(_.userId).toList.partition(_.isDefined) match {
       case (users, anons) ⇒
-        (users.flatten.distinct map getUsername).sequence foreach { userList ⇒
+        (users.flatten.distinct map getUsername).sequenceFu foreach { userList ⇒
           notifyVersion("crowd", showSpectators(userList.flatten, anons.size))
         }
     }

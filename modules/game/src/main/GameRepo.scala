@@ -160,7 +160,7 @@ object GameRepo {
       val from = DateTime.now.withTimeAtStartOfDay - day.days
       val to = from + 1.day
       $count(Json.obj(createdAt -> ($gte($date(from)) ++ $lt($date(to)))))
-    }).sequence
+    }).sequenceFu
 
   def recentAverageElo(minutes: Int): Fu[(Int, Int)] = {
     val command = MapReduce(

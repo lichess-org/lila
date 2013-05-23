@@ -32,7 +32,7 @@ private[tournament] final class TournamentApi(
 
   def makePairings(tour: Started, pairings: NonEmptyList[Pairing]): Funit =
     (tour addPairings pairings) |> { tour2 ⇒
-      $update(tour2) >> (pairings map joiner(tour2)).sequence
+      $update(tour2) >> (pairings map joiner(tour2)).sequenceFu
     } map {
       _.list foreach { game ⇒
         game.tournamentId foreach { tid ⇒
@@ -86,7 +86,7 @@ private[tournament] final class TournamentApi(
       (pairingsToAbort foreach { pairing ⇒
         roundMap ! Tell(pairing.gameId, AbortForce) 
       }) >>
-      finished.players.filter(_.score > 0).map(p ⇒ UserRepo.incToints(p.id)(p.score)).sequence inject finished
+      finished.players.filter(_.score > 0).map(p ⇒ UserRepo.incToints(p.id)(p.score)).sequenceFu inject finished
   }, fuccess(started))
 
   def join(tour: Created, me: User): Funit =

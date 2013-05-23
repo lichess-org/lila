@@ -46,14 +46,14 @@ object ThreadRepo {
     } map (~_)
   }
 
-  def setRead(thread: Thread): Funit = Future sequence {
+  def setRead(thread: Thread): Funit = {
     List.fill(thread.nbUnread) {
       $update(
         $select(thread.id) ++ Json.obj("posts.isRead" -> false),
         $set("posts.$.isRead" -> true)
       )
     }
-  } void
+  }.sequenceFu.void
 
   def deleteFor(user: ID)(thread: ID) = 
     $update($select(thread), $pull("visibleByUserIds", user))

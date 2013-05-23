@@ -21,7 +21,7 @@ private[i18n] final class GitWrite(
     fuloginfo("Working on " + repoPath) >>
       git.currentBranch flatMap { currentBranch ⇒
         loginfo("Current branch is " + currentBranch)
-        (translations map gitActor.?).sequence >>
+        (translations map gitActor.?).sequenceFu >>
           (gitActor ? currentBranch mapTo manifest[Unit])
       } 
 

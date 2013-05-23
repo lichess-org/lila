@@ -92,6 +92,6 @@ private[forum] final class TopicApi(
   } yield ()
 
   def denormalize: Funit = $find.all[Topic] flatMap { topics ⇒
-    topics.map(denormalize).sequence
+    topics.map(denormalize).sequenceFu
   } void
 }

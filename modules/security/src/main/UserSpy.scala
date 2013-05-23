@@ -31,7 +31,7 @@ private[security] object UserSpy {
     objs ← $find(Json.obj("user" -> user.id))
     users ← explore(Set(user), Set.empty, Set(user))
     ips = objs.map(_ str "ip").flatten.distinct
-    blockedIps ← (ips map firewall.blocksIp).sequence
+    blockedIps ← (ips map firewall.blocksIp).sequenceFu
   } yield UserSpy(
     ips = ips zip blockedIps,
     uas = objs.map(_ str "ua").flatten.distinct,

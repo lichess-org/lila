@@ -16,7 +16,7 @@ private[game] final class Export(router: lila.hub.ActorLazyRef) {
   // returns the web path
   def apply(user: User): Fu[String] = for {
     games ← GameRepo recentByUser user.id
-    data ← (games map doGame(user)).sequence
+    data ← (games map doGame(user)).sequenceFu
     filename = "%s_lichess_games_%s.csv".format(user.username, date)
     webPath ← CsvServer(filename)(header :: data)
   } yield webPath
@@ -30,7 +30,7 @@ private[game] final class Export(router: lila.hub.ActorLazyRef) {
       R.Pgn(game.id)
     ) map { r ⇒
         router ? R.Nolang(r) mapTo manifest[String]
-      }).sequence map { urls ⇒
+      }).sequenceFu map { urls ⇒
         (List(
           id,
           dateFormatter.print(game.createdAt),
