@@ -41,7 +41,9 @@ object User extends LilaController {
         pag ← (filters.query.fold(Env.bookmark.api.gamePaginatorByUser(u, page)) { query ⇒
           gamePaginator.recentlyCreated(query, filters.cachedNb)(page)
         })
-      } yield html.user.show(u, info, pag, filters)
+        nbFollowing ← Env.relation.api nbFollowing u.id
+        nbFollowers ← Env.relation.api nbFollowers u.id
+      } yield html.user.show(u, info, pag, nbFollowing, nbFollowers, filters)
     }, fuccess(html.user.disabled(u)))
 
   private def mini(username: String)(implicit ctx: Context) =

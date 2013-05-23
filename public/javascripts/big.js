@@ -322,12 +322,12 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     });
 
     function userPowertips() {
-      $('a.user_link:not(.powertiped)').addClass('.powertiped').powerTip({
+      $('a.user_link:not(.jsed)').addClass('.jsed').powerTip({
         placement: 's',
         smartPlacement: true,
         mouseOnToPopup: true,
-        // closeDelay: 200
-        closeDelay: 999999
+        closeDelay: 200
+        // closeDelay: 999999
       }).on({
         powerTipPreRender: function() {
           $.ajax({
@@ -1263,11 +1263,11 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       this.nobody.toggle(nb == 0);
     },
     set: function(users) {
-      this.list.html(_.map(users, $.userLink).join(""));
+      this.list.html(_.map(users, this._renderUser).join(""));
       this.repaint();
     },
     enters: function(user) {
-      this.list.append($.userLink(user));
+      this.list.append(renderUser(user));
       this.repaint();
     },
     leaves: function(user) {
@@ -1275,6 +1275,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         return $(this).text() == user;
       }).remove();
       this.repaint();
+    },
+    _renderUser: function(user) {
+      return '<a href="/@/' + user + '">' + user + '</a>';
     }
   });
 

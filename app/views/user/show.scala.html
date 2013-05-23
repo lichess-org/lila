@@ -1,6 +1,6 @@
-@(u: User, info: lila.app.mashup.UserInfo, games: Paginator[Game], filters: lila.app.mashup.GameFilterMenu)(implicit ctx: Context)
+@(u: User, info: lila.app.mashup.UserInfo, games: Paginator[Game], nbFollowing: Int, nbFollowers: Int, filters: lila.app.mashup.GameFilterMenu)(implicit ctx: Context)
 
-@title = @{ "%s : %s - page %d".format(u.username, filterTitle(info, filters.current), games.currentPage) }
+@title = @{ "%s : %s - page %d".format(u.username, userGameFilterTitle(info, filters.current), games.currentPage) }
 
 @evenMoreJs = {
 @if(ctx is u) {
@@ -34,7 +34,7 @@
 @if(ctx is u) {
 <a class="small action" href="@routes.User.passwd">Change password</a>
 <a class="small action" href="@routes.User.close">Close account</a>
-} 
+}
 }
 
 @user.layout(
@@ -59,6 +59,13 @@ evenMoreCss = evenMoreCss) {
     <span class="staff">CLOSED</span>
     }
   </div>
+  <div class="social">
+    <a href="@routes.Relation.following(u.username)">@trans.nbFollowing(nbFollowing)</a>
+    <a href="@routes.Relation.followers(u.username)">@trans.nbFollowers(nbFollowers)</a>
+    @if(ctx.isAuth && !ctx.is(u)) {
+    @relation.actions(u.id)
+    }
+  </div>
   <div class="clearfix">
     @info.eloChart.map { eloChart =>
     <div class="elo_history" title="Elo history" data-columns="@eloChart.columns" data-rows="@eloChart.rows">
@@ -76,9 +83,6 @@ evenMoreCss = evenMoreCss) {
         @e._1.capitalize: <strong>@showNumber(e._2)</strong>
         }
       </div>
-      }
-      @if(ctx.isAuth && !ctx.is(u)) {
-      @relation.actions(u.id)
       }
       <div class="stats">
         <p class="numbers">
@@ -109,7 +113,7 @@ evenMoreCss = evenMoreCss) {
   <div class="content_box_inter clearfix">
     @filters.list.map { f =>
     <a @{ (filters.current == f).??(Html("class=\"active\"")) } href="@routes.User.showFilter(u.username, f.name)">
-      @filterTitle(info, f)
+      @userGameFilterTitle(info, f)
     </a>
     }
   </div>

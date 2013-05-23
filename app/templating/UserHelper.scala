@@ -1,13 +1,14 @@
 package lila.app
 package templating
 
-import lila.user.User
+import lila.user.{ User, Context }
+import mashup._
 
 import controllers.routes
 
 import play.api.templates.Html
 
-trait UserHelper {
+trait UserHelper { self: I18nHelper ⇒
 
   def userIdToUsername(userId: String): String =
     (Env.user usernameOrAnonymous userId).await
@@ -113,4 +114,23 @@ trait UserHelper {
       withOnline option isOnline(userId).fold("online", "offline")
     ).flatten
   }.mkString("class=\"", " ", "\"")
+
+  private val NumberFirstRegex = """^(\d+)\s(.+)$""".r
+  private val NumberLastRegex = """^(.+)\s(\d+)$""".r
+  def userGameFilterTitle(info: UserInfo, filter: GameFilter)(implicit ctx: Context) = Html {
+    ((filter match {
+      case GameFilter.All      ⇒ info.user.nbGames + " " + trans.gamesPlayed()
+      case GameFilter.Me       ⇒ ctx.me.fold("-")(me ⇒ "%d vs me" format ~info.nbWithMe)
+      case GameFilter.Rated    ⇒ info.nbRated + " " + trans.rated()
+      case GameFilter.Win      ⇒ trans.nbWins(info.user.nbWins)
+      case GameFilter.Loss     ⇒ trans.nbLosses(info.user.nbLosses)
+      case GameFilter.Draw     ⇒ trans.nbDraws(info.user.nbDraws)
+      case GameFilter.Playing  ⇒ info.nbPlaying + " playing"
+      case GameFilter.Bookmark ⇒ trans.nbBookmarks(info.nbBookmark)
+    }).toString match {
+      case NumberFirstRegex(number, text) ⇒ "<strong>%s</strong><br />%s".format(number, text)
+      case NumberLastRegex(text, number)  ⇒ "%s<br /><strong>%s</strong>".format(text, number)
+      case h                              ⇒ h
+    })
+  }
 }

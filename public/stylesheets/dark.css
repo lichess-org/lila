@@ -160,7 +160,7 @@ body.dark div.undergame_box,
 body.dark div.undertable td,
 body.dark div.lichess_table,
 body.dark div.lichess_table_wrap div.clock,
-body.dark #friend_box,
+body.dark #friend_box .content a:hover,
 body.dark div.footer_wrap
 {
   background: #242424;
@@ -245,7 +245,8 @@ body.dark table.translations tbody tr:nth-child(odd),
 body.dark form.translation_form div.message:nth-child(even),
 body.dark div.content_box table.datatable tr:nth-child(odd),
 body.dark div.game_config .optional_config,
-body.dark div.search_status
+body.dark div.search_status,
+body.dark #friend_box
 {
   background: #343434;
 }

@@ -1,0 +1,8 @@
+@(u: User, userIds: List[String])(implicit ctx: Context)
+
+@user.layout(title = u.username + " - " + trans.nbFollowing(userIds.size)) {
+<div class="content_box no_padding">
+  <h1>@userLink(u, withOnline = false) @trans.nbFollowing(userIds.size)</h1>
+  @relation.userTable(userIds)
+</div>
+}

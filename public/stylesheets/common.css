@@ -226,9 +226,10 @@ div.content_box_inter {
 }
 div.content_box_inter a {
   float: left;
-  line-height: 40px;
+  text-align: center;
+  line-height: 1.5em;
   margin: 5px 0 -1px 0;
-  padding: 0 0.7em;
+  padding: 0.5em 0.7em;
   font-size: 1em;
   text-decoration: none;
   text-transform: capitalize;
@@ -598,14 +599,12 @@ a#sound_state.unavailable {
   border-radius: 4px 4px 0 0;
 }
 #friend_box .content a {
-  background: #fff;
   padding: 3px 5px;
   text-decoration: none;
   display: block;
 }
 #friend_box .content a:hover {
   background: #F0F0F0;
-  color: #444;
 }
 #friend_box .nobody {
   text-align: center;

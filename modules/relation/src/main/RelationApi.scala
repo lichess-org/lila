@@ -14,6 +14,9 @@ final class RelationApi(cached: Cached) {
   def blockers(userId: ID) = cached blockers userId
   def blocking(userId: ID) = cached blocking userId
 
+  def nbFollowers(userId: ID) = followers(userId) map (_.size)
+  def nbFollowing(userId: ID) = following(userId) map (_.size)
+
   def friends(userId: ID) = cached friends userId
 
   def follows(u1: ID, u2: ID) = following(u1) map (_ contains u2)
