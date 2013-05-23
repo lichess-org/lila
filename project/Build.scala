@@ -26,7 +26,7 @@ object ApplicationBuild extends Build {
     message, notification, i18n, game, bookmark, search,
     gameSearch, timeline, forum, forumSearch, team, teamSearch,
     ai, analyse, mod, monitor, site, round, lobby, setup,
-    importer, tournament, friend)
+    importer, tournament, relation)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map classpathDependency
@@ -116,7 +116,7 @@ object ApplicationBuild extends Build {
       play.api, reactivemongo, playReactivemongo, spray.caching)
   )
 
-  lazy val friend = project("friend", Seq(common, db, memo, hub, user, game)).settings(
+  lazy val relation = project("relation", Seq(common, db, memo, hub, user, game)).settings(
     libraryDependencies ++= provided(play.api, reactivemongo, playReactivemongo)
   )
 

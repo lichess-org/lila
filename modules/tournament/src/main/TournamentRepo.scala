@@ -48,10 +48,10 @@ object TournamentRepo {
     createds ← created
     createdIds ← (createds map (_ withdraw userId) collect {
       case scalaz.Success(tour) ⇒ $update(tour: Tournament) inject tour.id
-    }).sequence
+    }).sequenceFu
     starteds ← started
     startedIds ← (starteds map (_ withdraw userId) collect {
       case scalaz.Success(tour) ⇒ $update(tour: Tournament) inject tour.id
-    }).sequence
+    }).sequenceFu
   } yield createdIds ::: startedIds
 }

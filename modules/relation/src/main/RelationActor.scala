@@ -1,23 +1,24 @@
-package lila.friend
+package lila.relation
 
 import actorApi._
 import lila.hub.actorApi.SendTos
-import lila.hub.actorApi.friend.GetFriends
+import lila.hub.actorApi.relation._
 
 import akka.actor.Actor
 import akka.pattern.{ ask, pipe }
 
-private[friend] final class FriendActor(
+private[relation] final class RelationActor(
     socketHub: lila.hub.ActorLazyRef,
     getOnlineUserIds: () ⇒ Set[String],
     getUsername: String ⇒ Fu[String],
-    getFriendIds: String ⇒ Fu[List[String]]) extends Actor {
+    getFriendIds: String ⇒ Fu[Set[String]]) extends Actor {
 
   def receive = {
 
     // rarely called
-    case GetFriends(userId) ⇒ getFriendIds(userId) flatMap { friendIds ⇒
-      ((friendIds.toSet intersect onlineIds).toList map getUsername).sequence
+    // return a list of usernames, followers, following and online
+    case GetFriends(userId) ⇒ getFriendIds(userId) flatMap { ids ⇒
+      ((ids intersect onlineIds).toList map getUsername).sequenceFu
     } pipeTo sender
 
     case NotifyMovement ⇒ {
@@ -31,13 +32,13 @@ private[friend] final class FriendActor(
       } flatten
 
       val enters: List[User] = {
-        (enterIds map { id ⇒ getUsername(id) map { id -> _ } }).sequence
+        (enterIds map { id ⇒ getUsername(id) map { id -> _ } }).sequenceFu
       }.await
 
       onlines = onlines -- leaveIds ++ enters
 
-      notifyFriends(enters, "friend_enters")
-      notifyFriends(leaves, "friend_leaves")
+      notifyFollowers(enters, "follower_enters")
+      notifyFollowers(leaves, "follower_leaves")
     }
   }
 
@@ -48,7 +49,7 @@ private[friend] final class FriendActor(
   private var onlines = Map[ID, Username]()
   private def onlineIds: Set[ID] = onlines.keySet
 
-  private def notifyFriends(users: List[User], message: String) {
+  private def notifyFollowers(users: List[User], message: String) {
     users foreach {
       case (id, name) ⇒ getFriendIds(id) foreach { ids ⇒
         val notify = ids filter onlines.contains

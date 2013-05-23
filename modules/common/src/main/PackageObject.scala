@@ -113,6 +113,11 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
 
   implicit def LilaJsResultZero[A]: Zero[JsResult[A]] = zero(JsError(Seq.empty))
 
+  implicit final class LilaTraversableFuture[A, M[_] <: TraversableOnce[_]](t: M[Fu[A]]) {
+
+    def sequenceFu(implicit cbf: scala.collection.generic.CanBuildFrom[M[Fu[A]], A, M[A]]) = Future sequence t
+  }
+
   implicit final class LilaPimpedFuture[A](fua: Fu[A]) {
 
     def >>-(sideEffect: ⇒ Unit): Funit = fua.void andThen {

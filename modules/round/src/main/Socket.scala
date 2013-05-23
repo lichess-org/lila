@@ -92,7 +92,7 @@ private[round] final class Socket(
   def notifyCrowd {
     members.values.filter(_.watcher).map(_.userId).toList.partition(_.isDefined) match {
       case (users, anons) ⇒
-        (users.flatten.distinct map getUsername).sequence map { userList ⇒
+        (users.flatten.distinct map getUsername).sequenceFu map { userList ⇒
           notify(Event.Crowd(
             white = ownerOf(White).isDefined,
             black = ownerOf(Black).isDefined,

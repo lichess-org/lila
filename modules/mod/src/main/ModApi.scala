@@ -29,8 +29,8 @@ final class ModApi(
       UserRepo.toggleIpBan(user.id) zip
         logApi.ban(mod, user.id, !user.ipBan) zip
         user.ipBan.fold(
-          (spy.ipStrings map firewall.unblockIp).sequence,
-          (spy.ipStrings map firewall.blockIp).sequence >>
+          (spy.ipStrings map firewall.unblockIp).sequenceFu,
+          (spy.ipStrings map firewall.blockIp).sequenceFu >>
             (SecurityStore disconnect user.id)
         ) void
     }
