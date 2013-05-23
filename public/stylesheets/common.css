@@ -962,6 +962,15 @@ div.notifications > div a.close:hover {
   margin-left: 8px;
 }
 
+a.hover_text > .base,
+a.hover_text:hover > .hover {
+  display: inline-block;
+}
+a.hover_text > .hover,
+a.hover_text:hover > .base {
+  display: none;
+}
+
 /* scroll */
 .nano {
   position : relative;

@@ -309,7 +309,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
     $('#friend_box').friends();
 
-    $('body').on('click', 'div.friend_button a', function() {
+    $('body').on('click', 'div.relation_actions a', function() {
       var $a = $(this).css('opacity', 0.2);
       $.ajax({
         url: $a.attr('href'),
@@ -326,7 +326,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         placement: 's',
         smartPlacement: true,
         mouseOnToPopup: true,
-        closeDelay: 9999999
+        closeDelay: 200
       }).on({
         powerTipPreRender: function() {
           $.ajax({
@@ -582,7 +582,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     });
   }, 1500);
   $('body').on('lichess.content_loaded', function() {
-    $('.nano').nanoScroller();
+    $('.nano:not(.jsed)').removeclass('.jsed').nanoScroller();
   });
 
   $.fn.orNot = function() {

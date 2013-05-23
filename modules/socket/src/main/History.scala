@@ -18,7 +18,7 @@ final class History(ttl: Duration) {
   def since(v: Int): Option[List[JsObject]] =
     if (v > version) None
     else if (v == version) Some(Nil)
-    else ((v + 1 to version).toList map message).sequenceFu
+    else ((v + 1 to version).toList map message).sequence
 
   private def message(v: Int) = Option(messages getIfPresent v)
 

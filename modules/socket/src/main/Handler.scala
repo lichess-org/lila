@@ -1,7 +1,7 @@
 package lila.socket
 
 import actorApi._
-import lila.hub.actorApi.friend.{ GetFriends, FriendsOf }
+import lila.hub.actorApi.relation.{ GetFriends, FriendsOf }
 import makeTimeout.large
 import lila.common.PimpedJson._
 
@@ -25,7 +25,7 @@ object Handler {
     val baseController: Controller = {
       case ("p", _) ⇒ socket ! Ping(uid)
       case ("friends", _) ⇒ userId foreach { u ⇒
-        hub.actor.friend ? GetFriends(u) mapTo manifest[List[String]] map { friends ⇒
+        hub.actor.relation ? GetFriends(u) mapTo manifest[List[String]] map { friends ⇒
           FriendsOf(uid, friends)
         } pipeTo socket
       }

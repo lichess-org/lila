@@ -1,0 +1,29 @@
+@(userId: String, signup: Boolean = false)(implicit ctx: Context)
+
+@ctx.userId.map { myId =>
+<div class="relation_actions">
+  @relationWith(userId) match {
+  case None => {
+  <a class="button follow" href="@routes.Relation.follow(userId)">@trans.follow()</a>
+  }
+  case Some(true) => {
+  <a class="button unfollow hover_text" href="@routes.Relation.unfollow(userId)">
+    <span class="base">@trans.following()</span>
+    <span class="hover">@trans.unfollow()</span>
+  </a>
+  }
+  case Some(false) => {
+  <a class="button unblock hover_text" href="@routes.Relation.unblock(userId)">
+    <span class="base">@trans.blocked()</span>
+    <span class="hover">@trans.unblock()</span>
+  </a>
+  }
+  }
+</div>
+}.getOrElse {
+@if(signup) {
+@trans.youNeedAUsernameToDoThat()
+<a href="@routes.Auth.login" class="signup">@trans.signUp</a>
+}
+}
+

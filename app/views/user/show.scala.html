@@ -78,7 +78,7 @@ evenMoreCss = evenMoreCss) {
       </div>
       }
       @if(ctx.isAuth && !ctx.is(u)) {
-      @friend.button(u.id)
+      @relation.actions(u.id)
       }
       <div class="stats">
         <p class="numbers">
