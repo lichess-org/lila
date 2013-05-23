@@ -3,6 +3,7 @@ package lila.relation
 import lila.db.Implicits._
 import lila.db.api._
 import tube.relationTube
+import lila.common.PimpedJson._
 
 import play.api.libs.json._
 
@@ -19,11 +20,15 @@ private[relation] object RelationRepo {
   def blockers(userId: ID) = relaters(userId, Block)
   def blocking(userId: ID) = relating(userId, Block)
 
-  private def relaters(userId: ID, relation: Boolean): Fu[Set[ID]] =
-    $primitive(Json.obj("u2" -> userId, "r" -> relation), "u1")(_.asOpt[ID]) map (_.toSet)
+  private def relaters(userId: ID, relation: Relation): Fu[Set[ID]] =
+    $projection(Json.obj("u2" -> userId), Seq("u1", "f")) { obj ⇒
+      obj str "u1" map { _ -> ~(obj boolean "f") }
+    } map (_.filter(_._2 == relation).map(_._1).toSet)
 
-  private def relating(userId: ID, relation: Boolean): Fu[Set[ID]] =
-    $primitive(Json.obj("u1" -> userId, "r" -> relation), "u2")(_.asOpt[ID]) map (_.toSet)
+  private def relating(userId: ID, relation: Relation): Fu[Set[ID]] =
+    $projection(Json.obj("u1" -> userId), Seq("u2", "f")) { obj ⇒
+      obj str "u2" map { _ -> ~(obj boolean "f") }
+    } map (_.filter(_._2 == relation).map(_._1).toSet)
 
   def follow(u1: ID, u2: ID): Funit = save(u1, u2, Follow)
   def unfollow(u1: ID, u2: ID): Funit = remove(u1, u2)
