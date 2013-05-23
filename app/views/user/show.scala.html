@@ -59,14 +59,16 @@ evenMoreCss = evenMoreCss) {
     <span class="staff">CLOSED</span>
     }
   </div>
-  <div class="social">
-    <a href="@routes.Relation.following(u.username)">@trans.nbFollowing(info.nbFollowing)</a>
-    <a href="@routes.Relation.followers(u.username)">@trans.nbFollowers(info.nbFollowers)</a>
+  <div class="social content_box_inter clearfix">
+    <a class="intertab" href="@routes.Relation.following(u.username)">@splitNumber(trans.nbFollowing(info.nbFollowing))</a>
+    <a class="intertab" href="@routes.Relation.followers(u.username)">@splitNumber(trans.nbFollowers(info.nbFollowers))</a>
+    <span class="intertab" >@splitNumber(u.toints + " " + trans.tournamentPoints())</span>
+    <span class="intertab" >@splitNumber(info.nbPosts + " Forum posts")</span>
     @if(ctx.isAuth && !ctx.is(u)) {
     @relation.actions(u.id)
     }
   </div>
-  <div class="clearfix">
+  <div class="meat">
     @info.eloChart.map { eloChart =>
     <div class="elo_history" title="Elo history" data-columns="@eloChart.columns" data-rows="@eloChart.rows">
       <span>Chart loading...</span>
@@ -91,28 +93,25 @@ evenMoreCss = evenMoreCss) {
           @trans.nbDraws(strong(u.nbDrawsH)),
           @Html(strong(u.nbAi)) AI
         </p>
-        <span class="tournament s16 tournament_points">
-          @trans.tournamentPoints(): <strong>@u.toints</strong>
-        </span>
         <div class="teams">
           @teamIds(u.id).sortBy(t => !myTeam(t)).map { teamId =>
-          @teamLink(teamId, ("s16 team" + myTeam(teamId).fold(" mine", "")).some)
+          @teamLink(teamId, ("s16 team underline-revert" + myTeam(teamId).fold(" mine", "")).some)
           }
         </div>
       </div>
+      <div class="actions clearfix">
+        @actions
+        @if(isGranted(_.UserSpy)) {
+        <a class="action mod_zone_toggle" href="@routes.User.mod(u.username)">Mod zone</a>
+        }
+      </div>
     </div>
-  </div>
-  <div class="actions clearfix">
-    @actions
-    @if(isGranted(_.UserSpy)) {
-    <a class="action mod_zone_toggle" href="@routes.User.mod(u.username)">Mod zone</a>
-    }
   </div>
   <div class="mod_zone"></div>
   @if(u.hasGames) {
   <div class="content_box_inter clearfix">
     @filters.list.map { f =>
-    <a @{ (filters.current == f).??(Html("class=\"active\"")) } href="@routes.User.showFilter(u.username, f.name)">
+    <a class="intertab@{ (filters.current == f).??(" active") }" href="@routes.User.showFilter(u.username, f.name)">
       @userGameFilterTitle(info, f)
     </a>
     }

@@ -9,7 +9,7 @@ import lila.db.api._
 import tube._
 import actorApi._
 
-import play.api.libs.json.JsObject
+import play.api.libs.json._
 import scalaz.{ OptionT, OptionTs }
 
 final class PostApi(
@@ -100,4 +100,6 @@ final class PostApi(
         text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text))
     } yield true.some)
   } yield ()).value.void
+
+  def nbByUser(userId: String) = $count[Post](Json.obj("userId" -> userId))
 }

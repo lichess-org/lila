@@ -218,13 +218,12 @@ div.content_box_top .icon {
 }
 div.content_box_inter {
   padding-left: 25px;
-  line-height: 40px;
   background: #f0f0f0;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   display: block;
 }
-div.content_box_inter a {
+div.content_box_inter .intertab {
   float: left;
   text-align: center;
   line-height: 1.5em;
@@ -234,7 +233,10 @@ div.content_box_inter a {
   text-decoration: none;
   text-transform: capitalize;
 }
-div.content_box_inter a.active {
+div.content_box_inter a.intertab:hover {
+  text-transform: underline;
+}
+div.content_box_inter a.intertab.active {
   background: white;
   border: 1px solid #ccc;
   border-bottom: 0;
@@ -641,6 +643,12 @@ span.s16.clock {
   padding-left: 0;
   padding-right: 20px;
 }
+.s16.setting_block {
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-position: 0 -384px;
+}
 
 .user_link.white, .user_link.black, .user_link.online, .user_link.offline {
   line-height: 16px;
@@ -978,6 +986,13 @@ input:focus:-moz-placeholder { color: transparent; }
 input:focus::-moz-placeholder { color: transparent; }
 input:focus:-ms-input-placeholder { color: transparent; }
 
+div.relation_actions .user_more {
+  width: 16px;
+  height: 16px;
+  display: block;
+  background-position: 0 -160px;
+}
+
 /* PowerTip Plugin */
 #powerTip {
   width: 200px;
@@ -995,6 +1010,7 @@ input:focus:-ms-input-placeholder { color: transparent; }
   border-bottom: 1px solid #c0c0c0;
 }
 #powerTip > .content {
+  text-align: right;
   padding: 16px 8px;
 }
 #powerTip:before {
