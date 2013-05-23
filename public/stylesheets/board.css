@@ -672,20 +672,21 @@ div.lichess_chat input.toggle_chat {
   z-index:1;
 }
 
-div.lichess_chat .nano {
+div.lichess_chat .lichess_messages {
   height: 263px;
   width: 226px;
   border: 1px solid #ccc;
   border-top: none;
+  overflow: hidden;
 }
-div.lichess_chat.small_chat .nano {
+div.lichess_chat:hover .lichess_messages {
+  overflow: auto;
+}
+div.lichess_chat.small_chat .lichess_messages {
   width: 186px;
 }
-div.lichess_chat.lobby_chat .nano {
+div.lichess_chat.lobby_chat .lichess_messages {
   height: 341px;
-}
-div.lichess_chat .nano .content {
-  overflow: hidden;
 }
 
 div.lichess_chat form {

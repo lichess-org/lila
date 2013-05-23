@@ -336,7 +336,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         }
       }).data('powertip', ' ');
     }
-    userPowertips();
+    setTimeout(userPowertips, 600);
     $('body').on('lichess.content_loaded', userPowertips);
 
     // Start game
@@ -574,15 +574,6 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       $("div.addtochrome").show();
     }
 
-  });
-
-  setTimeout(function() {
-    $('.nano').nanoScroller({
-      scroll: 'bottom'
-    });
-  }, 1500);
-  $('body').on('lichess.content_loaded', function() {
-    $('.nano:not(.jsed)').removeclass('.jsed').nanoScroller();
   });
 
   $.fn.orNot = function() {
@@ -1294,11 +1285,10 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       }, this.options);
       var self = this;
       self.$msgs = self.element.find('.lichess_messages');
-      self.$nano = self.element.find('.nano');
       if (this.options.resize) {
         var headerHeight = self.element.parent().height();
         self.element.css("top", headerHeight + 13);
-        self.$nano.css("height", 458 - headerHeight);
+        self.$msgs.scrollTop(999999);
       }
       var $form = self.element.find('form');
       var $input = self.element.find('input.lichess_say');
@@ -1349,9 +1339,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     _appendHtml: function(html) {
       this.$msgs.append(html);
       $('body').trigger('lichess.content_loaded');
-      this.$nano.nanoScroller({
-        scroll: 'bottom'
-      });
+      this.$msgs.scrollTop(999999);
     },
     remove: function(regex) {
       var r = new RegExp(regex);
@@ -1872,11 +1860,8 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       for (i in data) {
         html += '<tr>' + data[i] + '</tr>';
       }
-      $bot.find('.lichess_messages').append(html);
+      $bot.find('.lichess_messages').append(html).scrollTop(999999);
       $('body').trigger('lichess.content_loaded');
-      $bot.find('.nano').nanoScroller({
-        scroll: 'bottom'
-      });
     }
 
     function removeHook(id) {

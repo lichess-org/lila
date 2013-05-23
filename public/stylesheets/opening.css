@@ -291,7 +291,10 @@ div.undertable_inner {
   border-radius: 0 0 4px 4px;
   height: 204px;
   width: auto;
-  overflow:hidden;
+  overflow: hidden;
+}
+div.undertable_inner:hover {
+  overflow: auto;
 }
 div.undertable a.user_link {
   text-decoration: none;

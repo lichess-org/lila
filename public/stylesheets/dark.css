@@ -40,7 +40,7 @@ body.dark #nb_connected_players,
 body.dark #reconnecting,
 body.dark #connecting,
 body.dark div.lichess_chat_top,
-body.dark div.lichess_chat .nano,
+body.dark div.lichess_chat .lichess_messages,
 body.dark div.undertable_top,
 body.dark div.undertable_inner,
 body.dark div.undertable td,
@@ -153,7 +153,7 @@ body.dark #top span.new_messages {
   background: #606060;
 }
 
-body.dark div.lichess_chat .nano,
+body.dark div.lichess_chat .lichess_messages,
 body.dark div.undertable_inner,
 body.dark div.lichess_goodies div.box,
 body.dark div.undergame_box,
@@ -371,14 +371,6 @@ body.dark div.hooks td.action.empty {
 }
 body.dark .s16.ddown {
   background-position: right -368px;
-}
-
-body.dark .nano > .pane {
-  background : rgba(255,255,255,.15);
-}
-body.dark .nano > .pane > .slider {
-  background: #ccc;
-  background: rgba(255,255,255,.4);
 }
 body.dark ::-webkit-input-placeholder { color: #666; }
 body.dark :-moz-placeholder { color: #666; }
