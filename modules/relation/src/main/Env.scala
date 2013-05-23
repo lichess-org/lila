@@ -42,15 +42,15 @@ final class Env(
     getFriendIds = cached.friends.apply
   )), name = ActorName)
 
-  // {
-  //   import scala.concurrent.duration._
-  //   import makeTimeout.short
-  //   import lila.hub.actorApi.WithUserIds
+  {
+    import scala.concurrent.duration._
+    import makeTimeout.short
+    import lila.hub.actorApi.WithUserIds
 
-    // scheduler.message(ActorNotifyFreq) {
-    //   actor -> actorApi.NotifyMovement
-    // }
-  // }
+    scheduler.message(ActorNotifyFreq) {
+      actor -> actorApi.NotifyMovement
+    }
+  }
 
   private[relation] lazy val relationColl = db(CollectionRelation)
 }

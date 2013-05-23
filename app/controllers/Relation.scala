@@ -1,7 +1,7 @@
 package controllers
 
 import lila.app._
-import lila.user.{ User ⇒ UserModel, Context }
+import lila.user.{ User ⇒ UserModel, UserRepo, Context }
 import views._
 
 import play.api.mvc._
@@ -31,5 +31,21 @@ object Relation extends LilaController {
   def unblock(userId: String) = Auth { implicit ctx ⇒
     me ⇒
       env.api.unblock(me.id, userId).nevermind inject html.relation.actions(userId)
+  }
+
+  def following(userId: String) = Open { implicit ctx ⇒
+    OptionFuOk(UserRepo named userId) { user ⇒
+      env.api.following(user.id) map { userIds ⇒
+        html.relation.following(user, userIds.toList.sorted)
+      }
+    }
+  }
+
+  def followers(userId: String) = Open { implicit ctx ⇒
+    OptionFuOk(UserRepo named userId) { user ⇒
+      env.api.followers(user.id) map { userIds ⇒
+        html.relation.followers(user, userIds.toList.sorted)
+      }
+    }
   }
 }

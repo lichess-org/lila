@@ -1,0 +1,18 @@
+@(userIds: List[String])(implicit ctx: Context)
+
+<table class="slist">
+  @if(userIds.size > 0) {
+  <tbody class="infinitescroll">
+    @userIds.map { userId =>
+    <tr>
+      <td>@userIdLink(userId.some)</td>
+      <td>@relation.actions(userId)</td>
+    </tr>
+    }
+  </tbody>
+  } else {
+  <tbody>
+    <tr><td colspan="2">None found.<br /></td></tr>
+  </tbody>
+  }
+</table>

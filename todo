@@ -69,6 +69,8 @@ send message to sockets when a friendship is created or revoked
 convert background board css to single image (needs gimp)
 correspondance chess http://en.lichess.org/forum/lichess-feedback/correspondence-chess#1
 takeback/enpassant glitch http://en.lichess.org/forum/lichess-feedback/i-found-a-glitch#1 
+show teams in user mini
+badges for top players in ELO and number of games
 
 DEPLOY p21
 ----------

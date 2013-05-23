@@ -201,3 +201,5 @@ block=Block
 blocked=Blocked
 unblock=Unblock
 followsYou=Follows you
+nbFollowers=%s followers
+nbFollowing=%s following
