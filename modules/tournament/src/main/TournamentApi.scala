@@ -1,25 +1,25 @@
 package lila.tournament
 
+import akka.actor.ActorRef
+import akka.pattern.{ ask, pipe }
+import org.joda.time.DateTime
+import org.scala_tools.time.Imports._
+import play.api.libs.json._
+import scalaz.NonEmptyList
+
 import actorApi._
-import tube.roomTube
-import tube.tournamentTubes._
-import lila.db.api._
 import chess.{ Mode, Variant }
+import lila.db.api._
 import lila.game.{ Game, GameRepo }
-import lila.user.{ User, UserRepo }
 import lila.hub.actorApi.lobby.{ SysTalk, UnTalk, ReloadTournaments }
 import lila.hub.actorApi.router.Tourney
 import lila.hub.actorApi.Tell
 import lila.round.actorApi.round.{ AbortForce, ResignColor }
 import lila.socket.actorApi.{ SendToFlag, Forward }
+import lila.user.{ User, UserRepo }
 import makeTimeout.short
-
-import org.joda.time.DateTime
-import org.scala_tools.time.Imports._
-import scalaz.NonEmptyList
-import akka.actor.ActorRef
-import akka.pattern.{ ask, pipe }
-import play.api.libs.json._
+import tube.roomTube
+import tube.tournamentTubes._
 
 private[tournament] final class TournamentApi(
     joiner: GameJoiner,

@@ -1,11 +1,11 @@
 package lila.lobby
 
+import akka.actor.ActorRef
+
 import actorApi.{ RemoveHook, BiteHook, JoinHook }
-import lila.user.{ User, UserRepo }
 import chess.{ Game ⇒ ChessGame, Board, Variant, Mode, Clock, Color ⇒ ChessColor }
 import lila.game.{ GameRepo, Game, Player, Pov, Progress }
-
-import akka.actor.ActorRef
+import lila.user.{ User, UserRepo }
 
 private[lobby] final class Biter(
     timeline: lila.hub.ActorLazyRef,

@@ -1,19 +1,19 @@
 package lila.wiki
 
-import lila.db.Types.Coll
-import lila.db.api._
-import tube._
-
 import java.io.File
+import scala.collection.JavaConversions._
+import scala.concurrent.Future
+
 import com.google.common.io.Files
+import eu.henkelmann.actuarius.ActuariusTransformer
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.lib.Repository
 import org.eclipse.jgit.storage.file.FileRepository
-import eu.henkelmann.actuarius.ActuariusTransformer
-
-import scala.collection.JavaConversions._
-import scala.concurrent.Future
 import Page.DefaultLang
+
+import lila.db.api._
+import lila.db.Types.Coll
+import tube._
 
 private[wiki] final class Fetch(gitUrl: String)(implicit coll: Coll) {
 

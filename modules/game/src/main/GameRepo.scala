@@ -1,21 +1,20 @@
 package lila.game
 
-import chess.{ Color, Variant, Status }
-import chess.format.Forsyth
-
-import lila.user.User
-import lila.db.api._
-import lila.db.Implicits._
-import tube.gameTube
-import lila.common.PimpedJson._
-
-import play.api.libs.json._
-import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
-import play.modules.reactivemongo.json.BSONFormats.toJSON
+import scala.util.Random
 
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
-import scala.util.Random
+import play.api.libs.json._
+import play.modules.reactivemongo.json.BSONFormats.toJSON
+import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
+
+import chess.format.Forsyth
+import chess.{ Color, Variant, Status }
+import lila.common.PimpedJson._
+import lila.db.api._
+import lila.db.Implicits._
+import lila.user.User
+import tube.gameTube
 
 object GameRepo {
 

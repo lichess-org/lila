@@ -1,15 +1,14 @@
 package lila.game
 
-import lila.db.api._
-
-import play.api.libs.json._
-import Json.JsValueWrapper
 import org.joda.time.DateTime
+import play.api.libs.json._
+
+import lila.db.api._
 
 // NICETOHAVE it works, but it could be more functional
 private[game] object GameDiff {
 
-  type Set = (String, JsValueWrapper)
+  type Set = (String, Json.JsValueWrapper)
   type Unset = String
 
   def apply(a: RawGame, b: RawGame): (List[Set], List[Unset]) = {

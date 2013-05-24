@@ -1,18 +1,18 @@
 package lila.game
 
-import lila.db.api._
-import tube.gameTube
-import Featured._
-import makeTimeout.large
-
-import scala.concurrent.{ Future, Await }
 import scala.concurrent.duration._
+import scala.concurrent.{ Future, Await }
+
 import akka.actor._
 import akka.pattern.ask
+import Featured._
 import play.api.Play.current
 import play.api.templates.Html
 
 import chess.Color
+import lila.db.api._
+import makeTimeout.large
+import tube.gameTube
 
 final class Featured(
     lobbySocket: lila.hub.ActorLazyRef,

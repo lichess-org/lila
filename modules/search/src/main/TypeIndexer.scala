@@ -1,12 +1,11 @@
 package lila.search
 
-import actorApi._
-
-import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
-
 import akka.actor._
 import akka.pattern.pipe
 import play.api.libs.json._
+import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
+
+import actorApi._
 
 final class TypeIndexer(
     esIndexer: Fu[EsIndexer],

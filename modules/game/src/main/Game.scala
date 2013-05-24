@@ -1,13 +1,12 @@
 package lila.game
 
-// import round.{ Event, Progress }
-import lila.user.User
-import chess.{ History ⇒ ChessHistory, Role, Board, Move, Pos, Game ⇒ ChessGame, Clock, Status, Color, Piece, Variant, Mode }
-import Color._
-import chess.Pos.piotr, chess.Role.forsyth, chess.format.Forsyth
-
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
+
+import chess.Color._
+import chess.Pos.piotr, chess.Role.forsyth, chess.format.Forsyth
+import chess.{ History ⇒ ChessHistory, Role, Board, Move, Pos, Game ⇒ ChessGame, Clock, Status, Color, Piece, Variant, Mode }
+import lila.user.User
 
 case class Game(
     id: String,
@@ -231,7 +230,7 @@ case class Game(
   def playerCanProposeTakeback(color: Color) =
     started && playable && nonTournament &&
       bothPlayersHaveMoved &&
-      !player(color).isProposingTakeback && 
+      !player(color).isProposingTakeback &&
       !opponent(color).isProposingTakeback
 
   def moretimeable = playable && nonTournament && hasClock

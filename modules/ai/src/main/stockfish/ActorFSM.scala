@@ -1,10 +1,9 @@
 package lila.ai
 package stockfish
 
+import akka.actor.{ Props, Actor, ActorRef, Status, FSM ⇒ AkkaFSM, LoggingFSM }
 import model._
 import model.analyse._
-
-import akka.actor.{ Props, Actor, ActorRef, Status, FSM ⇒ AkkaFSM, LoggingFSM }
 
 final class ActorFSM(
   processBuilder: Process.Builder,

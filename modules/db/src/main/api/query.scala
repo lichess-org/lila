@@ -1,11 +1,10 @@
 package lila.db
 package api
 
-import Types._
-
-import reactivemongo.bson._
-import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 import play.api.libs.json._
+import play.modules.reactivemongo.json.ImplicitBSONHandlers._
+import reactivemongo.bson._
+import Types._
 
 object $query {
 

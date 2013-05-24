@@ -1,10 +1,10 @@
 package lila.game
 
+import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 import play.api.libs.json._
 
+import chess.Pos.{ piotr, allPiotrs }
 import chess.{ PromotableRole, Pos, Color, Situation, Move ⇒ ChessMove, Clock ⇒ ChessClock }
-import Pos.{ piotr, allPiotrs }
-import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 
 sealed trait Event {
   def typ: String

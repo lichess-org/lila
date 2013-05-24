@@ -5,8 +5,8 @@ import org.scala_tools.time.Imports._
 import ornicar.scalalib.Random
 
 import chess.{ Variant, Mode }
-import lila.user.User
 import lila.game.PovRef
+import lila.user.User
 
 private[tournament] case class Data(
   name: String,

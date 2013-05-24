@@ -1,14 +1,15 @@
 package lila.tournament
 
-import lila.socket.{ SocketActor, History, Historical }
-import lila.socket.actorApi.{ Connected ⇒ _, _ }
-import lila.memo.ExpireSetMemo
-import actorApi._
-
 import scala.concurrent.duration.Duration
+
 import akka.actor._
 import play.api.libs.iteratee._
 import play.api.libs.json._
+
+import actorApi._
+import lila.memo.ExpireSetMemo
+import lila.socket.actorApi.{ Connected ⇒ _, _ }
+import lila.socket.{ SocketActor, History, Historical }
 
 private[tournament] final class Socket(
     tournamentId: String,

@@ -1,11 +1,11 @@
 package lila.relation
 
-import lila.db.Implicits._
-import lila.db.api._
-import tube.relationTube
-import lila.common.PimpedJson._
-
 import play.api.libs.json._
+
+import lila.common.PimpedJson._
+import lila.db.api._
+import lila.db.Implicits._
+import tube.relationTube
 
 private[relation] object RelationRepo {
 

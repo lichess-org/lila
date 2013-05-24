@@ -1,8 +1,9 @@
 package lila.forumSearch
 
+import play.api.libs.json._
+
 import lila.forum.PostLiteView
 import lila.search.ElasticSearch
-import play.api.libs.json._
 
 private[forumSearch] object Post {
 

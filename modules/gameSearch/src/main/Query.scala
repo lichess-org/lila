@@ -1,13 +1,13 @@
 package lila.gameSearch
 
-import lila.search.{ ElasticSearch, Range }
-import lila.common.EloRange
 import Game.fields
-import chess.{ Variant, Mode, Status, EcoDb }
-
 import org.elasticsearch.index.query._, FilterBuilders._, QueryBuilders._
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
+
+import chess.{ Variant, Mode, Status, EcoDb }
+import lila.common.EloRange
+import lila.search.{ ElasticSearch, Range }
 
 case class Query(
     user1: Option[String] = None,

@@ -1,11 +1,11 @@
 package lila.team
 
 import lila.common.paginator._
-import lila.db.paginator._
 import lila.db.api._
 import lila.db.Implicits._
-import lila.user.User
+import lila.db.paginator._
 import lila.user.tube.userTube
+import lila.user.User
 import tube._
 
 private[team] final class PaginatorBuilder(

@@ -1,12 +1,12 @@
 package lila.tournament
 
-import actorApi._
-import lila.hub.actorApi.WithSocketUserIds
-import lila.hub.actorApi.round.FinishGame
-import makeTimeout.short
-
 import akka.actor._
 import akka.pattern.{ ask, pipe }
+
+import actorApi._
+import lila.hub.actorApi.round.FinishGame
+import lila.hub.actorApi.WithSocketUserIds
+import makeTimeout.short
 
 private[tournament] final class Organizer(
     api: TournamentApi,

@@ -1,15 +1,15 @@
 package lila.round
 
-import lila.game.{ Game, PovRef, Namer }
-import lila.i18n.{ I18nKeys, I18nKey, Untranslated }
-import I18nKey.{ Select ⇒ SelectI18nKey }
-import chess.Color
-import lila.game.Event
-import tube.{ roomTube, watcherRoomTube }
-import lila.db.api._
-import lila.user.UserRepo
-
 import org.apache.commons.lang3.StringEscapeUtils.escapeXml
+
+import chess.Color
+import lila.db.api._
+import lila.game.Event
+import lila.game.{ Game, PovRef, Namer }
+import lila.i18n.I18nKey.{ Select ⇒ SelectI18nKey }
+import lila.i18n.{ I18nKeys, I18nKey, Untranslated }
+import lila.user.UserRepo
+import tube.{ roomTube, watcherRoomTube }
 
 final class Messenger(
     val netDomain: String,

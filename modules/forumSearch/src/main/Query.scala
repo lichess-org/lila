@@ -1,9 +1,9 @@
 package lila.forumSearch
 
-import lila.search.ElasticSearch
+import org.elasticsearch.index.query._, QueryBuilders._, FilterBuilders._
 import Post.fields
 
-import org.elasticsearch.index.query._, QueryBuilders._, FilterBuilders._
+import lila.search.ElasticSearch
 
 private[forumSearch] final class Query private (
     terms: List[String],

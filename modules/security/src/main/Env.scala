@@ -1,12 +1,13 @@
 package lila.security
 
-import lila.db.Types.Coll
-import lila.user.{ User, UserRepo }
-import lila.common.PimpedConfig._
+import scala.collection.JavaConversions._
 
 import akka.actor.{ ActorRef, ActorSystem }
 import com.typesafe.config.Config
-import scala.collection.JavaConversions._
+
+import lila.common.PimpedConfig._
+import lila.db.Types.Coll
+import lila.user.{ User, UserRepo }
 
 final class Env(
     config: Config,

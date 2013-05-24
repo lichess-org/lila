@@ -2,8 +2,8 @@ package lila.ai
 package stockfish
 
 import java.io.OutputStream
-import scala.sys.process.{ Process ⇒ SProcess, ProcessBuilder, ProcessIO }
 import scala.io.Source.fromInputStream
+import scala.sys.process.{ Process ⇒ SProcess, ProcessBuilder, ProcessIO }
 
 private [stockfish] final class Process(
     builder: ProcessBuilder,

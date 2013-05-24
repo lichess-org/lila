@@ -1,8 +1,9 @@
 package lila.i18n
 
-import play.api.i18n.Lang
-import scala.concurrent.Future
 import java.io._
+import scala.concurrent.Future
+
+import play.api.i18n.Lang
 
 private[i18n] case class JsDump(
     path: String,

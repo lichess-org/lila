@@ -1,17 +1,17 @@
 package lila.lobby
 
-import actorApi._
-import lila.common.PimpedJson._
-import lila.socket.Handler
-import lila.socket.actorApi.{ Connected ⇒ _, _ }
-import lila.hub.actorApi.lobby._
-import lila.user.{ User, Context }
-import makeTimeout.short
-
 import akka.actor._
 import akka.pattern.{ ask, pipe }
-import play.api.libs.json._
 import play.api.libs.iteratee._
+import play.api.libs.json._
+
+import actorApi._
+import lila.common.PimpedJson._
+import lila.hub.actorApi.lobby._
+import lila.socket.actorApi.{ Connected ⇒ _, _ }
+import lila.socket.Handler
+import lila.user.{ User, Context }
+import makeTimeout.short
 
 private[lobby] final class SocketHandler(
     hub: lila.hub.Env,

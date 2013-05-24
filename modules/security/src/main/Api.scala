@@ -1,11 +1,11 @@
 package lila.security
 
-import lila.user.{ User, UserRepo }
-
-import play.api.mvc.RequestHeader
+import ornicar.scalalib.Random
 import play.api.data._
 import play.api.data.Forms._
-import ornicar.scalalib.Random
+import play.api.mvc.RequestHeader
+
+import lila.user.{ User, UserRepo }
 
 private[security] final class Api(firewall: Firewall) {
 

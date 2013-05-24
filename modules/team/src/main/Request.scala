@@ -1,7 +1,8 @@
 package lila.team
 
-import lila.user.User
 import org.joda.time.DateTime
+
+import lila.user.User
 
 case class Request(
     id: String,

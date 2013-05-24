@@ -1,20 +1,21 @@
 package lila.game
 
-import lila.common.Captcha, Captcha._
-import lila.db.api.$find
-import tube.gameTube
-import chess.{ Game ⇒ ChessGame, Color }
-import chess.format.{ Forsyth, pgn }
-import lila.hub.actorApi.captcha._
-
-import scalaz.{ NonEmptyList, NonEmptyLists, OptionT, OptionTs }
-import spray.caching.{ LruCache, Cache }
-import scala.concurrent.Future
 import scala.concurrent.duration._
-import play.api.libs.concurrent.Akka.system
-import play.api.Play.current
+import scala.concurrent.Future
+
 import akka.actor._
 import akka.pattern.{ ask, pipe }
+import play.api.libs.concurrent.Akka.system
+import play.api.Play.current
+import scalaz.{ NonEmptyList, NonEmptyLists, OptionT, OptionTs }
+import spray.caching.{ LruCache, Cache }
+
+import chess.format.{ Forsyth, pgn }
+import chess.{ Game ⇒ ChessGame, Color }
+import lila.common.Captcha, Captcha._
+import lila.db.api.$find
+import lila.hub.actorApi.captcha._
+import tube.gameTube
 
 // only works with standard chess (not chess960)
 private final class Captcher extends Actor {

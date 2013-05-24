@@ -1,13 +1,13 @@
 package lila.tournament
 
-import lila.socket.History
-import lila.common.PimpedConfig._
-import lila.socket.actorApi.{ Forward, GetVersion }
-import makeTimeout.short
-
-import com.typesafe.config.Config
 import akka.actor._
 import akka.pattern.ask
+import com.typesafe.config.Config
+
+import lila.common.PimpedConfig._
+import lila.socket.actorApi.{ Forward, GetVersion }
+import lila.socket.History
+import makeTimeout.short
 
 final class Env(
     config: Config,

@@ -1,12 +1,12 @@
 package lila.importer
 
-import lila.game._
-import chess.format.pgn.{ Parser, Reader, ParsedPgn, Tag, TagType }
-import chess.format.Forsyth
-import chess.{ Game => ChessGame, Board, Replay, Color, Mode, Variant, Move, Status }
-
 import play.api.data._
 import play.api.data.Forms._
+
+import chess.format.Forsyth
+import chess.format.pgn.{ Parser, Reader, ParsedPgn, Tag, TagType }
+import chess.{ Game => ChessGame, Board, Replay, Color, Mode, Variant, Move, Status }
+import lila.game._
 
 private[importer] final class DataForm {
 

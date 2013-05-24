@@ -1,13 +1,13 @@
 package lila.socket
 
+import akka.actor._
+import akka.pattern.{ ask, pipe }
+import play.api.libs.json._
+
 import actorApi._
 import lila.hub.actorApi.{ GetNbMembers, NbMembers, WithUserIds, WithSocketUserIds, SendTo, SendTos }
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import makeTimeout.short
-
-import akka.actor._
-import akka.pattern.{ ask, pipe }
-import play.api.libs.json._
 
 abstract class SocketHubActor extends Actor {
 

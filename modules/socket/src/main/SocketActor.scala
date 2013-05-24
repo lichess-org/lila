@@ -1,14 +1,15 @@
 package lila.socket
 
-import actorApi._
-import lila.hub.actorApi.{ GetUids, WithUserIds, GetNbMembers, NbMembers, SendTo, SendTos }
-import lila.hub.actorApi.relation.FriendsOf
-import lila.memo.ExpireSetMemo
+import scala.concurrent.duration.Duration
+import scala.util.Random
 
 import akka.actor._
 import play.api.libs.json._
-import scala.util.Random
-import scala.concurrent.duration.Duration
+
+import actorApi._
+import lila.hub.actorApi.relation.FriendsOf
+import lila.hub.actorApi.{ GetUids, WithUserIds, GetNbMembers, NbMembers, SendTo, SendTos }
+import lila.memo.ExpireSetMemo
 
 abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Actor {
 

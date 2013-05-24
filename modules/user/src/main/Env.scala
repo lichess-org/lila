@@ -1,10 +1,10 @@
 package lila.user
 
-import lila.common.PimpedConfig._
-import lila.memo.ExpireSetMemo
+import com.typesafe.config.Config
 
 import chess.EloCalculator
-import com.typesafe.config.Config
+import lila.common.PimpedConfig._
+import lila.memo.ExpireSetMemo
 
 final class Env(
     config: Config,

@@ -1,11 +1,11 @@
 package lila.team
 
-import lila.db.api.{ $count, $select }
-import tube.teamTube
-
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
+
+import lila.db.api.{ $count, $select }
+import tube.teamTube
 
 private[team] final class DataForm(val captcher: lila.hub.ActorLazyRef) extends lila.hub.CaptchedForm {
 

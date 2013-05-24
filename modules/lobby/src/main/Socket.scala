@@ -2,13 +2,13 @@ package lila.lobby
 
 import scala.concurrent.duration._
 
-import actorApi._
 import akka.actor._
 import akka.pattern.ask
 import play.api.libs.iteratee._
 import play.api.libs.json._
 import play.api.templates.Html
 
+import actorApi._
 import lila.game.actorApi._
 import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.router.{ Homepage, Player }

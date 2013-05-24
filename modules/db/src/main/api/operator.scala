@@ -1,19 +1,16 @@
 package lila.db
 package api
 
-import play.api.libs.json._
-import Json.JsValueWrapper
-
-import reactivemongo.bson._
-import play.modules.reactivemongo.json.BSONFormats
-
 import org.joda.time.DateTime
+import play.api.libs.json._
+import play.modules.reactivemongo.json.BSONFormats
+import reactivemongo.bson._
 
 object $operator extends $operator
 trait $operator {
 
   def $set[A: Writes](pairs: (String, A)*) = Json.obj("$set" -> Json.obj(wrap(pairs): _*))
-  def $set(pairs: (String, JsValueWrapper)*) = Json.obj("$set" -> Json.obj(pairs: _*))
+  def $set(pairs: (String, Json.JsValueWrapper)*) = Json.obj("$set" -> Json.obj(pairs: _*))
   def $set(pairs: JsObject) = Json.obj("$set" -> pairs)
   def $unset(fields: String*) = Json.obj("$unset" -> Json.obj(wrap(fields map (_ -> true)): _*))
   def $inc[A: Writes](pairs: (String, A)*) = Json.obj("$inc" -> Json.obj(wrap(pairs): _*))
@@ -37,7 +34,7 @@ trait $operator {
 
   def $date(value: DateTime) = BSONFormats toJSON BSONDateTime(value.getMillis)
 
-  private def wrap[K, V: Writes](pairs: Seq[(K, V)]): Seq[(K, JsValueWrapper)] = pairs map {
+  private def wrap[K, V: Writes](pairs: Seq[(K, V)]): Seq[(K, Json.JsValueWrapper)] = pairs map {
     case (k, v) ⇒ k -> Json.toJsFieldJsValueWrapper(v)
   }
 }

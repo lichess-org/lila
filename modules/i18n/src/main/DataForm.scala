@@ -1,12 +1,12 @@
 package lila.i18n
 
-import lila.db.api.$insert
-import tube.translationTube
-
-import play.api.mvc.Request
+import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
-import org.joda.time.DateTime
+import play.api.mvc.Request
+
+import lila.db.api.$insert
+import tube.translationTube
 
 final class DataForm(
     keys: I18nKeys, 

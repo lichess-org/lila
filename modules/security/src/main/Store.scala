@@ -1,18 +1,17 @@
 package lila.security
 
-import lila.common.PimpedJson._
-import lila.user.{ User, UserRepo }
-import lila.db.Types.Coll
-import lila.db.api._
-import tube.storeTube
-
-import play.api.mvc.RequestHeader
-import play.api.libs.json._
-
-import play.modules.reactivemongo.json.ImplicitBSONHandlers._
+import scala.concurrent.Future
 
 import org.joda.time.DateTime
-import scala.concurrent.Future
+import play.api.libs.json._
+import play.api.mvc.RequestHeader
+import play.modules.reactivemongo.json.ImplicitBSONHandlers._
+
+import lila.common.PimpedJson._
+import lila.db.api._
+import lila.db.Types.Coll
+import lila.user.{ User, UserRepo }
+import tube.storeTube
 
 object Store {
 

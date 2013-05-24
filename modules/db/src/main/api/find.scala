@@ -2,10 +2,9 @@ package lila.db
 package api
 
 import Implicits._
-
-import reactivemongo.bson._
-import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 import play.api.libs.json._
+import play.modules.reactivemongo.json.ImplicitBSONHandlers._
+import reactivemongo.bson._
 import scalaz.{ OptionT, OptionTs }
 
 object $find extends OptionTs {

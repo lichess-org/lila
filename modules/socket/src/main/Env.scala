@@ -1,13 +1,14 @@
 package lila.socket
 
-import com.typesafe.config.Config
 import scala.concurrent.duration._
+
 import akka.actor.ActorSystem
 import akka.pattern.{ ask, pipe }
+import com.typesafe.config.Config
 
+import actorApi._
 import lila.common.PimpedConfig._
 import lila.hub.actorApi.GetNbMembers
-import actorApi._
 import makeTimeout.short
 
 final class Env(

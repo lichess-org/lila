@@ -1,14 +1,15 @@
 package lila.round
 
-import actorApi._
-import lila.socket.actorApi._
-import lila.socket.SocketHubActor
+import scala.concurrent.duration._
+import scala.concurrent.Future
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
-import scala.concurrent.duration._
-import scala.concurrent.Future
 import play.api.libs.json._
+
+import actorApi._
+import lila.socket.actorApi._
+import lila.socket.SocketHubActor
 import makeTimeout.short
 
 private[round] final class SocketHub(

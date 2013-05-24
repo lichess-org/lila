@@ -1,12 +1,13 @@
 package lila.round
 
 import scala.concurrent.duration.Duration
-import lila.socket.actorApi.GetVersion
+
 import akka.actor._
 
 import actorApi._
 import lila.game.Event
 import lila.memo.{ Builder ⇒ MemoBuilder }
+import lila.socket.actorApi.GetVersion
 
 private[round] final class History(ttl: Duration) extends Actor {
 

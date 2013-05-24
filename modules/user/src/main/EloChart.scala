@@ -1,9 +1,10 @@
 package lila.user
 
 import scala.math.round
-import play.api.libs.json.Json
+
 import org.joda.time.DateTime
 import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
+import play.api.libs.json.Json
 
 final class EloChart(rawElos: List[(Int, Int, Option[Int])]) {
 

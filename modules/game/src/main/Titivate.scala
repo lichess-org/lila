@@ -1,14 +1,14 @@
 package lila.game
 
-import tube.gameTube
-import lila.db.api._
-import lila.common.PimpedJson._
-import lila.hub.actorApi.bookmark.Remove
-
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 import play.api.libs.json._
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
+
+import lila.common.PimpedJson._
+import lila.db.api._
+import lila.hub.actorApi.bookmark.Remove
+import tube.gameTube
 
 private[game] final class Titivate(bookmark: lila.hub.ActorLazyRef) {
 

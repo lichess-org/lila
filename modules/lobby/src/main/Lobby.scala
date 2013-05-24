@@ -1,15 +1,16 @@
 package lila.lobby
 
-import actorApi._, lobby._
-import lila.db.api._
-import lila.memo.ExpireSetMemo
-import lila.socket.actorApi.Broom
-import lila.hub.actorApi.GetUids
-import makeTimeout.short
-
 import scala.concurrent.duration._
+
 import akka.actor._
 import akka.pattern.{ ask, pipe }
+
+import actorApi._, lobby._
+import lila.db.api._
+import lila.hub.actorApi.GetUids
+import lila.memo.ExpireSetMemo
+import lila.socket.actorApi.Broom
+import makeTimeout.short
 
 private[lobby] final class Lobby(
     biter: Biter,

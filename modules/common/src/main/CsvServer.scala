@@ -1,9 +1,10 @@
 package lila.common
 
+import scala.concurrent.Future
+
 import com.github.tototoshi.csv.CSVWriter
 import play.api.Play
 import play.api.Play.current
-import scala.concurrent.Future
 
 object CsvServer {
 

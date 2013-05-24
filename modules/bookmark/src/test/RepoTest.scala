@@ -1,17 +1,15 @@
 package lila.bookmark
 
-import lila.db.Implicits._
-import lila.db.api._
-import lila.db.test.WithDb
-import tube.bookmarkTube
-
-import org.specs2.mutable.Specification
-
-import play.api.test._
-import play.api.libs.json._
-
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
+import org.specs2.mutable.Specification
+import play.api.libs.json._
+import play.api.test._
+
+import lila.db.api._
+import lila.db.Implicits._
+import lila.db.test.WithDb
+import tube.bookmarkTube
 
 final class RepoTest extends Specification {
 

@@ -1,15 +1,15 @@
 package lila.timeline
 
-import chess.Color, Color._
-import lila.game.{ Game, Namer }
-import lila.db.api.$insert
-import lila.hub.actorApi.timeline._
-import tube.gameEntryTube
-import makeTimeout.short
-
-import play.api.templates.Html
 import akka.actor._
 import akka.pattern.{ ask, pipe }
+import play.api.templates.Html
+
+import chess.Color, Color._
+import lila.db.api.$insert
+import lila.game.{ Game, Namer }
+import lila.hub.actorApi.timeline._
+import makeTimeout.short
+import tube.gameEntryTube
 
 private[timeline] final class GamePush(
     lobbySocket: lila.hub.ActorLazyRef,

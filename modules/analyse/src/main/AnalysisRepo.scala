@@ -1,13 +1,12 @@
 package lila.analyse
 
+import org.joda.time.DateTime
+import org.scala_tools.time.Imports._
+import play.api.libs.json.Json
+
 import lila.db.api._
 import lila.db.Implicits._
 import tube.analysisTube
-
-import play.api.libs.json.Json
-
-import org.joda.time.DateTime
-import org.scala_tools.time.Imports._
 
 private[analyse] object AnalysisRepo {
 

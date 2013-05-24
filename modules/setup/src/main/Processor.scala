@@ -1,21 +1,20 @@
 package lila.setup
 
-import lila.game.{ Game, GameRepo, PgnRepo, Pov }
-import lila.user.{ User, Context }
+import akka.pattern.ask
+import play.api.libs.json.{ Json, JsObject }
+
 import chess.{ Game ⇒ ChessGame, Board, Color ⇒ ChessColor }
 import lila.ai.Ai
-import lila.lobby.Hook
-import lila.lobby.actorApi.AddHook
-import lila.i18n.I18nDomain
-import lila.hub.actorApi.router.Player
-import makeTimeout.short
-
-import tube.{ userConfigTube, anonConfigTube }
-import lila.game.tube.gameTube
 import lila.db.api._
-
-import play.api.libs.json.{ Json, JsObject }
-import akka.pattern.ask
+import lila.game.tube.gameTube
+import lila.game.{ Game, GameRepo, PgnRepo, Pov }
+import lila.hub.actorApi.router.Player
+import lila.i18n.I18nDomain
+import lila.lobby.actorApi.AddHook
+import lila.lobby.Hook
+import lila.user.{ User, Context }
+import makeTimeout.short
+import tube.{ userConfigTube, anonConfigTube }
 
 private[setup] final class Processor(
     lobby: lila.hub.ActorLazyRef,

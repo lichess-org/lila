@@ -1,10 +1,11 @@
 package lila.search
 
+import scala.collection.JavaConversions._
+import scala.concurrent.Future
+
+import akka.actor.ActorSystem
 import com.typesafe.config.Config
 import scalastic.elasticsearch
-import scala.concurrent.Future
-import akka.actor.ActorSystem
-import scala.collection.JavaConversions._
 
 final class Env(
     config: Config,

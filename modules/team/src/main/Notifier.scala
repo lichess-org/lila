@@ -1,9 +1,9 @@
 package lila.team
 
+import akka.pattern.ask
+
 import lila.hub.actorApi.message.LichessThread
 import lila.hub.actorApi.router._
-
-import akka.pattern.ask
 
 private[team] final class Notifier(
     messenger: lila.hub.ActorLazyRef,

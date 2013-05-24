@@ -1,10 +1,11 @@
 package lila.site
 
-import lila.common.PimpedConfig._
 import akka.actor._
 import com.typesafe.config.Config
-import play.api.Play.current
 import play.api.libs.concurrent.Akka.system
+import play.api.Play.current
+
+import lila.common.PimpedConfig._
 
 final class Env(config: Config, hub: lila.hub.Env) {
 

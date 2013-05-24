@@ -1,9 +1,10 @@
 package lila.memo
 
+import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.Duration
+
 import com.google.common.base.Function
 import com.google.common.cache._
-import java.util.concurrent.TimeUnit
 
 object Builder {
 

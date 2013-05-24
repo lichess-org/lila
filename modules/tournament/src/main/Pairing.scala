@@ -1,9 +1,9 @@
 package lila.tournament
 
-import lila.game.{ PovRef, IdGenerator }
-import chess.Color
-
 import scala.util.Random
+
+import chess.Color
+import lila.game.{ PovRef, IdGenerator }
 
 private[tournament] case class Pairing(
     gameId: String,

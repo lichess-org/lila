@@ -1,11 +1,11 @@
 package lila.security
 
-import lila.user.tube.userTube
-import lila.db.api.$count
-
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
+
+import lila.db.api.$count
+import lila.user.tube.userTube
 
 final class DataForm(val captcher: lila.hub.ActorLazyRef) extends lila.hub.CaptchedForm {
 

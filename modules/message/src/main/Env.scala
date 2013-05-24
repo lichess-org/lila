@@ -1,9 +1,9 @@
 package lila.message
 
-import lila.hub.actorApi.message.LichessThread
-
 import akka.actor._
 import com.typesafe.config.Config
+
+import lila.hub.actorApi.message.LichessThread
 
 final class Env(
     config: Config,

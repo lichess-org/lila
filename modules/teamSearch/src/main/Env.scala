@@ -1,15 +1,15 @@
 package lila.teamSearch
 
-import lila.search.TypeIndexer
-import lila.team.{ Team ⇒ TeamModel }
-import lila.team.tube.teamTube
-import lila.db.api.{ $find, $cursor }
-
-import com.typesafe.config.Config
 import akka.actor._
+import com.typesafe.config.Config
+import org.elasticsearch.action.search.SearchResponse
 import play.api.libs.json.JsObject
 import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
-import org.elasticsearch.action.search.SearchResponse
+
+import lila.db.api.{ $find, $cursor }
+import lila.search.TypeIndexer
+import lila.team.tube.teamTube
+import lila.team.{ Team ⇒ TeamModel }
 
 final class Env(
     config: Config,

@@ -1,13 +1,12 @@
 package lila.game
 
-import chess.Status
+import play.api.libs.json._
 
+import chess.Status
 import lila.common.paginator._
 import lila.db.paginator._
 import lila.db.Types.Sort
 import tube.gameTube
-
-import play.api.libs.json._
 
 private[game] final class PaginatorBuilder(cached: Cached, maxPerPage: Int) {
 

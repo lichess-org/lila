@@ -1,10 +1,10 @@
 package lila.forum
 
-import lila.db.Implicits._
-import lila.db.api._
-import tube.postTube
-
 import play.api.libs.json.Json
+
+import lila.db.api._
+import lila.db.Implicits._
+import tube.postTube
 
 object PostRepo extends PostRepo(false) {
 

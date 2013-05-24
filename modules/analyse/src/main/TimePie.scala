@@ -1,8 +1,8 @@
 package lila.analyse
 
-import lila.game.Pov
-
 import play.api.libs.json.Json
+
+import lila.game.Pov
 
 final class TimePie(val pov: Pov) {
 

@@ -1,9 +1,9 @@
 package lila.setup
 
-import lila.user.User
+import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
-import org.joda.time.DateTime
+import lila.user.User
 
 private[setup] case class UserConfig(
     id: String,

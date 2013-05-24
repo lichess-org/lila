@@ -1,7 +1,8 @@
 package lila.setup
 
-import lila.memo.Builder
 import scala.concurrent.duration.Duration
+
+import lila.memo.Builder
 
 private[setup] final class FriendConfigMemo(ttl: Duration) {
 

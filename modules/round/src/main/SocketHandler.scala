@@ -5,14 +5,14 @@ import akka.pattern.{ ask, pipe }
 import play.api.libs.json.JsObject
 
 import actorApi._, round._
-import lila.hub.actorApi.Tell
-import lila.game.{ Game, Pov, PovRef, PlayerRef, GameRepo }
-import lila.user.{ User, Context }
 import chess.Color
-import lila.socket.Handler
-import lila.socket.actorApi.{ Connected ⇒ _, _ }
-import lila.security.Flood
 import lila.common.PimpedJson._
+import lila.game.{ Game, Pov, PovRef, PlayerRef, GameRepo }
+import lila.hub.actorApi.Tell
+import lila.security.Flood
+import lila.socket.actorApi.{ Connected ⇒ _, _ }
+import lila.socket.Handler
+import lila.user.{ User, Context }
 import makeTimeout.short
 
 private[round] final class SocketHandler(

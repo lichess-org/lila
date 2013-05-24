@@ -2,6 +2,7 @@ package lila.ai
 package stockfish
 
 import model.play.BestMove
+
 import chess.Game
 
 object Stockfish {

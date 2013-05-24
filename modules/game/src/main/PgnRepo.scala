@@ -1,10 +1,10 @@
 package lila.game
 
-import lila.db.api._
-import lila.common.PimpedJson._
-import tube.pgnTube
-
 import play.api.libs.json._
+
+import lila.common.PimpedJson._
+import lila.db.api._
+import tube.pgnTube
 
 object PgnRepo {
 

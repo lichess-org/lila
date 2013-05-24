@@ -1,9 +1,9 @@
 package lila.team
 
-import lila.user.User
-
-import ornicar.scalalib.Random
 import org.joda.time.DateTime
+import ornicar.scalalib.Random
+
+import lila.user.User
 
 case class Team(
     id: String, // also the url slug

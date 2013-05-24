@@ -1,9 +1,9 @@
 package lila.site
 package actorApi
 
-import lila.socket.SocketMember
-
 import play.api.libs.json._
+
+import lila.socket.SocketMember
 
 case class Member(
   channel: JsChannel,

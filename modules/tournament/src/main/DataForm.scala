@@ -1,12 +1,12 @@
 package lila.tournament
 
-import chess.{ Mode, Variant }
-import lila.setup.Mappings
-import lila.common.Form._
-
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
+
+import chess.{ Mode, Variant }
+import lila.common.Form._
+import lila.setup.Mappings
 
 final class DataForm(isDev: Boolean) {
 

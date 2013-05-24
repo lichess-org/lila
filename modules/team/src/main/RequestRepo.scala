@@ -1,11 +1,10 @@
 package lila.team
 
+import play.api.libs.json.Json
+import reactivemongo.api._
+
 import lila.db.api._
 import tube.requestTube
-
-import play.api.libs.json.Json
-
-import reactivemongo.api._
 
 // db.team_request.ensureIndex({team:1})
 // db.team_request.ensureIndex({date: -1})

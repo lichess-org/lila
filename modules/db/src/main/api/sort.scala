@@ -1,13 +1,10 @@
 package lila.db
 package api
 
+import org.joda.time.DateTime
 import play.api.libs.json._
-import Json.JsValueWrapper
-
 import reactivemongo.api.SortOrder
 import reactivemongo.bson._
-
-import org.joda.time.DateTime
 
 object $sort {
 

@@ -1,8 +1,9 @@
 package lila.common
+// import scalaz.{ Success, Failure }
+import scala.concurrent.duration._
 
 import com.typesafe.config.Config
-import scala.concurrent.duration._
-// import scalaz.{ Success, Failure }
+
 
 object PimpedConfig {
 

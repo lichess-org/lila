@@ -1,15 +1,15 @@
 package lila.gameSearch
 
-import lila.search.TypeIndexer
-import lila.game.{ GameRepo, PgnRepo, Game ⇒ GameModel, Query ⇒ DbQuery }
-import lila.db.api.$find
-import lila.game.tube.gameTube
-
-import com.typesafe.config.Config
 import akka.actor._
+import com.typesafe.config.Config
+import org.elasticsearch.action.search.SearchResponse
 import play.api.libs.json.JsObject
 import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
-import org.elasticsearch.action.search.SearchResponse
+
+import lila.db.api.$find
+import lila.game.tube.gameTube
+import lila.game.{ GameRepo, PgnRepo, Game ⇒ GameModel, Query ⇒ DbQuery }
+import lila.search.TypeIndexer
 
 final class Env(
     config: Config,

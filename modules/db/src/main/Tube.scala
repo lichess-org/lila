@@ -1,13 +1,13 @@
 package lila.db
 
-import Types.Coll
-import lila.common.LilaException
-
-import play.api.libs.json._
 import play.api.libs.functional.syntax._
-import Reads.constraints._
-import reactivemongo.bson._
+import play.api.libs.json._
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
+import reactivemongo.bson._
+import Reads.constraints._
+import Types.Coll
+
+import lila.common.LilaException
 
 trait InColl[A] { implicit def coll: Types.Coll }
 

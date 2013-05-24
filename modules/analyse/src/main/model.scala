@@ -1,7 +1,7 @@
 package lila.analyse
 
-import chess.{ Pos, Color, White, Black }
 import chess.format.{ UciMove, Nag }
+import chess.{ Pos, Color, White, Black }
 
 private[analyse] sealed trait Advice {
   def severity: Severity

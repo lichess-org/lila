@@ -1,10 +1,10 @@
 package lila.forum
 
-import lila.db.Implicits._
-import lila.db.api._
-import tube.topicTube
-
 import play.api.libs.json.Json
+
+import lila.db.api._
+import lila.db.Implicits._
+import tube.topicTube
 
 object TopicRepo extends TopicRepo(false) {
 

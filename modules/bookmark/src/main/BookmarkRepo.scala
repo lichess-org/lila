@@ -1,12 +1,12 @@
 package lila.bookmark
 
-import lila.db.Implicits._
-import lila.db.api._
-import tube.bookmarkTube
-
+import org.joda.time.DateTime
 import play.api.libs.json._
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
-import org.joda.time.DateTime
+
+import lila.db.api._
+import lila.db.Implicits._
+import tube.bookmarkTube
 
 case class Bookmark(game: lila.game.Game, user: lila.user.User)
 

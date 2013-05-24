@@ -1,9 +1,9 @@
 package lila.wiki
 
-import tube.pageTube
-import lila.db.api.$find
-
 import com.typesafe.config.Config
+
+import lila.db.api.$find
+import tube.pageTube
 
 final class Env(config: Config, db: lila.db.Env) {
 

@@ -1,8 +1,8 @@
 package lila.team
 
 import lila.db.api.$find
-import tube.teamTube
 import lila.user.{ User, UserRepo }
+import tube.teamTube
 
 private[team] final class Cli(api: TeamApi) extends lila.common.Cli {
 

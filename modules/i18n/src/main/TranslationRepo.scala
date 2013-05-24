@@ -1,10 +1,10 @@
 package lila.i18n
 
+import play.api.libs.json.Json
+
 import lila.db.api._
 import lila.db.Implicits._
 import tube.translationTube
-
-import play.api.libs.json.Json
 
 private[i18n] object TranslationRepo {
 

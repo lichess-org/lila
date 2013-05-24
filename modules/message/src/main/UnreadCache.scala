@@ -1,8 +1,8 @@
 package lila.message
 
-import lila.user.User
-
 import spray.caching.{ LruCache, Cache }
+
+import lila.user.User
 
 private[message] final class UnreadCache {
 

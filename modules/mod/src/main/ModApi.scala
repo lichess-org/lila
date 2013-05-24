@@ -1,9 +1,9 @@
 package lila.mod
 
-import lila.user.{ User, UserRepo, EloUpdater }
+import lila.db.api._
 import lila.security.{ Firewall, UserSpy, Store ⇒ SecurityStore }
 import lila.user.tube.userTube
-import lila.db.api._
+import lila.user.{ User, UserRepo, EloUpdater }
 
 final class ModApi(
     logApi: ModlogApi,
