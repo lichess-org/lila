@@ -223,7 +223,7 @@ div.content_box_inter .intertab {
   text-transform: capitalize;
 }
 div.content_box_inter a.intertab:hover {
-  text-transform: underline;
+  background: #fff;
 }
 div.content_box_inter a.intertab.active {
   background: white;

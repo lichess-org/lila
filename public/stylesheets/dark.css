@@ -153,6 +153,7 @@ body.dark #top .dropdown,
 body.dark #GameText a:hover,
 body.dark div.hooks_wrap a.filter:hover,
 body.dark div.hooks_wrap a.filter.active,
+body.dark div.content_box_inter a.intertab:hover,
 body.dark #top .shown a.toggle {
   background: #000;
 }

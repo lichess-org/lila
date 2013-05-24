@@ -43,6 +43,10 @@ ol.crumbs li:first-child {
   vertical-align: middle;
 }
 
+#lichess_forum .nb_results {
+  padding-left: 25px;
+}
+
 #lichess_forum form.search {
   float: right;
   margin: 20px;
