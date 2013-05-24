@@ -1,9 +1,9 @@
 package lila.monitor
 
-import lila.common.PimpedConfig._
 import akka.actor._
 import com.typesafe.config.Config
-import play.api.Play.current
+
+import lila.common.PimpedConfig._
 
 final class Env(
     config: Config,
