@@ -5,7 +5,7 @@ import org.scala_tools.time.Imports._
 import actorApi._
 import lila.db.api._
 import lila.hub.actorApi.forum.MakeTeam
-import lila.hub.actorApi.timeline.{ MakeEntry, TeamJoin, TeamCreate }
+import lila.hub.actorApi.timeline.{ ShareEntry, TeamJoin, TeamCreate }
 import lila.hub.ActorLazyRef
 import lila.user.tube.userTube
 import lila.user.{ User, Context }
@@ -37,7 +37,7 @@ final class TeamApi(
       (cached.teamIds remove me.id) >>-
       (forum ! MakeTeam(team.id, team.name)) >>-
       (indexer ! InsertTeam(team)) >>-
-      (relationActor ! MakeEntry(me.id, TeamCreate(me.id, team.id))) inject team
+      (relationActor ! ShareEntry(me.id, TeamCreate(me.id, team.id))) inject team
   }
 
   def update(team: Team, edit: TeamEdit, me: User): Funit = edit.trim |> { e ⇒
@@ -114,7 +114,7 @@ final class TeamApi(
         MemberRepo.add(team.id, userId) >>
           TeamRepo.incMembers(team.id, +1) >>
           (cached.teamIds remove userId) >>-
-          (relationActor ! MakeEntry(userId, TeamJoin(userId, team.id)))
+          (relationActor ! ShareEntry(userId, TeamJoin(userId, team.id)))
       }
     }
 

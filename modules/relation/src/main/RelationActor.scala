@@ -6,7 +6,7 @@ import akka.pattern.{ ask, pipe }
 import actorApi._
 import lila.hub.actorApi.relation._
 import lila.hub.actorApi.SendTos
-import lila.hub.actorApi.timeline.MakeEntry
+import lila.hub.actorApi.timeline.{ MakeEntry, ShareEntry }
 import lila.hub.ActorLazyRef
 
 private[relation] final class RelationActor(
@@ -18,11 +18,9 @@ private[relation] final class RelationActor(
 
   def receive = {
 
-    case MakeEntry(userId, data) ⇒ getFriendIds(userId) foreach { ids ⇒
-      ids foreach { id ⇒
-        timelinePush ! MakeEntry(id, data)
-      }
-    }
+    case ShareEntry(userId, data) ⇒ getFriendIds(userId) map { ids ⇒
+      MakeEntry(ids.toList, data)
+    } pipeTo timelinePush.ref
 
     // rarely called
     // return a list of usernames, followers, following and online

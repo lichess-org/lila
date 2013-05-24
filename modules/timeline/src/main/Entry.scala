@@ -8,17 +8,14 @@ import lila.hub.actorApi.timeline._
 import lila.hub.actorApi.timeline.atomFormat._
 
 case class Entry(
-    user: String,
+    users: List[String],
     typ: String,
     data: JsObject,
     date: DateTime) {
 
   import Entry._
 
-  def similarTo(other: Entry) =
-    (user == other.user) &&
-      (typ == other.typ) &&
-      (data == other.data)
+  def similarTo(other: Entry) = typ == other.typ && data == other.data
 
   def decode: Option[Atom] = (typ match {
     case "follow"      ⇒ Json.fromJson[Follow](data)
@@ -31,14 +28,14 @@ case class Entry(
 
 object Entry {
 
-  private[timeline] def make(user: String, data: Atom): Option[Entry] = (data match {
+  private[timeline] def make(users: List[String], data: Atom): Option[Entry] = (data match {
     case d: Follow     ⇒ "follow" -> Json.toJson(d)
     case d: FollowYou  ⇒ "follow-you" -> Json.toJson(d)
     case d: TeamJoin   ⇒ "team-join" -> Json.toJson(d)
     case d: TeamCreate ⇒ "team-create" -> Json.toJson(d)
     case d: ForumPost  ⇒ "forum-post" -> Json.toJson(d)
   }) match {
-    case (typ, json) ⇒ json.asOpt[JsObject] map { new Entry(user, typ, _, DateTime.now) }
+    case (typ, json) ⇒ json.asOpt[JsObject] map { new Entry(users, typ, _, DateTime.now) }
   }
 
   import lila.db.Tube

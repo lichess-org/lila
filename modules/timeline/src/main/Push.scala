@@ -17,20 +17,21 @@ private[timeline] final class Push(
     renderer: lila.hub.ActorLazyRef) extends Actor {
 
   def receive = {
-    case MakeEntry(user, data) ⇒ makeEntry(user, data) foreach { entry ⇒
-      lobbySocket.ref ! ReloadTimeline(user)
-    }
+    case MakeEntry(users, data) ⇒ makeEntry(users, data) >>-
+      (users foreach { u ⇒
+        lobbySocket.ref ! ReloadTimeline(u)
+      })
   }
 
-  private def makeEntry(user: String, data: Atom): Fu[Entry] =
-    Entry.make(user, data).fold(
+  private def makeEntry(users: List[String], data: Atom): Fu[Entry] =
+    Entry.make(users, data).fold(
       fufail[Entry]("[timeline] invalid entry data " + data)
     ) { entry ⇒
-      $find(Json.obj("user" -> user, "date" -> $gt($date(DateTime.now - 1.hour)))) flatMap { entries ⇒
-        entries exists (_ similarTo entry) fold (
-          fufail[Entry]("[timeline] a similar entry already exists"),
-          $insert(entry) inject entry
-        )
+        $find(Json.obj("typ" -> entry.typ, "date" -> $gt($date(DateTime.now - 1.hour)))) flatMap { entries ⇒
+          entries exists (_ similarTo entry) fold (
+            fufail[Entry]("[timeline] a similar entry already exists"),
+            $insert(entry) inject entry
+          )
+        }
       }
-    }
 }
