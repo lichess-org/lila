@@ -923,9 +923,11 @@ input:focus:-ms-input-placeholder {
   color: transparent;
 }
 div.relation_actions a.button {
-  padding: 0.6em 1em;
-  padding-right: 0.6em;
-  /* required for some reason */
+  padding: 0.3em 0.4em 0.3em 0.6em;
+}
+#powerTip div.relation_actions a.button,
+div.user_show div.relation_actions a.button {
+  padding: 0.6em 0.8em 0.6em 1em;
 }
 div.relation_actions a.relation.processing {
   opacity: 0.2

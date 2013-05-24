@@ -91,6 +91,7 @@ allYouNeedIsAUsernameAndAPassword=All you need is a username and a password.
 learnMoreAboutLichess=Learn more about Lichess
 rank=Rank
 gamesPlayed=Games played
+nbGamesWithYou=%s games with you
 declineInvitation=Decline invitation
 cancel=Cancel
 timeOut=Time out

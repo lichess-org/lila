@@ -8,7 +8,6 @@ import play.api.libs.json._
 import play.api.templates.Html
 
 import lila.db.api._
-import lila.hub.actorApi.relation.GetFriends
 import lila.hub.actorApi.timeline.propagation._
 import lila.hub.actorApi.timeline.{ Propagate, Atom, ReloadTimeline }
 import lila.hub.ActorLazyRef
@@ -18,7 +17,7 @@ import tube.entryTube
 private[timeline] final class Push(
     lobbySocket: ActorLazyRef,
     renderer: ActorLazyRef,
-    relationActor: ActorLazyRef) extends Actor {
+    getFriendIds: String ⇒ Fu[Set[String]]) extends Actor {
 
   def receive = {
 
@@ -33,7 +32,7 @@ private[timeline] final class Push(
   private def propagate(propagations: List[Propagation]): Fu[List[String]] =
     (propagations map {
       case Users(ids)  ⇒ fuccess(ids)
-      case Friends(id) ⇒ relationActor ? GetFriends(id) mapTo manifest[List[String]]
+      case Friends(id) ⇒ getFriendIds(id) map (_.toList)
     }).sequence map (_.flatten.distinct)
 
   private def makeEntry(users: List[String], data: Atom): Fu[Entry] =

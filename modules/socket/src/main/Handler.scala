@@ -7,7 +7,7 @@ import play.api.libs.json._
 
 import actorApi._
 import lila.common.PimpedJson._
-import lila.hub.actorApi.relation.{ GetFriends, FriendsOf }
+import lila.hub.actorApi.relation.ReloadFriends
 import makeTimeout.large
 
 object Handler {
@@ -25,9 +25,7 @@ object Handler {
     val baseController: Controller = {
       case ("p", _) ⇒ socket ! Ping(uid)
       case ("friends", _) ⇒ userId foreach { u ⇒
-        hub.actor.relation ? GetFriends(u) mapTo manifest[List[String]] map { friends ⇒
-          FriendsOf(uid, friends)
-        } pipeTo socket
+        hub.actor.relation ! ReloadFriends(u) 
       }
       case msg ⇒ logwarn("Unhandled msg: " + msg)
     }

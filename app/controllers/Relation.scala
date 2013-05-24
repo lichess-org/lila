@@ -1,11 +1,11 @@
 package controllers
 
+import play.api.mvc._
+import play.api.templates.Html
+
 import lila.app._
 import lila.user.{ User ⇒ UserModel, UserRepo, Context }
 import views._
-
-import play.api.mvc._
-import play.api.templates.Html
 
 object Relation extends LilaController {
 
@@ -35,16 +35,16 @@ object Relation extends LilaController {
 
   def following(userId: String) = Open { implicit ctx ⇒
     OptionFuOk(UserRepo named userId) { user ⇒
-      env.api.following(user.id) map { userIds ⇒
-        html.relation.following(user, userIds.toList.sorted)
+      env.api.following(user.id) flatMap UserRepo.byIds map { users ⇒
+        html.relation.following(user, users.sorted)
       }
     }
   }
 
   def followers(userId: String) = Open { implicit ctx ⇒
     OptionFuOk(UserRepo named userId) { user ⇒
-      env.api.followers(user.id) map { userIds ⇒
-        html.relation.followers(user, userIds.toList.sorted)
+      env.api.followers(user.id) flatMap UserRepo.byIds map { users ⇒
+        html.relation.followers(user, users.sorted)
       }
     }
   }
