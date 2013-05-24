@@ -2,26 +2,26 @@
 
 @ctx.userId.map { myId =>
 @if(myId != userId) {
-<div class="relation_actions">
-  <a class="s16 user_more" href="#"></a>
+  <a title="@trans.composeMessage()" href="@routes.Message.form()?username=@userId" class="icon button" href="#">
+    <span class="s16 message"></span>
+  </a>
   @relationWith(userId) match {
   case None => {
-  <a class="button" href="@routes.Relation.follow(userId)">@trans.follow()</a>
+  <a class="button relation" href="@routes.Relation.follow(userId)">@trans.follow()</a>
   }
   case Some(true) => {
-  <a class="button hover_text" href="@routes.Relation.unfollow(userId)">
+  <a class="button relation hover_text" href="@routes.Relation.unfollow(userId)">
     <span class="base">@trans.following()</span>
     <span class="hover">@trans.unfollow()</span>
   </a>
   }
   case Some(false) => {
-  <a class="button hover_text" href="@routes.Relation.unblock(userId)">
+  <a class="button relation hover_text" href="@routes.Relation.unblock(userId)">
     <span class="base">@trans.blocked()</span>
     <span class="hover">@trans.unblock()</span>
   </a>
   }
   }
-</div>
 } 
 }.getOrElse {
 @if(signup) {

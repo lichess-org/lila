@@ -1,22 +1,26 @@
-.clearfix:after { content:"."; display:block; height:0; clear:both; visibility:hidden; }
-.clearfix {display:inline-block;}
-
+.clearfix:after {
+  content:".";
+  display:block;
+  height:0;
+  clear:both;
+  visibility:hidden;
+}
+.clearfix {
+  display:inline-block;
+}
 .none {
   display: none;
 }
-
 .s16 {
   padding-left: 20px;
   background: transparent url(../images/s16.png) top left no-repeat;
 }
-
 body {
-  font:12px 'Lucida Grande','Lucida Sans Unicode',Geneva,Verdana,Sans-Serif;
+  font:12px'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
   color: #848484;
   background: #F7F7F7 url(../images/head_bg.png) top left repeat-x;
   background-position: left +25px;
 }
-
 a, a:visited {
   color: #848484;
   text-decoration: underline;
@@ -31,15 +35,12 @@ a.revert-underline {
 a.revert-underline:hover {
   text-decoration: underline;
 }
-
 strong {
   font-weight: bold;
 }
-
 .small {
   font-size: 11.5px;
 }
-
 div.header {
   width: 200px;
   float: left;
@@ -51,7 +52,6 @@ body.tight div.header {
 div.header strong {
   font-weight: normal;
 }
-
 body > div.content {
   width: 1005px;
   min-height: 590px;
@@ -62,7 +62,6 @@ body.tight > div.content {
   min-width: 780px;
   margin-top: 5px;
 }
-
 #top {
   width: 100%;
   min-width: 1005px;
@@ -76,18 +75,16 @@ body.tight #top {
   position: absolute;
   top: -100px;
 }
-
 #lichess {
   margin-left: 211px;
 }
 body.tight #lichess {
   margin-left: 10px;
 }
-
 #site_title {
   width: 130px;
   color: #666;
-  font-family: 'Trebuchet MS', 'Helvetica Neue', Arial, Sans-Serif;
+  font-family:'Trebuchet MS', 'Helvetica Neue', Arial, Sans-Serif;
   font-size: 30px;
   color: #afafaf;
   text-decoration: none;
@@ -114,7 +111,6 @@ body.tight #site_title {
 body.tight #site_baseline {
   display: none;
 }
-
 div.footer_wrap {
   width: 100%;
   border-top: 1px solid #ddd;
@@ -123,7 +119,6 @@ div.footer_wrap {
   padding: 20px 0;
   display: block;
 }
-
 div.footer {
   width: 1000px;
   margin: auto;
@@ -133,12 +128,10 @@ body.tight div.footer {
   width: auto;
   padding: 0 10px;
 }
-
 div.footer div.right {
   float: right;
   text-align: right;
 }
-
 .button, a.button {
   border-radius: 5px;
   border: 1px solid #DADADA;
@@ -146,11 +139,9 @@ div.footer div.right {
   text-decoration: none;
   cursor: pointer;
 }
-
 a.easy_button {
   font-weight: normal;
 }
-
 div.content_box {
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -177,11 +168,9 @@ div.content_box.no_padding h1 {
   display: block;
   padding: 20px 25px;
 }
-
 .content_box_title {
   padding: 20px 25px 0 25px;
 }
-
 div.content_box_top {
   padding-left: 25px;
   height: 40px;
@@ -242,13 +231,11 @@ div.content_box_inter a.intertab.active {
   border-bottom: 0;
   text-decoration: none;
 }
-
 div.content_box .lichess_title {
   font-size: 2em;
   display: block;
   margin-bottom: 0.5em;
 }
-
 div.content_box table.datatable {
   width: 100%;
   margin-top: 20px;
@@ -259,12 +246,10 @@ div.content_box table.datatable td {
 div.content_box table.datatable tr:nth-child(odd) {
   background: #f7f7f7;
 }
-
 table.slist {
   width: 100%;
   border-bottom: 1px solid #d4d4d4;
 }
-
 table.slist thead th {
   border-top: 1px solid #d4d4d4;
   padding: 0.4em 0.6em;
@@ -272,7 +257,6 @@ table.slist thead th {
 table.slist thead th.large {
   font-size: 1.4em;
 }
-
 table.slist td {
   padding: 0.6em;
   font-size: 1.2em;
@@ -289,11 +273,9 @@ table.slist .s16 {
 table.slist tbody tr:nth-child(even) {
   background: #f4f4f4;
 }
-table.slist td:first-child,
-table.slist th:first-child {
+table.slist td:first-child, table.slist th:first-child {
   padding-left: 25px;
 }
-
 div.lichess_goodies div.box {
   margin-top: 1em;
   margin-left: -30px;
@@ -305,7 +287,6 @@ div.lichess_goodies div.box {
 div.lichess_goodies div.box .player {
   margin: 4px 0;
 }
-
 div.header div.side_menu {
   margin-top: 15px;
 }
@@ -326,7 +307,6 @@ div.header div.side_menu a.active {
   border-radius: 4px 0 0 4px;
   box-shadow: -3px 0 5px #d0d0d0;
 }
-
 #nb_connected_players, #reconnecting, a.goto_nav, #top a.toggle, #top a.bgpicker, a#sound_state {
   text-decoration: none;
   font-size: 13px;
@@ -343,8 +323,7 @@ div.header div.side_menu a.active {
   float: left;
   color: #999;
 }
-#nb_connected_players,
-#reconnecting {
+#nb_connected_players, #reconnecting {
   border-left: 1px solid #ccc;
 }
 a.goto_nav {
@@ -388,8 +367,7 @@ a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hove
   float: right;
   position: relative;
 }
-#top div.auth.shown form,
-#top div.auth.shown .links {
+#top div.auth.shown form, #top div.auth.shown .links {
   display: block;
 }
 #top div.auth .links a {
@@ -408,12 +386,10 @@ a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hove
 #top div.auth .links .goto_profile {
   background-position: 0 -208px;
 }
-
 form.wide input[type="text"], form.wide textarea {
   padding: 0.5em;
   border: 1px solid #D4D4D4;
 }
-
 #top a.toggle {
   display:block;
   padding-right: 4px;
@@ -459,8 +435,7 @@ ul.language_links a {
 ul.language_links a.current {
   font-weight: bold;
 }
-ul.language_links a:hover,
-ul.language_links a.current {
+ul.language_links a:hover, ul.language_links a.current {
   background: #F0F0F0;
   color: #444;
 }
@@ -476,7 +451,6 @@ ul.language_links li:last-child {
   font-weight: bold;
   font-style: italic;
 }
-
 #top div.themepicker {
   float: right;
   position: relative;
@@ -504,7 +478,6 @@ ul.language_links li:last-child {
   width: 128px;
   height: 64px;
 }
-
 #top a.bgpicker {
   float: right;
 }
@@ -516,7 +489,6 @@ ul.language_links li:last-child {
   background-position: 0 -48px;
   display: block;
 }
-
 a#sound_state {
   float: right;
 }
@@ -535,7 +507,6 @@ a#sound_state.sound_state_on span {
 a#sound_state.unavailable {
   display: none;
 }
-
 #call_boxes {
   position: absolute;
   top: 30px;
@@ -576,14 +547,12 @@ a#sound_state.unavailable {
   bottom: 0.2em;
   right: 0.3em;
 }
-
 #quick_requests {
   margin-top: 2em;
 }
 #quick_requests a {
   margin: 5px 0;
 }
-
 #friend_box {
   position: fixed;
   bottom: 0px;
@@ -620,7 +589,6 @@ a#sound_state.unavailable {
   margin: 7px;
   font-style: normal;
 }
-
 span.s16.clock {
   background-position: 0 -224px;
   padding-bottom: 1px;
@@ -643,13 +611,15 @@ span.s16.clock {
   padding-left: 0;
   padding-right: 20px;
 }
-.s16.setting_block {
-  display: block;
-  width: 16px;
-  height: 16px;
-  background-position: 0 -384px;
+.s16.message {
+  background-position: 0 -144px;
 }
-
+.s16.nuclear {
+  background-position: 0 -400px;
+}
+.s16.download {
+  background-position: 0 -416px;
+}
 .user_link.white, .user_link.black, .user_link.online, .user_link.offline {
   line-height: 16px;
   display: block;
@@ -674,7 +644,6 @@ span.s16.clock {
 .user_link.inline {
   display: inline-block;
 }
-
 .tournament_link {
   padding-left: 20px;
   background-position: 0 -304px;
@@ -693,7 +662,6 @@ div.ui-tooltip div.engine_warning {
   width: auto;
   background-position: 8px 0px;
 }
-
 .engine_mark {
   display: inline-block;
   width: 16px;
@@ -702,7 +670,6 @@ div.ui-tooltip div.engine_warning {
   opacity: 0.8;
   vertical-align: bottom;
 }
-
 div.lichess_social {
   height: 0px;
   text-align: center;
@@ -711,94 +678,50 @@ div.lichess_social div.addtochrome {
   display: none;
   margin-bottom: 15px;
 }
-
 /* soft inactive gradient */
-#top,
-div.lichess_chat_top,
-#friend_box .title,
-div.undertable_top,
-.button,
-.button:visited,
-.ui-state-default,
-div.content_box_top,
-div.hooks tr,
-#translation_call,
-div.notification,
-div.locale_menu a,
-table.slist thead {
+ #top, div.lichess_chat_top, #friend_box .title, div.undertable_top, .button, .button:visited, .ui-state-default, div.content_box_top, div.hooks tr, #translation_call, div.notification, div.locale_menu a, table.slist thead {
   color: #666;
   background: #fafafa;
-  background: -moz-linear-gradient(center top , #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
+  background: -moz-linear-gradient(center top, #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fafafa), to(#e0e0e0));
-  background: -webkit-linear-gradient(top , #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
-  background: -ms-linear-gradient(top , #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
-  background: -o-linear-gradient(top , #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
+  background: -webkit-linear-gradient(top, #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
+  background: -ms-linear-gradient(top, #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
+  background: -o-linear-gradient(top, #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
 }
-
 /* active gradient */
-#top a.goto_nav.active,
-.button.active,
-.button.active:hover,
-.ui-state-active,
-.ui-widget-header,
-div.pagination span.current,
-#top span.new_messages.unread,
-div.hooks td.action:hover,
-div.hooks table.empty tr:hover,
-div.progressbar.flashy div,
-.button.strong:hover,
-div.locale_menu a.active,
-#import_game .progression 
-{
+ #top a.goto_nav.active, .button.active, .button.active:hover, .ui-state-active, .ui-widget-header, div.pagination span.current, #top span.new_messages.unread, div.hooks td.action:hover, div.hooks table.empty tr:hover, div.progressbar.flashy div, .button.strong:hover, div.locale_menu a.active, #import_game .progression {
   color: #fff;
   background: #d85000;
-  background: -moz-linear-gradient(center top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
+  background: -moz-linear-gradient(center top, #f49c00, #d85000) repeat scroll 0 0 #d85000;
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f49c00), to(#d85000));
-  background: -webkit-linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
-  background: -ms-linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
-  background: -o-linear-gradient(top , #f49c00, #d85000) repeat scroll 0 0 #d85000;
+  background: -webkit-linear-gradient(top, #f49c00, #d85000) repeat scroll 0 0 #d85000;
+  background: -ms-linear-gradient(top, #f49c00, #d85000) repeat scroll 0 0 #d85000;
+  background: -o-linear-gradient(top, #f49c00, #d85000) repeat scroll 0 0 #d85000;
 }
-
 /* strong inactive gradient */
-div.hooks td.action,
-.button:hover,
-.button.strong
-{
+ div.hooks td.action, .button:hover, .button.strong {
   background: #ffffff;
-  background: -moz-linear-gradient(center top , #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
+  background: -moz-linear-gradient(center top, #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff), to(#c0c0c0));
-  background: -webkit-linear-gradient(top , #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
-  background: -ms-linear-gradient(top , #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
-  background: -o-linear-gradient(top , #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
+  background: -webkit-linear-gradient(top, #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
+  background: -ms-linear-gradient(top, #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
+  background: -o-linear-gradient(top, #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
 }
-
 /* current gradient */
-#top a.goto_nav.current {
+ #top a.goto_nav.current {
   color: #fff;
   background: #999;
-  background: -moz-linear-gradient(center top , #aaa, #999) repeat scroll 0 0 #999;
+  background: -moz-linear-gradient(center top, #aaa, #999) repeat scroll 0 0 #999;
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#aaa), to(#999));
-  background: -webkit-linear-gradient(top , #aaa, #999) repeat scroll 0 0 #999;
-  background: -ms-linear-gradient(top , #aaa, #999) repeat scroll 0 0 #999;
-  background: -o-linear-gradient(top , #aaa, #999) repeat scroll 0 0 #999;
+  background: -webkit-linear-gradient(top, #aaa, #999) repeat scroll 0 0 #999;
+  background: -ms-linear-gradient(top, #aaa, #999) repeat scroll 0 0 #999;
+  background: -o-linear-gradient(top, #aaa, #999) repeat scroll 0 0 #999;
 }
-
 /* standard shadow */
-div.lichess_chat,
-div.undertable,
-div.lichess_board_wrap,
-.button.strong,
-.button.shadowed,
-#friend_box,
-div.content_box,
-div.undergame_box,
-div.lichess_goodies div.box,
-#powerTip
-{
+ div.lichess_chat, div.undertable, div.lichess_board_wrap, .button.strong, .button.shadowed, #friend_box, div.content_box, div.undergame_box, div.lichess_goodies div.box, #powerTip {
   box-shadow: 0 0 7px #d0d0d0;
   border-radius: 4px;
 }
-
 div.checkmateFen {
   float: left;
   width: 250px;
@@ -841,7 +764,6 @@ div.checkmateCaptcha.success div.success {
 div.checkmateCaptcha.failure div.failure {
   display: block;
 }
-
 div.undergame_box {
   margin-top: 10px;
   width: 512px;
@@ -862,7 +784,6 @@ div.undergame_box a {
 div.undergame_box a:hover {
   text-decoration: underline;
 }
-
 div.game_analysis {
   padding: 10px;
   width: 492px;
@@ -873,7 +794,6 @@ div.game_analysis a {
   height: 24px;
   padding-left: 30px;
 }
-
 div.game_more div.more_top {
   padding: 3px 10px;
   width: 492px;
@@ -901,12 +821,10 @@ div.game_more textarea {
   padding: 5px;
   border-radius: 3px;
 }
-
 div.game_extra div.bookmarkers {
   float: right;
   max-width: 48%;
 }
-
 span.bookmark {
   position: relative;
   float: right;
@@ -930,14 +848,12 @@ span.bookmark .icon.bookmarked {
 span.bookmark a {
   outline: none;
 }
-
 div.progressbar {
   background: #eaeaea;
   border: 1px solid #e0e0e0;
   border-radius: 5px;
   padding: 1px;
 }
-
 div.progressbar div {
   background: #d8a050;
   height: 12px;
@@ -946,7 +862,6 @@ div.progressbar div {
 div.progressbar.flashy.green div {
   background: #90d050;
 }
-
 div.notifications {
   width: 1005px;
   margin: 0 auto -10px auto;
@@ -971,39 +886,55 @@ div.notifications > div a.close:hover {
   display: block;
   margin-left: 8px;
 }
-
-a.hover_text > .base,
-a.hover_text:hover > .hover {
+a.hover_text > .base, a.hover_text:hover > .hover {
   display: inline-block;
 }
-a.hover_text > .hover,
-a.hover_text:hover > .base {
+a.hover_text > .hover, a.hover_text:hover > .base {
   display: none;
 }
+input:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+input:focus:-moz-placeholder {
+  color: transparent;
+}
+input:focus::-moz-placeholder {
+  color: transparent;
+}
+input:focus:-ms-input-placeholder {
+  color: transparent;
+}
 
-input:focus::-webkit-input-placeholder { color: transparent; }
-input:focus:-moz-placeholder { color: transparent; }
-input:focus::-moz-placeholder { color: transparent; }
-input:focus:-ms-input-placeholder { color: transparent; }
-
-div.relation_actions .user_more {
+div.relation_actions a.button {
+  padding: 0.6em 1em;
+  padding-right: 0.6em; /* required for some reason */
+}
+div.relation_actions a.relation.processing {
+  opacity: 0.2
+}
+div.relation_actions .icon {
+  margin-right: 6px;
+}
+div.relation_actions .icon span {
+  display: inline-block;
+  vertical-align: text-top;
+  padding: 0;
+  margin: 0;
   width: 16px;
   height: 16px;
-  display: block;
-  background-position: 0 -160px;
 }
 
 /* PowerTip Plugin */
-#powerTip {
+ #powerTip {
   width: 200px;
   min-height: 6em;
-	cursor: default;
-	background-color: #f0f0f0;
-	border: 1px solid #c0c0c0;
-	border-radius: 4px;
-	display: none;
-	position: absolute;
-	z-index: 2147483647;
+  cursor: default;
+  background-color: #f0f0f0;
+  border: 1px solid #c0c0c0;
+  border-radius: 4px;
+  display: none;
+  position: absolute;
+  z-index: 2147483647;
 }
 #powerTip > .title {
   padding: 8px;
@@ -1014,82 +945,81 @@ div.relation_actions .user_more {
   padding: 16px 8px;
 }
 #powerTip:before {
-	content: "";
-	position: absolute;
+  content:"";
+  position: absolute;
 }
 #powerTip.n:before, #powerTip.s:before {
-	border-right: 5px solid transparent;
-	border-left: 5px solid transparent;
-	left: 50%;
-	margin-left: -5px;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  left: 50%;
+  margin-left: -5px;
 }
 #powerTip.e:before, #powerTip.w:before {
-	border-bottom: 5px solid transparent;
-	border-top: 5px solid transparent;
-	margin-top: -5px;
-	top: 50%;
+  border-bottom: 5px solid transparent;
+  border-top: 5px solid transparent;
+  margin-top: -5px;
+  top: 50%;
 }
 #powerTip.n:before {
-	border-top: 10px solid #acacac;
-	border-top: 10px solid rgba(172, 172, 172, 0.8);
-	bottom: -10px;
+  border-top: 10px solid #acacac;
+  border-top: 10px solid rgba(172, 172, 172, 0.8);
+  bottom: -10px;
 }
 #powerTip.e:before {
-	border-right: 10px solid #acacac;
-	border-right: 10px solid rgba(172, 172, 172, 0.8);
-	left: -10px;
+  border-right: 10px solid #acacac;
+  border-right: 10px solid rgba(172, 172, 172, 0.8);
+  left: -10px;
 }
 #powerTip.s:before {
-	border-bottom: 10px solid #acacac;
-	border-bottom: 10px solid rgba(172, 172, 172, 0.8);
-	top: -10px;
+  border-bottom: 10px solid #acacac;
+  border-bottom: 10px solid rgba(172, 172, 172, 0.8);
+  top: -10px;
 }
 #powerTip.w:before {
-	border-left: 10px solid #acacac;
-	border-left: 10px solid rgba(172, 172, 172, 0.8);
-	right: -10px;
+  border-left: 10px solid #acacac;
+  border-left: 10px solid rgba(172, 172, 172, 0.8);
+  right: -10px;
 }
 #powerTip.ne:before, #powerTip.se:before {
-	border-right: 10px solid transparent;
-	border-left: 0;
-	left: 10px;
+  border-right: 10px solid transparent;
+  border-left: 0;
+  left: 10px;
 }
 #powerTip.nw:before, #powerTip.sw:before {
-	border-left: 10px solid transparent;
-	border-right: 0;
-	right: 10px;
+  border-left: 10px solid transparent;
+  border-right: 0;
+  right: 10px;
 }
 #powerTip.ne:before, #powerTip.nw:before {
-	border-top: 10px solid #acacac;
-	border-top: 10px solid rgba(172, 172, 172, 0.8);
-	bottom: -10px;
+  border-top: 10px solid #acacac;
+  border-top: 10px solid rgba(172, 172, 172, 0.8);
+  bottom: -10px;
 }
 #powerTip.se:before, #powerTip.sw:before {
-	border-bottom: 10px solid #acacac;
-	border-bottom: 10px solid rgba(172, 172, 172, 0.8);
-	top: -10px;
+  border-bottom: 10px solid #acacac;
+  border-bottom: 10px solid rgba(172, 172, 172, 0.8);
+  top: -10px;
 }
-#powerTip.nw-alt:before, #powerTip.ne-alt:before,
-#powerTip.sw-alt:before, #powerTip.se-alt:before {
-	border-top: 10px solid #acacac;
-	border-top: 10px solid rgba(172, 172, 172, 0.8);
-	bottom: -10px;
-	border-left: 5px solid transparent;
-	border-right: 5px solid transparent;
-	left: 10px;
+#powerTip.nw-alt:before, #powerTip.ne-alt:before, #powerTip.sw-alt:before, #powerTip.se-alt:before {
+  border-top: 10px solid #acacac;
+  border-top: 10px solid rgba(172, 172, 172, 0.8);
+  bottom: -10px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  left: 10px;
 }
 #powerTip.ne-alt:before {
-	left: auto;
-	right: 10px;
+  left: auto;
+  right: 10px;
 }
 #powerTip.sw-alt:before, #powerTip.se-alt:before {
-	border-top: none;
-	border-bottom: 10px solid #acacac;
-	border-bottom: 10px solid rgba(172, 172, 172, 0.8);
-	bottom: auto;
-	top: -10px;
+  border-top: none;
+  border-bottom: 10px solid #acacac;
+  border-bottom: 10px solid rgba(172, 172, 172, 0.8);
+  bottom: auto;
+  top: -10px;
 }
 #powerTip.se-alt:before {
-	left: auto;
-	right: 10px;
+  left: auto;
+  right: 10px;
 }

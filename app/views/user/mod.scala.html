@@ -3,17 +3,17 @@
 <div class="actions clearfix">
   @if(isGranted(_.MarkEngine)) {
   <form method="post" action="@routes.Mod.engine(u.username)">
-    <input class="confirm" type="submit" value="@u.engine.fold("Un-mark as engine", "Mark as engine")" />
+    <input class="confirm button" type="submit" value="@u.engine.fold("Un-mark as engine", "Mark as engine")" />
   </form>
   }
   @if(isGranted(_.MarkTroll)) {
   <form method="post" action="@routes.Mod.troll(u.username)">
-    <input class="confirm" type="submit" value="@u.troll.fold("Un-mark as troll", "Mark as troll")" />
+    <input class="confirm button" type="submit" value="@u.troll.fold("Un-mark as troll", "Mark as troll")" />
   </form>
   }
   @if(isGranted(_.IpBan)) {
   <form method="post" action="@routes.Mod.ban(u.username)">
-    <input class="confirm" type="submit" value="@u.ipBan.fold("Revoke IP ban", "IP ban")" />
+    <input class="confirm button" type="submit" value="@u.ipBan.fold("Revoke IP ban", "IP ban")" />
   </form>
   }
 </div>
