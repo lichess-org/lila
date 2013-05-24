@@ -44,12 +44,6 @@ evenMoreJs = evenMoreJs,
 evenMoreCss = evenMoreCss) {
 <div class="content_box no_padding user_show">
   <div class="content_box_top">
-    @if(ctx.me.fold(false)(u !=)) {
-    <a href="@routes.Message.form()?username=@u.username" class="send_message">@trans.composeMessage()</a>
-    }
-    <form id="exportform" action="@routes.User.export(u.username)" method="POST">
-      <a onclick="document.getElementById('exportform').submit();">@trans.exportGames()</a>
-    </form>
     <div class="icon status @isOnline(u.username).fold("connected", "")"></div>
     <h1 class="lichess_title">@u.usernameWithElo</h1>
     @info.rank.map { r =>
@@ -65,9 +59,22 @@ evenMoreCss = evenMoreCss) {
     <span class="intertab" >@splitNumber(u.toints + " " + trans.tournamentPoints())</span>
     <span class="intertab" >@splitNumber(info.nbPosts + " Forum posts")</span>
     @if(ctx.isAuth && !ctx.is(u)) {
-    @relation.actions(u.id)
+    <div class="relation_actions">
+      @if(isGranted(_.UserSpy)) {
+      <a class="icon button mod_zone_toggle" href="@routes.User.mod(u.username)" title="Mod zone">
+        <span class="s16 nuclear"></span>
+      </a>
+      }
+      <form id="exportform" action="@routes.User.export(u.username)" method="POST">
+        <a class="icon button" onclick="document.getElementById('exportform').submit();" title="@trans.exportGames()">
+          <span class="s16 download"></span>
+        </a>
+      </form>
+      @relation.actions(u.id)
+    </div>
     }
   </div>
+  <div class="mod_zone"></div>
   <div class="meat">
     @info.eloChart.map { eloChart =>
     <div class="elo_history" title="Elo history" data-columns="@eloChart.columns" data-rows="@eloChart.rows">
@@ -101,13 +108,9 @@ evenMoreCss = evenMoreCss) {
       </div>
       <div class="actions clearfix">
         @actions
-        @if(isGranted(_.UserSpy)) {
-        <a class="action mod_zone_toggle" href="@routes.User.mod(u.username)">Mod zone</a>
-        }
       </div>
     </div>
   </div>
-  <div class="mod_zone"></div>
   @if(u.hasGames) {
   <div class="content_box_inter clearfix">
     @filters.list.map { f =>

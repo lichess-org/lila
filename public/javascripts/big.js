@@ -308,8 +308,8 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
     $('#friend_box').friends();
 
-    $('body').on('click', 'div.relation_actions a', function() {
-      var $a = $(this).css('opacity', 0.2);
+    $('body').on('click', 'div.relation_actions a.relation', function() {
+      var $a = $(this).addClass('processing');
       $.ajax({
         url: $a.attr('href'),
         type: 'post',

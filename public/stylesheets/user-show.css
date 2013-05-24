@@ -20,8 +20,11 @@ div.user_show .social {
 }
 div.user_show .relation_actions {
   position: absolute;
-  top: 16px;
+  top: 22px;
   right: 16px;
+}
+div.user_show .relation_actions form {
+  display: inline;
 }
 
 div.user_show div.meat {
@@ -98,6 +101,7 @@ div.user_show .actions form {
 div.user_show .mod_zone {
   display: none;
   margin: 1em 20px;
+  border-bottom: 1px solid #c0c0c0;
 }
 div.user_show .mod_zone .slist {
   font-size: 0.9em;

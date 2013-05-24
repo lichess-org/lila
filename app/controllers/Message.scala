@@ -35,7 +35,9 @@ object Message extends LilaController {
 
   def form = Auth { implicit ctx ⇒
     implicit me ⇒
-      Ok(html.message.form(forms.thread, get("username"))).fuccess
+      get("username") ?? Env.user.usernameOption map { username ⇒
+        Ok(html.message.form(forms.thread, username))
+      }
   }
 
   def create = AuthBody { implicit ctx ⇒
