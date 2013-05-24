@@ -37,6 +37,9 @@ trait PackageObject
   implicit final class LilaPimpedOption[A](o: Option[A]) {
 
     def ??[B: Zero](f: A ⇒ B): B = o.fold(∅[B])(f)
+
+    def ifTrue(b: Boolean): Option[A] = o filter (_ ⇒ b)
+    def ifFalse(b: Boolean): Option[A] = o filter (_ ⇒ !b)
   }
 
   implicit final class LilaPimpedMap[A, B](m: Map[A, B]) {

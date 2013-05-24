@@ -23,7 +23,7 @@ final class Env(config: Config, hub: lila.hub.Env, db: lila.db.Env) {
     notifier = notifier,
     forum = hub.actor.forum,
     indexer = hub.actor.teamIndexer,
-    relationActor = hub.actor.relation)
+    timeline = hub.actor.timeline)
 
   lazy val paginator = new PaginatorBuilder(
     maxPerPage = PaginatorMaxPerPage,

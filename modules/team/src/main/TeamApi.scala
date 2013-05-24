@@ -5,7 +5,7 @@ import org.scala_tools.time.Imports._
 import actorApi._
 import lila.db.api._
 import lila.hub.actorApi.forum.MakeTeam
-import lila.hub.actorApi.timeline.{ ShareEntry, TeamJoin, TeamCreate }
+import lila.hub.actorApi.timeline.{ Propagate, TeamJoin, TeamCreate }
 import lila.hub.ActorLazyRef
 import lila.user.tube.userTube
 import lila.user.{ User, Context }
@@ -16,7 +16,7 @@ final class TeamApi(
     notifier: Notifier,
     forum: ActorLazyRef,
     indexer: ActorLazyRef,
-    relationActor: ActorLazyRef) {
+    timeline: ActorLazyRef) {
 
   val creationPeriod = 1.week
 
@@ -37,7 +37,9 @@ final class TeamApi(
       (cached.teamIds remove me.id) >>-
       (forum ! MakeTeam(team.id, team.name)) >>-
       (indexer ! InsertTeam(team)) >>-
-      (relationActor ! ShareEntry(me.id, TeamCreate(me.id, team.id))) inject team
+      (timeline ! Propagate(
+        TeamCreate(me.id, team.id)
+      ).toFriendsOf(me.id)) inject team
   }
 
   def update(team: Team, edit: TeamEdit, me: User): Funit = edit.trim |> { e ⇒
@@ -111,10 +113,14 @@ final class TeamApi(
   def doJoin(team: Team, userId: String): Funit =
     belongsTo(team.id, userId) flatMap { belongs ⇒
       (!belongs) ?? {
-        MemberRepo.add(team.id, userId) >>
-          TeamRepo.incMembers(team.id, +1) >>
-          (cached.teamIds remove userId) >>-
-          (relationActor ! ShareEntry(userId, TeamJoin(userId, team.id)))
+        MemberRepo userIdsByTeam team.id flatMap { previousMembers ⇒
+          MemberRepo.add(team.id, userId) >>
+            TeamRepo.incMembers(team.id, +1) >>
+            (cached.teamIds remove userId) >>-
+            (timeline ! Propagate(
+              TeamJoin(userId, team.id)
+            ).toFriendsOf(userId).toUsers(previousMembers))
+        }
       }
     }
 

@@ -7,6 +7,7 @@ import lila.common.paginator._
 import lila.db.api._
 import lila.db.Implicits._
 import lila.db.paginator._
+import lila.hub.actorApi.timeline.{ Propagate, ForumPost }
 import lila.hub.ActorLazyRef
 import lila.user.{ User, Context }
 import tube._
@@ -16,7 +17,7 @@ private[forum] final class TopicApi(
     indexer: ActorLazyRef,
     maxPerPage: Int,
     modLog: lila.mod.ModlogApi,
-    relationActor: ActorLazyRef) extends OptionTs {
+    timeline: ActorLazyRef) extends OptionTs {
 
   def show(categSlug: String, slug: String, page: Int, troll: Boolean): Fu[Option[(Categ, Topic, Paginator[Post])]] =
     for {
@@ -52,7 +53,12 @@ private[forum] final class TopicApi(
         $insert(topic withPost post) >>
         $update(categ withTopic post) >>-
         (indexer ! InsertPost(post)) >>
-        env.recent.invalidate inject topic
+        env.recent.invalidate >>-
+        (ctx.userId ifFalse post.troll ?? { userId ⇒
+          timeline ! Propagate(
+            ForumPost(userId, categ.id, topic.slug, topic.name, env.postApi.lastPageOf(topic withPost post), post.number)
+          ).toFriendsOf(userId)
+        }) inject topic
     }
 
   def paginator(categ: Categ, page: Int, troll: Boolean): Fu[Paginator[TopicView]] = Paginator(

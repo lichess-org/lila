@@ -6,6 +6,7 @@ import com.typesafe.config.Config
 final class Env(
     config: Config,
     db: lila.db.Env,
+    hub: lila.hub.Env,
     getUsername: String ⇒ Fu[String],
     lobbySocket: lila.hub.ActorLazyRef,
     renderer: lila.hub.ActorLazyRef,
@@ -30,7 +31,8 @@ final class Env(
 
   system.actorOf(Props(new Push(
     lobbySocket = lobbySocket,
-    renderer = renderer
+    renderer = renderer,
+    relationActor = hub.actor.relation
   )), name = UserActorName)
 
   private[timeline] lazy val gameEntryColl = db(GameCollectionEntry)
@@ -43,6 +45,7 @@ object Env {
   lazy val current = "[boot] timeline" describes new Env(
     config = lila.common.PlayApp loadConfig "timeline",
     db = lila.db.Env.current,
+    hub = lila.hub.Env.current,
     getUsername = lila.user.Env.current.usernameOrAnonymous _,
     lobbySocket = lila.hub.Env.current.socket.lobby,
     renderer = lila.hub.Env.current.actor.renderer,

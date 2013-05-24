@@ -8,20 +8,33 @@ import play.api.libs.json._
 import play.api.templates.Html
 
 import lila.db.api._
-import lila.hub.actorApi.timeline.{ MakeEntry, Atom, ReloadTimeline }
+import lila.hub.actorApi.relation.GetFriends
+import lila.hub.actorApi.timeline.propagation._
+import lila.hub.actorApi.timeline.{ Propagate, Atom, ReloadTimeline }
+import lila.hub.ActorLazyRef
 import makeTimeout.short
 import tube.entryTube
 
 private[timeline] final class Push(
-    lobbySocket: lila.hub.ActorLazyRef,
-    renderer: lila.hub.ActorLazyRef) extends Actor {
+    lobbySocket: ActorLazyRef,
+    renderer: ActorLazyRef,
+    relationActor: ActorLazyRef) extends Actor {
 
   def receive = {
-    case MakeEntry(users, data) ⇒ makeEntry(users, data) >>-
-      (users foreach { u ⇒
-        lobbySocket.ref ! ReloadTimeline(u)
-      })
+
+    case Propagate(data, propagations) ⇒ propagate(propagations) foreach { users ⇒
+      if (users.nonEmpty) makeEntry(users, data) >>-
+        (users foreach { u ⇒
+          lobbySocket.ref ! ReloadTimeline(u)
+        })
+    }
   }
+
+  private def propagate(propagations: List[Propagation]): Fu[List[String]] =
+    (propagations map {
+      case Users(ids)  ⇒ fuccess(ids)
+      case Friends(id) ⇒ relationActor ? GetFriends(id) mapTo manifest[List[String]]
+    }).sequence map (_.flatten.distinct)
 
   private def makeEntry(users: List[String], data: Atom): Fu[Entry] =
     Entry.make(users, data).fold(
