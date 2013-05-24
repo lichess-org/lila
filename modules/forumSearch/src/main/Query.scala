@@ -16,15 +16,23 @@ private[forumSearch] final class Query private (
     from = from,
     size = size)
 
-  def countRequest = ElasticSearch.Request.Count(makeQuery)
+  def countRequest = ElasticSearch.Request.Count(makeQuery, makeFilters)
 
-  private def makeQuery = terms.foldLeft(boolQuery()) {
-    case (query, term) ⇒ query must {
-      multiMatchQuery(term, fields.body, fields.topic, fields.author)
-    }
+  private def queryTerms = terms filterNot (_ startsWith "user:")
+  private def userSearch = terms find (_ startsWith "user:") flatMap {
+    _.drop(5).some.filter(_.size >= 2)
   }
 
+  private def makeQuery =
+    if (queryTerms.isEmpty) matchAllQuery
+    else queryTerms.foldLeft(boolQuery) {
+      case (query, term) ⇒ query must {
+        multiMatchQuery(term, fields.body, fields.topic, fields.author)
+      }
+    }
+
   private def makeFilters = List(
+    userSearch map { termFilter(fields.author, _) },
     !staff option termFilter(fields.staff, false),
     !troll option termFilter(fields.troll, false)
   ).flatten.toNel map { fs ⇒ andFilter(fs.list: _*) }

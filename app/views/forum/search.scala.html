@@ -1,15 +1,16 @@
 @(text: String, views: Paginator[lila.forum.PostView])(implicit ctx: Context)
 
-@title = @{ trans.searchInForum.str() + " \"" + text + "\"" }
+@title = @{ trans.searchInForum.str() + " \"" + text.trim + "\"" }
 
 @forum.layout(
 title = title,
-moreJs = jsTag("vendor/jquery.infinitescroll.min.js")
+moreJs = jsTag("vendor/jquery.infinitescroll.min.js"),
+searchText = text
 ) {
 
-@forum.searchForm(text)
-
 <h1>@title</h1>
+
+<p class="nb_results">@views.nbResults posts found</p>
 
 <table class="slist search_results">
   @if(views.nbResults > 0) {
