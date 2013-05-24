@@ -72,6 +72,7 @@ show teams in user mini
 badges for top players in ELO and number of games
 top menu is too long in french with long username
 captcha can only first click a piece
+user bio editing is broken (change editing js lib?)
 
 DEPLOY p21
 ----------
