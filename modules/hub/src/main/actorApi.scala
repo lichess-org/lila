@@ -60,7 +60,8 @@ package timeline {
     implicit val forumPostFormat = Json.format[ForumPost]
   }
 
-  case class MakeEntry(user: String, data: Atom)
+  case class ShareEntry(user: String, data: Atom)
+  case class MakeEntry(users: List[String], data: Atom)
 }
 
 package game {

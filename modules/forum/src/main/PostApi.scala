@@ -8,7 +8,7 @@ import lila.common.paginator._
 import lila.db.api._
 import lila.db.Implicits._
 import lila.db.paginator._
-import lila.hub.actorApi.timeline.{ MakeEntry, ForumPost }
+import lila.hub.actorApi.timeline.{ ShareEntry, ForumPost }
 import lila.hub.ActorLazyRef
 import lila.mod.ModlogApi
 import lila.user.{ User, Context }
@@ -41,7 +41,7 @@ final class PostApi(
         (indexer ! InsertPost(post)) >>
         (env.recent.invalidate inject post) >>-
         (ctx.userId ?? { userId ⇒
-          relationActor ! MakeEntry(
+          relationActor ! ShareEntry(
             userId,
             ForumPost(userId, categ.id, topic.slug, topic.name, lastPageOf(topic withPost post), post.number)
           )

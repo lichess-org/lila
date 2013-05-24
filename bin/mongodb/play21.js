@@ -76,8 +76,9 @@ print('index forum post authors');
 db.f_post.ensureIndex({userId:1})
 
 print('create timeline_entry collection');
-db.createCollection('timeline_entry');
+db.createCollection("timeline_entry",{capped:true,size:50000000})
 db.timeline_entry.ensureIndex({user:1, date: -1});
+db.timeline_entry.ensureIndex({type:1, date: -1});
 
 // print("Reset lobby_room");
 // db.lobby_room.drop();
