@@ -2,7 +2,7 @@ package lila.lobby
 package actorApi
 
 import lila.socket.SocketMember
-import lila.timeline.Entry
+import lila.timeline.GameEntry
 import lila.user.User
 import lila.game.Game
 
@@ -25,7 +25,7 @@ case class RemoveHook(hookId: String)
 case class CancelHook(uid: String)
 case class BiteHook(hookId: String, uid: String, userId: Option[String])
 case class JoinHook(uid: String, hook: Hook, game: Game)
-case class AddEntry(entry: Entry)
+case class AddEntry(entry: GameEntry)
 case class Join(uid: String, user: Option[User])
 
 package lobby {

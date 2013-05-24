@@ -3,15 +3,15 @@ package lila.timeline
 import chess.Color, Color._
 import lila.game.{ Game, Namer }
 import lila.db.api.$insert
-import lila.hub.actorApi.lobby.TimelineEntry
-import tube.entryTube
+import lila.hub.actorApi.lobby.TimelineGameEntry
+import tube.gameEntryTube
 import makeTimeout.short
 
 import play.api.templates.Html
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 
-private[timeline] final class Push(
+private[timeline] final class PushGame(
     lobbySocket: lila.hub.ActorLazyRef,
     renderer: lila.hub.ActorLazyRef,
     getUsername: String ⇒ Fu[String]) extends Actor {
@@ -20,15 +20,15 @@ private[timeline] final class Push(
     case game: Game ⇒ makeEntry(game) flatMap { entry ⇒
       $insert(entry) >>- {
         renderer ? entry map {
-          case view: Html ⇒ TimelineEntry(view.body)
+          case view: Html ⇒ TimelineGameEntry(view.body)
         } pipeTo lobbySocket.ref
       }
     } logFailure ("[timeline] push " + game.id)
   }
 
-  private def makeEntry(game: Game): Fu[Entry] =
+  private def makeEntry(game: Game): Fu[GameEntry] =
     usernameElo(game, White) zip usernameElo(game, Black) map {
-      case (whiteName, blackName) ⇒ Entry(
+      case (whiteName, blackName) ⇒ GameEntry(
         gameId = game.id,
         whiteName = whiteName,
         blackName = blackName,

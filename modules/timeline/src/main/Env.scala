@@ -1,6 +1,6 @@
 package lila.timeline
 
-import tube.entryTube
+import tube.gameEntryTube
 import lila.db.api._
 import lila.db.Implicits._
 
@@ -15,20 +15,23 @@ final class Env(
     renderer: lila.hub.ActorLazyRef,
     system: ActorSystem) {
 
-  private val CollectionEntry = config getString "collection.entry"
-  private val DisplayMax = config getInt "display_max"
-  private val ActorName = config getString "actor.name"
+  private val GameCollectionEntry = config getString "game.collection.entry"
+  private val GameDisplayMax = config getInt "game.display_max"
+  private val GameActorName = config getString "game.actor.name"
+  private val UserCollectionEntry = config getString "user.collection.entry"
+  private val UserDisplayMax = config getInt "user.display_max"
+  private val UserActorName = config getString "user.actor.name"
 
-  def recent: Fu[List[Entry]] = 
-    $query($select.all) sort $sort.naturalOrder toListFlatten DisplayMax.some
+  def recentGames: Fu[List[GameEntry]] = 
+    $query[GameEntry]($select.all) sort $sort.naturalOrder toListFlatten GameDisplayMax.some
 
-  system.actorOf(Props(new Push(
+  system.actorOf(Props(new PushGame(
     lobbySocket = lobbySocket,
     renderer = renderer,
     getUsername = getUsername
-  )), name = ActorName)
+  )), name = GameActorName)
 
-  private[timeline] lazy val entryColl = db(CollectionEntry)
+  private[timeline] lazy val gameEntryColl = db(GameCollectionEntry)
 }
 
 object Env {
