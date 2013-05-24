@@ -8,7 +8,7 @@ import play.api.libs.json._
 import play.api.templates.Html
 
 import lila.db.api._
-import lila.hub.actorApi.timeline._
+import lila.hub.actorApi.timeline.{ MakeEntry, Atom, ReloadTimeline }
 import makeTimeout.short
 import tube.entryTube
 
@@ -17,20 +17,20 @@ private[timeline] final class Push(
     renderer: lila.hub.ActorLazyRef) extends Actor {
 
   def receive = {
-    case maker @ MakeEntry(user, typ, data) ⇒ makeEntry(user, typ, data) foreach { entry ⇒
+    case MakeEntry(user, data) ⇒ makeEntry(user, data) foreach { entry ⇒
       lobbySocket.ref ! ReloadTimeline(user)
-    } 
+    }
   }
 
-  private def makeEntry(user: String, typ: String, data: JsValue): Fu[Entry] =
-    Entry.make(user, typ, data).fold(
+  private def makeEntry(user: String, data: Atom): Fu[Entry] =
+    Entry.make(user, data).fold(
       fufail[Entry]("[timeline] invalid entry data " + data)
     ) { entry ⇒
-        $find(Json.obj("user" -> user, "date" -> $gt($date(DateTime.now - 1.hour)))) flatMap { entries ⇒
-          entries exists (_ similarTo entry) fold (
-            fufail[Entry]("[timeline] a similar entry already exists"),
-            $insert(entry) inject entry
-          )
-        }
+      $find(Json.obj("user" -> user, "date" -> $gt($date(DateTime.now - 1.hour)))) flatMap { entries ⇒
+        entries exists (_ similarTo entry) fold (
+          fufail[Entry]("[timeline] a similar entry already exists"),
+          $insert(entry) inject entry
+        )
       }
+    }
 }

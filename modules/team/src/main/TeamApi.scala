@@ -2,18 +2,21 @@ package lila.team
 
 import org.scala_tools.time.Imports._
 
-import lila.user.{ User, Context }
-import lila.user.tube.userTube
-import tube._
 import actorApi._
-import lila.hub.actorApi.forum.MakeTeam
 import lila.db.api._
+import lila.hub.actorApi.forum.MakeTeam
+import lila.hub.actorApi.timeline.{ MakeEntry, TeamJoin, TeamCreate }
+import lila.hub.ActorLazyRef
+import lila.user.tube.userTube
+import lila.user.{ User, Context }
+import tube._
 
 final class TeamApi(
     cached: Cached,
     notifier: Notifier,
-    forum: lila.hub.ActorLazyRef,
-    indexer: lila.hub.ActorLazyRef) {
+    forum: ActorLazyRef,
+    indexer: ActorLazyRef,
+    relationActor: ActorLazyRef) {
 
   val creationPeriod = 1.week
 
@@ -33,7 +36,8 @@ final class TeamApi(
       MemberRepo.add(team.id, me.id) >>
       (cached.teamIds remove me.id) >>-
       (forum ! MakeTeam(team.id, team.name)) >>-
-      (indexer ! InsertTeam(team)) inject team
+      (indexer ! InsertTeam(team)) >>-
+      (relationActor ! MakeEntry(me.id, TeamCreate(me.id, team.id))) inject team
   }
 
   def update(team: Team, edit: TeamEdit, me: User): Funit = edit.trim |> { e ⇒
@@ -109,7 +113,8 @@ final class TeamApi(
       (!belongs) ?? {
         MemberRepo.add(team.id, userId) >>
           TeamRepo.incMembers(team.id, +1) >>
-          (cached.teamIds remove userId)
+          (cached.teamIds remove userId) >>-
+          (relationActor ! MakeEntry(userId, TeamJoin(userId, team.id)))
       }
     }
 

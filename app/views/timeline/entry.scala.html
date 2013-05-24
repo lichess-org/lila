@@ -1,12 +1,28 @@
 @(e: lila.timeline.Entry)(implicit ctx: Context)
 
-@import lila.timeline.Entry._
+@import lila.hub.actorApi.timeline._
+
 @e.decode.map { decoded =>
 <div class="entry">
   @decoded match {
-  case Follow(userId) => {
-  @timeline.follow(userId) @timeago(e.date)
+  case Follow(u1, u2) => {
+  @trans.xStartedFollowingY(userIdLink(u1.some), userIdLink(u2.some))
+  }
+  case FollowYou(userId) => {
+  @userIdLink(userId.some) @trans.followsYou()
+  }
+  case TeamJoin(userId, teamId) => {
+  @trans.xJoinedTeamY(userIdLink(userId.some), teamLink(teamId))
+  }
+  case TeamCreate(userId, teamId) => {
+  @trans.xCreatedTeamY(userIdLink(userId.some), teamLink(teamId))
+  }
+  case ForumPost(userId, categ, topicId, topicName, post) => {
+  @trans.xPostedInForumY(userIdLink(userId.some), {
+  <a href="@routes.Forum.Topic(categ, topic)#post">@topicName</a>
+  })
   }
   }
+  @timeago(e.date)
 </div>
 }
