@@ -25,7 +25,7 @@ title = topic.name) {
     <div class="post" id="@post.number">
       <div class="metas clearfix">
         @authorLink(post, "author".some)
-        <span class="createdAt">@showDate(post.createdAt)</span>
+        <span class="createdAt">@timeago(post.createdAt)</span>
         <a class="anchor" href="@routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage)#@post.number">#@post.number</a>
         @if(isGranted(_.SuperAdmin)) {
         @post.ip.map { ip =>

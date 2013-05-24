@@ -51,7 +51,7 @@
         <p class="meta clearfix">
           <a href="@postUrl">@v.topic.name</a>
           @authorLink(v.post, withOnline = false)
-          <span class="date">@showDate(v.post.createdAt)</span>
+          <span class="date">@timeago(v.post.createdAt)</span>
         </p>
         <p>@shorten(v.post.text, 200)</p>
       </li>

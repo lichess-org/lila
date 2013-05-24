@@ -28,7 +28,7 @@ moreJs = jsTag("vendor/jquery.infinitescroll.min.js")
         <p>@shortenWithBr(view.post.text, 200)</p>
       </td>
       <td class="info">
-        <span class="date">@showDate(view.post.createdAt)</span>
+        <span class="date">@timeago(view.post.createdAt)</span>
         by @Html(authorName(view.post))
       </td>
     </tr>
