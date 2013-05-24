@@ -13,10 +13,8 @@
 }
 
 @goodies = {
-<div id="timeline">
-@userTimeline.map { entry =>
-@timeline.entry(entry)
-}
+<div id="timeline" data-href="@routes.Lobby.timeline">
+  @timeline.entries(userTimeline)
 </div>
 }
 

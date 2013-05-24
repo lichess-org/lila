@@ -6,6 +6,7 @@ $(function() {
       setTimeout(function() {
         $.get(onlineUserUrl, function(html) {
           $users.html(html);
+          $('body').trigger('lichess.content_loaded');
           reloadOnlineUsers();
         });
       }, 3000);
