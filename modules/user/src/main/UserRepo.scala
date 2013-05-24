@@ -21,7 +21,7 @@ object UserRepo {
 
   def byId(id: ID): Fu[Option[User]] = $find byId id
 
-  def byIds(id: Seq[ID]): Fu[List[User]] = $find byIds id
+  def byIds(id: Iterable[ID]): Fu[List[User]] = $find byIds id
 
   def enabledByIds(ids: Seq[ID]): Fu[List[User]] = 
     $find(enabledQuery ++ $select.byIds(ids))

@@ -3,6 +3,7 @@ package lila.relation
 import lila.db.api._
 import lila.db.Implicits._
 import lila.game.GameRepo
+import lila.hub.actorApi.relation.ReloadFriends
 import lila.hub.actorApi.timeline.{ Propagate, Follow ⇒ FollowUser }
 import lila.hub.ActorLazyRef
 import lila.user.tube.userTube
@@ -11,7 +12,7 @@ import tube.relationTube
 
 final class RelationApi(
     cached: Cached,
-    timelinePush: ActorLazyRef,
+    actor: ActorLazyRef,
     timeline: ActorLazyRef) {
 
   def followers(userId: ID) = cached followers userId
@@ -23,6 +24,7 @@ final class RelationApi(
   def nbFollowing(userId: ID) = following(userId) map (_.size)
 
   def friends(userId: ID) = cached friends userId
+  def areFriends(u1: ID, u2: ID) = friends(u1) map (_ contains u2)
 
   def follows(u1: ID, u2: ID) = following(u1) map (_ contains u2)
   def blocks(u1: ID, u2: ID) = blocking(u1) map (_ contains u2)
@@ -34,7 +36,7 @@ final class RelationApi(
     else relation(u1, u2) flatMap {
       case Some(Follow) ⇒ fufail("Already following")
       case _ ⇒ RelationRepo.follow(u1, u2) >>
-        cached.invalidate(u1, u2) >>-
+        refresh(u1, u2) >>-
         (timeline ! Propagate(
           FollowUser(u1, u2)
         ).toFriendsOf(u1).toUsers(List(u2)))
@@ -44,20 +46,24 @@ final class RelationApi(
     if (u1 == u2) fufail("Cannot block yourself")
     else relation(u1, u2) flatMap {
       case Some(Block) ⇒ fufail("Already blocking")
-      case _           ⇒ RelationRepo.block(u1, u2) >> cached.invalidate(u1, u2)
+      case _           ⇒ RelationRepo.block(u1, u2) >> refresh(u1, u2)
     }
 
   def unfollow(u1: ID, u2: ID): Funit =
     if (u1 == u2) fufail("Cannot unfollow yourself")
     else relation(u1, u2) flatMap {
-      case Some(Follow) ⇒ RelationRepo.unfollow(u1, u2) >> cached.invalidate(u1, u2)
+      case Some(Follow) ⇒ RelationRepo.unfollow(u1, u2) >> refresh(u1, u2)
       case _            ⇒ fufail("Not following")
     }
 
   def unblock(u1: ID, u2: ID): Funit =
     if (u1 == u2) fufail("Cannot unblock yourself")
     else relation(u1, u2) flatMap {
-      case Some(Block) ⇒ RelationRepo.unblock(u1, u2) >> cached.invalidate(u1, u2)
+      case Some(Block) ⇒ RelationRepo.unblock(u1, u2) >> refresh(u1, u2)
       case _           ⇒ fufail("Not blocking")
     }
+
+  private def refresh(u1: ID, u2: ID): Funit =
+    cached.invalidate(u1, u2) >>-
+      List(u1, u2).foreach(actor ! ReloadFriends(_))
 }

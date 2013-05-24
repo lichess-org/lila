@@ -20,7 +20,7 @@ object Global extends GlobalSettings {
     }
     else {
       Env.monitor.reporting ! AddRequest
-      Env.security.wiretap(req.pp)
+      Env.security.wiretap(req)
       Env.security.firewall.requestHandler(req).await orElse
         Env.i18n.requestHandler(req) orElse
         super.onRouteRequest(req)

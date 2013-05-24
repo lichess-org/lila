@@ -24,7 +24,9 @@ case class User(
     bio: Option[String] = None,
     engine: Boolean = false,
     toints: Int = 0,
-    createdAt: DateTime) {
+    createdAt: DateTime) extends Ordered[User] {
+
+  def compare(other: User) = id compare other.id
 
   def noTroll = !troll
 

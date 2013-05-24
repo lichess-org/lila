@@ -7,7 +7,6 @@ import akka.actor._
 import play.api.libs.json._
 
 import actorApi._
-import lila.hub.actorApi.relation.FriendsOf
 import lila.hub.actorApi.{ GetUids, WithUserIds, GetNbMembers, NbMembers, SendTo, SendTos }
 import lila.memo.ExpireSetMemo
 
@@ -45,8 +44,6 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Actor {
     case SendTo(userId, msg)        ⇒ sendTo(userId, msg)
 
     case SendTos(userIds, msg)      ⇒ sendTos(userIds, msg)
-
-    case FriendsOf(uid, friends)    ⇒ withMember(uid)(notifyMember("friends", friends))
 
     case Resync(uid)                ⇒ resync(uid)
   }

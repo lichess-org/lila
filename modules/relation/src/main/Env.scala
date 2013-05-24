@@ -24,7 +24,7 @@ final class Env(
 
   lazy val api = new RelationApi(
     cached = cached,
-    timelinePush = hub.actor.timeline,
+    actor = hub.actor.relation,
     timeline = hub.actor.timeline)
 
   private lazy val cached = new Cached

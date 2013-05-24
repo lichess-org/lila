@@ -34,6 +34,7 @@ trait DateHelper { self: I18nHelper ⇒
   def timeagoLocale(implicit ctx: Context): Option[String] =
     lang(ctx).language match {
       case "en" ⇒ none
+      case "fr" ⇒ "fr-short".some
       case "pt" ⇒ "pt-br".some
       case "zh" ⇒ "zh-CN".some
       case l    ⇒ timeagoLocales(l) option l
