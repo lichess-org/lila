@@ -19,7 +19,6 @@ case class Entry(
 
   def decode: Option[Atom] = (typ match {
     case "follow"      ⇒ Json.fromJson[Follow](data)
-    case "follow-you"  ⇒ Json.fromJson[FollowYou](data)
     case "team-join"   ⇒ Json.fromJson[TeamJoin](data)
     case "team-create" ⇒ Json.fromJson[TeamCreate](data)
     case "forum-post"  ⇒ Json.fromJson[ForumPost](data)
@@ -30,7 +29,6 @@ object Entry {
 
   private[timeline] def make(users: List[String], data: Atom): Option[Entry] = (data match {
     case d: Follow     ⇒ "follow" -> Json.toJson(d)
-    case d: FollowYou  ⇒ "follow-you" -> Json.toJson(d)
     case d: TeamJoin   ⇒ "team-join" -> Json.toJson(d)
     case d: TeamCreate ⇒ "team-create" -> Json.toJson(d)
     case d: ForumPost  ⇒ "forum-post" -> Json.toJson(d)

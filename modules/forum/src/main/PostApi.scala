@@ -8,7 +8,7 @@ import lila.common.paginator._
 import lila.db.api._
 import lila.db.Implicits._
 import lila.db.paginator._
-import lila.hub.actorApi.timeline.{ ShareEntry, ForumPost }
+import lila.hub.actorApi.timeline.{ Propagate, ForumPost }
 import lila.hub.ActorLazyRef
 import lila.mod.ModlogApi
 import lila.user.{ User, Context }
@@ -19,7 +19,7 @@ final class PostApi(
     indexer: ActorLazyRef,
     maxPerPage: Int,
     modLog: ModlogApi,
-    relationActor: ActorLazyRef) extends OptionTs {
+    timeline: ActorLazyRef) extends OptionTs {
 
   def makePost(
     categ: Categ,
@@ -40,11 +40,10 @@ final class PostApi(
         $update(categ withTopic post) >>-
         (indexer ! InsertPost(post)) >>
         (env.recent.invalidate inject post) >>-
-        (ctx.userId ?? { userId ⇒
-          relationActor ! ShareEntry(
-            userId,
+        (ctx.userId ifFalse post.troll ?? { userId ⇒
+          timeline ! Propagate(
             ForumPost(userId, categ.id, topic.slug, topic.name, lastPageOf(topic withPost post), post.number)
-          )
+          ).toFriendsOf(userId)
         }) inject post
     }
 

@@ -6,24 +6,17 @@ import akka.pattern.{ ask, pipe }
 import actorApi._
 import lila.hub.actorApi.relation._
 import lila.hub.actorApi.SendTos
-import lila.hub.actorApi.timeline.{ MakeEntry, ShareEntry }
 import lila.hub.ActorLazyRef
 
 private[relation] final class RelationActor(
     socketHub: ActorLazyRef,
     getOnlineUserIds: () ⇒ Set[String],
     getUsername: String ⇒ Fu[String],
-    getFriendIds: String ⇒ Fu[Set[String]],
-    timelinePush: ActorLazyRef) extends Actor {
+    getFriendIds: String ⇒ Fu[Set[String]]) extends Actor {
 
   def receive = {
 
-    case ShareEntry(userId, data) ⇒ getFriendIds(userId) map { ids ⇒
-      MakeEntry(ids.toList, data)
-    } pipeTo timelinePush.ref
-
-    // rarely called
-    // return a list of usernames, followers, following and online
+    // sends back a list of usernames, followers, following and online
     case GetFriends(userId) ⇒ getFriendIds(userId) flatMap { ids ⇒
       ((ids intersect onlineIds).toList map getUsername).sequenceFu
     } pipeTo sender
@@ -58,7 +51,7 @@ private[relation] final class RelationActor(
 
   private def notifyFriends(users: List[User], message: String) {
     users foreach {
-      case (id, name) ⇒ getFriendIds(id) foreach { ids ⇒
+      case (id, name) ⇒ getFriendIds(id.pp).thenPp foreach { ids ⇒
         val notify = ids filter onlines.contains
         if (notify.nonEmpty) socketHub ! SendTos(notify.toSet, message, name)
       }

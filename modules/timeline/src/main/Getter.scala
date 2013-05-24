@@ -17,6 +17,6 @@ private[timeline] final class Getter(
 
   def userEntries(userId: String): Fu[List[Entry]] =
     $find[Entry](
-      $query[Entry](Json.obj("user" -> userId)) sort $sort.desc("date"),
+      $query[Entry](Json.obj("users" -> userId)) sort $sort.desc("date"),
       userMax)
 }

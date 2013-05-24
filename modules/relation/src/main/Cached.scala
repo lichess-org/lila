@@ -13,7 +13,7 @@ private[relation] final class Cached {
 
   private def findFriends(userId: String): Fu[Set[ID]] = 
     following(userId) flatMap { ids ⇒
-      (ids map { id ⇒ following(id) map (_ contains userId) }).sequenceFu map { ids zip _ } map {
+      (ids.toList map { id ⇒ following(id) map (_ contains userId) }).sequenceFu map { ids zip _ } map {
         _.filter(_._2).map(_._1)
       }
     }

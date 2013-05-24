@@ -46,7 +46,6 @@ package timeline {
 
   sealed trait Atom
   case class Follow(u1: String, u2: String) extends Atom
-  case class FollowYou(userId: String) extends Atom
   case class TeamJoin(userId: String, teamId: String) extends Atom
   case class TeamCreate(userId: String, teamId: String) extends Atom
   case class ForumPost(userId: String, categ: String, topicSlug: String, topicName: String, page: Int, post: Int) extends Atom
@@ -54,14 +53,23 @@ package timeline {
   object atomFormat {
 
     implicit val followFormat = Json.format[Follow]
-    implicit val followYouFormat = Json.format[FollowYou]
     implicit val teamJoinFormat = Json.format[TeamJoin]
     implicit val teamCreateFormat = Json.format[TeamCreate]
     implicit val forumPostFormat = Json.format[ForumPost]
   }
 
-  case class ShareEntry(user: String, data: Atom)
-  case class MakeEntry(users: List[String], data: Atom)
+  object propagation {
+    sealed trait Propagation
+    case class Users(users: List[String]) extends Propagation
+    case class Friends(user: String) extends Propagation
+  }
+
+  import propagation._
+
+  case class Propagate(data: Atom, propagations: List[Propagation] = Nil) {
+    def toUsers(ids: List[String]) = copy(propagations = Users(ids) :: propagations)
+    def toFriendsOf(id: String) = copy(propagations = Friends(id) :: propagations)
+  }
 }
 
 package game {

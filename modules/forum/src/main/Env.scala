@@ -32,14 +32,14 @@ final class Env(
     indexer = hub.actor.forumIndexer,
     maxPerPage = TopicMaxPerPage,
     modLog = modLog,
-    relationActor = hub.actor.relation)
+    timeline = hub.actor.timeline)
 
   lazy val postApi = new PostApi(
     env = this,
     indexer = hub.actor.forumIndexer,
     maxPerPage = PostMaxPerPage,
     modLog = modLog,
-    relationActor = hub.actor.relation)
+    timeline = hub.actor.timeline)
 
   lazy val forms = new DataForm(hub.actor.captcher)
   lazy val recent = new Recent(postApi, RecentTtl)

@@ -3,7 +3,7 @@ package lila.relation
 import lila.db.api._
 import lila.db.Implicits._
 import lila.game.GameRepo
-import lila.hub.actorApi.timeline.{ MakeEntry, ShareEntry, Follow ⇒ FollowUser, FollowYou }
+import lila.hub.actorApi.timeline.{ Propagate, Follow ⇒ FollowUser }
 import lila.hub.ActorLazyRef
 import lila.user.tube.userTube
 import lila.user.{ User, UserRepo }
@@ -12,7 +12,7 @@ import tube.relationTube
 final class RelationApi(
     cached: Cached,
     timelinePush: ActorLazyRef,
-    relationActor: ActorLazyRef) {
+    timeline: ActorLazyRef) {
 
   def followers(userId: ID) = cached followers userId
   def following(userId: ID) = cached following userId
@@ -35,8 +35,9 @@ final class RelationApi(
       case Some(Follow) ⇒ fufail("Already following")
       case _ ⇒ RelationRepo.follow(u1, u2) >>
         cached.invalidate(u1, u2) >>-
-        (timelinePush ! MakeEntry(List(u2), FollowYou(u1))) >>-
-        (relationActor ! ShareEntry(u1, FollowUser(u1, u2)))
+        (timeline ! Propagate(
+          FollowUser(u1, u2)
+        ).toFriendsOf(u1).toUsers(List(u2)))
     }
 
   def block(u1: ID, u2: ID): Funit =

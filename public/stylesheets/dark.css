@@ -108,6 +108,7 @@ body.dark div.user_show div.user-infos,
 body.dark div.game_config input[type="text"],
 body.dark #powerTip,
 body.dark #powerTip > .title,
+body.dark #timeline,
 body.dark #timeline > .entry 
 {
   border-color: #444;
@@ -138,7 +139,7 @@ body.dark #team .forum a.user_link,
 body.dark span.board_mark,
 body.dark #timeline time
 {
-  color: #808080;
+  color: #777;
 }
 body.dark #site_title span.extension {
   color: #707070;
