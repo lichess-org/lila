@@ -18,9 +18,7 @@ private[timeline] final class Push(
 
   def receive = {
     case maker @ MakeEntry(user, typ, data) ⇒ makeEntry(user, typ, data) foreach { entry ⇒
-      renderer ? entry map {
-        case view: Html ⇒ EntryView(user, view.body)
-      } pipeTo lobbySocket.ref
+      lobbySocket.ref ! ReloadTimeline(user)
     } 
   }
 

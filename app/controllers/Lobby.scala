@@ -26,13 +26,12 @@ object Lobby extends LilaController with Results {
 
   private def renderHome[A](status: Status)(implicit ctx: Context): Fu[Result] =
     Env.current.preloader(
-      timeline = Env.timeline.recentGames,
       posts = Env.forum.recent(ctx.me, Env.team.cached.teamIds.apply),
       tours = TournamentRepo.created,
       filter = Env.setup.filter
     ).map(_.fold(Redirect(_), {
-        case (preload, entries, posts, tours, featured) ⇒ status(html.lobby.home(
-          Json stringify preload, entries, posts, tours, featured)) |> { response ⇒
+        case (preload, entries, gameEntries, posts, tours, featured) ⇒ status(html.lobby.home(
+          Json stringify preload, entries, gameEntries, posts, tours, featured)) |> { response ⇒
           ctx.req.session.data.contains(LilaCookie.sessionId).fold(
             response,
             response withCookies LilaCookie.makeSessionId(ctx.req)

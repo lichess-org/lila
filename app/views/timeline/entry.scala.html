@@ -1,0 +1,12 @@
+@(e: lila.timeline.Entry)(implicit ctx: Context)
+
+@import lila.timeline.Entry._
+@e.decode.map { decoded =>
+<div class="entry">
+  @decoded match {
+  case Follow(userId) => {
+  @timeline.follow(userId) @timeago(e.date)
+  }
+  }
+</div>
+}

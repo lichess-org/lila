@@ -3,6 +3,8 @@ package lila.timeline
 import org.joda.time.DateTime
 import play.api.libs.json._
 
+import lila.common.PimpedJson._
+
 case class Entry(
     user: String,
     typ: String,
@@ -13,11 +15,20 @@ case class Entry(
     (user == other.user) &&
       (typ == other.typ) &&
       (data == other.data)
+
+  def decode: Option[Entry.Decoded] = typ match {
+    case "follow" ⇒ data str "user" map { Entry.Follow(_) }
+    case _        ⇒ none
+  }
 }
 
 object Entry {
 
-  def make(user: String, typ: String, data: JsValue): Option[Entry] =
+  sealed trait Decoded
+
+  case class Follow(userId: String) extends Decoded
+
+  private[timeline] def make(user: String, typ: String, data: JsValue): Option[Entry] =
     data.asOpt[JsObject] map { Entry(user, typ, _, DateTime.now) }
 
   import lila.db.Tube

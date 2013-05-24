@@ -3,9 +3,10 @@ package templating
 
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.regex.Matcher.quoteReplacement
+
 import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 import play.api.templates.Html
-import java.util.regex.Matcher.quoteReplacement
 
 trait StringHelper {
 

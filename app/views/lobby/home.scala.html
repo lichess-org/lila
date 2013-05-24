@@ -1,4 +1,4 @@
-@(preload: String, gameTimeline: List[lila.timeline.GameEntry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], featured: Option[Game])(implicit ctx: Context)
+@(preload: String, userTimeline: List[lila.timeline.Entry], gameTimeline: List[lila.timeline.GameEntry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], featured: Option[Game])(implicit ctx: Context)
 
 @underchat = {
 <div id="featured_game">
@@ -13,6 +13,11 @@
 }
 
 @goodies = {
+<div id="timeline">
+@userTimeline.map { entry =>
+@timeline.entry(entry)
+}
+</div>
 }
 
 @base.layout(
@@ -44,39 +49,7 @@ underchat = underchat.some) {
     </div>
   </div>
   @lobby.buttons()
-  <div class="open_tournaments undertable">
-    <div class="undertable_top">
-      <a class="more" title="See all tournaments" href="@routes.Tournament.home()">More »</a>
-      <span class="title">Open tournaments</span>
-    </div>
-    <div class="undertable_inner">
-      <table class="tournaments">
-        @tournament.createdTable(tours)
-      </table>
-    </div>
-  </div>
-  <div class="lichess_bot undertable">
-    <div class="undertable_top">
-      <a class="more" title="@trans.seeTheGamesBeingPlayedInRealTime()" href="@routes.Game.realtime()">@trans.games() »</a>
-      <span class="title">@trans.gamesBeingPlayedRightNow()</span>
-    </div>
-    <div class="undertable_inner">
-      <div class="content">
-        <table class="lichess_messages">@gameTimelineEntries(gameTimeline)</table>
-      </div>
-    </div>
-  </div>
-  <div class="new_posts undertable" data-url="@routes.ForumPost.recent">
-    <div class="undertable_top">
-      <a class="more" title="@trans.talkAboutChessAndDiscussLichessFeaturesInTheForum()" href="@routes.ForumCateg.index">@trans.forum() »</a>
-      <span class="title">@trans.forum()</span>
-    </div>
-    <div class="undertable_inner">
-      <div class="content">
-        <ol>@forum.post.recent(forumRecent)</ol>
-      </div>
-    </div>
-  </div>
+  @lobby.undertable(gameTimeline, forumRecent, tours)
 </div>
 @embedJs("var lichess_preload = " + preload)
 }

@@ -341,6 +341,12 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     setTimeout(userPowertips, 600);
     $('body').on('lichess.content_loaded', userPowertips);
 
+    function setTimeAgo() {
+      $("time:not(.jsed)").addClass('.jsed').timeago();
+    }
+    setTimeAgo();
+    $('body').on('lichess.content_loaded', setTimeAgo);
+
     // Start game
     var $game = $('div.lichess_game').orNot();
     if ($game) $game.game(_ld_);
@@ -1836,8 +1842,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         game_entry: function(e) {
           renderTimeline([e]);
         },
-        entry: function(e) {
-          console.debug(e);
+        reload_timeline: function() {
+          // TODO
+          console.debug("reload timeline");
         },
         hook_add: addHook,
         hook_remove: removeHook,

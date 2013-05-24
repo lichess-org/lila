@@ -1,9 +1,5 @@
 package lila.timeline
 
-import tube.gameEntryTube
-import lila.db.api._
-import lila.db.Implicits._
-
 import akka.actor._
 import com.typesafe.config.Config
 
@@ -22,8 +18,9 @@ final class Env(
   private val UserDisplayMax = config getInt "user.display_max"
   private val UserActorName = config getString "user.actor.name"
 
-  def recentGames: Fu[List[GameEntry]] = 
-    $query[GameEntry]($select.all) sort $sort.naturalOrder toListFlatten GameDisplayMax.some
+  lazy val getter = new Getter(
+    gameMax = GameDisplayMax,
+    userMax = UserDisplayMax)
 
   system.actorOf(Props(new GamePush(
     lobbySocket = lobbySocket,
