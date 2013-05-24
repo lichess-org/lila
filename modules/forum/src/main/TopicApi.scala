@@ -1,20 +1,22 @@
 package lila.forum
 
-import lila.user.{ User, Context }
-import lila.common.paginator._
-import lila.db.paginator._
-import lila.db.Implicits._
-import lila.db.api._
-import tube._
-import actorApi._
-
 import scalaz.{ OptionT, OptionTs }
+
+import actorApi._
+import lila.common.paginator._
+import lila.db.api._
+import lila.db.Implicits._
+import lila.db.paginator._
+import lila.hub.ActorLazyRef
+import lila.user.{ User, Context }
+import tube._
 
 private[forum] final class TopicApi(
     env: Env,
-    indexer: lila.hub.ActorLazyRef,
+    indexer: ActorLazyRef,
     maxPerPage: Int,
-    modLog: lila.mod.ModlogApi) extends OptionTs {
+    modLog: lila.mod.ModlogApi,
+    relationActor: ActorLazyRef) extends OptionTs {
 
   def show(categSlug: String, slug: String, page: Int, troll: Boolean): Fu[Option[(Categ, Topic, Paginator[Post])]] =
     for {

@@ -1,19 +1,28 @@
 package lila.relation
 
-import actorApi._
-import lila.hub.actorApi.SendTos
-import lila.hub.actorApi.relation._
-
 import akka.actor.Actor
 import akka.pattern.{ ask, pipe }
 
+import actorApi._
+import lila.hub.actorApi.relation._
+import lila.hub.actorApi.SendTos
+import lila.hub.actorApi.timeline.MakeEntry
+import lila.hub.ActorLazyRef
+
 private[relation] final class RelationActor(
-    socketHub: lila.hub.ActorLazyRef,
+    socketHub: ActorLazyRef,
     getOnlineUserIds: () ⇒ Set[String],
     getUsername: String ⇒ Fu[String],
-    getFriendIds: String ⇒ Fu[Set[String]]) extends Actor {
+    getFriendIds: String ⇒ Fu[Set[String]],
+    timelinePush: ActorLazyRef) extends Actor {
 
   def receive = {
+
+    case MakeEntry(userId, data) ⇒ getFriendIds(userId) foreach { ids ⇒
+      ids foreach { id ⇒
+        timelinePush ! MakeEntry(id, data)
+      }
+    }
 
     // rarely called
     // return a list of usernames, followers, following and online

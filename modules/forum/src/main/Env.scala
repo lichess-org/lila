@@ -1,11 +1,11 @@
 package lila.forum
 
+import akka.actor._
+import com.typesafe.config.Config
+
 import lila.common.PimpedConfig._
 import lila.hub.actorApi.forum._
 import lila.mod.ModlogApi
-
-import akka.actor._
-import com.typesafe.config.Config
 
 final class Env(
     config: Config,
@@ -25,9 +25,21 @@ final class Env(
   }
   import settings._
 
-  lazy val categApi = new CategApi(this)
-  lazy val topicApi = new TopicApi(this, hub.actor.forumIndexer, TopicMaxPerPage, modLog)
-  lazy val postApi = new PostApi(this, hub.actor.forumIndexer, PostMaxPerPage, modLog)
+  lazy val categApi = new CategApi(env = this)
+
+  lazy val topicApi = new TopicApi(
+    env = this,
+    indexer = hub.actor.forumIndexer,
+    maxPerPage = TopicMaxPerPage,
+    modLog = modLog,
+    relationActor = hub.actor.relation)
+
+  lazy val postApi = new PostApi(
+    env = this,
+    indexer = hub.actor.forumIndexer,
+    maxPerPage = PostMaxPerPage,
+    modLog = modLog,
+    relationActor = hub.actor.relation)
 
   lazy val forms = new DataForm(hub.actor.captcher)
   lazy val recent = new Recent(postApi, RecentTtl)

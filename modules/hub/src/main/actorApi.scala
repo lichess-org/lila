@@ -41,14 +41,26 @@ package lobby {
 }
 
 package timeline {
-  case class MakeEntry(user: String, typ: String, data: JsValue)
-  object MakeEntry {
-    val Follow = "follow"
-    def apply[A: Writes](user: String, typ: MakeEntry.type ⇒ String, data: A): MakeEntry =
-      MakeEntry(user, typ(MakeEntry), Json toJson data)
-  }
   case class ReloadTimeline(user: String)
   case class GameEntryView(rendered: String)
+
+  sealed trait Atom
+  case class Follow(u1: String, u2: String) extends Atom
+  case class FollowYou(userId: String) extends Atom
+  case class TeamJoin(userId: String, teamId: String) extends Atom
+  case class TeamCreate(userId: String, teamId: String) extends Atom
+  case class ForumPost(userId: String, categ: String, topicId: String, topicName: String, post: Int) extends Atom
+
+  object atomFormat {
+
+    implicit val followFormat = Json.format[Follow]
+    implicit val followYouFormat = Json.format[FollowYou]
+    implicit val teamJoinFormat = Json.format[TeamJoin]
+    implicit val teamCreateFormat = Json.format[TeamCreate]
+    implicit val forumPostFormat = Json.format[ForumPost]
+  }
+
+  case class MakeEntry(user: String, data: Atom)
 }
 
 package game {

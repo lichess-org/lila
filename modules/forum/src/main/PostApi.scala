@@ -1,22 +1,25 @@
 package lila.forum
 
-import lila.user.{ User, Context }
-import lila.common.paginator._
-import lila.mod.ModlogApi
-import lila.db.paginator._
-import lila.db.Implicits._
-import lila.db.api._
-import tube._
-import actorApi._
-
 import play.api.libs.json._
 import scalaz.{ OptionT, OptionTs }
 
+import actorApi._
+import lila.common.paginator._
+import lila.db.api._
+import lila.db.Implicits._
+import lila.db.paginator._
+import lila.hub.actorApi.timeline.{ MakeEntry, ForumPost }
+import lila.hub.ActorLazyRef
+import lila.mod.ModlogApi
+import lila.user.{ User, Context }
+import tube._
+
 final class PostApi(
     env: Env,
-    indexer: lila.hub.ActorLazyRef,
+    indexer: ActorLazyRef,
     maxPerPage: Int,
-    modLog: ModlogApi) extends OptionTs {
+    modLog: ModlogApi,
+    relationActor: ActorLazyRef) extends OptionTs {
 
   def makePost(
     categ: Categ,
@@ -36,7 +39,13 @@ final class PostApi(
         $update(topic withPost post) >>
         $update(categ withTopic post) >>-
         (indexer ! InsertPost(post)) >>
-        env.recent.invalidate inject post
+        (env.recent.invalidate inject post) >>-
+        (ctx.userId ?? { userId ⇒
+          relationActor ! MakeEntry(
+            userId,
+            ForumPost(userId, categ.id, topic.slug, topic.name, post.number)
+          )
+        }) inject post
     }
 
   def get(postId: String): Fu[Option[(Topic, Post)]] = for {
