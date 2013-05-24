@@ -47,7 +47,7 @@ package timeline {
     def apply[A: Writes](user: String, typ: MakeEntry.type ⇒ String, data: A): MakeEntry =
       MakeEntry(user, typ(MakeEntry), Json toJson data)
   }
-  case class EntryView(user: String, rendered: String)
+  case class ReloadTimeline(user: String)
   case class GameEntryView(rendered: String)
 }
 

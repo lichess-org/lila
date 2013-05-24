@@ -134,7 +134,8 @@ body.dark div.lichess_chat a.user_link,
 body.dark div.lichess_chat a.user_link,
 body.dark div.new_posts li span,
 body.dark #team .forum a.user_link,
-body.dark span.board_mark
+body.dark span.board_mark,
+body.dark #timeline time
 {
   color: #808080;
 }

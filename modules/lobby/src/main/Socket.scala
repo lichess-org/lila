@@ -1,20 +1,21 @@
 package lila.lobby
 
-import actorApi._
-import lila.socket.{ SocketActor, History, Historical }
-import lila.socket.actorApi.{ Connected ⇒ _, _ }
-import lila.game.actorApi._
-import lila.hub.actorApi.lobby._
-import lila.hub.actorApi.timeline._
-import lila.hub.actorApi.router.{ Homepage, Player }
-import makeTimeout.short
+import scala.concurrent.duration._
 
+import actorApi._
 import akka.actor._
 import akka.pattern.ask
-import play.api.libs.json._
 import play.api.libs.iteratee._
+import play.api.libs.json._
 import play.api.templates.Html
-import scala.concurrent.duration._
+
+import lila.game.actorApi._
+import lila.hub.actorApi.lobby._
+import lila.hub.actorApi.router.{ Homepage, Player }
+import lila.hub.actorApi.timeline._
+import lila.socket.actorApi.{ Connected ⇒ _, _ }
+import lila.socket.{ SocketActor, History, Historical }
+import makeTimeout.short
 
 private[lobby] final class Socket(
     val history: History,
@@ -37,15 +38,15 @@ private[lobby] final class Socket(
       sender ! Connected(enumerator, member)
     }
 
-    case ReloadTournaments(html)   ⇒ notifyTournaments(html)
+    case ReloadTournaments(html) ⇒ notifyTournaments(html)
 
-    case GameEntryView(rendered)   ⇒ notifyVersion("game_entry", rendered)
+    case GameEntryView(rendered) ⇒ notifyVersion("game_entry", rendered)
 
-    case EntryView(user, rendered) ⇒ sendTo(user, makeMessage("entry", rendered))
+    case ReloadTimeline(user)    ⇒ sendTo(user, makeMessage("reload_timeline", JsNull))
 
-    case AddHook(hook)             ⇒ notifyVersion("hook_add", hook.render)
+    case AddHook(hook)           ⇒ notifyVersion("hook_add", hook.render)
 
-    case RemoveHook(hookId)        ⇒ notifyVersion("hook_remove", hookId)
+    case RemoveHook(hookId)      ⇒ notifyVersion("hook_remove", hookId)
 
     case JoinHook(uid, hook, game) ⇒
       playerUrl(game fullIdOf game.creatorColor) zip

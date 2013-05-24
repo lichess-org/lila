@@ -825,6 +825,18 @@ div.game_extra div.bookmarkers {
   float: right;
   max-width: 48%;
 }
+#timeline {
+  margin-top: 2em;
+}
+#timeline > .entry {
+  padding-bottom: 1em;
+  border-bottom: 1px solid #c0c0c0;
+  margin-bottom: 1em;
+}
+#timeline time {
+  font-size: 0.8em;
+  color: #afafaf;
+}
 span.bookmark {
   position: relative;
   float: right;

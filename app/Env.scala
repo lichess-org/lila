@@ -3,17 +3,26 @@ package lila.app
 import akka.actor._
 import com.typesafe.config.Config
 
-final class Env(config: Config, system: ActorSystem) {
+final class Env(
+  config: Config, 
+  system: ActorSystem,
+  appPath: String) {
 
   val CliUsername = config getString "cli.username"
 
   private val RendererName = config getString "app.renderer.name"
   private val RouterName = config getString "app.router.name"
+  private val WebPath = config getString "app.web_path"
+  private val TimeagoLocalesPath = config getString "app.timeago_locales_path"
+
+  def timeagoLocalesPath = appPath + "/" + TimeagoLocalesPath
 
   lazy val preloader = new mashup.Preload(
     lobby = Env.lobby.lobby,
     history = Env.lobby.history,
-    featured = Env.game.featured)
+    featured = Env.game.featured,
+    recentGames = () ⇒ Env.timeline.getter.recentGames,
+    timelineEntries = Env.timeline.getter.userEntries _)
 
   lazy val userInfo = mashup.UserInfo(
     countUsers = () ⇒ Env.user.countEnabled,
@@ -55,7 +64,8 @@ object Env {
 
   lazy val current = "[boot] app" describes new Env(
     config = lila.common.PlayApp.loadConfig,
-    system = lila.common.PlayApp.system)
+    system = lila.common.PlayApp.system,
+    appPath = lila.common.PlayApp withApp (_.path.getCanonicalPath))
 
   def api = lila.api.Env.current
   def db = lila.db.Env.current

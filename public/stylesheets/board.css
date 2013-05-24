@@ -515,9 +515,6 @@ div.lichess_chat {
 div.lichess_chat.small_chat {
   left: 0px;
 }
-div.lichess_chat.lobby_chat {
-  top: 126px;
-}
 div.lichess_chat_top {
   border-radius: 4px 4px 0 0;
   border: 1px solid #ccc;
@@ -551,9 +548,6 @@ div.lichess_chat:hover .lichess_messages {
 }
 div.lichess_chat.small_chat .lichess_messages {
   width: 186px;
-}
-div.lichess_chat.lobby_chat .lichess_messages {
-  height: 341px;
 }
 
 div.lichess_chat form {

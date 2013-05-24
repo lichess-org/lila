@@ -141,5 +141,8 @@ moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
     @if(lang.language != "en") {
     <script src="@routes.Assets.at("trans/" + lang.language + ".js")?v=@assetVersion"></script>
     }
+    @timeagoLocale.map { l =>
+    <script src="@routes.Assets.at("vendor/timeago/locales/jquery.timeago." + l + ".js")"></script>
+    }
   </body>
 </html>
