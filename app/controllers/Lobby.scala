@@ -1,14 +1,14 @@
 package controllers
 
+import play.api.libs.json.Json
+import play.api.libs.json.JsValue
+import play.api.mvc._
+
 import lila.app._
-import lila.user.Context
 import lila.common.LilaCookie
 import lila.tournament.TournamentRepo
+import lila.user.Context
 import views._
-
-import play.api.mvc._
-import play.api.libs.json.JsValue
-import play.api.libs.json.Json
 
 object Lobby extends LilaController with Results {
 
@@ -43,5 +43,10 @@ object Lobby extends LilaController with Results {
     get("sri") ?? { uid ⇒
       Env.lobby.socketHandler(uid = uid, user = ctx.me)
     }
+  }
+
+  def timeline = Auth { implicit ctx ⇒
+    me ⇒
+      Env.timeline.getter.userEntries(me.id) map { html.timeline.entries(_) }
   }
 }

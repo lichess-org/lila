@@ -107,7 +107,8 @@ body.dark div.user_show div.mod_zone,
 body.dark div.user_show div.user-infos,
 body.dark div.game_config input[type="text"],
 body.dark #powerTip,
-body.dark #powerTip > .title 
+body.dark #powerTip > .title,
+body.dark #timeline > .entry 
 {
   border-color: #444;
 }

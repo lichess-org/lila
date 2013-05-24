@@ -1843,8 +1843,13 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           renderTimeline([e]);
         },
         reload_timeline: function() {
-          // TODO
-          console.debug("reload timeline");
+          $.ajax({
+            url: $('#timeline').data('href'),
+            success: function(html) {
+              $('#timeline').html(html);
+              $('body').trigger('lichess.content_loaded');
+            }
+          });
         },
         hook_add: addHook,
         hook_remove: removeHook,
