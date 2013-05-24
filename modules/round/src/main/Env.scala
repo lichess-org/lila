@@ -76,7 +76,7 @@ final class Env(
   private lazy val rematcher = new Rematcher(
     messenger = messenger,
     router = hub.actor.router,
-    timeline = hub.actor.timeline)
+    timeline = hub.actor.gameTimeline)
 
   private lazy val player: Player = new Player(
     ai = ai,

@@ -13,7 +13,6 @@ final class Env(
     config: Config,
     system: ActorSystem,
     db: lila.db.Env,
-    timelinePush: lila.hub.ActorLazyRef,
     flood: lila.security.Flood,
     hub: lila.hub.Env,
     roundMap: ActorRef,
@@ -83,7 +82,7 @@ final class Env(
 
   private lazy val joiner = new GameJoiner(
     roundMap = roundMap,
-    timelinePush = timelinePush,
+    timelinePush = hub.actor.gameTimeline,
     system = system)
 
   {
@@ -112,7 +111,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "tournament",
     system = lila.common.PlayApp.system,
     db = lila.db.Env.current,
-    timelinePush = hub.actor.timeline,
     flood = lila.security.Env.current.flood,
     hub = lila.hub.Env.current,
     roundMap = lila.round.Env.current.roundMap,

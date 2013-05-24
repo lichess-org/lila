@@ -26,7 +26,7 @@ object Lobby extends LilaController with Results {
 
   private def renderHome[A](status: Status)(implicit ctx: Context): Fu[Result] =
     Env.current.preloader(
-      timeline = Env.timeline.recent,
+      timeline = Env.timeline.recentGames,
       posts = Env.forum.recent(ctx.me, Env.team.cached.teamIds.apply),
       tours = TournamentRepo.created,
       filter = Env.setup.filter

@@ -1,0 +1,5 @@
+@(entries: List[lila.timeline.GameEntry])
+
+@entries.map { e =>
+<tr>@gameTimelineEntry(e)</tr>
+}

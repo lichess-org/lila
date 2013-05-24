@@ -1,4 +1,4 @@
-@(preload: String, timeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], featured: Option[Game])(implicit ctx: Context)
+@(preload: String, gameTimeline: List[lila.timeline.GameEntry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], featured: Option[Game])(implicit ctx: Context)
 
 @underchat = {
 <div id="featured_game">
@@ -62,7 +62,7 @@ underchat = underchat.some) {
     </div>
     <div class="undertable_inner">
       <div class="content">
-        <table class="lichess_messages">@timelineEntries(timeline)</table>
+        <table class="lichess_messages">@gameTimelineEntries(gameTimeline)</table>
       </div>
     </div>
   </div>

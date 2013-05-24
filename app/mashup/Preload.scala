@@ -3,7 +3,7 @@ package mashup
 
 import lila.lobby.{ Hook, HookRepo }
 import lila.lobby.actorApi.lobby._
-import lila.timeline.Entry
+import lila.timeline.GameEntry
 import lila.game.{ Game, GameRepo, Featured }
 import lila.forum.PostLiteView
 import lila.socket.History
@@ -23,11 +23,11 @@ final class Preload(
     history: History,
     featured: Featured) {
 
-  private type RightResponse = (JsObject, List[Entry], List[PostLiteView], List[Created], Option[Game])
+  private type RightResponse = (JsObject, List[GameEntry], List[PostLiteView], List[Created], Option[Game])
   private type Response = Either[Call, RightResponse]
 
   def apply(
-    timeline: Fu[List[Entry]],
+    timeline: Fu[List[GameEntry]],
     posts: Fu[List[PostLiteView]],
     tours: Fu[List[Created]],
     filter: Fu[FilterConfig])(implicit ctx: Context): Fu[Response] =

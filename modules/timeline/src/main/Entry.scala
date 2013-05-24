@@ -1,6 +1,6 @@
 package lila.timeline
 
-case class Entry(
+case class GameEntry(
     gameId: String,
     whiteName: String,
     blackName: String,
@@ -15,13 +15,13 @@ case class Entry(
     blackName -> blackId)
 }
 
-object Entry {
+object GameEntry {
 
   import lila.db.Tube
   import play.api.libs.json._
 
   private[timeline] lazy val tube = Tube(
-    Json.reads[Entry], 
-    Json.writes[Entry],
+    Json.reads[GameEntry], 
+    Json.writes[GameEntry],
     Seq(_.NoId)) 
 }

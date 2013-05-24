@@ -22,7 +22,7 @@ final class Env(config: Config, system: ActorSystem) {
     val ai = actorLazyRef("ai")
     val monitor = actorLazyRef("monitor")
     val tournamentOrganizer = actorLazyRef("tournament.organizer")
-    val timeline = actorLazyRef("timeline")
+    val gameTimeline = actorLazyRef("timeline.game")
     val bookmark = actorLazyRef("bookmark")
     val roundMap = actorLazyRef("round.map")
     val lobby = actorLazyRef("lobby")
