@@ -2,9 +2,7 @@ package lila.db
 package api
 
 import Implicits._
-
 import play.api.libs.json._
-
 import reactivemongo.api._
 import reactivemongo.bson._
 

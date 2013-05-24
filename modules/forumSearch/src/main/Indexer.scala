@@ -1,11 +1,11 @@
 package lila.forumSearch
 
-import lila.forum.PostApi
-import lila.forum.actorApi._
-import lila.search.{ actorApi ⇒ S }
-
 import akka.actor._
 import org.elasticsearch.index.query._, FilterBuilders._, QueryBuilders._
+
+import lila.forum.actorApi._
+import lila.forum.PostApi
+import lila.search.{ actorApi ⇒ S }
 
 private[forumSearch] final class Indexer(
     lowLevel: ActorRef,

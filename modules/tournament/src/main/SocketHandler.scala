@@ -1,21 +1,22 @@
 package lila.tournament
 
-import actorApi._
-import lila.user.User
-import lila.game.Game
-import lila.socket.Handler
-import lila.socket.actorApi.{ Connected ⇒ _, _ }
-import lila.security.Flood
-import lila.common.PimpedJson._
-import tube.tournamentTube
-import lila.db.api.$count
-import makeTimeout.short
+import scala.concurrent.duration._
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
-import scala.concurrent.duration._
-import play.api.libs.json._
 import play.api.libs.iteratee._
+import play.api.libs.json._
+
+import actorApi._
+import lila.common.PimpedJson._
+import lila.db.api.$count
+import lila.game.Game
+import lila.security.Flood
+import lila.socket.actorApi.{ Connected ⇒ _, _ }
+import lila.socket.Handler
+import lila.user.User
+import makeTimeout.short
+import tube.tournamentTube
 
 private[tournament] final class SocketHandler(
     hub: lila.hub.Env,

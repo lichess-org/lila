@@ -1,17 +1,17 @@
 package lila.bookmark
 
-import lila.game.{ Game, GameRepo }
-import lila.user.User
-import lila.common.paginator._
-import lila.common.PimpedJson._
-import lila.db.paginator._
-import lila.db.Implicits._
-import lila.db.api._
-import tube.bookmarkTube
-
+import org.joda.time.DateTime
 import play.api.libs.json._
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
-import org.joda.time.DateTime
+
+import lila.common.paginator._
+import lila.common.PimpedJson._
+import lila.db.api._
+import lila.db.Implicits._
+import lila.db.paginator._
+import lila.game.{ Game, GameRepo }
+import lila.user.User
+import tube.bookmarkTube
 
 private[bookmark] final class PaginatorBuilder(maxPerPage: Int) {
 

@@ -1,10 +1,10 @@
 package lila.tournament
 
-import lila.db.api._
-import tube.tournamentTube
-import lila.user.{ User, UserRepo, Room ⇒ UserRoom }
-
 import org.apache.commons.lang3.StringEscapeUtils.escapeXml
+
+import lila.db.api._
+import lila.user.{ User, UserRepo, Room ⇒ UserRoom }
+import tube.tournamentTube
 
 private[tournament] final class Messenger(
     getUsername: String ⇒ Fu[Option[String]],

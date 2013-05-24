@@ -1,12 +1,12 @@
 package lila.i18n
 
-import lila.common.PlayApp
-
 import com.typesafe.config.Config
-import play.api.i18n.{ MessagesApi, MessagesPlugin }
 import play.api.i18n.Lang
+import play.api.i18n.{ MessagesApi, MessagesPlugin }
 import play.api.libs.json._
 import play.api.Play.current
+
+import lila.common.PlayApp
 
 final class Env(
     config: Config,

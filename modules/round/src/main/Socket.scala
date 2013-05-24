@@ -1,17 +1,18 @@
 package lila.round
 
-import lila.socket._
-import lila.socket.actorApi.{ Connected ⇒ _, _ }
-import chess.{ Color, White, Black }
-import lila.game.Event
-import actorApi._
-import makeTimeout.short
+import scala.concurrent.duration._
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
-import scala.concurrent.duration._
-import play.api.libs.json._
 import play.api.libs.iteratee._
+import play.api.libs.json._
+
+import actorApi._
+import chess.{ Color, White, Black }
+import lila.game.Event
+import lila.socket._
+import lila.socket.actorApi.{ Connected ⇒ _, _ }
+import makeTimeout.short
 
 private[round] final class Socket(
     gameId: String,

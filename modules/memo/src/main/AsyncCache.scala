@@ -1,6 +1,7 @@
 package lila.memo
 
 import scala.concurrent.duration._
+
 import spray.caching.{ LruCache, Cache }
 
 final class AsyncCache[K, V] private (cache: Cache[V], f: K ⇒ Fu[V]) {

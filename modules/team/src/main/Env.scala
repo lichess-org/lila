@@ -1,6 +1,7 @@
 package lila.team
 
 import com.typesafe.config.Config
+
 import lila.common.PimpedConfig._
 
 final class Env(config: Config, hub: lila.hub.Env, db: lila.db.Env) {

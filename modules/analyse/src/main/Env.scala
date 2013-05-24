@@ -1,9 +1,9 @@
 package lila.analyse
 
-import lila.common.PimpedConfig._
-
 import com.typesafe.config.Config
 import spray.caching.{ LruCache, Cache }
+
+import lila.common.PimpedConfig._
 
 final class Env(
     config: Config,

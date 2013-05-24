@@ -1,9 +1,9 @@
 package lila.setup
 
+import play.api.libs.json._
+
 import chess.{ Variant, Mode, Speed }
 import lila.common.PimpedJson._
-
-import play.api.libs.json._
 
 case class FilterConfig(
     variant: Option[Variant],

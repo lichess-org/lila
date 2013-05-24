@@ -1,11 +1,10 @@
 package lila.monitor
 
-import reactivemongo.core.commands.Status
+import play.api.libs.json.JsObject
+import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 import reactivemongo.api.DB
 import reactivemongo.bson._
-import play.modules.reactivemongo.json.ImplicitBSONHandlers._
-
-import play.api.libs.json.JsObject
+import reactivemongo.core.commands.Status
 
 private[monitor] case class MongoStatus(
   memory: Int = 0,

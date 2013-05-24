@@ -1,14 +1,15 @@
 package lila.ai
 package stockfish
 
-import chess.{ Game, Move }
-import chess.format.UciMove
-import lila.analyse.{ Analysis, AnalysisMaker }
-
 import scala.concurrent.duration._
-import play.api.Play.current
+
 import play.api.libs.concurrent._
 import play.api.libs.ws.WS
+import play.api.Play.current
+
+import chess.format.UciMove
+import chess.{ Game, Move }
+import lila.analyse.{ Analysis, AnalysisMaker }
 
 final class Client(
     val playUrl: String,

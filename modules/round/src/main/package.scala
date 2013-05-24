@@ -1,7 +1,7 @@
 package lila
 
-import lila.socket.WithSocket
 import lila.game.Event
+import lila.socket.WithSocket
 
 package object round extends PackageObject with WithPlay with WithSocket {
 

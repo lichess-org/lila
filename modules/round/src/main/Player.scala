@@ -1,11 +1,11 @@
 package lila.round
 
-import chess.{ Status, Role, Color }
-import chess.Pos.posAt
+import actorApi.round.{ HumanPlay, AiPlay, PlayResult }
 import chess.format.Forsyth
+import chess.Pos.posAt
+import chess.{ Status, Role, Color }
 import lila.ai.Ai
 import lila.game.{ Game, GameRepo, PgnRepo, Pov, Progress }
-import actorApi.round.{ HumanPlay, AiPlay, PlayResult }
 import lila.hub.actorApi.Tell
 
 private[round] final class Player(

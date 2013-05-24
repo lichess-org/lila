@@ -2,12 +2,11 @@ package lila.db
 package api
 
 import Implicits._
-
-import reactivemongo.bson._
-import reactivemongo.api.Cursor
-import play.modules.reactivemongo.json.ImplicitBSONHandlers._
-import play.api.libs.json._
 import play.api.libs.iteratee._
+import play.api.libs.json._
+import play.modules.reactivemongo.json.ImplicitBSONHandlers._
+import reactivemongo.api.Cursor
+import reactivemongo.bson._
 
 object $enumerate {
 

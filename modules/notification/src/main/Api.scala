@@ -1,11 +1,12 @@
 package lila.notification
 
-import lila.user.User
-import lila.hub.actorApi.SendTo
-
 import scala.collection.mutable
-import play.api.templates.Html
+
 import akka.pattern.{ ask, pipe }
+import play.api.templates.Html
+
+import lila.hub.actorApi.SendTo
+import lila.user.User
 
 private[notification] final class Api(socketHub: lila.hub.ActorLazyRef, renderer: lila.hub.ActorLazyRef) {
 

@@ -1,10 +1,9 @@
 package lila.db
 package api
 
-import Types._
-
 import play.api.libs.json._
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
+import Types._
 
 object $remove {
 

@@ -1,9 +1,9 @@
 package lila.db
 
 import play.api.libs.json._, Json.JsValueWrapper
+import reactivemongo.api._
 import reactivemongo.api.collections.GenericQueryBuilder
 import reactivemongo.bson._
-import reactivemongo.api._
 
 object Types extends Types
 object Implicits extends Implicits

@@ -1,12 +1,12 @@
 package lila.game
 
-import lila.db.api._
-import lila.user.User
-import chess.{ Color, Status }
-
-import play.api.libs.json._
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
+import play.api.libs.json._
+
+import chess.{ Color, Status }
+import lila.db.api._
+import lila.user.User
 
 object Query {
 

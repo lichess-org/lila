@@ -1,13 +1,10 @@
 package lila.db
 
-import Types._
-
+import org.joda.time.DateTime
 import org.specs2.mutable._
-
 import play.api.libs.json._
 import play.api.test._
-
-import org.joda.time.DateTime
+import Types._
 
 class DbApiTest extends Specification {
 

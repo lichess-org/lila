@@ -1,10 +1,10 @@
 package lila.mod
 
+import com.typesafe.config.Config
+
 import lila.db.Types.Coll
 import lila.security.{ Firewall, UserSpy }
 import lila.user.EloUpdater
-
-import com.typesafe.config.Config
 
 final class Env(
     config: Config,

@@ -1,12 +1,14 @@
 package lila.i18n
 
 import java.io.File
-import org.eclipse.jgit.lib.Repository
-import org.eclipse.jgit.storage.file.FileRepository
 import scala.collection.JavaConversions._
 import scala.concurrent.Future
+
 import akka.actor._
 import akka.pattern.ask
+import org.eclipse.jgit.lib.Repository
+import org.eclipse.jgit.storage.file.FileRepository
+
 import makeTimeout.veryLarge
 
 private[i18n] final class GitWrite(

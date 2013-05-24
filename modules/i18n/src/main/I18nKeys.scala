@@ -1,10 +1,10 @@
 // Generated with bin/trans-dump
 package lila.i18n
 
-import lila.user.Context
-
-import play.api.templates.Html
 import play.api.i18n.Lang
+import play.api.templates.Html
+
+import lila.user.Context
 
 final class I18nKeys(translator: Translator) {
 

@@ -1,10 +1,11 @@
 package lila.analyse
 
-import lila.game.{ Game, Namer }
-import chess.Color
-
 import scala.concurrent.Future
+
 import play.api.libs.json.Json
+
+import chess.Color
+import lila.game.{ Game, Namer }
 
 final class TimeChart(game: Game, usernames: Map[Color, String]) {
 

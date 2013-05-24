@@ -1,10 +1,10 @@
 package lila.lobby
 package actorApi
 
+import lila.game.Game
 import lila.socket.SocketMember
 import lila.timeline.GameEntry
 import lila.user.User
-import lila.game.Game
 
 case class Member(
     channel: JsChannel,

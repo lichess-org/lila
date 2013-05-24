@@ -1,15 +1,13 @@
 package lila.user
 
-import lila.db.Types._
-import lila.db.InColl
-import lila.db.api._
-import tube.historyTube
-
+import org.joda.time.DateTime
 import play.api.libs.json._
-
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 
-import org.joda.time.DateTime
+import lila.db.api._
+import lila.db.InColl
+import lila.db.Types._
+import tube.historyTube
 
 object HistoryRepo {
 

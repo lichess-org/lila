@@ -1,11 +1,11 @@
 package lila.lobby
 
-import lila.common.PimpedConfig._
-import lila.socket.History
-import lila.memo.ExpireSetMemo
-
-import com.typesafe.config.Config
 import akka.actor._
+import com.typesafe.config.Config
+
+import lila.common.PimpedConfig._
+import lila.memo.ExpireSetMemo
+import lila.socket.History
 
 final class Env(
     config: Config,

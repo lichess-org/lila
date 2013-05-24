@@ -1,7 +1,8 @@
 package lila.site
 
-import akka.actor._
 import scala.concurrent.duration._
+
+import akka.actor._
 import play.api.libs.json._
 
 import actorApi._

@@ -1,13 +1,13 @@
 package lila.forumSearch
 
-import lila.search.TypeIndexer
-import lila.forum.{ PostApi, Post ⇒ PostModel, PostView }
-
-import com.typesafe.config.Config
 import akka.actor._
+import com.typesafe.config.Config
+import org.elasticsearch.action.search.SearchResponse
 import play.api.libs.json.JsObject
 import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
-import org.elasticsearch.action.search.SearchResponse
+
+import lila.forum.{ PostApi, Post ⇒ PostModel, PostView }
+import lila.search.TypeIndexer
 
 final class Env(
     config: Config,

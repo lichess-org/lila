@@ -1,11 +1,10 @@
 package lila.db
 package api
 
-import Types.Coll
-
-import reactivemongo.bson._
-import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 import play.api.libs.json._
+import play.modules.reactivemongo.json.ImplicitBSONHandlers._
+import reactivemongo.bson._
+import Types.Coll
 
 object $insert {
 

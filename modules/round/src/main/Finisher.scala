@@ -1,17 +1,17 @@
 package lila.round
 
-import lila.game.{ GameRepo, Game, Pov, Event }
-import lila.user.{ User, UserRepo, EloUpdater }
-import lila.i18n.I18nKey.{ Select ⇒ SelectI18nKey }
-import chess.{ EloCalculator, Status, Color }
-import Status._
-import Color._
-import lila.game.tube.gameTube
-import lila.user.tube.userTube
-import lila.db.api._
-import lila.hub.actorApi.round._
-
 import scalaz.{ OptionTs, Success }
+
+import chess.Color._
+import chess.Status._
+import chess.{ EloCalculator, Status, Color }
+import lila.db.api._
+import lila.game.tube.gameTube
+import lila.game.{ GameRepo, Game, Pov, Event }
+import lila.hub.actorApi.round._
+import lila.i18n.I18nKey.{ Select ⇒ SelectI18nKey }
+import lila.user.tube.userTube
+import lila.user.{ User, UserRepo, EloUpdater }
 
 private[round] final class Finisher(
     tournamentOrganizer: lila.hub.ActorLazyRef,

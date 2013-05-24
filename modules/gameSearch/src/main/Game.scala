@@ -1,11 +1,11 @@
 package lila.gameSearch
 
-import lila.search.ElasticSearch
-import ElasticSearch._
-import lila.game.{ Game ⇒ GameModel }
-import chess.{ OpeningExplorer, Status }
-
 import play.api.libs.json._
+
+import chess.{ OpeningExplorer, Status }
+import lila.game.{ Game ⇒ GameModel }
+import lila.search.ElasticSearch
+import lila.search.ElasticSearch._
 
 private[gameSearch] object Game {
 

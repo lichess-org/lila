@@ -1,8 +1,9 @@
 package lila.i18n
 
-import play.api.i18n.{ MessagesApi, Lang }
-import scala.concurrent.Future
 import java.io._
+import scala.concurrent.Future
+
+import play.api.i18n.{ MessagesApi, Lang }
 
 private[i18n] final class FileFix(
     pool: I18nPool,

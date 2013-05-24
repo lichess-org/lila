@@ -1,7 +1,6 @@
 package lila.db
 
 import api._
-
 import play.api.libs.iteratee._
 
 object Typecheck {

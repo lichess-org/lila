@@ -1,14 +1,14 @@
 package lila.analyse
 
+import play.api.libs.json.Json
+
 import lila.common.paginator._
-import lila.db.paginator._
 import lila.db.api._
 import lila.db.Implicits._
+import lila.db.paginator._
 import lila.game.Game
 import lila.game.tube.gameTube
 import tube.analysisTube
-
-import play.api.libs.json.Json
 
 private[analyse] final class PaginatorBuilder(
     cached: { def nbAnalysis: Fu[Int] },

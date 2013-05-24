@@ -1,9 +1,9 @@
 package lila
 
-import ornicar.scalalib
-
-import scalaz.{ Zero, Zeros, Functor, Monad, OptionT }
 import scala.concurrent.Future
+
+import ornicar.scalalib
+import scalaz.{ Zero, Zeros, Functor, Monad, OptionT }
 
 trait PackageObject
     extends WithFuture

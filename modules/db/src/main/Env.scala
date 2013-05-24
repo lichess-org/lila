@@ -1,10 +1,9 @@
 package lila.db
 
-import Types._
-
 import com.typesafe.config.Config
-import reactivemongo.api.DB
 import play.modules.reactivemongo.ReactiveMongoPlugin
+import reactivemongo.api.DB
+import Types._
 
 final class Env(config: Config) {
 

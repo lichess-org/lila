@@ -1,11 +1,11 @@
 package lila.setup
 
+import play.api.data.Forms._
+
+import chess.format.Forsyth
+import chess.Mode
 import lila.common.EloRange
 import lila.lobby.Color
-import chess.Mode
-import chess.format.Forsyth
-
-import play.api.data.Forms._
 
 object Mappings {
 

@@ -1,12 +1,12 @@
 package lila.wiki
 
+import Page.DefaultLang
+import play.api.libs.json._
+
+import lila.common.PimpedJson._
 import lila.db.api._
 import lila.db.Implicits._
-import lila.common.PimpedJson._
 import tube.pageTube
-import Page.DefaultLang
-
-import play.api.libs.json._
 
 private[wiki] final class Api {
 

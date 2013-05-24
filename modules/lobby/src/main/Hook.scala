@@ -1,12 +1,12 @@
 package lila.lobby
 
-import chess.{ Variant, Mode, Clock }
-import lila.common.EloRange
-import lila.user.User
-
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.libs.json._
+
+import chess.{ Variant, Mode, Clock }
+import lila.common.EloRange
+import lila.user.User
 
 case class Hook(
     id: String,

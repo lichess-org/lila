@@ -1,10 +1,11 @@
 package lila.hub
 
-import actorApi.Tell
+import scala.concurrent.duration._
 
 import akka.actor._
 import akka.pattern.ask
-import scala.concurrent.duration._
+
+import actorApi.Tell
 import makeTimeout.short
 
 final class ActorMap[A <: Actor](mkActor: String ⇒ A) extends Actor {

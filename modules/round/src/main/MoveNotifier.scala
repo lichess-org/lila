@@ -1,9 +1,9 @@
 package lila.round
 
-import lila.socket.actorApi.Fen
-import lila.hub.actorApi.monitor.AddMove
-
 import akka.actor.ActorRef
+
+import lila.hub.actorApi.monitor.AddMove
+import lila.socket.actorApi.Fen
 
 private[round] final class MoveNotifier(
     hub: ActorRef,

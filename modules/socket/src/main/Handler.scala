@@ -1,14 +1,14 @@
 package lila.socket
 
-import actorApi._
-import lila.hub.actorApi.relation.{ GetFriends, FriendsOf }
-import makeTimeout.large
-import lila.common.PimpedJson._
-
 import akka.actor.ActorRef
 import akka.pattern.{ ask, pipe }
-import play.api.libs.json._
 import play.api.libs.iteratee.{ Iteratee, Enumerator }
+import play.api.libs.json._
+
+import actorApi._
+import lila.common.PimpedJson._
+import lila.hub.actorApi.relation.{ GetFriends, FriendsOf }
+import makeTimeout.large
 
 object Handler {
 

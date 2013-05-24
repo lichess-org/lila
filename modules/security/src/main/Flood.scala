@@ -1,10 +1,11 @@
 package lila.security
 
-import lila.memo.Builder
+import scala.concurrent.duration.Duration
 
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
-import scala.concurrent.duration.Duration
+
+import lila.memo.Builder
 
 final class Flood(duration: Duration) {
 

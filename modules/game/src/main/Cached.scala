@@ -1,11 +1,12 @@
 package lila.game
 
-import lila.db.api.$count
-import tube.gameTube
-import lila.memo.AsyncCache
-
 import scala.concurrent.duration._
+
 import play.api.libs.json.JsObject
+
+import lila.db.api.$count
+import lila.memo.AsyncCache
+import tube.gameTube
 
 private[game] final class Cached(ttl: Duration) {
 

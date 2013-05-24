@@ -1,10 +1,10 @@
 package lila.user
 
+import play.api.libs.json._
+
 import lila.common.paginator._
 import lila.db.paginator._
 import tube.userTube
-
-import play.api.libs.json._
 
 final class PaginatorBuilder(
     countUsers: Fu[Int],

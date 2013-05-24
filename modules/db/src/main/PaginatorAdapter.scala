@@ -1,12 +1,12 @@
 package lila.db
 package paginator
 
-import Implicits._
 import api._
-
-import lila.common.paginator.AdapterLike
+import Implicits._
 import play.api.libs.json._
 import reactivemongo.api.SortOrder
+
+import lila.common.paginator.AdapterLike
 
 final class Adapter[A: TubeInColl](
     selector: JsObject,

@@ -1,9 +1,9 @@
 package lila.message
 
-import lila.user.{ User, UserRepo }
-
 import play.api.data._
 import play.api.data.Forms._
+
+import lila.user.{ User, UserRepo }
 
 final class DataForm {
 

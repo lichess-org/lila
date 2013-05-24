@@ -1,9 +1,9 @@
 package lila.common
 
-import play.api.mvc.{ Cookie, Session, RequestHeader }
 import java.util.regex.Matcher.quoteReplacement
 
 import ornicar.scalalib.Random
+import play.api.mvc.{ Cookie, Session, RequestHeader }
 
 object LilaCookie {
 

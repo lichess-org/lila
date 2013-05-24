@@ -4,8 +4,8 @@ import chess.{ Variant, Mode, Color ⇒ ChessColor }
 import lila.common.EloRange
 import lila.game.{ Game, Player, Source }
 import lila.lobby.Color
-import lila.user.User
 import lila.lobby.Hook
+import lila.user.User
 
 case class HookConfig(
     variant: Variant,

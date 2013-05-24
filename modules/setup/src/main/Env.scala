@@ -1,10 +1,10 @@
 package lila.setup
 
+import akka.actor._
+import com.typesafe.config.{ Config => AppConfig }
+
 import lila.common.PimpedConfig._
 import lila.user.Context
-
-import com.typesafe.config.{ Config => AppConfig }
-import akka.actor._
 
 final class Env(
     config: AppConfig,

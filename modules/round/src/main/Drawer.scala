@@ -1,16 +1,14 @@
 package lila.round
 
-import chess.{ Game ⇒ ChessGame, Board, Clock, Variant, Color ⇒ ChessColor }
-import ChessColor.{ White, Black }
+import akka.pattern.ask
+
+import chess.{ Game ⇒ ChessGame, Board, Clock, Variant }
+import lila.db.api._
+import lila.game.tube.gameTube
 import lila.game.{ GameRepo, Game, Event, Progress, Pov, PlayerRef, Namer, Source }
+import lila.user.tube.userTube
 import lila.user.User
 import makeTimeout.short
-
-import lila.game.tube.gameTube
-import lila.user.tube.userTube
-import lila.db.api._
-
-import akka.pattern.ask
 
 private[round] final class Drawer(
     messenger: Messenger,

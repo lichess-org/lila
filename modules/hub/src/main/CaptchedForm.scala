@@ -1,10 +1,10 @@
 package lila.hub
 
-import lila.common.Captcha
-import actorApi.captcha._
-
 import akka.pattern.ask
 import play.api.data._
+
+import actorApi.captcha._
+import lila.common.Captcha
 
 trait CaptchedForm {
 

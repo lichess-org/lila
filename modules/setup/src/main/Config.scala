@@ -1,7 +1,7 @@
 package lila.setup
 
-import chess.{ Game => ChessGame, Board, Situation, Variant, Clock, Speed }
 import chess.format.Forsyth
+import chess.{ Game => ChessGame, Board, Situation, Variant, Clock, Speed }
 import lila.game.{ GameRepo, Game, Pov }
 import lila.lobby.Color
 

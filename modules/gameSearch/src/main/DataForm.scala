@@ -1,14 +1,13 @@
 package lila.gameSearch
 
-import lila.search.Range
-import lila.common.Form._
-
-import play.api.data._
-import play.api.data.Forms._
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
+import play.api.data._
+import play.api.data.Forms._
 
 import chess.{ Mode }
+import lila.common.Form._
+import lila.search.Range
 
 private[gameSearch] final class DataForm {
 

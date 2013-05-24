@@ -1,8 +1,8 @@
 package lila.i18n
 
-import play.api.mvc.{ Action, RequestHeader, Handler }
-import play.api.mvc.Results.Redirect
 import play.api.i18n.Lang
+import play.api.mvc.Results.Redirect
+import play.api.mvc.{ Action, RequestHeader, Handler }
 
 final class I18nRequestHandler(pool: I18nPool, protocol: String) {
 

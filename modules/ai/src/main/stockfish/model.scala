@@ -1,11 +1,11 @@
 package lila.ai
 package stockfish
 
-import chess.Pos.posAt
-import chess.format.UciMove
-import lila.analyse.{ Analysis, AnalysisBuilder }
-
 import akka.actor.ActorRef
+
+import chess.format.UciMove
+import chess.Pos.posAt
+import lila.analyse.{ Analysis, AnalysisBuilder }
 
 object model {
 

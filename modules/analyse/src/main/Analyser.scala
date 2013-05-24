@@ -1,12 +1,12 @@
 package lila.analyse
 
-import lila.game.{ Game, GameRepo, PgnRepo }
-import lila.db.api._
-import tube.analysisTube
-import lila.game.tube.gameTube
-import makeTimeout.veryLarge
-
 import akka.pattern.ask
+
+import lila.db.api._
+import lila.game.tube.gameTube
+import lila.game.{ Game, GameRepo, PgnRepo }
+import makeTimeout.veryLarge
+import tube.analysisTube
 
 final class Analyser(ai: lila.hub.ActorLazyRef) {
 

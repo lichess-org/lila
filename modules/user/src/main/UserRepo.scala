@@ -1,19 +1,17 @@
 package lila.user
 
-import lila.db.Implicits._
-import lila.db.api._
-import tube.userTube
-import lila.common.PimpedJson._
-
-import play.api.libs.json.Json
-
-import reactivemongo.api._
-import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
-import play.modules.reactivemongo.json.BSONFormats.toJSON
-
 import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
+import play.api.libs.json.Json
+import play.modules.reactivemongo.json.BSONFormats.toJSON
+import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
+import reactivemongo.api._
+
+import lila.common.PimpedJson._
+import lila.db.api._
+import lila.db.Implicits._
+import tube.userTube
 
 object UserRepo {
 

@@ -1,17 +1,18 @@
 package lila.monitor
 
-import actorApi._
-import lila.socket.actorApi.GetNbSockets
-import lila.hub.actorApi.GetNbMembers
-import lila.hub.actorApi.monitor._
+import java.lang.management.ManagementFactory
+import scala.concurrent.duration._
+import scala.util.{ Success, Failure }
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
-import scala.concurrent.duration._
 import play.api.libs.concurrent._
 import play.api.Play.current
-import scala.util.{ Success, Failure }
-import java.lang.management.ManagementFactory
+
+import actorApi._
+import lila.hub.actorApi.GetNbMembers
+import lila.hub.actorApi.monitor._
+import lila.socket.actorApi.GetNbSockets
 
 private[monitor] final class Reporting(
     rpsProvider: RpsProvider,

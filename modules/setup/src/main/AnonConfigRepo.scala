@@ -1,18 +1,16 @@
 package lila.setup
 
-import lila.user.User
-
-import tube.{ anonConfigTube, filterConfigTube }
-import lila.game.Game
-import lila.db.Implicits._
-import lila.db.api._
-import lila.common.{ LilaCookie, LilaException }
-
 import play.api.libs.json._
 import play.api.mvc._
-
 import reactivemongo.api._
 import reactivemongo.bson._
+
+import lila.common.{ LilaCookie, LilaException }
+import lila.db.api._
+import lila.db.Implicits._
+import lila.game.Game
+import lila.user.User
+import tube.{ anonConfigTube, filterConfigTube }
 
 private[setup] object AnonConfigRepo {
 

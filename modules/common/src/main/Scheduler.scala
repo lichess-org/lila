@@ -1,8 +1,9 @@
 package lila.common
 
+import scala.concurrent.duration._
+
 import akka.actor._
 import akka.pattern.{ ask, pipe }
-import scala.concurrent.duration._
 
 final class Scheduler(system: ActorSystem, enabled: Boolean) {
 

@@ -1,13 +1,14 @@
 package lila.tournament
 
+import scala.concurrent.duration._
+
+import akka.actor.{ ActorRef, ActorSystem }
+
 import chess.Color
 import lila.game.{ Game, Player ⇒ GamePlayer, GameRepo, Pov, PovRef, Source }
-import lila.user.{ User, UserRepo }
 import lila.hub.actorApi.Tell
 import lila.round.actorApi.round.ResignColor
-
-import scala.concurrent.duration._
-import akka.actor.{ ActorRef, ActorSystem }
+import lila.user.{ User, UserRepo }
 
 final class GameJoiner(
     roundMap: ActorRef,

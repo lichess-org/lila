@@ -1,9 +1,9 @@
 package lila.game
 
-import tube.gameTube
-import lila.db.api._
-
 import scala.concurrent.duration._
+
+import lila.db.api._
+import tube.gameTube
 
 private[game] final class Cli extends lila.common.Cli {
 

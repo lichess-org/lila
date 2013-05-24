@@ -1,16 +1,13 @@
 package lila.team
 
-import lila.db.api._
-import tube.teamTube
-
-import play.api.libs.json.Json
-
-import reactivemongo.api._
-
 import org.joda.time.{ DateTime, Period }
 import org.scala_tools.time.Imports._
+import play.api.libs.json.Json
+import reactivemongo.api._
 
+import lila.db.api._
 import lila.user.User
+import tube.teamTube
 
 object TeamRepo {
 

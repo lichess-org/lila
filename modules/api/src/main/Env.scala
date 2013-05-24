@@ -2,7 +2,6 @@ package lila.api
 
 import akka.actor._
 import com.typesafe.config.Config
-
 import play.api.Application
 
 final class Env(

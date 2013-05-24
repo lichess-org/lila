@@ -1,7 +1,8 @@
 package lila.user
 
-import lila.common.LilaCookie
 import play.api.mvc.Cookie
+
+import lila.common.LilaCookie
 
 final class Setting(ctx: Context) {
 

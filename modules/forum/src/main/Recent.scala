@@ -1,10 +1,11 @@
 package lila.forum
 
-import lila.user.User
-import lila.security.{ Permission, Granter ⇒ MasterGranter }
-
 import scala.concurrent.duration.Duration
+
 import spray.caching.{ LruCache, Cache }
+
+import lila.security.{ Permission, Granter ⇒ MasterGranter }
+import lila.user.User
 
 private[forum] final class Recent(postApi: PostApi, ttl: Duration) {
 

@@ -1,12 +1,12 @@
 package lila.message
 
-import lila.user.{ User, UserRepo }
 import lila.common.paginator._
-import lila.db.paginator._
-import lila.db.Implicits._
 import lila.db.api._
-import lila.hub.actorApi.SendTo
+import lila.db.Implicits._
+import lila.db.paginator._
 import lila.hub.actorApi.message._
+import lila.hub.actorApi.SendTo
+import lila.user.{ User, UserRepo }
 import tube.threadTube
 
 final class Api(

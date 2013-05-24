@@ -1,7 +1,7 @@
 package lila.bookmark
 
-import com.typesafe.config.Config
 import akka.actor._
+import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
 import lila.hub.actorApi.bookmark._

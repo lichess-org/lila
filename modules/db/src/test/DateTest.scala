@@ -1,17 +1,15 @@
 package lila.db
 
-import Implicits._
 import api._
-
-import org.specs2.specification._
-import org.specs2.mutable._
+import Implicits._
+import org.joda.time.DateTime
 import org.specs2.execute.{ Result, AsResult }
-
+import org.specs2.mutable._
+import org.specs2.specification._
 import play.api.libs.json._
 import play.api.test._
 import reactivemongo.api._
 import reactivemongo.bson._
-import org.joda.time.DateTime
 
 class DateTest extends Specification with test.WithColl {
 

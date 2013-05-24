@@ -1,7 +1,8 @@
 package lila.game
 
-import chess.{ Game ⇒ _, _ }
 import scala.math.round
+
+import chess.{ Game ⇒ _, _ }
 
 private[game] case class RawClock(
     c: Boolean,

@@ -1,9 +1,9 @@
 package lila.teamSearch
 
-import lila.search.ElasticSearch
+import org.elasticsearch.index.query._, QueryBuilders._
 import Team.fields
 
-import org.elasticsearch.index.query._, QueryBuilders._
+import lila.search.ElasticSearch
 
 private[teamSearch] final class Query private (terms: List[String]) extends lila.search.Query {
 

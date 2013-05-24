@@ -1,9 +1,10 @@
 package lila.socket
 
-import actorApi._
 import scala.concurrent.duration.Duration
+
 import play.api.libs.json._
 
+import actorApi._
 import lila.memo
 
 final class History(ttl: Duration) {

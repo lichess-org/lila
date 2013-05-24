@@ -1,14 +1,14 @@
 package lila.setup
 
-import chess.Variant
-import lila.user.Context
-import lila.common.EloRange
-import lila.lobby.Color
-import tube.{ userConfigTube, anonConfigTube }
-import lila.db.api._
-
 import play.api.data._
 import play.api.data.Forms._
+
+import chess.Variant
+import lila.common.EloRange
+import lila.db.api._
+import lila.lobby.Color
+import lila.user.Context
+import tube.{ userConfigTube, anonConfigTube }
 
 private[setup] final class FormFactory {
 

@@ -1,9 +1,9 @@
 package lila.tournament
 package actorApi
 
+import lila.game.Game
 import lila.socket.SocketMember
 import lila.user.User
-import lila.game.Game
 
 case class Member(
     channel: JsChannel,

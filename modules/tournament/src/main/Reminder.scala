@@ -1,14 +1,14 @@
 package lila.tournament
 
-import actorApi._
-import lila.hub.Broadcast
-import lila.hub.actorApi.SendTos
-import makeTimeout.short
-
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 import play.api.libs.json.Json
 import play.api.templates.Html
+
+import actorApi._
+import lila.hub.actorApi.SendTos
+import lila.hub.Broadcast
+import makeTimeout.short
 
 private[tournament] final class Reminder(
     hub: lila.hub.ActorLazyRef,

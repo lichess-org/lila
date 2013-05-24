@@ -1,10 +1,10 @@
 package lila.bookmark
 
+import lila.db.api._
+import lila.game.tube.gameTube
 import lila.game.{ Game, GameRepo }
 import lila.user.User
-import lila.db.api._
 import tube.bookmarkTube
-import lila.game.tube.gameTube
 
 final class BookmarkApi(
     cached: Cached,

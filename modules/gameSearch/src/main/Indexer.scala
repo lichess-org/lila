@@ -1,10 +1,10 @@
 package lila.gameSearch
 
-import lila.game.PgnRepo
-import lila.game.actorApi._
-import lila.search.{ actorApi ⇒ S }
-
 import akka.actor._
+
+import lila.game.actorApi._
+import lila.game.PgnRepo
+import lila.search.{ actorApi ⇒ S }
 
 private[gameSearch] final class Indexer(
     lowLevel: ActorRef,

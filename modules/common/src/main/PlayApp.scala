@@ -1,7 +1,7 @@
 package lila.common
 
-import play.api.{ Play, Application, Mode }
 import com.typesafe.config.Config
+import play.api.{ Play, Application, Mode }
 
 object PlayApp {
 

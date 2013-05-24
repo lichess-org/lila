@@ -2,8 +2,8 @@ package lila.round
 package actorApi
 
 import chess.Color
-import lila.socket.SocketMember
 import lila.game.{ Game, Event, PlayerRef }
+import lila.socket.SocketMember
 import lila.user.User
 
 sealed trait Member extends SocketMember {

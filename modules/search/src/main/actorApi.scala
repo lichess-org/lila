@@ -1,9 +1,9 @@
 package lila.search
 package actorApi
 
-import play.api.libs.json.JsObject
 import org.elasticsearch.action.search.{ SearchResponse ⇒ ESSR }
 import org.elasticsearch.index.query.QueryBuilder
+import play.api.libs.json.JsObject
 
 case object Clear
 case object RebuildAll

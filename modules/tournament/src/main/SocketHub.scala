@@ -1,14 +1,15 @@
 package lila.tournament
 
-import lila.socket.{ History, SocketHubActor }
-import lila.socket.actorApi.{ Connected ⇒ _, _ }
-import actorApi._
-import makeTimeout.short
-
 import scala.concurrent.duration.Duration
+
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 import play.api.libs.json._
+
+import actorApi._
+import lila.socket.actorApi.{ Connected ⇒ _, _ }
+import lila.socket.{ History, SocketHubActor }
+import makeTimeout.short
 
 private[tournament] final class SocketHub(
     makeHistory: () ⇒ History,

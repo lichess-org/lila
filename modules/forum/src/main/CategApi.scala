@@ -1,13 +1,13 @@
 package lila.forum
 
-import lila.user.{ User, Context }
-import lila.common.paginator._
-import lila.db.paginator._
-import lila.db.Implicits._
-import lila.db.api._
-import tube._
-
 import scalaz.{ OptionT, OptionTs }
+
+import lila.common.paginator._
+import lila.db.api._
+import lila.db.Implicits._
+import lila.db.paginator._
+import lila.user.{ User, Context }
+import tube._
 
 private[forum] final class CategApi(env: Env) extends OptionTs {
 

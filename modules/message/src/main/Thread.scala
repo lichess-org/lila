@@ -1,9 +1,9 @@
 package lila.message
 
-import lila.user.User
-
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
+
+import lila.user.User
 
 case class Thread(
     id: String,

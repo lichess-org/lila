@@ -1,10 +1,10 @@
 package lila.ai
 
-import lila.common.PimpedConfig._
-
 import akka.actor._
 import akka.pattern.pipe
 import com.typesafe.config.Config
+
+import lila.common.PimpedConfig._
 
 final class Env(
     config: Config,

@@ -1,12 +1,12 @@
 package lila.round
 
+import akka.actor._
+import akka.pattern.ask
+import com.typesafe.config.Config
+
 import lila.common.PimpedConfig._
 import lila.socket.actorApi.{ Forward, GetVersion }
 import makeTimeout.large
-
-import com.typesafe.config.Config
-import akka.actor._
-import akka.pattern.ask
 
 final class Env(
     config: Config,

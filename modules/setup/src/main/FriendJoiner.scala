@@ -1,13 +1,13 @@
 package lila.setup
 
+import akka.pattern.ask
+
 import chess.{ Color ⇒ ChessColor }
 import lila.game.{ GameRepo, Game, Pov, Event, Progress }
-import lila.user.User
-import lila.round.Messenger
 import lila.hub.actorApi.router.Player
+import lila.round.Messenger
+import lila.user.User
 import makeTimeout.short
-
-import akka.pattern.ask
 
 private[setup] final class FriendJoiner(
     messenger: Messenger,

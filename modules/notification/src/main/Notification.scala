@@ -1,8 +1,8 @@
 package lila.notification
 
-import lila.user.User
-
 import ornicar.scalalib.Random.nextString
+
+import lila.user.User
 
 case class Notification(
   id: String,

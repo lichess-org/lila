@@ -1,7 +1,7 @@
 package lila.monitor
 
-import scala.concurrent.stm.Ref
 import scala.concurrent.duration.FiniteDuration
+import scala.concurrent.stm.Ref
 
 private[monitor] final class RpsProvider(timeout: FiniteDuration) {
 

@@ -1,18 +1,19 @@
 package lila.ai
 package stockfish
 
-import chess.Rook
-import chess.format.UciDump
-import chess.format.Forsyth
-import lila.analyse.Analysis
-import model.{ GetQueueSize, QueueSize }
-import model.play.BestMove
-
 import scala.concurrent.duration._
+
 import akka.actor.{ Props, Actor, ActorRef, Kill }
 import akka.pattern.{ ask, AskTimeoutException }
-import play.api.Play.current
+import model.play.BestMove
+import model.{ GetQueueSize, QueueSize }
 import play.api.libs.concurrent.Akka.system
+import play.api.Play.current
+
+import chess.format.Forsyth
+import chess.format.UciDump
+import chess.Rook
+import lila.analyse.Analysis
 
 final class Server(execPath: String, config: Config) {
 

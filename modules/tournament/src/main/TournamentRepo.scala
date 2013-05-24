@@ -1,11 +1,11 @@
 package lila.tournament
 
+import org.scala_tools.time.Imports._
+import play.api.libs.json._
+
 import lila.db.api._
 import lila.db.Implicits._
 import tube.tournamentTube
-
-import play.api.libs.json._
-import org.scala_tools.time.Imports._
 
 object TournamentRepo {
 

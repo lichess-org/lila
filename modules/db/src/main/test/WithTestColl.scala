@@ -1,13 +1,12 @@
 package lila.db
 package test
 
-import Types._
-
-import reactivemongo.api._
 import scala.concurrent._
 import scala.concurrent.duration._
 
 import org.specs2.execute.{ Result, AsResult }
+import reactivemongo.api._
+import Types._
 
 trait WithColl {
 

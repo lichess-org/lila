@@ -1,11 +1,11 @@
 package lila.game
 
-import chess.format.Forsyth
-import chess.format.{ pgn ⇒ chessPgn }
-import chess.format.pgn.{ Pgn, Tag }
-import lila.user.User
-
 import org.joda.time.format.DateTimeFormat
+
+import chess.format.Forsyth
+import chess.format.pgn.{ Pgn, Tag }
+import chess.format.{ pgn ⇒ chessPgn }
+import lila.user.User
 
 final class PgnDump(
     findUser: String ⇒ Fu[Option[User]]) {

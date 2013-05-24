@@ -1,10 +1,10 @@
 package lila.search
 
-import lila.common.paginator._
-
 import akka.actor.ActorRef
 import akka.pattern.ask
 import org.elasticsearch.action.search.SearchResponse
+
+import lila.common.paginator._
 
 final class PaginatorBuilder[A](
     indexer: ActorRef,
