@@ -904,10 +904,10 @@ input:focus::-moz-placeholder {
 input:focus:-ms-input-placeholder {
   color: transparent;
 }
-
 div.relation_actions a.button {
   padding: 0.6em 1em;
-  padding-right: 0.6em; /* required for some reason */
+  padding-right: 0.6em;
+  /* required for some reason */
 }
 div.relation_actions a.relation.processing {
   opacity: 0.2
@@ -923,9 +923,7 @@ div.relation_actions .icon span {
   width: 16px;
   height: 16px;
 }
-
-/* PowerTip Plugin */
- #powerTip {
+#powerTip {
   width: 200px;
   min-height: 6em;
   cursor: default;

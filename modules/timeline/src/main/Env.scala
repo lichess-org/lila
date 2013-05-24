@@ -25,13 +25,15 @@ final class Env(
   def recentGames: Fu[List[GameEntry]] = 
     $query[GameEntry]($select.all) sort $sort.naturalOrder toListFlatten GameDisplayMax.some
 
-  system.actorOf(Props(new PushGame(
+  system.actorOf(Props(new GamePush(
     lobbySocket = lobbySocket,
     renderer = renderer,
     getUsername = getUsername
   )), name = GameActorName)
 
   private[timeline] lazy val gameEntryColl = db(GameCollectionEntry)
+
+  private[timeline] lazy val entryColl = db(UserCollectionEntry)
 }
 
 object Env {

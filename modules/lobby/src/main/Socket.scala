@@ -5,6 +5,7 @@ import lila.socket.{ SocketActor, History, Historical }
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import lila.game.actorApi._
 import lila.hub.actorApi.lobby._
+import lila.hub.actorApi.timeline._
 import lila.hub.actorApi.router.{ Homepage, Player }
 import makeTimeout.short
 
@@ -38,7 +39,7 @@ private[lobby] final class Socket(
 
     case ReloadTournaments(html) ⇒ notifyTournaments(html)
 
-    case TimelineEntry(rendered) ⇒ notifyVersion("entry", rendered)
+    case GameEntryView(rendered) ⇒ notifyVersion("entry", rendered)
 
     case AddHook(hook)           ⇒ notifyVersion("hook_add", hook.render)
 

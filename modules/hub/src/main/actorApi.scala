@@ -35,11 +35,22 @@ package captcha {
 }
 
 package lobby {
-  case class TimelineEntry(rendered: String)
-  case class TimelineGameEntry(rendered: String)
   case class SysTalk(txt: String)
   case class UnTalk(r: scala.util.matching.Regex)
   case class ReloadTournaments(html: String)
+}
+
+package timeline {
+  case class MakeEntry(user: String, typ: String, data: JsValue)
+  object MakeEntry {
+    val Follow = "follow"
+    def apply[A: Writes](user: String, typ: MakeEntry.type ⇒ String, data: A): MakeEntry =
+      MakeEntry(user, typ(MakeEntry), Json toJson data)
+    def apply(user: String, typ: MakeEntry.type ⇒ String): MakeEntry =
+      MakeEntry(user, typ(MakeEntry), Json.obj())
+  }
+  case class EntryView(user: String, rendered: String)
+  case class GameEntryView(rendered: String)
 }
 
 package game {
