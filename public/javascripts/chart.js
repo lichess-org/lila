@@ -1,5 +1,3 @@
-if (!lichess.onProduction) return;
-
 function drawCharts() {
 
   var light = $('body').hasClass('light');
