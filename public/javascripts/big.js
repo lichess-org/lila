@@ -314,7 +314,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         url: $a.attr('href'),
         type: 'post',
         success: function(html) {
-          $a.parent().replaceWith(html);
+          $a.parent().html(html);
         }
       });
       return false;
@@ -331,7 +331,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         powerTipPreRender: function() {
           $.ajax({
             url: $(this).attr('href'),
-            success: function(html) { $('#powerTip').html(html); }
+            success: function(html) {
+              $('#powerTip').html(html);
+            }
           });
         }
       }).data('powertip', ' ');
@@ -1831,8 +1833,11 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     renderTimeline(lichess_preload.timeline);
     lichess.socket = new strongSocket(lichess.socketUrl + "/lobby/socket", lichess_preload.version, $.extend(true, lichess.socketDefaults, {
       events: {
-        entry: function(e) {
+        game_entry: function(e) {
           renderTimeline([e]);
+        },
+        entry: function(e) {
+          console.debug(e);
         },
         hook_add: addHook,
         hook_remove: removeHook,

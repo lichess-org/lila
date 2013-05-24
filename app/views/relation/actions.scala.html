@@ -1,12 +1,10 @@
-@(userId: String, message: Boolean = false, signup: Boolean = false)(implicit ctx: Context)
+@(userId: String, signup: Boolean = false)(implicit ctx: Context)
 
 @ctx.userId.map { myId =>
 @if(myId != userId) {
-@if(message) {
 <a title="@trans.composeMessage()" href="@routes.Message.form()?username=@userId" class="icon button" href="#">
   <span class="s16 message"></span>
 </a>
-}
 @relationWith(userId) match {
 case None => {
 <a class="button relation" href="@routes.Relation.follow(userId)">@trans.follow()</a>

@@ -75,6 +75,10 @@ db.relation.ensureIndex({u2:1})
 print('index forum post authors');
 db.f_post.ensureIndex({userId:1})
 
+print('create timeline_entry collection');
+db.createCollection('timeline_entry');
+db.timeline_entry.ensureIndex({user:1, date: -1});
+
 // print("Reset lobby_room");
 // db.lobby_room.drop();
 // db.createCollection("lobby_room",{capped:true,size:50000})

@@ -37,13 +37,15 @@ private[lobby] final class Socket(
       sender ! Connected(enumerator, member)
     }
 
-    case ReloadTournaments(html) ⇒ notifyTournaments(html)
+    case ReloadTournaments(html)   ⇒ notifyTournaments(html)
 
-    case GameEntryView(rendered) ⇒ notifyVersion("entry", rendered)
+    case GameEntryView(rendered)   ⇒ notifyVersion("game_entry", rendered)
 
-    case AddHook(hook)           ⇒ notifyVersion("hook_add", hook.render)
+    case EntryView(user, rendered) ⇒ sendTo(user, makeMessage("entry", rendered))
 
-    case RemoveHook(hookId)      ⇒ notifyVersion("hook_remove", hookId)
+    case AddHook(hook)             ⇒ notifyVersion("hook_add", hook.render)
+
+    case RemoveHook(hookId)        ⇒ notifyVersion("hook_remove", hookId)
 
     case JoinHook(uid, hook, game) ⇒
       playerUrl(game fullIdOf game.creatorColor) zip
