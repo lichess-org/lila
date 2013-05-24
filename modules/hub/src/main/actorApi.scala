@@ -46,8 +46,6 @@ package timeline {
     val Follow = "follow"
     def apply[A: Writes](user: String, typ: MakeEntry.type ⇒ String, data: A): MakeEntry =
       MakeEntry(user, typ(MakeEntry), Json toJson data)
-    def apply(user: String, typ: MakeEntry.type ⇒ String): MakeEntry =
-      MakeEntry(user, typ(MakeEntry), Json.obj())
   }
   case class EntryView(user: String, rendered: String)
   case class GameEntryView(rendered: String)

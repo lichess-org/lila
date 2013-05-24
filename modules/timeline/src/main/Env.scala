@@ -31,6 +31,11 @@ final class Env(
     getUsername = getUsername
   )), name = GameActorName)
 
+  system.actorOf(Props(new Push(
+    lobbySocket = lobbySocket,
+    renderer = renderer
+  )), name = UserActorName)
+
   private[timeline] lazy val gameEntryColl = db(GameCollectionEntry)
 
   private[timeline] lazy val entryColl = db(UserCollectionEntry)
