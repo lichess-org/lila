@@ -1,12 +1,11 @@
 package lila.app
 package templating
 
-import lila.user.{ User, Context }
 import mashup._
+import play.api.templates.Html
 
 import controllers.routes
-
-import play.api.templates.Html
+import lila.user.{ User, Context }
 
 trait UserHelper { self: I18nHelper with StringHelper ⇒
 
@@ -115,7 +114,10 @@ trait UserHelper { self: I18nHelper with StringHelper ⇒
     ).flatten
   }.mkString("class=\"", " ", "\"")
 
-  def userGameFilterTitle(info: UserInfo, filter: GameFilter)(implicit ctx: Context) = Html((filter match {
+  def userGameFilterTitle(info: UserInfo, filter: GameFilter)(implicit ctx: Context) =
+    splitNumber(userGameFilterTitleNoTag(info, filter))
+
+  def userGameFilterTitleNoTag(info: UserInfo, filter: GameFilter)(implicit ctx: Context) = Html((filter match {
     case GameFilter.All      ⇒ info.user.nbGames + " " + trans.gamesPlayed()
     case GameFilter.Me       ⇒ ctx.me.fold("-")(me ⇒ trans.nbGamesWithYou(~info.nbWithMe).body)
     case GameFilter.Rated    ⇒ info.nbRated + " " + trans.rated()
@@ -124,5 +126,5 @@ trait UserHelper { self: I18nHelper with StringHelper ⇒
     case GameFilter.Draw     ⇒ trans.nbDraws(info.user.nbDraws)
     case GameFilter.Playing  ⇒ info.nbPlaying + " playing"
     case GameFilter.Bookmark ⇒ trans.nbBookmarks(info.nbBookmark)
-  }).toString) |> splitNumber
+  }).toString)
 }

@@ -1,6 +1,6 @@
 @(u: User, info: lila.app.mashup.UserInfo, games: Paginator[Game], filters: lila.app.mashup.GameFilterMenu)(implicit ctx: Context)
 
-@title = @{ "%s : %s - page %d".format(u.username, userGameFilterTitle(info, filters.current), games.currentPage) }
+@title = @{ "%s : %s - page %d".format(u.username, userGameFilterTitleNoTag(info, filters.current), games.currentPage) }
 
 @evenMoreJs = {
 @if(ctx is u) {
