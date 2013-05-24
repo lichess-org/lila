@@ -40,7 +40,7 @@ final class PostApi(
         $update(categ withTopic post) >>-
         (indexer ! InsertPost(post)) >>
         (env.recent.invalidate inject post) >>-
-        (ctx.userId ifFalse post.troll ?? { userId ⇒
+        ((ctx.userId ifFalse post.troll) ?? { userId ⇒
           timeline ! Propagate(
             ForumPost(userId, categ.id, topic.slug, topic.name, lastPageOf(topic withPost post), post.number)
           ).toFriendsOf(userId)

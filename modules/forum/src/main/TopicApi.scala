@@ -54,7 +54,7 @@ private[forum] final class TopicApi(
         $update(categ withTopic post) >>-
         (indexer ! InsertPost(post)) >>
         env.recent.invalidate >>-
-        (ctx.userId ifFalse post.troll ?? { userId ⇒
+        ((ctx.userId ifFalse post.troll) ?? { userId ⇒
           timeline ! Propagate(
             ForumPost(userId, categ.id, topic.slug, topic.name, env.postApi.lastPageOf(topic withPost post), post.number)
           ).toFriendsOf(userId)
