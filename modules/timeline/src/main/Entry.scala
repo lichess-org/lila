@@ -1,27 +1,24 @@
 package lila.timeline
 
-case class GameEntry(
-    gameId: String,
-    whiteName: String,
-    blackName: String,
-    whiteId: Option[String],
-    blackId: Option[String],
-    variant: String,
-    rated: Boolean,
-    clock: Option[String]) {
+import org.joda.time.DateTime
+import play.api.libs.json._
 
-  def players: List[(String, Option[String])] = List(
-    whiteName -> whiteId,
-    blackName -> blackId)
-}
+case class Entry(
+  user: String,
+  typ: String,
+  data: JsObject,
+  date: DateTime)
 
-object GameEntry {
+object Entry {
+
+  def make(user: String, typ: String, data: JsValue): Option[Entry] =
+    data.asOpt[JsObject] map { Entry(user, typ, _, DateTime.now) }
 
   import lila.db.Tube
   import play.api.libs.json._
 
   private[timeline] lazy val tube = Tube(
-    Json.reads[GameEntry], 
-    Json.writes[GameEntry],
-    Seq(_.NoId)) 
+    Json.reads[Entry],
+    Json.writes[Entry],
+    Seq(_.NoId))
 }

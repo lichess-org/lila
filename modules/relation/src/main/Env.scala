@@ -22,11 +22,11 @@ final class Env(
   }
   import settings._
 
-  lazy val api = new RelationApi(cached = cached)
+  lazy val api = new RelationApi(
+    cached = cached,
+    timelinePush = hub.actor.timeline)
 
   private lazy val cached = new Cached
-
-  // val relationIds = cached.frinndIds apply _
 
   def cli = new lila.common.Cli {
     def process = {

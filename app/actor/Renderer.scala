@@ -24,5 +24,8 @@ private[app] final class Renderer extends Actor {
 
     case entry: lila.timeline.GameEntry =>
       sender ! V.lobby.gameTimelineEntry(entry)
+
+    case entry: lila.timeline.Entry =>
+      sender ! Html(entry.toString) // V.lobby.timelineEntry(entry)
   }
 }

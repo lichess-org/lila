@@ -23,6 +23,7 @@ final class Env(config: Config, system: ActorSystem) {
     val monitor = actorLazyRef("monitor")
     val tournamentOrganizer = actorLazyRef("tournament.organizer")
     val gameTimeline = actorLazyRef("timeline.game")
+    val timeline = actorLazyRef("timeline.user")
     val bookmark = actorLazyRef("bookmark")
     val roundMap = actorLazyRef("round.map")
     val lobby = actorLazyRef("lobby")
@@ -40,8 +41,8 @@ final class Env(config: Config, system: ActorSystem) {
 
   system.actorOf(Props(new Broadcast(List(
     socket.lobby,
-    socket.site, 
-    socket.round, 
+    socket.site,
+    socket.round,
     socket.tournament
   ))(makeTimeout(SocketHubTimeout))), name = SocketHubName)
 
