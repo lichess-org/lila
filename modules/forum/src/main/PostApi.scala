@@ -43,7 +43,7 @@ final class PostApi(
         (ctx.userId ?? { userId ⇒
           relationActor ! MakeEntry(
             userId,
-            ForumPost(userId, categ.id, topic.slug, topic.name, post.number)
+            ForumPost(userId, categ.id, topic.slug, topic.name, lastPageOf(topic withPost post), post.number)
           )
         }) inject post
     }
