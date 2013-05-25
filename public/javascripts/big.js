@@ -1557,7 +1557,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         $captcha.removeClass("success failure");
         return false;
       });
-      $squares.click(function() {
+      $captcha.on('click', 'div.lmcs', function() {
         var key = $(this).data('key');
         $captcha.removeClass("success failure");
         if ($input.val().length == 2) {
