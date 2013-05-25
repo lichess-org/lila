@@ -4,7 +4,7 @@
 <li @v.post.isTeam.fold("class='s16 team'", "")>
 <a class="post_link" href="@postUrl">@v.topic.name</a>
 <span>@authorLink(v.post, withOnline = false)</span>
-@shorten(v.post.text, 80)
+@shorten(v.post.text, 50)
 </li>
 }
 }

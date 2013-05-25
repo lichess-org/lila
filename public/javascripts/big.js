@@ -1771,7 +1771,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
     var $bot = $("div.lichess_bot");
     var $newposts = $("div.new_posts");
-    var $newpostsinner = $newposts.find('.undertable_inner');
+    var $newpostsinner = $newposts.find('.undertable_inner').scrollTop(999999);
     var $hooks = $wrap.find('div.hooks');
     var $hooksTable = $hooks.find("table.some").on('click', 'a.join', $.lichessOpeningPreventClicks);
     var $hooksTableEmpty = $hooks.find("table.empty");
@@ -1832,7 +1832,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       $.ajax($newposts.data('url'), {
         timeout: 10000,
         success: function(data) {
-          $newpostsinner.find('ol').html(data);
+          $newpostsinner.find('ol').html(data).end().scrollTop(999999);
           $('body').trigger('lichess.content_loaded');
         }
       });
@@ -1883,7 +1883,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       for (i in data) {
         html += '<tr>' + data[i] + '</tr>';
       }
-      $bot.find('.lichess_messages').append(html).scrollTop(999999);
+      $bot.find('.undertable_inner').append(html).scrollTop(999999);
       $('body').trigger('lichess.content_loaded');
     }
 

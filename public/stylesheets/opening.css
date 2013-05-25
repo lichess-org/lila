@@ -294,7 +294,7 @@ div.undertable_inner {
   overflow: hidden;
 }
 div.undertable_inner:hover {
-  overflow: auto;
+  overflow-y: auto;
 }
 div.undertable a.user_link {
   text-decoration: none;
