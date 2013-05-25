@@ -3,10 +3,6 @@
 @title = @{ "%s : %s - page %d".format(u.username, userGameFilterTitleNoTag(info, filters.current), games.currentPage) }
 
 @evenMoreJs = {
-@if(ctx is u) {
-@jsTag("vendor/jquery.editable-set.min.js")
-@jsTag("user-edit.js")
-}
 @jsTag("chart.js")
 }
 
@@ -18,14 +14,17 @@
 
 @bio = {
 @if(ctx is u) {
-<div class="editable" data-url="@routes.User.getBio">
-  <span class="user_bio" data-name="bio" data-type="textarea" data-provider-url="@routes.User.getBio">
-    @shorten(u.bio | "Click here to tell about yourself.", 400)
-  </span>
+<div class="user_bio">
+  <div class="editable">@shorten(u.bio | "Click here to tell about yourself", 400)</div>
+  <form action="@routes.User.setBio">
+    <textarea name="bio"></textarea>
+    <button class="button apply">@trans.apply()</button>
+    <button class="button cancel">@trans.cancel()</button>
+  </form>
 </div>
 } else {
 @u.nonEmptyBio.map { bio =>
-<span class="user_bio">@shorten(bio, 400)</span>
+<div class="user_bio">@shorten(bio, 400)</div>
 }
 }
 }

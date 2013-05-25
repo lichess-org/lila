@@ -80,15 +80,13 @@ object User extends LilaController {
     }
   }
 
-  def getBio = Auth { ctx ⇒ me ⇒ Ok(me.bio).fuccess }
-
   def setBio = AuthBody { ctx ⇒
     me ⇒
       implicit val req = ctx.body
-      JsonOk(forms.bio.bindFromRequest.fold(
+      forms.bio.bindFromRequest.fold(
         f ⇒ fulogwarn(f.errors.toString) inject ~me.bio,
         bio ⇒ UserRepo.setBio(me.id, bio) inject bio
-      ) map { bio ⇒ Map("bio" -> bio) })
+      ) map { Ok(_) }
   }
 
   def passwd = Auth { implicit ctx ⇒
