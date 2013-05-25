@@ -1549,6 +1549,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
     $('div.checkmateCaptcha').each(function() {
       var $captcha = $(this);
+      var color = $captcha.find('.mini_board').data('color');
       var $squares = $captcha.find('div.lmcs');
       var $input = $captcha.find('input').val('');
       $captcha.find('button.retry').click(function() {
@@ -1573,6 +1574,8 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           });
         } else {
           $squares.removeClass('selected');
+            // first click must be on an own piece
+          if (!$(this).find('.' + color).length) return;
           $input.val(key);
         }
         $(this).addClass('selected');
