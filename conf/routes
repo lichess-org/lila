@@ -20,8 +20,7 @@ GET   /@/:username                     controllers.User.show(username: String)
 GET   /people                          controllers.User.list(page: Int ?= 1)
 GET   /people/autocomplete             controllers.User.autocomplete
 GET   /people/online                   controllers.User.online
-GET   /account/bio                     controllers.User.getBio
-PUT   /account/bio.json                controllers.User.setBio
+PUT   /account/bio                     controllers.User.setBio
 GET   /account/passwd                  controllers.User.passwd
 POST  /account/passwd                  controllers.User.passwdApply
 GET   /account/close                   controllers.User.close

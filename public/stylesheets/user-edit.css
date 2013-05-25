@@ -1,4 +1,4 @@
-div.editable span {
+div.user_bio .editable {
   width: 290px;
   padding: 5px;
   border: 1px solid #88aaff;
@@ -6,18 +6,27 @@ div.editable span {
   display: block;
   margin-bottom: 1em;
 }
-div.editable span:hover {
+div.user_bio .editable:hover {
   border-color: blue;
 }
 
-div.editable form {
+div.user_bio form {
+  display: none;
   margin-bottom: 1em;
 }
-div.editable textarea {
-  width: 290px;
+div.user_bio textarea {
+  width: 285px;
   padding: 5px;
-  height: 7em;
+  height: 5em;
+  margin-bottom: 5px;
 }
-div.editable input {
+div.user_bio button {
   margin-right: 5px;
+}
+
+div.user_bio.editing .editable {
+  display: none;
+}
+div.user_bio.editing form {
+  display: block;
 }
