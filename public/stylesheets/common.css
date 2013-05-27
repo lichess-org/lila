@@ -586,9 +586,12 @@ a#sound_state.unavailable {
   margin: 5px;
 }
 #friend_box a.find {
-  display: block;
+  display: none;
   margin: 7px;
   font-style: normal;
+}
+#friend_box:hover a.find {
+  display: block;
 }
 span.s16.clock {
   background-position: 0 -224px;
