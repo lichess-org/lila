@@ -1,11 +1,11 @@
 package lila.app
 package templating
 
-import mashup._
 import play.api.templates.Html
 
 import controllers.routes
 import lila.user.{ User, Context }
+import mashup._
 
 trait UserHelper { self: I18nHelper with StringHelper ⇒
 
@@ -97,11 +97,12 @@ trait UserHelper { self: I18nHelper with StringHelper ⇒
   private def userHref(username: String) =
     "href=\"" + routes.User.show(username) + "\""
 
-  private def userClass(
+  protected def userClass(
     userId: String,
     cssClass: Option[String],
     withOnline: Boolean) = {
-    "user_link" :: List(
+    // ultp = user link power tip
+    "user_link" :: "ulpt" :: List(
       cssClass,
       withOnline option isOnline(userId).fold("online", "offline")
     ).flatten

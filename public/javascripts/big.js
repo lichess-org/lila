@@ -321,12 +321,11 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     });
 
     function userPowertips() {
-      $('a.user_link:not(.jsed)').addClass('jsed').powerTip({
+      $('a.ulpt').removeClass('ulpt').powerTip({
         placement: 's',
         smartPlacement: true,
         mouseOnToPopup: true,
         closeDelay: 200
-        // closeDelay: 999999
       }).on({
         powerTipPreRender: function() {
           $.ajax({
@@ -342,7 +341,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     $('body').on('lichess.content_loaded', userPowertips);
 
     function setTimeAgo() {
-      $("time:not(.jsed)").addClass('jsed').timeago();
+      $("time.timeago").removeClass('timeago').timeago();
     }
     setTimeAgo();
     $('body').on('lichess.content_loaded', setTimeAgo);
@@ -1520,9 +1519,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     function registerLiveGames() {
       if (!socketOpened) return;
       var ids = [];
-      $('a.mini_board.live').each(function() {
+      $('a.mini_board.live').removeClass("live").each(function() {
         ids.push($(this).data("live"));
-      }).removeClass("live");
+      });
       if (ids.length > 0) {
         lichess.socket.send("liveGames", ids.join(" "));
       }
@@ -1860,7 +1859,6 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         name: "lobby"
       }
     }));
-    $('body').trigger('lichess.content_loaded');
 
     function reloadTournaments(data) {
       $("table.tournaments").html(data);
