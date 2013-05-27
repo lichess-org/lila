@@ -52,9 +52,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       )
     ) { userId ⇒
         userIdToUsername(userId) |> { username ⇒
-          """<a class="user_link%s%s" href="%s">%s%s</a>""".format(
-            cssClass.??(" " + _),
-            withOnline ?? isOnline(userId).fold(" online", " offline"),
+          """<a %s href="%s">%s%s</a>""".format(
+            userClass(userId, cssClass, withOnline),
             routes.User show username,
             usernameWithElo(player) + ~(player.eloDiff filter (_ ⇒ withDiff) map { diff ⇒
               " (%s)".format(showNumber(diff))
