@@ -14,8 +14,8 @@
   case TeamCreate(userId, teamId) => {
   @trans.xCreatedTeamY(userIdLink(userId.some), teamLink(teamId))
   }
-  case ForumPost(userId, categ, topicSlug, topicName, page, post) => {
-  @trans.xPostedInForumY(userIdLink(userId.some), """<a href="%s#%d">%s</a>""".format(routes.ForumTopic.show(categ, topicSlug, page), post, topicName))
+  case ForumPost(userId, topicName, postId) => {
+  @trans.xPostedInForumY(userIdLink(userId.some), """<a href="%s">%s</a>""".format(routes.ForumPost.redirect(postId), topicName))
   }
   }
   @timeago(e.date)

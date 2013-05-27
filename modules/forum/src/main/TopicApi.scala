@@ -55,9 +55,7 @@ private[forum] final class TopicApi(
         (indexer ! InsertPost(post)) >>
         env.recent.invalidate >>-
         ((ctx.userId ifFalse post.troll) ?? { userId ⇒
-          timeline ! Propagate(
-            ForumPost(userId, categ.id, topic.slug, topic.name, env.postApi.lastPageOf(topic withPost post), post.number)
-          ).toFriendsOf(userId)
+          timeline ! Propagate(ForumPost(userId, topic.name, post.id)).toFriendsOf(userId)
         }) inject topic
     }
 

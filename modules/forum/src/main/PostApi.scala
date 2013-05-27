@@ -41,18 +41,17 @@ final class PostApi(
         (indexer ! InsertPost(post)) >>
         (env.recent.invalidate inject post) >>-
         ((ctx.userId ifFalse post.troll) ?? { userId ⇒
-          timeline ! Propagate(
-            ForumPost(userId, categ.id, topic.slug, topic.name, lastPageOf(topic withPost post), post.number)
-          ).toFriendsOf(userId)
+          timeline ! Propagate(ForumPost(userId, topic.name, post.id)).toFriendsOf(userId)
         }) inject post
     }
 
   def urlData(postId: String, troll: Boolean): Fu[Option[PostUrlData]] = get(postId) flatMap {
-    case Some((topic, post)) if (!troll && post.troll) => fuccess(none[PostUrlData])
-    case Some((topic, post)) => PostRepo(troll).countBeforeNumber(topic.id, post.number) map { nb =>
+    case Some((topic, post)) if (!troll && post.troll) ⇒ fuccess(none[PostUrlData])
+    case Some((topic, post)) ⇒ PostRepo(troll).countBeforeNumber(topic.id, post.number) map { nb ⇒
       val page = nb / maxPerPage + 1
       PostUrlData(topic.categId, topic.slug, page, post.number).some
     }
+    case _ ⇒ fuccess(none)
   }
 
   def get(postId: String): Fu[Option[(Topic, Post)]] = for {
