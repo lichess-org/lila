@@ -48,7 +48,7 @@ package timeline {
   case class Follow(u1: String, u2: String) extends Atom
   case class TeamJoin(userId: String, teamId: String) extends Atom
   case class TeamCreate(userId: String, teamId: String) extends Atom
-  case class ForumPost(userId: String, categ: String, topicSlug: String, topicName: String, page: Int, post: Int) extends Atom
+  case class ForumPost(userId: String, topicName: String, postId: String) extends Atom
 
   object atomFormat {
 
