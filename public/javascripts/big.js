@@ -1266,7 +1266,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       this.repaint();
     },
     enters: function(user) {
-      this.list.append(_renderUser(user));
+      this.list.append(this._renderUser(user));
       this.repaint();
     },
     leaves: function(user) {
