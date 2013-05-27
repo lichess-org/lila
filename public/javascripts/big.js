@@ -321,7 +321,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     });
 
     function userPowertips() {
-      $('a.user_link:not(.jsed)').addClass('.jsed').powerTip({
+      $('a.user_link:not(.jsed)').addClass('jsed').powerTip({
         placement: 's',
         smartPlacement: true,
         mouseOnToPopup: true,
@@ -342,7 +342,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     $('body').on('lichess.content_loaded', userPowertips);
 
     function setTimeAgo() {
-      $("time:not(.jsed)").addClass('.jsed').timeago();
+      $("time:not(.jsed)").addClass('jsed').timeago();
     }
     setTimeAgo();
     $('body').on('lichess.content_loaded', setTimeAgo);
