@@ -40,7 +40,7 @@ final class Env(
     socketHub = hub.socket.hub,
     getOnlineUserIds = getOnlineUserIds,
     getUsername = getUsername,
-    getFriendIds = cached.friends.apply
+    api = api
   )), name = ActorName)
 
   {

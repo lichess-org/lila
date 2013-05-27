@@ -147,7 +147,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         self.syncFriends();
       }, self.options.syncFriendsDelay);
       this.ws.send(JSON.stringify({
-        t: "friends"
+        t: "following_onlines"
       }));
     },
     handle: function(m) {
@@ -227,13 +227,13 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     socket: null,
     socketDefaults: {
       events: {
-        friends: function(data) {
+        following_onlines: function(data) {
           $('#friend_box').friends("set", data);
         },
-        friend_enters: function(name) {
+        following_enters: function(name) {
           $('#friend_box').friends('enters', name);
         },
-        friend_leaves: function(name) {
+        following_leaves: function(name) {
           $('#friend_box').friends('leaves', name);
         },
         n: function(e) {
@@ -1274,7 +1274,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       this.repaint();
     },
     enters: function(user) {
-      this.list.append(renderUser(user));
+      this.list.append(_renderUser(user));
       this.repaint();
     },
     leaves: function(user) {
