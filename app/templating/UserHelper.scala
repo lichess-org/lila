@@ -21,12 +21,11 @@ trait UserHelper { self: I18nHelper with StringHelper ⇒
     userIdOption: Option[String],
     cssClass: Option[String] = None,
     withOnline: Boolean = true,
-    truncate: Option[Int] = None,
-    go: Boolean = false): Html = Html {
+    truncate: Option[Int] = None): Html = Html {
     userIdOption.fold(User.anonymous) { userId ⇒
       Env.user usernameOption userId map {
         _.fold(User.anonymous) { username ⇒
-          userIdNameLink(userId, username, cssClass, withOnline, truncate, go)
+          userIdNameLink(userId, username, cssClass, withOnline, truncate)
         }
       } await
     }
@@ -39,7 +38,7 @@ trait UserHelper { self: I18nHelper with StringHelper ⇒
   def userIdLinkMini(userId: String) = Html {
     Env.user usernameOption userId map { username ⇒
       """<a %s %s>%s</a>""".format(
-        userClass(userId, none, false, false),
+        userClass(userId, none, false),
         userHref(username | userId),
         username | userId
       )
@@ -50,10 +49,9 @@ trait UserHelper { self: I18nHelper with StringHelper ⇒
     usernameOption: Option[String],
     cssClass: Option[String] = None,
     withOnline: Boolean = true,
-    truncate: Option[Int] = None,
-    go: Boolean = false): Html = Html {
+    truncate: Option[Int] = None): Html = Html {
     usernameOption.fold(User.anonymous) { username ⇒
-      userIdNameLink(username.toLowerCase, username, cssClass, withOnline, truncate, go)
+      userIdNameLink(username.toLowerCase, username, cssClass, withOnline, truncate)
     }
   }
 
@@ -62,10 +60,9 @@ trait UserHelper { self: I18nHelper with StringHelper ⇒
     username: String,
     cssClass: Option[String] = None,
     withOnline: Boolean = true,
-    truncate: Option[Int] = None,
-    go: Boolean = false): String =
+    truncate: Option[Int] = None): String =
     """<a %s %s>%s</a>""".format(
-      userClass(userId, cssClass, withOnline, go),
+      userClass(userId, cssClass, withOnline),
       userHref(username),
       truncate.fold(username)(username.take)
     )
@@ -75,10 +72,9 @@ trait UserHelper { self: I18nHelper with StringHelper ⇒
     cssClass: Option[String] = None,
     withElo: Boolean = true,
     withOnline: Boolean = true,
-    text: Option[String] = None,
-    go: Boolean = false) = Html {
+    text: Option[String] = None) = Html {
     """<a %s %s>%s</a>""".format(
-      userClass(user.id, cssClass, withOnline, go),
+      userClass(user.id, cssClass, withOnline),
       userHref(user.username),
       text | withElo.fold(user.usernameWithElo, user.username)
     )
@@ -88,11 +84,10 @@ trait UserHelper { self: I18nHelper with StringHelper ⇒
     userId: String,
     elo: Option[Int],
     cssClass: Option[String] = None,
-    withOnline: Boolean = true,
-    go: Boolean = false) = Env.user usernameOption userId map (_ | userId) map { username ⇒
+    withOnline: Boolean = true) = Env.user usernameOption userId map (_ | userId) map { username ⇒
     Html {
       """<a %s %s>%s</a>""".format(
-        userClass(userId, cssClass, withOnline, go),
+        userClass(userId, cssClass, withOnline),
         userHref(username),
         elo.fold(username)(e ⇒ "%s (%d)".format(username, e))
       )
@@ -105,11 +100,9 @@ trait UserHelper { self: I18nHelper with StringHelper ⇒
   private def userClass(
     userId: String,
     cssClass: Option[String],
-    go: Boolean,
     withOnline: Boolean) = {
     "user_link" :: List(
       cssClass,
-      go option "go",
       withOnline option isOnline(userId).fold("online", "offline")
     ).flatten
   }.mkString("class=\"", " ", "\"")
