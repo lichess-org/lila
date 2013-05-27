@@ -151,6 +151,7 @@ GET   /forum/:categSlug/:slug          controllers.ForumTopic.show(categSlug: St
 POST  /forum/:categSlug/:slug/close    controllers.ForumTopic.close(categSlug: String, slug: String)
 POST  /forum/:categSlug/:slug/new      controllers.ForumPost.create(categSlug: String, slug: String, page: Int ?= 1)
 POST  /forum/delete/post/:id           controllers.ForumPost.delete(id: String)
+GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id: String)
  
 # Message
 GET   /inbox                           controllers.Message.inbox(page: Int ?= 1)

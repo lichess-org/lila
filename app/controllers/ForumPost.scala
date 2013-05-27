@@ -44,4 +44,11 @@ object ForumPost extends LilaController with ForumController {
     me ⇒
       postApi.delete(id, me)
   }
+
+  def redirect(id: String) = Open { implicit ctx ⇒
+    OptionResult(postApi.urlData(id, ctx.troll)) {
+      case lila.forum.PostUrlData(categ, topic, page, number) ⇒
+        Redirect(routes.ForumTopic.show(categ, topic, page).url + "#" + number)
+    }
+  }
 }
