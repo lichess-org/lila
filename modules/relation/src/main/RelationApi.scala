@@ -3,7 +3,7 @@ package lila.relation
 import lila.db.api._
 import lila.db.Implicits._
 import lila.game.GameRepo
-import lila.hub.actorApi.relation.ReloadFriends
+import lila.hub.actorApi.relation.ReloadFollowing
 import lila.hub.actorApi.timeline.{ Propagate, Follow ⇒ FollowUser }
 import lila.hub.ActorLazyRef
 import lila.user.tube.userTube
@@ -65,5 +65,5 @@ final class RelationApi(
 
   private def refresh(u1: ID, u2: ID): Funit =
     cached.invalidate(u1, u2) >>-
-      List(u1, u2).foreach(actor ! ReloadFriends(_))
+      List(u1, u2).foreach(actor ! ReloadFollowing(_))
 }

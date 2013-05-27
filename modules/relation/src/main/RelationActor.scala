@@ -13,7 +13,7 @@ private[relation] final class RelationActor(
     socketHub: ActorLazyRef,
     getOnlineUserIds: () ⇒ Set[String],
     getUsername: String ⇒ Fu[String],
-    getFriendIds: String ⇒ Fu[Set[String]]) extends Actor {
+    api: RelationApi) extends Actor {
 
   private type ID = String
   private type Username = String
@@ -21,10 +21,10 @@ private[relation] final class RelationActor(
 
   def receive = {
 
-    // triggers friends reloading for this user id
-    case ReloadFriends(userId) ⇒ getFriendIds(userId) flatMap { ids ⇒
+    // triggers following reloading for this user id
+    case ReloadFollowing(userId) ⇒ api.following(userId) flatMap { ids ⇒
       ((ids intersect onlineIds).toList map getUsername).sequenceFu
-    } map { SendTo(userId, "friends", _) } pipeTo socketHub.ref
+    } map { SendTo(userId, "following_onlines", _) } pipeTo socketHub.ref
 
     case NotifyMovement ⇒ {
       val prevIds = onlineIds
@@ -42,17 +42,17 @@ private[relation] final class RelationActor(
 
       onlines = onlines -- leaveIds ++ enters
 
-      notifyFriends(enters, "friend_enters")
-      notifyFriends(leaves, "friend_leaves")
+      notifyFollowers(enters, "following_enters")
+      notifyFollowers(leaves, "following_leaves")
     }
   }
 
   private var onlines = Map[ID, Username]()
   private def onlineIds: Set[ID] = onlines.keySet
 
-  private def notifyFriends(users: List[User], message: String) {
+  private def notifyFollowers(users: List[User], message: String) {
     users foreach {
-      case (id, name) ⇒ getFriendIds(id) foreach { ids ⇒
+      case (id, name) ⇒ api.followers(id) foreach { ids ⇒
         val notify = ids filter onlines.contains
         if (notify.nonEmpty) socketHub ! SendTos(notify.toSet, message, name)
       }
