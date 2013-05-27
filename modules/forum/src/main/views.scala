@@ -42,3 +42,5 @@ case class PostView(
 }
 
 case class PostLiteView(post: Post, topic: Topic, topicLastPage: Int)
+
+case class PostUrlData(categ: String, topic: String, page: Int, number: Int)

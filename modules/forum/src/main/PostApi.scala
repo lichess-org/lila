@@ -47,6 +47,14 @@ final class PostApi(
         }) inject post
     }
 
+  def urlData(postId: String, troll: Boolean): Fu[Option[PostUrlData]] = get(postId) flatMap {
+    case Some((topic, post)) if (!troll && post.troll) => fuccess(none[PostUrlData])
+    case Some((topic, post)) => PostRepo(troll).countBeforeNumber(topic.id, post.number) map { nb =>
+      val page = nb / maxPerPage + 1
+      PostUrlData(topic.categId, topic.slug, page, post.number).some
+    }
+  }
+
   def get(postId: String): Fu[Option[(Topic, Post)]] = for {
     post ← optionT($find.byId[Post](postId))
     topic ← optionT($find.byId[Topic](post.topicId))

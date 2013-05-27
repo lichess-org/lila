@@ -20,6 +20,9 @@ sealed abstract class PostRepo(troll: Boolean) {
     Json.obj("troll" -> false)
   )
 
+  def countBeforeNumber(topicId: String, number: Int): Fu[Int] = 
+    $count(selectTopic(topicId) ++ Json.obj("number" -> $lt(number)))
+
   def isFirstPost(topicId: String, postId: String): Fu[Boolean] =
     $primitive.one(
       selectTopic(topicId),

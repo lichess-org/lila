@@ -33,7 +33,7 @@ private[forumSearch] object Post {
   def from(view: PostLiteView): JsObject = Json.obj(
     body -> view.post.text,
     topic -> view.topic.name,
-    author -> ~(view.post.userId orElse view.post.author),
+    author -> ~(view.post.userId orElse view.post.author map (_.toLowerCase)),
     topicId -> view.topic.id,
     staff -> view.post.isStaff,
     troll -> view.post.troll
