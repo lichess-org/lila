@@ -491,20 +491,13 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       return false;
     });
 
-    function bookmarks() {
-      $('span.bookmark a.icon:not(.jsed)').each(function() {
-        var t = $(this).addClass("jsed");
-        t.click(function() {
-          t.toggleClass("bookmarked");
-          $.post(t.attr("href"));
-          var count = (parseInt(t.html()) || 0) + (t.hasClass("bookmarked") ? 1 : -1);
-          t.html(count > 0 ? count : "");
-          return false;
-        });
-      });
-    }
-    bookmarks();
-    $('body').on('lichess.content_loaded', bookmarks);
+    $('#lichess').on('click', 'span.bookmark a.icon', function() {
+      var t = $(this).toggleClass("bookmarked");
+      $.post(t.attr("href"));
+      var count = (parseInt(t.html()) || 0) + (t.hasClass("bookmarked") ? 1 : -1);
+      t.html(count > 0 ? count : "");
+      return false;
+    });
 
     if ($(window).width() < 1060) {
       $("div.lichess_chat").addClass("small_chat");
@@ -1574,7 +1567,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           });
         } else {
           $squares.removeClass('selected');
-            // first click must be on an own piece
+          // first click must be on an own piece
           if (!$(this).find('.' + color).length) return;
           $input.val(key);
         }
