@@ -1,4 +1,4 @@
-@(form: Form[_], reqUsername: Option[String] = None)(implicit ctx: Context)
+@(form: Form[_], reqUser: Option[User] = None)(implicit ctx: Context)
 
 @message.layout(
 title = trans.composeMessage.str()) {
@@ -8,15 +8,18 @@ title = trans.composeMessage.str()) {
     <form action="@routes.Message.create()" method="post">
       <div class="field_to">
         <label for="@form("username").id">@trans.recipient():</label>
+        @reqUser.map { user =>
+        @userLink(user, cssClass = "inline".some)
+        }.getOrElse {
         <input
         type="text"
         data-provider="@routes.User.autocomplete"
         class="autocomplete"
         required="required"
         name="@form("username").name"
-        id="@form("username").id"
-        value="@{ form("username").value.orElse(reqUsername) }">
+        id="@form("username").id">
         @errMsg(form("username"))
+        }
       </div>
       <div class="field_subject">
         <label for="@form("subject").id">@trans.subject():</label>

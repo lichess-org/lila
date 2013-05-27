@@ -633,19 +633,21 @@ span.s16.clock {
 .user_link.black {
   background-position: 0 -256px;
 }
-.user_link.offline {
+.user_link.online,
+.user_link.offline,
+.tournament_link {
   padding-left: 20px;
+}
+.user_link.offline {
   background-position: 0 -160px;
 }
 .user_link.online {
-  padding-left: 20px;
   background-position: 0 -208px;
 }
 .user_link.inline {
   display: inline-block;
 }
 .tournament_link {
-  padding-left: 20px;
   background-position: 0 -304px;
 }
 div.engine_warning {

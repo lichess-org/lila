@@ -2,7 +2,7 @@ package controllers
 
 import lila.app._
 import views._
-import lila.user.{ User ⇒ UserModel, Context }
+import lila.user.{ User ⇒ UserModel, UserRepo, Context }
 
 import play.api._
 import play.api.mvc._
@@ -35,8 +35,8 @@ object Message extends LilaController {
 
   def form = Auth { implicit ctx ⇒
     implicit me ⇒
-      get("username") ?? Env.user.usernameOption map { username ⇒
-        Ok(html.message.form(forms.thread, username))
+      get("username") ?? UserRepo.named map { user ⇒
+        Ok(html.message.form(forms.thread, user))
       }
   }
 
