@@ -835,6 +835,8 @@ div.game_extra div.bookmarkers {
   margin-top: 2em;
   border-top: 1px solid #e0e0e0;
   padding-top: 1em;
+  margin-left: -30px;
+  width: 230px;
 }
 #timeline > .entry {
   padding-bottom: 1em;
