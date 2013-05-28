@@ -313,7 +313,6 @@ div.header div.side_menu a.active {
   height: 24px;
   line-height: 24px;
   padding: 0 8px;
-  text-decoration: none;
 }
 #reconnecting {
   display: none;
@@ -330,13 +329,17 @@ a.goto_nav {
   float: left;
 }
 a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hover {
-  background: #fff;
+  background-color: #fff;
 }
 #top .s16 {
   display:block;
   height: 16px;
   margin-top: 4px;
   line-height: 16px;
+}
+#top a.goto_nav .s16 {
+  display: inline-block;
+  vertical-align: text-bottom;
 }
 #top span.new_messages {
   padding: 1px 5px 1px 4px;
@@ -346,7 +349,7 @@ a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hove
   border-radius:4px;
   font-size: 0.9em;
 }
-#top span.new_messages.unread {
+#top span.new_messages {
   font-size: 1em;
 }
 #top .shown a.toggle {
@@ -691,7 +694,7 @@ div.lichess_social div.addtochrome {
   background: -o-linear-gradient(top, #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
 }
 /* active gradient */
- #top a.goto_nav.active, .button.active, .button.active:hover, .ui-state-active, .ui-widget-header, div.pagination span.current, #top span.new_messages.unread, div.hooks td.action:hover, div.hooks table.empty tr:hover, div.progressbar.flashy div, .button.strong:hover, div.locale_menu a.active, #import_game .progression {
+ #top a.goto_nav.active, .button.active, .button.active:hover, .ui-state-active, .ui-widget-header, div.pagination span.current, #top span.new_messages, div.hooks td.action:hover, div.hooks table.empty tr:hover, div.progressbar.flashy div, .button.strong:hover, div.locale_menu a.active, #import_game .progression {
   color: #fff;
   background: #d85000;
   background: -moz-linear-gradient(center top, #f49c00, #d85000) repeat scroll 0 0 #d85000;
