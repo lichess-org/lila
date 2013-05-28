@@ -49,4 +49,9 @@ object Lobby extends LilaController with Results {
     me ⇒
       Env.timeline.getter.userEntries(me.id) map { html.timeline.entries(_) }
   }
+
+  def timelineMore = Auth { implicit ctx ⇒
+    me ⇒
+      Env.timeline.getter.moreUserEntries(me.id) map { html.timeline.more(_) }
+  }
 }

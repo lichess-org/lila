@@ -856,6 +856,10 @@ div.game_extra div.bookmarkers {
   padding-left: 0;
   display: inline-block;
 }
+#timeline a.more {
+  display: block;
+  text-align: center;
+}
 span.bookmark {
   position: relative;
   float: right;

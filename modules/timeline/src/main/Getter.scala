@@ -15,8 +15,14 @@ private[timeline] final class Getter(
       $query[GameEntry]($select.all) sort $sort.naturalOrder,
       gameMax)
 
-  def userEntries(userId: String): Fu[List[Entry]] =
+  def userEntries(userId: String): Fu[List[Entry]] = 
+    _userEntries(userId, userMax)
+
+  def moreUserEntries(userId: String): Fu[List[Entry]] = 
+    _userEntries(userId, 100)
+
+  private def _userEntries(userId: String, max: Int): Fu[List[Entry]] =
     $find[Entry](
       $query[Entry](Json.obj("users" -> userId)) sort $sort.desc("date"),
-      userMax)
+      max)
 }
