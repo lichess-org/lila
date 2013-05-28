@@ -650,7 +650,10 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
               } else {
                 return '<li class="' + u + (u == 'system' ? ' trans_me' : '') + '">' + urlToLink(t) + '</li>';
               }
-            }
+            },
+            onToggle: self.options.player.spectator ? function(e) {} : _.throttle(function(enabled) {
+              lichess.socket.send("toggle-chat", enabled);
+            }, 5000)
           });
         self.$watchers.watchers();
         if (self.isMyTurn() && self.options.game.turns == 0) {
@@ -1284,6 +1287,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     _create: function() {
       this.options = $.extend({
         // render: function(u, t) {},
+        onToggle: function(enabled) {},
         resize: false
       }, this.options);
       var self = this;
@@ -1322,6 +1326,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         $.post($toggle.data('href'), {
           "chat": enabled
         });
+        self.options.onToggle(enabled);
       });
       if (!$toggle.data("enabled")) {
         self.element.addClass('hidden');
