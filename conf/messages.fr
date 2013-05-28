@@ -208,3 +208,5 @@ followsYou=Vous suit
 xStartedFollowingY=%s a suivi %s
 nbFollowers=%s suiveurs
 nbFollowing=%s suivis
+profile=Profil
+more=Plus
