@@ -31,9 +31,12 @@ div.sidebar a {
   color: #0090b0;
   font-weight: bold;
 }
-#lichess_message td.author, #lichess_message td.date {
+#lichess_message td.author, #lichess_message time {
   white-space: nowrap;
   padding-right: 1em;
+}
+#lichess_message time {
+  font-size: 0.8em;
 }
 
 #lichess_message div.thread_actions {
