@@ -18,14 +18,22 @@ final class Messenger(
 
   private val nbMessagesCopiedToRematch = 20
 
-  def init(game: Game): Fu[List[Event]] =
-    systemMessages(game, List(
-      game.creatorColor.fold(_.whiteCreatesTheGame, _.blackCreatesTheGame),
-      game.invitedColor.fold(_.whiteJoinsTheGame, _.blackJoinsTheGame)
-    ))
+  def init(game: Game): Fu[List[Event]] = systemMessages(game, List(
+    game.creatorColor.fold(_.whiteCreatesTheGame, _.blackCreatesTheGame),
+    game.invitedColor.fold(_.whiteJoinsTheGame, _.blackJoinsTheGame)
+  )) flatMap { events ⇒
+    (Color.all map { color ⇒
+      (game player color).userId ?? { id ⇒
+        UserRepo.getSetting(id, "chat") flatMap {
+          case Some("false") ⇒ toggleChat(PovRef(game.id, color), false)
+          case _             ⇒ fuccess(Nil)
+        }
+      }
+    }).sequenceFu map { events ::: _.flatten }
+  }
 
-  // // copies chats then init
-  // // no need to send events back
+  // copies chats then init
+  // no need to send events back
   def rematch(prev: Game, next: Game): Funit = for {
     prevR ← RoomRepo room prev.id
     nextR = prevR.rematchCopy(next.id, nbMessagesCopiedToRematch)
@@ -71,7 +79,7 @@ final class Messenger(
       }
     }
 
-  def toggleChat(ref: PovRef, status: Boolean): Fu[List[Event.Message]] =
+  def toggleChat(ref: PovRef, status: Boolean): Fu[List[Event]] =
     "%s chat is %s".format(
       ref.color.toString.capitalize,
       status.fold("en", "dis") + "abled"
