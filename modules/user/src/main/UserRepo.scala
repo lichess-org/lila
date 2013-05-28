@@ -76,7 +76,7 @@ object UserRepo {
     $update($select(id), $set(("settings." + key) -> value))
 
   def getSetting(id: ID, key: String): Fu[Option[String]] =
-    $primitive.one($select(id), "settings") { 
+    $primitive.one($select(id), "settings") {
       _.asOpt[Map[String, String]] flatMap (_ get key)
     }
 
@@ -149,20 +149,18 @@ object UserRepo {
     }
 
   def idsAverageElo(ids: Iterable[String]): Fu[Int] = {
-    val command = MapReduce(
-      collectionName = userTube.coll.name,
-      mapFunction = """function() { emit("e", this.elo); }""",
-      reduceFunction = """function(key, values) {
-  var sum = 0;
-  for(var i in values) { sum += values[i]; }
-  return Math.round(sum / values.length);
-}""",
-      query = Some {
-        JsObjectWriter write Json.obj("_id" -> $in(ids map normalize))
-      }
-    )
-    userTube.coll.db.command(command) map { res ⇒
-      toJSON(res).arr("results").flatMap(_.apply(0) int "value")
+    import reactivemongo.bson._
+    import reactivemongo.core.commands._
+    val command = Aggregate(userTube.coll.name, Seq(
+      Match(BSONDocument("_id" -> BSONDocument("$in" -> BSONArray(
+        ids map { id ⇒ BSONString(id) }
+      )))),
+      Group(BSONBoolean(true))("elo" -> SumField("$elo"))
+    ))
+    userTube.coll.db.command(command) map { stream ⇒
+      (stream.toList.headOption map { obj ⇒
+        toJSON(obj).asOpt[JsObject] flatMap { _ int "elo" }
+      }).flatten
     } map (~_)
   }
 
