@@ -1,12 +1,12 @@
 package controllers
 
-import lila.app._
-import views._
-import lila.user.{ User ⇒ UserModel, UserRepo, Context }
-
 import play.api._
 import play.api.mvc._
 import play.api.mvc.Results._
+
+import lila.app._
+import lila.user.{ User ⇒ UserModel, UserRepo, Context }
+import views._
 
 object Message extends LilaController {
 
@@ -44,7 +44,9 @@ object Message extends LilaController {
     implicit me ⇒
       implicit val req = ctx.body
       forms.thread.bindFromRequest.fold(
-        err ⇒ BadRequest(html.message.form(err)).fuccess,
+        err ⇒ get("username") ?? UserRepo.named map { user ⇒
+          BadRequest(html.message.form(err, user))
+        },
         data ⇒ api.makeThread(data, me) map { thread ⇒
           Redirect(routes.Message.thread(thread.id))
         })
