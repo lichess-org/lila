@@ -66,6 +66,8 @@ private[round] final class SocketHandler(
         }
         case ("moretime", o)  ⇒ roundMap ! Tell(gameId, Moretime(playerId))
         case ("outoftime", o) ⇒ roundMap ! Tell(gameId, Outoftime)
+        case ("toggle-chat", o) ⇒
+          messenger.toggleChat(ref, ~(o boolean "d")) pipeTo socket
       }
     }
   }
