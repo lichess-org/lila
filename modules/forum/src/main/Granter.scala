@@ -1,6 +1,6 @@
 package lila.forum
 
-import lila.security.{ Permission, Granter => Master }
+import lila.security.{ Permission, Granter ⇒ Master }
 import lila.user.Context
 
 trait Granter {
@@ -8,7 +8,8 @@ trait Granter {
   private val TeamSlugPattern = """^team-([\w-]+)$""".r
   private val StaffSlug = "staff"
 
-  protected def userBelongsToTeam(teamId: String, userId: String): Fu[Boolean] 
+  protected def userBelongsToTeam(teamId: String, userId: String): Fu[Boolean]
+  protected def userOwnsTeam(teamId: String, userId: String): Fu[Boolean]
 
   def isGrantedRead(categSlug: String)(implicit ctx: Context): Boolean =
     (categSlug == StaffSlug).fold(
@@ -22,5 +23,13 @@ trait Granter {
       case TeamSlugPattern(teamId) ⇒
         ctx.me.??(me ⇒ userBelongsToTeam(teamId, me.id))
       case _ ⇒ fuccess(true)
+    }
+
+  def isGrantedMod(categSlug: String)(implicit ctx: Context): Fu[Boolean] =
+    categSlug match {
+      case _ if (ctx.me ?? Master(Permission.ModerateForum)) ⇒ fuccess(true)
+      case TeamSlugPattern(teamId) ⇒
+        ctx.me ?? { me ⇒ userOwnsTeam(teamId, me.id) }
+      case _ ⇒ fuccess(false)
     }
 }

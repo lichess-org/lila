@@ -28,7 +28,7 @@ searchText = text
         <p>@shortenWithBr(view.post.text, 200)</p>
       </td>
       <td class="info">
-        <span class="date">@timeago(view.post.createdAt)</span>
+        @timeago(view.post.createdAt)
         by @Html(authorName(view.post))
       </td>
     </tr>

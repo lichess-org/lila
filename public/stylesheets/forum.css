@@ -56,7 +56,7 @@ ol.crumbs li:first-child {
 #lichess_forum .search_results {
   margin-top: 1em;
 }
-#lichess_forum .search_results .date {
+#lichess_forum .search_results time {
   font-size: 0.8em;
   white-space: nowrap;
   display: block
@@ -164,7 +164,7 @@ div.post .author a {
   display: block;
 }
 
-div.post .createdAt {
+div.post time {
   font-size: 0.8em;
   font-style: italic;
   color: #aaa;

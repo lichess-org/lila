@@ -150,7 +150,7 @@ final class TeamApi(
   def disable(team: Team): Funit =
     TeamRepo.disable(team) >>- (indexer ! RemoveTeam(team.id))
 
-  //   // delete for ever, with members but not forums
+  // delete for ever, with members but not forums
   def delete(team: Team): Funit =
     $remove(team) >>
       MemberRepo.removeByteam(team.id) >>-
@@ -158,6 +158,9 @@ final class TeamApi(
 
   def belongsTo(teamId: String, userId: String): Fu[Boolean] =
     cached teamIds userId map (_ contains teamId)
+
+  def owns(teamId: String, userId: String): Fu[Boolean] =
+    TeamRepo ownerOf teamId map (Some(userId) ==)
 
   def teamIds(userId: String) = cached teamIds userId
 

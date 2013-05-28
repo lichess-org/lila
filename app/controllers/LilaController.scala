@@ -161,7 +161,7 @@ private[controllers] trait LilaController
     isGranted(permission(Permission))
 
   protected def isGranted(permission: Permission)(implicit ctx: Context): Boolean =
-    ctx.me.??(Granter(permission))
+    ctx.me ?? Granter(permission)
 
   protected def authenticationFailed(implicit req: RequestHeader): Result =
     Redirect(routes.Auth.signup) withCookies LilaCookie.session(Env.security.api.AccessUri, req.uri)
