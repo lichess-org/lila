@@ -94,7 +94,11 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         d: data
       });
       self.debug("send " + message);
-      self.ws.send(message);
+      try {
+        self.ws.send(message);
+      } catch (e) {
+        self.debug(e);
+      }
     },
     scheduleConnect: function(delay) {
       var self = this;
@@ -325,7 +329,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         placement: 's',
         smartPlacement: true,
         mouseOnToPopup: true,
-        closeDelay: 200 
+        closeDelay: 200
       }).on({
         powerTipPreRender: function() {
           $.ajax({
