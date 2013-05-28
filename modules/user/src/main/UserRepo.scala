@@ -3,7 +3,7 @@ package lila.user
 import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
-import play.api.libs.json.Json
+import play.api.libs.json._
 import play.modules.reactivemongo.json.BSONFormats.toJSON
 import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
 import reactivemongo.api._
@@ -23,7 +23,7 @@ object UserRepo {
 
   def byIds(id: Iterable[ID]): Fu[List[User]] = $find byIds id
 
-  def enabledByIds(ids: Seq[ID]): Fu[List[User]] = 
+  def enabledByIds(ids: Seq[ID]): Fu[List[User]] =
     $find(enabledQuery ++ $select.byIds(ids))
 
   def named(username: String): Fu[Option[User]] = $find byId normalize(username)
@@ -74,6 +74,11 @@ object UserRepo {
 
   def saveSetting(id: ID, key: String, value: String): Funit =
     $update($select(id), $set(("settings." + key) -> value))
+
+  def getSetting(id: ID, key: String): Fu[Option[String]] =
+    $primitive.one($select(id), "settings") { 
+      _.asOpt[Map[String, String]] flatMap (_ get key)
+    }
 
   def authenticate(id: ID, password: String): Fu[Option[User]] =
     checkPassword(id, password) flatMap { _ ?? ($find byId id) }
@@ -138,7 +143,7 @@ object UserRepo {
     $primitive.one($select(id), "salt")(_.asOpt[String]) flatMap { saltOption ⇒
       saltOption ?? { salt ⇒
         $update($select(id), $set(Json.obj(
-          "password" -> hash(password, salt), 
+          "password" -> hash(password, salt),
           "sha512" -> false)))
       }
     }
