@@ -70,7 +70,6 @@ at least locally, the forum search user:mephostophilis returns no result
 check team average elo http://en.lichess.org/inbox/benuegti#bottom
 if move before page fully loaded -> bug
 if game ends during move -> bug
-show 2 username chars more (for bishop)
 
 DEPLOY p21
 ----------
