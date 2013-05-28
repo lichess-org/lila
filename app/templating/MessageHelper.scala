@@ -6,6 +6,6 @@ import lila.user.Context
 
 trait MessageHelper {
 
-  def messageNbUnread(ctx: Context) =
-    ctx.me.??(user ⇒ messageEnv.api.nbUnreadMessages(user.id).await)
+  def messageNbUnread(ctx: Context): Int =
+    ctx.me.??(user ⇒ messageEnv.api.unreadIds(user.id).await.size)
 }

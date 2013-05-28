@@ -23,6 +23,10 @@ final class Api(
     maxPerPage = maxPerPage
   )
 
+  def preview(userId: String): Fu[List[Thread]] = unreadCache(userId) flatMap { ids ⇒
+    $find byOrderedIds ids
+  }
+
   def thread(id: String, me: User): Fu[Option[Thread]] = for {
     threadOption ← $find.byId(id) map (_ filter (_ hasUser me))
     _ ← threadOption.filter(_ isUnReadBy me).??(thread ⇒
@@ -62,7 +66,7 @@ final class Api(
       threadOption.map(_.id).??(ThreadRepo deleteFor me.id)
     }
 
-  val nbUnreadMessages = unreadCache.apply _
+  val unreadIds = unreadCache apply _
 
   private def updateUser(user: String): Funit = {
     (unreadCache refresh user) onSuccess {
