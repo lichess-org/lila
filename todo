@@ -72,8 +72,6 @@ check team average elo http://en.lichess.org/inbox/benuegti#bottom
 DEPLOY p21
 ----------
 
-wait for reactivemongo fix https://github.com/zenexity/ReactiveMongo/pull/81
-
 upgrade nginx to get websocket proxying support
 upgrade elasticsearch to 0.90
 wait for https://github.com/zenexity/ReactiveMongo/issues/72
