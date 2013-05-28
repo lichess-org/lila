@@ -19,8 +19,10 @@ final class Messenger(
   private val nbMessagesCopiedToRematch = 20
 
   def init(game: Game): Fu[List[Event]] =
-    systemMessage(game, game.creatorColor.fold(_.whiteCreatesTheGame, _.blackCreatesTheGame)) >>
-    systemMessage(game, game.invitedColor.fold(_.whiteJoinsTheGame, _.blackJoinsTheGame))
+    systemMessages(game, List(
+      game.creatorColor.fold(_.whiteCreatesTheGame, _.blackCreatesTheGame),
+      game.invitedColor.fold(_.whiteJoinsTheGame, _.blackJoinsTheGame)
+    ))
 
   // // copies chats then init
   // // no need to send events back
@@ -51,11 +53,20 @@ final class Messenger(
     _ ← WatcherRoomRepo.addMessage(gameId, u, t)
   } yield Event.WatcherMessage(u, t) :: Nil
 
+  def systemMessages(game: Game, messages: List[SelectI18nKey]): Fu[List[Event]] =
+    game.hasChat ?? {
+      (messages map { m ⇒ trans(m) }) |> { messageKeys ⇒
+        RoomRepo.addSystemMessages(game.id, messageKeys) inject {
+          messageKeys map { Event.Message("system", _) }
+        }
+      }
+    }
+
   def systemMessage(game: Game, message: SelectI18nKey): Fu[List[Event]] =
     game.hasChat ?? {
       trans(message) |> { messageKey ⇒
-        RoomRepo.addSystemMessage(game.id, messageKey) map {
-          _ ?? List(Event.Message("system", messageKey))
+        RoomRepo.addSystemMessage(game.id, messageKey) inject {
+          Event.Message("system", messageKey) :: Nil
         }
       }
     }
@@ -65,8 +76,8 @@ final class Messenger(
       ref.color.toString.capitalize,
       status.fold("en", "dis") + "abled"
     ) |> { message ⇒
-        RoomRepo.addSystemMessage(ref.gameId, message) map {
-          _ ?? List(Event.Message("system", message))
+        RoomRepo.addSystemMessage(ref.gameId, message) inject {
+          Event.Message("system", message) :: Nil
         }
       }
 
