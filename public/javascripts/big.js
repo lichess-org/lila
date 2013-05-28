@@ -343,7 +343,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     $('#top a.message').powerTip({
       placement: 'se',
       mouseOnToPopup: true,
-      closeDelay: 2000000
+      closeDelay: 200
     }).on({
       powerTipPreRender: function() {
         console.debug($(this));
