@@ -1785,6 +1785,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     if (!$wrap.length) return;
     if (!strongSocket.available) return;
 
+    var $timeline = $("#timeline");
     var $bot = $("div.lichess_bot");
     var $newposts = $("div.new_posts");
     var $newpostsinner = $newposts.find('.undertable_inner').scrollTop(999999);
@@ -1854,6 +1855,15 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       });
     }, 120 * 1000);
 
+    function resizeTimeline() {
+      var max = $('#lichess').offset().top + 512;
+      var pos = $timeline.offset().top;
+      while(pos + $timeline.outerHeight() > max) {
+        $timeline.find('div:last').remove();
+      }
+    }
+    resizeTimeline();
+
     addHooks(lichess_preload.pool);
     renderTimeline(lichess_preload.timeline);
     lichess.socket = new strongSocket(lichess.socketUrl + "/lobby/socket", lichess_preload.version, $.extend(true, lichess.socketDefaults, {
@@ -1863,9 +1873,10 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         },
         reload_timeline: function() {
           $.ajax({
-            url: $('#timeline').data('href'),
+            url: $timeline.data('href'),
             success: function(html) {
-              $('#timeline').html(html);
+              $timeline.html(html);
+              resizeTimeline();
               $('body').trigger('lichess.content_loaded');
             }
           });
