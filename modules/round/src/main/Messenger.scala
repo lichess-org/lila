@@ -19,10 +19,8 @@ final class Messenger(
   private val nbMessagesCopiedToRematch = 20
 
   def init(game: Game): Fu[List[Event]] =
-    systemMessages(game, List(
-      game.creatorColor.fold(_.whiteCreatesTheGame, _.blackCreatesTheGame),
-      game.invitedColor.fold(_.whiteJoinsTheGame, _.blackJoinsTheGame)
-    ))
+    systemMessage(game, game.creatorColor.fold(_.whiteCreatesTheGame, _.blackCreatesTheGame)) >>
+    systemMessage(game, game.invitedColor.fold(_.whiteJoinsTheGame, _.blackJoinsTheGame))
 
   // // copies chats then init
   // // no need to send events back
@@ -53,24 +51,25 @@ final class Messenger(
     _ ← WatcherRoomRepo.addMessage(gameId, u, t)
   } yield Event.WatcherMessage(u, t) :: Nil
 
-  def systemMessages(game: Game, messages: List[SelectI18nKey]): Fu[List[Event]] =
-    game.hasChat ?? {
-      (messages map messageToEn) |> { messageKeys ⇒
-        RoomRepo.addSystemMessages(game.id, messageKeys) inject {
-          messageKeys map { Event.Message("system", _) }
-        }
-      }
-    }
-
   def systemMessage(game: Game, message: SelectI18nKey): Fu[List[Event]] =
     game.hasChat ?? {
-      messageToEn(message) |> { messageKey ⇒
-        RoomRepo.addSystemMessage(game.id, messageKey) inject {
-          Event.Message("system", messageKey) :: Nil
+      trans(message) |> { messageKey ⇒
+        RoomRepo.addSystemMessage(game.id, messageKey) map {
+          _ ?? List(Event.Message("system", messageKey))
         }
       }
     }
 
-  private def messageToEn(message: SelectI18nKey): String =
-    message(i18nKeys).en()
+  def toggleChat(ref: PovRef, status: Boolean): Fu[List[Event.Message]] =
+    "%s chat is %s".format(
+      ref.color.toString.capitalize,
+      status.fold("en", "dis") + "abled"
+    ) |> { message ⇒
+        RoomRepo.addSystemMessage(ref.gameId, message) map {
+          _ ?? List(Event.Message("system", message))
+        }
+      }
+
+  private def trans(message: SelectI18nKey, args: Any*): String =
+    message(i18nKeys).en(args: _*)
 }
