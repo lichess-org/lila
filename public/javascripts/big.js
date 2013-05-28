@@ -239,7 +239,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         n: function(e) {
           var $tag = $('#nb_connected_players');
           if ($tag.length && e) {
-            $tag.html($tag.html().replace(/\d+/, e)).removeClass('none');
+            $tag.find('strong').text(e);
           }
         },
         nbm: function(e) {
