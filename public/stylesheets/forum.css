@@ -59,7 +59,7 @@ ol.crumbs li:first-child {
 #lichess_forum .search_results time {
   font-size: 0.8em;
   white-space: nowrap;
-  display: block
+  display: block;
 }
 #lichess_forum .search_results a.post {
   display: block;
