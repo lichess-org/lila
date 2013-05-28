@@ -68,7 +68,6 @@ badges for top players in ELO and number of games
 top menu is too long in french with long username
 at least locally, the forum search user:mephostophilis returns no result
 check team average elo http://en.lichess.org/inbox/benuegti#bottom
-if move before page fully loaded -> bug
 if game ends during move -> bug
 
 DEPLOY p21
