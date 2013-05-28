@@ -3,7 +3,6 @@
 @import lila.hub.actorApi.timeline._
 
 @e.decode.map { decoded =>
-<div class="entry">
   @decoded match {
   case Follow(u1, u2) => {
   @trans.xStartedFollowingY(userIdLink(u1.some), userIdLink(u2.some))
@@ -19,5 +18,4 @@
   }
   }
   @timeago(e.date)
-</div>
 }

@@ -15,6 +15,9 @@
 @goodies = {
 <div id="timeline" data-href="@routes.Lobby.timeline">
   @timeline.entries(userTimeline)
+  @if(userTimeline.size == 8) {
+  <a class="more" href="@routes.Lobby.timelineMore">@trans.more()</a>
+  }
 </div>
 }
 

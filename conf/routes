@@ -2,6 +2,7 @@
 GET   /                                controllers.Lobby.home
 GET   /lobby/socket                    controllers.Lobby.socket
 GET   /timeline                        controllers.Lobby.timeline
+GET   /timeline/more                   controllers.Lobby.timelineMore
 
 # Relation
 POST  /rel/follow/:userId              controllers.Relation.follow(userId: String)
