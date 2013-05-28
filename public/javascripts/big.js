@@ -346,8 +346,6 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       closeDelay: 200
     }).on({
       powerTipPreRender: function() {
-        console.debug($(this));
-        console.debug($(this).data('href'));
         $.ajax({
           url: $(this).data('href'),
           success: function(html) {
@@ -663,7 +661,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
             resize: true,
             render: function(u, t) {
               if (self.options.player.spectator) {
-                return '<li><span>' + $.userLinkLimit(u, 12) + '</span>' + urlToLink(t) + '</li>';
+                return '<li><span>' + $.userLinkLimit(u, 14) + '</span>' + urlToLink(t) + '</li>';
               } else {
                 return '<li class="' + u + (u == 'system' ? ' trans_me' : '') + '">' + urlToLink(t) + '</li>';
               }
@@ -1951,7 +1949,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       engineMark = isEngine ? '<span class="engine_mark"></span>' : '';
       userClass = isEngine ? "user_link engine" : "user_link";
       if (hook.elo) {
-        html += '<td><a class="' + userClass + '" href="/@/' + hook.username + '">' + hook.username.substr(0, 12) + '<br />' + '(' + hook.elo + ')' + engineMark + '</a></td>';
+        html += '<td><a class="' + userClass + '" href="/@/' + hook.username + '">' + hook.username.substr(0, 14) + '<br />' + '(' + hook.elo + ')' + engineMark + '</a></td>';
       } else {
         html += '<td>' + hook.username + '</td>';
       }
@@ -2026,7 +2024,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
     var $chat = $("div.lichess_chat").chat({
       render: function(u, t) {
-        return '<li><span>' + $.userLinkLimit(u, 12) + '</span>' + urlToLink(t) + '</li>';
+        return '<li><span>' + $.userLinkLimit(u, 14) + '</span>' + urlToLink(t) + '</li>';
       }
     });
 
