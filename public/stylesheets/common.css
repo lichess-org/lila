@@ -342,6 +342,7 @@ a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hove
   vertical-align: text-bottom;
 }
 #top span.new_messages {
+  display: none;
   padding: 1px 5px 1px 4px;
   background: #bbb;
   color: white;
@@ -349,8 +350,8 @@ a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hove
   border-radius:4px;
   font-size: 0.9em;
 }
-#top span.new_messages {
-  font-size: 1em;
+#top span.new_messages.unread {
+  display: inline;
 }
 #top .shown a.toggle {
   background: #fff;

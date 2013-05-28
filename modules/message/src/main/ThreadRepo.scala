@@ -45,7 +45,9 @@ object ThreadRepo {
       sort = JsObjectWriter.write(Json.obj("updatedAt" -> -1)).some)
     tube.threadTube.coll.db.command(command) map { res ⇒
       toJSON(res).arr("results").flatMap(_.apply(0) str "value")
-    } map (~_ split ';' toList)
+    } map { 
+      _ ?? (_ split ';' toList)
+    }
   }
 
   def setRead(thread: Thread): Funit = {

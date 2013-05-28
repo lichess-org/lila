@@ -48,9 +48,7 @@ moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
       <a title="@elem.name()" data-href="@routes.Message.preview" class="message goto_nav blank_if_play @elem.currentClass(active)" href="@elem.route">
         <span class="s16 message"></span>
         @defining(messageNbUnread(ctx)) { nbUnread =>
-        @if(nbUnread > 0) {
-        <span id="nb_messages" class="new_messages">@nbUnread</span>
-        }
+        <span id="nb_messages" class="new_messages @{ (nbUnread > 0).??("unread") }">@nbUnread</span>
         }
       </a>
       }
