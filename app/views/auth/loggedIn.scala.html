@@ -8,7 +8,7 @@
     <span class="s16 ddown">@me.usernameWithElo</span>
   </a>
   <div class="links dropdown">
-    <a href="@routes.User.show(me.username)" class="blank_if_play"><span class="s16 goto_profile">Profile</span></a>
+    <a href="@routes.User.show(me.username)" class="blank_if_play"><span class="s16 goto_profile">@trans.profile()</span></a>
     <a href="@routes.Auth.logout"><span class="s16 goto_logout">@trans.logOut()</span></a>
   </div>
 </div>
