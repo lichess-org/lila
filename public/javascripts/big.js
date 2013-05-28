@@ -325,7 +325,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         placement: 's',
         smartPlacement: true,
         mouseOnToPopup: true,
-        closeDelay: 200
+        closeDelay: 200 
       }).on({
         powerTipPreRender: function() {
           $.ajax({
@@ -339,6 +339,23 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     }
     setTimeout(userPowertips, 600);
     $('body').on('lichess.content_loaded', userPowertips);
+
+    $('#top a.message').powerTip({
+      placement: 'se',
+      mouseOnToPopup: true,
+      closeDelay: 2000000
+    }).on({
+      powerTipPreRender: function() {
+        console.debug($(this));
+        console.debug($(this).data('href'));
+        $.ajax({
+          url: $(this).data('href'),
+          success: function(html) {
+            $('#powerTip').html(html).addClass('messages');
+          }
+        });
+      }
+    }).data('powertip', ' ');
 
     function setTimeAgo() {
       $("time.timeago").removeClass('timeago').timeago();

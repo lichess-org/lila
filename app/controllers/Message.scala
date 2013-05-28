@@ -14,7 +14,11 @@ object Message extends LilaController {
   private def forms = Env.message.forms
 
   def inbox(page: Int) = Auth { implicit ctx ⇒
-    implicit me ⇒ api.inbox(me, page) map { html.message.inbox(_) }
+    me ⇒ api.inbox(me, page) map { html.message.inbox(me, _) }
+  }
+
+  def preview = Auth { implicit ctx ⇒
+    me ⇒ api.preview(me.id) map { html.message.preview(me, _) }
   }
 
   def thread(id: String) = Auth { implicit ctx ⇒

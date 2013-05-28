@@ -6,12 +6,12 @@ import lila.user.User
 
 private[message] final class UnreadCache {
 
-  // userId => nb unread
-  private val cache: Cache[Int] = LruCache(maxCapacity = 99999)
+  // userId => thread IDs
+  private val cache: Cache[List[String]] = LruCache(maxCapacity = 99999)
 
-  def apply(userId: String): Fu[Int] =
-    cache.fromFuture(userId.toLowerCase)(ThreadRepo userNbUnread userId)
+  def apply(userId: String): Fu[List[String]] =
+    cache.fromFuture(userId)(ThreadRepo userUnreadIds userId)
 
-  def refresh(userId: String): Fu[Int] = 
+  def refresh(userId: String): Fu[List[String]] = 
     (cache remove userId).fold(apply(userId))(_ >> apply(userId))
 }

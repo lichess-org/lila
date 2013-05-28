@@ -1,0 +1,13 @@
+@(me: User, threads: List[lila.message.Thread])(implicit ctx: Context)
+
+@if(threads.nonEmpty) {
+@threads.map { thread =>
+<a class="revert-underline" href="@routes.Message.thread(thread.id)">
+  @thread.name
+  <strong>@userIdToUsername(thread.otherUserId(me))</strong>
+  @thread.firstPostUnreadBy(me).map(p => shorten(p.text, 50))
+</a>
+}
+} else {
+@trans.noMessageHereYet()
+}

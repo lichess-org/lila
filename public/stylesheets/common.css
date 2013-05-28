@@ -1051,3 +1051,14 @@ div.relation_actions .icon span {
   left: auto;
   right: 10px;
 }
+#powerTip.messages {
+  width: 400px;
+  padding: 1em;
+  min-height: 1em;
+}
+#powerTip.messages a {
+  padding: 0.6em;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+}

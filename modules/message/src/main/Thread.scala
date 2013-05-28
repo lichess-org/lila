@@ -31,6 +31,10 @@ case class Thread(
 
   def nbUnread: Int = posts count (_.isUnRead)
 
+  def firstPostUnreadBy(user: User): Option[Post] = posts find { post ⇒
+    post.isUnRead && post.isByCreator != isCreator(user)
+  }
+
   def userIds = List(creatorId, invitedId)
 
   def hasUser(user: User) = userIds contains user.id
@@ -77,6 +81,6 @@ object Thread {
       Json.writes[Thread] andThen (__.json update (
         writeDate('createdAt) andThen writeDate('updatedAt)
       ))
-    ) 
+    )
   }
 }

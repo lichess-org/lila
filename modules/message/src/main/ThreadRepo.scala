@@ -21,29 +21,31 @@ object ThreadRepo {
   def visibleByUser(user: ID): Fu[List[Thread]] =
     $find($query(visibleByUserQuery(user)) sort recentSort)
 
-  def userNbUnread(userId: String): Fu[Int] = {
+  def userUnreadIds(userId: String): Fu[List[String]] = {
     val command = MapReduce(
       collectionName = tube.threadTube.coll.name,
       mapFunction = """function() {
-  var thread = this, nb = 0;
+  var thread = this;
   thread.posts.forEach(function(p) {
     if (!p.isRead) {
       if (thread.creatorId == "%s") {
-        if (!p.isByCreator) nb++;
-      } else if (p.isByCreator) nb++;
+        if (!p.isByCreator) emit("i", thread._id);
+      } else if (p.isByCreator) emit("i", thread._id);
     }
   });
-  if (nb > 0) emit("n", nb);
   }""" format userId,
       reduceFunction = """function(key, values) {
-  var sum = 0;
-  for(var i in values) { sum += values[i]; }
-  return sum;
+  var ids = [];
+  for(var i in values) { ids.push(values[i]); }
+  return ids.join(';');
   }""",
-      query = JsObjectWriter.write(visibleByUserQuery(userId)).some)
+      query = JsObjectWriter.write(
+        visibleByUserQuery(userId) ++ Json.obj("posts.isRead" -> false)
+      ).some,
+      sort = JsObjectWriter.write(Json.obj("updatedAt" -> -1)).some)
     tube.threadTube.coll.db.command(command) map { res ⇒
-      toJSON(res).arr("results").flatMap(_.apply(0) int "value")
-    } map (~_)
+      toJSON(res).arr("results").flatMap(_.apply(0) str "value")
+    } map (~_ split ';' toList)
   }
 
   def setRead(thread: Thread): Funit = {
@@ -55,7 +57,7 @@ object ThreadRepo {
     }
   }.sequenceFu.void
 
-  def deleteFor(user: ID)(thread: ID) = 
+  def deleteFor(user: ID)(thread: ID) =
     $update($select(thread), $pull("visibleByUserIds", user))
 
   def userQuery(user: String) = Json.obj("userIds" -> user)

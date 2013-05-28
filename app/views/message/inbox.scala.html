@@ -1,4 +1,4 @@
-@(threads: Paginator[lila.message.Thread])(implicit ctx: Context, me: User)
+@(me: User, threads: Paginator[lila.message.Thread])(implicit ctx: Context)
 
 @message.layout(
 title = trans.inbox.str()) {
