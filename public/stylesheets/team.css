@@ -139,7 +139,7 @@
   color: #aaa;
   text-decoration: none;
 }
-#team .forum .date {
+#team .forum time {
   font-size: 0.8em;
 }
 #team .forum .meta > * {
