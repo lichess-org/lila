@@ -5,11 +5,15 @@ title = trans.composeMessage.str()) {
 <div class="message_new">
   <h1>@trans.composeMessage()</h1>
   <div class="center form">
-    <form action="@routes.Message.create()" method="post">
+    <form action="@routes.Message.create()@reqUser.map(u => "?username=" + u.username)" method="post">
       <div class="field_to">
         <label for="@form("username").id">@trans.recipient():</label>
         @reqUser.map { user =>
         @userLink(user, cssClass = "inline".some)
+        <input
+        type="hidden"
+        name="@form("username").name"
+        value="@user.id">
         }.getOrElse {
         <input
         type="text"

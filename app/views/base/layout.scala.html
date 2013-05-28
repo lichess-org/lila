@@ -45,9 +45,13 @@ moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
       @siteMenu.all(ctx.me).map { elem =>
       @elem.code match {
       case "message" => {
-      <a class="goto_nav blank_if_play @elem.currentClass(active)" href="@elem.route">
-        @elem.name()
-        <span id="nb_messages" class="new_messages @{ (messageNbUnread(ctx) > 0).fold("unread", "") }">@messageNbUnread(ctx)</span>
+      <a title="@elem.name()" class="goto_nav blank_if_play @elem.currentClass(active)" href="@elem.route">
+        <span class="s16 message"></span>
+        @defining(messageNbUnread(ctx)) { nbUnread =>
+        @if(nbUnread > 0) {
+        <span id="nb_messages" class="new_messages">@nbUnread</span>
+        }
+        }
       </a>
       }
       case "team" if teamNbRequests(ctx) > 0 => {
