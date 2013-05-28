@@ -26,20 +26,12 @@ object $primitive {
     query: JsObject,
     field: String,
     modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsValue ⇒ Option[B]): Fu[Option[B]] =
-    oneProjection(query, Json.obj("field" -> field), modifier) { value ⇒
-      extract(value \ field)
-    }
-
-  def oneProjection[A: InColl, B](
-    query: JsObject,
-    projection: JsObject,
-    modifier: QueryBuilder ⇒ QueryBuilder = identity)(extract: JsObject ⇒ Option[B]): Fu[Option[B]] =
     modifier {
       implicitly[InColl[A]].coll
         .genericQueryBuilder
         .query(query)
-        .projection(projection)
+        .projection(Json.obj(field -> true))
     }.one map2 { (obj: BSONDocument) ⇒
-      extract(JsObjectReader.read(obj))
+      extract(JsObjectReader.read(obj) \ field)
     } map (_.flatten)
 }
