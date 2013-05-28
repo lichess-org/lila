@@ -20,6 +20,9 @@ sealed abstract class PostRepo(troll: Boolean) {
     Json.obj("troll" -> false)
   )
 
+  def byCategAndId(categSlug: String, id: String): Fu[Option[Post]] = 
+    $find.one(selectCateg(categSlug) ++ $select(id))
+
   def countBeforeNumber(topicId: String, number: Int): Fu[Int] = 
     $count(selectTopic(topicId) ++ Json.obj("number" -> $lt(number)))
 
@@ -45,6 +48,7 @@ sealed abstract class PostRepo(troll: Boolean) {
   def selectTopic(topicId: String) = Json.obj("topicId" -> topicId) ++ trollFilter
   def selectTopics(topicIds: List[String]) = Json.obj("topicId" -> $in(topicIds)) ++ trollFilter
 
+  def selectCateg(categId: String) = Json.obj("categId" -> categId) ++ trollFilter
   def selectCategs(categIds: List[String]) = Json.obj("categId" -> $in(categIds)) ++ trollFilter
 
   def sortQuery = $sort.createdAsc

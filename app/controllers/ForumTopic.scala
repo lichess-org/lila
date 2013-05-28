@@ -42,12 +42,13 @@ object ForumTopic extends LilaController with ForumController {
     }
   }
 
-  def close(categSlug: String, slug: String) =
-    Secure(_.ModerateForum) { implicit ctx ⇒
-      me ⇒
+  def close(categSlug: String, slug: String) = Auth { implicit ctx ⇒
+    me ⇒
+      CategGrantMod(categSlug) {
         OptionFuRedirect(topicApi.show(categSlug, slug, 1, ctx.troll)) {
           case (categ, topic, pag) ⇒ topicApi.toggleClose(categ, topic, me) inject
             routes.ForumTopic.show(categSlug, slug, pag.nbPages)
         }
-    }
+      }
+  }
 }

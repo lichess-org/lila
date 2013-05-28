@@ -1,7 +1,5 @@
 start chess960 after both player move http://fr.lichess.org/forum/lichess-feedback/clock-fairness-in-chess960-games
-guess friend list
 takeback play 2 times ?? http://en.lichess.org/analyse/nfjchnmo/black move 45
-show lobby chat to anon (and rated games?) or show empty chat
 also translate websockets error message
 @someone = link to someone's profile
 analysis not the fastest checkmate, but no best move? http://en.lichess.org/analyse/w3xw8fsw/black 
@@ -25,7 +23,6 @@ takeback substract time for person granting
 add fullscreen mode for spectators and load new games in a loop (based on certain filter options) - thus creating a chess tv channel
 only team forum posts on the homepage?
 team list sort by date, name, popularity, avg elo, team elo, ...?
-team timeline (forum posts, joins)
 download 10.000 best elo games http://en.lichess.org/inbox/v1p6hokg#bottom
 sound config (like sound on game join, not moves)
 block user creation from an IP
@@ -64,13 +61,13 @@ from MoralIntentions email:
 - Several options of how points should be given to players (for example: Score * Sonneborn-Berger * Tournament Performance Rating * Percentage Score [for example: 0.64] / 1000) and therefore also several Leaderboards. 
 - The possibility of team matches (with solutions for players who are in several teams), where the team leader has to choose the board order, where the team results are shown and where the team player (who has played all of the games of the match) with the highest Percentage Score gets crowned Player of the Match of team "A".  
 safari has high bounce rate
-send message to sockets when a friendship is created or revoked
 correspondance chess http://en.lichess.org/forum/lichess-feedback/correspondence-chess#1
 takeback/enpassant glitch http://en.lichess.org/forum/lichess-feedback/i-found-a-glitch#1 
 show teams in user mini
 badges for top players in ELO and number of games
 top menu is too long in french with long username
 at least locally, the forum search user:mephostophilis returns no result
+check team average elo http://en.lichess.org/inbox/benuegti#bottom
 
 DEPLOY p21
 ----------
@@ -93,3 +90,4 @@ users - more translations
       - more bugs :p
       - advanced search = only analyzed games
       - no more reloads when game finishes
+      - team forum admin

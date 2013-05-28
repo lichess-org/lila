@@ -38,9 +38,11 @@ object ForumPost extends LilaController with ForumController {
     }
   }
 
-  def delete(id: String) = Secure(_.ModerateForum) { implicit ctx ⇒
+  def delete(categSlug: String, id: String) = Auth { implicit ctx ⇒
     me ⇒
-      postApi.delete(id, me)
+      CategGrantMod(categSlug) {
+        postApi.delete(categSlug, id, me) map { Ok(_) }
+      }
   }
 
   def redirect(id: String) = Open { implicit ctx ⇒

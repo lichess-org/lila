@@ -28,6 +28,9 @@ object TeamRepo {
       "createdBy" -> userId
     ))
 
+  def ownerOf(teamId: String): Fu[Option[String]] = 
+    $primitive.one($select(teamId), "createdBy")(_.asOpt[String])
+
   def incMembers(teamId: String, by: Int): Funit = 
     $update($select(teamId), $inc("nbMembers" -> by))
 

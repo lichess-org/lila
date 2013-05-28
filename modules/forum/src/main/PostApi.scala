@@ -99,8 +99,8 @@ final class PostApi(
     currentPage = page,
     maxPerPage = maxPerPage)
 
-  def delete(postId: String, mod: User): Funit = (for {
-    post ← optionT($find.byId[Post](postId))
+  def delete(categSlug: String, postId: String, mod: User): Funit = (for {
+    post ← optionT(PostRepo(true).byCategAndId(categSlug, postId))
     view ← optionT(view(post))
     _ ← optionT(for {
       first ← PostRepo.isFirstPost(view.topic.id, view.post.id)

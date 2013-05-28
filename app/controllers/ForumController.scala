@@ -1,10 +1,10 @@
 package controllers
 
-import lila.app._
-import lila.user.Context
-import lila.forum
-
 import play.api.mvc._, Results._
+
+import lila.app._
+import lila.forum
+import lila.user.Context
 
 private[controllers] trait ForumController extends forum.Granter { self: LilaController ⇒
 
@@ -18,6 +18,9 @@ private[controllers] trait ForumController extends forum.Granter { self: LilaCon
   protected def userBelongsToTeam(teamId: String, userId: String): Fu[Boolean] =
     Env.team.api.belongsTo(teamId, userId)
 
+  protected def userOwnsTeam(teamId: String, userId: String): Fu[Boolean] =
+    Env.team.api.owns(teamId, userId)
+
   protected def CategGrantRead[A <: Result](categSlug: String)(a: ⇒ Fu[A])(implicit ctx: Context): Fu[Result] =
     isGrantedRead(categSlug).fold(a,
       fuccess(Forbidden("You cannot access to this category"))
@@ -26,6 +29,14 @@ private[controllers] trait ForumController extends forum.Granter { self: LilaCon
   protected def CategGrantWrite[A <: Result](categSlug: String)(a: ⇒ Fu[A])(implicit ctx: Context): Fu[Result] =
     isGrantedWrite(categSlug) flatMap {
       _ fold (
+        a,
+        fuccess(Forbidden("You cannot post to this category"))
+      )
+    }
+
+  protected def CategGrantMod[A <: Result](categSlug: String)(a: ⇒ Fu[A])(implicit ctx: Context): Fu[Result] =
+    isGrantedMod(categSlug) flatMap { granted ⇒
+      (granted | isGranted(_.ModerateForum)) fold (
         a,
         fuccess(Forbidden("You cannot post to this category"))
       )
