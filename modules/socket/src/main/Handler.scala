@@ -24,9 +24,6 @@ object Handler {
 
     val baseController: Controller = {
       case ("p", _) ⇒ socket ! Ping(uid)
-      case ("following_onlines", _) ⇒ userId foreach { u ⇒
-        hub.actor.relation ! ReloadOnlineFriends(u) 
-      }
       case msg ⇒ logwarn("Unhandled msg: " + msg)
     }
 

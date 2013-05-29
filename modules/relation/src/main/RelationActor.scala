@@ -22,16 +22,19 @@ private[relation] final class RelationActor(
 
   def receive = {
 
-    // triggers following reloading for this user id
-    case ReloadOnlineFriends(userId) ⇒ onlineFriends(userId) map {
-      case OnlineFriends(usernames, nb) ⇒
-        SendTo(userId, "following_onlines", Json.obj(
-          "us" -> usernames,
-          "nb" -> nb
-        ))
-    } pipeTo socketHub.ref
+    case GetOnlineFriends(userId)    ⇒ onlineFriends(userId) pipeTo sender
 
-    case GetOnlineFriends(userId) ⇒ onlineFriends(userId) pipeTo sender
+    // triggers following reloading for this user id
+    case ReloadOnlineFriends(userId) ⇒ reloadOnlineFriends(userId)
+
+    case ReloadAllOnlineFriends ⇒ {
+      (getOnlineUserIds() map { id ⇒
+        getUsername(id) map (id -> _)
+      }).sequenceFu map { users ⇒
+        onlines = users.toMap
+        onlineIds foreach reloadOnlineFriends
+      }
+    }.await
 
     case NotifyMovement ⇒ {
       val prevIds = onlineIds
@@ -61,6 +64,16 @@ private[relation] final class RelationActor(
     ids ← api.following(userId)
     usernames ← ((ids intersect onlineIds).toList map getUsername).sequenceFu
   } yield OnlineFriends(usernames, ids.size)
+
+  private def reloadOnlineFriends(userId: String) {
+    onlineFriends(userId) map {
+      case OnlineFriends(usernames, nb) ⇒
+        SendTo(userId, "following_onlines", Json.obj(
+          "us" -> usernames,
+          "nb" -> nb
+        ))
+    } pipeTo socketHub.ref
+  }
 
   private def notifyFollowers(users: List[User], message: String) {
     users foreach {
