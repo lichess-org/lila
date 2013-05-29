@@ -72,6 +72,10 @@ if game ends during move -> bug
 friends box only works well on homepage
 Norb and other canot log in
 search bug http://fr.lichess.org/forum/search?text=user:aybabtu
+hooks do not always disappear
+hook actor expiration (view forum thread)
+no nb players in game
+always same number of players (!)
 
 DEPLOY p21
 ----------

@@ -27,7 +27,7 @@ private[lobby] final class Lobby(
       socket ! msg
     }
 
-    case msg @ CancelHook(uid) ⇒ {
+    case CancelHook(uid) ⇒ {
       HookRepo byUid uid foreach remove
     }
 
