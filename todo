@@ -69,13 +69,13 @@ top menu is too long in french with long username
 at least locally, the forum search user:mephostophilis returns no result
 check team average elo http://en.lichess.org/inbox/benuegti#bottom
 if game ends during move -> bug
-friends box only works well on homepage
-Norb and other canot log in
 search bug http://fr.lichess.org/forum/search?text=user:aybabtu
 hooks do not always disappear
 hook actor expiration (view forum thread)
 no nb players in game
 always same number of players (!)
+don't show team leaders activity in mod logs
+LilaError['[analysis] fred65 already analyses ueogn4fr, won't process ueogn4fr']
 
 DEPLOY p21
 ----------
