@@ -25,7 +25,7 @@ case Some(false) => {
 }
 }.getOrElse {
 @if(signup) {
-@trans.youNeedAUsernameToDoThat()
+@trans.youNeedAnAccountToDoThat()
 <a href="@routes.Auth.login" class="signup">@trans.signUp</a>
 }
 }
