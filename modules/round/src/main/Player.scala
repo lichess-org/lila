@@ -9,7 +9,7 @@ import lila.game.{ Game, GameRepo, PgnRepo, Pov, Progress }
 import lila.hub.actorApi.Tell
 
 private[round] final class Player(
-    ai: Ai,
+    ai: () ⇒ Ai,
     notifyMove: (String, String, Option[String]) ⇒ Unit,
     finisher: Finisher,
     roundMap: lila.hub.ActorLazyRef) {
@@ -46,7 +46,7 @@ private[round] final class Player(
       (game.variant.exotic ?? { GameRepo initialFen game.id }) zip
         (PgnRepo get game.id) flatMap {
           case (fen, pgn) ⇒
-            ai.play(game.toChess, pgn, fen, ~game.aiLevel) flatMap {
+            ai().play(game.toChess, pgn, fen, ~game.aiLevel) flatMap {
               case (newChessGame, move) ⇒ {
                 val (progress, pgn2) = game.update(newChessGame, move)
                 (GameRepo save progress) >>

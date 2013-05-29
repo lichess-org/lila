@@ -1,7 +1,7 @@
 package lila.setup
 
 import akka.actor._
-import com.typesafe.config.{ Config => AppConfig }
+import com.typesafe.config.{ Config ⇒ AppConfig }
 
 import lila.common.PimpedConfig._
 import lila.user.Context
@@ -11,7 +11,7 @@ final class Env(
     db: lila.db.Env,
     hub: lila.hub.Env,
     messenger: lila.round.Messenger,
-    ai: lila.ai.Ai,
+    ai: () ⇒ lila.ai.Ai,
     system: ActorSystem) {
 
   private val FriendMemoTtl = config duration "friend.memo.ttl"
@@ -20,7 +20,7 @@ final class Env(
 
   lazy val forms = new FormFactory
 
-  def filter(implicit ctx: Context): Fu[FilterConfig] = 
+  def filter(implicit ctx: Context): Fu[FilterConfig] =
     ctx.me.fold(AnonConfigRepo filter ctx.req)(UserConfigRepo.filter)
 
   lazy val processor = new Processor(
@@ -28,7 +28,7 @@ final class Env(
     friendConfigMemo = friendConfigMemo,
     timeline = hub.actor.gameTimeline,
     router = hub.actor.router,
-    ai = ai)
+    getAi = ai)
 
   lazy val friendJoiner = new FriendJoiner(
     messenger = messenger,
