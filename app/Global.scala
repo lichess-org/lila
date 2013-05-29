@@ -38,7 +38,7 @@ object Global extends GlobalSettings {
     Env.ai.isServer.fold(
       InternalServerError(ex.getMessage),
       lila.common.PlayApp.isProd.fold(
-        InternalServerError(views.html.base.errorPage(ex)(http.Context(request, none))),
+        InternalServerError(views.html.base.errorPage(ex)(lila.user.Context(request, none))),
         super.onError(request, ex)
       )
     )
