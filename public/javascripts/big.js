@@ -278,7 +278,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         }
       } else {
         $(document.body).removeClass("tight");
-        $('#timeline, div.lichess_goodies div.box').each(function() {
+        $('#timeline, div.lichess_goodies div.box, div.lichess_chat, div.under_chat').each(function() {
           var ol = $(this).offset().left;
           if (ol < 3) {
             var dec = 3 - ol;
@@ -287,6 +287,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
               'margin-left': (dec - 30) + 'px',
               'width': (230 - pad - dec) + 'px'
             });
+            $(this).find('input.lichess_say').css('width', (204 - dec) + 'px'); 
           }
         });
       }
@@ -515,10 +516,6 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       t.html(count > 0 ? count : "");
       return false;
     });
-
-    if ($(window).width() < 1060) {
-      $("div.lichess_chat").addClass("small_chat");
-    }
 
     $("a.view_pgn_toggle").one("click", function() {
       var $this = $(this).text("...");
