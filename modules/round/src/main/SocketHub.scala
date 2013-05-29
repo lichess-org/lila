@@ -21,21 +21,18 @@ private[round] final class SocketHub(
 
   def receiveSpecific = {
 
-    case msg @ IsConnectedOnGame(gameId, color) ⇒ (sockets get gameId).fold(sender ! false) {
+    case msg @ IsConnectedOnGame(gameId, _) ⇒ (sockets get gameId).fold(sender ! false) {
       _ ? msg pipeTo sender
     }
 
-    case msg @ IsGone(gameId, color) ⇒ (sockets get gameId).fold(sender ! false) {
+    case msg @ IsGone(gameId, _) ⇒ (sockets get gameId).fold(sender ! false) {
       _ ? msg pipeTo sender
     }
   }
 
   def mkSocket(id: String): ActorRef = context.actorOf(Props(new Socket(
     gameId = id,
-    history = context.actorOf(
-      Props(makeHistory()),
-      name = id + "-history"
-    ),
+    makeHistory = makeHistory,
     getUsername = getUsername,
     uidTimeout = uidTimeout,
     socketTimeout = socketTimeout,
