@@ -162,7 +162,7 @@ object LangList {
     "ts" -> "Xitsong",
     "tw" -> "Twi",
     "ty" -> "Reo Tahit",
-    "uk" -> "українськ",
+    "uk" -> "українська",
     "ve" -> "Tshivenḓ",
     "vi" -> "Tiếng Việt",
     "vo" -> "Volapük",
