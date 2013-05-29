@@ -7,7 +7,7 @@ import play.api.mvc.{ Action, RequestHeader, Handler }
 final class I18nRequestHandler(pool: I18nPool, protocol: String) {
 
   def apply(req: RequestHeader): Option[Handler] = 
-    if (req.host contains ":9000") None
+    if (req.host startsWith "socket.") None
     else pool.domainLang(req).isDefined.fold(
       None,
       Action {
