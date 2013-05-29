@@ -13,6 +13,7 @@ object ApplicationBuild extends Build {
       csv, jgit, actuarius, scalastic, findbugs, reactivemongo,
       playReactivemongo, spray.caching),
       scalacOptions := compilerOptions,
+      sources in doc in Compile := List(),
       templatesImport ++= Seq(
         "lila.game.{ Game, Player, Pov }",
         "lila.user.{ User, Context }",
