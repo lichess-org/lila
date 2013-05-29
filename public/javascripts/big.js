@@ -1909,7 +1909,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       for (i in data) {
         html += '<tr>' + data[i] + '</tr>';
       }
-      $bot.find('.undertable_inner').append(html).scrollTop(999999);
+      $bot.find('.undertable_inner').find('table').append(html).end().scrollTop(999999);
       $('body').trigger('lichess.content_loaded');
     }
 
