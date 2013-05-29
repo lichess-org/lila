@@ -53,6 +53,7 @@ blunders=зевок
 mistakes=Ошибка
 inaccuracies=Неточность
 viewGameStats=Посмотреть статистику игры
+viewPgn=Посмотреть PGN
 flipBoard=Развернуть доску
 threefoldRepetition=Троекратное повторение ходов
 claimADraw=Потребовать ничью
