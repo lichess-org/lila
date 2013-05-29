@@ -278,6 +278,16 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         }
       } else {
         $(document.body).removeClass("tight");
+        $('#timeline').each(function() {
+          var ol = $(this).offset().left;
+          if (ol < 3) {
+            var dec = 3 - ol;
+            $(this).css({
+              'margin-left': (dec - 30) + 'px',
+              'width': (230 - dec) + 'px'
+            });
+          }
+        });
       }
     }
     $(window).resize(onResize);
