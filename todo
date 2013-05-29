@@ -79,6 +79,7 @@ LilaError['[analysis] fred65 already analyses ueogn4fr, won't process ueogn4fr']
 1024 compat (timeline)
 online glitch http://en.lichess.org/forum/lichess-feedback/migration-to-new-codebase?page=4#32
 friend box text: "Online friends (x/y)"
+check that draw games impact elo
 
 DEPLOY p21
 ----------

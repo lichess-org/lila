@@ -2,6 +2,7 @@ package lila.relation
 
 import akka.actor.Actor
 import akka.pattern.{ ask, pipe }
+import play.api.libs.json.Json
 
 import actorApi._
 import lila.hub.actorApi.relation._
@@ -22,9 +23,15 @@ private[relation] final class RelationActor(
   def receive = {
 
     // triggers following reloading for this user id
-    case ReloadFollowing(userId) ⇒ api.following(userId) flatMap { ids ⇒
-      ((ids intersect onlineIds).toList map getUsername).sequenceFu
-    } map { SendTo(userId, "following_onlines", _) } pipeTo socketHub.ref
+    case ReloadOnlineFriends(userId) ⇒ onlineFriends(userId) map {
+      case OnlineFriends(usernames, nb) ⇒
+        SendTo(userId, "following_onlines", Json.obj(
+          "us" -> usernames,
+          "nb" -> nb
+        ))
+    } pipeTo socketHub.ref
+
+    case GetOnlineFriends(userId) ⇒ onlineFriends(userId) pipeTo sender
 
     case NotifyMovement ⇒ {
       val prevIds = onlineIds
@@ -49,6 +56,11 @@ private[relation] final class RelationActor(
 
   private var onlines = Map[ID, Username]()
   private def onlineIds: Set[ID] = onlines.keySet
+
+  private def onlineFriends(userId: String): Fu[OnlineFriends] = for {
+    ids ← api.following(userId)
+    usernames ← ((ids intersect onlineIds).toList map getUsername).sequenceFu
+  } yield OnlineFriends(usernames, ids.size)
 
   private def notifyFollowers(users: List[User], message: String) {
     users foreach {

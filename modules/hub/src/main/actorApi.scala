@@ -122,5 +122,7 @@ package bookmark {
 }
 
 package relation {
-  case class ReloadFollowing(userId: String)
+  case class ReloadOnlineFriends(userId: String)
+  case class GetOnlineFriends(userId: String)
+  case class OnlineFriends(usernames: List[String], nb: Int)
 }
