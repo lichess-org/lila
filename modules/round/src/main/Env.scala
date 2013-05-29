@@ -123,7 +123,7 @@ final class Env(
 
   private def notifyMove(gameId: String, fen: String, lastMove: Option[String]) {
     hub.socket.hub ! lila.socket.actorApi.Fen(gameId, fen, lastMove)
-    hub.socket.monitor ! lila.hub.actorApi.monitor.AddMove
+    hub.actor.monitor ! lila.hub.actorApi.monitor.AddMove
   }
 
   private[round] lazy val roomColl = db(CollectionRoom)
