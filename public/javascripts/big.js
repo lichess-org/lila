@@ -278,13 +278,14 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         }
       } else {
         $(document.body).removeClass("tight");
-        $('#timeline').each(function() {
+        $('#timeline, div.lichess_goodies div.box').each(function() {
           var ol = $(this).offset().left;
           if (ol < 3) {
             var dec = 3 - ol;
+            var pad = $(this).outerWidth() - $(this).width();
             $(this).css({
               'margin-left': (dec - 30) + 'px',
-              'width': (230 - dec) + 'px'
+              'width': (230 - pad - dec) + 'px'
             });
           }
         });
@@ -1791,7 +1792,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     var $newposts = $("div.new_posts");
     var $newpostsinner = $newposts.find('.undertable_inner').scrollTop(999999);
     var $hooks = $wrap.find('div.hooks');
-    var $hooksTable = $hooks.find("table.some").on('click', 'a.join', $.lichessOpeningPreventClicks);
+    var $hooksTable = $hooks.find("table.some");
     var $hooksTableEmpty = $hooks.find("table.empty");
     var $userTag = $('#user_tag');
     var isRegistered = $userTag.length > 0
