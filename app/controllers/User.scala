@@ -131,5 +131,8 @@ object User extends LilaController {
     }
   }
 
-  private def onlineUsers: Fu[List[UserModel]] = $find byIds env.onlineUserIdMemo.keys
+  private def onlineUsers: Fu[List[UserModel]] = 
+    $find byIds env.onlineUserIdMemo.keys map {
+      _ sortBy (-_.elo)
+    }
 }
