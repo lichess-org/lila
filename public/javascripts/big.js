@@ -23,8 +23,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       options: {
         name: "unnamed",
         debug: false,
-        offlineDelay: 8000, // time before showing offlineTag
-        offlineTag: false, // jQuery object showing connection error
+        offlineDelay: 8000, // time before announcing the user they are offline
         pingMaxLag: 8000, // time to wait for pong before reseting the connection
         pingDelay: 1500, // time between pong and ping
         lagTag: false, // jQuery object showing ping lag
@@ -64,7 +63,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       self.ws.onopen = function() {
         self.debug("connected to " + self.fullUrl);
         self.onSuccess();
-        if (self.options.offlineTag) self.options.offlineTag.hide();
+        $('body').removeClass('offline');
         self.pingNow();
         $('body').trigger('socket.open');
       };
@@ -102,7 +101,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       clearTimeout(self.connectSchedule);
       //self.debug("schedule connect in " + delay + " ms");
       self.connectSchedule = setTimeout(function() {
-        if (self.options.offlineTag) self.options.offlineTag.show();
+        $('body').addClass('offline');
         self.connect();
       }, delay);
     },
@@ -254,7 +253,6 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       params: {},
       options: {
         name: "site",
-        offlineTag: $('#reconnecting'),
         lagTag: $('#connection_lag')
       }
     },
