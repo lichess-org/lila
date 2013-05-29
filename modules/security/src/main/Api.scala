@@ -25,7 +25,7 @@ private[security] final class Api(firewall: Firewall) {
 
   // blocking function, required by Play2 form
   def authenticateUser(username: String, password: String): Option[User] =
-    UserRepo.authenticate(username, password).await
+    UserRepo.authenticate(username.toLowerCase, password).await
 
   def restoreUser(req: RequestHeader): Fu[Option[User]] =
     firewall accepts req flatMap { 
