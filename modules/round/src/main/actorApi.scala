@@ -59,8 +59,7 @@ case class Connected(enumerator: JsEnumerator, member: Member)
 case class GetEventsSince(version: Int)
 case class MaybeEvents(events: Option[List[VersionedEvent]])
 case class AddEvents(events: List[Event])
-case class IsConnectedOnGame(gameId: String, color: Color)
-case class IsGone(gameId: String, color: Color)
+case class IsGone(color: Color)
 case object AnalysisAvailable
 case class Ack(uid: String)
 

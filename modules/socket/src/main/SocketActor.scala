@@ -24,7 +24,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Actor {
 
     case Ping(uid)                  ⇒ ping(uid)
 
-    case Broom                      ⇒ broom()
+    case Broom                      ⇒ broom
 
     // when a member quits
     case Quit(uid)                  ⇒ quit(uid)
@@ -49,6 +49,10 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Actor {
   }
 
   def receive = receiveSpecific orElse receiveGeneric
+
+  override def postStop() {
+    members.values foreach { _.channel.end() }
+  }
 
   def notifyAll[A: Writes](t: String, data: A) {
     val msg = makeMessage(t, data)
@@ -77,7 +81,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Actor {
     membersByUserIds(userIds) foreach (_.channel push msg)
   }
 
-  def broom() {
+  def broom {
     members.keys filterNot aliveUids.get foreach eject
   }
 
@@ -92,7 +96,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Actor {
     members = members - uid
   }
 
-  private lazy val resyncMessage = makeMessage("resync", JsNull)
+  private val resyncMessage = makeMessage("resync", JsNull)
 
   protected def resync(member: M) {
     import play.api.libs.concurrent._

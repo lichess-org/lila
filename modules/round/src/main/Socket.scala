@@ -10,6 +10,7 @@ import play.api.libs.json._
 import actorApi._
 import chess.{ Color, White, Black }
 import lila.game.Event
+import lila.hub.TimeBomb
 import lila.socket._
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import makeTimeout.short
@@ -24,7 +25,7 @@ private[round] final class Socket(
 
   private val history = context.actorOf(Props(makeHistory()), name = "history")
 
-  private var lastPingTime = nowMillis
+  private val timeBomb = new TimeBomb(socketTimeout)
 
   // when the players have been seen online for the last time
   private var whiteTime = nowMillis
@@ -33,11 +34,11 @@ private[round] final class Socket(
   def receiveSpecific = {
 
     case PingVersion(uid, v) ⇒ {
+      timeBomb.delay
       ping(uid)
-      lastPingTime = nowMillis
       ownerOf(uid) foreach { o ⇒
         if (playerIsGone(o.color)) notifyGone(o.color, false)
-        playerTime(o.color, lastPingTime)
+        playerTime(o.color, nowMillis)
       }
       withMember(uid) { member ⇒
         history ? GetEventsSince(v) foreach {
@@ -49,20 +50,16 @@ private[round] final class Socket(
     case Ack(uid) ⇒ withMember(uid) { _.channel push ackEvent }
 
     case Broom ⇒ {
-      broom()
-      if (lastPingTime < (nowMillis - socketTimeout.toMillis)) {
-        context.parent ! CloseSocket(gameId)
-      }
-      Color.all foreach { c ⇒
+      broom
+      if (timeBomb.boom) self ! PoisonPill
+      else Color.all foreach { c ⇒
         if (playerIsGone(c)) notifyGone(c, true)
       }
     }
 
     case GetVersion                  ⇒ history ? GetVersion pipeTo sender
 
-    case IsConnectedOnGame(_, color) ⇒ sender ! ownerOf(color).isDefined
-
-    case IsGone(_, color)            ⇒ sender ! playerIsGone(color)
+    case IsGone(color)            ⇒ sender ! playerIsGone(color)
 
     case Join(uid, user, version, color, playerId) ⇒ {
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
@@ -84,11 +81,6 @@ private[round] final class Socket(
     case Quit(uid) ⇒ {
       quit(uid)
       notifyCrowd
-    }
-
-    case Close ⇒ {
-      members.values foreach { _.channel.end() }
-      self ! PoisonPill
     }
   }
 

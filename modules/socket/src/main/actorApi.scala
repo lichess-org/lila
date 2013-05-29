@@ -6,7 +6,6 @@ import play.api.libs.json.JsObject
 case class Connected[M <: SocketMember](
   enumerator: JsEnumerator,
   member: M)
-case object Close
 case class Sync(uid: String, friends: List[String])
 case class Ping(uid: String)
 case class PingVersion(uid: String, version: Int)
@@ -18,10 +17,6 @@ case class LiveGames(uid: String, gameIds: List[String])
 case class Resync(uid: String)
 
 // hubs
-case class GetSocket(id: String)
-case class Forward(id: String, msg: Any)
 case object GetVersion
-case object GetNbSockets
-case class CloseSocket(id: String)
 
 case class SendToFlag(flag: String, message: JsObject) 

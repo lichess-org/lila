@@ -3,18 +3,18 @@ package lila.hub
 import scala.concurrent.duration._
 
 import akka.actor._
-import akka.pattern.ask
+import akka.pattern.{ ask, pipe }
 
-import actorApi.Tell
+import actorApi.map._
 import makeTimeout.short
 
 trait ActorMap[A <: Actor] extends Actor {
 
   def mkActor(id: String): A
 
-  def receive = {
+  def actorMapReceive: Receive = {
 
-    case id: String ⇒ sender ! {
+    case Get(id) ⇒ sender ! {
       (actors get id) | {
         context.actorOf(Props(mkActor(id)), name = id) ~ { actor ⇒
           actors = actors + (id -> actor)
@@ -23,7 +23,11 @@ trait ActorMap[A <: Actor] extends Actor {
       }
     }
 
-    case Tell(id, msg) ⇒ get(id) foreach { _ forward msg }
+    case Tell(id, msg) ⇒ withActor(id)(_ forward msg)
+
+    case Ask(id, msg)  ⇒ get(id) flatMap (_ ? msg) pipeTo sender
+
+    case Size          ⇒ sender ! actors.size
 
     case Terminated(actor) ⇒ {
       context unwatch actor
@@ -33,7 +37,17 @@ trait ActorMap[A <: Actor] extends Actor {
     }
   }
 
-  private def get(id: String): Fu[ActorRef] = self ? id mapTo manifest[ActorRef]
+  def tellAll(msg: Any) {
+    actors.values foreach (_ ! msg)
+  }
+
+  def askAll(msg: Any): Fu[List[Any]] = {
+    actors.values.toList map (_ ? msg)
+  } sequenceFu
+
+  def get(id: String): Fu[ActorRef] = self ? Get(id) mapTo manifest[ActorRef]
+
+  def withActor(id: String)(op: ActorRef ⇒ Unit) = get(id) foreach op
 
   private var actors = Map[String, ActorRef]()
 }

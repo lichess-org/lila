@@ -7,8 +7,8 @@ import akka.pattern.{ ask, pipe }
 
 import actorApi._, round._
 import lila.game.{ Game, GameRepo, PgnRepo, Pov, PovRef, PlayerRef, Event, Progress }
+import lila.hub.actorApi.map._
 import lila.i18n.I18nKey.{ Select ⇒ SelectI18nKey }
-import lila.socket.actorApi.Forward
 import makeTimeout.large
 
 private[round] final class Round(
@@ -26,13 +26,13 @@ private[round] final class Round(
 
   def receive = {
 
-    case ReceiveTimeout                 ⇒ self ! PoisonPill
+    case ReceiveTimeout ⇒ self ! PoisonPill
 
-    case Send(events)                   ⇒ socketHub ! Forward(gameId, events)
+    case Send(events)   ⇒ socketHub ! Tell(gameId, events)
 
-    case p: HumanPlay                   ⇒ handle(p.playerId)(player human p)
+    case p: HumanPlay   ⇒ handle(p.playerId)(player human p)
 
-    case p: AiPlay                      ⇒ blockAndPublish(GameRepo game gameId, 10.seconds)(player ai p)
+    case p: AiPlay      ⇒ blockAndPublish(GameRepo game gameId, 10.seconds)(player ai p)
 
     case Abort(playerId) ⇒ handle(playerId) { pov ⇒
       pov.game.abortable ?? finisher(pov.game, _.Aborted)
@@ -52,7 +52,7 @@ private[round] final class Round(
 
     case ResignForce(playerId) ⇒ handle(playerId) { pov ⇒
       (pov.game.resignable && !pov.game.hasAi) ?? {
-        socketHub ? IsGone(pov.game.id, !pov.color) flatMap {
+        socketHub ? Ask(pov.gameId, IsGone(!pov.color)) flatMap {
           case true ⇒ finisher(pov.game, _.Timeout, Some(pov.color))
         }
       }
@@ -106,7 +106,7 @@ private[round] final class Round(
       val events = {
         context flatten "[round] not found" flatMap op
       } await makeTimeout(timeout)
-      if (events.nonEmpty) socketHub ! Forward(gameId, events)
+      if (events.nonEmpty) socketHub ! Tell(gameId, events)
     }
     catch {
       case e: lila.common.LilaException ⇒ logwarn("[round] " + e.message)

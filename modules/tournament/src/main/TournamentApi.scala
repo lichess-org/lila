@@ -12,10 +12,10 @@ import chess.{ Mode, Variant }
 import lila.db.api._
 import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.lobby.{ SysTalk, UnTalk, ReloadTournaments }
+import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.router.Tourney
-import lila.hub.actorApi.Tell
 import lila.round.actorApi.round.{ AbortForce, ResignColor }
-import lila.socket.actorApi.{ SendToFlag, Forward }
+import lila.socket.actorApi.SendToFlag
 import lila.user.{ User, UserRepo }
 import makeTimeout.short
 import tube.roomTube
@@ -84,7 +84,7 @@ private[tournament] final class TournamentApi(
       sendTo(started.id, ReloadPage) >>-
       reloadSiteSocket >>-
       (pairingsToAbort foreach { pairing ⇒
-        roundMap ! Tell(pairing.gameId, AbortForce) 
+        roundMap ! Tell(pairing.gameId, AbortForce)
       }) >>
       finished.players.filter(_.score > 0).map(p ⇒ UserRepo.incToints(p.id)(p.score)).sequenceFu inject finished
   }, fuccess(started))
@@ -109,7 +109,7 @@ private[tournament] final class TournamentApi(
       err ⇒ fufail(err.shows),
       tour2 ⇒ $update(tour2) >>-
         (tour2.userCurrentPov(userId) ?? { povRef ⇒
-          roundMap ! Tell(povRef.gameId, ResignColor(povRef.color)) 
+          roundMap ! Tell(povRef.gameId, ResignColor(povRef.color))
         }) >>-
         socketReload(tour2.id) >>-
         reloadSiteSocket
@@ -166,6 +166,6 @@ private[tournament] final class TournamentApi(
   }
 
   private def sendTo(tourId: String, msg: Any) {
-    socketHub ! Forward(tourId, msg)
+    socketHub ! Tell(tourId, msg)
   }
 }

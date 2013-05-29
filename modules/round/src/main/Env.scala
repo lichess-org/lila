@@ -5,7 +5,8 @@ import akka.pattern.ask
 import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
-import lila.socket.actorApi.{ Forward, GetVersion }
+import lila.socket.actorApi.GetVersion
+import lila.hub.actorApi.map.Ask
 import makeTimeout.large
 
 final class Env(
@@ -49,6 +50,7 @@ final class Env(
       drawer = drawer,
       socketHub = socketHub,
       moretimeDuration = Moretime)
+    def receive = actorMapReceive
   }), name = ActorMapName)
 
   val socketHub = system.actorOf(Props(new SocketHub(
@@ -97,7 +99,7 @@ final class Env(
   lazy val eloCalculator = new chess.EloCalculator(false)
 
   def version(gameId: String): Fu[Int] =
-    socketHub ? Forward(gameId, GetVersion) mapTo manifest[Int]
+    socketHub ? Ask(gameId, GetVersion) mapTo manifest[Int]
 
   def animationDelay = AnimationDelay
   def moretimeSeconds = Moretime.toSeconds

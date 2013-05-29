@@ -11,6 +11,7 @@ import actorApi._
 import lila.common.PimpedJson._
 import lila.db.api.$count
 import lila.game.Game
+import lila.hub.actorApi.map._
 import lila.security.Flood
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import lila.socket.Handler
@@ -32,7 +33,7 @@ private[tournament] final class SocketHandler(
     $count.exists(tourId) flatMap {
       _ ?? {
         for {
-          socket ← socketHub ? GetSocket(tourId) mapTo manifest[ActorRef]
+          socket ← socketHub ? Get(tourId) mapTo manifest[ActorRef]
           join = Join(
             uid = uid,
             user = user,

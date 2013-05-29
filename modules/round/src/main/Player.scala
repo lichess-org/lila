@@ -6,7 +6,7 @@ import chess.Pos.posAt
 import chess.{ Status, Role, Color }
 import lila.ai.Ai
 import lila.game.{ Game, GameRepo, PgnRepo, Pov, Progress }
-import lila.hub.actorApi.Tell
+import lila.hub.actorApi.map.Tell
 
 private[round] final class Player(
     ai: () ⇒ Ai,

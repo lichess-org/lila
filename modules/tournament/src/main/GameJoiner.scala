@@ -6,7 +6,7 @@ import akka.actor.{ ActorRef, ActorSystem }
 
 import chess.Color
 import lila.game.{ Game, Player ⇒ GamePlayer, GameRepo, Pov, PovRef, Source }
-import lila.hub.actorApi.Tell
+import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round.ResignColor
 import lila.user.{ User, UserRepo }
 

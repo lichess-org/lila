@@ -19,7 +19,12 @@ object SendTos {
 
 case class Ask(msg: Any)
 
-case class Tell(id: String, msg: Any)
+package map {
+  case class Get(id: String)
+  case class Tell(id: String, msg: Any)
+  case class Ask(id: String, msg: Any)
+  case object Size
+}
 
 case class WithUserIds(f: Iterable[String] ⇒ Unit)
 case class WithSocketUserIds(id: String, f: Iterable[String] ⇒ Unit)

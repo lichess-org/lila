@@ -16,21 +16,19 @@ private[tournament] final class SocketHub(
     messenger: Messenger,
     uidTimeout: Duration,
     socketTimeout: Duration,
-    getUsername: String ⇒ Fu[Option[String]],
-    tournamentSocketName: String ⇒ String) extends SocketHubActor {
+    getUsername: String ⇒ Fu[Option[String]]) extends SocketHubActor[Socket] {
 
-  def receiveSpecific = {
+  def receive = PartialFunction[Any, Unit]({
 
-    case msg @ Fen(_, _, _) ⇒ broadcast(msg)
-  }
+    case msg: Fen ⇒ tellAll(msg)
 
-  def mkSocket(tournamentId: String): ActorRef =
-    context.actorOf(Props(new Socket(
+  }) orElse socketHubReceive
+
+  def mkActor(tournamentId: String) = new Socket(
       tournamentId = tournamentId,
       history = makeHistory(),
       messenger = messenger,
       uidTimeout = uidTimeout,
       socketTimeout = socketTimeout,
-      getUsername = getUsername
-    )), name = tournamentSocketName(tournamentId))
+      getUsername = getUsername)
 }
