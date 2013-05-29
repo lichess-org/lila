@@ -53,6 +53,7 @@ blunders=Desastres
 mistakes=Errores
 inaccuracies=Imprecisiones
 viewGameStats=Ver estadísticas de la partida
+viewPgn=Ver PGN
 flipBoard=Girar el tablero
 threefoldRepetition=Repetición de jugadas
 claimADraw=Pedir tablas
