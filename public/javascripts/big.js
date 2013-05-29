@@ -1265,28 +1265,26 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       this.$nbTotal = this.element.find('.title .total');
       this.$list = this.element.find("div.list");
       this.$nobody = this.element.find("div.nobody");
-      this.nb = 0;
       this.set(this.element.data('preload'));
     },
     repaint: function() {
-      var onlineNb = this.$list.children().length;
-      this.$nbOnline.text(onlineNb);
+      this.users = _.uniq(this.users);
+      this.$nbOnline.text(this.users.length);
       this.$nbTotal.text(this.nb);
-      this.$nobody.toggle(onlineNb == 0);
+      this.$nobody.toggle(this.users.length == 0);
+      this.$list.html(_.map(this.users, this._renderUser).join(""));
     },
     set: function(data) {
       this.nb = data['nb'];
-      this.$list.html(_.map(data['us'], this._renderUser).join(""));
+      this.users = data['us'];
       this.repaint();
     },
     enters: function(user) {
-      this.$list.append(this._renderUser(user));
+      this.users.push(user);
       this.repaint();
     },
     leaves: function(user) {
-      this.$list.children().filter(function() {
-        return $(this).text() == user;
-      }).remove();
+      this.users = _.without(this.users, user);
       this.repaint();
     },
     _renderUser: function(user) {
