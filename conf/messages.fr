@@ -53,6 +53,7 @@ blunders=Grosse erreurs
 mistakes=Erreurs
 inaccuracies=Imprécisions
 viewGameStats=Voir les statistiques de la partie
+viewPgn=Voir le PGN
 flipBoard=Retourner l'échiquier
 threefoldRepetition=Triple répétition
 claimADraw=Déclarer la partie nulle
