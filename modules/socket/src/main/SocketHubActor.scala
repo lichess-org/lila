@@ -6,63 +6,28 @@ import play.api.libs.json._
 
 import actorApi._
 import lila.hub.actorApi.{ GetNbMembers, NbMembers, WithUserIds, WithSocketUserIds, SendTo, SendTos }
+import lila.hub.ActorMap
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import makeTimeout.short
 
-abstract class SocketHubActor extends Actor {
+trait SocketHubActor[A <: SocketActor[_]] extends ActorMap[A] {
 
-  def mkSocket(id: String): ActorRef
+  def socketHubReceive: Receive = PartialFunction[Any, Unit]({
 
-  // to be defined in subclassing actor
-  def receiveSpecific: Receive
+    case msg @ GetNbMembers ⇒ 
+      askAll(msg) mapTo manifest[List[Int]] map (_.sum) pipeTo sender
 
-  // generic message handler
-  def receiveGeneric: Receive = {
+    case msg @ NbMembers(_)       ⇒ tellAll(msg)
 
-    case GetNbSockets ⇒ sender ! sockets.size
+    case WithSocketUserIds(id, f) ⇒ withActor(id) { _ ! WithUserIds(f) }
 
-    case GetNbMembers ⇒ {
-      sockets.values.toList map (_ ? GetNbMembers mapTo manifest[Int])
-    }.sequenceFu map (_.sum) pipeTo sender
+    case msg @ WithUserIds(_)     ⇒ tellAll(msg)
 
-    case msg @ NbMembers(_)       ⇒ broadcast(msg)
+    case Broom                    ⇒ tellAll(Broom)
 
-    case WithSocketUserIds(id, f) ⇒ withSocket(id) { _ ! WithUserIds(f) }
+    case msg @ SendTo(_, _)       ⇒ tellAll(msg)
 
-    case msg @ WithUserIds(_)     ⇒ broadcast(msg)
+    case msg @ SendTos(_, _)      ⇒ tellAll(msg)
 
-    case Broom                    ⇒ broadcast(Broom)
-
-    case msg @ SendTo(_, _)       ⇒ broadcast(msg)
-
-    case msg @ SendTos(_, _)      ⇒ broadcast(msg)
-
-    case Forward(id, GetVersion) ⇒ (sockets get id).fold(sender ! 0) {
-      _ ? GetVersion pipeTo sender
-    }
-
-    case Forward(id, msg) ⇒ withSocket(id)(_ forward msg)
-
-    case GetSocket(id: String) ⇒ sender ! {
-      (sockets get id) | {
-        mkSocket(id) ~ { s ⇒ sockets = sockets + (id -> s) }
-      }
-    }
-
-    case CloseSocket(id) ⇒ withSocket(id) { socket ⇒
-      socket ! Close
-      sockets = sockets - id
-    }
-  }
-
-  def receive = receiveSpecific orElse receiveGeneric
-
-  var sockets = Map.empty[String, ActorRef]
-
-  def withSocket(id: String)(f: ActorRef ⇒ Unit) =
-    sockets get id foreach f
-
-  def broadcast(msg: Any) {
-    sockets.values foreach (_ ! msg)
-  }
+  }) orElse actorMapReceive
 }

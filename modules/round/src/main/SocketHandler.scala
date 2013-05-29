@@ -8,7 +8,7 @@ import actorApi._, round._
 import chess.Color
 import lila.common.PimpedJson._
 import lila.game.{ Game, Pov, PovRef, PlayerRef, GameRepo }
-import lila.hub.actorApi.Tell
+import lila.hub.actorApi.map._
 import lila.security.Flood
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import lila.socket.Handler
@@ -97,7 +97,7 @@ private[round] final class SocketHandler(
     version: Int,
     uid: String,
     ctx: Context): Fu[JsSocketHandler] = for {
-    socket ← socketHub ? GetSocket(pov.gameId) mapTo manifest[ActorRef]
+    socket ← socketHub ? Get(pov.gameId) mapTo manifest[ActorRef]
     join = Join(
       uid = uid,
       user = ctx.me,

@@ -17,25 +17,15 @@ private[round] final class SocketHub(
     getUsername: String ⇒ Fu[Option[String]],
     uidTimeout: Duration,
     socketTimeout: Duration,
-    playerTimeout: Duration) extends SocketHubActor {
+    playerTimeout: Duration) extends SocketHubActor[Socket] {
 
-  def receiveSpecific = {
+  def receive: Receive = socketHubReceive
 
-    case msg @ IsConnectedOnGame(gameId, _) ⇒ (sockets get gameId).fold(sender ! false) {
-      _ ? msg pipeTo sender
-    }
-
-    case msg @ IsGone(gameId, _) ⇒ (sockets get gameId).fold(sender ! false) {
-      _ ? msg pipeTo sender
-    }
-  }
-
-  def mkSocket(id: String): ActorRef = context.actorOf(Props(new Socket(
+  def mkActor(id: String) = new Socket(
     gameId = id,
     makeHistory = makeHistory,
     getUsername = getUsername,
     uidTimeout = uidTimeout,
     socketTimeout = socketTimeout,
-    playerTimeout = playerTimeout
-  )), name = id)
+    playerTimeout = playerTimeout)
 }

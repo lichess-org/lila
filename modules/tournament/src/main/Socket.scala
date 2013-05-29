@@ -10,6 +10,7 @@ import actorApi._
 import lila.memo.ExpireSetMemo
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import lila.socket.{ SocketActor, History, Historical }
+import lila.hub.TimeBomb
 
 private[tournament] final class Socket(
     tournamentId: String,
@@ -21,7 +22,7 @@ private[tournament] final class Socket(
 
   val joiningMemo = new ExpireSetMemo(uidTimeout)
 
-  var lastPingTime = nowMillis
+  private val timeBomb = new TimeBomb(socketTimeout)
 
   def receiveSpecific = {
 
@@ -43,17 +44,15 @@ private[tournament] final class Socket(
 
     case PingVersion(uid, v) ⇒ {
       ping(uid)
-      lastPingTime = nowMillis
+      timeBomb.delay
       withMember(uid) { m ⇒
         history.since(v).fold(resync(m))(_ foreach m.channel.push)
       }
     }
 
     case Broom ⇒ {
-      broom()
-      if (lastPingTime < (nowMillis - socketTimeout.toMillis)) {
-        context.parent ! CloseSocket(tournamentId)
-      }
+      broom
+      if (timeBomb.boom) self ! PoisonPill
     }
 
     case Talk(tourId, u, t) ⇒ messenger(tourId, u, t) effectFold (

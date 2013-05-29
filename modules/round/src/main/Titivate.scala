@@ -11,7 +11,7 @@ import lila.common.PimpedJson._
 import lila.db.api._
 import lila.game.tube.gameTube
 import lila.game.{ Query, Game, GameRepo }
-import lila.hub.actorApi.Tell
+import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round.Outoftime
 
 private[round] final class Titivate(

@@ -6,7 +6,7 @@ import lila.user.{ UserRepo }
 import lila.game.{ Pov, GameRepo, PgnRepo, PgnDump }
 import lila.analyse.{ TimeChart, TimePie }
 import lila.round.actorApi.AnalysisAvailable
-import lila.socket.actorApi.Forward
+import lila.hub.actorApi.map.Tell
 import lila.round.{ RoomRepo, WatcherRoomRepo }
 import lila.tournament.{ TournamentRepo, Tournament ⇒ Tourney }
 
@@ -30,7 +30,7 @@ object Analyse extends LilaController {
     me ⇒
       env.analyser.getOrGenerate(id, me.id, isGranted(_.MarkEngine)) effectFold (
         e ⇒ logerr("[analysis] " + e.getMessage),
-        _ ⇒ Env.round.socketHub ! Forward(id, AnalysisAvailable)
+        _ ⇒ Env.round.socketHub ! Tell(id, AnalysisAvailable)
       )
       Redirect(routes.Analyse.replay(id, color)).fuccess
   }

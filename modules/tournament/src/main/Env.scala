@@ -5,7 +5,8 @@ import akka.pattern.ask
 import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
-import lila.socket.actorApi.{ Forward, GetVersion }
+import lila.socket.actorApi.GetVersion
+import lila.hub.actorApi.map.Ask
 import lila.socket.History
 import makeTimeout.short
 
@@ -57,9 +58,7 @@ final class Env(
     messenger = messenger,
     uidTimeout = UidTimeout,
     socketTimeout = SocketTimeout,
-    getUsername = getUsername,
-    tournamentSocketName = name ⇒ SocketName + "-" + name
-  )), name = SocketName)
+    getUsername = getUsername)), name = SocketName)
 
   private val organizer = system.actorOf(Props(new Organizer(
     api = api,
@@ -71,7 +70,7 @@ final class Env(
   )), name = OrganizerName)
 
   def version(tourId: String): Fu[Int] =
-    socketHub ? Forward(tourId, GetVersion) mapTo manifest[Int]
+    socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
 
   def cli = new lila.common.Cli {
     import tube.tournamentTube

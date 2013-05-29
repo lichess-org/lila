@@ -9,7 +9,7 @@ import chess.{ Color, Move, Status }
 import lila.db.api._
 import lila.game.tube.gameTube
 import lila.game.{ Game, GameRepo, Pov }
-import lila.hub.actorApi.Tell
+import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round._
 import makeTimeout.large
 
