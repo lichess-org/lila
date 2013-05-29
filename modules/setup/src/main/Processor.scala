@@ -21,7 +21,7 @@ private[setup] final class Processor(
     friendConfigMemo: FriendConfigMemo,
     timeline: lila.hub.ActorLazyRef,
     router: lila.hub.ActorLazyRef,
-    ai: Ai) {
+    getAi: () ⇒ Ai) {
 
   def filter(config: FilterConfig)(implicit ctx: Context): Funit =
     saveConfig(_ withFilter config)
@@ -35,7 +35,7 @@ private[setup] final class Processor(
       game.player.isHuman.fold(fuccess(pov), for {
         initialFen ← game.variant.exotic ?? (GameRepo initialFen game.id)
         pgnString ← PgnRepo get game.id
-        aiResult ← ai.play(game.toChess, pgnString, initialFen, ~game.aiLevel)
+        aiResult ← getAi().play(game.toChess, pgnString, initialFen, ~game.aiLevel)
         (newChessGame, move) = aiResult
         (progress, pgn) = game.update(newChessGame, move)
         _ ← (GameRepo save progress) >> PgnRepo.save(game.id, pgn)
@@ -52,7 +52,7 @@ private[setup] final class Processor(
 
   def hook(config: HookConfig, uid: String)(implicit ctx: Context): Funit = {
     val hook = config.hook(uid, ctx.me)
-    saveConfig(_ withHook config) >>- (lobby ! AddHook(hook)) 
+    saveConfig(_ withHook config) >>- (lobby ! AddHook(hook))
   }
 
   def api(implicit ctx: Context): Fu[JsObject] = {

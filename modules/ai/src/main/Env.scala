@@ -22,7 +22,7 @@ final class Env(
   }
   import settings._
 
-  lazy val ai: Ai = (EngineName, IsClient) match {
+  val ai: () ⇒ Ai = () ⇒ (EngineName, IsClient) match {
     case ("stockfish", true)  ⇒ stockfishClient or stockfishAi
     case ("stockfish", false) ⇒ stockfishAi
     case _                    ⇒ stupidAi
@@ -39,7 +39,7 @@ final class Env(
     def receive = {
       case lila.hub.actorApi.ai.Ping ⇒ sender ! clientPing
       case lila.hub.actorApi.ai.Analyse(id, pgn, fen) ⇒
-        ai.analyse(pgn, fen) map { _(id) } pipeTo sender
+        ai().analyse(pgn, fen) map { _(id) } pipeTo sender
     }
   }), name = ActorName)
 
