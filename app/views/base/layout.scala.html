@@ -128,8 +128,8 @@ moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
       </div>
     </div>
     @ctx.me.map { me =>
-    <div id="friend_box">
-      <div class="title">@onlineFriends.friends() (<strong> </strong>)</div>
+    <div id="friend_box" data-preload="@onlineFriends(me.id)">
+      <div class="title">@trans.onlineFriends() - <strong class="online"> </strong>/<span class="total"> </span></div>
       <div class="content list"></div>
       <div class="nobody">
         <span>@trans.noFriendsOnline()</span>

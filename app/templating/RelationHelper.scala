@@ -1,8 +1,13 @@
 package lila.app
 package templating
 
+import akka.pattern.ask
+import play.api.libs.json._
+
+import lila.hub.actorApi.relation._
 import lila.relation.Relation
 import lila.user.Context
+import makeTimeout.short
 
 trait RelationHelper {
 
@@ -13,4 +18,13 @@ trait RelationHelper {
 
   def followsMe(userId: String)(implicit ctx: Context): Boolean =
     ctx.userId ?? { api.follows(userId, _).await }
+
+  def onlineFriends(userId: String): JsObject = {
+    Env.hub.actor.relation ? GetOnlineFriends(userId) map {
+      case OnlineFriends(usernames, nb) ⇒ Json.obj(
+        "us" -> usernames,
+        "nb" -> nb
+      )
+    }
+  }.await
 }

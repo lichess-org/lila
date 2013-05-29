@@ -27,7 +27,6 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         offlineTag: false, // jQuery object showing connection error
         pingMaxLag: 8000, // time to wait for pong before reseting the connection
         pingDelay: 1500, // time between pong and ping
-        syncFriendsDelay: 60 * 1000, // time between two syncs
         lagTag: false, // jQuery object showing ping lag
         ignoreUnknownMessages: false
       }
@@ -40,7 +39,6 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     self.fullUrl = null;
     self.pingSchedule = null;
     self.connectSchedule = null;
-    self.syncFriendsSchedule = null;
     self.lastPingTime = self.now();
     self.currentLag = 0;
     self.averageLag = 0;
@@ -68,7 +66,6 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         self.onSuccess();
         if (self.options.offlineTag) self.options.offlineTag.hide();
         self.pingNow();
-        self.syncFriends();
         $('body').trigger('socket.open');
       };
       self.ws.onmessage = function(e) {
@@ -143,16 +140,6 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         t: "p",
         v: this.version
       });
-    },
-    syncFriends: function() {
-      var self = this;
-      clearTimeout(self.syncFriendsSchedule);
-      self.syncFriendsSchedule = setTimeout(function() {
-        self.syncFriends();
-      }, self.options.syncFriendsDelay);
-      this.ws.send(JSON.stringify({
-        t: "following_onlines"
-      }));
     },
     handle: function(m) {
       var self = this;
@@ -1274,25 +1261,30 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
   $.widget("lichess.friends", {
     _create: function() {
-      this.nb = this.element.find('.title strong');
-      this.list = this.element.find("div.list");
-      this.nobody = this.element.find("div.nobody");
+      this.$nbOnline = this.element.find('.title .online');
+      this.$nbTotal = this.element.find('.title .total');
+      this.$list = this.element.find("div.list");
+      this.$nobody = this.element.find("div.nobody");
+      this.nb = 0;
+      this.set(this.element.data('preload'));
     },
     repaint: function() {
-      var nb = this.list.children().length;
-      this.nb.text(nb);
-      this.nobody.toggle(nb == 0);
+      var onlineNb = this.$list.children().length;
+      this.$nbOnline.text(onlineNb);
+      this.$nbTotal.text(this.nb);
+      this.$nobody.toggle(onlineNb == 0);
     },
-    set: function(users) {
-      this.list.html(_.map(users, this._renderUser).join(""));
+    set: function(data) {
+      this.nb = data['nb'];
+      this.$list.html(_.map(data['us'], this._renderUser).join(""));
       this.repaint();
     },
     enters: function(user) {
-      this.list.append(this._renderUser(user));
+      this.$list.append(this._renderUser(user));
       this.repaint();
     },
     leaves: function(user) {
-      this.list.children().filter(function() {
+      this.$list.children().filter(function() {
         return $(this).text() == user;
       }).remove();
       this.repaint();
@@ -1858,7 +1850,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     function resizeTimeline() {
       var max = $('#lichess').offset().top + 512;
       var pos = $timeline.offset().top;
-      while(pos + $timeline.outerHeight() > max) {
+      while (pos + $timeline.outerHeight() > max) {
         $timeline.find('div:last').remove();
       }
     }
