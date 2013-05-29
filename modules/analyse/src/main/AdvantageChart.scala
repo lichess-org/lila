@@ -22,7 +22,7 @@ private[analyse] final class AdvantageChart(advices: InfoAdvices) {
     advices sliding 2 collect {
       case (info, advice) :: (next, _) :: Nil ⇒
         (next.score, next.mate) match {
-          case (Some(score), _) ⇒ Json.arr(move(info, advice), scale(score.pawns))
+          case (Some(score), _) ⇒ Json.arr(move(info, advice), scale(score.pawns).toString)
           case (_, Some(mate)) ⇒ Json.arr(move(info, advice), {
             val mateDelta = math.abs(mate.toFloat / 100)
             val whiteWins = info.color.fold(mate < 0, mate > 0)
@@ -31,5 +31,5 @@ private[analyse] final class AdvantageChart(advices: InfoAdvices) {
           case _ ⇒ Json.arr(move(info, none), scale(0))
         }
     } toList
-  }
+  } 
 }
