@@ -16,11 +16,13 @@ import makeTimeout.short
 
 private[round] final class Socket(
     gameId: String,
-    history: ActorRef,
+    makeHistory: () ⇒ History,
     getUsername: String ⇒ Fu[Option[String]],
     uidTimeout: Duration,
     socketTimeout: Duration,
     playerTimeout: Duration) extends SocketActor[Member](uidTimeout) {
+
+  private val history = context.actorOf(Props(makeHistory()), name = "history")
 
   private var lastPingTime = nowMillis
 
@@ -98,7 +100,7 @@ private[round] final class Socket(
             white = ownerOf(White).isDefined,
             black = ownerOf(Black).isDefined,
             watchers = showSpectators(userList.flatten, anons.size)
-          ) :: Nil) 
+          ) :: Nil)
         } logFailure ("[round] notify crowd")
     }
   }
