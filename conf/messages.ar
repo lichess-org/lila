@@ -44,6 +44,14 @@ blackLeftTheGame=الأسود ترك اللعبة
 shareThisUrlToLetSpectatorsSeeTheGame=شارك هذا الرابط للسماح للمتفرجين بمشاهدة المباراة
 youAreViewingThisGameAsASpectator=أنت تشارك في هذه اللعبة بصفة متفرج
 replayAndAnalyse=إعادة وتحليل
+computerAnalysisInProgress=التحليل الحاسوبي قيد المعالجة
+theComputerAnalysisYouRequestedIsNowAvailable=التحليل الحاسوبي الذي طلبته ليس متاحاً الآن
+theComputerAnalysisHasFailed=تعذر التحليل الحاسوبي
+viewTheComputerAnalysis=عرض التحليل الحاسوبي
+requestAComputerAnalysis=اطلب تحليلاً حاسوبياً
+blunders=أخطاء فادحة
+mistakes=أخطاء
+inaccuracies=نقلات غير دقيقة
 viewGameStats=مشاهدة إحصائيات اللعبة
 flipBoard=تدوير اللوح
 threefoldRepetition=تكرار ثلاث مرات
@@ -63,11 +71,14 @@ bookmarkedByNbPlayers=تم تفضيلها بواسطة %s لاعبين
 viewInFullSize=عرض بالحجم الكامل
 logOut=خروج
 signIn=دخول
+newToLichess=هل أنت جديد هنا؟
+youNeedAnAccountToDoThat=تحتاج لحساب في الموقع لإتمام هذا
 signUp=تسجيل
 people=لاعبين
 games=العاب
 forum=المنتدى
 searchInForum=بحث في المنتدى
+xPostedInForumY=%s منشور في المندى %s
 chessPlayers=لاعبي الشطرنج
 minutesPerSide=دقائق لكل جانب
 variant=النوع
@@ -80,6 +91,7 @@ allYouNeedIsAUsernameAndAPassword=كل ما تحتاجه هو إسم مستخد�
 learnMoreAboutLichess=Lichess معرفة المزيد حول
 rank=المرتبة
 gamesPlayed=عدد مرات  اللعب
+nbGamesWithYou=%s لعبة معاك
 declineInvitation=رفض الدعوة
 cancel=إلغاء
 timeOut=إنتهى الوقت
@@ -112,6 +124,10 @@ chatRoom=غرفة الدردشة
 spectatorRoom=غرفة المشاهد
 composeMessage=أكتب رسالة
 sentMessages=الرسائل المرسلة
+noMessageHereYet=لايوجد رسائل هنا للآن
+subject=عنوان
+recipient=المستلم
+send=إرسال
 incrementInSeconds=الزيادة بالثواني
 freeOnlineChess=شطرنج أونلاين مجانا
 spectators=المتفرجون
@@ -157,6 +173,8 @@ teamLeader=قائد الفريق
 teamBestPlayers=أفضل لاعبي الفريق
 teamRecentMembers=آخر أعضاء الفريق
 searchATeam=بحث عن فريق
+xJoinedTeamY=%s انضم لفريق %s
+xCreatedTeamY=%s أشأ فريق %s
 averageElo=متوسط تصنيف ELO
 location=الموقع
 settings=الإعدادات
@@ -170,3 +188,24 @@ fromPosition=موقع الإبتداء
 continueFromHere=المتابعة من هنا
 importGame=استيراد لعبة
 nbImportedGames=اللعب المستوردة %s
+thisIsAChessCaptcha=هذا اختبار شطرنجي  للتمييز بين الحاسب والإنسان
+clickOnTheBoardToMakeYourMove=اضغط على اللوحة لإختيار النقلة، وبهذا يتم التأكد أن عقلاً بشرياً هنا
+notACheckmate=لم تنتهي بموت الملك
+colorPlaysCheckmateInOne=دور %s ، الملك يموت بنقلة واحدة
+retry=أعد المحاولة
+reconnecting=إعادة الإتصال
+noFriendsOnline=لايوجد أصدقاء متصلين
+findFriends=ابحث عن أصدقاء
+favoriteOpponents=خصوم مفضلين
+follow=تابع
+following=متابعة
+unfollow=إالغاء المتابعة
+block=حظر
+blocked=محظور
+unblock=إلغاء الحظر
+followsYou=يتابعك
+xStartedFollowingY=%s بدأ متابعة %s
+nbFollowers=%s متابع
+nbFollowing=%s متابعة
+profile=الملف الشخصي
+more=المزيد
