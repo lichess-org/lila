@@ -37,6 +37,7 @@ private[round] final class Player(
                   })
           })
         } addFailureEffect onFailure
+      case _ ⇒ fufail("Not your turn")
     }
   }
 
