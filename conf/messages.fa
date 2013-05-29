@@ -49,6 +49,9 @@ theComputerAnalysisYouRequestedIsNowAvailable=تحلیل رایانه ای که 
 theComputerAnalysisHasFailed=تحلیل رایانه شکست خورد
 viewTheComputerAnalysis=نمایش تحلیل رایانه
 requestAComputerAnalysis=درخواست یک تحلیل رایانه
+blunders=اشتباهات
+mistakes=اشتباهات
+inaccuracies=بی‌دقتی‌ها
 viewGameStats=مشاهده آمار بازیها
 flipBoard=بازیکن برتر
 threefoldRepetition=تکرار سه گانه
@@ -68,11 +71,14 @@ bookmarkedByNbPlayers=نشانه گذاری شده توسط بازیگران %s
 viewInFullSize=تماشا کردن در تمام سایز
 logOut=خروج
 signIn=ورود
+newToLichess=آیا در لیچس تازه واردید؟
+youNeedAnAccountToDoThat=شما برای انجام این کار به یک حساب کاربری نیاز دارید.
 signUp=ثبت نام
 people=مردم
 games=بازی ها
 forum=انجمن
 searchInForum=جستجو در انجمن
+xPostedInForumY=%s پست شده در فروم %s
 chessPlayers=بازیکنان شطرنج
 minutesPerSide=دقیقه در هر طرف
 variant=گوناگونی
@@ -85,6 +91,7 @@ allYouNeedIsAUsernameAndAPassword=تمام چیزی که شما نیاز دار�
 learnMoreAboutLichess=Lichess بیشتر بدانید درباره
 rank=رتبه
 gamesPlayed=بازی های انجام شده
+nbGamesWithYou=%s بازیهای با شما
 declineInvitation=نپذیرفتن دعوت
 cancel=انصراف
 timeOut=وقت تمام
@@ -117,6 +124,10 @@ chatRoom=اتاق چت
 spectatorRoom=اتاق تماشاچیان
 composeMessage=نوشتن پیام
 sentMessages=پیام های ارسال شده
+noMessageHereYet=هیچ پیامی هنوز اینجا نیست
+subject=موضوع
+recipient=گیرنده
+send=ارسال
 incrementInSeconds=افزایش در ثانیه
 freeOnlineChess=شطرنج آنلاین رایگان
 spectators=تماشاگران :
@@ -162,6 +173,8 @@ teamLeader=رهبر تیم
 teamBestPlayers=بهترین بازیکنان تیم
 teamRecentMembers=اعضای اخیر تیم
 searchATeam=جستجو یک تیم
+xJoinedTeamY=%s تیم پیوسته شده %s
+xCreatedTeamY=%s تیم ساخته شده %s
 averageElo=میانگین ریتینگ
 location=محل
 settings=تنظیمات
@@ -175,3 +188,25 @@ fromPosition=از موقعیت
 continueFromHere=ادامه از اینجا
 importGame=بارگزاری بازی
 nbImportedGames=%s بارگزاری شده
+thisIsAChessCaptcha=این یک کپچای شطرنجی است
+clickOnTheBoardToMakeYourMove=برای اثبات اینکه انسان هستید روی تخته کلیک کنید تا حرکت خود را انجام دهید
+notACheckmate=این یک کیش و مات نیست
+colorPlaysCheckmateInOne=%s بازی میکند در یک حرکت کیش و مات کنید
+retry=تلاش دوباره
+reconnecting=اتصال دوباره
+friends=دوستان
+noFriendsOnline=هیچ دوستی آنلاین نیست
+findFriends=پیدا کردن دوست
+favoriteOpponents=رقیبان مورد علاقه
+follow=دنبال کن
+following=دنبال میکند
+unfollow=دنبال نکن
+block=بلوکه کن
+blocked=بلوکه شده
+unblock=بلوکه نکن
+followsYou=شما را دنبال میکنند
+xStartedFollowingY=%s دنبال کردن های آغازشده %s
+nbFollowers=%s دنبال کننده ها
+nbFollowing=%s دنبال میکنند
+profile=پروفایل
+more=بیشتر
