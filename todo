@@ -71,15 +71,9 @@ check team average elo http://en.lichess.org/inbox/benuegti#bottom
 if game ends during move -> bug
 search bug http://fr.lichess.org/forum/search?text=user:aybabtu
 hooks do not always disappear
-hook actor expiration (view forum thread)
-no nb players in game
-always same number of players (!)
 don't show team leaders activity in mod logs
 LilaError['[analysis] fred65 already analyses ueogn4fr, won't process ueogn4fr']
 1024 compat (timeline)
-online glitch http://en.lichess.org/forum/lichess-feedback/migration-to-new-codebase?page=4#32
-friend box text: "Online friends (x/y)"
-check that draw games impact elo
 
 DEPLOY p21
 ----------
