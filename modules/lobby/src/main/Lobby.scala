@@ -31,9 +31,13 @@ private[lobby] final class Lobby(
       HookRepo byUid uid foreach remove
     }
 
-    case BiteHook(hookId, uid, userId) ⇒ socket ! blocking {
-      HookRepo removeUid uid
-      biter(hookId, userId) map { _(uid) }
+    case BiteHook(hookId, uid, userId) ⇒ blocking {
+      biter(hookId, userId) map { f ⇒
+        HookRepo removeUid uid
+        socket ! f(uid)
+      } recover {
+        case e: lila.common.LilaException ⇒
+      }
     }
 
     case Broom ⇒ blocking {
