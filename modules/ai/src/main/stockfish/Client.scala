@@ -19,13 +19,14 @@ final class Client(
     fetchMove(pgn, ~initialFen, level) flatMap { Stockfish.applyMove(game, pgn, _) }
 
   def analyse(pgn: String, initialFen: Option[String]): Fu[String ⇒ Analysis] =
-    fetchAnalyse(pgn, ~initialFen) flatMap { str =>
+    fetchAnalyse(pgn, ~initialFen) flatMap { str ⇒
       (AnalysisMaker(str, true) toValid "Can't read analysis results").future
     }
 
   protected def tryPing: Fu[Int] = nowMillis |> { start ⇒
-    fetchMove(pgn = "", initialFen = "", level = 1) map {
-      case move if UciMove(move).isDefined ⇒ (nowMillis - start).toInt
+    fetchMove(pgn = "", initialFen = "", level = 1) flatMap {
+      case move if UciMove(move).isDefined ⇒ fuccess((nowMillis - start).toInt)
+      case move                            ⇒ fufail("[stockfish] client invalid ping response " + move)
     }
   }
 
@@ -34,7 +35,7 @@ final class Client(
       "pgn" -> pgn,
       "initialFen" -> initialFen,
       "level" -> level.toString
-    ).get() map (_.body)
+    ).get() map (_.body) 
 
   private def fetchAnalyse(pgn: String, initialFen: String): Fu[String] =
     WS.url(analyseUrl).withQueryString(

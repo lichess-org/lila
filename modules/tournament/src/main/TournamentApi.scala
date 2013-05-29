@@ -69,7 +69,7 @@ private[tournament] final class TournamentApi(
       lobbyReload
 
   def wipeEmpty(created: Created): Funit = created.isEmpty ?? {
-    println("Remove empty tour " + created)
+    loginfo("Remove empty tour " + created)
     $remove(created) >>
       $remove.byId[Room](created.id) >>-
       reloadSiteSocket >>-

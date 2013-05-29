@@ -90,7 +90,7 @@ final class ActorFSM(
   )
 
   private def display(name: String)(msg: String) {
-    println("[%s] %s".format(name, msg))
+    loginfo("[%s] %s".format(name, msg))
   }
 
   override def postStop() {

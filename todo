@@ -69,6 +69,9 @@ top menu is too long in french with long username
 at least locally, the forum search user:mephostophilis returns no result
 check team average elo http://en.lichess.org/inbox/benuegti#bottom
 if game ends during move -> bug
+friends box only works well on homepage
+Norb and other canot log in
+search bug http://fr.lichess.org/forum/search?text=user:aybabtu
 
 DEPLOY p21
 ----------

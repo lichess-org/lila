@@ -53,7 +53,7 @@ private [stockfish] final class Process(
   }
 
   private def doLog(msg: String) {
-    println("[%s] %s".format(name, msg))
+    loginfo("[%s] %s".format(name, msg))
   }
 }
 
