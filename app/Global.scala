@@ -1,11 +1,10 @@
 package lila.app
 
-// import lila.app.Env
-import lila.hub.actorApi.monitor.AddRequest
-
-import play.api.{ Application, GlobalSettings, Mode }
 import play.api.mvc._
 import play.api.mvc.Results._
+import play.api.{ Application, GlobalSettings, Mode }
+
+import lila.hub.actorApi.monitor.AddRequest
 
 object Global extends GlobalSettings {
 
@@ -19,7 +18,7 @@ object Global extends GlobalSettings {
       else Action(NotFound("I am an AI server")).some
     }
     else {
-      if (!Env.api.isProd) println(req)
+      // if (!Env.api.isProd) println(req)
       Env.monitor.reporting ! AddRequest
       Env.security.wiretap(req)
       Env.security.firewall.requestHandler(req).await orElse
@@ -42,4 +41,5 @@ object Global extends GlobalSettings {
         super.onError(request, ex)
       )
     )
+
 }
