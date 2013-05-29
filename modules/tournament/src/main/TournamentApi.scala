@@ -102,7 +102,7 @@ private[tournament] final class TournamentApi(
 
   def withdraw(tour: Tournament, userId: String): Funit = tour match {
     case created: Created ⇒ (created withdraw userId).fold(
-      err ⇒ fufail(err.shows),
+      err ⇒ fulogwarn(err.shows),
       tour2 ⇒ $update(tour2) >>- socketReload(tour2.id) >>- reloadSiteSocket >>- lobbyReload
     )
     case started: Started ⇒ (started withdraw userId).fold(
