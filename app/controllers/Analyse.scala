@@ -22,7 +22,7 @@ object Analyse extends LilaController {
   private def bookmarkApi = Env.bookmark.api
   private lazy val pgnDump = new PgnDump(UserRepo.named)
   private lazy val makePgn = pgnDump { gameId ⇒
-    routes.Round.watcher(gameId, "white").url
+    Env.api.Net.BaseUrl + routes.Round.watcher(gameId, "white").url
   } _
   private lazy val timeChart = TimeChart(Env.user.usernameOrAnonymous) _
 
