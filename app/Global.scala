@@ -34,14 +34,12 @@ object Global extends GlobalSettings {
     BadRequest("Bad Request: " + error)
   }
 
-  // override def onError(request: RequestHeader, ex: Throwable) =
-  //   Env.ai.isServer.fold(
-  //     InternalServerError(ex.getMessage),
-  //     Option(coreEnv).fold(Mode.Prod)(_.app.mode) match {
-  //       case Mode.Prod ⇒ InternalServerError(
-  //         views.html.base.errorPage(ex)(http.Context(request, none))
-  //       )
-  //       case _ ⇒ super.onError(request, ex)
-  //     }
-  //   )
+  override def onError(request: RequestHeader, ex: Throwable) =
+    Env.ai.isServer.fold(
+      InternalServerError(ex.getMessage),
+      lila.common.PlayApp.isProd.fold(
+        InternalServerError(views.html.base.errorPage(ex)(http.Context(request, none))),
+        super.onError(request, ex)
+      )
+    )
 }
