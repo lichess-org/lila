@@ -10,7 +10,8 @@ object BuildSettings {
     scalaVersion := "2.10.1",
     resolvers ++= Dependencies.Resolvers.commons,
     parallelExecution in Test := false,
-    scalacOptions := compilerOptions
+    scalacOptions := compilerOptions,
+    sources in doc in Compile := List()
   )
 
   def defaultDeps = Seq(
