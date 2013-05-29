@@ -6,6 +6,8 @@ import reactivemongo.api.DB
 import reactivemongo.bson._
 import reactivemongo.core.commands.Status
 
+import lila.common.PimpedJson._
+
 private[monitor] case class MongoStatus(
   memory: Int = 0,
   connection: Int = 0,
@@ -17,26 +19,25 @@ private[monitor] case class MongoStatus(
 
 private[monitor] object MongoStatus {
 
-  def default = new MongoStatus()
+  val default = new MongoStatus()
 
   def apply(db: DB)(prev: MongoStatus): Fu[MongoStatus] =
-    db.command(Status) map { status ⇒
+    db.command(Status) map { bsonMap ⇒
+      val bson = BSONDocument(bsonMap)
+      val status = JsObjectReader.read(bson)
 
-      def get[A](field: String)(implicit reader: BSONReader[_ <: BSONValue, A]): Option[A] = 
-        status.get(field) flatMap (_.seeAsOpt[A])
-
-      val query = ~get[Int]("network.numRequests") 
-      val locks = ~get[JsObject]("locks")
+      val query = ~(status obj "network" flatMap (_ int "numRequests"))
+      val locks = ~(status obj "locks")
       val lockNumbers = for {
         dbName ← List("lichess", ".")
         statName ← List("timeLockedMicros", "timeAcquiringMicros")
         opName ← List("r", "w", "R", "W")
       } yield (locks \ dbName \ statName \ opName).asOpt[Long]
       val lockTime = lockNumbers.flatten.map(_ / 1000).sum
-      val totalTime = ~get[Long]("uptimeMillis")
+      val totalTime = ~(status long "uptimeMillis")
       new MongoStatus(
-        memory = ~get[Int]("mem.resident"),
-        connection = ~get[Int]("connections.current"),
+        memory = ~(status \ "mem" \ "resident").asOpt[Int],
+        connection = ~(status \ "connections" \ "current").asOpt[Int],
         query = query,
         totalTime = totalTime,
         lockTime = lockTime,
