@@ -10,7 +10,7 @@ private[i18n] object TranslationRepo {
 
   type ID = Int
 
-  val nextId: Fu[ID] = $primitive.one(
+  def nextId: Fu[ID] = $primitive.one(
     $select.all,
     "_id",
     _ sort $sort.descId
