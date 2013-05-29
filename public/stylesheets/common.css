@@ -318,9 +318,16 @@ div.header div.side_menu a.active {
   display: none;
   font-style: italic;
 }
+body.offline #reconnecting {
+  display: inline-block;
+  color: red;
+}
 #nb_connected_players {
   float: left;
   color: #999;
+}
+body.offline #nb_connected_players {
+  display: none;
 }
 #nb_connected_players, #reconnecting {
   border-left: 1px solid #ccc;
