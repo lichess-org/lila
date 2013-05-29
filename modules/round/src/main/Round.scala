@@ -54,6 +54,7 @@ private[round] final class Round(
       (pov.game.resignable && !pov.game.hasAi) ?? {
         socketHub ? Ask(pov.gameId, IsGone(!pov.color)) flatMap {
           case true ⇒ finisher(pov.game, _.Timeout, Some(pov.color))
+          case _    ⇒ fufail("[round] cannot force resign of " + pov)
         }
       }
     }
