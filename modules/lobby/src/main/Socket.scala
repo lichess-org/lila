@@ -60,8 +60,8 @@ private[lobby] final class Socket(
     case ChangeFeatured(html) ⇒ notifyFeatured(html)
   }
 
-  private lazy val homeUrl = router ? Homepage mapTo manifest[String]
-  private def playerUrl(fullId: String) = router ? Player(fullId) mapTo manifest[String]
+  private def playerUrl(fullId: String) = 
+    router ? Player(fullId) mapTo manifest[String]
 
   private def notifyFeatured(html: Html) {
     broadcast(makeMessage("featured", html.toString))
@@ -69,9 +69,5 @@ private[lobby] final class Socket(
 
   private def notifyTournaments(html: String) {
     broadcast(makeMessage("tournaments", html))
-  }
-
-  private def broadcast(msg: JsObject) {
-    members.values foreach (_.channel push msg)
   }
 }

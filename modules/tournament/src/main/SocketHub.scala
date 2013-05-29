@@ -18,11 +18,13 @@ private[tournament] final class SocketHub(
     socketTimeout: Duration,
     getUsername: String ⇒ Fu[Option[String]]) extends SocketHubActor[Socket] {
 
-  def receive = PartialFunction[Any, Unit]({
+  def receive: Receive = _receive orElse socketHubReceive
+  
+  private def _receive: Receive = {
 
     case msg: Fen ⇒ tellAll(msg)
 
-  }) orElse socketHubReceive
+  }
 
   def mkActor(tournamentId: String) = new Socket(
       tournamentId = tournamentId,
