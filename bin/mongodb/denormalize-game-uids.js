@@ -4,10 +4,10 @@ var batchSize = 50000;
 
 print("Migrating " + max + " games");
 
-var i, t, timeStrings, times, it=0;
+var i, j = 0, t, timeStrings, times, it=0;
 var dat = new Date().getTime() / 1000;
 
-gamesToMigrate.limit(500000).forEach(function(game) {
+gamesToMigrate.forEach(function(game) {
 
   var prev = '', uids = [];
   game.p.forEach(function(p) { 
@@ -19,6 +19,7 @@ gamesToMigrate.limit(500000).forEach(function(game) {
 
   var gameUids = game.uids || [];
   if (gameUids.length != uids.length) {
+    ++j;
     db.game4.update({_id: game['_id']}, {$set: {'uids': uids}});
   }
 
@@ -28,6 +29,7 @@ gamesToMigrate.limit(500000).forEach(function(game) {
     var dat2 = new Date().getTime() / 1000;
     var perSec = Math.round(batchSize / (dat2 - dat));
     dat = dat2;
-    print((it / 1000) + "k " + percent + "% " + perSec + "/s");
+    print((it / 1000) + "k " + percent + "% " + perSec + "/s - " + j + " updated");
+    j = 0;
   }
 });

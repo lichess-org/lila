@@ -57,11 +57,9 @@ print("user.settings.{chat,sound} should be a string");
   [true, false].forEach(function(value) {
     var sel = {}
     sel[name] = value;
-    printjson(sel);
     db.user2.find(sel).forEach(function(user) {
       var up = {}
       up[name] = value.toString();
-      printjson(up);
       db.user2.update({'_id': user['_id']}, {'$set':up});
     });
   });
@@ -80,10 +78,10 @@ db.createCollection("timeline_entry",{capped:true,size:50000000})
 db.timeline_entry.ensureIndex({user:1, date: -1});
 db.timeline_entry.ensureIndex({type:1, date: -1});
 
-// print("Reset lobby_room");
-// db.lobby_room.drop();
-// db.createCollection("lobby_room",{capped:true,size:50000})
+print("Reset lobby_room");
+db.lobby_room.drop();
+db.createCollection("lobby_room",{capped:true,size:50000})
 
-// print("Reset lobby_entry");
-// db.lobby_entry.drop();
-// db.createCollection("lobby_entry",{capped:true,size:10000})
+print("Reset lobby_entry");
+db.lobby_entry.drop();
+db.createCollection("lobby_entry",{capped:true,size:10000})
