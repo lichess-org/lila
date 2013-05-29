@@ -96,6 +96,10 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Actor {
     members = members - uid
   }
 
+  def broadcast(msg: JsObject) {
+    members.values foreach (_.channel push msg)
+  }
+
   private val resyncMessage = makeMessage("resync", JsNull)
 
   protected def resync(member: M) {
@@ -126,10 +130,8 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Actor {
 
   def uids = members.keys
 
-  def memberByUserId(userId: String): Option[M] = {
-    val someId = Some(userId)
-    members.values find (_.userId == someId)
-  }
+  def memberByUserId(userId: String): Option[M] = 
+    members.values find (_.userId == Some(userId))
 
   def membersByUserIds(userIds: Set[String]): Iterable[M] =
     members.values filter (member ⇒ member.userId ?? userIds.contains)

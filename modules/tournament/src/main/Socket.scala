@@ -78,11 +78,6 @@ private[tournament] final class Socket(
       notifyCrowd
     }
 
-    case Close ⇒ {
-      members.values foreach { _.channel.end() }
-      self ! PoisonPill
-    }
-
     case Joining(userId) ⇒ joiningMemo put userId
   }
 

@@ -12,9 +12,11 @@ import makeTimeout.short
 
 trait SocketHubActor[A <: SocketActor[_]] extends ActorMap[A] {
 
-  def socketHubReceive: Receive = PartialFunction[Any, Unit]({
+  def socketHubReceive: Receive = _socketHubReceive orElse actorMapReceive
 
-    case msg @ GetNbMembers ⇒ 
+  private def _socketHubReceive: Receive = {
+
+    case msg @ GetNbMembers ⇒
       askAll(msg) mapTo manifest[List[Int]] map (_.sum) pipeTo sender
 
     case msg @ NbMembers(_)       ⇒ tellAll(msg)
@@ -29,5 +31,5 @@ trait SocketHubActor[A <: SocketActor[_]] extends ActorMap[A] {
 
     case msg @ SendTos(_, _)      ⇒ tellAll(msg)
 
-  }) orElse actorMapReceive
+  }
 }

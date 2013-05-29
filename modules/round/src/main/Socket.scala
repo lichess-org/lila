@@ -57,9 +57,9 @@ private[round] final class Socket(
       }
     }
 
-    case GetVersion                  ⇒ history ? GetVersion pipeTo sender
+    case GetVersion    ⇒ history ? GetVersion pipeTo sender
 
-    case IsGone(color)            ⇒ sender ! playerIsGone(color)
+    case IsGone(color) ⇒ sender ! playerIsGone(color)
 
     case Join(uid, user, version, color, playerId) ⇒ {
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
@@ -105,13 +105,13 @@ private[round] final class Socket(
 
   def batch(member: Member, vevents: List[VersionedEvent]) {
     if (vevents.nonEmpty) {
-      member.channel push makeEvent("b", vevents map (_ jsFor member))
+      member.channel push makeMessage("b", vevents map (_ jsFor member))
     }
   }
 
   def notifyOwner[A: Writes](color: Color, t: String, data: A) {
     ownerOf(color) foreach { m ⇒
-      m.channel push makeEvent(t, data)
+      m.channel push makeMessage(t, data)
     }
   }
 
@@ -119,10 +119,7 @@ private[round] final class Socket(
     notifyOwner(!color, "gone", gone)
   }
 
-  def makeEvent[A: Writes](t: String, data: A): JsObject =
-    Json.obj("t" -> t, "d" -> data)
-
-  lazy val ackEvent = Json.obj("t" -> "ack")
+  private val ackEvent = Json.obj("t" -> "ack")
 
   def ownerOf(color: Color): Option[Member] =
     members.values find { m ⇒ m.owner && m.color == color }
