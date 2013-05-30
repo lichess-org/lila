@@ -80,7 +80,7 @@ final class PostApi(
     topics ← $find.byIds[Topic](posts.map(_.topicId).distinct)
   } yield posts map { post ⇒
     topics find (_.id == post.topicId) map { topic ⇒
-      PostLiteView(post, topic, lastPageOf(topic))
+      PostLiteView(post, topic)
     }
   } flatten
 
