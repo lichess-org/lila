@@ -53,7 +53,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       var fullUrl = "ws://" + self.baseUrl() + self.url + "?" + $.param($.extend(self.settings.params, {
         version: self.version
       }));
-      self.debug("connection attempt to " + fullUrl);
+      self.debug("connection attempt to " + fullUrl, true);
       try {
         if (window.MozWebSocket) self.ws = new MozWebSocket(fullUrl);
         else if (window.WebSocket) self.ws = new WebSocket(fullUrl);
@@ -63,7 +63,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           self.onError(e);
         }
         self.ws.onopen = function() {
-          self.debug("connected to " + fullUrl);
+          self.debug("connected to " + fullUrl, true);
           self.onSuccess();
           $('body').removeClass('offline');
           self.pingNow();
@@ -176,8 +176,8 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     now: function() {
       return new Date().getTime();
     },
-    debug: function(msg) {
-      if (this.options.debug && window.console && console.debug) console.debug("[" + this.options.name + "]", msg);
+    debug: function(msg, always) {
+      if ((always || this.options.debug) && window.console && console.debug) console.debug("[" + this.options.name + "]", msg);
     },
     destroy: function() {
       clearTimeout(this.pingSchedule);
@@ -189,7 +189,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     },
     onError: function(e) {
       this.options.debug = true;
-      this.debug(e);
+      this.debug('error: ' + e);
       this.baseUrlFail();
       setTimeout(function() {
         if (!$.cookie("wsok") && $("#websocket-fail").length == 0) {
@@ -217,7 +217,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       if (saved) {
         var index = (this.options.baseUrls.indexOf(saved) + 1) % this.options.baseUrls.length;
         var next = this.options.baseUrls[index];
-        this.debug('will try ' + next);
+        this.debug(saved + ' failed, will try ' + next, true);
         $.cookie(this.options.baseUrlCookie, next);
       }
     }
@@ -284,12 +284,13 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         ],
         baseUrlCookie: 'surl',
         name: "site",
-        lagTag: $('#connection_lag')
+        lagTag: $('#connection_lag'),
+        debug: false
       }
     },
     onProduction: /.+\.lichess\.org/.test(document.domain)
   };
-  lichess.socketDefaults.options.debug = !lichess.onProduction;
+  // lichess.socketDefaults.options.debug = !lichess.onProduction;
   // lichess.socketDefaults.options.debug = true;
 
   $(function() {
