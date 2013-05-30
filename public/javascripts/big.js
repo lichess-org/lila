@@ -572,7 +572,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     });
 
     $("a.continue_from_here").one("click", function() {
-      $(this).hide().parent().find('.opponent_choice').show();
+      $(this).hide().siblings('.opponent_choice').show();
       return false;
     });
 
@@ -1692,7 +1692,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       $form.find('button.submit').button().disableSelection();
       $form.find('.time_choice input, .increment_choice input').each(function() {
         var $input = $(this),
-          $value = $input.parent().find('span');
+          $value = $input.siblings('span');
         var $timeInput = $form.find('.time_choice input');
         var $incrementInput = $form.find('.increment_choice input');
         $input.hide().after($('<div>').slider({
@@ -1712,7 +1712,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       $form.find('.elo_range').each(function() {
         var $this = $(this);
         var $input = $this.find("input");
-        var $span = $this.parent().find("span.range");
+        var $span = $this.siblings("span.range");
         var min = $input.data("min");
         var max = $input.data("max");
         if ($input.val()) {
