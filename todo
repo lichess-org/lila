@@ -70,7 +70,6 @@ at least locally, the forum search user:mephostophilis returns no result
 check team average elo http://en.lichess.org/inbox/benuegti#bottom
 if game ends during move -> bug
 search bug http://fr.lichess.org/forum/search?text=user:aybabtu
-hooks do not always disappear
 don't show team leaders activity in mod logs
 LilaError['[analysis] fred65 already analyses ueogn4fr, won't process ueogn4fr']
 
