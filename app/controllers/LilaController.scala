@@ -154,8 +154,7 @@ private[controllers] trait LilaController
     Lobby handleNotFound ctx
   )
 
-  protected def isXhr(implicit ctx: Context) =
-    (ctx.req.headers get "X-Requested-With") ?? ("XMLHttpRequest" ==)
+  protected def isXhr(implicit ctx: Context) = lila.common.HTTPRequest isXhr ctx.req
 
   protected def isGranted(permission: Permission.type ⇒ Permission)(implicit ctx: Context): Boolean =
     isGranted(permission(Permission))
