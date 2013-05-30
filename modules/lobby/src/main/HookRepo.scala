@@ -28,7 +28,7 @@ object HookRepo {
   }
 
   // returns removed hooks
-  def removeUid(uid: String) = partition(_.uid == uid)
+  def removeUid(uid: String) = partition(_.uid != uid)
 
   // returns removed hooks
   def cleanupOld = {
@@ -38,8 +38,8 @@ object HookRepo {
 
   // keeps hooks that hold true
   // returns removed hooks
-  private def partition(f: Hook => Boolean): List[Hook] = {
-    val (removed, kept) = hooks partition f
+  private def partition(f: Hook ⇒ Boolean): List[Hook] = {
+    val (kept, removed) = hooks partition f
     hooks = kept
     removed.toList
   }
