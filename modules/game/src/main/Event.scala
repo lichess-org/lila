@@ -154,6 +154,7 @@ object Event {
   case class Premove(color: Color) extends Empty {
     def typ = "premove"
     override def only = Some(color)
+    override def owner = true
   }
 
   case class Clock(white: Float, black: Float) extends Event {
