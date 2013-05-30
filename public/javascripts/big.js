@@ -51,7 +51,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     connect: function() {
       var self = this;
       self.destroy();
-      self.fullUrl = "ws://" + self.url + "?" + $.param($.extend(self.settings.params, {
+      self.fullUrl = "ws://" + self.baseUrl() + self.url + "?" + $.param($.extend(self.settings.params, {
         version: self.version
       }));
       self.debug("connection attempt to " + self.fullUrl);
@@ -59,7 +59,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       else if (window.WebSocket) self.ws = new WebSocket(self.fullUrl);
       else throw "no websockets found on this browser!";
 
-      self.ws.onerror = self.onError;
+      self.ws.onerror = function(e) {
+        self.onError(e);
+      }
       self.ws.onopen = function() {
         self.debug("connected to " + self.fullUrl);
         self.onSuccess();
@@ -175,15 +177,15 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       if (this.options.debug) console.debug("[" + this.options.name + "]", msg);
     },
     destroy: function() {
-      var self = this;
-      clearTimeout(self.pingSchedule);
-      clearTimeout(self.connectSchedule);
-      if (self.ws) {
-        self.ws.close();
-        self.ws = null;
+      clearTimeout(this.pingSchedule);
+      clearTimeout(this.connectSchedule);
+      if (this.ws) {
+        this.ws.close();
+        this.ws = null;
       }
     },
     onError: function(e) {
+      this.baseUrlFail();
       setTimeout(function() {
         if (!$.cookie("wsok") && $("#websocket-fail").length == 0) {
           $.ajax("/assets/websocket-fail.html", {
@@ -197,6 +199,22 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     onSuccess: function() {
       $.cookie("wsok", 1);
       $("#websocket-fail").remove();
+    },
+    baseUrl: function() {
+      var saved = $.cookie(this.options.baseUrlCookie);
+      if (saved) return saved;
+      var picked = this.options.baseUrls[0];
+      $.cookie(this.options.baseUrlCookie, picked);
+      return picked;
+    },
+    baseUrlFail: function() {
+      var saved = $.cookie(this.options.baseUrlCookie);
+      if (saved) {
+        var index = (this.options.baseUrls.indexOf(saved) + 1) % this.options.baseUrls.length;
+        var next = this.options.baseUrls[index];
+        this.debug('will try ' + next);
+        $.cookie(this.options.baseUrlCookie, next);
+      }
     }
   };
 
@@ -255,12 +273,16 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       },
       params: {},
       options: {
+        baseUrls: [
+            'socket.' + document.domain,
+          document.domain + ':' + $('body').data('port')
+        ],
+        baseUrlCookie: 'surl',
         name: "site",
         lagTag: $('#connection_lag')
       }
     },
-    onProduction: /.+\.lichess\.org/.test(document.domain),
-    socketUrl: 'socket.' + document.domain
+    onProduction: /.+\.lichess\.org/.test(document.domain)
   };
   lichess.socketDefaults.options.debug = !lichess.onProduction;
 
@@ -287,7 +309,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
               'margin-left': (dec - 30) + 'px',
               'width': (230 - pad - dec) + 'px'
             });
-            $(this).find('input.lichess_say').css('width', (204 - dec) + 'px'); 
+            $(this).find('input.lichess_say').css('width', (204 - dec) + 'px');
           }
         });
       }
@@ -371,7 +393,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
     setTimeout(function() {
       if (lichess.socket == null && $('div.server_error_box').length == 0) {
-        lichess.socket = new strongSocket(lichess.socketUrl + "/socket", 0, lichess.socketDefaults);
+        lichess.socket = new strongSocket("/socket", 0, lichess.socketDefaults);
       }
     }, 1000);
 
@@ -706,7 +728,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       }
 
       lichess.socket = new strongSocket(
-        lichess.socketUrl + self.options.socketUrl,
+        self.options.socketUrl,
         self.options.player.version,
         $.extend(true, lichess.socketDefaults, {
         options: {
@@ -1865,7 +1887,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
     addHooks(lichess_preload.pool);
     renderTimeline(lichess_preload.timeline);
-    lichess.socket = new strongSocket(lichess.socketUrl + "/lobby/socket", lichess_preload.version, $.extend(true, lichess.socketDefaults, {
+    lichess.socket = new strongSocket("/lobby/socket", lichess_preload.version, $.extend(true, lichess.socketDefaults, {
       events: {
         game_entry: function(e) {
           renderTimeline([e]);
@@ -2063,7 +2085,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       reload();
     }
 
-    lichess.socket = new strongSocket(lichess.socketUrl + socketUrl, _ld_.version, $.extend(true, lichess.socketDefaults, {
+    lichess.socket = new strongSocket(socketUrl, _ld_.version, $.extend(true, lichess.socketDefaults, {
       events: {
         talk: function(e) {
           $chat.chat('append', e.u, e.t);
@@ -2106,7 +2128,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     var $watchers = $("div.watchers").watchers();
 
     lichess.socket = new strongSocket(
-      lichess.socketUrl + $game.data("socket-url"),
+      $game.data("socket-url"),
       parseInt($game.data("version")),
       $.extend(true, lichess.socketDefaults, {
       options: {
