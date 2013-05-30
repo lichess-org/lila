@@ -1917,7 +1917,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     }));
 
     function reloadTournaments(data) {
-      $("table.tournaments").html(data);
+      $("table.tournaments tbody").html(data);
     }
 
     function changeFeatured(html) {
@@ -1930,7 +1930,13 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       for (i in data) {
         html += '<tr>' + data[i] + '</tr>';
       }
-      $bot.find('.undertable_inner').find('table').append(html).end().scrollTop(999999);
+      $bot.find('.undertable_inner').find('tbody').each(function() {
+        $(this).append(html);
+        var len = $(this).children().length;
+        if (len > 50) {
+          $(this).find('tr:lt('+(len - 10)+')').remove();
+        }
+      }).end().scrollTop(999999);
       $('body').trigger('lichess.content_loaded');
     }
 
@@ -1948,7 +1954,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     }
 
     function addHook(hook) {
-      $hooksTable.append(renderHook(hook));
+      $hooksTable.find('tbody').append(renderHook(hook));
       updateHookTable();
     }
 
