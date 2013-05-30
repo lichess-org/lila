@@ -41,6 +41,6 @@ case class PostView(
   def show = post.showUserIdOrAuthor + " @ " + topic.name + " - " + post.text.take(80)
 }
 
-case class PostLiteView(post: Post, topic: Topic, topicLastPage: Int)
+case class PostLiteView(post: Post, topic: Topic)
 
 case class PostUrlData(categ: String, topic: String, page: Int, number: Int)

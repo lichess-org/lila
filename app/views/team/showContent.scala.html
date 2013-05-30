@@ -46,16 +46,14 @@
     <h2><a href="@teamForumUrl(t.id)">@trans.forum() (@info.forumNbPosts)</a></h2>
     <ol class="posts">
       @info.forumPosts.take(10).map { v =>
-      @defining(routes.ForumTopic.show(v.topic.categId, v.topic.slug, v.topicLastPage) + "#" + v.post.number) { postUrl =>
       <li>
         <p class="meta clearfix">
-          <a href="@postUrl">@v.topic.name</a>
+          <a href="@routes.ForumPost.redirect(v.post.id)">@v.topic.name</a>
           @authorLink(v.post, withOnline = false)
           @timeago(v.post.createdAt)
         </p>
         <p>@shorten(v.post.text, 200)</p>
       </li>
-      }
       }
     </ol>
     <a class="more" href="@teamForumUrl(t.id)">@t.name @trans.forum() »</a>
