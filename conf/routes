@@ -90,6 +90,7 @@ GET   /analyse/$gameId<[\w\-]{8}>/$color<white|black> controllers.Analyse.replay
 POST  /analyse/$gameId<[\w\-]{8}>/$color<white|black>/computer controllers.Analyse.computer(gameId: String, color: String)
 GET   /$gameId<[\w\-]{8}>/stats          controllers.Analyse.stats(gameId: String)
 GET   /$gameId<[\w\-]{8}>/pgn            controllers.Analyse.pgn(gameId: String)
+GET   /$gameId<[\w\-]{8}>/fen            controllers.Analyse.fen(gameId: String)
  
 # Setting
 POST  /setting/:name                   controllers.Setting.set(name: String)

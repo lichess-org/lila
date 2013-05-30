@@ -86,4 +86,10 @@ object Analyse extends LilaController {
       )
     }
   }
+
+  def fen(id: String) = Open { implicit ctx ⇒
+    OptionOk(GameRepo game id) { game ⇒
+      chess.format.Forsyth >> game.toChess
+    }
+  }
 }

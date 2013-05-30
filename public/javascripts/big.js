@@ -546,12 +546,26 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       return false;
     });
 
-    $("a.view_pgn_toggle").one("click", function() {
-      var $this = $(this).text("...");
+    $("a.view_pgn_toggle").on('click', function() {
+      var $this = $(this);
       $.ajax({
         url: $this.attr("href"),
         success: function(text) {
-          $this.after("<textarea readonly>" + text + "</textarea>").text("Download PGN");
+          $this.siblings('div.view_pgn_box').show()
+            .find('a.close').one('click', function() {
+            $(this).parent().hide()
+          })
+            .siblings('textarea').val(text);
+        }
+      });
+      return false;
+    });
+
+    $("a.view_fen").on('click', function() {
+      $.ajax({
+        url: $(this).attr("href"),
+        success: function(text) {
+          alert(text);
         }
       });
       return false;
