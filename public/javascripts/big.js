@@ -22,7 +22,6 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       },
       options: {
         name: "unnamed",
-        debug: false,
         offlineDelay: 8000, // time before announcing the user they are offline
         pingMaxLag: 8000, // time to wait for pong before reseting the connection
         pingDelay: 1500, // time between pong and ping
@@ -40,6 +39,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     self.lastPingTime = self.now();
     self.currentLag = 0;
     self.averageLag = 0;
+    self.debug('Debug is enabled');
     self.connect();
     $(window).unload(function() {
       self.destroy();
@@ -285,7 +285,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         baseUrlCookie: 'surl',
         name: "site",
         lagTag: $('#connection_lag'),
-        debug: false
+        debug: location.search.indexOf('debug-ws') != -1
       }
     },
     onProduction: /.+\.lichess\.org/.test(document.domain)
