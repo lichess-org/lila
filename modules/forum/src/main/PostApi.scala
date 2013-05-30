@@ -11,6 +11,7 @@ import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ Propagate, ForumPost }
 import lila.hub.ActorLazyRef
 import lila.mod.ModlogApi
+import lila.security.{ Granter ⇒ MasterGranter }
 import lila.user.{ User, Context }
 import tube._
 
@@ -111,7 +112,7 @@ final class PostApi(
           (env.categApi denormalize view.categ) >>
           env.recent.invalidate >>-
           (indexer ! RemovePost(post)))
-      _ ← modLog.deletePost(mod, post.userId, post.author, post.ip,
+      _ ← MasterGranter(_.ModerateForum)(mod) ?? modLog.deletePost(mod, post.userId, post.author, post.ip,
         text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text))
     } yield true.some)
   } yield ()).value.void

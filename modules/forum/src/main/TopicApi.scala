@@ -9,6 +9,7 @@ import lila.db.Implicits._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ Propagate, ForumPost }
 import lila.hub.ActorLazyRef
+import lila.security.{ Granter ⇒ MasterGranter }
 import lila.user.{ User, Context }
 import tube._
 
@@ -79,8 +80,10 @@ private[forum] final class TopicApi(
       env.recent.invalidate
 
   def toggleClose(categ: Categ, topic: Topic, mod: User): Funit =
-    TopicRepo.close(topic.id, topic.open) >>
-      modLog.toggleCloseTopic(mod, categ.name, topic.name, topic.open)
+    TopicRepo.close(topic.id, topic.open) >> {
+      MasterGranter(_.ModerateForum)(mod) ??
+        modLog.toggleCloseTopic(mod, categ.name, topic.name, topic.open)
+    }
 
   def denormalize(topic: Topic): Funit = for {
     nbPosts ← PostRepo countByTopics List(topic)
