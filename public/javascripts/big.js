@@ -68,7 +68,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         $('body').removeClass('offline');
         self.pingNow();
         $('body').trigger('socket.open');
-        setTimeout(function() {
+        if ($('#user_tag').length) setTimeout(function() {
           self.send("following_onlines");
         }, 500);
       };
