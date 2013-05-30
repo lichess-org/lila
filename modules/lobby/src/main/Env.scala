@@ -49,10 +49,6 @@ final class Env(
     scheduler.message(1 seconds) {
       lobby -> lila.socket.actorApi.Broom
     }
-
-    scheduler.effect(30 seconds, "lobby: cleanup") {
-      HookRepo.cleanupOld
-    }
   }
 
   private lazy val biter = new Biter(

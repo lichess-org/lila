@@ -27,12 +27,20 @@ object HookRepo {
     hooks = hooks filterNot (_.id == hook.id)
   }
 
-  def removeUid(uid: String) {
-    hooks = hooks filterNot (_.uid == uid)
+  // returns removed hooks
+  def removeUid(uid: String) = partition(_.uid == uid)
+
+  // returns removed hooks
+  def cleanupOld = {
+    val limit = DateTime.now - 10.minutes
+    partition(_.createdAt > limit)
   }
 
-  def cleanupOld {
-    val limit = DateTime.now - 20.minutes
-    hooks = hooks filter (_.createdAt > limit)
+  // keeps hooks that hold true
+  // returns removed hooks
+  private def partition(f: Hook => Boolean): List[Hook] = {
+    val (removed, kept) = hooks partition f
+    hooks = kept
+    removed.toList
   }
 }
