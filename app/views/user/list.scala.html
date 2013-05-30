@@ -8,7 +8,7 @@
     <div class="all_users">
       <h1 class="lichess_title">@trans.chessPlayers() (@paginator.nbResults.localize)</h1>
       <form class="search_user_form" action="@routes.User.show("")">
-        <label for="search_user_input">@trans.searchAPlayer()</label>
+        <label for="search_user_input">@trans.search()</label>
         <input id="search_user_input" class="search_user autocomplete" data-provider="@routes.User.autocomplete" />
       </form>
       <div class="infinitescroll">
