@@ -110,7 +110,6 @@ exportGames=Էկսպորտ անել խաղերը
 color=Գույն
 eloRange=Elo միջակայք
 giveNbSeconds=Տալ %s վայրկան
-searchAPlayer=Որոնել խաղընկերոջ
 whoIsOnline=Ովքե՞ր են օնլայն
 allPlayers=Բոլոր խաղացողները
 premoveEnabledClickAnywhereToCancel=Նախորոք քայլ կատարելու հնարավորությունը ակտիվացված է, կարող եք այն անջատել՝ մկնիկի ստեղնակին սեղմելով
