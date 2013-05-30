@@ -27,7 +27,7 @@ trait SetupHelper extends scalaz.Booleans { self: I18nHelper ⇒
   def eloDiffChoices(elo: Int)(implicit ctx: Context) = FilterConfig.eloDiffs map { diff ⇒
     diff -> (diff == 0).fold(
       trans.eloRange.str(), 
-      "%d - %d (+-%d)".format(elo - diff, elo + diff, diff)
+      "%d - %d (±%d)".format(elo - diff, elo + diff, diff)
     )
   }
 }
