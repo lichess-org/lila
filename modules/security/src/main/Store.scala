@@ -23,7 +23,7 @@ object Store {
       "user" -> userId,
       "ip" -> ip(req),
       "ua" -> ua(req),
-      "date" -> DateTime.now,
+      "date" -> $date(DateTime.now),
       "up" -> true))
 
   def userId(sessionId: String): Fu[Option[String]] =
