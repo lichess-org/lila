@@ -174,7 +174,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       return new Date().getTime();
     },
     debug: function(msg) {
-      if (this.options.debug) console.debug("[" + this.options.name + "]", msg);
+      if (this.options.debug && window.console && console.log) console.log("[" + this.options.name + "]", msg);
     },
     destroy: function() {
       clearTimeout(this.pingSchedule);
@@ -284,7 +284,8 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     },
     onProduction: /.+\.lichess\.org/.test(document.domain)
   };
-  lichess.socketDefaults.options.debug = !lichess.onProduction;
+  // lichess.socketDefaults.options.debug = !lichess.onProduction;
+  lichess.socketDefaults.options.debug = true;
 
   $(function() {
 
