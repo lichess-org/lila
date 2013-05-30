@@ -30,7 +30,7 @@ object Query {
 
   def draw(u: String): JsObject = user(u) ++ draw
 
-  val finished = Json.obj("s" -> $in(Seq(Status.Mate.id, Status.Resign.id, Status.Outoftime.id, Status.Timeout.id)))
+  val finished = Json.obj("s" -> $in(Seq(Status.Mate.id, Status.Resign.id, Status.Outoftime.id, Status.Timeout.id, Status.Draw.id)))
 
   val notFinished: JsObject = Json.obj("s" -> $lte(Status.Started.id))
 
