@@ -103,7 +103,6 @@ exportGames=Ойынды экспорттау
 color=Түс
 eloRange=Эло ауқымы
 giveNbSeconds=%s секунд қосу
-searchAPlayer=Ойыншыны издеу
 whoIsOnline=Қазір онлайн
 allPlayers=Барлық ойыншылар
 premoveEnabledClickAnywhereToCancel=Алдын - ала жүріс қосылды. Болдырмау үшін кеқ келген жерде басыңыз

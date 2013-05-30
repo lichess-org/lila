@@ -110,7 +110,6 @@ exportGames=Извади игри
 color=Боја
 eloRange=Elo опсег
 giveNbSeconds=Додај %s секунди
-searchAPlayer=Побарај играч
 whoIsOnline=Кој е вклучен
 allPlayers=Сите играчи
 thisPlayerUsesChessComputerAssistance=Овој играч користи компјутерска помош

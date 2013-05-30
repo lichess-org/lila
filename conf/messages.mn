@@ -109,7 +109,6 @@ nbDraws=%s тэнцсэн
 exportGames=Тоглолтыг хэвлэх
 color=Өнгө
 giveNbSeconds=%s секунд өгөх
-searchAPlayer=Тоглогч хайх
 whoIsOnline=Хэн онлайн байна
 allPlayers=Бүх тоглогчид
 thisPlayerUsesChessComputerAssistance=Энэ тоглогч шатар тоглохдоо компьютерээс туслалцаа авж байна
