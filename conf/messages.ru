@@ -152,6 +152,7 @@ takebackPropositionCanceled=Предложение возврата отмене
 yourOpponentProposesATakeback=Ваш оппонент предлагает возврат хода
 bookmarkThisGame=Добавить игру в закладки
 toggleBackground=Изменить цвет фона
+search=искать
 advancedSearch=Параметрический поиск
 tournament=Турнир
 tournamentPoints=Турнирные очки
