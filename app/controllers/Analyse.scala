@@ -1,20 +1,21 @@
 package controllers
 
-import lila.app._
-import views._
-import lila.user.{ UserRepo }
-import lila.game.{ Pov, GameRepo, PgnRepo, PgnDump }
-import lila.analyse.{ TimeChart, TimePie }
-import lila.round.actorApi.AnalysisAvailable
-import lila.hub.actorApi.map.Tell
-import lila.round.{ RoomRepo, WatcherRoomRepo }
-import lila.tournament.{ TournamentRepo, Tournament ⇒ Tourney }
+import scala.util.{ Success, Failure }
 
 import akka.pattern.ask
-import play.api.mvc._
 import play.api.http.ContentTypes
+import play.api.mvc._
 import play.api.templates.Html
-import scala.util.{ Success, Failure }
+
+import lila.analyse.{ TimeChart, TimePie }
+import lila.app._
+import lila.game.{ Pov, GameRepo, PgnRepo, PgnDump }
+import lila.hub.actorApi.map.Tell
+import lila.round.actorApi.AnalysisAvailable
+import lila.round.{ RoomRepo, WatcherRoomRepo }
+import lila.tournament.{ TournamentRepo, Tournament ⇒ Tourney }
+import lila.user.{ UserRepo }
+import views._
 
 object Analyse extends LilaController {
 
@@ -49,7 +50,7 @@ object Analyse extends LilaController {
             case (((((roomHtml, version), bookmarkers), pgn), analysis), tour) ⇒
               html.analyse.replay(
                 pov,
-                pgn.toString,
+                analysis.fold(pgn)(a ⇒ Env.analyse.annotator(pgn, a)).toString,
                 roomHtml,
                 bookmarkers,
                 chess.OpeningExplorer openingOf pgnString,
