@@ -44,7 +44,7 @@
     Zanimo.transition(
         this.needle,
         "transform",
-        "rotate(" + (val > this.maxVal ? 175 : val * 170 / this.maxVal) + "deg)",
+        "rotate(" + (val > this.maxVal ? 175 : val * 179 / this.maxVal) + "deg)",
         1500,
         "ease-in"
         );
@@ -64,14 +64,14 @@
 
     app.rps = new SpeedOMeter({
       name : "RPS",
-      maxVal : 100,
+      maxVal : 200,
       threshold: 0.9,
       container : container
     });
 
     app.memory = new SpeedOMeter({
       name : "MEMORY",
-      maxVal : 3000,
+      maxVal : 4096,
       unit : "MB",
       container : container
     });
@@ -100,47 +100,47 @@
 
     app.lat = new SpeedOMeter({
       name : "LATENCY",
-      maxVal : 5,
+      maxVal : 20,
       container : container
     });
 
     app.users = new SpeedOMeter({
       name : "USERS",
-      maxVal : 1000,
+      maxVal : 2000,
       container : container
     });
 
     app.lobby = new SpeedOMeter({
       name : "LOBBY",
-      maxVal : 300,
+      maxVal : 500,
       threshold: 1,
       container : container
     });
 
     app.game = new SpeedOMeter({
       name : "GAME",
-      maxVal : 700,
+      maxVal : 1500,
       threshold: 1,
       container : container
     });
 
     app.dbMemory = new SpeedOMeter({
       name : "DB MEMORY",
-      maxVal : 4000,
+      maxVal : 4096,
       threshold: 0.8,
       container : container
     });
 
     app.dbConn = new SpeedOMeter({
       name : "DB CONN",
-      maxVal : 300,
+      maxVal : 100,
       threshold: 0.8,
       container : container
     });
 
     app.dbQps = new SpeedOMeter({
       name : "DB QPS",
-      maxVal : 500,
+      maxVal : 1000,
       threshold: 0.8,
       container : container
     });
@@ -165,7 +165,7 @@
 
     app.mps = new SpeedOMeter({
       name : "MOVES",
-      maxVal : 30,
+      maxVal : 100,
       container : container
     });
 
