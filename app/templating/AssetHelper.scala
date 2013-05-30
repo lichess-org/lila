@@ -1,13 +1,13 @@
 package lila.app
 package templating
 
-import controllers.routes
-
 import play.api.templates.Html
+
+import controllers.routes
 
 trait AssetHelper {
 
-   val assetVersion = 6
+  val assetVersion = 7
 
   def cssTag(name: String) = css("stylesheets/" + name)
 
@@ -15,7 +15,7 @@ trait AssetHelper {
 
   private def css(path: String) = Html {
     """<link href="%s?v=%d" type="text/css" rel="stylesheet"/>"""
-    .format(routes.Assets.at(path), assetVersion)
+      .format(routes.Assets.at(path), assetVersion)
   }
 
   def jsTag(name: String) = js("javascripts/" + name)
