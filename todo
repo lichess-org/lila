@@ -65,11 +65,9 @@ correspondance chess http://en.lichess.org/forum/lichess-feedback/correspondence
 takeback/enpassant glitch http://en.lichess.org/forum/lichess-feedback/i-found-a-glitch#1 
 show teams in user mini
 badges for top players in ELO and number of games
-top menu is too long in french with long username
-at least locally, the forum search user:mephostophilis returns no result
+the forum search user:mephostophilis returns no result
 check team average elo http://en.lichess.org/inbox/benuegti#bottom
 if game ends during move -> bug
-search bug http://fr.lichess.org/forum/search?text=user:aybabtu
 LilaError['[analysis] fred65 already analyses ueogn4fr, won't process ueogn4fr']
 
 ---
