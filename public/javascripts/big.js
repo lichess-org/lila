@@ -35,7 +35,6 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     self.version = version;
     self.options = self.settings.options;
     self.ws = null;
-    self.fullUrl = null;
     self.pingSchedule = null;
     self.connectSchedule = null;
     self.lastPingTime = self.now();
@@ -51,40 +50,44 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     connect: function() {
       var self = this;
       self.destroy();
-      self.fullUrl = "ws://" + self.baseUrl() + self.url + "?" + $.param($.extend(self.settings.params, {
+      var fullUrl = "ws://" + self.baseUrl() + self.url + "?" + $.param($.extend(self.settings.params, {
         version: self.version
       }));
-      self.debug("connection attempt to " + self.fullUrl);
-      if (window.MozWebSocket) self.ws = new MozWebSocket(self.fullUrl);
-      else if (window.WebSocket) self.ws = new WebSocket(self.fullUrl);
-      else throw "no websockets found on this browser!";
+      self.debug("connection attempt to " + fullUrl);
+      try {
+        if (window.MozWebSocket) self.ws = new MozWebSocket(fullUrl);
+        else if (window.WebSocket) self.ws = new WebSocket(fullUrl);
+        else throw "[lila] no websockets found on this browser!";
 
-      self.ws.onerror = function(e) {
+        self.ws.onerror = function(e) {
+          self.onError(e);
+        }
+        self.ws.onopen = function() {
+          self.debug("connected to " + fullUrl);
+          self.onSuccess();
+          $('body').removeClass('offline');
+          self.pingNow();
+          $('body').trigger('socket.open');
+          if ($('#user_tag').length) setTimeout(function() {
+              self.send("following_onlines");
+            }, 500);
+        };
+        self.ws.onmessage = function(e) {
+          var m = JSON.parse(e.data);
+          if (m.t == "n") {
+            self.pong();
+          } else self.debug(m);
+          if (m.t == "b") {
+            $(m.d || []).each(function() {
+              self.handle(this);
+            });
+          } else {
+            self.handle(m);
+          }
+        };
+      } catch (e) {
         self.onError(e);
       }
-      self.ws.onopen = function() {
-        self.debug("connected to " + self.fullUrl);
-        self.onSuccess();
-        $('body').removeClass('offline');
-        self.pingNow();
-        $('body').trigger('socket.open');
-        if ($('#user_tag').length) setTimeout(function() {
-          self.send("following_onlines");
-        }, 500);
-      };
-      self.ws.onmessage = function(e) {
-        var m = JSON.parse(e.data);
-        if (m.t == "n") {
-          self.pong();
-        } else self.debug(m);
-        if (m.t == "b") {
-          $(m.d || []).each(function() {
-            self.handle(this);
-          });
-        } else {
-          self.handle(m);
-        }
-      };
       self.scheduleConnect(self.options.pingMaxLag);
     },
     send: function(t, d) {
@@ -174,7 +177,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       return new Date().getTime();
     },
     debug: function(msg) {
-      if (this.options.debug && window.console && console.log) console.log("[" + this.options.name + "]", msg);
+      if (this.options.debug && window.console && console.debug) console.debug("[" + this.options.name + "]", msg);
     },
     destroy: function() {
       clearTimeout(this.pingSchedule);
@@ -185,6 +188,8 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       }
     },
     onError: function(e) {
+      this.options.debug = true;
+      this.debug(e);
       this.baseUrlFail();
       setTimeout(function() {
         if (!$.cookie("wsok") && $("#websocket-fail").length == 0) {
@@ -284,8 +289,8 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     },
     onProduction: /.+\.lichess\.org/.test(document.domain)
   };
-  // lichess.socketDefaults.options.debug = !lichess.onProduction;
-  lichess.socketDefaults.options.debug = true;
+  lichess.socketDefaults.options.debug = !lichess.onProduction;
+  // lichess.socketDefaults.options.debug = true;
 
   $(function() {
 
@@ -1935,7 +1940,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         $(this).append(html);
         var len = $(this).children().length;
         if (len > 50) {
-          $(this).find('tr:lt('+(len - 10)+')').remove();
+          $(this).find('tr:lt(' + (len - 10) + ')').remove();
         }
       }).end().scrollTop(999999);
       $('body').trigger('lichess.content_loaded');
