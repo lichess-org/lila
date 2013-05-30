@@ -86,6 +86,8 @@ moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
     </div>
     @ctx.me.map { me =>
     <div class="notifications">@notifications(me)</div>
+    }.getOrElse {
+    <div class="notifications"></div>
     }
     <div class="content">
       <div class="header">
