@@ -152,6 +152,7 @@ takebackPropositionCanceled=Propuesta de deshacer cancelada
 yourOpponentProposesATakeback=Tu oponente propone deshacer la jugada
 bookmarkThisGame=Marcar este juego
 toggleBackground=Herramienta de color de fondo
+search=Buscar
 advancedSearch=Búsqueda avanzada
 tournament=Torneo
 tournamentPoints=Puntos de torneo
