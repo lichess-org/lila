@@ -68,7 +68,6 @@ object Event {
         case (o, d) ⇒ o.key -> JsString(d map (_.key) mkString)
       } toList)
     override def only = Some(color)
-    override def owner = true
   }
 
   case class Enpassant(killed: Pos) extends Event {
