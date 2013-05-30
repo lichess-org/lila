@@ -1,8 +1,7 @@
 @(game: Game)(implicit ctx: Context)
 
-<a class="continue_from_here" title="@trans.continueFromHere()">@game.fenString</a>
+<a class="continue_from_here">@trans.continueFromHere()</a>
 <span class="opponent_choice">
-  @trans.continueFromHere() :
   <a href="@routes.Lobby.home?fen=@game.fenString#ai">@trans.playWithTheMachine()</a> |
   <a href="@routes.Lobby.home?fen=@game.fenString#friend">@trans.playWithAFriend()</a>
 </span>
