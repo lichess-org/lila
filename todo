@@ -71,6 +71,7 @@ check team average elo http://en.lichess.org/inbox/benuegti#bottom
 if game ends during move -> bug
 search bug http://fr.lichess.org/forum/search?text=user:aybabtu
 LilaError['[analysis] fred65 already analyses ueogn4fr, won't process ueogn4fr']
+recent posts should use post redirect
 
 ---
 
