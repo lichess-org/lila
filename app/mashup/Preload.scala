@@ -9,7 +9,7 @@ import play.api.mvc.Call
 import controllers.routes
 import lila.forum.PostLiteView
 import lila.game.{ Game, GameRepo, Featured }
-import lila.lobby.actorApi.lobby._
+import lila.lobby.actorApi.{ GetOpen, GetOpenCasual }
 import lila.lobby.{ Hook, HookRepo }
 import lila.setup.FilterConfig
 import lila.socket.History

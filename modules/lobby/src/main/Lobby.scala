@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 
-import actorApi._, lobby._
+import actorApi._
 import lila.db.api._
 import lila.hub.actorApi.GetUids
 import lila.memo.ExpireSetMemo
