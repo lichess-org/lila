@@ -12,6 +12,7 @@ final class Env(
   val CliUsername = config getString "cli.username"
 
   object Net {
+    val Port = config getInt "http.port"
     val Domain = config getString "net.domain"
     val Protocol = config getString "net.protocol"
     val BaseUrl = config getString "net.base_url"
