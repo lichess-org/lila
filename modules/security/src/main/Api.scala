@@ -20,7 +20,7 @@ private[security] final class Api(firewall: Firewall) {
 
   def saveAuthentication(username: String)(implicit req: RequestHeader): Fu[String] = {
     val sessionId = Random nextString 12 
-    Store.save(sessionId, username, req) inject sessionId
+    Store.save(sessionId, username.toLowerCase, req) inject sessionId
   }
 
   // blocking function, required by Play2 form
@@ -30,8 +30,8 @@ private[security] final class Api(firewall: Firewall) {
   def restoreUser(req: RequestHeader): Fu[Option[User]] =
     firewall accepts req flatMap { 
       _ ?? {
-        req.session.get("sessionId").fold(fuccess(none[User])) { sessionId ⇒
-          Store userId sessionId flatMap { _.??(UserRepo.named) }
+        req.session.get("sessionId") ?? { sessionId ⇒
+          Store userId sessionId flatMap { _ ?? UserRepo.byId }
         }
       }
     }
