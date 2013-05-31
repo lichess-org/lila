@@ -10,7 +10,7 @@ Server: freenode<br />
 Channels: <br />
 <ul class="channels">
   @myIrcChannels(teams).map { chan =>
-  <li>#@chan</li>
+  <li><a href="irc://irc.freenode.net/@chan">#@chan</a></li>
   }
 </ul>
 <br />
