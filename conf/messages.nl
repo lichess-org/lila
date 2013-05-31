@@ -152,6 +152,7 @@ takebackPropositionCanceled=Voorstel voor terug nemen geannuleerd
 yourOpponentProposesATakeback=Uw tegenstander stelt terug nemen voor
 bookmarkThisGame=Voeg deze partij toe aan bladwijzers
 toggleBackground=Achtergrondkleur omwisselen
+search=Zoek
 advancedSearch=Geavanceerd zoeken
 tournament=Toernooi
 tournamentPoints=Toernament punten
