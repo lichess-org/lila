@@ -152,6 +152,7 @@ takebackPropositionCanceled=Propozycja cofnięcia ruchu anulowana
 yourOpponentProposesATakeback=Przeciwnik proponuje cofnięcie ruchu
 bookmarkThisGame=Dodaj zakładkę do tej gry
 toggleBackground=Zmień kolor tła
+search=Szukaj
 advancedSearch=Wyszukiwanie zaawansowane
 tournament=Turniej
 tournamentPoints=Punkty Turniejowe
