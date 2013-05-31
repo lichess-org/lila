@@ -22,17 +22,17 @@ if [ "$1" = "set" ]; then
 elif [ "$1" = "fetch" ]; then
   printf "Fetch from version %s\n" $version
   bin/cli i18n fetch $(echo $version)
-elif [ "$1" = "show" ]; then
+elif [ "$1" = "s" ]; then
   show
-elif [ "$1" = "apply" ]; then
+elif [ "$1" = "a" ]; then
   printf "Apply translation %s\n" $version
   git cherry-pick t/$(echo $version)
   next
   show
-elif [ "$1" = "next" ]; then
+elif [ "$1" = "n" ]; then
   next
   show
-elif [ "$1" = "commit" ]; then
+elif [ "$1" = "c" ]; then
   printf "Commit resolved conflict\n"
   (( prevVersion = version -1 ))
   git clean -f
