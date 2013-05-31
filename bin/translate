@@ -27,7 +27,10 @@ elif [ "$1" = "s" ]; then
 elif [ "$1" = "a" ]; then
   printf "Apply translation %s\n" $version
   git cherry-pick t/$(echo $version)
-  if [ $? = 0 ]; then
+  returncode=$?
+  if [ $returncode = 1 ]; then
+    git mergetool
+  elif [ $returncode = 0 ]; then
     next
     show
   fi
