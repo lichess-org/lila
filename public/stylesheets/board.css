@@ -541,8 +541,8 @@ div.lichess_chat .lichess_messages {
   border-top: none;
   overflow: hidden;
 }
-div.lichess_chat:hover .lichess_messages {
-  overflow: auto;
+div.lichess_chat .lichess_messages:hover {
+  overflow-y: auto;
 }
 
 div.lichess_chat form {
