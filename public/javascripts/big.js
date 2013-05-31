@@ -1355,7 +1355,8 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       self.$msgs = self.element.find('.lichess_messages');
       if (this.options.resize) {
         var headerHeight = self.element.parent().height();
-        self.element.css("top", headerHeight + 13);
+        self.element.css("top", headerHeight + 13)
+          .find('.lichess_messages').css('height', 459 - headerHeight);
         self.$msgs.scrollTop(999999);
       }
       var $form = self.element.find('form');
@@ -2086,6 +2087,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     var $watchers = $("div.watchers").watchers();
 
     var $chat = $("div.lichess_chat").chat({
+      resize: true,
       render: function(u, t) {
         return '<li><span>' + $.userLinkLimit(u, 14) + '</span>' + urlToLink(t) + '</li>';
       }

@@ -5,7 +5,7 @@
 <div class="lichess_goodies">
   <div class="box">
     @game.metadata.flatMap(_.pgnDate).map { date =>
-    PGN Import @date
+    PGN Import - @date
     @game.metadata.flatMap(_.pgnUser).map { user =>
     <br />
     @userIdLink(user.some)
@@ -16,8 +16,9 @@
     } else {
     @game.updatedAt.map(timeago)
     }
+    <br />
     }
-    <br /><br />
+    <br />
     @tour.map { t =>
     @tournament.linkTo(t)
     <br /><br />

@@ -68,6 +68,8 @@ the forum search user:mephostophilis returns no result
 check team average elo http://en.lichess.org/inbox/benuegti#bottom
 if game ends during move -> bug
 LilaError['[analysis] fred65 already analyses ueogn4fr, won't process ueogn4fr']
+promote game importer in #chess
+remove fen view in analysis mode (replace with continue from here)
 
 ---
 
