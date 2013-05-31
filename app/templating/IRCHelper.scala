@@ -19,8 +19,9 @@ trait IRCHelper { self: TeamHelper with SecurityHelper with I18nHelper ⇒
   def myIrcChannels(teams: List[Team])(implicit ctx: Context): List[String] =
     teamChans(teams) ::: staffChans ::: langChans
 
-  private def teamChans(teams: List[Team]) = 
-    teams filter (_.irc) map ("lichess-team-" + _)
+  private def teamChans(teams: List[Team]) = teams.map(teamIrcChan).flatten
+
+  def teamIrcChan(team: Team) = team.irc option "lichess-team-" + team.id
 
   private def staffChans(implicit ctx: Context) =
     isGranted(_.StaffForum) ?? List("lichess-staff")

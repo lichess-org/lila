@@ -31,6 +31,7 @@ object Team {
     location: Option[String],
     description: String,
     open: Boolean,
+    irc: Boolean,
     createdBy: User): Team = new Team(
     id = nameToId(name),
     name = name,
