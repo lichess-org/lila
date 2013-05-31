@@ -46,9 +46,9 @@ youAreViewingThisGameAsASpectator=Estás viendo esta partida como espectador
 replayAndAnalyse=Repetición y análisis
 computerAnalysisInProgress=Análisis de computadora en progreso
 theComputerAnalysisYouRequestedIsNowAvailable=El análisis de computadora que requeriste está listo
-theComputerAnalysisHasFailed=El análisis de computadora ha fracasado
-viewTheComputerAnalysis=Ver el análisis de computadora
-requestAComputerAnalysis=Pedir un análisis de computadora
+theComputerAnalysisHasFailed=El análisis de la computadora ha frallado
+viewTheComputerAnalysis=Ver el análisis de la computadora
+requestAComputerAnalysis=Pedir un análisis de la computadora
 blunders=Despistes
 mistakes=Errores
 inaccuracies=Imprecisiones
@@ -151,7 +151,11 @@ takebackPropositionAccepted=Propuesta de deshacer aceptada
 takebackPropositionCanceled=Propuesta de deshacer cancelada
 yourOpponentProposesATakeback=Tu oponente propone deshacer la jugada
 bookmarkThisGame=Marcar este juego
+<<<<<<< HEAD
 toggleBackground=Cambiar color de fondo
+=======
+toggleBackground=Herramienta de color de fondo
+>>>>>>> 96de6d0... es "español, castellano" translation #2286. Author: Anonymous. 
 search=Buscar
 advancedSearch=Búsqueda avanzada
 tournament=Torneo
