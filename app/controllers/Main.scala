@@ -38,4 +38,10 @@ object Main extends LilaController {
       Ok(views.html.site.developers())
     }
   }
+
+  def irc = Open { implicit ctx =>
+    fuccess {
+      Ok(views.html.site.irc())
+    }
+  }
 }

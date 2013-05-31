@@ -180,6 +180,7 @@ GET   /monitor/status                  controllers.Monitor.status
 POST  /cli                             controllers.Cli.command
 GET   /captcha/$id<[\w]{8}>            controllers.Main.captchaCheck(id: String)
 GET   /developers                      controllers.Main.developers
+GET   /irc                             controllers.Main.irc
 
 # Assets
 GET   /assets/*file                    controllers.Assets.at(path="/public", file)
