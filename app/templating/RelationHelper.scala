@@ -27,4 +27,10 @@ trait RelationHelper {
       )
     }
   }.await
+
+  def nbFollowers(userId: String) =
+    Env.relation.api.nbFollowers(userId).await
+
+  def nbFollowing(userId: String) =
+    Env.relation.api.nbFollowing(userId).await
 }
