@@ -8,7 +8,6 @@ untranslated = https://github.com/ornicar/lila/issues/4 http://en.lichess.org/fo
 analyse: show main line for every move http://en.lichess.org/forum/lichess-feedback/about-the-analysis-feature#5
 try to show last analysis cp on graph (move 26) http://en.lichess.org/analyse/bwxnx0al
 elo range must contain player elo
-complete analysis movetimes with tsinnema - requires ms movetimes and db migration
 localize elo chart dates (oh, and all dates. ask for user timezone or guess it)
 index game positions
 elo stats (branch elostats)
@@ -46,10 +45,7 @@ kid mode (on subdomain?) or start-from-scratch mode (connect to DB depending on 
 explain point of importing games
 captcha highlight opponent king
 lightning/blitz/standard/untimed ratings http://www.freechess.org/Help/HelpFiles/blitz.html
-forum posts on user page http://en.lichess.org/forum/lichess-feedback/list-forum-posts-in-user-account#1
-better admin tools for team forums http://en.lichess.org/inbox/r8scbx64
 optional email http://en.lichess.org/forum/lichess-feedback/secret-question----password-recovery
-answer http://en.lichess.org/forum/lichess-feedback/expanded-chat-functionality-perhaps
 chess variants https://github.com/ornicar/lila/issues/2://github.com/ornicar/lila/issues/25 
 stream game export
 from MoralIntentions email:
@@ -67,8 +63,7 @@ the forum search user:mephostophilis returns no result
 check team average elo http://en.lichess.org/inbox/benuegti#bottom
 if game ends during move -> bug
 LilaError['[analysis] fred65 already analyses ueogn4fr, won't process ueogn4fr']
-promote game importer in #chess
-publish scalastic 0.90.0-thib https://github.com/ornicar/lila/issues/27
+no spectators http://en.lichess.org//biadradmmkbq 
 
 ---
 

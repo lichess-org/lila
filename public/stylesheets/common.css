@@ -139,6 +139,9 @@ div.footer div.right {
   text-decoration: none;
   cursor: pointer;
 }
+.button .s16 {
+  height: 16px;
+}
 a.easy_button {
   font-weight: normal;
 }
@@ -634,6 +637,12 @@ span.s16.clock {
 }
 .s16.download {
   background-position: 0 -416px;
+}
+.s16.tup {
+  background-position: 0 -432px;
+}
+.s16.tdown {
+  background-position: 0 -448px;
 }
 .user_link.white, .user_link.black, .user_link.online, .user_link.offline {
   line-height: 16px;
