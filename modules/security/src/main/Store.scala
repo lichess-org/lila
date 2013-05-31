@@ -17,7 +17,7 @@ object Store {
 
   type IP = String
 
-  def save(sessionId: String, userId: String, req: RequestHeader): Funit =
+  private[security] def save(sessionId: String, userId: String, req: RequestHeader): Funit =
     $insert(Json.obj(
       "_id" -> sessionId,
       "user" -> userId,
