@@ -9,7 +9,12 @@ You can login here,<br />
 or use your own <a href="http://www.wikihow.com/Get-Started-with-IRC-(Internet-Relay-Chat)">IRC client</a>.<br />
 <br />
 Server: freenode<br />
-Channel: #lichess
+Channels: <br />
+<ul class="channels">
+  @myIrcChannels.map { chan =>
+  <li>#@chan</li>
+  }
+</ul>
 }
 
 @site.layout(
@@ -19,6 +24,6 @@ moreCss = cssTag("irc.css")) {
 
 <div class="content_box irc_box">
   <h1 class="lichess_title">@title</h1>
-  <iframe src="http://webchat.freenode.net?nick=@ctx.username.getOrElse("Anon-.")&channels=lichess,@{lang.language}.lichess&prompt=1&uio=OT10cnVlde"></iframe>
+  <iframe src="@myIrcUrl"></iframe>
 </div>
 }

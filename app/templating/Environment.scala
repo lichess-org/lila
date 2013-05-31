@@ -33,7 +33,8 @@ object Environment
     with TeamHelper
     with AnalysisHelper
     with RelationHelper
-    with TournamentHelper {
+    with TournamentHelper 
+    with IRCHelper {
 
   implicit val LilaHtmlZero = new Zero[Html] {
     val zero = Html("")
