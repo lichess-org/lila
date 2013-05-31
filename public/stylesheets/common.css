@@ -863,9 +863,16 @@ div.game_extra div.bookmarkers {
   padding-left: 0;
   display: inline-block;
 }
+#timeline .links {
+  width: 100%;
+}
 #timeline a.more {
   display: block;
-  text-align: center;
+  float: right;
+}
+#timeline a.chat {
+  display: block;
+  float: left;
 }
 span.bookmark {
   position: relative;
