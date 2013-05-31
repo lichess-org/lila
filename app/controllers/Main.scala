@@ -26,12 +26,12 @@ object Main extends LilaController {
     }
   }
 
-  // def embed = Open { implicit ctx ⇒
-  //   JsOk("""document.write("<iframe src='%s?embed=" + document.domain + "' class='lichess-iframe' allowtransparency='true' frameBorder='0' style='width: %dpx; height: %dpx;' title='Lichess free online chess'></iframe>");"""
-  //     .format(env.settings.NetBaseUrl, getInt("w") | 820, getInt("h") | 650),
-  //     CACHE_CONTROL -> "max-age=86400"
-  //   )
-  // }
+  def embed = Action { req ⇒
+    Ok {
+      """document.write("<iframe src='%s?embed=" + document.domain + "' class='lichess-iframe' allowtransparency='true' frameBorder='0' style='width: %dpx; height: %dpx;' title='Lichess free online chess'></iframe>");"""
+        .format(Env.api.Net.BaseUrl, getInt("w", req) | 820, getInt("h", req) | 650)
+    } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
+  }
 
   def developers = Open { implicit ctx ⇒
     fuccess {
