@@ -2,6 +2,6 @@
 
 <a class="continue_from_here">@trans.continueFromHere()</a>
 <span class="opponent_choice">
-  <a href="@routes.Round.continue(game.id, "ai")">@trans.playWithTheMachine()</a> |
-  <a href="@routes.Round.continue(game.id, "friend")">@trans.playWithAFriend()</a>
+  <a href="@routes.Round.continue(game.id, "ai")?fen=">@trans.playWithTheMachine()</a> |
+  <a href="@routes.Round.continue(game.id, "friend")?fen=">@trans.playWithAFriend()</a>
 </span>

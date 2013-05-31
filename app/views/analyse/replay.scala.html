@@ -77,12 +77,12 @@ moreJs = moreJs) {
 }
 @analyse.link(pov)
 @views.html.game.more(pov, bookmarkers) {
-@round.continueFromHere(pov.game)
-<br />
 @trans.opening(): @opening.map { o =>
 <a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a>
 }.getOrElse { "Unknown" }
 <nav>
+@round.continueFromHere(pov.game)
+<br />
 @if(ctx.isAuth && game.finished && analysis.isEmpty) {
 <form class="request_analysis" action="@routes.Analyse.computer(gameId, color.name)" method="post">
   <a>@trans.requestAComputerAnalysis()</a>

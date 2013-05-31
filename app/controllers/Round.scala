@@ -118,7 +118,7 @@ object Round extends LilaController with TheftPrevention {
     OptionResult(GameRepo game id) { game ⇒
       Redirect("%s?fen=%s#%s".format(
         routes.Lobby.home(),
-        chess.format.Forsyth >> game.toChess,
+        get("fen") | (chess.format.Forsyth >> game.toChess),
         mode))
     }
   }

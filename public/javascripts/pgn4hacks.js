@@ -1,11 +1,12 @@
 // these functions must remain on root namespace 
+
 function customFunctionOnPgnGameLoad() {
   var $text = $('#ShowPgnText');
   var html = '<table><tbody><tr>';
   $text.find('span.move, span.variation').remove();
   $text.find('>a').each(function(it) {
-    if (0 == it%2) {
-      html += '</tr><tr><th>' + (it/2+1) + '</th>';
+    if (0 == it % 2) {
+      html += '</tr><tr><th>' + (it / 2 + 1) + '</th>';
     }
     html += '<td>' + this.outerHTML + '</td>';
   });
@@ -26,13 +27,16 @@ function customFunctionOnPgnGameLoad() {
 
 function posToSquareId(pos) {
   if (pos.length != 2) return;
-  var x = "abcdefgh".indexOf(pos[0]), y = 8 - parseInt(pos[1]);
+  var x = "abcdefgh".indexOf(pos[0]),
+    y = 8 - parseInt(pos[1]);
   return "img_tcol" + x + "trow" + y;
 }
 
 function customFunctionOnMove() {
   var $comment = $('#GameLastComment');
-  var moves = $comment.find('.commentMove').map(function() { return $(this).text(); });
+  var moves = $comment.find('.commentMove').map(function() {
+    return $(this).text();
+  });
   var ids = $.map(moves, posToSquareId);
   $("#GameBoard img.bestmove").removeClass("bestmove");
   $.each(ids, function() {
@@ -44,7 +48,11 @@ function customFunctionOnMove() {
   if (chart) {
     try {
       var index = CurrentPly - 1;
-      chart.setSelection([{ row: index, column: 1}]);
+      chart.setSelection([{
+          row: index,
+          column: 1
+        }
+      ]);
       var rows = $chart.data('rows');
       $comment.prepend($("<p>").html("White advantage: <strong>" + rows[index][1] + "</strong>"));
     } catch (e) {}
@@ -62,9 +70,8 @@ function customFunctionOnMove() {
     }
   }
   var fen = CurrentFEN();
-  $('div.undergame_box .continue_from_here').text(fen)
-    .parent().find('.opponent_choice a').each(function() {
-    $(this).attr('href', $(this).attr('href').replace(/fen=.+\#/, "fen=" + fen + "#"));
+  $('div.undergame_box .opponent_choice a').each(function() {
+    $(this).attr('href', $(this).attr('href').replace(/fen=.*$/, "fen=" + fen));
   });
 }
 
