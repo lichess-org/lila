@@ -168,9 +168,9 @@ POST  /inbox/$id<[\w]{8}>/delete       controllers.Message.delete(id: String)
 # Notification
 DELETE /notification/$id<[\w]{8}>      controllers.Notification.remove(id)
 
-# Import
-GET   /import                          controllers.Importer.importGame
-POST  /import                          controllers.Importer.sendGame
+# Paste
+GET   /paste                           controllers.Importer.importGame
+POST  /paste                           controllers.Importer.sendGame
  
 # Monitor
 GET   /monitor                         controllers.Monitor.index

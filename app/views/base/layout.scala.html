@@ -135,7 +135,9 @@ moreJs: Html = Html(""))(body: Html)(implicit ctx: Context)
       <div class="content list"></div>
       <div class="nobody">
         <span>@trans.noFriendsOnline()</span>
-        <a class="find button" href="@routes.User.opponents(me.username)">@trans.findFriends()</a>
+        <a class="find button" href="@routes.User.opponents(me.username)">
+          <span class="s16 tup">@trans.findFriends()</span>
+        </a>
       </div>
     </div>
     }
