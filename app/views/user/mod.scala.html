@@ -52,7 +52,7 @@
   }
   <div class="listings clearfix">
     <div style="float: left; width: 22%;">
-      <strong>@spy.ips.size IP addresse(s):</strong> <ul>@spy.ips.sorted.map { ip =>
+      <strong>@spy.ips.size IP addresses:</strong> <ul>@spy.ips.sorted.map { ip =>
         <li@{ip._2.??(Html(" class='blocked'"))}>@ip._1</li>
         }</ul>
     </div>
