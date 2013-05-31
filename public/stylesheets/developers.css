@@ -1,12 +1,10 @@
-div.developers p {
+div.irc_box p {
   font-size: 1.2em;
   line-height: 1.7em;
 }
 
-div.developers pre {
-  font-size: 1.2em;
-  font: monospace;
-  margin: 3em 0;
-  display; block;
-  overflow: visible;
+div.irc_box iframe {
+  width: 100%;
+  height: 500px;
+  border: none;
 }
