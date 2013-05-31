@@ -2,7 +2,6 @@
 
 <a class="continue_from_here">@trans.continueFromHere()</a>
 <span class="opponent_choice">
-  <a href="@routes.Lobby.home?fen=@game.fenString#ai">@trans.playWithTheMachine()</a> |
-  <a href="@routes.Lobby.home?fen=@game.fenString#friend">@trans.playWithAFriend()</a>
+  <a href="@routes.Round.continue(game.id, "ai")">@trans.playWithTheMachine()</a> |
+  <a href="@routes.Round.continue(game.id, "friend")">@trans.playWithAFriend()</a>
 </span>
-<br />

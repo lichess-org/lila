@@ -55,6 +55,7 @@ underchat = underchat.some) {
 <nav>
 @if(game.continuable) {
 @continueFromHere(game)
+<br />
 }
 <a href="@routes.Analyse.replay(gameId, color.name)">@trans.replayAndAnalyse()</a>
 @if(game.pgnImport.isEmpty) {
