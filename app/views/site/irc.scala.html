@@ -1,4 +1,4 @@
-@()(implicit ctx: Context)
+@(teams: List[lila.team.Team])(implicit ctx: Context)
 
 @title = @{ "IRC #lichess channel on freenode" }
 
@@ -11,7 +11,7 @@ or use your own <a href="http://www.wikihow.com/Get-Started-with-IRC-(Internet-R
 Server: freenode<br />
 Channels: <br />
 <ul class="channels">
-  @myIrcChannels.map { chan =>
+  @myIrcChannels(teams).map { chan =>
   <li>#@chan</li>
   }
 </ul>
@@ -24,6 +24,6 @@ moreCss = cssTag("irc.css")) {
 
 <div class="content_box irc_box">
   <h1 class="lichess_title">@title</h1>
-  <iframe src="@myIrcUrl"></iframe>
+  <iframe src="@myIrcUrl(teams)"></iframe>
 </div>
 }
