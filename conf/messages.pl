@@ -1,8 +1,8 @@
-playWithAFriend=Zagraj ze znajomym
+playWithAFriend=Zagraj z przyjacielem
 inviteAFriendToPlayWithYou=Zaproś przyjaciela do gry
 playWithTheMachine=Zagraj z komputerem
 challengeTheArtificialIntelligence=Staw czoła sztucznej inteligencji
-toInviteSomeoneToPlayGiveThisUrl=Aby zaprosić przyjaciela, daj mu ten adres:
+toInviteSomeoneToPlayGiveThisUrl=Aby zaprosić kogokolwiek do gry, daj mu ten adres:
 gameOver=Koniec gry
 waitingForOpponent=Oczekiwanie na przeciwnika
 waiting=Czekaj
