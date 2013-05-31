@@ -27,8 +27,10 @@ elif [ "$1" = "s" ]; then
 elif [ "$1" = "a" ]; then
   printf "Apply translation %s\n" $version
   git cherry-pick t/$(echo $version)
-  next
-  show
+  if [ $? = 0 ]; then
+    next
+    show
+  fi
 elif [ "$1" = "n" ]; then
   next
   show
