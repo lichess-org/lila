@@ -57,7 +57,6 @@ evenMoreCss = evenMoreCss) {
     <a class="intertab" href="@routes.Relation.followers(u.username)">@splitNumber(trans.nbFollowers(info.nbFollowers))</a>
     <span class="intertab">@splitNumber(u.toints + " " + trans.tournamentPoints())</span>
     <a class="intertab" href="@routes.ForumPost.search("user:" + u.username, 1)">@splitNumber(info.nbPosts + " Forum posts")</a>
-    @if(ctx.isAuth && !ctx.is(u)) {
     <div class="relation_actions">
       @if(isGranted(_.UserSpy)) {
       <a class="icon button mod_zone_toggle" href="@routes.User.mod(u.username)" title="Mod zone">
@@ -69,9 +68,10 @@ evenMoreCss = evenMoreCss) {
           <span class="s16 download"></span>
         </a>
       </form>
+      @if(ctx.isAuth && !ctx.is(u)) {
       @relation.actions(u.id)
+      }
     </div>
-    }
   </div>
   <div class="mod_zone"></div>
   <div class="meat">
