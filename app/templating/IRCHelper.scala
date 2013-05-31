@@ -2,25 +2,25 @@ package lila.app
 package templating
 
 import lila.user.Context
+import lila.team.Team
 
 trait IRCHelper { self: TeamHelper with SecurityHelper with I18nHelper ⇒
 
   private val prompt = "1"
   private val uio = "OT10cnVlde"
 
-  def myIrcUrl(implicit ctx: Context) =
+  def myIrcUrl(teams: List[Team])(implicit ctx: Context) =
     """http://webchat.freenode.net?nick=%s&channels=%s&prompt=%s&uio=%s""".format(
       ctx.username | "Anon-.",
-      myIrcChannels mkString ",",
+      myIrcChannels(teams) mkString ",",
       prompt,
       uio)
 
-  def myIrcChannels(implicit ctx: Context): List[String] =
-    teamChans ::: staffChans ::: langChans
+  def myIrcChannels(teams: List[Team])(implicit ctx: Context): List[String] =
+    teamChans(teams) ::: staffChans ::: langChans
 
-  private def teamChans(implicit ctx: Context) = ctx.userId ?? { userId ⇒
-    teamIds(userId) map { "lichess-team-" + _ }
-  }
+  private def teamChans(teams: List[Team]) = 
+    teams filter (_.irc) map ("lichess-team-" + _)
 
   private def staffChans(implicit ctx: Context) =
     isGranted(_.StaffForum) ?? List("lichess-staff")

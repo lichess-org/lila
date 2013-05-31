@@ -1,16 +1,16 @@
 package controllers
 
+import akka.pattern.ask
+import play.api.data._, Forms._
+import play.api.libs.concurrent.Akka
+import play.api.libs.iteratee._
+import play.api.libs.json._
+import play.api.mvc._, Results._
+
 import lila.app._
 import lila.hub.actorApi.captcha.ValidCaptcha
-import views._
 import makeTimeout.large
-
-import play.api.mvc._, Results._
-import play.api.data._, Forms._
-import play.api.libs.json._
-import play.api.libs.iteratee._
-import play.api.libs.concurrent.Akka
-import akka.pattern.ask
+import views._
 
 object Main extends LilaController {
 
@@ -35,13 +35,13 @@ object Main extends LilaController {
 
   def developers = Open { implicit ctx ⇒
     fuccess {
-      Ok(views.html.site.developers())
+      views.html.site.developers()
     }
   }
 
-  def irc = Open { implicit ctx =>
-    fuccess {
-      Ok(views.html.site.irc())
+  def irc = Open { implicit ctx ⇒
+    ctx.me ?? Env.team.api.mine map {
+      views.html.site.irc(_)
     }
   }
 }
