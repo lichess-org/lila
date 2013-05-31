@@ -19,6 +19,6 @@ moreCss = cssTag("irc.css")) {
 
 <div class="content_box irc_box">
   <h1 class="lichess_title">@title</h1>
-  <iframe src="http://webchat.freenode.net?nick=@ctx.username.getOrElse("Anon-.")&channels=lichess&prompt=1&uio=OT10cnVlde"></iframe>
+  <iframe src="http://webchat.freenode.net?nick=@ctx.username.getOrElse("Anon-.")&channels=lichess,@{lang.language}.lichess&prompt=1&uio=OT10cnVlde"></iframe>
 </div>
 }
