@@ -1,20 +1,20 @@
 package controllers
 
-import lila.app._
-import views._
-import lila.user.{ Context, UserRepo }
-import lila.game.{ Pov, PlayerRef, GameRepo, Game ⇒ GameModel }
-import lila.round.{ RoomRepo, WatcherRoomRepo }
-import lila.round.actorApi.round._
-import lila.hub.actorApi.map.Tell
-import lila.tournament.{ TournamentRepo, Tournament ⇒ Tourney }
-import makeTimeout.large
-
 import akka.pattern.ask
-import play.api.mvc._
-import play.api.libs.json._
 import play.api.libs.iteratee._
+import play.api.libs.json._
+import play.api.mvc._
 import play.api.templates.Html
+
+import lila.app._
+import lila.game.{ Pov, PlayerRef, GameRepo, Game ⇒ GameModel }
+import lila.hub.actorApi.map.Tell
+import lila.round.actorApi.round._
+import lila.round.{ RoomRepo, WatcherRoomRepo }
+import lila.tournament.{ TournamentRepo, Tournament ⇒ Tourney }
+import lila.user.{ Context, UserRepo }
+import makeTimeout.large
+import views._
 
 object Round extends LilaController with TheftPrevention {
 
@@ -112,5 +112,14 @@ object Round extends LilaController with TheftPrevention {
         case player if player.isHuman ⇒ player.color.name -> playerLink(player).body
       } toMap) ++ ctx.me.??(me ⇒ Map("me" -> me.usernameWithElo))
     })
+  }
+
+  def continue(id: String, mode: String) = Open { implicit ctx ⇒
+    OptionResult(GameRepo game id) { game ⇒
+      Redirect("%s?fen=%s#%s".format(
+        routes.Lobby.home(),
+        chess.format.Forsyth >> game.toChess,
+        mode))
+    }
   }
 }

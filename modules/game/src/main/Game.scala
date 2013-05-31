@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 
 import chess.Color._
-import chess.Pos.piotr, chess.Role.forsyth, chess.format.Forsyth
+import chess.Pos.piotr, chess.Role.forsyth
 import chess.{ History ⇒ ChessHistory, Role, Board, Move, Pos, Game ⇒ ChessGame, Clock, Status, Color, Piece, Variant, Mode }
 import lila.user.User
 
@@ -198,8 +198,6 @@ case class Game(
   def playableByAi: Boolean = playable && player.isAi
 
   def continuable = status != Status.Mate && status != Status.Stalemate
-
-  def fenString = Forsyth >> toChess
 
   def aiLevel: Option[Int] = players find (_.isAi) flatMap (_.aiLevel)
 

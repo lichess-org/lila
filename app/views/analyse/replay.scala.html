@@ -78,6 +78,7 @@ moreJs = moreJs) {
 @analyse.link(pov)
 @views.html.game.more(pov, bookmarkers) {
 @round.continueFromHere(pov.game)
+<br />
 @trans.opening(): @opening.map { o =>
 <a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a>
 }.getOrElse { "Unknown" }
