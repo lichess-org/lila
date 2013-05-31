@@ -8,8 +8,9 @@ final class EloUpdater(floor: Int) {
 
   private def adjustTo = User.STARTING_ELO
 
-  def adjust(u: User) =
-    UserRepo.setElo(u.id, adjustTo) >> {
-      (!u.engine && u.elo > adjustTo) ?? HistoryRepo.addEntry(u.id, adjustTo, none)
-    }
+  def adjust(u: User) = (u.elo > adjustTo) ?? {
+    UserRepo.setElo(u.id, adjustTo) >> 
+    HistoryRepo.addEntry(u.id, adjustTo, none)
+  }
+
 }
