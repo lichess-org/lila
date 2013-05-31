@@ -151,11 +151,7 @@ takebackPropositionAccepted=Propuesta de deshacer aceptada
 takebackPropositionCanceled=Propuesta de deshacer cancelada
 yourOpponentProposesATakeback=Tu oponente propone deshacer la jugada
 bookmarkThisGame=Marcar este juego
-<<<<<<< HEAD
 toggleBackground=Cambiar color de fondo
-=======
-toggleBackground=Herramienta de color de fondo
->>>>>>> 96de6d0... es "español, castellano" translation #2286. Author: Anonymous. 
 search=Buscar
 advancedSearch=Búsqueda avanzada
 tournament=Torneo
