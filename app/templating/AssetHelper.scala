@@ -7,7 +7,7 @@ import controllers.routes
 
 trait AssetHelper {
 
-  val assetVersion = 18
+  val assetVersion = 19
 
   def cssTag(name: String) = css("stylesheets/" + name)
 
