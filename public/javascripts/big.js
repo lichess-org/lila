@@ -1901,7 +1901,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       var max = $('#lichess').offset().top + 512;
       var pos = $timeline.offset().top;
       while (pos + $timeline.outerHeight() > max) {
-        $timeline.find('div:last').remove();
+        $timeline.find('div.entry:last').remove();
       }
     }
     resizeTimeline();
