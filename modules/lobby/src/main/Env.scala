@@ -12,6 +12,7 @@ final class Env(
     db: lila.db.Env,
     hub: lila.hub.Env,
     roundMessenger: lila.round.Messenger,
+    blocks: (String, String) ⇒ Fu[Boolean],
     system: ActorSystem,
     scheduler: lila.common.Scheduler) {
 
@@ -53,6 +54,7 @@ final class Env(
 
   private lazy val biter = new Biter(
     timeline = hub.actor.gameTimeline,
+    blocks = blocks,
     roundMessenger = roundMessenger)
 }
 
@@ -63,6 +65,7 @@ object Env {
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     roundMessenger = lila.round.Env.current.messenger,
+    blocks = lila.relation.Env.current.api.blocks,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler)
 }

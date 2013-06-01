@@ -9,6 +9,7 @@ import lila.user.{ User, UserRepo }
 
 private[lobby] final class Biter(
     timeline: lila.hub.ActorLazyRef,
+    blocks: (String, String) ⇒ Fu[Boolean],
     roundMessenger: lila.round.Messenger) {
 
   def apply(hookId: String, userId: Option[String]): Fu[String ⇒ JoinHook] = for {
@@ -55,8 +56,12 @@ private[lobby] final class Biter(
     pgnImport = None)
 
   private def canJoin(hook: Hook, userOption: Option[User]) = hook.open && {
-    hook.realMode.casual || (userOption exists { u ⇒
+    hook.realMode.casual || (userOption ?? { u ⇒
       hook.realEloRange.fold(true)(_ contains u.elo)
     })
+  } && !{
+    userOption ?? { u ⇒
+      hook.userId ?? { blocks(_, u.id).await }
+    }
   }
 }
