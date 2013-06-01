@@ -13,6 +13,7 @@ import tube.relationTube
 final class RelationApi(
     cached: Cached,
     actor: ActorLazyRef,
+    getOnlineUserIds: () ⇒ Set[String],
     timeline: ActorLazyRef) {
 
   def followers(userId: ID) = cached followers userId
@@ -30,6 +31,11 @@ final class RelationApi(
   def blocks(u1: ID, u2: ID) = blocking(u1) map (_ contains u2)
 
   def relation(u1: ID, u2: ID): Fu[Option[Relation]] = cached.relation(u1, u2)
+
+  def onlinePopularUsers(max: Int): Fu[List[User]] =
+    (getOnlineUserIds().toList map { id ⇒
+      nbFollowers(id) map (id -> _)
+    }).sequenceFu map (_ sortBy (-_._2) take max map (_._1)) flatMap UserRepo.byOrderedIds
 
   def follow(u1: ID, u2: ID): Funit =
     if (u1 == u2) fufail("Cannot follow yourself")

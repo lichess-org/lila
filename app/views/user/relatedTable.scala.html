@@ -1,0 +1,28 @@
+@(u: User, sugs: List[(User, Int)])(implicit ctx: Context)
+<table class="slist best_opponents">
+  @if(sugs.size > 0) {
+  <tbody>
+    @sugs.map { sug =>
+    <tr>
+      <td>@userLink(sug._1)</td>
+      <td>@sug._1.elo ELO</td>
+      <td>
+        @if(sug._2 > 0) {
+        <a href="@routes.Game.search()?players.a=@u.username&players.b=@sug._1.username">
+          @trans.nbGamesWithYou(sug._2)
+        </a>
+        }
+      </td>
+      <td><div class="relation_actions">@relation.actions(sug._1.id)</div></td>
+    </tr>
+    }
+  </tbody>
+  } else {
+  <tbody>
+    <tr><td colspan="2">
+        None found.<br />
+    </td></tr>
+  </tbody>
+  }
+</table>
+

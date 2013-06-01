@@ -28,6 +28,8 @@ case class User(
 
   def compare(other: User) = id compare other.id
 
+  def is(other: User) = id == other.id
+
   def noTroll = !troll
 
   def canTeam = true
