@@ -33,19 +33,30 @@ object Relation extends LilaController {
       env.api.unblock(me.id, userId).nevermind inject html.relation.actions(userId)
   }
 
-  def following(userId: String) = Open { implicit ctx ⇒
-    OptionFuOk(UserRepo named userId) { user ⇒
+  def following(username: String) = Open { implicit ctx ⇒
+    OptionFuOk(UserRepo named username) { user ⇒
       env.api.following(user.id) flatMap UserRepo.byIds map { users ⇒
         html.relation.following(user, users.sorted)
       }
     }
   }
 
-  def followers(userId: String) = Open { implicit ctx ⇒
-    OptionFuOk(UserRepo named userId) { user ⇒
+  def followers(username: String) = Open { implicit ctx ⇒
+    OptionFuOk(UserRepo named username) { user ⇒
       env.api.followers(user.id) flatMap UserRepo.byIds map { users ⇒
         html.relation.followers(user, users.sorted)
       }
+    }
+  }
+
+  def suggest(username: String) = Open { implicit ctx ⇒
+    OptionFuOk(UserRepo named username) { user ⇒
+      lila.game.BestOpponents(user.id, 50) zip
+        env.api.onlinePopularUsers(20) map {
+          case (opponents, popular) ⇒ popular.filterNot(user ==).foldLeft(opponents) {
+            case (xs, x) ⇒ xs.exists(_._1 is x).fold(xs, xs :+ (x, 0))
+          } |> { html.relation.suggest(user, _) }
+        }
     }
   }
 }

@@ -324,6 +324,7 @@ div.header div.side_menu a.active {
 body.offline #reconnecting {
   display: inline-block;
   color: red;
+  float: left;
 }
 #nb_connected_players {
   float: left;

@@ -26,16 +26,10 @@ final class Env(
   lazy val api = new RelationApi(
     cached = cached,
     actor = hub.actor.relation,
+    getOnlineUserIds = getOnlineUserIds,
     timeline = hub.actor.timeline)
 
   private lazy val cached = new Cached
-
-  def cli = new lila.common.Cli {
-    def process = {
-      case "follow" :: u1 :: u2 :: Nil ⇒ api.follow(u1, u2) inject "done"
-      case "block" :: u1 :: u2 :: Nil  ⇒ api.block(u1, u2) inject "done"
-    }
-  }
 
   private[relation] val actor = system.actorOf(Props(new RelationActor(
     socketHub = hub.socket.hub,

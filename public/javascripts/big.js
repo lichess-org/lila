@@ -1899,7 +1899,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     }, 120 * 1000);
 
     function resizeTimeline() {
-      var max = $('#lichess').offset().top + 512;
+      var max = $('#lichess').offset().top + 516;
       var pos = $timeline.offset().top;
       while (pos + $timeline.outerHeight() > max) {
         $timeline.find('div.entry:last').remove();

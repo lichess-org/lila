@@ -16,8 +16,14 @@
 <div id="timeline" data-href="@routes.Lobby.timeline">
   @timeline.entries(userTimeline)
   <div class="links clearfix">
+    @ctx.me.map { u =>
     @if(userTimeline.size == 8) {
     <a class="more" href="@routes.Lobby.timelineMore">@trans.more() »</a>
+    } else {
+    <a class="more find button" href="@routes.Relation.suggest(u.username)">
+      <span class="s16 tup">@trans.findFriends()</span>
+    </a>
+    }
     }
     <a class="irc" href="@routes.Main.irc">@trans.chat()</a>
   </div>

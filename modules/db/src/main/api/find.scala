@@ -23,12 +23,12 @@ object $find extends OptionTs {
   def byIds[ID: Writes, A: TubeInColl](ids: Iterable[ID]): Fu[List[A]] = apply($select byIds ids)
   def byIds[A: TubeInColl](ids: Iterable[String]): Fu[List[A]] = byIds[String, A](ids)
 
-  def byOrderedIds[ID: Writes, A <: Identified[ID]: TubeInColl](ids: Seq[ID]): Fu[List[A]] =
+  def byOrderedIds[ID: Writes, A <: Identified[ID]: TubeInColl](ids: Iterable[ID]): Fu[List[A]] =
     byIds(ids) map { docs ⇒
       val docsMap = docs.map(u ⇒ u.id -> u).toMap
       ids.map(docsMap.get).flatten.toList
     }
-  def byOrderedIds[A <: Identified[String]: TubeInColl](ids: Seq[String]): Fu[List[A]] =
+  def byOrderedIds[A <: Identified[String]: TubeInColl](ids: Iterable[String]): Fu[List[A]] =
     byOrderedIds[String, A](ids)
 
   def all[A: TubeInColl]: Fu[List[A]] = apply($select.all)
