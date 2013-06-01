@@ -12,7 +12,7 @@ private[message] final class DataForm(blocks: (String, String) ⇒ Fu[Boolean]) 
   def thread(me: User) = Form(mapping(
     "username" -> nonEmptyText
       .verifying("Unknown username", { fetchUser(_).isDefined })
-      .verifying("This user blocks you", u ⇒ !blocks(u.toLowerCase, me.id).await),
+      .verifying("This user blocks you", canMessage(me) _),
     "subject" -> text(minLength = 3),
     "text" -> text(minLength = 3)
   )({
@@ -22,9 +22,12 @@ private[message] final class DataForm(blocks: (String, String) ⇒ Fu[Boolean]) 
         text = text)
     })(_.export.some))
 
-  val post = Form(single(
+  def post = Form(single(
     "text" -> text(minLength = 3)
   ))
+
+  private def canMessage(me: User)(destUsername: String): Boolean =
+    !blocks(destUsername.toLowerCase, me.id).await
 
   private def fetchUser(username: String) = (UserRepo named username).await
 }

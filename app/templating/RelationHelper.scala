@@ -19,6 +19,9 @@ trait RelationHelper {
   def followsMe(userId: String)(implicit ctx: Context): Boolean =
     ctx.userId ?? { api.follows(userId, _).await }
 
+  def blocks(u1: String, u2: String): Boolean = 
+    api.blocks(u1, u2).await
+
   def onlineFriends(userId: String): JsObject = {
     Env.hub.actor.relation ? GetOnlineFriends(userId) map {
       case OnlineFriends(usernames, nb) ⇒ Json.obj(

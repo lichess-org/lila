@@ -24,6 +24,9 @@ title = thread.name) {
 
 @if(thread.creatorId != "lichess") {
 <div class="answer" id="bottom">
+  @if(blocks(thread.otherUserId(me), me.id)) {
+  <p>This user blocks you. You cannot answer.</p>
+  } else {
   <form action="@routes.Message.answer(thread.id)" method="post">
     <div class="field_body">
       <textarea required="required" name="@form("text").name" id="@form("text").id">@form("text").value</textarea>
@@ -34,6 +37,7 @@ title = thread.name) {
       <a class="cancel" href="@routes.Message.inbox(1)">@trans.cancel()</a>
     </div>
   </form>
+  }
 </div>
 }
 }
