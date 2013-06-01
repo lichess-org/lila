@@ -1963,7 +1963,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     }
 
     function removeHook(id) {
-      $("#" + id).find('td.action').addClass('empty').html("").end().fadeOut(500, function() {
+      $("#" + id).find('td.action').addClass('empty').html("").end().fadeOut(800, function() {
         $(this).remove();
         updateHookTable();
       });
@@ -1971,7 +1971,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
     function addHooks(hooks) {
       var html = "";
-      for (i in hooks) html += $hooksTable.append(renderHook(hooks[i]));
+      for (i in hooks) html += $hooksTable.find('tbody').append(renderHook(hooks[i]));
       updateHookTable();
     }
 
