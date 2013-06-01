@@ -16,3 +16,18 @@ object LilaException extends scalalib.Validation {
 
   def apply(msg: Failures): LilaException = apply(msg.shows)
 }
+
+trait ValidException extends LilaException {
+  val message: String
+
+  override def getMessage: String = "LilaValid['" + message + "']"
+}
+
+object ValidException extends scalalib.Validation {
+
+  def apply(msg: String): ValidException = new ValidException {
+    val message = msg
+  }
+
+  def apply(msg: Failures): ValidException = apply(msg.shows)
+}

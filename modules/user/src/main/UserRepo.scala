@@ -76,7 +76,7 @@ object UserRepo {
     $update($select(id), $set(("settings." + key) -> value))
 
   def getSetting(id: ID, key: String): Fu[Option[String]] =
-    $primitive.one($select(id), "settings") { 
+    $primitive.one($select(id), "settings") {
       _.asOpt[Map[String, String]] flatMap (_ get key)
     }
 
@@ -104,12 +104,14 @@ object UserRepo {
       _ ?? (data ⇒ data.enabled && data.compare(password))
     }
 
-  def create(username: String, password: String): Fu[Option[User]] = for {
-    exists ← $count exists normalize(username)
-    userOption ← !exists ?? {
-      $insert(newUser(username, password)) >> named(normalize(username))
+  def create(username: String, password: String): Fu[Option[User]] =
+    !nameExists(username) flatMap {
+      _ ?? {
+        $insert(newUser(username, password)) >> named(normalize(username))
+      }
     }
-  } yield userOption
+
+  def nameExists(username: String): Fu[Boolean] = $count exists normalize(username)
 
   def usernamesLike(username: String, max: Int = 10): Fu[List[String]] = {
     import java.util.regex.Matcher.quoteReplacement

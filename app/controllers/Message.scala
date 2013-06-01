@@ -40,14 +40,14 @@ object Message extends LilaController {
   def form = Auth { implicit ctx ⇒
     implicit me ⇒
       get("username") ?? UserRepo.named map { user ⇒
-        Ok(html.message.form(forms.thread, user))
+        Ok(html.message.form(forms.thread(me), user))
       }
   }
 
   def create = AuthBody { implicit ctx ⇒
     implicit me ⇒
       implicit val req = ctx.body
-      forms.thread.bindFromRequest.fold(
+      forms.thread(me).bindFromRequest.fold(
         err ⇒ get("username") ?? UserRepo.named map { user ⇒
           BadRequest(html.message.form(err, user))
         },

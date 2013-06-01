@@ -21,7 +21,8 @@ title = trans.composeMessage.str()) {
         class="autocomplete"
         required="required"
         name="@form("username").name"
-        id="@form("username").id">
+        id="@form("username").id"
+        value="@form("username").value">
         @errMsg(form("username"))
         }
       </div>
