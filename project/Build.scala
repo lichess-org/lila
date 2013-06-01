@@ -121,7 +121,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, reactivemongo, playReactivemongo)
   )
 
-  lazy val message = project("message", Seq(common, db, user, hub)).settings(
+  lazy val message = project("message", Seq(common, db, user, hub, relation)).settings(
     libraryDependencies ++= provided(
       play.api, reactivemongo, playReactivemongo, spray.caching)
   )

@@ -5,12 +5,14 @@ import play.api.data.Forms._
 
 import lila.user.{ User, UserRepo }
 
-final class DataForm {
+private[message] final class DataForm(blocks: (String, String) ⇒ Fu[Boolean]) {
 
   import DataForm._
 
-  val thread = Form(mapping(
-    "username" -> nonEmptyText.verifying("Unknown username", usernameExists _),
+  def thread(me: User) = Form(mapping(
+    "username" -> nonEmptyText
+      .verifying("Unknown username", { fetchUser(_).isDefined })
+      .verifying("This user blocks you", u ⇒ !blocks(u.toLowerCase, me.id).await),
     "subject" -> text(minLength = 3),
     "text" -> text(minLength = 3)
   )({
@@ -25,8 +27,6 @@ final class DataForm {
   ))
 
   private def fetchUser(username: String) = (UserRepo named username).await
-
-  private def usernameExists(username: String) = fetchUser(username).isDefined
 }
 
 object DataForm {

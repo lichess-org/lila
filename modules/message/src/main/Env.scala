@@ -8,7 +8,8 @@ import lila.hub.actorApi.message.LichessThread
 final class Env(
     config: Config,
     db: lila.db.Env,
-    socketHub: lila.hub.ActorLazyRef, 
+    socketHub: lila.hub.ActorLazyRef,
+    blocks: (String, String) ⇒ Fu[Boolean],
     system: ActorSystem) {
 
   private val CollectionThread = config getString "collection.thread"
@@ -19,7 +20,7 @@ final class Env(
 
   private lazy val unreadCache = new UnreadCache
 
-  lazy val forms = new DataForm
+  lazy val forms = new DataForm(blocks = blocks)
 
   lazy val api = new Api(
     unreadCache = unreadCache,
@@ -46,5 +47,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "message",
     db = lila.db.Env.current,
     socketHub = lila.hub.Env.current.socket.hub,
+    blocks = lila.relation.Env.current.api.blocks,
     system = lila.common.PlayApp.system)
 }

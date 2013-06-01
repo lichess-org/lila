@@ -36,14 +36,13 @@ final class Api(
     )
   } yield threadOption
 
-  def makeThread(data: DataForm.ThreadData, me: User): Fu[Thread] = {
-    val thread = Thread.make(
-      name = data.subject,
-      text = data.text,
-      creatorId = me.id,
-      invitedId = data.user.id)
-    $insert(thread) >>- updateUser(data.user.id) inject thread
-  }
+  def makeThread(data: DataForm.ThreadData, me: User): Fu[Thread] = Thread.make(
+    name = data.subject,
+    text = data.text,
+    creatorId = me.id,
+    invitedId = data.user.id) |> { thread ⇒
+      $insert(thread) >>- updateUser(data.user.id) inject thread
+    }
 
   def lichessThread(lt: LichessThread): Funit = Thread.make(
     name = lt.subject,
