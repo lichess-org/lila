@@ -60,7 +60,7 @@ div.user_show .user-infos {
 
 div.user_show .user_bio,
 div.user_show .elo_with_me,
-div.user_show .numbers,
+div.user_show .stats,
 div.user_show .tournament_points,
 div.user_show .teams {
   display: block;

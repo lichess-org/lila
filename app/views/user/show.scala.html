@@ -93,12 +93,7 @@ evenMoreCss = evenMoreCss) {
       </div>
       }
       <div class="stats">
-        <p class="numbers">
-          @trans.nbWins(strong(u.nbWinsH)),
-          @trans.nbLosses(strong(u.nbLossesH)),
-          @trans.nbDraws(strong(u.nbDrawsH)),
-          @Html(strong(u.nbAi)) AI
-        </p>
+        <a href="@routes.User.opponents(u.username)">@trans.favoriteOpponents()</a>
         <div class="teams">
           @teamIds(u.id).sortBy(t => !myTeam(t)).map { teamId =>
           @teamLink(teamId, ("s16 team revert-underline" + myTeam(teamId).fold(" mine", "")).some)

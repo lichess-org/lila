@@ -140,7 +140,9 @@ div.footer div.right {
   cursor: pointer;
 }
 .button .s16 {
+  display: inline-block;
   height: 16px;
+  line-height: 16px;
 }
 a.easy_button {
   font-weight: normal;
