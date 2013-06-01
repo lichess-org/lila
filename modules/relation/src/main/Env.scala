@@ -31,6 +31,8 @@ final class Env(
 
   private lazy val cached = new Cached
 
+  lazy val autofollow = new Autofollow(api)
+
   private[relation] val actor = system.actorOf(Props(new RelationActor(
     socketHub = hub.socket.hub,
     getOnlineUserIds = getOnlineUserIds,

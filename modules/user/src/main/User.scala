@@ -43,6 +43,8 @@ case class User(
   def nonEmptyBio = bio filter ("" !=)
 
   def hasGames = nbGames > 0
+  
+  def nbGamesH = nbWinsH + nbLossesH + nbDrawsH
 }
 
 object User {
@@ -57,9 +59,9 @@ object User {
 
   private[user] lazy val tube = Tube[User](
     (__.json update (
-      merge(defaults) andThen readDate('createdAt)
+      merge(defaults) andThen readDate('createdAt) andThen readDate('seenAt)
     )) andThen Json.reads[User],
-    Json.writes[User] andThen (__.json update writeDate('createdAt))
+    Json.writes[User] andThen (__.json update writeDate('createdAt)) andThen (__.json update writeDate('seenAt))
   )
 
   def normalize(username: String) = username.toLowerCase
@@ -70,5 +72,6 @@ object User {
     "settings" -> Json.obj(),
     "engine" -> false,
     "toints" -> 0,
-    "roles" -> Json.arr())
+    "roles" -> Json.arr(),
+    "seenAt" -> none[DateTime])
 }
