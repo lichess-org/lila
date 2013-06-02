@@ -73,7 +73,8 @@ final class Api(
 
   def deleteThread(id: String, me: User): Funit =
     thread(id, me) flatMap { threadOption ⇒
-      threadOption.map(_.id).??(ThreadRepo deleteFor me.id)
+      (threadOption.map(_.id) ?? (ThreadRepo deleteFor me.id)) >>-
+        updateUser(me.id)
     }
 
   val unreadIds = unreadCache apply _
