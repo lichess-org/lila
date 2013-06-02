@@ -208,3 +208,5 @@ nbFollowers=%s volgers
 nbFollowing=%s volgend
 profile=profiel
 more=meer
+memberSince=Lid sinds
+lastLogin=Voor het laatst ingelogd op
