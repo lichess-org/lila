@@ -16,7 +16,8 @@ case class User(
     bio: Option[String] = None,
     engine: Boolean = false,
     toints: Int = 0,
-    createdAt: DateTime) extends Ordered[User] {
+    createdAt: DateTime,
+    seenAt: Option[DateTime]) extends Ordered[User] {
 
   def compare(other: User) = id compare other.id
 
@@ -53,9 +54,9 @@ object User {
 
   private[user] lazy val tube = Tube[User](
     (__.json update (
-      merge(defaults) andThen readDate('createdAt) andThen readDate('seenAt)
+      merge(defaults) andThen readDate('createdAt) andThen readDateOpt('seenAt)
     )) andThen Json.reads[User],
-    Json.writes[User] andThen (__.json update writeDate('createdAt)) andThen (__.json update writeDate('seenAt))
+    Json.writes[User] andThen (__.json update writeDate('createdAt)) andThen (__.json update writeDateOpt('seenAt))
   )
 
   def normalize(username: String) = username.toLowerCase
