@@ -62,8 +62,6 @@ if game ends during move -> bug
 LilaError['[analysis] fred65 already analyses ueogn4fr, won't process ueogn4fr']
 unload event http://en.lichess.org/forum/redirect/post/lnsqfhli
 -> only rated games
-preview board should never touch undertables
-don't show frieds staff posts
 
 ---
 
