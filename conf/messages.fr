@@ -208,3 +208,5 @@ nbFollowers=%s suiveurs
 nbFollowing=%s suivis
 profile=Profil
 more=Plus
+memberSince=Membre depuis
+lastLogin=Dernière connexion
