@@ -65,13 +65,10 @@ if game ends during move -> bug
 LilaError['[analysis] fred65 already analyses ueogn4fr, won't process ueogn4fr']
 unload event http://en.lichess.org/forum/redirect/post/lnsqfhli
 -> only rated games
-friend box hide on click http://en.lichess.org/forum/lichess-feedback/new-lichess-1#3
 can't delete messages http://www.youtube.com/watch?v=vPNS49ygvCI&feature=youtu.be
 preview board should never touch undertables
 denormalize user.count.*
 forum search bug http://en.lichess.org/forum/search?text=user:SOHAIB
-troll messages
-games with you on own page
 
 ---
 

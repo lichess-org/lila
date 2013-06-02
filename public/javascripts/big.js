@@ -1313,11 +1313,15 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
   $.widget("lichess.friends", {
     _create: function() {
-      this.$nbOnline = this.element.find('.title .online');
-      this.$nbTotal = this.element.find('.title .total');
-      this.$list = this.element.find("div.list");
-      this.$nobody = this.element.find("div.nobody");
-      this.set(this.element.data('preload'));
+      var self = this;
+      self.$list = self.element.find("div.list");
+      self.$title = self.element.find('.title').click(function() {
+        self.$list.toggle(500);
+      });
+      self.$nbOnline = self.$title.find('.online');
+      self.$nbTotal = self.$title.find('.total');
+      self.$nobody = self.element.find("div.nobody");
+      self.set(self.element.data('preload'));
     },
     repaint: function() {
       this.users = _.uniq(this.users);
