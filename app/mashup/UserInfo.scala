@@ -20,9 +20,9 @@ case class UserInfo(
     nbFollowers: Int,
     nbPosts: Int) {
 
-  def nbRated = user.nbRatedGames
+  def nbRated = user.count.rated
 
-  def percentRated: Int = math.round(nbRated / user.nbGames.toFloat * 100)
+  def percentRated: Int = math.round(nbRated / user.count.game.toFloat * 100)
 }
 
 object UserInfo {

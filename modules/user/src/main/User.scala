@@ -7,15 +7,7 @@ case class User(
     id: String,
     username: String,
     elo: Int,
-    nbGames: Int,
-    nbRatedGames: Int,
-    nbWins: Int,
-    nbLosses: Int,
-    nbDraws: Int,
-    nbWinsH: Int, // only against human opponents
-    nbLossesH: Int, // only against human opponents
-    nbDrawsH: Int, // only against human opponents
-    nbAi: Int,
+    count: Count,
     troll: Boolean = false,
     ipBan: Boolean = false,
     enabled: Boolean,
@@ -42,9 +34,9 @@ case class User(
 
   def nonEmptyBio = bio filter ("" !=)
 
-  def hasGames = nbGames > 0
+  def hasGames = count.game > 0
   
-  def nbGamesH = nbWinsH + nbLossesH + nbDrawsH
+  def countRated = count.rated
 }
 
 object User {
@@ -56,6 +48,8 @@ object User {
   import lila.db.Tube
   import Tube.Helpers._
   import play.api.libs.json._
+
+  private implicit def countTube = Count.tube
 
   private[user] lazy val tube = Tube[User](
     (__.json update (

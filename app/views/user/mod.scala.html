@@ -39,7 +39,7 @@
       @spy.otherUsers.map { o =>
       <tr@{(o == u).??(Html(" class='same'"))}>
         <td>@userLink(o)</td>
-        <td>@o.nbGames</td>
+        <td>@o.count.game</td>
         <td>@{o.engine.??("ENGINE")}</td>
         <td>@{o.troll.??("TROLL")}</td>
         <td>@{o.ipBan.??("IPBAN")}</td>

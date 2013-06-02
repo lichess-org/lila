@@ -41,8 +41,8 @@ private[game] object RawMetadata {
     "tid" -> none[String])
 
   private[game] lazy val tube = Tube(
-    reader = (__.json update merge(defaults)) andThen Json.reads[RawMetadata],
-    writer = Json.writes[RawMetadata])
+    (__.json update merge(defaults)) andThen Json.reads[RawMetadata],
+    Json.writes[RawMetadata])
 }
 
 case class PgnImport(
