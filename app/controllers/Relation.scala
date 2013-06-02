@@ -54,7 +54,7 @@ object Relation extends LilaController {
       lila.game.BestOpponents(user.id, 50) zip
         env.api.onlinePopularUsers(20) map {
           case (opponents, popular) ⇒ popular.filterNot(user ==).foldLeft(opponents) {
-            case (xs, x) ⇒ xs.exists(_._1 is x).fold(xs, xs :+ (x, 0))
+            case (xs, x) ⇒ xs.exists(_._1 == x).fold(xs, xs :+ (x, 0))
           } |> { html.relation.suggest(user, _) }
         }
     }
