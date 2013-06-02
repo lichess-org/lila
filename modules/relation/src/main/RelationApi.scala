@@ -41,13 +41,12 @@ final class RelationApi(
     if (u1 == u2) fufail("Cannot follow yourself")
     else relation(u1, u2) flatMap {
       case Some(Follow) ⇒ fufail("Already following")
-      case _            ⇒ doFollow(u1, u2, false)
+      case _            ⇒ doFollow(u1, u2)
     }
 
-  private[relation] def autofollow(u1: ID, u2: ID): Funit =
-    doFollow(u1, u2, true)
+  private[relation] def autofollow(u1: ID, u2: ID): Funit = doFollow(u1, u2)
 
-  private def doFollow(u1: ID, u2: ID, auto: Boolean) =
+  private def doFollow(u1: ID, u2: ID) =
     RelationRepo.follow(u1, u2) >>
       refresh(u1, u2) >>-
       (timeline ! Propagate(
