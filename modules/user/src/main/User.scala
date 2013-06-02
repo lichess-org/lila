@@ -19,9 +19,12 @@ case class User(
     createdAt: DateTime,
     seenAt: Option[DateTime]) extends Ordered[User] {
 
-  def compare(other: User) = id compare other.id
+  override def equals(other: Any) = other match {
+    case u: User ⇒ id == u.id
+    case _       ⇒ false
+  }
 
-  def is(other: User) = id == other.id
+  def compare(other: User) = id compare other.id
 
   def noTroll = !troll
 
@@ -36,7 +39,7 @@ case class User(
   def nonEmptyBio = bio filter ("" !=)
 
   def hasGames = count.game > 0
-  
+
   def countRated = count.rated
 }
 

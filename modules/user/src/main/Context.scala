@@ -8,7 +8,7 @@ sealed abstract class Context(val req: RequestHeader, val me: Option[User]) {
 
   def isAnon = !isAuth
 
-  def is(user: User): Boolean = me == Some(user)
+  def is(user: User): Boolean = me ?? (user ==)
 
   def userId = me map (_.id)
 
