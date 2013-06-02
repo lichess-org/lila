@@ -208,3 +208,5 @@ nbFollowers=%s Followers
 nbFollowing=%s folgt
 profile=Profil
 more=Mehr
+memberSince=Mitglied seit
+lastLogin=Letzter Login
