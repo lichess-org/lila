@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /new
-Disallow: /setting
 Disallow: /account
+Disallow: /timeline
+Disallow: /rel
