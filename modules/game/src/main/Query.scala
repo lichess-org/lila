@@ -54,7 +54,7 @@ object Query {
   def loss(u: String) = user(u) ++ finished ++ Json.obj("wid" -> $ne(u))
 
   def opponents(u1: User, u2: User) =
-    Json.obj("uids" -> $all(List(u1, u2).sortBy(_.nbGames).map(_.id)))
+    Json.obj("uids" -> $all(List(u1, u2).sortBy(_.count.game).map(_.id)))
 
   def turnsGt(nb: Int) = Json.obj("t" -> $gt(nb))
 

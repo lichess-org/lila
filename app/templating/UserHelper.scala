@@ -112,12 +112,12 @@ trait UserHelper { self: I18nHelper with StringHelper ⇒
     splitNumber(userGameFilterTitleNoTag(info, filter))
 
   def userGameFilterTitleNoTag(info: UserInfo, filter: GameFilter)(implicit ctx: Context) = Html((filter match {
-    case GameFilter.All      ⇒ info.user.nbGames + " " + trans.gamesPlayed()
+    case GameFilter.All      ⇒ info.user.count.game + " " + trans.gamesPlayed()
     case GameFilter.Me       ⇒ ctx.me.fold("-")(me ⇒ trans.nbGamesWithYou(~info.nbWithMe).body)
     case GameFilter.Rated    ⇒ info.nbRated + " " + trans.rated()
-    case GameFilter.Win      ⇒ trans.nbWins(info.user.nbWins)
-    case GameFilter.Loss     ⇒ trans.nbLosses(info.user.nbLosses)
-    case GameFilter.Draw     ⇒ trans.nbDraws(info.user.nbDraws)
+    case GameFilter.Win      ⇒ trans.nbWins(info.user.count.win)
+    case GameFilter.Loss     ⇒ trans.nbLosses(info.user.count.loss)
+    case GameFilter.Draw     ⇒ trans.nbDraws(info.user.count.draw)
     case GameFilter.Playing  ⇒ info.nbPlaying + " playing"
     case GameFilter.Bookmark ⇒ trans.nbBookmarks(info.nbBookmark)
   }).toString)

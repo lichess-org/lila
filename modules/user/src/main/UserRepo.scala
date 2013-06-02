@@ -48,19 +48,19 @@ object UserRepo {
 
   def incNbGames(id: ID, rated: Boolean, ai: Boolean, result: Option[Int]) = {
     val incs = List(
-      "nbGames".some,
-      "nbRatedGames".some filter (_ ⇒ rated),
-      "nbAi".some filter (_ ⇒ ai),
+      "count.game".some,
+      "count.rated".some filter (_ ⇒ rated),
+      "count.ai".some filter (_ ⇒ ai),
       (result match {
-        case Some(-1) ⇒ "nbLosses".some
-        case Some(1)  ⇒ "nbWins".some
-        case Some(0)  ⇒ "nbDraws".some
+        case Some(-1) ⇒ "count.loss".some
+        case Some(1)  ⇒ "count.win".some
+        case Some(0)  ⇒ "count.draw".some
         case _        ⇒ none
       }),
       (result match {
-        case Some(-1) ⇒ "nbLossesH".some
-        case Some(1)  ⇒ "nbWinsH".some
-        case Some(0)  ⇒ "nbDrawsH".some
+        case Some(-1) ⇒ "count.lossH".some
+        case Some(1)  ⇒ "count.winH".some
+        case Some(0)  ⇒ "count.drawH".some
         case _        ⇒ none
       }) filterNot (_ ⇒ ai)
     ).flatten map (_ -> 1)
@@ -195,15 +195,17 @@ object UserRepo {
       "password" -> hash(password, salt),
       "salt" -> salt,
       "elo" -> User.STARTING_ELO,
-      "nbGames" -> 0,
-      "nbRatedGames" -> 0,
-      "nbAi" -> 0,
-      "nbWins" -> 0,
-      "nbLosses" -> 0,
-      "nbDraws" -> 0,
-      "nbWinsH" -> 0,
-      "nbLossesH" -> 0,
-      "nbDrawsH" -> 0,
+      "count" -> Json.obj(
+        "game" -> 0,
+        "rated" -> 0,
+        "ai" -> 0,
+        "win" -> 0,
+        "loss" -> 0,
+        "draw" -> 0,
+        "winH" -> 0,
+        "lossH" -> 0,
+        "drawH" -> 0
+      ),
       "enabled" -> true,
       "createdAt" -> $date(DateTime.now))
   }
