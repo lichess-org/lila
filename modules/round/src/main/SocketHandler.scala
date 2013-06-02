@@ -29,6 +29,10 @@ private[round] final class SocketHandler(
     ref: PovRef,
     member: Member): Handler.Controller = {
 
+    def round(msg: Any) {
+      roundMap ! Tell(gameId, msg)
+    }
+
     member.playerIdOption.fold[Handler.Controller]({
       case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
       case ("talk", o) ⇒ for {
@@ -45,27 +49,27 @@ private[round] final class SocketHandler(
           txt ← o str "d"
           if flood.allowMessage(uid, txt)
         } messenger.playerMessage(ref, txt) pipeTo socket
-        case ("rematch-yes", _)  ⇒ roundMap ! Tell(gameId, RematchYes(playerId))
-        case ("rematch-no", _)   ⇒ roundMap ! Tell(gameId, RematchNo(playerId))
-        case ("takeback-yes", _) ⇒ roundMap ! Tell(gameId, TakebackYes(playerId))
-        case ("takeback-no", _)  ⇒ roundMap ! Tell(gameId, TakebackNo(playerId))
-        case ("draw-yes", _)     ⇒ roundMap ! Tell(gameId, DrawYes(playerId))
-        case ("draw-no", _)      ⇒ roundMap ! Tell(gameId, DrawNo(playerId))
-        case ("draw-claim", _)   ⇒ roundMap ! Tell(gameId, DrawClaim(playerId))
-        case ("resign", _)       ⇒ roundMap ! Tell(gameId, Resign(playerId))
-        case ("resign-force", _) ⇒ roundMap ! Tell(gameId, ResignForce(playerId))
-        case ("abort", _)        ⇒ roundMap ! Tell(gameId, Abort(playerId))
+        case ("rematch-yes", _)  ⇒ round(RematchYes(playerId))
+        case ("rematch-no", _)   ⇒ round(RematchNo(playerId))
+        case ("takeback-yes", _) ⇒ round(TakebackYes(playerId))
+        case ("takeback-no", _)  ⇒ round(TakebackNo(playerId))
+        case ("draw-yes", _)     ⇒ round(DrawYes(playerId))
+        case ("draw-no", _)      ⇒ round(DrawNo(playerId))
+        case ("draw-claim", _)   ⇒ round(DrawClaim(playerId))
+        case ("resign", _)       ⇒ round(Resign(playerId))
+        case ("resign-force", _) ⇒ round(ResignForce(playerId))
+        case ("abort", _)        ⇒ round(Abort(playerId))
         case ("move", o) ⇒ parseMove(o) foreach {
           case (orig, dest, prom, blur, lag) ⇒ {
             socket ! Ack(uid)
-            roundMap ! Tell(
-              gameId,
-              HumanPlay(playerId, orig, dest, prom, blur, lag, _ ⇒ socket ! Resync(uid))
-            )
+            round(HumanPlay(
+              playerId, orig, dest, prom, blur, lag, _ ⇒ socket ! Resync(uid)
+            ))
           }
         }
-        case ("moretime", o)  ⇒ roundMap ! Tell(gameId, Moretime(playerId))
-        case ("outoftime", o) ⇒ roundMap ! Tell(gameId, Outoftime)
+        case ("moretime", _)  ⇒ round(Moretime(playerId))
+        case ("outoftime", _) ⇒ round(Outoftime)
+        case ("bye", _)       ⇒ socket ! Bye(ref.color)
         case ("toggle-chat", o) ⇒
           messenger.toggleChat(ref, ~(o boolean "d")) pipeTo socket
       }

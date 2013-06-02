@@ -24,7 +24,8 @@ final class Env(
   private val settings = new {
     val MessageTtl = config duration "message.ttl"
     val UidTimeout = config duration "uid.timeout"
-    val PlayerTimeout = config duration "player.timeout"
+    val PlayerDisconnectTimeout = config duration "player.disconnect.timeout"
+    val PlayerRagequitTimeout = config duration "player.ragequit.timeout"
     val AnimationDelay = config duration "animation.delay"
     val Moretime = config duration "moretime"
     val CollectionRoom = config getString "collection.room"
@@ -58,7 +59,8 @@ final class Env(
     getUsername = getUsername,
     uidTimeout = UidTimeout,
     socketTimeout = SocketTimeout,
-    playerTimeout = PlayerTimeout
+    disconnectTimeout = PlayerDisconnectTimeout,
+    ragequitTimeout = PlayerRagequitTimeout
   )), name = SocketName)
 
   lazy val socketHandler = new SocketHandler(

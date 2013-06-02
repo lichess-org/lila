@@ -11,6 +11,7 @@ import actorApi._
 import chess.{ Color, White, Black }
 import lila.game.Event
 import lila.hub.TimeBomb
+import lila.round.actorApi.Bye
 import lila.socket._
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import makeTimeout.short
@@ -21,15 +22,33 @@ private[round] final class Socket(
     getUsername: String ⇒ Fu[Option[String]],
     uidTimeout: Duration,
     socketTimeout: Duration,
-    playerTimeout: Duration) extends SocketActor[Member](uidTimeout) {
+    disconnectTimeout: Duration,
+    ragequitTimeout: Duration) extends SocketActor[Member](uidTimeout) {
 
   private val history = context.actorOf(Props(makeHistory()), name = "history")
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
-  // when the players have been seen online for the last time
-  private var whiteTime = nowMillis
-  private var blackTime = nowMillis
+  private final class Player(color: Color) {
+
+    // when the player has been seen online for the last time
+    private var time: Double = nowMillis 
+    // wheter the player closed the window (JS unload event)
+    private var bye: Boolean = false 
+
+    def ping {
+      if (isGone) notifyGone(color, false)
+      bye = false
+      time = nowMillis
+    }
+    def setBye {
+      bye = true
+    }
+    def isGone = bye && time < (nowMillis - bye.fold(ragequitTimeout, disconnectTimeout).toMillis)
+  }
+
+  private val whitePlayer = new Player(White)
+  private val blackPlayer = new Player(Black)
 
   def receiveSpecific = {
 
@@ -37,8 +56,7 @@ private[round] final class Socket(
       timeBomb.delay
       ping(uid)
       ownerOf(uid) foreach { o ⇒
-        if (playerIsGone(o.color)) notifyGone(o.color, false)
-        playerTime(o.color, nowMillis)
+        playerDo(o.color, _.ping)
       }
       withMember(uid) { member ⇒
         history ? GetEventsSince(v) foreach {
@@ -47,27 +65,28 @@ private[round] final class Socket(
       }
     }
 
-    case Ack(uid) ⇒ withMember(uid) { _.channel push ackEvent }
+    case Bye(color) ⇒ playerDo(color, _.setBye)
+
+    case Ack(uid)   ⇒ withMember(uid) { _.channel push ackEvent }
 
     case Broom ⇒ {
       broom
       if (timeBomb.boom) self ! PoisonPill
       else Color.all foreach { c ⇒
-        if (playerIsGone(c)) notifyGone(c, true)
+        if (playerGet(c, _.isGone)) notifyGone(c, true)
       }
     }
 
     case GetVersion    ⇒ history ? GetVersion pipeTo sender
 
-    case IsGone(color) ⇒ sender ! playerIsGone(color)
+    case IsGone(color) ⇒ sender ! playerGet(color, _.isGone)
 
     case Join(uid, user, version, color, playerId) ⇒ {
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user, color, playerId)
       addMember(uid, member)
       notifyCrowd
-      if (playerIsGone(color)) notifyGone(color, false)
-      playerTime(color, nowMillis)
+      playerDo(color, _.ping)
       sender ! Connected(enumerator, member)
     }
 
@@ -127,12 +146,10 @@ private[round] final class Socket(
   def ownerOf(uid: String): Option[Member] =
     members get uid filter (_.owner)
 
-  def playerTime(color: Color): Double = color.fold(whiteTime, blackTime)
+  private def playerGet[A](color: Color, getter: Player ⇒ A): A =
+    getter(color.fold(whitePlayer, blackPlayer))
 
-  def playerTime(color: Color, time: Double) {
-    color.fold(whiteTime = time, blackTime = time)
+  private def playerDo(color: Color, effect: Player ⇒ Unit) {
+    effect(color.fold(whitePlayer, blackPlayer))
   }
-
-  def playerIsGone(color: Color) =
-    playerTime(color) < (nowMillis - playerTimeout.toMillis)
 }

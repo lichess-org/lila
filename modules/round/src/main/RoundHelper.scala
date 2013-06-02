@@ -24,8 +24,7 @@ trait RoundHelper {
         "clockRunning" -> game.isClockRunning,
         "player" -> game.turnColor.name,
         "turns" -> game.turns,
-        "lastMove" -> game.lastMove
-      ),
+        "lastMove" -> game.lastMove),
       "player" -> Json.obj(
         "id" -> player.id,
         "color" -> player.color.name,
