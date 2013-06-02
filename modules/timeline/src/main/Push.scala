@@ -11,6 +11,8 @@ import lila.db.api._
 import lila.hub.actorApi.timeline.propagation._
 import lila.hub.actorApi.timeline.{ Propagate, Atom, ReloadTimeline }
 import lila.hub.ActorLazyRef
+import lila.security.Granter
+import lila.user.UserRepo
 import makeTimeout.short
 import tube.entryTube
 
@@ -33,6 +35,9 @@ private[timeline] final class Push(
     (propagations map {
       case Users(ids)  ⇒ fuccess(ids)
       case Friends(id) ⇒ getFriendIds(id) map (_.toList)
+      case StaffFriends(id) ⇒ getFriendIds(id) flatMap UserRepo.byIds map {
+        _ filter Granter(_.StaffForum) map (_.id)
+      }
     }).sequence map (_.flatten.distinct)
 
   private def makeEntry(users: List[String], data: Atom): Fu[Entry] =
