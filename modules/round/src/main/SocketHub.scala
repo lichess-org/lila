@@ -17,7 +17,8 @@ private[round] final class SocketHub(
     getUsername: String ⇒ Fu[Option[String]],
     uidTimeout: Duration,
     socketTimeout: Duration,
-    playerTimeout: Duration) extends SocketHubActor[Socket] {
+    disconnectTimeout: Duration,
+    ragequitTimeout: Duration) extends SocketHubActor[Socket] {
 
   def receive: Receive = socketHubReceive
 
@@ -27,5 +28,6 @@ private[round] final class SocketHub(
     getUsername = getUsername,
     uidTimeout = uidTimeout,
     socketTimeout = socketTimeout,
-    playerTimeout = playerTimeout)
+    disconnectTimeout = disconnectTimeout,
+    ragequitTimeout = ragequitTimeout)
 }

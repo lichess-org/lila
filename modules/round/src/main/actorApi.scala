@@ -59,6 +59,7 @@ case class Connected(enumerator: JsEnumerator, member: Member)
 case class GetEventsSince(version: Int)
 case class MaybeEvents(events: Option[List[VersionedEvent]])
 case class AddEvents(events: List[Event])
+case class Bye(color: Color)
 case class IsGone(color: Color)
 case object AnalysisAvailable
 case class Ack(uid: String)
@@ -66,13 +67,13 @@ case class Ack(uid: String)
 package round {
 
   case class HumanPlay(
-      playerId: String,
-      orig: String,
-      dest: String,
-      prom: Option[String],
-      blur: Boolean,
-      lag: Int,
-      onFailure: Exception ⇒ Unit) 
+    playerId: String,
+    orig: String,
+    dest: String,
+    prom: Option[String],
+    blur: Boolean,
+    lag: Int,
+    onFailure: Exception ⇒ Unit)
 
   case class PlayResult(events: Events, fen: String, lastMove: Option[String])
 

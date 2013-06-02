@@ -688,6 +688,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       self.options.playersUrl = self.element.data('players-url');
       self.options.socketUrl = self.element.data('socket-url');
       self.socketAckTimeout = null;
+      self.hasToReload = false;
 
       $("div.game_tournament .clock").each(function() {
         $(this).clock({
@@ -738,7 +739,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         }
       }
 
-      if (self.options.player.spectator) {
+      if (self.options.player.spectator && !self.options.game.finished) {
         self.$board.find("div.lcs").mousedown(function() {
           $("#dont_touch").toggle();
         });
@@ -748,8 +749,13 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         setTimeout(self.updateTitle = function() {
           document.title = (self.isMyTurn() && self.options.game.started && !self.options.game.finished) ? document.title = document.title.indexOf('/\\/') == 0 ? '\\/\\ ' + document.title.replace(/\/\\\/ /, '') : '/\\/ ' + document.title.replace(/\\\/\\ /, '') : document.title;
           setTimeout(self.updateTitle, 400);
-        },
-          400);
+        }, 400);
+      }
+
+      if (!self.options.player.spectator) {
+        $(window).unload(function() {
+          if (!self.hasToReload && !self.options.game.finished) lichess.socket.send('bye');
+        });
       }
 
       lichess.socket = new strongSocket(
@@ -823,6 +829,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
             // stop queue propagation here
             self.element.queue(function() {
               setTimeout(function() {
+                self.hasToReload = true;
                 location.href = event;
               }, 400);
             });
@@ -1059,6 +1066,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         }
         lichess.socket.send("move", moveData);
         self.socketAckTimeout = setTimeout(function() {
+          self.hasToReload = true;
           location.reload();
         }, lichess.socket.options.pingMaxLag);
       }
@@ -1295,6 +1303,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     onError: function(error, reloadIfFail) {
       var self = this;
       if (reloadIfFail) {
+        self.hasToReload = true;
         location.reload();
       }
     }
