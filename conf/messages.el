@@ -53,7 +53,6 @@ blunders=Σοβαρά λάθη
 mistakes=Λάθη
 inaccuracies=Ανακρίβειες
 viewGameStats=Προβολή στατιστικών στοιχείων του παιχνιδιού
-viewPgn=Προβολή PGN
 flipBoard=Περιστροφή σκακιέρας
 threefoldRepetition=Τρίτη επανάληψη θέσης
 claimADraw=Απαίτηση ισοπαλίας

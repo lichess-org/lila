@@ -53,7 +53,6 @@ blunders=Zablode
 mistakes=Napake
 inaccuracies=Nenatančnosti
 viewGameStats=Prikaži statistike igre
-viewPgn=Poglej PGN
 flipBoard=Obrni igralno površino
 threefoldRepetition=Trikratna ponovitev
 claimADraw=Zahtevaj remi

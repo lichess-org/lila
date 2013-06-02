@@ -53,7 +53,6 @@ blunders=Gafy
 mistakes=Blędy
 inaccuracies=nieścisłości
 viewGameStats=Zobacz statystyki
-viewPgn=Wyświetl PGN
 flipBoard=Obróć szachownicę
 threefoldRepetition=Trzykrotne powtórzenie ruchów
 claimADraw=Zaproponuj remis

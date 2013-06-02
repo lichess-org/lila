@@ -53,7 +53,6 @@ blunders=Blunders
 mistakes=fouten
 inaccuracies=inaccurate zetten
 viewGameStats=Partijstatistieken bekijken
-viewPgn=Bekijk PGN
 flipBoard=Bord draaien
 threefoldRepetition=Drievoudige herhaling
 claimADraw=Remise opeisen
