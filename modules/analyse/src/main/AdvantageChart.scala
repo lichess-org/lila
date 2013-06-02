@@ -26,7 +26,7 @@ private[analyse] final class AdvantageChart(advices: InfoAdvices) {
           case (_, Some(mate)) ⇒ Json.arr(move(info, advice), {
             val mateDelta = math.abs(mate.toFloat / 100)
             val whiteWins = info.color.fold(mate < 0, mate > 0)
-            scale(whiteWins.fold(max - mateDelta, mateDelta - max))
+            scale(whiteWins.fold(max - mateDelta, mateDelta - max)).toString
           })
           case _ ⇒ Json.arr(move(info, none), scale(0))
         }
