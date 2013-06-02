@@ -12,23 +12,33 @@ import lila.user.Context
 
 trait DateHelper { self: I18nHelper ⇒
 
-  private val style = "MS"
+  private val dateTimeStyle = "MS"
+  private val dateStyle = "M-"
 
-  private val formatters = mutable.Map[String, DateTimeFormatter]()
+  private val dateTimeFormatters = mutable.Map[String, DateTimeFormatter]()
+  private val dateFormatters = mutable.Map[String, DateTimeFormatter]()
 
   private val isoFormatter = ISODateTimeFormat.dateTime
 
-  private def formatter(ctx: Context): DateTimeFormatter =
-    formatters.getOrElseUpdate(
+  private def dateTimeFormatter(ctx: Context): DateTimeFormatter =
+    dateTimeFormatters.getOrElseUpdate(
       lang(ctx).language,
-      DateTimeFormat forStyle style withLocale new Locale(lang(ctx).language))
+      DateTimeFormat forStyle dateTimeStyle withLocale new Locale(lang(ctx).language))
+
+  private def dateFormatter(ctx: Context): DateTimeFormatter =
+    dateTimeFormatters.getOrElseUpdate(
+      lang(ctx).language,
+      DateTimeFormat forStyle dateStyle withLocale new Locale(lang(ctx).language))
+
+  def showDateTime(date: DateTime)(implicit ctx: Context): String =
+    dateTimeFormatter(ctx) print date
 
   def showDate(date: DateTime)(implicit ctx: Context): String =
-    formatter(ctx) print date
+    dateFormatter(ctx) print date
 
   def timeago(date: DateTime)(implicit ctx: Context): Html = Html(
     """<time class="timeago" datetime="%s">%s</time>"""
-      .format(isoFormatter print date, showDate(date))
+      .format(isoFormatter print date, showDateTime(date))
   )
 
   def timeagoLocale(implicit ctx: Context): Option[String] =
