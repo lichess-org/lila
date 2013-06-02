@@ -1,5 +1,4 @@
-package lila.app
-package templating
+package lila.round
 
 import lila.user.Context
 import lila.game.Pov

@@ -21,7 +21,7 @@ object Environment
     with SetupHelper
     with SettingHelper
     with MessageHelper
-    with RoundHelper
+    with lila.round.RoundHelper
     with AiHelper
     with GameHelper
     with UserHelper
