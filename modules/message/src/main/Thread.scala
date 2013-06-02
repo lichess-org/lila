@@ -46,6 +46,10 @@ case class Thread(
   def receiverOf(post: Post) = post.isByCreator.fold(invitedId, creatorId)
 
   def nonEmptyName = (name.trim.some filter (_.nonEmpty)) | "No subject"
+
+  def deleteFor(user: User) = copy(
+    visibleByUserIds = visibleByUserIds filter (user.id !=)
+  )
 }
 
 object Thread {

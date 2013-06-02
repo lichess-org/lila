@@ -8,6 +8,7 @@ import lila.db.Implicits._
 import lila.db.paginator._
 import lila.hub.actorApi.message._
 import lila.hub.actorApi.SendTo
+import lila.security.Granter
 import lila.user.{ User, UserRepo }
 import tube.threadTube
 
@@ -36,12 +37,20 @@ final class Api(
     )
   } yield threadOption
 
-  def makeThread(data: DataForm.ThreadData, me: User): Fu[Thread] = Thread.make(
-    name = data.subject,
-    text = data.text,
-    creatorId = me.id,
-    invitedId = data.user.id) |> { thread ⇒
-      $insert(thread) >>- updateUser(data.user.id) inject thread
+  def makeThread(data: DataForm.ThreadData, me: User): Fu[Thread] =
+    UserRepo named data.user.id flatMap {
+      _.fold(fufail[Thread]("No such recipient")) { invited ⇒
+        Thread.make(
+          name = data.subject,
+          text = data.text,
+          creatorId = me.id,
+          invitedId = data.user.id) |> { t ⇒
+            val thread = (me.troll && !Granter(_.MarkTroll)(invited)).fold(
+              t deleteFor invited,
+              t)
+            $insert(thread) >>- updateUser(invited.id) inject thread
+          }
+      }
     }
 
   def lichessThread(lt: LichessThread): Funit = Thread.make(
