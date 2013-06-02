@@ -101,8 +101,8 @@ final class Env(
   def version(gameId: String): Fu[Int] =
     socketHub ? Ask(gameId, GetVersion) mapTo manifest[Int]
 
-  def animationDelay = AnimationDelay
-  def moretimeSeconds = Moretime.toSeconds
+  private[round] def animationDelay = AnimationDelay
+  private[round] def moretimeSeconds = Moretime.toSeconds
 
   {
     import scala.concurrent.duration._
