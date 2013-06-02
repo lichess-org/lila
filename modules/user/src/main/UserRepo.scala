@@ -152,6 +152,10 @@ object UserRepo {
       }
     }
 
+  def setSeenAt(id: ID) {
+    $update.fieldUnchecked(id, "seenAt", $date(DateTime.now))
+  }
+
   def idsAverageElo(ids: Iterable[String]): Fu[Int] = {
     val command = MapReduce(
       collectionName = userTube.coll.name,
@@ -207,7 +211,8 @@ object UserRepo {
         "drawH" -> 0
       ),
       "enabled" -> true,
-      "createdAt" -> $date(DateTime.now))
+      "createdAt" -> $date(DateTime.now),
+      "seenAt" -> $date(DateTime.now))
   }
 
   private def hash(pass: String, salt: String): String = "%s{%s}".format(pass, salt).sha1

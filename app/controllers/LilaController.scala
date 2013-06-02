@@ -1,18 +1,18 @@
 package controllers
 
-import lila.app._
-import lila.common.LilaCookie
-import lila.user.{ Context, HeaderContext, BodyContext, User ⇒ UserModel }
-import lila.security.{ Permission, Granter }
-
-import scalaz.Zero
+import play.api.data.Form
+import play.api.http._
+import play.api.libs.iteratee.{ Iteratee, Enumerator }
+import play.api.libs.json.{ Json, JsValue, Writes }
 import play.api.mvc._, Results._
 import play.api.mvc.WebSocket.FrameFormatter
-import play.api.libs.iteratee.{ Iteratee, Enumerator }
-import play.api.data.Form
 import play.api.templates.Html
-import play.api.http._
-import play.api.libs.json.{ Json, JsValue, Writes }
+import scalaz.Zero
+
+import lila.app._
+import lila.common.LilaCookie
+import lila.security.{ Permission, Granter }
+import lila.user.{ Context, HeaderContext, BodyContext, User ⇒ UserModel }
 
 private[controllers] trait LilaController
     extends Controller
@@ -169,20 +169,19 @@ private[controllers] trait LilaController
     Forbidden("no permission")
 
   protected def reqToCtx(req: Request[_]): Fu[BodyContext] =
-    Env.security.api restoreUser req map { user ⇒
-      setOnline(user)
-      Context(req, user)
-    }
+    restoreUser(req) map { Context(req, _) }
 
   protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] =
-    Env.security.api restoreUser req map { user ⇒
-      setOnline(user)
-      Context(req, user)
-    }
+    restoreUser(req) map { Context(req, _) }
 
-  private def setOnline(user: Option[UserModel]) {
-    user foreach Env.user.setOnline
-  }
+  private def restoreUser(req: RequestHeader): Fu[Option[UserModel]] =
+    Env.security.api restoreUser req addEffect {
+      _ foreach { user ⇒
+        lila.user.UserRepo setSeenAt user.id 
+        Env.user setOnline user 
+        user.seenAt.isEmpty ?? Env.relation.autofollow(user) 
+      }
+    }
 
   protected def Reasonable(page: Int, max: Int = 40)(result: ⇒ Fu[Result]): Fu[Result] =
     (page < max).fold(result, BadRequest("resource too old").fuccess)

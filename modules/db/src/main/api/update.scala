@@ -25,4 +25,14 @@ object $update {
 
   def field[ID: Writes, A: InColl, B: Writes](id: ID, name: String, value: B, upsert: Boolean = false): Funit =
     apply($select(id), $set(name -> value), upsert = upsert)
+
+  // UNCHECKED
+
+  def unchecked[A: InColl](selector: JsObject, update: JsObject, upsert: Boolean = false, multi: Boolean = false) {
+    implicitly[InColl[A]].coll.uncheckedUpdate(selector, update, upsert, multi)
+  }
+
+  def fieldUnchecked[ID: Writes, A: InColl, B: Writes](id: ID, name: String, value: B, upsert: Boolean = false) {
+    unchecked($select(id), $set(name -> value), upsert = upsert)
+  }
 }
