@@ -110,6 +110,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       //self.debug("schedule connect in " + delay + " ms");
       self.connectSchedule = setTimeout(function() {
         $('body').addClass('offline');
+        self.baseUrlFail();
         self.connect();
       }, delay);
     },
