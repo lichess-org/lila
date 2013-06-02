@@ -580,6 +580,7 @@ a#sound_state.unavailable {
   min-width: 150px;
 }
 #friend_box .title {
+  cursor: pointer;
   padding: 3px 5px;
   border-bottom: 1px solid #ccc;
   border-radius: 4px 4px 0 0;
