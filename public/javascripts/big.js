@@ -320,6 +320,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
             $(this).find('input.lichess_say').css('width', (204 - dec) + 'px');
           }
         });
+        $('#featured_game').each(function() {
+          $(this).children().toggle($(this).width() == 224);
+        });
       }
     }
     $(window).resize(onResize);
