@@ -93,6 +93,10 @@ evenMoreCss = evenMoreCss) {
       </div>
       }
       <div class="stats">
+        <p>@trans.memberSince() @showDate(u.createdAt)</p>
+        @u.seenAt.map { seen =>
+        <p>@trans.lastLogin() @timeago(seen)</p>
+        }
         <a href="@routes.User.opponents(u.username)">@trans.favoriteOpponents()</a>
         <div class="teams">
           @teamIds(u.id).sortBy(t => !myTeam(t)).map { teamId =>
