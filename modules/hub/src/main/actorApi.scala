@@ -67,6 +67,7 @@ package timeline {
     sealed trait Propagation
     case class Users(users: List[String]) extends Propagation
     case class Friends(user: String) extends Propagation
+    case class StaffFriends(user: String) extends Propagation
   }
 
   import propagation._
@@ -74,6 +75,7 @@ package timeline {
   case class Propagate(data: Atom, propagations: List[Propagation] = Nil) {
     def toUsers(ids: List[String]) = copy(propagations = Users(ids) :: propagations)
     def toFriendsOf(id: String) = copy(propagations = Friends(id) :: propagations)
+    def toStaffFriendsOf(id: String) = copy(propagations = StaffFriends(id) :: propagations)
   }
 }
 
