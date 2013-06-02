@@ -208,3 +208,5 @@ nbFollowers=%s persone che ti seguono
 nbFollowing=%s persone che stai seguendo
 profile=Profilo
 more=Altro
+memberSince=Senza membri
+lastLogin=Ultimo log-in
