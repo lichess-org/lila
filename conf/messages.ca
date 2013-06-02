@@ -208,3 +208,5 @@ nbFollowers=%s seguidors
 nbFollowing=%s seguint
 profile=Perfil
 more=Més
+memberSince=Membre des del
+lastLogin=Darrer accés
