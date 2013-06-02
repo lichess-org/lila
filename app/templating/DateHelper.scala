@@ -26,7 +26,7 @@ trait DateHelper { self: I18nHelper ⇒
       DateTimeFormat forStyle dateTimeStyle withLocale new Locale(lang(ctx).language))
 
   private def dateFormatter(ctx: Context): DateTimeFormatter =
-    dateTimeFormatters.getOrElseUpdate(
+    dateFormatters.getOrElseUpdate(
       lang(ctx).language,
       DateTimeFormat forStyle dateStyle withLocale new Locale(lang(ctx).language))
 

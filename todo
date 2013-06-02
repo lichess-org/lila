@@ -1,6 +1,4 @@
 start chess960 after both player move http://fr.lichess.org/forum/lichess-feedback/clock-fairness-in-chess960-games
-takeback play 2 times ?? http://en.lichess.org/analyse/nfjchnmo/black move 45
-also translate websockets error message
 @someone = link to someone's profile
 analysis not the fastest checkmate, but no best move? http://en.lichess.org/analyse/w3xw8fsw/black 
 finish games per day chart
@@ -54,7 +52,6 @@ from MoralIntentions email:
 - More tie-breaking options and stats (in Tournament): https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss_system_tournaments, especially Sonneborn-Berger and Tournament Performance Rating. 
 - Several options of how points should be given to players (for example: Score * Sonneborn-Berger * Tournament Performance Rating * Percentage Score [for example: 0.64] / 1000) and therefore also several Leaderboards. 
 - The possibility of team matches (with solutions for players who are in several teams), where the team leader has to choose the board order, where the team results are shown and where the team player (who has played all of the games of the match) with the highest Percentage Score gets crowned Player of the Match of team "A".  
-safari has high bounce rate
 correspondance chess http://en.lichess.org/forum/lichess-feedback/correspondence-chess#1
 takeback/enpassant glitch http://en.lichess.org/forum/lichess-feedback/i-found-a-glitch#1 
 show teams in user mini
@@ -66,7 +63,7 @@ LilaError['[analysis] fred65 already analyses ueogn4fr, won't process ueogn4fr']
 unload event http://en.lichess.org/forum/redirect/post/lnsqfhli
 -> only rated games
 preview board should never touch undertables
-forum search bug http://en.lichess.org/forum/search?text=user:SOHAIB
+don't show frieds staff posts
 
 ---
 
