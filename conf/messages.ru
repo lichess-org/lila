@@ -208,3 +208,5 @@ nbFollowers=%s подписчики
 nbFollowing=%s следует
 profile=Профиль
 more=Ещё
+memberSince=Дата регистрации
+lastLogin=Последний вход
