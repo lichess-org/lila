@@ -49,7 +49,6 @@ theComputerAnalysisHasFailed=Datamaskin analysen gikk feil
 viewTheComputerAnalysis=Se datamaskin analysen
 mistakes=Feil
 viewGameStats=Vis spillstatistikk
-viewPgn=sePgn
 flipBoard=Snu brettet
 threefoldRepetition=Trekkgjentagelse
 claimADraw=Krev remis
