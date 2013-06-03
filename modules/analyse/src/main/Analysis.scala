@@ -96,11 +96,11 @@ private[analyse] case class RawAnalysis(
     fail: Option[String]) {
 
   def decode: Option[Analysis] = (done, encoded.trim) match {
-    case (true, "") ⇒ none
+    case (true, "") ⇒ new Analysis(id, Nil, false, fail orElse "No move infos".some).some
     case (true, en) ⇒ Analysis.decodeInfos(en) map { infos ⇒
       new Analysis(id, infos, done, none)
     } 
-    case (false, _) ⇒ new Analysis(id, Nil, false, fail orElse "No move infos".some).some
+    case (false, _) ⇒ new Analysis(id, Nil, false, fail).some
   }
 }
 
