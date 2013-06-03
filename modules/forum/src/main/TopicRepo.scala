@@ -30,7 +30,7 @@ sealed abstract class TopicRepo(troll: Boolean) {
     $find.one(Json.obj("categId" -> categSlug, "slug" -> slug) ++ trollFilter)
 
   def nextSlug(categ: Categ, name: String, it: Int = 1): Fu[String] = {
-    val slug = lila.common.String.slugify(name) + ~(it == 1).option("-" + it)
+    val slug = Topic.nameToId(name) + ~(it != 1).option("-" + it)
     // also take troll topic into accounts
     TopicRepoTroll.byTree(categ.slug, slug) flatMap {
       _.isDefined.fold(
