@@ -330,14 +330,15 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     onResize();
 
     if (!strongSocket.available) {
-      setTimeout(function() {
+      $('#lichess').on('mouseover', function() {
+        $('#lichess').off('mouseover');
         var inUrFaceUrl = window.opera ? '/assets/opera-websocket.html' : '/assets/browser.html';
         $.ajax(inUrFaceUrl, {
           success: function(html) {
             $('body').prepend(html);
           }
         });
-      }, 2000);
+      });
     }
 
     $('#lichess').on('click', 'a.socket-link', function() {
