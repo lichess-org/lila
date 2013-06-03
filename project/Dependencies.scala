@@ -22,7 +22,7 @@ object Dependencies {
     val commons = Seq(
       local,
       localSonatype,
-      sonatypeS,
+      // sonatypeS,
       sonatype,
       awesomepom, iliaz,
       typesafe,
