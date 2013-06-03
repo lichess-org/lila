@@ -435,16 +435,14 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       $('#top .themepicker').removeClass("shown");
     });
 
-    // bgpicker
-    var bgs = ["light", "dark"];
-    var bg = $body.hasClass("dark") ? "dark" : "light";
-
-    function invertBg(bg) {
-      return bg == "dark" ? "light" : "dark";
-    }
     $('#top a.bgpicker').click(function() {
-      bg = invertBg(bg);
-      $body.removeClass(bgs.join(' ')).addClass(bg);
+      var bg = $body.hasClass("dark") ? "light" : "dark";
+      $body.removeClass('light dark').addClass(bg);
+      if (bg == 'dark' && $('link[href*="dark\.css"]').length == 0) {
+        $('link[href*="common\.css"]').clone().each(function() {
+          $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'dark.css')).appendTo('head');
+        });
+      }
       $.post($(this).attr('href'), {
         bg: bg
       });
