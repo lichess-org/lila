@@ -38,6 +38,11 @@ case class Topic(
 
 object Topic {
 
+  def nameToId(name: String) = (lila.common.String slugify name) |> { slug ⇒
+    // if most chars are not latin, go for random slug
+    (slug.size > (name.size / 2)).fold(slug, Random nextString 8)
+  }
+
   val idSize = 8
 
   def make(
