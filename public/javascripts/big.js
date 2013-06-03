@@ -272,7 +272,8 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           }
         },
         analysisAvailable: function() {
-          $("div.game_analysis").show().find('.status').remove();
+          $("div.game_analysis.status").remove();
+          $("div.game_analysis").show();
           $.playSound();
           document.title = "/!\\ ANALYSIS READY! " + document.title;
         }
