@@ -59,9 +59,8 @@ check team average elo http://en.lichess.org/inbox/benuegti#bottom
 if game ends during move -> bug
 challenge friends
 computer players ranks once a day
-lobby don't show duplicated entries
-prevent double lobby entry per browser
 players world map
+signin button in chrome (light)
 
 ---
 

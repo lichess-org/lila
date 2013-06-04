@@ -18,13 +18,14 @@ case class HookConfig(
 
   def >> = (variant.id, clock, time, increment, mode.id.some, eloRange.toString.some, color.name).some
 
-  def hook(uid: String, user: Option[User]) = Hook.make(
+  def hook(uid: String, user: Option[User], sid: Option[String]) = Hook.make(
     uid = uid,
     variant = variant,
     clock = makeClock,
     mode = mode,
     color = color.name,
     user = user,
+    sid = sid,
     eloRange = eloRange)
 
   def encode = RawHookConfig(

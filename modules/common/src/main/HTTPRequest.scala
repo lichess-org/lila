@@ -16,4 +16,7 @@ object HTTPRequest {
 
   def userAgent(req: RequestHeader): Option[String] = 
     req.headers get HeaderNames.USER_AGENT
+
+  def sid(req: RequestHeader): Option[String] =
+    req.session get "sid"
 }
