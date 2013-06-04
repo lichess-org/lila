@@ -14,7 +14,7 @@ private[round] final class Hijack(timeout: Duration) {
   def apply(pov: Pov, token: String, ctx: Context) =
     if (hijacks get pov.fullId) true
     else if (token != pov.game.token) true ~ { _ ⇒
-      loginfo("[websocket] hijacking detected %s %s".format(pov.fullId, ctx.toString))
+      logwarn("[websocket] hijacking detected %s %s".format(pov.fullId, ctx.toString))
       hijacks put pov.fullId
     }
     else false

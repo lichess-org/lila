@@ -766,7 +766,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           name: "game"
         },
         params: {
-          tk2: "--tkph--"
+          ran: "--ranph--"
         },
         events: {
           ack: function() {

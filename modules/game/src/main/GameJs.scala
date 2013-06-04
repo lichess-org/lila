@@ -4,7 +4,7 @@ private[game] final class GameJs(path: String, useCache: Boolean) {
 
   def unsigned: String = useCache.fold(cached, readFromSource)
 
-  val placeholder = "--tkph--"
+  val placeholder = "--ranph--"
 
   def sign(token: String) = unsigned.replace(placeholder, token)
 

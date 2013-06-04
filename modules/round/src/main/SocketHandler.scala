@@ -111,7 +111,7 @@ private[round] final class SocketHandler(
       version = version,
       color = pov.color,
       playerId = playerId filterNot (_ ⇒ hijack(pov, token, ctx)))
-    handler ← Handler(socket, uid, join, ctx.userId) {
+    handler ← Handler(hub, socket, uid, join, ctx.userId) {
       case Connected(enum, member) ⇒
         controller(pov.gameId, socket, uid, pov.ref, member) -> enum
     }
