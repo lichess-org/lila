@@ -10,12 +10,12 @@ object Ai extends LilaController {
   private def stockfishServer = Env.ai.stockfishServer
   private def isServer = Env.ai.isServer
 
-  def playStockfish = Open { implicit ctx ⇒
+  def playStockfish = Action { req ⇒
     IfServer {
       stockfishServer.play(
-        pgn = getOr("pgn", ""),
-        initialFen = get("initialFen"),
-        level = getIntOr("level", 1)
+        pgn = ~get("pgn", req),
+        initialFen = get("initialFen", req),
+        level = getInt("level", req) | 1
       ) fold (
           err ⇒ {
             logwarn("[ai] stochfish server play: " + err)
@@ -26,11 +26,11 @@ object Ai extends LilaController {
     }
   }
 
-  def analyseStockfish = Open { implicit ctx ⇒
+  def analyseStockfish = Action { req ⇒
     IfServer {
       stockfishServer.analyse(
-        pgn = getOr("pgn", ""),
-        initialFen = get("initialFen")
+        pgn = ~get("pgn", req),
+        initialFen = get("initialFen", req)
       ) fold (
           err ⇒ {
             logwarn("[ai] stochfish server analyse: " + err)
@@ -42,5 +42,5 @@ object Ai extends LilaController {
   }
 
   private def IfServer(result: ⇒ Fu[Result]) =
-    isServer.fold(result, BadRequest("Not an AI server").fuccess)
+    isServer.fold(Async(result), BadRequest("Not an AI server"))
 }
