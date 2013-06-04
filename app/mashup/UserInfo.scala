@@ -2,11 +2,11 @@ package lila.app
 package mashup
 
 import chess.{ EloCalculator, Color }
-import lila.game.{ GameRepo, Game }
-import lila.user.{ User, UserRepo, Context, EloChart }
 import lila.bookmark.BookmarkApi
-import lila.relation.RelationApi
 import lila.forum.PostApi
+import lila.game.{ GameRepo, Game }
+import lila.relation.RelationApi
+import lila.user.{ User, UserRepo, Context, EloChart }
 
 case class UserInfo(
     user: User,
@@ -27,18 +27,15 @@ case class UserInfo(
 
 object UserInfo {
 
-  private val rankMinElo = 1800
-
   def apply(
     countUsers: () ⇒ Fu[Int],
     bookmarkApi: BookmarkApi,
     eloCalculator: EloCalculator,
     relationApi: RelationApi,
-    postApi: PostApi)(user: User, ctx: Context): Fu[UserInfo] =
-    ((user.elo >= rankMinElo) ?? {
-      UserRepo rank user flatMap { rank ⇒
-        countUsers() map { nbUsers ⇒ (rank -> nbUsers).some }
-      }
+    postApi: PostApi,
+    getRank: String ⇒ Fu[Option[Int]])(user: User, ctx: Context): Fu[UserInfo] =
+    (getRank(user.id) flatMap {
+      _ ?? { rank ⇒ countUsers() map { nb ⇒ (rank -> nb).some } }
     }) zip
       ((ctx is user) ?? {
         GameRepo count (_ notFinished user.id) map (_.some)
@@ -49,7 +46,7 @@ object UserInfo {
       (bookmarkApi countByUser user) zip
       EloChart(user) zip
       relationApi.nbFollowing(user.id) zip
-      relationApi.nbFollowers(user.id) zip 
+      relationApi.nbFollowers(user.id) zip
       postApi.nbByUser(user.id) map {
         case (((((((rank, nbPlaying), nbWithMe), nbBookmark), eloChart), nbFollowing), nbFollowers), nbPosts) ⇒ new UserInfo(
           user = user,

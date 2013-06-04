@@ -25,4 +25,10 @@ object AsyncCache {
     timeToIdle: Duration = Duration.Zero) = new AsyncCache(
     cache = LruCache(maxCapacity, initialCapacity, timeToLive, timeToIdle),
     f = f)
+
+  def single[V](
+    f: ⇒ Fu[V],
+    timeToLive: Duration = Duration.Zero) = new AsyncCache[Boolean, V](
+    cache = LruCache(timeToLive = timeToLive),
+    f = _ ⇒ f)
 }
