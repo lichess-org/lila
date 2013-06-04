@@ -765,6 +765,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         options: {
           name: "game"
         },
+        params: {
+          tk2: "--tkph--"
+        },
         events: {
           ack: function() {
             clearTimeout(self.socketAckTimeout);
