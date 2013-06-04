@@ -1999,13 +1999,16 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
     function updateHookTable() {
       var filter = lichess_preload.filter;
+      var seen = [];
       $hooksTable.find('tr.hook').each(function() {
         var hook = $(this).data('hook');
         var hide = (filter.variant != null && filter.variant != hook.variant) ||
           (filter.mode != null && filter.mode != hook.mode) ||
           (filter.speed != null && filter.speed != hook.speed) ||
           (filter.eloDiff > 0 && (!hook.elo || hook.elo > (myElo + filter.eloDiff) || hook.elo < (myElo - filter.eloDiff)));
-        $(this).toggleClass('none', hide && (hook.action != 'cancel'));
+        var hash = hook.mode + hook.variant + hook.color + hook.clock
+        $(this).toggleClass('none', (hide || _.contains(seen, hash)) && (hook.action != 'cancel'));
+        seen.push(hash);
       });
 
       var nbVisibleHooks = $hooksTable.find('tr.hook:not(.none)').length;
