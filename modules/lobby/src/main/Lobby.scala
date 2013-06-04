@@ -23,6 +23,7 @@ private[lobby] final class Lobby(
 
     case msg @ AddHook(hook) ⇒ {
       HookRepo byUid hook.uid foreach remove
+      hook.sid ?? { sid ⇒ HookRepo bySid sid foreach remove }
       HookRepo save hook
       socket ! msg
     }

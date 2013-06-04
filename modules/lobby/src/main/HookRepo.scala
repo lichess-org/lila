@@ -13,6 +13,8 @@ object HookRepo {
 
   def byUid(uid: String) = hooks find (_.uid == uid)
 
+  def bySid(sid: String) = hooks find (_.sid == sid.some)
+
   def allOpen: List[Hook] = list.filter(_.open)
 
   def allOpenCasual = list.filter(h ⇒ h.open && h.mode == 0)

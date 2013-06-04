@@ -11,6 +11,7 @@ import lila.user.User
 case class Hook(
     id: String,
     uid: String, // owner socket uid
+    sid: Option[String], // owner cookie (used to prevent multiple hooks)
     variant: Int,
     hasClock: Boolean,
     time: Option[Int],
@@ -68,6 +69,7 @@ object Hook {
     mode: Mode,
     color: String,
     user: Option[User],
+    sid: Option[String],
     eloRange: EloRange): Hook = new Hook(
     id = Random nextString idSize,
     uid = uid,
@@ -79,6 +81,7 @@ object Hook {
     color = color,
     userId = user map (_.id),
     username = user.fold(User.anonymous)(_.username),
+    sid = sid,
     elo = user map (_.elo),
     eloRange = eloRange.toString,
     engine = user.??(_.engine),
