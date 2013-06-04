@@ -4,9 +4,9 @@ import akka.actor._
 import com.typesafe.config.Config
 
 final class Env(
-  config: Config, 
-  system: ActorSystem,
-  appPath: String) {
+    config: Config,
+    system: ActorSystem,
+    appPath: String) {
 
   val CliUsername = config getString "cli.username"
 
@@ -40,23 +40,25 @@ final class Env(
     domain = Env.api.Net.Domain
   )), name = RouterName)
 
-  loginfo("[boot] Preloading modules")
-  (Env.site,
-    Env.tournament,
-    Env.lobby,
-    Env.game,
-    Env.ai,
-    Env.setup,
-    Env.round,
-    Env.team,
-    Env.message,
-    Env.socket,
-    Env.timeline,
-    Env.gameSearch,
-    Env.teamSearch,
-    Env.forumSearch,
-    Env.relation)
-  loginfo("[boot] Preloading complete")
+  if (!Env.ai.isServer) {
+    loginfo("[boot] Preloading modules")
+    (Env.site,
+      Env.tournament,
+      Env.lobby,
+      Env.game,
+      Env.ai,
+      Env.setup,
+      Env.round,
+      Env.team,
+      Env.message,
+      Env.socket,
+      Env.timeline,
+      Env.gameSearch,
+      Env.teamSearch,
+      Env.forumSearch,
+      Env.relation)
+    loginfo("[boot] Preloading complete")
+  }
 
   if (Env.ai.isServer) println("Running as AI server")
 }

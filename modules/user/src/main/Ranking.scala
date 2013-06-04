@@ -20,5 +20,5 @@ final class Ranking(ttl: Duration) {
       UserRepo.enabledQuery ++ Json.obj("elo" -> $gt(User.STARTING_ELO)),
       "_id",
       _ sort UserRepo.sortEloDesc
-    )(_.asOpt[String]) map { _.pp.zipWithIndex.toMap }
+    )(_.asOpt[String]) map { _.zipWithIndex.toMap }
 }

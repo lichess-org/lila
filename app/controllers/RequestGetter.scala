@@ -17,10 +17,4 @@ trait RequestGetter {
 
   protected def getInt(name: String, req: RequestHeader): Option[Int] =
     req.queryString get name flatMap (_.headOption) flatMap parseIntOption
-
-  protected def getOr(name: String, default: String)(implicit ctx: Context) =
-    get(name)(ctx) getOrElse default
-
-  protected def getIntOr(name: String, default: Int)(implicit ctx: Context) =
-    getInt(name)(ctx) getOrElse default
 }
