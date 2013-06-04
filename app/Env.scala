@@ -29,7 +29,8 @@ final class Env(
     bookmarkApi = Env.bookmark.api,
     eloCalculator = Env.round.eloCalculator,
     relationApi = Env.relation.api,
-    postApi = Env.forum.postApi) _
+    postApi = Env.forum.postApi,
+    getRank = Env.user.ranking.get) _
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 

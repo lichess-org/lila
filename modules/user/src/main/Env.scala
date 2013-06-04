@@ -17,6 +17,7 @@ final class Env(
     val EloUpdaterFloor = config getInt "elo_updater.floor"
     val CachedNbTtl = config duration "cached.nb.ttl"
     val OnlineTtl = config duration "online.ttl"
+    val RankingTtl = config duration "ranking.ttl"
     val CollectionUser = config getString "collection.user"
     val CollectionHistory = config getString "collection.history"
   }
@@ -33,6 +34,8 @@ final class Env(
   lazy val eloUpdater = new EloUpdater(floor = EloUpdaterFloor)
 
   lazy val onlineUserIdMemo = new ExpireSetMemo(ttl = OnlineTtl)
+
+  lazy val ranking = new Ranking(ttl = RankingTtl)
 
   val forms = DataForm
 
