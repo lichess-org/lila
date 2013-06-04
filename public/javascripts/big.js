@@ -633,7 +633,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     }
 
     if (Boolean(window.chrome)) {
-      $("div.addtochrome").show();
+      $('#lichess_social').append('<div class="addtochrome"><a class="button" href="https://chrome.google.com/webstore/detail/kiefmccciemniajdkgikpnocipidaaeg">Add To Chrome</a></div>');
     }
 
   });

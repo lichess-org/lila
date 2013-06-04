@@ -649,12 +649,6 @@ a#sound_state.unavailable {
   bottom: 0.2em;
   right: 0.3em;
 }
-#quick_requests {
-  margin-top: 2em;
-}
-#quick_requests a {
-  margin: 5px 0;
-}
 #friend_box {
   position: fixed;
   bottom: 0px;
@@ -768,11 +762,6 @@ div.engine_warning {
   width: 240px;
   margin-bottom: 15px;
 }
-div.ui-tooltip div.engine_warning {
-  margin: 10px 0 10px 5px;
-  width: auto;
-  background-position: 8px 0px;
-}
 .engine_mark {
   display: inline-block;
   width: 16px;
@@ -781,12 +770,11 @@ div.ui-tooltip div.engine_warning {
   opacity: 0.8;
   vertical-align: bottom;
 }
-div.lichess_social {
+#lichess_social {
   height: 0px;
   text-align: center;
 }
-div.lichess_social div.addtochrome {
-  display: none;
+#lichess_social div.addtochrome {
   margin-bottom: 15px;
 }
 /* soft inactive gradient */
