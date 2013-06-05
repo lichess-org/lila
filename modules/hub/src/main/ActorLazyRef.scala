@@ -12,7 +12,7 @@ final class ActorLazyRef private (system: ActorSystem, path: String) {
 
   def !(msg: Any)(implicit sender: ActorRef = Actor.noSender) { ref ! msg }
 
-  def ?(msg: Any)(implicit timeout: Timeout): Fu[Any] = ref ? msg
+  def ?(msg: Any)(implicit timeout: Timeout, sender: ActorRef = Actor.noSender): Fu[Any] = ref ? msg
 }
 
 object ActorLazyRef {

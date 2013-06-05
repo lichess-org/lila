@@ -25,11 +25,9 @@ final class Broadcast(lazyRefs: List[ActorLazyRef])(implicit timeout: Timeout) e
   }
 
   private def broadcast(msg: Any) {
-    actors foreach { _ ! msg }
+    lazyRefs foreach { _ ! msg }
   }
 
-  private def actors = lazyRefs map (_.ref)
-
   private def askAll(message: Any): Fu[List[Any]] =
-    actors.map(_ ? message).sequenceFu
+    lazyRefs.map(_ ? message).sequenceFu
 }
