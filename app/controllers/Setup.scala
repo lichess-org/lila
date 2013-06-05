@@ -25,8 +25,16 @@ object Setup extends LilaController with TheftPrevention {
   }
 
   def friendForm(username: Option[String]) = Open { implicit ctx ⇒
-    env.forms friendFilled get("fen") map {
-      html.setup.friend(_, username)
+    username ?? UserRepo.named flatMap { userOption ⇒
+      (userOption |@| ctx.me).tupled ?? {
+        case (user, me) ⇒ Env.relation.api.blocks(user.id, me.id) map { blocks ⇒
+          !blocks option user
+        }
+      }
+    } flatMap { user ⇒
+      env.forms friendFilled get("fen") map {
+        html.setup.friend(_, user map (_.username))
+      }
     }
   }
 
