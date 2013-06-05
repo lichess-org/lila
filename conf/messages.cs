@@ -210,3 +210,4 @@ profile=Profil
 more=Více
 memberSince=Členem od
 lastLogin=Poslední přihlášení
+challengeToPlay=Vyzvať hrať
