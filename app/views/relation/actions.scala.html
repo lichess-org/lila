@@ -3,11 +3,11 @@
 @ctx.userId.map { myId =>
 @if(myId != userId) {
 @if(!blocks(userId, myId)) {
-<a title="@trans.composeMessage()" href="@routes.Message.form()?username=@userId" class="icon button" href="#">
-  <span class="s16 message"></span>
-</a>
 <a title="@trans.challengeToPlay()" href="@routes.Lobby.home()?username=@userIdToUsername(userId)#friend" class="icon button" href="#">
   <span class="s16 challenge"></span>
+</a>
+<a title="@trans.composeMessage()" href="@routes.Message.form()?username=@userId" class="icon button" href="#">
+  <span class="s16 message"></span>
 </a>
 }
 @relationWith(userId) match {
