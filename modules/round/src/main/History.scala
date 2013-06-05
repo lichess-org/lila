@@ -37,7 +37,8 @@ private[round] final class History(ttl: Duration) extends Actor {
           data = e.data,
           only = e.only,
           owner = e.owner,
-          watcher = e.watcher) ~ { events.put(version, _) }
+          watcher = e.watcher,
+          troll = e.troll) ~ { events.put(version, _) }
       }
     }
   }

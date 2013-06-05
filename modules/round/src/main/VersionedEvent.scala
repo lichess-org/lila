@@ -12,7 +12,8 @@ case class VersionedEvent(
     data: JsValue,
     only: Option[Color],
     owner: Boolean,
-    watcher: Boolean) {
+    watcher: Boolean,
+    troll: Boolean) {
 
   def jsFor(m: Member): JsObject = visibleBy(m).fold(
     Json.obj(
@@ -26,5 +27,6 @@ case class VersionedEvent(
   private def visibleBy(m: Member): Boolean =
     if (watcher && m.owner) false
     else if (owner && m.watcher) false
+    else if (troll && !m.troll) false
     else only.fold(true)(_ == m.color)
 }

@@ -12,6 +12,7 @@ sealed trait Event {
   def only: Option[Color] = None
   def owner: Boolean = false
   def watcher: Boolean = false
+  def troll: Boolean = false
 }
 
 object Event {
@@ -112,18 +113,20 @@ object Event {
     def data = JsString(pos.key)
   }
 
-  case class Message(author: String, text: String) extends Event {
+  case class Message(author: String, text: String, t: Boolean) extends Event {
     def typ = "message"
     def data = Json.obj("u" -> author, "t" -> escapeXml(text))
     override def owner = true
+    override def troll = t
   }
 
   // it *IS* a username, and not a user ID
   // immediately used for rendering
-  case class WatcherMessage(username: Option[String], text: String) extends Event {
+  case class WatcherMessage(username: Option[String], text: String, t: Boolean) extends Event {
     def typ = "message"
     def data = Json.obj("u" -> username, "t" -> escapeXml(text))
     override def watcher = true
+    override def troll = t
   }
 
   object End extends Empty {

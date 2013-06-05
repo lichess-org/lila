@@ -44,28 +44,29 @@ final class Messenger(
     _ ← nextWR.nonEmpty ?? $insert(nextWR)
   } yield ()
 
-  def playerMessage(ref: PovRef, text: String): Fu[List[Event.Message]] =
+  def playerMessage(ref: PovRef, text: String, troll: Boolean): Fu[List[Event.Message]] =
     cleanupText(text).future flatMap { t ⇒
-      RoomRepo.addMessage(ref.gameId, ref.color.name, t) inject {
-        Event.Message(ref.color.name, t) :: Nil
+      (!troll ?? RoomRepo.addMessage(ref.gameId, ref.color.name, t)) inject {
+        Event.Message(ref.color.name, t, troll) :: Nil
       }
     }
 
   def watcherMessage(
     gameId: String,
     userId: Option[String],
-    text: String): Fu[List[Event.WatcherMessage]] = for {
+    text: String,
+    troll: Boolean): Fu[List[Event.WatcherMessage]] = for {
     userOption ← userId.??(UserRepo.byId)
     message ← userOrAnonMessage(userOption, text).future
     (u, t) = message
-    _ ← WatcherRoomRepo.addMessage(gameId, u, t)
-  } yield Event.WatcherMessage(u, t) :: Nil
+    _ ← !troll ?? WatcherRoomRepo.addMessage(gameId, u, t)
+  } yield Event.WatcherMessage(u, t, troll) :: Nil
 
   def systemMessages(game: Game, messages: List[SelectI18nKey]): Fu[List[Event]] =
     game.hasChat ?? {
       (messages map { m ⇒ trans(m) }) |> { messageKeys ⇒
         RoomRepo.addSystemMessages(game.id, messageKeys) inject {
-          messageKeys map { Event.Message("system", _) }
+          messageKeys map { Event.Message("system", _, false) }
         }
       }
     }
@@ -74,7 +75,7 @@ final class Messenger(
     game.hasChat ?? {
       trans(message) |> { messageKey ⇒
         RoomRepo.addSystemMessage(game.id, messageKey) inject {
-          Event.Message("system", messageKey) :: Nil
+          Event.Message("system", messageKey, false) :: Nil
         }
       }
     }
@@ -85,7 +86,7 @@ final class Messenger(
       status.fold("en", "dis") + "abled"
     ) |> { message ⇒
         RoomRepo.addSystemMessage(ref.gameId, message) inject {
-          Event.Message("system", message) :: Nil
+          Event.Message("system", message, false) :: Nil
         }
       }
 
