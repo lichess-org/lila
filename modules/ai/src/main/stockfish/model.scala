@@ -54,10 +54,6 @@ object model {
         def apply(sender: ActorRef) = new Task(moves, fen, level, sender)
       }
     }
-
-    case class BestMove(move: Option[String]) {
-      def parse = UciMove(~move)
-    }
   }
 
   object analyse {
