@@ -142,17 +142,12 @@ object GameRepo {
   )(_.asOpt[ID])
 
   def featuredCandidates: Fu[List[Game]] = $find(
-    Query.playable ++ Query.clock(true) ++ Json.obj(
-      "t" -> $gt(1),
+    Query.playable ++ Query.clock(true) ++ Query.turnsGt(1) ++ Json.obj(
       createdAt -> $gt($date(DateTime.now - 4.minutes)),
       updatedAt -> $gt($date(DateTime.now - 15.seconds))
     ))
 
   def count(query: Query.type ⇒ JsObject): Fu[Int] = $count(query(Query))
-
-  def recentGames(limit: Int): Fu[List[Game]] = $find(
-    $query(Query.started ++ Query.turnsGt(1)) sort Query.sortCreated, limit
-  )
 
   def nbPerDay(days: Int): Fu[List[Int]] =
     ((days to 1 by -1).toList map { day ⇒
