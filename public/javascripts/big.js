@@ -261,7 +261,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         n: function(e) {
           var $tag = $('#nb_connected_players > strong');
           if ($tag.length && e) {
-            var prev = parseInt($tag.text()) || (e - 20);
+            var prev = parseInt($tag.text()) || Math.min(0, (e - 10));
             var interv = lichess.socket.pingInterval() / 4;
             _.each([0,1,2,3], function(it) {
               setTimeout(function() {
