@@ -1,12 +1,13 @@
 package controllers
 
-import lila.app._
-import lila.user.{ Context, BodyContext }
-import lila.game.GameRepo
-import views._
-
-import play.api.mvc.{ Result, Call }
 import play.api.data.Form
+import play.api.mvc.{ Result, Call }
+
+import lila.app._
+import lila.game.GameRepo
+import lila.user.UserRepo
+import lila.user.{ Context, BodyContext }
+import views._
 
 object Setup extends LilaController with TheftPrevention {
 
@@ -42,6 +43,12 @@ object Setup extends LilaController with TheftPrevention {
     implicit val req = ctx.body
     env.forms.hook(ctx).bindFromRequest.value ?? { config ⇒
       env.processor.hook(config, uid, lila.common.HTTPRequest sid req)
+    }
+  }
+
+  def challengeForm(username: String) = Open { implicit ctx ⇒
+    OptionFuOk(UserRepo named username) { user ⇒
+      env.forms friendFilled get("fen") map { html.setup.challenge(_, user) }
     }
   }
 
