@@ -210,3 +210,4 @@ profile=Профиль
 more=Ещё
 memberSince=Дата регистрации
 lastLogin=Последний вход
+challengeToPlay=Бросить вызов
