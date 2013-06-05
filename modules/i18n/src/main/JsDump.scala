@@ -39,7 +39,10 @@ private[i18n] case class JsDump(
     keys.takebackPropositionCanceled,
     keys.gameOver,
     keys.yourTurn,
-    keys.waitingForOpponent)
+    keys.waitingForOpponent,
+    keys.accept,
+    keys.decline,
+    keys.challengeToPlay)
 
   private val pathFile = new File(path)
 

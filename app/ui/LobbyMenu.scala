@@ -6,7 +6,7 @@ import controllers.routes
 
 import play.api.mvc.Call
 
-final class LobbyMenu(i18nKeys: I18nKeys) {
+private[app] final class LobbyMenu(i18nKeys: I18nKeys) {
 
   sealed class Elem(
     val code: String,
@@ -22,7 +22,7 @@ final class LobbyMenu(i18nKeys: I18nKeys) {
 
   val friend = new Elem(
     "friend",
-    routes.Setup.friendForm, 
+    routes.Setup.friendForm(none), 
     i18nKeys.playWithAFriend,
     i18nKeys.inviteAFriendToPlayWithYou)
 

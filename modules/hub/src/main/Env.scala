@@ -29,6 +29,7 @@ final class Env(config: Config, system: ActorSystem) {
     val roundMap = actorLazyRef("round.map")
     val lobby = actorLazyRef("lobby")
     val relation = actorLazyRef("relation")
+    val challenger = actorLazyRef("challenger")
   }
 
   object socket {

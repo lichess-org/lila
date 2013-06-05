@@ -2,7 +2,7 @@ package lila.round
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
-import play.api.libs.json.JsObject
+import play.api.libs.json.{ JsObject, Json }
 
 import actorApi._, round._
 import chess.Color
@@ -73,6 +73,9 @@ private[round] final class SocketHandler(
         case ("bye", _)       ⇒ socket ! Bye(ref.color)
         case ("toggle-chat", o) ⇒
           messenger.toggleChat(ref, ~(o boolean "d")) pipeTo socket
+        case ("challenge", o) ⇒ ((o str "d") |@| member.userId).tupled foreach {
+          case (to, from) ⇒ hub.actor.challenger ! lila.hub.actorApi.setup.RemindChallenge(gameId, from, to)
+        }
       }
     }
   }

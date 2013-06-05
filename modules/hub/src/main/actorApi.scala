@@ -33,6 +33,10 @@ case object GetNbMembers
 case class NbMembers(nb: Int)
 case object GetUids
 
+package setup {
+  case class RemindChallenge(gameId: String, from: String, to: String)
+}
+
 package captcha {
   case object AnyCaptcha
   case class GetCaptcha(id: String)

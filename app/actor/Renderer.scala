@@ -19,6 +19,9 @@ private[app] final class Renderer extends Actor {
     case lila.tournament.actorApi.RemindTournament(tournament) ⇒
       sender ! V.tournament.reminder(tournament)
 
+    case lila.hub.actorApi.setup.RemindChallenge(gameId, from, _) ⇒
+      sender ! V.setup.challengeNotification(gameId, from)
+
     case lila.tournament.actorApi.TournamentTable(tours) ⇒
       sender ! V.tournament.createdTable(tours)
 

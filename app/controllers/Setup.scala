@@ -24,14 +24,16 @@ object Setup extends LilaController with TheftPrevention {
       }
   }
 
-  def friendForm = Open { implicit ctx ⇒
-    env.forms friendFilled get("fen") map { html.setup.friend(_) }
+  def friendForm(username: Option[String]) = Open { implicit ctx ⇒
+    env.forms friendFilled get("fen") map {
+      html.setup.friend(_, username)
+    }
   }
 
-  def friend = process(env.forms.friend) { config ⇒
+  def friend(username: Option[String]) = process(env.forms.friend) { config ⇒
     implicit ctx ⇒
       env.processor friend config map { pov ⇒
-        routes.Setup.await(pov.fullId)
+        routes.Setup.await(pov.fullId, username)
       }
   }
 
@@ -43,12 +45,6 @@ object Setup extends LilaController with TheftPrevention {
     implicit val req = ctx.body
     env.forms.hook(ctx).bindFromRequest.value ?? { config ⇒
       env.processor.hook(config, uid, lila.common.HTTPRequest sid req)
-    }
-  }
-
-  def challengeForm(username: String) = Open { implicit ctx ⇒
-    OptionFuOk(UserRepo named username) { user ⇒
-      env.forms friendFilled get("fen") map { html.setup.challenge(_, user) }
     }
   }
 
@@ -78,18 +74,20 @@ object Setup extends LilaController with TheftPrevention {
     }
   }
 
-  def await(fullId: String) = Open { implicit ctx ⇒
+  def await(fullId: String, username: Option[String]) = Open { implicit ctx ⇒
     OptionFuResult(GameRepo pov fullId) { pov ⇒
       pov.game.started.fold(
         Redirect(routes.Round.player(pov.fullId)).fuccess,
-        Env.round.version(pov.gameId) flatMap { version ⇒
-          PreventTheft(pov) {
-            Ok(html.setup.await(
-              pov,
-              version,
-              env.friendConfigMemo get pov.game.id)).fuccess
+        Env.round.version(pov.gameId) zip
+          (username ?? UserRepo.named) flatMap {
+            case (version, user) ⇒ PreventTheft(pov) {
+              Ok(html.setup.await(
+                pov,
+                version,
+                env.friendConfigMemo get pov.game.id,
+                user)).fuccess
+            }
           }
-        }
       )
     }
   }

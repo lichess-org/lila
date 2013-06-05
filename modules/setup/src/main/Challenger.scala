@@ -1,29 +1,27 @@
-package lila.tournament
+package lila.setup
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 import play.api.libs.json.Json
 import play.api.templates.Html
 
-import actorApi._
 import lila.hub.actorApi.SendTos
 import makeTimeout.short
 
-private[tournament] final class Reminder(
+private[setup] final class Challenger(
     hub: lila.hub.ActorLazyRef,
     renderer: lila.hub.ActorLazyRef) extends Actor {
 
   def receive = {
 
-    case RemindTournaments(tours) ⇒ tours foreach { tour ⇒
-      renderer ? RemindTournament(tour) map {
-        case html: Html ⇒ SendTos(tour.activeUserIds.toSet, Json.obj(
-          "t" -> "tournamentReminder",
+    case msg @ lila.hub.actorApi.setup.RemindChallenge(gameId, from, to) ⇒
+      renderer ? msg map {
+        case html: Html ⇒ SendTos(Set(to), Json.obj(
+          "t" -> "challengeReminder",
           "d" -> Json.obj(
-            "id" -> tour.id,
+            "id" -> gameId,
             "html" -> html.toString
           )))
       } pipeTo hub.ref
-    }
   }
 }
