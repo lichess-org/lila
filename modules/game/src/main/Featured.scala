@@ -47,19 +47,19 @@ final class Featured(
 
     private def valid(game: Game) = game.isBeingPlayed
 
-    private def feature: Option[Game] = Featured best {
+    private def feature: Option[Game] = Featured sort {
       GameRepo.featuredCandidates.await filter valid
-    }
+    } lastOption
   }))
 }
 
 object Featured {
 
-  case object GetOne
+  private case object GetOne
 
-  def best(games: List[Game]) = (games sortBy score).lastOption
+  def sort(games: List[Game]): List[Game] = games sortBy score
 
-  def score(game: Game): Float = heuristics map {
+  private def score(game: Game): Float = heuristics map {
     case (fn, coefficient) ⇒ heuristicBox(fn(game)) * coefficient
   } sum
 
@@ -75,16 +75,16 @@ object Featured {
     speedHeuristic -> 1,
     progressHeuristic -> 0.5f)
 
-  def eloHeuristic(color: Color): Heuristic = game ⇒
+  private def eloHeuristic(color: Color): Heuristic = game ⇒
     eloBox(game.player(color).elo | 1100)
 
-  def speedHeuristic: Heuristic = game ⇒
+  private def speedHeuristic: Heuristic = game ⇒
     1 - timeBox(game.estimateTotalTime)
 
-  def progressHeuristic: Heuristic = game ⇒
+  private def progressHeuristic: Heuristic = game ⇒
     1 - turnBox(game.turns)
 
   // boxes and reduce to 0..1 range
-  def box(in: Range.Inclusive)(v: Float): Float =
+  private def box(in: Range.Inclusive)(v: Float): Float =
     (math.max(in.start, math.min(v, in.end)) - in.start) / (in.end - in.start).toFloat
 }
