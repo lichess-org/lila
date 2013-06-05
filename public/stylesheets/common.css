@@ -272,7 +272,7 @@ body > div.content {
 body.tight > div.content {
   width: auto;
   min-width: 780px;
-  margin-top: 5px;
+  margin-top: 20px;
 }
 #top {
   width: 100%;
