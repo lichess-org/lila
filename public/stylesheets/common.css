@@ -1667,6 +1667,9 @@ input:focus::-moz-placeholder {
 input:focus:-ms-input-placeholder {
   color: transparent;
 }
+div.relation_actions {
+  white-space: nowrap;
+}
 div.relation_actions a.button {
   padding: 0.3em 0.4em 0.3em 0.6em;
 }

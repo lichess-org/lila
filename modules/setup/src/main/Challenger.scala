@@ -6,22 +6,26 @@ import play.api.libs.json.Json
 import play.api.templates.Html
 
 import lila.hub.actorApi.SendTos
+import lila.hub.actorApi.map.Tell
+import lila.hub.actorApi.setup._
+import lila.hub.ActorLazyRef
 import makeTimeout.short
 
 private[setup] final class Challenger(
-    hub: lila.hub.ActorLazyRef,
-    renderer: lila.hub.ActorLazyRef) extends Actor {
+    hub: ActorLazyRef,
+    roundHub: ActorLazyRef,
+    renderer: ActorLazyRef) extends Actor {
 
   def receive = {
 
-    case msg @ lila.hub.actorApi.setup.RemindChallenge(gameId, from, to) ⇒
+    case msg @ RemindChallenge(gameId, from, to) ⇒
       renderer ? msg map {
         case html: Html ⇒ SendTos(Set(to), Json.obj(
           "t" -> "challengeReminder",
-          "d" -> Json.obj(
-            "id" -> gameId,
-            "html" -> html.toString
-          )))
+          "d" -> html.toString
+        ))
       } pipeTo hub.ref
+
+    case msg @ DeclineChallenge(gameId) ⇒ roundHub ! Tell(gameId, msg)
   }
 }

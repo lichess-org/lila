@@ -45,6 +45,18 @@ object Setup extends LilaController with TheftPrevention {
       }
   }
 
+  def decline(gameId: String) = Auth { implicit ctx ⇒
+    me ⇒
+      OptionFuResult(GameRepo game gameId) { game ⇒
+        game.started.fold(
+          BadRequest("Cannot decline started challenge").fuccess,
+          (GameRepo remove game.id) >>
+            (Env.bookmark.api removeByGame game) >>-
+            (Env.hub.actor.challenger ! lila.hub.actorApi.setup.DeclineChallenge(gameId)) map { Ok(_) }
+        )
+      }
+  }
+
   def hookForm = Open { implicit ctx ⇒
     env.forms.hookFilled map { html.setup.hook(_) }
   }

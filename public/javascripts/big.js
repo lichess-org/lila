@@ -271,13 +271,13 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
             });
           }
         },
-        challengeReminder: function(data) {
+        challengeReminder: function(html) {
           if (!$('div.lichess_overboard.joining').length) {
             $('#challenge_reminder').each(function() {
               clearTimeout($(this).data('timeout'));
               $(this).remove();
             });
-            $('div.notifications').append(data.html).find("a.decline").click(function() {
+            $('div.notifications').append(html).find("a.decline").click(function() {
               $.post($(this).attr("href"));
               $('#challenge_reminder').remove();
               return false;
@@ -422,7 +422,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     if ($game) $game.game(_ld_);
 
     setTimeout(function() {
-      if (lichess.socket == null && $('div.server_error_box').length == 0) {
+      if (lichess.socket == null) {
         lichess.socket = new strongSocket("/socket", 0, lichess.socketDefaults);
       }
     }, 1000);
@@ -918,6 +918,10 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
               self.options.game.turns = event.turns;
               self.element.dequeue();
             });
+          },
+          declined: function() {
+            $('#challenge_await').remove();
+            $('#challenge_declined').show();
           }
         }
       }));
@@ -925,8 +929,8 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       $('#challenge_await').each(function() {
         var userId = $(this).data('user');
         setInterval(function() {
-          lichess.socket.send('challenge', userId);
-        }, 1000);
+          if ($('#challenge_await').length) lichess.socket.send('challenge', userId);
+        }, 1500);
       });
     },
     isMyTurn: function() {
