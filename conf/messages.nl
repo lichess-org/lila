@@ -210,3 +210,4 @@ profile=profiel
 more=meer
 memberSince=Lid sinds
 lastLogin=Voor het laatst ingelogd op
+challengeToPlay=Uitdagen
