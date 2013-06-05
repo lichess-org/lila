@@ -49,7 +49,7 @@ final class Featured(
 
     private def feature: Option[Game] = Featured sort {
       GameRepo.featuredCandidates.await filter valid
-    } lastOption
+    } headOption
   }))
 }
 
@@ -57,7 +57,7 @@ object Featured {
 
   private case object GetOne
 
-  def sort(games: List[Game]): List[Game] = games sortBy score
+  def sort(games: List[Game]): List[Game] = games sortBy { -score(_) }
 
   private def score(game: Game): Float = heuristics map {
     case (fn, coefficient) ⇒ heuristicBox(fn(game)) * coefficient
