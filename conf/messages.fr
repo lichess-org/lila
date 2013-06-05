@@ -210,3 +210,4 @@ profile=Profil
 more=Plus
 memberSince=Membre depuis
 lastLogin=Dernière connexion
+challengeToPlay=Défier ce joueur
