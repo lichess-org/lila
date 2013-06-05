@@ -2,16 +2,18 @@ package lila.ai
 package stockfish
 
 import model._
+import actorApi._
 import scala.concurrent.duration.FiniteDuration
 
-private[ai] final class Config(
+private[ai] case class Config(
+    execPath: String,
     hashSize: Int,
     nbThreads: Int,
     playMaxMoveTime: FiniteDuration,
     analyseMoveTime: FiniteDuration,
-    val playTimeout: FiniteDuration,
-    val analyseTimeout: FiniteDuration,
-    val debug: Boolean) {
+    playTimeout: FiniteDuration,
+    analyseTimeout: FiniteDuration,
+    debug: Boolean) {
 
   import Config._
 
@@ -37,30 +39,28 @@ private[ai] final class Config(
     setoption("Threads", nbThreads),
     setoption("Ponder", false))
 
-  def prepare(task: Task) = task.fold(
-    play ⇒ List(
-      setoption("Uci_AnalyseMode", false),
-      setoption("Skill Level", skill(play.level)),
-      setoption("UCI_Chess960", play.chess960),
-      setoption("OwnBook", ownBook(play.level)),
-      "isready"),
-    anal ⇒ List(
+  def prepare(req: Req) = req.analyse.fold(
+    List(
       setoption("Uci_AnalyseMode", true),
       setoption("Skill Level", skillMax),
-      setoption("UCI_Chess960", anal.chess960),
-      setoption("OwnBook", true),
-      "isready"))
+      setoption("UCI_Chess960", req.chess960),
+      setoption("OwnBook", true)),
+    List(
+      setoption("Uci_AnalyseMode", false),
+      setoption("Skill Level", skill(req.level)),
+      setoption("UCI_Chess960", req.chess960),
+      setoption("OwnBook", ownBook(req.level))))
 
-  def go(task: Task): List[String] = task.fold(
-    play ⇒ List(
-      position(play.fen, play.moves),
+  def go(req: Req): List[String] = req.analyse.fold(
+    List(
+      position(req.fen, req.moves),
+      "go movetime %d".format(analyseMoveTime.toMillis)),
+    List(
+      position(req.fen, req.moves),
       "go movetime %d%s".format(
-        moveTime(play.level),
-        ~depth(play.level).map(" depth " + _)
-      )),
-    anal ⇒ List(
-      position(anal.fen, anal.pastMoves),
-      "go movetime %d".format(analyseMoveTime.toMillis)))
+        moveTime(req.level),
+        ~depth(req.level).map(" depth " + _)
+      )))
 
   private def position(fen: Option[String], moves: String) =
     "position %s moves %s".format(fen.fold("startpos")("fen " + _), moves)

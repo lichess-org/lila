@@ -1,101 +1,77 @@
 package lila.ai
 package stockfish
 
-import akka.actor.{ Props, Actor, ActorRef, Status, FSM ⇒ AkkaFSM, LoggingFSM }
+import akka.actor.{ Props, Actor, ActorRef, Status, FSM ⇒ AkkaFSM }
 import model._
 import model.analyse._
+
+import actorApi._
 
 final class ActorFSM(
   processBuilder: Process.Builder,
   config: Config)
-    extends Actor with LoggingFSM[State, Data] {
+    extends Actor with AkkaFSM[State, Option[(Req, ActorRef)]] {
 
-  var process: Process = _
+  private val process = processBuilder(
+    out ⇒ self ! Out(out),
+    err ⇒ self ! Err(err),
+    config.debug)
 
-  override def preStart() {
-    process = processBuilder(
-      out ⇒ self ! Out(out),
-      err ⇒ self ! Err(err),
-      config.debug)
-  }
-
-  startWith(Starting, Todo())
+  startWith(Starting, none)
 
   when(Starting) {
-    case Event(Out(t), _) if t startsWith "Stockfish" ⇒ {
+    case Event(Out(t), data) if t startsWith "Stockfish" ⇒ {
       process write "uci"
       stay
     }
     case Event(Out("uciok"), data) ⇒ {
       config.init foreach process.write
-      nextTask(data)
+      data.fold(goto(Idle))(start)
     }
-    case Event(task: analyse.Task.Builder, data) ⇒
-      stay using (data enqueue task(sender))
-    case Event(task: play.Task.Builder, data) ⇒
-      stay using (data enqueue task(sender))
+    case Event(req: Req, none) ⇒ stay using (req, sender).some
   }
   when(Idle) {
-    case Event(Out(t), _) ⇒ { log.warning(t); stay }
+    case Event(Out(t), _)   ⇒ { logwarn(t); stay }
+    case Event(req: Req, _) ⇒ start(req, sender)
   }
   when(IsReady) {
-    case Event(Out("readyok"), doing: Doing) ⇒ {
-      val lines = config go doing.current
-      lines.lastOption foreach { line =>
-        println("[%d] %s - %s".format(
-          doing.size,
-          doing.current.fold(_ ⇒ "P", _ ⇒ "A"),
-          line))
+    case Event(Out("readyok"), Some((req, _))) ⇒ {
+      val lines = config go req
+      lines.lastOption foreach { line ⇒
+        println(req.analyse.fold("A", "P") + line.replace("go movetime", ""))
       }
       lines foreach process.write
       goto(Running)
     }
   }
   when(Running) {
-    case Event(Out(t), doing: Doing) if t startsWith "info depth" ⇒
-      stay using (doing map (_.right map (_ buffer t)))
-    case Event(Out(t), doing: Doing) if t startsWith "bestmove" ⇒
-      doing.current.fold(
-        play ⇒ {
-          play.ref ! model.play.BestMove(t.split(' ') lift 1)
-          nextTask(doing.done)
-        },
-        anal ⇒ (anal buffer t).flush.fold(
-          err ⇒ {
-            log error err.shows
-            anal.ref ! Status.Failure(lila.common.LilaException(err))
-            nextTask(doing.done)
-          },
-          task ⇒ task.isDone.fold({
-            task.ref ! task.analysis.done
-            nextTask(doing.done)
-          },
-            nextTask(doing.done enqueue task)
-          )
-        )
-      )
+    // TODO accumulate output for analysis parsing
+    // case Event(Out(t), Some(req)) if t startsWith "info depth" ⇒
+    //   stay using (doing map (_.right map (_ buffer t)))
+    case Event(Out(t), Some((req, sender))) if t startsWith "bestmove" ⇒ {
+      sender ! req.analyse.fold(
+        Status.Failure(new Exception("Not implemented")),
+        BestMove(t.split(' ') lift 1))
+      goto(Idle) using none
+    }
   }
   whenUnhandled {
-    case Event(task: analyse.Task.Builder, data) ⇒ nextTask(data enqueue task(sender))
-    case Event(task: play.Task.Builder, data)    ⇒ nextTask(data enqueue task(sender))
-    case Event(Out(t), _)                        ⇒ stay
-    case Event(GetQueueSize, data)               ⇒ sender ! QueueSize(data.size); stay
-    case Event(e @ RebootException, _)           ⇒ throw e
+    case Event(req: Req, _) ⇒ {
+      logerr("[ai] stockfish FSM unhandled request " + req)
+      stay
+    }
+    case Event(Out(t), _) ⇒ stay
   }
 
-  def nextTask(data: Data) = data.fold(
-    todo ⇒ todo.doing(
-      doing ⇒ {
-        config prepare doing.current foreach process.write
-        goto(IsReady) using doing
-      },
-      todo ⇒ goto(Idle) using todo
-    ),
-    doing ⇒ stay using doing
-  )
+  def start(data: (Req, ActorRef)) = data match {
+    case (req, sender) ⇒ {
+      config prepare req foreach process.write
+      process write "isready"
+      goto(IsReady) using (req, sender).some
+    }
+  }
 
   override def postStop() {
     process.destroy()
-    process = null
   }
 }

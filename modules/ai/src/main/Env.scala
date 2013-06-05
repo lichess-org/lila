@@ -15,12 +15,21 @@ final class Env(
     val EngineName = config getString "engine"
     val IsServer = config getBoolean "server"
     val IsClient = config getBoolean "client"
-    val StockfishExecPath = config getString "stockfish.exec_path"
     val StockfishPlayUrl = config getString "stockfish.play.url"
     val StockfishAnalyseUrl = config getString "stockfish.analyse.url"
     val ActorName = config getString "actor.name"
   }
   import settings._
+
+  private val stockfishConfig = new stockfish.Config(
+    execPath = config getString "stockfish.exec_path",
+    hashSize = config getInt "stockfish.hash_size",
+    nbThreads = config getInt "stockfish.threads",
+    playMaxMoveTime = config duration "stockfish.play.movetime",
+    analyseMoveTime = config duration "stockfish.analyse.movetime",
+    playTimeout = config duration "stockfish.play.timeout",
+    analyseTimeout = config duration "stockfish.play.timeout",
+    debug = config getBoolean "stockfish.debug")
 
   val ai: () ⇒ Ai = () ⇒ (EngineName, IsClient) match {
     case ("stockfish", true)  ⇒ stockfishClient or stockfishAi
@@ -53,27 +62,15 @@ final class Env(
     scheduler.once(10 millis) { clientDiagnose }
   }
 
-  private lazy val stockfishAi = new stockfish.Ai(
-    server = stockfishServer)
+  private lazy val stockfishAi = new stockfish.Ai(stockfishServer)
 
   private lazy val stockfishClient = new stockfish.Client(
     playUrl = StockfishPlayUrl,
     analyseUrl = StockfishAnalyseUrl)
 
-  lazy val stockfishServer = new stockfish.Server(
-    execPath = StockfishExecPath,
-    config = stockfishConfig)
+  lazy val stockfishServer = new stockfish.Server(stockfishConfig)
 
   private lazy val stupidAi = new StupidAi
-
-  private lazy val stockfishConfig = new stockfish.Config(
-    hashSize = config getInt "stockfish.hash_size",
-    nbThreads = config getInt "stockfish.threads",
-    playMaxMoveTime = config duration "stockfish.play.movetime",
-    analyseMoveTime = config duration "stockfish.analyse.movetime",
-    playTimeout = config duration "stockfish.play.timeout",
-    analyseTimeout = config duration "stockfish.play.timeout",
-    debug = config getBoolean "stockfish.debug")
 
   private lazy val client = (EngineName, IsClient) match {
     case ("stockfish", true) ⇒ stockfishClient.some

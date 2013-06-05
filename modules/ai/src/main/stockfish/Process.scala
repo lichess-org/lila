@@ -15,7 +15,7 @@ private [stockfish] final class Process(
   doLog("Start process")
 
   def write(msg: String) {
-    log(msg)
+    log("> " + msg)
     in write (msg + "\n").getBytes("UTF-8")
     in.flush()
   }
