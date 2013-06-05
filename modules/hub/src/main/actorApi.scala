@@ -35,6 +35,7 @@ case object GetUids
 
 package setup {
   case class RemindChallenge(gameId: String, from: String, to: String)
+  case class DeclineChallenge(gameId: String)
 }
 
 package captcha {

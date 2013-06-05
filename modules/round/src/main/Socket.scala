@@ -32,9 +32,9 @@ private[round] final class Socket(
   private final class Player(color: Color) {
 
     // when the player has been seen online for the last time
-    private var time: Double = nowMillis 
+    private var time: Double = nowMillis
     // wheter the player closed the window (JS unload event)
-    private var bye: Boolean = false 
+    private var bye: Boolean = false
 
     def ping {
       if (isGone) notifyGone(color, false)
@@ -90,12 +90,12 @@ private[round] final class Socket(
       sender ! Connected(enumerator, member)
     }
 
-    case Nil            ⇒
-    case events: Events ⇒ notify(events)
+    case Nil                                         ⇒
+    case events: Events                              ⇒ notify(events)
 
-    case AnalysisAvailable ⇒ {
-      notifyAll("analysisAvailable", true)
-    }
+    case AnalysisAvailable                           ⇒ notifyAll("analysisAvailable", true)
+
+    case lila.hub.actorApi.setup.DeclineChallenge(_) ⇒ notifyAll("declined", JsNull)
 
     case Quit(uid) ⇒ {
       quit(uid)

@@ -40,6 +40,7 @@ final class Env(
 
   system.actorOf(Props(new Challenger(
     hub = hub.socket.hub,
+    roundHub = hub.socket.round,
     renderer = hub.actor.renderer
   )), name = ChallengerName)
 
