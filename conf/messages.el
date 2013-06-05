@@ -210,3 +210,4 @@ profile=Προφίλ
 more=Περισσότερα
 memberSince=Μέλος από τις
 lastLogin=Τελευταία είσοδος
+challengeToPlay=Προκαλέστε σε παιχνίδι

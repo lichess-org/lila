@@ -12,21 +12,21 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
   //////////////////
   // websocket.js //
   //////////////////
-  
+
   var strongSocketDefaults = {
-      events: {},
-      params: {
-        sri: lichess_sri
-      },
-      options: {
-        name: "unnamed",
-        offlineDelay: 7000, // time before announcing the user they are offline
-        pingMaxLag: 7000, // time to wait for pong before reseting the connection
-        pingDelay: 1000, // time between pong and ping
-        lagTag: false, // jQuery object showing ping lag
-        ignoreUnknownMessages: false
-      }
-    };
+    events: {},
+    params: {
+      sri: lichess_sri
+    },
+    options: {
+      name: "unnamed",
+      offlineDelay: 7000, // time before announcing the user they are offline
+      pingMaxLag: 7000, // time to wait for pong before reseting the connection
+      pingDelay: 1000, // time between pong and ping
+      lagTag: false, // jQuery object showing ping lag
+      ignoreUnknownMessages: false
+    }
+  };
 
   var strongSocket = function(url, version, settings) {
     var self = this;
@@ -261,9 +261,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         n: function(e) {
           var $tag = $('#nb_connected_players > strong');
           if ($tag.length && e) {
-            var prev = parseInt($tag.text()) || Math.min(0, (e - 10));
+            var prev = parseInt($tag.text()) || Math.max(0, (e - 10));
             var interv = lichess.socket.pingInterval() / 4;
-            _.each([0,1,2,3], function(it) {
+            _.each([0, 1, 2, 3], function(it) {
               setTimeout(function() {
                 $tag.text(Math.round(((prev * (3 - it)) + (e * (it + 1))) / 4));
               }, Math.round(it * interv));
@@ -1957,9 +1957,11 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
     function resizeTimeline() {
       var max = $('#lichess').offset().top + 516;
-      var pos = $timeline.offset().top;
-      while (pos + $timeline.outerHeight() > max) {
-        $timeline.find('div.entry:last').remove();
+      if ($timeline.length) {
+        var pos = $timeline.offset().top;
+        while (pos + $timeline.outerHeight() > max) {
+          $timeline.find('div.entry:last').remove();
+        }
       }
     }
     resizeTimeline();

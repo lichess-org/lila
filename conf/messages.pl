@@ -210,3 +210,4 @@ profile=Profil
 more=Więcej
 memberSince=Użytkownik od
 lastLogin=Ostatnie logowanie
+challengeToPlay=Wyzwanie
