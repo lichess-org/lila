@@ -42,14 +42,15 @@ private[round] final class SocketHandler(
       } messenger.watcherMessage(
         ref.gameId,
         member.userId,
-        txt) pipeTo socket
+        txt,
+        member.troll) pipeTo socket
     }) { playerId ⇒
       {
         case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
         case ("talk", o) ⇒ for {
           txt ← o str "d"
           if flood.allowMessage(uid, txt)
-        } messenger.playerMessage(ref, txt) pipeTo socket
+        } messenger.playerMessage(ref, txt, member.troll) pipeTo socket
         case ("rematch-yes", _)  ⇒ round(RematchYes(playerId))
         case ("rematch-no", _)   ⇒ round(RematchNo(playerId))
         case ("takeback-yes", _) ⇒ round(TakebackYes(playerId))
