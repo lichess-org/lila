@@ -12,23 +12,25 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
   //////////////////
   // websocket.js //
   //////////////////
-
-  var strongSocket = function(url, version, settings) {
-    var self = this;
-    self.settings = {
+  
+  var strongSocketDefaults = {
       events: {},
       params: {
         sri: lichess_sri
       },
       options: {
         name: "unnamed",
-        offlineDelay: 8000, // time before announcing the user they are offline
-        pingMaxLag: 8000, // time to wait for pong before reseting the connection
-        pingDelay: 1500, // time between pong and ping
+        offlineDelay: 7000, // time before announcing the user they are offline
+        pingMaxLag: 7000, // time to wait for pong before reseting the connection
+        pingDelay: 1000, // time between pong and ping
         lagTag: false, // jQuery object showing ping lag
         ignoreUnknownMessages: false
       }
     };
+
+  var strongSocket = function(url, version, settings) {
+    var self = this;
+    self.settings = strongSocketDefaults;
     $.extend(true, self.settings, settings);
     self.url = url;
     self.version = version;
@@ -221,6 +223,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         this.debug(saved + ' failed, will try ' + next, true);
         $.cookie(this.options.baseUrlCookie, next);
       }
+    },
+    pingInterval: function() {
+      return this.options.pingDelay + this.averageLag;
     }
   };
 
@@ -254,9 +259,15 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           $('#friend_box').friends('leaves', name);
         },
         n: function(e) {
-          var $tag = $('#nb_connected_players');
+          var $tag = $('#nb_connected_players > strong');
           if ($tag.length && e) {
-            $tag.find('strong').text(e);
+            var prev = parseInt($tag.text()) || (e - 20);
+            var interv = lichess.socket.pingInterval() / 4;
+            _.each([0,1,2,3], function(it) {
+              setTimeout(function() {
+                $tag.text(Math.round(((prev * (3 - it)) + (e * (it + 1))) / 4));
+              }, Math.round(it * interv));
+            });
           }
         },
         nbm: function(e) {
