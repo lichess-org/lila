@@ -34,8 +34,6 @@ final class Env(
 
   def isServer = IsServer
 
-  lazy val stresser = new Stresser(this, system)
-
   // api actor
   system.actorOf(Props(new Actor {
     def receive = {

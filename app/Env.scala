@@ -32,6 +32,10 @@ final class Env(
     postApi = Env.forum.postApi,
     getRank = Env.user.ranking.get) _
 
+  if (config getBoolean "ai.stress") {
+    new AiStresser(Env.ai, system).apply
+  }
+
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
   system.actorOf(Props(new actor.Router(

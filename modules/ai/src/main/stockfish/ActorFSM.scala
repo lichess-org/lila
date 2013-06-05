@@ -42,7 +42,10 @@ final class ActorFSM(
     case Event(Out("readyok"), doing: Doing) ⇒ {
       val lines = config go doing.current
       lines.lastOption foreach { line =>
-        println(doing.current.fold(_ ⇒ "P", _ ⇒ "A") + " " + line)
+        println("[%d] %s - %s".format(
+          doing.size,
+          doing.current.fold(_ ⇒ "P", _ ⇒ "A"),
+          line))
       }
       lines foreach process.write
       goto(Running)
