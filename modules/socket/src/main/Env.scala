@@ -16,11 +16,11 @@ final class Env(
     scheduler: lila.common.Scheduler,
     hub: lila.hub.Env) {
 
-  scheduler.effect(5 seconds, "") {
+  scheduler.effect(4 seconds, "") {
     hub.socket.hub ! actorApi.Broom
   }
 
-  scheduler.effect(2 seconds, "") {
+  scheduler.effect(1 seconds, "") {
     hub.socket.hub ! GetNbMembers
   }
 }
