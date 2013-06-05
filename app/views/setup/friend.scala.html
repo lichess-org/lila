@@ -1,8 +1,11 @@
-@(form: Form[_])(implicit ctx: Context)
+@(form: Form[_], username: Option[String])(implicit ctx: Context)
 
 @import lila.setup.FriendConfig
 
 @fields = {
+@username.map { uid =>
+@usernameLink(uid.some, cssClass="target".some)
+}
 <div class="variants buttons">
   @setup.radios(form("variant"), translatedVariantChoicesWithFen)
 </div>
@@ -15,4 +18,9 @@
 }
 }
 
-@setup.config(form, "friend", trans.playWithAFriend(), routes.Setup.friend, fields)
+@setup.config(
+form,
+"friend",
+username.isDefined.fold(trans.challengeToPlay, trans.playWithAFriend)(),
+routes.Setup.friend(username),
+fields)

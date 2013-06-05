@@ -271,6 +271,23 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
             });
           }
         },
+        challengeReminder: function(data) {
+          if (!$('div.lichess_overboard.joining').length) {
+            $('#challenge_reminder').each(function() {
+              clearTimeout($(this).data('timeout'));
+              $(this).remove();
+            });
+            $('div.notifications').append(data.html).find("a.decline").click(function() {
+              $.post($(this).attr("href"));
+              $('#challenge_reminder').remove();
+              return false;
+            });
+            $('#challenge_reminder').data('timeout', setTimeout(function() {
+              $('#challenge_reminder').remove();
+            }, 3000));
+            $('body').trigger('lichess.content_loaded');
+          }
+        },
         analysisAvailable: function() {
           $("div.game_analysis.status").remove();
           $("div.game_analysis").show();
@@ -904,6 +921,13 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           }
         }
       }));
+
+      $('#challenge_await').each(function() {
+        var userId = $(this).data('user');
+        setInterval(function() {
+          lichess.socket.send('challenge', userId);
+        }, 1000);
+      });
     },
     isMyTurn: function() {
       return this.options.possible_moves != null;
