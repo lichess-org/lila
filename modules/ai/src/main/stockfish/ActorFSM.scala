@@ -40,8 +40,8 @@ final class ActorFSM(
   }
   when(IsReady) {
     case Event(Out("readyok"), doing: Doing) ⇒ {
-      val lines = config go doing.current 
-      lines.lastOption foreach display(doing.name)
+      val lines = config go doing.current
+      print(doing.fold(_ ⇒ "a", _ ⇒ "."))
       lines foreach process.write
       goto(Running)
     }
@@ -88,10 +88,6 @@ final class ActorFSM(
     ),
     doing ⇒ stay using doing
   )
-
-  private def display(name: String)(msg: String) {
-    loginfo("[%s] %s".format(name, msg))
-  }
 
   override def postStop() {
     process.destroy()
