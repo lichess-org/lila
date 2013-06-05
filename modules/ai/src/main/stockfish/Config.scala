@@ -2,17 +2,20 @@ package lila.ai
 package stockfish
 
 import model._
+import scala.concurrent.duration.FiniteDuration
 
 private[ai] final class Config(
     hashSize: Int,
     nbThreads: Int,
-    playMaxMoveTime: Int,
-    analyseMoveTime: Int,
+    playMaxMoveTime: FiniteDuration,
+    analyseMoveTime: FiniteDuration,
+    val playTimeout: FiniteDuration,
+    val analyseTimeout: FiniteDuration,
     val debug: Boolean) {
 
   import Config._
 
-  def moveTime(level: Int) = (levelBox(level) * playMaxMoveTime) / levels.end
+  def moveTime(level: Int) = (levelBox(level) * playMaxMoveTime.toMillis) / levels.end
 
   def ownBook(level: Int) = levelBox(level) > 4
 
@@ -57,7 +60,7 @@ private[ai] final class Config(
       )),
     anal ⇒ List(
       position(anal.fen, anal.pastMoves),
-      "go movetime %d".format(analyseMoveTime)))
+      "go movetime %d".format(analyseMoveTime.toMillis)))
 
   private def position(fen: Option[String], moves: String) =
     "position %s moves %s".format(fen.fold("startpos")("fen " + _), moves)
