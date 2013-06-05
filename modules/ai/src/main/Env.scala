@@ -69,8 +69,10 @@ final class Env(
   private lazy val stockfishConfig = new stockfish.Config(
     hashSize = config getInt "stockfish.hash_size",
     nbThreads = config getInt "stockfish.threads",
-    playMaxMoveTime = config getInt "stockfish.play.movetime",
-    analyseMoveTime = config getInt "stockfish.analyse.movetime",
+    playMaxMoveTime = config duration "stockfish.play.movetime",
+    analyseMoveTime = config duration "stockfish.analyse.movetime",
+    playTimeout = config duration "stockfish.play.timeout",
+    analyseTimeout = config duration "stockfish.play.timeout",
     debug = config getBoolean "stockfish.debug")
 
   private lazy val client = (EngineName, IsClient) match {

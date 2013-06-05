@@ -18,7 +18,7 @@ import lila.analyse.Analysis
 final class Server(execPath: String, config: Config) {
 
   def play(pgn: String, initialFen: Option[String], level: Int): Fu[String] = {
-    implicit val timeout = makeTimeout(playAtMost)
+    implicit val timeout = makeTimeout(config.playTimeout)
     UciDump(pgn, initialFen) map { moves ⇒
       model.play.Task.Builder(moves, initialFen map chess960Fen, level)
     } fold (
@@ -34,7 +34,7 @@ final class Server(execPath: String, config: Config) {
       err ⇒ fufail(err),
       moves ⇒ {
         val analyse = model.analyse.Task.Builder(moves, initialFen map chess960Fen)
-        implicit val timeout = makeTimeout(analyseAtMost)
+        implicit val timeout = makeTimeout(config.analyseTimeout)
         (actor ? analyse).mapTo[String ⇒ Analysis] ~ { _ onFailure reboot }
       }
     )
@@ -52,9 +52,6 @@ final class Server(execPath: String, config: Config) {
   private val reboot: PartialFunction[Throwable, Unit] = {
     case e: AskTimeoutException ⇒ actor ! model.RebootException
   }
-
-  private val playAtMost = 10 seconds
-  private val analyseAtMost = 20 minutes
 
   private lazy val process = Process(execPath, "StockFish") _
   private lazy val actor = system.actorOf(Props(
