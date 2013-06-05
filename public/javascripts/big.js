@@ -318,11 +318,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     function onResize() {
       if ($(document.body).width() < 1000) {
         $(document.body).addClass("tight");
-        $('div.content').prepend($('div.header h1'));
-        $('#lichess h1').after($('div.header div.side_menu'));
         // hack for gecko
-        if ($('div.content').offset().top > 40) {
-          $('div.content').css('marginTop', '-8px');
+        if ($('body > div.content').offset().top > 50) {
+          $('body > div.content').css('marginTop', '0px');
         }
       } else {
         $(document.body).removeClass("tight");
