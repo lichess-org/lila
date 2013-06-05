@@ -4,6 +4,7 @@ import scala.concurrent.duration._
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
+import ornicar.scalalib.Random.approximatly
 
 final class Scheduler(system: ActorSystem, enabled: Boolean) {
 
@@ -31,11 +32,6 @@ final class Scheduler(system: ActorSystem, enabled: Boolean) {
     enabled ! system.scheduler.scheduleOnce(delay)(op)
   }
 
-  private def randomize(d: FiniteDuration, ratio: Float = 0.1f): FiniteDuration = {
-    import scala.util.Random
-    import scala.math.round
-    import ornicar.scalalib.Random.approximatly
-
-    approximatly(0.1f)(d.toMillis) millis
-  }
+  private def randomize(d: FiniteDuration, ratio: Float = 0.1f): FiniteDuration = 
+    approximatly(ratio)(d.toMillis) millis
 }

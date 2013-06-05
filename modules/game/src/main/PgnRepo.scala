@@ -4,6 +4,7 @@ import play.api.libs.json._
 
 import lila.common.PimpedJson._
 import lila.db.api._
+import lila.db.Implicits._
 import tube.pgnTube
 
 object PgnRepo {
@@ -12,7 +13,7 @@ object PgnRepo {
 
   def get(id: ID): Fu[String] = getOption(id) map (~_)
 
-  def getNonEmpty(id: ID): Fu[Option[String]] = 
+  def getNonEmpty(id: ID): Fu[Option[String]] =
     getOption(id) map (_ filter (_.nonEmpty))
 
   def getOption(id: ID): Fu[Option[String]] =
@@ -24,6 +25,11 @@ object PgnRepo {
         obj str "_id" map (_ -> pgn)
       }
     } map (_.flatten.toMap)
+
+  def getOneRandom(distrib: Int): Fu[Option[String]] =
+    $find($query.all skip scala.util.Random.nextInt(distrib), 1) map { 
+      _.headOption flatMap (_ str "p") 
+    }
 
   def save(id: ID, pgn: String): Funit =
     $update.field(id, "p", pgn, upsert = true)
