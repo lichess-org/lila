@@ -74,9 +74,6 @@ final class Env(
     queue = stockfishQueue,
     config = stockfishConfig)
 
-  // preload stockfish
-  if (!IsClient && EngineName == "stockfish") stockfishServer
-
   private lazy val stockfishQueue = system.actorOf(Props(
     new stockfish.Queue(stockfishConfig)
   ) withDispatcher StockfishQueueDispatcher, name = StockfishQueueName)
