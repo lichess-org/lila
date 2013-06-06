@@ -6,11 +6,12 @@ import model._
 import model.analyse._
 
 import actorApi._
+import lila.analyse.Analysis
 
-final class ActorFSM(
+private[stockfish] final class ActorFSM(
   processBuilder: Process.Builder,
   config: Config)
-    extends Actor with AkkaFSM[State, Option[(Req, ActorRef)]] {
+    extends Actor with AkkaFSM[State, Option[Job]] {
 
   private val process = processBuilder(
     out ⇒ self ! Out(out),
@@ -20,22 +21,23 @@ final class ActorFSM(
   startWith(Starting, none)
 
   when(Starting) {
-    case Event(Out(t), data) if t startsWith "Stockfish" ⇒ {
+    case Event(Out(t), _) if t startsWith "Stockfish" ⇒ {
       process write "uci"
       stay
     }
-    case Event(Out("uciok"), data) ⇒ {
+    case Event(Out("uciok"), job) ⇒ {
       config.init foreach process.write
-      data.fold(goto(Idle))(start)
+      loginfo("[ai] stockfish is ready")
+      job.fold(goto(Idle))(start)
     }
-    case Event(req: Req, none) ⇒ stay using (req, sender).some
+    case Event(req: Req, none) ⇒ stay using Job(req, sender, Nil).some
   }
   when(Idle) {
     case Event(Out(t), _)   ⇒ { logwarn(t); stay }
-    case Event(req: Req, _) ⇒ start(req, sender)
+    case Event(req: Req, _) ⇒ start(Job(req, sender, Nil))
   }
   when(IsReady) {
-    case Event(Out("readyok"), Some((req, _))) ⇒ {
+    case Event(Out("readyok"), Some(Job(req, _, _))) ⇒ {
       val lines = config go req
       lines.lastOption foreach { line ⇒
         println(req.analyse.fold("A", "P") + line.replace("go movetime", ""))
@@ -45,13 +47,10 @@ final class ActorFSM(
     }
   }
   when(Running) {
-    // TODO accumulate output for analysis parsing
-    // case Event(Out(t), Some(req)) if t startsWith "info depth" ⇒
-    //   stay using (doing map (_.right map (_ buffer t)))
-    case Event(Out(t), Some((req, sender))) if t startsWith "bestmove" ⇒ {
-      sender ! req.analyse.fold(
-        Status.Failure(new Exception("Not implemented")),
-        BestMove(t.split(' ') lift 1))
+    case Event(Out(t), Some(job)) if t startsWith "info depth" ⇒
+      stay using (job + t).some
+    case Event(Out(t), Some(job)) if t startsWith "bestmove" ⇒ {
+      job.sender ! (job complete t)
       goto(Idle) using none
     }
   }
@@ -63,11 +62,11 @@ final class ActorFSM(
     case Event(Out(t), _) ⇒ stay
   }
 
-  def start(data: (Req, ActorRef)) = data match {
-    case (req, sender) ⇒ {
+  def start(job: Job) = job match {
+    case Job(req, sender, _) ⇒ {
       config prepare req foreach process.write
       process write "isready"
-      goto(IsReady) using (req, sender).some
+      goto(IsReady) using Job(req, sender, Nil).some
     }
   }
 

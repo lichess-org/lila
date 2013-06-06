@@ -17,6 +17,8 @@ final class Env(
     val IsClient = config getBoolean "client"
     val StockfishPlayUrl = config getString "stockfish.play.url"
     val StockfishAnalyseUrl = config getString "stockfish.analyse.url"
+    val StockfishQueueName = config getString "stockfish.queue.name"
+    val StockfishQueueDispatcher = config getString "stockfish.queue.dispatcher"
     val ActorName = config getString "actor.name"
   }
   import settings._
@@ -28,7 +30,7 @@ final class Env(
     playMaxMoveTime = config duration "stockfish.play.movetime",
     analyseMoveTime = config duration "stockfish.analyse.movetime",
     playTimeout = config duration "stockfish.play.timeout",
-    analyseTimeout = config duration "stockfish.play.timeout",
+    analyseTimeout = config duration "stockfish.analyse.timeout",
     debug = config getBoolean "stockfish.debug")
 
   val ai: () ⇒ Ai = () ⇒ (EngineName, IsClient) match {
@@ -68,17 +70,21 @@ final class Env(
     playUrl = StockfishPlayUrl,
     analyseUrl = StockfishAnalyseUrl)
 
-  lazy val stockfishServer = new stockfish.Server(stockfishConfig)
+  lazy val stockfishServer = new stockfish.Server(
+    queue = stockfishQueue,
+    config = stockfishConfig)
+
+  // preload stockfish
+  if (!IsClient && EngineName == "stockfish") stockfishServer
+
+  private lazy val stockfishQueue = system.actorOf(Props(
+    new stockfish.Queue(stockfishConfig)
+  ) withDispatcher StockfishQueueDispatcher, name = StockfishQueueName)
 
   private lazy val stupidAi = new StupidAi
 
   private lazy val client = (EngineName, IsClient) match {
     case ("stockfish", true) ⇒ stockfishClient.some
-    case _                   ⇒ none
-  }
-
-  private lazy val server = (EngineName, IsServer) match {
-    case ("stockfish", true) ⇒ stockfishServer.some
     case _                   ⇒ none
   }
 }

@@ -1,9 +1,11 @@
 package lila.ai
 package stockfish
 
-import model._
-import actorApi._
 import scala.concurrent.duration.FiniteDuration
+
+import model._
+
+import actorApi._
 
 private[ai] case class Config(
     execPath: String,
@@ -30,8 +32,8 @@ private[ai] case class Config(
     4 -> 4,
     5 -> 6,
     6 -> 8,
-    7 -> 10
-  // 8 -> inf
+    7 -> 10,
+    8 -> 12
   ) get levelBox(level)
 
   def init = List(
@@ -39,28 +41,27 @@ private[ai] case class Config(
     setoption("Threads", nbThreads),
     setoption("Ponder", false))
 
-  def prepare(req: Req) = req.analyse.fold(
-    List(
+  def prepare(req: Req) = req match {
+    case r: PlayReq ⇒ List(
+      setoption("Uci_AnalyseMode", false),
+      setoption("Skill Level", skill(r.level)),
+      setoption("UCI_Chess960", r.chess960),
+      setoption("OwnBook", ownBook(r.level)))
+    case r: AnalReq ⇒ List(
       setoption("Uci_AnalyseMode", true),
       setoption("Skill Level", skillMax),
-      setoption("UCI_Chess960", req.chess960),
-      setoption("OwnBook", true)),
-    List(
-      setoption("Uci_AnalyseMode", false),
-      setoption("Skill Level", skill(req.level)),
-      setoption("UCI_Chess960", req.chess960),
-      setoption("OwnBook", ownBook(req.level))))
+      setoption("UCI_Chess960", r.chess960),
+      setoption("OwnBook", true))
+  }
 
-  def go(req: Req): List[String] = req.analyse.fold(
-    List(
-      position(req.fen, req.moves),
-      "go movetime %d".format(analyseMoveTime.toMillis)),
-    List(
-      position(req.fen, req.moves),
-      "go movetime %d%s".format(
-        moveTime(req.level),
-        ~depth(req.level).map(" depth " + _)
-      )))
+  def go(req: Req): List[String] = req match {
+    case r: PlayReq ⇒ List(
+      position(r.fen, r.moves),
+      "go movetime %d%s".format(moveTime(r.level), ~depth(r.level).map(" depth " + _)))
+    case r: AnalReq ⇒ List(
+      position(r.fen, r.moves),
+      "go movetime %d".format(analyseMoveTime.toMillis))
+  }
 
   private def position(fen: Option[String], moves: String) =
     "position %s moves %s".format(fen.fold("startpos")("fen " + _), moves)

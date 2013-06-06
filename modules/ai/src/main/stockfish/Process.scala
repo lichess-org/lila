@@ -5,7 +5,7 @@ import java.io.OutputStream
 import scala.io.Source.fromInputStream
 import scala.sys.process.{ Process ⇒ SProcess, ProcessBuilder, ProcessIO }
 
-private [stockfish] final class Process(
+private[stockfish] final class Process(
     builder: ProcessBuilder,
     name: String,
     out: String ⇒ Unit,

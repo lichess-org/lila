@@ -2,7 +2,7 @@ package lila.ai
 package stockfish
 
 import chess.{ Game, Move }
-import lila.analyse.Analysis
+import lila.analyse.AnalysisMaker
 
 final class Ai(server: Server) extends lila.ai.Ai {
 
@@ -15,7 +15,7 @@ final class Ai(server: Server) extends lila.ai.Ai {
       }
     } 
 
-  def analyse(pgn: String, initialFen: Option[String]): Fu[String ⇒ Analysis] =
+  def analyse(pgn: String, initialFen: Option[String]): Fu[AnalysisMaker] =
     server.analyse(pgn, initialFen)
 
   private def withValidSituation[A](game: Game)(op: ⇒ Fu[A]): Fu[A] =
