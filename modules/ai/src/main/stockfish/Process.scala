@@ -12,7 +12,7 @@ private[stockfish] final class Process(
     err: String ⇒ Unit,
     debug: Boolean) {
 
-  doLog("Start process")
+  doLog("start process")
 
   def write(msg: String) {
     log("> " + msg)
@@ -21,14 +21,14 @@ private[stockfish] final class Process(
   }
 
   def destroy() {
-    doLog("Destroy process")
+    doLog("destroy process")
     try {
       write("stop")
       write("quit")
       Thread sleep 300
     }
     catch {
-      case e: java.io.IOException ⇒ log(e.getMessage)
+      case e: java.io.IOException ⇒ logwarn("[ai] process destroy " + e.getMessage)
     }
     process.destroy()
   }

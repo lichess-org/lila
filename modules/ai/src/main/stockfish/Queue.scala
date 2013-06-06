@@ -18,12 +18,12 @@ private[ai] final class Queue(config: Config) extends Actor {
   def receive = {
 
     case req: PlayReq ⇒ {
-      implicit def timeout = makeTimeout((config moveTime req.level).millis + 100.millis)
+      implicit def timeout = makeTimeout((config moveTime req.level).millis + 1.second)
       actor ? req mapTo manifest[Valid[String]] map sender.! await timeout
     }
 
     case req: AnalReq ⇒ {
-      implicit def timeout = makeTimeout(config.analyseMoveTime + 100.millis)
+      implicit def timeout = makeTimeout(config.analyseMoveTime + 1.second)
       (actor ? req) mapTo manifest[Valid[Int ⇒ Info]] map sender.! await timeout
     }
 
