@@ -322,12 +322,12 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     },
     onProduction: /.+\.lichess\.org/.test(document.domain)
   };
-  if (!lichess.onProduction) {
+  // if (!lichess.onProduction) {
     // $.cookie('surl', null);
     // lichess.socketDefaults.options.baseUrls = [
     //     'socket.en.lichess.org'
     // ];
-  }
+  // }
   // lichess.socketDefaults.options.debug = !lichess.onProduction;
   // lichess.socketDefaults.options.debug = true;
 
@@ -2049,7 +2049,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     }
 
     function addHooks(hooks) {
-      _.each(hooks, function(h) { hooks.push(h); });
+      _.each(hooks, function(h) { pool.push(h); });
       drawHooks();
     }
 
@@ -2083,8 +2083,6 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         }
       });
 
-      console.debug(pool.length, hidden);
-      console.debug(_.pluck(pool, 'id'));
       $wrap
         .find('a.filter')
         .toggleClass('on', filter.mode != null || filter.variant != null || filter.speed != null || filter.eloDiff > 0)
@@ -2104,7 +2102,6 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         html += isEngine ? '<span class="engine_mark"></span>' : '';
       } else {
         html += '<span class="opponent anon">Anonymous</span>';
-        html += '<span class="elo nope">?</span>';
       }
       if (isRegistered) {
         var mode = $.trans(hook.mode);
@@ -2116,7 +2113,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         html += '<span class="clock">' + clock + '</span>';
       }
       else {
-        html += '<span class="clock">-</span>';
+        html += '<span class="clock">∞</span>';
       }
       html += '<span class="mode">' + mode + '</span>';
       if (hook.action == "cancel") {
