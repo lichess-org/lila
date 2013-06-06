@@ -908,7 +908,7 @@ div.engine_warning {
   margin-bottom: 15px;
 }
 /* soft inactive gradient */
- #top, div.lichess_chat_top, #friend_box .title, div.undertable_top, .button, .button:visited, .ui-state-default, div.content_box_top, div.hooks tr, #translation_call, div.notification, div.locale_menu a, table.slist thead {
+ #top, div.lichess_chat_top, #friend_box .title, div.undertable_top, .button, .button:visited, .ui-state-default, div.content_box_top, #hooks tr, #translation_call, div.notification, div.locale_menu a, table.slist thead {
   color: #666;
   background: #fafafa;
   background: -moz-linear-gradient(center top, #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
@@ -918,7 +918,7 @@ div.engine_warning {
   background: -o-linear-gradient(top, #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
 }
 /* active gradient */
- #top a.signin, #top a.goto_nav.active, .button.active, .button.active:hover, .ui-state-active, .ui-widget-header, div.pagination span.current, #top span.new_messages, div.hooks td.action:hover, div.hooks table.empty tr:hover, div.progressbar.flashy div, .button.strong:hover, div.locale_menu a.active, #import_game .progression {
+ #top a.signin, #top a.goto_nav.active, .button.active, .button.active:hover, .ui-state-active, .ui-widget-header, div.pagination span.current, #top span.new_messages, #hooks td.action:hover, #hooks table.empty tr:hover, div.progressbar.flashy div, .button.strong:hover, div.locale_menu a.active, #import_game .progression {
   color: #fff;
   background: #d85000;
   background: -moz-linear-gradient(center top, #f49c00, #d85000) repeat scroll 0 0 #d85000;
@@ -928,7 +928,7 @@ div.engine_warning {
   background: -o-linear-gradient(top, #f49c00, #d85000) repeat scroll 0 0 #d85000;
 }
 /* strong inactive gradient */
- div.hooks td.action, .button:hover, .button.strong {
+ #hooks td.action, .button:hover, .button.strong {
   background: #ffffff;
   background: -moz-linear-gradient(center top, #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff), to(#c0c0c0));
@@ -1275,62 +1275,44 @@ div.game_config div.color_submits button.black span {
 div.game_config div.color_submits button.random span {
   background-position: 0 -102px;
 }
-div.hooks_wrap {
+#hooks_wrap {
   position: absolute;
-  width: 384px;
-  height: 384px;
-  top: 51px;
-  left: 52px;
-  padding: 12px;
-  border-radius: 3px 0 3px 3px;
-  box-shadow: 0 0 20px #444;
-  background: rgba(245, 245, 245, 0.8);
-  background: -moz-linear-gradient(top, rgba(212, 212, 212, 0.9) 0%, rgba(240, 240, 240, 0.5) 100%);
-  background: -webkit-linear-gradient(top, rgba(212, 212, 212, 0.9) 0%, rgba(240, 240, 240, 0.5) 100%);
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(212, 212, 212, 0.9)), to(rgba(240, 240, 240, 0.5)));
-  background: -ms-linear-gradient(top, rgba(212, 212, 212, 0.9) 0%, rgba(240, 240, 240, 0.5) 100%);
-  background: -o-linear-gradient(top, rgba(212, 212, 212, 0.9) 0%, rgba(240, 240, 240, 0.5) 100%);
-}
-div.hooks_wrap.large {
+  width: 512px;
   height: 512px;
-  top: -13px;
+  top: 0;
+  left: 0;
 }
-div.hooks_wrap.hidden {
-  display: none;
-}
-div.hooks_wrap a.filter {
+#hooks_wrap a.filter {
   position: absolute;
   top: -21px;
   right: -1px;
   height: 20px;
   line-height: 20px;
   padding: 0 2px 0 10px;
-  background: rgba(212, 212, 212, 0.9);
-  border: 1px solid #888;
   color: #333;
   border-bottom: 0;
   display: block;
-  border-radius: 3px 3px 0 0;
   text-decoration: none;
 }
-div.hooks_wrap a.filter:hover, div.hooks_wrap a.filter.active {
+#hooks_wrap a.filter:hover, #hooks_wrap a.filter.active {
   background: #fff;
 }
-div.hooks_wrap a.filter span.number {
+#hooks_wrap a.filter span.number {
   display: none;
 }
-div.hooks_wrap a.filter.on {
+#hooks_wrap a.filter.on {
   padding: 0 10px 0 2px;
 }
-div.hooks_wrap a.filter.on span.s16 {
+#hooks_wrap a.filter.on span.s16 {
   padding: 0 0 0 20px;
   background-position: left -112px;
 }
-div.hooks_wrap a.filter.on span.number {
+#hooks_wrap a.filter.on span.number {
   display: inline;
 }
-div.hooks_wrap div.filter {
+#hooks_wrap div.filter {
   position: absolute;
+  z-index: 99;
   display: none;
   top: 0px;
   right: 0px;
@@ -1342,104 +1324,95 @@ div.hooks_wrap div.filter {
   background: #fff;
   border-radius: 0 0 0 3px;
 }
-div.hooks_wrap div.filter select {
+#hooks_wrap div.filter select {
   width: 100%;
   margin-bottom: 12px;
   padding: 6px;
 }
-div.hooks_wrap div.filter .actions {
+#hooks_wrap div.filter .actions {
   text-align: right;
 }
-div.hooks_wrap div.filter .actions button {
+#hooks_wrap div.filter .actions button {
   padding: 6px;
   margin-left: 12px;
 }
-div.hooks {
-  border: 1px solid #bababa;
-  border-top: 0;
-  max-height: 514px;
-  overflow: auto;
+#hooks_wrap #hooks {
+  width: 512px;
+  height: 512px;
+  position: relative;
 }
-div.hooks table {
-  width: 100%;
-  max-height: 424px;
-  overflow: hidden;
-  text-align: left;
-  border-collapse: collapse;
+#hooks > div {
+  position: absolute;
+  width: 128px;
+  height: 128px;
   background: none;
-  border-top: 1px solid #bababa;
 }
-div.hooks table.empty {
-  margin-top: 152px;
-}
-div.hooks td {
-  padding: 0 8px 0 12px;
-  height: 64px;
-  margin: 0;
-}
-div.hooks a {
-  color: #666;
-}
-div.hooks tr:last-child td {
-  border-bottom: none;
-}
-div.hooks table.empty tr {
+#hooks div.hook {
+  display: none;
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 4px;
+  border-radius: 3px;
+  cursor: pointer;
+  color: #444;
   text-align: center;
-  cursor: pointer;
+  background: #d0d0d0 url(../images/play128.png);
+  box-shadow:0 0 5px #333;
 }
-div.hooks table.empty td {
-  padding: 0;
-  height: 80px;
+#hooks div.hook.cancel {
+  background-position: 0 -128px;
 }
-div.hooks td.color {
-  width: 24px;
-  padding-right: 0;
+#hooks div.hook:hover {
+  background-color: #f0f0f0;
 }
-div.hooks td.color span {
-  height: 24px;
-  width: 24px;
+#hooks div.hook a {
+  color: #444;
+}
+#hooks a.action {
+  display: none;
+}
+#hooks div.hook .opponent, #hooks div.hook a.user_link {
+  border-radius: 3px 3px 0 0;
   display: block;
-  background: url(../images/sprite_color_24.png) no-repeat;
+  height: 20px;
+  line-height: 20px;
+  padding: 5px 0;
+  background: #666;
+  color: #eee;
+  overflow: hidden;
+  text-decoration: none;
 }
-div.hooks td.color span.black {
-  background-position: 0 -24px;
+#hooks .clearfix {
+  width: 100%;
+  height: 30px;
 }
-div.hooks td.color span.random {
-  background-position: 0 -49px;
-}
-div.hooks span.elorange {
+#hooks .elo, #hooks .clock {
   display: block;
-  font-style: italic;
-  color: #999;
+  width: 60px;
+  height: 20px;
+  padding: 5px 0;
+  font-size: 1.25em;
+  font-weight: bold;
 }
-div.hooks a.user_link.engine {
-  color: #cc7070;
+#hooks .elo {
+  float: right;
+  color: #bbb;
+  background: #666;
 }
-div.hooks td.action {
-  cursor: pointer;
-  border-left: 1px solid #cacaca;
-  width: 63px;
-  padding: 0;
+#hooks .clock {
+  float: left;
+  color: #555;
 }
-div.hooks td.action.empty {
-  cursor: default;
-  background: none;
+#hooks .clock > span {
+  color: #909090;
 }
-div.hooks a.cancel, div.hooks a.join {
-  height: 32px;
-  width: 31px;
+#hooks .mode {
+  margin-top: 40px;
+}
+#hooks .mode, #hooks .chess960 {
+  font-size: 1.25em;
   display: block;
-  padding: 12px 14px;
-}
-div.hooks a.cancel {
-  background: url(../images/close24.png) +16px no-repeat;
-}
-div.hooks a.join {
-  background: url(../images/play32.png) +16px no-repeat;
-}
-div.hooks a.user_link {
-  background: transparent;
-  padding-left: 0;
 }
 #featured_game div.vstext {
   margin-top: 0.7em;
