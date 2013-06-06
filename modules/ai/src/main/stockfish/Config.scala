@@ -3,8 +3,6 @@ package stockfish
 
 import scala.concurrent.duration.FiniteDuration
 
-import model._
-
 import actorApi._
 
 private[ai] case class Config(

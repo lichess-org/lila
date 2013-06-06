@@ -2,8 +2,6 @@ package lila.ai
 package stockfish
 
 import akka.actor.{ Props, Actor, ActorRef, Status, FSM ⇒ AkkaFSM }
-import model._
-import model.analyse._
 
 import actorApi._
 import lila.analyse.Analysis

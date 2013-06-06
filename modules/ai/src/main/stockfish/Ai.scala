@@ -6,8 +6,6 @@ import lila.analyse.AnalysisMaker
 
 final class Ai(server: Server) extends lila.ai.Ai {
 
-  import model._
-
   def play(game: Game, pgn: String, initialFen: Option[String], level: Int): Fu[(Game, Move)] =
     withValidSituation(game) {
       server.play(pgn, initialFen, level) flatMap { 
