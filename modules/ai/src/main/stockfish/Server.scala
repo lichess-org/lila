@@ -12,43 +12,33 @@ import play.api.Play.current
 import actorApi._
 import chess.format.Forsyth
 import chess.format.UciDump
-import chess.Rook
-import lila.analyse.Analysis
+import lila.analyse.AnalysisMaker
 
-final class Server(config: Config) {
+private[ai] final class Server(queue: ActorRef, config: Config) {
 
   def play(pgn: String, initialFen: Option[String], level: Int): Fu[String] = {
     implicit val timeout = makeTimeout(config.playTimeout)
     UciDump(pgn, initialFen) fold (
       err ⇒ fufail(err),
-      moves ⇒ actor ? Req(moves, initialFen map chess960Fen, level, false) mapTo manifest[String] 
+      moves ⇒ queue ? PlayReq(moves, initialFen map chess960Fen, level) mapTo manifest[String]
     )
   }
 
-  def analyse(pgn: String, initialFen: Option[String]): Fu[String ⇒ Analysis] =
-    fufail("not implemented")
-  // UciDump(pgn, initialFen).fold(
-  //   err ⇒ fufail(err),
-  //   moves ⇒ {
-  //     val analyse = model.analyse.Task.Builder(moves, initialFen map chess960Fen)
-  //     implicit val timeout = makeTimeout(config.analyseTimeout)
-  //     (actor ? analyse).mapTo[String ⇒ Analysis] ~ { _ onFailure reboot }
-  //   }
-  // )
+  def analyse(pgn: String, initialFen: Option[String]): Fu[AnalysisMaker] = {
+    implicit val timeout = makeTimeout(config.analyseTimeout)
+    UciDump(pgn, initialFen).fold(
+      err ⇒ fufail(err),
+      moves ⇒ queue ? FullAnalReq(moves, initialFen map chess960Fen) mapTo manifest[AnalysisMaker]
+    )
+  }
 
   private def chess960Fen(fen: String) = (Forsyth << fen).fold(fen) { situation ⇒
     fen.replace("KQkq", situation.board.pieces.toList filter {
-      case (_, piece) ⇒ piece is Rook
+      case (_, piece) ⇒ piece is chess.Rook
     } sortBy {
       case (pos, _) ⇒ (pos.y, pos.x)
     } map {
       case (pos, piece) ⇒ piece.color.fold(pos.file.toUpperCase, pos.file)
     } mkString "")
   }
-
-  private val reboot: PartialFunction[Throwable, Unit] = {
-    case e: AskTimeoutException ⇒ actor ! model.RebootException
-  }
-
-  private lazy val actor = system.actorOf(Props(new Queue(config)))
 }

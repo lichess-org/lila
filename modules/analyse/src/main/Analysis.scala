@@ -37,11 +37,6 @@ object Analysis {
 
   val separator = " "
 
-  def make(str: String, done: Boolean): Option[String ⇒ Analysis] =
-    Analysis.decodeInfos(str) map { infos ⇒
-      (id: String) ⇒ new Analysis(id, infos, done, none)
-    }
-
   def decodeInfos(enc: String): Option[List[Info]] =
     (enc.split(separator).toList.zipWithIndex map {
       case (info, index) ⇒ Info.decode(index + 1, info)
@@ -67,12 +62,14 @@ object Analysis {
   )
 }
 
-// NICETOHAVE
-// this belongs to the Analysis object
-// but was moved here because of scala 2.10.1 compiler bug
+case class AnalysisMaker(infos: List[Info], done: Boolean, fail: Option[String]) {
+
+  def apply(id: String) = Analysis(id, infos, done, fail)
+}
 object AnalysisMaker {
-  def apply(str: String, done: Boolean): Option[String ⇒ Analysis] =
-    Analysis.make(str, done)
+
+  def apply(str: String, done: Boolean): Option[AnalysisMaker] =
+    Analysis.decodeInfos(str) map { AnalysisMaker(_, done, none) }
 }
 
 final class AnalysisBuilder(infos: List[Info]) {
@@ -81,7 +78,7 @@ final class AnalysisBuilder(infos: List[Info]) {
 
   def +(info: Int ⇒ Info) = new AnalysisBuilder(info(infos.size + 1) :: infos)
 
-  def done: String ⇒ Analysis = id ⇒ new Analysis(id, infos.reverse.zipWithIndex map {
+  def done: AnalysisMaker = AnalysisMaker(infos.reverse.zipWithIndex map {
     case (info, turn) ⇒ (turn % 2 == 0).fold(
       info,
       info.copy(score = info.score map (_.negate))
@@ -99,7 +96,7 @@ private[analyse] case class RawAnalysis(
     case (true, "") ⇒ new Analysis(id, Nil, false, fail orElse "No move infos".some).some
     case (true, en) ⇒ Analysis.decodeInfos(en) map { infos ⇒
       new Analysis(id, infos, done, none)
-    } 
+    }
     case (false, _) ⇒ new Analysis(id, Nil, false, fail).some
   }
 }

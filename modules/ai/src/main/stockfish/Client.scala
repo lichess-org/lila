@@ -9,7 +9,7 @@ import play.api.Play.current
 
 import chess.format.UciMove
 import chess.{ Game, Move }
-import lila.analyse.{ Analysis, AnalysisMaker }
+import lila.analyse.AnalysisMaker
 
 final class Client(
     val playUrl: String,
@@ -18,7 +18,7 @@ final class Client(
   def play(game: Game, pgn: String, initialFen: Option[String], level: Int): Fu[(Game, Move)] =
     fetchMove(pgn, ~initialFen, level) flatMap { Stockfish.applyMove(game, pgn, _) }
 
-  def analyse(pgn: String, initialFen: Option[String]): Fu[String ⇒ Analysis] =
+  def analyse(pgn: String, initialFen: Option[String]): Fu[AnalysisMaker] =
     fetchAnalyse(pgn, ~initialFen) flatMap { str ⇒
       (AnalysisMaker(str, true) toValid "Can't read analysis results").future
     }
