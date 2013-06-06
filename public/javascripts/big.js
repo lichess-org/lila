@@ -160,12 +160,14 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         }
         if (m.v > self.version + 1) {
           self.debug("event gap detected from " + self.version + " to " + m.v);
+          // TODO uncomment
           return;
         }
         self.version = m.v;
       }
       if (m.t) {
         if (m.t == "resync") {
+          // TODO uncomment
           location.reload();
           return;
         }
@@ -320,6 +322,12 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     },
     onProduction: /.+\.lichess\.org/.test(document.domain)
   };
+  if (!lichess.onProduction) {
+    // $.cookie('surl', null);
+    // lichess.socketDefaults.options.baseUrls = [
+    //     'socket.en.lichess.org'
+    // ];
+  }
   // lichess.socketDefaults.options.debug = !lichess.onProduction;
   // lichess.socketDefaults.options.debug = true;
 
@@ -1882,26 +1890,33 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
   });
 
   $.lichessOpeningPreventClicks = function() {
-    $('div.lichess_overboard, div.hooks_wrap').hide();
+    $('div.lichess_overboard, #hooks_wrap').hide();
   };
 
   // hooks
   $(function() {
 
-    var $wrap = $('div.hooks_wrap');
+    var $wrap = $('#hooks_wrap');
     if (!$wrap.length) return;
     if (!strongSocket.available) return;
 
+    $('div.lichess_board').animate({opacity: 0.5}, 2000);
     var $timeline = $("#timeline");
     var $bot = $("div.lichess_bot");
     var $newposts = $("div.new_posts");
     var $newpostsinner = $newposts.find('.undertable_inner').scrollTop(999999);
-    var $hooks = $wrap.find('div.hooks');
-    var $hooksTable = $hooks.find("table.some");
-    var $hooksTableEmpty = $hooks.find("table.empty");
+    var $hooks = $wrap.find('#hooks');
     var $userTag = $('#user_tag');
     var isRegistered = $userTag.length > 0
     var myElo = isRegistered ? parseInt($userTag.data('elo')) : null;
+
+    var pool = [];
+
+    var slots = [];
+    for (i = 1; i <= 16; i++) {
+      slots.push('<div id="slot' + i + '" style="top:' + (Math.floor((i - 1) / 4) * 128) + 'px;left:' + (((i - 1) % 4) * 128) + 'px;"></div>');
+    }
+    $hooks.html(slots.join(''));
 
     $wrap.find('a.filter').click(function() {
       var $a = $(this);
@@ -1929,7 +1944,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
                   type: 'post',
                   success: function(filter) {
                     lichess_preload.filter = filter;
-                    updateHookTable();
+                    drawHooks();
                   }
                 });
               }, 500));
@@ -2029,90 +2044,93 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     }
 
     function removeHook(id) {
-      $("#" + id).find('td.action').addClass('empty').html("").end().fadeOut(800, function() {
-        $(this).remove();
-        updateHookTable();
-      });
+      pool = _.filter(pool, function(h) { return h.id != id; });
+      drawHooks();
     }
 
     function addHooks(hooks) {
-      var html = "";
-      for (i in hooks) html += $hooksTable.find('tbody').append(renderHook(hooks[i]));
-      updateHookTable();
+      _.each(hooks, function(h) { hooks.push(h); });
+      drawHooks();
     }
 
     function addHook(hook) {
-      $hooksTable.find('tbody').append(renderHook(hook));
-      updateHookTable();
+      pool.push(hook);
+      drawHooks();
     }
 
-    function updateHookTable() {
+    function drawHooks() {
       var filter = lichess_preload.filter;
       var seen = [];
-      $hooksTable.find('tr.hook').each(function() {
-        var hook = $(this).data('hook');
+      var hidden = 0;
+      _.each(pool, function(hook) {
         var hide = (filter.variant != null && filter.variant != hook.variant) ||
           (filter.mode != null && filter.mode != hook.mode) ||
           (filter.speed != null && filter.speed != hook.speed) ||
           (filter.eloDiff > 0 && (!hook.elo || hook.elo > (myElo + filter.eloDiff) || hook.elo < (myElo - filter.eloDiff)));
-        var hash = hook.mode + hook.variant + hook.color + hook.clock
-        $(this).toggleClass('none', (hide || _.contains(seen, hash)) && (hook.action != 'cancel'));
+        var hash = hook.mode + hook.variant + hook.color + hook.clock;
+        if (hide || _.contains(seen, hash)) {
+          $('#'+hook.id).remove();
+          hidden++;
+        } else if (!$('#'+hook.id).length) {
+          $(_.shuffle($hooks.find('>div:empty'))[0]).html($(renderHook(hook)).fadeIn(500));
+        }
         seen.push(hash);
       });
+      $hooks.find('div.hook').each(function() {
+        var id = $(this).attr('id');
+        if (!_.find(pool, function(h) { return h.id == id; })) {
+          $(this).remove();
+        }
+      });
 
-      var nbVisibleHooks = $hooksTable.find('tr.hook:not(.none)').length;
-      $hooksTable.toggleClass("none", nbVisibleHooks == 0);
-      $hooksTableEmpty.toggleClass("none", nbVisibleHooks != 0);
+      console.debug(pool.length, hidden);
+      console.debug(_.pluck(pool, 'id'));
       $wrap
-        .toggleClass("large", nbVisibleHooks > 6)
         .find('a.filter')
         .toggleClass('on', filter.mode != null || filter.variant != null || filter.speed != null || filter.eloDiff > 0)
-        .find('span.number').text('(' + $hooksTable.find('tr.hook.none').length + ')');
+        .find('span.number').text('(' + hidden + ')');
     }
 
     function renderHook(hook) {
-      if (!isRegistered && hook.mode == "Rated") return "";
       hook.action = hook.uid == lichess_sri ? "cancel" : "join";
       if (hook.emin && hook.action == "join" && (myElo < parseInt(hook.emin) || myElo > parseInt(hook.emax))) return "";
-      var html = "",
-        isEngine, engineMark, userClass, mode;
-      html += '<tr id="' + hook.id + '" class="hook' + (hook.action == 'join' ? ' joinable' : '') + '">';
-      html += '<td class="color"><span class="' + hook.color + '"></span></td>';
-      isEngine = hook.engine && hook.action == 'join';
-      engineMark = isEngine ? '<span class="engine_mark"></span>' : '';
-      userClass = isEngine ? "user_link engine" : "user_link";
+      var html = '<div id="' + hook.id + '" class="hook ' + hook.action + '">';
+      // html += '<td class="color"><span class="' + hook.color + '"></span></td>';
+      var isEngine = hook.engine && hook.action == 'join';
+      var userClass = isEngine ? "engine" : "";
       if (hook.elo) {
-        html += '<td><a class="' + userClass + '" href="/@/' + hook.username + '">' + hook.username.substr(0, 14) + '<br />' + '(' + hook.elo + ')' + engineMark + '</a></td>';
+        html += '<a class="opponent">' + hook.username.substr(0, 14) + '</a>';
+        html += '<span class="elo">' + hook.elo + '</span>';
+        html += isEngine ? '<span class="engine_mark"></span>' : '';
       } else {
-        html += '<td>' + hook.username + '</td>';
+        html += '<span class="opponent anon">Anonymous</span>';
+        html += '<span class="elo nope">?</span>';
       }
-      html += '</td>';
       if (isRegistered) {
-        mode = $.trans(hook.mode);
-        if (hook.emin && (hook.emin > 800 || hook.emax < 2500)) {
-          mode += "<span class='elorange'>" + hook.emin + ' - ' + hook.emax + '</span>';
-        }
+        var mode = $.trans(hook.mode);
       } else {
-        mode = "";
+        var mode = "";
+      }
+      if (hook.clock && hook.clock != "Unlimited") {
+        var clock = hook.clock.replace(/\s/g, '').replace(/\+/,'<span>+</span>');
+        html += '<span class="clock">' + clock + '</span>';
+      }
+      else {
+        html += '<span class="clock">-</span>';
+      }
+      html += '<span class="mode">' + mode + '</span>';
+      if (hook.action == "cancel") {
+        html += '<a class="action socket-link" data-msg="cancel"><span></span></a>';
+      } else {
+        html += '<a class="action socket-link" data-msg="join" data-data="' + hook.id + '"><span></span></a>';
       }
       if (hook.variant == 'Chess960') {
-        html += '<td><a href="http://en.wikipedia.org/wiki/Chess960"><strong>960</strong></a> ' + mode + '</td>';
-      } else {
-        html += '<td>' + mode + '</td>';
+        html += '<a class="chess960" href="http://en.wikipedia.org/wiki/Chess960">960</a>';
       }
-      html += '<td>' + $.trans(hook.clock) + '</td>';
-      html += '<td class="action">';
-      if (hook.action == "cancel") {
-        html += '<a class="cancel socket-link" data-msg="cancel"></a>';
-      } else {
-        html += '<a class="join socket-link" data-msg="join" data-data="' + hook.id + '"></a>';
-      }
-      html += '</td>';
-      html += '</tr>';
+      html += '</div>';
       var $hook = $(html).data('hook', hook);
-      if (hook.variant == "Chess960") {
+      if (hook.variant == "Chess960" && !$.cookie('c960')) {
         $hook.find('a.join').click(function() {
-          if ($.cookie('c960') == 1) return true;
           var c = confirm("This is a Chess960 game!\n\nThe starting position of the pieces on the players' home ranks is randomized.\nRead more: http://wikipedia.org/wiki/Chess960\n\nDo you want to play Chess960?");
           if (c) $.cookie('c960', 1);
           return c;
@@ -2121,8 +2139,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       return $hook;
     }
 
-    $hooks.on('click', 'table.empty tr', function() {
-      $('#start_buttons a.config_hook').click();
+    $hooks.on('click', 'div.hook', function() {
+      var $a = $(this).find('a.action');
+      lichess.socket.send($a.data('msg'), $a.data('data'));
     });
   });
 

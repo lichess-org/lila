@@ -16,7 +16,6 @@ private[i18n] case class JsDump(
   } void
 
   private val messages = List(
-    keys.unlimited,
     keys.standard,
     keys.rated,
     keys.casual,

@@ -45,13 +45,11 @@ case class Hook(
     "variant" -> realVariant.toString,
     "mode" -> realMode.toString,
     "color" -> color,
-    "clock" -> clockOrUnlimited,
+    "clock" -> clockOption ?? { c ⇒ renderClock(c.limit, c.increment) },
     "speed" -> chess.Speed(clockOption).id,
     "emin" -> realEloRange.map(_.min),
     "emax" -> realEloRange.map(_.max),
     "engine" -> engine)
-
-  def clockOrUnlimited = clockOption.fold("Unlimited")(c ⇒ renderClock(c.limit, c.increment))
 
   private def clockOption = (time filter (_ ⇒ hasClock)) |@| increment apply Clock.apply
 
