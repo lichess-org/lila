@@ -35,7 +35,7 @@ trait Client extends Ai {
     ping = p
   }
 
-  private def isHealthy(p: Option[Int]) = p.fold(false)(isFast)
+  private def isHealthy(p: Option[Int]) = p ?? isFast
 
   private def isFast(p: Int) = p < pingAlert
 }
