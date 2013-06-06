@@ -17,13 +17,13 @@ trait Granter {
       true)
 
   def isGrantedWrite(categSlug: String)(implicit ctx: Context): Fu[Boolean] =
-    categSlug match {
+    fuccess(ctx.isAuth) >>& (categSlug match {
       case StaffSlug ⇒
         fuccess(ctx.me exists Master(Permission.StaffForum))
       case TeamSlugPattern(teamId) ⇒
         ctx.me.??(me ⇒ userBelongsToTeam(teamId, me.id))
       case _ ⇒ fuccess(true)
-    }
+    })
 
   def isGrantedMod(categSlug: String)(implicit ctx: Context): Fu[Boolean] =
     categSlug match {
