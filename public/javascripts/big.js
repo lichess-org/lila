@@ -536,6 +536,13 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       });
     });
 
+    $('#top .lichess_language').one('mouseover', function() {
+      var $t = $(this);
+      _.each($('body').data('accept-languages').split(','), function(lang) {
+        $t.find('a[lang="' + lang + '"]').addClass('accepted');
+      });
+    });
+
     $('#lichess_translation_form_code').change(function() {
       if ("0" != $(this).val()) {
         location.href = $(this).closest('form').attr('data-change-url').replace(/__/, $(this).val());

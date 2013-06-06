@@ -38,21 +38,23 @@ trait I18nHelper {
 
   def langLinks(lang: Lang)(implicit ctx: Context) = Html {
     langLinksCache.getOrElseUpdate(lang.language, {
-      val i18nDomain = I18nDomain(ctx.req.domain)
       pool.names.toList sortBy (_._1) collect {
         case (code, name) ⇒ """<li><a lang="%s" href="%s"%s>%s</a></li>""".format(
           code,
-          langUrl(Lang(code))(i18nDomain),
+          langUrl(Lang(code))(I18nDomain(ctx.req.domain)),
           (code == lang.language) ?? """ class="current"""",
           name)
-      } mkString
+      } mkString ""
     }).replace(uriPlaceholder, ctx.req.uri)
   }
 
   def commonDomain(implicit ctx: Context): String =
     I18nDomain(ctx.req.domain).commonDomain
 
-  val uriPlaceholder = "[URI]"
+  def acceptLanguages(implicit ctx: Context): String =
+    ctx.req.acceptLanguages.map(_.language).distinct mkString ","
+
+  private val uriPlaceholder = "[URI]"
 
   private def langUrl(lang: Lang)(i18nDomain: I18nDomain) =
     protocol + (i18nDomain withLang lang).domain + uriPlaceholder

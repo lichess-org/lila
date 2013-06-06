@@ -661,12 +661,15 @@ ul.language_links a {
   padding: 0.4em 0.5em;
   text-decoration: none;
 }
-ul.language_links a.current {
+ul.language_links a.current, ul.language_links a.accepted {
   font-weight: bold;
+  color: #444;
+}
+ul.language_links a.accepted {
+  text-decoration: underline;
 }
 ul.language_links a:hover, ul.language_links a.current {
   background: #F0F0F0;
-  color: #444;
 }
 ul.language_links li {
   width: 25%;
