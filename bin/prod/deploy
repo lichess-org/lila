@@ -47,6 +47,7 @@ RSYNC_OPTIONS=" \
   --exclude RUNNING_PID \
   --exclude bin/.translate_version
   --exclude target/resolution-cache
+  --exclude target/native_libraries
   --exclude target/scala-*
   --exclude target/streams";
 
