@@ -208,3 +208,6 @@ nbFollowers=%s seuraajat
 nbFollowing=%s seuratut
 profile=Profiili
 more=Lisää
+memberSince=Jäsen alkaen
+lastLogin=Viime kirjautuminen
+challengeToPlay=Haasta peliin
