@@ -12,7 +12,7 @@ import actorApi._
 // and seed it with the priority generator
 final class MailBox(settings: ActorSystem.Settings, config: TypesafeConfig)
   extends UnboundedPriorityMailbox(PriorityGenerator {
-    case _: PlayReq ⇒ 0
-    case _: AnalReq ⇒ 1
-    case _          ⇒ 3
+    case PlayReq(_, _, level) ⇒ level
+    case _: AnalReq ⇒ 10
+    case _          ⇒ 20
   })
