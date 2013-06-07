@@ -2062,8 +2062,10 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     }
 
     function addHook(hook) {
-      pool.push(hook);
-      drawHooks();
+      if (isRegistered || hook.mode != "Rated") {
+        pool.push(hook);
+        drawHooks();
+      }
     }
 
     function drawHooks() {
