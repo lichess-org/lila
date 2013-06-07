@@ -77,7 +77,7 @@ User data is split in 4 collections:
 
 - `config` stores user preferences for AI, friend and lobby games. Here's a [config object from the database](https://gist.github.com/3886367). The config `_id` is the user `_id`.
 
-- `user_history` remembers every game played by a user, and the corresponding ELO rating variations. The array is indexed by timestamp int and I use it to display ELO charts.
+- `user_history` remembers every game played by a user, and the corresponding Elo rating variations. The array is indexed by timestamp int and I use it to display Elo charts.
 
 - `security` associates usernames (= user ids) to browser cookies and IP addresses. It is used for authentication and spam prevention.
 

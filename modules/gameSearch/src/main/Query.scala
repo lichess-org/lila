@@ -96,7 +96,7 @@ object Query {
     (1 to 5) ++ (10 to 45 by 5) ++ (50 to 90 by 10) ++ (100 to 300 by 25),
     "%d move{s}")
 
-  val averageElos = (EloRange.min to EloRange.max by 100).toList map { e ⇒ e -> (e + " ELO") }
+  val averageElos = (EloRange.min to EloRange.max by 100).toList map { e ⇒ e -> (e + " Elo") }
 
   val hasAis = List(0 -> "Human opponent", 1 -> "Computer opponent")
 
