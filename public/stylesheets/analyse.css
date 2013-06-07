@@ -133,3 +133,17 @@ div.adv_chart {
 div.adv_chart iframe {
   height: 150px;
 }
+
+div.shortcuts .title {
+  margin: 1.5em 0 0.5em 0;
+  display: block;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+}
+div.shortcuts li {
+  display: block;
+  margin: 0.5em 0;
+}
+#site_header div.shortcuts strong {
+  font-weight: bold;
+}
