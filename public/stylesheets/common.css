@@ -1369,6 +1369,7 @@ div.game_config div.color_submits button.random span {
   position: relative;
   width: 120px;
   height: 120px;
+  z-index: 9;
   margin: 4px;
   border-radius: 3px;
   cursor: pointer;
