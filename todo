@@ -62,21 +62,6 @@ IE10 no sound toggle http://en.lichess.org/forum/lichess-feedback/notification-o
 filter current games for watching http://en.lichess.org/forum/lichess-feedback/viewing-current-games-suggestion#2
 show powertips from friend box (for challenging)
 
-[Event "Casual game"]
-[Site "http://lichess.org/paf5gpiq"]
-[Date "2013-06-06"]
-[White "turf"]
-[Black "Anonymous"]
-[Result "1-0"]
-[WhiteElo "1226"]
-[BlackElo "?"]
-[PlyCount "45"]
-[Variant "Chess960"]
-[FEN "nrbbnqkr/pppppppp/8/8/8/8/PPPPPPPP/NRBBNQKR w KQkq - 0 1"]
-[SetUp "1"]
-
-1. e4 e5 2. Nb3 c5 3. Nf3 d6 4. d3 Be6 5. Qe1 Bxb3 6. axb3 b5 7. Ra1 b4 8. Rxa7 Bb6 9. Ra4 Nac7 10. c3 Ra8 11. Rxa8 Nxa8 12. cxb4 cxb4 13. Qxb4 Nec7 14. Be3 Bxe3 15. fxe3 h6 16. O-O d5 17. Qxf8+ Kxf8 18. Nxe5 dxe4 19. dxe4 f6 20. Ng6+ Kg8 21. Nxh8 Kxh8 22. Bf3 Nb6 23. Rc1 1-0
-
 ---
 
 hope for https://github.com/zenexity/ReactiveMongo/issues/72
