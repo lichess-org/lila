@@ -42,8 +42,10 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     self.currentLag = 0;
     self.averageLag = 0;
     self.debug('Debug is enabled');
-    if (self.options.prodPipe) {
+    if (self.options.resetCookie || self.options.prodPipe) {
       $.cookie(self.options.baseUrlCookie, null);
+    }
+    if (self.options.prodPipe) {
       self.options.baseUrls = ['socket.en.lichess.org'];
     }
     self.connect();
@@ -320,7 +322,8 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         name: "site",
         lagTag: $('#connection_lag'),
         debug: location.search.indexOf('debug-ws') != -1,
-        prodPipe: location.search.indexOf('prod-ws') != -1
+        prodPipe: location.search.indexOf('prod-ws') != -1,
+        resetCookie: location.search.indexOf('reset-ws') != -1
       }
     },
     onProduction: /.+\.lichess\.org/.test(document.domain)
@@ -1905,10 +1908,11 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     var $newposts = $("div.new_posts");
     var $newpostsinner = $newposts.find('.undertable_inner').scrollTop(999999);
     var $hooks = $wrap.find('#hooks');
+    var $noHook = $wrap.find('.no_hook');
     var $userTag = $('#user_tag');
     var isRegistered = $userTag.length > 0
     var myElo = isRegistered ? parseInt($userTag.data('elo')) : null;
-    var animation = 1000;
+    var animation = 800;
 
     var pool = [];
 
@@ -2066,6 +2070,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       var filter = lichess_preload.filter;
       var seen = [];
       var hidden = 0;
+      var visible = 0;
       _.each(pool, function(hook) {
         var hide = (filter.variant != null && filter.variant != hook.variant) ||
           (filter.mode != null && filter.mode != hook.mode) ||
@@ -2080,6 +2085,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           hidden++;
         } else {
           var $h = $('#' + hook.id);
+          visible++;
           if (!$h.length) {
             $(_.shuffle($hooks.find('>div:empty'))[0]).html($(renderHook(hook)).fadeIn(animation));
           } else {
@@ -2097,6 +2103,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         }
       });
 
+      $noHook.stop().animate({opacity: visible == 0 ? 1 : 0}, animation);
       $wrap
         .find('a.filter')
         .toggleClass('on', filter.mode != null || filter.variant != null || filter.speed != null || filter.eloDiff > 0)
@@ -2149,9 +2156,12 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       return $hook;
     }
 
-    $hooks.on('click', 'div.hook', function() {
+    $hooks.on('click', 'div.hook:not(.hiding)', function() {
       var $a = $(this).find('a.action');
       lichess.socket.send($a.data('msg'), $a.data('data'));
+    });
+    $noHook.click(function() {
+      $('#start_buttons a.config_hook').click();
     });
   });
 
