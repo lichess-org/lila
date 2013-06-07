@@ -445,7 +445,8 @@ div.lichess_table a.lichess_button.active {
   box-shadow: 0 0 9px #d85000;
   border: 1px solid #d85000;
 }
-#hooks div.hook:hover {
+#hooks div.hook:hover,
+#hooks_wrap > a.no_hook:hover {
   box-shadow: 0 0 9px #d85000;
 }
 

@@ -908,7 +908,7 @@ div.engine_warning {
   margin-bottom: 15px;
 }
 /* soft inactive gradient */
- #top, div.lichess_chat_top, #friend_box .title, div.undertable_top, .button, .button:visited, .ui-state-default, div.content_box_top, #hooks tr, #translation_call, div.notification, div.locale_menu a, table.slist thead {
+ #top, #hooks_wrap > a.no_hook, div.lichess_chat_top, #friend_box .title, div.undertable_top, .button, .button:visited, .ui-state-default, div.content_box_top, #hooks tr, #translation_call, div.notification, div.locale_menu a, table.slist thead {
   color: #666;
   background: #fafafa;
   background: -moz-linear-gradient(center top, #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
@@ -928,7 +928,7 @@ div.engine_warning {
   background: -o-linear-gradient(top, #f49c00, #d85000) repeat scroll 0 0 #d85000;
 }
 /* strong inactive gradient */
- #hooks td.action, .button:hover, .button.strong {
+ #hooks td.action, .button:hover, #hooks_wrap > a.no_hook:hover, .button.strong {
   background: #ffffff;
   background: -moz-linear-gradient(center top, #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff), to(#c0c0c0));
@@ -1341,6 +1341,22 @@ div.game_config div.color_submits button.random span {
   height: 512px;
   position: relative;
 }
+#hooks_wrap > a.no_hook {
+  position: absolute;
+  top: 192px;
+  left: 64px;
+  display: block;
+  width: 376px;
+  height: 120px;
+  margin: 4px;
+  line-height: 120px;
+  font-size: 1.25em;
+  border-radius: 3px;
+  color: #444;
+  text-align: center;
+  box-shadow:0 0 5px #333;
+  text-decoration: none;
+}
 #hooks > div {
   position: absolute;
   width: 128px;
@@ -1357,11 +1373,11 @@ div.game_config div.color_submits button.random span {
   cursor: pointer;
   color: #444;
   text-align: center;
-  background: #d0d0d0 url(../images/play128.png);
+  background: #d0d0d0 url(../images/play128.png) -4px -4px;
   box-shadow:0 0 5px #333;
 }
 #hooks div.hook.cancel {
-  background-position: 0 -128px;
+  background-position: -4px -132px;
 }
 #hooks div.hook:hover {
   background-color: #f0f0f0;
