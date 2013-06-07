@@ -1392,7 +1392,7 @@ div.game_config div.color_submits button.random span {
 #hooks a.action {
   display: none;
 }
-#hooks div.hook .opponent, #hooks div.hook a.user_link {
+#hooks div.hook .opponent {
   border-radius: 3px 3px 0 0;
   display: block;
   height: 20px;
@@ -1402,6 +1402,9 @@ div.game_config div.color_submits button.random span {
   color: #eee;
   overflow: hidden;
   text-decoration: none;
+}
+#hooks div.hook a.opponent:hover {
+  text-decoration: underline;
 }
 #hooks .clearfix {
   width: 100%;
@@ -1429,6 +1432,7 @@ div.game_config div.color_submits button.random span {
 }
 #hooks .clock.nope {
   font-size: 2.3em;
+  padding-top: 3px;
   line-height: 20px;
 }
 #hooks .mode {
