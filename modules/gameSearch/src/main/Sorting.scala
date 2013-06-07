@@ -16,7 +16,7 @@ object Sorting {
   val fields = List(
     Game.fields.date -> "Date",
     Game.fields.turns -> "Moves",
-    Game.fields.averageElo -> "Average ELO")
+    Game.fields.averageElo -> "Average Elo")
 
   def fieldKeys = fields map (_._1)
 
