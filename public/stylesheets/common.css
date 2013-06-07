@@ -1292,7 +1292,6 @@ div.game_config div.color_submits button.random span {
   height: 20px;
   line-height: 20px;
   padding: 0 2px 0 10px;
-  color: #333;
   border-bottom: 0;
   display: block;
   text-decoration: none;
@@ -1629,7 +1628,7 @@ div.notifications {
 }
 div.notifications > div {
   margin-left: 211px;
-  width: 498px;
+  width: 496px;
   border: 1px solid #c0c0c0;
   padding: 6px 8px 7px 8px;
   margin-bottom: 8px;

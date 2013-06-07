@@ -191,9 +191,13 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     destroy: function() {
       clearTimeout(this.pingSchedule);
       clearTimeout(this.connectSchedule);
+      this.disconnect();
+      this.ws = null;
+    },
+    disconnect: function() {
       if (this.ws) {
+        this.debug("Disconnect");
         this.ws.close();
-        this.ws = null;
       }
     },
     onError: function(e) {
@@ -310,6 +314,13 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           $("div.game_analysis").show();
           $.playSound();
           document.title = "/!\\ ANALYSIS READY! " + document.title;
+        },
+        deploy: function(html) {
+          $('div.notifications').append(html);
+          setTimeout(function() {
+            $('#deploy_reminder').fadeOut(1000);
+          }, 10000);
+          lichess.socket.disconnect();
         }
       },
       params: {},

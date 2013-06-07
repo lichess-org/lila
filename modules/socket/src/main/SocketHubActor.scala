@@ -25,11 +25,12 @@ trait SocketHubActor[A <: SocketActor[_]] extends ActorMap[A] {
 
     case msg @ WithUserIds(_)     ⇒ tellAll(msg)
 
-    case Broom                    ⇒ tellAll(Broom)
+    case msg @ Broom              ⇒ tellAll(msg)
 
     case msg @ SendTo(_, _)       ⇒ tellAll(msg)
 
     case msg @ SendTos(_, _)      ⇒ tellAll(msg)
 
+    case msg: Deploy              ⇒ tellAll(msg)
   }
 }

@@ -3,11 +3,11 @@ package lila.socket
 import scala.concurrent.duration.Duration
 import scala.util.Random
 
-import akka.actor._
+import akka.actor.{ Deploy ⇒ _, _ }
 import play.api.libs.json._
 
 import actorApi._
-import lila.hub.actorApi.{ GetUids, WithUserIds, GetNbMembers, NbMembers, SendTo, SendTos }
+import lila.hub.actorApi.{ Deploy, GetUids, WithUserIds, GetNbMembers, NbMembers, SendTo, SendTos }
 import lila.memo.ExpireSetMemo
 
 abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Actor {
@@ -46,6 +46,8 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Actor {
     case SendTos(userIds, msg)      ⇒ sendTos(userIds, msg)
 
     case Resync(uid)                ⇒ resync(uid)
+
+    case Deploy(html)               ⇒ broadcast(makeMessage("deploy", html))
   }
 
   def receive = receiveSpecific orElse receiveGeneric
@@ -130,7 +132,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Actor {
 
   def uids = members.keys
 
-  def memberByUserId(userId: String): Option[M] = 
+  def memberByUserId(userId: String): Option[M] =
     members.values find (_.userId == Some(userId))
 
   def membersByUserIds(userIds: Set[String]): Iterable[M] =
