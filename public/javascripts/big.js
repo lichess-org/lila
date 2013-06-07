@@ -2062,10 +2062,10 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     }
 
     function addHook(hook) {
-      if (isRegistered || hook.mode != "Rated") {
-        pool.push(hook);
-        drawHooks();
-      }
+      if (!isRegistered && hook.mode == "Rated") return;
+      if (hook.emin && (myElo < parseInt(hook.emin) || myElo > parseInt(hook.emax))) return;
+      pool.push(hook);
+      drawHooks();
     }
 
     function drawHooks() {
@@ -2080,7 +2080,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           (filter.eloDiff > 0 && (!hook.elo || hook.elo > (myElo + filter.eloDiff) || hook.elo < (myElo - filter.eloDiff)));
         var hash = hook.mode + hook.variant + hook.clock;
         if (hide) {
-          $('#' + hook.id).not('.hiding').addClass('hiding').fadeOut(animation, function() { $(this).remove(); });
+          $('#' + hook.id).not('.hiding').addClass('hiding').fadeOut(animation, function() {
+            $(this).remove();
+          });
           hidden++;
         } else if (_.contains(seen, hash)) {
           $('#' + hook.id).filter(':visible').hide();
@@ -2101,11 +2103,15 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         if (!_.find(pool, function(h) {
           return h.id == id;
         })) {
-          $(this).fadeOut(animation, function() { $(this).remove(); });
+          $(this).fadeOut(animation, function() {
+            $(this).remove();
+          });
         }
       });
 
-      $noHook.stop().animate({opacity: visible == 0 ? 1 : 0}, animation);
+      $noHook.stop().animate({
+        opacity: visible == 0 ? 1 : 0
+      }, animation);
       $wrap
         .find('a.filter')
         .toggleClass('on', filter.mode != null || filter.variant != null || filter.speed != null || filter.eloDiff > 0)
