@@ -1742,10 +1742,12 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       var $fenPosition = $form.find(".fen_position");
       var $clockCheckbox = $form.find('.clock_choice input');
       var isHook = $form.hasClass('game_config_hook');
+      var myElo = parseInt($('#user_tag').data('elo'));
       if (isHook) {
         var $formTag = $form.find('form');
 
         function ajaxSubmit(color) {
+          if ($form.find('.elo_range_config span.invalid').length) return false;
           $.ajax({
             url: $formTag.attr('action').replace(/uid-placeholder/, lichess_sri),
             data: $formTag.serialize() + "&color=" + color,
@@ -1793,7 +1795,12 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         } else {
           var values = [min, max];
         }
-        $span.text(values.join(' - '));
+        function isInvalid(values) {
+          var vmin = parseInt(values[0]);
+          var vmax = parseInt(values[1]);
+          return vmin > myElo || vmax < myElo || (vmax - vmin < 200);
+        }
+        $span.text(values.join(' - ')).toggleClass('invalid', isInvalid(values));
         $this.slider({
           range: true,
           min: min,
@@ -1802,7 +1809,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           step: 50,
           slide: function(event, ui) {
             $input.val(ui.values[0] + "-" + ui.values[1]);
-            $span.text(ui.values[0] + " - " + ui.values[1]);
+            $span.text(ui.values[0] + " - " + ui.values[1]).toggleClass('invalid', isInvalid(ui.values));
           }
         });
         var $eloRangeConfig = $this.parent();
@@ -1901,7 +1908,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     if (!strongSocket.available) return;
 
     $('div.lichess_board').animate({
-      opacity: 0.5
+      opacity: 0.6
     }, 2000);
     var $timeline = $("#timeline");
     var $bot = $("div.lichess_bot");

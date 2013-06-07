@@ -1242,6 +1242,9 @@ div.game_config .time_choice, div.game_config .increment_choice, div.game_config
   text-align: left;
   text-indent: 15px;
 }
+div.game_config .elo_range_config span.invalid {
+  color: red;
+}
 div.game_config .time_choice span {
   font-weight: bold;
 }
