@@ -2160,7 +2160,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         html += '<a class="action socket-link" data-msg="join" data-data="' + hook.id + '"><span></span></a>';
       }
       if (hook.variant == 'Chess960') {
-        html += '<a class="chess960" href="http://en.wikipedia.org/wiki/Chess960">960</a>';
+        html += '<span class="chess960">Chess 960</span>';
       }
       html += '</div>';
       var $hook = $(html).data('hook', hook);
