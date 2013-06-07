@@ -2114,7 +2114,6 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       hook.action = hook.uid == lichess_sri ? "cancel" : "join";
       if (hook.emin && hook.action == "join" && (myElo < parseInt(hook.emin) || myElo > parseInt(hook.emax))) return "";
       var html = '<div id="' + hook.id + '" class="hook ' + hook.action + '">';
-      // html += '<td class="color"><span class="' + hook.color + '"></span></td>';
       var isEngine = hook.engine && hook.action == 'join';
       var userClass = isEngine ? "engine" : "";
       if (hook.elo) {
@@ -2129,11 +2128,11 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       } else {
         var mode = "";
       }
-      if (hook.clock && hook.clock != "Unlimited") {
+      if (hook.clock) {
         var clock = hook.clock.replace(/\s/g, '').replace(/\+/, '<span>+</span>');
         html += '<span class="clock">' + clock + '</span>';
       } else {
-        html += '<span class="clock">∞</span>';
+        html += '<span class="clock nope">∞</span>';
       }
       html += '<span class="mode">' + mode + '</span>';
       if (hook.action == "cancel") {

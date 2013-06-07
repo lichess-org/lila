@@ -1425,6 +1425,10 @@ div.game_config div.color_submits button.random span {
 #hooks .clock > span {
   color: #909090;
 }
+#hooks .clock.nope {
+  font-size: 2.3em;
+  line-height: 20px;
+}
 #hooks .mode {
   margin-top: 40px;
 }
