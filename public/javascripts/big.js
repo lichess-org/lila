@@ -1908,6 +1908,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     var $userTag = $('#user_tag');
     var isRegistered = $userTag.length > 0
     var myElo = isRegistered ? parseInt($userTag.data('elo')) : null;
+    var animation = 1000;
 
     var pool = [];
 
@@ -2071,11 +2072,19 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           (filter.speed != null && filter.speed != hook.speed) ||
           (filter.eloDiff > 0 && (!hook.elo || hook.elo > (myElo + filter.eloDiff) || hook.elo < (myElo - filter.eloDiff)));
         var hash = hook.mode + hook.variant + hook.color + hook.clock;
-        if (hide || _.contains(seen, hash)) {
-          $('#' + hook.id).remove();
+        if (hide) {
+          $('#' + hook.id).not('.hiding').addClass('hiding').fadeOut(animation, function() { $(this).remove(); });
           hidden++;
-        } else if (!$('#' + hook.id).length) {
-          $(_.shuffle($hooks.find('>div:empty'))[0]).html($(renderHook(hook)).fadeIn(500));
+        } else if (_.contains(seen, hash)) {
+          $('#' + hook.id).filter(':visible').hide();
+          hidden++;
+        } else {
+          var $h = $('#' + hook.id);
+          if (!$h.length) {
+            $(_.shuffle($hooks.find('>div:empty'))[0]).html($(renderHook(hook)).fadeIn(animation));
+          } else {
+            $h.not(':visible').fadeIn(animation);
+          }
         }
         seen.push(hash);
       });
@@ -2084,7 +2093,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         if (!_.find(pool, function(h) {
           return h.id == id;
         })) {
-          $(this).remove();
+          $(this).fadeOut(animation, function() { $(this).remove(); });
         }
       });
 
