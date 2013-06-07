@@ -817,7 +817,7 @@ a#sound_state.unavailable {
   margin: 7px;
   font-style: normal;
 }
-#friend_box:hover a.find {
+#friend_box div.nobody:hover a.find {
   display: block;
 }
 span.s16.clock {
@@ -1356,6 +1356,7 @@ div.game_config div.color_submits button.random span {
   text-align: center;
   box-shadow:0 0 5px #333;
   text-decoration: none;
+  opacity: 0;
 }
 #hooks > div {
   position: absolute;
