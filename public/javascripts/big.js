@@ -2076,7 +2076,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           (filter.mode != null && filter.mode != hook.mode) ||
           (filter.speed != null && filter.speed != hook.speed) ||
           (filter.eloDiff > 0 && (!hook.elo || hook.elo > (myElo + filter.eloDiff) || hook.elo < (myElo - filter.eloDiff)));
-        var hash = hook.mode + hook.variant + hook.color + hook.clock;
+        var hash = hook.mode + hook.variant + hook.clock;
         if (hide) {
           $('#' + hook.id).not('.hiding').addClass('hiding').fadeOut(animation, function() { $(this).remove(); });
           hidden++;
