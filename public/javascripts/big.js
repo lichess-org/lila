@@ -394,21 +394,23 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     });
 
     function userPowertips() {
-      $('a.ulpt').removeClass('ulpt').powerTip({
-        placement: 's',
-        smartPlacement: true,
-        mouseOnToPopup: true,
-        closeDelay: 200
-      }).on({
-        powerTipPreRender: function() {
-          $.ajax({
-            url: $(this).attr('href'),
-            success: function(html) {
-              $('#powerTip').html(html);
-            }
-          });
-        }
-      }).data('powertip', ' ');
+      $('a.ulpt').removeClass('ulpt').each(function() {
+        $(this).powerTip({
+          placement: $(this).data('placement') || 's',
+          smartPlacement: true,
+          mouseOnToPopup: true,
+          closeDelay: 200
+        }).on({
+          powerTipPreRender: function() {
+            $.ajax({
+              url: $(this).attr('href'),
+              success: function(html) {
+                $('#powerTip').html(html);
+              }
+            });
+          }
+        }).data('powertip', ' ');
+      });
     }
     setTimeout(userPowertips, 600);
     $('body').on('lichess.content_loaded', userPowertips);
@@ -1397,6 +1399,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       this.$nbTotal.text(this.nb);
       this.$nobody.toggle(this.users.length == 0);
       this.$list.html(_.map(this.users, this._renderUser).join(""));
+      $('body').trigger('lichess.content_loaded');
     },
     set: function(data) {
       this.nb = data['nb'];
@@ -1412,7 +1415,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       this.repaint();
     },
     _renderUser: function(user) {
-      return '<a href="/@/' + user + '">' + user + '</a>';
+      return '<a class="ulpt" data-placement="nw" href="/@/' + user + '">' + user + '</a>';
     }
   });
 
@@ -1795,6 +1798,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         } else {
           var values = [min, max];
         }
+
         function isInvalid(values) {
           var vmin = parseInt(values[0]);
           var vmax = parseInt(values[1]);
