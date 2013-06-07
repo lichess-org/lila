@@ -2147,7 +2147,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       var isEngine = hook.engine && hook.action == 'join';
       var userClass = isEngine ? "engine" : "";
       if (hook.elo) {
-        html += '<a class="opponent">' + hook.username.substr(0, 14) + '</a>';
+        html += '<a class="opponent ulpt" href="/@/' + hook.username +'">' + hook.username.substr(0, 14) + '</a>';
         html += '<span class="elo">' + hook.elo + '</span>';
         html += isEngine ? '<span class="engine_mark"></span>' : '';
       } else {
@@ -2185,6 +2185,10 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       return $hook;
     }
 
+    $hooks.on('click', 'div.hook a.opponent', function(e) {
+      e.stopPropagation();
+      return true;
+    });
     $hooks.on('click', 'div.hook:not(.hiding)', function() {
       var $a = $(this).find('a.action');
       lichess.socket.send($a.data('msg'), $a.data('data'));
