@@ -17,6 +17,9 @@ object SendTos {
     SendTos(userIds, Json.obj("t" -> typ, "d" -> data))
 }
 
+case object RemindDeploy
+case class Deploy(html: String)
+
 case class Ask(msg: Any)
 
 package map {

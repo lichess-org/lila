@@ -2,8 +2,8 @@ package lila.app
 package actor
 
 import akka.actor._
-
 import play.api.templates.Html
+
 import views.{ html ⇒ V }
 
 private[app] final class Renderer extends Actor {
@@ -22,10 +22,12 @@ private[app] final class Renderer extends Actor {
     case lila.hub.actorApi.setup.RemindChallenge(gameId, from, _) ⇒
       sender ! V.setup.challengeNotification(gameId, from)
 
+    case lila.hub.actorApi.RemindDeploy ⇒ sender ! V.notification.deploy()
+
     case lila.tournament.actorApi.TournamentTable(tours) ⇒
       sender ! V.tournament.createdTable(tours)
 
-    case entry: lila.timeline.GameEntry =>
+    case entry: lila.timeline.GameEntry ⇒
       sender ! V.timeline.gameEntry(entry)
   }
 }

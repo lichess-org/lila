@@ -260,8 +260,7 @@ body.dark #lichess_message div.thread_message div.thread_message_body,
 body.dark #GameText a.move,
 body.dark form.translation_form div.message label,
 body.dark div.content_box h1,
-body.dark #hooks a,
-body.dark #hooks_wrap a.filter 
+body.dark #hooks a
 {
   color: #b0b0b0;
 }
