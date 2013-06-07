@@ -2289,6 +2289,11 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     SetImagePath("/assets/vendor/pgn4web/lichess/64"); // use "" path if images are in the same folder as this javascript file
     SetImageType("png");
     SetShortcutKeysEnabled(true);
+    $('input').on('focus', function() {
+      SetShortcutKeysEnabled(false);
+    }).on('blur', function() {
+      SetShortcutKeysEnabled(true);
+    });
     clearShortcutSquares("BCDEFGH", "12345678");
     clearShortcutSquares("A", "1234567");
     var $game = $("#GameBoard");
