@@ -42,6 +42,10 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     self.currentLag = 0;
     self.averageLag = 0;
     self.debug('Debug is enabled');
+    if (self.options.prodPipe) {
+      $.cookie(self.options.baseUrlCookie, null);
+      self.options.baseUrls = ['socket.en.lichess.org'];
+    }
     self.connect();
     $(window).unload(function() {
       self.destroy();
@@ -160,15 +164,13 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         }
         if (m.v > self.version + 1) {
           self.debug("event gap detected from " + self.version + " to " + m.v);
-          // TODO uncomment
-          return;
+          if (!self.options.prodPipe) return;
         }
         self.version = m.v;
       }
       if (m.t) {
         if (m.t == "resync") {
-          // TODO uncomment
-          location.reload();
+          if (!self.options.prodPipe) location.reload();
           return;
         }
         var h = self.settings.events[m.t];
@@ -317,17 +319,12 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         baseUrlCookie: 'surl',
         name: "site",
         lagTag: $('#connection_lag'),
-        debug: location.search.indexOf('debug-ws') != -1
+        debug: location.search.indexOf('debug-ws') != -1,
+        prodPipe: location.search.indexOf('prod-ws') != -1
       }
     },
     onProduction: /.+\.lichess\.org/.test(document.domain)
   };
-  // if (!lichess.onProduction) {
-    // $.cookie('surl', null);
-    // lichess.socketDefaults.options.baseUrls = [
-    //     'socket.en.lichess.org'
-    // ];
-  // }
   // lichess.socketDefaults.options.debug = !lichess.onProduction;
   // lichess.socketDefaults.options.debug = true;
 
@@ -1900,7 +1897,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     if (!$wrap.length) return;
     if (!strongSocket.available) return;
 
-    $('div.lichess_board').animate({opacity: 0.5}, 2000);
+    $('div.lichess_board').animate({
+      opacity: 0.5
+    }, 2000);
     var $timeline = $("#timeline");
     var $bot = $("div.lichess_bot");
     var $newposts = $("div.new_posts");
@@ -2044,12 +2043,16 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     }
 
     function removeHook(id) {
-      pool = _.filter(pool, function(h) { return h.id != id; });
+      pool = _.filter(pool, function(h) {
+        return h.id != id;
+      });
       drawHooks();
     }
 
     function addHooks(hooks) {
-      _.each(hooks, function(h) { pool.push(h); });
+      _.each(hooks, function(h) {
+        pool.push(h);
+      });
       drawHooks();
     }
 
@@ -2069,16 +2072,18 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           (filter.eloDiff > 0 && (!hook.elo || hook.elo > (myElo + filter.eloDiff) || hook.elo < (myElo - filter.eloDiff)));
         var hash = hook.mode + hook.variant + hook.color + hook.clock;
         if (hide || _.contains(seen, hash)) {
-          $('#'+hook.id).remove();
+          $('#' + hook.id).remove();
           hidden++;
-        } else if (!$('#'+hook.id).length) {
+        } else if (!$('#' + hook.id).length) {
           $(_.shuffle($hooks.find('>div:empty'))[0]).html($(renderHook(hook)).fadeIn(500));
         }
         seen.push(hash);
       });
       $hooks.find('div.hook').each(function() {
         var id = $(this).attr('id');
-        if (!_.find(pool, function(h) { return h.id == id; })) {
+        if (!_.find(pool, function(h) {
+          return h.id == id;
+        })) {
           $(this).remove();
         }
       });
@@ -2109,10 +2114,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         var mode = "";
       }
       if (hook.clock && hook.clock != "Unlimited") {
-        var clock = hook.clock.replace(/\s/g, '').replace(/\+/,'<span>+</span>');
+        var clock = hook.clock.replace(/\s/g, '').replace(/\+/, '<span>+</span>');
         html += '<span class="clock">' + clock + '</span>';
-      }
-      else {
+      } else {
         html += '<span class="clock">∞</span>';
       }
       html += '<span class="mode">' + mode + '</span>';
