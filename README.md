@@ -1,8 +1,21 @@
-lichess.org
-===========
+[lichess.org](http://lichess.org)
+=================================
 
-Complete source code of http://lichess.org,
-using Scala 2.10.1, Play 2.1, Akka 2, ReactiveMongo and Scalaz 
+It's a free online chess game focused on [realtime](http://lichess.org/games) and simplicity.
+
+It haz a [search engine](http://lichess.org/games/search),
+[computer analysis](http://lichess.org/analyse/ief49lif), 
+[tournaments](http://lichess.org/tournament), 
+[forums](http://lichess.org/forum), 
+[teams](http://lichess.org/team),  
+and a weird [monitoring console](http://lichess.org/monitor).
+The UI is available in [72 languages](http://lichess.org/translation/contribute) thanks to the community.
+
+Lichess is written in [Scala 2.10](http://www.scala-lang.org/), 
+and relies on [Play 2.1](http://www.playframework.com/) for the routing, templating, and JSON.
+The codebase is fully asynchronous, making heavy use of Scala Futures and [Akka 2 actors](http://akka.io).
+It uses [MongoDB 2.4](http://mongodb.org) to store about 10 million games, which are indexed by [elasticsearch 0.90](http://elasticsearch.org).
+HTTP requests and websocket connections are proxied by [nginx 1.4](http://nginx.org).
 
 Installation
 ============
