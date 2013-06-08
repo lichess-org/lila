@@ -1935,20 +1935,22 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     var $userTag = $('#user_tag');
     var isRegistered = $userTag.length > 0
     var myElo = isRegistered ? parseInt($userTag.data('elo')) : null;
-    var animation = 800;
+    var animation = 500;
 
     var pool = [];
     // extras
-    for (elo = 1000; elo <= 2000; elo += 100) {
-      _.each(['0+1','1+0','2+0','3+0','4+0','5+0','6+0','7+0','8+0','9+0','10+0','30+0','30+30'], function(time) {
-        pool.push({
-          username: elo + " and " + time,
-          id: elo + "and" + time.replace(/\+/,'-'),
-          elo: elo,
-          clock: time 
-        });
-      });
-    }
+    // for (elo = 800; elo <= 2000; elo += 100) {
+    // // for (elo = 1200; elo <= 1200; elo += 100) {
+    //   _.each(['0+1','1+0','2+0','3+0','4+0','5+0','6+0','7+0','8+0','9+0','10+0','12+0','15+0','20+0','25+0','30+0','30+30'], function(time) {
+    //   // _.each(['5+8'], function(time) {
+    //     pool.push({
+    //       username: elo + " and " + time,
+    //       id: elo + "and" + time.replace(/\+/,'-'),
+    //       elo: elo,
+    //       clock: time 
+    //     });
+    //   });
+    // }
 
     var slots = [];
     for (i = 1; i <= 12; i++) {
@@ -2100,7 +2102,8 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
     function addHook(hook) {
       if (!isRegistered && hook.mode == "Rated") return;
-      if (hook.emin && (myElo < parseInt(hook.emin) || myElo > parseInt(hook.emax))) return;
+      hook.action = hook.uid == lichess_sri ? "cancel" : "join";
+      if (hook.action == 'join' && hook.emin && (myElo < parseInt(hook.emin) || myElo > parseInt(hook.emax))) return;
       pool.push(hook);
       drawHooks();
     }
@@ -2109,24 +2112,24 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       var filter = lichess_preload.filter;
       var seen = [];
       var hidden = 0;
-      var visible = [];
+      var visible = 0;
       _.each(pool, function(hook) {
         var hide = (filter.variant != null && filter.variant != hook.variant) ||
           (filter.mode != null && filter.mode != hook.mode) ||
           (filter.speed != null && filter.speed != hook.speed) ||
           (filter.eloDiff > 0 && (!hook.elo || hook.elo > (myElo + filter.eloDiff) || hook.elo < (myElo - filter.eloDiff)));
         var hash = hook.mode + hook.variant + hook.clock + hook.elo;
-        if (hide) {
+        if (hide && hook.action != 'cancel') {
           $wrap.find('.' + hook.id).not('.hiding').addClass('hiding').fadeOut(animation, function() {
             $(this).remove();
           });
           hidden++;
-        } else if (_.contains(seen, hash)) {
+        } else if (_.contains(seen, hash) && hook.action != 'cancel') {
           $wrap.find('.' + hook.id).filter(':visible').hide();
           hidden++;
         } else {
           var $h = $wrap.find('.' + hook.id);
-          visible.push(hook);
+          visible++;
           if (!$h.length) {
             $(_.shuffle($hooks.find('>div:empty'))[0]).html($(renderHook(hook)).fadeIn(animation));
             $canvas.append($(renderPlot(hook)).fadeIn(animation));
@@ -2134,7 +2137,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
             $h.not(':visible').fadeIn(animation);
           }
         }
-        seen.push(hash);
+        if (hook.action != 'cancel') seen.push(hash);
       });
       $hooks.find('div.hook').each(function() {
         var id = $(this).data('id');
@@ -2147,7 +2150,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         }
       });
 
-      $noHook.toggle(visible.length == 0);
+      $noHook.toggle(visible == 0);
       $wrap
         .find('a.filter')
         .toggleClass('on', filter.mode != null || filter.variant != null || filter.speed != null || filter.eloDiff > 0)
@@ -2155,32 +2158,48 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     }
 
     function renderPlot(hook) {
-      var width = height = 237;
-      var elo = Math.max(1000, Math.min(2000, hook.elo || 1200));
-      if (elo >= 1200) {
-        var ratio = 0.5 + Math.log(elo - 1200) 
-      }
-      var bottom = Math.round((elo - 1000) / 1000 * height);
-      var maxDur = 2700;
-      if (hook.clock) {
-        var parts = hook.clock.replace(/\s/g, '').split('+');
-        var dur = Math.min(3600, parseInt(parts[0]) * 60 + parseInt(parts[1]) * 30);
-      } else dur = 2700;
-      var left = Math.round(durLog(dur) / durLog(maxDur) * width);
-      return '<span data-id="' + hook.id + '" class="plot '+ hook.id+'" style="bottom:' + bottom + 'px;left:' + left + 'px;"></span>';
+      var bottom = eloY(hook.elo);
+      var left = clockX(hook.clock);
+      var klass = [
+          'plot',
+        hook.id,
+        hook.mode == "Rated" ? 'rated' : 'casual',
+        hook.variant == "Chess960" ? 'chess960' : '',
+        hook.action == 'cancel' ? 'cancel' : ''
+      ].join(' ');
+      return '<span data-id="' + hook.id + '" class="' + klass + '" style="bottom:' + bottom + 'px;left:' + left + 'px;"></span>';
     }
 
-    function eloLog(a) { 
-      return Math.log(a/10); 
+    function eloY(e) {
+      function eloLog(a) {
+        return Math.log(a / 200 + 1);
+      }
+      var elo = Math.max(800, Math.min(2000, e || 1200));
+      if (elo == 1200) {
+        var ratio = 0.25;
+      } else if (elo > 1200) {
+        var ratio = 0.25 + (eloLog(elo - 1200) / eloLog(800)) * 3 / 4;
+      } else {
+        var ratio = 0.25 - (eloLog(1200 - elo) / eloLog(400)) / 4;
+      }
+      return Math.round(ratio * 237);
     }
-    function durLog(a) { 
-      return Math.log((a-30)/10); 
+
+    function clockX(c) {
+      var maxDur = 2000;
+      function durLog(a) {
+        return Math.log((a - 30) / 200 + 1);
+      }
+      if (c) {
+        var parts = c.replace(/\s/g, '').split('+');
+        var dur = Math.min(maxDur, parseInt(parts[0]) * 60 + parseInt(parts[1]) * 30);
+      } else dur = maxDur;
+      return Math.round(durLog(dur) / durLog(maxDur) * 237);
     }
 
     function renderHook(hook) {
-      hook.action = hook.uid == lichess_sri ? "cancel" : "join";
-      if (hook.emin && hook.action == "join" && (myElo < parseInt(hook.emin) || myElo > parseInt(hook.emax))) return "";
-      var html = '<div data-id="' + hook.id + '" class="hook ' + hook.id + ' ' + hook.action + '">';
+      var title = hook.action == 'cancel' ? 'title="Click to cancel"' : '';
+      var html = '<div '+title+' data-id="' + hook.id + '" class="hook ' + hook.id + ' ' + hook.action + '">';
       var isEngine = hook.engine && hook.action == 'join';
       var userClass = isEngine ? "engine" : "";
       if (hook.elo) {
@@ -2202,6 +2221,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         html += '<span class="clock nope">∞</span>';
       }
       html += '<span class="mode">' + mode + '</span>';
+      if(hook.color) {
+        html += '<span class="color s16 '+hook.color+'"></span>';
+      }
       if (hook.action == "cancel") {
         html += '<a class="action socket-link" data-msg="cancel"><span></span></a>';
       } else {
@@ -2222,10 +2244,22 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       return $hook;
     }
 
+    $('#hooks_chart').append(
+      _.map([1000, 1200, 1300, 1400, 1600, 1800, 2000], function(v) {
+        return '<span class="y label" style="bottom:' + (eloY(v) + 4) + 'px">' + v + '</span>';
+      }).join('') +
+      _.map([1, 2, 3, 5, 10, 15, 20, 30], function(v) {
+        return '<span class="x label" style="left:' + (clockX(v+"+0")) + 'px">' + v + '</span>';
+      }).join('') 
+    );
+
     $wrap.on('mouseenter', '.plot, div.hook', function() {
       $wrap.find('.' + $(this).data('id')).addClass('hover');
     }).on('mouseleave', '.plot, div.hook', function(e) {
       $wrap.find('.' + $(this).data('id')).removeClass('hover');
+    });
+    $wrap.on('click', '.plot', function() {
+      $hooks.find('.' + $(this).data('id')).click();
     });
     $hooks.on('click', 'div.hook a.opponent', function(e) {
       e.stopPropagation();
