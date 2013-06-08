@@ -1353,9 +1353,8 @@ div.game_config div.color_submits button.random span {
 }
 #hooks_chart .canvas {
   position: relative;
-  width: 240px;
-  height: 240px;
-  margin: 8px;
+  width: 256px;
+  height: 256px;
 }
 #hooks_chart .plot {
   position: absolute;

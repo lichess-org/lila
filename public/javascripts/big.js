@@ -1938,17 +1938,17 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     var animation = 800;
 
     var pool = [];
-    // add extra hooks
-    // for (elo = 800; elo <= 2200; elo += 200) {
-    //   for (time = 0; time <= 60; time += 6) {
-    //     pool.push({
-    //       username: elo + " and " + time,
-    //       id: elo + "and" + time,
-    //       elo: elo,
-    //       clock: time + " + 0"
-    //     });
-    //   }
-    // }
+    // extras
+    for (elo = 1000; elo <= 2000; elo += 100) {
+      _.each(['0+1','1+0','2+0','3+0','4+0','5+0','6+0','7+0','8+0','9+0','10+0','30+0','30+30'], function(time) {
+        pool.push({
+          username: elo + " and " + time,
+          id: elo + "and" + time.replace(/\+/,'-'),
+          elo: elo,
+          clock: time 
+        });
+      });
+    }
 
     var slots = [];
     for (i = 1; i <= 12; i++) {
@@ -2115,7 +2115,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           (filter.mode != null && filter.mode != hook.mode) ||
           (filter.speed != null && filter.speed != hook.speed) ||
           (filter.eloDiff > 0 && (!hook.elo || hook.elo > (myElo + filter.eloDiff) || hook.elo < (myElo - filter.eloDiff)));
-        var hash = hook.mode + hook.variant + hook.clock;
+        var hash = hook.mode + hook.variant + hook.clock + hook.elo;
         if (hide) {
           $wrap.find('.' + hook.id).not('.hiding').addClass('hiding').fadeOut(animation, function() {
             $(this).remove();
@@ -2155,16 +2155,26 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     }
 
     function renderPlot(hook) {
-      var width = height = 240;
+      var width = height = 237;
       var elo = Math.max(1000, Math.min(2000, hook.elo || 1200));
+      if (elo >= 1200) {
+        var ratio = 0.5 + Math.log(elo - 1200) 
+      }
       var bottom = Math.round((elo - 1000) / 1000 * height);
+      var maxDur = 2700;
       if (hook.clock) {
         var parts = hook.clock.replace(/\s/g, '').split('+');
-        var speed = Math.min(3600, parseInt(parts[0]) * 60 + parseInt(parts[1]) * 30);
-      } else speed = 3600;
-      var left = Math.round(speed / 3600 * width);
-      // var bottom = left = 10;
+        var dur = Math.min(3600, parseInt(parts[0]) * 60 + parseInt(parts[1]) * 30);
+      } else dur = 2700;
+      var left = Math.round(durLog(dur) / durLog(maxDur) * width);
       return '<span data-id="' + hook.id + '" class="plot '+ hook.id+'" style="bottom:' + bottom + 'px;left:' + left + 'px;"></span>';
+    }
+
+    function eloLog(a) { 
+      return Math.log(a/10); 
+    }
+    function durLog(a) { 
+      return Math.log((a-30)/10); 
     }
 
     function renderHook(hook) {
