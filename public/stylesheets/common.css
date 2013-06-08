@@ -1343,6 +1343,29 @@ div.game_config div.color_submits button.random span {
   height: 512px;
   position: relative;
 }
+#hooks_chart {
+  position: absolute;
+  top: 128px;
+  left: 128px;
+  width: 256px;
+  height: 256px;
+  background: rgba(255, 255, 255, 0.4);
+}
+#hooks_chart .canvas {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  margin: 8px;
+}
+#hooks_chart .plot {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  background: #d0d0d0;
+  border-radius: 16px;
+  border: 3px solid #666;
+  cursor: pointer;
+}
 #hooks_wrap > a.no_hook {
   position: absolute;
   top: 192px;
@@ -1358,7 +1381,6 @@ div.game_config div.color_submits button.random span {
   text-align: center;
   box-shadow:0 0 5px #333;
   text-decoration: none;
-  opacity: 0;
 }
 #hooks > div {
   position: absolute;
@@ -1383,8 +1405,14 @@ div.game_config div.color_submits button.random span {
 #hooks div.hook.cancel {
   background-position: -4px -132px;
 }
-#hooks div.hook:hover {
-  background-color: #f0f0f0;
+#hooks_chart .plot.hover,
+#hooks div.hook.hover {
+  background-color: #f6f6f6;
+}
+#hooks_chart .plot.hover,
+#hooks div.hook.hover,
+#hooks_wrap > a.no_hook:hover {
+  box-shadow: 0 0 9px #d85000;
 }
 #hooks div.hook a {
   color: #444;
