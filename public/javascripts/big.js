@@ -2199,13 +2199,11 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
     function renderHook(hook) {
       var title = hook.action == 'cancel' ? 'title="Click to cancel"' : '';
-      var html = '<div '+title+' data-id="' + hook.id + '" class="hook ' + hook.id + ' ' + hook.action + '">';
-      var isEngine = hook.engine && hook.action == 'join';
-      var userClass = isEngine ? "engine" : "";
+      var klass = ['hook', hook.id, hook.action].join(' ');
+      var html = '<div '+title+' data-id="' + hook.id + '" class="' + klass + '">';
       if (hook.elo) {
         html += '<a class="opponent ulpt" href="/@/' + hook.username + '">' + hook.username.substr(0, 14) + '</a>';
         html += '<span class="elo">' + hook.elo + '</span>';
-        html += isEngine ? '<span class="engine_mark"></span>' : '';
       } else {
         html += '<span class="opponent anon">Anonymous</span>';
       }
@@ -2223,6 +2221,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       html += '<span class="mode">' + mode + '</span>';
       if(hook.color) {
         html += '<span class="color s16 '+hook.color+'"></span>';
+      }
+      if(hook.engine && hook.action == 'join') {
+        html += '<span class="s16 engine"></span>';
       }
       if (hook.action == "cancel") {
         html += '<a class="action socket-link" data-msg="cancel"><span></span></a>';

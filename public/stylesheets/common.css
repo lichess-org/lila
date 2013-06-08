@@ -1514,6 +1514,16 @@ div.game_config div.color_submits button.random span {
 #hooks .color.black {
   background-position: 0 -256px;
 }
+#hooks .engine {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  display: block;
+  width: 16px;
+  height: 16px;
+  background: red url(../images/engine_small.png) top left no-repeat;
+  border-radius: 8px 0 3px 0;
+}
 #featured_game div.vstext {
   margin-top: 0.7em;
   text-align: center;
