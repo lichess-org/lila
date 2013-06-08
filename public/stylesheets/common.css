@@ -1380,6 +1380,10 @@ div.game_config div.color_submits button.random span {
 #hooks_chart .plot.rated {
   border-radius: 3px;
   transform:rotate(45deg);
+  -moz-transform:rotate(45deg);
+  -o-transform:rotate(45deg);
+  -webkit-transform:rotate(45deg);
+  -ms-transform:rotate(45deg);
   width: 11px;
   height: 11px;
 }
