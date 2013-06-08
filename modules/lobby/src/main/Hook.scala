@@ -42,7 +42,7 @@ case class Hook(
     "uid" -> uid,
     "username" -> username,
     "elo" -> elo,
-    "variant" -> (realVariant.exotic option realVariant.toString),
+    "variant" -> realVariant.toString,
     "mode" -> realMode.toString,
     "clock" -> clockOption ?? { c ⇒ renderClock(c.limit, c.increment) },
     "speed" -> chess.Speed(clockOption).id,
