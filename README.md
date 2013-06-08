@@ -76,5 +76,8 @@ Special thanks go to:
 - [Mephostophilis](http://lichess.org/@/Mephostophilis) for writing [Lichess Wiki](http://lichess.org/wiki), leading the cheater hunt, moderating the site, reporting countless bugs, and contributing to the codebase
 - [Smiling Bishop](http://lichess.org/@/smiling_bishop), [legend](http://lichess.org/@/legend), [mb](http://lichess.org/@/mb) and all the moderators who spent time keeping the site enjoyable
 - [Evropi](https://github.com/evropi) for contributing to the wiki and animating #lichess IRC channel
+- [Steibock](https://github.com/Steibock) for board theming
+- [Yusuke Kamiyamane](http://p.yusukekamiyamane.com/) for the fugue icons
+- [pgn4web](http://pgn4web.casaschi.net/home.html) for the analysis board
 
 Thanks to all players for feeding the database.
