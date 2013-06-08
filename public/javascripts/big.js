@@ -1931,16 +1931,31 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     var $newpostsinner = $newposts.find('.undertable_inner').scrollTop(999999);
     var $hooks = $wrap.find('#hooks');
     var $noHook = $wrap.find('.no_hook');
+    var $canvas = $wrap.find('.canvas');
     var $userTag = $('#user_tag');
     var isRegistered = $userTag.length > 0
     var myElo = isRegistered ? parseInt($userTag.data('elo')) : null;
     var animation = 800;
 
     var pool = [];
+    // add extra hooks
+    // for (elo = 800; elo <= 2200; elo += 200) {
+    //   for (time = 0; time <= 60; time += 6) {
+    //     pool.push({
+    //       username: elo + " and " + time,
+    //       id: elo + "and" + time,
+    //       elo: elo,
+    //       clock: time + " + 0"
+    //     });
+    //   }
+    // }
 
     var slots = [];
-    for (i = 1; i <= 16; i++) {
-      slots.push('<div id="slot' + i + '" style="top:' + (Math.floor((i - 1) / 4) * 128) + 'px;left:' + (((i - 1) % 4) * 128) + 'px;"></div>');
+    for (i = 1; i <= 12; i++) {
+      var j = (i > 5) ? (i > 7) ? i + 4 : i + 2 : i;
+      var top = Math.floor((j - 1) / 4) * 128;
+      var left = ((j - 1) % 4) * 128;
+      slots.push('<div id="slot' + i + '" style="top:' + top + 'px;left:' + left + 'px;"></div>');
     }
     $hooks.html(slots.join(''));
 
@@ -2094,7 +2109,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       var filter = lichess_preload.filter;
       var seen = [];
       var hidden = 0;
-      var visible = 0;
+      var visible = [];
       _.each(pool, function(hook) {
         var hide = (filter.variant != null && filter.variant != hook.variant) ||
           (filter.mode != null && filter.mode != hook.mode) ||
@@ -2102,18 +2117,19 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           (filter.eloDiff > 0 && (!hook.elo || hook.elo > (myElo + filter.eloDiff) || hook.elo < (myElo - filter.eloDiff)));
         var hash = hook.mode + hook.variant + hook.clock;
         if (hide) {
-          $('#' + hook.id).not('.hiding').addClass('hiding').fadeOut(animation, function() {
+          $wrap.find('.' + hook.id).not('.hiding').addClass('hiding').fadeOut(animation, function() {
             $(this).remove();
           });
           hidden++;
         } else if (_.contains(seen, hash)) {
-          $('#' + hook.id).filter(':visible').hide();
+          $wrap.find('.' + hook.id).filter(':visible').hide();
           hidden++;
         } else {
-          var $h = $('#' + hook.id);
-          visible++;
+          var $h = $wrap.find('.' + hook.id);
+          visible.push(hook);
           if (!$h.length) {
             $(_.shuffle($hooks.find('>div:empty'))[0]).html($(renderHook(hook)).fadeIn(animation));
+            $canvas.append($(renderPlot(hook)).fadeIn(animation));
           } else {
             $h.not(':visible').fadeIn(animation);
           }
@@ -2121,33 +2137,44 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         seen.push(hash);
       });
       $hooks.find('div.hook').each(function() {
-        var id = $(this).attr('id');
+        var id = $(this).data('id');
         if (!_.find(pool, function(h) {
           return h.id == id;
         })) {
-          $(this).fadeOut(animation, function() {
+          $wrap.find('.' + id).fadeOut(animation, function() {
             $(this).remove();
           });
         }
       });
 
-      $noHook.stop().animate({
-        opacity: visible == 0 ? 1 : 0
-      }, animation);
+      $noHook.toggle(visible.length == 0);
       $wrap
         .find('a.filter')
         .toggleClass('on', filter.mode != null || filter.variant != null || filter.speed != null || filter.eloDiff > 0)
         .find('span.number').text('(' + hidden + ')');
     }
 
+    function renderPlot(hook) {
+      var width = height = 240;
+      var elo = Math.max(1000, Math.min(2000, hook.elo || 1200));
+      var bottom = Math.round((elo - 1000) / 1000 * height);
+      if (hook.clock) {
+        var parts = hook.clock.replace(/\s/g, '').split('+');
+        var speed = Math.min(3600, parseInt(parts[0]) * 60 + parseInt(parts[1]) * 30);
+      } else speed = 3600;
+      var left = Math.round(speed / 3600 * width);
+      // var bottom = left = 10;
+      return '<span data-id="' + hook.id + '" class="plot '+ hook.id+'" style="bottom:' + bottom + 'px;left:' + left + 'px;"></span>';
+    }
+
     function renderHook(hook) {
       hook.action = hook.uid == lichess_sri ? "cancel" : "join";
       if (hook.emin && hook.action == "join" && (myElo < parseInt(hook.emin) || myElo > parseInt(hook.emax))) return "";
-      var html = '<div id="' + hook.id + '" class="hook ' + hook.action + '">';
+      var html = '<div data-id="' + hook.id + '" class="hook ' + hook.id + ' ' + hook.action + '">';
       var isEngine = hook.engine && hook.action == 'join';
       var userClass = isEngine ? "engine" : "";
       if (hook.elo) {
-        html += '<a class="opponent ulpt" href="/@/' + hook.username +'">' + hook.username.substr(0, 14) + '</a>';
+        html += '<a class="opponent ulpt" href="/@/' + hook.username + '">' + hook.username.substr(0, 14) + '</a>';
         html += '<span class="elo">' + hook.elo + '</span>';
         html += isEngine ? '<span class="engine_mark"></span>' : '';
       } else {
@@ -2185,6 +2212,11 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       return $hook;
     }
 
+    $wrap.on('mouseenter', '.plot, div.hook', function() {
+      $wrap.find('.' + $(this).data('id')).addClass('hover');
+    }).on('mouseleave', '.plot, div.hook', function(e) {
+      $wrap.find('.' + $(this).data('id')).removeClass('hover');
+    });
     $hooks.on('click', 'div.hook a.opponent', function(e) {
       e.stopPropagation();
       return true;
