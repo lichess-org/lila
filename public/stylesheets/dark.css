@@ -364,6 +364,9 @@ body.dark #top a.goto_nav.current {
   background: -ms-linear-gradient(top , #808080, #606060) repeat scroll 0 0 #606060;
   background: -o-linear-gradient(top , #808080, #606060) repeat scroll 0 0 #606060;
 }
+body.dark #hooks_chart {
+  background: rgba(0, 0, 0, 0.5);
+}
 body.dark .s16.ddown {
   background-position: right -368px;
 }
