@@ -107,6 +107,7 @@ a.back {
   -webkit-transform-origin: 100% 50%;
   -o-transform-origin: 100% 50%;
   -moz-transform-origin: 100% 50%;
+  -ms-transform-origin: 100% 50%;
   position: absolute;
   top: 101px;
   left: 30px;
