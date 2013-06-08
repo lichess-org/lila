@@ -48,6 +48,7 @@ case class Hook(
     "speed" -> chess.Speed(clockOption).id,
     "emin" -> realEloRange.map(_.min),
     "emax" -> realEloRange.map(_.max),
+    "color" -> chess.Color(color).??(_.name),
     "engine" -> engine)
 
   private def clockOption = (time filter (_ ⇒ hasClock)) |@| increment apply Clock.apply

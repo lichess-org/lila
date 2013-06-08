@@ -1349,7 +1349,13 @@ div.game_config div.color_submits button.random span {
   left: 128px;
   width: 256px;
   height: 256px;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.5);
+}
+#hooks_chart > span.label {
+  font-size: 8px;
+  position: absolute;
+  left: 3px;
+  bottom: 3px;
 }
 #hooks_chart .canvas {
   position: relative;
@@ -1361,9 +1367,36 @@ div.game_config div.color_submits button.random span {
   width: 13px;
   height: 13px;
   background: #d0d0d0;
-  border-radius: 16px;
   border: 3px solid #666;
   cursor: pointer;
+  z-index: 1;
+}
+#hooks_chart .plot:hover {
+  z-index: 2;
+}
+#hooks_chart .plot.casual {
+  border-radius: 16px;
+}
+#hooks_chart .plot.rated {
+  border-radius: 3px;
+  transform:rotate(45deg);
+  width: 11px;
+  height: 11px;
+}
+#hooks_chart .plot.chess960 {
+  border-style: double;
+  border-width: 5px;
+}
+#hooks_chart .plot.casual.chess960 {
+  width: 9px;
+  height: 9px;
+}
+#hooks_chart .plot.rated.chess960 {
+  width: 7px;
+  height: 7px;
+}
+#hooks_chart .plot.cancel {
+  background: #666;
 }
 #hooks_wrap > a.no_hook {
   position: absolute;
@@ -1468,6 +1501,18 @@ div.game_config div.color_submits button.random span {
 #hooks .mode, #hooks .chess960 {
   font-size: 1.25em;
   display: block;
+}
+#hooks .color {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-position: 0 -240px;
+}
+#hooks .color.black {
+  background-position: 0 -256px;
 }
 #featured_game div.vstext {
   margin-top: 0.7em;
