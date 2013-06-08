@@ -2030,9 +2030,10 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       }
     }
     resizeTimeline();
-
-    addHooks(lichess_preload.pool);
     renderTimeline(lichess_preload.timeline);
+
+    _.each(lichess_preload.pool, addHook);
+
     lichess.socket = new strongSocket("/lobby/socket", lichess_preload.version, $.extend(true, lichess.socketDefaults, {
       events: {
         game_entry: function(e) {
@@ -2093,13 +2094,6 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       drawHooks();
     }
 
-    function addHooks(hooks) {
-      _.each(hooks, function(h) {
-        pool.push(h);
-      });
-      drawHooks();
-    }
-
     function addHook(hook) {
       if (!isRegistered && hook.mode == "Rated") return;
       hook.action = hook.uid == lichess_sri ? "cancel" : "join";
@@ -2128,14 +2122,14 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           $wrap.find('.' + hook.id).filter(':visible').hide();
           hidden++;
         } else {
-          var $h = $wrap.find('.' + hook.id);
           visible++;
-          if (!$h.length) {
+          if (!$hooks.find('div.' + hook.id).length) {
             $(_.shuffle($hooks.find('>div:empty'))[0]).html($(renderHook(hook)).fadeIn(animation));
-            $canvas.append($(renderPlot(hook)).fadeIn(animation));
-          } else {
-            $h.not(':visible').fadeIn(animation);
           }
+          if (!$canvas.find('> span.' + hook.id).length) {
+            $canvas.append($(renderPlot(hook)).fadeIn(animation));
+          }
+          $wrap.find('.' + hook.id).not(':visible').fadeIn(animation);
         }
         if (hook.action != 'cancel') seen.push(hash);
       });
