@@ -41,13 +41,28 @@ underchat = underchat.some) {
 </div>
 <div class="clearfix lichess_homepage">
   <div class="lichess_board_wrap lichess_player_white">
-    @board.white()
     <div id="hooks_wrap">
+      <div class="tabs">
+        <a data-tab="list" class="active">List</a>
+        <a data-tab="graph">Graph</a>
+      </div>
       <a class="filter" href="@routes.Setup.filterForm()">
         <span class="s16 ddown">@trans.filterGames()</span>
         <span class="number">(0)</span>
       </a>
-      <div id="hooks_chart"><div class="canvas"></div></div>
+      <div id="hooks_chart" class="tab graph none"><div class="canvas"></div></div>
+      <table id="hooks_table" class="tab list">
+        <thead>
+          <tr>
+            <th data-sort="string" data-sort-desc="1"><span>@trans.player()</span></th>
+            <th data-sort="int" data-sort-desc="1" class="elo"><span>Elo</span></th>
+            <th data-sort="int" data-sort-desc="1"><span>@trans.time()</span></th>
+            <th data-sort="string" data-sort-desc="1"><span>@trans.mode()</span></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
       <a class="no_hook">@trans.noGameAvailableRightNowCreateOne()</a>
       <div id="hook_filter"></div>
     </div>

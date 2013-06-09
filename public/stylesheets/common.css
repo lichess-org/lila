@@ -210,7 +210,7 @@ ul.ui-autocomplete li a.ui-state-focus {
 .ui-slider-vertical .ui-slider-range-max {
   top: 0;
 }
-#powerTip {
+#powerTip, #hook {
   width: 240px;
   min-height: 6em;
   cursor: default;
@@ -229,7 +229,7 @@ ul.ui-autocomplete li a.ui-state-focus {
   text-align: right;
   padding: 16px 8px;
 }
-#powerTip:before {
+#powerTip:before, #hook:before {
   content:"";
   position: absolute;
 }
@@ -265,7 +265,7 @@ ul.ui-autocomplete li a.ui-state-focus {
   border-left: 10px solid rgba(172, 172, 172, 0.8);
   right: -10px;
 }
-#powerTip.ne:before, #powerTip.se:before {
+#powerTip.ne:before, #hook.ne:before, #powerTip.se:before {
   border-right: 10px solid transparent;
   border-left: 0;
   left: 10px;
@@ -275,7 +275,7 @@ ul.ui-autocomplete li a.ui-state-focus {
   border-right: 0;
   right: 10px;
 }
-#powerTip.ne:before, #powerTip.nw:before {
+#powerTip.ne:before, #hook.ne:before, #powerTip.nw:before {
   border-top: 10px solid #acacac;
   border-top: 10px solid rgba(172, 172, 172, 0.8);
   bottom: -10px;
@@ -285,7 +285,7 @@ ul.ui-autocomplete li a.ui-state-focus {
   border-bottom: 10px solid rgba(172, 172, 172, 0.8);
   top: -10px;
 }
-#powerTip.nw-alt:before, #powerTip.ne-alt:before, #powerTip.sw-alt:before, #powerTip.se-alt:before {
+#powerTip.nw-alt:before, #powerTip.ne-alt:before, #hook.ne-alt:before, #powerTip.sw-alt:before, #powerTip.se-alt:before {
   border-top: 10px solid #acacac;
   border-top: 10px solid rgba(172, 172, 172, 0.8);
   bottom: -10px;
@@ -293,7 +293,7 @@ ul.ui-autocomplete li a.ui-state-focus {
   border-right: 5px solid transparent;
   left: 10px;
 }
-#powerTip.ne-alt:before {
+#powerTip.ne-alt:before, #hook.ne-alt:before {
   left: auto;
   right: 10px;
 }
@@ -1377,13 +1377,37 @@ div.game_config div.color_submits button.random span {
   background-position: 0 -102px;
 }
 #hooks_wrap {
-  position: absolute;
+  display: block;
   width: 512px;
   height: 512px;
   top: 0;
   left: 0;
+  background: #f0f0f0;
+  border-radius: 0 5px 5px 5px;
 }
-#hooks_wrap a.filter {
+#hooks_wrap > div.tabs {
+  position: absolute;
+  top: -22px;
+  left: -1px;
+  height: 20px;
+  line-height: 20px;
+}
+#hooks_wrap > div.tabs > a {
+  text-decoration: none;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px 3px 0 0;
+  border-bottom: 0;
+  background: #d0d0d0;
+}
+#hooks_wrap > div.tabs > a:hover,
+#hooks_wrap > div.tabs > a.active {
+  background: #f0f0f0;
+}
+#hooks_wrap > div.tabs > a.active {
+  font-weight: bold;
+}
+#hooks_wrap > a.filter {
   position: absolute;
   top: -21px;
   right: -1px;
@@ -1394,20 +1418,20 @@ div.game_config div.color_submits button.random span {
   display: block;
   text-decoration: none;
 }
-#hooks_wrap a.filter:hover, #hooks_wrap a.filter.active {
+#hooks_wrap > a.filter:hover, #hooks_wrap > a.filter.active {
   background: #fff;
 }
-#hooks_wrap a.filter span.number {
+#hooks_wrap > a.filter span.number {
   display: none;
 }
-#hooks_wrap a.filter.on {
+#hooks_wrap > a.filter.on {
   padding: 0 10px 0 2px;
 }
-#hooks_wrap a.filter.on span.s16 {
+#hooks_wrap > a.filter.on span.s16 {
   padding: 0 0 0 20px;
   background-position: left -112px;
 }
-#hooks_wrap a.filter.on span.number {
+#hooks_wrap > a.filter.on span.number {
   display: inline;
 }
 #hook_filter {
@@ -1450,10 +1474,47 @@ div.game_config div.color_submits button.random span {
   padding: 6px;
   margin-left: 12px;
 }
-#hooks_wrap #hooks {
+#hooks_table {
   width: 512px;
-  height: 512px;
-  position: relative;
+  max-height: 512px;
+  overflow: hidden;
+}
+#hooks_table th {
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 12px;
+}
+#hooks_table th > span {
+  display: inline-block;
+  height: 16px;
+  line-height: 16px;
+  padding-right: 20px;
+  background: transparent url(../images/s16.png) top right no-repeat;
+  background-position: 0 9999px;
+}
+#hooks_table th.sorting-asc > span {
+  background-position: right -384px;
+  font-weight: bold;
+}
+#hooks_table th.sorting-desc > span {
+  background-position: right -368px;
+  font-weight: bold;
+}
+#hooks_table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #ccc;
+}
+#hooks_table tr:nth-child(odd) td {
+  background: #fff;
+}
+#hooks_table td:first-child {
+  width: 120px;
+  overflow: hidden;
+}
+#hooks_table .chess960 {
+  padding-left: 1em;
+  font-size: 0.9em;
+  font-weight: bold;
 }
 #hooks_chart {
   position: absolute;
@@ -1532,7 +1593,7 @@ div.game_config div.color_submits button.random span {
   box-shadow:0 0 5px #333;
   text-decoration: none;
 }
-#powerTip.hook {
+#hook {
   display: block;
   width: 120px;
   height: 120px;
@@ -1549,7 +1610,7 @@ div.game_config div.color_submits button.random span {
 #hooks_wrap > a.no_hook:hover {
   box-shadow: 0 0 9px #d85000 !important;
 }
-#powerTip.hook .opponent {
+#hook .opponent {
   border-radius: 3px 3px 0 0;
   display: block;
   height: 20px;
@@ -1560,14 +1621,14 @@ div.game_config div.color_submits button.random span {
   overflow: hidden;
   text-decoration: none;
 }
-#powerTip.hook a.opponent:hover {
+#hook a.opponent:hover {
   text-decoration: underline;
 }
-#powerTip.hook .clearfix {
+#hook .clearfix {
   width: 100%;
   height: 30px;
 }
-#powerTip.hook .elo, #powerTip.hook .clock {
+#hook .elo, #hook .clock {
   display: block;
   width: 60px;
   height: 20px;
@@ -1575,31 +1636,31 @@ div.game_config div.color_submits button.random span {
   font-size: 1.25em;
   font-weight: bold;
 }
-#powerTip.hook .elo {
+#hook .elo {
   float: right;
   color: #bbb;
   background: #666;
 }
-#powerTip.hook .clock {
+#hook .clock {
   float: left;
   color: #555;
 }
-#powerTip.hook .clock > span {
+#hook .clock > span {
   color: #909090;
 }
-#powerTip.hook .clock.nope {
+#hook .clock.nope {
   font-size: 2.3em;
   padding-top: 3px;
   line-height: 20px;
 }
-#powerTip.hook .mode {
+#hook .mode {
   margin-top: 40px;
 }
-#powerTip.hook .mode, #powerTip.hook .chess960 {
+#hook .mode, #hook .chess960 {
   font-size: 1.25em;
   display: block;
 }
-#powerTip.hook .color {
+#hook .color {
   position: absolute;
   bottom: 5px;
   left: 5px;
@@ -1608,10 +1669,10 @@ div.game_config div.color_submits button.random span {
   height: 16px;
   background-position: 0 -240px;
 }
-#powerTip.hook .color.black {
+#hook .color.black {
   background-position: 0 -256px;
 }
-#powerTip.hook .engine {
+#hook .engine {
   position: absolute;
   bottom: 0px;
   right: 0px;
