@@ -2006,7 +2006,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         $div.fadeOut(500);
       }
       return false;
-    }).click();
+    });
 
     $bot.on("click", "tr", function() {
       location.href = $(this).find('a.watch').attr("href");
