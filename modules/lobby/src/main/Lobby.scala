@@ -32,14 +32,15 @@ private[lobby] final class Lobby(
       HookRepo byUid uid foreach remove
     }
 
-    case BiteHook(hookId, uid, userId) ⇒ blocking {
-      biter(hookId, userId) map { f ⇒
-        HookRepo removeUid uid foreach remove
-        socket ! f(uid)
-      } recover {
-        case e: lila.common.LilaException ⇒
+    case BiteHook(hookId, uid, userId) ⇒
+      HookRepo byId hookId foreach { hook ⇒
+        HookRepo.removeUids(Set(uid, hook.uid)) foreach remove
+        blocking {
+          biter(hook, userId) map { socket ! _(uid) } recover {
+            case e: lila.common.LilaException ⇒ logwarn(e.getMessage)
+          }
+        }
       }
-    }
 
     case Broom ⇒ blocking {
       socket ? GetUids mapTo manifest[Iterable[String]] addEffect { uids ⇒

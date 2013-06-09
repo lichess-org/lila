@@ -30,7 +30,9 @@ object HookRepo {
   }
 
   // returns removed hooks
-  def removeUid(uid: String) = partition(_.uid != uid)
+  def removeUids(uids: Set[String]) = partition { hook ⇒
+    !(uids contains hook.uid)
+  }
 
   // returns removed hooks
   def cleanupOld = {
