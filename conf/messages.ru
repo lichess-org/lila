@@ -211,3 +211,4 @@ more=Ещё
 memberSince=Дата регистрации
 lastLogin=Последнее посещение
 challengeToPlay=Бросить вызов
+player=Игрок
