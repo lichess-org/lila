@@ -1387,7 +1387,7 @@ div.game_config div.color_submits button.random span {
   height: 512px;
   top: 0;
   left: 0;
-  background: #f0f0f0;
+  background: #f0f0f0 url(../images/knight2000.png) no-repeat;
   border-radius: 0 5px 5px 5px;
 }
 #hooks_wrap > div.tabs {
