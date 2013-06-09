@@ -12,14 +12,10 @@ private[lobby] final class Biter(
     blocks: (String, String) ⇒ Fu[Boolean],
     roundMessenger: lila.round.Messenger) {
 
-  def apply(hookId: String, userId: Option[String]): Fu[String ⇒ JoinHook] = for {
-    hookOption ← fuccess(HookRepo byId hookId)
-    userOption ← userId ?? UserRepo.byId
-    result ← hookOption.fold[Fu[String ⇒ JoinHook]](fufail("No such hook")) { hook ⇒
-      if (canJoin(hook, userOption)) join(hook, userOption)
-      else fufail("Can not join hook")
+  def apply(hook: Hook, userId: Option[String]): Fu[String ⇒ JoinHook] =
+    userId ?? UserRepo.byId flatMap { user ⇒
+      canJoin(hook, user).fold(join(hook, user), fufail("Cannot join"))
     }
-  } yield result
 
   private def join(hook: Hook, userOption: Option[User]): Fu[String ⇒ JoinHook] = for {
     ownerOption ← hook.userId ?? UserRepo.byId
