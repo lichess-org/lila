@@ -5,12 +5,12 @@
 
 @fields = {
 <div class="variants buttons">
-  @base.radios(form("variant"), translatedVariantChoices)
+  @setup.radios(form("variant"), translatedVariantChoices)
 </div>
 @setup.clock(form, lila.setup.HookConfig)
 @if(ctx.isAuth) {
 <div class="mode_choice buttons">
-  @base.radios(form("mode"), translatedModeChoices)
+  @setup.radios(form("mode"), translatedModeChoices)
 </div>
 <div class="elo_range_config optional_config">
   @trans.eloRange(): <span class="range">? - ?</span>
