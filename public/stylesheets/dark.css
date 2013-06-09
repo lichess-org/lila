@@ -285,6 +285,9 @@ body.dark div.lmcs.black {
   background-color: #8a8a8a;
 }
 
+body.dark #hooks_wrap {
+  background-image: url(../images/knight2000b.png);
+}
 
 body.dark div.lichess_cemetery div.lichess_piece,
 body.dark div.lichess_table div.lichess_piece {
