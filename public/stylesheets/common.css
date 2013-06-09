@@ -1597,7 +1597,7 @@ div.game_config div.color_submits button.random span {
   text-decoration: none;
 }
 #hook {
-  display: block;
+  display: none;
   width: 120px;
   height: 120px;
   color: #444;
