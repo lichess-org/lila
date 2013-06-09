@@ -144,7 +144,6 @@ signedJs: Option[String] = None)(body: Html)(implicit ctx: Context)
     </div>
     }
     @jsTag("deps.min.js")
-    @jsTag("table.js")
     @signedJs.fold(isProd.fold(jsTagC("big.js"), jsTag("big.js")))(jsAt)
     @moreJs
     @if(lang.language != "en") {
