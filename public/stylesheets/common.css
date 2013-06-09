@@ -1480,7 +1480,7 @@ div.game_config div.color_submits button.random span {
   overflow: hidden;
 }
 #hooks_table th {
-  cursor: pointer;
+  /* cursor: pointer; */
   border-bottom: 1px solid #ccc;
   padding: 10px 12px;
 }
