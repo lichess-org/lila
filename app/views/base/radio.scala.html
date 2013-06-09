@@ -1,0 +1,10 @@
+@(field: play.api.data.Field, key: Any, value: String)
+
+<input 
+type="radio" 
+id="@(field.id)_@key" 
+name="@field.name" 
+value="@value" 
+@(if(field.value == Some(value)) "checked" else "")
+/>
+<label class="required" for="@(field.id)_@key">@value</label>

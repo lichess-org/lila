@@ -185,9 +185,14 @@ body.dark .user_link.black {
   background-position: 0 -272px;
 }
 
-body.dark #hooks_wrap div.filter {
-  background-color: black;
-  border-color: #505050;
+body.dark #hook_filter {
+  background: rgba(0,0,0,0.8);
+}
+body.dark #hook_filter td > label {
+  color: #c0c0c0;
+}
+body.dark #hook_filter td > label:hover {
+  background: #000;
 }
 
 body.dark div.undertable tr:nth-child(even) td

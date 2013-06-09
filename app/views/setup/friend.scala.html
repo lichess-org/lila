@@ -7,13 +7,13 @@
 @usernameLink(uid.some, cssClass="target".some)
 }
 <div class="variants buttons">
-  @setup.radios(form("variant"), translatedVariantChoicesWithFen)
+  @base.radios(form("variant"), translatedVariantChoicesWithFen)
 </div>
 @fenInput(form("fen"), false)
 @setup.clock(form, lila.setup.FriendConfig)
 @if(ctx.isAuth) {
 <div class="mode_choice buttons">
-  @setup.radios(form("mode"), translatedModeChoices)
+  @base.radios(form("mode"), translatedModeChoices)
 </div>
 }
 }

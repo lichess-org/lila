@@ -1963,24 +1963,25 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
     $wrap.find('a.filter').click(function() {
       var $a = $(this);
-      var $div = $wrap.find('div.filter');
+      var $div = $wrap.find('#hook_filter');
       setTimeout(function() {
         $div.click(function(e) {
           e.stopPropagation();
         });
         $('html').one('click', function(e) {
-          $div.off('click').fadeOut(200);
+          $div.off('click').fadeOut(500);
           $a.removeClass('active');
         });
       }, 10);
       if ($(this).toggleClass('active').hasClass('active')) {
-        var $filter = $div.fadeIn(200);
-        if ($filter.is(':empty')) {
+        $div.fadeIn(500);
+        if ($div.is(':empty')) {
           $.ajax({
             url: $(this).attr('href'),
             success: function(html) {
-              $filter.html(html).find('select').change(_.throttle(function() {
-                var $form = $filter.find('form');
+              $div.html(html).find('input').change(_.throttle(function() {
+                var $form = $div.find('form');
+                console.debug($form.serialize());
                 $.ajax({
                   url: $form.attr('action'),
                   data: $form.serialize(),
@@ -1991,10 +1992,10 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
                   }
                 });
               }, 500));
-              $filter.find('button.reset').click(function() {
-                $filter.find('select').val('').change();
+              $div.find('button.reset').click(function() {
+                $div.find('tr label:first-child input').prop('checked', true).trigger('change');
               });
-              $filter.find('button').click(function() {
+              $div.find('button').click(function() {
                 $wrap.find('a.filter').click();
                 return false;
               });
@@ -2002,10 +2003,10 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           });
         }
       } else {
-        $div.fadeOut(200);
+        $div.fadeOut(500);
       }
       return false;
-    });
+    }).click();
 
     $bot.on("click", "tr", function() {
       location.href = $(this).find('a.watch').attr("href");

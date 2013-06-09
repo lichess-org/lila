@@ -9,7 +9,7 @@ case class FilterConfig(
     variant: Option[Variant],
     mode: Option[Mode],
     speed: Option[Speed],
-    eloDiff: Int) {
+    eloDiff: Option[Int]) {
 
   def withModeCasual = copy(mode = Mode.Casual.some)
 
@@ -17,14 +17,14 @@ case class FilterConfig(
     v = ~variant.map(_.id),
     m = mode.map(_.id) | -1,
     s = ~speed.map(_.id),
-    e = eloDiff
+    e = ~eloDiff
   )
 
   def >> = (
     variant map (_.id),
     mode map (_.id),
     speed map (_.id),
-    eloDiff.some
+    eloDiff
   ).some
 
   def render = Json.obj(
@@ -41,18 +41,18 @@ object FilterConfig {
     variant = none,
     mode = none,
     speed = none,
-    eloDiff = 0)
+    eloDiff = none)
 
   val variants = 0 :: Config.variants
   val modes = -1 :: Mode.all.map(_.id)
   val speeds = 0 :: Config.speeds
-  val eloDiffs = 0 :: 100 :: 200 :: 300 :: 500 :: Nil
+  val eloDiffs = 100 :: 200 :: 300 :: 500 :: Nil
 
   def <<(v: Option[Int], m: Option[Int], s: Option[Int], e: Option[Int]) = new FilterConfig(
     variant = v flatMap Variant.apply,
     mode = m flatMap Mode.apply,
     speed = s flatMap Speed.apply,
-    eloDiff = ~e
+    eloDiff = e filter (0!=)
   )
 
   def fromDB(obj: JsObject): Option[FilterConfig] = for {
@@ -87,7 +87,7 @@ private[setup] case class RawFilterConfig(v: Int, m: Int, s: Int, e: Int) {
     variant = Variant(v),
     mode = Mode(m),
     speed = Speed(s),
-    eloDiff = e
+    eloDiff = e.some filter (0!=)
   ).some
 }
 
