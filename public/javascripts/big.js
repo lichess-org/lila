@@ -1932,6 +1932,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     var $hooks = $wrap.find('#hooks');
     var $noHook = $wrap.find('.no_hook');
     var $canvas = $wrap.find('.canvas');
+    var $table = $wrap.find('#hooks_table').stupidtable();
+    // $table.find('th.elo').data('sort-dir', 'asc').click();
+    var $tbody = $table.find('tbody');
     var $userTag = $('#user_tag');
     var isRegistered = $userTag.length > 0
     var myElo = isRegistered ? parseInt($userTag.data('elo')) : null;
@@ -1939,6 +1942,12 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
     var pool = [];
 
+    $wrap.find('>div.tabs>a').click(function() {
+      var tab = $(this).data('tab');
+      $(this).siblings().removeClass('active').end().addClass('active');
+      $wrap.find('>.tab:not(.' + tab + ')').fadeOut(500);
+      $wrap.find('>.' + tab).fadeIn(500);
+    });
     $wrap.find('a.filter').click(function() {
       var $a = $(this);
       var $div = $wrap.find('#hook_filter');
@@ -2082,10 +2091,12 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     }
 
     function undrawHook(hook) {
-      $('#'+hook.id).not('.hiding').addClass('hiding').fadeOut(animation, function() {
+      $('#' + hook.id).not('.hiding').addClass('hiding').fadeOut(animation, function() {
         $.powerTip.destroy($(this));
         $(this).remove();
       });
+      // TODO uncomment
+      // $table.find('.' + hook.id).remove();
     }
 
     function drawHooks() {
@@ -2098,19 +2109,23 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           (filter.mode != null && filter.mode != hook.mode) ||
           (filter.speed != null && filter.speed != hook.speed) ||
           (filter.eloDiff > 0 && (!hook.elo || hook.elo > (myElo + filter.eloDiff) || hook.elo < (myElo - filter.eloDiff)));
-        var hash = hook.mode + hook.variant + hook.clock + hook.elo;
+        var hash = hook.mode + hook.variant + hook.time + hook.elo;
         if (hide && hook.action != 'cancel') {
           undrawHook(hook);
           hidden++;
         } else if (_.contains(seen, hash) && hook.action != 'cancel') {
           $('#' + hook.id).filter(':visible').hide();
+          $tbody.find('.' + hook.id).hide();
           hidden++;
         } else {
           visible++;
           if (!$('#' + hook.id).length) {
             $canvas.append($(renderPlot(hook)).fadeIn(animation));
+            $tbody.append(renderTr(hook));
+          } else {
+            $('#' + hook.id).not(':visible').fadeIn(animation);
+            $tbody.find('.' + hook.id).show();
           }
-          $wrap.find('#' + hook.id).not(':visible').fadeIn(animation);
         }
         if (hook.action != 'cancel') seen.push(hash);
       });
@@ -2122,17 +2137,22 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           undrawHook($(this).data('hook'));
         }
       });
+      // $table.find('th').data('sort-dir', null);
+      // var $th = $table.find('th.sorting-asc, th.sorting-desc').first();
+      // $th.data('sort-dir', $th.hasClass('sorting-asc') ? 'desc' : 'asc').click();
+      // $th.click();
 
       $noHook.toggle(visible == 0);
       $wrap
         .find('a.filter')
         .toggleClass('on', filter.mode != null || filter.variant != null || filter.speed != null || filter.eloDiff > 0)
         .find('span.number').text('(' + hidden + ')');
+      $('body').trigger('lichess.content_loaded');
     }
 
     function renderPlot(hook) {
       var bottom = eloY(hook.elo);
-      var left = clockX(hook.clock);
+      var left = clockX(hook.time);
       var klass = [
           'plot',
         hook.mode == "Rated" ? 'rated' : 'casual',
@@ -2146,12 +2166,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         placement: 'ne',
         mouseOnToPopup: true,
         closeDelay: 200,
-        intentPollInterval: 50
-      }).data('powertipjq', $(renderHook(hook))).on({
-        powerTipRender: function() {
-          $('#powerTip').addClass('hook');
-        }
-      });
+        intentPollInterval: 50,
+        popupId: 'hook'
+      }).data('powertipjq', $(renderHook(hook)));
     }
 
     function eloY(e) {
@@ -2169,17 +2186,11 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       return Math.round(ratio * 489);
     }
 
-    function clockX(c) {
-      var maxDur = 2000;
-
+    function clockX(dur) {
       function durLog(a) {
         return Math.log((a - 30) / 200 + 1);
       }
-      if (c) {
-        var parts = c.replace(/\s/g, '').split('+');
-        var dur = Math.min(maxDur, parseInt(parts[0]) * 60 + parseInt(parts[1]) * 30);
-      } else dur = maxDur;
-      return Math.round(durLog(dur) / durLog(maxDur) * 489);
+      return Math.round(durLog(dur || 2000) / durLog(2000) * 489);
     }
 
     function renderHook(hook) {
@@ -2204,9 +2215,21 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         html += '<span class="s16 engine"></span>';
       }
       if (hook.variant == 'Chess960') {
-        html += '<span class="chess960">Chess 960</span>';
+        html += '<span class="chess960">960</span>';
       }
       return html;
+    }
+
+    function renderTr(hook) {
+      return '<tr class="' + hook.id + '">' + _.map([
+        [hook.username, hook.elo ? '<a href="/@/' + hook.username + '" class="ulpt">' + hook.username + '</a>' : 'Anonymous'],
+        [hook.elo || 1200, hook.elo || ''],
+        [hook.time || 9999, hook.clock ? hook.clock : '∞'],
+        [hook.mode, $.trans(hook.mode) + (hook.variant == 'Chess960' ? '<span class="chess960">960</span>' : '')],
+        ['', hook.action == "join" ? '<a class="socket-link" data-msg="join" data-data="' + hook.id + '">Join</a>' : '<a class="socket-link" data-msg="cancel">Cancel</a>']
+      ], function(x) {
+        return '<td data-sort-value="'+x[0]+'">' + x[1] + '</td>';
+      }).join('') + '</tr>';
     }
 
     $('#hooks_chart').append(
@@ -2214,7 +2237,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       return '<span class="y label" style="bottom:' + (eloY(v) + 4) + 'px">' + v + '</span>';
     }).join('') +
       _.map([1, 2, 3, 5, 7, 10, 15, 20, 30], function(v) {
-      return '<span class="x label" style="left:' + (clockX(v + "+0")) + 'px">' + v + '</span>';
+      return '<span class="x label" style="left:' + (clockX(v * 60)) + 'px">' + v + '</span>';
     }).join(''));
 
     function confirm960(hook) {
@@ -2222,8 +2245,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         var c = confirm("This is a Chess960 game!\n\nThe starting position of the pieces on the players' home ranks is randomized.\nRead more: http://wikipedia.org/wiki/Chess960\n\nDo you want to play Chess960?");
         if (c) $.cookie('c960', 1);
         return c;
-      }
-      else return true;
+      } else return true;
     }
 
     $canvas.on('click', '>span.plot:not(.hiding)', function() {
