@@ -43,15 +43,15 @@ underchat = underchat.some) {
   <div class="lichess_board_wrap lichess_player_white">
     <div id="hooks_wrap">
       <div class="tabs">
-        <a data-tab="list" class="active">List</a>
-        <a data-tab="graph">Graph</a>
+        <a data-tab="list" class="list">List</a>
+        <a data-tab="graph" class="graph">Graph</a>
       </div>
       <a class="filter" href="@routes.Setup.filterForm()">
         <span class="s16 ddown">@trans.filterGames()</span>
         <span class="number">(0)</span>
       </a>
       <div id="hooks_chart" class="tab graph none"><div class="canvas"></div></div>
-      <table id="hooks_table" class="tab list">
+      <table id="hooks_table" class="tab list none">
         <thead>
           <tr>
             <th data-sort="string" data-sort-desc="1"><span>@trans.player()</span></th>

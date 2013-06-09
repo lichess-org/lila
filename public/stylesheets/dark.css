@@ -136,6 +136,7 @@ body.dark #top ul.language_links a.accepted {
 }
 
 body.dark #site_title,
+body.dark #timeline a,
 body.dark #site_baseline,
 body.dark div.lichess_chat span,
 body.dark div.lichess_chat a.user_link,
@@ -167,7 +168,6 @@ body.dark #top span.new_messages {
   background: #606060;
 }
 
-body.dark #hooks_table tr:nth-child(odd) td,
 body.dark div.lichess_chat .lichess_messages,
 body.dark div.undertable_inner,
 body.dark div.lichess_goodies div.box,
@@ -179,6 +179,13 @@ body.dark #friend_box .content a:hover,
 body.dark div.footer_wrap
 {
   background: #242424;
+}
+
+body.dark #hooks_table tr:nth-child(even) td {
+  background: rgba(70, 70, 70, 0.5);
+}
+body.dark #hooks_table tr:nth-child(odd) td {
+  background: rgba(40, 40, 40, 0.6);
 }
 
 body.dark .user_link.white {

@@ -1504,11 +1504,14 @@ div.game_config div.color_submits button.random span {
   font-weight: bold;
 }
 #hooks_table td {
-  padding: 10px 12px;
+  padding: 12px 12px;
   border-bottom: 1px solid #ccc;
 }
 #hooks_table tr:nth-child(odd) td {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.6);
+}
+#hooks_table tr:nth-child(even) td {
+  background: rgba(220, 220, 220, 0.5);
 }
 #hooks_table td:first-child {
   width: 120px;
@@ -1813,6 +1816,7 @@ div.lichess_overboard.joining .mini_board {
 }
 #timeline a {
   font-weight: bold;
+  color: #a0a0a0;
   text-decoration: none;
 }
 #timeline a.user_link {

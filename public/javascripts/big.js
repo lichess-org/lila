@@ -1946,7 +1946,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       $(this).siblings().removeClass('active').end().addClass('active');
       $wrap.find('>.tab:not(.' + tab + ')').fadeOut(500);
       $wrap.find('>.' + tab).fadeIn(500);
+      $.cookie('lt', tab);
     });
+    $wrap.find('>div.tabs>.' + ($.cookie('lt') || 'list')).click();
     $wrap.find('a.filter').click(function() {
       var $a = $(this);
       var $div = $wrap.find('#hook_filter');
