@@ -367,6 +367,11 @@ body > div.content {
   min-height: 590px;
   margin: 30px auto 30px auto;
 }
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  body > div.content {
+    margin-top: 40px;
+  }
+}
 body.tight > div.content {
   width: auto;
   min-width: 780px;
@@ -1281,7 +1286,7 @@ div.lcmp.king.black {
   background-position: -140px bottom;
 }
 /* opening.css */
-div.game_config button {
+ div.game_config button {
   font-size: 1.4em;
   padding: 0 2em;
 }
@@ -1400,8 +1405,7 @@ div.game_config div.color_submits button.random span {
   border-bottom: 0;
   background: #d0d0d0;
 }
-#hooks_wrap > div.tabs > a:hover,
-#hooks_wrap > div.tabs > a.active {
+#hooks_wrap > div.tabs > a:hover, #hooks_wrap > div.tabs > a.active {
   background: #f0f0f0;
 }
 #hooks_wrap > div.tabs > a.active {
@@ -1444,7 +1448,7 @@ div.game_config div.color_submits button.random span {
   width: 472px;
   height: 472px;
   padding: 20px;
-  background: rgba(255,255,255,0.8);
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 5px;
 }
 #hook_filter table {
@@ -1605,8 +1609,7 @@ div.game_config div.color_submits button.random span {
 #hooks_chart .plot:hover {
   background-color: #f6f6f6;
 }
-#hooks_chart .plot:hover,
-#hooks_wrap > a.no_hook:hover {
+#hooks_chart .plot:hover, #hooks_wrap > a.no_hook:hover {
   box-shadow: 0 0 9px #d85000 !important;
 }
 #hook .opponent {
