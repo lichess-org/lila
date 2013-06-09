@@ -2184,7 +2184,8 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       function durLog(a) {
         return Math.log((a - 30) / 200 + 1);
       }
-      return Math.round(durLog(dur || 2000) / durLog(2000) * 489);
+      var max = 2000;
+      return Math.round(durLog(Math.min(max, dur || max)) / durLog(max) * 489);
     }
 
     function renderHook(hook) {
