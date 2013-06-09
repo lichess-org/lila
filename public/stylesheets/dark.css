@@ -105,7 +105,10 @@ body.dark div.user_show div.mod_zone,
 body.dark div.user_show div.user-infos,
 body.dark div.game_config input[type="text"],
 body.dark #powerTip,
-body.dark #powerTip > .title
+body.dark #powerTip > .title,
+body.dark #hooks_table th,
+body.dark #hooks_table td,
+body.dark #hooks_wrap > div.tabs > a 
 {
   border-color: #444;
 }
@@ -117,10 +120,10 @@ body.dark #timeline > .entry {
 body.dark .ui-slider,
 body.dark div.progressbar,
 body.dark #translation_call div.progressbar,
-body.dark #top div.themepicker.shown div.theme:hover
-{
+body.dark #top div.themepicker.shown div.theme:hover {
   background-color: #505050;
 }
+body.dark #hooks_wrap > div.tabs > a,
 body.dark #top div.auth .links a:hover,
 body.dark #top ul.language_links a:hover,
 body.dark #top ul.language_links a.current
@@ -147,7 +150,6 @@ body.dark #timeline time
 body.dark #site_title span.extension {
   color: #707070;
 }
-
 body.dark #top a.goto_nav:hover,
 body.dark #top a.toggle:hover,
 body.dark #top a.bgpicker:hover,
@@ -165,6 +167,7 @@ body.dark #top span.new_messages {
   background: #606060;
 }
 
+body.dark #hooks_table tr:nth-child(odd) td,
 body.dark div.lichess_chat .lichess_messages,
 body.dark div.undertable_inner,
 body.dark div.lichess_goodies div.box,
@@ -195,8 +198,10 @@ body.dark #hook_filter td > label:hover {
   background: #000;
 }
 
-body.dark div.undertable tr:nth-child(even) td
-{
+body.dark div.undertable tr:nth-child(even) td,
+body.dark #hooks_wrap,
+body.dark #hooks_wrap > div.tabs > a:hover,
+body.dark #hooks_wrap > div.tabs > a.active {
   background: #303030;
 }
 

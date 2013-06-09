@@ -1912,7 +1912,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
   });
 
   $.lichessOpeningPreventClicks = function() {
-    $('div.lichess_overboard, #hooks_wrap').hide();
+    $('#hooks_table, #hooks_chart').hide();
   };
 
   // hooks
@@ -1932,6 +1932,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     var $hooks = $wrap.find('#hooks');
     var $noHook = $wrap.find('.no_hook');
     var $canvas = $wrap.find('.canvas');
+    var $table = $wrap.find('#hooks_table');
     var $tbody = $table.find('tbody');
     var $userTag = $('#user_tag');
     var isRegistered = $userTag.length > 0
@@ -2093,8 +2094,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         $.powerTip.destroy($(this));
         $(this).remove();
       });
-      // TODO uncomment
-      // $table.find('.' + hook.id).remove();
+      $table.find('.' + hook.id).remove();
     }
 
     function drawHooks() {
