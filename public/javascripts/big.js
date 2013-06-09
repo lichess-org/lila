@@ -1938,28 +1938,6 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     var animation = 500;
 
     var pool = [];
-    // extras
-    // for (elo = 800; elo <= 2000; elo += 100) {
-    // // for (elo = 1200; elo <= 1200; elo += 100) {
-    //   _.each(['0+1','1+0','2+0','3+0','4+0','5+0','6+0','7+0','8+0','9+0','10+0','12+0','15+0','20+0','25+0','30+0','30+30'], function(time) {
-    //   // _.each(['5+8'], function(time) {
-    //     pool.push({
-    //       username: elo + " and " + time,
-    //       id: elo + "and" + time.replace(/\+/,'-'),
-    //       elo: elo,
-    //       clock: time 
-    //     });
-    //   });
-    // }
-
-    var slots = [];
-    for (i = 1; i <= 12; i++) {
-      var j = (i > 5) ? (i > 7) ? i + 4 : i + 2 : i;
-      var top = Math.floor((j - 1) / 4) * 128;
-      var left = ((j - 1) % 4) * 128;
-      slots.push('<div id="slot' + i + '" style="top:' + top + 'px;left:' + left + 'px;"></div>');
-    }
-    $hooks.html(slots.join(''));
 
     $wrap.find('a.filter').click(function() {
       var $a = $(this);
@@ -2103,6 +2081,13 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       drawHooks();
     }
 
+    function undrawHook(hook) {
+      $('#'+hook.id).not('.hiding').addClass('hiding').fadeOut(animation, function() {
+        $.powerTip.destroy($(this));
+        $(this).remove();
+      });
+    }
+
     function drawHooks() {
       var filter = lichess_preload.filter;
       var seen = [];
@@ -2115,33 +2100,26 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           (filter.eloDiff > 0 && (!hook.elo || hook.elo > (myElo + filter.eloDiff) || hook.elo < (myElo - filter.eloDiff)));
         var hash = hook.mode + hook.variant + hook.clock + hook.elo;
         if (hide && hook.action != 'cancel') {
-          $wrap.find('.' + hook.id).not('.hiding').addClass('hiding').fadeOut(animation, function() {
-            $(this).remove();
-          });
+          undrawHook(hook);
           hidden++;
         } else if (_.contains(seen, hash) && hook.action != 'cancel') {
-          $wrap.find('.' + hook.id).filter(':visible').hide();
+          $('#' + hook.id).filter(':visible').hide();
           hidden++;
         } else {
           visible++;
-          if (!$hooks.find('div.' + hook.id).length) {
-            $(_.shuffle($hooks.find('>div:empty'))[0]).html($(renderHook(hook)).fadeIn(animation));
-          }
-          if (!$canvas.find('> span.' + hook.id).length) {
+          if (!$('#' + hook.id).length) {
             $canvas.append($(renderPlot(hook)).fadeIn(animation));
           }
-          $wrap.find('.' + hook.id).not(':visible').fadeIn(animation);
+          $wrap.find('#' + hook.id).not(':visible').fadeIn(animation);
         }
         if (hook.action != 'cancel') seen.push(hash);
       });
-      $hooks.find('div.hook').each(function() {
-        var id = $(this).data('id');
+      $canvas.find('>span.plot').each(function() {
+        var id = $(this).attr('id');
         if (!_.find(pool, function(h) {
           return h.id == id;
         })) {
-          $wrap.find('.' + id).fadeOut(animation, function() {
-            $(this).remove();
-          });
+          undrawHook($(this).data('hook'));
         }
       });
 
@@ -2157,17 +2135,28 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       var left = clockX(hook.clock);
       var klass = [
           'plot',
-        hook.id,
         hook.mode == "Rated" ? 'rated' : 'casual',
         hook.variant == "Chess960" ? 'chess960' : '',
         hook.action == 'cancel' ? 'cancel' : ''
       ].join(' ');
-      return '<span data-id="' + hook.id + '" class="' + klass + '" style="bottom:' + bottom + 'px;left:' + left + 'px;"></span>';
+      var $plot = $('<span id="' + hook.id + '" class="' + klass + '" style="bottom:' + bottom + 'px;left:' + left + 'px;"></span>');
+      return $plot.data('hook', hook).powerTip({
+        fadeInTime: 0,
+        fadeOutTime: 0,
+        placement: 'ne',
+        mouseOnToPopup: true,
+        closeDelay: 200,
+        intentPollInterval: 50
+      }).data('powertipjq', $(renderHook(hook))).on({
+        powerTipRender: function() {
+          $('#powerTip').addClass('hook');
+        }
+      });
     }
 
     function eloY(e) {
       function eloLog(a) {
-        return Math.log(a / 200 + 1);
+        return Math.log(a / 150 + 1);
       }
       var elo = Math.max(800, Math.min(2000, e || 1200));
       if (elo == 1200) {
@@ -2177,11 +2166,12 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       } else {
         var ratio = 0.25 - (eloLog(1200 - elo) / eloLog(400)) / 4;
       }
-      return Math.round(ratio * 237);
+      return Math.round(ratio * 489);
     }
 
     function clockX(c) {
       var maxDur = 2000;
+
       function durLog(a) {
         return Math.log((a - 30) / 200 + 1);
       }
@@ -2189,23 +2179,16 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         var parts = c.replace(/\s/g, '').split('+');
         var dur = Math.min(maxDur, parseInt(parts[0]) * 60 + parseInt(parts[1]) * 30);
       } else dur = maxDur;
-      return Math.round(durLog(dur) / durLog(maxDur) * 237);
+      return Math.round(durLog(dur) / durLog(maxDur) * 489);
     }
 
     function renderHook(hook) {
-      var title = hook.action == 'cancel' ? 'title="Click to cancel"' : '';
-      var klass = ['hook', hook.id, hook.action].join(' ');
-      var html = '<div '+title+' data-id="' + hook.id + '" class="' + klass + '">';
+      var html = '';
       if (hook.elo) {
-        html += '<a class="opponent ulpt" href="/@/' + hook.username + '">' + hook.username.substr(0, 14) + '</a>';
+        html += '<a class="opponent" href="/@/' + hook.username + '">' + hook.username.substr(0, 14) + '</a>';
         html += '<span class="elo">' + hook.elo + '</span>';
       } else {
         html += '<span class="opponent anon">Anonymous</span>';
-      }
-      if (isRegistered) {
-        var mode = $.trans(hook.mode);
-      } else {
-        var mode = "";
       }
       if (hook.clock) {
         var clock = hook.clock.replace(/\s/g, '').replace(/\+/, '<span>+</span>');
@@ -2213,57 +2196,42 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       } else {
         html += '<span class="clock nope">∞</span>';
       }
-      html += '<span class="mode">' + mode + '</span>';
-      if(hook.color) {
-        html += '<span class="color s16 '+hook.color+'"></span>';
+      html += '<span class="mode">' + $.trans(hook.mode) + '</span>';
+      if (hook.color) {
+        html += '<span class="color s16 ' + hook.color + '"></span>';
       }
-      if(hook.engine && hook.action == 'join') {
+      if (hook.engine && hook.action == 'join') {
         html += '<span class="s16 engine"></span>';
-      }
-      if (hook.action == "cancel") {
-        html += '<a class="action socket-link" data-msg="cancel"><span></span></a>';
-      } else {
-        html += '<a class="action socket-link" data-msg="join" data-data="' + hook.id + '"><span></span></a>';
       }
       if (hook.variant == 'Chess960') {
         html += '<span class="chess960">Chess 960</span>';
       }
-      html += '</div>';
-      var $hook = $(html).data('hook', hook);
-      if (hook.variant == "Chess960" && !$.cookie('c960')) {
-        $hook.find('a.join').click(function() {
-          var c = confirm("This is a Chess960 game!\n\nThe starting position of the pieces on the players' home ranks is randomized.\nRead more: http://wikipedia.org/wiki/Chess960\n\nDo you want to play Chess960?");
-          if (c) $.cookie('c960', 1);
-          return c;
-        });
-      }
-      return $hook;
+      return html;
     }
 
     $('#hooks_chart').append(
       _.map([1000, 1200, 1300, 1400, 1600, 1800, 2000], function(v) {
-        return '<span class="y label" style="bottom:' + (eloY(v) + 4) + 'px">' + v + '</span>';
-      }).join('') +
-      _.map([1, 2, 3, 5, 10, 15, 20, 30], function(v) {
-        return '<span class="x label" style="left:' + (clockX(v+"+0")) + 'px">' + v + '</span>';
-      }).join('') 
-    );
+      return '<span class="y label" style="bottom:' + (eloY(v) + 4) + 'px">' + v + '</span>';
+    }).join('') +
+      _.map([1, 2, 3, 5, 7, 10, 15, 20, 30], function(v) {
+      return '<span class="x label" style="left:' + (clockX(v + "+0")) + 'px">' + v + '</span>';
+    }).join(''));
 
-    $wrap.on('mouseenter', '.plot, div.hook', function() {
-      $wrap.find('.' + $(this).data('id')).addClass('hover');
-    }).on('mouseleave', '.plot, div.hook', function(e) {
-      $wrap.find('.' + $(this).data('id')).removeClass('hover');
-    });
-    $wrap.on('click', '.plot', function() {
-      $hooks.find('.' + $(this).data('id')).click();
-    });
-    $hooks.on('click', 'div.hook a.opponent', function(e) {
-      e.stopPropagation();
-      return true;
-    });
-    $hooks.on('click', 'div.hook:not(.hiding)', function() {
-      var $a = $(this).find('a.action');
-      lichess.socket.send($a.data('msg'), $a.data('data'));
+    function confirm960(hook) {
+      if (hook.variant == "Chess960" && !$.cookie('c960')) {
+        var c = confirm("This is a Chess960 game!\n\nThe starting position of the pieces on the players' home ranks is randomized.\nRead more: http://wikipedia.org/wiki/Chess960\n\nDo you want to play Chess960?");
+        if (c) $.cookie('c960', 1);
+        return c;
+      }
+      else return true;
+    }
+
+    $canvas.on('click', '>span.plot:not(.hiding)', function() {
+      var hook = $(this).data('hook');
+      if (confirm960(hook)) {
+        if (hook.action == 'cancel') lichess.socket.send('cancel');
+        else lichess.socket.send('join', hook.id);
+      }
     });
     $noHook.click(function() {
       $('#start_buttons a.config_hook').click();

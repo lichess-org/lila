@@ -210,6 +210,104 @@ ul.ui-autocomplete li a.ui-state-focus {
 .ui-slider-vertical .ui-slider-range-max {
   top: 0;
 }
+#powerTip {
+  width: 240px;
+  min-height: 6em;
+  cursor: default;
+  background-color: #f0f0f0;
+  border: 1px solid #c0c0c0;
+  border-radius: 4px;
+  display: none;
+  position: absolute;
+  z-index: 2147483647;
+}
+#powerTip > .title {
+  padding: 8px;
+  border-bottom: 1px solid #c0c0c0;
+}
+#powerTip > .content {
+  text-align: right;
+  padding: 16px 8px;
+}
+#powerTip:before {
+  content:"";
+  position: absolute;
+}
+#powerTip.n:before, #powerTip.s:before {
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  left: 50%;
+  margin-left: -5px;
+}
+#powerTip.e:before, #powerTip.w:before {
+  border-bottom: 5px solid transparent;
+  border-top: 5px solid transparent;
+  margin-top: -5px;
+  top: 50%;
+}
+#powerTip.n:before {
+  border-top: 10px solid #acacac;
+  border-top: 10px solid rgba(172, 172, 172, 0.8);
+  bottom: -10px;
+}
+#powerTip.e:before {
+  border-right: 10px solid #acacac;
+  border-right: 10px solid rgba(172, 172, 172, 0.8);
+  left: -10px;
+}
+#powerTip.s:before {
+  border-bottom: 10px solid #acacac;
+  border-bottom: 10px solid rgba(172, 172, 172, 0.8);
+  top: -10px;
+}
+#powerTip.w:before {
+  border-left: 10px solid #acacac;
+  border-left: 10px solid rgba(172, 172, 172, 0.8);
+  right: -10px;
+}
+#powerTip.ne:before, #powerTip.se:before {
+  border-right: 10px solid transparent;
+  border-left: 0;
+  left: 10px;
+}
+#powerTip.nw:before, #powerTip.sw:before {
+  border-left: 10px solid transparent;
+  border-right: 0;
+  right: 10px;
+}
+#powerTip.ne:before, #powerTip.nw:before {
+  border-top: 10px solid #acacac;
+  border-top: 10px solid rgba(172, 172, 172, 0.8);
+  bottom: -10px;
+}
+#powerTip.se:before, #powerTip.sw:before {
+  border-bottom: 10px solid #acacac;
+  border-bottom: 10px solid rgba(172, 172, 172, 0.8);
+  top: -10px;
+}
+#powerTip.nw-alt:before, #powerTip.ne-alt:before, #powerTip.sw-alt:before, #powerTip.se-alt:before {
+  border-top: 10px solid #acacac;
+  border-top: 10px solid rgba(172, 172, 172, 0.8);
+  bottom: -10px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  left: 10px;
+}
+#powerTip.ne-alt:before {
+  left: auto;
+  right: 10px;
+}
+#powerTip.sw-alt:before, #powerTip.se-alt:before {
+  border-top: none;
+  border-bottom: 10px solid #acacac;
+  border-bottom: 10px solid rgba(172, 172, 172, 0.8);
+  bottom: auto;
+  top: -10px;
+}
+#powerTip.se-alt:before {
+  left: auto;
+  right: 10px;
+}
 .clearfix:after {
   content:".";
   display:block;
@@ -1359,29 +1457,31 @@ div.game_config div.color_submits button.random span {
 }
 #hooks_chart {
   position: absolute;
-  top: 128px;
-  left: 128px;
-  width: 256px;
-  height: 256px;
-  background: rgba(255, 255, 255, 0.5);
+  top: 0;
+  left: 0;
+  width: 512px;
+  height: 512px;
 }
 #hooks_chart > span.label {
   font-size: 8px;
   position: absolute;
   left: 3px;
-  bottom: 3px;
+  bottom: -13px;
+  text-shadow: 0 0 3px #fff;
+  font-weight: bold;
 }
 #hooks_chart .canvas {
   position: relative;
-  width: 256px;
-  height: 256px;
+  width: 512px;
+  height: 512px;
 }
 #hooks_chart .plot {
   position: absolute;
-  width: 13px;
-  height: 13px;
+  width: 17px;
+  height: 17px;
   background: #d0d0d0;
   border: 3px solid #666;
+  box-shadow: 0 0 5px #777;
   cursor: pointer;
   z-index: 1;
 }
@@ -1398,20 +1498,20 @@ div.game_config div.color_submits button.random span {
   -o-transform:rotate(45deg);
   -webkit-transform:rotate(45deg);
   -ms-transform:rotate(45deg);
-  width: 11px;
-  height: 11px;
+  width: 15px;
+  height: 15px;
 }
 #hooks_chart .plot.chess960 {
   border-style: double;
   border-width: 5px;
 }
 #hooks_chart .plot.casual.chess960 {
-  width: 9px;
-  height: 9px;
+  width: 13px;
+  height: 13px;
 }
 #hooks_chart .plot.rated.chess960 {
-  width: 7px;
-  height: 7px;
+  width: 11px;
+  height: 11px;
 }
 #hooks_chart .plot.cancel {
   background: #666;
@@ -1432,45 +1532,24 @@ div.game_config div.color_submits button.random span {
   box-shadow:0 0 5px #333;
   text-decoration: none;
 }
-#hooks > div {
-  position: absolute;
-  width: 128px;
-  height: 128px;
-  background: none;
-}
-#hooks div.hook {
-  display: none;
-  position: relative;
+#powerTip.hook {
+  display: block;
   width: 120px;
   height: 120px;
-  z-index: 9;
-  margin: 4px;
-  border-radius: 3px;
-  cursor: pointer;
   color: #444;
   text-align: center;
+  border: none;
+  box-shadow:0 0 9px #333;
   background: #d0d0d0 url(../images/play128.png) -4px -4px;
-  box-shadow:0 0 5px #333;
 }
-#hooks div.hook.cancel {
-  background-position: -4px -132px;
-}
-#hooks_chart .plot.hover,
-#hooks div.hook.hover {
+#hooks_chart .plot:hover {
   background-color: #f6f6f6;
 }
-#hooks_chart .plot.hover,
-#hooks div.hook.hover,
+#hooks_chart .plot:hover,
 #hooks_wrap > a.no_hook:hover {
-  box-shadow: 0 0 9px #d85000;
+  box-shadow: 0 0 9px #d85000 !important;
 }
-#hooks div.hook a {
-  color: #444;
-}
-#hooks a.action {
-  display: none;
-}
-#hooks div.hook .opponent {
+#powerTip.hook .opponent {
   border-radius: 3px 3px 0 0;
   display: block;
   height: 20px;
@@ -1481,14 +1560,14 @@ div.game_config div.color_submits button.random span {
   overflow: hidden;
   text-decoration: none;
 }
-#hooks div.hook a.opponent:hover {
+#powerTip.hook a.opponent:hover {
   text-decoration: underline;
 }
-#hooks .clearfix {
+#powerTip.hook .clearfix {
   width: 100%;
   height: 30px;
 }
-#hooks .elo, #hooks .clock {
+#powerTip.hook .elo, #powerTip.hook .clock {
   display: block;
   width: 60px;
   height: 20px;
@@ -1496,31 +1575,31 @@ div.game_config div.color_submits button.random span {
   font-size: 1.25em;
   font-weight: bold;
 }
-#hooks .elo {
+#powerTip.hook .elo {
   float: right;
   color: #bbb;
   background: #666;
 }
-#hooks .clock {
+#powerTip.hook .clock {
   float: left;
   color: #555;
 }
-#hooks .clock > span {
+#powerTip.hook .clock > span {
   color: #909090;
 }
-#hooks .clock.nope {
+#powerTip.hook .clock.nope {
   font-size: 2.3em;
   padding-top: 3px;
   line-height: 20px;
 }
-#hooks .mode {
+#powerTip.hook .mode {
   margin-top: 40px;
 }
-#hooks .mode, #hooks .chess960 {
+#powerTip.hook .mode, #powerTip.hook .chess960 {
   font-size: 1.25em;
   display: block;
 }
-#hooks .color {
+#powerTip.hook .color {
   position: absolute;
   bottom: 5px;
   left: 5px;
@@ -1529,10 +1608,10 @@ div.game_config div.color_submits button.random span {
   height: 16px;
   background-position: 0 -240px;
 }
-#hooks .color.black {
+#powerTip.hook .color.black {
   background-position: 0 -256px;
 }
-#hooks .engine {
+#powerTip.hook .engine {
   position: absolute;
   bottom: 0px;
   right: 0px;
@@ -1793,104 +1872,6 @@ div.relation_actions .icon span {
   margin: 0;
   width: 16px;
   height: 16px;
-}
-#powerTip {
-  width: 240px;
-  min-height: 6em;
-  cursor: default;
-  background-color: #f0f0f0;
-  border: 1px solid #c0c0c0;
-  border-radius: 4px;
-  display: none;
-  position: absolute;
-  z-index: 2147483647;
-}
-#powerTip > .title {
-  padding: 8px;
-  border-bottom: 1px solid #c0c0c0;
-}
-#powerTip > .content {
-  text-align: right;
-  padding: 16px 8px;
-}
-#powerTip:before {
-  content:"";
-  position: absolute;
-}
-#powerTip.n:before, #powerTip.s:before {
-  border-right: 5px solid transparent;
-  border-left: 5px solid transparent;
-  left: 50%;
-  margin-left: -5px;
-}
-#powerTip.e:before, #powerTip.w:before {
-  border-bottom: 5px solid transparent;
-  border-top: 5px solid transparent;
-  margin-top: -5px;
-  top: 50%;
-}
-#powerTip.n:before {
-  border-top: 10px solid #acacac;
-  border-top: 10px solid rgba(172, 172, 172, 0.8);
-  bottom: -10px;
-}
-#powerTip.e:before {
-  border-right: 10px solid #acacac;
-  border-right: 10px solid rgba(172, 172, 172, 0.8);
-  left: -10px;
-}
-#powerTip.s:before {
-  border-bottom: 10px solid #acacac;
-  border-bottom: 10px solid rgba(172, 172, 172, 0.8);
-  top: -10px;
-}
-#powerTip.w:before {
-  border-left: 10px solid #acacac;
-  border-left: 10px solid rgba(172, 172, 172, 0.8);
-  right: -10px;
-}
-#powerTip.ne:before, #powerTip.se:before {
-  border-right: 10px solid transparent;
-  border-left: 0;
-  left: 10px;
-}
-#powerTip.nw:before, #powerTip.sw:before {
-  border-left: 10px solid transparent;
-  border-right: 0;
-  right: 10px;
-}
-#powerTip.ne:before, #powerTip.nw:before {
-  border-top: 10px solid #acacac;
-  border-top: 10px solid rgba(172, 172, 172, 0.8);
-  bottom: -10px;
-}
-#powerTip.se:before, #powerTip.sw:before {
-  border-bottom: 10px solid #acacac;
-  border-bottom: 10px solid rgba(172, 172, 172, 0.8);
-  top: -10px;
-}
-#powerTip.nw-alt:before, #powerTip.ne-alt:before, #powerTip.sw-alt:before, #powerTip.se-alt:before {
-  border-top: 10px solid #acacac;
-  border-top: 10px solid rgba(172, 172, 172, 0.8);
-  bottom: -10px;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  left: 10px;
-}
-#powerTip.ne-alt:before {
-  left: auto;
-  right: 10px;
-}
-#powerTip.sw-alt:before, #powerTip.se-alt:before {
-  border-top: none;
-  border-bottom: 10px solid #acacac;
-  border-bottom: 10px solid rgba(172, 172, 172, 0.8);
-  bottom: auto;
-  top: -10px;
-}
-#powerTip.se-alt:before {
-  left: auto;
-  right: 10px;
 }
 #powerTip.messages {
   width: 400px;
