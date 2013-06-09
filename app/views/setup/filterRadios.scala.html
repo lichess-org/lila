@@ -1,0 +1,8 @@
+@(form: Form[_], key: String, options: Seq[(Any,String)])
+
+@setup.filterRadio(form(key), key, none, Html("All"))
+@options.map { 
+case (value, text) => {
+@setup.filterRadio(form(key), key, value.toString.some, Html(text))
+}
+}

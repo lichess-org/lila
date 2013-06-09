@@ -1,0 +1,10 @@
+@(field: play.api.data.Field, options: Seq[(Any,String)], default: Option[String] = None)
+
+@default.map { d =>
+@base.radio(field, "", d)
+}
+@options.map { 
+case (key, value) => {
+@base.radio(field, key, value)
+}
+}

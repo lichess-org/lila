@@ -1,12 +1,28 @@
 @(form: Form[_])(implicit ctx: Context)
 
 @helper.form(action = routes.Setup.filter(), 'novalidate -> "novalidate") {
-@base.select(form("variant"), translatedVariantChoices, trans.variant.str().some)
-@base.select(form("speed"), translatedSpeedChoices, trans.timeControl.str().some)
-@ctx.me.map { me =>
-@base.select(form("mode"), translatedModeChoices, trans.mode.str().some)
-@base.select(form("eloDiff"), eloDiffChoices(me.elo))
-}
+<table>
+  <tbody>
+    <tr>
+      <td>@trans.variant()</td>
+      <td>@setup.filterRadios(form, "variant", translatedVariantChoices)</td>
+    </tr>
+    <tr>
+      <td>@trans.timeControl()</td>
+      <td>@setup.filterRadios(form, "speed", translatedSpeedChoices)</td>
+    </tr>
+    @ctx.me.map { me =>
+    <tr>
+      <td>@trans.mode()</td>
+      <td>@setup.filterRadios(form, "mode", translatedModeChoices)</td>
+    </tr>
+    <tr>
+      <td>@trans.eloRange()</td>
+      <td>@setup.filterRadios(form, "eloDiff", eloDiffChoices(me.elo))</td>
+    </tr>
+    }
+  </tbody>
+</table>
 <div class="actions">
   <button type="submit" class="reset">@trans.reset()</button>
   <button type="submit" class="submit">@trans.apply()</button>

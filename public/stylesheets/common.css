@@ -1312,29 +1312,43 @@ div.game_config div.color_submits button.random span {
 #hooks_wrap a.filter.on span.number {
   display: inline;
 }
-#hooks_wrap div.filter {
+#hook_filter {
   position: absolute;
   z-index: 99;
   display: none;
   top: 0px;
   right: 0px;
   min-height: 181px;
-  width: 244px;
-  padding: 12px;
-  border: 1px solid #888;
-  border-width: 0 0 1px 1px;
-  background: #fff;
-  border-radius: 0 0 0 3px;
+  width: 472px;
+  height: 472px;
+  padding: 20px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 5px;
 }
-#hooks_wrap div.filter select {
+#hook_filter table {
   width: 100%;
-  margin-bottom: 12px;
-  padding: 6px;
 }
-#hooks_wrap div.filter .actions {
+#hook_filter td {
+  padding: 10px 0;
+}
+#hook_filter td:first-child {
+  font-size: 1.3em;
+}
+#hook_filter td > label {
+  display: block;
+  padding: 3px 10px;
+  color: #444;
+}
+#hook_filter label, #hook_filter input {
+  cursor: pointer;
+}
+#hook_filter td > label:hover {
+  background: #fff;
+}
+#hook_filter .actions {
   text-align: right;
 }
-#hooks_wrap div.filter .actions button {
+#hook_filter .actions button {
   padding: 6px;
   margin-left: 12px;
 }
