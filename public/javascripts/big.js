@@ -2257,7 +2257,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       var hook = $(this).data('hook');
       if (hook.action == 'register') {
         if (confirm($.trans('This game is rated') + '.\n' + $.trans('You need an account to do that') + '.')) location.href = '/signup';
-        else return;
+        return;
       }
       if (confirm960(hook)) {
         lichess.socket.send(hook.action, hook.id);
