@@ -77,6 +77,7 @@ function customFunctionOnMove() {
 
 function redrawBoardMarks() {
   $.displayBoardMarks($('#GameBoard'), !$('#GameBoard').hasClass('flip'));
+  $('#top .themepicker').show();
 }
 
 function refreshButtonset() {
