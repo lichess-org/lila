@@ -1761,7 +1761,10 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         var $formTag = $form.find('form');
 
         function ajaxSubmit(color) {
-          if ($form.find('.elo_range_config span.invalid').length) return false;
+          if ($form.find('.elo_range_config span.invalid').length) {
+            alert('The Elo range is invalid.');
+            return false;
+          }
           $.ajax({
             url: $formTag.attr('action').replace(/uid-placeholder/, lichess_sri),
             data: $formTag.serialize() + "&color=" + color,
@@ -1813,7 +1816,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         function isInvalid(values) {
           var vmin = parseInt(values[0]);
           var vmax = parseInt(values[1]);
-          return vmin > myElo || vmax < myElo || (vmax - vmin < 200);
+          return vmin > (myElo + 200) || vmax < (myElo - 200) || (vmax - vmin < 200);
         }
         $span.text(values.join(' - ')).toggleClass('invalid', isInvalid(values));
         $this.slider({
