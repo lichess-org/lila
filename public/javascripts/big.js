@@ -1926,7 +1926,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     var $hooks = $wrap.find('#hooks');
     var $noHook = $wrap.find('.no_hook');
     var $canvas = $wrap.find('.canvas');
-    var $table = $wrap.find('#hooks_table');
+    var $table = $wrap.find('#hooks_table').stupidtable();
     var $tbody = $table.find('tbody');
     var $userTag = $('#user_tag');
     var isRegistered = $userTag.length > 0
@@ -2131,6 +2131,10 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           undrawHook($(this).data('hook'));
         }
       });
+      // $table.find('th').data('sort-dir', null);
+      // var $th = $table.find('th.sorting-asc, th.sorting-desc').first();
+      // $th.data('sort-dir', $th.hasClass('sorting-asc') ? 'desc' : 'asc').click();
+      // $th.click();
 
       $noHook.toggle(visible == 0);
       $table.toggleClass('crowded', visible >= 12);
