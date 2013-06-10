@@ -1620,10 +1620,9 @@ div.game_config div.color_submits button.random span {
   top: 192px;
   left: 64px;
   display: block;
-  width: 376px;
-  height: 120px;
+  width: 356px;
+  padding: 60px 10px;
   margin: 4px;
-  line-height: 120px;
   font-size: 1.25em;
   border-radius: 3px;
   color: #444;
