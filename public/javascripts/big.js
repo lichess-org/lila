@@ -2223,7 +2223,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     function renderTr(hook) {
       return '<tr data-id="' + hook.id +'" class="' + hook.id + '">' + _.map([
         ['', '<span class="s16 ' + (hook.color || 'random') + '"></span>'],
-        [hook.username, hook.elo ? '<a href="/@/' + hook.username + '" class="ulpt">' + hook.username + '</a>' : 'Anonymous'],
+        [hook.username, hook.elo ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous'],
         [hook.elo || 0, hook.elo || ''],
         [hook.time || 9999, hook.clock ? hook.clock : '∞'],
         [hook.mode, $.trans(hook.mode) + (hook.variant == 'Chess960' ? '<span class="chess960">960</span>' : '')]
@@ -2252,6 +2252,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       } else return true;
     }
 
+    $tbody.on('click', 'a.ulink', function(e) {
+      e.stopPropagation();
+    });
     $tbody.on('click', 'td', function() {
       $('#' + $(this).parent().data('id')).click();
     });
