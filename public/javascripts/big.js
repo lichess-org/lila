@@ -2084,7 +2084,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     function addHook(hook, inBatch) {
       if (!isRegistered && hook.mode == "Rated") hook.action = 'register';
       else hook.action = hook.uid == lichess_sri ? "cancel" : "join";
-      if (hook.action == 'join' && hook.emin && (myElo < parseInt(hook.emin) || myElo > parseInt(hook.emax))) return;
+      if (hook.action == 'join' && hook.emin && myElo && (myElo < parseInt(hook.emin) || myElo > parseInt(hook.emax))) return;
       pool.push(hook);
       drawHooks(inBatch || false);
     }

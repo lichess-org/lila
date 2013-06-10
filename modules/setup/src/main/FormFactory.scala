@@ -20,15 +20,13 @@ private[setup] final class FormFactory {
   def filter(ctx: Context) = Form(
     mapping(
       "variant" -> optional(variant),
-      "mode" -> mode(ctx.isAuth),
+      "mode" -> mode(true),
       "speed" -> optional(speed),
       "eloDiff" -> optional(eloDiff)
     )(FilterConfig.<<)(_.>>)
   )
 
-  def filterConfig(implicit ctx: Context): Fu[FilterConfig] = savedConfig map { config ⇒
-    ctx.isAuth.fold(config.filter, config.filter.withModeCasual)
-  }
+  def filterConfig(implicit ctx: Context): Fu[FilterConfig] = savedConfig map (_.filter)
 
   def aiFilled(fen: Option[String])(implicit ctx: Context): Fu[Form[AiConfig]] =
     aiConfig map { config ⇒
