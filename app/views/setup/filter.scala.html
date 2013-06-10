@@ -11,11 +11,11 @@
       <td>@trans.timeControl()</td>
       <td>@setup.filterRadios(form, "speed", translatedSpeedChoices)</td>
     </tr>
-    @ctx.me.map { me =>
     <tr>
       <td>@trans.mode()</td>
       <td>@setup.filterRadios(form, "mode", translatedModeChoices)</td>
     </tr>
+    @ctx.me.map { me =>
     <tr>
       <td>@trans.eloRange()</td>
       <td>@setup.filterRadios(form, "eloDiff", eloDiffChoices(me.elo))</td>
