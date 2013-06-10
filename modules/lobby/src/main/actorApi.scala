@@ -28,4 +28,3 @@ case class JoinHook(uid: String, hook: Hook, game: Game)
 case class Join(uid: String, user: Option[User])
 
 case object GetOpen
-case object GetOpenCasual

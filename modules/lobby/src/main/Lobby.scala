@@ -19,7 +19,6 @@ private[lobby] final class Lobby(
   def receive = {
 
     case GetOpen       ⇒ sender ! HookRepo.allOpen
-    case GetOpenCasual ⇒ sender ! HookRepo.allOpenCasual
 
     case msg @ AddHook(hook) ⇒ {
       HookRepo byUid hook.uid foreach remove

@@ -41,7 +41,8 @@ private[i18n] case class JsDump(
     keys.waitingForOpponent,
     keys.accept,
     keys.decline,
-    keys.challengeToPlay)
+    keys.challengeToPlay,
+    keys.youNeedAnAccountToDoThat)
 
   private val pathFile = new File(path)
 

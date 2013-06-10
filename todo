@@ -62,7 +62,6 @@ IE10 no sound toggle http://en.lichess.org/forum/lichess-feedback/notification-o
 filter current games for watching http://en.lichess.org/forum/lichess-feedback/viewing-current-games-suggestion#2
 declined challenge still appears
 no time data http://en.lichess.org/x9tls3mh/stats
-show rated games to anon
 second realtime board on homepage (right)
 show friend games in homepage board
 allow to filter anon
@@ -70,7 +69,6 @@ add fast tooltips to plots
 replace plot with watch plot when game starts
 real rematch against AI
 lobby table sort
-graph x labels inside
 colorpicker does nothing on homepage
 
 ---

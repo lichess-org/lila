@@ -9,7 +9,7 @@ import play.api.mvc.Call
 import controllers.routes
 import lila.forum.PostLiteView
 import lila.game.{ Game, GameRepo, Featured }
-import lila.lobby.actorApi.{ GetOpen, GetOpenCasual }
+import lila.lobby.actorApi.GetOpen
 import lila.lobby.{ Hook, HookRepo }
 import lila.setup.FilterConfig
 import lila.socket.History
@@ -32,7 +32,7 @@ final class Preload(
     posts: Fu[List[PostLiteView]],
     tours: Fu[List[Created]],
     filter: Fu[FilterConfig])(implicit ctx: Context): Fu[Response] =
-    ctx.isAuth.fold(lobby ? GetOpen, lobby ? GetOpenCasual).mapTo[List[Hook]] zip
+    (lobby ? GetOpen).mapTo[List[Hook]] zip
       recentGames() zip
       posts zip
       tours zip
