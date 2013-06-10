@@ -17,8 +17,6 @@ object HookRepo {
 
   def allOpen: List[Hook] = list.filter(_.open)
 
-  def allOpenCasual = list.filter(h ⇒ h.open && h.mode == 0)
-
   def openNotInUids(uids: Set[String]): List[Hook] = allOpen.filterNot(h ⇒ uids(h.uid))
 
   def save(hook: Hook) {

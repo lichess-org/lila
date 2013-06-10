@@ -2084,8 +2084,8 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     }
 
     function addHook(hook) {
-      if (!isRegistered && hook.mode == "Rated") return;
-      hook.action = hook.uid == lichess_sri ? "cancel" : "join";
+      if (!isRegistered && hook.mode == "Rated") hook.action = 'register';
+      else hook.action = hook.uid == lichess_sri ? "cancel" : "join";
       if (hook.action == 'join' && hook.emin && (myElo < parseInt(hook.emin) || myElo > parseInt(hook.emax))) return;
       pool.push(hook);
       drawHooks();
@@ -2251,9 +2251,12 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     });
     $canvas.on('click', '>span.plot:not(.hiding)', function() {
       var hook = $(this).data('hook');
+      if (hook.action == 'register') {
+        if (confirm($.trans('This game is rated') + '.\n' + $.trans('You need an account to do that') + '.')) location.href = '/signup';
+        else return;
+      }
       if (confirm960(hook)) {
-        if (hook.action == 'cancel') lichess.socket.send('cancel');
-        else lichess.socket.send('join', hook.id);
+        lichess.socket.send(hook.action, hook.id);
       }
     });
     $noHook.click(function() {
