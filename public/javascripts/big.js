@@ -458,7 +458,6 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     }, 1000);
 
     if ($board = $('div.with_marks').orNot()) {
-      $('#top .themepicker').show();
       $.displayBoardMarks($board.parent(), $('#lichess > div.lichess_player_white').length);
     }
 
