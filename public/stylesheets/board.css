@@ -468,7 +468,8 @@ div.lichess_current_player div.lichess_player p {
 
 div.lichess_table.finished div.lichess_player p {
   line-height: 2em;
-  margin-top: 3px;
+  font-size: 12px;
+  margin-top: 12px;
 }
 
 div.lichess_cemetery {
