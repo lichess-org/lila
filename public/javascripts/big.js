@@ -2139,6 +2139,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       });
 
       $noHook.toggle(visible == 0);
+      $table.toggleClass('crowded', visible >= 12);
       $wrap
         .find('a.filter')
         .toggleClass('on', filter.mode != null || filter.variant != null || filter.speed != null || filter.eloDiff > 0)

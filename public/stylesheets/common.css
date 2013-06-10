@@ -1389,6 +1389,7 @@ div.game_config div.color_submits button.random span {
   left: 0;
   background: #f0f0f0 url(../images/knight2000.png) no-repeat;
   border-radius: 0 5px 5px 5px;
+  overflow: hidden;
 }
 #hooks_wrap > div.tabs {
   position: absolute;
@@ -1481,11 +1482,10 @@ div.game_config div.color_submits button.random span {
 #hooks_table {
   width: 512px;
   max-height: 512px;
-  overflow: hidden;
 }
 #hooks_table th {
   border-bottom: 1px solid #ccc;
-  padding: 10px 12px;
+  padding: 12px 12px;
 }
 #hooks_table th > span {
   display: inline-block;
@@ -1506,6 +1506,9 @@ div.game_config div.color_submits button.random span {
 #hooks_table td {
   padding: 12px 12px;
   border-bottom: 1px solid #ccc;
+}
+#hooks_table.crowded td {
+  padding: 8px 12px;
 }
 #hooks_table tr:nth-child(odd) td {
   background: rgba(255, 255, 255, 0.6);
@@ -1533,7 +1536,7 @@ div.game_config div.color_submits button.random span {
   font-size: 8px;
   position: absolute;
   left: 3px;
-  bottom: -13px;
+  bottom: 1px;
   text-shadow: 0 0 3px #fff;
   font-weight: bold;
 }
