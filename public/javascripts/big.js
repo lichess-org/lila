@@ -2092,7 +2092,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         $.powerTip.destroy($(this));
         $(this).remove();
       });
-      $table.find('.' + hook.id).remove();
+      $tbody.children('.' + hook.id).remove();
     }
     
     function drawHooks(inBatch) {
@@ -2111,7 +2111,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           hidden++;
         } else if (_.contains(seen, hash) && hook.action != 'cancel') {
           $('#' + hook.id).filter(':visible').hide();
-          $tbody.find('.' + hook.id).hide();
+          $tbody.children('.' + hook.id).hide();
           hidden++;
         } else {
           visible++;
@@ -2120,7 +2120,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
             $tbody.append(renderTr(hook));
           } else {
             $('#' + hook.id).not(':visible').fadeIn(animation);
-            $tbody.find('.' + hook.id).show();
+            $tbody.children('.' + hook.id).show();
           }
         }
         if (hook.action != 'cancel') seen.push(hash);
