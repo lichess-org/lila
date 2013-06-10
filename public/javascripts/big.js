@@ -1384,7 +1384,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     set: function(users) {
       var self = this;
       if (users.length > 0) {
-        self.list.html(_.map(users, $.userLink).join(", "));
+        self.list.html(_.map(users, function(u) {
+          return u.indexOf('(') === -1 ? $.userLink(u) : u;
+        }).join(", "));
         self.element.show();
       } else {
         self.element.hide();
