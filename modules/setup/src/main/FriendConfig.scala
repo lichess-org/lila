@@ -19,7 +19,6 @@ case class FriendConfig(
   def game = fenGame { chessGame ⇒
     Game.make(
       game = chessGame,
-      ai = None,
       whitePlayer = Player.white,
       blackPlayer = Player.black,
       creatorColor = creatorColor,

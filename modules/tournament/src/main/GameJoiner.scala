@@ -25,7 +25,6 @@ final class GameJoiner(
         board = chess.Board init tour.variant,
         clock = tour.clock.chessClock.some
       ),
-      ai = None,
       whitePlayer = GamePlayer.white withUser user1,
       blackPlayer = GamePlayer.black withUser user2,
       creatorColor = chess.Color.White,

@@ -222,7 +222,6 @@ case class Game(
   def playerCanRematch(color: Color) =
     !player(color).isOfferingRematch &&
       finishedOrAborted &&
-      opponent(color).isHuman &&
       nonTournament
 
   def playerCanProposeTakeback(color: Color) =
@@ -388,7 +387,6 @@ object Game {
     game: ChessGame,
     whitePlayer: Player,
     blackPlayer: Player,
-    ai: Option[(Color, Int)],
     creatorColor: Color,
     mode: Mode,
     variant: Variant,
