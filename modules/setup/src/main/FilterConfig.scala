@@ -11,8 +11,6 @@ case class FilterConfig(
     speed: Option[Speed],
     eloDiff: Option[Int]) {
 
-  def withModeCasual = copy(mode = Mode.Casual.some)
-
   def encode = RawFilterConfig(
     v = ~variant.map(_.id),
     m = mode.map(_.id) | -1,
