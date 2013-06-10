@@ -1926,13 +1926,12 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     var $hooks = $wrap.find('#hooks');
     var $noHook = $wrap.find('.no_hook');
     var $canvas = $wrap.find('.canvas');
-    var $table = $wrap.find('#hooks_table').stupidtable();
+    var $table = $wrap.find('#hooks_table').sortable().find('th:eq(2)').click().end();
     var $tbody = $table.find('tbody');
     var $userTag = $('#user_tag');
     var isRegistered = $userTag.length > 0
     var myElo = isRegistered ? parseInt($userTag.data('elo')) : null;
     var animation = 500;
-
     var pool = [];
 
     $wrap.find('>div.tabs>a').click(function() {
@@ -2015,7 +2014,10 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     resizeTimeline();
     renderTimeline(lichess_preload.timeline);
 
-    _.each(lichess_preload.pool, addHook);
+    _.each(lichess_preload.pool, function(h) {
+      addHook(h, true);
+    });
+    drawHooks();
 
     lichess.socket = new strongSocket("/lobby/socket", lichess_preload.version, $.extend(true, lichess.socketDefaults, {
       events: {
@@ -2077,12 +2079,12 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       drawHooks();
     }
 
-    function addHook(hook) {
+    function addHook(hook, inBatch) {
       if (!isRegistered && hook.mode == "Rated") hook.action = 'register';
       else hook.action = hook.uid == lichess_sri ? "cancel" : "join";
       if (hook.action == 'join' && hook.emin && (myElo < parseInt(hook.emin) || myElo > parseInt(hook.emax))) return;
       pool.push(hook);
-      drawHooks();
+      drawHooks(inBatch || false);
     }
 
     function undrawHook(hook) {
@@ -2092,8 +2094,8 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       });
       $table.find('.' + hook.id).remove();
     }
-
-    function drawHooks() {
+    
+    function drawHooks(inBatch) {
       var filter = lichess_preload.filter;
       var seen = [];
       var hidden = 0;
@@ -2131,18 +2133,18 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           undrawHook($(this).data('hook'));
         }
       });
-      // $table.find('th').data('sort-dir', null);
-      // var $th = $table.find('th.sorting-asc, th.sorting-desc').first();
-      // $th.data('sort-dir', $th.hasClass('sorting-asc') ? 'desc' : 'asc').click();
-      // $th.click();
 
-      $noHook.toggle(visible == 0);
-      $table.toggleClass('crowded', visible >= 12);
-      $wrap
-        .find('a.filter')
-        .toggleClass('on', filter.mode != null || filter.variant != null || filter.speed != null || filter.eloDiff > 0)
-        .find('span.number').text('(' + hidden + ')');
-      $('body').trigger('lichess.content_loaded');
+      if(!(inBatch || false)) {
+        $noHook.toggle(visible == 0);
+        $table.toggleClass('crowded', visible >= 12);
+        $wrap
+          .find('a.filter')
+          .toggleClass('on', filter.mode != null || filter.variant != null || filter.speed != null || filter.eloDiff > 0)
+          .find('span.number').text('(' + hidden + ')');
+
+        $table.trigger('sortable.sort');
+        $('body').trigger('lichess.content_loaded');
+      }
     }
 
     function renderPlot(hook) {
@@ -2218,9 +2220,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
     function renderTr(hook) {
       return '<tr data-id="' + hook.id +'" class="' + hook.id + '">' + _.map([
-        [hook.color || '', '<span class="s16 ' + (hook.color || 'random') + '"></span>'],
+        ['', '<span class="s16 ' + (hook.color || 'random') + '"></span>'],
         [hook.username, hook.elo ? '<a href="/@/' + hook.username + '" class="ulpt">' + hook.username + '</a>' : 'Anonymous'],
-        [hook.elo || 1200, hook.elo || ''],
+        [hook.elo || 0, hook.elo || ''],
         [hook.time || 9999, hook.clock ? hook.clock : '∞'],
         [hook.mode, $.trans(hook.mode) + (hook.variant == 'Chess960' ? '<span class="chess960">960</span>' : '')]
       ], function(x) {
@@ -2388,6 +2390,106 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       }
     }));
   });
+
+  $.fn.sortable = function(sortFns) {
+    return this.each(function() {
+      var $table = $(this);
+      var $ths = $table.find('th');
+
+      // Enum containing sorting directions
+      var dir = {
+        ASC: "asc",
+        DESC: "desc"
+      };
+
+      // Merge sort functions with some default sort functions.
+      sortFns = $.extend({}, {
+        "int": function(a, b) {
+          return parseInt(a, 10) - parseInt(b, 10);
+        },
+        "float": function(a, b) {
+          return parseFloat(a) - parseFloat(b);
+        },
+        "string": function(a, b) {
+          if (a < b) return -1;
+          if (a > b) return +1;
+          return 0;
+        }
+      }, sortFns || {});
+
+      // Return the resulting indexes of a sort so we can apply
+      // this result elsewhere. This returns an array of index numbers.
+      // return[0] = x means "arr's 0th element is now at x"
+
+      function sort_map(arr, sort_function, sort_dir) {
+        var map = [];
+        var index = 0;
+        var sorted = arr.slice(0).sort(sort_function);
+        if (sort_dir == dir.DESC) sorted = sorted.reverse();
+        for (var i = 0; i < arr.length; i++) {
+          index = $.inArray(arr[i], sorted);
+
+          // If this index is already in the map, look for the next index.
+          // This handles the case of duplicate entries.
+          while ($.inArray(index, map) != -1) {
+            index++;
+          }
+          map.push(index);
+        }
+        return map;
+      }
+
+      // Apply a sort map to the array.
+
+      function apply_sort_map(arr, map) {
+        var clone = arr.slice(0),
+          newIndex = 0;
+        for (var i = 0; i < map.length; i++) {
+          newIndex = map[i];
+          clone[newIndex] = arr[i];
+        }
+        return clone;
+      }
+
+      $table.on("click", "th", function() {
+        var sort_dir = $(this).data("sort-dir") === dir.DESC ? dir.ASC : dir.DESC;
+        $ths.data("sort-dir", null).removeClass("sorting-desc sorting-asc");
+        $(this).data("sort-dir", sort_dir).addClass("sorting-" + sort_dir);
+        $table.trigger('sortable.sort');
+      });
+      $table.on("sortable.sort", function() {
+
+        var $th = $ths.filter('.sorting-desc,.sorting-asc').first();
+        if(!$th.length) return;
+        var th_index = $th.index();
+
+        var type = $th.data("sort");
+        if (!type) return;
+        var sort_dir = $th.data("sort-dir") || dir.DESC;
+
+        var trs = $table.children("tbody").children("tr");
+
+        setTimeout(function() {
+          // Gather the elements for this column
+          var column = [];
+          var sortMethod = sortFns[type];
+
+          // Push either the value of the `data-order-by` attribute if specified
+          // or just the text() value in this column to column[] for comparison.
+          trs.each(function(index, tr) {
+            var $e = $(tr).children().eq(th_index);
+            var sort_val = $e.data("sort-value");
+            var order_by = typeof(sort_val) !== "undefined" ? sort_val : $e.text();
+            column.push(order_by);
+          });
+
+          var theMap = sort_map(column, sortMethod, sort_dir);
+
+          $table.children("tbody").html($(apply_sort_map(trs, theMap)));
+        }, 10);
+      });
+    });
+  };
 
 })();
 

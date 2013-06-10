@@ -1511,6 +1511,8 @@ div.game_config div.color_submits button.random span {
   padding: 12px 12px;
   border-bottom: 1px solid #ccc;
   cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
 }
 #hooks_table.crowded td {
   padding: 8px 12px;
