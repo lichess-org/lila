@@ -272,10 +272,15 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           var $tag = $('#nb_connected_players > strong');
           if ($tag.length && e) {
             var prev = parseInt($tag.text()) || Math.max(0, (e - 10));
-            var interv = lichess.socket.pingInterval() / 4;
-            _.each([0, 1, 2, 3], function(it) {
+            var k = 6;
+            var interv = lichess.socket.pingInterval() / k;
+            _.each(_.range(k), function(it) {
               setTimeout(function() {
-                $tag.text(Math.round(((prev * (3 - it)) + (e * (it + 1))) / 4));
+                var val = Math.round(((prev * (k - 1 - it)) + (e * (it + 1))) / k);
+                if(val != prev) {
+                  $tag.text(val);
+                  prev = val;
+                }
               }, Math.round(it * interv));
             });
           }
