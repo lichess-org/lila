@@ -18,7 +18,6 @@ case class AiConfig(
   def game = fenGame { chessGame ⇒
     Game.make(
       game = chessGame,
-      ai = Some(!creatorColor -> level),
       whitePlayer = Player.make(
         color = ChessColor.White,
         aiLevel = creatorColor.black option level),

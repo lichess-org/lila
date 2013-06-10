@@ -42,7 +42,6 @@ private[lobby] final class Biter(
         },
         none)
     ),
-    ai = None,
     whitePlayer = Player.white,
     blackPlayer = Player.black,
     creatorColor = hook.realColor.resolve,

@@ -18,7 +18,7 @@ private[round] final class Rematcher(
 
   def yes(pov: Pov): Fu[Events] = pov match {
     case Pov(game, color) if (game playerCanRematch color) ⇒
-      game.opponent(color).isOfferingRematch.fold(
+      (game.opponent(color).isOfferingRematch || game.opponent(color).isAi).fold(
         game.next.fold(rematchJoin(pov))(rematchExists(pov)),
         rematchCreate(pov)
       )
@@ -88,7 +88,6 @@ private[round] final class Rematcher(
       clock = pov.game.clock map (_.reset)),
     whitePlayer = whitePlayer,
     blackPlayer = blackPlayer,
-    ai = None,
     creatorColor = !pov.color,
     mode = pov.game.mode,
     variant = pov.game.variant,
@@ -96,7 +95,7 @@ private[round] final class Rematcher(
     pgnImport = None) with960Rematch !pov.game.is960Rematch
 
   private def returnPlayer(game: Game, color: ChessColor): Fu[lila.game.Player] =
-    lila.game.Player.make(color = color, aiLevel = None) |> { player ⇒
+    lila.game.Player.make(color = color, aiLevel = game.opponent(color).aiLevel) |> { player ⇒
       game.player(!color).userId.fold(fuccess(player)) { userId ⇒
         UserRepo byId userId map { _.fold(player)(player.withUser) }
       }

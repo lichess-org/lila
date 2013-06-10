@@ -48,7 +48,6 @@ private[importer] case class ImportData(pgn: String) {
 
       val dbGame = Game.make(
         game = ChessGame(board = initBoard | (Board init variant)),
-        ai = None,
         whitePlayer = Player.white withName name(_.White, _.WhiteElo),
         blackPlayer = Player.black withName name(_.Black, _.BlackElo),
         creatorColor = Color.White,

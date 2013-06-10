@@ -31,7 +31,7 @@
   }
   }
   } else {
-  <a class="button" title="@trans.playWithTheSameOpponentAgain()" href="@routes.Lobby.home()#ai">@trans.rematch()</a>
+  <a class="lichess_rematch button socket-link" title="@trans.playWithTheSameOpponentAgain()" data-msg="rematch-yes">@trans.rematch()</a>
   }
   <a class="lichess_new_game button" title="@trans.playWithAnotherOpponent()" href="@routes.Lobby.home()">@trans.newOpponent()</a>
   }
