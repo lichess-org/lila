@@ -2219,12 +2219,12 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     }
 
     function renderTr(hook) {
-      return '<tr class="' + hook.id + '">' + _.map([
+      return '<tr data-id="' + hook.id +'" class="' + hook.id + '">' + _.map([
+        [hook.color || '', '<span class="s16 ' + (hook.color || 'random') + '"></span>'],
         [hook.username, hook.elo ? '<a href="/@/' + hook.username + '" class="ulpt">' + hook.username + '</a>' : 'Anonymous'],
         [hook.elo || 1200, hook.elo || ''],
         [hook.time || 9999, hook.clock ? hook.clock : '∞'],
-        [hook.mode, $.trans(hook.mode) + (hook.variant == 'Chess960' ? '<span class="chess960">960</span>' : '')],
-        ['', hook.action == "join" ? '<a class="socket-link" data-msg="join" data-data="' + hook.id + '">Join</a>' : '<a class="socket-link" data-msg="cancel">Cancel</a>']
+        [hook.mode, $.trans(hook.mode) + (hook.variant == 'Chess960' ? '<span class="chess960">960</span>' : '')]
       ], function(x) {
         return '<td data-sort-value="'+x[0]+'">' + x[1] + '</td>';
       }).join('') + '</tr>';
@@ -2246,6 +2246,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       } else return true;
     }
 
+    $tbody.on('click', 'td', function() {
+      $('#' + $(this).parent().data('id')).click();
+    });
     $canvas.on('click', '>span.plot:not(.hiding)', function() {
       var hook = $(this).data('hook');
       if (confirm960(hook)) {

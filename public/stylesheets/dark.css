@@ -187,12 +187,8 @@ body.dark #hooks_table tr:nth-child(even) td {
 body.dark #hooks_table tr:nth-child(odd) td {
   background: rgba(40, 40, 40, 0.6);
 }
-
-body.dark .user_link.white {
-  background-position: 0 -288px;
-}
-body.dark .user_link.black {
-  background-position: 0 -272px;
+body.dark #hooks_table tr:hover td {
+  background: rgba(50, 50, 20, 0.7);
 }
 
 body.dark #hook_filter {
