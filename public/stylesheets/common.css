@@ -967,11 +967,14 @@ span.s16.clock {
   padding-left: 20px;
   white-space: nowrap;
 }
-.user_link.white, .s16.challenge {
+.user_link.white, .s16.challenge, .s16.white {
   background-position: 0 -240px;
 }
-.user_link.black {
+.user_link.black, .s16.black {
   background-position: 0 -256px;
+}
+.s16.random {
+  background-position: 0 -271px;
 }
 .user_link.offline {
   background-position: 0 -160px;
@@ -1503,9 +1506,13 @@ div.game_config div.color_submits button.random span {
   background-position: right -368px;
   font-weight: bold;
 }
+#hooks_table th.player {
+  width: 110px;
+}
 #hooks_table td {
   padding: 12px 12px;
   border-bottom: 1px solid #ccc;
+  cursor: pointer;
 }
 #hooks_table.crowded td {
   padding: 8px 12px;
@@ -1514,11 +1521,20 @@ div.game_config div.color_submits button.random span {
   background: rgba(255, 255, 255, 0.6);
 }
 #hooks_table tr:nth-child(even) td {
-  background: rgba(220, 220, 220, 0.5);
+  background: rgba(230, 230, 230, 0.5);
+}
+#hooks_table tr:hover td {
+  background: rgba(255, 255, 200, 0.7);
 }
 #hooks_table td:first-child {
-  width: 120px;
-  overflow: hidden;
+  width: 16px;
+}
+#hooks_table td:first-child span {
+  display: block;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
 }
 #hooks_table .chess960 {
   padding-left: 1em;
