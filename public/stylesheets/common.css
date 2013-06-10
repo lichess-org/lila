@@ -1556,6 +1556,19 @@ div.game_config div.color_submits button.random span {
   text-shadow: 0 0 3px #fff;
   font-weight: bold;
 }
+#hooks_chart > div.grid {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+}
+#hooks_chart > div.grid.horiz {
+  width: 100%;
+  border-top: 1px dashed #ccc;
+}
+#hooks_chart > div.grid.vert {
+  height: 100%;
+  border-right: 1px dashed #ccc;
+}
 #hooks_chart .canvas {
   position: relative;
   width: 512px;

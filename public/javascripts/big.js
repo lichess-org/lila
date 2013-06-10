@@ -2151,8 +2151,8 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     }
 
     function renderPlot(hook) {
-      var bottom = eloY(hook.elo);
-      var left = clockX(hook.time);
+      var bottom = Math.max(0, eloY(hook.elo) - 7);
+      var left = Math.max(0, clockX(hook.time) - 4);
       var klass = [
           'plot',
         hook.mode == "Rated" ? 'rated' : 'casual',
@@ -2235,10 +2235,14 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
     $('#hooks_chart').append(
       _.map([1000, 1200, 1300, 1400, 1600, 1800, 2000], function(v) {
-      return '<span class="y label" style="bottom:' + (eloY(v) + 4) + 'px">' + v + '</span>';
+        var b = eloY(v);
+      return '<span class="y label" style="bottom:' + (b + 5) + 'px">' + v + '</span>' +
+        '<div class="grid horiz" style="height:' + (b + 4) + 'px"></div>';
     }).join('') +
       _.map([1, 2, 3, 5, 7, 10, 15, 20, 30], function(v) {
-      return '<span class="x label" style="left:' + (clockX(v * 60)) + 'px">' + v + '</span>';
+        var l = clockX(v * 60);
+      return '<span class="x label" style="left:' + l + 'px">' + v + '</span>' +
+        '<div class="grid vert" style="width:' + (l+7) + 'px"></div>';
     }).join(''));
 
     function confirm960(hook) {

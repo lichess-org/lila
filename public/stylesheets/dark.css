@@ -108,7 +108,8 @@ body.dark #powerTip,
 body.dark #powerTip > .title,
 body.dark #hooks_table th,
 body.dark #hooks_table td,
-body.dark #hooks_wrap > div.tabs > a 
+body.dark #hooks_wrap > div.tabs > a,
+body.dark #hooks_chart > div.grid 
 {
   border-color: #444;
 }
