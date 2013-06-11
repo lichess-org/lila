@@ -22,7 +22,10 @@ private[setup] final class Challenger(
       renderer ? msg map {
         case html: Html ⇒ SendTos(Set(to), Json.obj(
           "t" -> "challengeReminder",
-          "d" -> html.toString
+          "d" -> Json.obj(
+            "id" -> gameId,
+            "html" -> html.toString
+          )
         ))
       } pipeTo hub.ref
 
