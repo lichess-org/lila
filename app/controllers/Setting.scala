@@ -25,7 +25,6 @@ object Setting extends LilaController {
   private lazy val setters = Map(
     "theme" -> setTheme,
     "sound" -> setSound,
-    "chat" -> setChat,
     "bg" -> setBg)
 
   private lazy val setTheme: Setter = forms.theme -> {
@@ -34,10 +33,6 @@ object Setting extends LilaController {
 
   private lazy val setSound: Setter = forms.sound -> {
     (setting, v) ⇒ setting.sound(v)
-  }
-
-  private lazy val setChat: Setter = forms.chat -> {
-    (setting, v) ⇒ setting.chat(v)
   }
 
   private lazy val setBg: Setter = forms.bg -> {

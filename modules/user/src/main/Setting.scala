@@ -12,9 +12,6 @@ final class Setting(ctx: Context) {
   def sound = get("sound", "false").parseBoolean | false
   def sound(value: String) = set("sound", value)
 
-  def chat = get("chat", "true").parseBoolean | true
-  def chat(value: String) = set("chat", value)
-
   def bg = get("bg", "light")
   def bg(value: String) = set("bg", value)
 

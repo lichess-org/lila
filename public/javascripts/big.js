@@ -272,7 +272,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
             _.each(_.range(k), function(it) {
               setTimeout(function() {
                 var val = Math.round(((prev * (k - 1 - it)) + (e * (it + 1))) / k);
-                if(val != prev) {
+                if (val != prev) {
                   $tag.text(val);
                   prev = val;
                 }
@@ -1477,15 +1477,13 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       $toggle.change(function() {
         var enabled = $toggle.is(':checked');
         self.element.toggleClass('hidden', !enabled);
-        $.post($toggle.data('href'), {
-          "chat": enabled
-        });
         self.options.onToggle(enabled);
+        localStorage.setItem('nochat', enabled ? null : 1);
       });
-      if (!$toggle.data("enabled")) {
+      $toggle[0].checked = localStorage.getItem('nochat') != 1;
+      if (!$toggle[0].checked) {
         self.element.addClass('hidden');
       }
-      $toggle[0].checked = $toggle.data("enabled");
     },
     append: function(u, t) {
       this._appendHtml(this.options.render(u, t));
@@ -2100,7 +2098,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       });
       $tbody.children('.' + hook.id).remove();
     }
-    
+
     function drawHooks(inBatch) {
       var filter = lichess_preload.filter;
       var seen = [];
@@ -2140,7 +2138,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         }
       });
 
-      if(!(inBatch || false)) {
+      if (!(inBatch || false)) {
         $noHook.toggle(visible == 0);
         $table.toggleClass('crowded', visible >= 12);
         $wrap
@@ -2225,27 +2223,27 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     }
 
     function renderTr(hook) {
-      return '<tr data-id="' + hook.id +'" class="' + hook.id + '">' + _.map([
+      return '<tr data-id="' + hook.id + '" class="' + hook.id + '">' + _.map([
         ['', '<span class="s16 ' + (hook.color || 'random') + '"></span>'],
         [hook.username, hook.elo ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous'],
         [hook.elo || 0, hook.elo || ''],
         [hook.time || 9999, hook.clock ? hook.clock : '∞'],
         [hook.mode, $.trans(hook.mode) + (hook.variant == 'Chess960' ? '<span class="chess960">960</span>' : '')]
       ], function(x) {
-        return '<td data-sort-value="'+x[0]+'">' + x[1] + '</td>';
+        return '<td data-sort-value="' + x[0] + '">' + x[1] + '</td>';
       }).join('') + '</tr>';
     }
 
     $('#hooks_chart').append(
       _.map([1000, 1200, 1300, 1400, 1600, 1800, 2000], function(v) {
-        var b = eloY(v);
+      var b = eloY(v);
       return '<span class="y label" style="bottom:' + (b + 5) + 'px">' + v + '</span>' +
         '<div class="grid horiz" style="height:' + (b + 4) + 'px"></div>';
     }).join('') +
       _.map([1, 2, 3, 5, 7, 10, 15, 20, 30], function(v) {
-        var l = clockX(v * 60);
+      var l = clockX(v * 60);
       return '<span class="x label" style="left:' + l + 'px">' + v + '</span>' +
-        '<div class="grid vert" style="width:' + (l+7) + 'px"></div>';
+        '<div class="grid vert" style="width:' + (l + 7) + 'px"></div>';
     }).join(''));
 
     function confirm960(hook) {
@@ -2469,7 +2467,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       $table.on("sortable.sort", function() {
 
         var $th = $ths.filter('.sorting-desc,.sorting-asc').first();
-        if(!$th.length) return;
+        if (!$th.length) return;
         var th_index = $th.index();
 
         var type = $th.data("sort");
@@ -2500,13 +2498,15 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     });
   };
 
-  // remove deprecated cookies
-  if(!localStorage.getItem('uncook')) {
-    _.each(['wsok', 'surl', 'c960', 'lt', 'lila', 'lila2'], function(name) {
-      document.cookie =  '=;domain=.l.org;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    });
-    localStorage.setItem('uncook', 1);
-  }
+  setTimeout(function() {
+    // remove deprecated cookies
+    if (!localStorage.getItem('uncook')) {
+      _.each(['wsok', 'surl', 'c960', 'lt', 'lila', 'lila2'], function(name) {
+        document.cookie = name + '=;domain=.l.org;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      });
+      localStorage.setItem('uncook', 1);
+    }
+  }, 1000);
 
 })();
 
