@@ -70,8 +70,6 @@ disable init lobby fadeIn
 team search is broken
 ai actor stats
 tight overlap http://minus.com/lmpGwaRY2lfKY
-analysis chat message don't show up http://en.lichess.org/analyse/771bh26g
-localStorage fallback https://github.com/ornicar/lila/issues/29
 
 ---
 

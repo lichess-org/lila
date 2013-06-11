@@ -2378,6 +2378,9 @@ var storage = {
     clearShortcutSquares("A", "1234567");
     var $game = $("#GameBoard");
     var $chat = $("div.lichess_chat").chat({
+      render: function(u, t) {
+        return '<li><span>' + $.userLinkLimit(u, 14) + '</span>' + urlToLink(t) + '</li>';
+      },
       resize: true
     });
     var $watchers = $("div.watchers").watchers();
