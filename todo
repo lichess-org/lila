@@ -65,11 +65,8 @@ show friend games in homepage board
 allow to filter anon
 replace plot with watch plot when game starts
 lobby table sort
-disable unused websocket hijack protection
-disable init lobby fadeIn
 team search is broken
 ai actor stats
-tight overlap http://minus.com/lmpGwaRY2lfKY
 
 ---
 

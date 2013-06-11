@@ -1948,7 +1948,9 @@ var storage = {
       $wrap.find('>.' + tab).fadeIn(500);
       storage.set('lobbytab', tab);
     });
-    $wrap.find('>div.tabs>.' + (storage.get('lobbytab') || 'list')).click();
+    var active = storage.get('lobbytab') || 'list';
+    $wrap.find('>div.tabs>.' + active).addClass('active');
+    $wrap.find('>.' + active).show();
     $wrap.find('a.filter').click(function() {
       var $a = $(this);
       var $div = $wrap.find('#hook_filter');
