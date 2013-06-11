@@ -66,6 +66,7 @@ allow to filter anon
 replace plot with watch plot when game starts
 lobby table sort
 disable unused websocket hijack protection
+disable init lobby fadeIn
 
 ---
 

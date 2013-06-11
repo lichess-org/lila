@@ -31,7 +31,7 @@ final class PostApi(
         topicId = topic.id,
         author = data.author,
         userId = ctx.me map (_.id),
-        ip = ctx.isAnon option ctx.req.remoteAddress,
+        ip = ctx.req.remoteAddress.some,
         text = data.text,
         number = number + 1,
         troll = ctx.troll,
