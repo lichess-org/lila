@@ -2500,6 +2500,14 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     });
   };
 
+  // remove deprecated cookies
+  if(!localStorage.getItem('uncook')) {
+    _.each(['wsok', 'surl', 'c960', 'lt', 'lila', 'lila2'], function(name) {
+      document.cookie =  '=;domain=.l.org;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    });
+    localStorage.setItem('uncook', 1);
+  }
+
 })();
 
 if (/.+\.lichess\.org/.test(document.domain)) {
