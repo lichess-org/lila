@@ -7,8 +7,9 @@ a.forum_feed_link {
 }
 
 .metas .delete,
-.metas .ipban {
+.metas .postip {
   margin-left: 1em;
+  font-size: 0.9em;
 }
 .forum_topics_list .delete {
   margin-right: 1em;

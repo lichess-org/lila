@@ -27,10 +27,8 @@ title = topic.name) {
         @authorLink(post, "author".some)
         @timeago(post.createdAt)
         <a class="anchor" href="@routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage)#@post.number">#@post.number</a>
-        @if(isGranted(_.SuperAdmin)) {
-        @post.ip.map { ip =>
-        <a class="ipban" href="@routes.Mod.ipban(ip)">Ban @ip</a>
-        }
+        @if(isGranted(_.IpBan)) {
+        <span class="postip">@post.ip</span>
         }
         @if(isGrantedMod(categ.slug)) {
         <a class="delete" href="@routes.ForumPost.delete(categ.slug, post.id)">Delete</a>
