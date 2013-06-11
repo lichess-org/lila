@@ -293,13 +293,14 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
           }
         },
         challengeReminder: function(data) {
-          if (!$('div.lichess_overboard.joining').length) {
+          if (!localStorage.getItem('challenge-refused-'+data.id) && !$('div.lichess_overboard.joining').length) {
             $('#challenge_reminder').each(function() {
               clearTimeout($(this).data('timeout'));
               $(this).remove();
             });
             $('div.notifications').append(data.html).find("a.decline").click(function() {
               $.post($(this).attr("href"));
+              localStorage.setItem('challenge-refused-'+data.id, 1)
               $('#challenge_reminder').remove();
               return false;
             });
@@ -663,7 +664,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       return $soundToggle.hasClass("sound_state_on");
     }
 
-    $.playSound = _.throttle(function() {
+    $.playSound = function() {
       if (canPlayAudio && soundEnabled()) {
         var sound = $('#lichess_sound_player').get(0);
         sound.play();
@@ -672,7 +673,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         },
           1000);
       }
-    }, 1500);
+    };
 
     if (canPlayAudio) {
       $('body').append($('<audio id="lichess_sound_player">').attr('src', $('body').attr('data-sound-file')));
