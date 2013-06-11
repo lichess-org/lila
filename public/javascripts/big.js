@@ -365,7 +365,7 @@ var storage = {
       if ($(document.body).width() < 1000) {
         $(document.body).addClass("tight");
         // hack for gecko
-        if ($('body > div.content').offset().top > 50) {
+        if ($('body > div.content').offset().top > 70) {
           $('body > div.content').css('marginTop', '0px');
         }
       } else {

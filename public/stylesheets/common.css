@@ -367,15 +367,18 @@ body > div.content {
   min-height: 590px;
   margin: 30px auto 30px auto;
 }
+body.tight > div.content {
+  width: auto;
+  min-width: 780px;
+  margin-top: 35px;
+}
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   body > div.content {
     margin-top: 40px;
   }
-}
-body.tight > div.content {
-  width: auto;
-  min-width: 780px;
-  margin-top: 20px;
+  body.tight > div.content {
+    margin-top: 45px;
+  }
 }
 #top {
   width: 100%;
