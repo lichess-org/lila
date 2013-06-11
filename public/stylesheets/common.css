@@ -1389,7 +1389,7 @@ div.game_config div.color_submits button.random span {
   left: 0;
   background: #f0f0f0 url(../images/knight2000.png) no-repeat;
   border-radius: 0 5px 5px 5px;
-  overflow: hidden;
+  overflow-y: auto;
 }
 #hooks_wrap > div.tabs {
   position: absolute;
