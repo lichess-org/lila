@@ -66,6 +66,8 @@ show friend games in homepage board
 allow to filter anon
 replace plot with watch plot when game starts
 lobby table sort
+sound when challenged
+disable unused websocket hijack protection
 
 ---
 
