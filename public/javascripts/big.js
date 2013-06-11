@@ -43,7 +43,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     self.averageLag = 0;
     self.debug('Debug is enabled');
     if (self.options.resetUrl || self.options.prodPipe) {
-      localStorage.setItem(self.options.baseUrlKey, null);
+      localStorage.removeItem(self.options.baseUrlKey);
     }
     if (self.options.prodPipe) {
       self.options.baseUrls = ['socket.en.lichess.org'];
@@ -681,7 +681,8 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         var enabled = !soundEnabled();
         $soundToggle.toggleClass('sound_state_on', enabled);
         $.playSound();
-        localStorage.setItem('sound', enabled ? 1 : null);
+        if(enabled) localStorage.setItem('sound', 1);
+        else localStorage.removeItem('sound');
         return false;
       });
       $game && $game.trigger('lichess.audio_ready');
@@ -1477,7 +1478,8 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         var enabled = $toggle.is(':checked');
         self.element.toggleClass('hidden', !enabled);
         self.options.onToggle(enabled);
-        localStorage.setItem('nochat', enabled ? null : 1);
+        if(!enabled) localStorage.setItem('nochat', 1);
+        else localStorage.removeItem('nochat');
       });
       $toggle[0].checked = localStorage.getItem('nochat') != 1;
       if (!$toggle[0].checked) {
