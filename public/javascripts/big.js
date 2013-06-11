@@ -42,8 +42,8 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     self.currentLag = 0;
     self.averageLag = 0;
     self.debug('Debug is enabled');
-    if (self.options.resetCookie || self.options.prodPipe) {
-      $.cookie(self.options.baseUrlCookie, null);
+    if (self.options.resetUrl || self.options.prodPipe) {
+      localStorage.setItem(self.options.baseUrlKey, null);
     }
     if (self.options.prodPipe) {
       self.options.baseUrls = ['socket.en.lichess.org'];
@@ -205,7 +205,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       this.debug('error: ' + e);
       this.baseUrlFail();
       setTimeout(function() {
-        if (!$.cookie("wsok") && $("#websocket-fail").length == 0) {
+        if (!localStorage.getItem("wsok") && $("#websocket-fail").length == 0) {
           $.ajax("/assets/websocket-fail.html", {
             success: function(html) {
               $('body').prepend("<div id='websocket-fail'>" + html + "</div>");
@@ -215,23 +215,23 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       }, 1000);
     },
     onSuccess: function() {
-      $.cookie("wsok", 1);
+      localStorage.setItem("wsok", 1);
       $("#websocket-fail").remove();
     },
     baseUrl: function() {
-      var saved = $.cookie(this.options.baseUrlCookie);
+      var saved = localStorage.getItem(this.options.baseUrlKey);
       if (saved) return saved;
       var picked = this.options.baseUrls[0];
-      $.cookie(this.options.baseUrlCookie, picked);
+      localStorage.setItem(this.options.baseUrlKey, picked);
       return picked;
     },
     baseUrlFail: function() {
-      var saved = $.cookie(this.options.baseUrlCookie);
+      var saved = localStorage.getItem(this.options.baseUrlKey);
       if (saved) {
         var index = (this.options.baseUrls.indexOf(saved) + 1) % this.options.baseUrls.length;
         var next = this.options.baseUrls[index];
         this.debug(saved + ' failed, will try ' + next, true);
-        $.cookie(this.options.baseUrlCookie, next);
+        localStorage.setItem(this.options.baseUrlKey, next);
       }
     },
     pingInterval: function() {
@@ -242,11 +242,6 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
   /////////////
   // ctrl.js //
   /////////////
-
-  $.cookie.defaults = {
-    path: '/',
-    domain: document.domain.replace(/^\w+\.(.+)$/, '$1')
-  };
 
   $.userLink = function(u) {
     return $.userLinkLimit(u, false);
@@ -314,7 +309,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
             $('body').trigger('lichess.content_loaded');
             if (!localStorage.getItem('challenge-' + data.id)) {
               $.playSound();
-              localStorage.setItem('challenge-' + data.id, true)
+              localStorage.setItem('challenge-' + data.id, 1)
             }
           }
         },
@@ -338,12 +333,12 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
             'socket.' + document.domain,
           document.domain + ':' + $('body').data('port')
         ],
-        baseUrlCookie: 'surl',
+        baseUrlKey: 'surl',
         name: "site",
         lagTag: $('#connection_lag'),
         debug: location.search.indexOf('debug-ws') != -1,
         prodPipe: location.search.indexOf('prod-ws') != -1,
-        resetCookie: location.search.indexOf('reset-ws') != -1
+        resetUrl: location.search.indexOf('reset-ws') != -1
       }
     },
     onProduction: /.+\.lichess\.org/.test(document.domain)
@@ -1950,9 +1945,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       $(this).siblings().removeClass('active').end().addClass('active');
       $wrap.find('>.tab:not(.' + tab + ')').fadeOut(500);
       $wrap.find('>.' + tab).fadeIn(500);
-      $.cookie('lt', tab);
+      localStorage.setItem('lobbytab', tab);
     });
-    $wrap.find('>div.tabs>.' + ($.cookie('lt') || 'list')).click();
+    $wrap.find('>div.tabs>.' + (localStorage.getItem('lobbytab') || 'list')).click();
     $wrap.find('a.filter').click(function() {
       var $a = $(this);
       var $div = $wrap.find('#hook_filter');
@@ -2254,9 +2249,9 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
     }).join(''));
 
     function confirm960(hook) {
-      if (hook.variant == "Chess960" && !$.cookie('c960')) {
+      if (hook.variant == "Chess960" && !localStorage.getItem('c960')) {
         var c = confirm("This is a Chess960 game!\n\nThe starting position of the pieces on the players' home ranks is randomized.\nRead more: http://wikipedia.org/wiki/Chess960\n\nDo you want to play Chess960?");
-        if (c) $.cookie('c960', 1);
+        if (c) localStorage.setItem('c960', 1);
         return c;
       } else return true;
     }
