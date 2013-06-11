@@ -35,7 +35,7 @@ themepicker: Boolean = false)(body: Html)(implicit ctx: Context)
     data-accept-languages="@acceptLanguages">
     <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
     <div id="top" class="clearfix">
-      <a href="@routes.Setting.set("sound")" title="@trans.toggleSound()" id="sound_state" class="available @soundString">
+      <a title="@trans.toggleSound()" id="sound_state" class="available">
         <span></span>
       </a>
       <div class="lichess_language">
