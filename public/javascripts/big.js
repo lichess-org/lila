@@ -664,7 +664,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
       return $soundToggle.hasClass("sound_state_on");
     }
 
-    $.playSound = function() {
+    $.playSound = _.throttle(function() {
       if (canPlayAudio && soundEnabled()) {
         var sound = $('#lichess_sound_player').get(0);
         sound.play();
@@ -673,7 +673,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         },
           1000);
       }
-    }
+    }, 1500);
 
     if (canPlayAudio) {
       $('body').append($('<audio id="lichess_sound_player">').attr('src', $('body').attr('data-sound-file')));
