@@ -657,7 +657,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 
     var elem = document.createElement('audio');
     var canPlayAudio = !! elem.canPlayType && elem.canPlayType('audio/ogg; codecs="vorbis"');
-    var $soundToggle = $('#sound_state');
+    var $soundToggle = $('#sound_state').toggleClass('sound_state_on', localStorage.getItem('sound') == 1);
 
     function soundEnabled() {
       return $soundToggle.hasClass("sound_state_on");
@@ -680,9 +680,7 @@ var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
         var enabled = !soundEnabled();
         $soundToggle.toggleClass('sound_state_on', enabled);
         $.playSound();
-        $.post($soundToggle.attr('href'), {
-          sound: enabled
-        });
+        localStorage.setItem('sound', enabled ? 1 : null);
         return false;
       });
       $game && $game.trigger('lichess.audio_ready');

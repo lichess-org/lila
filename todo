@@ -71,4 +71,7 @@ disable unused websocket hijack protection
 
 ---
 
+PRE DEPLOY
+mongo lichess bin/mongodb/clean-settings.js
+
 hope for https://github.com/zenexity/ReactiveMongo/issues/72

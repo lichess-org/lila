@@ -9,14 +9,6 @@ object DataForm {
     "bio" -> text(maxLength = 400)
   ))
 
-  val chat = Form(single(
-    "chat" -> jsBoolean
-  ))
-
-  val sound = Form(single(
-    "sound" -> jsBoolean
-  ))
-
   val theme = Form(single(
     "theme" -> nonEmptyText.verifying(Theme contains _)
   ))
@@ -31,6 +23,7 @@ object DataForm {
       newPasswd2: String) {
     def samePasswords = newPasswd1 == newPasswd2
   }
+
   val passwd = Form(mapping(
     "oldPasswd" -> nonEmptyText,
     "newPasswd1" -> nonEmptyText(minLength = 2),

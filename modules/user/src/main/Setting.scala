@@ -9,9 +9,6 @@ final class Setting(ctx: Context) {
   def theme = Theme(get("theme"))
   def theme(value: String) = set("theme", Theme(value).toString)
 
-  def sound = get("sound", "false").parseBoolean | false
-  def sound(value: String) = set("sound", value)
-
   def bg = get("bg", "light")
   def bg(value: String) = set("bg", value)
 
