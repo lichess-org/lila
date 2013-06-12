@@ -41,9 +41,7 @@ private[ai] final class Queue(config: Config) extends Actor {
 
     case req: AnalReq ⇒ {
       implicit val timeout = makeTimeout(config.analyseMoveTime + 1.second)
-      blockAndMeasure {
-        (actor ? req) mapTo manifest[Valid[Int ⇒ Info]] map sender.!
-      }
+      (actor ? req) mapTo manifest[Valid[Int ⇒ Info]] map sender.! await timeout
     }
 
     case FullAnalReq(moveString, fen) ⇒ {
