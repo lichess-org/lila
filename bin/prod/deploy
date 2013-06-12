@@ -6,26 +6,27 @@ fail () {
   exit 1
 }
 
-if [ -z $1 ]; then
+mode=$1
+if [ -z $mode ]; then
   fail
-elif [ $1 = "main" ]; then
+elif [ $mode = "main" ]; then
   REMOTE="hollie"
   REMOTE_DIR="/home/lila4"
-elif [ $1 = "ai" ]; then
+elif [ $mode = "ai" ]; then
   REMOTE="paul"
   REMOTE_DIR="/home/lila4"
-elif [ $1 = "local" ]; then
+elif [ $mode = "local" ]; then
   REMOTE="localhost"
   REMOTE_DIR="/tmp/lila4"
 else
   fail
 fi
 
-lilalog "Deploy to $1 server $REMOTE:$REMOTE_DIR"
+lilalog "Deploy to $mode server $REMOTE:$REMOTE_DIR"
 
 APP_NAME=lila-4.0
 
-if [ $1 != "ai" ]; then
+if [ $mode != "ai" ]; then
   bin/closure
 fi
 
@@ -54,8 +55,10 @@ RSYNC_OPTIONS=" \
 lilalog "Rsync scripts, binaries and assets"
 rsync $RSYNC_OPTIONS bin target public $REMOTE:$REMOTE_DIR
 
-lilalog "Notify users"
-bin/cli-prod deploy
+if [ $mode != "ai" ]; then
+  lilalog "Notify users"
+  bin/cli-prod deploy
+fi
 
 lilalog "Restart lila4"
 ssh $REMOTE "service lila4 restart"
