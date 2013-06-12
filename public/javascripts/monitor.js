@@ -152,8 +152,8 @@
     });
 
     app.ai = new SpeedOMeter({
-      name : "AI PING",
-      maxVal : 1000,
+      name : "AI LOAD",
+      maxVal : 100,
       container : container
     });
 
