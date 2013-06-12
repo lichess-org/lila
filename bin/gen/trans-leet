@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+include FileUtils
+
+lila_dir = pwd()
+lila_trans_dir = lila_dir + '/conf'
+
+puts 'Translate the site to 1337'
+
+file = lila_trans_dir + '/messages'
+dest = lila_trans_dir + '/messages.le'
+lines = File.open(file).readlines
+
+leet = lines.map { |l| 
+  key = l.gsub(/(\w+)=.+/, '\1').strip
+  en = l.gsub(/\w+=(.+)/, '\1').strip.gsub(/\%s/,'%%')
+  command = "php /home/thib/leet/index.php \"#{en}\""
+  res = %x[ #{command} ].gsub(/\%\%/,'%s')
+  puts res
+  key + '=' + res
+}
+
+File.open(dest, 'w') { |f| f.puts leet }
