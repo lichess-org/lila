@@ -151,7 +151,6 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Actor {
 
   def showSpectators(users: List[String], nbAnons: Int) = nbAnons match {
     case 0 ⇒ users
-    case 1 ⇒ users :+ "Anonymous"
     case x ⇒ users :+ ("Anonymous (%d)" format x)
   }
 
