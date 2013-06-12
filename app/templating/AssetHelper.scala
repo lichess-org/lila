@@ -7,7 +7,7 @@ import controllers.routes
 
 trait AssetHelper {
 
-  val assetVersion = 67
+  val assetVersion = 68
 
   private val domain = lila.api.Env.current.Net.AssetDomain
 
@@ -30,8 +30,8 @@ trait AssetHelper {
 
   private def js(path: String) = jsAt(routes.Assets.at(path).toString)
 
-  def jsAt(path: String) = Html {
-    """<script src="%s?v=%d"></script>""".format(url(path), assetVersion)
+  def jsAt(path: String, static: Boolean = true) = Html {
+    """<script src="%s?v=%d"></script>""".format(static.fold(url(path), path), assetVersion)
   }
 
   def embedJs(js: String): Html = Html("""<script type="text/javascript">
