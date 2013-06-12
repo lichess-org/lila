@@ -40,7 +40,7 @@ final class Client(
 
     def receive = {
       case IsHealthy ⇒ sender ! load.isDefined
-      case GetLoad   ⇒ load
+      case GetLoad   ⇒ sender ! load
       case CalculateLoad ⇒ try {
         load = fetchLoad await makeTimeout.short
       }
