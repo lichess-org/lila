@@ -95,6 +95,7 @@ object LangList {
     "lb" -> "Lëtzebuergesch",
     "lg" -> "Luganda",
     "la" -> "lingua latīna",
+    "le" -> "1337",
     "li" -> "Limburgs",
     "ln" -> "Lingála",
     "lo" -> "ພາສາລາວ",
