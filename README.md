@@ -25,7 +25,7 @@ Installation
 
 This is full-stack application, not a library, and it may not 
 be straightforward to get it fully running.
-I assume you run a Unix with mongodb.
+I assume you run a Unix with nginx, mongodb, elasticsearch and stockfish installed.
 
 > Some steps of the installation will trigger a download of the galaxy. It will take ages.
 
