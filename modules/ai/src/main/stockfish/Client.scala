@@ -13,6 +13,7 @@ import actorApi.monitor._
 import chess.format.UciMove
 import chess.{ Game, Move }
 import lila.analyse.AnalysisMaker
+import lila.hub.actorApi.ai.GetLoad
 
 final class Client(
     val playUrl: String,
@@ -65,6 +66,6 @@ final class Client(
       "initialFen" -> initialFen
     ).get() map (_.body)
 
-  private def fetchLoad: Fu[Option[Int]] = 
+  private def fetchLoad: Fu[Option[Int]] =
     WS.url(loadUrl).get() map (_.body) map parseIntOption
 }

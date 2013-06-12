@@ -6,7 +6,8 @@ import akka.dispatch.PriorityGenerator
 import akka.dispatch.UnboundedPriorityMailbox
 import com.typesafe.config.{ Config ⇒ TypesafeConfig }
 
-import actorApi._, monitor._
+import actorApi._
+import lila.hub.actorApi.ai.GetLoad
 
 // We inherit, in this case, from UnboundedPriorityMailbox
 // and seed it with the priority generator

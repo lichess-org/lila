@@ -13,6 +13,7 @@ import chess.format.Forsyth
 import chess.format.UciDump
 import chess.Variant.Chess960
 import lila.analyse.AnalysisMaker
+import lila.hub.actorApi.ai.GetLoad
 
 private[ai] final class Server(queue: ActorRef, config: Config) {
 
@@ -34,7 +35,7 @@ private[ai] final class Server(queue: ActorRef, config: Config) {
 
   def load: Fu[Int] = {
     import makeTimeout.short
-    queue ? monitor.GetLoad mapTo manifest[Int]
+    queue ? GetLoad mapTo manifest[Int]
   }
 
   private def chess960Fen(fen: String) = (Forsyth << fen).fold(fen) { situation ⇒

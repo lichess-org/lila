@@ -9,6 +9,7 @@ import akka.util.Timeout
 
 import actorApi._, monitor._
 import lila.analyse.{ AnalysisMaker, Info }
+import lila.hub.actorApi.ai.GetLoad
 
 private[ai] final class Queue(config: Config) extends Actor {
 

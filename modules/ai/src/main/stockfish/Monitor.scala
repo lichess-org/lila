@@ -7,6 +7,7 @@ import akka.actor._
 import akka.pattern.{ ask, pipe }
 
 import actorApi.monitor._
+import lila.hub.actorApi.ai.GetLoad
 import makeTimeout.short
 
 private[ai] final class Monitor(queue: ActorRef) extends Actor {
