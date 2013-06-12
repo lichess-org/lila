@@ -17,6 +17,7 @@ final class Env(
     val Domain = config getString "net.domain"
     val Protocol = config getString "net.protocol"
     val BaseUrl = config getString "net.base_url"
+    val AssetDomain = config getString "net.asset_domain"
   }
 
   lazy val cli = new Cli(hub)
