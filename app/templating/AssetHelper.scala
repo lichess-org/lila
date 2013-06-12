@@ -11,7 +11,7 @@ trait AssetHelper {
 
   private val domain = lila.api.Env.current.Net.AssetDomain
 
-  private def url(path: String) = "http://%s/%s".format(domain, path)
+  private def url(path: String) = "http://" + domain + path
 
   def cssTag(name: String) = css("stylesheets/" + name)
 
