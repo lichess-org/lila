@@ -67,14 +67,13 @@ private[monitor] final class Reporting(
       val before = nowMillis
       MongoStatus(db.db)(mongoStatus) zip
         (hub.actor.ai ? lila.hub.actorApi.ai.GetLoad).mapTo[Option[Int]] zip
-        List((hub.socket.site ? GetNbMembers),
-          (hub.socket.lobby ? GetNbMembers),
-          (hub.socket.round ? Size),
-          (hub.socket.round ? GetNbMembers),
-          (hub.actor.game ? lila.hub.actorApi.game.Count)
-        ).map(_.mapTo[Int]).sequenceFu onComplete {
+        (hub.socket.site ? GetNbMembers).mapTo[Int] zip
+        (hub.socket.lobby ? GetNbMembers).mapTo[Int] zip
+        (hub.socket.round ? Size).mapTo[Int] zip
+        (hub.socket.round ? GetNbMembers).mapTo[Int] zip
+        (hub.actor.game ? lila.hub.actorApi.game.Count).mapTo[Int] onComplete {
             case Failure(e) ⇒ logwarn("[reporting] " + e.getMessage)
-            case Success(((mongoS, aiL), List(siteMembers, lobbyMembers, gameHubs, gameMembers, games))) ⇒ {
+            case Success(((((((mongoS, aiL), siteMembers), lobbyMembers), gameHubs), gameMembers), games)) ⇒ {
               latency = (nowMillis - before).toInt
               site = SiteSocket(siteMembers)
               lobby = LobbySocket(lobbyMembers)
