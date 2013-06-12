@@ -39,9 +39,17 @@ final class Client(
     private var load = none[Int]
 
     def receive = {
-      case IsHealthy     ⇒ sender ! load.isDefined
-      case GetLoad       ⇒ load
-      case CalculateLoad ⇒ fetchLoad foreach { l ⇒ load = l }
+      case IsHealthy ⇒ sender ! load.isDefined
+      case GetLoad   ⇒ load
+      case CalculateLoad ⇒ try {
+        load = fetchLoad await makeTimeout.short
+      }
+      catch {
+        case e: Exception ⇒ {
+          logwarn("[stockfish client] " + e.getMessage)
+          load = none
+        }
+      }
     }
   }))
   system.scheduler.schedule(1.millis, 1.second, actor, CalculateLoad)
