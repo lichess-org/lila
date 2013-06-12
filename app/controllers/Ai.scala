@@ -1,9 +1,9 @@
 package controllers
 
+import play.api.mvc._
+
 import lila.app._
 import lila.user.Context
-
-import play.api.mvc._
 
 object Ai extends LilaController {
 
@@ -38,6 +38,12 @@ object Ai extends LilaController {
           },
           analyse ⇒ Ok(analyse("fakeid").encodeInfos)
         )
+    }
+  }
+
+  def loadStockfish = Action { req ⇒
+    IfServer {
+      stockfishServer.load map { Ok(_) }
     }
   }
 

@@ -23,7 +23,7 @@ trait PackageObject
 
   def !![A](msg: String): Valid[A] = msg.failNel[A]
 
-  def nowMillis: Double = System.currentTimeMillis
+  def nowMillis: Long = System.currentTimeMillis
   def nowSeconds: Int = (nowMillis / 1000).toInt
 
   lazy val logger = play.api.Logger("lila")
