@@ -153,7 +153,7 @@
 
     app.ai = new SpeedOMeter({
       name : "AI LOAD",
-      maxVal : 100,
+      maxVal : 90,
       container : container
     });
 
