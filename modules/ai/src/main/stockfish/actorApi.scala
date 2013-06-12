@@ -4,6 +4,13 @@ package actorApi
 
 import akka.actor.ActorRef
 
+package monitor {
+  case class AddTime(time: Int)
+  case object GetLoad
+  case object CalculateLoad
+  case object IsHealthy
+}
+
 sealed trait State
 case object Starting extends State
 case object Idle extends State

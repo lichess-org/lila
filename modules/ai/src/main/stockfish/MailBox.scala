@@ -6,13 +6,14 @@ import akka.dispatch.PriorityGenerator
 import akka.dispatch.UnboundedPriorityMailbox
 import com.typesafe.config.{ Config ⇒ TypesafeConfig }
 
-import actorApi._
+import actorApi._, monitor._
 
 // We inherit, in this case, from UnboundedPriorityMailbox
 // and seed it with the priority generator
 final class MailBox(settings: ActorSystem.Settings, config: TypesafeConfig)
   extends UnboundedPriorityMailbox(PriorityGenerator {
+    case GetLoad              ⇒ 0
     case PlayReq(_, _, level) ⇒ level
-    case _: AnalReq ⇒ 10
-    case _          ⇒ 20
+    case _: AnalReq           ⇒ 10
+    case _                    ⇒ 20
   })

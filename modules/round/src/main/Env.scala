@@ -16,7 +16,7 @@ final class Env(
     flood: lila.security.Flood,
     db: lila.db.Env,
     hub: lila.hub.Env,
-    ai: () ⇒ lila.ai.Ai,
+    ai: () ⇒ Fu[lila.ai.Ai],
     getUsername: String ⇒ Fu[Option[String]],
     i18nKeys: lila.i18n.I18nKeys,
     scheduler: lila.common.Scheduler) {

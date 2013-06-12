@@ -11,7 +11,7 @@ final class Env(
     db: lila.db.Env,
     hub: lila.hub.Env,
     messenger: lila.round.Messenger,
-    ai: () ⇒ lila.ai.Ai,
+    ai: () ⇒ Fu[lila.ai.Ai],
     system: ActorSystem) {
 
   private val FriendMemoTtl = config duration "friend.memo.ttl"

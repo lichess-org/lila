@@ -5,26 +5,44 @@ import scala.concurrent.duration._
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
+import akka.util.Timeout
 
-import actorApi._
+import actorApi._, monitor._
 import lila.analyse.{ AnalysisMaker, Info }
 
 private[ai] final class Queue(config: Config) extends Actor {
 
   private val process = Process(config.execPath, "stockfish") _
   private val actor = context.actorOf(Props(new ActorFSM(process, config)))
+  private val monitor = context.actorOf(Props(new Monitor(self)))
   private var actorReady = false
+
+  private def blockAndMeasure[A](fa: Fu[A])(implicit timeout: Timeout): A = {
+    val start = nowMillis
+    val result = fa await timeout
+    monitor ! AddTime((nowMillis - start).toInt)
+    result
+  }
 
   def receive = {
 
+    case GetLoad ⇒ {
+      import makeTimeout.short
+      monitor ? GetLoad pipeTo sender
+    }
+
     case req: PlayReq ⇒ {
-      implicit def timeout = makeTimeout((config moveTime req.level).millis + 1.second)
-      actor ? req mapTo manifest[Valid[String]] map sender.! await timeout
+      implicit val timeout = makeTimeout((config moveTime req.level).millis + 1.second)
+      blockAndMeasure {
+        actor ? req mapTo manifest[Valid[String]] map sender.!
+      }
     }
 
     case req: AnalReq ⇒ {
-      implicit def timeout = makeTimeout(config.analyseMoveTime + 1.second)
-      (actor ? req) mapTo manifest[Valid[Int ⇒ Info]] map sender.! await timeout
+      implicit val timeout = makeTimeout(config.analyseMoveTime + 1.second)
+      blockAndMeasure {
+        (actor ? req) mapTo manifest[Valid[Int ⇒ Info]] map sender.!
+      }
     }
 
     case FullAnalReq(moveString, fen) ⇒ {

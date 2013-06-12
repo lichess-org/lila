@@ -8,8 +8,7 @@ import lila.common.PimpedConfig._
 
 final class Env(
     config: Config,
-    system: ActorSystem,
-    scheduler: lila.common.Scheduler) {
+    system: ActorSystem) {
 
   private val settings = new {
     val EngineName = config getString "engine"
@@ -17,6 +16,7 @@ final class Env(
     val IsClient = config getBoolean "client"
     val StockfishPlayUrl = config getString "stockfish.play.url"
     val StockfishAnalyseUrl = config getString "stockfish.analyse.url"
+    val StockfishLoadUrl = config getString "stockfish.load.url"
     val StockfishQueueName = config getString "stockfish.queue.name"
     val StockfishQueueDispatcher = config getString "stockfish.queue.dispatcher"
     val ActorName = config getString "actor.name"
@@ -33,42 +33,29 @@ final class Env(
     analyseTimeout = config duration "stockfish.analyse.timeout",
     debug = config getBoolean "stockfish.debug")
 
-  val ai: () ⇒ Ai = () ⇒ (EngineName, IsClient) match {
+  def ai: () ⇒ Fu[Ai] = () ⇒ (EngineName, IsClient) match {
     case ("stockfish", true)  ⇒ stockfishClient or stockfishAi
-    case ("stockfish", false) ⇒ stockfishAi
-    case _                    ⇒ stupidAi
+    case ("stockfish", false) ⇒ fuccess(stockfishAi)
+    case _                    ⇒ fuccess(stupidAi)
   }
-
-  def clientDiagnose { client foreach (_.diagnose) }
-
-  def clientPing = client flatMap (_.currentPing)
 
   def isServer = IsServer
 
   // api actor
   system.actorOf(Props(new Actor {
     def receive = {
-      case lila.hub.actorApi.ai.Ping ⇒ sender ! clientPing
       case lila.hub.actorApi.ai.Analyse(id, pgn, fen) ⇒
-        ai().analyse(pgn, fen) map { _(id) } pipeTo sender
+        ai() flatMap { _.analyse(pgn, fen) } map { _(id) } pipeTo sender
     }
   }), name = ActorName)
-
-  {
-    import scala.concurrent.duration._
-
-    scheduler.effect(10 seconds, "ai: diagnose") {
-      clientDiagnose
-    }
-
-    scheduler.once(10 millis) { clientDiagnose }
-  }
 
   private lazy val stockfishAi = new stockfish.Ai(stockfishServer)
 
   private lazy val stockfishClient = new stockfish.Client(
     playUrl = StockfishPlayUrl,
-    analyseUrl = StockfishAnalyseUrl)
+    analyseUrl = StockfishAnalyseUrl,
+    loadUrl = StockfishLoadUrl,
+    system = system)
 
   lazy val stockfishServer = new stockfish.Server(
     queue = stockfishQueue,
@@ -90,6 +77,5 @@ object Env {
 
   lazy val current = "[boot] ai" describes new Env(
     config = lila.common.PlayApp loadConfig "ai",
-    system = lila.common.PlayApp.system,
-    scheduler = lila.common.PlayApp.scheduler)
+    system = lila.common.PlayApp.system)
 }

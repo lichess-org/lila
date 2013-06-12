@@ -16,6 +16,8 @@ final class Ai(server: Server) extends lila.ai.Ai {
   def analyse(pgn: String, initialFen: Option[String]): Fu[AnalysisMaker] =
     server.analyse(pgn, initialFen)
 
+  def load: Fu[Option[Int]] = server.load map(_.some)
+
   private def withValidSituation[A](game: Game)(op: ⇒ Fu[A]): Fu[A] =
     if (game.situation playable true) op
     else fufail("[ai stockfish] invalid game situation: " + game.situation)

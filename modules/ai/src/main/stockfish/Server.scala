@@ -32,6 +32,11 @@ private[ai] final class Server(queue: ActorRef, config: Config) {
     }
   }
 
+  def load: Fu[Int] = {
+    import makeTimeout.short
+    queue ? monitor.GetLoad mapTo manifest[Int]
+  }
+
   private def chess960Fen(fen: String) = (Forsyth << fen).fold(fen) { situation ⇒
     fen.replace("KQkq", situation.board.pieces.toList filter {
       case (_, piece) ⇒ piece is chess.Rook

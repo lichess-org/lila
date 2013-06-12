@@ -13,4 +13,6 @@ private[ai] final class StupidAi extends Ai {
 
   def analyse(pgn: String, initialFen: Option[String]) =
     throw new RuntimeException("Stupid analysis is not implemented")
+
+  def load = fuccess(0.some)
 }
