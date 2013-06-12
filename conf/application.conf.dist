@@ -1,8 +1,11 @@
 include "base"
 
+# Use l.org as local development domain
 net {
-  domain = "lichess.org"
+  domain = "l.org"
+  asset_domain = "static.l.org"
 }
+# Use local artificial intelligence 
 ai {
   server = false
   client = false
