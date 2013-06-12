@@ -154,7 +154,7 @@
     app.ai = new SpeedOMeter({
       name : "AI LOAD",
       maxVal : 100,
-      threshold: 0.5
+      threshold: 0.5,
       container : container
     });
 
