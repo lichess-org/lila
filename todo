@@ -65,6 +65,7 @@ show friend games in homepage board
 allow to filter anon
 replace plot with watch plot when game starts
 team search is broken
+serve files from static (cookie-less?) domain https://github.com/ornicar/lila/issues/30
 
 ---
 

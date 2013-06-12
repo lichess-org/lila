@@ -54,8 +54,8 @@ themepicker = true) {
       @analysis.filter(_.done).map { a =>
       @for((color, pairs) <- a.summary) {
       <div class="user_link @color.name">
-        @for((sev, nb) <- pairs) {
-        @nagName(sev.nag): @nb
+        @for((nag, nb) <- pairs) {
+        @nagName(nag): @nb
         }
       </div>
       }

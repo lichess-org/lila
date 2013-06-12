@@ -1,6 +1,7 @@
 package lila.analyse
 
 import chess.Color
+import chess.format.Nag
 
 case class Analysis(
     id: String,
@@ -24,10 +25,10 @@ case class Analysis(
 
   def encodeInfos = infos map (_.encode) mkString Analysis.separator
 
-  def summary: List[(Color, List[(CpSeverity, Int)])] = Color.all map { color ⇒
-    color -> (CpSeverity.all map { sev ⇒
-      sev -> (advices count { adv ⇒
-        adv.color == color && adv.severity == sev
+  def summary: List[(Color, List[(Nag, Int)])] = Color.all map { color ⇒
+    color -> (Nag.all map { nag ⇒
+      nag -> (advices count { adv ⇒
+        adv.color == color && adv.nag == nag
       })
     })
   }
