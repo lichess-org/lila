@@ -68,7 +68,12 @@ private[stockfish] final class ActorFSM(
     }
   }
 
+  override def preStart() {
+    loginfo("[stockfish] start FSM")
+  }
+
   override def postStop() {
+    loginfo("[stockfish] destroy FSM")
     process.destroy()
   }
 }
