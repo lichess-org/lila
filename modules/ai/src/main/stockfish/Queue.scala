@@ -2,6 +2,7 @@ package lila.ai
 package stockfish
 
 import scala.concurrent.duration._
+import scala.concurrent.Future
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
@@ -46,12 +47,14 @@ private[ai] final class Queue(config: Config) extends Actor {
 
     case FullAnalReq(moveString, fen) ⇒ {
       implicit def timeout = makeTimeout(config.analyseTimeout)
+      type Result = Valid[Int ⇒ Info]
       val moves = moveString.split(' ').toList
-      ((1 to moves.size - 1).toList map moves.take map { serie ⇒
-        self ? AnalReq(serie.init mkString " ", serie.last, fen)
-      }).sequence addFailureEffect {
+      val futures = (1 to moves.size - 1).toStream map moves.take map { serie ⇒
+        self ? AnalReq(serie.init mkString " ", serie.last, fen) mapTo manifest[Result]
+      }
+      lila.common.Future.lazyFold(futures)(List[Result]())(_ :+ _) addFailureEffect {
         case e ⇒ sender ! Status.Failure(e)
-      } mapTo manifest[List[Valid[Int ⇒ Info]]] map {
+      } map {
         _.sequence map { infos ⇒
           AnalysisMaker(infos.zipWithIndex map (x ⇒ x._1 -> (x._2 + 1)) map {
             case (info, turn) ⇒ (turn % 2 == 1).fold(

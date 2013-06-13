@@ -54,7 +54,7 @@ private[stockfish] final class ActorFSM(
   }
   whenUnhandled {
     case Event(req: Req, _) ⇒ {
-      logerr("[ai] stockfish FSM unhandled request " + req)
+      logerr("[stockfish] FSM unhandled request " + req)
       stay
     }
     case Event(Out(t), _) ⇒ stay
