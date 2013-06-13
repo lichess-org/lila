@@ -62,10 +62,12 @@ IE10 no sound toggle http://en.lichess.org/forum/lichess-feedback/notification-o
 filter current games for watching http://en.lichess.org/forum/lichess-feedback/viewing-current-games-suggestion#2
 second realtime board on homepage (right)
 show friend games in homepage board
-allow to filter anon
 replace plot with watch plot when game starts
 team search is broken
 liquid UI for large screens http://fr.lichess.org/forum/lichess-feedback/hi-res#5
+allow to filter anon when creating hook
+idle slow down - people stay connected all night long
+lobby too scrollable on chrome/ubuntu http://imgur.com/nZWXv96
 
 ---
 
