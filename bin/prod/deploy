@@ -43,18 +43,21 @@ RSYNC_OPTIONS=" \
   --progress \
   --compress \
   --checksum \
+  --verbose \
   --exclude application.conf \
   --exclude logs \
   --exclude RUNNING_PID \
-  --exclude bin/.translate_version
-  --exclude target/resolution-cache
-  --exclude target/native_libraries
-  --exclude target/scala-*
-  --exclude target/.history
+  --exclude bin/.translate_version \
+  --exclude target/resolution-cache \
+  --exclude target/native_libraries \
+  --exclude target/scala-* \
+  --exclude target/.history \
   --exclude target/streams";
 
 lilalog "Rsync scripts, binaries and assets"
-rsync $RSYNC_OPTIONS bin target public $REMOTE:$REMOTE_DIR
+rsync_command="rsync $RSYNC_OPTIONS bin target public $REMOTE:$REMOTE_DIR"
+echo "$rsync_command"
+$rsync_command
 
 if [ $mode != "ai" ]; then
   lilalog "Notify users"
