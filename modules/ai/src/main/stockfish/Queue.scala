@@ -12,7 +12,7 @@ import actorApi._, monitor._
 import lila.analyse.{ AnalysisMaker, Info }
 import lila.hub.actorApi.ai.GetLoad
 
-private[ai] final class Queue(config: Config) extends Actor {
+private[ai] final class Queue(config: Config, system: ActorSystem) extends Actor {
 
   private val process = Process(config.execPath, "stockfish") _
   private val actor = context.actorOf(Props(new ActorFSM(process, config)))
@@ -64,6 +64,13 @@ private[ai] final class Queue(config: Config) extends Actor {
           }, true, none)
         }
       } pipeTo sender
+    }
+  }
+
+  system.scheduler.schedule(1 second, 1 seconds) {
+    import makeTimeout.short
+    self ? GetLoad foreach {
+      case load: Int ⇒ println("[stockfish] load = " + load)
     }
   }
 }
