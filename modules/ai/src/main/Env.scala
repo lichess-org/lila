@@ -63,7 +63,7 @@ final class Env(
     config = stockfishConfig)
 
   private lazy val stockfishQueue = system.actorOf(Props(
-    new stockfish.Queue(stockfishConfig)
+    new stockfish.Queue(stockfishConfig, system)
   ) withDispatcher StockfishQueueDispatcher, name = StockfishQueueName)
 
   private lazy val stupidAi = new StupidAi
