@@ -12,7 +12,7 @@ private[app] final class AiStresser(env: lila.ai.Env, system: ActorSystem) {
 
   def apply {
 
-    (1 to 24) foreach { i ⇒
+    (1 to 12) foreach { i ⇒
       system.scheduler.scheduleOnce((i * 97) millis) {
         play(i % 8 + 1, true)
       }
