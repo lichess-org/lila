@@ -70,6 +70,7 @@ private[ai] final class Queue(config: Config, system: ActorSystem) extends Actor
   system.scheduler.schedule(1 second, 1 seconds) {
     import makeTimeout.short
     self ? GetLoad foreach {
+      case 0         ⇒
       case load: Int ⇒ println("[stockfish] load = " + load)
     }
   }
