@@ -893,6 +893,7 @@ a#sound_state.unavailable {
   border: 1px solid #ccc;
   border-radius: 4px 4px 0 0;
   min-width: 150px;
+  box-shadow: 0 0 7px #d0d0d0;
 }
 #friend_box .title {
   cursor: pointer;
@@ -1056,7 +1057,7 @@ div.engine_warning {
   background: -o-linear-gradient(top, #aaa, #999) repeat scroll 0 0 #999;
 }
 /* standard shadow */
- div.lichess_chat, div.undertable, div.lichess_board_wrap, .button.strong, .button.shadowed, #friend_box, div.content_box, div.undergame_box, div.lichess_goodies div.box, #powerTip {
+ div.lichess_chat, div.undertable, div.lichess_board_wrap, .button.strong, .button.shadowed, div.content_box, div.undergame_box, div.lichess_goodies div.box, #powerTip {
   box-shadow: 0 0 7px #d0d0d0;
   border-radius: 4px;
 }
