@@ -1,7 +1,5 @@
 package lila.common
 
-import scala.concurrent.Future
-
 import com.github.tototoshi.csv.CSVWriter
 import play.api.Play
 import play.api.Play.current
@@ -14,7 +12,7 @@ object CsvServer {
     else {
       val file = getFile(name)
       loginfo("[csv] Export " + file)
-      Future {
+      scala.concurrent.Future {
         val writer = CSVWriter.open(file, "UTF-8")
         val printable = lines.map(_ map (_.toString))
         writer writeAll printable
