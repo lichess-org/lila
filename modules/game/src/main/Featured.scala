@@ -11,7 +11,6 @@ import play.api.templates.Html
 
 import chess.Color
 import lila.db.api._
-import makeTimeout.large
 import tube.gameTube
 
 final class Featured(
@@ -19,37 +18,42 @@ final class Featured(
     rendererActor: lila.hub.ActorLazyRef,
     system: ActorSystem) {
 
-  def one: Future[Option[Game]] = actor ? GetOne mapTo manifest[Option[Game]]
+  def one: Future[Option[Game]] = {
+    implicit def timeout = makeTimeout(2 seconds)
+    (actor ? GetOne mapTo manifest[Option[Game]]) nevermind "[featured] one"
+  }
 
   private val actor = system.actorOf(Props(new Actor {
 
     private var oneId = none[String]
 
     def receive = {
-      case GetOne ⇒ sender ! getOne
+      // this message must block to make the actor wait for the result
+      // before accepting new messages
+      case GetOne ⇒ sender ! getOne.nevermind("[featured] GetOne").await
     }
 
-    // this function must block to make the actor wait for the result
-    // before accepting new messages
-    private def getOne: Option[Game] =
-      oneId flatMap fetch filter valid orElse {
-        feature ~ { newOne ⇒
-          oneId = newOne map (_.id)
-          newOne foreach { game ⇒
-            rendererActor ? actorApi.RenderFeaturedJs(game) onSuccess {
-              case html: Html ⇒ lobbySocket ! actorApi.ChangeFeatured(html)
+    private def getOne: Fu[Option[Game]] = {
+      implicit def timeout = makeTimeout(2 seconds)
+      oneId.pp ?? $find.byId[Game] map (_ filter valid) flatMap {
+        _.fold({
+          feature addEffect { newOne ⇒
+            oneId = newOne map (_.id)
+            newOne foreach { game ⇒
+              rendererActor ? actorApi.RenderFeaturedJs(game) onSuccess {
+                case html: Html ⇒ lobbySocket ! actorApi.ChangeFeatured(html)
+              }
             }
           }
-        }
+        })(game ⇒ fuccess(game.some))
       }
-
-    private def fetch(id: String): Option[Game] = ($find byId id).await
+    }
 
     private def valid(game: Game) = game.isBeingPlayed
 
-    private def feature: Option[Game] = Featured sort {
-      GameRepo.featuredCandidates.await filter valid
-    } headOption
+    private def feature: Fu[Option[Game]] = GameRepo.featuredCandidates map { games ⇒
+      Featured.sort(games filter valid).headOption
+    }
   }))
 }
 
