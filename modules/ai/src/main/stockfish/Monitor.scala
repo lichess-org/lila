@@ -14,7 +14,7 @@ private[ai] final class Monitor(queue: ActorRef) extends Actor {
 
   private var times = Map[Long, Int]()
 
-  private val loadPeriodMillis = 5000
+  private val loadPeriodMillis = 10000
 
   def receive = {
 
