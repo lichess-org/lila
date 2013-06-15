@@ -207,7 +207,7 @@ var storage = {
     },
     disconnect: function() {
       if (this.ws) {
-        this.debug("Disconnect");
+        this.debug("Disconnect", true);
         this.ws.close();
       }
     },
@@ -353,6 +353,7 @@ var storage = {
         resetUrl: location.search.indexOf('reset-ws') != -1
       }
     },
+    idleTime: 20 * 60 * 1000,
     onProduction: /.+\.lichess\.org/.test(document.domain)
   };
   // lichess.socketDefaults.options.debug = !lichess.onProduction;
@@ -471,7 +472,14 @@ var storage = {
       if (lichess.socket == null) {
         lichess.socket = new strongSocket("/socket", 0, lichess.socketDefaults);
       }
-    }, 1000);
+      $(document).idleTimer(lichess.idleTime)
+        .on('idle.idleTimer', function() {
+          lichess.socket.destroy();
+        })
+        .on('active.idleTimer', function() {
+          lichess.socket.connect();
+        });
+    }, 500);
 
     if ($board = $('div.with_marks').orNot()) {
       $.displayBoardMarks($board.parent(), $('#lichess > div.lichess_player_white').length);
