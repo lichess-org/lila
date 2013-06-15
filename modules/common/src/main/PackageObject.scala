@@ -178,7 +178,7 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
     def nevermind: Fu[A] = nevermind("")
 
     private def recoverException(e: Exception, msg: Option[String]) = {
-      logwarn(msg.filter(_.nonEmpty).??(_  + " ") + e.getMessage)
+      logwarn(msg.filter(_.nonEmpty).??(_  + ": ") + e.getMessage)
       ∅[A]
     }
   }
