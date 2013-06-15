@@ -170,11 +170,16 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
 
   implicit final class LilaPimpedFutureZero[A: Zero](fua: Fu[A]) {
 
-    def nevermind = fua recover {
-      case e: lila.common.LilaException ⇒ {
-        logwarn(e.getMessage)
-        ∅[A]
-      }
+    def nevermind(msg: String): Fu[A] = fua recover {
+      case e: lila.common.LilaException             ⇒ recoverException(e, msg.some)
+      case e: java.util.concurrent.TimeoutException ⇒ recoverException(e, msg.some)
+    }
+
+    def nevermind: Fu[A] = nevermind("")
+
+    private def recoverException(e: Exception, msg: Option[String]) = {
+      logwarn(msg.filter(_.nonEmpty).??(_  + " ") + e.getMessage)
+      ∅[A]
     }
   }
 
