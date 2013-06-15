@@ -44,7 +44,6 @@ private[lobby] final class Lobby(
     case Broom ⇒ blocking {
       socket ? GetUids mapTo manifest[Iterable[String]] addEffect { uids ⇒
         (HookRepo openNotInUids uids.toSet) foreach remove
-      } inject {
         HookRepo.cleanupOld foreach remove
       }
     }
