@@ -35,7 +35,7 @@ final class Featured(
 
     private def getOne: Fu[Option[Game]] = {
       implicit def timeout = makeTimeout(2 seconds)
-      oneId.pp ?? $find.byId[Game] map (_ filter valid) flatMap {
+      oneId ?? $find.byId[Game] map (_ filter valid) flatMap {
         _.fold({
           feature addEffect { newOne ⇒
             oneId = newOne map (_.id)
