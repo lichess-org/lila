@@ -1,7 +1,5 @@
 package lila.socket
 
-import scala.concurrent.duration._
-
 import akka.actor.ActorSystem
 import akka.pattern.{ ask, pipe }
 import com.typesafe.config.Config
@@ -16,12 +14,15 @@ final class Env(
     scheduler: lila.common.Scheduler,
     hub: lila.hub.Env) {
 
-  scheduler.effect(4 seconds, "") {
-    hub.socket.hub ! actorApi.Broom
-  }
+  import scala.concurrent.duration._
 
-  scheduler.effect(1 seconds, "") {
-    hub.socket.hub ! GetNbMembers
+  scheduler.once(5 seconds) {
+    scheduler.message(4 seconds) {
+      hub.socket.hub.ref -> actorApi.Broom
+    }
+    scheduler.message(1 seconds) {
+      hub.socket.hub.ref -> GetNbMembers
+    }
   }
 }
 

@@ -47,8 +47,10 @@ final class Env(
   {
     import scala.concurrent.duration._
 
-    scheduler.message(1 seconds) {
-      lobby -> lila.socket.actorApi.Broom
+    scheduler.once(5 seconds) {
+      scheduler.message(1 seconds) {
+        lobby -> lila.socket.actorApi.Broom
+      }
     }
   }
 
