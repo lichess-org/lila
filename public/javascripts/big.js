@@ -2522,16 +2522,6 @@ var storage = {
     });
   };
 
-  setTimeout(function() {
-    // remove deprecated cookies
-    if (!storage.get('uncook2')) {
-      _.each(['wsok', 'surl', 'c960', 'lt', 'lila'], function(name) {
-        document.cookie = name + '=;domain=.lichess.org;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-      });
-      storage.set('uncook2', 1);
-    }
-  }, 1000);
-
 })();
 
 if (/.+\.lichess\.org/.test(document.domain)) {
