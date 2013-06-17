@@ -22,7 +22,8 @@ var storage = {
     withStorage(function(s) { s.removeItem(k); });
   },
   set: function(k, v) {
-    withStorage(function(s) { s.setItem(k, v); });
+    // removing first may help http://stackoverflow.com/questions/2603682/is-anyone-else-receiving-a-quota-exceeded-err-on-their-ipad-when-accessing-local
+    withStorage(function(s) { s.removeItem(k); s.setItem(k, v); });
   }
 };
 
