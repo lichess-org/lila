@@ -6,15 +6,23 @@
 // declare now, populate later in a distinct script.
 var lichess_translations = [];
 var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
+function withStorage(f) {
+  // can throw an exception when storage is full
+  try {
+    return !!window.localStorage ? f(window.localStorage) : null;
+  } catch(e) {
+    console.debug(e);
+  }
+}
 var storage = {
   get: function(k) {
-    return !!window.localStorage ? localStorage.getItem(k) : null;
+    return withStorage(function(s) { return s.getItem(k); });
   },
   remove: function(k) {
-    !!window.localStorage ? localStorage.removeItem(k) : null;
+    withStorage(function(s) { s.removeItem(k); });
   },
   set: function(k, v) {
-    !!window.localStorage ? localStorage.setItem(k, v) : null;
+    withStorage(function(s) { s.setItem(k, v); });
   }
 };
 
