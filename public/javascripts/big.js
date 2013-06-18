@@ -65,7 +65,9 @@ var storage = {
     if (self.options.resetUrl || self.options.prodPipe) {
       storage.remove(self.options.baseUrlKey);
     }
-    if (self.options.prodPipe) {
+    if (window.opera) {
+      self.options.baseUrls = self.options.baseUrls.reverse;
+    } else if (self.options.prodPipe) {
       self.options.baseUrls = ['socket.en.lichess.org'];
     }
     self.connect();
