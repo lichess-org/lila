@@ -1424,8 +1424,11 @@ var storage = {
       var self = this;
       self.$list = self.element.find("div.list");
       self.$title = self.element.find('.title').click(function() {
-        self.$list.toggle(500);
+        self.element.find('.content_wrap').toggle(500, function() {
+          storage.set('friends-hide', $(this).is(':visible') ? 0 : 1);
+        });
       });
+      if (storage.get('friends-hide') == 1) self.$title.click();
       self.$nbOnline = self.$title.find('.online');
       self.$nbTotal = self.$title.find('.total');
       self.$nobody = self.element.find("div.nobody");
