@@ -171,20 +171,16 @@ object UserRepo {
   }
 
   def idsSumToints(ids: Iterable[String]): Fu[Int] = {
-    val command = MapReduce(
-      collectionName = userTube.coll.name,
-      mapFunction = """function() { emit("e", this.toints); }""",
-      reduceFunction = """function(key, values) {
-    var sum = 0;
-    for(var i in values) { sum += values[i]; }
-    return sum;
-  }""",
-      query = Some {
-        JsObjectWriter write Json.obj("_id" -> $in(ids map normalize))
-      }
-    )
-    userTube.coll.db.command(command) map { res ⇒
-      toJSON(res).arr("results").flatMap(_.apply(0) int "value")
+    import reactivemongo.bson._
+    import reactivemongo.core.commands._
+    val command = Aggregate(userTube.coll.name, Seq(
+      Match(BSONDocument("_id" -> BSONDocument("$in" -> ids))),
+      Group(BSONBoolean(true))("toints" -> SumField("toints"))
+    ))
+    userTube.coll.db.command(command) map { stream ⇒
+      stream.toList.headOption flatMap { obj ⇒
+        toJSON(obj).asOpt[JsObject] 
+      } flatMap { _ int "toints" }
     } map (~_)
   }
 
