@@ -7,7 +7,7 @@ import controllers.routes
 
 trait AssetHelper {
 
-  val assetVersion = 71
+  val assetVersion = 72
 
   private val domain = lila.api.Env.current.Net.AssetDomain
 
