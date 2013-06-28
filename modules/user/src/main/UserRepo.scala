@@ -1,16 +1,15 @@
 package lila.user
 
 import com.roundeights.hasher.Implicits._
+import lila.common.PimpedJson._
+import lila.db.api._
+import lila.db.Implicits._
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.libs.json._
 import play.modules.reactivemongo.json.BSONFormats.toJSON
 import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
 import reactivemongo.api._
-
-import lila.common.PimpedJson._
-import lila.db.api._
-import lila.db.Implicits._
 import tube.userTube
 
 object UserRepo {
@@ -156,7 +155,7 @@ object UserRepo {
     $update.fieldUnchecked(id, "seenAt", $date(DateTime.now))
   }
 
-  def idsAverageElo(ids: Iterable[String]): Fu[Int] = {
+  def idsAverageElo(ids: Iterable[String]): Fu[Int] = ids.isEmpty ? fuccess(0) | {
     import reactivemongo.bson._
     import reactivemongo.core.commands._
     val command = Aggregate(userTube.coll.name, Seq(
@@ -165,12 +164,12 @@ object UserRepo {
     ))
     userTube.coll.db.command(command) map { stream ⇒
       stream.toList.headOption flatMap { obj ⇒
-        toJSON(obj).asOpt[JsObject] 
+        toJSON(obj).asOpt[JsObject]
       } flatMap { _ int "elo" }
     } map (~_ / ids.size)
   }
 
-  def idsSumToints(ids: Iterable[String]): Fu[Int] = {
+  def idsSumToints(ids: Iterable[String]): Fu[Int] = ids.isEmpty ? fuccess(0) | {
     import reactivemongo.bson._
     import reactivemongo.core.commands._
     val command = Aggregate(userTube.coll.name, Seq(
@@ -179,7 +178,7 @@ object UserRepo {
     ))
     userTube.coll.db.command(command) map { stream ⇒
       stream.toList.headOption flatMap { obj ⇒
-        toJSON(obj).asOpt[JsObject] 
+        toJSON(obj).asOpt[JsObject]
       } flatMap { _ int "toints" }
     } map (~_)
   }
