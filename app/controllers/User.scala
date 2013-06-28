@@ -1,14 +1,13 @@
 package controllers
 
 import lila.app._
-import views._
-import lila.security.Permission
-import lila.user.{ Context, User ⇒ UserModel, UserRepo }
-import lila.user.tube.userTube
-import lila.db.api.$find
 import lila.common.LilaCookie
-
+import lila.db.api.$find
+import lila.security.Permission
+import lila.user.tube.userTube
+import lila.user.{ Context, User ⇒ UserModel, UserRepo }
 import play.api.mvc._, Results._
+import views._
 
 object User extends LilaController {
 
@@ -127,11 +126,13 @@ object User extends LilaController {
 
   def export(username: String) = Open { implicit ctx ⇒
     OptionFuResult(UserRepo named username) { u ⇒
-      Env.game export u map { Redirect(_) }
+      Env.game export u map { url ⇒
+        Redirect(Env.api.Net.Protocol + Env.api.Net.AssetDomain + url)
+      }
     }
   }
 
-  private def onlineUsers: Fu[List[UserModel]] = 
+  private def onlineUsers: Fu[List[UserModel]] =
     $find byIds env.onlineUserIdMemo.keys map {
       _ sortBy (-_.elo)
     }
