@@ -27,7 +27,7 @@ final class Analyser(ai: lila.hub.ActorLazyRef) {
       }
 
     def doGenerate: Fu[Analysis] =
-      $find.byId[Game](id) zip (PgnRepo getNonEmpty id) flatMap {
+      $find.byId[Game](id) map (_ filter (_.analyzable)) zip (PgnRepo getNonEmpty id) flatMap {
         case (Some(game), Some(pgn)) ⇒ (for {
           _ ← AnalysisRepo.progress(id, userId)
           initialFen ← GameRepo initialFen id
