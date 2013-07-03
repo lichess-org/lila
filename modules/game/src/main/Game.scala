@@ -253,6 +253,8 @@ case class Game(
 
   def finishedOrAborted = finished || aborted
 
+  def analyzable = finished && (source ?? (Source.Position!=))
+
   def winner = players find (_.wins)
 
   def loser = winner map opponent
