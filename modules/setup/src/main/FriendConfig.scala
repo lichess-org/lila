@@ -24,7 +24,7 @@ case class FriendConfig(
       creatorColor = creatorColor,
       mode = mode,
       variant = variant,
-      source = Source.Friend,
+      source = fen.isDefined.fold(Source.Position, Source.Friend),
       pgnImport = None)
   }
 
