@@ -126,8 +126,8 @@
 
     app.dbMemory = new SpeedOMeter({
       name : "DB MEMORY",
-      maxVal : 4096,
-      threshold: 0.8,
+      maxVal : 8192,
+      threshold: 0.9,
       container : container
     });
 
@@ -140,7 +140,7 @@
 
     app.dbQps = new SpeedOMeter({
       name : "DB QPS",
-      maxVal : 1000,
+      maxVal : 2000,
       threshold: 0.8,
       container : container
     });
