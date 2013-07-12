@@ -46,7 +46,7 @@ object Dependencies {
   val reactivemongo = "org.reactivemongo" %% "reactivemongo" % "0.10.1-THIB"
   val playReactivemongo = "org.reactivemongo" %% "play2-reactivemongo" % "0.10-THIB"
   object play {
-    val version = "2.1.2-RC1"
+    val version = "2.1.2"
     val api = "play" %% "play" % version
     val test = "play" %% "play-test" % version
   }
@@ -55,7 +55,7 @@ object Dependencies {
     val agent = "com.typesafe.akka" %% "akka-agent" % version
   }
   object spray {
-    val version = "1.1-M7"
+    val version = "1.2-M8"
     val caching = "io.spray" % "spray-caching" % version
     val util = "io.spray" % "spray-util" % version
   }
