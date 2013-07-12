@@ -227,6 +227,7 @@ addToChrome=Добавить в Chrome
 openTournaments=Открытые турниры
 duration=Длительность
 winner=Победитель
+standing=Позиция
 createANewTournament=Создать новый турнир
 join=Присоединиться
 withdraw=Покинуть
