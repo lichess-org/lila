@@ -15,7 +15,7 @@
       @trans.clickOnTheBoardToMakeYourMove()
       <br /><br />
       <div class="result success">@trans.checkmate()</div>
-      <div class="result failure">@trans.notACheckmate() <button class="button retry">@trans.retry()</button></div>
+      <div class="result failure">@trans.notACheckmate()<br /><button class="button retry">@trans.retry()</button></div>
     </label>
     <input type="hidden" name="@move.name" id="@move.id" value="" />
   </div>

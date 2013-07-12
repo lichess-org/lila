@@ -1,6 +1,6 @@
-@(form: Form[_], key: String, options: Seq[(Any,String)])
+@(form: Form[_], key: String, options: Seq[(Any,String)])(implicit ctx: Context)
 
-@setup.filterRadio(form(key), key, none, Html("All"))
+@setup.filterRadio(form(key), key, none, trans.all())
 @options.map { 
 case (value, text) => {
 @setup.filterRadio(form(key), key, value.toString.some, Html(text))

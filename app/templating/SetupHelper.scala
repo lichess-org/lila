@@ -21,7 +21,13 @@ trait SetupHelper extends scalaz.Booleans { self: I18nHelper ⇒
     translatedVariantChoices(ctx) :+ (Variant.FromPosition.id.toString -> "FEN")
 
   def translatedSpeedChoices(implicit ctx: Context) = Speed.all map { s ⇒
-    s.id.toString -> (s.toString + " - " + s.name.capitalize)
+    s.id.toString -> {
+      (s.range.min, s.range.max) match {
+        case (0, y)            ⇒ s.toString + " - " + trans.lessThanNbMinutes(y/60)
+        case (x, Int.MaxValue) ⇒ trans.unlimited.str()
+        case (x, y)            ⇒ s.toString + " - " + trans.xToYMinutes(x/60, y/60)
+      }
+    }
   }
 
   def eloDiffChoices(elo: Int)(implicit ctx: Context) = FilterConfig.eloDiffs map { diff ⇒

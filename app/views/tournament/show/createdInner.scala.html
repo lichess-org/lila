@@ -7,9 +7,9 @@
       <tr>
         <th class="large">
           @if(tour.readyToStart) {
-          Tournament is starting!
+          @trans.tournamentIsStarting()
           } else {
-          Waiting for @tour.missingPlayers players
+          @trans.waitingForNbPlayers(tour.missingPlayers)
           }
         </th>
         @ctx.me.map { me =>
@@ -21,11 +21,11 @@
           </form>
           }
           <form class="inline" action="@routes.Tournament.withdraw(tour.id)" method="POST">
-            <input type="submit" class="submit button strong" value="Withdraw" />
+            <input type="submit" class="submit button strong" value="@trans.withdraw()" />
           </form>
           } else {
           <form class="inline" action="@routes.Tournament.join(tour.id)" method="POST">
-            <input type="submit" class="submit button strong" value="Join tournament" />
+            <input type="submit" class="submit button strong" value="@trans.join()" />
           </form>
           }
         </th>
@@ -42,4 +42,4 @@
   </table>
 </div>
 <br />
-<div class="content_box_content">@tournament.faq(tour.minPlayers.toString)</div>
+<div class="content_box_content">@tournament.faq(tour.minPlayers.toString, tour.rated.some)</div>

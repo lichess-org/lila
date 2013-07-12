@@ -13,7 +13,7 @@
 }
 
 @tournament.layout(
-title = "Tournaments",
+title = trans.tournaments.str(),
 goodies = goodies.some) {
 <div id="tournament" data-href="@routes.Tournament.homeReload()">
 @tournament.homeInner(createds, starteds, finisheds)

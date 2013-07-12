@@ -6,7 +6,7 @@
 title = "New tournament") {
 <div id="tournament">
   <div class="content_box small_box tournament_box">
-    <h1>New tournament</h1>
+    <h1>@trans.createANewTournament()</h1>
     <form class="plain create content_box_content" action="@routes.Tournament.create" method="POST">
       @form.globalError.map { error =>
       <p class="error">@error.message</p>
@@ -30,7 +30,7 @@ title = "New tournament") {
         </tr>
         <tr>
           <th>
-            <label>Game clock</label>
+            <label>@trans.timeControl()</label>
           </th>
           <td class="inline">
             @base.select(form("clockTime"), config.clockTimeChoices)
@@ -40,7 +40,7 @@ title = "New tournament") {
         </tr>
         <tr>
           <th>
-            <label for="@form("minutes").id">Tournament duration</label>
+            <label for="@form("minutes").id">@trans.duration()</label>
           </th>
           <td>
             @base.select(form("minutes"), config.minuteChoices)
@@ -48,7 +48,7 @@ title = "New tournament") {
         </tr>
         <tr>
           <th>
-            <label for="@form("minPlayers").id">Number of players</label>
+            <label for="@form("minPlayers").id">@trans.chessPlayers()</label>
           </th>
           <td>
             @base.select(form("minPlayers"), config.minPlayerChoices)
@@ -57,9 +57,9 @@ title = "New tournament") {
         <tr>
           <th></th>
           <td>
-            <input type="submit" class="submit" value="Create the tournament" />
+            <input type="submit" class="submit" value="@trans.createANewTournament()" />
             <br /><br />
-            or <a href="@routes.Tournament.home()">cancel</a>
+            <a href="@routes.Tournament.home()">@trans.cancel()</a>
           </td>
         </tr>
       </table>

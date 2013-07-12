@@ -2,24 +2,24 @@
 
 <div class="lichess_goodies">
   <div class="box">
-    @timeago(tour.createdAt)
+    @trans.createdBy(): @userIdLink(tour.createdBy.some, withOnline = false)
     <br />
-    Created by @userIdLink(tour.createdBy.some, withOnline = false)
+    @timeago(tour.createdAt)
     <br /><br />
     <span class="s16 clock">@tour.clock.show</span>,
     @variantName(tour.variant).capitalize, 
     @{ tour.rated.fold(trans.rated(), trans.casual()) }
     <br /><br />
-    Duration: @tour.minutes minutes
+    @trans.duration(): @tour.minutes minutes
     @if(tour.isRunning && (tour isActive ctx.me)) {
     <br /><br />
     <form action="@routes.Tournament.withdraw(tour.id)" method="POST">
-      <input type="submit" class="submit button strong" value="Withdraw" />
+      <input type="submit" class="submit button strong" value="@trans.withdraw()" />
     </form>
     }
     @tour.winner.filter(_ => tour.isFinished).map { winner =>
     <br /><br />
-    Won by @userInfosLink(winner.username, winner.elo.some, withOnline = false)
+    @trans.winner(): @userInfosLink(winner.username, winner.elo.some, withOnline = false)
     }
   </div>
 </div>

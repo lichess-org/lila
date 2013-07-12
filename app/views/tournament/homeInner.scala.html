@@ -1,14 +1,14 @@
 @(createds: List[lila.tournament.Created], starteds: List[lila.tournament.Started], finisheds: List[lila.tournament.Finished])(implicit ctx: Context)
 
 <div class="content_box tournament_box no_padding">
-  <h1>Tournaments</h1>
+  <h1>@trans.tournaments()</h1>
   <table class="slist all_tournaments">
     <thead>
       <tr>
-        <th class="large">Open tournaments</th>
+        <th class="large">@trans.openTournaments()</th>
         <th>@trans.mode()</th>
         <th>@trans.timeControl()</th>
-        <th colspan="2">Players</th>
+        <th colspan="2">@trans.chessPlayers()</th>
       </tr>
     </thead>
     <tbody>
@@ -41,7 +41,7 @@
       @if(ctx.isAuth) {
       <tr class="create">
         <td colspan="5">
-          <a href="@routes.Tournament.form()" class="action">Create a new tournament</a>
+          <a href="@routes.Tournament.form()" class="action">@trans.createANewTournament()</a>
         </td>
       </tr>
       }
@@ -49,10 +49,10 @@
     @if(starteds.nonEmpty) {
     <thead>
       <tr>
-        <th class="large">Now Playing</th>
+        <th class="large">@trans.playingRightNow()</th>
         <th>@trans.mode()</th>
         <th>@trans.timeControl()</th>
-        <th>Players</th>
+        <th>@trans.chessPlayers()</th>
         <th>Leader</th>
       </tr>
     </thead>
@@ -80,11 +80,11 @@
     }
     <thead>
       <tr>
-        <th class="large">Finished</th>
+        <th class="large">@trans.finished()</th>
         <th>@trans.mode()</th>
         <th>@trans.timeControl()</th>
-        <th>Players</th>
-        <th>Winner</th>
+        <th>@trans.chessPlayers()</th>
+        <th>@trans.winner()</th>
       </tr>
     </thead>
     <tbody>

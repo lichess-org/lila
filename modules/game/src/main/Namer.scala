@@ -3,7 +3,6 @@ package lila.game
 import chess.Clock
 import lila.user.User
 
-
 object Namer {
 
   def player(player: Player, withElo: Boolean = true)(getUsername: String ⇒ Fu[String]): Fu[String] =
@@ -15,9 +14,6 @@ object Namer {
             username)
         }
       }) { level ⇒ fuccess("A.I. level " + level) }
-
-  def clock(clock: Clock): String = "%d minutes/side + %d seconds/move".format(
-    clock.limitInMinutes, clock.increment)
 
   def shortClock(clock: Clock): String = "%d + %d ".format(
     clock.limitInMinutes, clock.increment)

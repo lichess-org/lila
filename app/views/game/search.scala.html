@@ -21,7 +21,7 @@ moreCss = moreCss) {
     <table>
       <tr>
         <th>
-          <label>Players</label>
+          <label>@trans.chessPlayers()</label>
         </th>
         <td class="usernames">
           <div class="half">@base.input(form("players")("a"))</div>
@@ -30,7 +30,7 @@ moreCss = moreCss) {
       </tr>
       <tr class="winner none">
         <th>
-          <label for="@form("players")("winner").id">Winner</label>
+          <label for="@form("players")("winner").id">@trans.winner()</label>
         </th>
         <td class="single">
           <select id="@form("players")("winner").id" name="@form("players")("winner").name">
@@ -40,7 +40,7 @@ moreCss = moreCss) {
       </tr>
       <tr>
         <th>
-          <label>Players Elo</label>
+          <label>Elo</label>
         </th>
         <td>
           <div class="half">From @base.select(form("eloMin"), Query.averageElos, "".some)</div>
@@ -100,7 +100,7 @@ moreCss = moreCss) {
       </tr>
       <tr>
         <th>
-          <label>Duration</label>
+          <label>@trans.duration()</label>
         </th>
         <td>
           <div class="half">From @base.select(form("durationMin"), Query.durations, "".some)</div>

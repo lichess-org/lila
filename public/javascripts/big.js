@@ -712,7 +712,7 @@ var storage = {
     }
 
     if (Boolean(window.chrome)) {
-      $('#lichess_social').append('<div class="addtochrome"><a class="button" href="https://chrome.google.com/webstore/detail/kiefmccciemniajdkgikpnocipidaaeg">Add To Chrome</a></div>');
+      $('#lichess_social').append('<div class="addtochrome"><a class="button" href="https://chrome.google.com/webstore/detail/kiefmccciemniajdkgikpnocipidaaeg">' + $.trans('Add to Chrome') + '</a></div>');
     }
 
   });
@@ -2355,7 +2355,7 @@ var storage = {
     }
 
     function start() {
-      alert("Tournament is starting!");
+      alert($.trans("Tournament is starting"));
       reload();
     }
 
