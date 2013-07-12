@@ -30,7 +30,7 @@ final class Env(
 
   lazy val cached = new {
     private val cache: Cache[Int] = LruCache(timeToLive = CachedNbTtl)
-    def nbAnalysis: Fu[Int] = cache.fromFuture(true)(AnalysisRepo.count)
+    def nbAnalysis: Fu[Int] = cache(true)(AnalysisRepo.count)
   }
 
   def cli = new lila.common.Cli {

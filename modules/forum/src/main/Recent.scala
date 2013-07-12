@@ -13,11 +13,11 @@ private[forum] final class Recent(postApi: PostApi, ttl: Duration) {
 
   def apply(user: Option[User], getTeams: GetTeams): Fu[List[PostLiteView]] =
     userCacheKey(user, getTeams) flatMap { key ⇒
-      cache.fromFuture(key)(fetch(key))
+      cache(key)(fetch(key))
     }
 
   def team(teamId: String): Fu[List[PostLiteView]] =
-    cache.fromFuture(teamSlug(teamId))(fetch(teamSlug(teamId)))
+    cache(teamSlug(teamId))(fetch(teamSlug(teamId)))
 
   def invalidate: Funit = fuccess(cache.clear)
 

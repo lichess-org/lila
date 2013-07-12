@@ -84,7 +84,7 @@ final class Firewall(
 
   private lazy val ips = new {
     private val cache: Cache[Set[String]] = LruCache(timeToLive = cachedIpsTtl)
-    def apply: Fu[Set[String]] = cache.fromFuture(true)(fetch)
+    def apply: Fu[Set[String]] = cache(true)(fetch)
     def clear { cache.clear }
   }
 
