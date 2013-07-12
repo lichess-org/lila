@@ -6,7 +6,7 @@ import spray.caching.{ LruCache, Cache }
 
 final class AsyncCache[K, V] private (cache: Cache[V], f: K ⇒ Fu[V]) {
 
-  def apply(k: K): Fu[V] = cache.fromFuture(k)(f(k))
+  def apply(k: K): Fu[V] = cache(k)(f(k))
 
   def get(k: K): Option[Fu[V]] = cache get k
 
