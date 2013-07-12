@@ -236,6 +236,6 @@ wins=Victorias
 losses=Derrotas
 winStreak=victorias consecutivas
 createdBy=Creado por
-waitingForNbPlayers=Esperando por %s jugadores
+waitingForNbPlayers=Esperando a %s jugadores
 tournamentIsStarting=El torneo está comenzando
 nbMinutesPerSidePlusNbSecondsPerMove=%s minutos/lado + %s segundos/movimiento
