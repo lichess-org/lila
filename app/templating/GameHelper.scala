@@ -22,9 +22,10 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   }
 
   def clockName(clock: Option[Clock])(implicit ctx: Context): String =
-    clock.fold(trans.unlimited.str())(Namer.clock)
+    clock.fold(trans.unlimited.str())(clockName)
 
-  def clockName(clock: Clock): String = Namer clock clock
+  def clockName(clock: Clock)(implicit ctx: Context): String = 
+    trans.nbMinutesPerSidePlusNbSecondsPerMove.str(clock.limitInMinutes, clock.increment)
 
   def shortClockName(clock: Option[Clock])(implicit ctx: Context): String =
     clock.fold(trans.unlimited.str())(Namer.shortClock)

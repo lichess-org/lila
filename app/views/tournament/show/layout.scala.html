@@ -3,7 +3,7 @@
 @chat = {
 @ctx.me.map { me =>
 @base.chatRoom(
-title = "Tournament Room",
+title = trans.chatRoom.str(),
 cssClass = "tournament_chat")(tournament.show.room(messages))
 }
 }

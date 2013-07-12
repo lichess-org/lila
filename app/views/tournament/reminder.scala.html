@@ -2,6 +2,6 @@
 
 @notification.view("tournament_reminder", closable = false) {
 @linkTo(tour) in progress!
-<a class="action withdraw" href="@routes.Tournament.withdraw(tour.id)">Withdraw</a>
-<a class="action" href="@routes.Tournament.show(tour.id)">Join</a>
+<a class="action withdraw trans_me" href="@routes.Tournament.withdraw(tour.id)">@trans.withdraw.en()</a>
+<a class="action trans_me" href="@routes.Tournament.show(tour.id)">@trans.join.en()</a>
 }

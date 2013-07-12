@@ -42,7 +42,12 @@ private[i18n] case class JsDump(
     keys.accept,
     keys.decline,
     keys.challengeToPlay,
-    keys.youNeedAnAccountToDoThat)
+    keys.youNeedAnAccountToDoThat,
+    keys.addToChrome,
+    keys.createANewTournament,
+    keys.join,
+    keys.withdraw,
+    keys.tournamentIsStarting)
 
   private val pathFile = new File(path)
 

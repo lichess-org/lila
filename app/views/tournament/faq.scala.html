@@ -1,4 +1,4 @@
-@(players: String = "all")
+@(players: String = "all", rated: Option[Boolean] = None)
 
 @text = {
 
@@ -8,7 +8,15 @@ You will be notified when the tournament starts, so it is safe to
 <a target="_blank" href="@routes.Lobby.home()">play in another tab</a> while waiting.
 
 ## Is it rated?
+@rated.map { r =>
+@if(r) {
+This tournaments is rated and will affect your Elo.
+} else {
+This tournaments is *not* rated and will *not* affect your Elo.
+}
+}.getOrElse {
 Some tournaments are rated and will affect your Elo.
+}
 
 ## How to win?
 The players with the more points at the end of the tournament duration wins.
