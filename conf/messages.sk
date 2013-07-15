@@ -213,3 +213,7 @@ memberSince=Členom od
 lastLogin=Posledné prihlásenie
 challengeToPlay=Vyzvať k hre
 player=Hráč
+graph=Graf
+lessThanNbMinutes=Menej než %s minút.
+textIsTooShort=Text je príliš krátky.
+textIsTooLong=Text je príliš dlhý.
