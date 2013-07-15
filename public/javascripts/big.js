@@ -939,7 +939,7 @@ var storage = {
             self.element.find("div.ui-draggable").draggable("destroy");
             // But enqueue the visible changes
             self.element.queue(function() {
-              self.changeTitle($.trans('Game over'));
+              self.changeTitle($.trans("Game Over"));
               self.element.removeClass("my_turn");
               self.reloadTable(function() {
                 self.reloadPlayers(function() {
@@ -1005,7 +1005,7 @@ var storage = {
     indicateTurn: function() {
       var self = this;
       if (self.options.game.finished) {
-        self.changeTitle($.trans('Game over'));
+        self.changeTitle($.trans("Game Over"));
       } else if (self.isMyTurn()) {
         self.element.addClass("my_turn");
         self.changeTitle($.trans('Your turn'));
