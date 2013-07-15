@@ -4,7 +4,7 @@
 // ==/ClosureCompiler==
 
 // declare now, populate later in a distinct script.
-var lichess_translations = [];
+var lichess_translations = lichess_translations || [];
 var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
 function withStorage(f) {
   // can throw an exception when storage is full
