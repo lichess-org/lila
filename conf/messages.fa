@@ -236,6 +236,6 @@ wins=برد ها
 losses=باخت ها
 winStreak=برد متوالی
 createdBy=درست شده توسط
-waitingForNbPlayers=منتظر برای %s بازیکنان
+waitingForNbPlayers=منتظر برای %s بازیکن
 tournamentIsStarting=مسابقه شروع شد
 nbMinutesPerSidePlusNbSecondsPerMove=%s دقیقه ها / کنار + %s ثانیه ها / حرکت
