@@ -11,7 +11,6 @@ object Mappings {
 
   val variant = number.verifying(Config.variants contains _)
   val variantWithFen = number.verifying(Config.variantsWithFen contains _)
-  val clock = boolean
   val time = number.verifying(HookConfig.times contains _)
   val increment = number.verifying(HookConfig.increments contains _)
   def mode(isAuth: Boolean) = optional(number

@@ -12,16 +12,18 @@ case class HookConfig(
     time: Int,
     increment: Int,
     mode: Mode,
+    allowAnon: Boolean,
     color: Color,
     eloRange: EloRange) extends HumanConfig {
 
-  def >> = (variant.id, clock, time, increment, mode.id.some, eloRange.toString.some, color.name).some
+  def >> = (variant.id, clock, time, increment, mode.id.some, allowAnon, eloRange.toString.some, color.name).some
 
   def hook(uid: String, user: Option[User], sid: Option[String]) = Hook.make(
     uid = uid,
     variant = variant,
     clock = makeClock,
     mode = mode,
+    allowAnon = allowAnon,
     color = color.name,
     user = user,
     sid = sid,
@@ -33,6 +35,7 @@ case class HookConfig(
     t = time,
     i = increment,
     m = mode.id,
+    a = allowAnon,
     e = eloRange.toString)
 
   def noRatedUnlimited = mode.casual || clock
@@ -40,7 +43,7 @@ case class HookConfig(
 
 object HookConfig extends BaseHumanConfig {
 
-  def <<(v: Int, k: Boolean, t: Int, i: Int, m: Option[Int], e: Option[String], c: String) = {
+  def <<(v: Int, k: Boolean, t: Int, i: Int, m: Option[Int], a: Boolean, e: Option[String], c: String) = {
     val realMode = m.fold(Mode.default)(Mode.orDefault)
     new HookConfig(
       variant = Variant(v) err "Invalid game variant " + v,
@@ -48,6 +51,7 @@ object HookConfig extends BaseHumanConfig {
       time = t,
       increment = i,
       mode = realMode,
+      allowAnon = a,
       eloRange = e.filter(_ ⇒ realMode.rated).fold(EloRange.default)(EloRange.orDefault),
       color = Color(c) err "Invalid color " + c)
   }
@@ -58,6 +62,7 @@ object HookConfig extends BaseHumanConfig {
     time = 5,
     increment = 8,
     mode = Mode.default,
+    allowAnon = false,
     eloRange = EloRange.default,
     color = Color.default)
 
@@ -84,6 +89,7 @@ private[setup] case class RawHookConfig(
     t: Int,
     i: Int,
     m: Int,
+    a: Boolean,
     e: String) {
 
   def decode = for {
@@ -96,6 +102,7 @@ private[setup] case class RawHookConfig(
     time = t,
     increment = i,
     mode = mode,
+    allowAnon = a,
     eloRange = eloRange,
     color = Color.White)
 }
@@ -103,9 +110,12 @@ private[setup] case class RawHookConfig(
 private[setup] object RawHookConfig {
 
   import lila.db.Tube
-  import play.api.libs.json.Json
+  import Tube.Helpers._
+  import play.api.libs.json._
 
   private[setup] lazy val tube = Tube(
-    reader = Json.reads[RawHookConfig],
-    writer = Json.writes[RawHookConfig])
+    __.json update merge(defaults) andThen Json.reads[RawHookConfig],
+    Json.writes[RawHookConfig])
+
+  private def defaults = Json.obj("a" -> true)
 }

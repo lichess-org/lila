@@ -38,7 +38,7 @@ private[setup] final class FormFactory {
   def ai(ctx: Context) = Form(
     mapping(
       "variant" -> variantWithFen,
-      "clock" -> clock,
+      "clock" -> boolean,
       "time" -> time,
       "increment" -> increment,
       "level" -> level,
@@ -59,7 +59,7 @@ private[setup] final class FormFactory {
   def friend(ctx: Context) = Form(
     mapping(
       "variant" -> variantWithFen,
-      "clock" -> clock,
+      "clock" -> boolean,
       "time" -> time,
       "increment" -> increment,
       "mode" -> mode(ctx.isAuth),
@@ -76,10 +76,11 @@ private[setup] final class FormFactory {
   def hook(ctx: Context) = Form(
     mapping(
       "variant" -> variant,
-      "clock" -> clock,
+      "clock" -> boolean,
       "time" -> time,
       "increment" -> increment,
       "mode" -> mode(ctx.isAuth),
+      "allowAnon" -> boolean,
       "eloRange" -> eloRange,
       "color" -> nonEmptyText.verifying(Color.names contains _)
     )(HookConfig.<<)(_.>>)
