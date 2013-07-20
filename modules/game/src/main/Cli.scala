@@ -31,12 +31,8 @@ private[game] final class Cli(computeElos: ComputeElos) extends lila.common.Cli 
       fuccess("Done")
     }
 
-    case "game" :: "compute" :: "elos" :: names ⇒ {
-      loginfo("Computing elo of %s".format(names.isEmpty ? "All users" | names.mkString(", ")))
-      UserRepo nameds names flatMap { 
-        _.map(computeElos.apply).sequenceFu
-      } inject "Done"
-    }
+    case "game" :: "compute" :: "elos" :: Nil ⇒
+      computeElos.all inject "Done"
   }
 
 }

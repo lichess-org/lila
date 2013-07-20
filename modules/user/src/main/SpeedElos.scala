@@ -9,7 +9,9 @@ case class SpeedElo(nb: Int, elo: Int) {
 
   def countRated = nb // for compat with chess elo calculator
 
-  def addGame(newElo: Int) = copy(nb = nb + 1, elo = newElo)
+  def addGame(newElo: Int) = SpeedElo(nb = nb + 1, elo = newElo)
+
+  def withElo(e: Int) = copy(elo = e)
 }
 
 case object SpeedElo {
@@ -41,6 +43,21 @@ case class SpeedElos(
     case _            ⇒ copy(slow = slow addGame newElo)
   }
 
+  def adjustTo(to: Int) = {
+    val nb = toMap.values.map(_.nb).sum
+    if (nb == 0) this else {
+      val median = (toMap.values map {
+        case SpeedElo(nb, elo) ⇒ nb * elo
+      }).sum / nb
+      val diff = to - median
+      def amortize(se: SpeedElo) = se withElo (se.elo + (diff * se.nb / nb))
+      SpeedElos(
+        bullet = amortize(bullet),
+        blitz = amortize(blitz),
+        slow = amortize(slow)
+      )
+    }
+  }
 }
 
 object SpeedElos {

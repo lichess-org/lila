@@ -61,8 +61,8 @@ object GameRepo {
     $query(Query user userId) sort Query.sortCreated
   )
 
-  def recentFinishedByUser(userId: String): Fu[List[Game]] = $find(
-    $query(Query.finished ++ Query.user(userId)) sort Query.sortCreated
+  def chronologicalFinishedByUser(userId: String): Fu[List[Game]] = $find(
+    $query(Query.finished ++ Query.rated ++ Query.user(userId)) sort ($sort asc createdAt)
   )
 
   def token(id: ID): Fu[String] =
