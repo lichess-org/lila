@@ -61,6 +61,10 @@ object GameRepo {
     $query(Query user userId) sort Query.sortCreated
   )
 
+  def recentFinishedByUser(userId: String): Fu[List[Game]] = $find(
+    $query(Query.finished ++ Query.user(userId)) sort Query.sortCreated
+  )
+
   def token(id: ID): Fu[String] =
     $primitive.one($select(id), "tk")(_.asOpt[String]) map (_ | Game.defaultToken)
 
