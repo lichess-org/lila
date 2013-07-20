@@ -1857,6 +1857,7 @@ var storage = {
           if (isHook && rated && !$clockCheckbox.prop('checked')) {
             $clockCheckbox.click();
           }
+          $form.find('.allow_anon_config').toggle(!rated);
           $.centerOverboard();
         }).trigger('change');
       });
@@ -2111,6 +2112,7 @@ var storage = {
     }
 
     function addHook(hook, inBatch) {
+      if (!isRegistered && hook.mode == "Casual" && !hook.allowAnon) return;
       if (!isRegistered && hook.mode == "Rated") hook.action = 'register';
       else hook.action = hook.uid == lichess_sri ? "cancel" : "join";
       if (hook.action == 'join' && hook.emin && myElo && (myElo < parseInt(hook.emin) || myElo > parseInt(hook.emax))) return;
