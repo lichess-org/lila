@@ -7,6 +7,7 @@ case class User(
     id: String,
     username: String,
     elo: Int,
+    speedElos: SpeedElos,
     count: Count,
     troll: Boolean = false,
     ipBan: Boolean = false,
@@ -54,6 +55,7 @@ object User {
   import play.api.libs.json._
 
   private implicit def countTube = Count.tube
+  private implicit def speedElosTube = SpeedElos.tube
 
   private[user] lazy val tube = Tube[User](
     (__.json update (
@@ -65,6 +67,7 @@ object User {
   def normalize(username: String) = username.toLowerCase
 
   private def defaults = Json.obj(
+    "speedElos" -> SpeedElos.default,
     "troll" -> false,
     "ipBan" -> false,
     "settings" -> Json.obj(),
