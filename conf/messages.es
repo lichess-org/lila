@@ -239,3 +239,4 @@ createdBy=Creado por
 waitingForNbPlayers=Esperando a %s jugadores
 tournamentIsStarting=El torneo está comenzando
 nbMinutesPerSidePlusNbSecondsPerMove=%s minutos/lado + %s segundos/movimiento
+anonymousCanJoin=Un anónimo puede unirse
