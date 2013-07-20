@@ -80,7 +80,7 @@ object Hook {
     time = clock map (_.limit),
     increment = clock map (_.increment),
     mode = mode.id,
-    allowAnon = allowAnon,
+    allowAnon = allowAnon || user.isEmpty,
     color = color,
     userId = user map (_.id),
     username = user.fold(User.anonymous)(_.username),
