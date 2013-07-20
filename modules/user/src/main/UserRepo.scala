@@ -183,24 +183,20 @@ object UserRepo {
     } map (~_)
   }
 
-  private def newUser(username: String, password: String) = (Random nextString 32) |> { salt ⇒
+  private def newUser(username: String, password: String) = {
+
+    val salt = Random nextString 32 
+    implicit def speedElosTube = SpeedElos.tube
+    implicit def countTube = Count.tube
+
     Json.obj(
       "_id" -> normalize(username),
       "username" -> username,
       "password" -> hash(password, salt),
       "salt" -> salt,
       "elo" -> User.STARTING_ELO,
-      "count" -> Json.obj(
-        "game" -> 0,
-        "rated" -> 0,
-        "ai" -> 0,
-        "win" -> 0,
-        "loss" -> 0,
-        "draw" -> 0,
-        "winH" -> 0,
-        "lossH" -> 0,
-        "drawH" -> 0
-      ),
+      "speedElos" -> SpeedElos.default,
+      "count" -> Count.default,
       "enabled" -> true,
       "createdAt" -> $date(DateTime.now),
       "seenAt" -> $date(DateTime.now))

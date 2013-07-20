@@ -19,6 +19,8 @@ private[user] object Count {
   import lila.db.Tube
   import play.api.libs.json.Json
 
+  val default = Count(0, 0, 0, 0, 0, 0, 0, 0, 0)
+
   private[user] lazy val tube = Tube[Count](
     Json.reads[Count], 
     Json.writes[Count])

@@ -36,8 +36,23 @@
 }
 }
 
+@goodies = {
+<div class="goodies">
+  @u.speedElos.toMap.map {
+  case (speed, x) => {
+  <div>
+    <h3>@speed.name</h3>
+    <p><strong>@x.elo</strong> ELO</p>
+    <p><strong>@x.nb</strong> games</p>
+  </div>
+  }
+  }
+</div>
+}
+
 @user.layout(
 title = title,
+goodies = goodies.some,
 robots = false,
 evenMoreJs = evenMoreJs,
 evenMoreCss = evenMoreCss) {
