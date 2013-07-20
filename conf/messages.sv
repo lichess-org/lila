@@ -239,3 +239,4 @@ createdBy=Skapad av
 waitingForNbPlayers=Väntar på %s players
 tournamentIsStarting=Turneringen startar
 nbMinutesPerSidePlusNbSecondsPerMove=%s minuter/sida + %s sekunder/drag
+anonymousCanJoin=Gäster kan medverka
