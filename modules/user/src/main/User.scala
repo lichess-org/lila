@@ -1,5 +1,6 @@
 package lila.user
 
+import chess.Speed
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 
