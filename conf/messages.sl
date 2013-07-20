@@ -239,3 +239,4 @@ createdBy=Ustvaril
 waitingForNbPlayers=Čakanje na %s igralcev
 tournamentIsStarting=Turnir se začenja
 nbMinutesPerSidePlusNbSecondsPerMove=%s minut/igralca + %s sekund/potezo
+anonymousCanJoin=lahko se pridružiš anonimno
