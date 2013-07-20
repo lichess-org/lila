@@ -62,7 +62,7 @@ object HookConfig extends BaseHumanConfig {
     time = 5,
     increment = 8,
     mode = Mode.default,
-    allowAnon = false,
+    allowAnon = true,
     eloRange = EloRange.default,
     color = Color.default)
 
