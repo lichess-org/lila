@@ -239,4 +239,4 @@ createdBy=Создан
 waitingForNbPlayers=Ожидание %s игроков
 tournamentIsStarting=Турнир начинается
 nbMinutesPerSidePlusNbSecondsPerMove=%s минут каждой стороне + %s секунд на ход
-anonymousCanJoin=Анонимы могут присоединяться
+anonymousCanJoin=Анонимный игрок может участвовать
