@@ -5,27 +5,45 @@ import lila.db.Tube
 import play.api.libs.json._
 import Tube.Helpers._
 
-private[user] case class SpeedElo(nb: Int, elo: Int)
+case class SpeedElo(nb: Int, elo: Int) {
 
-private[user] case object SpeedElo {
+  def countRated = nb // for compat with chess elo calculator
+
+  def addGame(newElo: Int) = copy(nb = nb + 1, elo = newElo)
+}
+
+case object SpeedElo {
 
   val default = SpeedElo(0, User.STARTING_ELO)
 
   private[user] lazy val tube = Tube[SpeedElo](Json.reads[SpeedElo], Json.writes[SpeedElo])
 }
 
-private[user] case class SpeedElos(
+case class SpeedElos(
     bullet: SpeedElo,
     blitz: SpeedElo,
     slow: SpeedElo) {
+
+  def apply(speed: Speed) = speed match {
+    case Speed.Bullet ⇒ bullet
+    case Speed.Blitz  ⇒ blitz
+    case _            ⇒ slow
+  }
 
   def toMap = Map(
     Speed.Bullet -> bullet,
     Speed.Blitz -> blitz,
     Speed.Slow -> slow)
+
+  def addGame(speed: Speed, newElo: Int) = speed match {
+    case Speed.Bullet ⇒ copy(bullet = bullet addGame newElo)
+    case Speed.Blitz  ⇒ copy(blitz = blitz addGame newElo)
+    case _            ⇒ copy(slow = slow addGame newElo)
+  }
+
 }
 
-private[user] object SpeedElos {
+object SpeedElos {
 
   val default = SpeedElos(
     SpeedElo.default,
