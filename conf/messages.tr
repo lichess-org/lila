@@ -239,3 +239,4 @@ createdBy=Oluşturan kişi
 waitingForNbPlayers=%s oyuncu için bekleniyor
 tournamentIsStarting=Turnuva başlıyor
 nbMinutesPerSidePlusNbSecondsPerMove=%s dakika / başlangıç + %s saniye / hamle
+anonymousCanJoin=Anonymous katılabilir

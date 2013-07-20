@@ -22,6 +22,12 @@
     Symbol("data-max") -> EloRange.max)
   </div>
 </div>
+@if(ctx.isAuth) {
+<div class="allow_anon_config optional_config">
+  <label class="required" for="@form("allowAnon").name">@trans.anonymousCanJoin()</label>
+  @setup.checkbox(form("allowAnon"))
+</div>
+}
 }
 }
 

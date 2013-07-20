@@ -239,3 +239,4 @@ createdBy=Creat per
 waitingForNbPlayers=Esperant %s jugadors
 tournamentIsStarting=Comença el torneig
 nbMinutesPerSidePlusNbSecondsPerMove=%s minuts/jugador + %s segons/moviment
+anonymousCanJoin=Anònim pot unir-se.

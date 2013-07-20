@@ -239,3 +239,4 @@ createdBy=Tekijä:
 waitingForNbPlayers=Odotetaan %s pelaajaa
 tournamentIsStarting=Turnaus alkaa
 nbMinutesPerSidePlusNbSecondsPerMove=%s minuuttia/puoli + %s sekuntia/siirto
+anonymousCanJoin=Anonyymit voivat liittyä
