@@ -17,6 +17,7 @@ div.user_show .social {
   position: relative;
   border-top: 0;
   padding: 0 0 5px 10px;
+  height: 52px;
 }
 div.user_show .relation_actions {
   position: absolute;
@@ -30,6 +31,13 @@ div.user_show .relation_actions form {
 div.user_show div.meat {
   height: 325px;
   position: relative;
+}
+
+div.speed_elos h3 {
+  font-weight: bold;
+  font-size: 1.5em;
+  color: #ccc;
+  margin-bottom: 0;
 }
 
 div.user_show .elo_history {

@@ -149,8 +149,10 @@ body.dark #timeline time
 {
   color: #777;
 }
-body.dark #site_title span.extension {
-  color: #707070;
+body.dark #site_title span.extension,
+body.dark div.speed_elos h3
+{
+  color: #606060;
 }
 body.dark #top a.goto_nav:hover,
 body.dark #top a.toggle:hover,
