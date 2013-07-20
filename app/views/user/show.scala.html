@@ -40,10 +40,10 @@
 <div class="goodies">
   @u.speedElos.toMap.map {
   case (speed, x) => {
-  <div>
-    <h3>@speed.name</h3>
-    <p><strong>@x.elo</strong> ELO</p>
-    <p><strong>@x.nb</strong> games</p>
+  <div class="speed_elos">
+    <h3>@speed.toString</h3>
+    <strong>@x.elo</strong> ELO<br/>
+    <strong>@x.nb</strong> @trans.games()
   </div>
   }
   }
@@ -67,7 +67,7 @@ evenMoreCss = evenMoreCss) {
     <span class="staff">CLOSED</span>
     }
   </div>
-  <div class="social content_box_inter clearfix">
+  <div class="social content_box_inter">
     <a class="intertab" href="@routes.Relation.following(u.username)">@splitNumber(trans.nbFollowing(info.nbFollowing))</a>
     <a class="intertab" href="@routes.Relation.followers(u.username)">@splitNumber(trans.nbFollowers(info.nbFollowers))</a>
     <span class="intertab">@splitNumber(u.toints + " " + trans.tournamentPoints())</span>
