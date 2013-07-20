@@ -18,6 +18,8 @@ object UserRepo {
 
   val normalize = User normalize _
 
+  def all: Fu[List[User]] = $find.all
+
   def byId(id: ID): Fu[Option[User]] = $find byId id
 
   def byIds(ids: Iterable[ID]): Fu[List[User]] = $find byIds ids
@@ -137,6 +139,11 @@ object UserRepo {
   def setRoles(id: ID, roles: List[String]) = $update.field(id, "roles", roles)
 
   def setBio(id: ID, bio: String) = $update.field(id, "bio", bio)
+
+  def setSpeedElos(id: ID)(ses: SpeedElos) = {
+    import tube.speedElosTube
+    $update.field(id, "speedElos", ses)
+  }
 
   def enable(id: ID) = $update.field(id, "enabled", true)
 

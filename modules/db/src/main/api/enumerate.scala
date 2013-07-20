@@ -1,12 +1,13 @@
 package lila.db
 package api
 
-import Implicits._
+import lila.db.Implicits._
 import play.api.libs.iteratee._
 import play.api.libs.json._
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 import reactivemongo.api.Cursor
 import reactivemongo.bson._
+import scalaz.Zero
 
 object $enumerate {
 
@@ -21,4 +22,7 @@ object $enumerate {
         op(objs.toList)
       )
     }
+
+  def fold[A: BSONDocumentReader, B: Zero](query: QueryBuilder)(f: (B, A) ⇒ B): Fu[B] =
+    query.cursor[A].enumerate |>>> Iteratee.fold(∅[B])(f) 
 }

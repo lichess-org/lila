@@ -76,7 +76,7 @@ final class Env(
 
   def cli = new Cli(computeElos)
 
-  private lazy val computeElos = new ComputeElos
+  private lazy val computeElos = new ComputeElos(system)
 
   private lazy val titivate = new Titivate(
     bookmark = hub.actor.bookmark)
