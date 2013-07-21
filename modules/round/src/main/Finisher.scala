@@ -1,10 +1,8 @@
 package lila.round
 
-import scalaz.{ OptionTs, Success }
-
 import chess.Color._
 import chess.Status._
-import chess.{ EloCalculator, Status, Color }
+import chess.{ EloCalculator, Status, Color, Speed }
 import lila.db.api._
 import lila.game.tube.gameTube
 import lila.game.{ GameRepo, Game, Pov, Event }
@@ -12,6 +10,7 @@ import lila.hub.actorApi.round._
 import lila.i18n.I18nKey.{ Select ⇒ SelectI18nKey }
 import lila.user.tube.userTube
 import lila.user.{ User, UserRepo, EloUpdater }
+import scalaz.{ OptionTs, Success }
 
 private[round] final class Finisher(
     tournamentOrganizer: lila.hub.ActorLazyRef,
@@ -62,9 +61,15 @@ private[round] final class Finisher(
         val (whiteDiff, blackDiff) = (whiteElo - whiteUser.elo, blackElo - blackUser.elo)
         val cheaterWin = (whiteDiff > 0 && whiteUser.engine) || (blackDiff > 0 && blackUser.engine)
         (!cheaterWin) ?? {
+          val speed = Speed(game.clock) |> { s ⇒ (s == Speed.Unlimited).fold(Speed.Slow, s) }
+          val (whiteSe, blackSe) = (whiteUser.speedElos(speed), blackUser.speedElos(speed))
+          val (newWhiteSe, newBlackSe) = (
+            whiteSe.addGame(eloCalculator.calculate(whiteSe, blackSe, game.winnerColor)._1),
+            blackSe.addGame(eloCalculator.calculate(blackSe, whiteSe, game.winnerColor)._1))
+
           GameRepo.setEloDiffs(game.id, whiteDiff, blackDiff) >>
-            eloUpdater.game(whiteUser, whiteElo, blackUser.elo) >>
-            eloUpdater.game(blackUser, blackElo, whiteUser.elo)
+            eloUpdater.game(whiteUser, whiteElo, blackUser.elo, speed.shortName, newWhiteSe) >>
+            eloUpdater.game(blackUser, blackElo, whiteUser.elo, speed.shortName, newBlackSe)
         } inject true.some
       }
     } yield ()).value.void
