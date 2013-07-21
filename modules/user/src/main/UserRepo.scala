@@ -41,11 +41,15 @@ object UserRepo {
 
   def rank(user: User) = $count(enabledQuery ++ Json.obj("elo" -> $gt(user.elo))) map (1+)
 
-  def setElo(id: ID, elo: Int, speed: String, se: SubElo): Funit = $update($select(id), $set(
-    "elo" -> elo,
-    "speedElos.%s.nb".format(speed) -> se.nb,
-    "speedElos.%s.elo".format(speed) -> se.elo
-  ))
+  def setElo(id: ID, elo: Int, speedElo: (String, SubElo), variantElo: (String, SubElo)): Funit = (speedElo, variantElo) match {
+    case ((speed, sElo), (variant, vElo)) ⇒ $update($select(id), $set(
+      "elo" -> elo,
+      "speedElos.%s.nb".format(speed) -> sElo.nb,
+      "speedElos.%s.elo".format(speed) -> sElo.elo,
+      "variantElos.%s.nb".format(variant) -> vElo.nb,
+      "variantElos.%s.elo".format(variant) -> vElo.elo
+    ))
+  }
 
   def setEloOnly(id: ID, elo: Int): Funit = $update($select(id), $set("elo" -> elo))
 
@@ -203,7 +207,7 @@ object UserRepo {
 
   private def newUser(username: String, password: String) = {
 
-    val salt = Random nextString 32 
+    val salt = Random nextString 32
     implicit def speedElosTube = SpeedElos.tube
     implicit def countTube = Count.tube
 

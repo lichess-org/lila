@@ -2,7 +2,7 @@ package lila.round
 
 import chess.Color._
 import chess.Status._
-import chess.{ EloCalculator, Status, Color, Speed }
+import chess.{ EloCalculator, Status, Color, Speed, Variant }
 import lila.db.api._
 import lila.game.tube.gameTube
 import lila.game.{ GameRepo, Game, Pov, Event }
@@ -62,12 +62,30 @@ private[round] final class Finisher(
         val cheaterWin = (whiteDiff > 0 && whiteUser.engine) || (blackDiff > 0 && blackUser.engine)
         (!cheaterWin) ?? {
           val speed = Speed(game.clock) |> { s ⇒ (s == Speed.Unlimited).fold(Speed.Slow, s) }
-          val (whiteSe, blackSe) = (whiteUser.speedElos(speed), blackUser.speedElos(speed))
-          val (whiteSeElo, blackSeElo) = eloCalculator.calculate(whiteSe, blackSe, game.winnerColor)
-          val (newWhiteSe, newBlackSe) = (whiteSe.addGame(whiteSeElo), blackSe.addGame(blackSeElo))
+          val (newWhiteSe, newBlackSe) = {
+            val (whiteSe, blackSe) = (whiteUser.speedElos(speed), blackUser.speedElos(speed))
+            val (whiteSeElo, blackSeElo) = eloCalculator.calculate(whiteSe, blackSe, game.winnerColor)
+            (whiteSe.addGame(whiteSeElo), blackSe.addGame(blackSeElo))
+          }
+          val variant = game.variant |> { v ⇒ (v == Variant.Chess960).fold(Variant.Chess960, Variant.Standard) }
+          val (newWhiteVe, newBlackVe) = {
+            val (whiteVe, blackVe) = (whiteUser.variantElos(variant), blackUser.variantElos(variant))
+            val (whiteVeElo, blackVeElo) = eloCalculator.calculate(whiteVe, blackVe, game.winnerColor)
+            (whiteVe.addGame(whiteVeElo), blackVe.addGame(blackVeElo))
+          }
           GameRepo.setEloDiffs(game.id, whiteDiff, blackDiff) >>
-            eloUpdater.game(whiteUser, whiteElo, blackUser.elo, speed.shortName, newWhiteSe) >>
-            eloUpdater.game(blackUser, blackElo, whiteUser.elo, speed.shortName, newBlackSe)
+            eloUpdater.game(
+              whiteUser, 
+              whiteElo, 
+              blackUser.elo, 
+              speed.shortName -> newWhiteSe,
+              variant.name -> newWhiteVe) >>
+            eloUpdater.game(
+              blackUser, 
+              blackElo, 
+              whiteUser.elo, 
+              speed.shortName -> newBlackSe,
+              variant.name -> newBlackVe)
         } inject true.some
       }
     } yield ()).value.void
