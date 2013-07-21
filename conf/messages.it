@@ -240,3 +240,7 @@ waitingForNbPlayers=Aspettando %s giocatori
 tournamentIsStarting=Torneo iniziato
 nbMinutesPerSidePlusNbSecondsPerMove=%s minuti/parte + %s secondi/mossa
 anonymousCanJoin=Gli anonimi possono entrare
+boardEditor=Editor scacchiera
+startPosition=Posizione di inizio
+clearBoard=Svuota scacchiera
+savePosition=Salva posizione
