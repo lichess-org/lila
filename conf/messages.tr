@@ -240,3 +240,7 @@ waitingForNbPlayers=%s oyuncu için bekleniyor
 tournamentIsStarting=Turnuva başlıyor
 nbMinutesPerSidePlusNbSecondsPerMove=%s dakika / başlangıç + %s saniye / hamle
 anonymousCanJoin=Anonymous katılabilir
+boardEditor=Forum editörü
+startPosition=Pozisyona başla
+clearBoard=Forumu temizle
+savePosition=Pozisyonu koru
