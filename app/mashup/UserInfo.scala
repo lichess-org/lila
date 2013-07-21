@@ -14,7 +14,6 @@ case class UserInfo(
     nbPlaying: Int,
     confrontation: Option[(Int, Int, Int)],
     nbBookmark: Int,
-    eloWithMe: Option[List[(String, Int)]],
     eloChart: Option[EloChart],
     nbFollowing: Int,
     nbFollowers: Int,
@@ -58,12 +57,6 @@ object UserInfo {
           nbPlaying = ~nbPlaying,
           confrontation = confrontation,
           nbBookmark = nbBookmark,
-          eloWithMe = ctx.me.filter(user !=) map { me ⇒
-            List(
-              "win" -> eloCalculator.diff(me, user, Color.White.some),
-              "draw" -> eloCalculator.diff(me, user, None),
-              "loss" -> eloCalculator.diff(me, user, Color.Black.some))
-          },
           eloChart = eloChart,
           nbFollowing = nbFollowing,
           nbFollowers = nbFollowers,
