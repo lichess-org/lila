@@ -240,3 +240,7 @@ waitingForNbPlayers=Warten auf %sSpieler
 tournamentIsStarting=Turnier beginnt
 nbMinutesPerSidePlusNbSecondsPerMove=%s Minuten/Seite + %s Sekunden/Zug
 anonymousCanJoin=Unbekannter kann kommen
+boardEditor=Bretteditor
+startPosition=Anfangsposition
+clearBoard=Brett zurücksetzen
+savePosition=Position speichern
