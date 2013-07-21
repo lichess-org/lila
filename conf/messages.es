@@ -242,5 +242,5 @@ nbMinutesPerSidePlusNbSecondsPerMove=%s minutos/lado + %s segundos/movimiento
 anonymousCanJoin=Un anónimo puede unirse
 boardEditor=Editor de tablero
 startPosition=Posición inicial
-clearBoard=Limpiar tablero
+clearBoard=Limpiar el tablero
 savePosition=Guardar posición
