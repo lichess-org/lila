@@ -1,11 +1,12 @@
 @(listMenu: lila.game.ListMenu)(implicit ctx: Context)
 
 @moreCss = {
-@cssVendorTag("chessboardjs/css/chessboardjs-0.1.0.min.css")
+@cssVendorTag("chessboard/css/chessboard-0.1.0.css")
+@cssTag("boardEditor.css")
 }
 @moreJs = {
+@jsVendorTag("chessboard/js/chessboard-0.1.0.js")
 @jsTag("boardEditor.js")
-@jsVendorTag("chessboardjs/js/chessboardjs-0.1.0.min.js")
 }
 
 @game.layout(
@@ -14,7 +15,22 @@ menu = game.sideMenu(listMenu, "edit").some,
 moreJs = moreJs,
 moreCss = moreCss) {
 <div id="board_editor" class="content_box">
-  <h1 class="title">@trans.boardEditor</h1>
-  <div id="board"></div>
+  <h1 class="title">@trans.boardEditor()</h1>
+  <div id="chessboard_side">
+    <p class="fen_string"></p>
+    <p>
+    <a class="button start">@trans.startPosition()</a>
+    <a class="button clear">@trans.clearBoard()</a>
+    </p>
+    <p>
+    <a class="button flip">@trans.flipBoard()</a>
+    <a class="button fen_link save" href="@routes.Editor.index()?fen=#">@trans.savePosition()</a>
+    </p>
+    <p>
+    <a class="fen_link button big" href="@routes.Lobby.home()?fen=#ai">@trans.playWithTheMachine()</a>
+    <a class="fen_link button big" href="@routes.Lobby.home()?fen=#friend">@trans.playWithAFriend()</a>
+    </p>
+  </div>
+  <div id="chessboard"></div>
 </div>
 }

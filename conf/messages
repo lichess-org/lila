@@ -241,3 +241,6 @@ tournamentIsStarting=Tournament is starting
 nbMinutesPerSidePlusNbSecondsPerMove=%s minutes/side + %s seconds/move
 anonymousCanJoin=Anonymous can join
 boardEditor=Board editor
+startPosition=Start position
+clearBoard=Clear board
+savePosition=Save position
