@@ -1,0 +1,24 @@
+#board_editor {
+  position: relative;
+}
+#chessboard {
+  width: 392px;
+}
+#chessboard_side {
+  position: absolute;
+  left: 424px;
+  top: 95px;
+  width: 356px;
+}
+#board_editor p.fen_string {
+  font-family: monospace;
+}
+#chessboard_side p {
+  margin-bottom: 2em;
+  text-align: center;
+}
+#board_editor a.button.big {
+  display: block;
+  text-align: center;
+  margin-bottom: 1em;
+}
