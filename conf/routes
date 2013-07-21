@@ -175,6 +175,9 @@ DELETE /notification/$id<[\w]{8}>      controllers.Notification.remove(id)
 # Paste
 GET   /paste                           controllers.Importer.importGame
 POST  /paste                           controllers.Importer.sendGame
+
+# Edit
+GET   /edit                            controllers.Editor.index
  
 # Monitor
 GET   /monitor                         controllers.Monitor.index
