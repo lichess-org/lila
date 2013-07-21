@@ -40,19 +40,19 @@
 <div class="goodies">
   @u.speedElos.toMap.map {
   case (speed, x) => {
-  <div class="speed_elos">
+  <div class="sub_elos">
     <h3>@speed.toString</h3>
     <strong>@x.elo</strong> ELO<br/>
-    <strong>@x.nb</strong> @trans.games()
+    @x.nb.localize @trans.games()
   </div>
   }
   }
   @u.variantElos.toMap.map {
   case (variant, x) => {
-  <div class="speed_elos">
+  <div class="sub_elos">
     <h3>@variant.toString</h3>
     <strong>@x.elo</strong> ELO<br/>
-    <strong>@x.nb</strong> @trans.games()
+    @x.nb.localize @trans.games()
   </div>
   }
   }
@@ -71,7 +71,7 @@ evenMoreCss = evenMoreCss) {
     <h1 class="lichess_title">@u.username</h1>
     <span class="elo">ELO <strong>@u.elo</strong></span>
     @info.rank.map { r =>
-    <span class="rank" title="@trans.rank()">RANK <strong>@r._1</strong> / @r._2.localize</span>
+    <span class="rank" title="@trans.rank()">RANK <strong>@r._1.localize</strong> / @r._2.localize</span>
     }
     @if(u.disabled) {
     <span class="staff">CLOSED</span>

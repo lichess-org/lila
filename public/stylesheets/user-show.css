@@ -39,11 +39,14 @@ div.user_show div.meat {
   position: relative;
 }
 
-div.speed_elos h3 {
+div.sub_elos h3 {
   font-weight: bold;
   font-size: 1.5em;
   color: #ccc;
   margin-bottom: 0;
+}
+#site_header div.sub_elos strong {
+  font-weight: bold;
 }
 
 div.user_show .elo_history {

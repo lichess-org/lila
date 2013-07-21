@@ -6,7 +6,7 @@ import chess.Speed
 import lila.db.api._
 import lila.db.Implicits._
 import lila.user.tube.userTube
-import lila.user.{ User, UserRepo, SpeedElos, SubElo }
+import lila.user.{ User, UserRepo, SpeedElos, VariantElos, SubElo }
 import play.api.libs.json.Json
 import tube.gameTube
 
@@ -30,7 +30,9 @@ private[game] final class ComputeElos(system: ActorSystem) {
     funit
   }
 
-  def apply(user: User): Funit = $enumerate.fold[Option[Game], User](gamesQuery(user))(user) {
+  def apply(user: User): Funit = $enumerate.fold[Option[Game], User](gamesQuery(user))(
+    user.copy(speedElos = SpeedElos.default, variantElos = VariantElos.default)
+  ) {
     case (user, gameOption) ⇒ (for {
       game ← gameOption
       player ← game player user
@@ -67,7 +69,7 @@ private[game] final class ComputeElos(system: ActorSystem) {
   private def usersQuery = $query.apply[User](
     Json.obj(
       "count.rated" -> $gt(0),
-      "speedElos" -> $exists(false)
+      "_id" -> "legend"
     )) sort ($sort desc "seenAt")
 
   private def gamesQuery(user: User) = $query.apply[Game](
