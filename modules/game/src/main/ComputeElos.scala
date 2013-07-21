@@ -6,7 +6,7 @@ import chess.Speed
 import lila.db.api._
 import lila.db.Implicits._
 import lila.user.tube.userTube
-import lila.user.{ User, UserRepo, SpeedElos, SpeedElo }
+import lila.user.{ User, UserRepo, SpeedElos, SubElo }
 import play.api.libs.json.Json
 import tube.gameTube
 
@@ -38,7 +38,7 @@ private[game] final class ComputeElos(system: ActorSystem) {
     } yield {
       val speed = Speed(game.clock)
       val speedElo = elos(speed)
-      val opponentSpeedElo = SpeedElo(0, opponentElo)
+      val opponentSpeedElo = SubElo(0, opponentElo)
       val (white, black) = player.color.fold[(eloCalculator.User, eloCalculator.User)](
         speedElo -> opponentSpeedElo,
         opponentSpeedElo -> speedElo)
