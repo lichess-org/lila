@@ -240,4 +240,6 @@ waitingForNbPlayers=Väntar på %s players
 tournamentIsStarting=Turneringen startar
 nbMinutesPerSidePlusNbSecondsPerMove=%s minuter/sida + %s sekunder/drag
 anonymousCanJoin=Gäster kan medverka
-clearBoard=Rensa bräde
+startPosition=Start ställning
+clearBoard=Rensa bord
+savePosition=Spara ställning
