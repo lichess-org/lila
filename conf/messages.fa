@@ -240,3 +240,4 @@ waitingForNbPlayers=منتظر برای %s بازیکن
 tournamentIsStarting=مسابقه شروع شد
 nbMinutesPerSidePlusNbSecondsPerMove=%s دقیقه ها / کنار + %s ثانیه ها / حرکت
 anonymousCanJoin=ناشناسان میتوانند وارد شوند
+startPosition=موقعیت شروع
