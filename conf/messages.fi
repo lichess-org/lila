@@ -240,3 +240,7 @@ waitingForNbPlayers=Odotetaan %s pelaajaa
 tournamentIsStarting=Turnaus alkaa
 nbMinutesPerSidePlusNbSecondsPerMove=%s minuuttia/puoli + %s sekuntia/siirto
 anonymousCanJoin=Anonyymi voi osallistua
+boardEditor=Laudan asetukset
+startPosition=Alkuasema
+clearBoard=Tyhjennä lauta
+savePosition=Tallenna asema
