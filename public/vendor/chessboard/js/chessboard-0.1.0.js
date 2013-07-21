@@ -196,7 +196,6 @@ var CSS = {
   black: 'black-3c85d',
   board: 'board-b72b1',
   chessboard: 'chessboard-63f37',
-  clearfix: 'clearfix-7da63',
   highlight1: 'highlight1-32417',
   highlight2: 'highlight2-9c5d2',
   notation: 'notation-322f9',
@@ -608,7 +607,6 @@ var buildBoard = function(orientation) {
 
       squareColor = (squareColor === 'white' ? 'black' : 'white');
     }
-    html += '<div class="' + CSS.clearfix + '"></div></div>';
 
     squareColor = (squareColor === 'white' ? 'black' : 'white');
 
