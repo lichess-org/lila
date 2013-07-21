@@ -5,26 +5,10 @@ import lila.db.Tube
 import play.api.libs.json._
 import Tube.Helpers._
 
-case class SpeedElo(nb: Int, elo: Int) {
-
-  def countRated = nb // for compat with chess elo calculator
-
-  def addGame(newElo: Int) = SpeedElo(nb = nb + 1, elo = newElo)
-
-  def withElo(e: Int) = copy(elo = e)
-}
-
-case object SpeedElo {
-
-  val default = SpeedElo(0, User.STARTING_ELO)
-
-  private[user] lazy val tube = Tube[SpeedElo](Json.reads[SpeedElo], Json.writes[SpeedElo])
-}
-
 case class SpeedElos(
-    bullet: SpeedElo,
-    blitz: SpeedElo,
-    slow: SpeedElo) {
+    bullet: SubElo,
+    blitz: SubElo,
+    slow: SubElo) {
 
   def apply(speed: Speed) = speed match {
     case Speed.Bullet ⇒ bullet
@@ -47,10 +31,10 @@ case class SpeedElos(
     val nb = toMap.values.map(_.nb).sum
     if (nb == 0) this else {
       val median = (toMap.values map {
-        case SpeedElo(nb, elo) ⇒ nb * elo
+        case SubElo(nb, elo) ⇒ nb * elo
       }).sum / nb
       val diff = to - median
-      def amortize(se: SpeedElo) = se withElo (se.elo + (diff * se.nb / nb))
+      def amortize(se: SubElo) = se withElo (se.elo + (diff * se.nb / nb))
       SpeedElos(
         bullet = amortize(bullet),
         blitz = amortize(blitz),
@@ -63,19 +47,19 @@ case class SpeedElos(
 object SpeedElos {
 
   val default = SpeedElos(
-    SpeedElo.default,
-    SpeedElo.default,
-    SpeedElo.default)
+    SubElo.default,
+    SubElo.default,
+    SubElo.default)
 
-  private implicit def speedEloTube = SpeedElo.tube
+  private implicit def subEloTube = SubElo.tube
 
   private[user] lazy val tube = Tube[SpeedElos](
     __.json update merge(defaults) andThen Json.reads[SpeedElos],
     Json.writes[SpeedElos])
 
   private def defaults = Json.obj(
-    "blitz" -> SpeedElo.default,
-    "bullet" -> SpeedElo.default,
-    "slow" -> SpeedElo.default
+    "blitz" -> SubElo.default,
+    "bullet" -> SubElo.default,
+    "slow" -> SubElo.default
   )
 }

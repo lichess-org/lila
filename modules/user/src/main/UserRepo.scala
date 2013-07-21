@@ -41,7 +41,7 @@ object UserRepo {
 
   def rank(user: User) = $count(enabledQuery ++ Json.obj("elo" -> $gt(user.elo))) map (1+)
 
-  def setElo(id: ID, elo: Int, speed: String, se: SpeedElo): Funit = $update($select(id), $set(
+  def setElo(id: ID, elo: Int, speed: String, se: SubElo): Funit = $update($select(id), $set(
     "elo" -> elo,
     "speedElos.%s.nb".format(speed) -> se.nb,
     "speedElos.%s.elo".format(speed) -> se.elo
