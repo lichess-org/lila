@@ -1,11 +1,8 @@
 start chess960 after both player move http://fr.lichess.org/forum/lichess-feedback/clock-fairness-in-chess960-games
 @someone = link to someone's profile
 analysis not the fastest checkmate, but no best move? http://en.lichess.org/analyse/w3xw8fsw/black 
-finish games per day chart
-untranslated = https://github.com/ornicar/lila/issues/4 http://en.lichess.org/forum/lichess-feedback/please-make-more-strings-translatable#4
 analyse: show main line for every move http://en.lichess.org/forum/lichess-feedback/about-the-analysis-feature#5
 try to show last analysis cp on graph (move 26) http://en.lichess.org/analyse/bwxnx0al
-elo range must contain player elo
 index game positions
 elo stats (branch elostats)
 add elo titles (like 2300+ = FM)
@@ -25,15 +22,9 @@ block user creation from an IP
 start clock after black move http://en.lichess.org/forum/lichess-feedback/shouldnt-the-time-start-time-after-blacks-first-move#3
 national flags http://en.lichess.org/forum/lichess-feedback/suggestion-display-national-flag#4
 restrict hook creation by IP
-opponent history http://imgur.com/ur1Mt http://en.lichess.org/forum/lichess-feedback/match-history#10
 show tournament trophies on user profile
-games with me http://en.lichess.org/forum/general-chess-discussion/-vs-me#2
-let players block other players
-detect lack of support for date formatting (gl) and use 2013-02-15 13:48:00 instead
 recognize pgn in forum and show a pgn4web
-localize in chrome web store
 analyse wrong blunder count http://en.lichess.org/analyse/95ioy2y5
-board creator from chesspaste.com
 correspondance chess https://github.com/ornicar/lila/issues/12
 add source to chess search
 add pgn names to chess search
@@ -45,8 +36,6 @@ optional email http://en.lichess.org/forum/lichess-feedback/secret-question----p
 chess variants https://github.com/ornicar/lila/issues/2://github.com/ornicar/lila/issues/25 
 stream game export
 from MoralIntentions email:
-- The possibility to use a practice board to play against yourself or to demonstrate something when you're giving chess lessons with your laptop or an interactive whiteboard (with the same features as and with a button beneath "Play with the machine" in Play). 
-- The possibility to give other players a "thumbs up" or a "thumbs down" on their profile (which is only visible to the player who has given the thumbs up or thumbs down) so you can filter games (in Play) based on thumbs up (some players lack sportsmanship, this is a way to avoid them). It would be great if we could also filter "Who is online" (in People) that way, so we can see if it's likely that we'll find a fun opponent to play against. 
 - More tie-breaking options and stats (in Tournament): https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss_system_tournaments, especially Sonneborn-Berger and Tournament Performance Rating. 
 - Several options of how points should be given to players (for example: Score * Sonneborn-Berger * Tournament Performance Rating * Percentage Score [for example: 0.64] / 1000) and therefore also several Leaderboards. 
 - The possibility of team matches (with solutions for players who are in several teams), where the team leader has to choose the board order, where the team results are shown and where the team player (who has played all of the games of the match) with the highest Percentage Score gets crowned Player of the Match of team "A".  
@@ -58,18 +47,13 @@ the forum search user:mephostophilis returns no result
 players world map
 account closed accounts in team counts
 IE10 no sound toggle http://en.lichess.org/forum/lichess-feedback/notification-of-game-creation#3
-filter current games for watching http://en.lichess.org/forum/lichess-feedback/viewing-current-games-suggestion#2
-second realtime board on homepage (right)
 show friend games in homepage board
 replace plot with watch plot when game starts
 team search is broken
 liquid UI for large screens http://fr.lichess.org/forum/lichess-feedback/hi-res#5
-allow to filter anon when creating hook
-lobby too scrollable on chrome/ubuntu http://imgur.com/nZWXv96
 customize piece images
 opera bug http://postimg.org/image/zcv8hse8n/full/
 customize sound notifications http://imgur.com/70WVyb5
-show friend game results on timeline
 opera issue http://en.lichess.org/forum/lichess-feedback/new-game-wont-show-on-games-list-opera#1
 analyse must update search index
 
