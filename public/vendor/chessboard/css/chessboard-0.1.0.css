@@ -8,16 +8,19 @@
  * Date: 21 Jul 2013
  */
 
-/* clearfix */
-div.clearfix-7da63 {
-  clear: both;
-}
-
 /* board */
 div.board-b72b1 {
   border: 2px solid #404040;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
+  display:inline-block;
+}
+.board-b72b1:after {
+  content:".";
+  display:block;
+  height:0;
+  clear:both;
+  visibility:hidden;
 }
 
 /* square */
