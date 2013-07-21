@@ -239,3 +239,4 @@ createdBy=Gemaakt door
 waitingForNbPlayers=Nog %s spelers, wachtend
 tournamentIsStarting=Tornooi start
 nbMinutesPerSidePlusNbSecondsPerMove=%s minuten/kleur + %s seconden/zet
+anonymousCanJoin=Anonieme speler kan meedoen
