@@ -63,10 +63,8 @@ private[round] final class Finisher(
         (!cheaterWin) ?? {
           val speed = Speed(game.clock) |> { s ⇒ (s == Speed.Unlimited).fold(Speed.Slow, s) }
           val (whiteSe, blackSe) = (whiteUser.speedElos(speed), blackUser.speedElos(speed))
-          val (newWhiteSe, newBlackSe) = (
-            whiteSe.addGame(eloCalculator.calculate(whiteSe, blackSe, game.winnerColor)._1),
-            blackSe.addGame(eloCalculator.calculate(blackSe, whiteSe, game.winnerColor)._1))
-
+          val (whiteSeElo, blackSeElo) = eloCalculator.calculate(whiteSe, blackSe, game.winnerColor)
+          val (newWhiteSe, newBlackSe) = (whiteSe.addGame(whiteSeElo), blackSe.addGame(blackSeElo))
           GameRepo.setEloDiffs(game.id, whiteDiff, blackDiff) >>
             eloUpdater.game(whiteUser, whiteElo, blackUser.elo, speed.shortName, newWhiteSe) >>
             eloUpdater.game(blackUser, blackElo, whiteUser.elo, speed.shortName, newBlackSe)
