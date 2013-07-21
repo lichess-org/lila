@@ -79,5 +79,6 @@ Special thanks go to:
 - [Steibock](https://github.com/Steibock) for board theming
 - [Yusuke Kamiyamane](http://p.yusukekamiyamane.com/) for the fugue icons
 - [pgn4web](http://pgn4web.casaschi.net/home.html) for the analysis board
+- [chessboardjs](https://github.com/oakmac/chessboardjs/) for the board editor
 
 Thanks to all players for feeding the database.
