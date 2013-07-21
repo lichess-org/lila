@@ -31,6 +31,6 @@ moreCss = moreCss) {
     <a class="fen_link button big" href="@routes.Lobby.home()?fen=#friend">@trans.playWithAFriend()</a>
     </p>
   </div>
-  <div id="chessboard" data-fen="@fen"></div>
+  <div id="chessboard" data-fen="@fen.getOrElse("start")"></div>
 </div>
 }

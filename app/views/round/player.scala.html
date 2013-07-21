@@ -54,10 +54,7 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
 @if(!tour.fold(false)(_.isRunning)) {
 @views.html.game.more(pov, bookmarkers) {
 <nav>
-@if(game.continuable) {
 @continueFromHere(game)
-<br />
-}
 <a href="@routes.Analyse.replay(gameId, color.name)">@trans.replayAndAnalyse()</a>
 @if(game.pgnImport.isEmpty) {
 <br />

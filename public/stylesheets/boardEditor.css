@@ -8,7 +8,7 @@
 #chessboard_side {
   position: absolute;
   left: 424px;
-  top: 95px;
+  top: 115px;
   width: 356px;
 }
 #board_editor p.fen_string {

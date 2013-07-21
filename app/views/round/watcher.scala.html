@@ -50,10 +50,7 @@ underchat = underchat.some) {
 @analyse.link(pov, analysed)
 @views.html.game.more(pov, bookmarkers) {
 <nav>
-@if(game.continuable) {
 @continueFromHere(game)
-<br />
-}
 <a href="@routes.Analyse.replay(gameId, color.name)">@trans.replayAndAnalyse()</a>
 <br />
 <a href="@routes.Round.watcher(gameId, (!color).name)">@trans.flipBoard()</a>

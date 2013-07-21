@@ -1,7 +1,12 @@
 @(game: Game)(implicit ctx: Context)
 
+@if(game.continuable) {
 <a class="continue_from_here">@trans.continueFromHere()</a>
 <span class="opponent_choice">
-  <a href="@routes.Round.continue(game.id, "ai")?fen=">@trans.playWithTheMachine()</a> |
-  <a href="@routes.Round.continue(game.id, "friend")?fen=">@trans.playWithAFriend()</a>
+  <a class="fen_link" href="@routes.Round.continue(game.id, "ai")?fen=">@trans.playWithTheMachine()</a> |
+  <a class="fen_link" href="@routes.Round.continue(game.id, "friend")?fen=">@trans.playWithAFriend()</a>
 </span>
+<br />
+}
+<a class="fen_link" href="@routes.Editor.game(game.id)?fen=">@trans.boardEditor()</a>
+<br />
