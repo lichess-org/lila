@@ -240,3 +240,7 @@ waitingForNbPlayers=Esperant %s jugadors
 tournamentIsStarting=Comença el torneig
 nbMinutesPerSidePlusNbSecondsPerMove=%s minuts/jugador + %s segons/moviment
 anonymousCanJoin=Anònim pot unir-se
+boardEditor=Editor del tauler
+startPosition=Posició inicial
+clearBoard=Netejar el tauler
+savePosition=Guardar la posició
