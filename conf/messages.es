@@ -241,6 +241,6 @@ tournamentIsStarting=El torneo está comenzando
 nbMinutesPerSidePlusNbSecondsPerMove=%s minutos/lado + %s segundos/movimiento
 anonymousCanJoin=Un anónimo puede unirse
 boardEditor=Editor de tablero
-startPosition=Posición de salida
+startPosition=Posición inicial
 clearBoard=Limpiar tablero
 savePosition=Guardar posición
