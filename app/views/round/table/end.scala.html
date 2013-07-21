@@ -33,6 +33,8 @@
   } else {
   <a class="lichess_rematch button socket-link" title="@trans.playWithTheSameOpponentAgain()" data-msg="rematch-yes">@trans.rematch()</a>
   }
+  @if(!player.isOfferingRematch) {
   <a class="lichess_new_game button" title="@trans.playWithAnotherOpponent()" href="@routes.Lobby.home()">@trans.newOpponent()</a>
+  }
   }
 </div>
