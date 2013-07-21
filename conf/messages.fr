@@ -240,3 +240,6 @@ waitingForNbPlayers=En attente de %s joueurs
 tournamentIsStarting=Le tournoi commence
 nbMinutesPerSidePlusNbSecondsPerMove=%s minutes/joueur + %s secondes/coup
 anonymousCanJoin=Anonymes acceptés
+boardEditor=editeur
+startPosition=position de dépard
+savePosition=sauver la position
