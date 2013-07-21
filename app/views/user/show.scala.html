@@ -110,14 +110,6 @@ evenMoreCss = evenMoreCss) {
       <div class="engine_warning">@trans.thisPlayerUsesChessComputerAssistance()</div>
       }
       @bio
-      @info.eloWithMe.map { eloWithMe =>
-      <div class="elo_with_me boxed_data">
-        @trans.ratedGameResult()<br />
-        @eloWithMe.map { e =>
-        @e._1.capitalize: <strong>@showNumber(e._2)</strong>
-        }
-      </div>
-      }
       @info.confrontation.map {
       case (w, d, l) => {
       <div class="confrontation boxed_data">
