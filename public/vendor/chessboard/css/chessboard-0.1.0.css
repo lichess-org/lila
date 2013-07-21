@@ -1,0 +1,70 @@
+/*!
+ * ChessBoardJS v0.1.0
+ *
+ * Copyright 2013 Chris Oakman
+ * Released under the MIT license
+ * http://chessboardjs.com/license
+ *
+ * Date: 21 Jul 2013
+ */
+
+/* clearfix */
+div.clearfix-7da63 {
+  clear: both;
+}
+
+/* board */
+div.board-b72b1 {
+  border: 2px solid #404040;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+/* square */
+div.square-55d63 {
+  float: left;
+  position: relative;
+
+  /* disable any native browser highlighting */
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+
+/* white square */
+div.white-1e1d7 {
+  background-color: #f0d9b5;
+  color: #b58863;
+}
+
+/* black square */
+div.black-3c85d {
+  background-color: #b58863;
+  color: #f0d9b5;
+}
+
+/* highlighted square */
+div.highlight1-32417, div.highlight2-9c5d2 {
+  -webkit-box-shadow: inset 0 0 3px 3px yellow;
+  -moz-box-shadow: inset 0 0 3px 3px yellow;
+  box-shadow: inset 0 0 3px 3px yellow;
+}
+
+/* notation */
+div.notation-322f9 {
+  cursor: default;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  position: absolute;
+}
+div.alpha-d2270 {
+  bottom: 1px;
+  right: 3px;
+}
+div.numeric-fc462 {
+  top: 2px;
+  left: 2px;
+}
