@@ -240,3 +240,4 @@ waitingForNbPlayers=Waiting for %s players
 tournamentIsStarting=Tournament is starting
 nbMinutesPerSidePlusNbSecondsPerMove=%s minutes/side + %s seconds/move
 anonymousCanJoin=Anonymous can join
+boardEditor=Board editor

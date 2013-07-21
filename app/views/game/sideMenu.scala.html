@@ -9,6 +9,9 @@
 <a class="@active.active("import")" href="@routes.Importer.importGame()">
   @trans.importGame()
 </a>
+<a class="@active.active("edit")" href="@routes.Editor.index()">
+  @trans.boardEditor()
+</a>
 <a class="@active.active("all")" href="@routes.Game.all()">
   @trans.viewAllNbGames(listMenu.nbGames.localize)
 </a>
