@@ -74,6 +74,8 @@ object SpeedElos {
     Json.writes[SpeedElos])
 
   private def defaults = Json.obj(
-    "bullet" -> SpeedElo.default
+    "blitz" -> SpeedElo.default,
+    "bullet" -> SpeedElo.default,
+    "slow" -> SpeedElo.default
   )
 }

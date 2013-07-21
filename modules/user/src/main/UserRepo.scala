@@ -208,7 +208,6 @@ object UserRepo {
       "password" -> hash(password, salt),
       "salt" -> salt,
       "elo" -> User.STARTING_ELO,
-      "speedElos" -> SpeedElos.default,
       "count" -> Count.default,
       "enabled" -> true,
       "createdAt" -> $date(DateTime.now),
