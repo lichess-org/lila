@@ -2,18 +2,17 @@ package lila.game
 
 import scala.util.Random
 
-import org.joda.time.DateTime
-import org.scala_tools.time.Imports._
-import play.api.libs.json._
-import play.modules.reactivemongo.json.BSONFormats.toJSON
-import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
-
 import chess.format.Forsyth
 import chess.{ Color, Variant, Status }
 import lila.common.PimpedJson._
 import lila.db.api._
 import lila.db.Implicits._
 import lila.user.User
+import org.joda.time.DateTime
+import org.scala_tools.time.Imports._
+import play.api.libs.json._
+import play.modules.reactivemongo.json.BSONFormats.toJSON
+import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
 import tube.gameTube
 
 object GameRepo {
@@ -197,9 +196,9 @@ object GameRepo {
     import reactivemongo.core.commands._
     val command = Aggregate(gameTube.coll.name, Seq(
       Match(BSONDocument("uids" -> userId)),
-      Match(BSONDocument("uids" -> BSONDocument("$size" -> BSONInteger(2)))),
+      Match(BSONDocument("uids" -> BSONDocument("$size" -> 2))),
       Unwind("uids"),
-      Match(BSONDocument("uids" -> BSONDocument("$ne" -> BSONString(userId)))),
+      Match(BSONDocument("uids" -> BSONDocument("$ne" -> userId))),
       GroupField("uids")("gs" -> SumValue(1)),
       Sort(Seq(Descending("gs"))),
       Limit(limit)
@@ -212,6 +211,34 @@ object GameRepo {
           }
         }
       }).flatten
+    }
+  }
+
+  // user1 wins, draws, losses
+  def confrontation(user1: User, user2: User): Fu[(Int, Int, Int)] = {
+    import reactivemongo.bson._
+    import reactivemongo.core.commands._
+    val userIds = List(user1, user2).sortBy(_.count.game).map(_.id)
+    val command = Aggregate(gameTube.coll.name, Seq(
+      Match(BSONDocument(
+        "uids" -> BSONDocument("$all" -> userIds),
+        "s" -> BSONDocument("$gte" -> chess.Status.Mate.id)
+      )),
+      GroupField("wid")("nb" -> SumValue(1))
+    ))
+    gameTube.coll.db.command(command) map { stream ⇒
+      val res = (stream.toList map { obj ⇒
+        toJSON(obj).asOpt[JsObject] flatMap { o ⇒
+          o int "nb" map { nb ⇒
+            ~(o str "_id") -> nb
+          }
+        }
+      }).flatten.toMap
+      (
+        ~(res get user1.id),
+        ~(res get ""),
+        ~(res get user2.id)
+      )
     }
   }
 }

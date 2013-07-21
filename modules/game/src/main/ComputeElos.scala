@@ -68,8 +68,7 @@ private[game] final class ComputeElos(system: ActorSystem) {
 
   private def usersQuery = $query.apply[User](
     Json.obj(
-      "count.rated" -> $gt(0),
-      "_id" -> "legend"
+      "count.rated" -> $gt(0)
     )) sort ($sort desc "seenAt")
 
   private def gamesQuery(user: User) = $query.apply[Game](

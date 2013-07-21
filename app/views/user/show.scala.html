@@ -111,11 +111,22 @@ evenMoreCss = evenMoreCss) {
       }
       @bio
       @info.eloWithMe.map { eloWithMe =>
-      <div class="elo_with_me">
+      <div class="elo_with_me boxed_data">
+        @trans.ratedGameResult()<br />
         @eloWithMe.map { e =>
         @e._1.capitalize: <strong>@showNumber(e._2)</strong>
         }
       </div>
+      }
+      @info.confrontation.map {
+      case (w, d, l) => {
+      <div class="confrontation boxed_data">
+        @ctx.me.map(_.username) vs @u.username<br />
+        @trans.nbWins("<strong>"+w+"</strong>"),
+        @trans.nbDraws("<strong>"+d+"</strong>"),
+        @trans.nbLosses("<strong>"+l+"</strong>")
+      </div>
+      }
       }
       <div class="stats">
         <p>@trans.memberSince() @showDate(u.createdAt)</p>
