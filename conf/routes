@@ -54,6 +54,7 @@ GET   /$gameId<[\w\-]{8}>/$color<white|black>/table  controllers.Round.tableWatc
 GET   /$fullId<[\w\-]{12}>/table                     controllers.Round.tablePlayer(fullId: String)
 GET   /$gameId<[\w\-]{8}>/players                    controllers.Round.players(gameId: String)
 GET   /$gameId<[\w\-]{8}>/continue/:mode             controllers.Round.continue(gameId: String, mode: String)
+GET   /$gameId<[\w\-]{8}>/edit                       controllers.Editor.game(gameId: String)
  
 # Tournament
 GET   /tournament                             controllers.Tournament.home 
@@ -177,8 +178,8 @@ GET   /paste                           controllers.Importer.importGame
 POST  /paste                           controllers.Importer.sendGame
 
 # Edit
-GET   /editor                            controllers.Editor.index(fen: String = "")
-GET   /editor/*fen                       controllers.Editor.index(fen: String)
+GET   /editor                          controllers.Editor.index(fen: String = "")
+GET   /editor/*fen                     controllers.Editor.index(fen: String)
  
 # Monitor
 GET   /monitor                         controllers.Monitor.index

@@ -1,6 +1,7 @@
 package controllers
 
 import lila.app._
+import lila.game.GameRepo
 import views._
 
 object Editor extends LilaController with BaseGame {
@@ -9,7 +10,17 @@ object Editor extends LilaController with BaseGame {
 
   def index(fen: String) = Open { implicit ctx ⇒
     makeListMenu map { listMenu ⇒
-      Ok(html.game.editor(listMenu, fen.trim.some.filter(_.nonEmpty)))
+      val f = java.net.URLDecoder.decode(fen, "UTF-8")
+        .trim.takeWhile(' '!=).some.filter(_.nonEmpty)
+      Ok(html.game.editor(listMenu, f))
+    }
+  }
+
+  def game(id: String) = Open { implicit ctx ⇒
+    OptionResult(GameRepo game id) { game ⇒
+      Redirect(routes.Editor.index(
+        get("fen") | (chess.format.Forsyth >> game.toChess)
+      ))
     }
   }
 }

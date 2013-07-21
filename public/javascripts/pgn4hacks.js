@@ -70,7 +70,7 @@ function customFunctionOnMove() {
     }
   }
   var fen = CurrentFEN();
-  $('div.undergame_box .opponent_choice a').each(function() {
+  $('div.undergame_box a.fen_link').each(function() {
     $(this).attr('href', $(this).attr('href').replace(/fen=.*$/, "fen=" + fen));
   });
 }
