@@ -23,6 +23,9 @@ object $enumerate {
       )
     }
 
-  def fold[A: BSONDocumentReader, B: Zero](query: QueryBuilder)(f: (B, A) ⇒ B): Fu[B] =
-    query.cursor[A].enumerate |>>> Iteratee.fold(∅[B])(f) 
+  def fold[A: BSONDocumentReader, B](query: QueryBuilder)(zero: B)(f: (B, A) ⇒ B): Fu[B] =
+    query.cursor[A].enumerate |>>> Iteratee.fold(zero)(f) 
+
+  def foldZero[A: BSONDocumentReader, B: Zero](query: QueryBuilder)(f: (B, A) ⇒ B): Fu[B] =
+    fold(query)(∅[B])(f)
 }

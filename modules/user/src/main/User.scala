@@ -9,6 +9,7 @@ case class User(
     username: String,
     elo: Int,
     speedElos: SpeedElos,
+    variantElos: VariantElos,
     count: Count,
     troll: Boolean = false,
     ipBan: Boolean = false,
@@ -57,6 +58,7 @@ object User {
 
   private implicit def countTube = Count.tube
   private implicit def speedElosTube = SpeedElos.tube
+  private implicit def variantElosTube = VariantElos.tube
 
   private[user] lazy val tube = Tube[User](
     (__.json update (
@@ -69,6 +71,7 @@ object User {
 
   private def defaults = Json.obj(
     "speedElos" -> SpeedElos.default,
+    "variantElos" -> VariantElos.default,
     "troll" -> false,
     "ipBan" -> false,
     "settings" -> Json.obj(),

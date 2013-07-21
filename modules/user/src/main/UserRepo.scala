@@ -146,9 +146,14 @@ object UserRepo {
 
   def setBio(id: ID, bio: String) = $update.field(id, "bio", bio)
 
-  def setSpeedElos(id: ID)(ses: SpeedElos) = {
+  def setSpeedElos(id: ID, ses: SpeedElos) = {
     import tube.speedElosTube
     $update.field(id, "speedElos", ses)
+  }
+
+  def setVariantElos(id: ID, ses: VariantElos) = {
+    import tube.variantElosTube
+    $update.field(id, "variantElos", ses)
   }
 
   def enable(id: ID) = $update.field(id, "enabled", true)
