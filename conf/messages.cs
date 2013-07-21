@@ -240,3 +240,7 @@ waitingForNbPlayers=Čeká se na %s hráčů
 tournamentIsStarting=Turnaj začíná
 nbMinutesPerSidePlusNbSecondsPerMove=%s minut / strana %s sekund/tah
 anonymousCanJoin=Výzvu mohou přijmout i neregistrovaní
+boardEditor=Editor šachovnice
+startPosition=Základní postavení
+clearBoard=Prázdná šachovnice
+savePosition=Uložit pozici
