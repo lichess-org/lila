@@ -41,7 +41,13 @@ object UserRepo {
 
   def rank(user: User) = $count(enabledQuery ++ Json.obj("elo" -> $gt(user.elo))) map (1+)
 
-  def setElo(id: ID, elo: Int): Funit = $update($select(id), $set("elo" -> elo))
+  def setElo(id: ID, elo: Int, speed: String, se: SpeedElo): Funit = $update($select(id), $set(
+    "elo" -> elo,
+    "speedElos.%s".format(speed) -> se.nb,
+    "speedElos.%s.elo".format(speed) -> se.elo
+  ))
+
+  def setEloOnly(id: ID, elo: Int): Funit = $update($select(id), $set("elo" -> elo))
 
   val enabledQuery = Json.obj("enabled" -> true)
 
