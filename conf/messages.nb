@@ -239,3 +239,7 @@ createdBy=Laget av
 waitingForNbPlayers=Venter på %s spillere
 tournamentIsStarting=Turneringen begynner
 nbMinutesPerSidePlusNbSecondsPerMove=%s minutter/side + %s sekunder/trekk
+anonymousCanJoin=Anonym kan bli med
+startPosition=Startposisjon
+clearBoard=Tøm brett
+savePosition=Lagre posisjon
