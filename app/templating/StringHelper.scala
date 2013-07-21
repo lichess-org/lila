@@ -5,10 +5,11 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.regex.Matcher.quoteReplacement
 
+import lila.user.Context
 import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 import play.api.templates.Html
 
-trait StringHelper {
+trait StringHelper { self: NumberHelper ⇒
 
   def netDomain: String
 
@@ -58,12 +59,12 @@ trait StringHelper {
 
   private val NumberFirstRegex = """^(\d+)\s(.+)$""".r
   private val NumberLastRegex = """^(.+)\s(\d+)$""".r
-  def splitNumber(s: String): Html = Html {
+  def splitNumber(s: String)(implicit ctx: Context): Html = Html {
     s match {
-      case NumberFirstRegex(number, text) ⇒ "<strong>%s</strong><br />%s".format(number, text)
-      case NumberLastRegex(text, number)  ⇒ "%s<br /><strong>%s</strong>".format(text, number)
+      case NumberFirstRegex(number, text) ⇒ "<strong>%s</strong><br />%s".format((~parseIntOption(number)).localize, text)
+      case NumberLastRegex(text, number)  ⇒ "%s<br /><strong>%s</strong>".format(text, (~parseIntOption(number)).localize)
       case h                              ⇒ h
     }
   }
-  def splitNumber(s: Html): Html = splitNumber(s.body)
+  def splitNumber(s: Html)(implicit ctx: Context): Html = splitNumber(s.body)
 }
