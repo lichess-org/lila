@@ -47,6 +47,15 @@
   </div>
   }
   }
+  @u.variantElos.toMap.map {
+  case (variant, x) => {
+  <div class="speed_elos">
+    <h3>@variant.toString</h3>
+    <strong>@x.elo</strong> ELO<br/>
+    <strong>@x.nb</strong> @trans.games()
+  </div>
+  }
+  }
 </div>
 }
 

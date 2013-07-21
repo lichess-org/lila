@@ -30,23 +30,39 @@ private[game] final class ComputeElos(system: ActorSystem) {
     funit
   }
 
-  def apply(user: User): Funit = $enumerate.fold[Option[Game], SpeedElos](gamesQuery(user)) {
-    case (elos, gameOption) ⇒ (for {
+  def apply(user: User): Funit = $enumerate.fold[Option[Game], User](gamesQuery(user))(user) {
+    case (user, gameOption) ⇒ (for {
       game ← gameOption
       player ← game player user
       opponentElo ← game.opponent(player).elo
-    } yield {
-      val speed = Speed(game.clock)
-      val speedElo = elos(speed)
-      val opponentSpeedElo = SubElo(0, opponentElo)
-      val (white, black) = player.color.fold[(eloCalculator.User, eloCalculator.User)](
-        speedElo -> opponentSpeedElo,
-        opponentSpeedElo -> speedElo)
-      val newElos = eloCalculator.calculate(white, black, game.winnerColor)
-      val newElo = player.color.fold(newElos._1, newElos._2)
-      elos.addGame(speed, newElo)
-    }) | elos
-  } flatMap UserRepo.setSpeedElos(user.id)
+    } yield user.copy(
+      speedElos = {
+        val speed = Speed(game.clock)
+        val speedElo = user.speedElos(speed)
+        val opponentSpeedElo = SubElo(0, opponentElo)
+        val (white, black) = player.color.fold[(eloCalculator.User, eloCalculator.User)](
+          speedElo -> opponentSpeedElo,
+          opponentSpeedElo -> speedElo)
+        val newElos = eloCalculator.calculate(white, black, game.winnerColor)
+        val newElo = player.color.fold(newElos._1, newElos._2)
+        user.speedElos.addGame(speed, newElo)
+      },
+      variantElos = {
+        val variantElo = user.variantElos(game.variant)
+        val opponentVariantElo = SubElo(0, opponentElo)
+        val (white, black) = player.color.fold[(eloCalculator.User, eloCalculator.User)](
+          variantElo -> opponentVariantElo,
+          opponentVariantElo -> variantElo)
+        val newElos = eloCalculator.calculate(white, black, game.winnerColor)
+        val newElo = player.color.fold(newElos._1, newElos._2)
+        user.variantElos.addGame(game.variant, newElo)
+      }
+    )
+    ) | user
+  } flatMap { user ⇒
+    UserRepo.setSpeedElos(user.id, user.speedElos) >>
+      UserRepo.setVariantElos(user.id, user.variantElos)
+  }
 
   private def usersQuery = $query.apply[User](
     Json.obj(
