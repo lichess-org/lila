@@ -240,3 +240,7 @@ waitingForNbPlayers=venter for %s spillere
 tournamentIsStarting=turnering er begyndt
 nbMinutesPerSidePlusNbSecondsPerMove=%s minutter/ side + %s sek/træk
 anonymousCanJoin=Anonyme kan deltage
+boardEditor=Bræt redigering
+startPosition=Start position
+clearBoard=Rens bræt
+savePosition=Gem position
