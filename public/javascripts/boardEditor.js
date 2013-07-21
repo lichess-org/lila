@@ -12,9 +12,9 @@ $(function() {
     }
 
     var board = new ChessBoard('chessboard', {
+      position: $('#chessboard').data('fen') || 'start',
       draggable: true,
       dropOffBoard: 'trash',
-      position: 'start',
       sparePieces: true,
       pieceTheme: '/assets/vendor/chessboard/img/chesspieces/wikipedia/{piece}.png',
       onChange: function(oldPos, newPos) {
@@ -26,5 +26,9 @@ $(function() {
     $wrap.find('a.start').on('click', board.start);
     $wrap.find('a.clear').on('click', board.clear);
     $wrap.find('a.flip').on('click', board.flip);
+    $wrap.find('a.save').on('click', function() {
+      alert('Permalink: ' + $(this).data('domain') + '/edit/' + fen);
+      return false;
+    });
   });
 });

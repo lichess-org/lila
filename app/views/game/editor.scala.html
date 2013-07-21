@@ -1,4 +1,4 @@
-@(listMenu: lila.game.ListMenu)(implicit ctx: Context)
+@(listMenu: lila.game.ListMenu, fen: Option[String])(implicit ctx: Context)
 
 @moreCss = {
 @cssVendorTag("chessboard/css/chessboard-0.1.0.css")
@@ -24,13 +24,13 @@ moreCss = moreCss) {
     </p>
     <p>
     <a class="button flip">@trans.flipBoard()</a>
-    <a class="button fen_link save" href="@routes.Editor.index()?fen=#">@trans.savePosition()</a>
+    <a class="button save" data-domain="@netBaseUrl">@trans.savePosition()</a>
     </p>
     <p>
     <a class="fen_link button big" href="@routes.Lobby.home()?fen=#ai">@trans.playWithTheMachine()</a>
     <a class="fen_link button big" href="@routes.Lobby.home()?fen=#friend">@trans.playWithAFriend()</a>
     </p>
   </div>
-  <div id="chessboard"></div>
+  <div id="chessboard" data-fen="@fen"></div>
 </div>
 }
