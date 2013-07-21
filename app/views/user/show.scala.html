@@ -59,9 +59,10 @@ evenMoreCss = evenMoreCss) {
 <div class="content_box no_padding user_show">
   <div class="content_box_top">
     <div class="icon status @{isOnline(u.id).??("connected")}"></div>
-    <h1 class="lichess_title">@u.usernameWithElo</h1>
+    <h1 class="lichess_title">@u.username</h1>
+    <span class="elo">ELO <strong>@u.elo</strong></span>
     @info.rank.map { r =>
-    <span class="rank" title="@trans.rank()"><strong>@r._1</strong> / @r._2.localize</span>
+    <span class="rank" title="@trans.rank()">RANK <strong>@r._1</strong> / @r._2.localize</span>
     }
     @if(u.disabled) {
     <span class="staff">CLOSED</span>

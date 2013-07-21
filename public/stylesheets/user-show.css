@@ -9,8 +9,14 @@ div.user_show .staff {
   font-weight: bold;
   margin-bottom: 1em;
 }
-div.user_show div.content_box_top .rank {
+div.user_show div.content_box_top > span {
   margin-left: 1em;
+  font-size: 1.6em;
+  color: #afafaf;
+}
+div.user_show div.content_box_top > span strong {
+  font-weight: normal;
+  color: #666;
 }
 
 div.user_show .social {
