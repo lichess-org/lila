@@ -1,15 +1,16 @@
 package lila.analyse
 
 import com.typesafe.config.Config
-import spray.caching.{ LruCache, Cache }
-
 import lila.common.PimpedConfig._
+import lila.hub.ActorLazyRef
+import spray.caching.{ LruCache, Cache }
 
 final class Env(
     config: Config,
     db: lila.db.Env,
-    ai: lila.hub.ActorLazyRef,
-    nameUser: String => Fu[String]) {
+    ai: ActorLazyRef,
+    indexer: ActorLazyRef,
+    nameUser: String ⇒ Fu[String]) {
 
   private val CollectionAnalysis = config getString "collection.analysis"
   private val NetDomain = config getString "net.domain"
@@ -18,7 +19,7 @@ final class Env(
 
   private[analyse] lazy val analysisColl = db(CollectionAnalysis)
 
-  lazy val analyser = new Analyser(ai = ai)
+  lazy val analyser = new Analyser(ai = ai, indexer = indexer)
 
   lazy val paginator = new PaginatorBuilder(
     cached = cached,
@@ -47,5 +48,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "analyse",
     db = lila.db.Env.current,
     ai = lila.hub.Env.current.actor.ai,
+    indexer = lila.hub.Env.current.actor.gameIndexer,
     nameUser = lila.user.Env.current.usernameOrAnonymous)
 }
