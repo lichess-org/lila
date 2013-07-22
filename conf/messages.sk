@@ -240,3 +240,7 @@ waitingForNbPlayers=Čakanie na %s hráčov
 tournamentIsStarting=Turnaj sa začína
 nbMinutesPerSidePlusNbSecondsPerMove=%s minút/stranu + %s sekúnd/ťah
 anonymousCanJoin=Anonym sa môže pridať
+boardEditor=Editor pozície
+startPosition=Východisková pozícia
+clearBoard=Vymazať pozíciu
+savePosition=Uložiť pozíciu
