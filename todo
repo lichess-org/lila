@@ -56,6 +56,7 @@ opera bug http://postimg.org/image/zcv8hse8n/full/
 customize sound notifications http://imgur.com/70WVyb5
 opera issue http://en.lichess.org/forum/lichess-feedback/new-game-wont-show-on-games-list-opera#1
 analyse must update search index
+don't index aborted games http://en.lichess.org/games/search?players.a=&players.b=&players.winner=&eloMin=1300&eloMax=&hasAi=&aiLevelMin=&aiLevelMax=&variant=&mode=&opening=&turnsMin=&turnsMax=&durationMin=&durationMax=&status=&dateMin=&dateMax=&sort.field=da&sort.order=desc
 
 ---
 
