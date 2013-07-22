@@ -1,21 +1,24 @@
 package lila.analyse
 
 import akka.pattern.ask
-
 import lila.db.api._
+import lila.game.actorApi.InsertGame
 import lila.game.tube.gameTube
 import lila.game.{ Game, GameRepo, PgnRepo }
+import lila.hub.ActorLazyRef
 import makeTimeout.veryLarge
 import tube.analysisTube
 
-final class Analyser(ai: lila.hub.ActorLazyRef) {
+final class Analyser(
+    ai: ActorLazyRef,
+    indexer: ActorLazyRef) {
 
   def get(id: String): Fu[Option[Analysis]] = $find.byId[Analysis](id)
 
   def has(id: String): Fu[Boolean] = AnalysisRepo isDone id
 
   def hasMany(ids: Seq[String]): Fu[Set[String]] =
-    $primitive[Analysis, String]($select byIds ids, "_id")(_.asOpt[String]) map (_.toSet) 
+    $primitive[Analysis, String]($select byIds ids, "_id")(_.asOpt[String]) map (_.toSet)
 
   def getOrGenerate(id: String, userId: String, admin: Boolean): Fu[Analysis] = {
 
@@ -36,7 +39,7 @@ final class Analyser(ai: lila.hub.ActorLazyRef) {
           } mapTo manifest[Analysis]
         } yield analysis) flatFold (
           e ⇒ AnalysisRepo.fail(id, e).mapTo[Analysis],
-          a ⇒ AnalysisRepo.done(id, a) >> fuccess(a)
+          a ⇒ AnalysisRepo.done(id, a) >>- (indexer ! InsertGame(game)) inject a
         )
         case _ ⇒ fufail[Analysis]("[analysis] %s no game or pgn found" format (id))
       }
