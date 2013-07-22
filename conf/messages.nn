@@ -239,3 +239,7 @@ createdBy=Laga av
 waitingForNbPlayers=Ventar på %s deltakarar
 tournamentIsStarting=Tevlinga startar
 nbMinutesPerSidePlusNbSecondsPerMove=%s minutt/ side + %s sekund/ trekk
+anonymousCanJoin=spill anonymt
+startPosition=Utgangsposisjon
+clearBoard=Oppsett
+savePosition=Lagre posisjon
