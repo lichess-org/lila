@@ -2,10 +2,17 @@ $(function() {
   $('#board_editor').each(function() {
     var $wrap = $(this);
     var fen = "";
+    var board;
+    var $input = $wrap.find('form input').on('change', function() {
+      if ($input.val() != fen) board.position($input.val());
+    });
+    $wrap.find('form').submit(function() {
+      return false;
+    });
 
     function setFen(f) {
       fen = f;
-      $wrap.find('.fen_string').text(fen);
+      if ($input.val() != fen) $input.val(fen);
       $wrap.find('a.fen_link').each(function() {
         $(this).attr('href', $(this).attr('href').replace(/fen=[^#]*#/, "fen=" + fen + '#'));
       });
@@ -27,7 +34,7 @@ $(function() {
     $wrap.find('a.clear').on('click', board.clear);
     $wrap.find('a.flip').on('click', board.flip);
     $wrap.find('a.save').on('click', function() {
-      alert('Permalink: ' + $(this).data('domain') + '/edit/' + fen);
+      alert('Permalink: ' + $(this).data('domain') + '/editor/' + fen);
       return false;
     });
   });
