@@ -1,24 +1,27 @@
 #board_editor {
   position: relative;
 }
+#board_editor #fen-form input {
+  margin: 1em 0 0.5em 0;
+  padding: 1% 10px;
+  width: 98%;
+  font-family: monospace;
+  font-size: 16px;
+}
 #chessboard {
-  margin-top: 20px;
-  width: 392px;
+  width: 520px;
 }
 #chessboard_side {
   position: absolute;
-  left: 424px;
-  top: 115px;
-  width: 356px;
-}
-#board_editor p.fen_string {
-  font-family: monospace;
+  left: 552px;
+  top: 190px;
+  width: 228px;
 }
 #chessboard_side p {
-  margin-bottom: 2em;
+  margin-bottom: 3em;
   text-align: center;
 }
-#board_editor a.button.big {
+#board_editor a.button {
   display: block;
   text-align: center;
   margin-bottom: 1em;
