@@ -44,7 +44,9 @@ object UserInfo {
         GameRepo count (_ notFinished user.id) map (_.some)
       }) zip
       (ctx.me.filter(user!=) ?? { me ⇒
-        GameRepo.confrontation(user, me) map (_.some)
+        GameRepo.confrontation(user, me) map (_.some filter {
+          case (w, d, l) ⇒ (w + d + l) > 0
+        })
       }) zip
       (bookmarkApi countByUser user) zip
       EloChart(user) zip

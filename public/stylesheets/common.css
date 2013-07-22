@@ -1337,6 +1337,9 @@ div.game_config input[type="text"] {
 div.game_config .fen_position {
   display: none;
 }
+div.game_config input {
+  font-family: monospace;
+}
 div.game_config input#fen.success {
   border-color: #00aa00;
 }
