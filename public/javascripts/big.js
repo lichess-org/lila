@@ -6,24 +6,32 @@
 // declare now, populate later in a distinct script.
 var lichess_translations = lichess_translations || [];
 var lichess_sri = Math.random().toString(36).substring(5); // 8 chars
+
 function withStorage(f) {
   // can throw an exception when storage is full
   try {
     return !!window.localStorage ? f(window.localStorage) : null;
-  } catch(e) {
+  } catch (e) {
     console.debug(e);
   }
 }
 var storage = {
   get: function(k) {
-    return withStorage(function(s) { return s.getItem(k); });
+    return withStorage(function(s) {
+      return s.getItem(k);
+    });
   },
   remove: function(k) {
-    withStorage(function(s) { s.removeItem(k); });
+    withStorage(function(s) {
+      s.removeItem(k);
+    });
   },
   set: function(k, v) {
     // removing first may help http://stackoverflow.com/questions/2603682/is-anyone-else-receiving-a-quota-exceeded-err-on-their-ipad-when-accessing-local
-    withStorage(function(s) { s.removeItem(k); s.setItem(k, v); });
+    withStorage(function(s) {
+      s.removeItem(k);
+      s.setItem(k, v);
+    });
   }
 };
 
@@ -315,14 +323,14 @@ var storage = {
           }
         },
         challengeReminder: function(data) {
-          if (!storage.get('challenge-refused-'+data.id) && !$('div.lichess_overboard.joining').length) {
+          if (!storage.get('challenge-refused-' + data.id) && !$('div.lichess_overboard.joining').length) {
             $('#challenge_reminder').each(function() {
               clearTimeout($(this).data('timeout'));
               $(this).remove();
             });
             $('div.notifications').append(data.html).find("a.decline").click(function() {
               $.post($(this).attr("href"));
-              storage.set('challenge-refused-'+data.id, 1)
+              storage.set('challenge-refused-' + data.id, 1)
               $('#challenge_reminder').remove();
               return false;
             });
@@ -485,11 +493,11 @@ var storage = {
       }
       $(document).idleTimer(lichess.idleTime)
         .on('idle.idleTimer', function() {
-          lichess.socket.destroy();
-        })
+        lichess.socket.destroy();
+      })
         .on('active.idleTimer', function() {
-          lichess.socket.connect();
-        });
+        lichess.socket.connect();
+      });
     }, 500);
 
     if ($board = $('div.with_marks').orNot()) {
@@ -702,7 +710,7 @@ var storage = {
         var enabled = !soundEnabled();
         $soundToggle.toggleClass('sound_state_on', enabled);
         $.playSound();
-        if(enabled) storage.set('sound', 1);
+        if (enabled) storage.set('sound', 1);
         else storage.remove('sound');
         return false;
       });
@@ -936,7 +944,12 @@ var storage = {
               .find("div.lichess_table").addClass("finished").end()
               .find(".moretime").remove().end()
               .find('div.clock').clock('stop');
-            self.element.find("div.ui-draggable").draggable("destroy");
+            try {
+              self.element.find("div.ui-draggable").draggable("destroy");
+            } catch (e) { }
+            setTimeout(function() {
+              self.element.find('.ui-draggable-dragging').remove();
+            }, 500);
             // But enqueue the visible changes
             self.element.queue(function() {
               self.changeTitle($.trans("Game Over"));
@@ -1502,7 +1515,7 @@ var storage = {
         var enabled = $toggle.is(':checked');
         self.element.toggleClass('hidden', !enabled);
         self.options.onToggle(enabled);
-        if(!enabled) storage.set('nochat', 1);
+        if (!enabled) storage.set('nochat', 1);
         else storage.remove('nochat');
       });
       $toggle[0].checked = storage.get('nochat') != 1;
