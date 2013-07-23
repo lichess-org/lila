@@ -240,3 +240,7 @@ waitingForNbPlayers=Чакаем %s гульцоў
 tournamentIsStarting=Турнір пачынаецца
 nbMinutesPerSidePlusNbSecondsPerMove=%s хвілін на чалавека + %s секунд на ход
 anonymousCanJoin=Ананімы могуць далучацца
+boardEditor=Рэдактар дошкі
+startPosition=Пачатковая пазіцыя
+clearBoard=Ачысціць дошку
+savePosition=Захаваць пазіцыю
