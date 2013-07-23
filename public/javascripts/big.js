@@ -2265,7 +2265,7 @@ var storage = {
     }
 
     function renderTr(hook) {
-      return '<tr data-id="' + hook.id + '" class="' + hook.id + '">' + _.map([
+      return '<tr data-id="' + hook.id + '" class="' + hook.id + ' ' + hook.action + '">' + _.map([
         ['', '<span class="s16 ' + (hook.color || 'random') + '"></span>'],
         [hook.username, hook.elo ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous'],
         [hook.elo || 0, hook.elo || ''],
