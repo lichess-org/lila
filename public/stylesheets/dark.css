@@ -191,6 +191,9 @@ body.dark #hooks_table tr:nth-child(even) td {
 body.dark #hooks_table tr:nth-child(odd) td {
   background: rgba(40, 40, 40, 0.6);
 }
+body.dark #hooks_table tr.cancel td {
+  background: rgba(80, 0, 0, 0.7);
+}
 body.dark #hooks_table tr:hover td {
   background: rgba(50, 50, 20, 0.7);
 }

@@ -1532,6 +1532,9 @@ div.game_config div.color_submits button.random span {
 #hooks_table tr:nth-child(even) td {
   background: rgba(230, 230, 230, 0.5);
 }
+#hooks_table tr.cancel td {
+  background: rgba(255, 200, 200, 0.7);
+}
 #hooks_table tr:hover td {
   background: rgba(255, 255, 200, 0.7);
 }
