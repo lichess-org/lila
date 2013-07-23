@@ -21,7 +21,6 @@ GET   /@/:username/:filterName         controllers.User.showFilter(username: Str
 GET   /@/:username                     controllers.User.show(username: String)
 GET   /people                          controllers.User.list(page: Int ?= 1)
 GET   /people/autocomplete             controllers.User.autocomplete
-GET   /people/online                   controllers.User.online
 PUT   /account/bio                     controllers.User.setBio
 GET   /account/passwd                  controllers.User.passwd
 POST  /account/passwd                  controllers.User.passwdApply

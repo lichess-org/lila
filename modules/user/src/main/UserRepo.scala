@@ -20,6 +20,8 @@ object UserRepo {
 
   def all: Fu[List[User]] = $find.all
 
+  def topElo(nb: Int): Fu[List[User]] = $find($query.all sort sortEloDesc, nb)
+
   def byId(id: ID): Fu[Option[User]] = $find byId id
 
   def byIds(ids: Iterable[ID]): Fu[List[User]] = $find byIds ids
@@ -35,7 +37,7 @@ object UserRepo {
 
   def byIdsSortElo(ids: Seq[ID], max: Int) = $find($query byIds ids sort sortEloDesc, max)
 
-  def allSortToints(nb: Int) = $find($query.all sort ("toints" -> $sort.desc), nb)
+  def allSortToints(nb: Int) = $find($query.all sort ($sort desc "toints"), nb)
 
   def usernameById(id: ID) = $primitive.one($select(id), "username")(_.asOpt[String])
 

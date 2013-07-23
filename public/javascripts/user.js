@@ -1,18 +1,4 @@
 $(function() {
-  if($users = $('div.online_users').orNot()) {
-    // Update online users
-    var onlineUserUrl = $users.attr('data-reload-url');
-    function reloadOnlineUsers() {
-      setTimeout(function() {
-        $.get(onlineUserUrl, function(html) {
-          $users.html(html);
-          $('body').trigger('lichess.content_loaded');
-          reloadOnlineUsers();
-        });
-      }, 3000);
-    };
-    reloadOnlineUsers();
-  }
 
   if($searchForm = $('form.search_user_form').orNot()) {
     $searchInput = $searchForm.find('input.search_user');

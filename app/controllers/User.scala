@@ -47,8 +47,8 @@ object User extends LilaController {
 
   def list(page: Int) = Open { implicit ctx ⇒
     Reasonable(page) {
-      onlineUsers zip env.paginator.elo(page) map {
-        case (users, pag) ⇒ html.user.list(pag, users)
+      UserRepo.topElo(10) map {
+        case topElo ⇒ html.user.list(topElo)
       }
     }
   }
@@ -67,10 +67,6 @@ object User extends LilaController {
         html.user.opponents(user, ops)
       }
     }
-  }
-
-  def online = Open { implicit ctx ⇒
-    onlineUsers map { html.user.online(_) }
   }
 
   def autocomplete = Open { implicit ctx ⇒
@@ -131,9 +127,4 @@ object User extends LilaController {
       }
     }
   }
-
-  private def onlineUsers: Fu[List[UserModel]] =
-    $find byIds env.onlineUserIdMemo.keys map {
-      _ sortBy (-_.elo)
-    }
 }
