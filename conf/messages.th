@@ -240,3 +240,7 @@ waitingForNbPlayers=กำลังรอ %s ผู้เล่น
 tournamentIsStarting=ทัวร์นาเมนต์กำลังเริ่มต้น
 nbMinutesPerSidePlusNbSecondsPerMove=%s นาที/ข้าง + %s วินาที/การเดิน
 anonymousCanJoin=ผู้เล่นนิรนามสามารถเข้าร่วมได้
+boardEditor=ตัวแก้ไขกระดาน
+startPosition=ตำแหน่งเริ่มต้น
+clearBoard=ล้างกระดาน
+savePosition=บันทึกตำแหน่ง

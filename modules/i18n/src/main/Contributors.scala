@@ -30,7 +30,7 @@ private[i18n] object Contributors {
     "nn" -> List("Peropaal"),
     "eo" -> List("LaPingvino"),
     "tp" -> List("jan Mimoku"),
-    "el" -> List("Yannis Anthymidis", "Tzortzakos Fivos", "Γιάννης Ανθυμίδης"),
+    "el" -> List("Tzortzakos Fivos", "Γιάννης Ανθυμίδης"),
     "fp" -> List("Alex"),
     "lt" -> List("Anonymous"),
     "nb" -> List("sundaune"),

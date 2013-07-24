@@ -46,6 +46,8 @@ private[i18n] case class JsDump(
     keys.addToChrome,
     keys.createANewTournament,
     keys.join,
+    keys.joinTheGame,
+    keys.cancel,
     keys.withdraw,
     keys.tournamentIsStarting)
 
