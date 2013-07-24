@@ -51,9 +51,6 @@ final class Env(
       scheduler.message(1 seconds) {
         lobby -> lila.socket.actorApi.Broom
       }
-      scheduler.message(10 seconds) {
-        socket -> actorApi.Resync
-      }
     }
   }
 
