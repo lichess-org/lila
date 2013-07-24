@@ -20,5 +20,5 @@ final class Cached(ttl: Duration) {
 
   val count = AsyncCache((o: JsObject) ⇒ $count(o), timeToLive = ttl)
 
-  def countEnabled: Fu[Int] = count(UserRepo.enabledQuery)
+  def countEnabled: Fu[Int] = count(UserRepo.enabledSelect)
 }

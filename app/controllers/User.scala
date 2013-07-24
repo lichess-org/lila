@@ -47,9 +47,21 @@ object User extends LilaController {
 
   def list(page: Int) = Open { implicit ctx ⇒
     Reasonable(page) {
-      UserRepo.topElo(10) map {
-        case topElo ⇒ html.user.list(topElo)
-      }
+      val nb = 15
+      UserRepo.topElo(nb) zip
+        UserRepo.byIdsSortElo(env.onlineUserIdMemo.keys, nb) zip
+        UserRepo.topBullet(nb) zip
+        UserRepo.topBlitz(nb) zip
+        UserRepo.topSlow(nb) zip 
+        UserRepo.topNbGame(nb) map {
+          case (((((elo, online), bullet), blitz), slow), nb) ⇒ html.user.list(
+            elo = elo, 
+            online = online,
+            bullet = bullet,
+            blitz = blitz,
+            slow = slow,
+            nb = nb)
+        }
     }
   }
 

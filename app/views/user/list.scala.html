@@ -1,19 +1,22 @@
-@(topElo: List[User])(implicit ctx: Context)
+@(elo: List[User], online: List[User], bullet: List[User], blitz: List[User], slow: List[User], nb: List[User])(implicit ctx: Context)
 
-@user.layout(trans.chessPlayers.str()) {
+@goodies = {
+<div class="goodies">
+  <form class="search_user_form" action="@routes.User.show("")">
+    <input placeholder="@trans.search()" class="search_user autocomplete" data-provider="@routes.User.autocomplete" />
+  </form>
+</div>
+}
+
+@user.layout(trans.chessPlayers.str(), goodies = goodies.some) {
 <div class="content_box">
-  <!--
-      <form class="search_user_form" action="@routes.User.show("")">
-        <input placeholder="@trans.search()" class="search_user autocomplete" data-provider="@routes.User.autocomplete" />
-      </form>
-      -->
   <div class="user_lists clearfix">
-    <div class="top_elo">
-      <h1 class="lichess_title">Best players ever</h1>
-      <div class="users">
-        @topElo.map { u => @userLink(u) }
-      </div>
-    </div>
+    @user.top(elo, "Best players ever")(_.elo)
+    @user.top(online, "Best players online")(_.elo)
+    @user.top(slow, "Active players")(_.count.game + " " + trans.games.str())
+    @user.top(bullet, "Best bullet players")(_.speedElos.bullet.elo)
+    @user.top(blitz, "Best blitz players")(_.speedElos.blitz.elo)
+    @user.top(slow, "Best slow players")(_.speedElos.slow.elo)
   </div>
 </div>
 }
