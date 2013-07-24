@@ -1864,13 +1864,14 @@ var storage = {
           }
         });
         var $eloRangeConfig = $this.parent();
-        $modeChoices.on('change', function() {
+        $modeChoices.add($form.find('.members_only input')).on('change', function() {
           var rated = $rated.prop('checked');
-          $eloRangeConfig.toggle(rated);
+          var membersOnly = $form.find('.members_only input').prop('checked');
+          $eloRangeConfig.toggle(rated || membersOnly);
           if (isHook && rated && !$clockCheckbox.prop('checked')) {
             $clockCheckbox.click();
           }
-          $form.find('.allow_anon_config').toggle(!rated);
+          $form.find('.members_only').toggle(!rated);
           $.centerOverboard();
         }).trigger('change');
       });
@@ -2275,7 +2276,8 @@ var storage = {
     }
 
     function renderTr(hook) {
-      return '<tr data-id="' + hook.id + '" class="' + hook.id + ' ' + hook.action + '">' + _.map([
+      var title = (hook.action == "join") ? $.trans('Join the game') : $.trans('cancel');
+      return '<tr title="' + title + '"  data-id="' + hook.id + '" class="' + hook.id + ' ' + hook.action + '">' + _.map([
         ['', '<span class="s16 ' + (hook.color || 'random') + '"></span>'],
         [hook.username, hook.elo ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous'],
         [hook.elo || 0, hook.elo || ''],

@@ -80,7 +80,7 @@ private[setup] final class FormFactory {
       "time" -> time,
       "increment" -> increment,
       "mode" -> mode(ctx.isAuth),
-      "allowAnon" -> boolean,
+      "membersOnly" -> boolean,
       "eloRange" -> eloRange,
       "color" -> nonEmptyText.verifying(Color.names contains _)
     )(HookConfig.<<)(_.>>)
