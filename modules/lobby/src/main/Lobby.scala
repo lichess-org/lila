@@ -2,10 +2,9 @@ package lila.lobby
 
 import scala.concurrent.duration._
 
+import actorApi._
 import akka.actor._
 import akka.pattern.{ ask, pipe }
-
-import actorApi._
 import lila.db.api._
 import lila.hub.actorApi.GetUids
 import lila.memo.ExpireSetMemo
@@ -18,7 +17,7 @@ private[lobby] final class Lobby(
 
   def receive = {
 
-    case GetOpen       ⇒ sender ! HookRepo.allOpen
+    case GetOpen ⇒ sender ! HookRepo.allOpen
 
     case msg @ AddHook(hook) ⇒ {
       HookRepo byUid hook.uid foreach remove
@@ -47,6 +46,8 @@ private[lobby] final class Lobby(
         HookRepo.cleanupOld foreach remove
       }
     }
+
+    case Resync ⇒ socket ! HookIds(HookRepo.list map (_.id))
   }
 
   private def remove(hook: Hook) = {
