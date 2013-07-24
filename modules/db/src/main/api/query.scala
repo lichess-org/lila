@@ -14,7 +14,7 @@ object $query {
 
   def byId[A: InColl, B: Writes](id: B) = apply($select byId id)
 
-  def byIds[A: InColl, B: Writes](ids: Seq[B]) = apply($select byIds ids)
+  def byIds[A: InColl, B: Writes](ids: Iterable[B]) = apply($select byIds ids)
 
   def builder[A: InColl] = implicitly[InColl[A]].coll.genericQueryBuilder
 }

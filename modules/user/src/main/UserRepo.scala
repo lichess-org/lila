@@ -20,7 +20,17 @@ object UserRepo {
 
   def all: Fu[List[User]] = $find.all
 
-  def topElo(nb: Int): Fu[List[User]] = $find($query.all sort sortEloDesc, nb)
+  def topElo(nb: Int): Fu[List[User]] = $find(enabledQuery sort sortEloDesc, nb)
+
+  def topBullet = topSpeed("bullet") _
+  def topBlitz = topSpeed("blitz") _
+  def topSlow = topSpeed("slow") _
+
+  def topSpeed(speed: String)(nb: Int): Fu[List[User]] = 
+    $find(enabledQuery sort ($sort desc "speedElos." + speed + ".elo"), nb)
+
+  def topNbGame(nb: Int): Fu[List[User]] = 
+    $find(enabledQuery sort ($sort desc "count.game"), nb)
 
   def byId(id: ID): Fu[Option[User]] = $find byId id
 
@@ -29,19 +39,19 @@ object UserRepo {
   def byOrderedIds(ids: Iterable[ID]): Fu[List[User]] = $find byOrderedIds ids
 
   def enabledByIds(ids: Seq[ID]): Fu[List[User]] =
-    $find(enabledQuery ++ $select.byIds(ids))
+    $find(enabledSelect ++ $select.byIds(ids))
 
   def named(username: String): Fu[Option[User]] = $find byId normalize(username)
 
   def nameds(usernames: List[String]): Fu[List[User]] = $find byIds usernames.map(normalize)
 
-  def byIdsSortElo(ids: Seq[ID], max: Int) = $find($query byIds ids sort sortEloDesc, max)
+  def byIdsSortElo(ids: Iterable[ID], max: Int) = $find($query byIds ids sort sortEloDesc, max)
 
   def allSortToints(nb: Int) = $find($query.all sort ($sort desc "toints"), nb)
 
   def usernameById(id: ID) = $primitive.one($select(id), "username")(_.asOpt[String])
 
-  def rank(user: User) = $count(enabledQuery ++ Json.obj("elo" -> $gt(user.elo))) map (1+)
+  def rank(user: User) = $count(enabledSelect ++ Json.obj("elo" -> $gt(user.elo))) map (1+)
 
   def setElo(id: ID, elo: Int, speedElo: (String, SubElo), variantElo: (String, SubElo)): Funit = (speedElo, variantElo) match {
     case ((speed, sElo), (variant, vElo)) ⇒ $update($select(id), $set(
@@ -55,7 +65,8 @@ object UserRepo {
 
   def setEloOnly(id: ID, elo: Int): Funit = $update($select(id), $set("elo" -> elo))
 
-  val enabledQuery = Json.obj("enabled" -> true)
+  val enabledSelect = Json.obj("enabled" -> true)
+  val enabledQuery = $query(enabledSelect)
 
   val sortEloDesc = $sort desc "elo"
 

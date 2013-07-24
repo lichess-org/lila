@@ -1,0 +1,12 @@
+@(users: List[User], title: String)(f: User => Any)(implicit ctx: Context)
+
+<div class="user_top">
+  <h2>@title</h2>
+  <table>
+    <tbody>
+    @users.map { u =>
+    <tr><td>@userLink(u, withElo = false, cssClass="revert-underline".some)</td><td>@f(u)</td></tr>
+    }
+    </tbody>
+  </table>
+</div>
