@@ -2118,8 +2118,8 @@ var storage = {
     }
 
     function removeHook(id) {
-      pool = _.filter(pool, function(h) {
-        return h.id != id;
+      pool = _.reject(pool, function(h) {
+        return h.id == id;
       });
       drawHooks();
     }
@@ -2133,12 +2133,12 @@ var storage = {
       drawHooks(inBatch || false);
     }
 
-    function undrawHook(hook) {
-      $('#' + hook.id).not('.hiding').addClass('hiding').fadeOut(animation, function() {
+    function undrawHook(id) {
+      $('#' + id).not('.hiding').addClass('hiding').fadeOut(animation, function() {
         $.powerTip.destroy($(this));
         $(this).remove();
       });
-      $tbody.children('.' + hook.id).remove();
+      $tbody.children('.' + id).remove();
     }
 
     function drawHooks(inBatch) {
@@ -2153,7 +2153,7 @@ var storage = {
           (filter.eloDiff > 0 && (!hook.elo || hook.elo > (myElo + filter.eloDiff) || hook.elo < (myElo - filter.eloDiff)));
         var hash = hook.mode + hook.variant + hook.time + hook.elo;
         if (hide && hook.action != 'cancel') {
-          undrawHook(hook);
+          undrawHook(hook.id);
           hidden++;
         } else if (_.contains(seen, hash) && hook.action != 'cancel') {
           $('#' + hook.id).filter(':visible').hide();
@@ -2171,13 +2171,15 @@ var storage = {
         }
         if (hook.action != 'cancel') seen.push(hash);
       });
-      $canvas.find('>span.plot').each(function() {
-        var id = $(this).attr('id');
-        if (!_.find(pool, function(h) {
-          return h.id == id;
-        })) {
-          undrawHook($(this).data('hook'));
-        }
+      _.each(_.union(
+        _.map($canvas.find('>span.plot'), function(o) {
+          return $(o).attr('id');
+        }),
+        _.map($tbody.children(), function(o) {
+          return $(o).data('id');
+        })
+      ), function(id) {
+        if (!_.findWhere(pool, {id: id})) undrawHook(id);
       });
 
       if (!(inBatch || false)) {
