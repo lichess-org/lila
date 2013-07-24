@@ -2081,6 +2081,7 @@ var storage = {
         },
         hook_add: addHook,
         hook_remove: removeHook,
+        hook_list: syncHookIds,
         featured: changeFeatured,
         redirect: function(e) {
           $.lichessOpeningPreventClicks();
@@ -2120,6 +2121,13 @@ var storage = {
     function removeHook(id) {
       pool = _.reject(pool, function(h) {
         return h.id == id;
+      });
+      drawHooks();
+    }
+
+    function syncHookIds(ids) {
+      pool = _.filter(pool, function(h) {
+        return _.contains(ids, h.id);
       });
       drawHooks();
     }
