@@ -16,7 +16,8 @@ case class HookConfig(
     color: Color,
     eloRange: EloRange) extends HumanConfig {
 
-  def >> = (variant.id, clock, time, increment, mode.id.some, allowAnon, eloRange.toString.some, color.name).some
+  // allowAnons -> membersOnly
+  def >> = (variant.id, clock, time, increment, mode.id.some, !allowAnon, eloRange.toString.some, color.name).some
 
   def hook(uid: String, user: Option[User], sid: Option[String]) = Hook.make(
     uid = uid,
@@ -43,16 +44,17 @@ case class HookConfig(
 
 object HookConfig extends BaseHumanConfig {
 
-  def <<(v: Int, k: Boolean, t: Int, i: Int, m: Option[Int], a: Boolean, e: Option[String], c: String) = {
+  def <<(v: Int, k: Boolean, t: Int, i: Int, m: Option[Int], membersOnly: Boolean, e: Option[String], c: String) = {
     val realMode = m.fold(Mode.default)(Mode.orDefault)
+    val useEloRange = realMode.rated || membersOnly
     new HookConfig(
       variant = Variant(v) err "Invalid game variant " + v,
       clock = k,
       time = t,
       increment = i,
       mode = realMode,
-      allowAnon = a,
-      eloRange = e.filter(_ ⇒ realMode.rated).fold(EloRange.default)(EloRange.orDefault),
+      allowAnon = !membersOnly, // membersOnly
+      eloRange = e.filter(_ ⇒ useEloRange).fold(EloRange.default)(EloRange.orDefault),
       color = Color(c) err "Invalid color " + c)
   }
 

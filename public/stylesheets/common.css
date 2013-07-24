@@ -1358,8 +1358,7 @@ div.game_config .time_choice, div.game_config .increment_choice, div.game_config
 div.game_config .time_choice span {
   font-weight: bold;
 }
-div.game_config .allow_anon_config label,
-div.game_config .clock_config label {
+div.game_config label.pointer {
   cursor: pointer;
 }
 div.game_config button.submit {
