@@ -239,6 +239,7 @@ createdBy=lavet af
 waitingForNbPlayers=venter for %s spillere
 tournamentIsStarting=turnering er begyndt
 nbMinutesPerSidePlusNbSecondsPerMove=%s minutter/ side + %s sek/træk
+membersOnly=Kun for medlemmer
 boardEditor=Bræt redigering
 startPosition=Start position
 clearBoard=Rens bræt
