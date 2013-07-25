@@ -1,6 +1,6 @@
 @(users: List[User], title: String, last: Boolean = false)(f: User => Any)(implicit ctx: Context)
 
-<div class="user_top@last.??(" last")">
+<div class="user_top@{ last.??(" last") }">
   <h2>@title</h2>
   <table>
     <tbody>
