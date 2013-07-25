@@ -18,6 +18,7 @@ if [ "$1" = "set" ]; then
     version="$2"
     printf "Set version to %s\n" $2
     echo $version > bin/.translate_version
+    show
   fi
 elif [ "$1" = "fetch" ]; then
   printf "Fetch from version %s\n" $version
