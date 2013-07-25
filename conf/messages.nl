@@ -239,6 +239,7 @@ createdBy=Gemaakt door
 waitingForNbPlayers=Nog %s spelers, wachtend
 tournamentIsStarting=Toernooi start
 nbMinutesPerSidePlusNbSecondsPerMove=%s minuten/kleur + %s seconden/zet
+membersOnly=Alleen voor leden
 boardEditor=Bord editor
 startPosition=Startopstelling
 clearBoard=Maak het bord leeg
