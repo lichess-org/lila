@@ -41,7 +41,6 @@ private[i18n] object Contributors {
     "ar" -> List("Ziad Dabash"),
     "zh" -> List("神爱"),
     "gl" -> List("José Manuel Castroagudín Silva"),
-    "tk" -> List("Anonymous"),
     "hr" -> List("Betyárcsimbók"),
     "mk" -> List("Давид и Стефан Тимовски"),
     "id" -> List("Night1301"),
