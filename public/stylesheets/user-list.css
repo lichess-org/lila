@@ -4,8 +4,12 @@ div.user_lists h2 {
 }
 div.user_lists div.user_top {
   float: left;
-  width: 33.3%;
+  width: 32%;
   margin-bottom: 2em;
+  margin-right: 1%;
+}
+div.user_lists div.user_top.last {
+  margin-right: 0;
 }
 div.user_lists div.user_top table {
   width: 100%;

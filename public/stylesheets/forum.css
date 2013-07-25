@@ -81,7 +81,7 @@ ol.crumbs li:first-child {
 #lichess_forum table.forum_table th {
   padding: 1em 0 0.5em 0;
 }
-#lichess_forum table.forum_table th:last {
+#lichess_forum table.forum_table th:last-child {
   padding-left: 1em;
 }
 
