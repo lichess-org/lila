@@ -239,7 +239,6 @@ createdBy=Criado por
 waitingForNbPlayers=Esperando por %s jogadores
 tournamentIsStarting=Começando o Torneio
 nbMinutesPerSidePlusNbSecondsPerMove=%s minutos/lado + %s segundos/movimento
-anonymousCanJoin=Anônimos podem entrar
 boardEditor=Editor de tabuleiro
 startPosition=posição inicial
 clearBoard=Limpar tabuleiro

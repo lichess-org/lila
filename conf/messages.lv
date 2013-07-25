@@ -239,7 +239,6 @@ createdBy=Izveidoja
 waitingForNbPlayers=Gaidām %s spēlētājus
 tournamentIsStarting=Turnīrs tiek sākts
 nbMinutesPerSidePlusNbSecondsPerMove=%s minūtes katram + %s sekundes/gājiens
-anonymousCanJoin=Var pievienoties anonīmie
 boardEditor=Lauciņa redaktors
 startPosition=Sākuma pozīcija
 clearBoard=Notīrīt lauciņu

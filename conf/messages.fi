@@ -239,7 +239,6 @@ createdBy=Tekijä:
 waitingForNbPlayers=Odotetaan %s pelaajaa
 tournamentIsStarting=Turnaus alkaa
 nbMinutesPerSidePlusNbSecondsPerMove=%s minuuttia/puoli + %s sekuntia/siirto
-anonymousCanJoin=Anonyymi voi osallistua
 boardEditor=Lautaeditori
 startPosition=Alkuasema
 clearBoard=Tyhjennä lauta

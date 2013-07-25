@@ -239,7 +239,6 @@ createdBy=Napravio
 waitingForNbPlayers=Čekanje %s  igrača
 tournamentIsStarting=Turnir počinje
 nbMinutesPerSidePlusNbSecondsPerMove=%s Minuta/igrač + %s sekundi/potezu
-anonymousCanJoin=NN se može pridružiti
 boardEditor=Uredi ploču
 startPosition=Početni položaj
 clearBoard=Počisti ploču
