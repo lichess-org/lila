@@ -239,6 +239,7 @@ createdBy=Vytvořeno uživatelem
 waitingForNbPlayers=Čeká se na %s hráčů
 tournamentIsStarting=Turnaj začíná
 nbMinutesPerSidePlusNbSecondsPerMove=%s minut / strana %s sekund/tah
+membersOnly=Hrát pouze s registrovanými
 boardEditor=Editor šachovnice
 startPosition=Základní postavení
 clearBoard=Prázdná šachovnice
