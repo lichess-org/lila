@@ -20,17 +20,17 @@ object UserRepo {
 
   def all: Fu[List[User]] = $find.all
 
-  def topElo(nb: Int): Fu[List[User]] = $find(enabledQuery sort sortEloDesc, nb)
+  def topElo(nb: Int): Fu[List[User]] = $find(goodLadQuery sort sortEloDesc, nb)
 
   def topBullet = topSpeed("bullet") _
   def topBlitz = topSpeed("blitz") _
   def topSlow = topSpeed("slow") _
 
   def topSpeed(speed: String)(nb: Int): Fu[List[User]] = 
-    $find(enabledQuery sort ($sort desc "speedElos." + speed + ".elo"), nb)
+    $find(goodLadQuery sort ($sort desc "speedElos." + speed + ".elo"), nb)
 
   def topNbGame(nb: Int): Fu[List[User]] = 
-    $find(enabledQuery sort ($sort desc "count.game"), nb)
+    $find(goodLadQuery sort ($sort desc "count.game"), nb)
 
   def byId(id: ID): Fu[Option[User]] = $find byId id
 
@@ -66,7 +66,8 @@ object UserRepo {
   def setEloOnly(id: ID, elo: Int): Funit = $update($select(id), $set("elo" -> elo))
 
   val enabledSelect = Json.obj("enabled" -> true)
-  val enabledQuery = $query(enabledSelect)
+  val noEngineSelect = Json.obj("engine" -> $ne(true))
+  val goodLadQuery = $query(enabledSelect ++ noEngineSelect)
 
   val sortEloDesc = $sort desc "elo"
 
