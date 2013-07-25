@@ -239,6 +239,7 @@ createdBy=Стварыў
 waitingForNbPlayers=Чакаем %s гульцоў
 tournamentIsStarting=Турнір пачынаецца
 nbMinutesPerSidePlusNbSecondsPerMove=%s хвілін на чалавека + %s секунд на ход
+membersOnly=Толькі чальцы
 boardEditor=Рэдактар дошкі
 startPosition=Пачатковая пазіцыя
 clearBoard=Ачысціць дошку
