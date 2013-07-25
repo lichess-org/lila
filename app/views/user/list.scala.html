@@ -13,7 +13,7 @@
   <div class="user_lists clearfix">
     @user.top(elo, "Best players ever")(_.elo)
     @user.top(online, "Best players online")(_.elo)
-    @user.top(nb, "Active players", true)(_.count.game + " " + trans.games.str())
+    @user.top(nb, "Active players", true)(_.count.game.localize + " " + trans.games.str())
     @user.top(bullet, "Best bullet players")(_.speedElos.bullet.elo)
     @user.top(blitz, "Best blitz players")(_.speedElos.blitz.elo)
     @user.top(slow, "Best slow players", true)(_.speedElos.slow.elo)
