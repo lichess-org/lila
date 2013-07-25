@@ -23,9 +23,9 @@ trait SetupHelper extends scalaz.Booleans { self: I18nHelper ⇒
   def translatedSpeedChoices(implicit ctx: Context) = Speed.all map { s ⇒
     s.id.toString -> {
       (s.range.min, s.range.max) match {
-        case (0, y)            ⇒ s.toString + " - " + trans.lessThanNbMinutes(y/60)
+        case (0, y)            ⇒ s.toString + " - " + trans.lessThanNbMinutes(y/60 + 1)
         case (x, Int.MaxValue) ⇒ trans.unlimited.str()
-        case (x, y)            ⇒ s.toString + " - " + trans.xToYMinutes(x/60, y/60)
+        case (x, y)            ⇒ s.toString + " - " + trans.xToYMinutes(x/60, y/60 + 1)
       }
     }
   }
