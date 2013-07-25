@@ -239,6 +239,7 @@ createdBy=Creato da
 waitingForNbPlayers=Aspettando %s giocatori
 tournamentIsStarting=Torneo iniziato
 nbMinutesPerSidePlusNbSecondsPerMove=%s minuti/parte + %s secondi/mossa
+membersOnly=Solo utenti registrati
 boardEditor=Editor scacchiera
 startPosition=Posizione iniziale
 clearBoard=Pulisci la scacchiera
