@@ -239,7 +239,6 @@ createdBy=Készítette:
 waitingForNbPlayers=Várakozás %s játékosokra
 tournamentIsStarting=A verseny kezdődik
 nbMinutesPerSidePlusNbSecondsPerMove=%s percek / játékosok + %s másodpercek / lépés
-anonymousCanJoin=Ismeretlen csatlakozhat
 boardEditor=Tábla szerkesztő
 startPosition=Kezdő pozíció
 clearBoard=Tábla törlése

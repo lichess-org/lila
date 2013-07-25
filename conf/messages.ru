@@ -239,7 +239,6 @@ createdBy=Создан
 waitingForNbPlayers=Ожидание %s игроков
 tournamentIsStarting=Турнир начинается
 nbMinutesPerSidePlusNbSecondsPerMove=%s минут каждой стороне + %s секунд на ход
-anonymousCanJoin=Анонимный игрок может участвовать
 boardEditor=Редактор доски
 startPosition=Начальная позиция
 clearBoard=Очистить доску

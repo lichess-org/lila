@@ -239,7 +239,6 @@ createdBy=Stworzone przez
 waitingForNbPlayers=Oczekiwanie na %s graczy
 tournamentIsStarting=Turniej się zaczyna
 nbMinutesPerSidePlusNbSecondsPerMove=%s minut + %s sekund na ruch
-anonymousCanJoin=Nieznajomy może dołączyć
 boardEditor=Edytor szachownicy
 startPosition=Pozycja początkowa
 clearBoard=Wyczyść szachownicę

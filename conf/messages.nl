@@ -239,7 +239,6 @@ createdBy=Gemaakt door
 waitingForNbPlayers=Nog %s spelers, wachtend
 tournamentIsStarting=Toernooi start
 nbMinutesPerSidePlusNbSecondsPerMove=%s minuten/kleur + %s seconden/zet
-anonymousCanJoin=Anonieme speler kan meedoen
 boardEditor=Bord editor
 startPosition=Startopstelling
 clearBoard=Maak het bord leeg

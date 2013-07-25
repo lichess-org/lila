@@ -239,7 +239,6 @@ createdBy=トーナメント作成者
 waitingForNbPlayers=%s プレイヤー待機中
 tournamentIsStarting=トーナメント開始
 nbMinutesPerSidePlusNbSecondsPerMove=%s 分/サイド + %s 秒/移動
-anonymousCanJoin=未登録ユーザーの参加を許可する
 boardEditor=盤面編集
 startPosition=盤面編集
 clearBoard=盤面をクリア

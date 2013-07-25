@@ -239,7 +239,6 @@ createdBy=Δημιουργήθηκε από
 waitingForNbPlayers=Αναμονή για %s παίκτες
 tournamentIsStarting=Το το
 nbMinutesPerSidePlusNbSecondsPerMove=%s λεπτά/πλευρά + %s δευτερόλεπτα/κίνηση
-anonymousCanJoin=Ανώνυμοι μπορούν να ενταχθούν
 boardEditor=Προετοιμαστής σκακιέρας
 startPosition=Θέση έναρξης
 clearBoard=Εκκαθάριση σκακιέρας
