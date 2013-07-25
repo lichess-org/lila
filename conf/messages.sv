@@ -239,6 +239,7 @@ createdBy=Skapad av
 waitingForNbPlayers=Väntar på %s players
 tournamentIsStarting=Turneringen startar
 nbMinutesPerSidePlusNbSecondsPerMove=%s minuter/sida + %s sekunder/drag
+membersOnly=Endast medlemmar
 boardEditor=Brädeditor
 startPosition=Start ställning
 clearBoard=Rensa bord
