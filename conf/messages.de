@@ -239,6 +239,7 @@ createdBy=Erzeugt durch
 waitingForNbPlayers=Warten auf %s Spieler
 tournamentIsStarting=Turnier beginnt
 nbMinutesPerSidePlusNbSecondsPerMove=%s Minuten/Seite + %s Sekunden/Zug
+membersOnly=Nur für Mitglieder
 boardEditor=Bretteditor
 startPosition=Anfangsposition
 clearBoard=Brett räumen
