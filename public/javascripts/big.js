@@ -2006,9 +2006,8 @@ var storage = {
           $.ajax({
             url: $(this).attr('href'),
             success: function(html) {
-              $div.html(html).find('input').change(_.throttle(function() {
+              var save = _.throttle(function() {
                 var $form = $div.find('form');
-                console.debug($form.serialize());
                 $.ajax({
                   url: $form.attr('action'),
                   data: $form.serialize(),
@@ -2018,13 +2017,45 @@ var storage = {
                     drawHooks();
                   }
                 });
-              }, 500));
+              }, 500)
+              $div.html(html).find('input').change(save);
               $div.find('button.reset').click(function() {
-                $div.find('tr label:first-child input').prop('checked', true).trigger('change');
+                $div.find('label input').prop('checked', true).trigger('change');
+                $div.find('.elo_range').each(function() {
+                  var s = $(this);
+                  s.slider('values', [s.slider('option', 'min'), s.slider('option', 'max')]).trigger('change');
+                });
               });
               $div.find('button').click(function() {
                 $wrap.find('a.filter').click();
                 return false;
+              });
+              $div.find('.elo_range').each(function() {
+                var $this = $(this);
+                var $input = $this.find("input");
+                var $span = $this.siblings(".range");
+                var min = $input.data("min");
+                var max = $input.data("max");
+                if ($input.val()) {
+                  var values = $input.val().split("-");
+                } else {
+                  var values = [min, max];
+                }
+                $span.text(values.join(' - '));
+                function change() {
+                  var values = $this.slider('values');
+                  $input.val(values[0] + "-" + values[1]);
+                  $span.text(values[0] + " - " + values[1]);
+                  save();
+                }
+                $this.slider({
+                  range: true,
+                  min: min,
+                  max: max,
+                  values: values,
+                  step: 50,
+                  slide: change
+                }).change(change);
               });
             }
           });
@@ -2033,7 +2064,7 @@ var storage = {
         $div.fadeOut(500);
       }
       return false;
-    }).click();
+    });
 
     $bot.on("click", "tr", function() {
       location.href = $(this).find('a.watch').attr("href");

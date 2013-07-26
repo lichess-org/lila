@@ -203,7 +203,7 @@ body.dark #hook_filter {
 body.dark #hook_filter td > label {
   color: #c0c0c0;
 }
-body.dark #hook_filter td > label:hover {
+body.dark #hook_filter td > label.hover:hover {
   background: #000;
 }
 

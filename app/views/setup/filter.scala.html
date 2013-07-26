@@ -1,30 +1,41 @@
 @(form: Form[_], filter: lila.setup.FilterConfig)(implicit ctx: Context)
 
+@import lila.common.EloRange
+
 @helper.form(action = routes.Setup.filter(), 'novalidate -> "novalidate") {
 <table>
   <tbody>
-    <tr>
-      <td>@trans.variant()</td>
-      <td>@setup.filterCheckboxes(form, "variant", filter.variant.map(_.id.toString), translatedVariantChoices)</td>
-    </tr>
-    <tr>
-      <td>@trans.timeControl()</td>
-      <td>@setup.filterCheckboxes(form, "speed", filter.speed.map(_.id.toString), translatedSpeedChoices)</td>
-    </tr>
-    <tr>
-      <td>@trans.mode()</td>
-      <td>@setup.filterCheckboxes(form, "mode", filter.mode.map(_.id.toString), translatedModeChoices)</td>
-    </tr>
-    @ctx.me.map { me =>
-    <tr>
-      <td>@trans.eloRange()</td>
-      <td>@helper.inputText(form("eloRange"))</td>
-    </tr>
-    }
+  <tr>
+    <td>@trans.variant()</td>
+    <td>@setup.filterCheckboxes(form, "variant", filter.variant.map(_.id.toString), translatedVariantChoices)</td>
+  </tr>
+  <tr>
+    <td>@trans.timeControl()</td>
+    <td>@setup.filterCheckboxes(form, "speed", filter.speed.map(_.id.toString), translatedSpeedChoices)</td>
+  </tr>
+  <tr>
+    <td>@trans.mode()</td>
+    <td>@setup.filterCheckboxes(form, "mode", filter.mode.map(_.id.toString), translatedModeChoices)</td>
+  </tr>
+  @ctx.me.map { me =>
+  <tr>
+    <td>@trans.eloRange()</td>
+    <td class="elo_range_config">
+      <label class="range">? - ?</label>
+      <div class="elo_range">
+        @setup.input(
+        form("eloRange"),
+        Symbol("type") -> "hidden",
+        Symbol("data-min") -> EloRange.min,
+        Symbol("data-max") -> EloRange.max)
+      </div>
+    </td>
+  </tr>
+  }
   </tbody>
 </table>
 <div class="actions">
-  <button type="submit" class="reset">@trans.reset()</button>
-  <button type="submit" class="submit">@trans.apply()</button>
+  <button type="submit" class="reset button">@trans.reset()</button>
+  <button type="submit" class="submit button">@trans.apply()</button>
 </div>
 }
