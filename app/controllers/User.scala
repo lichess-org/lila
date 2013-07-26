@@ -23,6 +23,13 @@ object User extends LilaController {
     filter(username, filterName, page)
   }
 
+  def online = Open { implicit req ⇒
+    // UserRepo.byIdsSortElo(env.onlineUserIdMemo.keys, 1000) map { users ⇒
+    UserRepo.topNbGame(400) map { users ⇒
+      html.user.online(users)
+    }
+  }
+
   private def filter(username: String, filterName: String, page: Int)(implicit ctx: Context) =
     Reasonable(page) {
       OptionFuOk(UserRepo named username) { userShow(_, filterName, page) }
@@ -52,10 +59,10 @@ object User extends LilaController {
         UserRepo.byIdsSortElo(env.onlineUserIdMemo.keys, nb) zip
         UserRepo.topBullet(nb) zip
         UserRepo.topBlitz(nb) zip
-        UserRepo.topSlow(nb) zip 
+        UserRepo.topSlow(nb) zip
         UserRepo.topNbGame(nb) map {
           case (((((elo, online), bullet), blitz), slow), nb) ⇒ html.user.list(
-            elo = elo, 
+            elo = elo,
             online = online,
             bullet = bullet,
             blitz = blitz,
