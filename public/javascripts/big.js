@@ -388,6 +388,7 @@ var storage = {
         if ($('body > div.content').offset().top > 70) {
           $('body > div.content').css('marginTop', '0px');
         }
+        $('#site_header .side_menu').prependTo('div.content_box:first');
       } else {
         $(document.body).removeClass("tight");
         $('#timeline, div.lichess_goodies div.box, div.lichess_chat, div.under_chat').each(function() {
@@ -405,6 +406,7 @@ var storage = {
         $('#featured_game').each(function() {
           $(this).children().toggle($(this).width() == 224);
         });
+        $('div.content_box .side_menu').appendTo('#site_header');
       }
     }
     $(window).resize(onResize);
