@@ -452,7 +452,7 @@ var storage = {
         }).on({
           powerTipPreRender: function() {
             $.ajax({
-              url: $(this).attr('href'),
+              url: $(this).attr('href') + '/mini',
               success: function(html) {
                 $('#powerTip').html(html);
               }

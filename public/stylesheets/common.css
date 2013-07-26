@@ -229,6 +229,11 @@ ul.ui-autocomplete li a.ui-state-focus {
   text-align: right;
   padding: 16px 8px;
 }
+#powerTip .lang {
+  display: block;
+  height: 16px;
+  margin-top: 5px;
+}
 #powerTip:before, #hook:before {
   content:"";
   position: absolute;
