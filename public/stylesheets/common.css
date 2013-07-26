@@ -362,6 +362,11 @@ body.tight #site_header {
 #site_header strong {
   font-weight: normal;
 }
+#site_header a.lang_fallback {
+  font-weight: bold;
+  display: inline-block;
+  margin-right: 1em;
+}
 body > div.content {
   width: 1005px;
   min-height: 590px;

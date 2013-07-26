@@ -32,7 +32,7 @@ themepicker: Boolean = false)(body: Html)(implicit ctx: Context)
 data-sound-file="@routes.Assets.at("sound/alert.ogg")"
 data-troll="@ctx.troll.toString"
 data-port="@netPort"
-data-accept-languages="@acceptLanguages">
+data-accept-languages="@acceptLanguages.mkString(",")">
 <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
 <div id="top" class="clearfix">
   <a title="@trans.toggleSound()" id="sound_state" class="available">
@@ -102,7 +102,11 @@ data-accept-languages="@acceptLanguages">
       <a id="site_title" href="@routes.Lobby.home">
         lichess<span class="extension">.org</span>
       </a>
+      @if(acceptsLanguage(lang)) {
       @baseline
+      } else {
+      @langFallbackLinks
+      }
     </h1>
     @menu.map { side =>
     <div class="side_menu">@side</div>
