@@ -239,6 +239,7 @@ createdBy=Creado por
 waitingForNbPlayers=Aguardando por %s jugadores
 tournamentIsStarting=El torneo está comenzando
 nbMinutesPerSidePlusNbSecondsPerMove=%s minutos/lado + %s segundos/movimiento
+membersOnly=ainult liikmetele
 boardEditor=Editor de tablero
 startPosition=Posición inicial
 clearBoard=Limpiar el tablero
