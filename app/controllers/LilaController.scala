@@ -12,7 +12,7 @@ import scalaz.Zero
 import lila.app._
 import lila.common.LilaCookie
 import lila.security.{ Permission, Granter }
-import lila.user.{ Context, HeaderContext, BodyContext, User ⇒ UserModel }
+import lila.user.{ Context, HeaderContext, BodyContext, UserRepo, User ⇒ UserModel }
 
 private[controllers] trait LilaController
     extends Controller
@@ -177,7 +177,9 @@ private[controllers] trait LilaController
   private def restoreUser(req: RequestHeader): Fu[Option[UserModel]] =
     Env.security.api restoreUser req addEffect {
       _ foreach { user ⇒
-        lila.user.UserRepo setSeenAt user.id 
+        UserRepo setSeenAt user.id 
+        val lang = Env.i18n.pool.lang(req).language
+        if (user.lang != lang.some) UserRepo.setLang(user.id, lang)
         Env.user setOnline user 
         user.seenAt.isEmpty ?? Env.relation.autofollow(user) 
       }

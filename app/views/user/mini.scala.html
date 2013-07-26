@@ -7,4 +7,9 @@
   @trans.followsYou()
   }
 </div>
+@u.lang.map { l =>
+@langName(l).map { name =>
+<span class="lang">@name</span>
+}
+}
 <div class="content relation_actions">@relation.actions(u.id)</div>

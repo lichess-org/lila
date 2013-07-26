@@ -191,6 +191,10 @@ object UserRepo {
     $update.fieldUnchecked(id, "seenAt", $date(DateTime.now))
   }
 
+  def setLang(id: ID, lang: String) {
+    $update.fieldUnchecked(id, "lang", lang)
+  }
+
   def idsAverageElo(ids: Iterable[String]): Fu[Int] = ids.isEmpty ? fuccess(0) | {
     import reactivemongo.bson._
     import reactivemongo.core.commands._
