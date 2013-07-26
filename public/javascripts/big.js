@@ -2187,10 +2187,10 @@ var storage = {
       var hidden = 0;
       var visible = 0;
       _.each(pool, function(hook) {
-        var hide = (filter.variant != null && filter.variant != hook.variant) ||
-          (filter.mode != null && filter.mode != hook.mode) ||
-          (filter.speed != null && filter.speed != hook.speed) ||
-          (filter.eloDiff > 0 && (!hook.elo || hook.elo > (myElo + filter.eloDiff) || hook.elo < (myElo - filter.eloDiff)));
+        var hide = !_.contains(filter.variant, hook.variant) ||
+          !_.contains(filter.mode, hook.mode) ||
+          !_.contains(filter.speed, hook.speed) ||
+          (hook.elo && (hook.elo < filter.elo[0] || hook.elo > filter.elo[1]))
         var hash = hook.mode + hook.variant + hook.time + hook.elo;
         if (hide && hook.action != 'cancel') {
           undrawHook(hook.id);
@@ -2227,7 +2227,7 @@ var storage = {
         $table.toggleClass('crowded', visible >= 12);
         $wrap
           .find('a.filter')
-          .toggleClass('on', filter.mode != null || filter.variant != null || filter.speed != null || filter.eloDiff > 0)
+          .toggleClass('on', hidden > 0)
           .find('span.number').text('(' + hidden + ')');
 
         $table.trigger('sortable.sort');

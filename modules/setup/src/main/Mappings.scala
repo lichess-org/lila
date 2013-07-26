@@ -17,7 +17,7 @@ object Mappings {
   def rawMode(isAuth: Boolean) = number
     .verifying(HookConfig.modes contains _)
     .verifying(m ⇒ m == Mode.Casual.id || isAuth)
-  val eloRange = optional(nonEmptyText.verifying(EloRange valid _))
+  val eloRange = nonEmptyText.verifying(EloRange valid _)
   val color = nonEmptyText.verifying(Color.names contains _)
   val level = number.verifying(AiConfig.levels contains _)
   val speed = number.verifying(Config.speeds contains _)

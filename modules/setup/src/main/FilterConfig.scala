@@ -1,10 +1,9 @@
 package lila.setup
 
-import play.api.libs.json._
-
 import chess.{ Variant, Mode, Speed }
-import lila.common.PimpedJson._
 import lila.common.EloRange
+import lila.common.PimpedJson._
+import play.api.libs.json._
 
 case class FilterConfig(
     variant: List[Variant],
@@ -16,8 +15,7 @@ case class FilterConfig(
     v = variant.map(_.id),
     m = mode.map(_.id),
     s = speed.map(_.id),
-    e = eloRange.toString
-  )
+    e = eloRange.toString)
 
   def >> = (
     variant map (_.id),
@@ -30,8 +28,12 @@ case class FilterConfig(
     "variant" -> variant.map(_.toString),
     "mode" -> mode.map(_.toString),
     "speed" -> speed.map(_.id),
-    "eloRange" -> eloRange.toString
-  )
+    "elo" -> List(eloRange.min, eloRange.max))
+
+  def nonEmpty = copy(
+    variant = variant.isEmpty.fold(FilterConfig.default.variant, variant),
+    mode = mode.isEmpty.fold(FilterConfig.default.mode, mode),
+    speed = speed.isEmpty.fold(FilterConfig.default.speed, speed))
 }
 
 object FilterConfig {
@@ -51,7 +53,7 @@ object FilterConfig {
     mode = m map Mode.apply flatten,
     speed = s map Speed.apply flatten,
     eloRange = EloRange orDefault e
-  )
+  ).nonEmpty
 
   def fromDB(obj: JsObject): Option[FilterConfig] = for {
     filter ← obj obj "filter"
@@ -86,7 +88,7 @@ private[setup] case class RawFilterConfig(v: List[Int], m: List[Int], s: List[In
     mode = m map Mode.apply flatten,
     speed = s map Speed.apply flatten,
     eloRange = EloRange orDefault e
-  ).some
+  ).nonEmpty.some
 }
 
 private[setup] object RawFilterConfig {
