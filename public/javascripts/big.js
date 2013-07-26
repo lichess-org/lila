@@ -2334,7 +2334,7 @@ var storage = {
     }).join(''));
 
     function confirm960(hook) {
-      if (hook.variant == "Chess960" && !storage.get('c960')) {
+      if (hook.variant == "Chess960" && hook.action == "join" && !storage.get('c960')) {
         var c = confirm("This is a Chess960 game!\n\nThe starting position of the pieces on the players' home ranks is randomized.\nRead more: http://wikipedia.org/wiki/Chess960\n\nDo you want to play Chess960?");
         if (c) storage.set('c960', 1);
         return c;
