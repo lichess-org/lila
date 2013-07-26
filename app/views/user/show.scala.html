@@ -121,36 +121,41 @@ evenMoreCss = evenMoreCss) {
       }
       }
       <div class="stats">
-        <p>@trans.memberSince() @showDate(u.createdAt)</p>
-        @u.seenAt.map { seen =>
-        <p>@trans.lastLogin() @timeago(seen)</p>
+        @u.lang.map { l =>
+        @langName(l).map { name =>
+        <p class="lang s16">@name</span>
+      }
+      }
+      <p>@trans.memberSince() @showDate(u.createdAt)</p>
+      @u.seenAt.map { seen =>
+      <p>@trans.lastLogin() @timeago(seen)</p>
+      }
+      <a href="@routes.User.opponents(u.username)">@trans.favoriteOpponents()</a>
+      <div class="teams">
+        @teamIds(u.id).sortBy(t => !myTeam(t)).map { teamId =>
+        @teamLink(teamId, ("s16 team revert-underline" + myTeam(teamId).fold(" mine", "")).some)
         }
-        <a href="@routes.User.opponents(u.username)">@trans.favoriteOpponents()</a>
-        <div class="teams">
-          @teamIds(u.id).sortBy(t => !myTeam(t)).map { teamId =>
-          @teamLink(teamId, ("s16 team revert-underline" + myTeam(teamId).fold(" mine", "")).some)
-          }
-        </div>
-      </div>
-      <div class="actions clearfix">
-        @actions
       </div>
     </div>
+    <div class="actions clearfix">
+      @actions
+    </div>
   </div>
-  @if(u.hasGames) {
-  <div class="content_box_inter clearfix">
-    @filters.list.map { f =>
-    <a class="intertab@{ (filters.current == f).??(" active") }" href="@routes.User.showFilter(u.username, f.name)">
-      @userGameFilterTitle(info, f)
-    </a>
-    }
-  </div>
-  <div class="games infinitescroll all_games">
-    @games.nextPage.map { np =>
-    <div class="pager none"><a href="@routes.User.showFilter(u.username, filters.current.name, np)">Next</a></div>
-    }
-    @game.widgets(games.currentPageResults, user = u.some, ownerLink = ctx is u)
-  </div>
+</div>
+@if(u.hasGames) {
+<div class="content_box_inter clearfix">
+  @filters.list.map { f =>
+  <a class="intertab@{ (filters.current == f).??(" active") }" href="@routes.User.showFilter(u.username, f.name)">
+    @userGameFilterTitle(info, f)
+  </a>
   }
+</div>
+<div class="games infinitescroll all_games">
+  @games.nextPage.map { np =>
+  <div class="pager none"><a href="@routes.User.showFilter(u.username, filters.current.name, np)">Next</a></div>
+  }
+  @game.widgets(games.currentPageResults, user = u.some, ownerLink = ctx is u)
+</div>
+}
 </div>
 }
