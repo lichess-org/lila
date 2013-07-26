@@ -20,6 +20,7 @@ GET   /@/:username/mod                 controllers.User.mod(username: String)
 GET   /@/:username/:filterName         controllers.User.showFilter(username: String, filterName: String, page: Int ?= 1)
 GET   /@/:username                     controllers.User.show(username: String)
 GET   /people                          controllers.User.list(page: Int ?= 1)
+GET   /people/online                   controllers.User.online
 GET   /people/autocomplete             controllers.User.autocomplete
 PUT   /account/bio                     controllers.User.setBio
 GET   /account/passwd                  controllers.User.passwd

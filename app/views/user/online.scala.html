@@ -1,5 +1,12 @@
 @(users: List[User])(implicit ctx: Context)
-<h1>@trans.whoIsOnline() (@users.size)</h1>
-<br />
-<br />
-<ul class="users">@users.map { u => <li>@userLink(u, None, true)</li> }</ul>
+
+@user.layout(trans.chessPlayers.str()) {
+<div class="content_box">
+  <h1>@trans.whoIsOnline() (@users.size)</h1>
+  <br />
+  <br />
+  <div class="online_users clearfix">
+    @users.map { u => @userLink(u, None, withOnline = false) }
+  </div>
+</div>
+}

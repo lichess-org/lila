@@ -22,6 +22,12 @@ div.user_lists div.user_top a {
   margin: 3px 0;
 }
 
+div.online_users > a {
+  float: left;
+  width: 25%;
+  margin-bottom: 5px;
+}
+
 form.search_user_form {
   margin: 1em 0 0 0;
 }

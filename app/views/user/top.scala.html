@@ -1,4 +1,4 @@
-@(users: List[User], title: String, last: Boolean = false)(f: User => Any)(implicit ctx: Context)
+@(users: List[User], title: Any, last: Boolean = false)(f: User => Any)(implicit ctx: Context)
 
 <div class="user_top@{ last.??(" last") }">
   <h2>@title</h2>

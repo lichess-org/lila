@@ -8,11 +8,15 @@
 </div>
 }
 
+@onlineLink = {
+<a href="@routes.User.online" title="@trans.more()">Best players online</a>
+}
+
 @user.layout(trans.chessPlayers.str(), goodies = goodies.some) {
 <div class="content_box">
   <div class="user_lists clearfix">
     @user.top(elo, "Best players ever")(_.elo)
-    @user.top(online, "Best players online")(_.elo)
+    @user.top(online, onlineLink)(_.elo)
     @user.top(nb, "Active players", true)(_.count.game.localize + " " + trans.games.str())
     @user.top(bullet, "Best bullet players")(_.speedElos.bullet.elo)
     @user.top(blitz, "Best blitz players")(_.speedElos.blitz.elo)
