@@ -20,7 +20,8 @@ case class User(
     engine: Boolean = false,
     toints: Int = 0,
     createdAt: DateTime,
-    seenAt: Option[DateTime]) extends Ordered[User] {
+    seenAt: Option[DateTime],
+    lang: Option[String]) extends Ordered[User] {
 
   override def equals(other: Any) = other match {
     case u: User ⇒ id == u.id
@@ -78,5 +79,6 @@ object User {
     "engine" -> false,
     "toints" -> 0,
     "roles" -> Json.arr(),
-    "seenAt" -> none[DateTime])
+    "seenAt" -> none[DateTime],
+    "lang" -> none[String] )
 }

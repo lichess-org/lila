@@ -22,7 +22,8 @@ trait I18nHelper {
 
   implicit def lang(implicit ctx: Context) = pool lang ctx.req
 
-  def langName(lang: Lang) = LangList name lang.language
+  def langName(lang: Lang): Option[String] = langName(lang.language)
+  def langName(lang: String): Option[String] = LangList name lang
 
   def translationCall(implicit ctx: Context) =
     if (ctx.req.cookies.get(hideCallsCookieName).isDefined) None
