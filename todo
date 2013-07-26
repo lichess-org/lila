@@ -57,4 +57,8 @@ customize sound notifications http://imgur.com/70WVyb5
 opera issue http://en.lichess.org/forum/lichess-feedback/new-game-wont-show-on-games-list-opera#1
 embedded games links http://2ls.ru/chessonline/
 filter ranges http://en.lichess.org/forum/lichess-feedback/my-proposed-changes-with-filter-window#1 
-takeback en passant http://fr.lichess.org/forum/general-chess-discussion/bug-with-take-back-and-en-passant#2
+
+deploy
+------
+db.config.update({filter:{$exists:1}},{$unset:{filter:1}},{multi:1})
+db.config_anon.update({filter:{$exists:1}},{$unset:{filter:1}},{multi:1})

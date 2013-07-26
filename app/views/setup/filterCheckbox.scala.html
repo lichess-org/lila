@@ -1,0 +1,10 @@
+@(form: Form[_], key: String, index: Int, value: String, checks: List[String], text: Html)
+
+<label>
+  <input 
+  type="checkbox" 
+  name="@{form(key).name}[@index]" 
+  value="@value" 
+  @(if(checks contains value) "checked" else "") />
+  @text
+</label>

@@ -2033,7 +2033,7 @@ var storage = {
         $div.fadeOut(500);
       }
       return false;
-    });
+    }).click();
 
     $bot.on("click", "tr", function() {
       location.href = $(this).find('a.watch').attr("href");
