@@ -16,7 +16,11 @@ object User extends LilaController {
   private def forms = lila.user.DataForm
 
   def show(username: String) = Open { implicit ctx ⇒
-    isXhr.fold(mini(username), filter(username, "all", 1))
+    filter(username, "all", 1)
+  }
+
+  def showMini(username: String) = Open { implicit ctx ⇒
+    mini(username)
   }
 
   def showFilter(username: String, filterName: String, page: Int) = Open { implicit ctx ⇒
