@@ -2200,7 +2200,6 @@ var storage = {
         } else if (_.contains(seen, hash) && hook.action != 'cancel') {
           $('#' + hook.id).filter(':visible').hide();
           $tbody.children('.' + hook.id).hide();
-          hidden++;
         } else {
           visible++;
           if (!$('#' + hook.id).length) {
