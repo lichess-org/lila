@@ -1,28 +1,27 @@
 package lila.setup
 
-import play.api.data._
-import play.api.data.Forms._
-
 import chess.Variant
 import lila.common.EloRange
 import lila.db.api._
 import lila.lobby.Color
 import lila.user.Context
+import play.api.data._
+import play.api.data.Forms._
 import tube.{ userConfigTube, anonConfigTube }
 
 private[setup] final class FormFactory {
 
   import Mappings._
 
-  def filterFilled(implicit ctx: Context): Fu[Form[FilterConfig]] =
-    filterConfig map filter(ctx).fill 
+  def filterFilled(implicit ctx: Context): Fu[(Form[FilterConfig], FilterConfig)] =
+    filterConfig map { f ⇒ filter(ctx).fill(f) -> f }
 
   def filter(ctx: Context) = Form(
     mapping(
-      "variant" -> optional(variant),
-      "mode" -> mode(true),
-      "speed" -> optional(speed),
-      "eloDiff" -> optional(eloDiff)
+      "variant" -> list(variant),
+      "mode" -> list(rawMode(true)),
+      "speed" -> list(speed),
+      "eloRange" -> nonEmptyText
     )(FilterConfig.<<)(_.>>)
   )
 
@@ -30,7 +29,7 @@ private[setup] final class FormFactory {
 
   def aiFilled(fen: Option[String])(implicit ctx: Context): Fu[Form[AiConfig]] =
     aiConfig map { config ⇒
-      ai(ctx) fill fen.fold(config) { f ⇒ 
+      ai(ctx) fill fen.fold(config) { f ⇒
         config.copy(fen = f.some, variant = Variant.FromPosition)
       }
     }
@@ -51,7 +50,7 @@ private[setup] final class FormFactory {
 
   def friendFilled(fen: Option[String])(implicit ctx: Context): Fu[Form[FriendConfig]] =
     friendConfig map { config ⇒
-      friend(ctx) fill fen.fold(config) { f ⇒ 
+      friend(ctx) fill fen.fold(config) { f ⇒
         config.copy(fen = f.some, variant = Variant.FromPosition)
       }
     }
@@ -90,6 +89,6 @@ private[setup] final class FormFactory {
 
   def hookConfig(implicit ctx: Context): Fu[HookConfig] = savedConfig map (_.hook)
 
-  def savedConfig(implicit ctx: Context): Fu[UserConfig] = 
+  def savedConfig(implicit ctx: Context): Fu[UserConfig] =
     ctx.me.fold(AnonConfigRepo config ctx.req)(UserConfigRepo.config)
 }

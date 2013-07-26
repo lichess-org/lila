@@ -1,24 +1,24 @@
-@(form: Form[_])(implicit ctx: Context)
+@(form: Form[_], filter: lila.setup.FilterConfig)(implicit ctx: Context)
 
 @helper.form(action = routes.Setup.filter(), 'novalidate -> "novalidate") {
 <table>
   <tbody>
     <tr>
       <td>@trans.variant()</td>
-      <td>@setup.filterRadios(form, "variant", translatedVariantChoices)</td>
+      <td>@setup.filterCheckboxes(form, "variant", filter.variant.map(_.id.toString), translatedVariantChoices)</td>
     </tr>
     <tr>
       <td>@trans.timeControl()</td>
-      <td>@setup.filterRadios(form, "speed", translatedSpeedChoices)</td>
+      <td>@setup.filterCheckboxes(form, "speed", filter.speed.map(_.id.toString), translatedSpeedChoices)</td>
     </tr>
     <tr>
       <td>@trans.mode()</td>
-      <td>@setup.filterRadios(form, "mode", translatedModeChoices)</td>
+      <td>@setup.filterCheckboxes(form, "mode", filter.mode.map(_.id.toString), translatedModeChoices)</td>
     </tr>
     @ctx.me.map { me =>
     <tr>
       <td>@trans.eloRange()</td>
-      <td>@setup.filterRadios(form, "eloDiff", eloDiffChoices(me.elo))</td>
+      <td>@helper.inputText(form("eloRange"))</td>
     </tr>
     }
   </tbody>

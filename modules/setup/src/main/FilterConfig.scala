@@ -4,62 +4,62 @@ import play.api.libs.json._
 
 import chess.{ Variant, Mode, Speed }
 import lila.common.PimpedJson._
+import lila.common.EloRange
 
 case class FilterConfig(
-    variant: Option[Variant],
-    mode: Option[Mode],
-    speed: Option[Speed],
-    eloDiff: Option[Int]) {
+    variant: List[Variant],
+    mode: List[Mode],
+    speed: List[Speed],
+    eloRange: EloRange) {
 
   def encode = RawFilterConfig(
-    v = ~variant.map(_.id),
-    m = mode.map(_.id) | -1,
-    s = ~speed.map(_.id),
-    e = ~eloDiff
+    v = variant.map(_.id),
+    m = mode.map(_.id),
+    s = speed.map(_.id),
+    e = eloRange.toString
   )
 
   def >> = (
     variant map (_.id),
     mode map (_.id),
     speed map (_.id),
-    eloDiff
+    eloRange.toString
   ).some
 
   def render = Json.obj(
     "variant" -> variant.map(_.toString),
     "mode" -> mode.map(_.toString),
     "speed" -> speed.map(_.id),
-    "eloDiff" -> eloDiff
+    "eloRange" -> eloRange.toString
   )
 }
 
 object FilterConfig {
 
+  val variants = List(Variant.Standard, Variant.Chess960)
+  val modes = Mode.all
+  val speeds = Speed.all
+
   val default = FilterConfig(
-    variant = none,
-    mode = none,
-    speed = none,
-    eloDiff = none)
+    variant = variants,
+    mode = modes,
+    speed = speeds,
+    eloRange = EloRange.default)
 
-  val variants = 0 :: Config.variants
-  val modes = -1 :: Mode.all.map(_.id)
-  val speeds = 0 :: Config.speeds
-  val eloDiffs = 100 :: 200 :: 300 :: 500 :: Nil
-
-  def <<(v: Option[Int], m: Option[Int], s: Option[Int], e: Option[Int]) = new FilterConfig(
-    variant = v flatMap Variant.apply,
-    mode = m flatMap Mode.apply,
-    speed = s flatMap Speed.apply,
-    eloDiff = e filter (0!=)
+  def <<(v: List[Int], m: List[Int], s: List[Int], e: String) = new FilterConfig(
+    variant = v map Variant.apply flatten,
+    mode = m map Mode.apply flatten,
+    speed = s map Speed.apply flatten,
+    eloRange = EloRange orDefault e
   )
 
   def fromDB(obj: JsObject): Option[FilterConfig] = for {
     filter ← obj obj "filter"
-    variant ← filter int "v"
-    mode ← filter int "m"
-    speed ← filter int "s"
-    eloDiff ← filter int "e"
-    config ← RawFilterConfig(variant, mode, speed, eloDiff).decode
+    variant ← filter ints "v"
+    mode ← filter ints "m"
+    speed ← filter ints "s"
+    eloRange ← filter str "e"
+    config ← RawFilterConfig(variant, mode, speed, eloRange).decode
   } yield config
 
   import lila.db.Tube
@@ -79,13 +79,13 @@ object FilterConfig {
   )
 }
 
-private[setup] case class RawFilterConfig(v: Int, m: Int, s: Int, e: Int) {
+private[setup] case class RawFilterConfig(v: List[Int], m: List[Int], s: List[Int], e: String) {
 
   def decode = FilterConfig(
-    variant = Variant(v),
-    mode = Mode(m),
-    speed = Speed(s),
-    eloDiff = e.some filter (0!=)
+    variant = v map Variant.apply flatten,
+    mode = m map Mode.apply flatten,
+    speed = s map Speed.apply flatten,
+    eloRange = EloRange orDefault e
   ).some
 }
 

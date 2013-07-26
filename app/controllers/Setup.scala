@@ -1,12 +1,11 @@
 package controllers
 
-import play.api.data.Form
-import play.api.mvc.{ Result, Call }
-
 import lila.app._
 import lila.game.GameRepo
 import lila.user.UserRepo
 import lila.user.{ Context, BodyContext }
+import play.api.data.Form
+import play.api.mvc.{ Result, Call }
 import views._
 
 object Setup extends LilaController with TheftPrevention {
@@ -69,7 +68,9 @@ object Setup extends LilaController with TheftPrevention {
   }
 
   def filterForm = Open { implicit ctx ⇒
-    env.forms.filterFilled map { html.setup.filter(_) }
+    env.forms.filterFilled map {
+      case (form, filter) ⇒ html.setup.filter(form, filter)
+    }
   }
 
   def filter = OpenBody { implicit ctx ⇒
