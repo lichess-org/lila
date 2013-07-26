@@ -28,7 +28,7 @@ object Rewind {
         turns = rewindedGame.turns,
         positionHashes = rewindedHistory.positionHashes mkString,
         castles = rewindedHistory.castleNotation,
-        lastMove = rewindedHistory.lastMove map { case (a, b) ⇒ a + " " + b },
+        lastMove = rewindedHistory.lastMove map { case (a, b) ⇒ a.toString + b.toString },
         status =
           if (rewindedSituation.checkMate) Status.Mate
           else if (rewindedSituation.staleMate) Status.Stalemate
