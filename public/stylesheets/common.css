@@ -1464,28 +1464,32 @@ div.game_config div.color_submits button.random span {
   width: 100%;
 }
 #hook_filter td {
-  padding: 10px 0;
+  padding: 20px 0;
 }
 #hook_filter td:first-child {
   font-size: 1.3em;
 }
 #hook_filter td > label {
   display: block;
-  padding: 3px 10px;
+  padding: 3px 0;
   color: #444;
 }
-#hook_filter label, #hook_filter input {
+#hook_filter label.hover, #hook_filter input {
   cursor: pointer;
 }
-#hook_filter td > label:hover {
+#hook_filter td > label.hover:hover {
   background: #fff;
 }
+#hook_filter .range {
+  text-align: center;
+}
 #hook_filter .actions {
+  margin-top: 20px;
   text-align: right;
 }
 #hook_filter .actions button {
   padding: 6px;
-  margin-left: 12px;
+  margin-left: 3px;
 }
 #hooks_table {
   width: 512px;
