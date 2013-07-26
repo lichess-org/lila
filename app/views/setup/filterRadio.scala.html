@@ -1,6 +1,0 @@
-@(field: play.api.data.Field, key: Any, value: Option[String], text: Html)
-
-<label>
-  <input type="radio" name="@field.name" value="@value" @(if(field.value == value) "checked" else "") />
-  @text
-</label>
