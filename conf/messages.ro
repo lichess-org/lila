@@ -239,6 +239,7 @@ createdBy=Creat de
 waitingForNbPlayers=Așteptând încă %s jucători
 tournamentIsStarting=Campionatul începe
 nbMinutesPerSidePlusNbSecondsPerMove=%s minute + %s secunde/mutare
+membersOnly=Doar pentru membri
 boardEditor=editorul de tabla
 startPosition=pozitia de start
 clearBoard=curata tabla
