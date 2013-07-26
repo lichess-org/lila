@@ -602,9 +602,10 @@ var storage = {
       });
     });
 
+    var acceptLanguages = $('body').data('accept-languages').split(',');
     $('#top .lichess_language').one('mouseover', function() {
       var $t = $(this);
-      _.each($('body').data('accept-languages').split(','), function(lang) {
+      _.each(acceptLanguages, function(lang) {
         $t.find('a[lang="' + lang + '"]').addClass('accepted');
       });
     });

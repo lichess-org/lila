@@ -9,14 +9,18 @@ private[i18n] case class I18nPool(val langs: Set[Lang], val default: Lang) {
 
   def nonDefaultLangs = langs - default
 
-  val names: Map[String, String] = langs map { l ⇒
-    l.language -> LangList.nameOrCode(l.language)
-  } toMap
+  val names: Map[String, String] = (langs map langNames).toMap
+
+  private def langNames(lang: Lang): (String, String) =
+    lang.language -> LangList.nameOrCode(lang.language)
 
   def lang(req: RequestHeader) = domainLang(req) | default
 
   def preferred(req: RequestHeader) =
     (req.acceptLanguages find langs.contains) | default
+
+  def preferredNames(req: RequestHeader, nb: Int): Seq[(String, String)] =
+    req.acceptLanguages filter langs.contains take nb map langNames
 
   def domainLang(req: RequestHeader) =
     cache.getOrElseUpdate(req.domain, {
