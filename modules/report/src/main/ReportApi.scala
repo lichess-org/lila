@@ -21,10 +21,8 @@ final class ReportApi {
 
   def process(id: String, by: User): Funit = 
     $update.field(id, "processedBy", by.id)
-
-  // def unprocessed = $find($query(
-  //   Json.obj("processedBy" -> $exists(true))
-  // ) sort $sort.createdDesc, 50)
+  
+  def nbUnprocessed = $count(Json.obj("processedBy" -> $exists(false)))
 
   def recent = $find($query.all sort $sort.createdDesc, 50)
 }

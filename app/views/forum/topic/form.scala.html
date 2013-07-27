@@ -1,7 +1,11 @@
 @(categ: lila.forum.Categ, form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context)
 
-@forum.layout(
-title = "New forum topic") {
+@goodies = {
+<br />
+@report.speech(true)
+}
+
+@forum.layout(title = "New forum topic", goodies = goodies.some) {
 <ol class="crumbs">
   <li><a href="@routes.ForumCateg.index">Forum</a></li>
   <li><h1>@categ.name</h1></li>
