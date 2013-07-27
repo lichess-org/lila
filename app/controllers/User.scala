@@ -28,8 +28,7 @@ object User extends LilaController {
   }
 
   def online = Open { implicit req ⇒
-    // UserRepo.byIdsSortElo(env.onlineUserIdMemo.keys, 1000) map { users ⇒
-    UserRepo.topNbGame(400) map { users ⇒
+    UserRepo.byIdsSortElo(env.onlineUserIdMemo.keys, 1000) map { users ⇒
       html.user.online(users)
     }
   }
