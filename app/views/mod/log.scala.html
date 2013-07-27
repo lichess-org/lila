@@ -2,7 +2,11 @@
 
 @title = @{ "Mod logs" }
 
-@base.layout(title = title) {
+@goodies = {
+<a href="@routes.Report.list">User reports</a>
+}
+
+@base.layout(title = title, goodies = goodies.some) {
 
 <style type="text/css">
   #modlog_table td {
@@ -15,8 +19,7 @@
   <table class="datatable"><tbody>
       @logs.map { log =>
       <tr>
-        <td>@timeago(log.date)</td>
-        <td>@userIdLink(log.mod.some)</td>
+        <td>@userIdLink(log.mod.some)@timeago(log.date)</td>
         <td>@log.showAction.capitalize @log.user.map { u =>
           @userIdLink(u.some)
           }</td>
