@@ -27,7 +27,7 @@ object ApplicationBuild extends Build {
     message, notification, i18n, game, bookmark, search,
     gameSearch, timeline, forum, forumSearch, team, teamSearch,
     ai, analyse, mod, monitor, site, round, lobby, setup,
-    importer, tournament, relation)
+    importer, tournament, relation, report)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map classpathDependency
@@ -159,6 +159,11 @@ object ApplicationBuild extends Build {
   lazy val wiki = project("wiki", Seq(common, db)).settings(
     libraryDependencies ++= provided(
       play.api, reactivemongo, playReactivemongo, jgit, actuarius, guava)
+  )
+
+  lazy val report = project("report", Seq(common, db, user)).settings(
+    libraryDependencies ++= provided(
+      play.api, reactivemongo, playReactivemongo)
   )
 
   lazy val notification = project("notification", Seq(common, user, hub)).settings(
