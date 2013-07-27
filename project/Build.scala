@@ -7,6 +7,7 @@ object ApplicationBuild extends Build {
   import Dependencies._
 
   lazy val lila = _root_.play.Project("lila", "4.0") settings (
+    offline := true,
     libraryDependencies ++= Seq(
       scalaz, scalalib, hasher, config, apache, scalaTime,
       csv, jgit, actuarius, scalastic, findbugs, reactivemongo,
