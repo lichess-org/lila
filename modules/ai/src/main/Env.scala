@@ -44,7 +44,10 @@ final class Env(
   // api actor
   system.actorOf(Props(new Actor {
     def receive = {
-      case lila.hub.actorApi.ai.GetLoad ⇒ stockfishClient.load pipeTo sender
+      case lila.hub.actorApi.ai.GetLoad ⇒ IsClient.fold(
+        stockfishClient.load pipeTo sender,
+        sender ! none
+      )
       case lila.hub.actorApi.ai.Analyse(id, pgn, fen) ⇒
         ai() flatMap { _.analyse(pgn, fen) } map { _(id) } pipeTo sender
     }
