@@ -45,7 +45,7 @@ trait Implicits extends Types {
 
     def toList[A: BSONDocumentReader](limit: Option[Int]): Fu[List[A]] =
       limit.fold(b.cursor[A].toList) { l ⇒
-        batch(math.min(l, 100)).cursor[A] toList l
+        batch(l).cursor[A] toList l
       }
 
     def toListFlatten[A: Tube](limit: Option[Int]): Fu[List[A]] =
