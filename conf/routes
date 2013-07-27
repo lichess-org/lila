@@ -191,6 +191,8 @@ GET   /monitor/status                  controllers.Monitor.status
 GET   /report                          controllers.Report.form
 POST  /report                          controllers.Report.create
 GET   /report/thanks                   controllers.Report.thanks
+GET   /report/list                     controllers.Report.list
+POST  /report/:id/process              controllers.Report.process(id: String)
 
 # Misc
 POST  /cli                             controllers.Cli.command

@@ -13,6 +13,16 @@ object Report extends LilaController {
   private def forms = Env.report.forms
   private def api = Env.report.api
 
+  def list = Secure(_.SeeReport) { implicit ctx ⇒
+    _ ⇒ api.recent map { reports ⇒
+      html.report.list(reports)
+    }
+  }
+
+  def process(id: String) = Secure(_.SeeReport) { implicit ctx ⇒
+    me ⇒ api.process(id, me) inject Redirect(routes.Report.list)
+  }
+
   def form = Auth { implicit ctx ⇒
     implicit me ⇒
       get("username") ?? UserRepo.named flatMap { user ⇒

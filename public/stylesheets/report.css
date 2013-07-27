@@ -2,13 +2,11 @@
   font-size: 1.1em;
   padding-top: 2em;
 }
-#report form.create div.actions,
-#report div.answer div.actions {
+#report form.create div.actions, #report div.answer div.actions {
   padding: 0.5em 0;
   font-size: 1.1em;
 }
-#report form.create .actions a,
-#report div.answer div.actions a {
+#report form.create .actions a, #report div.answer div.actions a {
   margin-left: 1em;
 }
 #report form.create >div >label {
@@ -19,21 +17,17 @@
   vertical-align: middle;
   margin-top: 3px;
 }
-#report .field_to input,
-#report .field_reason input {
+#report .field_to input, #report .field_reason input {
   width: 450px;
-  border: 1px solid #D4D4D4;
   padding: 3px 5px;
 }
-#report .field_to,
-#report .field_reason {
+#report .field_to, #report .field_reason {
   margin-bottom: 1em;
 }
 #report textarea {
   width: 547px;
   height: 150px;
   padding: 10px;
-  border: 1px solid #D4D4D4;
 }
 #report .error {
   color: red;
@@ -44,4 +38,10 @@
 }
 #report .checkmateCaptcha {
   margin-top: 2em;
+}
+#report table.see td {
+  padding: 15px 10px 15px 10px;
+}
+#report tr.new td:first-child {
+  border-left: 3px solid red;
 }

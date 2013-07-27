@@ -1,0 +1,39 @@
+@(reports: List[lila.report.Report])(implicit ctx: Context)
+
+@title = @{ "User reports" }
+
+@base.layout(title = title, moreCss = cssTag("report.css")) {
+
+<div id="report" class="content_box no_padding">
+  <h1>@title (@reports.count(_.unprocessed) new)</h1>
+  <table class="slist see">
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th>Reported</th>
+        <th>For</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    @reports.map { r =>
+    <tr class="@r.unprocessed.fold("new", "")">
+      <td>@userIdLink(r.createdBy.some)@timeago(r.createdAt)</td>
+      <td>@userIdLink(r.user.some)</td>
+      <td>
+        <strong>@r.reason.capitalize</strong>
+        - @autoLink(r.text)
+      </td>
+      <td>@r.processedBy.map { u =>
+        }.getOrElse {
+        <form action="@routes.Report.process(r.id)" method="post">
+          <button type="submit" class="button">Check</button>
+        </form>
+        }
+      </td>
+    </tr>
+    }
+    </tbody>
+  </table>
+</div>
+}
