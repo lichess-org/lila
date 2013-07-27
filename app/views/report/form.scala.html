@@ -2,9 +2,11 @@
 
 @import lila.report.Reason
 
-@site.layout(title = "Report a user", moreCss = cssTag("report.css")) {
+@title = @{ "Report a user" }
+
+@site.layout(title = title, moreCss = cssTag("report.css")) {
 <div class="content_box" id="report">
-  <h1>Report a user</h1>
+  <h1>@title</h1>
   <form class="create" action="@routes.Report.create()@reqUser.map(u => "?username=" + u.username)" method="post">
     <div class="field_to">
       <label for="@form("username").id">User</label>

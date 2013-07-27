@@ -20,6 +20,8 @@ case class Report(
 
   def process(by: User) = copy(processedBy = by.id.some)
 
+  def unprocessed = processedBy.isEmpty
+
   def realReason = Reason byName reason
 }
 
