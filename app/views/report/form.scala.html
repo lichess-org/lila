@@ -4,7 +4,12 @@
 
 @title = @{ "Report a user" }
 
-@site.layout(title = title, moreCss = cssTag("report.css")) {
+@goodies = {
+<br />
+@report.speech(false)
+}
+
+@site.layout(title = title, moreCss = cssTag("report.css"), goodies = goodies.some) {
 <div class="content_box" id="report">
   <h1>@title</h1>
   <form class="create" action="@routes.Report.create()@reqUser.map(u => "?username=" + u.username)" method="post">
