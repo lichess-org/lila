@@ -7,8 +7,9 @@ import lila.user.User
 
 case class Report(
     id: String, // also the url slug
-    text: String,
     user: String, // the reportee
+    reason: String,
+    text: String,
     processedBy: Option[String],
     createdAt: DateTime,
     createdBy: String) {
@@ -18,16 +19,20 @@ case class Report(
   def isCreator(user: String) = user == createdBy
 
   def process(by: User) = copy(processedBy = by.id.some)
+
+  def realReason = Reason byName reason
 }
 
 object Report {
 
   def make(
     user: User,
+    reason: Reason,
     text: String,
     createdBy: User): Report = new Report(
     id = Random nextString 8,
     user = user.id,
+    reason = reason.name,
     text = text,
     processedBy = none,
     createdAt = DateTime.now,
