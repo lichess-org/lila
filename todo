@@ -18,7 +18,6 @@ only team forum posts on the homepage?
 team list sort by date, name, popularity, avg elo, team elo, ...?
 download 10.000 best elo games http://en.lichess.org/inbox/v1p6hokg#bottom
 sound config (like sound on game join, not moves)
-block user creation from an IP
 start clock after black move http://en.lichess.org/forum/lichess-feedback/shouldnt-the-time-start-time-after-blacks-first-move#3
 national flags http://en.lichess.org/forum/lichess-feedback/suggestion-display-national-flag#4
 restrict hook creation by IP
@@ -31,7 +30,6 @@ add pgn names to chess search
 kid mode (on subdomain?) or start-from-scratch mode (connect to DB depending on subdomain)
 explain point of importing games
 captcha highlight opponent king
-lightning/blitz/standard/untimed ratings http://www.freechess.org/Help/HelpFiles/blitz.html
 optional email http://en.lichess.org/forum/lichess-feedback/secret-question----password-recovery
 chess variants https://github.com/ornicar/lila/issues/2://github.com/ornicar/lila/issues/25 
 stream game export
@@ -40,8 +38,6 @@ from MoralIntentions email:
 - Several options of how points should be given to players (for example: Score * Sonneborn-Berger * Tournament Performance Rating * Percentage Score [for example: 0.64] / 1000) and therefore also several Leaderboards. 
 - The possibility of team matches (with solutions for players who are in several teams), where the team leader has to choose the board order, where the team results are shown and where the team player (who has played all of the games of the match) with the highest Percentage Score gets crowned Player of the Match of team "A".  
 correspondance chess http://en.lichess.org/forum/lichess-feedback/correspondence-chess#1
-takeback/enpassant glitch http://en.lichess.org/forum/lichess-feedback/i-found-a-glitch#1 
-show teams in user mini
 badges for top players in Elo and number of games
 the forum search user:mephostophilis returns no result
 players world map
