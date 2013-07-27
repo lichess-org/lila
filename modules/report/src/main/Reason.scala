@@ -1,16 +1,16 @@
 package lila.report
 
-private[report] sealed trait Reason {
+sealed trait Reason {
 
   def name = toString.toLowerCase
 }
 
-private[report] object Reason {
+object Reason {
 
-  object Cheat extends Reason
-  object Violence extends Reason
-  object Troll extends Reason
-  object Other extends Reason
+  case object Cheat extends Reason
+  case object Violence extends Reason
+  case object Troll extends Reason
+  case object Other extends Reason
 
   val all = List(Cheat, Violence, Troll, Other)
   val names = all map (_.name)

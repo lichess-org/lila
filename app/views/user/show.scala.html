@@ -131,6 +131,10 @@ evenMoreCss = evenMoreCss) {
       <p>@trans.lastLogin() @timeago(seen)</p>
       }
       <a href="@routes.User.opponents(u.username)">@trans.favoriteOpponents()</a>
+      @if(ctx.isAuth && !(ctx is u)) {
+      <br />
+      <a href="@routes.Report.form?username=@u.username">Report @u.username to moderators</a>
+      }
       <div class="teams">
         @teamIds(u.id).sortBy(t => !myTeam(t)).map { teamId =>
         @teamLink(teamId, ("s16 team revert-underline" + myTeam(teamId).fold(" mine", "")).some)

@@ -104,4 +104,5 @@ object Env {
   def importer = lila.importer.Env.current
   def tournament = lila.tournament.Env.current
   def relation = lila.relation.Env.current
+  def report = lila.report.Env.current
 }
