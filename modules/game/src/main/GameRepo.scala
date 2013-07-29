@@ -214,6 +214,9 @@ object GameRepo {
     }
   }
 
+  def random(nb: Int): Fu[List[Game]] =
+    $find($query(Json.obj("uids" -> $exists(true))) skip Random.nextInt(2000), nb)
+
   // user1 wins, draws, losses
   def confrontation(user1: User, user2: User): Fu[(Int, Int, Int)] = {
     import reactivemongo.bson._
