@@ -37,8 +37,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     case Mode.Rated  ⇒ trans.rated.str()
   }
 
-  def usernameWithElo(player: Player) =
-    Namer.player(player)(userEnv.usernameOrAnonymous).await
+  def playerUsername(player: Player, withElo: Boolean = true) =
+    Namer.player(player, withElo)(userEnv.usernameOrAnonymous).await
 
   def playerLink(
     player: Player,
@@ -56,7 +56,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
           """<a %s href="%s">%s%s</a>""".format(
             userClass(userId, cssClass, withOnline),
             routes.User show username,
-            usernameWithElo(player) + ~(player.eloDiff filter (_ ⇒ withDiff) map { diff ⇒
+            playerUsername(player) + ~(player.eloDiff filter (_ ⇒ withDiff) map { diff ⇒
               " (%s)".format(showNumber(diff))
             }),
             engine ?? """<span class="engine_mark" title="%s"></span>""" format trans.thisPlayerUsesChessComputerAssistance()
