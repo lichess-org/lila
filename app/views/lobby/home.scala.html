@@ -12,6 +12,10 @@
 <span id="site_baseline">@trans.freeOnlineChess()</span>
 }
 
+@moreJs = {
+@embedJs("var lichess_preload = " + preload)
+}
+
 @goodies = {
 @ctx.me.map { u =>
 <div id="timeline" data-href="@routes.Lobby.timeline">
@@ -35,6 +39,7 @@ title = "",
 baseline = baseline.some,
 active = siteMenu.play.some,
 goodies = goodies.some,
+moreJs = moreJs,
 underchat = underchat.some) {
 <div id="call_boxes">
   @translationCall.map(i18n.callBox(_))
@@ -70,5 +75,4 @@ underchat = underchat.some) {
   @lobby.buttons()
   @lobby.undertable(gameTimeline, forumRecent, tours)
 </div>
-@embedJs("var lichess_preload = " + preload)
 }
