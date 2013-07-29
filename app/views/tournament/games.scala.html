@@ -1,12 +1,10 @@
 @(games: List[Game])(implicit ctx: Context)
 
 <div class="game_list realtime clearfix">
-  @games.map { game =>
+  @games.map { g =>
   <div>
-    @gameFen(game, game.creator.color)
-    <div class="vstext">
-      @usernameWithElo(game.creator) - @usernameWithElo(game.invited)
-    </div>
+    @gameFen(g, g.creator.color)
+    @game.vstext(g)
   </div>
   }
 </div>

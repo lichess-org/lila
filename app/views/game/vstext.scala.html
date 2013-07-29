@@ -1,0 +1,6 @@
+@(g: Game) 
+
+<div class="vstext">
+  @usernameWithElo(g.creator) - @usernameWithElo(g.invited)<br />
+  @g.clock.map(shortClockName)
+</div>
