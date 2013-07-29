@@ -1222,13 +1222,31 @@ div.game_list.realtime > div {
   float: left;
   margin: 0px 12px 12px 12px;
 }
-div.game_list.realtime div.vstext {
+div.vstext {
   font-size: 11.5px;
-  text-align: center;
   width: 224px;
+  line-height: 1.2em;
+  height: 2.4em;
   overflow: hidden;
   white-space: nowrap;
   margin-top: 5px;
+  position: relative;
+}
+div.vstext > .center {
+  width: 100%;
+  text-align: center;
+}
+div.vstext .left {
+  float: left;
+}
+div.vstext .right {
+  float: right;
+  text-align: right;
+}
+div.vstext .center {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
 }
 div.extra_top {
   float: right;
@@ -1742,10 +1760,6 @@ div.game_config div.color_submits button.random span {
   height: 16px;
   background: red url(../images/engine_small.png) top left no-repeat;
   border-radius: 8px 0 3px 0;
-}
-#featured_game div.vstext {
-  margin-top: 0.7em;
-  text-align: center;
 }
 div.undertable {
   width: 514px;
