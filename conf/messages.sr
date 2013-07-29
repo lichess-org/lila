@@ -239,6 +239,7 @@ createdBy=Направљено од
 waitingForNbPlayers=Чекајући %s играча
 tournamentIsStarting=Турнир почиње
 nbMinutesPerSidePlusNbSecondsPerMove=%s минута сваки + % секунди по потезу
+membersOnly=Samo za clanove
 boardEditor=Уредник табле
 startPosition=Почетна позиција
 clearBoard=Склони фигуре
