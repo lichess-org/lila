@@ -277,7 +277,7 @@ var storage = {
     return $.userLinkLimit(u, false);
   }
   $.userLinkLimit = function(u, limit) {
-    return (u || false) ? '<a class="user_link" href="/@/' + u + '">' + ((limit || false) ? u.substring(0, limit) : u) + '</a>' : 'Anonymous';
+    return (u || false) ? '<a class="user_link ulpt" href="/@/' + u + '">' + ((limit || false) ? u.substring(0, limit) : u) + '</a>' : 'Anonymous';
   }
 
   var lichess = {
