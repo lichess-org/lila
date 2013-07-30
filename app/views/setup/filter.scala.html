@@ -13,11 +13,11 @@
     <td>@trans.timeControl()</td>
     <td>@setup.filterCheckboxes(form, "speed", filter.speed.map(_.id.toString), translatedSpeedChoices)</td>
   </tr>
-  @ctx.me.map { me =>
   <tr>
     <td>@trans.mode()</td>
     <td>@setup.filterCheckboxes(form, "mode", filter.mode.map(_.id.toString), translatedModeChoices)</td>
   </tr>
+  @ctx.me.map { me =>
   <tr>
     <td>@trans.eloRange()</td>
     <td class="elo_range_config">
