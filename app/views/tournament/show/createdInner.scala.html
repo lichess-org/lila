@@ -1,6 +1,11 @@
-@(tour: lila.tournament.Created)(implicit ctx: Context)
+@(tour: lila.tournament.Created, form: Option[Html] = None)(implicit ctx: Context)
 
-<h1>@tour.nameT</h1>
+<h1>@tour.nameT
+  @if(tour.hasPassword) {
+  <span class="private">(@trans.isPrivate())</span>
+  }
+</h1>
+@form
 <div class="user_list">
   <table class="slist user_list">
     <thead>
@@ -33,11 +38,11 @@
       </tr>
     </thead>
     <tbody>
-      @tour.players.map { player =>
-      <tr>
-        <td colspan="2">@userInfosLink(player.username, player.elo.some)</td>
-      </tr>
-      }
+    @tour.players.map { player =>
+    <tr>
+      <td colspan="2">@userInfosLink(player.username, player.elo.some)</td>
+    </tr>
+    }
     </tbody>
   </table>
 </div>

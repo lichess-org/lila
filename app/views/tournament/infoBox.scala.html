@@ -2,12 +2,19 @@
 
 <div class="lichess_goodies">
   <div class="box">
-    @trans.createdBy(): @userIdLink(tour.createdBy.some, withOnline = false)
+    @trans.createdBy() @userIdLink(tour.createdBy.some, withOnline = false)
     <br />
     @timeago(tour.createdAt)
+    @tour.password.map { password =>
+    <br />
+    @trans.isPrivate()
+    @if(ctx.userId == tour.createdBy.some) {
+    (@trans.password(): @tour.password)
+    }
+    }
     <br /><br />
     <span class="s16 clock">@tour.clock.show</span>,
-    @variantName(tour.variant).capitalize, 
+    @variantName(tour.variant).capitalize,
     @{ tour.rated.fold(trans.rated(), trans.casual()) }
     <br /><br />
     @trans.duration(): @tour.minutes minutes

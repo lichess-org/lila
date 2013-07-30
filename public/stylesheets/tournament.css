@@ -84,6 +84,23 @@
   color: red;
 }
 
+#tournament h1 .private {
+  font-size: 12px;
+}
+
+#tournament .join_password {
+  padding-top: 0;
+}
+#tournament .join_password h2 {
+  font-size: 1.5em;
+}
+#tournament .join_password form {
+  margin-top: 1em;
+}
+#tournament .join_password input {
+  padding: 3px 5px;
+}
+
 #tournament_side {
   float: right;
   width: 246px;

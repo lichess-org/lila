@@ -1897,6 +1897,9 @@ div.lichess_overboard.joining .mini_board {
 #timeline .links {
   width: 100%;
 }
+#timeline .links a {
+  font-weight: normal;
+}
 #timeline a.more {
   display: block;
   float: right;

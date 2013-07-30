@@ -43,6 +43,8 @@ sealed trait Tournament {
   def variant = data.variant
   def mode = data.mode
   def rated = mode.rated
+  def password = data.password
+  def hasPassword = password.isDefined
 
   def userIds = players map (_.id)
   def activeUserIds = players filter (_.active) map (_.id)
@@ -85,6 +87,7 @@ sealed trait StartedOrFinished extends Tournament {
     minPlayers = data.minPlayers,
     variant = data.variant.id,
     mode = data.mode.id,
+    password = data.password,
     createdAt = data.createdAt,
     createdBy = data.createdBy,
     startedAt = startedAt.some,
@@ -120,15 +123,19 @@ case class Created(
     clock = data.clock,
     variant = data.variant.id,
     mode = data.mode.id,
+    password = data.password,
     minutes = data.minutes,
     minPlayers = data.minPlayers,
     createdAt = data.createdAt,
     createdBy = data.createdBy,
     players = players)
 
-  def join(user: User): Valid[Created] = contains(user).fold(
+  def join(user: User, pass: Option[String]): Valid[Created] = contains(user).fold(
     !!("User %s is already part of the tournament" format user.id),
-    withPlayers(players :+ Player.make(user)).success
+    (pass != password).fold(
+      !!("Invalid tournament password"),
+      withPlayers(players :+ Player.make(user)).success
+    )
   )
 
   def withdraw(userId: String): Valid[Created] = contains(userId).fold(

@@ -51,6 +51,10 @@ final class DataForm(isDev: Boolean) {
     variant = Variant.Standard.id,
     password = none,
     mode = Mode.Casual.id.some)
+
+  lazy val joinPassword = Form(single(
+    "password" -> nonEmptyText
+  ))
 }
 
 private[tournament] case class TournamentSetup(
