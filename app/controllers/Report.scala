@@ -38,7 +38,7 @@ object Report extends LilaController {
       forms.create.bindFromRequest.fold(
         err ⇒ get("username") ?? UserRepo.named flatMap { user ⇒
           forms.anyCaptcha map { captcha ⇒
-            BadRequest(html.report.form(err.pp, user, captcha))
+            BadRequest(html.report.form(err, user, captcha))
           }
         },
         data ⇒ api.create(data, me) map { thread ⇒
