@@ -1,5 +1,4 @@
-import sbt._
-import Keys._
+import sbt._, Keys._
 
 object BuildSettings {
 
@@ -11,8 +10,7 @@ object BuildSettings {
     resolvers ++= Dependencies.Resolvers.commons,
     parallelExecution in Test := false,
     scalacOptions := compilerOptions,
-    sources in doc in Compile := List()
-  )
+    sources in doc in Compile := List())
 
   def defaultDeps = Seq(
     scalaz, scalalib, jodaTime, jodaConvert, scalaTime, spray.util)
@@ -41,6 +39,6 @@ object BuildSettings {
     scalaSource in Test <<= (sourceDirectory in Test)(identity)
   )
 
-	def projectToRef(p: Project): ProjectReference = LocalProject(p.id)
-	def classpathDependency(p: ProjectReference): ClasspathDependency = new ClasspathDependency(p, None)
+  def projectToRef(p: Project): ProjectReference = LocalProject(p.id)
+  def classpathDependency(p: ProjectReference): ClasspathDependency = new ClasspathDependency(p, None)
 }
