@@ -38,7 +38,8 @@ final class DataForm(isDev: Boolean) {
     "minutes" -> numberIn(minuteChoices),
     "minPlayers" -> numberIn(minPlayerChoices),
     "variant" -> Mappings.variant,
-    "mode" -> Mappings.mode(true)
+    "mode" -> Mappings.mode(true),
+    "password" -> optional(nonEmptyText)
   )(TournamentSetup.apply)(TournamentSetup.unapply)
     .verifying("Invalid clock", _.validClock)
     .verifying("Increase tournament duration, or decrease game clock", _.validTiming)
@@ -48,6 +49,7 @@ final class DataForm(isDev: Boolean) {
     minutes = minuteDefault,
     minPlayers = minPlayerDefault,
     variant = Variant.Standard.id,
+    password = none,
     mode = Mode.Casual.id.some)
 }
 
@@ -57,7 +59,8 @@ private[tournament] case class TournamentSetup(
     minutes: Int,
     minPlayers: Int,
     variant: Int,
-    mode: Option[Int]) {
+    mode: Option[Int],
+    password: Option[String]) {
 
   def validClock = (clockTime + clockIncrement) > 0
 
