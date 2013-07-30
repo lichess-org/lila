@@ -39,10 +39,14 @@ final class I18nKeys(translator: Translator) {
 
 puts 'Dump translation keys to scala'
 
+def literal(s)
+  '`' + s + '`'
+end
+
 file = lila_trans_dir + '/messages'
 lines = File.open(file).readlines
 keys = lines.map { |l| l.gsub(/(\w+)=.+/, '\1').strip }
-vals = keys.map { |k| '  val ' + k + ' = new Key("' + k + '")' }
-allCode = code.gsub(/%vals%/, vals.join("\n")).gsub(/%keys%/, keys.join(", "))
+vals = keys.map { |k| '  val ' + literal(k) + ' = new Key("' + k + '")' }
+allCode = code.gsub(/%vals%/, vals.join("\n")).gsub(/%keys%/, keys.map { |k| literal(k) }.join(", "))
 
 File.open(lila_keys_file, 'w') { |f| f.puts allCode }
