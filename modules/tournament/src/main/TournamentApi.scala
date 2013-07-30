@@ -90,8 +90,8 @@ private[tournament] final class TournamentApi(
       finished.players.filter(_.score > 0).map(p ⇒ UserRepo.incToints(p.id)(p.score)).sequenceFu inject finished
   }, fuccess(started))
 
-  def join(tour: Created, me: User): Funit =
-    (tour join me).future flatMap { tour2 ⇒
+  def join(tour: Created, me: User, password: Option[String]): Funit =
+    (tour.join(me, password)).future flatMap { tour2 ⇒
       TournamentRepo withdraw me.id flatMap { withdrawIds ⇒
         $update(tour2) >>-
           sendTo(tour.id, Joining(me.id)) >>-

@@ -2,8 +2,27 @@
 
 @import config._
 
+@moreJs = {
+<script>
+$(function() {
+    var $pass = $('#tournament .password');
+    var $check = $('#tournament #isprivate');
+    function showPassword() {
+    if ($check.prop('checked')) {
+    $pass.show(500);
+    } else {
+    $pass.val('').hide();
+    }
+    };
+    $check.on('change', showPassword);
+    showPassword();
+    })
+</script>
+}
+
 @tournament.layout(
-title = "New tournament") {
+title = "New tournament",
+moreJs = moreJs) {
 <div id="tournament">
   <div class="content_box small_box tournament_box">
     <h1>@trans.createANewTournament()</h1>
@@ -13,25 +32,15 @@ title = "New tournament") {
       }
       <table>
         <tr>
-          <th>
-            <label for="@form("variant").id">@trans.variant()</label>
-          </th>
-          <td>
-            @base.select(form("variant"), translatedVariantChoices)
-          </td>
+          <th><label for="@form("variant").id">@trans.variant()</label></th>
+          <td>@base.select(form("variant"), translatedVariantChoices)</td>
         </tr>
         <tr>
-          <th>
-            <label for="@form("mode").id">@trans.mode()</label>
-          </th>
-          <td>
-            @base.select(form("mode"), translatedModeChoices)
-          </td>
+          <th><label for="@form("mode").id">@trans.mode()</label></th>
+          <td>@base.select(form("mode"), translatedModeChoices)</td>
         </tr>
         <tr>
-          <th>
-            <label>@trans.timeControl()</label>
-          </th>
+          <th><label>@trans.timeControl()</label></th>
           <td class="inline">
             @base.select(form("clockTime"), config.clockTimeChoices)
             +
@@ -39,20 +48,20 @@ title = "New tournament") {
           </td>
         </tr>
         <tr>
-          <th>
-            <label for="@form("minutes").id">@trans.duration()</label>
-          </th>
-          <td>
-            @base.select(form("minutes"), config.minuteChoices)
-          </td>
+          <th><label for="@form("minutes").id">@trans.duration()</label></th>
+          <td>@base.select(form("minutes"), config.minuteChoices)</td>
         </tr>
         <tr>
-          <th>
-            <label for="@form("minPlayers").id">@trans.chessPlayers()</label>
-          </th>
-          <td>
-            @base.select(form("minPlayers"), config.minPlayerChoices)
-          </td>
+          <th><label for="@form("minPlayers").id">@trans.chessPlayers()</label></th>
+          <td>@base.select(form("minPlayers"), config.minPlayerChoices)</td>
+        </tr>
+        <tr>
+          <th><label for="isprivate">@trans.isPrivate()</label></th>
+          <td><input type="checkbox" id="isprivate" /></td>
+        </tr>
+        <tr class="password">
+          <th><label for="@form("password").id">@trans.password()</label></th>
+          <td>@base.input(form("password"))</td>
         </tr>
         <tr>
           <th></th>

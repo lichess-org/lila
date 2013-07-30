@@ -27,7 +27,7 @@ object Lobby extends LilaController with Results {
   private def renderHome[A](status: Status)(implicit ctx: Context): Fu[Result] =
     Env.current.preloader(
       posts = Env.forum.recent(ctx.me, Env.team.cached.teamIds.apply),
-      tours = TournamentRepo.created,
+      tours = TournamentRepo.createdUnprotected,
       filter = Env.setup.filter
     ).map(_.fold(Redirect(_), {
         case (preload, entries, gameEntries, posts, tours, featured) ⇒ status(html.lobby.home(

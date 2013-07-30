@@ -1,13 +1,14 @@
 package controllers
 
-import lila.app._
+import play.api.data.Form
+import play.api.libs.json.JsValue
+import play.api.mvc._
 import views._
+
+import lila.app._
 import lila.game.{ Pov, GameRepo }
 import lila.tournament.{ TournamentRepo, Created, Started, Finished, Tournament ⇒ Tourney }
 import lila.user.{ UserRepo, Context }
-
-import play.api.mvc._
-import play.api.libs.json.JsValue
 
 object Tournament extends LilaController {
 
@@ -78,19 +79,54 @@ object Tournament extends LilaController {
     implicit me ⇒
       NoEngine {
         TourOptionFuRedirect(repo createdById id) { tour ⇒
-          env.api.join(tour, me).fold(
-            err ⇒ {
-              logwarn(err.toString)
-              routes.Tournament.home()
-            },
-            _ ⇒ routes.Tournament.show(tour.id)
+          tour.hasPassword.fold(
+            fuccess(routes.Tournament.joinPassword(id)),
+            env.api.join(tour, me, none).fold(
+              err ⇒ routes.Tournament.home(),
+              _ ⇒ routes.Tournament.show(tour.id)
+            )
           )
         }
       }
   }
 
-  def withdraw(id: String) = Auth { implicit ctx ⇒
+  def joinPasswordForm(id: String) = Auth { implicit ctx ⇒
+    implicit me ⇒ NoEngine {
+      repo createdById id flatMap {
+        _.fold(tournamentNotFound(ctx).fuccess) { tour ⇒
+          renderJoinPassword(tour, env.forms.joinPassword) map { Ok(_) }
+        }
+      }
+    }
+  }
+
+  def joinPassword(id: String) = AuthBody { implicit ctx ⇒
     implicit me ⇒
+      NoEngine {
+        implicit val req = ctx.body
+        repo createdById id flatMap {
+          _.fold(tournamentNotFound(ctx).fuccess) { tour ⇒
+            env.forms.joinPassword.bindFromRequest.fold(
+              err ⇒ renderJoinPassword(tour, err) map { BadRequest(_) },
+              password ⇒ FuRedirect {
+                env.api.join(tour, me, password.some).fold(
+                  err ⇒ routes.Tournament.show(tour.id),
+                  _ ⇒ routes.Tournament.show(tour.id)
+                )
+              }
+            )
+          }
+        }
+      }
+  }
+
+  private def renderJoinPassword(tour: Created, form: Form[_])(implicit ctx: Context) =
+    env.version(tour.id) zip (env.messenger getMessages tour.id) map {
+      case (version, messages) ⇒ html.tournament.joinPassword(tour, form, messages, version)
+    }
+
+  def withdraw(id: String) = Auth { implicit ctx ⇒
+    me ⇒
       TourOptionFuRedirect(repo byId id) { tour ⇒
         env.api.withdraw(tour, me.id) inject routes.Tournament.show(tour.id)
       }

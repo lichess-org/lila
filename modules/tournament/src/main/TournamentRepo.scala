@@ -44,6 +44,13 @@ object TournamentRepo {
     limit
   ) map { _.map(asFinished).flatten }
 
+  def createdUnprotected: Fu[List[Created]] = $find(
+    $query(Json.obj(
+      "status" -> Status.Created.id,
+      "password" -> $exists(false)
+    )) sort $sort.createdDesc
+  ) map { _.map(asCreated).flatten }
+
   def withdraw(userId: String): Fu[List[String]] = for {
     createds ← created
     createdIds ← (createds map (_ withdraw userId) collect {
