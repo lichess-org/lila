@@ -698,7 +698,12 @@ var storage = {
 
     $.playSound = function() {
       if (canPlayAudio && soundEnabled()) {
-        var sound = $('#lichess_sound_player').get(0);
+        var $sound = $('#lichess_sound_player');
+        if (!$sound.length) {
+          $('body').append($('<audio id="lichess_sound_player">').attr('src', $('body').attr('data-sound-file')));
+          $sound = $('#lichess_sound_player');
+        }
+        var sound = $sound.get(0);
         sound.play();
         setTimeout(function() {
           sound.pause();
@@ -708,7 +713,6 @@ var storage = {
     };
 
     if (canPlayAudio) {
-      $('body').append($('<audio id="lichess_sound_player">').attr('src', $('body').attr('data-sound-file')));
       $soundToggle.click(function() {
         var enabled = !soundEnabled();
         $soundToggle.toggleClass('sound_state_on', enabled);
