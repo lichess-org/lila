@@ -392,9 +392,6 @@ body.dark #hooks_chart .plot {
 body.dark #hooks_chart > span.label {
   text-shadow: 0 0 3px #000;
 }
-body.dark #powerTip.hook {
-  background: #d0d0d0 url(../images/play128.png) -4px -4px;
-}
 body.dark a#sound_state span {
   background-position: 0 -464px;
 }

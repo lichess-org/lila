@@ -1681,7 +1681,7 @@ div.game_config div.color_submits button.random span {
   text-align: center;
   border: none;
   box-shadow:0 0 9px #333;
-  background: #d0d0d0 url(../images/play128.png) -4px -4px;
+  background: #d0d0d0;
 }
 #hooks_chart .plot:hover {
   background-color: #f6f6f6;
