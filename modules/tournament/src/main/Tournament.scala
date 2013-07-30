@@ -15,6 +15,7 @@ private[tournament] case class Data(
   minPlayers: Int,
   variant: Variant,
   mode: Mode,
+  password: Option[String],
   createdAt: DateTime,
   createdBy: String)
 
@@ -250,7 +251,8 @@ object Tournament {
     minutes: Int,
     minPlayers: Int,
     variant: Variant,
-    mode: Mode): Created = Created(
+    mode: Mode,
+    password: Option[String]): Created = Created(
     id = Random nextString 8,
     data = Data(
       name = RandomName(),
@@ -259,6 +261,7 @@ object Tournament {
       createdAt = DateTime.now,
       variant = variant,
       mode = mode,
+      password = password,
       minutes = minutes,
       minPlayers = minPlayers),
     players = List(Player make createdBy)
@@ -271,6 +274,7 @@ private[tournament] case class RawTournament(
     clock: TournamentClock,
     minutes: Int,
     minPlayers: Int,
+    password: Option[String] = None,
     createdAt: DateTime,
     createdBy: String,
     status: Int,
@@ -284,7 +288,7 @@ private[tournament] case class RawTournament(
 
   def created: Option[Created] = (status == Status.Created.id) option Created(
     id = id,
-    data = Data(name, clock, minutes, minPlayers, Variant orDefault variant, Mode orDefault mode, createdAt, createdBy),
+    data = data,
     players = players)
 
   def started: Option[Started] = for {
@@ -292,7 +296,7 @@ private[tournament] case class RawTournament(
     if status == Status.Started.id
   } yield Started(
     id = id,
-    data = Data(name, clock, minutes, minPlayers, Variant orDefault variant, Mode orDefault mode, createdAt, createdBy),
+    data = data,
     startedAt = stAt,
     players = players,
     pairings = decodePairings)
@@ -302,12 +306,14 @@ private[tournament] case class RawTournament(
     if status == Status.Finished.id
   } yield Finished(
     id = id,
-    data = Data(name, clock, minutes, minPlayers, Variant orDefault variant, Mode orDefault mode, createdAt, createdBy),
+    data = data,
     startedAt = stAt,
     players = players,
     pairings = decodePairings)
 
-  def decodePairings = pairings map (_.decode) flatten
+  private def data = Data(name, clock, minutes, minPlayers, Variant orDefault variant, Mode orDefault mode, password, createdAt, createdBy)
+
+  private def decodePairings = pairings map (_.decode) flatten
 
   def any: Option[Tournament] = Status(status) flatMap {
     case Status.Created  ⇒ created
@@ -327,6 +333,7 @@ private[tournament] object RawTournament {
   private implicit def PlayerTube = Player.tube
 
   private def defaults = Json.obj(
+    "password" -> none[String],
     "startedAt" -> none[DateTime],
     "players" -> List[Player](),
     "pairings" -> List[RawPairing](),
