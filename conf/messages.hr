@@ -244,3 +244,4 @@ boardEditor=Uredi ploču
 startPosition=Početni položaj
 clearBoard=Počisti ploču
 savePosition=Spremi poziciju
+isPrivate=Privatno
