@@ -244,3 +244,4 @@ boardEditor=Brädeditor
 startPosition=Start ställning
 clearBoard=Rensa bord
 savePosition=Spara ställning
+isPrivate=Privat
