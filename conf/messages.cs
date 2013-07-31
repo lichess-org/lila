@@ -244,3 +244,4 @@ boardEditor=Editor šachovnice
 startPosition=Základní postavení
 clearBoard=Prázdná šachovnice
 savePosition=Uložit pozici
+isPrivate=Soukromý
