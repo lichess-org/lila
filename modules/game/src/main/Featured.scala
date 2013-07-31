@@ -5,11 +5,11 @@ import scala.concurrent.{ Future, Await }
 
 import akka.actor._
 import akka.pattern.ask
+import chess.Color
 import Featured._
 import play.api.Play.current
 import play.api.templates.Html
 
-import chess.Color
 import lila.db.api._
 import tube.gameTube
 
@@ -53,7 +53,11 @@ final class Featured(
 
     private def feature: Fu[Option[Game]] = GameRepo.featuredCandidates map { games ⇒
       Featured.sort(games filter valid).headOption
+    } flatMap {
+      case None       ⇒ GameRepo random 1 map (_.headOption)
+      case Some(game) ⇒ fuccess(game.some)
     }
+
   }))
 }
 
