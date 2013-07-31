@@ -244,3 +244,4 @@ boardEditor=Urejanje igralne table
 startPosition=Začetna pozicija
 clearBoard=Počisti tablo
 savePosition=Posnemi pozicijo
+isPrivate=Osebno
