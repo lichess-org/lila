@@ -16,7 +16,7 @@ private[controllers] trait Watcher {
   private def bookmarkApi = Env.bookmark.api
   private def analyser = Env.analyse.analyser
 
-  def watch(pov: Pov)(implicit ctx: Context): Fu[Result] =
+  def watch(pov: Pov, tv: Boolean)(implicit ctx: Context): Fu[Result] =
     bookmarkApi userIdsByGame pov.game zip
       env.version(pov.gameId) zip
       (WatcherRoomRepo room pov.gameId map { room ⇒
@@ -26,6 +26,6 @@ private[controllers] trait Watcher {
       (pov.game.tournamentId ?? TournamentRepo.byId) map {
         case ((((bookmarkers, v), roomHtml), analysed), tour) ⇒
           Ok(html.round.watcher(
-            pov, v, roomHtml, bookmarkers, analysed, tour))
+            pov, v, roomHtml, bookmarkers, analysed, tour, tv))
       }
 }

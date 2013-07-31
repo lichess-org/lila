@@ -23,11 +23,9 @@
   <div class="links clearfix">
     @if(userTimeline.size == 8) {
     <a class="more" href="@routes.Lobby.timelineMore">@trans.more() »</a>
-    } else {
-    <a class="more find" href="@routes.Relation.suggest(u.username)">
-      @trans.findFriends()
-    </a>
-    }
+    } 
+    <a class="tv" href="@routes.Tv.index">TV</a>
+    -
     <a class="irc" href="@routes.Main.irc">@trans.chat()</a>
   </div>
 </div>

@@ -2,19 +2,19 @@ package lila.round
 
 import scala.concurrent.duration._
 
+import actorApi._
 import akka.actor._
 import akka.pattern.{ ask, pipe }
+import chess.{ Color, White, Black }
+import makeTimeout.short
 import play.api.libs.iteratee._
 import play.api.libs.json._
 
-import actorApi._
-import chess.{ Color, White, Black }
 import lila.game.Event
 import lila.hub.TimeBomb
 import lila.round.actorApi.Bye
 import lila.socket._
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
-import makeTimeout.short
 
 private[round] final class Socket(
     gameId: String,
@@ -97,6 +97,11 @@ private[round] final class Socket(
 
     case lila.hub.actorApi.setup.DeclineChallenge(_) ⇒ notifyAll("declined", JsNull)
 
+    case lila.game.actorApi.ChangeFeaturedId(id) ⇒ {
+      lazy val message = makeMessage("featured_id", id)
+      watchers foreach { _.channel push message }
+    }
+
     case Quit(uid) ⇒ {
       quit(uid)
       notifyCrowd
@@ -104,7 +109,7 @@ private[round] final class Socket(
   }
 
   def notifyCrowd {
-    members.values.filter(_.watcher).map(_.userId).toList.partition(_.isDefined) match {
+    watchers.map(_.userId).toList.partition(_.isDefined) match {
       case (users, anons) ⇒
         (users.flatten.distinct map getUsername).sequenceFu map { userList ⇒
           notify(Event.Crowd(
@@ -145,6 +150,8 @@ private[round] final class Socket(
 
   def ownerOf(uid: String): Option[Member] =
     members get uid filter (_.owner)
+
+  def watchers: List[Member] = members.values.filter(_.watcher).toList
 
   private def playerGet[A](color: Color, getter: Player ⇒ A): A =
     getter(color.fold(whitePlayer, blackPlayer))

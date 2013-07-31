@@ -41,7 +41,7 @@ trait RoundHelper {
     )
   }
 
-  def roundWatcherJsData(pov: Pov, version: Int) = {
+  def roundWatcherJsData(pov: Pov, version: Int, tv: Boolean) = {
     import pov._
     Json.obj(
       "game" -> Json.obj(
@@ -64,7 +64,8 @@ trait RoundHelper {
         "ai" -> opponent.isAi
       ),
       "possible_moves" -> possibleMoves(pov),
-      "animation_delay" -> animationDelay(pov)
+      "animation_delay" -> animationDelay(pov),
+      "tv" -> tv
     )
   }
 

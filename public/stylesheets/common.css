@@ -1123,6 +1123,12 @@ div.undergame_box {
   border-radius: 5px;
   line-height: 24px;
 }
+#ontv {
+  display: block;
+  width: 512px;
+  text-align: center;
+  font-size: 1.5em;
+}
 div.undergame_box div.inner {
   padding: 10px 10px 0 10px;
   width: 492px;

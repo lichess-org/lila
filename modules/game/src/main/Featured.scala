@@ -11,10 +11,12 @@ import play.api.Play.current
 import play.api.templates.Html
 
 import lila.db.api._
+import lila.hub.actorApi.map.TellAll
 import tube.gameTube
 
 final class Featured(
     lobbySocket: lila.hub.ActorLazyRef,
+    roundSocket: lila.hub.ActorLazyRef,
     rendererActor: lila.hub.ActorLazyRef,
     system: ActorSystem) {
 
@@ -40,6 +42,7 @@ final class Featured(
           feature addEffect { newOne ⇒
             oneId = newOne map (_.id)
             newOne foreach { game ⇒
+              roundSocket ! TellAll(actorApi.ChangeFeaturedId(game.id))
               rendererActor ? actorApi.RenderFeaturedJs(game) onSuccess {
                 case html: Html ⇒ lobbySocket ! actorApi.ChangeFeatured(html)
               }

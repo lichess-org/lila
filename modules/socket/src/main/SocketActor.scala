@@ -141,7 +141,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Actor {
   def userIds: Iterable[String] = members.values.map(_.userId).flatten
 
   def notifyFen(gameId: String, fen: String, lastMove: Option[String]) {
-    val msg = makeMessage("fen", JsObject(Seq(
+    lazy val msg = makeMessage("fen", JsObject(Seq(
       "id" -> JsString(gameId),
       "fen" -> JsString(fen),
       "lm" -> Json.toJson(lastMove)
