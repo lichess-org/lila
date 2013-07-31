@@ -244,3 +244,4 @@ boardEditor=Editor scacchiera
 startPosition=Posizione iniziale
 clearBoard=Pulisci la scacchiera
 savePosition=Salva la posizione
+isPrivate=Privato
