@@ -244,3 +244,4 @@ boardEditor=Oppsett
 startPosition=Startposisjon
 clearBoard=Tøm brett
 savePosition=Lagre posisjon
+isPrivate=Privat
