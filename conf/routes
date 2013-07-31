@@ -4,6 +4,9 @@ GET   /lobby/socket                    controllers.Lobby.socket
 GET   /timeline                        controllers.Lobby.timeline
 GET   /timeline/more                   controllers.Lobby.timelineMore
 
+# TV
+GET   /tv                              controllers.TV.index
+
 # Relation
 POST  /rel/follow/:userId              controllers.Relation.follow(userId: String)
 POST  /rel/unfollow/:userId            controllers.Relation.unfollow(userId: String)

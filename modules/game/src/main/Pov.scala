@@ -30,6 +30,8 @@ object Pov {
 
   def apply(game: Game): List[Pov] = game.players.map { apply(game, _) }
 
+  def creator(game: Game) = new Pov(game, game.creator.color)
+
   def apply(game: Game, player: Player) = new Pov(game, player.color)
 
   def apply(game: Game, playerId: String): Option[Pov] =
