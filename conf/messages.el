@@ -244,3 +244,4 @@ boardEditor=Προετοιμαστής σκακιέρας
 startPosition=Θέση έναρξης
 clearBoard=Εκκαθάριση σκακιέρας
 savePosition=Αποθήκευση θέσης
+isPrivate=Ιδιωτικό
