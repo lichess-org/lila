@@ -74,8 +74,8 @@ object Featured {
   private val turnBox = box(1 to 21) _
 
   private val heuristics: List[(Heuristic, Float)] = List(
-    eloHeuristic(Color.White) -> 1,
-    eloHeuristic(Color.Black) -> 1,
+    eloHeuristic(Color.White) -> 1.5f,
+    eloHeuristic(Color.Black) -> 1.5f,
     speedHeuristic -> 1,
     progressHeuristic -> 0.5f)
 
