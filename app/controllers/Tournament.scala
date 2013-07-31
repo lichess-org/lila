@@ -108,12 +108,10 @@ object Tournament extends LilaController {
           _.fold(tournamentNotFound(ctx).fuccess) { tour ⇒
             env.forms.joinPassword.bindFromRequest.fold(
               err ⇒ renderJoinPassword(tour, err) map { BadRequest(_) },
-              password ⇒ FuRedirect {
-                env.api.join(tour, me, password.some).fold(
-                  err ⇒ routes.Tournament.show(tour.id),
-                  _ ⇒ routes.Tournament.show(tour.id)
-                )
-              }
+              password ⇒ env.api.join(tour, me, password.some) flatFold (
+                _ ⇒ renderJoinPassword(tour, env.forms.joinPassword) map { BadRequest(_) },
+                _ ⇒ fuccess(Redirect(routes.Tournament.show(tour.id)))
+              )
             )
           }
         }

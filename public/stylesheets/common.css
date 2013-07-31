@@ -974,6 +974,9 @@ span.s16.clock {
 .s16.tdown {
   background-position: 0 -448px;
 }
+.s16.lock {
+  background-position: 0 -480px;
+}
 .user_link.white, .user_link.black, .user_link.online, .user_link.offline {
   line-height: 16px;
   display: block;

@@ -101,6 +101,12 @@
   padding: 3px 5px;
 }
 
+.s16.lock {
+  display: inline-block;
+  height: 16px;
+  line-height: 16px;
+}
+
 #tournament_side {
   float: right;
   width: 246px;
