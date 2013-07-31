@@ -244,3 +244,4 @@ boardEditor=Éditeur de partie
 startPosition=Position de départ
 clearBoard=Initialiser l'échiqier
 savePosition=Enregistrer la position
+isPrivate=Privé
