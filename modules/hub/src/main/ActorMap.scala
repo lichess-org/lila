@@ -2,10 +2,9 @@ package lila.hub
 
 import scala.concurrent.duration._
 
+import actorApi.map._
 import akka.actor._
 import akka.pattern.{ ask, pipe }
-
-import actorApi.map._
 import makeTimeout.short
 
 trait ActorMap[A <: Actor] extends Actor {
@@ -24,6 +23,8 @@ trait ActorMap[A <: Actor] extends Actor {
     }
 
     case Tell(id, msg) ⇒ withActor(id)(_ forward msg)
+
+    case TellAll(msg)  ⇒ tellAll(msg)
 
     case Ask(id, msg)  ⇒ get(id) flatMap (_ ? msg) pipeTo sender
 

@@ -7,11 +7,11 @@ import views._
 import lila.app._
 import lila.game.Pov
 
-object TV extends LilaController with Watcher {
+object Tv extends LilaController with Watcher {
 
   def index = Open { implicit ctx ⇒
     OptionFuResult(Env.game.featured.one) { game ⇒
-      watch(Pov creator game)
+      watch(Pov creator game, true)
     }
   }
 }

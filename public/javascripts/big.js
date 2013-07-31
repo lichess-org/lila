@@ -944,6 +944,12 @@ var storage = {
               self.centerTable();
             }
           },
+          featured_id: function(id) {
+            if (self.options.player.spectator && self.options.tv) {
+              // stop queue propagation here
+              self.element.queue(function() { location.reload(); });
+            }
+          },
           end: function() {
             // Game end must be applied firt: no queue
             self.options.game.finished = true;
@@ -953,7 +959,7 @@ var storage = {
               .find('div.clock').clock('stop');
             try {
               self.element.find("div.ui-draggable").draggable("destroy");
-            } catch (e) { }
+            } catch (e) {}
             setTimeout(function() {
               self.element.find('.ui-draggable-dragging').remove();
             }, 500);
@@ -2049,6 +2055,7 @@ var storage = {
                   var values = [min, max];
                 }
                 $span.text(values.join(' - '));
+
                 function change() {
                   var values = $this.slider('values');
                   $input.val(values[0] + "-" + values[1]);
@@ -2194,9 +2201,7 @@ var storage = {
       var hidden = 0;
       var visible = 0;
       _.each(pool, function(hook) {
-        var hide = !_.contains(filter.variant, hook.variant) ||
-          !_.contains(filter.mode, hook.mode) ||
-          !_.contains(filter.speed, hook.speed) ||
+        var hide = !_.contains(filter.variant, hook.variant) || !_.contains(filter.mode, hook.mode) || !_.contains(filter.speed, hook.speed) ||
           (hook.elo && (hook.elo < filter.elo[0] || hook.elo > filter.elo[1]))
         var hash = hook.mode + hook.variant + hook.time + hook.elo;
         if (hide && hook.action != 'cancel') {
@@ -2219,13 +2224,14 @@ var storage = {
       });
       _.each(_.union(
         _.map($canvas.find('>span.plot'), function(o) {
-          return $(o).attr('id');
-        }),
+        return $(o).attr('id');
+      }),
         _.map($tbody.children(), function(o) {
-          return $(o).data('id');
-        })
-      ), function(id) {
-        if (!_.findWhere(pool, {id: id})) undrawHook(id);
+        return $(o).data('id');
+      })), function(id) {
+        if (!_.findWhere(pool, {
+          id: id
+        })) undrawHook(id);
       });
 
       if (!(inBatch || false)) {

@@ -5,7 +5,7 @@ GET   /timeline                        controllers.Lobby.timeline
 GET   /timeline/more                   controllers.Lobby.timelineMore
 
 # TV
-GET   /tv                              controllers.TV.index
+GET   /tv                              controllers.Tv.index
 
 # Relation
 POST  /rel/follow/:userId              controllers.Relation.follow(userId: String)

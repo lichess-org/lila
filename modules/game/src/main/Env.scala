@@ -39,6 +39,7 @@ final class Env(
 
   lazy val featured = new Featured(
     lobbySocket = hub.socket.lobby,
+    roundSocket = hub.socket.round,
     rendererActor = hub.actor.renderer,
     system = system)
 

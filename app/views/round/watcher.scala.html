@@ -1,8 +1,8 @@
-@(pov: Pov, version: Int, roomHtml: Html, bookmarkers: List[String], analysed: Boolean, tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
+@(pov: Pov, version: Int, roomHtml: Html, bookmarkers: List[String], analysed: Boolean, tour: Option[lila.tournament.Tournament], tv: Boolean)(implicit ctx: Context)
 
 @import pov._
 
-@title = @{ "Watch %s - %s".format(gameId, color) }
+@title = @{ tv.fold("TV", "Watch %s - %s".format(gameId, color)) }
 
 @underchat = {
 <div class="watchers inline_userlist">
@@ -46,7 +46,10 @@ underchat = underchat.some) {
     @round.cemetery(!pov, "bottom")
   </div>
 </div>
-@embedJs("var _ld_ = " + roundWatcherJsData(pov, version))
+@embedJs("var _ld_ = " + roundWatcherJsData(pov, version, tv))
+@if(tv) {
+<p id="ontv">You are watching Lichess TV</p>
+}
 @analyse.link(pov, analysed)
 @views.html.game.more(pov, bookmarkers) {
 <nav>
