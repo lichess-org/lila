@@ -244,3 +244,4 @@ boardEditor=Bord editor
 startPosition=Startopstelling
 clearBoard=Maak het bord leeg
 savePosition=Sla opstelling op
+isPrivate=Privé
