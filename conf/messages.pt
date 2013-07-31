@@ -244,3 +244,4 @@ boardEditor=Editor de tabuleiro
 startPosition=posição inicial
 clearBoard=Limpar tabuleiro
 savePosition=Guardar posição
+isPrivate=Privado
