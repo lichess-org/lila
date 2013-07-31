@@ -2,7 +2,7 @@
 
 <h1>@tour.nameT
   @if(tour.hasPassword) {
-  <span class="private">(@trans.isPrivate())</span>
+  <span class="private s16 lock">@trans.isPrivate()</span>
   }
 </h1>
 @form
@@ -30,7 +30,7 @@
           </form>
           } else {
           <form class="inline" action="@routes.Tournament.join(tour.id)" method="POST">
-            <input type="submit" class="submit button strong" value="@trans.join()" />
+            <button type="submit" class="submit button strong"><span class="s16 lock">@trans.join()</span></button>
           </form>
           }
         </th>

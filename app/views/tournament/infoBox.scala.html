@@ -7,10 +7,13 @@
     @timeago(tour.createdAt)
     @tour.password.map { password =>
     <br />
-    @trans.isPrivate()
-    @if(ctx.userId == tour.createdBy.some) {
-    (@trans.password(): @tour.password)
-    }
+    <span class="s16 lock">
+      @if(ctx.userId == tour.createdBy.some) {
+      @trans.password(): @tour.password
+      } else {
+      @trans.isPrivate()
+      }
+    </span>
     }
     <br /><br />
     <span class="s16 clock">@tour.clock.show</span>,
