@@ -1,6 +1,6 @@
 @(entry: lila.timeline.GameEntry) 
 
-<td><a class="watch" href="@routes.Round.watcher(entry.gameId, "white")"></a></td>
+<td><a class="watch s24 eye" href="@routes.Round.watcher(entry.gameId, "white")"></a></td>
 <td>
   @{ Html((entry.players.map {
   case (name, None) => name

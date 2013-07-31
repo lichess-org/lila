@@ -1837,7 +1837,7 @@ div.lichess_bot a.watch {
   display: block;
   width: 24px;
   height: 24px;
-  background: url(../images/eye.png) top left no-repeat;
+  background: url("../images/s24.png") no-repeat 0 -96px;
   opacity: 0.4;
 }
 div.lichess_bot tr:hover a.watch {
