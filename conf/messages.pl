@@ -244,3 +244,4 @@ boardEditor=Edytor szachownicy
 startPosition=Pozycja początkowa
 clearBoard=Wyczyść szachownicę
 savePosition=Zapisz pozycję
+isPrivate=Prywatne
