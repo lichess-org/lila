@@ -244,3 +244,4 @@ boardEditor=Lautaeditori
 startPosition=Alkuasema
 clearBoard=Tyhjennä lauta
 savePosition=Tallenna asema
+isPrivate=Yksityinen
