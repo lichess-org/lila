@@ -4,7 +4,7 @@ import scala.concurrent.duration._
 import scala.concurrent.{ Future, Await }
 
 import akka.actor._
-import akka.pattern.ask
+import akka.pattern.{ ask, pipe }
 import chess.Color
 import Featured._
 import play.api.Play.current
@@ -20,9 +20,10 @@ final class Featured(
     rendererActor: lila.hub.ActorLazyRef,
     system: ActorSystem) {
 
+  implicit private def timeout = makeTimeout(2 seconds)
+
   def one: Future[Option[Game]] = {
-    implicit def timeout = makeTimeout(2 seconds)
-    (actor ? GetOne mapTo manifest[Option[Game]]) nevermind "[featured] one"
+    (actor ? Get mapTo manifest[Option[Game]]) nevermind "[featured] one"
   }
 
   private val actor = system.actorOf(Props(new Actor {
@@ -30,43 +31,56 @@ final class Featured(
     private var oneId = none[String]
 
     def receive = {
-      // this message must block to make the actor wait for the result
-      // before accepting new messages
-      case GetOne ⇒ sender ! getOne.nevermind("[featured] GetOne").await
-    }
 
-    private def getOne: Fu[Option[Game]] = {
-      implicit def timeout = makeTimeout(2 seconds)
-      oneId ?? $find.byId[Game] map (_ filter valid) flatMap {
-        _.fold({
-          feature addEffect { newOne ⇒
-            oneId = newOne map (_.id)
-            newOne foreach { game ⇒
-              roundSocket ! actorApi.ChangeFeaturedId(game.id)
-              rendererActor ? actorApi.RenderFeaturedJs(game) onSuccess {
-                case html: Html ⇒ lobbySocket ! actorApi.ChangeFeatured(html)
-              }
-            }
-          }
-        })(game ⇒ fuccess(game.some))
+      case Get ⇒ oneId ?? $find.byId[Game] pipeTo sender
+
+      case Set(game) ⇒ {
+        oneId = game.id.some
+        roundSocket ! actorApi.ChangeFeaturedId(game.id)
+        rendererActor ? actorApi.RenderFeaturedJs(game) onSuccess {
+          case html: Html ⇒ lobbySocket ! actorApi.ChangeFeatured(html)
+        }
+      }
+
+      case Update ⇒ {
+        oneId ?? $find.byId[Game] foreach {
+          case None                      ⇒ feature foreach elect
+          case Some(game) if fresh(game) ⇒
+          case Some(game)                ⇒ featureFrom(game) foreach elect
+        }
       }
     }
 
-    private def valid(game: Game) = game.isBeingPlayed
+    def elect(gameOption: Option[Game]) {
+      gameOption foreach { self ! Set(_) }
+    }
 
-    private def feature: Fu[Option[Game]] = GameRepo.featuredCandidates map { games ⇒
-      Featured.sort(games filter valid).headOption
+    def fresh(game: Game) = game.isBeingPlayed
+
+    def featureFrom(game: Game): Fu[Option[Game]] = 
+      rematch(game) orElse featureOld(game)
+
+    def featureOld(game: Game): Fu[Option[Game]] =
+      (game olderThan 6) ?? feature
+
+    def rematch(game: Game): Fu[Option[Game]] = game.next ?? $find.byId[Game]
+
+    def feature: Fu[Option[Game]] = GameRepo.featuredCandidates map { games ⇒
+      Featured.sort(games filter fresh).headOption
     } flatMap {
       case None       ⇒ GameRepo random 1 map (_.headOption)
       case Some(game) ⇒ fuccess(game.some)
     }
-
   }))
+
+  system.scheduler.schedule(0 seconds, 1 seconds, actor, Update)
 }
 
 object Featured {
 
-  private case object GetOne
+  private case object Get
+  private case object Update
+  private case class Set(game: Game)
 
   def sort(games: List[Game]): List[Game] = games sortBy { -score(_) }
 
