@@ -505,6 +505,13 @@ div.under_chat {
   top: 530px;
   left: 0;
 }
+div.under_chat .watchtv {
+  display: block;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  margin-top: -24px;
+}
 
 div.lichess_chat {
   font-size: 11.5px;
