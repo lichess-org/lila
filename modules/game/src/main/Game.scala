@@ -309,7 +309,9 @@ case class Game(
   }
 
   def isBeingPlayed =
-    !finishedOrAborted && updatedAt.fold(false)(_ > DateTime.now - 20.seconds)
+    !finishedOrAborted && updatedAt.??(_ > DateTime.now - 20.seconds)
+
+  def olderThan(seconds: Int) = updatedAt.??(_ < DateTime.now - seconds.seconds)
 
   def abandoned = updatedAt.fold(false) { u ⇒
     (status <= Status.Started) && (u <= Game.abandonedDate)

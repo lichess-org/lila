@@ -178,7 +178,7 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
     def nevermind: Fu[A] = nevermind("")
 
     private def recoverException(e: Exception, msg: Option[String]) = {
-      logwarn(msg.filter(_.nonEmpty).??(_  + ": ") + e.getMessage)
+      logwarn(msg.filter(_.nonEmpty).??(_ + ": ") + e.getMessage)
       ∅[A]
     }
   }
@@ -187,6 +187,11 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
 
     def flatten(msg: ⇒ String): Fu[A] = fua flatMap {
       _.fold[Fu[A]](fufail(msg))(fuccess(_))
+    }
+
+    def orElse(other: ⇒ Fu[Option[A]]): Fu[Option[A]] = fua flatMap {
+      case None ⇒ other
+      case x    ⇒ fuccess(x)
     }
   }
 
