@@ -42,7 +42,7 @@ final class Featured(
           feature addEffect { newOne ⇒
             oneId = newOne map (_.id)
             newOne foreach { game ⇒
-              roundSocket ! TellAll(actorApi.ChangeFeaturedId(game.id))
+              roundSocket ! actorApi.ChangeFeaturedId(game.id)
               rendererActor ? actorApi.RenderFeaturedJs(game) onSuccess {
                 case html: Html ⇒ lobbySocket ! actorApi.ChangeFeatured(html)
               }
@@ -81,10 +81,10 @@ object Featured {
   private val turnBox = box(1 to 21) _
 
   private val heuristics: List[(Heuristic, Float)] = List(
-    eloHeuristic(Color.White) -> 1.5f,
-    eloHeuristic(Color.Black) -> 1.5f,
-    speedHeuristic -> 1,
-    progressHeuristic -> 0.5f)
+    eloHeuristic(Color.White) -> 1f,
+    eloHeuristic(Color.Black) -> 1f,
+    speedHeuristic -> 1f,
+    progressHeuristic -> 1f)
 
   private def eloHeuristic(color: Color): Heuristic = game ⇒
     eloBox(game.player(color).elo | 1100)

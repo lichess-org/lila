@@ -20,7 +20,14 @@ private[round] final class SocketHub(
     disconnectTimeout: Duration,
     ragequitTimeout: Duration) extends SocketHubActor[Socket] {
 
-  def receive: Receive = socketHubReceive
+  def receive: Receive = _receive orElse socketHubReceive
+
+  def _receive: Receive = {
+
+    case lila.game.actorApi.ChangeFeaturedId(id) ⇒ tellAll {
+      lila.game.actorApi.TellWatchers(makeMessage("featured_id", id))
+    }
+  }
 
   def mkActor(id: String) = new Socket(
     gameId = id,

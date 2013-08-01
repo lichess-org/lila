@@ -97,10 +97,7 @@ private[round] final class Socket(
 
     case lila.hub.actorApi.setup.DeclineChallenge(_) ⇒ notifyAll("declined", JsNull)
 
-    case lila.game.actorApi.ChangeFeaturedId(id) ⇒ {
-      lazy val message = makeMessage("featured_id", id)
-      watchers foreach { _.channel push message }
-    }
+    case lila.game.actorApi.TellWatchers(msg)        ⇒ watchers foreach { _.channel push msg }
 
     case Quit(uid) ⇒ {
       quit(uid)
