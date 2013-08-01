@@ -32,4 +32,6 @@ object I18nKey {
   val en = Lang("en")
 
   type Select = I18nKeys ⇒ I18nKey
+
+  def untranslated(key: String) = Untranslated(key)
 }

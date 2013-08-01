@@ -14,7 +14,8 @@
 title = title,
 goodies = views.html.game.infoBox(pov, tour),
 chat = round.room(roomHtml, true).some,
-underchat = underchat.some) {
+underchat = underchat.some,
+active = tv ?? siteMenu.tv.some) {
 <div class="lichess_game clearfix lichess_player_@color"
   data-socket-url="@routes.Round.websocketWatcher(gameId, color.name)"
   data-table-url="@routes.Round.tableWatcher(gameId, color.name)"
