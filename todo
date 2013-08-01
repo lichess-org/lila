@@ -53,3 +53,7 @@ better moderator UI
 analyse: show continuations
 TV channels (bullet, blitz, standard, ...)
 allow castling and analysis for FEN games whenever possible
+unique TV chatroom
+realtime computer analysis of TV game
+store TV games history
+show user win stats on TV page
