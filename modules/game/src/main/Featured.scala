@@ -67,7 +67,7 @@ final class Featured(
       case _ ⇒ none
     }
 
-    def isWayBetter(g1: Game, g2: Game) = score(g2) > (score(g1) * 1.5)
+    def isWayBetter(g1: Game, g2: Game) = score(g2) > (score(g1) * 1.3)
 
     def rematch(game: Game): Fuog = game.next ?? $find.byId[Game]
 
