@@ -57,13 +57,21 @@ final class Featured(
 
     def fresh(game: Game) = game.isBeingPlayed
 
-    def featureFrom(game: Game): Fu[Option[Game]] = 
-      rematch(game) orElse featureOld(game)
+    type Fuog = Fu[Option[Game]]
 
-    def featureOld(game: Game): Fu[Option[Game]] =
-      (game olderThan 6) ?? feature
+    def featureFrom(game: Game): Fuog =
+      wayBetter(game) orElse rematch(game) orElse featureOld(game)
 
-    def rematch(game: Game): Fu[Option[Game]] = game.next ?? $find.byId[Game]
+    def wayBetter(game: Game): Fuog = feature map {
+      case Some(next) if isWayBetter(game.copy(turns = 1), next) ⇒ next.some
+      case _ ⇒ none
+    }
+
+    def isWayBetter(g1: Game, g2: Game) = score(g2) > (score(g1) * 1.5)
+
+    def rematch(game: Game): Fuog = game.next ?? $find.byId[Game]
+
+    def featureOld(game: Game): Fuog = (game olderThan 6) ?? feature
 
     def feature: Fu[Option[Game]] = GameRepo.featuredCandidates map { games ⇒
       Featured.sort(games filter fresh).headOption
@@ -84,15 +92,17 @@ object Featured {
 
   def sort(games: List[Game]): List[Game] = games sortBy { -score(_) }
 
-  private def score(game: Game): Float = heuristics map {
-    case (fn, coefficient) ⇒ heuristicBox(fn(game)) * coefficient
-  } sum
+  private def score(game: Game): Int = math.round {
+    (heuristics map {
+      case (fn, coefficient) ⇒ heuristicBox(fn(game)) * coefficient
+    }).sum * 1000
+  }
 
   private type Heuristic = Game ⇒ Float
   private val heuristicBox = box(0 to 1) _
   private val eloBox = box(1000 to 2000) _
-  private val timeBox = box(60 to 300) _
-  private val turnBox = box(1 to 21) _
+  private val timeBox = box(60 to 360) _
+  private val turnBox = box(1 to 25) _
 
   private val heuristics: List[(Heuristic, Float)] = List(
     eloHeuristic(Color.White) -> 1f,
