@@ -10,7 +10,7 @@ import actorApi._
 import lila.hub.actorApi.{ Deploy, GetUids, WithUserIds, GetNbMembers, NbMembers, SendTo, SendTos }
 import lila.memo.ExpireSetMemo
 
-abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Actor {
+abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket with Actor {
 
   var members = Map.empty[String, M]
   val aliveUids = new ExpireSetMemo(uidTtl)
@@ -64,9 +64,6 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Actor {
   def notifyMember[A: Writes](t: String, data: A)(member: M) {
     member.channel push makeMessage(t, data)
   }
-
-  def makeMessage[A: Writes](t: String, data: A) =
-    Json.obj("t" -> t, "d" -> data)
 
   def makePong(nb: Int) = makeMessage("n", nb)
 

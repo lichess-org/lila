@@ -10,7 +10,7 @@ import lila.hub.ActorMap
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import makeTimeout.short
 
-trait SocketHubActor[A <: SocketActor[_]] extends ActorMap[A] {
+trait SocketHubActor[A <: SocketActor[_]] extends Socket with ActorMap[A] {
 
   def socketHubReceive: Receive = _socketHubReceive orElse actorMapReceive
 
