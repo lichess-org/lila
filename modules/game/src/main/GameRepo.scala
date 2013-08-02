@@ -90,6 +90,10 @@ object GameRepo {
       (pn + "elo") -> user.elo)))
   }
 
+  def setTv(id: ID) {
+    $update.fieldUnchecked(id, "me.tv", $date(DateTime.now))
+  }
+
   def incBookmarks(id: ID, value: Int) =
     $update($select(id), $inc("bm" -> value))
 
@@ -214,8 +218,10 @@ object GameRepo {
     }
   }
 
-  def random(nb: Int): Fu[List[Game]] =
-    $find($query(Json.obj("uids" -> $exists(true))) skip Random.nextInt(2000), nb)
+  def random: Fu[Option[Game]] = $find.one(
+    Json.obj("uids" -> $exists(true)),
+    _ sort Query.sortCreated skip (Random nextInt 1000)
+  )
 
   // user1 wins, draws, losses
   def confrontation(user1: User, user2: User): Fu[(Int, Int, Int)] = {

@@ -41,6 +41,7 @@ final class Featured(
         rendererActor ? actorApi.RenderFeaturedJs(game) onSuccess {
           case html: Html ⇒ lobbySocket ! actorApi.ChangeFeatured(html)
         }
+        GameRepo setTv game.id
       }
 
       case Continue ⇒ {
@@ -80,7 +81,7 @@ final class Featured(
     def feature: Fuog = GameRepo.featuredCandidates map { games ⇒
       Featured.sort(games filter fresh).headOption
     } flatMap {
-      case None       ⇒ GameRepo random 1 map (_.headOption)
+      case None       ⇒ GameRepo.random
       case Some(game) ⇒ fuccess(game.some)
     }
   }))

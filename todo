@@ -58,3 +58,7 @@ realtime computer analysis of TV game
 store TV games history
 show user win stats on TV page
 move cancels draw offer http://en.lichess.org/forum/lichess-feedback/draw-offer-is-not-rejected-automatically-bug#5
+
+DB
+--
+db.game4.ensureIndex({'me.tv':-1},{sparse:1})
