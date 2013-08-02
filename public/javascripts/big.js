@@ -806,7 +806,11 @@ var storage = {
             resize: true,
             render: function(u, t) {
               if (self.options.player.spectator) {
-                return '<li><span>' + $.userLinkLimit(u, 14) + '</span>' + urlToLink(t) + '</li>';
+                if (u == 'lichess') {
+                  return '<li class="system">' + urlToLink(t) + '</li>';
+                } else {
+                  return '<li><span>' + $.userLinkLimit(u, 14) + '</span>' + urlToLink(t) + '</li>';
+                }
               } else {
                 return '<li class="' + u + (u == 'system' ? ' trans_me' : '') + '">' + urlToLink(t) + '</li>';
               }

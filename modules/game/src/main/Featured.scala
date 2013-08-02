@@ -16,7 +16,7 @@ import tube.gameTube
 
 final class Featured(
     lobbySocket: lila.hub.ActorLazyRef,
-    roundSocket: lila.hub.ActorLazyRef,
+    roundActor: lila.hub.ActorLazyRef,
     rendererActor: lila.hub.ActorLazyRef,
     system: ActorSystem) {
 
@@ -37,7 +37,7 @@ final class Featured(
 
       case Set(game) ⇒ {
         oneId = game.id.some
-        roundSocket ! actorApi.ChangeFeaturedId(game.id)
+        roundActor ! actorApi.ChangeFeaturedGame(game)
         rendererActor ? actorApi.RenderFeaturedJs(game) onSuccess {
           case html: Html ⇒ lobbySocket ! actorApi.ChangeFeatured(html)
         }
@@ -72,7 +72,7 @@ final class Featured(
     }
 
     def isWayBetter(g1: Game, g2: Game) =
-      score(g2.resetTurns) > (score(g1.resetTurns) * 1.3)
+      score(g2.resetTurns) > (score(g1.resetTurns) * 1.2)
 
     def rematch(game: Game): Fuog = game.next ?? $find.byId[Game]
 
