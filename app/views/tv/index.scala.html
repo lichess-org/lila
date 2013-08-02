@@ -1,3 +1,36 @@
-@(g: Game)(implicit ctx: Context)
+@(pov: Pov, version: Int, roomHtml: Html, tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
 
+@import pov._
 
+@title = @{ "TV" }
+
+@underchat = {
+<div class="watchers inline_userlist">
+  TV @trans.spectators() <span class="list"></span>
+</div>
+}
+
+@round.layout(
+title = title,
+goodies = views.html.game.infoBox(pov, tour),
+chat = round.room(roomHtml, true).some,
+underchat = underchat.some,
+active = siteMenu.tv.some) {
+@round.watcherGame(pov)
+@embedJs("var _ld_ = " + roundWatcherJsData(pov, version, true))
+<p id="ontv">You are watching Lichess TV</p>
+@views.html.game.more(pov, Nil) {
+<nav>
+@round.continueFromHere(pov.game)
+<a href="@routes.Analyse.replay(gameId, color.name)">@trans.replayAndAnalyse()</a>
+<br />
+<a href="@routes.Round.watcher(gameId, (!color).name)">@trans.flipBoard()</a>
+@if(game.pgnImport.isEmpty) {
+<br />
+<a href="@routes.Analyse.stats(gameId)">@trans.viewGameStats()</a>
+}
+<br />
+@round.fenPgn(game)
+</nav>
+}
+}
