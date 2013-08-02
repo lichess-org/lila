@@ -6,13 +6,13 @@ import lila.bookmark.BookmarkApi
 import lila.forum.PostApi
 import lila.game.{ GameRepo, Game }
 import lila.relation.RelationApi
-import lila.user.{ User, UserRepo, Context, EloChart }
+import lila.user.{ User, UserRepo, Context, EloChart, Confrontation }
 
 case class UserInfo(
     user: User,
     rank: Option[(Int, Int)],
     nbPlaying: Int,
-    confrontation: Option[(Int, Int, Int)],
+    confrontation: Option[Confrontation],
     nbBookmark: Int,
     eloChart: Option[EloChart],
     nbFollowing: Int,
@@ -21,9 +21,7 @@ case class UserInfo(
 
   def nbRated = user.count.rated
 
-  def nbWithMe = confrontation map {
-    case (w, d, l) ⇒ w + d + l
-  }
+  def nbWithMe = confrontation ?? (_.games)
 
   def percentRated: Int = math.round(nbRated / user.count.game.toFloat * 100)
 }
@@ -44,9 +42,7 @@ object UserInfo {
         GameRepo count (_ notFinished user.id) map (_.some)
       }) zip
       (ctx.me.filter(user!=) ?? { me ⇒
-        GameRepo.confrontation(me, user) map (_.some filter {
-          case (w, d, l) ⇒ (w + d + l) > 0
-        })
+        GameRepo.confrontation(me, user) map (_.some filterNot (_.empty))
       }) zip
       (bookmarkApi countByUser user) zip
       EloChart(user) zip

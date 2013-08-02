@@ -98,8 +98,9 @@ div.user_show div.boxed_data {
   background: #fafafa;
   text-align: center;
 }
-div.user_show div.elo_with_me strong {
-  padding-right: 1em;
+div.user_show div.boxed_data a.user_link {
+  font-weight: bold;
+  text-decoration: none;
 }
 
 div.user_show div.games {

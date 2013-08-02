@@ -4,15 +4,16 @@ import scala.util.Random
 
 import chess.format.Forsyth
 import chess.{ Color, Variant, Status }
-import lila.common.PimpedJson._
-import lila.db.api._
-import lila.db.Implicits._
-import lila.user.User
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 import play.api.libs.json._
 import play.modules.reactivemongo.json.BSONFormats.toJSON
 import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
+
+import lila.common.PimpedJson._
+import lila.db.api._
+import lila.db.Implicits._
+import lila.user.{ User, Confrontation }
 import tube.gameTube
 
 object GameRepo {
@@ -226,7 +227,7 @@ object GameRepo {
   )
 
   // user1 wins, draws, losses
-  def confrontation(user1: User, user2: User): Fu[(Int, Int, Int)] = {
+  def confrontation(user1: User, user2: User): Fu[Confrontation] = {
     import reactivemongo.bson._
     import reactivemongo.core.commands._
     val userIds = List(user1, user2).sortBy(_.count.game).map(_.id)
@@ -245,7 +246,8 @@ object GameRepo {
           }
         }
       }).flatten.toMap
-      (
+      Confrontation(
+        user1, user2,
         ~(res get user1.id),
         ~(res get ""),
         ~(res get user2.id)
