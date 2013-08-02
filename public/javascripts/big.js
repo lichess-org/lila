@@ -800,6 +800,7 @@ var storage = {
         self.initTable();
         self.initClocks();
         if (self.$chat) self.$chat.chat({
+            talkMessageType: self.options.tv ? 'talk-tv' : 'talk',
             resize: true,
             render: function(u, t) {
               if (self.options.player.spectator) {
@@ -1497,6 +1498,7 @@ var storage = {
       this.options = $.extend({
         // render: function(u, t) {},
         onToggle: function(enabled) {},
+        talkMessageType: 'talk',
         resize: false
       }, this.options);
       var self = this;
@@ -1519,7 +1521,7 @@ var storage = {
           return false;
         }
         $input.val('');
-        lichess.socket.send('talk', text);
+        lichess.socket.send(self.options.talkMessageType, text);
         return false;
       });
 

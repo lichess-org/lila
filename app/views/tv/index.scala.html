@@ -8,10 +8,16 @@
 </div>
 }
 
+@room = {
+@base.chatRoom(
+title = "TV " + trans.spectatorRoom.str(),
+cssClass = "spectators")(roomHtml)
+}
+
 @round.layout(
 title = title,
 goodies = views.html.game.infoBox(pov, tour),
-chat = round.room(roomHtml, true).some,
+chat = room.some,
 underchat = underchat.some,
 active = siteMenu.tv.some) {
 @round.watcherGame(pov)

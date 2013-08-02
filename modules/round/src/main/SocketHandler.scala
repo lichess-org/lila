@@ -1,11 +1,12 @@
 package lila.round
 
+import actorApi._, round._
 import akka.actor._
 import akka.pattern.{ ask, pipe }
+import chess.Color
+import makeTimeout.short
 import play.api.libs.json.{ JsObject, Json }
 
-import actorApi._, round._
-import chess.Color
 import lila.common.PimpedJson._
 import lila.game.{ Game, Pov, PovRef, PlayerRef, GameRepo }
 import lila.hub.actorApi.map._
@@ -13,7 +14,6 @@ import lila.security.Flood
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import lila.socket.Handler
 import lila.user.{ User, Context }
-import makeTimeout.short
 
 private[round] final class SocketHandler(
     roundMap: ActorRef,
@@ -34,16 +34,17 @@ private[round] final class SocketHandler(
       roundMap ! Tell(gameId, msg)
     }
 
-    member.playerIdOption.fold[Handler.Controller]({
-      case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
-      case ("talk", o) ⇒ for {
+    def watcherTalk(roomId: String, o: JsObject) {
+      for {
         txt ← o str "d"
         if flood.allowMessage(uid, txt)
-      } messenger.watcherMessage(
-        ref.gameId,
-        member.userId,
-        txt,
-        member.troll) pipeTo socket
+      } messenger.watcherMessage(roomId, member.userId, txt, member.troll) pipeTo socket
+    }
+
+    member.playerIdOption.fold[Handler.Controller]({
+      case ("p", o)       ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
+      case ("talk", o)    ⇒ watcherTalk(ref.gameId, o)
+      case ("talk-tv", o) ⇒ watcherTalk("tv", o)
     }) { playerId ⇒
       {
         case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
