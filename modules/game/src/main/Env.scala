@@ -24,6 +24,8 @@ final class Env(
     val JsPathRaw = config getString "js_path.raw"
     val JsPathCompiled = config getString "js_path.compiled"
     val ActorName = config getString "actor.name"
+    val FeaturedContinue = config duration "featured.continue"
+    val FeaturedDisrupt = config duration "featured.disrupt"
   }
   import settings._
 
@@ -68,10 +70,15 @@ final class Env(
       titivate.cleanupUnplayed >> titivate.cleanupNext
     }
 
-    scheduler.effect(5.seconds, "") { featured.one }
-
-    scheduler.message(20.seconds) {
+    scheduler.message(10.seconds) {
       captcher -> actorApi.NewCaptcha
+    }
+
+    scheduler.message(FeaturedContinue) {
+      featured.actor -> Featured.Continue
+    }
+    scheduler.message(FeaturedDisrupt) {
+      featured.actor -> Featured.Disrupt
     }
   }
 
