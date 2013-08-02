@@ -1,7 +1,5 @@
 @(pov: Pov, version: Int, roomHtml: Html, tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
 
-@import pov._
-
 @title = @{ "TV" }
 
 @underchat = {
@@ -22,15 +20,15 @@ active = siteMenu.tv.some) {
 @views.html.game.more(pov, Nil) {
 <nav>
 @round.continueFromHere(pov.game)
-<a href="@routes.Analyse.replay(gameId, color.name)">@trans.replayAndAnalyse()</a>
+<a href="@routes.Analyse.replay(pov.gameId, pov.color.name)">@trans.replayAndAnalyse()</a>
 <br />
-<a href="@routes.Round.watcher(gameId, (!color).name)">@trans.flipBoard()</a>
-@if(game.pgnImport.isEmpty) {
+<a href="@routes.Tv.index@{ pov.color.is(pov.game.creator.color).??("?flip=1") }">@trans.flipBoard()</a>
+@if(pov.game.pgnImport.isEmpty) {
 <br />
-<a href="@routes.Analyse.stats(gameId)">@trans.viewGameStats()</a>
+<a href="@routes.Analyse.stats(pov.gameId)">@trans.viewGameStats()</a>
 }
 <br />
-@round.fenPgn(game)
+@round.fenPgn(pov.game)
 </nav>
 }
 }
