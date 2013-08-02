@@ -54,10 +54,10 @@ analyse: show continuations
 TV channels (bullet, blitz, standard, ...)
 allow castling and analysis for FEN games whenever possible
 realtime computer analysis of TV game
-store TV games history
 show user win stats on TV page
-move cancels draw offer http://en.lichess.org/forum/lichess-feedback/draw-offer-is-not-rejected-automatically-bug#5
 truncate db.room and db.watcher_room messages
+embeddable tv iframe http://en.lichess.org/forum/lichess-feedback/new-feature-lichess-tv?page=3
+many tv ideas (answer) http://en.lichess.org/forum/lichess-feedback/new-feature-lichess-tv?page=3
 
 DB
 --
