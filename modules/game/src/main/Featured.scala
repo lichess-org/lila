@@ -47,7 +47,7 @@ final class Featured(
       case Continue ⇒ {
         oneId ?? $find.byId[Game] foreach {
           case None                       ⇒ feature foreach elect
-          case Some(game) if !fresh(game) ⇒ wayBetter(game) orElse rematch(game) orElse featureOld(game)
+          case Some(game) if !fresh(game) ⇒ wayBetter(game) orElse rematch(game) orElse featureIfOld(game) foreach elect
           case _                          ⇒
         }
       }
@@ -76,7 +76,7 @@ final class Featured(
 
     def rematch(game: Game): Fuog = game.next ?? $find.byId[Game]
 
-    def featureOld(game: Game): Fuog = (game olderThan 7) ?? feature
+    def featureIfOld(game: Game): Fuog = (game olderThan 7) ?? feature
 
     def feature: Fuog = GameRepo.featuredCandidates map { games ⇒
       Featured.sort(games filter fresh).headOption
@@ -86,7 +86,7 @@ final class Featured(
     }
   }))
 
-  system.scheduler.schedule(1 seconds, 1.11 seconds, actor, Continue)
+  system.scheduler.schedule(0 seconds, 1.11 seconds, actor, Continue)
   system.scheduler.schedule(5 seconds, 5.07 seconds, actor, Disrupt)
 }
 

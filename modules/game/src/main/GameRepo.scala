@@ -94,6 +94,8 @@ object GameRepo {
     $update.fieldUnchecked(id, "me.tv", $date(DateTime.now))
   }
 
+  def onTv(nb: Int): Fu[List[Game]] = $find($query.all sort $sort.desc("me.tv"), nb)
+
   def incBookmarks(id: ID, value: Int) =
     $update($select(id), $inc("bm" -> value))
 
