@@ -27,6 +27,7 @@ themepicker: Boolean = false)(body: Html)(implicit ctx: Context)
 @if(!robots) {
 <meta content="noindex, nofollow" name="robots">
 }
+<meta name="google" content="notranslate" />
 </head>
 <body class="@setting.theme.cssClass @setting.bg"
 data-sound-file="@routes.Assets.at("sound/alert.ogg")"
