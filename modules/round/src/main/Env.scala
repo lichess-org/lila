@@ -3,11 +3,11 @@ package lila.round
 import akka.actor._
 import akka.pattern.ask
 import com.typesafe.config.Config
+import makeTimeout.large
 
 import lila.common.PimpedConfig._
-import lila.socket.actorApi.GetVersion
 import lila.hub.actorApi.map.Ask
-import makeTimeout.large
+import lila.socket.actorApi.GetVersion
 
 final class Env(
     config: Config,
@@ -18,6 +18,7 @@ final class Env(
     hub: lila.hub.Env,
     ai: () ⇒ Fu[lila.ai.Ai],
     getUsername: String ⇒ Fu[Option[String]],
+    getUsernameOrAnon: String ⇒ Fu[String],
     i18nKeys: lila.i18n.I18nKeys,
     scheduler: lila.common.Scheduler) {
 
@@ -36,6 +37,7 @@ final class Env(
     val HijackTimeout = config duration "hijack.timeout"
     val NetDomain = config getString "net.domain"
     val ActorMapName = config getString "actor.map.name"
+    val ActorName = config getString "actor.name"
   }
   import settings._
 
@@ -108,6 +110,18 @@ final class Env(
   private[round] def animationDelay = AnimationDelay
   private[round] def moretimeSeconds = Moretime.toSeconds
 
+  system.actorOf(Props(new Actor {
+    def receive = {
+      case msg @ lila.game.actorApi.ChangeFeaturedGame(game) ⇒ {
+        socketHub ! msg
+        def playerName(p: lila.game.Player) = lila.game.Namer.player(p, false)(getUsernameOrAnon)
+        (game.players map playerName).sequenceFu foreach { names ⇒
+          WatcherRoomRepo.addMessage("tv", "lichess".some, names mkString " vs ")
+        }
+      }
+    }
+  }), name = ActorName)
+
   {
     import scala.concurrent.duration._
 
@@ -148,6 +162,7 @@ object Env {
     hub = lila.hub.Env.current,
     ai = lila.ai.Env.current.ai,
     getUsername = lila.user.Env.current.usernameOption,
+    getUsernameOrAnon = lila.user.Env.current.usernameOrAnonymous,
     i18nKeys = lila.i18n.Env.current.keys,
     scheduler = lila.common.PlayApp.scheduler)
 }

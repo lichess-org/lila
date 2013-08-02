@@ -27,6 +27,7 @@ final class Env(config: Config, system: ActorSystem) {
     val timeline = actorLazyRef("timeline.user")
     val bookmark = actorLazyRef("bookmark")
     val roundMap = actorLazyRef("round.map")
+    val round = actorLazyRef("round.actor")
     val lobby = actorLazyRef("lobby")
     val relation = actorLazyRef("relation")
     val challenger = actorLazyRef("challenger")

@@ -5,7 +5,7 @@ import play.api.libs.json.JsObject
 import play.api.templates.Html
 
 case class ChangeFeatured(html: Html)
-case class ChangeFeaturedId(id: String)
+case class ChangeFeaturedGame(game: Game)
 case class RenderFeaturedJs(game: Game)
 
 case class TellWatchers(msg: JsObject)

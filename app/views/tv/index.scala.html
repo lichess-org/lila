@@ -22,7 +22,9 @@ cssClass = "spectators")(roomHtml)
     @confrontation.map { c =>
     @user.confrontation(c)
     }.getOrElse {
+    <div class="confrontation">
       <div class="vs">@playerLink(pov.game.creator, withElo = false, withOnline = false) vs @playerLink(pov.game.invited, withElo = false, withOnline = false)</div>
+    </div>
     }
     <br />
     <span class="s16 clock">@shortClockName(pov.game.clock)</span>

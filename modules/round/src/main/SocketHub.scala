@@ -24,8 +24,8 @@ private[round] final class SocketHub(
 
   def _receive: Receive = {
 
-    case lila.game.actorApi.ChangeFeaturedId(id) ⇒ tellAll {
-      lila.game.actorApi.TellWatchers(makeMessage("featured_id", id))
+    case lila.game.actorApi.ChangeFeaturedGame(game) ⇒ tellAll {
+      lila.game.actorApi.TellWatchers(makeMessage("featured_id", game.id))
     }
   }
 
