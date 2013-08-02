@@ -27,7 +27,7 @@ final class Featured(
     (actor ? Get mapTo manifest[Option[Game]]) nevermind "[featured] one"
   }
 
-  private val actor = system.actorOf(Props(new Actor {
+  private[game] val actor = system.actorOf(Props(new Actor {
 
     private var oneId = none[String]
 
@@ -85,17 +85,14 @@ final class Featured(
       case Some(game) ⇒ fuccess(game.some)
     }
   }))
-
-  system.scheduler.schedule(0 seconds, 1.11 seconds, actor, Continue)
-  system.scheduler.schedule(5 seconds, 5.07 seconds, actor, Disrupt)
 }
 
 object Featured {
 
   private case object Get
-  private case object Continue
-  private case object Disrupt
   private case class Set(game: Game)
+  case object Continue
+  case object Disrupt
 
   def sort(games: List[Game]): List[Game] = games sortBy { -score(_) }
 

@@ -32,6 +32,6 @@ final class Scheduler(system: ActorSystem, enabled: Boolean) {
     enabled ! system.scheduler.scheduleOnce(delay)(op)
   }
 
-  private def randomize(d: FiniteDuration, ratio: Float = 0.1f): FiniteDuration = 
+  private def randomize(d: FiniteDuration, ratio: Float = 0.05f): FiniteDuration = 
     approximatly(ratio)(d.toMillis) millis
 }
