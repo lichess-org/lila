@@ -244,3 +244,4 @@ boardEditor=Рэдактар дошкі
 startPosition=Пачатковая пазіцыя
 clearBoard=Ачысціць дошку
 savePosition=Захаваць пазіцыю
+isPrivate=Прыватна
