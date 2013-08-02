@@ -852,6 +852,12 @@ var storage = {
         });
       }
 
+      if (self.options.player.spectator && self.options.tv) {
+        $('div.lichess_bot').on("click", "tr", function() {
+          location.href = $(this).find('a.watch').attr("href");
+        }).find('.undertable_inner').scrollTop(999999);
+      }
+
       lichess.socket = new strongSocket(
         self.options.socketUrl,
         self.options.player.version,
@@ -1436,7 +1442,7 @@ var storage = {
       var self = this;
       if (users.length > 0) {
         self.list.html(_.map(users, function(u) {
-          return u.indexOf('(') === -1 ? $.userLink(u) : u;
+          return u.indexOf('(') === -1 ? $.userLink(u) : u.replace(/\s\(1\)/, '');
         }).join(", "));
         self.element.show();
       } else {

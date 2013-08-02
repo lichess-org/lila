@@ -54,6 +54,7 @@ trait StringHelper { self: NumberHelper ⇒
     def active(other: String, one: String = "active") = if (str == other) one else ""
   }
 
+  def when(cond: Boolean, str: String) = cond ?? str
   def strong(x: Int): String = strong(x.toString)
   def strong(x: String): String = "<strong>" + x + "</strong>"
 

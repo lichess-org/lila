@@ -12,7 +12,7 @@
   </div>
   <div class="inner game_extra clearfix">
     @if(bookmarkers.nonEmpty) {
-    <div class="bookmarkers inline_userlist">
+    <div class="right_coll inline_userlist">
       <p>@trans.bookmarkedByNbPlayers(bookmarkers.size)</p>
       <span class="list">
         @Html(bookmarkers.map(userIdLinkMini).mkString(", "))

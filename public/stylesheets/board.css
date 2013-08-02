@@ -635,15 +635,24 @@ div.game_tournament .clock {
   font-weight: bold;
 }
 
-div.inline_userlist span.list {
+span.inline_userlist {
   display: inline;
   color: #9a9a9a;
 }
-div.inline_userlist a {
+span.inline_userlist a {
   color: #aaa;
   text-decoration: none;
   font-weight: bold;
 }
-div.inline_userlist a:hover {
+span.inline_userlist a:hover {
   text-decoration: underline;
+}
+
+div.previously h2 {
+  margin-top: 20px;
+  margin-bottom
+}
+div.previously a {
+  display: block;
+  margin-top: 5px;
 }

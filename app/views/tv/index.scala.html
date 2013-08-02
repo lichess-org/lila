@@ -1,10 +1,10 @@
-@(pov: Pov, version: Int, roomHtml: Html, tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
+@(pov: Pov, version: Int, roomHtml: Html, games: List[Game], tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
 
 @title = @{ "TV" }
 
 @underchat = {
-<div class="watchers inline_userlist">
-  TV @trans.spectators() <span class="list"></span>
+<div class="watchers">
+  @trans.spectators() <span class="list inline_userlist"></span>
 </div>
 }
 
@@ -19,16 +19,40 @@ active = siteMenu.tv.some) {
 <p id="ontv">You are watching Lichess TV</p>
 @views.html.game.more(pov, Nil) {
 <nav>
-@round.continueFromHere(pov.game)
-<a href="@routes.Analyse.replay(pov.gameId, pov.color.name)">@trans.replayAndAnalyse()</a>
-<br />
-<a href="@routes.Tv.index@{ pov.isCreator.??("?flip=1") }">@trans.flipBoard()</a>
-@if(pov.game.pgnImport.isEmpty) {
-<br />
-<a href="@routes.Analyse.stats(pov.gameId)">@trans.viewGameStats()</a>
-}
-<br />
-@round.fenPgn(pov.game)
+  @round.continueFromHere(pov.game)
+  <a href="@routes.Analyse.replay(pov.gameId, pov.color.name)">@trans.replayAndAnalyse()</a>
+  <br />
+  <a href="@routes.Tv.index@when(pov.isCreator, "?flip=1")">@trans.flipBoard()</a>
+  @if(pov.game.pgnImport.isEmpty) {
+  <br />
+  <a href="@routes.Analyse.stats(pov.gameId)">@trans.viewGameStats()</a>
+  }
+  <br />
+  @round.fenPgn(pov.game)
 </nav>
 }
+<div class="lichess_bot undertable">
+  <div class="undertable_top">
+    <span class="title">Previously on Lichess TV</span>
+  </div>
+  <div class="undertable_inner">
+    <div class="content">
+      <table>
+        <tbody>
+        @games.reverse.map { g =>
+        <tr>
+          <td><a class="watch s24 eye" href="@routes.Round.watcher(g.id, g.creatorColor.name)"></a></td>
+          <td>
+            @playerLink(g.creator, withOnline = false, withDiff = true)
+            vs
+            @playerLink(g.invited, withOnline = false, withDiff = true)
+          </td>
+          <td>@shortClockName(g.clock)</td>
+        </tr>
+        }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 }

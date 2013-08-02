@@ -1128,6 +1128,7 @@ div.undergame_box {
   width: 512px;
   text-align: center;
   font-size: 1.5em;
+  margin-top: 3px;
 }
 div.undergame_box div.inner {
   padding: 10px 10px 0 10px;
@@ -1179,7 +1180,7 @@ div.game_more textarea {
   padding: 5px;
   border-radius: 3px;
 }
-div.game_extra div.bookmarkers {
+div.game_extra div.right_coll {
   float: right;
   max-width: 48%;
 }
