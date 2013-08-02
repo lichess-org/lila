@@ -1,14 +1,18 @@
 package lila.game
 
+import org.joda.time.DateTime
+
 private[game] case class Metadata(
-    source: Source,
-    pgnImport: Option[PgnImport] = None,
-    tournamentId: Option[String] = None) {
+    source: Option[Source],
+    pgnImport: Option[PgnImport],
+    tournamentId: Option[String],
+    tvAt: Option[DateTime]) {
 
   def encode = RawMetadata(
-    so = source.id,
+    so = source map (_.id),
     pgni = pgnImport,
-    tid = tournamentId)
+    tid = tournamentId,
+    tv = tvAt)
 
   def pgnDate = pgnImport flatMap (_.date)
 
@@ -16,16 +20,16 @@ private[game] case class Metadata(
 }
 
 private[game] case class RawMetadata(
-    so: Int,
+    so: Option[Int],
     pgni: Option[PgnImport],
-    tid: Option[String]) {
+    tid: Option[String],
+    tv: Option[DateTime]) {
 
-  def decode = Source(so) map { source ⇒
-    Metadata(
-      source = source,
-      pgnImport = pgni,
-      tournamentId = tid)
-  }
+  def decode = Metadata(
+    source = so flatMap Source.apply,
+    pgnImport = pgni,
+    tournamentId = tid,
+    tvAt = tv)
 }
 
 private[game] object RawMetadata {
@@ -38,16 +42,18 @@ private[game] object RawMetadata {
 
   private def defaults = Json.obj(
     "pgni" -> none[PgnImport],
-    "tid" -> none[String])
+    "tid" -> none[String],
+    "tv" -> none[DateTime])
 
   private[game] lazy val tube = Tube(
-    (__.json update merge(defaults)) andThen Json.reads[RawMetadata],
-    Json.writes[RawMetadata])
+    (__.json update (merge(defaults) andThen readDateOpt('tv))) andThen Json.reads[RawMetadata],
+    Json.writes[RawMetadata] andThen (__.json update writeDateOpt('tv))
+  )
 }
 
 case class PgnImport(
-  user: Option[String], 
-  date: Option[String], 
+  user: Option[String],
+  date: Option[String],
   pgn: String)
 
 object PgnImport {

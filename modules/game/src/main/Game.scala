@@ -360,7 +360,7 @@ case class Game(
 
   def withId(newId: String) = this.copy(id = newId)
 
-  def source = metadata map (_.source)
+  def source = metadata flatMap (_.source)
 
   def pgnImport = metadata flatMap (_.pgnImport)
 
@@ -414,8 +414,10 @@ object Game {
     variant = variant,
     lastMoveTime = None,
     metadata = Metadata(
-      source = source,
-      pgnImport = pgnImport).some,
+      source = source.some,
+      pgnImport = pgnImport,
+      tournamentId = none,
+      tvAt = none).some,
     createdAt = DateTime.now)
 
   import lila.db.Tube
@@ -483,7 +485,7 @@ private[game] case class RawGame(
     is960Rematch = r960 | false,
     createdAt = ca,
     updatedAt = ua,
-    metadata = me flatMap (_.decode)
+    metadata = me map (_.decode)
   )
 }
 
