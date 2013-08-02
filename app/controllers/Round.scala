@@ -16,7 +16,7 @@ import lila.user.{ Context, UserRepo }
 import makeTimeout.large
 import views._
 
-object Round extends LilaController with TheftPrevention with Watcher {
+object Round extends LilaController with TheftPrevention {
 
   private def env = Env.round
   private def bookmarkApi = Env.bookmark.api
@@ -71,9 +71,22 @@ object Round extends LilaController with TheftPrevention with Watcher {
 
   def watcher(gameId: String, color: String) = Open { implicit ctx ⇒
     OptionFuResult(GameRepo.pov(gameId, color)) { pov ⇒
-      pov.game.started.fold(watch(pov, false), join(pov))
+      pov.game.started.fold(watch _, join _)(pov)
     }
   }
+
+  def watch(pov: Pov)(implicit ctx: Context): Fu[Result] =
+    bookmarkApi userIdsByGame pov.game zip
+      env.version(pov.gameId) zip
+      (WatcherRoomRepo room pov.gameId map { room ⇒
+        html.round.watcherRoomInner(room.decodedMessages)
+      }) zip
+      (analyser has pov.gameId) zip
+      (pov.game.tournamentId ?? TournamentRepo.byId) map {
+        case ((((bookmarkers, v), roomHtml), analysed), tour) ⇒
+          Ok(html.round.watcher(
+            pov, v, roomHtml, bookmarkers, analysed, tour))
+      }
 
   private def join(pov: Pov)(implicit ctx: Context): Fu[Result] =
     GameRepo initialFen pov.gameId zip env.version(pov.gameId) map {
