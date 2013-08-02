@@ -23,6 +23,8 @@ case class Pov(game: Game, color: Color) {
 
   def withGame(g: Game) = Pov(g, color)
 
+  def isCreator = game.creatorColor == color
+
   override def toString = ref.toString
 }
 
