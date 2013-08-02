@@ -5,9 +5,10 @@ import play.api.templates.Html
 import views._
 
 import lila.app._
-import lila.game.{ GameRepo, Pov }
+import lila.game.{ GameRepo, Game ⇒ GameModel, Pov }
 import lila.round.WatcherRoomRepo
 import lila.tournament.TournamentRepo
+import lila.user.{ UserRepo, Confrontation }
 
 object Tv extends LilaController {
 
@@ -18,15 +19,26 @@ object Tv extends LilaController {
           html.round.watcherRoomInner(room.decodedMessages)
         }) zip
         (GameRepo onTv 10) zip
+        confrontation(game) zip
         (game.tournamentId ?? TournamentRepo.byId) map {
-          case (((v, roomHtml), games), tour) ⇒
+          case ((((v, roomHtml), games), confrontation), tour) ⇒
             Ok(html.tv.index(
               getInt("flip").exists(1==).fold(Pov invited game, Pov creator game),
               v,
               roomHtml,
               games,
+              confrontation,
               tour))
         }
+    }
+  }
+
+  private def confrontation(game: GameModel): Fu[Option[Confrontation]] = ~{
+    (game.creator.userId |@| game.invited.userId) apply {
+      case (id1, id2) ⇒ (UserRepo byId id1) zip (UserRepo byId id2) flatMap {
+        case (Some(user1), Some(user2)) ⇒ GameRepo.confrontation(user1, user2) map (_.some)
+        case _                          ⇒ fuccess(none)
+      }
     }
   }
 }

@@ -44,6 +44,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     player: Player,
     cssClass: Option[String] = None,
     withOnline: Boolean = true,
+    withElo: Boolean = true,
     withDiff: Boolean = true,
     engine: Boolean = false)(implicit ctx: Context) = Html {
     player.userId.fold(
@@ -56,7 +57,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
           """<a %s href="%s">%s%s</a>""".format(
             userClass(userId, cssClass, withOnline),
             routes.User show username,
-            playerUsername(player) + ~(player.eloDiff filter (_ ⇒ withDiff) map { diff ⇒
+            playerUsername(player, withElo) + ~(player.eloDiff filter (_ ⇒ withDiff) map { diff ⇒
               " (%s)".format(showNumber(diff))
             }),
             engine ?? """<span class="engine_mark" title="%s"></span>""" format trans.thisPlayerUsesChessComputerAssistance()

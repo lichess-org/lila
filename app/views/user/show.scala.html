@@ -110,15 +110,8 @@ evenMoreCss = evenMoreCss) {
       <div class="engine_warning">@trans.thisPlayerUsesChessComputerAssistance()</div>
       }
       @bio
-      @info.confrontation.map {
-      case (w, d, l) => {
-      <div class="confrontation boxed_data">
-        @ctx.me.map(_.username) vs @u.username<br />
-        @trans.nbWins("<strong>"+w+"</strong>"),
-        @trans.nbDraws("<strong>"+d+"</strong>"),
-        @trans.nbLosses("<strong>"+l+"</strong>")
-      </div>
-      }
+      @info.confrontation.map { c =>
+      @user.confrontation(c)
       }
       <div class="stats">
         @u.lang.map { l =>

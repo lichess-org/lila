@@ -364,9 +364,6 @@ strong {
 body.tight #site_header {
   display: none;
 }
-#site_header strong {
-  font-weight: normal;
-}
 #site_header a.lang_fallback {
   font-weight: bold;
   display: inline-block;
@@ -609,6 +606,10 @@ table.slist tbody tr:nth-child(even) {
 table.slist td:first-child, table.slist th:first-child {
   padding-left: 25px;
 }
+div.lichess_goodies h2 {
+  text-align: center;
+  font-size: 1.5em;
+}
 div.lichess_goodies div.box {
   margin-top: 1em;
   margin-left: -30px;
@@ -619,6 +620,16 @@ div.lichess_goodies div.box {
 }
 div.lichess_goodies div.box .player {
   margin: 4px 0;
+}
+div.lichess_goodies div.confrontation {
+  text-align: center;
+}
+div.lichess_goodies div.confrontation div.vs {
+  margin-bottom: 5px;
+}
+div.lichess_goodies a.user_link {
+  font-weight: bold;
+  text-decoration: none;
 }
 #site_header div.side_menu {
   margin-top: 15px;
@@ -1122,13 +1133,6 @@ div.undergame_box {
   border: 1px solid #ccc;
   border-radius: 5px;
   line-height: 24px;
-}
-#ontv {
-  display: block;
-  width: 512px;
-  text-align: center;
-  font-size: 1.5em;
-  margin-top: 3px;
 }
 div.undergame_box div.inner {
   padding: 10px 10px 0 10px;

@@ -1,4 +1,4 @@
-@(pov: Pov, version: Int, roomHtml: Html, games: List[Game], tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
+@(pov: Pov, version: Int, roomHtml: Html, games: List[Game], confrontation: Option[lila.user.Confrontation], tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
 
 @title = @{ "TV" }
 
@@ -14,15 +14,36 @@ title = "TV " + trans.spectatorRoom.str(),
 cssClass = "spectators")(roomHtml)
 }
 
+@goodies = {
+<div class="lichess_goodies">
+  <div class="box">
+    <h2>Lichess TV</h2>
+    <br />
+    @confrontation.map { c =>
+    @user.confrontation(c)
+    }.getOrElse {
+      <div class="vs">@playerLink(pov.game.creator, withElo = false, withOnline = false) vs @playerLink(pov.game.invited, withElo = false, withOnline = false)</div>
+    }
+    <br />
+    <span class="s16 clock">@shortClockName(pov.game.clock)</span>
+    @if(pov.game.variant.exotic) {
+    , @variantName(pov.game.variant).capitalize
+    }
+    @if(pov.game.rated) {
+    , @trans.rated()
+    }
+  </div>
+</div>
+}
+
 @round.layout(
 title = title,
-goodies = views.html.game.infoBox(pov, tour),
+goodies = goodies,
 chat = room.some,
 underchat = underchat.some,
 active = siteMenu.tv.some) {
 @round.watcherGame(pov)
 @embedJs("var _ld_ = " + roundWatcherJsData(pov, version, true))
-<p id="ontv">You are watching Lichess TV</p>
 @views.html.game.more(pov, Nil) {
 <nav>
   @round.continueFromHere(pov.game)
