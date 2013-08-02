@@ -5,12 +5,14 @@ import tube.roomTube
 
 object RoomRepo {
 
+  private val maxMessages = 50
+
   def room(id: String): Fu[Room] = $find byId id map (_ | Room(id, Nil))
 
-  def addMessage(id: String, author: String, text: String): Funit = 
+  def addMessage(id: String, author: String, text: String): Funit =
     $update(
       $select(id),
-      $push("messages", Room.encode(author, text)),
+      $pushSlice("messages", Room.encode(author, text), -maxMessages),
       upsert = true)
 
   def addSystemMessage(id: String, text: String) =
