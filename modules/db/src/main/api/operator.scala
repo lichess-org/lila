@@ -15,6 +15,12 @@ trait $operator {
   def $unset(fields: String*) = Json.obj("$unset" -> Json.obj(wrap(fields map (_ -> true)): _*))
   def $inc[A: Writes](pairs: (String, A)*) = Json.obj("$inc" -> Json.obj(wrap(pairs): _*))
   def $push[A: Writes](field: String, value: A) = Json.obj("$push" -> Json.obj(field -> value))
+  def $pushSlice[A: Writes](field: String, value: A, max: Int) = Json.obj("$push" -> Json.obj(
+    field -> Json.obj(
+      "$each" -> List(value),
+      "$slice" -> max
+    )
+  ))
   def $pull[A: Writes](field: String, value: A) = Json.obj("$pull" -> Json.obj(field -> value))
 
   def $gt[A: Writes](value: A) = Json.obj("$gt" -> value)

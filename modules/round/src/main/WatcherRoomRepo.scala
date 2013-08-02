@@ -5,6 +5,8 @@ import tube.watcherRoomTube
 
 object WatcherRoomRepo {
 
+  private val maxMessages = 50
+
   def room(id: String): Fu[WatcherRoom] =
     $find byId id map (_ | WatcherRoom(id, Nil))
 
@@ -13,6 +15,6 @@ object WatcherRoomRepo {
     username: Option[String],
     text: String): Funit = $update(
       $select(id),
-      $push("messages", WatcherRoom.encode(username, text)),
+      $pushSlice("messages", WatcherRoom.encode(username, text), - maxMessages),
       upsert = true) 
 }
