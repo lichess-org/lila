@@ -366,6 +366,8 @@ case class Game(
 
   def isPgnImport = pgnImport.isDefined
 
+  def resetTurns = copy(turns = 0)
+
   private def playerMaps[A](f: Player ⇒ Option[A]): List[A] = players.map(f).flatten
 }
 

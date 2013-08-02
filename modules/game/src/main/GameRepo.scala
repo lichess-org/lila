@@ -146,7 +146,7 @@ object GameRepo {
 
   def featuredCandidates: Fu[List[Game]] = $find(
     Query.playable ++ Query.clock(true) ++ Query.turnsGt(1) ++ Json.obj(
-      createdAt -> $gt($date(DateTime.now - 4.minutes)),
+      createdAt -> $gt($date(DateTime.now - 3.minutes)),
       updatedAt -> $gt($date(DateTime.now - 15.seconds))
     ))
 

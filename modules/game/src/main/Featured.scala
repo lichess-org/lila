@@ -21,8 +21,9 @@ final class Featured(
     system: ActorSystem) {
 
   implicit private def timeout = makeTimeout(2 seconds)
+  private type Fuog = Fu[Option[Game]]
 
-  def one: Future[Option[Game]] = {
+  def one: Fuog = {
     (actor ? Get mapTo manifest[Option[Game]]) nevermind "[featured] one"
   }
 
@@ -42,11 +43,18 @@ final class Featured(
         }
       }
 
-      case Update ⇒ {
+      case Continue ⇒ {
         oneId ?? $find.byId[Game] foreach {
-          case None                      ⇒ feature foreach elect
-          case Some(game) if fresh(game) ⇒
-          case Some(game)                ⇒ featureFrom(game) foreach elect
+          case None                       ⇒ feature foreach elect
+          case Some(game) if !fresh(game) ⇒ wayBetter(game) orElse rematch(game) orElse featureOld(game)
+          case _                          ⇒
+        }
+      }
+
+      case Disrupt ⇒ {
+        oneId ?? $find.byId[Game] foreach {
+          case Some(game) if fresh(game) ⇒ wayBetter(game) foreach elect
+          case _                         ⇒
         }
       }
     }
@@ -57,23 +65,19 @@ final class Featured(
 
     def fresh(game: Game) = game.isBeingPlayed
 
-    type Fuog = Fu[Option[Game]]
-
-    def featureFrom(game: Game): Fuog =
-      wayBetter(game) orElse rematch(game) orElse featureOld(game)
-
     def wayBetter(game: Game): Fuog = feature map {
-      case Some(next) if isWayBetter(game.copy(turns = 1), next) ⇒ next.some
-      case _ ⇒ none
+      case Some(next) if isWayBetter(game, next) ⇒ next.some
+      case _                                     ⇒ none
     }
 
-    def isWayBetter(g1: Game, g2: Game) = score(g2) > (score(g1) * 1.3)
+    def isWayBetter(g1: Game, g2: Game) =
+      score(g2.resetTurns) > (score(g1.resetTurns) * 1.3)
 
     def rematch(game: Game): Fuog = game.next ?? $find.byId[Game]
 
-    def featureOld(game: Game): Fuog = (game olderThan 6) ?? feature
+    def featureOld(game: Game): Fuog = (game olderThan 7) ?? feature
 
-    def feature: Fu[Option[Game]] = GameRepo.featuredCandidates map { games ⇒
+    def feature: Fuog = GameRepo.featuredCandidates map { games ⇒
       Featured.sort(games filter fresh).headOption
     } flatMap {
       case None       ⇒ GameRepo random 1 map (_.headOption)
@@ -81,13 +85,15 @@ final class Featured(
     }
   }))
 
-  system.scheduler.schedule(0 seconds, 1 seconds, actor, Update)
+  system.scheduler.schedule(1 seconds, 1.11 seconds, actor, Continue)
+  system.scheduler.schedule(5 seconds, 5.07 seconds, actor, Disrupt)
 }
 
 object Featured {
 
   private case object Get
-  private case object Update
+  private case object Continue
+  private case object Disrupt
   private case class Set(game: Game)
 
   def sort(games: List[Game]): List[Game] = games sortBy { -score(_) }
