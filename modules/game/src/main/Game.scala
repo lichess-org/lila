@@ -217,7 +217,7 @@ case class Game(
       !(playerHasOfferedDraw(color))
 
   def playerHasOfferedDraw(color: Color) =
-    player(color).lastDrawOffer.fold(false)(_ >= turns - 1)
+    player(color).lastDrawOffer ?? (_ >= turns - 1)
 
   def playerCanRematch(color: Color) =
     !player(color).isOfferingRematch &&

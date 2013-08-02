@@ -1,6 +1,6 @@
 package lila.round
 
-import actorApi.round.{ HumanPlay, AiPlay, PlayResult }
+import actorApi.round.{ HumanPlay, AiPlay, DrawNo, TakebackNo, PlayResult }
 import chess.format.Forsyth
 import chess.Pos.posAt
 import chess.{ Status, Role, Color }
@@ -33,6 +33,8 @@ private[round] final class Player(
                 progress.game.finished.fold(
                   moveFinish(progress.game, color) map { progress.events ::: _ }, {
                     if (progress.game.playableByAi) roundMap ! Tell(game.id, AiPlay(onFailure))
+                    if (game.player.isOfferingDraw) roundMap ! Tell(game.id, DrawNo(game.player.id))
+                    if (game.player.isProposingTakeback) roundMap ! Tell(game.id, TakebackNo(game.player.id))
                     fuccess(progress.events)
                   })
           })
