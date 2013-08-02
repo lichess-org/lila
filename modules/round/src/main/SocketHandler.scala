@@ -44,7 +44,7 @@ private[round] final class SocketHandler(
     member.playerIdOption.fold[Handler.Controller]({
       case ("p", o)       ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
       case ("talk", o)    ⇒ watcherTalk(ref.gameId, o)
-      case ("talk-tv", o) ⇒ watcherTalk("tv", o)
+      case ("talk-tv", o) ⇒ if (member.isAuth) watcherTalk("tv", o)
     }) { playerId ⇒
       {
         case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }

@@ -799,8 +799,10 @@ var storage = {
         self.initSquaresAndPieces();
         self.initTable();
         self.initClocks();
-        if (self.$chat) self.$chat.chat({
+        if (self.$chat) {
+          self.$chat.chat({
             talkMessageType: self.options.tv ? 'talk-tv' : 'talk',
+            secure: self.options.tv,
             resize: true,
             render: function(u, t) {
               if (self.options.player.spectator) {
@@ -813,6 +815,7 @@ var storage = {
               lichess.socket.send("toggle-chat", enabled);
             }, 5000)
           });
+        }
         self.$watchers.watchers();
         if (self.isMyTurn() && self.options.game.turns == 0) {
           self.element.one('lichess.audio_ready', function() {
@@ -1499,6 +1502,7 @@ var storage = {
         // render: function(u, t) {},
         onToggle: function(enabled) {},
         talkMessageType: 'talk',
+        secure: false,
         resize: false
       }, this.options);
       var self = this;
@@ -1518,6 +1522,10 @@ var storage = {
         if (!text) return false;
         if (text.length > 140) {
           alert('Max length: 140 chars. ' + text.length + ' chars used.');
+          return false;
+        }
+        if (self.options.secure && !$('#user_tag').length) {
+          if (confirm($.trans('You need an account to do that'))) location.href = '/signup';
           return false;
         }
         $input.val('');
