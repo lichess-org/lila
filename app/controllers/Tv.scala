@@ -14,7 +14,7 @@ object Tv extends LilaController {
   def index = Open { implicit ctx ⇒
     OptionFuResult(Env.game.featured.one) { game ⇒
       Env.round.version(game.id) zip
-        (WatcherRoomRepo room game.id map { room ⇒
+        (WatcherRoomRepo room "tv" map { room ⇒
           html.round.watcherRoomInner(room.decodedMessages)
         }) zip
         (GameRepo onTv 10) zip

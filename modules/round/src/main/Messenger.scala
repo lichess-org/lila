@@ -52,14 +52,14 @@ final class Messenger(
     }
 
   def watcherMessage(
-    gameId: String,
+    roomId: String,
     userId: Option[String],
     text: String,
     troll: Boolean): Fu[List[Event.WatcherMessage]] = for {
     userOption ← userId.??(UserRepo.byId)
     message ← userOrAnonMessage(userOption, text).future
     (u, t) = message
-    _ ← !troll ?? WatcherRoomRepo.addMessage(gameId, u, t)
+    _ ← !troll ?? WatcherRoomRepo.addMessage(roomId, u, t)
   } yield Event.WatcherMessage(u, t, troll) :: Nil
 
   def systemMessages(game: Game, messages: List[SelectI18nKey]): Fu[List[Event]] =
