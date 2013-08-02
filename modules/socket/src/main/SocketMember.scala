@@ -10,6 +10,8 @@ trait SocketMember {
   def liveGames: Set[String] = privateLiveGames.toSet
 
   def addLiveGames(ids: List[String]) { ids foreach privateLiveGames.+= }
+
+  def isAuth = userId.isDefined
 }
 
 object SocketMember {
