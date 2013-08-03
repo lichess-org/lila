@@ -54,6 +54,6 @@ analyse: show continuations
 TV channels (bullet, blitz, standard, ...)
 allow castling and analysis for FEN games whenever possible
 realtime computer analysis of TV game
-show user win stats on TV page
 embeddable tv iframe http://en.lichess.org/forum/lichess-feedback/new-feature-lichess-tv?page=3
 many tv ideas (answer) http://en.lichess.org/forum/lichess-feedback/new-feature-lichess-tv?page=3
+separate games in spectator chat
