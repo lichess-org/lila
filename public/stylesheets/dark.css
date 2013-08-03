@@ -160,12 +160,14 @@ body.dark #top a.bgpicker:hover,
 body.dark a#sound_state:hover,
 body.dark #top .dropdown,
 body.dark #GameText a:hover,
-body.dark div.lichess_chat li.system,
 body.dark #hooks_wrap a.filter:hover,
 body.dark #hooks_wrap a.filter.active,
-body.dark div.content_box_inter a.intertab:hover,
 body.dark #top .shown a.toggle {
   background: #000;
+}
+body.dark div.content_box_inter a.intertab:hover,
+body.dark div.lichess_chat li.system {
+  background: #303030;
 }
 
 body.dark #top span.new_messages {
