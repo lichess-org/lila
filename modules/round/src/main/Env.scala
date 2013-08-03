@@ -116,7 +116,7 @@ final class Env(
         socketHub ! msg
         def playerName(p: lila.game.Player) = lila.game.Namer.player(p, false)(getUsernameOrAnon)
         (game.players map playerName).sequenceFu foreach { names ⇒
-          WatcherRoomRepo.addMessage("tv", "lichess".some, names mkString " vs ")
+          WatcherRoomRepo.addMessage("tv", "lichess".some, names mkString " - ")
         }
       }
     }

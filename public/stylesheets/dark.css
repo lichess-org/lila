@@ -165,10 +165,6 @@ body.dark #hooks_wrap a.filter.active,
 body.dark #top .shown a.toggle {
   background: #000;
 }
-body.dark div.content_box_inter a.intertab:hover,
-body.dark div.lichess_chat li.system {
-  background: #303030;
-}
 
 body.dark #top span.new_messages {
   background: #606060;
