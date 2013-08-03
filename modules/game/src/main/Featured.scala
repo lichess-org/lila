@@ -85,6 +85,8 @@ final class Featured(
       case Some(game) ⇒ fuccess(game.some)
     }
   }))
+
+  actor ! Continue
 }
 
 object Featured {
