@@ -505,8 +505,6 @@ div.lichess_chat .lichess_messages {
   border: 1px solid #ccc;
   border-top: none;
   overflow: hidden;
-}
-div.lichess_chat .lichess_messages:hover {
   overflow-y: auto;
 }
 div.lichess_chat form {
