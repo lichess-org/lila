@@ -113,7 +113,7 @@ trait UserHelper { self: I18nHelper with StringHelper ⇒
 
   def userGameFilterTitleNoTag(info: UserInfo, filter: GameFilter)(implicit ctx: Context) = Html((filter match {
     case GameFilter.All      ⇒ info.user.count.game + " " + trans.gamesPlayed()
-    case GameFilter.Me       ⇒ ctx.me.fold("-")(me ⇒ trans.nbGamesWithYou(~info.nbWithMe).body)
+    case GameFilter.Me       ⇒ ctx.me ?? (me ⇒ trans.nbGamesWithYou.str(info.nbWithMe))
     case GameFilter.Rated    ⇒ info.nbRated + " " + trans.rated()
     case GameFilter.Win      ⇒ trans.nbWins(info.user.count.win)
     case GameFilter.Loss     ⇒ trans.nbLosses(info.user.count.loss)
