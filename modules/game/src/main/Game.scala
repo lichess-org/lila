@@ -309,7 +309,7 @@ case class Game(
   }
 
   def isBeingPlayed =
-    !finishedOrAborted && updatedAt.??(_ > DateTime.now - 20.seconds)
+    !finishedOrAborted && updatedAt.??(_ > DateTime.now - 60.seconds)
 
   def olderThan(seconds: Int) = updatedAt.??(_ < DateTime.now - seconds.seconds)
 
