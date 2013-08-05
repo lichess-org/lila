@@ -1,6 +1,6 @@
 package lila.socket
 
-trait SocketMember {
+trait SocketMember extends Ordered[SocketMember] {
 
   val channel: JsChannel
   val userId: Option[String]
@@ -12,6 +12,8 @@ trait SocketMember {
   def addLiveGames(ids: List[String]) { ids foreach privateLiveGames.+= }
 
   def isAuth = userId.isDefined
+
+  def compare(other: SocketMember) = ~userId compare ~other.userId
 }
 
 object SocketMember {
