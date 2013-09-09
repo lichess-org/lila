@@ -239,3 +239,5 @@ createdBy=द्वारा रचित
 waitingForNbPlayers=%s खिलाड़ियों की प्रतीक्षा
 tournamentIsStarting=Pritiyogita aarambh ho rahi hai
 nbMinutesPerSidePlusNbSecondsPerMove=%s मिनट प्रति पक्ष + % सेकंड प्रति चाल
+membersOnly=सिर्फ सदस्य
+startPosition=प्रारंभिक स्थिति
