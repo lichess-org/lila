@@ -244,3 +244,4 @@ boardEditor=Brettskipar
 startPosition=Utgangsposisjon
 clearBoard=Oppsett
 savePosition=Lagre posisjon
+isPrivate=Privat
