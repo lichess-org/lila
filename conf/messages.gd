@@ -1,7 +1,7 @@
 playWithAFriend=Cluich còmhla ri caraid
 inviteAFriendToPlayWithYou=Thoir cuireadh do charaid gus cluich còmhla riut
 playWithTheMachine=Cluich an aghaidh a' choimpiutair
-challengeTheArtificialIntelligence=Thoir ionnsaigh air an inntinn fhuadain
+challengeTheArtificialIntelligence=Thoir dùbhlan dhan inntinn fhuadain
 toInviteSomeoneToPlayGiveThisUrl=Gus cuireadh a thoirt do chuideigin, thoir an url seo seachad
 gameOver=Crìoch a’ gheama
 waitingForOpponent=A’ feitheamh air nàmhaid
@@ -44,6 +44,8 @@ blackLeftTheGame=Dh’fhàg dubh an geama
 shareThisUrlToLetSpectatorsSeeTheGame=Co-roinn an url seo gus luchd-amhairc a leigeil a-steach dhan gheama
 youAreViewingThisGameAsASpectator=Tha thu a’ coimhead air a’ gheama seo nad neach-amhairc
 replayAndAnalyse=Ath-chluich is sgrùdaich
+computerAnalysisInProgress=Tha anailis a' choimpiutair a' dol
+theComputerAnalysisYouRequestedIsNowAvailable=Tha anailis a' choimpiutair a dh'iarr thu ri fhaighinn a-nis
 viewGameStats=Faic stadastaig a’ gheama
 flipBoard=Dèan flip air a’ bhòrd
 threefoldRepetition=Treas ath-nochdadh
