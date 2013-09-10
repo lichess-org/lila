@@ -126,7 +126,7 @@
 
     app.dbMemory = new SpeedOMeter({
       name : "DB MEMORY",
-      maxVal : 8192,
+      maxVal : 16384,
       threshold: 0.9,
       container : container
     });
