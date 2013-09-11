@@ -24,16 +24,16 @@ class DateTest extends Specification with test.WithColl {
   val date = DateTime.now
   import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 
-  // "date conversion" should {
-  //   "js to bson" in {
-  //     val doc = JsObjectWriter.write(Json.obj(
-  //       "ca" -> $gt($date(date))
-  //     ))
-  //     doc.getAsTry[BSONDocument]("ca") flatMap { gt ⇒
-  //       gt.getAsTry[BSONDateTime]("$gt")
-  //     } must_== scala.util.Success(BSONDateTime(date.getMillis))
-  //   }
-  // }
+  "date conversion" should {
+    "js to bson" in {
+      val doc = JsObjectWriter.write(Json.obj(
+        "ca" -> $gt($date(date))
+      ))
+      doc.getAsTry[BSONDocument]("ca") flatMap { gt ⇒
+        gt.getAsTry[BSONDateTime]("$gt")
+      } must_== scala.util.Success(BSONDateTime(date.getMillis))
+    }
+  }
 
   "save and retrieve" should {
 
@@ -51,7 +51,7 @@ class DateTest extends Specification with test.WithColl {
       }
     }
     "$set DateTime" in {
-      $set("foo" -> date) must_== Json.obj(
+      $set("foo" -> $date(date)) must_== Json.obj(
         "$set" -> Json.obj("foo" -> Json.obj("$date" -> date.getMillis)))
     }
   }
