@@ -1,7 +1,6 @@
-package lila.app
+package lila
 package game
 
-import lila.game._
 import lila.user._
 
 class FeaturedTest extends LilaSpec {
@@ -39,18 +38,19 @@ class FeaturedTest extends LilaSpec {
       game = chess.Game(chess.Variant.default),
       whitePlayer = Player.white.copy(elo = 1600.some),
       blackPlayer = Player.black,
-      ai = None,
       creatorColor = chess.Color.White,
       mode = chess.Mode.default,
       variant = chess.Variant.default,
       source = Source.Lobby,
-      pgnImport = None)
+      pgnImport = None).copy(id = "game1")
 
     val game2 = game1.copy(
+      id = "game2",
       clock = chess.Clock(180,0).some,
       turns = 11)
 
     val game3 = game1.copy(
+      id = "game3",
       clock = chess.Clock(60,0).some,
       turns = 21)
 
@@ -61,7 +61,7 @@ class FeaturedTest extends LilaSpec {
         eloHeuristic(chess.Color.White)(game1) must_== 0.6f
       }
       "game1 black" in {
-        eloHeuristic(chess.Color.Black)(game1) must_== 0f
+        eloHeuristic(chess.Color.Black)(game1) must_== 0.1f
       }
     }
     "speed" in {
@@ -69,7 +69,7 @@ class FeaturedTest extends LilaSpec {
         speedHeuristic(game1) must_== 0
       }
       "game2" in {
-        speedHeuristic(game2) must_== 0.5f
+        speedHeuristic(game2) must_== 0.6f
       }
       "game3" in {
         speedHeuristic(game3) must_== 1f
@@ -80,29 +80,29 @@ class FeaturedTest extends LilaSpec {
         progressHeuristic(game1) must_== 1f
       }
       "game2" in {
-        progressHeuristic(game2) must_== 0.5f
+        progressHeuristic(game2) must beCloseTo(0.5f, 0.1f)
       }
       "game3" in {
-        progressHeuristic(game3) must_== 0f
+        progressHeuristic(game3) must beCloseTo(0.1f, 0.1f)
       }
     }
     "score" in {
       "game1" in {
-        score(game1) must_== 0.6f + 0f + 1f * 0.5f
+        score(game1) must_== 1700
       }
       "game2" in {
-        score(game2) must_== 0.6f + 0.5f + 0.5f * 0.5f
+        score(game2) must_== 1583
       }
       "game3" in {
-        score(game3) must_== 0.6f + 1f + 0f * 0.5f
+        score(game3) must_== 1367
       }
     }
     "best" in {
       "3 games" in {
-        best(games) must_== game3.some
+        sort(games).headOption must_== game1.some
       }
       "3 games reversed" in {
-        best(games.reverse) must_== game3.some
+        sort(games.reverse).headOption must_== game1.some
       }
     }
   }
