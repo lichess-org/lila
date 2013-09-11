@@ -1,12 +1,13 @@
 package controllers
 
+import play.api.mvc._, Results._
+
 import lila.app._
 import lila.common.LilaCookie
 import lila.db.api.$find
 import lila.security.Permission
 import lila.user.tube.userTube
 import lila.user.{ Context, User ⇒ UserModel, UserRepo }
-import play.api.mvc._, Results._
 import views._
 
 object User extends LilaController {
@@ -58,12 +59,13 @@ object User extends LilaController {
   def list(page: Int) = Open { implicit ctx ⇒
     Reasonable(page) {
       val nb = 15
-      UserRepo.topElo(nb) zip
-        UserRepo.byIdsSortElo(env.onlineUserIdMemo.keys, nb) zip
-        UserRepo.topBullet(nb) zip
-        UserRepo.topBlitz(nb) zip
-        UserRepo.topSlow(nb) zip
-        UserRepo.topNbGame(nb) map {
+      import UserRepo._
+      topElo(nb) zip
+        byIdsSortElo(env.onlineUserIdMemo.keys, nb) zip
+        topBullet(nb) zip
+        topBlitz(nb) zip
+        topSlow(nb) zip
+        topNbGame(nb) map {
           case (((((elo, online), bullet), blitz), slow), nb) ⇒ html.user.list(
             elo = elo,
             online = online,

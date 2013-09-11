@@ -12,19 +12,19 @@ final class ModApi(
     eloUpdater: EloUpdater,
     lobbySocket: lila.hub.ActorLazyRef) {
 
-  def adjust(mod: String, userId: String): Funit = withUser(userId) { user ⇒
+  def adjust(mod: String, username: String): Funit = withUser(username) { user ⇒
     logApi.engine(mod, user.id, !user.engine) zip
       UserRepo.toggleEngine(user.id) zip
       eloUpdater.adjust(user) void
   }
 
-  def troll(mod: String, userId: String): Funit = withUser(userId) { u ⇒
+  def troll(mod: String, username: String): Funit = withUser(username) { u ⇒
     val user = u.copy(troll = !u.troll)
     (UserRepo updateTroll user) >>-
       logApi.troll(mod, user.id, user.troll) void
   }
 
-  def ban(mod: String, userId: String): Funit = withUser(userId) { user ⇒
+  def ban(mod: String, username: String): Funit = withUser(username) { user ⇒
     userSpy(user.id) flatMap { spy ⇒
       UserRepo.toggleIpBan(user.id) zip
         logApi.ban(mod, user.id, !user.ipBan) zip
@@ -36,9 +36,15 @@ final class ModApi(
     }
   }
 
+  def reopenAccount(mod: String, username: String): Funit = withUser(username) { user ⇒
+    !user.enabled ?? {
+      (UserRepo enable user.id) >> logApi.reopenAccount(mod, user.id) 
+    }
+  }
+
   def ipban(mod: String, ip: String): Funit =
     (firewall blockIp ip) >> logApi.ipban(mod, ip)
 
-  private def withUser[A](userId: String)(op: User ⇒ Fu[A]): Fu[A] =
-    UserRepo named userId flatten "[mod] missing user " + userId flatMap op
+  private def withUser[A](username: String)(op: User ⇒ Fu[A]): Fu[A] =
+    UserRepo named username flatten "[mod] missing user " + username flatMap op
 }
