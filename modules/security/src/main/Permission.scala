@@ -16,13 +16,14 @@ object Permission {
   case object MarkTroll extends Permission("ROLE_CHAT_BAN", List(UserSpy))
   case object MarkEngine extends Permission("ROLE_ADJUST_CHEATER", List(UserSpy))
   case object IpBan extends Permission("ROLE_IP_BAN", List(UserSpy))
+  case object ReopenAccount extends Permission("ROLE_REOPEN_ACCOUNT", List(UserSpy))
   case object SeeReport extends Permission("ROLE_SEE_REPORT", Nil)
 
   case object Hunter extends Permission("ROLE_HUNTER", List(
       ViewBlurs, MarkEngine, StaffForum, UserSpy, SeeReport))
 
   case object Admin extends Permission("ROLE_ADMIN", List(
-      ViewBlurs, MarkTroll, MarkEngine, StaffForum, ModerateForum, UserSpy, SeeReport, IpBan))
+      ViewBlurs, MarkTroll, MarkEngine, StaffForum, ModerateForum, UserSpy, SeeReport, IpBan, ReopenAccount))
 
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(Admin))
 

@@ -30,6 +30,11 @@ object Mod extends LilaController {
     me ⇒ modApi.ipban(me.id, ip)
   }
 
+  def reopenAccount(username: String) = Secure(_.ReopenAccount) { implicit ctx ⇒
+    me ⇒ modApi.reopenAccount(me.id, username) inject Redirect(routes.User show username)
+  }
+
+
   def log = Auth { implicit ctx ⇒
     me ⇒ modLogApi.recent map { html.mod.log(_) }
   }
