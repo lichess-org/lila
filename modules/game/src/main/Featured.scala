@@ -80,10 +80,7 @@ final class Featured(
 
     def feature: Fuog = GameRepo.featuredCandidates map { games ⇒
       Featured.sort(games filter fresh).headOption
-    } flatMap {
-      case None       ⇒ GameRepo.random
-      case Some(game) ⇒ fuccess(game.some)
-    }
+    } orElse GameRepo.random
   }))
 
   actor ! Continue

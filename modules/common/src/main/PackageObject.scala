@@ -80,8 +80,6 @@ trait PackageObject
 
 trait WithFuture extends Zeros with scalalib.Validation {
 
-  import spray.util.pimps.PimpedFuture
-
   type Fu[A] = Future[A]
   type Funit = Fu[Unit]
 
@@ -93,7 +91,8 @@ trait WithFuture extends Zeros with scalalib.Validation {
 
   implicit def LilaFuZero[A: Zero]: Zero[Fu[A]] = zero(fuccess(∅[A]))
 
-  implicit def SprayPimpedFuture[T](fut: Future[T]) = new PimpedFuture[T](fut)
+  implicit def SprayPimpedFuture[T](fut: Future[T]) =
+    new spray.util.pimps.PimpedFuture[T](fut)
 }
 
 trait WithPlay extends Zeros { self: PackageObject ⇒
@@ -190,8 +189,7 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
     }
 
     def orElse(other: ⇒ Fu[Option[A]]): Fu[Option[A]] = fua flatMap {
-      case None ⇒ other
-      case x    ⇒ fuccess(x)
+      _.fold(other) { x ⇒ fuccess(x.some) }
     }
   }
 
