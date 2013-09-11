@@ -95,7 +95,7 @@ object Featured {
 
   def sort(games: List[Game]): List[Game] = games sortBy { -score(_) }
 
-  private def score(game: Game): Int = math.round {
+  private[game] def score(game: Game): Int = math.round {
     (heuristics map {
       case (fn, coefficient) ⇒ heuristicBox(fn(game)) * coefficient
     }).sum * 1000
@@ -110,19 +110,19 @@ object Featured {
   private val heuristics: List[(Heuristic, Float)] = List(
     eloHeuristic(Color.White) -> 1f,
     eloHeuristic(Color.Black) -> 1f,
-    speedHeuristic -> 1f,
+    speedHeuristic -> 0.5f,
     progressHeuristic -> 1f)
 
-  private def eloHeuristic(color: Color): Heuristic = game ⇒
+  private[game] def eloHeuristic(color: Color): Heuristic = game ⇒
     eloBox(game.player(color).elo | 1100)
 
-  private def speedHeuristic: Heuristic = game ⇒
+  private[game] def speedHeuristic: Heuristic = game ⇒
     1 - timeBox(game.estimateTotalTime)
 
-  private def progressHeuristic: Heuristic = game ⇒
+  private[game] def progressHeuristic: Heuristic = game ⇒
     1 - turnBox(game.turns)
 
-  // boxes and reduce to 0..1 range
-  private def box(in: Range.Inclusive)(v: Float): Float =
+  // boxes and reduces to 0..1 range
+  private[game] def box(in: Range.Inclusive)(v: Float): Float =
     (math.max(in.start, math.min(v, in.end)) - in.start) / (in.end - in.start).toFloat
 }
