@@ -52,6 +52,7 @@ RSYNC_OPTIONS=" \
   --exclude target/native_libraries \
   --exclude target/scala-* \
   --exclude target/.history \
+  --exclude target/test-reports \
   --exclude target/streams";
 
 lilalog "Rsync scripts, binaries and assets"
