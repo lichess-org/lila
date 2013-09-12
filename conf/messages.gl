@@ -244,3 +244,4 @@ boardEditor=Editor do taboeiro
 startPosition=Posición de inicio
 clearBoard=Limpar taboeiro
 savePosition=Gardar posición
+isPrivate=Privado
