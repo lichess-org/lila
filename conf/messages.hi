@@ -240,6 +240,7 @@ waitingForNbPlayers=%s खिलाड़ियों की प्रतीक�
 tournamentIsStarting=Pritiyogita aarambh ho rahi hai
 nbMinutesPerSidePlusNbSecondsPerMove=%s मिनट प्रति पक्ष + % सेकंड प्रति चाल
 membersOnly=केवल सदस्य
+boardEditor=पटल सम्पादक
 startPosition=शुरुआत की जगह
 clearBoard=बोर्ड सॉफ करें
 savePosition=जगह सुरक्षित करें
