@@ -24,15 +24,13 @@ Join us on [#lichess IRC channel](http://lichess.org/irc) for more info.
 Installation
 ------------
 
-> I am **not** happy to see lichess clones spreading on the Internet. This project source code is open for other developers to have an example of non-trivial scala/play2/mongodb application. You're welcome to reuse as much code as you want for your projects, and to get inspired by the solutions I propose to many common web development problems. But please don't just create a public lichess clone. Also, if you are building a website based on lichess, please mention it in the footer with the mention `Based on <a href="http://lichess.org">lichess</a>`. Thank you!
+> I am **not** happy to see lichess clones spreading on the Internet. This project source code is open for other developers to have an example of non-trivial scala/play2/mongodb application. You're welcome to reuse as much code as you want for your projects, and to get inspired by the solutions I propose to many common web development problems. But please don't just create a public lichess clone. Also, if you are building a website based on lichess, please mention it in the footer with `Based on <a href="http://lichess.org">lichess</a>`. Thank you!
 
 > Also note that if I provide the source code, I do **not** offer free support for your lichess instance. I will probably ignore any question about lichess installation and runtime issues.
 
 This is full-stack application, not a library, and it may not 
 be straightforward to get it fully running.
 I assume you run a Unix with nginx, mongodb, elasticsearch and stockfish installed.
-
-> Some steps of the installation will trigger a download of the galaxy. It will take ages.
 
 ```sh
 git clone git://github.com/ornicar/lila
