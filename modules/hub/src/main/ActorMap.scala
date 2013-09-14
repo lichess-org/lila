@@ -9,9 +9,9 @@ import makeTimeout.short
 
 trait ActorMap[A <: Actor] extends Actor {
 
-  def mkActor(id: String): A
+  protected def mkActor(id: String): A
 
-  def actorMapReceive: Receive = {
+  protected def actorMapReceive: Receive = {
 
     case Get(id) ⇒ sender ! {
       (actors get id) | {
@@ -38,17 +38,17 @@ trait ActorMap[A <: Actor] extends Actor {
     }
   }
 
-  def tellAll(msg: Any) {
+  protected def tellAll(msg: Any) {
     actors.values foreach (_ ! msg)
   }
 
-  def askAll(msg: Any): Fu[List[Any]] = {
+  protected def askAll(msg: Any): Fu[List[Any]] = {
     actors.values.toList map (_ ? msg)
   } sequenceFu
 
-  def get(id: String): Fu[ActorRef] = self ? Get(id) mapTo manifest[ActorRef]
+  protected def get(id: String): Fu[ActorRef] = self ? Get(id) mapTo manifest[ActorRef]
 
-  def withActor(id: String)(op: ActorRef ⇒ Unit) = get(id) foreach op
+  protected def withActor(id: String)(op: ActorRef ⇒ Unit) = get(id) foreach op
 
   private var actors = Map[String, ActorRef]()
 }
