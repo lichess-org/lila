@@ -1921,15 +1921,19 @@ var storage = {
 
       var validateFen = _.debounce(function() {
         $fenInput.removeClass("success failure");
-        if ($fenInput.val()) {
+        var fen = $fenInput.val();
+        if (fen) {
           $.ajax({
             url: $fenInput.parent().data('validate-url'),
             data: {
-              fen: $fenInput.val()
+              fen: fen
             },
             success: function(data) {
               $fenInput.addClass("success");
               $fenPosition.find('.preview').html(data);
+              $fenPosition.find('a.board_editor').each(function() {
+                $(this).attr('href', $(this).attr('href').replace(/editor\/.+$/, "editor/" + fen));
+              });
               $('body').trigger('lichess.content_loaded');
               $.centerOverboard();
             },
