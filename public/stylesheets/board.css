@@ -605,11 +605,3 @@ span.inline_userlist a {
 span.inline_userlist a:hover {
   text-decoration: underline;
 }
-div.previously h2 {
-  margin-top: 20px;
-  margin-bottom
-}
-div.previously a {
-  display: block;
-  margin-top: 5px;
-}
