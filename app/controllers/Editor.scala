@@ -12,7 +12,7 @@ object Editor extends LilaController with BaseGame {
     makeListMenu map { listMenu ⇒
       val f = java.net.URLDecoder.decode(fen, "UTF-8")
         .trim.takeWhile(' '!=).some.filter(_.nonEmpty)
-      Ok(html.game.editor(listMenu, f))
+      Ok(html.board.editor(listMenu, f))
     }
   }
 
