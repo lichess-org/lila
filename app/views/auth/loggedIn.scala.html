@@ -10,5 +10,11 @@
   <div class="links dropdown">
     <a href="@routes.User.show(me.username)" class="blank_if_play"><span class="s16 goto_profile">@trans.profile()</span></a>
     <a href="@routes.Auth.logout"><span class="s16 goto_logout">@trans.logOut()</span></a>
+    @if(isGranted(_.StaffForum)) {
+    <hr />
+    <a href="@routes.ForumCateg.show("staff")">Staff Forum</a>
+    <a href="@routes.Mod.log()">Mod log</a>
+    <a href="@routes.Report.list()">User reports</a>
+    }
   </div>
 </div>
