@@ -42,11 +42,6 @@ trait PackageObject
     def ifFalse(b: Boolean): Option[A] = o filter (_ ⇒ !b)
   }
 
-  implicit final class LilaPimpedMap[A, B](m: Map[A, B]) {
-
-    def +?(bp: (Boolean, (A, B))): Map[A, B] = if (bp._1) m + bp._2 else m
-  }
-
   implicit final class LilaPimpedString(s: String) {
 
     def describes[A](v: ⇒ A): A = { loginfo(s); v }
