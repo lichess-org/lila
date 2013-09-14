@@ -31,8 +31,10 @@ private[importer] case class ImportData(pgn: String) {
       def tag(which: Tag.type ⇒ TagType): Option[String] =
         tags find (_.name == which(Tag)) map (_.value)
 
-      val variant = tag(_.Variant).flatMap(v ⇒ Variant(v.value)) | Variant.Standard
       val initBoard = tag(_.FEN) flatMap Forsyth.<< map (_.board)
+      val variant = tag(_.Variant).flatMap(v ⇒ Variant(v.value)) | {
+        initBoard.nonEmpty.fold(Variant.FromPosition, Variant.Standard)
+      }
 
       val result = tag(_.Result) filterNot (_ ⇒ game.situation.end) collect {
         case "1-0"     ⇒ Result(Status.Resign, Color.White.some)
