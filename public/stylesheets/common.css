@@ -1389,7 +1389,7 @@ div.game_config input#fen.failure {
   color: #aa0000;
 }
 div.game_config .fen_position .mini_board {
-  margin: 10px auto;
+  margin: 10px auto 0 auto;
 }
 div.game_config .time_choice, div.game_config .increment_choice, div.game_config .elo_range_config {
   padding-bottom: 1em;
