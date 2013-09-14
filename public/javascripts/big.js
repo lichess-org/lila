@@ -549,7 +549,7 @@ var storage = {
     $.centerOverboard();
 
     $('.js_email').one('click', function() {
-      var email = ['thibault.', 'dupl', 'essis@', 'gmail.com'].join('');
+      var email = 'thibault.duplessis@gmail.com';
       $(this).replaceWith($('<a/>').text(email).attr('href', 'mailto:' + email));
     });
 
