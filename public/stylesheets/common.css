@@ -68,7 +68,6 @@ button.ui-state-hover {
   text-decoration: none !important;
   cursor: pointer;
   text-align: center;
-  zoom: 1;
   overflow: visible;
 }
 /* the overflow property removes extra width in IE */
