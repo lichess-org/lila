@@ -8,11 +8,11 @@ sealed trait Reason {
 object Reason {
 
   case object Cheat extends Reason
-  case object Violence extends Reason
+  case object Insult extends Reason
   case object Troll extends Reason
   case object Other extends Reason
 
-  val all = List(Cheat, Violence, Troll, Other)
+  val all = List(Cheat, Insult, Troll, Other)
   val names = all map (_.name)
   val byName = all map { v ⇒ (v.name, v) } toMap
 
