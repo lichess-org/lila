@@ -46,7 +46,7 @@ object Dependencies {
   val reactivemongo = "org.reactivemongo" %% "reactivemongo" % "0.10.1-THIB"
   val playReactivemongo = "org.reactivemongo" %% "play2-reactivemongo" % "0.10-THIB"
   object play {
-    val version = "2.1.2"
+    val version = "2.1.4"
     val api = "play" %% "play" % version
     val test = "play" %% "play-test" % version
   }
