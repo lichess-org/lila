@@ -10,9 +10,6 @@ import tube.bookmarkTube
 
 case class Bookmark(game: lila.game.Game, user: lila.user.User)
 
-// db.bookmark.ensureIndex({g:1})
-// db.bookmark.ensureIndex({u:1})
-// db.bookmark.ensureIndex({d: -1})
 private[bookmark] object BookmarkRepo {
 
   def toggle(gameId: String, userId: String): Fu[Boolean] =
