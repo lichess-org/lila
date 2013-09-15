@@ -6,9 +6,6 @@ import reactivemongo.api._
 import lila.db.api._
 import tube.memberTube
 
-// db.team_member.ensureIndex({team:1})
-// db.team_member.ensureIndex({user:1})
-// db.team_member.ensureIndex({date: -1})
 object MemberRepo {
 
   type ID = String
