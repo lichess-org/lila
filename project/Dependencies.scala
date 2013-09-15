@@ -31,10 +31,10 @@ object Dependencies {
 
   val scalaz = "org.scalaz" %% "scalaz-core" % "6.0.4"
   val scalalib = "com.github.ornicar" %% "scalalib" % "3.3"
-  val config = "com.typesafe" % "config" % "1.0.1"
+  val config = "com.typesafe" % "config" % "1.0.2"
   val apache = "org.apache.commons" % "commons-lang3" % "3.1"
   val scalaTime = "org.scala-tools.time" % "time_2.9.1" % "0.5"
-  val guava = "com.google.guava" % "guava" % "14.0.1"
+  val guava = "com.google.guava" % "guava" % "15.0"
   val findbugs = "com.google.code.findbugs" % "jsr305" % "2.0.1"
   val csv = "com.github.tototoshi" %% "scala-csv" % "0.8.0"
   val hasher = "hasher" %% "hasher" % "0.3.1"
