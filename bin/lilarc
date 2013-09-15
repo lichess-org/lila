@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PLAY_VERSION="2.1.4"
+PLAY_VERSION="2.2.0-RC1"
 PROD_URL="http://en.lichess.org"
 JVM_OPTIONS="-Dhttp.port=9000 -Dscalac.patmat.analysisBudget=off"
 
