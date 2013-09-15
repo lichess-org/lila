@@ -2,10 +2,12 @@ package lila.app
 package mashup
 
 import chess.{ EloCalculator, Color }
+
 import lila.bookmark.BookmarkApi
 import lila.forum.PostApi
 import lila.game.{ GameRepo, Game }
 import lila.relation.RelationApi
+import lila.security.Granter
 import lila.user.{ User, UserRepo, Context, EloChart, Confrontation }
 
 case class UserInfo(
@@ -17,6 +19,7 @@ case class UserInfo(
     eloChart: Option[EloChart],
     nbFollowing: Int,
     nbFollowers: Int,
+    nbBlockers: Option[Int],
     nbPosts: Int) {
 
   def nbRated = user.count.rated
@@ -48,8 +51,11 @@ object UserInfo {
       EloChart(user) zip
       relationApi.nbFollowing(user.id) zip
       relationApi.nbFollowers(user.id) zip
+      ((ctx.me ?? Granter(_.UserSpy)) ?? {
+        relationApi.nbBlockers(user.id) map (_.some)
+      }) zip
       postApi.nbByUser(user.id) map {
-        case (((((((rank, nbPlaying), confrontation), nbBookmark), eloChart), nbFollowing), nbFollowers), nbPosts) ⇒ new UserInfo(
+        case ((((((((rank, nbPlaying), confrontation), nbBookmark), eloChart), nbFollowing), nbFollowers), nbBlockers), nbPosts) ⇒ new UserInfo(
           user = user,
           rank = rank,
           nbPlaying = ~nbPlaying,
@@ -58,6 +64,7 @@ object UserInfo {
           eloChart = eloChart,
           nbFollowing = nbFollowing,
           nbFollowers = nbFollowers,
+          nbBlockers = nbBlockers,
           nbPosts = nbPosts)
       }
 }
