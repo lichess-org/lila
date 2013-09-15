@@ -85,6 +85,9 @@ evenMoreCss = evenMoreCss) {
   <div class="social content_box_inter">
     <a class="intertab" href="@routes.Relation.following(u.username)">@splitNumber(trans.nbFollowing(info.nbFollowing))</a>
     <a class="intertab" href="@routes.Relation.followers(u.username)">@splitNumber(trans.nbFollowers(info.nbFollowers))</a>
+    @info.nbBlockers.map { nb =>
+    <a class="intertab">@splitNumber(nb + " Blockers")</a>
+    }
     <span class="intertab">@splitNumber(u.toints + " " + trans.tournamentPoints())</span>
     <a class="intertab" href="@routes.ForumPost.search("user:" + u.username, 1)">@splitNumber(info.nbPosts + " Forum posts")</a>
     <div class="relation_actions">

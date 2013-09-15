@@ -23,6 +23,7 @@ final class RelationApi(
 
   def nbFollowers(userId: ID) = followers(userId) map (_.size)
   def nbFollowing(userId: ID) = following(userId) map (_.size)
+  def nbBlockers(userId: ID) = blockers(userId) map (_.size)
 
   def friends(userId: ID) = cached friends userId
   def areFriends(u1: ID, u2: ID) = friends(u1) map (_ contains u2)
