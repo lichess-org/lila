@@ -19,11 +19,8 @@ case class Hook(
     mode: Int,
     allowAnon: Boolean,
     color: String,
-    userId: Option[String],
-    username: String,
-    elo: Option[Int],
+    user: Option[User],
     eloRange: String,
-    engine: Boolean,
     gameId: Option[String] = None,
     createdAt: DateTime) {
 
@@ -36,11 +33,18 @@ case class Hook(
 
   def realMode = Mode orDefault mode
 
-  def compatibleWith(h: Hook) = compatibilityProperties == h.compatibilityProperties
+  def compatibleWith(h: Hook) = 
+    compatibilityProperties == h.compatibilityProperties &&
+    (realColor compatibleWith h.realColor)
 
   private def compatibilityProperties = (variant, time, increment, mode)
 
   lazy val realEloRange: Option[EloRange] = EloRange noneIfDefault eloRange
+
+  def userId = user map (_.id)
+  def username = user.fold(User.anonymous)(_.username)
+  def elo = user map (_.elo)
+  def engine = user ?? (_.engine)
 
   def render: JsObject = Json.obj(
     "id" -> id,
@@ -86,11 +90,8 @@ object Hook {
     mode = mode.id,
     allowAnon = allowAnon || user.isEmpty,
     color = color,
-    userId = user map (_.id),
-    username = user.fold(User.anonymous)(_.username),
+    user = user,
     sid = sid,
-    elo = user map (_.elo),
     eloRange = eloRange.toString,
-    engine = user.??(_.engine),
     createdAt = DateTime.now)
 }
