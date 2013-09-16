@@ -36,6 +36,10 @@ case class Hook(
 
   def realMode = Mode orDefault mode
 
+  def compatibleWith(h: Hook) = compatibilityProperties == h.compatibilityProperties
+
+  private def compatibilityProperties = (variant, time, increment, mode)
+
   lazy val realEloRange: Option[EloRange] = EloRange noneIfDefault eloRange
 
   def render: JsObject = Json.obj(

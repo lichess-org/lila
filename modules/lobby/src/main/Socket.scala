@@ -5,16 +5,17 @@ import scala.concurrent.duration._
 import actorApi._
 import akka.actor._
 import akka.pattern.ask
+import makeTimeout.short
+import play.api.libs.iteratee._
+import play.api.libs.json._
+import play.api.templates.Html
+
 import lila.game.actorApi._
 import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.router.{ Homepage, Player }
 import lila.hub.actorApi.timeline._
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import lila.socket.{ SocketActor, History, Historical }
-import makeTimeout.short
-import play.api.libs.iteratee._
-import play.api.libs.json._
-import play.api.templates.Html
 
 private[lobby] final class Socket(
     val history: History,
@@ -43,7 +44,7 @@ private[lobby] final class Socket(
 
     case ReloadTimeline(user)    ⇒ sendTo(user, makeMessage("reload_timeline", JsNull))
 
-    case AddHook(hook)           ⇒ notifyVersion("hook_add", hook.render)
+    case AddHook(hook, _)        ⇒ notifyVersion("hook_add", hook.render)
 
     case RemoveHook(hookId)      ⇒ notifyVersion("hook_remove", hookId)
 
