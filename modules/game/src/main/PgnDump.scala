@@ -28,7 +28,7 @@ final class PgnDump(
     player(game.blackPlayer, blackUser),
     game.id)
 
-  private val dateFormat = DateTimeFormat forPattern "yyyy-MM-dd";
+  private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd";
 
   private def elo(p: Player) = p.elo.fold("?")(_.toString)
 
