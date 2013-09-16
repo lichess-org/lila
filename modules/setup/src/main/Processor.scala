@@ -1,9 +1,10 @@
 package lila.setup
 
 import akka.pattern.ask
+import chess.{ Game ⇒ ChessGame, Board, Color ⇒ ChessColor }
+import makeTimeout.short
 import play.api.libs.json.{ Json, JsObject }
 
-import chess.{ Game ⇒ ChessGame, Board, Color ⇒ ChessColor }
 import lila.ai.Ai
 import lila.db.api._
 import lila.game.tube.gameTube
@@ -13,7 +14,6 @@ import lila.i18n.I18nDomain
 import lila.lobby.actorApi.AddHook
 import lila.lobby.Hook
 import lila.user.{ User, Context }
-import makeTimeout.short
 import tube.{ userConfigTube, anonConfigTube }
 
 private[setup] final class Processor(
@@ -50,12 +50,14 @@ private[setup] final class Processor(
       friendConfigMemo.set(pov.game.id, config) inject pov
   }
 
-  def hook(config: HookConfig, uid: String, sid: Option[String])(implicit ctx: Context): Funit = {
-    val hook = config.hook(uid, ctx.me, sid)
+  def hook(
+    config: HookConfig,
+    uid: String,
+    sid: Option[String],
+    user: Option[User])(implicit ctx: Context): Funit =
     saveConfig(_ withHook config) >>- {
-      lobby ! AddHook(hook)
+      lobby ! AddHook(config.hook(uid, ctx.me, sid), user)
     }
-  }
 
   def api(implicit ctx: Context): Fu[JsObject] = {
     val config = ApiConfig

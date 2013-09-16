@@ -49,7 +49,7 @@ private[lobby] final class Biter(
     source = lila.game.Source.Lobby,
     pgnImport = None)
 
-  private def canJoin(hook: Hook, userOption: Option[User]) =
+  def canJoin(hook: Hook, userOption: Option[User]) =
     hook.open &&
       hook.realMode.casual.fold(
         userOption.isDefined || hook.allowAnon,
