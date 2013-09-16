@@ -5,6 +5,8 @@ import scala.util.Random.nextBoolean
 sealed abstract class Color(val name: String) {
 
   def resolve: chess.Color
+
+  def compatibleWith(c: Color) = (c == this).fold(c == Color.Random, true)
 }
 
 object Color {
