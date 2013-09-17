@@ -1,10 +1,10 @@
 package lila.lobby
 
+import chess.{ Variant, Mode, Clock }
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.libs.json._
 
-import chess.{ Variant, Mode, Clock }
 import lila.common.EloRange
 import lila.user.User
 
@@ -33,15 +33,19 @@ case class Hook(
 
   def realMode = Mode orDefault mode
 
-  def compatibleWith(h: Hook) = 
+  def memberOnly = !allowAnon
+
+  def compatibleWith(h: Hook) =
     compatibilityProperties == h.compatibilityProperties &&
-    (realColor compatibleWith h.realColor)
+    (realColor compatibleWith h.realColor) && 
+    (memberOnly || h.memberOnly).fold(isMember && h.isMember, true)
 
   private def compatibilityProperties = (variant, time, increment, mode)
 
   lazy val realEloRange: Option[EloRange] = EloRange noneIfDefault eloRange
 
   def userId = user map (_.id)
+  def isMember = user.nonEmpty
   def username = user.fold(User.anonymous)(_.username)
   def elo = user map (_.elo)
   def engine = user ?? (_.engine)
