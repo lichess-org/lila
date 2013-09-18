@@ -1,10 +1,12 @@
-import sbt._, Keys._
 import play.Project._
+import sbt._, Keys._
 
 object ApplicationBuild extends Build {
 
   import BuildSettings._
   import Dependencies._
+
+  override def rootProject = Some(lila) 
 
   lazy val lila = _root_.play.Project("lila", "4.0") settings (
     offline := true,
@@ -30,7 +32,7 @@ object ApplicationBuild extends Build {
     importer, tournament, relation, report)
 
   lazy val moduleRefs = modules map projectToRef
-  lazy val moduleCPDeps = moduleRefs map classpathDependency
+  lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
 
   lazy val api = project("api", moduleCPDeps)
     .settings(

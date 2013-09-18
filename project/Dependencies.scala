@@ -7,6 +7,7 @@ object Dependencies {
 
   object Resolvers {
     val typesafe = "typesafe.com" at "http://repo.typesafe.com/typesafe/releases/"
+    val typesafeS = "typesafe.com" at "http://repo.typesafe.com/typesafe/snapshots/"
     val iliaz = "iliaz.com" at "http://scala.iliaz.com/"
     val sonatype = "sonatype" at "http://oss.sonatype.org/content/repositories/releases"
     val sonatypeS = "sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots"
@@ -21,16 +22,17 @@ object Dependencies {
 
     val commons = Seq(
       local,
-      localSonatype,
+      // localSonatype,
       // sonatypeS,
       sonatype,
       awesomepom, iliaz,
-      typesafe,
+      // typesafe, 
+      typesafeS,
       t2v, jgitMaven, christophs, sprayRepo)
   }
 
-  val scalaz = "org.scalaz" %% "scalaz-core" % "6.0.4"
-  val scalalib = "com.github.ornicar" %% "scalalib" % "3.3"
+  val scalaz = "org.scalaz" %% "scalaz-core" % "7.0.3"
+  val scalalib = "com.github.ornicar" %% "scalalib" % "4.1"
   val config = "com.typesafe" % "config" % "1.0.2"
   val apache = "org.apache.commons" % "commons-lang3" % "3.1"
   val scalaTime = "org.scala-tools.time" % "time_2.9.1" % "0.5"
@@ -43,7 +45,7 @@ object Dependencies {
   val jodaTime = "joda-time" % "joda-time" % "2.2"
   val jodaConvert = "org.joda" % "joda-convert" % "1.3.1"
   val scalastic = "scalastic" %% "scalastic" % "0.90.0-thib"
-  val reactivemongo = "org.reactivemongo" %% "reactivemongo" % "0.10.5-THIB"
+  val reactivemongo = "org.reactivemongo" %% "reactivemongo" % "0.10.6-THIB"
   val playReactivemongo = "org.reactivemongo" %% "play2-reactivemongo" % "0.10.5-THIB"
   object play {
     val version = "2.2.0-RC2"
@@ -51,7 +53,7 @@ object Dependencies {
     val test = "com.typesafe.play" %% "play-test" % version
   }
   object akka {
-    val version = "2.2.0"
+    val version = "2.2.1"
     val agent = "com.typesafe.akka" %% "akka-agent" % version
   }
   object spray {

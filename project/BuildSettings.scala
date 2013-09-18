@@ -40,5 +40,4 @@ object BuildSettings {
   )
 
   def projectToRef(p: Project): ProjectReference = LocalProject(p.id)
-  def classpathDependency(p: ProjectReference): ClasspathDependency = new ClasspathDependency(p, None)
 }
