@@ -63,7 +63,7 @@ object Setup extends LilaController with TheftPrevention {
   def hook(uid: String) = OpenBody { implicit ctx ⇒
     implicit val req = ctx.body
     env.forms.hook(ctx).bindFromRequest.value ?? { config ⇒
-      env.processor.hook(config, uid, lila.common.HTTPRequest sid req)
+      env.processor.hook(config, uid, lila.common.HTTPRequest sid req, ctx.me)
     }
   }
 

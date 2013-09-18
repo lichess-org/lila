@@ -29,6 +29,7 @@ final class Env(
     bookmarkApi = Env.bookmark.api,
     eloCalculator = Env.round.eloCalculator,
     relationApi = Env.relation.api,
+    gameCached = Env.game.cached,
     postApi = Env.forum.postApi,
     getRank = Env.user.ranking.get) _
 

@@ -226,32 +226,37 @@ object GameRepo {
     _ sort Query.sortCreated skip (Random nextInt 1000)
   )
 
-  // user1 wins, draws, losses
-  def confrontation(user1: User, user2: User): Fu[Confrontation] = {
-    import reactivemongo.bson._
-    import reactivemongo.core.commands._
-    val userIds = List(user1, user2).sortBy(_.count.game).map(_.id)
-    val command = Aggregate(gameTube.coll.name, Seq(
-      Match(BSONDocument(
-        "uids" -> BSONDocument("$all" -> userIds),
-        "s" -> BSONDocument("$gte" -> chess.Status.Mate.id)
-      )),
-      GroupField("wid")("nb" -> SumValue(1))
-    ))
-    gameTube.coll.db.command(command) map { stream ⇒
-      val res = (stream.toList map { obj ⇒
-        toJSON(obj).asOpt[JsObject] flatMap { o ⇒
-          o int "nb" map { nb ⇒
-            ~(o str "_id") -> nb
+  // gets 2 users (id, nbGames)
+  // returns user1 wins, draws, losses
+  // the 2 userIds SHOULD be sorted by game count desc
+  // this method is cached in lila.game.Cached
+  private[game] def confrontation(users: ((String, Int), (String, Int))): Fu[Confrontation] = users match {
+    case (user1, user2) ⇒ {
+      import reactivemongo.bson._
+      import reactivemongo.core.commands._
+      val userIds = List(user1, user2).sortBy(_._2).map(_._1)
+      val command = Aggregate(gameTube.coll.name, Seq(
+        Match(BSONDocument(
+          "uids" -> BSONDocument("$all" -> userIds),
+          "s" -> BSONDocument("$gte" -> chess.Status.Mate.id)
+        )),
+        GroupField("wid")("nb" -> SumValue(1))
+      ))
+      gameTube.coll.db.command(command) map { stream ⇒
+        val res = (stream.toList map { obj ⇒
+          toJSON(obj).asOpt[JsObject] flatMap { o ⇒
+            o int "nb" map { nb ⇒
+              ~(o str "_id") -> nb
+            }
           }
-        }
-      }).flatten.toMap
-      Confrontation(
-        user1, user2,
-        ~(res get user1.id),
-        ~(res get ""),
-        ~(res get user2.id)
-      )
+        }).flatten.toMap
+        Confrontation(
+          user1._1, user2._1,
+          ~(res get user1._1),
+          ~(res get ""),
+          ~(res get user2._1)
+        )
+      }
     }
   }
 }
