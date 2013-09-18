@@ -35,6 +35,11 @@ trait PackageObject extends WithFuture
   // with scalaz.Booleans
   // with scalaz.Options
 
+  implicit val booleanMonoid: Monoid[Boolean] = new Monoid[Boolean] {
+    def append(f1: Boolean, f2: ⇒ Boolean) = f1 || f2
+    def zero = false
+  }
+
   def !![A](msg: String): Valid[A] = msg.failNel[A]
 
   def nowMillis: Long = System.currentTimeMillis
