@@ -6,8 +6,6 @@ import reactivemongo.api._
 import lila.db.api._
 import tube.requestTube
 
-// db.team_request.ensureIndex({team:1})
-// db.team_request.ensureIndex({date: -1})
 object RequestRepo {
 
   type ID = String

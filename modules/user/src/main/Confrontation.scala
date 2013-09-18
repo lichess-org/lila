@@ -1,8 +1,8 @@
 package lila.user
 
 case class Confrontation(
-  user1: User,
-  user2: User,
+  user1: String,
+  user2: String,
   wins: Int,
   draws: Int,
   losses: Int) {

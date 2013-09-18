@@ -5,11 +5,12 @@ import scala.concurrent.duration._
 import actorApi._
 import akka.actor._
 import akka.pattern.{ ask, pipe }
+import makeTimeout.short
+
 import lila.db.api._
 import lila.hub.actorApi.GetUids
 import lila.memo.ExpireSetMemo
 import lila.socket.actorApi.Broom
-import makeTimeout.short
 
 private[lobby] final class Lobby(
     biter: Biter,
@@ -19,11 +20,16 @@ private[lobby] final class Lobby(
 
     case GetOpen ⇒ sender ! HookRepo.allOpen
 
-    case msg @ AddHook(hook) ⇒ {
+    case msg @ AddHook(hook, user) ⇒ {
       HookRepo byUid hook.uid foreach remove
       hook.sid ?? { sid ⇒ HookRepo bySid sid foreach remove }
-      HookRepo save hook
-      socket ! msg
+      HookRepo findCompatible hook find { biter.canJoin(_, user) } match {
+        case Some(h) ⇒ self ! BiteHook(h.id, hook.uid, user map (_.id))
+        case None ⇒ {
+          HookRepo save hook
+          socket ! msg
+        }
+      }
     }
 
     case CancelHook(uid) ⇒ {

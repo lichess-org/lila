@@ -7,6 +7,8 @@ object HookRepo {
 
   private var hooks = Vector[Hook]()
 
+  def findCompatible(hook: Hook): List[Hook] = allOpen filter (_ compatibleWith hook) 
+
   def list = hooks.toList
 
   def byId(id: String) = hooks find (_.id == id)

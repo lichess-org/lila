@@ -1,10 +1,10 @@
 package lila.lobby
 
+import chess.{ Variant, Mode, Clock }
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.libs.json._
 
-import chess.{ Variant, Mode, Clock }
 import lila.common.EloRange
 import lila.user.User
 
@@ -19,11 +19,8 @@ case class Hook(
     mode: Int,
     allowAnon: Boolean,
     color: String,
-    userId: Option[String],
-    username: String,
-    elo: Option[Int],
+    user: Option[User],
     eloRange: String,
-    engine: Boolean,
     gameId: Option[String] = None,
     createdAt: DateTime) {
 
@@ -36,7 +33,22 @@ case class Hook(
 
   def realMode = Mode orDefault mode
 
+  def memberOnly = !allowAnon
+
+  def compatibleWith(h: Hook) =
+    compatibilityProperties == h.compatibilityProperties &&
+    (realColor compatibleWith h.realColor) && 
+    (memberOnly || h.memberOnly).fold(isMember && h.isMember, true)
+
+  private def compatibilityProperties = (variant, time, increment, mode)
+
   lazy val realEloRange: Option[EloRange] = EloRange noneIfDefault eloRange
+
+  def userId = user map (_.id)
+  def isMember = user.nonEmpty
+  def username = user.fold(User.anonymous)(_.username)
+  def elo = user map (_.elo)
+  def engine = user ?? (_.engine)
 
   def render: JsObject = Json.obj(
     "id" -> id,
@@ -82,11 +94,8 @@ object Hook {
     mode = mode.id,
     allowAnon = allowAnon || user.isEmpty,
     color = color,
-    userId = user map (_.id),
-    username = user.fold(User.anonymous)(_.username),
+    user = user,
     sid = sid,
-    elo = user map (_.elo),
     eloRange = eloRange.toString,
-    engine = user.??(_.engine),
     createdAt = DateTime.now)
 }

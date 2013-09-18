@@ -42,7 +42,6 @@ the forum search user:mephostophilis returns no result
 players world map
 account closed accounts in team counts
 IE10 no sound toggle http://en.lichess.org/forum/lichess-feedback/notification-of-game-creation#3
-show friend games in homepage board
 replace plot with watch plot when game starts
 team search is broken
 liquid UI for large screens http://fr.lichess.org/forum/lichess-feedback/hi-res#5
@@ -61,5 +60,6 @@ separate games in spectator chat
 real board editor save
 clickable mistakes list in analysis
 FEN/editor castle/enpassant https://github.com/ornicar/lila/issues/42 white/black to play
-stupid team forum slug http://ru.lichess.org/forum/team-4epa250h
 user notes, shared among friends
+detect cheat using lichess AI
+fix AI protocol

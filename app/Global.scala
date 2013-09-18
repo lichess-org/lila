@@ -18,9 +18,8 @@ object Global extends GlobalSettings {
       else Action(NotFound("I am an AI server")).some
     }
     else {
-      // if (!Env.api.isProd) println(req)
       Env.monitor.reporting ! AddRequest
-      Env.security.wiretap(req)
+      // Env.security.wiretap(req)
       Env.security.firewall.requestHandler(req).await orElse
         Env.i18n.requestHandler(req) orElse
         super.onRouteRequest(req)

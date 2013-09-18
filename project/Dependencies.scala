@@ -43,15 +43,15 @@ object Dependencies {
   val jodaTime = "joda-time" % "joda-time" % "2.2"
   val jodaConvert = "org.joda" % "joda-convert" % "1.3.1"
   val scalastic = "scalastic" %% "scalastic" % "0.90.0-thib"
-  val reactivemongo = "org.reactivemongo" %% "reactivemongo" % "0.10.0"
-  val playReactivemongo = "org.reactivemongo" %% "play2-reactivemongo" % "0.10-THIB"
+  val reactivemongo = "org.reactivemongo" %% "reactivemongo" % "0.10.5-THIB"
+  val playReactivemongo = "org.reactivemongo" %% "play2-reactivemongo" % "0.10.5-THIB"
   object play {
-    val version = "2.2.0-RC1"
+    val version = "2.2.0-RC2"
     val api = "com.typesafe.play" %% "play" % version
     val test = "com.typesafe.play" %% "play-test" % version
   }
   object akka {
-    val version = "2.1.0"
+    val version = "2.2.0"
     val agent = "com.typesafe.akka" %% "akka-agent" % version
   }
   object spray {
