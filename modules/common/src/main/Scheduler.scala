@@ -9,17 +9,17 @@ import ornicar.scalalib.Random.approximatly
 final class Scheduler(system: ActorSystem, enabled: Boolean) {
 
   def message(freq: FiniteDuration)(to: ⇒ (ActorRef, Any)) {
-    enabled ! system.scheduler.schedule(freq, randomize(freq), to._1, to._2)
+    enabled when system.scheduler.schedule(freq, randomize(freq), to._1, to._2)
   }
 
   def effect(freq: FiniteDuration, name: String)(op: ⇒ Unit) {
-    enabled ! future(freq, name)(fuccess(op))
+    enabled when future(freq, name)(fuccess(op))
   }
 
   def future(freq: FiniteDuration, name: String)(op: ⇒ Funit) {
-    enabled ! {
+    enabled when {
       val f = randomize(freq)
-      name.nonEmpty ! loginfo("[cron] schedule %s every %s".format(name, freq))
+      name.nonEmpty when loginfo("[cron] schedule %s every %s".format(name, freq))
       system.scheduler.schedule(f, f) {
         op onFailure {
           case e: Exception ⇒ logwarn("[CRON ERROR] (" + name + ") " + e.getMessage)
@@ -29,7 +29,7 @@ final class Scheduler(system: ActorSystem, enabled: Boolean) {
   }
 
   def once(delay: FiniteDuration)(op: ⇒ Unit) {
-    enabled ! system.scheduler.scheduleOnce(delay)(op)
+    enabled when system.scheduler.scheduleOnce(delay)(op)
   }
 
   private def randomize(d: FiniteDuration, ratio: Float = 0.05f): FiniteDuration = 

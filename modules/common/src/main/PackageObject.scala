@@ -3,23 +3,36 @@ package lila
 import scala.concurrent.Future
 
 import ornicar.scalalib
-import scalaz.{ Zero, Zeros, Functor, Monad, OptionT }
+import scalaz._
+import Scalaz._
 
-trait PackageObject
-    extends WithFuture
+trait PackageObject extends WithFuture
+
     with scalalib.Validation
     with scalalib.Common
     with scalalib.Regex
-    with scalalib.IO
     with scalalib.DateTime
-    with scalaz.Identitys
-    with scalaz.NonEmptyLists
-    with scalaz.Strings
-    with scalaz.Lists
-    with scalaz.Zeros
-    with scalaz.Booleans
-    with scalaz.Options
-    with scalaz.OptionTs {
+
+    with scalaz.std.BooleanFunctions
+    with scalaz.syntax.std.ToBooleanOps
+
+    with scalaz.std.OptionInstances
+    with scalaz.std.OptionFunctions
+    with scalaz.syntax.std.ToOptionOps
+    with scalaz.syntax.std.ToOptionIdOps
+
+    with scalaz.std.ListInstances
+    with scalaz.std.ListFunctions
+    with scalaz.syntax.std.ToListOps
+
+    with scalaz.syntax.ToShowOps {
+  // with scalaz.Identitys
+  // with scalaz.NonEmptyLists
+  // with scalaz.Strings
+  // with scalaz.Lists
+  // with scalaz.OptionTs 
+  // with scalaz.Booleans
+  // with scalaz.Options
 
   def !![A](msg: String): Valid[A] = msg.failNel[A]
 
@@ -36,7 +49,7 @@ trait PackageObject
 
   implicit final class LilaPimpedOption[A](o: Option[A]) {
 
-    def ??[B: Zero](f: A ⇒ B): B = o.fold(∅[B])(f)
+    def ??[B](f: A ⇒ B)(implicit m: Monoid[B]): B = o.fold(m.zero)(f)
 
     def ifTrue(b: Boolean): Option[A] = o filter (_ ⇒ b)
     def ifFalse(b: Boolean): Option[A] = o filter (_ ⇒ !b)
@@ -73,7 +86,7 @@ trait PackageObject
     math.max(in.start, math.min(v, in.end))
 }
 
-trait WithFuture extends Zeros with scalalib.Validation {
+trait WithFuture extends scalalib.Validation {
 
   type Fu[A] = Future[A]
   type Funit = Fu[Unit]
@@ -84,31 +97,32 @@ trait WithFuture extends Zeros with scalalib.Validation {
   def fufail[A](a: Failures): Fu[A] = fufail(common.LilaException(a))
   val funit = fuccess(())
 
-  implicit def LilaFuZero[A: Zero]: Zero[Fu[A]] = zero(fuccess(∅[A]))
-
   implicit def SprayPimpedFuture[T](fut: Future[T]) =
     new spray.util.pimps.PimpedFuture[T](fut)
 }
 
-trait WithPlay extends Zeros { self: PackageObject ⇒
+trait WithPlay { self: PackageObject ⇒
 
   import play.api.libs.json._
 
   implicit def execontext = play.api.libs.concurrent.Execution.defaultContext
 
-  // Typeclasses
-  implicit val LilaFutureFunctor = new Functor[Fu] {
-    def fmap[A, B](r: Fu[A], f: A ⇒ B) = r map f
+  implicit val LilaFutureInstances = new Monad[Fu] {
+    override def map[A, B](fa: Fu[A])(f: A ⇒ B) = fa map f
+    def point[A](a: ⇒ A) = fuccess(a)
+    def bind[A, B](fa: Fu[A])(f: A ⇒ Fu[B]) = fa flatMap f
   }
 
-  implicit val LilaFutureMonad = new Monad[Fu] {
-    def pure[A](a: ⇒ A) = fuccess(a)
-    def bind[A, B](r: Fu[A], f: A ⇒ Fu[B]) = r flatMap f
-  }
+  implicit def LilaFuMonoid[A](implicit m: Monoid[A]): Monoid[Fu[A]] =
+    Monoid.instance((x, y) ⇒ x zip y map {
+      case (a, b) ⇒ m.append(a, b)
+    }, fuccess(m.zero))
 
-  implicit val LilaJsObjectZero: Zero[JsObject] = zero(JsObject(Seq.empty))
+  implicit val LilaJsObjectMonoid: Monoid[JsObject] =
+    Monoid.instance((x, y) ⇒ x ++ y, JsObject(Seq.empty))
 
-  implicit def LilaJsResultZero[A]: Zero[JsResult[A]] = zero(JsError(Seq.empty))
+  // implicit def LilaJsResultMonoid[A]: Monoid[JsResult[A]] =
+  //   Monoid.instance((x, y) ⇒ x ++ y, JsError(Seq.empty))
 
   implicit final class LilaTraversableFuture[A, M[_] <: TraversableOnce[_]](t: M[Fu[A]]) {
 
@@ -162,7 +176,7 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
     }
   }
 
-  implicit final class LilaPimpedFutureZero[A: Zero](fua: Fu[A]) {
+  implicit final class LilaPimpedFutureMonoid[A](fua: Fu[A])(implicit m: Monoid[A]) {
 
     def nevermind(msg: String): Fu[A] = fua recover {
       case e: lila.common.LilaException             ⇒ recoverException(e, msg.some)
@@ -173,7 +187,7 @@ trait WithPlay extends Zeros { self: PackageObject ⇒
 
     private def recoverException(e: Exception, msg: Option[String]) = {
       logwarn(msg.filter(_.nonEmpty).??(_ + ": ") + e.getMessage)
-      ∅[A]
+      m.zero
     }
   }
 
