@@ -36,16 +36,17 @@ object UserInfo {
     bookmarkApi: BookmarkApi,
     eloCalculator: EloCalculator,
     relationApi: RelationApi,
+    gameCached: lila.game.Cached,
     postApi: PostApi,
     getRank: String ⇒ Fu[Option[Int]])(user: User, ctx: Context): Fu[UserInfo] =
     (getRank(user.id) flatMap {
       _ ?? { rank ⇒ countUsers() map { nb ⇒ (rank -> nb).some } }
     }) zip
       ((ctx is user) ?? {
-        GameRepo count (_ notFinished user.id) map (_.some)
+        gameCached nbPlaying user.id map (_.some)
       }) zip
       (ctx.me.filter(user!=) ?? { me ⇒
-        GameRepo.confrontation(me, user) map (_.some filterNot (_.empty))
+        gameCached.confrontation(me, user) map (_.some filterNot (_.empty))
       }) zip
       (bookmarkApi countByUser user) zip
       EloChart(user) zip

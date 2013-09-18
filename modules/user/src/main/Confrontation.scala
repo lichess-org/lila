@@ -1,6 +1,11 @@
 package lila.user
 
-case class Confrontation(wins: Int, draws: Int, losses: Int) {
+case class Confrontation(
+  user1: String,
+  user2: String,
+  wins: Int,
+  draws: Int,
+  losses: Int) {
 
   def games = wins + draws + losses
 

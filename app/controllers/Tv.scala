@@ -36,7 +36,7 @@ object Tv extends LilaController {
   private def confrontation(game: GameModel): Fu[Option[Confrontation]] = ~{
     (game.creator.userId |@| game.invited.userId) apply {
       case (id1, id2) ⇒ (UserRepo byId id1) zip (UserRepo byId id2) flatMap {
-        case (Some(user1), Some(user2)) ⇒ GameRepo.confrontation(user1, user2) map (_.some)
+        case (Some(user1), Some(user2)) ⇒ Env.game.cached.confrontation(user1, user2) map (_.some)
         case _                          ⇒ fuccess(none)
       }
     }
