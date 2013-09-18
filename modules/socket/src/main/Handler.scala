@@ -38,7 +38,7 @@ object Handler {
             control.lift(t -> obj)
           }
         }
-      ).mapDone(_ ⇒ socket ! Quit(uid))
+      ).map(_ ⇒ socket ! Quit(uid))
     }
 
     (socket ? join map connecter map {

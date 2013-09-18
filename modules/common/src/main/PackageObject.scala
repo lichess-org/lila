@@ -120,9 +120,7 @@ trait WithPlay { self: PackageObject ⇒
   }
 
   implicit def LilaFuMonoid[A: Monoid]: Monoid[Fu[A]] =
-    Monoid.instance((x, y) ⇒ x zip y map {
-      case (a, b) ⇒ a ⊹ b
-    }, fuccess(∅[A]))
+    Monoid.instance((x, y) ⇒ x zip y map { case (a, b) ⇒ a ⊹ b }, fuccess(∅[A]))
 
   implicit val LilaJsObjectMonoid: Monoid[JsObject] =
     Monoid.instance((x, y) ⇒ x ++ y, JsObject(Seq.empty))
