@@ -227,10 +227,11 @@ object GameRepo {
   )
 
   // user1 wins, draws, losses
-  def confrontation(user1: User, user2: User): Fu[Confrontation] = {
+  // the 2 userIds SHOULD be sorted by game count desc
+  // this method is cached in lila.game.Cached
+  private[game] def confrontation(userIds: List[String]): Fu[Confrontation] = {
     import reactivemongo.bson._
     import reactivemongo.core.commands._
-    val userIds = List(user1, user2).sortBy(_.count.game).map(_.id)
     val command = Aggregate(gameTube.coll.name, Seq(
       Match(BSONDocument(
         "uids" -> BSONDocument("$all" -> userIds),
@@ -247,10 +248,9 @@ object GameRepo {
         }
       }).flatten.toMap
       Confrontation(
-        user1, user2,
-        ~(res get user1.id),
+        ~(res get ~userIds.lift(0)),
         ~(res get ""),
-        ~(res get user2.id)
+        ~(res get ~userIds.lift(1))
       )
     }
   }
