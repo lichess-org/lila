@@ -1,7 +1,7 @@
 @(c: lila.user.Confrontation)(implicit ctx: Context)
 
 <div class="confrontation boxed_data">
-  <div class="vs">@userLink(c.user1, withElo = false, withOnline = false) vs @userLink(c.user2, withElo = false, withOnline = false)</div>
+  <div class="vs">@userIdLink(c.user1.some, withOnline = false) vs @userIdLink(c.user2.some, withOnline = false)</div>
   @trans.nbWins("<strong>"+c.wins+"</strong>"),
   @trans.nbDraws("<strong>"+c.draws+"</strong>"),
   @trans.nbLosses("<strong>"+c.losses+"</strong>")
