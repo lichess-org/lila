@@ -4,7 +4,6 @@ package templating
 import lila.api.Env.{ current ⇒ apiEnv }
 
 import play.api.templates.Html
-import scalaz.Zero
 
 object Environment
     extends scalaz.Identitys
@@ -36,9 +35,7 @@ object Environment
     with TournamentHelper 
     with IRCHelper {
 
-  implicit val LilaHtmlZero = new Zero[Html] {
-    val zero = Html("")
-  }
+  implicit val LilaHtmlMonoid = Monoid.instance[Html](_ + _, Html(""))
 
   type FormWithCaptcha = (play.api.data.Form[_], lila.common.Captcha)
 

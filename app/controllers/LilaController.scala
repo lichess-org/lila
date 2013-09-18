@@ -7,7 +7,7 @@ import play.api.libs.json.{ Json, JsValue, Writes }
 import play.api.mvc._, Results._
 import play.api.mvc.WebSocket.FrameFormatter
 import play.api.templates.Html
-import scalaz.Zero
+import scalaz.Monoid
 
 import lila.app._
 import lila.common.LilaCookie
@@ -21,15 +21,13 @@ private[controllers] trait LilaController
     with ResponseWriter
     with Results {
 
-  protected implicit val LilaResultZero = new Zero[Result] {
-    val zero = Results.NotFound
-  }
-  protected implicit val LilaPlainResultZero = new Zero[PlainResult] {
-    val zero = Results.NotFound
-  }
-  protected implicit val LilaHtmlZero = new Zero[Html] {
-    val zero = Html("")
-  }
+  protected implicit val LilaResultMonoid = 
+    Monoid.instance[Result]((_, b) => b, Results.NotFound)
+
+  protected implicit val LilaPlainResultMonoid = 
+    Monoid.instance[PlainResult]((_, b) => b), Results.NotFound)
+
+  protected implicit val LilaHtmlMonoid = lila.templating.Environment.LilaHtmlMonoid
 
   protected implicit final class LilaPimpedResult(result: Result) {
     def fuccess = scala.concurrent.Future successful result

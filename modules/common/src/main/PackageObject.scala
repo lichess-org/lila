@@ -25,7 +25,12 @@ trait PackageObject extends WithFuture
     with scalaz.std.ListFunctions
     with scalaz.syntax.std.ToListOps
 
+    with scalaz.std.StringInstances
+
     with scalaz.syntax.ToIdOps
+    with scalaz.syntax.ToFunctorOps
+    with scalaz.syntax.ToMonoidOps
+    with scalaz.syntax.ToTraverseOps
     with scalaz.syntax.ToShowOps {
   // with scalaz.Identitys
   // with scalaz.NonEmptyLists
@@ -34,11 +39,6 @@ trait PackageObject extends WithFuture
   // with scalaz.OptionTs 
   // with scalaz.Booleans
   // with scalaz.Options
-
-  implicit val booleanMonoid: Monoid[Boolean] = new Monoid[Boolean] {
-    def append(f1: Boolean, f2: ⇒ Boolean) = f1 || f2
-    def zero = false
-  }
 
   def !![A](msg: String): Valid[A] = msg.failNel[A]
 
@@ -55,7 +55,7 @@ trait PackageObject extends WithFuture
 
   implicit final class LilaPimpedOption[A](o: Option[A]) {
 
-    def ??[B](f: A ⇒ B)(implicit m: Monoid[B]): B = o.fold(m.zero)(f)
+    def ??[B: Monoid](f: A ⇒ B): B = o.fold(∅[B])(f)
 
     def ifTrue(b: Boolean): Option[A] = o filter (_ ⇒ b)
     def ifFalse(b: Boolean): Option[A] = o filter (_ ⇒ !b)
@@ -119,10 +119,10 @@ trait WithPlay { self: PackageObject ⇒
     def bind[A, B](fa: Fu[A])(f: A ⇒ Fu[B]) = fa flatMap f
   }
 
-  implicit def LilaFuMonoid[A](implicit m: Monoid[A]): Monoid[Fu[A]] =
+  implicit def LilaFuMonoid[A: Monoid]: Monoid[Fu[A]] =
     Monoid.instance((x, y) ⇒ x zip y map {
-      case (a, b) ⇒ m.append(a, b)
-    }, fuccess(m.zero))
+      case (a, b) ⇒ a ⊹ b
+    }, fuccess(∅[A]))
 
   implicit val LilaJsObjectMonoid: Monoid[JsObject] =
     Monoid.instance((x, y) ⇒ x ++ y, JsObject(Seq.empty))
@@ -182,7 +182,7 @@ trait WithPlay { self: PackageObject ⇒
     }
   }
 
-  implicit final class LilaPimpedFutureMonoid[A](fua: Fu[A])(implicit m: Monoid[A]) {
+  implicit final class LilaPimpedFutureMonoid[A: Monoid](fua: Fu[A])() {
 
     def nevermind(msg: String): Fu[A] = fua recover {
       case e: lila.common.LilaException             ⇒ recoverException(e, msg.some)
@@ -193,7 +193,7 @@ trait WithPlay { self: PackageObject ⇒
 
     private def recoverException(e: Exception, msg: Option[String]) = {
       logwarn(msg.filter(_.nonEmpty).??(_ + ": ") + e.getMessage)
-      m.zero
+      ∅[A]
     }
   }
 

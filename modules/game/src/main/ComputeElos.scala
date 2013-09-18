@@ -14,8 +14,6 @@ private[game] final class ComputeElos(system: ActorSystem) {
 
   private lazy val eloCalculator = new chess.EloCalculator(false)
 
-  private implicit def SpeedElosZero = zero(SpeedElos.default)
-
   private val router = system.actorOf(Props(new Actor {
     def receive = {
       case user: User ⇒ {

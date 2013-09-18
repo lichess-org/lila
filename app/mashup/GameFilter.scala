@@ -5,7 +5,7 @@ import lila.user.{ User, Context }
 import lila.game.{ Game, Query }
 
 import play.api.libs.json._
-import scalaz.{ NonEmptyList, NonEmptyLists }
+import scalaz.NonEmptyList
 
 sealed abstract class GameFilter(val name: String)
 
@@ -30,7 +30,7 @@ case class GameFilterMenu(
   def list = all.list
 }
 
-object GameFilterMenu extends NonEmptyLists {
+object GameFilterMenu {
 
   import GameFilter._
   import lila.db.Implicits.docId
@@ -42,7 +42,7 @@ object GameFilterMenu extends NonEmptyLists {
 
     val user = info.user
 
-    val all = nel(All, List(
+    val all = NonEmptyList(All, List(
       (info.nbWithMe > 0) option Me,
       (info.nbRated > 0) option Rated,
       (info.user.count.win > 0) option Win,
