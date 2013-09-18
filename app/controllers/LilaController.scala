@@ -21,13 +21,13 @@ private[controllers] trait LilaController
     with ResponseWriter
     with Results {
 
-  protected implicit val LilaResultMonoid = 
-    Monoid.instance[Result]((_, b) => b, Results.NotFound)
+  protected implicit val LilaResultZero = 
+    Zero.instance[Result](Results.NotFound)
 
-  protected implicit val LilaPlainResultMonoid = 
-    Monoid.instance[PlainResult]((_, b) => b), Results.NotFound)
+  protected implicit val LilaPlainResultZero = 
+    Zero.instance[PlainResult](Results.NotFound)
 
-  protected implicit val LilaHtmlMonoid = lila.templating.Environment.LilaHtmlMonoid
+  protected implicit val LilaHtmlZero = lila.templating.Environment.LilaHtmlZero
 
   protected implicit final class LilaPimpedResult(result: Result) {
     def fuccess = scala.concurrent.Future successful result
