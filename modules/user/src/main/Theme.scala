@@ -1,17 +1,19 @@
 package lila.user
 
+import scalaz.NonEmptyList
+
 sealed class Theme private (val name: String) {
 
   override def toString = name
 
-  def cssClass = name 
+  def cssClass = name
 }
 
-object Theme extends scalaz.NonEmptyLists {
+object Theme {
 
-  val all = nel("brown", "blue", "green", "grey", "wood", "canvas") map {
-      case name ⇒ new Theme(name)
-    }
+  val all = NonEmptyList("brown", "blue", "green", "grey", "wood", "canvas") map {
+    case name ⇒ new Theme(name)
+  }
 
   val list = all.list
 

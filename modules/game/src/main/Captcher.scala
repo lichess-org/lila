@@ -7,7 +7,7 @@ import akka.actor._
 import akka.pattern.{ ask, pipe }
 import play.api.libs.concurrent.Akka.system
 import play.api.Play.current
-import scalaz.{ NonEmptyList, NonEmptyLists, OptionT, OptionTs }
+import scalaz.{ NonEmptyList, OptionT, OptionTs }
 import spray.caching.{ LruCache, Cache }
 
 import chess.format.{ Forsyth, pgn }
@@ -48,11 +48,11 @@ private final class Captcher extends Actor {
     // Private stuff
 
     private val capacity = 512
-    private var challenges: NonEmptyList[Captcha] = nel(∅[Captcha])
+    private var challenges: NonEmptyList[Captcha] = NonEmptyList(∅[Captcha])
 
     private def add(c: Captcha) {
       find(c.gameId) ifNone {
-        challenges = nel(c, challenges.list take capacity)
+        challenges = NonEmptyList(c, challenges.list take capacity)
       }
     }
 
