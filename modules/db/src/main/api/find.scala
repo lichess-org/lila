@@ -5,9 +5,8 @@ import Implicits._
 import play.api.libs.json._
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 import reactivemongo.bson._
-import scalaz.{ OptionT, OptionTs }
 
-object $find extends OptionTs {
+object $find {
 
   def one[A: TubeInColl](
     q: JsObject,

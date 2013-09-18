@@ -1,5 +1,4 @@
 package lila.db
-package test
 
 import scala.concurrent._
 import scala.concurrent.duration._

@@ -25,6 +25,7 @@ trait PackageObject extends WithFuture
     with scalaz.std.ListFunctions
     with scalaz.syntax.std.ToListOps
 
+    with scalaz.syntax.ToIdOps
     with scalaz.syntax.ToShowOps {
   // with scalaz.Identitys
   // with scalaz.NonEmptyLists
