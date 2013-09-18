@@ -1,10 +1,9 @@
 package lila
 
 import scala.concurrent.Future
+import scalaz.{ Monad, Monoid }
 
 import ornicar.scalalib
-import scalaz._
-import Scalaz._
 
 trait PackageObject extends WithFuture
 
@@ -12,9 +11,11 @@ trait PackageObject extends WithFuture
     with scalalib.Common
     with scalalib.Regex
     with scalalib.DateTime
-
-    with scalaz.std.BooleanFunctions
-    with scalaz.syntax.std.ToBooleanOps
+    with scalalib.OrnicarMonoid.Instances
+    with scalalib.Zero.Syntax
+    with scalalib.Zero.Instances
+    with scalalib.OrnicarOption
+    with scalalib.OrnicarNonEmptyList
 
     with scalaz.std.OptionInstances
     with scalaz.std.OptionFunctions
@@ -28,17 +29,11 @@ trait PackageObject extends WithFuture
     with scalaz.std.StringInstances
 
     with scalaz.syntax.ToIdOps
+    with scalaz.syntax.ToValidationOps
     with scalaz.syntax.ToFunctorOps
     with scalaz.syntax.ToMonoidOps
     with scalaz.syntax.ToTraverseOps
     with scalaz.syntax.ToShowOps {
-  // with scalaz.Identitys
-  // with scalaz.NonEmptyLists
-  // with scalaz.Strings
-  // with scalaz.Lists
-  // with scalaz.OptionTs 
-  // with scalaz.Booleans
-  // with scalaz.Options
 
   def !![A](msg: String): Valid[A] = msg.failNel[A]
 
@@ -52,14 +47,6 @@ trait PackageObject extends WithFuture
   def fuloginfo(s: String) = fuccess { loginfo(s) }
   def fulogwarn(s: String) = fuccess { logwarn(s) }
   def fulogerr(s: String) = fuccess { logerr(s) }
-
-  implicit final class LilaPimpedOption[A](o: Option[A]) {
-
-    def ??[B: Monoid](f: A ⇒ B): B = o.fold(∅[B])(f)
-
-    def ifTrue(b: Boolean): Option[A] = o filter (_ ⇒ b)
-    def ifFalse(b: Boolean): Option[A] = o filter (_ ⇒ !b)
-  }
 
   implicit final class LilaPimpedString(s: String) {
 
@@ -110,6 +97,7 @@ trait WithFuture extends scalalib.Validation {
 trait WithPlay { self: PackageObject ⇒
 
   import play.api.libs.json._
+  import ornicar.scalalib.Zero
 
   implicit def execontext = play.api.libs.concurrent.Execution.defaultContext
 
@@ -120,17 +108,41 @@ trait WithPlay { self: PackageObject ⇒
   }
 
   implicit def LilaFuMonoid[A: Monoid]: Monoid[Fu[A]] =
-    Monoid.instance((x, y) ⇒ x zip y map { case (a, b) ⇒ a ⊹ b }, fuccess(∅[A]))
+    Monoid.instance((x, y) ⇒ x zip y map {
+      case (a, b) ⇒ a ⊹ b
+    }, fuccess(∅[A]))
 
-  implicit val LilaJsObjectMonoid: Monoid[JsObject] =
-    Monoid.instance((x, y) ⇒ x ++ y, JsObject(Seq.empty))
+  implicit def LilaFuZero[A: Zero]: Zero[Fu[A]] =
+    Zero.instance(fuccess(zero[A]))
 
-  // implicit def LilaJsResultMonoid[A]: Monoid[JsResult[A]] =
-  //   Monoid.instance((x, y) ⇒ x ++ y, JsError(Seq.empty))
+  implicit val LilaJsObjectZero: Zero[JsObject] =
+    Zero.instance(JsObject(Seq.empty))
+
+  implicit def LilaJsResultZero[A]: Zero[JsResult[A]] =
+    Zero.instance(JsError(Seq.empty))
 
   implicit final class LilaTraversableFuture[A, M[_] <: TraversableOnce[_]](t: M[Fu[A]]) {
 
     def sequenceFu(implicit cbf: scala.collection.generic.CanBuildFrom[M[Fu[A]], A, M[A]]) = Future sequence t
+  }
+
+  /*
+   * Replaces scalaz boolean ops
+   * so ?? works on Zero and not Monoid
+   */
+  implicit final class LilaPimpedBoolean(b: Boolean) {
+
+    def ??[A](a: ⇒ A)(implicit z: Zero[A]): A = if (b) a else zero[A]
+
+    def !(f: ⇒ Unit) = if (b) f
+
+    def fold[A](t: ⇒ A, f: ⇒ A): A = if (b) t else f
+
+    def ?[X](t: ⇒ X) = new { def |(f: ⇒ X) = if (b) t else f }
+
+    def option[A](a: ⇒ A): Option[A] = if (b) Some(a) else None
+
+    def optionFu[A](v: ⇒ Fu[A]): Fu[Option[A]] = if (b) v map (_.some) else fuccess(none)
   }
 
   implicit final class LilaPimpedFuture[A](fua: Fu[A]) {
@@ -180,7 +192,7 @@ trait WithPlay { self: PackageObject ⇒
     }
   }
 
-  implicit final class LilaPimpedFutureMonoid[A: Monoid](fua: Fu[A])() {
+  implicit final class LilaPimpedFutureMonoid[A: Zero](fua: Fu[A])() {
 
     def nevermind(msg: String): Fu[A] = fua recover {
       case e: lila.common.LilaException             ⇒ recoverException(e, msg.some)
@@ -191,7 +203,7 @@ trait WithPlay { self: PackageObject ⇒
 
     private def recoverException(e: Exception, msg: Option[String]) = {
       logwarn(msg.filter(_.nonEmpty).??(_ + ": ") + e.getMessage)
-      ∅[A]
+      zero[A]
     }
   }
 
@@ -215,12 +227,6 @@ trait WithPlay { self: PackageObject ⇒
       fua flatMap { _.fold(fuccess(true), fub) }
 
     def unary_! = fua map (!_)
-  }
-
-  implicit final class LilaPimpedBooleanForFuture(b: Boolean) {
-
-    def optionFu[A](v: ⇒ Fu[A]): Fu[Option[A]] =
-      if (b) v map (_.some) else fuccess(none)
   }
 
   object makeTimeout {
