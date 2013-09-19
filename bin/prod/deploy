@@ -11,13 +11,13 @@ if [ -z $mode ]; then
   fail
 elif [ $mode = "main" ]; then
   REMOTE="hollie"
-  REMOTE_DIR="/home/lila4"
+  REMOTE_DIR="/home/lila5"
 elif [ $mode = "ai" ]; then
   REMOTE="paul"
-  REMOTE_DIR="/home/lila4"
+  REMOTE_DIR="/home/lila5"
 elif [ $mode = "local" ]; then
   REMOTE="localhost"
-  REMOTE_DIR="/tmp/lila4"
+  REMOTE_DIR="/tmp/lila5"
 else
   fail
 fi
@@ -26,11 +26,11 @@ lilalog "Deploy to $mode server $REMOTE:$REMOTE_DIR"
 
 APP_NAME=lila-4.0
 
-if [ $mode != "ai" ]; then
+if [ $mode == "main" ]; then
   bin/closure
 fi
 
-bin/play compile stage
+bin/play stage
 if [ $? != 0 ]; then
   lilalog "Deploy canceled"
   exit 1
@@ -44,32 +44,29 @@ RSYNC_OPTIONS=" \
   --compress \
   --checksum \
   --verbose \
-  --exclude application.conf \
+  --exclude conf/application.conf \
   --exclude logs \
   --exclude RUNNING_PID \
-  --exclude bin/.translate_version \
-  --exclude target/resolution-cache \
-  --exclude target/native_libraries \
-  --exclude target/scala-* \
-  --exclude target/.history \
-  --exclude target/test-reports \
-  --exclude target/streams";
+  --exclude bin/.translate_version";
 
 lilalog "Rsync scripts, binaries and assets"
-rsync_command="rsync $RSYNC_OPTIONS bin target public $REMOTE:$REMOTE_DIR"
+rsync_command="rsync $RSYNC_OPTIONS bin target/universal/stage public $REMOTE:$REMOTE_DIR"
 echo "$rsync_command"
 $rsync_command
 
-if [ $mode != "ai" ]; then
+if [ $mode != "local" ]; then
   lilalog "Notify users"
   bin/cli-prod deploy
 fi
 
-lilalog "Restart lila4"
-ssh $REMOTE "service lila4 restart"
+if [ $mode != "local" ]; then
+  lilalog "Restart lila5"
+  ssh $REMOTE "service lila5 restart"
+fi
 
 lilalog "Deploy complete"
 
-sleep 2
-
-curl_prod
+if [ $mode != "local" ]; then
+  sleep 2
+  curl_prod
+fi
