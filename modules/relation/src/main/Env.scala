@@ -45,12 +45,14 @@ final class Env(
     import makeTimeout.short
     import lila.hub.actorApi.WithUserIds
 
-    scheduler.message(ActorNotifyFreq) {
-      actor -> actorApi.NotifyMovement
-    }
+    scheduler.once(5 seconds) {
+      scheduler.message(ActorNotifyFreq) {
+        actor -> actorApi.NotifyMovement
+      }
 
-    scheduler.message(ActorResyncFreq) {
-      actor -> actorApi.ReloadAllOnlineFriends
+      scheduler.message(ActorResyncFreq) {
+        actor -> actorApi.ReloadAllOnlineFriends
+      }
     }
   }
 
