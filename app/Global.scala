@@ -25,18 +25,20 @@ object Global extends GlobalSettings {
         super.onRouteRequest(req)
     }
 
-  override def onHandlerNotFound(req: RequestHeader): Result =
-    Env.ai.isServer.fold(NotFound, controllers.Lobby.handleNotFound(req).await)
+  override def onHandlerNotFound(req: RequestHeader) =
+    Env.ai.isServer.fold[Fu[SimpleResult]](
+      fuccess(NotFound),
+      controllers.Lobby.handleNotFound(req))
 
-  override def onBadRequest(req: RequestHeader, error: String) = {
+  override def onBadRequest(req: RequestHeader, error: String) = fuccess {
     BadRequest("Bad Request: " + error)
   }
 
   override def onError(request: RequestHeader, ex: Throwable) =
     Env.ai.isServer.fold(
-      InternalServerError(ex.getMessage),
+      fuccess(InternalServerError(ex.getMessage)),
       lila.common.PlayApp.isProd.fold(
-        InternalServerError(views.html.base.errorPage(ex)(lila.user.Context(request, none))),
+        fuccess(InternalServerError(views.html.base.errorPage(ex)(lila.user.Context(request, none)))),
         super.onError(request, ex)
       )
     )

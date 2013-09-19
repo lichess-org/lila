@@ -3,12 +3,20 @@ package templating
 
 import lila.api.Env.{ current ⇒ apiEnv }
 
+import ornicar.scalalib
 import play.api.templates.Html
 
 object Environment
-    extends scalaz.Identitys
-    with scalaz.Options
-    with scalaz.Booleans
+    extends scalaz.syntax.ToIdOps
+    with scalaz.std.OptionInstances
+    with scalaz.std.OptionFunctions
+    with scalaz.std.StringInstances
+    with scalaz.syntax.std.ToOptionIdOps
+    with scalalib.OrnicarMonoid.Instances
+    with scalalib.Zero.Instances
+    with scalalib.OrnicarOption
+    with lila.BooleanSteroids
+    with lila.OptionSteroids
     with StringHelper
     with MarkdownHelper
     with AssetHelper
@@ -32,10 +40,12 @@ object Environment
     with TeamHelper
     with AnalysisHelper
     with RelationHelper
-    with TournamentHelper 
+    with TournamentHelper
     with IRCHelper {
 
-  implicit val LilaHtmlMonoid = Monoid.instance[Html](_ + _, Html(""))
+  implicit val LilaHtmlMonoid = scalaz.Monoid.instance[Html](
+    (a, b) ⇒ Html(a.body + b.body),
+    Html(""))
 
   type FormWithCaptcha = (play.api.data.Form[_], lila.common.Captcha)
 

@@ -5,36 +5,42 @@ import ornicar.scalalib.Zero
 
 trait Steroids
 
-    extends scalalib.Validation
-    with scalalib.Common
-    with scalalib.Regex
-    with scalalib.DateTime
-    with scalalib.OrnicarMonoid.Instances
-    with scalalib.Zero.Syntax
-    with scalalib.Zero.Instances
-    with scalalib.OrnicarOption
-    with scalalib.OrnicarNonEmptyList
+  extends scalalib.Validation
+  with scalalib.Common
+  with scalalib.Regex
+  with scalalib.DateTime
+  with scalalib.OrnicarMonoid.Instances
+  with scalalib.Zero.Syntax
+  with scalalib.Zero.Instances
+  with scalalib.OrnicarOption
+  with scalalib.OrnicarNonEmptyList
 
-    with scalaz.std.OptionInstances
-    with scalaz.std.OptionFunctions
-    with scalaz.syntax.std.ToOptionIdOps
-    with scalaz.OptionTFunctions
+  with scalaz.std.OptionInstances
+  with scalaz.std.OptionFunctions
+  with scalaz.syntax.std.ToOptionIdOps
+  with scalaz.OptionTFunctions
 
-    with scalaz.std.ListInstances
-    with scalaz.std.ListFunctions
-    with scalaz.syntax.std.ToListOps
+  with scalaz.std.ListInstances
+  with scalaz.std.ListFunctions
+  with scalaz.syntax.std.ToListOps
 
-    with scalaz.std.StringInstances
+  with scalaz.std.StringInstances
 
-    with scalaz.std.TupleInstances
+  with scalaz.std.TupleInstances
 
-    with scalaz.syntax.ToIdOps
-    with scalaz.syntax.ToApplyOps
-    with scalaz.syntax.ToValidationOps
-    with scalaz.syntax.ToFunctorOps
-    with scalaz.syntax.ToMonoidOps
-    with scalaz.syntax.ToTraverseOps
-    with scalaz.syntax.ToShowOps {
+  with scalaz.syntax.ToIdOps
+  with scalaz.syntax.ToEqualOps
+  with scalaz.syntax.ToApplyOps
+  with scalaz.syntax.ToValidationOps
+  with scalaz.syntax.ToFunctorOps
+  with scalaz.syntax.ToMonoidOps
+  with scalaz.syntax.ToTraverseOps
+  with scalaz.syntax.ToShowOps
+
+  with BooleanSteroids
+  with OptionSteroids
+
+trait BooleanSteroids {
 
   /*
    * Replaces scalaz boolean ops
@@ -42,7 +48,7 @@ trait Steroids
    */
   implicit class LilaPimpedBoolean(self: Boolean) {
 
-    def ??[A](a: ⇒ A)(implicit z: Zero[A]): A = if (self) a else zero[A]
+    def ??[A](a: ⇒ A)(implicit z: Zero[A]): A = if (self) a else Zero[A].zero
 
     def !(f: ⇒ Unit) = if (self) f
 
@@ -52,6 +58,9 @@ trait Steroids
 
     def option[A](a: ⇒ A): Option[A] = if (self) Some(a) else None
   }
+}
+
+trait OptionSteroids {
 
   /*
    * Replaces scalaz option ops
@@ -78,5 +87,4 @@ trait Steroids
 
     def ifNone(n: ⇒ Unit): Unit = if (self.isEmpty) n
   }
-
 }

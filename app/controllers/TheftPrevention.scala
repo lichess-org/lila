@@ -11,7 +11,7 @@ import play.api.mvc.Results.Redirect
 
 private[controllers] trait TheftPrevention {
 
-  protected def PreventTheft(pov: Pov)(ok: ⇒ Fu[Result])(implicit ctx: Context): Fu[Result] =
+  protected def PreventTheft(pov: Pov)(ok: ⇒ Fu[SimpleResult])(implicit ctx: Context): Fu[SimpleResult] =
     isTheft(pov).fold(fuccess(Redirect(routes.Round.watcher(pov.gameId, pov.color.name))), ok)
 
   protected def isTheft(pov: Pov)(implicit ctx: Context) =

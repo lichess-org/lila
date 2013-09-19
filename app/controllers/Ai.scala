@@ -10,7 +10,7 @@ object Ai extends LilaController {
   private def stockfishServer = Env.ai.stockfishServer
   private def isServer = Env.ai.isServer
 
-  def playStockfish = Action { req ⇒
+  def playStockfish = Action.async { req ⇒
     IfServer {
       stockfishServer.play(
         pgn = ~get("pgn", req),
@@ -26,7 +26,7 @@ object Ai extends LilaController {
     }
   }
 
-  def analyseStockfish = Action { req ⇒
+  def analyseStockfish = Action.async { req ⇒
     IfServer {
       stockfishServer.analyse(
         pgn = ~get("pgn", req),
@@ -41,12 +41,12 @@ object Ai extends LilaController {
     }
   }
 
-  def loadStockfish = Action { req ⇒
+  def loadStockfish = Action.async { req ⇒
     IfServer {
       stockfishServer.load map { Ok(_) }
     }
   }
 
-  private def IfServer(result: ⇒ Fu[Result]) =
-    isServer.fold(Async(result), BadRequest("Not an AI server"))
+  private def IfServer(result: ⇒ Fu[SimpleResult]) =
+    isServer.fold(result, fuccess(BadRequest("Not an AI server")))
 }

@@ -18,13 +18,13 @@ object Lobby extends LilaController with Results {
     ))
   }
 
-  def handleNotFound(req: RequestHeader): Fu[Result] =
+  def handleNotFound(req: RequestHeader): Fu[SimpleResult] =
     reqToCtx(req) flatMap { ctx ⇒ handleNotFound(ctx) }
 
-  def handleNotFound(implicit ctx: Context): Fu[Result] =
+  def handleNotFound(implicit ctx: Context): Fu[SimpleResult] =
     renderHome(NotFound)
 
-  private def renderHome[A](status: Status)(implicit ctx: Context): Fu[Result] =
+  private def renderHome[A](status: Status)(implicit ctx: Context): Fu[SimpleResult] =
     Env.current.preloader(
       posts = Env.forum.recent(ctx.me, Env.team.cached.teamIds.apply),
       tours = TournamentRepo.createdUnprotected,

@@ -5,7 +5,7 @@ import lila.game.GameRepo
 import lila.user.UserRepo
 import lila.user.{ Context, BodyContext }
 import play.api.data.Form
-import play.api.mvc.{ Result, Call }
+import play.api.mvc.{ SimpleResult, Call }
 import views._
 
 object Setup extends LilaController with TheftPrevention {
@@ -75,7 +75,7 @@ object Setup extends LilaController with TheftPrevention {
 
   def filter = OpenBody { implicit ctx ⇒
     implicit val req = ctx.body
-    env.forms.filter(ctx).bindFromRequest.fold[Fu[Result]](
+    env.forms.filter(ctx).bindFromRequest.fold[Fu[SimpleResult]](
       f ⇒ fulogwarn(f.errors.toString) inject BadRequest(),
       config ⇒ JsonOk(env.processor filter config inject config.render)
     )
@@ -137,7 +137,7 @@ object Setup extends LilaController with TheftPrevention {
         if (parsed.situation playable strict)
         validated = chess.format.Forsyth >> parsed
       } yield html.game.miniBoard(validated, parsed.situation.color.name)
-    }.fold[Result](BadRequest)(Ok(_)).fuccess
+    }.fold[SimpleResult](BadRequest)(Ok(_)).fuccess
   }
 
   private def process[A](form: Context ⇒ Form[A])(op: A ⇒ BodyContext ⇒ Fu[Call]) =

@@ -75,7 +75,7 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  def watch(pov: Pov)(implicit ctx: Context): Fu[Result] =
+  def watch(pov: Pov)(implicit ctx: Context): Fu[SimpleResult] =
     bookmarkApi userIdsByGame pov.game zip
       env.version(pov.gameId) zip
       (WatcherRoomRepo room pov.gameId map { room ⇒
@@ -88,7 +88,7 @@ object Round extends LilaController with TheftPrevention {
             pov, v, roomHtml, bookmarkers, analysed, tour))
       }
 
-  private def join(pov: Pov)(implicit ctx: Context): Fu[Result] =
+  private def join(pov: Pov)(implicit ctx: Context): Fu[SimpleResult] =
     GameRepo initialFen pov.gameId zip env.version(pov.gameId) map {
       case (fen, version) ⇒ Ok(html.setup.join(
         pov, version, Env.setup.friendConfigMemo get pov.game.id, fen
