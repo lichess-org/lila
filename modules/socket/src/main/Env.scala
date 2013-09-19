@@ -17,11 +17,11 @@ final class Env(
   import scala.concurrent.duration._
 
   scheduler.once(5 seconds) {
-    scheduler.message(4 seconds) {
-      hub.socket.hub.ref -> actorApi.Broom
+    scheduler.messageToSelection(4 seconds) {
+      hub.socket.hub.selection -> actorApi.Broom
     }
-    scheduler.message(1 seconds) {
-      hub.socket.hub.ref -> GetNbMembers
+    scheduler.messageToSelection(1 seconds) {
+      hub.socket.hub.selection -> GetNbMembers
     }
   }
 }

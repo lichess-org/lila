@@ -19,7 +19,7 @@ private[notification] final class Api(socketHub: lila.hub.ActorLazyRef, renderer
     val request = actorApi.RenderNotification(notif.id, notif.from, notif.html)
     renderer ? request map {
       case rendered: Html ⇒ SendTo(userId, "notificationAdd", rendered.toString)
-    } logFailure "[notification] cannot render" pipeTo socketHub.ref
+    } logFailure "[notification] cannot render" pipeToSelection socketHub.selection
   }
 
   def get(userId: String): List[Notification] = ~(repo get userId)

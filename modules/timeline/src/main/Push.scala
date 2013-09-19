@@ -26,7 +26,7 @@ private[timeline] final class Push(
     case Propagate(data, propagations) ⇒ propagate(propagations) foreach { users ⇒
       if (users.nonEmpty) makeEntry(users, data) >>-
         (users foreach { u ⇒
-          lobbySocket.ref ! ReloadTimeline(u)
+          lobbySocket.selection ! ReloadTimeline(u)
         })
     }
   }

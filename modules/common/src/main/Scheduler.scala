@@ -12,6 +12,12 @@ final class Scheduler(system: ActorSystem, enabled: Boolean) {
     enabled ! system.scheduler.schedule(freq, randomize(freq), to._1, to._2)
   }
 
+  def messageToSelection(freq: FiniteDuration)(to: ⇒ (ActorSelection, Any)) {
+    enabled ! system.scheduler.schedule(freq, randomize(freq)) {
+      to._1 ! to._2
+    }
+  }
+
   def effect(freq: FiniteDuration, name: String)(op: ⇒ Unit) {
     enabled ! future(freq, name)(fuccess(op))
   }
