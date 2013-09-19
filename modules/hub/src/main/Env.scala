@@ -39,7 +39,7 @@ final class Env(config: Config, system: ActorSystem) {
     val site = select("socket.site")
     val round = select("socket.round")
     val tournament = select("socket.tournament")
-    val hub = select(SocketHubName)
+    val hub = select("socket.hub.name")
   }
 
   system.actorOf(Props(new Broadcast(List(
