@@ -32,7 +32,7 @@ private[importer] case class ImportData(pgn: String) {
         tags find (_.name == which(Tag)) map (_.value)
 
       val initBoard = tag(_.FEN) flatMap Forsyth.<< map (_.board)
-      val variant = tag(_.Variant).flatMap(v ⇒ Variant(v.value)) | {
+      val variant = tag(_.Variant).flatMap(Variant.apply) | {
         initBoard.nonEmpty.fold(Variant.FromPosition, Variant.Standard)
       }
 
@@ -45,7 +45,7 @@ private[importer] case class ImportData(pgn: String) {
       val date = tag(_.Date)
 
       def name(whichName: TagPicker, whichElo: TagPicker): String = tag(whichName).fold("?") { n ⇒
-        n.value + ~tag(whichElo).map(e ⇒ " (%s)" format e)
+        n + ~tag(whichElo).map(e ⇒ " (%s)" format e)
       }
 
       val dbGame = Game.make(

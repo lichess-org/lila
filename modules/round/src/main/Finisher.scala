@@ -10,14 +10,14 @@ import lila.hub.actorApi.round._
 import lila.i18n.I18nKey.{ Select ⇒ SelectI18nKey }
 import lila.user.tube.userTube
 import lila.user.{ User, UserRepo, EloUpdater }
-import scalaz.{ OptionTs, Success }
+import scalaz.{ OptionT, Success }
 
 private[round] final class Finisher(
     tournamentOrganizer: lila.hub.ActorLazyRef,
     messenger: Messenger,
     eloUpdater: EloUpdater,
     eloCalculator: EloCalculator,
-    indexer: lila.hub.ActorLazyRef) extends OptionTs {
+    indexer: lila.hub.ActorLazyRef) {
 
   def apply(
     game: Game,
@@ -88,6 +88,6 @@ private[round] final class Finisher(
               variant.name -> newBlackVe)
         } inject true.some
       }
-    } yield ()).value.void
+    } yield ()).run.void
   }
 }

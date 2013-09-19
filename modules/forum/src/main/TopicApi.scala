@@ -1,7 +1,5 @@
 package lila.forum
 
-import scalaz.{ OptionT, OptionTs }
-
 import actorApi._
 import lila.common.paginator._
 import lila.db.api._
@@ -18,14 +16,14 @@ private[forum] final class TopicApi(
     indexer: ActorLazyRef,
     maxPerPage: Int,
     modLog: lila.mod.ModlogApi,
-    timeline: ActorLazyRef) extends OptionTs {
+    timeline: ActorLazyRef) {
 
   def show(categSlug: String, slug: String, page: Int, troll: Boolean): Fu[Option[(Categ, Topic, Paginator[Post])]] =
     for {
       data ← (for {
         categ ← optionT(CategRepo bySlug categSlug)
         topic ← optionT(TopicRepo(troll).byTree(categSlug, slug))
-      } yield categ -> topic).value
+      } yield categ -> topic).run
       res ← data ?? {
         case (categ, topic) ⇒ (TopicRepo incViews topic) >>
           (env.postApi.paginator(topic, page, troll) map { (categ, topic, _).some })

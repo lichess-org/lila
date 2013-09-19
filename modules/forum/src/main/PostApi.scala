@@ -1,7 +1,6 @@
 package lila.forum
 
 import play.api.libs.json._
-import scalaz.{ OptionT, OptionTs }
 
 import actorApi._
 import lila.common.paginator._
@@ -20,7 +19,7 @@ final class PostApi(
     indexer: ActorLazyRef,
     maxPerPage: Int,
     modLog: ModlogApi,
-    timeline: ActorLazyRef) extends OptionTs {
+    timeline: ActorLazyRef) {
 
   def makePost(
     categ: Categ,
@@ -117,7 +116,7 @@ final class PostApi(
       _ ← MasterGranter(_.ModerateForum)(mod) ?? modLog.deletePost(mod, post.userId, post.author, post.ip,
         text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text))
     } yield true.some)
-  } yield ()).value.void
+  } yield ()).run.void
 
   def nbByUser(userId: String) = $count[Post](Json.obj("userId" -> userId))
 }

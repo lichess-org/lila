@@ -1,7 +1,5 @@
 package lila.forum
 
-import scalaz.{ OptionT, OptionTs }
-
 import lila.common.paginator._
 import lila.db.api._
 import lila.db.Implicits._
@@ -9,7 +7,7 @@ import lila.db.paginator._
 import lila.user.{ User, Context }
 import tube._
 
-private[forum] final class CategApi(env: Env) extends OptionTs {
+private[forum] final class CategApi(env: Env) {
 
   def list(teams: List[String], troll: Boolean): Fu[List[CategView]] = for {
     categs ← CategRepo withTeams teams
