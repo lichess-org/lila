@@ -42,7 +42,7 @@ object GameFilterMenu {
 
     val user = info.user
 
-    val all = NonEmptyList(All, List(
+    val all = NonEmptyList.nel(All, List(
       (info.nbWithMe > 0) option Me,
       (info.nbRated > 0) option Rated,
       (info.user.count.win > 0) option Win,

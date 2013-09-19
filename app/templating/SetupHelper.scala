@@ -5,7 +5,7 @@ import chess.{ Mode, Variant, Speed }
 import lila.setup._
 import lila.user.Context
 
-trait SetupHelper extends scalaz.Booleans { self: I18nHelper ⇒
+trait SetupHelper { self: I18nHelper ⇒
 
   def translatedModeChoices(implicit ctx: Context) = List(
     Mode.Casual.id.toString -> trans.casual.str(),

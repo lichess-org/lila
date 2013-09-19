@@ -1,5 +1,6 @@
 package controllers
 
+import ornicar.scalalib.Zero
 import play.api.data.Form
 import play.api.http._
 import play.api.libs.iteratee.{ Iteratee, Enumerator }
@@ -21,21 +22,17 @@ private[controllers] trait LilaController
     with ResponseWriter
     with Results {
 
-  protected implicit val LilaResultZero = 
-    Zero.instance[Result](Results.NotFound)
+  protected implicit val LilaSimpleResultZero = Zero.instance[SimpleResult](Results.NotFound)
 
-  protected implicit val LilaPlainResultZero = 
-    Zero.instance[PlainResult](Results.NotFound)
+  protected implicit val LilaHtmlMonoid = lila.app.templating.Environment.LilaHtmlMonoid
 
-  protected implicit val LilaHtmlZero = lila.templating.Environment.LilaHtmlZero
-
-  protected implicit final class LilaPimpedResult(result: Result) {
+  protected implicit final class LilaPimpedSimpleResult(result: SimpleResult) {
     def fuccess = scala.concurrent.Future successful result
   }
 
-  protected implicit def LilaHtmlToResult(content: Html): Result = Ok(content)
+  protected implicit def LilaHtmlToSimpleResult(content: Html): SimpleResult = Ok(content)
 
-  protected implicit def LilaFunitToResult(funit: Funit): Fu[Result] = funit inject Ok("ok")
+  protected implicit def LilaFunitToSimpleResult(funit: Funit): Fu[SimpleResult] = funit inject Ok("ok")
 
   override implicit def lang(implicit req: RequestHeader) =
     Env.i18n.pool lang req
@@ -43,54 +40,54 @@ private[controllers] trait LilaController
   protected def Socket[A: FrameFormatter](f: Context ⇒ Fu[(Iteratee[A, _], Enumerator[A])]) =
     WebSocket.async[A] { req ⇒ reqToCtx(req) flatMap f }
 
-  protected def Open(f: Context ⇒ Fu[Result]): Action[AnyContent] =
+  protected def Open(f: Context ⇒ Fu[SimpleResult]): Action[AnyContent] =
     Open(BodyParsers.parse.anyContent)(f)
 
-  protected def Open[A](p: BodyParser[A])(f: Context ⇒ Fu[Result]): Action[A] =
-    Action(p)(req ⇒ Async(reqToCtx(req) flatMap f))
+  protected def Open[A](p: BodyParser[A])(f: Context ⇒ Fu[SimpleResult]): Action[A] =
+    Action.async(p)(req ⇒ reqToCtx(req) flatMap f)
 
-  protected def OpenBody(f: BodyContext ⇒ Fu[Result]): Action[AnyContent] =
+  protected def OpenBody(f: BodyContext ⇒ Fu[SimpleResult]): Action[AnyContent] =
     OpenBody(BodyParsers.parse.anyContent)(f)
 
-  protected def OpenBody[A](p: BodyParser[A])(f: BodyContext ⇒ Fu[Result]): Action[A] =
-    Action(p)(req ⇒ Async(reqToCtx(req) flatMap f))
+  protected def OpenBody[A](p: BodyParser[A])(f: BodyContext ⇒ Fu[SimpleResult]): Action[A] =
+    Action.async(p)(req ⇒ reqToCtx(req) flatMap f)
 
-  protected def OpenNoCtx(f: RequestHeader ⇒ Fu[Result]): Action[AnyContent] =
-    Action(req ⇒ Async(f(req)))
+  protected def OpenNoCtx(f: RequestHeader ⇒ Fu[SimpleResult]): Action[AnyContent] =
+    Action.async(f)
 
-  protected def Auth(f: Context ⇒ UserModel ⇒ Fu[Result]): Action[AnyContent] =
+  protected def Auth(f: Context ⇒ UserModel ⇒ Fu[SimpleResult]): Action[AnyContent] =
     Auth(BodyParsers.parse.anyContent)(f)
 
-  protected def Auth[A](p: BodyParser[A])(f: Context ⇒ UserModel ⇒ Fu[Result]): Action[A] =
-    Action(p)(req ⇒ Async {
+  protected def Auth[A](p: BodyParser[A])(f: Context ⇒ UserModel ⇒ Fu[SimpleResult]): Action[A] =
+    Action.async(p) { req ⇒
       reqToCtx(req) flatMap { ctx ⇒
         ctx.me.fold(authenticationFailed(ctx.req).fuccess)(me ⇒ f(ctx)(me))
       }
-    })
+    }
 
-  protected def AuthBody(f: BodyContext ⇒ UserModel ⇒ Fu[Result]): Action[AnyContent] =
+  protected def AuthBody(f: BodyContext ⇒ UserModel ⇒ Fu[SimpleResult]): Action[AnyContent] =
     AuthBody(BodyParsers.parse.anyContent)(f)
 
-  protected def AuthBody[A](p: BodyParser[A])(f: BodyContext ⇒ UserModel ⇒ Fu[Result]): Action[A] =
-    Action(p)(req ⇒ Async {
+  protected def AuthBody[A](p: BodyParser[A])(f: BodyContext ⇒ UserModel ⇒ Fu[SimpleResult]): Action[A] =
+    Action.async(p) { req ⇒
       reqToCtx(req) flatMap { ctx ⇒
         ctx.me.fold(authenticationFailed(ctx.req).fuccess)(me ⇒ f(ctx)(me))
       }
-    })
+    }
 
-  protected def Secure(perm: Permission.type ⇒ Permission)(f: Context ⇒ UserModel ⇒ Fu[Result]): Action[AnyContent] =
+  protected def Secure(perm: Permission.type ⇒ Permission)(f: Context ⇒ UserModel ⇒ Fu[SimpleResult]): Action[AnyContent] =
     Secure(perm(Permission))(f)
 
-  protected def Secure(perm: Permission)(f: Context ⇒ UserModel ⇒ Fu[Result]): Action[AnyContent] =
+  protected def Secure(perm: Permission)(f: Context ⇒ UserModel ⇒ Fu[SimpleResult]): Action[AnyContent] =
     Secure(BodyParsers.parse.anyContent)(perm)(f)
 
-  protected def Secure[A](p: BodyParser[A])(perm: Permission)(f: Context ⇒ UserModel ⇒ Fu[Result]): Action[A] =
+  protected def Secure[A](p: BodyParser[A])(perm: Permission)(f: Context ⇒ UserModel ⇒ Fu[SimpleResult]): Action[A] =
     Auth(p) { implicit ctx ⇒
       me ⇒
         isGranted(perm).fold(f(ctx)(me), fuccess(authorizationFailed(ctx.req)))
     }
 
-  protected def Firewall[A <: Result](a: ⇒ Fu[A])(implicit ctx: Context): Fu[Result] =
+  protected def Firewall[A <: SimpleResult](a: ⇒ Fu[A])(implicit ctx: Context): Fu[SimpleResult] =
     Env.security.firewall.accepts(ctx.req) flatMap {
       _ fold (a, {
         Env.security.firewall.logBlock(ctx.req)
@@ -98,7 +95,7 @@ private[controllers] trait LilaController
       })
     }
 
-  protected def NoEngine[A <: Result](a: ⇒ Fu[A])(implicit ctx: Context): Fu[Result] =
+  protected def NoEngine[A <: SimpleResult](a: ⇒ Fu[A])(implicit ctx: Context): Fu[SimpleResult] =
     ctx.me.??(_.engine).fold(Forbidden(views.html.site.noEngine()).fuccess, a)
 
   protected def JsonOk[A: Writes](fua: Fu[A]) = fua map { a ⇒
@@ -112,12 +109,12 @@ private[controllers] trait LilaController
   protected def JsOk(fua: Fu[String], headers: (String, String)*) =
     fua map { a ⇒ Ok(a) as JAVASCRIPT withHeaders (headers: _*) }
 
-  protected def FormResult[A](form: Form[A])(op: A ⇒ Fu[Result])(implicit req: Request[_]): Fu[Result] =
+  protected def FormResult[A](form: Form[A])(op: A ⇒ Fu[SimpleResult])(implicit req: Request[_]): Fu[SimpleResult] =
     form.bindFromRequest.fold(
       form ⇒ fuccess(BadRequest(form.errors mkString "\n")),
       op)
 
-  protected def FormFuResult[A, B: Writeable: ContentTypeOf](form: Form[A])(err: Form[A] ⇒ Fu[B])(op: A ⇒ Fu[Result])(implicit req: Request[_]) =
+  protected def FormFuResult[A, B: Writeable: ContentTypeOf](form: Form[A])(err: Form[A] ⇒ Fu[B])(op: A ⇒ Fu[SimpleResult])(implicit req: Request[_]) =
     form.bindFromRequest.fold(
       form ⇒ err(form) map { BadRequest(_) },
       data ⇒ op(data)
@@ -125,7 +122,7 @@ private[controllers] trait LilaController
 
   protected def FuRedirect(fua: Fu[Call]) = fua map { Redirect(_) }
 
-  protected def OptionOk[A, B: Writeable: ContentTypeOf](fua: Fu[Option[A]])(op: A ⇒ B)(implicit ctx: Context): Fu[Result] =
+  protected def OptionOk[A, B: Writeable: ContentTypeOf](fua: Fu[Option[A]])(op: A ⇒ B)(implicit ctx: Context): Fu[SimpleResult] =
     OptionFuOk(fua) { a ⇒ fuccess(op(a)) }
 
   protected def OptionFuOk[A, B: Writeable: ContentTypeOf](fua: Fu[Option[A]])(op: A ⇒ Fu[B])(implicit ctx: Context) =
@@ -141,13 +138,13 @@ private[controllers] trait LilaController
       _.fold(notFound(ctx))(a ⇒ op(a) map { b ⇒ Redirect(b) })
     }
 
-  protected def OptionResult[A](fua: Fu[Option[A]])(op: A ⇒ Result)(implicit ctx: Context) =
+  protected def OptionResult[A](fua: Fu[Option[A]])(op: A ⇒ SimpleResult)(implicit ctx: Context) =
     OptionFuResult(fua) { a ⇒ fuccess(op(a)) }
 
-  protected def OptionFuResult[A](fua: Fu[Option[A]])(op: A ⇒ Fu[Result])(implicit ctx: Context) =
+  protected def OptionFuResult[A](fua: Fu[Option[A]])(op: A ⇒ Fu[SimpleResult])(implicit ctx: Context) =
     fua flatMap { _.fold(notFound(ctx))(a ⇒ op(a)) }
 
-  protected def notFound(implicit ctx: Context): Fu[Result] = isXhr fold (
+  protected def notFound(implicit ctx: Context): Fu[SimpleResult] = isXhr fold (
     NotFound("resource not found").fuccess,
     Lobby handleNotFound ctx
   )
@@ -160,10 +157,10 @@ private[controllers] trait LilaController
   protected def isGranted(permission: Permission)(implicit ctx: Context): Boolean =
     ctx.me ?? Granter(permission)
 
-  protected def authenticationFailed(implicit req: RequestHeader): Result =
+  protected def authenticationFailed(implicit req: RequestHeader): SimpleResult =
     Redirect(routes.Auth.signup) withCookies LilaCookie.session(Env.security.api.AccessUri, req.uri)
 
-  protected def authorizationFailed(req: RequestHeader): Result =
+  protected def authorizationFailed(req: RequestHeader): SimpleResult =
     Forbidden("no permission")
 
   protected def reqToCtx(req: Request[_]): Fu[BodyContext] =
@@ -175,14 +172,14 @@ private[controllers] trait LilaController
   private def restoreUser(req: RequestHeader): Fu[Option[UserModel]] =
     Env.security.api restoreUser req addEffect {
       _ foreach { user ⇒
-        UserRepo setSeenAt user.id 
+        UserRepo setSeenAt user.id
         val lang = Env.i18n.pool.lang(req).language
         if (user.lang != lang.some) UserRepo.setLang(user.id, lang)
-        Env.user setOnline user 
-        user.seenAt.isEmpty ?? Env.relation.autofollow(user) 
+        Env.user setOnline user
+        user.seenAt.isEmpty ?? Env.relation.autofollow(user)
       }
     }
 
-  protected def Reasonable(page: Int, max: Int = 40)(result: ⇒ Fu[Result]): Fu[Result] =
+  protected def Reasonable(page: Int, max: Int = 40)(result: ⇒ Fu[SimpleResult]): Fu[SimpleResult] =
     (page < max).fold(result, BadRequest("resource too old").fuccess)
 }

@@ -21,12 +21,12 @@ private[controllers] trait ForumController extends forum.Granter { self: LilaCon
   protected def userOwnsTeam(teamId: String, userId: String): Fu[Boolean] =
     Env.team.api.owns(teamId, userId)
 
-  protected def CategGrantRead[A <: Result](categSlug: String)(a: ⇒ Fu[A])(implicit ctx: Context): Fu[Result] =
+  protected def CategGrantRead[A <: SimpleResult](categSlug: String)(a: ⇒ Fu[A])(implicit ctx: Context): Fu[SimpleResult] =
     isGrantedRead(categSlug).fold(a,
       fuccess(Forbidden("You cannot access to this category"))
     )
 
-  protected def CategGrantWrite[A <: Result](categSlug: String)(a: ⇒ Fu[A])(implicit ctx: Context): Fu[Result] =
+  protected def CategGrantWrite[A <: SimpleResult](categSlug: String)(a: ⇒ Fu[A])(implicit ctx: Context): Fu[SimpleResult] =
     isGrantedWrite(categSlug) flatMap {
       _ fold (
         a,
@@ -34,7 +34,7 @@ private[controllers] trait ForumController extends forum.Granter { self: LilaCon
       )
     }
 
-  protected def CategGrantMod[A <: Result](categSlug: String)(a: ⇒ Fu[A])(implicit ctx: Context): Fu[Result] =
+  protected def CategGrantMod[A <: SimpleResult](categSlug: String)(a: ⇒ Fu[A])(implicit ctx: Context): Fu[SimpleResult] =
     isGrantedMod(categSlug) flatMap { granted ⇒
       (granted | isGranted(_.ModerateForum)) fold (
         a,
