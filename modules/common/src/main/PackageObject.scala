@@ -1,39 +1,11 @@
 package lila
 
 import scala.concurrent.Future
-import scalaz.{ Monad, Monoid }
+import scalaz.{ Monad, Monoid, OptionT }
 
 import ornicar.scalalib
 
-trait PackageObject extends WithFuture
-
-    with scalalib.Validation
-    with scalalib.Common
-    with scalalib.Regex
-    with scalalib.DateTime
-    with scalalib.OrnicarMonoid.Instances
-    with scalalib.Zero.Syntax
-    with scalalib.Zero.Instances
-    with scalalib.OrnicarOption
-    with scalalib.OrnicarNonEmptyList
-
-    with scalaz.std.OptionInstances
-    with scalaz.std.OptionFunctions
-    with scalaz.syntax.std.ToOptionOps
-    with scalaz.syntax.std.ToOptionIdOps
-
-    with scalaz.std.ListInstances
-    with scalaz.std.ListFunctions
-    with scalaz.syntax.std.ToListOps
-
-    with scalaz.std.StringInstances
-
-    with scalaz.syntax.ToIdOps
-    with scalaz.syntax.ToValidationOps
-    with scalaz.syntax.ToFunctorOps
-    with scalaz.syntax.ToMonoidOps
-    with scalaz.syntax.ToTraverseOps
-    with scalaz.syntax.ToShowOps {
+trait PackageObject extends Steroids with WithFuture {
 
   def !![A](msg: String): Valid[A] = msg.failNel[A]
 
@@ -47,6 +19,8 @@ trait PackageObject extends WithFuture
   def fuloginfo(s: String) = fuccess { loginfo(s) }
   def fulogwarn(s: String) = fuccess { logwarn(s) }
   def fulogerr(s: String) = fuccess { logerr(s) }
+
+  implicit final def runOptionT[F[+_], A](ot: OptionT[F, A]): F[Option[A]] = ot.run
 
   implicit final class LilaPimpedString(s: String) {
 
@@ -81,7 +55,7 @@ trait PackageObject extends WithFuture
 
 trait WithFuture extends scalalib.Validation {
 
-  type Fu[A] = Future[A]
+  type Fu[+A] = Future[A]
   type Funit = Fu[Unit]
 
   def fuccess[A](a: A) = Future successful a
@@ -97,7 +71,7 @@ trait WithFuture extends scalalib.Validation {
 trait WithPlay { self: PackageObject ⇒
 
   import play.api.libs.json._
-  import ornicar.scalalib.Zero
+  import scalalib.Zero
 
   implicit def execontext = play.api.libs.concurrent.Execution.defaultContext
 
@@ -124,25 +98,6 @@ trait WithPlay { self: PackageObject ⇒
   implicit final class LilaTraversableFuture[A, M[_] <: TraversableOnce[_]](t: M[Fu[A]]) {
 
     def sequenceFu(implicit cbf: scala.collection.generic.CanBuildFrom[M[Fu[A]], A, M[A]]) = Future sequence t
-  }
-
-  /*
-   * Replaces scalaz boolean ops
-   * so ?? works on Zero and not Monoid
-   */
-  implicit final class LilaPimpedBoolean(b: Boolean) {
-
-    def ??[A](a: ⇒ A)(implicit z: Zero[A]): A = if (b) a else zero[A]
-
-    def !(f: ⇒ Unit) = if (b) f
-
-    def fold[A](t: ⇒ A, f: ⇒ A): A = if (b) t else f
-
-    def ?[X](t: ⇒ X) = new { def |(f: ⇒ X) = if (b) t else f }
-
-    def option[A](a: ⇒ A): Option[A] = if (b) Some(a) else None
-
-    def optionFu[A](v: ⇒ Fu[A]): Fu[Option[A]] = if (b) v map (_.some) else fuccess(none)
   }
 
   implicit final class LilaPimpedFuture[A](fua: Fu[A]) {
@@ -192,7 +147,7 @@ trait WithPlay { self: PackageObject ⇒
     }
   }
 
-  implicit final class LilaPimpedFutureMonoid[A: Zero](fua: Fu[A])() {
+  implicit final class LilaPimpedFutureZero[A: Zero](fua: Fu[A]) {
 
     def nevermind(msg: String): Fu[A] = fua recover {
       case e: lila.common.LilaException             ⇒ recoverException(e, msg.some)
@@ -227,6 +182,11 @@ trait WithPlay { self: PackageObject ⇒
       fua flatMap { _.fold(fuccess(true), fub) }
 
     def unary_! = fua map (!_)
+  }
+
+  implicit final class LilaPimpedBooleanWithFuture(self: Boolean) {
+
+    def optionFu[A](v: ⇒ Fu[A]): Fu[Option[A]] = if (self) v map (_.some) else fuccess(none)
   }
 
   object makeTimeout {
