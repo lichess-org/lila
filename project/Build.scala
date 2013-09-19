@@ -8,7 +8,7 @@ object ApplicationBuild extends Build {
 
   override def rootProject = Some(lila) 
 
-  lazy val lila = _root_.play.Project("lila", "4.0") settings (
+  lazy val lila = _root_.play.Project("lila", "5.0") settings (
     offline := true,
     libraryDependencies ++= Seq(
       scalaz, scalalib, hasher, config, apache, scalaTime,
