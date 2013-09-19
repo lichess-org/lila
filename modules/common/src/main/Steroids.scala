@@ -39,7 +39,6 @@ trait Steroids
 
   with BooleanSteroids
   with OptionSteroids
-  with LilaActorSelection
 
 trait BooleanSteroids {
 
