@@ -11,35 +11,35 @@ final class Env(config: Config, system: ActorSystem) {
   private val SocketHubTimeout = config duration "socket.hub.timeout"
 
   object actor {
-    val game = actorNamed("game.actor")
-    val gameIndexer = actorNamed("game.indexer")
-    val renderer = actorNamed("renderer")
-    val captcher = actorNamed("captcher")
-    val forum = actorNamed("forum.actor")
-    val forumIndexer = actorNamed("forum.indexer")
-    val messenger = actorNamed("messenger")
-    val router = actorNamed("router")
-    val teamIndexer = actorNamed("team.indexer")
-    val ai = actorNamed("ai")
-    val monitor = actorNamed("monitor")
-    val tournamentOrganizer = actorNamed("tournament.organizer")
-    val gameTimeline = actorNamed("timeline.game")
-    val timeline = actorNamed("timeline.user")
-    val bookmark = actorNamed("bookmark")
-    val roundMap = actorNamed("round.map")
-    val round = actorNamed("round.actor")
-    val lobby = actorNamed("lobby")
-    val relation = actorNamed("relation")
-    val challenger = actorNamed("challenger")
+    val game = select("actor.game.actor")
+    val gameIndexer = select("actor.game.indexer")
+    val renderer = select("actor.renderer")
+    val captcher = select("actor.captcher")
+    val forum = select("actor.forum.actor")
+    val forumIndexer = select("actor.forum.indexer")
+    val messenger = select("actor.messenger")
+    val router = select("actor.router")
+    val teamIndexer = select("actor.team.indexer")
+    val ai = select("actor.ai")
+    val monitor = select("actor.monitor")
+    val tournamentOrganizer = select("actor.tournament.organizer")
+    val gameTimeline = select("actor.timeline.game")
+    val timeline = select("actor.timeline.user")
+    val bookmark = select("actor.bookmark")
+    val roundMap = select("actor.round.map")
+    val round = select("actor.round.actor")
+    val lobby = select("actor.lobby")
+    val relation = select("actor.relation")
+    val challenger = select("actor.challenger")
   }
 
   object socket {
-    val lobby = socketNamed("lobby")
-    val monitor = socketNamed("monitor")
-    val site = socketNamed("site")
-    val round = socketNamed("round")
-    val tournament = socketNamed("tournament")
-    val hub = system actorSelection SocketHubName
+    val lobby = select("socket.lobby")
+    val monitor = select("socket.monitor")
+    val site = select("socket.site")
+    val round = select("socket.round")
+    val tournament = select("socket.tournament")
+    val hub = select(SocketHubName)
   }
 
   system.actorOf(Props(new Broadcast(List(
@@ -49,11 +49,8 @@ final class Env(config: Config, system: ActorSystem) {
     socket.tournament
   ))(makeTimeout(SocketHubTimeout))), name = SocketHubName)
 
-  private def actorNamed(name: String) =
-    system actorSelection config.getString("actor." + name)
-
-  private def socketNamed(name: String) =
-    system actorSelection config.getString("socket." + name)
+  private def select(name: String) = 
+    system actorSelection ("/user/" + config.getString(name))
 }
 
 object Env {
