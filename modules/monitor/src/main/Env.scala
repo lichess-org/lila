@@ -34,8 +34,10 @@ final class Env(
   {
     import scala.concurrent.duration._
 
-    scheduler.message(1 seconds) {
-      reporting -> lila.hub.actorApi.monitor.Update
+    scheduler.once(5 seconds) {
+      scheduler.message(1 seconds) {
+        reporting -> lila.hub.actorApi.monitor.Update
+      }
     }
   }
 
