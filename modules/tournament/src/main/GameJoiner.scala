@@ -2,7 +2,7 @@ package lila.tournament
 
 import scala.concurrent.duration._
 
-import akka.actor.{ ActorRef, ActorSystem }
+import akka.actor.{ ActorRef, ActorSystem, ActorSelection }
 
 import chess.Color
 import lila.game.{ Game, Player ⇒ GamePlayer, GameRepo, Pov, PovRef, Source }
@@ -12,7 +12,7 @@ import lila.user.{ User, UserRepo }
 
 final class GameJoiner(
     roundMap: ActorRef,
-    timelinePush: lila.hub.ActorLazyRef,
+    timelinePush: ActorSelection,
     system: ActorSystem) {
 
   private val secondsToMove = 20

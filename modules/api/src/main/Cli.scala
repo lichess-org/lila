@@ -18,7 +18,7 @@ private[api] final class Cli(hub: lila.hub.Env) extends lila.common.Cli {
     case "deploy" :: Nil ⇒ {
       hub.actor.renderer ? lila.hub.actorApi.RemindDeploy map {
         case html: Html ⇒ Deploy(html.body)
-      } pipeTo hub.socket.hub.ref
+      } pipeToSelection hub.socket.hub
       fuccess("Deploy in progress")
     }
   }

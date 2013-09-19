@@ -4,6 +4,7 @@ import scala.concurrent.duration._
 import scala.concurrent.{ Future, Await }
 
 import akka.actor._
+import akka.actor.ActorSelection
 import akka.pattern.{ ask, pipe }
 import chess.Color
 import Featured._
@@ -15,15 +16,15 @@ import lila.hub.actorApi.map.TellAll
 import tube.gameTube
 
 final class Featured(
-    lobbySocket: lila.hub.ActorLazyRef,
-    roundActor: lila.hub.ActorLazyRef,
-    rendererActor: lila.hub.ActorLazyRef,
+    lobbySocket: ActorSelection,
+    roundActor: ActorSelection,
+    rendererActor: ActorSelection,
     system: ActorSystem) {
 
   implicit private def timeout = makeTimeout(2 seconds)
   private type Fuog = Fu[Option[Game]]
 
-  def one: Fuog = 
+  def one: Fuog =
     (actor ? Get mapTo manifest[Option[Game]]) nevermind "[featured] one"
 
   private[game] val actor = system.actorOf(Props(new Actor {

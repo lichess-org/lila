@@ -1,15 +1,16 @@
 package lila.analyse
 
+import akka.actor.ActorSelection
 import com.typesafe.config.Config
-import lila.common.PimpedConfig._
-import lila.hub.ActorLazyRef
 import spray.caching.{ LruCache, Cache }
+
+import lila.common.PimpedConfig._
 
 final class Env(
     config: Config,
     db: lila.db.Env,
-    ai: ActorLazyRef,
-    indexer: ActorLazyRef,
+    ai: ActorSelection,
+    indexer: ActorSelection,
     nameUser: String ⇒ Fu[String]) {
 
   private val CollectionAnalysis = config getString "collection.analysis"

@@ -10,7 +10,7 @@ import tube.translationTube
 
 final class DataForm(
     keys: I18nKeys, 
-    val captcher: lila.hub.ActorLazyRef) extends lila.hub.CaptchedForm {
+    val captcher: akka.actor.ActorSelection) extends lila.hub.CaptchedForm {
 
   val translation = Form(mapping(
     "author" -> optional(nonEmptyText),

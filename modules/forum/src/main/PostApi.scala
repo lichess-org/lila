@@ -1,14 +1,14 @@
 package lila.forum
 
+import actorApi._
+import akka.actor.ActorSelection
 import play.api.libs.json._
 
-import actorApi._
 import lila.common.paginator._
 import lila.db.api._
 import lila.db.Implicits._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ Propagate, ForumPost }
-import lila.hub.ActorLazyRef
 import lila.mod.ModlogApi
 import lila.security.{ Granter ⇒ MasterGranter }
 import lila.user.{ User, Context }
@@ -16,10 +16,10 @@ import tube._
 
 final class PostApi(
     env: Env,
-    indexer: ActorLazyRef,
+    indexer: ActorSelection,
     maxPerPage: Int,
     modLog: ModlogApi,
-    timeline: ActorLazyRef) {
+    timeline: ActorSelection) {
 
   def makePost(
     categ: Categ,

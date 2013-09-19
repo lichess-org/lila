@@ -12,7 +12,7 @@ private[round] final class Player(
     ai: () ⇒ Fu[Ai],
     notifyMove: (String, String, Option[String]) ⇒ Unit,
     finisher: Finisher,
-    roundMap: lila.hub.ActorLazyRef) {
+    roundMap: akka.actor.ActorSelection) {
 
   def human(play: HumanPlay)(pov: Pov): Fu[Events] = play match {
     case HumanPlay(playerId, origS, destS, promS, blur, lag, onFailure) ⇒ pov match {

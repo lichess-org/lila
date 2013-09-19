@@ -8,13 +8,12 @@ import play.api.templates.Html
 import lila.hub.actorApi.SendTos
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.setup._
-import lila.hub.ActorLazyRef
 import makeTimeout.short
 
 private[setup] final class Challenger(
-    hub: ActorLazyRef,
-    roundHub: ActorLazyRef,
-    renderer: ActorLazyRef) extends Actor {
+    hub: ActorSelection,
+    roundHub: ActorSelection,
+    renderer: ActorSelection) extends Actor {
 
   def receive = {
 
@@ -27,7 +26,7 @@ private[setup] final class Challenger(
             "html" -> html.toString
           )
         ))
-      } pipeToSelection hub.selection
+      } pipeToSelection hub
 
     case msg @ DeclineChallenge(gameId) ⇒ roundHub ! Tell(gameId, msg)
   }

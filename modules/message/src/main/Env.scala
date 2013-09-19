@@ -8,7 +8,7 @@ import lila.hub.actorApi.message.LichessThread
 final class Env(
     config: Config,
     db: lila.db.Env,
-    socketHub: lila.hub.ActorLazyRef,
+    socketHub: akka.actor.ActorSelection,
     blocks: (String, String) ⇒ Fu[Boolean],
     system: ActorSystem) {
 

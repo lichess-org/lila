@@ -10,7 +10,7 @@ import lila.db.api._
 import lila.hub.actorApi.bookmark.Remove
 import tube.gameTube
 
-private[game] final class Titivate(bookmark: lila.hub.ActorLazyRef) {
+private[game] final class Titivate(bookmark: akka.actor.ActorSelection) {
 
   def cleanupUnplayed: Funit = GameRepo.unplayedIds flatMap { ids ⇒
     fuloginfo("[titivate] Remove %d unplayed games" format ids.size) >>

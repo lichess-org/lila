@@ -10,7 +10,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     eloUpdater: EloUpdater,
-    lobbySocket: lila.hub.ActorLazyRef,
+    lobbySocket: akka.actor.ActorSelection,
     firewall: Firewall,
     userSpy: String => Fu[UserSpy]) {
 

@@ -1,6 +1,8 @@
 package lila.notification
 
-final class Env(socketHub: lila.hub.ActorLazyRef, renderer: lila.hub.ActorLazyRef) {
+import akka.actor.ActorSelection
+
+final class Env(socketHub: ActorSelection, renderer: ActorSelection) {
 
   lazy val api = new Api(socketHub, renderer)
 }

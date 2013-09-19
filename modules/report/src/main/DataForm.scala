@@ -6,7 +6,7 @@ import play.api.data.validation.Constraints._
 
 import lila.user.{ User, UserRepo }
 
-private[report] final class DataForm(val captcher: lila.hub.ActorLazyRef) extends lila.hub.CaptchedForm {
+private[report] final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.CaptchedForm {
 
   val create = Form(mapping(
     "username" -> nonEmptyText.verifying("Unknown username", { fetchUser(_).isDefined }),

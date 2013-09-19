@@ -1,17 +1,16 @@
 package lila.relation
 
-import akka.actor.Actor
+import akka.actor.{ Actor, ActorSelection }
 import akka.pattern.{ ask, pipe }
 import play.api.libs.json.Json
 
 import actorApi._
 import lila.hub.actorApi.relation._
 import lila.hub.actorApi.{ SendTo, SendTos }
-import lila.hub.ActorLazyRef
 import makeTimeout.short
 
 private[relation] final class RelationActor(
-    socketHub: ActorLazyRef,
+    socketHub: ActorSelection,
     getOnlineUserIds: () ⇒ Set[String],
     getUsername: String ⇒ Fu[String],
     api: RelationApi) extends Actor {
@@ -72,7 +71,7 @@ private[relation] final class RelationActor(
           "us" -> usernames,
           "nb" -> nb
         ))
-    } pipeToSelection socketHub.selection
+    } pipeToSelection socketHub
   }
 
   private def notifyFollowers(users: List[User], message: String) {

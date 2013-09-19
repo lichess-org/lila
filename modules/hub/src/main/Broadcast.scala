@@ -10,7 +10,7 @@ import akka.util.Timeout
 
 import actorApi._
 
-final class Broadcast(lazyRefs: List[ActorLazyRef])(implicit timeout: Timeout) extends Actor {
+final class Broadcast(actors: List[ActorSelection])(implicit timeout: Timeout) extends Actor {
 
   def receive = {
 
@@ -25,9 +25,9 @@ final class Broadcast(lazyRefs: List[ActorLazyRef])(implicit timeout: Timeout) e
   }
 
   private def broadcast(msg: Any) {
-    lazyRefs foreach { _ ! msg }
+    actors foreach { _ ! msg }
   }
 
   private def askAll(message: Any): Fu[List[Any]] =
-    lazyRefs.map(_ ? message).sequenceFu
+    actors.map(_ ? message).sequenceFu
 }

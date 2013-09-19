@@ -1,6 +1,7 @@
 package lila.round
 
 import akka.pattern.ask
+import akka.actor.ActorSelection
 
 import chess.format.Forsyth
 import chess.{ Game ⇒ ChessGame, Board, Clock, Variant, Color ⇒ ChessColor }
@@ -13,8 +14,8 @@ import makeTimeout.short
 
 private[round] final class Rematcher(
     messenger: Messenger,
-    router: lila.hub.ActorLazyRef,
-    timeline: lila.hub.ActorLazyRef) {
+    router: ActorSelection,
+    timeline: ActorSelection) {
 
   def yes(pov: Pov): Fu[Events] = pov match {
     case Pov(game, color) if (game playerCanRematch color) ⇒

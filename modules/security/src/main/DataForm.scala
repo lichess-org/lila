@@ -7,7 +7,7 @@ import play.api.data.validation.Constraints
 import lila.db.api.$count
 import lila.user.tube.userTube
 
-final class DataForm(val captcher: lila.hub.ActorLazyRef) extends lila.hub.CaptchedForm {
+final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.CaptchedForm {
 
   import DataForm._
 

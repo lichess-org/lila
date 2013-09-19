@@ -12,8 +12,8 @@ import makeTimeout.short
 import tube.gameEntryTube
 
 private[timeline] final class GamePush(
-    lobbySocket: lila.hub.ActorLazyRef,
-    renderer: lila.hub.ActorLazyRef,
+    lobbySocket: ActorSelection,
+    renderer: ActorSelection,
     getUsername: String ⇒ Fu[String]) extends Actor {
 
   def receive = {
@@ -21,7 +21,7 @@ private[timeline] final class GamePush(
       $insert(entry) >>- {
         renderer ? entry map {
           case view: Html ⇒ GameEntryView(view.body)
-        } pipeToSelection lobbySocket.selection
+        } pipeToSelection lobbySocket
       }
     } logFailure ("[timeline] push " + game.id)
   }

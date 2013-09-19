@@ -9,7 +9,7 @@ import lila.memo.ExpireSetMemo
 final class Env(
     config: Config,
     db: lila.db.Env,
-    socketHub: lila.hub.ActorLazyRef,
+    socketHub: akka.actor.ActorSelection,
     scheduler: lila.common.Scheduler) {
 
   private val settings = new {
