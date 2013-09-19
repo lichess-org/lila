@@ -19,7 +19,7 @@ import lila.socket.{ SocketActor, History, Historical }
 
 private[lobby] final class Socket(
     val history: History,
-    router: lila.hub.ActorLazyRef,
+    router: akka.actor.ActorSelection,
     uidTtl: Duration) extends SocketActor[Member](uidTtl) with Historical[Member] {
 
   def receiveSpecific = {

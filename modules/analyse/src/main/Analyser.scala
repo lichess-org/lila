@@ -1,17 +1,18 @@
 package lila.analyse
 
+import akka.actor.ActorSelection
 import akka.pattern.ask
+import makeTimeout.veryLarge
+
 import lila.db.api._
 import lila.game.actorApi.InsertGame
 import lila.game.tube.gameTube
 import lila.game.{ Game, GameRepo, PgnRepo }
-import lila.hub.ActorLazyRef
-import makeTimeout.veryLarge
 import tube.analysisTube
 
 final class Analyser(
-    ai: ActorLazyRef,
-    indexer: ActorLazyRef) {
+    ai: ActorSelection,
+    indexer: ActorSelection) {
 
   def get(id: String): Fu[Option[Analysis]] = $find.byId[Analysis](id)
 

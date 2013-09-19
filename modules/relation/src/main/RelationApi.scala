@@ -1,20 +1,21 @@
 package lila.relation
 
+import akka.actor.ActorSelection
+
 import lila.db.api._
 import lila.db.Implicits._
 import lila.game.GameRepo
 import lila.hub.actorApi.relation.ReloadOnlineFriends
 import lila.hub.actorApi.timeline.{ Propagate, Follow ⇒ FollowUser }
-import lila.hub.ActorLazyRef
 import lila.user.tube.userTube
 import lila.user.{ User, UserRepo }
 import tube.relationTube
 
 final class RelationApi(
     cached: Cached,
-    actor: ActorLazyRef,
+    actor: ActorSelection,
     getOnlineUserIds: () ⇒ Set[String],
-    timeline: ActorLazyRef) {
+    timeline: ActorSelection) {
 
   def followers(userId: ID) = cached followers userId
   def following(userId: ID) = cached following userId

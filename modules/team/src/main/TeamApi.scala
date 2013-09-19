@@ -3,10 +3,10 @@ package lila.team
 import org.scala_tools.time.Imports._
 
 import actorApi._
+import akka.actor.ActorSelection
 import lila.db.api._
 import lila.hub.actorApi.forum.MakeTeam
 import lila.hub.actorApi.timeline.{ Propagate, TeamJoin, TeamCreate }
-import lila.hub.ActorLazyRef
 import lila.user.tube.userTube
 import lila.user.{ User, Context }
 import tube._
@@ -14,9 +14,9 @@ import tube._
 final class TeamApi(
     cached: Cached,
     notifier: Notifier,
-    forum: ActorLazyRef,
-    indexer: ActorLazyRef,
-    timeline: ActorLazyRef) {
+    forum: ActorSelection,
+    indexer: ActorSelection,
+    timeline: ActorSelection) {
 
   val creationPeriod = 1.week
 

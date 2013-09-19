@@ -7,7 +7,7 @@ import lila.game.{ GameRepo, Game, Player, Pov, Progress }
 import lila.user.{ User, UserRepo }
 
 private[lobby] final class Biter(
-    timeline: lila.hub.ActorLazyRef,
+    timeline: akka.actor.ActorSelection,
     blocks: (String, String) ⇒ Fu[Boolean],
     roundMessenger: lila.round.Messenger) {
 

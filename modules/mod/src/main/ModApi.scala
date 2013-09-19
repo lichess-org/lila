@@ -10,7 +10,7 @@ final class ModApi(
     userSpy: String ⇒ Fu[UserSpy],
     firewall: Firewall,
     eloUpdater: EloUpdater,
-    lobbySocket: lila.hub.ActorLazyRef) {
+    lobbySocket: akka.actor.ActorSelection) {
 
   def adjust(mod: String, username: String): Funit = withUser(username) { user ⇒
     logApi.engine(mod, user.id, !user.engine) zip

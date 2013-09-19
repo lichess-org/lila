@@ -1,5 +1,6 @@
 package lila.setup
 
+import akka.actor.ActorSelection
 import akka.pattern.ask
 import chess.{ Game ⇒ ChessGame, Board, Color ⇒ ChessColor }
 import makeTimeout.short
@@ -17,10 +18,10 @@ import lila.user.{ User, Context }
 import tube.{ userConfigTube, anonConfigTube }
 
 private[setup] final class Processor(
-    lobby: lila.hub.ActorLazyRef,
+    lobby: ActorSelection,
     friendConfigMemo: FriendConfigMemo,
-    timeline: lila.hub.ActorLazyRef,
-    router: lila.hub.ActorLazyRef,
+    timeline: ActorSelection,
+    router: ActorSelection,
     getAi: () ⇒ Fu[Ai]) {
 
   def filter(config: FilterConfig)(implicit ctx: Context): Funit =

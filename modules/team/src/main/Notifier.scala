@@ -1,13 +1,14 @@
 package lila.team
 
+import akka.actor.ActorSelection
 import akka.pattern.ask
 
 import lila.hub.actorApi.message.LichessThread
 import lila.hub.actorApi.router._
 
 private[team] final class Notifier(
-    messenger: lila.hub.ActorLazyRef,
-    router: lila.hub.ActorLazyRef) {
+    messenger: ActorSelection,
+    router: ActorSelection) {
 
   import makeTimeout.large
 
@@ -24,5 +25,5 @@ Here is the team page: %s""" format url
   }
 
   private def teamUrl(id: String) =
-    router ? Abs(TeamShow(id)) mapTo manifest[String] 
+    router ? Abs(TeamShow(id)) mapTo manifest[String]
 }

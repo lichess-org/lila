@@ -9,8 +9,8 @@ final class Env(
     hub: lila.hub.Env,
     getFriendIds: String => Fu[Set[String]],
     getUsername: String ⇒ Fu[String],
-    lobbySocket: lila.hub.ActorLazyRef,
-    renderer: lila.hub.ActorLazyRef,
+    lobbySocket: ActorSelection,
+    renderer: ActorSelection,
     system: ActorSystem) {
 
   private val GameCollectionEntry = config getString "game.collection.entry"

@@ -3,7 +3,7 @@ package lila.forum
 import play.api.data._
 import play.api.data.Forms._
 
-private[forum] final class DataForm(val captcher: lila.hub.ActorLazyRef) extends lila.hub.CaptchedForm {
+private[forum] final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.CaptchedForm {
 
   import DataForm._
 

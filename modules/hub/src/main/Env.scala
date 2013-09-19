@@ -11,35 +11,35 @@ final class Env(config: Config, system: ActorSystem) {
   private val SocketHubTimeout = config duration "socket.hub.timeout"
 
   object actor {
-    val game = actorLazyRef("game.actor")
-    val gameIndexer = actorLazyRef("game.indexer")
-    val renderer = actorLazyRef("renderer")
-    val captcher = actorLazyRef("captcher")
-    val forum = actorLazyRef("forum.actor")
-    val forumIndexer = actorLazyRef("forum.indexer")
-    val messenger = actorLazyRef("messenger")
-    val router = actorLazyRef("router")
-    val teamIndexer = actorLazyRef("team.indexer")
-    val ai = actorLazyRef("ai")
-    val monitor = actorLazyRef("monitor")
-    val tournamentOrganizer = actorLazyRef("tournament.organizer")
-    val gameTimeline = actorLazyRef("timeline.game")
-    val timeline = actorLazyRef("timeline.user")
-    val bookmark = actorLazyRef("bookmark")
-    val roundMap = actorLazyRef("round.map")
-    val round = actorLazyRef("round.actor")
-    val lobby = actorLazyRef("lobby")
-    val relation = actorLazyRef("relation")
-    val challenger = actorLazyRef("challenger")
+    val game = actorNamed("game.actor")
+    val gameIndexer = actorNamed("game.indexer")
+    val renderer = actorNamed("renderer")
+    val captcher = actorNamed("captcher")
+    val forum = actorNamed("forum.actor")
+    val forumIndexer = actorNamed("forum.indexer")
+    val messenger = actorNamed("messenger")
+    val router = actorNamed("router")
+    val teamIndexer = actorNamed("team.indexer")
+    val ai = actorNamed("ai")
+    val monitor = actorNamed("monitor")
+    val tournamentOrganizer = actorNamed("tournament.organizer")
+    val gameTimeline = actorNamed("timeline.game")
+    val timeline = actorNamed("timeline.user")
+    val bookmark = actorNamed("bookmark")
+    val roundMap = actorNamed("round.map")
+    val round = actorNamed("round.actor")
+    val lobby = actorNamed("lobby")
+    val relation = actorNamed("relation")
+    val challenger = actorNamed("challenger")
   }
 
   object socket {
-    val lobby = socketLazyRef("lobby")
-    val monitor = socketLazyRef("monitor")
-    val site = socketLazyRef("site")
-    val round = socketLazyRef("round")
-    val tournament = socketLazyRef("tournament")
-    val hub = lazyRef(SocketHubName)
+    val lobby = socketNamed("lobby")
+    val monitor = socketNamed("monitor")
+    val site = socketNamed("site")
+    val round = socketNamed("round")
+    val tournament = socketNamed("tournament")
+    val hub = system actorSelection SocketHubName
   }
 
   system.actorOf(Props(new Broadcast(List(
@@ -49,13 +49,11 @@ final class Env(config: Config, system: ActorSystem) {
     socket.tournament
   ))(makeTimeout(SocketHubTimeout))), name = SocketHubName)
 
-  private val lazyRef = ActorLazyRef(system) _
+  private def actorNamed(name: String) =
+    system actorSelection config.getString("actor." + name)
 
-  private def actorLazyRef(name: String) =
-    lazyRef(config.getString("actor." + name))
-
-  private def socketLazyRef(name: String) =
-    lazyRef(config.getString("socket." + name))
+  private def socketNamed(name: String) =
+    system actorSelection config.getString("socket." + name)
 }
 
 object Env {

@@ -13,7 +13,7 @@ final class Env(
     db: lila.db.Env,
     system: akka.actor.ActorSystem,
     val messagesApi: MessagesApi,
-    captcher: lila.hub.ActorLazyRef,
+    captcher: akka.actor.ActorSelection,
     appPath: String) {
 
   private val settings = new {

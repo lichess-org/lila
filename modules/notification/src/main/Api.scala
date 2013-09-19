@@ -2,13 +2,14 @@ package lila.notification
 
 import scala.collection.mutable
 
+import akka.actor.ActorSelection
 import akka.pattern.{ ask, pipe }
 import play.api.templates.Html
 
 import lila.hub.actorApi.SendTo
 import lila.user.User
 
-private[notification] final class Api(socketHub: lila.hub.ActorLazyRef, renderer: lila.hub.ActorLazyRef) {
+private[notification] final class Api(socketHub: ActorSelection, renderer: ActorSelection) {
 
   private val repo = mutable.Map[String, List[Notification]]()
   import makeTimeout.large
@@ -19,7 +20,7 @@ private[notification] final class Api(socketHub: lila.hub.ActorLazyRef, renderer
     val request = actorApi.RenderNotification(notif.id, notif.from, notif.html)
     renderer ? request map {
       case rendered: Html ⇒ SendTo(userId, "notificationAdd", rendered.toString)
-    } logFailure "[notification] cannot render" pipeToSelection socketHub.selection
+    } logFailure "[notification] cannot render" pipeToSelection socketHub
   }
 
   def get(userId: String): List[Notification] = ~(repo get userId)

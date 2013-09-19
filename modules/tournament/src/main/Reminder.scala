@@ -10,8 +10,8 @@ import lila.hub.actorApi.SendTos
 import makeTimeout.short
 
 private[tournament] final class Reminder(
-    hub: lila.hub.ActorLazyRef,
-    renderer: lila.hub.ActorLazyRef) extends Actor {
+    hub: ActorSelection,
+    renderer: ActorSelection) extends Actor {
 
   def receive = {
 
@@ -23,7 +23,7 @@ private[tournament] final class Reminder(
             "id" -> tour.id,
             "html" -> html.toString
           )))
-      } pipeTo hub.ref
+      } pipeToSelection hub
     }
   }
 }

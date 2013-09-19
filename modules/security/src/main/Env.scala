@@ -11,7 +11,7 @@ import lila.user.{ User, UserRepo }
 
 final class Env(
     config: Config,
-    captcher: lila.hub.ActorLazyRef,
+    captcher: akka.actor.ActorSelection,
     system: ActorSystem,
     db: lila.db.Env) {
 

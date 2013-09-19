@@ -7,7 +7,7 @@ import lila.common.PimpedConfig._
 final class Env(
     config: Config,
     roundMap: akka.actor.ActorRef,
-    bookmark: lila.hub.ActorLazyRef) {
+    bookmark: akka.actor.ActorSelection) {
 
   private val Delay = config duration "delay"
 

@@ -1,22 +1,23 @@
 package lila.forum
 
 import actorApi._
+import akka.actor.ActorSelection
+
 import lila.common.paginator._
 import lila.db.api._
 import lila.db.Implicits._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ Propagate, ForumPost }
-import lila.hub.ActorLazyRef
 import lila.security.{ Granter ⇒ MasterGranter }
 import lila.user.{ User, Context }
 import tube._
 
 private[forum] final class TopicApi(
     env: Env,
-    indexer: ActorLazyRef,
+    indexer: ActorSelection,
     maxPerPage: Int,
     modLog: lila.mod.ModlogApi,
-    timeline: ActorLazyRef) {
+    timeline: ActorSelection) {
 
   def show(categSlug: String, slug: String, page: Int, troll: Boolean): Fu[Option[(Categ, Topic, Paginator[Post])]] =
     for {

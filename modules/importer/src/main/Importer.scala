@@ -15,7 +15,7 @@ import makeTimeout.large
 
 private[importer] final class Importer(
     roundMap: ActorRef,
-    bookmark: lila.hub.ActorLazyRef,
+    bookmark: akka.actor.ActorSelection,
     delay: Duration) {
 
   def apply(data: ImportData, user: Option[String]): Fu[Game] = gameExists(data.pgn) {

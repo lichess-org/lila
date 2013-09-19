@@ -1,5 +1,6 @@
 package lila.setup
 
+import akka.actor.ActorSelection
 import akka.pattern.ask
 
 import chess.{ Color ⇒ ChessColor }
@@ -11,8 +12,8 @@ import makeTimeout.short
 
 private[setup] final class FriendJoiner(
     messenger: Messenger,
-    timeline: lila.hub.ActorLazyRef,
-    router: lila.hub.ActorLazyRef) {
+    timeline: ActorSelection,
+    router: ActorSelection) {
 
   def apply(game: Game, user: Option[User]): Valid[Fu[(Pov, List[Event])]] =
     game.notStarted option {

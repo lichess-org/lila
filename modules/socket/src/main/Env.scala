@@ -18,10 +18,10 @@ final class Env(
 
   scheduler.once(5 seconds) {
     scheduler.messageToSelection(4 seconds) {
-      hub.socket.hub.selection -> actorApi.Broom
+      hub.socket.hub -> actorApi.Broom
     }
     scheduler.messageToSelection(1 seconds) {
-      hub.socket.hub.selection -> GetNbMembers
+      hub.socket.hub -> GetNbMembers
     }
   }
 }

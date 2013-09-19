@@ -13,11 +13,11 @@ import lila.user.{ User, UserRepo, EloUpdater }
 import scalaz.{ OptionT, Success }
 
 private[round] final class Finisher(
-    tournamentOrganizer: lila.hub.ActorLazyRef,
+    tournamentOrganizer: akka.actor.ActorSelection,
     messenger: Messenger,
     eloUpdater: EloUpdater,
     eloCalculator: EloCalculator,
-    indexer: lila.hub.ActorLazyRef) {
+    indexer: akka.actor.ActorSelection) {
 
   def apply(
     game: Game,

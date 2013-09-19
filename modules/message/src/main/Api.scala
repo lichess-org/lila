@@ -15,7 +15,7 @@ import tube.threadTube
 final class Api(
     unreadCache: UnreadCache,
     maxPerPage: Int,
-    socketHub: lila.hub.ActorLazyRef) {
+    socketHub: akka.actor.ActorSelection) {
 
   def inbox(me: User, page: Int): Fu[Paginator[Thread]] = Paginator(
     adapter = new Adapter(
@@ -82,6 +82,6 @@ final class Api(
   private def updateUser(user: String) {
     (unreadCache refresh user) mapTo manifest[List[String]] map { ids ⇒
       SendTo(user, "nbm", ids.size)
-    } pipeTo socketHub.ref
+    } pipeToSelection socketHub
   }
 }

@@ -9,7 +9,7 @@ import lila.hub.actorApi.{ router ⇒ R }
 import lila.user.User
 import makeTimeout.short
 
-private[game] final class Export(router: lila.hub.ActorLazyRef) {
+private[game] final class Export(router: akka.actor.ActorSelection) {
 
   private val dateFormatter = ISODateTimeFormat.dateTime
 
