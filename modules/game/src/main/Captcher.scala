@@ -7,7 +7,7 @@ import akka.actor._
 import akka.pattern.{ ask, pipe }
 import play.api.libs.concurrent.Akka.system
 import play.api.Play.current
-import scalaz.{ NonEmptyList, OptionT, OptionTs }
+import scalaz.{ NonEmptyList, OptionT }
 import spray.caching.{ LruCache, Cache }
 
 import chess.format.{ Forsyth, pgn }
@@ -32,10 +32,10 @@ private final class Captcher extends Actor {
       Impl get id map (_ valid solution) pipeTo sender
   }
 
-  private object Impl extends NonEmptyLists {
+  private object Impl {
 
     def get(id: String): Fu[Captcha] = find(id) match {
-      case None    ⇒ getFromDb(id) map (c ⇒ ~c ~ add)
+      case None    ⇒ getFromDb(id) map (c ⇒ (c | Captcha.default) ~ add)
       case Some(c) ⇒ fuccess(c)
     }
 
@@ -48,11 +48,11 @@ private final class Captcher extends Actor {
     // Private stuff
 
     private val capacity = 512
-    private var challenges: NonEmptyList[Captcha] = NonEmptyList(∅[Captcha])
+    private var challenges: NonEmptyList[Captcha] = NonEmptyList(Captcha.default)
 
     private def add(c: Captcha) {
       find(c.gameId) ifNone {
-        challenges = NonEmptyList(c, challenges.list take capacity)
+        challenges = NonEmptyList.nel(c, challenges.list take capacity)
       }
     }
 
