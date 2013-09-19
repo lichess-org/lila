@@ -28,7 +28,7 @@ private[tournament] final class TournamentApi(
     socketHub: ActorRef,
     site: lila.hub.ActorLazyRef,
     lobby: lila.hub.ActorLazyRef,
-    roundMap: ActorRef) extends scalaz.OptionTs {
+    roundMap: ActorRef) {
 
   def makePairings(tour: Started, pairings: NonEmptyList[Pairing]): Funit =
     (tour addPairings pairings) |> { tour2 ⇒
@@ -127,7 +127,7 @@ private[tournament] final class TournamentApi(
         tripleQuickLossWithdraw(tour2, game.loserUserId) inject
         tour2.some
     }
-  } yield result.value
+  } yield result
 
   private def tripleQuickLossWithdraw(tour: Started, loser: Option[String]): Funit =
     loser.filter(tour.quickLossStreak).??(withdraw(tour, _))

@@ -32,7 +32,7 @@ object Dependencies {
   }
 
   val scalaz = "org.scalaz" %% "scalaz-core" % "7.0.3"
-  val scalalib = "com.github.ornicar" %% "scalalib" % "4.14"
+  val scalalib = "com.github.ornicar" %% "scalalib" % "4.16"
   val config = "com.typesafe" % "config" % "1.0.2"
   val apache = "org.apache.commons" % "commons-lang3" % "3.1"
   val scalaTime = "org.scala-tools.time" % "time_2.9.1" % "0.5"
@@ -44,7 +44,7 @@ object Dependencies {
   val actuarius = "eu.henkelmann" %% "actuarius" % "0.2.6-THIB"
   val jodaTime = "joda-time" % "joda-time" % "2.2"
   val jodaConvert = "org.joda" % "joda-convert" % "1.3.1"
-  val scalastic = "scalastic" %% "scalastic" % "0.90.0-thib"
+  val scalastic = "org.scalastic" %% "scalastic" % "0.90.2"
   val reactivemongo = "org.reactivemongo" %% "reactivemongo" % "0.10.6-THIB"
   val playReactivemongo = "org.reactivemongo" %% "play2-reactivemongo" % "0.10.6-THIB"
   object play {
