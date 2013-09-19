@@ -17,7 +17,7 @@ case class Pov(game: Game, color: Color) {
   def unary_! = Pov(game, !color)
 
   def isPlayerFullId(fullId: Option[String]): Boolean =
-    fullId some { game.isPlayerFullId(player, _) } none false
+    fullId ?? { game.isPlayerFullId(player, _) } 
 
   def ref = PovRef(game.id, color)
 
