@@ -27,7 +27,7 @@ private[setup] final class Challenger(
             "html" -> html.toString
           )
         ))
-      } pipeTo hub.ref
+      } pipeToSelection hub.selection
 
     case msg @ DeclineChallenge(gameId) ⇒ roundHub ! Tell(gameId, msg)
   }

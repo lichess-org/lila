@@ -21,7 +21,7 @@ private[timeline] final class GamePush(
       $insert(entry) >>- {
         renderer ? entry map {
           case view: Html ⇒ GameEntryView(view.body)
-        } pipeTo lobbySocket.ref
+        } pipeToSelection lobbySocket.selection
       }
     } logFailure ("[timeline] push " + game.id)
   }

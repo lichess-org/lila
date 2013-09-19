@@ -72,7 +72,7 @@ private[relation] final class RelationActor(
           "us" -> usernames,
           "nb" -> nb
         ))
-    } pipeTo socketHub.ref
+    } pipeToSelection socketHub.selection
   }
 
   private def notifyFollowers(users: List[User], message: String) {
