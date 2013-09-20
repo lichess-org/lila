@@ -24,8 +24,6 @@ fi
 
 lilalog "Deploy to $mode server $REMOTE:$REMOTE_DIR"
 
-APP_NAME=lila-4.0
-
 if [ $mode == "main" ]; then
   bin/closure
 fi
