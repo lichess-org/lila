@@ -65,3 +65,6 @@ detect cheat using lichess AI
 fix AI protocol
 geolocation http://db-ip.com/db/
 blocked users see games and make challenge disappear by joining (tweet)
+fix autodraw (github issue https://github.com/ornicar/scalachess/issues/2)
+fix 50-moves https://github.com/ornicar/scalachess/issues/4
+no castling in 50-moves https://github.com/ornicar/scalachess/issues/3
