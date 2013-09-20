@@ -18,14 +18,12 @@ import lila.socket.actorApi.{ Connected ⇒ _, _ }
 
 private[round] final class Socket(
     gameId: String,
-    makeHistory: () ⇒ History,
+    history: History,
     getUsername: String ⇒ Fu[Option[String]],
     uidTimeout: Duration,
     socketTimeout: Duration,
     disconnectTimeout: Duration,
     ragequitTimeout: Duration) extends SocketActor[Member](uidTimeout) {
-
-  private val history = context.actorOf(Props(makeHistory()), name = "history")
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
@@ -59,9 +57,7 @@ private[round] final class Socket(
         playerDo(o.color, _.ping)
       }
       withMember(uid) { member ⇒
-        history ? GetEventsSince(v) foreach {
-          case MaybeEvents(events) ⇒ events.fold(resyncNow(member))(batch(member, _))
-        }
+        (history getEventsSince v).fold(resyncNow(member))(batch(member, _))
       }
     }
 
@@ -77,7 +73,7 @@ private[round] final class Socket(
       }
     }
 
-    case GetVersion    ⇒ history ? GetVersion pipeTo sender
+    case GetVersion    ⇒ sender ! history.getVersion
 
     case IsGone(color) ⇒ sender ! playerGet(color, _.isGone)
 
@@ -119,9 +115,8 @@ private[round] final class Socket(
   }
 
   def notify(events: Events) {
-    history ? AddEvents(events) mapTo manifest[List[VersionedEvent]] foreach { vevents ⇒
-      members.values foreach { m ⇒ batch(m, vevents) }
-    }
+    val vevents = history addEvents events
+    members.values foreach { m ⇒ batch(m, vevents) }
   }
 
   def batch(member: Member, vevents: List[VersionedEvent]) {

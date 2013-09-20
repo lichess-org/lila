@@ -31,7 +31,7 @@ private[round] final class SocketHub(
 
   def mkActor(id: String) = new Socket(
     gameId = id,
-    makeHistory = makeHistory,
+    history = makeHistory(),
     getUsername = getUsername,
     uidTimeout = uidTimeout,
     socketTimeout = socketTimeout,
