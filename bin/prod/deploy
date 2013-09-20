@@ -50,7 +50,8 @@ RSYNC_OPTIONS=" \
   --exclude bin/.translate_version";
 
 lilalog "Rsync scripts, binaries and assets"
-rsync_command="rsync $RSYNC_OPTIONS bin target/universal/stage public $REMOTE:$REMOTE_DIR"
+stage="target/universal/stage"
+rsync_command="rsync $RSYNC_OPTIONS bin $stage/bin $stage/lib public $REMOTE:$REMOTE_DIR"
 echo "$rsync_command"
 $rsync_command
 
