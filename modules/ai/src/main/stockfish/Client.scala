@@ -69,7 +69,7 @@ final class Client(
     ).get() map (_.body)
 
   private def fetchAnalyse(pgn: String, initialFen: String): Fu[String] =
-    WS.url(analyseUrl).withQueryString(
+    WS.url(analyseUrl).withRequestTimeout(10000 /* ms */).withQueryString(
       "pgn" -> pgn,
       "initialFen" -> initialFen
     ).get() map (_.body)
