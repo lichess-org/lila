@@ -5,13 +5,13 @@ import scala.concurrent.Future
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
+import chess.format.{ Forsyth, pgn }
+import chess.{ Game ⇒ ChessGame, Color }
 import play.api.libs.concurrent.Akka.system
 import play.api.Play.current
 import scalaz.{ NonEmptyList, OptionT }
 import spray.caching.{ LruCache, Cache }
 
-import chess.format.{ Forsyth, pgn }
-import chess.{ Game ⇒ ChessGame, Color }
 import lila.common.Captcha, Captcha._
 import lila.db.api.$find
 import lila.hub.actorApi.captcha._
@@ -89,7 +89,13 @@ private final class Captcher extends Actor {
       } map (_.notation) toNel
 
     private def rewind(game: Game, pgnString: String): Option[ChessGame] =
-      pgn.Reader.withSans(pgnString, _.init) map (_.game) toOption
+      pgn.Reader.withSans(pgnString, safeInit) map (_.game) toOption
+
+    private def safeInit[A](list: List[A]): List[A] = list match {
+      case x :: Nil ⇒ Nil
+      case x :: xs  ⇒ x :: safeInit(xs)
+      case _        ⇒ Nil
+    }
 
     private def fen(game: ChessGame): String = Forsyth >> game takeWhile (_ != ' ')
   }
