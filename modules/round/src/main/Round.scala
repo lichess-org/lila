@@ -104,10 +104,9 @@ private[round] final class Round(
 
   private def blockAndPublish[A](context: Fu[Option[A]], timeout: FiniteDuration = 3.seconds)(op: A ⇒ Fu[Events]) {
     try {
-      val events = {
-        context flatten "[round] not found" flatMap op
-      } await makeTimeout(timeout)
-      if (events.nonEmpty) socketHub ! Tell(gameId, events)
+      context flatten "[round] not found" flatMap op foreach { events ⇒
+        if (events.nonEmpty) socketHub ! Tell(gameId, events)
+      }
     }
     catch {
       case e: lila.common.LilaException ⇒ logwarn("[round] " + e.message)
