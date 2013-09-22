@@ -1,11 +1,10 @@
 package lila.search
 
+import actorApi._
 import akka.actor._
 import akka.pattern.pipe
 import play.api.libs.json._
 import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
-
-import actorApi._
 
 final class TypeIndexer(
     esIndexer: Fu[EsIndexer],
@@ -14,15 +13,19 @@ final class TypeIndexer(
     mapping: JsObject,
     indexQuery: JsObject ⇒ Funit) extends Actor {
 
+  private val disabled = new RuntimeException("Search is disabled")
+
   def receive = {
 
-    case Search(request) ⇒ withEs { es ⇒
-      SearchResponse(request.in(indexName, typeName)(es))
-    } pipeTo sender
+    case Search(request) ⇒ sender ! Status.Failure(disabled)
+    // withEs { es ⇒
+    //   SearchResponse(request.in(indexName, typeName)(es))
+    // } pipeTo sender
 
-    case Count(request) ⇒ withEs { es ⇒
-      CountResponse(request.in(indexName, typeName)(es))
-    } pipeTo sender
+    case Count(request)  ⇒ sender ! Status.Failure(disabled)
+    // withEs { es ⇒
+    //   CountResponse(request.in(indexName, typeName)(es))
+    // } pipeTo sender
 
     case RebuildAll ⇒ {
       self ! Clear
