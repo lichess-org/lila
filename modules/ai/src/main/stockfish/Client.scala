@@ -19,7 +19,8 @@ final class Client(
     val playUrl: String,
     analyseUrl: String,
     loadUrl: String,
-    system: ActorSystem) extends lila.ai.Ai {
+    system: ActorSystem,
+    requestTimeout: Duration) extends lila.ai.Ai {
 
   def play(game: Game, pgn: String, initialFen: Option[String], level: Int): Fu[(Game, Move)] =
     fetchMove(pgn, ~initialFen, level) flatMap { Stockfish.applyMove(game, pgn, _) }
@@ -69,7 +70,7 @@ final class Client(
     ).get() map (_.body)
 
   private def fetchAnalyse(pgn: String, initialFen: String): Fu[String] =
-    WS.url(analyseUrl).withRequestTimeout(10000 /* ms */).withQueryString(
+    WS.url(analyseUrl).withRequestTimeout(requestTimeout.toMillis.toInt).withQueryString(
       "pgn" -> pgn,
       "initialFen" -> initialFen
     ).get() map (_.body)
