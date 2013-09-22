@@ -61,7 +61,10 @@ final class Env(
       Env.gameSearch,
       Env.teamSearch,
       Env.forumSearch,
-      Env.relation)
+      Env.relation,
+      Env.report,
+      Env.notification,
+      Env.bookmark)
     loginfo("[boot] Preloading complete")
   }
 
