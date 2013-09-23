@@ -27,7 +27,7 @@ case class AiConfig(
       creatorColor = creatorColor,
       mode = Mode.Casual,
       variant = variant,
-      source = fen.isDefined.fold(Source.Position, Source.Ai),
+      source = (variant == Variant.FromPosition).fold(Source.Position, Source.Ai),
       pgnImport = None)
   } start
 
