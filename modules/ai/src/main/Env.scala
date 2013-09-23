@@ -19,8 +19,8 @@ final class Env(
     val StockfishLoadUrl = config getString "stockfish.load.url"
     val StockfishQueueName = config getString "stockfish.queue.name"
     val StockfishQueueDispatcher = config getString "stockfish.queue.dispatcher"
+    val StockfishAnalyseTimeout = config duration "stockfish.analyse.timeout"
     val ActorName = config getString "actor.name"
-    val ClientTimeout = config duration "client.timeout"
   }
   import settings._
 
@@ -60,7 +60,7 @@ final class Env(
     playUrl = StockfishPlayUrl,
     analyseUrl = StockfishAnalyseUrl,
     loadUrl = StockfishLoadUrl,
-    requestTimeout = ClientTimeout,
+    requestTimeout = StockfishAnalyseTimeout,
     system = system)
 
   lazy val stockfishServer = new stockfish.Server(
