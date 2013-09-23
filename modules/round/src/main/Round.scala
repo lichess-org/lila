@@ -61,7 +61,9 @@ private[round] final class Round(
 
     case Outoftime ⇒ handle { game ⇒
       game.outoftimePlayer ?? { player ⇒
-        finisher(game, _.Outoftime, Some(!player.color) filter game.toChess.board.hasEnoughMaterialToMate)
+        finisher(game, _.Outoftime, Some(!player.color) filter {
+          chess.InsufficientMatingMaterial(game.toChess.board, _)
+        })
       }
     }
 
