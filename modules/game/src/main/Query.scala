@@ -1,10 +1,10 @@
 package lila.game
 
+import chess.{ Color, Status }
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 import play.api.libs.json._
 
-import chess.{ Color, Status }
 import lila.db.api._
 import lila.user.User
 
@@ -51,7 +51,9 @@ object Query {
   // use the uids index
   def win(u: String) = user(u) ++ Json.obj("wid" -> u)
 
-  def loss(u: String) = user(u) ++ finished ++ Json.obj("wid" -> $ne(u))
+  def loss(u: String) = user(u) ++
+    Json.obj("s" -> $in(Status.finishedWithWinner map (_.id))) ++
+    Json.obj("wid" -> $ne(u))
 
   def opponents(u1: User, u2: User) =
     Json.obj("uids" -> $all(List(u1, u2).sortBy(_.count.game).map(_.id)))
