@@ -16,12 +16,14 @@ import lila.socket.History
 import lila.timeline.{ Entry, GameEntry }
 import lila.tournament.Created
 import lila.user.{ User, Context }
+import lila.relation.RelationApi
 import makeTimeout.large
 
 final class Preload(
     lobby: ActorRef,
     history: History,
     featured: Featured,
+    relations: RelationApi,
     recentGames: () ⇒ Fu[List[GameEntry]],
     timelineEntries: String ⇒ Fu[List[Entry]]) {
 
@@ -37,13 +39,15 @@ final class Preload(
       posts zip
       tours zip
       featured.one zip
+      (ctx.userId ?? relations.blocks) zip
       (ctx.userId ?? timelineEntries) zip
       filter map {
-        case ((((((hooks, gameEntries), posts), tours), feat), entries), filter) ⇒
+        case (((((((hooks, gameEntries), posts), tours), feat), blocks), entries), filter) ⇒
           (Right((Json.obj(
             "version" -> history.version,
             "pool" -> JsArray(hooks map (_.render)),
-            "filter" -> filter.render
+            "filter" -> filter.render,
+            "blocks" -> blocks
           ), entries, gameEntries, posts, tours, feat)))
       }
 }

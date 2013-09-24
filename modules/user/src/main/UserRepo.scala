@@ -1,20 +1,21 @@
 package lila.user
 
 import com.roundeights.hasher.Implicits._
-import lila.common.PimpedJson._
-import lila.db.api._
-import lila.db.Implicits._
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.libs.json._
 import play.modules.reactivemongo.json.BSONFormats.toJSON
 import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
 import reactivemongo.api._
+
+import lila.common.PimpedJson._
+import lila.db.api._
+import lila.db.Implicits._
 import tube.userTube
 
 object UserRepo {
 
-  type ID = String
+  import User.ID
 
   val normalize = User normalize _
 
@@ -26,10 +27,10 @@ object UserRepo {
   def topBlitz = topSpeed("blitz") _
   def topSlow = topSpeed("slow") _
 
-  def topSpeed(speed: String)(nb: Int): Fu[List[User]] = 
+  def topSpeed(speed: String)(nb: Int): Fu[List[User]] =
     $find(goodLadQuery sort ($sort desc "speedElos." + speed + ".elo"), nb)
 
-  def topNbGame(nb: Int): Fu[List[User]] = 
+  def topNbGame(nb: Int): Fu[List[User]] =
     $find(goodLadQuery sort ($sort desc "count.game"), nb)
 
   def byId(id: ID): Fu[Option[User]] = $find byId id

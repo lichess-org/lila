@@ -2204,6 +2204,7 @@ var storage = {
 
     function addHook(hook, inBatch) {
       if (!isRegistered && hook.mode == "Casual" && !hook.allowAnon) return;
+      if (_.contains(lichess_preload.blocks, hook.username.toLowerCase())) return;
       if (!isRegistered && hook.mode == "Rated") hook.action = 'register';
       else hook.action = hook.uid == lichess_sri ? "cancel" : "join";
       if (hook.action == 'join' && hook.emin && myElo && (myElo < parseInt(hook.emin) || myElo > parseInt(hook.emax))) return;

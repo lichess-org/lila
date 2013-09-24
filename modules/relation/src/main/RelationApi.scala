@@ -22,6 +22,8 @@ final class RelationApi(
   def blockers(userId: ID) = cached blockers userId
   def blocking(userId: ID) = cached blocking userId
 
+  def blocks(userId: ID) = blockers(userId) ⊹ blocking(userId)
+
   def nbFollowers(userId: ID) = followers(userId) map (_.size)
   def nbFollowing(userId: ID) = following(userId) map (_.size)
   def nbBlockers(userId: ID) = blockers(userId) map (_.size)
