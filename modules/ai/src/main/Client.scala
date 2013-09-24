@@ -31,7 +31,7 @@ trait Client extends Ai {
     if (isHealthy(p) && !currentHealth)
       loginfo("remote AI is up, ping = " + p)
     else if (!isHealthy(p) && currentHealth)
-      logwarn("remote AI is down, ping = " + p)
+      logerr("remote AI is down, ping = " + p)
     ping = p
   }
 
