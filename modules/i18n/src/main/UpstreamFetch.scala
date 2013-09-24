@@ -2,9 +2,9 @@ package lila.i18n
 
 import org.joda.time.DateTime
 import play.api.libs.json._
-import play.api.libs.ws.WS
 
 import lila.common.PimpedJson._
+import lila.common.WS
 import tube.translationTube
 
 private[i18n] final class UpstreamFetch(upstreamUrl: Int ⇒ String) {
