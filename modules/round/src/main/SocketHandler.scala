@@ -30,15 +30,14 @@ private[round] final class SocketHandler(
     ref: PovRef,
     member: Member): Handler.Controller = {
 
-    def round(msg: Any) {
-      roundMap ! Tell(gameId, msg)
-    }
+    def round(msg: Any) { roundMap ! Tell(gameId, msg) }
 
     def watcherTalk(roomId: String, o: JsObject) {
-      for {
-        txt ← o str "d"
-        if flood.allowMessage(uid, txt)
-      } messenger.watcherMessage(roomId, member.userId, txt, member.troll) pipeTo socket
+      (o str "d") filter {
+        flood.allowMessage(uid, _)
+      } foreach { txt ⇒
+        messenger.watcherMessage(roomId, member.userId, txt, member.troll) pipeTo socket
+      }
     }
 
     member.playerIdOption.fold[Handler.Controller]({
@@ -108,19 +107,16 @@ private[round] final class SocketHandler(
     version: Int,
     uid: String,
     token: String,
-    ctx: Context): Fu[JsSocketHandler] = for {
-    socket ← socketHub ? Get(pov.gameId) mapTo manifest[ActorRef]
-    join = Join(
-      uid = uid,
-      user = ctx.me,
-      version = version,
-      color = pov.color,
+    ctx: Context): Fu[JsSocketHandler] = {
+    val join = Join(uid = uid, user = ctx.me, version = version, color = pov.color,
       playerId = playerId filterNot (_ ⇒ hijack(pov, token, ctx)))
-    handler ← Handler(hub, socket, uid, join, ctx.userId) {
-      case Connected(enum, member) ⇒
-        controller(pov.gameId, socket, uid, pov.ref, member) -> enum
+    socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket ⇒
+      Handler(hub, socket, uid, join, ctx.userId) {
+        case Connected(enum, member) ⇒
+          controller(pov.gameId, socket, uid, pov.ref, member) -> enum
+      }
     }
-  } yield handler
+  }
 
   private def parseMove(o: JsObject) = for {
     d ← o obj "d"
