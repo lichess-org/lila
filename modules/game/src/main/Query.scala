@@ -18,13 +18,15 @@ object Query {
 
   def rated(u: String): JsObject = user(u) ++ rated
 
+  def status(s: Status) = Json.obj("s" -> s.id)
+
   val started: JsObject = Json.obj("s" -> $gte(Status.Started.id))
 
   def started(u: String): JsObject = user(u) ++ started
 
   val playable = Json.obj("s" -> $lt(Status.Aborted.id))
 
-  val mate = Json.obj("s" -> Status.Mate.id)
+  val mate = status(Status.Mate)
 
   val draw: JsObject = Json.obj("s" -> $in(Seq(Status.Draw.id, Status.Stalemate.id)))
 
@@ -47,6 +49,7 @@ object Query {
   def clock(c: Boolean) = Json.obj("c" -> $exists(c))
 
   def user(u: String) = Json.obj("uids" -> u)
+  def users(u: Seq[String]) = Json.obj("uids" -> $in(u))
 
   // use the uids index
   def win(u: String) = user(u) ++ Json.obj("wid" -> u)

@@ -226,6 +226,16 @@ object GameRepo {
     _ sort Query.sortCreated skip (Random nextInt 1000)
   )
 
+  def findMirror(game: Game): Fu[Option[Game]] = $find.one(
+    Query.users(game.userIds) ++ Query.status(Status.Started) ++ Json.obj(
+    "t" -> game.turns,
+    "_id" -> $ne(game.id),
+    "p.0.ps" -> game.player(Color.White).ps,
+    "p.1.ps" -> game.player(Color.Black).ps,
+    createdAt -> $gt($date(DateTime.now - 1.hour)),
+    updatedAt -> $gt($date(DateTime.now - 5.minutes))
+  ))
+
   // gets 2 users (id, nbGames)
   // returns user1 wins, draws, losses
   // the 2 userIds SHOULD be sorted by game count desc

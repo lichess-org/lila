@@ -12,6 +12,7 @@ private[round] final class Player(
     ai: () ⇒ Fu[Ai],
     notifyMove: (String, String, Option[String]) ⇒ Unit,
     finisher: Finisher,
+    cheatDetector: CheatDetector,
     roundMap: akka.actor.ActorSelection) {
 
   def human(play: HumanPlay)(pov: Pov): Fu[Events] = play match {
@@ -35,7 +36,7 @@ private[round] final class Player(
                     if (progress.game.playableByAi) roundMap ! Tell(game.id, AiPlay(onFailure))
                     if (game.player.isOfferingDraw) roundMap ! Tell(game.id, DrawNo(game.player.id))
                     if (game.player.isProposingTakeback) roundMap ! Tell(game.id, TakebackNo(game.player.id))
-                    fuccess(progress.events)
+                    cheatDetector(progress.game) >> fuccess(progress.events)
                   })
           })
         } addFailureEffect onFailure
