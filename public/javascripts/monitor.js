@@ -71,7 +71,7 @@
 
     app.memory = new SpeedOMeter({
       name : "MEMORY",
-      maxVal : 4096,
+      maxVal : 8192,
       unit : "MB",
       container : container
     });
@@ -154,7 +154,7 @@
     app.ai = new SpeedOMeter({
       name : "AI LOAD",
       maxVal : 100,
-      threshold: 0.5,
+      threshold: 0.8,
       container : container
     });
 
