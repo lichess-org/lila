@@ -12,7 +12,7 @@ import play.api.libs.concurrent._
 import play.api.Play.current
 
 import lila.analyse.AnalysisMaker
-import lila.common.WS
+import lila.common.ws.WS
 import lila.hub.actorApi.ai.GetLoad
 
 final class Client(

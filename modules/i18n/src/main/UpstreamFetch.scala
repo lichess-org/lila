@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 
 import lila.common.PimpedJson._
-import lila.common.WS
+import lila.common.ws.WS
 import tube.translationTube
 
 private[i18n] final class UpstreamFetch(upstreamUrl: Int ⇒ String) {

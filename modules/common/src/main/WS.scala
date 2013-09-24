@@ -1,4 +1,5 @@
 package lila.common
+package ws
 
 import play.api.libs.ws._
 
@@ -38,7 +39,7 @@ object WS {
 
   private val clientHolder: AtomicReference[Option[AsyncHttpClient]] = new AtomicReference(None)
 
-  private[common] def newClient(): AsyncHttpClient = {
+  private[ws] def newClient(): AsyncHttpClient = {
     val playConfig = play.api.Play.maybeApplication.map(_.configuration)
     val asyncHttpConfig = new AsyncHttpClientConfig.Builder()
       .setConnectionTimeoutInMs(playConfig.flatMap(_.getMilliseconds("ws.timeout.connection")).getOrElse(120000L).toInt)
@@ -60,7 +61,7 @@ object WS {
   /**
    * resets the underlying AsyncHttpClient
    */
-  private[common] def resetClient(): Unit = {
+  private[ws] def resetClient(): Unit = {
     clientHolder.getAndSet(None).map(oldClient => oldClient.close())
   }
 
@@ -160,7 +161,7 @@ object WS {
       //todo: wrap the case insensitive ning map instead of creating a new one (unless perhaps immutabilty is important)
       TreeMap(res.toSeq: _*)(CaseInsensitiveOrdered)
     }
-    private[common] def execute: Future[Response] = {
+    private[ws] def execute: Future[Response] = {
       import com.ning.http.client.AsyncCompletionHandler
       var result = Promise[Response]()
       calculator.map(_.sign(this))
@@ -237,7 +238,7 @@ object WS {
       super.setUrl(url)
     }
 
-    private[common] def executeStream[A](consumer: ResponseHeaders => Iteratee[Array[Byte], A]): Future[Iteratee[Array[Byte], A]] = {
+    private[ws] def executeStream[A](consumer: ResponseHeaders => Iteratee[Array[Byte], A]): Future[Iteratee[Array[Byte], A]] = {
       import com.ning.http.client.AsyncHandler
       var doneOrError = false
       calculator.map(_.sign(this))
@@ -438,7 +439,7 @@ object WS {
      */
     def execute(method: String): Future[Response] = prepare(method).execute
 
-    private[common] def prepare(method: String) = {
+    private[ws] def prepare(method: String) = {
       val request = new WSRequest(method, auth, calc).setUrl(url)
         .setHeaders(headers)
         .setQueryString(queryString)
@@ -454,7 +455,7 @@ object WS {
       request
     }
 
-    private[common] def prepare(method: String, body: File) = {
+    private[ws] def prepare(method: String, body: File) = {
       import com.ning.http.client.generators.FileBodyGenerator
 
       val bodyGenerator = new FileBodyGenerator(body);
@@ -476,7 +477,7 @@ object WS {
       request
     }
 
-    private[common] def prepare[T](method: String, body: T)(implicit wrt: Writeable[T], ct: ContentTypeOf[T]) = {
+    private[ws] def prepare[T](method: String, body: T)(implicit wrt: Writeable[T], ct: ContentTypeOf[T]) = {
       val request = new WSRequest(method, auth, calc).setUrl(url)
         .setHeaders(Map("Content-Type" -> Seq(ct.mimeType.getOrElse("text/plain"))) ++ headers)
         .setQueryString(queryString)
