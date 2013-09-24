@@ -17,7 +17,13 @@ private[ai] case class Config(
 
   import Config._
 
-  def moveTime(level: Int) = (levelBox(level) * playMaxMoveTime.toMillis) / levels.end
+  def moveTime(level: Int): Double = 
+    (levelBox(level) * playMaxMoveTime.toMillis) / levels.end
+
+  def moveTime(req: Req): Double = req match {
+    case r: PlayReq ⇒ moveTime(r.level)
+    case r: AnalReq ⇒ analyseMoveTime.toMillis
+  }
 
   def ownBook(level: Int) = levelBox(level) > 4
 
@@ -55,10 +61,10 @@ private[ai] case class Config(
   def go(req: Req): List[String] = req match {
     case r: PlayReq ⇒ List(
       position(r.fen, r.moves),
-      "go movetime %d%s".format(moveTime(r.level), ~depth(r.level).map(" depth " + _)))
+      "go movetime %d%s".format(moveTime(r), depth(r.level).??(" depth " + _)))
     case r: AnalReq ⇒ List(
       position(r.fen, r.moves),
-      "go movetime %d".format(analyseMoveTime.toMillis))
+      "go movetime %d".format(moveTime(r)))
   }
 
   private def position(fen: Option[String], moves: String) =
@@ -70,9 +76,11 @@ private[ai] case class Config(
 
 object Config {
 
-  val levels = 1 to 8
+  val levelMax = 8
 
-  val levelBox = intBox(1 to 8) _
+  val levels = 1 to levelMax
+
+  val levelBox = intBox(levels) _
 
   val skillMax = 20
 }
