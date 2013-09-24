@@ -4,13 +4,13 @@ import scala.concurrent.duration.Duration
 
 final class TimeBomb(delayDuration: Duration) {
 
-  private var explodesAt: Double = _
+  private val delayMs = delayDuration.toMillis
 
-  delay
+  private var delayedAt: Double = nowMillis
 
-  def delay { 
-    explodesAt = nowMillis + delayDuration.toMillis
+  def delay {
+    delayedAt = nowMillis
   }
 
-  def boom = explodesAt < nowMillis
+  def boom = ((delayedAt + delayMs) < nowMillis)
 }
