@@ -32,6 +32,7 @@ final class Env(
     relationApi = Env.relation.api,
     gameCached = Env.game.cached,
     postApi = Env.forum.postApi,
+    getEloChart = Env.user.eloChart,
     getRank = Env.user.ranking.get) _
 
   if (config getBoolean "ai.stress") {

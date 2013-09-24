@@ -38,6 +38,7 @@ object UserInfo {
     relationApi: RelationApi,
     gameCached: lila.game.Cached,
     postApi: PostApi,
+    getEloChart: User => Fu[Option[EloChart]],
     getRank: String ⇒ Fu[Option[Int]])(user: User, ctx: Context): Fu[UserInfo] =
     (getRank(user.id) flatMap {
       _ ?? { rank ⇒ countUsers() map { nb ⇒ (rank -> nb).some } }
@@ -49,7 +50,7 @@ object UserInfo {
         gameCached.confrontation(me, user) map (_.some filterNot (_.empty))
       }) zip
       (bookmarkApi countByUser user) zip
-      EloChart(user) zip
+      getEloChart(user) zip
       relationApi.nbFollowing(user.id) zip
       relationApi.nbFollowers(user.id) zip
       ((ctx.me ?? Granter(_.UserSpy)) ?? {
