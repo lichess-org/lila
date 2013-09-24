@@ -24,8 +24,4 @@ private[round] final class Meddler(roundMap: ActorRef, socketHub: ActorRef) {
       roundMap ! Tell(game.id, Resign(game.player.id))
     }
   }
-
-  def finishCheat(pov: Pov) {
-    roundMap ! Tell(pov.gameId, Cheat(pov.playerId))
-  }
 }

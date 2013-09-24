@@ -66,3 +66,4 @@ blocked users see games and make challenge disappear by joining (tweet)
 no castling in 50-moves https://github.com/ornicar/scalachess/issues/3
 enforce single user for an IP
 user made chess puzzles (just input position and number of moves, let AI find solution)
+setup AI wrong move (log game ID)
