@@ -13,7 +13,9 @@ private[lobby] final class Biter(
 
   def apply(hook: Hook, userId: Option[String]): Fu[String ⇒ JoinHook] =
     userId ?? UserRepo.byId flatMap { user ⇒
-      canJoin(hook, user).fold(join(hook, user), fufail("Cannot join"))
+      canJoin(hook, user).fold(
+        join(hook, user), 
+        fufail("%s cannot bite hook %s".format(userId, hook.id)))
     }
 
   private def join(hook: Hook, userOption: Option[User]): Fu[String ⇒ JoinHook] = for {
