@@ -74,7 +74,7 @@ span.board_mark.horz {
 }
 
 #GameText {
-  font-size: 1.4em;
+  font-family: monospace;
   width: 220px;
   height: 512px;
   margin-bottom: 1em;
