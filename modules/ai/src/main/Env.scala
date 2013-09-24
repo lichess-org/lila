@@ -60,7 +60,6 @@ final class Env(
     playUrl = StockfishPlayUrl,
     analyseUrl = StockfishAnalyseUrl,
     loadUrl = StockfishLoadUrl,
-    requestTimeout = StockfishAnalyseTimeout,
     system = system)
 
   lazy val stockfishServer = new stockfish.Server(
