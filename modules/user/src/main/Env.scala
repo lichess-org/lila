@@ -16,6 +16,7 @@ final class Env(
     val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
     val EloUpdaterFloor = config getInt "elo_updater.floor"
     val CachedNbTtl = config duration "cached.nb.ttl"
+    val CachedEloChartTtl = config duration "cached.elo_chart.ttl"
     val OnlineTtl = config duration "online.ttl"
     val RankingTtl = config duration "ranking.ttl"
     val CollectionUser = config getString "collection.user"
@@ -36,6 +37,8 @@ final class Env(
   lazy val onlineUserIdMemo = new ExpireSetMemo(ttl = OnlineTtl)
 
   lazy val ranking = new Ranking(ttl = RankingTtl)
+
+  def eloChart = cached.eloChart.apply _
 
   val forms = DataForm
 
@@ -68,7 +71,9 @@ final class Env(
     }
   }
 
-  private lazy val cached = new Cached(ttl = CachedNbTtl)
+  private lazy val cached = new Cached(
+    nbTtl = CachedNbTtl,
+    eloChartTtl = CachedEloChartTtl)
 }
 
 object Env {
