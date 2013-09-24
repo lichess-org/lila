@@ -19,7 +19,7 @@ object Ai extends LilaController {
       ) fold (
           err ⇒ {
             logwarn("[ai] stochfish server play: " + err)
-            InternalServerError
+            InternalServerError(err.toString)
           },
           Ok(_)
         )
@@ -34,7 +34,7 @@ object Ai extends LilaController {
       ) fold (
           err ⇒ {
             logwarn("[ai] stochfish server analyse: " + err)
-            InternalServerError
+            InternalServerError(err.toString)
           },
           analyse ⇒ Ok(analyse("fakeid").encodeInfos)
         )

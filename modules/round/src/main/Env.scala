@@ -97,7 +97,7 @@ final class Env(
     messenger = messenger,
     finisher = finisher)
 
-  private lazy val cheatDetector = new CheatDetector(meddler)
+  private lazy val cheatDetector = new CheatDetector
 
   lazy val meddler = new Meddler(
     roundMap = roundMap,

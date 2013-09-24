@@ -1,9 +1,10 @@
 package lila.round
 
-import actorApi.round.{ HumanPlay, AiPlay, DrawNo, TakebackNo, PlayResult }
+import actorApi.round.{ HumanPlay, AiPlay, DrawNo, TakebackNo, PlayResult, Cheat }
 import chess.format.Forsyth
 import chess.Pos.posAt
 import chess.{ Status, Role, Color }
+
 import lila.ai.Ai
 import lila.game.{ Game, GameRepo, PgnRepo, Pov, Progress }
 import lila.hub.actorApi.map.Tell
@@ -33,10 +34,14 @@ private[round] final class Player(
                 notifyProgress(progress) >>
                 progress.game.finished.fold(
                   moveFinish(progress.game, color) map { progress.events ::: _ }, {
-                    if (progress.game.playableByAi) roundMap ! Tell(game.id, AiPlay(onFailure))
-                    if (game.player.isOfferingDraw) roundMap ! Tell(game.id, DrawNo(game.player.id))
-                    if (game.player.isProposingTakeback) roundMap ! Tell(game.id, TakebackNo(game.player.id))
-                    cheatDetector(progress.game) >> fuccess(progress.events)
+                    cheatDetector(progress.game) addEffect {
+                      case Some(color) ⇒ roundMap ! Tell(game.id, Cheat(color))
+                      case None ⇒ {
+                        if (progress.game.playableByAi) roundMap ! Tell(game.id, AiPlay(onFailure))
+                        if (game.player.isOfferingDraw) roundMap ! Tell(game.id, DrawNo(game.player.id))
+                        if (game.player.isProposingTakeback) roundMap ! Tell(game.id, TakebackNo(game.player.id))
+                      }
+                    } inject progress.events
                   })
           })
         } addFailureEffect onFailure
