@@ -30,11 +30,6 @@ object HookRepo {
   }
 
   // returns removed hooks
-  def removeUids(uids: Set[String]) = partition { hook ⇒
-    !(uids contains hook.uid)
-  }
-
-  // returns removed hooks
   def cleanupOld = {
     val limit = DateTime.now - 10.minutes
     partition(_.createdAt > limit)
