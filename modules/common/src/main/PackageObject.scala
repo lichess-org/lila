@@ -132,6 +132,9 @@ trait WithPlay { self: PackageObject ⇒
     def logFailure(prefix: ⇒ String): Fu[A] = fua ~ (_ onFailure {
       case e: Exception ⇒ logwarn(prefix + " " + e.getMessage)
     })
+    def logFailureErr(prefix: ⇒ String): Fu[A] = fua ~ (_ onFailure {
+      case e: Exception ⇒ logerr(prefix + " " + e.getMessage)
+    })
 
     def addEffect(effect: A ⇒ Unit) = fua ~ (_ foreach effect)
 

@@ -65,7 +65,7 @@ private[round] final class Player(
             }
         } addFailureEffect play.onFailure,
       fufail("not AI turn")
-    )
+    ) logFailureErr "[ai play] game %s turn %d".format(game.id, game.turns)
 
   private def notifyProgress(progress: Progress) {
     notifyMove(
