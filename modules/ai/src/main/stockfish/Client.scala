@@ -41,13 +41,15 @@ final class Client(
     def receive = {
       case IsHealthy ⇒ sender ! load.isDefined
       case GetLoad   ⇒ sender ! load
-      case CalculateLoad ⇒ try {
-        load = fetchLoad await makeTimeout.short
-      }
-      catch {
-        case e: Exception ⇒ {
-          logwarn("[stockfish client] " + e.getMessage)
-          load = none
+      case CalculateLoad ⇒ scala.concurrent.Future {
+        try {
+          load = fetchLoad await makeTimeout.seconds(1)
+        }
+        catch {
+          case e: Exception ⇒ {
+            logwarn("[stockfish client calculate load] " + e.getMessage)
+            load = none
+          }
         }
       }
     }
