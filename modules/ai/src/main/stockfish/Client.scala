@@ -3,24 +3,23 @@ package stockfish
 
 import scala.concurrent.duration._
 
+import actorApi.monitor._
 import akka.actor._
 import akka.pattern.{ ask, pipe }
-import play.api.libs.concurrent._
-import play.api.libs.ws.WS
-import play.api.Play.current
-
-import actorApi.monitor._
 import chess.format.UciMove
 import chess.{ Game, Move }
+import play.api.libs.concurrent._
+import play.api.Play.current
+
 import lila.analyse.AnalysisMaker
+import lila.common.WS
 import lila.hub.actorApi.ai.GetLoad
 
 final class Client(
     val playUrl: String,
     analyseUrl: String,
     loadUrl: String,
-    system: ActorSystem,
-    analyseTimeout: Duration) extends lila.ai.Ai {
+    system: ActorSystem) extends lila.ai.Ai {
 
   def play(game: Game, pgn: String, initialFen: Option[String], level: Int): Fu[(Game, Move)] =
     fetchMove(pgn, ~initialFen, level) flatMap { Stockfish.applyMove(game, pgn, _) }
@@ -70,7 +69,7 @@ final class Client(
     ).get() map (_.body)
 
   private def fetchAnalyse(pgn: String, initialFen: String): Fu[String] =
-    WS.url(analyseUrl).withRequestTimeout(analyseTimeout.toMillis.toInt).withQueryString(
+    WS.url(analyseUrl).withQueryString(
       "pgn" -> pgn,
       "initialFen" -> initialFen
     ).get() map (_.body)
