@@ -39,7 +39,7 @@ final class Analyser(
             ai ? lila.hub.actorApi.ai.Analyse(id, pgn, initialFen)
           } mapTo manifest[Analysis]
         } yield analysis) flatFold (
-          e ⇒ AnalysisRepo.fail(id, e).mapTo[Analysis],
+          e ⇒ AnalysisRepo.fail(id, e) >> fufail[Analysis](e.getMessage), 
           a ⇒ AnalysisRepo.done(id, a) >>- (indexer ! InsertGame(game)) inject a
         )
         case _ ⇒ fufail[Analysis]("[analysis] %s no game or pgn found" format (id))
