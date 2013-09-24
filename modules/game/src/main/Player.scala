@@ -132,8 +132,8 @@ private[game] case class RawPlayer(
     lastDrawOffer = lastDrawOffer,
     isProposingTakeback = ~isProposingTakeback,
     userId = uid,
-    moveTimes = mts | "",
-    blurs = bs | 0,
+    moveTimes = ~mts,
+    blurs = ~bs,
     name = na)
 }
 
