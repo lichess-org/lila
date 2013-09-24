@@ -682,9 +682,7 @@ var storage = {
       var duration = nbMoves * delay * 2.1 + 1000;
       $(this).find('button').hide().end()
         .find('.error').hide().end()
-        .find('.progression').show().animate({
-        width: '100%'
-      }, duration);
+        .find('.progression').show().animate({ width: '100%' }, duration);
       return true;
     });
 
@@ -1114,24 +1112,8 @@ var storage = {
     },
     killPiece: function($piece) {
       if ($.data($piece, 'draggable')) $piece.draggable("destroy");
-      var self = this,
-        $deads = self.element.find("div.lichess_cemetery." + self.getPieceColor($piece)),
-        $square = $piece.parent();
-      $deads.append($("<div>").addClass('lichess_tomb'));
-      var $tomb = $("div.lichess_tomb:last", $deads),
-        tomb_offset = $tomb.offset();
-      $('body').append($piece.css($square.offset()));
-      $piece.css("opacity", 0.5).animate({
-        top: tomb_offset.top,
-        left: tomb_offset.left
-      },
-        self.options.animation_delay * 2, function() {
-        $tomb.append($piece.css({
-          position: "relative",
-          top: 0,
-          left: 0
-        }));
-      });
+      this.element.find("div.lichess_cemetery." + this.getPieceColor($piece))
+        .append($("<div>").addClass('lichess_tomb').append($piece.css('position', 'relative')));
     },
     possibleMovesContain: function(from, to) {
       return this.options.possible_moves != null && typeof this.options.possible_moves[from] !== 'undefined' && this.options.possible_moves[from].indexOf(to) != -1;
@@ -1997,9 +1979,6 @@ var storage = {
     if (!$wrap.length) return;
     if (!strongSocket.available) return;
 
-    $('div.lichess_board').animate({
-      opacity: 0.6
-    }, 2000);
     var $timeline = $("#timeline");
     var $bot = $("div.lichess_bot");
     var $newposts = $("div.new_posts");
