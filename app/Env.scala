@@ -21,6 +21,7 @@ final class Env(
     lobby = Env.lobby.lobby,
     history = Env.lobby.history,
     featured = Env.game.featured,
+    relations = Env.relation.api,
     recentGames = () ⇒ Env.timeline.getter.recentGames,
     timelineEntries = Env.timeline.getter.userEntries _)
 

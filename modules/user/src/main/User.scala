@@ -49,6 +49,8 @@ case class User(
 
 object User {
 
+  type ID = String
+
   val STARTING_ELO = 1200
 
   val anonymous = "Anonymous"
@@ -80,5 +82,5 @@ object User {
     "toints" -> 0,
     "roles" -> Json.arr(),
     "seenAt" -> none[DateTime],
-    "lang" -> none[String] )
+    "lang" -> none[String])
 }
