@@ -90,11 +90,14 @@ final class Env(
     ai = ai,
     notifyMove = notifyMove,
     finisher = finisher,
+    cheatDetector = cheatDetector,
     roundMap = hub.actor.roundMap)
 
   private lazy val drawer = new Drawer(
     messenger = messenger,
     finisher = finisher)
+
+  private lazy val cheatDetector = new CheatDetector(meddler)
 
   lazy val meddler = new Meddler(
     roundMap = roundMap,
