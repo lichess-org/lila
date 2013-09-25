@@ -4,8 +4,6 @@ import ornicar.scalalib
 
 trait LilaException extends Exception {
   val message: String
-
-  override def getMessage: String = "LilaError['" + message + "']"
 }
 
 object LilaException extends scalalib.Validation {
