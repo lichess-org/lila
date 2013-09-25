@@ -20,13 +20,17 @@ private[round] final class Titivate(
 
   def finishByClock: Funit =
     $enumerate.bulk[Option[Game]]($query(Query.candidatesToAutofinish), 50) { games ⇒
-      fuloginfo("[titivate] Finish %d games by clock" format games.flatten.size) >>-
+      fuccess {
+        println("[titivate] Finish %d games by clock" format games.flatten.size)
         (games.flatten foreach { game ⇒ roundMap ! Tell(game.id, Outoftime) })
+      }
     }
 
   def finishAbandoned: Funit =
     $enumerate.bulk[Option[Game]]($query(Query.abandoned), 50) { games ⇒
-      fuloginfo("[titivate] Finish %d abandoned games" format games.flatten.size) >>-
+      fuccess {
+        println("[titivate] Finish %d abandoned games" format games.flatten.size)
         (games.flatten foreach meddler.finishAbandoned)
+      }
     }
 }
