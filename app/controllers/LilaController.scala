@@ -172,11 +172,11 @@ private[controllers] trait LilaController
   private def restoreUser(req: RequestHeader): Fu[Option[UserModel]] =
     Env.security.api restoreUser req addEffect {
       _ foreach { user ⇒
-        UserRepo setSeenAt user.id
+        if (!user.seenRecently) UserRepo setSeenAt user.id
         val lang = Env.i18n.pool.lang(req).language
         if (user.lang != lang.some) UserRepo.setLang(user.id, lang)
         Env.user setOnline user
-        user.seenAt.isEmpty ?? Env.relation.autofollow(user)
+        if (user.seenAt.isEmpty) Env.relation autofollow user
       }
     }
 

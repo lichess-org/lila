@@ -2,7 +2,7 @@ package lila.user
 
 import chess.Speed
 import org.joda.time.DateTime
-import org.scala_tools.time.Imports._
+import scala.concurrent.duration._
 
 case class User(
     id: String,
@@ -45,6 +45,13 @@ case class User(
   def hasGames = count.game > 0
 
   def countRated = count.rated
+
+  private val recentDuration = 10.minutes
+  def seenRecently: Boolean = timeNoSee < recentDuration
+
+  def timeNoSee: Duration = seenAt.fold[Duration](Duration.Inf) { s ⇒
+    (nowMillis - s.getMillis).millis
+  }
 }
 
 object User {
