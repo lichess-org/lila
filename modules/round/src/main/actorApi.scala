@@ -92,5 +92,6 @@ package round {
   case class TakebackNo(playerId: String)
   case class Moretime(playerId: String)
   case object Outoftime
+  case object Abandon
   case class Cheat(color: Color)
 }

@@ -128,16 +128,16 @@ final class Env(
   {
     import scala.concurrent.duration._
 
-    scheduler.future(1.13 hour, "game: finish by clock") {
+    scheduler.future(0.33 hour, "game: finish by clock") {
       titivate.finishByClock
     }
 
-    scheduler.effect(2.3 hour, "game: finish abandoned") {
+    scheduler.effect(0.41 hour, "game: finish abandoned") {
       titivate.finishAbandoned
     }
   }
 
-  private lazy val titivate = new Titivate(roundMap, meddler)
+  private lazy val titivate = new Titivate(roundMap, meddler, system.scheduler)
 
   private lazy val hijack = new Hijack(HijackTimeout)
 
