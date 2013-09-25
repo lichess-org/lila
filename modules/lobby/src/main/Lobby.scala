@@ -48,14 +48,16 @@ private[lobby] final class Lobby(
       }
     }
 
-    case Broom ⇒ blocking {
-      socket ? GetUids mapTo manifest[Iterable[String]] addEffect { uids ⇒
-        (HookRepo openNotInUids uids.toSet) foreach remove
-        HookRepo.cleanupOld foreach remove
-      }
+    case Broom ⇒ socket ? GetUids mapTo manifest[Iterable[String]] foreach { uids ⇒
+      val hooks = {
+        (HookRepo openNotInUids uids.toSet) ::: HookRepo.cleanupOld
+      }.toSet
+      if (hooks.nonEmpty) self ! RemoveHooks(hooks)
     }
 
-    case Resync ⇒ socket ! HookIds(HookRepo.list map (_.id))
+    case RemoveHooks(hooks) ⇒ hooks foreach remove
+
+    case Resync             ⇒ socket ! HookIds(HookRepo.list map (_.id))
   }
 
   private def remove(hook: Hook) = {
