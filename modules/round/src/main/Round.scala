@@ -67,6 +67,17 @@ private[round] final class Round(
       }
     }
 
+    // exceptionally we don't block nor publish events
+    // if the game is abandoned, then nobody is around to see them
+    // we can also terminate this actor
+    case Abandon ⇒ GameRepo game gameId foreach { gameOption ⇒
+      gameOption filter (_.abandoned) foreach { game ⇒
+        if (game.abortable) finisher(game, _.Aborted)
+        else finisher(game, _.Resign, Some(!game.player.color))
+        self ! PoisonPill
+      }
+    }
+
     case DrawYes(playerRef)  ⇒ handle(playerRef)(drawer.yes)
     case DrawNo(playerRef)   ⇒ handle(playerRef)(drawer.no)
     case DrawClaim(playerId) ⇒ handle(playerId)(drawer.claim)

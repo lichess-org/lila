@@ -18,10 +18,4 @@ private[round] final class Meddler(roundMap: ActorRef, socketHub: ActorRef) {
   def resign(pov: Pov) {
     roundMap ! Tell(pov.gameId, Resign(pov.playerId))
   }
-
-  def finishAbandoned(game: Game) {
-    game.abandoned ?? {
-      roundMap ! Tell(game.id, Resign(game.player.id))
-    }
-  }
 }
