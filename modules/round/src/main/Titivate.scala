@@ -20,15 +20,15 @@ private[round] final class Titivate(
     scheduler: Scheduler) {
 
   def finishByClock: Funit =
-    $primitive(Query.candidatesToAutofinish, "_id")(_.asOpt[String]) addEffect { ids ⇒
+    $primitive(Query.candidatesToAutofinish, "_id", max = 5000.some)(_.asOpt[String]) addEffect { ids ⇒
       println("[titivate] Finish %d games by clock" format ids.size)
-      delayBatch(ids, 300.millis) { id ⇒ roundMap ! Tell(id, Outoftime).pp }
+      delayBatch(ids, 100.millis) { id ⇒ roundMap ! Tell(id, Outoftime) }
     } void
 
   def finishAbandoned: Funit =
     $primitive(Query.abandoned, "_id", max = 5000.some)(_.asOpt[String]) addEffect { ids ⇒
       println("[titivate] Finish %d abandoned games" format ids.size)
-      delayBatch(ids, 200.millis) { id ⇒ roundMap ! Tell(id, Abandon).pp }
+      delayBatch(ids, 100.millis) { id ⇒ roundMap ! Tell(id, Abandon) }
     } void
 
   private def delayBatch[A](batch: Seq[A], duration: FiniteDuration)(op: A ⇒ Unit) {
