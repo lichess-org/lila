@@ -63,9 +63,8 @@ object Query {
 
   def turnsGt(nb: Int) = Json.obj("t" -> $gt(nb))
 
-  def candidatesToAutofinish = playable ++ clock(true) ++ Json.obj(
-    createdAt -> $gt($date(DateTime.now - 1.year)),
-    updatedAt -> $lt($date(DateTime.now - 2.hour)))
+  def finishByClock = playable ++ clock(true) ++ Json.obj(
+    createdAt -> $gt($date(DateTime.now - 3.hour)))
 
   def abandoned = notFinished ++ Json.obj(updatedAt -> $lt($date(Game.abandonedDate)))
 

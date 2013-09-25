@@ -20,7 +20,7 @@ private[round] final class Titivate(
     scheduler: Scheduler) {
 
   def finishByClock: Funit =
-    $primitive(Query.candidatesToAutofinish, "_id", max = 5000.some)(_.asOpt[String]) addEffect { ids ⇒
+    $primitive(Query.finishByClock, "_id", max = 5000.some)(_.asOpt[String]) addEffect { ids ⇒
       println("[titivate] Finish %d games by clock" format ids.size)
       delayBatch(ids, 100.millis) { id ⇒ roundMap ! Tell(id, Outoftime) }
     } void
