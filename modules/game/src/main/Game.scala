@@ -127,11 +127,10 @@ case class Game(
       ps = player encodePieces game.allPieces,
       blurs = player.blurs + (blur && move.color == player.color).fold(1, 0),
       moveTimes = ((!isPgnImport) && (move.color == player.color)).fold(
-        lastMoveTime.fold("") { lmt ⇒
-          (nowSeconds - lmt) |> { mt ⇒
-            val encoded = MoveTime encode mt
-            player.moveTimes.isEmpty.fold(encoded.toString, player.moveTimes + encoded)
-          }
+        lastMoveTime ?? { lmt ⇒
+          val mt = nowSeconds - lmt 
+          val encoded = MoveTime encode mt
+          player.moveTimes.isEmpty.fold(encoded.toString, player.moveTimes + encoded)
         }, player.moveTimes
       )
     )
