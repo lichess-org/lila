@@ -1,14 +1,14 @@
 package lila.socket
 
+import actorApi._
 import akka.actor._
 import akka.pattern.{ ask, pipe }
+import makeTimeout.short
 import play.api.libs.json._
 
-import actorApi._
 import lila.hub.actorApi.{ GetNbMembers, NbMembers, WithUserIds, WithSocketUserIds, SendTo, SendTos }
 import lila.hub.ActorMap
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
-import makeTimeout.short
 
 trait SocketHubActor[A <: SocketActor[_]] extends Socket with ActorMap[A] {
 
@@ -16,8 +16,7 @@ trait SocketHubActor[A <: SocketActor[_]] extends Socket with ActorMap[A] {
 
   private def _socketHubReceive: Receive = {
 
-    case msg @ GetNbMembers ⇒
-      askAll(msg) mapTo manifest[List[Int]] map (_.sum) pipeTo sender
+    case msg @ GetNbMembers       ⇒ zipAll[Int](msg) pipeTo sender
 
     case msg @ NbMembers(_)       ⇒ tellAll(msg)
 

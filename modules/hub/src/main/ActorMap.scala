@@ -6,6 +6,7 @@ import actorApi.map._
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 import makeTimeout.short
+import scalaz.Monoid
 
 trait ActorMap[A <: Actor] extends Actor {
 
@@ -42,9 +43,15 @@ trait ActorMap[A <: Actor] extends Actor {
     actors.values foreach (_ ! msg)
   }
 
+  // sequential
   protected def askAll(msg: Any): Fu[List[Any]] = {
     actors.values.toList map (_ ? msg)
   } sequenceFu
+
+  // concurrent
+  protected def zipAll[A: Monoid: Manifest](msg: Any): Fu[A] = {
+    actors.values.toList map (_ ? msg mapTo manifest[A])
+  }.suml
 
   protected def get(id: String): Fu[ActorRef] = self ? Get(id) mapTo manifest[ActorRef]
 
