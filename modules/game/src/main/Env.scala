@@ -69,9 +69,6 @@ final class Env(
     scheduler.effect(0.9 hours, "game: cleanup") {
       maintenance.cleanupUnplayed 
     }
-    scheduler.once(10 seconds) {
-      maintenance.cleanupUnplayed 
-    }
 
     scheduler.message(10.seconds) {
       captcher -> actorApi.NewCaptcha
