@@ -6,14 +6,20 @@ import akka.actor._
 import akka.pattern.{ ask, pipe }
 import ornicar.scalalib.Random.{approximatly, nextString}
 
-final class Scheduler(system: ActorSystem, enabled: Boolean, debug: Boolean) {
+final class Scheduler(scheduler: akka.actor.Scheduler, enabled: Boolean, debug: Boolean) {
+
+  def throttle[A](delay: FiniteDuration)(batch: Seq[A])(op: A ⇒ Unit) {
+    batch.zipWithIndex foreach {
+      case (a, i) ⇒ scheduler.scheduleOnce((1 + i) * delay) { op(a) }
+    }
+  }
 
   def message(freq: FiniteDuration)(to: ⇒ (ActorRef, Any)) {
-    enabled ! system.scheduler.schedule(freq, randomize(freq), to._1, to._2)
+    enabled ! scheduler.schedule(freq, randomize(freq), to._1, to._2)
   }
 
   def messageToSelection(freq: FiniteDuration)(to: ⇒ (ActorSelection, Any)) {
-    enabled ! system.scheduler.schedule(freq, randomize(freq)) {
+    enabled ! scheduler.schedule(freq, randomize(freq)) {
       to._1 ! to._2
     }
   }
@@ -27,7 +33,7 @@ final class Scheduler(system: ActorSystem, enabled: Boolean, debug: Boolean) {
       val f = randomize(freq)
       val doDebug = debug && freq > 5.seconds
       info("schedule %s every %s".format(name, freq))
-      system.scheduler.schedule(f, f) {
+      scheduler.schedule(f, f) {
         val tagged = "(%s) %s".format(nextString(3), name)
         doDebug ! info(tagged)
         val start = nowMillis
@@ -40,7 +46,7 @@ final class Scheduler(system: ActorSystem, enabled: Boolean, debug: Boolean) {
   }
 
   def once(delay: FiniteDuration)(op: ⇒ Unit) {
-    enabled ! system.scheduler.scheduleOnce(delay)(op)
+    enabled ! scheduler.scheduleOnce(delay)(op)
   }
 
   private def info(msg: String) {

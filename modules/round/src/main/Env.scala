@@ -137,7 +137,7 @@ final class Env(
     }
   }
 
-  private lazy val titivate = new Titivate(roundMap, meddler, system.scheduler)
+  private lazy val titivate = new Titivate(roundMap, meddler, scheduler)
 
   private lazy val hijack = new Hijack(HijackTimeout)
 
