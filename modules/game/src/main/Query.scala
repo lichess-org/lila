@@ -66,7 +66,13 @@ object Query {
   def finishByClock = playable ++ clock(true) ++ Json.obj(
     createdAt -> $gt($date(DateTime.now - 3.hour)))
 
-  def abandoned = notFinished ++ Json.obj(updatedAt -> $lt($date(Game.abandonedDate)))
+  def abandoned = {
+    val date = $date(Game.abandonedDate)
+    notFinished ++ $or(Seq(
+      Json.obj(updatedAt -> $lt(date)),
+      Json.obj(updatedAt -> $exists(false), createdAt -> $lt(date))
+    ))
+  }
 
   val sortCreated = $sort desc createdAt
 
