@@ -1,11 +1,12 @@
 package controllers
 
+import play.api.data.Form
+import play.api.mvc.{ SimpleResult, Call }
+
 import lila.app._
 import lila.game.GameRepo
 import lila.user.UserRepo
 import lila.user.{ Context, BodyContext }
-import play.api.data.Form
-import play.api.mvc.{ SimpleResult, Call }
 import views._
 
 object Setup extends LilaController with TheftPrevention {
@@ -46,13 +47,13 @@ object Setup extends LilaController with TheftPrevention {
 
   def decline(gameId: String) = Auth { implicit ctx ⇒
     me ⇒
-      OptionFuResult(GameRepo game gameId) { game ⇒
-        game.started.fold(
-          BadRequest("Cannot decline started challenge").fuccess,
-          (GameRepo remove game.id) >>
-            (Env.bookmark.api removeByGame game) >>-
-            (Env.hub.actor.challenger ! lila.hub.actorApi.setup.DeclineChallenge(gameId)) map { Ok(_) }
-        )
+      OptionResult(GameRepo game gameId) { game ⇒
+        if (game.started) BadRequest("Cannot decline started challenge")
+        else {
+          Env.game remover game.id
+          Env.hub.actor.challenger ! lila.hub.actorApi.setup.DeclineChallenge(gameId)
+          Ok("ok")
+        }
       }
   }
 
@@ -114,13 +115,12 @@ object Setup extends LilaController with TheftPrevention {
   }
 
   def cancel(fullId: String) = Open { implicit ctx ⇒
-    OptionFuResult(GameRepo pov fullId) { pov ⇒
-      pov.game.started.fold(
-        Redirect(routes.Round.player(pov.fullId)).fuccess,
-        (GameRepo remove pov.game.id) >>
-          (Env.bookmark.api removeByGame pov.game) inject
-          Redirect(routes.Lobby.home)
-      )
+    OptionResult(GameRepo pov fullId) { pov ⇒
+      if (pov.game.started) Redirect(routes.Round.player(pov.fullId))
+      else {
+        Env.game remover pov.game.id
+        Redirect(routes.Lobby.home)
+      }
     }
   }
 

@@ -77,8 +77,6 @@ object GameRepo {
       ))
     }
 
-  def remove(id: ID) = $remove byId id
-
   // makes the asumption that player 0 is white!
   // proved to be true on prod DB at March 31 2012
   def setEloDiffs(id: ID, white: Int, black: Int) =
@@ -144,12 +142,6 @@ object GameRepo {
 
   def initialFen(gameId: ID): Fu[Option[String]] =
     $primitive.one($select(gameId), "if")(_.asOpt[String])
-
-  def unplayedIds: Fu[List[ID]] = $primitive(
-    Json.obj("t" -> $lt(2)) ++
-      Json.obj(createdAt -> ($lt($date(DateTime.now - 3.day)) ++ $gt($date(DateTime.now - 1.week)))),
-    "_id"
-  )(_.asOpt[ID])
 
   def featuredCandidates: Fu[List[Game]] = $find(
     Query.playable ++ Query.clock(true) ++ Query.turnsGt(1) ++ Json.obj(

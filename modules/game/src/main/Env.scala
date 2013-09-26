@@ -66,8 +66,11 @@ final class Env(
   {
     import scala.concurrent.duration._
 
-    scheduler.effect(3.59 hours, "game: cleanup") {
-      titivate.cleanupUnplayed >> titivate.cleanupNext
+    scheduler.effect(0.9 hours, "game: cleanup") {
+      titivate.cleanupUnplayed 
+    }
+    scheduler.once(10 seconds) {
+      titivate.cleanupUnplayed 
     }
 
     scheduler.message(10.seconds) {
@@ -86,8 +89,9 @@ final class Env(
 
   private lazy val computeElos = new ComputeElos(system)
 
-  private lazy val titivate = new Titivate(
-    bookmark = hub.actor.bookmark)
+  private lazy val titivate = new Titivate(remover, scheduler)
+
+  lazy val remover = new Remover(hub.actor.bookmark) 
 
   private def jsPath =
     "%s/%s".format(appPath, isProd.fold(JsPathCompiled, JsPathRaw))
