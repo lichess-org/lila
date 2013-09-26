@@ -74,6 +74,13 @@ object Query {
     ))
   }
 
+  def unplayed = Json.obj(
+    "t" -> $lt(2),
+    createdAt -> (
+      $lt($date(DateTime.now - 24.hours)) ++
+      $gt($date(DateTime.now - 25.hours)))
+  )
+
   val sortCreated = $sort desc createdAt
 
   val sortPopular = $sort desc "bm"

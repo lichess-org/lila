@@ -27,8 +27,6 @@ final class BookmarkApi(
   def userIdsByGame(game: Game): Fu[List[String]] =
     game.hasBookmarks ?? (BookmarkRepo userIdsByGameId game.id)
 
-  def removeByGame(game: Game): Funit = BookmarkRepo removeByGameId game.id
-
   def removeByGameIds(ids: List[String]): Funit = BookmarkRepo removeByGameIds ids
 
   def gamePaginatorByUser(user: User, page: Int) =
