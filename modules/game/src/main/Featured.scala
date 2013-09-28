@@ -1,7 +1,6 @@
 package lila.game
 
 import scala.concurrent.duration._
-import scala.concurrent.{ Future, Await }
 
 import akka.actor._
 import akka.actor.ActorSelection
