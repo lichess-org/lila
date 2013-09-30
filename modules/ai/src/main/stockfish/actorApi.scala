@@ -7,7 +7,6 @@ import akka.actor.ActorRef
 package monitor {
   case class AddTime(time: Int)
   case object CalculateLoad
-  case object IsHealthy
 }
 
 sealed trait State

@@ -39,7 +39,6 @@ final class Client(
     private var load = none[Int]
 
     def receive = {
-      case IsHealthy ⇒ sender ! load.isDefined
       case GetLoad   ⇒ sender ! load
       case CalculateLoad ⇒ scala.concurrent.Future {
         try {
@@ -56,12 +55,8 @@ final class Client(
   }))
   system.scheduler.schedule(1.millis, 1.second, actor, CalculateLoad)
 
-  def or(fallback: lila.ai.Ai): Fu[lila.ai.Ai] = {
-    import makeTimeout.short
-    actor ? IsHealthy mapTo manifest[Boolean] map {
-      _.fold(this, fallback)
-    }
-  }
+  def or(fallback: lila.ai.Ai): Fu[lila.ai.Ai] = 
+    load map(_.isDefined) map { _.fold(this, fallback) }
 
   private def fetchMove(pgn: String, initialFen: String, level: Int): Fu[String] =
     WS.url(playUrl).withQueryString(
