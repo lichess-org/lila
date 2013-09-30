@@ -26,16 +26,13 @@ object Event {
   ).flatten
 
   def fromSituation(situation: Situation): List[Event] = List(
-    if (situation.check) situation.kingPos map Check.apply else None,
-    if (situation.threefoldRepetition) Some(Threefold) else None,
+    situation.check ?? situation.kingPos map Check.apply,
+    situation.threefoldRepetition option Threefold,
     Some(Premove(situation.color))
   ).flatten
 
   def possibleMoves(situation: Situation, color: Color): Event =
-    PossibleMoves(
-      color,
-      if (color == situation.color) situation.destinations else Map.empty
-    )
+    PossibleMoves(color, (color == situation.color) ?? situation.destinations)
 
   sealed trait Empty extends Event {
     def data = JsNull
@@ -51,8 +48,7 @@ object Event {
       "type" -> "move",
       "from" -> orig.key,
       "to" -> dest.key,
-      "color" -> color.name
-    )
+      "color" -> color.name)
   }
   object Move {
     def apply(move: ChessMove): Move =

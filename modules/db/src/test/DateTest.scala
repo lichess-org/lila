@@ -11,7 +11,7 @@ import play.api.test._
 import reactivemongo.api._
 import reactivemongo.bson._
 
-class DateTest extends Specification with test.WithColl {
+class DateTest extends Specification with WithColl {
 
   case class TestEvent(id: String, on: DateTime)
 
