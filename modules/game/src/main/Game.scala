@@ -1,11 +1,11 @@
 package lila.game
 
-import org.joda.time.DateTime
-import org.scala_tools.time.Imports._
-
 import chess.Color._
 import chess.Pos.piotr, chess.Role.forsyth
 import chess.{ History ⇒ ChessHistory, Role, Board, Move, Pos, Game ⇒ ChessGame, Clock, Status, Color, Piece, Variant, Mode }
+import org.joda.time.DateTime
+import org.scala_tools.time.Imports._
+
 import lila.user.User
 
 case class Game(
@@ -94,7 +94,6 @@ case class Game(
         if (role.isUpper) posPiece(pos, role.toLower, color) map { p ⇒ (ps, p :: ds) }
         else posPiece(pos, role, color) map { p ⇒ (ps + p, ds) }
       } | (ps, ds)
-      case (acc, _) ⇒ acc
     }
 
     ChessGame(
@@ -102,8 +101,7 @@ case class Game(
       player = Color(0 == turns % 2),
       clock = clock,
       deads = deads,
-      turns = turns
-    )
+      turns = turns)
   }
 
   lazy val toChessHistory = ChessHistory(
@@ -128,7 +126,7 @@ case class Game(
       blurs = player.blurs + (blur && move.color == player.color).fold(1, 0),
       moveTimes = ((!isPgnImport) && (move.color == player.color)).fold(
         lastMoveTime ?? { lmt ⇒
-          val mt = nowSeconds - lmt 
+          val mt = nowSeconds - lmt
           val encoded = MoveTime encode mt
           player.moveTimes.isEmpty.fold(encoded.toString, player.moveTimes + encoded)
         }, player.moveTimes
@@ -149,12 +147,12 @@ case class Game(
     )
 
     val finalEvents = events :::
-      ~updated.clock.map(c ⇒ List(Event.Clock(c))) ::: {
+      updated.clock.??(c ⇒ List(Event.Clock(c))) ::: {
         (updated.playable && (
           abortable != updated.abortable || (Color.all exists { color ⇒
             playerCanOfferDraw(color) != updated.playerCanOfferDraw(color)
           })
-        )).fold(Color.all map Event.ReloadTable, Nil)
+        )).??(Color.all map Event.ReloadTable)
       }
 
     Progress(this, updated, finalEvents) -> game.pgnMoves
@@ -472,14 +470,14 @@ private[game] case class RawGame(
     lastMove = lm,
     check = ck flatMap Pos.posAt,
     creatorColor = cc.fold(Color.white)(Color.apply),
-    positionHashes = ph | "",
+    positionHashes = ~ph,
     castles = cs | "-",
     mode = (ra map Mode.apply) | Mode.Casual,
     variant = (v flatMap Variant.apply) | Variant.Standard,
     next = next,
     lastMoveTime = lmt,
-    bookmarks = bm | 0,
-    is960Rematch = r960 | false,
+    bookmarks = ~bm,
+    is960Rematch = ~r960,
     createdAt = ca,
     updatedAt = ua,
     metadata = me map (_.decode)

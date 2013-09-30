@@ -72,11 +72,11 @@ object Tube {
     Seq(_.NoId) // no need to rename the ID field as we are not mapping
   )
 
-  def toMongoId(js: JsValue): JsResult[JsObject] =
-    js transform Helpers.rename('id, '_id)
+  private val toMongoIdOp = Helpers.rename('id, '_id)
+  def toMongoId(js: JsValue): JsResult[JsObject] = js transform toMongoIdOp
 
-  def fromMongoId(js: JsValue): JsResult[JsObject] =
-    js transform Helpers.rename('_id, 'id)
+  private val fromMongoIdOp = Helpers.rename('_id, 'id)
+  def fromMongoId(js: JsValue): JsResult[JsObject] = js transform fromMongoIdOp
 
   sealed trait Flag
   object Flag {
