@@ -48,7 +48,7 @@
         1500,
         "ease-in"
         );
-    if (val > (this.threshold * this.maxVal)) {
+    if (parseInt(val) + "" == "NaN" || val > (this.threshold * this.maxVal)) {
       this.elt.className = "monitor alert";
     } else {
       this.elt.className = "monitor";
@@ -151,24 +151,27 @@
       container : container
     });
 
-    app.ai = new SpeedOMeter({
-      name : "AI LOAD",
+    app.mps = new SpeedOMeter({
+      name : "MOVES",
       maxVal : 100,
-      threshold: 0.8,
       container : container
     });
+
+    app.ais = [];
+    for (i=1;i<=nbAi;i++) {
+      app.ais.push(new SpeedOMeter({
+        name : "AI " + i + " LOAD",
+        maxVal : 100,
+        threshold: 0.8,
+        container : container
+      }));
+    }
 
     // app.lag = new SpeedOMeter({
     //   name : "LAG",
     //   maxVal : 200,
     //   container : container
     // });
-
-    app.mps = new SpeedOMeter({
-      name : "MOVES",
-      maxVal : 100,
-      container : container
-    });
 
     function setStatus(s) {
       window.document.body.className = s;
@@ -188,6 +191,11 @@
           if (d.length == 2) {
             if (typeof app[d[1]] != "undefined") {
               app[d[1]].update(d[0]);
+            } else if (d[1] == 'ai') {
+              var ais = d[0].split(',');
+              for (i=0;i<ais.length;i++) {
+                app.ais[i].update(ais[i]);
+              }
             }
           }
         }
