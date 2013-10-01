@@ -11,7 +11,7 @@ final class Env(
     db: lila.db.Env,
     hub: lila.hub.Env,
     messenger: lila.round.Messenger,
-    ai: () ⇒ Fu[lila.ai.Ai],
+    ai: lila.ai.Ai,
     system: ActorSystem) {
 
   private val FriendMemoTtl = config duration "friend.memo.ttl"
@@ -29,7 +29,7 @@ final class Env(
     friendConfigMemo = friendConfigMemo,
     timeline = hub.actor.gameTimeline,
     router = hub.actor.router,
-    getAi = ai)
+    engine = ai)
 
   lazy val friendJoiner = new FriendJoiner(
     messenger = messenger,

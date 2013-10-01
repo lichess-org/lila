@@ -38,7 +38,7 @@ private[monitor] final class Reporting(
   var mps = 0
   var cpu = 0
   var mongoStatus = MongoStatus.default
-  var aiLoad = none[Int]
+  var aiLoads = List[Option[Int]]()
 
   var displays = 0
 
@@ -66,7 +66,7 @@ private[monitor] final class Reporting(
     case Update ⇒ {
       val before = nowMillis
       MongoStatus(db.db)(mongoStatus) zip
-        (hub.actor.ai ? lila.hub.actorApi.ai.GetLoad).mapTo[Option[Int]] zip
+        (hub.actor.ai ? lila.hub.actorApi.ai.GetLoad).mapTo[List[Option[Int]]] zip
         (hub.socket.site ? GetNbMembers).mapTo[Int] zip
         (hub.socket.lobby ? GetNbMembers).mapTo[Int] zip
         (hub.socket.round ? Size).mapTo[Int] zip
@@ -86,7 +86,7 @@ private[monitor] final class Reporting(
               rps = rpsProvider.rps
               mps = mpsProvider.rps
               cpu = ((cpuStats.getCpuUsage() * 1000).round / 10.0).toInt
-              aiLoad = aiL
+              aiLoads = aiL
               socket ! MonitorData(monitorData)
             }
           }
@@ -98,8 +98,10 @@ private[monitor] final class Reporting(
     nbGames,
     game.nbHubs,
     loadAvg.toString,
-    ~aiLoad
+    aiLoadString
   ) mkString " "
+
+  private def aiLoadString = aiLoads.map(_.fold("!!")(_.toString)) mkString ","
 
   private def monitorData = List(
     "users" -> allMembers,
@@ -116,7 +118,7 @@ private[monitor] final class Reporting(
     "dbConn" -> mongoStatus.connection,
     "dbQps" -> mongoStatus.qps,
     "dbLock" -> math.round(mongoStatus.lock * 10) / 10d,
-    "ai" -> ~aiLoad
+    "ai" -> aiLoadString
   ) map {
       case (name, value) ⇒ value + ":" + name
     }

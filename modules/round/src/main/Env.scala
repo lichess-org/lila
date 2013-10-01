@@ -16,7 +16,7 @@ final class Env(
     flood: lila.security.Flood,
     db: lila.db.Env,
     hub: lila.hub.Env,
-    ai: () ⇒ Fu[lila.ai.Ai],
+    ai: lila.ai.Ai,
     getUsername: String ⇒ Fu[Option[String]],
     getUsernameOrAnon: String ⇒ Fu[String],
     i18nKeys: lila.i18n.I18nKeys,
@@ -87,7 +87,7 @@ final class Env(
     timeline = hub.actor.gameTimeline)
 
   private lazy val player: Player = new Player(
-    ai = ai,
+    engine = ai,
     notifyMove = notifyMove,
     finisher = finisher,
     cheatDetector = cheatDetector,
