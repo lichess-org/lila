@@ -13,6 +13,7 @@ private[ai] case class Config(
     analyseMoveTime: FiniteDuration,
     playTimeout: FiniteDuration,
     analyseTimeout: FiniteDuration,
+    loadTimeout: FiniteDuration,
     debug: Boolean) {
 
   import Config._

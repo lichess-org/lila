@@ -34,6 +34,7 @@ final class Env(
     playMaxMoveTime = config duration "stockfish.play.movetime",
     analyseMoveTime = config duration "stockfish.analyse.movetime",
     playTimeout = config duration "stockfish.play.timeout",
+    loadTimeout = config duration "stockfish.load.timeout",
     analyseTimeout = config duration "stockfish.analyse.timeout",
     debug = config getBoolean "stockfish.debug")
 
@@ -59,17 +60,19 @@ final class Env(
 
   private lazy val stockfishAi = new stockfish.Ai(stockfishServer)
 
-  private lazy val stockfishClient = new stockfish.Client(
+  lazy val stockfishClient = new stockfish.Client(
     dispatcher = system.actorOf(
       Props(new stockfish.remote.Dispatcher(
         urls = StockfishRemotes,
+        config = stockfishConfig,
         router = stockfish.remote.Router(
           playRoute = StockfishPlayRoute,
           analyseRoute = StockfishAnalyseRoute,
           loadRoute = StockfishLoadRoute) _,
         scheduler = system.scheduler
       )), name = "stockfish-dispatcher"),
-    fallback = stockfishAi)
+    fallback = stockfishAi,
+    config = stockfishConfig)
 
   lazy val stockfishServer = new stockfish.Server(
     queue = stockfishQueue,
