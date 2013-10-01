@@ -1,5 +1,7 @@
 package lila.ai
 
+import scala.collection.JavaConversions._
+
 import akka.actor._
 import akka.pattern.pipe
 import com.typesafe.config.Config
@@ -14,9 +16,10 @@ final class Env(
     val EngineName = config getString "engine"
     val IsServer = config getBoolean "server"
     val IsClient = config getBoolean "client"
-    val StockfishPlayUrl = config getString "stockfish.play.url"
-    val StockfishAnalyseUrl = config getString "stockfish.analyse.url"
-    val StockfishLoadUrl = config getString "stockfish.load.url"
+    val StockfishRemotes = config getStringList "stockfish.remotes" toList
+    val StockfishPlayRoute = config getString "stockfish.play.route"
+    val StockfishAnalyseRoute = config getString "stockfish.analyse.route"
+    val StockfishLoadRoute = config getString "stockfish.load.route"
     val StockfishQueueName = config getString "stockfish.queue.name"
     val StockfishQueueDispatcher = config getString "stockfish.queue.dispatcher"
     val StockfishAnalyseTimeout = config duration "stockfish.analyse.timeout"
@@ -34,10 +37,10 @@ final class Env(
     analyseTimeout = config duration "stockfish.analyse.timeout",
     debug = config getBoolean "stockfish.debug")
 
-  def ai: () ⇒ Fu[Ai] = () ⇒ (EngineName, IsClient) match {
-    case ("stockfish", true)  ⇒ stockfishClient or stockfishAi
-    case ("stockfish", false) ⇒ fuccess(stockfishAi)
-    case _                    ⇒ fuccess(stupidAi)
+  lazy val ai: Ai = (EngineName, IsClient) match {
+    case ("stockfish", true)  ⇒ stockfishClient
+    case ("stockfish", false) ⇒ stockfishAi
+    case _                    ⇒ stupidAi
   }
 
   def isServer = IsServer
@@ -47,20 +50,26 @@ final class Env(
     def receive = {
       case lila.hub.actorApi.ai.GetLoad ⇒ IsClient.fold(
         stockfishClient.load pipeTo sender,
-        sender ! none
+        sender ! Nil
       )
       case lila.hub.actorApi.ai.Analyse(id, pgn, fen) ⇒
-        ai() flatMap { _.analyse(pgn, fen) } map { _(id) } pipeTo sender
+        ai.analyse(pgn, fen) map { _(id) } pipeTo sender
     }
   }), name = ActorName)
 
   private lazy val stockfishAi = new stockfish.Ai(stockfishServer)
 
   private lazy val stockfishClient = new stockfish.Client(
-    playUrl = StockfishPlayUrl,
-    analyseUrl = StockfishAnalyseUrl,
-    loadUrl = StockfishLoadUrl,
-    system = system)
+    dispatcher = system.actorOf(
+      Props(new stockfish.remote.Dispatcher(
+        urls = StockfishRemotes,
+        router = stockfish.remote.Router(
+          playRoute = StockfishPlayRoute,
+          analyseRoute = StockfishAnalyseRoute,
+          loadRoute = StockfishLoadRoute) _,
+        scheduler = system.scheduler
+      )), name = "stockfish-dispatcher"),
+    fallback = stockfishAi)
 
   lazy val stockfishServer = new stockfish.Server(
     queue = stockfishQueue,

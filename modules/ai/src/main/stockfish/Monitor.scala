@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 
-import actorApi.monitor._
+import actorApi._
 import lila.hub.actorApi.ai.GetLoad
 import makeTimeout.short
 

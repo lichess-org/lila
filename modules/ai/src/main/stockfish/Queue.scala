@@ -8,7 +8,7 @@ import akka.actor._
 import akka.pattern.{ ask, pipe }
 import akka.util.Timeout
 
-import actorApi._, monitor._
+import actorApi._
 import lila.analyse.{ AnalysisMaker, Info }
 import lila.hub.actorApi.ai.GetLoad
 

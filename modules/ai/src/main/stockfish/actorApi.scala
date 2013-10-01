@@ -4,10 +4,7 @@ package actorApi
 
 import akka.actor.ActorRef
 
-package monitor {
-  case class AddTime(time: Int)
-  case object CalculateLoad
-}
+case class AddTime(time: Int)
 
 sealed trait State
 case object Starting extends State
