@@ -1,8 +1,10 @@
 package lila.round
 
-import lila.game.{ GameRepo, Game, PgnRepo, Pov, Rewind, Event, Progress }
+import lila.game.{ GameRepo, Game, PgnRepo, UciMemo, Pov, Rewind, Event, Progress }
 
-private[round] final class Takebacker(messenger: Messenger) {
+private[round] final class Takebacker(
+  messenger: Messenger,
+  uciMemo: UciMemo) {
 
   def yes(pov: Pov): Fu[Events] = pov match {
     case Pov(game, _) if pov.opponent.isProposingTakeback ⇒ single(game)
@@ -39,7 +41,10 @@ private[round] final class Takebacker(messenger: Messenger) {
 
   private def single(game: Game): Fu[Events] = extras(game.id) flatMap {
     case (fen, pgn) ⇒ Rewind(game, pgn, fen).future flatMap {
-      case (progress, newPgn) ⇒ PgnRepo.save(game.id, newPgn) >> save(progress)
+      case (progress, newPgn) ⇒ 
+        PgnRepo.save(game.id, newPgn) >>-
+        uciMemo.drop(game, 1)
+        save(progress) 
     }
   }
 
@@ -51,7 +56,7 @@ private[round] final class Takebacker(messenger: Messenger) {
         case (progress, newPgn) ⇒ (prog1 withGame progress.game, newPgn)
       }
       (prog2, pgn2) = second
-      _ ← PgnRepo.save(game.id, pgn2)
+      _ ← PgnRepo.save(game.id, pgn2) >>- uciMemo.drop(game, 2)
       events ← save(prog2)
     } yield events
   }

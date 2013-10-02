@@ -26,9 +26,9 @@ final class UciMemo(ttl: Duration) {
       case _           ⇒ compute(game) addEffect { set(game, _) }
     }
 
-  def delete(game: Game) {
-    // TODO figure out a best way
-    memo.put(game.id, Vector.empty)
+  def drop(game: Game, nb: Int) {
+    val current = Option(memo getIfPresent game.id) | Vector.empty
+    memo.put(game.id, current.take(current.size - nb))
   }
 
   private def compute(game: Game): Fu[Vector[String]] = for {

@@ -144,7 +144,8 @@ final class Env(
   private lazy val hijack = new Hijack(HijackTimeout)
 
   private lazy val takebacker = new Takebacker(
-    messenger = messenger)
+    messenger = messenger,
+    uciMemo = uciMemo)
 
   private def notifyMove(gameId: String, fen: String, lastMove: Option[String]) {
     hub.socket.hub ! lila.socket.actorApi.Fen(gameId, fen, lastMove)
