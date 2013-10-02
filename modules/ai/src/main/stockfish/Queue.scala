@@ -45,17 +45,17 @@ private[ai] final class Queue(config: Config) extends Actor {
       (actor ? req) mapTo manifest[Valid[Int ⇒ Info]] map sender.! await timeout
     }
 
-    case FullAnalReq(moveString, fen) ⇒ {
-      implicit def timeout = makeTimeout(config.analyseTimeout)
+    case FullAnalReq(uciMoves, fen) ⇒ {
+      implicit val timeout = makeTimeout(config.analyseTimeout)
       type Result = Valid[Int ⇒ Info]
-      val moves = moveString.split(' ').toList
+      val moves = uciMoves.split(' ').toList
       val futures = (1 to moves.size - 1).toStream map moves.take map { serie ⇒
         self ? AnalReq(serie.init mkString " ", serie.last, fen) mapTo manifest[Result]
       }
-      lila.common.Future.lazyFold(futures)(List[Result]())(_ :+ _) addFailureEffect {
+      lila.common.Future.lazyFold(futures)(Vector[Result]())(_ :+ _) addFailureEffect {
         case e ⇒ sender ! Status.Failure(e)
       } map {
-        _.sequence map { infos ⇒
+        _.toList.sequence map { infos ⇒
           AnalysisMaker(infos.zipWithIndex map (x ⇒ x._1 -> (x._2 + 1)) map {
             case (info, turn) ⇒ (turn % 2 == 1).fold(
               info(turn),
