@@ -250,7 +250,7 @@ case class Game(
 
   def finishedOrAborted = finished || aborted
 
-  def analyzable = finished && (source.fold(true)(Source.Position!=))
+  def analysable = finished && (source.fold(true)(Source.Position!=))
 
   def winner = players find (_.wins)
 

@@ -21,7 +21,7 @@ private[gameSearch] object Game {
     val opening = "op"
     val date = "da"
     val duration = "du"
-    val analyzed = "an"
+    val analysed = "an"
   }
   import fields._
 
@@ -55,7 +55,7 @@ private[gameSearch] object Game {
         field(opening, "string"),
         field(date, "date", attrs = Json.obj("format" -> Date.format)),
         field(duration, "short"),
-        field(analyzed, "boolean")
+        field(analysed, "boolean")
       ))
     )
   }
@@ -72,6 +72,6 @@ private[gameSearch] object Game {
     date -> (Date.formatter print game.createdAt),
     duration -> game.estimateTotalTime,
     opening -> Json.toJson(OpeningExplorer openingOf pgn map (_.code.toLowerCase)),
-    analyzed -> anal
+    analysed -> anal
   )
 }
