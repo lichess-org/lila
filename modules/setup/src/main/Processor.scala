@@ -33,12 +33,7 @@ private[setup] final class Processor(
       (GameRepo insertDenormalized game) >>-
       (timeline ! game) >>
       game.player.isHuman.fold(fuccess(pov), for {
-        initialFen ← game.variant.exotic ?? (GameRepo initialFen game.id)
-        pgnString ← PgnRepo get game.id
-        aiResult ← engine.play(game.toChess, pgnString, initialFen, ~game.aiLevel)
-        (newChessGame, move) = aiResult
-        (progress, pgn) = game.update(newChessGame, move)
-        _ ← (GameRepo save progress) >> PgnRepo.save(game.id, pgn)
+        progress ← engine.play(game, game.aiLevel | 1)
       } yield pov withGame progress.game)
   }
 

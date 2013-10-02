@@ -15,9 +15,9 @@ import chess.Variant.Chess960
 import lila.analyse.AnalysisMaker
 import lila.hub.actorApi.ai.GetLoad
 
-private[ai] final class Server(queue: ActorRef, config: Config) {
+private[ai] final class Server(queue: ActorRef, config: Config) extends lila.ai.Ai {
 
-  def play(pgn: String, initialFen: Option[String], level: Int): Fu[String] = {
+  def move(pgn: String, initialFen: Option[String], level: Int): Fu[String] = {
     implicit val timeout = makeTimeout(config.playTimeout)
     UciDump(pgn, initialFen, initialFen.isDefined option Chess960).future flatMap { moves ⇒
       queue ? PlayReq(moves, initialFen map chess960Fen, level) mapTo
