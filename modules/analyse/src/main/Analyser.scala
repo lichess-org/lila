@@ -2,6 +2,7 @@ package lila.analyse
 
 import akka.actor.ActorSelection
 import akka.pattern.ask
+import chess.format.UciDump
 import makeTimeout.veryLarge
 
 import lila.db.api._
@@ -31,19 +32,21 @@ final class Analyser(
       }
 
     def doGenerate: Fu[Analysis] =
-      $find.byId[Game](id) map (_ filter (_.analyzable)) zip (PgnRepo getNonEmpty id) flatMap {
-        case (Some(game), Some(pgn)) ⇒ (for {
-          _ ← AnalysisRepo.progress(id, userId)
-          initialFen ← GameRepo initialFen id
-          analysis ← {
-            ai ? lila.hub.actorApi.ai.Analyse(id, pgn, initialFen)
-          } mapTo manifest[Analysis]
-        } yield analysis) flatFold (
-          e ⇒ AnalysisRepo.fail(id, e) >> fufail[Analysis](e.getMessage), 
-          a ⇒ AnalysisRepo.done(id, a) >>- (indexer ! InsertGame(game)) inject a
-        )
-        case _ ⇒ fufail[Analysis]("[analysis] %s no game or pgn found" format (id))
-      }
+      $find.byId[Game](id) map (_ filter (_.analyzable)) zip
+        (PgnRepo getNonEmpty id) zip
+        (GameRepo initialFen id) flatMap {
+          case ((Some(game), Some(pgn)), initialFen) ⇒ (for {
+            _ ← AnalysisRepo.progress(id, userId)
+            uciMoves ← UciDump(pgn, initialFen, game.variant).future
+            analysis ← {
+              ai ? lila.hub.actorApi.ai.Analyse(id, uciMoves mkString " ", initialFen)
+            } mapTo manifest[Analysis]
+          } yield analysis) flatFold (
+            e ⇒ AnalysisRepo.fail(id, e) >> fufail[Analysis](e.getMessage),
+            a ⇒ AnalysisRepo.done(id, a) >>- (indexer ! InsertGame(game)) inject a
+          )
+          case _ ⇒ fufail[Analysis]("[analysis] %s no game or pgn found" format (id))
+        }
 
     AnalysisRepo doneById id flatMap {
       _.fold(generate)(fuccess(_))

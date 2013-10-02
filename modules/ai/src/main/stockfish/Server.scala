@@ -26,12 +26,10 @@ private[ai] final class Server(
       manifest[Valid[String]] flatMap (_.future)
   }
 
-  def analyse(pgn: String, initialFen: Option[String]): Fu[AnalysisMaker] = {
+  def analyse(uciMoves: String, initialFen: Option[String]): Fu[AnalysisMaker] = {
     implicit val timeout = makeTimeout(config.analyseTimeout)
-    UciDump(pgn, initialFen, initialFen.isDefined.fold(Variant.Chess960, Variant.Standard)).future flatMap { moves ⇒
-      queue ? FullAnalReq(moves mkString " ", initialFen map chess960Fen) mapTo
-        manifest[Valid[AnalysisMaker]] flatMap (_.future)
-    }
+    queue ? FullAnalReq(uciMoves, initialFen map chess960Fen) mapTo
+      manifest[Valid[AnalysisMaker]] flatMap (_.future)
   }
 
   def load: Fu[Int] = {
