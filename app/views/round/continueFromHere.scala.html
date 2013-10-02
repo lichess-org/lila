@@ -1,6 +1,6 @@
-@(game: Game)(implicit ctx: Context)
+@(game: Game, always: Boolean = false)(implicit ctx: Context)
 
-@if(game.continuable) {
+@if(game.continuable || always) {
 <a class="continue_from_here">@trans.continueFromHere()</a>
 <span class="opponent_choice">
   <a class="fen_link" href="@routes.Round.continue(game.id, "ai")?fen=">@trans.playWithTheMachine()</a> |
