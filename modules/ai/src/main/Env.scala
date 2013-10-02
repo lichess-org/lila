@@ -82,7 +82,7 @@ final class Env(
   def nbStockfishRemotes = StockfishRemotes.size
 
   private lazy val stockfishQueue = system.actorOf(Props(
-    new stockfish.Queue(stockfishConfig, system)
+    new stockfish.Queue(stockfishConfig)
   ) withDispatcher StockfishQueueDispatcher, name = StockfishQueueName)
 
   private lazy val client = (EngineName, IsClient) match {

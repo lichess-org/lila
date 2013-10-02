@@ -75,8 +75,7 @@ private[gameSearch] case class SearchData(
     date = Range(dateMin flatMap toDate, dateMax flatMap toDate),
     status = status,
     analysed = analysed map (_ == 1),
-    sorting = Sorting(sort.field, sort.order)
-  )
+    sorting = Sorting(sort.field, sort.order))
 
   def nonEmptyQuery = query.nonEmpty option query
 

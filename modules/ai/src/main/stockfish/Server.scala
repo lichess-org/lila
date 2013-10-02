@@ -34,7 +34,9 @@ private[ai] final class Server(
 
   def load: Fu[Int] = {
     import makeTimeout.short
-    queue ? GetLoad mapTo manifest[Int]
+    queue ? GetLoad mapTo manifest[Int] addEffect { l ⇒
+      (l > 0) ! println(s"[stockfish] load = $l")
+    }
   }
 
   private def chess960Fen(fen: String) = (Forsyth << fen).fold(fen) { situation ⇒
