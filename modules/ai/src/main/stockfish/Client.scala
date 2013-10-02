@@ -19,17 +19,13 @@ final class Client(
     fallback: lila.ai.Ai,
     config: Config) extends lila.ai.Ai {
 
-  def play(game: Game, pgn: String, initialFen: Option[String], level: Int): Fu[(Game, Move)] = {
-    getMove(pgn, initialFen, level) flatMap {
-      Stockfish.applyMove(game, pgn, _)
-    } recoverWith {
-      case e: Exception ⇒ fallback.play(game, pgn, initialFen, level)
-    }
-  }
-  def getMove(pgn: String, initialFen: Option[String], level: Int): Fu[String] = {
+  def move(pgn: String, initialFen: Option[String], level: Int): Fu[String] = {
     implicit val timeout = makeTimeout(config.playTimeout)
     dispatcher ? Play(pgn, ~initialFen, level) mapTo manifest[String] 
+  } recoverWith {
+    case e: Exception ⇒ fallback.move( pgn, initialFen, level)
   }
+
 
   def analyse(pgn: String, initialFen: Option[String]): Fu[AnalysisMaker] = {
     implicit val timeout = makeTimeout(config.analyseTimeout)

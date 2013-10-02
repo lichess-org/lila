@@ -12,7 +12,7 @@ object Ai extends LilaController {
 
   def playStockfish = Action.async { req ⇒
     IfServer {
-      stockfishServer.play(
+      stockfishServer.move(
         pgn = ~get("pgn", req),
         initialFen = get("initialFen", req),
         level = getInt("level", req) | 1

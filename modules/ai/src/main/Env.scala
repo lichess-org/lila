@@ -40,8 +40,8 @@ final class Env(
 
   lazy val ai: Ai = (EngineName, IsClient) match {
     case ("stockfish", true)  ⇒ stockfishClient
-    case ("stockfish", false) ⇒ stockfishAi
-    case _                    ⇒ stupidAi
+    case ("stockfish", false) ⇒ stockfishServer
+    case _                    ⇒ throw new Exception(s"Unsupported AI: $EngineName")
   }
 
   def isServer = IsServer
@@ -58,8 +58,6 @@ final class Env(
     }
   }), name = ActorName)
 
-  private lazy val stockfishAi = new stockfish.Ai(stockfishServer)
-
   lazy val stockfishClient = new stockfish.Client(
     dispatcher = system.actorOf(
       Props(new stockfish.remote.Dispatcher(
@@ -71,7 +69,7 @@ final class Env(
           loadRoute = StockfishLoadRoute) _,
         scheduler = system.scheduler
       )), name = "stockfish-dispatcher"),
-    fallback = stockfishAi,
+    fallback = stockfishServer,
     config = stockfishConfig)
 
   lazy val stockfishServer = new stockfish.Server(
@@ -83,8 +81,6 @@ final class Env(
   private lazy val stockfishQueue = system.actorOf(Props(
     new stockfish.Queue(stockfishConfig, system)
   ) withDispatcher StockfishQueueDispatcher, name = StockfishQueueName)
-
-  private lazy val stupidAi = new StupidAi
 
   private lazy val client = (EngineName, IsClient) match {
     case ("stockfish", true) ⇒ stockfishClient.some

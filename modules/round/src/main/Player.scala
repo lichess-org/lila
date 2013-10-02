@@ -1,10 +1,10 @@
 package lila.round
 
-import actorApi.round.{ HumanPlay, AiPlay, DrawNo, TakebackNo, PlayResult, Cheat }
 import chess.format.Forsyth
 import chess.Pos.posAt
 import chess.{ Status, Role, Color }
 
+import actorApi.round.{ HumanPlay, AiPlay, DrawNo, TakebackNo, PlayResult, Cheat }
 import lila.ai.Ai
 import lila.game.{ Game, GameRepo, PgnRepo, Pov, Progress }
 import lila.hub.actorApi.map.Tell
@@ -51,19 +51,10 @@ private[round] final class Player(
 
   def ai(play: AiPlay)(game: Game): Fu[Events] =
     (game.playable && game.player.isAi).fold(
-      (game.variant.exotic ?? { GameRepo initialFen game.id }) zip
-        (PgnRepo get game.id) flatMap {
-          case (fen, pgn) ⇒
-            engine.play(game.toChess, pgn, fen, ~game.aiLevel) flatMap {
-              case (newChessGame, move) ⇒ {
-                val (progress, pgn2) = game.update(newChessGame, move)
-                (GameRepo save progress) >>
-                  PgnRepo.save(game.id, pgn2) >>-
-                  notifyProgress(progress) >>
-                  moveFinish(progress.game, game.turnColor) map { progress.events ::: _ }
-              }
-            }
-        } addFailureEffect play.onFailure,
+      engine.play(game, game.aiLevel | 1) flatMap { progress ⇒
+        notifyProgress(progress) 
+        moveFinish(progress.game, game.turnColor) map { progress.events ::: _ }
+      } addFailureEffect play.onFailure,
       fufail("not AI turn")
     ) logFailureErr "[ai play] game %s turn %d".format(game.id, game.turns)
 
