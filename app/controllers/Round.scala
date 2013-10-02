@@ -44,9 +44,7 @@ object Round extends LilaController with TheftPrevention {
       pov.game.started.fold(
         PreventTheft(pov) {
           (pov.game.hasChat optionFu {
-            RoomRepo room pov.gameId map { room ⇒
-              html.round.roomInner(room.decodedMessages)
-            }
+            RoomRepo room pov.gameId map { room ⇒ html.round.roomInner(room.decodedMessages) }
           }) zip
             env.version(pov.gameId) zip
             (bookmarkApi userIdsByGame pov.game) zip
@@ -54,14 +52,7 @@ object Round extends LilaController with TheftPrevention {
             (analyser has pov.gameId) zip
             (pov.game.tournamentId ?? TournamentRepo.byId) map {
               case (((((roomHtml, v), bookmarkers), engine), analysed), tour) ⇒
-                Ok(html.round.player(
-                  pov,
-                  v,
-                  engine,
-                  roomHtml,
-                  bookmarkers,
-                  analysed,
-                  tour = tour))
+                Ok(html.round.player(pov, v, engine, roomHtml, bookmarkers, analysed, tour = tour))
             }
         },
         Redirect(routes.Setup.await(fullId)).fuccess

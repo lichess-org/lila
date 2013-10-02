@@ -24,11 +24,7 @@ object Tv extends LilaController {
           case ((((v, roomHtml), games), confrontation), tour) ⇒
             Ok(html.tv.index(
               getInt("flip").exists(1==).fold(Pov invited game, Pov creator game),
-              v,
-              roomHtml,
-              games,
-              confrontation,
-              tour))
+              v, roomHtml, games, confrontation, tour))
         }
     }
   }

@@ -861,7 +861,7 @@ var storage = {
       if (self.options.player.spectator && self.options.tv) {
         $('div.lichess_bot').on("click", "tr", function() {
           location.href = $(this).find('a.watch').attr("href");
-        }).find('.undertable_inner').scrollTop(999999);
+        }).find('.undertable_inner').scrollTop(0);
       }
 
       lichess.socket = new strongSocket(
@@ -1982,7 +1982,7 @@ var storage = {
     var $timeline = $("#timeline");
     var $bot = $("div.lichess_bot");
     var $newposts = $("div.new_posts");
-    var $newpostsinner = $newposts.find('.undertable_inner').scrollTop(999999);
+    var $newpostsinner = $newposts.find('.undertable_inner').scrollTop(0);
     var $hooks = $wrap.find('#hooks');
     var $noHook = $wrap.find('.no_hook');
     var $canvas = $wrap.find('.canvas');
@@ -2090,7 +2090,7 @@ var storage = {
       $.ajax($newposts.data('url'), {
         timeout: 10000,
         success: function(data) {
-          $newpostsinner.find('ol').html(data).end().scrollTop(999999);
+          $newpostsinner.find('ol').html(data).end().scrollTop(0);
           $('body').trigger('lichess.content_loaded');
         }
       });
@@ -2158,12 +2158,11 @@ var storage = {
         html += '<tr>' + data[i] + '</tr>';
       }
       $bot.find('.undertable_inner').find('tbody').each(function() {
-        $(this).append(html);
-        var len = $(this).children().length;
-        if (len > 50) {
-          $(this).find('tr:lt(' + (len - 10) + ')').remove();
+        $(this).prepend(html);
+        if ($(this).children().length > 50) {
+          $(this).find('tr:gt(40)').remove();
         }
-      }).end().scrollTop(999999);
+      }).end().scrollTop(0);
       $('body').trigger('lichess.content_loaded');
     }
 
