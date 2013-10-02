@@ -20,10 +20,12 @@ final class UciMemo(ttl: Duration) {
     memo.put(game.id, uciMoves.toVector)
   }
 
-  def get(game: Game): Fu[Vector[String]] =
-    Option(memo getIfPresent game.id).filter(_.size == game.turns) match {
+  def get(game: Game, pgn: String): Fu[Vector[String]] =
+    Option(memo getIfPresent game.id) filter { moves ⇒
+      moves.size == (pgn.count(' '==) + 1)
+    } match {
       case Some(moves) ⇒ fuccess(moves)
-      case _           ⇒ compute(game) addEffect { set(game, _) }
+      case _           ⇒ compute(game, pgn) addEffect { set(game, _) }
     }
 
   def drop(game: Game, nb: Int) {
@@ -31,9 +33,8 @@ final class UciMemo(ttl: Duration) {
     memo.put(game.id, current.take(current.size - nb))
   }
 
-  private def compute(game: Game): Fu[Vector[String]] = for {
+  private def compute(game: Game, pgn: String): Fu[Vector[String]] = for {
     fen ← game.variant.exotic ?? { GameRepo initialFen game.id }
-    pgn ← PgnRepo get game.id
     uciMoves ← UciDump(pgn, fen, game.variant).future
   } yield uciMoves.toVector
 }

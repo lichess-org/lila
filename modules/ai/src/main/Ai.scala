@@ -12,7 +12,7 @@ trait Ai {
     for {
       fen ← game.variant.exotic ?? { GameRepo initialFen game.id }
       pgn ← PgnRepo get game.id
-      uciMoves ← uciMemo.get(game) map (_ mkString " ")
+      uciMoves ← uciMemo.get(game, pgn) map (_ mkString " ")
       moveStr ← move(uciMoves, fen, level)
       uciMove ← (UciMove(moveStr) toValid "Wrong bestmove: " + moveStr).future
       result ← (game.toChess withPgnMoves pgn)(uciMove.orig, uciMove.dest).future
