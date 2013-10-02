@@ -10,6 +10,7 @@ import lila.common.PimpedConfig._
 
 final class Env(
     config: Config,
+    uciMemo: lila.game.UciMemo,
     system: ActorSystem) {
 
   private val settings = new {
@@ -70,11 +71,13 @@ final class Env(
         scheduler = system.scheduler
       )), name = "stockfish-dispatcher"),
     fallback = stockfishServer,
-    config = stockfishConfig)
+    config = stockfishConfig,
+    uciMemo = uciMemo)
 
   lazy val stockfishServer = new stockfish.Server(
     queue = stockfishQueue,
-    config = stockfishConfig)
+    config = stockfishConfig,
+    uciMemo = uciMemo)
 
   def nbStockfishRemotes = StockfishRemotes.size
 
@@ -92,5 +95,6 @@ object Env {
 
   lazy val current = "[boot] ai" describes new Env(
     config = lila.common.PlayApp loadConfig "ai",
+    uciMemo = lila.game.Env.current.uciMemo,
     system = lila.common.PlayApp.system)
 }

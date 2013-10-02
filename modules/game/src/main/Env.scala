@@ -26,6 +26,7 @@ final class Env(
     val ActorName = config getString "actor.name"
     val FeaturedContinue = config duration "featured.continue"
     val FeaturedDisrupt = config duration "featured.disrupt"
+    val UciMemoTtl = config duration "uci_memo.ttl"
   }
   import settings._
 
@@ -52,6 +53,8 @@ final class Env(
   lazy val rewind = Rewind
 
   lazy val gameJs = new GameJs(path = jsPath, useCache = isProd)
+
+  lazy val uciMemo = new UciMemo(UciMemoTtl)
 
   // load captcher actor
   private val captcher = system.actorOf(Props(new Captcher), name = CaptcherName)

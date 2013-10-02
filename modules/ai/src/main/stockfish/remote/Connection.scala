@@ -30,8 +30,8 @@ private[ai] final class Connection(
         case Failure(e) ⇒ load = none
       }
     }
-    case Play(pgn, fen, level) ⇒ WS.url(router.play).withQueryString(
-      "pgn" -> pgn,
+    case Play(uciMoves, fen, level) ⇒ WS.url(router.play).withQueryString(
+      "uciMoves" -> uciMoves,
       "initialFen" -> fen,
       "level" -> level.toString
     ).get() map (_.body) pipeTo sender
