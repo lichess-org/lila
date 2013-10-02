@@ -59,7 +59,6 @@ separate games in spectator chat
 real board editor save
 FEN/editor castle/enpassant https://github.com/ornicar/lila/issues/42 white/black to play
 user notes, shared among friends
-fix AI protocol
 geolocation http://db-ip.com/db/
 no castling in 50-moves https://github.com/ornicar/scalachess/issues/3
 enforce single user for an IP
