@@ -12,7 +12,7 @@ import actorApi._
 import lila.analyse.{ AnalysisMaker, Info }
 import lila.hub.actorApi.ai.GetLoad
 
-private[ai] final class Queue(config: Config, system: ActorSystem) extends Actor {
+private[ai] final class Queue(config: Config) extends Actor {
 
   private val process = Process(config.execPath, "stockfish") _
   private val actor = context.actorOf(Props(new ActorFSM(process, config)))
@@ -34,14 +34,14 @@ private[ai] final class Queue(config: Config, system: ActorSystem) extends Actor
     }
 
     case req: PlayReq ⇒ {
-      implicit val timeout = makeTimeout((config moveTime req.level).millis + 2.second)
+      implicit val timeout = makeTimeout((config moveTime req.level).millis + 1.second)
       blockAndMeasure {
         actor ? req mapTo manifest[Valid[String]] map sender.!
       }
     }
 
     case req: AnalReq ⇒ {
-      implicit val timeout = makeTimeout(config.analyseMoveTime + 2.second)
+      implicit val timeout = makeTimeout(config.analyseMoveTime + 1.second)
       (actor ? req) mapTo manifest[Valid[Int ⇒ Info]] map sender.! await timeout
     }
 
@@ -64,14 +64,6 @@ private[ai] final class Queue(config: Config, system: ActorSystem) extends Actor
           }, true, none)
         }
       } pipeTo sender
-    }
-  }
-
-  system.scheduler.schedule(1 second, 1 seconds) {
-    import makeTimeout.short
-    self ? GetLoad foreach {
-      case 0         ⇒
-      case load: Int ⇒ println("[stockfish] load = " + load)
     }
   }
 }
