@@ -68,7 +68,7 @@ active = siteMenu.tv.some) {
     <div class="content">
       <table>
         <tbody>
-        @games.reverse.map { g =>
+        @games.map { g =>
         <tr>
           <td><a class="watch s24 eye" href="@routes.Round.watcher(g.id, g.creatorColor.name)"></a></td>
           <td>

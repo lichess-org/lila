@@ -23,7 +23,7 @@ private[forumSearch] final class Query private (
     _.drop(5).some.filter(_.size >= 2)
   }
 
-  private def makeQuery =
+  private lazy val makeQuery =
     if (queryTerms.isEmpty) matchAllQuery
     else queryTerms.foldLeft(boolQuery) {
       case (query, term) ⇒ query must {
@@ -31,7 +31,7 @@ private[forumSearch] final class Query private (
       }
     }
 
-  private def makeFilters = List(
+  private lazy val makeFilters = List(
     userSearch map { termFilter(fields.author, _) },
     !staff option termFilter(fields.staff, false),
     !troll option termFilter(fields.troll, false)

@@ -1,5 +1,5 @@
 @(posts: List[lila.forum.PostLiteView])(implicit ctx: Context)
-@posts.reverse.map { v =>
+@posts.map { v =>
 <li @v.post.isTeam.fold("class='s16 team'", "")>
   <a class="post_link" href="@routes.ForumPost.redirect(v.post.id)">@shorten(v.topic.name, 30)</a>
   <span>@authorLink(v.post, withOnline = false)</span>
