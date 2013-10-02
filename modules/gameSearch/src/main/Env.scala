@@ -74,7 +74,7 @@ final class Env(
         val nbGames = games.size
         nb = nb + nbGames
         PgnRepo.associate(gameIds) flatMap { pgns ⇒
-          analyser hasMany gameIds map { analyzedIds ⇒
+          analyser hasMany gameIds map { analysedIds ⇒
             val pairs = (pgns map {
               case (id, pgn) ⇒ games.find(_.id == id) map (_ -> pgn)
             }).flatten
@@ -84,7 +84,7 @@ final class Env(
                   IndexName,
                   TypeName,
                   game.id,
-                  Json stringify Game.from(game, pgn, analyzedIds contains game.id)
+                  Json stringify Game.from(game, pgn, analysedIds contains game.id)
                 ).request
               })
             }

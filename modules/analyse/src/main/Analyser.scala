@@ -32,7 +32,7 @@ final class Analyser(
       }
 
     def doGenerate: Fu[Analysis] =
-      $find.byId[Game](id) map (_ filter (_.analyzable)) zip
+      $find.byId[Game](id) map (_ filter (_.analysable)) zip
         (PgnRepo getNonEmpty id) zip
         (GameRepo initialFen id) flatMap {
           case ((Some(game), Some(pgn)), initialFen) ⇒ (for {
