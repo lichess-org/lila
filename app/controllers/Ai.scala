@@ -29,7 +29,7 @@ object Ai extends LilaController {
   def analyseStockfish = Action.async { req ⇒
     IfServer {
       stockfishServer.analyse(
-        pgn = ~get("pgn", req),
+        uciMoves = ~get("uciMoves", req),
         initialFen = get("initialFen", req)
       ) fold (
           err ⇒ {

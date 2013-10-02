@@ -27,12 +27,12 @@ final class Client(
     case e: Exception ⇒ fallback.move(uciMoves, initialFen, level)
   }
 
-  def analyse(pgn: String, initialFen: Option[String]): Fu[AnalysisMaker] = {
+  def analyse(uciMoves: String, initialFen: Option[String]): Fu[AnalysisMaker] = {
     implicit val timeout = makeTimeout(config.analyseTimeout)
-    dispatcher ? Analyse(pgn, ~initialFen) mapTo manifest[String] flatMap { str ⇒
+    dispatcher ? Analyse(uciMoves, ~initialFen) mapTo manifest[String] flatMap { str ⇒
       (AnalysisMaker(str, true) toValid "Can't read analysis results").future
     } recoverWith {
-      case e: Exception ⇒ fallback.analyse(pgn, initialFen)
+      case e: Exception ⇒ fallback.analyse(uciMoves, initialFen)
     }
   }
 

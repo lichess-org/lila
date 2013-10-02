@@ -54,8 +54,8 @@ final class Env(
         stockfishClient.load pipeTo sender,
         sender ! Nil
       )
-      case lila.hub.actorApi.ai.Analyse(id, pgn, fen) ⇒
-        ai.analyse(pgn, fen) map { _(id) } pipeTo sender
+      case lila.hub.actorApi.ai.Analyse(id, uciMoves, fen) ⇒
+        ai.analyse(uciMoves, fen) map { _(id) } pipeTo sender
     }
   }), name = ActorName)
 

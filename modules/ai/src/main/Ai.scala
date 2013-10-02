@@ -28,7 +28,7 @@ trait Ai {
 
   def move(uciMoves: String, initialFen: Option[String], level: Int): Fu[String]
 
-  def analyse(pgn: String, initialFen: Option[String]): Fu[AnalysisMaker]
+  def analyse(uciMoves: String, initialFen: Option[String]): Fu[AnalysisMaker]
 
   private def withValidSituation[A](game: Game)(op: ⇒ Fu[A]): Fu[A] =
     if (game.toChess.situation playable true) op

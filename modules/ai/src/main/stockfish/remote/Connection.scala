@@ -36,8 +36,8 @@ private[ai] final class Connection(
       "level" -> level.toString
     ).get() map (_.body) pipeTo sender
 
-    case Analyse(pgn: String, fen: String) ⇒ WS.url(router.analyse).withQueryString(
-      "pgn" -> pgn,
+    case Analyse(uciMoves: String, fen: String) ⇒ WS.url(router.analyse).withQueryString(
+      "uciMoves" -> uciMoves,
       "initialFen" -> fen
     ).get() map (_.body) pipeTo sender
   }

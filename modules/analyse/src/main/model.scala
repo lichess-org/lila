@@ -121,7 +121,7 @@ object Info {
       best = best,
       score = parseIntOption(cpString) map Score.apply,
       mate = parseIntOption(mateString))
-    case _ ⇒ !!("Invalid encoded info " + str)
+    case _ ⇒ !!("Invalid encoded info: " + str)
   }
 
   def apply(
