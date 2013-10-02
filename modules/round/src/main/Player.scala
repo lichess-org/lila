@@ -6,7 +6,7 @@ import chess.{ Status, Role, Color }
 
 import actorApi.round.{ HumanPlay, AiPlay, DrawNo, TakebackNo, PlayResult, Cheat }
 import lila.ai.Ai
-import lila.game.{ Game, GameRepo, PgnRepo, Pov, Progress }
+import lila.game.{ Game, GameRepo, PgnRepo, Pov, Progress, UciMemo }
 import lila.hub.actorApi.map.Tell
 
 private[round] final class Player(
@@ -14,7 +14,8 @@ private[round] final class Player(
     notifyMove: (String, String, Option[String]) ⇒ Unit,
     finisher: Finisher,
     cheatDetector: CheatDetector,
-    roundMap: akka.actor.ActorSelection) {
+    roundMap: akka.actor.ActorSelection,
+    uciMemo: UciMemo) {
 
   def human(play: HumanPlay)(pov: Pov): Fu[Events] = play match {
     case HumanPlay(playerId, origS, destS, promS, blur, lag, onFailure) ⇒ pov match {
@@ -27,10 +28,12 @@ private[round] final class Player(
             chessGame = game.toChess withPgnMoves pgnString
             newChessGameAndMove ← chessGame(orig, dest, promotion, lag)
             (newChessGame, move) = newChessGameAndMove
-          } yield game.update(newChessGame, move, blur)).prefixFailuresWith(playerId + " - ").fold(fufail(_), {
-            case (progress, pgn) ⇒
+          } yield game.update(newChessGame, move, blur) -> move).prefixFailuresWith(playerId + " - ").future flatMap {
+            case ((progress, pgn), move) ⇒
               (GameRepo save progress) >>
-                PgnRepo.save(pov.gameId, pgn) >>-
+                PgnRepo.save(pov.gameId, pgn) >>- {
+                  if (pov.game.hasAi) uciMemo.add(pov.game, move)
+                } >>-
                 notifyProgress(progress) >>
                 progress.game.finished.fold(
                   moveFinish(progress.game, color) map { progress.events ::: _ }, {
@@ -43,7 +46,7 @@ private[round] final class Player(
                       }
                     } inject progress.events
                   })
-          })
+          }
         } addFailureEffect onFailure
       case _ ⇒ fufail("Not your turn")
     }
@@ -52,7 +55,7 @@ private[round] final class Player(
   def ai(play: AiPlay)(game: Game): Fu[Events] =
     (game.playable && game.player.isAi).fold(
       engine.play(game, game.aiLevel | 1) flatMap { progress ⇒
-        notifyProgress(progress) 
+        notifyProgress(progress)
         moveFinish(progress.game, game.turnColor) map { progress.events ::: _ }
       } addFailureEffect play.onFailure,
       fufail("not AI turn")

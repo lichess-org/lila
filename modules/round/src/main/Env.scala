@@ -19,6 +19,7 @@ final class Env(
     ai: lila.ai.Ai,
     getUsername: String ⇒ Fu[Option[String]],
     getUsernameOrAnon: String ⇒ Fu[String],
+    uciMemo: lila.game.UciMemo,
     i18nKeys: lila.i18n.I18nKeys,
     scheduler: lila.common.Scheduler) {
 
@@ -91,7 +92,8 @@ final class Env(
     notifyMove = notifyMove,
     finisher = finisher,
     cheatDetector = cheatDetector,
-    roundMap = hub.actor.roundMap)
+    roundMap = hub.actor.roundMap,
+    uciMemo = uciMemo)
 
   private lazy val drawer = new Drawer(
     messenger = messenger,
@@ -166,6 +168,7 @@ object Env {
     ai = lila.ai.Env.current.ai,
     getUsername = lila.user.Env.current.usernameOption,
     getUsernameOrAnon = lila.user.Env.current.usernameOrAnonymous,
+    uciMemo = lila.game.Env.current.uciMemo,
     i18nKeys = lila.i18n.Env.current.keys,
     scheduler = lila.common.PlayApp.scheduler)
 }

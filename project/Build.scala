@@ -111,7 +111,7 @@ object ApplicationBuild extends Build {
   )
 
   lazy val ai = project("ai", Seq(common, hub, chess, game, analyse)).settings(
-    libraryDependencies ++= provided(play.api)
+    libraryDependencies ++= provided(play.api, reactivemongo, playReactivemongo)
   )
 
   lazy val security = project("security", Seq(common, hub, db, user)).settings(

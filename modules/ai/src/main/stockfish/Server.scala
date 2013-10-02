@@ -5,30 +5,31 @@ import scala.concurrent.duration._
 
 import akka.actor.{ Props, Actor, ActorRef, Kill }
 import akka.pattern.{ ask, AskTimeoutException }
+import chess.format.Forsyth
+import chess.format.UciDump
+import chess.Variant
 import play.api.libs.concurrent.Akka.system
 import play.api.Play.current
 
 import actorApi._
-import chess.format.Forsyth
-import chess.format.UciDump
-import chess.Variant.Chess960
 import lila.analyse.AnalysisMaker
 import lila.hub.actorApi.ai.GetLoad
 
-private[ai] final class Server(queue: ActorRef, config: Config) extends lila.ai.Ai {
+private[ai] final class Server(
+    queue: ActorRef,
+    config: Config,
+    val uciMemo: lila.game.UciMemo) extends lila.ai.Ai {
 
-  def move(pgn: String, initialFen: Option[String], level: Int): Fu[String] = {
+  def move(uciMoves: String, initialFen: Option[String], level: Int): Fu[String] = {
     implicit val timeout = makeTimeout(config.playTimeout)
-    UciDump(pgn, initialFen, initialFen.isDefined option Chess960).future flatMap { moves ⇒
-      queue ? PlayReq(moves, initialFen map chess960Fen, level) mapTo
-        manifest[Valid[String]] flatMap (_.future)
-    }
+    queue ? PlayReq(uciMoves, initialFen map chess960Fen, level) mapTo
+      manifest[Valid[String]] flatMap (_.future)
   }
 
   def analyse(pgn: String, initialFen: Option[String]): Fu[AnalysisMaker] = {
     implicit val timeout = makeTimeout(config.analyseTimeout)
-    UciDump(pgn, initialFen, initialFen.isDefined option Chess960).future flatMap { moves ⇒
-      queue ? FullAnalReq(moves, initialFen map chess960Fen) mapTo
+    UciDump(pgn, initialFen, initialFen.isDefined.fold(Variant.Chess960, Variant.Standard)).future flatMap { moves ⇒
+      queue ? FullAnalReq(moves mkString " ", initialFen map chess960Fen) mapTo
         manifest[Valid[AnalysisMaker]] flatMap (_.future)
     }
   }

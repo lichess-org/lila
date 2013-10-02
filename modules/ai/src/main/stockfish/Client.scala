@@ -17,15 +17,15 @@ import lila.hub.actorApi.ai.GetLoad
 final class Client(
     dispatcher: ActorRef,
     fallback: lila.ai.Ai,
-    config: Config) extends lila.ai.Ai {
+    config: Config,
+    val uciMemo: lila.game.UciMemo) extends lila.ai.Ai {
 
-  def move(pgn: String, initialFen: Option[String], level: Int): Fu[String] = {
+  def move(uciMoves: String, initialFen: Option[String], level: Int): Fu[String] = {
     implicit val timeout = makeTimeout(config.playTimeout)
-    dispatcher ? Play(pgn, ~initialFen, level) mapTo manifest[String] 
+    dispatcher ? Play(uciMoves, ~initialFen, level) mapTo manifest[String]
   } recoverWith {
-    case e: Exception ⇒ fallback.move( pgn, initialFen, level)
+    case e: Exception ⇒ fallback.move(uciMoves, initialFen, level)
   }
-
 
   def analyse(pgn: String, initialFen: Option[String]): Fu[AnalysisMaker] = {
     implicit val timeout = makeTimeout(config.analyseTimeout)
