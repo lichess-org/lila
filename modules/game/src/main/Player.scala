@@ -1,6 +1,7 @@
 package lila.game
 
 import chess.{ Pos, Piece, Color }
+
 import lila.user.User
 
 case class Player(
@@ -21,8 +22,8 @@ case class Player(
     name: Option[String] = None) {
 
   def encodePieces(allPieces: Iterable[(Pos, Piece, Boolean)]): String =
-    allPieces withFilter (_._2.color == color) map {
-      case (pos, piece, dead) ⇒ pos.piotr.toString + {
+    allPieces collect {
+      case (pos, piece, dead) if piece.color == color ⇒ pos.piotrStr + {
         if (dead) piece.role.forsyth.toUpper
         else piece.role.forsyth
       }
