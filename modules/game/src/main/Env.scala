@@ -19,6 +19,7 @@ final class Env(
     val CachedNbTtl = config duration "cached.nb.ttl"
     val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
     val CaptcherName = config getString "captcher.name"
+    val CaptcherDuration = config duration "captcher.duration"
     val CollectionGame = config getString "collection.game"
     val CollectionPgn = config getString "collection.pgn"
     val JsPathRaw = config getString "js_path.raw"
@@ -56,6 +57,10 @@ final class Env(
 
   lazy val uciMemo = new UciMemo(UciMemoTtl)
 
+  lazy val pgnDump = new PgnDump(
+    router = hub.actor.router, 
+    findUser = lila.user.UserRepo.named)
+
   // load captcher actor
   private val captcher = system.actorOf(Props(new Captcher), name = CaptcherName)
 
@@ -73,7 +78,7 @@ final class Env(
       maintenance.cleanupUnplayed 
     }
 
-    scheduler.message(10.seconds) {
+    scheduler.message(CaptcherDuration) {
       captcher -> actorApi.NewCaptcha
     }
 
@@ -106,6 +111,5 @@ object Env {
     hub = lila.hub.Env.current,
     appPath = app.path.getCanonicalPath,
     isProd = lila.common.PlayApp.isProd,
-    scheduler = lila.common.PlayApp.scheduler
-  )
+    scheduler = lila.common.PlayApp.scheduler)
 }
