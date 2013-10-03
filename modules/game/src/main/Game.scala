@@ -158,15 +158,13 @@ case class Game(
     Progress(this, updated, finalEvents) -> game.pgnMoves
   }
 
-  def updatePlayer(color: Color, f: Player ⇒ Player) = color match {
-    case White ⇒ copy(whitePlayer = f(whitePlayer))
-    case Black ⇒ copy(blackPlayer = f(blackPlayer))
-  }
+  def updatePlayer(color: Color, f: Player ⇒ Player) = color.fold(
+    copy(whitePlayer = f(whitePlayer)),
+    copy(blackPlayer = f(blackPlayer)))
 
   def updatePlayers(f: Player ⇒ Player) = copy(
     whitePlayer = f(whitePlayer),
-    blackPlayer = f(blackPlayer)
-  )
+    blackPlayer = f(blackPlayer))
 
   def start = started.fold(this, copy(
     status = Status.Started,
@@ -305,8 +303,7 @@ case class Game(
     case (_, piece) if piece is color ⇒ piece.role
   }
 
-  def isBeingPlayed =
-    !finishedOrAborted && updatedAt.??(_ > DateTime.now - 60.seconds)
+  def isBeingPlayed = !finishedOrAborted && !olderThan(60) 
 
   def olderThan(seconds: Int) = updatedAt.??(_ < DateTime.now - seconds.seconds)
 
