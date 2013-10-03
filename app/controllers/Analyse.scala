@@ -21,10 +21,6 @@ object Analyse extends LilaController {
 
   private def env = Env.analyse
   private def bookmarkApi = Env.bookmark.api
-  private lazy val pgnDump = new PgnDump(UserRepo.named)
-  private lazy val makePgn = pgnDump { gameId ⇒
-    Env.api.Net.BaseUrl + routes.Round.watcher(gameId, "white").url
-  } _
   private lazy val timeChart = TimeChart(Env.user.usernameOrAnonymous) _
 
   def computer(id: String, color: String) = Auth { implicit ctx ⇒
@@ -44,7 +40,7 @@ object Analyse extends LilaController {
         }) zip
           Env.round.version(pov.gameId) zip
           (bookmarkApi userIdsByGame pov.game) zip
-          makePgn(pov.game, pgnString) zip
+          Env.game.pgnDump(pov.game, pgnString) zip
           (env.analyser get pov.game.id) zip
           (pov.game.tournamentId ?? TournamentRepo.byId) map {
             case (((((roomHtml, version), bookmarkers), pgn), analysis), tour) ⇒
@@ -77,8 +73,8 @@ object Analyse extends LilaController {
     OptionFuResult(GameRepo game id) { game ⇒
       for {
         pgnString ← game.pgnImport.map(_.pgn).fold(PgnRepo get id)(fuccess(_))
-        content ← game.pgnImport.map(_.pgn).fold(makePgn(game, pgnString) map (_.toString))(fuccess(_))
-        filename ← pgnDump filename game
+        content ← game.pgnImport.map(_.pgn).fold(Env.game.pgnDump(game, pgnString) map (_.toString))(fuccess(_))
+        filename ← Env.game.pgnDump filename game
       } yield Ok(content).withHeaders(
         CONTENT_LENGTH -> content.size.toString,
         CONTENT_TYPE -> ContentTypes.TEXT,
