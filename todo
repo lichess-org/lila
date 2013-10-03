@@ -63,3 +63,4 @@ geolocation http://db-ip.com/db/
 no castling in 50-moves https://github.com/ornicar/scalachess/issues/3
 enforce single user for an IP
 user made chess puzzles (just input position and number of moves, let AI find solution) see http://en.lichess.org/inbox/2cxky5pw
+bug found by trialB http://en.lichess.org/inbox/wt24ccn2 http://en.lichess.org/forum/lichess-feedback/elo-range-problems
