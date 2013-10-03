@@ -30,8 +30,7 @@ private[round] final class Player(
             (newChessGame, move) = newChessGameAndMove
           } yield game.update(newChessGame, move, blur) -> move).prefixFailuresWith(playerId + " - ").future flatMap {
             case ((progress, pgn), move) ⇒
-              (GameRepo save progress) >>
-              PgnRepo.save(pov.gameId, pgn) >>- 
+              ((GameRepo save progress) zip PgnRepo.save(pov.gameId, pgn)) >>- 
               (pov.game.hasAi ! uciMemo.add(pov.game, move)) >>-
                 notifyProgress(progress) >>
                 progress.game.finished.fold(
