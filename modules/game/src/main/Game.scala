@@ -114,12 +114,13 @@ case class Game(
     move: Move,
     blur: Boolean = false): (Progress, String) = {
     val (history, situation) = (game.board.history, game.situation)
-    val events =
-      Event.possibleMoves(game.situation, White) ::
-        Event.possibleMoves(game.situation, Black) ::
-        Event.State(game.situation.color, game.turns) ::
-        (Event fromMove move) :::
-        (Event fromSituation game.situation)
+
+    val events = (players collect {
+      case p if p.isHuman ⇒ Event.possibleMoves(situation, p.color)
+    }) :::
+      Event.State(situation.color, game.turns) ::
+      (Event fromMove move) :::
+      (Event fromSituation situation)
 
     def copyPlayer(player: Player) = player.copy(
       ps = player encodePieces game.allPieces,
@@ -137,14 +138,13 @@ case class Game(
       whitePlayer = copyPlayer(whitePlayer),
       blackPlayer = copyPlayer(blackPlayer),
       turns = game.turns,
-      positionHashes = history.positionHashes mkString,
+      positionHashes = history.positionHashes.mkString,
       castles = history.castleNotation,
       lastMove = history.lastMoveString,
       status = situation.status | status,
       clock = game.clock,
-      check = if (situation.check) situation.kingPos else None,
-      lastMoveTime = nowSeconds.some
-    )
+      check = situation.kingPos ifTrue situation.check,
+      lastMoveTime = nowSeconds.some)
 
     val finalEvents = events :::
       updated.clock.??(c ⇒ List(Event.Clock(c))) ::: {
