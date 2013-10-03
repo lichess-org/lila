@@ -235,7 +235,8 @@ body.dark div.content_box_inter a.active,
 body.dark #GameText,
 body.dark #tournament_side,
 body.dark table.translations tbody tr,
-body.dark form.translation_form div.message
+body.dark form.translation_form div.message,
+body.dark div.content_box_inter a.intertab:hover
 {
   background: #2b2b2b;
 }

@@ -1794,7 +1794,7 @@ var storage = {
     var $startButtons = $('#start_buttons');
 
     if (!strongSocket.available) {
-      $('#start_buttons a').attr('href', '#');
+      $startButtons.find('a').attr('href', '#');
       $("div.lichess_overboard.joining input.submit").remove();
       return;
     }
@@ -1807,8 +1807,7 @@ var storage = {
       var $form = $('div.lichess_overboard');
       var $modeChoices = $form.find('.mode_choice input');
       var $variantChoices = $form.find('.variants input');
-      var $casual = $modeChoices.eq(0),
-        $rated = $modeChoices.eq(1);
+      var $casual = $modeChoices.eq(0), $rated = $modeChoices.eq(1);
       var $fenVariant = $variantChoices.eq(2);
       var $fenPosition = $form.find(".fen_position");
       var $clockCheckbox = $form.find('.clock_choice input');
