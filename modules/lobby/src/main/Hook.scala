@@ -37,8 +37,13 @@ case class Hook(
 
   def compatibleWith(h: Hook) =
     compatibilityProperties == h.compatibilityProperties &&
-    (realColor compatibleWith h.realColor) && 
-    (memberOnly || h.memberOnly).fold(isMember && h.isMember, true)
+      (realColor compatibleWith h.realColor) &&
+      (memberOnly || h.memberOnly).fold(isMember && h.isMember, true) &&
+      eloRangeCompatibleWith(h) && h.eloRangeCompatibleWith(this)
+
+  private def eloRangeCompatibleWith(h: Hook) = realEloRange.fold(true) {
+    range ⇒ h.user.map(_.elo) ?? range.contains
+  }
 
   private def compatibilityProperties = (variant, time, increment, mode)
 
