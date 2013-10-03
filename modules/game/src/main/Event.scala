@@ -18,11 +18,9 @@ sealed trait Event {
 object Event {
 
   def fromMove(move: ChessMove): List[Event] = Move(move) :: List(
-    if (move.enpassant) move.capture map Event.Enpassant.apply else None,
+    (move.capture ifTrue move.enpassant) map Event.Enpassant.apply,
     move.promotion map { Promotion(_, move.dest) },
-    move.castle map {
-      case (king, rook) ⇒ Castling(king, rook, move.color)
-    }
+    move.castle map { case (king, rook) ⇒ Castling(king, rook, move.color) }
   ).flatten
 
   def fromSituation(situation: Situation): List[Event] = List(
