@@ -24,18 +24,12 @@ private[analyse] case object CpBlunder extends CpSeverity(-300, Nag.Blunder)
 private[analyse] case object CpMistake extends CpSeverity(-100, Nag.Mistake)
 private[analyse] case object CpInaccuracy extends CpSeverity(-50, Nag.Inaccuracy)
 private[analyse] object CpSeverity {
-  val all = List(CpInaccuracy, CpMistake, CpBlunder)
-  def apply(delta: Int): Option[CpSeverity] = all.foldLeft(none[CpSeverity]) {
-    case (_, severity) if severity.delta > delta ⇒ severity.some
-    case (acc, _)                                ⇒ acc
-  }
+  // note that the list order is important for the `apply` function
+  private val all = List(CpBlunder, CpMistake, CpInaccuracy)
+  def apply(delta: Int): Option[CpSeverity] = all.find(_.delta >= delta)
 }
 
-private[analyse] case class CpAdvice(
-    severity: CpSeverity,
-    info: Info,
-    next: Info) extends Advice {
-
+private[analyse] case class CpAdvice(severity: CpSeverity, info: Info, next: Info) extends Advice {
   def text = severity.nag.toString
 }
 
@@ -76,9 +70,7 @@ private[analyse] object Advice {
   } orElse {
     MateSeverity(
       mateChance(info, info.color),
-      mateChance(next, info.color)) map { severity ⇒
-        MateAdvice(severity, info, next)
-      }
+      mateChance(next, info.color)) map { MateAdvice(_, info, next) }
   }
 
   private def mateChance(info: Info, color: Color) =
@@ -116,8 +108,8 @@ object Info {
 
   def decode(ply: Int, str: String): Option[Info] = str.split(separator).toList match {
     case moveString :: bestString :: cpString :: mateString :: rest ⇒ for {
-      move ← UciMove piotr moveString 
-      best ← UciMove piotr bestString 
+      move ← UciMove piotr moveString
+      best ← UciMove piotr bestString
     } yield Info(
       ply = ply,
       move = move,
@@ -137,7 +129,7 @@ object Info {
     score: Option[Int],
     mate: Option[Int],
     line: Option[String]): Option[Int ⇒ Info] = for {
-    move ← UciMove(moveString) 
+    move ← UciMove(moveString)
     best ← UciMove(bestString)
   } yield ply ⇒ Info(
     ply = ply,

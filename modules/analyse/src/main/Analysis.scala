@@ -6,7 +6,7 @@ import chess.format.Nag
 case class Analysis(id: String, infos: List[Info], done: Boolean) {
 
   lazy val infoAdvices: InfoAdvices = (infos sliding 2 collect {
-    case info :: next :: Nil ⇒ info -> Advice(info, next)
+    case List(info, next) ⇒ info -> Advice(info, next)
   }).toList
 
   lazy val advices: List[Advice] = infoAdvices.map(_._2).flatten
