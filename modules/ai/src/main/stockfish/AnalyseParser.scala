@@ -31,7 +31,7 @@ object AnalyseParser {
       mateRegex.replaceAllIn(line, m ⇒ quoteReplacement(m group 1))
     } flatMap parseIntOption
 
-  private val lineRegex = """\spv\s(\w+)$""".r
+  private val lineRegex = """^.+\spv\s([\w\s]+)$""".r
   private def findLine(lines: List[String]) =
     lines.tail.headOption map { line ⇒
       lineRegex.replaceAllIn(line, m ⇒ quoteReplacement(m group 1))

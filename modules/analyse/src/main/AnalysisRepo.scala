@@ -36,16 +36,18 @@ private[analyse] object AnalysisRepo {
     $count.exists($select(id) ++ Json.obj("done" -> true))
 
   def userInProgress(uid: ID): Fu[Option[String]] = $primitive.one(
-    notSoRecent ++ Json.obj("uid" -> uid, "done" -> false),
+    Json.obj(
+      "uid" -> uid, 
+      "done" -> false, 
+      "date" -> $gt($date(DateTime.now - 20.minutes))),
     "_id")(_.asOpt[String])
 
   def getOrRemoveStaled(id: ID): Fu[Option[Analysis]] =
-    $find.one($select(id) ++ notSoRecent ++ Json.obj("done" -> false)) flatMap {
+    $find.one($select(id) ++ Json.obj(
+      "done" -> false, 
+      "date" -> $lt($date(DateTime.now - 20.minutes)))) flatMap {
       _.fold($find byId id) { staled ⇒ $remove byId id inject none }
     }
-
-  private def notSoRecent =
-    Json.obj("date" -> $gt($date(DateTime.now - 20.minutes)))
 
   def count = $count($select.all)
 }
