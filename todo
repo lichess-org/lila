@@ -47,7 +47,7 @@ liquid UI for large screens http://fr.lichess.org/forum/lichess-feedback/hi-res#
 customize piece images
 customize sound notifications http://imgur.com/70WVyb5
 better moderator UI
-analyse: show continuations
+analyse: show better continuations
 TV channels (bullet, blitz, standard, ...)
 allow castling and analysis for FEN games whenever possible
 realtime computer analysis of TV game
@@ -64,3 +64,8 @@ no castling in 50-moves https://github.com/ornicar/scalachess/issues/3
 enforce single user for an IP
 user made chess puzzles (just input position and number of moves, let AI find solution) see http://en.lichess.org/inbox/2cxky5pw
 bug found by trialB http://en.lichess.org/inbox/wt24ccn2 http://en.lichess.org/forum/lichess-feedback/elo-range-problems
+fics stats http://ficsgames.org/cgi-bin/search.cgi?player=OEXPL;action=Statistics "biggest successes/upsets, your nemesis, individual scores against opponents"
+download games in PGN format
+better piece set (see scid and chessbase) skwex on #chess
+replace move green glow with simple border (chess.com) skwex on #chess
+opening tree http://www.shredderchess.com/online-chess/online-databases/opening-database.html
