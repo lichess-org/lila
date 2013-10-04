@@ -2,6 +2,7 @@ package lila.analyse
 
 import chess.format.{ UciMove, Nag }
 import chess.{ Pos, Color, White, Black }
+import scalaz.NonEmptyList
 
 private[analyse] sealed trait Advice {
   def severity: Severity
@@ -91,7 +92,8 @@ case class Info(
     move: UciMove,
     best: UciMove,
     score: Option[Score],
-    mate: Option[Int]) {
+    mate: Option[Int],
+    line: Option[NonEmptyList[UciMove]]) {
 
   def turn = 1 + (ply - 1) / 2
 
@@ -101,7 +103,8 @@ case class Info(
     move.piotr,
     best.piotr,
     encode(score map (_.centipawns)),
-    encode(mate)
+    encode(mate),
+    encode(line map { l ⇒ "(" + l.list.mkString("") + ")" })
   ) mkString Info.separator
 
   private def encode(oa: Option[Any]): String = oa.fold("_")(_.toString)
@@ -111,32 +114,38 @@ object Info {
 
   private val separator = ","
 
-  def decode(ply: Int, str: String): Valid[Info] = str.split(separator).toList match {
-    case moveString :: bestString :: cpString :: mateString :: Nil ⇒ for {
-      move ← UciMove piotr moveString toValid "Invalid info move piotr " + moveString
-      best ← UciMove piotr bestString toValid "Invalid info best piotr " + bestString
+  def decode(ply: Int, str: String): Option[Info] = str.split(separator).toList match {
+    case moveString :: bestString :: cpString :: mateString :: rest ⇒ for {
+      move ← UciMove piotr moveString 
+      best ← UciMove piotr bestString 
     } yield Info(
       ply = ply,
       move = move,
       best = best,
       score = parseIntOption(cpString) map Score.apply,
-      mate = parseIntOption(mateString))
-    case _ ⇒ !!("Invalid encoded info: " + str)
+      mate = parseIntOption(mateString),
+      line = rest.headOption flatMap decodeUciLine)
+    case _ ⇒ none
   }
+
+  private def decodeUciLine(line: String): Option[NonEmptyList[UciMove]] =
+    (line split ' ').toList.map(UciMove.apply).flatten.toNel
 
   def apply(
     moveString: String,
     bestString: String,
     score: Option[Int],
-    mate: Option[Int]): Valid[Int ⇒ Info] = for {
-    move ← UciMove(moveString) toValid "Invalid info move " + moveString
-    best ← UciMove(bestString) toValid "Invalid info best " + bestString
+    mate: Option[Int],
+    line: Option[String]): Option[Int ⇒ Info] = for {
+    move ← UciMove(moveString) 
+    best ← UciMove(bestString)
   } yield ply ⇒ Info(
     ply = ply,
     move = move,
     best = best,
     score = score map Score.apply,
-    mate = mate)
+    mate = mate,
+    line = line flatMap decodeUciLine)
 }
 
 private[analyse] case class Score(centipawns: Int) {

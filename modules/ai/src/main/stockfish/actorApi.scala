@@ -48,8 +48,8 @@ case class Job(req: Req, sender: akka.actor.ActorRef, buffer: List[String]) {
   def +(str: String) = req.analyse.fold(copy(buffer = str :: buffer), this)
 
   // bestmove xyxy ponder xyxy
-  def complete(str: String): Valid[Any] = req match {
-    case r: PlayReq            ⇒ str.split(' ') lift 1 toValid "no bestmove found in " + str
+  def complete(str: String): Option[Any] = req match {
+    case r: PlayReq            ⇒ str split ' ' lift 1 
     case AnalReq(_, played, _) ⇒ AnalyseParser(str :: buffer, played)
   }
 }
