@@ -27,7 +27,7 @@ final class DataForm(isDev: Boolean) {
 
   val minPlayers = isDev.fold(
     (2 to 9) ++ (10 to 30 by 5),
-    (5 to 9) ++ (10 to 30 by 5)
+    (Tournament.minPlayers to 9) ++ (10 to 30 by 5)
   )
   val minPlayerDefault = 10
   val minPlayerChoices = options(minPlayers, "%d player{s}")

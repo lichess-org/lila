@@ -108,7 +108,7 @@ case class Created(
 
   def readyToStart = players.size >= minPlayers
 
-  def readyToEarlyStart = players.size >= 5
+  def readyToEarlyStart = players.size >= Tournament.minPlayers
 
   def isEmpty = players.isEmpty
 
@@ -226,6 +226,8 @@ case class Finished(
 }
 
 object Tournament {
+
+  val minPlayers = 4
 
   import lila.db.Tube
   import play.api.libs.json._
