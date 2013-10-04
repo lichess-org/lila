@@ -61,7 +61,7 @@ private[ai] final class Queue(config: Config) extends Actor {
               info(turn),
               info(turn) |> { i ⇒ i.copy(score = i.score map (_.negate)) }
             )
-          }, true, none)
+          }, true)
         }
       } pipeTo sender
     }
