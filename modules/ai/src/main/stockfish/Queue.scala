@@ -42,12 +42,12 @@ private[ai] final class Queue(config: Config) extends Actor {
 
     case req: AnalReq ⇒ {
       implicit val timeout = makeTimeout(config.analyseMoveTime + 1.second)
-      (actor ? req) mapTo manifest[Valid[Int ⇒ Info]] map sender.! await timeout
+      (actor ? req) map sender.! await timeout
     }
 
     case FullAnalReq(uciMoves, fen) ⇒ {
       implicit val timeout = makeTimeout(config.analyseTimeout)
-      type Result = Valid[Int ⇒ Info]
+      type Result = Option[Int ⇒ Info]
       val moves = uciMoves.split(' ').toList
       val futures = (1 to moves.size - 1).toStream map moves.take map { serie ⇒
         self ? AnalReq(serie.init mkString " ", serie.last, fen) mapTo manifest[Result]
