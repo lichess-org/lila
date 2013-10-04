@@ -104,7 +104,7 @@ case class Info(
     best.piotr,
     encode(score map (_.centipawns)),
     encode(mate),
-    encode(line map { l ⇒ "(" + l.list.mkString("") + ")" })
+    encode(line map { l ⇒ UciMove writeListPiotr l.list })
   ) mkString Info.separator
 
   private def encode(oa: Option[Any]): String = oa.fold("_")(_.toString)
@@ -129,7 +129,7 @@ object Info {
   }
 
   private def decodeUciLine(line: String): Option[NonEmptyList[UciMove]] =
-    (line split ' ').toList.map(UciMove.apply).flatten.toNel
+    UciMove readListPiotr line flatMap (_.toNel)
 
   def apply(
     moveString: String,
@@ -145,7 +145,7 @@ object Info {
     best = best,
     score = score map Score.apply,
     mate = mate,
-    line = line flatMap decodeUciLine)
+    line = line flatMap UciMove.readList flatMap (_.toNel))
 }
 
 private[analyse] case class Score(centipawns: Int) {
