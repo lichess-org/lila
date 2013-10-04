@@ -71,15 +71,21 @@ object Analyse extends LilaController {
 
   def pgn(id: String) = Open { implicit ctx ⇒
     OptionFuResult(GameRepo game id) { game ⇒
-      for {
-        pgnString ← game.pgnImport.map(_.pgn).fold(PgnRepo get id)(fuccess(_))
-        content ← game.pgnImport.map(_.pgn).fold(Env.game.pgnDump(game, pgnString) map (_.toString))(fuccess(_))
-        filename ← Env.game.pgnDump filename game
-      } yield Ok(content).withHeaders(
-        CONTENT_LENGTH -> content.size.toString,
-        CONTENT_TYPE -> ContentTypes.TEXT,
-        CONTENT_DISPOSITION -> ("attachment; filename=" + filename)
-      )
+      (game.pgnImport match {
+        case Some(i) ⇒ fuccess(i.pgn)
+        case None ⇒ for {
+          pgnMoves ← PgnRepo get id
+          pgn ← Env.game.pgnDump(game, pgnMoves)
+          analysis ← env.analyser get game.id
+        } yield analysis.fold(pgn)(a ⇒ Env.analyse.annotator(pgn, a)).toString
+      }) flatMap { content ⇒
+        Env.game.pgnDump filename game map { filename ⇒
+          Ok(content).withHeaders(
+            CONTENT_LENGTH -> content.size.toString,
+            CONTENT_TYPE -> ContentTypes.TEXT,
+            CONTENT_DISPOSITION -> ("attachment; filename=" + filename))
+        }
+      }
     }
   }
 
