@@ -3,11 +3,7 @@ package lila.analyse
 import chess.Color
 import chess.format.Nag
 
-case class Analysis(
-    id: String,
-    infos: List[Info],
-    done: Boolean,
-    fail: Option[String]) {
+case class Analysis(id: String, infos: List[Info], done: Boolean) {
 
   lazy val infoAdvices: InfoAdvices = (infos sliding 2 collect {
     case info :: next :: Nil ⇒ info -> Advice(info, next)
@@ -17,11 +13,7 @@ case class Analysis(
 
   lazy val advantageChart = new AdvantageChart(infoAdvices)
 
-  def encode: RawAnalysis = RawAnalysis(
-    id = id,
-    encoded = encodeInfos,
-    done = done,
-    fail = fail)
+  def encode: RawAnalysis = RawAnalysis(id, encodeInfos, done)
 
   def encodeInfos = infos map (_.encode) mkString Analysis.separator
 
@@ -63,14 +55,14 @@ object Analysis {
   )
 }
 
-case class AnalysisMaker(infos: List[Info], done: Boolean, fail: Option[String]) {
+case class AnalysisMaker(infos: List[Info], done: Boolean) {
 
-  def apply(id: String) = Analysis(id, infos, done, fail)
+  def apply(id: String) = Analysis(id, infos, done)
 }
 object AnalysisMaker {
 
   def apply(str: String, done: Boolean): Option[AnalysisMaker] =
-    Analysis.decodeInfos(str) map { AnalysisMaker(_, done, none) }
+    Analysis.decodeInfos(str) map { AnalysisMaker(_, done) }
 }
 
 final class AnalysisBuilder(infos: List[Info]) {
@@ -79,26 +71,22 @@ final class AnalysisBuilder(infos: List[Info]) {
 
   def +(info: Int ⇒ Info) = new AnalysisBuilder(info(infos.size + 1) :: infos)
 
-  def done: AnalysisMaker = AnalysisMaker(infos.reverse.zipWithIndex map {
+  def done = AnalysisMaker(infos.reverse.zipWithIndex map {
     case (info, turn) ⇒ (turn % 2 == 0).fold(
       info,
       info.copy(score = info.score map (_.negate))
     )
-  }, true, none)
+  }, true)
 }
 
-private[analyse] case class RawAnalysis(
-    id: String,
-    encoded: String,
-    done: Boolean,
-    fail: Option[String]) {
+private[analyse] case class RawAnalysis(id: String, encoded: String, done: Boolean) {
 
   def decode: Option[Analysis] = (done, encoded.trim) match {
-    case (true, "") ⇒ new Analysis(id, Nil, false, fail orElse "No move infos".some).some
+    case (true, "") ⇒ new Analysis(id, Nil, false).some
     case (true, en) ⇒ Analysis.decodeInfos(en) map { infos ⇒
-      new Analysis(id, infos, done, none)
+      new Analysis(id, infos, done)
     }
-    case (false, _) ⇒ new Analysis(id, Nil, false, fail).some
+    case (false, _) ⇒ new Analysis(id, Nil, false).some
   }
 }
 
@@ -108,10 +96,7 @@ private[analyse] object RawAnalysis {
   import Tube.Helpers._
   import play.api.libs.json._
 
-  private def defaults = Json.obj(
-    "encoded" -> "",
-    "done" -> false,
-    "fail" -> none[String])
+  private def defaults = Json.obj("encoded" -> "", "done" -> false)
 
   private[analyse] lazy val tube = Tube(
     (__.json update merge(defaults)) andThen Json.reads[RawAnalysis],
