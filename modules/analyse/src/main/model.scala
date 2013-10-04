@@ -81,7 +81,7 @@ case class Info(
     best: UciMove,
     score: Option[Score],
     mate: Option[Int],
-    line: Option[NonEmptyList[UciMove]]) {
+    line: List[String]) {
 
   def turn = 1 + (ply - 1) / 2
 
@@ -92,10 +92,10 @@ case class Info(
     best.piotr,
     encode(score map (_.centipawns)),
     encode(mate),
-    encode(line map { l ⇒ UciMove writeListPiotr l.list })
+    line mkString " "
   ) mkString Info.separator
 
-  def dropLine = copy(line = none)
+  def dropLine = copy(line = Nil)
 
   private def encode(oa: Option[Any]): String = oa.fold("_")(_.toString)
 }
@@ -114,19 +114,16 @@ object Info {
       best = best,
       score = parseIntOption(cpString) map Score.apply,
       mate = parseIntOption(mateString),
-      line = rest.headOption flatMap decodeUciLine)
+      line = rest.headOption ?? (_.split(' ').toList))
     case _ ⇒ none
   }
-
-  private def decodeUciLine(line: String): Option[NonEmptyList[UciMove]] =
-    UciMove readListPiotr line flatMap (_.toNel)
 
   def apply(
     moveString: String,
     bestString: String,
     score: Option[Int],
     mate: Option[Int],
-    line: Option[String]): Option[Int ⇒ Info] = for {
+    line: List[String]): Option[Int ⇒ Info] = for {
     move ← UciMove(moveString)
     best ← UciMove(bestString)
   } yield ply ⇒ Info(
@@ -135,7 +132,7 @@ object Info {
     best = best,
     score = score map Score.apply,
     mate = mate,
-    line = line flatMap UciMove.readList flatMap (_.toNel))
+    line = line)
 }
 
 private[analyse] case class Score(centipawns: Int) {
