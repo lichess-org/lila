@@ -15,7 +15,8 @@ final class Analyser(
     ai: ActorSelection,
     indexer: ActorSelection) {
 
-  def get(id: String): Fu[Option[Analysis]] = $find.byId[Analysis](id)
+  def get(id: String): Fu[Option[Analysis]] = 
+    AnalysisRepo getOrRemoveStaled id 
 
   def has(id: String): Fu[Boolean] = AnalysisRepo isDone id
 
