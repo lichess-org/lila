@@ -8,7 +8,7 @@ import chess.format.{ pgn ⇒ chessPgn }
 import makeTimeout.short
 import org.joda.time.format.DateTimeFormat
 
-import lila.hub.actorApi.router.Watcher
+import lila.hub.actorApi.router.{ Abs, Watcher }
 import lila.user.User
 
 private[game] final class PgnDump(
@@ -33,7 +33,7 @@ private[game] final class PgnDump(
   }
 
   private def gameUrl(id: String): Fu[String] =
-    router ? Watcher(id, "white") mapTo manifest[String]
+    router ? Abs(Watcher(id, "white")) mapTo manifest[String]
 
   private def gameUsers(game: Game): Fu[(Option[User], Option[User])] =
     (game.whitePlayer.userId ?? findUser) zip (game.blackPlayer.userId ?? findUser)
