@@ -29,7 +29,7 @@ private[ai] final class Server(
   def analyse(uciMoves: String, initialFen: Option[String]): Fu[AnalysisMaker] = {
     implicit val timeout = makeTimeout(config.analyseTimeout)
     queue ? FullAnalReq(uciMoves, initialFen map chess960Fen) mapTo
-      manifest[Valid[AnalysisMaker]] flatMap (_.future)
+      manifest[Option[AnalysisMaker]] flatten "[stockfish] analyse failed" 
   }
 
   def load: Fu[Int] = {
