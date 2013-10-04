@@ -49,11 +49,7 @@ private[analyse] object MateSeverity {
       case (Some(c), Some(n)) if c > 0 && n >= c    ⇒ MateDelayed(c, n)
     }
 }
-private[analyse] case class MateAdvice(
-    severity: MateSeverity,
-    info: Info,
-    next: Info) extends Advice {
-
+private[analyse] case class MateAdvice(severity: MateSeverity, info: Info, next: Info) extends Advice {
   def text = severity.toString
 }
 
@@ -98,6 +94,8 @@ case class Info(
     encode(mate),
     encode(line map { l ⇒ UciMove writeListPiotr l.list })
   ) mkString Info.separator
+
+  def dropLine = copy(line = none)
 
   private def encode(oa: Option[Any]): String = oa.fold("_")(_.toString)
 }
