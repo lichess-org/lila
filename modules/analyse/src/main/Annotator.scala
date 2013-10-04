@@ -16,24 +16,11 @@ private[analyse] final class Annotator(netDomain: String) {
           move.copy(
             nag = advice.nag.code.some,
             comment = makeComment(advice).some,
-            variation = makeVariation(advice)
+            variation = advice.info.line
           )
         )
       )
     }
-
-  private def makeVariation(advice: Advice): List[Turn] = {
-    advice.info.line.isDefined ?? List(Turn(
-      number = advice.turn,
-      white = advice.info.color.white option Move("d4"),
-      black = Some(Move("e5"))
-    ))
-  }
-  // advice.info.line.??(_.list).zipWithIndex map { 
-  //   case (uciMove, i) => 
-  //     val 
-  //   }
-  // }
 
   private def makeComment(advice: Advice): String = (advice match {
     case CpAdvice(sev, _, _)   ⇒ sev.nag.toString
