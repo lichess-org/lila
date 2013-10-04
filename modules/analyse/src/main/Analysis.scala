@@ -28,15 +28,12 @@ case class Analysis(id: String, infos: List[Info], done: Boolean) {
 
 object Analysis {
 
-  val separator = " "
+  val separator = ";"
 
   def decodeInfos(enc: String): Option[List[Info]] =
     (enc.split(separator).toList.zipWithIndex map {
       case (info, index) ⇒ Info.decode(index + 1, info)
-    }).sequence.fold(
-      err ⇒ { logger.warn("[analysis] " + err); none[List[Info]] },
-      _.some
-    )
+    }).sequence
 
   import lila.db.Tube
   import play.api.libs.json._
