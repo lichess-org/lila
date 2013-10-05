@@ -264,7 +264,7 @@ case class Game(
 
   def outoftimePlayer: Option[Player] = for {
     c ← clock
-    if playable
+    if started && playable
     if !c.isRunning || (c outoftime player.color)
   } yield player
 
