@@ -245,3 +245,4 @@ startPosition=Kezdő pozíció
 clearBoard=Tábla törlése
 savePosition=Pozíció mentése
 isPrivate=Privát
+reportXToModerators=Jelentés %s a moderátoknak
