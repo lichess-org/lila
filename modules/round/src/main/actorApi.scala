@@ -71,10 +71,10 @@ package round {
     blur: Boolean,
     lag: Int,
     onFailure: Exception ⇒ Unit)
+  case object AiPlay
 
   case class PlayResult(events: Events, fen: String, lastMove: Option[String])
 
-  case class AiPlay(onFailure: Exception ⇒ Unit)
 
   case class Send(events: Events)
   case class Abort(playerId: String)
