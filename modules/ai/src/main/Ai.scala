@@ -13,7 +13,7 @@ trait Ai {
       fen ← game.variant.exotic ?? { GameRepo initialFen game.id }
       pgn ← PgnRepo get game.id
       uciMoves ← uciMemo.get(game, pgn) map (_ mkString " ")
-      moveStr ← fulogwarn(s"${game.id} $uciMoves") >> move(uciMoves, fen, level)
+      moveStr ← move(uciMoves, fen, level)
       uciMove ← (UciMove(moveStr) toValid "Wrong bestmove: " + moveStr).future
       result ← (game.toChess withPgnMoves pgn)(uciMove.orig, uciMove.dest).future
       (c, m) = result
