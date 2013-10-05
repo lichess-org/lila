@@ -20,6 +20,7 @@ final class Env(
     getUsername: String ⇒ Fu[Option[String]],
     getUsernameOrAnon: String ⇒ Fu[String],
     uciMemo: lila.game.UciMemo,
+    rematch960Cache: lila.memo.ExpireSetMemo,
     i18nKeys: lila.i18n.I18nKeys,
     scheduler: lila.common.Scheduler) {
 
@@ -85,7 +86,8 @@ final class Env(
   private lazy val rematcher = new Rematcher(
     messenger = messenger,
     router = hub.actor.router,
-    timeline = hub.actor.gameTimeline)
+    timeline = hub.actor.gameTimeline,
+    rematch960Cache = rematch960Cache)
 
   private lazy val player: Player = new Player(
     engine = ai,
@@ -170,6 +172,7 @@ object Env {
     getUsername = lila.user.Env.current.usernameOption,
     getUsernameOrAnon = lila.user.Env.current.usernameOrAnonymous,
     uciMemo = lila.game.Env.current.uciMemo,
+    rematch960Cache = lila.game.Env.current.cached.rematch960,
     i18nKeys = lila.i18n.Env.current.keys,
     scheduler = lila.common.PlayApp.scheduler)
 }

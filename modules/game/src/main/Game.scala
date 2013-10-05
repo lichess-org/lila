@@ -26,7 +26,6 @@ case class Game(
     next: Option[String] = None,
     lastMoveTime: Option[Int] = None,
     bookmarks: Int = 0,
-    is960Rematch: Boolean = false,
     createdAt: DateTime = DateTime.now,
     updatedAt: Option[DateTime] = None,
     metadata: Option[Metadata] = None) {
@@ -330,7 +329,6 @@ case class Game(
     next = next,
     lmt = lastMoveTime,
     bm = bookmarks.some filter (0 <),
-    r960 = is960Rematch option true,
     ca = createdAt,
     ua = updatedAt,
     me = metadata map (_.encode))
@@ -344,8 +342,6 @@ case class Game(
     case a :: Nil      ⇒ Some((a + 1200) / 2)
     case _             ⇒ None
   }
-
-  def with960Rematch(v: Boolean) = this.copy(is960Rematch = v)
 
   def withTournamentId(id: String) = this.copy(
     metadata = metadata map (_.copy(tournamentId = id.some)))
@@ -446,7 +442,6 @@ private[game] case class RawGame(
     next: Option[String] = None,
     lmt: Option[Int] = None,
     bm: Option[Int] = None,
-    r960: Option[Boolean] = None,
     ca: DateTime,
     ua: Option[DateTime],
     me: Option[RawMetadata]) {
@@ -474,7 +469,6 @@ private[game] case class RawGame(
     next = next,
     lastMoveTime = lmt,
     bookmarks = ~bm,
-    is960Rematch = ~r960,
     createdAt = ca,
     updatedAt = ua,
     metadata = me map (_.decode)
@@ -504,7 +498,6 @@ private[game] object RawGame {
     "next" -> none[String],
     "lmt" -> none[Int],
     "bm" -> none[Int],
-    "r960" -> none[Boolean],
     "me" -> none[RawMetadata],
     "ua" -> none[DateTime])
 
