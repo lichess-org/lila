@@ -42,8 +42,9 @@ private[setup] final class FormFactory {
       "increment" -> increment,
       "level" -> level,
       "color" -> color,
-      "fen" -> fen(true)
+      "fen" -> fen
     )(AiConfig.<<)(_.>>)
+      .verifying("Invalid FEN", _.validFen)
   )
 
   def aiConfig(implicit ctx: Context): Fu[AiConfig] = savedConfig map (_.ai)
@@ -63,8 +64,10 @@ private[setup] final class FormFactory {
       "increment" -> increment,
       "mode" -> mode(ctx.isAuth),
       "color" -> color,
-      "fen" -> fen(false)
-    )(FriendConfig.<<)(_.>>) verifying ("Invalid clock", _.validClock)
+      "fen" -> fen
+    )(FriendConfig.<<)(_.>>)
+      .verifying("Invalid clock", _.validClock)
+      .verifying("Invalid FEN", _.validFen)
   )
 
   def friendConfig(implicit ctx: Context): Fu[FriendConfig] = savedConfig map (_.friend)
