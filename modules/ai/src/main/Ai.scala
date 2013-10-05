@@ -8,21 +8,21 @@ import lila.game.{ Game, Progress, GameRepo, PgnRepo, UciMemo }
 
 trait Ai {
 
-  def play(game: Game, level: Int): Fu[Progress] = withValidSituation(game) {
+  def play(game: Game, level: Int): Fu[Progress] = (withValidSituation(game) {
     for {
-      fen ← game.variant.exotic ?? { GameRepo initialFen game.id }
-      pgn ← PgnRepo get game.id
-      uciMoves ← uciMemo.get(game, pgn) map (_ mkString " ")
-      moveStr ← move(uciMoves, fen, level)
-      uciMove ← (UciMove(moveStr) toValid "Wrong bestmove: " + moveStr).future
-      result ← (game.toChess withPgnMoves pgn)(uciMove.orig, uciMove.dest).future
+      fen ← (game.variant.exotic ?? { GameRepo initialFen game.id }).thenPp
+      pgn ← (PgnRepo get game.id).thenPp
+      uciMoves ← (uciMemo.get(game, pgn) map (_ mkString " ")).thenPp
+      moveStr ← move(uciMoves, fen, level).thenPp
+      uciMove ← (UciMove(moveStr) toValid "Wrong bestmove: " + moveStr).future.thenPp
+      result ← (game.toChess withPgnMoves pgn)(uciMove.orig, uciMove.dest).future.thenPp
       (c, m) = result
       (progress, pgn2) = game.update(c, m)
       _ ← (GameRepo save progress) >>
         PgnRepo.save(game.id, pgn2) >>-
         uciMemo.add(game, uciMove.uci)
     } yield progress
-  }
+  }).thenPp
 
   def uciMemo: UciMemo
 
