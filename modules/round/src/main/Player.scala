@@ -38,7 +38,7 @@ private[round] final class Player(
                     cheatDetector(progress.game) addEffect {
                       case Some(color) ⇒ roundMap ! Tell(game.id, Cheat(color))
                       case None ⇒ {
-                        if (progress.game.playableByAi) roundMap ! Tell(game.id, AiPlay(onFailure))
+                        if (progress.game.playableByAi) roundMap ! Tell(game.id, AiPlay)
                         if (game.player.isOfferingDraw) roundMap ! Tell(game.id, DrawNo(game.player.id))
                         if (game.player.isProposingTakeback) roundMap ! Tell(game.id, TakebackNo(game.player.id))
                       }
@@ -50,12 +50,12 @@ private[round] final class Player(
     }
   }
 
-  def ai(play: AiPlay)(game: Game): Fu[Events] =
+  def ai(game: Game): Fu[Events] =
     (game.playable && game.player.isAi).fold(
       engine.play(game, game.aiLevel | 1) flatMap { progress ⇒
         notifyProgress(progress)
         moveFinish(progress.game, game.turnColor) map { progress.events ::: _ }
-      } addFailureEffect play.onFailure,
+      },
       fufail("not AI turn")
     ) logFailureErr "[ai play] game %s turn %d".format(game.id, game.turns)
 

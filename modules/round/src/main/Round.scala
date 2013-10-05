@@ -2,11 +2,11 @@ package lila.round
 
 import scala.concurrent.duration._
 
-import actorApi._, round._
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 import makeTimeout.large
 
+import actorApi._, round._
 import lila.game.{ Game, GameRepo, PgnRepo, Pov, PovRef, PlayerRef, Event, Progress }
 import lila.hub.actorApi.map._
 import lila.i18n.I18nKey.{ Select ⇒ SelectI18nKey }
@@ -32,7 +32,7 @@ private[round] final class Round(
 
     case p: HumanPlay   ⇒ handle(p.playerId)(player human p)
 
-    case p: AiPlay      ⇒ blockAndPublish(GameRepo game gameId, 10.seconds)(player ai p)
+    case AiPlay         ⇒ blockAndPublish(GameRepo game gameId, 10.seconds)(player.ai)
 
     case Abort(playerId) ⇒ handle(playerId) { pov ⇒
       pov.game.abortable ?? finisher(pov.game, _.Aborted)
