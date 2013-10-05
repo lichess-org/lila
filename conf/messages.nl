@@ -1,6 +1,6 @@
 playWithAFriend=Speel tegen een vriend
 inviteAFriendToPlayWithYou=Nodig een vriend of kennis uit om tegen te spelen
-playWithTheMachine=Spelen tegen de computer
+playWithTheMachine=Speel tegen de computer
 challengeTheArtificialIntelligence=Daag het programma uit
 toInviteSomeoneToPlayGiveThisUrl=Stuur deze link als u iemand wilt uitnodigen om met u te spelen
 gameOver=Partij afgelopen
