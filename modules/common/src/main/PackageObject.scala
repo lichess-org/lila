@@ -1,9 +1,9 @@
 package lila
 
 import scala.concurrent.Future
-import scalaz.{ Monad, Monoid, OptionT }
 
 import ornicar.scalalib
+import scalaz.{ Monad, Monoid, OptionT }
 
 trait PackageObject extends Steroids with WithFuture {
 
@@ -174,6 +174,11 @@ trait WithPlay { self: PackageObject ⇒
     def orElse(other: ⇒ Fu[Option[A]]): Fu[Option[A]] = fua flatMap {
       _.fold(other) { x ⇒ fuccess(x.some) }
     }
+  }
+
+  implicit final class LilaPimpedFutureValid[A](fua: Fu[Valid[A]]) {
+
+    def flatten: Fu[A] = fua flatMap { _.fold[Fu[A]](fufail(_), fuccess(_)) }
   }
 
   implicit final class LilaPimpedFutureBoolean(fua: Fu[Boolean]) {

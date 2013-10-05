@@ -24,13 +24,6 @@ case class Analysis(id: String, infos: List[Info], done: Boolean) {
       })
     })
   }
-
-  def dropExtraLines = copy(infos = {
-    val plysWithAdvice = infoAdvices.filter(_._2.isDefined).map(_._1.ply).toSet
-    infos map { info ⇒
-      plysWithAdvice(info.ply).fold(info, info.dropLine)
-    }
-  })
 }
 
 object Analysis {
@@ -61,7 +54,7 @@ object Analysis {
 
 case class AnalysisMaker(infos: List[Info], done: Boolean) {
 
-  def apply(id: String) = Analysis(id, infos, done).dropExtraLines
+  def apply(id: String) = Analysis(id, infos, done)
 }
 object AnalysisMaker {
 

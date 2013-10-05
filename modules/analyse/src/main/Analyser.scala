@@ -1,8 +1,11 @@
 package lila.analyse
 
+import scala.concurrent.Future
+
 import akka.actor.ActorSelection
 import akka.pattern.ask
 import chess.format.UciDump
+import chess.Replay
 import makeTimeout.veryLarge
 
 import lila.db.api._
@@ -15,8 +18,8 @@ final class Analyser(
     ai: ActorSelection,
     indexer: ActorSelection) {
 
-  def get(id: String): Fu[Option[Analysis]] = 
-    AnalysisRepo getOrRemoveStaled id 
+  def get(id: String): Fu[Option[Analysis]] =
+    AnalysisRepo getOrRemoveStaled id
 
   def has(id: String): Fu[Boolean] = AnalysisRepo isDone id
 
@@ -38,11 +41,12 @@ final class Analyser(
         (GameRepo initialFen id) flatMap {
           case ((Some(game), Some(pgn)), initialFen) ⇒ (for {
             _ ← AnalysisRepo.progress(id, userId)
-            uciMoves ← UciDump(pgn, initialFen, game.variant).future
+            replay ← Future(Replay(pgn, initialFen, game.variant)).flatten
+            uciMoves = UciDump(replay)
             analysis ← {
               ai ? lila.hub.actorApi.ai.Analyse(id, uciMoves mkString " ", initialFen)
             } mapTo manifest[Analysis]
-          } yield analysis) flatFold (
+          } yield Continuation(replay, analysis)) flatFold (
             e ⇒ fufail[Analysis](e.getMessage),
             a ⇒ AnalysisRepo.done(id, a) >>- (indexer ! InsertGame(game)) inject a
           )
