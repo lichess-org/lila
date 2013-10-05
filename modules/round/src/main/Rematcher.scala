@@ -1,21 +1,23 @@
 package lila.round
 
-import akka.pattern.ask
 import akka.actor.ActorSelection
-
+import akka.pattern.ask
 import chess.format.Forsyth
 import chess.{ Game ⇒ ChessGame, Board, Clock, Variant, Color ⇒ ChessColor }
 import ChessColor.{ White, Black }
+import lila.memo.ExpireSetMemo
+import makeTimeout.short
+
 import lila.db.api._
 import lila.game.tube.gameTube
 import lila.game.{ GameRepo, Game, Event, Progress, Pov, PlayerRef, Namer, Source }
 import lila.user.UserRepo
-import makeTimeout.short
 
 private[round] final class Rematcher(
     messenger: Messenger,
     router: ActorSelection,
-    timeline: ActorSelection) {
+    timeline: ActorSelection,
+    rematch960Cache: ExpireSetMemo) {
 
   def yes(pov: Pov): Fu[Events] = pov match {
     case Pov(game, color) if (game playerCanRematch color) ⇒
@@ -57,7 +59,10 @@ private[round] final class Rematcher(
       (timeline ! nextGame) >>
       // messenges are not sent to the next game socket
       // as nobody is there to see them yet
-      messenger.rematch(pov.game, nextGame)
+      messenger.rematch(pov.game, nextGame) >>- {
+        if (pov.game.variant == Variant.Chess960 && !rematch960Cache.get(pov.game.id))
+          rematch960Cache.put(nextId)
+      }
     events ← redirectEvents(nextGame)
   } yield events
 
@@ -72,7 +77,7 @@ private[round] final class Rematcher(
   private def returnGame(pov: Pov): Fu[Game] = for {
     pieces ← pov.game.variant.standard.fold(
       fuccess(pov.game.variant.pieces),
-      pov.game.is960Rematch.fold(
+      rematch960Cache.get(pov.game.id).fold(
         fuccess(Variant.Chess960.pieces),
         GameRepo initialFen pov.game.id map { fenOption ⇒
           (fenOption flatMap Forsyth.<< map { _.board.pieces }) | pov.game.variant.pieces
@@ -91,9 +96,7 @@ private[round] final class Rematcher(
     mode = pov.game.mode,
     variant = pov.game.variant,
     source = pov.game.source | Source.Lobby,
-    pgnImport = None) with960Rematch {
-      pov.game.variant == Variant.Chess960 && !pov.game.is960Rematch
-    }
+    pgnImport = None)
 
   private def returnPlayer(game: Game, color: ChessColor): Fu[lila.game.Player] =
     lila.game.Player.make(color = color, aiLevel = game.opponent(color).aiLevel) |> { player ⇒
