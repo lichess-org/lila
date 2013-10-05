@@ -46,7 +46,7 @@ private[round] final class Player(
                   })
           }
         } addFailureEffect onFailure
-      case _ ⇒ fufail("Not your turn")
+      case _ ⇒ fufail(s"$pov Not your turn")
     }
   }
 
