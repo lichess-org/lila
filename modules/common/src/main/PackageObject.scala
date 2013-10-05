@@ -127,13 +127,13 @@ trait WithPlay { self: PackageObject ⇒
       fua flatMap succ recoverWith { case e: Exception ⇒ fail(e) }
 
     def logFailure(prefix: Throwable ⇒ String): Fu[A] = fua ~ (_ onFailure {
-      case e: Exception ⇒ logwarn(prefix(e) + " " + e.getMessage)
+      case e: Exception ⇒ logwarn(prefix(e) + " " + e.toString)
     })
     def logFailure(prefix: ⇒ String): Fu[A] = fua ~ (_ onFailure {
-      case e: Exception ⇒ logwarn(prefix + " " + e.getMessage)
+      case e: Exception ⇒ logwarn(prefix + " " + e.toString)
     })
     def logFailureErr(prefix: ⇒ String): Fu[A] = fua ~ (_ onFailure {
-      case e: Exception ⇒ logerr(prefix + " " + e.getMessage)
+      case e: Exception ⇒ logerr(prefix + " " + e.toString)
     })
 
     def addEffect(effect: A ⇒ Unit) = fua ~ (_ foreach effect)
