@@ -245,3 +245,4 @@ startPosition=Posición inicial
 clearBoard=Limpiar el tablero
 savePosition=Guardar posición
 isPrivate=Privado
+reportXToModerators=Reportar %s a los moderadores
