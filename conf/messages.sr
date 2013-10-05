@@ -1,6 +1,6 @@
 playWithAFriend=Играј са пријатељем
 inviteAFriendToPlayWithYou=Позови пријатеља да игра с тобом
-playWithTheMachine=Играј против рачунараb
+playWithTheMachine=Играј против рачунара
 challengeTheArtificialIntelligence=Изазови вештачку интелигенцију
 toInviteSomeoneToPlayGiveThisUrl=Да позовеш некога да игра, проследи му ову везу
 gameOver=Крај игре
@@ -244,4 +244,5 @@ boardEditor=Уредник табле
 startPosition=Почетна позиција
 clearBoard=Склони фигуре
 savePosition=Сачувај позицију
-isPrivate=Pribatane
+isPrivate=Privatno
+reportXToModerators=Prijaviti %s moderatorima
