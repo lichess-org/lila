@@ -245,3 +245,4 @@ startPosition=Startopstelling
 clearBoard=Maak het bord leeg
 savePosition=Sla opstelling op
 isPrivate=Privaat
+reportXToModerators=meld %s aan de moderators
