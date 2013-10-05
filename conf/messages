@@ -245,3 +245,4 @@ startPosition=Start position
 clearBoard=Clear board
 savePosition=Save position
 isPrivate=Private
+reportXToModerators=Report %s to moderators
