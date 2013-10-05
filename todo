@@ -74,3 +74,4 @@ data visualisation with http://app.raw.densitydesign.org/
 show tenths of seconds in game clock
 bug? http://en.lichess.org/inbox/1kwsxjwy#bottom
 tournament elo restriction
+remove game.r960 (use mem cache) && unset r960 on prod DB
