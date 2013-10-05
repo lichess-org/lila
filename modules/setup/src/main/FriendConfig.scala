@@ -14,6 +14,8 @@ case class FriendConfig(
     color: Color,
     fen: Option[String] = None) extends HumanConfig with GameGenerator with Positional {
 
+  val strictFen = false
+
   def >> = (variant.id, clock, time, increment, mode.id.some, color.name, fen).some
 
   def game = fenGame { chessGame ⇒
