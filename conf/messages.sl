@@ -245,3 +245,4 @@ startPosition=Začetna pozicija
 clearBoard=Počisti tablo
 savePosition=Posnemi pozicijo
 isPrivate=Zasebno
+reportXToModerators=Sporočilo %s Moderatorju
