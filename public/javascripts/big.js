@@ -1625,7 +1625,7 @@ var storage = {
     _formatDate: function(date) {
       minutes = this._prefixInteger(date.getUTCMinutes(), 2);
       seconds = this._prefixInteger(date.getSeconds(), 2);
-      if (this.options.time < 5 * 1000) {
+      if (this.options.time < 10 * 1000) {
         tenths = Math.floor(date.getMilliseconds() / 100);
         return minutes + ':' + seconds + ':' + tenths;
       } else {
