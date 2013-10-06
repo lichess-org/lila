@@ -289,9 +289,9 @@ div.lichess_table a.button.strong {
   font-size: 1.2em;
 }
 div.clock {
-  width: 70px;
+  display: inline-block;
   border: 1px solid #ccc;
-  padding: 4px 0 2px 10px;
+  padding: 4px 10px 2px 10px;
   font-size: 22px;
   font-family: monospace;
   font-weight: bold;
@@ -321,7 +321,7 @@ div.clock_bottom {
 div.lichess_table_wrap a.moretime {
   opacity: 0.4;
   position: absolute;
-  left: 87px;
+  left: 111px;
   top: 6px;
   width: 32px;
   height: 32px;

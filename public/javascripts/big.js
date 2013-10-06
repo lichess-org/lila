@@ -1564,7 +1564,6 @@ var storage = {
 
   $.widget("lichess.clock", {
     _create: function() {
-      var self = this;
       this.options.time = parseFloat(this.options.time) * 1000;
       this.options.emerg = parseFloat(this.options.emerg) * 1000;
       $.extend(this.options, {
@@ -1572,6 +1571,7 @@ var storage = {
         state: 'ready'
       });
       this.element.addClass('clock_enabled');
+      this._show();
     },
     destroy: function() {
       this.stop();
@@ -1599,7 +1599,7 @@ var storage = {
           clearInterval(self.options.interval);
         }
       },
-        1000);
+        100);
     },
 
     setTime: function(time) {
@@ -1615,14 +1615,22 @@ var storage = {
     },
 
     _show: function() {
-      this.element.text(this._formatDate(new Date(this.options.time)));
-      this.element.toggleClass('emerg', this.options.time < this.options.emerg);
+      var text = this._formatDate(new Date(this.options.time));
+      if (text != this.element.text()) {
+        this.element.text(text);
+        this.element.toggleClass('emerg', this.options.time < this.options.emerg);
+      }
     },
 
     _formatDate: function(date) {
       minutes = this._prefixInteger(date.getUTCMinutes(), 2);
       seconds = this._prefixInteger(date.getSeconds(), 2);
-      return minutes + ':' + seconds;
+      if (this.options.time < 5 * 1000) {
+        tenths = Math.floor(date.getMilliseconds() / 100);
+        return minutes + ':' + seconds + ':' + tenths;
+      } else {
+        return minutes + ':' + seconds;
+      }
     },
 
     _prefixInteger: function(num, length) {
