@@ -4,7 +4,7 @@ import play.api.libs.json.Json
 
 private[analyse] final class AdvantageChart(advices: InfoAdvices) {
 
-  val max = 15
+  val max = 10
 
   def columns = Json.arr(
     Json.arr("string", "Move"),
