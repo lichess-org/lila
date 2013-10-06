@@ -72,7 +72,7 @@ private[game] final class PgnDump(
         number = index + from,
         white = moves.headOption filter (".." !=) map { chessPgn.Move(_) },
         black = moves lift 1 map { chessPgn.Move(_) })
-    }
+    } filterNot (_.isEmpty)
 }
 
 object PgnDump {
