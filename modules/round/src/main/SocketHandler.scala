@@ -1,12 +1,14 @@
 package lila.round
 
-import actorApi._, round._
+import scala.concurrent.duration._
+
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 import chess.Color
 import makeTimeout.short
 import play.api.libs.json.{ JsObject, Json }
 
+import actorApi._, round._
 import lila.common.PimpedJson._
 import lila.game.{ Game, Pov, PovRef, PlayerRef, GameRepo }
 import lila.hub.actorApi.map._
@@ -65,7 +67,7 @@ private[round] final class SocketHandler(
           case (orig, dest, prom, blur, lag) ⇒ {
             socket ! Ack(uid)
             round(HumanPlay(
-              playerId, orig, dest, prom, blur, lag, _ ⇒ socket ! Resync(uid)
+              playerId, orig, dest, prom, blur, lag.millis, _ ⇒ socket ! Resync(uid)
             ))
           }
         }

@@ -1,7 +1,10 @@
 package lila.round
 package actorApi
 
+import scala.concurrent.duration.FiniteDuration
+
 import chess.Color
+
 import lila.game.{ Game, Event, PlayerRef }
 import lila.socket.SocketMember
 import lila.user.User
@@ -69,12 +72,11 @@ package round {
     dest: String,
     prom: Option[String],
     blur: Boolean,
-    lag: Int,
+    lag: FiniteDuration,
     onFailure: Exception ⇒ Unit)
   case object AiPlay
 
   case class PlayResult(events: Events, fen: String, lastMove: Option[String])
-
 
   case class Send(events: Events)
   case class Abort(playerId: String)
