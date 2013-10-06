@@ -38,7 +38,7 @@ object UserInfo {
     relationApi: RelationApi,
     gameCached: lila.game.Cached,
     postApi: PostApi,
-    getEloChart: User => Fu[Option[EloChart]],
+    getEloChart: User ⇒ Fu[Option[EloChart]],
     getRank: String ⇒ Fu[Option[Int]])(user: User, ctx: Context): Fu[UserInfo] =
     (getRank(user.id) flatMap {
       _ ?? { rank ⇒ countUsers() map { nb ⇒ (rank -> nb).some } }
