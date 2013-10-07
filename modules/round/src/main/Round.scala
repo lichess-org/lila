@@ -30,9 +30,11 @@ private[round] final class Round(
 
     case Send(events)   ⇒ socketHub ! Tell(gameId, events)
 
-    case p: HumanPlay   ⇒ handle(p.playerId)(player human p)
+    case p: HumanPlay ⇒ handle(p.playerId) { pov ⇒
+      pov.game.outoftimePlayer.fold(player.human(p)(pov))(outOfTime(pov.game))
+    }
 
-    case AiPlay         ⇒ blockAndPublish(GameRepo game gameId, 10.seconds)(player.ai)
+    case AiPlay ⇒ blockAndPublish(GameRepo game gameId, 10.seconds)(player.ai)
 
     case Abort(playerId) ⇒ handle(playerId) { pov ⇒
       pov.game.abortable ?? finisher(pov.game, _.Aborted)
@@ -60,11 +62,7 @@ private[round] final class Round(
     }
 
     case Outoftime ⇒ handle { game ⇒
-      game.outoftimePlayer ?? { player ⇒
-        finisher(game, _.Outoftime, Some(!player.color) filter {
-          chess.InsufficientMatingMaterial(game.toChess.board, _)
-        })
-      }
+      game.outoftimePlayer ?? outOfTime(game)
     }
 
     // exceptionally we don't block nor publish events
@@ -105,6 +103,11 @@ private[round] final class Round(
       }
     }
   }
+
+  private def outOfTime(game: Game)(p: lila.game.Player) =
+    finisher(game, _.Outoftime, Some(!p.color) filter {
+      chess.InsufficientMatingMaterial(game.toChess.board, _)
+    })
 
   protected def handle(playerId: String)(op: Pov ⇒ Fu[Events]) {
     blockAndPublish(GameRepo pov PlayerRef(gameId, playerId))(op)
