@@ -24,7 +24,7 @@ trait AssetHelper {
 
   def jsTag(name: String) = js("javascripts/" + name)
 
-  def jsTagC(name: String) = js("compiled/" + name)
+  def jsTagCompiled(name: String) = js("compiled/" + name)
 
   def jsVendorTag(name: String) = js("vendor/" + name)
 
