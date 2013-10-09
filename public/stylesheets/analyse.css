@@ -74,30 +74,20 @@ span.board_mark.horz {
 }
 
 #GameText {
-  font-family: monospace;
-  width: 220px;
+  font-size: 14px;
+  width: 242px;
   height: 512px;
   margin-bottom: 1em;
+  padding: 5px 7px;
   background: #f7f7f7;
   border: 1px solid #C0C0C0;
   overflow: auto;
   border-radius: 4px;
   box-shadow: 0 0 7px #d0d0d0;
 }
-#GameText table {
-  width: 100%;
-}
-#GameText tr:nth-child(even) {
-  background: #f0f0f0;
-}
-#GameText th {
-  padding-left: 8px;
-}
 #GameText a.move {
   font-family: 'pgn4web ChessSansMerida', 'pgn4web Liberation Sans', sans-serif;
   text-decoration: none;
-  padding: 5px 10px;
-  display: block;
   color: #444;
 }
 #GameText a:hover {
