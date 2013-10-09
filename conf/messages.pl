@@ -31,6 +31,7 @@ blackPlays=Ruch czarnych
 theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=Drugi gracz opuścił grę. Możesz zaczekać na niego lub wymusić jego rezygnację.
 makeYourOpponentResign=Zmuś przeciwnika do rezygnacji
 forceResignation=Wymuszenie rezygnacji
+forceDraw=Wymuś remis
 talkInChat=Rozmawiaj na czacie
 theFirstPersonToComeOnThisUrlWillPlayWithYou=Pierwsza osoba, która użyje tego adresu, dołączy do twojej gry
 whiteCreatesTheGame=Białe tworzą grę
