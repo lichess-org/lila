@@ -14,6 +14,9 @@
       @trans.thisIsAChessCaptcha()<br />
       @trans.clickOnTheBoardToMakeYourMove()
       <br /><br />
+      @defining(netBaseUrl + routes.Round.watcher(captcha.gameId, captcha.white.fold("white", "black"))) { url =>
+      Help: <a title="View the solution" target="_blank" href="@url">@url</a>
+      }
       <div class="result success">@trans.checkmate()</div>
       <div class="result failure">@trans.notACheckmate()<br /><button class="button retry">@trans.retry()</button></div>
     </label>

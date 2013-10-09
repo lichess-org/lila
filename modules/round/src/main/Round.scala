@@ -2,11 +2,11 @@ package lila.round
 
 import scala.concurrent.duration._
 
-import actorApi._, round._
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 import makeTimeout.large
 
+import actorApi._, round._
 import lila.game.{ Game, GameRepo, PgnRepo, Pov, PovRef, PlayerRef, Event, Progress }
 import lila.hub.actorApi.map._
 import lila.i18n.I18nKey.{ Select ⇒ SelectI18nKey }
@@ -30,9 +30,11 @@ private[round] final class Round(
 
     case Send(events)   ⇒ socketHub ! Tell(gameId, events)
 
-    case p: HumanPlay   ⇒ handle(p.playerId)(player human p)
+    case p: HumanPlay ⇒ handle(p.playerId) { pov ⇒
+      pov.game.outoftimePlayer.fold(player.human(p)(pov))(outOfTime(pov.game))
+    }
 
-    case p: AiPlay      ⇒ blockAndPublish(GameRepo game gameId, 10.seconds)(player ai p)
+    case AiPlay ⇒ blockAndPublish(GameRepo game gameId, 10.seconds)(player.ai)
 
     case Abort(playerId) ⇒ handle(playerId) { pov ⇒
       pov.game.abortable ?? finisher(pov.game, _.Aborted)
@@ -59,12 +61,17 @@ private[round] final class Round(
       }
     }
 
-    case Outoftime ⇒ handle { game ⇒
-      game.outoftimePlayer ?? { player ⇒
-        finisher(game, _.Outoftime, Some(!player.color) filter {
-          chess.InsufficientMatingMaterial(game.toChess.board, _)
-        })
+    case DrawForce(playerId) ⇒ handle(playerId) { pov ⇒
+      (pov.game.drawable && !pov.game.hasAi) ?? {
+        socketHub ? Ask(pov.gameId, IsGone(!pov.color)) flatMap {
+          case true ⇒ finisher(pov.game, _.Timeout, None)
+          case _    ⇒ fufail("[round] cannot force draw of " + pov)
+        }
       }
+    }
+
+    case Outoftime ⇒ handle { game ⇒
+      game.outoftimePlayer ?? outOfTime(game)
     }
 
     // exceptionally we don't block nor publish events
@@ -105,6 +112,11 @@ private[round] final class Round(
       }
     }
   }
+
+  private def outOfTime(game: Game)(p: lila.game.Player) =
+    finisher(game, _.Outoftime, Some(!p.color) filter {
+      chess.InsufficientMatingMaterial(game.toChess.board, _)
+    })
 
   protected def handle(playerId: String)(op: Pov ⇒ Fu[Events]) {
     blockAndPublish(GameRepo pov PlayerRef(gameId, playerId))(op)

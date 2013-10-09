@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 import play.api.libs.json.JsObject
 
 import lila.db.api.$count
-import lila.memo.AsyncCache
+import lila.memo.{ AsyncCache, ExpireSetMemo}
 import lila.user.{ User, Confrontation }
 import tube.gameTube
 
@@ -26,6 +26,8 @@ final class Cached(ttl: Duration) {
         idGame(user2) -> idGame(user1))
     }
   }
+
+  val rematch960 = new ExpireSetMemo(3.hours)
 
   private val confrontationCache =
     AsyncCache(GameRepo.confrontation, timeToLive = 1.minute)

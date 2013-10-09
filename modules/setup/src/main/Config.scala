@@ -1,7 +1,8 @@
 package lila.setup
 
 import chess.format.Forsyth
-import chess.{ Game => ChessGame, Board, Situation, Variant, Clock, Speed }
+import chess.{ Game ⇒ ChessGame, Board, Situation, Variant, Clock, Speed }
+
 import lila.game.{ GameRepo, Game, Pov }
 import lila.lobby.Color
 
@@ -43,6 +44,12 @@ trait Positional { self: Config ⇒
   import chess.format.Forsyth, Forsyth.SituationPlus
 
   def fen: Option[String]
+
+  def strictFen: Boolean
+
+  lazy val validFen = variant != Variant.FromPosition || {
+    fen ?? { f ⇒ ~(Forsyth <<< f).map(_.situation playable strictFen) }
+  }
 
   def fenGame(builder: ChessGame ⇒ Game): Game = {
     val state = fen filter (_ ⇒ variant == Variant.FromPosition) flatMap Forsyth.<<<

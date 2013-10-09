@@ -12,11 +12,11 @@ and a weird [monitoring console](http://lichess.org/monitor).
 The UI is available in [72 languages](http://lichess.org/translation/contribute) thanks to the community.
 
 Lichess is written in [Scala 2.10](http://www.scala-lang.org/), 
-and relies on [Play 2.1](http://www.playframework.com/) for the routing, templating, and JSON.
+and relies on [Play 2.2](http://www.playframework.com/) for the routing, templating, and JSON.
 Pure chess logic is contained in [scalachess](http://github.com/ornicar/scalachess) submodule.
 The codebase is fully asynchronous, making heavy use of Scala Futures and [Akka 2 actors](http://akka.io).
-Lichess talks to [Stockfish](http://stockfishchess.org/) using a [FSM Actor](https://github.com/ornicar/lila/blob/master/modules/ai/src/main/stockfish/ActorFSM.scala) to handle AI moves and analysis.
-It uses [MongoDB 2.4](http://mongodb.org) to store about 10 million games, which are indexed by [elasticsearch 0.90](http://elasticsearch.org).
+Lichess talks to [Stockfish 4](http://stockfishchess.org/) using a [FSM Actor](https://github.com/ornicar/lila/blob/master/modules/ai/src/main/stockfish/ActorFSM.scala) to handle AI moves and analysis.
+It uses [MongoDB 2.4](http://mongodb.org) to store about 15 million games, which are indexed by [elasticsearch 0.90](http://elasticsearch.org).
 HTTP requests and websocket connections are proxied by [nginx 1.4](http://nginx.org).
 
 Join us on [#lichess IRC channel](http://lichess.org/irc) for more info.

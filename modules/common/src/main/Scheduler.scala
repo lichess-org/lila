@@ -50,11 +50,11 @@ final class Scheduler(scheduler: akka.actor.Scheduler, enabled: Boolean, debug: 
   }
 
   private def info(msg: String) {
-    println("[cron] " + msg)
+    loginfo("[cron] " + msg)
   }
 
   private def err(msg: String) {
-    println("[cron error] " + msg)
+    logerr("[cron] " + msg)
   }
 
   private def randomize(d: FiniteDuration, ratio: Float = 0.05f): FiniteDuration =

@@ -29,6 +29,8 @@
 <div class="force_resign_zone">
   @trans.theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim()<br />
   <a class="force_resign socket-link" data-msg="resign-force">@trans.forceResignation()</a>
+  <br />
+  <a class="force_draw socket-link" data-msg="draw-force">@trans.forceDraw()</a>
 </div>
 }
 @if(game.turnOf(player) && game.toChessHistory.threefoldRepetition) {

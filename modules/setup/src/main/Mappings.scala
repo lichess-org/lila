@@ -21,8 +21,5 @@ object Mappings {
   val color = nonEmptyText.verifying(Color.names contains _)
   val level = number.verifying(AiConfig.levels contains _)
   val speed = number.verifying(Config.speeds contains _)
-
-  def fen(strict: Boolean) = optional {
-    nonEmptyText verifying { source ⇒ ~(Forsyth <<< source).map(_.situation playable strict) }
-  }
+  val fen = optional(nonEmptyText)
 }

@@ -245,3 +245,4 @@ startPosition=Základní postavení
 clearBoard=Prázdná šachovnice
 savePosition=Uložit pozici
 isPrivate=Soukromý
+reportXToModerators=Nahlásit %s moderátorům

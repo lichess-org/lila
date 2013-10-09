@@ -13,6 +13,8 @@ case class AiConfig(
     color: Color,
     fen: Option[String] = None) extends Config with GameGenerator with Positional {
 
+  val strictFen = true
+
   def >> = (variant.id, clock, time, increment, level, color.name, fen).some
 
   def game = fenGame { chessGame ⇒

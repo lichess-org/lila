@@ -245,3 +245,4 @@ startPosition=Posisi memulai
 clearBoard=Bersihkan papan
 savePosition=Simpan posisi
 isPrivate=pribadi
+reportXToModerators=Repot %s ke moderator

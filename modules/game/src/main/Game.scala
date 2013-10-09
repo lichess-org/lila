@@ -26,7 +26,6 @@ case class Game(
     next: Option[String] = None,
     lastMoveTime: Option[Int] = None,
     bookmarks: Int = 0,
-    is960Rematch: Boolean = false,
     createdAt: DateTime = DateTime.now,
     updatedAt: Option[DateTime] = None,
     metadata: Option[Metadata] = None) {
@@ -230,6 +229,7 @@ case class Game(
   def abortable = status == Status.Started && turns < 2 && nonTournament
 
   def resignable = playable && !abortable
+  def drawable = playable && !abortable
 
   def finish(status: Status, winner: Option[Color]) = Progress(
     this,
@@ -239,7 +239,7 @@ case class Game(
       blackPlayer = blackPlayer finish (winner == Some(Black)),
       clock = clock map (_.stop)
     ),
-    List(Event.End)
+    List(Event.End) ::: clock.??(c ⇒ List(Event.Clock(c)))
   )
 
   def rated = mode.rated
@@ -264,13 +264,13 @@ case class Game(
 
   def outoftimePlayer: Option[Player] = for {
     c ← clock
-    if playable
+    if started && playable && onePlayerHasMoved
     if !c.isRunning || (c outoftime player.color)
   } yield player
 
   def hasClock = clock.isDefined
 
-  def isClockRunning = clock.fold(false)(_.isRunning)
+  def isClockRunning = clock ?? (_.isRunning)
 
   def withClock(c: Clock) = Progress(this, copy(clock = Some(c)))
 
@@ -288,6 +288,7 @@ case class Game(
     case _ ⇒ none
   }
 
+  def onePlayerHasMoved = turns > 0
   def bothPlayersHaveMoved = turns > 1
 
   def playerMoves(color: Color): Int = (turns + color.fold(1, 0)) / 2
@@ -330,7 +331,6 @@ case class Game(
     next = next,
     lmt = lastMoveTime,
     bm = bookmarks.some filter (0 <),
-    r960 = is960Rematch option true,
     ca = createdAt,
     ua = updatedAt,
     me = metadata map (_.encode))
@@ -344,8 +344,6 @@ case class Game(
     case a :: Nil      ⇒ Some((a + 1200) / 2)
     case _             ⇒ None
   }
-
-  def with960Rematch(v: Boolean) = this.copy(is960Rematch = v)
 
   def withTournamentId(id: String) = this.copy(
     metadata = metadata map (_.copy(tournamentId = id.some)))
@@ -446,7 +444,6 @@ private[game] case class RawGame(
     next: Option[String] = None,
     lmt: Option[Int] = None,
     bm: Option[Int] = None,
-    r960: Option[Boolean] = None,
     ca: DateTime,
     ua: Option[DateTime],
     me: Option[RawMetadata]) {
@@ -474,7 +471,6 @@ private[game] case class RawGame(
     next = next,
     lastMoveTime = lmt,
     bookmarks = ~bm,
-    is960Rematch = ~r960,
     createdAt = ca,
     updatedAt = ua,
     metadata = me map (_.decode)
@@ -504,7 +500,6 @@ private[game] object RawGame {
     "next" -> none[String],
     "lmt" -> none[Int],
     "bm" -> none[Int],
-    "r960" -> none[Boolean],
     "me" -> none[RawMetadata],
     "ua" -> none[DateTime])
 

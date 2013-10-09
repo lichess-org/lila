@@ -245,3 +245,4 @@ startPosition=Начальная позиция
 clearBoard=Очистить доску
 savePosition=Сохранить позицию
 isPrivate=Приватно
+reportXToModerators=Сообщить модераторам о %s

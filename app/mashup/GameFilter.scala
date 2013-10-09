@@ -55,7 +55,7 @@ object GameFilterMenu {
     val current = (all.list find (_.name == currentName)) | all.head
 
     val query: Option[JsObject] = current match {
-      case All      ⇒ Some(Query user user)
+      case All      ⇒ Some(Query started user)
       case Me       ⇒ Some(Query.opponents(user, me | user))
       case Rated    ⇒ Some(Query rated user)
       case Win      ⇒ Some(Query win user)
