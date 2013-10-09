@@ -77,5 +77,4 @@ analysis = branch analysisContinuation
 analysis always show best move
 analysis infer ! and !! from evaluation at depth
 no challenge when playing http://en.lichess.org/forum/lichess-feedback/defis#2
-prune nonsensical premoves (efaust on #chess) (use bitboard)
 user option for auto-promotion (requested by NM :P) (http://en.lichess.org/@/Matetricks)
