@@ -263,13 +263,13 @@ case class Game(
 
   def outoftimePlayer: Option[Player] = for {
     c ← clock
-    if started && playable
+    if started && playable && onePlayerHasMoved
     if !c.isRunning || (c outoftime player.color)
   } yield player
 
   def hasClock = clock.isDefined
 
-  def isClockRunning = clock.fold(false)(_.isRunning)
+  def isClockRunning = clock ?? (_.isRunning)
 
   def withClock(c: Clock) = Progress(this, copy(clock = Some(c)))
 
@@ -287,6 +287,7 @@ case class Game(
     case _ ⇒ none
   }
 
+  def onePlayerHasMoved = turns > 0
   def bothPlayersHaveMoved = turns > 1
 
   def playerMoves(color: Color): Int = (turns + color.fold(1, 0)) / 2
