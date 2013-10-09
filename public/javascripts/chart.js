@@ -183,8 +183,10 @@ function drawCharts() {
       axisTitlesPosition: "none"
     });
     google.visualization.events.addListener(chart, 'select', function() {
-      var sel = chart.getSelection()[0];
-      GoToMove(sel.row + 1);
+      try {
+        var sel = chart.getSelection()[0];
+        GoToMove(sel.row + 1);
+      } catch (e) { }
     });
     $(this).data("chart", chart);
   });

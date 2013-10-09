@@ -144,7 +144,7 @@ object Setup extends LilaController with TheftPrevention {
     OpenBody { ctx ⇒
       implicit val req = ctx.body
       FuRedirect(form(ctx).bindFromRequest.fold(
-        f ⇒ fulogwarn(f.errors.toString) inject routes.Lobby.home,
+        f ⇒ fuloginfo(f.errors.toString) inject routes.Lobby.home,
         config ⇒ op(config)(ctx)
       ))
     }

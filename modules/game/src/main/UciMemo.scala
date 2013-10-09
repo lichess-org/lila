@@ -22,7 +22,7 @@ final class UciMemo(ttl: Duration) {
 
   def get(game: Game, pgn: String): Fu[Vector[String]] =
     Option(memo getIfPresent game.id) filter { moves ⇒
-      moves.size == (pgn.count(' '==) + 1)
+      moves.size == pgn.count(' '==) + 1
     } match {
       case Some(moves) ⇒ fuccess(moves)
       case _           ⇒ compute(game, pgn) addEffect { set(game, _) }

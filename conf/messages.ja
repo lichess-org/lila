@@ -245,3 +245,4 @@ startPosition=盤面編集
 clearBoard=盤面をクリア
 savePosition=盤面を保存
 isPrivate=プライベート
+reportXToModerators=モデレーターに%sを通報する。

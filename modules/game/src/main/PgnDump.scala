@@ -43,7 +43,7 @@ private[game] final class PgnDump(
   private def elo(p: Player) = p.elo.fold("?")(_.toString)
 
   private def player(p: Player, u: Option[User]) =
-    p.aiLevel.fold(u.fold(User.anonymous)(_.username))("AI level " + _)
+    p.aiLevel.fold(u.fold(User.anonymous)(_.username))("AI-level-" + _)
 
   private def tags(game: Game): Fu[List[Tag]] =
     gameUsers(game) zip
@@ -72,7 +72,7 @@ private[game] final class PgnDump(
         number = index + from,
         white = moves.headOption filter (".." !=) map { chessPgn.Move(_) },
         black = moves lift 1 map { chessPgn.Move(_) })
-    }
+    } filterNot (_.isEmpty)
 }
 
 object PgnDump {

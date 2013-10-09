@@ -245,3 +245,4 @@ startPosition=Пачатковая пазіцыя
 clearBoard=Ачысціць дошку
 savePosition=Захаваць пазіцыю
 isPrivate=Прыватна
+reportXToModerators=Паведаміць %s мадэратару

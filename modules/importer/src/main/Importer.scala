@@ -1,6 +1,6 @@
 package lila.importer
 
-import scala.concurrent.duration.Duration
+import scala.concurrent.duration._
 
 import akka.actor.ActorRef
 import akka.pattern.ask
@@ -58,7 +58,7 @@ private[importer] final class Importer(
       dest = move.dest.toString,
       prom = move.promotion map (_.forsyth.toString),
       blur = false,
-      lag = 0,
+      lag = 0.millis,
       onFailure = _ ⇒ ()
     ))
   }

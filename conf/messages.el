@@ -245,3 +245,4 @@ startPosition=Θέση έναρξης
 clearBoard=Εκκαθάριση σκακιέρας
 savePosition=Αποθήκευση θέσης
 isPrivate=Ιδιωτικό
+reportXToModerators=Αναφορά %s στο προσωπικό
