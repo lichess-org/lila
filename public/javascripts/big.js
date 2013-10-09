@@ -1118,6 +1118,29 @@ var storage = {
     possibleMovesContain: function(from, to) {
       return this.options.possible_moves != null && typeof this.options.possible_moves[from] !== 'undefined' && this.options.possible_moves[from].indexOf(to) != -1;
     },
+    validMove: function(from, to, piece) {
+      if (from == to) return false;
+      var self = this, f = self.getSquareCoords(from), t = self.getSquareCoords(to);
+      var color = self.getPieceColor(piece), role = self.getPieceRole(piece);
+      switch(role) {
+        case 'pawn':
+          if (Math.abs(t.x - f.x) > 1) return false;
+          if (color == 'white') return (t.y == f.y + 1) || (f.y == 2 && t.y == 4 && f.x == t.x)
+            else return (t.y == f.y - 1) || (f.y == 7 && t.y == 5 && f.x == t.x)
+        case 'knight':
+          var xd = Math.abs(t.x - f.x)
+          var yd = Math.abs(t.y - f.y)
+          return (xd == 1 && yd == 2) || (xd == 2 && yd == 1);
+        case 'bishop':
+          return Math.abs(t.x - f.x) == Math.abs(t.y - f.y);
+        case 'rook':
+          return t.x == f.x || t.y == f.y;
+        case 'king':
+          return Math.abs(t.x - f.x) <= 1 && Math.abs(t.y - f.y) <=1;
+        case 'queen':
+          return Math.abs(t.x - f.x) == Math.abs(t.y - f.y) || t.x == f.x || t.y == f.y;
+      }
+    },
     applyPremove: function() {
       var self = this;
       if (self.premove && self.isMyTurn()) {
@@ -1137,7 +1160,7 @@ var storage = {
       var self = this;
       if (self.isMyTurn()) return;
       self.unsetPremove();
-      if (move.from == move.to) return;
+      if (!self.validMove(move.from, move.to, move.piece)) return;
       self.premove = move;
       $("#" + move.from + ",#" + move.to).addClass("premoved");
       self.unselect();
@@ -1161,9 +1184,11 @@ var storage = {
         to: squareId,
         b: self.blur
       };
+      if (moveData.from == moveData.to) return;
 
       if (!self.isMyTurn()) {
         return self.setPremove({
+          piece: $piece,
           from: moveData.from,
           to: moveData.to
         });
@@ -1223,7 +1248,8 @@ var storage = {
         $(this).droppable({
           accept: function(draggable) {
             if (!self.isMyTurn()) {
-              return draggingKey != squareId;
+              var $piece = $('#' + draggingKey).find('>.lichess_piece');
+              if ($piece.length) return self.validMove(draggingKey, squareId, $piece);
             } else {
               return draggingKey && self.possibleMovesContain(draggingKey, squareId);
             }
@@ -1279,7 +1305,9 @@ var storage = {
         var $this = $(this);
         $this.hover(function() {
           if ($selected = self.$board.find('div.lcs.selected').orNot()) {
-            if (!self.isMyTurn() || self.possibleMovesContain($selected.attr('id'), $this.attr('id'))) {
+            var $piece = $selected.find('>.lichess_piece');
+            var validPremove = !self.isMyTurn() && $piece.length && self.validMove($selected.attr('id'), $this.attr('id'), $piece);
+            if (validPremove || self.possibleMovesContain($selected.attr('id'), $this.attr('id'))) {
               $this.addClass('selectable');
             }
           }
@@ -1380,6 +1408,18 @@ var storage = {
     },
     getPieceColor: function($piece) {
       return $piece.hasClass('white') ? 'white' : 'black';
+    },
+    getPieceRole: function($piece) {
+      var klass = $piece[0].className;
+      return _.find(['pawn', 'knight', 'bishop', 'rook', 'queen', 'king'], function(r) {
+        return klass.indexOf(r) != -1;
+      });
+    },
+    getSquareCoords: function(square) {
+      return {
+        x: 'abcdefgh'.indexOf(square[0]) +1,
+        y: parseInt(square[1])
+      };
     },
     isPlayerColor: function(color) {
       return !this.options.player.spectator && this.options.player.color == color;
