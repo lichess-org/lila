@@ -61,6 +61,15 @@ private[round] final class Round(
       }
     }
 
+    case DrawForce(playerId) ⇒ handle(playerId) { pov ⇒
+      (pov.game.drawable && !pov.game.hasAi) ?? {
+        socketHub ? Ask(pov.gameId, IsGone(!pov.color)) flatMap {
+          case true ⇒ finisher(pov.game, _.Timeout, None)
+          case _    ⇒ fufail("[round] cannot force draw of " + pov)
+        }
+      }
+    }
+
     case Outoftime ⇒ handle { game ⇒
       game.outoftimePlayer ?? outOfTime(game)
     }
