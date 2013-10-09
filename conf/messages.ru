@@ -31,6 +31,7 @@ blackPlays=Ход черных
 theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=Ваш соперник покинул игру. Вы можете завершить партию от его имени, или дождаться его возвращения
 makeYourOpponentResign=Закончить игру от имени соперника
 forceResignation=Вынудить соперника сдаться
+forceDraw=Вынужденная ничья
 talkInChat=Общайтесь в чате
 theFirstPersonToComeOnThisUrlWillPlayWithYou=Первый, кто придёт по этой ссылке, будет играть с вами.
 whiteCreatesTheGame=Белые создали новую игру
