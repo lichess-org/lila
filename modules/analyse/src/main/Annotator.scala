@@ -4,7 +4,7 @@ import chess.format.pgn.{ Pgn, Tag, Turn, Move }
 
 private[analyse] final class Annotator(netDomain: String) {
 
-  def apply(p: Pgn, analysis: Analysis): Pgn =
+  def apply(p: Pgn, analysis: Analysis): Pgn = 
     annotateTurns(p, analysis.advices).copy(
       tags = p.tags :+ Tag("Annotator", netDomain)
     )
@@ -16,7 +16,7 @@ private[analyse] final class Annotator(netDomain: String) {
           move.copy(
             nag = advice.nag.code.some,
             comment = makeComment(advice).some,
-            variation = advice.info.line
+            variation = advice.info.variation
           )
         )
       )
