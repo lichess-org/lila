@@ -297,6 +297,9 @@ div.clock {
   font-weight: bold;
   box-shadow: 0 0 7px #d0d0d0;
 }
+div.clock > span {
+  font-size: 80%;
+}
 div.clock.running {
   background: #fff077;
   color: #444;

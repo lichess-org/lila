@@ -1615,9 +1615,9 @@ var storage = {
     },
 
     _show: function() {
-      var text = this._formatDate(new Date(this.options.time));
-      if (text != this.element.text()) {
-        this.element.text(text);
+      var html = this._formatDate(new Date(this.options.time));
+      if (html != this.element.html()) {
+        this.element.html(html);
         this.element.toggleClass('emerg', this.options.time < this.options.emerg);
       }
     },
@@ -1627,7 +1627,7 @@ var storage = {
       seconds = this._prefixInteger(date.getSeconds(), 2);
       if (this.options.time < 10 * 1000) {
         tenths = Math.floor(date.getMilliseconds() / 100);
-        return minutes + ':' + seconds + ':' + tenths;
+        return minutes + ':' + seconds + '<span>.' + tenths + '</span>';
       } else {
         return minutes + ':' + seconds;
       }
