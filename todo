@@ -75,6 +75,5 @@ tournament elo restriction
 open analysis to anon (with IP restriction)
 no challenge when playing http://en.lichess.org/forum/lichess-feedback/defis#2
 force resignation on time out http://en.lichess.org/forum/lichess-feedback/can-we-have-a-force-a-draw-option#2
-smaller tenths of seconds
 prune nonsensical premoves (efaust on #chess) (use bitboard)
 user option for auto-promotion (requested by NM :P) (http://en.lichess.org/@/Matetricks)
