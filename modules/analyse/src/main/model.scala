@@ -81,7 +81,7 @@ case class Info(
     best: UciMove,
     score: Option[Score],
     mate: Option[Int],
-    line: List[String]) {
+    variation: List[String]) {
 
   def turn = 1 + (ply - 1) / 2
 
@@ -92,10 +92,10 @@ case class Info(
     best.piotr,
     encode(score map (_.centipawns)),
     encode(mate),
-    line mkString " "
+    variation mkString " "
   ) mkString Info.separator
 
-  def dropLine = copy(line = Nil)
+  def dropVariation = copy(variation = Nil)
 
   private def encode(oa: Option[Any]): String = oa.fold("_")(_.toString)
 }
@@ -114,7 +114,7 @@ object Info {
       best = best,
       score = parseIntOption(cpString) map Score.apply,
       mate = parseIntOption(mateString),
-      line = rest.headOption ?? (_.split(' ').toList))
+      variation = rest.headOption ?? (_.split(' ').toList))
     case _ ⇒ none
   }
 
@@ -123,7 +123,7 @@ object Info {
     bestString: String,
     score: Option[Int],
     mate: Option[Int],
-    line: List[String]): Option[Int ⇒ Info] = for {
+    variation: List[String]): Option[Int ⇒ Info] = for {
     move ← UciMove(moveString)
     best ← UciMove(bestString)
   } yield ply ⇒ Info(
@@ -132,7 +132,7 @@ object Info {
     best = best,
     score = score map Score.apply,
     mate = mate,
-    line = line)
+    variation = variation)
 }
 
 private[analyse] case class Score(centipawns: Int) {
