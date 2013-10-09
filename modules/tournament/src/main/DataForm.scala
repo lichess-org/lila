@@ -27,9 +27,9 @@ final class DataForm(isDev: Boolean) {
 
   val minPlayers = isDev.fold(
     (2 to 9) ++ (10 to 30 by 5),
-    (5 to 9) ++ (10 to 30 by 5)
+    (4 to 9) ++ (10 to 30 by 5)
   )
-  val minPlayerDefault = 10
+  val minPlayerDefault = 8
   val minPlayerChoices = options(minPlayers, "%d player{s}")
 
   lazy val create = Form(mapping(

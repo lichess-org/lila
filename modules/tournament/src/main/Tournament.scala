@@ -108,7 +108,7 @@ case class Created(
 
   def readyToStart = players.size >= minPlayers
 
-  def readyToEarlyStart = players.size >= 5
+  def readyToEarlyStart = players.size >= 4
 
   def isEmpty = players.isEmpty
 
