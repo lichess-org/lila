@@ -7,7 +7,7 @@
 
 "use strict";
 
-var pgn4web_version = '2.77';
+var pgn4web_version = '2.78';
 
 var pgn4web_project_url = "http://pgn4web.casaschi.net";
 var pgn4web_project_author = "Paolo Casaschi";
@@ -665,10 +665,11 @@ function replayPreviousMoves(numPlies) {
   SetAutoPlay(true);
 }
 
-function detectJavascriptLocation() {
+function detectJavascriptLocation(jsre) {
+  if (typeof(jsre) == "undefined") { jsre = new RegExp("(pgn4web|pgn4web-compacted)\.js$", ""); }
   var e = document.getElementsByTagName("script");
   for (var i=0; i<e.length; i++) {
-    if ((e[i].src) && (e[i].src.match(/(pgn4web|pgn4web-compacted)\.js/))) {
+    if ((e[i].src) && (e[i].src.match(jsre))) {
       return e[i].src;
     }
   }
@@ -3015,14 +3016,12 @@ function ParsePGNGameString(gameString) {
         needle = new Array('1-0', '0-1', '1/2-1/2', '*');
         for (ii=0; ii<needle.length; ii++) {
           if (ss.indexOf(needle[ii],start)==start) {
-            if (CurrentVar === 0) {
-              start += needle[ii].length;
-              end = ss.length;
-            } else {
+            if (CurrentVar === 0) { end = ss.length; }
+            else {
               end = start + needle[ii].length;
+              if (MoveCommentsVar[CurrentVar][StartPly+PlyNumber]) { MoveCommentsVar[CurrentVar][StartPly+PlyNumber] += ' '; }
+              MoveCommentsVar[CurrentVar][StartPly+PlyNumber] += needle[ii];
             }
-            if (MoveCommentsVar[CurrentVar][StartPly+PlyNumber]) { MoveCommentsVar[CurrentVar][StartPly+PlyNumber] += ' '; }
-            MoveCommentsVar[CurrentVar][StartPly+PlyNumber] += ss.substring(start, end).replace(/^\s*\{(.*)\}\s*$/, '$1');
             start = end;
             break;
           }
