@@ -31,6 +31,7 @@ blackPlays=Pretas jogam
 theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=O outro jogador deixou o jogo. Você pode forçar uma desistência ou esperar por ele.
 makeYourOpponentResign=Faça seu oponente desistir
 forceResignation=Forçar desistência
+forceDraw=Forçar empate
 talkInChat=Falar no bate-papo
 theFirstPersonToComeOnThisUrlWillPlayWithYou=A primeira pessoa que acessar esta url irá jogar com você.
 whiteCreatesTheGame=Brancas criam o jogo
