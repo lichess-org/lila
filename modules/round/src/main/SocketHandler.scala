@@ -62,6 +62,7 @@ private[round] final class SocketHandler(
         case ("draw-claim", _)   ⇒ round(DrawClaim(playerId))
         case ("resign", _)       ⇒ round(Resign(playerId))
         case ("resign-force", _) ⇒ round(ResignForce(playerId))
+        case ("draw-force", _)   ⇒ round(DrawForce(playerId))
         case ("abort", _)        ⇒ round(Abort(playerId))
         case ("move", o) ⇒ parseMove(o) foreach {
           case (orig, dest, prom, blur, lag) ⇒ {

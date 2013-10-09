@@ -31,6 +31,7 @@ blackPlays=Black plays
 theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=The other player has left the game. You can force that player's resignation or wait.
 makeYourOpponentResign=Make your opponent resign
 forceResignation=Force resignation
+forceDraw=Force draw
 talkInChat=Talk in chat
 theFirstPersonToComeOnThisUrlWillPlayWithYou=The first person to come on this URL will play with you.
 whiteCreatesTheGame=White creates the game

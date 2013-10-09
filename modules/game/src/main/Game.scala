@@ -229,6 +229,7 @@ case class Game(
   def abortable = status == Status.Started && turns < 2 && nonTournament
 
   def resignable = playable && !abortable
+  def drawable = playable && !abortable
 
   def finish(status: Status, winner: Option[Color]) = Progress(
     this,
