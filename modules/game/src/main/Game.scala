@@ -238,7 +238,7 @@ case class Game(
       blackPlayer = blackPlayer finish (winner == Some(Black)),
       clock = clock map (_.stop)
     ),
-    List(Event.End)
+    List(Event.End) ::: clock.??(c ⇒ List(Event.Clock(c)))
   )
 
   def rated = mode.rated
