@@ -31,6 +31,7 @@ blackPlays=Juegan negras
 theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=El otro jugador ha abandonado la partida. Puedes forzar su rendición o esperarlo.
 makeYourOpponentResign=Haz que tu oponente se rinda
 forceResignation=Forzar su rendición
+forceDraw=Forzar Tablas
 talkInChat=Hablar en el chat
 theFirstPersonToComeOnThisUrlWillPlayWithYou=La primera persona que entre en este enlace jugará contigo
 whiteCreatesTheGame=Las blancas han creado la partida
