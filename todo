@@ -82,4 +82,3 @@ check filter games icon on windows
 analysis mate sequence created/lost can have different severity based on evaluation
 -- i.e. lost mate sequence to eval 10 (inaccuracy) or to eval 0 (blunder)
 improve board editor -- see http://www.chess.com/analysis-board-editor
-play AI from position = no clock
