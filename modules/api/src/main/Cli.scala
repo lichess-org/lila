@@ -1,10 +1,10 @@
 package lila.api
 
 import akka.pattern.{ ask, pipe }
-
-import lila.hub.actorApi.Deploy
-import play.api.templates.Html
 import makeTimeout.short
+import play.api.templates.Html
+
+import lila.hub.actorApi.{ RemindDeploy, Deploy }
 
 private[api] final class Cli(hub: lila.hub.Env) extends lila.common.Cli {
 
@@ -15,12 +15,15 @@ private[api] final class Cli(hub: lila.hub.Env) extends lila.common.Cli {
   }
 
   def process = {
-    case "deploy" :: Nil ⇒ {
-      hub.actor.renderer ? lila.hub.actorApi.RemindDeploy map {
-        case html: Html ⇒ Deploy(html.body)
-      } pipeToSelection hub.socket.hub
-      fuccess("Deploy in progress")
-    }
+    case "deploy" :: "pre" :: Nil ⇒ remindDeploy(lila.hub.actorApi.RemindDeployPre)
+    case "deploy" :: "post" :: Nil ⇒ remindDeploy(lila.hub.actorApi.RemindDeployPost)
+  }
+
+  private def remindDeploy(event: RemindDeploy): Fu[String] = {
+    hub.actor.renderer ? event map {
+      case html: Html ⇒ Deploy(event, html.body)
+    } pipeToSelection hub.socket.hub
+    fuccess("Deploy in progress")
   }
 
   private def run(args: List[String]): Fu[String] = {

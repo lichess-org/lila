@@ -17,8 +17,10 @@ object SendTos {
     SendTos(userIds, Json.obj("t" -> typ, "d" -> data))
 }
 
-case object RemindDeploy
-case class Deploy(html: String)
+sealed abstract class RemindDeploy(val key: String)
+case object RemindDeployPre extends RemindDeploy("deployPre")
+case object RemindDeployPost extends RemindDeploy("deployPost")
+case class Deploy(event: RemindDeploy, html: String)
 
 case class Ask(msg: Any)
 

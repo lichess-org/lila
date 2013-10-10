@@ -1041,7 +1041,7 @@ div.engine_warning {
   margin-bottom: 15px;
 }
 /* soft inactive gradient */
- #top, #hooks_wrap > a.no_hook, div.lichess_chat_top, #friend_box .title, div.undertable_top, .button, .button:visited, .ui-state-default, div.content_box_top, #hooks tr, #translation_call, div.notification, div.locale_menu a, table.slist thead {
+ #top, #hooks_wrap > a.no_hook, div.lichess_chat_top, #friend_box .title, div.undertable_top, .button, .button:visited, .ui-state-default, div.content_box_top, #hooks tr, #translation_call, #notifications > div, div.locale_menu a, table.slist thead {
   color: #666;
   background: #fafafa;
   background: -moz-linear-gradient(center top, #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
@@ -1958,11 +1958,14 @@ div.progressbar div {
 div.progressbar.flashy.green div {
   background: #90d050;
 }
-div.notifications {
+#notifications {
   width: 1005px;
   margin: 0 auto -10px auto;
 }
-div.notifications > div {
+#notifications .deploy {
+  line-height: 16px;
+}
+#notifications > div {
   margin-left: 211px;
   width: 496px;
   border: 1px solid #c0c0c0;
@@ -1970,17 +1973,17 @@ div.notifications > div {
   margin-bottom: 8px;
   border-radius: 3px;
 }
-div.notifications > div a.close {
+#notifications > div a.close {
   text-decoration: none;
   float: right;
 }
-div.notifications > div a.close:hover {
+#notifications > div a.close:hover {
   font-weight: bold;
 }
-div.notifications .user_link {
+#notifications .user_link {
   display: inline-block;
 }
-div.notifications .action {
+#notifications .action {
   float: right;
   display: block;
   margin-left: 8px;
