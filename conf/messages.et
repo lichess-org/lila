@@ -31,6 +31,7 @@ blackPlays=Must mängib
 theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=Vastane on lahkunud mängust. Sa võid sundida, et mängija alistuks või ootad.
 makeYourOpponentResign=Pane vastane alistuma
 forceResignation=Sunni alistuma
+forceDraw=Sunni viik
 talkInChat=Räägi jututoas
 theFirstPersonToComeOnThisUrlWillPlayWithYou=Esimene inimene kes selle URLi peale klikkab, mängib sinuga.
 whiteCreatesTheGame=Valge on mängu looja
