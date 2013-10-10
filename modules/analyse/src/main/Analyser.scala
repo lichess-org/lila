@@ -46,9 +46,15 @@ final class Analyser(
             analysis ← {
               ai ? lila.hub.actorApi.ai.Analyse(id, uciMoves mkString " ", initialFen)
             } mapTo manifest[Analysis]
-          } yield VariationToPgn(replay, analysis)) flatFold (
-            e ⇒ fufail[Analysis](e.getMessage),
-            a ⇒ AnalysisRepo.done(id, a) >>- (indexer ! InsertGame(game)) inject a
+          } yield UciToPgn(replay, analysis)) flatFold (
+            e ⇒ fufail[Analysis](e.getMessage), {
+              case (a, errors) ⇒ {
+                errors foreach { e ⇒ logwarn("[analyser UciToPgn] " + e) }
+                AnalysisRepo.done(id, a)
+                indexer ! InsertGame(game)
+                fuccess(a)
+              }
+            }
           )
           case _ ⇒ fufail[Analysis]("[analysis] %s no game or pgn found" format (id))
         }

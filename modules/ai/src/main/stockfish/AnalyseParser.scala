@@ -10,7 +10,7 @@ object AnalyseParser {
   // info depth 4 seldepth 5 score cp -3309 nodes 1665 nps 43815 time 38 multipv 1 pv f2e3 d4c5 c1d1 c5g5 d1d2 g5g2 d2c1 e8e3
   def apply(lines: List[String], move: String): Option[Int ⇒ Info] =
     findBestMove(lines) flatMap { best ⇒
-      Info(move, best, findCp(lines), findMate(lines), findLine(lines))
+      Info(move, best, findCp(lines), findMate(lines), findVariation(lines))
     }
 
   private val bestMoveRegex = """^bestmove\s(\w+).*$""".r
@@ -32,7 +32,7 @@ object AnalyseParser {
     } flatMap parseIntOption
 
   private val lineRegex = """^.+\spv\s([\w\s]+)$""".r
-  private def findLine(lines: List[String]) =
+  private def findVariation(lines: List[String]) =
     lines.tail.headOption ?? { line ⇒
       lineRegex.replaceAllIn(line, m ⇒ quoteReplacement(m group 1)).split(' ').toList
     } 

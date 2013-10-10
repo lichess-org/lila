@@ -75,6 +75,8 @@ private[analyse] object Advice {
     }
 }
 
+// move and best are in UCI format
+// variation is first in UCI, then converted to PGN before storage
 case class Info(
     ply: Int,
     move: UciMove,
@@ -90,14 +92,12 @@ case class Info(
   def encode: String = List(
     move.piotr,
     best.piotr,
-    encode(score map (_.centipawns)),
-    encode(mate),
+    score map (_.centipawns) getOrElse "_",
+    mate getOrElse "_",
     variation mkString " "
   ) mkString Info.separator
 
   def dropVariation = copy(variation = Nil)
-
-  private def encode(oa: Option[Any]): String = oa.fold("_")(_.toString)
 }
 
 object Info {
