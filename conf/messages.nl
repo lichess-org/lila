@@ -31,6 +31,7 @@ blackPlays=Zwart aan zet
 theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=De andere speler is weggegaan. U kunt opgeven afdwingen of op hem wachten.
 makeYourOpponentResign=Dwing uw tegenstander op te geven
 forceResignation=Dwing opgeven af
+forceDraw=Dwing remise af
 talkInChat=Spreek in de chat
 theFirstPersonToComeOnThisUrlWillPlayWithYou=Degene die als eerste op deze link klikt, zal met u spelen.
 whiteCreatesTheGame=Wit initieert de partij
