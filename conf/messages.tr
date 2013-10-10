@@ -31,6 +31,7 @@ blackPlays=Siyah oynar
 theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=Rakibiniz oyundan düştü ya da masayı terk etti. İsterseniz dönmesini bekleyebilirsiniz, isterseniz galibiyetinizi ilan edebilrsiniz.
 makeYourOpponentResign=Rakibinizi oyundan atın
 forceResignation=Oyundan at
+forceDraw=Beraberliği Zorla
 talkInChat=Buraya yazın
 theFirstPersonToComeOnThisUrlWillPlayWithYou=Bağlantıya ilk tıklayan kişi rakibiniz olacaktır.
 whiteCreatesTheGame=Beyaz oyunu başlatıyor
