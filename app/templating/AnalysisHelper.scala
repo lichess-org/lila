@@ -1,11 +1,11 @@
 package lila.app
 package templating
 
-import lila.user.Context
 import chess.format.Nag
-
 import play.api.data._
 import play.api.templates.Html
+
+import lila.user.Context
 
 trait AnalysisHelper { self: I18nHelper ⇒
 
@@ -13,5 +13,6 @@ trait AnalysisHelper { self: I18nHelper ⇒
     case Nag.Blunder    ⇒ trans.blunders()
     case Nag.Mistake    ⇒ trans.mistakes()
     case Nag.Inaccuracy ⇒ trans.inaccuracies()
+    case nag            ⇒ nag.toString
   }
 }
