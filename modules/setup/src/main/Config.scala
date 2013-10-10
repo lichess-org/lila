@@ -55,7 +55,11 @@ trait Positional { self: Config ⇒
     val state = fen filter (_ ⇒ variant == Variant.FromPosition) flatMap Forsyth.<<<
     val chessGame = state.fold(makeGame) {
       case sit @ SituationPlus(Situation(board, color), _) ⇒
-        ChessGame(board = board, player = color, turns = sit.turns)
+        ChessGame(
+          board = board, 
+          player = color, 
+          turns = sit.turns,
+          clock = makeClock)
     }
     val game = builder(chessGame)
     state.fold(game) {
