@@ -1,7 +1,16 @@
-@()
+@(on: String)
 
-@notification.view("deploy_reminder", closable = false) {
-<p class="s16 nuclear" style="line-height: 16px;">
-  The site is being updated! We may enter some turbulence.
+@notification.view("deploy_" + on, closable = false) {
+@on match {
+case "pre" => {
+<p class="s16 deploy nuclear">
+  The site will be updated in 60 seconds! Fasten your seatbelt.
 </p>
+}
+case "post" => {
+<p class="s16 deploy nuclear">
+  The site is being updated! Brace for impact.
+</p>
+}
+}
 }

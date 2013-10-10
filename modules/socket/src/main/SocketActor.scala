@@ -47,7 +47,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
     case Resync(uid)                ⇒ resync(uid)
 
-    case Deploy(html)               ⇒ broadcast(makeMessage("deploy", html))
+    case Deploy(event, html)        ⇒ broadcast(makeMessage(event.key, html))
   }
 
   def receive = receiveSpecific orElse receiveGeneric
