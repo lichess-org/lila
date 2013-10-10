@@ -15,7 +15,7 @@ private[api] final class Cli(hub: lila.hub.Env) extends lila.common.Cli {
   }
 
   def process = {
-    case "deploy" :: "pre" :: Nil ⇒ remindDeploy(lila.hub.actorApi.RemindDeployPre)
+    case "deploy" :: "pre" :: Nil  ⇒ remindDeploy(lila.hub.actorApi.RemindDeployPre)
     case "deploy" :: "post" :: Nil ⇒ remindDeploy(lila.hub.actorApi.RemindDeployPost)
   }
 
