@@ -12,7 +12,7 @@ function withStorage(f) {
   try {
     return !!window.localStorage ? f(window.localStorage) : null;
   } catch (e) {
-    console.debug(e);
+    if (window.console) console.debug(e);
   }
 }
 var storage = {
