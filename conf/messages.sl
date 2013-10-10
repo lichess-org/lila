@@ -31,6 +31,7 @@ blackPlays=Črni na potezi
 theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=Nasprotnik je zapustil igro. Vsili predajo ali počakaj nanj.
 makeYourOpponentResign=Prisili nasprotnika k predaji
 forceResignation=Prisili predajo
+forceDraw=Vsili remi
 talkInChat=Klepetaj
 theFirstPersonToComeOnThisUrlWillPlayWithYou=S teboj bo igrala prva oseba, ki pride na ta naslov.
 whiteCreatesTheGame=Beli ustvarja igro

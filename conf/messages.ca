@@ -31,6 +31,7 @@ blackPlays=Les negres juguen
 theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=L'altre jugador ha deixat la partida. Pots forçar la seva rendició o esperar-lo.
 makeYourOpponentResign=Fes que el teu oponent es rendeixi
 forceResignation=Força la rendició
+forceDraw=Força les taules
 talkInChat=Xateja
 theFirstPersonToComeOnThisUrlWillPlayWithYou=La primera persona en visitar aquesta URL jugarà amb tu
 whiteCreatesTheGame=Les blanques creen la partida

@@ -31,6 +31,7 @@ blackPlays=Schwarz am Zug
 theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=Dein Gegner hat die Partie verlassen. Du kannst seine Aufgabe erzwingen oder auf ihn warten.
 makeYourOpponentResign=Bringe deinen Gegner zur Aufgabe
 forceResignation=Aufgabe erzwingen
+forceDraw=Remis erzwingen
 talkInChat=Chatten
 theFirstPersonToComeOnThisUrlWillPlayWithYou=Die erste Person, die diese URL aufruft, wird dein Gegner.
 whiteCreatesTheGame=Weiß erstellt die Partie
