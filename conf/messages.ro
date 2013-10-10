@@ -31,6 +31,7 @@ blackPlays=Negrul joacă
 theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=Celălalt jucător a părăsit jocul. Puteţi forţa abandonul sau îl puteţi aştepta.
 makeYourOpponentResign=Forţaţi adversarul să abandoneze
 forceResignation=Forţaţi abandonul
+forceDraw=Forteaza remiza
 talkInChat=Conversați în zona de chat
 theFirstPersonToComeOnThisUrlWillPlayWithYou=Prima persoană care accesează acest url va începe să joace cu dvs.
 whiteCreatesTheGame=Albul creează jocul

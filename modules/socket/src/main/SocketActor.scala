@@ -1,6 +1,6 @@
 package lila.socket
 
-import scala.concurrent.duration.Duration
+import scala.concurrent.duration._
 import scala.util.Random
 
 import akka.actor.{ Deploy ⇒ _, _ }
@@ -47,7 +47,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
     case Resync(uid)                ⇒ resync(uid)
 
-    case Deploy(html)               ⇒ broadcast(makeMessage("deploy", html))
+    case Deploy(event, html)        ⇒ broadcast(makeMessage(event.key, html))
   }
 
   def receive = receiveSpecific orElse receiveGeneric
@@ -106,7 +106,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     import play.api.Play.current
     import scala.concurrent.duration._
 
-    Akka.system.scheduler.scheduleOnce((Random nextInt 3).seconds) {
+    Akka.system.scheduler.scheduleOnce((Random nextInt 2000).milliseconds) {
       resyncNow(member)
     }
   }

@@ -24,6 +24,11 @@ fi
 
 lilalog "Deploy to $mode server $REMOTE:$REMOTE_DIR"
 
+if [ $mode != "local" ]; then
+  lilalog "Notify users of pre deploy"
+  bin/cli-prod deploy pre
+fi
+
 if [ $mode == "main" ]; then
   bin/closure
 fi
@@ -54,8 +59,8 @@ echo "$rsync_command"
 $rsync_command
 
 if [ $mode != "local" ]; then
-  lilalog "Notify users"
-  bin/cli-prod deploy
+  lilalog "Notify users of post deploy"
+  bin/cli-prod deploy post
 fi
 
 if [ $mode != "local" ]; then

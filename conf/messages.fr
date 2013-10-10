@@ -31,6 +31,7 @@ blackPlays=Les noirs jouent
 theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=Votre adversaire a quitté la partie. Vous pouvez soit attendre son retour, soit forcer l'abandon.
 makeYourOpponentResign=Forcer l'abandon de votre adversaire
 forceResignation=Forcer l'abandon
+forceDraw=Forcer le nul
 talkInChat=Parler à l'autre joueur
 theFirstPersonToComeOnThisUrlWillPlayWithYou=La première personne qui cliquera sur ce lien jouera avec vous.
 whiteCreatesTheGame=Les blancs créent la partie

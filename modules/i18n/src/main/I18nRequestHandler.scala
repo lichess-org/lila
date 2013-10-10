@@ -18,5 +18,5 @@ final class I18nRequestHandler(pool: I18nPool, protocol: String) {
   private def redirectUrl(req: RequestHeader) = 
     protocol + 
     I18nDomain(req.domain).withLang(pool preferred req).domain +
-    req.path
+    req.uri
 }

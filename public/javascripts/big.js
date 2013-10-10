@@ -12,7 +12,7 @@ function withStorage(f) {
   try {
     return !!window.localStorage ? f(window.localStorage) : null;
   } catch (e) {
-    console.debug(e);
+    if (window.console) console.debug(e);
   }
 }
 var storage = {
@@ -315,7 +315,7 @@ var storage = {
         },
         tournamentReminder: function(data) {
           if (!$('#tournament_reminder').length && $('body').data("tournament-id") != data.id) {
-            $('div.notifications').append(data.html).find("a.withdraw").click(function() {
+            $('#notifications').append(data.html).find("a.withdraw").click(function() {
               $.post($(this).attr("href"));
               $('#tournament_reminder').remove();
               return false;
@@ -328,7 +328,7 @@ var storage = {
               clearTimeout($(this).data('timeout'));
               $(this).remove();
             });
-            $('div.notifications').append(data.html).find("a.decline").click(function() {
+            $('#notifications').append(data.html).find("a.decline").click(function() {
               $.post($(this).attr("href"));
               storage.set('challenge-refused-' + data.id, 1)
               $('#challenge_reminder').remove();
@@ -350,11 +350,13 @@ var storage = {
           $.playSound();
           document.title = "/!\\ ANALYSIS READY! " + document.title;
         },
-        deploy: function(html) {
-          $('div.notifications').append(html);
-          setTimeout(function() {
-            $('#deploy_reminder').fadeOut(1000);
-          }, 10000);
+        deployPre: function(html) {
+          $('#notifications').append(html);
+          setTimeout(function() { $('#deploy_pre').fadeOut(1000).remove(); }, 10000);
+        },
+        deployPost: function(html) {
+          $('#notifications').append(html);
+          setTimeout(function() { $('#deploy_post').fadeOut(1000).remove(); }, 10000);
           lichess.socket.disconnect();
         }
       },

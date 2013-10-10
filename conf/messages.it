@@ -1,7 +1,7 @@
 playWithAFriend=Gioca con un amico
 inviteAFriendToPlayWithYou=Invita un amico a giocare con te
 playWithTheMachine=Gioca contro il computer
-challengeTheArtificialIntelligence=Sfida il computer
+challengeTheArtificialIntelligence=Sfida l' intelligenza artificiale
 toInviteSomeoneToPlayGiveThisUrl=Per invitare qualcuno a giocare, condividi questo URL
 gameOver=Fine del gioco
 waitingForOpponent=In attesa dell'avversario
@@ -31,6 +31,7 @@ blackPlays=Tocca al Nero
 theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=Il tuo avversario ha lasciato la partita. Puoi costringerlo alla resa o aspettarlo.
 makeYourOpponentResign=Costringi il tuo avversario alla resa
 forceResignation=Costringi alla resa
+forceDraw=Costringi alla patta
 talkInChat=Parla in chat
 theFirstPersonToComeOnThisUrlWillPlayWithYou=La prima persona che utilizzerà questa URL giocherà con te.
 whiteCreatesTheGame=Il Bianco ha creato la partita

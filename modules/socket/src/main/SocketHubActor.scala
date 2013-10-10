@@ -1,12 +1,12 @@
 package lila.socket
 
-import actorApi._
-import akka.actor._
+import akka.actor.{ Deploy ⇒ _, _ }
 import akka.pattern.{ ask, pipe }
 import makeTimeout.short
 import play.api.libs.json._
 
-import lila.hub.actorApi.{ GetNbMembers, NbMembers, WithUserIds, WithSocketUserIds, SendTo, SendTos }
+import actorApi._
+import lila.hub.actorApi.{ GetNbMembers, NbMembers, WithUserIds, WithSocketUserIds, SendTo, SendTos, Deploy }
 import lila.hub.ActorMap
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 
@@ -16,19 +16,19 @@ trait SocketHubActor[A <: SocketActor[_]] extends Socket with ActorMap[A] {
 
   private def _socketHubReceive: Receive = {
 
-    case msg @ GetNbMembers       ⇒ zipAll[Int](msg) pipeTo sender
-
-    case msg @ NbMembers(_)       ⇒ tellAll(msg)
-
     case WithSocketUserIds(id, f) ⇒ withActor(id) { _ ! WithUserIds(f) }
 
-    case msg @ WithUserIds(_)     ⇒ tellAll(msg)
+    case msg: GetNbMembers.type   ⇒ zipAll[Int](msg) pipeTo sender
 
-    case msg @ Broom              ⇒ tellAll(msg)
+    case msg: NbMembers           ⇒ tellAll(msg)
 
-    case msg @ SendTo(_, _)       ⇒ tellAll(msg)
+    case msg: WithUserIds         ⇒ tellAll(msg)
 
-    case msg @ SendTos(_, _)      ⇒ tellAll(msg)
+    case msg: Broom.type          ⇒ tellAll(msg)
+
+    case msg: SendTo              ⇒ tellAll(msg)
+
+    case msg: SendTos             ⇒ tellAll(msg)
 
     case msg: Deploy              ⇒ tellAll(msg)
   }

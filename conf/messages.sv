@@ -31,6 +31,7 @@ blackPlays=Svart drag
 theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=Den andre spelaren har lämnat partiet. Du kan tvinga motståndaren att ge upp, eller vänta på honom.
 makeYourOpponentResign=Tvinga din motståndare att ge upp
 forceResignation=Tvinga att ge upp
+forceDraw=Tvångsrita
 talkInChat=Prata i chatten
 theFirstPersonToComeOnThisUrlWillPlayWithYou=Den första som använder den här länken kommer att spela med dig
 whiteCreatesTheGame=Vit startar ett parti
