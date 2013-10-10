@@ -4,7 +4,7 @@ import chess.format.pgn.{ Pgn, Tag, Turn, Move }
 
 private[analyse] final class Annotator(netDomain: String) {
 
-  def apply(p: Pgn, analysis: Analysis): Pgn = 
+  def apply(p: Pgn, analysis: Analysis): Pgn =
     annotateTurns(p, analysis.advices).copy(
       tags = p.tags :+ Tag("Annotator", netDomain)
     )
@@ -15,20 +15,20 @@ private[analyse] final class Annotator(netDomain: String) {
         turn.update(advice.color, move ⇒
           move.copy(
             nag = advice.nag.code.some,
-            comment = makeComment(advice).some,
+            comment = makeComment(advice),
             variation = advice.info.variation
           )
         )
       )
     }
 
-  private def makeComment(advice: Advice): String = (advice match {
-    case CpAdvice(sev, _, _)   ⇒ sev.nag.toString
-    case MateAdvice(sev, _, _) ⇒ sev.desc
-  }) ++ makeBestComment(advice).fold(".")(". " + _)
+  private def makeComment(advice: Advice): Option[String] = (advice match {
+    case MateAdvice(sev, _, _) ⇒ sev.desc.some
+    case _                     ⇒ none
+  })
 
-  private def makeBestComment(advice: Advice): Option[String] =
-    (advice.info.move != advice.info.best) option {
-      "Best was %s." format advice.info.best.uci
-    }
+  // private def makeBestComment(advice: Advice): Option[String] =
+  //   (advice.info.move != advice.info.best) option {
+  //     "Best was " format advice.info.best.uci
+  //   }
 }

@@ -15,7 +15,7 @@ private[analyse] object UciToPgn {
 
   def apply(replay: Replay, analysis: Analysis): WithErrors[Analysis] = {
 
-    val plySet = (analysis.infoAdvices.pp collect {
+    val plySet = (analysis.infoAdvices collect {
       case (info, Some(_)) ⇒ info.ply
     }).toSet
 
