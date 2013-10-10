@@ -128,8 +128,9 @@ var storage = {
       }
       self.scheduleConnect(self.options.pingMaxLag);
     },
-    send: function(t, data = {}) {
+    send: function(t, d) {
       var self = this;
+      var data = d || {};
       var message = JSON.stringify({
         t: t,
         d: data
@@ -275,8 +276,8 @@ var storage = {
   $.userLink = function(u) {
     return $.userLinkLimit(u, false);
   }
-  $.userLinkLimit = function(u = false, limit = false) {
-    return u ? '<a class="user_link ulpt" href="/@/' + u + '">' + (limit ? u.substring(0, limit) : u) + '</a>' : 'Anonymous';
+  $.userLinkLimit = function(u, limit) {
+    return (u || false) ? '<a class="user_link ulpt" href="/@/' + u + '">' + ((limit || false) ? u.substring(0, limit) : u) + '</a>' : 'Anonymous';
   }
 
   var lichess = {
@@ -309,8 +310,8 @@ var storage = {
             });
           }
         },
-        nbm: function(e = 0) {
-          $('#nb_messages').text(e).toggleClass("unread", e > 0);
+        nbm: function(e) {
+          $('#nb_messages').text(e || "0").toggleClass("unread", e > 0);
         },
         tournamentReminder: function(data) {
           if (!$('#tournament_reminder').length && $('body').data("tournament-id") != data.id) {
@@ -1083,7 +1084,7 @@ var storage = {
           left: 0
         });
         $to.append($piece);
-        $.isFunction(callback) && callback();
+        $.isFunction(callback || null) && callback();
       };
 
       var animD = mine ? 0 : self.options.animation_delay;
@@ -1174,8 +1175,9 @@ var storage = {
     unselect: function() {
       this.$board.find('> div.selected').removeClass('selected');
     },
-    dropPiece: function($piece, $oldSquare, $newSquare, isPremove = false) {
-      var self = this;
+    dropPiece: function($piece, $oldSquare, $newSquare, isPremove) {
+      var self = this,
+        isPremove = isPremove || false;
       squareId = $newSquare.attr('id'),
       moveData = {
         from: $oldSquare.attr("id"),
@@ -1388,10 +1390,10 @@ var storage = {
       });
       self.updateClocks();
     },
-    updateClocks: function(times = false) {
+    updateClocks: function(times) {
       var self = this;
       if (!self.canRunClock()) return;
-      if (times) {
+      if (times || false) {
         for (color in times) {
           self.$table.find('div.clock_' + color).clock('setTime', times[color]);
         }
@@ -1445,11 +1447,11 @@ var storage = {
         self.onXhrComplete(x, s, 'ok', reloadIfFail);
       });
     },
-    onXhrComplete: function(xhr, status, expectation = false, reloadIfFail = false) {
+    onXhrComplete: function(xhr, status, expectation, reloadIfFail) {
       if (status != 'success') {
         this.onError('status is not success: ' + status, reloadIfFail);
       }
-      if (expectation && expectation != xhr.responseText) {
+      if ((expectation || false) && expectation != xhr.responseText) {
         this.onError('expectation failed: ' + xhr.responseText, reloadIfFail);
       }
     },
@@ -2225,14 +2227,14 @@ var storage = {
       drawHooks();
     }
 
-    function addHook(hook, inBatch = false) {
+    function addHook(hook, inBatch) {
       if (!isRegistered && hook.mode == "Casual" && !hook.allowAnon) return;
       if (_.contains(lichess_preload.blocks, hook.username.toLowerCase())) return;
       if (!isRegistered && hook.mode == "Rated") hook.action = 'register';
       else hook.action = hook.uid == lichess_sri ? "cancel" : "join";
       if (hook.action == 'join' && hook.emin && myElo && (myElo < parseInt(hook.emin) || myElo > parseInt(hook.emax))) return;
       pool.push(hook);
-      drawHooks(inBatch);
+      drawHooks(inBatch || false);
     }
 
     function undrawHook(id) {
@@ -2243,7 +2245,7 @@ var storage = {
       $tbody.children('.' + id).remove();
     }
 
-    function drawHooks(inBatch = false) {
+    function drawHooks(inBatch) {
       var filter = lichess_preload.filter;
       var seen = [];
       var hidden = 0;
@@ -2282,7 +2284,7 @@ var storage = {
         })) undrawHook(id);
       });
 
-      if (!inBatch) {
+      if (!(inBatch || false)) {
         $noHook.toggle(visible == 0);
         $table.toggleClass('crowded', visible >= 12);
         $wrap
@@ -2316,11 +2318,11 @@ var storage = {
       }).data('powertipjq', $(renderHook(hook)));
     }
 
-    function eloY(e = 1200) {
+    function eloY(e) {
       function eloLog(a) {
         return Math.log(a / 150 + 1);
       }
-      var elo = Math.max(800, Math.min(2000, e));
+      var elo = Math.max(800, Math.min(2000, e || 1200));
       if (elo == 1200) {
         var ratio = 0.25;
       } else if (elo > 1200) {
