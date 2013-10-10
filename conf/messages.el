@@ -31,6 +31,7 @@ blackPlays=Παίζουν τα μαύρα
 theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=Ο άλλος παίκτης έφυγε από το παιχνίδι. Μπορείτε να τον αναγκάσετε να παραιτηθεί, ή να περιμένετε.
 makeYourOpponentResign=Υποχρεώστε τον αντίπαλό σας να παραιτηθεί
 forceResignation=Ανάγκαση παραίτησης
+forceDraw=Υποχρεωτική Ισοπαλία
 talkInChat=Μιλήστε στη συνομιλία
 theFirstPersonToComeOnThisUrlWillPlayWithYou=Ο πρώτος που θα έρθει σε αυτήν τη διεύθυνση θα παίξει μαζί σας
 whiteCreatesTheGame=Τα λευκά δημιουργούν το παιχνίδι
