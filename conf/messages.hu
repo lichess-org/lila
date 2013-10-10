@@ -31,6 +31,7 @@ blackPlays=Sötét lép
 theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=Az ellenfél elhagyta a játékot. Feladhatod a nevében, vagy várhatsz rá.
 makeYourOpponentResign=Feladatom a játszmát
 forceResignation=Visszaléptetem az ellenfelet
+forceDraw=döntetlen erőltetése
 talkInChat=Csevegj
 theFirstPersonToComeOnThisUrlWillPlayWithYou=Az első ember aki ezt az url-t használja, játékba lép veled
 whiteCreatesTheGame=A világos létrehozza a játszmát
