@@ -74,7 +74,7 @@ span.board_mark.horz {
 }
 
 #GameText {
-  font-size: 14px;
+  font-size: 16px;
   width: 242px;
   height: 512px;
   margin-bottom: 1em;
@@ -85,10 +85,13 @@ span.board_mark.horz {
   border-radius: 4px;
   box-shadow: 0 0 7px #d0d0d0;
 }
-#GameText a.move {
+#GameText .move, #GameText .variation, #GameText .commentMove {
   font-family: 'pgn4web ChessSansMerida', 'pgn4web Liberation Sans', sans-serif;
   text-decoration: none;
+}
+#GameText a.move {
   color: #444;
+  font-weight: bold;
 }
 #GameText a:hover {
   background: #e0e0e0;
