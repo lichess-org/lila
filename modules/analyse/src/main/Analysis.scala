@@ -18,7 +18,7 @@ case class Analysis(id: String, infos: List[Info], done: Boolean) {
   def encodeInfos = infos map (_.encode) mkString Analysis.separator
 
   def summary: List[(Color, List[(Nag, Int)])] = Color.all map { color ⇒
-    color -> (Nag.all map { nag ⇒
+    color -> (Nag.badOnes map { nag ⇒
       nag -> (advices count { adv ⇒
         adv.color == color && adv.nag == nag
       })
