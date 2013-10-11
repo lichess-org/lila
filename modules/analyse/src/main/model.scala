@@ -86,8 +86,8 @@ case class Info(
   def color = Color(ply % 2 == 1)
 
   def encode: String = List(
-    score map (_.centipawns) getOrElse "_",
-    mate getOrElse "_",
+    score ?? (_.centipawns.toString),
+    mate ?? (_.toString),
     variation mkString " "
   ) mkString Info.separator
 
@@ -102,8 +102,8 @@ object Info {
   def decode(ply: Int, str: String): Option[Info] = str.split(separator).toList match {
     case cpString :: mateString :: rest ⇒ Info(
       ply = ply,
-      score = if (cpString == "_") none else parseIntOption(cpString) map Score.apply,
-      mate = if (mateString == "_") none else parseIntOption(mateString),
+      score = if (cpString.isEmpty) none else parseIntOption(cpString) map Score.apply,
+      mate = if (mateString.isEmpty) none else parseIntOption(mateString),
       variation = rest.headOption ?? (_.split(' ').toList)
     ).some
     case _ ⇒ none
