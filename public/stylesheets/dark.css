@@ -276,7 +276,7 @@ body.dark #lichess_forum table.forum_table td.subject a {
 }
 body.dark #lichess_forum div.post .message,
 body.dark #lichess_message div.thread_message div.thread_message_body,
-body.dark #GameText a.move,
+body.dark #GameText .move,
 body.dark form.translation_form div.message label,
 body.dark div.content_box h1,
 body.dark div.user_show div.content_box_top > span strong 

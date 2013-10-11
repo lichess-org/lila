@@ -16,7 +16,7 @@ private[analyse] final class Annotator(netDomain: String) {
           move.copy(
             nag = advice.nag.code.some,
             comment = makeComment(advice),
-            variation = advice.info.variation
+            variation = advice.info.variation take 5
           )
         )
       )

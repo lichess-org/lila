@@ -154,15 +154,15 @@ function drawCharts() {
     var chart = new google.visualization.AreaChart(this);
     chart.draw(data, {
       width: 512,
-      height: 150,
+      height: 170,
       title: $(this).data('title'),
       titleTextStyle: textcolor,
       titlePosition: "in",
       chartArea: {
         left: "0%",
-        top: "0%",
+        top: "2%",
         width: "100%",
-        height: "100%"
+        height: "96%"
       },
       backgroundColor: bg,
       vAxis: {

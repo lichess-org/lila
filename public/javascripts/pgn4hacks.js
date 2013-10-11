@@ -12,6 +12,9 @@ function customFunctionOnPgnGameLoad() {
   $("#GameButtons table").css('width', '514px').find("input").button();
   $("#autoplayButton").click(refreshButtonset);
   $("#GameBoard td").css('background', 'none');
+  $('#ShowPgnText > span').each(function() {
+    $(this).text($(this).text().replace(/^([\d\.]+).+$/g, '$1'));
+  });
 }
 
 function posToSquareId(pos) {
@@ -22,6 +25,7 @@ function posToSquareId(pos) {
 }
 
 function customFunctionOnMove() {
+  refreshButtonset();
   var $comment = $('#GameLastComment');
   var moves = $comment.find('.commentMove').map(function() {
     return $(this).text();
@@ -31,20 +35,23 @@ function customFunctionOnMove() {
   $.each(ids, function() {
     if (this) $("#" + this).addClass("bestmove");
   });
-  refreshButtonset();
   var $chart = $("div.adv_chart");
   var chart = $chart.data("chart");
   if (chart) {
-    try {
-      var index = CurrentPly - 1;
-      chart.setSelection([{
-          row: index,
-          column: 1
-        }
-      ]);
-      var rows = $chart.data('rows');
-      $comment.prepend($("<p>").html("White advantage: <strong>" + rows[index][1] + "</strong>"));
-    } catch (e) {}
+    if (CurrentVar != 0) {
+      chart.setSelection([]);
+    } else {
+      try {
+        var index = CurrentPly - 1;
+        chart.setSelection([{
+            row: index,
+            column: 1
+          }
+        ]);
+        var rows = $chart.data('rows');
+        $comment.prepend($("<p>").html("White advantage: <strong>" + rows[index][1] + "</strong>"));
+      } catch (e) {}
+    }
   }
   var turn = Math.round(CurrentPly / 2);
   var $gameText = $("#GameText");
