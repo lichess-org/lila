@@ -92,7 +92,7 @@ span.board_mark.horz {
   text-decoration: none;
   padding-top: 3px;
   padding-bottom: 3px;
-  /* display: inline-block; */
+  display: inline-block;
   color: #b57600;
 }
 /* played */

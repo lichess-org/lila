@@ -76,9 +76,9 @@ final class AnalysisBuilder(infos: List[Info]) {
   }, true)
 }
 
-private[analyse] case class RawAnalysis(id: String, encoded: String, done: Boolean) {
+private[analyse] case class RawAnalysis(id: String, data: String, done: Boolean) {
 
-  def decode: Option[Analysis] = (done, encoded.trim) match {
+  def decode: Option[Analysis] = (done, data) match {
     case (true, "") ⇒ new Analysis(id, Nil, false).some
     case (true, en) ⇒ Analysis.decodeInfos(en) map { infos ⇒
       new Analysis(id, infos, done)
@@ -93,7 +93,7 @@ private[analyse] object RawAnalysis {
   import Tube.Helpers._
   import play.api.libs.json._
 
-  private def defaults = Json.obj("encoded" -> "", "done" -> false)
+  private def defaults = Json.obj("data" -> "", "done" -> false)
 
   private[analyse] lazy val tube = Tube(
     (__.json update merge(defaults)) andThen Json.reads[RawAnalysis],

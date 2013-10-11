@@ -16,7 +16,7 @@ private[analyse] object AnalysisRepo {
     $select(id),
     $set(Json.obj(
       "done" -> true,
-      "encoded" -> a.encodeInfos
+      "data" -> a.encodeInfos
     ))
   )
 
