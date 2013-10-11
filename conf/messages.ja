@@ -31,6 +31,7 @@ blackPlays=黒番です
 theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=対戦相手が対局からいなくなりました。強制投了、または相手が戻るまで待機することが出来ます。
 makeYourOpponentResign=相手を投了させる
 forceResignation=強制投了
+forceDraw=引き分けを強制する
 talkInChat=チャットで喋る
 theFirstPersonToComeOnThisUrlWillPlayWithYou=このURLを最初にクリックした人があなたと対局します。
 whiteCreatesTheGame=白が対局を作成しました

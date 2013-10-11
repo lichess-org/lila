@@ -31,6 +31,7 @@ blackPlays=Mustan vuoro
 theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=Toinen pelaaja lähti pelistä. Voit ottaa luovutusvoiton tai odottaa häntä.
 makeYourOpponentResign=Pakota luovutus
 forceResignation=Ota luovutusvoitto
+forceDraw=Pakota tasapeli
 talkInChat=Kirjoita keskusteluun
 theFirstPersonToComeOnThisUrlWillPlayWithYou=Ensimmäinen ihminen joka käyttää tämän linkin pelaa sinua vastaan.
 whiteCreatesTheGame=Valkoinen luo pelin

@@ -31,6 +31,7 @@ blackPlays=دور الاسود
 theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=اللاعب الآخر ترك اللعب. يمكنك فرض الاستسلام ، أو الأنتظار حتى يعود.
 makeYourOpponentResign=اجعل خصمك يستسلم
 forceResignation=إجبار على الأستسلام
+forceDraw=تعادل الزامي
 talkInChat=نقاش في الدردشة
 theFirstPersonToComeOnThisUrlWillPlayWithYou=أول شخص يأتي على هذا الرابط سوف يلعب معك.
 whiteCreatesTheGame=الأبيض انشأ اللعبة
