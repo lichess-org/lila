@@ -12,7 +12,6 @@ private[analyse] sealed trait Advice {
 
   def ply = info.ply
   def turn = info.turn
-  def move = info.move
   def color = info.color
   def nag = severity.nag
 }
@@ -58,7 +57,7 @@ private[analyse] object Advice {
   def apply(info: Info, next: Info): Option[Advice] = {
     for {
       cp ← info.score map (_.centipawns)
-      if info.move != info.best
+      if info.hasVariation
       nextCp ← next.score map (_.centipawns)
       delta = nextCp - cp
       severity ← CpSeverity(info.color.fold(delta, -delta))
@@ -75,12 +74,9 @@ private[analyse] object Advice {
     }
 }
 
-// move and best are in UCI format
 // variation is first in UCI, then converted to PGN before storage
 case class Info(
     ply: Int,
-    move: UciMove,
-    best: UciMove,
     score: Option[Score],
     mate: Option[Int],
     variation: List[String]) {
@@ -90,13 +86,12 @@ case class Info(
   def color = Color(ply % 2 == 1)
 
   def encode: String = List(
-    move.piotr,
-    best.piotr,
     score map (_.centipawns) getOrElse "_",
     mate getOrElse "_",
     variation mkString " "
   ) mkString Info.separator
 
+  def hasVariation = variation.nonEmpty
   def dropVariation = copy(variation = Nil)
 }
 
@@ -105,34 +100,17 @@ object Info {
   private val separator = ","
 
   def decode(ply: Int, str: String): Option[Info] = str.split(separator).toList match {
-    case moveString :: bestString :: cpString :: mateString :: rest ⇒ for {
-      move ← UciMove piotr moveString
-      best ← UciMove piotr bestString
-    } yield Info(
+    case cpString :: mateString :: rest ⇒ Info(
       ply = ply,
-      move = move,
-      best = best,
-      score = parseIntOption(cpString) map Score.apply,
-      mate = parseIntOption(mateString),
-      variation = rest.headOption ?? (_.split(' ').toList))
+      score = if (cpString == "_") none else parseIntOption(cpString) map Score.apply,
+      mate = if (mateString == "_") none else parseIntOption(mateString),
+      variation = rest.headOption ?? (_.split(' ').toList)
+    ).some
     case _ ⇒ none
   }
 
-  def apply(
-    moveString: String,
-    bestString: String,
-    score: Option[Int],
-    mate: Option[Int],
-    variation: List[String]): Option[Int ⇒ Info] = for {
-    move ← UciMove(moveString)
-    best ← UciMove(bestString)
-  } yield ply ⇒ Info(
-    ply = ply,
-    move = move,
-    best = best,
-    score = score map Score.apply,
-    mate = mate,
-    variation = variation)
+  def apply(score: Option[Int], mate: Option[Int], variation: List[String]): Int ⇒ Info =
+    ply ⇒ Info(ply, score map Score.apply, mate, variation)
 }
 
 private[analyse] case class Score(centipawns: Int) {

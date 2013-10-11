@@ -50,7 +50,7 @@ case class Job(req: Req, sender: akka.actor.ActorRef, buffer: List[String]) {
   // bestmove xyxy ponder xyxy
   def complete(str: String): Option[Any] = req match {
     case r: PlayReq            ⇒ str split ' ' lift 1 
-    case AnalReq(_, played, _) ⇒ AnalyseParser(str :: buffer, played)
+    case AnalReq(_, played, _) ⇒ buffer.headOption map { AnalyseParser(_, played) }
   }
 }
 

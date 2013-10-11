@@ -15,9 +15,8 @@ private[analyse] final class AdvantageChart(advices: InfoAdvices) {
 
     val scale = floatBox(-max to max) _
 
-    def move(info: Info, advice: Option[Advice]) = info.color.fold(
-      "%d. %s", "%d... %s"
-    ).format(info.turn, info.move.uci) + ~advice.map(" " + _.nag.symbol)
+    def move(info: Info, advice: Option[Advice]) = 
+      info.turn + info.color.fold(".", "...") + advice.??(" " + _.nag.symbol)
 
     advices sliding 2 collect {
       case (info, advice) :: (next, _) :: Nil ⇒
