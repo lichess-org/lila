@@ -29,7 +29,7 @@ object AnalyseParser {
     ).split(' ').toList take VariationMaxPlies
 
     val variation =
-      if (continuation.headOption == Some(move)) continuation else Nil
+      if (continuation.headOption == Some(move)) Nil else continuation
 
     Info(cp, mate, variation)
   }

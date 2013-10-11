@@ -77,9 +77,9 @@ private[analyse] object Advice {
 // variation is first in UCI, then converted to PGN before storage
 case class Info(
     ply: Int,
-    score: Option[Score],
-    mate: Option[Int],
-    variation: List[String]) {
+    score: Option[Score] = None,
+    mate: Option[Int] = None,
+    variation: List[String] = Nil) {
 
   def turn = 1 + (ply - 1) / 2
 
@@ -100,13 +100,10 @@ object Info {
   private val separator = ","
 
   def decode(ply: Int, str: String): Option[Info] = str.split(separator).toList match {
-    case cpString :: mateString :: rest ⇒ Info(
-      ply = ply,
-      score = if (cpString.isEmpty) none else parseIntOption(cpString) map Score.apply,
-      mate = if (mateString.isEmpty) none else parseIntOption(mateString),
-      variation = rest.headOption ?? (_.split(' ').toList)
-    ).some
-    case _ ⇒ none
+    case cp :: Nil             ⇒ Info(ply, Score(cp)).some
+    case cp :: ma :: Nil       ⇒ Info(ply, Score(cp), parseIntOption(ma)).some
+    case cp :: ma :: va :: Nil ⇒ Info(ply, Score(cp), parseIntOption(ma), va.split(' ').toList).some
+    case _                     ⇒ none
   }
 
   def apply(score: Option[Int], mate: Option[Int], variation: List[String]): Int ⇒ Info =
@@ -127,4 +124,9 @@ private[analyse] case class Score(centipawns: Int) {
 
   private def box(min: Float, max: Float, v: Float) =
     math.min(max, math.max(min, v))
+}
+
+private[analyse] object Score {
+
+  def apply(str: String): Option[Score] = parseIntOption(str) map Score.apply
 }
