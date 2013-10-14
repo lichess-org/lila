@@ -9,7 +9,7 @@ import akka.pattern.{ ask, pipe }
 import akka.util.Timeout
 
 import actorApi._
-import lila.analyse.{ AnalysisMaker, Info }
+import lila.analyse.{ Evaluation, Info }
 import lila.hub.actorApi.ai.GetLoad
 
 private[ai] final class Queue(config: Config) extends Actor {
@@ -36,34 +36,30 @@ private[ai] final class Queue(config: Config) extends Actor {
     case req: PlayReq ⇒ {
       implicit val timeout = makeTimeout((config moveTime req.level).millis + 1.second)
       blockAndMeasure {
-        actor ? req mapTo manifest[Valid[String]] map sender.!
+        actor ? req mapTo manifest[Option[String]] map sender.!
       }
     }
 
-    case req: AnalReq ⇒ {
-      implicit val timeout = makeTimeout(config.analyseMoveTime + 1.second)
-      (actor ? req) map sender.! await timeout
-    }
+    case req: AnalReq ⇒
+      if (req.isStart) sender ! Evaluation.start.some
+      else {
+        implicit val timeout = makeTimeout(config.analyseMoveTime + 1.second)
+        (actor ? req) map sender.! await timeout
+      }
 
-    case FullAnalReq(uciMoves, fen) ⇒ {
+    case FullAnalReq(moves, fen) ⇒ {
+      val mrSender = sender
       implicit val timeout = makeTimeout(config.analyseTimeout)
-      type Result = Option[Int ⇒ Info]
-      val moves = uciMoves.split(' ').toList
-      val futures = (1 to moves.size - 1).toStream map moves.take map { serie ⇒
-        self ? AnalReq(serie.init mkString " ", serie.last, fen) mapTo manifest[Result]
+      val futures = (0 to moves.size).toStream map moves.take map { serie ⇒
+        self ? AnalReq(serie, fen) mapTo manifest[Option[Evaluation]]
       }
-      lila.common.Future.lazyFold(futures)(Vector[Result]())(_ :+ _) addFailureEffect {
-        case e ⇒ sender ! Status.Failure(e)
-      } map {
-        _.toList.sequence map { infos ⇒
-          AnalysisMaker(infos.zipWithIndex map (x ⇒ x._1 -> (x._2 + 1)) map {
-            case (info, turn) ⇒ (turn % 2 == 1).fold(
-              info(turn),
-              info(turn) |> { i ⇒ i.copy(score = i.score map (_.negate)) }
-            )
-          }, true)
+      lila.common.Future.lazyFold(futures)(Vector[Option[Evaluation]]())(_ :+ _) addFailureEffect {
+        case e ⇒ mrSender ! Status.Failure(e)
+      } foreach { results ⇒
+        mrSender ! {
+          results.toList.sequence map { Evaluation.toInfos(_, moves) }
         }
-      } pipeTo sender
+      }
     }
   }
 }

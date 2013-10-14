@@ -3,16 +3,12 @@ package stockfish
 
 import scala.concurrent.duration._
 
-import akka.actor.{ Props, Actor, ActorRef, Kill }
-import akka.pattern.{ ask, AskTimeoutException }
+import akka.actor.ActorRef
+import akka.pattern.ask
 import chess.format.Forsyth
-import chess.format.UciDump
-import chess.Variant
-import play.api.libs.concurrent.Akka.system
-import play.api.Play.current
 
 import actorApi._
-import lila.analyse.AnalysisMaker
+import lila.analyse.Info
 import lila.hub.actorApi.ai.GetLoad
 
 private[ai] final class Server(
@@ -20,16 +16,16 @@ private[ai] final class Server(
     config: Config,
     val uciMemo: lila.game.UciMemo) extends lila.ai.Ai {
 
-  def move(uciMoves: String, initialFen: Option[String], level: Int): Fu[String] = {
+  def move(uciMoves: List[String], initialFen: Option[String], level: Int): Fu[String] = {
     implicit val timeout = makeTimeout(config.playTimeout)
     queue ? PlayReq(uciMoves, initialFen map chess960Fen, level) mapTo
-      manifest[Valid[String]] flatMap (_.future)
+      manifest[Option[String]] flatten "[stockfish] play failed"
   }
 
-  def analyse(uciMoves: String, initialFen: Option[String]): Fu[AnalysisMaker] = {
+  def analyse(uciMoves: List[String], initialFen: Option[String]): Fu[List[Info]] = {
     implicit val timeout = makeTimeout(config.analyseTimeout)
-    queue ? FullAnalReq(uciMoves, initialFen map chess960Fen) mapTo
-      manifest[Option[AnalysisMaker]] flatten "[stockfish] analyse failed" 
+    (queue ? FullAnalReq(uciMoves, initialFen map chess960Fen)) mapTo
+      manifest[Option[List[Info]]] flatten "[stockfish] analyse failed" 
   }
 
   def load: Fu[Int] = {

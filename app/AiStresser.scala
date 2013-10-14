@@ -36,7 +36,7 @@ private[app] final class AiStresser(env: lila.ai.Env, system: ActorSystem) {
         if (loop) newGame pipeTo self
       }
       case Game(moves, it) ⇒
-        ai.move(moves take it mkString " ", none, level).effectFold(e ⇒ {
+        ai.move(moves take it, none, level).effectFold(e ⇒ {
           logwarn("[ai] play: " + e)
           newGame pipeTo self
         }, { _ ⇒
@@ -55,7 +55,7 @@ private[app] final class AiStresser(env: lila.ai.Env, system: ActorSystem) {
 
     def receive = {
       case Game(moves, _) ⇒
-        ai.analyse(moves mkString " ", none).effectFold(e ⇒ {
+        ai.analyse(moves, none).effectFold(e ⇒ {
           logwarn("[ai] server analyse: " + e)
           if (loop) newGame pipeTo self
         }, { _ ⇒

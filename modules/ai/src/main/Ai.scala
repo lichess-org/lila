@@ -3,7 +3,7 @@ package lila.ai
 import chess.format.{ UciMove, UciDump }
 import chess.Move
 
-import lila.analyse.AnalysisMaker
+import lila.analyse.Info
 import lila.game.{ Game, Progress, GameRepo, PgnRepo, UciMemo }
 
 trait Ai {
@@ -12,8 +12,8 @@ trait Ai {
     for {
       fen ← game.variant.exotic ?? { GameRepo initialFen game.id }
       pgn ← PgnRepo get game.id
-      uciMoves ← uciMemo.get(game, pgn) map (_ mkString " ")
-      moveStr ← move(uciMoves, fen, level)
+      uciMoves ← uciMemo.get(game, pgn)
+      moveStr ← move(uciMoves.toList, fen, level)
       uciMove ← (UciMove(moveStr) toValid "Wrong bestmove: " + moveStr).future
       result ← (game.toChess withPgnMoves pgn)(uciMove.orig, uciMove.dest).future
       (c, m) = result
@@ -26,9 +26,9 @@ trait Ai {
 
   def uciMemo: UciMemo
 
-  def move(uciMoves: String, initialFen: Option[String], level: Int): Fu[String]
+  def move(uciMoves: List[String], initialFen: Option[String], level: Int): Fu[String]
 
-  def analyse(uciMoves: String, initialFen: Option[String]): Fu[AnalysisMaker]
+  def analyse(uciMoves: List[String], initialFen: Option[String]): Fu[List[Info]]
 
   private def withValidSituation[A](game: Game)(op: ⇒ Fu[A]): Fu[A] =
     if (game.toChess.situation playable true) op

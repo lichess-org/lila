@@ -13,7 +13,7 @@ object Ai extends LilaController {
   def playStockfish = Action.async { req ⇒
     IfServer {
       stockfishServer.move(
-        uciMoves = ~get("uciMoves", req),
+        uciMoves = get("uciMoves", req) ?? (_.split(' ').toList),
         initialFen = get("initialFen", req),
         level = getInt("level", req) | 1
       ) fold (
@@ -29,14 +29,14 @@ object Ai extends LilaController {
   def analyseStockfish = Action.async { req ⇒
     IfServer {
       stockfishServer.analyse(
-        uciMoves = ~get("uciMoves", req),
+        uciMoves = get("uciMoves", req) ?? (_.split(' ').toList),
         initialFen = get("initialFen", req)
       ) fold (
           err ⇒ {
             logwarn("[ai] stochfish server analyse: " + err)
             InternalServerError(err.toString)
           },
-          analyse ⇒ Ok(analyse("fakeid").encodeInfos)
+          infos ⇒ Ok(lila.analyse.Info encodeList infos)
         )
     }
   }

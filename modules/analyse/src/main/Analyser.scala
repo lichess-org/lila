@@ -43,9 +43,10 @@ final class Analyser(
             _ ← AnalysisRepo.progress(id, userId)
             replay ← Future(Replay(pgn, initialFen, game.variant)).flatten
             uciMoves = UciDump(replay)
-            analysis ← {
-              ai ? lila.hub.actorApi.ai.Analyse(id, uciMoves mkString " ", initialFen)
-            } mapTo manifest[Analysis]
+            infos ← {
+              ai ? lila.hub.actorApi.ai.Analyse(uciMoves, initialFen)
+            } mapTo manifest[List[Info]]
+            analysis = Analysis(id, infos, true)
           } yield UciToPgn(replay, analysis)) flatFold (
             e ⇒ fufail[Analysis](e.getMessage), {
               case (a, errors) ⇒ {

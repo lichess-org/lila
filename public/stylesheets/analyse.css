@@ -45,10 +45,6 @@ span.board_mark.horz {
 #GameBoard td.highlightBlackSquare img {
   background: url(../images/over5.png) no-repeat;
 }
-#GameBoard td img.bestmove {
-  background: url(../images/sover.png) no-repeat;
-  background-position: 0 -64px;
-}
 #GameBoard td img {
   width: 64px;
   height: 64px;
@@ -109,8 +105,8 @@ span.board_mark.horz {
 }
 /* any move SAN */
 #GameText a {
-  padding-right: 3px;
-  padding-left: 3px;
+  padding-right: 4px;
+  padding-left: 4px;
 }
 #GameText .comment {
   font-size: 80%;
@@ -119,8 +115,9 @@ span.board_mark.horz {
 #GameText a:hover {
   background: #e0e0e0;
 }
-#GameText a.moveOn {
-  background: #FFE73B;
+#GameText .moveOn, #GameText .variationOn  {
+  border: 1px solid #909090;
+  padding: 2px 3px;
 }
 #GameLastComment {
   position: absolute;
@@ -132,6 +129,9 @@ span.board_mark.horz {
   margin-top: 0.2em;
   font-size: 1.3em;
   display: block;
+}
+#GameLastComment .variation {
+  display: none;
 }
 div.advice_summary {
   position: absolute;
