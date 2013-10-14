@@ -13,8 +13,6 @@ case class Analysis(id: String, infos: List[Info], done: Boolean) {
 
   lazy val advices: List[Advice] = infoAdvices.map(_._2).flatten
 
-  lazy val advantageChart = new AdvantageChart(infoAdvices)
-
   def encode: RawAnalysis = RawAnalysis(id, Info encodeList infos, done)
 
   def summary: List[(Color, List[(Nag, Int)])] = Color.all map { color ⇒
