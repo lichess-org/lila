@@ -26,7 +26,7 @@ private[importer] case class ImportData(pgn: String) {
   private type TagPicker = Tag.type ⇒ TagType
 
   def preprocess(user: Option[String]): Valid[Preprocessed] = (Parser(pgn) |@| Reader(pgn)) apply {
-    case (ParsedPgn(tags, _), replay @ Replay(game, _)) ⇒ {
+    case (ParsedPgn(tags, _), replay @ Replay(_, _, game)) ⇒ {
 
       def tag(which: Tag.type ⇒ TagType): Option[String] =
         tags find (_.name == which(Tag)) map (_.value)

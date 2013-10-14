@@ -16,7 +16,7 @@ object Rewind {
       chessPgn.Tag(_.Variant, game.variant.name)
     ))
   ) map { replay ⇒
-      val rewindedGame = replay.game
+      val rewindedGame = replay.state
       val rewindedHistory = rewindedGame.board.history
       val rewindedSituation = rewindedGame.situation
       def rewindPlayer(player: Player) = player.copy(

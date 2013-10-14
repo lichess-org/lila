@@ -62,8 +62,10 @@ private[ai] case class Config(
       "go movetime %d".format(analyseMoveTime.toMillis))
   }
 
-  private def position(fen: Option[String], moves: String) =
-    "position %s moves %s".format(fen.fold("startpos")("fen " + _), moves)
+  private def position(fen: Option[String], moves: List[String]) =
+    "position %s moves %s".format(
+      fen.fold("startpos")("fen " + _), 
+      moves mkString " ")
 
   private def setoption(name: String, value: Any) =
     "setoption name %s value %s".format(name, value)

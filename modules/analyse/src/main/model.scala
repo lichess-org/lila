@@ -7,7 +7,6 @@ import scalaz.NonEmptyList
 private[analyse] sealed trait Advice {
   def severity: Severity
   def info: Info
-  def next: Info
   def text: String
 
   def ply = info.ply
@@ -28,7 +27,7 @@ private[analyse] object CpSeverity {
   def apply(delta: Int): Option[CpSeverity] = all.find(_.delta >= delta)
 }
 
-private[analyse] case class CpAdvice(severity: CpSeverity, info: Info, next: Info) extends Advice {
+private[analyse] case class CpAdvice(severity: CpSeverity, info: Info) extends Advice {
   def text = severity.nag.toString
 }
 
@@ -40,37 +39,60 @@ private[analyse] case object MateLost extends MateSeverity(Nag.Mistake,
 private[analyse] case object MateCreated extends MateSeverity(Nag.Blunder,
   desc = "Checkmate is now unavoidable")
 private[analyse] object MateSeverity {
-  def apply(current: Option[Int], next: Option[Int]): Option[MateSeverity] =
-    (current, next).some collect {
+  def apply(prev: Option[Int], next: Option[Int]): Option[MateSeverity] =
+    (prev, next).some collect {
       case (None, Some(n)) if n < 0                 ⇒ MateCreated
-      case (Some(c), None) if c > 0                 ⇒ MateLost
-      case (Some(c), Some(n)) if (c > 0) && (n < 0) ⇒ MateLost
-      case (Some(c), Some(n)) if c > 0 && n >= c    ⇒ MateDelayed(c, n)
+      case (Some(p), None) if p > 0                 ⇒ MateLost
+      case (Some(p), Some(n)) if (p > 0) && (n < 0) ⇒ MateLost
+      case (Some(p), Some(n)) if p > 0 && n >= p    ⇒ MateDelayed(p, n)
     }
 }
-private[analyse] case class MateAdvice(severity: MateSeverity, info: Info, next: Info) extends Advice {
+private[analyse] case class MateAdvice(severity: MateSeverity, info: Info) extends Advice {
   def text = severity.toString
 }
 
 private[analyse] object Advice {
 
-  def apply(info: Info, next: Info): Option[Advice] = {
+  def apply(prev: Info, info: Info): Option[Advice] = {
     for {
-      cp ← info.score map (_.centipawns)
-      if info.hasVariation
-      nextCp ← next.score map (_.centipawns)
-      delta = nextCp - cp
+      cp ← prev.score map (_.centipawns)
+      infoCp ← info.score map (_.centipawns)
+      delta = infoCp - cp
       severity ← CpSeverity(info.color.fold(delta, -delta))
-    } yield CpAdvice(severity, info, next)
+    } yield CpAdvice(severity, info)
   } orElse {
-    MateSeverity(
-      mateChance(info, info.color),
-      mateChance(next, info.color)) map { MateAdvice(_, info, next) }
+    MateSeverity(prev.mate, info.mate) map { MateAdvice(_, info) }
   }
+}
 
-  private def mateChance(info: Info, color: Color) =
-    info.color.fold(info.mate, info.mate map (-_)) map { chance ⇒
-      color.fold(chance, -chance)
+case class Evaluation(
+    lastMove: Option[String],
+    score: Option[Score],
+    mate: Option[Int],
+    line: List[String]) {
+
+  override def toString = s"Evaluation ${score.fold("?")(_.showPawns)} ${mate | 0} ${line.mkString(" ")}"
+}
+object Evaluation {
+
+  lazy val start = Evaluation(none, Score(20).some, none, Nil)
+
+  def toInfos(evals: List[Evaluation], moves: List[String]): List[Info] =
+    (evals sliding 2).toList.zip(moves).zipWithIndex map {
+      case ((List(before, after), move), index) ⇒ {
+        val info = Info(
+          ply = index + 1,
+          score = after.score,
+          mate = after.mate,
+          variation = before.line match {
+            case first :: rest if first != move ⇒ first :: rest
+            case _                              ⇒ Nil
+          }) |> { info ⇒
+            if (info.ply % 2 == 1) info.reverse else info
+          }
+        println(s"""$move $info""")
+        info
+      }
     }
 }
 
@@ -93,11 +115,18 @@ case class Info(
 
   def hasVariation = variation.nonEmpty
   def dropVariation = copy(variation = Nil)
+
+  def reverse = copy(score = score map (-_), mate = mate map (-_))
+
+  override def toString = s"Info [$ply] ${score.fold("?")(_.showPawns)} ${mate | 0} ${variation.mkString(" ")}"
 }
 
 object Info {
 
   private val separator = ","
+  private val listSeparator = ";"
+
+  lazy val start = Info(0, Evaluation.start.score, none, Nil)
 
   def decode(ply: Int, str: String): Option[Info] = str.split(separator).toList match {
     case cp :: Nil             ⇒ Info(ply, Score(cp)).some
@@ -106,27 +135,26 @@ object Info {
     case _                     ⇒ none
   }
 
+  def decodeList(str: String): Option[List[Info]] = {
+    str.split(listSeparator).toList.zipWithIndex map {
+      case (infoStr, index) ⇒ decode(index + 1, infoStr)
+    }
+  }.sequence
+
+  def encodeList(infos: List[Info]): String = infos map (_.encode) mkString listSeparator
+
   def apply(score: Option[Int], mate: Option[Int], variation: List[String]): Int ⇒ Info =
     ply ⇒ Info(ply, score map Score.apply, mate, variation)
 }
 
-private[analyse] case class Score(centipawns: Int) {
-
+case class Score(centipawns: Int) {
   def pawns: Float = centipawns / 100f
   def showPawns: String = "%.2f" format pawns
 
-  private val percentMax = 5
-  def percent: Int = math.round(box(0, 100,
-    50 + (pawns / percentMax) * 50
-  ))
-
-  def negate = Score(-centipawns)
-
-  private def box(min: Float, max: Float, v: Float) =
-    math.min(max, math.max(min, v))
+  def unary_- = copy(centipawns = -centipawns)
 }
 
-private[analyse] object Score {
+object Score {
 
   def apply(str: String): Option[Score] = parseIntOption(str) map Score.apply
 }

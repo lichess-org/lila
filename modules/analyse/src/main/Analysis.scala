@@ -5,17 +5,17 @@ import chess.format.Nag
 
 case class Analysis(id: String, infos: List[Info], done: Boolean) {
 
-  lazy val infoAdvices: InfoAdvices = (infos sliding 2 collect {
-    case List(info, next) ⇒ info -> Advice(info, next)
-  }).toList
+  lazy val infoAdvices: InfoAdvices = {
+    (Info.start :: infos) sliding 2 collect {
+      case List(prev, info) ⇒ info -> Advice(prev, info)
+    }
+  }.toList
 
-  lazy val advices: List[Advice] = infoAdvices.map(_._2).flatten
+  lazy val advices: List[Advice] = infoAdvices.map(_._2).flatten.pp
 
   lazy val advantageChart = new AdvantageChart(infoAdvices)
 
-  def encode: RawAnalysis = RawAnalysis(id, encodeInfos, done)
-
-  def encodeInfos = infos map (_.encode) mkString Analysis.separator
+  def encode: RawAnalysis = RawAnalysis(id, Info encodeList infos, done)
 
   def summary: List[(Color, List[(Nag, Int)])] = Color.all map { color ⇒
     color -> (Nag.badOnes map { nag ⇒
@@ -27,13 +27,6 @@ case class Analysis(id: String, infos: List[Info], done: Boolean) {
 }
 
 object Analysis {
-
-  val separator = ";"
-
-  def decodeInfos(enc: String): Option[List[Info]] =
-    (enc.split(separator).toList.zipWithIndex map {
-      case (info, index) ⇒ Info.decode(index + 1, info)
-    }).sequence
 
   import lila.db.Tube
   import play.api.libs.json._
@@ -52,37 +45,19 @@ object Analysis {
   )
 }
 
-case class AnalysisMaker(infos: List[Info], done: Boolean) {
+case class AnalysisMaker(evals: List[Evaluation], done: Boolean) {
 
-  def apply(id: String) = Analysis(id, infos, done)
-}
-object AnalysisMaker {
-
-  def apply(str: String, done: Boolean): Option[AnalysisMaker] =
-    Analysis.decodeInfos(str) map { AnalysisMaker(_, done) }
-}
-
-final class AnalysisBuilder(infos: List[Info]) {
-
-  def size = infos.size
-
-  def +(info: Int ⇒ Info) = new AnalysisBuilder(info(infos.size + 1) :: infos)
-
-  def done = AnalysisMaker(infos.reverse.zipWithIndex map {
-    case (info, turn) ⇒ (turn % 2 == 0).fold(
-      info,
-      info.copy(score = info.score map (_.negate))
-    )
-  }, true)
+  def apply(id: String) = {
+    // Analysis(id, infos, done)
+    ???
+  }
 }
 
 private[analyse] case class RawAnalysis(id: String, data: String, done: Boolean) {
 
   def decode: Option[Analysis] = (done, data) match {
     case (true, "") ⇒ new Analysis(id, Nil, false).some
-    case (true, en) ⇒ Analysis.decodeInfos(en) map { infos ⇒
-      new Analysis(id, infos, done)
-    }
+    case (true, d)  ⇒ Info decodeList d map { new Analysis(id, _, done) }
     case (false, _) ⇒ new Analysis(id, Nil, false).some
   }
 }

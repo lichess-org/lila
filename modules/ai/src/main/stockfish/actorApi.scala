@@ -17,16 +17,15 @@ case class Out(text: String) extends Stream
 case class Err(text: String) extends Stream
 
 sealed trait Req {
-  def moves: String
+  def moves: List[String]
   def fen: Option[String]
   def analyse: Boolean
 
   def chess960 = fen.isDefined
-  def moveList = moves.split(' ').toList
 }
 
 case class PlayReq(
-    moves: String,
+    moves: List[String],
     fen: Option[String],
     level: Int) extends Req {
 
@@ -34,14 +33,15 @@ case class PlayReq(
 }
 
 case class AnalReq(
-    moves: String,
-    playedMove: String,
+    moves: List[String],
     fen: Option[String]) extends Req {
 
   def analyse = true
+
+  def isStart = moves.isEmpty && fen.isEmpty
 }
 
-case class FullAnalReq(moves: String, fen: Option[String])
+case class FullAnalReq(moves: List[String], fen: Option[String])
 
 case class Job(req: Req, sender: akka.actor.ActorRef, buffer: List[String]) {
 
@@ -49,8 +49,9 @@ case class Job(req: Req, sender: akka.actor.ActorRef, buffer: List[String]) {
 
   // bestmove xyxy ponder xyxy
   def complete(str: String): Option[Any] = req match {
-    case r: PlayReq            ⇒ str split ' ' lift 1 
-    case AnalReq(_, played, _) ⇒ buffer.headOption map { AnalyseParser(_, played) }
+    case r: PlayReq ⇒ str split ' ' lift 1
+    case AnalReq(moves, _) ⇒ buffer.headOption map {
+      EvaluationParser(_, moves.headOption)
+    }
   }
 }
-

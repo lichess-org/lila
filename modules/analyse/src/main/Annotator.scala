@@ -15,16 +15,18 @@ private[analyse] final class Annotator(netDomain: String) {
         turn.update(advice.color, move ⇒
           move.copy(
             nag = advice.nag.code.some,
-            comment = makeComment(advice),
-            variation = advice.info.variation take 5
+            comment = makeComment(advice).some,
+            variation = advice.info.variation
           )
         )
       )
     }
 
-  private def makeComment(advice: Advice): Option[String] = (advice match {
-    case MateAdvice(sev, _, _) ⇒ sev.desc.some
-    case _                     ⇒ none
+  private def makeComment(advice: Advice): String = (advice match {
+    case MateAdvice(sev, _) ⇒ sev.desc
+    case CpAdvice(sev, info) ⇒ sev.nag.toString + "." + {
+      info.variation.headOption ?? { move ⇒ " Best was " + move }
+    }
   })
 
   // private def makeBestComment(advice: Advice): Option[String] =

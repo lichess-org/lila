@@ -1,17 +1,12 @@
 package lila.ai
 package stockfish
 
-import scala.concurrent.duration._
-
 import akka.actor._
-import akka.pattern.{ ask, pipe }
+import akka.pattern.ask
 import chess.format.UciMove
-import chess.{ Game, Move }
-import play.api.libs.concurrent._
-import play.api.Play.current
 import remote.actorApi._
 
-import lila.analyse.AnalysisMaker
+import lila.analyse.Info
 import lila.hub.actorApi.ai.GetLoad
 
 final class Client(
@@ -20,19 +15,24 @@ final class Client(
     config: Config,
     val uciMemo: lila.game.UciMemo) extends lila.ai.Ai {
 
-  def move(uciMoves: String, initialFen: Option[String], level: Int): Fu[String] = {
+  def move(uciMoves: List[String], initialFen: Option[String], level: Int): Fu[String] = {
     implicit val timeout = makeTimeout(config.playTimeout)
     dispatcher ? Play(uciMoves, ~initialFen, level) mapTo manifest[String]
   } recoverWith {
-    case e: Exception ⇒ fallback.move(uciMoves, initialFen, level)
+    case e: Exception ⇒ {
+      logwarn(s"[stockfish client] move ${e.getMessage}")
+      fallback.move(uciMoves, initialFen, level)
+    }
   }
 
-  def analyse(uciMoves: String, initialFen: Option[String]): Fu[AnalysisMaker] = {
+  def analyse(uciMoves: List[String], initialFen: Option[String]): Fu[List[Info]] = {
     implicit val timeout = makeTimeout(config.analyseTimeout)
-    dispatcher ? Analyse(uciMoves, ~initialFen) mapTo manifest[String] flatMap { str ⇒
-      (AnalysisMaker(str, true) toValid "Can't read analysis results").future
-    } recoverWith {
-      case e: Exception ⇒ fallback.analyse(uciMoves, initialFen)
+    dispatcher ? Analyse(uciMoves, ~initialFen) mapTo manifest[String] map
+      Info.decodeList flatten "Can't read analysis results: "
+  } recoverWith {
+    case e: Exception ⇒ {
+      logwarn(s"[stockfish client] analyse ${e.getMessage}")
+      fallback.analyse(uciMoves, initialFen)
     }
   }
 

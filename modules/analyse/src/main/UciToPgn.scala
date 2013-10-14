@@ -2,7 +2,7 @@ package lila.analyse
 
 import chess.format.pgn.Dumper
 import chess.format.UciMove
-import chess.{ Replay, Move }
+import chess.{ Replay, Move, Situation }
 import scalaz.{ NonEmptyList, Success }
 
 import lila.common.LilaException
@@ -15,25 +15,24 @@ private[analyse] object UciToPgn {
 
   def apply(replay: Replay, analysis: Analysis): WithErrors[Analysis] = {
 
-    val plySet = (analysis.infoAdvices collect {
-      case (info, Some(_)) ⇒ info.ply
-    }).toSet
+    val plySet = analysis.advices.map(_.info.ply).toSet
 
     val onlyMeaningfulVariations: List[Info] = analysis.infos map { info ⇒
       plySet(info.ply).fold(info, info.dropVariation)
     }
 
     def uciToPgn(ply: Int, variation: List[String]): Valid[List[PgnMove]] = for {
-      fromMove ← replay.chronoMoves lift (ply - 2) toValid "No move found"
+      situation ← if (ply == 1) success(replay.setup.situation)
+      else replay moveAtPly ply map (_.situationBefore) toValid "No move found"
       ucis ← variation.map(UciMove.apply).sequence toValid "Invalid UCI moves " + variation
-      moves ← ucis.foldLeft[Valid[NonEmptyList[Move]]](success(NonEmptyList(fromMove))) {
-        case (Success(moves), uci) ⇒
-          moves.head.situationAfter.move(uci.orig, uci.dest, uci.promotion) map { move ⇒
-            move <:: moves
+      moves ← ucis.foldLeft[Valid[(Situation, List[Move])]](success(situation -> Nil)) {
+        case (Success((sit, moves)), uci) ⇒
+          sit.move(uci.orig, uci.dest, uci.promotion) map { move ⇒
+            move.situationAfter -> (move :: moves)
           }
         case (failure, _) ⇒ failure
       }
-    } yield moves.reverse.tail map Dumper.apply 
+    } yield moves._2.reverse map Dumper.apply
 
     onlyMeaningfulVariations.foldLeft[WithErrors[List[Info]]]((Nil, Nil)) {
       case ((infos, errs), info) if info.variation.isEmpty ⇒ (info :: infos, errs)

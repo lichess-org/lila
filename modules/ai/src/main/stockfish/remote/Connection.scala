@@ -31,13 +31,13 @@ private[ai] final class Connection(
       }
     }
     case Play(uciMoves, fen, level) ⇒ WS.url(router.play).withQueryString(
-      "uciMoves" -> uciMoves,
+      "uciMoves" -> uciMoves.mkString(" "),
       "initialFen" -> fen,
       "level" -> level.toString
     ).get() map (_.body) pipeTo sender
 
-    case Analyse(uciMoves: String, fen: String) ⇒ WS.url(router.analyse).withQueryString(
-      "uciMoves" -> uciMoves,
+    case Analyse(uciMoves, fen) ⇒ WS.url(router.analyse).withQueryString(
+      "uciMoves" -> uciMoves.mkString(" "),
       "initialFen" -> fen
     ).get() map (_.body) pipeTo sender
   }

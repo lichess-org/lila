@@ -18,17 +18,17 @@ private[analyse] final class AdvantageChart(advices: InfoAdvices) {
     def move(info: Info, advice: Option[Advice]) = 
       info.turn + info.color.fold(".", "...") + advice.??(" " + _.nag.symbol)
 
-    advices sliding 2 collect {
-      case (info, advice) :: (next, _) :: Nil ⇒
-        (next.score, next.mate) match {
+    advices map {
+      case (info, advice) ⇒
+        (info.score, info.mate) match {
           case (Some(score), _) ⇒ Json.arr(move(info, advice), scale(score.pawns).toString)
           case (_, Some(mate)) ⇒ Json.arr(move(info, advice), {
             val mateDelta = math.abs(mate.toFloat / 100)
-            val whiteWins = info.color.fold(mate < 0, mate > 0)
+            val whiteWins = mate > 0
             scale(whiteWins.fold(max - mateDelta, mateDelta - max)).toString
           })
           case _ ⇒ Json.arr(move(info, none), scale(0))
         }
-    } toList
+    } 
   } 
 }
