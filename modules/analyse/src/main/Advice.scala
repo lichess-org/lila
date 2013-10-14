@@ -5,11 +5,12 @@ import chess.format.Nag
 private[analyse] sealed trait Advice {
   def nag: Nag
   def info: Info
-  def text: String
+  def prev: Info
 
   def ply = info.ply
   def turn = info.turn
   def color = info.color
+  def score = info.score
 }
 
 private[analyse] object Advice {
@@ -19,9 +20,11 @@ private[analyse] object Advice {
     else None
 }
 
-private[analyse] case class CpAdvice(nag: Nag, info: Info) extends Advice {
-  def text = nag.toString
-}
+private[analyse] case class CpAdvice(
+  nag: Nag,
+  info: Info,
+  prev: Info) extends Advice
+
 private[analyse] object CpAdvice {
 
   private val cpNags = List(
@@ -34,7 +37,7 @@ private[analyse] object CpAdvice {
     infoCp ← info.score map (_.ceiled.centipawns)
     delta = (infoCp - cp) |> { d ⇒ info.color.fold(-d, d) }
     nag ← cpNags find { case (d, n) ⇒ d <= delta } map (_._2)
-  } yield CpAdvice(nag, info)
+  } yield CpAdvice(nag, info, prev)
 }
 
 private[analyse] sealed abstract class MateSequence(val desc: String)
@@ -54,9 +57,11 @@ private[analyse] object MateSequence {
       case (Some(p), Some(n)) if p > 0 && n >= p && p <= 5 ⇒ MateDelayed(p, n)
     }
 }
-private[analyse] case class MateAdvice(sequence: MateSequence, nag: Nag, info: Info) extends Advice {
-  def text = nag.toString
-}
+private[analyse] case class MateAdvice(
+  sequence: MateSequence,
+  nag: Nag,
+  info: Info,
+  prev: Info) extends Advice
 private[analyse] object MateAdvice {
 
   def apply(prev: Info, info: Info): Option[MateAdvice] = {
@@ -73,7 +78,7 @@ private[analyse] object MateAdvice {
         case MateLost                        ⇒ Nag.Inaccuracy
         case _: MateDelayed                  ⇒ Nag.Inaccuracy
       }
-      MateAdvice(sequence, nag, info)
+      MateAdvice(sequence, nag, info, prev)
     }
   }
 }
