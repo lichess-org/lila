@@ -29,7 +29,17 @@ private[analyse] final class Annotator(netDomain: String) {
     ).reverse match {
         case Nil ⇒ Nil
         case turn :: turns ⇒ turn.updateLast {
-          _.copy(comment = advice.prev.score map { score ⇒ s"(${score.showPawns})" })
+          _.copy(
+            comment = {
+              advice.prev.score map { score ⇒ s"(${score.showPawns})" }
+            } orElse {
+              advice.prev.mate map { m ⇒
+                math.abs(m) - turns.size - 1 match {
+                  case 0 ⇒ "(Checkmate)"
+                  case i ⇒ s"(Mate in $i)"
+                }
+              }
+            })
         } :: turns
       }
   }.reverse

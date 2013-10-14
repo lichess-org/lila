@@ -11,15 +11,19 @@ private[analyse] sealed trait Advice {
   def turn = info.turn
   def color = info.color
   def score = info.score
+  def mate = info.mate
 
-  def makeComment(withScore: Boolean): String = {
-    score.ifTrue(withScore) ?? { score ⇒ s"(${score.showPawns}) " }
-  } + (this match {
-    case MateAdvice(seq, _, _, _) ⇒ seq.desc
-    case CpAdvice(nag, _, _)      ⇒ nag.toString
-  }) + "." + {
-    info.variation.headOption ?? { move ⇒ s" Best was $move." }
-  }
+  def makeComment(withScore: Boolean): String =
+    ((scoreComment ifTrue withScore orElse mateComment) ?? { _ + " " }) +
+      (this match {
+        case MateAdvice(seq, _, _, _) ⇒ seq.desc
+        case CpAdvice(nag, _, _)      ⇒ nag.toString
+      }) + "." + {
+        info.variation.headOption ?? { move ⇒ s" Best was $move." }
+      }
+
+  def scoreComment: Option[String] = score map { s ⇒ s"(${s.showPawns})" }
+  def mateComment: Option[String] = mate map { m ⇒ s"(Mate in ${math.abs(m)})" }
 }
 
 private[analyse] object Advice {
