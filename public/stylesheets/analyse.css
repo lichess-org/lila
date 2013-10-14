@@ -127,7 +127,6 @@ span.board_mark.horz {
 }
 #GameLastComment .comment {
   margin-top: 0.2em;
-  font-size: 1.3em;
   display: block;
 }
 #GameLastComment .variation {
@@ -135,11 +134,20 @@ span.board_mark.horz {
 }
 div.advice_summary {
   position: absolute;
-  top: 740px;
+  top: 590px;
   width: 280px;
 }
-div.advice_summary div {
-  margin-bottom: 1em;
+div.advice_summary table {
+  width: 100%;
+}
+div.advice_summary tr {
+  width: 100%;
+}
+div.advice_summary td {
+  padding: 3px 0;
+}
+div.advice_summary thead th {
+  padding: 3px 0;
 }
 
 div.adv_chart {

@@ -11,7 +11,7 @@ case class Analysis(id: String, infos: List[Info], done: Boolean) {
     }
   }.toList
 
-  lazy val advices: List[Advice] = infoAdvices.map(_._2).flatten.pp
+  lazy val advices: List[Advice] = infoAdvices.map(_._2).flatten
 
   lazy val advantageChart = new AdvantageChart(infoAdvices)
 
@@ -43,14 +43,6 @@ object Analysis {
       RawAnalysis.tube.write(analysis.encode) getOrElse JsUndefined("[db] Can't write analysis " + analysis.id)
     )
   )
-}
-
-case class AnalysisMaker(evals: List[Evaluation], done: Boolean) {
-
-  def apply(id: String) = {
-    // Analysis(id, infos, done)
-    ???
-  }
 }
 
 private[analyse] case class RawAnalysis(id: String, data: String, done: Boolean) {
