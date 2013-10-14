@@ -2,7 +2,9 @@ package lila.analyse
 
 import play.api.libs.json.Json
 
-private[analyse] final class AdvantageChart(advices: InfoAdvices) {
+final class AdvantageChart(
+    advices: InfoAdvices,
+    pgnMoves: IndexedSeq[String]) {
 
   val max = Score.CEILING / 100
 
@@ -15,8 +17,12 @@ private[analyse] final class AdvantageChart(advices: InfoAdvices) {
 
     val scale = floatBox(-max to max) _
 
-    def move(info: Info, advice: Option[Advice]) = 
-      info.turn + info.color.fold(".", "...") + advice.??(" " + _.nag.symbol)
+    def move(info: Info, advice: Option[Advice]) = "%s%s %s%s".format(
+      info.turn,
+      info.color.fold(".", "..."),
+      pgnMoves lift (info.ply - 1) getOrElse "",
+      advice.??(" " + _.makeComment(false))
+    )
 
     advices map {
       case (info, advice) ⇒
@@ -29,6 +35,12 @@ private[analyse] final class AdvantageChart(advices: InfoAdvices) {
           })
           case _ ⇒ Json.arr(move(info, none), scale(0))
         }
-    } 
-  } 
+    }
+  }
+}
+
+object AdvantageChart {
+
+  def apply(advices: InfoAdvices, pgnStr: String): AdvantageChart =
+    new AdvantageChart(advices, pgnStr.split(' ').toIndexedSeq)
 }

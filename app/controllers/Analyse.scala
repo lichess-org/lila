@@ -7,7 +7,7 @@ import play.api.http.ContentTypes
 import play.api.mvc._
 import play.api.templates.Html
 
-import lila.analyse.{ TimeChart, TimePie }
+import lila.analyse.{ TimeChart, TimePie, AdvantageChart }
 import lila.app._
 import lila.game.{ Pov, GameRepo, PgnRepo, PgnDump }
 import lila.hub.actorApi.map.Tell
@@ -51,6 +51,7 @@ object Analyse extends LilaController {
                 bookmarkers,
                 chess.OpeningExplorer openingOf pgnString,
                 analysis,
+                analysis map { a ⇒ AdvantageChart(a.infoAdvices, pgnString) },
                 version,
                 tour)
           }

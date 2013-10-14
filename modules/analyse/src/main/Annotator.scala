@@ -15,7 +15,7 @@ private[analyse] final class Annotator(netDomain: String) {
         turn.update(advice.color, move ⇒
           move.copy(
             nag = advice.nag.code.some,
-            comment = makeComment(advice).some,
+            comment = advice.makeComment(true).some,
             variation = makeVariation(turn, advice)
           )
         )
@@ -33,13 +33,4 @@ private[analyse] final class Annotator(netDomain: String) {
         } :: turns
       }
   }.reverse
-
-  private def makeComment(advice: Advice): String = {
-    advice.score ?? { score ⇒ s"(${score.showPawns}) " }
-  } + (advice match {
-    case MateAdvice(seq, _, _, _) ⇒ seq.desc
-    case CpAdvice(nag, _, _)      ⇒ nag.toString
-  }) + "." + {
-    advice.info.variation.headOption ?? { move ⇒ s" Best was $move." }
-  }
 }

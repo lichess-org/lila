@@ -1,4 +1,4 @@
-@(pov: Pov, pgn: String, roomHtml: Html, bookmarkers: List[String], opening: Option[chess.OpeningExplorer.Opening], analysis: Option[lila.analyse.Analysis], version: Int, tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
+@(pov: Pov, pgn: String, roomHtml: Html, bookmarkers: List[String], opening: Option[chess.OpeningExplorer.Opening], analysis: Option[lila.analyse.Analysis], advantageChart: Option[lila.analyse.AdvantageChart], version: Int, tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
 
 @import pov._
 
@@ -78,14 +78,14 @@ themepicker = true) {
 </div>
 <textarea id="pgnText" readonly="readonly">@Html(pgn)</textarea>
 @analysis.map { a =>
-@if(a.done) {
+@advantageChart.map { chart =>
 <div
   class="adv_chart"
   data-title="Advantage (up: white, down: black)"
-  data-max="@a.advantageChart.max"
-  data-columns="@a.advantageChart.columns"
-  data-rows="@a.advantageChart.rows"></div>
-} else {
+  data-max="@chart.max"
+  data-columns="@chart.columns"
+  data-rows="@chart.rows"></div>
+}.getOrElse {
 <div class="undergame_box game_analysis status">
   @trans.computerAnalysisInProgress()
 </div>
