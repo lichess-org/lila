@@ -28,9 +28,7 @@ private[analyse] sealed trait Advice {
 
 private[analyse] object Advice {
 
-  def apply(prev: Info, info: Info): Option[Advice] =
-    if (info.hasVariation) CpAdvice(prev, info) orElse MateAdvice(prev, info)
-    else None
+  def apply(prev: Info, info: Info): Option[Advice] = CpAdvice(prev, info) orElse MateAdvice(prev, info)
 }
 
 private[analyse] case class CpAdvice(
