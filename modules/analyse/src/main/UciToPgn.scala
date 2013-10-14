@@ -14,7 +14,9 @@ private[analyse] object UciToPgn {
 
   def apply(replay: Replay, analysis: Analysis): WithErrors[Analysis] = {
 
-    val plySet = analysis.advices.map(_.info.ply).toSet
+    val plySet = (analysis.advices collect {
+      case a if a.info.hasVariation ⇒ a.ply
+    }).toSet
 
     val onlyMeaningfulVariations: List[Info] = analysis.infos map { info ⇒
       plySet(info.ply).fold(info, info.dropVariation)
