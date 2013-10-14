@@ -21,10 +21,10 @@
 <div class="shortcuts">
   <p class="title">Shortcuts</p>
   <ul>
-    <li><strong>h</strong> or <strong>arrow-up</strong> go to game start</li> 
+    <li><strong>h</strong> or <strong>arrow-up</strong> go to game start</li>
     <li><strong>j</strong> or <strong>arrow-left</strong> move backward</li>
-    <li><strong>k</strong> or <strong>arrow-right</strong> move forward</li> 
-    <li><strong>l</strong> or <strong>arrow-down</strong> go to game end</li> 
+    <li><strong>k</strong> or <strong>arrow-right</strong> move forward</li>
+    <li><strong>l</strong> or <strong>arrow-down</strong> go to game end</li>
   </ul>
 </div>
 }
@@ -52,13 +52,26 @@ themepicker = true) {
     <div class="advice_summary">
       @round.blurs(game)
       @analysis.filter(_.done).map { a =>
-      @for((color, pairs) <- a.summary) {
-      <div class="user_link @color.name">
+      <table>
+        @for((color, pairs) <- a.summary) {
+        <thead>
+          <tr>
+            <th colspan="3">
+              @playerLink(pov.game.player(color), withOnline = false, cssClass = Some("s16 " + color.name))
+            </th>
+          </tr>
+        </thead>
         @for((nag, nb) <- pairs) {
-        @nagName(nag): @nb
+        <tbody>
+        <tr>
+          <th>@nagName(nag)</th>
+          <td><strong>@nb</strong></td>
+          <td><strong>@("%.1f".format(100f * nb / pov.game.playerMoves(color)))</strong>%</td>
+        </tr>
+        </tbody>
         }
-      </div>
-      }
+        }
+      </table>
       }
     </div>
   </div>
@@ -84,19 +97,19 @@ themepicker = true) {
 <a href="http://www.chessgames.com/perl/chessopening?eco=@o.code">@o.code @o.name</a>
 }.getOrElse { "Unknown" }
 <nav>
-@round.continueFromHere(pov.game, true)
-@if(ctx.isAuth && game.analysable && analysis.isEmpty) {
-<form class="request_analysis" action="@routes.Analyse.computer(gameId, color.name)" method="post">
-  <a>@trans.requestAComputerAnalysis()</a>
-</form>
-}
-@if(game.pgnImport.isEmpty) {
-<a href="@routes.Analyse.stats(gameId)">@trans.viewGameStats()</a>
-<br />
-}
-<a class="rotate_board" href="@routes.Analyse.replay(gameId, (!color).name)">@trans.flipBoard()</a>
-<br />
-@round.fenPgn(game)
+  @round.continueFromHere(pov.game, true)
+  @if(ctx.isAuth && game.analysable && analysis.isEmpty) {
+  <form class="request_analysis" action="@routes.Analyse.computer(gameId, color.name)" method="post">
+    <a>@trans.requestAComputerAnalysis()</a>
+  </form>
+  }
+  @if(game.pgnImport.isEmpty) {
+  <a href="@routes.Analyse.stats(gameId)">@trans.viewGameStats()</a>
+  <br />
+  }
+  <a class="rotate_board" href="@routes.Analyse.replay(gameId, (!color).name)">@trans.flipBoard()</a>
+  <br />
+  @round.fenPgn(game)
 </nav>
 }
 }

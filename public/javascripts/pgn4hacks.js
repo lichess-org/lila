@@ -42,7 +42,9 @@ function customFunctionOnMove() {
         var rows = $chart.data('rows');
         $('#GameLastComment')
           .prepend($("<p>").html("White advantage: <strong>" + rows[index][1] + "</strong>"));
-      } catch (e) {}
+      } catch (e) {
+        console.debug(e);
+      }
     }
   }
   var turn = Math.round(CurrentPly / 2);

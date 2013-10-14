@@ -3,7 +3,6 @@ package lila.analyse
 import chess.format.pgn.Dumper
 import chess.format.UciMove
 import chess.{ Replay, Move, Situation }
-import scalaz.{ NonEmptyList, Success }
 
 import lila.common.LilaException
 
@@ -26,7 +25,7 @@ private[analyse] object UciToPgn {
       else replay moveAtPly ply map (_.situationBefore) toValid "No move found"
       ucis ← variation.map(UciMove.apply).sequence toValid "Invalid UCI moves " + variation
       moves ← ucis.foldLeft[Valid[(Situation, List[Move])]](success(situation -> Nil)) {
-        case (Success((sit, moves)), uci) ⇒
+        case (scalaz.Success((sit, moves)), uci) ⇒
           sit.move(uci.orig, uci.dest, uci.promotion) map { move ⇒
             move.situationAfter -> (move :: moves)
           }
