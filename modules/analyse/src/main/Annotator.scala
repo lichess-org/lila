@@ -16,22 +16,30 @@ private[analyse] final class Annotator(netDomain: String) {
           move.copy(
             nag = advice.nag.code.some,
             comment = makeComment(advice).some,
-            variation = advice.info.variation
+            variation = makeVariation(turn, advice)
           )
         )
       )
     }
 
-  private def makeComment(advice: Advice): String = advice match {
-    case MateAdvice(seq, _, info) ⇒ seq.desc + "." + makeBestComment(advice)
-    case CpAdvice(nag, info)      ⇒ nag.toString + "." + makeBestComment(advice)
+  private def makeVariation(turn: Turn, advice: Advice): List[Turn] = {
+    Turn.fromMoves(
+      advice.info.variation map { san ⇒ Move(san) },
+      turn plyOf advice.color
+    ).reverse match {
+        case Nil ⇒ Nil
+        case turn :: turns ⇒ turn.updateLast {
+          _.copy(comment = advice.prev.score map { score ⇒ s"(${score.showPawns})" })
+        } :: turns
+      }
+  }.reverse
+
+  private def makeComment(advice: Advice): String = {
+    advice.score ?? { score ⇒ s"(${score.showPawns}) " }
+  } + (advice match {
+    case MateAdvice(seq, _, _, _) ⇒ seq.desc
+    case CpAdvice(nag, _, _)      ⇒ nag.toString
+  }) + "." + {
+    advice.info.variation.headOption ?? { move ⇒ s" Best was $move." }
   }
-
-  private def makeBestComment(advice: Advice): String =
-    advice.info.variation.headOption ?? { move ⇒ " Best was " + move }
-
-  // private def makeBestComment(advice: Advice): Option[String] =
-  //   (advice.info.move != advice.info.best) option {
-  //     "Best was " format advice.info.best.uci
-  //   }
 }
