@@ -49,14 +49,14 @@ function customFunctionOnMove() {
   }
   var turn = Math.round(CurrentPly / 2);
   var $gameText = $("#GameText");
-  var $th = $gameText.find("th:eq(" + (turn - 1) + ")");
-  if ($th.length) {
-    var height = $th.height();
-    var y = $th.position().top;
-    if (y < height * 3) {
-      $gameText.scrollTop($gameText.scrollTop() + y - height * 3);
-    } else if (y > (512 - height * 4)) {
-      $gameText.scrollTop($gameText.scrollTop() + y + height * 4 - 512);
+  var $moveOn = $gameText.find(".moveOn:first");
+  if ($moveOn.length) {
+    var height = $moveOn.height();
+    var y = $moveOn.position().top;
+    if (y < height * 5) {
+      $gameText.scrollTop($gameText.scrollTop() + y - height * 5);
+    } else if (y > (512 - height * 6)) {
+      $gameText.scrollTop($gameText.scrollTop() + y + height * 6 - 512);
     }
   }
   var fen = CurrentFEN();
