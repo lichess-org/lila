@@ -78,6 +78,11 @@ themepicker = true) {
 </div>
 <textarea id="pgnText" readonly="readonly">@Html(pgn)</textarea>
 @analysis.map { a =>
+@if(a.old) {
+<form class="request_analysis new_analysis" action="@routes.Analyse.computer(gameId, color.name)" method="post">
+  <a>Request a better computer analysis</a>
+</form>
+}
 @advantageChart.map { chart =>
 <div
   class="adv_chart"

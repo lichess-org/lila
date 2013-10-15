@@ -3,7 +3,11 @@ package lila.analyse
 import chess.Color
 import chess.format.Nag
 
-case class Analysis(id: String, infos: List[Info], done: Boolean) {
+case class Analysis(
+  id: String, 
+  infos: List[Info], 
+  done: Boolean, 
+  old: Boolean = false) {
 
   lazy val infoAdvices: InfoAdvices = {
     (Info.start :: infos) sliding 2 collect {
@@ -43,12 +47,12 @@ object Analysis {
   )
 }
 
-private[analyse] case class RawAnalysis(id: String, data: String, done: Boolean) {
+private[analyse] case class RawAnalysis(id: String, data: String, done: Boolean, old: Boolean = false) {
 
   def decode: Option[Analysis] = (done, data) match {
-    case (true, "") ⇒ new Analysis(id, Nil, false).some
-    case (true, d)  ⇒ Info decodeList d map { new Analysis(id, _, done) }
-    case (false, _) ⇒ new Analysis(id, Nil, false).some
+    case (true, "") ⇒ new Analysis(id, Nil, false, old).some
+    case (true, d)  ⇒ Info decodeList d map { new Analysis(id, _, done, old) }
+    case (false, _) ⇒ new Analysis(id, Nil, false, old).some
   }
 }
 
@@ -58,7 +62,10 @@ private[analyse] object RawAnalysis {
   import Tube.Helpers._
   import play.api.libs.json._
 
-  private def defaults = Json.obj("data" -> "", "done" -> false)
+  private def defaults = Json.obj(
+    "data" -> "",
+    "done" -> false,
+    "old" -> false)
 
   private[analyse] lazy val tube = Tube(
     (__.json update merge(defaults)) andThen Json.reads[RawAnalysis],

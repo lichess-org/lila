@@ -60,7 +60,7 @@ final class Analyser(
           case _ ⇒ fufail[Analysis]("[analysis] %s no game or pgn found" format (id))
         }
 
-    AnalysisRepo doneById id flatMap {
+    AnalysisRepo doneByIdNotOld id flatMap {
       _.fold(generate)(fuccess(_))
     }
   }

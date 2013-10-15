@@ -26,11 +26,14 @@ private[analyse] object AnalysisRepo {
       "uid" -> userId,
       "done" -> false,
       "date" -> $date(DateTime.now)
-    )),
+    )) ++ $unset("old", "data"),
     upsert = true)
 
   def doneById(id: ID): Fu[Option[Analysis]] =
     $find.one($select(id) ++ Json.obj("done" -> true))
+
+  def doneByIdNotOld(id: ID): Fu[Option[Analysis]] =
+    $find.one($select(id) ++ Json.obj("done" -> true, "old" -> $exists(false)))
 
   def isDone(id: ID): Fu[Boolean] =
     $count.exists($select(id) ++ Json.obj("done" -> true))

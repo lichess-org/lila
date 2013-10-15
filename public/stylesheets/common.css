@@ -1150,11 +1150,14 @@ div.game_analysis {
   padding: 10px;
   width: 492px;
 }
-div.game_analysis a {
+div.game_analysis a, form.new_analysis a {
   background: url("../images/s24.png") no-repeat 0 -72px;
   display: block;
   height: 24px;
   padding-left: 30px;
+}
+form.new_analysis a {
+  line-height: 24px;
 }
 div.game_more div.more_top {
   padding: 3px 10px;
