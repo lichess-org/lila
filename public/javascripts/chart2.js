@@ -28,7 +28,9 @@ $(function() {
       },
       plotOptions: {
         area: {
-          negativeColor: '#ff0000',
+          color: Highcharts.theme.colors[7],
+          negativeColor: Highcharts.theme.colors[1],
+          threshold: 0,
           allowPointSelect: true,
           lineWidth: 1,
           marker: {
@@ -37,8 +39,8 @@ $(function() {
             states: {
               select: {
                 radius: 4,
-                lineColor: '#ffffff',
-                fillColor: 'transparent'
+                lineColor: '#b57600',
+                fillColor: '#ffffff'
               }
             }
           },
@@ -51,16 +53,15 @@ $(function() {
               }
             }
           }
-        },
-        threshold: 0
+        }
       },
       title: {
         text: $this.attr('title'),
         align: 'left',
         y: 12,
         style: {
-          font: '12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif',
-          color: '#b0b0b0'
+          font: '13px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif',
+          color: '#b57600'
         },
         floating: true
       },
