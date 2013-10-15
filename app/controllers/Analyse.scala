@@ -51,7 +51,7 @@ object Analyse extends LilaController {
                 bookmarkers,
                 chess.OpeningExplorer openingOf pgnString,
                 analysis,
-                analysis map { a ⇒ AdvantageChart(a.infoAdvices, pgnString) },
+                analysis filter (_.done) map { a ⇒ AdvantageChart(a.infoAdvices, pgnString) },
                 version,
                 tour)
           }
