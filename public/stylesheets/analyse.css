@@ -108,8 +108,11 @@ span.board_mark.horz {
   padding-right: 4px;
   padding-left: 4px;
 }
-#GameText .comment {
+#GameText .comment, #GameText .variation {
   font-size: 80%;
+}
+#GameText .comment {
+  display: block;
 }
 
 #GameText a:hover {
@@ -118,22 +121,6 @@ span.board_mark.horz {
 #GameText .moveOn, #GameText .variationOn  {
   border: 1px solid #909090;
   padding: 2px 3px;
-}
-#GameLastComment {
-  position: absolute;
-  top: 512px;
-  margin-top: 1em;
-  width: 258px;
-}
-#GameLastComment p {
-  margin-bottom: 0.3em;
-}
-#GameLastComment .comment {
-  line-height: 1.3em;
-  display: inline;
-}
-#GameLastComment .variation {
-  display: none;
 }
 div.advice_summary {
   position: absolute;
@@ -156,9 +143,6 @@ div.advice_summary thead th {
 div.adv_chart {
   height: 170px;
   width: 512px;
-}
-div.adv_chart iframe {
-  height: 150px;
 }
 
 div.shortcuts .title {
