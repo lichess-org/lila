@@ -72,8 +72,6 @@ analysis infer ! and !! from evaluation at depth
 no challenge when playing http://en.lichess.org/forum/lichess-feedback/defis#2
 user option for auto-promotion (requested by NM :P) (http://en.lichess.org/@/Matetricks)
 check filter games icon on windows
--- i.e. lost mate sequence to eval 10 (inaccuracy) or to eval 0 (blunder)
 improve board editor -- see http://www.chess.com/analysis-board-editor
 podium style color choice buttons
 highchart instead of google charts?
-premove castling http://en.lichess.org/forum/lichess-feedback/castling-pre-move#2
