@@ -1,7 +1,4 @@
-// var gamesToMigrate = db.analysis.find();
-var gamesToMigrate = db.analysis.find({
-  _id: 'cdy989cv'
-});
+var gamesToMigrate = db.analysis.find();
 var max = gamesToMigrate.count();
 var batchSize = 1000;
 var collection = db.analysis2;
@@ -85,35 +82,42 @@ print("Migrating " + max + " analysis");
 
 collection.drop();
 
-var it = 0,
+var nb = 0,
   dat = new Date().getTime() / 1000;
 gamesToMigrate.forEach(function(a) {
   var encoded = a.encoded;
   if (!encoded) return;
-  delete a.encoded;
-  var splitted = encoded.split(' ');
-  var data = [];
-  for (it = 0, l = splitted.length - 1; it < l; it++) {
-    var cur = splitted[it].split(',');
-    var next = splitted[it + 1].split(',');
-    var move = decodePiotr(cur[0]),
-      best = decodePiotr(cur[1]),
-      score = decodeScore(next[2]),
-      mate = decodeScore(next[3]);
-    data.push([score, mate, move == best ? null : best].join(','));
+  if (typeof encoded == 'undefined') return;
+  try {
+    var splitted = encoded.split(' ');
+    var data = [];
+    for (it = 0, l = splitted.length - 1; it < l; it++) {
+      var cur = splitted[it].split(',');
+      var next = splitted[it + 1].split(',');
+      var move = decodePiotr(cur[0]),
+        best = decodePiotr(cur[1]),
+        score = decodeScore(next[2]),
+        mate = decodeScore(next[3]);
+      data.push([score, mate == null ? null : (it % 2 == 1) ? mate : -mate].join(','));
+    }
+    a.data = data.join(';');
+    delete a.encoded;
+    a.old = true;
+    // print(encoded);
+    // print('--');
+    // printjson(a);
+    collection.insert(a);
+  } catch (e) {
+    printjson(a);
+    print(e);
   }
-  a.data = data.join(';');
-  print(encoded);
-  print('--');
-  print(a.data);
-  collection.insert(a);
-  ++it;
-  if (it % batchSize == 0) {
-    var percent = Math.round((it / max) * 100);
+  ++nb;
+  if (nb % batchSize == 0) {
+    var percent = Math.round((nb / max) * 100);
     var dat2 = new Date().getTime() / 1000;
     var perSec = Math.round(batchSize / (dat2 - dat));
     dat = dat2;
-    print((it / 1000) + "k " + percent + "% " + perSec + "/s");
+    print((nb / 1000) + "k " + percent + "% " + perSec + "/s");
   }
 });
 
