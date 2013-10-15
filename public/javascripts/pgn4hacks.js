@@ -40,8 +40,9 @@ function customFunctionOnMove() {
           }
         ]);
         var rows = $chart.data('rows');
-        $('#GameLastComment')
-          .prepend($("<p>").html("White advantage: <strong>" + rows[index][1] + "</strong>"));
+        $('#GameLastComment').
+          prepend($("<p>").html("White advantage: <strong>" + rows[index][1] + "</strong>"))
+          .find('>.variation').remove();
       } catch (e) {
         console.debug(e);
       }
