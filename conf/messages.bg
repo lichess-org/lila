@@ -31,6 +31,7 @@ blackPlays=Черни на ход
 theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=Другият играч напусна играта. Можеш да го принудиш да се предаде или да го изчакаш да се върне.
 makeYourOpponentResign=Накарай опонента си да се предаде
 forceResignation=Принудително предаване
+forceDraw=Принудено реми
 talkInChat=Пиши в чата
 theFirstPersonToComeOnThisUrlWillPlayWithYou=Първият човек, който отвори този адрес ще играе с вас.
 whiteCreatesTheGame=Белите създават играта
