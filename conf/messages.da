@@ -31,6 +31,7 @@ blackPlays=Sort spiller
 theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=Din modspiller har forladt spillet. Du kan fremtvinge modstanderens fratræden eller vente
 makeYourOpponentResign=Tving din modspiller til at fratræde
 forceResignation=Tving fratræden
+forceDraw=Force Draw
 talkInChat=Snak i chat
 theFirstPersonToComeOnThisUrlWillPlayWithYou=Den først person der bruger denne url vil blive din modstander
 whiteCreatesTheGame=Hvid har oprettet spillet
