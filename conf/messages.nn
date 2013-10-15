@@ -31,6 +31,7 @@ blackPlays=Svart spelar
 theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=Den andre spelaren er borte, du kan krevja siger, eller vente på at han kjem attende
 makeYourOpponentResign=Krev siger
 forceResignation=Krev siger
+forceDraw=Tving remis
 talkInChat=Nettprat
 theFirstPersonToComeOnThisUrlWillPlayWithYou=Den første personen som kjem til denne lenka vil spela mot deg
 whiteCreatesTheGame=Kvit har laga spelet
