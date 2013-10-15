@@ -31,6 +31,7 @@ blackPlays=Црни је на потезу
 theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim=Противник је напустио партију. Можеш да примораш предају или да га сачекаш.
 makeYourOpponentResign=Приморај предају противника
 forceResignation=Приморај на предају
+forceDraw=Primoraj na draw
 talkInChat=Причај у прозору за ћаскање
 theFirstPersonToComeOnThisUrlWillPlayWithYou=Прва особа која отвори ову везу ће играти с тобом.
 whiteCreatesTheGame=Бели прави партију
