@@ -10,7 +10,9 @@
 @jsTagCompiled("pgn4web-compacted.js")
 @jsTag("pgn4hacks.js")
 @if(analysis.isDefined) {
-@jsTag("chart.js")
+@jsVendorTag("highchart/highchart.js")
+@jsVendorTag("highchart/themes/gray.js")
+@jsTag("chart2.js")
 }
 }
 
@@ -48,7 +50,6 @@ themepicker = true) {
   </div>
   <div class="moves_wrap">
     <div id="GameText"></div>
-    <div id="GameLastComment"></div>
     <div class="advice_summary">
       @round.blurs(game)
       @analysis.filter(_.done).map { a =>
@@ -86,7 +87,7 @@ themepicker = true) {
 @advantageChart.map { chart =>
 <div
   class="adv_chart"
-  data-title="Advantage (up: white, down: black)"
+  title="Advantage (up: white, down: black)"
   data-max="@chart.max"
   data-columns="@chart.columns"
   data-rows="@chart.rows"></div>

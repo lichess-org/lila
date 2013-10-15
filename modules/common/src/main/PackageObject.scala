@@ -51,6 +51,9 @@ trait PackageObject extends Steroids with WithFuture {
 
   def floatBox(in: Range.Inclusive)(v: Float): Float =
     math.max(in.start, math.min(v, in.end))
+
+  def doubleBox(in: Range.Inclusive)(v: Double): Double =
+    math.max(in.start, math.min(v, in.end))
 }
 
 trait WithFuture extends scalalib.Validation {

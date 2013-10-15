@@ -27,22 +27,20 @@ function posToSquareId(pos) {
 function customFunctionOnMove() {
   refreshButtonset();
   var $chart = $("div.adv_chart");
-  var chart = $chart.data("chart");
+  var chart = $chart.highcharts();
   if (chart) {
     if (CurrentVar != 0) {
-      chart.setSelection([]);
+      _.each(chart.getSelectedPoints(), function(point) {
+        point.select(false);
+      });
     } else {
       try {
         var index = CurrentPly - 1;
-        chart.setSelection([{
-            row: index,
-            column: 1
-          }
-        ]);
-        var rows = $chart.data('rows');
-        $('#GameLastComment').
-          prepend($("<p>").html("White advantage: <strong>" + rows[index][1] + "</strong>"))
-          .find('>.variation').remove();
+        var point = chart.series[0].data[index]
+        point.select();
+        var adv = "Advantage: <strong>" + point.y + "</strong>";
+        var title = point.name + ' ' + adv;
+        chart.setTitle({ text: title });
       } catch (e) {
         console.debug(e);
       }

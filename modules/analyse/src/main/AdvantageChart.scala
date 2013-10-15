@@ -6,7 +6,7 @@ final class AdvantageChart(
     advices: InfoAdvices,
     pgnMoves: IndexedSeq[String]) {
 
-  val max = Score.CEILING / 100
+  val max = Score.CEILING 
 
   def columns = Json.arr(
     Json.arr("string", "Move"),
@@ -15,7 +15,7 @@ final class AdvantageChart(
 
   def rows = Json toJson {
 
-    val scale = floatBox(-max to max) _
+    val scale = intBox(-max to max) _
 
     def move(info: Info, advice: Option[Advice]) = "%s%s %s%s".format(
       info.turn,
@@ -24,16 +24,20 @@ final class AdvantageChart(
       advice.??(" " + _.makeComment(false))
     )
 
+    def point(name: String, y: Int) = Json.obj(
+      "name" -> name,
+      "y" -> scale(y))
+
     advices map {
       case (info, advice) ⇒
         (info.score, info.mate) match {
-          case (Some(score), _) ⇒ Json.arr(move(info, advice), scale(score.pawns).toString)
-          case (_, Some(mate)) ⇒ Json.arr(move(info, advice), {
-            val mateDelta = math.abs(mate.toFloat / 100)
+          case (Some(score), _) ⇒ point(move(info, advice), score.centipawns)
+          case (_, Some(mate)) ⇒ point(move(info, advice), {
+            val mateDelta = math.abs(mate)
             val whiteWins = mate > 0
-            scale(whiteWins.fold(max - mateDelta, mateDelta - max)).toString
+            whiteWins.fold(max - mateDelta, mateDelta - max)
           })
-          case _ ⇒ Json.arr(move(info, none), scale(0))
+          case _ ⇒ point(move(info, none), 0)
         }
     }
   }
