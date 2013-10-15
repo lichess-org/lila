@@ -9,23 +9,29 @@ $(function() {
     text: null
   };
   var maxPoints = 12;
-  var colors = ['#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a'];
-  var width = 350,
-    height = 160;
+  var colors = Highcharts.theme.colors;
+  var width = 355,
+    height = 165;
   var counter = 0;
   var chartDefaults = {
     credits: disabled,
     legend: disabled,
     chart: {
+      backgroundColor: {
+        stops: [
+          [0, 'rgb(46, 46, 46)'],
+          [1, 'rgb(16, 16, 16)']
+        ]
+      },
       defaultSeriesType: 'spline',
       animation: false,
-      borderRadius: 2
+      borderRadius: 0,
     },
     title: {
       floating: true,
       style: {
+        font: '12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif',
         color: '#bababa',
-        fontSize: '12px'
       }
     },
     xAxis: {
@@ -35,7 +41,6 @@ $(function() {
     },
     yAxis: {
       title: noText,
-      min: 0,
     }
   };
 
@@ -69,7 +74,7 @@ $(function() {
     }));
   }
 
-  $monitors.append($('<div>').attr('id', 'allUsers').width(width * 2 + 5).height(height * 2 + 5));
+  $monitors.append($('<div>').attr('id', 'allUsers').width(width * 2).height(height * 2));
   charts['allUsers'] = new Highcharts.Chart(
     $.extend(true, {}, chartDefaults, {
     chart: {
@@ -98,7 +103,7 @@ $(function() {
   add({
     id: 'lat',
     title: 'Latency',
-    type: 'column',
+    type: 'areaspline',
     format: '{value} ms'
   });
 
@@ -156,7 +161,7 @@ $(function() {
     title: "MongoDB Memory",
     maxVal: 16384,
     threshold: 0.9,
-    type: 'line'
+    format: "{value} MB"
   });
 
   add({
@@ -164,14 +169,12 @@ $(function() {
     title: "MongoDB Queries",
     maxVal: 2000,
     threshold: 0.8,
-    type: 'line'
   });
 
   add({
     id: 'dbLock',
     title: "MongoDB Lock",
     maxVal: 10,
-    type: 'line'
   });
 
   // add({
@@ -210,8 +213,6 @@ $(function() {
             var shift = series.data.length > maxPoints;
             var point = [lastCall, val];
             series.addPoint(point, true, shift);
-          } else {
-            console.debug(d);
           }
         }
       }
