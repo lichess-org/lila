@@ -24,6 +24,10 @@ case class Info(
 
   def reverse = copy(score = score map (-_), mate = mate map (-_))
 
+  def scoreComment: Option[String] = score map (_.showPawns)
+  def mateComment: Option[String] = mate map { m ⇒ s"Mate in ${math.abs(m)}" }
+  def evalComment: Option[String] = scoreComment orElse mateComment
+
   override def toString = s"Info [$ply] ${score.fold("?")(_.showPawns)} ${mate | 0} ${variation.mkString(" ")}"
 }
 

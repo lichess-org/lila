@@ -13,17 +13,20 @@ private[analyse] sealed trait Advice {
   def score = info.score
   def mate = info.mate
 
-  def makeComment(withScore: Boolean): String =
-    ((scoreComment ifTrue withScore orElse mateComment) ?? { _ + " " }) +
+  def makeComment(withEval: Boolean, withBestMove: Boolean): String =
+    withEval.??(evalComment ?? { c ⇒ s"($c) " }) +
       (this match {
         case MateAdvice(seq, _, _, _) ⇒ seq.desc
         case CpAdvice(nag, _, _)      ⇒ nag.toString
       }) + "." + {
-        info.variation.headOption ?? { move ⇒ s" Best was $move." }
+        withBestMove ?? {
+          info.variation.headOption ?? { move ⇒ s" The best move was $move." }
+        }
       }
 
-  def scoreComment: Option[String] = score map { s ⇒ s"(${s.showPawns})" }
-  def mateComment: Option[String] = mate map { m ⇒ s"(Mate in ${math.abs(m)})" }
+  def evalComment: Option[String] = {
+    List(prev.evalComment, info.evalComment).flatten mkString " → "
+  }.some filter (_.nonEmpty)
 }
 
 private[analyse] object Advice {

@@ -21,7 +21,7 @@ final class AdvantageChart(
       info.turn,
       info.color.fold(".", "..."),
       pgnMoves lift (info.ply - 1) getOrElse "",
-      advice.??(" " + _.makeComment(false))
+      advice.??(" " + _.makeComment(withEval = true, withBestMove = false))
     )
 
     def point(name: String, y: Int) = Json.obj(
