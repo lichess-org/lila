@@ -1,14 +1,9 @@
 $(function() {
 
   var light = $('body').hasClass('light');
-  var textcolor = {
-    color: light ? '#848484' : '#a0a0a0'
-  };
+  var textcolor = light ? '#a0a0a0' : '#707070' ;
   var weak = light ? '#ccc' : '#404040';
   var strong = light ? '#a0a0a0' : '#606060';
-  var lineColor = {
-    color: weak
-  };
   var disabled = {
     enabled: false
   };
@@ -32,7 +27,8 @@ $(function() {
       floating: true
     },
     yAxis: {
-      title: noText
+      title: noText,
+      gridLineColor: weak
     },
     credits: disabled,
     legend: disabled,
@@ -45,9 +41,17 @@ $(function() {
   $('div.elo_history').each(function() {
     var $this = $(this);
     var rows = $this.data('rows');
+    var size = rows.date.length;
+    function points(series) {
+      var ps = [];
+      for (var i = 0; i < size; i++) {
+        ps.push({name: rows.date[i], y: rows[series][i]});
+      }
+      return ps;
+    }
     $(this).highcharts(mergeDefaults({
       chart: {},
-      colors: [colors[2], colors[3], '#909090'],
+      colors: ['#0000ff', colors[3], '#909090'],
       title: noText,
       xAxis: {
         labels: disabled,
@@ -57,6 +61,7 @@ $(function() {
       yAxis: {
         labels: {
           style: {
+            color: textcolor,
             fontWeight: 'normal',
             fontSize: '10px'
           }
@@ -67,22 +72,23 @@ $(function() {
           marker: disabled
         },
         area: {
-          marker: disabled
+          marker: disabled,
+          fillOpacity: 0.2
         }
       },
       series: [{
           name: 'Precise ELO',
           type: 'area',
-          data: rows.elo,
+          data: points('elo'),
           threshold: null
         }, {
           name: 'Average ELO',
           type: 'line',
-          data: rows.avg
+          data: points('avg'),
         }, {
           name: 'Opponent ELO',
           type: 'line',
-          data: rows.op
+          data: points('op'),
         }
       ]
     }));
