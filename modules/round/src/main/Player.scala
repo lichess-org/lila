@@ -8,17 +8,19 @@ import actorApi.round.{ HumanPlay, AiPlay, DrawNo, TakebackNo, PlayResult, Cheat
 import lila.ai.Ai
 import lila.game.{ Game, GameRepo, PgnRepo, Pov, Progress, UciMemo }
 import lila.hub.actorApi.map.Tell
+import lila.hub.actorApi.round.MoveEvent
 
 private[round] final class Player(
     engine: Ai,
-    notifyMove: (String, String, Option[String]) ⇒ Unit,
+    notifyMove: MoveEvent ⇒ Unit,
     finisher: Finisher,
     cheatDetector: CheatDetector,
     roundMap: akka.actor.ActorSelection,
-    uciMemo: UciMemo) {
+    uciMemo: UciMemo,
+    aiIp: String) {
 
   def human(play: HumanPlay)(pov: Pov): Fu[Events] = play match {
-    case HumanPlay(playerId, origS, destS, promS, blur, lag, onFailure) ⇒ pov match {
+    case HumanPlay(playerId, ip, origS, destS, promS, blur, lag, onFailure) ⇒ pov match {
       case Pov(game, color) if (game playableBy color) ⇒
         PgnRepo get game.id flatMap { pgnString ⇒
           (for {
@@ -30,9 +32,9 @@ private[round] final class Player(
             (newChessGame, move) = newChessGameAndMove
           } yield game.update(newChessGame, move, blur) -> move).prefixFailuresWith(playerId + " - ").future flatMap {
             case ((progress, pgn), move) ⇒
-              ((GameRepo save progress) zip PgnRepo.save(pov.gameId, pgn)) >>- 
-              (pov.game.hasAi ! uciMemo.add(pov.game, move)) >>-
-                notifyProgress(progress) >>
+              ((GameRepo save progress) zip PgnRepo.save(pov.gameId, pgn)) >>-
+                (pov.game.hasAi ! uciMemo.add(pov.game, move)) >>-
+                notifyProgress(progress, ip) >>
                 progress.game.finished.fold(
                   moveFinish(progress.game, color) map { progress.events ::: _ }, {
                     cheatDetector(progress.game) addEffect {
@@ -53,22 +55,25 @@ private[round] final class Player(
   def ai(game: Game): Fu[Events] =
     (game.playable && game.player.isAi).fold(
       engine.play(game, game.aiLevel | 1) flatMap { progress ⇒
-        notifyProgress(progress)
+        notifyProgress(progress, aiIp)
         moveFinish(progress.game, game.turnColor) map { progress.events ::: _ }
       },
       fufail("not AI turn")
     ) logFailureErr "[ai play] game %s turn %d".format(game.id, game.turns)
 
-  private def notifyProgress(progress: Progress) {
-    notifyMove(
-      progress.game.id,
-      Forsyth exportBoard progress.game.toChess.board,
-      progress.game.lastMove)
+  private def notifyProgress(progress: Progress, ip: String) {
+    progress.game.lastMove foreach { move ⇒
+      notifyMove(MoveEvent(
+        ip = ip,
+        gameId = progress.game.id,
+        fen = Forsyth exportBoard progress.game.toChess.board,
+        move = move))
+    }
   }
 
   private def moveFinish(game: Game, color: Color): Fu[Events] = game.status match {
-    case Status.Mate                               ⇒ finisher(game, _.Mate, Some(color))
-    case status @ (Status.Stalemate | Status.Draw) ⇒ finisher(game, _ ⇒ status)
-    case _                                         ⇒ fuccess(Nil)
+    case Status.Mate                             ⇒ finisher(game, _.Mate, Some(color))
+    case status@(Status.Stalemate | Status.Draw) ⇒ finisher(game, _ ⇒ status)
+    case _                                       ⇒ fuccess(Nil)
   }
 }

@@ -68,7 +68,7 @@ private[round] final class SocketHandler(
           case (orig, dest, prom, blur, lag) ⇒ {
             socket ! Ack(uid)
             round(HumanPlay(
-              playerId, orig, dest, prom, blur, lag.millis, _ ⇒ socket ! Resync(uid)
+              playerId, member.ip, orig, dest, prom, blur, lag.millis, _ ⇒ socket ! Resync(uid)
             ))
           }
         }
@@ -111,8 +111,13 @@ private[round] final class SocketHandler(
     uid: String,
     token: String,
     ctx: Context): Fu[JsSocketHandler] = {
-    val join = Join(uid = uid, user = ctx.me, version = version, color = pov.color,
-      playerId = playerId filterNot (_ ⇒ hijack(pov, token, ctx)))
+    val join = Join(
+      uid = uid,
+      user = ctx.me,
+      version = version,
+      color = pov.color,
+      playerId = playerId filterNot (_ ⇒ hijack(pov, token, ctx)),
+      ip = ctx.req.remoteAddress)
     socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket ⇒
       Handler(hub, socket, uid, join, ctx.userId) {
         case Connected(enum, member) ⇒
