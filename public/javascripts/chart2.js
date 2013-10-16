@@ -18,17 +18,11 @@ $(function() {
   var noAnimation = {
     animation: disabled
   };
+  var colors = Highcharts.theme.colors;
   var defaults = {
     chart: {
       backgroundColor: 'transparent',
       borderRadius: 0,
-    },
-    plotOptions: {
-      area: {
-        allowPointSelect: true,
-        column: noAnimation,
-        cursor: 'pointer',
-      }
     },
     title: {
       style: {
@@ -53,9 +47,8 @@ $(function() {
     var rows = $this.data('rows');
     $(this).highcharts(mergeDefaults({
       chart: {},
-      title: {
-        text: $this.attr('title')
-      },
+      colors: [colors[2], colors[3], '#909090'],
+      title: noText,
       xAxis: {
         labels: disabled,
         lineWidth: 0,
@@ -72,20 +65,24 @@ $(function() {
       plotOptions: {
         line: {
           marker: disabled
+        },
+        area: {
+          marker: disabled
         }
       },
       series: [{
           name: 'Precise ELO',
-          type: 'line',
-          data: rows['elo']
-        }, {
-          name: 'Opponent ELO',
-          type: 'line',
-          data: rows['op']
+          type: 'area',
+          data: rows.elo,
+          threshold: null
         }, {
           name: 'Average ELO',
           type: 'line',
-          data: rows['avg']
+          data: rows.avg
+        }, {
+          name: 'Opponent ELO',
+          type: 'line',
+          data: rows.op
         }
       ]
     }));
@@ -93,7 +90,7 @@ $(function() {
 
   $('div.adv_chart').each(function() {
     var $this = $(this);
-    var cpMax = parseInt($this.data('max')) / 100;
+    var cpMax = parseInt($this.data('max'), 10) / 100;
     $(this).highcharts(mergeDefaults({
       series: [{
           name: 'Advantage',
@@ -114,6 +111,9 @@ $(function() {
           negativeColor: Highcharts.theme.colors[1],
           threshold: 0,
           lineWidth: 1,
+          allowPointSelect: true,
+          column: noAnimation,
+          cursor: 'pointer',
           marker: {
             radius: 2,
             enabled: true,

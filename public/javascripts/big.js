@@ -82,7 +82,7 @@ var storage = {
     $(window).unload(function() {
       self.destroy();
     });
-  }
+  };
   strongSocket.available = window.WebSocket || window.MozWebSocket;
   strongSocket.prototype = {
     connect: function() {
@@ -99,7 +99,7 @@ var storage = {
 
         self.ws.onerror = function(e) {
           self.onError(e);
-        }
+        };
         self.ws.onopen = function() {
           self.debug("connected to " + fullUrl, true);
           self.onSuccess();
@@ -235,7 +235,7 @@ var storage = {
       this.debug('error: ' + e);
       this.baseUrlFail();
       setTimeout(function() {
-        if (!storage.get("wsok") && $("#websocket-fail").length == 0) {
+        if (!storage.get("wsok") && $("#websocket-fail").length === 0) {
           $.ajax("/assets/websocket-fail.html", {
             success: function(html) {
               $('body').prepend("<div id='websocket-fail'>" + html + "</div>");
@@ -275,10 +275,10 @@ var storage = {
 
   $.userLink = function(u) {
     return $.userLinkLimit(u, false);
-  }
+  };
   $.userLinkLimit = function(u, limit) {
     return (u || false) ? '<a class="user_link ulpt" href="/@/' + u + '">' + ((limit || false) ? u.substring(0, limit) : u) + '</a>' : 'Anonymous';
-  }
+  };
 
   var lichess = {
     socket: null,
@@ -296,7 +296,7 @@ var storage = {
         n: function(e) {
           var $tag = $('#nb_connected_players > strong');
           if ($tag.length && e) {
-            var prev = parseInt($tag.text()) || Math.max(0, (e - 10));
+            var prev = parseInt($tag.text(), 10) || Math.max(0, (e - 10));
             var k = 6;
             var interv = lichess.socket.pingInterval() / k;
             _.each(_.range(k), function(it) {
@@ -330,7 +330,7 @@ var storage = {
             });
             $('#notifications').append(data.html).find("a.decline").click(function() {
               $.post($(this).attr("href"));
-              storage.set('challenge-refused-' + data.id, 1)
+              storage.set('challenge-refused-' + data.id, 1);
               $('#challenge_reminder').remove();
               return false;
             });
@@ -340,7 +340,7 @@ var storage = {
             $('body').trigger('lichess.content_loaded');
             if (!storage.get('challenge-' + data.id)) {
               $.playSound();
-              storage.set('challenge-' + data.id, 1)
+              storage.set('challenge-' + data.id, 1);
             }
           }
         },
@@ -492,7 +492,7 @@ var storage = {
     if ($game) $game.game(_ld_);
 
     setTimeout(function() {
-      if (lichess.socket == null) {
+      if (lichess.socket === null) {
         lichess.socket = new strongSocket("/socket", 0, lichess.socketDefaults);
       }
       $(document).idleTimer(lichess.idleTime)
@@ -504,7 +504,8 @@ var storage = {
       });
     }, 500);
 
-    if ($board = $('div.with_marks').orNot()) {
+    var $board = $('div.with_marks');
+    if ($board.length > 0) {
       $.displayBoardMarks($board.parent(), $('#lichess > div.lichess_player_white').length);
     }
 
@@ -532,8 +533,8 @@ var storage = {
     $('#top a.bgpicker').click(function() {
       var bg = $body.hasClass("dark") ? "light" : "dark";
       $body.removeClass('light dark').addClass(bg);
-      if (bg == 'dark' && $('link[href*="dark\.css"]').length == 0) {
-        $('link[href*="common\.css"]').clone().each(function() {
+      if (bg == 'dark' && $('link[href*="dark.css"]').length === 0) {
+        $('link[href*="common.css"]').clone().each(function() {
           $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'dark.css')).appendTo('head');
         });
       }
@@ -544,8 +545,9 @@ var storage = {
     });
 
     $.centerOverboard = function() {
-      if ($overboard = $('div.lichess_overboard.auto_center').orNot()) {
-        $overboard.css('top', Math.max(-30, 238 - $overboard.height() / 2) + 'px').show();
+      var $o = $('div.lichess_overboard.auto_center');
+      if ($o.length > 0) {
+        $o.css('top', Math.max(-30, 238 - $o.height() / 2) + 'px').show();
       }
     };
     $.centerOverboard();
@@ -563,13 +565,13 @@ var storage = {
     translateTexts();
     $('body').on('lichess.content_loaded', translateTexts);
 
-    if ($autocomplete = $('input.autocomplete').orNot()) {
-      $autocomplete.autocomplete({
+    $('input.autocomplete').each(function($a) {
+      $a.autocomplete({
         source: $autocomplete.attr('data-provider'),
         minLength: 2,
         delay: 100
       });
-    }
+    });
 
     $('.infinitescroll:has(.pager a)').each(function() {
       $(this).infinitescroll({
@@ -638,7 +640,7 @@ var storage = {
     $('#lichess').on('click', 'span.bookmark a.icon', function() {
       var t = $(this).toggleClass("bookmarked");
       $.post(t.attr("href"));
-      var count = (parseInt(t.html()) || 0) + (t.hasClass("bookmarked") ? 1 : -1);
+      var count = (parseInt(t.html(), 10) || 0) + (t.hasClass("bookmarked") ? 1 : -1);
       t.html(count > 0 ? count : "");
       return false;
     });
@@ -650,7 +652,7 @@ var storage = {
         success: function(text) {
           $this.siblings('div.view_pgn_box').show()
             .find('a.close').one('click', function() {
-            $(this).parent().hide()
+            $(this).parent().hide();
           })
             .siblings('textarea').val(text);
         }
@@ -679,7 +681,7 @@ var storage = {
 
     $("#import_game form").submit(function() {
       var pgn = $(this).find('textarea').val();
-      var nbMoves = parseInt(pgn.replace(/\n/g, ' ').replace(/^.+\s(\d+)\..+$/, '$1'));
+      var nbMoves = parseInt(pgn.replace(/\n/g, ' ').replace(/^.+\s(\d+)\..+$/, '$1'), 10);
       var delay = 50;
       var duration = nbMoves * delay * 2.1 + 1000;
       $(this).find('button').hide().end()
@@ -721,7 +723,7 @@ var storage = {
         else storage.remove('sound');
         return false;
       });
-      $game && $game.trigger('lichess.audio_ready');
+      if ($game) $game.trigger('lichess.audio_ready');
     } else {
       $soundToggle.addClass('unavailable');
     }
@@ -733,20 +735,18 @@ var storage = {
   });
 
   $.fn.orNot = function() {
-    return this.length == 0 ? false : this;
+    return this.length === 0 ? false : this;
   };
 
   $.trans = function(text) {
     return lichess_translations[text] ? lichess_translations[text] : text;
-  }
+  };
 
   $.displayBoardMarks = function($board, isWhite) {
-    if (isWhite) {
-      var factor = 1;
-      var base = 0;
-    } else {
-      var factor = -1;
-      var base = 575;
+    var factor = 1, base = 0;
+    if (!isWhite) {
+      factor = -1;
+      base = 575;
     }
     var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'],
       marks = '';
@@ -821,7 +821,7 @@ var storage = {
           });
         }
         self.$watchers.watchers();
-        if (self.isMyTurn() && self.options.game.turns == 0) {
+        if (self.isMyTurn() && self.options.game.turns === 0) {
           self.element.one('lichess.audio_ready', function() {
             $.playSound();
           });
@@ -849,7 +849,7 @@ var storage = {
 
       if (!self.options.opponent.ai && !self.options.player.spectator) {
         setTimeout(self.updateTitle = function() {
-          document.title = (self.isMyTurn() && self.options.game.started && !self.options.game.finished) ? document.title = document.title.indexOf('/\\/') == 0 ? '\\/\\ ' + document.title.replace(/\/\\\/ /, '') : '/\\/ ' + document.title.replace(/\\\/\\ /, '') : document.title;
+          document.title = (self.isMyTurn() && self.options.game.started && !self.options.game.finished) ? document.title = document.title.indexOf('/\\/') === 0 ? '\\/\\ ' + document.title.replace(/\/\\\/ /, '') : '/\\/ ' + document.title.replace(/\\\/\\ /, '') : document.title;
           setTimeout(self.updateTitle, 400);
         }, 400);
       }
@@ -913,7 +913,7 @@ var storage = {
             self.element.queue(function() {
               $("div#" + event.rook[1], self.$board).append($("div#" + event.rook[0] + " div.lichess_piece.rook", self.$board));
               // if the king is beeing animated, stop it now
-              if ($king = $('body > div.king').orNot()) $king.stop(true, true);
+              $('body > div.king').each(function($k) { $.stop(true, true); });
               $("div#" + event.king[1], self.$board).append($("div.lichess_piece.king." + event.color, self.$board));
               self.element.dequeue();
             });
@@ -1036,7 +1036,7 @@ var storage = {
       });
     },
     isMyTurn: function() {
-      return this.options.possible_moves != null;
+      return this.options.possible_moves !== null;
     },
     changeTitle: function(text) {
       if (this.options.player.spectator) return;
@@ -1086,7 +1086,7 @@ var storage = {
           left: 0
         });
         $to.append($piece);
-        $.isFunction(callback || null) && callback();
+        if ($.isFunction(callback || null)) callback();
       };
 
       var animD = mine ? 0 : self.options.animation_delay;
@@ -1118,7 +1118,7 @@ var storage = {
         .append($("<div>").addClass('lichess_tomb').append($piece.css('position', 'relative')));
     },
     possibleMovesContain: function(from, to) {
-      return this.options.possible_moves != null && typeof this.options.possible_moves[from] !== 'undefined' && this.options.possible_moves[from].indexOf(to) != -1;
+      return this.options.possible_moves !== null && typeof this.options.possible_moves[from] !== 'undefined' && this.options.possible_moves[from].indexOf(to) != -1;
     },
     validMove: function(from, to, piece) {
       if (from == to) return false;
@@ -1127,11 +1127,12 @@ var storage = {
       switch(role) {
         case 'pawn':
           if (Math.abs(t.x - f.x) > 1) return false;
-          if (color == 'white') return (t.y == f.y + 1) || (f.y == 2 && t.y == 4 && f.x == t.x)
-            else return (t.y == f.y - 1) || (f.y == 7 && t.y == 5 && f.x == t.x)
+          if (color == 'white') return (t.y == f.y + 1) || (f.y == 2 && t.y == 4 && f.x == t.x);
+            else return (t.y == f.y - 1) || (f.y == 7 && t.y == 5 && f.x == t.x);
+            break;
         case 'knight':
-          var xd = Math.abs(t.x - f.x)
-          var yd = Math.abs(t.y - f.y)
+          var xd = Math.abs(t.x - f.x);
+          var yd = Math.abs(t.y - f.y);
           return (xd == 1 && yd == 2) || (xd == 2 && yd == 1);
         case 'bishop':
           return Math.abs(t.x - f.x) == Math.abs(t.y - f.y);
@@ -1180,7 +1181,6 @@ var storage = {
     },
     dropPiece: function($piece, $oldSquare, $newSquare, isPremove) {
       var self = this,
-        isPremove = isPremove || false;
       squareId = $newSquare.attr('id'),
       moveData = {
         from: $oldSquare.attr("id"),
@@ -1205,7 +1205,7 @@ var storage = {
 
       function sendMoveRequest(moveData) {
         if (self.canRunClock()) {
-          moveData.lag = parseInt(lichess.socket.averageLag);
+          moveData.lag = parseInt(lichess.socket.averageLag, 10);
         }
         lichess.socket.send("move", moveData);
         self.socketAckTimeout = setTimeout(function() {
@@ -1217,7 +1217,7 @@ var storage = {
       var color = self.options.player.color;
       // promotion
       if ($piece.hasClass('pawn') && ((color == "white" && squareId[1] == 8) || (color == "black" && squareId[1] == 1))) {
-        if (isPremove) {
+        if (isPremove || false) {
           moveData.promotion = "queen";
           sendMoveRequest(moveData);
         } else {
@@ -1307,7 +1307,8 @@ var storage = {
       self.$board.find("div.lcs").each(function() {
         var $this = $(this);
         $this.hover(function() {
-          if ($selected = self.$board.find('div.lcs.selected').orNot()) {
+          var $selected = self.$board.find('div.lcs.selected');
+          if ($selected.length) {
             var $piece = $selected.find('>.lichess_piece');
             var validPremove = !self.isMyTurn() && $piece.length && self.validMove($selected.attr('id'), $this.attr('id'), $piece);
             if (validPremove || self.possibleMovesContain($selected.attr('id'), $this.attr('id'))) {
@@ -1343,7 +1344,7 @@ var storage = {
         success: function(html) {
           self.$tableInner.html(html);
           self.initTable();
-          $.isFunction(callback) && callback();
+          if($.isFunction(callback)) callback();
           $('body').trigger('lichess.content_loaded');
         }
       }, false);
@@ -1356,7 +1357,7 @@ var storage = {
         });
         if (data.me) $('#user_tag span').text(data.me);
         $('body').trigger('lichess.content_loaded');
-        $.isFunction(callback) && callback();
+        if($.isFunction(callback)) callback();
       });
     },
     initTable: function() {
@@ -1370,7 +1371,7 @@ var storage = {
     centerTable: function() {
       var self = this;
       self.$table.find(".lichess_control").each(function() {
-        $(this).toggleClass("none", $(this).html().trim() == "");
+        $(this).toggleClass("none", $(this).html().trim() === "");
       });
       self.$table.css('top', (256 - self.$table.height() / 2) + 'px');
     },
@@ -1397,7 +1398,7 @@ var storage = {
       var self = this;
       if (!self.canRunClock()) return;
       if (times || false) {
-        for (color in times) {
+        for (var color in times) {
           self.$table.find('div.clock_' + color).clock('setTime', times[color]);
         }
       }
@@ -1421,7 +1422,7 @@ var storage = {
     getSquareCoords: function(square) {
       return {
         x: 'abcdefgh'.indexOf(square[0]) +1,
-        y: parseInt(square[1])
+        y: parseInt(square[1], 10)
       };
     },
     isPlayerColor: function(color) {
@@ -1503,13 +1504,13 @@ var storage = {
       this.users = _.uniq(this.users);
       this.$nbOnline.text(this.users.length);
       this.$nbTotal.text(this.nb);
-      this.$nobody.toggle(this.users.length == 0);
+      this.$nobody.toggle(this.users.length === 0);
       this.$list.html(_.map(this.users, this._renderUser).join(""));
       $('body').trigger('lichess.content_loaded');
     },
     set: function(data) {
-      this.nb = data['nb'];
-      this.users = data['us'];
+      this.nb = data.nb;
+      this.users = data.us;
       this.repaint();
     },
     enters: function(user) {
@@ -1637,7 +1638,7 @@ var storage = {
           self._show();
 
           //If the timer completed, fire the buzzer callback
-          current_time == 0 && $.isFunction(self.options.buzzer) && self.options.buzzer(self.element);
+          if (current_time === 0 && $.isFunction(self.options.buzzer)) self.options.buzzer(self.element);
         } else {
           clearInterval(self.options.interval);
         }
@@ -1712,9 +1713,9 @@ var storage = {
         var pregex = /(p|r|n|b|q|k)/;
 
         if ('white' == color) {
-          var x = 8,
-            y = 1;
-          var increment = function() {
+          x = 8;
+          y = 1;
+          increment = function() {
             y++;
             if (y > 8) {
               y = 1;
@@ -1722,9 +1723,9 @@ var storage = {
             }
           };
         } else {
-          var x = 1,
-            y = 8;
-          var increment = function() {
+          x = 1;
+          y = 8;
+          increment = function() {
             y--;
             if (y < 1) {
               y = 8;
@@ -1863,11 +1864,11 @@ var storage = {
       var $fenPosition = $form.find(".fen_position");
       var $clockCheckbox = $form.find('.clock_choice input');
       var isHook = $form.hasClass('game_config_hook');
-      var myElo = parseInt($('#user_tag').data('elo'));
+      var myElo = parseInt($('#user_tag').data('elo'), 10);
       if (isHook) {
         var $formTag = $form.find('form');
 
-        function ajaxSubmit(color) {
+        var ajaxSubmit = function(color) {
           $.ajax({
             url: $formTag.attr('action').replace(/uid-placeholder/, lichess_sri),
             data: $formTag.serialize() + "&color=" + color,
@@ -1875,7 +1876,7 @@ var storage = {
           });
           $form.find('a.close').click();
           return false;
-        }
+        };
         $formTag.find('.color_submits button').click(function() {
           return ajaxSubmit($(this).val());
         });
@@ -1910,11 +1911,7 @@ var storage = {
         var $span = $this.siblings("span.range");
         var min = $input.data("min");
         var max = $input.data("max");
-        if ($input.val()) {
-          var values = $input.val().split("-");
-        } else {
-          var values = [min, max];
-        }
+        var values = $input.val() ? $input.val().split("-") : [min, max];
 
         $span.text(values.join(' - '));
         $this.slider({
@@ -1981,7 +1978,7 @@ var storage = {
 
       $variantChoices.on('change', function() {
         var fen = $fenVariant.prop('checked');
-        if (fen && $fenInput.val() != '') validateFen();
+        if (fen && $fenInput.val() !== '') validateFen();
         $fenPosition.toggle(fen);
         $.centerOverboard();
       }).trigger('change');
@@ -2039,8 +2036,8 @@ var storage = {
     var $table = $wrap.find('#hooks_table').sortable().find('th:eq(2)').click().end();
     var $tbody = $table.find('tbody');
     var $userTag = $('#user_tag');
-    var isRegistered = $userTag.length > 0
-    var myElo = isRegistered ? parseInt($userTag.data('elo')) : null;
+    var isRegistered = $userTag.length > 0;
+    var myElo = isRegistered ? parseInt($userTag.data('elo'), 10) : null;
     var animation = 500;
     var pool = [];
 
@@ -2083,7 +2080,7 @@ var storage = {
                     drawHooks();
                   }
                 });
-              }, 500)
+              }, 500);
               $div.html(html).find('input').change(save);
               $div.find('button.reset').click(function() {
                 $div.find('label input').prop('checked', true).trigger('change');
@@ -2102,11 +2099,7 @@ var storage = {
                 var $span = $this.siblings(".range");
                 var min = $input.data("min");
                 var max = $input.data("max");
-                if ($input.val()) {
-                  var values = $input.val().split("-");
-                } else {
-                  var values = [min, max];
-                }
+                var values = $input.val() ? $input.val().split("-") : [min, max];
                 $span.text(values.join(' - '));
 
                 function change() {
@@ -2204,7 +2197,7 @@ var storage = {
 
     function renderTimeline(data) {
       var html = "";
-      for (i in data) {
+      for (var i in data) {
         html += '<tr>' + data[i] + '</tr>';
       }
       $bot.find('.undertable_inner').find('tbody').each(function() {
@@ -2235,7 +2228,7 @@ var storage = {
       if (_.contains(lichess_preload.blocks, hook.username.toLowerCase())) return;
       if (!isRegistered && hook.mode == "Rated") hook.action = 'register';
       else hook.action = hook.uid == lichess_sri ? "cancel" : "join";
-      if (hook.action == 'join' && hook.emin && myElo && (myElo < parseInt(hook.emin) || myElo > parseInt(hook.emax))) return;
+      if (hook.action == 'join' && hook.emin && myElo && (myElo < parseInt(hook.emin, 10) || myElo > parseInt(hook.emax, 10))) return;
       pool.push(hook);
       drawHooks(inBatch || false);
     }
@@ -2255,7 +2248,7 @@ var storage = {
       var visible = 0;
       _.each(pool, function(hook) {
         var hide = !_.contains(filter.variant, hook.variant) || !_.contains(filter.mode, hook.mode) || !_.contains(filter.speed, hook.speed) ||
-          (hook.elo && (hook.elo < filter.elo[0] || hook.elo > filter.elo[1]))
+          (hook.elo && (hook.elo < filter.elo[0] || hook.elo > filter.elo[1]));
         var hash = hook.mode + hook.variant + hook.time + hook.elo;
         if (hide && hook.action != 'cancel') {
           undrawHook(hook.id);
@@ -2288,7 +2281,7 @@ var storage = {
       });
 
       if (!(inBatch || false)) {
-        $noHook.toggle(visible == 0);
+        $noHook.toggle(visible === 0);
         $table.toggleClass('crowded', visible >= 12);
         $wrap
           .find('a.filter')
@@ -2326,12 +2319,13 @@ var storage = {
         return Math.log(a / 150 + 1);
       }
       var elo = Math.max(800, Math.min(2000, e || 1200));
+      var ratio;
       if (elo == 1200) {
-        var ratio = 0.25;
+        ratio = 0.25;
       } else if (elo > 1200) {
-        var ratio = 0.25 + (eloLog(elo - 1200) / eloLog(800)) * 3 / 4;
+        ratio = 0.25 + (eloLog(elo - 1200) / eloLog(800)) * 3 / 4;
       } else {
-        var ratio = 0.25 - (eloLog(1200 - elo) / eloLog(400)) / 4;
+        ratio = 0.25 - (eloLog(1200 - elo) / eloLog(400)) / 4;
       }
       return Math.round(ratio * 489);
     }
@@ -2538,7 +2532,7 @@ var storage = {
 
     lichess.socket = new strongSocket(
       $game.data("socket-url"),
-      parseInt($game.data("version")),
+      parseInt($game.data("version"), 10),
       $.extend(true, lichess.socketDefaults, {
       options: {
         name: "analyse",
