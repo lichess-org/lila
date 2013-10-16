@@ -206,6 +206,7 @@ GET   /captcha/$id<[\w]{8}>            controllers.Main.captchaCheck(id: String)
 GET   /developers                      controllers.Main.developers
 GET   /embed                           controllers.Main.embed
 GET   /irc                             controllers.Main.irc
+GET   /stream                          controllers.Main.stream
 
 # Assets
 GET   /assets/*file                    controllers.Assets.at(path="/public", file)

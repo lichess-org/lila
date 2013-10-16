@@ -11,8 +11,9 @@ import play.api.Play.current
 
 import actorApi._
 import lila.hub.actorApi.GetNbMembers
-import lila.hub.actorApi.monitor._
 import lila.hub.actorApi.map.Size
+import lila.hub.actorApi.monitor._
+import lila.hub.actorApi.round.MoveEvent
 
 private[monitor] final class Reporting(
     rpsProvider: RpsProvider,
@@ -50,7 +51,7 @@ private[monitor] final class Reporting(
 
   def receive = {
 
-    case AddMove        ⇒ mpsProvider.add
+    case MoveEvent      ⇒ mpsProvider.add
     case AddRequest     ⇒ rpsProvider.add
 
     case GetNbMembers   ⇒ sender ! allMembers
@@ -72,24 +73,24 @@ private[monitor] final class Reporting(
         (hub.socket.round ? Size).mapTo[Int] zip
         (hub.socket.round ? GetNbMembers).mapTo[Int] zip
         (hub.actor.game ? lila.hub.actorApi.game.Count).mapTo[Int] onComplete {
-            case Failure(e) ⇒ logwarn("[reporting] " + e.getMessage)
-            case Success(((((((mongoS, aiL), siteMembers), lobbyMembers), gameHubs), gameMembers), games)) ⇒ {
-              latency = (nowMillis - before).toInt
-              site = SiteSocket(siteMembers)
-              lobby = LobbySocket(lobbyMembers)
-              game = GameSocket(gameHubs, gameMembers)
-              mongoStatus = mongoS
-              nbGames = games
-              loadAvg = osStats.getSystemLoadAverage.toFloat
-              nbThreads = threadStats.getThreadCount
-              memory = memoryStats.getHeapMemoryUsage.getUsed / 1024 / 1024
-              rps = rpsProvider.rps
-              mps = mpsProvider.rps
-              cpu = ((cpuStats.getCpuUsage() * 1000).round / 10.0).toInt
-              aiLoads = aiL
-              socket ! MonitorData(monitorData)
-            }
+          case Failure(e) ⇒ logwarn("[reporting] " + e.getMessage)
+          case Success(((((((mongoS, aiL), siteMembers), lobbyMembers), gameHubs), gameMembers), games)) ⇒ {
+            latency = (nowMillis - before).toInt
+            site = SiteSocket(siteMembers)
+            lobby = LobbySocket(lobbyMembers)
+            game = GameSocket(gameHubs, gameMembers)
+            mongoStatus = mongoS
+            nbGames = games
+            loadAvg = osStats.getSystemLoadAverage.toFloat
+            nbThreads = threadStats.getThreadCount
+            memory = memoryStats.getHeapMemoryUsage.getUsed / 1024 / 1024
+            rps = rpsProvider.rps
+            mps = mpsProvider.rps
+            cpu = ((cpuStats.getCpuUsage() * 1000).round / 10.0).toInt
+            aiLoads = aiL
+            socket ! MonitorData(monitorData)
           }
+        }
     }
   }
 

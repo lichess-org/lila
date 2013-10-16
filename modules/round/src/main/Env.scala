@@ -7,6 +7,7 @@ import makeTimeout.large
 
 import lila.common.PimpedConfig._
 import lila.hub.actorApi.map.Ask
+import lila.hub.actorApi.round.MoveEvent
 import lila.socket.actorApi.GetVersion
 
 final class Env(
@@ -40,6 +41,7 @@ final class Env(
     val NetDomain = config getString "net.domain"
     val ActorMapName = config getString "actor.map.name"
     val ActorName = config getString "actor.name"
+    val AiIpAddress = config getString "ai.ip_address"
   }
   import settings._
 
@@ -95,7 +97,8 @@ final class Env(
     finisher = finisher,
     cheatDetector = cheatDetector,
     roundMap = hub.actor.roundMap,
-    uciMemo = uciMemo)
+    uciMemo = uciMemo,
+    aiIp = AiIpAddress)
 
   private lazy val drawer = new Drawer(
     messenger = messenger,
@@ -149,9 +152,14 @@ final class Env(
     messenger = messenger,
     uciMemo = uciMemo)
 
-  private def notifyMove(gameId: String, fen: String, lastMove: Option[String]) {
-    hub.socket.hub ! lila.socket.actorApi.Fen(gameId, fen, lastMove)
-    hub.actor.monitor ! lila.hub.actorApi.monitor.AddMove
+  private lazy val moveBroadcast = 
+    play.api.libs.iteratee.Concurrent.broadcast[MoveEvent]
+  def moveEnumerator = moveBroadcast._1
+
+  private def notifyMove(move: MoveEvent) {
+    hub.socket.hub ! move
+    hub.actor.monitor ! move
+    moveBroadcast._2 push move
   }
 
   private[round] lazy val roomColl = db(CollectionRoom)
