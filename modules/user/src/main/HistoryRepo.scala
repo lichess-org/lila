@@ -24,20 +24,19 @@ object HistoryRepo {
       ~(for {
         history ← historyOption
         entries ← (history \ "entries").asOpt[JsArray]
-        arrays = entries.value.map(_.asOpt[JsArray]).flatten
-        elems = arrays map { array ⇒
-          for {
-            ts ← array(0).asOpt[Int]
-            elo ← array(1).asOpt[Int]
-            op = array(2).asOpt[Int]
-          } yield (ts, elo, op)
+        arrays = entries.value.map(_.asOpt[JsArray])
+        elems = arrays collect {
+          case Some(array) ⇒ (
+            array(0).asOpt[Int].getOrElse(0),
+            array(1).asOpt[Int].getOrElse(0),
+            array(2).asOpt[Int])
         }
-      } yield elems.flatten sortBy (_._1))
+      } yield elems)
     }
 
   // def fixAll = io {
-      // import java.lang.Float.parseFloat
-      // import java.lang.Integer.parseInt
+  // import java.lang.Float.parseFloat
+  // import java.lang.Integer.parseInt
   //   collection.find() foreach { history ⇒
   //     val initEntries = history.as[MongoDBList]("entries").toList
   //     val entries = (initEntries collect {

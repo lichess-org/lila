@@ -20,22 +20,30 @@ object EloChart {
     )
   }
 
-  private[user] def apply(user: User): Fu[Option[EloChart]] = {
+  private[user] def apply(user: User): Fu[Option[String]] = {
     HistoryRepo userElos user.id map { elos ⇒
-      (elos.size > 1) option {
-        val rawElos = (user.createdAt.getSeconds.toInt, User.STARTING_ELO, None) :: elos.toList
+      val size = elos.size
+      (size > 1) option {
+        val rawElos = (size > 100).fold(
+          (size > 200).fold(
+            elos.toList drop 20,
+            elos.toList drop 10
+          ),
+          (user.createdAt.getSeconds.toInt, User.STARTING_ELO, None) :: elos.toList
+        )
 
         val points = 100
         val eloMedian = 30
         val opMedian = 20
 
         def reduce(elos: List[(Int, Int, Option[Int])]) = {
-          val size = elos.size
+          val indexed = elos.toIndexedSeq
+          val size = indexed.size
           (size <= points).fold(elos, {
             val factor = size.toFloat / points
             ((0 until points).toList map { i ⇒
-              elos(round(i * factor))
-            }) :+ elos.last
+              indexed(round(i * factor))
+            }) :+ indexed.last
           })
         }
 
@@ -52,14 +60,13 @@ object EloChart {
           }
         }
 
-        EloChart {
-          Json stringify {
-            Json toJson {
-              withMedian(reduce(rawElos)) map {
-                case (ts, elo, op, med) ⇒ Json.arr(ts, elo, op, med)
-              }
-            }
-          }
+        Json stringify {
+          val values = withMedian(reduce(rawElos))
+          Json.obj(
+            "ts" -> (values map (_._1)),
+            "elo" -> (values map (_._2)),
+            "op" -> (values map (_._3)),
+            "avg" -> (values map (_._4)))
         }
       }
     }

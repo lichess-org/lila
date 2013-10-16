@@ -52,39 +52,40 @@ $(function() {
     var $this = $(this);
     var rows = $this.data('rows');
     $(this).highcharts(mergeDefaults({
+      chart: {},
       title: {
         text: $this.attr('title')
       },
       xAxis: {
-        type: 'datetime',
+        labels: disabled,
+        lineWidth: 0,
+        tickWidth: 0
+      },
+      yAxis: {
+        labels: {
+          style: {
+            fontWeight: 'normal',
+            fontSize: '10px'
+          }
+        }
+      },
+      plotOptions: {
+        line: {
+          marker: disabled
+        }
       },
       series: [{
           name: 'Precise ELO',
           type: 'line',
-          data: _.map(rows, function(row) {
-            return {
-              x: row[0] * 1000,
-              y: row[1]
-            };
-          })
+          data: rows['elo']
         }, {
           name: 'Opponent ELO',
           type: 'line',
-          data: _.map(rows, function(row) {
-            return {
-              x: row[0] * 1000,
-              y: row[2]
-            };
-          })
+          data: rows['op']
         }, {
           name: 'Average ELO',
-          type: 'spline',
-          data: _.map(rows, function(row) {
-            return {
-              x: row[0] * 1000,
-              y: row[3]
-            };
-          })
+          type: 'line',
+          data: rows['avg']
         }
       ]
     }));

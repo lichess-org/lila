@@ -8,7 +8,7 @@ import lila.forum.PostApi
 import lila.game.{ GameRepo, Game }
 import lila.relation.RelationApi
 import lila.security.Granter
-import lila.user.{ User, UserRepo, Context, EloChart, Confrontation }
+import lila.user.{ User, UserRepo, Context, Confrontation }
 
 case class UserInfo(
     user: User,
@@ -16,7 +16,7 @@ case class UserInfo(
     nbPlaying: Int,
     confrontation: Option[Confrontation],
     nbBookmark: Int,
-    eloChart: Option[EloChart],
+    eloChart: Option[String],
     nbFollowing: Int,
     nbFollowers: Int,
     nbBlockers: Option[Int],
@@ -38,7 +38,7 @@ object UserInfo {
     relationApi: RelationApi,
     gameCached: lila.game.Cached,
     postApi: PostApi,
-    getEloChart: User ⇒ Fu[Option[EloChart]],
+    getEloChart: User ⇒ Fu[Option[String]],
     getRank: String ⇒ Fu[Option[Int]])(user: User, ctx: Context): Fu[UserInfo] =
     (getRank(user.id) flatMap {
       _ ?? { rank ⇒ countUsers() map { nb ⇒ (rank -> nb).some } }

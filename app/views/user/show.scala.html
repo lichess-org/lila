@@ -3,8 +3,8 @@
 @title = @{ "%s : %s - page %d".format(u.username, userGameFilterTitleNoTag(info, filters.current), games.currentPage) }
 
 @evenMoreJs = {
-@highstockTag
-@jsVendorTag("highstock/themes/gray.js")
+@highchartsTag
+@jsVendorTag("highcharts/themes/gray.js")
 @jsTag("chart2.js")
 }
 
@@ -111,7 +111,7 @@ evenMoreCss = evenMoreCss) {
   <div class="mod_zone"></div>
   <div class="meat">
     @info.eloChart.map { eloChart =>
-    <div class="elo_history" title="Elo history" data-columns="@eloChart.columns" data-rows="@eloChart.rows">
+    <div class="elo_history" title="Elo history" data-rows="@eloChart">
       <span>Chart loading...</span>
     </div>
     }

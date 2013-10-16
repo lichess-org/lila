@@ -56,9 +56,9 @@ div.sub_elos h3 {
 div.user_show .elo_history {
   position: absolute;
   top: 0;
-  left: 0;
+  left: -50px;
   display: block;
-  width: 449px;
+  width: 511px;
   height: 325px;
 }
 div.user_show .elo_history span {
