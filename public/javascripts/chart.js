@@ -25,44 +25,6 @@ function drawCharts() {
     return data;
   }
 
-  $('div.elo_distribution').each(function() {
-    var data = elemToData(this);
-    var chart = new google.visualization.ScatterChart(this);
-    chart.draw(data, {
-      width: 747,
-      height: 500,
-      //axisTitlePosition: 'none',
-      chartArea: {
-        left: "5%",
-        top: "3%",
-        width: "78%",
-        height: "92%"
-      },
-      title: $(this).attr('title'),
-      titlePosition: 'in',
-      pointSize: 3,
-      backgroundColor: bg
-    });
-  });
-
-  $('div.end_distribution').each(function() {
-    var data = elemToData(this);
-    var chart = new google.visualization.PieChart(this);
-    chart.draw(data, {
-      width: 747,
-      height: 500,
-      chartArea: {
-        left: "0%",
-        top: "5%",
-        width: "100%",
-        height: "95%"
-      },
-      is3D: true,
-      title: $(this).attr('title'),
-      backgroundColor: bg
-    });
-  });
-
   $('div.move-time').each(function() {
     var data = elemToData(this);
     var chart = new google.visualization.AreaChart(this);
@@ -107,48 +69,6 @@ function drawCharts() {
       is3D: true,
       backgroundColor: bg
     });
-  });
-
-  $('div.adv_chart').each(function() {
-    var data = elemToData(this);
-    var chart = new google.visualization.AreaChart(this);
-    chart.draw(data, {
-      width: 512,
-      height: 170,
-      title: $(this).data('title'),
-      titleTextStyle: textcolor,
-      titlePosition: "in",
-      chartArea: {
-        left: "0%",
-        top: "2%",
-        width: "100%",
-        height: "96%"
-      },
-      backgroundColor: bg,
-      vAxis: {
-        maxValue: $(this).data('max'),
-        minValue: -$(this).data('max'),
-        baselineColor: strong,
-        gridlines: {
-          color: bg
-        },
-        minorGridlines: {
-          color: bg
-        },
-        viewWindowMode: "maximized"
-      },
-      legend: {
-        position: "none"
-      },
-      axisTitlesPosition: "none"
-    });
-    google.visualization.events.addListener(chart, 'select', function() {
-      try {
-        var sel = chart.getSelection()[0];
-        GoToMove(sel.row + 1);
-      } catch (e) { }
-    });
-    $(this).data("chart", chart);
   });
 }
 

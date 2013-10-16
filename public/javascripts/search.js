@@ -17,7 +17,7 @@ $(function() {
         var $permalink = $result.find("a.permalink");
         $permalink.attr("href", $permalink.attr("href") + "?" + $form.serialize());
         $result.find('.search_infinitescroll:has(.pager a)').each(function() {
-          var $next = $(this).find(".pager a:last")
+          var $next = $(this).find(".pager a:last");
           $next.attr("href", $next.attr("href") + "&" + $form.serialize());
           $(this).infinitescroll({
             navSelector: ".pager",
@@ -97,4 +97,4 @@ $.fn.bindWithDelay = function(type, data, fn, timeout, throttle) {
 
     $(this).bind(type, data, cb);
   });
-}
+};
