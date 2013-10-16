@@ -25,46 +25,6 @@ function drawCharts() {
     return data;
   }
 
-  $('div.elo_history').each(function() {
-    var data = elemToData(this);
-    var chart = new google.visualization.ComboChart(this);
-    chart.draw(data, {
-      series: [{
-          color: "blue",
-          type: "area",
-          lineWidth: 2
-        }, {
-          color: "grey",
-          type: "line",
-          lineWidth: 1
-        }, {
-          color: "red",
-          type: "line",
-          lineWidth: 2
-        }
-      ],
-      width: 500,
-      height: 340,
-      axisTitlePosition: 'none',
-      chartArea: {
-        left: "10%",
-        top: "2%",
-        width: "90%",
-        height: "96%"
-      },
-      titlePosition: 'none',
-      hAxis: {
-        textPosition: "none"
-      },
-      vAxis: {
-        textStyle: textcolor,
-        gridlines: lineColor,
-        baselineColor: weak
-      },
-      backgroundColor: bg
-    });
-  });
-
   $('div.elo_distribution').each(function() {
     var data = elemToData(this);
     var chart = new google.visualization.ScatterChart(this);
