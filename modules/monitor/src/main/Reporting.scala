@@ -51,7 +51,8 @@ private[monitor] final class Reporting(
 
   def receive = {
 
-    case MoveEvent      ⇒ mpsProvider.add
+    case _: MoveEvent      ⇒ mpsProvider.add
+
     case AddRequest     ⇒ rpsProvider.add
 
     case GetNbMembers   ⇒ sender ! allMembers
