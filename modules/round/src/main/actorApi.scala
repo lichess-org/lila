@@ -14,6 +14,7 @@ sealed trait Member extends SocketMember {
   val color: Color
   val playerIdOption: Option[String]
   val troll: Boolean
+  val ip: String
 
   def owner = playerIdOption.isDefined
   def watcher = !owner
@@ -24,11 +25,12 @@ object Member {
     channel: JsChannel,
     user: Option[User],
     color: Color,
-    playerIdOption: Option[String]): Member = {
+    playerIdOption: Option[String],
+    ip: String): Member = {
     val userId = user map (_.id)
     val troll = user.??(_.troll)
-    playerIdOption.fold[Member](Watcher(channel, userId, color, troll)) { playerId ⇒
-      Owner(channel, userId, playerId, color, troll)
+    playerIdOption.fold[Member](Watcher(channel, userId, color, troll, ip)) { playerId ⇒
+      Owner(channel, userId, playerId, color, troll, ip)
     }
   }
 }
@@ -38,7 +40,8 @@ case class Owner(
     userId: Option[String],
     playerId: String,
     color: Color,
-    troll: Boolean) extends Member {
+    troll: Boolean,
+    ip: String) extends Member {
 
   val playerIdOption = playerId.some
 }
@@ -47,7 +50,8 @@ case class Watcher(
     channel: JsChannel,
     userId: Option[String],
     color: Color,
-    troll: Boolean) extends Member {
+    troll: Boolean,
+    ip: String) extends Member {
 
   val playerIdOption = none
 }
@@ -57,7 +61,8 @@ case class Join(
   user: Option[User],
   version: Int,
   color: Color,
-  playerId: Option[String])
+  playerId: Option[String],
+  ip: String)
 case class Connected(enumerator: JsEnumerator, member: Member)
 case class Bye(color: Color)
 case class IsGone(color: Color)
@@ -68,6 +73,7 @@ package round {
 
   case class HumanPlay(
     playerId: String,
+    ip: String,
     orig: String,
     dest: String,
     prom: Option[String],

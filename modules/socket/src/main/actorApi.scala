@@ -12,7 +12,6 @@ case class PingVersion(uid: String, version: Int)
 case object Broom
 case class Quit(uid: String)
 
-case class Fen(gameId: String, fen: String, lastMove: Option[String])
 case class LiveGames(uid: String, gameIds: List[String])
 case class Resync(uid: String)
 
