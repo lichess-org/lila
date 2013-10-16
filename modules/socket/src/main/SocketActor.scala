@@ -8,6 +8,7 @@ import play.api.libs.json._
 
 import actorApi._
 import lila.hub.actorApi.{ Deploy, GetUids, WithUserIds, GetNbMembers, NbMembers, SendTo, SendTos }
+import lila.hub.actorApi.round.MoveEvent
 import lila.memo.ExpireSetMemo
 
 abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket with Actor {
@@ -39,7 +40,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
     case LiveGames(uid, gameIds)    ⇒ registerLiveGames(uid, gameIds)
 
-    case Fen(gameId, fen, lastMove) ⇒ notifyFen(gameId, fen, lastMove)
+    case move: MoveEvent            ⇒ notifyMove(move)
 
     case SendTo(userId, msg)        ⇒ sendTo(userId, msg)
 
@@ -137,13 +138,13 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   def userIds: Iterable[String] = members.values.map(_.userId).flatten
 
-  def notifyFen(gameId: String, fen: String, lastMove: Option[String]) {
+  def notifyMove(move: MoveEvent) {
     lazy val msg = makeMessage("fen", JsObject(Seq(
-      "id" -> JsString(gameId),
-      "fen" -> JsString(fen),
-      "lm" -> Json.toJson(lastMove)
+      "id" -> JsString(move.gameId),
+      "fen" -> JsString(move.fen),
+      "lm" -> JsString(move.move)
     )))
-    members.values filter (_ liveGames gameId) foreach (_.channel push msg)
+    members.values filter (_ liveGames move.gameId) foreach (_.channel push msg)
   }
 
   def showSpectators(users: List[String], nbAnons: Int) = nbAnons match {

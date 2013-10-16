@@ -19,7 +19,7 @@ object Importer extends LilaController with BaseGame {
       failure ⇒ makeListMenu map { listMenu ⇒
         Ok(html.game.importGame(listMenu, failure))
       },
-      data ⇒ env.importer(data, ctx.userId) map { game ⇒
+      data ⇒ env.importer(data, ctx.userId, ctx.req.remoteAddress) map { game ⇒
         Redirect(routes.Analyse.replay(game.id, "white"))
       } recover {
         case e ⇒ {

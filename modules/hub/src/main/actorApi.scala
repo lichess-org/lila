@@ -120,12 +120,12 @@ package ai {
 }
 
 package monitor {
-  case object AddMove
   case object AddRequest
   case object Update
 }
 
 package round {
+  case class MoveEvent(gameId: String, fen: String, move: String, ip: String)
   case class FinishGame(gameId: String)
 }
 
