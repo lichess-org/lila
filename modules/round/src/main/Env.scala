@@ -149,9 +149,13 @@ final class Env(
     messenger = messenger,
     uciMemo = uciMemo)
 
+  private lazy val moveBroadcast = play.api.libs.iteratee.Concurrent.broadcast[String]
+  def moveEnumerator = moveBroadcast._1
+
   private def notifyMove(gameId: String, fen: String, lastMove: Option[String]) {
     hub.socket.hub ! lila.socket.actorApi.Fen(gameId, fen, lastMove)
     hub.actor.monitor ! lila.hub.actorApi.monitor.AddMove
+    lastMove foreach moveBroadcast._2.push 
   }
 
   private[round] lazy val roomColl = db(CollectionRoom)

@@ -20,6 +20,10 @@ object Main extends LilaController {
     }
   }
 
+  def stream = Action {
+    Ok.feed(Env.round.moveEnumerator) 
+  }
+
   def captchaCheck(id: String) = Open { implicit ctx ⇒
     Env.hub.actor.captcher ? ValidCaptcha(id, ~get("solution")) map {
       case valid: Boolean ⇒ Ok(valid fold (1, 0))
