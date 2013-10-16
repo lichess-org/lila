@@ -26,7 +26,8 @@ function posToSquareId(pos) {
 
 function customFunctionOnMove() {
   refreshButtonset();
-  $("div.adv_chart").each(function($chart) {
+  var $chart = $("div.adv_chart");
+  if ($chart.length) {
     var chart = $chart.highcharts();
     if (CurrentVar !== 0) {
       _.each(chart.getSelectedPoints(), function(point) {
@@ -36,17 +37,19 @@ function customFunctionOnMove() {
       try {
         var index = CurrentPly - 1;
         var point = chart.series[0].data[index];
-        point.select();
-        var adv = "Advantage: <strong>" + point.y + "</strong>";
-        var title = point.name + ' ' + adv;
-        chart.setTitle({
-          text: title
-        });
+        if (typeof point != "undefined") {
+          point.select();
+          var adv = "Advantage: <strong>" + point.y + "</strong>";
+          var title = point.name + ' ' + adv;
+          chart.setTitle({
+            text: title
+          });
+        }
       } catch (e) {
         console.debug(e);
       }
     }
-  });
+  }
   var turn = Math.round(CurrentPly / 2);
   var $gameText = $("#GameText");
   var $moveOn = $gameText.find(".moveOn:first");
@@ -59,7 +62,8 @@ function customFunctionOnMove() {
       $gameText.scrollTop($gameText.scrollTop() + y + height * 6 - 512);
     }
   }
-  var fen = CurrentFEN(); $('div.undergame_box a.fen_link').each(function() {
+  var fen = CurrentFEN();
+  $('div.undergame_box a.fen_link').each(function() {
     $(this).attr('href', $(this).attr('href').replace(/fen=.*$/, "fen=" + fen));
   });
   // override normal round fen link
@@ -67,12 +71,12 @@ function customFunctionOnMove() {
     alert(fen);
     return false;
   });
-  }
+}
 
-  function redrawBoardMarks() {
-    $.displayBoardMarks($('#GameBoard'), !$('#GameBoard').hasClass('flip'));
-  }
+function redrawBoardMarks() {
+  $.displayBoardMarks($('#GameBoard'), !$('#GameBoard').hasClass('flip'));
+}
 
-  function refreshButtonset() {
-    $("#autoplayButton").addClass("ui-button ui-widget ui-state-default ui-corner-all");
-  }
+function refreshButtonset() {
+  $("#autoplayButton").addClass("ui-button ui-widget ui-state-default ui-corner-all");
+}

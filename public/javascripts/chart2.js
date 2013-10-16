@@ -120,6 +120,14 @@ $(function() {
           allowPointSelect: true,
           column: noAnimation,
           cursor: 'pointer',
+          events: {
+            click: function(event) {
+              if (event.point) {
+                event.point.select();
+                GoToMove(event.point.x + 1);
+              }
+            }
+          },
           marker: {
             radius: 2,
             enabled: true,
