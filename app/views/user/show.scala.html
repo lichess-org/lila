@@ -3,7 +3,9 @@
 @title = @{ "%s : %s - page %d".format(u.username, userGameFilterTitleNoTag(info, filters.current), games.currentPage) }
 
 @evenMoreJs = {
-@jsTag("chart.js")
+@highstockTag
+@jsVendorTag("highstock/themes/gray.js")
+@jsTag("chart2.js")
 }
 
 @evenMoreCss = {

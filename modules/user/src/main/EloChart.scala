@@ -2,8 +2,6 @@ package lila.user
 
 import scala.math.round
 
-import org.joda.time.DateTime
-import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
 import play.api.libs.json.Json
 
 case class EloChart(rows: String) {
@@ -30,10 +28,6 @@ object EloChart {
         val points = 100
         val eloMedian = 30
         val opMedian = 20
-
-        val formatter: DateTimeFormatter = DateTimeFormat forPattern "dd/MM/yy"
-        // ts is in seconds
-        def date(ts: Long): String = formatter print new DateTime(ts * 1000)
 
         def reduce(elos: List[(Int, Int, Option[Int])]) = {
           val size = elos.size
@@ -62,11 +56,7 @@ object EloChart {
           Json stringify {
             Json toJson {
               withMedian(reduce(rawElos)) map {
-                case (ts, elo, op, med) ⇒ Json toJson List(
-                  Json toJson date(ts),
-                  Json toJson elo,
-                  Json toJson op,
-                  Json toJson med)
+                case (ts, elo, op, med) ⇒ Json.arr(ts, elo, op, med)
               }
             }
           }
