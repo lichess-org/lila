@@ -58,14 +58,13 @@ div.user_show .elo_history {
   top: 0;
   left: 0;
   display: block;
-  width: 500px;
-  height: 340px;
-  margin: -8px 0 -10px -50px;
+  width: 449px;
+  height: 325px;
 }
 div.user_show .elo_history span {
   position: absolute;
-  top: 170px;
-  left: 240px;
+  top: 156px;
+  left: 181px;
 }
 
 div.user_show .user-infos {

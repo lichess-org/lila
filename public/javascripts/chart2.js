@@ -1,16 +1,99 @@
 $(function() {
 
+  var light = $('body').hasClass('light');
+  var textcolor = {
+    color: light ? '#848484' : '#a0a0a0'
+  };
+  var weak = light ? '#ccc' : '#404040';
+  var strong = light ? '#a0a0a0' : '#606060';
+  var lineColor = {
+    color: weak
+  };
   var disabled = {
     enabled: false
   };
   var noText = {
     text: null
   };
+  var noAnimation = {
+    animation: disabled
+  };
+  var defaults = {
+    chart: {
+      backgroundColor: 'transparent',
+      borderRadius: 0,
+    },
+    plotOptions: {
+      area: {
+        allowPointSelect: true,
+        column: noAnimation,
+        cursor: 'pointer',
+      }
+    },
+    title: {
+      style: {
+        font: '13px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif',
+        color: '#b57600'
+      },
+      floating: true
+    },
+    yAxis: {
+      title: noText
+    },
+    credits: disabled,
+    legend: disabled,
+  };
+
+  function mergeDefaults(config) {
+    return $.extend(true, defaults, config);
+  }
+
+  $('div.elo_history').each(function() {
+    var $this = $(this);
+    var rows = $this.data('rows');
+    $(this).highcharts(mergeDefaults({
+      title: {
+        text: $this.attr('title')
+      },
+      xAxis: {
+        type: 'datetime',
+      },
+      series: [{
+          name: 'Precise ELO',
+          type: 'line',
+          data: _.map(rows, function(row) {
+            return {
+              x: row[0] * 1000,
+              y: row[1]
+            };
+          })
+        }, {
+          name: 'Opponent ELO',
+          type: 'line',
+          data: _.map(rows, function(row) {
+            return {
+              x: row[0] * 1000,
+              y: row[2]
+            };
+          })
+        }, {
+          name: 'Average ELO',
+          type: 'spline',
+          data: _.map(rows, function(row) {
+            return {
+              x: row[0] * 1000,
+              y: row[3]
+            };
+          })
+        }
+      ]
+    }));
+  });
 
   $('div.adv_chart').each(function() {
     var $this = $(this);
     var cpMax = parseInt($this.data('max')) / 100;
-    $(this).highcharts({
+    $(this).highcharts(mergeDefaults({
       series: [{
           name: 'Advantage',
           data: _.map($this.data('rows'), function(row) {
@@ -21,8 +104,6 @@ $(function() {
       ],
       chart: {
         type: 'area',
-        backgroundColor: 'transparent',
-        borderRadius: 0,
         margin: 2,
         spacing: [2, 2, 2, 2]
       },
@@ -31,7 +112,6 @@ $(function() {
           color: Highcharts.theme.colors[7],
           negativeColor: Highcharts.theme.colors[1],
           threshold: 0,
-          allowPointSelect: true,
           lineWidth: 1,
           marker: {
             radius: 2,
@@ -43,27 +123,13 @@ $(function() {
                 fillColor: '#ffffff'
               }
             }
-          },
-          cursor: 'pointer',
-          events: {
-            click: function(event) {
-              if (event.point) {
-                event.point.select();
-                GoToMove(event.point.x + 1);
-              }
-            }
           }
         }
       },
       title: {
         text: $this.attr('title'),
         align: 'left',
-        y: 12,
-        style: {
-          font: '13px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif',
-          color: '#b57600'
-        },
-        floating: true
+        y: 12
       },
       xAxis: {
         title: noText,
@@ -75,11 +141,8 @@ $(function() {
         min: -cpMax,
         max: cpMax,
         labels: disabled,
-        title: noText,
         gridLineWidth: 0
-      },
-      credits: disabled,
-      legend: disabled,
-    });
+      }
+    }));
   });
 });
