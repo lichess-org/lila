@@ -82,7 +82,7 @@ span.board_mark.horz {
   src: url('ChessSansPiratf.eot');
   src: url('/assets/vendor/pgn4web/fonts/ChessSansPiratf.eot?#iefix') format('embedded-opentype'), url('/assets/vendor/pgn4web/fonts/ChessSansPiratf.woff') format('woff'), url('/assets/vendor/pgn4web/fonts/ChessSansPiratf.ttf') format('truetype'), url('/assets/vendor/pgn4web/fonts/ChessSansPiratf.svg#ChessSansPiratf') format('svg');
 }
-#GameText .move, #GameText .variation, #GameText .commentMove {
+#GameText .move, #GameText .variation {
   /* font-family: 'pgn4web ChessSansMerida', 'pgn4web Liberation Sans', sans-serif; */
   font-family: 'pgn4web ChessSansPiratf', 'pgn4web Liberation Sans', sans-serif;
   text-decoration: none;
