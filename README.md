@@ -69,6 +69,35 @@ bin/play
 
 From here you can now run the application (`run`). 
 
+### Read the move stream
+
+Lichess streams all played moves on http://en.lichess.org/stream using chunked HTTP response and the following format:
+
+    GameId UciMove IpAddress
+
+Try it with netcat:
+
+```sh
+> echo "GET /stream HTTP/1.1\nHost: en.lichess.org\n" | netcat en.lichess.org 80
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Wed, 16 Oct 2013 20:01:11 GMT
+Content-Type: text/plain; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Vary: Accept-Encoding
+
+17
+s15alz5l e2e4 127.0.0.1
+1a
+s15alz5l d7d5 91.121.7.111
+17
+s15alz5l e4d5 127.0.0.1
+1a
+s15alz5l d8d5 91.121.7.111
+```
+
 Credits
 -------
 
