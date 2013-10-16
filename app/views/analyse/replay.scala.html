@@ -1,4 +1,4 @@
-@(pov: Pov, pgn: String, roomHtml: Html, bookmarkers: List[String], opening: Option[chess.OpeningExplorer.Opening], analysis: Option[lila.analyse.Analysis], advantageChart: Option[lila.analyse.AdvantageChart], version: Int, tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
+@(pov: Pov, pgn: String, roomHtml: Html, bookmarkers: List[String], opening: Option[chess.OpeningExplorer.Opening], analysis: Option[lila.analyse.Analysis], advantageChart: Option[String], version: Int, tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
 
 @import pov._
 
@@ -88,9 +88,8 @@ themepicker = true) {
 <div
   class="adv_chart"
   title="Advantage (up: white, down: black)"
-  data-max="@chart.max"
-  data-columns="@chart.columns"
-  data-rows="@chart.rows"></div>
+  data-max="@lila.analyse.AdvantageChart.max"
+  data-rows="@chart"></div>
 }.getOrElse {
 <div class="undergame_box game_analysis status">
   @trans.computerAnalysisInProgress()
