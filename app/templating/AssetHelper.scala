@@ -1,9 +1,8 @@
 package lila.app
 package templating
 
-import play.api.templates.Html
-
 import controllers.routes
+import play.api.templates.Html
 
 trait AssetHelper {
 
@@ -18,8 +17,7 @@ trait AssetHelper {
   def cssVendorTag(name: String) = css("vendor/" + name)
 
   private def css(path: String) = Html {
-    """<link href="%s?v=%d" type="text/css" rel="stylesheet"/>"""
-      .format(url(routes.Assets.at(path).toString), assetVersion)
+    s"""<link href="${url(routes.Assets.at(path).toString)}?v=$assetVersion" type="text/css" rel="stylesheet"/>"""
   }
 
   def jsTag(name: String) = js("javascripts/" + name)
@@ -28,10 +26,24 @@ trait AssetHelper {
 
   def jsVendorTag(name: String) = js("vendor/" + name)
 
+  lazy val highchartsTag = cdnOrLocal(
+    cdn = "http://code.highcharts.com/3.0/highcharts.js",
+    test = "window.Highcharts",
+    local = routes.Assets.at("vendor/highcharts/highcharts.js").toString)
+
+  lazy val highstockTag = cdnOrLocal(
+    cdn = "http://code.highcharts.com/stock/3.0/highstock.js",
+    test = "window.Highcharts",
+    local = routes.Assets.at("vendor/highstock/highstock.js").toString)
+
+  private def cdnOrLocal(cdn: String, test: String, local: String) = Html {
+    s"""<script src="$cdn"></script><script>$test || document.write('<script src="$local?v=$assetVersion">\\x3C/script>')</script>"""
+  }
+
   private def js(path: String) = jsAt(routes.Assets.at(path).toString)
 
   def jsAt(path: String, static: Boolean = true) = Html {
-    """<script src="%s?v=%d"></script>""".format(static.fold(url(path), path), assetVersion)
+    s"""<script src="${static.fold(url(path), path)}?v=$assetVersion"></script>"""
   }
 
   def embedJs(js: String): Html = Html("""<script type="text/javascript">
