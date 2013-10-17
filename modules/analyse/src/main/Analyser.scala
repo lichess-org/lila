@@ -50,7 +50,7 @@ final class Analyser(
           } yield UciToPgn(replay, analysis)) flatFold (
             e ⇒ fufail[Analysis](e.getMessage), {
               case (a, errors) ⇒ {
-                errors foreach { e ⇒ logwarn("[analyser UciToPgn] " + e) }
+                errors foreach { e ⇒ logwarn(s"[analyser UciToPgn] $id $e") }
                 AnalysisRepo.done(id, a)
                 indexer ! InsertGame(game)
                 fuccess(a)
