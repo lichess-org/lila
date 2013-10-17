@@ -55,8 +55,8 @@ private[analyse] object CpAdvice {
 }
 
 private[analyse] sealed abstract class MateSequence(val desc: String)
-private[analyse] case class MateDelayed(before: Int, after: Int) extends MateSequence(
-  desc = "Detected checkmate in %s moves, but player moved for mate in %s".format(before, after + 1))
+private[analyse] case object MateDelayed extends MateSequence(
+  desc = "Not the best chekmate sequence")
 private[analyse] case object MateLost extends MateSequence(
   desc = "Lost forced checkmate sequence")
 private[analyse] case object MateCreated extends MateSequence(
@@ -68,7 +68,7 @@ private[analyse] object MateSequence {
       case (None, Some(n)) if n < 0                        ⇒ MateCreated
       case (Some(p), None) if p > 0                        ⇒ MateLost
       case (Some(p), Some(n)) if (p > 0) && (n < 0)        ⇒ MateLost
-      case (Some(p), Some(n)) if p > 0 && n >= p && p <= 5 ⇒ MateDelayed(p, n)
+      case (Some(p), Some(n)) if p > 0 && n >= p && p <= 5 ⇒ MateDelayed
     }
 }
 private[analyse] case class MateAdvice(
@@ -90,7 +90,7 @@ private[analyse] object MateAdvice {
         case MateLost if nextScore < 500     ⇒ Nag.Blunder
         case MateLost if nextScore < 1000    ⇒ Nag.Mistake
         case MateLost                        ⇒ Nag.Inaccuracy
-        case _: MateDelayed                  ⇒ Nag.Inaccuracy
+        case MateDelayed                     ⇒ Nag.Inaccuracy
       }
       MateAdvice(sequence, nag, info, prev)
     }
