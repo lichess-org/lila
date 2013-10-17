@@ -80,31 +80,23 @@ $(function() {
     }));
   }
 
-  $monitors.append($('<div>').attr('id', 'allUsers').width(width * 2).height(height * 2));
-  charts.allUsers = new Highcharts.Chart(
-    $.extend(true, {}, chartDefaults, {
-    chart: {
-      renderTo: 'allUsers',
-    },
-    legend: {
-      enabled: true,
-      floating: true
-    },
-    title: {
-      text: 'Users',
-    },
-    series: [{
-        name: 'Total users',
-        data: []
-      }, {
-        name: 'Playing users',
-        data: []
-      }, {
-        name: 'Users on lobby',
-        data: []
-      }
-    ]
-  }));
+  add({
+    id: 'users',
+    title: 'Users',
+    type: 'spline'
+  });
+
+  add({
+    id: 'game',
+    title: 'Playing Users',
+    type: 'spline'
+  });
+
+  add({
+    id: 'lobby',
+    title: 'Lobby Users',
+    type: 'spline'
+  });
 
   add({
     id: 'lat',
@@ -142,24 +134,10 @@ $(function() {
   });
 
   add({
-    id: 'thread',
-    title: "Threads",
-    maxVal: 1000,
-    threshold: 0.8
-  });
-
-  add({
     id: 'load',
     title: "Load Average",
     maxVal: 1,
     threshold: 0.5
-  });
-
-  add({
-    id: 'ai',
-    title: "AI Load",
-    maxVal: 100,
-    threshold: 0.8
   });
 
   add({
@@ -181,6 +159,20 @@ $(function() {
     id: 'dbLock',
     title: "MongoDB Lock",
     maxVal: 10,
+  });
+
+  add({
+    id: 'ai',
+    title: "AI Load",
+    maxVal: 100,
+    threshold: 0.8
+  });
+
+  add({
+    id: 'thread',
+    title: "Threads",
+    maxVal: 1000,
+    threshold: 0.8
   });
 
   // add({
@@ -207,13 +199,8 @@ $(function() {
         if (d.length == 2) {
           var id = d[1];
           var val = parseFloat(d[0]);
-          var chart, index = ['users', 'game', 'lobby'].indexOf(id);
-          if (index != -1) {
-            chart = charts.allUsers;
-          } else {
-            chart = charts[id];
-            index = 0;
-          }
+          var chart = charts[id];
+          var index = 0;
           if (typeof chart != 'undefined') {
             var series = chart.series[index];
             var shift = series.data.length > maxPoints;
