@@ -1,9 +1,5 @@
 $(function() {
 
-  var light = $('body').hasClass('light');
-  var textcolor = light ? '#a0a0a0' : '#707070' ;
-  var weak = light ? '#ccc' : '#404040';
-  var strong = light ? '#a0a0a0' : '#606060';
   var disabled = {
     enabled: false
   };
@@ -13,22 +9,14 @@ $(function() {
   var noAnimation = {
     animation: disabled
   };
-  var colors = Highcharts.theme.colors;
+  var theme = Highcharts.theme;
   var defaults = {
-    chart: {
-      backgroundColor: 'transparent',
-      borderRadius: 0,
-    },
+    chart: {},
     title: {
-      style: {
-        font: '13px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif',
-        color: '#b57600'
-      },
       floating: true
     },
     yAxis: {
-      title: noText,
-      gridLineColor: weak
+      title: noText
     },
     credits: disabled,
     legend: disabled,
@@ -42,38 +30,43 @@ $(function() {
     var $this = $(this);
     var rows = $this.data('rows');
     var size = rows.date.length;
+
     function points(series) {
       var ps = [];
       for (var i = 0; i < size; i++) {
-        ps.push({name: rows.date[i], y: rows[series][i]});
+        ps.push({
+          name: rows.date[i],
+          y: rows[series][i]
+        });
       }
       return ps;
     }
+    var marker = {
+      enabled: false,
+      symbol: 'circle',
+      states: {
+        hover: {
+          radius: 4
+        }
+      }
+    };
     $(this).highcharts(mergeDefaults({
       chart: {},
-      colors: ['#0000ff', colors[3], '#909090'],
+      colors: theme.light ? ['#0000ff', theme.colors[3], '#909090'] : ['#4444ff', theme.colors[3], '#707070'],
       title: noText,
       xAxis: {
         labels: disabled,
         lineWidth: 0,
         tickWidth: 0
       },
-      yAxis: {
-        labels: {
-          style: {
-            color: textcolor,
-            fontWeight: 'normal',
-            fontSize: '10px'
-          }
-        }
-      },
       plotOptions: {
         line: {
-          marker: disabled
+          marker: marker
         },
         area: {
-          marker: disabled,
-          fillOpacity: 0.2
+          marker: marker,
+          lineWidth: 0,
+          fillOpacity: 0.3
         }
       },
       series: [{
@@ -113,8 +106,8 @@ $(function() {
       },
       plotOptions: {
         area: {
-          color: Highcharts.theme.colors[7],
-          negativeColor: Highcharts.theme.colors[1],
+          color: theme.colors[7],
+          negativeColor: theme.colors[1],
           threshold: 0,
           lineWidth: 1,
           allowPointSelect: true,
@@ -161,3 +154,141 @@ $(function() {
     }));
   });
 });
+
+Highcharts.theme = (function() {
+
+  var light = document.body.className.indexOf('light') != -1;
+  var text = {
+    weak: light ? '#a0a0a0' : '#707070',
+    strong: light ? '#707070' : '#a0a0a0'
+  };
+  var line = {
+    weak: light ? '#ccc' : '#404040',
+    strong: light ? '#a0a0a0' : '#606060'
+  };
+
+  function font(size) {
+    return size + 'px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif';
+  }
+
+  return {
+    light: light,
+    colors: ["#DDDF0D", "#7798BF", "#55BF3B", "#DF5353", "#aaeeee", "#ff0066", "#eeaaee",
+        "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"
+    ],
+    chart: {
+      backgroundColor: null,
+      borderWidth: 0,
+      borderRadius: 0,
+      plotBackgroundColor: null,
+      plotShadow: false,
+      plotBorderWidth: 0
+    },
+    title: {
+      style: {
+        font: font(13),
+        color: text.strong
+      }
+    },
+    xAxis: {
+      gridLineWidth: 0,
+      gridLineColor: line.weak,
+      lineColor: line.strong,
+      tickColor: line.strong,
+      labels: {
+        style: {
+          color: text.weak,
+          fontWeight: 'bold'
+        }
+      },
+      title: {
+        style: {
+          color: text.weak,
+          font: font(12)
+        }
+      }
+    },
+    yAxis: {
+      alternateGridColor: null,
+      minorTickInterval: null,
+      gridLineColor: line.weak,
+      minorGridLineColor: null,
+      lineWidth: 0,
+      tickWidth: 0,
+      labels: {
+        style: {
+          color: text.weak,
+          fontSize: '10px'
+        }
+      },
+      title: {
+        style: {
+          color: text.weak,
+          font: font(12)
+        }
+      }
+    },
+    legend: {
+      itemStyle: {
+        color: text.strong
+      },
+      itemHiddenStyle: {
+        color: text.weak
+      }
+    },
+    labels: {
+      style: {
+        color: text.strong
+      }
+    },
+    tooltip: {
+      backgroundColor: {
+        linearGradient: {
+          x1: 0,
+          y1: 0,
+          x2: 0,
+          y2: 1
+        },
+        stops: light ? [
+          [0, 'rgba(200, 200, 200, .8)'],
+          [1, 'rgba(250, 250, 250, .8)']
+        ] : [
+          [0, 'rgba(56, 56, 56, .8)'],
+          [1, 'rgba(16, 16, 16, .8)']
+        ]
+      },
+      borderWidth: 0,
+      style: {
+        fontWeight: 'bold',
+        color: text.strong
+      }
+    },
+    plotOptions: {
+      series: {
+        shadow: false
+      },
+      line: {
+        dataLabels: {
+          color: text.strong
+        },
+        marker: {
+          lineColor: text.weak
+        }
+      },
+      spline: {
+        marker: {
+          lineColor: text.weak
+        }
+      },
+      scatter: {
+        marker: {
+          lineColor: text.weak
+        }
+      },
+      candlestick: {
+        lineColor: text.strong
+      }
+    }
+  };
+})();
+Highcharts.setOptions(Highcharts.theme);

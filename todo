@@ -74,6 +74,6 @@ user option for auto-promotion (requested by NM :P) (http://en.lichess.org/@/Mat
 check filter games icon on windows
 improve board editor -- see http://www.chess.com/analysis-board-editor
 podium style color choice buttons
-elo chart http://fr.lichess.org/forum/general-chess-discussion/wow-new-graphics-elo-history#1
-notACheckmate form validation is not translated
 move 25 mistake without variation http://fr.lichess.org/analyse/qmfwfnz0/black
+minify chart2.js
+monitor: y labels on the right, users graph sucks
