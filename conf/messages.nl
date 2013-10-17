@@ -17,6 +17,7 @@ checkmate=Schaakmat
 stalemate=Pat
 white=Wit
 black=Zwart
+randomColor=willekeurige kleur
 createAGame=Nieuw spel
 noGameAvailableRightNowCreateOne=Geen partij beschikbaar, initieer een nieuwe partij
 whiteIsVictorious=Wit heeft gewonnen
