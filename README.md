@@ -91,15 +91,23 @@ Transfer-Encoding: chunked
 Connection: keep-alive
 Vary: Accept-Encoding
 
-17
-s15alz5l e2e4 127.0.0.1
 1a
-s15alz5l d7d5 91.121.7.111
-17
-s15alz5l e4d5 127.0.0.1
+4om0thb7 d1e1 91.121.7.111
+1b
+o2eg9xu3 c8c2 89.77.165.159
+18
+g3ag6xm6 g7f7 83.149.8.9
+1b
+hl0zbh3g c4c5 109.237.157.8
 1a
-s15alz5l d8d5 91.121.7.111
+g3ag6xm6 c2c3 91.121.7.111
+1c
+tj2u3hus a7a6 117.199.47.140
 ```
+
+By comparing game IDs, you can guess who plays against who.
+
+> Note that 91.121.7.111 is the AI server.
 
 Credits
 -------
