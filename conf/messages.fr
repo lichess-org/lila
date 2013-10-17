@@ -17,6 +17,7 @@ checkmate=Échec et mat
 stalemate=Pat
 white=Blanc
 black=Noir
+randomColor=Couleur aléatoire
 createAGame=Créer une partie
 noGameAvailableRightNowCreateOne=Aucune partie disponible, créez-en une !
 whiteIsVictorious=Les blancs gagnent
