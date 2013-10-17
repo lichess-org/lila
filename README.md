@@ -73,7 +73,10 @@ From here you can now run the application (`run`).
 
 Lichess streams all played moves on http://en.lichess.org/stream using chunked HTTP response and the following format:
 
-    GameId UciMove IpAddress
+```sh
+ChunkSize                # size of the next chunk, in hexadecimal
+GameId UciMove IpAddress # actual chunk of data
+```
 
 Try it with netcat:
 
