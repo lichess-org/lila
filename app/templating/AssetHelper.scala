@@ -8,6 +8,8 @@ trait AssetHelper {
 
   val assetVersion = lila.api.Env.current.Net.AssetVersion
 
+  def isProd: Boolean
+
   private val domain = lila.api.Env.current.Net.AssetDomain
 
   private def url(path: String) = "http://" + domain + path
@@ -22,7 +24,7 @@ trait AssetHelper {
 
   def jsTag(name: String) = js("javascripts/" + name)
 
-  def jsTagCompiled(name: String) = js("compiled/" + name)
+  def jsTagCompiled(name: String) = isProd ? js("compiled/" + name) | jsTag(name)
 
   def jsVendorTag(name: String) = js("vendor/" + name)
 

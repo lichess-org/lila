@@ -1,4 +1,7 @@
-@(listMenu: lila.game.ListMenu, fen: Option[String])(implicit ctx: Context)
+@(listMenu: lila.game.ListMenu, sit: chess.Situation, fen: String)(implicit ctx: Context)
+
+@import chess.Color.{ White, Black }
+@import chess.{ KingSide, QueenSide }
 
 @moreCss = {
 @cssVendorTag("chessboard/css/chessboard-0.1.0.css")
@@ -6,7 +9,7 @@
 }
 @moreJs = {
 @jsVendorTag("chessboard/js/chessboard-0.1.0.js")
-@jsTag("boardEditor.js")
+@jsTagCompiled("boardEditor.js")
 }
 
 @game.layout(
@@ -16,19 +19,37 @@ moreJs = moreJs,
 moreCss = moreCss) {
 <div id="board_editor" class="content_box">
   <div id="chessboard_side">
-    <a class="button start">@trans.startPosition()</a>
-    <a class="button clear">@trans.clearBoard()</a>
-    </p>
-    <p>
-    <a class="button flip">@trans.flipBoard()</a>
-    <a class="button save" data-domain="@netBaseUrl">@trans.savePosition()</a>
-    </p>
-    <p>
-    <a class="fen_link button big" href="@routes.Lobby.home()?fen=#ai">@trans.playWithTheMachine()</a>
-    <a class="fen_link button big" href="@routes.Lobby.home()?fen=#friend">@trans.playWithAFriend()</a>
-    </p>
+    <div>
+      <a class="button start">@trans.startPosition()</a>
+      <a class="button clear">@trans.clearBoard()</a>
+    </div>
+    <div>
+      <a class="button flip">@trans.flipBoard()</a>
+      <a class="button save" data-domain="@netBaseUrl">@trans.savePosition()</a>
+    </div>
+    <div>
+      <select class="color">
+        <option value="w" @{"selected".when(sit.color.white)}>@trans.whitePlays()</option>
+        <option value="b" @{"selected".when(!sit.color.white)}>@trans.blackPlays()</option>
+      </select>
+      <div class="castling">
+        <p><strong>Castling</strong></p>
+        <div>
+          <label>White O-O <input @{"checked".when(sit.canCastle(White).on(KingSide))} type="checkbox" id="castling-wk"></label>
+          <label><input @{"checked".when(sit.canCastle(Black).on(KingSide))} type="checkbox" id="castling-bk"> Black O-O</label>
+        </div>
+        <div>
+          <label>White O-O-O <input @{"checked".when(sit.canCastle(White).on(QueenSide))} type="checkbox" id="castling-wq"></label>
+          <label><input @{"checked".when(sit.canCastle(Black).on(QueenSide))} type="checkbox" id="castling-bq"> Black O-O-O</label>
+        </div>
+      </div>
+    </div>
+    <div>
+      <a class="fen_link button big" href="@routes.Lobby.home()?fen=#ai">@trans.playWithTheMachine()</a>
+      <a class="fen_link button big" href="@routes.Lobby.home()?fen=#friend">@trans.playWithAFriend()</a>
+    </div>
   </div>
-  <div id="chessboard" data-fen="@fen.getOrElse("start")"></div>
-  <form id="fen-form"><input value="@fen" /></form>
+  <div id="chessboard" data-fen="@fen"></div>
+  <input class="fen-string" disabled=disabled />
 </div>
 }
