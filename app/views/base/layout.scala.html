@@ -160,7 +160,7 @@ data-accept-languages="@acceptLanguages.mkString(",")">
 </div>
 }
 @jsTag("deps.min.js")
-@signedJs.fold(isProd.fold(jsTagCompiled("big.js"), jsTag("big.js")))(js => jsAt(js, false))
+@signedJs.fold(jsTagCompiled("big.js"))(js => jsAt(js, false))
 @moreJs
 @if(lang.language != "en") {
 <script src="@routes.Assets.at("trans/" + lang.language + ".js")?v=@assetVersion"></script>

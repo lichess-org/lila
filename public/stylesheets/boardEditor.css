@@ -1,7 +1,7 @@
 #board_editor {
   position: relative;
 }
-#board_editor #fen-form input {
+#board_editor .fen-string {
   margin: 1em 0 0.5em 0;
   padding: 1% 10px;
   width: 98%;
@@ -17,7 +17,7 @@
   top: 190px;
   width: 228px;
 }
-#chessboard_side p {
+#chessboard_side > div {
   margin-bottom: 3em;
   text-align: center;
 }
@@ -25,4 +25,7 @@
   display: block;
   text-align: center;
   margin-bottom: 1em;
+}
+#chessboard_side .castling {
+  margin-top: 1em;
 }

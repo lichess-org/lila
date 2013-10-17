@@ -1,40 +1,50 @@
 $(function() {
   $('#board_editor').each(function() {
     var $wrap = $(this);
-    var fen = "";
     var board;
-    var $input = $wrap.find('form input').on('change', function() {
-      if ($input.val() != fen) board.position($input.val());
-    });
-    $wrap.find('form').submit(function() {
-      return false;
-    });
+    var $string = $wrap.find('.fen-string');
+    var $color = $wrap.find('.color').on('change', onChange);
+    var castles = {wk:'K',wq:'Q',bk:'k',bq:'q'};
+    $wrap.find('.castling input').on('change', onChange);
 
-    function setFen(f) {
-      fen = f;
-      if ($input.val() != fen) $input.val(fen);
+    function getRich() {
+      return toRich(board.fen());
+    }
+    function toRich(fen) {
+      var castling = _.map(castles, function(symbol, key) {
+        return $('#castling-' + key).prop('checked') ? symbol : '';
+      }).join('') || '-';
+      return fen + ' ' + $color.val() + ' ' + castling;
+    }
+    function toBase(fen) {
+      return fen.split(' ')[0];
+    }
+
+    function onChange() {
+      var rich = getRich();
+      $string.val(rich);
       $wrap.find('a.fen_link').each(function() {
-        $(this).attr('href', $(this).attr('href').replace(/fen=[^#]*#/, "fen=" + fen + '#'));
+        $(this).attr('href', $(this).attr('href').replace(/fen=[^#]*#/, "fen=" + rich + '#'));
       });
     }
 
-    var board = new ChessBoard('chessboard', {
-      position: $('#chessboard').data('fen') || 'start',
+    board = new ChessBoard('chessboard', {
+      position: toBase($('#chessboard').data('fen')) || 'start',
       draggable: true,
       dropOffBoard: 'trash',
       sparePieces: true,
       pieceTheme: '/assets/vendor/chessboard/img/chesspieces/wikipedia/{piece}.png',
-      onChange: function(oldPos, newPos) {
-        setFen(ChessBoard.objToFen(newPos));
+      onChange: function() {
+        setTimeout(onChange, 100);
       }
     });
-    setFen(board.fen());
+    onChange();
 
     $wrap.find('a.start').on('click', board.start);
     $wrap.find('a.clear').on('click', board.clear);
     $wrap.find('a.flip').on('click', board.flip);
     $wrap.find('a.save').on('click', function() {
-      alert('Permalink: ' + $(this).data('domain') + '/editor/' + fen);
+      alert('Permalink: ' + $(this).data('domain') + '/editor/' + getRich());
       return false;
     });
   });
