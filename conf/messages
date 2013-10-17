@@ -17,6 +17,7 @@ checkmate=Checkmate
 stalemate=Stalemate
 white=White
 black=Black
+randomColor=Random color
 createAGame=Create a game
 noGameAvailableRightNowCreateOne=No game available right now, create one!
 whiteIsVictorious=White is victorious

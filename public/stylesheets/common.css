@@ -1405,32 +1405,39 @@ div.game_config .time_choice span {
 div.game_config label.pointer {
   cursor: pointer;
 }
-div.game_config button.submit {
-  margin-top: 0.5em;
-}
 div.game_config div.color_submits {
   margin-top: 1em;
-  margin-left: 18px;
   height: 65px;
+  text-align: center;
 }
-div.game_config div.color_submits button.submit {
-  float: left;
-  width: 80px;
-  height: 65px;
-  padding: 5px 14px;
+div.game_config button {
+  display: inline-block;
   margin: 0 5px;
 }
-div.game_config div.color_submits button.submit span {
-  background: url(../images/sprite_color.png) no-repeat;
+div.game_config button.black, div.game_config button.white {
   width: 50px;
-  height: 51px;
+  height: 50px;
+  padding: 5px;
+}
+div.game_config button.black span, div.game_config button.white span {
+  background: url(../images/choice-color.png) no-repeat;
+  width: 40px;
+  height: 40px;
   padding: 0;
 }
-div.game_config div.color_submits button.black span {
-  background-position: 0 -51px;
+div.game_config button.white span {
+  background-position: 0 -40px;
+}
+div.game_config button.random {
+  width: 75px;
+  height: 75px;
+  padding: 10px;
 }
 div.game_config div.color_submits button.random span {
-  background-position: 0 -102px;
+  background: url(../images/choice-random.png) no-repeat;
+  width: 55px;
+  height: 55px;
+  padding: 0;
 }
 #hooks_wrap {
   display: block;
