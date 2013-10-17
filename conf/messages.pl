@@ -17,6 +17,7 @@ checkmate=Mat
 stalemate=Pat
 white=Białe
 black=Czarne
+randomColor=Przypadkowy kolor
 createAGame=Utwórz grę
 noGameAvailableRightNowCreateOne=Brak dostępnej gry, stwórz nową!
 whiteIsVictorious=Białe zwyciężyły
