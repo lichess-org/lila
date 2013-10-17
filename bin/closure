@@ -2,9 +2,15 @@
 . bin/lilarc
 
 
-lilalog "Compiling lila javascript"
 mkdir -p public/compiled
-closure --js public/javascripts/big.js --js_output_file public/compiled/big.js
+for file in big.js chart2.js user.js; do
+  orig=public/javascripts/$file
+  comp=public/compiled/$file
+  if [[ ! -f $comp || $orig -nt $comp ]]; then
+    lilalog "Compiling lila javascript - $file"
+    closure --js $orig --js_output_file $comp
+  fi
+done
 pgn4web_output=public/compiled/pgn4web-compacted.js
 if [ ! -f $pgn4web_output ]; then
   lilalog "Compiling pgn4web javascript"
