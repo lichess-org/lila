@@ -1,3 +1,8 @@
+// ==ClosureCompiler==
+// @compilation_level ADVANCED_OPTIMIZATIONS
+// @externs_url http://closure-compiler.googlecode.com/svn/trunk/contrib/externs/jquery-2.0.js
+// ==/ClosureCompiler==
+//
 $(function() {
 
   var disabled = {
@@ -11,7 +16,6 @@ $(function() {
   };
   var theme = Highcharts.theme;
   var defaults = {
-    chart: {},
     title: {
       floating: true
     },
@@ -19,7 +23,7 @@ $(function() {
       title: noText
     },
     credits: disabled,
-    legend: disabled,
+    legend: disabled
   };
 
   function mergeDefaults(config) {
@@ -77,11 +81,11 @@ $(function() {
         }, {
           name: 'Average ELO',
           type: 'line',
-          data: points('avg'),
+          data: points('avg')
         }, {
           name: 'Opponent ELO',
           type: 'line',
-          data: points('op'),
+          data: points('op')
         }
       ]
     }));
