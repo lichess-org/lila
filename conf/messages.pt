@@ -17,6 +17,7 @@ checkmate=Xeque-mate
 stalemate=Rei Afogado
 white=Brancas
 black=Pretas
+randomColor=Cor aleatória
 createAGame=Criar um jogo
 noGameAvailableRightNowCreateOne=Não há jogos disponíveis neste momento, crie um agora!
 whiteIsVictorious=Brancas vencem
