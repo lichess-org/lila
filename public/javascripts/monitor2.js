@@ -34,6 +34,11 @@ $(function() {
         color: '#bababa',
       }
     },
+    plotOptions: {
+      series: {
+        shadow: false
+      }
+    },
     xAxis: {
       type: 'datetime',
       title: noText,
@@ -75,7 +80,7 @@ $(function() {
   }
 
   $monitors.append($('<div>').attr('id', 'allUsers').width(width * 2).height(height * 2));
-  charts['allUsers'] = new Highcharts.Chart(
+  charts.allUsers = new Highcharts.Chart(
     $.extend(true, {}, chartDefaults, {
     chart: {
       renderTo: 'allUsers',
@@ -201,11 +206,11 @@ $(function() {
         if (d.length == 2) {
           var id = d[1];
           var val = parseFloat(d[0]);
-          var index = ['users', 'game', 'lobby'].indexOf(id)
+          var chart, index = ['users', 'game', 'lobby'].indexOf(id);
           if (index != -1) {
-            var chart = charts['allUsers']
+            chart = charts.allUsers;
           } else {
-            var chart = charts[id];
+            chart = charts[id];
             index = 0;
           }
           if (typeof chart != 'undefined') {
