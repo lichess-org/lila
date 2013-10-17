@@ -46,6 +46,7 @@ $(function() {
     },
     yAxis: {
       title: noText,
+      opposite: true
     }
   };
 
