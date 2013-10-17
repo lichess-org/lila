@@ -73,6 +73,14 @@ function customFunctionOnMove() {
   });
 }
 
+// hack: display captures and checks
+function CleanMove(move) {
+  move = move.replace(/[^a-zA-WYZ0-9#-\+\=]*/g, ''); // patch: remove/add '+' 'x' '=' chars for full chess informant style or pgn style for the game text
+  if (move.match(/^[Oo0]/)) { move = move.replace(/[o0]/g, 'O').replace(/O(?=O)/g, 'O-'); }
+  move = move.replace(/ep/i, '');
+  return move;
+}
+
 function redrawBoardMarks() {
   $.displayBoardMarks($('#GameBoard'), !$('#GameBoard').hasClass('flip'));
 }
