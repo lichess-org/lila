@@ -17,6 +17,7 @@ checkmate=Sakk-matt
 stalemate=Patt
 white=Világos
 black=Sötét
+randomColor=Véletlenszerű szín
 createAGame=Játék létrehozása
 noGameAvailableRightNowCreateOne=Jelenleg nincs elérhető játék, hozz létre egyet!
 whiteIsVictorious=A világos nyert
