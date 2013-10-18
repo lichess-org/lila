@@ -16,7 +16,7 @@ private[i18n] object Contributors {
     "it" -> List("Marco Barberis"),
     "fi" -> List("Juuso Vallius"),
     "uk" -> List("alterionisto"),
-    "pt" -> List("Arthur Braz", "Eugênio Vázquez"),
+    "pt" -> List("Arthur Braz", "Eugênio Vázquez", "backdoorman"),
     "pl" -> List("M3n747", "Kurt Keller (DE)"),
     "nl" -> List("Kintaro"),
     "vi" -> List("Xiblack"),
