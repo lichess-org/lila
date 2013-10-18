@@ -17,36 +17,40 @@ function customFunctionOnPgnGameLoad() {
   });
 }
 
-function posToSquareId(pos) {
-  if (pos.length != 2) return;
-  var x = "abcdefgh".indexOf(pos[0]),
-    y = 8 - parseInt(pos[1], 10);
-  return "img_tcol" + x + "trow" + y;
+function uciToSquareIds(uci) {
+  if (uci.length != 4) return [];
+  var square = function(pos) {
+    var x = "abcdefgh".indexOf(pos[0]),
+      y = 8 - parseInt(pos[1], 10);
+    return "img_tcol" + x + "trow" + y;
+  };
+  return [square(uci.slice(0, 2)), square(uci.slice(2))];
 }
 
 function customFunctionOnMove() {
   refreshButtonset();
-  var $chart = $("div.adv_chart");
+  var $chart = $("#adv_chart");
   if ($chart.length) {
     var chart = $chart.highcharts();
+    $("#GameBoard img.bestmove").removeClass("bestmove");
     if (CurrentVar !== 0) {
       _.each(chart.getSelectedPoints(), function(point) {
         point.select(false);
       });
     } else {
-      try {
-        var index = CurrentPly - 1;
-        var point = chart.series[0].data[index];
-        if (typeof point != "undefined") {
-          point.select();
-          var adv = "Advantage: <strong>" + point.y + "</strong>";
-          var title = point.name + ' ' + adv;
-          chart.setTitle({
-            text: title
-          });
-        }
-      } catch (e) {
-        console.debug(e);
+      var ids = uciToSquareIds(lichess_best_moves[CurrentPly] || '');
+      $.each(ids, function() {
+        $("#" + this).addClass("bestmove");
+      });
+      var index = CurrentPly - 1;
+      var point = chart.series[0].data[index];
+      if (typeof point != "undefined") {
+        point.select();
+        var adv = "Advantage: <strong>" + point.y + "</strong>";
+        var title = point.name + ' ' + adv;
+        chart.setTitle({
+          text: title
+        });
       }
     }
   }
@@ -74,9 +78,12 @@ function customFunctionOnMove() {
 }
 
 // hack: display captures and checks
+
 function CleanMove(move) {
   move = move.replace(/[^a-zA-WYZ0-9#-\+\=]*/g, ''); // patch: remove/add '+' 'x' '=' chars for full chess informant style or pgn style for the game text
-  if (move.match(/^[Oo0]/)) { move = move.replace(/[o0]/g, 'O').replace(/O(?=O)/g, 'O-'); }
+  if (move.match(/^[Oo0]/)) {
+    move = move.replace(/[o0]/g, 'O').replace(/O(?=O)/g, 'O-');
+  }
   move = move.replace(/ep/i, '');
   return move;
 }

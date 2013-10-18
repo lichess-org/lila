@@ -1,5 +1,7 @@
 package lila.analyse
 
+import chess.format.UciMove
+
 case class Evaluation(
     score: Option[Score],
     mate: Option[Int],
@@ -17,14 +19,17 @@ object Evaluation {
   def toInfos(evals: List[Evaluation], moves: List[String]): List[Info] =
     (evals filterNot (_.checkMate) sliding 2).toList.zip(moves).zipWithIndex map {
       case ((List(before, after), move), index) ⇒ {
+        val variation = before.line match {
+          case first :: rest if first != move ⇒ first :: rest
+          case _                              ⇒ Nil
+        }
+        val best = variation.headOption flatMap UciMove.apply map (_.keysPiotr)
         Info(
           ply = index + 1,
           score = after.score,
           mate = after.mate,
-          variation = before.line match {
-            case first :: rest if first != move ⇒ first :: rest
-            case _                              ⇒ Nil
-          }) |> { info ⇒
+          variation = variation,
+          best = best) |> { info ⇒
             if (info.ply % 2 == 1) info.reverse else info
           }
       }

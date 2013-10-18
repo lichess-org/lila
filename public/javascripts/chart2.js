@@ -91,7 +91,7 @@ $(function() {
     }));
   });
 
-  $('div.adv_chart').each(function() {
+  $('#adv_chart').each(function() {
     var $this = $(this);
     var cpMax = parseInt($this.data('max'), 10) / 100;
     $(this).highcharts(mergeDefaults({

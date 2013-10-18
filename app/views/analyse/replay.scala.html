@@ -9,9 +9,10 @@
 @moreJs = {
 @jsVendorTag("pgn4web/pgn4web-compacted.js")
 @jsTagCompiled("pgn4hacks.js")
-@if(analysis.isDefined) {
+@analysis.map { a =>
 @highchartsTag
 @jsTagCompiled("chart2.js")
+@embedJs("var lichess_best_moves="+toJson(a.bestMoves)+";")
 }
 }
 
@@ -85,7 +86,7 @@ themepicker = true) {
 }
 @advantageChart.map { chart =>
 <div
-  class="adv_chart"
+  id="adv_chart"
   title="Advantage (up: white, down: black)"
   data-max="@lila.analyse.AdvantageChart.max"
   data-rows="@chart"></div>

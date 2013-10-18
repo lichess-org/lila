@@ -4,10 +4,10 @@ import chess.Color
 import chess.format.Nag
 
 case class Analysis(
-  id: String, 
-  infos: List[Info], 
-  done: Boolean, 
-  old: Boolean = false) {
+    id: String,
+    infos: List[Info],
+    done: Boolean,
+    old: Boolean = false) {
 
   lazy val infoAdvices: InfoAdvices = {
     (Info.start :: infos) sliding 2 collect {
@@ -16,6 +16,11 @@ case class Analysis(
   }.toList
 
   lazy val advices: List[Advice] = infoAdvices.map(_._2).flatten
+
+  // ply -> UCI
+  def bestMoves: Map[Int, String] = (infos map { i ⇒
+    i.best map { b ⇒ i.ply -> b }
+  }).flatten.toMap
 
   def encode: RawAnalysis = RawAnalysis(id, Info encodeList infos, done)
 
