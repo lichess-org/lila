@@ -17,6 +17,7 @@ checkmate=Šachas ir matas
 stalemate=Patas
 white=Baltieji
 black=Juodieji
+randomColor=Atsitiktinė spalva
 createAGame=Sukurti žaidimą
 noGameAvailableRightNowCreateOne=Šiuo metu nėra žaidimų, sukurkite naują!
 whiteIsVictorious=Baltieji laimėjo
