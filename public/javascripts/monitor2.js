@@ -8,7 +8,7 @@ $(function() {
   var noText = {
     text: null
   };
-  var maxPoints = 12;
+  var maxPoints = 60;
   var colors = Highcharts.theme.colors;
   var width = 355,
     height = 165;
@@ -23,7 +23,7 @@ $(function() {
           [1, 'rgb(16, 16, 16)']
         ]
       },
-      defaultSeriesType: 'spline',
+      defaultSeriesType: 'line',
       animation: false,
       borderRadius: 0,
     },
@@ -36,7 +36,11 @@ $(function() {
     },
     plotOptions: {
       series: {
-        shadow: false
+        shadow: false,
+        marker: {
+          lineColor: null,
+          fillColor: 'none'
+        }
       }
     },
     xAxis: {
@@ -60,7 +64,7 @@ $(function() {
     $monitors.append($('<div>').attr('id', info.id).width(width).height(height));
     charts[info.id] = new Highcharts.Chart($.extend(true, {}, chartDefaults, {
       chart: {
-        defaultSeriesType: info.type || 'spline',
+        defaultSeriesType: info.type || 'line',
         renderTo: info.id,
       },
       title: {
@@ -82,26 +86,23 @@ $(function() {
 
   add({
     id: 'users',
-    title: 'Users',
-    type: 'spline'
+    title: 'Users'
   });
 
   add({
     id: 'game',
-    title: 'Playing Users',
-    type: 'spline'
+    title: 'Playing Users'
   });
 
   add({
     id: 'lobby',
-    title: 'Lobby Users',
-    type: 'spline'
+    title: 'Lobby Users'
   });
 
   add({
     id: 'lat',
     title: 'Latency',
-    type: 'areaspline',
+    type: 'area',
     format: '{value} ms'
   });
 
