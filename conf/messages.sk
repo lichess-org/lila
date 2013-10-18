@@ -17,6 +17,7 @@ checkmate=Šach mat
 stalemate=Pat
 white=Biely
 black=Čierny
+randomColor=Náhodná farba
 createAGame=Vytvoriť hru
 noGameAvailableRightNowCreateOne=K dispozícii nie je práve žiadna hra, vytvorte ju!
 whiteIsVictorious=Biely zvíťazil
