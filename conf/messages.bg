@@ -17,6 +17,7 @@ checkmate=Шах и мат
 stalemate=Пат
 white=Бели
 black=Черни
+randomColor=Произволен цвят
 createAGame=Създай игра
 noGameAvailableRightNowCreateOne=Няма налична игра в момента, създай!
 whiteIsVictorious=Белите печелят
