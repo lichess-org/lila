@@ -17,6 +17,7 @@ checkmate=Şah mat
 stalemate=Pat
 white=Alb
 black=Negru
+randomColor=Culoare aleatoare
 createAGame=Creaza un joc nou
 noGameAvailableRightNowCreateOne=Nu exista partide disponibile. Creeaza una!
 whiteIsVictorious=Albul a câştigat
