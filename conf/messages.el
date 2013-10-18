@@ -17,6 +17,7 @@ checkmate=Ματ
 stalemate=Πατ
 white=Λευκά
 black=Μαύρα
+randomColor=Τυχαίο χρώμα
 createAGame=Δημιουργία παιχνιδιού
 noGameAvailableRightNowCreateOne=Δεν ύπαρχει κανένα διαθέσιμο παιχνίδι αυτήν τη στιγμή, δημιουργήστε ένα!
 whiteIsVictorious=Τα λευκά νίκησαν
