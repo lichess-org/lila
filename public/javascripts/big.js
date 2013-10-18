@@ -202,7 +202,7 @@ var storage = {
       }
       if (m.t) {
         if (m.t == "resync") {
-          if (!self.options.prodPipe) location.reload();
+          if (!self.options.prodPipe) lichess.reload();
           return;
         }
         var h = self.settings.events[m.t];
@@ -352,11 +352,15 @@ var storage = {
         },
         deployPre: function(html) {
           $('#notifications').append(html);
-          setTimeout(function() { $('#deploy_pre').fadeOut(1000).remove(); }, 10000);
+          setTimeout(function() {
+            $('#deploy_pre').fadeOut(1000).remove();
+          }, 10000);
         },
         deployPost: function(html) {
           $('#notifications').append(html);
-          setTimeout(function() { $('#deploy_post').fadeOut(1000).remove(); }, 10000);
+          setTimeout(function() {
+            $('#deploy_post').fadeOut(1000).remove();
+          }, 10000);
           lichess.socket.disconnect();
         }
       },
@@ -379,6 +383,12 @@ var storage = {
   };
   // lichess.socketDefaults.options.debug = !lichess.onProduction;
   // lichess.socketDefaults.options.debug = true;
+
+  lichess.hasToReload = false;
+  lichess.reload = function() {
+    lichess.hasToReload = true;
+    location.reload();
+  };
 
   $(function() {
 
@@ -686,7 +696,9 @@ var storage = {
       var duration = nbMoves * delay * 2.1 + 1000;
       $(this).find('button').hide().end()
         .find('.error').hide().end()
-        .find('.progression').show().animate({ width: '100%' }, duration);
+        .find('.progression').show().animate({
+        width: '100%'
+      }, duration);
       return true;
     });
 
@@ -743,7 +755,8 @@ var storage = {
   };
 
   $.displayBoardMarks = function($board, isWhite) {
-    var factor = 1, base = 0;
+    var factor = 1,
+      base = 0;
     if (!isWhite) {
       factor = -1;
       base = 575;
@@ -782,7 +795,6 @@ var storage = {
       self.options.playersUrl = self.element.data('players-url');
       self.options.socketUrl = self.element.data('socket-url');
       self.socketAckTimeout = null;
-      self.hasToReload = false;
 
       $("div.game_tournament .clock").each(function() {
         $(this).clock({
@@ -855,8 +867,13 @@ var storage = {
       }
 
       if (!self.options.player.spectator) {
-        $(window).unload(function() {
-          if (!self.hasToReload && !self.options.game.finished) lichess.socket.send('bye');
+        var okToLeave = function() {
+          return lichess.hasToReload || self.options.game.finished;
+        };
+        $(window).on('beforeunload', function() {
+          if (!okToLeave()) return 'There is a game in progress!';
+        }).on('unload', function() {
+          if (!okToLeave()) lichess.socket.send('bye');
         });
       }
 
@@ -913,7 +930,9 @@ var storage = {
             self.element.queue(function() {
               $("div#" + event.rook[1], self.$board).append($("div#" + event.rook[0] + " div.lichess_piece.rook", self.$board));
               // if the king is beeing animated, stop it now
-              $('body > div.king').each(function($k) { $.stop(true, true); });
+              $('body > div.king').each(function($k) {
+                $.stop(true, true);
+              });
               $("div#" + event.king[1], self.$board).append($("div.lichess_piece.king." + event.color, self.$board));
               self.element.dequeue();
             });
@@ -940,7 +959,7 @@ var storage = {
             // stop queue propagation here
             self.element.queue(function() {
               setTimeout(function() {
-                self.hasToReload = true;
+                lichess.hasToReload = true;
                 location.href = event;
               }, 400);
             });
@@ -961,7 +980,9 @@ var storage = {
           featured_id: function(id) {
             if (self.options.player.spectator && self.options.tv) {
               // stop queue propagation here
-              self.element.queue(function() { location.reload(); });
+              self.element.queue(function() {
+                lichess.reload();
+              });
             }
           },
           end: function() {
@@ -1122,14 +1143,17 @@ var storage = {
     },
     validMove: function(from, to, piece) {
       if (from == to) return false;
-      var self = this, f = self.getSquareCoords(from), t = self.getSquareCoords(to);
-      var color = self.getPieceColor(piece), role = self.getPieceRole(piece);
-      switch(role) {
+      var self = this,
+        f = self.getSquareCoords(from),
+        t = self.getSquareCoords(to);
+      var color = self.getPieceColor(piece),
+        role = self.getPieceRole(piece);
+      switch (role) {
         case 'pawn':
           if (Math.abs(t.x - f.x) > 1) return false;
           if (color == 'white') return (t.y == f.y + 1) || (f.y == 2 && t.y == 4 && f.x == t.x);
-            else return (t.y == f.y - 1) || (f.y == 7 && t.y == 5 && f.x == t.x);
-            break;
+          else return (t.y == f.y - 1) || (f.y == 7 && t.y == 5 && f.x == t.x);
+          break;
         case 'knight':
           var xd = Math.abs(t.x - f.x);
           var yd = Math.abs(t.y - f.y);
@@ -1139,7 +1163,7 @@ var storage = {
         case 'rook':
           return t.x == f.x || t.y == f.y;
         case 'king':
-          return (Math.abs(t.x - f.x) <= 1 && Math.abs(t.y - f.y) <=1) || 
+          return (Math.abs(t.x - f.x) <= 1 && Math.abs(t.y - f.y) <= 1) ||
             (f.y == t.y && (f.y == (color == 'white' ? 1 : 8)) && $('#' + to + '>.rook.' + color).length == 1);
         case 'queen':
           return Math.abs(t.x - f.x) == Math.abs(t.y - f.y) || t.x == f.x || t.y == f.y;
@@ -1181,12 +1205,12 @@ var storage = {
     },
     dropPiece: function($piece, $oldSquare, $newSquare, isPremove) {
       var self = this,
-      squareId = $newSquare.attr('id'),
-      moveData = {
-        from: $oldSquare.attr("id"),
-        to: squareId,
-        b: self.blur
-      };
+        squareId = $newSquare.attr('id'),
+        moveData = {
+          from: $oldSquare.attr("id"),
+          to: squareId,
+          b: self.blur
+        };
       if (moveData.from == moveData.to) return;
 
       if (!self.isMyTurn()) {
@@ -1209,8 +1233,7 @@ var storage = {
         }
         lichess.socket.send("move", moveData);
         self.socketAckTimeout = setTimeout(function() {
-          self.hasToReload = true;
-          location.reload();
+          lichess.reload();
         }, lichess.socket.options.pingMaxLag);
       }
 
@@ -1344,7 +1367,7 @@ var storage = {
         success: function(html) {
           self.$tableInner.html(html);
           self.initTable();
-          if($.isFunction(callback)) callback();
+          if ($.isFunction(callback)) callback();
           $('body').trigger('lichess.content_loaded');
         }
       }, false);
@@ -1357,7 +1380,7 @@ var storage = {
         });
         if (data.me) $('#user_tag span').text(data.me);
         $('body').trigger('lichess.content_loaded');
-        if($.isFunction(callback)) callback();
+        if ($.isFunction(callback)) callback();
       });
     },
     initTable: function() {
@@ -1421,7 +1444,7 @@ var storage = {
     },
     getSquareCoords: function(square) {
       return {
-        x: 'abcdefgh'.indexOf(square[0]) +1,
+        x: 'abcdefgh'.indexOf(square[0]) + 1,
         y: parseInt(square[1], 10)
       };
     },
@@ -1462,8 +1485,7 @@ var storage = {
     onError: function(error, reloadIfFail) {
       var self = this;
       if (reloadIfFail) {
-        self.hasToReload = true;
-        location.reload();
+        lichess.reload();
       }
     }
   });
@@ -1859,7 +1881,8 @@ var storage = {
       var $form = $('div.lichess_overboard');
       var $modeChoices = $form.find('.mode_choice input');
       var $variantChoices = $form.find('.variants input');
-      var $casual = $modeChoices.eq(0), $rated = $modeChoices.eq(1);
+      var $casual = $modeChoices.eq(0),
+        $rated = $modeChoices.eq(1);
       var $fenVariant = $variantChoices.eq(2);
       var $fenPosition = $form.find(".fen_position");
       var $clockCheckbox = $form.find('.clock_choice input');
