@@ -17,6 +17,7 @@ checkmate=Schachmatt
 stalemate=Patt
 white=Weiß
 black=Schwarz
+randomColor=Zufallsfarbe
 createAGame=Partie starten
 noGameAvailableRightNowCreateOne=Keine Partie im Augenblick verfügbar, starte eine!
 whiteIsVictorious=Weiß hat gewonnen
