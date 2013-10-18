@@ -45,6 +45,10 @@ span.board_mark.horz {
 #GameBoard td.highlightBlackSquare img {
   background: url(../images/over5.png) no-repeat;
 }
+#GameBoard td img.bestmove {
+  background: url(../images/sover.png) no-repeat;
+  background-position: 0 -64px;
+}
 #GameBoard td img {
   width: 64px;
   height: 64px;
@@ -140,7 +144,7 @@ div.advice_summary thead th {
   padding: 3px 0;
 }
 
-div.adv_chart {
+#adv_chart {
   height: 170px;
   width: 512px;
 }

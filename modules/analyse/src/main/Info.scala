@@ -1,26 +1,30 @@
 package lila.analyse
 
 import chess.Color
+import chess.format.UciMove
 
-// variation is first in UCI, then converted to PGN before storage
 case class Info(
     ply: Int,
     score: Option[Score] = None,
     mate: Option[Int] = None,
-    variation: List[String] = Nil) {
+    // variation is first in UCI, then converted to PGN before storage
+    variation: List[String] = Nil,
+    // best is always in UCI (used for hilight)
+    best: Option[String] = None) {
 
   def turn = 1 + (ply - 1) / 2
 
   def color = Color(ply % 2 == 1)
 
   def encode: String = List(
-    score ?? (_.centipawns.toString),
+    ~best,
+    variation mkString " ",
     mate ?? (_.toString),
-    variation mkString " "
-  ) mkString Info.separator
+    score ?? (_.centipawns.toString)
+  ).dropWhile(_.isEmpty).reverse mkString Info.separator
 
   def hasVariation = variation.nonEmpty
-  def dropVariation = copy(variation = Nil)
+  def dropVariation = copy(variation = Nil, best = None)
 
   def reverse = copy(score = score map (-_), mate = mate map (-_))
 
@@ -39,11 +43,12 @@ object Info {
   lazy val start = Info(0, Evaluation.start.score, none, Nil)
 
   def decode(ply: Int, str: String): Option[Info] = str.split(separator).toList match {
-    case Nil                   ⇒ Info(ply).some
-    case cp :: Nil             ⇒ Info(ply, Score(cp)).some
-    case cp :: ma :: Nil       ⇒ Info(ply, Score(cp), parseIntOption(ma)).some
-    case cp :: ma :: va :: Nil ⇒ Info(ply, Score(cp), parseIntOption(ma), va.split(' ').toList).some
-    case _                     ⇒ none
+    case Nil                  ⇒ Info(ply).some
+    case List(cp)             ⇒ Info(ply, Score(cp)).some
+    case List(cp, ma)         ⇒ Info(ply, Score(cp), parseIntOption(ma)).some
+    case List(cp, ma, va)     ⇒ Info(ply, Score(cp), parseIntOption(ma), va.split(' ').toList).some
+    case List(cp, ma, va, be) ⇒ Info(ply, Score(cp), parseIntOption(ma), va.split(' ').toList, UciMove.piotr(be) map (_.keys)).some
+    case _                    ⇒ none
   }
 
   def decodeList(str: String): Option[List[Info]] = {
