@@ -1145,8 +1145,8 @@ var storage = {
       if (from == to) return false;
       var self = this,
         f = self.getSquareCoords(from),
-        t = self.getSquareCoords(to);
-      var color = self.getPieceColor(piece),
+        t = self.getSquareCoords(to),
+        color = self.getPieceColor(piece),
         role = self.getPieceRole(piece);
       switch (role) {
         case 'pawn':
@@ -1431,7 +1431,7 @@ var storage = {
       }
     },
     canRunClock: function() {
-      return this.options.game.clock && this.options.game.started && !this.options.game.finished;
+      return this.options.game.clock && this.options.game.started;
     },
     getPieceColor: function($piece) {
       return $piece.hasClass('white') ? 'white' : 'black';
