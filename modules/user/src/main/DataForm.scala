@@ -9,14 +9,6 @@ object DataForm {
     "bio" -> text(maxLength = 400)
   ))
 
-  val theme = Form(single(
-    "theme" -> nonEmptyText.verifying(Theme contains _)
-  ))
-
-  val bg = Form(single(
-    "bg" -> text.verifying(Set("light", "dark") contains _)
-  ))
-
   case class Passwd(
       oldPasswd: String,
       newPasswd1: String,
@@ -32,6 +24,4 @@ object DataForm {
       "the new passwords don't match",
       _.samePasswords
     ))
-
-  private def jsBoolean = nonEmptyText.verifying(Set("true", "false") contains _)
 }

@@ -2,12 +2,11 @@ package controllers
 
 import lila.app._
 import views._
-import lila.user.{ Context, BodyContext, Setting ⇒ UserSetting }
 
 import play.api.data.Form
 import play.api.mvc._, Results._
 
-object Setting extends LilaController {
+object Pref extends LilaController {
 
   def set(name: String) = OpenBody { implicit ctx ⇒
     implicit val req = ctx.body

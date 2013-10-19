@@ -102,8 +102,8 @@ GET   /$gameId<[\w\-]{8}>/stats          controllers.Analyse.stats(gameId: Strin
 GET   /$gameId<[\w\-]{8}>/pgn            controllers.Analyse.pgn(gameId: String)
 GET   /$gameId<[\w\-]{8}>/fen            controllers.Analyse.fen(gameId: String)
  
-# Setting
-POST  /setting/:name                   controllers.Setting.set(name: String)
+# Pref
+POST  /pref/:name                      controllers.Pref.set(name: String)
  
 # Setup
 GET   /setup/ai                        controllers.Setup.aiForm
