@@ -16,9 +16,6 @@ $(function() {
   };
   var theme = Highcharts.theme;
   var defaults = {
-    title: {
-      floating: true
-    },
     yAxis: {
       title: noText
     },
@@ -105,8 +102,9 @@ $(function() {
       ],
       chart: {
         type: 'area',
-        margin: 2,
-        spacing: [2, 2, 2, 2]
+        margin: 0,
+        marginTop: 16,
+        spacing: [10,0,0,0]
       },
       plotOptions: {
         area: {
@@ -126,9 +124,13 @@ $(function() {
             }
           },
           marker: {
-            radius: 2,
-            enabled: true,
+            radius: 1,
             states: {
+              hover: {
+                radius: 3,
+                lineColor: '#b57600',
+                fillColor: '#ffffff'
+              },
               select: {
                 radius: 4,
                 lineColor: '#b57600',
@@ -140,8 +142,9 @@ $(function() {
       },
       title: {
         text: $this.attr('title'),
+        margin: 0,
         align: 'left',
-        y: 12
+        y: 0
       },
       xAxis: {
         title: noText,
