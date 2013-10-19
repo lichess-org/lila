@@ -1,4 +1,4 @@
-package lila.user
+package lila.pref
 
 import scalaz.NonEmptyList
 

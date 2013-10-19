@@ -27,7 +27,7 @@ object Environment
     with PaginatorHelper
     with FormHelper
     with SetupHelper
-    with SettingHelper
+    with PrefHelper
     with MessageHelper
     with lila.round.RoundHelper
     with AiHelper
