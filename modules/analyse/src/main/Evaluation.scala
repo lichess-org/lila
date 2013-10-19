@@ -23,7 +23,7 @@ object Evaluation {
           case first :: rest if first != move ⇒ first :: rest
           case _                              ⇒ Nil
         }
-        val best = variation.headOption flatMap UciMove.apply map (_.keysPiotr)
+        val best = variation.headOption flatMap UciMove.apply
         Info(
           ply = index + 1,
           score = after.score,

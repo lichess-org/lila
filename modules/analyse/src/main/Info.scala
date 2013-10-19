@@ -10,14 +10,14 @@ case class Info(
     // variation is first in UCI, then converted to PGN before storage
     variation: List[String] = Nil,
     // best is always in UCI (used for hilight)
-    best: Option[String] = None) {
+    best: Option[UciMove] = None) {
 
   def turn = 1 + (ply - 1) / 2
 
   def color = Color(ply % 2 == 1)
 
   def encode: String = List(
-    ~best,
+    best ?? (_.keysPiotr),
     variation mkString " ",
     mate ?? (_.toString),
     score ?? (_.centipawns.toString)
@@ -47,7 +47,7 @@ object Info {
     case List(cp)             ⇒ Info(ply, Score(cp)).some
     case List(cp, ma)         ⇒ Info(ply, Score(cp), parseIntOption(ma)).some
     case List(cp, ma, va)     ⇒ Info(ply, Score(cp), parseIntOption(ma), va.split(' ').toList).some
-    case List(cp, ma, va, be) ⇒ Info(ply, Score(cp), parseIntOption(ma), va.split(' ').toList, UciMove.piotr(be) map (_.keys)).some
+    case List(cp, ma, va, be) ⇒ Info(ply, Score(cp), parseIntOption(ma), va.split(' ').toList, UciMove piotr be).some
     case _                    ⇒ none
   }
 
