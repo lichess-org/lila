@@ -19,7 +19,7 @@ case class Analysis(
 
   // ply -> UCI
   def bestMoves: Map[Int, String] = (infos map { i ⇒
-    i.best map { b ⇒ i.ply -> b }
+    i.best map { b ⇒ i.ply -> b.keys }
   }).flatten.toMap
 
   def encode: RawAnalysis = RawAnalysis(id, Info encodeList infos, done)
