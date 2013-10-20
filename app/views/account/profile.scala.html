@@ -1,0 +1,31 @@
+@(u: User, form: Form[_])(implicit ctx: Context)
+
+@title = @{ "%s profile".format(u.username) }
+
+@evenMoreCss = {
+@cssTag("user-profile.css")
+}
+
+@user.layout(
+title = title,
+evenMoreCss = evenMoreCss) {
+<div class="content_box small_box">
+  <div class="signup_box">
+    <h1 class="lichess_title">Edit your profile</h1>
+    <form action="@routes.Account.profileApply" method="POST">
+      <ul>
+        @user.passwdFormField(form("firstName"), "First name")
+        @user.passwdFormField(form("lastName"), "Last name")
+        @user.passwdFormField(form("bio"), "Biography")
+        @user.passwdFormField(form("country"), "Country")
+        <li>
+          @errMsg(form)
+        </li>
+        <li>
+          <input type="submit" class="submit" value="Apply changes" />
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>
+}

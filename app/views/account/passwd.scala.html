@@ -13,7 +13,7 @@ evenMoreCss = evenMoreCss) {
 <div class="content_box small_box">
   <div class="signup_box">
     <h1 class="lichess_title">Change your password</h1>
-    <form action="@routes.User.passwdApply" method="POST">
+    <form action="@routes.Account.passwdApply" method="POST">
       <ul>
         @user.passwdFormField(form("oldPasswd"), "Current password")
         @user.passwdFormField(form("newPasswd1"), "New password")

@@ -7,33 +7,10 @@
 @jsTagCompiled("chart2.js")
 }
 
-@evenMoreCss = {
-@if(ctx is u) {
-@cssTag("user-edit.css")
-}
-}
-
-@bio = {
-@if(ctx is u) {
-<div class="user_bio">
-  <div class="editable">@shorten(u.bio | "Click here to tell about yourself", 400)</div>
-  <form action="@routes.User.setBio">
-    <textarea name="bio"></textarea>
-    <button class="button apply">@trans.apply()</button>
-    <button class="button cancel">@trans.cancel()</button>
-  </form>
-</div>
-} else {
-@u.nonEmptyBio.map { bio =>
-<div class="user_bio">@shorten(bio, 400)</div>
-}
-}
-}
-
 @actions = {
 @if(ctx is u) {
-<a class="small action" href="@routes.User.passwd">Change password</a>
-<a class="small action" href="@routes.User.close">Close account</a>
+<a class="small action" href="@routes.Account.passwd">Change password</a>
+<a class="small action" href="@routes.Account.close">Close account</a>
 }
 }
 
@@ -64,8 +41,7 @@
 title = title,
 goodies = goodies.some,
 robots = false,
-evenMoreJs = evenMoreJs,
-evenMoreCss = evenMoreCss) {
+evenMoreJs = evenMoreJs) {
 <div class="content_box no_padding user_show">
   <div class="content_box_top">
     <div class="icon status @{isOnline(u.id).??("connected")}"></div>
@@ -76,11 +52,11 @@ evenMoreCss = evenMoreCss) {
     }
     @if(u.disabled) {
     <span class="staff">CLOSED</span>
-      @if(isGranted(_.ReopenAccount)) {
-      <form class="reopen" action="@routes.Mod.reopenAccount(u.username)" method="post">
-        <button type="submit" class="button confirm">Reopen</button>
-      </form>
-      }
+    @if(isGranted(_.ReopenAccount)) {
+    <form class="reopen" action="@routes.Mod.reopenAccount(u.username)" method="post">
+      <button type="submit" class="button confirm">Reopen</button>
+    </form>
+    }
     }
   </div>
   <div class="social content_box_inter">
@@ -118,7 +94,9 @@ evenMoreCss = evenMoreCss) {
       @if(u.engine && ctx.me.fold(true)(u !=)) {
       <div class="engine_warning">@trans.thisPlayerUsesChessComputerAssistance()</div>
       }
-      @bio
+      @u.profileOrDefault.nonEmptyBio.map { bio =>
+      <div class="user_bio">@shorten(bio, 400)</div>
+      }
       @info.confrontation.map { c =>
       @user.confrontation(c)
       }

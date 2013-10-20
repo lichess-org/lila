@@ -9,6 +9,15 @@ object DataForm {
     "bio" -> text(maxLength = 400)
   ))
 
+  val profile = Form(mapping(
+    "firstName" -> nameField,
+    "lastName" -> nameField,
+    "country" -> optional(nonEmptyText.verifying(Countries.codeSet contains _)),
+    "bio" -> optional(nonEmptyText(maxLength = 400))
+  )(Profile.apply)(Profile.unapply))
+
+  private def nameField = optional(nonEmptyText(minLength = 2, maxLength = 20))
+
   val theme = Form(single(
     "theme" -> nonEmptyText.verifying(Theme contains _)
   ))

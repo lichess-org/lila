@@ -1,0 +1,32 @@
+.content_box form {
+  font-size: 1.3em;
+}
+.content_box form li {
+  display: block;
+  list-style: none outside none;
+  margin: 1em 0;
+  position: relative;
+}
+.content_box form label {
+  display: block;
+  float: left;
+  margin-right: 10px;
+  margin-top: 2px;
+  text-align: right;
+  width: 150px;
+}
+.content_box form  input.passwd {
+  border: 1px solid #D4D4D4;
+  padding: 3px 5px;
+  width: 200px;
+}
+.content_box form input.submit {
+  margin-left: 160px;
+  margin-right: 20px;
+  padding: 3px 1em;
+}
+form .error {
+  color: red;
+  margin-left: 160px;
+}
+
