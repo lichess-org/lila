@@ -11,9 +11,6 @@ final class PrefApi {
 
   def getPref[A](user: User, pref: Pref ⇒ A): Fu[A] = getPref(user) map pref
 
-  def getPrefString(user: User, name: String): Fu[Option[String]] =
-    getPref(user) map (_ get name)
-
   def setPref(pref: Pref): Funit = $save(pref)
 
   def setPref(user: User, change: Pref ⇒ Pref): Funit =
