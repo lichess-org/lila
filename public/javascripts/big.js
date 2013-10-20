@@ -575,9 +575,10 @@ var storage = {
     translateTexts();
     $('body').on('lichess.content_loaded', translateTexts);
 
-    $('input.autocomplete').each(function($a) {
+    $('input.autocomplete').each(function() {
+      var $a = $(this);
       $a.autocomplete({
-        source: $autocomplete.attr('data-provider'),
+        source: $a.data('provider'),
         minLength: 2,
         delay: 100
       });
