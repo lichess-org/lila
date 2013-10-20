@@ -1,0 +1,31 @@
+@(u: User, form: Form[_])(implicit ctx: Context)
+
+@title = @{ s"${u.username} - ${trans.preferences.str()}" }
+
+@evenMoreCss = {
+@cssTag("user-form.css")
+}
+
+@account.layout(title = title, active = "preferences") {
+<div class="content_box small_box">
+  <div class="signup_box">
+    <h1 class="lichess_title">@trans.preferences()</h1>
+    <form action="@routes.Account.profileApply" method="POST">
+      <ul>
+        <li>
+        @base.checkbox(form("chat"), "Enable chat rooms", 1)
+        </li>
+        <li>
+        @base.checkbox(form("sound"), "Enable sound", 1)
+        </li>
+        <li>
+        @errMsg(form)
+        </li>
+        <li>
+        <input type="submit" class="submit button" value="@trans.apply()" />
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>
+}

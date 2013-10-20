@@ -5,7 +5,6 @@
   display: block;
   list-style: none outside none;
   margin: 1em 0;
-  position: relative;
 }
 .content_box form label {
   display: block;
@@ -15,7 +14,7 @@
   text-align: right;
   width: 150px;
 }
-.content_box form  input.passwd {
+.content_box form  input[type="text"] {
   border: 1px solid #D4D4D4;
   padding: 3px 5px;
   width: 200px;

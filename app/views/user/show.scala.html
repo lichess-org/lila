@@ -62,7 +62,7 @@ evenMoreJs = evenMoreJs) {
     <a class="intertab" href="@routes.ForumPost.search("user:" + u.username, 1)">@splitNumber(info.nbPosts + " Forum posts")</a>
     <div class="relation_actions">
       @if(ctx is u) {
-      <a class="profile button" href="@routes.Account.profile">
+      <a class="button" href="@routes.Account.profile">
         <span class="s16 gear">@trans.editProfile()</span>
       </a>
       }

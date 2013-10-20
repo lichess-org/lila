@@ -10,6 +10,7 @@
   <div class="links dropdown">
     <a href="@routes.User.show(me.username)" class="blank_if_play"><span class="s16 goto_profile">@trans.profile()</span></a>
     <a href="@routes.Account.profile"><span class="s16 gear">@trans.editProfile()</span></a>
+    <a href="@routes.Pref.form"><span class="s16 gear">@trans.preferences()</span></a>
     <a href="@routes.Auth.logout"><span class="s16 goto_logout">@trans.logOut()</span></a>
     @if(isGranted(_.StaffForum)) {
     <hr />
