@@ -90,9 +90,6 @@ div.user_show .teams {
 div.user_show .bio {
   font-style: italic;
 }
-div.user_show .country img {
-  vertical-align: middle;
-}
 
 div.user_show .teams a {
   display: block;

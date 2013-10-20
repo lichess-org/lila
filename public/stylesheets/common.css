@@ -228,7 +228,7 @@ ul.ui-autocomplete li a.ui-state-focus {
   text-align: right;
   padding: 16px 8px;
 }
-#powerTip .lang {
+#powerTip .localization {
   display: block;
   height: 16px;
   margin-top: 5px;
@@ -455,6 +455,9 @@ body.tight div.footer {
 div.footer div.right {
   float: right;
   text-align: right;
+}
+.country > img {
+  vertical-align: middle;
 }
 .button, a.button {
   border-radius: 5px;
