@@ -112,10 +112,8 @@ evenMoreJs = evenMoreJs) {
         <span class="country"><img src="@routes.Assets.at(s"images/flag/shiny/16/$code.png")" /> @name</span>
         }
         }
-        @u.lang.map { l =>
-        @langName(l).map { name =>
+        @u.lang.flatMap(langName).map { name =>
         <span class="lang s16">@name</span>
-      }
       }
       <p>@trans.memberSince() @showDate(u.createdAt)</p>
       @u.seenAt.map { seen =>
