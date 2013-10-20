@@ -9,17 +9,16 @@ case class Profile(
     firstName: Option[String] = None,
     lastName: Option[String] = None) {
 
-  def nonEmptyRealName = (ne(firstName) |@| ne(lastName)) apply { _ + " " + _ }
+  def nonEmptyRealName = List(ne(firstName), ne(lastName)).flatten match {
+    case Nil   ⇒ none
+    case names ⇒ (names mkString " ").some
+  }
 
   def countryInfo = country flatMap Countries.info
 
   def nonEmptyLocation = ne(location)
 
   def nonEmptyBio = ne(bio)
-
-  def nonEmpty = List(
-    firstName, lastName, bio, country
-  ).flatten.nonEmpty option this
 
   private def ne(str: Option[String]) = str filter (_.nonEmpty)
 }

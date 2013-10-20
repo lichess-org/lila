@@ -68,10 +68,7 @@ object UserRepo {
 
   def setProfile(id: ID, profile: Profile): Funit = {
     import tube.profileTube
-    profile.nonEmpty match {
-      case Some(p) => $update($select(id), $set("profile" -> p))
-      case None => $update($select(id), $unset("profile"))
-    }
+    $update($select(id), $set("profile" -> profile))
   }
 
   val enabledSelect = Json.obj("enabled" -> true)
