@@ -40,9 +40,8 @@ elif [ "$1" = "n" ]; then
   show
 elif [ "$1" = "c" ]; then
   printf "Commit resolved conflict\n"
-  (( prevVersion = version -1 ))
   git clean -f
-  git commit -C t/$(echo $prevVersion)
+  git commit -C t/$(echo $version)
 fi
 
 printf "current version: %s\n" $version
