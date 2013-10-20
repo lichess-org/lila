@@ -2,14 +2,12 @@
 
 @title = @{ "%s - close account".format(u.username) }
 
-@user.layout(
-title = title,
-robots = false) {
+@account.layout(title = title, active = "close") {
 <div class="content_box small_box">
   <div class="signup_box">
     <h1 class="lichess_title">Close your account</h1>
     <p class="explanation">
-      Are you sure you want to close your account? You will no longer be able to login!
+    Are you sure you want to close your account? You will no longer be able to login!
     </p>
     <form action="@routes.Account.closeConfirm" method="POST">
       <br /><br />
@@ -17,7 +15,8 @@ robots = false) {
         I changed my mind, don't close my account
       </a>
       <br /><br />
-      <input type="submit" class="submit" value="Close my account" />
+      <br /><br />
+      <input type="submit" class="submit button" value="Close my account" />
     </form>
   </div>
 </div>

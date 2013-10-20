@@ -17,7 +17,7 @@ object Account extends LilaController {
 
   def profile = Auth { implicit ctx ⇒
     me ⇒
-      Ok(html.account.profile(me, forms.profile)).fuccess
+      Ok(html.account.profile(me, forms profileOf me)).fuccess
   }
 
   def profileApply = AuthBody { implicit ctx ⇒
