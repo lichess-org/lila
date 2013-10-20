@@ -17,6 +17,7 @@ checkmate=チェックメイト
 stalemate=ステイルメイト
 white=白
 black=黒
+randomColor=ランダムカラー
 createAGame=対局を作成する
 noGameAvailableRightNowCreateOne=現在参加できる対局はありません　対局を作成してください
 whiteIsVictorious=白の勝ちです
