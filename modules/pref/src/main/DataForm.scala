@@ -8,24 +8,20 @@ import lila.user.User
 private[pref] final class DataForm(api: PrefApi) {
 
   val pref = Form(mapping(
-    "chat" -> boolean,
-    "sound" -> boolean
+    "autoQueen" -> number.verifying(Pref.AutoQueen.choices.toMap contains _)
   )(PrefData.apply)(PrefData.unapply))
 
   case class PrefData(
-      chat: Boolean,
-      sound: Boolean) {
+      autoQueen: Int) {
 
     def apply(pref: Pref) = pref.copy(
-      chat = chat,
-      sound = sound)
+      autoQueen = autoQueen)
   }
 
   object PrefData {
 
     def apply(pref: Pref): PrefData = PrefData(
-      chat = pref.chat,
-      sound = pref.sound)
+      autoQueen = pref.autoQueen)
   }
 
   def prefOf(user: User): Fu[Form[PrefData]] = api getPref user map { p ⇒

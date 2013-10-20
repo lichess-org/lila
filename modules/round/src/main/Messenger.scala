@@ -1,8 +1,8 @@
 package lila.round
 
+import chess.Color
 import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 
-import chess.Color
 import lila.db.api._
 import lila.game.Event
 import lila.game.{ Game, PovRef, Namer }
@@ -21,16 +21,7 @@ final class Messenger(
   def init(game: Game): Fu[List[Event]] = systemMessages(game, List(
     game.creatorColor.fold(_.whiteCreatesTheGame, _.blackCreatesTheGame),
     game.invitedColor.fold(_.whiteJoinsTheGame, _.blackJoinsTheGame)
-  )) flatMap { events ⇒
-    (Color.all map { color ⇒
-      (game player color).userId ?? { id ⇒
-        UserRepo.getSetting(id, "chat") flatMap {
-          case Some("false") ⇒ toggleChat(PovRef(game.id, color), false)
-          case _             ⇒ fuccess(Nil)
-        }
-      }
-    }).sequenceFu map { events ::: _.flatten }
-  }
+  ))
 
   // copies chats then init
   // no need to send events back
@@ -79,16 +70,6 @@ final class Messenger(
         }
       }
     }
-
-  def toggleChat(ref: PovRef, status: Boolean): Fu[List[Event]] =
-    "%s chat is %s".format(
-      ref.color.toString.capitalize,
-      status.fold("en", "dis") + "abled"
-    ) |> { message ⇒
-        RoomRepo.addSystemMessage(ref.gameId, message) inject {
-          Event.Message("system", message, false) :: Nil
-        }
-      }
 
   private def trans(message: SelectI18nKey, args: Any*): String =
     message(i18nKeys).en(args: _*)
