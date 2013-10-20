@@ -20,6 +20,9 @@
         <p class="help">Automatic promotion or manual choice?</p>
         </li>
         <li>
+        @base.checkbox(form("clockTenths"), "Chess clock: show tenths of seconds", 1)
+        <p class="help">Only visible under 10 seconds.</p>
+        <li>
         <input type="submit" class="submit button" value="@trans.apply()" />
         </li>
       </ul>

@@ -6,18 +6,12 @@ case class Pref(
     id: String, // user id
     dark: Boolean,
     theme: String,
-    autoQueen: Int) {
+    autoQueen: Int,
+    clockTenths: Boolean) {
 
   def realTheme = Theme(theme)
-  def toggleDark = copy(dark = !dark)
 
-  def get(name: String): Option[String] = name match {
-    case "dark"  ⇒ dark.toString.some
-    case "theme" ⇒ theme.some
-    case _       ⇒ none
-  }
   def set(name: String, value: String): Option[Pref] = name match {
-    case "dark"  ⇒ Pref.booleans get value map { b ⇒ copy(dark = b) }
     case "bg"    ⇒ Pref.bgs get value map { b ⇒ copy(dark = b) }
     case "theme" ⇒ Theme.allByName get value map { t ⇒ copy(theme = t.name) }
     case _       ⇒ none
@@ -41,7 +35,8 @@ object Pref {
     id = id,
     dark = false,
     theme = Theme.default.name,
-    autoQueen = AutoQueen.PREMOVE)
+    autoQueen = AutoQueen.PREMOVE,
+    clockTenths = true)
 
   val default = create("")
 
@@ -60,5 +55,6 @@ object Pref {
   private def defaults = Json.obj(
     "dark" -> default.dark,
     "theme" -> default.theme,
-    "autoQueen" -> default.autoQueen)
+    "autoQueen" -> default.autoQueen,
+    "clockTenths" -> true)
 }

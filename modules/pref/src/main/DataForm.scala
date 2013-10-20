@@ -8,20 +8,24 @@ import lila.user.User
 private[pref] final class DataForm(api: PrefApi) {
 
   val pref = Form(mapping(
-    "autoQueen" -> number.verifying(Pref.AutoQueen.choices.toMap contains _)
+    "autoQueen" -> number.verifying(Pref.AutoQueen.choices.toMap contains _),
+    "clockTenths" -> optional(number)
   )(PrefData.apply)(PrefData.unapply))
 
   case class PrefData(
-      autoQueen: Int) {
+      autoQueen: Int,
+      clockTenths: Option[Int]) {
 
     def apply(pref: Pref) = pref.copy(
-      autoQueen = autoQueen)
+      autoQueen = autoQueen,
+      clockTenths = clockTenths.isDefined)
   }
 
   object PrefData {
 
     def apply(pref: Pref): PrefData = PrefData(
-      autoQueen = pref.autoQueen)
+      autoQueen = pref.autoQueen,
+      clockTenths = pref.clockTenths option 1)
   }
 
   def prefOf(user: User): Fu[Form[PrefData]] = api getPref user map { p ⇒

@@ -799,7 +799,8 @@ var storage = {
 
       $("div.game_tournament .clock").each(function() {
         $(this).clock({
-          time: $(this).data("time")
+          time: $(this).data("time"),
+          showTenths: self.options.clockTenths
         }).clock("start");
       });
 
@@ -1405,6 +1406,7 @@ var storage = {
       var self = this;
       self.$table.find('div.clock').each(function() {
         $(this).clock({
+          showTenths: self.options.clockTenths,
           time: $(this).attr('data-time'),
           emerg: $(this).attr('data-emerg'),
           buzzer: function() {
@@ -1687,7 +1689,7 @@ var storage = {
     _formatDate: function(date) {
       minutes = this._prefixInteger(date.getUTCMinutes(), 2);
       seconds = this._prefixInteger(date.getSeconds(), 2);
-      if (this.options.time < 10 * 1000) {
+      if (this.options.showTenths && this.options.time < 10000) {
         tenths = Math.floor(date.getMilliseconds() / 100);
         return minutes + ':' + seconds + '<span>.' + tenths + '</span>';
       } else {

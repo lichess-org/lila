@@ -17,6 +17,7 @@ trait RoundHelper { self: PrefHelper ⇒
 
   def roundPlayerJsData(pov: Pov, version: Int)(implicit ctx: Context) = {
     import pov._
+    val pref = userPref
     Json.obj(
       "game" -> Json.obj(
         "id" -> gameId,
@@ -39,13 +40,15 @@ trait RoundHelper { self: PrefHelper ⇒
       ),
       "possible_moves" -> possibleMoves(pov),
       "animation_delay" -> animationDelay(pov),
-      "autoQueen" -> userPref.autoQueen,
+      "autoQueen" -> pref.autoQueen,
+      "clockTenths" -> pref.clockTenths,
       "tournament_id" -> game.tournamentId
     )
   }
 
-  def roundWatcherJsData(pov: Pov, version: Int, tv: Boolean) = {
+  def roundWatcherJsData(pov: Pov, version: Int, tv: Boolean)(implicit ctx: Context) = {
     import pov._
+    val pref = userPref
     Json.obj(
       "game" -> Json.obj(
         "id" -> gameId,
@@ -68,6 +71,7 @@ trait RoundHelper { self: PrefHelper ⇒
       ),
       "possible_moves" -> possibleMoves(pov),
       "animation_delay" -> animationDelay(pov),
+      "clockTenths" -> pref.clockTenths,
       "tv" -> tv
     )
   }
