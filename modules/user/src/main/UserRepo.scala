@@ -68,7 +68,6 @@ object UserRepo {
 
   def setProfile(id: ID, profile: Profile): Funit = {
     import tube.profileTube
-    println(profile)
     profile.nonEmpty match {
       case Some(p) => $update($select(id), $set("profile" -> p))
       case None => $update($select(id), $unset("profile"))
@@ -108,14 +107,6 @@ object UserRepo {
   def averageElo: Fu[Float] = $primitive($select.all, "elo")(_.asOpt[Float]) map { elos ⇒
     elos.sum / elos.size.toFloat
   }
-
-  def saveSetting(id: ID, key: String, value: String): Funit =
-    $update($select(id), $set(("settings." + key) -> value))
-
-  def getSetting(id: ID, key: String): Fu[Option[String]] =
-    $primitive.one($select(id), "settings") {
-      _.asOpt[Map[String, String]] flatMap (_ get key)
-    }
 
   def authenticate(id: ID, password: String): Fu[Option[User]] =
     checkPassword(id, password) flatMap { _ ?? ($find byId id) }

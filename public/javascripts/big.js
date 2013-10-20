@@ -827,10 +827,7 @@ var storage = {
               } else {
                 return '<li class="' + u + (u == 'system' ? ' trans_me' : '') + '">' + urlToLink(t) + '</li>';
               }
-            },
-            onToggle: self.options.player.spectator ? function(e) {} : _.throttle(function(enabled) {
-              lichess.socket.send("toggle-chat", enabled);
-            }, 5000)
+            }
           });
         }
         self.$watchers.watchers();
@@ -1241,7 +1238,8 @@ var storage = {
       var color = self.options.player.color;
       // promotion
       if ($piece.hasClass('pawn') && ((color == "white" && squareId[1] == 8) || (color == "black" && squareId[1] == 1))) {
-        if (isPremove || false) {
+        var aq = self.options.autoQueen;
+        if (aq == 3 || (isPremove && aq == 2)) {
           moveData.promotion = "queen";
           sendMoveRequest(moveData);
         } else {
@@ -1552,7 +1550,6 @@ var storage = {
     _create: function() {
       this.options = $.extend({
         // render: function(u, t) {},
-        onToggle: function(enabled) {},
         talkMessageType: 'talk',
         secure: false,
         resize: false
@@ -1595,7 +1592,6 @@ var storage = {
       $toggle.change(function() {
         var enabled = $toggle.is(':checked');
         self.element.toggleClass('hidden', !enabled);
-        self.options.onToggle(enabled);
         if (!enabled) storage.set('nochat', 1);
         else storage.remove('nochat');
       });

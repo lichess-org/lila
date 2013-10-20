@@ -110,7 +110,10 @@ final class Env(
     roundMap = roundMap,
     socketHub = socketHub)
 
-  lazy val messenger = new Messenger(NetDomain, i18nKeys, getUsername)
+  lazy val messenger = new Messenger(
+    netDomain = NetDomain,
+    i18nKeys = i18nKeys, 
+    getUsername = getUsername)
 
   lazy val eloCalculator = new chess.EloCalculator(false)
 

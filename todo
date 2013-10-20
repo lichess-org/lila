@@ -73,7 +73,12 @@ no challenge when playing http://en.lichess.org/forum/lichess-feedback/defis#2
 user option for auto-promotion (requested by NM :P) (http://en.lichess.org/@/Matetricks)
 check filter games icon on windows
 people page = trends by day, week, month. user achievments?
-user options: tenth of seconds, sounds, sound choice
+user options: tenth of seconds, premove, prepromotion, sounds, sound choice
 user stats: http://en.lichess.org/forum/lichess-feedback/feature-request-extended-stats
 forum improvements http://en.lichess.org/forum/lichess-feedback/suggestions-for-the-forum#1
 analysis 64... Kg6 should be blunder, not mistake
+
+DEPLOY
+------ order matters
+mongo lichess bin/mongodb/pref.js
+mongo lichess bin/mongodb/user3.js

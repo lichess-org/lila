@@ -1,19 +1,21 @@
 package lila.round
 
-import lila.user.Context
-import lila.game.Pov
-import lila.round.Env.{ current ⇒ roundEnv }
-
-import play.api.libs.json.Json
 import scala.math.{ min, max, round }
 
-trait RoundHelper {
+import play.api.libs.json.Json
+
+import lila.game.Pov
+import lila.pref.PrefHelper
+import lila.round.Env.{ current ⇒ roundEnv }
+import lila.user.Context
+
+trait RoundHelper { self: PrefHelper ⇒
 
   def moretimeSeconds = roundEnv.moretimeSeconds
 
   def gameAnimationDelay = roundEnv.animationDelay
 
-  def roundPlayerJsData(pov: Pov, version: Int) = {
+  def roundPlayerJsData(pov: Pov, version: Int)(implicit ctx: Context) = {
     import pov._
     Json.obj(
       "game" -> Json.obj(
@@ -37,6 +39,7 @@ trait RoundHelper {
       ),
       "possible_moves" -> possibleMoves(pov),
       "animation_delay" -> animationDelay(pov),
+      "autoQueen" -> userPref.autoQueen,
       "tournament_id" -> game.tournamentId
     )
   }

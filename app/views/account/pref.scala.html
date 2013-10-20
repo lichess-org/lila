@@ -1,5 +1,7 @@
 @(u: User, form: Form[_])(implicit ctx: Context)
 
+@import lila.pref.Pref
+
 @title = @{ s"${u.username} - ${trans.preferences.str()}" }
 
 @evenMoreCss = {
@@ -10,16 +12,12 @@
 <div class="content_box small_box">
   <div class="signup_box">
     <h1 class="lichess_title">@trans.preferences()</h1>
-    <form action="@routes.Account.profileApply" method="POST">
+    <form action="@routes.Pref.formApply" method="POST">
       <ul>
-        <li>
-        @base.checkbox(form("chat"), "Enable chat rooms", 1)
-        </li>
-        <li>
-        @base.checkbox(form("sound"), "Enable sound", 1)
-        </li>
-        <li>
-        @errMsg(form)
+        <li class="field">
+        <label for="@form("autoQueen").id">Promotion</label>
+        @base.select(form("autoQueen"), Pref.AutoQueen.choices)
+        <p class="help">Automatic promotion or manual choice?</p>
         </li>
         <li>
         <input type="submit" class="submit button" value="@trans.apply()" />

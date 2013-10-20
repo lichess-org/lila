@@ -15,7 +15,6 @@ case class User(
     ipBan: Boolean = false,
     enabled: Boolean,
     roles: List[String],
-    settings: Map[String, String] = Map.empty,
     profile: Option[Profile] = None,
     engine: Boolean = false,
     toints: Int = 0,
@@ -37,8 +36,6 @@ case class User(
   def disabled = !enabled
 
   def usernameWithElo = "%s (%d)".format(username, elo)
-
-  def setting(name: String): Option[Any] = settings get name
 
   def profileOrDefault = profile | Profile.default
 
@@ -85,7 +82,6 @@ object User {
     "variantElos" -> VariantElos.default,
     "troll" -> false,
     "ipBan" -> false,
-    "settings" -> Json.obj(),
     "engine" -> false,
     "toints" -> 0,
     "roles" -> Json.arr(),
