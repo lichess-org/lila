@@ -36,19 +36,20 @@ object User extends LilaController {
 
   private def filter(username: String, filterName: String, page: Int)(implicit ctx: Context) =
     Reasonable(page) {
-      OptionFuOk(UserRepo named username) { userShow(_, filterName, page) }
+      OptionFuResult(UserRepo named username) { u ⇒
+        (u.enabled || isGranted(_.UserSpy)).fold({
+          userShow(u, filterName, page) map { Ok(_) }
+        }, fuccess(NotFound(html.user.disabled(u))))
+      }
     }
 
-  private def userShow(u: UserModel, filterName: String, page: Int)(implicit ctx: Context) =
-    (u.enabled || isGranted(_.UserSpy)).fold({
-      for {
-        info ← Env.current.userInfo(u, ctx)
-        filters = mashup.GameFilterMenu(info, ctx.me, filterName)
-        pag ← (filters.query.fold(Env.bookmark.api.gamePaginatorByUser(u, page)) { query ⇒
-          gamePaginator.recentlyCreated(query, filters.cachedNb)(page)
-        })
-      } yield html.user.show(u, info, pag, filters)
-    }, fuccess(html.user.disabled(u)))
+  private def userShow(u: UserModel, filterName: String, page: Int)(implicit ctx: Context) = for {
+    info ← Env.current.userInfo(u, ctx)
+    filters = mashup.GameFilterMenu(info, ctx.me, filterName)
+    pag ← (filters.query.fold(Env.bookmark.api.gamePaginatorByUser(u, page)) { query ⇒
+      gamePaginator.recentlyCreated(query, filters.cachedNb)(page)
+    })
+  } yield html.user.show(u, info, pag, filters)
 
   private def mini(username: String)(implicit ctx: Context) =
     OptionOk(UserRepo named username) { user ⇒
