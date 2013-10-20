@@ -6,13 +6,6 @@
 @cssTag("user-form.css")
 }
 
-@goodies = {
-<ul>
-<li><a href="@routes.Account.passwd">@trans.changePassword()</a></li>
-<li><a href="@routes.Account.close">Close account</a></li>
-</ul>
-}
-
 @account.layout(title = title, active = "editProfile") {
 <div class="content_box small_box">
   <div class="signup_box">

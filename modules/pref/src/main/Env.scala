@@ -6,7 +6,7 @@ final class Env(
     config: Config,
     db: lila.db.Env) {
 
-  def forms = DataForm
+  def forms = new DataForm(api)
 
   lazy val api = new PrefApi
 

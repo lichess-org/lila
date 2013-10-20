@@ -2031,7 +2031,7 @@ div.relation_actions a.button {
 div.relation_actions a.relation.processing {
   opacity: 0.2
 }
-div.relation_actions .icon {
+div.relation_actions a {
   margin-right: 6px;
 }
 div.relation_actions .icon span {

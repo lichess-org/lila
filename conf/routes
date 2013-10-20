@@ -108,6 +108,8 @@ GET   /$gameId<[\w\-]{8}>/fen            controllers.Analyse.fen(gameId: String)
  
 # Pref
 POST  /pref/:name                      controllers.Pref.set(name: String)
+GET   /account/pref                    controllers.Pref.form
+POST  /account/pref                    controllers.Pref.formApply
  
 # Setup
 GET   /setup/ai                        controllers.Setup.aiForm
