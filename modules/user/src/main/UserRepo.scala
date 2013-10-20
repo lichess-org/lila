@@ -68,6 +68,7 @@ object UserRepo {
 
   def setProfile(id: ID, profile: Profile): Funit = {
     import tube.profileTube
+    println(profile)
     profile.nonEmpty match {
       case Some(p) => $update($select(id), $set("profile" -> p))
       case None => $update($select(id), $unset("profile"))

@@ -29,4 +29,6 @@ form .error {
   color: red;
   margin-left: 160px;
 }
-
+form .help {
+  margin-left: 160px;
+}

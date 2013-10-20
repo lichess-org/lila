@@ -7,13 +7,6 @@
 @jsTagCompiled("chart2.js")
 }
 
-@actions = {
-@if(ctx is u) {
-<a class="small action" href="@routes.Account.passwd">Change password</a>
-<a class="small action" href="@routes.Account.close">Close account</a>
-}
-}
-
 @goodies = {
 <div class="goodies">
   @u.speedElos.toMap.map {
@@ -68,6 +61,11 @@ evenMoreJs = evenMoreJs) {
     <span class="intertab">@splitNumber(u.toints + " " + trans.tournamentPoints())</span>
     <a class="intertab" href="@routes.ForumPost.search("user:" + u.username, 1)">@splitNumber(info.nbPosts + " Forum posts")</a>
     <div class="relation_actions">
+      @if(ctx is u) {
+      <a class="profile button" href="@routes.Account.profile">
+        <span class="s16 gear">@trans.editProfile()</span>
+      </a>
+      }
       @if(isGranted(_.UserSpy)) {
       <a class="icon button mod_zone_toggle" href="@routes.User.mod(u.username)" title="Mod zone">
         <span class="s16 nuclear"></span>
@@ -94,16 +92,29 @@ evenMoreJs = evenMoreJs) {
       @if(u.engine && ctx.me.fold(true)(u !=)) {
       <div class="engine_warning">@trans.thisPlayerUsesChessComputerAssistance()</div>
       }
-      @u.profileOrDefault.nonEmptyBio.map { bio =>
-      <div class="user_bio">@shorten(bio, 400)</div>
+      @u.profile.map { p =>
+      @p.nonEmptyRealName.map { name =>
+      <strong class="name">@name</strong>
+      }
+      @p.nonEmptyBio.map { bio =>
+      <p class="bio">@shorten(bio, 400)</p>
+      }
       }
       @info.confrontation.map { c =>
       @user.confrontation(c)
       }
       <div class="stats">
+        @u.profileOrDefault.nonEmptyLocation.map { l =>
+        <span class="location">@l</span>,
+        }
+        @u.profileOrDefault.countryInfo.map {
+        case (code, name) => {
+        <span class="country"><img src="@routes.Assets.at(s"images/flag/shiny/16/$code.png")" /> @name</span>
+        }
+        }
         @u.lang.map { l =>
         @langName(l).map { name =>
-        <p class="lang s16">@name</span>
+        <span class="lang s16">@name</span>
       }
       }
       <p>@trans.memberSince() @showDate(u.createdAt)</p>
@@ -120,9 +131,6 @@ evenMoreJs = evenMoreJs) {
         @teamLink(teamId, ("s16 team revert-underline" + myTeam(teamId).fold(" mine", "")).some)
         }
       </div>
-    </div>
-    <div class="actions clearfix">
-      @actions
     </div>
   </div>
 </div>

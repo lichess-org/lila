@@ -5,16 +5,15 @@ import play.api.data.Forms._
 
 object DataForm {
 
-  val bio = Form(single(
-    "bio" -> text(maxLength = 400)
-  ))
-
   val profile = Form(mapping(
-    "firstName" -> nameField,
-    "lastName" -> nameField,
     "country" -> optional(nonEmptyText.verifying(Countries.codeSet contains _)),
-    "bio" -> optional(nonEmptyText(maxLength = 400))
+    "location" -> optional(nonEmptyText(maxLength = 80)),
+    "bio" -> optional(nonEmptyText(maxLength = 400)),
+    "firstName" -> nameField,
+    "lastName" -> nameField
   )(Profile.apply)(Profile.unapply))
+
+  def profileOf(user: User) = profile fill user.profileOrDefault
 
   private def nameField = optional(nonEmptyText(minLength = 2, maxLength = 20))
 
@@ -23,7 +22,7 @@ object DataForm {
   ))
 
   val bg = Form(single(
-    "bg" -> text.verifying(Set("light", "dark") contains _)
+    "bg" -> text.verifying(List("light", "dark") contains _)
   ))
 
   case class Passwd(
@@ -42,5 +41,5 @@ object DataForm {
       _.samePasswords
     ))
 
-  private def jsBoolean = nonEmptyText.verifying(Set("true", "false") contains _)
+  private def jsBoolean = nonEmptyText.verifying(List("true", "false") contains _)
 }
