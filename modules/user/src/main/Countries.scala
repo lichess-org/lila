@@ -201,4 +201,6 @@ object Countries {
     "zm" -> "Zambia",
     "zw" -> "Zimbabwe",
     "zz" -> "World")
+
+  val codeSet = all.keySet
 }

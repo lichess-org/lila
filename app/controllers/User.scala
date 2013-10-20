@@ -100,51 +100,6 @@ object User extends LilaController {
     }
   }
 
-  def setBio = AuthBody { ctx ⇒
-    me ⇒
-      implicit val req = ctx.body
-      forms.bio.bindFromRequest.fold(
-        f ⇒ fulogwarn(f.errors.toString) inject ~me.bio,
-        bio ⇒ UserRepo.setBio(me.id, bio) inject bio
-      ) map { Ok(_) }
-  }
-
-  def passwd = Auth { implicit ctx ⇒
-    me ⇒
-      Ok(html.user.passwd(me, forms.passwd)).fuccess
-  }
-
-  def passwdApply = AuthBody { implicit ctx ⇒
-    me ⇒
-      implicit val req = ctx.body
-      FormFuResult(forms.passwd) { err ⇒
-        fuccess(html.user.passwd(me, err))
-      } { passwd ⇒
-        for {
-          ok ← UserRepo.checkPassword(me.id, passwd.oldPasswd)
-          _ ← ok ?? UserRepo.passwd(me.id, passwd.newPasswd1)
-        } yield ok.fold(
-          Redirect(routes.User show me.username),
-          BadRequest(html.user.passwd(me, forms.passwd))
-        )
-      }
-  }
-
-  def close = Auth { implicit ctx ⇒
-    me ⇒
-      Ok(html.user.close(me)).fuccess
-  }
-
-  def closeConfirm = Auth { ctx ⇒
-    me ⇒
-      implicit val req = ctx.req
-      (UserRepo disable me.id) >>
-        Env.team.api.quitAll(me.id) >>
-        (Env.security disconnect me.id) inject {
-          Redirect(routes.User show me.username) withCookies LilaCookie.newSession
-        }
-  }
-
   def export(username: String) = Open { implicit ctx ⇒
     OptionFuResult(UserRepo named username) { u ⇒
       Env.game export u map { url ⇒

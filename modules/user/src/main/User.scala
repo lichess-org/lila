@@ -16,8 +16,7 @@ case class User(
     enabled: Boolean,
     roles: List[String],
     settings: Map[String, String] = Map.empty,
-    bio: Option[String] = None,
-    country: Option[String] = None,
+    profile: Option[Profile] = None,
     engine: Boolean = false,
     toints: Int = 0,
     createdAt: DateTime,
@@ -41,7 +40,7 @@ case class User(
 
   def setting(name: String): Option[Any] = settings get name
 
-  def nonEmptyBio = bio filter ("" !=)
+  def profileOrDefault = profile | Profile.default
 
   def hasGames = count.game > 0
 
@@ -70,6 +69,7 @@ object User {
   private implicit def countTube = Count.tube
   private implicit def speedElosTube = SpeedElos.tube
   private implicit def variantElosTube = VariantElos.tube
+  private implicit def profileTube = Profile.tube
 
   private[user] lazy val tube = Tube[User](
     (__.json update (
