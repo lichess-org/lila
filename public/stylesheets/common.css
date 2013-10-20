@@ -2058,7 +2058,6 @@ div.relation_actions .icon span {
   overflow:hidden;
   width:16px;
 }
-.flag.xx { top:2px; }
 .flag.ad { background-position:0 0; }
 .flag.ae { background-position:0 -21px; }
 .flag.af { background-position:0 -42px; }
@@ -2126,12 +2125,10 @@ div.relation_actions .icon span {
 .flag.eg { background-position:0 -1344px; }
 .flag.eh { background-position:0 -1365px; }
 .flag.en { background-position:0 -1386px; }
-.flag.england { background-position:0 -1407px; }
 .flag.er { background-position:0 -1428px; }
 .flag.es { background-position:0 -1449px; }
 .flag.et { background-position:0 -1470px; }
 .flag.eu { background-position:0 -1491px; }
-.flag.fam { background-position:0 -1512px; }
 .flag.fi { background-position:0 -1533px; }
 .flag.fj { background-position:0 -1554px; }
 .flag.fk { background-position:0 -1575px; }
@@ -2256,7 +2253,6 @@ div.relation_actions .icon span {
 .flag.sa { background-position:0 -4074px; }
 .flag.sb { background-position:0 -4095px; }
 .flag.sc { background-position:0 -4116px; }
-.flag.scotland { background-position:0 -4137px; }
 .flag.sd { background-position:0 -4158px; }
 .flag.se { background-position:0 -4179px; }
 .flag.sg { background-position:0 -4200px; }
@@ -2303,17 +2299,17 @@ div.relation_actions .icon span {
 .flag.vi { background-position:0 -5061px; }
 .flag.vn { background-position:0 -5082px; }
 .flag.vu { background-position:0 -5103px; }
-.flag.wales { background-position:0 -5124px; }
 .flag.wf { background-position:0 -5145px; }
 .flag.wl { background-position:0 -5166px; }
 .flag.ws { background-position:0 -5187px; }
-.flag.xx {
-  background-position:0 -5208px;
-  height:16px;
-}
 .flag.ye { background-position:0 -5234px; }
 .flag.yt { background-position:0 -5255px; }
 .flag.yu { background-position:0 -5276px; }
 .flag.za { background-position:0 -5297px; }
 .flag.zm { background-position:0 -5318px; }
 .flag.zw { background-position:0 -5339px; }
+.flag.zz { top:2px; }
+.flag.zz {
+  background-position:0 -5208px;
+  height:16px;
+}
