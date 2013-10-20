@@ -1,17 +1,24 @@
 package lila.pref
 
+import scala.concurrent.duration.Duration
+
 import lila.db.api._
+import lila.memo.AsyncCache
 import lila.user.User
 import tube.prefTube
 
-final class PrefApi {
+final class PrefApi(cacheTtl: Duration) {
 
-  def getPref(id: String): Fu[Pref] = $find byId id map (_ | Pref.create(id))
+  private def fetchPref(id: String): Fu[Option[Pref]] = $find byId id
+  private val cache = AsyncCache(fetchPref, timeToLive = cacheTtl)
+
+  def getPref(id: String): Fu[Pref] = cache(id) map (_ | Pref.create(id))
   def getPref(user: User): Fu[Pref] = getPref(user.id)
 
   def getPref[A](user: User, pref: Pref ⇒ A): Fu[A] = getPref(user) map pref
 
-  def setPref(pref: Pref): Funit = $save(pref)
+  def setPref(pref: Pref): Funit =
+    $save(pref) addEffect { _ ⇒ cache remove pref.id }
 
   def setPref(user: User, change: Pref ⇒ Pref): Funit =
     getPref(user) map change flatMap setPref
