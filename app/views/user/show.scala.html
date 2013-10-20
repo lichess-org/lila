@@ -7,36 +7,6 @@
 @jsTagCompiled("chart2.js")
 }
 
-@evenMoreCss = {
-@if(ctx is u) {
-@cssTag("user-edit.css")
-}
-}
-
-@bio = {
-@if(ctx is u) {
-<div class="user_bio">
-  <div class="editable">@shorten(u.bio | "Click here to tell about yourself", 400)</div>
-  <form action="@routes.User.setBio">
-    <textarea name="bio"></textarea>
-    <button class="button apply">@trans.apply()</button>
-    <button class="button cancel">@trans.cancel()</button>
-  </form>
-</div>
-} else {
-@u.nonEmptyBio.map { bio =>
-<div class="user_bio">@shorten(bio, 400)</div>
-}
-}
-}
-
-@actions = {
-@if(ctx is u) {
-<a class="small action" href="@routes.User.passwd">Change password</a>
-<a class="small action" href="@routes.User.close">Close account</a>
-}
-}
-
 @goodies = {
 <div class="goodies">
   @u.speedElos.toMap.map {
@@ -64,8 +34,7 @@
 title = title,
 goodies = goodies.some,
 robots = false,
-evenMoreJs = evenMoreJs,
-evenMoreCss = evenMoreCss) {
+evenMoreJs = evenMoreJs) {
 <div class="content_box no_padding user_show">
   <div class="content_box_top">
     <div class="icon status @{isOnline(u.id).??("connected")}"></div>
@@ -76,11 +45,11 @@ evenMoreCss = evenMoreCss) {
     }
     @if(u.disabled) {
     <span class="staff">CLOSED</span>
-      @if(isGranted(_.ReopenAccount)) {
-      <form class="reopen" action="@routes.Mod.reopenAccount(u.username)" method="post">
-        <button type="submit" class="button confirm">Reopen</button>
-      </form>
-      }
+    @if(isGranted(_.ReopenAccount)) {
+    <form class="reopen" action="@routes.Mod.reopenAccount(u.username)" method="post">
+      <button type="submit" class="button confirm">Reopen</button>
+    </form>
+    }
     }
   </div>
   <div class="social content_box_inter">
@@ -92,6 +61,11 @@ evenMoreCss = evenMoreCss) {
     <span class="intertab">@splitNumber(u.toints + " " + trans.tournamentPoints())</span>
     <a class="intertab" href="@routes.ForumPost.search("user:" + u.username, 1)">@splitNumber(info.nbPosts + " Forum posts")</a>
     <div class="relation_actions">
+      @if(ctx is u) {
+      <a class="profile button" href="@routes.Account.profile">
+        <span class="s16 gear">@trans.editProfile()</span>
+      </a>
+      }
       @if(isGranted(_.UserSpy)) {
       <a class="icon button mod_zone_toggle" href="@routes.User.mod(u.username)" title="Mod zone">
         <span class="s16 nuclear"></span>
@@ -118,14 +92,29 @@ evenMoreCss = evenMoreCss) {
       @if(u.engine && ctx.me.fold(true)(u !=)) {
       <div class="engine_warning">@trans.thisPlayerUsesChessComputerAssistance()</div>
       }
-      @bio
+      @u.profile.map { p =>
+      @p.nonEmptyRealName.map { name =>
+      <strong class="name">@name</strong>
+      }
+      @p.nonEmptyBio.map { bio =>
+      <p class="bio">@shorten(bio, 400)</p>
+      }
+      }
       @info.confrontation.map { c =>
       @user.confrontation(c)
       }
       <div class="stats">
+        @u.profileOrDefault.nonEmptyLocation.map { l =>
+        <span class="location">@l</span>,
+        }
+        @u.profileOrDefault.countryInfo.map {
+        case (code, name) => {
+        <span class="country"><img src="@routes.Assets.at(s"images/flag/shiny/16/$code.png")" /> @name</span>
+        }
+        }
         @u.lang.map { l =>
         @langName(l).map { name =>
-        <p class="lang s16">@name</span>
+        <span class="lang s16">@name</span>
       }
       }
       <p>@trans.memberSince() @showDate(u.createdAt)</p>
@@ -142,9 +131,6 @@ evenMoreCss = evenMoreCss) {
         @teamLink(teamId, ("s16 team revert-underline" + myTeam(teamId).fold(" mine", "")).some)
         }
       </div>
-    </div>
-    <div class="actions clearfix">
-      @actions
     </div>
   </div>
 </div>

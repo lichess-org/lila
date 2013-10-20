@@ -1,6 +1,8 @@
 $(function() {
 
-  if($searchForm = $('form.search_user_form').orNot()) {
+  var $searchForm = $('form.search_user_form');
+
+  if($searchForm.length) {
     $searchInput = $searchForm.find('input.search_user');
     $searchInput.on('autocompleteselect', function(e, ui) {
       setTimeout(function() {$searchForm.submit();},10);
@@ -20,33 +22,6 @@ $(function() {
     return false;
   });
 
-  $('div.user_bio .editable').on('click', function() {
-    $editable = $(this);
-    $parent = $(this).parent().addClass('editing');
-    $form = $parent.find('form').show();
-    $form.find('textarea').val($editable.text());
-    function unedit() {
-      $form.find('button.cancel').off('click');
-      $form.off('submit');
-      $parent.removeClass('editing');
-    }
-    $form.find('button.cancel').on('click', function(e) {
-      unedit();
-      return false;
-    });
-    $form.on('submit', function() {
-      $.ajax({
-        url: $form.attr('action'),
-        type: 'PUT',
-        data: { bio: $form.find('textarea').val() },
-        success: function(t) {
-          $editable.text(t);
-          unedit();
-        }
-      });
-      return false;
-    });
-  });
 });
 function str_repeat(input, multiplier) {
   return new Array(multiplier + 1).join(input);

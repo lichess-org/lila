@@ -66,6 +66,15 @@ object UserRepo {
 
   def setEloOnly(id: ID, elo: Int): Funit = $update($select(id), $set("elo" -> elo))
 
+  def setProfile(id: ID, profile: Profile): Funit = {
+    import tube.profileTube
+    println(profile)
+    profile.nonEmpty match {
+      case Some(p) => $update($select(id), $set("profile" -> p))
+      case None => $update($select(id), $unset("profile"))
+    }
+  }
+
   val enabledSelect = Json.obj("enabled" -> true)
   val noEngineSelect = Json.obj("engine" -> $ne(true))
   val goodLadQuery = $query(enabledSelect ++ noEngineSelect)
@@ -162,8 +171,6 @@ object UserRepo {
   def isEngine(id: ID): Fu[Boolean] = $count.exists($select(id) ++ Json.obj("engine" -> true))
 
   def setRoles(id: ID, roles: List[String]) = $update.field(id, "roles", roles)
-
-  def setBio(id: ID, bio: String) = $update.field(id, "bio", bio)
 
   def setSpeedElos(id: ID, ses: SpeedElos) = {
     import tube.speedElosTube
