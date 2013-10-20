@@ -11,6 +11,7 @@ package object user extends PackageObject with WithPlay {
 
     private[user] implicit lazy val speedElosTube = SpeedElos.tube
     private[user] implicit lazy val variantElosTube = VariantElos.tube
+    private[user] implicit lazy val profileTube = Profile.tube
 
     private[user] implicit lazy val historyTube =
       Tube.json inColl Env.current.historyColl

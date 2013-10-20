@@ -575,9 +575,10 @@ var storage = {
     translateTexts();
     $('body').on('lichess.content_loaded', translateTexts);
 
-    $('input.autocomplete').each(function($a) {
+    $('input.autocomplete').each(function() {
+      var $a = $(this);
       $a.autocomplete({
-        source: $autocomplete.attr('data-provider'),
+        source: $a.data('provider'),
         minLength: 2,
         delay: 100
       });
@@ -868,7 +869,7 @@ var storage = {
 
       if (!self.options.player.spectator) {
         var okToLeave = function() {
-          return lichess.hasToReload || self.options.game.finished;
+          return lichess.hasToReload || !self.options.game.started || self.options.game.finished;
         };
         $(window).on('beforeunload', function() {
           if (!okToLeave()) return 'There is a game in progress!';
@@ -1228,7 +1229,7 @@ var storage = {
       self.movePiece($oldSquare.attr("id"), squareId, null, true);
 
       function sendMoveRequest(moveData) {
-        if (self.canRunClock()) {
+        if (self.hasClock()) {
           moveData.lag = parseInt(lichess.socket.averageLag, 10);
         }
         lichess.socket.send("move", moveData);
@@ -1402,8 +1403,8 @@ var storage = {
       lichess.socket.send('outoftime');
     }, 200),
     initClocks: function() {
+      if (!this.hasClock()) return;
       var self = this;
-      if (!self.canRunClock()) return;
       self.$table.find('div.clock').each(function() {
         $(this).clock({
           time: $(this).attr('data-time'),
@@ -1419,18 +1420,17 @@ var storage = {
     },
     updateClocks: function(times) {
       var self = this;
-      if (!self.canRunClock()) return;
       if (times || false) {
         for (var color in times) {
           self.$table.find('div.clock_' + color).clock('setTime', times[color]);
         }
       }
       self.$table.find('div.clock').clock('stop');
-      if (self.options.game.turns > 0 || self.options.game.clockRunning) {
+      if (self.hasClock() && !self.options.game.finished && self.options.game.turns > 0 || self.options.game.clockRunning) {
         self.$table.find('div.clock_' + self.options.game.player).clock('start');
       }
     },
-    canRunClock: function() {
+    hasClock: function() {
       return this.options.game.clock && this.options.game.started;
     },
     getPieceColor: function($piece) {

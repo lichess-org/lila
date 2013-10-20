@@ -36,19 +36,20 @@ object User extends LilaController {
 
   private def filter(username: String, filterName: String, page: Int)(implicit ctx: Context) =
     Reasonable(page) {
-      OptionFuOk(UserRepo named username) { userShow(_, filterName, page) }
+      OptionFuResult(UserRepo named username) { u ⇒
+        (u.enabled || isGranted(_.UserSpy)).fold({
+          userShow(u, filterName, page) map { Ok(_) }
+        }, fuccess(NotFound(html.user.disabled(u))))
+      }
     }
 
-  private def userShow(u: UserModel, filterName: String, page: Int)(implicit ctx: Context) =
-    (u.enabled || isGranted(_.UserSpy)).fold({
-      for {
-        info ← Env.current.userInfo(u, ctx)
-        filters = mashup.GameFilterMenu(info, ctx.me, filterName)
-        pag ← (filters.query.fold(Env.bookmark.api.gamePaginatorByUser(u, page)) { query ⇒
-          gamePaginator.recentlyCreated(query, filters.cachedNb)(page)
-        })
-      } yield html.user.show(u, info, pag, filters)
-    }, fuccess(html.user.disabled(u)))
+  private def userShow(u: UserModel, filterName: String, page: Int)(implicit ctx: Context) = for {
+    info ← Env.current.userInfo(u, ctx)
+    filters = mashup.GameFilterMenu(info, ctx.me, filterName)
+    pag ← (filters.query.fold(Env.bookmark.api.gamePaginatorByUser(u, page)) { query ⇒
+      gamePaginator.recentlyCreated(query, filters.cachedNb)(page)
+    })
+  } yield html.user.show(u, info, pag, filters)
 
   private def mini(username: String)(implicit ctx: Context) =
     OptionOk(UserRepo named username) { user ⇒
@@ -97,51 +98,6 @@ object User extends LilaController {
     get("term", ctx.req).filter(""!=).fold(BadRequest("No search term provided").fuccess: Fu[SimpleResult]) { term ⇒
       JsonOk(UserRepo usernamesLike term)
     }
-  }
-
-  def setBio = AuthBody { ctx ⇒
-    me ⇒
-      implicit val req = ctx.body
-      forms.bio.bindFromRequest.fold(
-        f ⇒ fulogwarn(f.errors.toString) inject ~me.bio,
-        bio ⇒ UserRepo.setBio(me.id, bio) inject bio
-      ) map { Ok(_) }
-  }
-
-  def passwd = Auth { implicit ctx ⇒
-    me ⇒
-      Ok(html.user.passwd(me, forms.passwd)).fuccess
-  }
-
-  def passwdApply = AuthBody { implicit ctx ⇒
-    me ⇒
-      implicit val req = ctx.body
-      FormFuResult(forms.passwd) { err ⇒
-        fuccess(html.user.passwd(me, err))
-      } { passwd ⇒
-        for {
-          ok ← UserRepo.checkPassword(me.id, passwd.oldPasswd)
-          _ ← ok ?? UserRepo.passwd(me.id, passwd.newPasswd1)
-        } yield ok.fold(
-          Redirect(routes.User show me.username),
-          BadRequest(html.user.passwd(me, forms.passwd))
-        )
-      }
-  }
-
-  def close = Auth { implicit ctx ⇒
-    me ⇒
-      Ok(html.user.close(me)).fuccess
-  }
-
-  def closeConfirm = Auth { ctx ⇒
-    me ⇒
-      implicit val req = ctx.req
-      (UserRepo disable me.id) >>
-        Env.team.api.quitAll(me.id) >>
-        (Env.security disconnect me.id) inject {
-          Redirect(routes.User show me.username) withCookies LilaCookie.newSession
-        }
   }
 
   def export(username: String) = Open { implicit ctx ⇒

@@ -1,0 +1,28 @@
+@(u: User, form: Form[_])(implicit ctx: Context)
+
+@title = @{ s"${u.username} - ${trans.changePassword.str()}" }
+
+@evenMoreCss = {
+@cssTag("user-form.css")
+}
+
+@account.layout(title = title, active = "password") {
+<div class="content_box small_box">
+  <div class="signup_box">
+    <h1 class="lichess_title">@trans.changePassword()</h1>
+    <form action="@routes.Account.passwdApply" method="POST">
+      <ul>
+        @account.passwdFormField(form("oldPasswd"), "Current password")
+        @account.passwdFormField(form("newPasswd1"), "New password")
+        @account.passwdFormField(form("newPasswd2"), "New password (again)")
+        <li>
+          @errMsg(form)
+        </li>
+        <li>
+          <input type="submit" class="submit button" value="@trans.apply()" />
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>
+}

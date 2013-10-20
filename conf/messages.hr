@@ -17,6 +17,7 @@ checkmate=Šah mat
 stalemate=Pat
 white=Bijeli
 black=Crni
+randomColor=Slučajna boja
 createAGame=Kreiraj igru
 noGameAvailableRightNowCreateOne=Trenutno nema igara. Kreirajte jednu!
 whiteIsVictorious=Bijeli je pobednik

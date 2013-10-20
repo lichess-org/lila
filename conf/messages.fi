@@ -17,6 +17,7 @@ checkmate=Shakkimatti
 stalemate=Patti
 white=Valkoinen
 black=Musta
+randomColor=Satunnainen
 createAGame=Tee peli
 noGameAvailableRightNowCreateOne=Ei peliä saatavilla juuri nyt, tee oma!
 whiteIsVictorious=Valkoinen voittaa
