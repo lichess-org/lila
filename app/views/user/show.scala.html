@@ -101,7 +101,7 @@ evenMoreJs = evenMoreJs) {
       }
       }
       @info.confrontation.map { c =>
-      @user.confrontation(c)
+      @user.confrontation(c.pov(ctx.userId))
       }
       <div class="stats">
         @u.profileOrDefault.nonEmptyLocation.map { l =>
