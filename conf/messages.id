@@ -247,3 +247,7 @@ savePosition=Simpan posisi
 isPrivate=pribadi
 reportXToModerators=Lapor %s ke moderator
 profile=profil
+editProfile=Ubah profil
+firstName=Nama awal
+lastName=Nama akhir
+country=Negara
