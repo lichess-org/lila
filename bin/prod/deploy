@@ -12,8 +12,11 @@ if [ -z $mode ]; then
 elif [ $mode = "main" ]; then
   REMOTE="hollie"
   REMOTE_DIR="/home/lila5"
-elif [ $mode = "ai" ]; then
+elif [ $mode = "paul" ]; then
   REMOTE="paul"
+  REMOTE_DIR="/home/lila5"
+elif [ $mode = "salim" ]; then
+  REMOTE="salim"
   REMOTE_DIR="/home/lila5"
 elif [ $mode = "local" ]; then
   REMOTE="localhost"
