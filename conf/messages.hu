@@ -90,6 +90,7 @@ username=Felhasználónév
 password=Jelszó
 haveAnAccount=Van már fiókod?
 allYouNeedIsAUsernameAndAPassword=Csak egy felhasználónévre és jelszóra van szükség.
+changePassword=Jelszó megváltoztatása
 learnMoreAboutLichess=További információ a Lichessről
 rank=Rang
 gamesPlayed=Lejátszott játékok
