@@ -10,7 +10,7 @@ $(function() {
   };
   var maxPoints = 60;
   var colors = Highcharts.theme.colors;
-  var width = 355,
+  var width = 375,
     height = 165;
   var counter = 0;
   var chartDefaults = {
@@ -84,9 +84,36 @@ $(function() {
     }));
   }
 
+  function addAi(info, nb) {
+    ++counter;
+    $monitors.append($('<div>').attr('id', info.id).width(width).height(height));
+    var series = [];
+    for (i = 0; i < nb; i++) {
+      series.push({
+        name: info.title.replace(/nb/, i + 1),
+        data: []
+      });
+    }
+    charts[info.id] = new Highcharts.Chart($.extend(true, {}, chartDefaults, {
+      chart: {
+        defaultSeriesType: info.type || 'line',
+        renderTo: info.id,
+      },
+      title: {
+        text: 'AI Servers Load',
+      },
+      yAxis: {
+        labels: {
+          format: info.format || '{value}'
+        }
+      },
+      series: series
+    }));
+  }
+
   add({
     id: 'users',
-    title: 'Users'
+    title: 'Activ Users'
   });
 
   add({
@@ -101,28 +128,28 @@ $(function() {
 
   add({
     id: 'lat',
-    title: 'Latency',
+    title: 'Global Latency',
     type: 'area',
     format: '{value} ms'
   });
 
   add({
     id: 'rps',
-    title: "Requests",
+    title: "HTTP Requests",
     maxVal: 200,
     threshold: 0.9
   });
 
-  add({
-    id: 'memory',
-    title: "Memory",
-    maxVal: 8192,
-    format: "{value} MB"
-  });
+  addAi({
+    id: 'ai',
+    title: 'AI nb Load',
+    maxVal: 100,
+    threshold: 0.8
+  }, nbAi);
 
   add({
     id: 'cpu',
-    title: "CPU",
+    title: "JVM CPU",
     maxVal: 100,
     threshold: 0.3,
     format: "{value}%"
@@ -130,7 +157,7 @@ $(function() {
 
   add({
     id: 'mps',
-    title: "Moves",
+    title: "Chess Moves",
     maxVal: 100
   });
 
@@ -163,15 +190,15 @@ $(function() {
   });
 
   add({
-    id: 'ai',
-    title: "AI Load",
-    maxVal: 100,
-    threshold: 0.8
+    id: 'memory',
+    title: "JVM Memory",
+    maxVal: 8192,
+    format: "{value} MB"
   });
 
   add({
     id: 'thread',
-    title: "Threads",
+    title: "JVM Threads",
     maxVal: 1000,
     threshold: 0.8
   });
@@ -199,19 +226,33 @@ $(function() {
         var d = ds[i].split(":");
         if (d.length == 2) {
           var id = d[1];
-          var val = parseFloat(d[0]);
-          var chart = charts[id];
-          var index = 0;
-          if (typeof chart != 'undefined') {
-            var series = chart.series[index];
-            var shift = series.data.length > maxPoints;
-            var point = [lastCall, val];
-            series.addPoint(point, true, shift);
-          }
+          var val = d[0];
+          if (id == 'ai') {
+            var loads = _.map(val.split(','), parseLoad);
+            _.each(loads, updateAi);
+          } else update(id, 0, parseFloat(val));
         }
       }
     }
   };
+
+  function update(id, serie, val) {
+    var chart = charts[id];
+    if (!isNaN(val) && typeof chart != 'undefined') {
+      var series = chart.series[serie];
+      var shift = series.data.length > maxPoints;
+      var point = [lastCall, val];
+      series.addPoint(point, true, shift);
+    }
+  }
+
+  function updateAi(load, i) {
+    update('ai', i, load);
+  }
+
+  function parseLoad(load) {
+    return parseInt(load, 10);
+  }
 
   function setStatus(s) {
     window.document.body.className = s;
