@@ -7,7 +7,8 @@ case class Pref(
     dark: Boolean,
     theme: String,
     autoQueen: Int,
-    clockTenths: Boolean) {
+    clockTenths: Boolean,
+    premove: Boolean) {
 
   def realTheme = Theme(theme)
 
@@ -41,7 +42,8 @@ object Pref {
     dark = false,
     theme = Theme.default.name,
     autoQueen = AutoQueen.PREMOVE,
-    clockTenths = true)
+    clockTenths = true,
+    premove = true)
 
   val default = create("")
 
@@ -61,5 +63,6 @@ object Pref {
     "dark" -> default.dark,
     "theme" -> default.theme,
     "autoQueen" -> default.autoQueen,
-    "clockTenths" -> true)
+    "clockTenths" -> default.clockTenths,
+    "premove" -> default.premove)
 }

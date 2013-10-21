@@ -42,6 +42,7 @@ trait RoundHelper { self: PrefHelper ⇒
       "animation_delay" -> animationDelay(pov),
       "autoQueen" -> pref.autoQueen,
       "clockTenths" -> pref.clockTenths,
+      "enablePremove" -> pref.premove,
       "tournament_id" -> game.tournamentId
     )
   }

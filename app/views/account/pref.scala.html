@@ -23,6 +23,10 @@
         @base.checkbox(form("clockTenths"), "Chess clock: show tenths of seconds", 1)
         <p class="help">Only visible under 10 seconds.</p>
         <li>
+        <li>
+        @base.checkbox(form("premove"), "Player: enable premoves", 1)
+        <p class="help">Make a move before the opponent response</p>
+        <li>
         <input type="submit" class="submit button" value="@trans.apply()" />
         </li>
       </ul>

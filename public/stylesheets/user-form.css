@@ -4,7 +4,7 @@
 .content_box form li {
   display: block;
   list-style: none outside none;
-  margin: 1em 0;
+  margin: 2em 0;
 }
 .content_box form .field label {
   display: block;
@@ -24,5 +24,6 @@ form .error {
   margin-left: 160px;
 }
 form .help {
+  font-size: 80%;
   margin-left: 160px;
 }

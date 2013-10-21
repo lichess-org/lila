@@ -161,7 +161,7 @@ div.lichess_overboard p.explanations {
   text-align: left;
   padding-left: 1em;
 }
-#premove, #dont_touch {
+#premove_alert, #dont_touch {
   display: none;
   position: absolute;
   top: 512px;

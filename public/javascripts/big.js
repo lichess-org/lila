@@ -1023,10 +1023,12 @@ var storage = {
             });
           },
           premove: function() {
-            self.element.queue(function() {
-              self.applyPremove();
-              self.element.dequeue();
-            });
+            if (self.options.enablePremove) {
+              self.element.queue(function() {
+                self.applyPremove();
+                self.element.dequeue();
+              });
+            }
           },
           crowd: function(event) {
             $(["white", "black"]).each(function() {
@@ -1170,7 +1172,7 @@ var storage = {
     },
     applyPremove: function() {
       var self = this;
-      if (self.premove && self.isMyTurn()) {
+      if (self.options.enablePremove && self.premove && self.isMyTurn()) {
         var move = self.premove;
         self.unsetPremove();
         if (self.possibleMovesContain(move.from, move.to)) {
@@ -1185,19 +1187,19 @@ var storage = {
     },
     setPremove: function(move) {
       var self = this;
-      if (self.isMyTurn()) return;
+      if (!self.options.enablePremove || self.isMyTurn()) return;
       self.unsetPremove();
       if (!self.validMove(move.from, move.to, move.piece)) return;
       self.premove = move;
       $("#" + move.from + ",#" + move.to).addClass("premoved");
       self.unselect();
-      $("#premove").show();
+      $("#premove_alert").show();
     },
     unsetPremove: function() {
       var self = this;
       self.premove = null;
       self.$board.find('div.lcs.premoved').removeClass('premoved');
-      $("#premove").hide();
+      $("#premove_alert").hide();
     },
     unselect: function() {
       this.$board.find('> div.selected').removeClass('selected');
