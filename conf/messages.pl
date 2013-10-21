@@ -252,5 +252,6 @@ profile=Profil
 editProfile=Edycja profilu
 firstName=Imię
 lastName=Nzwisko
+biography=Biografia
 country=Krasj
 preferences=Ustawienia
