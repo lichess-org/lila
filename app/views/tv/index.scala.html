@@ -20,7 +20,7 @@ cssClass = "spectators")(roomHtml)
     <h2>Lichess TV</h2>
     <br />
     @confrontation.map { c =>
-    @user.confrontation(c)
+    @user.confrontation(c.pov(pov.player.userId))
     }.getOrElse {
     <div class="confrontation">
       <div class="vs">@playerLink(pov.game.creator, withElo = false, withOnline = false) vs @playerLink(pov.game.invited, withElo = false, withOnline = false)</div>
