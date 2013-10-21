@@ -11,6 +11,11 @@ case class Pref(
 
   def realTheme = Theme(theme)
 
+  def get(name: String): Option[String] = name match {
+    case "bg"    ⇒ dark.fold("light", "dark").some
+    case "theme" ⇒ theme.some
+    case _       ⇒ none
+  }
   def set(name: String, value: String): Option[Pref] = name match {
     case "bg"    ⇒ Pref.bgs get value map { b ⇒ copy(dark = b) }
     case "theme" ⇒ Theme.allByName get value map { t ⇒ copy(theme = t.name) }
