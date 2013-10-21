@@ -254,4 +254,4 @@ firstName=Ime
 lastName=Priimek
 biography=Biografija
 country=Država
-preferences=Nastavitve
+preferences=Lastnosti
