@@ -129,6 +129,7 @@ div.user_show .mod_zone .same {
 }
 div.user_show .mod_zone form {
   margin: 0 25px 0 0;
+  display: inline;
 }
 div.user_show .mod_zone .listings > div {
   max-height: 12em;
