@@ -113,7 +113,7 @@ $(function() {
 
   add({
     id: 'users',
-    title: 'Activ Users'
+    title: 'Active Users'
   });
 
   add({

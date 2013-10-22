@@ -75,4 +75,6 @@ people page = trends by day, week, month. user achievments?
 user options: sounds, sound choice
 user stats: http://en.lichess.org/forum/lichess-feedback/feature-request-extended-stats
 forum improvements http://en.lichess.org/forum/lichess-feedback/suggestions-for-the-forum#1
-realt tournaments (round robin/swiss) (hellball)
+real tournaments (round robin/swiss) (hellball)
+perform as many concurrent analysis as there are responsive AI servers
+option to disallow takebacks http://en.lichess.org/forum/lichess-feedback/takeback-request-abuse
