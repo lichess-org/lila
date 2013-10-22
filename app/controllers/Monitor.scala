@@ -23,14 +23,19 @@ object Monitor extends LilaController {
 
   def status = Action.async { implicit req ⇒
     (~get("key", req) match {
-      case "elo" ⇒
+      case "elo" ⇒ {
         lila.user.UserRepo.idsAverageElo(Env.user.onlineUserIdMemo.keys) zip
           lila.game.GameRepo.recentAverageElo(5) map {
             case (users, (rated, casual)) ⇒ List(users, rated, casual) mkString " "
           }
-      case "moves"   ⇒ (env.reporting ? GetNbMoves).mapTo[Int]
-      case "players" ⇒ (env.reporting ? GetNbMembers).mapTo[Int] map { "%d %d".format(_, Env.user.onlineUserIdMemo.count) }
-      case _         ⇒ (env.reporting ? GetStatus).mapTo[String]
-    }) map { x ⇒ Ok(x.toString) }
+      } map { Ok(_) }
+      case "moves" ⇒ (env.reporting ? GetNbMoves).mapTo[Int] map { Ok(_) }
+      case "players" ⇒ {
+        (env.reporting ? GetNbMembers).mapTo[Int] map { "%d %d".format(_, Env.user.onlineUserIdMemo.count) }
+      } map { Ok(_) }
+      case key ⇒ fuccess {
+        BadRequest(s"Unknown monitor status key: $key")
+      }
+    })
   }
 }
