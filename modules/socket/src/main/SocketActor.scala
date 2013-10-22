@@ -142,11 +142,11 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   def userIds: Iterable[String] = members.values.map(_.userId).flatten
 
   def notifyMove(move: MoveEvent) {
-    lazy val msg = makeMessage("fen", JsObject(Seq(
-      "id" -> JsString(move.gameId),
-      "fen" -> JsString(move.fen),
-      "lm" -> JsString(move.move)
-    )))
+    lazy val msg = makeMessage("fen", Json.obj(
+      "id" -> move.gameId,
+      "fen" -> move.fen,
+      "lm" -> move.move
+    ))
     members.values filter (_ liveGames move.gameId) foreach (_.channel push msg)
   }
 
