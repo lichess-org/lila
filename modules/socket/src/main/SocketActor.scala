@@ -48,7 +48,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
     case Resync(uid)                ⇒ resync(uid)
 
-    case Deploy(event, html)        ⇒ broadcast(makeMessage(event.key, html))
+    case Deploy(event, html)        ⇒ notifyAll(makeMessage(event.key, html))
   }
 
   def receive = receiveSpecific orElse receiveGeneric
@@ -101,10 +101,6 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   def quit(uid: String) {
     members = members - uid
-  }
-
-  def broadcast(msg: JsObject) {
-    members.values foreach (_.channel push msg)
   }
 
   private val resyncMessage = makeMessage("resync", JsNull)

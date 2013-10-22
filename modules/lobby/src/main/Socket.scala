@@ -68,10 +68,10 @@ private[lobby] final class Socket(
     router ? Player(fullId) mapTo manifest[String]
 
   private def notifyFeatured(html: Html) {
-    broadcast(makeMessage("featured", html.toString))
+    notifyAll(makeMessage("featured", html.toString))
   }
 
   private def notifyTournaments(html: String) {
-    broadcast(makeMessage("tournaments", html))
+    notifyAll(makeMessage("tournaments", html))
   }
 }
