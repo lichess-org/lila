@@ -51,57 +51,50 @@ private[monitor] final class Reporting(
 
   def receive = {
 
-    case _: MoveEvent      ⇒ mpsProvider.add
+    case _: MoveEvent ⇒ mpsProvider.add
 
-    case AddRequest     ⇒ rpsProvider.add
+    case AddRequest   ⇒ rpsProvider.add
 
-    case GetNbMembers   ⇒ sender ! allMembers
+    case GetNbMembers ⇒ List(
+      (hub.socket.site ? GetNbMembers),
+      (hub.socket.lobby ? GetNbMembers),
+      (hub.socket.round ? GetNbMembers)
+    ).map(_.mapTo[Int]).suml pipeTo sender
 
-    case GetNbGames     ⇒ sender ! nbGames
+    case GetNbMoves ⇒ sender ! mpsProvider.rps
 
-    case GetNbMoves     ⇒ sender ! mps
-
-    case GetStatus      ⇒ sender ! status
-
-    case GetMonitorData ⇒ sender ! monitorData
-
-    case Update ⇒ {
-      val before = nowMillis
-      MongoStatus(db.db)(mongoStatus) zip
-        (hub.actor.ai ? lila.hub.actorApi.ai.GetLoad).mapTo[List[Option[Int]]] zip
-        (hub.socket.site ? GetNbMembers).mapTo[Int] zip
-        (hub.socket.lobby ? GetNbMembers).mapTo[Int] zip
-        (hub.socket.round ? Size).mapTo[Int] zip
-        (hub.socket.round ? GetNbMembers).mapTo[Int] zip
-        (hub.actor.game ? lila.hub.actorApi.game.Count).mapTo[Int] onComplete {
-          case Failure(e) ⇒ logwarn("[reporting] " + e.getMessage)
-          case Success(((((((mongoS, aiL), siteMembers), lobbyMembers), gameHubs), gameMembers), games)) ⇒ {
-            latency = (nowMillis - before).toInt
-            site = SiteSocket(siteMembers)
-            lobby = LobbySocket(lobbyMembers)
-            game = GameSocket(gameHubs, gameMembers)
-            mongoStatus = mongoS
-            nbGames = games
-            loadAvg = osStats.getSystemLoadAverage.toFloat
-            nbThreads = threadStats.getThreadCount
-            memory = memoryStats.getHeapMemoryUsage.getUsed / 1024 / 1024
-            rps = rpsProvider.rps
-            mps = mpsProvider.rps
-            cpu = ((cpuStats.getCpuUsage() * 1000).round / 10.0).toInt
-            aiLoads = aiL
-            socket ! MonitorData(monitorData)
+    case Update ⇒ socket ? GetNbMembers foreach {
+      case 0 ⇒
+      case _ ⇒ {
+        val before = nowMillis
+        MongoStatus(db.db)(mongoStatus) zip
+          (hub.actor.ai ? lila.hub.actorApi.ai.GetLoad).mapTo[List[Option[Int]]] zip
+          (hub.socket.site ? GetNbMembers).mapTo[Int] zip
+          (hub.socket.lobby ? GetNbMembers).mapTo[Int] zip
+          (hub.socket.round ? Size).mapTo[Int] zip
+          (hub.socket.round ? GetNbMembers).mapTo[Int] zip
+          (hub.actor.game ? lila.hub.actorApi.game.Count).mapTo[Int] onComplete {
+            case Failure(e) ⇒ logwarn("[reporting] " + e.getMessage)
+            case Success(((((((mongoS, aiL), siteMembers), lobbyMembers), gameHubs), gameMembers), games)) ⇒ {
+              latency = (nowMillis - before).toInt
+              site = SiteSocket(siteMembers)
+              lobby = LobbySocket(lobbyMembers)
+              game = GameSocket(gameHubs, gameMembers)
+              mongoStatus = mongoS
+              nbGames = games
+              loadAvg = osStats.getSystemLoadAverage.toFloat
+              nbThreads = threadStats.getThreadCount
+              memory = memoryStats.getHeapMemoryUsage.getUsed / 1024 / 1024
+              rps = rpsProvider.rps
+              mps = mpsProvider.rps
+              cpu = ((cpuStats.getCpuUsage() * 1000).round / 10.0).toInt
+              aiLoads = aiL
+              socket ! MonitorData(monitorData)
+            }
           }
-        }
+      }
     }
   }
-
-  private def status = List(
-    allMembers,
-    nbGames,
-    game.nbHubs,
-    loadAvg.toString,
-    aiLoadString
-  ) mkString " "
 
   private def aiLoadString = aiLoads.map(_.fold("!!")(_.toString)) mkString ","
 
