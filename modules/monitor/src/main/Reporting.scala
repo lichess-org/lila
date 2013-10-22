@@ -41,7 +41,7 @@ private[monitor] final class Reporting(
   var mongoStatus = MongoStatus.default
   var aiLoads = List[Option[Int]]()
 
-  var displays = 0
+  var idle = true
 
   val osStats = ManagementFactory.getOperatingSystemMXBean
   val threadStats = ManagementFactory.getThreadMXBean
@@ -64,7 +64,7 @@ private[monitor] final class Reporting(
     case GetNbMoves ⇒ sender ! mpsProvider.rps
 
     case Update ⇒ socket ? GetNbMembers foreach {
-      case 0 ⇒
+      case 0 ⇒ idle = true
       case _ ⇒ {
         val before = nowMillis
         MongoStatus(db.db)(mongoStatus) zip
@@ -89,7 +89,8 @@ private[monitor] final class Reporting(
               mps = mpsProvider.rps
               cpu = ((cpuStats.getCpuUsage() * 1000).round / 10.0).toInt
               aiLoads = aiL
-              socket ! MonitorData(monitorData)
+              socket ! MonitorData(monitorData(idle))
+              idle = false
             }
           }
       }
@@ -98,7 +99,7 @@ private[monitor] final class Reporting(
 
   private def aiLoadString = aiLoads.map(_.fold("!!")(_.toString)) mkString ","
 
-  private def monitorData = List(
+  private def monitorData(idle: Boolean) = List(
     "users" -> allMembers,
     "lobby" -> lobby.nbMembers,
     "game" -> game.nbMembers,
@@ -111,7 +112,7 @@ private[monitor] final class Reporting(
     "mps" -> mps,
     "dbMemory" -> mongoStatus.memory,
     "dbConn" -> mongoStatus.connection,
-    "dbQps" -> mongoStatus.qps,
+    "dbQps" -> idle.fold("??", mongoStatus.qps.toString),
     "dbLock" -> math.round(mongoStatus.lock * 10) / 10d,
     "ai" -> aiLoadString
   ) map {
