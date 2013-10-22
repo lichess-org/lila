@@ -14,7 +14,7 @@ trait Ai {
       pgn ← PgnRepo get game.id
       uciMoves ← uciMemo.get(game, pgn)
       moveStr ← move(uciMoves.toList, fen, level)
-      uciMove ← (UciMove(moveStr) toValid "Wrong bestmove: " + moveStr).future
+      uciMove ← (UciMove(moveStr) toValid s"${game.id} wrong bestmove: $moveStr").future
       result ← (game.toChess withPgnMoves pgn)(uciMove.orig, uciMove.dest).future
       (c, m) = result
       (progress, pgn2) = game.update(c, m)
