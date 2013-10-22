@@ -252,5 +252,6 @@ profile=Profil
 editProfile=Ändra profil
 firstName=Tilltalsnamn
 lastName=Efternamn
+biography=Biografi
 country=Land
 preferences=Inställningar
