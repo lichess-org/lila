@@ -8,8 +8,9 @@ import play.api.libs.json._
 import play.api.templates.Html
 
 import lila.db.api._
+import lila.hub.actorApi.lobby.NewForumPost
 import lila.hub.actorApi.timeline.propagation._
-import lila.hub.actorApi.timeline.{ Propagate, Atom, ReloadTimeline }
+import lila.hub.actorApi.timeline.{ Propagate, Atom, ForumPost, ReloadTimeline }
 import lila.security.Granter
 import lila.user.UserRepo
 import makeTimeout.short
@@ -22,11 +23,17 @@ private[timeline] final class Push(
 
   def receive = {
 
-    case Propagate(data, propagations) ⇒ propagate(propagations) foreach { users ⇒
-      if (users.nonEmpty) makeEntry(users, data) >>-
-        (users foreach { u ⇒
-          lobbySocket ! ReloadTimeline(u)
-        })
+    case Propagate(data, propagations) ⇒ {
+      data match {
+        case _: ForumPost ⇒ lobbySocket ! NewForumPost
+        case _            ⇒
+      }
+      propagate(propagations) foreach { users ⇒
+        if (users.nonEmpty) makeEntry(users, data) >>-
+          (users foreach { u ⇒
+            lobbySocket ! ReloadTimeline(u)
+          })
+      }
     }
   }
 

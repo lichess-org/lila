@@ -2,20 +2,20 @@ package lila.lobby
 
 import scala.concurrent.duration._
 
-import actorApi._
 import akka.actor._
 import akka.pattern.ask
-import makeTimeout.short
 import play.api.libs.iteratee._
 import play.api.libs.json._
 import play.api.templates.Html
 
+import actorApi._
 import lila.game.actorApi._
 import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.router.{ Homepage, Player }
 import lila.hub.actorApi.timeline._
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import lila.socket.{ SocketActor, History, Historical }
+import makeTimeout.short
 
 private[lobby] final class Socket(
     val history: History,
@@ -39,6 +39,8 @@ private[lobby] final class Socket(
     }
 
     case ReloadTournaments(html) ⇒ notifyTournaments(html)
+
+    case NewForumPost            ⇒ notifyAll("reload_forum")
 
     case GameEntryView(rendered) ⇒ notifyVersion("game_entry", rendered)
 
