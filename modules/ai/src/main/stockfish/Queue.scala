@@ -18,6 +18,7 @@ private[ai] final class Queue(config: Config) extends Actor {
   private val actor = context.actorOf(Props(new ActorFSM(process, config)))
   private val monitor = context.actorOf(Props(new Monitor(self)))
   private var actorReady = false
+  private val extraStockfishTime = 2 seconds
 
   private def blockAndMeasure[A](fa: Fu[A])(implicit timeout: Timeout): A = {
     val start = nowMillis
@@ -34,7 +35,7 @@ private[ai] final class Queue(config: Config) extends Actor {
     }
 
     case req: PlayReq ⇒ {
-      implicit val timeout = makeTimeout((config moveTime req.level).millis + 1.second)
+      implicit val timeout = makeTimeout((config moveTime req.level).millis + extraStockfishTime)
       blockAndMeasure {
         actor ? req mapTo manifest[Option[String]] map sender.!
       }
@@ -43,7 +44,7 @@ private[ai] final class Queue(config: Config) extends Actor {
     case req: AnalReq ⇒
       if (req.isStart) sender ! Evaluation.start.some
       else {
-        implicit val timeout = makeTimeout(config.analyseMoveTime + 1.second)
+        implicit val timeout = makeTimeout(config.analyseMoveTime + extraStockfishTime)
         (actor ? req) map sender.! await timeout
       }
 
