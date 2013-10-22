@@ -51,9 +51,8 @@ package captcha {
 }
 
 package lobby {
-  case class SysTalk(txt: String)
-  case class UnTalk(r: scala.util.matching.Regex)
   case class ReloadTournaments(html: String)
+  case object NewForumPost
 }
 
 package timeline {

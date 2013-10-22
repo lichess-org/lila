@@ -147,7 +147,7 @@ Which yields a game list of type `IO[List[Game]]`
 Search
 ------
 
-Searching in mongodb just does not work, so the [search engine](http://en.lichess.org/games/search) is powered by elasticsearch. When a game is finished, its ID is stored in the `index_queue` mongodb collection, then a daemon periodically batch inserts them into the elasticsearch index.
+Searching in mongodb just does not work, so the [search engine](http://en.lichess.org/games/search) is powered by elasticsearch. 
 
 Monitoring
 ----------

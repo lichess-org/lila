@@ -382,7 +382,6 @@ var storage = {
     onProduction: /.+\.lichess\.org/.test(document.domain)
   };
   // lichess.socketDefaults.options.debug = !lichess.onProduction;
-  // lichess.socketDefaults.options.debug = true;
 
   lichess.hasToReload = false;
   lichess.reload = function() {
@@ -2152,15 +2151,6 @@ var storage = {
     $bot.on("click", "tr", function() {
       location.href = $(this).find('a.watch').attr("href");
     });
-    setInterval(function() {
-      $.ajax($newposts.data('url'), {
-        timeout: 10000,
-        success: function(data) {
-          $newpostsinner.find('ol').html(data).end().scrollTop(0);
-          $('body').trigger('lichess.content_loaded');
-        }
-      });
-    }, 120 * 1000);
 
     function resizeTimeline() {
       var max = $('#lichess').offset().top + 516;
@@ -2202,7 +2192,8 @@ var storage = {
           $.lichessOpeningPreventClicks();
           location.href = 'http://' + location.hostname + '/' + e;
         },
-        tournaments: reloadTournaments
+        tournaments: reloadTournaments,
+        reload_forum: reloadForum
       },
       options: {
         name: "lobby"
@@ -2211,6 +2202,15 @@ var storage = {
 
     function reloadTournaments(data) {
       $("table.tournaments tbody").html(data);
+    }
+
+    function reloadForum() {
+      $.ajax($newposts.data('url'), {
+        success: function(data) {
+          $newpostsinner.find('ol').html(data).end().scrollTop(0);
+          $('body').trigger('lichess.content_loaded');
+        }
+      });
     }
 
     function changeFeatured(html) {

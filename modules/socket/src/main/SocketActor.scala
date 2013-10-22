@@ -58,7 +58,14 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   }
 
   def notifyAll[A: Writes](t: String, data: A) {
-    val msg = makeMessage(t, data)
+    notifyAll(makeMessage(t, data))
+  }
+
+  def notifyAll(t: String) {
+    notifyAll(makeMessage(t))
+  }
+
+  def notifyAll(msg: JsObject) {
     members.values.foreach(_.channel push msg)
   }
 

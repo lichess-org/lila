@@ -11,7 +11,7 @@ import actorApi._
 import chess.{ Mode, Variant }
 import lila.db.api._
 import lila.game.{ Game, GameRepo }
-import lila.hub.actorApi.lobby.{ SysTalk, UnTalk, ReloadTournaments }
+import lila.hub.actorApi.lobby.ReloadTournaments
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.router.Tourney
 import lila.round.actorApi.round.{ AbortForce, ResignColor }
@@ -54,8 +54,7 @@ private[tournament] final class TournamentApi(
       $insert(created) >>-
         (withdrawIds foreach socketReload) >>-
         reloadSiteSocket >>-
-        lobbyReload >>-
-        sendLobbyMessage(created) inject created
+        lobbyReload inject created
     }
 
   def startIfReady(created: Created): Option[Funit] = created.startIfReady map doStart
@@ -74,8 +73,7 @@ private[tournament] final class TournamentApi(
     $remove(created) >>
       $remove.byId[Room](created.id) >>-
       reloadSiteSocket >>-
-      lobbyReload >>-
-      (lobby ! UnTalk("%s tournament created".format(created.name).r))
+      lobbyReload 
   }
 
   def finish(started: Started): Fu[Tournament] = started.readyToFinish.fold({
@@ -152,18 +150,6 @@ private[tournament] final class TournamentApi(
   private val reloadMessage = Json.obj("t" -> "reload")
   private def reloadSiteSocket {
     site ! SendToFlag("tournament", reloadMessage)
-  }
-
-  private def sendLobbyMessage(tour: Created) {
-    router ? Tourney(tour.id) map {
-      case url: String ⇒ SysTalk(
-        """<a href="%s">%s tournament created</a>""".format(url, tour.name)
-      )
-    } pipeToSelection lobby
-  }
-
-  private def removeLobbyMessage(tour: Created) {
-    lobby ! UnTalk("%s tournament created".format(tour.name).r)
   }
 
   private def sendTo(tourId: String, msg: Any) {
