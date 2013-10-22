@@ -41,7 +41,8 @@ private[ai] final class Dispatcher(
 
     case x: Analyse ⇒ {
       implicit val timeout = makeTimeout(config.analyseTimeout)
-      val (xs, nb, la) = (connectionsWithLoad, connectionsWithLoad.size, lastAnalysis)
+      val cwl = connectionsWithLoad
+      val (xs, nb, la) = (cwl, cwl.size, lastAnalysis)
       val index = (la + 1) to (la + nb) map (_ % nb) find { index ⇒
         xs lift index exists (_._2.isDefined)
       } 

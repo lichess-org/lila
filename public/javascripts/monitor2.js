@@ -100,7 +100,7 @@ $(function() {
         renderTo: info.id,
       },
       title: {
-        text: 'AI Servers Load',
+        text: 'AI Servers Usage',
       },
       yAxis: {
         labels: {

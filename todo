@@ -76,5 +76,5 @@ user options: sounds, sound choice
 user stats: http://en.lichess.org/forum/lichess-feedback/feature-request-extended-stats
 forum improvements http://en.lichess.org/forum/lichess-feedback/suggestions-for-the-forum#1
 real tournaments (round robin/swiss) (hellball)
-perform as many concurrent analysis as there are responsive AI servers
 option to disallow takebacks http://en.lichess.org/forum/lichess-feedback/takeback-request-abuse
+reload forum/recent on event, not polling
