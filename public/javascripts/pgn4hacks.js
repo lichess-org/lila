@@ -38,10 +38,12 @@ function customFunctionOnMove() {
         point.select(false);
       });
     } else {
-      var ids = uciToSquareIds(lichess_best_moves[CurrentPly] || '');
-      $.each(ids, function() {
-        $("#" + this).addClass("bestmove");
-      });
+      if (!isAutoPlayOn) {
+        var ids = uciToSquareIds(lichess_best_moves[CurrentPly] || '');
+        $.each(ids, function() {
+          $("#" + this).addClass("bestmove");
+        });
+      }
       var index = CurrentPly - 1;
       var point = chart.series[0].data[index];
       if (typeof point != "undefined") {
