@@ -2051,7 +2051,6 @@ var storage = {
     var $timeline = $("#timeline");
     var $bot = $("div.lichess_bot");
     var $newposts = $("div.new_posts");
-    var $newpostsinner = $newposts.find('.undertable_inner').scrollTop(0);
     var $hooks = $wrap.find('#hooks');
     var $noHook = $wrap.find('.no_hook');
     var $canvas = $wrap.find('.canvas');
@@ -2205,12 +2204,14 @@ var storage = {
     }
 
     function reloadForum() {
+      setTimeout(function() {
       $.ajax($newposts.data('url'), {
         success: function(data) {
-          $newpostsinner.find('ol').html(data).end().scrollTop(0);
+          $newposts.find('ol').html(data).end().scrollTop(0);
           $('body').trigger('lichess.content_loaded');
         }
       });
+      }, Math.round(Math.random() * 5000));
     }
 
     function changeFeatured(html) {
