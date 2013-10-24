@@ -13,7 +13,7 @@ case class Pref(
   def realTheme = Theme(theme)
 
   def get(name: String): Option[String] = name match {
-    case "bg"    ⇒ dark.fold("light", "dark").some
+    case "bg"    ⇒ dark.fold("dark", "light").some
     case "theme" ⇒ theme.some
     case _       ⇒ none
   }
