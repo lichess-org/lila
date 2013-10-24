@@ -7,7 +7,10 @@ import spray.caching.{ LruCache, Cache }
 import lila.security.{ Permission, Granter ⇒ MasterGranter }
 import lila.user.User
 
-private[forum] final class Recent(postApi: PostApi, ttl: Duration) {
+private[forum] final class Recent(
+  postApi: PostApi, 
+  ttl: Duration,
+  nb: Int) {
 
   private type GetTeams = String ⇒ Fu[List[String]]
 
@@ -22,7 +25,6 @@ private[forum] final class Recent(postApi: PostApi, ttl: Duration) {
   def invalidate: Funit = fuccess(cache.clear)
 
   import makeTimeout.large
-  private val nb = 20
 
   private def userCacheKey(user: Option[User], getTeams: GetTeams): Fu[String] =
     user.map(_.id) ?? getTeams map { teams ⇒
