@@ -18,6 +18,7 @@ private[ai] final class Dispatcher(
     router: String ⇒ Router,
     scheduler: Scheduler) extends Actor {
 
+  private var lastPlay = 0
   private var lastAnalysis = 0
   private var connectionsWithLoad: List[(ActorRef, Option[Int])] = Nil
 
@@ -33,22 +34,31 @@ private[ai] final class Dispatcher(
     case GetLoad ⇒ sender ! connectionsWithLoad.map(_._2)
 
     case x: Play ⇒ {
-      val connection = (connectionsWithLoad collect {
-        case (a, Some(l)) ⇒ a -> (Random nextInt math.max(1, l))
-      }).sortBy(x ⇒ x._2).headOption.map(_._1)
-      forward(connection, x, sender)(makeTimeout(config.playTimeout))
+      val chosen = nextConnection(lastPlay)
+      chosen foreach { c ⇒ lastPlay = c._1 }
+      forward(chosen map (_._2), x, sender)(makeTimeout(config.playTimeout))
     }
 
     case x: Analyse ⇒ {
       implicit val timeout = makeTimeout(config.analyseTimeout)
-      val cwl = connectionsWithLoad
-      val (xs, nb, la) = (cwl, cwl.size, lastAnalysis)
-      val index = (la + 1) to (la + nb) map (_ % nb) find { index ⇒
-        xs lift index exists (_._2.isDefined)
-      } 
-      val connection = index flatMap xs.lift map (_._1)
-      forward(connection, x, sender)(makeTimeout(config.analyseTimeout))
-      index foreach { lastAnalysis = _ }
+      val chosen = nextConnection(lastAnalysis)
+      chosen foreach { c ⇒ lastAnalysis = c._1 }
+      forward(chosen map (_._2), x, sender)(makeTimeout(config.analyseTimeout))
+    }
+  }
+
+  private def lessLoadedConnection: Option[ActorRef] =
+    (connectionsWithLoad collect {
+      case (a, Some(l)) ⇒ a -> (Random nextInt math.max(1, l))
+    }).sortBy(x ⇒ x._2).headOption.map(_._1)
+
+  private def nextConnection(lastUsed: Int): Option[(Int, ActorRef)] = {
+    val (xs, nb, la) = (connectionsWithLoad, connections.size, lastUsed)
+    val index = (la + 1) to (la + nb) map (_ % nb) find { index ⇒
+      xs lift index exists (_._2.isDefined)
+    }
+    index flatMap { i ⇒
+      xs lift i map (_._1) map { i -> _ }
     }
   }
 
@@ -67,10 +77,6 @@ private[ai] final class Dispatcher(
     ) ~ { actor ⇒
         scheduler.schedule(200.millis, 1.second, actor, CalculateLoad)
       }
-  }
-
-  override def preStart {
-    scheduler.schedule(0.second, 1.second, self, CalculateLoad)
   }
 
   private lazy val noRemote = new Exception("[stockfish dispatcher] No available remote found")
