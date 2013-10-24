@@ -18,6 +18,7 @@ final class Env(
     val TopicMaxPerPage = config getInt "topic.max_per_page"
     val PostMaxPerPage = config getInt "post.max_per_page"
     val RecentTtl = config duration "recent.ttl"
+    val RecentNb = config getInt "recent.nb"
     val CollectionCateg = config getString "collection.categ"
     val CollectionTopic = config getString "collection.topic"
     val CollectionPost = config getString "collection.post"
@@ -42,7 +43,7 @@ final class Env(
     timeline = hub.actor.timeline)
 
   lazy val forms = new DataForm(hub.actor.captcher)
-  lazy val recent = new Recent(postApi, RecentTtl)
+  lazy val recent = new Recent(postApi, RecentTtl, RecentNb)
 
   def cli = new lila.common.Cli {
     import tube._
