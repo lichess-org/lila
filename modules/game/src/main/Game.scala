@@ -248,7 +248,9 @@ case class Game(
 
   def finishedOrAborted = finished || aborted
 
-  def analysable = finished && (source.fold(true)(Source.Position!=))
+  def analysable = (imported || finished) && (source.fold(true)(Source.Position!=))
+
+  def imported = source exists (_ == Source.Import)
 
   def winner = players find (_.wins)
 
