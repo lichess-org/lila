@@ -48,7 +48,10 @@ private[round] final class Player(
                   })
           }
         } addFailureEffect onFailure
-      case _ ⇒ fufail(s"$pov Not your turn")
+      case Pov(game, _) if game.finished        ⇒ fufail(s"$pov game is finished")
+      case Pov(game, _) if game.aborted         ⇒ fufail(s"$pov game is aborted")
+      case Pov(_, color) if !game.turnOf(color) ⇒ fufail(s"$pov not your turn")
+      case _                                    ⇒ fufail(s"$pov move refused for some reason")
     }
   }
 
