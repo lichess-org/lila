@@ -79,6 +79,10 @@ private[ai] final class Dispatcher(
       }
   }
 
+  override def preStart {
+    scheduler.schedule(0.second, 1.second, self, CalculateLoad)
+  }
+
   private lazy val noRemote = new Exception("[stockfish dispatcher] No available remote found")
 
   private val urlRegex = """^https?://([^\/]+)/.+$""".r
