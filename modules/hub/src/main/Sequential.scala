@@ -6,7 +6,9 @@ import akka.actor._
 
 trait SequentialActor extends Actor {
 
-  def process(msg: Any): Funit
+  type ReceiveAsync = PartialFunction[Any, Funit]
+
+  def process: ReceiveAsync
 
   def idle: Receive = {
 
@@ -18,12 +20,16 @@ trait SequentialActor extends Actor {
 
   def busy: Receive = {
 
-    case Done ⇒ dequeue match {
-      case None      ⇒ context become idle
-      case Some(msg) ⇒ processThenDone(msg)
+    case Done ⇒ {
+      dequeue match {
+        case None      ⇒ context become idle
+        case Some(msg) ⇒ processThenDone(msg)
+      }
     }
 
-    case msg ⇒ queue enqueue msg
+    case msg ⇒ {
+      queue enqueue msg
+    }
   }
 
   def receive = idle
@@ -33,7 +39,18 @@ trait SequentialActor extends Actor {
 
   private case object Done
 
-  private def processThenDone(msg: Any) {
-    process(msg) >>- { self ! Done }
+  private def fallback: ReceiveAsync = {
+    case work ⇒ fuccess()
+  }
+
+  private def processThenDone(work: Any) {
+    work match {
+      // we don't want to send Done after actor death
+      case ReceiveTimeout ⇒ self ! PoisonPill
+      case msg ⇒ {
+        (process orElse fallback)(msg) >>- 
+        (self ! Done)
+      }
+    }
   }
 }

@@ -25,17 +25,13 @@ private[round] final class Round(
 
   context setReceiveTimeout 30.seconds
 
-  def process(work: Any): Funit = work match {
-
-    case ReceiveTimeout ⇒ fuccess {
-      self ! PoisonPill
-    }
+  def process = {
 
     case p: HumanPlay ⇒ handle(p.playerId) { pov ⇒
       pov.game.outoftimePlayer.fold(player.human(p)(pov))(outOfTime(pov.game))
     }
 
-    case AiPlay ⇒ publish(GameRepo game gameId, 10.seconds)(player.ai)
+    case AiPlay ⇒ publish(GameRepo game gameId)(player.ai)
 
     case Abort(playerId) ⇒ handle(playerId) { pov ⇒
       pov.game.abortable ?? finisher(pov.game, _.Aborted)
@@ -114,8 +110,6 @@ private[round] final class Round(
         }
       }
     }
-
-    case msg ⇒ fufail(s"[round] sequential actor do not process $msg message")
   }
 
   private def outOfTime(game: Game)(p: lila.game.Player) =
@@ -132,7 +126,7 @@ private[round] final class Round(
   protected def handle[A](op: Game ⇒ Fu[Events]) =
     publish(GameRepo game gameId)(op)
 
-  private def publish[A](context: Fu[Option[A]], timeout: FiniteDuration = 3.seconds)(op: A ⇒ Fu[Events]) = {
+  private def publish[A](context: Fu[Option[A]])(op: A ⇒ Fu[Events]) = {
     context flatten "round not found" flatMap op addEffect {
       events ⇒ if (events.nonEmpty) socketHub ! Tell(gameId, events)
     } addFailureEffect {
