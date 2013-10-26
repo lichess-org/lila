@@ -17,10 +17,6 @@ trait SocketHubActor[A <: SocketActor[_]] extends Socket with ActorMap[A] {
   private def _socketHubReceive: Receive = {
 
     case msg: GetNbMembers.type   ⇒ zipAll[Int](msg) pipeTo sender
-
-    case msg: NbMembers           ⇒ tellAll(msg)
-
-    case msg: Deploy              ⇒ tellAll(msg)
   }
 }
 
