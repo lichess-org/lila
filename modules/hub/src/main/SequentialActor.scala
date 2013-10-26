@@ -46,11 +46,16 @@ trait SequentialActor extends Actor {
   private def processThenDone(work: Any) {
     work match {
       // we don't want to send Done after actor death
-      case ReceiveTimeout ⇒ self ! PoisonPill
+      case SequentialActor.Terminate ⇒ self ! PoisonPill
       case msg ⇒ {
         (process orElse fallback)(msg) >>- 
         (self ! Done)
       }
     }
   }
+}
+
+object SequentialActor {
+
+  case object Terminate
 }
