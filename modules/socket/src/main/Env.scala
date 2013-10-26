@@ -1,12 +1,11 @@
 package lila.socket
 
-import akka.actor.ActorSystem
+import akka.actor._
 import akka.pattern.{ ask, pipe }
 import com.typesafe.config.Config
 
 import actorApi._
 import lila.common.PimpedConfig._
-import lila.hub.actorApi.{ GetNbMembers, NbMembers }
 import makeTimeout.short
 
 final class Env(
@@ -15,6 +14,10 @@ final class Env(
     hub: lila.hub.Env) {
 
   import scala.concurrent.duration._
+
+  private val population = system.actorOf(
+    Props(new Population), 
+    name = "population")
 
   private val sockets = List(
     hub.socket.lobby,
@@ -27,8 +30,8 @@ final class Env(
       system.eventStream.publish(actorApi.Broom)
     }
     scheduler.effect(1 seconds, "calculate nb members") {
-      sockets.map(_ ? GetNbMembers mapTo manifest[Int]).suml foreach { nb ⇒
-        system.eventStream publish NbMembers(nb) 
+      population ? PopulationGet foreach {
+        case nb: Int ⇒ system.eventStream publish NbMembers(nb)
       }
     }
   }

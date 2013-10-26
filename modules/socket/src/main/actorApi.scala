@@ -15,7 +15,11 @@ case class Quit(uid: String)
 case class LiveGames(uid: String, gameIds: List[String])
 case class Resync(uid: String)
 
-// hubs
 case object GetVersion
 
 case class SendToFlag(flag: String, message: JsObject) 
+
+case object PopulationInc
+case object PopulationDec
+case object PopulationGet
+case class NbMembers(nb: Int)

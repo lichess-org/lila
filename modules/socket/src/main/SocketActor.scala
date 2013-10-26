@@ -8,7 +8,8 @@ import play.api.libs.json._
 
 import actorApi._
 import lila.hub.actorApi.round.MoveEvent
-import lila.hub.actorApi.{ Deploy, GetUids, WithUserIds, GetNbMembers, NbMembers, SendTo, SendTos }
+import lila.hub.actorApi.{ Deploy, GetUids, WithUserIds, SendTo, SendTos }
+import lila.socket.actorApi.{ PopulationInc, PopulationDec }
 import lila.memo.ExpireSetMemo
 
 abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket with Actor {
@@ -40,8 +41,6 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
     // when a member quits
     case Quit(uid)               ⇒ quit(uid)
-
-    case GetNbMembers            ⇒ sender ! members.size
 
     case NbMembers(nb)           ⇒ pong = makePong(nb)
 
@@ -112,6 +111,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   def quit(uid: String) {
     members = members - uid
+    context.system.eventStream publish PopulationDec
   }
 
   private val resyncMessage = makeMessage("resync", JsNull)
@@ -137,6 +137,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   def addMember(uid: String, member: M) {
     eject(uid)
     members = members + (uid -> member)
+    context.system.eventStream publish PopulationInc
     setAlive(uid)
   }
 
