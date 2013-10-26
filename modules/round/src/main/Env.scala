@@ -60,14 +60,18 @@ final class Env(
     def receive = actorMapReceive
   }), name = ActorMapName)
 
-  val socketHub = system.actorOf(Props(new SocketHub(
-    makeHistory = history,
-    getUsername = getUsername,
-    uidTimeout = UidTimeout,
-    socketTimeout = SocketTimeout,
-    disconnectTimeout = PlayerDisconnectTimeout,
-    ragequitTimeout = PlayerRagequitTimeout
-  )), name = SocketName)
+  private val socketHub = system.actorOf(
+    Props(new lila.socket.SocketHubActor.Default[Socket] {
+      def mkActor(id: String) = new Socket(
+        gameId = id,
+        history = history(),
+        getUsername = getUsername,
+        uidTimeout = UidTimeout,
+        socketTimeout = SocketTimeout,
+        disconnectTimeout = PlayerDisconnectTimeout,
+        ragequitTimeout = PlayerRagequitTimeout)
+    }),
+    name = SocketName)
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,

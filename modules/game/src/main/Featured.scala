@@ -16,7 +16,6 @@ import tube.gameTube
 
 final class Featured(
     lobbySocket: ActorSelection,
-    roundActor: ActorSelection,
     rendererActor: ActorSelection,
     system: ActorSystem) {
 
@@ -36,7 +35,7 @@ final class Featured(
 
       case Set(game) ⇒ {
         oneId = game.id.some
-        roundActor ! actorApi.ChangeFeaturedGame(game)
+        system.eventStream.publish(actorApi.ChangeFeaturedGame(game))
         rendererActor ? actorApi.RenderFeaturedJs(game) onSuccess {
           case html: Html ⇒ lobbySocket ! actorApi.ChangeFeatured(html)
         }

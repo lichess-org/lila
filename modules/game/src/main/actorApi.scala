@@ -8,8 +8,6 @@ case class ChangeFeatured(html: Html)
 case class ChangeFeaturedGame(game: Game)
 case class RenderFeaturedJs(game: Game)
 
-case class TellWatchers(msg: JsObject)
-
 case class InsertGame(game: Game)
 
 private[game] case object NewCaptcha
