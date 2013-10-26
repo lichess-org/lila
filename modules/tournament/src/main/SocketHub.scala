@@ -8,7 +8,6 @@ import makeTimeout.short
 import play.api.libs.json._
 
 import actorApi._
-import lila.hub.actorApi.round.MoveEvent
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import lila.socket.{ History, SocketHubActor }
 
@@ -19,12 +18,7 @@ private[tournament] final class SocketHub(
     socketTimeout: Duration,
     getUsername: String ⇒ Fu[Option[String]]) extends SocketHubActor[Socket] {
 
-  def receive: Receive = _receive orElse socketHubReceive
-
-  private def _receive: Receive = {
-
-    case msg: MoveEvent ⇒ tellAll(msg)
-  }
+  def receive: Receive = socketHubReceive
 
   def mkActor(tournamentId: String) = new Socket(
     tournamentId = tournamentId,

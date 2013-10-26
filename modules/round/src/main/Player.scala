@@ -5,6 +5,7 @@ import chess.Pos.posAt
 import chess.{ Status, Role, Color }
 
 import actorApi.round.{ HumanPlay, AiPlay, DrawNo, TakebackNo, PlayResult, Cheat }
+import akka.event.EventStream
 import lila.ai.Ai
 import lila.game.{ Game, GameRepo, PgnRepo, Pov, Progress, UciMemo }
 import lila.hub.actorApi.map.Tell
@@ -12,7 +13,7 @@ import lila.hub.actorApi.round.MoveEvent
 
 private[round] final class Player(
     engine: Ai,
-    notifyMove: MoveEvent ⇒ Unit,
+    bus: EventStream,
     finisher: Finisher,
     cheatDetector: CheatDetector,
     roundMap: akka.actor.ActorSelection,
@@ -66,7 +67,7 @@ private[round] final class Player(
 
   private def notifyProgress(progress: Progress, ip: String) {
     progress.game.lastMove foreach { move ⇒
-      notifyMove(MoveEvent(
+      bus.publish(MoveEvent(
         ip = ip,
         gameId = progress.game.id,
         fen = Forsyth exportBoard progress.game.toChess.board,

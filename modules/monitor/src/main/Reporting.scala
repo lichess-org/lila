@@ -22,6 +22,8 @@ private[monitor] final class Reporting(
     db: lila.db.Env,
     hub: lila.hub.Env) extends Actor {
 
+  context.system.eventStream.subscribe(self, classOf[MoveEvent])
+
   case class SiteSocket(nbMembers: Int)
   case class LobbySocket(nbMembers: Int)
   case class GameSocket(nbHubs: Int, nbMembers: Int)
