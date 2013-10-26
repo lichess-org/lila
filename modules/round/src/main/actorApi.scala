@@ -84,7 +84,6 @@ package round {
 
   case class PlayResult(events: Events, fen: String, lastMove: Option[String])
 
-  case class Send(events: Events)
   case class Abort(playerId: String)
   case object AbortForce
   case class Resign(playerId: String)
