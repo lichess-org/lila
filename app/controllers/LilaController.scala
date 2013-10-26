@@ -172,10 +172,8 @@ private[controllers] trait LilaController
   private def restoreUser(req: RequestHeader): Fu[Option[UserModel]] =
     Env.security.api restoreUser req addEffect {
       _ foreach { user ⇒
-        if (!user.seenRecently) UserRepo setSeenAt user.id
         val lang = Env.i18n.pool.lang(req).language
-        if (user.lang != lang.some) UserRepo.setLang(user.id, lang)
-        Env.user setOnline user
+        Env.current.system.eventStream publish lila.user.User.Active(user, lang)
       }
     }
 

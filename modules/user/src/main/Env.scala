@@ -1,5 +1,6 @@
 package lila.user
 
+import akka.actor._
 import chess.EloCalculator
 import com.typesafe.config.Config
 
@@ -10,7 +11,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     scheduler: lila.common.Scheduler,
-    system: akka.actor.ActorSystem) {
+    system: ActorSystem) {
 
   private val settings = new {
     val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
@@ -46,8 +47,6 @@ final class Env(
 
   def usernameOrAnonymous(id: String): Fu[String] = cached usernameOrAnonymous id
 
-  def setOnline(user: User) { onlineUserIdMemo put user.id }
-
   def isOnline(userId: String) = onlineUserIdMemo get userId
 
   def countEnabled = cached.countEnabled
@@ -60,6 +59,18 @@ final class Env(
       case "user" :: "typecheck" :: Nil ⇒ lila.db.Typecheck.apply[User]
     }
   }
+
+  system.actorOf(
+    Props(new Actor {
+      context.system.eventStream.subscribe(self, classOf[User.Active])
+      def receive = {
+        case User.Active(user, lang) ⇒ {
+          if (!user.seenRecently) UserRepo setSeenAt user.id
+          if (user.lang != lang.some) UserRepo.setLang(user.id, lang)
+          onlineUserIdMemo put user.id
+        }
+      }
+    }), name = "user-active")
 
   {
     import scala.concurrent.duration._
