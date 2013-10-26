@@ -20,6 +20,12 @@ private[ai] final class Connection(
 
   private var load = none[Int]
 
+  val loadTick = context.system.scheduler.schedule(200.millis, 1.second, self, CalculateLoad)
+
+  override def postStop() {
+    loadTick.cancel
+  }
+
   def receive = {
 
     case GetLoad ⇒ sender ! load

@@ -67,9 +67,9 @@ final class Env(
         router = stockfish.remote.Router(
           playRoute = StockfishPlayRoute,
           analyseRoute = StockfishAnalyseRoute,
-          loadRoute = StockfishLoadRoute) _,
-        scheduler = system.scheduler
-      )), name = "stockfish-dispatcher"),
+          loadRoute = StockfishLoadRoute) _
+        )
+      ), name = "stockfish-dispatcher"),
     fallback = stockfishServer,
     config = stockfishConfig,
     uciMemo = uciMemo)
