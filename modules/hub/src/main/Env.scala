@@ -39,15 +39,7 @@ final class Env(config: Config, system: ActorSystem) {
     val site = select("socket.site")
     val round = select("socket.round")
     val tournament = select("socket.tournament")
-    val hub = select("socket.hub.name")
   }
-
-  system.actorOf(Props(new Broadcast(List(
-    socket.lobby,
-    socket.site,
-    socket.round,
-    socket.tournament
-  ))(makeTimeout(SocketHubTimeout))), name = SocketHubName)
 
   private def select(name: String) = 
     system actorSelection ("/user/" + config.getString(name))
