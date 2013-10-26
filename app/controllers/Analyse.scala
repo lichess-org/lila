@@ -27,7 +27,7 @@ object Analyse extends LilaController {
     me ⇒
       env.analyser.getOrGenerate(id, me.id, isGranted(_.MarkEngine)) effectFold (
         e ⇒ logerr("[analysis] " + e.getMessage),
-        _ ⇒ Env.round.socketHub ! Tell(id, AnalysisAvailable)
+        _ ⇒ Env.hub.socket.round ! Tell(id, AnalysisAvailable)
       )
       Redirect(routes.Analyse.replay(id, color)).fuccess
   }

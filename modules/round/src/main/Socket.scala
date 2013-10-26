@@ -2,19 +2,20 @@ package lila.round
 
 import scala.concurrent.duration._
 
-import actorApi._
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 import chess.{ Color, White, Black }
-import makeTimeout.short
 import play.api.libs.iteratee._
 import play.api.libs.json._
 
+import actorApi._
+import lila.game.actorApi.ChangeFeaturedGame
 import lila.game.Event
 import lila.hub.TimeBomb
 import lila.round.actorApi.Bye
 import lila.socket._
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
+import makeTimeout.short
 
 private[round] final class Socket(
     gameId: String,
@@ -24,6 +25,8 @@ private[round] final class Socket(
     socketTimeout: Duration,
     disconnectTimeout: Duration,
     ragequitTimeout: Duration) extends SocketActor[Member](uidTimeout) {
+
+  context.system.eventStream.subscribe(self, classOf[ChangeFeaturedGame])
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
@@ -93,7 +96,10 @@ private[round] final class Socket(
 
     case lila.hub.actorApi.setup.DeclineChallenge(_) ⇒ notifyAll("declined", JsNull)
 
-    case lila.game.actorApi.TellWatchers(msg)        ⇒ watchers foreach { _.channel push msg }
+    case ChangeFeaturedGame(game) if watchers.nonEmpty ⇒ {
+      val msg = makeMessage("featured_id", game.id)
+      watchers foreach { _.channel push msg }
+    }
 
     case Quit(uid) ⇒ {
       quit(uid)
