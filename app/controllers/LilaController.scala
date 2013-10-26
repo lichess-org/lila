@@ -176,7 +176,6 @@ private[controllers] trait LilaController
         val lang = Env.i18n.pool.lang(req).language
         if (user.lang != lang.some) UserRepo.setLang(user.id, lang)
         Env.user setOnline user
-        if (user.seenAt.isEmpty) Env.relation autofollow user
       }
     }
 
