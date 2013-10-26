@@ -1,16 +1,16 @@
 package lila.user
 
+import chess.EloCalculator
 import com.typesafe.config.Config
 
-import chess.EloCalculator
 import lila.common.PimpedConfig._
 import lila.memo.ExpireSetMemo
 
 final class Env(
     config: Config,
     db: lila.db.Env,
-    socketHub: akka.actor.ActorSelection,
-    scheduler: lila.common.Scheduler) {
+    scheduler: lila.common.Scheduler,
+    system: akka.actor.ActorSystem) {
 
   private val settings = new {
     val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
@@ -63,11 +63,10 @@ final class Env(
 
   {
     import scala.concurrent.duration._
-    import makeTimeout.short
     import lila.hub.actorApi.WithUserIds
 
     scheduler.effect(3 seconds, "refresh online user ids") {
-      socketHub ! WithUserIds(onlineUserIdMemo.putAll)
+      system.eventStream.publish(WithUserIds(onlineUserIdMemo.putAll))
     }
   }
 
@@ -81,6 +80,6 @@ object Env {
   lazy val current: Env = "[boot] user" describes new Env(
     config = lila.common.PlayApp loadConfig "user",
     db = lila.db.Env.current,
-    socketHub = lila.hub.Env.current.socket.hub,
-    scheduler = lila.common.PlayApp.scheduler)
+    scheduler = lila.common.PlayApp.scheduler,
+    system = lila.common.PlayApp.system)
 }

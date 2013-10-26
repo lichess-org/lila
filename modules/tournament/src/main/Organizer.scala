@@ -4,8 +4,9 @@ import akka.actor._
 import akka.pattern.{ ask, pipe }
 
 import actorApi._
+import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.FinishGame
-import lila.hub.actorApi.WithSocketUserIds
+import lila.hub.actorApi.WithUserIds
 import makeTimeout.short
 
 private[tournament] final class Organizer(
@@ -49,6 +50,6 @@ private[tournament] final class Organizer(
   }
 
   private def withUserIds(tourId: String)(f: List[String] ⇒ Unit) {
-    socketHub ! WithSocketUserIds(tourId, ids ⇒ f(ids.toList))
+    socketHub ! Tell(tourId, WithUserIds(ids ⇒ f(ids.toList)))
   }
 }

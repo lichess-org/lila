@@ -14,11 +14,12 @@ final class Broadcast(actors: List[ActorSelection])(implicit timeout: Timeout) e
 
   def receive = {
 
-    case GetNbMembers ⇒ actors.map(_ ? GetNbMembers mapTo manifest[Int]).suml foreach { nb =>
-      broadcast(NbMembers(nb))
-    }
+    case GetNbMembers ⇒
+      actors.map(_ ? GetNbMembers mapTo manifest[Int]).suml foreach { nb ⇒
+        broadcast(NbMembers(nb))
+      }
 
-    case msg ⇒ broadcast(msg)
+    case msg ⇒ broadcast(msg.pp)
   }
 
   private def broadcast(msg: Any) {

@@ -6,7 +6,7 @@ import makeTimeout.short
 import play.api.libs.json._
 
 import actorApi._
-import lila.hub.actorApi.{ GetNbMembers, NbMembers, WithUserIds, WithSocketUserIds, SendTo, SendTos, Deploy }
+import lila.hub.actorApi.{ GetNbMembers, NbMembers, SendTo, SendTos, Deploy }
 import lila.hub.ActorMap
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 
@@ -16,15 +16,9 @@ trait SocketHubActor[A <: SocketActor[_]] extends Socket with ActorMap[A] {
 
   private def _socketHubReceive: Receive = {
 
-    case WithSocketUserIds(id, f) ⇒ withActor(id) { _ ! WithUserIds(f) }
-
     case msg: GetNbMembers.type   ⇒ zipAll[Int](msg) pipeTo sender
 
     case msg: NbMembers           ⇒ tellAll(msg)
-
-    case msg: WithUserIds         ⇒ tellAll(msg)
-
-    case msg: Broom.type          ⇒ tellAll(msg)
 
     case msg: SendTo              ⇒ tellAll(msg)
 

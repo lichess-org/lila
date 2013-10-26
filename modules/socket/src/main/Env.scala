@@ -17,8 +17,8 @@ final class Env(
   import scala.concurrent.duration._
 
   scheduler.once(5 seconds) {
-    scheduler.messageToSelection(4 seconds) {
-      hub.socket.hub -> actorApi.Broom
+    scheduler.effect(4 seconds, "publish broom to event bus") {
+      system.eventStream.publish(actorApi.Broom)
     }
     scheduler.messageToSelection(1 seconds) {
       hub.socket.hub -> GetNbMembers
