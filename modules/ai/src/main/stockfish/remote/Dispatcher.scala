@@ -15,8 +15,7 @@ import lila.hub.actorApi.ai.GetLoad
 private[ai] final class Dispatcher(
     urls: List[String],
     config: Config,
-    router: String ⇒ Router,
-    scheduler: Scheduler) extends Actor {
+    router: String ⇒ Router) extends Actor {
 
   private var lastPlay = 0
   private var lastAnalysis = 0
@@ -74,13 +73,13 @@ private[ai] final class Dispatcher(
     context.actorOf(
       Props(new Connection(name, config, router(url))),
       name = name
-    ) ~ { actor ⇒
-        scheduler.schedule(200.millis, 1.second, actor, CalculateLoad)
-      }
+    ) 
   }
 
-  override def preStart {
-    scheduler.schedule(0.second, 1.second, self, CalculateLoad)
+  private val loadTick = context.system.scheduler.schedule(0.second, 1.second, self, CalculateLoad)
+
+  override def postStop() {
+    loadTick.cancel
   }
 
   private lazy val noRemote = new Exception("[stockfish dispatcher] No available remote found")
