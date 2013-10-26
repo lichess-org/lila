@@ -7,7 +7,6 @@ import scala.util.{ Success, Failure }
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 import play.api.libs.concurrent._
-import play.api.Play.current
 
 import actorApi._
 import lila.hub.actorApi.map.Size

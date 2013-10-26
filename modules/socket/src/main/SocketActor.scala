@@ -117,11 +117,8 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   private val resyncMessage = makeMessage("resync", JsNull)
 
   protected def resync(member: M) {
-    import play.api.libs.concurrent._
-    import play.api.Play.current
     import scala.concurrent.duration._
-
-    Akka.system.scheduler.scheduleOnce((Random nextInt 2000).milliseconds) {
+    context.system.scheduler.scheduleOnce((Random nextInt 2000).milliseconds) {
       resyncNow(member)
     }
   }

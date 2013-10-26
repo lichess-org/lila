@@ -7,11 +7,9 @@ import akka.actor.ActorSelection
 import akka.pattern.{ ask, pipe }
 import chess.Color
 import Featured._
-import play.api.Play.current
 import play.api.templates.Html
 
 import lila.db.api._
-import lila.hub.actorApi.map.TellAll
 import tube.gameTube
 
 final class Featured(

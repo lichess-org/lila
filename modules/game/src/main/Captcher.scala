@@ -7,10 +7,7 @@ import akka.actor._
 import akka.pattern.{ ask, pipe }
 import chess.format.{ Forsyth, pgn }
 import chess.{ Game ⇒ ChessGame, Color }
-import play.api.libs.concurrent.Akka.system
-import play.api.Play.current
 import scalaz.{ NonEmptyList, OptionT }
-import spray.caching.{ LruCache, Cache }
 
 import lila.common.Captcha, Captcha._
 import lila.db.api.$find

@@ -35,10 +35,10 @@ final class Env(config: Config, system: ActorSystem) {
 
   object socket {
     val lobby = select("socket.lobby")
-    val monitor = select("socket.monitor")
-    val site = select("socket.site")
     val round = select("socket.round")
     val tournament = select("socket.tournament")
+    val site = select("socket.site")
+    val monitor = select("socket.monitor")
   }
 
   private def select(name: String) = 
@@ -49,5 +49,5 @@ object Env {
 
   lazy val current = "[boot] hub" describes new Env(
     config = lila.common.PlayApp loadConfig "hub",
-    system = play.api.libs.concurrent.Akka.system(play.api.Play.current))
+    system = lila.common.PlayApp.system)
 }

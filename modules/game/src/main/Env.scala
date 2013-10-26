@@ -101,14 +101,12 @@ final class Env(
 
 object Env {
 
-  private def app = play.api.Play.current
-
   lazy val current = "[boot] game" describes new Env(
     config = lila.common.PlayApp loadConfig "game",
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
-    appPath = app.path.getCanonicalPath,
+    appPath = play.api.Play.current.path.getCanonicalPath,
     isProd = lila.common.PlayApp.isProd,
     scheduler = lila.common.PlayApp.scheduler)
 }

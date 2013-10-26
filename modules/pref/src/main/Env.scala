@@ -19,8 +19,6 @@ final class Env(
 
 object Env {
 
-  private def app = play.api.Play.current
-
   lazy val current = "[boot] pref" describes new Env(
     config = lila.common.PlayApp loadConfig "pref",
     db = lila.db.Env.current)
