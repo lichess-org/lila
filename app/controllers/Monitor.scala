@@ -5,7 +5,7 @@ import play.api.libs.json._
 import play.api.mvc._
 
 import lila.app._
-import lila.hub.actorApi.GetNbMembers
+import lila.socket.actorApi.PopulationGet
 import lila.monitor.actorApi._
 import makeTimeout.short
 
@@ -31,7 +31,7 @@ object Monitor extends LilaController {
       } map { Ok(_) }
       case "moves" ⇒ (env.reporting ? GetNbMoves).mapTo[Int] map { Ok(_) }
       case "players" ⇒ {
-        (env.reporting ? GetNbMembers).mapTo[Int] map { "%d %d".format(_, Env.user.onlineUserIdMemo.count) }
+        (env.reporting ? PopulationGet).mapTo[Int] map { "%d %d".format(_, Env.user.onlineUserIdMemo.count) }
       } map { Ok(_) }
       case key ⇒ fuccess {
         BadRequest(s"Unknown monitor status key: $key")

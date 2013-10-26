@@ -10,10 +10,10 @@ import play.api.libs.concurrent._
 import play.api.Play.current
 
 import actorApi._
-import lila.hub.actorApi.GetNbMembers
 import lila.hub.actorApi.map.Size
 import lila.hub.actorApi.monitor._
 import lila.hub.actorApi.round.MoveEvent
+import lila.socket.actorApi.{ PopulationGet, NbMembers }
 
 private[monitor] final class Reporting(
     rpsProvider: RpsProvider,
@@ -22,21 +22,17 @@ private[monitor] final class Reporting(
     db: lila.db.Env,
     hub: lila.hub.Env) extends Actor {
 
-  context.system.eventStream.subscribe(self, classOf[MoveEvent])
+  List(classOf[MoveEvent], classOf[NbMembers]) foreach { klass ⇒
+    context.system.eventStream.subscribe(self, klass)
+  }
 
-  case class SiteSocket(nbMembers: Int)
-  case class LobbySocket(nbMembers: Int)
-  case class GameSocket(nbHubs: Int, nbMembers: Int)
-
+  var nbMembers = 0
   var nbGames = 0
   var nbPlaying = 0
   var loadAvg = 0f
   var nbThreads = 0
   var memory = 0l
   var latency = 0
-  var site = SiteSocket(0)
-  var lobby = LobbySocket(0)
-  var game = GameSocket(0, 0)
   var rps = 0
   var mps = 0
   var cpu = 0
@@ -53,35 +49,27 @@ private[monitor] final class Reporting(
 
   def receive = {
 
-    case _: MoveEvent ⇒ mpsProvider.add
+    case _: MoveEvent  ⇒ mpsProvider.add
 
-    case AddRequest   ⇒ rpsProvider.add
+    case AddRequest    ⇒ rpsProvider.add
 
-    case GetNbMembers ⇒ List(
-      (hub.socket.site ? GetNbMembers),
-      (hub.socket.lobby ? GetNbMembers),
-      (hub.socket.round ? GetNbMembers)
-    ).map(_.mapTo[Int]).suml pipeTo sender
+    case PopulationGet ⇒ sender ! nbMembers
 
-    case GetNbMoves ⇒ sender ! mpsProvider.rps
+    case NbMembers(nb) ⇒ nbMembers = nb
 
-    case Update ⇒ socket ? GetNbMembers foreach {
+    case GetNbMoves    ⇒ sender ! mpsProvider.rps
+
+    case Update ⇒ socket ? PopulationGet foreach {
       case 0 ⇒ idle = true
       case _ ⇒ {
         val before = nowMillis
         MongoStatus(db.db)(mongoStatus) zip
           (hub.actor.ai ? lila.hub.actorApi.ai.GetLoad).mapTo[List[Option[Int]]] zip
-          (hub.socket.site ? GetNbMembers).mapTo[Int] zip
-          (hub.socket.lobby ? GetNbMembers).mapTo[Int] zip
           (hub.socket.round ? Size).mapTo[Int] zip
-          (hub.socket.round ? GetNbMembers).mapTo[Int] zip
           (hub.actor.game ? lila.hub.actorApi.game.Count).mapTo[Int] onComplete {
             case Failure(e) ⇒ logwarn("[reporting] " + e.getMessage)
-            case Success(((((((mongoS, aiL), siteMembers), lobbyMembers), gameHubs), gameMembers), games)) ⇒ {
+            case Success((((mongoS, aiL), gameHubs), games)) ⇒ {
               latency = (nowMillis - before).toInt
-              site = SiteSocket(siteMembers)
-              lobby = LobbySocket(lobbyMembers)
-              game = GameSocket(gameHubs, gameMembers)
               mongoStatus = mongoS
               nbGames = games
               loadAvg = osStats.getSystemLoadAverage.toFloat
@@ -102,9 +90,7 @@ private[monitor] final class Reporting(
   private def aiLoadString = aiLoads.map(_.fold("!!")(_.toString)) mkString ","
 
   private def monitorData(idle: Boolean) = List(
-    "users" -> allMembers,
-    "lobby" -> lobby.nbMembers,
-    "game" -> game.nbMembers,
+    "users" -> nbMembers,
     "lat" -> latency,
     "thread" -> nbThreads,
     "cpu" -> cpu,
@@ -120,8 +106,6 @@ private[monitor] final class Reporting(
   ) map {
       case (name, value) ⇒ value + ":" + name
     }
-
-  private def allMembers = site.nbMembers + lobby.nbMembers + game.nbMembers
 
   private def dataLine(data: List[(String, Any)]) = new {
 

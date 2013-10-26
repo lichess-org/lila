@@ -117,16 +117,6 @@ $(function() {
   });
 
   add({
-    id: 'game',
-    title: 'Playing Users'
-  });
-
-  add({
-    id: 'lobby',
-    title: 'Lobby Users'
-  });
-
-  add({
     id: 'lat',
     title: 'Global Latency',
     type: 'area',

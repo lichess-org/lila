@@ -8,11 +8,13 @@ import play.api.libs.json._
 
 import actorApi._
 import lila.socket._
-import lila.socket.actorApi.Connected
+import lila.socket.actorApi.{ PopulationGet, Connected }
 
 private[monitor] final class Socket(timeout: Duration) extends SocketActor[Member](timeout) {
 
   def receiveSpecific = {
+
+    case PopulationGet ⇒ sender ! members.size
 
     case Join(uid) ⇒ {
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
