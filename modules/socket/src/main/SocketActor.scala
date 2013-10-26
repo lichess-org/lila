@@ -7,8 +7,8 @@ import akka.actor.{ Deploy ⇒ _, _ }
 import play.api.libs.json._
 
 import actorApi._
-import lila.hub.actorApi.{ Deploy, GetUids, WithUserIds, GetNbMembers, NbMembers, SendTo, SendTos }
 import lila.hub.actorApi.round.MoveEvent
+import lila.hub.actorApi.{ Deploy, GetUids, WithUserIds, GetNbMembers, NbMembers, SendTo, SendTos }
 import lila.memo.ExpireSetMemo
 
 abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket with Actor {
@@ -17,7 +17,9 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   val aliveUids = new ExpireSetMemo(uidTtl)
   var pong = makePong(0)
 
-  context.system.eventStream.subscribe(self, classOf[MoveEvent])
+  List(classOf[MoveEvent], classOf[WithUserIds], Broom.getClass) foreach { klass ⇒
+    context.system.eventStream.subscribe(self, klass)
+  }
 
   // to be defined in subclassing actor
   def receiveSpecific: Receive
@@ -25,32 +27,32 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   // generic message handler
   def receiveGeneric: Receive = {
 
-    case Ping(uid)                  ⇒ ping(uid)
+    case Ping(uid)               ⇒ ping(uid)
 
-    case Broom                      ⇒ broom
+    case Broom                   ⇒ broom
 
     // when a member quits
-    case Quit(uid)                  ⇒ quit(uid)
+    case Quit(uid)               ⇒ quit(uid)
 
-    case GetNbMembers               ⇒ sender ! members.size
+    case GetNbMembers            ⇒ sender ! members.size
 
-    case NbMembers(nb)              ⇒ pong = makePong(nb)
+    case NbMembers(nb)           ⇒ pong = makePong(nb)
 
-    case WithUserIds(f)             ⇒ f(userIds)
+    case WithUserIds(f)          ⇒ f(userIds)
 
-    case GetUids                    ⇒ sender ! uids
+    case GetUids                 ⇒ sender ! uids
 
-    case LiveGames(uid, gameIds)    ⇒ registerLiveGames(uid, gameIds)
+    case LiveGames(uid, gameIds) ⇒ registerLiveGames(uid, gameIds)
 
-    case move: MoveEvent            ⇒ notifyMove(move)
+    case move: MoveEvent         ⇒ notifyMove(move)
 
-    case SendTo(userId, msg)        ⇒ sendTo(userId, msg)
+    case SendTo(userId, msg)     ⇒ sendTo(userId, msg)
 
-    case SendTos(userIds, msg)      ⇒ sendTos(userIds, msg)
+    case SendTos(userIds, msg)   ⇒ sendTos(userIds, msg)
 
-    case Resync(uid)                ⇒ resync(uid)
+    case Resync(uid)             ⇒ resync(uid)
 
-    case Deploy(event, html)        ⇒ notifyAll(makeMessage(event.key, html))
+    case Deploy(event, html)     ⇒ notifyAll(makeMessage(event.key, html))
   }
 
   def receive = receiveSpecific orElse receiveGeneric

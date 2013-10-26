@@ -43,7 +43,6 @@ final class Env(
   {
     import scala.concurrent.duration._
     import makeTimeout.short
-    import lila.hub.actorApi.WithUserIds
 
     scheduler.once(5 seconds) {
       scheduler.message(ActorNotifyFreq) {

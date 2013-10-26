@@ -31,7 +31,6 @@ package map {
 }
 
 case class WithUserIds(f: Iterable[String] ⇒ Unit)
-case class WithSocketUserIds(id: String, f: Iterable[String] ⇒ Unit)
 
 case object GetNbMembers
 case class NbMembers(nb: Int)
