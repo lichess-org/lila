@@ -34,7 +34,7 @@ final class Env(
   lazy val autofollow = new Autofollow(api)
 
   private[relation] val actor = system.actorOf(Props(new RelationActor(
-    socketHub = hub.socket.hub,
+    bus = system.eventStream,
     getOnlineUserIds = getOnlineUserIds,
     getUsername = getUsername,
     api = api

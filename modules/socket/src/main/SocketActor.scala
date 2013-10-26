@@ -17,7 +17,12 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   val aliveUids = new ExpireSetMemo(uidTtl)
   var pong = makePong(0)
 
-  List(classOf[MoveEvent], classOf[WithUserIds], Broom.getClass) foreach { klass ⇒
+  List(
+    classOf[MoveEvent], 
+    classOf[WithUserIds], 
+    classOf[SendTo],
+    classOf[SendTos],
+    Broom.getClass) foreach { klass ⇒
     context.system.eventStream.subscribe(self, klass)
   }
 

@@ -10,20 +10,22 @@ import lila.hub.actorApi.SendTos
 import makeTimeout.short
 
 private[tournament] final class Reminder(
-    hub: ActorSelection,
+    bus: akka.event.EventStream,
     renderer: ActorSelection) extends Actor {
 
   def receive = {
 
     case RemindTournaments(tours) ⇒ tours foreach { tour ⇒
-      renderer ? RemindTournament(tour) map {
-        case html: Html ⇒ SendTos(tour.activeUserIds.toSet, Json.obj(
-          "t" -> "tournamentReminder",
-          "d" -> Json.obj(
-            "id" -> tour.id,
-            "html" -> html.toString
-          )))
-      } pipeToSelection hub
+      renderer ? RemindTournament(tour) foreach {
+        case html: Html ⇒ bus publish {
+          SendTos(tour.activeUserIds.toSet, Json.obj(
+            "t" -> "tournamentReminder",
+            "d" -> Json.obj(
+              "id" -> tour.id,
+              "html" -> html.toString
+            )))
+        }
+      }
     }
   }
 }

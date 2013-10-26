@@ -67,7 +67,7 @@ final class Env(
   private val organizer = system.actorOf(Props(new Organizer(
     api = api,
     reminder = system.actorOf(Props(new Reminder(
-      hub = hub.socket.hub,
+      bus = system.eventStream,
       renderer = hub.actor.renderer
     )), name = ReminderName),
     socketHub = socketHub

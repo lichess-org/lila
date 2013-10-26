@@ -8,7 +8,6 @@ import lila.hub.actorApi.message.LichessThread
 final class Env(
     config: Config,
     db: lila.db.Env,
-    socketHub: akka.actor.ActorSelection,
     blocks: (String, String) ⇒ Fu[Boolean],
     system: ActorSystem) {
 
@@ -25,7 +24,7 @@ final class Env(
   lazy val api = new Api(
     unreadCache = unreadCache,
     maxPerPage = ThreadMaxPerPage,
-    socketHub = socketHub)
+    bus = system.eventStream)
 
   system.actorOf(Props(new Actor {
     def receive = {
@@ -46,7 +45,6 @@ object Env {
   lazy val current = "[boot] message" describes new Env(
     config = lila.common.PlayApp loadConfig "message",
     db = lila.db.Env.current,
-    socketHub = lila.hub.Env.current.socket.hub,
     blocks = lila.relation.Env.current.api.blocks,
     system = lila.common.PlayApp.system)
 }
