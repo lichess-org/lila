@@ -8,11 +8,14 @@ import play.api.libs.json._
 
 import actorApi._
 import lila.socket._
-import lila.socket.actorApi.{ PopulationGet, Connected }
+import lila.socket.actorApi.{ PopulationGet, Connected, Broom }
 
 private[monitor] final class Socket(timeout: Duration) extends SocketActor[Member](timeout) {
 
   def receiveSpecific = {
+
+    // don't eject members - they don't ping the monitor socket
+    case Broom         ⇒
 
     case PopulationGet ⇒ sender ! members.size
 
