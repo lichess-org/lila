@@ -59,6 +59,8 @@ object User {
 
   val anonymous = "Anonymous"
 
+  case class Active(user: User, lang: String)
+
   import lila.db.Tube
   import Tube.Helpers._
   import play.api.libs.json._

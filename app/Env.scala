@@ -5,7 +5,7 @@ import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    system: ActorSystem,
+    val system: ActorSystem,
     appPath: String) {
 
   val CliUsername = config getString "cli.username"
