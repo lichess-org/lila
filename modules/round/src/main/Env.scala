@@ -5,6 +5,7 @@ import akka.pattern.ask
 import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
+import lila.game.actorApi.ChangeFeaturedGame
 import lila.hub.actorApi.map.Ask
 import lila.socket.actorApi.GetVersion
 import makeTimeout.large
@@ -127,10 +128,10 @@ final class Env(
   private[round] def moretimeSeconds = Moretime.toSeconds
 
   system.actorOf(Props(new Actor {
+    context.system.eventStream.subscribe(self, classOf[ChangeFeaturedGame])
+    def playerName(p: lila.game.Player) = lila.game.Namer.player(p, false)(getUsernameOrAnon)
     def receive = {
-      case msg@lila.game.actorApi.ChangeFeaturedGame(game) ⇒ {
-        socketHub ! msg
-        def playerName(p: lila.game.Player) = lila.game.Namer.player(p, false)(getUsernameOrAnon)
+      case ChangeFeaturedGame(game) ⇒ {
         (game.players map playerName).sequenceFu foreach { names ⇒
           WatcherRoomRepo.addMessage("tv", "lichess".some, names mkString " - ")
         }
