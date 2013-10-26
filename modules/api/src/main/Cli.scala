@@ -1,12 +1,14 @@
 package lila.api
 
+import akka.event.EventStream
+import akka.actor.ActorSelection
 import akka.pattern.{ ask, pipe }
-import makeTimeout.short
 import play.api.templates.Html
 
 import lila.hub.actorApi.{ RemindDeploy, Deploy }
+import makeTimeout.short
 
-private[api] final class Cli(hub: lila.hub.Env) extends lila.common.Cli {
+private[api] final class Cli(bus: EventStream, renderer: ActorSelection) extends lila.common.Cli {
 
   def apply(args: List[String]): Fu[String] = run(args).map(_ + "\n") ~ {
     _ logFailure ("[cli] " + args.mkString(" ")) foreach { output ⇒
@@ -20,9 +22,9 @@ private[api] final class Cli(hub: lila.hub.Env) extends lila.common.Cli {
   }
 
   private def remindDeploy(event: RemindDeploy): Fu[String] = {
-    hub.actor.renderer ? event map {
-      case html: Html ⇒ Deploy(event, html.body)
-    } pipeToSelection hub.socket.hub
+    renderer ? event foreach {
+      case html: Html ⇒ bus publish Deploy(event, html.body)
+    }
     fuccess("Deploy in progress")
   }
 

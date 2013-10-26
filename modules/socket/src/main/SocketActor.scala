@@ -22,6 +22,8 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     classOf[WithUserIds], 
     classOf[SendTo],
     classOf[SendTos],
+    classOf[Deploy],
+    classOf[NbMembers],
     Broom.getClass) foreach { klass ⇒
     context.system.eventStream.subscribe(self, klass)
   }
