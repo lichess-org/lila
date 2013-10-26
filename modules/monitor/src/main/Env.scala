@@ -17,7 +17,7 @@ final class Env(
   private val RpsIntervall = config duration "rps.interval"
   private val SocketUidTtl = config duration "socket.uid.ttl"
 
-  lazy val socket = system.actorOf(
+  private lazy val socket = system.actorOf(
     Props(new Socket(timeout = SocketUidTtl)), name = SocketName)
 
   lazy val socketHandler = new SocketHandler(socket, hub)
@@ -34,10 +34,8 @@ final class Env(
   {
     import scala.concurrent.duration._
 
-    scheduler.once(5 seconds) {
-      scheduler.message(1 seconds) {
-        reporting -> lila.hub.actorApi.monitor.Update
-      }
+    scheduler.message(1 seconds) {
+      reporting -> lila.hub.actorApi.monitor.Update
     }
   }
 
