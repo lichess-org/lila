@@ -4,9 +4,6 @@ import com.typesafe.config.Config
 import play.api.i18n.Lang
 import play.api.i18n.{ MessagesApi, MessagesPlugin }
 import play.api.libs.json._
-import play.api.Play.current
-
-import lila.common.PlayApp
 
 final class Env(
     config: Config,
@@ -32,7 +29,7 @@ final class Env(
   private[i18n] lazy val translationColl = db(CollectionTranslation)
 
   lazy val pool = new I18nPool(
-    langs = Lang.availables.toSet,
+    langs = Lang.availables(play.api.Play.current).toSet,
     default = Lang("en"))
 
   lazy val translator = new Translator(
@@ -90,6 +87,8 @@ final class Env(
 }
 
 object Env {
+
+  import lila.common.PlayApp
 
   lazy val current = "[boot] i18n" describes new Env(
     config = lila.common.PlayApp loadConfig "i18n",

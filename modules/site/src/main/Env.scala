@@ -3,11 +3,13 @@ package lila.site
 import akka.actor._
 import com.typesafe.config.Config
 import play.api.libs.concurrent.Akka.system
-import play.api.Play.current
 
 import lila.common.PimpedConfig._
 
-final class Env(config: Config, hub: lila.hub.Env) {
+final class Env(
+  config: Config, 
+  hub: lila.hub.Env,
+  system: ActorSystem) {
 
   private val SocketUidTtl = config duration "socket.uid.ttl"
   private val SocketName = config getString "socket.name"
@@ -22,5 +24,6 @@ object Env {
 
   lazy val current = "[boot] site" describes new Env(
     config = lila.common.PlayApp loadConfig "site",
-    hub = lila.hub.Env.current)
+    hub = lila.hub.Env.current,
+    system = lila.common.PlayApp.system)
 }

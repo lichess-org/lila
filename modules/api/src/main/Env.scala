@@ -2,10 +2,8 @@ package lila.api
 
 import akka.actor._
 import com.typesafe.config.Config
-import play.api.Application
 
 final class Env(
-    application: Application,
     config: Config,
     renderer: akka.actor.ActorSelection,
     bus: akka.event.EventStream,
@@ -28,7 +26,6 @@ final class Env(
 object Env {
 
   lazy val current = "[boot] api" describes new Env(
-    application = play.api.Play.current,
     config = lila.common.PlayApp.loadConfig,
     renderer = lila.hub.Env.current.actor.renderer,
     bus = lila.common.PlayApp.system.eventStream,
