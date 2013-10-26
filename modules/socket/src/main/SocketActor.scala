@@ -64,7 +64,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   def receive = receiveSpecific orElse receiveGeneric
 
   override def postStop() {
-    members.values foreach { _.channel.end() }
+    members.keys foreach eject
   }
 
   def notifyAll[A: Writes](t: String, data: A) {
