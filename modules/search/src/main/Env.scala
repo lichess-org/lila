@@ -32,7 +32,7 @@ final class Env(
   {
     import scala.concurrent.duration._
 
-    scheduler.effect(2 hours, "search: optimize index") {
+    scheduler.effect(1 hour, "search: optimize index") {
       esIndexer foreach { _ optimize IndexesToOptimize }
     }
   }
