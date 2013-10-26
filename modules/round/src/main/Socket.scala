@@ -28,6 +28,10 @@ private[round] final class Socket(
 
   context.system.eventStream.subscribe(self, classOf[ChangeFeaturedGame])
 
+  override def postStop() {
+    context.system.eventStream.unsubscribe(self)
+  }
+
   private val timeBomb = new TimeBomb(socketTimeout)
 
   private final class Player(color: Color) {

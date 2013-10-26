@@ -29,6 +29,11 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     context.system.eventStream.subscribe(self, klass)
   }
 
+  override def postStop() {
+    members.keys foreach eject
+    context.system.eventStream.unsubscribe(self)
+  }
+
   // to be defined in subclassing actor
   def receiveSpecific: Receive
 
@@ -62,10 +67,6 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   }
 
   def receive = receiveSpecific orElse receiveGeneric
-
-  override def postStop() {
-    members.keys foreach eject
-  }
 
   def notifyAll[A: Writes](t: String, data: A) {
     notifyAll(makeMessage(t, data))

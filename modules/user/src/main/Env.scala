@@ -60,9 +60,8 @@ final class Env(
     }
   }
 
-  system.actorOf(
+  private val listener = system.actorOf(
     Props(new Actor {
-      context.system.eventStream.subscribe(self, classOf[User.Active])
       def receive = {
         case User.Active(user, lang) ⇒ {
           if (!user.seenRecently) UserRepo setSeenAt user.id
@@ -71,6 +70,8 @@ final class Env(
         }
       }
     }), name = "user-active")
+
+  system.eventStream.subscribe(listener, classOf[User.Active])
 
   {
     import scala.concurrent.duration._
