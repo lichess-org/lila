@@ -20,12 +20,16 @@ object Main extends LilaController {
     }
   }
 
-  def stream = Action {
+  def stream = Action.async {
     import lila.hub.actorApi.round.MoveEvent
+    import lila.round.MoveBroadcast
     val format = Enumeratee.map[MoveEvent] { move ⇒
       s"${move.gameId} ${move.move} ${move.ip}"
     }
-    Ok.feed(Env.round.moveEnumerator &> format)
+    Env.round.moveBroadcast ? MoveBroadcast.GetEnumerator mapTo
+      manifest[Enumerator[MoveEvent]] map { enumerator ⇒
+        Ok.feed(enumerator &> format)
+      }
   }
 
   def captchaCheck(id: String) = Open { implicit ctx ⇒

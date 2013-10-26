@@ -17,6 +17,8 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   val aliveUids = new ExpireSetMemo(uidTtl)
   var pong = makePong(0)
 
+  context.system.eventStream.subscribe(self, classOf[MoveEvent])
+
   // to be defined in subclassing actor
   def receiveSpecific: Receive
 

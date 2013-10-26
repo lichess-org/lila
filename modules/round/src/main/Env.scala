@@ -3,12 +3,11 @@ package lila.round
 import akka.actor._
 import akka.pattern.ask
 import com.typesafe.config.Config
-import makeTimeout.large
 
 import lila.common.PimpedConfig._
 import lila.hub.actorApi.map.Ask
-import lila.hub.actorApi.round.MoveEvent
 import lila.socket.actorApi.GetVersion
+import makeTimeout.large
 
 final class Env(
     config: Config,
@@ -93,7 +92,7 @@ final class Env(
 
   private lazy val player: Player = new Player(
     engine = ai,
-    notifyMove = notifyMove,
+    bus = system.eventStream,
     finisher = finisher,
     cheatDetector = cheatDetector,
     roundMap = hub.actor.roundMap,
@@ -112,7 +111,7 @@ final class Env(
 
   lazy val messenger = new Messenger(
     netDomain = NetDomain,
-    i18nKeys = i18nKeys, 
+    i18nKeys = i18nKeys,
     getUsername = getUsername)
 
   lazy val eloCalculator = new chess.EloCalculator(false)
@@ -125,7 +124,7 @@ final class Env(
 
   system.actorOf(Props(new Actor {
     def receive = {
-      case msg @ lila.game.actorApi.ChangeFeaturedGame(game) ⇒ {
+      case msg@lila.game.actorApi.ChangeFeaturedGame(game) ⇒ {
         socketHub ! msg
         def playerName(p: lila.game.Player) = lila.game.Namer.player(p, false)(getUsernameOrAnon)
         (game.players map playerName).sequenceFu foreach { names ⇒
@@ -155,15 +154,7 @@ final class Env(
     messenger = messenger,
     uciMemo = uciMemo)
 
-  private lazy val moveBroadcast = 
-    play.api.libs.iteratee.Concurrent.broadcast[MoveEvent]
-  def moveEnumerator = moveBroadcast._1
-
-  private def notifyMove(move: MoveEvent) {
-    hub.socket.hub ! move
-    hub.actor.monitor ! move
-    moveBroadcast._2 push move
-  }
+  lazy val moveBroadcast = system.actorOf(Props(new MoveBroadcast), name = "move-broadcast")
 
   private[round] lazy val roomColl = db(CollectionRoom)
 

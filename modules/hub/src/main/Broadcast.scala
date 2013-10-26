@@ -14,12 +14,9 @@ final class Broadcast(actors: List[ActorSelection])(implicit timeout: Timeout) e
 
   def receive = {
 
-    case GetNbMembers ⇒ askAll(GetNbMembers).mapTo[List[Int]] foreach { nbs ⇒
-      broadcast(NbMembers(nbs.sum))
+    case GetNbMembers ⇒ actors.map(_ ? GetNbMembers mapTo manifest[Int]).suml foreach { nb =>
+      broadcast(NbMembers(nb))
     }
-
-    case Ask(msg) ⇒
-      askAll(msg) logFailure ("[broadcast] " + Ask(msg)) pipeTo sender
 
     case msg ⇒ broadcast(msg)
   }
@@ -27,7 +24,4 @@ final class Broadcast(actors: List[ActorSelection])(implicit timeout: Timeout) e
   private def broadcast(msg: Any) {
     actors foreach { _ ! msg }
   }
-
-  private def askAll(message: Any): Fu[List[Any]] =
-    actors.map(_ ? message).sequenceFu
 }

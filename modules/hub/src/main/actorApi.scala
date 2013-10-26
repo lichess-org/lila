@@ -22,8 +22,6 @@ case object RemindDeployPre extends RemindDeploy("deployPre")
 case object RemindDeployPost extends RemindDeploy("deployPost")
 case class Deploy(event: RemindDeploy, html: String)
 
-case class Ask(msg: Any)
-
 package map {
   case class Get(id: String)
   case class Tell(id: String, msg: Any)
