@@ -12,6 +12,10 @@ private final class MoveBroadcast extends Actor {
 
   context.system.eventStream.subscribe(self, classOf[MoveEvent])
 
+  override def postStop() {
+    context.system.eventStream.unsubscribe(self)
+  }
+
   def receive = {
 
     case MoveBroadcast.GetEnumerator ⇒ sender ! enumerator

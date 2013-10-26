@@ -12,6 +12,10 @@ private[socket] final class Population extends Actor {
     context.system.eventStream.subscribe(self, klass)
   }
 
+  override def postStop() {
+    context.system.eventStream.unsubscribe(self)
+  }
+
   def receive = {
 
     case PopulationInc ⇒ nb = nb + 1

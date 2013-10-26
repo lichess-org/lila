@@ -127,8 +127,7 @@ final class Env(
   private[round] def animationDelay = AnimationDelay
   private[round] def moretimeSeconds = Moretime.toSeconds
 
-  system.actorOf(Props(new Actor {
-    context.system.eventStream.subscribe(self, classOf[ChangeFeaturedGame])
+  private val roomWriter = system.actorOf(Props(new Actor {
     def playerName(p: lila.game.Player) = lila.game.Namer.player(p, false)(getUsernameOrAnon)
     def receive = {
       case ChangeFeaturedGame(game) ⇒ {
@@ -138,6 +137,8 @@ final class Env(
       }
     }
   }), name = ActorName)
+
+  system.eventStream.subscribe(roomWriter, classOf[ChangeFeaturedGame])
 
   {
     import scala.concurrent.duration._

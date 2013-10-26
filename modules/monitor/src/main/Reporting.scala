@@ -25,6 +25,10 @@ private[monitor] final class Reporting(
     context.system.eventStream.subscribe(self, klass)
   }
 
+  override def postStop() {
+    context.system.eventStream.unsubscribe(self)
+  }
+
   var nbMembers = 0
   var nbGames = 0
   var nbPlaying = 0
