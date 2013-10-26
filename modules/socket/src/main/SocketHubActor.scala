@@ -33,3 +33,11 @@ trait SocketHubActor[A <: SocketActor[_]] extends Socket with ActorMap[A] {
     case msg: Deploy              ⇒ tellAll(msg)
   }
 }
+
+object SocketHubActor {
+
+  trait Default[A <: SocketActor[_]] extends SocketHubActor[A] {
+
+    def receive = socketHubReceive
+  }
+}

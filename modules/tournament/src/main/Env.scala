@@ -5,8 +5,8 @@ import akka.pattern.ask
 import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
-import lila.socket.actorApi.GetVersion
 import lila.hub.actorApi.map.Ask
+import lila.socket.actorApi.GetVersion
 import lila.socket.History
 import makeTimeout.short
 
@@ -53,12 +53,16 @@ final class Env(
 
   private lazy val history = () ⇒ new History(ttl = MessageTtl)
 
-  private val socketHub = system.actorOf(Props(new SocketHub(
-    makeHistory = history,
-    messenger = messenger,
-    uidTimeout = UidTimeout,
-    socketTimeout = SocketTimeout,
-    getUsername = getUsername)), name = SocketName)
+  private val socketHub = system.actorOf(
+    Props(new lila.socket.SocketHubActor.Default[Socket] {
+      def mkActor(tournamentId: String) = new Socket(
+        tournamentId = tournamentId,
+        history = history(),
+        messenger = messenger,
+        uidTimeout = UidTimeout,
+        socketTimeout = SocketTimeout,
+        getUsername = getUsername)
+    }), name = SocketName)
 
   private val organizer = system.actorOf(Props(new Organizer(
     api = api,
