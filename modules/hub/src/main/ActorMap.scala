@@ -10,9 +10,11 @@ import scalaz.Monoid
 
 trait ActorMap[A <: Actor] extends Actor {
 
-  protected def mkActor(id: String): A
+  private var actors = Map[String, ActorRef]()
 
-  protected def actorMapReceive: Receive = {
+  def mkActor(id: String): A
+
+  def actorMapReceive: Receive = {
 
     case Get(id) ⇒ sender ! {
       (actors get id) | {
@@ -33,29 +35,27 @@ trait ActorMap[A <: Actor] extends Actor {
 
     case Terminated(actor) ⇒ {
       context unwatch actor
-      actors find (_._2 == actor) foreach {
+      actors filter (_._2 == actor) foreach {
         case (id, _) ⇒ actors = actors - id
       }
     }
   }
 
-  protected def tellAll(msg: Any) {
+  def tellAll(msg: Any) {
     actors.values foreach (_ ! msg)
   }
 
   // sequential
-  protected def askAll(msg: Any): Fu[List[Any]] = {
+  def askAll(msg: Any): Fu[List[Any]] = {
     actors.values.toList map (_ ? msg)
   } sequenceFu
 
   // concurrent
-  protected def zipAll[A: Monoid: Manifest](msg: Any): Fu[A] = {
+  def zipAll[A: Monoid: Manifest](msg: Any): Fu[A] = {
     actors.values.toList map (_ ? msg mapTo manifest[A])
   }.suml
 
-  protected def get(id: String): Fu[ActorRef] = self ? Get(id) mapTo manifest[ActorRef]
+  def get(id: String): Fu[ActorRef] = self ? Get(id) mapTo manifest[ActorRef]
 
-  protected def withActor(id: String)(op: ActorRef ⇒ Unit) = get(id) foreach op
-
-  private var actors = Map[String, ActorRef]()
+  def withActor(id: String)(op: ActorRef ⇒ Unit) = get(id) foreach op
 }
