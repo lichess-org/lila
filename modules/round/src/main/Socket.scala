@@ -100,7 +100,7 @@ private[round] final class Socket(
 
     case lila.hub.actorApi.setup.DeclineChallenge(_) ⇒ notifyAll("declined", JsNull)
 
-    case ChangeFeaturedGame(game) if watchers.nonEmpty ⇒ {
+    case ChangeFeaturedGame(game) ⇒ watchers.nonEmpty ! {
       val msg = makeMessage("featured_id", game.id)
       watchers foreach { _.channel push msg }
     }
