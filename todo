@@ -80,3 +80,4 @@ option to disallow takebacks http://en.lichess.org/forum/lichess-feedback/takeba
 search users from tablet http://en.lichess.org/forum/lichess-feedback/people---search
 replace Lobby actor blockages by pull strategy http://letitcrash.com/post/29044669086/balancing-workload-across-nodes-with-akka-2
 analysis UI bug http://en.lichess.org/inbox/8s2e0397#bottom
+use separate thread pool for elasticsearch http://www.playframework.com/documentation/2.2.0/ThreadPools
