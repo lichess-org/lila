@@ -11,7 +11,7 @@ import play.api.templates.Html
 import scalaz.Monoid
 
 import lila.app._
-import lila.common.LilaCookie
+import lila.common.{ LilaCookie, HTTPRequest }
 import lila.security.{ Permission, Granter }
 import lila.user.{ Context, HeaderContext, BodyContext, UserRepo, User ⇒ UserModel }
 
@@ -149,7 +149,7 @@ private[controllers] trait LilaController
     Lobby handleNotFound ctx
   )
 
-  protected def isXhr(implicit ctx: Context) = lila.common.HTTPRequest isXhr ctx.req
+  protected def isXhr(implicit ctx: Context) = HTTPRequest isXhr ctx.req
 
   protected def isGranted(permission: Permission.type ⇒ Permission)(implicit ctx: Context): Boolean =
     isGranted(permission(Permission))
@@ -171,7 +171,7 @@ private[controllers] trait LilaController
 
   private def restoreUser(req: RequestHeader): Fu[Option[UserModel]] =
     Env.security.api restoreUser req addEffect {
-      _ foreach { user ⇒
+      _ ifTrue (HTTPRequest isSynchronousHttp req) foreach { user ⇒
         val lang = Env.i18n.pool.lang(req).language
         Env.current.system.eventStream publish lila.user.User.Active(user, lang)
       }
