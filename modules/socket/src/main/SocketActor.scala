@@ -9,8 +9,8 @@ import play.api.libs.json._
 import actorApi._
 import lila.hub.actorApi.round.MoveEvent
 import lila.hub.actorApi.{ Deploy, GetUids, WithUserIds, SendTo, SendTos }
-import lila.socket.actorApi.{ PopulationInc, PopulationDec }
 import lila.memo.ExpireSetMemo
+import lila.socket.actorApi.{ PopulationInc, PopulationDec }
 
 abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket with Actor {
 
@@ -19,15 +19,15 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   var pong = makePong(0)
 
   List(
-    classOf[MoveEvent], 
-    classOf[WithUserIds], 
+    classOf[MoveEvent],
+    classOf[WithUserIds],
     classOf[SendTo],
     classOf[SendTos],
     classOf[Deploy],
     classOf[NbMembers],
     Broom.getClass) foreach { klass ⇒
-    context.system.eventStream.subscribe(self, klass)
-  }
+      context.system.eventStream.subscribe(self, klass)
+    }
 
   override def postStop() {
     members.keys foreach eject
@@ -111,8 +111,10 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   }
 
   def quit(uid: String) {
-    members = members - uid
-    context.system.eventStream publish PopulationDec
+    if (members contains uid) {
+      members = members - uid
+      context.system.eventStream publish PopulationDec
+    }
   }
 
   private val resyncMessage = makeMessage("resync", JsNull)
