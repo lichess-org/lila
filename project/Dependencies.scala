@@ -52,10 +52,6 @@ object Dependencies {
     val api = "com.typesafe.play" %% "play" % version
     val test = "com.typesafe.play" %% "play-test" % version
   }
-  object akka {
-    val version = "2.2.1"
-    val agent = "com.typesafe.akka" %% "akka-agent" % version
-  }
   object spray {
     val version = "1.2-M8"
     val caching = "io.spray" % "spray-caching" % version
