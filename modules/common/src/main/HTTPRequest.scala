@@ -11,6 +11,8 @@ object HTTPRequest {
   def isSocket(req: RequestHeader): Boolean = 
     (req.headers get HeaderNames.UPGRADE) == Some("websocket")
 
+  def isSynchronousHttp(req: RequestHeader) = !isXhr(req) && !isSocket(req)
+
   def fullUrl(req: RequestHeader): String = 
     "http://" + req.host + req.uri
 
