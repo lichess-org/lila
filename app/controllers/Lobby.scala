@@ -10,21 +10,18 @@ import lila.tournament.TournamentRepo
 import lila.user.Context
 import views._
 
-object Lobby extends LilaController with Results {
+object Lobby extends LilaController {
 
   def home = Open { implicit ctx ⇒
-    renderHome(Ok).map(_.withHeaders(
+    renderHome(Results.Ok).map(_.withHeaders(
       CACHE_CONTROL -> "no-cache", PRAGMA -> "no-cache"
     ))
   }
 
-  def handleNotFound(req: RequestHeader): Fu[SimpleResult] =
-    reqToCtx(req) flatMap { ctx ⇒ handleNotFound(ctx) }
+  def handleStatus(req: RequestHeader, status: Results.Status): Fu[SimpleResult] =
+    reqToCtx(req) flatMap { ctx ⇒ renderHome(status)(ctx) }
 
-  def handleNotFound(implicit ctx: Context): Fu[SimpleResult] =
-    renderHome(NotFound)
-
-  private def renderHome[A](status: Status)(implicit ctx: Context): Fu[SimpleResult] =
+  def renderHome[A](status: Results.Status)(implicit ctx: Context): Fu[SimpleResult] =
     Env.current.preloader(
       posts = Env.forum.recent(ctx.me, Env.team.cached.teamIds.apply),
       tours = TournamentRepo.createdUnprotected,

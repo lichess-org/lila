@@ -19,8 +19,9 @@ private[controllers] trait LilaController
     extends Controller
     with ContentTypes
     with RequestGetter
-    with ResponseWriter
-    with Results {
+    with ResponseWriter {
+
+  import Results._
 
   protected implicit val LilaSimpleResultZero = Zero.instance[SimpleResult](Results.NotFound)
 
@@ -144,12 +145,9 @@ private[controllers] trait LilaController
   protected def OptionFuResult[A](fua: Fu[Option[A]])(op: A ⇒ Fu[SimpleResult])(implicit ctx: Context) =
     fua flatMap { _.fold(notFound(ctx))(a ⇒ op(a)) }
 
-  protected def notFound(implicit ctx: Context): Fu[SimpleResult] = isXhr fold (
-    NotFound("resource not found").fuccess,
-    Lobby handleNotFound ctx
-  )
-
-  protected def isXhr(implicit ctx: Context) = HTTPRequest isXhr ctx.req
+  protected def notFound(implicit ctx: Context): Fu[SimpleResult] = 
+    if (HTTPRequest isSynchronousHttp ctx.req) Lobby renderHome Results.NotFound
+    else Results.NotFound("resource not found").fuccess
 
   protected def isGranted(permission: Permission.type ⇒ Permission)(implicit ctx: Context): Boolean =
     isGranted(permission(Permission))

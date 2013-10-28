@@ -25,22 +25,25 @@ object Global extends GlobalSettings {
         super.onRouteRequest(req)
     }
 
+  private def niceError(req: RequestHeader): Boolean =
+    Env.ai.isServer || (lila.common.HTTPRequest isSynchronousHttp req)
+
   override def onHandlerNotFound(req: RequestHeader) =
-    Env.ai.isServer.fold[Fu[SimpleResult]](
-      fuccess(NotFound),
-      controllers.Lobby.handleNotFound(req))
+    if (niceError(req)) controllers.Lobby.handleStatus(req, Results.NotFound)
+    else fuccess(NotFound)
 
-  override def onBadRequest(req: RequestHeader, error: String) = fuccess {
-    BadRequest("Bad Request: " + error)
-  }
+  override def onBadRequest(req: RequestHeader, error: String) =
+    if (niceError(req)) {
+      logwarn("[global] bad request: " + error)
+      controllers.Lobby.handleStatus(req, Results.BadRequest)
+    }
+    else fuccess(BadRequest(error))
 
-  override def onError(request: RequestHeader, ex: Throwable) =
-    Env.ai.isServer.fold(
-      fuccess(InternalServerError(ex.getMessage)),
-      lila.common.PlayApp.isProd.fold(
-        fuccess(InternalServerError(views.html.base.errorPage(ex)(lila.user.Context(request, none)))),
-        super.onError(request, ex)
-      )
-    )
-
+  override def onError(req: RequestHeader, ex: Throwable) =
+    if (niceError(req)) {
+      if (lila.common.PlayApp.isProd)
+        fuccess(InternalServerError(views.html.base.errorPage(ex)(lila.user.Context(req, none))))
+      else super.onError(req, ex)
+    }
+    else fuccess(InternalServerError(ex.getMessage))
 }
