@@ -18,20 +18,13 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   val aliveUids = new ExpireSetMemo(uidTtl)
   var pong = makePong(0)
 
-  List(
-    classOf[MoveEvent],
-    classOf[WithUserIds],
-    classOf[SendTo],
-    classOf[SendTos],
-    classOf[Deploy],
-    classOf[NbMembers],
-    Broom.getClass) foreach { klass ⇒
-      context.system.eventStream.subscribe(self, klass)
-    }
+  val lilaBus = context.system.lilaBus
+
+  lilaBus.subscribe(self, 'moveEvent, 'users, 'deploy, 'nbMembers, 'broom)
 
   override def postStop() {
     members.keys foreach eject
-    context.system.eventStream.unsubscribe(self)
+    lilaBus.unsubscribe(self)
   }
 
   // to be defined in subclassing actor
@@ -113,7 +106,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   def quit(uid: String) {
     if (members contains uid) {
       members = members - uid
-      context.system.eventStream publish PopulationDec
+      lilaBus.publish(PopulationDec, 'population)
     }
   }
 
@@ -137,7 +130,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   def addMember(uid: String, member: M) {
     eject(uid)
     members = members + (uid -> member)
-    context.system.eventStream publish PopulationInc
+    lilaBus.publish(PopulationInc, 'population)
     setAlive(uid)
   }
 

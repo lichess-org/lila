@@ -39,7 +39,6 @@ final class Env(
   lazy val friendConfigMemo = new FriendConfigMemo(ttl = FriendMemoTtl)
 
   system.actorOf(Props(new Challenger(
-    bus = system.eventStream,
     roundHub = hub.socket.round,
     renderer = hub.actor.renderer
   )), name = ChallengerName)

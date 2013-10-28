@@ -6,7 +6,7 @@ import com.typesafe.config.Config
 final class Env(
     config: Config,
     renderer: akka.actor.ActorSelection,
-    bus: akka.event.EventStream,
+    bus: lila.common.Bus,
     val isProd: Boolean) {
 
   val CliUsername = config getString "cli.username"
@@ -28,6 +28,6 @@ object Env {
   lazy val current = "[boot] api" describes new Env(
     config = lila.common.PlayApp.loadConfig,
     renderer = lila.hub.Env.current.actor.renderer,
-    bus = lila.common.PlayApp.system.eventStream,
+    bus = lila.common.PlayApp.system.lilaBus,
     isProd = lila.common.PlayApp.isProd)
 }

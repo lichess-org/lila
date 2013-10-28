@@ -20,6 +20,8 @@ final class Featured(
   implicit private def timeout = makeTimeout(2 seconds)
   private type Fuog = Fu[Option[Game]]
 
+  private val bus = system.lilaBus
+
   def one: Fuog =
     (actor ? Get mapTo manifest[Option[Game]]) nevermind "[featured] one"
 
@@ -33,7 +35,7 @@ final class Featured(
 
       case Set(game) ⇒ {
         oneId = game.id.some
-        system.eventStream.publish(actorApi.ChangeFeaturedGame(game))
+        bus.publish(actorApi.ChangeFeaturedGame(game), 'changeFeaturedGame)
         rendererActor ? actorApi.RenderFeaturedJs(game) onSuccess {
           case html: Html ⇒ lobbySocket ! actorApi.ChangeFeatured(html)
         }

@@ -1,7 +1,6 @@
 package lila.round
 
 import akka.actor._
-import akka.event.EventStream
 
 import lila.hub.actorApi.round.MoveEvent
 
@@ -10,10 +9,10 @@ private final class MoveBroadcast extends Actor {
   private val (enumerator, channel) =
     play.api.libs.iteratee.Concurrent.broadcast[MoveEvent]
 
-  context.system.eventStream.subscribe(self, classOf[MoveEvent])
+  context.system.lilaBus.subscribe(self, 'moveEvent)
 
   override def postStop() {
-    context.system.eventStream.unsubscribe(self)
+    context.system.lilaBus.unsubscribe(self)
   }
 
   def receive = {

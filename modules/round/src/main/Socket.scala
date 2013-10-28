@@ -26,10 +26,10 @@ private[round] final class Socket(
     disconnectTimeout: Duration,
     ragequitTimeout: Duration) extends SocketActor[Member](uidTimeout) {
 
-  context.system.eventStream.subscribe(self, classOf[ChangeFeaturedGame])
+  context.system.lilaBus.subscribe(self, 'changeFeaturedGame)
 
   override def postStop() {
-    context.system.eventStream.unsubscribe(self)
+    context.system.lilaBus.unsubscribe(self)
   }
 
   private val timeBomb = new TimeBomb(socketTimeout)

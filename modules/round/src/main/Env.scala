@@ -97,7 +97,7 @@ final class Env(
 
   private lazy val player: Player = new Player(
     engine = ai,
-    bus = system.eventStream,
+    bus = system.lilaBus,
     finisher = finisher,
     cheatDetector = cheatDetector,
     roundMap = hub.actor.roundMap,
@@ -127,7 +127,7 @@ final class Env(
   private[round] def animationDelay = AnimationDelay
   private[round] def moretimeSeconds = Moretime.toSeconds
 
-  private val roomWriter = system.actorOf(Props(new Actor {
+  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def playerName(p: lila.game.Player) = lila.game.Namer.player(p, false)(getUsernameOrAnon)
     def receive = {
       case ChangeFeaturedGame(game) ⇒ {
@@ -136,9 +136,7 @@ final class Env(
         }
       }
     }
-  }), name = ActorName)
-
-  system.eventStream.subscribe(roomWriter, classOf[ChangeFeaturedGame])
+  }), name = "room-writer"), 'changeFeaturedGame)
 
   {
     import scala.concurrent.duration._

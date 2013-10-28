@@ -11,22 +11,24 @@ import lila.hub.actorApi.setup._
 import makeTimeout.short
 
 private[setup] final class Challenger(
-    bus: akka.event.EventStream,
     roundHub: ActorSelection,
     renderer: ActorSelection) extends Actor {
+
+  private val bus = context.system.lilaBus
 
   def receive = {
 
     case msg@RemindChallenge(gameId, from, to) ⇒
       renderer ? msg foreach {
-        case html: Html ⇒ bus publish {
-          SendTo(to, Json.obj(
+        case html: Html ⇒ {
+          val event = SendTo(to, Json.obj(
             "t" -> "challengeReminder",
             "d" -> Json.obj(
               "id" -> gameId,
               "html" -> html.toString
             )
           ))
+          bus.publish(event, 'users)
         }
       }
 

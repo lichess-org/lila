@@ -3,14 +3,13 @@ package lila.notification
 import scala.collection.mutable
 
 import akka.actor.ActorSelection
-import akka.event.EventStream
 import akka.pattern.{ ask, pipe }
 import play.api.templates.Html
 
 import lila.hub.actorApi.SendTo
 import lila.user.User
 
-private[notification] final class Api(bus: EventStream, renderer: ActorSelection) {
+private[notification] final class Api(bus: lila.common.Bus, renderer: ActorSelection) {
 
   private val repo = mutable.Map[String, List[Notification]]()
   import makeTimeout.large
@@ -20,8 +19,9 @@ private[notification] final class Api(bus: EventStream, renderer: ActorSelection
     repo.update(userId, notif :: get(userId))
     val request = actorApi.RenderNotification(notif.id, notif.from, notif.html)
     renderer ? request foreach {
-      case rendered: Html ⇒ bus publish {
-        SendTo(userId, "notificationAdd", rendered.toString)
+      case rendered: Html ⇒ {
+        val event = SendTo(userId, "notificationAdd", rendered.toString)
+        bus.publish(event, 'users)
       }
     } 
   }
@@ -30,6 +30,6 @@ private[notification] final class Api(bus: EventStream, renderer: ActorSelection
 
   def remove(userId: String, id: String) {
     repo.update(userId, get(userId) filter (_.id != id))
-    bus publish SendTo(userId, "notificationRemove", id)
+    bus.publish(SendTo(userId, "notificationRemove", id), 'users)
   }
 }
