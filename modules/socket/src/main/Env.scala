@@ -31,11 +31,11 @@ final class Env(
     scheduler.effect(4 seconds, "publish broom to event bus") {
       bus.publish(actorApi.Broom, 'broom)
     }
-    // scheduler.effect(1 seconds, "calculate nb members") {
-    //   population ? PopulationGet foreach {
-    //     case nb: Int ⇒ bus.publish(NbMembers(nb), 'nbMembers)
-    //   }
-    // }
+    scheduler.effect(1 seconds, "calculate nb members") {
+      population ? PopulationGet foreach {
+        case nb: Int ⇒ bus.publish(NbMembers(nb), 'nbMembers)
+      }
+    }
   }
 }
 
