@@ -16,7 +16,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   var members = Map.empty[String, M]
   val aliveUids = new ExpireSetMemo(uidTtl)
-  var pong = makePong(0)
+  var pong = makePong(500)
 
   val lilaBus = context.system.lilaBus
 
@@ -106,7 +106,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   def quit(uid: String) {
     if (members contains uid) {
       members = members - uid
-      lilaBus.publish(PopulationDec, 'population)
+      // lilaBus.publish(PopulationDec, 'population)
     }
   }
 
@@ -130,7 +130,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   def addMember(uid: String, member: M) {
     eject(uid)
     members = members + (uid -> member)
-    lilaBus.publish(PopulationInc, 'population)
+    // lilaBus.publish(PopulationInc, 'population)
     setAlive(uid)
   }
 
