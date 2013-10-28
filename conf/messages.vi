@@ -248,3 +248,6 @@ savePosition=Lưu lại vị trí
 isPrivate=Riêng tư
 reportXToModerators=Báo cáo %s tới quản trị viên
 profile=Hồ sơ
+firstName=Tên
+lastName=Họ
+country=Quốc gia
