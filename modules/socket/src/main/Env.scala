@@ -25,13 +25,15 @@ final class Env(
     hub.socket.round,
     hub.socket.tournament)
 
+  private val bus = system.lilaBus
+
   scheduler.once(5 seconds) {
     scheduler.effect(4 seconds, "publish broom to event bus") {
-      system.eventStream.publish(actorApi.Broom)
+      bus.publish(actorApi.Broom, 'broom)
     }
     scheduler.effect(1 seconds, "calculate nb members") {
       population ? PopulationGet foreach {
-        case nb: Int ⇒ system.eventStream publish NbMembers(nb)
+        case nb: Int ⇒ bus.publish(NbMembers(nb), 'nbMembers)
       }
     }
   }

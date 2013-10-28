@@ -8,12 +8,10 @@ private[socket] final class Population extends Actor {
 
   private var nb = 0
 
-  List(PopulationInc.getClass, PopulationDec.getClass) foreach { klass ⇒
-    context.system.eventStream.subscribe(self, klass)
-  }
+  context.system.lilaBus.subscribe(self, 'population)
 
   override def postStop() {
-    context.system.eventStream.unsubscribe(self)
+    context.system.lilaBus.unsubscribe(self)
   }
 
   def receive = {

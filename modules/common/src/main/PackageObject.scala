@@ -200,6 +200,11 @@ trait WithPlay { self: PackageObject ⇒
     def optionFu[A](v: ⇒ Fu[A]): Fu[Option[A]] = if (self) v map (_.some) else fuccess(none)
   }
 
+  implicit final class LilaPimpedActorSystem(self: akka.actor.ActorSystem) {
+
+    def lilaBus = lila.common.Bus(self)
+  }
+
   object makeTimeout {
 
     import akka.util.Timeout

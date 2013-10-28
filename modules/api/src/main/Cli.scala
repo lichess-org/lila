@@ -1,6 +1,5 @@
 package lila.api
 
-import akka.event.EventStream
 import akka.actor.ActorSelection
 import akka.pattern.{ ask, pipe }
 import play.api.templates.Html
@@ -8,7 +7,7 @@ import play.api.templates.Html
 import lila.hub.actorApi.{ RemindDeploy, Deploy }
 import makeTimeout.short
 
-private[api] final class Cli(bus: EventStream, renderer: ActorSelection) extends lila.common.Cli {
+private[api] final class Cli(bus: lila.common.Bus, renderer: ActorSelection) extends lila.common.Cli {
 
   def apply(args: List[String]): Fu[String] = run(args).map(_ + "\n") ~ {
     _ logFailure ("[cli] " + args.mkString(" ")) foreach { output ⇒
@@ -23,7 +22,7 @@ private[api] final class Cli(bus: EventStream, renderer: ActorSelection) extends
 
   private def remindDeploy(event: RemindDeploy): Fu[String] = {
     renderer ? event foreach {
-      case html: Html ⇒ bus publish Deploy(event, html.body)
+      case html: Html ⇒ bus.publish(Deploy(event, html.body), 'deploy)
     }
     fuccess("Deploy in progress")
   }

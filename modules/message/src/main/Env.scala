@@ -24,7 +24,7 @@ final class Env(
   lazy val api = new Api(
     unreadCache = unreadCache,
     maxPerPage = ThreadMaxPerPage,
-    bus = system.eventStream)
+    bus = system.lilaBus)
 
   system.actorOf(Props(new Actor {
     def receive = {

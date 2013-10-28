@@ -5,7 +5,7 @@ import com.typesafe.config.Config
 
 final class Env(
     config: Config,
-    val system: ActorSystem,
+    system: ActorSystem,
     appPath: String) {
 
   val CliUsername = config getString "cli.username"
@@ -16,6 +16,8 @@ final class Env(
   private val TimeagoLocalesPath = config getString "app.timeago_locales_path"
 
   def timeagoLocalesPath = appPath + "/" + TimeagoLocalesPath
+
+  lazy val bus = lila.common.Bus(system)
 
   lazy val preloader = new mashup.Preload(
     lobby = Env.lobby.lobby,

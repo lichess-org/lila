@@ -173,7 +173,7 @@ private[controllers] trait LilaController
     Env.security.api restoreUser req addEffect {
       _ ifTrue (HTTPRequest isSynchronousHttp req) foreach { user ⇒
         val lang = Env.i18n.pool.lang(req).language
-        Env.current.system.eventStream publish lila.user.User.Active(user, lang)
+        Env.current.bus.publish(lila.user.User.Active(user, lang), 'userActive)
       }
     }
 

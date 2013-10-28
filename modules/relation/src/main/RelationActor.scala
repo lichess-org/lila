@@ -10,7 +10,6 @@ import lila.hub.actorApi.{ SendTo, SendTos }
 import makeTimeout.short
 
 private[relation] final class RelationActor(
-    bus: akka.event.EventStream,
     getOnlineUserIds: () ⇒ Set[String],
     getUsername: String ⇒ Fu[String],
     api: RelationApi) extends Actor {
@@ -18,6 +17,8 @@ private[relation] final class RelationActor(
   private type ID = String
   private type Username = String
   private type User = (ID, Username)
+
+  private val bus = context.system.lilaBus
 
   def receive = {
 
@@ -66,11 +67,12 @@ private[relation] final class RelationActor(
 
   private def reloadOnlineFriends(userId: String) {
     onlineFriends(userId) map {
-      case OnlineFriends(usernames, nb) ⇒ bus publish {
-        SendTo(userId, "following_onlines", Json.obj(
+      case OnlineFriends(usernames, nb) ⇒ {
+        val event = SendTo(userId, "following_onlines", Json.obj(
           "us" -> usernames,
           "nb" -> nb
         ))
+        bus.publish(event, 'users)
       }
     }
   }
@@ -79,7 +81,7 @@ private[relation] final class RelationActor(
     users foreach {
       case (id, name) ⇒ api.followers(id) foreach { ids ⇒
         val notify = ids filter onlines.contains
-        if (notify.nonEmpty) bus publish SendTos(notify.toSet, message, name)
+        if (notify.nonEmpty) bus.publish(SendTos(notify.toSet, message, name), 'users)
       }
     }
   }

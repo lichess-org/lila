@@ -32,7 +32,6 @@ final class Env(
   private lazy val cached = new Cached
 
   private[relation] val actor = system.actorOf(Props(new RelationActor(
-    bus = system.eventStream,
     getOnlineUserIds = getOnlineUserIds,
     getUsername = getUsername,
     api = api

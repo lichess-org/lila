@@ -60,7 +60,9 @@ final class Env(
     }
   }
 
-  private val listener = system.actorOf(
+  private val bus = system.lilaBus
+
+  bus.subscribe(system.actorOf(
     Props(new Actor {
       def receive = {
         case User.Active(user, lang) ⇒ {
@@ -69,16 +71,14 @@ final class Env(
           onlineUserIdMemo put user.id
         }
       }
-    }), name = "user-active")
-
-  system.eventStream.subscribe(listener, classOf[User.Active])
+    }), name = "user-active"), 'userActive)
 
   {
     import scala.concurrent.duration._
     import lila.hub.actorApi.WithUserIds
 
     scheduler.effect(3 seconds, "refresh online user ids") {
-      system.eventStream.publish(WithUserIds(onlineUserIdMemo.putAll))
+      bus.publish(WithUserIds(onlineUserIdMemo.putAll), 'users)
     }
   }
 

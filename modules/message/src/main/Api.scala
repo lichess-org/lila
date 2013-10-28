@@ -15,7 +15,7 @@ import tube.threadTube
 final class Api(
     unreadCache: UnreadCache,
     maxPerPage: Int,
-    bus: akka.event.EventStream) {
+    bus: lila.common.Bus) {
 
   def inbox(me: User, page: Int): Fu[Paginator[Thread]] = Paginator(
     adapter = new Adapter(
@@ -81,7 +81,7 @@ final class Api(
 
   private def updateUser(user: String) {
     (unreadCache refresh user) mapTo manifest[List[String]] foreach { ids ⇒
-      bus publish SendTo(user, "nbm", ids.size)
+      bus.publish(SendTo(user, "nbm", ids.size), 'users)
     } 
   }
 }

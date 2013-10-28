@@ -21,12 +21,12 @@ private[monitor] final class Reporting(
     db: lila.db.Env,
     hub: lila.hub.Env) extends Actor {
 
-  List(classOf[MoveEvent], classOf[NbMembers]) foreach { klass ⇒
-    context.system.eventStream.subscribe(self, klass)
-  }
+  private val bus = context.system.lilaBus
+
+  bus.subscribe(self, 'moveEvent, 'nbMembers)
 
   override def postStop() {
-    context.system.eventStream.unsubscribe(self)
+    bus.unsubscribe(self)
   }
 
   var nbMembers = 0
