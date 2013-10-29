@@ -18,7 +18,7 @@ final class Bus(system: ActorSystem) extends Extension with EventBus {
    * @return true if successful and false if not (because it was already subscribed to that Classifier, or otherwise)
    */
   def subscribe(subscriber: Subscriber, to: Classifier): Boolean = {
-    // println(s"subscribe $to $subscriber")
+    loginfo(s"subscribe $to $subscriber")
     bus.subscribe(subscriber, to)
   }
 
@@ -32,7 +32,7 @@ final class Bus(system: ActorSystem) extends Extension with EventBus {
    * @return true if successful and false if not (because it wasn't subscribed to that Classifier, or otherwise)
    */
   def unsubscribe(subscriber: Subscriber, from: Classifier): Boolean = {
-    // println(s"[UN]subscribe $from $subscriber")
+    loginfo(s"[UN]subscribe $from $subscriber")
     bus.unsubscribe(subscriber, from)
   }
 
@@ -40,7 +40,7 @@ final class Bus(system: ActorSystem) extends Extension with EventBus {
    * Attempts to deregister the subscriber from all Classifiers it may be subscribed to
    */
   def unsubscribe(subscriber: Subscriber) {
-    // println(s"[UN]subscribe ALL $subscriber")
+    loginfo(s"[UN]subscribe ALL $subscriber")
     bus unsubscribe subscriber
   }
 
@@ -48,7 +48,7 @@ final class Bus(system: ActorSystem) extends Extension with EventBus {
    * Publishes the specified Event to this bus
    */
   def publish(event: Event) {
-    // println(event)
+    loginfo(event.toString)
     bus publish event
   }
 
