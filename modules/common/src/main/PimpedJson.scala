@@ -26,10 +26,10 @@ trait PimpedJson {
     def arr(key: String): Option[JsArray] =
       (js \ key).asOpt[JsArray]
 
-    def ints(key: String): Option[List[Int]] =
-      (js \ key).asOpt[JsArray] map { arr ⇒
-        arr.value.toList map { v ⇒ v.asOpt[Int] } flatten
-      }
+    def arrAs[A](key: String)(as: JsValue ⇒ Option[A]): Option[List[A]] =
+      arr(key) map { _.value.toList map as flatten }
+
+    def ints(key: String): Option[List[Int]] = arrAs(key)(_.asOpt[Int])
 
     def get[A: Reads](key: String): Option[A] =
       (js \ key).asOpt[A]

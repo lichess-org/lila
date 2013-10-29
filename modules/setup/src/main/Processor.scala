@@ -48,10 +48,9 @@ private[setup] final class Processor(
   def hook(
     config: HookConfig,
     uid: String,
-    sid: Option[String],
-    user: Option[User])(implicit ctx: Context): Funit =
+    sid: Option[String])(implicit ctx: Context): Funit =
     saveConfig(_ withHook config) >>- {
-      lobby ! AddHook(config.hook(uid, ctx.me, sid), user)
+      lobby ! AddHook(config.hook(uid, ctx.me, sid))
     }
 
   def api(implicit ctx: Context): Fu[JsObject] = {
