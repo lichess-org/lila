@@ -18,6 +18,8 @@ sealed abstract class Context(val req: RequestHeader, val me: Option[User]) {
 
   def troll = me.??(_.troll)
 
+  def ip = req.remoteAddress
+
   override def toString = "%s %s %s".format(
     me.fold("Anonymous")(_.username),
     req.remoteAddress, 
