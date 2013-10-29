@@ -51,7 +51,8 @@ final class Env(
 
   if (!Env.ai.isServer) {
     loginfo("[boot] Preloading modules")
-    (Env.site,
+    (Env.socket,
+      Env.site,
       Env.tournament,
       Env.lobby,
       Env.game,
@@ -60,7 +61,6 @@ final class Env(
       Env.round,
       Env.team,
       Env.message,
-      Env.socket,
       Env.timeline,
       Env.gameSearch,
       Env.teamSearch,

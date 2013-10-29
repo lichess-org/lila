@@ -20,11 +20,11 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   val lilaBus = context.system.lilaBus
 
-  lilaBus.subscribe(self, 'moveEvent, 'users, 'deploy, 'nbMembers, 'broom)
+  lilaBus.publish(lila.socket.SocketHub.Subscribe(self), 'socket)
 
   override def postStop() {
+    lilaBus.publish(lila.socket.SocketHub.Unsubscribe(self), 'socket)
     members.keys foreach eject
-    lilaBus.unsubscribe(self)
   }
 
   // to be defined in subclassing actor

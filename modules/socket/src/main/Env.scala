@@ -5,31 +5,29 @@ import akka.pattern.{ ask, pipe }
 import com.typesafe.config.Config
 
 import actorApi._
-import lila.common.PimpedConfig._
 import makeTimeout.short
 
 final class Env(
+    config: Config,
     system: ActorSystem,
-    scheduler: lila.common.Scheduler,
-    hub: lila.hub.Env) {
+    scheduler: lila.common.Scheduler) {
 
   import scala.concurrent.duration._
 
-  private val population = system.actorOf(
-    Props(new Population), 
-    name = "population")
+  private val PopulationName = config getString "population.name"
+  private val HubName = config getString "hub.name"
 
-  private val sockets = List(
-    hub.socket.lobby,
-    hub.socket.site,
-    hub.socket.round,
-    hub.socket.tournament)
+  private val socketHub =
+    system.actorOf(Props[SocketHub], name = HubName)
+
+  private val population =
+    system.actorOf(Props[Population], name = PopulationName)
 
   private val bus = system.lilaBus
 
   scheduler.once(5 seconds) {
-    scheduler.effect(4 seconds, "publish broom to event bus") {
-      bus.publish(actorApi.Broom, 'broom)
+    scheduler.message(4 seconds) {
+      socketHub -> actorApi.Broom
     }
     scheduler.effect(1 seconds, "calculate nb members") {
       population ? PopulationGet foreach {
@@ -42,7 +40,7 @@ final class Env(
 object Env {
 
   lazy val current = "[boot] socket" describes new Env(
+    config = lila.common.PlayApp loadConfig "socket",
     system = lila.common.PlayApp.system,
-    scheduler = lila.common.PlayApp.scheduler,
-    hub = lila.hub.Env.current)
+    scheduler = lila.common.PlayApp.scheduler)
 }
