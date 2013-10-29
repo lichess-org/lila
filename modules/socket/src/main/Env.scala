@@ -26,14 +26,8 @@ final class Env(
   private val bus = system.lilaBus
 
   scheduler.once(5 seconds) {
-    scheduler.message(4 seconds) {
-      socketHub -> actorApi.Broom
-    }
-    scheduler.effect(1 seconds, "calculate nb members") {
-      population ? PopulationGet foreach {
-        case nb: Int ⇒ bus.publish(NbMembers(nb), 'nbMembers)
-      }
-    }
+    scheduler.message(4 seconds) { socketHub -> actorApi.Broom }
+    scheduler.message(1.02 seconds) { population -> PopulationTell }
   }
 }
 

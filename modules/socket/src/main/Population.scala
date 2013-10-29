@@ -2,16 +2,17 @@ package lila.socket
 
 import akka.actor._
 
-import actorApi.{ PopulationInc, PopulationDec, PopulationGet }
+import actorApi.{ PopulationInc, PopulationDec, PopulationTell, NbMembers }
 
 private[socket] final class Population extends Actor {
 
-  private var nb = 0
+  var nb = 0
+  val bus = context.system.lilaBus
 
-  context.system.lilaBus.subscribe(self, 'population)
+  bus.subscribe(self, 'population)
 
   override def postStop() {
-    context.system.lilaBus.unsubscribe(self)
+    bus.unsubscribe(self)
   }
 
   def receive = {
@@ -19,6 +20,6 @@ private[socket] final class Population extends Actor {
     case PopulationInc ⇒ nb = nb + 1
     case PopulationDec ⇒ nb = nb - 1
 
-    case PopulationGet ⇒ sender ! nb
+    case PopulationTell ⇒ bus.publish(NbMembers(nb), 'nbMembers)
   }
 }
