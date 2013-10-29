@@ -20,11 +20,11 @@ private[lobby] final class Lobby(
 
     case GetOpen ⇒ sender ! HookRepo.allOpen
 
-    case msg @ AddHook(hook, user) ⇒ {
+    case msg @ AddHook(hook) ⇒ {
       HookRepo byUid hook.uid foreach remove
       hook.sid ?? { sid ⇒ HookRepo bySid sid foreach remove }
-      HookRepo findCompatible hook find { biter.canJoin(_, user) } match {
-        case Some(h) ⇒ self ! BiteHook(h.id, hook.uid, user map (_.id))
+      HookRepo findCompatible hook find { biter.canJoin(_, hook.user) } match {
+        case Some(h) ⇒ self ! BiteHook(h.id, hook.uid, hook.user map (_.id))
         case None ⇒ {
           HookRepo save hook
           socket ! msg

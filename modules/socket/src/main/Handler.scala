@@ -30,7 +30,7 @@ object Handler {
       case msg ⇒ logwarn("Unhandled msg: " + msg)
     }
 
-    def iteratee(controller: Controller) = {
+    def iteratee(controller: Controller): JsIteratee = {
       val control = controller orElse baseController
       Iteratee.foreach[JsValue](jsv ⇒
         jsv.asOpt[JsObject] foreach { obj ⇒
