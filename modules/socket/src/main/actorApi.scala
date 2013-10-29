@@ -22,4 +22,5 @@ case class SendToFlag(flag: String, message: JsObject)
 case object PopulationInc
 case object PopulationDec
 case object PopulationGet
+case object PopulationTell
 case class NbMembers(nb: Int)

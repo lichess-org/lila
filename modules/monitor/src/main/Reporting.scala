@@ -12,7 +12,7 @@ import actorApi._
 import lila.hub.actorApi.map.Size
 import lila.hub.actorApi.monitor._
 import lila.hub.actorApi.round.MoveEvent
-import lila.socket.actorApi.{ PopulationGet, NbMembers }
+import lila.socket.actorApi.{ NbMembers, PopulationGet }
 
 private[monitor] final class Reporting(
     rpsProvider: RpsProvider,
