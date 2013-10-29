@@ -11,10 +11,10 @@ private[round] final class Hijack(timeout: Duration) {
   // full game ids that have been hijacked
   private val hijacks = new ExpireSetMemo(timeout)
 
-  def apply(pov: Pov, token: String, ctx: Context): Boolean = pov.game.rated && {
+  def apply(pov: Pov, token: String): Boolean = pov.game.rated && {
     if (hijacks get pov.fullId) true
     else if (token != pov.game.token) { 
-      logwarn("[websocket] hijacking detected %s %s".format(pov.fullId, ctx.toString))
+      logwarn(s"[websocket] hijacking detected ${pov.fullId}")
       hijacks put pov.fullId
       true
     }
