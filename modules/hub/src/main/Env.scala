@@ -7,9 +7,6 @@ import lila.common.PimpedConfig._
 
 final class Env(config: Config, system: ActorSystem) {
 
-  private val SocketHubName = config getString "socket.hub.name"
-  private val SocketHubTimeout = config duration "socket.hub.timeout"
-
   object actor {
     val game = select("actor.game.actor")
     val gameIndexer = select("actor.game.indexer")
@@ -39,6 +36,7 @@ final class Env(config: Config, system: ActorSystem) {
     val tournament = select("socket.tournament")
     val site = select("socket.site")
     val monitor = select("socket.monitor")
+    val hub = select("socket.hub")
   }
 
   private def select(name: String) = 
