@@ -3,28 +3,32 @@ package lila.simulation
 import scala.concurrent.duration._
 
 import akka.actor._
-import com.typesafe.config.Config
 
 final class Env(
-    config: Config,
+    typesafeConfig: com.typesafe.config.Config,
     lobbyEnv: lila.lobby.Env,
     roundEnv: lila.round.Env,
     system: ActorSystem) {
 
+  private val config = Config(
+    players = typesafeConfig getInt "players",
+    watchers = typesafeConfig getInt "watchers")
+
   private lazy val simulator = system.actorOf(Props(new Simulator(
+    config = config,
     lobbyEnv = lobbyEnv,
     roundEnv = roundEnv
   )), name = "simulator")
 
   def start {
-    system.scheduler.scheduleOnce(2 seconds, simulator, actorApi.Start)
+    system.scheduler.scheduleOnce(2 seconds, simulator, Simulator.Start)
   }
 }
 
 object Env {
 
   lazy val current = "[boot] simulation" describes new Env(
-    config = lila.common.PlayApp loadConfig "simulation",
+    typesafeConfig = lila.common.PlayApp loadConfig "simulation",
     lobbyEnv = lila.lobby.Env.current,
     roundEnv = lila.round.Env.current,
     system = lila.common.PlayApp.system)
