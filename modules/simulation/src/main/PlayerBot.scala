@@ -2,7 +2,7 @@ package lila.simulation
 
 import scala.collection.immutable.Queue
 import scala.concurrent.duration._
-import scala.util.Try
+import scala.util.{ Random, Try }
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
@@ -32,17 +32,40 @@ private[simulation] final class PlayerBot(
     case _ -> LobbyConnect ⇒ lobbyEnv.socketHandler(uid, user) pipeTo self
   }
 
+  // onTransition {
+  //   case a -> b ⇒ log(s"$a -> $b")
+  // }
+
   when(LobbyConnect) {
 
     case Event((iteratee: JsIteratee, enumerator: JsEnumerator), _) ⇒ {
       receiveFrom(enumerator)
-      val hook = lila.setup.HookConfig.default.hook(uid, user, sid)
+      val clock = Random.nextInt(5) match {
+        case 0 ⇒ (1, 0)
+        case 1 ⇒ (0, 1)
+        case 2 ⇒ (3, 3)
+        case 3 ⇒ (5, 8)
+        case _ ⇒ (2, 12)
+      }
+      val hasClock = Random.nextBoolean
+      val hook = lila.setup.HookConfig.default.copy(
+        clock = hasClock,
+        time = clock._1,
+        increment = clock._2,
+        color = lila.lobby.Color.random,
+        mode = chess.Mode.Casual /*chess.Mode(Random.nextBoolean) */).hook(uid, user, sid)
       lobbyEnv.lobby ! lila.lobby.actorApi.AddHook(hook)
       goto(Lobby) using Lobbyist(sendTo(iteratee))
     }
   }
 
-  when(Lobby) {
+  when(Lobby, stateTimeout = 20 seconds) {
+
+    // pong
+    case Event(Message("n", obj), _) ⇒ {
+      delay(1 second)(self ! Ping)
+      stay
+    }
 
     case Event(Message("redirect", obj), Lobbyist(channel)) ⇒ obj str "d" map { url ⇒
       channel.eofAndEnd()
@@ -50,16 +73,26 @@ private[simulation] final class PlayerBot(
       roundEnv.socketHandler.player(id, 0, uid, "token", user, ip) pipeTo self
       goto(RoundConnect) using FullId(id)
     } getOrElse stay
+
+    case Event(StateTimeout, Lobbyist(channel)) ⇒ {
+      channel.eofAndEnd()
+      goto(LobbyConnect) using NoData
+    }
   }
 
   when(RoundConnect) {
 
     case Event((iteratee: JsIteratee, enumerator: JsEnumerator), FullId(id)) ⇒ {
-      log(s"joins ${id}")
       receiveFrom(enumerator)
-      delay(0.5 second)(self ! Ping)
-      delay(1.5 second)(self ! Move)
-      goto(RoundPlay) using Player(id, sendTo(iteratee))
+      delay(1 second)(self ! Ping)
+      val player = Player(id, sendTo(iteratee))
+      lila.game.GameRepo.pov(id).flatten(id).map(_.color).await match {
+        case Color.White ⇒ {
+          delay(2 seconds)(self ! Move)
+          goto(RoundPlay) using player
+        }
+        case Color.Black ⇒ goto(RoundPlay) using player.nextMove._2
+      }
     }
   }
 
@@ -80,7 +113,6 @@ private[simulation] final class PlayerBot(
 
     // any other versioned event
     case Event(Message(_, obj), _) ⇒ {
-      log(obj.toString)
       setVersion(obj)
       stay
     }
@@ -95,15 +127,21 @@ private[simulation] final class PlayerBot(
     }
 
     case Event(Message("possible_moves", obj), player: Player) ⇒ {
+      maybe(1d / 200)(self ! Resign)
       // opponent move
       if ((obj obj "d").isEmpty) {
         val (_, nextPlayer) = player.nextMove
         goto(RoundPlay) using nextPlayer
       }
       else {
-        delayRandomMillis(2000)(self ! Move)
+        delayRandomMillis(4000)(self ! Move)
         goto(RoundPlay) using player
       }
+    }
+
+    case Event(Resign, player: Player) ⇒ {
+      player.channel push Json.obj("t" -> "resign")
+      stay
     }
 
     case Event(Move, player: Player) ⇒ {
@@ -129,7 +167,7 @@ private[simulation] final class PlayerBot(
   }))
 
   onTransition {
-    case _ -> RoundEnd ⇒ maybe(3d/4) {
+    case _ -> RoundEnd ⇒ maybe(3d / 4) {
       delayRandomMillis(5000)(self ! Rematch)
     }
   }
@@ -150,13 +188,16 @@ private[simulation] final class PlayerBot(
 
     case Event(StateTimeout, player: Player) ⇒ {
       player.channel.eofAndEnd()
-      goto(Lobby) using NoData
+      goto(LobbyConnect) using NoData
     }
   }))
 
   whenUnhandled {
 
-    case _ ⇒ stay
+    case e ⇒ {
+      // log(e)
+      stay
+    }
   }
 }
 
@@ -189,6 +230,7 @@ private[simulation] object PlayerBot {
 
   case object Move
   case object Rematch
+  case object Resign
 
   import chess.Pos._
   val allMoves: Queue[Move] = Queue(E2 -> E4, D7 -> D5, E4 -> D5, D8 -> D5, B1 -> C3, D5 -> A5, D2 -> D4, C7 -> C6, G1 -> F3, C8 -> G4, C1 -> F4, E7 -> E6, H2 -> H3, G4 -> F3, D1 -> F3, F8 -> B4, F1 -> E2, B8 -> D7, A2 -> A3, E8 -> C8, A3 -> B4, A5 -> A1, E1 -> D2, A1 -> H1, F3 -> C6, B7 -> C6, E2 -> A6)
