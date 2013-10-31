@@ -27,9 +27,13 @@ private[setup] trait Config {
 
   def makeGame = ChessGame(board = Board init variant, clock = makeClock)
 
-  def validClock = clock.fold(time + increment > 0, true)
+  def validClock = clock.fold(clockHasTime, true)
 
-  def makeClock = clock option Clock(time * 60, increment)
+  def clockHasTime = time + increment > 0
+
+  def makeClock = clock option {
+    Clock(time * 60, clockHasTime.fold(increment, 1))
+  }
 }
 
 trait GameGenerator { self: Config ⇒

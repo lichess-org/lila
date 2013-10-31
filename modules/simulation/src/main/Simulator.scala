@@ -11,6 +11,7 @@ import lila.user.User
 
 private[simulation] final class Simulator(
     config: Config,
+    gameEnv: lila.game.Env,
     lobbyEnv: lila.lobby.Env,
     roundEnv: lila.round.Env) extends SimulActor {
 
@@ -31,7 +32,7 @@ private[simulation] final class Simulator(
     }
 
     case Spawn.Player ⇒ (players.size < config.players) ! {
-      val n = nameIterator.next
+      val n = s"P-${nameIterator.next}"
       val player = context.actorOf(Props(mkPlayer(n)), name = n)
       players += player
       player ! Start
@@ -39,10 +40,16 @@ private[simulation] final class Simulator(
     }
 
     case Spawn.Watcher ⇒ (watchers.size < config.watchers) ! {
+      val n = s"W-${nameIterator.next}"
+      val watcher = context.actorOf(Props(mkWatcher(n)), name = n)
+      watchers += watcher
+      watcher ! Start
+      context.system.scheduler.scheduleOnce(0.09 second, self, Spawn.Watcher)
     }
   }
 
   def mkPlayer(n: String) = new PlayerBot(n, lobbyEnv, roundEnv)
+  def mkWatcher(n: String) = new WatcherBot(n, gameEnv.featured, roundEnv)
 }
 
 private[simulation] object Simulator {
