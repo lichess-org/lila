@@ -34,7 +34,7 @@ private[round] final class Player(
             case ((progress, pgn), move) ⇒
               ((GameRepo save progress) zip PgnRepo.save(pov.gameId, pgn)) >>-
                 (pov.game.hasAi ! uciMemo.add(pov.game, move)) >>-
-                notifyProgress(progress, ip) >>
+                notifyProgress(move, progress, ip) >>
                 progress.game.finished.fold(
                   moveFinish(progress.game, color) map { progress.events ::: _ }, {
                     cheatDetector(progress.game) addEffect {
@@ -57,21 +57,29 @@ private[round] final class Player(
 
   def ai(game: Game): Fu[Events] =
     (game.playable && game.player.isAi).fold(
-      engine.play(game, game.aiLevel | 1) flatMap { progress ⇒
-        notifyProgress(progress, aiIp)
-        moveFinish(progress.game, game.turnColor) map { progress.events ::: _ }
+      engine.play(game, game.aiLevel | 1) flatMap {
+        case (progress, move) ⇒ {
+          notifyProgress(move, progress, aiIp)
+          moveFinish(progress.game, game.turnColor) map { progress.events ::: _ }
+        }
       },
       fufail("not AI turn")
     ) logFailureErr "[ai play] game %s turn %d".format(game.id, game.turns)
 
-  private def notifyProgress(progress: Progress, ip: String) {
-    progress.game.lastMove foreach { move ⇒
-      bus.publish(MoveEvent(
-        ip = ip,
-        gameId = progress.game.id,
-        fen = Forsyth exportBoard progress.game.toChess.board,
-        move = move), 'moveEvent)
+  private def notifyProgress(move: chess.Move, progress: Progress, ip: String) {
+    val game = progress.game
+    val chess = game.toChess
+    val meta = {
+      if (move.captures) "x" else ""
+    } + {
+      if (game.finished) "#" else if (chess.situation.check) "+" else ""
     }
+    bus.publish(MoveEvent(
+      ip = ip,
+      gameId = game.id,
+      fen = Forsyth exportBoard chess.board,
+      move = move.keyString,
+      meta = meta), 'moveEvent)
   }
 
   private def moveFinish(game: Game, color: Color): Fu[Events] = game.status match {
