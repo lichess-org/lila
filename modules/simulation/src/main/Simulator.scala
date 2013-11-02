@@ -21,6 +21,11 @@ private[simulation] final class Simulator(
   val players = collection.mutable.Set[ActorRef]()
   val watchers = collection.mutable.Set[ActorRef]()
 
+  val playerConfig = PlayerConfig(
+    useClock = (config.players < 10) ? true.some | none[Boolean],
+    randomClock = (config.players < 10) ? false | true,
+    thinkDelay = (config.players < 10) ? 10 | 5000)
+
   def receive = {
 
     case Start ⇒ {
@@ -48,7 +53,7 @@ private[simulation] final class Simulator(
     }
   }
 
-  def mkPlayer(n: String) = new PlayerBot(n, lobbyEnv, roundEnv)
+  def mkPlayer(n: String) = new PlayerBot(n, playerConfig, lobbyEnv, roundEnv)
   def mkWatcher(n: String) = new WatcherBot(n, gameEnv.featured, roundEnv)
 }
 
