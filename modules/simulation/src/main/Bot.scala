@@ -20,8 +20,10 @@ private[simulation] trait Bot extends SimulActor {
   val sid = none[String]
   val ip = "127.0.0.1"
 
+  def getVersion(obj: JsObject): Option[Int] = obj int "v"
+
   def setVersion(obj: JsObject) {
-    obj int "v" map SetVersion.apply foreach self.!
+    getVersion(obj) map SetVersion.apply foreach self.!
   }
 
   def receiveFrom(enumerator: Enumerator[JsValue]) {
