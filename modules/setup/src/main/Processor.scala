@@ -3,7 +3,6 @@ package lila.setup
 import akka.actor.ActorSelection
 import akka.pattern.ask
 import chess.{ Game ⇒ ChessGame, Board, Color ⇒ ChessColor }
-import makeTimeout.short
 import play.api.libs.json.{ Json, JsObject }
 
 import lila.db.api._
@@ -14,6 +13,7 @@ import lila.i18n.I18nDomain
 import lila.lobby.actorApi.AddHook
 import lila.lobby.Hook
 import lila.user.{ User, Context }
+import makeTimeout.short
 import tube.{ userConfigTube, anonConfigTube }
 
 private[setup] final class Processor(
@@ -32,9 +32,10 @@ private[setup] final class Processor(
     saveConfig(_ withAi config) >>
       (GameRepo insertDenormalized game) >>-
       (timeline ! game) >>
-      game.player.isHuman.fold(fuccess(pov), for {
-        progress ← engine.play(game, game.aiLevel | 1)
-      } yield pov withGame progress.game)
+      game.player.isHuman.fold(fuccess(pov),
+        engine.play(game, game.aiLevel | 1) map {
+          case (progress, _) ⇒ pov withGame progress.game
+        })
   }
 
   def friend(config: FriendConfig)(implicit ctx: Context): Fu[Pov] = {

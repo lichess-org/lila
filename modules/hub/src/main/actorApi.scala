@@ -119,7 +119,12 @@ package monitor {
 }
 
 package round {
-  case class MoveEvent(gameId: String, fen: String, move: String, ip: String)
+  case class MoveEvent(
+    gameId: String, 
+    fen: String, 
+    move: String, 
+    ip: String,
+    meta: String) // x, +, #, +x, #x
   case class FinishGame(gameId: String)
 }
 
