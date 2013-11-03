@@ -4,6 +4,7 @@ import akka.actor._
 import com.typesafe.config.{ Config ⇒ AppConfig }
 
 import lila.common.PimpedConfig._
+import lila.game.{ Game, Progress }
 import lila.user.Context
 
 final class Env(
@@ -11,7 +12,7 @@ final class Env(
     db: lila.db.Env,
     hub: lila.hub.Env,
     messenger: lila.round.Messenger,
-    ai: lila.ai.Ai,
+    aiPlay: Game ⇒ Fu[Progress],
     system: ActorSystem) {
 
   private val FriendMemoTtl = config duration "friend.memo.ttl"
@@ -29,7 +30,7 @@ final class Env(
     friendConfigMemo = friendConfigMemo,
     timeline = hub.actor.gameTimeline,
     router = hub.actor.router,
-    engine = ai)
+    aiPlay = aiPlay)
 
   lazy val friendJoiner = new FriendJoiner(
     messenger = messenger,
@@ -54,6 +55,6 @@ object Env {
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     messenger = lila.round.Env.current.messenger,
-    ai = lila.ai.Env.current.ai,
+    aiPlay = lila.round.Env.current.aiPlay,
     system = lila.common.PlayApp.system)
 }

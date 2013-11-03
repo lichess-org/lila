@@ -21,7 +21,7 @@ object Ai extends LilaController {
             logwarn("[ai] stochfish server play: " + err)
             InternalServerError(err.toString)
           },
-          Ok(_)
+          res ⇒ Ok(res.move)
         )
     }
   }
