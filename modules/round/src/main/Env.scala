@@ -41,7 +41,6 @@ final class Env(
     val NetDomain = config getString "net.domain"
     val ActorMapName = config getString "actor.map.name"
     val ActorName = config getString "actor.name"
-    val AiIpAddress = config getString "ai.ip_address"
     val HijackEnabled = config getBoolean "hijack.enabled"
   }
   import settings._
@@ -102,8 +101,10 @@ final class Env(
     finisher = finisher,
     cheatDetector = cheatDetector,
     roundMap = hub.actor.roundMap,
-    uciMemo = uciMemo,
-    aiIp = AiIpAddress)
+    uciMemo = uciMemo)
+
+  // public access to AI play, for setup.Processor usage
+  val aiPlay = player ai _
 
   private lazy val drawer = new Drawer(
     messenger = messenger,
