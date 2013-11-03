@@ -6,27 +6,31 @@ import chess.Move
 import lila.analyse.Info
 import lila.game.{ Game, Progress, GameRepo, PgnRepo, UciMemo }
 
+case class AiHost(host: String, ip: String)
+case class MoveResult(move: String, server: AiHost)
+case class PlayResult(progress: Progress, move: Move, server: AiHost)
+
 trait Ai {
 
-  def play(game: Game, level: Int): Fu[(Progress, Move)] = withValidSituation(game) {
+  def play(game: Game, level: Int): Fu[PlayResult] = withValidSituation(game) {
     for {
       fen ← game.variant.exotic ?? { GameRepo initialFen game.id }
       pgn ← PgnRepo get game.id
       uciMoves ← uciMemo.get(game, pgn)
-      moveStr ← move(uciMoves.toList, fen, level)
-      uciMove ← (UciMove(moveStr) toValid s"${game.id} wrong bestmove: $moveStr").future
+      moveResult ← move(uciMoves.toList, fen, level)
+      uciMove ← (UciMove(moveResult.move) toValid s"${game.id} wrong bestmove: $moveResult").future
       result ← (game.toChess withPgnMoves pgn)(uciMove.orig, uciMove.dest).future
       (c, move) = result
       (progress, pgn2) = game.update(c, move)
       _ ← (GameRepo save progress) >>
         PgnRepo.save(game.id, pgn2) >>-
         uciMemo.add(game, uciMove.uci)
-    } yield progress -> move
+    } yield PlayResult(progress, move, moveResult.server)
   }
 
   def uciMemo: UciMemo
 
-  def move(uciMoves: List[String], initialFen: Option[String], level: Int): Fu[String]
+  def move(uciMoves: List[String], initialFen: Option[String], level: Int): Fu[MoveResult]
 
   def analyse(uciMoves: List[String], initialFen: Option[String]): Fu[List[Info]]
 

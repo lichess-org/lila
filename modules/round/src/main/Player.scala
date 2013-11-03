@@ -16,8 +16,7 @@ private[round] final class Player(
     finisher: Finisher,
     cheatDetector: CheatDetector,
     roundMap: akka.actor.ActorSelection,
-    uciMemo: UciMemo,
-    aiIp: String) {
+    uciMemo: UciMemo) {
 
   def human(play: HumanPlay)(pov: Pov): Fu[Events] = play match {
     case HumanPlay(playerId, ip, origS, destS, promS, blur, lag, onFailure) ⇒ pov match {
@@ -55,16 +54,16 @@ private[round] final class Player(
     }
   }
 
-  def ai(game: Game): Fu[Events] =
+  def ai(game: Game): Fu[Progress] =
     (game.playable && game.player.isAi).fold(
       engine.play(game, game.aiLevel | 1) flatMap {
-        case (progress, move) ⇒ {
-          notifyProgress(move, progress, aiIp)
-          moveFinish(progress.game, game.turnColor) map { progress.events ::: _ }
+        case lila.ai.PlayResult(progress, move, host) ⇒ {
+          notifyProgress(move, progress, host.ip)
+          moveFinish(progress.game, game.turnColor) map { progress.++ }
         }
       },
-      fufail("not AI turn")
-    ) logFailureErr "[ai play] game %s turn %d".format(game.id, game.turns)
+      fufail(s"[ai play] game ${game.id} turn ${game.turns} not AI turn")
+    ) logFailureErr s"[ai play] game ${game.id} turn ${game.turns}"
 
   private def notifyProgress(move: chess.Move, progress: Progress, ip: String) {
     val game = progress.game

@@ -15,9 +15,9 @@ final class Client(
     config: Config,
     val uciMemo: lila.game.UciMemo) extends lila.ai.Ai {
 
-  def move(uciMoves: List[String], initialFen: Option[String], level: Int): Fu[String] = {
+  def move(uciMoves: List[String], initialFen: Option[String], level: Int): Fu[MoveResult] = {
     implicit val timeout = makeTimeout(config.playTimeout)
-    dispatcher ? Play(uciMoves, ~initialFen, level) mapTo manifest[String]
+    dispatcher ? Play(uciMoves, ~initialFen, level) mapTo manifest[MoveResult]
   } recoverWith {
     case e: Exception ⇒ {
       logwarn(s"[stockfish client] move ${e.getMessage}")

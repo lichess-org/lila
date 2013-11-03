@@ -40,7 +40,9 @@ private[ai] final class Connection(
       "uciMoves" -> uciMoves.mkString(" "),
       "initialFen" -> fen,
       "level" -> level.toString
-    ).get() map (_.body) pipeTo sender
+    ).get() flatMap { response ⇒
+        DNSLookup(router.play) map { MoveResult(response.body, _) }
+      } pipeTo sender
 
     case Analyse(uciMoves, fen) ⇒ WS.url(router.analyse).withQueryString(
       "uciMoves" -> uciMoves.mkString(" "),

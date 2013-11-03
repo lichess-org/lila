@@ -14,18 +14,21 @@ import lila.hub.actorApi.ai.GetLoad
 private[ai] final class Server(
     queue: ActorRef,
     config: Config,
+    host: Fu[AiHost],
     val uciMemo: lila.game.UciMemo) extends lila.ai.Ai {
 
-  def move(uciMoves: List[String], initialFen: Option[String], level: Int): Fu[String] = {
+  def move(uciMoves: List[String], initialFen: Option[String], level: Int): Fu[MoveResult] = {
     implicit val timeout = makeTimeout(config.playTimeout)
     queue ? PlayReq(uciMoves, initialFen map chess960Fen, level) mapTo
-      manifest[Option[String]] flatten "[stockfish] play failed"
+      manifest[Option[String]] flatten "[stockfish] play failed" flatMap { move ⇒
+        host map { MoveResult(move, _) }
+      }
   }
 
   def analyse(uciMoves: List[String], initialFen: Option[String]): Fu[List[Info]] = {
     implicit val timeout = makeTimeout(config.analyseTimeout)
     (queue ? FullAnalReq(uciMoves, initialFen map chess960Fen)) mapTo
-      manifest[Option[List[Info]]] flatten "[stockfish] analyse failed" 
+      manifest[Option[List[Info]]] flatten "[stockfish] analyse failed"
   }
 
   def load: Fu[Int] = {
