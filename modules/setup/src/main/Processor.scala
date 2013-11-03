@@ -7,7 +7,7 @@ import play.api.libs.json.{ Json, JsObject }
 
 import lila.db.api._
 import lila.game.tube.gameTube
-import lila.game.{ Game, GameRepo, PgnRepo, Pov }
+import lila.game.{ Game, GameRepo, PgnRepo, Pov, Progress }
 import lila.hub.actorApi.router.Player
 import lila.i18n.I18nDomain
 import lila.lobby.actorApi.AddHook
@@ -21,7 +21,7 @@ private[setup] final class Processor(
     friendConfigMemo: FriendConfigMemo,
     timeline: ActorSelection,
     router: ActorSelection,
-    engine: lila.ai.Ai) {
+    aiPlay: Game ⇒ Fu[Progress]) {
 
   def filter(config: FilterConfig)(implicit ctx: Context): Funit =
     saveConfig(_ withFilter config)
@@ -32,10 +32,10 @@ private[setup] final class Processor(
     saveConfig(_ withAi config) >>
       (GameRepo insertDenormalized game) >>-
       (timeline ! game) >>
-      game.player.isHuman.fold(fuccess(pov),
-        engine.play(game, game.aiLevel | 1) map {
-          case (progress, _) ⇒ pov withGame progress.game
-        })
+      game.player.isHuman.fold(
+        fuccess(pov),
+        aiPlay(game) map { progress ⇒ pov withGame progress.game }
+      )
   }
 
   def friend(config: FriendConfig)(implicit ctx: Context): Fu[Pov] = {

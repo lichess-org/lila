@@ -18,6 +18,7 @@ final class Env(
     val IsServer = config getBoolean "server"
     val IsClient = config getBoolean "client"
     val StockfishRemotes = config getStringList "stockfish.remotes" toList
+    val StockfishLocal = config getString "stockfish.local" 
     val StockfishPlayRoute = config getString "stockfish.play.route"
     val StockfishAnalyseRoute = config getString "stockfish.analyse.route"
     val StockfishLoadRoute = config getString "stockfish.load.route"
@@ -77,6 +78,7 @@ final class Env(
   lazy val stockfishServer = new stockfish.Server(
     queue = stockfishQueue,
     config = stockfishConfig,
+    host = DNSLookup(StockfishLocal),
     uciMemo = uciMemo)
 
   def nbStockfishRemotes = StockfishRemotes.size

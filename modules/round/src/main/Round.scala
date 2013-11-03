@@ -35,7 +35,9 @@ private[round] final class Round(
       pov.game.outoftimePlayer.fold(player.human(p)(pov))(outOfTime(pov.game))
     }
 
-    case AiPlay ⇒ publish(GameRepo game gameId)(player.ai)
+    case AiPlay ⇒ publish(GameRepo game gameId) { game ⇒
+      player ai game map (_.events)
+    }
 
     case Abort(playerId) ⇒ handle(playerId) { pov ⇒
       pov.game.abortable ?? finisher(pov.game, _.Aborted)
