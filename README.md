@@ -78,7 +78,15 @@ ChunkSize                # size of the next chunk, in hexadecimal
 GameId UciMove IpAddress # actual chunk of data
 ```
 
-Try it with netcat:
+#### UciMove format
+
+```regex
+([a-h][1-8]){2}x?(+|#)?
+```
+
+where `x` indicates a capture, `+` a check and `#` a checkmate.
+
+#### Try it with netcat
 
 ```sh
 > echo "GET /stream HTTP/1.1\nHost: en.lichess.org\n" | netcat en.lichess.org 80
