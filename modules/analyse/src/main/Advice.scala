@@ -56,7 +56,7 @@ private[analyse] object CpAdvice {
 
 private[analyse] sealed abstract class MateSequence(val desc: String)
 private[analyse] case object MateDelayed extends MateSequence(
-  desc = "Not the best chekmate sequence")
+  desc = "Not the best checkmate sequence")
 private[analyse] case object MateLost extends MateSequence(
   desc = "Lost forced checkmate sequence")
 private[analyse] case object MateCreated extends MateSequence(
