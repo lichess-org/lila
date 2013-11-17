@@ -44,7 +44,12 @@ $(function() {
     $wrap.find('a.clear').on('click', board.clear);
     $wrap.find('a.flip').on('click', board.flip);
     $wrap.find('a.save').on('click', function() {
-      alert('Permalink: ' + $(this).data('domain') + '/editor/' + getRich());
+      alert('Permalink: ' + $(this).data('url').replace('xxx', getRich()));
+      return false;
+    });
+    $wrap.find('a.load').on('click', function() {
+      var fen = prompt('Paste FEN position');
+      window.location = $(this).data('url').replace('xxx', fen);
       return false;
     });
   });

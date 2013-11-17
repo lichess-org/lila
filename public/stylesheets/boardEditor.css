@@ -3,8 +3,8 @@
 }
 #board_editor .fen-string {
   margin: 1em 0 0.5em 0;
-  padding: 1% 10px;
-  width: 98%;
+  background: none;
+  border: none;
   font-family: monospace;
   font-size: 16px;
 }
