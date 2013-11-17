@@ -22,9 +22,14 @@ $(function() {
 
     function onChange() {
       var rich = getRich();
-      $string.val(rich);
+      $string.text(rich);
       $wrap.find('a.fen_link').each(function() {
         $(this).attr('href', $(this).attr('href').replace(/fen=[^#]*#/, "fen=" + rich + '#'));
+      });
+      $wrap.find('a.permalink').each(function() {
+        $(this)
+          .attr('href', $(this).data('url').replace('xxx', rich))
+          .text($(this).data('url').replace('xxx', encodeURIComponent(rich)));
       });
     }
 
@@ -43,14 +48,10 @@ $(function() {
     $wrap.find('a.start').on('click', board.start);
     $wrap.find('a.clear').on('click', board.clear);
     $wrap.find('a.flip').on('click', board.flip);
-    $wrap.find('a.save').on('click', function() {
-      alert('Permalink: ' + $(this).data('url').replace('xxx', getRich()));
-      return false;
-    });
     $wrap.find('a.load').on('click', function() {
       var fen = prompt('Paste FEN position');
       window.location = $(this).data('url').replace('xxx', fen);
       return false;
     });
-  });
+ });
 });

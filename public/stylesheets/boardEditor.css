@@ -1,13 +1,6 @@
 #board_editor {
   position: relative;
 }
-#board_editor .fen-string {
-  margin: 1em 0 0.5em 0;
-  background: none;
-  border: none;
-  font-family: monospace;
-  font-size: 16px;
-}
 #chessboard {
   width: 520px;
 }
@@ -25,6 +18,13 @@
   display: block;
   text-align: center;
   margin-bottom: 1em;
+}
+#board_editor table td, #board_editor table th {
+  padding: 5px;
+  font-family: monospace;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
 }
 #chessboard_side .castling {
   margin-top: 1em;
