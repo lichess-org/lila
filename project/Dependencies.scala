@@ -14,7 +14,6 @@ object Dependencies {
     val t2v = "t2v.jp repo" at "http://www.t2v.jp/maven-repo/"
     val jgitMaven = "jgit-maven" at "http://download.eclipse.org/jgit/maven"
     val christophs = "Christophs Maven Repo" at "http://maven.henkelmann.eu/"
-    val sgodbillon = "sgodbillon" at "https://bitbucket.org/sgodbillon/repository/raw/master/snapshots/"
     val awesomepom = "awesomepom" at "https://raw.github.com/jibs/maven-repo-scala/master"
     val sprayRepo = "spray repo" at "http://repo.spray.io"
     val localSonatype = "local sonatype repo" at home + "/local-repo/sonatype/snapshots"
@@ -31,7 +30,7 @@ object Dependencies {
       t2v, jgitMaven, christophs, sprayRepo)
   }
 
-  val scalaz = "org.scalaz" %% "scalaz-core" % "7.0.3"
+  val scalaz = "org.scalaz" %% "scalaz-core" % "7.0.4"
   val scalalib = "com.github.ornicar" %% "scalalib" % "4.19"
   val config = "com.typesafe" % "config" % "1.0.2"
   val apache = "org.apache.commons" % "commons-lang3" % "3.1"
@@ -44,9 +43,9 @@ object Dependencies {
   val actuarius = "eu.henkelmann" %% "actuarius" % "0.2.6-THIB"
   val jodaTime = "joda-time" % "joda-time" % "2.2"
   val jodaConvert = "org.joda" % "joda-convert" % "1.3.1"
-  val scalastic = "org.scalastic" %% "scalastic" % "0.90.2"
-  val reactivemongo = "org.reactivemongo" %% "reactivemongo" % "0.10.7-THIB"
-  val playReactivemongo = "org.reactivemongo" %% "play2-reactivemongo" % "0.10.7-THIB"
+  val scalastic = "org.scalastic" %% "scalastic" % "0.90.3"
+  val RM = "org.reactivemongo" %% "reactivemongo" % "0.10.0-PRISMIC"
+  val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.10.0-PRISMIC"
   object play {
     val version = "2.2.1"
     val api = "com.typesafe.play" %% "play" % version
