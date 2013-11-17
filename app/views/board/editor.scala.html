@@ -25,7 +25,8 @@ moreCss = moreCss) {
     </div>
     <div>
       <a class="button flip">@trans.flipBoard()</a>
-      <a class="button save" data-domain="@netBaseUrl">@trans.savePosition()</a>
+      <a class="button save" data-url="@routes.Editor.index("xxx")">@trans.savePosition()</a>
+      <a class="button load" data-url="@routes.Editor.index("xxx")">@trans.loadPosition()</a>
     </div>
     <div>
       <select class="color">

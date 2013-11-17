@@ -246,6 +246,7 @@ boardEditor=Board editor
 startPosition=Start position
 clearBoard=Clear board
 savePosition=Save position
+loadPosition=Load position
 isPrivate=Private
 reportXToModerators=Report %s to moderators
 profile=Profile
