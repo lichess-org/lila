@@ -24,7 +24,7 @@ private[simulation] final class Simulator(
   val playerConfig = PlayerConfig(
     useClock = (config.players < 10) ? true.some | none[Boolean],
     randomClock = (config.players < 10) ? false | true,
-    thinkDelay = (config.players < 10) ? 10 | 5000)
+    thinkDelay = (config.players < 10) ? 200 | 5000)
 
   def receive = {
 

@@ -83,7 +83,7 @@ private[simulation] final class PlayerBot(
     }
 
     case Event(color: chess.Color, player: Player) ⇒ {
-      log("start as " + color)
+      log(s"start ${player.id} as $color")
       delay(1 second)(self ! Ping)
       delay(10 second)(self ! QuitIfStalled(player.v))
       color match {
@@ -187,7 +187,7 @@ private[simulation] final class PlayerBot(
   }))
 
   onTransition {
-    case _ -> RoundEnd ⇒ maybe(3d / 4) {
+    case _ -> RoundEnd ⇒ maybe(config.rematchProbability) {
       delayRandomMillis(5000)(self ! Rematch)
     }
   }
@@ -205,7 +205,10 @@ private[simulation] final class PlayerBot(
     case Event(Message("redirect", obj), player: Player) ⇒ obj str "d" map { url ⇒
       player.channel.eofAndEnd()
       val id = url drop 1
-      roundEnv.socketHandler.player(id, 0, uid, "token", user, ip) pipeTo self
+      println(s"redirect to $url -> $id")
+      delay(200 millis) {
+        roundEnv.socketHandler.player(id, 0, uid, "token", user, ip) pipeTo self
+      }
       goto(RoundConnect) using FullId(id)
     } getOrElse stay
 
