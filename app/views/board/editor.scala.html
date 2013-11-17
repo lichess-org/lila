@@ -25,8 +25,7 @@ moreCss = moreCss) {
     </div>
     <div>
       <a class="button flip">@trans.flipBoard()</a>
-      <a class="button save" data-url="@routes.Editor.index("xxx")">@trans.savePosition()</a>
-      <a class="button load" data-url="@routes.Editor.index("xxx")">@trans.loadPosition()</a>
+      <a class="button load">@trans.loadPosition()</a>
     </div>
     <div>
       <select class="color">
@@ -51,6 +50,21 @@ moreCss = moreCss) {
     </div>
   </div>
   <div id="chessboard" data-fen="@fen"></div>
-  <input class="fen-string" readonly />
+  <table>
+    <tbody>
+      <tr>
+        <th>FEN string</th>
+        <td class="fen-string"></td>
+      </tr>
+      <tr>
+        <th>Permalink</th>
+        <td>
+          @defining(netBaseUrl + routes.Editor.index("xxx")) { url =>
+          <a class="permalink" data-url="@url">@url</a>
+          }
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 }
