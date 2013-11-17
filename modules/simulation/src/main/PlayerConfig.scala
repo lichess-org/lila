@@ -7,6 +7,8 @@ private[simulation] case class PlayerConfig(
     randomClock: Boolean,
     thinkDelay: Int) { // maximum wait in millis
 
+  val rematchProbability = 4d / 4
+
   private val defaultClockConfig = (5, 8)
 
   private def randomClockConfig = Random.nextInt(5) match {
