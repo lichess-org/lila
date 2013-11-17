@@ -205,7 +205,6 @@ private[simulation] final class PlayerBot(
     case Event(Message("redirect", obj), player: Player) ⇒ obj str "d" map { url ⇒
       player.channel.eofAndEnd()
       val id = url drop 1
-      println(s"redirect to $url -> $id")
       delay(200 millis) {
         roundEnv.socketHandler.player(id, 0, uid, "token", user, ip) pipeTo self
       }
