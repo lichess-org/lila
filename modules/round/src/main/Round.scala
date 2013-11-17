@@ -136,7 +136,7 @@ private[round] final class Round(
     context flatten "round not found" flatMap op addEffect {
       events ⇒ if (events.nonEmpty) socketHub ! Tell(gameId, events)
     } addFailureEffect {
-      err ⇒ logwarn("[round publish] " + err)
+      err ⇒ logwarn("[round] " + err)
     }
   }.void
 }

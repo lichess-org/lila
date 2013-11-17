@@ -24,13 +24,13 @@ object Round extends LilaController with TheftPrevention {
 
   def websocketWatcher(gameId: String, color: String) = Socket[JsValue] { implicit ctx ⇒
     (get("sri") |@| getInt("version")).tupled ?? {
-      case (uid, version) ⇒ env.socketHandler.watcher(gameId, color, version, uid, ctx)
+      case (uid, version) ⇒ env.socketHandler.watcher(gameId, color, version, uid, ctx.me, ctx.ip)
     }
   }
 
   def websocketPlayer(fullId: String) = Socket[JsValue] { implicit ctx ⇒
     (get("sri") |@| getInt("version")).tupled ?? {
-      case (uid, version) ⇒ env.socketHandler.player(fullId, version, uid, ~get("ran"), ctx)
+      case (uid, version) ⇒ env.socketHandler.player(fullId, version, uid, ~get("ran"), ctx.me, ctx.ip)
     }
   }
 

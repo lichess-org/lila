@@ -78,8 +78,11 @@ forum improvements http://en.lichess.org/forum/lichess-feedback/suggestions-for-
 real tournaments (swiss first, then round robin) (hellball) see challonge.com
 option to disallow takebacks http://en.lichess.org/forum/lichess-feedback/takeback-request-abuse
 search users from tablet http://en.lichess.org/forum/lichess-feedback/people---search
-replace Lobby actor blockages by pull strategy http://letitcrash.com/post/29044669086/balancing-workload-across-nodes-with-akka-2
 analysis UI bug http://en.lichess.org/inbox/8s2e0397#bottom
 use separate thread pool for elasticsearch http://www.playframework.com/documentation/2.2.0/ThreadPools
+make lobby a sequential actor
 best wins / worse defeats
 troll can post in tournaments
+safari sound icon http://en.lichess.org/forum/general-chess-discussion/sound-effects?page=3
+improve premove castling (how??)
+add brasilian translation

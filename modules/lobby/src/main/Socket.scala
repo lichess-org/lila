@@ -46,7 +46,7 @@ private[lobby] final class Socket(
 
     case ReloadTimeline(user)    ⇒ sendTo(user, makeMessage("reload_timeline", JsNull))
 
-    case AddHook(hook, _)        ⇒ notifyVersion("hook_add", hook.render)
+    case AddHook(hook)           ⇒ notifyVersion("hook_add", hook.render)
 
     case RemoveHook(hookId)      ⇒ notifyVersion("hook_remove", hookId)
 

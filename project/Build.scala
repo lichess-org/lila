@@ -29,7 +29,7 @@ object ApplicationBuild extends Build {
     message, notification, i18n, game, bookmark, search,
     gameSearch, timeline, forum, forumSearch, team, teamSearch,
     ai, analyse, mod, monitor, site, round, lobby, setup,
-    importer, tournament, relation, report, pref)
+    importer, tournament, relation, report, pref, simulation)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
@@ -40,6 +40,11 @@ object ApplicationBuild extends Build {
         play.api, hasher, config, apache, csv, jgit,
         actuarius, scalastic, findbugs, reactivemongo)
     ) aggregate (moduleRefs: _*)
+
+  lazy val simulation = project("simulation", Seq(
+    common, hub, socket, game, round, setup)).settings(
+    libraryDependencies ++= provided(play.api, reactivemongo)
+  )
 
   lazy val common = project("common").settings(
     libraryDependencies ++= provided(play.api, play.test, reactivemongo, csv)

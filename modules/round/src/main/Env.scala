@@ -41,6 +41,7 @@ final class Env(
     val NetDomain = config getString "net.domain"
     val ActorMapName = config getString "actor.map.name"
     val ActorName = config getString "actor.name"
+    val HijackEnabled = config getBoolean "hijack.enabled"
   }
   import settings._
 
@@ -153,7 +154,7 @@ final class Env(
 
   private lazy val titivate = new Titivate(roundMap, meddler, scheduler)
 
-  private lazy val hijack = new Hijack(HijackTimeout)
+  private lazy val hijack = new Hijack(HijackTimeout, HijackEnabled)
 
   private lazy val takebacker = new Takebacker(
     messenger = messenger,
