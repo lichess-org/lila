@@ -23,5 +23,5 @@ object Typecheck {
   def apply[A: TubeInColl]: Fu[String] = apply(true)
 
   def apply[A: TubeInColl](stop: Boolean): Fu[String] =
-    $cursor[A]($select.all).enumerate run iteratee(stop) inject "Typecheck complete"
+    $cursor[A]($select.all).enumerate() run iteratee(stop) inject "Typecheck complete"
 }

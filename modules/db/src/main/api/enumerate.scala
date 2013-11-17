@@ -13,7 +13,7 @@ import lila.db.Implicits._
 object $enumerate {
 
   def apply[A: BSONDocumentReader](query: QueryBuilder)(op: A ⇒ Funit): Funit =
-    query.cursor[A].enumerate run {
+    query.cursor[A].enumerate() run {
       Iteratee.foreach((obj: A) ⇒ op(obj))
     }
 
@@ -25,7 +25,7 @@ object $enumerate {
     }
 
   def fold[A: BSONDocumentReader, B](query: QueryBuilder)(zero: B)(f: (B, A) ⇒ B): Fu[B] =
-    query.cursor[A].enumerate |>>> Iteratee.fold(zero)(f)
+    query.cursor[A].enumerate() |>>> Iteratee.fold(zero)(f)
 
   def foldMonoid[A: BSONDocumentReader, B: Monoid](query: QueryBuilder)(f: (B, A) ⇒ B): Fu[B] =
     fold(query)(Monoid[B].zero)(f)
