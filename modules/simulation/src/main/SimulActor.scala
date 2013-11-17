@@ -7,7 +7,7 @@ import akka.actor._
 private[simulation] trait SimulActor extends Actor {
 
   def name: String
-  def logging = true
+  def logging = false
 
   def log(msg: Any) {
     if (logging) println(s"${name} ${msg}")
