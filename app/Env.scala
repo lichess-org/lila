@@ -56,7 +56,6 @@ final class Env(
       Env.tournament,
       Env.lobby,
       Env.game,
-      Env.ai,
       Env.setup,
       Env.round,
       Env.team,
@@ -74,6 +73,10 @@ final class Env(
   }
 
   if (Env.ai.isServer) println("Running as AI server")
+
+  if (config getBoolean "simulation.enabled") {
+    lila.simulation.Env.current.start
+  }
 }
 
 object Env {

@@ -32,6 +32,8 @@ object Color {
 
   val all = List(White, Black, Random)
 
+  def random = all(scala.util.Random.nextInt(all.size))
+
   val names = all map (_.name)
 
   val choices = names zip names

@@ -10,7 +10,8 @@ trait WithSocket {
 
   type JsChannel = Channel[JsValue]
   type JsEnumerator = Enumerator[JsValue]
-  type JsSocketHandler = (Iteratee[JsValue, _], JsEnumerator)
+  type JsIteratee = Iteratee[JsValue, _]
+  type JsSocketHandler = (JsIteratee, JsEnumerator)
 
   implicit val LilaJsSocketHandlerZero: Zero[JsSocketHandler] = 
     Zero.instance(Handler errorHandler "default error handler used")

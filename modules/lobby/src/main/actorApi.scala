@@ -20,7 +20,7 @@ object Member {
 
 case class Connected(enumerator: JsEnumerator, member: Member)
 case class WithHooks(op: Iterable[String] ⇒ Unit)
-case class AddHook(hook: Hook, user: Option[User])
+case class AddHook(hook: Hook)
 case class RemoveHook(hookId: String)
 case class RemoveHooks(hooks: Set[Hook])
 case class CancelHook(uid: String)

@@ -29,7 +29,7 @@ private[round] final class Player(
             chessGame = game.toChess withPgnMoves pgnString
             newChessGameAndMove ← chessGame(orig, dest, promotion, lag)
             (newChessGame, move) = newChessGameAndMove
-          } yield game.update(newChessGame, move, blur) -> move).prefixFailuresWith(playerId + " - ").future flatMap {
+          } yield game.update(newChessGame, move, blur) -> move).prefixFailuresWith(s"$pov ").future flatMap {
             case ((progress, pgn), move) ⇒
               ((GameRepo save progress) zip PgnRepo.save(pov.gameId, pgn)) >>-
                 (pov.game.hasAi ! uciMemo.add(pov.game, move)) >>-
