@@ -246,6 +246,7 @@ boardEditor=Bretteditor
 startPosition=Anfangsposition
 clearBoard=Brett räumen
 savePosition=Position speichern
+loadPosition=Stellung laden
 isPrivate=Privat
 reportXToModerators=Melde %s den Moderatoren
 profile=Profil
