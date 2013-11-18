@@ -246,6 +246,7 @@ boardEditor=Προετοιμαστής σκακιέρας
 startPosition=Θέση έναρξης
 clearBoard=Εκκαθάριση σκακιέρας
 savePosition=Αποθήκευση θέσης
+loadPosition=Φορτώστε θέση
 isPrivate=Ιδιωτικό
 reportXToModerators=Αναφέρετε τον %s στο προσωπικό
 profile=Προφίλ
