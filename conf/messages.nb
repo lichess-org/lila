@@ -246,6 +246,7 @@ boardEditor=Oppsett
 startPosition=Startposisjon
 clearBoard=Tøm brett
 savePosition=Lagre posisjon
+loadPosition=Last posisjon
 isPrivate=Privat
 reportXToModerators=Rapporter %s til moderatorer
 profile=Profil
