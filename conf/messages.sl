@@ -246,6 +246,7 @@ boardEditor=Urejanje igralne table
 startPosition=Začetna pozicija
 clearBoard=Počisti tablo
 savePosition=Posnemi pozicijo
+loadPosition=Naloži pozicijo
 isPrivate=Zasebno
 reportXToModerators=Sporočilo %s Moderatorju
 profile=Profil
