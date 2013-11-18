@@ -246,6 +246,7 @@ boardEditor=Uredi ploču
 startPosition=Početni položaj
 clearBoard=Počisti ploču
 savePosition=Spremi poziciju
+loadPosition=Loadiraj poziciju
 isPrivate=Privatno
 reportXToModerators=Prijavi %s moderatorima
 profile=Profil
