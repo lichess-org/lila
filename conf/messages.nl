@@ -246,6 +246,7 @@ boardEditor=Bord editor
 startPosition=Startopstelling
 clearBoard=Maak het bord leeg
 savePosition=Sla opstelling op
+loadPosition=Laad positie
 isPrivate=Prive
 reportXToModerators=Rapporteer %s naar toezichthouders
 profile=Profiel
