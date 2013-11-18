@@ -246,6 +246,7 @@ boardEditor=editorul de tabla
 startPosition=pozitia de start
 clearBoard=curata tabla
 savePosition=salveaza pozitia
+loadPosition=Incarca Pozitia
 isPrivate=Privat
 reportXToModerators=Raporteaza %s moderatorilor
 profile=Profil
