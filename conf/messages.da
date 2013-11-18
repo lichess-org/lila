@@ -246,6 +246,7 @@ boardEditor=Bræt redigering
 startPosition=Start position
 clearBoard=Rens bræt
 savePosition=Gem position
+loadPosition=Indlæs position
 isPrivate=Privat
 reportXToModerators=Reporter %s til administratorer.
 profile=Profil
