@@ -246,6 +246,7 @@ boardEditor=Editor pozície
 startPosition=Východisková pozícia
 clearBoard=Vymazať pozíciu
 savePosition=Uložiť pozíciu
+loadPosition=Načítať pozíciu
 isPrivate=Súkromný
 reportXToModerators=Nahlásiť %s moderátorom
 profile=Profil
