@@ -246,6 +246,7 @@ boardEditor=Éditeur de partie
 startPosition=Position de départ
 clearBoard=Initialiser l'échiqier
 savePosition=Enregistrer la position
+loadPosition=Charger une position
 isPrivate=Privé
 reportXToModerators=Reporter %s aux modérateurs
 profile=Profil
