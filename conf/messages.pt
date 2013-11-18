@@ -246,6 +246,7 @@ boardEditor=Editor de tabuleiro
 startPosition=Posição inicial
 clearBoard=Limpar tabuleiro
 savePosition=Gravar posição
+loadPosition=Carregar posição
 isPrivate=Privado
 reportXToModerators=Reporte %s aos moderadores
 profile=Perfil
