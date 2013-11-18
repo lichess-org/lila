@@ -246,6 +246,7 @@ boardEditor=Brädeditor
 startPosition=Starta position
 clearBoard=Rensa bord
 savePosition=Spara position
+loadPosition=Ladda ner ställning
 isPrivate=Privat
 reportXToModerators=Rapportera %s till moderatorerna
 profile=Profil
