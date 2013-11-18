@@ -246,6 +246,7 @@ boardEditor=محرر الرقعه
 startPosition=وضع البدايه
 clearBoard=مسح الرقعه
 savePosition=تخزين الوضعية
+loadPosition=موقف الحمل
 isPrivate=خاص
 reportXToModerators=التبليغ عن %s
 profile=الملف الشخصي
