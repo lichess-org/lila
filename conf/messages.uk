@@ -246,6 +246,7 @@ boardEditor=Редактор дошки
 startPosition=Початкова позиція
 clearBoard=Очистити дошку
 savePosition=Зберегти позицію
+loadPosition=Завантажiти позицiю
 isPrivate=Приватний
 reportXToModerators=Повідомлення %s для модераторів
 profile=Профіль
