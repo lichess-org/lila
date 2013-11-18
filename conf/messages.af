@@ -246,6 +246,7 @@ boardEditor=Bord redigeerder
 startPosition=Begin posisie
 clearBoard=Maak bord skoon
 savePosition=Stoor posisie
+loadPosition=Laai positie
 isPrivate=Privaat
 reportXToModerators=Klik oor %s
 profile=Profiel
