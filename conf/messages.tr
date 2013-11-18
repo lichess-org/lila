@@ -246,6 +246,7 @@ boardEditor=Tahta yapıcı
 startPosition=Açılış Hamlesi
 clearBoard=Temiz Tahta
 savePosition=Hamleyi koru
+loadPosition=Pozisyonu yükle
 isPrivate=Özel
 reportXToModerators=%s 'i Moderatörlere bildir
 profile=Profil
