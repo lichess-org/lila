@@ -246,6 +246,7 @@ boardEditor=Editor šachovnice
 startPosition=Základní postavení
 clearBoard=Prázdná šachovnice
 savePosition=Uložit pozici
+loadPosition=Nahrát pozici
 isPrivate=Soukromý
 reportXToModerators=Nahlásit %s moderátorům
 profile=Profil
