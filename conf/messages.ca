@@ -246,6 +246,7 @@ boardEditor=Editor del tauler
 startPosition=Posició inicial
 clearBoard=Neteja el tauler
 savePosition=Desa la posició
+loadPosition=Trobar posiciò
 isPrivate=Privat
 reportXToModerators=Denuncia %s als moderadors
 profile=Perfil
