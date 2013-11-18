@@ -246,6 +246,7 @@ boardEditor=Edytor szachownicy
 startPosition=Pozycja początkowa
 clearBoard=Wyczyść szachownicę
 savePosition=Zapisz pozycję
+loadPosition=Załaduj pozycję
 isPrivate=Prywatne
 reportXToModerators=Zgłoś %s do moderatora
 profile=Profil
