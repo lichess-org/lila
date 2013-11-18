@@ -246,6 +246,7 @@ boardEditor=Уредник табле
 startPosition=Почетна позиција
 clearBoard=Склони фигуре
 savePosition=Сачувај позицију
+loadPosition=Loadiranje pozicije
 isPrivate=Privatno
 reportXToModerators=Prijaviti %s moderatorima
 profile=Профил
