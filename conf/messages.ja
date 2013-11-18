@@ -246,6 +246,7 @@ boardEditor=盤面編集
 startPosition=盤面編集
 clearBoard=盤面をクリア
 savePosition=盤面を保存
+loadPosition=局面をロードする
 isPrivate=プライベート
 reportXToModerators=モデレーターに%sを通報する。
 profile=プロフィール
