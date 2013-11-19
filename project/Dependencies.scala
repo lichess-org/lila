@@ -44,8 +44,8 @@ object Dependencies {
   val jodaTime = "joda-time" % "joda-time" % "2.2"
   val jodaConvert = "org.joda" % "joda-convert" % "1.3.1"
   val scalastic = "org.scalastic" %% "scalastic" % "0.90.3"
-  val RM = "org.reactivemongo" %% "reactivemongo" % "0.10.0-PRISMIC"
-  val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.10.0-PRISMIC"
+  val RM = "org.reactivemongo" %% "reactivemongo" % "0.10.1-PRISMIC"
+  val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.10.1-PRISMIC"
   object play {
     val version = "2.2.1"
     val api = "com.typesafe.play" %% "play" % version
