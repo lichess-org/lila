@@ -246,6 +246,7 @@ boardEditor=Lentos redaktorius
 startPosition=Pradedamoji pozicija
 clearBoard=Išvalyti lentą
 savePosition=Išsaugoti pozicija
+loadPosition=Įkelti poziciją
 isPrivate=Privatu
 reportXToModerators=Reportas %s moderatoriams
 profile=Profilis
