@@ -246,6 +246,7 @@ boardEditor=Chỉnh sửa bàn cờ
 startPosition=Vị trí bắt đầu
 clearBoard=Xóa bàn cờ
 savePosition=Lưu lại vị trí
+loadPosition=Tải vị trí
 isPrivate=Riêng tư
 reportXToModerators=Báo cáo %s tới quản trị viên
 profile=Hồ sơ
