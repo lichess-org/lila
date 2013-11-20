@@ -246,6 +246,7 @@ boardEditor=Уредник на таблата
 startPosition=Стартна позиција
 clearBoard=Исчисти ја таблата
 savePosition=Зачувај ја позицијата
+loadPosition=оптоварување позиција
 isPrivate=Приватно
 reportXToModerators=Извести %s ги модераторите
 profile=Профил
