@@ -246,6 +246,7 @@ boardEditor=Lautaeditori
 startPosition=Alkuasema
 clearBoard=Tyhjennä lauta
 savePosition=Tallenna asema
+loadPosition=Lataa tilanne
 isPrivate=Yksityinen
 reportXToModerators=Ilmoita %s moderaattoreille
 profile=Profiili
