@@ -246,6 +246,7 @@ boardEditor=Промени дъската
 startPosition=Стартова позиция
 clearBoard=Празна дъска
 savePosition=Съхрани позицията
+loadPosition=Зареди позиция
 isPrivate=Лично
 reportXToModerators=Докладвай %s на модераторите
 profile=Профил
