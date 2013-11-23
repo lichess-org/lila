@@ -1,7 +1,7 @@
 playWithAFriend=Spela med en vän
 inviteAFriendToPlayWithYou=Bjud in en vän att spela med dig
 playWithTheMachine=Spela mot datorn
-challengeTheArtificialIntelligence=Utmana den artificella intelligensen
+challengeTheArtificialIntelligence=Utmana datorn
 toInviteSomeoneToPlayGiveThisUrl=För att bjuda in någon att spela, ge dem den här länken
 gameOver=Partiet är slut
 waitingForOpponent=Väntar på motståndare
@@ -76,7 +76,7 @@ signIn=Logga in
 newToLichess=Ny användare?
 youNeedAnAccountToDoThat=Du behöver ett konto för att göra det
 signUp=Registrera dig
-people=Människor
+people=Spelare
 games=Partier
 forum=Forum
 xPostedInForumY=%s postade i forumet %s
