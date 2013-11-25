@@ -7,9 +7,9 @@ object AdvantageChart {
   val max = Score.CEILING
   private val scale = intBox(-max to max) _
 
-  def apply(advices: InfoAdvices, pgnStr: String): String = {
+  def apply(advices: InfoAdvices, moves: List[String]): String = {
 
-    val pgnMoves = pgnStr.split(' ').toIndexedSeq
+    val pgnMoves = moves.toIndexedSeq
 
     def move(info: Info, advice: Option[Advice]) = "%s%s %s%s".format(
       info.turn,

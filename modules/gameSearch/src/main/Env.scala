@@ -80,11 +80,11 @@ final class Env(
             }).flatten
             es bulk_send {
               (pairs map {
-                case (game, pgn) ⇒ es.index_prepare(
+                case (game, moves) ⇒ es.index_prepare(
                   IndexName,
                   TypeName,
                   game.id,
-                  Json stringify Game.from(game, pgn, analysedIds contains game.id)
+                  Json stringify Game.from(game, moves, analysedIds contains game.id)
                 ).request
               })
             }

@@ -71,9 +71,7 @@ private[app] final class AiStresser(env: lila.ai.Env, system: ActorSystem) {
   //   Game(pgn.split(' ').toList, 1)
   // }
 
-  private def newGame = lila.game.PgnRepo getOneRandom 30000 map { pgn ⇒
-    Game((~pgn).split(' ').toList, 1)
-  }
+  private def newGame = lila.game.PgnRepo getOneRandom 30000 map { Game(_, 1) }
 
   private def randomize(d: FiniteDuration, ratio: Float = 0.1f): FiniteDuration =
     approximatly(ratio)(d.toMillis) millis

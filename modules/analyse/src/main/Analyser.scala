@@ -39,9 +39,9 @@ final class Analyser(
       $find.byId[Game](id) map (_ filter (_.analysable)) zip
         (PgnRepo getNonEmpty id) zip
         (GameRepo initialFen id) flatMap {
-          case ((Some(game), Some(pgn)), initialFen) ⇒ (for {
+          case ((Some(game), Some(moves)), initialFen) ⇒ (for {
             _ ← AnalysisRepo.progress(id, userId)
-            replay ← Future(Replay(pgn, initialFen, game.variant)).flatten
+            replay ← Replay(moves mkString " ", initialFen, game.variant).future
             uciMoves = UciDump(replay)
             infos ← {
               ai ? lila.hub.actorApi.ai.Analyse(uciMoves, initialFen)
