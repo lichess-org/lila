@@ -17,11 +17,11 @@ private[game] final class PgnDump(
 
   import PgnDump._
 
-  def apply(game: Game, pgn: String): Fu[Pgn] =
+  def apply(game: Game, moves: List[String]): Fu[Pgn] =
     tags(game) map { ts ⇒
       val fenSituation = ts find (_.name == Tag.FEN) flatMap { case Tag(_, fen) ⇒ Forsyth <<< fen }
-      val pgn2 = (~fenSituation.map(_.situation.color.black)).fold(".. " + pgn, pgn)
-      Pgn(ts, turns(pgn2, fenSituation.map(_.fullMoveNumber) | 1))
+      val moves2 = (~fenSituation.map(_.situation.color.black)).fold(".." :: moves, moves)
+      Pgn(ts, turns(moves2, fenSituation.map(_.fullMoveNumber) | 1))
     }
 
   def filename(game: Game): Fu[String] = gameUsers(game) map {
@@ -66,8 +66,8 @@ private[game] final class PgnDump(
           ))
       }
 
-  private def turns(pgn: String, from: Int): List[chessPgn.Turn] =
-    (pgn split ' ' grouped 2).zipWithIndex.toList map {
+  private def turns(moves: List[String], from: Int): List[chessPgn.Turn] =
+    (moves grouped 2).zipWithIndex.toList map {
       case (moves, index) ⇒ chessPgn.Turn(
         number = index + from,
         white = moves.headOption filter (".." !=) map { chessPgn.Move(_) },
