@@ -13,11 +13,10 @@ trait WithColl {
 
     implicit val ec = ExecutionContext.Implicits.global
 
-    val timeout = 1 seconds
-
     val conn = new MongoDriver connection List("localhost:27017")
-    val db = conn("lila-test") ~ { _.drop }
-    val coll = db("test")
+    val db = conn("lila-test") 
+    db.drop.await
+    val coll = db("test_" + ornicar.scalalib.Random.nextString(8))
     val res = f(coll)
     conn.close
     res
