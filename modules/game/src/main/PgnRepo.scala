@@ -3,15 +3,21 @@ package lila.game
 import chess.format.pgn.Binary
 import play.api.libs.json._
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
+import reactivemongo.api.collections.default.BSONCollection
 import reactivemongo.bson.Subtype.GenericBinarySubtype
 import reactivemongo.bson.{ BSONHandler, BSONDocument, BSONBinary }
 
 import lila.common.PimpedJson._
 import lila.db.api._
 import lila.db.Implicits._
-import tube.pgnColl
 
-object PgnRepo {
+object PgnRepo extends PgnRepo {
+  def coll = tube.pgnColl
+}
+
+trait PgnRepo {
+
+  def coll: BSONCollection
 
   type ID = String
   type Moves = List[String]
@@ -22,12 +28,12 @@ object PgnRepo {
     getOption(id) map (_ filter (_.nonEmpty))
 
   def getOption(id: ID): Fu[Option[Moves]] =
-    pgnColl.find(
+    coll.find(
       $select(id), Json.obj("_id" -> false)
-    ).one[BSONDocument] map { _ flatMap docToMoves }
+    ).one[BSONDocument] map { _ flatMap docToMoves } 
 
   def associate(ids: Seq[ID]): Fu[Map[String, Moves]] =
-    pgnColl.find($select byIds ids)
+    coll.find($select byIds ids)
       .cursor[BSONDocument]
       .collect[List]() map2 { (obj: BSONDocument) ⇒
         docToMoves(obj) flatMap { moves ⇒
@@ -36,13 +42,13 @@ object PgnRepo {
       } map (_.flatten.toMap)
 
   def getOneRandom(distrib: Int): Fu[Moves] = {
-    pgnColl.find($select.all) skip scala.util.Random.nextInt(distrib)
+    coll.find($select.all) skip scala.util.Random.nextInt(distrib)
   }.cursor[BSONDocument].collect[List](1) map {
-    _.headOption flatMap docToMoves 
+    _.headOption flatMap docToMoves
   } map (~_)
 
   def save(id: ID, moves: Moves): Funit = lila.db.api successful {
-    pgnColl.update(
+    coll.update(
       $select(id),
       BSONDocument("$set" -> BSONDocument("p" -> BSONBinaryPgnHandler.write(moves))),
       upsert = true
@@ -50,21 +56,20 @@ object PgnRepo {
   }
 
   def removeIds(ids: List[ID]): Funit = lila.db.api successful {
-    pgnColl.remove($select byIds ids)
+    coll.remove($select byIds ids)
   }
 
-  private def docToMoves(doc: BSONDocument): Option[Moves] = doc.getAs[Moves]("p")
+  private def docToMoves(doc: BSONDocument): Option[Moves] = 
+    doc.getAs[BSONBinary]("p") map BSONBinaryPgnHandler.read
 
   private object BSONBinaryPgnHandler extends BSONHandler[BSONBinary, Moves] {
     def read(x: BSONBinary) = {
-      val buffer = x.value
-      val bytes = new Array[Byte](buffer.readInt - 1)
-      buffer.readBytes(bytes)
-      buffer.readByte
-      (Binary readMoves bytes.toList).get.pp
+      val remaining = x.value.readable
+      val bytes = x.value.slice(remaining).readArray(remaining)
+      (Binary readMoves bytes.toList).get
     }
     def write(x: List[String]) = BSONBinary(
-      (Binary writeMoves x.pp).get.toArray,
+      (Binary writeMoves x).get.toArray,
       GenericBinarySubtype)
   }
 }
