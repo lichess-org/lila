@@ -44,7 +44,7 @@ object PgnRepo {
   def save(id: ID, moves: Moves): Funit = lila.db.api successful {
     pgnColl.update(
       $select(id),
-      BSONDocument("$set" -> BSONDocument("p" -> moves)),
+      BSONDocument("$set" -> BSONDocument("p" -> BSONBinaryPgnHandler.write(moves))),
       upsert = true
     )
   }
@@ -61,21 +61,10 @@ object PgnRepo {
       val bytes = new Array[Byte](buffer.readInt - 1)
       buffer.readBytes(bytes)
       buffer.readByte
-      (Binary readMoves bytes.toList).get
+      (Binary readMoves bytes.toList).get.pp
     }
     def write(x: List[String]) = BSONBinary(
-      (Binary writeMoves x).get.toArray,
+      (Binary writeMoves x.pp).get.toArray,
       GenericBinarySubtype)
   }
-
-  def decode(x: BSONBinary): Moves = {
-    val buffer = x.value
-    val bytes = new Array[Byte](buffer.readInt - 1)
-    buffer.readBytes(bytes)
-    buffer.readByte
-    (Binary readMoves bytes.toList).get
-  }
-  def encode(x: Moves) = BSONBinary(
-    (Binary writeMoves x).get.toArray,
-    GenericBinarySubtype)
 }
