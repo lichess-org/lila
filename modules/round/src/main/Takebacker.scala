@@ -36,11 +36,11 @@ private[round] final class Takebacker(
     case _ ⇒ fufail("[takebacker] invalid no " + pov)
   }
 
-  private def extras(gameId: String): Fu[(Option[String], String)] =
+  private def extras(gameId: String): Fu[(Option[String], List[String])] =
     (GameRepo initialFen gameId) zip (PgnRepo get gameId)
 
   private def single(game: Game): Fu[Events] = extras(game.id) flatMap {
-    case (fen, pgn) ⇒ Rewind(game, pgn, fen).future flatMap {
+    case (fen, moves) ⇒ Rewind(game, moves, fen).future flatMap {
       case (progress, newPgn) ⇒ 
         PgnRepo.save(game.id, newPgn) >>-
         uciMemo.drop(game, 1)

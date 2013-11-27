@@ -7,9 +7,9 @@ object Rewind {
 
   def apply(
     game: Game,
-    pgn: String,
-    initialFen: Option[String]): Valid[(Progress, String)] = chessPgn.Reader.withSans(
-    pgn = pgn,
+    moves: List[String],
+    initialFen: Option[String]): Valid[(Progress, List[String])] = chessPgn.Reader.withSans(
+    pgn = moves mkString " ",
     op = sans ⇒ sans.isEmpty.fold(sans, sans.init),
     tags = initialFen.??(fen ⇒ List(
       chessPgn.Tag(_.FEN, fen),

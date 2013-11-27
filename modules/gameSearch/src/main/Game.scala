@@ -60,7 +60,7 @@ private[gameSearch] object Game {
     )
   }
 
-  def from(game: GameModel, pgn: String, anal: Boolean): JsObject = Json.obj(
+  def from(game: GameModel, moves: List[String], anal: Boolean): JsObject = Json.obj(
     status -> game.status.is(_.Timeout).fold(Status.Resign, game.status).id,
     turns -> math.ceil(game.turns.toFloat / 2),
     rated -> game.rated,
@@ -71,7 +71,7 @@ private[gameSearch] object Game {
     ai -> Json.toJson(game.aiLevel),
     date -> (Date.formatter print game.createdAt),
     duration -> game.estimateTotalTime,
-    opening -> Json.toJson(OpeningExplorer openingOf pgn map (_.code.toLowerCase)),
+    opening -> Json.toJson(OpeningExplorer openingOf moves map (_.code.toLowerCase)),
     analysed -> anal
   )
 }

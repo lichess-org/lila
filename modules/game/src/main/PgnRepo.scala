@@ -1,38 +1,82 @@
 package lila.game
 
+import chess.format.pgn.Binary
 import play.api.libs.json._
+import play.modules.reactivemongo.json.ImplicitBSONHandlers._
+import reactivemongo.api.collections.default.BSONCollection
+import reactivemongo.bson.Subtype.GenericBinarySubtype
+import reactivemongo.bson.{ BSONHandler, BSONDocument, BSONBinary }
 
 import lila.common.PimpedJson._
 import lila.db.api._
 import lila.db.Implicits._
-import tube.pgnTube
 
-object PgnRepo {
+object PgnRepo extends PgnRepo {
+  def coll = tube.pgnColl
+}
+
+trait PgnRepo {
+
+  def coll: BSONCollection
 
   type ID = String
+  type Moves = List[String]
 
-  def get(id: ID): Fu[String] = getOption(id) map (~_)
+  def get(id: ID): Fu[Moves] = getOption(id) map (~_)
 
-  def getNonEmpty(id: ID): Fu[Option[String]] =
+  def getNonEmpty(id: ID): Fu[Option[Moves]] =
     getOption(id) map (_ filter (_.nonEmpty))
 
-  def getOption(id: ID): Fu[Option[String]] =
-    $find.one($select(id)) map { _ flatMap (_ str "p") }
+  def getOption(id: ID): Fu[Option[Moves]] =
+    coll.find(
+      $select(id), Json.obj("_id" -> false)
+    ).one[BSONDocument] map { _ flatMap docToMoves }
 
-  def associate(ids: Seq[ID]): Fu[Map[String, String]] =
-    $find($select byIds ids) map2 { (obj: JsObject) ⇒
-      obj str "p" flatMap { pgn ⇒
-        obj str "_id" map (_ -> pgn)
-      }
-    } map (_.flatten.toMap)
+  def associate(ids: Seq[ID]): Fu[Map[String, Moves]] =
+    coll.find($select byIds ids)
+      .cursor[BSONDocument]
+      .collect[List]() map2 { (obj: BSONDocument) ⇒
+        docToMoves(obj) flatMap { moves ⇒
+          obj.getAs[String]("_id") map (_ -> moves)
+        }
+      } map (_.flatten.toMap)
 
-  def getOneRandom(distrib: Int): Fu[Option[String]] =
-    $find($query.all skip scala.util.Random.nextInt(distrib), 1) map { 
-      _.headOption flatMap (_ str "p") 
+  def getOneRandom(distrib: Int): Fu[Moves] = {
+    coll.find($select.all) skip scala.util.Random.nextInt(distrib)
+  }.cursor[BSONDocument].collect[List](1) map {
+    _.headOption flatMap docToMoves
+  } map (~_)
+
+  def save(id: ID, moves: Moves): Funit = lila.db.api successful {
+    coll.update(
+      $select(id),
+      BSONDocument("$set" -> BSONDocument("p" -> BSONBinaryPgnHandler.write(moves))),
+      upsert = true
+    )
+  }
+
+  // used in migration for bulk inserting
+  def make(id: ID, moves: Moves) = {
+    val binary = BSONBinaryPgnHandler.write(moves)
+    // BSONBinaryPgnHandler.read(binary) 
+    BSONDocument("_id" -> id, "p" -> binary)
+  }
+
+  def removeIds(ids: List[ID]): Funit = lila.db.api successful {
+    coll.remove($select byIds ids)
+  }
+
+  private def docToMoves(doc: BSONDocument): Option[Moves] =
+    doc.getAs[BSONBinary]("p") map BSONBinaryPgnHandler.read
+
+  private object BSONBinaryPgnHandler extends BSONHandler[BSONBinary, Moves] {
+    def read(x: BSONBinary) = {
+      val remaining = x.value.readable
+      val bytes = x.value.slice(remaining).readArray(remaining)
+      (Binary readMoves bytes.toList).get
     }
-
-  def save(id: ID, pgn: String): Funit =
-    $update.field(id, "p", pgn, upsert = true)
-
-  def removeIds(ids: List[ID]): Funit = $remove($select byIds ids)
+    def write(x: List[String]) = BSONBinary(
+      (Binary writeMoves x).get.toArray,
+      GenericBinarySubtype)
+  }
 }

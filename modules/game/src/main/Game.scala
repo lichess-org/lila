@@ -112,7 +112,7 @@ case class Game(
   def update(
     game: ChessGame,
     move: Move,
-    blur: Boolean = false): (Progress, String) = {
+    blur: Boolean = false): (Progress, List[String]) = {
     val (history, situation) = (game.board.history, game.situation)
 
     val events = (players collect {

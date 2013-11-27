@@ -6,7 +6,7 @@ package object api extends api.$operator {
 
   type JSFunction = String
 
-  private[api] def successful(result: Fu[LastError]): Funit = 
+  def successful(result: Fu[LastError]): Funit = 
     result flatMap { lastErr ⇒
       lastErr.ok.fold(funit, fufail(lastErr.stringify))
     }

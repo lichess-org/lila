@@ -93,3 +93,4 @@ show latest chat when X reports Y for insult
 compress the freaking pgn collection (now uses 7.2GB)
 analysis fail http://en.lichess.org/analyse/kdnxg7dk/black
 wider time control ranges (tpsinnema on #chess)
+faster PGN parser - without combinators, see pgn binary writer
