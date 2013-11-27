@@ -34,13 +34,13 @@ object Analyse extends LilaController {
 
   def replay(id: String, color: String) = Open { implicit ctx ⇒
     OptionFuOk(GameRepo.pov(id, color)) { pov ⇒
-      PgnRepo get id flatMap { pgnString ⇒
+      PgnRepo get id flatMap { moves ⇒
         (WatcherRoomRepo room pov.gameId map { room ⇒
           html.round.watcherRoomInner(room.decodedMessages)
         }) zip
           Env.round.version(pov.gameId) zip
           (bookmarkApi userIdsByGame pov.game) zip
-          Env.game.pgnDump(pov.game, pgnString) zip
+          Env.game.pgnDump(pov.game, moves) zip
           (env.analyser get pov.game.id) zip
           (pov.game.tournamentId ?? TournamentRepo.byId) map {
             case (((((roomHtml, version), bookmarkers), pgn), analysis), tour) ⇒
@@ -49,9 +49,9 @@ object Analyse extends LilaController {
                 analysis.fold(pgn)(a ⇒ Env.analyse.annotator(pgn, a)).toString,
                 roomHtml,
                 bookmarkers,
-                chess.OpeningExplorer openingOf pgnString,
+                chess.OpeningExplorer openingOf moves,
                 analysis,
-                analysis filter (_.done) map { a ⇒ AdvantageChart(a.infoAdvices, pgnString) },
+                analysis filter (_.done) map { a ⇒ AdvantageChart(a.infoAdvices, moves) },
                 version,
                 tour)
           }
