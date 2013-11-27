@@ -57,9 +57,7 @@ private[ai] final class Queue(config: Config) extends Actor {
       lila.common.Future.lazyFold(futures)(Vector[Option[Evaluation]]())(_ :+ _) addFailureEffect {
         case e ⇒ mrSender ! Status.Failure(e)
       } foreach { results ⇒
-        mrSender ! {
-          results.toList.sequence map { Evaluation.toInfos(_, moves) }
-        }
+        mrSender ! Evaluation.toInfos(results.toList.map(_ | Evaluation.empty), moves)
       }
     }
   }

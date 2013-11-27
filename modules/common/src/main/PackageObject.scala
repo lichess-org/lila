@@ -147,8 +147,8 @@ trait WithPlay { self: PackageObject ⇒
 
     def thenPp: Fu[A] = fua ~ {
       _.effectFold(
-        e ⇒ logwarn("[failure] " + e),
-        a ⇒ loginfo("[success] " + a)
+        e ⇒ println("[failure] " + e),
+        a ⇒ println("[success] " + a)
       )
     }
   }
