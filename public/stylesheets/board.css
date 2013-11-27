@@ -324,8 +324,8 @@ div.clock_bottom {
 div.lichess_table_wrap a.moretime {
   opacity: 0.4;
   position: absolute;
-  left: 111px;
-  top: 6px;
+  left: 115px;
+  top: 4px;
   width: 32px;
   height: 32px;
   display: block;

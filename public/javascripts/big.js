@@ -1688,12 +1688,15 @@ var storage = {
     },
 
     _formatDate: function(date) {
-      minutes = this._prefixInteger(date.getUTCMinutes(), 2);
-      seconds = this._prefixInteger(date.getSeconds(), 2);
+      var minutes = this._prefixInteger(date.getUTCMinutes(), 2);
+      var seconds = this._prefixInteger(date.getSeconds(), 2);
       if (this.options.showTenths && this.options.time < 10000) {
         tenths = Math.floor(date.getMilliseconds() / 100);
         return minutes + ':' + seconds + '<span>.' + tenths + '</span>';
-      } else {
+      } else if (this.options.time >= 3600000) {
+				var hours = this._prefixInteger(date.getUTCHours(), 2);
+        return hours + ':' + minutes + ':' + seconds;
+			} else {
         return minutes + ':' + seconds;
       }
     },
@@ -1876,6 +1879,32 @@ var storage = {
       return;
     }
 
+    function sliderTime(v) {
+      if (v <= 20) return v;
+      switch (v) {
+        case 21:
+          return 25;
+        case 22:
+          return 30;
+        case 23:
+          return 35;
+        case 24:
+          return 40;
+        case 25:
+          return 45;
+        case 26:
+          return 60;
+        case 27:
+          return 90;
+        case 28:
+          return 120;
+        case 29:
+          return 150;
+        default:
+          return 180;
+      }
+    }
+
     function prepareForm() {
       var $form = $('div.lichess_overboard');
       var $modeChoices = $form.find('.mode_choice input');
@@ -1885,6 +1914,8 @@ var storage = {
       var $fenVariant = $variantChoices.eq(2);
       var $fenPosition = $form.find(".fen_position");
       var $clockCheckbox = $form.find('.clock_choice input');
+      var $timeInput = $form.find('.time_choice input');
+      var $incrementInput = $form.find('.increment_choice input');
       var isHook = $form.hasClass('game_config_hook');
       var myElo = parseInt($('#user_tag').data('elo'), 10);
       if (isHook) {
@@ -1908,20 +1939,20 @@ var storage = {
       }
       $form.find('div.buttons').buttonset().disableSelection();
       $form.find('button.submit').button().disableSelection();
-      $form.find('.time_choice input, .increment_choice input').each(function() {
+      $timeInput.add($incrementInput).each(function() {
         var $input = $(this),
-          $value = $input.siblings('span');
-        var $timeInput = $form.find('.time_choice input');
-        var $incrementInput = $form.find('.increment_choice input');
+          $value = $input.siblings('span'),
+          time;
         $input.hide().after($('<div>').slider({
           value: $input.val(),
-          min: $input.data('min'),
-          max: $input.data('max'),
+          min: 0,
+          max: 30,
           range: 'min',
           step: 1,
           slide: function(event, ui) {
-            $value.text(ui.value);
-            $input.attr('value', ui.value);
+            time = sliderTime(ui.value);
+            $value.text(time);
+            $input.attr('value', time);
             $form.find('.color_submits button').toggle(
               $timeInput.val() > 0 || $incrementInput.val() > 0);
           }
@@ -2205,12 +2236,12 @@ var storage = {
 
     function reloadForum() {
       setTimeout(function() {
-      $.ajax($newposts.data('url'), {
-        success: function(data) {
-          $newposts.find('ol').html(data).end().scrollTop(0);
-          $('body').trigger('lichess.content_loaded');
-        }
-      });
+        $.ajax($newposts.data('url'), {
+          success: function(data) {
+            $newposts.find('ol').html(data).end().scrollTop(0);
+            $('body').trigger('lichess.content_loaded');
+          }
+        });
       }, Math.round(Math.random() * 5000));
     }
 

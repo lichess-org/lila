@@ -10,15 +10,11 @@
   <div class="time_choice">
     @trans.minutesPerSide(): <span>@form("time").value</span>
     @setup.input(
-    form("time"),
-    Symbol("data-min") -> config.timeMin,
-    Symbol("data-max") -> config.timeMax)
+    form("time"))
   </div>
   <div class="increment_choice">
     @trans.incrementInSeconds(): <span>@form("increment").value</span>
     @setup.input(
-    form("increment"),
-    Symbol("data-min") -> config.incrementMin,
-    Symbol("data-max") -> config.incrementMax)
+    form("increment"))
   </div>
 </div>

@@ -86,11 +86,11 @@ trait BaseConfig {
 
   val speeds = Speed.all map (_.id)
 
-  val timeMin = 0
-  val timeMax = 30
-  val times = (timeMin to timeMax).toList
+  private val timeMin = 0
+  private val timeMax = 180
+  def validateTime(t: Int) = t >= timeMin && t <= timeMax
 
-  val incrementMin = 0
-  val incrementMax = 30
-  val increments = (incrementMin to incrementMax).toList
+  private val incrementMin = 0
+  private val incrementMax = 180
+  def validateIncrement(i: Int) = i >= incrementMin && i <= incrementMax
 }
