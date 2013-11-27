@@ -72,7 +72,7 @@ trait PgnRepo {
   private object BSONBinaryPgnHandler extends BSONHandler[BSONBinary, Moves] {
     def read(x: BSONBinary) = {
       val remaining = x.value.readable
-      val bytes = x.value.slice(remaining).readArray(remaining)
+      val bytes = x.value.readArray(remaining)
       (Binary readMoves bytes.toList).get
     }
     def write(x: List[String]) = BSONBinary(
