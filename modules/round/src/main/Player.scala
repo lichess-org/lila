@@ -21,12 +21,12 @@ private[round] final class Player(
   def human(play: HumanPlay)(pov: Pov): Fu[Events] = play match {
     case HumanPlay(playerId, ip, origS, destS, promS, blur, lag, onFailure) ⇒ pov match {
       case Pov(game, color) if (game playableBy color) ⇒
-        PgnRepo get game.id flatMap { pgnString ⇒
+        PgnRepo get game.id flatMap { moves ⇒
           (for {
             orig ← posAt(origS) toValid "Wrong orig " + origS
             dest ← posAt(destS) toValid "Wrong dest " + destS
             promotion = Role promotable promS
-            chessGame = game.toChess withPgnMoves pgnString
+            chessGame = game.toChess withPgnMoves moves
             newChessGameAndMove ← chessGame(orig, dest, promotion, lag)
             (newChessGame, move) = newChessGameAndMove
           } yield game.update(newChessGame, move, blur) -> move).prefixFailuresWith(s"$pov ").future flatMap {

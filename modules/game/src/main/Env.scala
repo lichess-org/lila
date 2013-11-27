@@ -89,7 +89,7 @@ final class Env(
     }
   }
 
-  def cli = new Cli(computeElos)
+  def cli = new Cli(computeElos, db, system)
 
   private lazy val computeElos = new ComputeElos(system)
 

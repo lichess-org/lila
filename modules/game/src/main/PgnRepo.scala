@@ -30,7 +30,7 @@ trait PgnRepo {
   def getOption(id: ID): Fu[Option[Moves]] =
     coll.find(
       $select(id), Json.obj("_id" -> false)
-    ).one[BSONDocument] map { _ flatMap docToMoves } 
+    ).one[BSONDocument] map { _ flatMap docToMoves }
 
   def associate(ids: Seq[ID]): Fu[Map[String, Moves]] =
     coll.find($select byIds ids)
@@ -55,11 +55,18 @@ trait PgnRepo {
     )
   }
 
+  // used in migration for bulk inserting
+  def make(id: ID, moves: Moves) = {
+    val binary = BSONBinaryPgnHandler.write(moves)
+    // BSONBinaryPgnHandler.read(binary) 
+    BSONDocument("_id" -> id, "p" -> binary)
+  }
+
   def removeIds(ids: List[ID]): Funit = lila.db.api successful {
     coll.remove($select byIds ids)
   }
 
-  private def docToMoves(doc: BSONDocument): Option[Moves] = 
+  private def docToMoves(doc: BSONDocument): Option[Moves] =
     doc.getAs[BSONBinary]("p") map BSONBinaryPgnHandler.read
 
   private object BSONBinaryPgnHandler extends BSONHandler[BSONBinary, Moves] {

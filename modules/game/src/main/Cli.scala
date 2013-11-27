@@ -6,7 +6,10 @@ import lila.db.api._
 import lila.user.UserRepo
 import tube.gameTube
 
-private[game] final class Cli(computeElos: ComputeElos) extends lila.common.Cli {
+private[game] final class Cli(
+  computeElos: ComputeElos,
+  db: lila.db.Env,
+  system: akka.actor.ActorSystem) extends lila.common.Cli {
 
   def process = {
 
@@ -33,6 +36,8 @@ private[game] final class Cli(computeElos: ComputeElos) extends lila.common.Cli 
 
     case "game" :: "compute" :: "elos" :: Nil ⇒
       computeElos.all inject "Done"
+
+    case "pgn" :: "migration" :: Nil => PgnBinaryMigration(db, system) inject "done"
   }
 
 }
