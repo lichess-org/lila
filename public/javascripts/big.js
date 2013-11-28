@@ -1164,7 +1164,10 @@ var storage = {
           return t.x == f.x || t.y == f.y;
         case 'king':
           return (Math.abs(t.x - f.x) <= 1 && Math.abs(t.y - f.y) <= 1) ||
-            (f.y == t.y && (f.y == (color == 'white' ? 1 : 8)) && $('#' + to + '>.rook.' + color).length == 1);
+            (f.y == t.y && (f.y == (color == 'white' ? 1 : 8)) && (
+              (f.x == 5 && (t.x == 2 || t.x == 7)) ||
+              $('#' + to + '>.rook.' + color).length == 1 
+            ));
         case 'queen':
           return Math.abs(t.x - f.x) == Math.abs(t.y - f.y) || t.x == f.x || t.y == f.y;
       }
