@@ -151,6 +151,13 @@ trait WithPlay { self: PackageObject ⇒
         a ⇒ println("[success] " + a)
       )
     }
+
+    def thenPp(msg: String): Fu[A] = fua ~ {
+      _.effectFold(
+        e ⇒ println(s"[$msg] [failure] $e"),
+        a ⇒ println(s"[$msg] [success] $a")
+      )
+    }
   }
 
   implicit final class LilaPimpedFutureZero[A: Zero](fua: Fu[A]) {
