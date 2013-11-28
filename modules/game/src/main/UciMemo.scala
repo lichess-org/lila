@@ -22,11 +22,11 @@ final class UciMemo(ttl: Duration) {
 
   def get(game: Game, pgnMoves: List[String]): Fu[Vector[String]] =
     Option(memo getIfPresent game.id) filter { moves ⇒
-      moves.size == moves.size
-    } match {
-      case Some(moves) ⇒ fuccess(moves)
-      case _           ⇒ compute(game, pgnMoves) addEffect { set(game, _) }
-    }
+        moves.size == pgnMoves.size
+      } match {
+        case Some(moves) ⇒ fuccess(moves)
+        case _           ⇒ compute(game, pgnMoves) addEffect { set(game, _) }
+      }
 
   def drop(game: Game, nb: Int) {
     val current = Option(memo getIfPresent game.id) | Vector.empty
