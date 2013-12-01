@@ -92,6 +92,7 @@ object LangList {
     "kv" -> "коми кыв",
     "kg" -> "KiKongo",
     "kj" -> "Kuanyam",
+    "ko" -> "한국어",
     "lb" -> "Lëtzebuergesch",
     "lg" -> "Luganda",
     "la" -> "lingua latīna",
