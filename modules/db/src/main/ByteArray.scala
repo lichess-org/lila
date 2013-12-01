@@ -13,7 +13,11 @@ case class ByteArray(value: Array[Byte]) {
 
   def toHexStr = Converters hex2Str value
 
-  override def toString = toHexStr
+  def showBytes: String = value map { b =>
+    "%08d" format { b & 0xff }.toBinaryString.toInt
+  } mkString ","
+
+  override def toString = showBytes
 }
 
 object ByteArray {
@@ -21,18 +25,36 @@ object ByteArray {
   def fromHexStr(hexStr: String): Try[ByteArray] =
     Try(ByteArray(Converters str2Hex hexStr))
 
-  implicit object JsByteArrayFormat extends Format[ByteArray] {
-
-    def reads(json: JsValue) = json match {
-      case JsObject(str) ⇒ fromHexStr(str) match {
-        case Success(ba) ⇒ JsSuccess(ba)
-        case Failure(e)  ⇒ JsError(s"error deserializing hex ${e.getMessage}")
+  def parseByte(s: String): Byte = {
+    var i = s.length - 1
+    var sum = 0
+    var mult = 1
+    while (i >= 0) {
+      s.charAt(i) match {
+        case '1' ⇒ sum += mult
+        case '0' ⇒
+        case x   ⇒ sys error s"invalid binary literal: $x in $s"
       }
-      case _ ⇒ JsError(Seq(JsPath() -> Seq(ValidationError("error.expected.jsstring"))))
+      mult *= 2
+      i -= 1
+    }
+    sum.toByte
+  }
+
+  implicit object JsByteArrayFormat extends OFormat[ByteArray] {
+
+    def reads(json: JsValue) = (for {
+      hexStr ← json str "$binary"
+      bytes ← fromHexStr(hexStr).toOption
+    } yield bytes) match {
+      case None     ⇒ JsError(s"error reading ByteArray from $json")
+      case Some(ba) ⇒ JsSuccess(ba)
     }
 
     def writes(byteArray: ByteArray) = Json.obj(
-      "$binary" -> Converters.hex2Str(binary.value.slice(remaining).readArray(remaining)),
-      "$type" -> Converters.hex2Str(Array(binary.subtype.value.toByte)))
+      "$binary" -> byteArray.toHexStr,
+      "$type" -> binarySubType)
   }
+
+  private val binarySubType = Converters hex2Str Array(Subtype.UserDefinedSubtype.value)
 }

@@ -6,6 +6,7 @@ import chess.{ History ⇒ ChessHistory, Role, Board, Move, Pos, Game ⇒ ChessG
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 
+import lila.db.ByteArray
 import lila.user.User
 
 case class Game(
@@ -13,7 +14,7 @@ case class Game(
     token: String,
     whitePlayer: Player,
     blackPlayer: Player,
-    binaryPieces: Array[Byte],
+    binaryPieces: ByteArray,
     status: Status,
     turns: Int,
     clock: Option[Clock],
@@ -78,11 +79,6 @@ case class Game(
   def hasChat = nonTournament && nonAi
 
   lazy val toChess: ChessGame = {
-
-    def posPiece(posCode: Char, roleCode: Char, color: Color): Option[(Pos, Piece)] = for {
-      pos ← piotr(posCode)
-      role ← forsyth(roleCode)
-    } yield (pos, Piece(color, role))
 
     val (pieces, deads) = BinaryFormat.piece decode binaryPieces
 
@@ -296,7 +292,7 @@ case class Game(
     case piece if piece is color ⇒ piece.role
   }
 
-  def isBeingPlayed = !finishedOrAborted && !olderThan(60) 
+  def isBeingPlayed = !finishedOrAborted && !olderThan(60)
 
   def olderThan(seconds: Int) = updatedAt.??(_ < DateTime.now - seconds.seconds)
 
@@ -385,7 +381,7 @@ object Game {
     token = IdGenerator.token,
     whitePlayer = whitePlayer,
     blackPlayer = blackPlayer,
-    binaryPieces = BinaryFormat.piece encode (game.board.pieces, game.deads)
+    binaryPieces = BinaryFormat.piece encode game.allPieces,
     status = Status.Created,
     turns = game.turns,
     clock = game.clock,
@@ -425,7 +421,7 @@ private[game] case class RawGame(
     id: String,
     tk: Option[String] = None,
     p: List[RawPlayer],
-    ps: Array[Byte],
+    ps: ByteArray,
     s: Int,
     t: Int,
     c: Option[RawClock],
@@ -453,7 +449,7 @@ private[game] case class RawGame(
     token = tk | Game.defaultToken,
     whitePlayer = whitePlayer,
     blackPlayer = blackPlayer,
-    ps = ps,
+    binaryPieces = ps,
     status = trueStatus,
     turns = t,
     clock = c map (_.decode),
