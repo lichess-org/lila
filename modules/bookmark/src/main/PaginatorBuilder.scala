@@ -1,6 +1,5 @@
 package lila.bookmark
 
-import org.joda.time.DateTime
 import play.api.libs.json._
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 

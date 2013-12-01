@@ -1,6 +1,5 @@
 package lila.i18n
 
-import org.joda.time.DateTime
 import play.api.libs.json._
 
 import lila.common.PimpedJson._

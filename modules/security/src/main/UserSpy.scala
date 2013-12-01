@@ -2,7 +2,6 @@ package lila.security
 
 import scala.concurrent.Future
 
-import org.joda.time.DateTime
 import play.api.libs.json._
 import play.api.mvc.RequestHeader
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._

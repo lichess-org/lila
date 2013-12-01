@@ -1,13 +1,7 @@
 package lila.db
 package api
 
-import Implicits._
-import org.joda.time.DateTime
 import play.api.libs.json._
-import play.modules.reactivemongo.json.ImplicitBSONHandlers._
-import reactivemongo.api._
-import reactivemongo.bson._
-import reactivemongo.core.commands._
 
 object $select { 
 

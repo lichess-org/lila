@@ -1,7 +1,6 @@
 package lila.search
 
 import org.elasticsearch.index.query._, FilterBuilders._
-import org.joda.time.DateTime
 
 final class Range[A] private (val a: Option[A], val b: Option[A]) {
 

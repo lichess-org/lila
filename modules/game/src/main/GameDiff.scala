@@ -24,6 +24,7 @@ private[game] object GameDiff {
       }
     }
 
+    d("ps", _.ps)
     d("s", _.s)
     d("t", _.t)
     d("lm", _.lm) // lastMove
@@ -33,7 +34,6 @@ private[game] object GameDiff {
     d("lmt", _.lmt)
     for (i ← 0 to 1) {
       val name = "p." + i + "."
-      d(name + "ps", _.p(i).ps) // pieces
       d(name + "w", _.p(i).w) // winner
       d(name + "lastDrawOffer", _.p(i).lastDrawOffer)
       d(name + "isOfferingDraw", _.p(i).isOfferingDraw)

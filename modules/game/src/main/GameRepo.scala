@@ -222,8 +222,7 @@ object GameRepo {
     Query.users(game.userIds) ++ Query.status(Status.Started) ++ Json.obj(
       "t" -> game.turns,
       "_id" -> $ne(game.id),
-      "p.0.ps" -> game.player(Color.White).ps,
-      "p.1.ps" -> game.player(Color.Black).ps,
+      "ps" -> game.ps,
       createdAt -> $gt($date(DateTime.now - 1.hour)),
       updatedAt -> $gt($date(DateTime.now - 5.minutes))
     ))
