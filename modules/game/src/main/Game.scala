@@ -13,6 +13,7 @@ case class Game(
     token: String,
     whitePlayer: Player,
     blackPlayer: Player,
+    binaryPieces: Array[Byte],
     status: Status,
     turns: Int,
     clock: Option[Clock],
@@ -83,18 +84,7 @@ case class Game(
       role ← forsyth(roleCode)
     } yield (pos, Piece(color, role))
 
-    val (pieces, deads) = {
-      for {
-        player ← players
-        color = player.color
-        piece ← player.ps grouped 2
-      } yield (color, piece(0), piece(1))
-    }.foldLeft((Map[Pos, Piece](), List[(Pos, Piece)]())) {
-      case ((ps, ds), (color, pos, role)) ⇒ {
-        if (role.isUpper) posPiece(pos, role.toLower, color) map { p ⇒ (ps, p :: ds) }
-        else posPiece(pos, role, color) map { p ⇒ (ps + p, ds) }
-      } | (ps, ds)
-    }
+    val (pieces, deads) = BinaryFormat.piece decode binaryPieces
 
     ChessGame(
       board = Board(pieces, toChessHistory, variant),
@@ -123,7 +113,6 @@ case class Game(
       (Event fromSituation situation)
 
     def copyPlayer(player: Player) = player.copy(
-      ps = player encodePieces game.allPieces,
       blurs = player.blurs + (blur && move.color == player.color).fold(1, 0),
       moveTimes = ((!isPgnImport) && (move.color == player.color)).fold(
         lastMoveTime ?? { lmt ⇒
@@ -304,7 +293,7 @@ case class Game(
   )
 
   def deadPiecesOf(color: Color): List[Role] = toChess.deads collect {
-    case (_, piece) if piece is color ⇒ piece.role
+    case piece if piece is color ⇒ piece.role
   }
 
   def isBeingPlayed = !finishedOrAborted && !olderThan(60) 
@@ -321,6 +310,7 @@ case class Game(
     id = id,
     tk = token.some filter (Game.defaultToken !=),
     p = players map (_.encode),
+    ps = binaryPieces,
     s = status.id,
     t = turns,
     c = clock map RawClock.encode,
@@ -393,8 +383,9 @@ object Game {
     pgnImport: Option[PgnImport]): Game = Game(
     id = IdGenerator.game,
     token = IdGenerator.token,
-    whitePlayer = whitePlayer withEncodedPieces game.allPieces,
-    blackPlayer = blackPlayer withEncodedPieces game.allPieces,
+    whitePlayer = whitePlayer,
+    blackPlayer = blackPlayer,
+    binaryPieces = BinaryFormat.piece encode (game.board.pieces, game.deads)
     status = Status.Created,
     turns = game.turns,
     clock = game.clock,
@@ -434,6 +425,7 @@ private[game] case class RawGame(
     id: String,
     tk: Option[String] = None,
     p: List[RawPlayer],
+    ps: Array[Byte],
     s: Int,
     t: Int,
     c: Option[RawClock],
@@ -461,6 +453,7 @@ private[game] case class RawGame(
     token = tk | Game.defaultToken,
     whitePlayer = whitePlayer,
     blackPlayer = blackPlayer,
+    ps = ps,
     status = trueStatus,
     turns = t,
     clock = c map (_.decode),

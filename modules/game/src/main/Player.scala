@@ -8,7 +8,6 @@ case class Player(
     id: String,
     color: Color,
     aiLevel: Option[Int],
-    ps: String = "",
     isWinner: Option[Boolean] = None,
     isOfferingDraw: Boolean = false,
     isOfferingRematch: Boolean = false,
@@ -28,10 +27,6 @@ case class Player(
         else piece.role.forsyth
       }
     } mkString ""
-
-  def withEncodedPieces(allPieces: Iterable[(Pos, Piece, Boolean)]) = copy(
-    ps = encodePieces(allPieces)
-  )
 
   def withUser(user: User): Player = copy(
     userId = user.id.some,
@@ -74,7 +69,6 @@ case class Player(
 
   def encode: RawPlayer = RawPlayer(
     id = id,
-    ps = ps,
     ai = aiLevel,
     w = isWinner,
     elo = elo,
@@ -106,7 +100,6 @@ object Player {
 
 private[game] case class RawPlayer(
     id: String,
-    ps: String,
     ai: Option[Int],
     w: Option[Boolean],
     elo: Option[Int],
@@ -123,7 +116,6 @@ private[game] case class RawPlayer(
   def decode(color: Color): Player = Player(
     id = id,
     color = color,
-    ps = ps,
     aiLevel = ai,
     isWinner = w,
     elo = elo,
@@ -145,7 +137,6 @@ private[game] object RawPlayer {
   import play.api.libs.json._
 
   private def defaults = Json.obj(
-    "ps" -> "",
     "w" -> none[Boolean],
     "isOfferingDraw" -> false,
     "isOfferingRematch" -> false,

@@ -1,7 +1,6 @@
 package lila.db
 package api
 
-import org.joda.time.DateTime
 import play.api.libs.json._
 import play.modules.reactivemongo.json.BSONFormats
 import reactivemongo.bson._
@@ -38,7 +37,11 @@ trait $operator {
 
   def $regex(value: String, flags: String = "") = BSONFormats toJSON BSONRegex(value, flags)
 
+  import org.joda.time.DateTime
   def $date(value: DateTime) = BSONFormats toJSON BSONDateTime(value.getMillis)
+
+  import reactivemongo.bson.Subtype.GenericBinarySubtype
+  def $bin(value: Array[Byte]) = BSONFormats toJSON BSONBinary(value, GenericBinarySubtype)
 
   private def wrap[K, V: Writes](pairs: Seq[(K, V)]): Seq[(K, Json.JsValueWrapper)] = pairs map {
     case (k, v) ⇒ k -> Json.toJsFieldJsValueWrapper(v)

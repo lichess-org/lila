@@ -1,7 +1,6 @@
 package lila.db
 package api
 
-import org.joda.time.DateTime
 import play.api.libs.json._
 import reactivemongo.api.SortOrder
 import reactivemongo.bson._
