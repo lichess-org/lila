@@ -80,7 +80,7 @@ case class Game(
 
   lazy val toChess: ChessGame = {
 
-    val (pieces, deads) = BinaryFormat.piece decode binaryPieces
+    val (pieces, deads) = BinaryFormat.piece read binaryPieces
 
     ChessGame(
       board = Board(pieces, toChessHistory, variant),
@@ -122,6 +122,7 @@ case class Game(
     val updated = copy(
       whitePlayer = copyPlayer(whitePlayer),
       blackPlayer = copyPlayer(blackPlayer),
+      binaryPieces = BinaryFormat.piece write game.allPieces,
       turns = game.turns,
       positionHashes = history.positionHashes.mkString,
       castles = history.castleNotation,
@@ -381,7 +382,8 @@ object Game {
     token = IdGenerator.token,
     whitePlayer = whitePlayer,
     blackPlayer = blackPlayer,
-    binaryPieces = BinaryFormat.piece encode game.allPieces,
+    binaryPieces = if (game.isStandardInit) BinaryFormat.piece.standard
+    else BinaryFormat.piece write game.allPieces,
     status = Status.Created,
     turns = game.turns,
     clock = game.clock,

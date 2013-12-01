@@ -14,9 +14,14 @@ import lila.common.PimpedJson._
 import lila.db.api._
 import lila.db.Implicits._
 import lila.user.{ User, Confrontation }
-import tube.gameTube
 
-object GameRepo {
+object GameRepo extends GameRepo {
+  protected def gameTube = tube.gameTube
+}
+
+trait GameRepo {
+
+  protected implicit def gameTube: lila.db.TubeInColl[Game]
 
   type ID = String
 

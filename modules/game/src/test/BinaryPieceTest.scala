@@ -7,14 +7,18 @@ import chess.Pos._
 import org.specs2.mutable._
 import org.specs2.specification._
 
+import lila.db.ByteArray
+
 class BinaryPieceTest extends Specification {
 
   val noop = "00000000"
   def write(all: AllPieces): List[String] =
-    (BinaryFormat.piece encode all).toString.split(',').toList
+    (BinaryFormat.piece write all).toString.split(',').toList
+  def read(bytes: List[String]): AllPieces =
+    BinaryFormat.piece read ByteArray.parseBytes(bytes)
 
   "binary pieces" should {
-    "write" in {
+    "write" should {
       "empty board" in {
         write(Map.empty -> Nil) must_== List.fill(32)(noop)
       }
@@ -61,6 +65,33 @@ class BinaryPieceTest extends Specification {
       "B1 black pawn, dead black knight, dead white queen, dead black pawn" in {
         write(Map(B1 -> Black.pawn) -> List(Black.knight, White.queen, Black.pawn)) must_== {
           ("00001110" :: List.fill(31)(noop)) :+ "11000010" :+ "11100000"
+        }
+      }
+    }
+    "read" should {
+      "empty board" in {
+        read(List.fill(32)(noop)) must_== {
+          Map.empty -> Nil
+        }
+        "A1 white king" in {
+          read("00010000" :: List.fill(31)(noop)) must_== {
+            Map(A1 -> White.king) -> Nil
+          }
+        }
+        "B1 black pawn" in {
+          read("00001110" :: List.fill(31)(noop)) must_== {
+            Map(B1 -> Black.pawn) -> Nil
+          }
+        }
+        "dead black knight" in {
+          read(List.fill(32)(noop) :+ "11000000") must_== {
+            Map.empty -> List(Black.knight)
+          }
+        }
+        "B1 black pawn, dead black knight, dead white queen, dead black pawn" in {
+          read(("00001110" :: List.fill(31)(noop)) :+ "11000010" :+ "11100000") must_== {
+            Map(B1 -> Black.pawn) -> List(Black.knight, White.queen, Black.pawn)
+          }
         }
       }
     }
