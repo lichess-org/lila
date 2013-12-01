@@ -25,6 +25,21 @@ object ByteArray {
   def fromHexStr(hexStr: String): Try[ByteArray] =
     Try(ByteArray(Converters str2Hex hexStr))
 
+  implicit object JsByteArrayFormat extends OFormat[ByteArray] {
+
+    def reads(json: JsValue) = (for {
+      hexStr ← json str "$binary"
+      bytes ← fromHexStr(hexStr).toOption
+    } yield bytes) match {
+      case None     ⇒ JsError(s"error reading ByteArray from $json")
+      case Some(ba) ⇒ JsSuccess(ba)
+    }
+
+    def writes(byteArray: ByteArray) = Json.obj(
+      "$binary" -> byteArray.toHexStr,
+      "$type" -> binarySubType)
+  }
+
   def parseByte(s: String): Byte = {
     var i = s.length - 1
     var sum = 0
@@ -41,20 +56,7 @@ object ByteArray {
     sum.toByte
   }
 
-  implicit object JsByteArrayFormat extends OFormat[ByteArray] {
-
-    def reads(json: JsValue) = (for {
-      hexStr ← json str "$binary"
-      bytes ← fromHexStr(hexStr).toOption
-    } yield bytes) match {
-      case None     ⇒ JsError(s"error reading ByteArray from $json")
-      case Some(ba) ⇒ JsSuccess(ba)
-    }
-
-    def writes(byteArray: ByteArray) = Json.obj(
-      "$binary" -> byteArray.toHexStr,
-      "$type" -> binarySubType)
-  }
+  def parseBytes(s: List[String]) = ByteArray(s map parseByte toArray)
 
   private val binarySubType = Converters hex2Str Array(Subtype.UserDefinedSubtype.value)
 }

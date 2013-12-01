@@ -1,5 +1,7 @@
 package lila.game
 
+import scala.util.{ Try, Success, Failure }
+
 import chess._
 
 import lila.db.ByteArray
@@ -8,7 +10,7 @@ object BinaryFormat {
 
   object piece {
 
-    def encode(all: AllPieces): ByteArray = {
+    def write(all: AllPieces): ByteArray = {
       val (alives, deads) = all
       def posInt(pos: Pos): Int = (alives get pos).fold(0)(pieceInt)
       def pieceInt(piece: Piece): Int =
@@ -24,19 +26,30 @@ object BinaryFormat {
       ByteArray(bytes.map(_.toByte))
     }
 
-    def decode(str: ByteArray): AllPieces =
-      ???
-
-    def intToRole(int: Int) = int match {
-      case 6 ⇒ Pawn
-      case 1 ⇒ King
-      case 2 ⇒ Queen
-      case 3 ⇒ Rook
-      case 4 ⇒ Knight
-      case 5 ⇒ Bishop
-      case x ⇒ sys error s"Invalid role int $x"
+    def read(ba: ByteArray): AllPieces = {
+      def splitInts(int: Int) = Array(int >> 4, int & 0x0F) 
+      def intPiece(int: Int): Option[Piece] = 
+        intToRole(int & 7) map { role => Piece(Color((int & 8) == 0), role) }
+      val (aliveInts, deadInts) = ba.value map (_.toInt) flatMap splitInts splitAt 64
+      val alivePieces = (Pos.all zip aliveInts map {
+        case (pos, int) => intPiece(int) map (pos -> _)
+      }).flatten.toMap
+      alivePieces -> (deadInts map intPiece).toList.flatten
     }
-    def roleToInt(role: Role) = role match {
+
+    // cache standard start position
+    val standard = write(Board.init(Variant.Standard).pieces -> Nil)
+
+    private def intToRole(int: Int): Option[Role] = int match {
+      case 6 ⇒ Some(Pawn)
+      case 1 ⇒ Some(King)
+      case 2 ⇒ Some(Queen)
+      case 3 ⇒ Some(Rook)
+      case 4 ⇒ Some(Knight)
+      case 5 ⇒ Some(Bishop)
+      case _ ⇒ None
+    }
+    private def roleToInt(role: Role): Int = role match {
       case Pawn   ⇒ 6
       case King   ⇒ 1
       case Queen  ⇒ 2
