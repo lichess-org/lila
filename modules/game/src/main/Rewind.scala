@@ -19,12 +19,11 @@ object Rewind {
       val rewindedGame = replay.state
       val rewindedHistory = rewindedGame.board.history
       val rewindedSituation = rewindedGame.situation
-      def rewindPlayer(player: Player) = player.copy(
-        ps = player encodePieces rewindedGame.allPieces,
-        isProposingTakeback = false)
+      def rewindPlayer(player: Player) = player.copy(isProposingTakeback = false)
       Progress(game, game.copy(
         whitePlayer = rewindPlayer(game.whitePlayer),
         blackPlayer = rewindPlayer(game.blackPlayer),
+        binaryPieces = BinaryFormat.piece encode rewindedGame.allPieces,
         turns = rewindedGame.turns,
         positionHashes = rewindedHistory.positionHashes mkString,
         castles = rewindedHistory.castleNotation,
