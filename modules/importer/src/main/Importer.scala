@@ -21,9 +21,7 @@ private[importer] final class Importer(
   def apply(data: ImportData, user: Option[String], ip: String): Fu[Game] = {
 
     def gameExists(processing: ⇒ Fu[Game]): Fu[Game] =
-      $find.one(lila.game.Query pgnImport data.pgn) flatMap {
-        _.fold(processing)(game ⇒ fuccess(game))
-      }
+      $find.one(lila.game.Query pgnImport data.pgn) flatMap { _.fold(processing)(fuccess) }
 
     def applyResult(game: Game, result: Result) {
       result match {
@@ -50,7 +48,7 @@ private[importer] final class Importer(
         ip = ip,
         orig = move.orig.toString,
         dest = move.dest.toString,
-        prom = move.promotion map (_.forsyth.toString),
+        prom = move.promotion map (_.name),
         blur = false,
         lag = 0.millis,
         onFailure = _ ⇒ ()
