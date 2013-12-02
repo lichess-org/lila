@@ -302,26 +302,6 @@ case class Game(
 
   def showBookmarks = hasBookmarks ?? bookmarks
 
-  def encode = RawGame(
-    id = id,
-    tk = token.some filter (Game.defaultToken !=),
-    p = players map (_.encode),
-    ps = binaryPieces,
-    cl = BinaryFormat.castleLastMoveTime write castleLastMoveTime,
-    s = status.id,
-    t = turns,
-    c = clock map RawClock.encode,
-    ck = check map (_.key),
-    cc = creatorColor.white.fold(None, Some(false)),
-    ph = positionHashes.some filter (_.nonEmpty),
-    ra = mode.rated option true,
-    v = variant.exotic option variant.id,
-    next = next,
-    bm = bookmarks.some filter (0 <),
-    ca = createdAt,
-    ua = updatedAt,
-    me = metadata map (_.encode))
-
   def userIds = playerMaps(_.userId)
 
   def userElos = playerMaps(_.elo)
@@ -412,6 +392,80 @@ object Game {
       RawGame.tube.write(game.encode) getOrElse JsUndefined("[db] Can't write game " + game.id)
     )
   )
+
+  import reactivemongo.bson._
+  import lila.db.BSON
+  import Player.playerBSONHandler
+  import Metadata.metadataBSONHandler
+  import CastleLastMoveTime.castleLastMoveTimeBSONHandler
+
+  implicit val gameBSONHandler = new BSON[Game] {
+
+    val id = "_id"
+    val token = "tk"
+    val players = "p"
+    val binaryPieces = "ps"
+    val status = "s"
+    val turns = "t"
+    val clock = "c"
+    val check = "ck"
+    val creatorColor = "cc"
+    val positionHashes = "ph"
+    val castleLastMoveTime = "cl"
+    val rated = "ra"
+    val variant = "v"
+    val next = "next"
+    val bookmarks = "bm"
+    val createdAt = "ca"
+    val updatedAt = "ua"
+    val metadata = "me"
+
+    def reads(r: BSON.Reader): Game = {
+      val players = r.get[BSONArray]("p")
+      Game(
+        id = r str "_id",
+        token = r str "tk",
+        whitePlayer = players.getAs[Color ⇒ Player](0).get(White),
+        blackPlayer = players.getAs[Color ⇒ Player](1).get(Black),
+        binaryPieces = r bytes binaryPieces,
+        status = Status(r int status) err "Invalid status",
+        turns = r int turns,
+        clock = ???,
+        check = r strO check flatMap Pos.posAt,
+        creatorColor = Color(r boolD creatorColor),
+        positionHashes = r strD positionHashes,
+        castleLastMoveTime = r.get[CastleLastMoveTime](castleLastMoveTime)(castleLastMoveTimeBSONHandler),
+        mode = Mode(r boolD rated),
+        variant = Variant(r intD variant) err "Invalid variant",
+        next = r strO next,
+        bookmarks = r intD bookmarks,
+        createdAt = r date createdAt,
+        updatedAt = r dateO updatedAt,
+        metadata = r.getO[Metadata](metadata))
+    }
+
+    def writes(w: BSON.Writer, o: Game) = BSONDocument(
+      id -> o.id,
+      token -> o.token,
+      players -> List(
+        (_: Color) => o.whitePlayer, 
+        (_: Color) => o.blackPlayer),
+      binaryPieces -> o.binaryPieces,
+      status -> o.status.id,
+      turns -> o.turns,
+      clock -> ???,
+      check -> o.check.map(_.toString),
+      creatorColor -> w.boolO(o.creatorColor.white),
+      positionHashes -> w.strO(o.positionHashes),
+      castleLastMoveTime -> castleLastMoveTimeBSONHandler.write(o.castleLastMoveTime),
+      rated -> w.boolO(o.mode.rated),
+      variant -> w.intO(o.variant.id),
+      next -> o.next,
+      bookmarks -> w.intO(o.bookmarks),
+      createdAt -> w.date(o.createdAt),
+      updatedAt -> o.updatedAt.map(w.date),
+      metadata -> o.metadata.map(metadataBSONHandler.write))
+  }
 }
 
 case class CastleLastMoveTime(
@@ -425,85 +479,16 @@ case class CastleLastMoveTime(
 object CastleLastMoveTime {
 
   def init = CastleLastMoveTime(Castles.all, None, None)
-}
 
-private[game] case class RawGame(
-    id: String,
-    tk: Option[String] = None,
-    p: List[RawPlayer],
-    ps: ByteArray,
-    cl: ByteArray,
-    s: Int,
-    t: Int,
-    c: Option[RawClock],
-    ck: Option[String],
-    cc: Option[Boolean] = None,
-    ph: Option[String] = None,
-    ra: Option[Boolean] = None,
-    v: Option[Int] = None,
-    next: Option[String] = None,
-    bm: Option[Int] = None,
-    ca: DateTime,
-    ua: Option[DateTime],
-    me: Option[RawMetadata]) {
+  import reactivemongo.bson._
+  import lila.db.ByteArray.ByteArrayBSONHandler
 
-  def decode: Option[Game] = for {
-    whitePlayer ← p.headOption map (_ decode Color.White)
-    blackPlayer ← p lift 1 map (_ decode Color.Black)
-    trueStatus ← Status(s)
-    metadata = me map (_.decode)
-  } yield Game(
-    id = id,
-    token = tk | Game.defaultToken,
-    whitePlayer = whitePlayer,
-    blackPlayer = blackPlayer,
-    binaryPieces = ps,
-    castleLastMoveTime = BinaryFormat.castleLastMoveTime read cl,
-    status = trueStatus,
-    turns = t,
-    clock = c map (_.decode),
-    check = ck flatMap Pos.posAt,
-    creatorColor = cc.fold(Color.white)(Color.apply),
-    positionHashes = ~ph,
-    mode = (ra map Mode.apply) | Mode.Casual,
-    variant = (v flatMap Variant.apply) | Variant.Standard,
-    next = next,
-    bookmarks = ~bm,
-    createdAt = ca,
-    updatedAt = ua,
-    metadata = me map (_.decode)
-  )
-}
-
-private[game] object RawGame {
-
-  import lila.db.Tube
-  import Tube.Helpers._
-  import play.api.libs.json._
-
-  private implicit def playerTube = RawPlayer.tube
-  private implicit def clockTube = RawClock.tube
-  private implicit def metadataTube = RawMetadata.tube
-
-  private def defaults = Json.obj(
-    "tk" -> none[String],
-    "c" -> none[RawClock],
-    "ck" -> none[String],
-    "cc" -> none[Boolean],
-    "ph" -> none[String],
-    "ra" -> none[Boolean],
-    "v" -> none[Int],
-    "next" -> none[String],
-    "bm" -> none[Int],
-    "me" -> none[RawMetadata],
-    "ua" -> none[DateTime])
-
-  private[game] lazy val tube = Tube(
-    (__.json update (
-      merge(defaults) andThen readDate('ca) andThen readDateOpt('ua)
-    )) andThen Json.reads[RawGame],
-    Json.writes[RawGame] andThen (__.json update (
-      writeDate('ca) andThen writeDateOpt('ua)
-    ))
-  )
+  implicit val castleLastMoveTimeBSONHandler = new BSONHandler[BSONBinary, CastleLastMoveTime] {
+    def read(bin: BSONBinary) = BinaryFormat.castleLastMoveTime read {
+      ByteArrayBSONHandler read bin
+    }
+    def write(clmt: CastleLastMoveTime) = ByteArrayBSONHandler write {
+      BinaryFormat.castleLastMoveTime write clmt
+    }
+  }
 }
