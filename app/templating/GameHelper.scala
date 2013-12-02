@@ -97,7 +97,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       live ?? game.id,
       color.name,
       Forsyth exportBoard game.toChess.board,
-      ~game.lastMove)
+      ~game.castleLastMoveTime.lastMoveString)
   }
 
   def gameFenNoCtx(game: Game, color: Color, tv: Boolean = false) = Html {
@@ -108,6 +108,6 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       live ?? game.id,
       color.name,
       Forsyth exportBoard game.toChess.board,
-      ~game.lastMove)
+      ~game.castleLastMoveTime.lastMoveString)
   }
 }

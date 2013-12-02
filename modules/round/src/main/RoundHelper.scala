@@ -27,7 +27,7 @@ trait RoundHelper { self: PrefHelper ⇒
         "clockRunning" -> game.isClockRunning,
         "player" -> game.turnColor.name,
         "turns" -> game.turns,
-        "lastMove" -> game.lastMove),
+        "lastMove" -> game.castleLastMoveTime.lastMoveString),
       "player" -> Json.obj(
         "id" -> player.id,
         "color" -> player.color.name,
@@ -59,17 +59,14 @@ trait RoundHelper { self: PrefHelper ⇒
         "clockRunning" -> game.isClockRunning,
         "player" -> game.turnColor.name,
         "turns" -> game.turns,
-        "lastMove" -> game.lastMove
-      ),
+        "lastMove" -> game.castleLastMoveTime.lastMoveString),
       "player" -> Json.obj(
         "color" -> player.color.name,
         "version" -> version,
-        "spectator" -> true
-      ),
+        "spectator" -> true),
       "opponent" -> Json.obj(
         "color" -> opponent.color.name,
-        "ai" -> opponent.isAi
-      ),
+        "ai" -> opponent.isAi),
       "possible_moves" -> possibleMoves(pov),
       "animation_delay" -> animationDelay(pov),
       "clockTenths" -> pref.clockTenths,

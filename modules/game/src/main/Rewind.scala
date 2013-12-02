@@ -26,16 +26,17 @@ object Rewind {
         binaryPieces = BinaryFormat.piece write rewindedGame.allPieces,
         turns = rewindedGame.turns,
         positionHashes = rewindedHistory.positionHashes mkString,
-        castles = rewindedHistory.castleNotation,
-        lastMove = rewindedHistory.lastMove map { case (a, b) ⇒ a.toString + b.toString },
+        castleLastMoveTime = CastleLastMoveTime(
+          castles = rewindedHistory.castles,
+          lastMove = rewindedHistory.lastMove,
+          lastMoveTime = nowSeconds.some),
         status =
           if (rewindedSituation.checkMate) Status.Mate
           else if (rewindedSituation.staleMate) Status.Stalemate
           else if (rewindedSituation.autoDraw) Status.Draw
           else game.status,
         clock = game.clock map (_.switch),
-        check = if (rewindedSituation.check) rewindedSituation.kingPos else None,
-        lastMoveTime = nowSeconds.some
+        check = if (rewindedSituation.check) rewindedSituation.kingPos else None
       )) -> rewindedGame.pgnMoves
     }
 }
