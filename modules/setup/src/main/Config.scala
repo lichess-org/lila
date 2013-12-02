@@ -69,7 +69,9 @@ trait Positional { self: Config ⇒
     state.fold(game) {
       case sit @ SituationPlus(Situation(board, _), _) ⇒ game.copy(
         variant = Variant.FromPosition,
-        castles = board.history.castleNotation,
+        castleLastMoveTime = game.castleLastMoveTime.copy(
+          castles = board.history.castles
+        ),
         turns = sit.turns)
     }
   }

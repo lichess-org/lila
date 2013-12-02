@@ -27,11 +27,9 @@ private[game] object GameDiff {
     d("ps", _.ps)
     d("s", _.s)
     d("t", _.t)
-    d("lm", _.lm) // lastMove
+    d("cl", _.cl) // castleLastMoveTime
     d("ck", _.ck) // check
     d("ph", _.ph) // positionHashes
-    d("cs", _.cs) // castles
-    d("lmt", _.lmt)
     for (i ← 0 to 1) {
       val name = "p." + i + "."
       d(name + "w", _.p(i).w) // winner

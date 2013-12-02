@@ -8,6 +8,47 @@ import lila.db.ByteArray
 
 object BinaryFormat {
 
+  object castleLastMoveTime {
+
+    def write(clmt: CastleLastMoveTime): ByteArray = {
+
+      val castleInt = clmt.castles.toList.zipWithIndex.foldLeft(0) {
+        case (acc, (false, _)) ⇒ acc
+        case (acc, (true, p))  ⇒ acc + (1 << (3 - p))
+      }
+
+      def posInt(pos: Pos): Int = ((pos.x - 1) << 3) + pos.y - 1
+      val lastMoveInt = clmt.lastMove.fold(0) {
+        case (f, t) ⇒ (posInt(f) << 6) + posInt(t)
+      }
+      val time = clmt.lastMoveTime getOrElse 0
+
+      val bytes = ((castleInt << 4) + (lastMoveInt >> 8)) ::
+        (lastMoveInt & 255) ::
+        (time >> 16) ::
+        ((time >> 8) & 255) ::
+        (time & 255) ::
+        Nil
+
+      ByteArray(bytes.map(_.toByte).toArray)
+    }
+
+    def read(ba: ByteArray): CastleLastMoveTime = {
+      def posAt(x: Int, y: Int) = Pos.posAt(x + 1, y + 1)
+      ba.value map toInt match {
+        case Array(b1, b2, b3, b4, b5) ⇒ CastleLastMoveTime(
+          castles = Castles(b1 > 127, (b1 & 64) != 0, (b1 & 32) != 0, (b1 & 16) != 0),
+          lastMove = for {
+            from ← posAt((b1 & 15) >> 1, ((b1 & 1) << 2) + (b2 >> 6))
+            to ← posAt((b2 & 63) >> 3, b2 & 7)
+            if from != to
+          } yield from -> to,
+          lastMoveTime = Some((b3 << 16) + (b4 << 8) + b5) filter (0 !=)
+        )
+      }
+    }
+  }
+
   object piece {
 
     def write(all: AllPieces): ByteArray = {
@@ -27,12 +68,12 @@ object BinaryFormat {
     }
 
     def read(ba: ByteArray): AllPieces = {
-      def splitInts(int: Int) = Array(int >> 4, int & 0x0F) 
-      def intPiece(int: Int): Option[Piece] = 
-        intToRole(int & 7) map { role => Piece(Color((int & 8) == 0), role) }
-      val (aliveInts, deadInts) = ba.value map (_.toInt) flatMap splitInts splitAt 64
+      def splitInts(int: Int) = Array(int >> 4, int & 0x0F)
+      def intPiece(int: Int): Option[Piece] =
+        intToRole(int & 7) map { role ⇒ Piece(Color((int & 8) == 0), role) }
+      val (aliveInts, deadInts) = ba.value map toInt flatMap splitInts splitAt 64
       val alivePieces = (Pos.all zip aliveInts map {
-        case (pos, int) => intPiece(int) map (pos -> _)
+        case (pos, int) ⇒ intPiece(int) map (pos -> _)
       }).flatten.toMap
       alivePieces -> (deadInts map intPiece).toList.flatten
     }
@@ -58,4 +99,6 @@ object BinaryFormat {
       case Bishop ⇒ 5
     }
   }
+
+  @inline private def toInt(b: Byte): Int = b & 0xff
 }

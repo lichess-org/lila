@@ -2,7 +2,7 @@ package lila.game
 
 import chess.Color._
 import chess.Pos.piotr, chess.Role.forsyth
-import chess.{ History ⇒ ChessHistory, Role, Board, Move, Pos, Game ⇒ ChessGame, Clock, Status, Color, Piece, Variant, Mode }
+import chess.{ History ⇒ ChessHistory, Castles, Role, Board, Move, Pos, Game ⇒ ChessGame, Clock, Status, Color, Piece, Variant, Mode }
 import org.joda.time.DateTime
 import org.scala_tools.time.Imports._
 
@@ -18,15 +18,13 @@ case class Game(
     status: Status,
     turns: Int,
     clock: Option[Clock],
-    lastMove: Option[String],
     check: Option[Pos] = None,
     creatorColor: Color,
     positionHashes: String = "",
-    castles: String = "KQkq",
+    castleLastMoveTime: CastleLastMoveTime,
     mode: Mode = Mode.default,
     variant: Variant = Variant.default,
     next: Option[String] = None,
-    lastMoveTime: Option[Int] = None,
     bookmarks: Int = 0,
     createdAt: DateTime = DateTime.now,
     updatedAt: Option[DateTime] = None,
@@ -91,8 +89,8 @@ case class Game(
   }
 
   lazy val toChessHistory = ChessHistory(
-    lastMove = lastMove,
-    castles = castles,
+    lastMove = castleLastMoveTime.lastMove,
+    castles = castleLastMoveTime.castles,
     positionHashes = positionHashes)
 
   def update(
@@ -111,7 +109,7 @@ case class Game(
     def copyPlayer(player: Player) = player.copy(
       blurs = player.blurs + (blur && move.color == player.color).fold(1, 0),
       moveTimes = ((!isPgnImport) && (move.color == player.color)).fold(
-        lastMoveTime ?? { lmt ⇒
+        castleLastMoveTime.lastMoveTime ?? { lmt ⇒
           val mt = nowSeconds - lmt
           val encoded = MoveTime encode mt
           player.moveTimes.isEmpty.fold(encoded.toString, player.moveTimes + encoded)
@@ -125,12 +123,13 @@ case class Game(
       binaryPieces = BinaryFormat.piece write game.allPieces,
       turns = game.turns,
       positionHashes = history.positionHashes.mkString,
-      castles = history.castleNotation,
-      lastMove = history.lastMoveString,
+      castleLastMoveTime = CastleLastMoveTime(
+        castles = history.castles,
+        lastMove = history.lastMove,
+        lastMoveTime = nowSeconds.some),
       status = situation.status | status,
       clock = game.clock,
-      check = situation.kingPos ifTrue situation.check,
-      lastMoveTime = nowSeconds.some)
+      check = situation.kingPos ifTrue situation.check)
 
     val finalEvents = events :::
       updated.clock.??(c ⇒ List(Event.Clock(c))) ::: {
@@ -308,18 +307,16 @@ case class Game(
     tk = token.some filter (Game.defaultToken !=),
     p = players map (_.encode),
     ps = binaryPieces,
+    cl = BinaryFormat.castleLastMoveTime write castleLastMoveTime,
     s = status.id,
     t = turns,
     c = clock map RawClock.encode,
-    lm = lastMove,
     ck = check map (_.key),
     cc = creatorColor.white.fold(None, Some(false)),
     ph = positionHashes.some filter (_.nonEmpty),
-    cs = castles.some filter ("-" !=),
     ra = mode.rated option true,
     v = variant.exotic option variant.id,
     next = next,
-    lmt = lastMoveTime,
     bm = bookmarks.some filter (0 <),
     ca = createdAt,
     ua = updatedAt,
@@ -387,14 +384,12 @@ object Game {
     status = Status.Created,
     turns = game.turns,
     clock = game.clock,
-    lastMove = None,
     check = None,
     creatorColor = creatorColor,
     positionHashes = "",
-    castles = "KQkq",
+    castleLastMoveTime = CastleLastMoveTime.init,
     mode = mode,
     variant = variant,
-    lastMoveTime = None,
     metadata = Metadata(
       source = source.some,
       pgnImport = pgnImport,
@@ -419,23 +414,34 @@ object Game {
   )
 }
 
+case class CastleLastMoveTime(
+    castles: Castles,
+    lastMove: Option[(Pos, Pos)],
+    lastMoveTime: Option[Int]) {
+
+  def lastMoveString = lastMove map { case (a, b) ⇒ a.toString + b.toString }
+}
+
+object CastleLastMoveTime {
+
+  def init = CastleLastMoveTime(Castles.all, None, None)
+}
+
 private[game] case class RawGame(
     id: String,
     tk: Option[String] = None,
     p: List[RawPlayer],
     ps: ByteArray,
+    cl: ByteArray,
     s: Int,
     t: Int,
     c: Option[RawClock],
-    lm: Option[String],
     ck: Option[String],
     cc: Option[Boolean] = None,
     ph: Option[String] = None,
-    cs: Option[String] = None,
     ra: Option[Boolean] = None,
     v: Option[Int] = None,
     next: Option[String] = None,
-    lmt: Option[Int] = None,
     bm: Option[Int] = None,
     ca: DateTime,
     ua: Option[DateTime],
@@ -452,18 +458,16 @@ private[game] case class RawGame(
     whitePlayer = whitePlayer,
     blackPlayer = blackPlayer,
     binaryPieces = ps,
+    castleLastMoveTime = BinaryFormat.castleLastMoveTime read cl,
     status = trueStatus,
     turns = t,
     clock = c map (_.decode),
-    lastMove = lm,
     check = ck flatMap Pos.posAt,
     creatorColor = cc.fold(Color.white)(Color.apply),
     positionHashes = ~ph,
-    castles = cs | "-",
     mode = (ra map Mode.apply) | Mode.Casual,
     variant = (v flatMap Variant.apply) | Variant.Standard,
     next = next,
-    lastMoveTime = lmt,
     bookmarks = ~bm,
     createdAt = ca,
     updatedAt = ua,
@@ -484,15 +488,12 @@ private[game] object RawGame {
   private def defaults = Json.obj(
     "tk" -> none[String],
     "c" -> none[RawClock],
-    "lm" -> none[String],
     "ck" -> none[String],
     "cc" -> none[Boolean],
     "ph" -> none[String],
-    "cs" -> none[String],
     "ra" -> none[Boolean],
     "v" -> none[Int],
     "next" -> none[String],
-    "lmt" -> none[Int],
     "bm" -> none[Int],
     "me" -> none[RawMetadata],
     "ua" -> none[DateTime])
