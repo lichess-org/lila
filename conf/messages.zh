@@ -246,6 +246,7 @@ boardEditor=棋盘编辑
 startPosition=开始局面
 clearBoard=清空棋盘
 savePosition=保存局面
+loadPosition=载入局面
 isPrivate=私人
 reportXToModerators=将%s报告给版主
 profile=资料
