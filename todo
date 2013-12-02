@@ -91,3 +91,6 @@ charts on homepage? http://en.lichess.org/forum/lichess-feedback/feature-proposi
 show latest chat when X reports Y for insult
 faster PGN parser - without combinators, see pgn binary writer
 premove choose promotion http://en.lichess.org/forum/lichess-feedback/premove-promotion-allow-to-preselect-promoted-piece#9
+teams sorted by ELO http://en.lichess.org/forum/lichess-feedback/average-team-elo#1
+analysis bug http://en.lichess.org/forum/lichess-feedback/blunders-in-computer-analysis#1
+improve AI cheat detection (not only game start)
