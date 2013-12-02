@@ -19,6 +19,34 @@ private[game] case class Metadata(
   def pgnUser = pgnImport flatMap (_.user)
 }
 
+object Metadata {
+
+  import reactivemongo.bson._
+  import lila.db.BSON
+  import PgnImport.pgnImportBSONHandler
+
+  implicit val metadataBSONHandler = new BSON[Metadata] {
+
+    val source = "so"
+    val pgnImport = "pgni"
+    val tournamentId = "tid"
+    val tvAt = "tv"
+
+    def reads(r: BSON.Reader) = Metadata(
+      source = r intO source flatMap Source.apply,
+      pgnImport = r.getO[PgnImport](pgnImport),
+      tournamentId = r strO tournamentId,
+      tvAt = r dateO tvAt)
+
+    def writes(w: BSON.Writer, o: Metadata) = BSONDocument(
+      source -> o.source.map(_.id),
+      pgnImport -> o.pgnImport,
+      tournamentId -> o.tournamentId,
+      tvAt -> o.tvAt.map(w.date)
+    )
+  }
+}
+
 private[game] case class RawMetadata(
     so: Option[Int],
     pgni: Option[PgnImport],
@@ -57,6 +85,9 @@ case class PgnImport(
   pgn: String)
 
 object PgnImport {
+
+  import reactivemongo.bson.Macros
+  implicit val pgnImportBSONHandler = Macros.handler[PgnImport]
 
   import lila.db.Tube
   import play.api.libs.json._

@@ -25,6 +25,13 @@ object ByteArray {
   def fromHexStr(hexStr: String): Try[ByteArray] =
     Try(ByteArray(Converters str2Hex hexStr))
 
+  implicit object ByteArrayBSONHandler extends BSONHandler[BSONBinary, ByteArray] {
+
+    def read(bin: BSONBinary) = ByteArray(bin.value.readArray(bin.value.readable))
+
+    def write(ba: ByteArray) = BSONBinary(ba.value, Subtype.GenericBinarySubtype)
+  }
+
   implicit object JsByteArrayFormat extends OFormat[ByteArray] {
 
     def reads(json: JsValue) = (for {
