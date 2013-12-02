@@ -38,6 +38,8 @@ private[game] final class Cli(
       computeElos.all inject "Done"
 
     case "pgn" :: "migration" :: Nil => PgnBinaryMigration(db, system) inject "done"
+
+    case "game" :: "migration" :: Nil => GameBinaryMigration(db, system) inject "done"
   }
 
 }
