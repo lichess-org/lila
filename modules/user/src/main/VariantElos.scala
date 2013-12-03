@@ -1,9 +1,10 @@
 package lila.user
 
 import chess.Variant
-import lila.db.Tube
 import play.api.libs.json._
-import Tube.Helpers._
+
+import lila.db.JsTube
+import lila.db.JsTube.Helpers._
 
 case class VariantElos(
     standard: SubElo,
@@ -21,7 +22,7 @@ case class VariantElos(
   def addGame(variant: Variant, newElo: Int) = variant match {
     case Variant.Chess960 ⇒ copy(chess960 = chess960 addGame newElo)
     case Variant.Standard ⇒ copy(standard = standard addGame newElo)
-    case _              ⇒ this
+    case _                ⇒ this
   }
 
   def adjustTo(to: Int) = {
@@ -45,7 +46,7 @@ object VariantElos {
 
   private implicit def subEloTube = SubElo.tube
 
-  private[user] lazy val tube = Tube[VariantElos](
+  private[user] lazy val tube = JsTube[VariantElos](
     __.json update merge(defaults) andThen Json.reads[VariantElos],
     Json.writes[VariantElos])
 

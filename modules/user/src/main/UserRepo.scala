@@ -114,7 +114,7 @@ object UserRepo {
 
   private object AuthData {
 
-    import lila.db.Tube.Helpers._
+    import lila.db.JsTube.Helpers._
     import play.api.libs.json._
 
     private def defaults = Json.obj("sha512" -> false)

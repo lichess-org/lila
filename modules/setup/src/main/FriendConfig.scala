@@ -59,10 +59,10 @@ object FriendConfig extends BaseHumanConfig {
     mode = Mode.default,
     color = Color.default)
 
-  import lila.db.Tube
+  import lila.db.JsTube
   import play.api.libs.json._
 
-  private[setup] lazy val tube = Tube(
+  private[setup] lazy val tube = JsTube(
     reader = Reads[FriendConfig](js ⇒
       ~(for {
         obj ← js.asOpt[JsObject]
@@ -99,13 +99,13 @@ private[setup] case class RawFriendConfig(
 
 private[setup] object RawFriendConfig {
 
-  import lila.db.Tube
-  import Tube.Helpers._
+  import lila.db.JsTube
+  import JsTube.Helpers._
   import play.api.libs.json._
 
   private def defaults = Json.obj("f" -> none[String])
 
-  private[setup] lazy val tube = Tube(
+  private[setup] lazy val tube = JsTube(
     reader = (__.json update merge(defaults)) andThen Json.reads[RawFriendConfig],
     writer = Json.writes[RawFriendConfig])
 }

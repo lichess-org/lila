@@ -73,12 +73,12 @@ object Thread {
     invitedId = invitedId,
     visibleByUserIds = List(creatorId, invitedId))
 
-  import lila.db.Tube
-  import Tube.Helpers._
+  import lila.db.JsTube
+  import JsTube.Helpers._
   import play.api.libs.json._
 
   private[message] lazy val tube = Post.tube |> { implicit pt ⇒
-    Tube(
+    JsTube(
       (__.json update (
         readDate('createdAt) andThen readDate('updatedAt)
       )) andThen Json.reads[Thread],

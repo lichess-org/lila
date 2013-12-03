@@ -68,10 +68,10 @@ object HookConfig extends BaseHumanConfig {
     eloRange = EloRange.default,
     color = Color.default)
 
-  import lila.db.Tube
+  import lila.db.JsTube
   import play.api.libs.json._
 
-  private[setup] lazy val tube = Tube(
+  private[setup] lazy val tube = JsTube(
     reader = Reads[HookConfig](js ⇒
       ~(for {
         obj ← js.asOpt[JsObject]
@@ -111,11 +111,11 @@ private[setup] case class RawHookConfig(
 
 private[setup] object RawHookConfig {
 
-  import lila.db.Tube
-  import Tube.Helpers._
+  import lila.db.JsTube
+  import JsTube.Helpers._
   import play.api.libs.json._
 
-  private[setup] lazy val tube = Tube(
+  private[setup] lazy val tube = JsTube(
     __.json update merge(defaults) andThen Json.reads[RawHookConfig],
     Json.writes[RawHookConfig])
 

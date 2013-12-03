@@ -2,8 +2,8 @@ package lila
 
 import play.api.libs.json._
 
-import lila.db.Tube
-import Tube.Helpers._
+import lila.db.JsTube
+import JsTube.Helpers._
 
 package object forum extends PackageObject with WithPlay {
 

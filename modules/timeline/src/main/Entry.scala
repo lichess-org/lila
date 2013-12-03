@@ -36,11 +36,11 @@ object Entry {
     case (typ, json) ⇒ json.asOpt[JsObject] map { new Entry(users, typ, _, DateTime.now) }
   }
 
-  import lila.db.Tube
-  import Tube.Helpers._
+  import lila.db.JsTube
+  import JsTube.Helpers._
   import play.api.libs.json._
 
-  private[timeline] lazy val tube = Tube(
+  private[timeline] lazy val tube = JsTube(
     (__.json update (readDate('date))) andThen Json.reads[Entry],
     Json.writes[Entry] andThen (__.json update writeDate('date)),
     Seq(_.NoId))

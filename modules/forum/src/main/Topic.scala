@@ -65,15 +65,15 @@ object Topic {
     troll = troll,
     closed = false)
 
-  import lila.db.Tube
-  import Tube.Helpers._
+  import lila.db.JsTube
+  import JsTube.Helpers._
   import play.api.libs.json._
 
   private implicit def postTube = Post.tube
 
   private def defaults = Json.obj("closed" -> false)
 
-  private[forum] lazy val tube = Tube(
+  private[forum] lazy val tube = JsTube(
     (__.json update (
       merge(defaults) andThen
       readDate('createdAt) andThen

@@ -229,7 +229,7 @@ object Tournament {
 
   val minPlayers = 4
 
-  import lila.db.Tube
+  import lila.db.JsTube
   import play.api.libs.json._
 
   private def reader[T <: Tournament](decode: RawTournament ⇒ Option[T])(js: JsValue): JsResult[T] = ~(for {
@@ -242,17 +242,17 @@ object Tournament {
     RawTournament.tube.write(tour.encode) getOrElse JsUndefined("[db] Can't write tournament " + tour.id)
   )
 
-  private[tournament] lazy val tube: Tube[Tournament] =
-    Tube(Reads(reader(_.decode)), writer)
+  private[tournament] lazy val tube: JsTube[Tournament] =
+    JsTube(Reads(reader(_.decode)), writer)
 
-  private[tournament] lazy val createdTube: Tube[Created] =
-    Tube(Reads(reader(_.created)), writer)
+  private[tournament] lazy val createdTube: JsTube[Created] =
+    JsTube(Reads(reader(_.created)), writer)
 
-  private[tournament] lazy val startedTube: Tube[Started] =
-    Tube(Reads(reader(_.started)), writer)
+  private[tournament] lazy val startedTube: JsTube[Started] =
+    JsTube(Reads(reader(_.started)), writer)
 
-  private[tournament] lazy val finishedTube: Tube[Finished] =
-    Tube(Reads(reader(_.finished)), writer)
+  private[tournament] lazy val finishedTube: JsTube[Finished] =
+    JsTube(Reads(reader(_.finished)), writer)
 
   def make(
     createdBy: User,
@@ -333,8 +333,8 @@ private[tournament] case class RawTournament(
 
 private[tournament] object RawTournament {
 
-  import lila.db.Tube
-  import Tube.Helpers._
+  import lila.db.JsTube
+  import JsTube.Helpers._
   import play.api.libs.json._
 
   private implicit def pairingTube = RawPairing.tube
@@ -349,7 +349,7 @@ private[tournament] object RawTournament {
     "variant" -> Variant.Standard.id,
     "mode" -> Mode.Casual.id)
 
-  private[tournament] lazy val tube = Tube(
+  private[tournament] lazy val tube = JsTube(
     (__.json update (
       merge(defaults) andThen readDate('createdAt) andThen readDateOpt('startedAt)
     )) andThen Json.reads[RawTournament],

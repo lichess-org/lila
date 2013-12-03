@@ -336,11 +336,6 @@ object Game {
   val tokenSize = 4
   val defaultToken = "-tk-"
 
-  object ShortFields {
-    val createdAt = "ca"
-    val updatedAt = "ua"
-  }
-
   def abandonedDate = DateTime.now - 7.days
 
   def takeGameId(fullId: String) = fullId take gameIdSize
@@ -377,21 +372,7 @@ object Game {
       tvAt = none).some,
     createdAt = DateTime.now)
 
-  import lila.db.Tube
-  import play.api.libs.json._
-
-  private[game] lazy val tube = Tube(
-    Reads[Game](js ⇒
-      ~(for {
-        obj ← js.asOpt[JsObject]
-        rawGame ← RawGame.tube.read(obj).asOpt
-        game ← rawGame.decode
-      } yield JsSuccess(game): JsResult[Game])
-    ),
-    Writes[Game](game ⇒
-      RawGame.tube.write(game.encode) getOrElse JsUndefined("[db] Can't write game " + game.id)
-    )
-  )
+  private[game] lazy val tube = lila.db.BsTube(gameBSONHandler)
 
   import reactivemongo.bson._
   import lila.db.BSON
@@ -399,7 +380,7 @@ object Game {
   import Metadata.metadataBSONHandler
   import CastleLastMoveTime.castleLastMoveTimeBSONHandler
 
-  implicit val gameBSONHandler = new BSON[Game] {
+  object BSONFields {
 
     val id = "_id"
     val token = "tk"
@@ -419,6 +400,11 @@ object Game {
     val createdAt = "ca"
     val updatedAt = "ua"
     val metadata = "me"
+  }
+
+  implicit val gameBSONHandler = new BSON[Game] {
+
+    import BSONFields._
 
     def reads(r: BSON.Reader): Game = {
       val players = r.get[BSONArray]("p")

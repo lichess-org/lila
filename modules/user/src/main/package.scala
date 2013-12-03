@@ -1,7 +1,5 @@
 package lila
 
-import lila.db.Tube
-
 package object user extends PackageObject with WithPlay {
 
   object tube {
@@ -14,6 +12,6 @@ package object user extends PackageObject with WithPlay {
     private[user] implicit lazy val profileTube = Profile.tube
 
     private[user] implicit lazy val historyTube =
-      Tube.json inColl Env.current.historyColl
+      lila.db.JsTube.json inColl Env.current.historyColl
   }
 }

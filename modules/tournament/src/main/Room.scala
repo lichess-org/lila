@@ -9,10 +9,10 @@ case class Room(id: String, messages: List[String]) {
 
 object Room {
 
-  import lila.db.Tube
+  import lila.db.JsTube
   import play.api.libs.json._
 
-  private[tournament] lazy val tube = Tube(
+  private[tournament] lazy val tube = JsTube(
     Json.reads[Room], 
     Json.writes[Room])
 

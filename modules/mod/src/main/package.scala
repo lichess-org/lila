@@ -1,6 +1,6 @@
 package lila
 
-import lila.db.Tube
+import lila.db.JsTube
 
 package object mod extends PackageObject with WithPlay {
 

@@ -17,15 +17,15 @@ private[i18n] case class Translation(
 
 private[i18n] object Translation {
 
-  import lila.db.Tube
-  import Tube.Helpers._
+  import lila.db.JsTube
+  import JsTube.Helpers._
   import play.api.libs.json._
 
   private def defaults = Json.obj(
     "author" -> none[String],
     "comment" -> none[String])
 
-  private[i18n] val tube = Tube(
+  private[i18n] val tube = JsTube(
     (__.json update (
       merge(defaults) andThen readDate('createdAt)
     )) andThen Json.reads[Translation],

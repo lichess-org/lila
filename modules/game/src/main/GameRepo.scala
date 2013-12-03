@@ -9,6 +9,7 @@ import org.scala_tools.time.Imports._
 import play.api.libs.json._
 import play.modules.reactivemongo.json.BSONFormats.toJSON
 import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
+import reactivemongo.bson.BSONDocument
 
 import lila.common.PimpedJson._
 import lila.db.api._
@@ -21,11 +22,11 @@ object GameRepo extends GameRepo {
 
 trait GameRepo {
 
-  protected implicit def gameTube: lila.db.TubeInColl[Game]
+  protected implicit def gameTube: lila.db.BsTubeInColl[Game]
 
   type ID = String
 
-  import Game._, ShortFields._
+  import Game._
 
   def game(gameId: ID): Fu[Option[Game]] = $find byId gameId
 
@@ -67,19 +68,22 @@ trait GameRepo {
   )
 
   def chronologicalFinishedByUser(userId: String): Fu[List[Game]] = $find(
-    $query(Query.finished ++ Query.rated ++ Query.user(userId)) sort ($sort asc createdAt)
+    $query(Query.finished ++ Query.rated ++ Query.user(userId)) sort ($sort asc BSONFields.createdAt)
   )
 
   def token(id: ID): Fu[String] =
     $primitive.one($select(id), "tk")(_.asOpt[String]) map (_ | Game.defaultToken)
 
   def save(progress: Progress): Funit =
-    GameDiff(progress.origin.encode, progress.game.encode) |> {
+    GameDiff(progress.origin, progress.game) |> {
       case (Nil, Nil) ⇒ funit
-      case (sets, unsets) ⇒ $update($select(progress.origin.id), unsets.isEmpty.fold(
-        $set(sets: _*),
-        $set(sets: _*) ++ $unset(unsets: _*)
-      ))
+      case (sets, unsets) ⇒ lila.db.api successful {
+        gameTube.coll.update(
+          $select(progress.origin.id),
+          if (unsets.isEmpty) BSONDocument("$set" -> BSONDocument(sets))
+          else BSONDocument("$set" -> BSONDocument(sets), "$unset" -> BSONDocument(unsets))
+        )
+      }
     }
 
   // makes the asumption that player 0 is white!
@@ -125,16 +129,15 @@ trait GameRepo {
     _ sort Query.sortCreated skip (Random nextInt distribution)
   )
 
-  def insertDenormalized(game: Game): Funit = (gameTube toMongo game).fold(
-    e ⇒ fufail(e.toString),
-    js ⇒ {
-      val userIds = game.players.map(_.userId).flatten.distinct
-      $insert(List(
-        userIds.nonEmpty option ("uids" -> Json.toJson(userIds)),
-        game.variant.exotic option ("if" -> JsString(Forsyth >> game.toChess))
-      ).flatten.foldLeft(js)(_ + _))
-    }
-  )
+  def insertDenormalized(game: Game): Funit = {
+    val bson = gameTube.handler write game
+    val userIds = game.players.map(_.userId).flatten.distinct
+    val bson2 = bson ++ BSONDocument(
+      "uids" -> userIds,
+      "if" -> game.variant.exotic.option(Forsyth >> game.toChess)
+    )
+    $insert bson bson2
+  }
 
   def denormalizeUids(game: Game): Funit =
     $update.field(game.id, "uids", game.players.map(_.userId).flatten.distinct)
@@ -150,8 +153,8 @@ trait GameRepo {
 
   def featuredCandidates: Fu[List[Game]] = $find(
     Query.playable ++ Query.clock(true) ++ Query.turnsGt(1) ++ Json.obj(
-      createdAt -> $gt($date(DateTime.now - 3.minutes)),
-      updatedAt -> $gt($date(DateTime.now - 15.seconds))
+      BSONFields.createdAt -> $gt($date(DateTime.now - 3.minutes)),
+      BSONFields.updatedAt -> $gt($date(DateTime.now - 15.seconds))
     ))
 
   def count(query: Query.type ⇒ JsObject): Fu[Int] = $count(query(Query))
@@ -160,7 +163,7 @@ trait GameRepo {
     ((days to 1 by -1).toList map { day ⇒
       val from = DateTime.now.withTimeAtStartOfDay - day.days
       val to = from + 1.day
-      $count(Json.obj(createdAt -> ($gte($date(from)) ++ $lt($date(to)))))
+      $count(Json.obj(BSONFields.createdAt -> ($gte($date(from)) ++ $lt($date(to)))))
     }).sequenceFu
 
   def recentAverageElo(minutes: Int): Fu[(Int, Int)] = {
@@ -184,7 +187,7 @@ trait GameRepo {
   return nb == 0 ? nb : Math.round(sum / nb);
   }""",
       query = Some(JsObjectWriter write Json.obj(
-        createdAt -> $gte($date(DateTime.now - minutes.minutes)),
+        BSONFields.createdAt -> $gte($date(DateTime.now - minutes.minutes)),
         "p.elo" -> $exists(true)
       ))
     )
@@ -228,8 +231,8 @@ trait GameRepo {
       "t" -> game.turns,
       "_id" -> $ne(game.id),
       "ps" -> game.binaryPieces,
-      createdAt -> $gt($date(DateTime.now - 1.hour)),
-      updatedAt -> $gt($date(DateTime.now - 5.minutes))
+      BSONFields.createdAt -> $gt($date(DateTime.now - 1.hour)),
+      BSONFields.updatedAt -> $gt($date(DateTime.now - 5.minutes))
     ))
 
   // gets 2 users (id, nbGames)

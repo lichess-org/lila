@@ -1,9 +1,9 @@
 package lila.user
 
 import chess.Speed
-import lila.db.Tube
+import lila.db.JsTube
 import play.api.libs.json._
-import Tube.Helpers._
+import JsTube.Helpers._
 
 case class SpeedElos(
     bullet: SubElo,
@@ -53,7 +53,7 @@ object SpeedElos {
 
   private implicit def subEloTube = SubElo.tube
 
-  private[user] lazy val tube = Tube[SpeedElos](
+  private[user] lazy val tube = JsTube[SpeedElos](
     __.json update merge(defaults) andThen Json.reads[SpeedElos],
     Json.writes[SpeedElos])
 

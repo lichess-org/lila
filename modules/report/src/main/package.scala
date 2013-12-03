@@ -1,6 +1,6 @@
 package lila
 
-import lila.db.Tube
+import lila.db.JsTube
 
 package object report extends PackageObject with WithPlay {
 

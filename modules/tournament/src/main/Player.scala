@@ -67,8 +67,8 @@ private[tournament] object Player {
       score = score)
   }
 
-  import lila.db.Tube
-  import Tube.Helpers._
+  import lila.db.JsTube
+  import JsTube.Helpers._
   import play.api.libs.json._
 
   private def defaults = Json.obj(
@@ -78,7 +78,7 @@ private[tournament] object Player {
     "winStreak" -> 0,
     "score" -> 0)
 
-  private[tournament] lazy val tube = Tube(
+  private[tournament] lazy val tube = JsTube(
     (__.json update merge(defaults)) andThen Json.reads[Player],
     Json.writes[Player]
   )

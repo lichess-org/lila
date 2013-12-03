@@ -17,10 +17,10 @@ case class GameEntry(
 
 object GameEntry {
 
-  import lila.db.Tube
+  import lila.db.JsTube
   import play.api.libs.json._
 
-  private[timeline] lazy val tube = Tube(
+  private[timeline] lazy val tube = JsTube(
     Json.reads[GameEntry], 
     Json.writes[GameEntry],
     Seq(_.NoId)) 

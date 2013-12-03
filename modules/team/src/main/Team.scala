@@ -49,10 +49,10 @@ object Team {
     (slug.size > (name.size / 2)).fold(slug, Random nextString 8)
   }
 
-  import lila.db.Tube, Tube.Helpers._
+  import lila.db.JsTube, JsTube.Helpers._
   import play.api.libs.json._
 
-  private[team] lazy val tube = Tube(
+  private[team] lazy val tube = JsTube(
     (__.json update readDate('createdAt)) andThen Json.reads[Team],
     Json.writes[Team] andThen (__.json update writeDate('createdAt))
   ) 

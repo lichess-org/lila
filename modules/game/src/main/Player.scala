@@ -66,22 +66,6 @@ case class Player(
   def removeTakebackProposition = copy(isProposingTakeback = false)
 
   def withName(name: String) = copy(name = name.some)
-
-  def encode: RawPlayer = RawPlayer(
-    id = id,
-    ai = aiLevel,
-    w = isWinner,
-    elo = elo,
-    ed = eloDiff,
-    isOfferingDraw = if (isOfferingDraw) Some(true) else None,
-    isOfferingRematch = if (isOfferingRematch) Some(true) else None,
-    lastDrawOffer = lastDrawOffer,
-    isProposingTakeback = if (isProposingTakeback) Some(true) else None,
-    uid = userId,
-    mts = Some(moveTimes) filter ("" !=),
-    bs = Some(blurs) filter (0 !=),
-    na = name
-  )
 }
 
 object Player {
@@ -97,10 +81,7 @@ object Player {
 
   def black = make(Color.Black, None)
 
-  import reactivemongo.bson._
-  import lila.db.BSON
-
-  implicit val playerBSONHandler = new BSON[Color ⇒ Player] {
+  object BSONFields {
 
     val id = "_id"
     val aiLevel = "ai"
@@ -115,6 +96,14 @@ object Player {
     val moveTimes = "mts"
     val blurs = "bs"
     val name = "na"
+  }
+
+  import reactivemongo.bson._
+  import lila.db.BSON
+
+  implicit val playerBSONHandler = new BSON[Color ⇒ Player] {
+
+    import BSONFields._
 
     def reads(r: BSON.Reader) = color ⇒ Player(
       id = r str id,
@@ -149,60 +138,4 @@ object Player {
         name -> p.name)
     }
   }
-}
-
-private[game] case class RawPlayer(
-    id: String,
-    ai: Option[Int],
-    w: Option[Boolean],
-    elo: Option[Int],
-    ed: Option[Int],
-    isOfferingDraw: Option[Boolean],
-    isOfferingRematch: Option[Boolean],
-    lastDrawOffer: Option[Int],
-    isProposingTakeback: Option[Boolean],
-    uid: Option[String],
-    mts: Option[String],
-    bs: Option[Int],
-    na: Option[String]) {
-
-  def decode(color: Color): Player = Player(
-    id = id,
-    color = color,
-    aiLevel = ai,
-    isWinner = w,
-    elo = elo,
-    eloDiff = ed,
-    isOfferingDraw = ~isOfferingDraw,
-    isOfferingRematch = ~isOfferingRematch,
-    lastDrawOffer = lastDrawOffer,
-    isProposingTakeback = ~isProposingTakeback,
-    userId = uid,
-    moveTimes = ~mts,
-    blurs = ~bs,
-    name = na)
-}
-
-private[game] object RawPlayer {
-
-  import lila.db.Tube
-  import Tube.Helpers._
-  import play.api.libs.json._
-
-  private def defaults = Json.obj(
-    "w" -> none[Boolean],
-    "isOfferingDraw" -> false,
-    "isOfferingRematch" -> false,
-    "lastDrawOffer" -> none[Int],
-    "isProposingTakeback" -> false,
-    "uid" -> none[String],
-    "elo" -> none[Int],
-    "ed" -> none[Int],
-    "mts" -> "",
-    "bs" -> 0,
-    "na" -> none[String])
-
-  private[game] lazy val tube = Tube(
-    (__.json update merge(defaults)) andThen Json.reads[RawPlayer],
-    Json.writes[RawPlayer])
 }

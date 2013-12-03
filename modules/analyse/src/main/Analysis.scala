@@ -37,10 +37,10 @@ case class Analysis(
 
 object Analysis {
 
-  import lila.db.Tube
+  import lila.db.JsTube
   import play.api.libs.json._
 
-  private[analyse] lazy val tube = Tube(
+  private[analyse] lazy val tube = JsTube(
     reader = Reads[Analysis](js ⇒
       ~(for {
         obj ← js.asOpt[JsObject]
@@ -65,8 +65,8 @@ private[analyse] case class RawAnalysis(id: String, data: String, done: Boolean,
 
 private[analyse] object RawAnalysis {
 
-  import lila.db.Tube
-  import Tube.Helpers._
+  import lila.db.JsTube
+  import JsTube.Helpers._
   import play.api.libs.json._
 
   private def defaults = Json.obj(
@@ -74,7 +74,7 @@ private[analyse] object RawAnalysis {
     "done" -> false,
     "old" -> false)
 
-  private[analyse] lazy val tube = Tube(
+  private[analyse] lazy val tube = JsTube(
     (__.json update merge(defaults)) andThen Json.reads[RawAnalysis],
     Json.writes[RawAnalysis])
 }

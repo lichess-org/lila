@@ -12,11 +12,11 @@ case class TournamentClock(limit: Int, increment: Int) {
 
 object TournamentClock {
 
-  import lila.db.Tube
-  import Tube.Helpers._
+  import lila.db.JsTube
+  import JsTube.Helpers._
   import play.api.libs.json._
 
-  private[tournament] lazy val tube = Tube(
+  private[tournament] lazy val tube = JsTube(
     Json.reads[TournamentClock],
     Json.writes[TournamentClock]
   )

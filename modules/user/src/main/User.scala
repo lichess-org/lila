@@ -61,8 +61,8 @@ object User {
 
   case class Active(user: User, lang: String)
 
-  import lila.db.Tube
-  import Tube.Helpers._
+  import lila.db.JsTube
+  import JsTube.Helpers._
   import play.api.libs.json._
 
   private implicit def countTube = Count.tube
@@ -70,7 +70,7 @@ object User {
   private implicit def variantElosTube = VariantElos.tube
   private implicit def profileTube = Profile.tube
 
-  private[user] lazy val tube = Tube[User](
+  private[user] lazy val tube = JsTube[User](
     (__.json update (
       merge(defaults) andThen readDate('createdAt) andThen readDateOpt('seenAt)
     )) andThen Json.reads[User],

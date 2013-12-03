@@ -1,15 +1,15 @@
 package lila
 
-import lila.db.Tube
+import lila.db.JsTube
 
 package object security extends PackageObject with WithPlay {
 
   object tube {
 
     private[security] implicit lazy val storeTube =
-      Tube.json inColl Env.current.storeColl
+      JsTube.json inColl Env.current.storeColl
 
     private[security] implicit lazy val firewallTube =
-      Tube.json inColl Env.current.firewallColl
+      JsTube.json inColl Env.current.firewallColl
   }
 }

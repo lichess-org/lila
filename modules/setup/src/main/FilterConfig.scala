@@ -64,10 +64,10 @@ object FilterConfig {
     config ← RawFilterConfig(variant, mode, speed, eloRange).decode
   } yield config
 
-  import lila.db.Tube
+  import lila.db.JsTube
   import play.api.libs.json._
 
-  private[setup] lazy val tube = Tube(
+  private[setup] lazy val tube = JsTube(
     reader = Reads[FilterConfig](js ⇒
       ~(for {
         obj ← js.asOpt[JsObject]
@@ -93,10 +93,10 @@ private[setup] case class RawFilterConfig(v: List[Int], m: List[Int], s: List[In
 
 private[setup] object RawFilterConfig {
 
-  import lila.db.Tube
+  import lila.db.JsTube
   import play.api.libs.json.Json
 
-  private[setup] lazy val tube = Tube(
+  private[setup] lazy val tube = JsTube(
     reader = Json.reads[RawFilterConfig],
     writer = Json.writes[RawFilterConfig])
 }

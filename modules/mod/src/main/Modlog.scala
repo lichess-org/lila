@@ -38,11 +38,11 @@ object Modlog {
   val closeTopic = "closeTopic"
   val openTopic = "openTopic"
 
-  import lila.db.Tube
-  import Tube.Helpers._
+  import lila.db.JsTube
+  import JsTube.Helpers._
   import play.api.libs.json._
 
-  private[mod] lazy val tube = Tube[Modlog](
+  private[mod] lazy val tube = JsTube[Modlog](
     (__.json update (
       merge(defaults) andThen readDate('date)
     )) andThen Json.reads[Modlog],
