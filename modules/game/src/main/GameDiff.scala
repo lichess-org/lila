@@ -1,57 +1,58 @@
 package lila.game
 
 import org.joda.time.DateTime
-import play.api.libs.json._
+import reactivemongo.bson._
 
-import lila.db.api._
-
-// NICETOHAVE it works, but it could be more functional
 private[game] object GameDiff {
 
-  type Set = (String, Json.JsValueWrapper)
-  type Unset = String
+  type Set = (String, BSONValue)
+  type Unset = (String, BSONBoolean)
 
-  def apply(a: RawGame, b: RawGame): (List[Set], List[Unset]) = {
+  def apply(a: Game, b: Game): (List[Set], List[Unset]) = {
 
     val setBuilder = scala.collection.mutable.ListBuffer[Set]()
     val unsetBuilder = scala.collection.mutable.ListBuffer[Unset]()
 
-    def d[A: Writes](name: String, f: RawGame ⇒ A) {
-      val (va, vb) = (f(a), f(b))
+    def d[A, C <: BSONValue](name: String, getter: Game => A)(implicit writer: BSONWriter[A, C]) {
+      dd(name, getter, (a: A) => a)(writer)
+    }
+
+    def dd[A, B, C <: BSONValue](name: String, getter: Game => A, toBson: A ⇒ B)(implicit writer: BSONWriter[B, C]) {
+      val (va, vb) = (getter(a), getter(b))
       if (va != vb) {
-        if (vb == None || vb == null || vb == "") unsetBuilder += name
-        else setBuilder += name -> vb
+        if (vb == None || vb == null || vb == "") unsetBuilder += (name -> BSONBoolean(true))
+        else setBuilder += name -> writer.write(toBson(vb))
       }
     }
 
-    d("ps", _.ps)
-    d("s", _.s)
-    d("t", _.t)
-    d("cl", _.cl) // castleLastMoveTime
-    d("ck", _.ck) // check
-    d("ph", _.ph) // positionHashes
+    import Game.BSONFields._
+    val w = lila.db.BSON.writer
+
+    d(binaryPieces, _.binaryPieces)
+    d(status, _.status.id)
+    d(turns, _.turns)
+    dd(castleLastMoveTime, _.castleLastMoveTime, CastleLastMoveTime.castleLastMoveTimeBSONHandler.write) 
+    dd(check, _.check, (x: Option[chess.Pos]) => x map (_.toString)) 
+    dd(positionHashes, _.positionHashes, w.strO) 
     for (i ← 0 to 1) {
+      import Player.BSONFields._
       val name = "p." + i + "."
-      d(name + "w", _.p(i).w) // winner
-      d(name + "lastDrawOffer", _.p(i).lastDrawOffer)
-      d(name + "isOfferingDraw", _.p(i).isOfferingDraw)
-      d(name + "isOfferingRematch", _.p(i).isOfferingRematch)
-      d(name + "isProposingTakeback", _.p(i).isProposingTakeback)
-      d(name + "bs", _.p(i).bs) // blurs
-      d(name + "mts", _.p(i).mts) // movetimes
+      val player: Game => Player = if (i == 0) (_.whitePlayer) else (_.blackPlayer)
+      d(name + isWinner, player(_).isWinner) 
+      d(name + lastDrawOffer, player(_).lastDrawOffer)
+      dd(name + isOfferingDraw, player(_).isOfferingDraw, w.boolO)
+      dd(name + isOfferingRematch, player(_).isOfferingRematch, w.boolO)
+      dd(name + isProposingTakeback, player(_).isProposingTakeback, w.boolO)
+      d(name + blurs, player(_).blurs) 
+      d(name + moveTimes, player(_).moveTimes) 
     }
-    a.c foreach { c ⇒
-      d("c.c", _.c.get.c)
-      d("c.w", _.c.get.w)
-      d("c.b", _.c.get.b)
-      d("c.t", _.c.get.t) // timer
-    }
+    // a.c foreach { c ⇒
+    //   d("c.c", _.c.get.c)
+    //   d("c.w", _.c.get.w)
+    //   d("c.b", _.c.get.b)
+    //   d("c.t", _.c.get.t) // timer
+    // }
 
-    (addUa(setBuilder.toList), unsetBuilder.toList)
-  }
-
-  private def addUa(sets: List[Set]): List[Set] = sets match {
-    case Nil  ⇒ Nil
-    case sets ⇒ ("ua" -> Json.toJsFieldJsValueWrapper($date(DateTime.now))) :: sets
+    (setBuilder.toList, unsetBuilder.toList)
   }
 }

@@ -50,11 +50,11 @@ object Pref {
   private val booleans = Map("true" -> true, "false" -> false)
   private val bgs = Map("light" -> false, "dark" -> true)
 
-  import lila.db.Tube
-  import Tube.Helpers._
+  import lila.db.JsTube
+  import JsTube.Helpers._
   import play.api.libs.json._
 
-  private[pref] lazy val tube = Tube[Pref](
+  private[pref] lazy val tube = JsTube[Pref](
     (__.json update merge(defaults)) andThen Json.reads[Pref],
     Json.writes[Pref]
   )

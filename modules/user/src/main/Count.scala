@@ -16,12 +16,12 @@ private[user] case class Count(
 
 private[user] object Count {
 
-  import lila.db.Tube
+  import lila.db.JsTube
   import play.api.libs.json.Json
 
   val default = Count(0, 0, 0, 0, 0, 0, 0, 0, 0)
 
-  private[user] lazy val tube = Tube[Count](
+  private[user] lazy val tube = JsTube[Count](
     Json.reads[Count], 
     Json.writes[Count])
 }

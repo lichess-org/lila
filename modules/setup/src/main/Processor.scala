@@ -59,7 +59,7 @@ private[setup] final class Processor(
     val pov = config.pov
     val game = ctx.me.fold(pov.game)(user ⇒ pov.game.updatePlayer(pov.color, _ withUser user)).start
     import ChessColor.{ White, Black }
-    $insert(game) zip
+    $insert bson game zip
       router ? Player(game fullIdOf White) zip
       router ? Player(game fullIdOf Black) collect {
         case (_, (whiteUrl: String, blackUrl: String)) ⇒ Json.obj(

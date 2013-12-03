@@ -1,6 +1,6 @@
 package lila
 
-import lila.db.{ Tube, InColl }
+import lila.db.{ JsTube, InColl }
 import lila.socket.WithSocket
 
 package object tournament extends PackageObject with WithPlay with WithSocket{

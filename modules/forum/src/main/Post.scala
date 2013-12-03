@@ -50,11 +50,11 @@ object Post {
     createdAt = DateTime.now,
     categId = categId)
 
-  import lila.db.Tube
-  import Tube.Helpers._
+  import lila.db.JsTube
+  import JsTube.Helpers._
   import play.api.libs.json._
 
-  private[forum] lazy val tube = Tube(
+  private[forum] lazy val tube = JsTube(
     (__.json update readDate('createdAt)) andThen Json.reads[Post],
     Json.writes[Post] andThen (__.json update writeDate('createdAt))
   )

@@ -1,5 +1,7 @@
 package lila.db
 
+import scala.util.{ Try, Success, Failure }
+
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
@@ -11,13 +13,26 @@ import lila.common.LilaException
 
 trait InColl[A] { implicit def coll: Types.Coll }
 
-case class Tube[Doc](
+trait Tube[Doc] extends BSONDocumentReader[Option[Doc]]
+
+case class BsTube[Doc](handler: BSONHandler[BSONDocument, Doc]) extends Tube[Doc] {
+
+  def read(bson: BSONDocument): Option[Doc] = handler readTry bson match {
+    case Success(doc) ⇒ Some(doc)
+    case Failure(err) ⇒ logerr(s"[tube] Cannot read $bson\n$err"); None
+  }
+
+  def inColl(c: Coll): BsTubeInColl[Doc] =
+    new BsTube[Doc](handler) with InColl[Doc] { def coll = c }
+}
+
+case class JsTube[Doc](
   reader: Reads[Doc],
   writer: Writes[Doc],
-  flags: Seq[Tube.Flag.type ⇒ Tube.Flag] = Seq.empty)
-    extends Reads[Doc]
-    with Writes[Doc]
-    with BSONDocumentReader[Option[Doc]] {
+  flags: Seq[JsTube.Flag.type ⇒ JsTube.Flag] = Seq.empty)
+    extends Tube[Doc]
+    with Reads[Doc]
+    with Writes[Doc] {
 
   implicit def reads(js: JsValue): JsResult[Doc] = reader reads js
   implicit def writes(doc: Doc): JsValue = writer writes doc
@@ -45,28 +60,26 @@ case class Tube[Doc](
 
   def toMongo(doc: Doc): JsResult[JsObject] = flag(_.NoId)(
     write(doc),
-    write(doc) flatMap Tube.toMongoId
+    write(doc) flatMap JsTube.toMongoId
   )
 
   def fromMongo(js: JsObject): JsResult[Doc] = flag(_.NoId)(
     read(js),
-    Tube.depath(Tube fromMongoId js) flatMap read
+    JsTube.depath(JsTube fromMongoId js) flatMap read
   )
 
-  def inColl(c: Coll): TubeInColl[Doc] =
-    new Tube[Doc](reader, writer, flags) with InColl[Doc] {
-      def coll = c
-    }
+  def inColl(c: Coll): JsTubeInColl[Doc] =
+    new JsTube[Doc](reader, writer, flags) with InColl[Doc] { def coll = c }
 
-  private lazy val flagSet = flags.map(_(Tube.Flag)).toSet
+  private lazy val flagSet = flags.map(_(JsTube.Flag)).toSet
 
-  private def flag[A](f: Tube.Flag.type ⇒ Tube.Flag)(x: ⇒ A, y: ⇒ A) =
-    flagSet contains f(Tube.Flag) fold (x, y)
+  private def flag[A](f: JsTube.Flag.type ⇒ JsTube.Flag)(x: ⇒ A, y: ⇒ A) =
+    flagSet contains f(JsTube.Flag) fold (x, y)
 }
 
-object Tube {
+object JsTube {
 
-  val json = Tube[JsObject](
+  val json = JsTube[JsObject](
     __.read[JsObject],
     __.write[JsObject],
     Seq(_.NoId) // no need to rename the ID field as we are not mapping

@@ -7,11 +7,11 @@ import Types._
 
 object $update {
 
-  def apply[ID: Writes, A <: Identified[ID]: TubeInColl](doc: A): Funit =
-    (implicitly[Tube[A]] toMongo doc).fold(e ⇒ fufail(e.toString),
+  def apply[ID: Writes, A <: Identified[ID]: JsTubeInColl](doc: A): Funit =
+    (implicitly[JsTube[A]] toMongo doc).fold(e ⇒ fufail(e.toString),
       js ⇒ apply($select(doc.id), js)
     )
-  def apply[A <: Identified[String]: TubeInColl](doc: A): Funit = apply[String, A](doc)
+  def apply[A <: Identified[String]: JsTubeInColl](doc: A): Funit = apply[String, A](doc)
 
   def apply[A: InColl](selector: JsObject, update: JsObject, upsert: Boolean = false, multi: Boolean = false): Funit =
     successful {

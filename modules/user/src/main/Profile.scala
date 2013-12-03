@@ -27,10 +27,10 @@ object Profile {
 
   val default = Profile()
 
-  import lila.db.Tube
+  import lila.db.JsTube
   import play.api.libs.json._
 
-  private[user] lazy val tube = Tube[Profile](
+  private[user] lazy val tube = JsTube[Profile](
     Json.reads[Profile],
     Json.writes[Profile])
 }

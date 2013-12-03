@@ -71,6 +71,6 @@ private[game] final class ComputeElos(system: ActorSystem) {
 
   private def gamesQuery(user: User) = $query.apply[Game](
     Query.finished ++ Query.rated ++ Query.user(user.id)
-  ) sort ($sort asc Game.ShortFields.createdAt)
+  ) sort ($sort asc Game.BSONFields.createdAt)
 
 }

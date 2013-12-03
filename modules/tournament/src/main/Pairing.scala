@@ -138,15 +138,15 @@ private[tournament] case class RawPairing(g: String, s: Int, u: List[String], w:
 
 private[tournament] object RawPairing {
 
-  import lila.db.Tube
-  import Tube.Helpers._
+  import lila.db.JsTube
+  import JsTube.Helpers._
   import play.api.libs.json._
 
   private def defaults = Json.obj(
     "w" -> none[String],
     "t" -> none[Int])
 
-  private[tournament] lazy val tube = Tube(
+  private[tournament] lazy val tube = JsTube(
     (__.json update merge(defaults)) andThen Json.reads[RawPairing],
     Json.writes[RawPairing]
   )

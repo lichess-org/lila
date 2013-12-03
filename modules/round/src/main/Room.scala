@@ -13,10 +13,10 @@ case class Room(id: String, messages: List[String]) {
 
 object Room {
 
-  import lila.db.Tube
+  import lila.db.JsTube
   import play.api.libs.json._
 
-  private[round] lazy val tube = Tube(Json.reads[Room], Json.writes[Room]) 
+  private[round] lazy val tube = JsTube(Json.reads[Room], Json.writes[Room]) 
 
   def encode(author: String, text: String): String = (author match {
     case "white" ⇒ "w"

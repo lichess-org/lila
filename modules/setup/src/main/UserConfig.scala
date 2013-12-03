@@ -38,10 +38,10 @@ private[setup] object UserConfig {
     hook = HookConfig.default,
     filter = FilterConfig.default)
 
-  import lila.db.Tube
+  import lila.db.JsTube
   import play.api.libs.json._
 
-  private[setup] lazy val tube = Tube(
+  private[setup] lazy val tube = JsTube(
     reader = Reads[UserConfig](js ⇒
       ~(for {
         obj ← js.asOpt[JsObject]
@@ -78,8 +78,8 @@ private[setup] case class RawUserConfig(
 
 private[setup] object RawUserConfig {
 
-  import lila.db.Tube
-  import Tube.Helpers._
+  import lila.db.JsTube
+  import JsTube.Helpers._
   import play.api.libs.json._
 
   private implicit def aiTube = RawAiConfig.tube
@@ -87,7 +87,7 @@ private[setup] object RawUserConfig {
   private implicit def hookTube = RawHookConfig.tube
   private implicit def filterTube = RawFilterConfig.tube
 
-  private[setup] lazy val tube = Tube(
+  private[setup] lazy val tube = JsTube(
     (__.json update readDate('date)) andThen Json.reads[RawUserConfig],
     Json.writes[RawUserConfig] andThen (__.json update writeDate('date))
   )

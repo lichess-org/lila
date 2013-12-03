@@ -1,6 +1,6 @@
 package lila
 
-import lila.db.Tube
+import lila.db.JsTube
 
 package object relation extends PackageObject with WithPlay {
 
@@ -13,6 +13,6 @@ package object relation extends PackageObject with WithPlay {
   object tube {
 
     private[relation] implicit lazy val relationTube =
-      Tube.json inColl Env.current.relationColl
+      JsTube.json inColl Env.current.relationColl
   }
 }

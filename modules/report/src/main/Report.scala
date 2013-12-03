@@ -40,10 +40,10 @@ object Report {
     createdAt = DateTime.now,
     createdBy = createdBy.id)
 
-  import lila.db.Tube, Tube.Helpers._
+  import lila.db.JsTube, JsTube.Helpers._
   import play.api.libs.json._
 
-  private[report] lazy val tube = Tube(
+  private[report] lazy val tube = JsTube(
     (__.json update readDate('createdAt)) andThen Json.reads[Report],
     Json.writes[Report] andThen (__.json update writeDate('createdAt))
   )

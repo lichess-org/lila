@@ -1,6 +1,6 @@
 package lila
 
-import lila.db.{ Tube, InColl }
+import lila.db.{ JsTube, InColl }
 
 package object game extends PackageObject with WithPlay {
 

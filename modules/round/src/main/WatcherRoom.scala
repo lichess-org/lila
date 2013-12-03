@@ -13,10 +13,10 @@ case class WatcherRoom(id: String, messages: List[String]) {
 
 object WatcherRoom {
 
-  import lila.db.Tube
+  import lila.db.JsTube
   import play.api.libs.json._
 
-  private[round] lazy val tube = Tube(
+  private[round] lazy val tube = JsTube(
     Json.reads[WatcherRoom], 
     Json.writes[WatcherRoom])
 

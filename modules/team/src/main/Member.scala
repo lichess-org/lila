@@ -24,10 +24,10 @@ private[team] object Member {
     team = team, 
     date = DateTime.now)
 
-  import lila.db.Tube, Tube.Helpers._
+  import lila.db.JsTube, JsTube.Helpers._
   import play.api.libs.json._
 
-  private[team] lazy val tube = Tube(
+  private[team] lazy val tube = JsTube(
     (__.json update readDate('date)) andThen Json.reads[Member],
     Json.writes[Member] andThen (__.json update writeDate('date))
   ) 
