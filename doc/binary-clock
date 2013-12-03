@@ -1,0 +1,9 @@
+limit           0-255         8 bits
+increment       0-255         8 bits
+
+w (centisec)    0-16M         24 bits
+b (centisec)    0-16M         24 bits
+
+timer (centis)  0-1E12        40 bits
+
+= 13 bytes
