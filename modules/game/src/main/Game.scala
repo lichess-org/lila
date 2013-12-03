@@ -434,8 +434,8 @@ object Game {
       id -> o.id,
       token -> o.token,
       players -> List(
-        (_: Color) => o.whitePlayer, 
-        (_: Color) => o.blackPlayer),
+        (_: Color) ⇒ o.whitePlayer,
+        (_: Color) ⇒ o.blackPlayer),
       binaryPieces -> o.binaryPieces,
       status -> o.status.id,
       turns -> o.turns,
