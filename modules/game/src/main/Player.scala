@@ -133,8 +133,8 @@ object Player {
         userId -> p.userId,
         elo -> p.elo,
         eloDiff -> p.eloDiff,
-        moveTimes -> p.moveTimes,
-        blurs -> blurs,
+        moveTimes -> w.strO(p.moveTimes),
+        blurs -> w.intO(p.blurs),
         name -> p.name)
     }
   }

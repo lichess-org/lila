@@ -110,9 +110,7 @@ trait GameRepo {
   def finish(id: ID, winnerId: Option[String]) = $update(
     $select(id),
     winnerId.??(wid ⇒ $set("wid" -> wid)) ++ $unset(
-      "c.t",
       "ph",
-      "lmt",
       "p.0.previousMoveTs",
       "p.1.previousMoveTs",
       "p.0.lastDrawOffer",

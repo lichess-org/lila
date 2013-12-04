@@ -40,7 +40,7 @@ object GameBinaryMigration {
       val cl = CastleLastMoveTime(
         castles = getAs[String](d1, "cs").fold(Castles.all)(Castles.apply),
         lastMove = getAs[String](d1, "lm") flatMap parseLastMove,
-        lastMoveTime = getAs[Int](d1, "lmt"))
+        lastMoveTime = None)
       val binCL = BinaryFormat.castleLastMoveTime write cl
       val bsonCL = BSONBinary(binCL.value, Subtype.UserDefinedSubtype)
       val d2 = d1 + ("cl" -> bsonCL)

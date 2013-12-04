@@ -29,7 +29,7 @@ object Rewind {
         castleLastMoveTime = CastleLastMoveTime(
           castles = rewindedHistory.castles,
           lastMove = rewindedHistory.lastMove,
-          lastMoveTime = nowSeconds.some),
+          lastMoveTime = Some(nowSeconds - game.createdAt.getSeconds.toInt)),
         status =
           if (rewindedSituation.checkMate) Status.Mate
           else if (rewindedSituation.staleMate) Status.Stalemate

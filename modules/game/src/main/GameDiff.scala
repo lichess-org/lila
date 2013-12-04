@@ -1,7 +1,11 @@
 package lila.game
 
+import chess.{ Clock, Pos }
+import Game.BSONFields._
 import org.joda.time.DateTime
 import reactivemongo.bson._
+
+import lila.db.ByteArray
 
 private[game] object GameDiff {
 
@@ -13,45 +17,46 @@ private[game] object GameDiff {
     val setBuilder = scala.collection.mutable.ListBuffer[Set]()
     val unsetBuilder = scala.collection.mutable.ListBuffer[Unset]()
 
-    def d[A, C <: BSONValue](name: String, getter: Game => A)(implicit writer: BSONWriter[A, C]) {
-      dd(name, getter, (a: A) => a)(writer)
-    }
-
-    def dd[A, B, C <: BSONValue](name: String, getter: Game => A, toBson: A ⇒ B)(implicit writer: BSONWriter[B, C]) {
+    def d[A, B <: BSONValue](name: String, getter: Game ⇒ A, toBson: A ⇒ B) {
       val (va, vb) = (getter(a), getter(b))
       if (va != vb) {
         if (vb == None || vb == null || vb == "") unsetBuilder += (name -> BSONBoolean(true))
-        else setBuilder += name -> writer.write(toBson(vb))
+        else setBuilder += name -> toBson(vb)
       }
     }
 
-    import Game.BSONFields._
+    def dOpt[A, B <: BSONValue](name: String, getter: Game ⇒ A, toBson: A ⇒ Option[B]) {
+      val (va, vb) = (getter(a), getter(b))
+      if (va != vb) {
+        if (vb == None || vb == null || vb == "") unsetBuilder += (name -> BSONBoolean(true))
+        else toBson(vb) match {
+          case None    ⇒ unsetBuilder += (name -> BSONBoolean(true))
+          case Some(x) ⇒ setBuilder += name -> x
+        }
+      }
+    }
+
     val w = lila.db.BSON.writer
 
-    d(binaryPieces, _.binaryPieces)
-    d(status, _.status.id)
-    d(turns, _.turns)
-    dd(castleLastMoveTime, _.castleLastMoveTime, CastleLastMoveTime.castleLastMoveTimeBSONHandler.write) 
-    dd(check, _.check, (x: Option[chess.Pos]) => x map (_.toString)) 
-    dd(positionHashes, _.positionHashes, w.strO) 
+    d(binaryPieces, _.binaryPieces, ByteArray.ByteArrayBSONHandler.write)
+    d(status, _.status.id, w.int)
+    d(turns, _.turns, w.int)
+    d(castleLastMoveTime, _.castleLastMoveTime, CastleLastMoveTime.castleLastMoveTimeBSONHandler.write)
+    dOpt(check, _.check, (x: Option[chess.Pos]) ⇒ w.map(x map (_.toString)))
+    dOpt(positionHashes, _.positionHashes, w.strO)
+    dOpt(clock, _.clock, (o: Option[Clock]) ⇒ o map { c ⇒ Game.clockBSONHandler.write(_ ⇒ c) })
     for (i ← 0 to 1) {
       import Player.BSONFields._
-      val name = "p." + i + "."
-      val player: Game => Player = if (i == 0) (_.whitePlayer) else (_.blackPlayer)
-      d(name + isWinner, player(_).isWinner) 
-      d(name + lastDrawOffer, player(_).lastDrawOffer)
-      dd(name + isOfferingDraw, player(_).isOfferingDraw, w.boolO)
-      dd(name + isOfferingRematch, player(_).isOfferingRematch, w.boolO)
-      dd(name + isProposingTakeback, player(_).isProposingTakeback, w.boolO)
-      d(name + blurs, player(_).blurs) 
-      d(name + moveTimes, player(_).moveTimes) 
+      val name = s"p.$i."
+      val player: Game ⇒ Player = if (i == 0) (_.whitePlayer) else (_.blackPlayer)
+      dOpt(name + isWinner, player(_).isWinner, w.map[Option, Boolean, BSONBoolean])
+      dOpt(name + lastDrawOffer, player(_).lastDrawOffer, w.map[Option, Int, BSONInteger])
+      dOpt(name + isOfferingDraw, player(_).isOfferingDraw, w.boolO)
+      dOpt(name + isOfferingRematch, player(_).isOfferingRematch, w.boolO)
+      dOpt(name + isProposingTakeback, player(_).isProposingTakeback, w.boolO)
+      dOpt(name + blurs, player(_).blurs, w.intO)
+      dOpt(name + moveTimes, player(_).moveTimes, w.strO)
     }
-    // a.c foreach { c ⇒
-    //   d("c.c", _.c.get.c)
-    //   d("c.w", _.c.get.w)
-    //   d("c.b", _.c.get.b)
-    //   d("c.t", _.c.get.t) // timer
-    // }
 
     (setBuilder.toList, unsetBuilder.toList)
   }

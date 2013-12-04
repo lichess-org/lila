@@ -55,7 +55,7 @@ final class GameJoiner(
       _.filter(_.game.playable) foreach { pov ⇒
         pov.game.playerHasMoved(pov.color).fold(
           (pov.color.white && !pov.game.playerHasMoved(Color.Black)) ?? {
-            scheduleIdleCheck(!pov.ref, pov.game.castleLastMoveTime.lastMoveTime.fold(secondsToMove) { lmt ⇒
+            scheduleIdleCheck(!pov.ref, pov.game.lastMoveTime.fold(secondsToMove) { lmt ⇒
               lmt - nowSeconds + secondsToMove
             })
           },
