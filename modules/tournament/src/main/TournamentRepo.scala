@@ -1,6 +1,6 @@
 package lila.tournament
 
-import org.scala_tools.time.Imports._
+import com.github.nscala_time.time.Imports._
 import play.api.libs.json._
 
 import lila.db.api._

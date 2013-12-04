@@ -1,7 +1,7 @@
 package lila.tournament
 
 import org.joda.time.{ DateTime, Duration }
-import org.scala_tools.time.Imports._
+import com.github.nscala_time.time.Imports._
 import ornicar.scalalib.Random
 
 import chess.{ Variant, Mode }

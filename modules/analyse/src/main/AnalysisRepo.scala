@@ -1,7 +1,7 @@
 package lila.analyse
 
 import org.joda.time.DateTime
-import org.scala_tools.time.Imports._
+import com.github.nscala_time.time.Imports._
 import play.api.libs.json.Json
 
 import lila.db.api._

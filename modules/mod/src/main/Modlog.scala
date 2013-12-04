@@ -1,7 +1,7 @@
 package lila.mod
 
 import org.joda.time.DateTime
-import org.scala_tools.time.Imports._
+import com.github.nscala_time.time.Imports._
 
 case class Modlog(
     mod: String,

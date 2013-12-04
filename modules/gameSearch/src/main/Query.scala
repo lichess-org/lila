@@ -3,7 +3,7 @@ package lila.gameSearch
 import Game.fields
 import org.elasticsearch.index.query._, FilterBuilders._, QueryBuilders._
 import org.joda.time.DateTime
-import org.scala_tools.time.Imports._
+import com.github.nscala_time.time.Imports._
 
 import chess.{ Variant, Mode, Status, EcoDb }
 import lila.common.EloRange

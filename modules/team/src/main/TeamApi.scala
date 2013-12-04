@@ -1,6 +1,6 @@
 package lila.team
 
-import org.scala_tools.time.Imports._
+import com.github.nscala_time.time.Imports._
 
 import actorApi._
 import akka.actor.ActorSelection
