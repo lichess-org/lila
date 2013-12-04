@@ -386,7 +386,8 @@ object Game {
 
     val id = "_id"
     val token = "tk"
-    val players = "p"
+    val whitePlayer = "p1"
+    val blackPlayer = "p2"
     val binaryPieces = "ps"
     val status = "s"
     val turns = "t"
@@ -409,13 +410,12 @@ object Game {
     import BSONFields._
 
     def reads(r: BSON.Reader): Game = {
-      val players = r.get[BSONArray]("p")
       val nbTurns = r int turns
       Game(
         id = r str "_id",
         token = r str "tk",
-        whitePlayer = players.getAs[Color ⇒ Player](0).get(White),
-        blackPlayer = players.getAs[Color ⇒ Player](1).get(Black),
+        whitePlayer = r.get[Color ⇒ Player](whitePlayer)(playerBSONHandler)(White),
+        blackPlayer = r.get[Color ⇒ Player](blackPlayer)(playerBSONHandler)(Black),
         binaryPieces = r bytes binaryPieces,
         status = Status(r int status) err "Invalid status",
         turns = nbTurns,
@@ -436,9 +436,8 @@ object Game {
     def writes(w: BSON.Writer, o: Game) = BSONDocument(
       id -> o.id,
       token -> o.token,
-      players -> List(
-        (_: Color) ⇒ o.whitePlayer,
-        (_: Color) ⇒ o.blackPlayer),
+      whitePlayer -> ((_: Color) ⇒ o.whitePlayer),
+      blackPlayer -> ((_: Color) ⇒ o.blackPlayer),
       binaryPieces -> o.binaryPieces,
       status -> o.status.id,
       turns -> o.turns,

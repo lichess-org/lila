@@ -83,7 +83,7 @@ object Player {
 
   object BSONFields {
 
-    val id = "_id"
+    val id = "id"
     val aiLevel = "ai"
     val isWinner = "w"
     val isOfferingDraw = "isOfferingDraw"
@@ -106,7 +106,7 @@ object Player {
     import BSONFields._
 
     def reads(r: BSON.Reader) = color ⇒ Player(
-      id = r str id,
+      id = (r strO id) | "0000",
       color = color,
       aiLevel = r intO aiLevel,
       isWinner = r boolO isWinner,
@@ -123,7 +123,7 @@ object Player {
 
     def writes(w: BSON.Writer, o: Color ⇒ Player) = o(chess.White) |> { p ⇒
       BSONDocument(
-        id -> p.id,
+        id -> (p.isHuman option p.id),
         aiLevel -> p.aiLevel,
         isWinner -> p.isWinner,
         isOfferingDraw -> w.boolO(p.isOfferingDraw),

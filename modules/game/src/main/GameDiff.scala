@@ -47,7 +47,7 @@ private[game] object GameDiff {
     dOpt(clock, _.clock, (o: Option[Clock]) ⇒ o map { c ⇒ Game.clockBSONHandler.write(_ ⇒ c) })
     for (i ← 0 to 1) {
       import Player.BSONFields._
-      val name = s"p.$i."
+      val name = s"p$i."
       val player: Game ⇒ Player = if (i == 0) (_.whitePlayer) else (_.blackPlayer)
       dOpt(name + isWinner, player(_).isWinner, w.map[Option, Boolean, BSONBoolean])
       dOpt(name + lastDrawOffer, player(_).lastDrawOffer, w.map[Option, Int, BSONInteger])
