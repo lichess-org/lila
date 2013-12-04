@@ -5,7 +5,7 @@ import scala.util.Random
 import chess.format.Forsyth
 import chess.{ Color, Variant, Status }
 import org.joda.time.DateTime
-import org.scala_tools.time.Imports._
+import com.github.nscala_time.time.Imports._
 import play.api.libs.json._
 import play.modules.reactivemongo.json.BSONFormats.toJSON
 import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter

@@ -1,7 +1,7 @@
 package lila.team
 
 import org.joda.time.{ DateTime, Period }
-import org.scala_tools.time.Imports._
+import com.github.nscala_time.time.Imports._
 import play.api.libs.json.Json
 import reactivemongo.api._
 

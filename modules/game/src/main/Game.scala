@@ -4,7 +4,7 @@ import chess.Color._
 import chess.Pos.piotr, chess.Role.forsyth
 import chess.{ History ⇒ ChessHistory, Castles, Role, Board, Move, Pos, Game ⇒ ChessGame, Clock, Status, Color, Piece, Variant, Mode }
 import org.joda.time.DateTime
-import org.scala_tools.time.Imports._
+import com.github.nscala_time.time.Imports._
 
 import lila.db.ByteArray
 import lila.user.User
