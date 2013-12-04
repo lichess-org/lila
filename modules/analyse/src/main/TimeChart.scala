@@ -19,11 +19,17 @@ final class TimeChart(game: Game, usernames: Map[Color, String]) {
 
   def rows = Json stringify {
     Json toJson {
-      (game.player(Color.White).moveTimeList zip game.player(Color.Black).moveTimeList).zipWithIndex map {
+      zipWithZeros(
+        game.player(Color.White).moveTimeList,
+        game.player(Color.Black).moveTimeList
+      ).zipWithIndex map {
         case ((white, black), move) ⇒ Json.arr((move + 1).toString, white, black)
       }
     }
   }
+
+  private def zipWithZeros(a: List[Int], b: List[Int]): List[(Int, Int)] = 
+    (a ::: List.fill(b.size - a.size)(0)) zip (b ::: List.fill(a.size - b.size)(0)) 
 }
 
 object TimeChart {

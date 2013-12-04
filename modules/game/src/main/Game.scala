@@ -110,7 +110,7 @@ case class Game(
 
     def copyPlayer(player: Player) = player.copy(
       blurs = player.blurs + (blur && move.color == player.color).fold(1, 0),
-      moveTimes = ((!isPgnImport) && (move.color == player.color)).fold(
+      moveTimes = ((!isPgnImport && player.isHuman) && (move.color == player.color)).fold(
         lastMoveTime ?? { lmt ⇒
           val mt = nowSeconds - lmt
           val encoded = MoveTime encode mt
