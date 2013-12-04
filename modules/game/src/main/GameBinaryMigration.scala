@@ -4,8 +4,8 @@ import scala.concurrent.duration._
 import scala.concurrent.Future
 import scala.util.{ Try, Success, Failure }
 
-import chess.{ Pos, Castles, History }
 import chess.Pos.posAt
+import chess.{ Pos, Castles, History }
 import play.api.libs.iteratee._
 import reactivemongo.bson._
 
@@ -23,17 +23,18 @@ object GameBinaryMigration {
     val batchSize = 100
     val limit = 150 * 1000
     // val limit = 20 * 1000 * 1000
-    
+
     def getAs[T](map: Map[String, BSONValue], key: String)(implicit reader: BSONReader[_ <: BSONValue, T]): Option[T] = {
-      map.get(key) flatMap { e => Try(reader.asInstanceOf[BSONReader[BSONValue, T]] read e).toOption }
+      map.get(key) flatMap { e ⇒ Try(reader.asInstanceOf[BSONReader[BSONValue, T]] read e).toOption }
     }
 
     def parseLastMove(lastMove: String): Option[(Pos, Pos)] = lastMove match {
       case History.MoveString(a, b) ⇒ for (o ← posAt(a); d ← posAt(b)) yield (o, d)
-      case _ ⇒ None
+      case _                        ⇒ None
     }
 
-    def convert(o: Doc): Doc = {
+    val drop = Set("cs", "lm", "lmt", "p")
+    def convertGame(o: Doc): Doc = {
       val d1 = (o.stream collect {
         case Success(e) ⇒ e
       }).toMap
@@ -45,16 +46,13 @@ object GameBinaryMigration {
       val bsonCL = BSONBinary(binCL.value, Subtype.UserDefinedSubtype)
       val d2 = d1 + ("cl" -> bsonCL)
       BSONDocument {
-        (d2 filterKeys {
-          case "cs" | "lm" | "lmt" ⇒ false
-          case _                   ⇒ true
-        }).toStream
+        d2 filterKeys (k ⇒ !drop(k))
       }
     }
 
     def convertPrll(docs: Docs): Docs = {
       Future.traverse(docs) { o ⇒
-        Future { convert(o) }
+        Future { convertGame(o) }
       }
     }.await(5 seconds)
 

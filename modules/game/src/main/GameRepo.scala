@@ -4,8 +4,8 @@ import scala.util.Random
 
 import chess.format.Forsyth
 import chess.{ Color, Variant, Status }
-import org.joda.time.DateTime
 import com.github.nscala_time.time.Imports._
+import org.joda.time.DateTime
 import play.api.libs.json._
 import play.modules.reactivemongo.json.BSONFormats.toJSON
 import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
@@ -89,10 +89,10 @@ trait GameRepo {
   // makes the asumption that player 0 is white!
   // proved to be true on prod DB at March 31 2012
   def setEloDiffs(id: ID, white: Int, black: Int) =
-    $update($select(id), $set("p.0.ed" -> white, "p.1.ed" -> black))
+    $update($select(id), $set("p0.ed" -> white, "p1.ed" -> black))
 
   def setUser(id: ID, color: Color, user: User) = {
-    val pn = "p." + color.fold(0, 1) + "."
+    val pn = s"p${color.fold(0, 1)}."
     $update($select(id), $set(Json.obj(
       (pn + "uid") -> user.id,
       (pn + "elo") -> user.elo)))
@@ -111,14 +111,14 @@ trait GameRepo {
     $select(id),
     winnerId.??(wid ⇒ $set("wid" -> wid)) ++ $unset(
       "ph",
-      "p.0.previousMoveTs",
-      "p.1.previousMoveTs",
-      "p.0.lastDrawOffer",
-      "p.1.lastDrawOffer",
-      "p.0.isOfferingDraw",
-      "p.1.isOfferingDraw",
-      "p.0.isProposingTakeback",
-      "p.1.isProposingTakeback"
+      "p0.previousMoveTs",
+      "p1.previousMoveTs",
+      "p0.lastDrawOffer",
+      "p1.lastDrawOffer",
+      "p0.isOfferingDraw",
+      "p1.isOfferingDraw",
+      "p0.isProposingTakeback",
+      "p1.isProposingTakeback"
     )
   )
 
@@ -143,7 +143,7 @@ trait GameRepo {
   def saveNext(game: Game, nextId: ID): Funit = $update(
     $select(game.id),
     $set("next" -> nextId) ++
-      $unset("p.0.isOfferingRematch", "p.1.isOfferingRematch")
+      $unset("p0.isOfferingRematch", "p1.isOfferingRematch")
   )
 
   def initialFen(gameId: ID): Fu[Option[String]] =
@@ -184,10 +184,10 @@ trait GameRepo {
   });
   return nb == 0 ? nb : Math.round(sum / nb);
   }""",
-      query = Some(JsObjectWriter write Json.obj(
-        BSONFields.createdAt -> $gte($date(DateTime.now - minutes.minutes)),
-        "p.elo" -> $exists(true)
-      ))
+      query = Some(JsObjectWriter write {
+        Json.obj(BSONFields.createdAt -> $gte($date(DateTime.now - minutes.minutes))) ++ 
+        $or(List(Json.obj("p1.elo" -> $exists(true)), Json.obj("p2.elo" -> $exists(true))))
+      })
     )
     gameTube.coll.db.command(command) map { res ⇒
       toJSON(res).arr("results").flatMap { r ⇒

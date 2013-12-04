@@ -35,7 +35,7 @@ private[round] final class Round(
       pov.game.outoftimePlayer.fold(player.human(p)(pov))(outOfTime(pov.game))
     }
 
-    case AiPlay ⇒ publish(GameRepo game gameId) { game ⇒
+    case AiPlay ⇒ handle { game ⇒
       player ai game map (_.events)
     }
 
@@ -123,20 +123,28 @@ private[round] final class Round(
       chess.InsufficientMatingMaterial(game.toChess.board, _)
     })
 
-  protected def handle(playerId: String)(op: Pov ⇒ Fu[Events]) =
-    publish(GameRepo pov PlayerRef(gameId, playerId))(op)
+  protected def handle[A](op: Game ⇒ Fu[Events]): Funit =
+    handleGame(GameRepo game gameId)(op)
 
-  protected def handle(color: chess.Color)(op: Pov ⇒ Fu[Events]) =
-    publish(GameRepo pov PovRef(gameId, color))(op)
+  protected def handle(playerId: String)(op: Pov ⇒ Fu[Events]): Funit =
+    handlePov(GameRepo pov PlayerRef(gameId, playerId))(op)
 
-  protected def handle[A](op: Game ⇒ Fu[Events]) =
-    publish(GameRepo game gameId)(op)
+  protected def handle(color: chess.Color)(op: Pov ⇒ Fu[Events]): Funit =
+    handlePov(GameRepo pov PovRef(gameId, color))(op)
 
-  private def publish[A](context: Fu[Option[A]])(op: A ⇒ Fu[Events]) = {
-    context flatten "round not found" flatMap op addEffect {
-      events ⇒ if (events.nonEmpty) socketHub ! Tell(gameId, events)
-    } addFailureEffect {
-      err ⇒ logwarn("[round] " + err)
+  private def handlePov(pov: Fu[Option[Pov]])(op: Pov ⇒ Fu[Events]): Funit = publish {
+    pov flatten "pov not found" flatMap { p ⇒
+      if (p.player.isAi) fufail("player can't play AI") else op(p)
     }
-  }.void
+  }
+
+  private def handleGame(game: Fu[Option[Game]])(op: Game ⇒ Fu[Events]): Funit = publish {
+    game flatten "game not found" flatMap op
+  }
+
+  private def publish[A](op: Fu[Events]) = op addEffect {
+    events ⇒ if (events.nonEmpty) socketHub ! Tell(gameId, events)
+  } addFailureEffect {
+    err ⇒ logwarn("[round] " + err)
+  } void
 }
