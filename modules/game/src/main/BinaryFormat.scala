@@ -11,9 +11,9 @@ object BinaryFormat {
   object clock {
 
     def write(clock: Clock): ByteArray = ByteArray {
-      def time(seconds: Float) = writeSignedInt24((seconds * 100).toInt)
+      def time(t: Float) = writeSignedInt24((t * 100).toInt)
       def timer(seconds: Double) = writeLong40((seconds * 100).toLong)
-      Array(writeInt8(clock.limit), writeInt8(clock.increment)) ++
+      Array(writeInt8(clock.limit / 60), writeInt8(clock.increment)) ++
         time(clock.whiteTime) ++
         time(clock.blackTime) ++
         timer(clock.timerOption getOrElse 0d) map (_.toByte)
@@ -24,13 +24,13 @@ object BinaryFormat {
         readLong40(b9, b10, b11, b12, b13) match {
           case 0 ⇒ PausedClock(
             color = color,
-            limit = b1,
+            limit = b1 * 60,
             increment = b2,
             whiteTime = readSignedInt24(b3, b4, b5).toFloat / 100,
             blackTime = readSignedInt24(b6, b7, b8).toFloat / 100)
           case timer ⇒ RunningClock(
             color = color,
-            limit = b1,
+            limit = b1 * 60,
             increment = b2,
             whiteTime = readSignedInt24(b3, b4, b5).toFloat / 100,
             blackTime = readSignedInt24(b6, b7, b8).toFloat / 100,
@@ -54,14 +54,12 @@ object BinaryFormat {
       }
       val time = clmt.lastMoveTime getOrElse 0
 
-      val bytes = ((castleInt << 4) + (lastMoveInt >> 8)) ::
-        (lastMoveInt & 255) ::
-        (time >> 16) ::
-        ((time >> 8) & 255) ::
-        (time & 255) ::
-        Nil
+      val ints = Array(
+        (castleInt << 4) + (lastMoveInt >> 8),
+        (lastMoveInt & 255)
+      ) ++ writeInt24(time)
 
-      ByteArray(bytes.map(_.toByte).toArray)
+      ByteArray(ints.map(_.toByte))
     }
 
     def read(ba: ByteArray): CastleLastMoveTime = {

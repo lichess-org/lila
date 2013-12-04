@@ -76,6 +76,8 @@ case class Game(
 
   def hasChat = nonTournament && nonAi
 
+  def lastMoveTime = castleLastMoveTime.lastMoveTime map (_ + createdAt.getSeconds.toInt)
+
   lazy val toChess: ChessGame = {
 
     val (pieces, deads) = BinaryFormat.piece read binaryPieces
@@ -109,7 +111,7 @@ case class Game(
     def copyPlayer(player: Player) = player.copy(
       blurs = player.blurs + (blur && move.color == player.color).fold(1, 0),
       moveTimes = ((!isPgnImport) && (move.color == player.color)).fold(
-        castleLastMoveTime.lastMoveTime ?? { lmt ⇒
+        lastMoveTime ?? { lmt ⇒
           val mt = nowSeconds - lmt
           val encoded = MoveTime encode mt
           player.moveTimes.isEmpty.fold(encoded.toString, player.moveTimes + encoded)
@@ -126,7 +128,7 @@ case class Game(
       castleLastMoveTime = CastleLastMoveTime(
         castles = history.castles,
         lastMove = history.lastMove,
-        lastMoveTime = nowSeconds.some),
+        lastMoveTime = Some(nowSeconds - createdAt.getSeconds.toInt)),
       status = situation.status | status,
       clock = game.clock,
       check = situation.kingPos ifTrue situation.check)
@@ -408,6 +410,7 @@ object Game {
 
     def reads(r: BSON.Reader): Game = {
       val players = r.get[BSONArray]("p")
+      val nbTurns = r int turns
       Game(
         id = r str "_id",
         token = r str "tk",
@@ -415,8 +418,8 @@ object Game {
         blackPlayer = players.getAs[Color ⇒ Player](1).get(Black),
         binaryPieces = r bytes binaryPieces,
         status = Status(r int status) err "Invalid status",
-        turns = r int turns,
-        clock = ???,
+        turns = nbTurns,
+        clock = r.getO[Color ⇒ Clock](clock) map (_(Color(0 == nbTurns % 2))),
         check = r strO check flatMap Pos.posAt,
         creatorColor = Color(r boolD creatorColor),
         positionHashes = r strD positionHashes,
@@ -439,7 +442,7 @@ object Game {
       binaryPieces -> o.binaryPieces,
       status -> o.status.id,
       turns -> o.turns,
-      clock -> ???,
+      clock -> (o.clock map { c ⇒ clockBSONHandler.write(_ ⇒ c) }),
       check -> o.check.map(_.toString),
       creatorColor -> w.boolO(o.creatorColor.white),
       positionHashes -> w.strO(o.positionHashes),
@@ -452,12 +455,24 @@ object Game {
       updatedAt -> o.updatedAt.map(w.date),
       metadata -> o.metadata.map(metadataBSONHandler.write))
   }
+
+  import lila.db.ByteArray.ByteArrayBSONHandler
+
+  implicit val clockBSONHandler = new BSONHandler[BSONBinary, Color ⇒ Clock] {
+    def read(bin: BSONBinary) = BinaryFormat.clock read {
+      ByteArrayBSONHandler read bin
+    }
+    def write(clock: Color ⇒ Clock) = ByteArrayBSONHandler write {
+      BinaryFormat.clock write clock(chess.White)
+    }
+  }
 }
 
 case class CastleLastMoveTime(
     castles: Castles,
     lastMove: Option[(Pos, Pos)],
-    lastMoveTime: Option[Int]) {
+    lastMoveTime: Option[Int] // seconds since game creation
+  ) {
 
   def lastMoveString = lastMove map { case (a, b) ⇒ a.toString + b.toString }
 }

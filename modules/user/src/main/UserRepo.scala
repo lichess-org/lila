@@ -209,7 +209,7 @@ object UserRepo {
     import reactivemongo.bson._
     import reactivemongo.core.commands._
     val command = Aggregate(userTube.coll.name, Seq(
-      Match(BSONDocument("_id" -> BSONDocument("$in" -> ids))),
+      Sort(BSONDocument("_id" -> BSONDocument("$in" -> ids))),
       Group(BSONBoolean(true))("toints" -> SumField("toints"))
     ))
     userTube.coll.db.command(command) map { stream ⇒

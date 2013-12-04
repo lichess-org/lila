@@ -50,10 +50,24 @@ object BSON {
 
     def boolO(b: Boolean): Option[BSONBoolean] = if (b) Some(BSONBoolean(true)) else None
     def strO(s: String): Option[BSONString] = if (s.nonEmpty) Some(BSONString(s)) else None
+    def int(i: Int): BSONInteger = BSONInteger(i)
     def intO(i: Int): Option[BSONInteger] = if (i != 0) Some(BSONInteger(i)) else None
-
     def date(d: DateTime): BSONDateTime = BSONJodaDateTimeHandler write d
+
+    import scalaz.Functor
+    def map[M[_] : Functor, A, B <: BSONValue](a: M[A])(implicit writer: BSONWriter[A, B]): M[B] = 
+      a map writer.write
   }
 
   val writer = new Writer
+
+  def debug(v: BSONValue): String = v match {
+    case d: BSONDocument ⇒ debugDoc(d)
+    case d: BSONArray    ⇒ debugArr(d)
+    case v               ⇒ v.toString
+  }
+  def debugArr(doc: BSONArray): String = doc.values.toList.map(debug).mkString("[", ", ", "]")
+  def debugDoc(doc: BSONDocument): String = (doc.elements.toList map {
+    case (k, v) ⇒ s"$k: ${debug(v)}"
+  }).mkString("{", ", ", "}")
 }
