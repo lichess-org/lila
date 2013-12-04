@@ -13,7 +13,7 @@ object BuildSettings {
     sources in doc in Compile := List())
 
   def defaultDeps = Seq(
-    scalaz, scalalib, jodaTime, jodaConvert, scalaTime, spray.util)
+    scalaz, scalalib, jodaTime, scalaTime, spray.util)
 
   def compile(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "compile")
   def provided(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "provided")
