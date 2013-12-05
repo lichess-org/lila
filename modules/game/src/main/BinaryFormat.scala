@@ -8,6 +8,37 @@ import lila.db.ByteArray
 
 object BinaryFormat {
 
+  object moveTime {
+
+    private val size = 16
+    private val encodeList: List[(Float, Int)] = List(0, 0.5, 1, 1.5, 2, 3, 4, 5, 6, 8, 10, 15, 20, 30, 40, 60).map(_.toFloat).zipWithIndex
+    private val encodeMap: Map[Float, Int] = encodeList.toMap
+    private val decodeList: List[(Int, Float)] = encodeList.map(x ⇒ x._2 -> x._1)
+    private val decodeMap: Map[Int, Float] = decodeList.toMap
+
+    def findClose(v: Float, in: List[(Float, Int)]): Option[Int] = in match {
+      case (a, b) :: (c, d) :: rest ⇒
+        if (math.abs(a - v) < math.abs(c - v)) Some(b) else findClose(v, rest)
+      case (a, b) :: rest ⇒ Some(b)
+      case _              ⇒ None
+    }
+
+    def write(mts: List[Float]): ByteArray = ByteArray {
+      def enc(mt: Float) = encodeMap get mt orElse findClose(mt, encodeList) getOrElse (size - 1)
+      (mts grouped 2 map {
+        case List(a, b) ⇒ (enc(a) << 4) + enc(b)
+        case List(a)    ⇒ enc(a) << 4
+      }).map(_.toByte).toArray
+    }
+
+    def read(ba: ByteArray): List[Float] = {
+      def dec(x: Int) = decodeMap get x getOrElse decodeMap(size - 1)
+      ba.value map toInt flatMap { k ⇒
+        Array(dec(k >> 4), dec(k & 15))
+      }
+    }.toList
+  }
+
   object clock {
 
     def write(clock: Clock): ByteArray = ByteArray {
@@ -19,7 +50,7 @@ object BinaryFormat {
         timer(clock.timerOption getOrElse 0d) map (_.toByte)
     }
 
-    def read(ba: ByteArray): Color => Clock = color ⇒ ba.value map toInt match {
+    def read(ba: ByteArray): Color ⇒ Clock = color ⇒ ba.value map toInt match {
       case Array(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13) ⇒
         readLong40(b9, b10, b11, b12, b13) match {
           case 0 ⇒ PausedClock(
