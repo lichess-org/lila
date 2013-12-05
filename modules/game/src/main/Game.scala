@@ -386,8 +386,8 @@ object Game {
 
     val id = "_id"
     val token = "tk"
-    val whitePlayer = "p1"
-    val blackPlayer = "p2"
+    val whitePlayer = "p0"
+    val blackPlayer = "p1"
     val binaryPieces = "ps"
     val status = "s"
     val turns = "t"
