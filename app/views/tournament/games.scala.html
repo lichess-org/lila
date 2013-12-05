@@ -3,7 +3,7 @@
 <div class="game_list realtime clearfix">
   @games.map { g =>
   <div>
-    @gameFen(g, g.creator.color)
+    @gameFen(g, g.firstPlayer.color)
     @game.vstext(g)
   </div>
   }

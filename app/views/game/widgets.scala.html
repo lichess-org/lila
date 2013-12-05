@@ -3,7 +3,7 @@
 @games.map { g =>
 <div class="game_row paginated_element clearfix">
   @defining(user flatMap g.player) { fromPlayer =>
-  @defining(fromPlayer | g.creator ) { firstPlayer =>
+  @defining(fromPlayer | g.firstPlayer ) { firstPlayer =>
   @gameFen(g, firstPlayer.color, ownerLink)
   <div class="infos">
     @bookmark.toggle(g)

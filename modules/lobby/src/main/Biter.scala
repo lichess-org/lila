@@ -20,19 +20,20 @@ private[lobby] final class Biter(
 
   private def join(hook: Hook, userOption: Option[User]): Fu[String ⇒ JoinHook] = for {
     ownerOption ← hook.userId ?? UserRepo.byId
+    creatorColor = hook.realColor.resolve
     game = blame(
-      _.invitedColor, userOption,
-      blame(_.creatorColor, ownerOption, makeGame(hook))
+      !creatorColor, userOption,
+      blame(creatorColor, ownerOption, makeGame(hook))
     ).start
     _ ← (GameRepo insertDenormalized game) >>-
       (timeline ! game) >>
       // messenges are not sent to the game socket
       // as nobody is there to see them yet
       (roundMessenger init game)
-  } yield uid ⇒ JoinHook(uid, hook, game)
+  } yield uid ⇒ JoinHook(uid, hook, game, creatorColor)
 
-  def blame(color: Game ⇒ ChessColor, userOption: Option[User], game: Game) =
-    userOption.fold(game)(user ⇒ game.updatePlayer(color(game), _ withUser user))
+  def blame(color: ChessColor, userOption: Option[User], game: Game) =
+    userOption.fold(game)(user ⇒ game.updatePlayer(color, _ withUser user))
 
   private def makeGame(hook: Hook) = Game.make(
     game = ChessGame(
@@ -45,7 +46,6 @@ private[lobby] final class Biter(
     ),
     whitePlayer = Player.white,
     blackPlayer = Player.black,
-    creatorColor = hook.realColor.resolve,
     mode = hook.realMode,
     variant = hook.realVariant,
     source = lila.game.Source.Lobby,

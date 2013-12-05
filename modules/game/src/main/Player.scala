@@ -61,6 +61,13 @@ case class Player(
   def removeTakebackProposition = copy(isProposingTakeback = false)
 
   def withName(name: String) = copy(name = name.some)
+
+  def before(other: Player) = ((elo, id), (other.elo, other.id)) match {
+    case ((Some(a), _), (Some(b), _)) if a != b ⇒ a < b
+    case ((Some(_), _), (None, _))              ⇒ true
+    case ((None, _), (Some(_), _))              ⇒ false
+    case ((_, a), (_, b))                       ⇒ a < b
+  }
 }
 
 object Player {
@@ -81,11 +88,11 @@ object Player {
     val id = "id"
     val aiLevel = "ai"
     val isWinner = "w"
-    val isOfferingDraw = "isOfferingDraw"
-    val isOfferingRematch = "isOfferingRematch"
-    val lastDrawOffer = "lastDrawOffer"
-    val isProposingTakeback = "isProposingTakeback"
-    val userId = "uid"
+    val isOfferingDraw = "isd"
+    val isOfferingRematch = "isr"
+    val lastDrawOffer = "ld"
+    val isProposingTakeback = "ist"
+    val userId = "u"
     val elo = "elo"
     val eloDiff = "ed"
     val blurs = "bs"

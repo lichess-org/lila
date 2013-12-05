@@ -52,7 +52,6 @@ private[importer] case class ImportData(pgn: String) {
         game = ChessGame(board = initBoard | (Board init variant)),
         whitePlayer = Player.white withName name(_.White, _.WhiteElo),
         blackPlayer = Player.black withName name(_.Black, _.BlackElo),
-        creatorColor = Color.White,
         mode = Mode.Casual,
         variant = variant,
         source = Source.Import,

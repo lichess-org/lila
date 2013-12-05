@@ -2,12 +2,12 @@
 
 <div class="vstext clearfix">
   <div class="left">
-    @playerUsername(g.creator, false)<br />
-    @g.creator.elo
+    @playerUsername(g.firstPlayer, false)<br />
+    @g.firstPlayer.elo
   </div>
   <div class="right">
-    @playerUsername(g.invited, false)<br />
-    @g.invited.elo
+    @playerUsername(g.secondPlayer, false)<br />
+    @g.secondPlayer.elo
   </div>
   @g.clock.map { c =>
   <div class="center"><br />@shortClockName(c)</div>

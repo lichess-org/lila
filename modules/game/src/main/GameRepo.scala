@@ -131,14 +131,14 @@ trait GameRepo {
     val bson = gameTube.handler write game
     val userIds = game.players.map(_.userId).flatten.distinct
     val bson2 = bson ++ BSONDocument(
-      "uids" -> userIds,
+      "us" -> userIds,
       "if" -> game.variant.exotic.option(Forsyth >> game.toChess)
     )
     $insert bson bson2
   }
 
   def denormalizeUids(game: Game): Funit =
-    $update.field(game.id, "uids", game.players.map(_.userId).flatten.distinct)
+    $update.field(game.id, "us", game.players.map(_.userId).flatten.distinct)
 
   def saveNext(game: Game, nextId: ID): Funit = $update(
     $select(game.id),
@@ -201,11 +201,11 @@ trait GameRepo {
     import reactivemongo.bson._
     import reactivemongo.core.commands._
     val command = Aggregate(gameTube.coll.name, Seq(
-      Match(BSONDocument("uids" -> userId)),
-      Match(BSONDocument("uids" -> BSONDocument("$size" -> 2))),
-      Unwind("uids"),
-      Match(BSONDocument("uids" -> BSONDocument("$ne" -> userId))),
-      GroupField("uids")("gs" -> SumValue(1)),
+      Match(BSONDocument("us" -> userId)),
+      Match(BSONDocument("us" -> BSONDocument("$size" -> 2))),
+      Unwind("us"),
+      Match(BSONDocument("us" -> BSONDocument("$ne" -> userId))),
+      GroupField("us")("gs" -> SumValue(1)),
       Sort(Seq(Descending("gs"))),
       Limit(limit)
     ))
@@ -221,7 +221,7 @@ trait GameRepo {
   }
 
   def random: Fu[Option[Game]] = $find.one(
-    Json.obj("uids" -> $exists(true)),
+    Json.obj("us" -> $exists(true)),
     _ sort Query.sortCreated skip (Random nextInt 1000)
   )
 
@@ -245,7 +245,7 @@ trait GameRepo {
       val userIds = List(user1, user2).sortBy(_._2).map(_._1)
       val command = Aggregate(gameTube.coll.name, Seq(
         Match(BSONDocument(
-          "uids" -> BSONDocument("$all" -> userIds),
+          "us" -> BSONDocument("$all" -> userIds),
           "s" -> BSONDocument("$gte" -> chess.Status.Mate.id)
         )),
         GroupField("wid")("nb" -> SumValue(1))

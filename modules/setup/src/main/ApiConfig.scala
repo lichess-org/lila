@@ -18,7 +18,6 @@ private[setup] case object ApiConfig extends Config with GameGenerator {
     game = makeGame,
     whitePlayer = Player.white,
     blackPlayer = Player.black,
-    creatorColor = creatorColor,
     mode = mode,
     variant = variant,
     source = Source.Api,

@@ -18,10 +18,7 @@ final class Messenger(
 
   private val nbMessagesCopiedToRematch = 20
 
-  def init(game: Game): Fu[List[Event]] = systemMessages(game, List(
-    game.creatorColor.fold(_.whiteCreatesTheGame, _.blackCreatesTheGame),
-    game.invitedColor.fold(_.whiteJoinsTheGame, _.blackJoinsTheGame)
-  ))
+  def init(game: Game): Fu[List[Event]] = fuccess(Nil)
 
   // copies chats then init
   // no need to send events back
