@@ -39,6 +39,7 @@ private[game] object GameDiff {
     val w = lila.db.BSON.writer
 
     d(binaryPieces, _.binaryPieces, ByteArray.ByteArrayBSONHandler.write)
+    d(binaryPgn, _.binaryPgn, ByteArray.ByteArrayBSONHandler.write)
     d(status, _.status.id, w.int)
     d(turns, _.turns, w.int)
     d(castleLastMoveTime, _.castleLastMoveTime, CastleLastMoveTime.castleLastMoveTimeBSONHandler.write)

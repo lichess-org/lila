@@ -6,12 +6,12 @@ import akka.actor.ActorSelection
 import akka.pattern.ask
 import chess.format.UciDump
 import chess.Replay
-import makeTimeout.veryLarge
 
 import lila.db.api._
 import lila.game.actorApi.InsertGame
 import lila.game.tube.gameTube
-import lila.game.{ Game, GameRepo, PgnRepo }
+import lila.game.{ Game, GameRepo }
+import makeTimeout.veryLarge
 import tube.analysisTube
 
 final class Analyser(
@@ -37,11 +37,10 @@ final class Analyser(
 
     def doGenerate: Fu[Analysis] =
       $find.byId[Game](id) map (_ filter (_.analysable)) zip
-        (PgnRepo getNonEmpty id) zip
         (GameRepo initialFen id) flatMap {
-          case ((Some(game), Some(moves)), initialFen) ⇒ (for {
+          case (Some(game), initialFen) ⇒ (for {
             _ ← AnalysisRepo.progress(id, userId)
-            replay ← Replay(moves mkString " ", initialFen, game.variant).future
+            replay ← Replay(game.pgnMoves mkString " ", initialFen, game.variant).future
             uciMoves = UciDump(replay)
             infos ← {
               ai ? lila.hub.actorApi.ai.Analyse(uciMoves, initialFen)

@@ -17,7 +17,7 @@ case class ByteArray(value: Array[Byte]) {
     "%08d" format { b & 0xff }.toBinaryString.toInt
   } mkString ","
 
-  override def toString = showBytes
+  override def toString = toHexStr
 }
 
 object ByteArray {
@@ -31,7 +31,7 @@ object ByteArray {
 
     def read(bin: BSONBinary) = ByteArray(bin.value.readArray(bin.value.readable))
 
-    def write(ba: ByteArray) = BSONBinary(ba.value, Subtype.GenericBinarySubtype)
+    def write(ba: ByteArray) = BSONBinary(ba.value, subtype)
   }
 
   implicit object JsByteArrayFormat extends OFormat[ByteArray] {
@@ -67,5 +67,7 @@ object ByteArray {
 
   def parseBytes(s: List[String]) = ByteArray(s map parseByte toArray)
 
-  private val binarySubType = Converters hex2Str Array(Subtype.UserDefinedSubtype.value)
+  def subtype = Subtype.GenericBinarySubtype
+
+  private val binarySubType = Converters hex2Str Array(subtype.value)
 }

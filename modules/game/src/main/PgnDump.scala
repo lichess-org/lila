@@ -17,10 +17,10 @@ private[game] final class PgnDump(
 
   import PgnDump._
 
-  def apply(game: Game, moves: List[String]): Fu[Pgn] =
+  def apply(game: Game): Fu[Pgn] =
     tags(game) map { ts ⇒
       val fenSituation = ts find (_.name == Tag.FEN) flatMap { case Tag(_, fen) ⇒ Forsyth <<< fen }
-      val moves2 = (~fenSituation.map(_.situation.color.black)).fold(".." :: moves, moves)
+      val moves2 = (~fenSituation.map(_.situation.color.black)).fold(".." :: game.pgnMoves, game.pgnMoves)
       Pgn(ts, turns(moves2, fenSituation.map(_.fullMoveNumber) | 1))
     }
 

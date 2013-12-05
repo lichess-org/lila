@@ -6,7 +6,7 @@ import chess.{ Status, Role, Color }
 
 import actorApi.round.{ HumanPlay, AiPlay, DrawNo, TakebackNo, PlayResult, Cheat }
 import lila.ai.Ai
-import lila.game.{ Game, GameRepo, PgnRepo, Pov, Progress, UciMemo }
+import lila.game.{ Game, GameRepo, Pov, Progress, UciMemo }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.MoveEvent
 
@@ -20,18 +20,16 @@ private[round] final class Player(
 
   def human(play: HumanPlay)(pov: Pov): Fu[Events] = play match {
     case HumanPlay(playerId, ip, origS, destS, promS, blur, lag, onFailure) ⇒ pov match {
-      case Pov(game, color) if (game playableBy color) ⇒
-        PgnRepo get game.id flatMap { moves ⇒
+      case Pov(game, color) if (game playableBy color) ⇒ {
           (for {
             orig ← posAt(origS) toValid "Wrong orig " + origS
             dest ← posAt(destS) toValid "Wrong dest " + destS
             promotion = Role promotable promS
-            chessGame = game.toChess withPgnMoves moves
-            newChessGameAndMove ← chessGame(orig, dest, promotion, lag)
+            newChessGameAndMove ← game.toChess(orig, dest, promotion, lag)
             (newChessGame, move) = newChessGameAndMove
           } yield game.update(newChessGame, move, blur) -> move).prefixFailuresWith(s"$pov ").future flatMap {
-            case ((progress, pgn), move) ⇒
-              ((GameRepo save progress) zip PgnRepo.save(pov.gameId, pgn)) >>-
+            case (progress, move) ⇒
+              (GameRepo save progress) >>-
                 (pov.game.hasAi ! uciMemo.add(pov.game, move)) >>-
                 notifyProgress(move, progress, ip) >>
                 progress.game.finished.fold(

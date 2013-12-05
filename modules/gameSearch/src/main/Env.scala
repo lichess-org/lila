@@ -8,7 +8,7 @@ import scalastic.elasticsearch.{ Indexer ⇒ EsIndexer }
 
 import lila.db.api.$find
 import lila.game.tube.gameTube
-import lila.game.{ GameRepo, PgnRepo, Game ⇒ GameModel, Query ⇒ DbQuery }
+import lila.game.{ GameRepo, Game ⇒ GameModel, Query ⇒ DbQuery }
 import lila.search.TypeIndexer
 
 final class Env(
@@ -73,7 +73,7 @@ final class Env(
         val gameIds = games.map(_.id).toSeq
         val nbGames = games.size
         nb = nb + nbGames
-        PgnRepo.associate(gameIds) flatMap { pgns ⇒
+        GameRepo.associatePgn(gameIds) flatMap { pgns ⇒
           analyser hasMany gameIds map { analysedIds ⇒
             val pairs = (pgns map {
               case (id, pgn) ⇒ games.find(_.id == id) map (_ -> pgn)
@@ -84,7 +84,7 @@ final class Env(
                   IndexName,
                   TypeName,
                   game.id,
-                  Json stringify Game.from(game, moves, analysedIds contains game.id)
+                  Json stringify Game.from(game, analysedIds contains game.id)
                 ).request
               })
             }

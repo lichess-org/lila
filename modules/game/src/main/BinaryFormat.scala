@@ -8,6 +8,16 @@ import lila.db.ByteArray
 
 object BinaryFormat {
 
+  object pgn {
+
+    def write(moves: PgnMoves): ByteArray = ByteArray {
+      format.pgn.Binary.writeMoves(moves).get.toArray
+    }
+
+    def read(ba: ByteArray): PgnMoves = 
+      format.pgn.Binary.readMoves(ba.value.toList).get
+  }
+
   object moveTime {
 
     private type MT = Int // tenths of seconds
