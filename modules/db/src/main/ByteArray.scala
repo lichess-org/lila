@@ -22,6 +22,8 @@ case class ByteArray(value: Array[Byte]) {
 
 object ByteArray {
 
+  val empty = ByteArray(Array())
+
   def fromHexStr(hexStr: String): Try[ByteArray] =
     Try(ByteArray(Converters str2Hex hexStr))
 

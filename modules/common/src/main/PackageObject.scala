@@ -10,6 +10,7 @@ trait PackageObject extends Steroids with WithFuture {
   def !![A](msg: String): Valid[A] = msg.failNel[A]
 
   def nowMillis: Long = System.currentTimeMillis
+  def nowTenths: Long = nowMillis / 100
   def nowSeconds: Int = (nowMillis / 1000).toInt
 
   lazy val logger = play.api.Logger("lila")

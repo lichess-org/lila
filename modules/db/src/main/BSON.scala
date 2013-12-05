@@ -44,18 +44,23 @@ object BSON {
     def date(k: String) = get[DateTime](k)
     def dateO(k: String) = getO[DateTime](k)
     def bytes(k: String) = get[ByteArray](k)
+    def bytesO(k: String) = getO[ByteArray](k)
+    def bytesD(k: String) = bytesO(k) getOrElse ByteArray.empty
   }
 
   final class Writer {
 
     def boolO(b: Boolean): Option[BSONBoolean] = if (b) Some(BSONBoolean(true)) else None
+    def str(s: String): BSONString = BSONString(s)
     def strO(s: String): Option[BSONString] = if (s.nonEmpty) Some(BSONString(s)) else None
     def int(i: Int): BSONInteger = BSONInteger(i)
     def intO(i: Int): Option[BSONInteger] = if (i != 0) Some(BSONInteger(i)) else None
     def date(d: DateTime): BSONDateTime = BSONJodaDateTimeHandler write d
+    def bytesO(b: Array[Byte]): Option[BSONBinary] = 
+      if (b.isEmpty) None else ByteArray.ByteArrayBSONHandler.write(ByteArray(b)).some
 
     import scalaz.Functor
-    def map[M[_] : Functor, A, B <: BSONValue](a: M[A])(implicit writer: BSONWriter[A, B]): M[B] = 
+    def map[M[_]: Functor, A, B <: BSONValue](a: M[A])(implicit writer: BSONWriter[A, B]): M[B] =
       a map writer.write
   }
 

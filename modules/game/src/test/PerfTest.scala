@@ -8,14 +8,16 @@ import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
 class PerfTest extends Specification {
 
   val nb = 200
+  // val nb = 2
   val iterations = 10
+  // val iterations = 1
 
-  def runOne = Game.tube read bson map (_.toChess)
+  def runOne = Game.tube read getBson map (_.toChess)
   def run { for (i ← 1 to nb) runOne }
 
   "game model" should {
     "work" in {
-      Game.tube read bson must beSome.like { case g ⇒ g.turns must_== 12 }
+      (Game.gameBSONHandler read getBson).turns must_== 12
     }
     "be fast" in {
       if (nb * iterations > 1) {
@@ -33,56 +35,55 @@ class PerfTest extends Specification {
         duration
       }
       val nbGames = iterations * nb
-      val gameMicros = (1000*durations.sum) / nbGames
+      val gameMicros = (1000 * durations.sum) / nbGames
       println(s"Average = $gameMicros micros per game")
       println(s"          ${1000000 / gameMicros} games per second")
       true must_== true
     }
   }
 
-  private lazy val bson = JsObjectWriter write Json.parse("""
-{
-  "_id": "s9kgwwwq",
-  "c": {
-    "b": 68.21699523925781,
-    "c": true,
-    "i": 0,
-    "l": 420,
-    "t": 1371840910,
-    "w": 13.557001113891602
-  },
-  "ca": {"$date": 1371848110002},
-  "cs": "KQkq",
-  "lm": "a7a5",
-  "lmt": 1371840910,
-  "me": {
-    "so": 1
-  },
-  "p": [
-    {
-      "bs": 1,
-      "elo": 1151,
-      "id": "4xqm",
-      "mts": "21247",
-      "ps": "cbjpnpwparobppBpdqbnApmnipupekhr",
-      "uid": "red1"
-    },
-    {
-      "elo": 968,
-      "id": "ufh0",
-      "mts": "32abaA",
-      "ps": "SpYpQn9b7q6b8k3pJpGp2p?rTnPp1p4r",
-      "uid": "japr"
-    }
-  ],
-  "ra": true,
-  "s": 20,
-  "t": 12,
-  "tk": "2j5a",
-  "ua": {"$date": 1371848112002},
-  "uids": [
-    "red1",
-    "japr"
-  ]
-}""").as[JsObject]
+  private def getBson = Game.gameBSONHandler write getGame
+
+  private def getGame = {
+    import chess.{ RunningClock, Board, Variant, Color, Pos, Status, Castles, Mode }
+    import org.joda.time.DateTime
+    Game(
+      id = "s9kgwwwq",
+      creatorColor = Color.White,
+      clock = RunningClock(
+        color = Color.Black,
+        limit = 420,
+        increment = 0,
+        whiteTime = 13.557001f,
+        blackTime = 68.216995f,
+        timer = 1371840910d).some,
+      createdAt = DateTime.now,
+      castleLastMoveTime = CastleLastMoveTime(
+        Castles.all,
+        lastMove = Some(Pos.A7 -> Pos.A5),
+        lastMoveTime = Some(300)),
+      metadata = Metadata(Source.Lobby.some, None, None, None).some,
+      whitePlayer = Player(
+        color = Color.White,
+        id = "4xqm",
+        elo = 1151.some,
+        blurs = 1,
+        userId = "red1".some,
+        aiLevel = None),
+      blackPlayer = Player(
+        color = Color.Black,
+        id = "ufh0",
+        elo = 968.some,
+        userId = "japr".some,
+        aiLevel = None),
+      moveTimes = Vector(100, 20, 10, 60, 30, 30, 40, 100, 120, 10, 30),
+      binaryPieces = BinaryFormat.piece write {
+        Board.init(Variant.Standard).pieces -> Nil
+      },
+      mode = Mode(true),
+      status = Status.Started,
+      turns = 12,
+      token = "2j5a",
+      updatedAt = DateTime.now.some)
+  }
 }

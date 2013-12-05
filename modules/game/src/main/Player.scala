@@ -16,7 +16,6 @@ case class Player(
     userId: Option[String] = None,
     elo: Option[Int] = None,
     eloDiff: Option[Int] = None,
-    moveTimes: String = "",
     blurs: Int = 0,
     name: Option[String] = None) {
 
@@ -41,10 +40,6 @@ case class Player(
   def isUser(u: User) = userId.fold(false)(_ == u.id)
 
   def wins = isWinner getOrElse false
-
-  def hasMoveTimes = moveTimes.size > 4
-
-  def moveTimeList: List[Int] = MoveTime decode moveTimes
 
   def finish(winner: Boolean) = copy(
     isWinner = if (winner) Some(true) else None
@@ -93,7 +88,6 @@ object Player {
     val userId = "uid"
     val elo = "elo"
     val eloDiff = "ed"
-    val moveTimes = "mts"
     val blurs = "bs"
     val name = "na"
   }
@@ -117,7 +111,6 @@ object Player {
       userId = r strO userId,
       elo = r intO elo,
       eloDiff = r intO eloDiff,
-      moveTimes = r strD moveTimes,
       blurs = r intD blurs,
       name = r strO name)
 
@@ -133,7 +126,6 @@ object Player {
         userId -> p.userId,
         elo -> p.elo,
         eloDiff -> p.eloDiff,
-        moveTimes -> w.strO(p.moveTimes),
         blurs -> w.intO(p.blurs),
         name -> p.name)
     }

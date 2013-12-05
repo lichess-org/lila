@@ -4,9 +4,9 @@
 
 <div class="lichess_goodies">
   <div class="box">
-    @game.metadata.flatMap(_.pgnDate).map { date =>
+    @game.pgnImport.flatMap(_.date).map { date =>
     PGN Import - @date
-    @game.metadata.flatMap(_.pgnUser).map { user =>
+    @game.pgnImport.flatMap(_.user).map { user =>
     <br />
     @userIdLink(user.some)
     }

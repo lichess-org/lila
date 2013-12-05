@@ -13,11 +13,11 @@ object Dependencies {
     val sonatypeS = "sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots"
     val t2v = "t2v.jp repo" at "http://www.t2v.jp/maven-repo/"
     val jgitMaven = "jgit-maven" at "http://download.eclipse.org/jgit/maven"
-    val christophs = "Christophs Maven Repo" at "http://maven.henkelmann.eu/"
     val awesomepom = "awesomepom" at "https://raw.github.com/jibs/maven-repo-scala/master"
     val sprayRepo = "spray repo" at "http://repo.spray.io"
     val localSonatype = "local sonatype repo" at home + "/local-repo/sonatype/snapshots"
     val local = "local repo" at home + "/local-repo"
+    val roundeights = "RoundEights" at "http://maven.spikemark.net/roundeights"
 
     val commons = Seq(
       local,
@@ -26,19 +26,20 @@ object Dependencies {
       sonatype,
       awesomepom, iliaz,
       typesafe, 
+      roundeights,
       // typesafeS,
-      t2v, jgitMaven, christophs, sprayRepo)
+      t2v, jgitMaven, sprayRepo)
   }
 
   val scalaz = "org.scalaz" %% "scalaz-core" % "7.0.4"
-  val scalalib = "com.github.ornicar" %% "scalalib" % "4.21"
+  val scalalib = "com.github.ornicar" %% "scalalib" % "4.22"
   val config = "com.typesafe" % "config" % "1.0.2"
   val apache = "org.apache.commons" % "commons-lang3" % "3.1"
   val scalaTime = "com.github.nscala-time" %% "nscala-time" % "0.6.0"
   val guava = "com.google.guava" % "guava" % "15.0"
   val findbugs = "com.google.code.findbugs" % "jsr305" % "2.0.1"
   val csv = "com.github.tototoshi" %% "scala-csv" % "0.8.0"
-  val hasher = "hasher" %% "hasher" % "0.3.1"
+  val hasher = "com.roundeights" %% "hasher" % "1.0.0"
   val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "2.3.1.201302201838-r"
   val actuarius = "eu.henkelmann" %% "actuarius" % "0.2.6-THIB"
   val jodaTime = "joda-time" % "joda-time" % "2.3"
@@ -51,7 +52,7 @@ object Dependencies {
     val test = "com.typesafe.play" %% "play-test" % version
   }
   object spray {
-    val version = "1.2-M8"
+    val version = "1.2.0"
     val caching = "io.spray" % "spray-caching" % version
     val util = "io.spray" % "spray-util" % version
   }

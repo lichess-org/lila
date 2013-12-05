@@ -28,10 +28,10 @@
     <br />
     @trans.variant(): <strong>@g.variant.name</strong>
     }
-    @g.metadata.flatMap(_.pgnDate).map { date =>
+    @g.pgnImport.flatMap(_.date).map { date =>
     <br />
     PGN Import @date
-    @g.metadata.flatMap(_.pgnUser).map { user =>
+    @g.pgnImport.flatMap(_.user).map { user =>
     - @userIdLinkMini(user)
     }
     }
