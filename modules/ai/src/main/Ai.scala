@@ -4,7 +4,7 @@ import chess.format.{ UciMove, UciDump }
 import chess.Move
 
 import lila.analyse.Info
-import lila.game.{ Game, Progress, GameRepo, PgnRepo, UciMemo }
+import lila.game.{ Game, Progress, GameRepo, UciMemo }
 
 case class AiHost(host: String, ip: String)
 case class MoveResult(move: String, server: AiHost)
@@ -15,16 +15,13 @@ trait Ai {
   def play(game: Game, level: Int): Fu[PlayResult] = withValidSituation(game) {
     for {
       fen ← game.variant.exotic ?? { GameRepo initialFen game.id }
-      pgn ← PgnRepo get game.id
-      uciMoves ← uciMemo.get(game, pgn)
+      uciMoves ← uciMemo.get(game)
       moveResult ← move(uciMoves.toList, fen, level)
       uciMove ← (UciMove(moveResult.move) toValid s"${game.id} wrong bestmove: $moveResult").future
-      result ← (game.toChess withPgnMoves pgn)(uciMove.orig, uciMove.dest).future
+      result ← game.toChess(uciMove.orig, uciMove.dest).future
       (c, move) = result
-      (progress, pgn2) = game.update(c, move)
-      _ ← (GameRepo save progress) >>
-        PgnRepo.save(game.id, pgn2) >>-
-        uciMemo.add(game, uciMove.uci)
+      progress = game.update(c, move)
+      _ ← (GameRepo save progress) >>- uciMemo.add(game, uciMove.uci)
     } yield PlayResult(progress, move, moveResult.server)
   }
 

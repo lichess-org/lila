@@ -15,6 +15,7 @@ case class Game(
     whitePlayer: Player,
     blackPlayer: Player,
     binaryPieces: ByteArray,
+    binaryPgn: ByteArray,
     status: Status,
     turns: Int,
     clock: Option[Clock],
@@ -88,6 +89,8 @@ case class Game(
 
   def moveTimesInSeconds: Vector[Float] = moveTimes.map(_.toFloat / 10)
 
+  lazy val pgnMoves: PgnMoves = BinaryFormat.pgn read binaryPgn
+
   lazy val toChess: ChessGame = {
 
     val (pieces, deads) = BinaryFormat.piece read binaryPieces
@@ -97,7 +100,8 @@ case class Game(
       player = Color(0 == turns % 2),
       clock = clock,
       deads = deads,
-      turns = turns)
+      turns = turns,
+      pgnMoves = pgnMoves)
   }
 
   lazy val toChessHistory = ChessHistory(
@@ -108,7 +112,7 @@ case class Game(
   def update(
     game: ChessGame,
     move: Move,
-    blur: Boolean = false): (Progress, List[String]) = {
+    blur: Boolean = false): Progress = {
     val (history, situation) = (game.board.history, game.situation)
 
     val events = (players collect {
@@ -126,6 +130,7 @@ case class Game(
       whitePlayer = copyPlayer(whitePlayer),
       blackPlayer = copyPlayer(blackPlayer),
       binaryPieces = BinaryFormat.piece write game.allPieces,
+      binaryPgn = BinaryFormat.pgn write game.pgnMoves,
       turns = game.turns,
       positionHashes = history.positionHashes,
       castleLastMoveTime = CastleLastMoveTime(
@@ -148,7 +153,7 @@ case class Game(
       )).??(Color.all map Event.ReloadTable)
     }
 
-    Progress(this, updated, finalEvents) -> game.pgnMoves
+    Progress(this, updated, finalEvents) 
   }
 
   def updatePlayer(color: Color, f: Player ⇒ Player) = color.fold(
@@ -356,6 +361,7 @@ object Game {
     blackPlayer = blackPlayer,
     binaryPieces = if (game.isStandardInit) BinaryFormat.piece.standard
     else BinaryFormat.piece write game.allPieces,
+    binaryPgn = ByteArray.empty,
     status = Status.Created,
     turns = game.turns,
     clock = game.clock,
@@ -385,6 +391,7 @@ object Game {
     val whitePlayer = "p0"
     val blackPlayer = "p1"
     val binaryPieces = "ps"
+    val binaryPgn = "pg"
     val status = "s"
     val turns = "t"
     val clock = "c"
@@ -416,6 +423,7 @@ object Game {
         whitePlayer = r.get[Color ⇒ Player](whitePlayer)(playerBSONHandler)(White),
         blackPlayer = r.get[Color ⇒ Player](blackPlayer)(playerBSONHandler)(Black),
         binaryPieces = r bytes binaryPieces,
+        binaryPgn = r bytes binaryPgn,
         status = Status(r int status) err "Invalid status",
         turns = nbTurns,
         clock = r.getO[Color ⇒ Clock](clock) map (_(Color(0 == nbTurns % 2))),
@@ -443,6 +451,7 @@ object Game {
       whitePlayer -> ((_: Color) ⇒ o.whitePlayer),
       blackPlayer -> ((_: Color) ⇒ o.blackPlayer),
       binaryPieces -> o.binaryPieces,
+      binaryPgn -> o.binaryPgn,
       status -> o.status.id,
       turns -> o.turns,
       clock -> (o.clock map { c ⇒ clockBSONHandler.write(_ ⇒ c) }),

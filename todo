@@ -97,6 +97,7 @@ improve AI cheat detection (not only game start)
 can't search for anon games
 user profile tab for imported games http://en.lichess.org/inbox/zevof2tu#bottom
 analysis board (see chess.com)
+on connectivity failure, try to resend the move (and not reload the page)
 
 
 --------------------- DEPLOY

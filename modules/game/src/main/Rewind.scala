@@ -5,11 +5,8 @@ import chess.Status
 
 object Rewind {
 
-  def apply(
-    game: Game,
-    moves: List[String],
-    initialFen: Option[String]): Valid[(Progress, List[String])] = chessPgn.Reader.withSans(
-    pgn = moves mkString " ",
+  def apply(game: Game, initialFen: Option[String]): Valid[Progress] = chessPgn.Reader.withSans(
+    pgn = game.pgnMoves mkString " ",
     op = sans ⇒ sans.isEmpty.fold(sans, sans.init),
     tags = initialFen.??(fen ⇒ List(
       chessPgn.Tag(_.FEN, fen),
@@ -24,6 +21,7 @@ object Rewind {
         whitePlayer = rewindPlayer(game.whitePlayer),
         blackPlayer = rewindPlayer(game.blackPlayer),
         binaryPieces = BinaryFormat.piece write rewindedGame.allPieces,
+        binaryPgn = BinaryFormat.pgn write rewindedGame.pgnMoves,
         turns = rewindedGame.turns,
         positionHashes = rewindedHistory.positionHashes,
         castleLastMoveTime = CastleLastMoveTime(
@@ -34,6 +32,6 @@ object Rewind {
         status = game.status,
         clock = game.clock map (_.switch),
         check = if (rewindedSituation.check) rewindedSituation.kingPos else None
-      )) -> rewindedGame.pgnMoves
+      )) 
     }
 }

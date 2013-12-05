@@ -10,9 +10,10 @@ import org.joda.time.DateTime
 import play.api.libs.iteratee._
 import reactivemongo.bson._
 
-import lila.db.Implicits._
-import lila.game.Game.{ BSONFields ⇒ F }
 import lila.db.BSON.BSONJodaDateTimeHandler
+import lila.db.Implicits._
+import lila.db.ByteArray
+import lila.game.Game.{ BSONFields ⇒ F }
 
 object GameBinaryMigration {
 
@@ -25,6 +26,7 @@ object GameBinaryMigration {
   def apply(db: lila.db.Env, system: akka.actor.ActorSystem) = {
 
     val oldGameColl = db("game4")
+    val oldPgnColl = db("pgn2")
     val repo = GameRepo
     // val limit = 1
     val limit = 600 * 1000
@@ -72,6 +74,7 @@ object GameBinaryMigration {
           F.clock -> bsonClock,
           F.castleLastMoveTime -> bsonCL,
           F.binaryPieces -> bsonPs,
+          F.binaryPgn -> getPgn(gameId),
           F.whitePlayer -> convertPlayer(p0),
           F.blackPlayer -> convertPlayer(p1),
           F.moveTimes -> bsonMts,
@@ -86,6 +89,12 @@ object GameBinaryMigration {
         case e: Exception ⇒ throw new Exception(s"Game $gameId ${debug(o)} $e.getMessage")
       }
     }
+
+    def getPgn(id: String): BSONBinary = {
+      oldPgnColl.find(
+      BSONDocument("_id" -> id), BSONDocument("_id" -> false)
+    ).one[BSONDocument] map { _ flatMap { _.getAs[BSONBinary]("p") } }
+    }.await(1.second) getOrElse ByteArray.ByteArrayBSONHandler.write(ByteArray.empty)
 
     object MTS {
       private val chars: List[Char] =

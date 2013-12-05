@@ -9,10 +9,11 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 import play.modules.reactivemongo.json.BSONFormats.toJSON
 import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
-import reactivemongo.bson.BSONDocument
+import reactivemongo.bson.{ BSONDocument, BSONBinary }
 
 import lila.common.PimpedJson._
 import lila.db.api._
+import lila.db.ByteArray
 import lila.db.Implicits._
 import lila.user.{ User, Confrontation }
 
@@ -227,12 +228,45 @@ trait GameRepo {
 
   def findMirror(game: Game): Fu[Option[Game]] = $find.one(
     Query.users(game.userIds) ++ Query.status(Status.Started) ++ Json.obj(
-      "t" -> game.turns,
-      "_id" -> $ne(game.id),
-      "ps" -> game.binaryPieces,
+      BSONFields.turns -> game.turns,
+      BSONFields.id -> $ne(game.id),
+      BSONFields.binaryPieces -> game.binaryPieces,
       BSONFields.createdAt -> $gt($date(DateTime.now - 1.hour)),
       BSONFields.updatedAt -> $gt($date(DateTime.now - 5.minutes))
     ))
+
+  def getPgn(id: ID): Fu[PgnMoves] = getOptionPgn(id) map (~_)
+
+  def getNonEmptyPgn(id: ID): Fu[Option[PgnMoves]] =
+    getOptionPgn(id) map (_ filter (_.nonEmpty))
+
+  def getOptionPgn(id: ID): Fu[Option[PgnMoves]] =
+    gameTube.coll.find(
+      $select(id), Json.obj(
+        BSONFields.id -> false,
+        BSONFields.binaryPgn -> true
+      )
+    ).one[BSONDocument] map { _ flatMap extractPgnMoves }
+
+  def associatePgn(ids: Seq[ID]): Fu[Map[String, PgnMoves]] =
+    gameTube.coll.find($select byIds ids)
+      .cursor[BSONDocument]
+      .collect[List]() map2 { (obj: BSONDocument) ⇒
+        extractPgnMoves(obj) flatMap { moves ⇒
+          obj.getAs[String]("_id") map (_ -> moves)
+        }
+      } map (_.flatten.toMap)
+
+  def getOneRandomPgn(distrib: Int): Fu[PgnMoves] = {
+    gameTube.coll.find($select.all) skip scala.util.Random.nextInt(distrib)
+  }.cursor[BSONDocument].collect[List](1) map {
+    _.headOption flatMap extractPgnMoves
+  } map (~_)
+
+  private def extractPgnMoves(doc: BSONDocument) =
+    doc.getAs[BSONBinary](BSONFields.binaryPgn) map { bin ⇒
+      BinaryFormat.pgn read { ByteArray.ByteArrayBSONHandler read bin }
+    }
 
   // gets 2 users (id, nbGames)
   // returns user1 wins, draws, losses

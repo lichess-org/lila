@@ -15,7 +15,6 @@ private[game] final class Maintenance(
 
   def remove(ids: List[GameRepo.ID]) {
     $remove[Game]($select byIds ids)
-    PgnRepo removeIds ids
     bookmark ! Remove(ids)
   }
 

@@ -6,7 +6,7 @@ import akka.actor._
 import akka.pattern.{ ask, pipe }
 
 import actorApi._, round._
-import lila.game.{ Game, GameRepo, PgnRepo, Pov, PovRef, PlayerRef, Event, Progress }
+import lila.game.{ Game, GameRepo, Pov, PovRef, PlayerRef, Event, Progress }
 import lila.hub.actorApi.map._
 import lila.hub.SequentialActor
 import lila.i18n.I18nKey.{ Select ⇒ SelectI18nKey }
