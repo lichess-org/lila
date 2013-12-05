@@ -12,12 +12,17 @@ import makeTimeout.short
 
 private[setup] final class FriendJoiner(
     messenger: Messenger,
+    friendConfigMemo: FriendConfigMemo,
     timeline: ActorSelection,
     router: ActorSelection) {
 
   def apply(game: Game, user: Option[User]): Valid[Fu[(Pov, List[Event])]] =
     game.notStarted option {
-      val color = game.invitedColor
+      val color = (friendConfigMemo get game.id map (_.creatorColor)) orElse 
+      // damn, no cache. maybe the opponent was logged, so we can guess?
+      Some(ChessColor.Black).ifTrue(game.whitePlayer.hasUser) orElse
+      Some(ChessColor.White).ifTrue(game.blackPlayer.hasUser) getOrElse
+      ChessColor.Black // well no. we're fucked. toss the coin.
       for {
         p1 ← user.fold(fuccess(Progress(game))) { u ⇒
           GameRepo.setUser(game.id, color, u) inject

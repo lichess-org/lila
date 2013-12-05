@@ -101,4 +101,11 @@ analysis board (see chess.com)
 
 --------------------- DEPLOY
 game migration
-game5 indexes
+db.game5.ensureIndex({s:1});
+db.game5.ensureIndex({us:1},{sparse:1});
+db.game5.ensureIndex({wid:1},{sparse:1});
+db.game5.ensureIndex({ca:-1});
+db.game5.ensureIndex({us:1,ca:-1});
+db.game5.ensureIndex({bm:1},{sparse:1});
+db.game5.ensureIndex({so:1,ca:-1});
+db.game5.ensureIndex({tv:-1},{sparse:1});

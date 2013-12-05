@@ -47,8 +47,8 @@ object GameBinaryMigration {
       case (k, v) if !drops(k)             ⇒ k -> v
     })
 
-    val gameDrop = Set("c", "cc", "cs", "lm", "lmt", "p", "me", "ph")
-    val playerDrop = Set("ps", "mts")
+    val gameDrop = Set("c", "cc", "cs", "lm", "lmt", "p", "me", "ph", "uids")
+    val playerDrop = Set("ps", "mts", "uid", "isOfferingDraw", "isOfferingRematch", "isProposingTakeback", "lastDrawOffer")
 
     def convertGame(o: Doc): Doc = {
       val gameId = o.getAs[String]("_id").get
@@ -75,6 +75,7 @@ object GameBinaryMigration {
           F.whitePlayer -> convertPlayer(p0),
           F.blackPlayer -> convertPlayer(p1),
           F.moveTimes -> bsonMts,
+          "us" -> getAs[BSONArray](d1, "uids"),
           F.source -> (meta flatMap (x ⇒ x.getAs[Int]("so")) map writer.int),
           F.pgnImport -> (meta flatMap (x ⇒ x.getAs[BSONDocument]("pgni")) map writeDocument),
           F.tournamentId -> (meta flatMap (x ⇒ x.getAs[String]("tid")) flatMap writer.strO),
@@ -84,11 +85,6 @@ object GameBinaryMigration {
       catch {
         case e: Exception ⇒ throw new Exception(s"Game $gameId ${debug(o)} $e.getMessage")
       }
-    }
-
-    def checkGame(o: Doc) {
-      // println(debug(o))
-      // (Game.gameBSONHandler read o).pp
     }
 
     object MTS {
@@ -165,12 +161,14 @@ object GameBinaryMigration {
         case ("id", _) if (d1 contains "ai") ⇒ false
         case _                               ⇒ true
       }
-      writeDoc(filtered, playerDrop)
+      writeDoc(filtered, playerDrop) ++ BSONDocument(
+        "u" -> getAs[BSONString](d1, "uid")
+      )
     }
 
     def convertPrll(docs: Docs): Docs = {
       Future.traverse(docs) { o ⇒
-        Future { convertGame(o) ~ checkGame } addFailureEffect {
+        Future { convertGame(o) } addFailureEffect {
           case e: Exception ⇒ println(e)
         }
       }

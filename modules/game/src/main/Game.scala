@@ -59,6 +59,10 @@ case class Game(
 
   def opponent(c: Color): Player = player(!c)
 
+  private lazy val firstColor = (whitePlayer before blackPlayer).fold(White, Black)
+  def firstPlayer = player(firstColor)
+  def secondPlayer = player(!firstColor)
+
   def turnColor = Color(0 == turns % 2)
 
   def turnOf(p: Player) = p == player
@@ -447,7 +451,7 @@ object Game {
       castleLastMoveTime -> castleLastMoveTimeBSONHandler.write(o.castleLastMoveTime),
       moveTimes -> (BinaryFormat.moveTime write o.moveTimes),
       rated -> w.boolO(o.mode.rated),
-      variant -> w.intO(o.variant.id),
+      variant -> o.variant.exotic.option(o.variant.id).map(w.int),
       next -> o.next,
       bookmarks -> w.intO(o.bookmarks),
       createdAt -> w.date(o.createdAt),

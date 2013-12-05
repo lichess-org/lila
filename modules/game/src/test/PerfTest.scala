@@ -49,7 +49,6 @@ class PerfTest extends Specification {
     import org.joda.time.DateTime
     Game(
       id = "s9kgwwwq",
-      creatorColor = Color.White,
       clock = RunningClock(
         color = Color.Black,
         limit = 420,

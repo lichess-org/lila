@@ -14,6 +14,8 @@ case class Pov(game: Game, color: Color) {
 
   def opponent = game player !color
 
+  def isFirstPlayer = game.firstPlayer.color == color
+
   def unary_! = Pov(game, !color)
 
   def isPlayerFullId(fullId: Option[String]): Boolean =
@@ -29,6 +31,9 @@ case class Pov(game: Game, color: Color) {
 object Pov {
 
   def apply(game: Game): List[Pov] = game.players.map { apply(game, _) }
+
+  def first(game: Game) = apply(game, game.firstPlayer)
+  def second(game: Game) = apply(game, game.secondPlayer)
 
   def apply(game: Game, player: Player) = new Pov(game, player.color)
 

@@ -23,7 +23,7 @@ cssClass = "spectators")(roomHtml)
     @user.confrontation(c.pov(pov.player.userId))
     }.getOrElse {
     <div class="confrontation">
-      <div class="vs">@playerLink(pov.game.creator, withElo = false, withOnline = false) vs @playerLink(pov.game.invited, withElo = false, withOnline = false)</div>
+      <div class="vs">@playerLink(pov.game.firstPlayer, withElo = false, withOnline = false) vs @playerLink(pov.game.secondPlayer, withElo = false, withOnline = false)</div>
     </div>
     }
     <br />
@@ -51,7 +51,7 @@ active = siteMenu.tv.some) {
   @round.continueFromHere(pov.game)
   <a href="@routes.Analyse.replay(pov.gameId, pov.color.name)">@trans.replayAndAnalyse()</a>
   <br />
-  <a href="@routes.Tv.index@when(pov.isCreator, "?flip=1")">@trans.flipBoard()</a>
+  <a href="@routes.Tv.index@when(pov.isFirstPlayer, "?flip=1")">@trans.flipBoard()</a>
   @if(pov.game.pgnImport.isEmpty) {
   <br />
   <a href="@routes.Analyse.stats(pov.gameId)">@trans.viewGameStats()</a>
@@ -70,11 +70,11 @@ active = siteMenu.tv.some) {
         <tbody>
         @games.map { g =>
         <tr>
-          <td><a class="watch s24 eye" href="@routes.Round.watcher(g.id, g.creatorColor.name)"></a></td>
+          <td><a class="watch s24 eye" href="@routes.Round.watcher(g.id, g.firstPlayer.color.name)"></a></td>
           <td>
-            @playerLink(g.creator, withOnline = false, withDiff = true)
+            @playerLink(g.firstPlayer, withOnline = false, withDiff = true)
             vs
-            @playerLink(g.invited, withOnline = false, withDiff = true)
+            @playerLink(g.secondPlayer, withOnline = false, withDiff = true)
           </td>
           <td>@shortClockName(g.clock)</td>
         </tr>

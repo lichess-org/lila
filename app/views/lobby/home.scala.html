@@ -4,7 +4,8 @@
 <a class="watchtv revert-underline" href="@routes.Tv.index">Watch Lichess TV</a>
 <div id="featured_game">
   @featured.map { g =>
-  @game.featuredJs(g)
+  @gameFen(g, g.firstPlayer.color, tv = true)
+  @game.vstext(g)
   }
 </div>
 }
@@ -24,7 +25,7 @@
   <div class="links clearfix">
     @if(userTimeline.size == 8) {
     <a class="more" href="@routes.Lobby.timelineMore">@trans.more() »</a>
-    } 
+    }
     <a class="irc" href="@routes.Main.irc">@trans.chat()</a>
   </div>
 </div>

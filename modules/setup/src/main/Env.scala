@@ -34,6 +34,7 @@ final class Env(
 
   lazy val friendJoiner = new FriendJoiner(
     messenger = messenger,
+    friendConfigMemo = friendConfigMemo,
     router = hub.actor.router,
     timeline = hub.actor.gameTimeline)
 

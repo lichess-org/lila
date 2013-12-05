@@ -50,9 +50,9 @@ private[lobby] final class Socket(
 
     case RemoveHook(hookId)      ⇒ notifyVersion("hook_remove", hookId)
 
-    case JoinHook(uid, hook, game) ⇒
-      playerUrl(game fullIdOf game.creatorColor) zip
-        playerUrl(game fullIdOf game.invitedColor) foreach {
+    case JoinHook(uid, hook, game, creatorColor) ⇒
+      playerUrl(game fullIdOf creatorColor) zip
+        playerUrl(game fullIdOf !creatorColor) foreach {
           case (creatorUrl, invitedUrl) ⇒ {
             withMember(hook.uid)(notifyMember("redirect", creatorUrl))
             withMember(uid)(notifyMember("redirect", invitedUrl))

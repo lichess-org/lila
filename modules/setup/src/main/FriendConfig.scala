@@ -23,7 +23,6 @@ case class FriendConfig(
       game = chessGame,
       whitePlayer = Player.white,
       blackPlayer = Player.black,
-      creatorColor = creatorColor,
       mode = mode,
       variant = variant,
       source = (variant == Variant.FromPosition).fold(Source.Position, Source.Friend),

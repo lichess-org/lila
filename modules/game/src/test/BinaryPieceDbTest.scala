@@ -28,7 +28,6 @@ class BinaryPieceDbTest extends Specification with WithColl {
         game = chess.Game(chess.Variant.Standard),
         whitePlayer = Player.white,
         blackPlayer = Player.black,
-        creatorColor = chess.White,
         mode = chess.Mode.default,
         variant = chess.Variant.default,
         source = Source.Lobby,

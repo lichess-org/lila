@@ -92,7 +92,6 @@ private[round] final class Rematcher(
       clock = pov.game.clock map (_.reset)),
     whitePlayer = whitePlayer,
     blackPlayer = blackPlayer,
-    creatorColor = !pov.game.creatorColor,
     mode = pov.game.mode,
     variant = pov.game.variant,
     source = pov.game.source | Source.Lobby,

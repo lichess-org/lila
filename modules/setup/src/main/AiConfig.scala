@@ -26,7 +26,6 @@ case class AiConfig(
       blackPlayer = Player.make(
         color = ChessColor.Black,
         aiLevel = creatorColor.white option level),
-      creatorColor = creatorColor,
       mode = Mode.Casual,
       variant = variant,
       source = (variant == Variant.FromPosition).fold(Source.Position, Source.Ai),
