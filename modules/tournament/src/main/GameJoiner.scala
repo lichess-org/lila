@@ -27,7 +27,6 @@ final class GameJoiner(
       ),
       whitePlayer = GamePlayer.white withUser user1,
       blackPlayer = GamePlayer.black withUser user2,
-      creatorColor = chess.Color.White,
       mode = tour.mode,
       variant = tour.variant,
       source = Source.Tournament,
@@ -55,7 +54,7 @@ final class GameJoiner(
       _.filter(_.game.playable) foreach { pov ⇒
         pov.game.playerHasMoved(pov.color).fold(
           (pov.color.white && !pov.game.playerHasMoved(Color.Black)) ?? {
-            scheduleIdleCheck(!pov.ref, pov.game.lastMoveTime.fold(secondsToMove) { lmt ⇒
+            scheduleIdleCheck(!pov.ref, pov.game.lastMoveTimeInSeconds.fold(secondsToMove) { lmt ⇒
               lmt - nowSeconds + secondsToMove
             })
           },

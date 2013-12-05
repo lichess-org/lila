@@ -23,17 +23,12 @@ case class Pov(game: Game, color: Color) {
 
   def withGame(g: Game) = Pov(g, color)
 
-  def isCreator = game.creatorColor == color
-
   override def toString = ref.toString
 }
 
 object Pov {
 
   def apply(game: Game): List[Pov] = game.players.map { apply(game, _) }
-
-  def creator(game: Game) = apply(game, game.creator)
-  def invited(game: Game) = apply(game, game.invited)
 
   def apply(game: Game, player: Player) = new Pov(game, player.color)
 

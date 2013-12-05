@@ -15,8 +15,8 @@ class DateTest extends Specification with WithColl {
 
   case class TestEvent(id: String, on: DateTime)
 
-  import Tube.Helpers._
-  implicit val eTube: Tube[TestEvent] = Tube[TestEvent](
+  import JsTube.Helpers._
+  implicit val eTube: JsTube[TestEvent] = JsTube[TestEvent](
     (__.json update readDate('on)) andThen Json.reads[TestEvent],
     Json.writes[TestEvent] andThen (__.json update writeDate('on))
   )

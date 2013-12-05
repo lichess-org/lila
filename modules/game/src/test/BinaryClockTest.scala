@@ -19,7 +19,7 @@ class BinaryClockTest extends Specification {
     (BinaryFormat.clock read (BinaryFormat.clock write c))(chess.White)
 
   "binary Clock" should {
-    val clock = Clock(2, 2)
+    val clock = Clock(120, 2)
     val bits22 = List("00000010", "00000010")
     "write" in {
       write(clock) must_== {

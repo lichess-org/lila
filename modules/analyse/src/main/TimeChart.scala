@@ -19,17 +19,17 @@ final class TimeChart(game: Game, usernames: Map[Color, String]) {
 
   def rows = Json stringify {
     Json toJson {
-      zipWithZeros(
-        game.player(Color.White).moveTimeList,
-        game.player(Color.Black).moveTimeList
-      ).zipWithIndex map {
+      (moveTimes(0) zip moveTimes(1)).zipWithIndex map {
         case ((white, black), move) ⇒ Json.arr((move + 1).toString, white, black)
       }
     }
   }
 
-  private def zipWithZeros(a: List[Int], b: List[Int]): List[(Int, Int)] = 
-    (a ::: List.fill(b.size - a.size)(0)) zip (b ::: List.fill(a.size - b.size)(0)) 
+  private val indexedMoveTimes = game.moveTimesInSeconds.zipWithIndex
+  private def moveTimes(i: Int) = 
+    indexedMoveTimes.view.filter(_._2 % 2 == i).map(_._1).toList map { x =>
+      if (x < 0.5) 0 else x
+    }
 }
 
 object TimeChart {

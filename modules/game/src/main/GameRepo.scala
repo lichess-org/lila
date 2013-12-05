@@ -185,8 +185,9 @@ trait GameRepo {
   return nb == 0 ? nb : Math.round(sum / nb);
   }""",
       query = Some(JsObjectWriter write {
-        Json.obj(BSONFields.createdAt -> $gte($date(DateTime.now - minutes.minutes))) ++ 
-        $or(List(Json.obj("p1.elo" -> $exists(true)), Json.obj("p2.elo" -> $exists(true))))
+        Json.obj(
+          BSONFields.createdAt -> $gte($date(DateTime.now - minutes.minutes))
+        ) ++ $or(List(Json.obj("p1.elo" -> $exists(true)), Json.obj("p2.elo" -> $exists(true))))
       })
     )
     gameTube.coll.db.command(command) map { res ⇒

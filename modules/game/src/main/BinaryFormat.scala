@@ -10,33 +10,35 @@ object BinaryFormat {
 
   object moveTime {
 
+    private type MT = Int // tenths of seconds
     private val size = 16
-    private val encodeList: List[(Float, Int)] = List(0, 0.5, 1, 1.5, 2, 3, 4, 5, 6, 8, 10, 15, 20, 30, 40, 60).map(_.toFloat).zipWithIndex
-    private val encodeMap: Map[Float, Int] = encodeList.toMap
-    private val decodeList: List[(Int, Float)] = encodeList.map(x ⇒ x._2 -> x._1)
-    private val decodeMap: Map[Int, Float] = decodeList.toMap
+    private val encodeList: List[(MT, Int)] = List(1, 5, 10, 15, 20, 30, 40, 50, 60, 80, 100, 150, 200, 300, 400, 600).zipWithIndex
+    private val encodeMap: Map[MT, Int] = encodeList.toMap
+    private val decodeList: List[(Int, MT)] = encodeList.map(x ⇒ x._2 -> x._1)
+    private val decodeMap: Map[Int, MT] = decodeList.toMap
 
-    def findClose(v: Float, in: List[(Float, Int)]): Option[Int] = in match {
+    private def findClose(v: MT, in: List[(MT, Int)]): Option[Int] = in match {
       case (a, b) :: (c, d) :: rest ⇒
-        if (math.abs(a - v) < math.abs(c - v)) Some(b) else findClose(v, rest)
+        if (math.abs(a - v) <= math.abs(c - v)) Some(b)
+        else findClose(v, (c, d) :: rest)
       case (a, b) :: rest ⇒ Some(b)
       case _              ⇒ None
     }
 
-    def write(mts: List[Float]): ByteArray = ByteArray {
-      def enc(mt: Float) = encodeMap get mt orElse findClose(mt, encodeList) getOrElse (size - 1)
+    def write(mts: Vector[MT]): ByteArray = ByteArray {
+      def enc(mt: MT) = encodeMap get mt orElse findClose(mt, encodeList) getOrElse (size - 1)
       (mts grouped 2 map {
-        case List(a, b) ⇒ (enc(a) << 4) + enc(b)
-        case List(a)    ⇒ enc(a) << 4
+        case Vector(a, b) ⇒ (enc(a) << 4) + enc(b)
+        case Vector(a)    ⇒ enc(a) << 4
       }).map(_.toByte).toArray
     }
 
-    def read(ba: ByteArray): List[Float] = {
+    def read(ba: ByteArray): Vector[MT] = {
       def dec(x: Int) = decodeMap get x getOrElse decodeMap(size - 1)
       ba.value map toInt flatMap { k ⇒
         Array(dec(k >> 4), dec(k & 15))
       }
-    }.toList
+    }.toVector
   }
 
   object clock {
@@ -67,6 +69,7 @@ object BinaryFormat {
             blackTime = readSignedInt24(b6, b7, b8).toFloat / 100,
             timer = timer.toDouble / 100)
         }
+      case x => sys error s"BinaryFormat.clock.read invalid bytes: ${ba.showBytes}"
     }
   }
 
@@ -104,6 +107,7 @@ object BinaryFormat {
             if from != to
           } yield from -> to,
           lastMoveTime = readInt24(b3, b4, b5).some filter (0 !=))
+        case x => sys error s"BinaryFormat.clmt.read invalid bytes: ${ba.showBytes}"
       }
     }
   }

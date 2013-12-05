@@ -10,28 +10,29 @@ import lila.db.ByteArray
 class BinaryMoveTimeTest extends Specification {
 
   val _0_ = "00000000"
-  def write(c: List[Float]): List[String] =
+  type MT = Int
+  def write(c: Vector[MT]): List[String] =
     (BinaryFormat.moveTime write c).toString.split(',').toList
-  def read(bytes: List[String]): List[Float] =
+  def read(bytes: List[String]): Vector[MT] =
     BinaryFormat.moveTime read ByteArray.parseBytes(bytes)
-  def isomorphism(c: List[Float]): List[Float] =
+  def isomorphism(c: Vector[MT]): Vector[MT] =
     BinaryFormat.moveTime read (BinaryFormat.moveTime write c)
 
   "binary move times" should {
     "write" in {
-      write(List(0f, 1f, 10f, 0.5f)) must_== {
+      write(Vector(1, 10, 100, 5)) must_== {
         "00000010" :: "10100001" :: Nil
       }
-      write(List(0f, 1f, 10f, 0.5f, 60f)) must_== {
+      write(Vector(1, 10, 100, 5, 600)) must_== {
         "00000010" :: "10100001" :: "11110000" :: Nil
       }
     }
     "read" in {
       read("00000010" :: "10100001" :: Nil) must_== {
-        List(0f, 1f, 10f, 0.5f)
+        Vector(1, 10, 100, 5)
       }
       read("00000010" :: "10100001" :: "11110000" :: Nil) must_== {
-        List(0f, 1f, 10f, 0.5f, 60f, 0f)
+        Vector(1, 10, 100, 5, 600, 1)
       }
     }
   }

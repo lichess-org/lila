@@ -42,9 +42,9 @@ object Query {
 
   val popular = Json.obj(F.bookmarks -> $gt(0))
 
-  val imported = Json.obj(s"${F.metadata}.so" -> Source.Import.id)
+  val imported = Json.obj(s"${F.source}" -> Source.Import.id)
 
-  def pgnImport(pgn: String) = imported ++ Json.obj(s"${F.metadata}.pgni.pgn" -> pgn)
+  def pgnImport(pgn: String) = imported ++ Json.obj(s"${F.pgnImport}.pgn" -> pgn)
 
   def clock(c: Boolean) = Json.obj(F.clock -> $exists(c))
 
