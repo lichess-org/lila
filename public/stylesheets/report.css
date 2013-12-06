@@ -41,6 +41,7 @@
 }
 #report table.see td {
   padding: 15px 10px 15px 10px;
+  word-break: break-all;
 }
 #report tr.new td:first-child {
   border-left: 3px solid red;
