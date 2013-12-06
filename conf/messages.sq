@@ -246,6 +246,7 @@ boardEditor=Bordi redaktoreve
 startPosition=Pozicioni fillestar
 clearBoard=Pastro fushen
 savePosition=Ruaj pozicionin
+loadPosition=Rikthe/kariko pozicionin e fundit
 isPrivate=Private
 reportXToModerators=Raporto %s tek redaktoret
 profile=Profili
