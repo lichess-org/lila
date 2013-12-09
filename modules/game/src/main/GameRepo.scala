@@ -72,9 +72,6 @@ trait GameRepo {
     $query(Query.finished ++ Query.rated ++ Query.user(userId)) sort ($sort asc BSONFields.createdAt)
   )
 
-  def token(id: ID): Fu[String] =
-    $primitive.one($select(id), "tk")(_.asOpt[String]) map (_ | Game.defaultToken)
-
   def save(progress: Progress): Funit =
     GameDiff(progress.origin, progress.game) |> {
       case (Nil, Nil) ⇒ funit
