@@ -27,11 +27,11 @@ object Rewind {
         castleLastMoveTime = CastleLastMoveTime(
           castles = rewindedHistory.castles,
           lastMove = rewindedHistory.lastMove,
-          lastMoveTime = Some(nowSeconds - game.createdAt.getSeconds.toInt)),
+          lastMoveTime = Some(nowSeconds - game.createdAt.getSeconds.toInt),
+          check = if (rewindedSituation.check) rewindedSituation.kingPos else None),
         moveTimes = game.moveTimes take rewindedGame.turns,
         status = game.status,
-        clock = game.clock map (_.switch),
-        check = if (rewindedSituation.check) rewindedSituation.kingPos else None
-      )) 
+        clock = game.clock map (_.switch)
+      ))
     }
 }

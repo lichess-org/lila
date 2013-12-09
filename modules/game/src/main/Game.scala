@@ -18,7 +18,6 @@ case class Game(
     status: Status,
     turns: Int,
     clock: Option[Clock],
-    check: Option[Pos] = None,
     castleLastMoveTime: CastleLastMoveTime,
     positionHashes: PositionHash = Array(),
     moveTimes: Vector[Int] = Vector.empty,
@@ -135,14 +134,14 @@ case class Game(
       castleLastMoveTime = CastleLastMoveTime(
         castles = history.castles,
         lastMove = history.lastMove,
-        lastMoveTime = Some(((nowMillis - createdAt.getMillis) / 100).toInt)),
+        lastMoveTime = Some(((nowMillis - createdAt.getMillis) / 100).toInt),
+        check = situation.kingPos ifTrue situation.check),
       moveTimes = isPgnImport.fold(
         Vector.empty,
         lastMoveTime.fold(Vector(0)) { lmt ⇒ moveTimes :+ (nowTenths - lmt).toInt }
       ),
       status = situation.status | status,
-      clock = game.clock,
-      check = situation.kingPos ifTrue situation.check)
+      clock = game.clock)
 
     val finalEvents = events ::: updated.clock.??(c ⇒ List(Event.Clock(c))) ::: {
       (updated.playable && (
@@ -152,8 +151,10 @@ case class Game(
       )).??(Color.all map Event.ReloadTable)
     }
 
-    Progress(this, updated, finalEvents) 
+    Progress(this, updated, finalEvents)
   }
+
+  def check = castleLastMoveTime.check
 
   def updatePlayer(color: Color, f: Player ⇒ Player) = color.fold(
     copy(whitePlayer = f(whitePlayer)),
@@ -362,7 +363,6 @@ object Game {
     status = Status.Created,
     turns = game.turns,
     clock = game.clock,
-    check = None,
     castleLastMoveTime = CastleLastMoveTime.init,
     mode = mode,
     variant = variant,
@@ -386,12 +386,12 @@ object Game {
     val id = "_id"
     val whitePlayer = "p0"
     val blackPlayer = "p1"
+    val playerIds = "is"
     val binaryPieces = "ps"
     val binaryPgn = "pg"
     val status = "s"
     val turns = "t"
     val clock = "c"
-    val check = "ck"
     val positionHashes = "ph"
     val castleLastMoveTime = "cl"
     val moveTimes = "mt"
@@ -414,16 +414,16 @@ object Game {
 
     def reads(r: BSON.Reader): Game = {
       val nbTurns = r int turns
+      val (whiteId, blackId) = r str playerIds splitAt 4
       Game(
         id = r str "_id",
-        whitePlayer = r.get[Color ⇒ Player](whitePlayer)(playerBSONHandler)(White),
-        blackPlayer = r.get[Color ⇒ Player](blackPlayer)(playerBSONHandler)(Black),
+        whitePlayer = r.get[Color ⇒ String ⇒ Player](whitePlayer)(playerBSONHandler)(White)(whiteId),
+        blackPlayer = r.get[Color ⇒ String ⇒ Player](blackPlayer)(playerBSONHandler)(Black)(blackId),
         binaryPieces = r bytes binaryPieces,
         binaryPgn = r bytesD binaryPgn,
         status = Status(r int status) err "Invalid status",
         turns = nbTurns,
         clock = r.getO[Color ⇒ Clock](clock) map (_(Color(0 == nbTurns % 2))),
-        check = r strO check flatMap Pos.posAt,
         positionHashes = r.bytesD(positionHashes).value,
         castleLastMoveTime = r.get[CastleLastMoveTime](castleLastMoveTime)(castleLastMoveTimeBSONHandler),
         moveTimes = ((r bytesO moveTimes) ?? BinaryFormat.moveTime.read _) take nbTurns,
@@ -443,14 +443,14 @@ object Game {
 
     def writes(w: BSON.Writer, o: Game) = BSONDocument(
       id -> o.id,
-      whitePlayer -> ((_: Color) ⇒ o.whitePlayer),
-      blackPlayer -> ((_: Color) ⇒ o.blackPlayer),
+      playerIds -> (o.whitePlayer.id + o.blackPlayer.id),
+      whitePlayer -> ((_: Color) ⇒ (_: String) ⇒ o.whitePlayer),
+      blackPlayer -> ((_: Color) ⇒ (_: String) ⇒ o.blackPlayer),
       binaryPieces -> o.binaryPieces,
       binaryPgn -> w.byteArrayO(o.binaryPgn),
       status -> o.status.id,
       turns -> o.turns,
       clock -> (o.clock map { c ⇒ clockBSONHandler.write(_ ⇒ c) }),
-      check -> o.check.map(_.toString),
       positionHashes -> w.bytesO(o.positionHashes),
       castleLastMoveTime -> castleLastMoveTimeBSONHandler.write(o.castleLastMoveTime),
       moveTimes -> (BinaryFormat.moveTime write o.moveTimes),
@@ -482,15 +482,15 @@ object Game {
 case class CastleLastMoveTime(
     castles: Castles,
     lastMove: Option[(Pos, Pos)],
-    lastMoveTime: Option[Int] // tenths of seconds since game creation
-    ) {
+    lastMoveTime: Option[Int], // tenths of seconds since game creation
+    check: Option[Pos]) {
 
   def lastMoveString = lastMove map { case (a, b) ⇒ a.toString + b.toString }
 }
 
 object CastleLastMoveTime {
 
-  def init = CastleLastMoveTime(Castles.all, None, None)
+  def init = CastleLastMoveTime(Castles.all, None, None, None)
 
   import reactivemongo.bson._
   import lila.db.ByteArray.ByteArrayBSONHandler

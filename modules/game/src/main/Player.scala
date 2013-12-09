@@ -102,12 +102,12 @@ object Player {
   import reactivemongo.bson._
   import lila.db.BSON
 
-  implicit val playerBSONHandler = new BSON[Color ⇒ Player] {
+  implicit val playerBSONHandler = new BSON[Color ⇒ String ⇒ Player] {
 
     import BSONFields._
 
-    def reads(r: BSON.Reader) = color ⇒ Player(
-      id = (r strO id) | "0000",
+    def reads(r: BSON.Reader) = color ⇒ id ⇒ Player(
+      id = id,
       color = color,
       aiLevel = r intO aiLevel,
       isWinner = r boolO isWinner,
@@ -121,20 +121,21 @@ object Player {
       blurs = r intD blurs,
       name = r strO name)
 
-    def writes(w: BSON.Writer, o: Color ⇒ Player) = o(chess.White) |> { p ⇒
-      BSONDocument(
-        id -> (p.isHuman option p.id),
-        aiLevel -> p.aiLevel,
-        isWinner -> p.isWinner,
-        isOfferingDraw -> w.boolO(p.isOfferingDraw),
-        isOfferingRematch -> w.boolO(p.isOfferingRematch),
-        lastDrawOffer -> p.lastDrawOffer,
-        isProposingTakeback -> w.boolO(p.isProposingTakeback),
-        userId -> p.userId,
-        elo -> p.elo,
-        eloDiff -> p.eloDiff,
-        blurs -> w.intO(p.blurs),
-        name -> p.name)
-    }
+    def writes(w: BSON.Writer, o: Color ⇒ String ⇒ Player) =
+      o(chess.White)("0000") |> { p ⇒
+        BSONDocument(
+          id -> (p.isHuman option p.id),
+          aiLevel -> p.aiLevel,
+          isWinner -> p.isWinner,
+          isOfferingDraw -> w.boolO(p.isOfferingDraw),
+          isOfferingRematch -> w.boolO(p.isOfferingRematch),
+          lastDrawOffer -> p.lastDrawOffer,
+          isProposingTakeback -> w.boolO(p.isProposingTakeback),
+          userId -> p.userId,
+          elo -> p.elo,
+          eloDiff -> p.eloDiff,
+          blurs -> w.intO(p.blurs),
+          name -> p.name)
+      }
   }
 }

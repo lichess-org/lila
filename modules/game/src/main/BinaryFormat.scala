@@ -14,7 +14,7 @@ object BinaryFormat {
       format.pgn.Binary.writeMoves(moves).get.toArray
     }
 
-    def read(ba: ByteArray): PgnMoves = 
+    def read(ba: ByteArray): PgnMoves =
       format.pgn.Binary.readMoves(ba.value.toList).get
   }
 
@@ -79,7 +79,7 @@ object BinaryFormat {
             blackTime = readSignedInt24(b6, b7, b8).toFloat / 100,
             timer = timer.toDouble / 100)
         }
-      case x => sys error s"BinaryFormat.clock.read invalid bytes: ${ba.showBytes}"
+      case x ⇒ sys error s"BinaryFormat.clock.read invalid bytes: ${ba.showBytes}"
     }
   }
 
@@ -101,25 +101,31 @@ object BinaryFormat {
       val ints = Array(
         (castleInt << 4) + (lastMoveInt >> 8),
         (lastMoveInt & 255)
-      ) ++ writeInt24(time)
+      ) ++ writeInt24(time) ++ clmt.check.map(posInt)
 
       ByteArray(ints.map(_.toByte))
     }
 
     def read(ba: ByteArray): CastleLastMoveTime = {
-      def posAt(x: Int, y: Int) = Pos.posAt(x + 1, y + 1)
       ba.value map toInt match {
-        case Array(b1, b2, b3, b4, b5) ⇒ CastleLastMoveTime(
-          castles = Castles(b1 > 127, (b1 & 64) != 0, (b1 & 32) != 0, (b1 & 16) != 0),
-          lastMove = for {
-            from ← posAt((b1 & 15) >> 1, ((b1 & 1) << 2) + (b2 >> 6))
-            to ← posAt((b2 & 63) >> 3, b2 & 7)
-            if from != to
-          } yield from -> to,
-          lastMoveTime = readInt24(b3, b4, b5).some filter (0 !=))
-        case x => sys error s"BinaryFormat.clmt.read invalid bytes: ${ba.showBytes}"
+        case Array(b1, b2, b3, b4, b5)     ⇒ doRead(b1, b2, b3, b4, b5, None)
+        case Array(b1, b2, b3, b4, b5, b6) ⇒ doRead(b1, b2, b3, b4, b5, b6.some)
+        case x                             ⇒ sys error s"BinaryFormat.clmt.read invalid bytes: ${ba.showBytes}"
       }
     }
+
+    private def posAt(x: Int, y: Int) = Pos.posAt(x + 1, y + 1)
+
+    private def doRead(b1: Int, b2: Int, b3: Int, b4: Int, b5: Int, b6: Option[Int]) =
+      CastleLastMoveTime(
+        castles = Castles(b1 > 127, (b1 & 64) != 0, (b1 & 32) != 0, (b1 & 16) != 0),
+        lastMove = for {
+          from ← posAt((b1 & 15) >> 1, ((b1 & 1) << 2) + (b2 >> 6))
+          to ← posAt((b2 & 63) >> 3, b2 & 7)
+          if from != to
+        } yield from -> to,
+        lastMoveTime = readInt24(b3, b4, b5).some filter (0 !=),
+        check = b6 flatMap { x ⇒ posAt(x >> 3, x & 7) })
   }
 
   object piece {
