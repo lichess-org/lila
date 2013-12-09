@@ -93,7 +93,7 @@ object Player {
     val lastDrawOffer = "ld"
     val isProposingTakeback = "ist"
     val userId = "u"
-    val elo = "elo"
+    val elo = "e"
     val eloDiff = "ed"
     val blurs = "bs"
     val name = "na"

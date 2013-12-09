@@ -56,8 +56,9 @@ object BSON {
     def int(i: Int): BSONInteger = BSONInteger(i)
     def intO(i: Int): Option[BSONInteger] = if (i != 0) Some(BSONInteger(i)) else None
     def date(d: DateTime): BSONDateTime = BSONJodaDateTimeHandler write d
-    def bytesO(b: Array[Byte]): Option[BSONBinary] = 
-      if (b.isEmpty) None else ByteArray.ByteArrayBSONHandler.write(ByteArray(b)).some
+    def byteArrayO(b: ByteArray): Option[BSONBinary] = 
+      if (b.isEmpty) None else ByteArray.ByteArrayBSONHandler.write(b).some
+    def bytesO(b: Array[Byte]): Option[BSONBinary] = byteArrayO(ByteArray(b))
 
     import scalaz.Functor
     def map[M[_]: Functor, A, B <: BSONValue](a: M[A])(implicit writer: BSONWriter[A, B]): M[B] =
