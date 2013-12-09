@@ -11,6 +11,8 @@ import lila.common.PimpedJson._
 
 case class ByteArray(value: Array[Byte]) {
 
+  def isEmpty = value.isEmpty
+
   def toHexStr = Converters hex2Str value
 
   def showBytes: String = value map { b =>

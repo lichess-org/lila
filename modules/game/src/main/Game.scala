@@ -409,6 +409,7 @@ object Game {
     val pgnImport = "pgni"
     val tournamentId = "tid"
     val tvAt = "tv"
+    val winnerId = "wid"
   }
 
   implicit val gameBSONHandler = new BSON[Game] {
@@ -423,7 +424,7 @@ object Game {
         whitePlayer = r.get[Color ⇒ Player](whitePlayer)(playerBSONHandler)(White),
         blackPlayer = r.get[Color ⇒ Player](blackPlayer)(playerBSONHandler)(Black),
         binaryPieces = r bytes binaryPieces,
-        binaryPgn = r bytes binaryPgn,
+        binaryPgn = r bytesD binaryPgn,
         status = Status(r int status) err "Invalid status",
         turns = nbTurns,
         clock = r.getO[Color ⇒ Clock](clock) map (_(Color(0 == nbTurns % 2))),
@@ -451,7 +452,7 @@ object Game {
       whitePlayer -> ((_: Color) ⇒ o.whitePlayer),
       blackPlayer -> ((_: Color) ⇒ o.blackPlayer),
       binaryPieces -> o.binaryPieces,
-      binaryPgn -> o.binaryPgn,
+      binaryPgn -> w.byteArrayO(o.binaryPgn),
       status -> o.status.id,
       turns -> o.turns,
       clock -> (o.clock map { c ⇒ clockBSONHandler.write(_ ⇒ c) }),

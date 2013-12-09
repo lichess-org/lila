@@ -95,8 +95,8 @@ trait GameRepo {
   def setUser(id: ID, color: Color, user: User) = {
     val pn = s"p${color.fold(0, 1)}."
     $update($select(id), $set(Json.obj(
-      (pn + "uid") -> user.id,
-      (pn + "elo") -> user.elo)))
+      (pn + Player.BSONFields.userId) -> user.id,
+      (pn + Player.BSONFields.elo) -> user.elo)))
   }
 
   def setTv(id: ID) {
@@ -110,16 +110,14 @@ trait GameRepo {
 
   def finish(id: ID, winnerId: Option[String]) = $update(
     $select(id),
-    winnerId.??(wid ⇒ $set("wid" -> wid)) ++ $unset(
-      "ph",
-      "p0.previousMoveTs",
-      "p1.previousMoveTs",
-      "p0.lastDrawOffer",
-      "p1.lastDrawOffer",
-      "p0.isOfferingDraw",
-      "p1.isOfferingDraw",
-      "p0.isProposingTakeback",
-      "p1.isProposingTakeback"
+    winnerId.??(wid ⇒ $set(Game.BSONFields.winnerId-> wid)) ++ $unset(
+      Game.BSONFields.positionHashes,
+      "p0." + Player.BSONFields.lastDrawOffer,
+      "p1." + Player.BSONFields.lastDrawOffer,
+      "p0." + Player.BSONFields.isOfferingDraw,
+      "p1." + Player.BSONFields.isOfferingDraw,
+      "p0." + Player.BSONFields.isProposingTakeback,
+      "p1." + Player.BSONFields.isProposingTakeback
     )
   )
 
@@ -144,7 +142,7 @@ trait GameRepo {
   def saveNext(game: Game, nextId: ID): Funit = $update(
     $select(game.id),
     $set("next" -> nextId) ++
-      $unset("p0.isOfferingRematch", "p1.isOfferingRematch")
+      $unset("p0." + Player.BSONFields.isOfferingRematch, "p1." + Player.BSONFields.isOfferingRematch)
   )
 
   def initialFen(gameId: ID): Fu[Option[String]] =
@@ -164,39 +162,6 @@ trait GameRepo {
       val to = from + 1.day
       $count(Json.obj(BSONFields.createdAt -> ($gte($date(from)) ++ $lt($date(to)))))
     }).sequenceFu
-
-  def recentAverageElo(minutes: Int): Fu[(Int, Int)] = {
-    val command = MapReduce(
-      collectionName = gameTube.coll.name,
-      mapFunction = """function() { 
-        emit(!!this.ra, this.p); 
-      }""",
-      reduceFunction = """function(rated, values) {
-  var sum = 0, nb = 0;
-  values.forEach(function(game) {
-    if(typeof game[0] != "undefined") {
-      game.forEach(function(player) {
-        if(player.elo) {
-          sum += player.elo; 
-          ++nb;
-        }
-      });
-    }
-  });
-  return nb == 0 ? nb : Math.round(sum / nb);
-  }""",
-      query = Some(JsObjectWriter write {
-        Json.obj(
-          BSONFields.createdAt -> $gte($date(DateTime.now - minutes.minutes))
-        ) ++ $or(List(Json.obj("p1.elo" -> $exists(true)), Json.obj("p2.elo" -> $exists(true))))
-      })
-    )
-    gameTube.coll.db.command(command) map { res ⇒
-      toJSON(res).arr("results").flatMap { r ⇒
-        (r(0) int "value") |@| (r(1) int "value") tupled
-      }
-    } map (~_)
-  }
 
   def bestOpponents(userId: String, limit: Int): Fu[List[(String, Int)]] = {
     import reactivemongo.bson._
@@ -263,6 +228,39 @@ trait GameRepo {
     _.headOption flatMap extractPgnMoves
   } map (~_)
 
+  def recentAverageElo(minutes: Int): Fu[(Int, Int)] = {
+    val command = MapReduce(
+      collectionName = gameTube.coll.name,
+      mapFunction = """function() { 
+        emit(!!this.ra, [this.p0, this.p1]); 
+      }""",
+      reduceFunction = """function(rated, values) {
+  var sum = 0, nb = 0;
+  values.forEach(function(game) {
+    if(typeof game[0] != "undefined") {
+      game.forEach(function(player) {
+        if(player.e) {
+          sum += player.e; 
+          ++nb;
+        }
+      });
+    }
+  });
+  return nb == 0 ? nb : Math.round(sum / nb);
+  }""",
+      query = Some(JsObjectWriter write {
+        Json.obj(
+          BSONFields.createdAt -> $gte($date(DateTime.now - minutes.minutes))
+        ) ++ $or(List(Json.obj("p0.e" -> $exists(true)), Json.obj("p1.e" -> $exists(true))))
+      })
+    )
+    gameTube.coll.db.command(command) map { res ⇒
+      toJSON(res).arr("results").flatMap { r ⇒
+        (r(0) int "value") |@| (r(1) int "value") tupled
+      }
+    } map (~_)
+  }
+
   private def extractPgnMoves(doc: BSONDocument) =
     doc.getAs[BSONBinary](BSONFields.binaryPgn) map { bin ⇒
       BinaryFormat.pgn read { ByteArray.ByteArrayBSONHandler read bin }
@@ -282,7 +280,7 @@ trait GameRepo {
           "us" -> BSONDocument("$all" -> userIds),
           "s" -> BSONDocument("$gte" -> chess.Status.Mate.id)
         )),
-        GroupField("wid")("nb" -> SumValue(1))
+        GroupField(Game.BSONFields.winnerId)("nb" -> SumValue(1))
       ))
       gameTube.coll.db.command(command) map { stream ⇒
         val res = (stream.toList map { obj ⇒
