@@ -36,7 +36,6 @@ I assume you run a Unix with nginx, mongodb, elasticsearch and stockfish install
 git clone git://github.com/ornicar/lila
 cd lila
 git submodule update --init
-bin/play compile
 ```
 
 ### Configuration
@@ -64,7 +63,7 @@ And here is my local [/etc/hosts file](https://github.com/ornicar/lila/blob/mast
 Launch the play console:
 
 ```sh
-bin/play
+sbt play
 ```
 
 From here you can now run the application (`run`). 
@@ -115,7 +114,7 @@ tj2u3hus a7a6x# 117.199.47.140
 
 By comparing game IDs, you can guess who plays against who.
 
-> Note that 91.121.7.111 is the AI server.
+> Note that `91.121.7.111` and `198.50.141.73` are AI servers.
 
 Credits
 -------
