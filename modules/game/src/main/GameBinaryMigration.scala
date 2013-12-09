@@ -11,8 +11,8 @@ import play.api.libs.iteratee._
 import reactivemongo.bson._
 
 import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.Implicits._
 import lila.db.ByteArray
+import lila.db.Implicits._
 import lila.game.Game.{ BSONFields ⇒ F }
 
 object GameBinaryMigration {
@@ -28,7 +28,7 @@ object GameBinaryMigration {
     val oldGameColl = db("game4")
     val oldPgnColl = db("pgn2")
     val repo = GameRepo
-    // val limit = 1
+    // val limit = 1000
     val limit = 600 * 1000
     // val limit = 20 * 1000 * 1000
     val batchSize = math.min(limit, 100)
@@ -49,8 +49,8 @@ object GameBinaryMigration {
       case (k, v) if !drops(k)             ⇒ k -> v
     })
 
-    val gameDrop = Set("c", "cc", "cs", "lm", "lmt", "p", "me", "ph", "uids", "tk")
-    val playerDrop = Set("ps", "mts", "uid", "isOfferingDraw", "isOfferingRematch", "isProposingTakeback", "lastDrawOffer")
+    val gameDrop = Set("c", "cc", "cs", "lm", "lmt", "p", "me", "ph", "uids", "tk", "ck")
+    val playerDrop = Set("id", "ps", "mts", "uid", "elo", "isOfferingDraw", "isOfferingRematch", "isProposingTakeback", "lastDrawOffer")
 
     def convertGame(o: Doc): Doc = {
       val gameId = o.getAs[String]("_id").get
@@ -59,12 +59,14 @@ object GameBinaryMigration {
         val cl = CastleLastMoveTime(
           castles = getAs[String](d1, "cs").fold(Castles.all)(Castles.apply),
           lastMove = getAs[String](d1, "lm") flatMap parseLastMove,
-          lastMoveTime = None)
+          lastMoveTime = None,
+          check = getAs[String](d1, "ck").flatMap(Pos.posAt))
         val binCL = BinaryFormat.castleLastMoveTime write cl
         val bsonCL = BSONBinary(binCL.value, Subtype.UserDefinedSubtype)
         def player(x: Int) = getAs[BSONArray](d1, "p").get.getAsTry[BSONDocument](x).get
         val p0 = player(0)
         val p1 = player(1)
+        val playerIds = p0.getAsTry[String]("id").get + p1.getAsTry[String]("id").get
         val bsonPs = BinaryFormat.piece write getPieces(p0, p1)
         val bsonClock = getAs[BSONDocument](d1, "c") map getClock map BinaryFormat.clock.write
         val mts = MTS.getMovetimes(~p0.getAs[String]("mts"), ~p1.getAs[String]("mts"))
@@ -77,6 +79,7 @@ object GameBinaryMigration {
           F.binaryPgn -> getPgn(gameId),
           F.whitePlayer -> convertPlayer(p0),
           F.blackPlayer -> convertPlayer(p1),
+          F.playerIds -> playerIds,
           F.moveTimes -> bsonMts,
           "us" -> getAs[BSONArray](d1, "uids"),
           F.source -> (meta flatMap (x ⇒ x.getAs[Int]("so")) map writer.int),
@@ -90,11 +93,11 @@ object GameBinaryMigration {
       }
     }
 
-    def getPgn(id: String): BSONBinary = {
+    def getPgn(id: String): Option[BSONBinary] = {
       oldPgnColl.find(
-      BSONDocument("_id" -> id), BSONDocument("_id" -> false)
-    ).one[BSONDocument] map { _ flatMap { _.getAs[BSONBinary]("p") } }
-    }.await(1.second) getOrElse ByteArray.ByteArrayBSONHandler.write(ByteArray.empty)
+        BSONDocument("_id" -> id), BSONDocument("_id" -> false)
+      ).one[BSONDocument] map { _ flatMap { _.getAs[BSONBinary]("p") } }
+    }.await(1.second)
 
     object MTS {
       private val chars: List[Char] =
@@ -171,7 +174,8 @@ object GameBinaryMigration {
         case _                               ⇒ true
       }
       writeDoc(filtered, playerDrop) ++ BSONDocument(
-        "u" -> getAs[BSONString](d1, "uid")
+        "u" -> getAs[BSONString](d1, "uid"),
+        "e" -> getAs[Double](d1, "elo").map(x ⇒ writer.int(x.toInt))
       )
     }
 

@@ -5,6 +5,8 @@ import org.specs2.specification._
 import play.api.libs.json._
 import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
 
+import lila.db.ByteArray
+
 class PerfTest extends Specification {
 
   val nb = 200
@@ -60,8 +62,9 @@ class PerfTest extends Specification {
       castleLastMoveTime = CastleLastMoveTime(
         Castles.all,
         lastMove = Some(Pos.A7 -> Pos.A5),
-        lastMoveTime = Some(300)),
-      metadata = Metadata(Source.Lobby.some, None, None, None).some,
+        lastMoveTime = Some(300),
+        check = None),
+      metadata = Metadata(Source.Lobby.some, None, None, None),
       whitePlayer = Player(
         color = Color.White,
         id = "4xqm",
@@ -79,10 +82,10 @@ class PerfTest extends Specification {
       binaryPieces = BinaryFormat.piece write {
         Board.init(Variant.Standard).pieces -> Nil
       },
+      binaryPgn = ByteArray.empty,
       mode = Mode(true),
       status = Status.Started,
       turns = 12,
-      token = "2j5a",
       updatedAt = DateTime.now.some)
   }
 }

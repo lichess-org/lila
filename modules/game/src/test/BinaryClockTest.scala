@@ -12,7 +12,7 @@ class BinaryClockTest extends Specification {
 
   val _0_ = "00000000"
   def write(c: Clock): List[String] =
-    (BinaryFormat.clock write c).toString.split(',').toList
+    (BinaryFormat.clock write c).showBytes.split(',').toList
   def read(bytes: List[String]): Clock =
     (BinaryFormat.clock read ByteArray.parseBytes(bytes))(chess.White)
   def isomorphism(c: Clock): Clock =

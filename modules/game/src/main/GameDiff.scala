@@ -44,7 +44,6 @@ private[game] object GameDiff {
     d(turns, _.turns, w.int)
     d(castleLastMoveTime, _.castleLastMoveTime, CastleLastMoveTime.castleLastMoveTimeBSONHandler.write)
     d(moveTimes, _.moveTimes, (x: Vector[Int]) ⇒ ByteArray.ByteArrayBSONHandler.write(BinaryFormat.moveTime write x))
-    dOpt(check, _.check, (x: Option[chess.Pos]) ⇒ w.map(x map (_.toString)))
     dOpt(positionHashes, _.positionHashes, w.bytesO)
     dOpt(clock, _.clock, (o: Option[Clock]) ⇒ o map { c ⇒ Game.clockBSONHandler.write(_ ⇒ c) })
     for (i ← 0 to 1) {

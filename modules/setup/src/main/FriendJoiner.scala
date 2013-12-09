@@ -18,7 +18,7 @@ private[setup] final class FriendJoiner(
 
   def apply(game: Game, user: Option[User]): Valid[Fu[(Pov, List[Event])]] =
     game.notStarted option {
-      val color = (friendConfigMemo get game.id map (_.creatorColor)) orElse 
+      val color = (friendConfigMemo get game.id map (!_.creatorColor)) orElse 
       // damn, no cache. maybe the opponent was logged, so we can guess?
       Some(ChessColor.Black).ifTrue(game.whitePlayer.hasUser) orElse
       Some(ChessColor.White).ifTrue(game.blackPlayer.hasUser) getOrElse

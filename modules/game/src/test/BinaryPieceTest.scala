@@ -13,7 +13,7 @@ class BinaryPieceTest extends Specification {
 
   val noop = "00000000"
   def write(all: AllPieces): List[String] =
-    (BinaryFormat.piece write all).toString.split(',').toList
+    (BinaryFormat.piece write all).showBytes.split(',').toList
   def read(bytes: List[String]): AllPieces =
     BinaryFormat.piece read ByteArray.parseBytes(bytes)
 

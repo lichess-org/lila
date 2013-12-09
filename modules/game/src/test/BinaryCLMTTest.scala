@@ -13,7 +13,7 @@ class BinaryCLMTTest extends Specification {
 
   val _0_ = "00000000"
   def write(all: CastleLastMoveTime): List[String] =
-    (BinaryFormat.castleLastMoveTime write all).toString.split(',').toList
+    (BinaryFormat.castleLastMoveTime write all).showBytes.split(',').toList
   def read(bytes: List[String]): CastleLastMoveTime =
     BinaryFormat.castleLastMoveTime read ByteArray.parseBytes(bytes)
 
@@ -44,6 +44,18 @@ class BinaryCLMTTest extends Specification {
       write(clmt.copy(lastMoveTime = Some(99999))) must_== {
         "11110000" :: _0_ :: "00000001" :: "10000110" :: "10011111" :: Nil
       }
+      write(clmt.copy(check = Some(Pos.A1))) must_== {
+        "11110000" :: _0_ :: List.fill(3)(_0_) ::: List("00000000")
+      }
+      write(clmt.copy(check = Some(Pos.A3))) must_== {
+        "11110000" :: _0_ :: List.fill(3)(_0_) ::: List("00000010")
+      }
+      write(clmt.copy(check = Some(Pos.H8))) must_== {
+        "11110000" :: _0_ :: List.fill(3)(_0_) ::: List("00111111")
+      }
+      write(clmt.copy(lastMoveTime = Some(99999), check = Some(Pos.H8))) must_== {
+        "11110000" :: _0_ :: "00000001" :: "10000110" :: "10011111" :: "00111111" :: Nil
+      }
     }
     "read" in {
       val clmt = CastleLastMoveTime.init
@@ -70,6 +82,12 @@ class BinaryCLMTTest extends Specification {
       }
       read("11110000" :: _0_ :: "00000001" :: "10000110" :: "10011111" :: Nil) must_== {
         clmt.copy(lastMoveTime = Some(99999))
+      }
+      read("11110000" :: _0_ :: List.fill(3)(_0_) ::: List("00000010")) must_== {
+        clmt.copy(check = A3.some)
+      }
+      read("11110000" :: _0_ :: "00000001" :: "10000110" :: "10011111" :: "00111111" :: Nil) must_== {
+        clmt.copy(lastMoveTime = Some(99999), check = Some(H8))
       }
     }
   }
