@@ -11,7 +11,6 @@ import lila.user.User
 
 case class Game(
     id: String,
-    token: String,
     whitePlayer: Player,
     blackPlayer: Player,
     binaryPieces: ByteArray,
@@ -340,7 +339,6 @@ object Game {
   val playerIdSize = 4
   val fullIdSize = 12
   val tokenSize = 4
-  val defaultToken = "-tk-"
 
   def abandonedDate = DateTime.now - 7.days
 
@@ -356,7 +354,6 @@ object Game {
     source: Source,
     pgnImport: Option[PgnImport]): Game = Game(
     id = IdGenerator.game,
-    token = IdGenerator.token,
     whitePlayer = whitePlayer,
     blackPlayer = blackPlayer,
     binaryPieces = if (game.isStandardInit) BinaryFormat.piece.standard
@@ -387,7 +384,6 @@ object Game {
   object BSONFields {
 
     val id = "_id"
-    val token = "tk"
     val whitePlayer = "p0"
     val blackPlayer = "p1"
     val binaryPieces = "ps"
@@ -420,7 +416,6 @@ object Game {
       val nbTurns = r int turns
       Game(
         id = r str "_id",
-        token = r str "tk",
         whitePlayer = r.get[Color ⇒ Player](whitePlayer)(playerBSONHandler)(White),
         blackPlayer = r.get[Color ⇒ Player](blackPlayer)(playerBSONHandler)(Black),
         binaryPieces = r bytes binaryPieces,
@@ -448,7 +443,6 @@ object Game {
 
     def writes(w: BSON.Writer, o: Game) = BSONDocument(
       id -> o.id,
-      token -> o.token,
       whitePlayer -> ((_: Color) ⇒ o.whitePlayer),
       blackPlayer -> ((_: Color) ⇒ o.blackPlayer),
       binaryPieces -> o.binaryPieces,

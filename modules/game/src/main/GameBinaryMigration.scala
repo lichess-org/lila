@@ -49,7 +49,7 @@ object GameBinaryMigration {
       case (k, v) if !drops(k)             ⇒ k -> v
     })
 
-    val gameDrop = Set("c", "cc", "cs", "lm", "lmt", "p", "me", "ph", "uids")
+    val gameDrop = Set("c", "cc", "cs", "lm", "lmt", "p", "me", "ph", "uids", "tk")
     val playerDrop = Set("ps", "mts", "uid", "isOfferingDraw", "isOfferingRematch", "isProposingTakeback", "lastDrawOffer")
 
     def convertGame(o: Doc): Doc = {
