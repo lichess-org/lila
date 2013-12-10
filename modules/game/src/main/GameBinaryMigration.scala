@@ -29,8 +29,8 @@ object GameBinaryMigration {
     val oldPgnColl = db("pgn2")
     val repo = GameRepo
     // val limit = 1000
-    val limit = 600 * 1000
-    // val limit = 20 * 1000 * 1000
+    // val limit = 600 * 1000
+    val limit = 20 * 1000 * 1000
     val batchSize = math.min(limit, 100)
 
     def toMap(o: BSONDocument) = (o.stream collect { case Success(e) ⇒ e }).toMap
@@ -52,8 +52,9 @@ object GameBinaryMigration {
     val gameDrop = Set("c", "cc", "cs", "lm", "lmt", "p", "me", "ph", "uids", "tk", "ck")
     val playerDrop = Set("id", "ps", "mts", "uid", "elo", "isOfferingDraw", "isOfferingRematch", "isProposingTakeback", "lastDrawOffer")
 
-    def convertGame(o: Doc): Doc = {
+    def convertGame(o: Doc, pgn: Option[BSONBinary]): Doc = {
       val gameId = o.getAs[String]("_id").get
+      if (pgn.isEmpty) println(s"Game without pgn: ${gameId}")
       try {
         val d1 = toMap(o)
         val cl = CastleLastMoveTime(
@@ -76,7 +77,7 @@ object GameBinaryMigration {
           F.clock -> bsonClock,
           F.castleLastMoveTime -> bsonCL,
           F.binaryPieces -> bsonPs,
-          F.binaryPgn -> getPgn(gameId),
+          F.binaryPgn -> pgn,
           F.whitePlayer -> convertPlayer(p0),
           F.blackPlayer -> convertPlayer(p1),
           F.playerIds -> playerIds,
@@ -92,12 +93,6 @@ object GameBinaryMigration {
         case e: Exception ⇒ throw new Exception(s"Game $gameId ${debug(o)} $e.getMessage")
       }
     }
-
-    def getPgn(id: String): Option[BSONBinary] = {
-      oldPgnColl.find(
-        BSONDocument("_id" -> id), BSONDocument("_id" -> false)
-      ).one[BSONDocument] map { _ flatMap { _.getAs[BSONBinary]("p") } }
-    }.await(1.second)
 
     object MTS {
       private val chars: List[Char] =
@@ -179,10 +174,24 @@ object GameBinaryMigration {
       )
     }
 
-    def convertPrll(docs: Docs): Docs = {
-      Future.traverse(docs) { o ⇒
-        Future { convertGame(o) } addFailureEffect {
-          case e: Exception ⇒ println(e)
+    def withPgns(games: Docs): Future[Map[Doc, Option[BSONBinary]]] = {
+      val gameMap = games.map(g ⇒ g.getAsTry[String]("_id").get -> g).toMap
+      oldPgnColl.find(
+        BSONDocument("_id" -> BSONDocument("$in" -> gameMap.keys))
+      ).cursor[BSONDocument].collect[List]() map { pgns ⇒
+          val pgnMap = pgns.map(g ⇒ g.getAsTry[String]("_id").get -> g.getAsTry[BSONBinary]("p").get).toMap
+          gameMap map {
+            case (id, game) ⇒ (game, pgnMap get id)
+          }
+        }
+    }
+
+    def convertPrll(docs: Docs): Iterable[Doc] = {
+      withPgns(docs) flatMap { xs ⇒
+        Future.traverse(xs) {
+          case (game, pgn) ⇒ Future { convertGame(game, pgn) } addFailureEffect {
+            case e: Exception ⇒ println(e)
+          }
         }
       }
     }.await(5 seconds)

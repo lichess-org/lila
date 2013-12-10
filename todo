@@ -100,15 +100,15 @@ user profile tab for imported games http://en.lichess.org/inbox/zevof2tu#bottom
 analysis board (see chess.com)
 on connectivity failure, try to resend the move (and not reload the page)
 games from position should not be rated
-unite player IDs in game
+rename game.next
 
 
 --------------------- DEPLOY
-game migration
+db.game5.ensureIndex({ca:-1});
++++++ game migration
 db.game5.ensureIndex({s:1});
 db.game5.ensureIndex({us:1},{sparse:1});
 db.game5.ensureIndex({wid:1},{sparse:1});
-db.game5.ensureIndex({ca:-1});
 db.game5.ensureIndex({us:1,ca:-1});
 db.game5.ensureIndex({bm:1},{sparse:1});
 db.game5.ensureIndex({so:1,ca:-1});
