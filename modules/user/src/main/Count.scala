@@ -16,6 +16,9 @@ private[user] case class Count(
 
 private[user] object Count {
 
+  import reactivemongo.bson.Macros
+  private[user] lazy val bsTube = lila.db.BsTube(Macros.handler[Count])
+
   import lila.db.JsTube
   import play.api.libs.json.Json
 

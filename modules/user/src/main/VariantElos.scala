@@ -44,6 +44,10 @@ object VariantElos {
 
   val default = VariantElos(SubElo.default, SubElo.default)
 
+  import reactivemongo.bson.Macros
+  private implicit def subEloBsTube = SubElo.bsTube.handler
+  private[user] lazy val bsTube = lila.db.BsTube(Macros.handler[VariantElos])
+
   private implicit def subEloTube = SubElo.tube
 
   private[user] lazy val tube = JsTube[VariantElos](

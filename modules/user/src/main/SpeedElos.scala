@@ -51,6 +51,10 @@ object SpeedElos {
     SubElo.default,
     SubElo.default)
 
+  import reactivemongo.bson.Macros
+  private implicit def subEloBsTube = SubElo.bsTube.handler
+  private[user] lazy val bsTube = lila.db.BsTube(Macros.handler[SpeedElos])
+
   private implicit def subEloTube = SubElo.tube
 
   private[user] lazy val tube = JsTube[SpeedElos](
