@@ -16,6 +16,9 @@ case object SubElo {
 
   val default = SubElo(0, User.STARTING_ELO)
 
+  import reactivemongo.bson.Macros
+  private[user] lazy val bsTube = lila.db.BsTube(Macros.handler[SubElo])
+
   private[user] lazy val tube = JsTube[SubElo](Json.reads[SubElo], Json.writes[SubElo])
 }
 

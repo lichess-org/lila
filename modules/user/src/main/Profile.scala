@@ -27,6 +27,9 @@ object Profile {
 
   val default = Profile()
 
+  import reactivemongo.bson.Macros
+  private[user] lazy val bsTube = lila.db.BsTube(Macros.handler[Profile])
+
   import lila.db.JsTube
   import play.api.libs.json._
 
