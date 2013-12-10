@@ -416,7 +416,7 @@ object Game {
       val nbTurns = r int turns
       val (whiteId, blackId) = r str playerIds splitAt 4
       Game(
-        id = r str "_id",
+        id = r str id,
         whitePlayer = r.get[Color ⇒ String ⇒ Player](whitePlayer)(playerBSONHandler)(White)(whiteId),
         blackPlayer = r.get[Color ⇒ String ⇒ Player](blackPlayer)(playerBSONHandler)(Black)(blackId),
         binaryPieces = r bytes binaryPieces,
