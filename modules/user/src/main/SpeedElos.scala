@@ -1,9 +1,6 @@
 package lila.user
 
 import chess.Speed
-import lila.db.JsTube
-import play.api.libs.json._
-import JsTube.Helpers._
 
 case class SpeedElos(
     bullet: SubElo,
@@ -51,19 +48,23 @@ object SpeedElos {
     SubElo.default,
     SubElo.default)
 
-  import reactivemongo.bson.Macros
-  private implicit def subEloBsTube = SubElo.bsTube.handler
-  private[user] lazy val bsTube = lila.db.BsTube(Macros.handler[SpeedElos])
+  import lila.db.BSON
+  import reactivemongo.bson.BSONDocument
 
-  private implicit def subEloTube = SubElo.tube
+  private def speedElosBSONHandler = new BSON[SpeedElos] {
 
-  private[user] lazy val tube = JsTube[SpeedElos](
-    __.json update merge(defaults) andThen Json.reads[SpeedElos],
-    Json.writes[SpeedElos])
+    implicit def subEloHandler = SubElo.tube.handler
 
-  private def defaults = Json.obj(
-    "blitz" -> SubElo.default,
-    "bullet" -> SubElo.default,
-    "slow" -> SubElo.default
-  )
+    def reads(r: BSON.Reader): SpeedElos = SpeedElos(
+      blitz = r.getO[SubElo]("blitz") | default.blitz,
+      bullet = r.getO[SubElo]("bullet") | default.bullet,
+      slow = r.getO[SubElo]("slow") | default.slow)
+
+    def writes(w: BSON.Writer, o: SpeedElos) = BSONDocument(
+      "blitz" -> o.blitz,
+      "bullet" -> o.bullet,
+      "slow" -> o.slow)
+  }
+
+  private[user] lazy val tube = lila.db.BsTube(speedElosBSONHandler)
 }

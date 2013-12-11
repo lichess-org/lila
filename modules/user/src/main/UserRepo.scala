@@ -2,11 +2,11 @@ package lila.user
 
 import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
 import play.api.libs.json._
 import play.modules.reactivemongo.json.BSONFormats.toJSON
 import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
 import reactivemongo.api._
+import reactivemongo.bson._
 
 import lila.common.PimpedJson._
 import lila.db.api._
@@ -55,21 +55,19 @@ object UserRepo {
   def rank(user: User) = $count(enabledSelect ++ Json.obj("elo" -> $gt(user.elo))) map (1+)
 
   def setElo(id: ID, elo: Int, speedElo: (String, SubElo), variantElo: (String, SubElo)): Funit = (speedElo, variantElo) match {
-    case ((speed, sElo), (variant, vElo)) ⇒ $update($select(id), $set(
-      "elo" -> elo,
-      "speedElos.%s.nb".format(speed) -> sElo.nb,
-      "speedElos.%s.elo".format(speed) -> sElo.elo,
-      "variantElos.%s.nb".format(variant) -> vElo.nb,
-      "variantElos.%s.elo".format(variant) -> vElo.elo
+    case ((speed, sElo), (variant, vElo)) ⇒ $update($select(id), $setBson(
+      "elo" -> BSONInteger(elo),
+      "speedElos.%s.nb".format(speed) -> BSONInteger(sElo.nb),
+      "speedElos.%s.elo".format(speed) -> BSONInteger(sElo.elo),
+      "variantElos.%s.nb".format(variant) -> BSONInteger(vElo.nb),
+      "variantElos.%s.elo".format(variant) -> BSONInteger(vElo.elo)
     ))
   }
 
-  def setEloOnly(id: ID, elo: Int): Funit = $update($select(id), $set("elo" -> elo))
+  def setEloOnly(id: ID, elo: Int): Funit = $update($select(id), $setBson("elo" -> BSONInteger(elo)))
 
-  def setProfile(id: ID, profile: Profile): Funit = {
-    import tube.profileTube
-    $update($select(id), $set("profile" -> profile))
-  }
+  def setProfile(id: ID, profile: Profile): Funit = 
+    $update($select(id), $setBson("profile" -> Profile.tube.handler.write(profile)))
 
   val enabledSelect = Json.obj("enabled" -> true)
   val noEngineSelect = Json.obj("engine" -> $ne(true))
@@ -132,7 +130,7 @@ object UserRepo {
   def create(username: String, password: String): Fu[Option[User]] =
     !nameExists(username) flatMap {
       _ ?? {
-        $insert(newUser(username, password)) >> named(normalize(username))
+        $insert.bson(newUser(username, password)) >> named(normalize(username))
       }
     }
 
@@ -161,13 +159,13 @@ object UserRepo {
   def setRoles(id: ID, roles: List[String]) = $update.field(id, "roles", roles)
 
   def setSpeedElos(id: ID, ses: SpeedElos) = {
-    import tube.speedElosTube
-    $update.field(id, "speedElos", ses)
+    implicit def speedHandler = SpeedElos.tube.handler
+    $update.bsonField(id, "speedElos", speedHandler write ses)
   }
 
   def setVariantElos(id: ID, ses: VariantElos) = {
-    import tube.variantElosTube
-    $update.field(id, "variantElos", ses)
+    implicit def variantHandler = VariantElos.tube.handler
+    $update.bsonField(id, "variantElos", variantHandler write ses)
   }
 
   def enable(id: ID) = $update.field(id, "enabled", true)
@@ -192,7 +190,6 @@ object UserRepo {
   }
 
   def idsAverageElo(ids: Iterable[String]): Fu[Int] = ids.isEmpty ? fuccess(0) | {
-    import reactivemongo.bson._
     import reactivemongo.core.commands._
     val command = Aggregate(userTube.coll.name, Seq(
       Match(BSONDocument("_id" -> BSONDocument("$in" -> ids))),
@@ -206,7 +203,6 @@ object UserRepo {
   }
 
   def idsSumToints(ids: Iterable[String]): Fu[Int] = ids.isEmpty ? fuccess(0) | {
-    import reactivemongo.bson._
     import reactivemongo.core.commands._
     val command = Aggregate(userTube.coll.name, Seq(
       Match(BSONDocument("_id" -> BSONDocument("$in" -> ids))),
@@ -221,11 +217,12 @@ object UserRepo {
 
   private def newUser(username: String, password: String) = {
 
-    val salt = Random nextString 32
-    implicit def speedElosTube = SpeedElos.tube
-    implicit def countTube = Count.tube
+    val salt = ornicar.scalalib.Random nextString 32
+    implicit def speedElosHandler = SpeedElos.tube.handler
+    implicit def countHandler = Count.tube.handler
+    import lila.db.BSON.BSONJodaDateTimeHandler
 
-    Json.obj(
+    BSONDocument(
       "_id" -> normalize(username),
       "username" -> username,
       "password" -> hash(password, salt),
@@ -233,8 +230,8 @@ object UserRepo {
       "elo" -> User.STARTING_ELO,
       "count" -> Count.default,
       "enabled" -> true,
-      "createdAt" -> $date(DateTime.now),
-      "seenAt" -> $date(DateTime.now))
+      "createdAt" -> DateTime.now,
+      "seenAt" -> DateTime.now)
   }
 
   private def hash(pass: String, salt: String): String = "%s{%s}".format(pass, salt).sha1

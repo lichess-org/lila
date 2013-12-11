@@ -1,5 +1,7 @@
 package lila.round
 
+import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
+
 import lila.db.api._
 import tube.roomTube
 

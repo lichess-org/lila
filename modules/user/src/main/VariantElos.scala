@@ -3,9 +3,6 @@ package lila.user
 import chess.Variant
 import play.api.libs.json._
 
-import lila.db.JsTube
-import lila.db.JsTube.Helpers._
-
 case class VariantElos(
     standard: SubElo,
     chess960: SubElo) {
@@ -44,17 +41,21 @@ object VariantElos {
 
   val default = VariantElos(SubElo.default, SubElo.default)
 
-  import reactivemongo.bson.Macros
-  private implicit def subEloBsTube = SubElo.bsTube.handler
-  private[user] lazy val bsTube = lila.db.BsTube(Macros.handler[VariantElos])
+  import lila.db.BSON
+  import reactivemongo.bson.BSONDocument
 
-  private implicit def subEloTube = SubElo.tube
+  private def variantElosBSONHandler = new BSON[VariantElos] {
 
-  private[user] lazy val tube = JsTube[VariantElos](
-    __.json update merge(defaults) andThen Json.reads[VariantElos],
-    Json.writes[VariantElos])
+    implicit def subEloHandler = SubElo.tube.handler
 
-  private def defaults = Json.obj(
-    "standard" -> SubElo.default,
-    "chess960" -> SubElo.default)
+    def reads(r: BSON.Reader): VariantElos = VariantElos(
+      standard = r.getO[SubElo]("standard") | default.standard,
+      chess960 = r.getO[SubElo]("chess960") | default.chess960)
+
+    def writes(w: BSON.Writer, o: VariantElos) = BSONDocument(
+      "standard" -> o.standard,
+      "chess960" -> o.chess960)
+  }
+
+  private[user] lazy val tube = lila.db.BsTube(variantElosBSONHandler)
 }

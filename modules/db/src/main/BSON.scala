@@ -46,6 +46,9 @@ object BSON {
     def bytes(k: String) = get[ByteArray](k)
     def bytesO(k: String) = getO[ByteArray](k)
     def bytesD(k: String) = bytesO(k) getOrElse ByteArray.empty
+    def nInt(k: String) = get[BSONNumberLike](k).toInt
+    def nIntO(k: String) = getO[BSONNumberLike](k) map (_.toInt)
+    def nIntD(k: String) = nIntO(k) getOrElse 0
   }
 
   final class Writer {
@@ -56,9 +59,17 @@ object BSON {
     def int(i: Int): BSONInteger = BSONInteger(i)
     def intO(i: Int): Option[BSONInteger] = if (i != 0) Some(BSONInteger(i)) else None
     def date(d: DateTime): BSONDateTime = BSONJodaDateTimeHandler write d
-    def byteArrayO(b: ByteArray): Option[BSONBinary] = 
+    def byteArrayO(b: ByteArray): Option[BSONBinary] =
       if (b.isEmpty) None else ByteArray.ByteArrayBSONHandler.write(b).some
     def bytesO(b: Array[Byte]): Option[BSONBinary] = byteArrayO(ByteArray(b))
+    def listO(list: List[String]): Option[List[String]] = list match {
+      case Nil          ⇒ None
+      case List("")     ⇒ None
+      case List("", "") ⇒ None
+      case List(a, "")  ⇒ Some(List(a))
+      case full         ⇒ Some(full)
+    }
+    def docO(o: BSONDocument): Option[BSONDocument] = if (o.isEmpty) None else Some(o)
 
     import scalaz.Functor
     def map[M[_]: Functor, A, B <: BSONValue](a: M[A])(implicit writer: BSONWriter[A, B]): M[B] =

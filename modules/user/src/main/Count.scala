@@ -1,5 +1,8 @@
 package lila.user
 
+import lila.db.BSON
+import reactivemongo.bson.BSONDocument
+
 private[user] case class Count(
     ai: Int,
     draw: Int,
@@ -16,15 +19,31 @@ private[user] case class Count(
 
 private[user] object Count {
 
-  import reactivemongo.bson.Macros
-  private[user] lazy val bsTube = lila.db.BsTube(Macros.handler[Count])
+  private def countBSONHandler = new BSON[Count] {
 
-  import lila.db.JsTube
-  import play.api.libs.json.Json
+    def reads(r: BSON.Reader): Count = Count(
+      ai = r nInt "ai",
+      draw = r nInt "draw",
+      drawH = r nInt "drawH",
+      game = r nInt "game",
+      loss = r nInt "loss",
+      lossH = r nInt "lossH",
+      rated = r nInt "rated",
+      win = r nInt "win",
+      winH = r nInt "winH")
+
+    def writes(w: BSON.Writer, o: Count) = BSONDocument(
+      "ai" -> w.int(o.ai),
+      "draw" -> w.int(o.draw),
+      "drawH" -> w.int(o.drawH),
+      "game" -> w.int(o.game),
+      "loss" -> w.int(o.loss),
+      "lossH" -> w.int(o.lossH),
+      "rated" -> w.int(o.rated),
+      "win" -> w.int(o.win),
+      "winH" -> w.int(o.winH))
+  }
+  private[user] lazy val tube = lila.db.BsTube(countBSONHandler)
 
   val default = Count(0, 0, 0, 0, 0, 0, 0, 0, 0)
-
-  private[user] lazy val tube = JsTube[Count](
-    Json.reads[Count], 
-    Json.writes[Count])
 }
