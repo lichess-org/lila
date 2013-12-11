@@ -451,7 +451,7 @@ object Game {
     def writes(w: BSON.Writer, o: Game) = BSONDocument(
       id -> o.id,
       playerIds -> (o.whitePlayer.id + o.blackPlayer.id),
-      playerUids -> w.listO(List(~o.whitePlayer.userId + ~o.blackPlayer.userId)),
+      playerUids -> w.listO(List(~o.whitePlayer.userId, ~o.blackPlayer.userId)),
       whitePlayer -> w.docO(playerBSONHandler write ((_: Color) ⇒ (_: Player.Id) ⇒ (_: Player.UserId) ⇒ o.whitePlayer)),
       blackPlayer -> w.docO(playerBSONHandler write ((_: Color) ⇒ (_: Player.Id) ⇒ (_: Player.UserId) ⇒ o.blackPlayer)),
       binaryPieces -> o.binaryPieces,
