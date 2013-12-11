@@ -398,7 +398,7 @@ object Game {
     val moveTimes = "mt"
     val rated = "ra"
     val variant = "v"
-    val next = "next"
+    val next = "ne"
     val bookmarks = "bm"
     val createdAt = "ca"
     val updatedAt = "ua"

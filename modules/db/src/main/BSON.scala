@@ -30,7 +30,7 @@ object BSON {
     def get[A](k: String)(implicit reader: BSONReader[_ <: BSONValue, A]): A =
       reader.asInstanceOf[BSONReader[BSONValue, A]] read map(k)
     def getO[A](k: String)(implicit reader: BSONReader[_ <: BSONValue, A]): Option[A] =
-      map get k flatMap reader.asInstanceOf[BSONReader[BSONValue, A]].readOpt
+      map get k map reader.asInstanceOf[BSONReader[BSONValue, A]].read
 
     def str(k: String) = get[String](k)
     def strO(k: String) = getO[String](k)
