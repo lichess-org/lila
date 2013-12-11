@@ -52,7 +52,7 @@ object GameBinaryMigration {
       case (k, v) if !drops(k)             ⇒ k -> v
     })
 
-    val gameDrop = Set("c", "cc", "cs", "lm", "lmt", "p", "me", "ph", "uids", "tk", "ck")
+    val gameDrop = Set("next", "c", "cc", "cs", "lm", "lmt", "p", "me", "ph", "uids", "tk", "ck")
     val playerDrop = Set("id", "u", "ps", "mts", "uid", "elo", "bs", "ed", "isOfferingDraw", "isOfferingRematch", "isProposingTakeback", "lastDrawOffer")
 
     def convertGame(o: Doc): (String, Doc) = {
@@ -78,6 +78,7 @@ object GameBinaryMigration {
         val playerUids = List(~p0.getAs[String]("uid"), ~p1.getAs[String]("uid"))
         gameId -> {
           writeDoc(o.elements, gameDrop) ++ BSONDocument(
+            F.next -> getAs[BSONString](d1, "next"),
             F.clock -> bsonClock,
             F.castleLastMoveTime -> bsonCL,
             F.binaryPieces -> bsonPs,

@@ -9,7 +9,7 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 import play.modules.reactivemongo.json.BSONFormats.toJSON
 import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
-import reactivemongo.bson.{ BSONDocument, BSONBinary }
+import reactivemongo.bson.{ BSONDocument, BSONBinary, BSONInteger }
 
 import lila.common.PimpedJson._
 import lila.db.api._
@@ -84,14 +84,14 @@ trait GameRepo {
       }
     }
 
-  // makes the asumption that player 0 is white!
-  // proved to be true on prod DB at March 31 2012
   def setEloDiffs(id: ID, white: Int, black: Int) =
-    $update($select(id), $set("p0.d" -> white, "p1.d" -> black))
+    $update($select(id), BSONDocument("$set" -> BSONDocument(
+      s"p0.${Player.BSONFields.eloDiff}" -> BSONInteger(white), 
+      s"p1.${Player.BSONFields.eloDiff}" -> BSONInteger(black))))
 
   def setUser(id: ID, color: Color, user: User) =     
-    $update($select(id), $set(Json.obj(
-      s"p${color.fold(0, 1)}.${Player.BSONFields.elo}" -> user.elo,
+    $update($select(id), BSONDocument("$set" -> BSONDocument(
+      s"p${color.fold(0, 1)}.${Player.BSONFields.elo}" -> BSONInteger(user.elo),
       s"${BSONFields.playerUids}.${color.fold(0, 1)}" -> user.id
     )))
 
@@ -134,7 +134,7 @@ trait GameRepo {
 
   def saveNext(game: Game, nextId: ID): Funit = $update(
     $select(game.id),
-    $set("next" -> nextId) ++
+    $set(BSONFields.next -> nextId) ++
       $unset("p0." + Player.BSONFields.isOfferingRematch, "p1." + Player.BSONFields.isOfferingRematch)
   )
 
