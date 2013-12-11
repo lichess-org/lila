@@ -1,6 +1,7 @@
 package lila.forum
 
 import play.api.libs.json.Json
+import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
 
 import lila.db.api._
 import lila.db.Implicits._
@@ -16,17 +17,17 @@ object TopicRepoTroll extends TopicRepo(true)
 sealed abstract class TopicRepo(troll: Boolean) {
 
   private lazy val trollFilter = troll.fold(
-    Json.obj(), 
+    Json.obj(),
     Json.obj("troll" -> false)
   )
 
-  def close(id: String, value: Boolean): Funit = 
+  def close(id: String, value: Boolean): Funit =
     $update.field(id, "closed", value)
 
-  def byCateg(categ: Categ): Fu[List[Topic]] = 
+  def byCateg(categ: Categ): Fu[List[Topic]] =
     $find(byCategQuery(categ))
 
-  def byTree(categSlug: String, slug: String): Fu[Option[Topic]] = 
+  def byTree(categSlug: String, slug: String): Fu[Option[Topic]] =
     $find.one(Json.obj("categId" -> categSlug, "slug" -> slug) ++ trollFilter)
 
   def nextSlug(categ: Categ, name: String, it: Int = 1): Fu[String] = {
@@ -40,7 +41,7 @@ sealed abstract class TopicRepo(troll: Boolean) {
     }
   }
 
-  def incViews(topic: Topic): Funit = 
+  def incViews(topic: Topic): Funit =
     $update($select(topic.id), $inc("views" -> 1))
 
   def byCategQuery(categ: Categ) = Json.obj("categId" -> categ.slug) ++ trollFilter

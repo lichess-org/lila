@@ -101,11 +101,12 @@ analysis board (see chess.com)
 on connectivity failure, try to resend the move (and not reload the page)
 games from position should not be rated
 rename game.next
+1 game played, rating slow!=standard http://en.lichess.org/@/fuckface/all
 
 
 --------------------- DEPLOY
++++++ game migration with disabled scheduler
 db.game5.ensureIndex({ca:-1});
-+++++ game migration
 db.game5.ensureIndex({s:1});
 db.game5.ensureIndex({us:1},{sparse:1});
 db.game5.ensureIndex({wid:1},{sparse:1});

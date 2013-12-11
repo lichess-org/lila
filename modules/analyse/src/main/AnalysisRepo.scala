@@ -1,8 +1,9 @@
 package lila.analyse
 
-import org.joda.time.DateTime
 import com.github.nscala_time.time.Imports._
+import org.joda.time.DateTime
 import play.api.libs.json.Json
+import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
 
 import lila.db.api._
 import lila.db.Implicits._
@@ -40,14 +41,14 @@ private[analyse] object AnalysisRepo {
 
   def userInProgress(uid: ID): Fu[Option[String]] = $primitive.one(
     Json.obj(
-      "uid" -> uid, 
-      "done" -> false, 
+      "uid" -> uid,
+      "done" -> false,
       "date" -> $gt($date(DateTime.now - 20.minutes))),
     "_id")(_.asOpt[String])
 
   def getOrRemoveStaled(id: ID): Fu[Option[Analysis]] =
     $find.one($select(id) ++ Json.obj(
-      "done" -> false, 
+      "done" -> false,
       "date" -> $lt($date(DateTime.now - 20.minutes)))) flatMap {
       _.fold($find byId id) { staled ⇒ $remove byId id inject none }
     }

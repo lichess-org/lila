@@ -89,12 +89,11 @@ trait GameRepo {
   def setEloDiffs(id: ID, white: Int, black: Int) =
     $update($select(id), $set("p0.ed" -> white, "p1.ed" -> black))
 
-  def setUser(id: ID, color: Color, user: User) = {
-    val pn = s"p${color.fold(0, 1)}."
+  def setUser(id: ID, color: Color, user: User) =     
     $update($select(id), $set(Json.obj(
-      (pn + Player.BSONFields.userId) -> user.id,
-      (pn + Player.BSONFields.elo) -> user.elo)))
-  }
+      s"p${color.fold(0, 1)}.${Player.BSONFields.elo}" -> user.elo,
+      s"${BSONFields.playerUids}.${color.fold(0, 1)}" -> user.id
+    )))
 
   def setTv(id: ID) {
     $update.fieldUnchecked(id, "me.tv", $date(DateTime.now))
@@ -107,7 +106,7 @@ trait GameRepo {
 
   def finish(id: ID, winnerId: Option[String]) = $update(
     $select(id),
-    winnerId.??(wid ⇒ $set(Game.BSONFields.winnerId-> wid)) ++ $unset(
+    winnerId.??(wid ⇒ $set(Game.BSONFields.winnerId -> wid)) ++ $unset(
       Game.BSONFields.positionHashes,
       "p0." + Player.BSONFields.lastDrawOffer,
       "p1." + Player.BSONFields.lastDrawOffer,
@@ -124,13 +123,10 @@ trait GameRepo {
   )
 
   def insertDenormalized(game: Game): Funit = {
-    val bson = gameTube.handler write game
-    val userIds = game.players.map(_.userId).flatten.distinct
-    val bson2 = bson ++ BSONDocument(
-      "us" -> userIds,
+    val bson = (gameTube.handler write game) ++ BSONDocument(
       "if" -> game.variant.exotic.option(Forsyth >> game.toChess)
     )
-    $insert bson bson2
+    $insert bson bson
   }
 
   def denormalizeUids(game: Game): Funit =

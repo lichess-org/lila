@@ -1,8 +1,9 @@
 package lila.tournament
 
-import Room._
+import play.modules.reactivemongo.json.ImplicitBSONHandlers.JsObjectWriter
 
 import lila.db.api._
+import lila.tournament.Room._
 import tube.roomTube
 
 private[tournament] object RoomRepo {

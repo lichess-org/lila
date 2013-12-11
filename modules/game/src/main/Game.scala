@@ -387,6 +387,7 @@ object Game {
     val whitePlayer = "p0"
     val blackPlayer = "p1"
     val playerIds = "is"
+    val playerUids = "us"
     val binaryPieces = "ps"
     val binaryPgn = "pg"
     val status = "s"
@@ -412,13 +413,19 @@ object Game {
 
     import BSONFields._
 
+    private val emptyPlayerBuilder = playerBSONHandler.read(BSONDocument())
+
     def reads(r: BSON.Reader): Game = {
       val nbTurns = r int turns
       val (whiteId, blackId) = r str playerIds splitAt 4
+      val uids = ~r.getO[List[String]](playerUids)
+      val (whiteUid, blackUid) = (uids.headOption.filter(_.nonEmpty), uids.lift(1).filter(_.nonEmpty))
+      def player(field: String, color: Color, id: Player.Id, uid: Player.UserId): Player =
+        r.getO[Player.Builder](field)(playerBSONHandler).getOrElse(emptyPlayerBuilder)(color)(id)(uid)
       Game(
         id = r str id,
-        whitePlayer = r.get[Color ⇒ String ⇒ Player](whitePlayer)(playerBSONHandler)(White)(whiteId),
-        blackPlayer = r.get[Color ⇒ String ⇒ Player](blackPlayer)(playerBSONHandler)(Black)(blackId),
+        whitePlayer = player(whitePlayer, White, whiteId, whiteUid),
+        blackPlayer = player(blackPlayer, Black, blackId, blackUid),
         binaryPieces = r bytes binaryPieces,
         binaryPgn = r bytesD binaryPgn,
         status = Status(r int status) err "Invalid status",
@@ -444,8 +451,9 @@ object Game {
     def writes(w: BSON.Writer, o: Game) = BSONDocument(
       id -> o.id,
       playerIds -> (o.whitePlayer.id + o.blackPlayer.id),
-      whitePlayer -> ((_: Color) ⇒ (_: String) ⇒ o.whitePlayer),
-      blackPlayer -> ((_: Color) ⇒ (_: String) ⇒ o.blackPlayer),
+      playerUids -> w.listO(List(~o.whitePlayer.userId + ~o.blackPlayer.userId)),
+      whitePlayer -> w.docO(playerBSONHandler write ((_: Color) ⇒ (_: Player.Id) ⇒ (_: Player.UserId) ⇒ o.whitePlayer)),
+      blackPlayer -> w.docO(playerBSONHandler write ((_: Color) ⇒ (_: Player.Id) ⇒ (_: Player.UserId) ⇒ o.blackPlayer)),
       binaryPieces -> o.binaryPieces,
       binaryPgn -> w.byteArrayO(o.binaryPgn),
       status -> o.status.id,

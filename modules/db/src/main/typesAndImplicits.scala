@@ -17,6 +17,8 @@ trait Types {
   type Identified[ID] = { def id: ID }
 
   type Sort = Seq[(String, SortOrder)]
+  
+  type BSONWrites[A] = BSONWriter[A, BSONValue]
 }
 
 trait Implicits extends Types {

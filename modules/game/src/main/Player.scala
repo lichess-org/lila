@@ -85,28 +85,30 @@ object Player {
 
   object BSONFields {
 
-    val id = "id"
     val aiLevel = "ai"
     val isWinner = "w"
-    val isOfferingDraw = "isd"
-    val isOfferingRematch = "isr"
+    val isOfferingDraw = "od"
+    val isOfferingRematch = "or"
     val lastDrawOffer = "ld"
-    val isProposingTakeback = "ist"
-    val userId = "u"
+    val isProposingTakeback = "ot"
     val elo = "e"
-    val eloDiff = "ed"
-    val blurs = "bs"
+    val eloDiff = "d"
+    val blurs = "b"
     val name = "na"
   }
 
   import reactivemongo.bson._
   import lila.db.BSON
 
-  implicit val playerBSONHandler = new BSON[Color ⇒ String ⇒ Player] {
+  type Id = String
+  type UserId = Option[String]
+  type Builder = Color ⇒ Id ⇒ UserId ⇒ Player
+
+  implicit val playerBSONHandler = new BSON[Builder] {
 
     import BSONFields._
 
-    def reads(r: BSON.Reader) = color ⇒ id ⇒ Player(
+    def reads(r: BSON.Reader) = color ⇒ id ⇒ userId => Player(
       id = id,
       color = color,
       aiLevel = r intO aiLevel,
@@ -115,23 +117,21 @@ object Player {
       isOfferingRematch = r boolD isOfferingRematch,
       lastDrawOffer = r intO lastDrawOffer,
       isProposingTakeback = r boolD isProposingTakeback,
-      userId = r strO userId,
+      userId = userId,
       elo = r intO elo,
       eloDiff = r intO eloDiff,
       blurs = r intD blurs,
       name = r strO name)
 
-    def writes(w: BSON.Writer, o: Color ⇒ String ⇒ Player) =
-      o(chess.White)("0000") |> { p ⇒
+    def writes(w: BSON.Writer, o: Builder) =
+      o(chess.White)("0000")(None) |> { p ⇒
         BSONDocument(
-          id -> (p.isHuman option p.id),
           aiLevel -> p.aiLevel,
           isWinner -> p.isWinner,
           isOfferingDraw -> w.boolO(p.isOfferingDraw),
           isOfferingRematch -> w.boolO(p.isOfferingRematch),
           lastDrawOffer -> p.lastDrawOffer,
           isProposingTakeback -> w.boolO(p.isProposingTakeback),
-          userId -> p.userId,
           elo -> p.elo,
           eloDiff -> p.eloDiff,
           blurs -> w.intO(p.blurs),

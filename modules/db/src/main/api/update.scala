@@ -3,6 +3,7 @@ package api
 
 import play.api.libs.json._
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
+import reactivemongo.bson._
 import Types._
 
 object $update {
@@ -13,18 +14,21 @@ object $update {
     )
   def apply[A <: Identified[String]: JsTubeInColl](doc: A): Funit = apply[String, A](doc)
 
-  def apply[A: InColl](selector: JsObject, update: JsObject, upsert: Boolean = false, multi: Boolean = false): Funit =
+  def apply[A: InColl, B: BSONDocumentWriter](selector: JsObject, update: B, upsert: Boolean = false, multi: Boolean = false): Funit =
     successful {
       implicitly[InColl[A]].coll.update(selector, update, upsert = upsert, multi = multi)
     }
 
   def doc[ID: Writes, A <: Identified[ID]: TubeInColl](id: ID)(op: A ⇒ JsObject): Funit =
-    $find byId id flatten "[db] cannot update missing doc" flatMap { doc ⇒ 
+    $find byId id flatten "[db] cannot update missing doc" flatMap { doc ⇒
       apply($select(id), op(doc))
     }
 
   def field[ID: Writes, A: InColl, B: Writes](id: ID, name: String, value: B, upsert: Boolean = false): Funit =
     apply($select(id), $set(name -> value), upsert = upsert)
+
+  def bsonField[ID: Writes, A: InColl](id: ID, name: String, value: BSONValue, upsert: Boolean = false): Funit =
+    apply($select(id), BSONDocument("$set" -> BSONDocument(name -> value)), upsert = upsert)
 
   // UNCHECKED
 
