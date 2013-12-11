@@ -87,7 +87,7 @@ trait GameRepo {
   // makes the asumption that player 0 is white!
   // proved to be true on prod DB at March 31 2012
   def setEloDiffs(id: ID, white: Int, black: Int) =
-    $update($select(id), $set("p0.ed" -> white, "p1.ed" -> black))
+    $update($select(id), $set("p0.d" -> white, "p1.d" -> black))
 
   def setUser(id: ID, color: Color, user: User) =     
     $update($select(id), $set(Json.obj(
@@ -96,7 +96,7 @@ trait GameRepo {
     )))
 
   def setTv(id: ID) {
-    $update.fieldUnchecked(id, "me.tv", $date(DateTime.now))
+    $update.fieldUnchecked(id, BSONFields.tvAt, $date(DateTime.now))
   }
 
   def onTv(nb: Int): Fu[List[Game]] = $find($query.all sort $sort.desc("me.tv"), nb)
