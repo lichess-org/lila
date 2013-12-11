@@ -38,7 +38,7 @@ object GameBinaryMigration {
       map.get(key) flatMap { e ⇒ Try(reader.asInstanceOf[BSONReader[BSONValue, T]] read e).toOption }
     }
     def getAsGet[T](map: Map[String, BSONValue], key: String)(implicit reader: BSONReader[_ <: BSONValue, T]): T = {
-      Try(reader.asInstanceOf[BSONReader[BSONValue, T]] read map(key)).get 
+      Try(reader.asInstanceOf[BSONReader[BSONValue, T]] read map(key)).get
     }
 
     def parseLastMove(lastMove: String): Option[(Pos, Pos)] = lastMove match {
@@ -55,10 +55,8 @@ object GameBinaryMigration {
     val gameDrop = Set("c", "cc", "cs", "lm", "lmt", "p", "me", "ph", "uids", "tk", "ck")
     val playerDrop = Set("id", "u", "ps", "mts", "uid", "elo", "bs", "ed", "isOfferingDraw", "isOfferingRematch", "isProposingTakeback", "lastDrawOffer")
 
-    def convertGame(o: Doc, pgnDoc: Option[Doc]): Doc = {
+    def convertGame(o: Doc): (String, Doc) = {
       val gameId = o.getAs[String]("_id").get
-      val pgn = pgnDoc map (_.getAsTry[BSONBinary]("p").get)
-      if (pgn.isEmpty) println(s"Game without pgn: ${gameId}")
       try {
         val d1 = toMap(o)
         val cl = CastleLastMoveTime(
@@ -78,24 +76,29 @@ object GameBinaryMigration {
         val bsonMts = mts map BinaryFormat.moveTime.write
         val meta = getAs[BSONDocument](d1, "me")
         val playerUids = List(~p0.getAs[String]("uid"), ~p1.getAs[String]("uid"))
-        writeDoc(o.elements, gameDrop) ++ BSONDocument(
-          F.clock -> bsonClock,
-          F.castleLastMoveTime -> bsonCL,
-          F.binaryPieces -> bsonPs,
-          F.binaryPgn -> pgn,
-          F.whitePlayer -> writer.docO(convertPlayer(p0)),
-          F.blackPlayer -> writer.docO(convertPlayer(p1)),
-          F.playerIds -> playerIds,
-          F.playerUids -> writer.listO(playerUids),
-          F.moveTimes -> bsonMts,
-          F.source -> (meta flatMap (x ⇒ x.getAs[BSONNumberLike]("so")) map (_.toInt) map writer.int),
-          F.pgnImport -> (meta flatMap (x ⇒ x.getAs[BSONDocument]("pgni")) map writeDocument),
-          F.tournamentId -> (meta flatMap (x ⇒ x.getAs[String]("tid")) flatMap writer.strO),
-          F.tvAt -> (meta flatMap (x ⇒ x.getAs[DateTime]("tv")) map writer.date)
-        )
+        gameId -> {
+          writeDoc(o.elements, gameDrop) ++ BSONDocument(
+            F.clock -> bsonClock,
+            F.castleLastMoveTime -> bsonCL,
+            F.binaryPieces -> bsonPs,
+            F.whitePlayer -> writer.docO(convertPlayer(p0)),
+            F.blackPlayer -> writer.docO(convertPlayer(p1)),
+            F.playerIds -> playerIds,
+            F.playerUids -> writer.listO(playerUids),
+            F.moveTimes -> bsonMts,
+            F.source -> (meta flatMap (x ⇒ x.getAs[BSONNumberLike]("so")) map (_.toInt) map writer.int),
+            F.pgnImport -> (meta flatMap (x ⇒ x.getAs[BSONDocument]("pgni")) map writeDocument),
+            F.tournamentId -> (meta flatMap (x ⇒ x.getAs[String]("tid")) flatMap writer.strO),
+            F.tvAt -> (meta flatMap (x ⇒ x.getAs[DateTime]("tv")) map writer.date)
+          )
+        }
       }
       catch {
-        case e: Exception ⇒ throw new Exception(s"Game $gameId ${debug(o)} $e.getMessage")
+        case e: Exception ⇒ {
+          val msg = s"Game $gameId ${debug(o)} $e.getMessage"
+          println(msg)
+          throw new Exception(msg)
+        }
       }
     }
 
@@ -180,36 +183,33 @@ object GameBinaryMigration {
       )
     }
 
-    def withPgns(games: Docs): Future[List[(Doc, Option[BSONDocument])]] = {
-      val idGames = games.map(g ⇒ g.getAsTry[String]("_id").get -> g).toList
+    def getPgns(games: Seq[Doc]): Future[Map[String, Option[BSONBinary]]] = {
+      val ids = games.map(g ⇒ g.getAsTry[String]("_id").get).toList
       oldPgnColl.find(
-        BSONDocument("_id" -> BSONDocument("$in" -> idGames.map(_._1)))
+        BSONDocument("_id" -> BSONDocument("$in" -> ids))
       ).cursor[BSONDocument].collect[List]() map { pgns ⇒
-          val pgnMap = pgns.map(g ⇒ g.getAsTry[String]("_id").get -> g).toMap
-          idGames map {
-            case (id, game) ⇒ (game, pgnMap get id)
-          }
+          pgns.map(g ⇒ g.getAsTry[String]("_id").get -> g.getAs[BSONBinary]("p")).toMap
         }
     }
 
-    def convertPrll(docs: Docs): List[Doc] = {
-      withPgns(docs) flatMap { xs ⇒
-        Future.traverse(xs) {
-          case (game, pgn) ⇒ Future { convertGame(game, pgn) } addFailureEffect {
-            case e: Exception ⇒ {
-              println(e)
-              e.printStackTrace()
-            }
-          }
+    def convertPrll(docs: Seq[Doc]): Future[Seq[(String, Doc)]] = Future.traverse(docs) { game ⇒
+      Future { convertGame(game) } addFailureEffect {
+        case e: Exception ⇒ {
+          println(e)
+          e.printStackTrace()
         }
       }
-    }.await(5 seconds)
+    }
+
+    def convert(docs: Seq[Doc]): Future[Iterator[(String, Doc)]] = Future {
+      (docs.par map convertGame).toIterator
+    }
 
     def migrate: Funit = {
 
       println("---------------------------- MIGRATION")
 
-      val docsEnumerator: Enumerator[Docs] = oldGameColl
+      val docPool: Enumerator[Docs] = oldGameColl
         // .find(BSONDocument("_id" -> "dgg04imk"))
         .find(BSONDocument())
         // .sort(BSONDocument("ca" -> -1))
@@ -217,16 +217,28 @@ object GameBinaryMigration {
         .batch(batchSize)
         .cursor[BSONDocument].enumerateBulks(limit)
 
-      val docIteratee: Iteratee[Doc, Int] = tube.gameTube.coll.bulkInsertIteratee(
+      val docTransformer: Enumeratee[Docs, Doc] = Enumeratee mapConcat { docs ⇒
+        val docSeq = docs.toSeq
+        val games = getPgns(docSeq) zip convertPrll(docSeq) map {
+          case (pgns, docs) ⇒ docs map {
+            case (id, doc) ⇒ doc ++ BSONDocument(F.binaryPgn -> (pgns get id))
+          }
+        }
+        (games await 5.seconds).toSeq 
+      }
+      // val docTransformer: Enumeratee[Docs, Doc] = Enumeratee mapConcat { docs ⇒
+      //   getPgns(docs) zip convertPrll(docs) map {
+      //     case (pgns, docs) ⇒ docs map {
+      //       case (id, doc) ⇒ doc ++ BSONDocument(F.binaryPgn -> (pgns get id))
+      //     }
+      //   }
+      // }
+
+      val docSink: Iteratee[Doc, Int] = tube.gameTube.coll.bulkInsertIteratee(
         bulkSize = batchSize,
         bulkByteSize = 1024 * 1024 * 8 /* 8MB */ )
 
-      docsEnumerator |>>> Iteratee.foreach[Docs] { docs ⇒
-        {
-          Enumerator.enumerate(convertPrll(docs)) |>>> docIteratee
-        }.await(10 seconds)
-      }
-
+      ((docPool &> docTransformer) |>>> docSink).void
     }
 
     (tube.gameTube.coll.drop recover {
