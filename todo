@@ -98,12 +98,9 @@ improve AI cheat detection (not only game start)
 can't search for anon games
 user profile tab for imported games http://en.lichess.org/inbox/zevof2tu#bottom
 analysis board (see chess.com)
-on connectivity failure, try to resend the move (and not reload the page)
 games from position should not be rated
 1 game played, rating slow!=standard http://en.lichess.org/@/fuckface/all
 AI bug: knight promotion http://en.lichess.org/analyse/g74fzlxh
-fix and re-enable hijack detection
 watcher game sounds only on first color
 up ratings by 300 -> closer to FICS
 ragequit seems broken
-autopairing with random color http://en.lichess.org/forum/lichess-feedback/half-white-half-black-symbol-should-not-equal-will-play-with-either-color#7
