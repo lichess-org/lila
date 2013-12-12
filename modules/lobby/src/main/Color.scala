@@ -6,24 +6,32 @@ sealed abstract class Color(val name: String) {
 
   def resolve: chess.Color
 
-  def compatibleWith(c: Color) = (c == this).fold(c == Color.Random, true)
+  def unary_! : Color
+
+  def compatibleWith(c: Color) = !c == this
 }
 
 object Color {
 
   object White extends Color("white") {
 
-    val resolve = chess.White
+    def resolve = chess.White
+
+    def unary_! = Black
   }
 
   object Black extends Color("black") {
 
-    val resolve = chess.Black
+    def resolve = chess.Black
+
+    def unary_! = White
   }
 
   object Random extends Color("random") {
 
     def resolve = nextBoolean.fold(White, Black).resolve
+
+    def unary_! = this
   }
 
   def apply(name: String): Option[Color] = all find (_.name == name)
