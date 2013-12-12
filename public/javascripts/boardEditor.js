@@ -45,10 +45,10 @@ $(function() {
     });
     onChange();
 
-    $wrap.find('a.start').on('click', board.start);
-    $wrap.find('a.clear').on('click', board.clear);
-    $wrap.find('a.flip').on('click', board.flip);
-    $wrap.find('a.load').on('click', function() {
+    $wrap.on('click', 'a.start', board.start);
+    $wrap.on('click', 'a.clear', board.clear);
+    $wrap.on('click', 'a.flip', board.flip);
+    $wrap.on('click', 'a.load', function() {
       var fen = prompt('Paste FEN position');
       window.location = $(this).data('url').replace('xxx', fen);
       return false;
