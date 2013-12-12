@@ -99,10 +99,10 @@ trait GameRepo {
     $update.fieldUnchecked(id, BSONFields.tvAt, $date(DateTime.now))
   }
 
-  def onTv(nb: Int): Fu[List[Game]] = $find($query.all sort $sort.desc("me.tv"), nb)
+  def onTv(nb: Int): Fu[List[Game]] = $find($query.all sort $sort.desc(BSONFields.tvAt), nb)
 
   def incBookmarks(id: ID, value: Int) =
-    $update($select(id), $inc("bm" -> value))
+    $update($select(id), $incBson("bm" -> value))
 
   def finish(id: ID, winnerId: Option[String]) = $update(
     $select(id),
@@ -230,14 +230,12 @@ trait GameRepo {
       reduceFunction = """function(rated, values) {
   var sum = 0, nb = 0;
   values.forEach(function(game) {
-    if(typeof game[0] != "undefined") {
-      game.forEach(function(player) {
-        if(player.e) {
-          sum += player.e; 
-          ++nb;
-        }
-      });
-    }
+    game.forEach(function(player) {
+      if(player.e) {
+        sum += player.e; 
+        ++nb;
+      }
+    });
   });
   return nb == 0 ? nb : Math.round(sum / nb);
   }""",

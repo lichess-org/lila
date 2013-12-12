@@ -94,10 +94,10 @@ object UserRepo {
       }) filterNot (_ ⇒ ai)
     ).flatten map (_ -> 1)
 
-    $update($select(id), $inc(incs: _*))
+    $update($select(id), $incBson(incs: _*))
   }
 
-  def incToints(id: ID)(nb: Int) = $update($select(id), $inc("toints" -> nb))
+  def incToints(id: ID)(nb: Int) = $update($select(id), $incBson("toints" -> nb))
 
   def averageElo: Fu[Float] = $primitive($select.all, "elo")(_.asOpt[Float]) map { elos ⇒
     elos.sum / elos.size.toFloat

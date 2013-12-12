@@ -2,22 +2,21 @@ package lila.round
 
 import scala.concurrent.duration._
 
+import com.roundeights.hasher.Implicits._
+
 import lila.game.{ Pov, Game, IdGenerator }
 import lila.memo.ExpireSetMemo
 import lila.user.Context
 
-private[round] final class Hijack(timeout: Duration, enabled: Boolean) {
-
-  // game ID -> game token
-  private val tokens = lila.memo.Builder.cache(
-    2 hour, 
-    (_: String) ⇒ IdGenerator.token
-  )
+private[round] final class Hijack(
+  timeout: Duration, 
+  salt: String,
+  enabled: Boolean) {
 
   // full game ids that have been hijacked
   private val hijacks = new ExpireSetMemo(timeout)
 
-  def tokenOf(gameId: String) = tokens get gameId
+  def tokenOf(gameId: String) = gameId.salt(salt).md5.hex take 8
 
   def apply(pov: Pov, token: String): Boolean = enabled && {
     pov.game.rated && {

@@ -6,6 +6,7 @@ import org.joda.time.DateTime
 import reactivemongo.bson._
 
 import lila.db.ByteArray
+import lila.db.BSON.BSONJodaDateTimeHandler
 
 private[game] object GameDiff {
 
@@ -58,6 +59,11 @@ private[game] object GameDiff {
       dOpt(name + blurs, player(_).blurs, w.intO)
     }
 
-    (setBuilder.toList, unsetBuilder.toList)
+    (addUa(setBuilder.toList), unsetBuilder.toList)
+  }
+
+  private def addUa(sets: List[Set]): List[Set] = sets match {
+    case Nil  ⇒ Nil
+    case sets ⇒ (Game.BSONFields.updatedAt -> BSONJodaDateTimeHandler.write(DateTime.now)) :: sets
   }
 }
