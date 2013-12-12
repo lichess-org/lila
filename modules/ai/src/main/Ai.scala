@@ -18,7 +18,7 @@ trait Ai {
       uciMoves ← uciMemo.get(game)
       moveResult ← move(uciMoves.toList, fen, level)
       uciMove ← (UciMove(moveResult.move) toValid s"${game.id} wrong bestmove: $moveResult").future
-      result ← game.toChess(uciMove.orig, uciMove.dest).future
+      result ← game.toChess(uciMove.orig, uciMove.dest, uciMove.promotion).future
       (c, move) = result
       progress = game.update(c, move)
       _ ← (GameRepo save progress) >>- uciMemo.add(game, uciMove.uci)
