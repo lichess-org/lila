@@ -1934,7 +1934,8 @@ var storage = {
 
     function prepareForm() {
       var $form = $('div.lichess_overboard');
-      var $modeChoices = $form.find('.mode_choice input');
+      var $modeChoicesWrap = $form.find('.mode_choice');
+      var $modeChoices = $modeChoicesWrap.find('input');
       var $variantChoices = $form.find('.variants input');
       var $casual = $modeChoices.eq(0),
         $rated = $modeChoices.eq(1);
@@ -2060,6 +2061,8 @@ var storage = {
         var fen = $fenVariant.prop('checked');
         if (fen && $fenInput.val() !== '') validateFen();
         $fenPosition.toggle(fen);
+        $modeChoicesWrap.toggle(!fen);
+        if (fen) $casual.click();
         $.centerOverboard();
       }).trigger('change');
 
