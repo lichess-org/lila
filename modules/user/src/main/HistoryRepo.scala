@@ -33,37 +33,4 @@ object HistoryRepo {
         }
       } yield elems)
     }
-
-  // def fixAll = io {
-  // import java.lang.Float.parseFloat
-  // import java.lang.Integer.parseInt
-  //   collection.find() foreach { history ⇒
-  //     val initEntries = history.as[MongoDBList]("entries").toList
-  //     val entries = (initEntries collect {
-  //       case elem: com.mongodb.BasicDBList ⇒ try {
-  //         for {
-  //           ts ← elem.getAs[Double](0)
-  //           elo ← elem.getAs[Double](1)
-  //           op = if (elem.size > 2) elem.getAs[Double](2) else None
-  //         } yield op.fold(List(ts.toInt, elo.toInt)) { o ⇒
-  //           List(ts.toInt, elo.toInt, o.toInt)
-  //         }
-  //       }
-  //       catch {
-  //         case (err: Exception) ⇒
-  //           for {
-  //             ts ← elem.getAs[Int](0)
-  //             elo ← elem.getAs[Int](1)
-  //             op = if (elem.size > 2) elem.getAs[Int](2) else None
-  //           } yield op.fold(List(ts, elo)) { o ⇒ List(ts, elo, o) }
-  //       }
-  //     }).flatten sortBy (_.head)
-  //     val id = history.as[String]("_id")
-  //     loginfo("%s: %d -> %d".format(id, initEntries.size, entries.size))
-  //     collection.update(
-  //       DBObject("_id" -> id),
-  //       $set(Seq("entries" -> entries))
-  //     )
-  //   }
-  // }
 }

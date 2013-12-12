@@ -42,6 +42,7 @@ final class Env(
     val ActorMapName = config getString "actor.map.name"
     val ActorName = config getString "actor.name"
     val HijackEnabled = config getBoolean "hijack.enabled"
+    val HijackSalt = config getString "hijack.salt"
   }
   import settings._
 
@@ -154,7 +155,7 @@ final class Env(
 
   private lazy val titivate = new Titivate(roundMap, meddler, scheduler)
 
-  lazy val hijack = new Hijack(HijackTimeout, HijackEnabled)
+  lazy val hijack = new Hijack(HijackTimeout, HijackSalt, HijackEnabled)
 
   private lazy val takebacker = new Takebacker(
     messenger = messenger,

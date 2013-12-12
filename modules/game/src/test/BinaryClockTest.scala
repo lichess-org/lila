@@ -31,6 +31,9 @@ class BinaryClockTest extends Specification {
       write(clock.giveTime(chess.White, -0.03f)) must_== {
         bits22 ::: List("00000000", "00000000", "00000011") ::: List.fill(8)(_0_)
       }
+      write(Clock(0, 2).pp) must_== {
+        List("00000000", "00000010", "10000000", "00000000", "11001000", "10000000", "00000000", "11001000") ::: List.fill(5)(_0_)
+      }
     }
     "read" in {
       read(bits22 ::: List.fill(11)(_0_)) must_== {
@@ -55,6 +58,10 @@ class BinaryClockTest extends Specification {
 
       val c4 = clock.run
       isomorphism(c4).timerOption.get must beCloseTo(c4.timerOption.get, 1)
+
+      Clock(2, 60) |> { c =>
+        isomorphism(c) must_== c
+      }
     }
   }
 }

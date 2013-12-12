@@ -15,6 +15,9 @@ trait $operator {
   def $setBson(pairs: BSONDocument) = BSONDocument("$set" -> pairs)
   def $unset(fields: String*) = Json.obj("$unset" -> Json.obj(wrap(fields map (_ -> true)): _*))
   def $inc[A: Writes](pairs: (String, A)*) = Json.obj("$inc" -> Json.obj(wrap(pairs): _*))
+  def $incBson(pairs: (String, Int)*) = BSONDocument("$inc" -> BSONDocument(pairs map {
+    case (k, v) ⇒ k -> BSONInteger(v)
+  }))
   def $push[A: Writes](field: String, value: A) = Json.obj("$push" -> Json.obj(field -> value))
   def $pushSlice[A: Writes](field: String, value: A, max: Int) = Json.obj("$push" -> Json.obj(
     field -> Json.obj(

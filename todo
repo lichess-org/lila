@@ -102,15 +102,8 @@ on connectivity failure, try to resend the move (and not reload the page)
 games from position should not be rated
 1 game played, rating slow!=standard http://en.lichess.org/@/fuckface/all
 AI bug: knight promotion http://en.lichess.org/analyse/g74fzlxh
-
-
---------------------- DEPLOY
-+++++ game migration with disabled scheduler
-db.game5.ensureIndex({ca:-1});
-db.game5.ensureIndex({s:1});
-db.game5.ensureIndex({us:1},{sparse:1});
-db.game5.ensureIndex({wid:1},{sparse:1});
-db.game5.ensureIndex({us:1,ca:-1});
-db.game5.ensureIndex({bm:1},{sparse:1});
-db.game5.ensureIndex({so:1,ca:-1});
-db.game5.ensureIndex({tv:-1},{sparse:1});
+fix and re-enable hijack detection
+watcher game sounds only on first color
+up ratings by 300 -> closer to FICS
+ragequit seems broken
+autopairing with random color http://en.lichess.org/forum/lichess-feedback/half-white-half-black-symbol-should-not-equal-will-play-with-either-color#7
