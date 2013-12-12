@@ -222,10 +222,12 @@ object GameBinaryMigration {
         val docSeq = docs.toSeq
         val games = getPgns(docSeq) zip convertPrll(docSeq) map {
           case (pgns, docs) ⇒ docs map {
-            case (id, doc) ⇒ doc ++ BSONDocument(F.binaryPgn -> (pgns get id))
+            case (id, doc) ⇒ pgns.get(id).fold(doc) { pgn ⇒
+              doc ++ BSONDocument(F.binaryPgn -> pgn)
+            }
           }
         }
-        (games await 5.seconds).toSeq 
+        (games await 5.seconds).toSeq
       }
       // val docTransformer: Enumeratee[Docs, Doc] = Enumeratee mapConcat { docs ⇒
       //   getPgns(docs) zip convertPrll(docs) map {

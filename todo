@@ -100,7 +100,6 @@ user profile tab for imported games http://en.lichess.org/inbox/zevof2tu#bottom
 analysis board (see chess.com)
 on connectivity failure, try to resend the move (and not reload the page)
 games from position should not be rated
-rename game.next
 1 game played, rating slow!=standard http://en.lichess.org/@/fuckface/all
 AI bug: knight promotion http://en.lichess.org/analyse/g74fzlxh
 
