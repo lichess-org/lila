@@ -48,9 +48,9 @@ var storage = {
     },
     options: {
       name: "unnamed",
-      offlineDelay: 7000, // time before announcing the user they are offline
       pingMaxLag: 7000, // time to wait for pong before reseting the connection
       pingDelay: 1000, // time between pong and ping
+      autoReconnectDelay: 1000,
       lagTag: false, // jQuery object showing ping lag
       ignoreUnknownMessages: false
     }
@@ -66,9 +66,12 @@ var storage = {
     self.ws = null;
     self.pingSchedule = null;
     self.connectSchedule = null;
+    self.ackableMessages = [];
     self.lastPingTime = self.now();
     self.currentLag = 0;
     self.averageLag = 0;
+    self.tryOtherUrl = false;
+    self.autoReconnect = true;
     self.debug('Debug is enabled');
     if (self.options.resetUrl || self.options.prodPipe) {
       storage.remove(self.options.baseUrlKey);
@@ -79,7 +82,7 @@ var storage = {
       self.options.baseUrls = ['socket.en.lichess.org'];
     }
     self.connect();
-    $(window).unload(function() {
+    $(window).on('unload', function() {
       self.destroy();
     });
   };
@@ -88,6 +91,7 @@ var storage = {
     connect: function() {
       var self = this;
       self.destroy();
+      self.autoReconnect = true;
       var fullUrl = "ws://" + self.baseUrl() + self.url + "?" + $.param($.extend(self.settings.params, {
         version: self.version
       }));
@@ -97,8 +101,15 @@ var storage = {
         else if (window.WebSocket) self.ws = new WebSocket(fullUrl);
         else throw "[lila] no websockets found on this browser!";
 
+        // if (self.options.debug) window.liws = self.ws;
         self.ws.onerror = function(e) {
           self.onError(e);
+        };
+        self.ws.onclose = function(e) {
+          if (self.autoReconnect) {
+            self.debug('Will autoreconnect in ' + self.options.autoReconnectDelay);
+            self.scheduleConnect(self.options.autoReconnectDelay);
+          }
         };
         self.ws.onopen = function() {
           self.debug("connected to " + fullUrl, true);
@@ -109,12 +120,17 @@ var storage = {
           if ($('#user_tag').length) setTimeout(function() {
               self.send("following_onlines");
             }, 500);
+          var resend = self.ackableMessages;
+          self.ackableMessages = [];
+          _.each(resend, function(x) {
+            self.send(x.t, x.d);
+          });
         };
         self.ws.onmessage = function(e) {
           var m = JSON.parse(e.data);
           if (m.t == "n") {
             self.pong();
-          } else self.debug(m);
+          } else self.debug(e.data);
           if (m.t == "b") {
             $(m.d || []).each(function() {
               self.handle(this);
@@ -142,13 +158,21 @@ var storage = {
         self.debug(e);
       }
     },
+    sendAckable: function(t, d) {
+      this.ackableMessages.push({
+        t: t,
+        d: d
+      });
+      this.send(t, d);
+    },
     scheduleConnect: function(delay) {
       var self = this;
+      // self.debug('schedule connect ' + delay);
+      clearTimeout(self.pingSchedule);
       clearTimeout(self.connectSchedule);
-      //self.debug("schedule connect in " + delay + " ms");
       self.connectSchedule = setTimeout(function() {
         $('body').addClass('offline');
-        self.baseUrlFail();
+        self.tryOtherUrl = true;
         self.connect();
       }, delay);
     },
@@ -167,7 +191,7 @@ var storage = {
         self.ws.send(self.pingData());
         self.lastPingTime = self.now();
       } catch (e) {
-        self.debug(e);
+        self.debug(e, true);
       }
       self.scheduleConnect(self.options.pingMaxLag);
     },
@@ -200,23 +224,30 @@ var storage = {
         }
         self.version = m.v;
       }
-      if (m.t) {
-        if (m.t == "resync") {
+      switch (m.t || false) {
+        case false:
+          break;
+        case 'resync':
           if (!self.options.prodPipe) lichess.reload();
-          return;
-        }
-        var h = self.settings.events[m.t];
-        if ($.isFunction(h)) h(m.d || null);
-        else if (!self.options.ignoreUnknownMessages) {
-          self.debug(m.t + " not supported");
-        }
+          break;
+        case 'ack':
+          self.ackableMessages = [];
+          break;
+        default:
+          var h = self.settings.events[m.t];
+          if ($.isFunction(h)) h(m.d || null);
+          else if (!self.options.ignoreUnknownMessages) {
+            self.debug('Message not supported ' + JSON.stringify(m));
+          }
       }
     },
     now: function() {
       return new Date().getTime();
     },
     debug: function(msg, always) {
-      if ((always || this.options.debug) && window.console && console.debug) console.debug("[" + this.options.name + "]", msg);
+      if ((always || this.options.debug) && window.console && console.debug) {
+        console.debug("[" + this.options.name + " " + lichess_sri + "]", msg);
+      }
     },
     destroy: function() {
       clearTimeout(this.pingSchedule);
@@ -227,13 +258,15 @@ var storage = {
     disconnect: function() {
       if (this.ws) {
         this.debug("Disconnect", true);
+        this.autoReconnect = false;
         this.ws.close();
       }
     },
     onError: function(e) {
-      this.options.debug = true;
-      this.debug('error: ' + e);
-      this.baseUrlFail();
+      var self = this;
+      self.options.debug = true;
+      self.debug('error: ' + JSON.stringify(e));
+      self.tryOtherUrl = true;
       setTimeout(function() {
         if (!storage.get("wsok") && $("#websocket-fail").length === 0) {
           $.ajax("/assets/websocket-fail.html", {
@@ -243,26 +276,25 @@ var storage = {
           });
         }
       }, 1000);
+      clearTimeout(self.pingSchedule);
     },
     onSuccess: function() {
       storage.set("wsok", 1);
       $("#websocket-fail").remove();
     },
     baseUrl: function() {
-      var saved = storage.get(this.options.baseUrlKey);
-      if (saved) return saved;
-      var picked = this.options.baseUrls[0];
-      storage.set(this.options.baseUrlKey, picked);
-      return picked;
-    },
-    baseUrlFail: function() {
-      var saved = storage.get(this.options.baseUrlKey);
-      if (saved) {
-        var index = (this.options.baseUrls.indexOf(saved) + 1) % this.options.baseUrls.length;
-        var next = this.options.baseUrls[index];
-        this.debug(saved + ' failed, will try ' + next, true);
-        storage.set(this.options.baseUrlKey, next);
+      var key = this.options.baseUrlKey;
+      var urls = this.options.baseUrls;
+      var url = storage.get(key);
+      if (!url) {
+        url = urls[0];
+        storage.set(key, url);
+      } else if (this.tryOtherUrl) {
+        this.tryOtherUrl = false;
+        url = urls[(urls.indexOf(url) + 1) % urls.length];
+        storage.set(key, url);
       }
+      return url;
     },
     pingInterval: function() {
       return this.options.pingDelay + this.averageLag;
@@ -794,7 +826,6 @@ var storage = {
       self.options.tableUrl = self.element.data('table-url');
       self.options.playersUrl = self.element.data('players-url');
       self.options.socketUrl = self.element.data('socket-url');
-      self.socketAckTimeout = null;
 
       $("div.game_tournament .clock").each(function() {
         $(this).clock({
@@ -892,9 +923,6 @@ var storage = {
           ran: "--ranph--"
         },
         events: {
-          ack: function() {
-            clearTimeout(self.socketAckTimeout);
-          },
           message: function(e) {
             self.element.queue(function() {
               if (self.$chat) self.$chat.chat("append", e.u, e.t);
@@ -1165,9 +1193,8 @@ var storage = {
         case 'king':
           return (Math.abs(t.x - f.x) <= 1 && Math.abs(t.y - f.y) <= 1) ||
             (f.y == t.y && (f.y == (color == 'white' ? 1 : 8)) && (
-              (f.x == 5 && (t.x == 2 || t.x == 7)) ||
-              $('#' + to + '>.rook.' + color).length == 1 
-            ));
+          (f.x == 5 && (t.x == 2 || t.x == 7)) ||
+            $('#' + to + '>.rook.' + color).length == 1));
         case 'queen':
           return Math.abs(t.x - f.x) == Math.abs(t.y - f.y) || t.x == f.x || t.y == f.y;
       }
@@ -1234,10 +1261,7 @@ var storage = {
         if (self.hasClock()) {
           moveData.lag = parseInt(lichess.socket.averageLag, 10);
         }
-        lichess.socket.send("move", moveData);
-        self.socketAckTimeout = setTimeout(function() {
-          lichess.reload();
-        }, lichess.socket.options.pingMaxLag);
+        lichess.socket.sendAckable("move", moveData);
       }
 
       var color = self.options.player.color;
@@ -1697,9 +1721,9 @@ var storage = {
         tenths = Math.floor(date.getMilliseconds() / 100);
         return minutes + ':' + seconds + '<span>.' + tenths + '</span>';
       } else if (this.options.time >= 3600000) {
-				var hours = this._prefixInteger(date.getUTCHours(), 2);
+        var hours = this._prefixInteger(date.getUTCHours(), 2);
         return hours + ':' + minutes + ':' + seconds;
-			} else {
+      } else {
         return minutes + ':' + seconds;
       }
     },

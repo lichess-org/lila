@@ -118,7 +118,7 @@ private[round] final class SocketHandler(
       version = version,
       color = pov.color,
       playerId = playerId filterNot (_ ⇒ hijack(pov, token)),
-      ip = ip).pp
+      ip = ip)
     socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket ⇒
       Handler(hub, socket, uid, join, user map (_.id)) {
         case Connected(enum, member) ⇒
