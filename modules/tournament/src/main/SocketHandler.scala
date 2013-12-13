@@ -59,6 +59,6 @@ private[tournament] final class SocketHandler(
       t ← o str "d"
       userId ← member.userId
       if flood.allowMessage(uid, t)
-    } socket ! Talk(tourId, userId, t)
+    } socket ! Talk(tourId, userId, t, member.troll)
   }
 }

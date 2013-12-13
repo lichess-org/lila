@@ -5,6 +5,7 @@ import lila.socket.SocketMember
 
 case class Member(channel: JsChannel) extends SocketMember {
   val userId = none
+  val troll = false
 }
 
 case object GetNbMoves

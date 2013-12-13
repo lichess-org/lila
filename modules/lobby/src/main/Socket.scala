@@ -27,7 +27,7 @@ private[lobby] final class Socket(
     case PingVersion(uid, v) ⇒ {
       ping(uid)
       withMember(uid) { m ⇒
-        history.since(v).fold(resync(m))(_ foreach m.channel.push)
+        history.since(v).fold(resync(m))(_ foreach sendMessage(m))
       }
     }
 

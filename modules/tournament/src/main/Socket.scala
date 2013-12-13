@@ -46,7 +46,7 @@ private[tournament] final class Socket(
       ping(uid)
       timeBomb.delay
       withMember(uid) { m ⇒
-        history.since(v).fold(resync(m))(_ foreach m.channel.push)
+        history.since(v).fold(resync(m))(_ foreach sendMessage(m))
       }
     }
 
@@ -55,12 +55,12 @@ private[tournament] final class Socket(
       if (timeBomb.boom) self ! PoisonPill
     }
 
-    case Talk(tourId, u, t) ⇒ messenger(tourId, u, t) effectFold (
+    case Talk(tourId, u, t, troll) ⇒ messenger(tourId, u, t, troll) effectFold (
       e ⇒ logwarn(e.toString),
-      message ⇒ notifyVersion("talk", Json.obj(
+      message ⇒ notifyVersionTrollable("talk", Json.obj(
         "u" -> message.userId,
         "t" -> message.text
-      ))
+      ), troll = troll)
     )
 
     case GetVersion ⇒ sender ! history.version
@@ -94,5 +94,10 @@ private[tournament] final class Socket(
 
   def notifyReload {
     notifyVersion("reload", JsNull)
+  }
+
+  def notifyVersionTrollable[A : Writes](t: String, data: A, troll: Boolean) {
+    val vmsg = history += History.Message(makeMessage(t, data), troll)
+    members.values.foreach(sendMessage(vmsg))
   }
 }

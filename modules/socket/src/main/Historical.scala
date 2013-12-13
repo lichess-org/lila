@@ -6,8 +6,15 @@ trait Historical[M <: SocketMember] { self: SocketActor[M] ⇒
 
   val history: History
 
-  def notifyVersion[A : Writes](t: String, data: A) {
-    val vmsg = history += makeMessage(t, data)
-    members.values.foreach(_.channel push vmsg)
+  def notifyVersion[A : Writes](t: String, data: A, troll: Boolean = false) {
+    val vmsg = history += History.Message(makeMessage(t, data), troll)
+    members.values.foreach(sendMessage(vmsg))
+  }
+
+  def sendMessage(message: History.Message)(member: M) {
+    if (!message.troll || member.troll) member.channel push message.msg
+  }
+  def sendMessage(member: M)(message: History.Message) {
+    sendMessage(message)(member)
   }
 }
