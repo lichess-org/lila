@@ -82,9 +82,10 @@ final class Env(
     }
   }
 
-  private lazy val cached = new Cached(
+  lazy val cached = new Cached(
     nbTtl = CachedNbTtl,
-    eloChartTtl = CachedEloChartTtl)
+    eloChartTtl = CachedEloChartTtl,
+    onlineUserIdMemo = onlineUserIdMemo)
 }
 
 object Env {
