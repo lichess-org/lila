@@ -10,6 +10,8 @@ case class Member(
   userId: Option[String],
   flag: Option[String]) extends SocketMember {
 
+  val troll = false
+
   def hasFlag(f: String) = flag ?? (f ==)
 }
 
