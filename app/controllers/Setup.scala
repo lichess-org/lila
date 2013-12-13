@@ -4,6 +4,7 @@ import play.api.data.Form
 import play.api.mvc.{ SimpleResult, Call }
 
 import lila.app._
+import lila.common.HTTPRequest
 import lila.game.GameRepo
 import lila.user.UserRepo
 import lila.user.{ Context, BodyContext }
@@ -14,7 +15,11 @@ object Setup extends LilaController with TheftPrevention {
   private def env = Env.setup
 
   def aiForm = Open { implicit ctx ⇒
-    env.forms aiFilled get("fen") map { html.setup.ai(_) }
+    if (HTTPRequest isXhr ctx.req)
+      env.forms aiFilled get("fen") map { html.setup.ai(_) }
+    else fuccess {
+      Redirect(routes.Lobby.home + "#ai")
+    }
   }
 
   def ai = process(env.forms.ai) { config ⇒
@@ -25,16 +30,20 @@ object Setup extends LilaController with TheftPrevention {
   }
 
   def friendForm(username: Option[String]) = Open { implicit ctx ⇒
-    username ?? UserRepo.named flatMap { userOption ⇒
-      (userOption |@| ctx.me).tupled ?? {
-        case (user, me) ⇒ Env.relation.api.blocks(user.id, me.id) map { blocks ⇒
-          !blocks option user
+    if (HTTPRequest isXhr ctx.req)
+      username ?? UserRepo.named flatMap { userOption ⇒
+        (userOption |@| ctx.me).tupled ?? {
+          case (user, me) ⇒ Env.relation.api.blocks(user.id, me.id) map { blocks ⇒
+            !blocks option user
+          }
+        }
+      } flatMap { user ⇒
+        env.forms friendFilled get("fen") map {
+          html.setup.friend(_, user map (_.username))
         }
       }
-    } flatMap { user ⇒
-      env.forms friendFilled get("fen") map {
-        html.setup.friend(_, user map (_.username))
-      }
+    else fuccess {
+      Redirect(routes.Lobby.home + "#friend")
     }
   }
 
@@ -58,7 +67,11 @@ object Setup extends LilaController with TheftPrevention {
   }
 
   def hookForm = Open { implicit ctx ⇒
-    env.forms.hookFilled map { html.setup.hook(_) }
+    if (HTTPRequest isXhr ctx.req)
+      env.forms.hookFilled map { html.setup.hook(_) }
+    else fuccess {
+      Redirect(routes.Lobby.home + "#hook")
+    }
   }
 
   def hook(uid: String) = OpenBody { implicit ctx ⇒
