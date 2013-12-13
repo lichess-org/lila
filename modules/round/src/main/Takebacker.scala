@@ -16,7 +16,7 @@ private[round] final class Takebacker(
       p2 = p1 map { g ⇒ g.updatePlayer(color, _.proposeTakeback) }
       _ ← GameRepo save p2
     } yield p2.events
-    case _ ⇒ fufail("[takebacker] invalid yes " + pov)
+    case _ ⇒ ClientErrorException.future("[takebacker] invalid yes " + pov)
   }
   def no(pov: Pov): Fu[Events] = pov match {
     case Pov(game, color) if pov.player.isProposingTakeback ⇒ for {
@@ -33,7 +33,7 @@ private[round] final class Takebacker(
       p2 = p1 map { g ⇒ g.updatePlayer(!color, _.removeTakebackProposition) }
       _ ← GameRepo save p2
     } yield p2.events
-    case _ ⇒ fufail("[takebacker] invalid no " + pov)
+    case _ ⇒ ClientErrorException.future("[takebacker] invalid no " + pov)
   }
 
   private def single(game: Game): Fu[Events] = for {

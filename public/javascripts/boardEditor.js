@@ -33,12 +33,13 @@ $(function() {
       });
     }
 
+    var pieceTheme = 'http://' + document.domain.replace(/^\w+/, 'static') + '/assets/vendor/chessboard/img/chesspieces/wikipedia/{piece}.png';
     board = new ChessBoard('chessboard', {
       position: toBase($('#chessboard').data('fen')) || 'start',
       draggable: true,
       dropOffBoard: 'trash',
       sparePieces: true,
-      pieceTheme: '/assets/vendor/chessboard/img/chesspieces/wikipedia/{piece}.png',
+      pieceTheme: pieceTheme,
       onChange: function() {
         setTimeout(onChange, 100);
       }

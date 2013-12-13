@@ -39,6 +39,8 @@ case class Player(
 
   def isUser(u: User) = userId.fold(false)(_ == u.id)
 
+  def userInfos: Option[(String, Int)] = (userId |@| elo).tupled
+
   def wins = isWinner getOrElse false
 
   def finish(winner: Boolean) = copy(

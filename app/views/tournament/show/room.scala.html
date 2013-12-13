@@ -2,13 +2,11 @@
 
 @messages.map { m =>
 <li>
-  <span>
-    @m.userId.map { u =>
-    @usernameLink(u.some, withOnline = false, truncate = 12.some)
-    }.getOrElse {
-    <span class="system"></span>
-    }
-  </span>
+  @m.userId.map { u =>
+  <span>@usernameLink(u.some, withOnline = false, truncate = 12.some)</span>
+  }.getOrElse {
+  <span class="system"></span>
+  }
   @Html(m.text)
 </li>
 }

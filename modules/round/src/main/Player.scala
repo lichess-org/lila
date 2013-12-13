@@ -21,13 +21,14 @@ private[round] final class Player(
   def human(play: HumanPlay)(pov: Pov): Fu[Events] = play match {
     case HumanPlay(playerId, ip, origS, destS, promS, blur, lag, onFailure) ⇒ pov match {
       case Pov(game, color) if (game playableBy color) ⇒ {
-          (for {
-            orig ← posAt(origS) toValid "Wrong orig " + origS
-            dest ← posAt(destS) toValid "Wrong dest " + destS
-            promotion = Role promotable promS
-            newChessGameAndMove ← game.toChess(orig, dest, promotion, lag)
-            (newChessGame, move) = newChessGameAndMove
-          } yield game.update(newChessGame, move, blur) -> move).prefixFailuresWith(s"$pov ").future flatMap {
+        (for {
+          orig ← posAt(origS) toValid "Wrong orig " + origS
+          dest ← posAt(destS) toValid "Wrong dest " + destS
+          promotion = Role promotable promS
+          newChessGameAndMove ← game.toChess(orig, dest, promotion, lag)
+          (newChessGame, move) = newChessGameAndMove
+        } yield game.update(newChessGame, move, blur) -> move).prefixFailuresWith(s"$pov ")
+          .fold(errs ⇒ ClientErrorException.future(errs.shows), fuccess).flatMap {
             case (progress, move) ⇒
               (GameRepo save progress) >>-
                 (pov.game.hasAi ! uciMemo.add(pov.game, move)) >>-
@@ -44,11 +45,11 @@ private[round] final class Player(
                     } inject progress.events
                   })
           }
-        } addFailureEffect onFailure
-      case Pov(game, _) if game.finished           ⇒ fufail(s"$pov game is finished")
-      case Pov(game, _) if game.aborted            ⇒ fufail(s"$pov game is aborted")
-      case Pov(game, color) if !game.turnOf(color) ⇒ fufail(s"$pov not your turn")
-      case _                                       ⇒ fufail(s"$pov move refused for some reason")
+      } addFailureEffect onFailure
+      case Pov(game, _) if game.finished           ⇒ ClientErrorException.future(s"$pov game is finished")
+      case Pov(game, _) if game.aborted            ⇒ ClientErrorException.future(s"$pov game is aborted")
+      case Pov(game, color) if !game.turnOf(color) ⇒ ClientErrorException.future(s"$pov not your turn")
+      case _                                       ⇒ ClientErrorException.future(s"$pov move refused for some reason")
     }
   }
 

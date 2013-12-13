@@ -89,11 +89,13 @@ trait GameRepo {
       s"p0.${Player.BSONFields.eloDiff}" -> BSONInteger(white), 
       s"p1.${Player.BSONFields.eloDiff}" -> BSONInteger(black))))
 
-  def setUser(id: ID, color: Color, user: User) =     
-    $update($select(id), BSONDocument("$set" -> BSONDocument(
-      s"p${color.fold(0, 1)}.${Player.BSONFields.elo}" -> BSONInteger(user.elo),
-      s"${BSONFields.playerUids}.${color.fold(0, 1)}" -> user.id
+  def setUsers(id: ID, white: Option[(String, Int)], black: Option[(String, Int)]) = 
+    if (white.isDefined || black.isDefined) $update($select(id), BSONDocument("$set" -> BSONDocument(
+      s"p0.${Player.BSONFields.elo}" -> white.map(_._2).map(BSONInteger.apply),
+      s"p1.${Player.BSONFields.elo}" -> black.map(_._2).map(BSONInteger.apply),
+      BSONFields.playerUids -> lila.db.BSON.writer.listO(List(~white.map(_._1), ~black.map(_._1)))
     )))
+  else funit
 
   def setTv(id: ID) {
     $update.fieldUnchecked(id, BSONFields.tvAt, $date(DateTime.now))
@@ -128,9 +130,6 @@ trait GameRepo {
     )
     $insert bson bson
   }
-
-  def denormalizeUids(game: Game): Funit =
-    $update.field(game.id, "us", game.players.map(_.userId).flatten.distinct)
 
   def saveNext(game: Game, nextId: ID): Funit = $update(
     $select(game.id),
@@ -231,7 +230,7 @@ trait GameRepo {
   var sum = 0, nb = 0;
   values.forEach(function(game) {
     game.forEach(function(player) {
-      if(player.e) {
+      if(player && player.e) {
         sum += player.e; 
         ++nb;
       }

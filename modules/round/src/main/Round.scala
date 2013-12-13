@@ -145,6 +145,7 @@ private[round] final class Round(
   private def publish[A](op: Fu[Events]) = op addEffect {
     events ⇒ if (events.nonEmpty) socketHub ! Tell(gameId, events)
   } addFailureEffect {
-    err ⇒ logwarn("[round] " + err)
+    case e: ClientErrorException ⇒ 
+    case e                       ⇒ logwarn("[round] " + e)
   } void
 }
