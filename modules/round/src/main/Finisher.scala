@@ -33,7 +33,7 @@ private[round] final class Finisher(
     _ ← GameRepo save p2
     g = p2.game
     winnerId = winner flatMap (g.player(_).userId)
-    _ ← GameRepo.finish(g.id, winnerId) >>
+    _ ← GameRepo.finish(g.id, winner, winnerId) >>
       updateElo(g) >>
       ((g.status >= Status.Mate) ?? incNbGames(g, White)) >>
       ((g.status >= Status.Mate) ?? incNbGames(g, Black)) >>-

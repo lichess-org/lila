@@ -86,16 +86,16 @@ trait GameRepo {
 
   def setEloDiffs(id: ID, white: Int, black: Int) =
     $update($select(id), BSONDocument("$set" -> BSONDocument(
-      s"p0.${Player.BSONFields.eloDiff}" -> BSONInteger(white), 
+      s"p0.${Player.BSONFields.eloDiff}" -> BSONInteger(white),
       s"p1.${Player.BSONFields.eloDiff}" -> BSONInteger(black))))
 
-  def setUsers(id: ID, white: Option[(String, Int)], black: Option[(String, Int)]) = 
+  def setUsers(id: ID, white: Option[(String, Int)], black: Option[(String, Int)]) =
     if (white.isDefined || black.isDefined) $update($select(id), BSONDocument("$set" -> BSONDocument(
       s"p0.${Player.BSONFields.elo}" -> white.map(_._2).map(BSONInteger.apply),
       s"p1.${Player.BSONFields.elo}" -> black.map(_._2).map(BSONInteger.apply),
       BSONFields.playerUids -> lila.db.BSON.writer.listO(List(~white.map(_._1), ~black.map(_._1)))
     )))
-  else funit
+    else funit
 
   def setTv(id: ID) {
     $update.fieldUnchecked(id, BSONFields.tvAt, $date(DateTime.now))
@@ -106,9 +106,11 @@ trait GameRepo {
   def incBookmarks(id: ID, value: Int) =
     $update($select(id), $incBson("bm" -> value))
 
-  def finish(id: ID, winnerId: Option[String]) = $update(
+  def finish(id: ID, winnerColor: Option[Color], winnerId: Option[String]) = $update(
     $select(id),
-    winnerId.??(wid ⇒ $set(Game.BSONFields.winnerId -> wid)) ++ $unset(
+    winnerId.??(wid ⇒ $set(Game.BSONFields.winnerId -> wid)) ++ 
+    winnerColor.??(col ⇒ $set(Game.BSONFields.winnerColor -> col.white)) ++ 
+    $unset(
       Game.BSONFields.positionHashes,
       "p0." + Player.BSONFields.lastDrawOffer,
       "p1." + Player.BSONFields.lastDrawOffer,
@@ -158,12 +160,13 @@ trait GameRepo {
   def bestOpponents(userId: String, limit: Int): Fu[List[(String, Int)]] = {
     import reactivemongo.bson._
     import reactivemongo.core.commands._
+    import BSONFields.playerUids
     val command = Aggregate(gameTube.coll.name, Seq(
-      Match(BSONDocument("us" -> userId)),
-      Match(BSONDocument("us" -> BSONDocument("$size" -> 2))),
-      Unwind("us"),
-      Match(BSONDocument("us" -> BSONDocument("$ne" -> userId))),
-      GroupField("us")("gs" -> SumValue(1)),
+      Match(BSONDocument(playerUids -> userId)),
+      Match(BSONDocument(playerUids -> BSONDocument("$size" -> 2))),
+      Unwind(playerUids),
+      Match(BSONDocument(playerUids -> BSONDocument("$ne" -> userId))),
+      GroupField(playerUids)("gs" -> SumValue(1)),
       Sort(Seq(Descending("gs"))),
       Limit(limit)
     ))
