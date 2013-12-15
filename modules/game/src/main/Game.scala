@@ -406,6 +406,7 @@ object Game {
     val pgnImport = "pgni"
     val tournamentId = "tid"
     val tvAt = "tv"
+    val winnerColor = "w"
     val winnerId = "wid"
   }
 
@@ -417,11 +418,15 @@ object Game {
 
     def reads(r: BSON.Reader): Game = {
       val nbTurns = r int turns
+      val winC = r boolO winnerColor map Color.apply
       val (whiteId, blackId) = r str playerIds splitAt 4
       val uids = ~r.getO[List[String]](playerUids)
       val (whiteUid, blackUid) = (uids.headOption.filter(_.nonEmpty), uids.lift(1).filter(_.nonEmpty))
-      def player(field: String, color: Color, id: Player.Id, uid: Player.UserId): Player =
-        r.getO[Player.Builder](field)(playerBSONHandler).getOrElse(emptyPlayerBuilder)(color)(id)(uid)
+      def player(field: String, color: Color, id: Player.Id, uid: Player.UserId): Player = {
+        val builder = r.getO[Player.Builder](field)(playerBSONHandler) | emptyPlayerBuilder
+        val win = winC map (_ == color)
+        builder(color)(id)(uid)(win)
+      }
       Game(
         id = r str id,
         whitePlayer = player(whitePlayer, White, whiteId, whiteUid),
@@ -452,8 +457,8 @@ object Game {
       id -> o.id,
       playerIds -> (o.whitePlayer.id + o.blackPlayer.id),
       playerUids -> w.listO(List(~o.whitePlayer.userId, ~o.blackPlayer.userId)),
-      whitePlayer -> w.docO(playerBSONHandler write ((_: Color) ⇒ (_: Player.Id) ⇒ (_: Player.UserId) ⇒ o.whitePlayer)),
-      blackPlayer -> w.docO(playerBSONHandler write ((_: Color) ⇒ (_: Player.Id) ⇒ (_: Player.UserId) ⇒ o.blackPlayer)),
+      whitePlayer -> w.docO(playerBSONHandler write ((_: Color) ⇒ (_: Player.Id) ⇒ (_: Player.UserId) ⇒ (_: Player.Win) ⇒ o.whitePlayer)),
+      blackPlayer -> w.docO(playerBSONHandler write ((_: Color) ⇒ (_: Player.Id) ⇒ (_: Player.UserId) ⇒ (_: Player.Win) ⇒ o.blackPlayer)),
       binaryPieces -> o.binaryPieces,
       binaryPgn -> w.byteArrayO(o.binaryPgn),
       status -> o.status.id,
