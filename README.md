@@ -53,7 +53,7 @@ When accessed from the root domaing (e.g. lichess.org),
 the application will redirect to a language specific subdomaing (e.g. en.lichess.org).
 Additionally, lichess will open websockets on the `socket.` subdomain (e.g. socket.en.lichess.org).
 
-Here is my local nginx configuration for `l.org`, assuming lila is installed in `/home/thib/lila` and runs on 127.0.0.1:9000
+Here is my local nginx configuration for `l.org`, assuming lila is installed in `/home/thib/lila` and runs on 127.0.0.1:9663
 [/etc/nginx/l.org.conf](https://github.com/ornicar/lila/blob/master/doc/nginx/l.org.conf)
 
 And here is my local [/etc/hosts file](https://github.com/ornicar/lila/blob/master/doc/hosts)
@@ -63,7 +63,7 @@ And here is my local [/etc/hosts file](https://github.com/ornicar/lila/blob/mast
 Launch the play console:
 
 ```sh
-sbt play
+sbt play -Dhttp.port=9663
 ```
 
 From here you can now run the application (`run`). 
