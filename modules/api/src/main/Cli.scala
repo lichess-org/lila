@@ -18,6 +18,10 @@ private[api] final class Cli(bus: lila.common.Bus, renderer: ActorSelection) ext
   def process = {
     case "deploy" :: "pre" :: Nil  ⇒ remindDeploy(lila.hub.actorApi.RemindDeployPre)
     case "deploy" :: "post" :: Nil ⇒ remindDeploy(lila.hub.actorApi.RemindDeployPost)
+    case "glicko" :: "migration" :: Nil => GlickoMigration(
+      lila.db.Env.current,
+      lila.game.Env.current,
+      lila.user.Env.current)
   }
 
   private def remindDeploy(event: RemindDeploy): Fu[String] = {
