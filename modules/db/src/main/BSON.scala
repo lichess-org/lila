@@ -38,6 +38,7 @@ object BSON {
     def int(k: String) = get[Int](k)
     def intO(k: String) = getO[Int](k)
     def intD(k: String) = intO(k) getOrElse 0
+    def double(k: String) = get[Double](k)
     def bool(k: String) = get[Boolean](k)
     def boolO(k: String) = getO[Boolean](k)
     def boolD(k: String) = boolO(k) getOrElse false
@@ -70,6 +71,7 @@ object BSON {
       case full         ⇒ Some(full)
     }
     def docO(o: BSONDocument): Option[BSONDocument] = if (o.isEmpty) None else Some(o)
+    def double(i: Double): BSONDouble = BSONDouble(i)
 
     import scalaz.Functor
     def map[M[_]: Functor, A, B <: BSONValue](a: M[A])(implicit writer: BSONWriter[A, B]): M[B] =

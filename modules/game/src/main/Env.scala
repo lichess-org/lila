@@ -21,7 +21,6 @@ final class Env(
     val CaptcherName = config getString "captcher.name"
     val CaptcherDuration = config duration "captcher.duration"
     val CollectionGame = config getString "collection.game"
-    val CollectionPgn = config getString "collection.pgn"
     val JsPathRaw = config getString "js_path.raw"
     val JsPathCompiled = config getString "js_path.compiled"
     val ActorName = config getString "actor.name"
@@ -32,8 +31,6 @@ final class Env(
   import settings._
 
   private[game] lazy val gameColl = db(CollectionGame)
-
-  private[game] lazy val pgnColl = db(CollectionPgn)
 
   lazy val cached = new Cached(ttl = CachedNbTtl)
 
