@@ -29,4 +29,9 @@ gamesToMigrate.forEach(function(g) {
   }, update);
 });
 
+print("Unsetting empty players...");
+
+db.game5.update({p0:{}},{$unset:{p0:1}},{multi:true});
+db.game5.update({p1:{}},{$unset:{p1:1}},{multi:true});
+
 print("Done!");
