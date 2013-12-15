@@ -4,6 +4,15 @@ import math._
 
 object GlickoEngine {
 
+  sealed abstract class Result(val v: Double) {
+    def negate: Result
+  }
+  object Result {
+    case object Win extends Result(1) { def negate = Loss }
+    case object Loss extends Result(0) { def negate = Win }
+    case object Draw extends Result(0.5) { def negate = Draw }
+  }
+
   private val Glicko2Conversion: Double = 173.7178
   private val Tau: Double = 0.3
 
@@ -20,6 +29,9 @@ final class GlickoEngine private (
     val volatility: Double = 0.06) {
 
   import GlickoEngine._
+
+  def calculate(opponent: Glicko, result: Result): Glicko =
+    calculateNewRating(List(opponent -> result.v))
 
   /**
    * This function accepts a list of tuples of opponent ratings:
@@ -126,9 +138,9 @@ final class GlickoEngine private (
     // step8 isn't needed. we store things in Glicko2 scale
 
     Glicko(
-      rating * Glicko2Conversion,
-      rd * Glicko2Conversion,
-      volatility)
+      newRating * Glicko2Conversion,
+      newRD * Glicko2Conversion,
+      newVolatility)
   }
 
   /**

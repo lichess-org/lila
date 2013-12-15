@@ -5,9 +5,15 @@ import reactivemongo.bson.BSONDocument
 import lila.db.BSON
 
 case class Glicko(
-  rating: Double,
-  rd: Double,
-  volatility: Double)
+    rating: Double,
+    rd: Double,
+    volatility: Double) {
+
+  def intRating = rating.toInt
+  def intRd = rd.toInt
+
+  override def toString = s"$intRating $intRd"
+}
 
 case object Glicko {
 
