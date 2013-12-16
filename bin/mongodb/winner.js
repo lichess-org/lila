@@ -7,7 +7,7 @@ var gamesToMigrate = db.game5.find({
   ]
 }, {
   'p0.w': true
-});
+}).sort({ca:-1});
 
 gamesToMigrate.forEach(function(g) {
   var color = !! (g.p0 && g.p0.w);
