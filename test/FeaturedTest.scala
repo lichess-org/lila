@@ -38,7 +38,6 @@ class FeaturedTest extends LilaSpec {
       game = chess.Game(chess.Variant.default),
       whitePlayer = Player.white.copy(elo = 1600.some),
       blackPlayer = Player.black,
-      creatorColor = chess.Color.White,
       mode = chess.Mode.default,
       variant = chess.Variant.default,
       source = Source.Lobby,

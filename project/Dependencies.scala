@@ -44,8 +44,8 @@ object Dependencies {
   val actuarius = "eu.henkelmann" %% "actuarius" % "0.2.6-THIB"
   val jodaTime = "joda-time" % "joda-time" % "2.3"
   val scalastic = "org.scalastic" %% "scalastic" % "0.90.3"
-  val RM = "org.reactivemongo" %% "reactivemongo" % "0.10.1-PRISMIC"
-  val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.10.1-PRISMIC"
+  val RM = "org.reactivemongo" %% "reactivemongo" % "0.10.2-PRISMIC"
+  val PRM = "org.reactivemongo" %% "play2-reactivemongo" % "0.10.2-PRISMIC"
   object play {
     val version = "2.2.1"
     val api = "com.typesafe.play" %% "play" % version
