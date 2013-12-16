@@ -23,6 +23,8 @@ case class BsTube[Doc](handler: BSONHandler[BSONDocument, Doc]) extends Tube[Doc
     // case Failure(err) ⇒ logerr(s"[tube] $err"); None
   }
 
+  def write(doc: Doc): BSONDocument = handler write doc
+
   def inColl(c: Coll): BsTubeInColl[Doc] =
     new BsTube[Doc](handler) with InColl[Doc] { def coll = c }
 }

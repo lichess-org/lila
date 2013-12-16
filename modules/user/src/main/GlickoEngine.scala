@@ -4,33 +4,24 @@ import math._
 
 object GlickoEngine {
 
-  sealed abstract class Result(val v: Double) {
-    def negate: Result
-  }
-  object Result {
-    case object Win extends Result(1) { def negate = Loss }
-    case object Loss extends Result(0) { def negate = Win }
-    case object Draw extends Result(0.5) { def negate = Draw }
-  }
-
   private val Glicko2Conversion: Double = 173.7178
   private val Tau: Double = 0.3
 
   // factory method to create glicko2 rating objects from glicko1 ratings and RDs
   def apply(glicko: Glicko): GlickoEngine = new GlickoEngine(
     glicko.rating / Glicko2Conversion,
-    glicko.rd / Glicko2Conversion,
+    glicko.deviation / Glicko2Conversion,
     glicko.volatility)
 }
 
 final class GlickoEngine private (
     val rating: Double = 1500.0,
-    val rd: Double = 350.0,
+    val deviation: Double = 350.0,
     val volatility: Double = 0.06) {
 
   import GlickoEngine._
 
-  def calculate(opponent: Glicko, result: Result): Glicko =
+  def calculate(opponent: Glicko, result: Glicko.Result): Glicko =
     calculateNewRating(List(opponent -> result.v))
 
   /**
@@ -60,7 +51,7 @@ final class GlickoEngine private (
     def v: Double = {
       var sum: Double = 0.0
       opponents.foreach { opp ⇒
-        sum += pow2(g(opp._1.rd)) * E(this.rating, opp._1.rating, opp._1.rd) * (1 - E(this.rating, opp._1.rating, opp._1.rd))
+        sum += pow2(g(opp._1.deviation)) * E(this.rating, opp._1.rating, opp._1.deviation) * (1 - E(this.rating, opp._1.rating, opp._1.deviation))
       }
       1.0 / sum
     }
@@ -69,7 +60,7 @@ final class GlickoEngine private (
     def Δ = {
       var sum: Double = 0.0
       opponents.foreach { opp ⇒
-        sum += g(opp._1.rd) * (opp._2 - E(this.rating, opp._1.rating, opp._1.rd))
+        sum += g(opp._1.deviation) * (opp._2 - E(this.rating, opp._1.rating, opp._1.deviation))
       }
       v * sum
     }
@@ -82,12 +73,12 @@ final class GlickoEngine private (
       }
 
       def f(x: Double): Double = {
-        (exp(x) * (pow2(Δ) - pow2(this.rd) - v - exp(x))) / (2.0 * pow2(pow2(this.rd) + v + exp(x))) - (x - a) / pow2(Tau)
+        (exp(x) * (pow2(Δ) - pow2(this.deviation) - v - exp(x))) / (2.0 * pow2(pow2(this.deviation) + v + exp(x))) - (x - a) / pow2(Tau)
       }
 
       var A: Double = a
-      var B: Double = if (pow2(Δ) > pow2(this.rd)) {
-        log(pow2(Δ) - pow2(this.rd) - v)
+      var B: Double = if (pow2(Δ) > pow2(this.deviation)) {
+        log(pow2(Δ) - pow2(this.deviation) - v)
       }
       else {
         var k = 1
@@ -118,7 +109,7 @@ final class GlickoEngine private (
 
     // step6 - update rating deviation to new pre-rating period value (decay RD)
     def preRatingRD: Double = {
-      sqrt(pow2(this.rd) + pow2(newVolatility))
+      sqrt(pow2(this.deviation) + pow2(newVolatility))
     }
 
     // step7a - calculate new RD
@@ -130,7 +121,7 @@ final class GlickoEngine private (
     def newRating: Double = {
       var sum: Double = 0.0
       opponents.foreach { opp ⇒
-        sum += g(opp._1.rd) * (opp._2 - E(this.rating, opp._1.rating, opp._1.rd))
+        sum += g(opp._1.deviation) * (opp._2 - E(this.rating, opp._1.rating, opp._1.deviation))
       }
       this.rating + pow2(newRD) * sum
     }
@@ -151,7 +142,7 @@ final class GlickoEngine private (
    *  @return a new Glicko2 object with the decayed RD
    */
   def decayRD(n: Int): GlickoEngine = {
-    var preRatingRD: Double = this.rd
+    var preRatingRD: Double = this.deviation
     for (i ← 0 until n) {
       // step6 - update rating deviation to new pre-rating period value (decay RD)
       preRatingRD = sqrt(pow2(preRatingRD) + pow2(this.volatility))
@@ -165,7 +156,7 @@ final class GlickoEngine private (
   // end friendlier looking math functions
 
   override def toString: String = {
-    "rating: %1.0f, rd: %1.2f, volatility: %1.6f".format(rating, rd, volatility)
+    "rating: %1.0f, deviation: %1.2f, volatility: %1.6f".format(rating, deviation, volatility)
   }
 }
 
