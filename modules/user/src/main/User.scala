@@ -9,7 +9,7 @@ case class User(
     id: String,
     username: String,
     elo: Int,
-    glicko: Glicko,
+    perfs: Perfs,
     speedElos: SpeedElos,
     variantElos: VariantElos,
     count: Count,
@@ -69,7 +69,7 @@ object User {
     val id = "_id"
     val username = "username"
     val elo = "elo"
-    val glicko = "glicko"
+    val perfs = "perfs"
     val speedElos = "speedElos"
     val variantElos = "variantElos"
     val count = "count"
@@ -83,6 +83,7 @@ object User {
     val createdAt = "createdAt"
     val seenAt = "seenAt"
     val lang = "lang"
+    def glicko(perf: String) = s"$perfs.$perf.gl"
   }
 
   import lila.db.BSON
@@ -96,13 +97,13 @@ object User {
     implicit def speedElosHandler = SpeedElos.tube.handler
     implicit def variantElosHandler = VariantElos.tube.handler
     implicit def profileHandler = Profile.tube.handler
-    implicit def glickoHandler = Glicko.tube.handler
+    implicit def perfsHandler = Perfs.tube.handler
 
     def reads(r: BSON.Reader): User = User(
       id = r str id,
       username = r str username,
       elo = r nInt elo,
-      glicko = r.getO[Glicko](glicko) | Glicko.default,
+      perfs = r.getO[Perfs](perfs) | Perfs.default,
       speedElos = r.getO[SpeedElos](speedElos) | SpeedElos.default,
       variantElos = r.getO[VariantElos](variantElos) | VariantElos.default,
       count = r.get[Count](count),
@@ -121,7 +122,7 @@ object User {
       id -> o.id,
       username -> o.username,
       elo -> w.int(o.elo),
-      glicko -> o.glicko,
+      perfs -> o.perfs,
       speedElos -> o.speedElos,
       variantElos -> o.variantElos,
       count -> o.count,

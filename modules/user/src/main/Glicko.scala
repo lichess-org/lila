@@ -6,13 +6,13 @@ import lila.db.BSON
 
 case class Glicko(
     rating: Double,
-    rd: Double,
+    deviation: Double,
     volatility: Double) {
 
   def intRating = rating.toInt
-  def intRd = rd.toInt
+  def intDeviation = deviation.toInt
 
-  override def toString = s"$intRating $intRd"
+  override def toString = s"$intRating $intDeviation"
 }
 
 case object Glicko {
@@ -23,14 +23,23 @@ case object Glicko {
 
     def reads(r: BSON.Reader): Glicko = Glicko(
       rating = r double "r",
-      rd = r double "rd",
+      deviation = r double "d",
       volatility = r double "v")
 
     def writes(w: BSON.Writer, o: Glicko) = BSONDocument(
       "r" -> w.double(o.rating),
-      "rd" -> w.double(o.rd),
+      "d" -> w.double(o.deviation),
       "v" -> w.double(o.volatility))
   }
 
-  private[user] lazy val tube = lila.db.BsTube(GlickoBSONHandler)
+  sealed abstract class Result(val v: Double) {
+    def negate: Result
+  }
+  object Result {
+    case object Win extends Result(1) { def negate = Loss }
+    case object Loss extends Result(0) { def negate = Win }
+    case object Draw extends Result(0.5) { def negate = Draw }
+  }
+
+  lazy val tube = lila.db.BsTube(GlickoBSONHandler)
 }
