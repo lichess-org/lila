@@ -101,6 +101,3 @@ analysis board (see chess.com)
 watcher game sounds only on first color
 up ratings by 300 -> closer to FICS
 premove castle queenside is broken
-
---- deploy
-mongo lichess bin/mongodb/winner
