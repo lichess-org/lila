@@ -108,16 +108,20 @@ trait GameRepo {
 
   def finish(id: ID, winnerColor: Option[Color], winnerId: Option[String]) = $update(
     $select(id),
-    winnerId.??(wid ⇒ $set(Game.BSONFields.winnerId -> wid)) ++ 
-    winnerColor.??(col ⇒ $set(Game.BSONFields.winnerColor -> col.white)) ++ 
-    $unset(
-      Game.BSONFields.positionHashes,
-      "p0." + Player.BSONFields.lastDrawOffer,
-      "p1." + Player.BSONFields.lastDrawOffer,
-      "p0." + Player.BSONFields.isOfferingDraw,
-      "p1." + Player.BSONFields.isOfferingDraw,
-      "p0." + Player.BSONFields.isProposingTakeback,
-      "p1." + Player.BSONFields.isProposingTakeback
+    BSONDocument(
+      "$set" -> BSONDocument(
+        Game.BSONFields.winnerId -> winnerId,
+        Game.BSONFields.winnerColor -> winnerColor.map(_.white)
+      ),
+      "$unset" -> BSONDocument(
+        Game.BSONFields.positionHashes -> true,
+        ("p0." + Player.BSONFields.lastDrawOffer) -> true,
+        ("p1." + Player.BSONFields.lastDrawOffer) -> true,
+        ("p0." + Player.BSONFields.isOfferingDraw) -> true,
+        ("p1." + Player.BSONFields.isOfferingDraw) -> true,
+        ("p0." + Player.BSONFields.isProposingTakeback) -> true,
+        ("p1." + Player.BSONFields.isProposingTakeback) -> true
+      )
     )
   )
 
