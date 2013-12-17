@@ -1945,7 +1945,7 @@ var storage = {
       var $timeInput = $form.find('.time_choice input');
       var $incrementInput = $form.find('.increment_choice input');
       var isHook = $form.hasClass('game_config_hook');
-      var myElo = parseInt($('#user_tag').data('rating'), 10);
+      var myRating = parseInt($('#user_tag').data('rating'), 10);
       if (isHook) {
         var $formTag = $form.find('form');
 
@@ -2026,7 +2026,7 @@ var storage = {
         }
         $.centerOverboard();
       }).trigger('change');
-      var $ratingRangeConfig = $form.find('.elo_range_config');
+      var $ratingRangeConfig = $form.find('.rating_range_config');
       var $fenInput = $fenPosition.find('input');
 
       var validateFen = _.debounce(function() {
@@ -2119,7 +2119,7 @@ var storage = {
     var $tbody = $table.find('tbody');
     var $userTag = $('#user_tag');
     var isRegistered = $userTag.length > 0;
-    var myElo = isRegistered ? parseInt($userTag.data('rating'), 10) : null;
+    var myRating = isRegistered ? parseInt($userTag.data('rating'), 10) : null;
     var animation = 500;
     var pool = [];
 
@@ -2313,7 +2313,7 @@ var storage = {
       if (_.contains(lichess_preload.blocks, hook.username.toLowerCase())) return;
       if (!isRegistered && hook.mode == "Rated") hook.action = 'register';
       else hook.action = hook.uid == lichess_sri ? "cancel" : "join";
-      if (hook.action == 'join' && hook.emin && myElo && (myElo < parseInt(hook.emin, 10) || myElo > parseInt(hook.emax, 10))) return;
+      if (hook.action == 'join' && hook.emin && myRating && (myRating < parseInt(hook.emin, 10) || myRating > parseInt(hook.emax, 10))) return;
       pool.push(hook);
       drawHooks(inBatch || false);
     }
@@ -2333,7 +2333,7 @@ var storage = {
       var visible = 0;
       _.each(pool, function(hook) {
         var hide = !_.contains(filter.variant, hook.variant) || !_.contains(filter.mode, hook.mode) || !_.contains(filter.speed, hook.speed) ||
-          (hook.rating && (hook.elo < filter.elo[0] || hook.elo > filter.elo[1]));
+          (hook.rating && (hook.rating < filter.rating[0] || hook.rating > filter.rating[1]));
         var hash = hook.mode + hook.variant + hook.time + hook.rating;
         if (hide && hook.action != 'cancel') {
           undrawHook(hook.id);
@@ -2408,9 +2408,9 @@ var storage = {
       if (rating == 1200) {
         ratio = 0.25;
       } else if (rating > 1200) {
-        ratio = 0.25 + (ratingLog(elo - 1200) / eloLog(800)) * 3 / 4;
+        ratio = 0.25 + (ratingLog(rating - 1200) / ratingLog(800)) * 3 / 4;
       } else {
-        ratio = 0.25 - (ratingLog(1200 - elo) / eloLog(400)) / 4;
+        ratio = 0.25 - (ratingLog(1200 - rating) / ratingLog(400)) / 4;
       }
       return Math.round(ratio * 489);
     }

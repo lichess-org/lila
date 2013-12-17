@@ -72,7 +72,7 @@ object PerfsUpdater {
     val black: Rating)
 
   private def incNbGames(game: Game, user: User): Funit =
-    UserRepo.incNbGames(game.id, game.rated, game.hasAi,
+    UserRepo.incNbGames(user.id, game.rated, game.hasAi,
       result = game.nonAi option (game.winnerUserId match {
         case None          ⇒ 0
         case Some(user.id) ⇒ 1

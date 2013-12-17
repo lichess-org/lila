@@ -29,12 +29,12 @@ trait UserRepo {
 
   def topRating(nb: Int): Fu[List[User]] = $find(goodLadQuery sort sortRatingDesc, nb)
 
-  def topBullet = topSpeed("bullet") _
-  def topBlitz = topSpeed("blitz") _
-  def topSlow = topSpeed("slow") _
+  def topBullet = topPerf("bullet") _
+  def topBlitz = topPerf("blitz") _
+  def topSlow = topPerf("slow") _
 
-  def topSpeed(speed: String)(nb: Int): Fu[List[User]] =
-    $find(goodLadQuery sort ($sort desc s"perfs.$speed.gl.r"), nb)
+  def topPerf(perf: String)(nb: Int): Fu[List[User]] =
+    $find(goodLadQuery sort ($sort desc s"perfs.$perf.gl.r"), nb)
 
   def topNbGame(nb: Int): Fu[List[User]] =
     $find(goodLadQuery sort ($sort desc "count.game"), nb)

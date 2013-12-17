@@ -59,7 +59,7 @@ case class Hook(
     "id" -> id,
     "uid" -> uid,
     "username" -> username,
-    "elo" -> rating,
+    "rating" -> rating,
     "variant" -> realVariant.toString,
     "mode" -> realMode.toString,
     "allowAnon" -> allowAnon,
