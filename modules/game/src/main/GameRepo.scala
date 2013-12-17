@@ -131,8 +131,11 @@ trait GameRepo {
   )
 
   def insertDenormalized(game: Game): Funit = {
-    val bson = (gameTube.handler write game) ++ BSONDocument(
-      "if" -> game.variant.exotic.option(Forsyth >> game.toChess)
+    val g2 = if (game.rated && game.userIds.distinct.size != 2)
+    game.copy(mode = chess.Mode.Casual) 
+    else game
+    val bson = (gameTube.handler write g2) ++ BSONDocument(
+      "if" -> g2.variant.exotic.option(Forsyth >> g2.toChess)
     )
     $insert bson bson
   }

@@ -103,6 +103,7 @@ up ratings by 300 -> closer to FICS
 premove castle queenside is broken
 wrong analysis = move 9 should be a blunder http://en.lichess.org/analyse/pf3rufgk/black
 spectator waiting friend game becomes player
+check "continue from position" #lichess
 
 --- deploy
 
