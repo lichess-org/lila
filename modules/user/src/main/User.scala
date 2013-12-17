@@ -8,10 +8,8 @@ import org.joda.time.DateTime
 case class User(
     id: String,
     username: String,
-    elo: Int,
+    rating: Int,
     perfs: Perfs,
-    speedElos: SpeedElos,
-    variantElos: VariantElos,
     count: Count,
     troll: Boolean = false,
     ipBan: Boolean = false,
@@ -37,7 +35,7 @@ case class User(
 
   def disabled = !enabled
 
-  def usernameWithElo = "%s (%d)".format(username, elo)
+  def usernameWithRating = s"$username ($rating)"
 
   def profileOrDefault = profile | Profile.default
 
@@ -57,8 +55,6 @@ object User {
 
   type ID = String
 
-  val STARTING_ELO = 1200
-
   val anonymous = "Anonymous"
 
   case class Active(user: User, lang: String)
@@ -68,10 +64,8 @@ object User {
   object BSONFields {
     val id = "_id"
     val username = "username"
-    val elo = "elo"
+    val rating = "rating"
     val perfs = "perfs"
-    val speedElos = "speedElos"
-    val variantElos = "variantElos"
     val count = "count"
     val troll = "troll"
     val ipBan = "ipBan"
@@ -94,18 +88,14 @@ object User {
     import BSONFields._
     import reactivemongo.bson.BSONDocument
     implicit def countHandler = Count.tube.handler
-    implicit def speedElosHandler = SpeedElos.tube.handler
-    implicit def variantElosHandler = VariantElos.tube.handler
     implicit def profileHandler = Profile.tube.handler
     implicit def perfsHandler = Perfs.tube.handler
 
     def reads(r: BSON.Reader): User = User(
       id = r str id,
       username = r str username,
-      elo = r nInt elo,
+      rating = r nInt rating,
       perfs = r.getO[Perfs](perfs) | Perfs.default,
-      speedElos = r.getO[SpeedElos](speedElos) | SpeedElos.default,
-      variantElos = r.getO[VariantElos](variantElos) | VariantElos.default,
       count = r.get[Count](count),
       troll = r boolD troll,
       ipBan = r boolD ipBan,
@@ -121,10 +111,8 @@ object User {
     def writes(w: BSON.Writer, o: User) = BSONDocument(
       id -> o.id,
       username -> o.username,
-      elo -> w.int(o.elo),
+      rating -> w.int(o.rating),
       perfs -> o.perfs,
-      speedElos -> o.speedElos,
-      variantElos -> o.variantElos,
       count -> o.count,
       troll -> w.boolO(o.troll),
       ipBan -> w.boolO(o.ipBan),

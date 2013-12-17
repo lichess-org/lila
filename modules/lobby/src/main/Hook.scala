@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.libs.json._
 
-import lila.common.EloRange
+import lila.common.RatingRange
 import lila.user.User
 
 case class Hook(
@@ -20,7 +20,7 @@ case class Hook(
     allowAnon: Boolean,
     color: String,
     user: Option[User],
-    eloRange: String,
+    ratingRange: String,
     gameId: Option[String] = None,
     createdAt: DateTime) {
 
@@ -39,35 +39,35 @@ case class Hook(
     compatibilityProperties == h.compatibilityProperties &&
       (realColor compatibleWith h.realColor) &&
       (memberOnly || h.memberOnly).fold(isMember && h.isMember, true) &&
-      eloRangeCompatibleWith(h) && h.eloRangeCompatibleWith(this)
+      ratingRangeCompatibleWith(h) && h.ratingRangeCompatibleWith(this)
 
-  private def eloRangeCompatibleWith(h: Hook) = realEloRange.fold(true) {
-    range ⇒ h.user.map(_.elo) ?? range.contains
+  private def ratingRangeCompatibleWith(h: Hook) = realRatingRange.fold(true) {
+    range ⇒ h.user.map(_.rating) ?? range.contains
   }
 
   private def compatibilityProperties = (variant, time, increment, mode)
 
-  lazy val realEloRange: Option[EloRange] = EloRange noneIfDefault eloRange
+  lazy val realRatingRange: Option[RatingRange] = RatingRange noneIfDefault ratingRange
 
   def userId = user map (_.id)
   def isMember = user.nonEmpty
   def username = user.fold(User.anonymous)(_.username)
-  def elo = user map (_.elo)
+  def rating = user map (_.rating)
   def engine = user ?? (_.engine)
 
   def render: JsObject = Json.obj(
     "id" -> id,
     "uid" -> uid,
     "username" -> username,
-    "elo" -> elo,
+    "elo" -> rating,
     "variant" -> realVariant.toString,
     "mode" -> realMode.toString,
     "allowAnon" -> allowAnon,
     "clock" -> clockOption.map(c ⇒ renderClock(c.limit, c.increment)),
     "time" -> clockOption.map(_.estimateTotalTime),
     "speed" -> chess.Speed(clockOption).id,
-    "emin" -> realEloRange.map(_.min),
-    "emax" -> realEloRange.map(_.max),
+    "emin" -> realRatingRange.map(_.min),
+    "emax" -> realRatingRange.map(_.max),
     "color" -> chess.Color(color).??(_.name),
     "engine" -> engine)
 
@@ -89,7 +89,7 @@ object Hook {
     color: String,
     user: Option[User],
     sid: Option[String],
-    eloRange: EloRange): Hook = new Hook(
+    ratingRange: RatingRange): Hook = new Hook(
     id = Random nextString idSize,
     uid = uid,
     variant = variant.id,
@@ -101,6 +101,6 @@ object Hook {
     color = color,
     user = user,
     sid = sid,
-    eloRange = eloRange.toString,
+    ratingRange = ratingRange.toString,
     createdAt = DateTime.now)
 }

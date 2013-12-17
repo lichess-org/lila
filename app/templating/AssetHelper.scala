@@ -33,6 +33,11 @@ trait AssetHelper {
     test = "window.Highcharts",
     local = routes.Assets.at("vendor/highcharts/highcharts.js").toString)
 
+  lazy val highchartsMoreTag = cdnOrLocal(
+    cdn = "http://code.highcharts.com/3.0/highcharts-more.js",
+    test = "window.Highcharts",
+    local = routes.Assets.at("vendor/highcharts/highcharts-more.js").toString)
+
   lazy val highstockTag = cdnOrLocal(
     cdn = "http://code.highcharts.com/stock/3.0/highstock.js",
     test = "window.Highcharts",

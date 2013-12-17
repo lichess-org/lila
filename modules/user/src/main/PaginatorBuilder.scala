@@ -10,7 +10,7 @@ final class PaginatorBuilder(
     countUsers: Fu[Int],
     maxPerPage: Int) {
 
-  def elo(page: Int): Fu[Paginator[User]] = Paginator(
+  def rating(page: Int): Fu[Paginator[User]] = Paginator(
     adapter = recentAdapter,
     currentPage = page,
     maxPerPage = maxPerPage)
@@ -20,7 +20,7 @@ final class PaginatorBuilder(
   private def adapter(selector: JsObject): AdapterLike[User] = new CachedAdapter(
     adapter = new Adapter(
       selector = selector,
-      sort = Seq(UserRepo.sortEloDesc)
+      sort = Seq(UserRepo.sortRatingDesc)
     ),
     nbResults = countUsers
   )

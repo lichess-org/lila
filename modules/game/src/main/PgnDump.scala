@@ -40,7 +40,7 @@ private[game] final class PgnDump(
 
   private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd";
 
-  private def elo(p: Player) = p.elo.fold("?")(_.toString)
+  private def rating(p: Player) = p.rating.fold("?")(_.toString)
 
   private def player(p: Player, u: Option[User]) =
     p.aiLevel.fold(u.fold(User.anonymous)(_.username))("AI-level-" + _)
@@ -56,8 +56,8 @@ private[game] final class PgnDump(
           Tag(_.White, player(game.whitePlayer, wu)),
           Tag(_.Black, player(game.blackPlayer, bu)),
           Tag(_.Result, result(game)),
-          Tag("WhiteElo", elo(game.whitePlayer)),
-          Tag("BlackElo", elo(game.blackPlayer)),
+          Tag("WhiteElo", rating(game.whitePlayer)),
+          Tag("BlackElo", rating(game.blackPlayer)),
           Tag("PlyCount", game.turns),
           Tag(_.Variant, game.variant.name.capitalize)
         ) ::: game.variant.standard.fold(Nil, List(

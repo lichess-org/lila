@@ -29,7 +29,7 @@ object User extends LilaController {
   }
 
   def online = Open { implicit req ⇒
-    UserRepo.byIdsSortElo(env.onlineUserIdMemo.keys, 1000) map { users ⇒
+    UserRepo.byIdsSortRating(env.onlineUserIdMemo.keys, 1000) map { users ⇒
       html.user.online(users)
     }
   }
@@ -60,14 +60,14 @@ object User extends LilaController {
   def list(page: Int) = Open { implicit ctx ⇒
     Reasonable(page) {
       val nb = 15
-      env.cached.topElo(nb) zip
+      env.cached.topRating(nb) zip
         env.cached.topOnline(nb) zip
         env.cached.topBullet(nb) zip
         env.cached.topBlitz(nb) zip
         env.cached.topSlow(nb) zip
         env.cached.topNbGame(nb) map {
-          case (((((elo, online), bullet), blitz), slow), nb) ⇒ html.user.list(
-            elo = elo,
+          case (((((rating, online), bullet), blitz), slow), nb) ⇒ html.user.list(
+            rating = rating,
             online = online,
             bullet = bullet,
             blitz = blitz,

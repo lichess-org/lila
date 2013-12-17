@@ -5,7 +5,7 @@
   <table>
     <tbody>
     @users.map { u =>
-    <tr><td>@userLink(u, withElo = false, cssClass="revert-underline".some)</td><td>@f(u)</td></tr>
+    <tr><td>@userLink(u, withRating = false, cssClass="revert-underline".some)</td><td>@f(u)</td></tr>
     }
     </tbody>
   </table>

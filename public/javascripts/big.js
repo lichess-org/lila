@@ -1945,7 +1945,7 @@ var storage = {
       var $timeInput = $form.find('.time_choice input');
       var $incrementInput = $form.find('.increment_choice input');
       var isHook = $form.hasClass('game_config_hook');
-      var myElo = parseInt($('#user_tag').data('elo'), 10);
+      var myElo = parseInt($('#user_tag').data('rating'), 10);
       if (isHook) {
         var $formTag = $form.find('form');
 
@@ -1986,7 +1986,7 @@ var storage = {
           }
         }));
       });
-      $form.find('.elo_range').each(function() {
+      $form.find('.rating_range').each(function() {
         var $this = $(this);
         var $input = $this.find("input");
         var $span = $this.siblings("span.range");
@@ -2006,11 +2006,11 @@ var storage = {
             $span.text(ui.values[0] + " - " + ui.values[1]);
           }
         });
-        var $eloRangeConfig = $this.parent();
+        var $ratingRangeConfig = $this.parent();
         $modeChoices.add($form.find('.members_only input')).on('change', function() {
           var rated = $rated.prop('checked');
           var membersOnly = $form.find('.members_only input').prop('checked');
-          $eloRangeConfig.toggle(rated || membersOnly);
+          $ratingRangeConfig.toggle(rated || membersOnly);
           if (isHook && rated && !$clockCheckbox.prop('checked')) {
             $clockCheckbox.click();
           }
@@ -2026,7 +2026,7 @@ var storage = {
         }
         $.centerOverboard();
       }).trigger('change');
-      var $eloRangeConfig = $form.find('.elo_range_config');
+      var $ratingRangeConfig = $form.find('.elo_range_config');
       var $fenInput = $fenPosition.find('input');
 
       var validateFen = _.debounce(function() {
@@ -2119,7 +2119,7 @@ var storage = {
     var $tbody = $table.find('tbody');
     var $userTag = $('#user_tag');
     var isRegistered = $userTag.length > 0;
-    var myElo = isRegistered ? parseInt($userTag.data('elo'), 10) : null;
+    var myElo = isRegistered ? parseInt($userTag.data('rating'), 10) : null;
     var animation = 500;
     var pool = [];
 
@@ -2166,7 +2166,7 @@ var storage = {
               $div.html(html).find('input').change(save);
               $div.find('button.reset').click(function() {
                 $div.find('label input').prop('checked', true).trigger('change');
-                $div.find('.elo_range').each(function() {
+                $div.find('.rating_range').each(function() {
                   var s = $(this);
                   s.slider('values', [s.slider('option', 'min'), s.slider('option', 'max')]).trigger('change');
                 });
@@ -2175,7 +2175,7 @@ var storage = {
                 $wrap.find('a.filter').click();
                 return false;
               });
-              $div.find('.elo_range').each(function() {
+              $div.find('.rating_range').each(function() {
                 var $this = $(this);
                 var $input = $this.find("input");
                 var $span = $this.siblings(".range");
@@ -2333,8 +2333,8 @@ var storage = {
       var visible = 0;
       _.each(pool, function(hook) {
         var hide = !_.contains(filter.variant, hook.variant) || !_.contains(filter.mode, hook.mode) || !_.contains(filter.speed, hook.speed) ||
-          (hook.elo && (hook.elo < filter.elo[0] || hook.elo > filter.elo[1]));
-        var hash = hook.mode + hook.variant + hook.time + hook.elo;
+          (hook.rating && (hook.elo < filter.elo[0] || hook.elo > filter.elo[1]));
+        var hash = hook.mode + hook.variant + hook.time + hook.rating;
         if (hide && hook.action != 'cancel') {
           undrawHook(hook.id);
           hidden++;
@@ -2379,7 +2379,7 @@ var storage = {
     }
 
     function renderPlot(hook) {
-      var bottom = Math.max(0, eloY(hook.elo) - 7);
+      var bottom = Math.max(0, ratingY(hook.rating) - 7);
       var left = Math.max(0, clockX(hook.time) - 4);
       var klass = [
           'plot',
@@ -2399,18 +2399,18 @@ var storage = {
       }).data('powertipjq', $(renderHook(hook)));
     }
 
-    function eloY(e) {
-      function eloLog(a) {
+    function ratingY(e) {
+      function ratingLog(a) {
         return Math.log(a / 150 + 1);
       }
-      var elo = Math.max(800, Math.min(2000, e || 1200));
+      var rating = Math.max(800, Math.min(2000, e || 1200));
       var ratio;
-      if (elo == 1200) {
+      if (rating == 1200) {
         ratio = 0.25;
-      } else if (elo > 1200) {
-        ratio = 0.25 + (eloLog(elo - 1200) / eloLog(800)) * 3 / 4;
+      } else if (rating > 1200) {
+        ratio = 0.25 + (ratingLog(elo - 1200) / eloLog(800)) * 3 / 4;
       } else {
-        ratio = 0.25 - (eloLog(1200 - elo) / eloLog(400)) / 4;
+        ratio = 0.25 - (ratingLog(1200 - elo) / eloLog(400)) / 4;
       }
       return Math.round(ratio * 489);
     }
@@ -2425,9 +2425,9 @@ var storage = {
 
     function renderHook(hook) {
       var html = '';
-      if (hook.elo) {
+      if (hook.rating) {
         html += '<a class="opponent" href="/@/' + hook.username + '">' + hook.username.substr(0, 14) + '</a>';
-        html += '<span class="elo">' + hook.elo + '</span>';
+        html += '<span class="rating">' + hook.rating + '</span>';
       } else {
         html += '<span class="opponent anon">Anonymous</span>';
       }
@@ -2454,8 +2454,8 @@ var storage = {
       var title = (hook.action == "join") ? $.trans('Join the game') : $.trans('cancel');
       return '<tr title="' + title + '"  data-id="' + hook.id + '" class="' + hook.id + ' ' + hook.action + '">' + _.map([
         ['', '<span class="s16 ' + (hook.color || 'random') + '"></span>'],
-        [hook.username, hook.elo ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous'],
-        [hook.elo || 0, hook.elo || ''],
+        [hook.username, hook.rating ? '<a href="/@/' + hook.username + '" class="ulink">' + hook.username + '</a>' : 'Anonymous'],
+        [hook.rating || 0, hook.rating || ''],
         [hook.time || 9999, hook.clock ? hook.clock : '∞'],
         [hook.mode, $.trans(hook.mode) + (hook.variant == 'Chess960' ? '<span class="chess960">960</span>' : '')]
       ], function(x) {
@@ -2465,7 +2465,7 @@ var storage = {
 
     $('#hooks_chart').append(
       _.map([1000, 1200, 1300, 1400, 1600, 1800, 2000], function(v) {
-      var b = eloY(v);
+      var b = ratingY(v);
       return '<span class="y label" style="bottom:' + (b + 5) + 'px">' + v + '</span>' +
         '<div class="grid horiz" style="height:' + (b + 4) + 'px"></div>';
     }).join('') +

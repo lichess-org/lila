@@ -54,7 +54,7 @@ final class Env(
   lazy val uciMemo = new UciMemo(UciMemoTtl)
 
   lazy val pgnDump = new PgnDump(
-    router = hub.actor.router, 
+    router = hub.actor.router,
     findUser = lila.user.UserRepo.named)
 
   // load captcher actor
@@ -71,7 +71,7 @@ final class Env(
     import scala.concurrent.duration._
 
     scheduler.effect(0.9 hours, "game: cleanup") {
-      maintenance.cleanupUnplayed 
+      maintenance.cleanupUnplayed
     }
 
     scheduler.message(CaptcherDuration) {
@@ -86,9 +86,7 @@ final class Env(
     }
   }
 
-  def cli = new Cli(computeElos, db, system)
-
-  private lazy val computeElos = new ComputeElos(system)
+  def cli = new Cli(db, system)
 
   lazy val maintenance = new Maintenance(scheduler, hub.actor.bookmark)
 

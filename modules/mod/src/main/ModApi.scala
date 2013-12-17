@@ -3,19 +3,17 @@ package lila.mod
 import lila.db.api._
 import lila.security.{ Firewall, UserSpy, Store ⇒ SecurityStore }
 import lila.user.tube.userTube
-import lila.user.{ User, UserRepo, EloUpdater }
+import lila.user.{ User, UserRepo }
 
 final class ModApi(
     logApi: ModlogApi,
     userSpy: String ⇒ Fu[UserSpy],
     firewall: Firewall,
-    eloUpdater: EloUpdater,
     lobbySocket: akka.actor.ActorSelection) {
 
   def adjust(mod: String, username: String): Funit = withUser(username) { user ⇒
     logApi.engine(mod, user.id, !user.engine) zip
-      UserRepo.toggleEngine(user.id) zip
-      eloUpdater.adjust(user) void
+      UserRepo.toggleEngine(user.id) void
   }
 
   def troll(mod: String, username: String): Funit = withUser(username) { u ⇒

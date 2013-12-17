@@ -1,4 +1,4 @@
-@(elo: List[User], online: List[User], bullet: List[User], blitz: List[User], slow: List[User], nb: List[User])(implicit ctx: Context)
+@(rating: List[User], online: List[User], bullet: List[User], blitz: List[User], slow: List[User], nb: List[User])(implicit ctx: Context)
 
 @goodies = {
 <div class="goodies">
@@ -15,12 +15,12 @@
 @user.layout(trans.chessPlayers.str(), goodies = goodies.some) {
 <div class="content_box">
   <div class="user_lists clearfix">
-    @user.top(elo, "Best players ever")(_.elo)
-    @user.top(online, onlineLink)(_.elo)
+    @user.top(rating, "Best players ever")(_.rating)
+    @user.top(online, onlineLink)(_.rating)
     @user.top(nb, "Active players", true)(_.count.game.localize + " " + trans.games.str())
-    @user.top(bullet, "Best bullet players")(_.speedElos.bullet.elo)
-    @user.top(blitz, "Best blitz players")(_.speedElos.blitz.elo)
-    @user.top(slow, "Best slow players", true)(_.speedElos.slow.elo)
+    @user.top(bullet, "Best bullet players")(_.perfs.bullet.glicko.intRating)
+    @user.top(blitz, "Best blitz players")(_.perfs.blitz.glicko.intRating)
+    @user.top(slow, "Best slow players", true)(_.perfs.slow.glicko.intRating)
   </div>
 </div>
 }

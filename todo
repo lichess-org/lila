@@ -102,3 +102,18 @@ watcher game sounds only on first color
 up ratings by 300 -> closer to FICS
 premove castle queenside is broken
 wrong analysis = move 9 should be a blunder http://en.lichess.org/analyse/pf3rufgk/black
+spectator waiting friend game becomes player
+
+--- deploy
+
+bin/cli-prod glicko migration
+db.user4.ensureIndex({enabled:1});
+db.user4.ensureIndex({enabled:1, rating: -1});
+db.user4.ensureIndex({toints:-1});
+db.user4.ensureIndex({enabled:1, 'perfs.bullet.gl.r': -1});
+db.user4.ensureIndex({enabled:1, 'perfs.blitz.gl.r': -1});
+db.user4.ensureIndex({enabled:1, 'perfs.slow.gl.r': -1});
+db.user4.ensureIndex({enabled:1, 'count.games': -1});
+db.user4.ensureIndex({createdAt: -1});
+
+... and reindex all games in elasticsearch D:

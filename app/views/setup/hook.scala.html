@@ -1,7 +1,7 @@
 @(form: Form[_])(implicit ctx: Context)
 
 @import lila.setup.HookConfig
-@import lila.common.EloRange
+@import lila.common.RatingRange
 
 @fields = {
 <div class="variants buttons">
@@ -19,14 +19,14 @@
     @setup.checkbox(form("membersOnly"))
   </div>
   }
-  <div class="elo_range_config">
+  <div class="rating_range_config">
     @trans.eloRange(): <span class="range">? - ?</span>
-    <div class="elo_range">
+    <div class="rating_range">
       @setup.input(
-      form("eloRange"),
+      form("ratingRange"),
       Symbol("type") -> "hidden",
-      Symbol("data-min") -> EloRange.min,
-      Symbol("data-max") -> EloRange.max)
+      Symbol("data-min") -> RatingRange.min,
+      Symbol("data-max") -> RatingRange.max)
     </div>
   </div>
 </div>

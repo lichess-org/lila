@@ -5,7 +5,7 @@ import lila.user.User
 private[tournament] case class Player(
     id: String,
     username: String,
-    elo: Int,
+    rating: Int,
     withdraw: Boolean = false,
     nbWin: Int = 0,
     nbLoss: Int = 0,
@@ -25,7 +25,7 @@ private[tournament] object Player {
   def make(user: User): Player = new Player(
     id = user.id,
     username = user.username,
-    elo = user.elo)
+    rating = user.rating)
 
   def refresh(tour: Tournament): Players = tour.players.map { player ⇒
     tour.pairings

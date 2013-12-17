@@ -134,8 +134,7 @@ public class RatingCalculator {
       fB = fC;
     }
     if (iterations == ITERATION_MAX) {
-      System.out.println(String.format("%d iterations", iterations));
-      System.out.println("Convergence fail!");
+      System.out.println(String.format("Convergence fail at %d iterations", iterations));
       System.out.println(player.toString());
       for ( Result result: results ) {
         System.out.println(result.toString());

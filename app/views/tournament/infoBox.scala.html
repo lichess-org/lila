@@ -29,7 +29,7 @@
     }
     @tour.winner.filter(_ => tour.isFinished).map { winner =>
     <br /><br />
-    @trans.winner(): @userInfosLink(winner.username, winner.elo.some, withOnline = false)
+    @trans.winner(): @userInfosLink(winner.username, winner.rating.some, withOnline = false)
     }
   </div>
 </div>

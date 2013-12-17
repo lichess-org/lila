@@ -1,7 +1,7 @@
 package lila.setup
 
 import chess.{ Variant, Mode, Speed }
-import lila.common.EloRange
+import lila.common.RatingRange
 import lila.common.PimpedJson._
 import play.api.libs.json._
 
@@ -9,26 +9,26 @@ case class FilterConfig(
     variant: List[Variant],
     mode: List[Mode],
     speed: List[Speed],
-    eloRange: EloRange) {
+    ratingRange: RatingRange) {
 
   def encode = RawFilterConfig(
     v = variant.map(_.id),
     m = mode.map(_.id),
     s = speed.map(_.id),
-    e = eloRange.toString)
+    e = ratingRange.toString)
 
   def >> = (
     variant map (_.id),
     mode map (_.id),
     speed map (_.id),
-    eloRange.toString
+    ratingRange.toString
   ).some
 
   def render = Json.obj(
     "variant" -> variant.map(_.toString),
     "mode" -> mode.map(_.toString),
     "speed" -> speed.map(_.id),
-    "elo" -> List(eloRange.min, eloRange.max))
+    "rating" -> List(ratingRange.min, ratingRange.max))
 
   def nonEmpty = copy(
     variant = variant.isEmpty.fold(FilterConfig.default.variant, variant),
@@ -46,13 +46,13 @@ object FilterConfig {
     variant = variants,
     mode = modes,
     speed = speeds,
-    eloRange = EloRange.default)
+    ratingRange = RatingRange.default)
 
   def <<(v: List[Int], m: List[Int], s: List[Int], e: String) = new FilterConfig(
     variant = v map Variant.apply flatten,
     mode = m map Mode.apply flatten,
     speed = s map Speed.apply flatten,
-    eloRange = EloRange orDefault e
+    ratingRange = RatingRange orDefault e
   ).nonEmpty
 
   def fromDB(obj: JsObject): Option[FilterConfig] = for {
@@ -60,8 +60,8 @@ object FilterConfig {
     variant ← filter ints "v"
     mode ← filter ints "m"
     speed ← filter ints "s"
-    eloRange ← filter str "e"
-    config ← RawFilterConfig(variant, mode, speed, eloRange).decode
+    ratingRange ← filter str "e"
+    config ← RawFilterConfig(variant, mode, speed, ratingRange).decode
   } yield config
 
   import lila.db.JsTube
@@ -87,7 +87,7 @@ private[setup] case class RawFilterConfig(v: List[Int], m: List[Int], s: List[In
     variant = v map Variant.apply flatten,
     mode = m map Mode.apply flatten,
     speed = s map Speed.apply flatten,
-    eloRange = EloRange orDefault e
+    ratingRange = RatingRange orDefault e
   ).nonEmpty.some
 }
 

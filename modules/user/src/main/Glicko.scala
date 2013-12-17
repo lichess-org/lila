@@ -12,12 +12,19 @@ case class Glicko(
   def intRating = rating.toInt
   def intDeviation = deviation.toInt
 
+  def interval = (rating - deviation * 2).toInt -> (rating + deviation * 2).toInt
+
   override def toString = s"$intRating $intDeviation"
 }
 
 case object Glicko {
 
   val default = Glicko(1500d, 350d, 0.6d)
+
+  def range(rating: Double, deviation: Double) = (
+    rating - deviation,
+    rating + deviation
+  )
 
   private def GlickoBSONHandler = new BSON[Glicko] {
 

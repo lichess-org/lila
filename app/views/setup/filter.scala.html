@@ -1,6 +1,6 @@
 @(form: Form[_], filter: lila.setup.FilterConfig)(implicit ctx: Context)
 
-@import lila.common.EloRange
+@import lila.common.RatingRange
 
 @helper.form(action = routes.Setup.filter(), 'novalidate -> "novalidate") {
 <table>
@@ -20,14 +20,14 @@
   @ctx.me.map { me =>
   <tr>
     <td>@trans.eloRange()</td>
-    <td class="elo_range_config">
+    <td class="rating_range_config">
       <label class="range">? - ?</label>
-      <div class="elo_range">
+      <div class="rating_range">
         @setup.input(
         form("eloRange"),
         Symbol("type") -> "hidden",
-        Symbol("data-min") -> EloRange.min,
-        Symbol("data-max") -> EloRange.max)
+        Symbol("data-min") -> RatingRange.min,
+        Symbol("data-max") -> RatingRange.max)
       </div>
     </td>
   </tr>
@@ -36,7 +36,7 @@
 </table>
 @if(ctx.me.isEmpty) {
 @setup.input(form("mode"), 'type -> "hidden")
-@setup.input(form("eloRange"), 'type -> "hidden")
+@setup.input(form("ratingRange"), 'type -> "hidden")
 }
 <div class="actions">
   <button type="submit" class="reset button">@trans.reset()</button>

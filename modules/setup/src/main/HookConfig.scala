@@ -1,7 +1,7 @@
 package lila.setup
 
 import chess.{ Variant, Mode, Color ⇒ ChessColor }
-import lila.common.EloRange
+import lila.common.RatingRange
 import lila.lobby.Color
 import lila.lobby.Hook
 import lila.user.User
@@ -14,10 +14,10 @@ case class HookConfig(
     mode: Mode,
     allowAnon: Boolean,
     color: Color,
-    eloRange: EloRange) extends HumanConfig {
+    ratingRange: RatingRange) extends HumanConfig {
 
   // allowAnons -> membersOnly
-  def >> = (variant.id, clock, time, increment, mode.id.some, !allowAnon, eloRange.toString.some, color.name).some
+  def >> = (variant.id, clock, time, increment, mode.id.some, !allowAnon, ratingRange.toString.some, color.name).some
 
   def hook(uid: String, user: Option[User], sid: Option[String]) = Hook.make(
     uid = uid,
@@ -28,7 +28,7 @@ case class HookConfig(
     color = color.name,
     user = user,
     sid = sid,
-    eloRange = eloRange)
+    ratingRange = ratingRange)
 
   def encode = RawHookConfig(
     v = variant.id,
@@ -37,7 +37,7 @@ case class HookConfig(
     i = increment,
     m = mode.id,
     a = allowAnon,
-    e = eloRange.toString)
+    e = ratingRange.toString)
 
   def noRatedUnlimited = mode.casual || clock
 }
@@ -46,7 +46,7 @@ object HookConfig extends BaseHumanConfig {
 
   def <<(v: Int, k: Boolean, t: Int, i: Int, m: Option[Int], membersOnly: Boolean, e: Option[String], c: String) = {
     val realMode = m.fold(Mode.default)(Mode.orDefault)
-    val useEloRange = realMode.rated || membersOnly
+    val useRatingRange = realMode.rated || membersOnly
     new HookConfig(
       variant = Variant(v) err "Invalid game variant " + v,
       clock = k,
@@ -54,7 +54,7 @@ object HookConfig extends BaseHumanConfig {
       increment = i,
       mode = realMode,
       allowAnon = !membersOnly, // membersOnly
-      eloRange = e.filter(_ ⇒ useEloRange).fold(EloRange.default)(EloRange.orDefault),
+      ratingRange = e.filter(_ ⇒ useRatingRange).fold(RatingRange.default)(RatingRange.orDefault),
       color = Color(c) err "Invalid color " + c)
   }
 
@@ -65,7 +65,7 @@ object HookConfig extends BaseHumanConfig {
     increment = 8,
     mode = Mode.default,
     allowAnon = true,
-    eloRange = EloRange.default,
+    ratingRange = RatingRange.default,
     color = Color.default)
 
   import lila.db.JsTube
@@ -97,7 +97,7 @@ private[setup] case class RawHookConfig(
   def decode = for {
     variant ← Variant(v)
     mode ← Mode(m)
-    eloRange ← EloRange(e)
+    ratingRange ← RatingRange(e)
   } yield HookConfig(
     variant = variant,
     clock = k,
@@ -105,7 +105,7 @@ private[setup] case class RawHookConfig(
     increment = i,
     mode = mode,
     allowAnon = a,
-    eloRange = eloRange,
+    ratingRange = ratingRange,
     color = Color.White)
 }
 

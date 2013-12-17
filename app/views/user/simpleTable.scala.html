@@ -6,7 +6,7 @@
     @users.map { u =>
     <tr>
       <td>@userLink(u)</td>
-      <td>@u.elo Elo</td>
+      <td>@u.rating Rating</td>
       <td>@u.count.game @trans.games()</td>
       <td><div class="relation_actions">@relation.actions(u.id)</div></td>
     </tr>

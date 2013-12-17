@@ -5,14 +5,17 @@ import scala.concurrent.Future
 import scala.util.{ Try, Success, Failure }
 
 import org.goochjs.glicko2._
+import org.joda.time.DateTime
 import play.api.libs.iteratee._
 import play.api.libs.json.Json
 import reactivemongo.bson._
 
 import lila.db.api._
 import lila.db.Implicits._
+import lila.game.Game
 import lila.game.Game.{ BSONFields ⇒ G }
-import lila.user.{ User, UserRepo, Glicko, GlickoEngine, Perf, Perfs }
+import lila.round.PerfsUpdater.{ Ratings, resultOf, updateRatings, mkPerfs, system }
+import lila.user.{ User, UserRepo, HistoryRepo, Glicko, GlickoEngine, Perfs, Perf, HistoryEntry }
 
 object GlickoMigration {
 
@@ -21,77 +24,76 @@ object GlickoMigration {
     gameEnv: lila.game.Env,
     userEnv: lila.user.Env) = {
 
-    import Impl._
-
     val oldUserColl = db("user3")
-    val newUserColl = lila.user.tube.userTube.coll
-    val limit = 1000 // Int.MaxValue
+    val oldUserRepo = new UserRepo {
+      def userTube = lila.user.tube.userTube inColl oldUserColl
+    }
+    val limit = Int.MaxValue
+    // val limit = 300000
+    // val limit = 1000
     var nb = 0
 
-    val enumerator: Enumerator[BSONDocument] = lila.game.tube.gameTube |> { implicit gameTube ⇒
-      val query = $query(lila.game.Query.rated)
-        .projection(BSONDocument(G.playerUids -> true, G.winnerColor -> true))
-        .batch(1000)
+    import scala.collection.mutable
+    val ratings = mutable.Map.empty[String, Ratings]
+    val histories = mutable.Map.empty[String, mutable.ListBuffer[HistoryEntry]]
+
+    val enumerator: Enumerator[Option[Game]] = lila.game.tube.gameTube |> { implicit gameTube ⇒
+      import Game.gameBSONHandler
+      $query(lila.game.Query.rated)
+        // .batch(1000)
         .sort($sort asc G.createdAt)
-      query.cursor[BSONDocument].enumerate(limit, false)
+        .cursor[Option[Game]].enumerate(limit, false)
     }
 
-    type UserPerfs = Map[String, Perfs]
-    def iteratee(isEngine: Set[String]): Iteratee[BSONDocument, UserPerfs] =
-      Iteratee.fold[BSONDocument, UserPerfs](Map.empty) {
-        case (perfs, game) ⇒ {
+    def iteratee(isEngine: Set[String]): Iteratee[Option[Game], Unit] = {
+      Iteratee.foreach[Option[Game]] {
+        _ foreach { game ⇒
           nb = nb + 1
           if (nb % 1000 == 0) println(nb)
-          uidsOf(game) match {
-            case None => perfs
-            case Some((uidW, uidB)) if isEngine(uidW) || isEngine(uidB) ⇒ perfs
-            case Some((uidW, uidB)) ⇒ {
-              val perfsW = perfs get uidW getOrElse Perfs.default
-              val perfsB = perfs get uidB getOrElse Perfs.default
+          game.userIds match {
+            case List(uidW, uidB) if isEngine(uidW) || isEngine(uidB) || (uidW == uidB) ⇒
+            case List(uidW, uidB) ⇒ {
+              val ratingsW = ratings.getOrElseUpdate(uidW, mkRatings)
+              val ratingsB = ratings.getOrElseUpdate(uidB, mkRatings)
+              val globalRatingW = ratingsW.global.getRating
+              val globalRatingB = ratingsB.global.getRating
               val result = resultOf(game)
-              val global = try {
-                calculate(perfsW.global, perfsB.global, result)
-              } catch {
-                case e: Exception => {
-                  println(e)
-                  (perfsW.global, perfsB.global)
-                  // throw e
-                }
+              updateRatings(ratingsW.global, ratingsB.global, result, system)
+              updateRatings(ratingsW.white, ratingsB.black, result, system)
+              game.variant match {
+                case chess.Variant.Standard ⇒
+                  updateRatings(ratingsW.standard, ratingsB.standard, result, system)
+                case chess.Variant.Chess960 ⇒
+                  updateRatings(ratingsW.chess960, ratingsB.chess960, result, system)
+                case _ ⇒
               }
-              perfs + (uidW -> perfsW.copy(
-                global = global._1
-              )) + (uidB -> perfsB.copy(
-                global = global._2
-              ))
+              chess.Speed(game.clock) match {
+                case chess.Speed.Bullet ⇒
+                  updateRatings(ratingsW.bullet, ratingsB.bullet, result, system)
+                case chess.Speed.Blitz ⇒
+                  updateRatings(ratingsW.blitz, ratingsB.blitz, result, system)
+                case chess.Speed.Slow | chess.Speed.Unlimited ⇒
+                  updateRatings(ratingsW.slow, ratingsB.slow, result, system)
+              }
+              histories.getOrElseUpdate(uidW, mkHistory) +=
+                HistoryEntry(game.createdAt, ratingsW.global.getRating.toInt, ratingsW.global.getRatingDeviation.toInt, globalRatingB.toInt)
+              histories.getOrElseUpdate(uidB, mkHistory) +=
+                HistoryEntry(game.createdAt, ratingsB.global.getRating.toInt, ratingsB.global.getRatingDeviation.toInt, globalRatingW.toInt)
             }
+            case _ ⇒
           }
         }
       }
-
-    def calculateStub(perfW: Perf, perfB: Perf, result: Glicko.Result): (Perf, Perf) = 
-      perfW.copy(nb = perfW.nb + 1) -> perfB.copy(nb = perfB.nb + 1)
-
-    def calculate(perfW: Perf, perfB: Perf, result: Glicko.Result): (Perf, Perf) = {
-      val ratingSystem = new RatingCalculator()
-      val white = rating(perfW, "white", ratingSystem)
-      val black = rating(perfB, "black", ratingSystem)
-      val period = new RatingPeriodResults()
-      result match {
-        case Glicko.Result.Draw ⇒ period.addDraw(white, black)
-        case Glicko.Result.Win  ⇒ period.addResult(white, black)
-        case Glicko.Result.Loss ⇒ period.addResult(black, white)
-      }
-      ratingSystem.updateRatings(period)
-      perf(perfW, white) -> perf(perfB, black)
     }
 
-    def rating(perf: Perf, id: String, ratingSystem: RatingCalculator) =
-      new Rating(id, ratingSystem, perf.glicko.rating, perf.glicko.deviation, perf.glicko.volatility)
-
-    def perf(old: Perf, rating: Rating) = Perf(
-      Glicko(rating.getRating, rating.getRatingDeviation, rating.getVolatility),
-      nb = old.nb + 1
+    def mkHistory = mutable.ListBuffer(
+      HistoryEntry(DateTime.now, Glicko.default.intRating, Glicko.default.intDeviation, Glicko.default.intRating)
     )
+
+    def mkRatings = {
+      def r = new Rating(system.getDefaultRating, system.getDefaultRatingDeviation, system.getDefaultVolatility, 0)
+      new Ratings(r, r, r, r, r, r, r, r)
+    }
 
     def updateUsers(userPerfs: Map[String, Perfs]): Future[Unit] = lila.user.tube.userTube |> { implicit userTube ⇒
       userTube.coll.drop() flatMap { _ ⇒
@@ -100,43 +102,39 @@ object GlickoMigration {
             id ← user.getAs[String]("_id")
             perfs ← userPerfs get id
           } userTube.coll insert {
-            user ++ BSONDocument(
-              User.BSONFields.perfs -> lila.user.Perfs.tube.write(perfs)
+            writeDoc(user, Set("elo", "variantElos", "speedElos")) ++ BSONDocument(
+              User.BSONFields.perfs -> lila.user.Perfs.tube.handler.write(perfs),
+              User.BSONFields.rating -> perfs.global.glicko.intRating
             )
           }
         }
       }
     }
 
-    UserRepo.engineIds flatMap { engineIds ⇒
-      (enumerator |>>> iteratee(engineIds)) flatMap { perfs ⇒
-        // debug(perfs)
-        updateUsers(perfs) map { _ ⇒
-        // fuccess {
-          "done"
+    def updateHistories(histories: Iterable[(String, Iterable[HistoryEntry])]): Funit = {
+      userEnv.historyColl.drop() recover {
+        case e: Exception ⇒ fuccess()
+      } flatMap { _ ⇒
+        Future.traverse(histories) {
+          case (id, history) ⇒ HistoryRepo.set(id, history)
+        }
+      }
+    }.void
+
+    oldUserRepo.engineIds flatMap { engineIds ⇒
+      (enumerator |>>> iteratee(engineIds)) flatMap { _ ⇒
+        val perfs = (ratings mapValues mkPerfs).toMap
+        updateUsers(perfs) flatMap { _ ⇒
+          updateHistories(histories) map { _ ⇒
+            println("Done!")
+            "done"
+          }
         }
       }
     }
   }
 
-  private object Impl {
-
-    def debug(gs: Map[String, Perfs]) {
-      println(gs map { case (id, perfs) ⇒ s"$id $perfs" } mkString "\n")
-    }
-
-    def resultOf(game: BSONDocument): Glicko.Result =
-      game.getAs[Boolean](G.winnerColor) match {
-        case Some(true)  ⇒ Glicko.Result.Win
-        case Some(false) ⇒ Glicko.Result.Loss
-        case None        ⇒ Glicko.Result.Draw
-      }
-
-    def uidsOf(game: BSONDocument): Option[(String, String)] = for {
-      uids ← game.getAs[List[String]](G.playerUids)
-      white ← uids.headOption filter (_.nonEmpty)
-      black ← uids lift 1 filter (_.nonEmpty)
-      if white != black
-    } yield (white, black)
-  }
+  private def writeDoc(doc: BSONDocument, drops: Set[String]) = BSONDocument(doc.elements collect {
+    case (k, v) if !drops(k) ⇒ k -> v
+  })
 }

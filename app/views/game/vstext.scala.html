@@ -3,11 +3,11 @@
 <div class="vstext clearfix">
   <div class="left">
     @playerUsername(g.firstPlayer, false)<br />
-    @g.firstPlayer.elo
+    @g.firstPlayer.rating
   </div>
   <div class="right">
     @playerUsername(g.secondPlayer, false)<br />
-    @g.secondPlayer.elo
+    @g.secondPlayer.rating
   </div>
   @g.clock.map { c =>
   <div class="center"><br />@shortClockName(c)</div>

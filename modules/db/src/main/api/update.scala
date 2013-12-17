@@ -24,6 +24,11 @@ object $update {
       apply($select(id), op(doc))
     }
 
+  def docBson[ID: Writes, A <: Identified[ID]: TubeInColl](id: ID)(op: A ⇒ BSONDocument): Funit =
+    $find byId id flatten "[db] cannot update missing doc" flatMap { doc ⇒
+      apply($select(id), op(doc))
+    }
+
   def field[ID: Writes, A: InColl, B: Writes](id: ID, name: String, value: B, upsert: Boolean = false): Funit =
     apply($select(id), $set(name -> value), upsert = upsert)
 

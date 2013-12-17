@@ -16,7 +16,7 @@ private[gameSearch] object Game {
     val variant = "va"
     val uids = "ui"
     val winner = "wi"
-    val averageElo = "el"
+    val averageRating = "el"
     val ai = "ai"
     val opening = "op"
     val date = "da"
@@ -50,7 +50,7 @@ private[gameSearch] object Game {
         field(variant, "short"),
         field(uids, "string"),
         field(winner, "string"),
-        field(averageElo, "short"),
+        field(averageRating, "short"),
         field(ai, "short"),
         field(opening, "string"),
         field(date, "date", attrs = Json.obj("format" -> Date.format)),
@@ -67,7 +67,7 @@ private[gameSearch] object Game {
     variant -> game.variant.id,
     uids -> game.userIds,
     winner -> Json.toJson(game.winner flatMap (_.userId)),
-    averageElo -> Json.toJson(game.averageUsersElo),
+    averageRating -> Json.toJson(game.averageUsersRating),
     ai -> Json.toJson(game.aiLevel),
     date -> (Date.formatter print game.createdAt),
     duration -> game.estimateTotalTime,

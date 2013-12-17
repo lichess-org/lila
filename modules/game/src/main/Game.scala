@@ -309,9 +309,9 @@ case class Game(
 
   def userIds = playerMaps(_.userId)
 
-  def userElos = playerMaps(_.elo)
+  def userRatings = playerMaps(_.rating)
 
-  def averageUsersElo = userElos match {
+  def averageUsersRating = userRatings match {
     case a :: b :: Nil ⇒ Some((a + b) / 2)
     case a :: Nil      ⇒ Some((a + 1200) / 2)
     case _             ⇒ None

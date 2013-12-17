@@ -12,8 +12,8 @@ import lila.db.Implicits._
 
 object $enumerate {
 
-  def apply[A: BSONDocumentReader](query: QueryBuilder)(op: A ⇒ Funit): Funit =
-    query.cursor[A].enumerate() run {
+  def apply[A: BSONDocumentReader](query: QueryBuilder, limit: Int = Int.MaxValue)(op: A ⇒ Any): Funit =
+    query.cursor[A].enumerate(limit) run {
       Iteratee.foreach((obj: A) ⇒ op(obj))
     }
 

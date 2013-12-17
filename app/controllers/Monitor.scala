@@ -23,9 +23,9 @@ object Monitor extends LilaController {
 
   def status = Action.async { implicit req ⇒
     (~get("key", req) match {
-      case "elo" ⇒ {
-        lila.user.UserRepo.idsAverageElo(Env.user.onlineUserIdMemo.keys) zip
-          lila.game.GameRepo.recentAverageElo(5) map {
+      case "rating" ⇒ {
+        lila.user.UserRepo.idsAverageRating(Env.user.onlineUserIdMemo.keys) zip
+          lila.game.GameRepo.recentAverageRating(5) map {
             case (users, (rated, casual)) ⇒ List(users, rated, casual) mkString " "
           }
       } map { Ok(_) }

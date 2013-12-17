@@ -17,34 +17,21 @@ package org.goochjs.glicko2;
  */
 public class Rating {
 
-	private String uid; // not actually used by the calculation engine but useful to track whose rating is whose
 	private double rating;
 	private double ratingDeviation;
 	private double volatility;
-	private int numberOfResults = 0; // the number of results from which the rating has been calculated
+	private int numberOfResults; // the number of results from which the rating has been calculated
 
 	 // the following variables are used to hold values temporarily whilst running calculations
 	private double workingRating;
 	private double workingRatingDeviation;
 	private double workingVolatility;
-	
-	/**
-	 * 
-	 * @param uid           An value through which you want to identify the rating (not actually used by the algorithm)
-	 * @param ratingSystem  An instance of the RatingCalculator object
-	 */
-	public Rating(String uid, RatingCalculator ratingSystem) {
-		this.uid = uid;
-		this.rating = ratingSystem.getDefaultRating();
-		this.ratingDeviation = ratingSystem.getDefaultRatingDeviation();
-		this.volatility = ratingSystem.getDefaultVolatility();
-	}
 
-	public Rating(String uid, RatingCalculator ratingSystem, double initRating, double initRatingDeviation, double initVolatility) {
-		this.uid = uid;
+	public Rating(double initRating, double initRatingDeviation, double initVolatility, int nbResults) {
 		this.rating = initRating;
 		this.ratingDeviation = initRatingDeviation;
 		this.volatility = initVolatility;
+    this.numberOfResults = nbResults;
 	}
 
 	/**
@@ -131,12 +118,11 @@ public class Rating {
 	/**
 	 * Returns a formatted rating for inspection
 	 * 
-	 * @return {ratingUid} / {ratingDeviation} / {volatility} / {numberOfResults}
+	 * @return {ratingDeviation} / {volatility} / {numberOfResults}
 	 */
 	@Override
 	public String toString() {
-		return uid + " / " +
-				rating + " / " +
+		return rating + " / " +
 				ratingDeviation + " / " +
 				volatility + " / " +
 				numberOfResults;
@@ -148,10 +134,6 @@ public class Rating {
 
 	public void incrementNumberOfResults(int increment) {
 		this.numberOfResults = numberOfResults + increment;
-	}
-
-	public String getUid() {
-		return uid;
 	}
 
 	public void setWorkingVolatility(double workingVolatility) {

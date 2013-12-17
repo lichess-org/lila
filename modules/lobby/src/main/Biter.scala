@@ -55,7 +55,7 @@ private[lobby] final class Biter(
     hook.open &&
       hook.realMode.casual.fold(
         user.isDefined || hook.allowAnon,
-        user ?? { u ⇒ hook.realEloRange.fold(true)(_ contains u.elo) }
+        user ?? { u ⇒ hook.realRatingRange.fold(true)(_ contains u.rating) }
       ) && !{
           user ?? { u ⇒
             hook.userId ?? { blocks(_, u.id).await }

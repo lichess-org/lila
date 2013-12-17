@@ -23,7 +23,7 @@ cssClass = "spectators")(roomHtml)
     @user.confrontation(c.pov(pov.player.userId))
     }.getOrElse {
     <div class="confrontation">
-      <div class="vs">@playerLink(pov.game.firstPlayer, withElo = false, withOnline = false) vs @playerLink(pov.game.secondPlayer, withElo = false, withOnline = false)</div>
+      <div class="vs">@playerLink(pov.game.firstPlayer, withRating = false, withOnline = false) vs @playerLink(pov.game.secondPlayer, withRating = false, withOnline = false)</div>
     </div>
     }
     <br />

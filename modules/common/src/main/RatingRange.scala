@@ -1,28 +1,28 @@
 package lila.common
 
-case class EloRange(min: Int, max: Int) {
+case class RatingRange(min: Int, max: Int) {
 
-  def contains(elo: Int) = elo >= min && elo <= max
+  def contains(rating: Int) = rating >= min && rating <= max
 
   override def toString = "%d-%d".format(min, max)
 }
 
-object EloRange {
+object RatingRange {
 
   val min = 800
-  val max = 2500
+  val max = 2800
 
-  val broad = EloRange(min, max)
+  val broad = RatingRange(min, max)
   val default = broad
 
   // ^\d{3,4}\-\d{3,4}$
-  def apply(from: String): Option[EloRange] = for {
+  def apply(from: String): Option[RatingRange] = for {
     min ← parseIntOption(from takeWhile ('-' !=))
     if acceptable(min)
     max ← parseIntOption(from dropWhile ('-' !=) tail)
     if acceptable(max)
     if min <= max
-  } yield EloRange(min, max)
+  } yield RatingRange(min, max)
 
   def orDefault(from: String) = apply(from) | default
 
@@ -30,5 +30,5 @@ object EloRange {
 
   def valid(from: String) = apply(from).isDefined
 
-  private def acceptable(elo: Int) = broad contains elo
+  private def acceptable(rating: Int) = broad contains rating
 }

@@ -101,7 +101,7 @@ public class Result {
 		} else if ( loser.equals(player) ) {
 			score = POINTS_FOR_LOSS;			
 		} else {
-			throw new IllegalArgumentException("Player " + player.getUid() + " did not participate in match");
+			throw new IllegalArgumentException("Player did not participate in match");
 		}
 		
 		if ( isDraw ) {
@@ -126,7 +126,7 @@ public class Result {
 		} else if ( loser.equals(player) ) {
 			opponent = winner;			
 		} else {
-			throw new IllegalArgumentException("Player " + player.getUid() + " did not participate in match");
+			throw new IllegalArgumentException("Player did not participate in match");
 		}
 		
 		return opponent;

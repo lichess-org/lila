@@ -14,7 +14,7 @@ case class Perfs(
     white: Perf,
     black: Perf) {
 
-  def perfs = Map(
+  def perfs = List(
     "global" -> global,
     "standard" -> standard,
     "chess960" -> chess960,

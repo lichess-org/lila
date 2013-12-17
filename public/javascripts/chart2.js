@@ -27,7 +27,7 @@ $(function() {
     return $.extend(true, defaults, config);
   }
 
-  $('div.elo_history').each(function() {
+  $('div.rating_history').each(function() {
     var $this = $(this);
     var rows = $this.data('rows');
     var size = rows.date.length;
@@ -42,9 +42,18 @@ $(function() {
       }
       return ps;
     }
+
+    function areaPoints(series) {
+      var ps = [];
+      for (var i = 0; i < size; i++) {
+        ps.push(rows[series][i]);
+      }
+      return ps;
+    }
     var marker = {
       enabled: false,
       symbol: 'circle',
+      radius: 2,
       states: {
         hover: {
           radius: 4
@@ -53,7 +62,7 @@ $(function() {
     };
     $(this).highcharts(mergeDefaults({
       chart: {},
-      colors: theme.light ? ['#0000ff', theme.colors[3], '#909090'] : ['#4444ff', theme.colors[3], '#707070'],
+      colors: theme.light ? ['#0000ff', '#0000ff', theme.colors[3], '#909090'] : ['#4444ff', '#4444ff', theme.colors[3], '#707070'],
       title: noText,
       xAxis: {
         labels: disabled,
@@ -62,25 +71,31 @@ $(function() {
       },
       plotOptions: {
         line: {
+          lineWidth: 2,
           marker: marker
         },
-        area: {
+        arearange: {
           marker: marker,
           lineWidth: 0,
-          fillOpacity: 0.3
+          enableMouseTracking: false,
+          fillOpacity: 0.2
         }
       },
       series: [{
-          name: 'Precise ELO',
-          type: 'area',
-          data: points('elo'),
+          name: 'Deviation',
+          type: 'arearange',
+          data: areaPoints('range')
+        }, {
+          name: 'Rating',
+          type: 'line',
+          data: points('rating'),
           threshold: null
         }, {
-          name: 'Average ELO',
-          type: 'line',
-          data: points('avg')
-        }, {
-          name: 'Opponent ELO',
+          // name: 'Average ELO',
+          // type: 'line',
+          // data: points('avg')
+          // }, {
+          name: 'Opponent',
           type: 'line',
           data: points('op')
         }
@@ -104,7 +119,7 @@ $(function() {
         type: 'area',
         margin: 0,
         marginTop: 16,
-        spacing: [10,0,0,0]
+        spacing: [10, 0, 0, 0]
       },
       plotOptions: {
         area: {
