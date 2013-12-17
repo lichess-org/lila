@@ -6,7 +6,7 @@ import org.joda.time.DateTime
 import com.github.nscala_time.time.Imports._
 
 import chess.{ Variant, Mode, Status, EcoDb }
-import lila.common.EloRange
+import lila.common.RatingRange
 import lila.search.{ ElasticSearch, Range }
 
 case class Query(
@@ -16,7 +16,7 @@ case class Query(
     variant: Option[Int] = None,
     status: Option[Int] = None,
     turns: Range[Int] = Range.none,
-    averageElo: Range[Int] = Range.none,
+    averageRating: Range[Int] = Range.none,
     hasAi: Option[Boolean] = None,
     aiLevel: Range[Int] = Range.none,
     rated: Option[Boolean] = None,
@@ -33,7 +33,7 @@ case class Query(
       variant.nonEmpty ||
       status.nonEmpty ||
       turns.nonEmpty ||
-      averageElo.nonEmpty ||
+      averageRating.nonEmpty ||
       hasAi.nonEmpty ||
       aiLevel.nonEmpty ||
       rated.nonEmpty ||
@@ -56,7 +56,7 @@ case class Query(
     usernames map { termFilter(fields.uids, _) },
     toFilters(winner, fields.winner),
     turns filters fields.turns,
-    averageElo filters fields.averageElo,
+    averageRating filters fields.averageRating,
     duration map (60 *) filters fields.duration,
     date map ElasticSearch.Date.formatter.print filters fields.date,
     hasAiFilters,
@@ -96,7 +96,7 @@ object Query {
     (1 to 5) ++ (10 to 45 by 5) ++ (50 to 90 by 10) ++ (100 to 300 by 25),
     "%d move{s}")
 
-  val averageElos = (EloRange.min to EloRange.max by 100).toList map { e ⇒ e -> (e + " Elo") }
+  val averageRatings = (RatingRange.min to RatingRange.max by 100).toList map { e ⇒ e -> (e + " Rating") }
 
   val hasAis = List(0 -> "Human opponent", 1 -> "Computer opponent")
 

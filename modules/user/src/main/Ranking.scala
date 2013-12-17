@@ -17,8 +17,8 @@ final class Ranking(ttl: Duration) {
 
   private def compute: Fu[Map[String, Int]] =
     $primitive(
-      UserRepo.enabledSelect ++ Json.obj("elo" -> $gt(User.STARTING_ELO)),
+      UserRepo.enabledSelect ++ Json.obj("rating" -> $gt(Glicko.default.intRating)),
       "_id",
-      _ sort UserRepo.sortEloDesc
+      _ sort UserRepo.sortRatingDesc
     )(_.asOpt[String]) map { _.zipWithIndex.map(x ⇒ x._1 -> (x._2 + 1)).toMap }
 }

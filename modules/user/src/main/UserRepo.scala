@@ -13,7 +13,13 @@ import lila.db.api._
 import lila.db.Implicits._
 import tube.userTube
 
-object UserRepo {
+object UserRepo extends UserRepo {
+  protected def userTube = tube.userTube
+}
+
+trait UserRepo {
+
+  protected implicit def userTube: lila.db.BsTubeInColl[User]
 
   import User.ID
 
@@ -21,14 +27,14 @@ object UserRepo {
 
   def all: Fu[List[User]] = $find.all
 
-  def topElo(nb: Int): Fu[List[User]] = $find(goodLadQuery sort sortEloDesc, nb)
+  def topRating(nb: Int): Fu[List[User]] = $find(goodLadQuery sort sortRatingDesc, nb)
 
   def topBullet = topSpeed("bullet") _
   def topBlitz = topSpeed("blitz") _
   def topSlow = topSpeed("slow") _
 
   def topSpeed(speed: String)(nb: Int): Fu[List[User]] =
-    $find(goodLadQuery sort ($sort desc "speedElos." + speed + ".elo"), nb)
+    $find(goodLadQuery sort ($sort desc s"perfs.$speed.gl.r"), nb)
 
   def topNbGame(nb: Int): Fu[List[User]] =
     $find(goodLadQuery sort ($sort desc "count.game"), nb)
@@ -36,6 +42,12 @@ object UserRepo {
   def byId(id: ID): Fu[Option[User]] = $find byId id
 
   def byIds(ids: Iterable[ID]): Fu[List[User]] = $find byIds ids
+
+  def pair(x: Option[ID], y: Option[ID]): Fu[(Option[User], Option[User])] =
+    $find byIds List(x, y).flatten map { users ⇒
+      x.??(xx ⇒ users.find(_.id == xx)) ->
+        y.??(yy ⇒ users.find(_.id == yy))
+    }
 
   def byOrderedIds(ids: Iterable[ID]): Fu[List[User]] = $find byOrderedIds ids
 
@@ -46,34 +58,27 @@ object UserRepo {
 
   def nameds(usernames: List[String]): Fu[List[User]] = $find byIds usernames.map(normalize)
 
-  def byIdsSortElo(ids: Iterable[ID], max: Int) = $find($query byIds ids sort sortEloDesc, max)
+  def byIdsSortRating(ids: Iterable[ID], max: Int) = $find($query byIds ids sort sortRatingDesc, max)
 
   def allSortToints(nb: Int) = $find($query.all sort ($sort desc "toints"), nb)
 
   def usernameById(id: ID) = $primitive.one($select(id), "username")(_.asOpt[String])
 
-  def rank(user: User) = $count(enabledSelect ++ Json.obj("elo" -> $gt(user.elo))) map (1+)
+  def rank(user: User) = $count(enabledSelect ++ Json.obj("rating" -> $gt(Glicko.default.rating))) map (1+)
 
-  def setElo(id: ID, elo: Int, speedElo: (String, SubElo), variantElo: (String, SubElo)): Funit = (speedElo, variantElo) match {
-    case ((speed, sElo), (variant, vElo)) ⇒ $update($select(id), $setBson(
-      "elo" -> BSONInteger(elo),
-      "speedElos.%s.nb".format(speed) -> BSONInteger(sElo.nb),
-      "speedElos.%s.elo".format(speed) -> BSONInteger(sElo.elo),
-      "variantElos.%s.nb".format(variant) -> BSONInteger(vElo.nb),
-      "variantElos.%s.elo".format(variant) -> BSONInteger(vElo.elo)
-    ))
-  }
+  def setPerfs(user: User, perfs: Perfs) = $update($select(user.id), $setBson(
+    "perfs" -> Perfs.tube.handler.write(perfs),
+    "rating" -> BSONInteger { user.engine.fold(Glicko.default, perfs.global.glicko).intRating }
+  ))
 
-  def setEloOnly(id: ID, elo: Int): Funit = $update($select(id), $setBson("elo" -> BSONInteger(elo)))
-
-  def setProfile(id: ID, profile: Profile): Funit = 
+  def setProfile(id: ID, profile: Profile): Funit =
     $update($select(id), $setBson("profile" -> Profile.tube.handler.write(profile)))
 
   val enabledSelect = Json.obj("enabled" -> true)
   val noEngineSelect = Json.obj("engine" -> $ne(true))
   val goodLadQuery = $query(enabledSelect ++ noEngineSelect)
 
-  val sortEloDesc = $sort desc "elo"
+  val sortRatingDesc = $sort desc "rating"
 
   def incNbGames(id: ID, rated: Boolean, ai: Boolean, result: Option[Int]) = {
     val incs = List(
@@ -99,8 +104,8 @@ object UserRepo {
 
   def incToints(id: ID)(nb: Int) = $update($select(id), $incBson("toints" -> nb))
 
-  def averageElo: Fu[Float] = $primitive($select.all, "elo")(_.asOpt[Float]) map { elos ⇒
-    elos.sum / elos.size.toFloat
+  def averageRating: Fu[Float] = $primitive($select.all, "rating")(_.asOpt[Float]) map { ratings ⇒
+    ratings.sum / ratings.size.toFloat
   }
 
   def authenticate(id: ID, password: String): Fu[Option[User]] =
@@ -150,7 +155,12 @@ object UserRepo {
     )(_.asOpt[String])
   }
 
-  def toggleEngine(id: ID): Funit = $update.doc[ID, User](id) { u ⇒ $set("engine" -> !u.engine) }
+  def toggleEngine(id: ID): Funit = $update.docBson[ID, User](id) { u ⇒
+    $setBson(
+      "engine" -> BSONBoolean(!u.engine),
+      "rating" -> BSONInteger(u.engine.fold(u.perfs.global.glicko, Glicko.default).intRating)
+    )
+  }
 
   def toggleIpBan(id: ID) = $update.doc[ID, User](id) { u ⇒ $set("ipBan" -> !u.ipBan) }
 
@@ -159,16 +169,6 @@ object UserRepo {
   def isEngine(id: ID): Fu[Boolean] = $count.exists($select(id) ++ Json.obj("engine" -> true))
 
   def setRoles(id: ID, roles: List[String]) = $update.field(id, "roles", roles)
-
-  def setSpeedElos(id: ID, ses: SpeedElos) = {
-    implicit def speedHandler = SpeedElos.tube.handler
-    $update.bsonField(id, "speedElos", speedHandler write ses)
-  }
-
-  def setVariantElos(id: ID, ses: VariantElos) = {
-    implicit def variantHandler = VariantElos.tube.handler
-    $update.bsonField(id, "variantElos", variantHandler write ses)
-  }
 
   def enable(id: ID) = $update.field(id, "enabled", true)
 
@@ -191,16 +191,16 @@ object UserRepo {
     $update.fieldUnchecked(id, "lang", lang)
   }
 
-  def idsAverageElo(ids: Iterable[String]): Fu[Int] = ids.isEmpty ? fuccess(0) | {
+  def idsAverageRating(ids: Iterable[String]): Fu[Int] = ids.isEmpty ? fuccess(0) | {
     import reactivemongo.core.commands._
     val command = Aggregate(userTube.coll.name, Seq(
       Match(BSONDocument("_id" -> BSONDocument("$in" -> ids))),
-      Group(BSONBoolean(true))("elo" -> SumField("elo"))
+      Group(BSONBoolean(true))("rating" -> SumField("rating"))
     ))
     userTube.coll.db.command(command) map { stream ⇒
       stream.toList.headOption flatMap { obj ⇒
         toJSON(obj).asOpt[JsObject]
-      } flatMap { _ int "elo" }
+      } flatMap { _ int "rating" }
     } map (~_ / ids.size)
   }
 
@@ -220,8 +220,9 @@ object UserRepo {
   private def newUser(username: String, password: String) = {
 
     val salt = ornicar.scalalib.Random nextString 32
-    implicit def speedElosHandler = SpeedElos.tube.handler
+    val perfs = Perfs.default
     implicit def countHandler = Count.tube.handler
+    implicit def perfsHandler = Perfs.tube.handler
     import lila.db.BSON.BSONJodaDateTimeHandler
 
     BSONDocument(
@@ -229,7 +230,8 @@ object UserRepo {
       "username" -> username,
       "password" -> hash(password, salt),
       "salt" -> salt,
-      "elo" -> User.STARTING_ELO,
+      "perfs" -> perfs,
+      "rating" -> perfs.global.glicko.intRating,
       "count" -> Count.default,
       "enabled" -> true,
       "createdAt" -> DateTime.now,

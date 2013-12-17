@@ -10,7 +10,7 @@ import tube.userTube
 
 final class Cached(
     nbTtl: Duration,
-    eloChartTtl: Duration,
+    ratingChartTtl: Duration,
     onlineUserIdMemo: ExpireSetMemo) {
 
   val username = AsyncCache(UserRepo.usernameById, maxCapacity = 50000)
@@ -25,18 +25,18 @@ final class Cached(
 
   def countEnabled: Fu[Int] = count(UserRepo.enabledSelect)
 
-  val eloChart = AsyncCache(EloChart.apply,
+  val ratingChart = AsyncCache(RatingChart.apply,
     maxCapacity = 5000,
-    timeToLive = eloChartTtl)
+    timeToLive = ratingChartTtl)
 
   private val topListTtl = 1 minute
-  val topElo = AsyncCache(UserRepo.topElo, timeToLive = topListTtl)
+  val topRating = AsyncCache(UserRepo.topRating, timeToLive = topListTtl)
   val topBullet = AsyncCache(UserRepo.topBullet, timeToLive = topListTtl)
   val topBlitz = AsyncCache(UserRepo.topBlitz, timeToLive = topListTtl)
   val topSlow = AsyncCache(UserRepo.topSlow, timeToLive = topListTtl)
   val topNbGame = AsyncCache(UserRepo.topNbGame, timeToLive = topListTtl)
 
   val topOnline = AsyncCache(
-    (nb: Int) ⇒ UserRepo.byIdsSortElo(onlineUserIdMemo.keys, nb),
+    (nb: Int) ⇒ UserRepo.byIdsSortRating(onlineUserIdMemo.keys, nb),
     timeToLive = 2 seconds)
 }

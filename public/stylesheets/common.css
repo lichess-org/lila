@@ -1400,7 +1400,7 @@ div.game_config input#fen.failure {
 div.game_config .fen_position .mini_board {
   margin: 10px auto 0 auto;
 }
-div.game_config .time_choice, div.game_config .increment_choice, div.game_config .elo_range_config {
+div.game_config .time_choice, div.game_config .increment_choice, div.game_config .rating_range_config {
   padding-bottom: 1em;
   text-align: left;
   text-indent: 15px;
@@ -1736,7 +1736,7 @@ div.game_config div.color_submits button.random span {
   width: 100%;
   height: 30px;
 }
-#hook .elo, #hook .clock {
+#hook .rating, #hook .clock {
   display: block;
   width: 60px;
   height: 20px;
@@ -1744,7 +1744,7 @@ div.game_config div.color_submits button.random span {
   font-size: 1.25em;
   font-weight: bold;
 }
-#hook .elo {
+#hook .rating {
   float: right;
   color: #bbb;
   background: #666;

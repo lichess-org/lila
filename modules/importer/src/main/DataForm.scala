@@ -44,8 +44,8 @@ private[importer] case class ImportData(pgn: String) {
 
       val date = tag(_.Date)
 
-      def name(whichName: TagPicker, whichElo: TagPicker): String = tag(whichName).fold("?") { n ⇒
-        n + ~tag(whichElo).map(e ⇒ " (%s)" format e)
+      def name(whichName: TagPicker, whichRating: TagPicker): String = tag(whichName).fold("?") { n ⇒
+        n + ~tag(whichRating).map(e ⇒ " (%s)" format e)
       }
 
       val dbGame = Game.make(

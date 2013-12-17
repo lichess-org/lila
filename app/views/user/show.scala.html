@@ -4,26 +4,17 @@
 
 @evenMoreJs = {
 @highchartsTag
+@highchartsMoreTag
 @jsTagCompiled("chart2.js")
 }
 
 @goodies = {
 <div class="goodies">
-  @u.speedElos.toMap.map {
-  case (speed, x) => {
-  <div class="sub_elos">
-    <h3>@speed.toString</h3>
-    <strong>@x.elo</strong> ELO<br/>
-    @x.nb.localize @trans.games()
-  </div>
-  }
-  }
-  @u.variantElos.toMap.map {
-  case (variant, x) => {
-  <div class="sub_elos">
-    <h3>@variant.toString</h3>
-    <strong>@x.elo</strong> ELO<br/>
-    @x.nb.localize @trans.games()
+  @u.perfs.perfs.drop(1).map {
+  case (name, perf) => {
+  <div class="sub_ratings">
+    <h3>@name.toUpperCase</h3>
+    <strong>@perf.glicko.intRating</strong> / @perf.nb.localize @trans.games()
   </div>
   }
   }
@@ -39,7 +30,7 @@ evenMoreJs = evenMoreJs) {
   <div class="content_box_top">
     <div class="icon status @{isOnline(u.id).??("connected")}"></div>
     <h1 class="lichess_title">@u.username</h1>
-    <span class="elo">ELO <strong>@u.elo</strong></span>
+    <span class="rating">RATING <strong>@u.rating</strong></span>
     @info.rank.map { r =>
     <span class="rank" title="@trans.rank()">RANK <strong>@r._1.localize</strong> / @r._2.localize</span>
     }
@@ -83,8 +74,8 @@ evenMoreJs = evenMoreJs) {
   </div>
   <div class="mod_zone"></div>
   <div class="meat">
-    @info.eloChart.map { eloChart =>
-    <div class="elo_history" title="Elo history" data-rows="@eloChart">
+    @info.ratingChart.map { ratingChart =>
+    <div class="rating_history" title="Rating history" data-rows="@ratingChart">
       <span>Chart loading...</span>
     </div>
     }
@@ -114,38 +105,38 @@ evenMoreJs = evenMoreJs) {
         }
         @u.lang.flatMap(langName).map { name =>
         <span class="lang s16">@name</span>
-      }
-      <p>@trans.memberSince() @showDate(u.createdAt)</p>
-      @u.seenAt.map { seen =>
-      <p>@trans.lastLogin() @timeago(seen)</p>
-      }
-      <a href="@routes.User.opponents(u.username)">@trans.favoriteOpponents()</a>
-      @if(ctx.isAuth && !(ctx is u)) {
-      <br />
-      <a href="@routes.Report.form?username=@u.username">@trans.reportXToModerators(u.username)</a>
-      }
-      <div class="teams">
-        @teamIds(u.id).sortBy(t => !myTeam(t)).map { teamId =>
-        @teamLink(teamId, ("s16 team revert-underline" + myTeam(teamId).fold(" mine", "")).some)
         }
+        <p>@trans.memberSince() @showDate(u.createdAt)</p>
+        @u.seenAt.map { seen =>
+        <p>@trans.lastLogin() @timeago(seen)</p>
+        }
+        <a href="@routes.User.opponents(u.username)">@trans.favoriteOpponents()</a>
+        @if(ctx.isAuth && !(ctx is u)) {
+        <br />
+        <a href="@routes.Report.form?username=@u.username">@trans.reportXToModerators(u.username)</a>
+        }
+        <div class="teams">
+          @teamIds(u.id).sortBy(t => !myTeam(t)).map { teamId =>
+          @teamLink(teamId, ("s16 team revert-underline" + myTeam(teamId).fold(" mine", "")).some)
+          }
+        </div>
       </div>
     </div>
   </div>
-</div>
-@if(u.hasGames) {
-<div class="content_box_inter clearfix">
-  @filters.list.map { f =>
-  <a class="intertab@{ (filters.current == f).??(" active") }" href="@routes.User.showFilter(u.username, f.name)">
-    @userGameFilterTitle(info, f)
-  </a>
+  @if(u.hasGames) {
+  <div class="content_box_inter clearfix">
+    @filters.list.map { f =>
+    <a class="intertab@{ (filters.current == f).??(" active") }" href="@routes.User.showFilter(u.username, f.name)">
+      @userGameFilterTitle(info, f)
+    </a>
+    }
+  </div>
+  <div class="games infinitescroll all_games">
+    @games.nextPage.map { np =>
+    <div class="pager none"><a href="@routes.User.showFilter(u.username, filters.current.name, np)">Next</a></div>
+    }
+    @game.widgets(games.currentPageResults, user = u.some, ownerLink = ctx is u)
+  </div>
   }
-</div>
-<div class="games infinitescroll all_games">
-  @games.nextPage.map { np =>
-  <div class="pager none"><a href="@routes.User.showFilter(u.username, filters.current.name, np)">Next</a></div>
-  }
-  @game.widgets(games.currentPageResults, user = u.some, ownerLink = ctx is u)
-</div>
-}
 </div>
 }

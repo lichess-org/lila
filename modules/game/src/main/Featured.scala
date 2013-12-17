@@ -101,18 +101,18 @@ object Featured {
 
   private type Heuristic = Game ⇒ Float
   private val heuristicBox = box(0 to 1) _
-  private val eloBox = box(1000 to 2000) _
+  private val ratingBox = box(1000 to 2000) _
   private val timeBox = box(60 to 360) _
   private val turnBox = box(1 to 25) _
 
   private val heuristics: List[(Heuristic, Float)] = List(
-    eloHeuristic(Color.White) -> 1f,
-    eloHeuristic(Color.Black) -> 1f,
+    ratingHeuristic(Color.White) -> 1f,
+    ratingHeuristic(Color.Black) -> 1f,
     speedHeuristic -> 0.5f,
     progressHeuristic -> 1f)
 
-  private[game] def eloHeuristic(color: Color): Heuristic = game ⇒
-    eloBox(game.player(color).elo | 1100)
+  private[game] def ratingHeuristic(color: Color): Heuristic = game ⇒
+    ratingBox(game.player(color).rating | 1100)
 
   private[game] def speedHeuristic: Heuristic = game ⇒
     1 - timeBox(game.estimateTotalTime)

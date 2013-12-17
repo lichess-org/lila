@@ -14,7 +14,7 @@ case class TeamInfo(
     requestedByMe: Boolean,
     requests: List[RequestWithUser],
     bestPlayers: List[User],
-    averageElo: Int,
+    averageRating: Int,
     toints: Int,
     forumNbPosts: Int,
     forumPosts: List[PostLiteView]) {
@@ -32,8 +32,8 @@ object TeamInfo {
     mine ← me.??(m ⇒ api.belongsTo(team.id, m.id))
     requestedByMe ← !mine ?? me.??(m ⇒ RequestRepo.exists(team.id, m.id))
     userIds ← MemberRepo userIdsByTeam team.id
-    bestPlayers ← UserRepo.byIdsSortElo(userIds, 5)
-    averageElo ← UserRepo.idsAverageElo(userIds)
+    bestPlayers ← UserRepo.byIdsSortRating(userIds, 5)
+    averageRating ← UserRepo.idsAverageRating(userIds)
     toints ← UserRepo.idsSumToints(userIds)
     forumNbPosts ← getForumNbPosts(team.id)
     forumPosts ← getForumPosts(team.id)
@@ -43,7 +43,7 @@ object TeamInfo {
     requestedByMe = requestedByMe,
     requests = requests,
     bestPlayers = bestPlayers,
-    averageElo = averageElo,
+    averageRating = averageRating,
     toints = toints,
     forumNbPosts = forumNbPosts,
     forumPosts = forumPosts)

@@ -70,26 +70,26 @@ trait UserHelper { self: I18nHelper with StringHelper ⇒
   def userLink(
     user: User,
     cssClass: Option[String] = None,
-    withElo: Boolean = true,
+    withRating: Boolean = true,
     withOnline: Boolean = true,
     text: Option[String] = None) = Html {
     """<a %s %s>%s</a>""".format(
       userClass(user.id, cssClass, withOnline),
       userHref(user.username),
-      text | withElo.fold(user.usernameWithElo, user.username)
+      text | withRating.fold(user.usernameWithRating, user.username)
     )
   }
 
   def userInfosLink(
     userId: String,
-    elo: Option[Int],
+    rating: Option[Int],
     cssClass: Option[String] = None,
     withOnline: Boolean = true) = Env.user usernameOption userId map (_ | userId) map { username ⇒
     Html {
       """<a %s %s>%s</a>""".format(
         userClass(userId, cssClass, withOnline),
         userHref(username),
-        elo.fold(username)(e ⇒ "%s (%d)".format(username, e))
+        rating.fold(username)(e ⇒ s"$username ($e)")
       )
     }
   } await

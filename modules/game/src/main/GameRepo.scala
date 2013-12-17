@@ -84,15 +84,15 @@ trait GameRepo {
       }
     }
 
-  def setEloDiffs(id: ID, white: Int, black: Int) =
+  def setRatingDiffs(id: ID, white: Int, black: Int) =
     $update($select(id), BSONDocument("$set" -> BSONDocument(
-      s"p0.${Player.BSONFields.eloDiff}" -> BSONInteger(white),
-      s"p1.${Player.BSONFields.eloDiff}" -> BSONInteger(black))))
+      s"p0.${Player.BSONFields.ratingDiff}" -> BSONInteger(white),
+      s"p1.${Player.BSONFields.ratingDiff}" -> BSONInteger(black))))
 
   def setUsers(id: ID, white: Option[(String, Int)], black: Option[(String, Int)]) =
     if (white.isDefined || black.isDefined) $update($select(id), BSONDocument("$set" -> BSONDocument(
-      s"p0.${Player.BSONFields.elo}" -> white.map(_._2).map(BSONInteger.apply),
-      s"p1.${Player.BSONFields.elo}" -> black.map(_._2).map(BSONInteger.apply),
+      s"p0.${Player.BSONFields.rating}" -> white.map(_._2).map(BSONInteger.apply),
+      s"p1.${Player.BSONFields.rating}" -> black.map(_._2).map(BSONInteger.apply),
       BSONFields.playerUids -> lila.db.BSON.writer.listO(List(~white.map(_._1), ~black.map(_._1)))
     )))
     else funit
@@ -227,7 +227,7 @@ trait GameRepo {
     _.headOption flatMap extractPgnMoves
   } map (~_)
 
-  def recentAverageElo(minutes: Int): Fu[(Int, Int)] = {
+  def recentAverageRating(minutes: Int): Fu[(Int, Int)] = {
     val command = MapReduce(
       collectionName = gameTube.coll.name,
       mapFunction = """function() { 

@@ -40,13 +40,13 @@ moreCss = moreCss) {
       </tr>
       <tr>
         <th>
-          <label>Elo</label>
+          <label>Rating</label>
         </th>
         <td>
-          <div class="half">From @base.select(form("eloMin"), Query.averageElos, "".some)</div>
-          <div class="half">To @base.select(form("eloMax"), Query.averageElos, "".some)</div>
+          <div class="half">From @base.select(form("ratingMin"), Query.averageRatings, "".some)</div>
+          <div class="half">To @base.select(form("ratingMax"), Query.averageRatings, "".some)</div>
         </td>
-        <th class="help">Average of both players Elo</th>
+        <th class="help">Average of both players Rating</th>
       </tr>
       <tr>
         <th>

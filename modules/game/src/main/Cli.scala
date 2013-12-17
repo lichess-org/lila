@@ -7,7 +7,6 @@ import lila.user.UserRepo
 import tube.gameTube
 
 private[game] final class Cli(
-  computeElos: ComputeElos,
   db: lila.db.Env,
   system: akka.actor.ActorSystem) extends lila.common.Cli {
 
@@ -33,11 +32,6 @@ private[game] final class Cli(
       }).await(2.hours)
       fuccess("Done")
     }
-
-    case "game" :: "compute" :: "elos" :: Nil ⇒
-      computeElos.all inject "Done"
-
-    case "game" :: "migration" :: Nil => GameBinaryMigration(db, system) inject "done"
   }
 
 }

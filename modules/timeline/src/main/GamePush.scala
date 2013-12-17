@@ -27,7 +27,7 @@ private[timeline] final class GamePush(
   }
 
   private def makeEntry(game: Game): Fu[GameEntry] =
-    usernameElo(game, White) zip usernameElo(game, Black) map {
+    usernameRating(game, White) zip usernameRating(game, Black) map {
       case (whiteName, blackName) ⇒ GameEntry(
         gameId = game.id,
         whiteName = whiteName,
@@ -42,6 +42,6 @@ private[timeline] final class GamePush(
   private def userId(game: Game, color: Color): Option[String] =
     (game player color).userId
 
-  private def usernameElo(game: Game, color: Color): Fu[String] =
+  private def usernameRating(game: Game, color: Color): Fu[String] =
     Namer.player(game player color)(getUsername)
 }

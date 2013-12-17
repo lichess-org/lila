@@ -105,7 +105,7 @@ object Round extends LilaController with TheftPrevention {
     JsonOptionOk(GameRepo game gameId map2 { (game: GameModel) ⇒
       (game.players collect {
         case player if player.isHuman ⇒ player.color.name -> playerLink(player).body
-      } toMap) ++ ctx.me.??(me ⇒ Map("me" -> me.usernameWithElo))
+      } toMap) ++ ctx.me.??(me ⇒ Map("me" -> me.usernameWithRating))
     })
   }
 

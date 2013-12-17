@@ -1,7 +1,7 @@
 package lila.app
 package mashup
 
-import chess.{ EloCalculator, Color }
+import chess.Color
 
 import lila.bookmark.BookmarkApi
 import lila.forum.PostApi
@@ -16,7 +16,7 @@ case class UserInfo(
     nbPlaying: Int,
     confrontation: Option[Confrontation],
     nbBookmark: Int,
-    eloChart: Option[String],
+    ratingChart: Option[String],
     nbFollowing: Int,
     nbFollowers: Int,
     nbBlockers: Option[Int],
@@ -34,11 +34,10 @@ object UserInfo {
   def apply(
     countUsers: () ⇒ Fu[Int],
     bookmarkApi: BookmarkApi,
-    eloCalculator: EloCalculator,
     relationApi: RelationApi,
     gameCached: lila.game.Cached,
     postApi: PostApi,
-    getEloChart: User ⇒ Fu[Option[String]],
+    getRatingChart: User ⇒ Fu[Option[String]],
     getRank: String ⇒ Fu[Option[Int]])(user: User, ctx: Context): Fu[UserInfo] =
     (getRank(user.id) flatMap {
       _ ?? { rank ⇒ countUsers() map { nb ⇒ (rank -> nb).some } }
@@ -50,20 +49,20 @@ object UserInfo {
         gameCached.confrontation(me, user) map (_.some filterNot (_.empty))
       }) zip
       (bookmarkApi countByUser user) zip
-      getEloChart(user) zip
+      getRatingChart(user) zip
       relationApi.nbFollowing(user.id) zip
       relationApi.nbFollowers(user.id) zip
       ((ctx.me ?? Granter(_.UserSpy)) ?? {
         relationApi.nbBlockers(user.id) map (_.some)
       }) zip
       postApi.nbByUser(user.id) map {
-        case ((((((((rank, nbPlaying), confrontation), nbBookmark), eloChart), nbFollowing), nbFollowers), nbBlockers), nbPosts) ⇒ new UserInfo(
+        case ((((((((rank, nbPlaying), confrontation), nbBookmark), ratingChart), nbFollowing), nbFollowers), nbBlockers), nbPosts) ⇒ new UserInfo(
           user = user,
           rank = rank,
           nbPlaying = ~nbPlaying,
           confrontation = confrontation,
           nbBookmark = nbBookmark,
-          eloChart = eloChart,
+          ratingChart = ratingChart,
           nbFollowing = nbFollowing,
           nbFollowers = nbFollowers,
           nbBlockers = nbBlockers,

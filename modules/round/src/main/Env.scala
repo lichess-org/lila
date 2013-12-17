@@ -13,7 +13,6 @@ import makeTimeout.large
 final class Env(
     config: Config,
     system: ActorSystem,
-    eloUpdater: lila.user.EloUpdater,
     flood: lila.security.Flood,
     db: lila.db.Env,
     hub: lila.hub.Env,
@@ -85,8 +84,6 @@ final class Env(
 
   private lazy val finisher = new Finisher(
     messenger = messenger,
-    eloUpdater = eloUpdater,
-    eloCalculator = eloCalculator,
     indexer = hub.actor.gameIndexer,
     tournamentOrganizer = hub.actor.tournamentOrganizer)
 
@@ -121,8 +118,6 @@ final class Env(
     netDomain = NetDomain,
     i18nKeys = i18nKeys,
     getUsername = getUsername)
-
-  lazy val eloCalculator = new chess.EloCalculator(false)
 
   def version(gameId: String): Fu[Int] =
     socketHub ? Ask(gameId, GetVersion) mapTo manifest[Int]
@@ -173,7 +168,6 @@ object Env {
   lazy val current = "[boot] round" describes new Env(
     config = lila.common.PlayApp loadConfig "round",
     system = lila.common.PlayApp.system,
-    eloUpdater = lila.user.Env.current.eloUpdater,
     flood = lila.security.Env.current.flood,
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,

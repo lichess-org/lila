@@ -42,18 +42,18 @@ private[game] final class Export(router: akka.actor.ActorSelection) {
           game.variant,
           game.mode,
           game.clock.fold("unlimited") { c ⇒ "%d %d".format(c.limitInMinutes, c.increment) },
-          (player flatMap (_.elo)).fold("?")(_.toString),
-          (player flatMap (_.eloDiff)).fold("?")(showEloDiff),
-          (player map game.opponent flatMap (_.elo)).fold("?")(_.toString),
-          (player map game.opponent flatMap (_.eloDiff)).fold("?")(showEloDiff)
+          (player flatMap (_.rating)).fold("?")(_.toString),
+          (player flatMap (_.ratingDiff)).fold("?")(showRatingDiff),
+          (player map game.opponent flatMap (_.rating)).fold("?")(_.toString),
+          (player map game.opponent flatMap (_.ratingDiff)).fold("?")(showRatingDiff)
         ) map (_.toString)) ::: urls
       }
   }
 
-  private def showEloDiff(n: Int): String = (n > 0).fold("+" + n, n.toString)
+  private def showRatingDiff(n: Int): String = (n > 0).fold("+" + n, n.toString)
 
   def header =
-    List("#", "Date (ISO8601)", "Color", "Opponent", "Result", "Status", "Plies", "Variant", "Mode", "Time control", "Your Elo", "Your Elo change", "Opponent Elo", "Opponent Elo Change", "Game url", "Analysis url", "PGN url")
+    List("#", "Date (ISO8601)", "Color", "Opponent", "Result", "Status", "Plies", "Variant", "Mode", "Time control", "Your Rating", "Your Rating change", "Opponent Rating", "Opponent Rating Change", "Game url", "Analysis url", "PGN url")
 
   private def date: String = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
 }

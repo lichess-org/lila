@@ -5,12 +5,12 @@ import lila.user.User
 
 object Namer {
 
-  def player(player: Player, withElo: Boolean = true)(getUsername: String ⇒ Fu[String]): Fu[String] =
+  def player(player: Player, withRating: Boolean = true)(getUsername: String ⇒ Fu[String]): Fu[String] =
     player.aiLevel.fold(
       player.userId.fold(fuccess(User.anonymous)) { id ⇒
         getUsername(id) map { username ⇒
-          withElo.fold(
-            "%s (%s)".format(username, player.elo getOrElse "?"),
+          withRating.fold(
+            "%s (%s)".format(username, player.rating getOrElse "?"),
             username)
         }
       }) { level ⇒ fuccess("A.I. level " + level) }

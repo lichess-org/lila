@@ -1,7 +1,7 @@
 package lila.setup
 
 import chess.Variant
-import lila.common.EloRange
+import lila.common.RatingRange
 import lila.db.api._
 import lila.lobby.Color
 import lila.user.Context

@@ -64,8 +64,7 @@ object Auth extends LilaController {
       data ⇒ Firewall {
         UserRepo.create(data.username, data.password) flatMap { userOption ⇒
           val user = userOption err "No user could be created for %s".format(data.username)
-          HistoryRepo.addEntry(user.id, user.elo, none) >>
-            gotoSignupSucceeded(user.username)
+          HistoryRepo.create(user) >> gotoSignupSucceeded(user.username)
         }
       }
     )

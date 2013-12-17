@@ -5,7 +5,7 @@
     @sugs.map { sug =>
     <tr>
       <td>@userLink(sug._1)</td>
-      <td>@sug._1.elo Elo</td>
+      <td>@sug._1.rating Rating</td>
       <td>
         @if(sug._2 > 0) {
         <a href="@routes.Game.search()?players.a=@u.username&players.b=@sug._1.username">

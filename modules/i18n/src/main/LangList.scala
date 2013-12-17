@@ -33,7 +33,7 @@ object LangList {
     "bs" -> "bosanski jezik",
     "br" -> "brezhoneg",
     "bg" -> "български език",
-    "ca" -> "Català",
+    "ca" -> "Català, valencià",
     "ch" -> "Chamoru",
     "ce" -> "нохчийн мотт",
     "ny" -> "chiCheŵa, chinyanja",

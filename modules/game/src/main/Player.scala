@@ -14,8 +14,8 @@ case class Player(
     lastDrawOffer: Option[Int] = None,
     isProposingTakeback: Boolean = false,
     userId: Option[String] = None,
-    elo: Option[Int] = None,
-    eloDiff: Option[Int] = None,
+    rating: Option[Int] = None,
+    ratingDiff: Option[Int] = None,
     blurs: Int = 0,
     name: Option[String] = None) {
 
@@ -29,7 +29,7 @@ case class Player(
 
   def withUser(user: User): Player = copy(
     userId = user.id.some,
-    elo = user.elo.some)
+    rating = user.rating.some)
 
   def isAi = aiLevel.isDefined
 
@@ -39,7 +39,7 @@ case class Player(
 
   def isUser(u: User) = userId.fold(false)(_ == u.id)
 
-  def userInfos: Option[(String, Int)] = (userId |@| elo).tupled
+  def userInfos: Option[(String, Int)] = (userId |@| rating).tupled
 
   def wins = isWinner getOrElse false
 
@@ -64,7 +64,7 @@ case class Player(
 
   def withName(name: String) = copy(name = name.some)
 
-  def before(other: Player) = ((elo, id), (other.elo, other.id)) match {
+  def before(other: Player) = ((rating, id), (other.rating, other.id)) match {
     case ((Some(a), _), (Some(b), _)) if a != b ⇒ a < b
     case ((Some(_), _), (None, _))              ⇒ true
     case ((None, _), (Some(_), _))              ⇒ false
@@ -92,8 +92,8 @@ object Player {
     val isOfferingRematch = "or"
     val lastDrawOffer = "ld"
     val isProposingTakeback = "ot"
-    val elo = "e"
-    val eloDiff = "d"
+    val rating = "e"
+    val ratingDiff = "d"
     val blurs = "b"
     val name = "na"
   }
@@ -120,8 +120,8 @@ object Player {
       lastDrawOffer = r intO lastDrawOffer,
       isProposingTakeback = r boolD isProposingTakeback,
       userId = userId,
-      elo = r intO elo,
-      eloDiff = r intO eloDiff,
+      rating = r intO rating,
+      ratingDiff = r intO ratingDiff,
       blurs = r intD blurs,
       name = r strO name)
 
@@ -133,8 +133,8 @@ object Player {
           isOfferingRematch -> w.boolO(p.isOfferingRematch),
           lastDrawOffer -> p.lastDrawOffer,
           isProposingTakeback -> w.boolO(p.isProposingTakeback),
-          elo -> p.elo,
-          eloDiff -> p.eloDiff,
+          rating -> p.rating,
+          ratingDiff -> p.ratingDiff,
           blurs -> w.intO(p.blurs),
           name -> p.name)
       }

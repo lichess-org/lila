@@ -30,11 +30,10 @@ final class Env(
   lazy val userInfo = mashup.UserInfo(
     countUsers = () ⇒ Env.user.countEnabled,
     bookmarkApi = Env.bookmark.api,
-    eloCalculator = Env.round.eloCalculator,
     relationApi = Env.relation.api,
     gameCached = Env.game.cached,
     postApi = Env.forum.postApi,
-    getEloChart = Env.user.eloChart,
+    getRatingChart = Env.user.ratingChart,
     getRank = Env.user.ranking.get) _
 
   if (config getBoolean "ai.stress") {

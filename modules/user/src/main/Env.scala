@@ -1,7 +1,6 @@
 package lila.user
 
 import akka.actor._
-import chess.EloCalculator
 import com.typesafe.config.Config
 
 import lila.common.PimpedConfig._
@@ -15,9 +14,8 @@ final class Env(
 
   private val settings = new {
     val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
-    val EloUpdaterFloor = config getInt "elo_updater.floor"
     val CachedNbTtl = config duration "cached.nb.ttl"
-    val CachedEloChartTtl = config duration "cached.elo_chart.ttl"
+    val CachedRatingChartTtl = config duration "cached.rating_chart.ttl"
     val OnlineTtl = config duration "online.ttl"
     val RankingTtl = config duration "ranking.ttl"
     val CollectionUser = config getString "collection.user"
@@ -33,13 +31,11 @@ final class Env(
     countUsers = cached.countEnabled,
     maxPerPage = PaginatorMaxPerPage)
 
-  lazy val eloUpdater = new EloUpdater(floor = EloUpdaterFloor)
-
   lazy val onlineUserIdMemo = new ExpireSetMemo(ttl = OnlineTtl)
 
   lazy val ranking = new Ranking(ttl = RankingTtl)
 
-  def eloChart = cached.eloChart.apply _
+  def ratingChart = cached.ratingChart.apply _
 
   val forms = DataForm
 
@@ -54,8 +50,8 @@ final class Env(
   def cli = new lila.common.Cli {
     import tube.userTube
     def process = {
-      case "user" :: "average" :: "elo" :: Nil ⇒
-        UserRepo.averageElo map { elo ⇒ "Average elo is %f" format elo }
+      case "user" :: "average" :: "rating" :: Nil ⇒
+        UserRepo.averageRating map { rating ⇒ "Average rating is %f" format rating }
       case "user" :: "typecheck" :: Nil ⇒ lila.db.Typecheck.apply[User]
     }
   }
@@ -84,7 +80,7 @@ final class Env(
 
   lazy val cached = new Cached(
     nbTtl = CachedNbTtl,
-    eloChartTtl = CachedEloChartTtl,
+    ratingChartTtl = CachedRatingChartTtl,
     onlineUserIdMemo = onlineUserIdMemo)
 }
 
