@@ -28,6 +28,7 @@ object GlickoMigration {
     val oldUserRepo = new UserRepo {
       def userTube = lila.user.tube.userTube inColl oldUserColl
     }
+    val gameColl = lila.game.tube.gameTube.coll
     val limit = Int.MaxValue
     // val limit = 300000
     // val limit = 1000
@@ -51,12 +52,17 @@ object GlickoMigration {
           nb = nb + 1
           if (nb % 1000 == 0) println(nb)
           game.userIds match {
-            case List(uidW, uidB) if isEngine(uidW) || isEngine(uidB) || (uidW == uidB) ⇒
+            case List(uidW, uidB) if (uidW == uidB) ⇒ {
+              gameColl.uncheckedUpdate(
+                BSONDocument("_id" -> game.id),
+                BSONDocument("$unset" -> BSONDocument("ra" -> true)))
+            }
+            case List(uidW, uidB) if isEngine(uidW) || isEngine(uidB) ⇒
             case List(uidW, uidB) ⇒ {
               val ratingsW = ratings.getOrElseUpdate(uidW, mkRatings)
               val ratingsB = ratings.getOrElseUpdate(uidB, mkRatings)
-              val globalRatingW = ratingsW.global.getRating
-              val globalRatingB = ratingsB.global.getRating
+              val prevRatingW = ratingsW.global.getRating.toInt
+              val prevRatingB = ratingsB.global.getRating.toInt
               val result = resultOf(game)
               updateRatings(ratingsW.global, ratingsB.global, result, system)
               updateRatings(ratingsW.white, ratingsB.black, result, system)
@@ -76,9 +82,17 @@ object GlickoMigration {
                   updateRatings(ratingsW.slow, ratingsB.slow, result, system)
               }
               histories.getOrElseUpdate(uidW, mkHistory) +=
-                HistoryEntry(game.createdAt, ratingsW.global.getRating.toInt, ratingsW.global.getRatingDeviation.toInt, globalRatingB.toInt)
+                HistoryEntry(game.createdAt, ratingsW.global.getRating.toInt, ratingsW.global.getRatingDeviation.toInt, prevRatingB)
               histories.getOrElseUpdate(uidB, mkHistory) +=
-                HistoryEntry(game.createdAt, ratingsB.global.getRating.toInt, ratingsB.global.getRatingDeviation.toInt, globalRatingW.toInt)
+                HistoryEntry(game.createdAt, ratingsB.global.getRating.toInt, ratingsB.global.getRatingDeviation.toInt, prevRatingW)
+              gameColl.uncheckedUpdate(
+                BSONDocument("_id" -> game.id),
+                BSONDocument("$set" -> BSONDocument(
+                  "p0.e" -> prevRatingW,
+                  "p0.d" -> (ratingsW.global.getRating.toInt - prevRatingW),
+                  "p1.e" -> prevRatingB,
+                  "p1.d" -> (ratingsB.global.getRating.toInt - prevRatingB)
+                )))
             }
             case _ ⇒
           }
