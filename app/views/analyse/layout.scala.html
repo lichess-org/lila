@@ -1,10 +1,10 @@
 @(title: String, goodies: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, moreCss: Html = Html(""), moreJs: Html = Html(""), themepicker: Boolean = false)(body: Html)(implicit ctx: Context)
 
 @base.layout(
-title = title, 
-goodies = goodies, 
+title = title,
+goodies = goodies,
 chat = chat,
-underchat = underchat, 
+underchat = underchat,
 active = siteMenu.game.some,
 moreCss = moreCss,
 moreJs = moreJs,
