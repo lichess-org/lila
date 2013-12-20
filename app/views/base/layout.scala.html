@@ -163,9 +163,9 @@ data-accept-languages="@acceptLanguages.mkString(",")">
 @signedJs.fold(jsTagCompiled("big.js"))(js => jsAt(js, false))
 @moreJs
 @if(lang.language != "en") {
-<script src="@routes.Assets.at("trans/" + lang.language + ".js")?v=@assetVersion"></script>
+@jsAt("trans/" + lang.language + ".js")
 @timeagoLocale.map { l =>
-<script src="@routes.Assets.at("vendor/timeago/locales/jquery.timeago." + l + ".js")"></script>
+@jsVendorTag("timeago/locales/jquery.timeago." + l + ".js")
 }
 }
 </body>
