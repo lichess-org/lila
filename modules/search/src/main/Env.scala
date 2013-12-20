@@ -33,7 +33,15 @@ final class Env(
     import scala.concurrent.duration._
 
     scheduler.effect(1 hour, "search: optimize index") {
-      esIndexer foreach { _ optimize IndexesToOptimize }
+      esIndexer foreach { es ⇒
+        try {
+          es optimize IndexesToOptimize
+        }
+        catch {
+          case e: org.elasticsearch.indices.IndexMissingException ⇒
+            play.api.Logger("search").warn(e.toString)
+        }
+      }
     }
   }
 }
