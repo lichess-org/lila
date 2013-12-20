@@ -2250,7 +2250,7 @@ var storage = {
         featured: changeFeatured,
         redirect: function(e) {
           $.lichessOpeningPreventClicks();
-          location.href = 'http://' + location.hostname + '/' + e;
+          location.href = 'http://' + location.hostname + '/' + e.replace(/^\//, '');
         },
         tournaments: reloadTournaments,
         reload_forum: reloadForum
@@ -2572,7 +2572,7 @@ var storage = {
           location.reload();
         },
         redirect: function(e) {
-          location.href = 'http://' + location.hostname + '/' + e;
+          location.href = 'http://' + location.hostname + '/' + e.replace(/^\//, '');
         },
         crowd: function(data) {
           $watchers.watchers("set", data);

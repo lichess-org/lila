@@ -1,8 +1,9 @@
 package lila.lobby
 
-import actorApi.{ RemoveHook, BiteHook, JoinHook }
 import akka.actor.ActorRef
 import chess.{ Game ⇒ ChessGame, Board, Variant, Mode, Clock, Color ⇒ ChessColor }
+
+import actorApi.{ RemoveHook, BiteHook, JoinHook }
 import lila.game.{ GameRepo, Game, Player, Pov, Progress }
 import lila.user.{ User, UserRepo }
 
@@ -14,7 +15,7 @@ private[lobby] final class Biter(
   def apply(hook: Hook, userId: Option[String]): Fu[String ⇒ JoinHook] =
     userId ?? UserRepo.byId flatMap { user ⇒
       canJoin(hook, user).fold(
-        join(hook, user), 
+        join(hook, user),
         fufail("%s cannot bite hook %s".format(userId, hook.id)))
     }
 
