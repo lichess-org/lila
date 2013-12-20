@@ -1,55 +1,55 @@
 start chess960 after both player move http://fr.lichess.org/forum/lichess-feedback/clock-fairness-in-chess960-games
 @someone = link to someone's profile
-index game positions
-elo stats (branch elostats)
+  index game positions
+  elo stats (branch elostats)
 add elo titles (like 2300+ = FM)
-tournament berserker = half time, double points
+  tournament berserker = half time, double points
 chat icons (k) (K)
-blind accessible
-tournament ties
-not possible to copy the link URL invite when using a touch device. Can this be easily fixed by adding an automatic "copy" button next to the link?
-search bug http://en.lichess.org/games/search?players.a=&players.b=&players.winner=&eloMin=&eloMax=&hasAi=&aiLevelMin=&aiLevelMax=&variant=&mode=1&opening=&turnsMin=&turnsMax=&durationMin=&durationMax=&status=35&dateMin=&dateMax=&sort.field=tu&sort.order=asc
-takeback substract time for person granting
-only team forum posts on the homepage?
-team list sort by date, name, popularity, avg elo, team elo, ...?
-download 10.000 best elo games http://en.lichess.org/inbox/v1p6hokg#bottom
+  blind accessible
+  tournament ties
+  not possible to copy the link URL invite when using a touch device. Can this be easily fixed by adding an automatic "copy" button next to the link?
+  search bug http://en.lichess.org/games/search?players.a=&players.b=&players.winner=&eloMin=&eloMax=&hasAi=&aiLevelMin=&aiLevelMax=&variant=&mode=1&opening=&turnsMin=&turnsMax=&durationMin=&durationMax=&status=35&dateMin=&dateMax=&sort.field=tu&sort.order=asc
+  takeback substract time for person granting
+  only team forum posts on the homepage?
+  team list sort by date, name, popularity, avg elo, team elo, ...?
+  download 10.000 best elo games http://en.lichess.org/inbox/v1p6hokg#bottom
 sound config (like sound on game join, not moves)
-start clock after black move http://en.lichess.org/forum/lichess-feedback/shouldnt-the-time-start-time-after-blacks-first-move#3
-national flags http://en.lichess.org/forum/lichess-feedback/suggestion-display-national-flag#4
-restrict hook creation by IP
-show tournament trophies on user profile
-recognize pgn in forum and show a pgn4web
-correspondance chess https://github.com/ornicar/lila/issues/12
-add source to chess search
-add pgn names to chess search
+  start clock after black move http://en.lichess.org/forum/lichess-feedback/shouldnt-the-time-start-time-after-blacks-first-move#3
+  national flags http://en.lichess.org/forum/lichess-feedback/suggestion-display-national-flag#4
+  restrict hook creation by IP
+  show tournament trophies on user profile
+  recognize pgn in forum and show a pgn4web
+  correspondance chess https://github.com/ornicar/lila/issues/12
+  add source to chess search
+  add pgn names to chess search
 kid mode (on subdomain?) or start-from-scratch mode (connect to DB depending on subdomain)
-explain point of importing games
-captcha highlight opponent king
-optional email http://en.lichess.org/forum/lichess-feedback/secret-question----password-recovery
-chess variants https://github.com/ornicar/lila/issues/2://github.com/ornicar/lila/issues/25 
-stream game export
-from MoralIntentions email:
-- More tie-breaking options and stats (in Tournament): https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss_system_tournaments, especially Sonneborn-Berger and Tournament Performance Rating. 
-- Several options of how points should be given to players (for example: Score * Sonneborn-Berger * Tournament Performance Rating * Percentage Score [for example: 0.64] / 1000) and therefore also several Leaderboards. 
-- The possibility of team matches (with solutions for players who are in several teams), where the team leader has to choose the board order, where the team results are shown and where the team player (who has played all of the games of the match) with the highest Percentage Score gets crowned Player of the Match of team "A".  
-correspondance chess http://en.lichess.org/forum/lichess-feedback/correspondence-chess#1
-badges for top players in Elo and number of games
-the forum search user:mephostophilis returns no result
-players world map
-account closed accounts in team counts
-IE10 no sound toggle http://en.lichess.org/forum/lichess-feedback/notification-of-game-creation#3
-replace plot with watch plot when game starts
-liquid UI for large screens http://fr.lichess.org/forum/lichess-feedback/hi-res#5
-customize piece images
-customize sound notifications http://imgur.com/70WVyb5
-better moderator UI
+  explain point of importing games
+  captcha highlight opponent king
+  optional email http://en.lichess.org/forum/lichess-feedback/secret-question----password-recovery
+  chess variants https://github.com/ornicar/lila/issues/2://github.com/ornicar/lila/issues/25
+  stream game export
+  from MoralIntentions email:
+  - More tie-breaking options and stats (in Tournament): https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss_system_tournaments, especially Sonneborn-Berger and Tournament Performance Rating.
+  - Several options of how points should be given to players (for example: Score * Sonneborn-Berger * Tournament Performance Rating * Percentage Score [for example: 0.64] / 1000) and therefore also several Leaderboards.
+  - The possibility of team matches (with solutions for players who are in several teams), where the team leader has to choose the board order, where the team results are shown and where the team player (who has played all of the games of the match) with the highest Percentage Score gets crowned Player of the Match of team "A".
+  correspondance chess http://en.lichess.org/forum/lichess-feedback/correspondence-chess#1
+  badges for top players in Elo and number of games
+  the forum search user:mephostophilis returns no result
+  players world map
+  account closed accounts in team counts
+  IE10 no sound toggle http://en.lichess.org/forum/lichess-feedback/notification-of-game-creation#3
+  replace plot with watch plot when game starts
+  liquid UI for large screens http://fr.lichess.org/forum/lichess-feedback/hi-res#5
+  customize piece images
+  customize sound notifications http://imgur.com/70WVyb5
+  better moderator UI
 TV channels (bullet, blitz, standard, ...)
-allow castling and analysis for FEN games whenever possible
-realtime computer analysis of TV game
-embeddable tv iframe http://en.lichess.org/forum/lichess-feedback/new-feature-lichess-tv?page=3
-many tv ideas (answer) 
+  allow castling and analysis for FEN games whenever possible
+  realtime computer analysis of TV game
+  embeddable tv iframe http://en.lichess.org/forum/lichess-feedback/new-feature-lichess-tv?page=3
+many tv ideas (answer)
   http://en.lichess.org/forum/lichess-feedback/new-feature-lichess-tv?page=3
-  http://i.imgur.com/ZSi90k0.jpg
+http://i.imgur.com/ZSi90k0.jpg
 separate games in spectator chat
 real board editor save
 FEN/editor castle/enpassant https://github.com/ornicar/lila/issues/42 white/black to play
@@ -65,41 +65,41 @@ better piece set (see scid and chessbase) skwex on #chess
 replace move green glow with simple border (chess.com) skwex on #chess
 opening tree http://www.shredderchess.com/online-chess/online-databases/opening-database.html
 data visualisation with http://app.raw.densitydesign.org/
-tournament elo restriction
+  tournament elo restriction
 open analysis to anon (with IP restriction)
-analysis always show best move
-analysis infer ! and !! from evaluation at depth
-no challenge when playing http://en.lichess.org/forum/lichess-feedback/defis#2
-check filter games icon on windows
-people page = trends by day, week, month. user achievments?
-user options: sounds, sound choice
-user stats: http://en.lichess.org/forum/lichess-feedback/feature-request-extended-stats
-forum improvements http://en.lichess.org/forum/lichess-feedback/suggestions-for-the-forum#1
-real tournaments (swiss first, then round robin) (hellball) see challonge.com
-option to disallow takebacks http://en.lichess.org/forum/lichess-feedback/takeback-request-abuse
-search users from tablet http://en.lichess.org/forum/lichess-feedback/people---search
-analysis UI bug http://en.lichess.org/inbox/8s2e0397#bottom
-use separate thread pool for elasticsearch http://www.playframework.com/documentation/2.2.0/ThreadPools
-make lobby a sequential actor
-best wins / worse defeats
-troll can post in tournaments
-safari sound icon http://en.lichess.org/forum/general-chess-discussion/sound-effects?page=3
-add brasilian translation
-autoreport cheat detected
-blocked user can join: http://en.lichess.org/forum/lichess-feedback/blocked-user#3
-charts on homepage? http://en.lichess.org/forum/lichess-feedback/feature-proposition-active-players-graph#1
-show latest chat when X reports Y for insult
-faster PGN parser - without combinators, see pgn binary writer
-premove choose promotion http://en.lichess.org/forum/lichess-feedback/premove-promotion-allow-to-preselect-promoted-piece#9
-teams sorted by ELO http://en.lichess.org/forum/lichess-feedback/average-team-elo#1
-analysis bug http://en.lichess.org/forum/lichess-feedback/blunders-in-computer-analysis#1
+  analysis always show best move
+  analysis infer ! and !! from evaluation at depth
+  no challenge when playing http://en.lichess.org/forum/lichess-feedback/defis#2
+  check filter games icon on windows
+  people page = trends by day, week, month. user achievments?
+  user options: sounds, sound choice
+  user stats: http://en.lichess.org/forum/lichess-feedback/feature-request-extended-stats
+  forum improvements http://en.lichess.org/forum/lichess-feedback/suggestions-for-the-forum#1
+  real tournaments (swiss first, then round robin) (hellball) see challonge.com
+  option to disallow takebacks http://en.lichess.org/forum/lichess-feedback/takeback-request-abuse
+  search users from tablet http://en.lichess.org/forum/lichess-feedback/people---search
+  analysis UI bug http://en.lichess.org/inbox/8s2e0397#bottom
+  use separate thread pool for elasticsearch http://www.playframework.com/documentation/2.2.0/ThreadPools
+  make lobby a sequential actor
+  best wins / worse defeats
+  troll can post in tournaments
+  safari sound icon http://en.lichess.org/forum/general-chess-discussion/sound-effects?page=3
+  add brasilian translation
+  autoreport cheat detected
+  blocked user can join: http://en.lichess.org/forum/lichess-feedback/blocked-user#3
+  charts on homepage? http://en.lichess.org/forum/lichess-feedback/feature-proposition-active-players-graph#1
+  show latest chat when X reports Y for insult
+  faster PGN parser - without combinators, see pgn binary writer
+  premove choose promotion http://en.lichess.org/forum/lichess-feedback/premove-promotion-allow-to-preselect-promoted-piece#9
+  teams sorted by ELO http://en.lichess.org/forum/lichess-feedback/average-team-elo#1
+  analysis bug http://en.lichess.org/forum/lichess-feedback/blunders-in-computer-analysis#1
 improve AI cheat detection (not only game start)
-can't search for anon games
-user profile tab for imported games http://en.lichess.org/inbox/zevof2tu#bottom
+  can't search for anon games
+  user profile tab for imported games http://en.lichess.org/inbox/zevof2tu#bottom
 analysis board (see chess.com)
-1 game played, rating slow!=standard http://en.lichess.org/@/fuckface/all
-watcher game sounds only on first color
-up ratings by 300 -> closer to FICS
+  1 game played, rating slow!=standard http://en.lichess.org/@/fuckface/all
+  watcher game sounds only on first color
+  up ratings by 300 -> closer to FICS
 from position + clock = fail (due to turns != played turns)
-streamed export of PGN http://en.lichess.org/forum/lichess-feedback/download-all-games#5
-mongodb aggregation TypeError: Object 1133 has no method 'forEach' near 'game.forEach(function(player) 
+  streamed export of PGN http://en.lichess.org/forum/lichess-feedback/download-all-games#5
+  mongodb aggregation TypeError: Object 1133 has no method 'forEach' near 'game.forEach(function(player)
