@@ -166,7 +166,7 @@ case class Game(
 
   def start = started.fold(this, copy(
     status = Status.Started,
-    mode = Mode(mode.rated && (players forall (_.hasUser))),
+    mode = Mode(mode.rated && userIds.distinct.size == 2),
     updatedAt = DateTime.now.some
   ))
 

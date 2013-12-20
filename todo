@@ -100,3 +100,6 @@ analysis board (see chess.com)
 1 game played, rating slow!=standard http://en.lichess.org/@/fuckface/all
 watcher game sounds only on first color
 up ratings by 300 -> closer to FICS
+from position + clock = fail (due to turns != played turns)
+streamed export of PGN http://en.lichess.org/forum/lichess-feedback/download-all-games#5
+mongodb aggregation TypeError: Object 1133 has no method 'forEach' near 'game.forEach(function(player) 
