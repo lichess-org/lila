@@ -25,7 +25,6 @@ $(function() {
             itemSelector: ".search_infinitescroll .paginated_element",
             loading: {
               msgText: "",
-              img: "/assets/images/hloader3.gif",
               finishedMsg: "---"
             }
           }, function() {
