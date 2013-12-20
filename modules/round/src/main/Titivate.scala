@@ -6,8 +6,8 @@ import play.api.libs.iteratee._
 import play.api.libs.json._
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 
-import lila.common.Scheduler
 import lila.common.PimpedJson._
+import lila.common.Scheduler
 import lila.db.api._
 import lila.game.tube.gameTube
 import lila.game.{ Query, Game, GameRepo }
@@ -21,13 +21,13 @@ private[round] final class Titivate(
 
   def finishByClock: Funit =
     $primitive(Query.finishByClock, "_id", max = 5000.some)(_.asOpt[String]) addEffect { ids ⇒
-      loginfo("[titivate] Finish %d games by clock" format ids.size)
+      logwarn("[titivate] Finish %d games by clock" format ids.size)
       scheduler.throttle(100.millis)(ids) { id ⇒ roundMap ! Tell(id, Outoftime) }
     } void
 
   def finishAbandoned: Funit =
     $primitive(Query.abandoned, "_id", max = 5000.some)(_.asOpt[String]) addEffect { ids ⇒
-      loginfo("[titivate] Finish %d abandoned games" format ids.size)
+      logwarn("[titivate] Finish %d abandoned games" format ids.size)
       scheduler.throttle(100.millis)(ids) { id ⇒ roundMap ! Tell(id, Abandon) }
     } void
 }
