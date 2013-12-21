@@ -11,7 +11,7 @@ function hintWid(query) {
 }
 
 print("Denormalize counts");
-users.find().sort({seenAt: -1}).forEach(function(user) {
+users.find().forEach(function(user) {
   var uid = user._id;
   var count = {
     game: games.count({'us': uid}),
