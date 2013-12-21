@@ -1,7 +1,10 @@
 @(u: User)(implicit ctx: Context)
 <div class="title">
   <span class="user_link @isOnline(u.id).fold("online", "offline")">
-    <strong title="Glicko rating">@u.rating</strong><small title="Glicko rating deviation"> ±@u.perfs.global.glicko.intDeviation</small> / @u.count.game.localize @trans.games()
+    <strong title="Glicko rating">@u.rating</strong>
+    <small title="Glicko rating deviation">±@u.perfs.global.glicko.intDeviation</small> 
+    @showProgress(u.progress)
+    @u.count.game.localize @trans.games()
   </span>
   <p class="localization">
   @u.profileOrDefault.countryInfo.map {

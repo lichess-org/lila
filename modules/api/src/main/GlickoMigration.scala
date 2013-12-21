@@ -14,7 +14,7 @@ import lila.db.api._
 import lila.db.Implicits._
 import lila.game.Game
 import lila.game.Game.{ BSONFields ⇒ G }
-import lila.round.PerfsUpdater.{ Ratings, resultOf, updateRatings, mkPerfs, system, makeProgress }
+import lila.round.PerfsUpdater.{ Ratings, resultOf, updateRatings, mkPerf, system, makeProgress }
 import lila.user.{ User, UserRepo, HistoryRepo, Glicko, GlickoEngine, Perfs, Perf, HistoryEntry }
 
 object GlickoMigration {
@@ -144,6 +144,16 @@ object GlickoMigration {
         }
       }
     }.void
+
+    def mkPerfs(ratings: Ratings): Perfs = Perfs(
+      global = mkPerf(ratings.global, None),
+      standard = mkPerf(ratings.standard, None),
+      chess960 = mkPerf(ratings.chess960, None),
+      bullet = mkPerf(ratings.bullet, None),
+      blitz = mkPerf(ratings.blitz, None),
+      slow = mkPerf(ratings.slow, None),
+      white = mkPerf(ratings.white, None),
+      black = mkPerf(ratings.black, None))
 
     oldUserRepo.engineIds flatMap { engineIds ⇒
       (enumerator |>>> iteratee(engineIds)) flatMap { _ ⇒

@@ -767,10 +767,10 @@ span.progress > .zero {
   color: #afafaf;
 }
 span.progress > .positive {
-  color: #00AA00;
+  color: #44A044;
 }
 span.progress > .negative {
-  color: #AA0000;
+  color: #C04444;
 }
 div.auth input.username, div.auth input.password {
   border: 1px solid #dadada;

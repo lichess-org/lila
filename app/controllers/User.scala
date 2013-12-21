@@ -60,22 +60,40 @@ object User extends LilaController {
   def list(page: Int) = Open { implicit ctx ⇒
     Reasonable(page) {
       val nb = 10
-      env.cached.topProgress(nb) zip
-      env.cached.topRating(nb) zip
-        env.cached.topOnline(nb) zip
-        env.cached.topBullet(nb) zip
-        env.cached.topBlitz(nb) zip
-        env.cached.topSlow(nb) zip
-        env.cached.topNbGame(nb) map {
-          case ((((((progress, rating), online), bullet), blitz), slow), nb) ⇒ html.user.list(
-            progress = progress,
-            rating = rating,
-            online = online,
-            bullet = bullet,
-            blitz = blitz,
-            slow = slow,
-            nb = nb)
+      for {
+        progressDay ← env.cached.topProgressDay(nb)
+        progressWeek ← env.cached.topProgressWeek(nb)
+        progressMonth ← env.cached.topProgressMonth(nb)
+        rating ← env.cached.topRating(nb)
+        ratingDay ← env.cached.topRatingDay(nb)
+        ratingWeek ← env.cached.topRatingWeek(nb)
+        online ← env.cached.topOnline(30)
+        bullet ← env.cached.topBullet(nb)
+        blitz ← env.cached.topBlitz(nb)
+        slow ← env.cached.topSlow(nb)
+        active ← env.cached.topNbGame(nb) map2 { (user: UserModel) ⇒
+          user -> user.count.game
         }
+        activeDay ← Env.game.cached.activePlayerUidsDay(nb) flatMap { pairs ⇒
+          UserRepo.byOrderedIds(pairs.map(_._1)) map (_ zip pairs.map(_._2))
+        }
+        activeWeek ← Env.game.cached.activePlayerUidsWeek(nb) flatMap { pairs ⇒
+          UserRepo.byOrderedIds(pairs.map(_._1)) map (_ zip pairs.map(_._2))
+        }
+      } yield html.user.list(
+        progressDay = progressDay,
+        progressWeek = progressWeek,
+        progressMonth = progressMonth,
+        rating = rating,
+        ratingDay = ratingDay,
+        ratingWeek = ratingWeek,
+        online = online,
+        bullet = bullet,
+        blitz = blitz,
+        slow = slow,
+        nb = active,
+        nbDay = activeDay,
+        nbWeek = activeWeek)
     }
   }
 

@@ -2,6 +2,7 @@ package lila.user
 
 import scala.concurrent.duration._
 
+import org.joda.time.DateTime
 import play.api.libs.json.JsObject
 
 import lila.db.api.$count
@@ -29,9 +30,28 @@ final class Cached(
     maxCapacity = 5000,
     timeToLive = ratingChartTtl)
 
-  private val topListTtl = 1 minute
-  val topProgress = AsyncCache(UserRepo.topProgress, timeToLive = topListTtl)
+  private val topListTtl = 5 minutes
+  // private val topListTtl = 1 second
+  // private val topListSinceTtl = 1 second
+  private def oneDayAgo = DateTime.now minusDays 1
+  private def oneWeekAgo = DateTime.now minusWeeks 1
+  private def oneMonthAgo = DateTime.now minusMonths 1
+  val topProgressDay = AsyncCache(
+    UserRepo.topProgressSince(oneDayAgo),
+    timeToLive = 14 minutes)
+  val topProgressWeek = AsyncCache(
+    UserRepo.topProgressSince(oneWeekAgo),
+    timeToLive = 29 minutes)
+  val topProgressMonth = AsyncCache(
+    UserRepo.topProgressSince(oneMonthAgo),
+    timeToLive = 27 minutes)
   val topRating = AsyncCache(UserRepo.topRating, timeToLive = topListTtl)
+  val topRatingDay = AsyncCache(
+    UserRepo.topRatingSince(oneDayAgo),
+    timeToLive = 13 minutes)
+  val topRatingWeek = AsyncCache(
+    UserRepo.topRatingSince(oneWeekAgo),
+    timeToLive = 28 minutes)
   val topBullet = AsyncCache(UserRepo.topBullet, timeToLive = topListTtl)
   val topBlitz = AsyncCache(UserRepo.topBlitz, timeToLive = topListTtl)
   val topSlow = AsyncCache(UserRepo.topSlow, timeToLive = topListTtl)
