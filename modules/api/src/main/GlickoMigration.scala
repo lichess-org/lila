@@ -52,12 +52,9 @@ object GlickoMigration {
           nb = nb + 1
           if (nb % 1000 == 0) println(nb)
           game.userIds match {
-            case List(uidW, uidB) if (uidW == uidB) ⇒ {
-              gameColl.uncheckedUpdate(
-                BSONDocument("_id" -> game.id),
-                BSONDocument("$unset" -> BSONDocument("ra" -> true)))
-            }
-            case List(uidW, uidB) if isEngine(uidW) || isEngine(uidB) ⇒
+            case _ if game.source.exists(lila.game.Source.Position ==) ⇒ unrate(game)
+            case List(uidW, uidB) if (uidW == uidB)                    ⇒ unrate(game)
+            case List(uidW, uidB) if isEngine(uidW) || isEngine(uidB)  ⇒
             case List(uidW, uidB) ⇒ {
               val ratingsW = ratings.getOrElseUpdate(uidW, mkRatings)
               val ratingsB = ratings.getOrElseUpdate(uidB, mkRatings)
@@ -98,6 +95,16 @@ object GlickoMigration {
           }
         }
       }
+    }
+
+    def unrate(game: Game) {
+      gameColl.uncheckedUpdate(
+        BSONDocument("_id" -> game.id),
+        BSONDocument("$unset" -> BSONDocument(
+          "ra" -> true,
+          "p0.d" -> true,
+          "p1.d" -> true
+        )))
     }
 
     def mkHistory = mutable.ListBuffer(
