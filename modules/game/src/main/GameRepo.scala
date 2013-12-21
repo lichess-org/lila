@@ -132,7 +132,7 @@ trait GameRepo {
 
   def insertDenormalized(game: Game): Funit = {
     val g2 = if (game.rated && game.userIds.distinct.size != 2)
-    game.copy(mode = chess.Mode.Casual) 
+      game.copy(mode = chess.Mode.Casual)
     else game
     val bson = (gameTube.handler write g2) ++ BSONDocument(
       "if" -> g2.variant.exotic.option(Forsyth >> g2.toChess)
@@ -230,36 +230,38 @@ trait GameRepo {
     _.headOption flatMap extractPgnMoves
   } map (~_)
 
-  def recentAverageRating(minutes: Int): Fu[(Int, Int)] = {
-    val command = MapReduce(
-      collectionName = gameTube.coll.name,
-      mapFunction = """function() { 
-        emit(!!this.ra, [this.p0, this.p1]); 
-      }""",
-      reduceFunction = """function(rated, values) {
-  var sum = 0, nb = 0;
-  values.forEach(function(game) {
-    game.forEach(function(player) {
-      if(player && player.e) {
-        sum += player.e; 
-        ++nb;
-      }
-    });
-  });
-  return nb == 0 ? nb : Math.round(sum / nb);
-  }""",
-      query = Some(JsObjectWriter write {
-        Json.obj(
-          BSONFields.createdAt -> $gte($date(DateTime.now - minutes.minutes))
-        ) ++ $or(List(Json.obj("p0.e" -> $exists(true)), Json.obj("p1.e" -> $exists(true))))
-      })
-    )
-    gameTube.coll.db.command(command) map { res ⇒
-      toJSON(res).arr("results").flatMap { r ⇒
-        (r(0) int "value") |@| (r(1) int "value") tupled
-      }
-    } map (~_)
-  }
+  // TODO fixme
+  def recentAverageRating(minutes: Int): Fu[(Int, Int)] = fuccess(0 -> 0)
+  // {
+  //   val command = MapReduce(
+  //     collectionName = gameTube.coll.name,
+  //     mapFunction = """function() {
+  //       emit(!!this.ra, [this.p0, this.p1]);
+  //     }""",
+  //     reduceFunction = """function(rated, values) {
+  // var sum = 0, nb = 0;
+  // values.forEach(function(game) {
+  //   game.forEach(function(player) {
+  //     if(player && player.e) {
+  //       sum += player.e;
+  //       ++nb;
+  //     }
+  //   });
+  // });
+  // return nb == 0 ? nb : Math.round(sum / nb);
+  // }""",
+  //     query = Some(JsObjectWriter write {
+  //       Json.obj(
+  //         BSONFields.createdAt -> $gte($date(DateTime.now - minutes.minutes))
+  //       ) ++ $or(List(Json.obj("p0.e" -> $exists(true)), Json.obj("p1.e" -> $exists(true))))
+  //     })
+  //   )
+  //   gameTube.coll.db.command(command) map { res ⇒
+  //     toJSON(res).arr("results").flatMap { r ⇒
+  //       (r(0) int "value") |@| (r(1) int "value") tupled
+  //     }
+  //   } map (~_)
+  // }
 
   private def extractPgnMoves(doc: BSONDocument) =
     doc.getAs[BSONBinary](BSONFields.binaryPgn) map { bin ⇒
