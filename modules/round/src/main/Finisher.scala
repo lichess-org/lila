@@ -3,6 +3,7 @@ package lila.round
 import chess.Color._
 import chess.Status._
 import chess.{ Status, Color, Speed, Variant }
+
 import lila.db.api._
 import lila.game.tube.gameTube
 import lila.game.{ GameRepo, Game, Pov, Event }
@@ -10,7 +11,6 @@ import lila.hub.actorApi.round._
 import lila.i18n.I18nKey.{ Select ⇒ SelectI18nKey }
 import lila.user.tube.userTube
 import lila.user.{ User, UserRepo }
-import scalaz.{ OptionT, Success }
 
 private[round] final class Finisher(
     tournamentOrganizer: akka.actor.ActorSelection,
@@ -32,8 +32,18 @@ private[round] final class Finisher(
     g = p2.game
     winnerId = winner flatMap (g.player(_).userId)
     _ ← GameRepo.finish(g.id, winner, winnerId) >>
-      PerfsUpdater.save(g) >>-
+      updatePerfs(g) >>-
       (indexer ! lila.game.actorApi.InsertGame(g)) >>-
       (tournamentOrganizer ! FinishGame(g.id))
   } yield p2.events
+
+  private def updatePerfs(game: Game): Funit = ~{
+    (game.player(White).userId |@| game.player(Black).userId) {
+      case (uidW, uidB) ⇒ UserRepo.isEngine(uidW) zip UserRepo.isEngine(uidB) flatMap {
+        case (true, _) if game.winnerColor.exists(White==) ⇒ funit
+        case (_, true) if game.winnerColor.exists(Black==) ⇒ funit
+        case _ ⇒ PerfsUpdater save game
+      }
+    }
+  }
 }

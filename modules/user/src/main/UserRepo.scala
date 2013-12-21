@@ -68,7 +68,7 @@ trait UserRepo {
 
   def setPerfs(user: User, perfs: Perfs) = $update($select(user.id), $setBson(
     "perfs" -> Perfs.tube.handler.write(perfs),
-    "rating" -> BSONInteger { user.engine.fold(Glicko.default, perfs.global.glicko).intRating }
+    "rating" -> BSONInteger(perfs.global.glicko.intRating)
   ))
 
   def setProfile(id: ID, profile: Profile): Funit =
