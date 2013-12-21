@@ -52,7 +52,7 @@ object FriendConfig extends BaseHumanConfig {
 
   val default = FriendConfig(
     variant = variantDefault,
-    clock = true,
+    clock = false,
     time = 5,
     increment = 8,
     mode = Mode.default,
