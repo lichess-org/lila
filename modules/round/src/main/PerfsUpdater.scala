@@ -9,7 +9,10 @@ import lila.user.{ UserRepo, HistoryRepo, HistoryEntry, User, Perf, Perfs, Glick
 
 object PerfsUpdater {
 
-  val system = new RatingCalculator(0.06, 0.75)
+  private val VOLATILITY = Glicko.default.volatility
+  private val TAU = 0.75d
+
+  val system = new RatingCalculator(VOLATILITY, TAU)
 
   def save(game: Game): Funit =
     (game.finished && game.turns >= 2) ?? {
