@@ -115,6 +115,7 @@ db.user4.ensureIndex({enabled:1, 'perfs.blitz.gl.r': -1});
 db.user4.ensureIndex({enabled:1, 'perfs.slow.gl.r': -1});
 db.user4.ensureIndex({enabled:1, 'count.games': -1});
 db.user4.ensureIndex({createdAt: -1});
+db.user4.ensureIndex({progress:-1,enabled:1,'perfs.global.gl.d':-1})
 mongo lichess bin/mongodb/userstats.js
 
 ... and reindex all games in elasticsearch D:

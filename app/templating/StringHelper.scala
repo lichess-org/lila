@@ -48,7 +48,7 @@ trait StringHelper { self: NumberHelper ⇒
 
   private val delocalize = new lila.common.String.Delocalizer(netDomain)
 
-  def showNumber(n: Int): String = (n > 0).fold("+" + n, n.toString)
+  def showNumber(n: Int): String = if (n > 0) s"+$n" else n.toString
 
   implicit def lilaRichString(str: String) = new {
     def active(other: String, one: String = "active") = if (str == other) one else ""
@@ -56,7 +56,7 @@ trait StringHelper { self: NumberHelper ⇒
 
   def when(cond: Boolean, str: String) = cond ?? str
   def strong(x: Int): String = strong(x.toString)
-  def strong(x: String): String = "<strong>" + x + "</strong>"
+  def strong(x: String): String = s"<strong>$x</strong>"
 
   private val NumberFirstRegex = """^(\d+)\s(.+)$""".r
   private val NumberLastRegex = """^(.+)\s(\d+)$""".r

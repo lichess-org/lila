@@ -28,6 +28,7 @@ trait UserRepo {
   def all: Fu[List[User]] = $find.all
 
   def topRating(nb: Int): Fu[List[User]] = $find(goodLadQuery sort sortRatingDesc, nb)
+  def topProgress(nb: Int): Fu[List[User]] = $find(stableGoodLadQuery sort sortProgressDesc, nb)
 
   def topBullet = topPerf("bullet") _
   def topBlitz = topPerf("blitz") _
@@ -66,9 +67,10 @@ trait UserRepo {
 
   def rank(user: User) = $count(enabledSelect ++ Json.obj("rating" -> $gt(Glicko.default.rating))) map (1+)
 
-  def setPerfs(user: User, perfs: Perfs) = $update($select(user.id), $setBson(
+  def setPerfs(user: User, perfs: Perfs, progress: Int) = $update($select(user.id), $setBson(
     "perfs" -> Perfs.tube.handler.write(perfs),
-    "rating" -> BSONInteger(perfs.global.glicko.intRating)
+    "rating" -> BSONInteger(perfs.global.glicko.intRating),
+    "progress" -> BSONInteger(progress)
   ))
 
   def setProfile(id: ID, profile: Profile): Funit =
@@ -76,9 +78,14 @@ trait UserRepo {
 
   val enabledSelect = Json.obj("enabled" -> true)
   val noEngineSelect = Json.obj("engine" -> $ne(true))
-  val goodLadQuery = $query(enabledSelect ++ noEngineSelect)
+  val stableRating = Json.obj("perfs.global.gl.d" -> $lt(100))
+  val goodLadSelect = enabledSelect ++ noEngineSelect
+  val stableGoodLadSelect = enabledSelect ++ noEngineSelect ++ goodLadSelect
+  val goodLadQuery = $query(goodLadSelect)
+  val stableGoodLadQuery = $query(stableGoodLadSelect)
 
   val sortRatingDesc = $sort desc "rating"
+  val sortProgressDesc = $sort desc "progress"
 
   def incNbGames(id: ID, rated: Boolean, ai: Boolean, result: Option[Int]) = {
     val incs = List(
@@ -224,18 +231,20 @@ trait UserRepo {
     implicit def countHandler = Count.tube.handler
     implicit def perfsHandler = Perfs.tube.handler
     import lila.db.BSON.BSONJodaDateTimeHandler
+    import User.BSONFields
 
     BSONDocument(
-      "_id" -> normalize(username),
-      "username" -> username,
+      BSONFields.id -> normalize(username),
+      BSONFields.username -> username,
       "password" -> hash(password, salt),
       "salt" -> salt,
-      "perfs" -> perfs,
-      "rating" -> perfs.global.glicko.intRating,
-      "count" -> Count.default,
-      "enabled" -> true,
-      "createdAt" -> DateTime.now,
-      "seenAt" -> DateTime.now)
+      BSONFields.perfs -> perfs,
+      BSONFields.rating -> perfs.global.glicko.intRating,
+      BSONFields.progress -> 0,
+      BSONFields.count -> Count.default,
+      BSONFields.enabled -> true,
+      BSONFields.createdAt -> DateTime.now,
+      BSONFields.seenAt -> DateTime.now)
   }
 
   private def hash(pass: String, salt: String): String = "%s{%s}".format(pass, salt).sha1

@@ -28,9 +28,17 @@ robots = false,
 evenMoreJs = evenMoreJs) {
 <div class="content_box no_padding user_show">
   <div class="content_box_top">
+    @if(info.rank.map(_._1).exists(1==)) {
+    <img class="best" src="@staticUrl("images/best64.png")" width=64 height=64 title="Best player" />
+    } else {
+    @if(info.rank.exists(r => r._1 < r._2 / 100)) {
+    <img class="trophy" src="@staticUrl("images/trophy64.png")" width=64 height=64 title="Top 1% player" />
+    }
+    }
     <div class="icon status @{isOnline(u.id).??("connected")}"></div>
     <h1 class="lichess_title">@u.username</h1>
     <span class="rating">RATING <strong title="Glicko rating">@u.rating</strong><small title="Glicko rating deviation"> ±@u.perfs.global.glicko.intDeviation</small></span>
+    @showProgress(u.progress)
     @info.rank.map { r =>
     <span class="rank" title="@trans.rank()">RANK <strong>@r._1.localize</strong> / @r._2.localize</span>
     }

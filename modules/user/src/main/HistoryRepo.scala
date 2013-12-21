@@ -35,28 +35,33 @@ object HistoryRepo {
     historyColl.insert(BSONDocument(
       "_id" -> user.id,
       "e" -> BSONArray(write(HistoryEntry(
-        DateTime.now, 
+        DateTime.now,
         user.perfs.global.glicko.intRating,
         user.perfs.global.glicko.intDeviation,
         Glicko.default.intRating)))
     ))
   }
 
-  def userRatings(userId: String): Fu[List[HistoryEntry]] = {
-    val arrayReader = implicitly[BSONReader[_ <: BSONValue, BSONArray]].asInstanceOf[BSONReader[BSONValue, BSONArray]]
-    historyColl.find(BSONDocument("_id" -> userId)).one[BSONDocument] map { historyOption ⇒
-      ~(for {
-        history ← historyOption
-        entries ← history.getAs[BSONArray]("e")
-        stream = entries.values map arrayReader.readOpt
-        elems = stream collect {
-          case Some(array) ⇒ HistoryEntry(
-            new DateTime(~array.getAs[Int](0) * 1000l),
-            ~array.getAs[Int](1),
-            ~array.getAs[Int](2),
-            ~array.getAs[Int](3))
-        }
-      } yield elems.toList)
-    }
+  private val arrayReader = implicitly[BSONReader[_ <: BSONValue, BSONArray]].asInstanceOf[BSONReader[BSONValue, BSONArray]]
+  def userRatings(userId: String, slice: Option[Int] = None): Fu[List[HistoryEntry]] = {
+    historyColl.find(
+      BSONDocument("_id" -> userId),
+      BSONDocument("_id" -> false) ++ slice.fold(BSONDocument()) { s ⇒
+        BSONDocument("e" -> BSONDocument("$slice" -> s))
+      }
+    ).one[BSONDocument] map { historyOption ⇒
+        ~(for {
+          history ← historyOption
+          entries ← history.getAs[BSONArray]("e")
+          stream = entries.values map arrayReader.readOpt
+          elems = stream collect {
+            case Some(array) ⇒ HistoryEntry(
+              new DateTime(~array.getAs[Int](0) * 1000l),
+              ~array.getAs[Int](1),
+              ~array.getAs[Int](2),
+              ~array.getAs[Int](3))
+          }
+        } yield elems.toList)
+      }
   }
 }

@@ -9,6 +9,7 @@ case class User(
     id: String,
     username: String,
     rating: Int,
+    progress: Int,
     perfs: Perfs,
     count: Count,
     troll: Boolean = false,
@@ -65,6 +66,7 @@ object User {
     val id = "_id"
     val username = "username"
     val rating = "rating"
+    val progress = "progress"
     val perfs = "perfs"
     val count = "count"
     val troll = "troll"
@@ -95,6 +97,7 @@ object User {
       id = r str id,
       username = r str username,
       rating = r nInt rating,
+      progress = r intD progress,
       perfs = r.getO[Perfs](perfs) | Perfs.default,
       count = r.get[Count](count),
       troll = r boolD troll,
@@ -112,6 +115,7 @@ object User {
       id -> o.id,
       username -> o.username,
       rating -> w.int(o.rating),
+      progress -> w.int(o.progress),
       perfs -> o.perfs,
       count -> o.count,
       troll -> w.boolO(o.troll),

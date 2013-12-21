@@ -14,7 +14,7 @@ import lila.db.api._
 import lila.db.Implicits._
 import lila.game.Game
 import lila.game.Game.{ BSONFields ⇒ G }
-import lila.round.PerfsUpdater.{ Ratings, resultOf, updateRatings, mkPerfs, system }
+import lila.round.PerfsUpdater.{ Ratings, resultOf, updateRatings, mkPerfs, system, makeProgress }
 import lila.user.{ User, UserRepo, HistoryRepo, Glicko, GlickoEngine, Perfs, Perf, HistoryEntry }
 
 object GlickoMigration {
@@ -30,7 +30,7 @@ object GlickoMigration {
     }
     val gameColl = lila.game.tube.gameTube.coll
     val limit = Int.MaxValue
-    // val limit = 300000
+    // val limit = 100000
     // val limit = 1000
     var nb = 0
 
@@ -121,11 +121,14 @@ object GlickoMigration {
         oldUserColl.genericQueryBuilder.cursor[BSONDocument].enumerate() |>>> Iteratee.foreach[BSONDocument] { user ⇒
           user.getAs[String]("_id") foreach { id ⇒
             val perfs = userPerfs get id getOrElse Perfs.default
-            userTube.coll insert {
-              writeDoc(user, Set("elo", "variantElos", "speedElos")) ++ BSONDocument(
-                User.BSONFields.perfs -> lila.user.Perfs.tube.handler.write(perfs),
-                User.BSONFields.rating -> perfs.global.glicko.intRating
-              )
+            makeProgress(id) foreach { progress ⇒
+              userTube.coll insert {
+                writeDoc(user, Set("elo", "variantElos", "speedElos")) ++ BSONDocument(
+                  User.BSONFields.perfs -> lila.user.Perfs.tube.handler.write(perfs),
+                  User.BSONFields.rating -> perfs.global.glicko.intRating,
+                  User.BSONFields.progress -> progress
+                )
+              }
             }
           }
         }
@@ -145,8 +148,8 @@ object GlickoMigration {
     oldUserRepo.engineIds flatMap { engineIds ⇒
       (enumerator |>>> iteratee(engineIds)) flatMap { _ ⇒
         val perfs = (ratings mapValues mkPerfs).toMap
-        updateUsers(perfs) flatMap { _ ⇒
-          updateHistories(histories) map { _ ⇒
+        updateHistories(histories) flatMap { _ ⇒
+          updateUsers(perfs) map { _ ⇒
             println("Done!")
             "done"
           }

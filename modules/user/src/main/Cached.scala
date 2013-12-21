@@ -30,6 +30,7 @@ final class Cached(
     timeToLive = ratingChartTtl)
 
   private val topListTtl = 1 minute
+  val topProgress = AsyncCache(UserRepo.topProgress, timeToLive = topListTtl)
   val topRating = AsyncCache(UserRepo.topRating, timeToLive = topListTtl)
   val topBullet = AsyncCache(UserRepo.topBullet, timeToLive = topListTtl)
   val topBlitz = AsyncCache(UserRepo.topBlitz, timeToLive = topListTtl)

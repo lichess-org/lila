@@ -41,13 +41,11 @@ object PerfsUpdater {
             }
             val perfsW = mkPerfs(ratingsW)
             val perfsB = mkPerfs(ratingsB)
-            (UserRepo.setPerfs(white, perfsW) zip
-              UserRepo.setPerfs(black, perfsB) zip
-              HistoryRepo.addEntry(white.id, HistoryEntry(
-                DateTime.now,
-                perfsW.global.glicko.intRating,
-                perfsW.global.glicko.intDeviation,
-                black.perfs.global.glicko.intRating)) zip
+            (HistoryRepo.addEntry(white.id, HistoryEntry(
+              DateTime.now,
+              perfsW.global.glicko.intRating,
+              perfsW.global.glicko.intDeviation,
+              black.perfs.global.glicko.intRating)) zip
               HistoryRepo.addEntry(black.id, HistoryEntry(
                 DateTime.now,
                 perfsB.global.glicko.intRating,
@@ -55,7 +53,12 @@ object PerfsUpdater {
                 white.perfs.global.glicko.intRating)) zip
               GameRepo.setRatingDiffs(game.id,
                 perfsW.global.glicko.intRating - white.perfs.global.glicko.intRating,
-                perfsB.global.glicko.intRating - black.perfs.global.glicko.intRating))
+                perfsB.global.glicko.intRating - black.perfs.global.glicko.intRating)) >> {
+                  (makeProgress(white.id) zip makeProgress(black.id)) flatMap {
+                    case (proW, proB) ⇒
+                      (UserRepo.setPerfs(white, perfsW, proW) zip UserRepo.setPerfs(black, perfsB, proB))
+                  }
+                }
           }
           case _ ⇒ funit
         }) >>
@@ -73,6 +76,13 @@ object PerfsUpdater {
     val slow: Rating,
     val white: Rating,
     val black: Rating)
+
+  def makeProgress(userId: String): Fu[Int] =
+    HistoryRepo.userRatings(userId, -10.some) map { entries ⇒
+      ~((entries.headOption |@| entries.lastOption) {
+        case (head, last) ⇒ last.rating - head.rating
+      })
+    }
 
   private def incNbGames(game: Game, user: User): Funit =
     UserRepo.incNbGames(user.id, game.rated, game.hasAi,
