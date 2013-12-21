@@ -14,7 +14,7 @@
   case (name, perf) => {
   <div class="sub_ratings">
     <h3>@name.toUpperCase</h3>
-    <strong>@perf.glicko.intRating</strong> / @perf.nb.localize @trans.games()
+    <strong title="Glicko rating">@perf.glicko.intRating</strong><small title="Glicko rating deviation"> ±@perf.glicko.intDeviation</small> / @perf.nb.localize @trans.games()
   </div>
   }
   }
@@ -30,7 +30,7 @@ evenMoreJs = evenMoreJs) {
   <div class="content_box_top">
     <div class="icon status @{isOnline(u.id).??("connected")}"></div>
     <h1 class="lichess_title">@u.username</h1>
-    <span class="rating">RATING <strong>@u.rating</strong></span>
+    <span class="rating">RATING <strong title="Glicko rating">@u.rating</strong><small title="Glicko rating deviation"> ±@u.perfs.global.glicko.intDeviation</small></span>
     @info.rank.map { r =>
     <span class="rank" title="@trans.rank()">RANK <strong>@r._1.localize</strong> / @r._2.localize</span>
     }
