@@ -97,16 +97,12 @@ improve AI cheat detection (not only game start)
   can't search for anon games
   user profile tab for imported games http://en.lichess.org/inbox/zevof2tu#bottom
 analysis board (see chess.com)
-1 game played, rating slow!=standard http://en.lichess.org/@/fuckface/all
 watcher game sounds only on first color
-up ratings by 300 -> closer to FICS
 premove castle queenside is broken
 wrong analysis = move 9 should be a blunder http://en.lichess.org/analyse/pf3rufgk/black
-spectator waiting friend game becomes player
 check "continue from position" #lichess
 from position + clock = fail (due to turns != played turns)
 streamed export of PGN http://en.lichess.org/forum/lichess-feedback/download-all-games#5
-mongodb aggregation TypeError: Object 1133 has no method 'forEach' near 'game.forEach(function(player)
 
 --- deploy
 
