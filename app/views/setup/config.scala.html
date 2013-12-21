@@ -1,15 +1,19 @@
-@(form: Form[_], typ: String, title: Html, route: Call, fields: Html)(implicit ctx: Context)
+@(form: Form[_], typ: String, title: Html, route: Call, fields: Html, error: Option[String] = None)(implicit ctx: Context)
 
 <div class="lichess_overboard auto_center game_config game_config_@typ">
-	<h2>@title</h2>
-	<div class="game_config_form">
-		@helper.form(action = route, 'novalidate -> "novalidate") {
-		@fields
-		<div class="color_submits">
+  <h2>@title</h2>
+  @error.map { e =>
+  <p class="error">@e</p>
+  }.getOrElse {
+  <div class="game_config_form">
+    @helper.form(action = route, 'novalidate -> "novalidate") {
+    @fields
+    <div class="color_submits">
       @List("black" -> trans.black(), "random" -> trans.randomColor(), "white" -> trans.white()).map { color =>
-			<button title="@color._2" type="submit" class="submit @color._1" name="@form("color").id" value="@color._1"></button>
-			}
-		</div>
-		}
-	</div>
+      <button title="@color._2" type="submit" class="submit @color._1" name="@form("color").id" value="@color._1"></button>
+      }
+    </div>
+    }
+  </div>
+  }
 </div>

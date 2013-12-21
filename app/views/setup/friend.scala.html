@@ -1,4 +1,4 @@
-@(form: Form[_], username: Option[String])(implicit ctx: Context)
+@(form: Form[_], username: Option[String], error: Option[String])(implicit ctx: Context)
 
 @import lila.setup.FriendConfig
 
@@ -23,4 +23,5 @@ form,
 "friend",
 username.isDefined.fold(trans.challengeToPlay, trans.playWithAFriend)(),
 routes.Setup.friend(username),
-fields)
+fields,
+error)
