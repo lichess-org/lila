@@ -27,8 +27,8 @@ object Lobby extends LilaController {
       tours = TournamentRepo.createdUnprotected,
       filter = Env.setup.filter
     ).map(_.fold(Redirect(_), {
-        case (preload, entries, gameEntries, posts, tours, featured) ⇒ status(html.lobby.home(
-          Json stringify preload, entries, gameEntries, posts, tours, featured)) |> { response ⇒
+        case (preload, entries, gameEntries, posts, tours, featured, leaderboard) ⇒ status(html.lobby.home(
+          Json stringify preload, entries, gameEntries, posts, tours, featured, leaderboard)) |> { response ⇒
           ctx.req.session.data.contains(LilaCookie.sessionId).fold(
             response,
             response withCookies LilaCookie.makeSessionId(ctx.req)

@@ -263,13 +263,20 @@ div.lichess_table.spectator {
 }
 div.lichess_table_not_started {
   position: absolute;
-  top: 176px;
+  top: 100px;
   left: 0px;
   width: 242px;
   box-shadow: none;
   border: none;
   padding: 0;
-  top: 100px;
+}
+div.lichess_homepage div.leaderboard {
+  position: absolute;
+  top: 514px;
+  width: 242px;
+}
+div.lichess_homepage div.leaderboard div.undertable_inner {
+  height: auto;
 }
 div.lichess_table div.username {
   padding-left: 16px;
