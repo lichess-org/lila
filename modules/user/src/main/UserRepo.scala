@@ -27,8 +27,16 @@ trait UserRepo {
 
   def all: Fu[List[User]] = $find.all
 
-  def topRating(nb: Int): Fu[List[User]] = $find(goodLadQuery sort sortRatingDesc, nb)
-  def topProgress(nb: Int): Fu[List[User]] = $find(stableGoodLadQuery sort sortProgressDesc, nb)
+  def topRating(nb: Int): Fu[List[User]] =
+    $find(goodLadQuery sort sortRatingDesc, nb)
+  def topRatingSince(since: DateTime)(nb: Int): Fu[List[User]] =
+    $find($query(goodLadSelect ++ perfSince("global", since)) sort sortRatingDesc, nb)
+
+  def topProgress(nb: Int): Fu[List[User]] =
+    $find($query(stableGoodLadSelect) sort sortProgressDesc, nb)
+
+  def topProgressSince(since: DateTime)(nb: Int): Fu[List[User]] =
+    $find($query(stableGoodLadSelect ++ perfSince("global", since)) sort sortProgressDesc, nb)
 
   def topBullet = topPerf("bullet") _
   def topBlitz = topPerf("blitz") _
@@ -81,8 +89,10 @@ trait UserRepo {
   val stableSelect = Json.obj("perfs.global.gl.d" -> $lt(100))
   val goodLadSelect = enabledSelect ++ noEngineSelect
   val stableGoodLadSelect = stableSelect ++ goodLadSelect
+  def perfSince(perf: String, since: DateTime) = Json.obj(
+    s"perfs.$perf.la" -> Json.obj("$gt" -> $date(since))
+  )
   val goodLadQuery = $query(goodLadSelect)
-  val stableGoodLadQuery = $query(stableGoodLadSelect)
 
   val sortRatingDesc = $sort desc "rating"
   val sortProgressDesc = $sort desc "progress"

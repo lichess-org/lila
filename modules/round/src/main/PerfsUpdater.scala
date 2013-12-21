@@ -4,8 +4,9 @@ import org.goochjs.glicko2._
 import org.joda.time.DateTime
 import play.api.Logger
 
-import lila.game.{ GameRepo, Game }
+import lila.game.{ GameRepo, Game, Pov }
 import lila.user.{ UserRepo, HistoryRepo, HistoryEntry, User, Perf, Perfs, Glicko }
+import chess.Speed
 
 object PerfsUpdater {
 
@@ -39,8 +40,8 @@ object PerfsUpdater {
               case chess.Speed.Slow | chess.Speed.Unlimited ⇒
                 updateRatings(ratingsW.slow, ratingsB.slow, result, system)
             }
-            val perfsW = mkPerfs(ratingsW)
-            val perfsB = mkPerfs(ratingsB)
+            val perfsW = mkPerfs(ratingsW, white.perfs, Pov white game)
+            val perfsB = mkPerfs(ratingsB, black.perfs, Pov black game)
             (HistoryRepo.addEntry(white.id, HistoryEntry(
               DateTime.now,
               perfsW.global.glicko.intRating,
@@ -128,21 +129,23 @@ object PerfsUpdater {
     }
   }
 
-  private implicit def mkPerf(rating: Rating): Perf = Perf(
+  def mkPerf(rating: Rating, latest: Option[DateTime]): Perf = Perf(
     Glicko(rating.getRating, rating.getRatingDeviation, rating.getVolatility),
-    nb = rating.getNumberOfResults
-  )
+    nb = rating.getNumberOfResults,
+    latest = latest)
 
-  def mkPerfs(ratings: Ratings): Perfs = {
-    Perfs(
-      global = ratings.global,
-      standard = ratings.standard,
-      chess960 = ratings.chess960,
-      bullet = ratings.bullet,
-      blitz = ratings.blitz,
-      slow = ratings.slow,
-      white = ratings.white,
-      black = ratings.black)
+  def mkPerfs(ratings: Ratings, perfs: Perfs, pov: Pov): Perfs = {
+    import pov._
+    val speed = chess.Speed(game.clock)
+    perfs.copy(
+      global = mkPerf(ratings.global, game.createdAt.some),
+      standard = mkPerf(ratings.standard, game.variant.standard ? game.createdAt.some | perfs.standard.latest),
+      chess960 = mkPerf(ratings.chess960, game.variant.chess960 ? game.createdAt.some | perfs.standard.latest),
+      bullet = mkPerf(ratings.bullet, (speed == Speed.Bullet) ? game.createdAt.some | perfs.bullet.latest),
+      blitz = mkPerf(ratings.blitz,  (speed == Speed.Blitz) ? game.createdAt.some | perfs.blitz.latest),
+      slow = mkPerf(ratings.slow,  (speed == Speed.Slow || speed == Speed.Unlimited) ? game.createdAt.some | perfs.slow.latest),
+      white = mkPerf(ratings.white, color.white ? game.createdAt.some | perfs.white.latest),
+      black = mkPerf(ratings.black, color.black ? game.createdAt.some | perfs.white.latest))
   }
 
   private def logger = play.api.Logger("PerfsUpdater")

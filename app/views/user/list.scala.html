@@ -1,36 +1,57 @@
-@(progress: List[User], rating: List[User], online: List[User], bullet: List[User], blitz: List[User], slow: List[User], nb: List[User])(implicit ctx: Context)
+@(progressDay: List[User], progressWeek: List[User], progressMonth: List[User], rating: List[User], ratingDay: List[User], ratingWeek: List[User], online: List[User], bullet: List[User], blitz: List[User], slow: List[User], nb: List[(User, Int)], nbDay: List[(User, Int)], nbWeek: List[(User, Int)])(implicit ctx: Context)
 
 @goodies = {
 <div class="goodies">
   <form class="search_user_form" action="@routes.User.show("")">
     <input placeholder="@trans.search()" class="search_user autocomplete" data-provider="@routes.User.autocomplete" />
   </form>
-</div>
-}
 
-@onlineLink = {
-<a href="@routes.User.online" title="@trans.more()">Best players online</a>
+  <div class="user_lists">
+    @user.top(online, "Online players") { u =>
+    <td>@u.rating</td>
+    <td>@showProgress(u.progress)</td>
+    }
+    <a class="more" href="@routes.User.online" title="@trans.more()">@trans.more() »</a>
+  </div>
+</div>
 }
 
 @user.layout(trans.chessPlayers.str(), goodies = goodies.some) {
 <div class="content_box">
   <div class="user_lists clearfix">
-    @user.top(progress, "Best progress") { u =>
+    @user.top(progressDay, "Progress today") { u =>
     <td>@u.rating</td>
     <td>@showProgress(u.progress)</td>
     }
-    @user.top(rating, "Best players ever") { u =>
+    @user.top(ratingDay, "Leaderboard today") { u =>
     <td>@u.rating</td>
     <td>@showProgress(u.progress)</td>
     }
-    @user.top(online, onlineLink, true) { u =>
+    @user.topActive(nbDay, "Active today", true)
+
+    @user.top(progressWeek, "Progress this week") { u =>
     <td>@u.rating</td>
     <td>@showProgress(u.progress)</td>
     }
-    @user.top(nb, "Active players")(u => s"#${u.count.game.localize}")
+    @user.top(ratingWeek, "Leaderboard this week") { u =>
+    <td>@u.rating</td>
+    <td>@showProgress(u.progress)</td>
+    }
+    @user.topActive(nbWeek, "Active this week", true)
+
+    @user.top(progressMonth, "Progress this month") { u =>
+    <td>@u.rating</td>
+    <td>@showProgress(u.progress)</td>
+    }
+    @user.top(rating, "Leaderboard") { u =>
+    <td>@u.rating</td>
+    <td>@showProgress(u.progress)</td>
+    }
+    @user.topActive(nb, "Active players", true)
+
     @user.top(bullet, "Best bullet players")(_.perfs.bullet.glicko.intRating)
-    @user.top(blitz, "Best blitz players", true)(_.perfs.blitz.glicko.intRating)
-    @user.top(slow, "Best slow players")(_.perfs.slow.glicko.intRating)
+    @user.top(blitz, "Best blitz players")(_.perfs.blitz.glicko.intRating)
+    @user.top(slow, "Best slow players", true)(_.perfs.slow.glicko.intRating)
   </div>
 </div>
 }

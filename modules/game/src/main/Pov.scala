@@ -19,7 +19,7 @@ case class Pov(game: Game, color: Color) {
   def unary_! = Pov(game, !color)
 
   def isPlayerFullId(fullId: Option[String]): Boolean =
-    fullId ?? { game.isPlayerFullId(player, _) } 
+    fullId ?? { game.isPlayerFullId(player, _) }
 
   def ref = PovRef(game.id, color)
 
@@ -34,6 +34,8 @@ object Pov {
 
   def first(game: Game) = apply(game, game.firstPlayer)
   def second(game: Game) = apply(game, game.secondPlayer)
+  def white(game: Game) = apply(game, game.whitePlayer)
+  def black(game: Game) = apply(game, game.blackPlayer)
 
   def apply(game: Game, player: Player) = new Pov(game, player.color)
 

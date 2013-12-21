@@ -4,12 +4,12 @@
   <h2>@title</h2>
   <table>
     <tbody>
-    @users.map { u =>
-    <tr>
-      <td>@userLink(u, withRating = false, cssClass="revert-underline".some)</td>
-      <td>@f(u)</td>
-    </tr>
-    }
+      @users.map { u =>
+      <tr>
+        <td>@userLink(u, withRating = false, cssClass="revert-underline".some)</td>
+        <td>@f(u)</td>
+      </tr>
+      }
     </tbody>
   </table>
 </div>

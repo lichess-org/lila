@@ -230,6 +230,34 @@ trait GameRepo {
     _.headOption flatMap extractPgnMoves
   } map (~_)
 
+  def activePlayersSince(since: DateTime)(nb: Int): Fu[List[(String, Int)]] = {
+    import reactivemongo.bson._
+    import reactivemongo.core.commands._
+    import lila.db.BSON.BSONJodaDateTimeHandler
+    val command = Aggregate(gameTube.coll.name, Seq(
+      Match(BSONDocument(
+        BSONFields.createdAt -> BSONDocument("$gt" -> since),
+        BSONFields.status -> BSONDocument("$gte" -> chess.Status.Mate.id),
+        s"${BSONFields.playerUids}.0" -> BSONDocument("$exists" -> true)
+      )),
+      Unwind(BSONFields.playerUids),
+      Match(BSONDocument(
+        BSONFields.playerUids -> BSONDocument("$ne" -> "")
+      )),
+      GroupField(Game.BSONFields.winnerId)("nb" -> SumValue(1)),
+      Sort(Seq(Descending("nb")))
+    ))
+    gameTube.coll.db.command(command) map { stream ⇒
+      (stream.toList map { obj ⇒
+        toJSON(obj).asOpt[JsObject] flatMap { o ⇒
+          o int "nb" map { nb ⇒
+            ~(o str "_id") -> nb
+          }
+        }
+      }).flatten
+    }
+  }
+
   // TODO fixme
   def recentAverageRating(minutes: Int): Fu[(Int, Int)] = fuccess(0 -> 0)
   // {

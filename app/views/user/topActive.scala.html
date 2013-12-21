@@ -1,0 +1,15 @@
+@(users: List[(User, Int)], title: Any, last: Boolean = false)(implicit ctx: Context)
+
+<div class="user_top@{ last.??(" last") }">
+  <h2>@title</h2>
+  <table>
+    <tbody>
+      @users.map { u =>
+      <tr>
+        <td>@userLink(u._1, withRating = false, cssClass="revert-underline".some)</td>
+        <td><span title="Number of games played">#@u._2.localize</span></td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
