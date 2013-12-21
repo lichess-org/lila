@@ -78,9 +78,9 @@ trait UserRepo {
 
   val enabledSelect = Json.obj("enabled" -> true)
   val noEngineSelect = Json.obj("engine" -> $ne(true))
-  val stableRating = Json.obj("perfs.global.gl.d" -> $lt(100))
+  val stableSelect = Json.obj("perfs.global.gl.d" -> $lt(100))
   val goodLadSelect = enabledSelect ++ noEngineSelect
-  val stableGoodLadSelect = enabledSelect ++ noEngineSelect ++ goodLadSelect
+  val stableGoodLadSelect = stableSelect ++ goodLadSelect
   val goodLadQuery = $query(goodLadSelect)
   val stableGoodLadQuery = $query(stableGoodLadSelect)
 
