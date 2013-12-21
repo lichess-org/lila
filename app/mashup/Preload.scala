@@ -24,10 +24,11 @@ final class Preload(
     history: History,
     featured: Featured,
     relations: RelationApi,
+    leaderboard: Int => Fu[List[User]],
     recentGames: () ⇒ Fu[List[GameEntry]],
     timelineEntries: String ⇒ Fu[List[Entry]]) {
 
-  private type RightResponse = (JsObject, List[Entry], List[GameEntry], List[PostLiteView], List[Created], Option[Game])
+  private type RightResponse = (JsObject, List[Entry], List[GameEntry], List[PostLiteView], List[Created], Option[Game], List[User])
   private type Response = Either[Call, RightResponse]
 
   def apply(
@@ -41,13 +42,14 @@ final class Preload(
       featured.one zip
       (ctx.userId ?? relations.blocks) zip
       (ctx.userId ?? timelineEntries) zip
+      leaderboard(10) zip
       filter map {
-        case (((((((hooks, gameEntries), posts), tours), feat), blocks), entries), filter) ⇒
+        case ((((((((hooks, gameEntries), posts), tours), feat), blocks), entries), leaderboard), filter) ⇒
           (Right((Json.obj(
             "version" -> history.version,
             "pool" -> JsArray(hooks map (_.render)),
             "filter" -> filter.render,
             "blocks" -> blocks
-          ), entries, gameEntries, posts, tours, feat)))
+          ), entries, gameEntries, posts, tours, feat, leaderboard)))
       }
 }

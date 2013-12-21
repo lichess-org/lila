@@ -19,39 +19,21 @@
 @user.layout(trans.chessPlayers.str(), goodies = goodies.some) {
 <div class="content_box">
   <div class="user_lists clearfix">
-    @user.top(progressDay, "Progress today") { u =>
-    <td>@u.rating</td>
-    <td>@showProgress(u.progress)</td>
-    }
-    @user.top(ratingDay, "Leaderboard today") { u =>
-    <td>@u.rating</td>
-    <td>@showProgress(u.progress)</td>
-    }
+    @user.topLeader(progressDay, "Progress today")
+    @user.topLeader(ratingDay, "Leaderboard today")
     @user.topActive(nbDay, "Active today", true)
 
-    @user.top(progressWeek, "Progress this week") { u =>
-    <td>@u.rating</td>
-    <td>@showProgress(u.progress)</td>
-    }
-    @user.top(ratingWeek, "Leaderboard this week") { u =>
-    <td>@u.rating</td>
-    <td>@showProgress(u.progress)</td>
-    }
+    @user.topLeader(progressWeek, "Progress this week")
+    @user.topLeader(ratingWeek, "Leaderboard this week")
     @user.topActive(nbWeek, "Active this week", true)
 
-    @user.top(progressMonth, "Progress this month") { u =>
-    <td>@u.rating</td>
-    <td>@showProgress(u.progress)</td>
-    }
-    @user.top(rating, "Leaderboard") { u =>
-    <td>@u.rating</td>
-    <td>@showProgress(u.progress)</td>
-    }
+    @user.topLeader(progressMonth, "Progress this month")
+    @user.topLeader(rating, "Leaderboard")
     @user.topActive(nb, "Active players", true)
 
-    @user.top(bullet, "Best bullet players")(_.perfs.bullet.glicko.intRating)
-    @user.top(blitz, "Best blitz players")(_.perfs.blitz.glicko.intRating)
-    @user.top(slow, "Best slow players", true)(_.perfs.slow.glicko.intRating)
+    @user.top(bullet, "Best bullet players")(u => Html(s"<td>${u.perfs.bullet.glicko.intRating}</td>"))
+    @user.top(blitz, "Best blitz players")(u => Html(s"<td>${u.perfs.blitz.glicko.intRating}</td>"))
+    @user.top(slow, "Best slow players", true)(u => Html(s"<td>${u.perfs.slow.glicko.intRating}</td>"))
   </div>
 </div>
 }

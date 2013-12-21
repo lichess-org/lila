@@ -1,0 +1,5 @@
+@(users: List[User], title: Any, last: Boolean = false)(implicit ctx: Context)
+@user.top(users, title) { u =>
+<td>@u.rating</td>
+<td>@showProgress(u.progress)</td>
+}
