@@ -54,7 +54,7 @@ object GlickoMigration {
           game.userIds match {
             case _ if game.source.exists(lila.game.Source.Position ==) ⇒ unrate(game)
             case List(uidW, uidB) if (uidW == uidB)                    ⇒ unrate(game)
-            case List(uidW, uidB) if isEngine(uidW) || isEngine(uidB)  ⇒
+            case List(uidW, uidB) if isEngine(uidW) || isEngine(uidB)  ⇒ unrate(game)
             case List(uidW, uidB) ⇒ {
               val ratingsW = ratings.getOrElseUpdate(uidW, mkRatings)
               val ratingsB = ratings.getOrElseUpdate(uidB, mkRatings)
@@ -119,14 +119,14 @@ object GlickoMigration {
     def updateUsers(userPerfs: Map[String, Perfs]): Future[Unit] = lila.user.tube.userTube |> { implicit userTube ⇒
       userTube.coll.drop() flatMap { _ ⇒
         oldUserColl.genericQueryBuilder.cursor[BSONDocument].enumerate() |>>> Iteratee.foreach[BSONDocument] { user ⇒
-          for {
-            id ← user.getAs[String]("_id")
-            perfs ← userPerfs get id
-          } userTube.coll insert {
-            writeDoc(user, Set("elo", "variantElos", "speedElos")) ++ BSONDocument(
-              User.BSONFields.perfs -> lila.user.Perfs.tube.handler.write(perfs),
-              User.BSONFields.rating -> perfs.global.glicko.intRating
-            )
+          user.getAs[String]("_id") foreach { id ⇒
+            val perfs = userPerfs get id getOrElse Perfs.default
+            userTube.coll insert {
+              writeDoc(user, Set("elo", "variantElos", "speedElos")) ++ BSONDocument(
+                User.BSONFields.perfs -> lila.user.Perfs.tube.handler.write(perfs),
+                User.BSONFields.rating -> perfs.global.glicko.intRating
+              )
+            }
           }
         }
       }
