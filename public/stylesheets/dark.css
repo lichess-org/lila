@@ -33,6 +33,12 @@ body.dark #top ul.language_links a.accepted {
 body.dark #site_title, body.dark #timeline a, body.dark #site_baseline, body.dark div.lichess_chat span, body.dark div.lichess_chat a.user_link, body.dark div.lichess_chat a.user_link, body.dark div.new_posts li span, body.dark #team .forum a.user_link, body.dark span.board_mark, body.dark div.user_show div.content_box_top > span, body.dark #timeline time, body.dark span.progress > .zero {
   color: #777;
 }
+body.dark span.progress > .negative {
+  color: #C04444;
+}
+body.dark span.progress > .positive {
+  color: #308030;
+}
 body.dark #site_title span.extension, body.dark div.sub_ratings h3 {
   color: #606060;
 }
