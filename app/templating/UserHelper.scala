@@ -1,13 +1,22 @@
 package lila.app
 package templating
 
+import controllers.routes
+import mashup._
 import play.api.templates.Html
 
-import controllers.routes
 import lila.user.{ User, Context }
-import mashup._
 
 trait UserHelper { self: I18nHelper with StringHelper ⇒
+
+  def showProgress(progress: Int) = Html {
+    val span = progress match {
+      case 0          ⇒ s"""<span class="zero">=</span>"""
+      case p if p > 0 ⇒ s"""<span class="positive">$p↗</span>"""
+      case p if p < 0 ⇒ s"""<span class="negative">${math.abs(p)}↘</span>"""
+    }
+    s"""<span class="progress">$span</span>"""
+  }
 
   def userIdToUsername(userId: String): String =
     (Env.user usernameOrAnonymous userId).await
@@ -71,13 +80,14 @@ trait UserHelper { self: I18nHelper with StringHelper ⇒
     user: User,
     cssClass: Option[String] = None,
     withRating: Boolean = true,
+    withProgress: Boolean = false,
     withOnline: Boolean = true,
     text: Option[String] = None) = Html {
-    """<a %s %s>%s</a>""".format(
-      userClass(user.id, cssClass, withOnline),
-      userHref(user.username),
-      text | withRating.fold(user.usernameWithRating, user.username)
-    )
+    val klass = userClass(user.id, cssClass, withOnline)
+    val href = userHref(user.username)
+    val content = text | withRating.fold(user.usernameWithRating, user.username)
+    val progress = withProgress ?? (" " + showProgress(user.progress))
+    s"""<a $klass $href>$content$progress</a>"""
   }
 
   def userInfosLink(

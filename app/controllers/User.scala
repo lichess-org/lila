@@ -59,14 +59,16 @@ object User extends LilaController {
 
   def list(page: Int) = Open { implicit ctx ⇒
     Reasonable(page) {
-      val nb = 15
+      val nb = 10
+      env.cached.topProgress(nb) zip
       env.cached.topRating(nb) zip
         env.cached.topOnline(nb) zip
         env.cached.topBullet(nb) zip
         env.cached.topBlitz(nb) zip
         env.cached.topSlow(nb) zip
         env.cached.topNbGame(nb) map {
-          case (((((rating, online), bullet), blitz), slow), nb) ⇒ html.user.list(
+          case ((((((progress, rating), online), bullet), blitz), slow), nb) ⇒ html.user.list(
+            progress = progress,
             rating = rating,
             online = online,
             bullet = bullet,

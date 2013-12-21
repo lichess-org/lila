@@ -763,6 +763,15 @@ form.wide input[type="text"], form.wide textarea {
   border-top: none;
   z-index: 1;
 }
+span.progress > .zero {
+  color: #afafaf;
+}
+span.progress > .positive {
+  color: #00AA00;
+}
+span.progress > .negative {
+  color: #AA0000;
+}
 div.auth input.username, div.auth input.password {
   border: 1px solid #dadada;
   padding: 2px 3px;
