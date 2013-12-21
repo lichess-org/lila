@@ -13,10 +13,15 @@ private[ai] object DNSLookup {
 
   def apply(url: String): Fu[AiHost] = cache(url)
 
-  private def lookupInFuture(url: String): Fu[AiHost] = Future { 
+  private def lookupInFuture(url: String): Fu[AiHost] = Future {
     val host = new java.net.URL(url).getHost
     lookup(host).headOption map { AiHost(host, _) }
-  } flatten s"Can't lookup $url IP address"
+  } flatten s"Can't lookup $url IP address" recover {
+    case e: Exception ⇒ {
+      play.api.Logger("ai").warn(e.getMessage)
+      AiHost("dns-fail", "127.0.0.1")
+    }
+  }
 
   // based on http://ujihisa.blogspot.fr/2012/09/dns-lookup-in-scala.html
   private def lookup(host: String): List[String] = {
