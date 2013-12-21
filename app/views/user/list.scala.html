@@ -15,9 +15,18 @@
 @user.layout(trans.chessPlayers.str(), goodies = goodies.some) {
 <div class="content_box">
   <div class="user_lists clearfix">
-    @user.top(progress, "Best progress")(_.rating)
-    @user.top(rating, "Best players ever")(_.rating)
-    @user.top(online, onlineLink, true)(_.rating)
+    @user.top(progress, "Best progress") { u =>
+    <td>@u.rating</td>
+    <td>@showProgress(u.progress)</td>
+    }
+    @user.top(rating, "Best players ever") { u =>
+    <td>@u.rating</td>
+    <td>@showProgress(u.progress)</td>
+    }
+    @user.top(online, onlineLink, true) { u =>
+    <td>@u.rating</td>
+    <td>@showProgress(u.progress)</td>
+    }
     @user.top(nb, "Active players")(u => s"#${u.count.game.localize}")
     @user.top(bullet, "Best bullet players")(_.perfs.bullet.glicko.intRating)
     @user.top(blitz, "Best blitz players", true)(_.perfs.blitz.glicko.intRating)

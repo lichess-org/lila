@@ -10,12 +10,13 @@ import lila.user.{ User, Context }
 trait UserHelper { self: I18nHelper with StringHelper ⇒
 
   def showProgress(progress: Int) = Html {
+    val title = "Rating progression over the last ten games"
     val span = progress match {
       case 0          ⇒ s"""<span class="zero">=</span>"""
       case p if p > 0 ⇒ s"""<span class="positive">$p↗</span>"""
       case p if p < 0 ⇒ s"""<span class="negative">${math.abs(p)}↘</span>"""
     }
-    s"""<span class="progress">$span</span>"""
+    s"""<span title="$title" class="progress">$span</span>"""
   }
 
   def userIdToUsername(userId: String): String =
