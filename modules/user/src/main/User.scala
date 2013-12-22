@@ -12,6 +12,7 @@ case class User(
     progress: Int,
     perfs: Perfs,
     count: Count,
+    artificial: Boolean = false,
     troll: Boolean = false,
     ipBan: Boolean = false,
     enabled: Boolean,
@@ -67,6 +68,7 @@ object User {
     val username = "username"
     val rating = "rating"
     val progress = "progress"
+    val artificial = "artificial"
     val perfs = "perfs"
     val count = "count"
     val troll = "troll"
@@ -100,6 +102,7 @@ object User {
       progress = r intD progress,
       perfs = r.getO[Perfs](perfs) | Perfs.default,
       count = r.get[Count](count),
+      artificial = r boolD artificial,
       troll = r boolD troll,
       ipBan = r boolD ipBan,
       enabled = r bool enabled,
@@ -118,6 +121,7 @@ object User {
       progress -> w.int(o.progress),
       perfs -> o.perfs,
       count -> o.count,
+      artificial -> w.boolO(o.artificial),
       troll -> w.boolO(o.troll),
       ipBan -> w.boolO(o.ipBan),
       enabled -> o.enabled,

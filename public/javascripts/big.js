@@ -2402,14 +2402,14 @@ var storage = {
       function ratingLog(a) {
         return Math.log(a / 150 + 1);
       }
-      var rating = Math.max(800, Math.min(2000, e || 1200));
+      var rating = Math.max(800, Math.min(2800, e || 1500));
       var ratio;
-      if (rating == 1200) {
+      if (rating == 1500) {
         ratio = 0.25;
-      } else if (rating > 1200) {
-        ratio = 0.25 + (ratingLog(rating - 1200) / ratingLog(800)) * 3 / 4;
+      } else if (rating > 1500) {
+        ratio = 0.25 + (ratingLog(rating - 1500) / ratingLog(1300)) * 3 / 4;
       } else {
-        ratio = 0.25 - (ratingLog(1200 - rating) / ratingLog(400)) / 4;
+        ratio = 0.25 - (ratingLog(1500 - rating) / ratingLog(500)) / 4;
       }
       return Math.round(ratio * 489);
     }
@@ -2463,7 +2463,7 @@ var storage = {
     }
 
     $('#hooks_chart').append(
-      _.map([1000, 1200, 1300, 1400, 1600, 1800, 2000], function(v) {
+      _.map([1000, 1200, 1400, 1500, 1600, 1800, 2000, 2200, 2400, 2600, 2800], function(v) {
       var b = ratingY(v);
       return '<span class="y label" style="bottom:' + (b + 5) + 'px">' + v + '</span>' +
         '<div class="grid horiz" style="height:' + (b + 4) + 'px"></div>';

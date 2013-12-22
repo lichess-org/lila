@@ -21,7 +21,7 @@ private[setup] final class FormFactory {
       "variant" -> list(variant),
       "mode" -> list(rawMode(true)),
       "speed" -> list(speed),
-      "eloRange" -> eloRange
+      "ratingRange" -> ratingRange
     )(FilterConfig.<<)(_.>>)
   )
 
@@ -83,7 +83,7 @@ private[setup] final class FormFactory {
       "increment" -> increment,
       "mode" -> mode(ctx.isAuth),
       "membersOnly" -> boolean,
-      "eloRange" -> optional(eloRange),
+      "ratingRange" -> optional(ratingRange),
       "color" -> nonEmptyText.verifying(Color.names contains _)
     )(HookConfig.<<)(_.>>)
       .verifying("Invalid clock", _.validClock)

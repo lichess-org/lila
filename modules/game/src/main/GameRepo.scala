@@ -230,7 +230,7 @@ trait GameRepo {
     _.headOption flatMap extractPgnMoves
   } map (~_)
 
-  def activePlayersSince(since: DateTime)(nb: Int): Fu[List[(String, Int)]] = {
+  def activePlayersSince(since: DateTime)(max: Int): Fu[List[(String, Int)]] = {
     import reactivemongo.bson._
     import reactivemongo.core.commands._
     import lila.db.BSON.BSONJodaDateTimeHandler
@@ -245,7 +245,8 @@ trait GameRepo {
         BSONFields.playerUids -> BSONDocument("$ne" -> "")
       )),
       GroupField(Game.BSONFields.winnerId)("nb" -> SumValue(1)),
-      Sort(Seq(Descending("nb")))
+      Sort(Seq(Descending("nb"))),
+      Limit(max)
     ))
     gameTube.coll.db.command(command) map { stream ⇒
       (stream.toList map { obj ⇒

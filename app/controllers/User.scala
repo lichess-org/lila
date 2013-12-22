@@ -39,7 +39,9 @@ object User extends LilaController {
       OptionFuResult(UserRepo named username) { u ⇒
         (u.enabled || isGranted(_.UserSpy)).fold({
           userShow(u, filterName, page) map { Ok(_) }
-        }, fuccess(NotFound(html.user.disabled(u))))
+        }, UserRepo isArtificial u.id map { artificial ⇒
+          NotFound(html.user.disabled(u, artificial))
+        })
       }
     }
 
