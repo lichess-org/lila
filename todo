@@ -105,8 +105,6 @@ streamed export of PGN http://en.lichess.org/forum/lichess-feedback/download-all
 fix clipping in lobby chart
 visual sep under standard/chess960 ratings
 progress over date ranges
-get compiled js back to public/compiled
-rating range restriction is broken on lobby
 
 --- deploy
 
