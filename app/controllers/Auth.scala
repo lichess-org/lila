@@ -1,12 +1,12 @@
 package controllers
 
+import play.api.data._, Forms._
+import play.api.mvc._, Results._
+
 import lila.app._
 import lila.common.LilaCookie
 import lila.user.{ UserRepo, HistoryRepo }
 import views._
-
-import play.api.mvc._, Results._
-import play.api.data._, Forms._
 
 object Auth extends LilaController {
 
@@ -68,6 +68,19 @@ object Auth extends LilaController {
         }
       }
     )
+  }
+
+  def newPassword = AuthBody { implicit ctx ⇒
+    me ⇒
+      implicit val req = ctx.body
+      forms.newPassword.bindFromRequest.fold(
+        err ⇒ fuccess {
+          BadRequest(html.auth.artificialPassword(me, err))
+        },
+        pass ⇒ UserRepo.artificialSetPassword(me.id, pass) map { _ ⇒
+          Redirect(routes.Lobby.home)
+        }
+      )
   }
 
   private def gotoLogoutSucceeded(implicit req: RequestHeader) = {

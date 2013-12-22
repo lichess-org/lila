@@ -29,6 +29,10 @@ final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.C
 
   def signupWithCaptcha = withCaptcha(signup)
 
+  val newPassword = Form(single(
+    "password" -> text(minLength = 4)
+  ))
+
   private def userExists(data: SignupData) =
     $count.exists(data.username.toLowerCase)
 }

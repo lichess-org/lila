@@ -22,6 +22,14 @@ private[api] final class Cli(bus: lila.common.Bus, renderer: ActorSelection) ext
       lila.db.Env.current,
       lila.game.Env.current,
       lila.user.Env.current)
+    case "glicko" :: "migration" :: "end" :: Nil => GlickoMigrationEnd(
+      lila.db.Env.current,
+      lila.game.Env.current,
+      lila.user.Env.current)
+    case "glicko" :: "migration" :: "fix" :: Nil => GlickoMigrationFix(
+      lila.db.Env.current,
+      lila.game.Env.current,
+      lila.user.Env.current)
   }
 
   private def remindDeploy(event: RemindDeploy): Fu[String] = {

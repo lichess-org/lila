@@ -2,13 +2,13 @@ package lila.tournament
 
 import akka.actor.{ ActorRef, ActorSelection }
 import akka.pattern.{ ask, pipe }
-import org.joda.time.DateTime
+import chess.{ Mode, Variant }
 import com.github.nscala_time.time.Imports._
+import org.joda.time.DateTime
 import play.api.libs.json._
 import scalaz.NonEmptyList
 
 import actorApi._
-import chess.{ Mode, Variant }
 import lila.db.api._
 import lila.game.{ Game, GameRepo }
 import lila.hub.actorApi.lobby.ReloadTournaments
@@ -73,7 +73,7 @@ private[tournament] final class TournamentApi(
     $remove(created) >>
       $remove.byId[Room](created.id) >>-
       reloadSiteSocket >>-
-      lobbyReload 
+      lobbyReload
   }
 
   def finish(started: Started): Fu[Tournament] = started.readyToFinish.fold({

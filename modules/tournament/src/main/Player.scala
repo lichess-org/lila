@@ -32,8 +32,8 @@ private[tournament] object Player {
       .filter(p ⇒ p.finished && (p contains player.id))
       .foldLeft(Builder(player))(_ + _.winner)
       .toPlayer
-  } sortBy { p ⇒ 
-    p.withdraw.fold(Int.MaxValue, 0) - p.score 
+  } sortBy { p ⇒
+    p.withdraw.fold(Int.MaxValue, 0) - p.score
   }
 
   private case class Builder(
@@ -46,7 +46,7 @@ private[tournament] object Player {
       prevWin: Boolean = false) {
 
     def +(winner: Option[String]) = {
-      val (win, loss): Pair[Boolean, Boolean] = winner.fold(false -> false) { w =>
+      val (win, loss): Pair[Boolean, Boolean] = winner.fold(false -> false) { w ⇒
         if (w == player.id) true -> false else false -> true
       }
       val newWinSeq = if (win) prevWin.fold(winSeq + 1, 1) else 0

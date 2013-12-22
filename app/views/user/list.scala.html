@@ -7,10 +7,20 @@
   </form>
 
   <div class="user_lists">
-    @user.top(online, "Online players") { u =>
-    <td>@u.rating</td>
-    <td>@showProgress(u.progress)</td>
-    }
+    <div class="user_top">
+      <h2>Online players</h2>
+      <table>
+        <tbody>
+          @online.map { u =>
+          <tr>
+            <td>@userLink(u, withOnline = false, withRating = false, cssClass="revert-underline".some)</td>
+            <td>@u.rating</td>
+            <td>@showProgress(u.progress)</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
     <a class="more" href="@routes.User.online" title="@trans.more()">@trans.more() »</a>
   </div>
 </div>

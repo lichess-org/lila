@@ -18,7 +18,7 @@ final class Env(
     val IsServer = config getBoolean "server"
     val IsClient = config getBoolean "client"
     val StockfishRemotes = config getStringList "stockfish.remotes" toList
-    val StockfishLocal = config getString "stockfish.local" 
+    val StockfishLocal = config getString "stockfish.local"
     val StockfishPlayRoute = config getString "stockfish.play.route"
     val StockfishAnalyseRoute = config getString "stockfish.analyse.route"
     val StockfishLoadRoute = config getString "stockfish.load.route"
@@ -69,7 +69,7 @@ final class Env(
           playRoute = StockfishPlayRoute,
           analyseRoute = StockfishAnalyseRoute,
           loadRoute = StockfishLoadRoute) _
-        )
+      )
       ), name = "stockfish-dispatcher"),
     fallback = stockfishServer,
     config = stockfishConfig,

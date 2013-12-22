@@ -1,5 +1,5 @@
 var games = db.game5;
-var users = db.user3;
+var users = db.user4;
 
 var batchSize = 1000;
 var i, t, timeStrings, times, it=0;

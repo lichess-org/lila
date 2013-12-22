@@ -156,7 +156,8 @@ trait UserRepo {
       }
     }
 
-  def nameExists(username: String): Fu[Boolean] = $count exists normalize(username)
+  def nameExists(username: String): Fu[Boolean] = idExists(normalize(username))
+  def idExists(id: String): Fu[Boolean] = $count exists id
 
   def engineIds: Fu[Set[String]] = $primitive(Json.obj("engine" -> true), "_id")(_.asOpt[String]) map (_.toSet)
 
@@ -184,6 +185,7 @@ trait UserRepo {
   def updateTroll(user: User) = $update.field(user.id, "troll", user.troll)
 
   def isEngine(id: ID): Fu[Boolean] = $count.exists($select(id) ++ Json.obj("engine" -> true))
+  def isArtificial(id: ID): Fu[Boolean] = $count.exists($select(id) ++ Json.obj("artificial" -> true))
 
   def setRoles(id: ID, roles: List[String]) = $update.field(id, "roles", roles)
 
@@ -255,6 +257,33 @@ trait UserRepo {
       BSONFields.enabled -> true,
       BSONFields.createdAt -> DateTime.now,
       BSONFields.seenAt -> DateTime.now)
+  }
+
+  def artificialSetPassword(id: String, password: String) =
+    passwd(id, password) >> $update($select(id), $unset("artificial") ++ $set("enabled" -> true))
+
+  def insertArtificialUser(username: String, perfs: Perfs, progress: Int, createdAt: DateTime) = $insert bson {
+
+    val password = ornicar.scalalib.Random nextString 8
+    val salt = ornicar.scalalib.Random nextString 32
+    implicit def countHandler = Count.tube.handler
+    implicit def perfsHandler = Perfs.tube.handler
+    import lila.db.BSON.BSONJodaDateTimeHandler
+    import User.BSONFields
+
+    BSONDocument(
+      BSONFields.id -> normalize(username),
+      BSONFields.username -> username,
+      "artificial" -> true,
+      "password" -> hash(password, salt),
+      "salt" -> salt,
+      BSONFields.perfs -> perfs,
+      BSONFields.rating -> perfs.global.glicko.intRating,
+      BSONFields.progress -> progress,
+      BSONFields.count -> Count.default,
+      BSONFields.enabled -> false,
+      BSONFields.createdAt -> createdAt,
+      BSONFields.seenAt -> createdAt)
   }
 
   private def hash(pass: String, salt: String): String = "%s{%s}".format(pass, salt).sha1
