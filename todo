@@ -102,9 +102,9 @@ wrong analysis = move 9 should be a blunder http://en.lichess.org/analyse/pf3ruf
 check "continue from position" #lichess
 from position + clock = fail (due to turns != played turns)
 streamed export of PGN http://en.lichess.org/forum/lichess-feedback/download-all-games#5
-fix clipping in lobby chart
 visual sep under standard/chess960 ratings
 progress over date ranges
+lobby filter is broken
 
 --- deploy
 
