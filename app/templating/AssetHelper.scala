@@ -24,7 +24,7 @@ trait AssetHelper {
 
   def jsTag(name: String) = jsAt("javascripts/" + name)
 
-  def jsTagCompiled(name: String) = if (isProd) jsTag("compiled/" + name) else jsTag(name)
+  def jsTagCompiled(name: String) = if (isProd) jsAt("compiled/" + name) else jsTag(name)
 
   lazy val highchartsTag = cdnOrLocal(
     cdn = "http://code.highcharts.com/3.0/highcharts.js",
