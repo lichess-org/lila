@@ -254,5 +254,5 @@ editProfile=Edycja profilu
 firstName=Imię
 lastName=Nazwisko
 biography=Biografia
-country=Krasj
+country=Kraj
 preferences=Ustawienia
