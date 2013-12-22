@@ -101,13 +101,13 @@ object Featured {
 
   private type Heuristic = Game ⇒ Float
   private val heuristicBox = box(0 to 1) _
-  private val ratingBox = box(1000 to 2000) _
+  private val ratingBox = box(1000 to 2600) _
   private val timeBox = box(60 to 360) _
   private val turnBox = box(1 to 25) _
 
   private val heuristics: List[(Heuristic, Float)] = List(
-    ratingHeuristic(Color.White) -> 1f,
-    ratingHeuristic(Color.Black) -> 1f,
+    ratingHeuristic(Color.White) -> 1.2f,
+    ratingHeuristic(Color.Black) -> 1.2f,
     speedHeuristic -> 0.5f,
     progressHeuristic -> 1f)
 
