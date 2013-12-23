@@ -42,7 +42,7 @@ private[setup] final class Processor(
     val pov = config.pov
     val game = ctx.me.fold(pov.game)(user ⇒ pov.game.updatePlayer(pov.color, _ withUser user))
     saveConfig(_ withFriend config) >>
-      (GameRepo insertDenormalized game) >>-
+      (GameRepo.insertDenormalized(game, false)) >>-
       friendConfigMemo.set(pov.game.id, config) inject pov
   }
 

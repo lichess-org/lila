@@ -1,10 +1,10 @@
-@(form: Form[_])(implicit ctx: Context)
+@(form: Form[_], referrer: Option[String])(implicit ctx: Context)
 
 @auth.layout(title = trans.signIn.str()) {
 <div class="content_box">
   <div class="signup_box">
     <h1 class="lichess_title">@trans.signIn()</h1>
-    <form action="@routes.Auth.authenticate" method="POST">
+    <form action="@routes.Auth.authenticate?referrer=@referrer" method="POST">
       @form.globalError.map { error =>
       <p class="error">@error.message</p>
       }
@@ -14,7 +14,7 @@
           <input type="submit" value="@trans.signIn()" class="submit button">
         </li>
       </ul>
-      <input type="hidden" class="referrer" name="_referrer" value="@currentUrl" />
+      <input type="hidden" class="referrer" name="_referrer" value="@referrer.getOrElse(currentUrl)" />
     </form>
   </div>
   <div class="alternative">

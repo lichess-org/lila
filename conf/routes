@@ -47,10 +47,10 @@ GET   /games/bookmark     controllers.Game.bookmark(page: Int ?= 1)
 GET   /games/popular      controllers.Game.popular(page: Int ?= 1)
 GET   /games/analysed     controllers.Game.analysed(page: Int ?= 1)
 GET   /games/imported     controllers.Game.imported(page: Int ?= 1)
- 
+
 # Search
 GET   /games/search       controllers.Game.search(page: Int ?= 1)
- 
+
 # Round
 GET   /$gameId<[\w\-]{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")
 GET   /$gameId<[\w\-]{8}>/$color<white|black>        controllers.Round.watcher(gameId: String, color: String)
@@ -63,13 +63,13 @@ GET   /$fullId<[\w\-]{12}>/table                     controllers.Round.tablePlay
 GET   /$gameId<[\w\-]{8}>/players                    controllers.Round.players(gameId: String)
 GET   /$gameId<[\w\-]{8}>/continue/:mode             controllers.Round.continue(gameId: String, mode: String)
 GET   /$gameId<[\w\-]{8}>/edit                       controllers.Editor.game(gameId: String)
- 
+
 # Tournament
-GET   /tournament                             controllers.Tournament.home 
+GET   /tournament                             controllers.Tournament.home
 GET   /tournament/reload                      controllers.Tournament.homeReload
 GET   /tournament/new                         controllers.Tournament.form
 POST  /tournament/new                         controllers.Tournament.create
-GET   /tournament/$id<[\w\-]{8}>              controllers.Tournament.show(id: String) 
+GET   /tournament/$id<[\w\-]{8}>              controllers.Tournament.show(id: String)
 GET   /tournament/$id<[\w\-]{8}>/socket       controllers.Tournament.websocket(id: String)
 POST  /tournament/$id<[\w\-]{8}>/join         controllers.Tournament.join(id: String)
 GET   /tournament/$id<[\w\-]{8}>/join/password controllers.Tournament.joinPasswordForm(id: String)
@@ -77,8 +77,8 @@ POST  /tournament/$id<[\w\-]{8}>/join/password controllers.Tournament.joinPasswo
 POST  /tournament/$id<[\w\-]{8}>/withdraw     controllers.Tournament.withdraw(id: String)
 GET   /tournament/$id<[\w\-]{8}>/reload       controllers.Tournament.reload(id: String)
 POST  /tournament/$id<[\w\-]{8}>/early-start  controllers.Tournament.earlyStart(id: String)
-GET   /tournament/faq                         controllers.Tournament.faq 
- 
+GET   /tournament/faq                         controllers.Tournament.faq
+
 # Team
 GET   /team                                   controllers.Team.home(page: Int ?= 1)
 GET   /team/new                               controllers.Team.form
@@ -105,12 +105,12 @@ POST  /analyse/$gameId<[\w\-]{8}>/$color<white|black>/computer controllers.Analy
 GET   /$gameId<[\w\-]{8}>/stats          controllers.Analyse.stats(gameId: String)
 GET   /$gameId<[\w\-]{8}>/pgn            controllers.Analyse.pgn(gameId: String)
 GET   /$gameId<[\w\-]{8}>/fen            controllers.Analyse.fen(gameId: String)
- 
+
 # Pref
 POST  /pref/:name                      controllers.Pref.set(name: String)
 GET   /account/preferences             controllers.Pref.form
 POST  /account/preferences             controllers.Pref.formApply
- 
+
 # Setup
 GET   /setup/ai                        controllers.Setup.aiForm
 POST  /setup/ai                        controllers.Setup.ai
@@ -126,14 +126,14 @@ GET   /setup/filter                    controllers.Setup.filterForm
 POST  /setup/filter                    controllers.Setup.filter
 GET   /setup/validate-fen              controllers.Setup.validateFen
 POST  /api/game/new                    controllers.Setup.api
- 
+
 # I18n
 GET   /translation/contribute          controllers.I18n.contribute
 GET   /translation/form/:lang          controllers.I18n.translationForm(lang: String)
 POST  /translation/form/:lang          controllers.I18n.translationPost(lang: String)
 GET   /translation/fetch/:from         controllers.I18n.fetch(from: Int)
 POST  /translation/hideCalls           controllers.I18n.hideCalls
- 
+
 # Authentication
 GET   /login                           controllers.Auth.login
 POST  /login                           controllers.Auth.authenticate
@@ -141,7 +141,7 @@ GET   /logout                          controllers.Auth.logout
 GET   /signup                          controllers.Auth.signup
 POST  /signup                          controllers.Auth.signupPost
 POST  /new-password                    controllers.Auth.newPassword
- 
+
 # Mod
 POST  /mod/:username/engine            controllers.Mod.engine(username: String)
 POST  /mod/:username/troll             controllers.Mod.troll(username: String)
@@ -149,19 +149,19 @@ POST  /mod/:username/ban               controllers.Mod.ban(username: String)
 POST  /mod/:username/reopen            controllers.Mod.reopenAccount(username: String)
 POST  /mod/:ip/ipban                   controllers.Mod.ipban(ip: String)
 GET   /mod/log                         controllers.Mod.log
- 
+
 # Wiki
 GET   /wiki                            controllers.Wiki.home
 GET   /wiki/:slug                      controllers.Wiki.show(slug: String)
- 
+
 # AI
 GET   /ai/stockfish/play               controllers.Ai.playStockfish
 GET   /ai/stockfish/analyse            controllers.Ai.analyseStockfish
 GET   /ai/stockfish/load               controllers.Ai.loadStockfish
- 
+
 # Bookmark
 POST   /bookmark/$gameId<[\w\-]{8}>    controllers.Bookmark.toggle(gameId: String)
- 
+
 # Forum
 GET   /forum                           controllers.ForumCateg.index
 GET   /forum/recent                    controllers.ForumPost.recent
@@ -174,7 +174,7 @@ POST  /forum/:categSlug/:slug/close    controllers.ForumTopic.close(categSlug: S
 POST  /forum/:categSlug/:slug/new      controllers.ForumPost.create(categSlug: String, slug: String, page: Int ?= 1)
 POST  /forum/:categSlug/delete/:id     controllers.ForumPost.delete(categSlug: String, id: String)
 GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id: String)
- 
+
 # Message
 GET   /inbox                           controllers.Message.inbox(page: Int ?= 1)
 GET   /inbox/new                       controllers.Message.form
@@ -183,7 +183,7 @@ GET   /inbox/preview                   controllers.Message.preview
 GET   /inbox/$id<[\w]{8}>              controllers.Message.thread(id: String)
 POST  /inbox/$id<[\w]{8}>              controllers.Message.answer(id: String)
 POST  /inbox/$id<[\w]{8}>/delete       controllers.Message.delete(id: String)
- 
+
 # Notification
 DELETE /notification/$id<[\w]{8}>      controllers.Notification.remove(id)
 
@@ -194,7 +194,7 @@ POST  /paste                           controllers.Importer.sendGame
 # Edit
 GET   /editor                          controllers.Editor.index(fen: String = "")
 GET   /editor/*fen                     controllers.Editor.index(fen: String)
- 
+
 # Monitor
 GET   /monitor                         controllers.Monitor.index
 GET   /monitor/socket                  controllers.Monitor.websocket

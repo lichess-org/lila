@@ -130,8 +130,8 @@ trait GameRepo {
     _ sort Query.sortCreated skip (Random nextInt distribution)
   )
 
-  def insertDenormalized(game: Game): Funit = {
-    val g2 = if (game.rated && game.userIds.distinct.size != 2)
+  def insertDenormalized(game: Game, ratedCheck: Boolean = true): Funit = {
+    val g2 = if (ratedCheck && game.rated && game.userIds.distinct.size != 2)
       game.copy(mode = chess.Mode.Casual)
     else game
     val bson = (gameTube.handler write g2) ++ BSONDocument(
@@ -244,7 +244,7 @@ trait GameRepo {
       Match(BSONDocument(
         BSONFields.playerUids -> BSONDocument("$ne" -> "")
       )),
-      GroupField(Game.BSONFields.winnerId)("nb" -> SumValue(1)),
+      GroupField(Game.BSONFields.playerUids)("nb" -> SumValue(1)),
       Sort(Seq(Descending("nb"))),
       Limit(max)
     ))

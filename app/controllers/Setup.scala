@@ -54,7 +54,7 @@ object Setup extends LilaController with TheftPrevention {
     case None ⇒ fuccess("Only registered players can send challenges".some)
     case Some(me) ⇒ Env.relation.api.blocks(user.id, me.id) flatMap {
       case true ⇒ fuccess(s"${user.username} blocks you".some)
-      case false ⇒ user.rating > me.rating + 300 match {
+      case false ⇒ user.rating > me.rating + 1000 match {
         case false ⇒ fuccess(none)
         case true ⇒ Env.relation.api.follows(user.id, me.id) map {
           case true  ⇒ none

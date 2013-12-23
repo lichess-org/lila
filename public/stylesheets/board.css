@@ -275,6 +275,10 @@ div.lichess_homepage div.leaderboard {
   top: 514px;
   width: 242px;
 }
+div.lichess_homepage div.leaderboard td:first-child {
+  max-width: 150px;
+  overflow: hidden;
+}
 div.lichess_homepage div.leaderboard div.undertable_inner {
   height: auto;
 }

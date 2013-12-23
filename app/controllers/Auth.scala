@@ -13,9 +13,9 @@ object Auth extends LilaController {
   private def api = Env.security.api
   private def forms = Env.security.forms
 
-  private def gotoLoginSucceeded[A](username: String)(implicit req: RequestHeader) =
+  private def gotoLoginSucceeded[A](username: String, referrer: Option[String])(implicit req: RequestHeader) =
     api saveAuthentication username map { sessionId ⇒
-      val uri = req.session.get(api.AccessUri) | routes.Lobby.home.url
+      val uri = referrer.filter(_.nonEmpty) orElse req.session.get(api.AccessUri) getOrElse routes.Lobby.home.url
       Redirect(uri) withCookies LilaCookie.withSession { session ⇒
         session + ("sessionId" -> sessionId) - api.AccessUri
       }
@@ -27,18 +27,20 @@ object Auth extends LilaController {
     }
 
   def login = Open { implicit ctx ⇒
-    Ok(html.auth.login(api.loginForm)) fuccess
+    val referrer = get("referrer")
+    Ok(html.auth.login(api.loginForm, referrer)) fuccess
   }
 
   def authenticate = OpenBody { implicit ctx ⇒
+    val referrer = get("referrer")
     Firewall {
       implicit val req = ctx.body
       api.loginForm.bindFromRequest.fold(
-        err ⇒ BadRequest(html.auth.login(err)).fuccess,
-        _.fold(InternalServerError("authenticate error").fuccess) { user ⇒
-          user.ipBan.fold(
+        err ⇒ BadRequest(html.auth.login(err, referrer)).fuccess,
+        _.fold(InternalServerError("authenticate error").fuccess) { u ⇒
+          u.ipBan.fold(
             Env.security.firewall.blockIp(req.remoteAddress) inject BadRequest("blocked by firewall"),
-            gotoLoginSucceeded(user.username)
+            gotoLoginSucceeded(u.username, referrer)
           )
         }
       )
