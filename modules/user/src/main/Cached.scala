@@ -30,9 +30,6 @@ final class Cached(
     maxCapacity = 5000,
     timeToLive = ratingChartTtl)
 
-  private val topListTtl = 5 minutes
-  // private val topListTtl = 1 second
-  // private val topListSinceTtl = 1 second
   private def oneDayAgo = DateTime.now minusDays 1
   private def oneWeekAgo = DateTime.now minusWeeks 1
   private def oneMonthAgo = DateTime.now minusMonths 1
@@ -45,17 +42,17 @@ final class Cached(
   val topProgressMonth = AsyncCache(
     UserRepo.topProgressSince(oneMonthAgo),
     timeToLive = 27 minutes)
-  val topRating = AsyncCache(UserRepo.topRating, timeToLive = topListTtl)
   val topRatingDay = AsyncCache(
     UserRepo.topRatingSince(oneDayAgo),
     timeToLive = 13 minutes)
   val topRatingWeek = AsyncCache(
     UserRepo.topRatingSince(oneWeekAgo),
     timeToLive = 28 minutes)
-  val topBullet = AsyncCache(UserRepo.topBullet, timeToLive = topListTtl)
-  val topBlitz = AsyncCache(UserRepo.topBlitz, timeToLive = topListTtl)
-  val topSlow = AsyncCache(UserRepo.topSlow, timeToLive = topListTtl)
-  val topNbGame = AsyncCache(UserRepo.topNbGame, timeToLive = topListTtl)
+  val topRating = AsyncCache(UserRepo.topRating, timeToLive = 30 minutes)
+  val topBullet = AsyncCache(UserRepo.topBullet, timeToLive = 31 minutes)
+  val topBlitz = AsyncCache(UserRepo.topBlitz, timeToLive = 32 minutes)
+  val topSlow = AsyncCache(UserRepo.topSlow, timeToLive = 33 minutes)
+  val topNbGame = AsyncCache(UserRepo.topNbGame, timeToLive = 34 minutes)
 
   val topOnline = AsyncCache(
     (nb: Int) ⇒ UserRepo.byIdsSortRating(onlineUserIdMemo.keys, nb),

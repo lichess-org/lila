@@ -52,6 +52,7 @@ object GlickoMigration {
           nb = nb + 1
           if (nb % 1000 == 0) println(nb)
           game.userIds match {
+            case _ if !game.finished                                   ⇒
             case _ if game.source.exists(lila.game.Source.Position ==) ⇒ unrate(game)
             case List(uidW, uidB) if (uidW == uidB)                    ⇒ unrate(game)
             case List(uidW, uidB) if isEngine(uidW) || isEngine(uidB)  ⇒ unrate(game)

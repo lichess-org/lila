@@ -14,6 +14,10 @@ div.user_lists h2 {
 div.goodies div.user_top {
   margin-top: 1em;
 }
+div.goodies div.user_top td:first-child {
+  max-width: 140px;
+  overflow: hidden;
+}
 div.goodies a.more {
   display: block;
   text-align: right;

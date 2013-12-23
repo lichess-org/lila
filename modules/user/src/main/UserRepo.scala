@@ -77,7 +77,7 @@ trait UserRepo {
 
   def setPerfs(user: User, perfs: Perfs, progress: Int) = $update($select(user.id), $setBson(
     "perfs" -> Perfs.tube.handler.write(perfs),
-    "rating" -> BSONInteger(perfs.global.glicko.intRating),
+    "rating" -> BSONInteger(user.engine.fold(Glicko.default, perfs.global.glicko).intRating),
     "progress" -> BSONInteger(progress)
   ))
 

@@ -81,7 +81,6 @@ search users from tablet http://en.lichess.org/forum/lichess-feedback/people---s
 analysis UI bug http://en.lichess.org/inbox/8s2e0397#bottom
 use separate thread pool for elasticsearch http://www.playframework.com/documentation/2.2.0/ThreadPools
 make lobby a sequential actor
-best wins / worse defeats
 troll can post in tournaments
 safari sound icon http://en.lichess.org/forum/general-chess-discussion/sound-effects?page=3
 add brasilian translation
@@ -104,21 +103,9 @@ from position + clock = fail (due to turns != played turns)
 streamed export of PGN http://en.lichess.org/forum/lichess-feedback/download-all-games#5
 visual sep under standard/chess960 ratings
 progress over date ranges
-lobby filter is broken
-
---- deploy
-
-bin/cli-prod glicko migration
-db.user4.ensureIndex({enabled:1});
-db.user4.ensureIndex({enabled:1, rating: -1});
-db.user4.ensureIndex({toints:-1});
-db.user4.ensureIndex({enabled:1, 'perfs.bullet.gl.r': -1});
-db.user4.ensureIndex({enabled:1, 'perfs.blitz.gl.r': -1});
-db.user4.ensureIndex({enabled:1, 'perfs.slow.gl.r': -1});
-db.user4.ensureIndex({enabled:1, 'count.games': -1});
-db.user4.ensureIndex({createdAt: -1});
-db.user4.ensureIndex({progress:-1,enabled:1,'perfs.global.gl.d':-1})
-
---- post deploy
-mongo lichess bin/mongodb/userstats.js
+active players delirant first player number
+best wins / worse defeats (?)
+peak rating
+messager control (only friends / everybody / nobody) mephos on #lichess
+country leaderboard
 ... and reindex all games in elasticsearch D:

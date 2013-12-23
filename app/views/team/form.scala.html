@@ -1,7 +1,7 @@
 @(form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context)
 
 @team.layout(
-title = "New Team",
+title = trans.newTeam.str(),
 currentTab = "form".some) {
 <div id="team">
   <div class="content_box team_box">
