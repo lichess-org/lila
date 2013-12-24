@@ -395,7 +395,6 @@ body.tight #lichess {
 }
 #site_title {
   width: 130px;
-  color: #666;
   font-family:'Trebuchet MS', 'Helvetica Neue', Arial, Sans-Serif;
   font-size: 30px;
   color: #afafaf;
@@ -705,7 +704,7 @@ body.offline #nb_connected_players {
   float: right;
   position: relative;
   display: block;
-  margin: 3px 0.5em 0 0;
+  margin: 4px 0.5em 0 0;
   padding: 1px 5px;
   text-decoration: none;
   line-height: normal;
@@ -1044,12 +1043,12 @@ div.engine_warning {
   margin-bottom: 15px;
 }
 /* soft inactive gradient */
- div.lichess_chat_top, #friend_box .title, div.undertable_top, .button, .button:visited, .ui-state-default, div.content_box_top, #hooks tr, #translation_call, #notifications > div, div.locale_menu a, table.slist thead {
+ #top a.signin, div.lichess_chat_top, #friend_box .title, div.undertable_top, .button, .button:visited, .ui-state-default, div.content_box_top, #hooks tr, #translation_call, #notifications > div, div.locale_menu a, table.slist thead {
   color: #666;
   background: #efefef linear-gradient(to bottom, #efefef, #e2e2e2);
 }
 /* active gradient */
- #top a.signin, #top a.goto_nav.active, .button.active, .button.active:hover, .ui-state-active, .ui-widget-header, div.pagination span.current, #top span.new_messages, #hooks td.action:hover, div.progressbar.flashy div, .button.strong:hover, div.locale_menu a.active, #import_game .progression {
+ #top a.signin:hover, #top a.goto_nav.active, .button.active, .button.active:hover, .ui-state-active, .ui-widget-header, div.pagination span.current, #top span.new_messages, #hooks td.action:hover, div.progressbar.flashy div, .button.strong:hover, div.locale_menu a.active, #import_game .progression {
   color: #fff;
   background: #d85000 linear-gradient(to bottom, #d85000, #c84000);
 }
@@ -1474,7 +1473,6 @@ div.game_config div.color_submits button.random span {
   height: 472px;
   padding: 20px;
   background: rgba(255, 255, 255, 0.8);
-  border-radius: 5px;
 }
 #hook_filter table {
   width: 100%;
