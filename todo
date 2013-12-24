@@ -71,7 +71,6 @@ analysis always show best move
 analysis infer ! and !! from evaluation at depth
 no challenge when playing http://en.lichess.org/forum/lichess-feedback/defis#2
 check filter games icon on windows
-people page = trends by day, week, month. user achievments?
 user options: sounds, sound choice
 user stats: http://en.lichess.org/forum/lichess-feedback/feature-request-extended-stats
 forum improvements http://en.lichess.org/forum/lichess-feedback/suggestions-for-the-forum#1
@@ -81,7 +80,6 @@ search users from tablet http://en.lichess.org/forum/lichess-feedback/people---s
 analysis UI bug http://en.lichess.org/inbox/8s2e0397#bottom
 use separate thread pool for elasticsearch http://www.playframework.com/documentation/2.2.0/ThreadPools
 make lobby a sequential actor
-troll can post in tournaments
 safari sound icon http://en.lichess.org/forum/general-chess-discussion/sound-effects?page=3
 add brasilian translation
 autoreport cheat detected
@@ -103,9 +101,9 @@ from position + clock = fail (due to turns != played turns)
 streamed export of PGN http://en.lichess.org/forum/lichess-feedback/download-all-games#5
 visual sep under standard/chess960 ratings
 progress over date ranges
-active players delirant first player number
 best wins / worse defeats (?)
 peak rating
 messager control (only friends / everybody / nobody) mephos on #lichess
 country leaderboard
-... and reindex all games in elasticsearch D:
+threefold rep http://en.lichess.org/forum/lichess-feedback/three-position-repetition#4
+display in game status on hover user mini

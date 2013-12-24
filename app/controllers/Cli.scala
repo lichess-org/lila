@@ -14,7 +14,6 @@ object Cli extends LilaController {
 
   def command = OpenBody { implicit ctx ⇒
     implicit val req = ctx.body
-
     form.bindFromRequest.fold(
       err ⇒ fuccess(BadRequest("invalid cli call")), {
         case (command, password) ⇒ CliAuth(password) {

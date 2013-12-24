@@ -5,7 +5,7 @@
 <div class="lichess_game clearfix lichess_player_@color"
   data-socket-url="@routes.Round.websocketWatcher(gameId, color.name)"
   data-table-url="@routes.Round.tableWatcher(gameId, color.name)"
-  data-players-url="@routes.Round.players(gameId)">
+  data-end-url="@routes.Round.endWatcher(gameId, color.name)">
   <div class="lichess_board_wrap">
     <div class="lichess_board with_marks">@Html(lila.app.ui.Board.render(pov))</div>
     <div id="dont_touch">@trans.youAreViewingThisGameAsASpectator()</div>

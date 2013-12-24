@@ -118,8 +118,8 @@ var storage = {
           self.pingNow();
           $('body').trigger('socket.open');
           if ($('#user_tag').length) setTimeout(function() {
-              self.send("following_onlines");
-            }, 500);
+            self.send("following_onlines");
+          }, 500);
           var resend = self.ackableMessages;
           self.ackableMessages = [];
           _.each(resend, function(x) {
@@ -399,7 +399,7 @@ var storage = {
       params: {},
       options: {
         baseUrls: [
-            'socket.' + document.domain,
+          'socket.' + document.domain,
           document.domain + ':' + $('body').data('port')
         ],
         baseUrlKey: 'surl',
@@ -538,11 +538,11 @@ var storage = {
       }
       $(document).idleTimer(lichess.idleTime)
         .on('idle.idleTimer', function() {
-        lichess.socket.destroy();
-      })
+          lichess.socket.destroy();
+        })
         .on('active.idleTimer', function() {
-        lichess.socket.connect();
-      });
+          lichess.socket.connect();
+        });
     }, 500);
 
     var $board = $('div.with_marks');
@@ -693,8 +693,8 @@ var storage = {
         success: function(text) {
           $this.siblings('div.view_pgn_box').show()
             .find('a.close').one('click', function() {
-            $(this).parent().hide();
-          })
+              $(this).parent().hide();
+            })
             .siblings('textarea').val(text);
         }
       });
@@ -728,8 +728,8 @@ var storage = {
       $(this).find('button').hide().end()
         .find('.error').hide().end()
         .find('.progression').show().animate({
-        width: '100%'
-      }, duration);
+          width: '100%'
+        }, duration);
       return true;
     });
 
@@ -751,8 +751,8 @@ var storage = {
         var sound = $sound.get(0);
         sound.play();
         setTimeout(function() {
-          sound.pause();
-        },
+            sound.pause();
+          },
           1000);
       }
     };
@@ -823,7 +823,7 @@ var storage = {
       self.hasMovedOnce = false;
       self.premove = null;
       self.options.tableUrl = self.element.data('table-url');
-      self.options.playersUrl = self.element.data('players-url');
+      self.options.endUrl = self.element.data('end-url');
       self.options.socketUrl = self.element.data('socket-url');
 
       $("div.game_tournament .clock").each(function() {
@@ -915,166 +915,164 @@ var storage = {
         self.options.socketUrl,
         self.options.player.version,
         $.extend(true, lichess.socketDefaults, {
-        options: {
-          name: "game"
-        },
-        params: {
-          ran: "--ranph--"
-        },
-        events: {
-          message: function(e) {
-            self.element.queue(function() {
-              if (self.$chat) self.$chat.chat("append", e.u, e.t);
-              self.element.dequeue();
-            });
+          options: {
+            name: "game"
           },
-          possible_moves: function(event) {
-            self.element.queue(function() {
-              self.options.possible_moves = event;
-              self.indicateTurn();
-              self.element.dequeue();
-            });
+          params: {
+            ran: "--ranph--"
           },
-          move: function(event) {
-            self.element.queue(function() {
-              // if a draw was claimable, remove the zone
-              $('div.lichess_claim_draw_zone').remove();
-              self.$board.find("div.lcs.check").removeClass("check");
-              self.$board.find("div.droppable-hover").removeClass("droppable-hover");
-              // If I made the move, the piece is already moved on the board
-              if (self.hasMovedOnce && event.color == self.options.player.color) {
+          events: {
+            message: function(e) {
+              self.element.queue(function() {
+                if (self.$chat) self.$chat.chat("append", e.u, e.t);
                 self.element.dequeue();
-              } else {
-                self.movePiece(event.from, event.to, function() {
+              });
+            },
+            possible_moves: function(event) {
+              self.element.queue(function() {
+                self.options.possible_moves = event;
+                self.indicateTurn();
+                self.element.dequeue();
+              });
+            },
+            move: function(event) {
+              self.element.queue(function() {
+                // if a draw was claimable, remove the zone
+                $('div.lichess_claim_draw_zone').remove();
+                self.$board.find("div.lcs.check").removeClass("check");
+                self.$board.find("div.droppable-hover").removeClass("droppable-hover");
+                // If I made the move, the piece is already moved on the board
+                if (self.hasMovedOnce && event.color == self.options.player.color) {
                   self.element.dequeue();
-                }, false);
-              }
-            });
-          },
-          castling: function(event) {
-            self.element.queue(function() {
-              $("div#" + event.rook[1], self.$board).append($("div#" + event.rook[0] + " div.lichess_piece.rook", self.$board));
-              // if the king is beeing animated, stop it now
-              $('body > div.king').each(function($k) {
-                $.stop(true, true);
+                } else {
+                  self.movePiece(event.from, event.to, function() {
+                    self.element.dequeue();
+                  }, false);
+                }
               });
-              $("div#" + event.king[1], self.$board).append($("div.lichess_piece.king." + event.color, self.$board));
-              self.element.dequeue();
-            });
-          },
-          promotion: function(event) {
-            self.element.queue(function() {
-              $("div#" + event.key + " div.lichess_piece").addClass(event.pieceClass).removeClass("pawn");
-              self.element.dequeue();
-            });
-          },
-          check: function(event) {
-            self.element.queue(function() {
-              $("div#" + event, self.$board).addClass("check");
-              self.element.dequeue();
-            });
-          },
-          enpassant: function(event) {
-            self.element.queue(function() {
-              self.killPiece($("div#" + event + " div.lichess_piece", self.$board));
-              self.element.dequeue();
-            });
-          },
-          redirect: function(event) {
-            // stop queue propagation here
-            self.element.queue(function() {
-              setTimeout(function() {
-                lichess.hasToReload = true;
-                location.href = event;
-              }, 400);
-            });
-          },
-          threefold_repetition: function() {
-            self.element.queue(function() {
-              self.reloadTable(function() {
+            },
+            castling: function(event) {
+              self.element.queue(function() {
+                $("div#" + event.rook[1], self.$board).append($("div#" + event.rook[0] + " div.lichess_piece.rook", self.$board));
+                // if the king is beeing animated, stop it now
+                $('body > div.king').each(function($k) {
+                  $.stop(true, true);
+                });
+                $("div#" + event.king[1], self.$board).append($("div.lichess_piece.king." + event.color, self.$board));
                 self.element.dequeue();
               });
-            });
-          },
-          gone: function(event) {
-            if (!self.options.opponent.ai) {
-              self.$table.find("div.force_resign_zone").toggle(event);
-              self.centerTable();
-            }
-          },
-          featured_id: function(id) {
-            if (self.options.player.spectator && self.options.tv) {
+            },
+            promotion: function(event) {
+              self.element.queue(function() {
+                $("div#" + event.key + " div.lichess_piece").addClass(event.pieceClass).removeClass("pawn");
+                self.element.dequeue();
+              });
+            },
+            check: function(event) {
+              self.element.queue(function() {
+                $("div#" + event, self.$board).addClass("check");
+                self.element.dequeue();
+              });
+            },
+            enpassant: function(event) {
+              self.element.queue(function() {
+                self.killPiece($("div#" + event + " div.lichess_piece", self.$board));
+                self.element.dequeue();
+              });
+            },
+            redirect: function(event) {
               // stop queue propagation here
               self.element.queue(function() {
-                lichess.reload();
+                setTimeout(function() {
+                  lichess.hasToReload = true;
+                  location.href = event;
+                }, 400);
               });
-            }
-          },
-          end: function() {
-            // Game end must be applied firt: no queue
-            self.options.game.finished = true;
-            self.$table
-              .find("div.lichess_table").addClass("finished").end()
-              .find(".moretime").remove().end()
-              .find('div.clock').clock('stop');
-            try {
-              self.element.find("div.ui-draggable").draggable("destroy");
-            } catch (e) {}
-            setTimeout(function() {
-              self.element.find('.ui-draggable-dragging').remove();
-            }, 500);
-            // But enqueue the visible changes
-            self.element.queue(function() {
-              self.changeTitle($.trans("Game Over"));
-              self.element.removeClass("my_turn");
-              self.reloadTable(function() {
-                self.reloadPlayers(function() {
-                  $.playSound();
+            },
+            threefold_repetition: function() {
+              self.element.queue(function() {
+                self.reloadTable(function() {
                   self.element.dequeue();
                 });
               });
-            });
-          },
-          reload_table: function() {
-            self.element.queue(function() {
-              self.reloadTable(function() {
-                self.element.dequeue();
-              });
-            });
-          },
-          clock: function(event) {
-            self.element.queue(function() {
-              self.updateClocks(event);
-              self.element.dequeue();
-            });
-          },
-          premove: function() {
-            if (self.options.enablePremove) {
+            },
+            gone: function(event) {
+              if (!self.options.opponent.ai) {
+                self.$table.find("div.force_resign_zone").toggle(event);
+                self.centerTable();
+              }
+            },
+            featured_id: function(id) {
+              if (self.options.player.spectator && self.options.tv) {
+                // stop queue propagation here
+                self.element.queue(function() {
+                  lichess.reload();
+                });
+              }
+            },
+            end: function() {
+              // Game end must be applied firt: no queue
+              self.options.game.finished = true;
+              self.$table
+                .find("div.lichess_table").addClass("finished").end()
+                .find(".moretime").remove().end()
+                .find('div.clock').clock('stop');
+              try {
+                self.element.find("div.ui-draggable").draggable("destroy");
+              } catch (e) {}
+              setTimeout(function() {
+                self.element.find('.ui-draggable-dragging').remove();
+              }, 500);
+              // But enqueue the visible changes
               self.element.queue(function() {
-                self.applyPremove();
+                self.changeTitle($.trans("Game Over"));
+                self.element.removeClass("my_turn");
+                $.playSound();
+                self.loadEnd(function() {
+                  self.element.dequeue();
+                });
+              });
+            },
+            reload_table: function() {
+              self.element.queue(function() {
+                self.reloadTable(function() {
+                  self.element.dequeue();
+                });
+              });
+            },
+            clock: function(event) {
+              self.element.queue(function() {
+                self.updateClocks(event);
                 self.element.dequeue();
               });
+            },
+            premove: function() {
+              if (self.options.enablePremove) {
+                self.element.queue(function() {
+                  self.applyPremove();
+                  self.element.dequeue();
+                });
+              }
+            },
+            crowd: function(event) {
+              $(["white", "black"]).each(function() {
+                self.$table.find("div.username." + this).toggleClass("connected", event[this]).toggleClass("offline", !event[this]);
+              });
+              self.$watchers.watchers("set", event.watchers);
+            },
+            state: function(event) {
+              self.element.queue(function() {
+                self.options.game.player = event.color;
+                self.options.game.turns = event.turns;
+                self.element.dequeue();
+              });
+            },
+            declined: function() {
+              $('#challenge_await').remove();
+              $('#challenge_declined').show();
             }
-          },
-          crowd: function(event) {
-            $(["white", "black"]).each(function() {
-              self.$table.find("div.username." + this).toggleClass("connected", event[this]).toggleClass("offline", !event[this]);
-            });
-            self.$watchers.watchers("set", event.watchers);
-          },
-          state: function(event) {
-            self.element.queue(function() {
-              self.options.game.player = event.color;
-              self.options.game.turns = event.turns;
-              self.element.dequeue();
-            });
-          },
-          declined: function() {
-            $('#challenge_await').remove();
-            $('#challenge_declined').show();
           }
-        }
-      }));
+        }));
 
       $('#challenge_await').each(function() {
         var userId = $(this).data('user');
@@ -1192,7 +1190,7 @@ var storage = {
         case 'king':
           return (Math.abs(t.x - f.x) <= 1 && Math.abs(t.y - f.y) <= 1) ||
             (f.y == t.y && (f.y == (color == 'white' ? 1 : 8)) && (
-          (f.x == 5 && (t.x == 3 || t.x == 7)) ||
+            (f.x == 5 && (t.x == 3 || t.x == 7)) ||
             $('#' + to + '>.rook.' + color).length == 1));
         case 'queen':
           return Math.abs(t.x - f.x) == Math.abs(t.y - f.y) || t.x == f.x || t.y == f.y;
@@ -1277,12 +1275,12 @@ var storage = {
             .fadeIn(self.options.animation_delay)
             .find('div.lichess_piece')
             .click(function() {
-            moveData.promotion = $(this).attr('data-piece');
-            sendMoveRequest(moveData);
-            $choices.fadeOut(self.options.animation_delay, function() {
-              $choices.remove();
-            });
-          }).end();
+              moveData.promotion = $(this).attr('data-piece');
+              sendMoveRequest(moveData);
+              $choices.fadeOut(self.options.animation_delay, function() {
+                $choices.remove();
+              });
+            }).end();
         }
       } else {
         sendMoveRequest(moveData);
@@ -1399,15 +1397,19 @@ var storage = {
         }
       }, false);
     },
-    reloadPlayers: function(callback) {
+    loadEnd: function(callback) {
       var self = this;
-      $.getJSON(self.options.playersUrl, function(data) {
+      $.getJSON(self.options.endUrl, function(data) {
         $(['white', 'black']).each(function() {
-          if (data[this]) self.$table.find('div.username.' + this).html(data[this]);
+          if (data.players[this]) self.$table.find('div.username.' + this).html(data.players[this]);
         });
-        if (data.me) $('#user_tag span').text(data.me);
-        $('body').trigger('lichess.content_loaded');
+        if (data.players.me) $('#user_tag span').text(data.players.me);
+        self.$tableInner.html(data.table);
+        self.initTable();
+        $('div.lichess_goodies').replaceWith(data.infobox);
+        if (self.$chat) self.$chat.chat('resize');
         if ($.isFunction(callback)) callback();
+        $('body').trigger('lichess.content_loaded');
       });
     },
     initTable: function() {
@@ -1481,10 +1483,10 @@ var storage = {
     get: function(url, options, reloadIfFail) {
       var self = this;
       options = $.extend({
-        type: 'GET',
-        timeout: 8000,
-        cache: false
-      },
+          type: 'GET',
+          timeout: 8000,
+          cache: false
+        },
         options || {});
       $.ajax(url, options).complete(function(x, s) {
         self.onXhrComplete(x, s, null, reloadIfFail);
@@ -1493,9 +1495,9 @@ var storage = {
     post: function(url, options, reloadIfFail) {
       var self = this;
       options = $.extend({
-        type: 'POST',
-        timeout: 8000
-      },
+          type: 'POST',
+          timeout: 8000
+        },
         options || {});
       $.ajax(url, options).complete(function(x, s) {
         self.onXhrComplete(x, s, 'ok', reloadIfFail);
@@ -1585,12 +1587,8 @@ var storage = {
       }, this.options);
       var self = this;
       self.$msgs = self.element.find('.lichess_messages');
-      if (this.options.resize) {
-        var headerHeight = self.element.parent().height();
-        self.element.css("top", headerHeight + 13)
-          .find('.lichess_messages').css('height', 459 - headerHeight);
-        self.$msgs.scrollTop(999999);
-      }
+      if (self.options.resize) self.resize();
+
       var $form = self.element.find('form');
       var $input = self.element.find('input.lichess_say');
 
@@ -1628,6 +1626,11 @@ var storage = {
       if (!$toggle[0].checked) {
         self.element.addClass('hidden');
       }
+    },
+    resize: function() {
+      var headerHeight = this.element.parent().height();
+      this.element.css("top", headerHeight + 13);
+      this.$msgs.css('height', 459 - headerHeight).scrollTop(999999);
     },
     append: function(u, t) {
       this._appendHtml(this.options.render(u, t));
@@ -1674,22 +1677,22 @@ var storage = {
       self.element.addClass('running');
       var end_time = new Date().getTime() + self.options.time;
       self.options.interval = setInterval(function() {
-        if (self.options.state == 'running') {
-          var current_time = Math.round(end_time - new Date().getTime());
-          if (current_time <= 0) {
+          if (self.options.state == 'running') {
+            var current_time = Math.round(end_time - new Date().getTime());
+            if (current_time <= 0) {
+              clearInterval(self.options.interval);
+              current_time = 0;
+            }
+
+            self.options.time = current_time;
+            self._show();
+
+            //If the timer completed, fire the buzzer callback
+            if (current_time === 0 && $.isFunction(self.options.buzzer)) self.options.buzzer(self.element);
+          } else {
             clearInterval(self.options.interval);
-            current_time = 0;
           }
-
-          self.options.time = current_time;
-          self._show();
-
-          //If the timer completed, fire the buzzer callback
-          if (current_time === 0 && $.isFunction(self.options.buzzer)) self.options.buzzer(self.element);
-        } else {
-          clearInterval(self.options.interval);
-        }
-      },
+        },
         100);
     },
 
@@ -2092,8 +2095,8 @@ var storage = {
       $startButtons
         .find('a.config_' + location.hash.replace(/#/, ''))
         .each(function() {
-        $(this).attr("href", $(this).attr("href") + location.search);
-      }).click();
+          $(this).attr("href", $(this).attr("href") + location.search);
+        }).click();
     }
   });
 
@@ -2354,11 +2357,11 @@ var storage = {
       });
       _.each(_.union(
         _.map($canvas.find('>span.plot'), function(o) {
-        return $(o).attr('id');
-      }),
+          return $(o).attr('id');
+        }),
         _.map($tbody.children(), function(o) {
-        return $(o).data('id');
-      })), function(id) {
+          return $(o).data('id');
+        })), function(id) {
         if (!_.findWhere(pool, {
           id: id
         })) undrawHook(id);
@@ -2381,7 +2384,7 @@ var storage = {
       var bottom = Math.max(0, ratingY(hook.rating) - 7);
       var left = Math.max(0, clockX(hook.time) - 4);
       var klass = [
-          'plot',
+        'plot',
         hook.mode == "Rated" ? 'rated' : 'casual',
         hook.variant == "Chess960" ? 'chess960' : '',
         hook.action == 'cancel' ? 'cancel' : ''
@@ -2464,15 +2467,15 @@ var storage = {
 
     $('#hooks_chart').append(
       _.map([1000, 1200, 1400, 1500, 1600, 1800, 2000, 2200, 2400, 2600, 2800], function(v) {
-      var b = ratingY(v);
-      return '<span class="y label" style="bottom:' + (b + 5) + 'px">' + v + '</span>' +
-        '<div class="grid horiz" style="height:' + (b + 4) + 'px"></div>';
-    }).join('') +
+        var b = ratingY(v);
+        return '<span class="y label" style="bottom:' + (b + 5) + 'px">' + v + '</span>' +
+          '<div class="grid horiz" style="height:' + (b + 4) + 'px"></div>';
+      }).join('') +
       _.map([1, 2, 3, 5, 7, 10, 15, 20, 30], function(v) {
-      var l = clockX(v * 60);
-      return '<span class="x label" style="left:' + l + 'px">' + v + '</span>' +
-        '<div class="grid vert" style="width:' + (l + 7) + 'px"></div>';
-    }).join(''));
+        var l = clockX(v * 60);
+        return '<span class="x label" style="left:' + l + 'px">' + v + '</span>' +
+          '<div class="grid vert" style="width:' + (l + 7) + 'px"></div>';
+      }).join(''));
 
     function confirm960(hook) {
       if (hook.variant == "Chess960" && hook.action == "join" && !storage.get('c960')) {
@@ -2618,19 +2621,19 @@ var storage = {
       $game.data("socket-url"),
       parseInt($game.data("version"), 10),
       $.extend(true, lichess.socketDefaults, {
-      options: {
-        name: "analyse",
-        ignoreUnknownMessages: true
-      },
-      events: {
-        message: function(e) {
-          $chat.chat("append", e.u, e.t);
+        options: {
+          name: "analyse",
+          ignoreUnknownMessages: true
         },
-        crowd: function(event) {
-          $watchers.watchers("set", event.watchers);
+        events: {
+          message: function(e) {
+            $chat.chat("append", e.u, e.t);
+          },
+          crowd: function(event) {
+            $watchers.watchers("set", event.watchers);
+          }
         }
-      }
-    }));
+      }));
   });
 
   $.fn.sortable = function(sortFns) {
