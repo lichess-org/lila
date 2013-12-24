@@ -1,23 +1,26 @@
-@(u: User)(implicit ctx: Context)
+@(u: User, playing: Option[Game])(implicit ctx: Context)
 <div class="title">
   <span class="user_link @isOnline(u.id).fold("online", "offline")">
     <strong title="Glicko rating">@u.rating</strong>
-    <small title="Glicko rating deviation">±@u.perfs.global.glicko.intDeviation</small> 
+    <small title="Glicko rating deviation">±@u.perfs.global.glicko.intDeviation</small>
     @showProgress(u.progress)
     @u.count.game.localize @trans.games()
   </span>
   <p class="localization">
-  @u.profileOrDefault.countryInfo.map {
-  case (code, name) => {
-  <span class="country"><img src="@staticUrl(s"images/flag/shiny/16/$code.png")" /> @name</span>
-  }
-  }
-  @u.lang.flatMap(langName).map { name =>
-  <span class="lang s16">@name</span>
-  }
+    @u.profileOrDefault.countryInfo.map {
+    case (code, name) => {
+    <span class="country"><img src="@staticUrl(s"images/flag/shiny/16/$code.png")" /> @name</span>
+    }
+    }
+    @u.lang.flatMap(langName).map { name =>
+    <span class="lang s16">@name</span>
+    }
   </p>
   @if(followsMe(u.id)) {
   @trans.followsYou()
   }
+  @playing.map { g =>
+  @gameFen(g, g.player(u).getOrElse(g.firstPlayer).color)
+  }
 </div>
-<div class="content relation_actions">@relation.actions(u.id)</div>
+<div class="content relation_actions">@relation.actions(u.id, playing = playing.isDefined)</div>

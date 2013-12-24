@@ -13,8 +13,8 @@ final class SocketHub extends Actor {
 
   private val sockets = collection.mutable.Set[ActorRef]()
 
-  context.system.lilaBus.subscribe(self, 
-    'moveEvent, 'users, 'deploy, 'nbMembers, 'socket, 
+  context.system.lilaBus.subscribe(self,
+    'moveEvent, 'users, 'deploy, 'nbMembers, 'socket,
     // FIXME this event only concern the current TV room
     'changeFeaturedGame)
 

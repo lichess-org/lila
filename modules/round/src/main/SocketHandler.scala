@@ -5,7 +5,6 @@ import scala.concurrent.duration._
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 import chess.Color
-import makeTimeout.short
 import play.api.libs.json.{ JsObject, Json }
 
 import actorApi._, round._
@@ -16,6 +15,7 @@ import lila.security.Flood
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import lila.socket.Handler
 import lila.user.{ User, Context }
+import makeTimeout.short
 
 private[round] final class SocketHandler(
     roundMap: ActorRef,
@@ -77,6 +77,9 @@ private[round] final class SocketHandler(
         case ("bye", _)       ⇒ socket ! Bye(ref.color)
         case ("challenge", o) ⇒ ((o str "d") |@| member.userId).tupled foreach {
           case (to, from) ⇒ hub.actor.challenger ! lila.hub.actorApi.setup.RemindChallenge(gameId, from, to)
+        }
+        case ("liveGames", o) ⇒ o str "d" foreach { ids ⇒
+          socket ! LiveGames(uid, ids.split(' ').toList)
         }
       }
     }

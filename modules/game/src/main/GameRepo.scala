@@ -164,6 +164,11 @@ trait GameRepo {
       $count(Json.obj(BSONFields.createdAt -> ($gte($date(from)) ++ $lt($date(to)))))
     }).sequenceFu
 
+  def nowPlaying(userId: String): Fu[Option[Game]] =
+    $find.one(Query.status(Status.Started) ++ Query.user(userId) ++ Json.obj(
+      BSONFields.createdAt -> $gt($date(DateTime.now - 30.minutes))
+    ))
+
   def bestOpponents(userId: String, limit: Int): Fu[List[(String, Int)]] = {
     import reactivemongo.bson._
     import reactivemongo.core.commands._
