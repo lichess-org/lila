@@ -663,11 +663,16 @@ body.offline #nb_connected_players {
 #top a.goto_nav, #nb_connected_players {
   float: left;
 }
+#top a.goto_nav.message {
+  opacity: 0.7;
+}
 #top a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hover {
+  opacity: 1;
   color: #303030;
   border-bottom: 2px solid #808080;
 }
 #top a.goto_nav.current {
+  opacity: 1;
   color: #303030;
   border-bottom: 2px solid #d85000;
 }
