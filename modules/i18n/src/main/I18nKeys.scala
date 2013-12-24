@@ -1,8 +1,6 @@
 // Generated with bin/trans-dump
 package lila.i18n
 
-import lila.user.Context
-
 import play.api.templates.Html
 import play.api.i18n.Lang
 
@@ -10,10 +8,10 @@ final class I18nKeys(translator: Translator) {
 
   final class Key(val key: String) extends I18nKey {
 
-    def apply(args: Any*)(implicit ctx: Context): Html =
+    def apply(args: Any*)(implicit ctx: lila.user.Context): Html =
       translator.html(key, args.toList)(ctx.req)
 
-    def str(args: Any*)(implicit ctx: Context): String =
+    def str(args: Any*)(implicit ctx: lila.user.Context): String =
       translator.str(key, args.toList)(ctx.req)
 
     def to(lang: Lang)(args: Any*): String =

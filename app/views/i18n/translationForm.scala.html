@@ -1,4 +1,4 @@
-@(info: lila.i18n.TransInfo, form: Form[_], keys: lila.i18n.I18nKeys, baseLang: Lang, rawTrans: String => Option[String], captcha: lila.common.Captcha, data: Map[String, String])(implicit ctx: Context)
+@(info: lila.i18n.TransInfo, form: Form[_], keys: lila.i18n.I18nKeys, baseLang: Lang, rawTrans: String => Option[String], captcha: lila.common.Captcha, data: Map[String, String], context: Map[String, String])(implicit ctx: Context)
 
 @goodies = {
 <br />
@@ -32,22 +32,27 @@ No need to submit a complete translation. You can just translate some sentences,
   <div class="messages">
     @keys.keys.zipWithIndex.map {
     case (key, i) => {
+    @defining(key.to(baseLang)()) { baseKey =>
     <div class="field message">
       <span class="number">@{i+1}/@info.nbMessages</span>
-      <label for="key_@key.key">@key.to(baseLang)()</label>
+      <label for="key_@key.key">@baseKey</label>
       <input
-      @transValidationPattern(key.to(baseLang)()).map { pattern =>
+      @transValidationPattern(baseKey).map { pattern =>
       pattern="@pattern"
       }
       type="text"
       name="key_@key.key"
       id="key_@key.key"
       value="@data.get(key.key).getOrElse(rawTrans(key.key))" />
+      @context.get(baseKey).map { c =>
+      <p class="context">@c</p>
+      }
     </div>
     }
     }
+    }
   </div>
-  <p>These fields are optional:</p>
+  <p>The following fields are optional, and not part of the translation:</p>
   <br />
   <div class="field optional">
     <label for="@form("author").id">Author</label>

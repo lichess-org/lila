@@ -75,6 +75,11 @@ div.message label {
   color: #444;
   margin-left: 9%;
 }
+div.message .context {
+  margin-left: 9%;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
 div.message input {
   width: 90%;
   margin-left: 9%;

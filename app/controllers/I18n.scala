@@ -1,12 +1,12 @@
 package controllers
 
-import lila.app._
-import views._
-import lila.user.Context
-import lila.i18n.{ Translation, TransInfo }
-import lila.common.{ Captcha, LilaCookie }
-
 import play.api.data.Form
+
+import lila.app._
+import lila.common.{ Captcha, LilaCookie }
+import lila.i18n.{ Translation, TransInfo }
+import lila.user.Context
+import views._
 
 object I18n extends LilaController {
 
@@ -18,29 +18,39 @@ object I18n extends LilaController {
   }
 
   def translationForm(lang: String) = Open { implicit ctx ⇒
-    OptionFuOk(fuccess(env.transInfos get lang)) { info ⇒
-      env.forms.translationWithCaptcha map {
-        case (form, captcha) ⇒ renderTranslationForm(form, info, captcha)
+    OptionFuOk(infoAndContext(lang)) {
+      case (info, context) ⇒ env.forms.translationWithCaptcha map {
+        case (form, captcha) ⇒ renderTranslationForm(form, info, captcha, context = context)
       }
     }
   }
 
   def translationPost(lang: String) = OpenBody { implicit ctx ⇒
-    OptionFuResult(fuccess(env.transInfos get lang)) { info ⇒
-      implicit val req = ctx.body
-      val data = env.forms.decodeTranslationBody
-      FormFuResult(env.forms.translation) { form ⇒
-        env.forms.anyCaptcha map { captcha ⇒
-          renderTranslationForm(form, info, captcha, data)
+    OptionFuResult(infoAndContext(lang)) {
+      case (info, context) ⇒
+        implicit val req = ctx.body
+        val data = env.forms.decodeTranslationBody
+        FormFuResult(env.forms.translation) { form ⇒
+          env.forms.anyCaptcha map { captcha ⇒
+            renderTranslationForm(form, info, captcha, data = data, context = context)
+          }
+        } { metadata ⇒
+          env.forms.process(lang, metadata, data) inject
+            Redirect(routes.I18n.contribute).flashing("success" -> "1")
         }
-      } { metadata ⇒
-        env.forms.process(lang, metadata, data) inject
-          Redirect(routes.I18n.contribute).flashing("success" -> "1")
-      }
     }
   }
 
-  private def renderTranslationForm(form: Form[_], info: TransInfo, captcha: Captcha, data: Map[String, String] = Map.empty)(implicit ctx: Context) =
+  private def infoAndContext(lang: String) = env.transInfos.get(lang) ?? { i ⇒
+    env.context.get map (i -> _) map (_.some)
+  }
+
+  private def renderTranslationForm(
+    form: Form[_],
+    info: TransInfo,
+    captcha: Captcha,
+    context: Map[String, String],
+    data: Map[String, String] = Map.empty)(implicit ctx: Context) =
     html.i18n.translationForm(
       info,
       form,
@@ -48,7 +58,8 @@ object I18n extends LilaController {
       env.pool.default,
       env.translator.rawTranslation(info.lang) _,
       captcha,
-      data)
+      data = data, 
+      context = context)
 
   def fetch(from: Int) = Open { implicit ctx ⇒
     JsonOk(env jsonFromVersion from)
