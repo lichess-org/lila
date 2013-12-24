@@ -31,11 +31,11 @@ final class Cached(ttl: Duration) {
   val rematch960 = new ExpireSetMemo(3.hours)
 
   val activePlayerUidsDay = AsyncCache(
-    GameRepo.activePlayersSince(DateTime.now minusDays 1),
+    (nb: Int) ⇒ GameRepo.activePlayersSince(DateTime.now minusDays 1, nb),
     timeToLive = 15 minutes)
 
   val activePlayerUidsWeek = AsyncCache(
-    GameRepo.activePlayersSince(DateTime.now minusWeeks 1),
+    (nb: Int) ⇒ GameRepo.activePlayersSince(DateTime.now minusWeeks 1, nb),
     timeToLive = 30 minutes)
 
   private val confrontationCache =

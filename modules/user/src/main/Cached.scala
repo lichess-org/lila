@@ -34,19 +34,19 @@ final class Cached(
   private def oneWeekAgo = DateTime.now minusWeeks 1
   private def oneMonthAgo = DateTime.now minusMonths 1
   val topProgressDay = AsyncCache(
-    UserRepo.topProgressSince(oneDayAgo),
+    (nb: Int) ⇒ UserRepo.topProgressSince(oneDayAgo, nb),
     timeToLive = 14 minutes)
   val topProgressWeek = AsyncCache(
-    UserRepo.topProgressSince(oneWeekAgo),
+    (nb: Int) ⇒ UserRepo.topProgressSince(oneWeekAgo, nb),
     timeToLive = 29 minutes)
   val topProgressMonth = AsyncCache(
-    UserRepo.topProgressSince(oneMonthAgo),
+    (nb: Int) ⇒ UserRepo.topProgressSince(oneMonthAgo, nb),
     timeToLive = 27 minutes)
   val topRatingDay = AsyncCache(
-    UserRepo.topRatingSince(oneDayAgo),
+    (nb: Int) ⇒ UserRepo.topRatingSince(oneDayAgo, nb),
     timeToLive = 13 minutes)
   val topRatingWeek = AsyncCache(
-    UserRepo.topRatingSince(oneWeekAgo),
+    (nb: Int) ⇒ UserRepo.topRatingSince(oneWeekAgo, nb),
     timeToLive = 28 minutes)
   val topRating = AsyncCache(UserRepo.topRating, timeToLive = 30 minutes)
   val topBullet = AsyncCache(UserRepo.topBullet, timeToLive = 31 minutes)

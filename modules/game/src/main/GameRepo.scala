@@ -235,7 +235,7 @@ trait GameRepo {
     _.headOption flatMap extractPgnMoves
   } map (~_)
 
-  def activePlayersSince(since: DateTime)(max: Int): Fu[List[(String, Int)]] = {
+  def activePlayersSince(since: DateTime, max: Int): Fu[List[(String, Int)]] = {
     import reactivemongo.bson._
     import reactivemongo.core.commands._
     import lila.db.BSON.BSONJodaDateTimeHandler
