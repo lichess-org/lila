@@ -10,7 +10,8 @@ robots: Boolean = true,
 moreCss: Html = Html(""),
 moreJs: Html = Html(""),
 signedJs: Option[String] = None,
-themepicker: Boolean = false)(body: Html)(implicit ctx: Context)
+themepicker: Boolean = false,
+zen: Boolean = false)(body: Html)(implicit ctx: Context)
 <!doctype html>
 <html lang="@lang.language">
 <head>
@@ -36,9 +37,11 @@ data-port="@netPort"
 data-accept-languages="@acceptLanguages.mkString(",")">
 <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
 <div id="top" class="clearfix">
+  @if(!zen) {
   <a title="@trans.toggleSound()" id="sound_state" class="available">
     <span></span>
   </a>
+  }
   <div class="lichess_language">
     <a class="toggle" href="#">
       <span class="s16 ddown">@langName(lang)</span>
@@ -48,6 +51,7 @@ data-accept-languages="@acceptLanguages.mkString(",")">
       <li><a href="@routes.I18n.contribute">Help translate Lichess!</a></li>
     </ul>
   </div>
+  @if(!zen) {
   @siteMenu.all(ctx.me).map { elem =>
   @elem.code match {
   case "message" => {
@@ -73,11 +77,13 @@ data-accept-languages="@acceptLanguages.mkString(",")">
   }
   }
   }
+  }
   @defining(reportNbUnprocessed) { nb =>
   @if(nb > 0) {
   <a class="goto_nav" href="@routes.Report.list"><strong>Report (@nb)</strong></a>
   }
   }
+  @if(!zen) {
   <div id="nb_connected_players" class="nb_connected_players">
     @trans.nbConnectedPlayers("<strong>?</strong>")
   </div>
@@ -96,6 +102,7 @@ data-accept-languages="@acceptLanguages.mkString(",")">
     <span></span>
   </a>
   @ctx.me.fold(auth.miniLogin())(auth.loggedIn(_))
+  }
 </div>
 @ctx.me.map { me =>
 <div id="notifications">@notifications(me)</div>
@@ -127,6 +134,7 @@ data-accept-languages="@acceptLanguages.mkString(",")">
     @body
   </div>
 </div>
+@if(!zen) {
 <div class="footer_wrap">
   <div id="lichess_social"></div>
   <div class="footer">
@@ -158,6 +166,7 @@ data-accept-languages="@acceptLanguages.mkString(",")">
     </div>
   </div>
 </div>
+}
 }
 @jsTag("deps.min.js")
 @signedJs.fold(jsTagCompiled("big.js"))(js => jsAt(js, false))
