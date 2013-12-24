@@ -2115,7 +2115,6 @@ var storage = {
     var $bot = $("div.lichess_bot");
     var $newposts = $("div.new_posts");
     var $hooks = $wrap.find('#hooks');
-    var $noHook = $wrap.find('.no_hook');
     var $canvas = $wrap.find('.canvas');
     var $table = $wrap.find('#hooks_table').sortable().find('th:eq(2)').click().end();
     var $tbody = $table.find('tbody');
@@ -2368,7 +2367,6 @@ var storage = {
       });
 
       if (!(inBatch || false)) {
-        $noHook.toggle(visible === 0);
         $table.toggleClass('crowded', visible >= 12);
         $wrap
           .find('a.filter')
@@ -2500,9 +2498,6 @@ var storage = {
       if (confirm960(hook)) {
         lichess.socket.send(hook.action, hook.id);
       }
-    });
-    $noHook.click(function() {
-      $('#start_buttons a.config_hook').click();
     });
   });
 

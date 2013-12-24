@@ -10,7 +10,7 @@
 
 /* board */
 div.board-b72b1 {
-  border: 2px solid #404040;
+  border: 1px solid #ccc;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
   display:inline-block;

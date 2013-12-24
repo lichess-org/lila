@@ -2,7 +2,6 @@ div.lichess_board_wrap {
   float: left;
   border: 1px solid #ccc;
   position: relative;
-  border-radius: 5px;
 }
 span.board_mark {
   position: absolute;
@@ -21,7 +20,6 @@ div.lichess_board {
   width: 512px;
   height: 512px;
   position: relative;
-  border-radius: 5px;
 }
 div.lcs {
   position: absolute;
@@ -134,8 +132,7 @@ div.lichess_overboard {
   line-height: 1.8em;
   text-decoration: none;
   background: #FFF;
-  border-radius: 8px;
-  box-shadow: 0px 0px 20px #444;
+  box-shadow: 0px 0px 30px #444;
   text-align: center;
 }
 div.lichess_overboard a.close {
@@ -211,18 +208,6 @@ div.lichess_promotion_choice div.lichess_piece {
 div.lichess_promotion_choice div.lichess_piece:hover {
   box-shadow:0 0 10px blue;
 }
-div.lichess_player_white #a8, div.lichess_player_black #h1 {
-  border-radius: 4px 0 0 0;
-}
-div.lichess_player_white #h8, div.lichess_player_black #a1 {
-  border-radius: 0 4px 0 0;
-}
-div.lichess_player_white #a1, div.lichess_player_black #h8 {
-  border-radius: 0 0 0 4px;
-}
-div.lichess_player_white #h1, div.lichess_player_black #a8 {
-  border-radius: 0 0 4px 0;
-}
 div.lichess_join_url {
   display:none;
   background: none;
@@ -235,7 +220,6 @@ div.lichess_join_url span {
   background: #fff;
   margin-top: 1em;
   border: 1px solid #D4D4D4;
-  border-radius: 4px;
 }
 div.lichess_ground {
   position: relative;
@@ -250,13 +234,8 @@ div.lichess_table_wrap {
 }
 div.lichess_table {
   border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: 0 0 7px #d0d0d0;
   height: auto;
   padding: 10px;
-}
-div.lichess_table.table_with_clock {
-  border-radius: 0 4px 4px 0;
 }
 div.lichess_table.spectator {
   top: 160px;
@@ -266,7 +245,6 @@ div.lichess_table_not_started {
   top: 100px;
   left: 0px;
   width: 242px;
-  box-shadow: none;
   border: none;
   padding: 0;
 }
@@ -306,7 +284,6 @@ div.clock {
   font-size: 22px;
   font-family: monospace;
   font-weight: bold;
-  box-shadow: 0 0 7px #d0d0d0;
 }
 div.clock > span {
   font-size: 80%;
@@ -415,7 +392,6 @@ div.lichess_table .lichess_button {
   text-decoration: none;
   padding: 1em;
   border-radius: 32px;
-  box-shadow: 0 0 3px #ccc;
   text-align: center;
   border: 1px solid #d3d3d3;
   font-weight: normal;
@@ -493,10 +469,8 @@ div.lichess_chat {
   left: 0;
   width: 228px;
   margin-left: -30px;
-  border-radius: 4px;
 }
 div.lichess_chat_top {
-  border-radius: 4px 4px 0 0;
   border: 1px solid #ccc;
   padding: 3px 5px;
 }
@@ -528,7 +502,6 @@ div.lichess_chat form input {
   border: 1px solid #ccc;
   border-top: 0;
   padding: 2px 20px 2px 4px;
-  border-radius: 0 0 4px 4px;
   width: 202px;
 }
 div.lichess_chat a.send {

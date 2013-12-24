@@ -1,21 +1,16 @@
 body.dark {
   background: #1a1a1a url(../images/head_bg_dark.png) top left repeat-x;
-  background-position: left +25px;
-  color: #909090;
+  color: #8a8a8a;
 }
 body.dark a, body.dark a:visited {
-  color: #909090;
+  color: #8a8a8a;
 }
 body.dark input, body.dark textarea {
   background: #1a1a1a;
-  color: #909090;
-}
-/* standard shadow */
- body.dark div.lichess_chat, body.dark div.undertable, body.dark div.lichess_board_wrap, body.dark div.lichess_table .lichess_button, body.dark div.lichess_goodies div.box, body.dark div.lichess_table, body.dark div.undergame_box, body.dark div.clock, body.dark #GameText, body.dark #GameBoard table.boardTable, body.dark .button.strong, body.dark .button.shadowed, body.dark #tournament_side, body.dark #friend_box, body.dark div.content_box, body.dark #powerTip {
-  box-shadow: 0 0 5px #505050;
+  color: #8a8a8a;
 }
 body.dark #top, body.dark #nb_connected_players, body.dark #reconnecting, body.dark #connecting, body.dark div.lichess_chat_top, body.dark div.lichess_chat .lichess_messages, body.dark div.undertable_top, body.dark div.undertable_inner, body.dark div.undertable td, body.dark div.lichess_table .lichess_button, body.dark div.lichess_chat form input, body.dark div.lichess_board_wrap, body.dark #translation_call, body.dark div.footer_wrap, body.dark div.game_config .optional_config, body.dark .ui-state-default, body.dark .ui-widget-content, body.dark div.lichess_goodies div.box, body.dark div.lichess_table, body.dark div.lichess_separator, body.dark div.undergame_box, body.dark div.game_more div.more_top, body.dark div.clock, body.dark .button, body.dark #GameText, body.dark #tournament_side, body.dark #GameBoard table.boardTable, body.dark div.shortcuts .title, body.dark div.content_box, body.dark div.content_box_top, body.dark div.content_box_top a, body.dark div.content_box_inter, body.dark div.content_box_inter a.active, body.dark #site_header div.side_menu a.active, body.dark div.game_row, body.dark form.search_user_form input, body.dark div.user_show div.boxed_data, body.dark #lichess_forum div.post, body.dark #lichess_forum textarea, body.dark #lichess_forum form.wide input, body.dark #lichess_message tr, body.dark #lichess_message div.thread_message, body.dark #lichess_message textarea, body.dark #lichess_message input, body.dark .content_box form input, body.dark div.progressbar, body.dark form.translation_form div.messages, body.dark form.translation_form input, body.dark div.locale_menu a, body.dark #adv_chart, body.dark #top .dropdown, body.dark div.lichess_overboard p.explanations, body.dark div.search_status, body.dark table.slist, body.dark table.slist thead th, body.dark #notifications > div, body.dark form.wide input[type="text"], body.dark form.wide textarea, body.dark #team .team-left, body.dark #team .team-right, body.dark #team h2, body.dark .leaderboard_title, body.dark #friend_box, body.dark #friend_box .title, body.dark div.user_show div.mod_zone, body.dark div.user_show div.user-infos, body.dark div.game_config input[type="text"], body.dark #powerTip, body.dark #powerTip > .title, body.dark #hooks_table th, body.dark #hooks_table td, body.dark #hooks_wrap > div.tabs > a, body.dark #hooks_chart > div.grid {
-  border-color: #444;
+  border-color: #3d3d3d;
 }
 body.dark #timeline, body.dark #timeline > .entry {
   border-color: #303030;
@@ -27,7 +22,7 @@ body.dark #hooks_wrap > div.tabs > a, body.dark #top div.auth .links a:hover, bo
   background-color: #3e3e3e;
   color: #b0b0b0;
 }
-body.dark #top ul.language_links a.accepted {
+body.dark #top a.toggle:hover, body.dark #top .dropdown, body.dark #top a.goto_nav.current, body.dark #top a.goto_nav:hover, body.dark #top ul.language_links a.accepted {
   color: #b0b0b0;
 }
 body.dark #site_title, body.dark #timeline a, body.dark #site_baseline, body.dark div.lichess_chat span, body.dark div.lichess_chat a.user_link, body.dark div.lichess_chat a.user_link, body.dark div.new_posts li span, body.dark #team .forum a.user_link, body.dark span.board_mark, body.dark div.user_show div.content_box_top > span, body.dark #timeline time, body.dark span.progress > .zero, body.dark div.undertable_top span.title {
@@ -44,7 +39,7 @@ body.dark span.progress > .positive {
 body.dark #site_title span.extension, body.dark div.sub_ratings h3 {
   color: #606060;
 }
-body.dark #top a.goto_nav:hover, body.dark #top a.toggle:hover, body.dark #top a.bgpicker:hover, body.dark a#sound_state:hover, body.dark #top .dropdown, body.dark #GameText a:hover, body.dark #hooks_wrap a.filter:hover, body.dark #hooks_wrap a.filter.active, body.dark #top .shown a.toggle {
+body.dark #GameText a:hover, body.dark #hooks_wrap a.filter:hover, body.dark #hooks_wrap a.filter.active, body.dark #top .shown a.toggle {
   background: #000;
 }
 body.dark #top span.new_messages {
@@ -88,7 +83,6 @@ body.dark div.lichess_table_not_started {
   background: none;
 }
 body.dark div.lichess_table a.lichess_button:hover, body.dark div.lichess_table a.lichess_button.active {
-  box-shadow: 0 0 9px #d85000;
   border: 1px solid #d85000;
 }
 body.dark div.content_box, body.dark div.content_box_inter a.active, body.dark #GameText, body.dark #tournament_side, body.dark table.translations tbody tr, body.dark form.translation_form div.message, body.dark div.content_box_inter a.intertab:hover {
@@ -140,43 +134,13 @@ body.dark div.lichess_table_wrap div.clock.running.emerg, body.dark div.lichess_
   color: #d0d0d0;
 }
 /* soft inactive gradient */
- body.dark #top, body.dark div.lichess_chat_top, body.dark #friend_box .title, body.dark div.undertable_top, body.dark .button, body.dark .button:visited, body.dark .ui-state-default, body.dark div.content_box_top, body.dark #translation_call, body.dark #notifications > div, body.dark div.locale_menu a, body.dark table.slist thead, body.dark #hooks_wrap > a.no_hook {
-  background: #3a3a3a;
-  color: #b0b0b0;
-  background: -moz-linear-gradient(center top, #3a3a3a, #202020) repeat scroll 0 0 #3a3a3a;
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3a3a3a), to(#202020));
-  background: -webkit-linear-gradient(top, #3a3a3a, #202020) repeat scroll 0 0 #3a3a3a;
-  background: -ms-linear-gradient(top, #3a3a3a, #202020) repeat scroll 0 0 #3a3a3a;
-  background: -o-linear-gradient(top, #3a3a3a, #202020) repeat scroll 0 0 #3a3a3a;
-}
-/* strong inactive gradient */
- body.dark .button.strong, body.dark .button:hover, body.dark #hooks_wrap > a.no_hook:hover {
-  background: #505050;
-  background: -moz-linear-gradient(center top, #505050, #202020) repeat scroll 0 0 #505050;
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#505050), to(#202020));
-  background: -webkit-linear-gradient(top, #505050, #202020) repeat scroll 0 0 #505050;
-  background: -ms-linear-gradient(top, #505050, #202020) repeat scroll 0 0 #505050;
-  background: -o-linear-gradient(top, #505050, #202020) repeat scroll 0 0 #505050;
+ body.dark div.lichess_chat_top, body.dark #friend_box .title, body.dark div.undertable_top, body.dark .button, body.dark .button:visited, body.dark .ui-state-default, body.dark div.content_box_top, body.dark #translation_call, body.dark #notifications > div, body.dark div.locale_menu a, body.dark table.slist thead {
+  background: #303030 linear-gradient(to bottom, #2a2a2a, #202020);
 }
 /* active gradient */
- body.dark #top a.goto_nav.active, body.dark .button.active, body.dark .button.active:hover, body.dark .ui-state-active, body.dark .ui-widget-header, body.dark div.pagination span.current, body.dark #top span.new_messages, body.dark .button.strong:hover, body.dark div.progressbar.flashy div, body.dark div.locale_menu a.active, body.dark #top a.signin {
+ body.dark .button.active, body.dark .button.active:hover, body.dark .ui-state-active, body.dark .ui-widget-header, body.dark div.pagination span.current, body.dark #top span.new_messages, body.dark .button.strong:hover, body.dark div.progressbar.flashy div, body.dark div.locale_menu a.active, body.dark #top a.signin {
   color: #fff;
-  background: #d85000;
-  background: -moz-linear-gradient(center top, #f49c00, #d85000) repeat scroll 0 0 #d85000;
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f49c00), to(#d85000));
-  background: -webkit-linear-gradient(top, #f49c00, #d85000) repeat scroll 0 0 #d85000;
-  background: -ms-linear-gradient(top, #f49c00, #d85000) repeat scroll 0 0 #d85000;
-  background: -o-linear-gradient(top, #f49c00, #d85000) repeat scroll 0 0 #d85000;
-}
-/* current gradient */
- body.dark #top a.goto_nav.current {
-  color: #fff;
-  background: #808080;
-  background: -moz-linear-gradient(center top, #808080, #606060) repeat scroll 0 0 #808080;
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#808080), to(#606060));
-  background: -webkit-linear-gradient(top, #808080, #606060) repeat scroll 0 0 #606060;
-  background: -ms-linear-gradient(top, #808080, #606060) repeat scroll 0 0 #606060;
-  background: -o-linear-gradient(top, #808080, #606060) repeat scroll 0 0 #606060;
+  background: #d85000 linear-gradient(to bottom, #d85000, #c84000);
 }
 body.dark #hooks_chart .plot {
   box-shadow: 0 0 5px #000;
