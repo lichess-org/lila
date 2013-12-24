@@ -1,11 +1,11 @@
 package lila.importer
 
+import chess.format.Forsyth
+import chess.format.pgn.{ Parser, Reader, ParsedPgn, Tag, TagType }
+import chess.{ Game ⇒ ChessGame, Board, Replay, Color, Mode, Variant, Move, Status }
 import play.api.data._
 import play.api.data.Forms._
 
-import chess.format.Forsyth
-import chess.format.pgn.{ Parser, Reader, ParsedPgn, Tag, TagType }
-import chess.{ Game => ChessGame, Board, Replay, Color, Mode, Variant, Move, Status }
 import lila.game._
 
 private[importer] final class DataForm {
@@ -14,7 +14,7 @@ private[importer] final class DataForm {
     "pgn" -> nonEmptyText.verifying("Invalid PGN", checkPgn _)
   )(ImportData.apply)(ImportData.unapply))
 
-  private def checkPgn(pgn: String): Boolean = 
+  private def checkPgn(pgn: String): Boolean =
     ImportData(pgn).preprocess(none).isSuccess
 }
 
@@ -26,7 +26,7 @@ private[importer] case class ImportData(pgn: String) {
   private type TagPicker = Tag.type ⇒ TagType
 
   def preprocess(user: Option[String]): Valid[Preprocessed] = (Parser(pgn) |@| Reader(pgn)) apply {
-    case (ParsedPgn(tags, _), replay @ Replay(_, _, game)) ⇒ {
+    case (ParsedPgn(tags, _), replay@Replay(_, _, game)) ⇒ {
 
       def tag(which: Tag.type ⇒ TagType): Option[String] =
         tags find (_.name == which(Tag)) map (_.value)
