@@ -3,26 +3,24 @@ package lila.i18n
 import play.api.i18n.Lang
 import play.api.templates.Html
 
-import lila.user.Context
-
 trait I18nKey {
 
   val key: String
 
-  def apply(args: Any*)(implicit ctx: Context): Html
+  def apply(args: Any*)(implicit ctx: lila.user.Context): Html
 
-  def str(args: Any*)(implicit ctx: Context): String
+  def str(args: Any*)(implicit ctx: lila.user.Context): String
 
   def to(lang: Lang)(args: Any*): String
 
-  def en(args: Any*): String = to(I18nKey.en)(args)
+  def en(args: Any*): String = to(I18nKey.en)(args:_ *)
 }
 
 case class Untranslated(key: String) extends I18nKey {
 
-  def apply(args: Any*)(implicit ctx: Context) = Html(key)
+  def apply(args: Any*)(implicit ctx: lila.user.Context) = Html(key)
 
-  def str(args: Any*)(implicit ctx: Context) = key
+  def str(args: Any*)(implicit ctx: lila.user.Context) = key
 
   def to(lang: Lang)(args: Any*) = key
 }

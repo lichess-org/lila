@@ -20,6 +20,8 @@ final class Env(
     val HideCallsCookieName = config getString "hide_calls.cookie.name"
     val HideCallsCookieMaxAge = config getInt "hide_calls.cookie.max_age"
     val CollectionTranslation = config getString "collection.translation"
+    val ContextGitUrl = config getString "context.git.url"
+    val ContextGitFile = config getString "context.git.file"
   }
   import settings._
 
@@ -30,7 +32,7 @@ final class Env(
 
   lazy val pool = new I18nPool(
     langs = Lang.availables(play.api.Play.current).toSet,
-    default = Lang("en"))
+    default = I18nKey.en)
 
   lazy val translator = new Translator(
     api = messagesApi,
@@ -65,6 +67,8 @@ final class Env(
     transRelPath = FilePathRelative,
     repoPath = appPath,
     system = system)
+
+  lazy val context = new Context(ContextGitUrl, ContextGitFile, keys)
 
   def hideCallsCookieName = HideCallsCookieName
   def hideCallsCookieMaxAge = HideCallsCookieMaxAge
