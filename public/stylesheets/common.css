@@ -100,24 +100,14 @@ button.ui-button-icons-only {
 }
 /* Corner radius */
  .ui-corner-right {
-  -moz-border-radius-topright: 4px;
-  -webkit-border-top-right-radius: 4px;
   border-top-right-radius: 4px;
-  -moz-border-radius-bottomright: 4px;
-  -webkit-border-bottom-right-radius: 4px;
   border-bottom-right-radius: 4px;
 }
 .ui-corner-left {
-  -moz-border-radius-topleft: 4px;
-  -webkit-border-top-left-radius: 4px;
   border-top-left-radius: 4px;
-  -moz-border-radius-bottomleft: 4px;
-  -webkit-border-bottom-left-radius: 4px;
   border-bottom-left-radius: 4px;
 }
 .ui-corner-all {
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
 }
 /* workarounds */
@@ -333,7 +323,6 @@ body {
   font:12px'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
   color: #848484;
   background: #F7F7F7 url(../images/head_bg.png) top left repeat-x;
-  background-position: left +25px;
 }
 a, a:visited {
   color: #848484;
@@ -390,7 +379,6 @@ body.tight > div.content {
   width: 100%;
   min-width: 1005px;
   height: 24px;
-  border-bottom: 1px solid #c4c4c4;
 }
 body.tight #top {
   min-width: 780px;
@@ -476,7 +464,6 @@ a.easy_button {
 }
 div.content_box {
   border: 1px solid #ccc;
-  border-radius: 5px;
   background: #fff;
   padding: 20px 24px 24px 24px;
   text-align: left;
@@ -584,6 +571,7 @@ table.slist {
 }
 table.slist thead th {
   border-top: 1px solid #d4d4d4;
+  border-bottom: 1px solid #d4d4d4;
   padding: 0.4em 0.6em;
 }
 table.slist thead th.large {
@@ -616,9 +604,8 @@ div.lichess_goodies div.box {
   margin-top: 1em;
   margin-left: -30px;
   width: 212px;
-  border: 1px solid #C0C0C0;
+  border: 1px solid #ccc;
   padding: 7px;
-  border-radius: 4px;
 }
 div.lichess_goodies div.box .player {
   margin: 4px 0;
@@ -650,8 +637,6 @@ body.tight div.side_menu a {
   background: white;
   border: 1px solid #dadada;
   border-right: none;
-  border-radius: 4px 0 0 4px;
-  box-shadow: -3px 0 5px #d0d0d0;
 }
 #nb_connected_players, #reconnecting, a.goto_nav, #top a.toggle, #top a.bgpicker, a#sound_state {
   text-decoration: none;
@@ -669,21 +654,22 @@ body.offline #reconnecting {
   color: red;
   float: left;
 }
-#nb_connected_players {
-  float: left;
-  color: #999;
-}
 body.offline #nb_connected_players {
   display: none;
 }
 #nb_connected_players, #reconnecting {
   border-left: 1px solid #ccc;
 }
-a.goto_nav {
+#top a.goto_nav, #nb_connected_players {
   float: left;
 }
-a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hover {
-  background-color: #fff;
+#top a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hover {
+  color: #303030;
+  border-bottom: 2px solid #808080;
+}
+#top a.goto_nav.current {
+  color: #303030;
+  border-bottom: 2px solid #d85000;
 }
 #top .s16 {
   display:block;
@@ -923,15 +909,12 @@ a#sound_state.unavailable {
   right: 10px;
   background: #fff;
   border: 1px solid #ccc;
-  border-radius: 4px 4px 0 0;
   min-width: 150px;
-  box-shadow: 0 0 7px #d0d0d0;
 }
 #friend_box .title {
   cursor: pointer;
   padding: 3px 5px;
   border-bottom: 1px solid #ccc;
-  border-radius: 4px 4px 0 0;
 }
 #friend_box .content a {
   padding: 3px 5px;
@@ -1056,48 +1039,14 @@ div.engine_warning {
   margin-bottom: 15px;
 }
 /* soft inactive gradient */
- #top, #hooks_wrap > a.no_hook, div.lichess_chat_top, #friend_box .title, div.undertable_top, .button, .button:visited, .ui-state-default, div.content_box_top, #hooks tr, #translation_call, #notifications > div, div.locale_menu a, table.slist thead {
+ div.lichess_chat_top, #friend_box .title, div.undertable_top, .button, .button:visited, .ui-state-default, div.content_box_top, #hooks tr, #translation_call, #notifications > div, div.locale_menu a, table.slist thead {
   color: #666;
-  background: #fafafa;
-  background: -moz-linear-gradient(center top, #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fafafa), to(#e0e0e0));
-  background: -webkit-linear-gradient(top, #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
-  background: -ms-linear-gradient(top, #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
-  background: -o-linear-gradient(top, #fafafa, #e0e0e0) repeat scroll 0 0 #fafafa;
+  background: #efefef linear-gradient(to bottom, #efefef, #e2e2e2);
 }
 /* active gradient */
  #top a.signin, #top a.goto_nav.active, .button.active, .button.active:hover, .ui-state-active, .ui-widget-header, div.pagination span.current, #top span.new_messages, #hooks td.action:hover, div.progressbar.flashy div, .button.strong:hover, div.locale_menu a.active, #import_game .progression {
   color: #fff;
-  background: #d85000;
-  background: -moz-linear-gradient(center top, #f49c00, #d85000) repeat scroll 0 0 #d85000;
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f49c00), to(#d85000));
-  background: -webkit-linear-gradient(top, #f49c00, #d85000) repeat scroll 0 0 #d85000;
-  background: -ms-linear-gradient(top, #f49c00, #d85000) repeat scroll 0 0 #d85000;
-  background: -o-linear-gradient(top, #f49c00, #d85000) repeat scroll 0 0 #d85000;
-}
-/* strong inactive gradient */
- #hooks td.action, .button:hover, #hooks_wrap > a.no_hook:hover, .button.strong {
-  background: #ffffff;
-  background: -moz-linear-gradient(center top, #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff), to(#c0c0c0));
-  background: -webkit-linear-gradient(top, #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
-  background: -ms-linear-gradient(top, #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
-  background: -o-linear-gradient(top, #ffffff, #c0c0c0) repeat scroll 0 0 #ffffff;
-}
-/* current gradient */
- #top a.goto_nav.current {
-  color: #fff;
-  background: #999;
-  background: -moz-linear-gradient(center top, #aaa, #999) repeat scroll 0 0 #999;
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#aaa), to(#999));
-  background: -webkit-linear-gradient(top, #aaa, #999) repeat scroll 0 0 #999;
-  background: -ms-linear-gradient(top, #aaa, #999) repeat scroll 0 0 #999;
-  background: -o-linear-gradient(top, #aaa, #999) repeat scroll 0 0 #999;
-}
-/* standard shadow */
- div.lichess_chat, div.undertable, div.lichess_board_wrap, .button.strong, .button.shadowed, div.content_box, div.undergame_box, div.lichess_goodies div.box, #powerTip {
-  box-shadow: 0 0 7px #d0d0d0;
-  border-radius: 4px;
+  background: #d85000 linear-gradient(to bottom, #d85000, #c84000);
 }
 div.checkmateFen {
   float: left;
@@ -1145,7 +1094,6 @@ div.undergame_box {
   margin-top: 10px;
   width: 512px;
   border: 1px solid #ccc;
-  border-radius: 5px;
   line-height: 24px;
 }
 div.undergame_box div.inner {
@@ -1199,7 +1147,6 @@ div.game_more textarea {
   color: #888;
   border: 1px solid #eaeaea;
   padding: 5px;
-  border-radius: 3px;
 }
 div.game_extra div.right_coll {
   float: right;
@@ -1288,7 +1235,7 @@ div.extra_top {
   height: 224px;
   position: relative;
   display: block;
-  box-shadow:0 0 5px #666;
+  border: 1px solid #ccc;
 }
 div.all_games a.mini_board {
   float: left;
@@ -1461,7 +1408,6 @@ div.game_config div.color_submits button.random span {
   top: 0;
   left: 0;
   background: #f0f0f0 url(../images/knight2000.png) no-repeat;
-  border-radius: 0 5px 5px 5px;
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -1476,9 +1422,8 @@ div.game_config div.color_submits button.random span {
   text-decoration: none;
   padding: 5px 10px;
   border: 1px solid #ccc;
-  border-radius: 3px 3px 0 0;
   border-bottom: 0;
-  background: #d0d0d0;
+  background: #dadada;
 }
 #hooks_wrap > div.tabs > a:hover, #hooks_wrap > div.tabs > a.active {
   background: #f0f0f0;
@@ -1696,21 +1641,6 @@ div.game_config div.color_submits button.random span {
 #hooks_chart .plot.cancel {
   background: #666;
 }
-#hooks_wrap > a.no_hook {
-  position: absolute;
-  top: 192px;
-  left: 64px;
-  display: block;
-  width: 356px;
-  padding: 60px 10px;
-  margin: 4px;
-  font-size: 1.25em;
-  border-radius: 3px;
-  color: #444;
-  text-align: center;
-  box-shadow:0 0 5px #333;
-  text-decoration: none;
-}
 #hook {
   display: none;
   width: 120px;
@@ -1724,11 +1654,10 @@ div.game_config div.color_submits button.random span {
 #hooks_chart .plot:hover {
   background-color: #f6f6f6;
 }
-#hooks_chart .plot:hover, #hooks_wrap > a.no_hook:hover {
+#hooks_chart .plot:hover {
   box-shadow: 0 0 9px #d85000 !important;
 }
 #hook .opponent {
-  border-radius: 3px 3px 0 0;
   display: block;
   height: 20px;
   line-height: 20px;
@@ -1805,7 +1734,6 @@ div.undertable {
   margin-top: 15px;
 }
 div.undertable_top {
-  border-radius: 4px 4px 0 0;
   border: 1px solid #ccc;
   padding: 3px 5px;
 }
@@ -1822,7 +1750,6 @@ div.undertable_top span.title {
 div.undertable_inner {
   border: 1px solid #ccc;
   border-top: 0;
-  border-radius: 0 0 4px 4px;
   height: 204px;
   width: auto;
   overflow: hidden;
@@ -2065,7 +1992,6 @@ div.relation_actions .icon span {
   overflow: hidden;
   display: block;
 }
-/* flags */
 .flag {
   background:url(/images/flags.png) no-repeat;
   display:inline-block;

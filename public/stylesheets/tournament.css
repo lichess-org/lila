@@ -113,10 +113,8 @@
   max-height: 860px;
   overflow-y: auto;
   border: 1px solid #ccc;
-  border-radius: 4px;
   padding: 3px;
   background: #f7f7f7;
-  box-shadow: 0 0 7px #D0D0D0;
 }
 #tournament_side div.pairings a {
   padding: 0.3em 0.2em;

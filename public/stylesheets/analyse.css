@@ -30,9 +30,7 @@ span.board_mark.horz {
 }
 
 #GameBoard table.boardTable {
-  box-shadow: 0 0 7px #bbb;
   border: 1px solid #ccc;
-  border-radius: 5px;
 }
 #GameBoard.flip table, #GameBoard.flip img.pieceImage {
   -o-transform: rotate(180deg);
@@ -70,10 +68,8 @@ span.board_mark.horz {
   margin-bottom: 1em;
   padding: 5px 7px;
   background: #f7f7f7;
-  border: 1px solid #C0C0C0;
+  border: 1px solid #ccc;
   overflow: auto;
-  border-radius: 4px;
-  box-shadow: 0 0 7px #d0d0d0;
 }
 
 /* @font-face { */

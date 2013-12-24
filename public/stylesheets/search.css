@@ -57,8 +57,6 @@ div.search_status {
   font-weight: bold;
 }
 
-
-/* Errors */
 form.search .error {
   margin-left: 160px;
   color: red;
