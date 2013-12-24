@@ -5,6 +5,7 @@ import play.api.mvc._, Results._
 import lila.app._
 import lila.common.LilaCookie
 import lila.db.api.$find
+import lila.game.GameRepo
 import lila.security.Permission
 import lila.user.tube.userTube
 import lila.user.{ Context, User ⇒ UserModel, UserRepo }
@@ -21,7 +22,9 @@ object User extends LilaController {
   }
 
   def showMini(username: String) = Open { implicit ctx ⇒
-    mini(username)
+    OptionFuOk(UserRepo named username) { user ⇒
+      GameRepo nowPlaying user.id map { html.user.mini(user, _) }
+    }
   }
 
   def showFilter(username: String, filterName: String, page: Int) = Open { implicit ctx ⇒
@@ -52,12 +55,6 @@ object User extends LilaController {
       gamePaginator.recentlyCreated(query, filters.cachedNb)(page)
     })
   } yield html.user.show(u, info, pag, filters)
-
-  private def mini(username: String)(implicit ctx: Context) =
-    OptionOk(UserRepo named username) { user ⇒
-      Thread sleep 200
-      html.user.mini(user)
-    }
 
   def list(page: Int) = Open { implicit ctx ⇒
     Reasonable(page) {

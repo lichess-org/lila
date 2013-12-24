@@ -1,25 +1,27 @@
-@(userId: String, signup: Boolean = false)(implicit ctx: Context)
+@(userId: String, signup: Boolean = false, playing: Boolean = false)(implicit ctx: Context)
 
 @ctx.userId.map { myId =>
 @if(myId != userId) {
 @if(!blocks(userId, myId)) {
+@if(!playing) {
 <a title="@trans.challengeToPlay()" href="@routes.Lobby.home()?username=@userIdToUsername(userId)#friend" class="icon button" href="#">
   <span class="s16 challenge"></span>
 </a>
+}
 <a title="@trans.composeMessage()" href="@routes.Message.form()?username=@userId" class="icon button" href="#">
   <span class="s16 message"></span>
 </a>
 }
 @relationWith(userId) match {
 case None => {
-<a 
-  class="icon button relation" 
-  href="@routes.Relation.block(userId)" 
+<a
+  class="icon button relation"
+  href="@routes.Relation.block(userId)"
   title="@trans.block()">
   <span class="s16 tdown"></span>
 </a>
-<a 
-  class="icon button relation" 
+<a
+  class="icon button relation"
   href="@routes.Relation.follow(userId)"
   title="@trans.follow()">
   <span class="s16 tup"></span>
