@@ -100,13 +100,26 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  def players(gameId: String) = Open { implicit ctx ⇒
+  def endWatcher(gameId: String, color: String) = Open { implicit ctx ⇒
+    JsonOptionFuOk(GameRepo.pov(gameId, color)) { end(_, false) }
+  }
+
+  def endPlayer(fullId: String) = Open { implicit ctx ⇒
+    JsonOptionFuOk(GameRepo pov fullId) { end(_, true) }
+  }
+
+  private def end(pov: Pov, player: Boolean)(implicit ctx: Context) = {
     import templating.Environment.playerLink
-    JsonOptionOk(GameRepo game gameId map2 { (game: GameModel) ⇒
-      (game.players collect {
+    pov.game.tournamentId ?? TournamentRepo.byId map { tour ⇒
+      val players = (pov.game.players collect {
         case player if player.isHuman ⇒ player.color.name -> playerLink(player).body
       } toMap) ++ ctx.me.??(me ⇒ Map("me" -> me.usernameWithRating))
-    })
+      val table = if (player) html.round.table.end(pov, tour) else html.round.table.watch(pov)
+      Json.obj(
+        "players" -> players,
+        "infobox" -> html.game.infoBox(pov, tour).toString,
+        "table" -> table.toString)
+    }
   }
 
   def continue(id: String, mode: String) = Open { implicit ctx ⇒

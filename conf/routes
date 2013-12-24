@@ -60,7 +60,8 @@ GET   /$gameId<[\w\-]{8}>/s.js                       controllers.Round.signedJs(
 GET   /$fullId<[\w\-]{12}>/socket                    controllers.Round.websocketPlayer(fullId: String)
 GET   /$gameId<[\w\-]{8}>/$color<white|black>/table  controllers.Round.tableWatcher(gameId: String, color: String)
 GET   /$fullId<[\w\-]{12}>/table                     controllers.Round.tablePlayer(fullId: String)
-GET   /$gameId<[\w\-]{8}>/players                    controllers.Round.players(gameId: String)
+GET   /$gameId<[\w\-]{8}>/$color<white|black>/end    controllers.Round.endWatcher(gameId: String, color: String)
+GET   /$fullId<[\w\-]{12}>/end                       controllers.Round.endPlayer(fullId: String)
 GET   /$gameId<[\w\-]{8}>/continue/:mode             controllers.Round.continue(gameId: String, mode: String)
 GET   /$gameId<[\w\-]{8}>/edit                       controllers.Editor.game(gameId: String)
 

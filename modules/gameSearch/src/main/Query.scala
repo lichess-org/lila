@@ -1,11 +1,11 @@
 package lila.gameSearch
 
+import chess.{ Variant, Mode, Status, EcoDb }
+import com.github.nscala_time.time.Imports._
 import Game.fields
 import org.elasticsearch.index.query._, FilterBuilders._, QueryBuilders._
 import org.joda.time.DateTime
-import com.github.nscala_time.time.Imports._
 
-import chess.{ Variant, Mode, Status, EcoDb }
 import lila.common.RatingRange
 import lila.search.{ ElasticSearch, Range }
 
@@ -79,7 +79,7 @@ case class Query(
 }
 
 object Query {
-  
+
   import lila.common.Form._
 
   val durations = options(List(1, 2, 3, 5, 10, 15, 20, 30), "%d minute{s}")

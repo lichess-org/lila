@@ -107,6 +107,9 @@ private[controllers] trait LilaController
     _.fold(notFound(ctx))(a ⇒ fuccess(Ok(Json toJson a) as JSON))
   }
 
+  protected def JsonOptionFuOk[A, B: Writes](fua: Fu[Option[A]])(op: A ⇒ Fu[B])(implicit ctx: Context) =
+    fua flatMap { _.fold(notFound(ctx))(a ⇒ op(a) map { b => Ok(Json toJson b) as JSON }) }
+
   protected def JsOk(fua: Fu[String], headers: (String, String)*) =
     fua map { a ⇒ Ok(a) as JAVASCRIPT withHeaders (headers: _*) }
 
