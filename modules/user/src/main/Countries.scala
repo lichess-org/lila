@@ -199,12 +199,13 @@ object Countries {
     "YE" -> "Yemen",
     "ZA" -> "South Africa",
     "ZM" -> "Zambia",
-    "ZW" -> "Zimbabwe")
+    "ZW" -> "Zimbabwe"
+  ).sortBy(_._2)
 
   val map = all.toMap
 
   val codeSet = map.keySet
 
-  def info(code: String): Option[(String, String)] = 
+  def info(code: String): Option[(String, String)] =
     map get code map { code -> _ }
 }
