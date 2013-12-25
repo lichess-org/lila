@@ -1,7 +1,8 @@
 @(form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context)
 
 @auth.layout(
-title = trans.signUp.str()) {
+title = trans.signUp.str(),
+zen = true) {
 <div class="content_box small_box">
   <div class="signup_box">
     <h1 class="lichess_title">@trans.signUp()</h1>
