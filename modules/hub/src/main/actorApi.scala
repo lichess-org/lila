@@ -52,7 +52,6 @@ package lobby {
 
 package timeline {
   case class ReloadTimeline(user: String)
-  case class GameEntryView(rendered: String)
 
   sealed trait Atom
   case class Follow(u1: String, u2: String) extends Atom

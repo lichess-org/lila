@@ -28,15 +28,13 @@ final class Env(
   lazy val processor = new Processor(
     lobby = hub.actor.lobby,
     friendConfigMemo = friendConfigMemo,
-    timeline = hub.actor.gameTimeline,
     router = hub.actor.router,
     aiPlay = aiPlay)
 
   lazy val friendJoiner = new FriendJoiner(
     messenger = messenger,
     friendConfigMemo = friendConfigMemo,
-    router = hub.actor.router,
-    timeline = hub.actor.gameTimeline)
+    router = hub.actor.router)
 
   lazy val friendConfigMemo = new FriendConfigMemo(ttl = FriendMemoTtl)
 

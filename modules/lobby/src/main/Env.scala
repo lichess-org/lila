@@ -58,7 +58,6 @@ final class Env(
   }
 
   private lazy val biter = new Biter(
-    timeline = hub.actor.gameTimeline,
     blocks = blocks,
     roundMessenger = roundMessenger)
 }

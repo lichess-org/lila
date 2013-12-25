@@ -12,7 +12,6 @@ import lila.user.{ User, UserRepo }
 
 final class GameJoiner(
     roundMap: ActorRef,
-    timelinePush: ActorSelection,
     system: ActorSystem) {
 
   private val secondsToMove = 20
@@ -36,7 +35,6 @@ final class GameJoiner(
       .start
       .startClock(2)
     _ ← (GameRepo insertDenormalized game) >>-
-      (timelinePush ! game) >>-
       scheduleIdleCheck(PovRef(game.id, Color.White), secondsToMove)
   } yield game
 

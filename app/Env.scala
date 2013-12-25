@@ -25,7 +25,7 @@ final class Env(
     featured = Env.game.featured,
     relations = Env.relation.api,
     leaderboard = Env.user.cached.topRatingDay.apply,
-    recentGames = () ⇒ Env.timeline.getter.recentGames,
+    progress = Env.user.cached.topProgressDay.apply,
     timelineEntries = Env.timeline.getter.userEntries _)
 
   lazy val userInfo = mashup.UserInfo(

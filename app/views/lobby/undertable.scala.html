@@ -1,4 +1,4 @@
-@(gameTimeline: List[lila.timeline.GameEntry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created])(implicit ctx: Context)
+@(forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], leaderboard: List[User], progress: List[User])(implicit ctx: Context)
 
 <div class="open_tournaments undertable">
   <div class="undertable_top">
@@ -11,18 +11,51 @@
     </table>
   </div>
 </div>
-<div class="lichess_bot undertable">
-  <div class="undertable_top">
-    <a class="more" title="@trans.seeTheGamesBeingPlayedInRealTime()" href="@routes.Game.realtime()">@trans.games() »</a>
-    <span class="title">@trans.gamesBeingPlayedRightNow()</span>
+<div class="clearfix">
+  <div class="leaderboard undertable half">
+    <div class="user_top">
+      <div class="undertable_top">
+        <a class="more" title="@trans.people()" href="@routes.User.list()">@trans.more() »</a>
+        <span class="title">@trans.todaysLeaders()</span>
+      </div>
+      <div class="undertable_inner">
+        <table>
+          <tbody>
+            @leaderboard.map { u =>
+            <tr>
+              <td>@userLink(u, withRating = false, cssClass="revert-underline".some)</td>
+              <td>@u.rating</td>
+              <td>@showProgress(u.progress)</td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-  <div class="undertable_inner">
-    <div class="content">
-      <table>@timeline.gameEntries(gameTimeline)</table>
+  <div class="leaderboard undertable half">
+    <div class="user_top">
+      <div class="undertable_top">
+        <a class="more" title="@trans.people()" href="@routes.User.list()">@trans.more() »</a>
+        <span class="title">@trans.progressToday()</span>
+      </div>
+      <div class="undertable_inner">
+        <table>
+          <tbody>
+            @progress.map { u =>
+            <tr>
+              <td>@userLink(u, withRating = false, cssClass="revert-underline".some)</td>
+              <td>@u.rating</td>
+              <td>@showProgress(u.progress)</td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
-<div class="new_posts undertable" data-url="@routes.ForumPost.recent">
+<div class="new_posts undertable nomargin" data-url="@routes.ForumPost.recent">
   <div class="undertable_top">
     <a class="more" title="@trans.talkAboutChessAndDiscussLichessFeaturesInTheForum()" href="@routes.ForumCateg.index">@trans.forum() »</a>
     <span class="title">@trans.forum()</span>

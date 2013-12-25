@@ -19,7 +19,6 @@ import tube.{ userConfigTube, anonConfigTube }
 private[setup] final class Processor(
     lobby: ActorSelection,
     friendConfigMemo: FriendConfigMemo,
-    timeline: ActorSelection,
     router: ActorSelection,
     aiPlay: Game ⇒ Fu[Progress]) {
 
@@ -30,8 +29,7 @@ private[setup] final class Processor(
     val pov = config.pov
     val game = ctx.me.fold(pov.game)(user ⇒ pov.game.updatePlayer(pov.color, _ withUser user))
     saveConfig(_ withAi config) >>
-      (GameRepo insertDenormalized game) >>-
-      (timeline ! game) >>
+      (GameRepo insertDenormalized game) >>
       game.player.isHuman.fold(
         fuccess(pov),
         aiPlay(game) map { progress ⇒ pov withGame progress.game }

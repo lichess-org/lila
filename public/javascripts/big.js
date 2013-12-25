@@ -2112,7 +2112,6 @@ var storage = {
     if (!strongSocket.available) return;
 
     var $timeline = $("#timeline");
-    var $bot = $("div.lichess_bot");
     var $newposts = $("div.new_posts");
     var $hooks = $wrap.find('#hooks');
     var $canvas = $wrap.find('.canvas');
@@ -2209,10 +2208,6 @@ var storage = {
       return false;
     });
 
-    $bot.on("click", "tr", function() {
-      location.href = $(this).find('a.watch').attr("href");
-    });
-
     function resizeTimeline() {
       var max = $('#lichess').offset().top + 516;
       if ($timeline.length) {
@@ -2223,7 +2218,6 @@ var storage = {
       }
     }
     resizeTimeline();
-    renderTimeline(lichess_preload.timeline);
 
     _.each(lichess_preload.pool, function(h) {
       addHook(h, true);
@@ -2232,9 +2226,6 @@ var storage = {
 
     lichess.socket = new strongSocket("/lobby/socket", lichess_preload.version, $.extend(true, lichess.socketDefaults, {
       events: {
-        game_entry: function(e) {
-          renderTimeline([e]);
-        },
         reload_timeline: function() {
           $.ajax({
             url: $timeline.data('href'),
@@ -2278,20 +2269,6 @@ var storage = {
 
     function changeFeatured(html) {
       $('#featured_game').html(html);
-      $('body').trigger('lichess.content_loaded');
-    }
-
-    function renderTimeline(data) {
-      var html = "";
-      for (var i in data) {
-        html += '<tr>' + data[i] + '</tr>';
-      }
-      $bot.find('.undertable_inner').find('tbody').each(function() {
-        $(this).prepend(html);
-        if ($(this).children().length > 50) {
-          $(this).find('tr:gt(40)').remove();
-        }
-      }).end().scrollTop(0);
       $('body').trigger('lichess.content_loaded');
     }
 

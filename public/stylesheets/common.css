@@ -1736,6 +1736,9 @@ div.undertable {
   font-size: 11.5px;
   margin-top: 15px;
 }
+div.undertable.nomargin {
+  margin-top: 0;
+}
 div.undertable_top {
   border: 1px solid #ccc;
   padding: 3px 5px;
@@ -1753,7 +1756,7 @@ div.undertable_top span.title {
 div.undertable_inner {
   border: 1px solid #ccc;
   border-top: 0;
-  height: 204px;
+  height: 202px;
   width: auto;
   overflow: hidden;
 }
@@ -1782,6 +1785,17 @@ div.undertable tr:first-child td {
 }
 div.undertable tr:nth-child(even) td {
   background: #f0f0f0;
+}
+div.undertable.half {
+  width: 250px;
+  float: left;
+}
+div.undertable.half:first-child {
+  margin-right: 14px;
+}
+div.undertable.leaderboard td:first-child {
+  max-width: 150px;
+  overflow: hidden;
 }
 div.open_tournaments div.undertable_inner {
   height: auto;

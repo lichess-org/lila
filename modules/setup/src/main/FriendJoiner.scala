@@ -13,7 +13,6 @@ import makeTimeout.short
 private[setup] final class FriendJoiner(
     messenger: Messenger,
     friendConfigMemo: FriendConfigMemo,
-    timeline: ActorSelection,
     router: ActorSelection) {
 
   def apply(game: Game, user: Option[User]): Valid[Fu[(Pov, List[Event])]] =
@@ -31,7 +30,7 @@ private[setup] final class FriendJoiner(
         p3 ← messenger init p2.game map { evts ⇒
           p2 + Event.RedirectOwner(!color, url) ++ evts
         }
-        _ ← (GameRepo save p3) >>- (timeline ! p3.game)
+        _ ← GameRepo save p3
       } yield Pov(p3.game, color) -> p3.events
     } toValid "Can't join started game " + game.id
 
