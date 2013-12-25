@@ -11,8 +11,7 @@ moreCss: Html = Html(""),
 moreJs: Html = Html(""),
 signedJs: Option[String] = None,
 themepicker: Boolean = false,
-zen: Boolean = false,
-bodyClass: Option[String] = None)(body: Html)(implicit ctx: Context)
+zen: Boolean = false)(body: Html)(implicit ctx: Context)
 <!doctype html>
 <html lang="@lang.language">
 <head>
@@ -31,7 +30,7 @@ bodyClass: Option[String] = None)(body: Html)(implicit ctx: Context)
 }
 <meta name="google" content="notranslate" />
 </head>
-<body class="@currentTheme.cssClass @currentBg @bodyClass"
+<body class="@currentTheme.cssClass @currentBg"
 data-sound-file="@routes.Assets.at("sound/alert.ogg")"
 data-troll="@ctx.troll.toString"
 data-port="@netPort"
