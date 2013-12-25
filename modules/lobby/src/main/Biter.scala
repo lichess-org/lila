@@ -8,7 +8,6 @@ import lila.game.{ GameRepo, Game, Player, Pov, Progress }
 import lila.user.{ User, UserRepo }
 
 private[lobby] final class Biter(
-    timeline: akka.actor.ActorSelection,
     blocks: (String, String) ⇒ Fu[Boolean],
     roundMessenger: lila.round.Messenger) {
 
@@ -27,7 +26,6 @@ private[lobby] final class Biter(
       blame(creatorColor, ownerOption, makeGame(hook))
     ).start
     _ ← (GameRepo insertDenormalized game) >>-
-      (timeline ! game) >>
       // messenges are not sent to the game socket
       // as nobody is there to see them yet
       (roundMessenger init game)

@@ -84,7 +84,6 @@ final class Env(
 
   private lazy val joiner = new GameJoiner(
     roundMap = roundMap,
-    timelinePush = hub.actor.gameTimeline,
     system = system)
 
   {

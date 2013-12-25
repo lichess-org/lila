@@ -16,7 +16,6 @@ import lila.user.UserRepo
 private[round] final class Rematcher(
     messenger: Messenger,
     router: ActorSelection,
-    timeline: ActorSelection,
     rematch960Cache: ExpireSetMemo) {
 
   def yes(pov: Pov): Fu[Events] = pov match {
@@ -56,7 +55,6 @@ private[round] final class Rematcher(
     nextId = nextGame.id
     _ ← (GameRepo insertDenormalized nextGame) >>
       GameRepo.saveNext(pov.game, nextGame.id) >>-
-      (timeline ! nextGame) >>
       // messenges are not sent to the next game socket
       // as nobody is there to see them yet
       messenger.rematch(pov.game, nextGame) >>- {

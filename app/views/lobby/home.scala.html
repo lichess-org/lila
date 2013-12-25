@@ -1,4 +1,4 @@
-@(preload: String, userTimeline: List[lila.timeline.Entry], gameTimeline: List[lila.timeline.GameEntry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], featured: Option[Game], leaderboard: List[User])(implicit ctx: Context)
+@(preload: String, userTimeline: List[lila.timeline.Entry], forumRecent: List[lila.forum.PostLiteView], tours: List[lila.tournament.Created], featured: Option[Game], leaderboard: List[User], progress: List[User])(implicit ctx: Context)
 
 @underchat = {
 <a class="watchtv revert-underline" href="@routes.Tv.index">@trans.watchLichessTV()</a>
@@ -69,7 +69,13 @@ underchat = underchat.some) {
       <div id="hook_filter"></div>
     </div>
   </div>
-  @lobby.buttons(leaderboard)
-  @lobby.undertable(gameTimeline, forumRecent, tours)
+  <div class="lichess_ground">
+    <div class="lichess_table lichess_table_not_started" id="start_buttons">
+      @lobbyMenu.all.map { b =>
+      <a class="lichess_button button config_@b.code" href="@b.route" onclick="return false" title="@b.title()">@b.name()</a>
+      }
+    </div>
+  </div>
+  @lobby.undertable(forumRecent, tours, leaderboard, progress)
 </div>
 }

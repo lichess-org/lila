@@ -20,7 +20,6 @@ final class Env(config: Config, system: ActorSystem) {
     val ai = select("actor.ai")
     val monitor = select("actor.monitor")
     val tournamentOrganizer = select("actor.tournament.organizer")
-    val gameTimeline = select("actor.timeline.game")
     val timeline = select("actor.timeline.user")
     val bookmark = select("actor.bookmark")
     val roundMap = select("actor.round.map")
@@ -39,7 +38,7 @@ final class Env(config: Config, system: ActorSystem) {
     val hub = select("socket.hub")
   }
 
-  private def select(name: String) = 
+  private def select(name: String) =
     system actorSelection ("/user/" + config.getString(name))
 }
 

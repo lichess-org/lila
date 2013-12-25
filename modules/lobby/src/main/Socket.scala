@@ -42,8 +42,6 @@ private[lobby] final class Socket(
 
     case NewForumPost            ⇒ notifyAll("reload_forum")
 
-    case GameEntryView(rendered) ⇒ notifyVersion("game_entry", rendered)
-
     case ReloadTimeline(user)    ⇒ sendTo(user, makeMessage("reload_timeline", JsNull))
 
     case AddHook(hook)           ⇒ notifyVersion("hook_add", hook.render)

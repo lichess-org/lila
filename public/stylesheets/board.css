@@ -248,18 +248,6 @@ div.lichess_table_not_started {
   border: none;
   padding: 0;
 }
-div.lichess_homepage div.leaderboard {
-  position: absolute;
-  top: 514px;
-  width: 242px;
-}
-div.lichess_homepage div.leaderboard td:first-child {
-  max-width: 150px;
-  overflow: hidden;
-}
-div.lichess_homepage div.leaderboard div.undertable_inner {
-  height: auto;
-}
 div.lichess_table div.username {
   padding-left: 16px;
 }

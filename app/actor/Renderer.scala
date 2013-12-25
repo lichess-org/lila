@@ -27,8 +27,5 @@ private[app] final class Renderer extends Actor {
 
     case lila.tournament.actorApi.TournamentTable(tours) ⇒
       sender ! V.tournament.createdTable(tours)
-
-    case entry: lila.timeline.GameEntry ⇒
-      sender ! V.timeline.gameEntry(entry)
   }
 }
