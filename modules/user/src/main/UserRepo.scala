@@ -86,7 +86,7 @@ trait UserRepo {
 
   val enabledSelect = Json.obj("enabled" -> true)
   val noEngineSelect = Json.obj("engine" -> $ne(true))
-  val stableSelect = Json.obj("perfs.global.gl.d" -> $lt(100))
+  val stableSelect = Json.obj("perfs.global.gl.d" -> $lt(82))
   val goodLadSelect = enabledSelect ++ noEngineSelect
   val stableGoodLadSelect = stableSelect ++ goodLadSelect
   def perfSince(perf: String, since: DateTime) = Json.obj(
