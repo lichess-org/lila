@@ -13,7 +13,7 @@ import lila.lobby.actorApi.GetOpen
 import lila.lobby.{ Hook, HookRepo }
 import lila.setup.FilterConfig
 import lila.socket.History
-import lila.timeline.{ Entry, GameEntry }
+import lila.timeline.Entry
 import lila.tournament.Created
 import lila.user.{ User, Context }
 import lila.relation.RelationApi

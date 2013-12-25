@@ -22,7 +22,7 @@ body.dark #hooks_wrap > div.tabs > a, body.dark #top div.auth .links a:hover, bo
   background-color: #3e3e3e;
   color: #b0b0b0;
 }
-body.dark #top a.signin, body.dark #top a.toggle:hover, body.dark #top .dropdown, body.dark #top a.goto_nav.current, body.dark #top a.goto_nav:hover, body.dark #top ul.language_links a.accepted {
+body.dark #notifications > div, body.dark #top a.signin, body.dark #top a.toggle:hover, body.dark #top .dropdown, body.dark #top a.goto_nav.current, body.dark #top a.goto_nav:hover, body.dark #top ul.language_links a.accepted {
   color: #b0b0b0;
 }
 body.dark #top .dropdown, body.dark #top .shown a.toggle {
