@@ -1021,14 +1021,15 @@ span.s16.clock {
   padding-left: 20px;
   background-position: 0 -304px;
 }
-div.engine_warning {
+div.warning {
   padding: 5px 5px 5px 40px;
   background: #f2dede url(../images/engine_big.png) 8px 5px no-repeat;
   line-height: 16px;
   border: 1px solid #eed3d7;
   color: #894a48;
-  width: 240px;
-  margin-bottom: 15px;
+}
+div.join_warning {
+  margin: 1em;
 }
 .engine_mark {
   display: inline-block;

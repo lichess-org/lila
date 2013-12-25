@@ -49,6 +49,11 @@ div.user_show div.meat {
   position: relative;
 }
 
+div.engine_warning {
+  margin-bottom: 15px;
+  width: 240px;
+}
+
 div.sub_ratings.sep {
   margin-top: 2.5em;
 }

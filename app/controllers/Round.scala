@@ -82,8 +82,7 @@ object Round extends LilaController with TheftPrevention {
   private def join(pov: Pov)(implicit ctx: Context): Fu[SimpleResult] =
     GameRepo initialFen pov.gameId zip env.version(pov.gameId) map {
       case (fen, version) ⇒ Ok(html.setup.join(
-        pov, version, Env.setup.friendConfigMemo get pov.game.id, fen, pov.game.rated
-      ))
+        pov, version, Env.setup.friendConfigMemo get pov.game.id, fen))
     }
 
   def tableWatcher(gameId: String, color: String) = Open { implicit ctx ⇒

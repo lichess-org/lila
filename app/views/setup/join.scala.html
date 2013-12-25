@@ -1,4 +1,4 @@
-@(pov: Pov, version: Int, config: Option[lila.setup.FriendConfig], initialFen: Option[String], rated: Boolean)(implicit ctx: Context)
+@(pov: Pov, version: Int, config: Option[lila.setup.FriendConfig], initialFen: Option[String])(implicit ctx: Context)
 
 @import pov._
 
@@ -22,7 +22,10 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
       @initialFen.map { fen =>
       @views.html.game.miniBoard(fen)
       }
-      @if(!rated || ctx.isAuth) {
+      @if(!game.rated || ctx.isAuth) {
+      @if(game.rated && !game.hasClock) {
+      <div class="join_warning warning">Beware, the game is rated but has no clock!</div>
+      }
       <form action="@routes.Setup.join(gameId)" method="post">
         <input name="submit" type="submit" class="submit button" value="@trans.joinTheGame()" />
       </form>

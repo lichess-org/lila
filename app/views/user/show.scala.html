@@ -89,7 +89,7 @@ evenMoreJs = evenMoreJs) {
     }
     <div class="user-infos">
       @if(u.engine && ctx.me.fold(true)(u !=)) {
-      <div class="engine_warning">@trans.thisPlayerUsesChessComputerAssistance()</div>
+      <div class="warning engine_warning">@trans.thisPlayerUsesChessComputerAssistance()</div>
       }
       @u.profile.map { p =>
       @p.nonEmptyRealName.map { name =>
