@@ -1,5 +1,7 @@
 div.user_lists h2 {
-  font-size: 1.5em;
+  font-size: 1.1em;
+  font-weight: bold;
+  line-height: 1.5em;
   margin-bottom: 0.5em;
 }
 #lichess div.user_lists div.user_top {
