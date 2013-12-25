@@ -665,15 +665,18 @@ body.offline #nb_connected_players {
 #top a.goto_nav.message {
   opacity: 0.7;
 }
+#top .goto_nav {
+  border-bottom: 2px solid transparent;
+}
 #top a.goto_nav:hover, #top a.toggle:hover, #top a.bgpicker:hover, a#sound_state:hover {
   opacity: 1;
   color: #303030;
-  border-bottom: 2px solid #808080;
+  border-color: #808080;
 }
 #top a.goto_nav.current {
   opacity: 1;
   color: #303030;
-  border-bottom: 2px solid #d85000;
+  border-color: #d85000;
 }
 #top .s16 {
   display:block;
