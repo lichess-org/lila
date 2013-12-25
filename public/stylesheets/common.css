@@ -1959,10 +1959,13 @@ body.homepage #notifications {
 #notifications .user_link {
   display: inline-block;
 }
+#notifications .actions {
+  text-align: right;
+  width: 100%;
+  margin: 3px 0 3px 0;
+}
 #notifications .action {
-  float: right;
-  display: block;
-  margin-left: 8px;
+  margin-left: 10px;
 }
 a.hover_text > .base, a.hover_text:hover > .hover {
   display: inline-block;

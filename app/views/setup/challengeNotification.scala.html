@@ -1,7 +1,13 @@
-@(gameId: String, userId: String)
+@(game: Game, user: User)
 
 @notification.view("challenge_reminder", closable = false) {
-@userIdLink(userId.some) @trans.challengeToPlay.en()
-<a class="action decline" href="@routes.Setup.decline(gameId)">@trans.decline.en()</a>
-<a class="action" href="@routes.Round.watcher(gameId, "white")">View challenge</a>
+<div>
+  @userLink(user) @trans.challengeToPlay.en()
+  @clockNameNoCtx(game.clock)
+  @modeNameNoCtx(game.mode)
+</div>
+<div class="actions">
+  <a class="action decline" href="@routes.Setup.decline(game.id)">@trans.decline.en()</a>
+  <a class="action" href="@routes.Round.watcher(game.id, "white")">View challenge</a>
+</div>
 }

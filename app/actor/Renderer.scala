@@ -4,6 +4,8 @@ package actor
 import akka.actor._
 import play.api.templates.Html
 
+import lila.game.GameRepo
+import lila.user.UserRepo
 import views.{ html ⇒ V }
 
 private[app] final class Renderer extends Actor {
@@ -19,10 +21,15 @@ private[app] final class Renderer extends Actor {
     case lila.tournament.actorApi.RemindTournament(tournament) ⇒
       sender ! V.tournament.reminder(tournament)
 
-    case lila.hub.actorApi.setup.RemindChallenge(gameId, from, _) ⇒
-      sender ! V.setup.challengeNotification(gameId, from)
+    case lila.hub.actorApi.setup.RemindChallenge(gameId, from, _) ⇒ {
+      val replyTo = sender
+      (GameRepo game gameId) zip (UserRepo named from) foreach {
+        case (Some(game), Some(user)) ⇒ replyTo ! V.setup.challengeNotification(game, user)
+        case x                        ⇒ logwarn(s"remind challenge $x")
+      }
+    }
 
-    case lila.hub.actorApi.RemindDeployPre ⇒ sender ! V.notification.deploy("pre")
+    case lila.hub.actorApi.RemindDeployPre  ⇒ sender ! V.notification.deploy("pre")
     case lila.hub.actorApi.RemindDeployPost ⇒ sender ! V.notification.deploy("post")
 
     case lila.tournament.actorApi.TournamentTable(tours) ⇒

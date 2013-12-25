@@ -2,19 +2,17 @@ package lila.app
 package templating
 
 import chess.format.Forsyth
-import chess.{ Status => S, Variant, Color, Clock, Mode }
-import lila.user.{ User, Context }
-import lila.game.{ Game, Player, Namer }
-
-import lila.user.Env.{ current ⇒ userEnv }
-
+import chess.{ Status ⇒ S, Variant, Color, Clock, Mode }
 import controllers.routes
-
-import play.api.templates.Html
 import play.api.mvc.Call
+import play.api.templates.Html
+
+import lila.game.{ Game, Player, Namer }
+import lila.user.Env.{ current ⇒ userEnv }
+import lila.user.{ User, Context }
+
 
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper ⇒
-
   def variantName(variant: Variant)(implicit ctx: Context) = variant match {
     case Variant.Standard     ⇒ trans.standard.str()
     case Variant.Chess960     ⇒ "chess960"
@@ -24,8 +22,14 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def clockName(clock: Option[Clock])(implicit ctx: Context): String =
     clock.fold(trans.unlimited.str())(clockName)
 
-  def clockName(clock: Clock)(implicit ctx: Context): String = 
+  def clockName(clock: Clock)(implicit ctx: Context): String =
     trans.nbMinutesPerSidePlusNbSecondsPerMove.str(clock.limitInMinutes, clock.increment)
+
+  def clockNameNoCtx(clock: Option[Clock]): String =
+    clock.fold(trans.unlimited.en())(clockNameNoCtx)
+
+  def clockNameNoCtx(clock: Clock): String =
+    trans.nbMinutesPerSidePlusNbSecondsPerMove.en(clock.limitInMinutes, clock.increment)
 
   def shortClockName(clock: Option[Clock])(implicit ctx: Context): String =
     clock.fold(trans.unlimited.str())(Namer.shortClock)
@@ -35,6 +39,11 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def modeName(mode: Mode)(implicit ctx: Context): String = mode match {
     case Mode.Casual ⇒ trans.casual.str()
     case Mode.Rated  ⇒ trans.rated.str()
+  }
+
+  def modeNameNoCtx(mode: Mode): String = mode match {
+    case Mode.Casual ⇒ trans.casual.en()
+    case Mode.Rated  ⇒ trans.rated.en()
   }
 
   def playerUsername(player: Player, withRating: Boolean = true) =
@@ -81,7 +90,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     case S.Draw      ⇒ trans.draw()
     case S.Outoftime ⇒ trans.timeOut()
     case S.Cheat     ⇒ Html("Cheat detected")
-    case _                ⇒ Html("")
+    case _           ⇒ Html("")
   }
 
   def gameFen(game: Game, color: Color, ownerLink: Boolean = false, tv: Boolean = false)(implicit ctx: Context) = Html {
