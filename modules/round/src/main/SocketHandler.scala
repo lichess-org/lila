@@ -46,6 +46,9 @@ private[round] final class SocketHandler(
       case ("p", o)       ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
       case ("talk", o)    ⇒ watcherTalk(ref.gameId, o)
       case ("talk-tv", o) ⇒ if (member.isAuth) watcherTalk("tv", o)
+      case ("liveGames", o) ⇒ o str "d" foreach { ids ⇒
+        socket ! LiveGames(uid, ids.split(' ').toList)
+      }
     }) { playerId ⇒
       {
         case ("p", o) ⇒ o int "v" foreach { v ⇒ socket ! PingVersion(uid, v) }
