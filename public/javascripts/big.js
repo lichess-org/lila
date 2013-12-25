@@ -2581,6 +2581,15 @@ var storage = {
     clearShortcutSquares("BCDEFGH", "12345678");
     clearShortcutSquares("A", "1234567");
     var $game = $("#GameBoard");
+    $game.mousewheel(function(event) {
+      if(event.deltaY == 1) {
+        $('#forwardButton').click();
+      } else if(event.deltaY == -1) {
+        $('#backButton').click();
+      }
+      event.stopPropagation();
+      return false;
+    });
     var $chat = $("div.lichess_chat").chat({
       render: function(u, t) {
         return '<li><span>' + $.userLinkLimit(u, 14) + '</span>' + urlToLink(t) + '</li>';
