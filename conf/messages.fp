@@ -18,7 +18,6 @@ stalemate=Pata
 white=Blanc
 black=Néyr
 createAGame=Skep 'n wedstryd
-noGameAvailableRightNowCreateOne=Geen spel nou beskikbaar, skep een!
 whiteIsVictorious=Lo bllanc ganye
 blackIsVictorious=Lo néyr ganye
 playWithTheSameOpponentAgain=Joyèr ‘ncor avoy lo mémo adverséro
