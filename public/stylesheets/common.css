@@ -1935,6 +1935,9 @@ div.progressbar.flashy.green div {
   width: 1005px;
   margin: 0 auto -10px auto;
 }
+body.homepage #notifications {
+  margin-bottom: 10px;
+}
 #notifications .deploy {
   line-height: 16px;
 }
