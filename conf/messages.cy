@@ -17,7 +17,6 @@ stalemate=Gêm gyfartal
 white=Gwyn
 black=Du
 createAGame=Creu gêm
-noGameAvailableRightNowCreateOne=Ddim gemau are gael, creu un!
 whiteIsVictorious=Gwyn wedi ennill
 blackIsVictorious=Ddu wedi ennill
 playWithTheSameOpponentAgain=Chwarae efo'r person hyn eto

@@ -13,7 +13,6 @@ resign=acha kucheza
 white=nyeupe
 black=nyeusi
 createAGame=unda mchezo
-noGameAvailableRightNowCreateOne=hkuna mchezo kwa sasa, unda mmoja!
 whiteIsVictorious=nyeupe ameshinda
 blackIsVictorious=nyeusi ameshinda
 playWithTheSameOpponentAgain=chezesha huyu mpinzani tena
