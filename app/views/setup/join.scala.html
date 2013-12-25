@@ -1,4 +1,4 @@
-@(pov: Pov, version: Int, config: Option[lila.setup.FriendConfig], initialFen: Option[String])(implicit ctx: Context)
+@(pov: Pov, opponentUser: Option[User], version: Int, config: Option[lila.setup.FriendConfig], initialFen: Option[String])(implicit ctx: Context)
 
 @import pov._
 
@@ -11,7 +11,11 @@ signedJs = routes.Round.signedJs(pov.gameId).toString.some) {
   <div class="lichess_board_wrap">
     @color.fold(board.white(), board.black())
     <div class="lichess_overboard auto_center joining">
-      @trans.joinTheGame()
+      @opponentUser.map { u =>
+      @userLink(u, withOnline = false)
+      }.getOrElse {
+      @User.anonymous
+      }
       @config.map { c =>
       <p class="explanations">
         @trans.variant(): @variantName(c.variant)<br />

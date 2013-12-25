@@ -361,17 +361,32 @@ var storage = {
           }
         },
         challengeReminder: function(data) {
-          if (!storage.get('challenge-refused-' + data.id) && !$('div.lichess_overboard.joining').length) {
+          if (!storage.get('challenge-refused-' + data.id)) {
+            var $overboard = $('div.lichess_overboard.joining');
+            var declineListener = function($a, callback) {
+              return $a.click(function() {
+                $.post($(this).attr("href"));
+                storage.set('challenge-refused-' + data.id, 1);
+                $('#challenge_reminder').remove();
+                if ($.isFunction(callback)) callback();
+                return false;
+              });
+            };
+            if ($overboard.length) {
+              if (!$overboard.find('a.decline').length)
+                $overboard.find('form').append(
+                  declineListener($(data.html).find('a.decline'), function() {
+                    location.href = "/";
+                  })
+                );
+              return;
+            }
             $('#challenge_reminder').each(function() {
               clearTimeout($(this).data('timeout'));
               $(this).remove();
             });
-            $('#notifications').append(data.html).find("a.decline").click(function() {
-              $.post($(this).attr("href"));
-              storage.set('challenge-refused-' + data.id, 1);
-              $('#challenge_reminder').remove();
-              return false;
-            });
+            $('#notifications').append($(data.html));
+            declineListener($('#notifications a.decline'));
             $('#challenge_reminder').data('timeout', setTimeout(function() {
               $('#challenge_reminder').remove();
             }, 3000));
@@ -2582,9 +2597,9 @@ var storage = {
     clearShortcutSquares("A", "1234567");
     var $game = $("#GameBoard");
     $game.mousewheel(function(event) {
-      if(event.deltaY == 1) {
+      if (event.deltaY == 1) {
         $('#forwardButton').click();
-      } else if(event.deltaY == -1) {
+      } else if (event.deltaY == -1) {
         $('#backButton').click();
       }
       event.stopPropagation();

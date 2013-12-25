@@ -151,8 +151,6 @@ div.lichess_overboard a.close:hover {
 }
 div.lichess_overboard p.explanations {
   margin-top: 1em;
-  border-top: 1px solid #ccc;
-  padding-top:1em;
   font-size: 12px;
   line-height: 1.4em;
   text-align: left;
