@@ -1851,6 +1851,10 @@ div.lichess_overboard.joining input.submit {
   margin-top: 1em;
   padding: 0.6em 1em;
 }
+div.lichess_overboard.joining a.decline {
+  display: block;
+  margin-top: 1em;
+}
 div.lichess_overboard.joining .mini_board {
   margin: 10px auto;
 }
