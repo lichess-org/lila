@@ -1557,7 +1557,7 @@ div.game_config div.color_submits button.random span {
   background: rgba(200, 255, 200, 0.7);
 }
 #hooks_table tr:hover td {
-  background: rgba(255, 255, 200, 0.7);
+  background: rgba(191, 231, 255, 0.7);
 }
 #hooks_table td:first-child {
   width: 16px;
