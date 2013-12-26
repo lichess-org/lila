@@ -269,3 +269,4 @@ activePlayers=Aktivni igralci
 bestBulletPlayers=Najboljši v hitrem tempu
 bestBlitzPlayers=Najboljši v pospešenem tempu
 bestSlowPlayers=Najboljši v počasnem tempu
+bewareTheGameIsRatedButHasNoClock=Pozor, igra je rangirana, vendar brez ure!
