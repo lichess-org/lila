@@ -269,3 +269,4 @@ activePlayers=Aktive spillere
 bestBulletPlayers=Beste lynspillere
 bestBlitzPlayers=Beste blitsspillere
 bestSlowPlayers=Beste tregsjakkspillere
+bewareTheGameIsRatedButHasNoClock=Pass på, det spillet er vurdert men har ingen klokke!
