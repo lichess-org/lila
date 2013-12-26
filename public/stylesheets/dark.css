@@ -59,7 +59,7 @@ body.dark #hooks_table tr.cancel td {
   background: rgba(0, 80, 0, 0.7);
 }
 body.dark #hooks_table tr:hover td {
-  background: rgba(50, 50, 20, 0.7);
+  background: rgba(27, 51, 68, 0.7);
 }
 body.dark #hook_filter {
   background: rgba(0, 0, 0, 0.8);
