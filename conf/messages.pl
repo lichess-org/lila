@@ -269,3 +269,4 @@ activePlayers=Aktywni gracze
 bestBulletPlayers=Najlepsi gracze bullet
 bestBlitzPlayers=Najlepsi gracze blitz
 bestSlowPlayers=Najlepsi gracze slow
+bewareTheGameIsRatedButHasNoClock=Uważaj, gra jest rankingowa, ale bez limitu czasu!
