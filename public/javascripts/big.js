@@ -2199,8 +2199,8 @@ var storage = {
                 var values = $input.val() ? $input.val().split("-") : [min, max];
                 $span.text(values.join(' - '));
 
-                function change() {
-                  var values = $this.slider('values');
+                function change(e, ui) {
+                  var values = ui.values;
                   $input.val(values[0] + "-" + values[1]);
                   $span.text(values[0] + " - " + values[1]);
                   save();
