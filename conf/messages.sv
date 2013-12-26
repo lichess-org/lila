@@ -269,3 +269,4 @@ activePlayers=Aktiva spelare
 bestBulletPlayers=Bästa bullet spelare
 bestBlitzPlayers=Bästa blitz spelare
 bestSlowPlayers=Bästa långsamma spelare
+bewareTheGameIsRatedButHasNoClock=OBS! Spelet är rankat men har ingen tidsgräns.
