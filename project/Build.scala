@@ -6,7 +6,7 @@ object ApplicationBuild extends Build {
   import BuildSettings._
   import Dependencies._
 
-  override def rootProject = Some(lila) 
+  override def rootProject = Some(lila)
 
   lazy val lila = _root_.play.Project("lila", "5.0") settings (
     offline := true,
@@ -29,7 +29,8 @@ object ApplicationBuild extends Build {
     message, notification, i18n, game, bookmark, search,
     gameSearch, timeline, forum, forumSearch, team, teamSearch,
     ai, analyse, mod, monitor, site, round, lobby, setup,
-    importer, tournament, relation, report, pref, simulation)
+    importer, tournament, relation, report, pref, simulation,
+    chat)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
@@ -60,6 +61,11 @@ object ApplicationBuild extends Build {
 
   lazy val search = project("search", Seq(common, hub)).settings(
     libraryDependencies ++= provided(play.api, scalastic)
+  )
+
+  lazy val chat = project("chat", Seq(common, db, hub, user, security, pref)).settings(
+    libraryDependencies ++= provided(
+      play.api, RM, PRM)
   )
 
   lazy val timeline = project("timeline", Seq(common, db, game, user, hub, security, relation)).settings(

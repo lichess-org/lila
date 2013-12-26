@@ -8,7 +8,8 @@ case class Pref(
     theme: String,
     autoQueen: Int,
     clockTenths: Boolean,
-    premove: Boolean) {
+    premove: Boolean,
+    chat: Pref.ChatPref) {
 
   def realTheme = Theme(theme)
 
@@ -25,6 +26,10 @@ case class Pref(
 }
 
 object Pref {
+
+  case class ChatPref(
+    chans: List[String],
+    mainChan: Option[String])
 
   object AutoQueen {
     val NEVER = 1
@@ -43,7 +48,8 @@ object Pref {
     theme = Theme.default.name,
     autoQueen = AutoQueen.PREMOVE,
     clockTenths = true,
-    premove = true)
+    premove = true,
+    chat = ChatPref(List("lichess", "tv"), "lichess".some))
 
   val default = create("")
 
@@ -53,6 +59,8 @@ object Pref {
   import lila.db.JsTube
   import JsTube.Helpers._
   import play.api.libs.json._
+
+  private implicit lazy val chatFormat = Json.format[ChatPref]
 
   private[pref] lazy val tube = JsTube[Pref](
     (__.json update merge(defaults)) andThen Json.reads[Pref],
@@ -64,5 +72,6 @@ object Pref {
     "theme" -> default.theme,
     "autoQueen" -> default.autoQueen,
     "clockTenths" -> default.clockTenths,
-    "premove" -> default.premove)
+    "premove" -> default.premove,
+    "chat" -> default.chat)
 }
