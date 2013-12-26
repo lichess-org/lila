@@ -1,4 +1,4 @@
-// these functions must remain on root namespace 
+// these functions must remain on root namespace
 
 function customFunctionOnPgnGameLoad() {
 

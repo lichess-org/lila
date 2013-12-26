@@ -2597,9 +2597,9 @@ var storage = {
     clearShortcutSquares("A", "1234567");
     var $game = $("#GameBoard");
     $game.mousewheel(function(event) {
-      if (event.deltaY == 1) {
+      if (event.deltaY == -1) {
         $('#forwardButton').click();
-      } else if (event.deltaY == -1) {
+      } else if (event.deltaY == 1) {
         $('#backButton').click();
       }
       event.stopPropagation();
