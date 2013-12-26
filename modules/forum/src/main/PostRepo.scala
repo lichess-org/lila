@@ -16,14 +16,14 @@ object PostRepoTroll extends PostRepo(true)
 sealed abstract class PostRepo(troll: Boolean) {
 
   private lazy val trollFilter = troll.fold(
-    Json.obj(), 
+    Json.obj(),
     Json.obj("troll" -> false)
   )
 
-  def byCategAndId(categSlug: String, id: String): Fu[Option[Post]] = 
+  def byCategAndId(categSlug: String, id: String): Fu[Option[Post]] =
     $find.one(selectCateg(categSlug) ++ $select(id))
 
-  def countBeforeNumber(topicId: String, number: Int): Fu[Int] = 
+  def countBeforeNumber(topicId: String, number: Int): Fu[Int] =
     $count(selectTopic(topicId) ++ Json.obj("number" -> $lt(number)))
 
   def isFirstPost(topicId: String, postId: String): Fu[Boolean] =
@@ -34,7 +34,7 @@ sealed abstract class PostRepo(troll: Boolean) {
     )(_.asOpt[String]) map { _.??(postId ==) }
 
   def countByTopics(topics: List[String]): Fu[Int] =
-    $count(selectTopics(topics)) 
+    $count(selectTopics(topics))
 
   def lastByTopics(topics: List[String]): Fu[Option[Post]] =
     $find.one($query(selectTopics(topics)) sort $sort.createdDesc)
