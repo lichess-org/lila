@@ -2212,7 +2212,7 @@ var storage = {
                   values: values,
                   step: 50,
                   slide: change
-                }).change(change);
+                });
               });
             }
           });
