@@ -269,4 +269,4 @@ activePlayers=Actieve spelers
 bestBulletPlayers=Beste bulletschakers
 bestBlitzPlayers=Beste blitzschakers
 bestSlowPlayers=Beste langzame schakers
-bewareTheGameIsRatedButHasNoClock=Let op, je speelt voor rating maar er is geen tijdslimiet!
+bewareTheGameIsRatedButHasNoClock=Let op, de partij is met rating maar heeft geen klok!
