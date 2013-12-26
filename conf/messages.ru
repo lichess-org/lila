@@ -269,4 +269,4 @@ activePlayers=Активные игроки
 bestBulletPlayers=Лучшие пуля-игроки
 bestBlitzPlayers=Лучшие блиц-игроки
 bestSlowPlayers=Лучшие медленные игроки
-bewareTheGameIsRatedButHasNoClock=Внимание! Игра на рейтинг, но она не приурочен!
+bewareTheGameIsRatedButHasNoClock=Внимание! Игра на рейтинг, но она не ограничена по времени!
