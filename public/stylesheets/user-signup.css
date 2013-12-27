@@ -13,12 +13,15 @@ div.signup_box .lichess_title {
   margin-bottom: 1em;
 }
 
-div.alternative {
+div.content_box.login div.alternative {
   display: block;
   position: absolute;
   top: 2em;
   left: 312px;
   width: 300px;
+}
+div.content_box.signup div.alternative {
+  float: right;
 }
 
 .content_box form {
