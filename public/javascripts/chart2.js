@@ -91,10 +91,6 @@ $(function() {
           data: points('rating'),
           threshold: null
         }, {
-          // name: 'Average ELO',
-          // type: 'line',
-          // data: points('avg')
-          // }, {
           name: 'Opponent',
           type: 'line',
           data: points('op')
@@ -134,7 +130,7 @@ $(function() {
             click: function(event) {
               if (event.point) {
                 event.point.select();
-                GoToMove(event.point.x + 1);
+                GoToMove(event.point.x + 1, 0);
               }
             }
           },

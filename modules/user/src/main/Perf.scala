@@ -1,7 +1,7 @@
 package lila.user
 
-import reactivemongo.bson.BSONDocument
 import org.joda.time.DateTime
+import reactivemongo.bson.BSONDocument
 
 import lila.db.BSON
 
@@ -19,6 +19,15 @@ case class Perf(
 case object Perf {
 
   val default = Perf(Glicko.default, 0, None)
+
+  val titles = Map(
+    "bullet"   -> "Very fast games: less than 3 minutes",
+    "blitz"    -> "Fast games: less than 8 minutes",
+    "slow"     -> "Slow games: more than 8 minutes",
+    "standard" -> "Standard rules of chess",
+    "chess960" -> "Chess960 variant",
+    "white"    -> "With white pieces",
+    "black"    -> "With black pieces")
 
   private def PerfBSONHandler = new BSON[Perf] {
 
