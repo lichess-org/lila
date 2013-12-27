@@ -22,6 +22,13 @@ private[lobby] final class Socket(
     router: akka.actor.ActorSelection,
     uidTtl: Duration) extends SocketActor[Member](uidTtl) with Historical[Member] {
 
+  lilaBus.subscribe(self, 'chatOutput)
+
+  override def postStop() {
+    lilaBus.unsubscribe(self)
+    super.postStop()
+  }
+
   def receiveSpecific = {
 
     case PingVersion(uid, v) ⇒ {
@@ -60,6 +67,8 @@ private[lobby] final class Socket(
     case ChangeFeatured(html) ⇒ notifyFeatured(html)
 
     case HookIds(ids)         ⇒ notifyVersion("hook_list", ids)
+
+    case lila.hub.actorApi.chat.Line(chan, username, text, troll) =>
   }
 
   private def playerUrl(fullId: String) =

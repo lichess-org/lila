@@ -8,7 +8,8 @@ import views._
 import lila.app._
 import lila.game.{ Pov, GameRepo }
 import lila.tournament.{ TournamentRepo, Created, Started, Finished, Tournament ⇒ Tourney }
-import lila.user.{ UserRepo, Context }
+import lila.user.UserRepo
+import lila.api.Context
 
 object Tournament extends LilaController {
 

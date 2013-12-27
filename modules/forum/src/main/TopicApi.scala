@@ -9,7 +9,7 @@ import lila.db.Implicits._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ Propagate, ForumPost }
 import lila.security.{ Granter ⇒ MasterGranter }
-import lila.user.{ User, Context }
+import lila.user.{ User, UserContext }
 import tube._
 
 private[forum] final class TopicApi(
@@ -33,7 +33,7 @@ private[forum] final class TopicApi(
 
   def makeTopic(
     categ: Categ,
-    data: DataForm.TopicData)(implicit ctx: Context): Fu[Topic] =
+    data: DataForm.TopicData)(implicit ctx: UserContext): Fu[Topic] =
     TopicRepo.nextSlug(categ, data.name) flatMap { slug ⇒
       val topic = Topic.make(
         categId = categ.slug,

@@ -49,7 +49,7 @@ signedJs = pov.game.rated option routes.Round.signedJs(pov.gameId) map (_.toStri
     @round.cemetery(!pov, "bottom")
   </div>
 </div>
-@embedJs("var _ld_ = " + roundPlayerJsData(pov, version))
+@embedJs("var _ld_ = " + roundPlayerJsData(pov, version, ctx.pref))
 @analyse.link(pov, analysed)
 @if(!tour.fold(false)(_.isRunning)) {
 @views.html.game.more(pov, bookmarkers) {

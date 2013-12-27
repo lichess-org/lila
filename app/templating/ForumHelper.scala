@@ -4,7 +4,7 @@ package templating
 import play.api.templates.Html
 
 import lila.forum.Post
-import lila.user.Context
+import lila.api.Context
 
 trait ForumHelper { self: UserHelper with StringHelper ⇒
 
@@ -23,7 +23,7 @@ trait ForumHelper { self: UserHelper with StringHelper ⇒
   def isGrantedWrite(categSlug: String)(implicit ctx: Context) =
     Granter.isGrantedWrite(categSlug).await
 
-  def isGrantedMod(categSlug: String)(implicit ctx: Context) = 
+  def isGrantedMod(categSlug: String)(implicit ctx: Context) =
     Granter.isGrantedMod(categSlug).await
 
   def authorName(post: Post) =

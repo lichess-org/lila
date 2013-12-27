@@ -15,7 +15,8 @@ import lila.setup.FilterConfig
 import lila.socket.History
 import lila.timeline.Entry
 import lila.tournament.Created
-import lila.user.{ User, Context }
+import lila.user.User
+import lila.api.Context
 import lila.relation.RelationApi
 import makeTimeout.large
 

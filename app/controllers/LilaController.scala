@@ -10,10 +10,11 @@ import play.api.mvc.WebSocket.FrameFormatter
 import play.api.templates.Html
 import scalaz.Monoid
 
+import lila.api.{ Context, HeaderContext, BodyContext }
 import lila.app._
 import lila.common.{ LilaCookie, HTTPRequest }
 import lila.security.{ Permission, Granter }
-import lila.user.{ Context, HeaderContext, BodyContext, UserRepo, User ⇒ UserModel }
+import lila.user.{ User ⇒ UserModel }
 
 private[controllers] trait LilaController
     extends Controller
@@ -108,7 +109,7 @@ private[controllers] trait LilaController
   }
 
   protected def JsonOptionFuOk[A, B: Writes](fua: Fu[Option[A]])(op: A ⇒ Fu[B])(implicit ctx: Context) =
-    fua flatMap { _.fold(notFound(ctx))(a ⇒ op(a) map { b => Ok(Json toJson b) as JSON }) }
+    fua flatMap { _.fold(notFound(ctx))(a ⇒ op(a) map { b ⇒ Ok(Json toJson b) as JSON }) }
 
   protected def JsOk(fua: Fu[String], headers: (String, String)*) =
     fua map { a ⇒ Ok(a) as JAVASCRIPT withHeaders (headers: _*) }
@@ -148,7 +149,7 @@ private[controllers] trait LilaController
   protected def OptionFuResult[A](fua: Fu[Option[A]])(op: A ⇒ Fu[SimpleResult])(implicit ctx: Context) =
     fua flatMap { _.fold(notFound(ctx))(a ⇒ op(a)) }
 
-  protected def notFound(implicit ctx: Context): Fu[SimpleResult] = 
+  protected def notFound(implicit ctx: Context): Fu[SimpleResult] =
     if (HTTPRequest isSynchronousHttp ctx.req) Lobby renderHome Results.NotFound
     else Results.NotFound("resource not found").fuccess
 
@@ -164,11 +165,24 @@ private[controllers] trait LilaController
   protected def authorizationFailed(req: RequestHeader): SimpleResult =
     Forbidden("no permission")
 
-  protected def reqToCtx(req: Request[_]): Fu[BodyContext] =
-    restoreUser(req) map { Context(req, _) }
-
   protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] =
-    restoreUser(req) map { Context(req, _) }
+    restoreUser(req) map { lila.user.UserContext(req, _) } flatMap { ctx ⇒
+      chatAndPrefs(ctx) map { case (chat, pref) ⇒ Context(ctx, chat, pref) }
+    }
+
+  protected def reqToCtx(req: Request[_]): Fu[BodyContext] =
+    restoreUser(req) map { lila.user.UserContext(req, _) } flatMap { ctx ⇒
+      chatAndPrefs(ctx) map { case (chat, pref) ⇒ Context(ctx, chat, pref) }
+    }
+
+  import lila.chat.Chat
+  import lila.pref.Pref
+  private def chatAndPrefs(ctx: lila.user.UserContext): Fu[(Option[Chat], Option[Pref])] =
+    ctx.me.fold(fuccess(none[Chat] -> none[Pref])) { me ⇒
+      (HTTPRequest.isSynchronousHttp(ctx.req) ?? (Env.chat.api get me map (_.some))) zip (Env.pref.api getPref me) map {
+        case (chat, pref) ⇒ chat -> pref.some
+      }
+    }
 
   private def restoreUser(req: RequestHeader): Fu[Option[UserModel]] =
     Env.security.api restoreUser req addEffect {

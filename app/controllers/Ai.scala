@@ -3,7 +3,7 @@ package controllers
 import play.api.mvc._
 
 import lila.app._
-import lila.user.Context
+import lila.api.Context
 
 object Ai extends LilaController {
 

@@ -45,7 +45,7 @@ chat = room.some,
 underchat = underchat.some,
 active = siteMenu.tv.some) {
 @round.watcherGame(pov)
-@embedJs("var _ld_ = " + roundWatcherJsData(pov, version, true))
+@embedJs("var _ld_ = " + roundWatcherJsData(pov, version, true, ctx.pref))
 @views.html.game.more(pov, Nil) {
 <nav>
   @round.continueFromHere(pov.game)

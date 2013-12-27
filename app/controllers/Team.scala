@@ -2,7 +2,8 @@ package controllers
 
 import lila.app._
 import lila.team.{ Joined, Motivate, Team ⇒ TeamModel, TeamRepo, MemberRepo, TeamEdit }
-import lila.user.{ User ⇒ UserModel, Context }
+import lila.user.{ User ⇒ UserModel }
+import lila.api.Context
 import views._
 import lila.security.Granter
 

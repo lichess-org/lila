@@ -1,7 +1,7 @@
 package lila.app
 package templating
 
-import lila.user.Context
+import lila.api.Context
 import lila.team.Team
 
 trait IRCHelper { self: TeamHelper with SecurityHelper with I18nHelper ⇒

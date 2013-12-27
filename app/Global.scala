@@ -42,7 +42,7 @@ object Global extends GlobalSettings {
   override def onError(req: RequestHeader, ex: Throwable) =
     if (niceError(req)) {
       if (lila.common.PlayApp.isProd)
-        fuccess(InternalServerError(views.html.base.errorPage(ex)(lila.user.Context(req, none))))
+        fuccess(InternalServerError(views.html.base.errorPage(ex)(lila.api.Context(req))))
       else super.onError(req, ex)
     }
     else fuccess(InternalServerError(ex.getMessage))

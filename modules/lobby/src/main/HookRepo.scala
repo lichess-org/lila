@@ -1,13 +1,13 @@
 package lila.lobby
 
-import org.joda.time.DateTime
 import com.github.nscala_time.time.Imports._
+import org.joda.time.DateTime
 
 object HookRepo {
 
   private var hooks = Vector[Hook]()
 
-  def findCompatible(hook: Hook): List[Hook] = allOpen filter (_ compatibleWith hook) 
+  def findCompatible(hook: Hook): List[Hook] = allOpen filter (_ compatibleWith hook)
 
   def list = hooks.toList
 

@@ -3,7 +3,7 @@ package templating
 
 import lila.message.Env.{ current ⇒ messageEnv }
 import lila.report.Env.{ current ⇒ reportEnv }
-import lila.user.Context
+import lila.api.Context
 
 trait MessageHelper { self: SecurityHelper ⇒
 

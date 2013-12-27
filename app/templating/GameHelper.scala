@@ -9,20 +9,20 @@ import play.api.templates.Html
 
 import lila.game.{ Game, Player, Namer }
 import lila.user.Env.{ current ⇒ userEnv }
-import lila.user.{ User, Context }
+import lila.user.{ User, UserContext }
 
 
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper ⇒
-  def variantName(variant: Variant)(implicit ctx: Context) = variant match {
+  def variantName(variant: Variant)(implicit ctx: UserContext) = variant match {
     case Variant.Standard     ⇒ trans.standard.str()
     case Variant.Chess960     ⇒ "chess960"
     case Variant.FromPosition ⇒ trans.fromPosition.str()
   }
 
-  def clockName(clock: Option[Clock])(implicit ctx: Context): String =
+  def clockName(clock: Option[Clock])(implicit ctx: UserContext): String =
     clock.fold(trans.unlimited.str())(clockName)
 
-  def clockName(clock: Clock)(implicit ctx: Context): String =
+  def clockName(clock: Clock)(implicit ctx: UserContext): String =
     trans.nbMinutesPerSidePlusNbSecondsPerMove.str(clock.limitInMinutes, clock.increment)
 
   def clockNameNoCtx(clock: Option[Clock]): String =
@@ -31,12 +31,12 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def clockNameNoCtx(clock: Clock): String =
     trans.nbMinutesPerSidePlusNbSecondsPerMove.en(clock.limitInMinutes, clock.increment)
 
-  def shortClockName(clock: Option[Clock])(implicit ctx: Context): String =
+  def shortClockName(clock: Option[Clock])(implicit ctx: UserContext): String =
     clock.fold(trans.unlimited.str())(Namer.shortClock)
 
   def shortClockName(clock: Clock): String = Namer shortClock clock
 
-  def modeName(mode: Mode)(implicit ctx: Context): String = mode match {
+  def modeName(mode: Mode)(implicit ctx: UserContext): String = mode match {
     case Mode.Casual ⇒ trans.casual.str()
     case Mode.Rated  ⇒ trans.rated.str()
   }
@@ -55,7 +55,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     withOnline: Boolean = true,
     withRating: Boolean = true,
     withDiff: Boolean = true,
-    engine: Boolean = false)(implicit ctx: Context) = Html {
+    engine: Boolean = false)(implicit ctx: UserContext) = Html {
     player.userId.fold(
       """<span class="user_link%s">%s</span>""".format(
         cssClass.??(" " + _),
@@ -75,7 +75,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       }
   }
 
-  def gameEndStatus(game: Game)(implicit ctx: Context): Html = game.status match {
+  def gameEndStatus(game: Game)(implicit ctx: UserContext): Html = game.status match {
     case S.Aborted ⇒ trans.gameAborted()
     case S.Mate    ⇒ trans.checkmate()
     case S.Resign ⇒ game.loser match {
@@ -93,7 +93,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     case _           ⇒ Html("")
   }
 
-  def gameFen(game: Game, color: Color, ownerLink: Boolean = false, tv: Boolean = false)(implicit ctx: Context) = Html {
+  def gameFen(game: Game, color: Color, ownerLink: Boolean = false, tv: Boolean = false)(implicit ctx: UserContext) = Html {
     val owner = ownerLink.fold(ctx.me flatMap game.player, none)
     var live = game.isBeingPlayed
     val url = owner.fold(routes.Round.watcher(game.id, color.name)) { o ⇒

@@ -18,9 +18,10 @@ object ApplicationBuild extends Build {
       sources in doc in Compile := List(),
       templatesImport ++= Seq(
         "lila.game.{ Game, Player, Pov }",
-        "lila.user.{ User, Context }",
+        "lila.user.{ User, UserContext }",
         "lila.security.Permission",
         "lila.app.templating.Environment._",
+        "lila.api.Context",
         "lila.common.paginator.Paginator")
   ) dependsOn api aggregate api
 

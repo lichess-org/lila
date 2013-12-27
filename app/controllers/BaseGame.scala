@@ -1,7 +1,7 @@
 package controllers
 
 import lila.app._
-import lila.user.Context
+import lila.api.Context
 import lila.game.ListMenu
 import views._
 

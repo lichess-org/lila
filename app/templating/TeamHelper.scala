@@ -1,11 +1,11 @@
 package lila.app
 package templating
 
-import lila.team.Env.{ current ⇒ teamEnv }
-import lila.user.Context
 import controllers.routes
-
 import play.api.templates.Html
+
+import lila.api.Context
+import lila.team.Env.{ current ⇒ teamEnv }
 
 trait TeamHelper {
 
@@ -14,7 +14,7 @@ trait TeamHelper {
   def myTeam(teamId: String)(implicit ctx: Context): Boolean =
     ctx.me.??(me ⇒ api.belongsTo(teamId, me.id).await)
 
-  def teamIds(userId: String): List[String] = 
+  def teamIds(userId: String): List[String] =
     api.teamIds(userId).await
 
   def teamIdToName(id: String): String = (api teamName id).await | id
@@ -28,6 +28,6 @@ trait TeamHelper {
 
   def teamForumUrl(id: String) = routes.ForumCateg.show("team-" + id)
 
-  def teamNbRequests(ctx: Context) = 
+  def teamNbRequests(ctx: Context) =
     (ctx.userId ?? api.nbRequests).await
 }

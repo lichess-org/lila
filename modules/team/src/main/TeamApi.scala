@@ -8,7 +8,7 @@ import lila.db.api._
 import lila.hub.actorApi.forum.MakeTeam
 import lila.hub.actorApi.timeline.{ Propagate, TeamJoin, TeamCreate }
 import lila.user.tube.userTube
-import lila.user.{ User, Context }
+import lila.user.{ User, UserContext }
 import tube._
 
 final class TeamApi(
@@ -73,7 +73,7 @@ final class TeamApi(
     case (request, user) ⇒ RequestWithUser(request, user)
   }
 
-  def join(teamId: String)(implicit ctx: Context): Fu[Option[Requesting]] = for {
+  def join(teamId: String)(implicit ctx: UserContext): Fu[Option[Requesting]] = for {
     teamOption ← $find.byId[Team](teamId)
     result ← ~(teamOption |@| ctx.me.filter(_.canTeam))({
       case (team, user) if team.open ⇒
@@ -126,7 +126,7 @@ final class TeamApi(
       }
     }
 
-  def quit(teamId: String)(implicit ctx: Context): Fu[Option[Team]] = for {
+  def quit(teamId: String)(implicit ctx: UserContext): Fu[Option[Team]] = for {
     teamOption ← $find.byId[Team](teamId)
     result ← ~(teamOption |@| ctx.me)({
       case (team, user) ⇒ doQuit(team, user.id) inject team.some

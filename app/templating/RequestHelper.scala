@@ -1,7 +1,7 @@
 package lila.app
 package templating
 
-import lila.user.Context
+import lila.api.Context
 
 trait RequestHelper {
 

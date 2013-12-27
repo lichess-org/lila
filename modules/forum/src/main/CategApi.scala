@@ -4,7 +4,7 @@ import lila.common.paginator._
 import lila.db.api._
 import lila.db.Implicits._
 import lila.db.paginator._
-import lila.user.{ User, Context }
+import lila.user.{ User, UserContext }
 import tube._
 
 private[forum] final class CategApi(env: Env) {

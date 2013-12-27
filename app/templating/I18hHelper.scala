@@ -4,12 +4,13 @@ package templating
 import scala.util.Random.shuffle
 
 import controllers._
-import lila.i18n.Env.{ current ⇒ i18nEnv }
-import lila.i18n.{ LangList, I18nDomain }
-import lila.user.Context
 import play.api.i18n.Lang
 import play.api.mvc.{ RequestHeader, Call }
 import play.api.templates.Html
+
+import lila.i18n.Env.{ current ⇒ i18nEnv }
+import lila.i18n.{ LangList, I18nDomain }
+import lila.user.UserContext
 
 trait I18nHelper {
 
@@ -20,12 +21,12 @@ trait I18nHelper {
   lazy val trans = i18nEnv.keys
   lazy val protocol = i18nEnv.RequestHandlerProtocol
 
-  implicit def lang(implicit ctx: Context) = pool lang ctx.req
+  implicit def lang(implicit ctx: UserContext) = pool lang ctx.req
 
   def langName(lang: Lang): Option[String] = langName(lang.language)
   def langName(lang: String): Option[String] = LangList name lang
 
-  def translationCall(implicit ctx: Context) =
+  def translationCall(implicit ctx: UserContext) =
     if (ctx.req.cookies.get(hideCallsCookieName).isDefined) None
     else shuffle(
       (ctx.req.acceptLanguages map transInfos.get).flatten filter (_.nonComplete)
@@ -37,7 +38,7 @@ trait I18nHelper {
   private lazy val langLinksCache =
     scala.collection.mutable.Map[String, String]()
 
-  def langLinks(lang: Lang)(implicit ctx: Context) = Html {
+  def langLinks(lang: Lang)(implicit ctx: UserContext) = Html {
     langLinksCache.getOrElseUpdate(lang.language, {
       pool.names.toList sortBy (_._1) map {
         case (code, name) ⇒ """<li><a lang="%s" href="%s"%s>%s</a></li>""".format(
@@ -49,7 +50,7 @@ trait I18nHelper {
     }).replace(uriPlaceholder, ctx.req.uri)
   }
 
-  def langFallbackLinks(implicit ctx: Context) = Html {
+  def langFallbackLinks(implicit ctx: UserContext) = Html {
     {
       pool.preferredNames(ctx.req, 3) map {
         case (code, name) ⇒ """<a class="lang_fallback" lang="%s" href="%s">%s</a>""".format(
@@ -58,13 +59,13 @@ trait I18nHelper {
     }.replace(uriPlaceholder, ctx.req.uri)
   }
 
-  def commonDomain(implicit ctx: Context): String =
+  def commonDomain(implicit ctx: UserContext): String =
     I18nDomain(ctx.req.domain).commonDomain
 
-  def acceptLanguages(implicit ctx: Context): List[String] =
+  def acceptLanguages(implicit ctx: UserContext): List[String] =
     ctx.req.acceptLanguages.map(_.language.toString).toList.distinct
 
-  def acceptsLanguage(lang: Lang)(implicit ctx: Context): Boolean =
+  def acceptsLanguage(lang: Lang)(implicit ctx: UserContext): Boolean =
     ctx.req.acceptLanguages exists (_.language == lang.language)
 
   private val uriPlaceholder = "[URI]"

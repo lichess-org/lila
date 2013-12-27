@@ -4,7 +4,7 @@ import play.api.mvc._, Results._
 
 import lila.app._
 import lila.forum
-import lila.user.Context
+import lila.api.Context
 
 private[controllers] trait ForumController extends forum.Granter { self: LilaController ⇒
 

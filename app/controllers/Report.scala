@@ -6,7 +6,7 @@ import views._
 
 import lila.app._
 import lila.security.Granter
-import lila.user.{ User ⇒ UserModel, UserRepo, Context }
+import lila.user.{ User ⇒ UserModel, UserRepo }
 
 object Report extends LilaController {
 

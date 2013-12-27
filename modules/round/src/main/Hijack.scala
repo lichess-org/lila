@@ -6,12 +6,11 @@ import com.roundeights.hasher.Implicits._
 
 import lila.game.{ Pov, Game, IdGenerator }
 import lila.memo.ExpireSetMemo
-import lila.user.Context
 
 private[round] final class Hijack(
-  timeout: Duration, 
-  salt: String,
-  enabled: Boolean) {
+    timeout: Duration,
+    salt: String,
+    enabled: Boolean) {
 
   // full game ids that have been hijacked
   private val hijacks = new ExpireSetMemo(timeout)

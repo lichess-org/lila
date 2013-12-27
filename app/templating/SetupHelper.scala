@@ -3,7 +3,7 @@ package templating
 
 import chess.{ Mode, Variant, Speed }
 import lila.setup._
-import lila.user.Context
+import lila.api.Context
 
 trait SetupHelper { self: I18nHelper ⇒
 

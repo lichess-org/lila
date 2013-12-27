@@ -8,7 +8,7 @@ import org.joda.time.DateTime
 import org.joda.time.format._
 import play.api.templates.Html
 
-import lila.user.Context
+import lila.api.Context
 
 trait DateHelper { self: I18nHelper ⇒
 

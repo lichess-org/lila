@@ -314,8 +314,8 @@ var storage = {
   $.userLink = function(u) {
     return $.userLinkLimit(u, false);
   };
-  $.userLinkLimit = function(u, limit) {
-    return (u || false) ? '<a class="user_link ulpt" href="/@/' + u + '">' + ((limit || false) ? u.substring(0, limit) : u) + '</a>' : 'Anonymous';
+  $.userLinkLimit = function(u, limit, klass) {
+    return (u || false) ? '<a class="user_link ulpt ' + (klass || '') + '" href="/@/' + u + '">' + ((limit || false) ? u.substring(0, limit) : u) + '</a>' : 'Anonymous';
   };
 
   var lichess = {
@@ -493,6 +493,7 @@ var storage = {
     });
 
     $('#friend_box').friends();
+    $('#chat').onechat();
 
     $('body').on('click', 'div.relation_actions a.relation', function() {
       var $a = $(this).addClass('processing');
@@ -827,6 +828,86 @@ var storage = {
     var exp = /\bhttp:\/\/(?:[a-z]{0,3}\.)?(lichess\.org[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
     return text.replace(exp, "<a href='http://$1'>$1</a>");
   }
+
+  $.widget("lichess.onechat", {
+    _create: function() {
+      var self = this;
+      self.lines = _lc_.lines;
+      self.chans = _lc_.chans;
+      self.activeChans = _lc_.activeChans; // chan keys
+      self.mainChan = _lc_.mainChan; // chan key
+      self.options = $.extend({}, _lc_.options);
+      self.$lines = self.element.find('.lines');
+      self.$chans = self.element.find('.chans');
+      self.$form = self.element.find('.controls form');
+      self.$input = self.$form.find('input');
+
+      // send a message
+      self.$form.submit(function() {
+        if (!self.mainChan) return false;
+        var text = $.trim(self.$input.val());
+        if (!text) return false;
+        if (text.length > 200) {
+          alert('Max length: 200 chars. ' + text.length + ' chars used.');
+          return false;
+        }
+        self.$input.val('');
+        lichess.socket.send('chat.tell', {
+          chan: self.mainChan,
+          text: text
+        });
+        return false;
+      });
+      self.$chans.on('click', '.name', function(e) {
+        self._setMain($(this).data('chan'));
+      });
+      self._renderChans();
+      self._renderForm();
+      self._renderLines();
+    },
+    _setMain: function(chan) {
+      this.mainChan = chan;
+      this._renderForm();
+    },
+    _chanIndex: function(key) {
+      return _.keys(this.chans).indexOf(key);
+    },
+    _colorClass: function(i) {
+      return 'color' + (i % 8);
+    },
+    _renderLines: function() {
+      var self = this;
+      console.debug(self.lines);
+      self.$lines.html(_.map(self.lines, function(line) {
+        var color = self._colorClass(self._chanIndex(line.chan));
+        return '<div class="line">' +
+        '<div class="user">' + $.userLinkLimit(line.user, 14, color) + '</div>' +
+        '<div class="text">' + line.text + '</div>' +
+        '</div>';
+      }).join(''));
+    },
+    _renderChans: function() {
+      var self = this;
+      self.$chans.html(_.map(self.chans, function(chan) {
+        var id = 'chan_' + chan.key;
+        var active = self.activeChans.indexOf(chan.key) != -1;
+        var color = self._colorClass(self._chanIndex(chan.key));
+        return '<div class="chan ' + color + ' clearfix">' +
+          '<div class="check">' +
+          '<input type="checkbox"' + (active ? " checked" : "") + ' id="' + id + '" name="' + chan.key + '"/>' +
+          '<label for="' + id + '"></label>' +
+          '</div>' +
+          '<span data-chan="' + chan.key + '" class="name">' + chan.name + '</span>' +
+          '</div>';
+      }).join(''));
+    },
+    _renderForm: function() {
+      var self = this;
+      var index = self._chanIndex(self.mainChan);
+      var mainChan = self.chans[self.mainChan];
+      self.$form.find('.mainChan').attr('class', 'mainChan ' + self._colorClass(index)).text(mainChan.name);
+    }
+  });
 
   /////////////
   // game.js //
