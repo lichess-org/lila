@@ -32,18 +32,27 @@ private[round] final class Finisher(
     g = p2.game
     winnerId = winner flatMap (g.player(_).userId)
     _ ← GameRepo.finish(g.id, winner, winnerId) >>
-      updatePerfs(g) >>-
+      updateCountAndPerfs(g) >>-
       (indexer ! lila.game.actorApi.InsertGame(g)) >>-
       (tournamentOrganizer ! FinishGame(g.id))
   } yield p2.events
 
-  private def updatePerfs(game: Game): Funit = ~{
-    (game.player(White).userId |@| game.player(Black).userId) {
-      case (uidW, uidB) ⇒ UserRepo.isEngine(uidW) zip UserRepo.isEngine(uidB) flatMap {
-        case (true, _) if game.winnerColor.exists(White==) ⇒ funit
-        case (_, true) if game.winnerColor.exists(Black==) ⇒ funit
-        case _ ⇒ PerfsUpdater save game
-      }
+  private def updateCountAndPerfs(game: Game): Funit =
+    UserRepo.pair(game.player(White).userId, game.player(Black).userId) flatMap {
+      case (whiteOption, blackOption) ⇒ (whiteOption |@| blackOption).tupled ?? {
+        case (white, black) ⇒ PerfsUpdater.save(game, white, black)
+      } zip
+        (whiteOption ?? incNbGames(game)) zip
+        (blackOption ?? incNbGames(game)) void
     }
+
+  private def incNbGames(game: Game)(user: User): Funit = game.finished ?? {
+    UserRepo.incNbGames(user.id, game.rated, game.hasAi,
+      result = game.nonAi option (game.winnerUserId match {
+        case None          ⇒ 0
+        case Some(user.id) ⇒ 1
+        case _             ⇒ -1
+      })
+    )
   }
 }
