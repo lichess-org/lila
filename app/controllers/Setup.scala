@@ -7,7 +7,7 @@ import lila.app._
 import lila.common.HTTPRequest
 import lila.game.GameRepo
 import lila.user.UserRepo
-import lila.user.{ Context, BodyContext }
+import lila.api.{ Context, BodyContext }
 import views._
 
 object Setup extends LilaController with TheftPrevention {

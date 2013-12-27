@@ -5,7 +5,7 @@ import play.api.data.Form
 import lila.app._
 import lila.common.{ Captcha, LilaCookie }
 import lila.i18n.{ Translation, TransInfo }
-import lila.user.Context
+import lila.api.Context
 import views._
 
 object I18n extends LilaController {
@@ -58,7 +58,7 @@ object I18n extends LilaController {
       env.pool.default,
       env.translator.rawTranslation(info.lang) _,
       captcha,
-      data = data, 
+      data = data,
       context = context)
 
   def fetch(from: Int) = Open { implicit ctx ⇒

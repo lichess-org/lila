@@ -16,7 +16,7 @@ goodies = views.html.game.infoBox(pov, tour),
 chat = round.room(roomHtml, true).some,
 underchat = underchat.some) {
 @watcherGame(pov)
-@embedJs("var _ld_ = " + roundWatcherJsData(pov, version, false))
+@embedJs("var _ld_ = " + roundWatcherJsData(pov, version, false, ctx.pref))
 @analyse.link(pov, analysed)
 @views.html.game.more(pov, bookmarkers) {
 <nav>

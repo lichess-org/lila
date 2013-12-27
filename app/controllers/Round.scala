@@ -6,13 +6,14 @@ import play.api.libs.json._
 import play.api.mvc._
 import play.api.templates.Html
 
+import lila.api.Context
 import lila.app._
 import lila.game.{ Pov, PlayerRef, GameRepo, Game ⇒ GameModel }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round._
 import lila.round.{ RoomRepo, WatcherRoomRepo }
 import lila.tournament.{ TournamentRepo, Tournament ⇒ Tourney }
-import lila.user.{ Context, UserRepo }
+import lila.user.UserRepo
 import makeTimeout.large
 import views._
 

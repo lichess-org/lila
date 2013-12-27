@@ -14,7 +14,7 @@ import lila.hub.actorApi.map._
 import lila.security.Flood
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import lila.socket.Handler
-import lila.user.{ User, Context }
+import lila.user.User
 import makeTimeout.short
 
 private[round] final class SocketHandler(

@@ -5,7 +5,7 @@ import chess.format.Nag
 import play.api.data._
 import play.api.templates.Html
 
-import lila.user.Context
+import lila.api.Context
 
 trait AnalysisHelper { self: I18nHelper ⇒
 

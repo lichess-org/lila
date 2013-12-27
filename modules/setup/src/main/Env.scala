@@ -5,7 +5,7 @@ import com.typesafe.config.{ Config ⇒ AppConfig }
 
 import lila.common.PimpedConfig._
 import lila.game.{ Game, Progress }
-import lila.user.Context
+import lila.user.UserContext
 
 final class Env(
     config: AppConfig,
@@ -22,7 +22,7 @@ final class Env(
 
   lazy val forms = new FormFactory
 
-  def filter(implicit ctx: Context): Fu[FilterConfig] =
+  def filter(implicit ctx: UserContext): Fu[FilterConfig] =
     ctx.me.fold(AnonConfigRepo filter ctx.req)(UserConfigRepo.filter)
 
   lazy val processor = new Processor(

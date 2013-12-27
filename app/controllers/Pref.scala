@@ -5,7 +5,7 @@ import play.api.mvc._, Results._
 
 import lila.app._
 import lila.common.LilaCookie
-import lila.user.Context
+import lila.api.Context
 import views._
 
 object Pref extends LilaController {

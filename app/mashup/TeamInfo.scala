@@ -1,7 +1,7 @@
 package lila.app
 package mashup
 
-import lila.user.{ User, UserRepo, Context }
+import lila.user.{ User, UserRepo }
 import lila.game.{ GameRepo, Game }
 import lila.forum.PostLiteView
 import lila.team.{ Team, Request, RequestRepo, MemberRepo, RequestWithUser, TeamApi }

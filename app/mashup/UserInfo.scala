@@ -3,12 +3,13 @@ package mashup
 
 import chess.Color
 
+import lila.api.Context
 import lila.bookmark.BookmarkApi
 import lila.forum.PostApi
 import lila.game.{ GameRepo, Game }
 import lila.relation.RelationApi
 import lila.security.Granter
-import lila.user.{ User, UserRepo, Context, Confrontation }
+import lila.user.{ User, UserRepo, Confrontation }
 
 case class UserInfo(
     user: User,

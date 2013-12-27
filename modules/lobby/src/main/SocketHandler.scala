@@ -6,17 +6,19 @@ import play.api.libs.iteratee._
 import play.api.libs.json._
 
 import actorApi._
+import lila.common.Bus
 import lila.common.PimpedJson._
 import lila.hub.actorApi.lobby._
 import lila.socket.actorApi.{ Connected ⇒ _, _ }
 import lila.socket.Handler
-import lila.user.{ User, Context }
+import lila.user.User
 import makeTimeout.short
 
 private[lobby] final class SocketHandler(
     hub: lila.hub.Env,
     lobby: ActorRef,
-    socket: ActorRef) {
+    socket: ActorRef,
+    bus: Bus) {
 
   private def controller(
     socket: ActorRef,
@@ -29,6 +31,9 @@ private[lobby] final class SocketHandler(
     case ("cancel", o) ⇒ lobby ! CancelHook(uid)
     case ("liveGames", o) ⇒ o str "d" foreach { ids ⇒
       socket ! LiveGames(uid, ids.split(' ').toList)
+    }
+    case ("chat.tell", o) ⇒ member.userId foreach { userId ⇒
+      bus.publish(lila.hub.actorApi.chat.Tell(userId, o), 'chatInput)
     }
   }
 

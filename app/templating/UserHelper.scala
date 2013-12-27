@@ -5,7 +5,7 @@ import controllers.routes
 import mashup._
 import play.api.templates.Html
 
-import lila.user.{ User, Context }
+import lila.user.{ User, UserContext }
 
 trait UserHelper { self: I18nHelper with StringHelper ⇒
 
@@ -121,10 +121,10 @@ trait UserHelper { self: I18nHelper with StringHelper ⇒
     ).flatten
   }.mkString("class=\"", " ", "\"")
 
-  def userGameFilterTitle(info: UserInfo, filter: GameFilter)(implicit ctx: Context) =
+  def userGameFilterTitle(info: UserInfo, filter: GameFilter)(implicit ctx: UserContext) =
     splitNumber(userGameFilterTitleNoTag(info, filter))
 
-  def userGameFilterTitleNoTag(info: UserInfo, filter: GameFilter)(implicit ctx: Context) = Html((filter match {
+  def userGameFilterTitleNoTag(info: UserInfo, filter: GameFilter)(implicit ctx: UserContext) = Html((filter match {
     case GameFilter.All      ⇒ info.user.count.game + " " + trans.gamesPlayed()
     case GameFilter.Me       ⇒ ctx.me ?? (me ⇒ trans.nbGamesWithYou.str(info.nbWithMe))
     case GameFilter.Rated    ⇒ info.nbRated + " " + trans.rated()

@@ -4,7 +4,7 @@ import play.api.mvc._
 import play.api.templates.Html
 
 import lila.app._
-import lila.user.{ User ⇒ UserModel, UserRepo, Context }
+import lila.user.{ User ⇒ UserModel, UserRepo }
 import views._
 
 object Relation extends LilaController {

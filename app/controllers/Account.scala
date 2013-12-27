@@ -7,7 +7,7 @@ import lila.common.LilaCookie
 import lila.db.api.$find
 import lila.security.Permission
 import lila.user.tube.userTube
-import lila.user.{ Context, User ⇒ UserModel, UserRepo }
+import lila.user.{ User ⇒ UserModel, UserRepo }
 import views._
 
 object Account extends LilaController {
@@ -22,7 +22,7 @@ object Account extends LilaController {
 
   def profileApply = AuthBody { implicit ctx ⇒
     me ⇒
-      implicit val req = ctx.body
+      implicit val req: Request[_] = ctx.body
       FormFuResult(forms.profile) { err ⇒
         fuccess(html.account.profile(me, err))
       } { profile ⇒

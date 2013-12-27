@@ -1,7 +1,7 @@
 package lila.app
 package mashup
 
-import lila.user.{ User, Context }
+import lila.user.User
 import lila.game.{ Game, Query }
 
 import play.api.libs.json._

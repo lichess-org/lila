@@ -8,7 +8,8 @@ import lila.db.api.$find
 import lila.game.GameRepo
 import lila.security.Permission
 import lila.user.tube.userTube
-import lila.user.{ Context, User ⇒ UserModel, UserRepo }
+import lila.user.{ User ⇒ UserModel, UserRepo }
+import lila.api.Context
 import views._
 
 object User extends LilaController {

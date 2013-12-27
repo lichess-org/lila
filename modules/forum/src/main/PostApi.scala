@@ -11,7 +11,7 @@ import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ Propagate, ForumPost }
 import lila.mod.ModlogApi
 import lila.security.{ Granter ⇒ MasterGranter }
-import lila.user.{ User, Context }
+import lila.user.{ User, UserContext }
 import tube._
 
 final class PostApi(
@@ -24,7 +24,7 @@ final class PostApi(
   def makePost(
     categ: Categ,
     topic: Topic,
-    data: DataForm.PostData)(implicit ctx: Context): Fu[Post] =
+    data: DataForm.PostData)(implicit ctx: UserContext): Fu[Post] =
     lastNumberOf(topic) flatMap { number ⇒
       val post = Post.make(
         topicId = topic.id,

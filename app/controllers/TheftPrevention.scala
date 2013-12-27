@@ -6,7 +6,7 @@ import play.api.mvc.Results.Redirect
 import lila.app._
 import lila.game.Pov
 import lila.security.Granter
-import lila.user.Context
+import lila.api.Context
 import views._
 
 private[controllers] trait TheftPrevention {
