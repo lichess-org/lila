@@ -1,12 +1,12 @@
 package lila.round
 
+import chess.Speed
 import org.goochjs.glicko2._
 import org.joda.time.DateTime
 import play.api.Logger
 
 import lila.game.{ GameRepo, Game, Pov }
 import lila.user.{ UserRepo, HistoryRepo, HistoryEntry, User, Perf, Perfs, Glicko }
-import chess.Speed
 
 object PerfsUpdater {
 
@@ -15,57 +15,48 @@ object PerfsUpdater {
 
   val system = new RatingCalculator(VOLATILITY, TAU)
 
-  def save(game: Game): Funit =
-    (game.finished && game.turns >= 2) ?? {
-      UserRepo.pair(game.whitePlayer.userId, game.blackPlayer.userId) flatMap { users ⇒
-        (users match {
-          case (Some(white), Some(black)) if game.rated ⇒ {
-            val ratingsW = mkRatings(white.perfs)
-            val ratingsB = mkRatings(black.perfs)
-            val result = resultOf(game)
-            updateRatings(ratingsW.global, ratingsB.global, result, system)
-            updateRatings(ratingsW.white, ratingsB.black, result, system)
-            game.variant match {
-              case chess.Variant.Standard ⇒
-                updateRatings(ratingsW.standard, ratingsB.standard, result, system)
-              case chess.Variant.Chess960 ⇒
-                updateRatings(ratingsW.chess960, ratingsB.chess960, result, system)
-              case _ ⇒
-            }
-            chess.Speed(game.clock) match {
-              case chess.Speed.Bullet ⇒
-                updateRatings(ratingsW.bullet, ratingsB.bullet, result, system)
-              case chess.Speed.Blitz ⇒
-                updateRatings(ratingsW.blitz, ratingsB.blitz, result, system)
-              case chess.Speed.Slow | chess.Speed.Unlimited ⇒
-                updateRatings(ratingsW.slow, ratingsB.slow, result, system)
-            }
-            val perfsW = mkPerfs(ratingsW, white.perfs, Pov white game)
-            val perfsB = mkPerfs(ratingsB, black.perfs, Pov black game)
-            (HistoryRepo.addEntry(white.id, HistoryEntry(
-              DateTime.now,
-              perfsW.global.glicko.intRating,
-              perfsW.global.glicko.intDeviation,
-              black.perfs.global.glicko.intRating)) zip
-              HistoryRepo.addEntry(black.id, HistoryEntry(
-                DateTime.now,
-                perfsB.global.glicko.intRating,
-                perfsB.global.glicko.intDeviation,
-                white.perfs.global.glicko.intRating)) zip
-              GameRepo.setRatingDiffs(game.id,
-                perfsW.global.glicko.intRating - white.perfs.global.glicko.intRating,
-                perfsB.global.glicko.intRating - black.perfs.global.glicko.intRating)) >> {
-                  (makeProgress(white.id) zip makeProgress(black.id)) flatMap {
-                    case (proW, proB) ⇒
-                      (UserRepo.setPerfs(white, perfsW, proW) zip UserRepo.setPerfs(black, perfsB, proB))
-                  }
-                }
-          }
-          case _ ⇒ funit
-        }) >>
-          (users._1 ?? { incNbGames(game, _) }) zip
-          (users._2 ?? { incNbGames(game, _) }) void
+  def save(game: Game, white: User, black: User): Funit =
+    (game.rated && game.finished && game.turns >= 2 && !white.engine && !black.engine) ?? {
+      val ratingsW = mkRatings(white.perfs)
+      val ratingsB = mkRatings(black.perfs)
+      val result = resultOf(game)
+      updateRatings(ratingsW.global, ratingsB.global, result, system)
+      updateRatings(ratingsW.white, ratingsB.black, result, system)
+      game.variant match {
+        case chess.Variant.Standard ⇒
+          updateRatings(ratingsW.standard, ratingsB.standard, result, system)
+        case chess.Variant.Chess960 ⇒
+          updateRatings(ratingsW.chess960, ratingsB.chess960, result, system)
+        case _ ⇒
       }
+      chess.Speed(game.clock) match {
+        case chess.Speed.Bullet ⇒
+          updateRatings(ratingsW.bullet, ratingsB.bullet, result, system)
+        case chess.Speed.Blitz ⇒
+          updateRatings(ratingsW.blitz, ratingsB.blitz, result, system)
+        case chess.Speed.Slow | chess.Speed.Unlimited ⇒
+          updateRatings(ratingsW.slow, ratingsB.slow, result, system)
+      }
+      val perfsW = mkPerfs(ratingsW, white.perfs, Pov white game)
+      val perfsB = mkPerfs(ratingsB, black.perfs, Pov black game)
+      (HistoryRepo.addEntry(white.id, HistoryEntry(
+        DateTime.now,
+        perfsW.global.glicko.intRating,
+        perfsW.global.glicko.intDeviation,
+        black.perfs.global.glicko.intRating)) zip
+        HistoryRepo.addEntry(black.id, HistoryEntry(
+          DateTime.now,
+          perfsB.global.glicko.intRating,
+          perfsB.global.glicko.intDeviation,
+          white.perfs.global.glicko.intRating)) zip
+        GameRepo.setRatingDiffs(game.id,
+          perfsW.global.glicko.intRating - white.perfs.global.glicko.intRating,
+          perfsB.global.glicko.intRating - black.perfs.global.glicko.intRating)) >> {
+            (makeProgress(white.id) zip makeProgress(black.id)) flatMap {
+              case (proW, proB) ⇒
+                (UserRepo.setPerfs(white, perfsW, proW) zip UserRepo.setPerfs(black, perfsB, proB)) void
+            }
+          }
     }
 
   final class Ratings(
@@ -84,15 +75,6 @@ object PerfsUpdater {
         case (head, last) ⇒ last.rating - head.rating
       })
     }
-
-  private def incNbGames(game: Game, user: User): Funit =
-    UserRepo.incNbGames(user.id, game.rated, game.hasAi,
-      result = game.nonAi option (game.winnerUserId match {
-        case None          ⇒ 0
-        case Some(user.id) ⇒ 1
-        case _             ⇒ -1
-      })
-    )
 
   private implicit def mkRating(perf: Perf) = new Rating(
     perf.glicko.rating, perf.glicko.deviation, perf.glicko.volatility, perf.nb)
@@ -142,8 +124,8 @@ object PerfsUpdater {
       standard = mkPerf(ratings.standard, game.variant.standard ? game.createdAt.some | perfs.standard.latest),
       chess960 = mkPerf(ratings.chess960, game.variant.chess960 ? game.createdAt.some | perfs.standard.latest),
       bullet = mkPerf(ratings.bullet, (speed == Speed.Bullet) ? game.createdAt.some | perfs.bullet.latest),
-      blitz = mkPerf(ratings.blitz,  (speed == Speed.Blitz) ? game.createdAt.some | perfs.blitz.latest),
-      slow = mkPerf(ratings.slow,  (speed == Speed.Slow || speed == Speed.Unlimited) ? game.createdAt.some | perfs.slow.latest),
+      blitz = mkPerf(ratings.blitz, (speed == Speed.Blitz) ? game.createdAt.some | perfs.blitz.latest),
+      slow = mkPerf(ratings.slow, (speed == Speed.Slow || speed == Speed.Unlimited) ? game.createdAt.some | perfs.slow.latest),
       white = mkPerf(ratings.white, color.white ? game.createdAt.some | perfs.white.latest),
       black = mkPerf(ratings.black, color.black ? game.createdAt.some | perfs.white.latest))
   }
