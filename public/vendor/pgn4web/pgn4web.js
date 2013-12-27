@@ -7,7 +7,7 @@
 
 "use strict";
 
-var pgn4web_version = '2.78';
+var pgn4web_version = '2.79';
 
 var pgn4web_project_url = "http://pgn4web.casaschi.net";
 var pgn4web_project_author = "Paolo Casaschi";
@@ -3062,7 +3062,7 @@ function ParsePGNGameString(gameString) {
   lastSynchCurrentVar = -1;
 }
 
-
+var NAGstyle = 'default';
 var NAG = new Array();
 NAG[0] = '';
 NAG[1] = '!'; // 'good move';

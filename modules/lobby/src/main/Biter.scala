@@ -2,6 +2,7 @@ package lila.lobby
 
 import akka.actor.ActorRef
 import chess.{ Game ⇒ ChessGame, Board, Variant, Mode, Clock, Color ⇒ ChessColor }
+import org.joda.time.DateTime
 
 import actorApi.{ RemoveHook, BiteHook, JoinHook }
 import lila.game.{ GameRepo, Game, Player, Pov, Progress }
@@ -11,14 +12,15 @@ private[lobby] final class Biter(
     blocks: (String, String) ⇒ Fu[Boolean],
     roundMessenger: lila.round.Messenger) {
 
-  def apply(hook: Hook, userId: Option[String]): Fu[String ⇒ JoinHook] =
+  def apply(hook: Hook, userId: Option[String], uid: String): Fu[JoinHook] =
     userId ?? UserRepo.byId flatMap { user ⇒
-      canJoin(hook, user).fold(
-        join(hook, user),
-        fufail("%s cannot bite hook %s".format(userId, hook.id)))
+      canJoin(hook, user) flatMap {
+        case true  ⇒ join(hook, user, uid)
+        case false ⇒ fufail("%s cannot bite hook %s".format(userId, hook.id))
+      }
     }
 
-  private def join(hook: Hook, userOption: Option[User]): Fu[String ⇒ JoinHook] = for {
+  private def join(hook: Hook, userOption: Option[User], uid: String): Fu[JoinHook] = for {
     ownerOption ← hook.userId ?? UserRepo.byId
     creatorColor = hook.realColor.resolve
     game = blame(
@@ -29,7 +31,7 @@ private[lobby] final class Biter(
       // messenges are not sent to the game socket
       // as nobody is there to see them yet
       (roundMessenger init game)
-  } yield uid ⇒ JoinHook(uid, hook, game, creatorColor)
+  } yield JoinHook(uid, hook, game, creatorColor)
 
   def blame(color: ChessColor, userOption: Option[User], game: Game) =
     userOption.fold(game)(user ⇒ game.updatePlayer(color, _ withUser user))
@@ -50,14 +52,14 @@ private[lobby] final class Biter(
     source = lila.game.Source.Lobby,
     pgnImport = None)
 
-  def canJoin(hook: Hook, user: Option[User]) =
-    hook.open &&
-      hook.realMode.casual.fold(
-        user.isDefined || hook.allowAnon,
-        user ?? { u ⇒ hook.realRatingRange.fold(true)(_ contains u.rating) }
-      ) && !{
-          user ?? { u ⇒
-            hook.userId ?? { blocks(_, u.id).await }
-          }
+  def canJoin(hook: Hook, user: Option[User]): Fu[Boolean] =
+    if (!hook.open) fuccess(false)
+    else hook.realMode.casual.fold(
+      user.isDefined || hook.allowAnon,
+      user ?? { u ⇒ hook.realRatingRange.fold(true)(_ contains u.rating) }
+    ) ?? !{
+        (user |@| hook.userId).tupled ?? {
+          case (u, hookUserId) ⇒ blocks(hookUserId, u.id) >>| blocks(u.id, hookUserId)
         }
+      }
 }

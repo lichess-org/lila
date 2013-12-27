@@ -1,7 +1,7 @@
 @(form: Form[_], referrer: Option[String])(implicit ctx: Context)
 
 @auth.layout(title = trans.signIn.str(), zen = true) {
-<div class="content_box">
+<div class="content_box login">
   <div class="signup_box">
     <h1 class="lichess_title">@trans.signIn()</h1>
     <form action="@routes.Auth.authenticate?referrer=@referrer" method="POST">

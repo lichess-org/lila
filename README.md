@@ -4,14 +4,14 @@
 It's a free online chess game focused on [realtime](http://lichess.org/games) and simplicity.
 
 It haz a [search engine](http://lichess.org/games/search),
-[computer analysis](http://lichess.org/analyse/ief49lif), 
-[tournaments](http://lichess.org/tournament), 
-[forums](http://lichess.org/forum), 
-[teams](http://lichess.org/team),  
+[computer analysis](http://lichess.org/analyse/ief49lif),
+[tournaments](http://lichess.org/tournament),
+[forums](http://lichess.org/forum),
+[teams](http://lichess.org/team),
 and a weird [monitoring console](http://lichess.org/monitor).
 The UI is available in [72 languages](http://lichess.org/translation/contribute) thanks to the community.
 
-Lichess is written in [Scala 2.10](http://www.scala-lang.org/), 
+Lichess is written in [Scala 2.10](http://www.scala-lang.org/),
 and relies on [Play 2.2](http://www.playframework.com/) for the routing, templating, and JSON.
 Pure chess logic is contained in [scalachess](http://github.com/ornicar/scalachess) submodule.
 The codebase is fully asynchronous, making heavy use of Scala Futures and [Akka 2 actors](http://akka.io).
@@ -28,7 +28,7 @@ Installation
 
 > Also note that if I provide the source code, I do **not** offer free support for your lichess instance. I will probably ignore any question about lichess installation and runtime issues.
 
-This is full-stack application, not a library, and it may not 
+This is full-stack application, not a library, and it may not
 be straightforward to get it fully running.
 I assume you run a Unix with nginx, mongodb, elasticsearch and stockfish installed.
 
@@ -66,7 +66,7 @@ Launch the play console:
 sbt play -Dhttp.port=9663
 ```
 
-From here you can now run the application (`run`). 
+From here you can now run the application (`run`).
 
 ### Read the move stream
 
@@ -125,7 +125,7 @@ Special thanks go to:
 
 - [Mephostophilis](http://lichess.org/@/Mephostophilis) for writing [Lichess Wiki](http://lichess.org/wiki), leading the cheater hunt, moderating the site, reporting countless bugs, and contributing to the codebase
 - [Smiling Bishop](http://lichess.org/@/smiling_bishop), [legend](http://lichess.org/@/legend), [mb](http://lichess.org/@/mb) and all the moderators who spent time keeping the site enjoyable
-- [Evropi](https://github.com/evropi) for contributing to the wiki and animating #lichess IRC channel
+- [Evropi](https://github.com/evropi) for contributing to the wiki, translations and [translation contexts](https://github.com/ornicar/lila/wiki/translation_context)
 - [Steibock](https://github.com/Steibock) for board theming
 - [Yusuke Kamiyamane](http://p.yusukekamiyamane.com/) for the fugue icons
 - [pgn4web](http://pgn4web.casaschi.net/home.html) for the analysis board
