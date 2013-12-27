@@ -13,6 +13,7 @@ import reactivemongo.bson.{ BSONDocument, BSONBinary, BSONInteger }
 
 import lila.common.PimpedJson._
 import lila.db.api._
+import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.ByteArray
 import lila.db.Implicits._
 import lila.user.{ User, Confrontation }
@@ -194,7 +195,7 @@ trait GameRepo {
   }
 
   def random: Fu[Option[Game]] = $find.one(
-    Json.obj("us" -> $exists(true)),
+    Json.obj(BSONFields.playerUids -> $exists(true)),
     _ sort Query.sortCreated skip (Random nextInt 1000)
   )
 
@@ -234,6 +235,13 @@ trait GameRepo {
   }.cursor[BSONDocument].collect[List](1) map {
     _.headOption flatMap extractPgnMoves
   } map (~_)
+
+  def lastGameBetween(u1: String, u2: String, since: DateTime): Fu[Option[Game]] = {
+    $find.one(Json.obj(
+      BSONFields.playerUids -> Json.obj("$all" -> List(u1, u2)),
+      BSONFields.createdAt -> Json.obj("$gt" -> $date(since))
+    ))
+  }
 
   def activePlayersSince(since: DateTime, max: Int): Fu[List[(String, Int)]] = {
     import reactivemongo.bson._
@@ -313,8 +321,8 @@ trait GameRepo {
       val userIds = List(user1, user2).sortBy(_._2).map(_._1)
       val command = Aggregate(gameTube.coll.name, Seq(
         Match(BSONDocument(
-          "us" -> BSONDocument("$all" -> userIds),
-          "s" -> BSONDocument("$gte" -> chess.Status.Mate.id)
+          BSONFields.playerUids -> BSONDocument("$all" -> userIds),
+          BSONFields.status -> BSONDocument("$gte" -> chess.Status.Mate.id)
         )),
         GroupField(Game.BSONFields.winnerId)("nb" -> SumValue(1))
       ))

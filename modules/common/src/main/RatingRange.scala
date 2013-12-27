@@ -4,6 +4,8 @@ case class RatingRange(min: Int, max: Int) {
 
   def contains(rating: Int) = rating >= min && rating <= max
 
+  def notBroad: Option[RatingRange] = (this != RatingRange.broad) option this
+
   override def toString = "%d-%d".format(min, max)
 }
 

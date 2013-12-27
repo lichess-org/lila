@@ -2200,10 +2200,12 @@ var storage = {
                 $span.text(values.join(' - '));
 
                 function change() {
-                  var values = $this.slider('values');
-                  $input.val(values[0] + "-" + values[1]);
-                  $span.text(values[0] + " - " + values[1]);
-                  save();
+                  setTimeout(function() {
+                    var values = $this.slider('values');
+                    $input.val(values[0] + "-" + values[1]);
+                    $span.text(values[0] + " - " + values[1]);
+                    save();
+                  }, 50);
                 }
                 $this.slider({
                   range: true,
@@ -2326,7 +2328,7 @@ var storage = {
       var visible = 0;
       _.each(pool, function(hook) {
         var hide = !_.contains(filter.variant, hook.variant) || !_.contains(filter.mode, hook.mode) || !_.contains(filter.speed, hook.speed) ||
-          (hook.rating && (hook.rating < filter.rating[0] || hook.rating > filter.rating[1]));
+          (filter.rating && (!hook.rating || (hook.rating && (hook.rating < filter.rating[0] || hook.rating > filter.rating[1]))));
         var hash = hook.mode + hook.variant + hook.time + hook.rating;
         if (hide && hook.action != 'cancel') {
           undrawHook(hook.id);

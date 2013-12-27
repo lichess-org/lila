@@ -59,7 +59,7 @@ body.dark #hooks_table tr.cancel td {
   background: rgba(0, 80, 0, 0.7);
 }
 body.dark #hooks_table tr:hover td {
-  background: rgba(50, 50, 20, 0.7);
+  background: rgba(27, 51, 68, 0.7);
 }
 body.dark #hook_filter {
   background: rgba(0, 0, 0, 0.8);
@@ -134,11 +134,6 @@ body.dark div.lichess_table_wrap div.clock.running.emerg, body.dark div.lichess_
 /* soft inactive gradient */
  body.dark #top a.signin, body.dark div.lichess_chat_top, body.dark #friend_box .title, body.dark div.undertable_top, body.dark .button, body.dark .button:visited, body.dark .ui-state-default, body.dark div.content_box_top, body.dark #translation_call, body.dark #notifications > div, body.dark div.locale_menu a, body.dark table.slist thead {
   background: #303030 linear-gradient(to bottom, #2a2a2a, #202020);
-}
-/* active gradient */
- body.dark .button.active, body.dark .button.active:hover, body.dark .ui-state-active, body.dark .ui-widget-header, body.dark div.pagination span.current, body.dark #top span.new_messages, body.dark .button.strong:hover, body.dark div.progressbar.flashy div, body.dark div.locale_menu a.active, body.dark #top a.signin:hover {
-  color: #fff;
-  background: #d85000 linear-gradient(to bottom, #d85000, #c84000);
 }
 body.dark #hooks_chart .plot {
   box-shadow: 0 0 5px #000;

@@ -3,13 +3,12 @@ package actorApi
 
 import lila.game.Game
 import lila.socket.SocketMember
-import lila.timeline.GameEntry
 import lila.user.User
 
 case class Member(
-    channel: JsChannel,
-    userId: Option[String],
-    troll: Boolean) extends SocketMember 
+  channel: JsChannel,
+  userId: Option[String],
+  troll: Boolean) extends SocketMember
 
 object Member {
   def apply(channel: JsChannel, user: Option[User]): Member = Member(
@@ -21,6 +20,7 @@ object Member {
 case class Connected(enumerator: JsEnumerator, member: Member)
 case class WithHooks(op: Iterable[String] ⇒ Unit)
 case class AddHook(hook: Hook)
+case class SaveHook(msg: AddHook)
 case class RemoveHook(hookId: String)
 case class RemoveHooks(hooks: Set[Hook])
 case class CancelHook(uid: String)

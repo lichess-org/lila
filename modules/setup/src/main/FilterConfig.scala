@@ -1,9 +1,10 @@
 package lila.setup
 
 import chess.{ Variant, Mode, Speed }
-import lila.common.RatingRange
-import lila.common.PimpedJson._
 import play.api.libs.json._
+
+import lila.common.PimpedJson._
+import lila.common.RatingRange
 
 case class FilterConfig(
     variant: List[Variant],
@@ -28,7 +29,7 @@ case class FilterConfig(
     "variant" -> variant.map(_.toString),
     "mode" -> mode.map(_.toString),
     "speed" -> speed.map(_.id),
-    "rating" -> List(ratingRange.min, ratingRange.max))
+    "rating" -> ratingRange.notBroad.map(rr ⇒ List(rr.min, rr.max)))
 
   def nonEmpty = copy(
     variant = variant.isEmpty.fold(FilterConfig.default.variant, variant),

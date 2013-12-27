@@ -269,3 +269,4 @@ activePlayers=Актыўныя гульцы
 bestBulletPlayers=Лепшыя ў звышхуткіх гульнях
 bestBlitzPlayers=Лепшыя ў бліц-гульнях
 bestSlowPlayers=Лепшыя ў павольных гульнях
+bewareTheGameIsRatedButHasNoClock=Увага, гульня на рэйтынг але без абмежаваньня часу!
