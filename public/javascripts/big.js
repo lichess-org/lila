@@ -2199,11 +2199,13 @@ var storage = {
                 var values = $input.val() ? $input.val().split("-") : [min, max];
                 $span.text(values.join(' - '));
 
-                function change(e, ui) {
-                  var values = ui.values;
-                  $input.val(values[0] + "-" + values[1]);
-                  $span.text(values[0] + " - " + values[1]);
-                  save();
+                function change() {
+                  setTimeout(function() {
+                    var values = $this.slider('values');
+                    $input.val(values[0] + "-" + values[1]);
+                    $span.text(values[0] + " - " + values[1]);
+                    save();
+                  }, 50);
                 }
                 $this.slider({
                   range: true,
@@ -2212,7 +2214,7 @@ var storage = {
                   values: values,
                   step: 50,
                   slide: change
-                });
+                }).change(change);
               });
             }
           });
