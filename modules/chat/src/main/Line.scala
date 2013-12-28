@@ -3,6 +3,7 @@ package lila.chat
 import org.apache.commons.lang3.StringEscapeUtils.escapeXml
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
+import play.api.libs.json.Json
 import play.api.templates.Html
 
 import lila.user.User
@@ -18,6 +19,13 @@ case class Line(
   def html = Html {
     escapeXml(text)
   }
+
+  def toJson = Json.obj(
+    "chan" -> chan.key,
+    "user" -> username,
+    "troll" -> troll,
+    "date" -> date.getSeconds,
+    "html" -> html.toString)
 
   def userId = username.toLowerCase
 }

@@ -390,9 +390,9 @@ body.tight #top {
 #lichess {
   margin-left: 211px;
 }
-#lichess, #site_header {
-  display: none;
-}
+/* #lichess, #site_header { */
+/*   display: none; */
+/* } */
 body.tight #lichess {
   margin-left: 10px;
 }
@@ -462,7 +462,6 @@ div.footer div.right {
   width: 200px;
   height: 200px;
   border-right: 1px solid #444;
-  background: #0a0a0a;
 }
 #chat .chan {
   display: block;
@@ -470,10 +469,10 @@ div.footer div.right {
   line-height: 31px;
   height: 31px;
   padding: 0px 10px;
-  border-bottom: 1px solid #222;
+  border-bottom: 1px solid #2a2a2a;
   cursor: pointer;
 }
-#chat .chan:hover {
+#chat .chan:hover, #chat .chan.main {
   background: #030303;
 }
 #chat .chan > .name {
@@ -531,12 +530,18 @@ div.footer div.right {
 }
 #chat > .room > .lines {
   height: 171px;
+  overflow: hidden;
+  overflow-y: auto;
   border-bottom: 1px solid #444;
 }
 #chat .line {
   width: 100%;
-  padding: 5px 10px;
-  position: relative
+  padding: 2px 10px;
+  position: relative;
+  opacity: 0.7;
+}
+#chat .line.main {
+  opacity: 1;
 }
 #chat .line > .user {
   display: inline-block;

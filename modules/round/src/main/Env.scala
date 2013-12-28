@@ -80,7 +80,8 @@ final class Env(
     socketHub = socketHub,
     messenger = messenger,
     flood = flood,
-    hijack = hijack)
+    hijack = hijack,
+    bus = system.lilaBus)
 
   private lazy val finisher = new Finisher(
     messenger = messenger,

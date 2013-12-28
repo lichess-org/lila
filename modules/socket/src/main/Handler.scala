@@ -6,8 +6,10 @@ import play.api.libs.iteratee.{ Iteratee, Enumerator }
 import play.api.libs.json._
 
 import actorApi._
+import lila.common.Bus
 import lila.common.PimpedJson._
 import lila.hub.actorApi.relation.ReloadOnlineFriends
+import lila.hub.actorApi.chat.SetActiveChan
 import makeTimeout.large
 
 object Handler {
@@ -20,12 +22,24 @@ object Handler {
     socket: ActorRef,
     uid: String,
     join: Any,
-    userId: Option[String])(connecter: Connecter): Fu[JsSocketHandler] = {
+    userId: Option[String],
+    bus: Bus)(connecter: Connecter): Fu[JsSocketHandler] = {
 
     val baseController: Controller = {
       case ("p", _) ⇒ socket ! Ping(uid)
       case ("following_onlines", _) ⇒ userId foreach { u ⇒
-        hub.actor.relation ! ReloadOnlineFriends(u) 
+        hub.actor.relation ! ReloadOnlineFriends(u)
+      }
+      case ("chat.set-active-chan", o) ⇒ userId foreach { u ⇒
+        for {
+          data ← o obj "d"
+          chan ← o str "chan"
+          value = data str "value" exists ("true"==)
+        } socket ! SetActiveChan(uid, chan, value)
+        bus.publish(lila.hub.actorApi.chat.Input(u, o), 'chat)
+      }
+      case (typ, o) if typ.startsWith("chat.") ⇒ userId foreach { u ⇒
+        bus.publish(lila.hub.actorApi.chat.Input(u, o), 'chat)
       }
       case msg ⇒ logwarn("Unhandled msg: " + msg)
     }

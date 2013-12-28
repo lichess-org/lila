@@ -32,14 +32,11 @@ private[lobby] final class SocketHandler(
     case ("liveGames", o) ⇒ o str "d" foreach { ids ⇒
       socket ! LiveGames(uid, ids.split(' ').toList)
     }
-    case ("chat.tell", o) ⇒ member.userId foreach { userId ⇒
-      bus.publish(lila.hub.actorApi.chat.Tell(userId, o), 'chatInput)
-    }
   }
 
   def apply(uid: String, user: Option[User]): Fu[JsSocketHandler] = {
     val join = Join(uid = uid, user = user)
-    Handler(hub, socket, uid, join, user map (_.id)) {
+    Handler(hub, socket, uid, join, user map (_.id), bus) {
       case Connected(enum, member) ⇒
         controller(socket, uid, member) -> enum
     }

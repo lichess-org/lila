@@ -17,11 +17,12 @@ private[chat] final class Api(
     netDomain: String) {
 
   def get(user: User): Fu[Chat] = prefApi getPref user flatMap { pref ⇒
-    val selectedChans = pref.chat.chans.map(Chan.parse).flatten
-    val chans = Chat.baseChans map { chan ⇒ chan -> (selectedChans contains chan) }
+    val chans = Chat.baseChans map { chan ⇒
+      chan -> (pref.chat.chans contains chan.key)
+    }
     val mainChan = pref.chat.mainChan flatMap Chan.parse
     val selectTroll = user.troll.fold(Json.obj(), Json.obj(L.troll -> false))
-    $find($query(selectTroll ++ Json.obj("c" -> $in(selectedChans.map(_.key)))) sort $sort.desc(L.date), 20) map { lines ⇒
+    $find($query(selectTroll ++ Json.obj("c" -> $in(pref.chat.chans))) sort $sort.desc(L.date), 20) map { lines ⇒
       Chat(user, lines.reverse, chans, mainChan)
     }
   }

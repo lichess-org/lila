@@ -25,7 +25,10 @@ final class Env(
     prefApi = prefApi,
     netDomain = NetDomain)
 
-  system.actorOf(Props(new ChatActor(api, system.lilaBus)))
+  system.actorOf(Props(new ChatActor(
+    api = api, 
+    bus = system.lilaBus,
+    prefApi = prefApi)))
 }
 
 object Env {

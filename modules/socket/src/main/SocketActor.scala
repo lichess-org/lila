@@ -7,10 +7,14 @@ import akka.actor.{ Deploy ⇒ _, _ }
 import play.api.libs.json._
 
 import actorApi._
+import lila.hub.actorApi.chat.{ AddLine, SetActiveChan, ChatReload }
 import lila.hub.actorApi.round.MoveEvent
 import lila.hub.actorApi.{ Deploy, GetUids, WithUserIds, SendTo, SendTos }
 import lila.memo.ExpireSetMemo
 import lila.socket.actorApi.{ PopulationInc, PopulationDec }
+
+// FIXME this is plain wrong
+import lila.pref.Env.current.{ api ⇒ prefApi }
 
 abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket with Actor {
 
@@ -33,30 +37,36 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   // generic message handler
   def receiveGeneric: Receive = {
 
-    case Ping(uid)               ⇒ ping(uid)
+    case Ping(uid)                   ⇒ ping(uid)
 
-    case Broom                   ⇒ broom
+    case Broom                       ⇒ broom
 
     // when a member quits
-    case Quit(uid)               ⇒ quit(uid)
+    case Quit(uid)                   ⇒ quit(uid)
 
-    case NbMembers(nb)           ⇒ pong = makePong(nb)
+    case NbMembers(nb)               ⇒ pong = makePong(nb)
 
-    case WithUserIds(f)          ⇒ f(userIds)
+    case WithUserIds(f)              ⇒ f(userIds)
 
-    case GetUids                 ⇒ sender ! uids
+    case GetUids                     ⇒ sender ! uids
 
-    case LiveGames(uid, gameIds) ⇒ registerLiveGames(uid, gameIds)
+    case LiveGames(uid, gameIds)     ⇒ registerLiveGames(uid, gameIds)
 
-    case move: MoveEvent         ⇒ notifyMove(move)
+    case SetActiveChan(uid, chan, v) ⇒ withMember(uid)(_.setActiveChan(chan, v))
 
-    case SendTo(userId, msg)     ⇒ sendTo(userId, msg)
+    case line: AddLine               ⇒ chatAddLine(line)
 
-    case SendTos(userIds, msg)   ⇒ sendTos(userIds, msg)
+    case ChatReload(uid, chans)           ⇒ chatReload(chans)
 
-    case Resync(uid)             ⇒ resync(uid)
+    case move: MoveEvent             ⇒ notifyMove(move)
 
-    case Deploy(event, html)     ⇒ notifyAll(makeMessage(event.key, html))
+    case SendTo(userId, msg)         ⇒ sendTo(userId, msg)
+
+    case SendTos(userIds, msg)       ⇒ sendTos(userIds, msg)
+
+    case Resync(uid)                 ⇒ resync(uid)
+
+    case Deploy(event, html)         ⇒ notifyAll(makeMessage(event.key, html))
   }
 
   def receive = receiveSpecific orElse receiveGeneric
@@ -132,6 +142,11 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     members = members + (uid -> member)
     lilaBus.publish(PopulationInc, 'population)
     setAlive(uid)
+    member.userId foreach { userId ⇒
+      prefApi getPref userId foreach { pref ⇒
+        self ! ChatReload(pref.chans)
+      }
+    }
   }
 
   def setAlive(uid: String) { aliveUids put uid }
@@ -152,7 +167,9 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
       "fen" -> move.fen,
       "lm" -> move.move
     ))
-    members.values filter (_ liveGames move.gameId) foreach (_.channel push msg)
+    members.values foreach { m ⇒
+      if (m liveGames move.gameId) m.channel push msg
+    }
   }
 
   def showSpectators(users: List[String], nbAnons: Int) = nbAnons match {
@@ -163,6 +180,16 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   def registerLiveGames(uid: String, ids: List[String]) {
     withMember(uid)(_ addLiveGames ids)
   }
+
+  def chatAddLine(line: AddLine) {
+    lazy val msg = makeMessage("chat.line", line.json)
+    members.values foreach { m ⇒
+      if (m activeChans line.chan) m.channel push msg
+    }
+  }
+
+  def chatReload(uid: String, chans: Set[String] {
+    with
 
   def withMember(uid: String)(f: M ⇒ Unit) {
     members get uid foreach f

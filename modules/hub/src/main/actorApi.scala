@@ -35,8 +35,10 @@ case class WithUserIds(f: Iterable[String] ⇒ Unit)
 case object GetUids
 
 package chat {
-case class Tell(userId: String, obj: JsObject)
-case class Line(chan: String, username: String, text: String, troll: Boolean)
+case class Input(userId: String, json: JsObject)
+case class AddLine(chan: String, troll: Boolean, json: JsObject)
+case class SetActiveChan(uid: String, chan: String, value: Boolean)
+case class ChatReload(uid: String, chans: Set[String])
 }
 
 package setup {

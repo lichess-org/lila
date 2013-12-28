@@ -6,7 +6,10 @@ import actorApi._
 import lila.socket.actorApi.Connected
 import lila.socket.Handler
 
-private[monitor] final class SocketHandler(socket: ActorRef, hub: lila.hub.Env) {
+private[monitor] final class SocketHandler(
+    socket: ActorRef,
+    hub: lila.hub.Env,
+    bus: lila.common.Bus) {
 
   def apply(uid: String): Fu[JsSocketHandler] = {
 
@@ -14,7 +17,7 @@ private[monitor] final class SocketHandler(socket: ActorRef, hub: lila.hub.Env) 
       case _ ⇒
     }
 
-    Handler(hub, socket, uid, Join(uid), none) {
+    Handler(hub, socket, uid, Join(uid), none, bus) {
       case Connected(enum, member) ⇒ controller -> enum
     }
   }

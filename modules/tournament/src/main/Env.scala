@@ -49,7 +49,8 @@ final class Env(
     hub = hub,
     socketHub = socketHub,
     messenger = messenger,
-    flood = flood)
+    flood = flood,
+    bus = system.lilaBus)
 
   private lazy val history = () ⇒ new History(ttl = MessageTtl)
 

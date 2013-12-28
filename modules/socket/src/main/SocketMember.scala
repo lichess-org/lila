@@ -7,10 +7,20 @@ trait SocketMember extends Ordered[SocketMember] {
   val troll: Boolean
 
   private val privateLiveGames = collection.mutable.Set[String]()
+  private val privateActiveChans = collection.mutable.Set[String]()
 
   def liveGames: Set[String] = privateLiveGames.toSet
+  def activeChans: Set[String] = privateActiveChans.toSet
 
   def addLiveGames(ids: List[String]) { ids foreach privateLiveGames.+= }
+
+  def setActiveChan(key: String, value: Boolean) {
+    if (value) privateActiveChans += key
+    else privateActiveChans -= key
+  }
+  def setActiveChans(keys: Set[String]) {
+    privateLiveGames --= privateLiveGames
+  }
 
   def isAuth = userId.isDefined
 
