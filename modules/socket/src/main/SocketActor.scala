@@ -130,7 +130,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     eject(uid)
     members = members + (uid -> member)
     setAlive(uid)
-    lilaBus.publish(SocketEnter(uid, member, self), 'socketDoor)
+    lilaBus.publish(SocketEnter(uid, member), 'socketDoor)
   }
 
   def setAlive(uid: String) { aliveUids put uid }

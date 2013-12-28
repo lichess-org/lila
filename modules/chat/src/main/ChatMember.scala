@@ -12,7 +12,7 @@ case class ChatMember(
   private var privateActiveChans = Set[String]()
 
   def wants(line: Line) =
-    (troll || !line.troll) && (privateActiveChans.pp contains line.chan.key.pp pp)
+    (troll || !line.troll) && (privateActiveChans contains line.chan.key)
 
   def extraChans = privateExtraChans
 

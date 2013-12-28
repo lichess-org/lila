@@ -21,6 +21,9 @@ object TournamentRepo {
 
   def byId(id: String): Fu[Option[Tournament]] = $find byId id
 
+  def nameById(id: String): Fu[Option[String]] =
+    $primitive.one($select(id), "name")(_.asOpt[String])
+
   def createdById(id: String): Fu[Option[Created]] = byIdAs(id, asCreated)
 
   def startedById(id: String): Fu[Option[Started]] = byIdAs(id, asStarted)
