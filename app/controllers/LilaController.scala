@@ -175,11 +175,11 @@ private[controllers] trait LilaController
       chatAndPrefs(ctx) map { case (chat, pref) ⇒ Context(ctx, chat, pref) }
     }
 
-  import lila.chat.Chat
+  import lila.chat.NamedChat
   import lila.pref.Pref
-  private def chatAndPrefs(ctx: lila.user.UserContext): Fu[(Option[Chat], Option[Pref])] =
-    ctx.me.fold(fuccess(none[Chat] -> none[Pref])) { me ⇒
-      (HTTPRequest.isSynchronousHttp(ctx.req) ?? (Env.chat.api.get(me, Nil) map (_.some))) zip (Env.pref.api getPref me) map {
+  private def chatAndPrefs(ctx: lila.user.UserContext): Fu[(Option[NamedChat], Option[Pref])] =
+    ctx.me.fold(fuccess(none[NamedChat] -> none[Pref])) { me ⇒
+      (HTTPRequest.isSynchronousHttp(ctx.req) ?? (Env.chat.api.getNamed(me, Nil) map (_.some))) zip (Env.pref.api getPref me) map {
         case (chat, pref) ⇒ chat -> pref.some
       }
     }

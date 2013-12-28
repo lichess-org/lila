@@ -1,4 +1,4 @@
-@(title: String, moreJs: Html = Html(""), chat: Option[Html] = None, goodies: Option[Html] = None, underchat: Option[Html] = None)(body: Html)(implicit ctx: Context)
+@(title: String, moreJs: Html = Html(""), chat: Option[Html] = None, goodies: Option[Html] = None, underchat: Option[Html] = None, chans: List[lila.chat.Chan] = Nil)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("tournament.css")
@@ -11,6 +11,7 @@ moreJs = moreJs,
 chat = chat,
 goodies = goodies,
 active = siteMenu.tournament.some,
-underchat = underchat) {
+underchat = underchat,
+chans = chans) {
 @body
 }

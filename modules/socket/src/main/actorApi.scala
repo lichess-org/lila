@@ -13,7 +13,7 @@ case class PingVersion(uid: String, version: Int)
 case object Broom
 case class Quit(uid: String)
 
-case class SocketEnter[M <: SocketMember](uid: String, member: M, socket: ActorRef)
+case class SocketEnter[M <: SocketMember](uid: String, member: M)
 case class SocketLeave(uid: String)
 
 case class LiveGames(uid: String, gameIds: List[String])

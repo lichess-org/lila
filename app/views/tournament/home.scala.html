@@ -14,7 +14,8 @@
 
 @tournament.layout(
 title = trans.tournaments.str(),
-goodies = goodies.some) {
+goodies = goodies.some,
+chans = List(lila.chat.TournamentLobbyChan)) {
 <div id="tournament" data-href="@routes.Tournament.homeReload()">
 @tournament.homeInner(createds, starteds, finisheds)
 </div>

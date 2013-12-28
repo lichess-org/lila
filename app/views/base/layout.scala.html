@@ -176,8 +176,8 @@ data-accept-languages="@acceptLanguages.mkString(",")">
       <div class="lines"></div>
         <div class="controls">
         <form action="#">
-          <span class="mainChan"></span>
           <input class="input" value="" placeholder="@trans.talkInChat()" />
+          <span class="invite"></span>
         </form>
       </div>
     </div>
@@ -188,7 +188,7 @@ data-accept-languages="@acceptLanguages.mkString(",")">
 @jsTag("deps.min.js")
 @signedJs.fold(jsTagCompiled("big.js"))(js => jsAt(js, false))
 @ctx.chat.map { c =>
-@embedJs("var _lc_ = " + toJson(c.addChans(chans).toJson))
+@embedJs("var _lc_ = " + toJson(c.addChans(chatNameChans(chans, c.chat.user)).toJson))
 }
 @moreJs
 @if(lang.language != "en") {

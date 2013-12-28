@@ -64,7 +64,8 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, scalastic)
   )
 
-  lazy val chat = project("chat", Seq(common, db, hub, socket, user, security, pref)).settings(
+  lazy val chat = project("chat", Seq(
+    common, db, hub, socket, user, security, pref, game, tournament)).settings(
     libraryDependencies ++= provided(
       play.api, RM, PRM)
   )

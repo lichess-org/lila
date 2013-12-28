@@ -12,6 +12,7 @@ import lila.user.{ User, UserRepo }
 import tube.lineTube
 
 private[chat] final class Api(
+    namer: Namer,
     flood: lila.security.Flood,
     prefApi: lila.pref.PrefApi,
     netDomain: String) {
@@ -28,6 +29,13 @@ private[chat] final class Api(
   def get(userId: String, extraChans: List[String]): Fu[Chat] =
     (UserRepo byId userId) flatten s"No such user: $userId" flatMap { u ⇒
       get(u, extraChans.map(Chan.parse).flatten)
+    }
+
+  def getNamed(user: User, extraChans: List[Chan]): Fu[NamedChat] =
+    get(user, extraChans) flatMap namer.chat
+  def getNamed(userId: String, extraChans: List[String]): Fu[NamedChat] =
+    (UserRepo byId userId) flatten s"No such user: $userId" flatMap { u ⇒
+      getNamed(u, extraChans.map(Chan.parse).flatten)
     }
 
   def write(chan: String, userId: String, text: String): Fu[Option[Line]] = {

@@ -455,12 +455,13 @@ div.footer div.right {
   border-bottom: 1px solid #2a2a2a;
   cursor: pointer;
 }
-#chat .chan:hover, #chat .chan.main {
+#chat .chan.main {
   background: #030303;
 }
 #chat .chan > .name {
   display: block;
   margin-right: 20px;
+  white-space: nowrap;
 }
 #chat div.check {
   float: right;
@@ -509,12 +510,11 @@ div.footer div.right {
 }
 #chat > .room {
   margin-left: 201px;
-  width: 100%;
 }
 #chat > .room > .lines {
   height: 171px;
   overflow: hidden;
-  overflow-y: auto;
+  /* overflow-y: auto; */
   border-bottom: 1px solid #444;
 }
 #chat .line {
@@ -522,6 +522,7 @@ div.footer div.right {
   padding: 2px 10px;
   position: relative;
   opacity: 0.7;
+  color: #b0b0b0;
 }
 #chat .line.main {
   opacity: 1;
@@ -539,21 +540,19 @@ div.footer div.right {
   display: inline-block;
 }
 #chat .controls > form {
-  width: 100%;
-  background: #1a1a1a;
   display: none;
+  position: relative;
 }
-#chat .controls > form .mainChan {
+#chat .controls > form .invite {
   padding: 0 10px;
-  display: block;
-  float: left;
+  display: inline-block;
   height: 28px;
   line-height: 28px;
   position: relative;
   margin-right: 12px;
   background: #0a0a0a;
 }
-#chat .controls > form .mainChan:after {
+#chat .controls > form .invite:after {
   content:"";
   border-top: 14px solid transparent;
   border-bottom: 14px solid transparent;
@@ -563,11 +562,16 @@ div.footer div.right {
   top: 0;
 }
 #chat .controls > form .input {
-  width: 80%;
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 20px;
   padding: 4px 10px;
   border: none;
-  background: none;
+}
+#chat .controls > form .input:focus {
+  background: #2a2a2a;
+  color: #d0d0d0;
 }
 #chat .color0 {
   /* green */

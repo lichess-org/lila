@@ -13,6 +13,7 @@ import lila.user.UserRepo
 
 private[chat] final class ChatActor(
     api: Api,
+    namer: Namer,
     bus: Bus,
     prefApi: PrefApi) extends Actor {
 
@@ -36,7 +37,7 @@ private[chat] final class ChatActor(
             _.withChan(chan, value)
           ))) andThen {
             case _ ⇒ {
-              member setActiveChan(chan, value)
+              member setActiveChan (chan, value)
               reloadChat(member)
             }
           }
@@ -57,7 +58,7 @@ private[chat] final class ChatActor(
       }
     }
 
-    case SocketEnter(uid, member, socket) ⇒ member.userId foreach { userId ⇒
+    case SocketEnter(uid, member) ⇒ member.userId foreach { userId ⇒
       members += (uid -> ChatMember(uid, userId, member.troll, member.channel))
     }
 
@@ -72,8 +73,8 @@ private[chat] final class ChatActor(
   }
 
   private def reloadChat(member: ChatMember) {
-    api.get(member.userId, member.extraChans) foreach {
-      case chat: Chat ⇒ member.channel push Socket.makeMessage("chat.reload", chat.toJson)
+    api.getNamed(member.userId, member.extraChans) foreach { chat ⇒
+      member.channel push Socket.makeMessage("chat.reload", chat.toJson)
     }
   }
 }

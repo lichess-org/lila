@@ -18,7 +18,8 @@ cssClass = "tournament_chat")(tournament.show.room(messages))
 title = title,
 goodies = goodies.some,
 chat = chat.some,
-underchat = underchat.some) {
+underchat = underchat.some,
+chans = List(lila.chat.TournamentChan(tour.id))) {
 <div
   id="tournament"
   data-href="@routes.Tournament.reload(tour.id)"

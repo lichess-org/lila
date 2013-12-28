@@ -841,6 +841,7 @@ var storage = {
       self.$lines = self.element.find('.lines');
       self.$chans = self.element.find('.chans');
       self.$form = self.element.find('.controls form');
+      self.$invite = self.$form.find('.invite');
       self.$input = self.$form.find('input');
 
       self.reload(_lc_);
@@ -857,6 +858,9 @@ var storage = {
       });
       self.$chans.on('click', 'input', function(e) {
         self._setActive($(this).attr('name'), $(this).prop('checked'));
+      });
+      $(window).resize(function() {
+        self._renderForm();
       });
 
       $('body').on('socket.open', function() {
@@ -885,6 +889,9 @@ var storage = {
       self.lines.push(l);
       self.$lines.append(self._renderLine(l)).scrollTop(999999);
     },
+    _disablePlaceholder: _.once(function() {
+      this.$input.attr('placeholder', '');
+    }),
     _tell: function() {
       var self = this;
       if (!self.mainChan) return false;
@@ -903,6 +910,7 @@ var storage = {
     _setActive: function(chan, value, setMain) {
       var self = this;
       if (!self._exists(chan)) return;
+      self._disablePlaceholder();
       setMain = setMain | false;
       if (value) self.activeChans.push(chan);
       else self.activeChans = _.without(self.activeChans, chan);
@@ -919,6 +927,7 @@ var storage = {
     // chan can be null, then there is no main chan
     _setMain: function(chan) {
       var self = this;
+      self._disablePlaceholder();
       if (chan !== null && !self._isActive(chan)) {
         self._setActive(chan, true, true);
       } else {
@@ -982,9 +991,14 @@ var storage = {
       if (self.mainChan) {
         var index = self._chanIndex(self.mainChan);
         var mainChan = self.chans[self.mainChan];
-        self.$form.show().find('.mainChan')
+        self.$form.show();
+        self.$invite
           .text(self.user + ' ● ' + mainChan.name)
-          .attr('class', 'mainChan ' + self._colorClass(index));
+          .attr('class', 'invite ' + self._colorClass(index));
+        self.$input.css({
+          width: (self.$form.width() - self.$invite.width() - 50) + 'px',
+          paddingLeft: (self.$invite.width() + 40) + 'px'
+        });
       } else {
         self.$form.hide();
       }

@@ -1,10 +1,10 @@
 package lila.app
 package templating
 
-import lila.api.Env.{ current ⇒ apiEnv }
-
 import ornicar.scalalib
 import play.api.templates.Html
+
+import lila.api.Env.{ current ⇒ apiEnv }
 
 object Environment
     extends scalaz.syntax.ToIdOps
@@ -41,7 +41,8 @@ object Environment
     with AnalysisHelper
     with RelationHelper
     with TournamentHelper
-    with IRCHelper {
+    with IRCHelper
+    with ChatHelper {
 
   implicit val LilaHtmlMonoid = scalaz.Monoid.instance[Html](
     (a, b) ⇒ Html(a.body + b.body),
