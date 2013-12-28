@@ -11,14 +11,8 @@ case class Chat(
     mainChan: Option[Chan]) {
 
   def toJson = Json.obj(
-    "lines" -> (lines map { line ⇒
-      Json.obj(
-        "chan" -> line.chan.key,
-        "user" -> line.username,
-        "troll" -> line.troll,
-        "date" -> line.date.getSeconds,
-        "text" -> line.html.toString)
-    }),
+    "username" -> user.username,
+    "lines" -> (lines map (_.toJson)),
     "chans" -> JsObject(chans map {
       case (chan, _) ⇒ chan.key -> chan.toJson
     }),
@@ -31,6 +25,7 @@ object Chat {
   val baseChans = List(
     LichessChan,
     LobbyChan,
+    TvChan,
     GameChan("00000000", "Game / thinkabit"),
     UserChan("claymore", "Claymore"),
     UserChan("legend", "legend"))
@@ -47,6 +42,8 @@ sealed trait Chan {
     "id" -> idOption,
     "key" -> key,
     "name" -> name)
+
+  override def toString = key
 }
 
 sealed abstract class StaticChan(val typ: String, val name: String) extends Chan {
@@ -61,6 +58,7 @@ sealed abstract class IdChan(val typ: String, val id: String, val name: String) 
 
 object LichessChan extends StaticChan(Chan.typ.lichess, "Lichess")
 object LobbyChan extends StaticChan(Chan.typ.lobby, "Lobby")
+object TvChan extends StaticChan(Chan.typ.tv, "TV")
 case class GameChan(i: String, n: String) extends IdChan(Chan.typ.game, i, n)
 case class TournamentChan(i: String, n: String) extends IdChan(Chan.typ.game, i, n)
 case class UserChan(i: String, n: String) extends IdChan(Chan.typ.game, i, n)
@@ -70,12 +68,14 @@ object Chan {
   object typ {
     val lichess = "lichess"
     val lobby = "lobby"
+    val tv = "tv"
     val game = "game"
   }
 
   def apply(typ: String, idOption: Option[String]): Option[Chan] = typ match {
     case Chan.typ.lichess ⇒ LichessChan.some
     case Chan.typ.lobby   ⇒ LobbyChan.some
+    case Chan.typ.tv      ⇒ TvChan.some
     case Chan.typ.game    ⇒ idOption map { GameChan(_, "Some game") }
     case _                ⇒ none
   }

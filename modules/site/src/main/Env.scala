@@ -17,7 +17,7 @@ final class Env(
   private val socket = system.actorOf(
     Props(new Socket(timeout = SocketUidTtl)), name = SocketName)
 
-  lazy val socketHandler = new SocketHandler(socket, hub)
+  lazy val socketHandler = new SocketHandler(socket, hub, system.lilaBus)
 }
 
 object Env {

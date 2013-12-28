@@ -10,7 +10,10 @@ import lila.common.PimpedJson._
 import lila.socket._
 import lila.socket.actorApi.{ Connected, LiveGames }
 
-private[site] final class SocketHandler(socket: ActorRef, hub: lila.hub.Env) {
+private[site] final class SocketHandler(
+    socket: ActorRef,
+    hub: lila.hub.Env,
+    bus: lila.common.Bus) {
 
   def apply(
     uid: String,
@@ -23,7 +26,7 @@ private[site] final class SocketHandler(socket: ActorRef, hub: lila.hub.Env) {
       }
     }
 
-    Handler(hub, socket, uid, Join(uid, userId, flag), userId) {
+    Handler(hub, socket, uid, Join(uid, userId, flag), userId, bus) {
       case Connected(enum, member) ⇒ controller -> enum
     }
   }

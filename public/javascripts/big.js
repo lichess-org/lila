@@ -47,6 +47,9 @@ var storage = {
         $('a.live_' + e.id).each(function() {
           parseFen($(this).data("fen", e.fen).data("lastmove", e.lm));
         });
+      },
+      'chat.line': function(e) {
+        $('#chat').onechat('line', e);
       }
     },
     params: {
@@ -832,6 +835,7 @@ var storage = {
   $.widget("lichess.onechat", {
     _create: function() {
       var self = this;
+      self.username = _lc_.username;
       self.lines = _lc_.lines;
       self.chans = _lc_.chans;
       self.activeChans = _lc_.activeChans; // chan keys
@@ -842,32 +846,69 @@ var storage = {
       self.$form = self.element.find('.controls form');
       self.$input = self.$form.find('input');
 
-      // send a message
+      self.element.click(function() {
+        self.$input.focus();
+      });
       self.$form.submit(function() {
-        if (!self.mainChan) return false;
-        var text = $.trim(self.$input.val());
-        if (!text) return false;
-        if (text.length > 200) {
-          alert('Max length: 200 chars. ' + text.length + ' chars used.');
-          return false;
-        }
-        self.$input.val('');
-        lichess.socket.send('chat.tell', {
-          chan: self.mainChan,
-          text: text
-        });
+        self._tell();
         return false;
       });
       self.$chans.on('click', '.name', function(e) {
         self._setMain($(this).data('chan'));
       });
+      self.$chans.on('click', 'input', function(e) {
+        self._setActive($(this).attr('name'), $(this).prop('checked'));
+      });
+      self._renderChans();
+      self._renderLines();
+      self._renderForm();
+    },
+    line: function(l) {
+      var self = this;
+      self.lines.push(line);
+      self.$lines.append(self._renderLine(l)).scrollTo(999999);
+    },
+    _tell: function() {
+      var self = this;
+      if (!self.mainChan) return false;
+      var text = $.trim(self.$input.val());
+      if (!text) return false;
+      if (text.length > 200) {
+        alert('Max length: 200 chars. ' + text.length + ' chars used.');
+        return false;
+      }
+      self.$input.val('');
+      lichess.socket.send('chat.tell', {
+        chan: self.mainChan,
+        text: text
+      });
+    },
+    _setActive: function(chan, value) {
+      var self = this;
+      if (value) self.activeChans.push(chan);
+      else self.activeChans = _.without(self.activeChans, chan);
+      lichess.socket.send("chat.set-active-chan", {
+        chan: chan,
+        value: value + ''
+      });
+      if (self.mainChan == chan) self._setMain(null);
+      self._renderLines();
+      self._renderChans();
+    },
+    // chan can be null, then there is no main chan
+    _setMain: function(chan) {
+      var self = this;
+      if (chan !== null && !self._isActive(chan)) {
+        self._setActive(chan, true);
+        return self._setMain(chan);
+      }
+      self.mainChan = chan;
+      self._renderLines();
       self._renderChans();
       self._renderForm();
-      self._renderLines();
-    },
-    _setMain: function(chan) {
-      this.mainChan = chan;
-      this._renderForm();
+      lichess.socket.send("chat.set-main", {
+        chan: chan,
+      });
     },
     _chanIndex: function(key) {
       return _.keys(this.chans).indexOf(key);
@@ -875,24 +916,35 @@ var storage = {
     _colorClass: function(i) {
       return 'color' + (i % 8);
     },
+    _isActive: function(chan) {
+      return _.contains(this.activeChans, chan);
+    },
+    _renderLine: function(line) {
+      var self = this;
+      if (!self._isActive(line.chan)) return '';
+      else {
+        var color = self._colorClass(self._chanIndex(line.chan));
+        var main = self.mainChan == line.chan;
+        return '<div class="line ' + (main ? 'main' : color) + '">' +
+          '<div class="user">' + $.userLinkLimit(line.user, 14, color) + '</div>' +
+          '<div class="text ' + (main ? 'main' : color) + '">' + line.html + '</div>' +
+          '</div>';
+      }
+    },
     _renderLines: function() {
       var self = this;
-      console.debug(self.lines);
       self.$lines.html(_.map(self.lines, function(line) {
-        var color = self._colorClass(self._chanIndex(line.chan));
-        return '<div class="line">' +
-        '<div class="user">' + $.userLinkLimit(line.user, 14, color) + '</div>' +
-        '<div class="text">' + line.text + '</div>' +
-        '</div>';
-      }).join(''));
+        return self._renderLine(line);
+      }).join('')).scrollTop(999999);
     },
     _renderChans: function() {
       var self = this;
       self.$chans.html(_.map(self.chans, function(chan) {
         var id = 'chan_' + chan.key;
         var active = self.activeChans.indexOf(chan.key) != -1;
+        var main = self.mainChan == chan.key;
         var color = self._colorClass(self._chanIndex(chan.key));
-        return '<div class="chan ' + color + ' clearfix">' +
+        return '<div class="chan ' + color + (main ? ' main' : '') + ' clearfix">' +
           '<div class="check">' +
           '<input type="checkbox"' + (active ? " checked" : "") + ' id="' + id + '" name="' + chan.key + '"/>' +
           '<label for="' + id + '"></label>' +
@@ -903,9 +955,15 @@ var storage = {
     },
     _renderForm: function() {
       var self = this;
-      var index = self._chanIndex(self.mainChan);
-      var mainChan = self.chans[self.mainChan];
-      self.$form.find('.mainChan').attr('class', 'mainChan ' + self._colorClass(index)).text(mainChan.name);
+      if (self.mainChan) {
+        var index = self._chanIndex(self.mainChan);
+        var mainChan = self.chans[self.mainChan];
+        self.$form.show().find('.mainChan')
+          .text(self.username + ' @ ' + mainChan.name)
+          .attr('class', 'mainChan ' + self._colorClass(index));
+      } else {
+        self.$form.hide();
+      }
     }
   });
 

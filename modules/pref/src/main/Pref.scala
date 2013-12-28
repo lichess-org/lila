@@ -11,6 +11,8 @@ case class Pref(
     premove: Boolean,
     chat: Pref.ChatPref) {
 
+  import Pref._
+
   def realTheme = Theme(theme)
 
   def get(name: String): Option[String] = name match {
@@ -23,13 +25,20 @@ case class Pref(
     case "theme" ⇒ Theme.allByName get value map { t ⇒ copy(theme = t.name) }
     case _       ⇒ none
   }
+
+  def updateChat(f: ChatPref ⇒ ChatPref) = copy(chat = f(chat))
 }
 
 object Pref {
 
   case class ChatPref(
-    chans: List[String],
-    mainChan: Option[String])
+      chans: Set[String],
+      mainChan: Option[String]) {
+    def withChan(key: String, value: Boolean) = copy(
+      chans = if (value) chans + key else chans - key
+    )
+    def withMainChan(key: Option[String]) = copy(mainChan = key)
+  }
 
   object AutoQueen {
     val NEVER = 1
@@ -49,7 +58,7 @@ object Pref {
     autoQueen = AutoQueen.PREMOVE,
     clockTenths = true,
     premove = true,
-    chat = ChatPref(List("lichess", "tv"), "lichess".some))
+    chat = ChatPref(Set("lichess", "lobby", "tv"), "lichess".some))
 
   val default = create("")
 

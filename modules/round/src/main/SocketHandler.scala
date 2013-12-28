@@ -23,7 +23,8 @@ private[round] final class SocketHandler(
     hub: lila.hub.Env,
     messenger: Messenger,
     flood: Flood,
-    hijack: Hijack) {
+    hijack: Hijack,
+    bus: lila.common.Bus) {
 
   private def controller(
     gameId: String,
@@ -126,7 +127,7 @@ private[round] final class SocketHandler(
       playerId = playerId filterNot (_ ⇒ hijack(pov, token)),
       ip = ip)
     socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket ⇒
-      Handler(hub, socket, uid, join, user map (_.id)) {
+      Handler(hub, socket, uid, join, user map (_.id), bus) {
         case Connected(enum, member) ⇒
           controller(pov.gameId, socket, uid, pov.ref, member) -> enum
       }
