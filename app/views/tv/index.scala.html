@@ -43,7 +43,8 @@ title = title,
 goodies = goodies,
 chat = room.some,
 underchat = underchat.some,
-active = siteMenu.tv.some) {
+active = siteMenu.tv.some,
+chans = List(lila.chat.TvChan)) {
 @round.watcherGame(pov)
 @embedJs("var _ld_ = " + roundWatcherJsData(pov, version, true, ctx.pref))
 @views.html.game.more(pov, Nil) {

@@ -18,10 +18,13 @@ final class PrefApi(cacheTtl: Duration) {
   def getPref[A](user: User, pref: Pref ⇒ A): Fu[A] = getPref(user) map pref
 
   def setPref(pref: Pref): Funit =
-    $save(pref) addEffect { _ ⇒ cache remove pref.id }
+    $save(pref) andThen { case _ ⇒ cache remove pref.id }
 
   def setPref(user: User, change: Pref ⇒ Pref): Funit =
     getPref(user) map change flatMap setPref
+
+  def setPref(userId: String, change: Pref ⇒ Pref): Funit =
+    getPref(userId) map change flatMap setPref
 
   def setPrefString(user: User, name: String, value: String): Funit =
     getPref(user) map { _.set(name, value) } flatten

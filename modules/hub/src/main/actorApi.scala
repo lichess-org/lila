@@ -2,6 +2,7 @@ package lila.hub
 package actorApi
 
 import play.api.libs.json._
+import akka.actor.ActorRef
 
 case class SendTo(userId: String, message: JsObject)
 
@@ -35,10 +36,7 @@ case class WithUserIds(f: Iterable[String] ⇒ Unit)
 case object GetUids
 
 package chat {
-case class Input(userId: String, json: JsObject)
-case class AddLine(chan: String, troll: Boolean, json: JsObject)
-case class SetActiveChan(uid: String, chan: String, value: Boolean)
-case class ChatReload(uid: String, chans: Set[String])
+case class Input(uid: String, json: JsObject)
 }
 
 package setup {
