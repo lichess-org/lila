@@ -23,8 +23,6 @@ case class Line(
   def toJson = Json.obj(
     "chan" -> chan.key,
     "user" -> username,
-    "troll" -> troll,
-    "date" -> date.getSeconds,
     "html" -> html.toString)
 
   def userId = username.toLowerCase

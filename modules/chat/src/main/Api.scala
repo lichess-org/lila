@@ -16,16 +16,19 @@ private[chat] final class Api(
     prefApi: lila.pref.PrefApi,
     netDomain: String) {
 
-  def get(user: User): Fu[Chat] = prefApi getPref user flatMap { pref ⇒
-    val chans = Chat.baseChans map { chan ⇒
-      chan -> (pref.chat.chans contains chan.key)
-    }
-    val mainChan = pref.chat.mainChan flatMap Chan.parse
+  def get(user: User, extraChans: List[Chan]): Fu[Chat] = prefApi getPref user flatMap { pref ⇒
+    val mainChanKey = pref.chat.mainChan
+    val activeChanKeys = pref.chat.chans
+    val chans = Chat.baseChans ::: extraChans
     val selectTroll = user.troll.fold(Json.obj(), Json.obj(L.troll -> false))
-    $find($query(selectTroll ++ Json.obj("c" -> $in(pref.chat.chans))) sort $sort.desc(L.date), 20) map { lines ⇒
-      Chat(user, lines.reverse, chans, mainChan)
+    $find($query(selectTroll ++ Json.obj("c" -> $in(activeChanKeys))) sort $sort.desc(L.date), 20) map { lines ⇒
+      Chat(user, lines.reverse, chans, activeChanKeys, mainChanKey)
     }
   }
+  def get(userId: String, extraChans: List[String]): Fu[Chat] =
+    (UserRepo byId userId) flatten s"No such user: $userId" flatMap { u ⇒
+      get(u, extraChans.map(Chan.parse).flatten)
+    }
 
   def write(chan: String, userId: String, text: String): Fu[Option[Line]] = {
     import Writer._

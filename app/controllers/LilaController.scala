@@ -179,7 +179,7 @@ private[controllers] trait LilaController
   import lila.pref.Pref
   private def chatAndPrefs(ctx: lila.user.UserContext): Fu[(Option[Chat], Option[Pref])] =
     ctx.me.fold(fuccess(none[Chat] -> none[Pref])) { me ⇒
-      (HTTPRequest.isSynchronousHttp(ctx.req) ?? (Env.chat.api get me map (_.some))) zip (Env.pref.api getPref me) map {
+      (HTTPRequest.isSynchronousHttp(ctx.req) ?? (Env.chat.api.get(me, Nil) map (_.some))) zip (Env.pref.api getPref me) map {
         case (chat, pref) ⇒ chat -> pref.some
       }
     }

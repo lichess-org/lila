@@ -1,4 +1,4 @@
-@(title: String, goodies: Html, chat: Option[Html] = None, underchat: Option[Html] = None, robots: Boolean = true, signedJs: Option[String] = None, active: Option[lila.app.ui.SiteMenu.Elem] = None)(body: Html)(implicit ctx: Context) 
+@(title: String, goodies: Html, chat: Option[Html] = None, underchat: Option[Html] = None, robots: Boolean = true, signedJs: Option[String] = None, active: Option[lila.app.ui.SiteMenu.Elem] = None, chans: List[lila.chat.Chan] = Nil)(body: Html)(implicit ctx: Context) 
 
 
 @base.layout(
@@ -9,4 +9,5 @@ chat = chat,
 underchat = underchat, 
 robots = robots,
 signedJs = signedJs,
-themepicker = true)(body)
+themepicker = true,
+chans = chans)(body)

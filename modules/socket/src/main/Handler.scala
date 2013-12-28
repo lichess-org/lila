@@ -9,7 +9,6 @@ import actorApi._
 import lila.common.Bus
 import lila.common.PimpedJson._
 import lila.hub.actorApi.relation.ReloadOnlineFriends
-import lila.hub.actorApi.chat.SetActiveChan
 import makeTimeout.large
 
 object Handler {
@@ -30,17 +29,8 @@ object Handler {
       case ("following_onlines", _) ⇒ userId foreach { u ⇒
         hub.actor.relation ! ReloadOnlineFriends(u)
       }
-      case ("chat.set-active-chan", o) ⇒ userId foreach { u ⇒
-        for {
-          data ← o obj "d"
-          chan ← o str "chan"
-          value = data str "value" exists ("true"==)
-        } socket ! SetActiveChan(uid, chan, value)
-        bus.publish(lila.hub.actorApi.chat.Input(u, o), 'chat)
-      }
-      case (typ, o) if typ.startsWith("chat.") ⇒ userId foreach { u ⇒
-        bus.publish(lila.hub.actorApi.chat.Input(u, o), 'chat)
-      }
+      case (typ, o) if typ.startsWith("chat.") ⇒
+        bus.publish(lila.hub.actorApi.chat.Input(uid, o), 'chat)
       case msg ⇒ logwarn("Unhandled msg: " + msg)
     }
 

@@ -180,25 +180,6 @@ ul.ui-autocomplete li a.ui-state-focus {
 .ui-slider-horizontal .ui-slider-range-max {
   right: 0;
 }
-.ui-slider-vertical {
-  width: .8em;
-  height: 100px;
-}
-.ui-slider-vertical .ui-slider-handle {
-  left: -.3em;
-  margin-left: 0;
-  margin-bottom: -.6em;
-}
-.ui-slider-vertical .ui-slider-range {
-  left: 0;
-  width: 100%;
-}
-.ui-slider-vertical .ui-slider-range-min {
-  bottom: 0;
-}
-.ui-slider-vertical .ui-slider-range-max {
-  top: 0;
-}
 #powerTip, #hook {
   width: 240px;
   min-height: 6em;
@@ -323,6 +304,8 @@ body {
   font:12px'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Sans-Serif;
   color: #848484;
   background: #F7F7F7 url(../images/head_bg.png) top left repeat-x;
+  /* leave room for the chat */
+  padding-bottom: 200px;
 }
 a, a:visited {
   color: #848484;
@@ -558,6 +541,7 @@ div.footer div.right {
 #chat .controls > form {
   width: 100%;
   background: #1a1a1a;
+  display: none;
 }
 #chat .controls > form .mainChan {
   padding: 0 10px;

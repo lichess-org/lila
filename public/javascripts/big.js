@@ -50,6 +50,9 @@ var storage = {
       },
       'chat.line': function(e) {
         $('#chat').onechat('line', e);
+      },
+      'chat.reload': function(e) {
+        $('#chat').onechat('reload', e);
       }
     },
     params: {
@@ -835,16 +838,12 @@ var storage = {
   $.widget("lichess.onechat", {
     _create: function() {
       var self = this;
-      self.username = _lc_.username;
-      self.lines = _lc_.lines;
-      self.chans = _lc_.chans;
-      self.activeChans = _lc_.activeChans; // chan keys
-      self.mainChan = _lc_.mainChan; // chan key
-      self.options = $.extend({}, _lc_.options);
       self.$lines = self.element.find('.lines');
       self.$chans = self.element.find('.chans');
       self.$form = self.element.find('.controls form');
       self.$input = self.$form.find('input');
+
+      self.reload(_lc_);
 
       self.element.click(function() {
         self.$input.focus();
@@ -859,14 +858,32 @@ var storage = {
       self.$chans.on('click', 'input', function(e) {
         self._setActive($(this).attr('name'), $(this).prop('checked'));
       });
+
+      $('body').on('socket.open', function() {
+        lichess.socket.send('chat.register', {
+          chans: _.keys(self.chans).join(',')
+        });
+      });
+    },
+    reload: function(c) {
+      var self = this;
+      self.user = c.user;
+      self.lines = c.lines;
+      self.chans = c.chans;
+      self.activeChans = _.filter(c.activeChans, function(chan) {
+        return self._exists(chan);
+      });
+      self.mainChan = _.contains(self.activeChans, c.mainChan) ? c.mainChan : null;
+      self.options = $.extend({}, c.options);
+
       self._renderChans();
       self._renderLines();
       self._renderForm();
     },
     line: function(l) {
       var self = this;
-      self.lines.push(line);
-      self.$lines.append(self._renderLine(l)).scrollTo(999999);
+      self.lines.push(l);
+      self.$lines.append(self._renderLine(l)).scrollTop(999999);
     },
     _tell: function() {
       var self = this;
@@ -883,15 +900,19 @@ var storage = {
         text: text
       });
     },
-    _setActive: function(chan, value) {
+    _setActive: function(chan, value, setMain) {
       var self = this;
+      if (!self._exists(chan)) return;
+      setMain = setMain | false;
       if (value) self.activeChans.push(chan);
       else self.activeChans = _.without(self.activeChans, chan);
       lichess.socket.send("chat.set-active-chan", {
         chan: chan,
-        value: value + ''
+        value: value ? 1 : 0,
+        main: setMain ? 1 : 0
       });
-      if (self.mainChan == chan) self._setMain(null);
+      if (setMain) self.mainChan = chan;
+      else if (self.mainChan == chan) self._setMain(null);
       self._renderLines();
       self._renderChans();
     },
@@ -899,22 +920,25 @@ var storage = {
     _setMain: function(chan) {
       var self = this;
       if (chan !== null && !self._isActive(chan)) {
-        self._setActive(chan, true);
-        return self._setMain(chan);
+        self._setActive(chan, true, true);
+      } else {
+        self.mainChan = chan;
+        self._renderLines();
+        self._renderChans();
+        self._renderForm();
+        lichess.socket.send("chat.set-main", {
+          chan: chan,
+        });
       }
-      self.mainChan = chan;
-      self._renderLines();
-      self._renderChans();
-      self._renderForm();
-      lichess.socket.send("chat.set-main", {
-        chan: chan,
-      });
     },
     _chanIndex: function(key) {
       return _.keys(this.chans).indexOf(key);
     },
     _colorClass: function(i) {
       return 'color' + (i % 8);
+    },
+    _exists: function(chan) {
+      return _.contains(_.keys(this.chans), chan);
     },
     _isActive: function(chan) {
       return _.contains(this.activeChans, chan);
@@ -959,7 +983,7 @@ var storage = {
         var index = self._chanIndex(self.mainChan);
         var mainChan = self.chans[self.mainChan];
         self.$form.show().find('.mainChan')
-          .text(self.username + ' @ ' + mainChan.name)
+          .text(self.user + ' ● ' + mainChan.name)
           .attr('class', 'mainChan ' + self._colorClass(index));
       } else {
         self.$form.hide();
