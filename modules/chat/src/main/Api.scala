@@ -53,7 +53,6 @@ private[chat] final class Api(
         chan ← Chan parse chanName
         t2 ← Some(t1.trim take 200) filter (_.nonEmpty)
         if !user.disabled
-        if (flood.allowMessage(userId, t2))
       } yield Line.make(chan, user, delocalize(noPrivateUrl(t2)))
     }
 
@@ -63,7 +62,12 @@ private[chat] final class Api(
         logger.info(s"$userId @ $chanName : $text")
         fuccess(none)
       }
-      case Some(line) ⇒ write(line) inject line.some
+      case Some(line) if flood.allowMessage(line.userId, line.text) ⇒
+        write(line) inject line.some
+      case Some(line) ⇒ {
+        logger.info(s"Flood: $userId @ $chanName : $text")
+        fuccess(none)
+      }
     }
 
   def write(line: Line): Funit = $insert bson line

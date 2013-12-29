@@ -36,8 +36,7 @@ private[chat] final class ChatActor(
   def receive = {
 
     case line: Line ⇒ {
-      println(line)
-      val json = Socket.makeMessage("chat.line", line.toJson)
+      lazy val json = Socket.makeMessage("chat.line", line.toJson)
       members.values foreach {
         case m: JsChatMember if (m wants line)  ⇒ m tell json
         case m: BotChatMember if (m wants line) ⇒ m tell line

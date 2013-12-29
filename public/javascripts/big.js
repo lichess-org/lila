@@ -861,6 +861,9 @@ var storage = {
       self.$chans.on('click', 'input', function(e) {
         self._setActive($(this).attr('name'), $(this).prop('checked'));
       });
+      self.element.find('.help').click(function() {
+        self.send('/help tutorial');
+      });
       $(window).resize(function() {
         self._renderForm();
       });
@@ -907,8 +910,11 @@ var storage = {
         return false;
       }
       self.$input.val('');
+      self.send(text);
+    },
+    send: function(text) {
       lichess.socket.send('chat.tell', {
-        chan: self.mainChan,
+        chan: this.mainChan,
         text: text
       });
     },

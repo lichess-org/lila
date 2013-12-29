@@ -168,10 +168,11 @@ data-accept-languages="@acceptLanguages.mkString(",")">
 @ctx.chat.map { c =>
 <div id="chat_wrap">
   <div id="chat">
+    <a class="help">help</a>
     <div class="chans"></div>
     <div class="room">
       <div class="lines"></div>
-        <div class="controls">
+      <div class="controls">
         <form action="#">
           <input class="input" value="" placeholder="@trans.talkInChat()" />
           <span class="invite"></span>
