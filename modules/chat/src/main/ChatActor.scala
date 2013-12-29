@@ -52,19 +52,23 @@ private[chat] final class ChatActor(
     case SetOpen(member, value) ⇒
       prefApi.setPref(member.userId, (p: Pref) ⇒ p.updateChat(_.copy(on = value)))
 
-    case Query(member, toId) ⇒ UserRepo byId toId foreach {
-      _ foreach { to ⇒
-        val chan = UserChan(member.userId, toId)
-        prefApi.setPref(member.userId, (p: Pref) ⇒
-          p.updateChat(_.withChan(chan.key, true).withActiveChan(chan.key, true).withMainChan(chan.key.some))
-        ) >>- {
-          member addChan chan
-          member.setActiveChan(chan.key, true)
-          member setMainChan chan.key.some
-          reloadChat(member)
+    case Query(member, toId) ⇒
+      UserRepo byId toId flatten s"Can't query non existing user $toId" foreach { to ⇒
+        relationApi.follows(to.id, member.userId) foreach {
+          case false ⇒ fufail(s"Can't query $toId, not following ${member.userId}")
+          case _ ⇒ {
+            val chan = UserChan(member.userId, toId)
+            prefApi.setPref(member.userId, (p: Pref) ⇒
+              p.updateChat(_.withChan(chan.key, true).withActiveChan(chan.key, true).withMainChan(chan.key.some))
+            ) >>- {
+              member addChan chan
+              member.setActiveChan(chan.key, true)
+              member setMainChan chan.key.some
+              reloadChat(member)
+            }
+          }
         }
       }
-    }
 
     case lila.hub.actorApi.relation.Block(u1, u2) ⇒ withMembersOf(u1) { member ⇒
       member block u2

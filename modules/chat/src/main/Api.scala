@@ -60,8 +60,13 @@ private[chat] final class Api(
         logger.info(s"$userId @ $chanName : $text")
         fuccess(none)
       }
-      case Some(line) if flood.allowMessage(line.userId, line.text) ⇒
-        write(line) inject line.some
+      case Some(line) if flood.allowMessage(line.userId, line.text) ⇒ (line.chan match {
+        case UserChan(u1, u2) ⇒ relationApi.areFriends(u1, u2)
+        case _                ⇒ fuccess(true)
+      }) flatMap {
+        case true  ⇒ write(line) inject line.some
+        case false ⇒ fuccess(none)
+      }
       case Some(line) ⇒ {
         logger.info(s"Flood: $userId @ $chanName : $text")
         fuccess(none)

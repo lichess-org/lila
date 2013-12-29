@@ -38,7 +38,7 @@ object Pref {
       mainChan: Option[String]) {
 
     def withChan(key: String, value: Boolean) = copy(
-      chans = if (value) (key :: chans).distinct else chans.filter(key!=)
+      chans = if (value) (chans :+ key).distinct else chans.filter(key!=)
     )
 
     def withActiveChan(key: String, value: Boolean) = copy(
