@@ -863,11 +863,11 @@ var storage = {
         self._tell();
         return false;
       });
-      self.$chans.on('click', '.name', function(e) {
-        self._setMain($(this).data('chan'));
+      self.$chans.on('click', '.name', function() {
+        self._join($(this).data('chan'));
       });
-      self.$chans.on('click', 'input', function(e) {
-        self._setActive($(this).attr('name'), $(this).prop('checked'));
+      self.$chans.on('click', 'input', function() {
+        self._show($(this).attr('name'), $(this).prop('checked'));
       });
       self.element.find('.help').click(function() {
         self._send('/help tutorial');
@@ -939,7 +939,7 @@ var storage = {
         });
       };
       if (!self.mainChan && text.indexOf('/help') === 0) {
-        self._setMain(_.keys(self.chans)[0]);
+        self._join(_.keys(self.chans)[0]);
         setTimeout(doSend, 777);
       } else doSend();
       switch (text) {
@@ -953,38 +953,13 @@ var storage = {
           break;
       }
     },
-    _setActive: function(chan, value, setMain) {
-      var self = this;
-      if (!self._exists(chan)) return;
-      self._disablePlaceholder();
-      setMain = setMain | false;
-      if (value) self.activeChans.push(chan);
-      else self.activeChans = _.without(self.activeChans, chan);
-      lichess.socket.send("chat.set-active-chan", {
-        chan: chan,
-        value: value ? 1 : 0,
-        main: setMain ? 1 : 0
-      });
-      if (setMain) self.mainChan = chan;
-      else if (self.mainChan == chan) self._setMain(null);
-      self._renderLines();
-      self._renderChans();
+    _show: function(chan, value) {
+      this._disablePlaceholder();
+      this._send('/' + (value ? 'show' : 'hide') + ' ' + chan);
     },
-    // chan can be null, then there is no main chan
-    _setMain: function(chan) {
-      var self = this;
-      self._disablePlaceholder();
-      if (chan !== null && !self._isActive(chan)) {
-        self._setActive(chan, true, true);
-      } else {
-        self.mainChan = chan;
-        self._renderLines();
-        self._renderChans();
-        self._renderForm();
-        lichess.socket.send("chat.set-main", {
-          chan: chan,
-        });
-      }
+    _join: function(chan) {
+      this._disablePlaceholder();
+      this._send('/join ' + chan);
     },
     _chanIndex: function(key) {
       return _.keys(this.chans).indexOf(key);

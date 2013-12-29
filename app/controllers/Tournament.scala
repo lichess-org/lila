@@ -23,7 +23,7 @@ object Tournament extends LilaController {
       _.fold(tournamentNotFound(ctx).fuccess)(a ⇒ op(a) map { b ⇒ Redirect(b) })
     }
 
-  val home = OpenWithChan(lila.chat.TournamentLobbyChan) { implicit ctx ⇒
+  val home = Open { implicit ctx ⇒
     tournaments zip UserRepo.allSortToints(10) map {
       case (((created, started), finished), leaderboard) ⇒
         Ok(html.tournament.home(created, started, finished, leaderboard))

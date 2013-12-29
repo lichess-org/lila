@@ -12,7 +12,7 @@ import views._
 
 object Lobby extends LilaController {
 
-  def home = OpenWithChan(lila.chat.LobbyChan) { implicit ctx ⇒
+  def home = Open { implicit ctx ⇒
     ctx.me match {
       case Some(u) if u.artificial ⇒ fuccess {
         views.html.auth.artificialPassword(u, Env.security.forms.newPassword)
