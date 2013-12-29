@@ -14,6 +14,8 @@ case class ChatHead(
 
   def chanKeys = chans map (_.key)
 
+  def addChan(c: Chan) = copy(chans = (chans :+ c).distinct)
+
   def withPageChan(c: Chan) = copy(
     chans = (chans :+ c).distinct,
     pageChanKey = c.key.some,

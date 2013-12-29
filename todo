@@ -108,4 +108,4 @@ translation only registered players can contribute
 
 deploy
 ------
-db.chat.ensureIndex({tr:1,c:1,to:1,d:-1}
+db.chat.ensureIndex({tr:1,c:1,d:-1}

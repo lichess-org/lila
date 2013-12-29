@@ -20,6 +20,10 @@ private[chat] sealed trait ChatMember[Message] {
     head = h
   }
 
+  def addChan(chan: Chan) {
+    head = head addChan chan
+  }
+
   def setMainChan(chan: Option[String]) {
     head = head.copy(mainChanKey = chan)
   }

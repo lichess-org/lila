@@ -568,6 +568,7 @@ div.footer div.right {
 }
 #chat > .room {
   margin-left: 201px;
+  margin-right: 201px;
 }
 #chat > .room > .lines {
   height: 171px;
@@ -604,6 +605,37 @@ div.footer div.right {
 #chat .line > pre.text {
   margin: 0;
 }
+#friend_box {
+  float: right;
+  width: 200px;
+  height: 100%;
+  border-left: 1px solid #444;
+}
+#friend_box .content a {
+  display: block;
+  line-height: 16px;
+  height: 16px;
+  margin: 5px 0 0 8px;
+  text-decoration: none;
+}
+#friend_box .nobody {
+  text-align: center;
+  display: none;
+  padding: 3px 5px;
+  font-style: italic;
+}
+#friend_box .nobody span {
+  display: block;
+  margin: 5px;
+}
+#friend_box a.find {
+  display: none;
+  margin: 7px;
+  font-style: normal;
+}
+#friend_box div.nobody:hover a.find {
+  display: block;
+}
 #chat .controls > form {
   display: none;
   position: relative;
@@ -633,10 +665,7 @@ div.footer div.right {
   height: 20px;
   padding: 4px 10px;
   border: none;
-}
-#chat .controls > form .input:focus {
-  background: #2a2a2a;
-  color: #d0d0d0;
+  color: #b0b0b0;
 }
 #chat .color0 {
   /* green */
@@ -1136,45 +1165,6 @@ a#sound_state.unavailable {
   font-size: 1.4em;
   bottom: 0.2em;
   right: 0.3em;
-}
-#friend_box {
-  position: fixed;
-  bottom: 0px;
-  right: 10px;
-  background: #fff;
-  border: 1px solid #ccc;
-  min-width: 150px;
-}
-#friend_box .title {
-  cursor: pointer;
-  padding: 3px 5px;
-  border-bottom: 1px solid #ccc;
-}
-#friend_box .content a {
-  padding: 3px 5px;
-  text-decoration: none;
-  display: block;
-}
-#friend_box .content a:hover {
-  background: #F0F0F0;
-}
-#friend_box .nobody {
-  text-align: center;
-  display: none;
-  padding: 3px 5px;
-  font-style: italic;
-}
-#friend_box .nobody span {
-  display: block;
-  margin: 5px;
-}
-#friend_box a.find {
-  display: none;
-  margin: 7px;
-  font-style: normal;
-}
-#friend_box div.nobody:hover a.find {
-  display: block;
 }
 span.s16.clock {
   background-position: 0 -224px;

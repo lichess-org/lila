@@ -5,7 +5,6 @@ import akka.pattern.ask
 import play.api.libs.json._
 
 import lila.api.Context
-import lila.hub.actorApi.relation._
 import lila.relation.Relation
 import makeTimeout.short
 
@@ -21,15 +20,6 @@ trait RelationHelper {
 
   def blocks(u1: String, u2: String): Boolean =
     api.blocks(u1, u2).await
-
-  def onlineFriends(userId: String): JsObject = {
-    Env.hub.actor.relation ? GetOnlineFriends(userId) map {
-      case OnlineFriends(usernames, nb) ⇒ Json.obj(
-        "us" -> usernames,
-        "nb" -> nb
-      )
-    }
-  }.await
 
   def nbFollowers(userId: String) =
     Env.relation.api.nbFollowers(userId).await

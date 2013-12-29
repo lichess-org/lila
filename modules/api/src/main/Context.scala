@@ -1,5 +1,6 @@
 package lila.api
 
+import play.api.libs.json.JsObject
 import play.api.mvc.{ Request, RequestHeader }
 
 import lila.chat.Chat
@@ -10,6 +11,8 @@ sealed trait Context extends lila.user.UserContextWrapper {
 
   val userContext: UserContext
   val chat: Option[Chat]
+  val friends: Option[JsObject]
+
   val pref: Pref
 
   def currentTheme =
@@ -24,25 +27,34 @@ sealed trait Context extends lila.user.UserContextWrapper {
 sealed abstract class BaseContext(
   val userContext: lila.user.UserContext,
   val chat: Option[Chat],
-  val pref: Pref) extends Context
+  val pref: Pref,
+  val friends: Option[JsObject]) extends Context
 
-final class BodyContext(val bodyContext: BodyUserContext, chatOption: Option[Chat], p: Pref)
-    extends BaseContext(bodyContext, chatOption, p) {
+final class BodyContext(
+  val bodyContext: BodyUserContext,
+  chatOption: Option[Chat],
+  p: Pref,
+  f: Option[JsObject])
+    extends BaseContext(bodyContext, chatOption, p, f) {
 
   def body = bodyContext.body
 }
 
-final class HeaderContext(val headerContext: HeaderUserContext, chatOption: Option[Chat], p: Pref)
-  extends BaseContext(headerContext, chatOption, p)
+final class HeaderContext(
+  val headerContext: HeaderUserContext,
+  chatOption: Option[Chat],
+  p: Pref,
+  f: Option[JsObject])
+    extends BaseContext(headerContext, chatOption, p, f)
 
 object Context {
 
   def apply(req: RequestHeader): HeaderContext =
-    new HeaderContext(UserContext(req, none), none, Pref.default)
+    new HeaderContext(UserContext(req, none), none, Pref.default, none)
 
-  def apply(userContext: HeaderUserContext, chat: Option[Chat], pref: Option[Pref]): HeaderContext =
-    new HeaderContext(userContext, chat, pref | Pref.default)
+  def apply(userContext: HeaderUserContext, chat: Option[Chat], pref: Option[Pref], friends: Option[JsObject]): HeaderContext =
+    new HeaderContext(userContext, chat, pref | Pref.default, friends)
 
-  def apply(userContext: BodyUserContext, chat: Option[Chat], pref: Option[Pref]): BodyContext =
-    new BodyContext(userContext, chat, pref | Pref.default)
+  def apply(userContext: BodyUserContext, chat: Option[Chat], pref: Option[Pref], friends: Option[JsObject]): BodyContext =
+    new BodyContext(userContext, chat, pref | Pref.default, friends)
 }

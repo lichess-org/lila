@@ -22,16 +22,16 @@ sealed abstract class StaticChan(
 
 sealed abstract class IdChan(
     val typ: String,
-    val id: String,
     val autoActive: Boolean) extends Chan {
 
-  val key = s"${typ}_$id"
-  val idOption = id.some
+  val id: String
+  def key = s"${typ}_$id"
+  def idOption = id.some
 }
 
-sealed abstract class AutoActiveChan(
-  typ: String,
-  id: String) extends IdChan(typ, id, true)
+sealed abstract class AutoActiveChan(typ: String, i: String) extends IdChan(typ, true) {
+  val id = i
+}
 
 object LichessChan extends StaticChan(Chan.typ.lichess, "Lichess")
 object LobbyChan extends StaticChan(Chan.typ.lobby, "Lobby")
@@ -41,6 +41,16 @@ object TournamentLobbyChan extends StaticChan(Chan.typ.tournamentLobby, "Tournam
 case class GameWatcherChan(i: String) extends AutoActiveChan(Chan.typ.gameWatcher, i)
 case class GamePlayerChan(i: String) extends AutoActiveChan(Chan.typ.gamePlayer, i)
 case class TournamentChan(i: String) extends AutoActiveChan(Chan.typ.tournament, i)
+
+case class UserChan(u1: String, u2: String) extends IdChan("user", false) {
+  val id = List(u1, u2).sorted mkString "-"
+}
+object UserChan {
+  def apply(id: String): Option[UserChan] = id.split("-") match {
+    case Array(u1, u2) ⇒ UserChan(u1, u2).some
+    case _             ⇒ none
+  }
+}
 
 case class NamedChan(chan: Chan, name: String) {
 
@@ -59,6 +69,7 @@ object Chan {
     val gamePlayer = "gamePlayer"
     val tournamentLobby = "tournamentLobby"
     val tournament = "tournament"
+    val user = "user"
   }
 
   def apply(typ: String, idOption: Option[String]): Option[Chan] = typ match {
@@ -69,6 +80,7 @@ object Chan {
     case Chan.typ.gamePlayer      ⇒ idOption map GamePlayerChan
     case Chan.typ.tournamentLobby ⇒ TournamentLobbyChan.some
     case Chan.typ.tournament      ⇒ idOption map TournamentChan
+    case Chan.typ.user            ⇒ idOption flatMap UserChan.apply
     case _                        ⇒ none
   }
 
