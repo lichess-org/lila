@@ -838,12 +838,15 @@ var storage = {
   $.widget("lichess.onechat", {
     _create: function() {
       var self = this;
+      self.$wrap = self.element.parent();
+      self.$bar = self.$wrap.find('> .bar');
       self.$lines = self.element.find('.lines');
       self.$chans = self.element.find('.chans');
       self.$form = self.element.find('.controls form');
       self.$invite = self.$form.find('.invite');
       self.$input = self.$form.find('input');
 
+      self.on = _lc_.on;
       self.user = _lc_.user;
 
       self.reload(_lc_);
@@ -863,6 +866,14 @@ var storage = {
       });
       self.element.find('.help').click(function() {
         self.send('/help tutorial');
+      });
+      self.$bar.find('> .on').click(function() {
+        self.$wrap.addClass('on');
+        self.on = true;
+      });
+      self.element.find('> .off').click(function() {
+        self.$wrap.removeClass('on');
+        self.on = false;
       });
       $(window).resize(function() {
         self._renderForm();
@@ -913,10 +924,17 @@ var storage = {
       self.send(text);
     },
     send: function(text) {
-      lichess.socket.send('chat.tell', {
-        chan: this.mainChan,
-        text: text
-      });
+      var self = this;
+      var doSend = function() {
+        lichess.socket.send('chat.tell', {
+          chan: self.mainChan,
+          text: text
+        });
+      };
+      if (!self.mainChan) { // may happen when help is clicked
+        self._setMain(_.keys(self.chans)[0]);
+        setTimeout(doSend, 777);
+      } else doSend();
     },
     _setActive: function(chan, value, setMain) {
       var self = this;
@@ -971,8 +989,10 @@ var storage = {
         var main = self.mainChan == line.chan;
         var sys = line.user == 'Lichess';
         return '<div class="line ' + (main ? 'main' : color) + ' ' + (sys ? 'sys' : '') + '">' +
-          '<div class="user">' + (sys ? '' : $.userLinkLimit(line.user, 14, color)) + '</div>' +
-          '<div class="text ' + (main ? 'main' : color) + '">' + line.html + '</div>' +
+          (sys ?
+          '<pre class="text ' + (main ? 'main' : color) + '">' + line.html + '</pre>' :
+          '<div class="user">' + $.userLinkLimit(line.user, 14, color) + '</div>' +
+          '<div class="text ' + (main ? 'main' : color) + '">' + line.html + '</div>') +
           '</div>';
       }
     },

@@ -166,8 +166,12 @@ data-accept-languages="@acceptLanguages.mkString(",")">
 </div>
 }
 @ctx.chat.map { c =>
-<div id="chat_wrap">
+<div id="chat_wrap" class="on">
+  <div class="bar">
+    <a class="on">@trans.chat()</a>
+  </div>
   <div id="chat">
+    <a class="off"></a>
     <a class="help">help</a>
     <div class="chans"></div>
     <div class="room">
