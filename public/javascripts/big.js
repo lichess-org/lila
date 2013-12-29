@@ -963,8 +963,9 @@ var storage = {
       else {
         var color = self._colorClass(self._chanIndex(line.chan));
         var main = self.mainChan == line.chan;
-        return '<div class="line ' + (main ? 'main' : color) + '">' +
-          '<div class="user">' + $.userLinkLimit(line.user, 14, color) + '</div>' +
+        var sys = line.user == 'Lichess';
+        return '<div class="line ' + (main ? 'main' : color) + ' ' + (sys ? 'sys' : '') + '">' +
+          '<div class="user">' + (sys ? '' : $.userLinkLimit(line.user, 14, color)) + '</div>' +
           '<div class="text ' + (main ? 'main' : color) + '">' + line.html + '</div>' +
           '</div>';
       }

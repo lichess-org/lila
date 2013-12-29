@@ -26,6 +26,7 @@ final class Env(
   lazy val api = new RelationApi(
     cached = cached,
     actor = hub.actor.relation,
+    bus = system.lilaBus,
     getOnlineUserIds = getOnlineUserIds,
     timeline = hub.actor.timeline)
 

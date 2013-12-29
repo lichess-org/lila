@@ -14,6 +14,7 @@ import tube.lineTube
 private[chat] final class Api(
     namer: Namer,
     flood: lila.security.Flood,
+    relationApi: lila.relation.RelationApi,
     prefApi: lila.pref.PrefApi,
     netDomain: String) {
 
@@ -28,13 +29,19 @@ private[chat] final class Api(
   def get(userId: String): Fu[ChatHead] =
     (UserRepo byId userId) flatten s"No such user: $userId" flatMap get
 
-  def populate(head: ChatHead, user: User): Fu[Chat] = {
-    val selectTroll = user.troll.fold(Json.obj(), Json.obj(L.troll -> false))
-    namer.chans(head.chans, user) zip
-      $find($query(selectTroll ++ Json.obj("c" -> $in(head.activeChanKeys))) sort $sort.desc(L.date), 20) map {
-        case (namedChans, lines) ⇒ Chat(head, namedChans, lines.reverse)
-      }
-  }
+  def populate(head: ChatHead, user: User): Fu[Chat] =
+    relationApi blocking user.id flatMap { blocks ⇒
+      val selectTroll = user.troll.fold(Json.obj(), Json.obj(L.troll -> false))
+      val selectBlock = Json.obj(L.username -> $nin(blocks))
+      namer.chans(head.chans, user) zip
+        $find($query(
+          selectTroll ++
+            selectBlock ++
+            Json.obj(L.chan -> $in(head.activeChanKeys))
+        ) sort $sort.desc(L.date), 20) map {
+          case (namedChans, lines) ⇒ Chat(head, namedChans, lines.reverse)
+        }
+    }
 
   def write(chan: String, userId: String, text: String): Fu[Option[Line]] = {
     import Writer._

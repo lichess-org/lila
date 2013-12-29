@@ -10,6 +10,7 @@ final class Env(
     db: lila.db.Env,
     getUsername: String ⇒ Fu[String],
     flood: lila.security.Flood,
+    relationApi: lila.relation.RelationApi,
     prefApi: lila.pref.PrefApi,
     system: ActorSystem) {
 
@@ -24,6 +25,7 @@ final class Env(
   lazy val api = new Api(
     namer = namer,
     flood = flood,
+    relationApi = relationApi,
     prefApi = prefApi,
     netDomain = NetDomain)
 
@@ -33,6 +35,7 @@ final class Env(
     api = api,
     namer = namer,
     bus = system.lilaBus,
+    relationApi = relationApi,
     prefApi = prefApi)))
 }
 
@@ -43,6 +46,7 @@ object Env {
     db = lila.db.Env.current,
     getUsername = lila.user.Env.current.usernameOrAnonymous,
     flood = lila.security.Env.current.flood,
+    relationApi = lila.relation.Env.current.api,
     prefApi = lila.pref.Env.current.api,
     system = lila.common.PlayApp.system)
 }

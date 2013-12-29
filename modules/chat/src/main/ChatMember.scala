@@ -9,9 +9,12 @@ private[chat] final class ChatMember(
     val channel: lila.socket.JsChannel) {
 
   private[chat] var head: ChatHead = ChatHead(Nil, none, Set.empty, none)
+  private[chat] var blocks: Set[String] = Set.empty
 
   def wants(line: Line) =
-    (troll || !line.troll) && (head.activeChanKeys contains line.chan.key)
+    (troll || !line.troll) &&
+      (head.activeChanKeys contains line.chan.key) &&
+      !blocks(line.userId)
 
   def setHead(h: ChatHead) {
     head = h
@@ -25,5 +28,17 @@ private[chat] final class ChatMember(
     head = head.copy(
       activeChanKeys = if (value) head.activeChanKeys + key else head.activeChanKeys - key
     )
+  }
+
+  def setBlocks(bs: Set[String]) {
+    blocks = bs
+  }
+
+  def block(u: String) {
+    blocks = blocks + u
+  }
+
+  def unBlock(u: String) {
+    blocks = blocks - u
   }
 }

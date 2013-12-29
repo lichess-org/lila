@@ -14,6 +14,7 @@ import tube.relationTube
 final class RelationApi(
     cached: Cached,
     actor: ActorSelection,
+    bus: lila.common.Bus,
     getOnlineUserIds: () ⇒ Set[String],
     timeline: ActorSelection) {
 
@@ -61,7 +62,8 @@ final class RelationApi(
     if (u1 == u2) fufail("Cannot block yourself")
     else relation(u1, u2) flatMap {
       case Some(Block) ⇒ fufail("Already blocking")
-      case _           ⇒ RelationRepo.block(u1, u2) >> refresh(u1, u2)
+      case _ ⇒ RelationRepo.block(u1, u2) >> refresh(u1, u2) >>-
+        bus.publish(lila.hub.actorApi.relation.Block(u1, u2), 'relation)
     }
 
   def unfollow(u1: ID, u2: ID): Funit =
@@ -74,8 +76,9 @@ final class RelationApi(
   def unblock(u1: ID, u2: ID): Funit =
     if (u1 == u2) fufail("Cannot unblock yourself")
     else relation(u1, u2) flatMap {
-      case Some(Block) ⇒ RelationRepo.unblock(u1, u2) >> refresh(u1, u2)
-      case _           ⇒ fufail("Not blocking")
+      case Some(Block) ⇒ RelationRepo.unblock(u1, u2) >> refresh(u1, u2) >>-
+        bus.publish(lila.hub.actorApi.relation.UnBlock(u1, u2), 'relation)
+      case _ ⇒ fufail("Not blocking")
     }
 
   private def refresh(u1: ID, u2: ID): Funit =
