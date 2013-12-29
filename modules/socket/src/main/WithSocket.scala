@@ -1,10 +1,10 @@
 package lila.socket
 
+import ornicar.scalalib.Zero
 import play.api.libs.iteratee.Concurrent.Channel
 import play.api.libs.iteratee.{ Iteratee, Enumerator }
 import play.api.libs.json._
 
-import ornicar.scalalib.Zero
 
 trait WithSocket {
 
@@ -13,6 +13,6 @@ trait WithSocket {
   type JsIteratee = Iteratee[JsValue, _]
   type JsSocketHandler = (JsIteratee, JsEnumerator)
 
-  implicit val LilaJsSocketHandlerZero: Zero[JsSocketHandler] = 
+  implicit val LilaJsSocketHandlerZero: Zero[JsSocketHandler] =
     Zero.instance(Handler errorHandler "default error handler used")
 }

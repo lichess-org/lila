@@ -6,6 +6,7 @@ trait SocketMember extends Ordered[SocketMember] {
   val userId: Option[String]
   val troll: Boolean
 
+  // FIXME
   private val privateLiveGames = collection.mutable.Set[String]()
 
   def liveGames: Set[String] = privateLiveGames.toSet

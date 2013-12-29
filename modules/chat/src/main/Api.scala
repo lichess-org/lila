@@ -33,43 +33,40 @@ private[chat] final class Api(
     relationApi blocking user.id flatMap { blocks ⇒
       val selectTroll = user.troll.fold(Json.obj(), Json.obj(L.troll -> false))
       val selectBlock = Json.obj(L.username -> $nin(blocks))
+      val selectTo = Json.obj(L.to -> $in(List("", user.id)))
       namer.chans(head.chans, user) zip
         $find($query(
           selectTroll ++
             selectBlock ++
+            selectTo ++
             Json.obj(L.chan -> $in(head.activeChanKeys))
         ) sort $sort.desc(L.date), 20) map {
           case (namedChans, lines) ⇒ Chat(head, namedChans, lines.reverse)
         }
     }
 
-  def write(chan: String, userId: String, text: String): Fu[Option[Line]] = {
-    import Writer._
-    UserRepo byId userId flatMap {
-      case None ⇒ invalid(s"$userId does not even exist")
-      case Some(user) ⇒ Chan parse chan match {
-        case None    ⇒ invalid(s"Invalid chan name $chan")
-        case Some(c) ⇒ write(c, user, text)
-      }
+  def makeLine(chanName: String, userId: String, t1: String): Fu[Option[Line]] =
+    UserRepo byId userId map { userOption ⇒
+      import Writer._
+      for {
+        user ← userOption
+        chan ← Chan parse chanName
+        t2 ← Some(t1.trim take 200) filter (_.nonEmpty)
+        if !user.disabled
+        if (flood.allowMessage(userId, t2))
+      } yield Line.make(chan, user, delocalize(noPrivateUrl(t2)))
     }
-  }
 
-  def write(chan: Chan, user: User, t1: String): Fu[Option[Line]] = {
-    import Writer._
-    if (user.disabled) invalid(s"User $user is disabled and can't write in the $chan chat")
-    else {
-      val t2 = t1.trim take 200
-      if (t2.isEmpty) invalid(s"Empty message from $user in $chan")
-      else {
-        val text = delocalize(noPrivateUrl(t2))
-        val line = Line.make(chan, user, text)
-        if (flood.allowMessage(line.userId, line.text))
-          $insert bson line inject line.some
-        else
-          invalid(s"$user is flooding $chan: ${line.text.take(40)}")
+  def write(chanName: String, userId: String, text: String): Fu[Option[Line]] =
+    makeLine(chanName, userId, text) flatMap {
+      case None ⇒ {
+        logger.info(s"$userId @ $chanName : $text")
+        fuccess(none)
       }
+      case Some(line) ⇒ write(line) inject line.some
     }
-  }
+
+  def write(line: Line): Funit = $insert bson line
 
   def systemWrite(chan: Chan, text: String): Fu[Line] = {
     val line = Line.system(chan, text)
@@ -79,8 +76,6 @@ private[chat] final class Api(
   private val logger = play.api.Logger("chat")
 
   private object Writer {
-    def invalid(msg: String) = { logger.info(msg); fuccess(none[Line]) }
-
     val delocalize = new lila.common.String.Delocalizer(netDomain)
     val domainRegex = netDomain.replace(".", """\.""")
     val urlRegex = (domainRegex + """/([\w-]{8})[\w-]{4}""").r

@@ -19,9 +19,15 @@ private[chat] final class ChatActor(
     relationApi: lila.relation.RelationApi,
     prefApi: PrefApi) extends Actor {
 
-  private val members = collection.mutable.Map[String, ChatMember]()
+  private val members = collection.mutable.Map[String, ChatMember[_]]()
 
-  bus.subscribe(self, 'chat, 'socketDoor, 'relation)
+  private val lichessBot = context.actorOf(Props[LichessBot])
+
+  override def preStart() {
+    bus.subscribe(self, 'chat, 'socketDoor, 'relation)
+    val bot = new BotChatMember("lichess", lichessBot)
+    members += (bot.uid -> bot)
+  }
 
   override def postStop() {
     bus.unsubscribe(self)
@@ -30,8 +36,13 @@ private[chat] final class ChatActor(
   def receive = {
 
     case line: Line ⇒ {
-      val msg = Socket.makeMessage("chat.line", line.toJson)
-      members.values foreach { m ⇒ if (m wants line) m.channel push msg }
+      println(line)
+      val json = Socket.makeMessage("chat.line", line.toJson)
+      members.values foreach {
+        case m: JsChatMember if (m wants line)  ⇒ m tell json
+        case m: BotChatMember if (m wants line) ⇒ m tell line
+        case _                                  ⇒
+      }
     }
 
     case System(chanTyp: String, chanId: Option[String], text: String) ⇒
@@ -39,12 +50,12 @@ private[chat] final class ChatActor(
         api.systemWrite(chan, text) pipeTo self
       }
 
-    case lila.hub.actorApi.relation.Block(u1, u2) ⇒ withMembersOf(u1) { member =>
+    case lila.hub.actorApi.relation.Block(u1, u2) ⇒ withMembersOf(u1) { member ⇒
       member block u2
       reloadChat(member)
     }
 
-    case lila.hub.actorApi.relation.UnBlock(u1, u2) ⇒ withMembersOf(u1) { member =>
+    case lila.hub.actorApi.relation.UnBlock(u1, u2) ⇒ withMembersOf(u1) { member ⇒
       member unBlock u2
       reloadChat(member)
     }
@@ -84,18 +95,26 @@ private[chat] final class ChatActor(
         case "chat.tell" ⇒ for {
           chan ← data str "chan"
           text ← data str "text"
-        } api.write(chan, member.userId, text) foreach { _ foreach self.! }
+        } {
+          if (text startsWith "/") api.makeLine(chan, member.userId, text) foreach {
+            _ foreach { line ⇒
+              self ! line.copy(to = "lichess".some, text = text drop 1)
+            }
+          }
+          else api.write(chan, member.userId, text) foreach { _ foreach self.! }
+
+        }
       }
     }
 
     case SocketEnter(uid, member) ⇒ member.userId foreach { userId ⇒
-      members += (uid -> new ChatMember(uid, userId, member.troll, member.channel))
+      members += (uid -> new JsChatMember(uid, userId, member.troll, member.channel))
     }
 
     case SocketLeave(uid) ⇒ members -= uid
   }
 
-  private def withMembersOf(userId: String)(f: ChatMember ⇒ Unit) {
+  private def withMembersOf(userId: String)(f: ChatMember[_] ⇒ Unit) {
     members.values foreach { member ⇒
       if (member.userId == userId) f(member)
     }
@@ -109,11 +128,15 @@ private[chat] final class ChatActor(
     f(data str "chan" flatMap Chan.parse)
   }
 
-  private def reloadChat(member: ChatMember) {
-    UserRepo byId member.userId flatten s"User of $member not found" foreach { user ⇒
-      api.populate(member.head, user) foreach { chat ⇒
-        member.channel push Socket.makeMessage("chat.reload", chat.toJson)
-      }
+  private def reloadChat(member: ChatMember[_]) {
+    member match {
+      case m: JsChatMember ⇒
+        UserRepo byId m.userId flatten s"User of $m not found" foreach { user ⇒
+          api.populate(m.head, user) foreach { chat ⇒
+            m tell Socket.makeMessage("chat.reload", chat.toJson)
+          }
+        }
+      case _ ⇒
     }
   }
 }
