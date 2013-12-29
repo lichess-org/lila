@@ -5,6 +5,7 @@ import ornicar.scalalib
 trait LilaException extends Exception {
   val message: String
 
+  override def getMessage = message
   override def toString = message
 }
 

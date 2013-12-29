@@ -14,8 +14,7 @@
 title = title,
 goodies = views.html.game.infoBox(pov, tour),
 chat = round.room(roomHtml, true).some,
-underchat = underchat.some,
-chans = List(lila.chat.GameWatcherChan(pov.gameId))) {
+underchat = underchat.some) {
 @watcherGame(pov)
 @embedJs("var _ld_ = " + roundWatcherJsData(pov, version, false, ctx.pref))
 @analyse.link(pov, analysed)

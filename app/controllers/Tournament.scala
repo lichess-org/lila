@@ -3,13 +3,13 @@ package controllers
 import play.api.data.Form
 import play.api.libs.json.JsValue
 import play.api.mvc._
-import views._
 
+import lila.api.Context
 import lila.app._
 import lila.game.{ Pov, GameRepo }
 import lila.tournament.{ TournamentRepo, Created, Started, Finished, Tournament ⇒ Tourney }
 import lila.user.UserRepo
-import lila.api.Context
+import views._
 
 object Tournament extends LilaController {
 
@@ -23,7 +23,7 @@ object Tournament extends LilaController {
       _.fold(tournamentNotFound(ctx).fuccess)(a ⇒ op(a) map { b ⇒ Redirect(b) })
     }
 
-  val home = Open { implicit ctx ⇒
+  val home = OpenWithChan(lila.chat.TournamentLobbyChan) { implicit ctx ⇒
     tournaments zip UserRepo.allSortToints(10) map {
       case (((created, started), finished), leaderboard) ⇒
         Ok(html.tournament.home(created, started, finished, leaderboard))
@@ -42,7 +42,7 @@ object Tournament extends LilaController {
   private def tournaments =
     repo.created zip repo.started zip repo.finished(20)
 
-  def show(id: String) = Open { implicit ctx ⇒
+  def show(id: String) = OpenWithChan(lila.chat.TournamentChan(id)) { implicit ctx ⇒
     repo byId id flatMap {
       _ match {
         case Some(tour: Created)  ⇒ showCreated(tour) map { Ok(_) }

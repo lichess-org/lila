@@ -2,31 +2,28 @@ package lila.chat
 
 import akka.actor.ActorRef
 
-case class ChatMember(
-    uid: String,
-    userId: String,
-    troll: Boolean,
-    channel: lila.socket.JsChannel) {
+private[chat] final class ChatMember(
+    val uid: String,
+    val userId: String,
+    val troll: Boolean,
+    val channel: lila.socket.JsChannel) {
 
-  private var privateExtraChans = List[String]()
-  private var privateActiveChans = Set[String]()
+  private[chat] var head: ChatHead = ChatHead(Nil, none, Set.empty, none)
 
   def wants(line: Line) =
-    (troll || !line.troll) && (privateActiveChans contains line.chan.key)
+    (troll || !line.troll) && (head.activeChanKeys contains line.chan.key)
 
-  def extraChans = privateExtraChans
+  def setHead(h: ChatHead) {
+    head = h
+  }
 
-  def setExtraChans(chans: List[String]) {
-    privateExtraChans = chans
+  def setMainChan(chan: Option[String]) {
+    head = head.copy(mainChanKey = chan)
   }
 
   def setActiveChan(key: String, value: Boolean) {
-    privateActiveChans =
-      if (value) privateActiveChans + key
-      else privateActiveChans - key
-  }
-
-  def setActiveChans(keys: Set[String]) {
-    privateActiveChans = keys
+    head = head.copy(
+      activeChanKeys = if (value) head.activeChanKeys + key else head.activeChanKeys - key
+    )
   }
 }

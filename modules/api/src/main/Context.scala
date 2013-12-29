@@ -2,14 +2,14 @@ package lila.api
 
 import play.api.mvc.{ Request, RequestHeader }
 
-import lila.chat.NamedChat
+import lila.chat.Chat
 import lila.pref.Pref
 import lila.user.{ UserContext, HeaderUserContext, BodyUserContext }
 
 sealed trait Context extends lila.user.UserContextWrapper {
 
   val userContext: UserContext
-  val chat: Option[NamedChat]
+  val chat: Option[Chat]
   val pref: Pref
 
   def currentTheme =
@@ -23,15 +23,16 @@ sealed trait Context extends lila.user.UserContextWrapper {
 
 sealed abstract class BaseContext(
   val userContext: lila.user.UserContext,
-  val chat: Option[NamedChat],
+  val chat: Option[Chat],
   val pref: Pref) extends Context
 
-final class BodyContext(val bodyContext: BodyUserContext, chatOption: Option[NamedChat], p: Pref)
+final class BodyContext(val bodyContext: BodyUserContext, chatOption: Option[Chat], p: Pref)
     extends BaseContext(bodyContext, chatOption, p) {
+
   def body = bodyContext.body
 }
 
-final class HeaderContext(val headerContext: HeaderUserContext, chatOption: Option[NamedChat], p: Pref)
+final class HeaderContext(val headerContext: HeaderUserContext, chatOption: Option[Chat], p: Pref)
   extends BaseContext(headerContext, chatOption, p)
 
 object Context {
@@ -39,9 +40,9 @@ object Context {
   def apply(req: RequestHeader): HeaderContext =
     new HeaderContext(UserContext(req, none), none, Pref.default)
 
-  def apply(userContext: HeaderUserContext, chat: Option[NamedChat], pref: Option[Pref]): HeaderContext =
+  def apply(userContext: HeaderUserContext, chat: Option[Chat], pref: Option[Pref]): HeaderContext =
     new HeaderContext(userContext, chat, pref | Pref.default)
 
-  def apply(userContext: BodyUserContext, chat: Option[NamedChat], pref: Option[Pref]): BodyContext =
+  def apply(userContext: BodyUserContext, chat: Option[Chat], pref: Option[Pref]): BodyContext =
     new BodyContext(userContext, chat, pref | Pref.default)
 }

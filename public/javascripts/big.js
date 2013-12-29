@@ -844,6 +844,8 @@ var storage = {
       self.$invite = self.$form.find('.invite');
       self.$input = self.$form.find('input');
 
+      self.user = _lc_.user;
+
       self.reload(_lc_);
 
       self.element.click(function() {
@@ -865,15 +867,18 @@ var storage = {
 
       $('body').on('socket.open', function() {
         lichess.socket.send('chat.register', {
-          chans: _.keys(self.chans).join(',')
+          chans: _.keys(self.chans),
+          pageChan: self.pageChan,
+          activeChans: self.activeChans,
+          mainChan: self.mainChan
         });
       });
     },
     reload: function(c) {
       var self = this;
-      self.user = c.user;
       self.lines = c.lines;
       self.chans = c.chans;
+      self.pageChan = c.pageChan;
       self.activeChans = _.filter(c.activeChans, function(chan) {
         return self._exists(chan);
       });

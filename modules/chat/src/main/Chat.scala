@@ -6,37 +6,32 @@ import play.api.libs.json._
 
 import lila.user.User
 
-case class Chat(
-    user: User,
-    lines: List[Line],
+case class ChatHead(
     chans: List[Chan],
+    pageChanKey: Option[String],
     activeChanKeys: Set[String],
     mainChanKey: Option[String]) {
 
   def chanKeys = chans map (_.key)
 
-  def addChans(cs: List[Chan]) = copy(chans = (chans ::: cs).distinct)
+  def withPageChan(c: Chan) = copy(
+    chans = (chans :+ c).distinct,
+    pageChanKey = c.key.some,
+    activeChanKeys = c.autoActive.fold(activeChanKeys + c.key, activeChanKeys),
+    mainChanKey = c.autoActive.fold(c.key.some, mainChanKey))
 }
 
-case class NamedChat(chat: Chat, namedChans: List[NamedChan]) {
+case class Chat(head: ChatHead, namedChans: List[NamedChan], lines: List[Line]) {
 
   def toJson = Json.obj(
-    "user" -> chat.user.username,
-    "lines" -> (chat.lines map (_.toJson)),
+    "lines" -> lines.map(_.toJson),
     "chans" -> JsObject(namedChans map { c ⇒ c.chan.key -> c.toJson }),
-    "activeChans" -> chat.activeChanKeys,
-    "mainChan" -> chat.mainChanKey.filter(chat.activeChanKeys.contains))
-
-  def addChans(chans: List[NamedChan]) = copy(namedChans = (namedChans ::: chans).distinct)
+    "pageChan" -> head.pageChanKey.fold[JsValue](JsNull)(JsString.apply),
+    "activeChans" -> head.activeChanKeys,
+    "mainChan" -> head.mainChanKey.filter(head.activeChanKeys.contains))
 }
 
 object Chat {
 
   val baseChans = List(LichessChan)
-  // LichessChan,
-  // LobbyChan,
-  // TvChan,
-  // GameChan("00000000", "Game / thinkabit"),
-  // UserChan("claymore", "Claymore"),
-  // UserChan("legend", "legend"))
 }

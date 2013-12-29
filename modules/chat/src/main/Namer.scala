@@ -10,9 +10,6 @@ import lila.user.User
 
 private[chat] final class Namer(getUsername: String ⇒ Fu[String]) {
 
-  def chat(c: Chat): Fu[NamedChat] =
-    chans(c.chans, c.user) map { NamedChat(c, _) }
-
   def chan(c: Chan, as: User): Fu[NamedChan] =
     chanCache(c -> as) map { NamedChan(c, _) }
 
