@@ -16,6 +16,8 @@ case class Line(
     text: String,
     troll: Boolean) {
 
+  def system = username == Chat.systemUsername
+
   def html = Html {
     escapeXml(text)
   }
@@ -39,6 +41,14 @@ object Line {
     date = DateTime.now,
     text = text,
     troll = user.troll)
+
+  def system(chan: Chan, text: String): Line = Line(
+    id = Random nextString idSize,
+    chan = chan,
+    username = Chat.systemUsername,
+    date = DateTime.now,
+    text = text,
+    troll = false)
 
   type ID = String
 

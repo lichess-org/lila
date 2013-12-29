@@ -23,7 +23,6 @@ final class Env(
 
   private val settings = new {
     val CollectionTournament = config getString "collection.tournament"
-    val CollectionRoom = config getString "collection.room"
     val MessageTtl = config duration "message.ttl"
     val UidTimeout = config duration "uid.timeout"
     val SocketTimeout = config duration "socket.timeout"
@@ -48,7 +47,6 @@ final class Env(
   lazy val socketHandler = new SocketHandler(
     hub = hub,
     socketHub = socketHub,
-    messenger = messenger,
     flood = flood,
     bus = system.lilaBus)
 
@@ -59,7 +57,6 @@ final class Env(
       def mkActor(tournamentId: String) = new Socket(
         tournamentId = tournamentId,
         history = history(),
-        messenger = messenger,
         uidTimeout = UidTimeout,
         socketTimeout = SocketTimeout,
         getUsername = getUsername)
@@ -99,10 +96,7 @@ final class Env(
     }
   }
 
-  lazy val messenger = new Messenger(getUsername, NetDomain)
-
   private[tournament] lazy val tournamentColl = db(CollectionTournament)
-  private[tournament] lazy val roomColl = db(CollectionRoom)
 }
 
 object Env {

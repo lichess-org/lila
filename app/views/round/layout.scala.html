@@ -1,12 +1,10 @@
-@(title: String, goodies: Html, chat: Option[Html] = None, underchat: Option[Html] = None, robots: Boolean = true, signedJs: Option[String] = None, active: Option[lila.app.ui.SiteMenu.Elem] = None)(body: Html)(implicit ctx: Context) 
-
+@(title: String, goodies: Html, chat: Option[Html] = None, underchat: Option[Html] = None, robots: Boolean = true, signedJs: Option[String] = None, active: Option[lila.app.ui.SiteMenu.Elem] = None)(body: Html)(implicit ctx: Context)
 
 @base.layout(
-title = title, 
-goodies = goodies.some, 
-active = (active | siteMenu.play).some, 
-chat = chat, 
-underchat = underchat, 
+title = title,
+goodies = goodies.some,
+active = (active | siteMenu.play).some,
+underchat = underchat,
 robots = robots,
 signedJs = signedJs,
 themepicker = true)(body)

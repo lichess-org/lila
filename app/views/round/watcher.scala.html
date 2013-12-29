@@ -1,4 +1,4 @@
-@(pov: Pov, version: Int, roomHtml: Html, bookmarkers: List[String], analysed: Boolean, tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
+@(pov: Pov, version: Int, bookmarkers: List[String], analysed: Boolean, tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
 
 @import pov._
 
@@ -13,7 +13,6 @@
 @round.layout(
 title = title,
 goodies = views.html.game.infoBox(pov, tour),
-chat = round.room(roomHtml, true).some,
 underchat = underchat.some) {
 @watcherGame(pov)
 @embedJs("var _ld_ = " + roundWatcherJsData(pov, version, false, ctx.pref))

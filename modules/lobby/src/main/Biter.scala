@@ -8,9 +8,7 @@ import actorApi.{ RemoveHook, BiteHook, JoinHook }
 import lila.game.{ GameRepo, Game, Player, Pov, Progress }
 import lila.user.{ User, UserRepo }
 
-private[lobby] final class Biter(
-    blocks: (String, String) ⇒ Fu[Boolean],
-    roundMessenger: lila.round.Messenger) {
+private[lobby] final class Biter(blocks: (String, String) ⇒ Fu[Boolean]) {
 
   def apply(hook: Hook, userId: Option[String], uid: String): Fu[JoinHook] =
     userId ?? UserRepo.byId flatMap { user ⇒
@@ -27,10 +25,7 @@ private[lobby] final class Biter(
       !creatorColor, userOption,
       blame(creatorColor, ownerOption, makeGame(hook))
     ).start
-    _ ← (GameRepo insertDenormalized game) >>-
-      // messenges are not sent to the game socket
-      // as nobody is there to see them yet
-      (roundMessenger init game)
+    _ ← GameRepo insertDenormalized game 
   } yield JoinHook(uid, hook, game, creatorColor)
 
   def blame(color: ChessColor, userOption: Option[User], game: Game) =

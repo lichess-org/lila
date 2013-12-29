@@ -13,29 +13,26 @@ import lila.user.tube.userTube
 import lila.user.{ User, UserRepo }
 
 private[round] final class Finisher(
-    tournamentOrganizer: akka.actor.ActorSelection,
     messenger: Messenger,
-    indexer: akka.actor.ActorSelection) {
+    indexer: akka.actor.ActorSelection,
+    tournamentOrganizer: akka.actor.ActorSelection) {
 
   def apply(
     game: Game,
     status: Status.type ⇒ Status,
     winner: Option[Color] = None,
-    message: Option[SelectI18nKey] = None): Fu[Events] = for {
-    p1 ← fuccess {
-      game.finish(status(Status), winner)
-    }
-    p2 ← message.fold(fuccess(p1)) { m ⇒
-      messenger.systemMessage(p1.game, m) map p1.++
-    }
-    _ ← GameRepo save p2
-    g = p2.game
-    winnerId = winner flatMap (g.player(_).userId)
-    _ ← GameRepo.finish(g.id, winner, winnerId) >>
-      updateCountAndPerfs(g) >>-
-      (indexer ! lila.game.actorApi.InsertGame(g)) >>-
-      (tournamentOrganizer ! FinishGame(g.id))
-  } yield p2.events
+    message: Option[SelectI18nKey] = None): Fu[Events] = {
+    val prog = game.finish(status(Status), winner)
+    val g = prog.game
+    (GameRepo save prog) >>
+      GameRepo.finish(g.id, winner, winner flatMap (g.player(_).userId)) >>
+      updateCountAndPerfs(g) inject {
+        message foreach { messenger(g, _) }
+        indexer ! lila.game.actorApi.InsertGame(g)
+        tournamentOrganizer ! FinishGame(g.id)
+        prog.events
+      }
+  }
 
   private def updateCountAndPerfs(game: Game): Funit =
     UserRepo.pair(game.player(White).userId, game.player(Black).userId) flatMap {

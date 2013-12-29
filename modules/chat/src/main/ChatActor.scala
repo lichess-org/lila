@@ -28,6 +28,16 @@ private[chat] final class ChatActor(
 
   def receive = {
 
+    case line: Line ⇒ {
+      val msg = Socket.makeMessage("chat.line", line.toJson)
+      members.values foreach { m ⇒ if (m wants line) m.channel push msg }
+    }
+
+    case System(chanTyp: String, chanId: Option[String], text: String) ⇒
+      Chan(chanTyp, chanId) foreach { chan ⇒
+        api.systemWrite(chan, text) pipeTo self
+      }
+
     case Input(uid, o) ⇒ (o str "t") |@| (o obj "d") |@| (members get uid) apply {
       case (typ, data, member) ⇒ typ match {
 
@@ -62,7 +72,7 @@ private[chat] final class ChatActor(
         case "chat.tell" ⇒ for {
           chan ← data str "chan"
           text ← data str "text"
-        } api.write(chan, member.userId, text) foreach { _ foreach addLine }
+        } api.write(chan, member.userId, text) foreach { _ foreach self.! }
       }
     }
 
@@ -71,13 +81,6 @@ private[chat] final class ChatActor(
     }
 
     case SocketLeave(uid) ⇒ members -= uid
-  }
-
-  def addLine(line: Line) {
-    val msg = Socket.makeMessage("chat.line", line.toJson)
-    members.values foreach { m ⇒
-      if (m wants line) m.channel push msg
-    }
   }
 
   private def withChan(data: JsObject)(f: Chan ⇒ Unit) {

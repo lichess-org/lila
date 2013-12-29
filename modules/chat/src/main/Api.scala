@@ -64,6 +64,11 @@ private[chat] final class Api(
     }
   }
 
+  def systemWrite(chan: Chan, text: String): Fu[Line] = {
+    val line = Line.system(chan, text)
+    $insert bson line inject line
+  }
+
   private val logger = play.api.Logger("chat")
 
   private object Writer {

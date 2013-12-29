@@ -15,7 +15,6 @@ import lila.hub.TimeBomb
 private[tournament] final class Socket(
     tournamentId: String,
     val history: History,
-    messenger: Messenger,
     getUsername: String ⇒ Fu[Option[String]],
     uidTimeout: Duration,
     socketTimeout: Duration) extends SocketActor[Member](uidTimeout) with Historical[Member] {
@@ -54,14 +53,6 @@ private[tournament] final class Socket(
       broom
       if (timeBomb.boom) self ! PoisonPill
     }
-
-    case Talk(tourId, u, t, troll) ⇒ messenger(tourId, u, t, troll) effectFold (
-      e ⇒ logwarn(e.toString),
-      message ⇒ notifyVersionTrollable("talk", Json.obj(
-        "u" -> message.userId,
-        "t" -> message.text
-      ), troll = troll)
-    )
 
     case GetVersion ⇒ sender ! history.version
 

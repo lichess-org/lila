@@ -34,4 +34,6 @@ case class Chat(head: ChatHead, namedChans: List[NamedChan], lines: List[Line]) 
 object Chat {
 
   val baseChans = List(LichessChan)
+
+  val systemUsername = "Lichess"
 }

@@ -15,8 +15,6 @@ package object tournament extends PackageObject with WithPlay with WithSocket{
       implicit lazy val startedTube = Tournament.startedTube inColl Env.current.tournamentColl
       implicit lazy val finishedTube = Tournament.finishedTube inColl Env.current.tournamentColl
     }
-
-    private[tournament] implicit lazy val roomTube = Room.tube inColl Env.current.roomColl
   }
 
   private[tournament] type Pairings = List[tournament.Pairing]

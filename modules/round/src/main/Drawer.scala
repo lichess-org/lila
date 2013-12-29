@@ -2,46 +2,35 @@ package lila.round
 
 import akka.pattern.ask
 import chess.{ Game ⇒ ChessGame, Board, Clock, Variant }
-import makeTimeout.short
 
 import lila.db.api._
 import lila.game.tube.gameTube
 import lila.game.{ GameRepo, Game, Event, Progress, Pov, PlayerRef, Namer, Source }
 import lila.user.tube.userTube
 import lila.user.User
+import makeTimeout.short
 
-private[round] final class Drawer(
-    messenger: Messenger,
-    finisher: Finisher) {
+private[round] final class Drawer(messenger: Messenger, finisher: Finisher) {
 
   def yes(pov: Pov): Fu[Events] = pov match {
     case pov if pov.opponent.isOfferingDraw ⇒
       finisher(pov.game, _.Draw, None, Some(_.drawOfferAccepted))
-    case Pov(g1, color) if (g1 playerCanOfferDraw color) ⇒ for {
-      p1 ← messenger.systemMessage(g1, _.drawOfferSent) map { es ⇒
-        Progress(g1, Event.ReloadTablesOwner :: es)
-      }
-      p2 = p1 map { g ⇒ g.updatePlayer(color, _ offerDraw g.turns) }
-      _ ← GameRepo save p2
-    } yield p2.events
+    case Pov(g, color) if (g playerCanOfferDraw color) ⇒ GameRepo save {
+      messenger(g, _.drawOfferSent)
+      Progress(g) map { g ⇒ g.updatePlayer(color, _ offerDraw g.turns) }
+    } inject List(Event.ReloadTablesOwner)
     case _ ⇒ fufail("[drawer] invalid yes " + pov)
   }
 
   def no(pov: Pov): Fu[Events] = pov match {
-    case Pov(g1, color) if pov.player.isOfferingDraw ⇒ for {
-      p1 ← messenger.systemMessage(g1, _.drawOfferCanceled) map { es ⇒
-        Progress(g1, Event.ReloadTablesOwner :: es)
-      }
-      p2 = p1 map { g ⇒ g.updatePlayer(color, _.removeDrawOffer) }
-      _ ← GameRepo save p2
-    } yield p2.events
-    case Pov(g1, color) if pov.opponent.isOfferingDraw ⇒ for {
-      p1 ← messenger.systemMessage(g1, _.drawOfferDeclined) map { es ⇒
-        Progress(g1, Event.ReloadTablesOwner :: es)
-      }
-      p2 = p1 map { g ⇒ g.updatePlayer(!color, _.removeDrawOffer) }
-      _ ← GameRepo save p2
-    } yield p2.events
+    case Pov(g, color) if pov.player.isOfferingDraw ⇒ GameRepo save {
+      messenger(g, _.drawOfferCanceled)
+      Progress(g) map { g ⇒ g.updatePlayer(color, _.removeDrawOffer) }
+    } inject List(Event.ReloadTablesOwner)
+    case Pov(g, color) if pov.opponent.isOfferingDraw ⇒ GameRepo save {
+      messenger(g, _.drawOfferDeclined)
+      Progress(g) map { g ⇒ g.updatePlayer(!color, _.removeDrawOffer) }
+    } inject List(Event.ReloadTablesOwner)
     case _ ⇒ fufail("[drawer] invalid no " + pov)
   }
 

@@ -18,7 +18,6 @@ import lila.round.actorApi.round.{ AbortForce, ResignColor }
 import lila.socket.actorApi.SendToFlag
 import lila.user.{ User, UserRepo }
 import makeTimeout.short
-import tube.roomTube
 import tube.tournamentTubes._
 
 private[tournament] final class TournamentApi(
@@ -70,8 +69,7 @@ private[tournament] final class TournamentApi(
 
   def wipeEmpty(created: Created): Funit = created.isEmpty ?? {
     loginfo("Remove empty tour " + created)
-    $remove(created) >>
-      $remove.byId[Room](created.id) >>-
+    $remove(created) >>-
       reloadSiteSocket >>-
       lobbyReload
   }

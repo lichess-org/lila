@@ -1,4 +1,4 @@
-@(pov: Pov, version: Int, roomHtml: Html, games: List[Game], confrontation: Option[lila.user.Confrontation], tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
+@(pov: Pov, version: Int, games: List[Game], confrontation: Option[lila.user.Confrontation], tour: Option[lila.tournament.Tournament])(implicit ctx: Context)
 
 @title = @{ "TV" }
 
@@ -6,12 +6,6 @@
 <div class="watchers">
   @trans.spectators() <span class="list inline_userlist"></span>
 </div>
-}
-
-@room = {
-@base.chatRoom(
-title = "TV " + trans.spectatorRoom.str(),
-cssClass = "spectators")(roomHtml)
 }
 
 @goodies = {
@@ -41,7 +35,6 @@ cssClass = "spectators")(roomHtml)
 @round.layout(
 title = title,
 goodies = goodies,
-chat = room.some,
 underchat = underchat.some,
 active = siteMenu.tv.some) {
 @round.watcherGame(pov)

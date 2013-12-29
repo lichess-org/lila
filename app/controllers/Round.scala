@@ -11,7 +11,6 @@ import lila.app._
 import lila.game.{ Pov, PlayerRef, GameRepo, Game ⇒ GameModel }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round._
-import lila.round.{ RoomRepo, WatcherRoomRepo }
 import lila.tournament.{ TournamentRepo, Tournament ⇒ Tourney }
 import lila.user.UserRepo
 import makeTimeout.large
@@ -49,16 +48,13 @@ object Round extends LilaController with TheftPrevention {
         if (pov.game.playableByAi) env.roundMap ! Tell(pov.game.id, AiPlay)
         pov.game.started.fold(
           PreventTheft(pov) {
-            (pov.game.hasChat optionFu {
-              RoomRepo room pov.gameId map { room ⇒ html.round.roomInner(room.decodedMessages) }
-            }) zip
-              env.version(pov.gameId) zip
+            env.version(pov.gameId) zip
               (bookmarkApi userIdsByGame pov.game) zip
               pov.opponent.userId.??(UserRepo.isEngine) zip
               (analyser has pov.gameId) zip
               (pov.game.tournamentId ?? TournamentRepo.byId) map {
-                case (((((roomHtml, v), bookmarkers), engine), analysed), tour) ⇒
-                  Ok(html.round.player(pov, v, engine, roomHtml, bookmarkers, analysed, tour = tour))
+                case ((((v, bookmarkers), engine), analysed), tour) ⇒
+                  Ok(html.round.player(pov, v, engine, bookmarkers, analysed, tour = tour))
               }
           },
           Redirect(routes.Setup.await(fullId)).fuccess
@@ -77,14 +73,10 @@ object Round extends LilaController with TheftPrevention {
   private def watch(pov: Pov)(implicit ctx: Context): Fu[SimpleResult] =
     bookmarkApi userIdsByGame pov.game zip
       env.version(pov.gameId) zip
-      (WatcherRoomRepo room pov.gameId map { room ⇒
-        html.round.watcherRoomInner(room.decodedMessages)
-      }) zip
       (analyser has pov.gameId) zip
       (pov.game.tournamentId ?? TournamentRepo.byId) map {
-        case ((((bookmarkers, v), roomHtml), analysed), tour) ⇒
-          Ok(html.round.watcher(
-            pov, v, roomHtml, bookmarkers, analysed, tour))
+        case (((bookmarkers, v), analysed), tour) ⇒
+          Ok(html.round.watcher(pov, v, bookmarkers, analysed, tour))
       }
 
   private def join(pov: Pov)(implicit ctx: Context): Fu[SimpleResult] =
