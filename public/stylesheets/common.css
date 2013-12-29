@@ -439,6 +439,20 @@ div.footer div.right {
   height: 200px;
   border-top: 1px solid #444;
   background: rgba(20, 20, 20, 0.9);
+  position: relative;
+}
+#chat > .help {
+  display: inline-block;
+  position: absolute;
+  top: -17px;
+  left: 0px;
+  height: 16px;
+  line-height: 16px;
+  padding: 0 8px;
+  background: rgba(20, 20, 20, 0.9);
+  border-top: 1px solid #444;
+  border-right: 1px solid #444;
+  text-decoration: none;
 }
 #chat > .chans {
   float: left;
