@@ -158,7 +158,7 @@ private[controllers] trait LilaController
     else Results.NotFound("resource not found").fuccess
 
   protected def notFoundReq(req: RequestHeader): Fu[SimpleResult] =
-    reqToCtx(req, lila.chat.LobbyChan.some) flatMap (x ⇒ notFound(x))
+    reqToCtx(req) flatMap (x ⇒ notFound(x))
 
   protected def isGranted(permission: Permission.type ⇒ Permission)(implicit ctx: Context): Boolean =
     isGranted(permission(Permission))

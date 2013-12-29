@@ -30,6 +30,16 @@ private[chat] final class Commander extends Actor {
 
       case "query" :: username :: _ ⇒ chat ! Query(member, username.toLowerCase)
 
+      case "join" :: chanName :: _ ⇒ Chan parse chanName foreach { chan ⇒
+        chat ! Join(member, chan)
+      }
+      case "show" :: chanName :: _ ⇒ Chan parse chanName foreach { chan ⇒
+        chat ! Show(member, chan, true)
+      }
+      case "hide" :: chanName :: _ ⇒ Chan parse chanName foreach { chan ⇒
+        chat ! Show(member, chan, false)
+      }
+
       case words ⇒ chanOption foreach { chan ⇒
         replyTo(chan, member) {
           s"Command not found. Type /help for the list of available commands."
@@ -48,6 +58,8 @@ For instance, try and send the message /help to see available commands.
   val helpLines = """
 ___________________________ help ___________________________
 /help                   display this message
+/join <chan>            enter a chat room. Ex: /join en
+/query <friend>         start a private chat with a friend
 /close                  close the chat
 """.lines.toList filter (_.nonEmpty)
 

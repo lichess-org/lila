@@ -20,7 +20,7 @@ private[chat] final class Api(
 
   def get(user: User): Fu[ChatHead] = prefApi getPref user map { pref ⇒
     ChatHead(
-      chans = Chat.baseChans ::: pref.chat.chans.map(Chan.parse).flatten,
+      chans = LangChan(user.lang | "en") :: pref.chat.chans.map(Chan.parse).flatten,
       pageChanKey = none,
       activeChanKeys = pref.chat.activeChans,
       mainChanKey = pref.chat.mainChan)

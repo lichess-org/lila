@@ -33,14 +33,15 @@ sealed abstract class AutoActiveChan(typ: String, i: String) extends IdChan(typ,
   val id = i
 }
 
-object LichessChan extends StaticChan(Chan.typ.lichess, "Lichess")
-object LobbyChan extends StaticChan(Chan.typ.lobby, "Lobby")
 object TvChan extends StaticChan(Chan.typ.tv, "TV")
-object TournamentLobbyChan extends StaticChan(Chan.typ.tournamentLobby, "Tournament Lobby")
 
 case class GameWatcherChan(i: String) extends AutoActiveChan(Chan.typ.gameWatcher, i)
 case class GamePlayerChan(i: String) extends AutoActiveChan(Chan.typ.gamePlayer, i)
 case class TournamentChan(i: String) extends AutoActiveChan(Chan.typ.tournament, i)
+
+case class LangChan(lang: String) extends IdChan(Chan.typ.lang, false) {
+  val id = lang
+}
 
 case class UserChan(u1: String, u2: String) extends IdChan("user", false) {
   val id = List(u1, u2).sorted mkString "-"
@@ -63,23 +64,19 @@ case class NamedChan(chan: Chan, name: String) {
 object Chan {
 
   object typ {
-    val lichess = "lichess"
-    val lobby = "lobby"
+    val lang = "lang"
     val tv = "tv"
     val gameWatcher = "gameWatcher"
     val gamePlayer = "gamePlayer"
-    val tournamentLobby = "tournamentLobby"
     val tournament = "tournament"
     val user = "user"
   }
 
   def apply(typ: String, idOption: Option[String]): Option[Chan] = typ match {
-    case Chan.typ.lichess         ⇒ LichessChan.some
-    case Chan.typ.lobby           ⇒ LobbyChan.some
+    case Chan.typ.lang            ⇒ idOption map LangChan.apply
     case Chan.typ.tv              ⇒ TvChan.some
     case Chan.typ.gameWatcher     ⇒ idOption map GameWatcherChan
     case Chan.typ.gamePlayer      ⇒ idOption map GamePlayerChan
-    case Chan.typ.tournamentLobby ⇒ TournamentLobbyChan.some
     case Chan.typ.tournament      ⇒ idOption map TournamentChan
     case Chan.typ.user            ⇒ idOption flatMap UserChan.apply
     case _                        ⇒ none

@@ -52,6 +52,25 @@ private[chat] final class ChatActor(
     case SetOpen(member, value) ⇒
       prefApi.setPref(member.userId, (p: Pref) ⇒ p.updateChat(_.copy(on = value)))
 
+    case Join(member, chan) ⇒ {
+      (!chan.autoActive ?? prefApi.setPref(member.userId, (p: Pref) ⇒
+        p.updateChat(_.withMainChan(chan.key.some).withActiveChan(chan.key, true))
+      )) >>- {
+        member.setActiveChan(chan.key, true)
+        member.setMainChan(chan.key.some)
+        reloadChat(member)
+      }
+    }
+
+    case Show(member, chan, value) ⇒ {
+      (!chan.autoActive ?? prefApi.setPref(member.userId, (p: Pref) ⇒
+        p.updateChat(_.withActiveChan(chan.key, value))
+      )) >>- {
+        member.setActiveChan(chan.key, value)
+        reloadChat(member)
+      }
+    }
+
     case Query(member, toId) ⇒
       UserRepo byId toId flatten s"Can't query non existing user $toId" foreach { to ⇒
         relationApi.follows(to.id, member.userId) foreach {
@@ -92,28 +111,9 @@ private[chat] final class ChatActor(
           member setBlocks blocks
           reloadChat(member)
         }
-        case "chat.set-active-chan" ⇒ withChan(data) { chan ⇒
-          val value = data int "value" exists (1==)
-          val setMain = value && (data int "main" exists (1==))
-          (!chan.autoActive) ?? prefApi.setPref(member.userId, (p: Pref) ⇒ p.updateChat(setMain.fold(
-            _.withActiveChan(chan.key, value).withMainChan(chan.key.some),
-            _.withActiveChan(chan.key, value)
-          ))) andThen {
-            case _ ⇒ {
-              member.setActiveChan(chan.key, value)
-              if (setMain) member.setMainChan(chan.key.some)
-              reloadChat(member)
-            }
-          }
-        }
-        case "chat.set-main" ⇒ withChanOption(data) { chan ⇒
-          member.setMainChan(chan map (_.key))
-          if (!chan.??(_.autoActive)) prefApi.setPref(member.userId, (p: Pref) ⇒
-            p.updateChat(_.withMainChan(chan map (_.key)))
-          )
-        }
         case "chat.tell" ⇒ data str "text" foreach { text ⇒
           val chanOption = data str "chan" flatMap Chan.parse
+          println(text)
           if (text startsWith "/") commander ! Command(chanOption, member, text drop 1)
           else chanOption foreach { chan ⇒
             api.write(chan.key, member.userId, text) foreach { _ foreach self.! }
