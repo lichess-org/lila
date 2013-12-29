@@ -501,6 +501,11 @@ var storage = {
     $('#friend_box').friends();
     $('#chat').onechat();
 
+    $('body').on('click', 'a.chat_query', function() {
+      $.powerTip.hide();
+      $('#chat').onechat('query', $(this).data('query'));
+    });
+
     $('body').on('click', 'div.relation_actions a.relation', function() {
       var $a = $(this).addClass('processing');
       $.ajax({
@@ -888,6 +893,7 @@ var storage = {
     },
     query: function(username) {
       this._send('/query ' + username);
+      this.$input.focus();
     },
     reload: function(c) {
       var self = this;
@@ -932,7 +938,7 @@ var storage = {
           text: text
         });
       };
-      if (!self.mainChan && text.indexOf('/help') === 0) { 
+      if (!self.mainChan && text.indexOf('/help') === 0) {
         self._setMain(_.keys(self.chans)[0]);
         setTimeout(doSend, 777);
       } else doSend();
@@ -1054,10 +1060,6 @@ var storage = {
       self.$list = self.element.find("div.list");
       self.$nobody = self.element.find("div.nobody");
       self.set(self.element.data('preload'));
-      self.element.on('click', 'a.user_link', function(e) {
-        e.preventDefault();
-        $('#chat').onechat('query', $(this).text());
-      });
     },
     repaint: function() {
       this.users = _.uniq(this.users);

@@ -191,6 +191,9 @@ ul.ui-autocomplete li a.ui-state-focus {
   position: absolute;
   z-index: 2147483647;
 }
+#powerTip {
+  width: 270px;
+}
 #powerTip > .title {
   padding: 8px;
   border-bottom: 1px solid #c0c0c0;
@@ -481,6 +484,7 @@ div.footer div.right {
   background-position: +10px +1px;
   text-decoration: none;
   transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
 }
 #chat > .off:hover {
   background-color: #0a0a0a;
@@ -556,6 +560,7 @@ div.footer div.right {
   border-top: none;
   border-right: none;
   transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
 }
 #chat div.check label:hover::after {
   opacity: 0.3;
@@ -1209,6 +1214,9 @@ span.s16.clock {
 .s16.gear {
   background-position: 0 -496px;
 }
+.s16.chat {
+  background-position: 0 -176px;
+}
 .user_link.white, .user_link.black, .user_link.online, .user_link.offline {
   line-height: 16px;
   display: block;
@@ -1843,10 +1851,7 @@ div.game_config div.color_submits button.random span {
 #hooks_chart .plot.rated {
   border-radius: 3px;
   transform:rotate(45deg);
-  -moz-transform:rotate(45deg);
-  -o-transform:rotate(45deg);
   -webkit-transform:rotate(45deg);
-  -ms-transform:rotate(45deg);
   width: 15px;
   height: 15px;
 }

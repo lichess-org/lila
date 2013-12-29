@@ -44,6 +44,7 @@ case class TournamentChan(i: String) extends AutoActiveChan(Chan.typ.tournament,
 
 case class UserChan(u1: String, u2: String) extends IdChan("user", false) {
   val id = List(u1, u2).sorted mkString "-"
+  def contains(userId: String) = u1 == userId || u2 == userId
 }
 object UserChan {
   def apply(id: String): Option[UserChan] = id.split("-") match {
@@ -84,10 +85,10 @@ object Chan {
     case _                        ⇒ none
   }
 
-  def parse(str: String): Option[Chan] = str.split('_') match {
-    case Array(typ, id) ⇒ apply(typ, id.some)
-    case Array(typ)     ⇒ apply(typ, none)
-    case _              ⇒ None
+  def parse(str: String): Option[Chan] = str.split('_').toList match {
+    case List(typ) ⇒ apply(typ, none)
+    case typ :: id ⇒ apply(typ, id.mkString("_").some)
+    case _         ⇒ None
   }
 }
 

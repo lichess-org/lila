@@ -14,10 +14,12 @@ private[chat] final class ChatMember(
   private[chat] var head: ChatHead = ChatHead(Nil, none, Set.empty, none)
   private[chat] var blocks: Set[String] = Set.empty
 
-  def wants(line: Line) =
-    (troll || !line.troll) &&
+  def wants(line: Line) = line.chan match {
+    case c: UserChan if c.contains(userId) ⇒ true
+    case _ ⇒ (troll || !line.troll) &&
       (head.activeChanKeys contains line.chan.key) &&
       !blocks(line.userId)
+  }
 
   def tell(msg: JsValue) {
     channel push msg
